@@ -31,23 +31,24 @@
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
   typeCopy = type;
-  if ([(AEAssetActivityItemProviderSource *)self supportsActivityType:typeCopy])
+  v6 = [(AEAssetActivityItemProviderSource *)self supportsActivityType:typeCopy];
+  if (v6)
   {
     if ([typeCopy isEqualToString:UIActivityTypeCopyToPasteboard] || (objc_msgSend(typeCopy, "isEqualToString:", UIActivityTypeCreateReminder) & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", UIActivityTypeSaveToNotes) & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", @"com.apple.Notes.SharingExtension"))
     {
-      v6 = [(AEAnnotationTextActivityItemProvider *)self textForActivityType:typeCopy];
+      v7 = [(AEAnnotationTextActivityItemProvider *)self textForActivityType:typeCopy];
       goto LABEL_10;
     }
 
     annotations = [(AEAnnotationActivityItemProviderSource *)self annotations];
-    v12 = [annotations objectAtIndexedSubscript:0];
+    v13 = [annotations objectAtIndexedSubscript:0];
 
     propertyProvider = [(AEAssetActivityItemProviderSource *)self propertyProvider];
-    if (![propertyProvider isStoreAsset] || (objc_msgSend(v12, "annotationHasNote") & 1) != 0)
+    if (![propertyProvider isStoreAsset] || (objc_msgSend(v13, "annotationHasNote") & 1) != 0)
     {
 
 LABEL_16:
-      v6 = [(AEAnnotationTextActivityItemProvider *)self textForActivityType:typeCopy];
+      v7 = [(AEAnnotationTextActivityItemProvider *)self textForActivityType:typeCopy];
 LABEL_17:
 
       goto LABEL_10;
@@ -59,36 +60,36 @@ LABEL_17:
 
     else
     {
-      v14 = [typeCopy isEqualToString:@"com.apple.share.Messages.window"];
+      v15 = [typeCopy isEqualToString:@"com.apple.share.Messages.window"];
 
-      if ((v14 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         goto LABEL_16;
       }
     }
 
     _generateLinkMetadata = [(AEAnnotationActivityItemProviderSource *)self _generateLinkMetadata];
-    v6 = [_generateLinkMetadata URL];
+    v7 = [_generateLinkMetadata URL];
 
     goto LABEL_17;
   }
 
-  v7 = AESharingLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = AESharingLog(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v16 = 138412546;
-    v17 = v9;
-    v18 = 2112;
-    v19 = typeCopy;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", &v16, 0x16u);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v17 = 138412546;
+    v18 = v10;
+    v19 = 2112;
+    v20 = typeCopy;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", &v17, 0x16u);
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_10:
 
-  return v6;
+  return v7;
 }
 
 - (id)textForActivityType:(id)type
@@ -101,33 +102,34 @@ LABEL_10:
     annotations = [(AEAnnotationActivityItemProviderSource *)self annotations];
     firstObject = [annotations firstObject];
 
-    v41 = firstObject;
+    v44 = firstObject;
     annotationNote = [firstObject annotationNote];
-    if ([annotationNote length])
+    v9 = [annotationNote length];
+    if (v9)
     {
-      v9 = [stringByEnclosingInQuotes stringByAppendingFormat:@"\n\n%@", annotationNote];
+      v10 = [stringByEnclosingInQuotes stringByAppendingFormat:@"\n\n%@", annotationNote];
 
-      stringByEnclosingInQuotes = v9;
+      stringByEnclosingInQuotes = v10;
     }
 
-    v10 = IMCommonCoreBundle();
-    v11 = [v10 localizedStringForKey:@"Excerpt From" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v11 = IMCommonCoreBundle(v9);
+    v12 = [v11 localizedStringForKey:@"Excerpt From" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-    v12 = IMCommonCoreBundle();
-    v13 = [v12 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    v14 = IMCommonCoreBundle(v13);
+    v15 = [v14 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
     if ([typeCopy isEqualToString:UIActivityTypeCopyToPasteboard])
     {
-      v39 = v11;
+      v42 = v12;
       citation = +[NSString string];
       propertyProvider = [(AEAssetActivityItemProviderSource *)self propertyProvider];
       title = [propertyProvider title];
 
       if ([title length])
       {
-        v17 = [citation stringByAppendingFormat:@"\n%@", title];
+        v19 = [citation stringByAppendingFormat:@"\n%@", title];
 
-        citation = v17;
+        citation = v19;
       }
 
       propertyProvider2 = [(AEAssetActivityItemProviderSource *)self propertyProvider];
@@ -135,9 +137,9 @@ LABEL_10:
 
       if ([author length])
       {
-        v20 = [citation stringByAppendingFormat:@"\n%@", author];
+        v22 = [citation stringByAppendingFormat:@"\n%@", author];
 
-        citation = v20;
+        citation = v22;
       }
 
       propertyProvider3 = [(AEAssetActivityItemProviderSource *)self propertyProvider];
@@ -147,26 +149,26 @@ LABEL_10:
       {
         absoluteString = [storeURLPreferShort absoluteString];
         [citation stringByAppendingFormat:@"\n%@", absoluteString];
-        v24 = author;
-        v25 = v13;
-        v26 = stringByEnclosingInQuotes;
-        v28 = v27 = typeCopy;
+        v26 = author;
+        v27 = v15;
+        v28 = stringByEnclosingInQuotes;
+        v30 = v29 = typeCopy;
 
-        citation = v28;
-        typeCopy = v27;
-        stringByEnclosingInQuotes = v26;
-        v13 = v25;
-        author = v24;
+        citation = v30;
+        typeCopy = v29;
+        stringByEnclosingInQuotes = v28;
+        v15 = v27;
+        author = v26;
       }
 
-      v11 = v39;
-      v29 = [NSString stringWithFormat:@"%@\n\n%@%@\n%@", stringByEnclosingInQuotes, v39, citation, v13];
+      v12 = v42;
+      v31 = [NSString stringWithFormat:@"%@\n\n%@%@\n%@", stringByEnclosingInQuotes, v42, citation, v15];
     }
 
     else
     {
       citation = [(AEAssetActivityItemProviderSource *)self citation];
-      storeURLPreferShort = [NSString stringWithFormat:@"%@\n\n%@: %@\n%@", stringByEnclosingInQuotes, v11, citation, v13];
+      storeURLPreferShort = [NSString stringWithFormat:@"%@\n\n%@: %@\n%@", stringByEnclosingInQuotes, v12, citation, v15];
 
       title = [(AEAssetActivityItemProviderSource *)self propertyProvider];
       if (![title isStoreAsset])
@@ -174,12 +176,12 @@ LABEL_10:
         goto LABEL_22;
       }
 
-      v40 = v13;
-      v30 = [typeCopy isEqualToString:@"com.apple.share.Messages.window"];
+      v43 = v15;
+      v32 = [typeCopy isEqualToString:@"com.apple.share.Messages.window"];
 
-      if (v30)
+      if (v32)
       {
-        v13 = v40;
+        v15 = v43;
 LABEL_23:
 
         text = storeURLPreferShort;
@@ -192,32 +194,32 @@ LABEL_23:
 
       if (!title)
       {
-        v13 = v40;
+        v15 = v43;
         goto LABEL_22;
       }
 
       propertyProvider5 = [(AEAssetActivityItemProviderSource *)self propertyProvider];
       assetType = [propertyProvider5 assetType];
 
-      v35 = IMCommonCoreBundle();
-      v36 = v35;
+      v38 = IMCommonCoreBundle(v37);
+      v39 = v38;
       if (assetType == &dword_4 + 2)
       {
-        v37 = @"Check out this audiobook on Apple Books:";
+        v40 = @"Check out this audiobook on Apple Books:";
       }
 
       else
       {
-        v37 = @"Check out this book on Apple Books:";
+        v40 = @"Check out this book on Apple Books:";
       }
 
-      author = [v35 localizedStringForKey:v37 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+      author = [v38 localizedStringForKey:v40 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-      v29 = [storeURLPreferShort stringByAppendingFormat:@"\n\n%@ %@", author, title];
-      v13 = v40;
+      v31 = [storeURLPreferShort stringByAppendingFormat:@"\n\n%@ %@", author, title];
+      v15 = v43;
     }
 
-    storeURLPreferShort = v29;
+    storeURLPreferShort = v31;
 LABEL_22:
 
     goto LABEL_23;

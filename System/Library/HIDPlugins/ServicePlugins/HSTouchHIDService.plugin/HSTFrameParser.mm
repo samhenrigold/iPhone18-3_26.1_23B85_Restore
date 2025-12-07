@@ -59,25 +59,24 @@
 - (id)parseContactFrame29:(id)frame29
 {
   frame29Copy = frame29;
-  v24 = frame29Copy;
+  v26 = frame29Copy;
   if (!frame29Copy)
   {
-    v23 = +[NSAssertionHandler currentHandler];
-    [v23 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:72 description:{@"Invalid parameter not satisfying: %@", @"data"}];
+    v25 = +[NSAssertionHandler currentHandler];
+    [v25 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:72 description:{@"Invalid parameter not satisfying: %@", @"data"}];
   }
 
-  *(v27 + 7) = 0xAAAAAAAAAAAAAAAALL;
-  v27[0] = 0xAAAAAAAAAAAAAAAALL;
-  if (![(HSTFrameParser *)self unpackFrame29Header:v27 fromData:frame29Copy])
+  memset(v29, 170, 15);
+  if (![(HSTFrameParser *)self unpackFrame29Header:v29 fromData:frame29Copy])
   {
-    v20 = 0;
+    v22 = 0;
     goto LABEL_20;
   }
 
   v7 = objc_opt_new();
   *(v7 + 24) = self->_lastFrameNumber + 1;
   objc_storeStrong((v7 + 8), frame29);
-  *(v7 + 32) = 1000 * *(v27 + 6);
+  *(v7 + 32) = 1000 * *&v29[6];
   v8 = (self->_config.surfaceCoordinates.right - self->_config.surfaceCoordinates.left) | ((self->_config.surfaceCoordinates.top - self->_config.surfaceCoordinates.bottom) << 32);
   if ((*(v7 + 80) & 1) == 0)
   {
@@ -85,18 +84,18 @@
   }
 
   *(v7 + 72) = v8;
-  v9 = BYTE5(v27[0]);
+  v9 = v29[5];
   if ((*(v7 + 128) & 1) == 0)
   {
     *(v7 + 128) = 1;
   }
 
   *(v7 + 124) = v9;
-  std::vector<HSTPipeline::Contact>::resize((v7 + 48), BYTE6(v27[1]));
+  std::vector<HSTPipeline::Contact>::resize((v7 + 48), v29[14]);
   if (*(v7 + 56) == *(v7 + 48))
   {
 LABEL_14:
-    v20 = v7;
+    v22 = v7;
     goto LABEL_19;
   }
 
@@ -104,9 +103,10 @@ LABEL_14:
   v11 = 0;
   while (1)
   {
-    *v25 = 0xAAAAAAAAAAAAAAAALL;
-    *v26 = 0xAAAAAAAAAAAAAAAALL;
-    if ([(HSTFrameParser *)self unpackFrame29Contact:v25 fromData:frame29Copy withByteOffset:(8 * v11) & 0xF8 | 6u])
+    *v27 = 0xAAAAAAAAAAAAAAAALL;
+    *v28 = 0xAAAAAAAAAAAAAAAALL;
+    v12 = [(HSTFrameParser *)self unpackFrame29Contact:v27 fromData:frame29Copy withByteOffset:(8 * v11) & 0xF8 | 6u];
+    if (v12)
     {
       break;
     }
@@ -120,74 +120,74 @@ LABEL_13:
     }
   }
 
-  if (LOBYTE(v26[1]) < 0x20u)
+  if (LOBYTE(v28[1]) < 0x20u)
   {
-    v13 = (*(v7 + 48) + v10);
-    v13->i8[0] = v26[1];
-    v13->i8[1] = v26[3];
-    v13->i8[2] = HIBYTE(v26[2]);
-    v13->i8[3] = 1;
-    v13[2] = ((10 * v25[0] - self->_config.surfaceCoordinates.left) | ((10 * v25[1] - self->_config.surfaceCoordinates.bottom) << 32));
-    v13[3].i8[0] = 1;
-    v14 = v25[2];
-    v15 = v25[3];
-    v16 = 10 * v25[3];
-    v13[5].i32[0] = 10 * v25[2];
-    v13[5].i32[1] = v16;
-    LOWORD(v12) = *(&v26[1] + 1);
-    v17 = v26[0];
-    v18.f64[0] = v12 * 3.14159265;
-    v18.f64[1] = v26[0];
-    v13[6] = vcvt_f32_f64(vmulq_f64(v18, xmmword_D8450));
-    v19 = vcvtd_n_f64_s32(contactDensityFromRadii(v17, v14, v15, 620, 440), 8uLL);
-    v13[7].f32[0] = v19;
-    v13[1] = 0;
-    frame29Copy = v24;
+    v15 = (*(v7 + 48) + v10);
+    v15->i8[0] = v28[1];
+    v15->i8[1] = v28[3];
+    v15->i8[2] = HIBYTE(v28[2]);
+    v15->i8[3] = 1;
+    v15[2] = ((10 * v27[0] - self->_config.surfaceCoordinates.left) | ((10 * v27[1] - self->_config.surfaceCoordinates.bottom) << 32));
+    v15[3].i8[0] = 1;
+    v16 = v27[2];
+    v17 = v27[3];
+    v18 = 10 * v27[3];
+    v15[5].i32[0] = 10 * v27[2];
+    v15[5].i32[1] = v18;
+    LOWORD(v14) = *(&v28[1] + 1);
+    v19 = v28[0];
+    v20.f64[0] = v14 * 3.14159265;
+    v20.f64[1] = v28[0];
+    v15[6] = vcvt_f32_f64(vmulq_f64(v20, xmmword_D8450));
+    v21 = vcvtd_n_f64_s32(contactDensityFromRadii(v19, v16, v17, 620, 440), 8uLL);
+    v15[7].f32[0] = v21;
+    v15[1] = 0;
+    frame29Copy = v26;
     goto LABEL_13;
   }
 
-  v21 = MTLoggingPlugin();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = MTLoggingPlugin(v12, v13);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v29 = "";
-    v30 = 2080;
     v31 = "";
     v32 = 2080;
-    v33 = "[HSTFrameParser parseContactFrame29:]";
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Exceeded max contact count", buf, 0x20u);
+    v33 = "";
+    v34 = 2080;
+    v35 = "[HSTFrameParser parseContactFrame29:]";
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Exceeded max contact count", buf, 0x20u);
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_19:
 
 LABEL_20:
 
-  return v20;
+  return v22;
 }
 
 - (id)parseContactFrame31:(id)frame31
 {
   frame31Copy = frame31;
-  v24 = frame31Copy;
+  v26 = frame31Copy;
   if (!frame31Copy)
   {
-    v23 = +[NSAssertionHandler currentHandler];
-    [v23 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:124 description:{@"Invalid parameter not satisfying: %@", @"data"}];
+    v25 = +[NSAssertionHandler currentHandler];
+    [v25 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:124 description:{@"Invalid parameter not satisfying: %@", @"data"}];
   }
 
-  memset(v26, 170, 12);
-  if (![(HSTFrameParser *)self unpackFrame31Header:v26 fromData:frame31Copy])
+  memset(v28, 170, 12);
+  if (![(HSTFrameParser *)self unpackFrame31Header:v28 fromData:frame31Copy])
   {
-    v20 = 0;
+    v22 = 0;
     goto LABEL_20;
   }
 
   v7 = objc_opt_new();
   *(v7 + 24) = self->_lastFrameNumber + 1;
   objc_storeStrong((v7 + 8), frame31);
-  *(v7 + 44) |= BYTE2(v26[0]);
-  *(v7 + 32) = 1000 * *(v26 + 3);
+  *(v7 + 44) |= BYTE2(v28[0]);
+  *(v7 + 32) = 1000 * *(v28 + 3);
   v8 = (self->_config.surfaceCoordinates.right - self->_config.surfaceCoordinates.left) | ((self->_config.surfaceCoordinates.top - self->_config.surfaceCoordinates.bottom) << 32);
   if ((*(v7 + 80) & 1) == 0)
   {
@@ -195,18 +195,18 @@ LABEL_20:
   }
 
   *(v7 + 72) = v8;
-  v9 = BYTE1(v26[0]);
+  v9 = BYTE1(v28[0]);
   if ((*(v7 + 128) & 1) == 0)
   {
     *(v7 + 128) = 1;
   }
 
   *(v7 + 124) = v9;
-  std::vector<HSTPipeline::Contact>::resize((v7 + 48), BYTE3(v26[1]));
+  std::vector<HSTPipeline::Contact>::resize((v7 + 48), BYTE3(v28[1]));
   if (*(v7 + 56) == *(v7 + 48))
   {
 LABEL_14:
-    v20 = v7;
+    v22 = v7;
     goto LABEL_19;
   }
 
@@ -214,8 +214,9 @@ LABEL_14:
   v11 = 0;
   while (1)
   {
-    memset(v25, 170, 18);
-    if ([(HSTFrameParser *)self unpackFrame31Contact:v25 fromData:frame31Copy withByteOffset:(9 * v11 + 4)])
+    memset(v27, 170, 18);
+    v12 = [(HSTFrameParser *)self unpackFrame31Contact:v27 fromData:frame31Copy withByteOffset:(9 * v11 + 4)];
+    if (v12)
     {
       break;
     }
@@ -229,51 +230,51 @@ LABEL_13:
     }
   }
 
-  if (LOBYTE(v25[5]) < 0x20u)
+  if (LOBYTE(v27[5]) < 0x20u)
   {
-    v13 = (*(v7 + 48) + v10);
-    v13->i8[0] = v25[5];
-    v13->i8[1] = v25[7];
-    v13->i8[2] = HIBYTE(v25[6]);
-    v13->i8[3] = 1;
-    v13[2] = ((10 * v25[0] - self->_config.surfaceCoordinates.left) | ((10 * v25[1] - self->_config.surfaceCoordinates.bottom) << 32));
-    v13[3].i8[0] = 1;
-    v14 = v25[2];
-    v15 = v25[3];
-    v16 = 10 * v25[3];
-    v13[5].i32[0] = 10 * v25[2];
-    v13[5].i32[1] = v16;
-    LOWORD(v12) = *(&v25[5] + 1);
-    v17 = v25[4];
-    v18.f64[0] = v12 * 3.14159265;
-    v18.f64[1] = v25[4];
-    v13[6] = vcvt_f32_f64(vmulq_f64(v18, xmmword_D8450));
-    v19 = vcvtd_n_f64_s32(contactDensityFromRadii(v17, v14, v15, 600, 430), 8uLL);
-    v13[7].f32[0] = v19;
-    v13[4].i32[1] = v25[8];
-    v13[1] = 0;
-    frame31Copy = v24;
+    v15 = (*(v7 + 48) + v10);
+    v15->i8[0] = v27[5];
+    v15->i8[1] = v27[7];
+    v15->i8[2] = HIBYTE(v27[6]);
+    v15->i8[3] = 1;
+    v15[2] = ((10 * v27[0] - self->_config.surfaceCoordinates.left) | ((10 * v27[1] - self->_config.surfaceCoordinates.bottom) << 32));
+    v15[3].i8[0] = 1;
+    v16 = v27[2];
+    v17 = v27[3];
+    v18 = 10 * v27[3];
+    v15[5].i32[0] = 10 * v27[2];
+    v15[5].i32[1] = v18;
+    LOWORD(v14) = *(&v27[5] + 1);
+    v19 = v27[4];
+    v20.f64[0] = v14 * 3.14159265;
+    v20.f64[1] = v27[4];
+    v15[6] = vcvt_f32_f64(vmulq_f64(v20, xmmword_D8450));
+    v21 = vcvtd_n_f64_s32(contactDensityFromRadii(v19, v16, v17, 600, 430), 8uLL);
+    v15[7].f32[0] = v21;
+    v15[4].i32[1] = v27[8];
+    v15[1] = 0;
+    frame31Copy = v26;
     goto LABEL_13;
   }
 
-  v21 = MTLoggingPlugin();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = MTLoggingPlugin(v12, v13);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v28 = "";
-    v29 = 2080;
     v30 = "";
     v31 = 2080;
-    v32 = "[HSTFrameParser parseContactFrame31:]";
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Exceeded max contact count", buf, 0x20u);
+    v32 = "";
+    v33 = 2080;
+    v34 = "[HSTFrameParser parseContactFrame31:]";
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Exceeded max contact count", buf, 0x20u);
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_19:
 
 LABEL_20:
 
-  return v20;
+  return v22;
 }
 
 - (id)parseContactFrame44:(id)frame44
@@ -684,34 +685,34 @@ LABEL_27:
 - (void)sanitizeContactFrame:(id)frame
 {
   frameCopy = frame;
-  v5 = frameCopy;
+  v6 = frameCopy;
   v49 = frameCopy;
   if (frameCopy)
   {
     memset(__src, 0, 24);
-    v6 = frameCopy[6];
-    v7 = frameCopy[7];
-    if (v6 != v7)
+    v7 = frameCopy[6];
+    v8 = frameCopy[7];
+    if (v7 != v8)
     {
-      v8 = 0;
+      v9 = 0;
       v48 = "bitset test argument out of range";
       while (1)
       {
-        v9 = *v6;
-        if (v9 >= 0x20)
+        v10 = *v7;
+        if (v10 >= 0x20)
         {
           goto LABEL_62;
         }
 
-        if ((v8 >> v9))
+        if ((v9 >> v10))
         {
-          v10 = MTLoggingPlugin();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = MTLoggingPlugin(frameCopy, v5);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            v29 = *v6;
+            v29 = *v7;
             *buf = 67109120;
             v52 = v29;
-            _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Contact %u was duplicated, removing extra contact", buf, 8u);
+            _os_log_error_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Contact %u was duplicated, removing extra contact", buf, 8u);
           }
 
           ++self->_duplicateContactCount;
@@ -719,68 +720,68 @@ LABEL_27:
 
         else
         {
-          v11 = __src[1];
+          v12 = __src[1];
           if (__src[1] >= __src[2])
           {
-            v16 = __src[0];
-            v17 = __src[1] - __src[0];
-            v18 = (__src[1] - __src[0]) >> 6;
-            v19 = v18 + 1;
-            if ((v18 + 1) >> 58)
+            v17 = __src[0];
+            v18 = __src[1] - __src[0];
+            v19 = (__src[1] - __src[0]) >> 6;
+            v20 = v19 + 1;
+            if ((v19 + 1) >> 58)
             {
               std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
             }
 
-            v20 = __src[2] - __src[0];
-            if ((__src[2] - __src[0]) >> 5 > v19)
+            v21 = __src[2] - __src[0];
+            if ((__src[2] - __src[0]) >> 5 > v20)
             {
-              v19 = v20 >> 5;
+              v20 = v21 >> 5;
             }
 
-            if (v20 >= 0x7FFFFFFFFFFFFFC0)
+            if (v21 >= 0x7FFFFFFFFFFFFFC0)
             {
-              v19 = 0x3FFFFFFFFFFFFFFLL;
+              v20 = 0x3FFFFFFFFFFFFFFLL;
             }
 
-            if (v19)
+            if (v20)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(__src, v19);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>(__src, v20);
             }
 
-            v21 = (v18 << 6);
-            v22 = *v6;
-            v23 = *(v6 + 1);
-            v24 = *(v6 + 3);
-            v21[2] = *(v6 + 2);
-            v21[3] = v24;
-            *v21 = v22;
-            v21[1] = v23;
-            v15 = ((v18 << 6) + 64);
-            memcpy(0, v16, v17);
-            v25 = __src[0];
+            v22 = (v19 << 6);
+            v23 = *v7;
+            v24 = *(v7 + 1);
+            v25 = *(v7 + 3);
+            v22[2] = *(v7 + 2);
+            v22[3] = v25;
+            *v22 = v23;
+            v22[1] = v24;
+            v16 = ((v19 << 6) + 64);
+            memcpy(0, v17, v18);
+            frameCopy = __src[0];
             __src[0] = 0;
-            __src[1] = v15;
+            __src[1] = v16;
             __src[2] = 0;
-            if (v25)
+            if (frameCopy)
             {
-              operator delete(v25);
+              operator delete(frameCopy);
             }
           }
 
           else
           {
-            v12 = *v6;
-            v13 = *(v6 + 1);
-            v14 = *(v6 + 3);
-            *(__src[1] + 2) = *(v6 + 2);
-            v11[3] = v14;
-            *v11 = v12;
-            v11[1] = v13;
-            v15 = v11 + 4;
+            v13 = *v7;
+            v14 = *(v7 + 1);
+            v15 = *(v7 + 3);
+            *(__src[1] + 2) = *(v7 + 2);
+            v12[3] = v15;
+            *v12 = v13;
+            v12[1] = v14;
+            v16 = v12 + 4;
           }
 
-          __src[1] = v15;
-          v26 = *v6;
+          __src[1] = v16;
+          v26 = *v7;
           if (v26 > 0x1F)
           {
             v48 = "bitset set argument out of range";
@@ -789,7 +790,7 @@ LABEL_62:
           }
 
           v27 = 1 << v26;
-          if (v6[1] - 1 > 3)
+          if (v7[1] - 1 > 3)
           {
             v28 = self->_inRangeContacts.__first_ & ~v27;
           }
@@ -800,121 +801,122 @@ LABEL_62:
           }
 
           self->_inRangeContacts.__first_ = v28;
-          v8 |= v27;
+          v9 |= v27;
         }
 
-        v6 += 64;
-        if (v6 == v7)
+        v7 += 64;
+        if (v7 == v8)
         {
           goto LABEL_30;
         }
       }
     }
 
-    v8 = 0;
+    v9 = 0;
 LABEL_30:
-    if (v5 + 6 != __src)
+    v30 = v6 + 6;
+    if (v6 + 6 != __src)
     {
-      std::vector<HSTPipeline::Contact>::__assign_with_size[abi:ne200100]<HSTPipeline::Contact*,HSTPipeline::Contact*>(v5 + 6, __src[0], __src[1], (__src[1] - __src[0]) >> 6);
+      v30 = std::vector<HSTPipeline::Contact>::__assign_with_size[abi:ne200100]<HSTPipeline::Contact*,HSTPipeline::Contact*>(v30, __src[0], __src[1], (__src[1] - __src[0]) >> 6);
     }
 
-    v30 = 0;
+    v31 = 0;
     first = self->_inRangeContacts.__first_;
     do
     {
-      if ((first & (1 << v30)) != 0 && ((1 << v30) & v8) == 0)
+      if ((first & (1 << v31)) != 0 && ((1 << v31) & v9) == 0)
       {
-        v33 = v5 + 6;
-        v34 = v5[7];
-        v35 = v5[8];
-        if (v34 >= v35)
+        v34 = (v6 + 6);
+        v35 = v6[7];
+        v36 = v6[8];
+        if (v35 >= v36)
         {
-          v37 = (v34 - *v33) >> 6;
-          v38 = v37 + 1;
-          if ((v37 + 1) >> 58)
+          v38 = (v35 - *v34) >> 6;
+          v39 = v38 + 1;
+          if ((v38 + 1) >> 58)
           {
             std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
           }
 
-          v39 = v35 - *v33;
-          if (v39 >> 5 > v38)
+          v40 = v36 - *v34;
+          if (v40 >> 5 > v39)
           {
-            v38 = v39 >> 5;
+            v39 = v40 >> 5;
           }
 
-          if (v39 >= 0x7FFFFFFFFFFFFFC0)
+          if (v40 >= 0x7FFFFFFFFFFFFFC0)
           {
-            v40 = 0x3FFFFFFFFFFFFFFLL;
+            v41 = 0x3FFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v40 = v38;
+            v41 = v39;
           }
 
-          if (v40)
+          if (v41)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>((v5 + 6), v40);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<HSTPipeline::Contact>>((v6 + 6), v41);
           }
 
-          v41 = v37 << 6;
-          *v41 = v30;
-          *(v41 + 1) = 0;
-          *(v41 + 3) = 0;
-          *(v41 + 8) = 0;
-          *(v41 + 16) = 0;
-          *(v41 + 24) = 0;
-          v36 = (v37 << 6) + 64;
-          *(v41 + 28) = 0u;
-          *(v41 + 44) = 0u;
-          *(v41 + 60) = 0;
-          v42 = v5[7] - v5[6];
-          v43 = (v37 << 6) - v42;
-          memcpy((v41 - v42), *v33, v42);
-          v44 = *v33;
-          *v33 = v43;
-          v5[7] = v36;
-          v5[8] = 0;
-          if (v44)
+          v42 = v38 << 6;
+          *v42 = v31;
+          *(v42 + 1) = 0;
+          *(v42 + 3) = 0;
+          *(v42 + 8) = 0;
+          *(v42 + 16) = 0;
+          *(v42 + 24) = 0;
+          v37 = (v38 << 6) + 64;
+          *(v42 + 28) = 0u;
+          *(v42 + 44) = 0u;
+          *(v42 + 60) = 0;
+          v43 = v6[7] - v6[6];
+          v44 = (v38 << 6) - v43;
+          memcpy((v42 - v43), *v34, v43);
+          v30 = *v34;
+          *v34 = v44;
+          v6[7] = v37;
+          v6[8] = 0;
+          if (v30)
           {
-            operator delete(v44);
+            operator delete(v30);
           }
 
-          v5 = v49;
+          v6 = v49;
         }
 
         else
         {
-          *v34 = v30;
-          *(v34 + 1) = 0;
-          *(v34 + 3) = 0;
-          *(v34 + 8) = 0;
-          *(v34 + 16) = 0;
-          *(v34 + 24) = 0;
-          v36 = v34 + 64;
-          *(v34 + 28) = 0u;
-          *(v34 + 44) = 0u;
-          *(v34 + 60) = 0;
+          *v35 = v31;
+          *(v35 + 1) = 0;
+          v35[3] = 0;
+          *(v35 + 1) = 0;
+          *(v35 + 2) = 0;
+          v35[24] = 0;
+          v37 = (v35 + 64);
+          *(v35 + 28) = 0u;
+          *(v35 + 44) = 0u;
+          *(v35 + 15) = 0;
         }
 
-        v33[1] = v36;
-        v45 = MTLoggingPlugin();
+        v34[1] = v37;
+        v45 = MTLoggingPlugin(v30, v5);
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v52 = v30;
+          v52 = v31;
           _os_log_error_impl(&dword_0, v45, OS_LOG_TYPE_ERROR, "Contact %u was in range but is now missing, setting stage to NotTracking", buf, 8u);
         }
 
-        first = self->_inRangeContacts.__first_ & ~(1 << v30);
+        first = self->_inRangeContacts.__first_ & ~(1 << v31);
         self->_inRangeContacts.__first_ = first;
       }
 
-      ++v30;
+      ++v31;
     }
 
-    while (v30 != 32);
-    v46 = v5[4];
+    while (v31 != 32);
+    v46 = v6[4];
     if (self->_lastFWTimestamp > v46)
     {
       v47 = objc_opt_new();
@@ -923,11 +925,11 @@ LABEL_30:
       v50.super_class = HSTFrameParser;
       [(HSStage *)&v50 handleConsume:v47];
 
-      v46 = v5[4];
+      v46 = v6[4];
     }
 
     self->_lastFWTimestamp = v46;
-    self->_lastFrameNumber = v5[3];
+    self->_lastFrameNumber = v6[3];
     if (__src[0])
     {
       __src[1] = __src[0];
@@ -1043,8 +1045,8 @@ LABEL_30:
   frameCopy = frame;
   if (!frameCopy)
   {
-    v29 = +[NSAssertionHandler currentHandler];
-    [v29 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:531 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
+    v35 = +[NSAssertionHandler currentHandler];
+    [v35 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:531 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
   }
 
   v6 = frameCopy[1];
@@ -1054,66 +1056,67 @@ LABEL_30:
     v8 = [frameCopy[1] length];
     if (v8 >= 2 && *bytes == 96)
     {
-      v37.receiver = self;
-      v37.super_class = HSTFrameParser;
-      [(HSStage *)&v37 handleConsume:frameCopy];
-      v9 = MTLoggingPlugin();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v43.receiver = self;
+      v43.super_class = HSTFrameParser;
+      v9 = [(HSStage *)&v43 handleConsume:frameCopy];
+      v11 = MTLoggingPlugin(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = bytes[1];
+        v12 = bytes[1];
         *buf = 67109120;
-        *&buf[4] = v10;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Firmware event received: %x", buf, 8u);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Firmware event received: %x", buf, 8u);
       }
 
-      v11 = objc_opt_new();
-      [v11 setNotification:{-[HSTFrameParser _firmwareToHSTNotification:](self, "_firmwareToHSTNotification:", bytes[1])}];
-      v36.receiver = self;
-      v36.super_class = HSTFrameParser;
-      [(HSStage *)&v36 handleConsume:v11];
-      if ([v11 notification] != 9)
+      v13 = objc_opt_new();
+      [v13 setNotification:{-[HSTFrameParser _firmwareToHSTNotification:](self, "_firmwareToHSTNotification:", bytes[1])}];
+      v42.receiver = self;
+      v42.super_class = HSTFrameParser;
+      [(HSStage *)&v42 handleConsume:v13];
+      if ([v13 notification] != 9)
       {
-        if ([v11 notification] == 7)
+        notification = [v13 notification];
+        if (notification == 7)
         {
-          v17 = MTLoggingPlugin();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v21 = MTLoggingPlugin(notification, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "device killed", buf, 2u);
+            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "device killed", buf, 2u);
           }
         }
 
-        else if ([v11 notification] == 8)
+        else if ([v13 notification] == 8)
         {
           buf[0] = 0;
-          v19 = [[HSTVendorEvent alloc] initWithType:2 buffer:buf length:1];
-          v33.receiver = self;
-          v33.super_class = HSTFrameParser;
-          [(HSStage *)&v33 handleConsume:v19];
+          v23 = [[HSTVendorEvent alloc] initWithType:2 buffer:buf length:1];
+          v39.receiver = self;
+          v39.super_class = HSTFrameParser;
+          [(HSStage *)&v39 handleConsume:v23];
         }
 
-        else if ([v11 notification] == 10)
+        else if ([v13 notification] == 10)
         {
           buf[0] = 1;
-          v20 = [[HSTVendorEvent alloc] initWithType:9 buffer:buf length:1];
-          v32.receiver = self;
-          v32.super_class = HSTFrameParser;
-          [(HSStage *)&v32 handleConsume:v20];
+          v24 = [[HSTVendorEvent alloc] initWithType:9 buffer:buf length:1];
+          v38.receiver = self;
+          v38.super_class = HSTFrameParser;
+          [(HSStage *)&v38 handleConsume:v24];
         }
 
         goto LABEL_57;
       }
 
-      v12 = objc_opt_new();
-      v13 = v12;
+      v14 = objc_opt_new();
+      v15 = v14;
       if (v8 == &dword_0 + 2)
       {
         goto LABEL_10;
       }
 
-      v18 = bytes[2];
-      v14 = v18 & 8;
-      if (v18 <= 2)
+      v22 = bytes[2];
+      v16 = v22 & 8;
+      if (v22 <= 2)
       {
         if (!bytes[2])
         {
@@ -1123,14 +1126,14 @@ LABEL_34:
             goto LABEL_45;
           }
 
-          v21 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
-          v22 = &OBJC_IVAR___HSTWakeSystemEvent_tapPosition;
+          v25 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
+          v26 = &OBJC_IVAR___HSTWakeSystemEvent_tapPosition;
           goto LABEL_36;
         }
 
-        if (v18 != 1)
+        if (v22 != 1)
         {
-          if (v18 == 2)
+          if (v22 == 2)
           {
 LABEL_32:
             if (v8 < 7)
@@ -1138,47 +1141,47 @@ LABEL_32:
               goto LABEL_45;
             }
 
-            v21 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
-            v22 = &OBJC_IVAR___HSTWakeSystemEvent_longPressPosition;
+            v25 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
+            v26 = &OBJC_IVAR___HSTWakeSystemEvent_longPressPosition;
 LABEL_36:
-            v23 = v12 + *v22;
-            if ((*(v23 + 8) & 1) == 0)
+            v27 = v14 + *v26;
+            if ((*(v27 + 8) & 1) == 0)
             {
-              *(v23 + 8) = 1;
+              *(v27 + 8) = 1;
             }
 
 LABEL_44:
-            *v23 = v21;
+            *v27 = v25;
           }
 
 LABEL_45:
-          v35.receiver = self;
-          v35.super_class = HSTFrameParser;
-          [(HSStage *)&v35 handleConsume:v12];
-          if (!v14)
+          v41.receiver = self;
+          v41.super_class = HSTFrameParser;
+          v28 = [(HSStage *)&v41 handleConsume:v14];
+          if (!v16)
           {
 LABEL_56:
 
 LABEL_57:
-            v15 = 1;
+            v17 = 1;
             goto LABEL_12;
           }
 
           if (v8 <= 7)
           {
-            v30 = MTLoggingPlugin();
-            [(HSTFrameParser *)v30 _handleFirmwareEventFrame:buf];
+            v36 = MTLoggingPlugin(v28, v29);
+            [(HSTFrameParser *)v36 _handleFirmwareEventFrame:buf];
           }
 
           else
           {
-            v24 = bytes[7];
-            if (v24 != 1)
+            v30 = bytes[7];
+            if (v30 != 1)
             {
-              v28 = MTLoggingPlugin();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v34 = MTLoggingPlugin(v28, v29);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
-                [(HSTFrameParser *)v24 _handleFirmwareEventFrame:v28];
+                [(HSTFrameParser *)v30 _handleFirmwareEventFrame:v34];
               }
 
               goto LABEL_55;
@@ -1186,34 +1189,34 @@ LABEL_57:
 
             if (v8 > 0x1E)
             {
-              v25 = bytes[8];
-              v26 = *(bytes + 9);
-              v27 = [NSData dataWithBytes:bytes + 13 length:v8 - 13];
-              v28 = [(HSTFrameParser *)self contactFrameFromData:v27];
+              v31 = bytes[8];
+              v32 = *(bytes + 9);
+              v33 = [NSData dataWithBytes:bytes + 13 length:v8 - 13];
+              v34 = [(HSTFrameParser *)self contactFrameFromData:v33];
 
-              if (v28)
+              if (v34)
               {
-                if ((*(v28 + 120) & 1) == 0)
+                if ((*(v34 + 120) & 1) == 0)
                 {
-                  *(v28 + 120) = 1;
+                  *(v34 + 120) = 1;
                 }
 
-                *(v28 + 112) = (v26 << 32) | (v25 << 8) | 0xAAAA0001;
-                [v28 hsSetTimestamp:{objc_msgSend(v28, "hsTimestamp") - 1000000 * v26}];
-                [(HSTFrameParser *)self sanitizeContactFrame:v28];
-                v34.receiver = self;
-                v34.super_class = HSTFrameParser;
-                [(HSStage *)&v34 handleConsume:v28];
+                *(v34 + 112) = (v32 << 32) | (v31 << 8) | 0xAAAA0001;
+                [v34 hsSetTimestamp:{objc_msgSend(v34, "hsTimestamp") - 1000000 * v32}];
+                [(HSTFrameParser *)self sanitizeContactFrame:v34];
+                v40.receiver = self;
+                v40.super_class = HSTFrameParser;
+                [(HSStage *)&v40 handleConsume:v34];
               }
 
               goto LABEL_55;
             }
 
-            v31 = MTLoggingPlugin();
-            [(HSTFrameParser *)v31 _handleFirmwareEventFrame:buf];
+            v37 = MTLoggingPlugin(v28, v29);
+            [(HSTFrameParser *)v37 _handleFirmwareEventFrame:buf];
           }
 
-          v28 = *buf;
+          v34 = *buf;
 LABEL_55:
 
           goto LABEL_56;
@@ -1224,27 +1227,27 @@ LABEL_55:
       {
         if (bytes[2] <= 8u)
         {
-          if (v18 == 3)
+          if (v22 == 3)
           {
             if (v8 < 7)
             {
 LABEL_10:
-              v14 = 0;
+              v16 = 0;
               goto LABEL_45;
             }
 
-            v21 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
-            v23 = v12 + 44;
-            if ((*(v12 + 52) & 1) == 0)
+            v25 = (10 * *(bytes + 3) - self->_config.surfaceCoordinates.left) | ((10 * *(bytes + 5) - self->_config.surfaceCoordinates.bottom) << 32);
+            v27 = v14 + 44;
+            if ((*(v14 + 52) & 1) == 0)
             {
-              *(v12 + 52) = 1;
+              *(v14 + 52) = 1;
             }
 
-            v14 = 0;
+            v16 = 0;
             goto LABEL_44;
           }
 
-          if (v18 != 8)
+          if (v22 != 8)
           {
             goto LABEL_45;
           }
@@ -1252,9 +1255,9 @@ LABEL_10:
           goto LABEL_34;
         }
 
-        if (v18 != 9)
+        if (v22 != 9)
         {
-          if (v18 != 10)
+          if (v22 != 10)
           {
             goto LABEL_45;
           }
@@ -1265,17 +1268,17 @@ LABEL_10:
 
       if (v8 >= 7)
       {
-        *(v12 + 28) = bytes[3] | 0x100;
+        *(v14 + 28) = bytes[3] | 0x100;
       }
 
       goto LABEL_45;
     }
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_12:
 
-  return v15;
+  return v17;
 }
 
 - (unsigned)_driverUserSpaceToHSTNotification:(const DriverNotification *)notification
@@ -1333,8 +1336,8 @@ LABEL_12:
   frameCopy = frame;
   if (!frameCopy)
   {
-    v17 = +[NSAssertionHandler currentHandler];
-    [v17 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:700 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
+    v21 = +[NSAssertionHandler currentHandler];
+    [v21 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:700 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
   }
 
   v6 = frameCopy[1];
@@ -1344,74 +1347,75 @@ LABEL_12:
     if (v7)
     {
       v8 = HSTFrameParserTypes::ReportCast<HSTPipeline::FirmwareInterface::InputReport::DriverNotification>(frameCopy[1]);
-      v23.receiver = self;
-      v23.super_class = HSTFrameParser;
-      [(HSStage *)&v23 handleConsume:frameCopy];
+      v27.receiver = self;
+      v27.super_class = HSTFrameParser;
+      v9 = [(HSStage *)&v27 handleConsume:frameCopy];
       if (v8)
       {
-        v9 = MTLoggingPlugin();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v11 = MTLoggingPlugin(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          [(HSTFrameParser *)v7 _handleDriverNotificationFrame:v8, v9];
+          [(HSTFrameParser *)v7 _handleDriverNotificationFrame:v8, v11];
         }
       }
 
       else
       {
-        v9 = MTLoggingPlugin();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v11 = MTLoggingPlugin(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          [(HSTFrameParser *)v7 _handleDriverNotificationFrame:v9];
+          [(HSTFrameParser *)v7 _handleDriverNotificationFrame:v11];
         }
       }
 
-      v11 = objc_opt_new();
+      v13 = objc_opt_new();
       if (v8)
       {
-        v12 = [(HSTFrameParser *)self _driverToHSTNotificationWithContext:v8];
+        v14 = [(HSTFrameParser *)self _driverToHSTNotificationWithContext:v8];
       }
 
       else
       {
-        v12 = [(HSTFrameParser *)self _driverToHSTNotification:v7];
+        v14 = [(HSTFrameParser *)self _driverToHSTNotification:v7];
       }
 
-      [v11 setNotification:v12];
-      v22.receiver = self;
-      v22.super_class = HSTFrameParser;
-      [(HSStage *)&v22 handleConsume:v11];
-      if ([v11 notification] == 1)
+      [v13 setNotification:v14];
+      v26.receiver = self;
+      v26.super_class = HSTFrameParser;
+      [(HSStage *)&v26 handleConsume:v13];
+      if ([v13 notification] == 1)
       {
-        v13 = objc_opt_new();
-        [(HSTFrameParser *)self handleConsume:v13];
+        v15 = objc_opt_new();
+        [(HSTFrameParser *)self handleConsume:v15];
 
         buf[0] = 0;
-        v14 = [[HSTVendorEvent alloc] initWithType:2 buffer:buf length:1];
-        v21.receiver = self;
-        v21.super_class = HSTFrameParser;
-        [(HSStage *)&v21 handleConsume:v14];
+        v16 = [[HSTVendorEvent alloc] initWithType:2 buffer:buf length:1];
+        v25.receiver = self;
+        v25.super_class = HSTFrameParser;
+        [(HSStage *)&v25 handleConsume:v16];
       }
 
-      else if ([v11 notification] == 3)
+      else if ([v13 notification] == 3)
       {
         buf[0] = 0;
-        v14 = [[HSTVendorEvent alloc] initWithType:1 buffer:buf length:1];
-        v20.receiver = self;
-        v20.super_class = HSTFrameParser;
-        [(HSStage *)&v20 handleConsume:v14];
+        v16 = [[HSTVendorEvent alloc] initWithType:1 buffer:buf length:1];
+        v24.receiver = self;
+        v24.super_class = HSTFrameParser;
+        [(HSStage *)&v24 handleConsume:v16];
       }
 
       else
       {
-        if ([v11 notification] != 4)
+        if ([v13 notification] != 4)
         {
-          if ([v11 notification] == 2)
+          notification = [v13 notification];
+          if (notification == 2)
           {
-            v16 = MTLoggingPlugin();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v20 = MTLoggingPlugin(notification, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "device killed", buf, 2u);
+              _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "device killed", buf, 2u);
             }
           }
 
@@ -1419,22 +1423,22 @@ LABEL_12:
         }
 
         buf[0] = 0;
-        v14 = [[HSTVendorEvent alloc] initWithType:4 buffer:buf length:1];
-        v19.receiver = self;
-        v19.super_class = HSTFrameParser;
-        [(HSStage *)&v19 handleConsume:v14];
+        v16 = [[HSTVendorEvent alloc] initWithType:4 buffer:buf length:1];
+        v23.receiver = self;
+        v23.super_class = HSTFrameParser;
+        [(HSStage *)&v23 handleConsume:v16];
       }
 
 LABEL_21:
-      v10 = 1;
+      v12 = 1;
       goto LABEL_22;
     }
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_22:
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_handleDriverExternalMessageFrame:(id)frame
@@ -1442,36 +1446,36 @@ LABEL_22:
   frameCopy = frame;
   if (!frameCopy)
   {
-    v15 = +[NSAssertionHandler currentHandler];
-    [v15 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:767 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
+    v17 = +[NSAssertionHandler currentHandler];
+    [v17 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:767 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
   }
 
   v6 = frameCopy[1];
-  if (v6 && (v7 = [v6 bytes], v8 = objc_msgSend(frameCopy[1], "length"), v9 = v8 - 6, v8 >= 6) && *v7 == 83 && (v17.receiver = self, v17.super_class = HSTFrameParser, -[HSStage handleConsume:](&v17, "handleConsume:", frameCopy), (v7[1] & 0xFE) == 2) && v9 >= *(v7 + 1))
+  if (v6 && (v7 = [v6 bytes], v8 = objc_msgSend(frameCopy[1], "length"), v9 = v8 - 6, v8 >= 6) && *v7 == 83 && (v19.receiver = self, v19.super_class = HSTFrameParser, v10 = -[HSStage handleConsume:](&v19, "handleConsume:", frameCopy), (v7[1] & 0xFE) == 2) && v9 >= *(v7 + 1))
   {
-    v12 = MTLoggingPlugin();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(v7 + 2);
+      v15 = *(v7 + 2);
       *buf = 67109120;
-      v19 = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "External message received: 0x%x", buf, 8u);
+      v21 = v15;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "External message received: 0x%x", buf, 8u);
     }
 
-    v14 = [[HSTVendorEvent alloc] initWithType:3 buffer:v7 + 4 length:*(v7 + 1) + 2];
-    v16.receiver = self;
-    v16.super_class = HSTFrameParser;
-    [(HSStage *)&v16 handleConsume:v14];
+    v16 = [[HSTVendorEvent alloc] initWithType:3 buffer:v7 + 4 length:*(v7 + 1) + 2];
+    v18.receiver = self;
+    v18.super_class = HSTFrameParser;
+    [(HSStage *)&v18 handleConsume:v16];
 
-    v10 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_handleTimestampSyncFrame:(id)frame
@@ -1479,54 +1483,54 @@ LABEL_22:
   frameCopy = frame;
   if (!frameCopy)
   {
-    v15 = +[NSAssertionHandler currentHandler];
-    [v15 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:808 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
+    v16 = +[NSAssertionHandler currentHandler];
+    [v16 handleFailureInMethod:a2 object:self file:@"HSTFrameParser.mm" lineNumber:808 description:{@"Invalid parameter not satisfying: %@", @"frame"}];
   }
 
   v6 = frameCopy[1];
   if (v6 && (v7 = HSTFrameParserTypes::ReportCast<HSTPipeline::FirmwareInterface::InputReport::TimestampSync>(v6)) != 0 && v7[1] == 255)
   {
-    v10 = *(v7 + 12);
-    if (v10)
+    v11 = *(v7 + 12);
+    if (v11)
     {
-      v11 = v10 - *(v7 + 4);
-      if (v11)
+      v12 = v11 - *(v7 + 4);
+      if (v12)
       {
-        v12 = v11;
+        v13 = v12;
       }
 
       else
       {
-        v12 = 1;
+        v13 = 1;
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = MTLoggingPlugin();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = MTLoggingPlugin(v7, v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [(HSTFrameParser *)v12 _handleTimestampSyncFrame:v13];
+      [(HSTFrameParser *)v13 _handleTimestampSyncFrame:v14];
     }
 
-    v14 = objc_opt_new();
-    v14[2] = v12;
-    v16.receiver = self;
-    v16.super_class = HSTFrameParser;
-    [(HSStage *)&v16 handleConsume:v14];
+    v15 = objc_opt_new();
+    v15[2] = v13;
+    v17.receiver = self;
+    v17.super_class = HSTFrameParser;
+    [(HSStage *)&v17 handleConsume:v15];
 
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_handleFrame:(id)frame
@@ -2079,7 +2083,7 @@ LABEL_11:
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v10);
+  HSUtil::Decoder::decodeMap(&v10, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -2154,79 +2158,90 @@ LABEL_14:
 
 - (void)parseContactFrame44:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame44:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame44:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame44:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame44:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame75:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame75:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame75:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame75:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)parseContactFrame75:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)sanitizeContactFrame:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)_handleFirmwareEventFrame:(int)a1 .cold.1(int a1, NSObject *a2)
@@ -2287,114 +2302,130 @@ LABEL_14:
 
 - (void)unpackFrame29Header:fromData:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame29Header:fromData:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame29Header:fromData:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame29Contact:fromData:withByteOffset:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame29Contact:fromData:withByteOffset:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame29Contact:fromData:withByteOffset:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Header:fromData:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Header:fromData:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Header:fromData:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Contact:fromData:withByteOffset:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Contact:fromData:withByteOffset:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)unpackFrame31Contact:fromData:withByteOffset:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

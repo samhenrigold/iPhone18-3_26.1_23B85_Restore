@@ -18,17 +18,18 @@
 
 - (NSDictionary)metadata
 {
-  if (sub_21AEEE6B0())
+  sub_21AEEE6B0();
+  if (v2)
   {
-    v2 = sub_21AF0971C();
+    v3 = sub_21AF0971C();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setMetadata:(id)metadata

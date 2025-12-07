@@ -1,5 +1,6 @@
 @interface HAPBTLERequest
 - (HAPBTLERequest)init;
+- (HAPBTLERequest)initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval;
 - (HMFBlockOperation)operation;
 - (id)_initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval;
 - (id)_serializeHeader;
@@ -31,7 +32,7 @@
   {
     if (interval <= 0.0)
     {
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = sub_10007FAFC(0);
@@ -46,7 +47,7 @@
 
     if ([dataCopy length] >= 0x10000)
     {
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = sub_10007FAFC(0);
@@ -105,7 +106,7 @@ LABEL_19:
     goto LABEL_12;
   }
 
-  v16 = sub_10007FAA0();
+  v16 = sub_10007FAA0(0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = sub_10007FAFC(0);
@@ -121,6 +122,32 @@ LABEL_11:
 LABEL_12:
 
   return selfCopy;
+}
+
+- (HAPBTLERequest)initWithCharacteristic:(id)characteristic requestType:(unsigned __int8)type bodyData:(id)data shouldEncrypt:(BOOL)encrypt timeoutInterval:(double)interval
+{
+  selfCopy = self;
+  if (characteristic)
+  {
+    selfCopy = [(HAPBTLERequest *)self _initWithCharacteristic:characteristic requestType:type bodyData:data shouldEncrypt:encrypt timeoutInterval:interval];
+    v8 = selfCopy;
+  }
+
+  else
+  {
+    v9 = sub_10007FAA0(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = sub_10007FAFC(0);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@[HAPBTLERequest] A characteristic is required", &v12, 0xCu);
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (id)shortDescription

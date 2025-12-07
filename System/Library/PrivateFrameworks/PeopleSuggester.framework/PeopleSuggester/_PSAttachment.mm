@@ -217,27 +217,27 @@
 
 - (unint64_t)totalHashOfElementsFromArray:(id)array
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = arrayCopy;
-  if (arrayCopy && (v14 = 0u, v15 = 0u, v12 = 0u, v13 = 0u, (v5 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16]) != 0))
+  if (arrayCopy && (v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, (v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16]) != 0))
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v7 ^= [*(*(&v12 + 1) + 8 * i) hash];
+        v7 ^= [*(*(&v11 + 1) + 8 * i) hash];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -248,7 +248,6 @@
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -284,108 +283,13 @@
   {
     v6 = v5;
     v7 = [(_PSAttachment *)self UTI];
-    if (v7)
+    if (v7 && (v8 = v7, -[_PSAttachment UTI](v6, "UTI"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9) && (-[_PSAttachment UTI](self, "UTI"), v10 = objc_claimAutoreleasedReturnValue(), -[_PSAttachment UTI](v6, "UTI"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v10 isEqualToString:v11], v11, v10, !v12) || (-[_PSAttachment photoLocalIdentifier](self, "photoLocalIdentifier"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, -[_PSAttachment photoLocalIdentifier](v6, "photoLocalIdentifier"), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15) && (-[_PSAttachment photoLocalIdentifier](self, "photoLocalIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), -[_PSAttachment photoLocalIdentifier](v6, "photoLocalIdentifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, !v18) || (-[_PSAttachment cloudIdentifier](self, "cloudIdentifier"), (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, -[_PSAttachment cloudIdentifier](v6, "cloudIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v21) && (-[_PSAttachment cloudIdentifier](self, "cloudIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), -[_PSAttachment cloudIdentifier](v6, "cloudIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqual:", v23), v23, v22, !v24) || (-[_PSAttachment identifier](self, "identifier"), (v25 = objc_claimAutoreleasedReturnValue()) != 0) && (v26 = v25, -[_PSAttachment identifier](v6, "identifier"), v27 = objc_claimAutoreleasedReturnValue(), v27, v26, v27) && (-[_PSAttachment identifier](self, "identifier"), v28 = objc_claimAutoreleasedReturnValue(), -[_PSAttachment identifier](v6, "identifier"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "isEqual:", v29), v29, v28, !v30) || (-[_PSAttachment contentURL](self, "contentURL"), (v31 = objc_claimAutoreleasedReturnValue()) != 0) && (v32 = v31, -[_PSAttachment contentURL](v6, "contentURL"), v33 = objc_claimAutoreleasedReturnValue(), v33, v32, v33) && (-[_PSAttachment contentURL](self, "contentURL"), v34 = objc_claimAutoreleasedReturnValue(), -[_PSAttachment contentURL](v6, "contentURL"), v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v34, "isEqual:", v35), v35, v34, !v36))
     {
-      v8 = v7;
-      v9 = [(_PSAttachment *)v6 UTI];
-
-      if (v9)
-      {
-        v10 = [(_PSAttachment *)self UTI];
-        v11 = [(_PSAttachment *)v6 UTI];
-        v12 = [v10 isEqualToString:v11];
-
-        if (!v12)
-        {
-          goto LABEL_27;
-        }
-      }
-    }
-
-    photoLocalIdentifier = [(_PSAttachment *)self photoLocalIdentifier];
-    if (photoLocalIdentifier)
-    {
-      v14 = photoLocalIdentifier;
-      photoLocalIdentifier2 = [(_PSAttachment *)v6 photoLocalIdentifier];
-
-      if (photoLocalIdentifier2)
-      {
-        photoLocalIdentifier3 = [(_PSAttachment *)self photoLocalIdentifier];
-        photoLocalIdentifier4 = [(_PSAttachment *)v6 photoLocalIdentifier];
-        v18 = [photoLocalIdentifier3 isEqualToString:photoLocalIdentifier4];
-
-        if (!v18)
-        {
-          goto LABEL_27;
-        }
-      }
-    }
-
-    cloudIdentifier = [(_PSAttachment *)self cloudIdentifier];
-    if (cloudIdentifier)
-    {
-      v20 = cloudIdentifier;
-      cloudIdentifier2 = [(_PSAttachment *)v6 cloudIdentifier];
-
-      if (cloudIdentifier2)
-      {
-        cloudIdentifier3 = [(_PSAttachment *)self cloudIdentifier];
-        cloudIdentifier4 = [(_PSAttachment *)v6 cloudIdentifier];
-        v24 = [cloudIdentifier3 isEqual:cloudIdentifier4];
-
-        if (!v24)
-        {
-          goto LABEL_27;
-        }
-      }
-    }
-
-    identifier = [(_PSAttachment *)self identifier];
-    if (identifier)
-    {
-      v26 = identifier;
-      identifier2 = [(_PSAttachment *)v6 identifier];
-
-      if (identifier2)
-      {
-        identifier3 = [(_PSAttachment *)self identifier];
-        identifier4 = [(_PSAttachment *)v6 identifier];
-        v30 = [identifier3 isEqual:identifier4];
-
-        if (!v30)
-        {
-          goto LABEL_27;
-        }
-      }
-    }
-
-    contentURL = [(_PSAttachment *)self contentURL];
-    if (!contentURL)
-    {
-      goto LABEL_19;
-    }
-
-    v32 = contentURL;
-    contentURL2 = [(_PSAttachment *)v6 contentURL];
-
-    if (!contentURL2)
-    {
-      goto LABEL_19;
-    }
-
-    contentURL3 = [(_PSAttachment *)self contentURL];
-    contentURL4 = [(_PSAttachment *)v6 contentURL];
-    v36 = [contentURL3 isEqual:contentURL4];
-
-    if (!v36)
-    {
-LABEL_27:
       v58 = 0;
     }
 
     else
     {
-LABEL_19:
       v37 = objc_alloc(MEMORY[0x1E695DFA8]);
       photoLocalIdentifiers = [(_PSAttachment *)self photoLocalIdentifiers];
       v39 = [v37 initWithArray:photoLocalIdentifiers];

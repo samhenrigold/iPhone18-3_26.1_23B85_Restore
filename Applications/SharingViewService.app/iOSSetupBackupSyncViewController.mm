@@ -87,8 +87,7 @@ LABEL_11:
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
     v47 = sub_1000F0C00(event);
-    v49 = infoCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupBackupSyncViewController handleProgressEvent:info:]", 30, "BackupSync Progress: %s %##@\n");
   }
 
   if (event == 310)
@@ -129,7 +128,7 @@ LABEL_11:
         v9 = off_100195818[v8];
       }
 
-      v12 = [@"IOS_SETUP_BACKUP_INFO" stringByAppendingString:{v9, v47, v49}];
+      v12 = [@"IOS_SETUP_BACKUP_INFO" stringByAppendingString:v9];
       v13 = [self->super.super._mainController otherDeviceClassCode] - 1;
       if (v13 > 6)
       {
@@ -143,7 +142,7 @@ LABEL_11:
 
       v15 = [v12 stringByAppendingString:v14];
 
-      v23 = sub_100127B60(v15, v16, v17, v18, v19, v20, v21, v22, v48);
+      v23 = sub_100127B60(v15, v16, v17, v18, v19, v20, v21, v22, v47);
       [*(&self->_titleLabel + 1) setText:v23];
 
       *(&self->_progressLabel + 1) = 300;
@@ -162,7 +161,7 @@ LABEL_11:
   }
 
   *&v24 = v24;
-  [*(&self->_infoLabel + 1) setProgress:{v24, v47}];
+  [*(&self->_infoLabel + 1) setProgress:v24];
   CFDictionaryGetDouble();
   if (v25 >= 0.0)
   {
@@ -203,7 +202,7 @@ LABEL_27:
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupBackupSyncViewController handleHideButton:]", 30, "BackupSync Hide button\n");
   }
 
   [self->super.super._mainController dismiss:5];
@@ -214,7 +213,7 @@ LABEL_27:
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupBackupSyncViewController viewDidDisappear:]", 30, "BackupSync ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -227,7 +226,7 @@ LABEL_27:
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupBackupSyncViewController viewWillAppear:]", 30, "BackupSync ViewWillAppear\n");
   }
 
   v21.receiver = self;

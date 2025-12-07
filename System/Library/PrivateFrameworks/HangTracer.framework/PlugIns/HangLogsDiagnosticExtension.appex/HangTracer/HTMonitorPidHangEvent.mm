@@ -1,7 +1,9 @@
 @interface HTMonitorPidHangEvent
++ ($2A8BB92AA13BA620C53B73F98D97E71B)getSharedPageFromPid:(int)pid;
 + (void)_updateRunningBoardProcessMonitor;
 + (void)checkHangForPid:(int)pid;
 + (void)removePidFromProcessMonitoring:(int)monitoring;
++ (void)setupRunningBoardProcessMonitorForPid:(int)pid;
 - (id)initHTMonitorPidHangEvent:(id *)event shmem_size:(unint64_t)shmem_size;
 - (void)dealloc;
 @end
@@ -92,6 +94,87 @@
 LABEL_11:
 
   +[HTMonitorPidHangEvent _updateRunningBoardProcessMonitor];
+}
+
++ (void)setupRunningBoardProcessMonitorForPid:(int)pid
+{
+  v3 = [RBSProcessIdentifier identifierWithPid:*&pid];
+  v4 = qword_10002B080;
+  v9 = v3;
+  if (!qword_10002B080)
+  {
+    v5 = +[NSMutableSet set];
+    v6 = qword_10002B080;
+    qword_10002B080 = v5;
+
+    v3 = v9;
+    v4 = qword_10002B080;
+  }
+
+  [v4 addObject:v3];
+  if (qword_10002B078)
+  {
+    +[HTMonitorPidHangEvent _updateRunningBoardProcessMonitor];
+  }
+
+  else
+  {
+    v7 = [RBSProcessMonitor monitorWithConfiguration:&stru_100025030];
+    v8 = qword_10002B078;
+    qword_10002B078 = v7;
+  }
+}
+
++ ($2A8BB92AA13BA620C53B73F98D97E71B)getSharedPageFromPid:(int)pid
+{
+  v3 = *&pid;
+  label = dispatch_queue_get_label(0);
+  v5 = strlen(htMonitorConnectionQueueLabel);
+  v6 = strncmp(label, htMonitorConnectionQueueLabel, v5);
+  if (v6)
+  {
+    v7 = shared_ht_log_handle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      sub_100013FC8(label, v7, v8, v9, v10, v11, v12, v13);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    dispatch_assert_queue_V2(_htMonitorConnectionQueue);
+    v15 = pidHangEventDict;
+    v16 = [NSNumber numberWithInt:v3];
+    v17 = [v15 objectForKeyedSubscript:v16];
+
+    if (v17)
+    {
+      shmem_region = [v17 shmem_region];
+      if ([v17 shmem_size])
+      {
+        v18 = shmem_region == 0;
+      }
+
+      else
+      {
+        v18 = 1;
+      }
+
+      if (v18)
+      {
+        shmem_region = 0;
+      }
+    }
+
+    else
+    {
+      shmem_region = 0;
+    }
+  }
+
+  return shmem_region;
 }
 
 @end

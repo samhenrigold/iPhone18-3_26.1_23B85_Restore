@@ -30,7 +30,7 @@
 
 - (void)pCreateHUDBackgroundForView:(id)view
 {
-  v4 = [TSUImage imageNamed:@"ib_media_audio_transport_bg" inBundle:THBundle()];
+  v4 = [TSUImage imageNamed:@"ib_media_audio_transport_bg" inBundle:THBundle(self, a2)];
   [view setContentsFromImage:v4];
   [v4 size];
 
@@ -53,9 +53,9 @@
 
 - (void)createViewsForConfigurationChange
 {
-  v7.receiver = self;
-  v7.super_class = THWAVAudioUI;
-  [(THWAVTransportUI *)&v7 createViewsForConfigurationChange];
+  v11.receiver = self;
+  v11.super_class = THWAVAudioUI;
+  [(THWAVTransportUI *)&v11 createViewsForConfigurationChange];
   if ([(THWAVTransportUI *)self isCompact])
   {
     if (![(THWAVTransportUI *)self compactUIView])
@@ -75,8 +75,10 @@
       [height setHitBufferTop:10.0 left:10.0 bottom:10.0 right:10.0];
       [height setShowsTouchWhenHighlighted:1];
       [objc_msgSend(height "imageView")];
-      [height setImageNamed:-[THWAVAudioUI imageNameForPlayButton](self inBundle:{"imageNameForPlayButton"), THBundle()}];
-      [height setAlternateImageNamed:-[THWAVAudioUI imageNameForPlayButtonPressed](self inBundle:{"imageNameForPlayButtonPressed"), THBundle()}];
+      imageNameForPlayButton = [(THWAVAudioUI *)self imageNameForPlayButton];
+      [height setImageNamed:imageNameForPlayButton inBundle:{THBundle(imageNameForPlayButton, v8)}];
+      imageNameForPlayButtonPressed = [(THWAVAudioUI *)self imageNameForPlayButtonPressed];
+      [height setAlternateImageNamed:imageNameForPlayButtonPressed inBundle:{THBundle(imageNameForPlayButtonPressed, v10)}];
       [(THWAVAudioUI *)self setPlayButton_compactUI:height];
       [(THCustomLayerView *)[(THWAVTransportUI *)self compactUIView] addSubview:[(THWAVAudioUI *)self playButton_compactUI]];
     }
@@ -318,7 +320,7 @@
 
   else
   {
-    [(THWAVTransportController *)[(THWAVTransportUI *)self transportController] currentTime];
+    objc_msgSend_currentTime([(THWAVTransportUI *)self transportController]);
     v3 = v4 > 0.1;
     if (v3 == [(THWAVTransportUI *)self wantsScrubber])
     {

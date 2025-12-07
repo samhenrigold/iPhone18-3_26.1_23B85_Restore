@@ -122,94 +122,94 @@
   }
 
   clearBackground = [MEMORY[0x1E69E0B48] clearBackground];
-  if ([value isEqualToString:@"WFImageContentItem"])
+  if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"photo";
   }
 
-  else if ([value isEqualToString:@"WFAVAssetContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"music.on.film";
   }
 
-  else if ([value isEqualToString:@"WFiTunesProductContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"star.square";
   }
 
-  else if ([value isEqualToString:@"WFGenericFileContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"doc";
   }
 
-  else if ([value isEqualToString:@"WFFolderContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"folder";
   }
 
-  else if ([value isEqualToString:@"WFPDFContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"doc.text";
   }
 
-  else if ([value isEqualToString:@"WFStringContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"text.alignleft";
   }
 
-  else if ([value isEqualToString:@"WFRichTextContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"doc.richtext";
   }
 
-  else if ([value isEqualToString:@"WFSafariWebPageContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"safari";
   }
 
-  else if ([value isEqualToString:@"WFURLContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"link";
   }
 
-  else if ([value isEqualToString:@"WFArticleContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"doc.plaintext";
   }
 
-  else if ([value isEqualToString:@"WFDCMapsLinkContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"map";
   }
 
-  else if ([value isEqualToString:@"WFLocationContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"mappin.and.ellipse";
   }
 
-  else if ([value isEqualToString:@"WFContactContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"person.crop.circle";
   }
 
-  else if ([value isEqualToString:@"WFEmailAddressContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"envelope";
   }
 
-  else if ([value isEqualToString:@"WFPhoneNumberContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"phone.fill";
   }
 
-  else if ([value isEqualToString:@"WFDateContentItem"])
+  else if (objc_msgSend_isEqualToString_(value))
   {
     v8 = @"calendar";
   }
 
   else
   {
-    if (![value isEqualToString:@"WFAppStoreAppContentItem"])
+    if (!objc_msgSend_isEqualToString_(value))
     {
       v9 = 0;
       goto LABEL_45;

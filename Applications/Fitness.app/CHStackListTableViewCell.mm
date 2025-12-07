@@ -23,15 +23,15 @@
 
 - (void)prepareForReuse
 {
-  v3 = sub_100140278(&qword_1008E0BC0);
+  v3 = sub_100140278(&qword_1008E0BC0, &qword_1006DC7C0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for StackListTableViewCell();
+  v6 = type metadata accessor for StackListTableViewCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(CHStackListTableViewCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for FitnessPlusStackViewModel();
+  v8 = type metadata accessor for FitnessPlusStackViewModel(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR___CHStackListTableViewCell_fitnessPlusStackViewModel;
   swift_beginAccess();

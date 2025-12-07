@@ -483,12 +483,11 @@
 
     if (v20)
     {
-      v31[0] = GKRemoteAlertDeeplinkActionPlayerProfileValue;
-      v30[0] = GKRemoteAlertDeeplinkActionKey;
-      v30[1] = GKRemoteAlertDeeplinkPlayerIdentifierKey;
+      v31 = GKRemoteAlertDeeplinkActionPlayerProfileValue;
+      v29 = GKRemoteAlertDeeplinkActionKey;
+      v30 = GKRemoteAlertDeeplinkPlayerIdentifierKey;
       info2 = [(GKBulletinAction *)v9 info];
-      v31[1] = info2;
-      v12 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     }
 
     else
@@ -496,11 +495,11 @@
       v12 = 0;
     }
 
-    v26 = +[GKClientProxy gameCenterClient];
-    v13 = [(GKService *)GKUtilityServicePrivate serviceWithTransport:0 forClient:v26 credential:0];
+    v25 = +[GKClientProxy gameCenterClient];
+    v13 = [(GKService *)GKUtilityServicePrivate serviceWithTransport:0 forClient:v25 credential:0];
 
-    v27 = +[GKGameInternal createGamedGameInternal];
-    [v13 openDashboardAsRemoteAlertForGame:v27 hostPID:getpid() deeplink:v12 launchContext:GKDashboardLaunchContextPushNotification];
+    v26 = +[GKGameInternal createGamedGameInternal];
+    [v13 openDashboardAsRemoteAlertForGame:v26 hostPID:getpid() deeplink:v12 launchContext:GKDashboardLaunchContextPushNotification];
 
     handlerCopy[2](handlerCopy, 0);
 LABEL_32:
@@ -532,25 +531,25 @@ LABEL_32:
       }
 
       appLaunchTrampolineURL3 = [(GKBulletinAction *)v9 appLaunchTrampolineURL];
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = sub_10017D9F0;
-      v28[3] = &unk_100369EB8;
-      v29 = handlerCopy;
-      [v13 invokeASCAppLaunchTrampolineWithURL:appLaunchTrampolineURL3 handler:v28];
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_10017D9F0;
+      v27[3] = &unk_100369EB8;
+      v28 = handlerCopy;
+      [v13 invokeASCAppLaunchTrampolineWithURL:appLaunchTrampolineURL3 handler:v27];
 
       goto LABEL_32;
     }
 
     if (!os_log_GKGeneral)
     {
-      v24 = GKOSLoggers();
+      v23 = GKOSLoggers();
     }
 
-    v25 = os_log_GKError;
+    v24 = os_log_GKError;
     if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
     {
-      sub_100294BE4(v25);
+      sub_100294BE4(v24);
     }
   }
 
@@ -558,13 +557,13 @@ LABEL_32:
   {
     if (!os_log_GKGeneral)
     {
-      v22 = GKOSLoggers();
+      v21 = GKOSLoggers();
     }
 
-    v23 = os_log_GKDaemon;
+    v22 = os_log_GKDaemon;
     if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_ERROR))
     {
-      sub_100294C28(v9, v23);
+      sub_100294C28(v9, v22);
     }
   }
 
@@ -586,7 +585,7 @@ LABEL_33:
   dCopy = d;
   fieldsCopy = fields;
   dCopy2 = d;
-  v8 = [NSDictionary dictionaryWithObjects:&dCopy forKeys:&v10 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v9 = [v8 _gkAddEntriesFrom:fieldsCopy];
 
@@ -609,14 +608,14 @@ LABEL_33:
     v10 = &stru_100374F10;
   }
 
-  v15[0] = typeCopy;
-  v14[0] = @"eventType";
-  v14[1] = @"pageId";
+  v17 = typeCopy;
+  v14 = @"eventType";
+  v15 = @"pageId";
   v11 = [NSNumber numberWithShort:[(GKBulletin *)self pushCommand]];
-  v14[2] = @"pageType";
-  v15[1] = v11;
-  v15[2] = @"notification";
-  v12 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v16 = @"pageType";
+  v18 = v11;
+  v19 = @"notification";
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v13 = [v12 _gkAddEntriesFrom:fieldsCopy];
 

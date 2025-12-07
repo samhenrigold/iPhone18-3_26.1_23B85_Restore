@@ -431,20 +431,20 @@ uint64_t __68__MKLookAroundContainerView__setDimmingViewHidden_loading_animated_
   return [v4 setAlpha:v2];
 }
 
-uint64_t __68__MKLookAroundContainerView__setDimmingViewHidden_loading_animated___block_invoke_2(uint64_t result)
+id *__68__MKLookAroundContainerView__setDimmingViewHidden_loading_animated___block_invoke_2(id *result)
 {
   v1 = result;
-  if ((*(result + 48) & 1) == 0)
+  if ((result[6] & 1) == 0)
   {
-    result = [*(result + 32) stopAnimating];
+    result = [result[4] stopAnimating];
   }
 
-  v2 = *(v1 + 40);
-  if (*(v2 + 460) == 1 && *(v1 + 49) == 1 && (*(v1 + 48) & 1) == 0)
+  v2 = v1[5];
+  if (v2[460] == 1 && *(v1 + 49) == 1 && (v1[6] & 1) == 0)
   {
-    *(v2 + 460) = 0;
-    [*(v1 + 40) _updateDimmingViewActivityIndicator];
-    v3 = *(v1 + 40);
+    v2[460] = 0;
+    [v1[5] _updateDimmingViewActivityIndicator];
+    v3 = v1[5];
 
     return [v3 _updateDimmingViewBackgroundColor];
   }

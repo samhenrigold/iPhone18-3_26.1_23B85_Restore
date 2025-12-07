@@ -289,18 +289,18 @@ LABEL_12:
 
 - (void)didUpdateLocation:(id)location
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   locationCopy = location;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(locationCopy, v4))
   {
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 136315394;
-      v6 = "[MapsSuggestionsVisitMonitor didUpdateLocation:]";
-      v7 = 2112;
-      v8 = locationCopy;
-      _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "%s %@", &v5, 0x16u);
+      v6 = 136315394;
+      v7 = "[MapsSuggestionsVisitMonitor didUpdateLocation:]";
+      v8 = 2112;
+      v9 = locationCopy;
+      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "%s %@", &v6, 0x16u);
     }
   }
 }

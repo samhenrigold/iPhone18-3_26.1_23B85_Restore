@@ -149,29 +149,27 @@
 
 - (id)emailAddresses
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   result = [objc_opt_class() emailAddressWithUsername:{-[MFAccount username](self, "username")}];
   if (result)
   {
-    v4[0] = result;
-    result = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+    v3[0] = result;
+    return [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)transferDisabledMailboxUids
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   result = [(MailAccount *)self mailboxUidOfType:1 createIfNeeded:0];
   if (result)
   {
-    v4[0] = result;
-    result = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+    v3[0] = result;
+    return [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

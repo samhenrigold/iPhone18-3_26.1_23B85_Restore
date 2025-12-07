@@ -1,6 +1,7 @@
 @interface ASDCustomProperty
 - (ASDCustomProperty)init;
 - (ASDCustomProperty)initWithAddress:(id)address propertyDataType:(unsigned int)type qualifierDataType:(unsigned int)dataType;
+- (ASDCustomProperty)initWithSelector:(unsigned int)selector scope:(unsigned int)scope element:(unsigned int)element propertyDataType:(unsigned int)type andQualifierDataType:(unsigned int)dataType;
 - (ASDCustomPropertyInterest)interested;
 - (ASDObject)owner;
 - (id)value;
@@ -20,6 +21,16 @@
   [v3 raise:v4 format:{@"Do not call %@", v5}];
 
   return 0;
+}
+
+- (ASDCustomProperty)initWithSelector:(unsigned int)selector scope:(unsigned int)scope element:(unsigned int)element propertyDataType:(unsigned int)type andQualifierDataType:(unsigned int)dataType
+{
+  v7 = *&dataType;
+  v8 = *&type;
+  v10 = [[ASDPropertyAddress alloc] initWithSelector:*&selector scope:*&scope element:*&element];
+  v11 = [(ASDCustomProperty *)self initWithAddress:v10 propertyDataType:v8 qualifierDataType:v7];
+
+  return v11;
 }
 
 - (ASDCustomProperty)initWithAddress:(id)address propertyDataType:(unsigned int)type qualifierDataType:(unsigned int)dataType

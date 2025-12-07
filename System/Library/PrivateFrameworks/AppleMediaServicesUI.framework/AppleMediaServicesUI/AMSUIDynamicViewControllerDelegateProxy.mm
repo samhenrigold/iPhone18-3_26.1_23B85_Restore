@@ -93,7 +93,7 @@
 
 - (void)dynamicViewController:(id)controller didFinishCarrierLinkingWithResult:(id)result error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   delegate = [(AMSUIDynamicViewControllerDelegateProxy *)self delegate];
@@ -112,19 +112,17 @@
     {
       v13 = objc_opt_class();
       v14 = AMSLogKey();
-      v18 = 138543618;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v14;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Forwarding carrier link result to delegate", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v14;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Forwarding carrier link result to delegate", &v17, 0x16u);
     }
 
     delegate2 = [(AMSUIDynamicViewControllerDelegateProxy *)self delegate];
     dynamicViewController = [(AMSUIDynamicViewControllerDelegateProxy *)self dynamicViewController];
     [delegate2 dynamicViewController:dynamicViewController didFinishCarrierLinkingWithResult:resultCopy error:errorCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error

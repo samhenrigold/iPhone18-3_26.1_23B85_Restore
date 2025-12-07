@@ -30,13 +30,14 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
+  v4 = OBJC_IVAR___MSCMSTimestampAttributeInternal_tstinfo;
   swift_beginAccess();
   selfCopy = self;
-  free_TSTInfo();
+  free_TSTInfo(self + v4);
   swift_endAccess();
-  v5.receiver = selfCopy;
-  v5.super_class = ObjectType;
-  [(MSCMSTimestampAttributeInternal *)&v5 dealloc];
+  v6.receiver = selfCopy;
+  v6.super_class = ObjectType;
+  [(MSCMSTimestampAttributeInternal *)&v6 dealloc];
 }
 
 - (MSCMSTimestampAttributeInternal)initWithTimestampToken:(id)token error:(id *)error

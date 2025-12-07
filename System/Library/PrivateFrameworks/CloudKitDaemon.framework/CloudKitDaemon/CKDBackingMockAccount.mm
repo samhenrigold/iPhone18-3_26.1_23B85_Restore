@@ -61,7 +61,7 @@ LABEL_3:
 
 + (id)mockAccountWithTestAccount:(id)account testDevice:(id)device
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   deviceCopy = device;
   v11 = deviceCopy;
@@ -75,8 +75,8 @@ LABEL_3:
 
   else
   {
-    v37 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKDBackingMockAccount.m", 48, @"Invalid parameter not satisfying: %@", @"testAccount");
+    v36 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v36, v37, a2, self, @"CKDBackingMockAccount.m", 48, @"Invalid parameter not satisfying: %@", @"testAccount");
 
     if (v11)
     {
@@ -84,8 +84,8 @@ LABEL_3:
     }
   }
 
-  v39 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v39, v40, a2, self, @"CKDBackingMockAccount.m", 49, @"Invalid parameter not satisfying: %@", @"testDevice");
+  v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDBackingMockAccount.m", 49, @"Invalid parameter not satisfying: %@", @"testDevice");
 
 LABEL_3:
   v12 = objc_msgSend_currentPersona(MEMORY[0x277CBC558], v9, v10);
@@ -114,24 +114,22 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v32 = *MEMORY[0x277CBC830];
+  v31 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
-    v33 = v32;
-    v36 = objc_msgSend_accountID(accountCopy, v34, v35);
+    v32 = v31;
+    v35 = objc_msgSend_accountID(accountCopy, v33, v34);
     *buf = 138412802;
-    v42 = v17;
-    v43 = 2112;
-    v44 = v36;
-    v45 = 2112;
-    v46 = v25;
-    _os_log_impl(&dword_22506F000, v33, OS_LOG_TYPE_INFO, "Current persona identifier %@ does not match persona override on requested mock account %@: %@. Not returning an account", buf, 0x20u);
+    v41 = v17;
+    v42 = 2112;
+    v43 = v35;
+    v44 = 2112;
+    v45 = v25;
+    _os_log_impl(&dword_22506F000, v32, OS_LOG_TYPE_INFO, "Current persona identifier %@ does not match persona override on requested mock account %@: %@. Not returning an account", buf, 0x20u);
   }
 
   inited = 0;
 LABEL_8:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return inited;
 }

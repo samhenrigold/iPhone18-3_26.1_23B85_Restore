@@ -55,49 +55,49 @@
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary expirationDate:(id)date
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0FF60);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = sub_AB8FF0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0FF60, &qword_B1BCA0);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = sub_AB8FF0();
   if (date)
   {
     sub_AB33F0();
-    v9 = sub_AB3430();
-    (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+    v8 = sub_AB3430();
+    (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_AB3430();
-    (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+    v9 = sub_AB3430();
+    (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
   }
 
-  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v8, v7);
+  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v7, v6);
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary parentStoreItemMetadata:(id)metadata expirationDate:(id)date
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0FF60);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v16 - v8;
-  v10 = sub_AB8FF0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0FF60, &qword_B1BCA0);
+  __chkstk_darwin();
+  v8 = &v15 - v7;
+  v9 = sub_AB8FF0();
   if (date)
   {
     sub_AB33F0();
-    v11 = sub_AB3430();
-    (*(*(v11 - 8) + 56))(v9, 0, 1, v11);
+    v10 = sub_AB3430();
+    (*(*(v10 - 8) + 56))(v8, 0, 1, v10);
   }
 
   else
   {
-    v12 = sub_AB3430();
-    (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+    v11 = sub_AB3430();
+    (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   }
 
   metadataCopy = metadata;
-  v14 = sub_69D4C4(v10, metadataCopy, v9);
+  v13 = sub_69D4C4(v9, metadataCopy, v8);
 
-  return v14;
+  return v13;
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithCoder:(id)coder
@@ -152,33 +152,37 @@
 - (BOOL)isBeats1
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isBeats1.getter();
+  ModelObjectBackedStoreItemMetadata.isBeats1.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isCompilation
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isCompilation.getter();
+  ModelObjectBackedStoreItemMetadata.isCompilation.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (int64_t)discCount
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.discCount.getter();
+  ModelObjectBackedStoreItemMetadata.discCount.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)discNumber
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.discNumber.getter();
+  ModelObjectBackedStoreItemMetadata.discNumber.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (double)duration
@@ -193,147 +197,164 @@
 - (int64_t)episodeCount
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.episodeCount.getter();
+  ModelObjectBackedStoreItemMetadata.episodeCount.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)explicitRating
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.explicitRating.getter();
+  ModelObjectBackedStoreItemMetadata.explicitRating.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSArray)genreNames
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.genreNames.getter();
+  ModelObjectBackedStoreItemMetadata.genreNames.getter();
+  v4 = v3;
 
-  if (v3)
+  if (v4)
   {
-    v4.super.isa = sub_AB9740().super.isa;
+    v5.super.isa = sub_AB9740().super.isa;
   }
 
   else
   {
-    v4.super.isa = 0;
+    v5.super.isa = 0;
   }
 
-  return v4.super.isa;
+  return v5.super.isa;
 }
 
 - (BOOL)hasArtistBiography
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.hasArtistBiography.getter();
+  ModelObjectBackedStoreItemMetadata.hasArtistBiography.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasLyrics
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.hasLyrics.getter();
+  ModelObjectBackedStoreItemMetadata.hasLyrics.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasTimeSyncedLyrics
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.hasTimeSyncedLyrics.getter();
+  ModelObjectBackedStoreItemMetadata.hasTimeSyncedLyrics.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)hasSocialPosts
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.hasSocialPosts.getter();
+  ModelObjectBackedStoreItemMetadata.hasSocialPosts.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isExplicitContent
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isExplicitContent.getter();
+  ModelObjectBackedStoreItemMetadata.isExplicitContent.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isMasteredForiTunes
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isMasteredForiTunes.getter();
+  ModelObjectBackedStoreItemMetadata.isMasteredForiTunes.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isPreorder
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isPreorder.getter();
+  ModelObjectBackedStoreItemMetadata.isPreorder.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isPrivatePerson
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isPrivatePerson.getter();
+  ModelObjectBackedStoreItemMetadata.isPrivatePerson.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isVerifiedPerson
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isVerifiedPerson.getter();
+  ModelObjectBackedStoreItemMetadata.isVerifiedPerson.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isOnboardedPerson
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isOnboardedPerson.getter();
+  ModelObjectBackedStoreItemMetadata.isOnboardedPerson.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (int64_t)movementCount
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.movementCount.getter();
+  ModelObjectBackedStoreItemMetadata.movementCount.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)movementNumber
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.movementNumber.getter();
+  ModelObjectBackedStoreItemMetadata.movementNumber.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)seasonNumber
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.seasonNumber.getter();
+  ModelObjectBackedStoreItemMetadata.seasonNumber.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)showComposer
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.showComposer.getter();
+  ModelObjectBackedStoreItemMetadata.showComposer.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (id)storeID
@@ -361,25 +382,28 @@
 - (BOOL)isStoreRedownloadable
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.isStoreRedownloadable.getter();
+  ModelObjectBackedStoreItemMetadata.isStoreRedownloadable.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (int64_t)trackCount
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.trackCount.getter();
+  ModelObjectBackedStoreItemMetadata.trackCount.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)trackNumber
 {
   selfCopy = self;
-  v3 = ModelObjectBackedStoreItemMetadata.trackNumber.getter();
+  ModelObjectBackedStoreItemMetadata.trackNumber.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)init

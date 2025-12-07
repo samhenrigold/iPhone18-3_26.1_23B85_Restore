@@ -32,7 +32,7 @@
 
 - (id)countdownStringForScaleFactor:(double)factor
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   [v5 setSecond:14];
   v6 = objc_alloc_init(MEMORY[0x277CCA958]);
@@ -42,10 +42,10 @@
   {
     v8 = objc_alloc(MEMORY[0x277CCAB48]);
     v9 = *MEMORY[0x277D740A8];
-    v23 = *MEMORY[0x277D740A8];
+    v22 = *MEMORY[0x277D740A8];
     v10 = [(RespiratoryHealthHeroCountdownLabel *)self _makeUnitLabelFontWithSize:factor * 15.0];
-    v24[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v23[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v12 = [v8 initWithString:v7 attributes:v11];
 
     [v6 setUnitsStyle:0];
@@ -54,10 +54,10 @@
     {
       v14 = [v7 rangeOfString:v13];
       v16 = v15;
-      v21 = v9;
+      v20 = v9;
       v17 = [(RespiratoryHealthHeroCountdownLabel *)self _makeValueLabelFontWithSize:factor * 20.0];
-      v22 = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v21 = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       [v12 addAttributes:v18 range:{v14, v16}];
     }
   }
@@ -67,27 +67,23 @@
     v12 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:&stru_28749E498];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_makeValueLabelFontWithSize:(double)size
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D74300] hk_roundedSystemFontWithSize:size weight:*MEMORY[0x277D74410]];
   fontDescriptor = [v4 fontDescriptor];
   v6 = *MEMORY[0x277D74388];
-  v12[0] = *MEMORY[0x277D74398];
-  v12[1] = v6;
-  v13[0] = &unk_28749F2A0;
-  v13[1] = &unk_28749F2B8;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277D74398];
+  v11[1] = v6;
+  v12[0] = &unk_28749F2A0;
+  v12[1] = &unk_28749F2B8;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v8 = [fontDescriptor fontDescriptorByAddingAttributes:v7];
 
   v9 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:size];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

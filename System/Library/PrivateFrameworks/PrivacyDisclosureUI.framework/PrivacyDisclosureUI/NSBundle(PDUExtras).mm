@@ -22,10 +22,11 @@
   v5 = lowercaseString;
   if (lowercaseString)
   {
-    if (([lowercaseString isEqualToString:v3] & 1) == 0)
+    v6 = [lowercaseString isEqualToString:v3];
+    if ((v6 & 1) == 0)
     {
-      v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(NSBundle(PDUExtras) *)v3 pdu_aboutPrivacyBundleID];
       }
@@ -37,11 +38,10 @@
 
 - (void)pdu_aboutPrivacyBundleID
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25F70A000, a2, OS_LOG_TYPE_ERROR, "OnBoardingKit bundle '%@' should be lower case only, please file a radar.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25F70A000, a2, OS_LOG_TYPE_ERROR, "OnBoardingKit bundle '%@' should be lower case only, please file a radar.", &v2, 0xCu);
 }
 
 @end

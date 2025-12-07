@@ -21,45 +21,45 @@
 
 - (id)stringForPlaceholder:(id)placeholder withDeviceInfo:(id)info
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   placeholderCopy = placeholder;
   infoCopy = info;
   if ([placeholderCopy length]> 2)
   {
     placeholderInfo = self->_placeholderInfo;
     v11 = [placeholderCopy substringFromIndex:2];
-    v8 = [(NSDictionary *)placeholderInfo objectForKeyedSubscript:v11];
+    v8 = objc_msgSend_objectForKeyedSubscript_(placeholderInfo);
 
     v12 = _ICQGetLogSystem();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138412290;
-      v32 = v8;
-      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "placeholderDict = %@", &v31, 0xCu);
+      v30 = 138412290;
+      v31 = v8;
+      _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "placeholderDict = %@", &v30, 0xCu);
     }
 
-    if (!v8 || ([v8 objectForKeyedSubscript:@"appId"], (v13 = objc_claimAutoreleasedReturnValue()) == 0) || (v14 = v13, [v8 objectForKeyedSubscript:@"replacementStrings"], v15 = objc_claimAutoreleasedReturnValue(), v15, v14, !v15))
+    if (!v8 || (objc_msgSend_objectForKeyedSubscript_(v8), (v13 = objc_claimAutoreleasedReturnValue()) == 0) || (v14 = v13, objc_msgSend_objectForKeyedSubscript_(v8), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, !v15))
     {
       v16 = _ICQGetLogSystem();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 138412290;
-        v32 = placeholderCopy;
-        _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "No placeholder info found for %@ in offer", &v31, 0xCu);
+        v30 = 138412290;
+        v31 = placeholderCopy;
+        _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "No placeholder info found for %@ in offer", &v30, 0xCu);
       }
 
       v9 = 0;
       goto LABEL_22;
     }
 
-    v16 = [v8 objectForKeyedSubscript:@"replacementStrings"];
-    v17 = [v8 objectForKeyedSubscript:@"appId"];
+    v16 = objc_msgSend_objectForKeyedSubscript_(v8);
+    v17 = objc_msgSend_objectForKeyedSubscript_(v8);
     v18 = [v17 isEqualToString:@"com.apple.quota.photoLibrary"];
 
     if (v18)
     {
-      v19 = [v16 objectForKeyedSubscript:@"placeholderKey"];
-      v20 = [v16 objectForKeyedSubscript:@"default"];
+      v19 = objc_msgSend_objectForKeyedSubscript_(v16);
+      v20 = objc_msgSend_objectForKeyedSubscript_(v16);
       v9 = [ICQOfferManager stringWithPlaceholderFormat:v19 alternateString:v20];
     }
 
@@ -68,14 +68,14 @@
       v19 = infoCopy;
       if (!v19)
       {
-        v21 = [v8 objectForKeyedSubscript:@"appId"];
+        v21 = objc_msgSend_objectForKeyedSubscript_(v8);
         if (!v21)
         {
           v19 = _ICQGetLogSystem();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v31) = 0;
-            _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "placeHolderDict is missing 'appID'", &v31, 2u);
+            LOWORD(v30) = 0;
+            _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "placeHolderDict is missing 'appID'", &v30, 2u);
           }
 
           v9 = 0;
@@ -91,11 +91,11 @@
       {
         v24 = [v19 key];
         wordsToReplace = [v19 wordsToReplace];
-        v31 = 138412546;
-        v32 = v24;
-        v33 = 2112;
-        v34 = wordsToReplace;
-        _os_log_impl(&dword_275572000, v23, OS_LOG_TYPE_DEFAULT, "key = %@  wordsToReplace = %@", &v31, 0x16u);
+        v30 = 138412546;
+        v31 = v24;
+        v32 = 2112;
+        v33 = wordsToReplace;
+        _os_log_impl(&dword_275572000, v23, OS_LOG_TYPE_DEFAULT, "key = %@  wordsToReplace = %@", &v30, 0x16u);
       }
 
       v26 = [v19 key];
@@ -119,8 +119,6 @@ LABEL_22:
 
   v9 = 0;
 LABEL_23:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -146,11 +144,10 @@ LABEL_23:
 
 - (void)stringForPlaceholder:(uint64_t)a1 withDeviceInfo:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to look up placeholder for key %@, becuase it is too short", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to look up placeholder for key %@, becuase it is too short", &v2, 0xCu);
 }
 
 @end

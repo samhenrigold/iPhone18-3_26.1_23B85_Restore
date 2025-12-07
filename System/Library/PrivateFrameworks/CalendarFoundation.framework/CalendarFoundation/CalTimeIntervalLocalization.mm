@@ -1,8 +1,10 @@
 @interface CalTimeIntervalLocalization
 + (id)_localizedStringWithTimeString:(id)string rawDuration:(double)duration options:(unint64_t)options;
 + (id)_localizedTimeStringForAllDayEventDuration:(double)duration includeAlert:(BOOL)alert;
++ (id)_localizedTimeStringForTimedEventDuration:(double)duration abbreviate:(BOOL)abbreviate;
 + (id)_stringWithDurations:(id)durations timeUnits:(id)units;
 + (id)localizedStringForInterval:(double)interval withOptions:(unint64_t)options;
++ (void)_calculateDurations:(id)durations timeUnits:(id)units forDuration:(double)duration allDay:(BOOL)day abbreviate:(BOOL)abbreviate;
 + (void)_calculateDurations:(id)durations timeUnits:(id)units forDuration:(double)duration allDay:(BOOL)day dayDuration:(id *)dayDuration hourDuration:(id *)hourDuration minuteDuration:(id *)minuteDuration secondDuration:(id *)self0 abbreviate:(BOOL)self1;
 @end
 
@@ -33,6 +35,17 @@
   }
 
   return v12;
+}
+
++ (id)_localizedTimeStringForTimedEventDuration:(double)duration abbreviate:(BOOL)abbreviate
+{
+  abbreviateCopy = abbreviate;
+  v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  [self _calculateDurations:v7 timeUnits:v8 forDuration:0 allDay:abbreviateCopy abbreviate:duration];
+  v9 = [self _stringWithDurations:v7 timeUnits:v8];
+
+  return v9;
 }
 
 + (id)_localizedTimeStringForAllDayEventDuration:(double)duration includeAlert:(BOOL)alert
@@ -164,6 +177,18 @@ LABEL_26:
   v30 = LABEL_27:;
 
   return v30;
+}
+
++ (void)_calculateDurations:(id)durations timeUnits:(id)units forDuration:(double)duration allDay:(BOOL)day abbreviate:(BOOL)abbreviate
+{
+  v13 = 0;
+  v11 = 0;
+  v12 = 0;
+  v10 = 0;
+  LOBYTE(v9) = abbreviate;
+  [self _calculateDurations:durations timeUnits:units forDuration:day allDay:&v13 dayDuration:&v12 hourDuration:&v11 minuteDuration:duration secondDuration:&v10 abbreviate:v9];
+  v7 = v13;
+  v8 = v12;
 }
 
 + (void)_calculateDurations:(id)durations timeUnits:(id)units forDuration:(double)duration allDay:(BOOL)day dayDuration:(id *)dayDuration hourDuration:(id *)hourDuration minuteDuration:(id *)minuteDuration secondDuration:(id *)self0 abbreviate:(BOOL)self1

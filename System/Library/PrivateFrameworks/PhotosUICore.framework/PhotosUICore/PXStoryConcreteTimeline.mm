@@ -963,7 +963,8 @@ uint64_t __81__PXStoryConcreteTimeline__smallestRangeOfClipsPotentiallyIntersect
     v6 = 0;
     do
     {
-      [(PXStoryConcreteTimeline *)self infoForSegmentWithIdentifier:[(PXStoryConcreteTimeline *)self identifierForSegmentAtIndex:v6]];
+      [(PXStoryConcreteTimeline *)self identifierForSegmentAtIndex:v6];
+      objc_msgSend_infoForSegmentWithIdentifier_(self);
       v7 = PXStorySegmentInfoDescription(v10);
       [v5 appendFormat:@"\n\t%@", v7];
 
@@ -985,7 +986,7 @@ uint64_t __81__PXStoryConcreteTimeline__smallestRangeOfClipsPotentiallyIntersect
   v5 = NSStringFromClass(v4);
   [(PXStoryConcreteTimeline *)self size];
   v6 = NSStringFromCGSize(v12);
-  [(PXStoryConcreteTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   v7 = PXStoryTimeRangeDescription(v10);
   v8 = [v3 initWithFormat:@"<%@ %p; Size: %@; Time Range: %@>", v5, self, v6, v7];
 

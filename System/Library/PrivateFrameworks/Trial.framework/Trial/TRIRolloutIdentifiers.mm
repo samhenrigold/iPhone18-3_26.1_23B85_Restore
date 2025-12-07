@@ -32,66 +32,8 @@
 {
   identifiersCopy = identifiers;
   v5 = identifiersCopy;
-  if (!identifiersCopy)
+  if (!identifiersCopy || (v6 = self->_rolloutId == 0, [identifiersCopy rolloutId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (rolloutId = self->_rolloutId) != 0 && (objc_msgSend(v5, "rolloutId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](rolloutId, "isEqual:", v10), v10, !v11) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v13 = self->_factorPackId == 0, objc_msgSend(v5, "factorPackId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (factorPackId = self->_factorPackId) != 0 && (objc_msgSend(v5, "factorPackId"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSString isEqual:](factorPackId, "isEqual:", v17), v17, !v18) || (v19 = self->_rampId == 0, objc_msgSend(v5, "rampId"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21))
   {
-    goto LABEL_12;
-  }
-
-  v6 = self->_rolloutId == 0;
-  rolloutId = [identifiersCopy rolloutId];
-  v8 = rolloutId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_12;
-  }
-
-  rolloutId = self->_rolloutId;
-  if (rolloutId)
-  {
-    rolloutId2 = [v5 rolloutId];
-    v11 = [(NSString *)rolloutId isEqual:rolloutId2];
-
-    if (!v11)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId])
-  {
-    goto LABEL_12;
-  }
-
-  v13 = self->_factorPackId == 0;
-  factorPackId = [v5 factorPackId];
-  v15 = factorPackId != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_12;
-  }
-
-  factorPackId = self->_factorPackId;
-  if (factorPackId)
-  {
-    factorPackId2 = [v5 factorPackId];
-    v18 = [(NSString *)factorPackId isEqual:factorPackId2];
-
-    if (!v18)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v19 = self->_rampId == 0;
-  rampId = [v5 rampId];
-  v21 = rampId != 0;
-
-  if (v19 == v21)
-  {
-LABEL_12:
     v24 = 0;
   }
 
@@ -100,8 +42,8 @@ LABEL_12:
     rampId = self->_rampId;
     if (rampId)
     {
-      rampId2 = [v5 rampId];
-      v24 = [(NSString *)rampId isEqual:rampId2];
+      rampId = [v5 rampId];
+      v24 = [(NSString *)rampId isEqual:rampId];
     }
 
     else

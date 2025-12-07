@@ -27,7 +27,7 @@
 
 - (NSString)deviceUDID
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deviceUDID = self->_deviceUDID;
   if (!deviceUDID)
   {
@@ -44,17 +44,17 @@
     v9 = _DMTLogGeneral_logObj_2;
     if (os_log_type_enabled(_DMTLogGeneral_logObj_2, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138544386;
-      v16 = v4;
-      v17 = 2114;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v6;
-      v21 = 2114;
-      v22 = v7;
-      v23 = 2114;
-      v24 = v8;
-      _os_log_debug_impl(&dword_24891B000, v9, OS_LOG_TYPE_DEBUG, "arrowUniqueID: %{public}@,\n provisioningUniqueID: %{public}@,\n unqiueChipID: %{public}@,\n uniqueDeviceID: %{public}@,\n attestationUniqueDeviceID: %{public}@", &v15, 0x34u);
+      v14 = 138544386;
+      v15 = v4;
+      v16 = 2114;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v6;
+      v20 = 2114;
+      v21 = v7;
+      v22 = 2114;
+      v23 = v8;
+      _os_log_debug_impl(&dword_24891B000, v9, OS_LOG_TYPE_DEBUG, "arrowUniqueID: %{public}@,\n provisioningUniqueID: %{public}@,\n unqiueChipID: %{public}@,\n uniqueDeviceID: %{public}@,\n attestationUniqueDeviceID: %{public}@", &v14, 0x34u);
     }
 
     v10 = MGCopyAnswer();
@@ -65,7 +65,6 @@
   }
 
   v12 = [(NSString *)deviceUDID copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

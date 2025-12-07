@@ -36,7 +36,7 @@
 
 - (BOOL)addOrUpdateDynamicNamespaceWithName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l teamId:(id)id appContainerId:(id)containerId appContainerType:(int64_t)type cloudKitContainer:(int)container
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   lCopy = l;
   idCopy = id;
@@ -99,27 +99,26 @@ LABEL_4:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v40 = 0;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __154__TRINamespaceDatabase_addOrUpdateDynamicNamespaceWithName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainer___block_invoke;
-    v29[3] = &unk_279DE1B38;
-    v35 = buf;
-    v30 = nameCopy;
-    v31 = idCopy;
-    v32 = containerIdCopy;
+    v39 = 0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __154__TRINamespaceDatabase_addOrUpdateDynamicNamespaceWithName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainer___block_invoke;
+    v28[3] = &unk_279DE1B38;
+    v34 = buf;
+    v29 = nameCopy;
+    v30 = idCopy;
+    v31 = containerIdCopy;
     typeCopy = type;
     containerCopy = container;
     versionCopy = version;
-    v33 = lCopy;
+    v32 = lCopy;
     selfCopy = self;
-    [(TRINamespaceDatabase *)self writeTransactionWithFailableBlock:v29];
+    [(TRINamespaceDatabase *)self writeTransactionWithFailableBlock:v28];
     v22 = *(*&buf[8] + 24);
 
     _Block_object_dispose(buf, 8);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22 & 1;
 }
 
@@ -339,30 +338,30 @@ uint64_t __84__TRINamespaceDatabase__enumerateDynamicNamespaceRecordsWithWhereCl
 
 uint64_t __84__TRINamespaceDatabase__enumerateDynamicNamespaceRecordsWithWhereClause_bind_block___block_invoke_2(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isNullForColumnName:"compatibilityVersion" table:0])
   {
-    v22 = [MEMORY[0x277CCA890] currentHandler];
-    [v22 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:151 description:@"NULL compatibilityVersion read from NOT NULL column"];
+    v21 = [MEMORY[0x277CCA890] currentHandler];
+    [v21 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:151 description:@"NULL compatibilityVersion read from NOT NULL column"];
   }
 
   if ([v3 isNullForColumnName:"appContainerType" table:0])
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:152 description:@"NULL appContainerType read from NOT NULL column"];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    [v22 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:152 description:@"NULL appContainerType read from NOT NULL column"];
   }
 
   if ([v3 isNullForColumnName:"cloudKitContainerId" table:0])
   {
-    v24 = [MEMORY[0x277CCA890] currentHandler];
-    [v24 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:153 description:@"NULL cloudKitContainerId read from NOT NULL column"];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:153 description:@"NULL cloudKitContainerId read from NOT NULL column"];
   }
 
   if ([v3 isNullForColumnName:"hasFetched" table:0])
   {
-    v25 = [MEMORY[0x277CCA890] currentHandler];
-    [v25 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:154 description:@"NULL hasFetched read from NOT NULL column"];
+    v24 = [MEMORY[0x277CCA890] currentHandler];
+    [v24 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:154 description:@"NULL hasFetched read from NOT NULL column"];
   }
 
   v4 = [v3 getNSStringForColumnName:"name" table:0];
@@ -372,7 +371,7 @@ uint64_t __84__TRINamespaceDatabase__enumerateDynamicNamespaceRecordsWithWhereCl
   v8 = [v3 getInt64ForColumnName:"cloudKitContainerId" table:0];
   v9 = [v3 getInt64ForColumnName:"compatibilityVersion" table:0];
   v10 = [v3 getNSStringForColumnName:"defaultsFileURL" table:0];
-  v30 = v10;
+  v29 = v10;
   if (v10)
   {
     v11 = [MEMORY[0x277CBEBC0] triParseURLFromString:v10];
@@ -385,7 +384,7 @@ uint64_t __84__TRINamespaceDatabase__enumerateDynamicNamespaceRecordsWithWhereCl
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v32 = v30;
+      v31 = v29;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "failed to parse url from %@", buf, 0xCu);
     }
   }
@@ -414,8 +413,8 @@ LABEL_17:
       }
 
 LABEL_25:
-      v28 = [MEMORY[0x277CCA890] currentHandler];
-      [v28 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:173 description:@"NULL teamId read from NOT NULL column"];
+      v27 = [MEMORY[0x277CCA890] currentHandler];
+      [v27 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:173 description:@"NULL teamId read from NOT NULL column"];
 
       if (v6)
       {
@@ -426,8 +425,8 @@ LABEL_25:
     }
   }
 
-  v27 = [MEMORY[0x277CCA890] currentHandler];
-  [v27 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:172 description:@"NULL namespaceName read from NOT NULL column"];
+  v26 = [MEMORY[0x277CCA890] currentHandler];
+  [v26 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:172 description:@"NULL namespaceName read from NOT NULL column"];
 
   if (!v5)
   {
@@ -441,12 +440,12 @@ LABEL_18:
   }
 
 LABEL_26:
-  v29 = [MEMORY[0x277CCA890] currentHandler];
-  [v29 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:174 description:@"NULL appContainerId read from NOT NULL column"];
+  v28 = [MEMORY[0x277CCA890] currentHandler];
+  [v28 handleFailureInMethod:a1[6] object:a1[4] file:@"TRINamespaceDatabase.m" lineNumber:174 description:@"NULL appContainerId read from NOT NULL column"];
 
 LABEL_19:
-  LOBYTE(v26) = v13 != 0;
-  v15 = [[TRIDynamicNamespaceRecord alloc] initWithName:v4 teamId:v5 appContainer:v14 cloudKitContainer:v8 compatibilityVersion:v9 defaultsFileURL:v11 hasFetched:v26];
+  LOBYTE(v25) = v13 != 0;
+  v15 = [[TRIDynamicNamespaceRecord alloc] initWithName:v4 teamId:v5 appContainer:v14 cloudKitContainer:v8 compatibilityVersion:v9 defaultsFileURL:v11 hasFetched:v25];
   buf[0] = 0;
   (*(a1[5] + 16))();
   v16 = buf[0];
@@ -463,7 +462,6 @@ LABEL_19:
     v19 = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return *v19;
 }
 

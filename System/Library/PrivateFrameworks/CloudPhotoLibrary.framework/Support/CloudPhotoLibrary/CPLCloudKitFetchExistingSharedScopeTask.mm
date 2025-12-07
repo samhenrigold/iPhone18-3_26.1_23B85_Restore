@@ -26,65 +26,65 @@
 {
   arrayCopy = array;
   dCopy = d;
-  v31 = 0;
-  v8 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v31];
-  v9 = v31;
+  v32 = 0;
+  v8 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v32];
+  v9 = v32;
   if (v8)
   {
     if ([arrayCopy count])
     {
       lastObject = [arrayCopy lastObject];
-      [arrayCopy removeLastObject];
+      removeLastObject = [arrayCopy removeLastObject];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = sub_100003C0C();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100003C0C(removeLastObject);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           cpl_zoneName = [lastObject cpl_zoneName];
           *buf = 138543362;
-          v33 = cpl_zoneName;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Checking if %{public}@ is a valid shared zone", buf, 0xCu);
+          v34 = cpl_zoneName;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Checking if %{public}@ is a valid shared zone", buf, 0xCu);
         }
       }
 
-      v13 = [[CPLCloudKitScope alloc] initWithZoneID:lastObject];
+      v14 = [[CPLCloudKitScope alloc] initWithZoneID:lastObject];
       controller = [(CPLCloudKitTransportTask *)self controller];
-      v15 = [controller recordsToFetchToIdentifyCloudKitScope:v13 proposedScopeType:0 currentUserID:dCopy];
-      if ([v15 count])
+      v16 = [controller recordsToFetchToIdentifyCloudKitScope:v14 proposedScopeType:0 currentUserID:dCopy];
+      if ([v16 count])
       {
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v25[2] = sub_1000B0F80;
-        v25[3] = &unk_100276F68;
-        v25[4] = self;
-        v26 = controller;
-        v16 = &v27;
-        v17 = v9;
-        v18 = lastObject;
-        v19 = v13;
-        v27 = v19;
-        v28 = dCopy;
-        v29 = v18;
-        v30 = arrayCopy;
-        v20 = v19;
-        lastObject = v18;
-        v9 = v17;
-        v21 = &v26;
-        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v15 fetchResources:1 inScope:v20 completionHandler:v25];
+        v26[0] = _NSConcreteStackBlock;
+        v26[1] = 3221225472;
+        v26[2] = sub_1000B0F80;
+        v26[3] = &unk_100276F68;
+        v26[4] = self;
+        v27 = controller;
+        v17 = &v28;
+        v18 = v9;
+        v19 = lastObject;
+        v20 = v14;
+        v28 = v20;
+        v29 = dCopy;
+        v30 = v19;
+        v31 = arrayCopy;
+        v21 = v20;
+        lastObject = v19;
+        v9 = v18;
+        v22 = &v27;
+        [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v16 fetchResources:1 inScope:v21 completionHandler:v26];
       }
 
       else
       {
-        v22[0] = _NSConcreteStackBlock;
-        v22[1] = 3221225472;
-        v22[2] = sub_1000B13A8;
-        v22[3] = &unk_1002721A0;
-        v22[4] = self;
-        v21 = &v23;
-        v23 = arrayCopy;
-        v16 = &v24;
-        v24 = dCopy;
-        [(CPLCloudKitTransportTask *)self dispatchAsync:v22];
+        v23[0] = _NSConcreteStackBlock;
+        v23[1] = 3221225472;
+        v23[2] = sub_1000B13A8;
+        v23[3] = &unk_1002721A0;
+        v23[4] = self;
+        v22 = &v24;
+        v24 = arrayCopy;
+        v17 = &v25;
+        v25 = dCopy;
+        [(CPLCloudKitTransportTask *)self dispatchAsync:v23];
       }
     }
 

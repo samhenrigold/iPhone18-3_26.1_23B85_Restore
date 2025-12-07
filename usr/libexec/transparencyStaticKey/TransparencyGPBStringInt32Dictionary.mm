@@ -9,6 +9,7 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndInt32sUsingBlock:(id)block;
+- (void)setInt32:(int)int32 forKey:(id)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -221,6 +222,23 @@
 
       sub_10002B180(autocreator, self);
     }
+  }
+}
+
+- (void)setInt32:(int)int32 forKey:(id)key
+{
+  v5 = *&int32;
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:v5], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_10002B180(autocreator, self);
   }
 }
 

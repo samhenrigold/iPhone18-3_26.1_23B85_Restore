@@ -7,6 +7,8 @@
 - (void)deleteAllAudioAccessoryData;
 - (void)loadView;
 - (void)setConnectedToHeadphonesEnabled:(id)enabled forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SHSHeadphoneAudioAccessoriesController
@@ -55,6 +57,48 @@
   v5 = objc_alloc_init(MEMORY[0x277CEFB38]);
   audioSettingsManager = self->_audioSettingsManager;
   self->_audioSettingsManager = v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SHSHeadphoneAudioAccessoriesController;
+  [(SHSHeadphoneAudioAccessoriesController *)&v4 viewWillAppear:appear];
+  [(SHSHeadphoneAudioAccessoriesController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = SHSHeadphoneAudioAccessoriesController;
+  [(SHSHeadphoneAudioAccessoriesController *)&v24 viewDidAppear:appear];
+  v4 = MEMORY[0x277CBEBC0];
+  v5 = MEMORY[0x277CCACA8];
+  specifier = [(SHSHeadphoneAudioAccessoriesController *)self specifier];
+  identifier = [specifier identifier];
+  v8 = [v5 stringWithFormat:@"settings-navigation://com.apple.Settings.Sounds/HEADPHONE_LEVEL_LIMIT_SETTING/%@", identifier];
+  v9 = [v4 URLWithString:v8];
+
+  v10 = objc_alloc(MEMORY[0x277CCAEB8]);
+  specifier2 = [(SHSHeadphoneAudioAccessoriesController *)self specifier];
+  identifier2 = [specifier2 identifier];
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v14 = SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale);
+  bundleURL = [v14 bundleURL];
+  v16 = [v10 initWithKey:identifier2 table:@"Sounds" locale:currentLocale bundleURL:bundleURL];
+
+  v17 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v19 = SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale2);
+  bundleURL2 = [v19 bundleURL];
+  v21 = [v17 initWithKey:@"HEADPHONE_HEARING_PROTECTION" table:@"Sounds" locale:currentLocale2 bundleURL:bundleURL2];
+
+  shs_rootPaneComponent = [MEMORY[0x277CCAEB8] shs_rootPaneComponent];
+  v25[0] = shs_rootPaneComponent;
+  v25[1] = v21;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  [(SHSHeadphoneAudioAccessoriesController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.sound" title:v16 localizedNavigationComponents:v23 deepLink:v9];
 }
 
 - (id)specifiers

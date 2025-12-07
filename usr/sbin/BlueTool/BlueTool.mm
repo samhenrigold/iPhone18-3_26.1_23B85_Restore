@@ -142,15 +142,14 @@ uint64_t sub_100001180(uint64_t *a1, void *a2, size_t a3, size_t *a4)
     return 0xFFFFFFFFLL;
   }
 
-  v8 = *a1;
   os_channel_ring_id();
   os_channel_rx_ring();
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v11 = 0u;
   *__src = 0u;
-  memset(&v11, 0, sizeof(v11));
-  if (kevent(v5, 0, 0, &v11, 1, 0) == -1 || v11.filter != 0xFFFF)
+  memset(&v10, 0, sizeof(v10));
+  if (kevent(v5, 0, 0, &v10, 1, 0) == -1 || v10.filter != 0xFFFF)
   {
     if (qword_1004EE428 != -1)
     {
@@ -180,7 +179,7 @@ uint64_t sub_100001180(uint64_t *a1, void *a2, size_t a3, size_t *a4)
     return 0xFFFFFFFFLL;
   }
 
-  v9 = WORD1(v12);
+  v8 = WORD1(v11);
   if (qword_1004EE428 != -1)
   {
     sub_100047898();
@@ -191,7 +190,7 @@ uint64_t sub_100001180(uint64_t *a1, void *a2, size_t a3, size_t *a4)
     sub_1000478C0();
   }
 
-  if (v9 > a3)
+  if (v8 > a3)
   {
     if (qword_1004EE428 != -1)
     {
@@ -206,8 +205,8 @@ uint64_t sub_100001180(uint64_t *a1, void *a2, size_t a3, size_t *a4)
     return 0xFFFFFFFFLL;
   }
 
-  memcpy(a2, __src[0], v9);
-  *a4 = v9;
+  memcpy(a2, __src[0], v8);
+  *a4 = v8;
   if (os_channel_advance_slot())
   {
     if (qword_1004EE428 != -1)
@@ -1276,7 +1275,7 @@ uint64_t sub_1000032EC(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_100003414(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v7 = 0;
-  if (off_1004ECA68(qword_1004ECA90))
+  if (off_1004ECA68(qword_1004ECA90, a2, a3, &v7, 0xFFFFFFFFLL, 0))
   {
     result = 0;
     v6 = v7;
@@ -1291,7 +1290,7 @@ uint64_t sub_100003414(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
-      sub_100048BEC(&v7);
+      sub_100048BEC();
     }
 
     v6 = 0;
@@ -1319,7 +1318,7 @@ void sub_100003550(__CFRunLoop *a1)
   CFRunLoopStop(a1);
 }
 
-uint64_t sub_1000039A4(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1000039A4(uint64_t a1, const void *a2, size_t a3)
 {
   if (!qword_1004ECA98 || !a2 || (v3 = qword_1004ECAA0, qword_1004ECAA0 == -1))
   {
@@ -1441,7 +1440,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_100003CFC(uint64_t a1, void *a2, size_t a3, uint64_t *a4)
+uint64_t sub_100003CFC(uint64_t a1, void *a2, size_t a3, size_t *a4)
 {
   v7 = 0;
   result = sub_100001180(&qword_1004ECA98, a2, a3, &v7);
@@ -1454,7 +1453,7 @@ uint64_t sub_100003CFC(uint64_t a1, void *a2, size_t a3, uint64_t *a4)
 
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
-      sub_1000490BC(&v7);
+      sub_1000490BC();
     }
 
     v6 = 0;
@@ -1568,17 +1567,17 @@ uint64_t sub_1000044BC()
     switch(v4)
     {
       case 'A':
-        v14 = qword_1004EE3C8;
-        v15 = 0;
+        v15 = qword_1004EE3C8;
+        v16 = 0;
         goto LABEL_132;
       case 'B':
-        if (sub_100041FEC() == 6)
+        if (sub_100041FEC(v4, v5) == 6)
         {
           return 0;
         }
 
-        v20 = qword_1004EE3C8;
-        v21 = 0;
+        v21 = qword_1004EE3C8;
+        v22 = 0;
         goto LABEL_123;
       case 'C':
       case 'D':
@@ -1617,37 +1616,39 @@ uint64_t sub_1000044BC()
           goto LABEL_142;
         }
 
-        v48 = qword_1004EE3C8;
-        LOWORD(v237) = 0;
+        v50 = qword_1004EE3C8;
+        LOWORD(v239) = 0;
         off_1004EE410(qword_1004EE3C8);
         sleep(2u);
-        v49 = sub_100007CD8();
-        sub_100016D1C(&v237, 0, 0, 0, 0, 0);
+        v51 = sub_100007CD8();
+        sub_100016D1C(&v239, 0, 0, 0, 0, 0);
         if (qword_1004EE428 != -1)
         {
           sub_100049330();
         }
 
-        v50 = qword_1004EE430;
+        v52 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
         {
-          sub_100049358(&v237, v49, v50);
+          sub_100049358(&v239, v51, v52);
         }
 
-        v51 = qword_1004EE430;
+        v53 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
         {
-          v52 = off_1004EC0B8[v49];
+          v54 = off_1004EC0B8[v51];
           *buf = 136315650;
-          *&buf[4] = v52;
+          *&buf[4] = v54;
           *&buf[12] = 1024;
           *&buf[14] = dword_1004EC0D0;
           *&buf[18] = 1024;
           *&buf[20] = dword_1004EC0D4;
-          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "ACI %s chip with sw version major=%d, minor=%d.\n", buf, 0x18u);
+          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "ACI %s chip with sw version major=%d, minor=%d.\n", buf, 0x18u);
         }
 
-        v53 = sub_1000077B4();
+        v55 = sub_1000077B4();
+        v166 = 0u;
+        v167 = 0u;
         v164 = 0u;
         v165 = 0u;
         v162 = 0u;
@@ -1660,36 +1661,34 @@ uint64_t sub_1000044BC()
         v157 = 0u;
         v154 = 0u;
         v155 = 0u;
-        v152 = 0u;
-        v153 = 0u;
         memset(buf, 0, sizeof(buf));
-        v54 = fopen("/etc/bluetool/bin_id.aci", "r");
-        if (v54)
+        v56 = fopen("/etc/bluetool/bin_id.aci", "r");
+        if (v56)
         {
-          v55 = v54;
-          if (fgets(buf, 32, v54))
+          v57 = v56;
+          if (fgets(buf, 32, v56))
           {
-            v56 = strtoul(buf, 0, 10);
+            v58 = strtoul(buf, 0, 10);
             if (qword_1004EE428 != -1)
             {
               sub_10004941C();
             }
 
-            v57 = qword_1004EE430;
+            v59 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
             {
-              *v134 = 67109120;
-              *&v134[4] = v56;
-              _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "CPF bin id: 0x%08x.\n", v134, 8u);
+              *v136 = 67109120;
+              *&v136[4] = v58;
+              _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "CPF bin id: 0x%08x.\n", v136, 8u);
             }
           }
 
           else
           {
-            v56 = 0;
+            v58 = 0;
           }
 
-          fclose(v55);
+          fclose(v57);
         }
 
         else
@@ -1701,32 +1700,32 @@ uint64_t sub_1000044BC()
 
           if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
           {
-            v56 = 0;
+            v58 = 0;
             goto LABEL_248;
           }
 
           sub_10004946C();
-          v56 = 0;
+          v58 = 0;
         }
 
-        if (v53 && v53 == v56)
+        if (v55 && v55 == v58)
         {
           if (qword_1004EE428 != -1)
           {
             sub_10004966C();
           }
 
-          v110 = qword_1004EE430;
+          v112 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
           {
-            v111 = off_1004EC0B8[v49];
+            v113 = off_1004EC0B8[v51];
             *buf = 136315394;
-            *&buf[4] = v111;
+            *&buf[4] = v113;
             *&buf[12] = 1024;
-            *&buf[14] = v53;
-            v112 = "ACI %s chip BIN_ID=%08x equals CPF bin_id -> Skip the boot.\n";
-            v113 = v110;
-            v114 = 18;
+            *&buf[14] = v55;
+            v114 = "ACI %s chip BIN_ID=%08x equals CPF bin_id -> Skip the boot.\n";
+            v115 = v112;
+            v116 = 18;
             goto LABEL_279;
           }
 
@@ -1739,20 +1738,20 @@ uint64_t sub_1000044BC()
         }
 
 LABEL_248:
-        v115 = qword_1004EE430;
+        v117 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
         {
-          v116 = off_1004EC0B8[v49];
+          v118 = off_1004EC0B8[v51];
           *buf = 136315650;
-          *&buf[4] = v116;
+          *&buf[4] = v118;
           *&buf[12] = 1024;
-          *&buf[14] = v53;
+          *&buf[14] = v55;
           *&buf[18] = 1024;
-          *&buf[20] = v56;
-          _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_INFO, "ACI %s chip BIN_ID %08x differ from CPF bin_id %08x -> Go boot.\n", buf, 0x18u);
+          *&buf[20] = v58;
+          _os_log_impl(&_mh_execute_header, v117, OS_LOG_TYPE_INFO, "ACI %s chip BIN_ID %08x differ from CPF bin_id %08x -> Go boot.\n", buf, 0x18u);
         }
 
-        if (v49 > 1)
+        if (v51 > 1)
         {
           if (qword_1004EE428 != -1)
           {
@@ -1765,14 +1764,14 @@ LABEL_248:
           }
         }
 
-        else if (sub_10000886C("/etc/bluetool/aci_boot.hcd") || !sub_100006C60(v48, "/etc/bluetool/aci_boot.hcd"))
+        else if (sub_10000886C("/etc/bluetool/aci_boot.hcd") || !sub_100006C60(v50, "/etc/bluetool/aci_boot.hcd"))
         {
           sub_100019B78("power off", 0);
           usleep(0xC350u);
           sub_100019B78("power on", 0);
           usleep(0xC350u);
           sub_100019B78("device -D", 0);
-          if (!v49)
+          if (!v51)
           {
             sleep(2u);
           }
@@ -1786,12 +1785,12 @@ LABEL_248:
             sub_100049644();
           }
 
-          v117 = qword_1004EE430;
+          v119 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            *&buf[4] = v49;
-            v112 = "BOOT Done! for aci_platform=%d\n";
+            *&buf[4] = v51;
+            v114 = "BOOT Done! for aci_platform=%d\n";
             goto LABEL_278;
           }
         }
@@ -1811,8 +1810,10 @@ LABEL_248:
 
         return 0;
       case 'K':
+        v173 = 0u;
+        memset(v174, 0, sizeof(v174));
         v171 = 0u;
-        memset(v172, 0, sizeof(v172));
+        v172 = 0u;
         v169 = 0u;
         v170 = 0u;
         v167 = 0u;
@@ -1829,124 +1830,122 @@ LABEL_248:
         v158 = 0u;
         v155 = 0u;
         v156 = 0u;
-        v153 = 0u;
         v154 = 0u;
-        v152 = 0u;
         memset(buf, 0, sizeof(buf));
-        v33 = sub_100044574();
-        v34 = sub_100044C84();
-        if (v34 && !strcmp(v34, "APPLE_M1"))
+        v35 = sub_100044574();
+        v36 = sub_100044C84();
+        if (v36 && !strcmp(v36, "APPLE_M1"))
         {
-          v45 = 98;
+          v47 = 98;
         }
 
         else
         {
-          v238 = -871113647;
-          v237 = xmmword_100051EAE;
-          v236 = 1530707451;
-          v235 = xmmword_100051EC2;
+          v240 = -871113647;
+          v239 = xmmword_100051EAE;
+          v238 = 1530707451;
+          v237 = xmmword_100051EC2;
+          v132 = MGIsDeviceOneOfType();
+          v236 = 1472775220;
+          v235 = xmmword_100051ED6;
+          v234 = 483476120;
+          v233 = xmmword_100051EEA;
           v130 = MGIsDeviceOneOfType();
-          v234 = 1472775220;
-          v233 = xmmword_100051ED6;
-          v232 = 483476120;
-          v231 = xmmword_100051EEA;
+          v232 = 282158961;
+          v231 = xmmword_100051EFE;
+          v230 = 56502976;
+          v229 = xmmword_100051F12;
+          v129 = MGIsDeviceOneOfType();
+          v228 = -961843768;
+          v227 = xmmword_100051F26;
+          v226 = 1282132887;
+          v225 = xmmword_100051F3A;
           v128 = MGIsDeviceOneOfType();
-          v230 = 282158961;
-          v229 = xmmword_100051EFE;
-          v228 = 56502976;
-          v227 = xmmword_100051F12;
+          v224 = -1092155788;
+          v223 = xmmword_100051F4E;
+          v222 = 763775061;
+          v221 = xmmword_100051F62;
           v127 = MGIsDeviceOneOfType();
-          v226 = -961843768;
-          v225 = xmmword_100051F26;
-          v224 = 1282132887;
-          v223 = xmmword_100051F3A;
+          v220 = -63049871;
+          v219 = xmmword_100051F76;
+          v218 = -557458837;
+          v217 = xmmword_100051F8A;
           v126 = MGIsDeviceOneOfType();
-          v222 = -1092155788;
-          v221 = xmmword_100051F4E;
-          v220 = 763775061;
-          v219 = xmmword_100051F62;
+          v216 = 1730000236;
+          v215 = xmmword_100051F9E;
           v125 = MGIsDeviceOneOfType();
-          v218 = -63049871;
-          v217 = xmmword_100051F76;
-          v216 = -557458837;
-          v215 = xmmword_100051F8A;
+          v214 = 1530338216;
+          v213 = xmmword_100051FB2;
+          v212 = 406601745;
+          v211 = xmmword_100051FC6;
           v124 = MGIsDeviceOneOfType();
-          v214 = 1730000236;
-          v213 = xmmword_100051F9E;
+          v210 = 1654218604;
+          v209 = xmmword_100051FDA;
+          v208 = -1930811061;
+          v207 = xmmword_100051FEE;
           v123 = MGIsDeviceOneOfType();
-          v212 = 1530338216;
-          v211 = xmmword_100051FB2;
-          v210 = 406601745;
-          v209 = xmmword_100051FC6;
-          v122 = MGIsDeviceOneOfType();
-          v208 = 1654218604;
-          v207 = xmmword_100051FDA;
-          v206 = -1930811061;
-          v205 = xmmword_100051FEE;
-          v121 = MGIsDeviceOneOfType();
-          v204 = -182498503;
-          v203 = xmmword_100052002;
-          __streamb = v33;
-          v35 = MGIsDeviceOneOfType();
-          v202 = 841005628;
-          v201 = xmmword_100052016;
-          v200 = -2030489149;
-          v199 = xmmword_10005202A;
-          v36 = MGIsDeviceOneOfType();
-          v198 = 1219348060;
-          v197 = xmmword_10005203E;
-          v196 = 223445260;
-          v195 = xmmword_100052052;
+          v206 = -182498503;
+          v205 = xmmword_100052002;
+          __streamb = v35;
           v37 = MGIsDeviceOneOfType();
-          v194 = -1921398171;
-          v193 = xmmword_100052066;
-          v192 = 373548423;
-          v191 = xmmword_10005207A;
+          v204 = 841005628;
+          v203 = xmmword_100052016;
+          v202 = -2030489149;
+          v201 = xmmword_10005202A;
           v38 = MGIsDeviceOneOfType();
-          v190 = -936391310;
-          v189 = xmmword_10005208E;
-          v188 = 2140507472;
-          v187 = xmmword_1000520A2;
+          v200 = 1219348060;
+          v199 = xmmword_10005203E;
+          v198 = 223445260;
+          v197 = xmmword_100052052;
           v39 = MGIsDeviceOneOfType();
-          v186 = -1384522500;
-          v185 = xmmword_1000520B6;
+          v196 = -1921398171;
+          v195 = xmmword_100052066;
+          v194 = 373548423;
+          v193 = xmmword_10005207A;
           v40 = MGIsDeviceOneOfType();
-          v184 = 1815762806;
-          v183 = xmmword_1000520CA;
-          v182 = -782763850;
-          v181 = xmmword_1000520DE;
+          v192 = -936391310;
+          v191 = xmmword_10005208E;
+          v190 = 2140507472;
+          v189 = xmmword_1000520A2;
           v41 = MGIsDeviceOneOfType();
-          v180 = -652049476;
-          v179 = xmmword_1000520F2;
-          v178 = -1897771119;
-          v177 = xmmword_100052106;
+          v188 = -1384522500;
+          v187 = xmmword_1000520B6;
           v42 = MGIsDeviceOneOfType();
-          v176 = -584398440;
-          v175 = xmmword_10005211A;
+          v186 = 1815762806;
+          v185 = xmmword_1000520CA;
+          v184 = -782763850;
+          v183 = xmmword_1000520DE;
           v43 = MGIsDeviceOneOfType();
-          v44 = v36 | v35;
-          v33 = __streamb;
-          v45 = 379;
-          if (((v43 | v42 | v41 | v40 | v39 | v38 | v37 | v44 | v121 | v122 | v123 | v124 | v125 | v126 | v127) | (v128 | v130)))
+          v182 = -652049476;
+          v181 = xmmword_1000520F2;
+          v180 = -1897771119;
+          v179 = xmmword_100052106;
+          v44 = MGIsDeviceOneOfType();
+          v178 = -584398440;
+          v177 = xmmword_10005211A;
+          v45 = MGIsDeviceOneOfType();
+          v46 = v38 | v37;
+          v35 = __streamb;
+          v47 = 379;
+          if (((v45 | v44 | v43 | v42 | v41 | v40 | v39 | v46 | v123 | v124 | v125 | v126 | v127 | v128 | v129) | (v130 | v132)))
           {
-            v46 = 379;
+            v48 = 379;
           }
 
           else
           {
-            v46 = 187;
+            v48 = 187;
           }
 
-          v174 = -879476163;
-          v173 = xmmword_10005212E;
+          v176 = -879476163;
+          v175 = xmmword_10005212E;
           if (!MGIsDeviceOneOfType())
           {
-            v45 = v46;
+            v47 = v48;
           }
         }
 
-        if (sub_1000159F8(v33, buf))
+        if (sub_1000159F8(v35, buf))
         {
           if (qword_1004EE428 != -1)
           {
@@ -1959,7 +1958,7 @@ LABEL_248:
           }
 
           off_1004EE410(qword_1004EE3C8);
-          v60 = 22;
+          v62 = 22;
           goto LABEL_184;
         }
 
@@ -1968,16 +1967,16 @@ LABEL_248:
           sub_1000496F8();
         }
 
-        v98 = qword_1004EE430;
+        v100 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
         {
-          *v134 = 67109634;
-          *&v134[4] = v45;
-          *&v134[8] = 1040;
-          *&v134[10] = v45;
-          *&v134[14] = 2096;
-          *&v135 = buf;
-          _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_INFO, "Regulatory Data (%d bytes): %.*P", v134, 0x18u);
+          *v136 = 67109634;
+          *&v136[4] = v47;
+          *&v136[8] = 1040;
+          *&v136[10] = v47;
+          *&v136[14] = 2096;
+          *&v137 = buf;
+          _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_INFO, "Regulatory Data (%d bytes): %.*P", v136, 0x18u);
         }
 
         off_1004EE410(qword_1004EE3C8);
@@ -1986,24 +1985,24 @@ LABEL_248:
           sub_100049720();
         }
 
-        v99 = qword_1004EE430;
+        v101 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
         {
-          *v134 = 0;
-          _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_INFO, "Power tables exist for this device", v134, 2u);
+          *v136 = 0;
+          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_INFO, "Power tables exist for this device", v136, 2u);
         }
 
         if (!sub_100044C84())
         {
           *__error() = 94;
-          v60 = 30;
+          v62 = 30;
           goto LABEL_184;
         }
 
-        v100 = buf;
+        v102 = buf;
         do
         {
-          if (*v100 != 1)
+          if (*v102 != 1)
           {
             *__error() = 94;
             if (qword_1004EE428 != -1)
@@ -2013,17 +2012,17 @@ LABEL_248:
 
             if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
             {
-              v60 = 24;
+              v62 = 24;
               goto LABEL_186;
             }
 
-            sub_100049770(v100);
-            v60 = 24;
+            sub_100049770();
+            v62 = 24;
             goto LABEL_184;
           }
 
-          v101 = v100[3] + 4;
-          if (off_1004EE3E0(qword_1004EE3C8, v100, v101) == -1)
+          v103 = v102[3] + 4;
+          if (off_1004EE3E0(qword_1004EE3C8, v102, v103) == -1)
           {
             if (qword_1004EE428 != -1)
             {
@@ -2032,12 +2031,12 @@ LABEL_248:
 
             if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
             {
-              v60 = 3;
+              v62 = 3;
               goto LABEL_186;
             }
 
             sub_1000498EC();
-            v60 = 3;
+            v62 = 3;
 LABEL_184:
             if (qword_1004EE428 != -1)
             {
@@ -2047,28 +2046,28 @@ LABEL_184:
             goto LABEL_186;
           }
 
-          v102 = *(v100 + 1);
+          v104 = *(v102 + 1);
           if (qword_1004EE428 != -1)
           {
             sub_1000497E8();
           }
 
-          v103 = qword_1004EE430;
-          v104 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
-          if (v104)
+          v105 = qword_1004EE430;
+          v106 = os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO);
+          if (v106)
           {
-            *v134 = 67109120;
-            *&v134[4] = v102;
-            _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_INFO, "aci_download_power_tables: Handle opcode 0x%04x", v134, 8u);
+            *v136 = 67109120;
+            *&v136[4] = v104;
+            _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_INFO, "aci_download_power_tables: Handle opcode 0x%04x", v136, 8u);
           }
 
-          if (v102 == 65411)
+          if (v104 == 65411)
           {
             usleep(0xBB8u);
             goto LABEL_216;
           }
 
-          if ((sub_100007940(v104, v102) & 0x80000000) != 0)
+          if ((sub_100007940(v106, v104) & 0x80000000) != 0)
           {
             if (qword_1004EE428 != -1)
             {
@@ -2077,7 +2076,7 @@ LABEL_184:
 
             if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
             {
-              v60 = 255;
+              v62 = 255;
 LABEL_186:
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
               {
@@ -2088,7 +2087,7 @@ LABEL_186:
             }
 
             sub_100049860();
-            v60 = 255;
+            v62 = 255;
             goto LABEL_184;
           }
 
@@ -2097,36 +2096,38 @@ LABEL_186:
             sub_100049810();
           }
 
-          v105 = qword_1004EE430;
+          v107 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
           {
-            *v134 = 67109120;
-            *&v134[4] = v102;
-            _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_INFO, "aci_download_power_tables: opcode 0x%04x pass", v134, 8u);
+            *v136 = 67109120;
+            *&v136[4] = v104;
+            _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_INFO, "aci_download_power_tables: opcode 0x%04x pass", v136, 8u);
           }
 
 LABEL_216:
-          v100 += v101;
-          v45 -= v101;
+          v102 += v103;
+          v47 -= v103;
         }
 
-        while (v45);
+        while (v47);
         if (qword_1004EE428 != -1)
         {
           sub_10004989C();
         }
 
-        v120 = qword_1004EE430;
-        v60 = 0;
+        v122 = qword_1004EE430;
+        v62 = 0;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
-          *v134 = 0;
-          _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "Power tables download Done!", v134, 2u);
-          v60 = 0;
+          *v136 = 0;
+          _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_DEFAULT, "Power tables download Done!", v136, 2u);
+          v62 = 0;
         }
 
 LABEL_188:
-        *&v237 = 0;
+        *&v239 = 0;
+        v150 = 0u;
+        v151 = 0u;
         v148 = 0u;
         v149 = 0u;
         v146 = 0u;
@@ -2139,13 +2140,11 @@ LABEL_188:
         v141 = 0u;
         v138 = 0u;
         v139 = 0u;
-        v136 = 0u;
+        *v136 = 0u;
         v137 = 0u;
-        *v134 = 0u;
-        v135 = 0u;
-        LOBYTE(v235) = 0;
-        sub_100017C50(64817, &v235, 1uLL, v134, &v237, 14);
-        if (v134[3])
+        LOBYTE(v237) = 0;
+        sub_100017C50(64817, &v237, 1uLL, v136, &v239, 14);
+        if (v136[3])
         {
           if (qword_1004EE428 != -1)
           {
@@ -2171,10 +2170,10 @@ LABEL_188:
           }
         }
 
-        return v60;
+        return v62;
       case 'N':
-        v5 = qword_1004EE3C8;
-        v6 = 0;
+        v6 = qword_1004EE3C8;
+        v7 = 0;
         goto LABEL_74;
       case 'O':
         if (!dword_1004EE3D0)
@@ -2182,8 +2181,8 @@ LABEL_188:
           goto LABEL_142;
         }
 
-        v89 = sub_100044C84();
-        if (v89 && !strcmp(v89, "ACIFPGA"))
+        v91 = sub_100044C84();
+        if (v91 && !strcmp(v91, "ACIFPGA"))
         {
           sleep(2u);
         }
@@ -2195,16 +2194,16 @@ LABEL_188:
 
         return 0;
       case 'Q':
-        v58 = 0;
+        v60 = 0;
         goto LABEL_120;
       case 'R':
         memset(&buf[4], 0, 24);
         *buf = 419316737;
         CCRandomGenerateBytes(&buf[4], 0x18uLL);
-        v59 = off_1004EE3E0(qword_1004EE3C8, buf, 28);
-        if (v59 != -1)
+        v61 = off_1004EE3E0(qword_1004EE3C8, buf, 28);
+        if (v61 != -1)
         {
-          return sub_100007940(v59, 0xFE44u);
+          return sub_100007940(v61, 0xFE44u);
         }
 
         if (qword_1004EE428 != -1)
@@ -2219,39 +2218,41 @@ LABEL_188:
 
         return 0xFFFFLL;
       case 'S':
-        v47 = qword_1004EE3C8;
+        v49 = qword_1004EE3C8;
         bzero(buf, 0x780uLL);
-        bzero(v134, 0x780uLL);
+        bzero(v136, 0x780uLL);
         *&buf[8] = "cmd";
         *&buf[16] = "0x1009";
-        sub_100016F80(3, buf, v134);
+        sub_100016F80(3, buf, v136);
         *&buf[8] = "cmd";
         *&buf[16] = "0xc1a";
         *&buf[24] = "0x03";
-        sub_100016F80(4, buf, v134);
+        sub_100016F80(4, buf, v136);
         *&buf[8] = "cmd";
         *&buf[16] = "0xc05";
         *&buf[24] = "0x02";
-        *&v152 = "0x00";
-        *(&v152 + 1) = "0x03";
-        sub_100016F80(6, buf, v134);
+        *&v154 = "0x00";
+        *(&v154 + 1) = "0x03";
+        sub_100016F80(6, buf, v136);
         *&buf[8] = "cmd";
         *&buf[16] = "0xfe10";
         *&buf[24] = "0x01";
-        *&v152 = "0x78";
-        *(&v152 + 1) = "0xff";
-        *&v153 = "0x01";
-        *(&v153 + 1) = "0xff";
-        sub_100016F80(8, buf, v134);
+        *&v154 = "0x78";
+        *(&v154 + 1) = "0xff";
+        *&v155 = "0x01";
+        *(&v155 + 1) = "0xff";
+        sub_100016F80(8, buf, v136);
         *&buf[8] = "cmd";
         *&buf[16] = "0xfe11";
-        sub_100016F80(3, buf, v134);
-        sub_100006FE4(v47, "06:05:04:03:02:01");
+        sub_100016F80(3, buf, v136);
+        sub_100006FE4(v49, "06:05:04:03:02:01");
         return 0;
       case 'U':
-        WORD4(v235) = 0;
-        *&v235 = 0;
-        v150 = 0;
+        WORD4(v237) = 0;
+        *&v237 = 0;
+        v152 = 0;
+        v150 = 0u;
+        v151 = 0u;
         v148 = 0u;
         v149 = 0u;
         v146 = 0u;
@@ -2264,64 +2265,62 @@ LABEL_188:
         v141 = 0u;
         v138 = 0u;
         v139 = 0u;
-        v136 = 0u;
+        *v136 = 0u;
         v137 = 0u;
-        *v134 = 0u;
-        v135 = 0u;
-        *&v233 = 0;
+        *&v235 = 0;
         bzero(buf, 0x400uLL);
-        v27 = sub_100044C84();
+        v29 = sub_100044C84();
         off_1004EE3F0(qword_1004EE3C8, &unk_100051EAB, 3);
         do
         {
-          off_1004EE3F8(qword_1004EE3C8, v134, 258, &v233);
+          off_1004EE3F8(qword_1004EE3C8, v136, 258, &v235);
         }
 
-        while (v134[0] != 14);
-        __stream = *&v134[6];
-        v129 = *&v134[8];
-        v28 = *&v134[10];
-        v29 = *&v134[12];
-        if (v27)
+        while (v136[0] != 14);
+        __stream = *&v136[6];
+        v131 = *&v136[8];
+        v30 = *&v136[10];
+        v31 = *&v136[12];
+        if (v29)
         {
-          if (!strcmp(v27, "APPLE_M1"))
+          if (!strcmp(v29, "APPLE_M1"))
           {
-            LODWORD(v27) = *&v134[14];
-            v31 = v135;
-            v32 = WORD1(v135);
+            LODWORD(v29) = *&v136[14];
+            v33 = v137;
+            v34 = WORD1(v137);
           }
 
           else
           {
-            if (strcmp(v27, "APPLE_M2") && strcmp(v27, "APPLE_M2_5") && strcmp(v27, "PROXIMA"))
+            if (strcmp(v29, "APPLE_M2") && strcmp(v29, "APPLE_M2_5") && strcmp(v29, "PROXIMA"))
             {
-              v30 = 0;
-              v31 = 0;
               v32 = 0;
-              LODWORD(v27) = 0;
+              v33 = 0;
+              v34 = 0;
+              LODWORD(v29) = 0;
               goto LABEL_156;
             }
 
-            LODWORD(v27) = *&v134[14];
-            v32 = v135;
-            v31 = WORD1(v135);
+            LODWORD(v29) = *&v136[14];
+            v34 = v137;
+            v33 = WORD1(v137);
           }
 
-          v30 = WORD2(v135);
-          __sprintf_chk(buf, 0, 0x400uLL, "MAC FW Version: %d.%d.%d.%d, PHY FW Version: %d.%d.%d.%d", __stream, v129, v28, v29, v27, v31, v32, WORD2(v135));
+          v32 = WORD2(v137);
+          __sprintf_chk(buf, 0, 0x400uLL, "MAC FW Version: %d.%d.%d.%d, PHY FW Version: %d.%d.%d.%d", __stream, v131, v30, v31, v29, v33, v34, WORD2(v137));
         }
 
         else
         {
-          v30 = 0;
-          v31 = 0;
           v32 = 0;
+          v33 = 0;
+          v34 = 0;
         }
 
 LABEL_156:
-        sub_1000158B0();
-        LODWORD(v235) = 16654081;
-        if (off_1004EE3E0(qword_1004EE3C8, &v235, 4) == -1)
+        sub_1000158B0(buf);
+        LODWORD(v237) = 16654081;
+        if (off_1004EE3E0(qword_1004EE3C8, &v237, 4) == -1)
         {
           if (qword_1004EE428 != -1)
           {
@@ -2336,7 +2335,9 @@ LABEL_156:
 
         else
         {
-          v150 = 0;
+          v152 = 0;
+          v150 = 0u;
+          v151 = 0u;
           v148 = 0u;
           v149 = 0u;
           v146 = 0u;
@@ -2349,160 +2350,158 @@ LABEL_156:
           v141 = 0u;
           v138 = 0u;
           v139 = 0u;
-          v136 = 0u;
+          *v136 = 0u;
           v137 = 0u;
-          *v134 = 0u;
-          v135 = 0u;
           do
           {
-            off_1004EE3F8(qword_1004EE3C8, v134, 258, &v233);
+            off_1004EE3F8(qword_1004EE3C8, v136, 258, &v235);
           }
 
-          while (v134[0] != 14);
-          printf("pktlen %lu\n", v233);
-          v91.i32[0] = *&v134[2];
-          v92 = vmovl_u8(v91).u64[0];
-          if (vuzp1_s8(v92, v92).u32[0] == 16654081)
+          while (v136[0] != 14);
+          printf("pktlen %lu\n", v235);
+          v93.i32[0] = *&v136[2];
+          v94 = vmovl_u8(v93).u64[0];
+          if (vuzp1_s8(v94, v94).u32[0] == 16654081)
           {
-            dword_1004EC0D0 = v134[6];
-            dword_1004EC0D4 = v134[7];
-            if (v134[6] == 8 && v134[7] == 32)
+            dword_1004EC0D0 = v136[6];
+            dword_1004EC0D4 = v136[7];
+            if (v136[6] == 8 && v136[7] == 32)
             {
-              v93 = v27;
+              v95 = v29;
               if (qword_1004EE428 != -1)
               {
                 sub_1000492E0();
               }
 
-              v94 = qword_1004EE430;
+              v96 = qword_1004EE430;
               if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
               {
                 goto LABEL_167;
               }
 
-              LODWORD(v237) = 67109888;
-              DWORD1(v237) = v134[6];
-              WORD4(v237) = 1024;
-              *(&v237 + 10) = v134[7];
-              HIWORD(v237) = 1024;
-              v238 = v134[8];
-              v239 = 1024;
-              v240 = v134[9];
-              v95 = "Default ACI BGA SW version: %d.%d, chip revision: %d, chip mode=%d";
+              LODWORD(v239) = 67109888;
+              DWORD1(v239) = v136[6];
+              WORD4(v239) = 1024;
+              *(&v239 + 10) = v136[7];
+              HIWORD(v239) = 1024;
+              v240 = v136[8];
+              v241 = 1024;
+              v242 = v136[9];
+              v97 = "Default ACI BGA SW version: %d.%d, chip revision: %d, chip mode=%d";
             }
 
             else
             {
-              if (v134[6] > 1u || v134[6] == 1 && v134[7] >= 0xBu)
+              if (v136[6] > 1u || v136[6] == 1 && v136[7] >= 0xBu)
               {
-                v93 = v27;
+                v95 = v29;
                 if (qword_1004EE428 != -1)
                 {
                   sub_1000492B8();
                 }
 
-                v106 = qword_1004EE430;
+                v108 = qword_1004EE430;
                 if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
                 {
-                  LODWORD(v237) = 67110144;
-                  DWORD1(v237) = v134[6];
-                  WORD4(v237) = 1024;
-                  *(&v237 + 10) = v134[7];
-                  HIWORD(v237) = 1024;
-                  v238 = v134[8];
-                  v239 = 1024;
-                  v240 = v134[9];
+                  LODWORD(v239) = 67110144;
+                  DWORD1(v239) = v136[6];
+                  WORD4(v239) = 1024;
+                  *(&v239 + 10) = v136[7];
+                  HIWORD(v239) = 1024;
+                  v240 = v136[8];
                   v241 = 1024;
-                  v242 = v134[10];
-                  _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_INFO, "SW version: %d.%d.%d, chip revision: %d, chip mode=%d", &v237, 0x20u);
+                  v242 = v136[9];
+                  v243 = 1024;
+                  v244 = v136[10];
+                  _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_INFO, "SW version: %d.%d.%d, chip revision: %d, chip mode=%d", &v239, 0x20u);
                 }
 
-                dword_1004EDFB0 = v134[8];
-                v96 = 9;
+                dword_1004EDFB0 = v136[8];
+                v98 = 9;
 LABEL_234:
-                v107 = v96;
-                v108 = *(v134 | v96);
-                switch(v108)
+                v109 = v98;
+                v110 = *(v136 | v98);
+                switch(v110)
                 {
                   case 255:
-                    v109 = "CHIP is: FPGA";
+                    v111 = "CHIP is: FPGA";
                     break;
                   case 32:
-                    v109 = "CHIP is: BGA";
+                    v111 = "CHIP is: BGA";
                     break;
                   case 15:
-                    v109 = "CHIP is: TRIO";
+                    v111 = "CHIP is: TRIO";
                     break;
                   default:
 LABEL_288:
-                    printf("MAC FW Version:              %d.%d.%d.%d\n", __stream, v129, v28, v29);
-                    printf("PHY FW Version:              %d.%d.%d.%d\n", v93, v31, v32, v30);
-                    v119 = (v107 | v134);
-                    printf("Chip Revision:               %02x\n", *v119);
-                    printf("Chip mode:                   %02x\n", v119[1]);
-                    printf("ROOT Clock:                  %02x%02x\n", v119[3], v119[2]);
-                    printf("Slow Clock used:             %02x\n", v119[4]);
-                    printf("Process Type:                %02x\n", v119[5]);
-                    printf("ODP proccess:                %02x\n", v119[6]);
-                    if (v233 >= 0x3D)
+                    printf("MAC FW Version:              %d.%d.%d.%d\n", __stream, v131, v30, v31);
+                    printf("PHY FW Version:              %d.%d.%d.%d\n", v95, v33, v34, v32);
+                    v121 = (v109 | v136);
+                    printf("Chip Revision:               %02x\n", *v121);
+                    printf("Chip mode:                   %02x\n", v121[1]);
+                    printf("ROOT Clock:                  %02x%02x\n", v121[3], v121[2]);
+                    printf("Slow Clock used:             %02x\n", v121[4]);
+                    printf("Process Type:                %02x\n", v121[5]);
+                    printf("ODP proccess:                %02x\n", v121[6]);
+                    if (v235 >= 0x3D)
                     {
-                      printf("Deep Sleep Mode:             %02x\n", v119[7]);
-                      printf("Whitening Mode:              %02x\n", v119[8]);
-                      printf("CDC Mode:                    %02x\n", v119[9]);
-                      printf("Hopping Mode:                %02x\n", v119[10]);
-                      printf("HCI UART Baud Rate:          %02x%02x%02x%02x\n", v119[14], v119[13], v119[12], v119[11]);
-                      printf("Temperature Index:           %02x\n", v119[15]);
-                      printf("Detected Temperature:        %02x\n", v119[16]);
-                      printf("FREF/TCXO Clock:             %02x%02x\n", v119[18], v119[17]);
-                      printf("PLL Sharing Running Mode:    %02x\n", v119[19]);
-                      printf("RF Type:                     %02x\n", v119[20]);
-                      printf("RTL Version:                 %02x%02x\n", v119[22], v119[21]);
-                      printf("FPGA User Code:              %02x%02x%02x%02x\n", v119[26], v119[25], v119[24], v119[23]);
-                      printf("MAC bin id:                  %02x%02x%02x%02x\n", v119[30], v119[29], v119[28], v119[27]);
-                      printf("PHY bin id:                  %02x%02x%02x%02x\n", v119[34], v119[33], v119[32], v119[31]);
+                      printf("Deep Sleep Mode:             %02x\n", v121[7]);
+                      printf("Whitening Mode:              %02x\n", v121[8]);
+                      printf("CDC Mode:                    %02x\n", v121[9]);
+                      printf("Hopping Mode:                %02x\n", v121[10]);
+                      printf("HCI UART Baud Rate:          %02x%02x%02x%02x\n", v121[14], v121[13], v121[12], v121[11]);
+                      printf("Temperature Index:           %02x\n", v121[15]);
+                      printf("Detected Temperature:        %02x\n", v121[16]);
+                      printf("FREF/TCXO Clock:             %02x%02x\n", v121[18], v121[17]);
+                      printf("PLL Sharing Running Mode:    %02x\n", v121[19]);
+                      printf("RF Type:                     %02x\n", v121[20]);
+                      printf("RTL Version:                 %02x%02x\n", v121[22], v121[21]);
+                      printf("FPGA User Code:              %02x%02x%02x%02x\n", v121[26], v121[25], v121[24], v121[23]);
+                      printf("MAC bin id:                  %02x%02x%02x%02x\n", v121[30], v121[29], v121[28], v121[27]);
+                      printf("PHY bin id:                  %02x%02x%02x%02x\n", v121[34], v121[33], v121[32], v121[31]);
                     }
 
                     off_1004EE3F0(qword_1004EE3C8, &unk_100052361, 3);
                     do
                     {
-                      off_1004EE3F8(qword_1004EE3C8, v134, 258, &v233);
+                      off_1004EE3F8(qword_1004EE3C8, v136, 258, &v235);
                     }
 
-                    while (v134[0] != 14);
+                    while (v136[0] != 14);
                     printf("Bluetooth Address:           %02x:%02x:%02x:%02x:%02x:%02x\n");
                     return 0;
                 }
 
-                puts(v109);
+                puts(v111);
                 goto LABEL_288;
               }
 
-              v93 = v27;
+              v95 = v29;
               if (qword_1004EE428 != -1)
               {
                 sub_100049290();
               }
 
-              v94 = qword_1004EE430;
+              v96 = qword_1004EE430;
               if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
               {
 LABEL_167:
-                v96 = 8;
+                v98 = 8;
                 goto LABEL_234;
               }
 
-              LODWORD(v237) = 67109888;
-              DWORD1(v237) = v134[6];
-              WORD4(v237) = 1024;
-              *(&v237 + 10) = v134[7];
-              HIWORD(v237) = 1024;
-              v238 = v134[8];
-              v239 = 1024;
-              v240 = v134[9];
-              v95 = "SW version: %d.%d, chip revision: %d, chip mode=%d";
+              LODWORD(v239) = 67109888;
+              DWORD1(v239) = v136[6];
+              WORD4(v239) = 1024;
+              *(&v239 + 10) = v136[7];
+              HIWORD(v239) = 1024;
+              v240 = v136[8];
+              v241 = 1024;
+              v242 = v136[9];
+              v97 = "SW version: %d.%d, chip revision: %d, chip mode=%d";
             }
 
-            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_INFO, v95, &v237, 0x1Au);
+            _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, v97, &v239, 0x1Au);
             goto LABEL_167;
           }
 
@@ -2512,67 +2511,67 @@ LABEL_167:
             sub_100049268();
           }
 
-          v97 = qword_1004EE430;
+          v99 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v237) = 67110656;
-            DWORD1(v237) = v134[2];
-            WORD4(v237) = 1024;
-            *(&v237 + 10) = v134[3];
-            HIWORD(v237) = 1024;
-            v238 = v134[4];
-            v239 = 1024;
-            v240 = v134[5];
+            LODWORD(v239) = 67110656;
+            DWORD1(v239) = v136[2];
+            WORD4(v239) = 1024;
+            *(&v239 + 10) = v136[3];
+            HIWORD(v239) = 1024;
+            v240 = v136[4];
             v241 = 1024;
-            v242 = v134[6];
+            v242 = v136[5];
             v243 = 1024;
-            v244 = v134[7];
+            v244 = v136[6];
             v245 = 1024;
-            v246 = 65055;
-            _os_log_error_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "EVNT: Invalid opcode Got:[0x%x 0x%x 0x%x 0x%x 0x%x 0x%x], waiting for [0x%x] !", &v237, 0x2Cu);
+            v246 = v136[7];
+            v247 = 1024;
+            v248 = 65055;
+            _os_log_error_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "EVNT: Invalid opcode Got:[0x%x 0x%x 0x%x 0x%x 0x%x 0x%x], waiting for [0x%x] !", &v239, 0x2Cu);
           }
         }
 
         return 0xFFFFLL;
       case 'V':
-        if (sub_100041FEC() == 6)
+        if (sub_100041FEC(v4, v5) == 6)
         {
-          v19 = "Using ACI Chipset changes (ACI_BT_SW_%d_%04d_%04d, transport AppleBTHci)\n\n";
+          v20 = "Using ACI Chipset changes (ACI_BT_SW_%d_%04d_%04d, transport AppleBTHci)\n\n";
         }
 
         else
         {
-          v19 = "Using ACI Chipset changes (ACI_BT_SW_%d_%04d_%04d)\n\n";
+          v20 = "Using ACI Chipset changes (ACI_BT_SW_%d_%04d_%04d)\n\n";
         }
 
-        printf(v19, 9, 27, 25);
+        printf(v20, 9, 27, 25);
         return 0;
       case 'W':
         if (!dword_1004EE3D0)
         {
 LABEL_142:
-          v60 = 1;
+          v62 = 1;
           fwrite("First open the port with device -D command\n", 0x2BuLL, 1uLL, __stderrp);
-          return v60;
+          return v62;
         }
 
-        v22 = qword_1004EE3C8;
+        v23 = qword_1004EE3C8;
         off_1004EE410(qword_1004EE3C8);
-        v23 = sub_100007CD8();
+        v24 = sub_100007CD8();
         if (qword_1004EE428 != -1)
         {
           sub_100049A58();
         }
 
-        v24 = qword_1004EE430;
+        v25 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          *&buf[4] = v23;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "aci_platform=%d\n", buf, 8u);
+          *&buf[4] = v24;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "aci_platform=%d\n", buf, 8u);
         }
 
-        if (v23 > 1)
+        if (v24 > 1)
         {
           if (qword_1004EE428 != -1)
           {
@@ -2594,19 +2593,20 @@ LABEL_142:
               sub_100049B04();
             }
 
-            v25 = qword_1004EE430;
+            v26 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Using default init file\n", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Using default init file\n", buf, 2u);
             }
 
-            if (sub_10001382C())
+            v27 = sub_10001382C();
+            if (v27)
             {
-              sub_1000158B0();
+              sub_1000158B0(v27);
             }
 
-            v26 = sub_100008A60(v22, sub_100008C58);
+            v28 = sub_100008A60(v23, sub_100008C58);
           }
 
           else
@@ -2616,18 +2616,18 @@ LABEL_142:
               sub_100049B2C();
             }
 
-            v118 = qword_1004EE430;
+            v120 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
               *&buf[4] = "/etc/bluetool/aci_init.hcd";
-              _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_INFO, "Using non-default init file: %s\n", buf, 0xCu);
+              _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_INFO, "Using non-default init file: %s\n", buf, 0xCu);
             }
 
-            v26 = sub_100006C60(v22, "/etc/bluetool/aci_init.hcd");
+            v28 = sub_100006C60(v23, "/etc/bluetool/aci_init.hcd");
           }
 
-          if (v26)
+          if (v28)
           {
             if (qword_1004EE428 != -1)
             {
@@ -2647,41 +2647,43 @@ LABEL_142:
               sub_100049BEC();
             }
 
-            v117 = qword_1004EE430;
+            v119 = qword_1004EE430;
             if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
             {
               *buf = 67109120;
-              *&buf[4] = v23;
-              v112 = "INIT Done! for aci_platform=%d\n";
+              *&buf[4] = v24;
+              v114 = "INIT Done! for aci_platform=%d\n";
 LABEL_278:
-              v113 = v117;
-              v114 = 8;
+              v115 = v119;
+              v116 = 8;
 LABEL_279:
-              _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_INFO, v112, buf, v114);
+              _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_INFO, v114, buf, v116);
             }
           }
         }
 
         return 0;
       case 'a':
-        v14 = qword_1004EE3C8;
-        v15 = optarg;
+        v15 = qword_1004EE3C8;
+        v16 = optarg;
 LABEL_132:
 
-        return sub_100006FE4(v14, v15);
+        return sub_100006FE4(v15, v16);
       case 'b':
-        if (sub_100041FEC() == 6)
+        if (sub_100041FEC(v4, v5) == 6)
         {
           return 0;
         }
 
-        v20 = qword_1004EE3C8;
-        v21 = optarg;
+        v21 = qword_1004EE3C8;
+        v22 = optarg;
 LABEL_123:
 
-        return sub_100006E8C(v20, v21);
+        return sub_100006E8C(v21, v22);
       case 'c':
-        v7 = qword_1004EE3C8;
+        v8 = qword_1004EE3C8;
+        v166 = 0u;
+        v167 = 0u;
         v164 = 0u;
         v165 = 0u;
         v162 = 0u;
@@ -2694,44 +2696,42 @@ LABEL_123:
         v157 = 0u;
         v154 = 0u;
         v155 = 0u;
-        v152 = 0u;
-        v153 = 0u;
         memset(buf, 0, sizeof(buf));
-        v134[0] = 0;
+        v136[0] = 0;
         off_1004EE410(qword_1004EE3C8);
-        v8 = fopen("/Users/doronk/test_temp/acl_data.txt", "w+");
+        v9 = fopen("/Users/doronk/test_temp/acl_data.txt", "w+");
           ;
         }
 
-        if (v134[0] == 2)
+        if (v136[0] == 2)
         {
-          read(v7, buf, 4uLL);
-          v9 = buf[3];
-          v10 = buf[2];
-          v11 = buf[2] | (buf[3] << 8);
+          read(v8, buf, 4uLL);
+          v10 = buf[3];
+          v11 = buf[2];
+          v12 = buf[2] | (buf[3] << 8);
           fprintf(__stderrp, "ACL data header 4 bytes=0x%x, 0x%x, 0x%x, 0x%x\n", buf[0], buf[1], buf[2], buf[3]);
-          fprintf(__stderrp, "ACL data length=%d\n", v11);
-          read(v7, buf, v11);
-          if (v11)
+          fprintf(__stderrp, "ACL data length=%d\n", v12);
+          read(v8, buf, v12);
+          if (v12)
           {
-            v12 = 0;
-            v13 = ((v9 << 8) + v10);
+            v13 = 0;
+            v14 = ((v10 << 8) + v11);
             do
             {
-              fprintf(__stderrp, "Data %d = 0x%x\n", v12, buf[v12]);
-              fprintf(v8, "%d", buf[v12++]);
+              fprintf(__stderrp, "Data %d = 0x%x\n", v13, buf[v13]);
+              fprintf(v9, "%d", buf[v13++]);
             }
 
-            while (v13 != v12);
+            while (v14 != v13);
           }
         }
 
         else
         {
-          fprintf(__stderrp, "No ACL data, first byte=%d\n", v134[0]);
+          fprintf(__stderrp, "No ACL data, first byte=%d\n", v136[0]);
         }
 
-        v90 = v8;
+        v92 = v9;
         goto LABEL_141;
       case 'h':
         fprintf(__stderrp, "%s - ACI Specific Commands\n", *v2);
@@ -2759,93 +2759,93 @@ LABEL_123:
         fputc(10, __stderrp);
         return 0;
       case 'n':
-        v5 = qword_1004EE3C8;
-        v6 = optarg;
+        v6 = qword_1004EE3C8;
+        v7 = optarg;
 LABEL_74:
 
-        return sub_1000071D8(v5, v6);
+        return sub_1000071D8(v6, v7);
       case 'o':
         return 0;
       case 'p':
         *buf = 33519616;
         goto LABEL_136;
       case 'q':
-        v58 = optarg;
+        v60 = optarg;
 LABEL_120:
-        sub_100007430(v58);
+        sub_100007430(v60);
         return 0;
       case 'r':
 
         return sub_100014158(1);
       case 's':
-        v61 = qword_1004EE3C8;
+        v63 = qword_1004EE3C8;
+        v158 = 0u;
+        v159 = 0u;
         v156 = 0u;
         v157 = 0u;
         v154 = 0u;
         v155 = 0u;
-        v152 = 0u;
-        v153 = 0u;
         memset(buf, 0, sizeof(buf));
-        v134[0] = 0;
+        v136[0] = 0;
         off_1004EE410(qword_1004EE3C8);
         __streama = fopen("/Users/doronk/test_temp/sco_data.txt", "w");
         do
         {
-          v62 = read(v61, v134, 1uLL);
+          v64 = read(v63, v136, 1uLL);
           usleep(0x3E8u);
         }
 
-        while ((v62 + 1) < 2);
-        v63 = 0;
-        v64 = 1;
+        while ((v64 + 1) < 2);
+        v65 = 0;
+        v66 = 1;
         while (1)
         {
-          if ((v64 & 1) == 0)
+          if ((v66 & 1) == 0)
           {
               ;
             }
           }
 
-          fprintf(__stderrp, "header=0x%x\n", v134[0]);
-          if (v134[0] == 3)
+          fprintf(__stderrp, "header=0x%x\n", v136[0]);
+          if (v136[0] == 3)
           {
-            v78 = 0;
-            v79 = 0;
+            v80 = 0;
+            v81 = 0;
             do
             {
-              v80 = v78;
-              v81 = read(v61, &buf[v79], 1uLL);
-              v79 += v81 & ~(v81 >> 63);
-              v78 = v80 + 1;
+              v82 = v80;
+              v83 = read(v63, &buf[v81], 1uLL);
+              v81 += v83 & ~(v83 >> 63);
+              v80 = v82 + 1;
             }
 
-            while (v79 <= 2u && v80 < 0x752F);
-            if (v80 <= 0x752E)
+            while (v81 <= 2u && v82 < 0x752F);
+            if (v82 <= 0x752E)
             {
-              v83 = buf[2];
+              v85 = buf[2];
               if (!buf[2])
               {
                 goto LABEL_117;
               }
 
-              v84 = 0;
-              v85 = 0;
+              v86 = 0;
+              v87 = 0;
               do
               {
-                v86 = v84;
-                v87 = read(v61, &buf[v85], 1uLL);
-                v85 += v87 & ~(v87 >> 63);
-                v84 = v86 + 1;
+                v88 = v86;
+                v89 = read(v63, &buf[v87], 1uLL);
+                v87 += v89 & ~(v89 >> 63);
+                v86 = v88 + 1;
               }
 
-              while (v83 > v85 && v86 < 0x752F);
-              if (v86 <= 0x752E)
+              while (v85 > v87 && v88 < 0x752F);
+              if (v88 <= 0x752E)
               {
 LABEL_117:
-                fprintf(__stderrp, "count = %d, length=%d\n", ++v63, v83);
-                fwrite(buf, 1uLL, v83, __streama);
+                fprintf(__stderrp, "count = %d, length=%d\n", ++v65, v85);
+                fwrite(buf, 1uLL, v85, __streama);
 LABEL_118:
-                v64 = 0;
+                v66 = 0;
                 continue;
               }
             }
@@ -2853,54 +2853,54 @@ LABEL_118:
             return 1;
           }
 
-          if (v134[0] != 4)
+          if (v136[0] != 4)
           {
             break;
           }
 
-          v65 = 0;
-          v66 = 0;
+          v67 = 0;
+          v68 = 0;
           do
           {
-            v67 = v65;
-            v68 = read(v61, &buf[v66], 1uLL);
-            v66 += v68 & ~(v68 >> 63);
-            v65 = v67 + 1;
+            v69 = v67;
+            v70 = read(v63, &buf[v68], 1uLL);
+            v68 += v70 & ~(v70 >> 63);
+            v67 = v69 + 1;
           }
 
-          while (v66 <= 1u && v67 < 0x752F);
-          if (v67 > 0x752E)
+          while (v68 <= 1u && v69 < 0x752F);
+          if (v69 > 0x752E)
           {
             return 1;
           }
 
           fprintf(__stderrp, "Event opcode=0x%x, length=%d\n", buf[0], buf[1]);
-          v64 = 0;
-          v70 = buf[1];
+          v66 = 0;
+          v72 = buf[1];
           if (buf[1])
           {
-            v71 = 0;
-            v72 = 0;
+            v73 = 0;
+            v74 = 0;
             do
             {
-              v73 = v71;
-              v74 = read(v61, &buf[v72], 1uLL);
-              v72 += v74 & ~(v74 >> 63);
-              v71 = v73 + 1;
+              v75 = v73;
+              v76 = read(v63, &buf[v74], 1uLL);
+              v74 += v76 & ~(v76 >> 63);
+              v73 = v75 + 1;
             }
 
-            while (v70 > v72 && v73 < 0x752F);
-            if (v73 <= 0x752E)
+            while (v72 > v74 && v75 < 0x752F);
+            if (v75 <= 0x752E)
             {
-              v76 = buf;
+              v78 = buf;
               do
               {
-                v77 = *v76++;
-                fprintf(__stderrp, "R: 0x%02x\n", v77);
-                --v70;
+                v79 = *v78++;
+                fprintf(__stderrp, "R: 0x%02x\n", v79);
+                --v72;
               }
 
-              while (v70);
+              while (v72);
               goto LABEL_118;
             }
 
@@ -2908,10 +2908,10 @@ LABEL_118:
           }
         }
 
-        fprintf(__stderrp, "No H4 data, first byte=%d, finish reading\n", v134[0]);
-        v90 = __streama;
+        fprintf(__stderrp, "No H4 data, first byte=%d, finish reading\n", v136[0]);
+        v92 = __streama;
 LABEL_141:
-        fclose(v90);
+        fclose(v92);
         return 0;
       case 't':
         *buf = 33519617;
@@ -2920,10 +2920,10 @@ LABEL_136:
         sub_100017C50(65040, buf, 5uLL, 0, 0, 0);
         return 0;
       case 'w':
-        v16 = qword_1004EE3C8;
-        v17 = optarg;
+        v17 = qword_1004EE3C8;
+        v18 = optarg;
 
-        return sub_100006C60(v16, v17);
+        return sub_100006C60(v17, v18);
       default:
         if (v4 == -1)
         {
@@ -2983,7 +2983,7 @@ uint64_t sub_100006C60(uint64_t a1, char *a2)
   qword_1004EDFA8 = fopen(a2, "r");
   if (qword_1004EDFA8)
   {
-    sub_1000158B0();
+    sub_1000158B0(a2);
     v8 = sub_100008A60(a1, sub_1000091E8);
     fclose(qword_1004EDFA8);
   }
@@ -3733,7 +3733,7 @@ uint64_t sub_100008138(const char *a1, uint64_t a2)
     return 0xFFFFFFFFLL;
   }
 
-  v6 = (a1 + 1);
+  v6 = a1 + 1;
   for (i = 5; i != -1; --i)
   {
     v8 = *(v6 - 1);
@@ -4043,7 +4043,7 @@ uint64_t sub_100008A60(uint64_t a1, uint64_t (*a2)(_BYTE *))
 
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
-      sub_10004A2EC(v5);
+      sub_10004A2EC();
     }
   }
 
@@ -4232,8 +4232,9 @@ uint64_t sub_100009834(const char *a1, void **a2, _WORD *a3)
   return 0;
 }
 
-void sub_100009A58(const char *a1, int a2)
+void sub_100009A58(const char *a1, uint64_t a2)
 {
+  v2 = a2;
   v15 = 0;
   v14 = 0;
   v13 = 0;
@@ -4249,7 +4250,7 @@ void sub_100009A58(const char *a1, int a2)
   }
 
   v4 = v3;
-  fprintf(__stderrp, "MSF-M2: type %d. file 0x%x. size %d.\n", a2, v15, v14);
+  fprintf(__stderrp, "MSF-M2: type %d. file 0x%x. size %d.\n", v2, v15, v14);
   if (qword_1004EE428 != -1)
   {
     sub_10004A514();
@@ -4312,7 +4313,7 @@ LABEL_13:
         v10 = v6;
       }
 
-      buf[0] = a2;
+      buf[0] = v2;
       *&buf[1] = 0;
       *&buf[3] = v8;
       buf[5] = v10;
@@ -4331,7 +4332,7 @@ LABEL_13:
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
         {
           *v16 = 67109376;
-          v17 = a2;
+          v17 = v2;
           v18 = 1024;
           v19 = v11;
           _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "MSF-M2 type %d Error in Cal data. reason %d", v16, 0xEu);
@@ -4512,27 +4513,27 @@ uint64_t sub_100009E14(int a1, char **a2, char **a3)
           _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "ready to configure I2S PCM and GPIO pins from %s", &buf, 0xCu);
         }
 
-        BYTE4(v134) = 0;
-        LODWORD(v134) = 0;
-        *v131 = 0;
-        v155 = 0u;
+        BYTE4(v135) = 0;
+        LODWORD(v135) = 0;
+        *v132 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
-        v31 = &v134;
-        v32 = v131;
+        v143 = 0u;
+        v31 = &v135;
+        v32 = v132;
         v33 = -86;
         goto LABEL_157;
       case 'Q':
@@ -4567,26 +4568,26 @@ uint64_t sub_100009E14(int a1, char **a2, char **a3)
 
         v16 = optarg;
         v17 = objc_autoreleasePoolPush();
-        v140 = 0;
-        v138[4] = 0;
-        *v138 = 921601;
-        v130 = 0;
-        v155 = 0u;
+        v141 = 0;
+        v139[4] = 0;
+        *v139 = 921601;
+        v131 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
+        v143 = 0u;
         v18 = [[NSString stringWithUTF8String:?], "componentsSeparatedByString:", @", "];
         if ([(NSArray *)v18 count]>= 5)
         {
@@ -4594,27 +4595,27 @@ uint64_t sub_100009E14(int a1, char **a2, char **a3)
           goto LABEL_192;
         }
 
-        v136 = 0u;
         v137 = 0u;
-        v134 = 0u;
+        v138 = 0u;
         v135 = 0u;
-        v73 = [(NSArray *)v18 countByEnumeratingWithState:&v134 objects:v131 count:16];
+        v136 = 0u;
+        v73 = [(NSArray *)v18 countByEnumeratingWithState:&v135 objects:v132 count:16];
         if (v73)
         {
           v74 = 0;
-          v75 = *v135;
+          v75 = *v136;
           while (1)
           {
             v76 = 0;
             v77 = v74;
             do
             {
-              if (*v135 != v75)
+              if (*v136 != v75)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v78 = [*(*(&v134 + 1) + 8 * v76) intValue];
+              v78 = [*(*(&v135 + 1) + 8 * v76) intValue];
               if (v78 >= 0x10000)
               {
                 v19 = "Parameter out of range";
@@ -4626,19 +4627,19 @@ LABEL_193:
               }
 
               v74 = v77 + 1;
-              *(&v140 + v77) = v78;
+              *(&v141 + v77) = v78;
               v76 = v76 + 1;
               ++v77;
             }
 
             while (v73 != v76);
-            v73 = [(NSArray *)v18 countByEnumeratingWithState:&v134 objects:v131 count:16];
+            v73 = [(NSArray *)v18 countByEnumeratingWithState:&v135 objects:v132 count:16];
             if (!v73)
             {
-              v79 = v140;
-              LODWORD(v73) = WORD1(v140);
-              v80 = WORD2(v140);
-              v81 = HIWORD(v140);
+              v79 = v141;
+              LODWORD(v73) = WORD1(v141);
+              v80 = WORD2(v141);
+              v81 = HIWORD(v141);
               goto LABEL_209;
             }
           }
@@ -4649,11 +4650,11 @@ LABEL_193:
         v79 = 0;
 LABEL_209:
         fprintf(__stderrp, "RSSI Sweep Results:\n# Iteration: %d\nStart Frequency: %d MHz \nStop Frequency: %d MHz \nGain: %d\n", v79, v73, v80, v81);
-        *&v138[1] = v79;
-        *&v138[5] = v73;
-        *&v138[7] = v80;
-        v139 = v81;
-        sub_100017C50(64767, v138, 0xAuLL, &buf, &v130, 14);
+        *&v139[1] = v79;
+        *&v139[5] = v73;
+        *&v139[7] = v80;
+        v140 = v81;
+        sub_100017C50(64767, v139, 0xAuLL, &buf, &v131, 14);
         if (BYTE3(buf))
         {
           if (qword_1004EE428 != -1)
@@ -4663,7 +4664,7 @@ LABEL_209:
 
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
           {
-            sub_10004A890(&buf + 3);
+            sub_10004A890();
           }
 
           printf("RSSI Sweep failed! Error code %02X", BYTE3(buf));
@@ -4672,17 +4673,17 @@ LABEL_209:
 
         if (v80 - v73 >= 0)
         {
-          v125 = (v80 - v73 + 8) - 7;
-          v126 = &buf + 7;
+          v126 = (v80 - v73 + 8) - 7;
+          v127 = &buf + 7;
           do
           {
-            v127 = *v126++;
-            fprintf(__stderrp, "%d MHz: %d dBm \n", v73, v127 | 0xFFFFFF00);
+            v128 = *v127++;
+            fprintf(__stderrp, "%d MHz: %d dBm \n", v73, v128 | 0xFFFFFF00);
             LODWORD(v73) = v73 + 1;
-            --v125;
+            --v126;
           }
 
-          while (v125);
+          while (v126);
         }
 
         fputc(10, __stderrp);
@@ -4727,9 +4728,10 @@ LABEL_196:
 
         else
         {
-          if (sub_10001382C())
+          v84 = sub_10001382C();
+          if (v84)
           {
-            sub_1000158B0();
+            sub_1000158B0(v84);
           }
 
           return sub_10000E3E8(v38, sub_1000102E0);
@@ -4783,49 +4785,49 @@ LABEL_196:
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ready to read power counter from %s", &buf, 0xCu);
         }
 
-        *v138 = 1008;
-        v155 = 0u;
+        *v139 = 1008;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
-        *v131 = 0;
-        sub_100017E2C(v138, 2uLL, &buf, v131);
-        if (*v131 == 15 && buf == 240 && BYTE2(buf) == 3)
+        v143 = 0u;
+        *v132 = 0;
+        sub_100017E2C(v139, 2uLL, &buf, v132);
+        if (*v132 == 15 && buf == 240 && BYTE2(buf) == 3)
         {
-          v88 = 5 * *(&buf + 3);
+          v89 = 5 * *(&buf + 3);
           if (qword_1004EE428 != -1)
           {
             sub_10004AC14();
           }
 
-          v89 = 2 * v88;
-          v90 = qword_1004EE430;
+          v90 = 2 * v89;
+          v91 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            LODWORD(v134) = 67109120;
-            DWORD1(v134) = v89;
-            _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "power=%u", &v134, 8u);
+            LODWORD(v135) = 67109120;
+            DWORD1(v135) = v90;
+            _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "power=%u", &v135, 8u);
           }
 
           if (a3)
           {
-            v91 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
-            *a3 = v91;
-            if (v91)
+            v92 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
+            *a3 = v92;
+            if (v92)
             {
-              __sprintf_chk(v91, 0, 0x40uLL, "power=%u", v89);
+              __sprintf_chk(v92, 0, 0x40uLL, "power=%u", v90);
             }
           }
 
@@ -4848,32 +4850,32 @@ LABEL_196:
           _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "ready to set I2S GPIO lines from %s", &buf, 0xCu);
         }
 
-        BYTE2(v134) = 0;
-        LOWORD(v134) = 2307;
-        v138[2] = 0;
-        *v138 = 2308;
-        strcpy(&v140, "\a\t");
-        *v131 = 0;
-        v155 = 0u;
+        BYTE2(v135) = 0;
+        LOWORD(v135) = 2307;
+        v139[2] = 0;
+        *v139 = 2308;
+        strcpy(&v141, "\a\t");
+        *v132 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
-        sub_100017C50(64537, &v134, 3uLL, &buf, v131, 14);
-        sub_100017C50(64537, v138, 3uLL, &buf, v131, 14);
-        v31 = &v140;
-        v32 = v131;
+        v143 = 0u;
+        sub_100017C50(64537, &v135, 3uLL, &buf, v132, 14);
+        sub_100017C50(64537, v139, 3uLL, &buf, v132, 14);
+        v31 = &v141;
+        v32 = v132;
         v33 = -999;
         v36 = 3;
         goto LABEL_158;
@@ -5004,9 +5006,9 @@ LABEL_196:
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ready to route SCO over PCM from %s", &buf, 0xCu);
         }
 
-        BYTE4(v134) = 0;
-        LODWORD(v134) = 0x10000;
-        v138[4] = 9;
+        BYTE4(v135) = 0;
+        LODWORD(v135) = 0x10000;
+        v139[4] = 9;
         v12 = 134809857;
         goto LABEL_156;
       case 'q':
@@ -5043,26 +5045,26 @@ LABEL_62:
 
         v51 = optarg;
         v52 = strchr(optarg, 61);
-        memset(v133, 0, sizeof(v133));
-        v132 = 0u;
-        memset(&v131[4], 0, 208);
-        *&v134 = 0;
-        v155 = 0u;
+        memset(v134, 0, sizeof(v134));
+        v133 = 0u;
+        memset(&v132[4], 0, 208);
+        *&v135 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
+        v143 = 0u;
         if (!v52)
         {
           return 0xFFFFFFFFLL;
@@ -5076,13 +5078,13 @@ LABEL_62:
           return v14;
         }
 
-        *v131 = v54;
+        *v132 = v54;
         v55 = 4;
         while (*v53)
         {
           *v53 = 0;
           v56 = v53 + 1;
-          v131[v55] = strtol(v56, 0, 0);
+          v132[v55] = strtol(v56, 0, 0);
           v57 = strchr(v56, 44);
           v58 = v55 + 1;
           if (v55 <= 0xFD)
@@ -5101,8 +5103,8 @@ LABEL_62:
         v58 = v55;
 LABEL_216:
         v36 = v58;
-        v31 = v131;
-        v32 = &v134;
+        v31 = v132;
+        v32 = &v135;
         v33 = -948;
 LABEL_158:
         sub_100017C50(v33, v31, v36, &buf, v32, 14);
@@ -5136,32 +5138,32 @@ LABEL_158:
           _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "ready to route SCO over HCI from %s", &buf, 0xCu);
         }
 
-        BYTE4(v134) = 0;
-        LODWORD(v134) = 65537;
-        v138[4] = 9;
+        BYTE4(v135) = 0;
+        LODWORD(v135) = 65537;
+        v139[4] = 9;
         v12 = 151587073;
 LABEL_156:
-        *v138 = v12;
-        *v131 = 0;
-        v155 = 0u;
+        *v139 = v12;
+        *v132 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
-        sub_100017C50(64609, v138, 5uLL, &buf, v131, 14);
-        v31 = &v134;
-        v32 = v131;
+        v143 = 0u;
+        sub_100017C50(64609, v139, 5uLL, &buf, v132, 14);
+        v31 = &v135;
+        v32 = v132;
         v33 = -996;
 LABEL_157:
         v36 = 5;
@@ -5197,22 +5199,22 @@ LABEL_157:
         }
 
         v60 = sub_100044574();
-        v155 = 0u;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
+        v143 = 0u;
         sub_100044C84();
         if (sub_10000FF8C(0))
         {
@@ -5221,53 +5223,53 @@ LABEL_157:
 
         else
         {
-          memset(v131, 0, 144);
+          memset(v132, 0, 144);
           snprintf(&buf, 0x80uLL, "/etc/bluetool/%s.boot.script", v60);
-          if (!stat(&buf, v131))
+          if (!stat(&buf, v132))
           {
-            v93 = fopen(&buf, "r");
-            if (v93)
+            v94 = fopen(&buf, "r");
+            if (v94)
             {
-              v94 = v93;
-              v95 = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
-              if (v95)
+              v95 = v94;
+              v96 = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
+              if (v96)
               {
-                v96 = v95;
-                while (!feof(v94))
+                v97 = v96;
+                while (!feof(v95))
                 {
-                  v97 = fgets(v96, 1024, v94);
-                  if (v97)
+                  v98 = fgets(v97, 1024, v95);
+                  if (v98)
                   {
-                    v98 = v97;
-                    v99 = strlen(v97);
-                    if (v99 >= 0xA)
+                    v99 = v98;
+                    v100 = strlen(v98);
+                    if (v100 >= 0xA)
                     {
-                      v98[v99 - 1] = 0;
-                      if (!strncmp(v98, "bcm -w ", 7uLL))
+                      v99[v100 - 1] = 0;
+                      if (!strncmp(v99, "bcm -w ", 7uLL))
                       {
-                        fprintf(__stdoutp, "File firmware is %s\n", v98 + 7);
+                        fprintf(__stdoutp, "File firmware is %s\n", v99 + 7);
                       }
                     }
                   }
                 }
 
-                fclose(v94);
-                free(v96);
+                fclose(v95);
+                free(v97);
               }
 
               else
               {
-                fclose(v94);
+                fclose(v95);
               }
             }
           }
 
-          v84 = __stdoutp;
-          v85 = sub_10001382C();
-          fprintf(v84, "Default firmware is %s\n", v85);
-          v86 = __stdoutp;
+          v85 = __stdoutp;
+          v86 = sub_10001382C();
+          fprintf(v85, "Default firmware is %s\n", v86);
+          v87 = __stdoutp;
           sub_100044C84();
-          fprintf(v86, "Chipset is %s\n");
+          fprintf(v87, "Chipset is %s\n");
         }
 
         return 0;
@@ -5302,23 +5304,23 @@ LABEL_157:
           _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "ready to load regulatory power table from %s", &buf, 0xCu);
         }
 
-        *v138 = 0;
-        v155 = 0u;
+        *v139 = 0;
         v156 = 0u;
-        v153 = 0u;
+        v157 = 0u;
         v154 = 0u;
-        v151 = 0u;
+        v155 = 0u;
         v152 = 0u;
-        v149 = 0u;
+        v153 = 0u;
         v150 = 0u;
-        v147 = 0u;
+        v151 = 0u;
         v148 = 0u;
-        v145 = 0u;
+        v149 = 0u;
         v146 = 0u;
-        v143 = 0u;
+        v147 = 0u;
         v144 = 0u;
+        v145 = 0u;
         buf = 0u;
-        v142 = 0u;
+        v143 = 0u;
         v64 = sub_100044C84();
         v65 = sub_100044574();
         v66 = sub_1000158A4();
@@ -5338,7 +5340,7 @@ LABEL_157:
               goto LABEL_242;
             }
 
-            v92 = "Macadamia";
+            v93 = "Macadamia";
           }
 
           else
@@ -5384,10 +5386,10 @@ LABEL_157:
               goto LABEL_242;
             }
 
-            v92 = "Redwood";
+            v93 = "Redwood";
           }
 
-          if (!strnstr(v66, v92, 0x400uLL))
+          if (!strnstr(v66, v93, 0x400uLL))
           {
             v68 = 520;
             goto LABEL_244;
@@ -5412,9 +5414,9 @@ LABEL_244:
           goto LABEL_244;
         }
 
-        v100 = strnstr(v66, "MeekoB", 0x400uLL);
-        v67 = v100 != 0;
-        if (v100)
+        v101 = strnstr(v66, "MeekoB", 0x400uLL);
+        v67 = v101 != 0;
+        if (v101)
         {
           v68 = 378;
         }
@@ -5430,15 +5432,15 @@ LABEL_245:
           sub_10004A58C();
         }
 
-        v101 = qword_1004EE430;
+        v102 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
-          *v131 = 67109120;
-          *&v131[4] = v68;
-          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "Expected ptb size is %d", v131, 8u);
+          *v132 = 67109120;
+          *&v132[4] = v68;
+          _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "Expected ptb size is %d", v132, 8u);
         }
 
-        v102 = malloc_type_calloc(v68, 1uLL, 0x100004077774924uLL);
+        v103 = malloc_type_calloc(v68, 1uLL, 0x100004077774924uLL);
         if (strcmp(v64, "BCM4355C0") && strcmp(v64, "BCM43430B1") && strcmp(v64, "BCM4357B1") && strcmp(v64, "BCM4355C1") && strcmp(v64, "BCM4377B2") && strcmp(v64, "BCM4377B3") && strcmp(v64, "BCM4378B1") && strcmp(v64, "BCM4378B3") && strcmp(v64, "BCM4387C0") && strcmp(v64, "BCM4387C2") && strcmp(v64, "BCM4388B0") && strcmp(v64, "BCM4388C0") && strcmp(v64, "BCM4388C2"))
         {
           goto LABEL_338;
@@ -5451,56 +5453,56 @@ LABEL_245:
             sub_10004A5B4();
           }
 
-          v104 = qword_1004EE430;
+          v105 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            *v131 = 136315138;
-            *&v131[4] = v64;
-            _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_DEFAULT, "Chipset is %s, load regulatory data from file system", v131, 0xCu);
+            *v132 = 136315138;
+            *&v132[4] = v64;
+            _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Chipset is %s, load regulatory data from file system", v132, 0xCu);
           }
 
-          v103 = sub_100015AF4(v68, v102);
+          v104 = sub_100015AF4(v68, v103);
         }
 
         else
         {
-          v103 = sub_1000159F8(v65, v102);
+          v104 = sub_1000159F8(v65, v103);
         }
 
-        v14 = v103;
-        if (!v103)
+        v14 = v104;
+        if (!v104)
         {
           if (qword_1004EE428 != -1)
           {
             sub_10004A700();
           }
 
-          v113 = qword_1004EE430;
+          v114 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            *v131 = 68157954;
-            *&v131[4] = v68;
-            *&v131[8] = 2096;
-            *&v131[10] = v102;
-            _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "Regulatory data : %.*P", v131, 0x12u);
+            *v132 = 68157954;
+            *&v132[4] = v68;
+            *&v132[8] = 2096;
+            *&v132[10] = v103;
+            _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "Regulatory data : %.*P", v132, 0x12u);
           }
 
           if (v67)
           {
-            v114 = 0;
+            v115 = 0;
             v14 = 0;
-            v115 = v68 / 0xCFu;
+            v116 = v68 / 0xCFu;
             if (v68 % 0xCFu)
             {
-              v116 = v115 + 1;
+              v117 = v116 + 1;
             }
 
             else
             {
-              v116 = v115;
+              v117 = v116;
             }
 
-            v117 = v102;
+            v118 = v103;
             do
             {
               if (qword_1004EE428 != -1)
@@ -5508,57 +5510,57 @@ LABEL_245:
                 sub_10004A7B4();
               }
 
-              v118 = qword_1004EE430;
-              v119 = v68;
+              v119 = qword_1004EE430;
+              v120 = v68;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                *v131 = 67109632;
-                *&v131[4] = v114 + 1;
-                *&v131[8] = 1024;
-                *&v131[10] = v116;
-                *&v131[14] = 1024;
-                *&v131[16] = v68;
-                _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "Now sending ptb chunk %u of %u, %u bytes remaining", v131, 0x14u);
-                v120 = qword_1004EE428 == -1;
+                *v132 = 67109632;
+                *&v132[4] = v115 + 1;
+                *&v132[8] = 1024;
+                *&v132[10] = v117;
+                *&v132[14] = 1024;
+                *&v132[16] = v68;
+                _os_log_impl(&_mh_execute_header, v119, OS_LOG_TYPE_DEFAULT, "Now sending ptb chunk %u of %u, %u bytes remaining", v132, 0x14u);
+                v121 = qword_1004EE428 == -1;
               }
 
               else
               {
-                v120 = 1;
+                v121 = 1;
               }
 
               LOWORD(v68) = v68 - 207;
-              memset(&v131[2], 0, 207);
-              if (v119 >= 0xCF)
+              memset(&v132[2], 0, 207);
+              if (v120 >= 0xCF)
               {
-                v121 = 207;
+                v122 = 207;
               }
 
               else
               {
-                v121 = v119;
+                v122 = v120;
               }
 
-              *v131 = ~v114 + v116;
+              *v132 = ~v115 + v117;
               __memcpy_chk();
-              if (!v120)
+              if (!v121)
               {
                 sub_10004A7DC();
               }
 
-              v122 = qword_1004EE430;
+              v123 = qword_1004EE430;
               if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
               {
-                LODWORD(v134) = 67109634;
-                DWORD1(v134) = v121;
-                WORD4(v134) = 1040;
-                *(&v134 + 10) = 209;
-                HIWORD(v134) = 2096;
-                *&v135 = v131;
-                _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_DEFAULT, "Loading %u bytes of ptb data: %.*P", &v134, 0x18u);
+                LODWORD(v135) = 67109634;
+                DWORD1(v135) = v122;
+                WORD4(v135) = 1040;
+                *(&v135 + 10) = 209;
+                HIWORD(v135) = 2096;
+                *&v136 = v132;
+                _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "Loading %u bytes of ptb data: %.*P", &v135, 0x18u);
               }
 
-              sub_100017C50(65037, v131, 0xD1uLL, &buf, v138, 14);
+              sub_100017C50(65037, v132, 0xD1uLL, &buf, v139, 14);
               if (BYTE3(buf))
               {
                 if (qword_1004EE428 != -1)
@@ -5566,22 +5568,22 @@ LABEL_245:
                   sub_10004A804();
                 }
 
-                v123 = qword_1004EE430;
+                v124 = qword_1004EE430;
                 if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
                 {
-                  LODWORD(v134) = 67109120;
-                  DWORD1(v134) = v114 + 1;
-                  _os_log_error_impl(&_mh_execute_header, v123, OS_LOG_TYPE_ERROR, "Error in sending regulatory data in chunk %u", &v134, 8u);
+                  LODWORD(v135) = 67109120;
+                  DWORD1(v135) = v115 + 1;
+                  _os_log_error_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "Error in sending regulatory data in chunk %u", &v135, 8u);
                 }
 
                 v14 = 23;
               }
 
-              ++v114;
-              v117 += 207;
+              ++v115;
+              v118 += 207;
             }
 
-            while (v116 != v114);
+            while (v117 != v115);
             if (v14)
             {
               goto LABEL_339;
@@ -5592,26 +5594,26 @@ LABEL_245:
               sub_10004A82C();
             }
 
-            v124 = qword_1004EE430;
+            v125 = qword_1004EE430;
             if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_338:
               v14 = 0;
 LABEL_339:
-              if (v102)
+              if (v103)
               {
-                free(v102);
+                free(v103);
               }
 
               return v14;
             }
 
-            *v131 = 0;
+            *v132 = 0;
           }
 
           else
           {
-            sub_100017C50(64920, v102, v68, &buf, v138, 14);
+            sub_100017C50(64920, v103, v68, &buf, v139, 14);
             if (BYTE3(buf))
             {
               if (qword_1004EE428 != -1)
@@ -5633,16 +5635,16 @@ LABEL_339:
               sub_10004A78C();
             }
 
-            v124 = qword_1004EE430;
+            v125 = qword_1004EE430;
             if (!os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_338;
             }
 
-            *v131 = 0;
+            *v132 = 0;
           }
 
-          _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_DEFAULT, "Regulatory data loaded successfully", v131, 2u);
+          _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "Regulatory data loaded successfully", v132, 2u);
           goto LABEL_338;
         }
 
@@ -5656,54 +5658,54 @@ LABEL_339:
           sub_10004A604();
         }
 
-        v105 = qword_1004EE430;
+        v106 = qword_1004EE430;
         if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
         {
-          *v131 = 136315394;
-          *&v131[4] = v64;
-          *&v131[12] = 2080;
-          *&v131[14] = v65;
-          _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "Chipset is %s, Platform is %s", v131, 0x16u);
+          *v132 = 136315394;
+          *&v132[4] = v64;
+          *&v132[12] = 2080;
+          *&v132[14] = v65;
+          _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "Chipset is %s, Platform is %s", v132, 0x16u);
         }
 
-        v106 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/");
-        if (v106)
+        v107 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/");
+        if (v107)
         {
-          v107 = v106;
-          CFProperty = IORegistryEntryCreateCFProperty(v106, @"board-id", 0, 0);
+          v108 = v107;
+          CFProperty = IORegistryEntryCreateCFProperty(v107, @"board-id", 0, 0);
           if (!CFProperty)
           {
 LABEL_344:
-            IOObjectRelease(v107);
+            IOObjectRelease(v108);
             return v14;
           }
 
-          v109 = CFProperty;
-          v110 = CFGetTypeID(CFProperty);
-          if (v110 != CFDataGetTypeID())
+          v110 = CFProperty;
+          v111 = CFGetTypeID(CFProperty);
+          if (v111 != CFDataGetTypeID())
           {
             goto LABEL_343;
           }
 
-          memset(v131, 0, 32);
-          Length = CFDataGetLength(v109);
-          BytePtr = CFDataGetBytePtr(v109);
+          memset(v132, 0, 32);
+          Length = CFDataGetLength(v110);
+          BytePtr = CFDataGetBytePtr(v110);
           if (Length > 0x1F)
           {
-            strncpy(v131, BytePtr, 0x20uLL);
+            strncpy(v132, BytePtr, 0x20uLL);
           }
 
           else
           {
-            CFDataGetLength(v109);
+            CFDataGetLength(v110);
             __strncpy_chk();
           }
 
-          v128 = strlen(v131);
-          if (strncmp(v131, "Mac-E43C1C25D4880AD6", v128))
+          v129 = strlen(v132);
+          if (strncmp(v132, "Mac-E43C1C25D4880AD6", v129))
           {
 LABEL_343:
-            CFRelease(v109);
+            CFRelease(v110);
             goto LABEL_344;
           }
 
@@ -5712,15 +5714,15 @@ LABEL_343:
             sub_10004A674();
           }
 
-          v129 = qword_1004EE430;
+          v130 = qword_1004EE430;
           if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v134) = 0;
-            _os_log_impl(&_mh_execute_header, v129, OS_LOG_TYPE_DEFAULT, "[isBoardJ52FrankenStein] It is a J52 FrankenStein Setup\n", &v134, 2u);
+            LOWORD(v135) = 0;
+            _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "[isBoardJ52FrankenStein] It is a J52 FrankenStein Setup\n", &v135, 2u);
           }
 
-          CFRelease(v109);
-          IOObjectRelease(v107);
+          CFRelease(v110);
+          IOObjectRelease(v108);
           if (qword_1004EE428 != -1)
           {
             sub_10004A69C();
@@ -6137,11 +6139,11 @@ LABEL_5:
   return v6;
 }
 
-uint64_t sub_10000D24C(int a1, char *a2)
+uint64_t sub_10000D24C(uint64_t a1, char *a2)
 {
-  v3 = sub_10000E240(a2);
-  v4 = open(v3, 0);
-  if (v4 < 0)
+  v4 = sub_10000E240(a2);
+  v5 = open(v4, 0);
+  if (v5 < 0)
   {
     if (qword_1004EE428 != -1)
     {
@@ -6158,17 +6160,18 @@ uint64_t sub_10000D24C(int a1, char *a2)
 
   else
   {
-    v5 = v4;
-    sub_1000158B0();
-    dword_1004EDFB8 = v5;
-    v6 = sub_10000E3E8(a1, sub_10000E83C);
-    close(v5);
-    return v6;
+    v6 = v5;
+    sub_1000158B0(a2);
+    dword_1004EDFB8 = v6;
+    v7 = sub_10000E3E8(a1, sub_10000E83C);
+    close(v6);
+    return v7;
   }
 }
 
-void sub_10000D3E4(int a1)
+void sub_10000D3E4(uint64_t a1)
 {
+  v1 = a1;
   v34 = 0;
   v33 = 0;
   v32 = 0;
@@ -6233,7 +6236,7 @@ LABEL_62:
         goto LABEL_60;
       }
 
-      if (a1)
+      if (v1)
       {
         sub_10000F474(v30, v29);
       }
@@ -6294,7 +6297,7 @@ LABEL_62:
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Loading calibration of FATP stage ... \n", buf, 2u);
       }
 
-      if (sub_100011204(&v39) == -1)
+      if (sub_100011204(&v39, v41, @"BWCl") == -1)
       {
         if (qword_1004EE428 != -1)
         {
@@ -6308,7 +6311,7 @@ LABEL_62:
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FATP stage calibration not found, looking for Golden calibration from SMT ... \n", buf, 2u);
         }
 
-        if (sub_100011204(&v39))
+        if (sub_100011204(&v39, v41, @"0BCl"))
         {
           if (*v41)
           {
@@ -6411,7 +6414,7 @@ LABEL_63:
 
                 if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
                 {
-                  sub_10004B3F4(v24 + 2);
+                  sub_10004B3F4();
                 }
 
                 free(v24);
@@ -6493,7 +6496,7 @@ LABEL_118:
       goto LABEL_57;
     }
 
-    if (a1)
+    if (v1)
     {
       sub_10000F474(v30, v29);
     }
@@ -6711,8 +6714,9 @@ char *sub_10000E240(char *a1)
   return v1;
 }
 
-uint64_t sub_10000E3E8(int a1, uint64_t (*a2)(_OWORD *))
+uint64_t sub_10000E3E8(uint64_t a1, uint64_t (*a2)(_OWORD *))
 {
+  v3 = a1;
   v4 = sub_100044C84();
   memset(__buf, 0, 259);
   if (byte_1004EE424 == 1)
@@ -6722,7 +6726,7 @@ uint64_t sub_10000E3E8(int a1, uint64_t (*a2)(_OWORD *))
 
   v6 = v4;
   LODWORD(__buf[0]) = 16526849;
-  v7 = write(a1, __buf, 4uLL);
+  v7 = write(v3, __buf, 4uLL);
   if (v7 != 4)
   {
     if ((v7 & 0x8000000000000000) == 0)
@@ -6766,7 +6770,7 @@ uint64_t sub_10000E3E8(int a1, uint64_t (*a2)(_OWORD *))
 
   if (!strcmp(v6, "BCM4325") || !strcmp(v6, "BCM4329B1") || !strcmp(v6, "BCM4329C0") || !strcmp(v6, "BCM20710"))
   {
-    v8 = read(a1, __buf, 2uLL);
+    v8 = read(v3, __buf, 2uLL);
     if (v8 == 2)
     {
       if (LOBYTE(__buf[0]) - 48 <= 9 && BYTE1(__buf[0]) - 48 < 0xA)
@@ -7130,7 +7134,7 @@ uint64_t sub_10000F084(const char *a1, uint64_t a2)
     return 0xFFFFFFFFLL;
   }
 
-  v5 = (a1 + 1);
+  v5 = a1 + 1;
   for (i = 5; i != -1; --i)
   {
     v7 = *(v5 - 1);
@@ -7629,37 +7633,14 @@ LABEL_42:
   return fclose(v2);
 }
 
-char *sub_10000FF8C(int a1)
+char *sub_10000FF8C(uint64_t a1)
 {
   v1 = &byte_1004ECAB0;
   if (!byte_1004ECAB0)
   {
+    v2 = a1;
     v3 = sub_100044C84();
-    if (!v3)
-    {
-      return 0;
-    }
-
-    v4 = v3;
-    v5 = MGCopyAnswer();
-    if (!v5)
-    {
-      return 0;
-    }
-
-    v6 = v5;
-    v7 = CFEqual(v5, @"Vendor");
-    v8 = CFEqual(v6, @"Internal");
-    v9 = CFEqual(v6, @"NonUI");
-    v10 = CFEqual(v6, @"VendorNonUI");
-    CFRelease(v6);
-    if (!v7 && !v8 && !v9 && !v10)
-    {
-      return 0;
-    }
-
-    v11 = opendir("/etc/bluetool");
-    if (v11)
+    if (v3 && (v4 = v3, (v5 = MGCopyAnswer()) != 0) && ((v6 = v5, v7 = CFEqual(v5, @"Vendor"), v8 = CFEqual(v6, @"Internal"), v9 = CFEqual(v6, @"NonUI"), v10 = CFEqual(v6, @"VendorNonUI"), CFRelease(v6), v7) || v8 || v9 || v10) && (v11 = opendir("/etc/bluetool")) != 0)
     {
       v12 = v11;
       v13 = readdir(v11);
@@ -7683,7 +7664,7 @@ char *sub_10000FF8C(int a1)
 
           v16 = v14->d_name;
           v17 = strlen(v4);
-          if (!strncmp(v16, v4, v17) && (strstr(v16, "LPM") == 0) != a1)
+          if (!strncmp(v16, v4, v17) && (strstr(v16, "LPM") == 0) != v2)
           {
             bzero(&byte_1004ECAB0, 0x400uLL);
             __strlcat_chk();
@@ -7894,7 +7875,7 @@ uint64_t sub_1000108CC(unsigned int *a1)
   v3 = 0;
   v36 = a1;
   v4 = a1 + a1[6];
-  while (*(v4 + v3 + 46) != 38)
+  while (v4[v3 + 46] != 38)
   {
     v3 += 40;
     ++v2;
@@ -7904,7 +7885,7 @@ uint64_t sub_1000108CC(unsigned int *a1)
     }
   }
 
-  v37 = (v4 + v3 + 46);
+  v37 = &v4[v3 + 46];
   if (qword_1004EE428 != -1)
   {
     sub_10004BF10();
@@ -7951,7 +7932,7 @@ uint64_t sub_1000108CC(unsigned int *a1)
   }
 
   v11 = 13;
-  v12 = (v4 + v3 + 46);
+  v12 = &v4[v3 + 46];
   do
   {
     if (v10 != -1)
@@ -7983,13 +7964,13 @@ uint64_t sub_1000108CC(unsigned int *a1)
   v48 = 0;
   v47 = 0;
   *v37 = 54;
-  *(v4 + v3 + 47) = 10;
-  *buf = *(v4 + v3 + 50);
-  LOBYTE(v45) = *(v4 + v3 + 58);
+  v4[v3 + 47] = 10;
+  *buf = *&v4[v3 + 50];
+  LOBYTE(v45) = v4[v3 + 58];
   do
   {
     v16 = 0;
-    while (*(v4 + 11 + v15) != byte_100052300[v16])
+    while (v4[v15 + 11] != byte_100052300[v16])
     {
       if (++v16 == 31)
       {
@@ -8053,13 +8034,13 @@ LABEL_50:
       *(&v47 + v15) = -106;
     }
 
-    *(v4 + v15++ + v3 + 50) = v17;
+    v4[v15++ + 50 + v3] = v17;
   }
 
   while (v15 != 9);
   v21 = (v36 + v35);
   v22 = *v37;
-  *(v21 + 5) = *(v4 + v3 + 51);
+  *(v21 + 5) = *&v4[v3 + 51];
   *v21 = v22;
   *(v36 + v36[6] + v36[7] - 4) = crc32(0, v36 + v36[6], v36[7] - 4);
   v36[8] = crc32(0, v36 + v36[6], v36[7]);
@@ -8159,10 +8140,10 @@ LABEL_50:
   return 0;
 }
 
-uint64_t sub_100011204(const void **a1)
+uint64_t sub_100011204(const void **a1, void *a2, uint64_t a3)
 {
-  v2 = AMFDRSealingMapCopyLocalDictForClass();
-  if (!a1 || !v2)
+  v4 = AMFDRSealingMapCopyLocalDictForClass();
+  if (!a1 || !v4)
   {
     if (!a1)
     {
@@ -8180,7 +8161,7 @@ LABEL_7:
     return 0;
   }
 
-  Value = CFDictionaryGetValue(v2, @"BTBF");
+  Value = CFDictionaryGetValue(v4, @"BTBF");
   *a1 = Value;
   if (Value)
   {
@@ -8438,7 +8419,7 @@ uint64_t sub_100011E8C(int a1, char **a2)
       while (1)
       {
         v4 = getopt(a1, a2, "hVrwRp:l:sicBT");
-        v5 = v4;
+        v6 = v4;
         if (v4 <= 111)
         {
           break;
@@ -8448,19 +8429,19 @@ uint64_t sub_100011E8C(int a1, char **a2)
         {
           if (v4 == 115)
           {
-            v22 = sub_100011B2C();
-            v9 = __stderrp;
-            if (v22)
+            v23 = sub_100011B2C();
+            v10 = __stderrp;
+            if (v23)
             {
-              fprintf(__stderrp, "Unable to deep sleep chip: %d\n", v22);
+              fprintf(__stderrp, "Unable to deep sleep chip: %d\n", v23);
             }
 
             else
             {
-              v24 = "Deep Sleep Entered!\n";
-              v25 = 20;
+              v25 = "Deep Sleep Entered!\n";
+              v26 = 20;
 LABEL_51:
-              fwrite(v24, v25, 1uLL, v9);
+              fwrite(v25, v26, 1uLL, v10);
             }
           }
 
@@ -8471,104 +8452,104 @@ LABEL_51:
               goto LABEL_55;
             }
 
-            v8 = sub_1000118A8(0);
-            v9 = __stderrp;
-            if (!v8)
+            v9 = sub_1000118A8(0);
+            v10 = __stderrp;
+            if (!v9)
             {
-              v24 = "Warm Halt Entered!\n";
-              v25 = 19;
+              v25 = "Warm Halt Entered!\n";
+              v26 = 19;
               goto LABEL_51;
             }
 
-            fprintf(__stderrp, "Unable to warm halt chip: %d\n", v8);
+            fprintf(__stderrp, "Unable to warm halt chip: %d\n", v9);
           }
         }
 
         else if (v4 == 112)
         {
           *__s = 0;
-          v14 = optarg;
-          v15 = strchr(optarg, 61);
-          if (v15)
+          v15 = optarg;
+          v16 = strchr(optarg, 61);
+          if (v16)
           {
-            v16 = v15;
-            *v15 = 0;
-            v17 = strtoul(v14, 0, 0);
+            v17 = v16;
+            *v16 = 0;
+            v18 = strtoul(v15, 0, 0);
             strcpy(__s, "d");
-            v18 = malloc_type_malloc(0xC8uLL, 0x1000040BDFB0063uLL);
-            if (v18)
+            v19 = malloc_type_malloc(0xC8uLL, 0x1000040BDFB0063uLL);
+            if (v19)
             {
-              v19 = v18;
-              v20 = strtok(v16 + 1, ",:");
-              if (v20)
+              v20 = v19;
+              v21 = strtok(v17 + 1, ",:");
+              if (v21)
               {
-                v21 = 0;
-                while (v21 < *__s)
+                v22 = 0;
+                while (v22 < *__s)
                 {
-                  v19[v21++] = strtoul(v20, 0, 0);
-                  v20 = strtok(0, ",:");
-                  if (!v20)
+                  v20[v22++] = strtoul(v21, 0, 0);
+                  v21 = strtok(0, ",:");
+                  if (!v21)
                   {
                     goto LABEL_64;
                   }
                 }
 
-                fprintf(__stderrp, "Too many values given, skipping all past 0x%04x\n", v19[v21 - 1]);
+                fprintf(__stderrp, "Too many values given, skipping all past 0x%04x\n", v20[v22 - 1]);
 LABEL_64:
-                v28 = v21;
+                v29 = v22;
               }
 
               else
               {
-                v28 = 0;
+                v29 = 0;
               }
 
-              *__s = v28;
-              if (sub_100011D78(v17, v19, v28))
+              *__s = v29;
+              if (sub_100011D78(v18, v20, v29))
               {
                 fprintf(__stderrp, "Unable to write PSKEY 0x%04x values: %d\n");
               }
 
 LABEL_67:
-              free(v19);
+              free(v20);
             }
           }
 
           else
           {
-            v26 = strtoul(v14, 0, 0);
-            if (sub_100011E14(v26, __s))
+            v27 = strtoul(v15, 0, 0);
+            if (sub_100011E14(v27, __s))
             {
               *__s = 1;
-              v27 = 2;
+              v28 = 2;
             }
 
             else
             {
-              v27 = 2 * *__s;
+              v28 = 2 * *__s;
             }
 
-            v29 = malloc_type_malloc(v27, 0x1000040BDFB0063uLL);
-            if (v29)
+            v30 = malloc_type_malloc(v28, 0x1000040BDFB0063uLL);
+            if (v30)
             {
-              v19 = v29;
-              if (sub_100011CD0(v26, v29, *__s))
+              v20 = v30;
+              if (sub_100011CD0(v27, v30, *__s))
               {
                 fprintf(__stderrp, "Unable to read PSKEY 0x%04x: %d\n");
               }
 
               else
               {
-                fprintf(__stderrp, "PSKEY 0x%04x = ", v26);
+                fprintf(__stderrp, "PSKEY 0x%04x = ", v27);
                 if (*__s)
                 {
-                  v30 = 0;
+                  v31 = 0;
                   do
                   {
-                    fprintf(__stderrp, "0x%04x ", v19[v30++]);
+                    fprintf(__stderrp, "0x%04x ", v20[v31++]);
                   }
 
-                  while (v30 < *__s);
+                  while (v31 < *__s);
                 }
 
                 fputc(10, __stderrp);
@@ -8587,21 +8568,21 @@ LABEL_67:
           }
 
 LABEL_12:
-          v6 = sub_100011A68(v4 == 82);
-          if (v6)
+          v7 = sub_100011A68(v4 == 82);
+          if (v7)
           {
-            fprintf(__stderrp, "Unable to reset chip: %d\n", v6);
+            fprintf(__stderrp, "Unable to reset chip: %d\n", v7);
           }
 
           else
           {
-            v23 = "Warm";
-            if (v5 == 82)
+            v24 = "Warm";
+            if (v6 == 82)
             {
-              v23 = "Cold";
+              v24 = "Cold";
             }
 
-            fprintf(__stderrp, "%s reset complete!\n", v23);
+            fprintf(__stderrp, "%s reset complete!\n", v24);
           }
         }
       }
@@ -8614,56 +8595,56 @@ LABEL_12:
       switch(v4)
       {
         case 'i':
-          v54 = 0u;
           v55 = 0u;
-          v52 = 0u;
+          v56 = 0u;
           v53 = 0u;
-          v50 = 0u;
+          v54 = 0u;
           v51 = 0u;
-          v48 = 0u;
+          v52 = 0u;
           v49 = 0u;
-          v46 = 0u;
+          v50 = 0u;
           v47 = 0u;
-          v44 = 0u;
+          v48 = 0u;
           v45 = 0u;
-          v42 = 0u;
+          v46 = 0u;
           v43 = 0u;
+          v44 = 0u;
           *__s = 0u;
-          v41 = 0u;
+          v42 = 0u;
           if (!j__gethostname(__s, 0x100uLL))
           {
-            v11 = strlen(__s);
-            v12 = sub_100011D78(264, __s, (v11 + 1 + ((v11 + 1) >> 31)) >> 1);
-            if (v12)
+            v12 = strlen(__s);
+            v13 = sub_100011D78(264, __s, (v12 + 1 + ((v12 + 1) >> 31)) >> 1);
+            if (v13)
             {
-              fprintf(__stderrp, "Unable to write Device Name (%d)\n", v12);
+              fprintf(__stderrp, "Unable to write Device Name (%d)\n", v13);
             }
           }
 
           if (!sub_1000422B8(__s))
           {
-            v39[0] = __s[3];
-            v39[1] = bswap32(*&__s[4]) >> 16;
-            v39[2] = __s[2];
-            v39[3] = bswap32(*__s) >> 16;
-            v13 = sub_100011D78(1, v39, 4uLL);
-            if (v13)
+            v40[0] = __s[3];
+            v40[1] = bswap32(*&__s[4]) >> 16;
+            v40[2] = __s[2];
+            v40[3] = bswap32(*__s) >> 16;
+            v14 = sub_100011D78(1, v40, 4uLL);
+            if (v14)
             {
-              fprintf(__stderrp, "Unable to write BDADDR (%d)\n", v13);
+              fprintf(__stderrp, "Unable to write BDADDR (%d)\n", v14);
             }
           }
 
           break;
         case 'l':
-          v7 = strtoul(optarg, 0, 0);
-          if (sub_100011AC8(v7))
+          v8 = strtoul(optarg, 0, 0);
+          if (sub_100011AC8(v8))
           {
-            fprintf(__stderrp, "Unable to put chip into PCM Loopback Mode %d\n", v7);
+            fprintf(__stderrp, "Unable to put chip into PCM Loopback Mode %d\n", v8);
           }
 
           else
           {
-            fprintf(__stderrp, "Chip now in PCM Loopback Mode %d\n", v7);
+            fprintf(__stderrp, "Chip now in PCM Loopback Mode %d\n", v8);
           }
 
           break;
@@ -8701,80 +8682,80 @@ LABEL_55:
         goto LABEL_55;
       }
 
-      v34 = sub_100041FEC();
-      if (v34 > 2)
+      v35 = sub_100041FEC(v4, v5);
+      if (v35 > 2)
       {
-        switch(v34)
+        switch(v35)
         {
           case 3:
             goto LABEL_89;
           case 4:
-            v35 = 6;
+            v36 = 6;
             break;
           case 5:
-            v35 = 1;
+            v36 = 1;
             break;
           default:
             goto LABEL_95;
         }
       }
 
-      else if (v34)
+      else if (v35)
       {
-        if (v34 != 1)
+        if (v35 != 1)
         {
-          if (v34 == 2)
+          if (v35 == 2)
           {
-            v35 = 7;
+            v36 = 7;
             goto LABEL_97;
           }
 
 LABEL_95:
           *__s = 0;
 LABEL_98:
-          v37 = 505;
-          return sub_100011D78(v37, __s, 1uLL);
+          v38 = 505;
+          return sub_100011D78(v38, __s, 1uLL);
         }
 
 LABEL_89:
-        v35 = 3;
+        v36 = 3;
       }
 
       else
       {
-        v35 = 2;
+        v36 = 2;
       }
 
 LABEL_97:
-      *__s = v35;
+      *__s = v36;
       goto LABEL_98;
     }
 
     *__s = 0;
-    v39[0] = 0;
-    v38 = 0;
-    v10 = sub_100011B8C(__s, v39, &v38);
-    if (v10)
+    v40[0] = 0;
+    v39 = 0;
+    v11 = sub_100011B8C(__s, v40, &v39);
+    if (v11)
     {
-      fprintf(__stderrp, "Unable to get CSR specific revision information: %d\n", v10);
+      fprintf(__stderrp, "Unable to get CSR specific revision information: %d\n", v11);
     }
 
     else
     {
-      fprintf(__stderrp, "CSR BlueCore Version 0x%04x, Revision 0x%04x, Build: ", *__s, v39[0]);
-      if (v38 == 3164)
+      fprintf(__stderrp, "CSR BlueCore Version 0x%04x, Revision 0x%04x, Build: ", *__s, v40[0]);
+      if (v39 == 3164)
       {
         puts("A06");
       }
 
-      else if (v38 == 1120)
+      else if (v39 == 1120)
       {
         puts("A05");
       }
 
       else
       {
-        printf("Unknown: 0x%04x\n", v38);
+        printf("Unknown: 0x%04x\n", v39);
       }
     }
   }
@@ -8794,36 +8775,36 @@ LABEL_97:
     goto LABEL_55;
   }
 
-  v31 = sub_100041D24();
-  if (v31)
+  v32 = sub_100041D24();
+  if (v32)
   {
-    v32 = v31;
+    v33 = v32;
   }
 
   else
   {
-    v32 = 2400000;
+    v33 = 2400000;
   }
 
-  switch(v32)
+  switch(v33)
   {
     case 0x1C200u:
-      LOWORD(v33) = 472;
+      LOWORD(v34) = 472;
       break;
     case 0x2DC6C0u:
-      LOWORD(v33) = 12288;
+      LOWORD(v34) = 12288;
       break;
     case 0x249F00u:
-      LOWORD(v33) = 9830;
+      LOWORD(v34) = 9830;
       break;
     default:
-      v33 = (v32 * 0.004096);
+      v34 = (v33 * 0.004096);
       break;
   }
 
-  *__s = v33;
-  v37 = 446;
-  return sub_100011D78(v37, __s, 1uLL);
+  *__s = v34;
+  v38 = 446;
+  return sub_100011D78(v38, __s, 1uLL);
 }
 
 uint64_t sub_100012698()
@@ -8972,7 +8953,7 @@ uint64_t sub_100012960()
   }
 }
 
-uint64_t sub_100012BEC()
+uint64_t sub_100012BEC(uint64_t a1, uint64_t a2, int a3)
 {
   if (airship_ch_interface_write())
   {
@@ -8985,7 +8966,7 @@ uint64_t sub_100012BEC()
   }
 }
 
-uint64_t sub_100012C28()
+uint64_t sub_100012C28(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (airship_ch_interface_write())
   {
@@ -9345,9 +9326,9 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     if (v13 + a1 >= v14)
     {
       memcpy(a2, (v15 + v13), v14 - v13);
-      v21 = *(v12 + 40);
-      *(v12 + 88) = v21;
-      return (v21 - v13);
+      v19 = *(v12 + 40);
+      *(v12 + 88) = v19;
+      return (v19 - v13);
     }
 
     else
@@ -9362,17 +9343,6 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
   v16 = v10;
   bzero(&byte_1004EDAF8, 0x400uLL);
   __strlcat_chk();
-  if (byte_1004ECEC0)
-  {
-    v17 = &qword_1004ECEC8;
-  }
-
-  else
-  {
-    v17 = &qword_1004ECED0;
-  }
-
-  v18 = *(*v17 + 96 * v16 + 24);
   __strlcat_chk();
   if (!byte_1004EDAF8)
   {
@@ -9394,24 +9364,24 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     sub_10004C4D4();
   }
 
-  v19 = qword_1004EE430;
+  v17 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
   {
     buf.st_dev = 136315138;
     *&buf.st_mode = &byte_1004EDAF8;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Expecting firmware file: %s", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Expecting firmware file: %s", &buf, 0xCu);
     if (qword_1004EE428 != -1)
     {
       sub_10004C4E8();
     }
   }
 
-  v20 = qword_1004EE430;
+  v18 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
   {
     buf.st_dev = 136315138;
     *&buf.st_mode = &byte_1004EDAF8;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Opening firmware file: %s", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Opening firmware file: %s", &buf, 0xCu);
   }
 
   if (sub_100013CA4(v16, &byte_1004EDAF8, 0))
@@ -9429,8 +9399,8 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     return 0xFFFFFFFFLL;
   }
 
-  v23 = open(&byte_1004EDAF8, 0);
-  if (v23 < 0)
+  v21 = open(&byte_1004EDAF8, 0);
+  if (v21 < 0)
   {
     if (qword_1004EE428 != -1)
     {
@@ -9445,22 +9415,22 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     return 0xFFFFFFFFLL;
   }
 
-  v24 = v23;
+  v22 = v21;
   if (qword_1004EE428 != -1)
   {
     sub_10004C56C();
   }
 
-  v25 = qword_1004EE430;
+  v23 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
   {
     buf.st_dev = 136315138;
     *&buf.st_mode = &byte_1004EDAF8;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Firmware file %s successfully opened", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Firmware file %s successfully opened", &buf, 0xCu);
   }
 
   memset(&buf, 0, sizeof(buf));
-  if (fstat(v24, &buf) == -1)
+  if (fstat(v22, &buf) == -1)
   {
     if (qword_1004EE428 != -1)
     {
@@ -9470,15 +9440,15 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
       sub_10004C6D0();
-      if (!v24)
+      if (!v22)
       {
         return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_69;
+      goto LABEL_66;
     }
 
-    goto LABEL_68;
+    goto LABEL_65;
   }
 
   if (LODWORD(buf.st_size) != a1)
@@ -9491,18 +9461,18 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
       sub_10004C5BC();
-      if (!v24)
+      if (!v22)
       {
         return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_69;
+      goto LABEL_66;
     }
 
-    goto LABEL_68;
+    goto LABEL_65;
   }
 
-  if (read(v24, a2, SLODWORD(buf.st_size)) != a1)
+  if (read(v22, a2, SLODWORD(buf.st_size)) != a1)
   {
     if (qword_1004EE428 != -1)
     {
@@ -9512,39 +9482,39 @@ uint64_t sub_1000132FC(uint64_t a1, void *a2)
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_ERROR))
     {
       sub_10004C618();
-      if (!v24)
+      if (!v22)
       {
         return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_69;
+      goto LABEL_66;
     }
 
-LABEL_68:
-    if (!v24)
+LABEL_65:
+    if (!v22)
     {
       return 0xFFFFFFFFLL;
     }
 
-LABEL_69:
-    close(v24);
+LABEL_66:
+    close(v22);
     return 0xFFFFFFFFLL;
   }
 
-  close(v24);
+  close(v22);
   if (qword_1004EE428 != -1)
   {
     sub_10004C680();
   }
 
-  v26 = qword_1004EE430;
+  v24 = qword_1004EE430;
   if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_INFO))
   {
-    v27[0] = 68157954;
-    v27[1] = a1;
-    v28 = 2096;
-    v29 = a2;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Raw firmware data loaded: %.*P", v27, 0x12u);
+    v25[0] = 68157954;
+    v25[1] = a1;
+    v26 = 2096;
+    v27 = a2;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Raw firmware data loaded: %.*P", v25, 0x12u);
   }
 
   return a1;
@@ -9647,9 +9617,9 @@ void *sub_100013A5C()
     }
 
     v5 = 0;
-    for (i = qword_1004ECEE0 + 16; ; i += 48)
+    for (i = (qword_1004ECEE0 + 16); ; i += 6)
     {
-      if (!strcmp(v0, *(i - 16)) && !strcmp(v1, *(i - 8)))
+      if (!strcmp(v0, *(i - 2)) && !strcmp(v1, *(i - 1)))
       {
         v7 = *i;
         if (!strcmp(v2, *i) || !strcmp("ALL", v7))
@@ -9664,19 +9634,18 @@ void *sub_100013A5C()
       }
     }
 
-    v9 = *(i + 8);
     __strlcat_chk();
     if (qword_1004EE428 != -1)
     {
       sub_10004C7BC();
     }
 
-    v10 = qword_1004EE430;
+    v9 = qword_1004EE430;
     if (os_log_type_enabled(qword_1004EE430, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = &unk_1004ECEEC;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Opening firmware file: %s", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = &unk_1004ECEEC;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Opening firmware file: %s", &v10, 0xCu);
     }
 
     v3 = &unk_1004ECEEC;

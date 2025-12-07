@@ -42,12 +42,12 @@
 
 - (IDSGroupSessionKeyValueDelivery)initWithSessionID:(id)d completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
-  v24.receiver = self;
-  v24.super_class = IDSGroupSessionKeyValueDelivery;
-  v9 = [(IDSGroupSessionKeyValueDelivery *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = IDSGroupSessionKeyValueDelivery;
+  v9 = [(IDSGroupSessionKeyValueDelivery *)&v23 init];
   v10 = v9;
   if (v9)
   {
@@ -64,9 +64,9 @@
     {
       v14 = MEMORY[0x19A8BBEF0](handlerCopy);
       *buf = 138412546;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = v14;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_1959FF000, groupSessionKeyValueDelivery, OS_LOG_TYPE_DEFAULT, "IDSGroupSessionKeyValueDelivery init: %@ with completionHandler: %@", buf, 0x16u);
     }
 
@@ -82,11 +82,10 @@
     block[1] = 3221225472;
     block[2] = sub_195ADEFF4;
     block[3] = &unk_1E743E878;
-    v23 = v10;
+    v22 = v10;
     dispatch_sync(queue, block);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

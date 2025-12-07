@@ -23,7 +23,7 @@ uint64_t ___LSContextAddChangeObserver_block_invoke_3(uint64_t a1)
 void ___LSContextAddChangeObserver_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = _LSGetDispatchTokenQueue();
+  v3 = _LSGetDispatchTokenQueue(a1);
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 3221225472;
   v4[2] = ___LSContextAddChangeObserver_block_invoke_2;

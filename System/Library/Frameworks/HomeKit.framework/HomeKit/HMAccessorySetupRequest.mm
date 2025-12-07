@@ -188,43 +188,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  payload = [(HMAccessorySetupRequest *)self payload];
-  payload2 = [v6 payload];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_10;
-  }
-
-  matterPayload = [(HMAccessorySetupRequest *)self matterPayload];
-  matterPayload2 = [v6 matterPayload];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_10;
-  }
-
-  homeUniqueIdentifier = [(HMAccessorySetupRequest *)self homeUniqueIdentifier];
-  homeUniqueIdentifier2 = [v6 homeUniqueIdentifier];
-  v15 = HMFEqualObjects();
-
-  if (!v15)
-  {
-    goto LABEL_10;
-  }
-
-  suggestedRoomUniqueIdentifier = [(HMAccessorySetupRequest *)self suggestedRoomUniqueIdentifier];
-  suggestedRoomUniqueIdentifier2 = [v6 suggestedRoomUniqueIdentifier];
-  v18 = HMFEqualObjects();
-
-  if (v18)
+  if (v6 && (-[HMAccessorySetupRequest payload](self, "payload"), v7 = objc_claimAutoreleasedReturnValue(), [v6 payload], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMAccessorySetupRequest matterPayload](self, "matterPayload"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "matterPayload"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMAccessorySetupRequest homeUniqueIdentifier](self, "homeUniqueIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "homeUniqueIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && (-[HMAccessorySetupRequest suggestedRoomUniqueIdentifier](self, "suggestedRoomUniqueIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "suggestedRoomUniqueIdentifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18))
   {
     suggestedAccessoryName = [(HMAccessorySetupRequest *)self suggestedAccessoryName];
     suggestedAccessoryName2 = [v6 suggestedAccessoryName];
@@ -233,7 +197,6 @@
 
   else
   {
-LABEL_10:
     v21 = 0;
   }
 

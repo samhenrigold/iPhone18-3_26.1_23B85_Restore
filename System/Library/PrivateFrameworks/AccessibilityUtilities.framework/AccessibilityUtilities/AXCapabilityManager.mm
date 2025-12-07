@@ -21,9 +21,11 @@
 
 uint64_t __36__AXCapabilityManager_sharedManager__block_invoke()
 {
-  sharedManager_SharedManager_0 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedManager_SharedManager_0;
+  sharedManager_SharedManager_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)isAccessibilityCapability:(id)capability
@@ -390,12 +392,12 @@ uint64_t __35__AXCapabilityManager_capabilities__block_invoke_18()
   return v1 & v2;
 }
 
-uint64_t __35__AXCapabilityManager_capabilities__block_invoke_19()
+void *__35__AXCapabilityManager_capabilities__block_invoke_19()
 {
   result = AXHasCapability(@"AXSiri");
   if (result)
   {
-    return AXDeviceHasGreyMatterEnabled() ^ 1;
+    return (AXDeviceHasGreyMatterEnabled() ^ 1);
   }
 
   return result;

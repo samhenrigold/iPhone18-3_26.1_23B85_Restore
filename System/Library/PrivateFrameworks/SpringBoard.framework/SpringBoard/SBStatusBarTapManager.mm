@@ -652,7 +652,7 @@ LABEL_20:
         v17 = *(*(&v45 + 1) + 8 * i);
         sceneIdentifier = [v17 sceneIdentifier];
         application = [v17 application];
-        if ([applicationsCopy containsObject:application])
+        if (objc_msgSend_containsObject_(applicationsCopy))
         {
           v20 = [[_SBStatusBarTapApplicationDestination alloc] initWithApplication:application sceneIdentifier:sceneIdentifier windowScene:sceneCopy];
           [orderedSet addObject:v20];
@@ -703,7 +703,7 @@ LABEL_20:
           v31 = *(*(&v39 + 1) + 8 * j);
           sceneIdentifier2 = [v31 sceneIdentifier];
           application2 = [v31 application];
-          if ([v24 containsObject:application2])
+          if (objc_msgSend_containsObject_(v24))
           {
             v34 = [[_SBStatusBarTapApplicationDestination alloc] initWithApplication:application2 sceneIdentifier:sceneIdentifier2 windowScene:sceneCopy];
             [v38 addObject:v34];
@@ -731,7 +731,7 @@ id __87__SBStatusBarTapManager__foregroundApplicationDestinationsForApplications
   {
     v5 = *(a1 + 32);
     v6 = [v3 associatedApplication];
-    LODWORD(v5) = [v5 containsObject:v6];
+    LODWORD(v5) = objc_msgSend_containsObject_(v5);
 
     if (v5)
     {

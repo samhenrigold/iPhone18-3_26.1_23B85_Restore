@@ -17,7 +17,7 @@
 - (void)awakeFromNib
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FBAFollowupDisplayTextCell();
+  v6.super_class = type metadata accessor for FBAFollowupDisplayTextCell(self, a2);
   v2 = v6.receiver;
   [(FBAFollowupDisplayTextCell *)&v6 awakeFromNib];
   [v2 setSelectionStyle:{3, v6.receiver, v6.super_class}];
@@ -49,18 +49,18 @@
 
   else
   {
-    v8 = (self + OBJC_IVAR____TtC18Feedback_Assistant26FBAFollowupDisplayTextCell_itemIdentifier);
-    *v8 = 0;
-    v8[1] = 0xE000000000000000;
-    swift_unknownObjectWeakInit();
+    v10 = (self + OBJC_IVAR____TtC18Feedback_Assistant26FBAFollowupDisplayTextCell_itemIdentifier);
+    *v10 = 0;
+    v10[1] = 0xE000000000000000;
+    v8 = swift_unknownObjectWeakInit();
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for FBAFollowupDisplayTextCell();
-  v9 = [(FBAFollowupDisplayTextCell *)&v11 initWithStyle:style reuseIdentifier:v7];
+  v13.receiver = self;
+  v13.super_class = type metadata accessor for FBAFollowupDisplayTextCell(v8, v9);
+  v11 = [(FBAFollowupDisplayTextCell *)&v13 initWithStyle:style reuseIdentifier:v7];
 
-  return v9;
+  return v11;
 }
 
 - (_TtC18Feedback_Assistant26FBAFollowupDisplayTextCell)initWithCoder:(id)coder
@@ -68,17 +68,17 @@
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant26FBAFollowupDisplayTextCell_itemIdentifier);
   *v5 = 0;
   v5[1] = 0xE000000000000000;
-  swift_unknownObjectWeakInit();
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for FBAFollowupDisplayTextCell();
+  v6 = swift_unknownObjectWeakInit();
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for FBAFollowupDisplayTextCell(v6, v7);
   coderCopy = coder;
-  v7 = [(FBAFollowupDisplayTextCell *)&v9 initWithCoder:coderCopy];
+  v9 = [(FBAFollowupDisplayTextCell *)&v11 initWithCoder:coderCopy];
 
-  if (v7)
+  if (v9)
   {
   }
 
-  return v7;
+  return v9;
 }
 
 @end

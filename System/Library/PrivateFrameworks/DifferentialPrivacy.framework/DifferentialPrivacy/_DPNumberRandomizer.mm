@@ -69,34 +69,34 @@
 
 - (id)randomizeNumbers:(id)numbers forKey:(id)key
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   keyCopy = key;
   v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
   [v8 timeIntervalSinceReferenceDate];
   v10 = v9;
 
-  v25 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v24 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v11 = numbersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         v17 = [(_DPNumberRandomizer *)self randomize:v16];
         v18 = [_DPNumericDataRecord alloc];
         [v16 doubleValue];
@@ -105,19 +105,17 @@
         v22 = [(_DPNumericDataRecord *)v18 initWithKey:keyCopy clearNumber:0 privateNumber:0 creationDate:v20 submitted:v21 objectId:v10];
         if (v22)
         {
-          [v25 addObject:v22];
+          [v24 addObject:v22];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 @end

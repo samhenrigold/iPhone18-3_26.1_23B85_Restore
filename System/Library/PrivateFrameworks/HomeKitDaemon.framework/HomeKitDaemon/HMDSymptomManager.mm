@@ -95,57 +95,54 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 - (void)startNetworkDiagnosticsObservation
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - v5;
-  v7 = sub_22A4DD9DC();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = sub_22A4DD9DC();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_22957F6B0(0, 0, v6, &unk_22A582030, v8);
+  sub_22957F6B0(0, 0, v5, &unk_22A582030, v7);
 }
 
 - (void)stopNetworkDiagnosticsObservation
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v8 - v4;
-  v6 = sub_22A4DD9DC();
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
-  v7 = swift_allocObject();
-  *(v7 + 16) = 0;
-  *(v7 + 24) = 0;
-  sub_22957F3C0(0, 0, v5, &unk_22A582020, v7);
+  v4 = &v7 - v3;
+  v5 = sub_22A4DD9DC();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
+  v6 = swift_allocObject();
+  *(v6 + 16) = 0;
+  *(v6 + 24) = 0;
+  sub_22957F3C0(0, 0, v4, &unk_22A582020, v6);
 }
 
 - (void)updateNetworkMismatchInfoWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_22A4DD9DC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_22A4DD9DC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_22A5837E8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_22A5837E8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_22A57B590;
-  v13[5] = v12;
+  v12[4] = &unk_22A57B590;
+  v12[5] = v11;
   selfCopy = self;
-  sub_229859F70(0, 0, v8, &unk_22A581CC0, v13);
+  sub_229859F70(0, 0, v7, &unk_22A581CC0, v12);
 }
 
 - (id)obtainDiscoveryAssertion
@@ -215,7 +212,7 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 
 - (void)handleAccessoryWiFiNetworkInfoUpdatedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -234,13 +231,13 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (v7)
   {
     workQueue = [(HMDSymptomManager *)self workQueue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __71__HMDSymptomManager_handleAccessoryWiFiNetworkInfoUpdatedNotification___block_invoke;
-    v14[3] = &unk_27868A750;
-    v14[4] = self;
-    v15 = v7;
-    dispatch_async(workQueue, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __71__HMDSymptomManager_handleAccessoryWiFiNetworkInfoUpdatedNotification___block_invoke;
+    v13[3] = &unk_27868A750;
+    v13[4] = self;
+    v14 = v7;
+    dispatch_async(workQueue, v13);
   }
 
   else
@@ -252,16 +249,14 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = notificationCopy;
+      v16 = v12;
+      v17 = 2112;
+      v18 = notificationCopy;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not obtain accessory from WiFi network info change notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryRemovedNotification:(id)notification
@@ -291,7 +286,7 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 
 - (void)_rpDeviceLostHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -302,11 +297,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2112;
-    v17 = handlerCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost RPCompanionLinkDevice: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v9;
+    v15 = 2112;
+    v16 = handlerCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost RPCompanionLinkDevice: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -316,13 +311,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 
   idsDeviceIdentifier2 = [handlerCopy idsDeviceIdentifier];
   [(HMDSymptomManager *)selfCopy _updateSymptomsForRegisteredAccessoryWithIDSIdentifier:idsDeviceIdentifier2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rpDeviceChangedHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -333,11 +326,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v26 = 138543618;
-    v27 = v9;
-    v28 = 2112;
-    v29 = handlerCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@RPCompanionLinkDevice %@ changed", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v9;
+    v27 = 2112;
+    v28 = handlerCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@RPCompanionLinkDevice %@ changed", &v25, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -357,11 +350,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v18;
-      v28 = 2112;
-      v29 = handlerCopy;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@RPCompanionLinkDevice %@ changed", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v18;
+      v27 = 2112;
+      v28 = handlerCopy;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@RPCompanionLinkDevice %@ changed", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -378,25 +371,23 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     {
       v23 = HMFGetLogIdentifier();
       networkReachableRPCompanionLinkDevices3 = [(HMDSymptomManager *)v21 networkReachableRPCompanionLinkDevices];
-      v26 = 138543874;
-      v27 = v23;
-      v28 = 2112;
-      v29 = handlerCopy;
-      v30 = 2112;
-      v31 = networkReachableRPCompanionLinkDevices3;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Did not find RPCompanionLinkDevice %@ in the network reachable RPCompanionLinkDevices: %@", &v26, 0x20u);
+      v25 = 138543874;
+      v26 = v23;
+      v27 = 2112;
+      v28 = handlerCopy;
+      v29 = 2112;
+      v30 = networkReachableRPCompanionLinkDevices3;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Did not find RPCompanionLinkDevice %@ in the network reachable RPCompanionLinkDevices: %@", &v25, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
     [(HMDSymptomManager *)v21 _rpDeviceFoundHandler:handlerCopy];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rpDeviceFoundHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -407,11 +398,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v9;
-    v16 = 2112;
-    v17 = handlerCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Found new RPCompanionLinkDevice: %@)", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v9;
+    v15 = 2112;
+    v16 = handlerCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Found new RPCompanionLinkDevice: %@)", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -421,13 +412,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 
   idsDeviceIdentifier2 = [handlerCopy idsDeviceIdentifier];
   [(HMDSymptomManager *)selfCopy _updateSymptomsForRegisteredAccessoryWithIDSIdentifier:idsDeviceIdentifier2];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sfDeviceLostHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -438,11 +427,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = handlerCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost SFDevice: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = handlerCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Lost SFDevice: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -462,13 +451,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     delegate = [v15 delegate];
     [delegate symptomManager:selfCopy didChangeSFDeviceIdentifier:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sfDeviceChangedHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -489,11 +476,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = handlerCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@SFDevice %@ changed", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v14;
+      v22 = 2112;
+      v23 = handlerCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@SFDevice %@ changed", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -509,23 +496,21 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v19;
-      v23 = 2112;
-      v24 = handlerCopy;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Did not find SFDevice %@ in the nearby SFDevices, so treating it as a found device", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v19;
+      v22 = 2112;
+      v23 = handlerCopy;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Did not find SFDevice %@ in the nearby SFDevices, so treating it as a found device", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
     [(HMDSymptomManager *)selfCopy2 _sfDeviceFoundHandler:handlerCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sfDeviceFoundHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -536,11 +521,11 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v9;
-    v21 = 2112;
-    v22 = handlerCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Found new SFDevice: %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v9;
+    v20 = 2112;
+    v21 = handlerCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Found new SFDevice: %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -561,47 +546,43 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     identifier = [handlerCopy identifier];
     [delegate symptomManager:selfCopy didChangeSFDeviceIdentifier:identifier];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSymptomsForAllRegisteredAccessories
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   symptomContainerByRegisteredAccessory = [(HMDSymptomManager *)self symptomContainerByRegisteredAccessory];
-  v5 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(symptomContainerByRegisteredAccessory);
         }
 
-        [(HMDSymptomManager *)self _updateSymptomsForRegisteredAccessory:*(*(&v10 + 1) + 8 * v8++)];
+        [(HMDSymptomManager *)self _updateSymptomsForRegisteredAccessory:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldFilterOutNDFSymptoms
@@ -629,7 +610,7 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
 
 - (void)_handleCaptivePortalSymptoms:(id)symptoms nearbySFDevice:(id)device accessory:(id)accessory
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   deviceCopy = device;
   accessoryCopy = accessory;
@@ -645,7 +626,7 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2(uint64_t a1, 
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v23;
+      v30 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Received captive network auth symptom, creating captive lease renewal symptom", buf, 0xCu);
       goto LABEL_13;
     }
@@ -686,9 +667,9 @@ LABEL_10:
   sSID = [wifiNetworkInfo SSID];
   wifiManager2 = [(HMDSymptomManager *)self wifiManager];
   currentNetworkSSID2 = [wifiManager2 currentNetworkSSID];
-  v29 = [sSID isEqualToString:currentNetworkSSID2];
+  v28 = [sSID isEqualToString:currentNetworkSSID2];
 
-  if (v29)
+  if (v28)
   {
     v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -699,9 +680,9 @@ LABEL_10:
       wifiNetworkInfo2 = [accessoryCopy wifiNetworkInfo];
       sSID2 = [wifiNetworkInfo2 SSID];
       *buf = 138543618;
-      v31 = v23;
-      v32 = 2112;
-      v33 = sSID2;
+      v30 = v23;
+      v31 = 2112;
+      v32 = sSID2;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Creating captive lease renewal symptom, WiFi SSID: %@", buf, 0x16u);
 
 LABEL_13:
@@ -712,14 +693,12 @@ LABEL_13:
   }
 
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleWiFiRepairV2AndLegacySymptoms:(id)symptoms nearbySFDevice:(id)device accessory:(id)accessory symptomContainer:(id)container fallbackToRepairV2:(BOOL)v2
 {
   v2Copy = v2;
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   deviceCopy = device;
   accessoryCopy = accessory;
@@ -733,7 +712,7 @@ LABEL_15:
   idsIdentifier = [messageAddress idsIdentifier];
   device = [accessoryCopy device];
   idsIdentifier2 = [device idsIdentifier];
-  v95 = [idsIdentifier isEqual:idsIdentifier2];
+  v94 = [idsIdentifier isEqual:idsIdentifier2];
 
   nearbyAccessoryUUIDsReportingDiagnostic = [(HMDSymptomManager *)self nearbyAccessoryUUIDsReportingDiagnostic];
   uuid = [accessoryCopy uuid];
@@ -743,14 +722,14 @@ LABEL_15:
   *&buf[16] = *(MEMORY[0x277D0F698] + 16);
   v24 = [MEMORY[0x277D0F8F8] versionFromOperatingSystemVersion:buf];
   softwareVersion = [accessoryCopy softwareVersion];
-  v96 = v24;
-  v94 = [softwareVersion isGreaterThanVersion:v24];
+  v95 = v24;
+  v93 = [softwareVersion isGreaterThanVersion:v24];
 
-  v97 = home;
+  v96 = home;
   featuresDataSource = [home featuresDataSource];
   isWiFiRepairV2Enabled = [featuresDataSource isWiFiRepairV2Enabled];
 
-  v101 = accessoryCopy;
+  v100 = accessoryCopy;
   v28 = [HMDSymptomManager accessoryIsConfiguring:accessoryCopy];
   v29 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -758,43 +737,43 @@ LABEL_15:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     v32 = HMFGetLogIdentifier();
-    v89 = isWiFiRepairV2Enabled;
-    [v101 uuid];
-    v33 = v88 = v29;
-    [v101 device];
-    v34 = v92 = symptomsCopy;
+    v88 = isWiFiRepairV2Enabled;
+    [v100 uuid];
+    v33 = v87 = v29;
+    [v100 device];
+    v34 = v91 = symptomsCopy;
     v35 = HMFBooleanToString();
     HMFBooleanToString();
-    v36 = v90 = deviceCopy;
+    v36 = v89 = deviceCopy;
     wifiManager3 = HMFBooleanToString();
     v37 = HMFBooleanToString();
     HMFBooleanToString();
-    v38 = v87 = v28;
+    v38 = v86 = v28;
     *buf = 138545154;
     *&buf[4] = v32;
     *&buf[12] = 2112;
     *&buf[14] = v33;
     *&buf[22] = 2112;
-    v103 = v34;
-    v104 = 2112;
-    v105 = v35;
-    v106 = 2112;
-    v107 = v36;
-    v108 = 2112;
-    v109 = wifiManager3;
-    v110 = 2112;
-    v111 = v37;
-    v112 = 2112;
-    v113 = v38;
+    v102 = v34;
+    v103 = 2112;
+    v104 = v35;
+    v105 = 2112;
+    v106 = v36;
+    v107 = 2112;
+    v108 = wifiManager3;
+    v109 = 2112;
+    v110 = v37;
+    v111 = 2112;
+    v112 = v38;
     _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Accessory (%@, device: %@) is primary: %@, support reporting diagnostic: %@, reporting diagnostic: %@, configuring: %@, fallback to v2: %@", buf, 0x52u);
 
-    symptomsCopy = v92;
-    v29 = v88;
+    symptomsCopy = v91;
+    v29 = v87;
 
-    v28 = v87;
-    isWiFiRepairV2Enabled = v89;
+    v28 = v86;
+    isWiFiRepairV2Enabled = v88;
 
-    deviceCopy = v90;
+    deviceCopy = v89;
   }
 
   objc_autoreleasePoolPop(v29);
@@ -803,7 +782,7 @@ LABEL_15:
     v39 = objc_autoreleasePoolPush();
     v40 = selfCopy;
     v41 = HMFGetOSLogHandle();
-    currentNetworkSSID4 = v101;
+    currentNetworkSSID4 = v100;
     if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
 LABEL_7:
@@ -824,8 +803,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  currentNetworkSSID4 = v101;
-  if (((v95 ^ 1) & v94 & isWiFiRepairV2Enabled & v2Copy) != 0)
+  currentNetworkSSID4 = v100;
+  if (((v94 ^ 1) & v93 & isWiFiRepairV2Enabled & v2Copy) != 0)
   {
     if (!deviceCopy)
     {
@@ -838,7 +817,7 @@ LABEL_6:
     {
       v47 = currentNetworkSSID;
       nearbyAccessoryUUIDsNotConnectToPrimaryResident = [(HMDSymptomManager *)selfCopy nearbyAccessoryUUIDsNotConnectToPrimaryResident];
-      uuid2 = [v101 uuid];
+      uuid2 = [v100 uuid];
       v50 = [nearbyAccessoryUUIDsNotConnectToPrimaryResident containsObject:uuid2];
 
       if (!v50)
@@ -889,113 +868,113 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v61 = objc_autoreleasePoolPush();
-    v62 = selfCopy;
-    v63 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+    v60 = objc_autoreleasePoolPush();
+    v61 = selfCopy;
+    v62 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
     {
       wifiManager2 = HMFGetLogIdentifier();
-      currentNetworkSSID2 = [v101 uuid];
-      wifiManager3 = [(HMDSymptomManager *)v62 wifiManager];
+      currentNetworkSSID2 = [v100 uuid];
+      wifiManager3 = [(HMDSymptomManager *)v61 wifiManager];
       currentNetworkSSID3 = [wifiManager3 currentNetworkSSID];
       *buf = 138543874;
       *&buf[4] = wifiManager2;
       *&buf[12] = 2112;
       *&buf[14] = currentNetworkSSID2;
       *&buf[22] = 2112;
-      v103 = currentNetworkSSID3;
-      _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Accessory: %@ is not reachable over local network: %@", buf, 0x20u);
+      v102 = currentNetworkSSID3;
+      _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Accessory: %@ is not reachable over local network: %@", buf, 0x20u);
 
-      currentNetworkSSID4 = v101;
+      currentNetworkSSID4 = v100;
     }
 
-    objc_autoreleasePoolPop(v61);
+    objc_autoreleasePoolPop(v60);
     wifiNetworkInfo = [currentNetworkSSID4 wifiNetworkInfo];
     sSID = [wifiNetworkInfo SSID];
     if (sSID)
     {
       currentNetworkSSID2 = [currentNetworkSSID4 wifiNetworkInfo];
       wifiManager2 = [currentNetworkSSID2 SSID];
-      wifiManager3 = [(HMDSymptomManager *)v62 wifiManager];
+      wifiManager3 = [(HMDSymptomManager *)v61 wifiManager];
       currentNetworkSSID4 = [wifiManager3 currentNetworkSSID];
       if (![wifiManager2 isEqualToString:currentNetworkSSID4])
       {
 
 LABEL_35:
-        v71 = objc_autoreleasePoolPush();
-        v72 = v62;
-        v73 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+        v70 = objc_autoreleasePoolPush();
+        v71 = v61;
+        v72 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
         {
-          v74 = HMFGetLogIdentifier();
-          wifiManager4 = [(HMDSymptomManager *)v72 wifiManager];
+          v73 = HMFGetLogIdentifier();
+          wifiManager4 = [(HMDSymptomManager *)v71 wifiManager];
           currentNetworkSSID5 = [wifiManager4 currentNetworkSSID];
-          v99 = v71;
-          uuid3 = [v101 uuid];
-          wifiNetworkInfo2 = [v101 wifiNetworkInfo];
+          v98 = v70;
+          uuid3 = [v100 uuid];
+          wifiNetworkInfo2 = [v100 wifiNetworkInfo];
           [wifiNetworkInfo2 SSID];
-          v80 = v79 = deviceCopy;
+          v79 = v78 = deviceCopy;
           *buf = 138544130;
-          *&buf[4] = v74;
+          *&buf[4] = v73;
           *&buf[12] = 2112;
           *&buf[14] = currentNetworkSSID5;
           *&buf[22] = 2112;
-          v103 = uuid3;
-          v104 = 2112;
-          v105 = v80;
-          _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_INFO, "%{public}@Mismatched WiFi SSID, current: %@ accessory(%@): %@", buf, 0x2Au);
+          v102 = uuid3;
+          v103 = 2112;
+          v104 = v79;
+          _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_INFO, "%{public}@Mismatched WiFi SSID, current: %@ accessory(%@): %@", buf, 0x2Au);
 
-          deviceCopy = v79;
-          v71 = v99;
+          deviceCopy = v78;
+          v70 = v98;
         }
 
-        objc_autoreleasePoolPop(v71);
-        v81 = objc_autoreleasePoolPush();
-        v82 = v72;
-        v83 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+        objc_autoreleasePoolPop(v70);
+        v80 = objc_autoreleasePoolPush();
+        v81 = v71;
+        v82 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
         {
-          v84 = HMFGetLogIdentifier();
+          v83 = HMFGetLogIdentifier();
           idsIdentifier6 = [containerCopy idsIdentifier];
           *buf = 138543618;
-          *&buf[4] = v84;
+          *&buf[4] = v83;
           *&buf[12] = 2112;
           *&buf[14] = idsIdentifier6;
-          _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_INFO, "%{public}@Creating WiFi network mismatch symptom for nearby IDS identifier that is not network reachable: %@", buf, 0x16u);
+          _os_log_impl(&dword_229538000, v82, OS_LOG_TYPE_INFO, "%{public}@Creating WiFi network mismatch symptom for nearby IDS identifier that is not network reachable: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v81);
-        v86 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:11];
-        [symptomsCopy addObject:v86];
+        objc_autoreleasePoolPop(v80);
+        v85 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:11];
+        [symptomsCopy addObject:v85];
 
-        currentNetworkSSID4 = v101;
+        currentNetworkSSID4 = v100;
         goto LABEL_20;
       }
 
-      v91 = deviceCopy;
-      v93 = symptomsCopy;
+      v90 = deviceCopy;
+      v92 = symptomsCopy;
     }
 
     else
     {
-      v91 = deviceCopy;
-      v93 = symptomsCopy;
+      v90 = deviceCopy;
+      v92 = symptomsCopy;
     }
 
-    nearbyAccessoryUUIDsNotOnCurrentNetwork = [(HMDSymptomManager *)v62 nearbyAccessoryUUIDsNotOnCurrentNetwork];
-    uuid4 = [v101 uuid];
-    v69 = [nearbyAccessoryUUIDsNotOnCurrentNetwork containsObject:uuid4];
+    nearbyAccessoryUUIDsNotOnCurrentNetwork = [(HMDSymptomManager *)v61 nearbyAccessoryUUIDsNotOnCurrentNetwork];
+    uuid4 = [v100 uuid];
+    v68 = [nearbyAccessoryUUIDsNotOnCurrentNetwork containsObject:uuid4];
 
     if (sSID)
     {
     }
 
-    deviceCopy = v91;
-    symptomsCopy = v93;
-    if ((v69 & 1) == 0)
+    deviceCopy = v90;
+    symptomsCopy = v92;
+    if ((v68 & 1) == 0)
     {
-      currentNetworkSSID4 = v101;
-      wifiNetworkInfo3 = [v101 wifiNetworkInfo];
+      currentNetworkSSID4 = v100;
+      wifiNetworkInfo3 = [v100 wifiNetworkInfo];
 
       if (wifiNetworkInfo3)
       {
@@ -1003,7 +982,7 @@ LABEL_35:
       }
 
       v39 = objc_autoreleasePoolPush();
-      v40 = v62;
+      v40 = v61;
       v41 = HMFGetOSLogHandle();
       if (!os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
@@ -1014,7 +993,7 @@ LABEL_35:
       *buf = 138543618;
       *&buf[4] = v43;
       *&buf[12] = 2112;
-      *&buf[14] = v101;
+      *&buf[14] = v100;
       _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ WiFi info is nil", buf, 0x16u);
       goto LABEL_6;
     }
@@ -1023,14 +1002,12 @@ LABEL_35:
   }
 
 LABEL_20:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNetworkDiagnosticSymptoms:(id)symptoms accessory:(id)accessory shouldFilterOutNDFSymptoms:(BOOL)fSymptoms
 {
   fSymptomsCopy = fSymptoms;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   accessoryCopy = accessory;
   workQueue = [(HMDSymptomManager *)self workQueue];
@@ -1050,11 +1027,11 @@ LABEL_20:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v13;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Attempting to filter out network misconfiguration symptoms from: %@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v13;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Attempting to filter out network misconfiguration symptoms from: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -1073,27 +1050,25 @@ LABEL_20:
       v22 = HMFGetLogIdentifier();
       uuid = [accessoryCopy uuid];
       device = [accessoryCopy device];
-      v26 = 138544130;
-      v27 = v22;
-      v28 = 2112;
-      v29 = uuid;
-      v30 = 2112;
-      v31 = device;
-      v32 = 2112;
-      v33 = v13;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory (%@, device: %@) has these network diagnostic symptoms %@", &v26, 0x2Au);
+      v25 = 138544130;
+      v26 = v22;
+      v27 = 2112;
+      v28 = uuid;
+      v29 = 2112;
+      v30 = device;
+      v31 = 2112;
+      v32 = v13;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory (%@, device: %@) has these network diagnostic symptoms %@", &v25, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v19);
     [symptomsCopy addObjectsFromArray:v13];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSymptomsForRegisteredAccessory:(id)accessory
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1126,38 +1101,38 @@ LABEL_20:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v36 = v40 = _shouldFilterOutNDFSymptoms;
+      v35 = v39 = _shouldFilterOutNDFSymptoms;
       uuid = [accessoryCopy uuid];
       [accessoryCopy device];
-      v38 = v11;
-      v19 = v39 = v15;
+      v37 = v11;
+      v19 = v38 = v15;
       HMFBooleanToString();
-      v35 = v37 = v8;
+      v34 = v36 = v8;
       v20 = HMFBooleanToString();
       v21 = HMFBooleanToString();
       HMFBooleanToString();
       *buf = 138544898;
-      v44 = v36;
-      v45 = 2112;
-      v46 = uuid;
-      v47 = 2112;
-      v48 = v19;
-      v49 = 2112;
-      v50 = v35;
-      v51 = 2112;
-      v52 = v20;
+      v43 = v35;
+      v44 = 2112;
+      v45 = uuid;
+      v46 = 2112;
+      v47 = v19;
+      v48 = 2112;
+      v49 = v34;
+      v50 = 2112;
+      v51 = v20;
       v22 = v20;
-      v53 = 2112;
-      v54 = v21;
-      v56 = v55 = 2112;
-      v23 = v56;
+      v52 = 2112;
+      v53 = v21;
+      v55 = v54 = 2112;
+      v23 = v55;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Accessory (%@, device: %@) support network diagnostic: %@, controller enabled diagnostic: %@, use network diagnostics: %@, shouldFilterOutNDFSymptoms: %@", buf, 0x48u);
 
-      v15 = v39;
-      v11 = v38;
+      v15 = v38;
+      v11 = v37;
 
-      v8 = v37;
-      _shouldFilterOutNDFSymptoms = v40;
+      v8 = v36;
+      _shouldFilterOutNDFSymptoms = v39;
     }
 
     objc_autoreleasePoolPop(context);
@@ -1183,11 +1158,11 @@ LABEL_20:
         [v7 idsIdentifier];
         v32 = v31 = v11;
         *buf = 138543874;
-        v44 = v30;
-        v45 = 2112;
-        v46 = v32;
-        v47 = 2112;
-        v48 = v8;
+        v43 = v30;
+        v44 = 2112;
+        v45 = v32;
+        v46 = 2112;
+        v47 = v8;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Updating symptoms for accessory with IDS identifier %@: %@", buf, 0x20u);
 
         v11 = v31;
@@ -1198,13 +1173,11 @@ LABEL_20:
       [delegate symptomManager:v28 didChangeSymptoms:v8];
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSymptomsForRegisteredAccessoryWithIDSIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1225,22 +1198,20 @@ LABEL_20:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Peforming network mismatch fetch as accessory is in list", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Peforming network mismatch fetch as accessory is in list", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
       [(HMDSymptomManager *)selfCopy updateNetworkMismatchInfoWithCompletionHandler:&__block_literal_global_35_168475];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSymptoms:(id)symptoms forIDSIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   symptomsCopy = symptoms;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -1250,11 +1221,11 @@ LABEL_20:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v20 = v11;
-    v21 = 2112;
-    v22 = identifierCopy;
-    v23 = 2112;
-    v24 = symptomsCopy;
+    v19 = v11;
+    v20 = 2112;
+    v21 = identifierCopy;
+    v22 = 2112;
+    v23 = symptomsCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory with IDS identifier %@ has these network diagnostic symptoms %@", buf, 0x20u);
   }
 
@@ -1265,13 +1236,11 @@ LABEL_20:
   block[2] = __54__HMDSymptomManager__updateSymptoms_forIDSIdentifier___block_invoke;
   block[3] = &unk_27868A010;
   block[4] = selfCopy;
-  v17 = identifierCopy;
-  v18 = symptomsCopy;
+  v16 = identifierCopy;
+  v17 = symptomsCopy;
   v13 = symptomsCopy;
   v14 = identifierCopy;
   dispatch_async(workQueue, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDSymptomManager__updateSymptoms_forIDSIdentifier___block_invoke(uint64_t a1)
@@ -1290,31 +1259,31 @@ void __54__HMDSymptomManager__updateSymptoms_forIDSIdentifier___block_invoke(uin
 
 - (id)_registeredAccessoryWithIDSIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   symptomContainerByRegisteredAccessory = [(HMDSymptomManager *)self symptomContainerByRegisteredAccessory];
-  v7 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(symptomContainerByRegisteredAccessory);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         symptomContainerByRegisteredAccessory2 = [(HMDSymptomManager *)self symptomContainerByRegisteredAccessory];
         v13 = [symptomContainerByRegisteredAccessory2 objectForKey:v11];
 
@@ -1329,7 +1298,7 @@ void __54__HMDSymptomManager__updateSymptoms_forIDSIdentifier___block_invoke(uin
         }
       }
 
-      v8 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [symptomContainerByRegisteredAccessory countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         continue;
@@ -1342,14 +1311,12 @@ void __54__HMDSymptomManager__updateSymptoms_forIDSIdentifier___block_invoke(uin
   v16 = 0;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)_initiateFixForAccessory:(id)accessory completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   completionCopy = completion;
   workQueue = [(HMDSymptomManager *)self workQueue];
@@ -1376,13 +1343,13 @@ LABEL_11:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v31 = 138543874;
-        v32 = v20;
-        v33 = 2112;
-        v34 = v13;
-        v35 = 1024;
-        v36 = v16;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Asking SFClient to repair device %@ with flags %d", &v31, 0x1Cu);
+        v30 = 138543874;
+        v31 = v20;
+        v32 = 2112;
+        v33 = v13;
+        v34 = 1024;
+        v35 = v16;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Asking SFClient to repair device %@ with flags %d", &v30, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -1398,11 +1365,11 @@ LABEL_11:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = HMFGetLogIdentifier();
-        v31 = 138543618;
-        v32 = v29;
-        v33 = 2112;
-        v34 = accessoryCopy;
-        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Sharing has not discovered SFDevice for %@, not initiating fix process.", &v31, 0x16u);
+        v30 = 138543618;
+        v31 = v29;
+        v32 = 2112;
+        v33 = accessoryCopy;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Sharing has not discovered SFDevice for %@, not initiating fix process.", &v30, 0x16u);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -1419,19 +1386,17 @@ LABEL_11:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v31 = 138543618;
-      v32 = v25;
-      v33 = 2112;
-      v34 = accessoryCopy;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@The accessory (%@) does not have idsIdentifier, not initiating fix process.", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = v25;
+      v32 = 2112;
+      v33 = accessoryCopy;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@The accessory (%@) does not have idsIdentifier, not initiating fix process.", &v30, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     completionCopy[2](completionCopy, v13);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_symptomsForRegisteredAccessory:(id)accessory
@@ -1462,18 +1427,18 @@ LABEL_11:
 
 - (void)_registerForCurrentDeviceSymptoms
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sharingClientFactory = [(HMDSymptomManager *)self sharingClientFactory];
   v4 = sharingClientFactory[2]();
 
   if (objc_opt_respondsToSelector())
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke;
-    v12[3] = &unk_278688DF8;
-    v12[4] = self;
-    [v4 getProblemFlagsWithCompletionHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke;
+    v11[3] = &unk_278688DF8;
+    v11[4] = self;
+    [v4 getProblemFlagsWithCompletionHandler:v11];
   }
 
   else
@@ -1485,7 +1450,7 @@ LABEL_11:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Device doesn't support retrieving problem flags.", buf, 0xCu);
     }
 
@@ -1493,19 +1458,17 @@ LABEL_11:
   }
 
   workQueue = [(HMDSymptomManager *)self workQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_28;
-  v11[3] = &unk_278681818;
-  v11[4] = self;
-  notify_register_dispatch("com.apple.sharing.problems", &self->_deviceProblemNotificationToken, workQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_28;
+  v10[3] = &unk_278681818;
+  v10[4] = self;
+  notify_register_dispatch("com.apple.sharing.problems", &self->_deviceProblemNotificationToken, workQueue, v10);
 }
 
 void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -1513,24 +1476,22 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke(uin
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2048;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Setting current device problem flags on start %llu, error: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2048;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Setting current device problem flags on start %llu, error: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [*(a1 + 32) setCurrentDeviceProblemFlags:a2];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_28(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sharingClientFactory];
   v3 = v2[2]();
 
@@ -1541,19 +1502,19 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_28(
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Current device problem flags changed", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   if (objc_opt_respondsToSelector())
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29;
-    v13[3] = &unk_278688DF8;
-    v13[4] = *(a1 + 32);
-    [v3 getProblemFlagsWithCompletionHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29;
+    v12[3] = &unk_278688DF8;
+    v12[4] = *(a1 + 32);
+    [v3 getProblemFlagsWithCompletionHandler:v12];
   }
 
   else
@@ -1565,19 +1526,17 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_28(
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Device doesn't support retrieving problem flags.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -1585,19 +1544,17 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543874;
-    v12 = v9;
-    v13 = 2048;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Setting current device problem flags to %llu, error: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2048;
+    v13 = a2;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Setting current device problem flags to %llu, error: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   [*(a1 + 32) setCurrentDeviceProblemFlags:a2];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopCompanionLinkClient
@@ -1638,7 +1595,7 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
 
 - (void)_stop
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1648,9 +1605,9 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping SFDeviceDiscovery and RPCompanionLinkClient in HMDSymptomManager.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping SFDeviceDiscovery and RPCompanionLinkClient in HMDSymptomManager.", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1661,13 +1618,11 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
 
   networkReachableRPCompanionLinkDevices = [(HMDSymptomManager *)selfCopy networkReachableRPCompanionLinkDevices];
   [networkReachableRPCompanionLinkDevices removeAllObjects];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startCompanionLinkClient
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1676,26 +1631,26 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
   [companionLinkClient setDispatchQueue:workQueue2];
 
   objc_initWeak(&location, self);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __46__HMDSymptomManager__startCompanionLinkClient__block_invoke;
-  v19[3] = &unk_27867CA08;
-  objc_copyWeak(&v20, &location);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __46__HMDSymptomManager__startCompanionLinkClient__block_invoke;
+  v18[3] = &unk_27867CA08;
+  objc_copyWeak(&v19, &location);
   companionLinkClient2 = [(HMDSymptomManager *)self companionLinkClient];
-  [companionLinkClient2 setDeviceFoundHandler:v19];
+  [companionLinkClient2 setDeviceFoundHandler:v18];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_21;
-  v17[3] = &unk_27867CA30;
-  objc_copyWeak(&v18, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_21;
+  v16[3] = &unk_27867CA30;
+  objc_copyWeak(&v17, &location);
   companionLinkClient3 = [(HMDSymptomManager *)self companionLinkClient];
-  [companionLinkClient3 setDeviceChangedHandler:v17];
+  [companionLinkClient3 setDeviceChangedHandler:v16];
 
-  v15 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v16, &location);
-  v8 = [(HMDSymptomManager *)self companionLinkClient:v15];
-  [v8 setDeviceLostHandler:&v15];
+  v14 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v15, &location);
+  v8 = [(HMDSymptomManager *)self companionLinkClient:v14];
+  [v8 setDeviceLostHandler:&v14];
 
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1704,7 +1659,7 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v23 = v12;
+    v22 = v12;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Starting RPCompanionLinkClient in HMDSymptomManager", buf, 0xCu);
   }
 
@@ -1712,16 +1667,15 @@ void __54__HMDSymptomManager__registerForCurrentDeviceSymptoms__block_invoke_29(
   companionLinkClient4 = [(HMDSymptomManager *)selfCopy companionLinkClient];
   [companionLinkClient4 start];
 
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained workQueue];
@@ -1733,11 +1687,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke(uint64_t a1
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Found RPCompanionLinkDevice: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Found RPCompanionLinkDevice: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1747,13 +1701,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke(uint64_t a1
   {
     [v7 _rpDeviceFoundHandler:v3];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_21(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained workQueue];
@@ -1765,11 +1717,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_21(uint64_t
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@RPCompanionLinkDevice %@ changed", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@RPCompanionLinkDevice %@ changed", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1779,13 +1731,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_21(uint64_t
   {
     [v7 _rpDeviceChangedHandler:v3];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained workQueue];
@@ -1797,11 +1747,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Lost RPCompanionLinkDevice: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Lost RPCompanionLinkDevice: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1811,13 +1761,11 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t
   {
     [v7 _rpDeviceLostHandler:v3];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDeviceDiscovery
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1830,26 +1778,26 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t
   [deviceDiscovery2 setDiscoveryFlags:deviceDiscoveryFlags];
 
   objc_initWeak(&location, self);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __42__HMDSymptomManager__startDeviceDiscovery__block_invoke;
-  v21[3] = &unk_27867C9B8;
-  objc_copyWeak(&v22, &location);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __42__HMDSymptomManager__startDeviceDiscovery__block_invoke;
+  v20[3] = &unk_27867C9B8;
+  objc_copyWeak(&v21, &location);
   deviceDiscovery3 = [(HMDSymptomManager *)self deviceDiscovery];
-  [deviceDiscovery3 setDeviceFoundHandler:v21];
+  [deviceDiscovery3 setDeviceFoundHandler:v20];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2;
-  v19[3] = &unk_27867C9E0;
-  objc_copyWeak(&v20, &location);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_2;
+  v18[3] = &unk_27867C9E0;
+  objc_copyWeak(&v19, &location);
   deviceDiscovery4 = [(HMDSymptomManager *)self deviceDiscovery];
-  [deviceDiscovery4 setDeviceChangedHandler:v19];
+  [deviceDiscovery4 setDeviceChangedHandler:v18];
 
-  v17 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v18, &location);
-  v10 = [(HMDSymptomManager *)self deviceDiscovery:v17];
-  [v10 setDeviceLostHandler:&v17];
+  v16 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v17, &location);
+  v10 = [(HMDSymptomManager *)self deviceDiscovery:v16];
+  [v10 setDeviceLostHandler:&v16];
 
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1858,7 +1806,7 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v14;
+    v24 = v14;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Starting SFDeviceDiscovery in HMDSymptomManager", buf, 0xCu);
   }
 
@@ -1866,11 +1814,10 @@ void __46__HMDSymptomManager__startCompanionLinkClient__block_invoke_23(uint64_t
   deviceDiscovery5 = [(HMDSymptomManager *)selfCopy deviceDiscovery];
   [deviceDiscovery5 start];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_3(uint64_t a1, void *a2)
@@ -1916,38 +1863,38 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_3(uint64_t a1, 
 
 - (void)setDeviceDiscoveryFlags:(unint64_t)flags
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDSymptomManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   if (self->_deviceDiscoveryFlags != flags)
   {
     self->_deviceDiscoveryFlags = flags;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     nearbySFDevices = [(HMDSymptomManager *)self nearbySFDevices];
     v7 = NSAllMapTableValues(nearbySFDevices);
 
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(HMDSymptomManager *)self _sfDeviceLostHandler:*(*(&v15 + 1) + 8 * i)];
+          [(HMDSymptomManager *)self _sfDeviceLostHandler:*(*(&v14 + 1) + 8 * i)];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -1962,8 +1909,6 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_3(uint64_t a1, 
       [(HMDSymptomManager *)self _startDeviceDiscovery];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiateFixForAccessory:(id)accessory completion:(id)completion
@@ -1996,16 +1941,16 @@ void __42__HMDSymptomManager__startDeviceDiscovery__block_invoke_3(uint64_t a1, 
 
 void __63__HMDSymptomManager_stopDiscoveringSymptomsRequiringNearbyInfo__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Stopping discovery for symptoms requiring nearby info", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Stopping discovery for symptoms requiring nearby info", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2019,8 +1964,6 @@ void __63__HMDSymptomManager_stopDiscoveringSymptomsRequiringNearbyInfo__block_i
   [*(a1 + 32) stopNetworkDiagnosticsObservation];
   v8 = [*(a1 + 32) accessoryNetworkDiagnosticSymptoms];
   [v8 removeAllObjects];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiscoveringSymptomsRequiringNearbyInfo
@@ -2036,7 +1979,7 @@ void __63__HMDSymptomManager_stopDiscoveringSymptomsRequiringNearbyInfo__block_i
 
 void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2044,7 +1987,7 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting discovery for symptoms requiring nearby info", buf, 0xCu);
   }
 
@@ -2059,16 +2002,15 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
 
   objc_initWeak(buf, *(a1 + 32));
   v9 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_invoke_17;
-  v11[3] = &unk_278686B80;
-  objc_copyWeak(&v12, buf);
-  [v9 updateNetworkMismatchInfoWithCompletionHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_invoke_17;
+  v10[3] = &unk_278686B80;
+  objc_copyWeak(&v11, buf);
+  [v9 updateNetworkMismatchInfoWithCompletionHandler:v10];
   [*(a1 + 32) startNetworkDiagnosticsObservation];
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_invoke_17(uint64_t a1)
@@ -2085,7 +2027,7 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
 
 void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2093,11 +2035,11 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) nearbyAccessoryUUIDsNotOnCurrentNetwork];
-    v13 = 138543618;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Updated network mismatch accessories with current network to %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Updated network mismatch accessories with current network to %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2108,15 +2050,14 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
   {
     v10 = HMFGetLogIdentifier();
     v11 = [*(a1 + 32) nearbyAccessoryUUIDsNotConnectToPrimaryResident];
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updated accessories disconnected with primary resident to %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updated accessories disconnected with primary resident to %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterAccessory:(id)accessory
@@ -2135,7 +2076,7 @@ void __64__HMDSymptomManager_startDiscoveringSymptomsRequiringNearbyInfo__block_
 
 void __41__HMDSymptomManager_deregisterAccessory___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) symptomContainerByRegisteredAccessory];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -2148,11 +2089,11 @@ void __41__HMDSymptomManager_deregisterAccessory___block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Deregistering accessory: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Deregistering accessory: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2170,8 +2111,6 @@ void __41__HMDSymptomManager_deregisterAccessory___block_invoke(uint64_t a1)
       [*(a1 + 32) _stop];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerAccessory:(id)accessory delegate:(id)delegate
@@ -2193,7 +2132,7 @@ void __41__HMDSymptomManager_deregisterAccessory___block_invoke(uint64_t a1)
 
 void __48__HMDSymptomManager_registerAccessory_delegate___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) supportsRegisteringAccessories])
   {
     v2 = [*(a1 + 40) idsIdentifier];
@@ -2214,13 +2153,13 @@ void __48__HMDSymptomManager_registerAccessory_delegate___block_invoke(uint64_t 
         {
           v20 = HMFGetLogIdentifier();
           v21 = *(a1 + 40);
-          v33 = 138543874;
-          v34 = v20;
-          v35 = 2112;
-          v36 = v21;
-          v37 = 2112;
-          v38 = v3;
-          _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Registering accessory (%@) for idsIdentifier %@", &v33, 0x20u);
+          v32 = 138543874;
+          v33 = v20;
+          v34 = 2112;
+          v35 = v21;
+          v36 = 2112;
+          v37 = v3;
+          _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Registering accessory (%@) for idsIdentifier %@", &v32, 0x20u);
         }
 
         objc_autoreleasePoolPop(v6);
@@ -2260,15 +2199,15 @@ void __48__HMDSymptomManager_registerAccessory_delegate___block_invoke(uint64_t 
       {
         v10 = HMFGetLogIdentifier();
         v11 = *(a1 + 40);
-        v33 = 138543618;
-        v34 = v10;
-        v35 = 2112;
-        v36 = v11;
+        v32 = 138543618;
+        v33 = v10;
+        v34 = 2112;
+        v35 = v11;
         v12 = "%{public}@The accessory (%@) is already registered.";
         v13 = v8;
         v14 = OS_LOG_TYPE_INFO;
 LABEL_11:
-        _os_log_impl(&dword_229538000, v13, v14, v12, &v33, 0x16u);
+        _os_log_impl(&dword_229538000, v13, v14, v12, &v32, 0x16u);
       }
     }
 
@@ -2281,10 +2220,10 @@ LABEL_11:
       {
         v10 = HMFGetLogIdentifier();
         v19 = *(a1 + 40);
-        v33 = 138543618;
-        v34 = v10;
-        v35 = 2112;
-        v36 = v19;
+        v32 = 138543618;
+        v33 = v10;
+        v34 = 2112;
+        v35 = v19;
         v12 = "%{public}@The accessory (%@) does not have idsIdentifier, not registering for the discovery.";
         v13 = v8;
         v14 = OS_LOG_TYPE_ERROR;
@@ -2295,7 +2234,7 @@ LABEL_11:
     objc_autoreleasePoolPop(v6);
 LABEL_21:
 
-    goto LABEL_22;
+    return;
   }
 
   v15 = objc_autoreleasePoolPush();
@@ -2304,14 +2243,12 @@ LABEL_21:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     v18 = HMFGetLogIdentifier();
-    v33 = 138543362;
-    v34 = v18;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@This device doesn't support registering accessories", &v33, 0xCu);
+    v32 = 138543362;
+    v33 = v18;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@This device doesn't support registering accessories", &v32, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
-LABEL_22:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -2421,34 +2358,33 @@ id __40__HMDSymptomManager_initWithDataSource___block_invoke()
 
 void __32__HMDSymptomManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v54_168562;
-  logCategory__hmf_once_v54_168562 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v54_168562;
+  logCategory__hmf_once_v54_168562 = v0;
 }
 
 + (id)_symptomsForProblemFlags:(unint64_t)flags
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v31 = 138543618;
-    v32 = v8;
-    v33 = 2048;
+    v30 = 138543618;
+    v31 = v8;
+    v32 = 2048;
     flagsCopy = flags;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Parsing problem flags %llu to HMSymptoms", &v31, 0x16u);
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Parsing problem flags %llu to HMSymptoms", &v30, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v9 = [MEMORY[0x277CBEB58] set];
   if ((flags & 2) != 0)
   {
-    v16 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:1];
-    [v9 addObject:v16];
+    v15 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:1];
+    [v9 addObject:v15];
 
     if ((flags & 4) == 0)
     {
@@ -2467,8 +2403,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v17 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:2];
-  [v9 addObject:v17];
+  v16 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:2];
+  [v9 addObject:v16];
 
   if ((flags & 8) == 0)
   {
@@ -2482,8 +2418,8 @@ LABEL_6:
   }
 
 LABEL_28:
-  v18 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:3];
-  [v9 addObject:v18];
+  v17 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:3];
+  [v9 addObject:v17];
 
   if ((flags & 0x10) == 0)
   {
@@ -2497,8 +2433,8 @@ LABEL_7:
   }
 
 LABEL_29:
-  v19 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:4];
-  [v9 addObject:v19];
+  v18 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:4];
+  [v9 addObject:v18];
 
   if ((flags & 0x40) == 0)
   {
@@ -2512,8 +2448,8 @@ LABEL_8:
   }
 
 LABEL_30:
-  v20 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:5];
-  [v9 addObject:v20];
+  v19 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:5];
+  [v9 addObject:v19];
 
   if ((flags & 0x80) == 0)
   {
@@ -2527,8 +2463,8 @@ LABEL_9:
   }
 
 LABEL_31:
-  v21 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:6];
-  [v9 addObject:v21];
+  v20 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:6];
+  [v9 addObject:v20];
 
   if ((flags & 0x100) == 0)
   {
@@ -2542,8 +2478,8 @@ LABEL_10:
   }
 
 LABEL_32:
-  v22 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:7];
-  [v9 addObject:v22];
+  v21 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:7];
+  [v9 addObject:v21];
 
   if ((flags & 0x2000) == 0)
   {
@@ -2557,8 +2493,8 @@ LABEL_11:
   }
 
 LABEL_33:
-  v23 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:8];
-  [v9 addObject:v23];
+  v22 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:8];
+  [v9 addObject:v22];
 
   if ((flags & 0x1000) == 0)
   {
@@ -2572,8 +2508,8 @@ LABEL_12:
   }
 
 LABEL_34:
-  v24 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:9];
-  [v9 addObject:v24];
+  v23 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:9];
+  [v9 addObject:v23];
 
   if ((flags & 0x4000) == 0)
   {
@@ -2587,8 +2523,8 @@ LABEL_13:
   }
 
 LABEL_35:
-  v25 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:10];
-  [v9 addObject:v25];
+  v24 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:10];
+  [v9 addObject:v24];
 
   if ((flags & 0x8000) == 0)
   {
@@ -2602,8 +2538,8 @@ LABEL_14:
   }
 
 LABEL_36:
-  v26 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:13];
-  [v9 addObject:v26];
+  v25 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:13];
+  [v9 addObject:v25];
 
   if ((flags & 0x10000) == 0)
   {
@@ -2617,8 +2553,8 @@ LABEL_15:
   }
 
 LABEL_37:
-  v27 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:14];
-  [v9 addObject:v27];
+  v26 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:14];
+  [v9 addObject:v26];
 
   if ((flags & 0x40000) == 0)
   {
@@ -2632,8 +2568,8 @@ LABEL_16:
   }
 
 LABEL_38:
-  v28 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:16];
-  [v9 addObject:v28];
+  v27 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:16];
+  [v9 addObject:v27];
 
   if ((flags & 0x100000) == 0)
   {
@@ -2644,8 +2580,8 @@ LABEL_17:
     }
 
 LABEL_40:
-    v30 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:18];
-    [v9 addObject:v30];
+    v29 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:18];
+    [v9 addObject:v29];
 
     if ((flags & 0x20000) == 0)
     {
@@ -2656,8 +2592,8 @@ LABEL_40:
   }
 
 LABEL_39:
-  v29 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:17];
-  [v9 addObject:v29];
+  v28 = [objc_alloc(MEMORY[0x277CD1E80]) initWithType:17];
+  [v9 addObject:v28];
 
   if ((flags & 0x80000) != 0)
   {
@@ -2680,9 +2616,7 @@ LABEL_20:
     [v9 addObject:v12];
   }
 
-  v13 = [v9 copy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_copy(v9);
 
   return v13;
 }

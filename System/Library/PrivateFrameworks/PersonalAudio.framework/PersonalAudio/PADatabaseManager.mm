@@ -29,17 +29,15 @@ uint64_t __34__PADatabaseManager_sharedManager__block_invoke()
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = HCLogAudioAccommodations();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "PA DB message %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_25E445000, v4, OS_LOG_TYPE_DEFAULT, "PA DB message %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentDidUpdate:(id)update

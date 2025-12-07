@@ -14,7 +14,7 @@
 {
   if (!self->_idleEventLock)
   {
-    v5 = FBSceneIdleEventQueue();
+    v5 = FBSceneIdleEventQueue(self);
     v3 = [v5 acquireLockForReason:@"FBSceneEventQueue"];
     idleEventLock = self->_idleEventLock;
     self->_idleEventLock = v3;
@@ -73,13 +73,13 @@
   }
 
   v5 = [MEMORY[0x1E698E6B0] eventWithName:@"idleEvent" handler:idleCopy];
-  v6 = FBSceneIdleEventQueue();
+  v6 = FBSceneIdleEventQueue(v5);
   [v6 executeOrInsertEvent:v5 atPosition:1];
 }
 
 + (BOOL)isIdleWorkSuspended
 {
-  v2 = FBSceneIdleEventQueue();
+  v2 = FBSceneIdleEventQueue(self);
   isLocked = [v2 isLocked];
 
   return isLocked;
@@ -89,31 +89,32 @@
 {
   v3 = MEMORY[0x1E696AF00];
   reasonCopy = reason;
-  if (([v3 isMainThread] & 1) == 0)
+  isMainThread = [v3 isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     __FB_REPORT_MAIN_THREAD_VIOLATION__(0, "+[FBSceneEventQueue suspendIdleWorkForReason:]");
   }
 
-  v5 = FBSceneIdleEventQueue();
-  v6 = [v5 acquireLockForReason:reasonCopy];
+  v6 = FBSceneIdleEventQueue(isMainThread);
+  v7 = [v6 acquireLockForReason:reasonCopy];
 
-  v7 = objc_alloc(MEMORY[0x1E698E778]);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __46__FBSceneEventQueue_suspendIdleWorkForReason___block_invoke;
-  v11[3] = &unk_1E783C088;
-  v12 = v6;
-  v8 = v6;
-  v9 = [v7 initWithIdentifier:@"SuspendIdleWork" forReason:reasonCopy queue:MEMORY[0x1E69E96A0] invalidationBlock:v11];
+  v8 = objc_alloc(MEMORY[0x1E698E778]);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __46__FBSceneEventQueue_suspendIdleWorkForReason___block_invoke;
+  v12[3] = &unk_1E783C088;
+  v13 = v7;
+  v9 = v7;
+  v10 = [v8 initWithIdentifier:@"SuspendIdleWork" forReason:reasonCopy queue:MEMORY[0x1E69E96A0] invalidationBlock:v12];
 
-  return v9;
+  return v10;
 }
 
 - (void)_noteWillPendEvents:(id)events atPosition:(int)position
 {
   if (!self->_idleEventLock)
   {
-    v7 = FBSceneIdleEventQueue();
+    v7 = FBSceneIdleEventQueue(self);
     v5 = [v7 acquireLockForReason:@"FBSceneEventQueue"];
     idleEventLock = self->_idleEventLock;
     self->_idleEventLock = v5;

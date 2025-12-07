@@ -190,10 +190,10 @@ void __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke(uint64_
 
 void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(_log, OS_LOG_TYPE_DEBUG))
   {
-    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_1(a1);
+    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_1();
   }
 
   v2 = [*(a1 + 40) registrations];
@@ -204,12 +204,12 @@ void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launch
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_2((a1 + 32));
+      __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_2();
     }
 
 LABEL_9:
     *(*(*(a1 + 64) + 8) + 24) = 0;
-    goto LABEL_10;
+    return;
   }
 
   v5 = [*v3 length];
@@ -217,55 +217,55 @@ LABEL_9:
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4((a1 + 32));
+      __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4();
     }
 
     goto LABEL_9;
   }
 
-  v7 = [[BGSystemTaskSchedulerRegistration alloc] initWithIdentifier:*(a1 + 32) launchQueue:*(a1 + 48) launchHandler:*(a1 + 56)];
-  v8 = [*(a1 + 40) registrations];
-  [v8 setObject:v7 forKeyedSubscript:*(a1 + 32)];
+  v6 = [[BGSystemTaskSchedulerRegistration alloc] initWithIdentifier:*(a1 + 32) launchQueue:*(a1 + 48) launchHandler:*(a1 + 56)];
+  v7 = [*(a1 + 40) registrations];
+  [v7 setObject:v6 forKeyedSubscript:*(a1 + 32)];
 
   [*(a1 + 32) UTF8String];
-  v9 = xpc_copy_event();
-  if (v9)
+  v8 = xpc_copy_event();
+  if (v8)
   {
-    v10 = [BGSystemTaskRequest taskRequestWithDescriptor:v9 withIdentifier:*(a1 + 32)];
-    v11 = [*(a1 + 40) registrations];
-    v12 = [v11 objectForKeyedSubscript:*(a1 + 32)];
-    [v12 setTaskRequest:v10];
+    v9 = [BGSystemTaskRequest taskRequestWithDescriptor:v8 withIdentifier:*(a1 + 32)];
+    v10 = [*(a1 + 40) registrations];
+    v11 = [v10 objectForKeyedSubscript:*(a1 + 32)];
+    [v11 setTaskRequest:v9];
 
-    if (v10)
+    if (v9)
     {
-      v13 = [BGSystemTaskRequest descriptorWithTaskRequest:v10];
-      v14 = [*(a1 + 40) registrations];
-      v15 = [v14 objectForKeyedSubscript:*(a1 + 32)];
-      [v15 setDescriptor:v13];
+      v12 = [BGSystemTaskRequest descriptorWithTaskRequest:v9];
+      v13 = [*(a1 + 40) registrations];
+      v14 = [v13 objectForKeyedSubscript:*(a1 + 32)];
+      [v14 setDescriptor:v12];
 
-      v16 = [*(a1 + 40) pendingTaskRegistrationsMap];
-      v17 = [v16 objectForKeyedSubscript:*(a1 + 32)];
+      v15 = [*(a1 + 40) pendingTaskRegistrationsMap];
+      v16 = [v15 objectForKeyedSubscript:*(a1 + 32)];
 
-      if (v17)
+      if (v16)
       {
-        v18 = _log;
+        v17 = _log;
         if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
         {
-          v19 = *v3;
-          v26 = 138412290;
-          v27 = v19;
-          _os_log_impl(&dword_1B236A000, v18, OS_LOG_TYPE_INFO, "Processing pending event for %@", &v26, 0xCu);
+          v18 = *v3;
+          v25 = 138412290;
+          v26 = v18;
+          _os_log_impl(&dword_1B236A000, v17, OS_LOG_TYPE_INFO, "Processing pending event for %@", &v25, 0xCu);
         }
 
-        v20 = *(a1 + 40);
-        v21 = [v20 pendingTaskRegistrationsMap];
-        v22 = [v21 objectForKeyedSubscript:*(a1 + 32)];
-        v23 = [*(a1 + 40) registrations];
-        v24 = [v23 objectForKeyedSubscript:*(a1 + 32)];
-        [v20 processEvent:v22 forRegistration:v24];
+        v19 = *(a1 + 40);
+        v20 = [v19 pendingTaskRegistrationsMap];
+        v21 = [v20 objectForKeyedSubscript:*(a1 + 32)];
+        v22 = [*(a1 + 40) registrations];
+        v23 = [v22 objectForKeyedSubscript:*(a1 + 32)];
+        [v19 processEvent:v21 forRegistration:v23];
 
-        v25 = [*(a1 + 40) pendingTaskRegistrationsMap];
-        [v25 removeObjectForKey:*(a1 + 32)];
+        v24 = [*(a1 + 40) pendingTaskRegistrationsMap];
+        [v24 removeObjectForKey:*(a1 + 32)];
       }
     }
 
@@ -273,20 +273,17 @@ LABEL_9:
     {
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_3((a1 + 32));
+        __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_3();
       }
 
       *(*(*(a1 + 64) + 8) + 24) = 0;
     }
   }
-
-LABEL_10:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __51__BGSystemTaskScheduler_installResubmissionHandler__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) runningTasksMap];
   v3 = [v2 allKeys];
 
@@ -295,16 +292,14 @@ void __51__BGSystemTaskScheduler_installResubmissionHandler__block_invoke(uint64
     v4 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, "Resubmitting running BGSTs %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, "Resubmitting running BGSTs %{public}@", &v6, 0xCu);
     }
 
     v5 = [*(a1 + 32) scheduler];
     [v5 resubmitRunningTasks:v3];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2(uint64_t a1)
@@ -316,7 +311,7 @@ void __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2(uint6
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2_cold_1((a1 + 40));
+      __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2_cold_1();
     }
 
     v4 = [*(a1 + 32) scheduler];
@@ -347,7 +342,7 @@ uint64_t __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_85(
 
 - (void)processEvent:(id)event forRegistration:(id)registration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   registrationCopy = registration;
   taskRequest = [registrationCopy taskRequest];
@@ -362,9 +357,9 @@ uint64_t __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_85(
       {
         v16 = v15;
         identifier = [registrationCopy identifier];
-        v19 = 138412290;
-        v20 = identifier;
-        _os_log_impl(&dword_1B236A000, v16, OS_LOG_TYPE_INFO, "Received run request for %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = identifier;
+        _os_log_impl(&dword_1B236A000, v16, OS_LOG_TYPE_INFO, "Received run request for %@", &v18, 0xCu);
       }
 
       [(BGSystemTaskScheduler *)self runTaskWithRegistration:registrationCopy];
@@ -378,11 +373,11 @@ uint64_t __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_85(
       {
         v12 = v11;
         identifier2 = [registrationCopy identifier];
-        v19 = 138412546;
-        v20 = identifier2;
-        v21 = 2048;
-        v22 = int64;
-        _os_log_impl(&dword_1B236A000, v12, OS_LOG_TYPE_INFO, "Received request to expire %@ with reason: %lu", &v19, 0x16u);
+        v18 = 138412546;
+        v19 = identifier2;
+        v20 = 2048;
+        v21 = int64;
+        _os_log_impl(&dword_1B236A000, v12, OS_LOG_TYPE_INFO, "Received request to expire %@ with reason: %lu", &v18, 0x16u);
       }
 
       [(BGSystemTaskScheduler *)self expireTaskWithRegistration:registrationCopy withReason:int64];
@@ -397,8 +392,6 @@ uint64_t __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_85(
       [BGSystemTaskScheduler processEvent:v14 forRegistration:?];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)submitTaskRequest:(id)request error:(id *)error
@@ -442,7 +435,7 @@ uint64_t __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_85(
 
 void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) identifier];
   v4 = [v3 length];
@@ -489,17 +482,17 @@ void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke(uint64_t
 
       if (!v19)
       {
-        v22 = [*v2 isMemberOfClass:objc_opt_class()];
-        v23 = [v9 taskRequest];
+        v21 = [*v2 isMemberOfClass:objc_opt_class()];
+        v22 = [v9 taskRequest];
 
-        if (v23)
+        if (v22)
         {
-          v24 = _log;
-          if ((v22 & 1) == 0)
+          v23 = _log;
+          if ((v21 & 1) == 0)
           {
             if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
             {
-              __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_3(v2, v24);
+              __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_3(v2, v23);
             }
 
             *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -510,37 +503,37 @@ void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke(uint64_t
 
           if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = *v2;
-            v26 = v24;
-            v27 = [v25 identifier];
+            v24 = *v2;
+            v25 = v23;
+            v26 = [v24 identifier];
             *buf = 138543362;
-            v38 = v27;
-            _os_log_impl(&dword_1B236A000, v26, OS_LOG_TYPE_DEFAULT, "submitTaskRequest: Redundant FastPass submission request for %{public}@", buf, 0xCu);
+            v37 = v26;
+            _os_log_impl(&dword_1B236A000, v25, OS_LOG_TYPE_DEFAULT, "submitTaskRequest: Redundant FastPass submission request for %{public}@", buf, 0xCu);
           }
         }
 
-        v28 = [BGSystemTaskRequest descriptorWithTaskRequest:*v2];
-        if (v28)
+        v27 = [BGSystemTaskRequest descriptorWithTaskRequest:*v2];
+        if (v27)
         {
-          v29 = [*(a1 + 40) scheduler];
-          v30 = [*(a1 + 32) identifier];
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89;
-          v32[3] = &unk_1E7B241A0;
-          v33 = v9;
-          v34 = *(a1 + 32);
-          v35 = v28;
-          v36 = *(a1 + 48);
-          [v29 submitTaskRequestWithIdentifier:v30 descriptor:v35 completionHandler:v32];
+          v28 = [*(a1 + 40) scheduler];
+          v29 = [*(a1 + 32) identifier];
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89;
+          v31[3] = &unk_1E7B241A0;
+          v32 = v9;
+          v33 = *(a1 + 32);
+          v34 = v27;
+          v35 = *(a1 + 48);
+          [v28 submitTaskRequestWithIdentifier:v29 descriptor:v34 completionHandler:v31];
         }
 
         else
         {
-          v31 = _log;
+          v30 = _log;
           if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
           {
-            __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_4(v2, v31);
+            __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_4(v2, v30);
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -564,7 +557,7 @@ LABEL_16:
     *(v15 + 24) = v16;
 LABEL_17:
 
-    goto LABEL_18;
+    return;
   }
 
   v6 = _log;
@@ -575,13 +568,11 @@ LABEL_17:
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
   *(*(*(a1 + 56) + 8) + 24) = 9;
-LABEL_18:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89(uint64_t a1, int a2)
 {
-  v3 = (a1 + 40);
+  v3 = a1 + 40;
   if (a2)
   {
     [*(a1 + 32) setTaskRequest:*(a1 + 40)];
@@ -647,7 +638,7 @@ void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89(uint6
 
 void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) identifier];
   v4 = [v3 length];
@@ -665,29 +656,28 @@ void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke(uint64_t
 
       if (v10)
       {
-        v11 = *v2;
-        v12 = objc_opt_class();
-        v13 = [v9 taskRequest];
-        v14 = objc_opt_class();
+        v11 = objc_opt_class();
+        v12 = [v9 taskRequest];
+        v13 = objc_opt_class();
 
-        if (v12 == v14)
+        if (v11 == v13)
         {
-          v21 = [*(a1 + 40) preRunningTasksMap];
-          v22 = [*(a1 + 32) identifier];
-          v23 = [v21 objectForKey:v22];
+          v19 = [*(a1 + 40) preRunningTasksMap];
+          v20 = [*(a1 + 32) identifier];
+          v21 = [v19 objectForKey:v20];
 
-          if (!v23)
+          if (!v21)
           {
-            v25 = [*(a1 + 40) runningTasksMap];
-            v26 = [*(a1 + 32) identifier];
-            v27 = [v25 objectForKey:v26];
+            v23 = [*(a1 + 40) runningTasksMap];
+            v24 = [*(a1 + 32) identifier];
+            v25 = [v23 objectForKey:v24];
 
-            if (v27 && ([v27 expiring] & 1) == 0)
+            if (v25 && ([v25 expiring] & 1) == 0)
             {
-              v37 = _log;
+              v35 = _log;
               if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
               {
-                __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_3(v2, v37);
+                __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_3(v2, v35);
               }
 
               *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -696,21 +686,21 @@ void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke(uint64_t
 
             else
             {
-              v28 = [BGSystemTaskRequest descriptorWithTaskRequest:*v2];
-              if (v28)
+              v26 = [BGSystemTaskRequest descriptorWithTaskRequest:*v2];
+              if (v26)
               {
-                v29 = [v9 descriptor];
-                if (v29 && (v30 = v29, [v9 descriptor], v31 = objc_claimAutoreleasedReturnValue(), v32 = xpc_equal(v28, v31), v31, v30, v32))
+                v27 = [v9 descriptor];
+                if (v27 && (v28 = v27, [v9 descriptor], v29 = objc_claimAutoreleasedReturnValue(), v30 = xpc_equal(v26, v29), v29, v28, v30))
                 {
-                  v33 = _log;
+                  v31 = _log;
                   if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
                   {
-                    v34 = *v2;
-                    v35 = v33;
-                    v36 = [v34 identifier];
+                    v32 = *v2;
+                    v33 = v31;
+                    v34 = [v32 identifier];
                     *buf = 138543362;
-                    v54 = v36;
-                    _os_log_impl(&dword_1B236A000, v35, OS_LOG_TYPE_INFO, "updateTaskRequest: No change in task request for %{public}@", buf, 0xCu);
+                    v52 = v34;
+                    _os_log_impl(&dword_1B236A000, v33, OS_LOG_TYPE_INFO, "updateTaskRequest: No change in task request for %{public}@", buf, 0xCu);
                   }
 
                   *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -718,33 +708,33 @@ void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke(uint64_t
 
                 else
                 {
-                  v38 = [*(a1 + 40) scheduler];
-                  v39 = [*(a1 + 32) identifier];
-                  v45[0] = MEMORY[0x1E69E9820];
-                  v45[1] = 3221225472;
-                  v45[2] = __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_91;
-                  v45[3] = &unk_1E7B241F0;
-                  v46 = v9;
-                  v47 = *(a1 + 32);
-                  v40 = v28;
-                  v41 = *(a1 + 48);
-                  v48 = v40;
-                  v51 = v41;
-                  v42 = v27;
-                  v43 = *(a1 + 40);
-                  v49 = v42;
-                  v50 = v43;
-                  v52 = *(a1 + 56);
-                  [v38 updateTaskRequestWithIdentifier:v39 descriptor:v40 completionHandler:v45];
+                  v36 = [*(a1 + 40) scheduler];
+                  v37 = [*(a1 + 32) identifier];
+                  v43[0] = MEMORY[0x1E69E9820];
+                  v43[1] = 3221225472;
+                  v43[2] = __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_91;
+                  v43[3] = &unk_1E7B241F0;
+                  v44 = v9;
+                  v45 = *(a1 + 32);
+                  v38 = v26;
+                  v39 = *(a1 + 48);
+                  v46 = v38;
+                  v49 = v39;
+                  v40 = v25;
+                  v41 = *(a1 + 40);
+                  v47 = v40;
+                  v48 = v41;
+                  v50 = *(a1 + 56);
+                  [v36 updateTaskRequestWithIdentifier:v37 descriptor:v38 completionHandler:v43];
                 }
               }
 
               else
               {
-                v44 = _log;
+                v42 = _log;
                 if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
                 {
-                  __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_4(v2, v44);
+                  __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_4(v2, v42);
                 }
 
                 *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -755,56 +745,56 @@ void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke(uint64_t
             goto LABEL_17;
           }
 
-          v24 = _log;
+          v22 = _log;
           if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
           {
-            __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_2(v2, v24);
+            __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_2(v2, v22);
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 0;
-          v16 = *(*(a1 + 56) + 8);
-          v17 = 8;
+          v15 = *(*(a1 + 56) + 8);
+          v16 = 8;
         }
 
         else
         {
-          v15 = _log;
+          v14 = _log;
           if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
           {
-            __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_1(v2, v15);
+            __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_1(v2, v14);
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 0;
-          v16 = *(*(a1 + 56) + 8);
-          v17 = 4;
+          v15 = *(*(a1 + 56) + 8);
+          v16 = 4;
         }
 
 LABEL_16:
-        *(v16 + 24) = v17;
+        *(v15 + 24) = v16;
 LABEL_17:
 
-        goto LABEL_18;
+        return;
       }
 
-      v19 = _log;
+      v18 = _log;
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_5(v2, v19);
+        __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_5(v2, v18);
       }
     }
 
     else
     {
-      v18 = _log;
+      v17 = _log;
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_6(v2, v18);
+        __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_6(v2, v17);
       }
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    v16 = *(*(a1 + 56) + 8);
-    v17 = 6;
+    v15 = *(*(a1 + 56) + 8);
+    v16 = 6;
     goto LABEL_16;
   }
 
@@ -816,8 +806,6 @@ LABEL_17:
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
   *(*(*(a1 + 56) + 8) + 24) = 9;
-LABEL_18:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_91(uint64_t a1, int a2)
@@ -894,7 +882,7 @@ void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_91(uint6
 
 void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) length];
   if (v3 <= [&unk_1F29A4CB8 unsignedLongValue])
@@ -915,7 +903,7 @@ void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_i
         {
           if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
           {
-            __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_1(v2);
+            __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_1();
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -925,12 +913,12 @@ void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_i
 
         v9 = [*(a1 + 40) scheduler];
         v10 = *(a1 + 32);
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_92;
-        v19[3] = &unk_1E7B24128;
-        v20 = v10;
-        [v9 unregisterSystemTaskWithIdentifier:v20 completionHandler:v19];
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_92;
+        v18[3] = &unk_1E7B24128;
+        v19 = v10;
+        [v9 unregisterSystemTaskWithIdentifier:v19 completionHandler:v18];
 
         [v5 setTaskRequest:0];
         [v5 setDescriptor:0];
@@ -941,7 +929,7 @@ void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_i
           {
             v12 = *v2;
             *buf = 138543362;
-            v22 = v12;
+            v21 = v12;
             _os_log_impl(&dword_1B236A000, v11, OS_LOG_TYPE_DEFAULT, "Canceled expiring task %{public}@", buf, 0xCu);
           }
 
@@ -964,7 +952,7 @@ void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_i
           {
             v17 = *v2;
             *buf = 138543362;
-            v22 = v17;
+            v21 = v17;
             _os_log_impl(&dword_1B236A000, v16, OS_LOG_TYPE_DEFAULT, "Canceled pre-running task %{public}@", buf, 0xCu);
           }
 
@@ -983,31 +971,29 @@ LABEL_29:
 
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_2(v2);
+        __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_2();
       }
     }
 
     else if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_3(v2);
+      __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_3();
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *(*(*(a1 + 56) + 8) + 24) = 6;
 LABEL_30:
 
-    goto LABEL_31;
+    return;
   }
 
   if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4(v2);
+    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
   *(*(*(a1 + 56) + 8) + 24) = 9;
-LABEL_31:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_92(uint64_t result, char a2)
@@ -1053,7 +1039,7 @@ uint64_t __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___blo
 
 void __50__BGSystemTaskScheduler_taskRequestForIdentifier___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) length];
   if (v3 <= [&unk_1F29A4CB8 unsignedLongValue])
@@ -1076,19 +1062,17 @@ void __50__BGSystemTaskScheduler_taskRequestForIdentifier___block_invoke(uint64_
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *v2;
-        v13 = 138543362;
-        v14 = v11;
-        _os_log_impl(&dword_1B236A000, v10, OS_LOG_TYPE_DEFAULT, "taskRequestForIdentifier called before registering task %{public}@", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v11;
+        _os_log_impl(&dword_1B236A000, v10, OS_LOG_TYPE_DEFAULT, "taskRequestForIdentifier called before registering task %{public}@", &v12, 0xCu);
       }
     }
   }
 
   else if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4(v2);
+    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resumeScheduling:(id)scheduling error:(id *)error
@@ -1132,32 +1116,31 @@ void __50__BGSystemTaskScheduler_taskRequestForIdentifier___block_invoke(uint64_
 
 void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = [*(a1 + 32) length];
-  if (v3 <= [&unk_1F29A4CB8 unsignedLongValue])
+  v2 = [*(a1 + 32) length];
+  if (v2 <= [&unk_1F29A4CB8 unsignedLongValue])
   {
-    v4 = [*(a1 + 40) registrations];
-    v5 = [v4 objectForKeyedSubscript:*(a1 + 32)];
+    v3 = [*(a1 + 40) registrations];
+    v4 = [v3 objectForKeyedSubscript:*(a1 + 32)];
 
-    if (v5)
+    if (v4)
     {
-      v6 = [v5 taskRequest];
+      v5 = [v4 taskRequest];
 
-      if (v6)
+      if (v5)
       {
-        v7 = [*(a1 + 40) preRunningTasksMap];
-        v8 = [v7 objectForKey:*(a1 + 32)];
+        v6 = [*(a1 + 40) preRunningTasksMap];
+        v7 = [v6 objectForKey:*(a1 + 32)];
 
-        if (!v8)
+        if (!v7)
         {
-          v11 = [*(a1 + 40) runningTasksMap];
-          v12 = [v11 objectForKey:*(a1 + 32)];
+          v10 = [*(a1 + 40) runningTasksMap];
+          v11 = [v10 objectForKey:*(a1 + 32)];
 
-          if (v12)
+          if (v11)
           {
             if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
             {
-              __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_2(v2);
+              __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_2();
             }
 
             *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -1166,15 +1149,15 @@ void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke(uint64_t 
 
           else
           {
-            v13 = [*(a1 + 40) scheduler];
-            v14 = *(a1 + 32);
-            v15[0] = MEMORY[0x1E69E9820];
-            v15[1] = 3221225472;
-            v15[2] = __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93;
-            v15[3] = &unk_1E7B24240;
-            v16 = v14;
-            v17 = *(a1 + 48);
-            [v13 resumeTaskSchedulingWithIdentifier:v16 completionHandler:v15];
+            v12 = [*(a1 + 40) scheduler];
+            v13 = *(a1 + 32);
+            v14[0] = MEMORY[0x1E69E9820];
+            v14[1] = 3221225472;
+            v14[2] = __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93;
+            v14[3] = &unk_1E7B24240;
+            v15 = v13;
+            v16 = *(a1 + 48);
+            [v12 resumeTaskSchedulingWithIdentifier:v15 completionHandler:v14];
           }
 
           goto LABEL_17;
@@ -1182,14 +1165,14 @@ void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke(uint64_t 
 
         if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
         {
-          __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_1(v2);
+          __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_1();
         }
 
         *(*(*(a1 + 48) + 8) + 24) = 0;
-        v9 = *(*(a1 + 56) + 8);
-        v10 = 8;
+        v8 = *(*(a1 + 56) + 8);
+        v9 = 8;
 LABEL_16:
-        *(v9 + 24) = v10;
+        *(v8 + 24) = v9;
 LABEL_17:
 
         return;
@@ -1197,47 +1180,47 @@ LABEL_17:
 
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_3(v2);
+        __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_3();
       }
     }
 
     else if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_4(v2);
+      __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_4();
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    v9 = *(*(a1 + 56) + 8);
-    v10 = 6;
+    v8 = *(*(a1 + 56) + 8);
+    v9 = 6;
     goto LABEL_16;
   }
 
   if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4(v2);
+    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
   *(*(*(a1 + 56) + 8) + 24) = 9;
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93(uint64_t a1, char a2)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93_cold_1(a1);
+      __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93_cold_1();
     }
 
-    *(*(*(a1 + 40) + 8) + 24) = 0;
-    *(*(*(a1 + 48) + 8) + 24) = 3;
+    *(*(*(result + 40) + 8) + 24) = 0;
+    *(*(*(result + 48) + 8) + 24) = 3;
   }
 }
 
 - (void)runTaskWithRegistration:(id)registration
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   identifier = [registrationCopy identifier];
   v6 = [(NSMutableDictionary *)self->_runningTasksMap objectForKey:identifier];
@@ -1270,47 +1253,47 @@ LABEL_11:
     [v18 setDelegate:self];
     [v18 prepareForRunning];
     objc_initWeak(&location, v18);
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke;
-    v60[3] = &unk_1E7B24268;
-    objc_copyWeak(&v63, &location);
-    v60[4] = self;
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke;
+    v59[3] = &unk_1E7B24268;
+    objc_copyWeak(&v62, &location);
+    v59[4] = self;
     v19 = identifier;
-    v61 = v19;
+    v60 = v19;
     v20 = registrationCopy;
-    v62 = v20;
-    [v18 setCompletionHandler:v60];
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99;
-    v55[3] = &unk_1E7B24290;
-    objc_copyWeak(&v59, &location);
+    v61 = v20;
+    [v18 setCompletionHandler:v59];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99;
+    v54[3] = &unk_1E7B24290;
+    objc_copyWeak(&v58, &location);
     v21 = v19;
-    v56 = v21;
+    v55 = v21;
     v22 = v20;
-    v57 = v22;
+    v56 = v22;
     selfCopy = self;
-    [v18 setExpirationAckHandler:v55];
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101;
-    v51[3] = &unk_1E7B242B8;
-    objc_copyWeak(&v54, &location);
+    [v18 setExpirationAckHandler:v54];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101;
+    v50[3] = &unk_1E7B242B8;
+    objc_copyWeak(&v53, &location);
     v23 = v21;
-    v52 = v23;
+    v51 = v23;
     selfCopy2 = self;
-    [v18 setClientLedExpirationHandler:v51];
+    [v18 setClientLedExpirationHandler:v50];
     preRunningTasksMap = [(BGSystemTaskScheduler *)self preRunningTasksMap];
     [preRunningTasksMap setObject:v18 forKey:v23];
 
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_104;
-    v49[3] = &unk_1E7B242E0;
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_104;
+    v48[3] = &unk_1E7B242E0;
     v25 = v22;
-    v50 = v25;
-    v26 = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_104(v49, self->_clampToBGQoS);
+    v49 = v25;
+    v26 = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_104(v48, self->_clampToBGQoS);
     registeredLaunchQueue = [v25 registeredLaunchQueue];
 
     if (registeredLaunchQueue)
@@ -1324,11 +1307,11 @@ LABEL_11:
         if (os_log_type_enabled(_log, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v66 = v23;
-          v67 = 1024;
-          v68 = v26;
-          v69 = 1024;
-          v70 = qos_class;
+          v65 = v23;
+          v66 = 1024;
+          v67 = v26;
+          v68 = 1024;
+          v69 = qos_class;
           _os_log_fault_impl(&dword_1B236A000, v30, OS_LOG_TYPE_FAULT, "%@: Registered queue is of higher QoS than it should be. Expected Max QoS %u, Actual QoS %u", buf, 0x18u);
         }
       }
@@ -1370,16 +1353,16 @@ LABEL_11:
     block[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_109;
     block[3] = &unk_1E7B24330;
     block[4] = self;
-    v46 = v23;
-    v47 = v18;
-    v48 = v25;
+    v45 = v23;
+    v46 = v18;
+    v47 = v25;
     v43 = v18;
     dispatch_async(v42, block);
 
-    objc_destroyWeak(&v54);
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v53);
+    objc_destroyWeak(&v58);
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(&location);
 
     goto LABEL_21;
@@ -1409,22 +1392,20 @@ LABEL_11:
   }
 
 LABEL_21:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     v3 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_1B236A000, v3, OS_LOG_TYPE_DEFAULT, "Marking task %{public}@ complete", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = WeakRetained;
+      _os_log_impl(&dword_1B236A000, v3, OS_LOG_TYPE_DEFAULT, "Marking task %{public}@ complete", &v9, 0xCu);
     }
 
     v4 = [*(a1 + 32) scheduler];
@@ -1444,13 +1425,11 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke(uint64_t
     v8 = [WeakRetained identifier];
     [v7 removeObjectForKey:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99(uint64_t a1, double a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -1461,9 +1440,9 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99(uint6
       v5 = _log;
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = WeakRetained;
-        _os_log_impl(&dword_1B236A000, v5, OS_LOG_TYPE_DEFAULT, "Completing FastPass task %{public}@ because it was expired due to runtime limitations", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = WeakRetained;
+        _os_log_impl(&dword_1B236A000, v5, OS_LOG_TYPE_DEFAULT, "Completing FastPass task %{public}@ because it was expired due to runtime limitations", &v10, 0xCu);
       }
 
       v6 = [*(a1 + 48) scheduler];
@@ -1475,9 +1454,9 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99(uint6
       v7 = _log;
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = WeakRetained;
-        _os_log_impl(&dword_1B236A000, v7, OS_LOG_TYPE_DEFAULT, "Acking task %{public}@ expired", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = WeakRetained;
+        _os_log_impl(&dword_1B236A000, v7, OS_LOG_TYPE_DEFAULT, "Acking task %{public}@ expired", &v10, 0xCu);
       }
 
       v6 = [*(a1 + 48) scheduler];
@@ -1491,19 +1470,17 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99(uint6
 
   else if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99_cold_1(a1);
+    __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99_cold_1();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101(uint64_t a1, double a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = _log;
   if (WeakRetained)
@@ -1511,47 +1488,46 @@ uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101(
     if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v23 = WeakRetained;
+      v22 = WeakRetained;
       _os_log_impl(&dword_1B236A000, v5, OS_LOG_TYPE_DEFAULT, "Client requested expiration of task %{public}@", buf, 0xCu);
     }
 
     v6 = [*(a1 + 40) scheduler];
     v7 = *(a1 + 32);
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102;
-    v15 = &unk_1E7B24050;
-    v17 = &v18;
-    v16 = v7;
-    [v6 handleClientLedSystemTaskExpirationWithIdentifier:v16 retryAfter:&v12 completionHandler:a2];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102;
+    v14 = &unk_1E7B24050;
+    v16 = &v17;
+    v15 = v7;
+    [v6 handleClientLedSystemTaskExpirationWithIdentifier:v15 retryAfter:&v11 completionHandler:a2];
 
     v8 = [*(a1 + 40) runningTasksMap];
     [v8 removeObjectForKey:*(a1 + 32)];
 
-    v9 = *(v19 + 24);
+    v9 = *(v18 + 24);
   }
 
   else
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101_cold_1(a1);
+      __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101_cold_1();
     }
 
-    v9 = *(v19 + 24);
+    v9 = *(v18 + 24);
   }
 
-  _Block_object_dispose(&v18, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
   return v9 & 1;
 }
 
-void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102(uint64_t a1, char a2)
+void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102(uint64_t result, char a2)
 {
-  *(*(*(a1 + 40) + 8) + 24) = a2;
+  *(*(*(result + 40) + 8) + 24) = a2;
   if ((a2 & 1) == 0 && os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102_cold_1(a1);
+    __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102_cold_1();
   }
 }
 
@@ -1591,21 +1567,21 @@ uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_104(
 
 void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_109(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v40 = *MEMORY[0x1E69E9840];
   v34 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__0;
-  v29 = __Block_byref_object_dispose__0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__0;
+  v28 = __Block_byref_object_dispose__0;
+  v29 = 0;
   v2 = [*(a1 + 32) internalQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -1613,21 +1589,21 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_109(uint
   block[3] = &unk_1E7B24308;
   v3 = *(a1 + 40);
   block[4] = *(a1 + 32);
-  v20 = v3;
-  v22 = &v31;
-  v23 = &v25;
-  v24 = &v35;
-  v21 = *(a1 + 48);
+  v19 = v3;
+  v21 = &v30;
+  v22 = &v24;
+  v23 = &v34;
+  v20 = *(a1 + 48);
   dispatch_sync(v2, block);
 
-  if (*(v32 + 24) == 1)
+  if (*(v31 + 24) == 1)
   {
     v4 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
       *buf = 138543362;
-      v40 = v5;
+      v39 = v5;
       v6 = "Tried to run a task that is already running; ignoring request for %{public}@";
 LABEL_4:
       _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -1636,23 +1612,23 @@ LABEL_4:
 
   else
   {
-    if ((v36[3] & 1) == 0)
+    if ((v35[3] & 1) == 0)
     {
       v11 = dispatch_get_global_queue(9, 0);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_110;
-      v16[3] = &unk_1E7B24150;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_110;
+      v15[3] = &unk_1E7B24150;
       v12 = *(a1 + 56);
       v13 = *(a1 + 32);
-      v17 = v12;
-      v18 = v13;
-      dispatch_async(v11, v16);
+      v16 = v12;
+      v17 = v13;
+      dispatch_async(v11, v15);
 
       goto LABEL_11;
     }
 
-    v7 = v26[5];
+    v7 = v25[5];
     v4 = _log;
     v8 = os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT);
     if (!v7)
@@ -1662,9 +1638,9 @@ LABEL_4:
         goto LABEL_11;
       }
 
-      v15 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138543362;
-      v40 = v15;
+      v39 = v14;
       v6 = "Not calling launch handler for %{public}@ since it doesn't exist anymore OR was canceled/resubmitted";
       goto LABEL_4;
     }
@@ -1673,20 +1649,19 @@ LABEL_4:
     {
       v9 = *(a1 + 40);
       *buf = 138543362;
-      v40 = v9;
+      v39 = v9;
       _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, "Calling launch handler for %{public}@", buf, 0xCu);
     }
 
     v10 = [*(a1 + 56) launchHandler];
-    v10[2](v10, v26[5]);
+    v10[2](v10, v25[5]);
   }
 
 LABEL_11:
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2(uint64_t a1)
@@ -1727,7 +1702,7 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2(uint64
 
       else if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2_cold_1(a1);
+        __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2_cold_1();
       }
     }
   }
@@ -1735,44 +1710,42 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2(uint64
 
 uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_110(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = _log;
   if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 identifier];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling and resubmitting %{public}@ due to a failed launch acknowledgment", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B236A000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling and resubmitting %{public}@ due to a failed launch acknowledgment", &v7, 0xCu);
   }
 
-  result = [*(a1 + 40) handleDeniedTaskLaunch:*(a1 + 32)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) handleDeniedTaskLaunch:*(a1 + 32)];
 }
 
 - (void)handleDeniedTaskLaunch:(id)launch
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   launchCopy = launch;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__0;
-  v25 = __Block_byref_object_dispose__0;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__0;
+  v24 = __Block_byref_object_dispose__0;
+  v25 = 0;
   internalQueue = [(BGSystemTaskScheduler *)self internalQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke;
   block[3] = &unk_1E7B24358;
-  v20 = &v21;
+  v19 = &v20;
   v6 = launchCopy;
-  v19 = v6;
+  v18 = v6;
   dispatch_sync(internalQueue, block);
 
-  v7 = v22[5];
+  v7 = v21[5];
   if (!v7)
   {
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:6 userInfo:0];
@@ -1788,9 +1761,9 @@ uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_110(
   }
 
   identifier = [v7 identifier];
-  v17 = 0;
-  v9 = [(BGSystemTaskScheduler *)self cancelTaskRequestWithIdentifier:identifier error:&v17];
-  v10 = v17;
+  v16 = 0;
+  v9 = [(BGSystemTaskScheduler *)self cancelTaskRequestWithIdentifier:identifier error:&v16];
+  v10 = v16;
 
   if (!v9)
   {
@@ -1805,10 +1778,10 @@ uint64_t __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_110(
     goto LABEL_12;
   }
 
-  v11 = v22[5];
-  v16 = v10;
-  v12 = [(BGSystemTaskScheduler *)self submitTaskRequest:v11 error:&v16];
-  v13 = v16;
+  v11 = v21[5];
+  v15 = v10;
+  v12 = [(BGSystemTaskScheduler *)self submitTaskRequest:v11 error:&v15];
+  v13 = v15;
 
   if (!v12)
   {
@@ -1829,8 +1802,7 @@ LABEL_12:
   v10 = v13;
 LABEL_13:
 
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 }
 
 void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t a1)
@@ -1844,7 +1816,7 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
 - (void)expireTaskWithRegistration:(id)registration withReason:(unint64_t)reason
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   identifier = [registration identifier];
   runningTasksMap = [(BGSystemTaskScheduler *)self runningTasksMap];
   v8 = [runningTasksMap objectForKey:identifier];
@@ -1864,7 +1836,7 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
         if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v47 = identifier;
+          v46 = identifier;
           _os_log_impl(&dword_1B236A000, v12, OS_LOG_TYPE_DEFAULT, "Expiration handler not found for %{public}@, caching expiration request in task.", buf, 0xCu);
         }
       }
@@ -1887,21 +1859,21 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
       if (v17)
       {
+        v42 = 0;
         v43 = 0;
         v44 = 0;
-        v45 = 0;
         processInfo = [MEMORY[0x1E696AE30] processInfo];
         v19 = processInfo;
         if (processInfo)
         {
-          [processInfo operatingSystemVersion];
+          objc_msgSend_operatingSystemVersion(processInfo);
         }
 
         else
         {
+          v42 = 0;
           v43 = 0;
           v44 = 0;
-          v45 = 0;
         }
 
         v22 = [v17 objectForKeyedSubscript:@"Major"];
@@ -1913,7 +1885,7 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
         else
         {
-          v24 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+          v24 = [MEMORY[0x1E696AD98] numberWithInteger:v42];
         }
 
         v25 = v24;
@@ -1927,7 +1899,7 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
         else
         {
-          v28 = [MEMORY[0x1E696AD98] numberWithInteger:v44];
+          v28 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
         }
 
         v29 = v28;
@@ -1946,19 +1918,19 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
         v33 = v32;
 
-        if (v43 > [v25 integerValue] || v43 == objc_msgSend(v25, "integerValue") && v44 >= objc_msgSend(v29, "integerValue"))
+        if (v42 > [v25 integerValue] || v42 == objc_msgSend(v25, "integerValue") && v43 >= objc_msgSend(v29, "integerValue"))
         {
           v34 = _log;
           if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138413058;
-            v47 = identifier;
-            v48 = 2112;
-            v49 = v25;
-            v50 = 2112;
-            v51 = v29;
-            v52 = 2112;
-            v53 = v33;
+            v46 = identifier;
+            v47 = 2112;
+            v48 = v25;
+            v49 = 2112;
+            v50 = v29;
+            v51 = 2112;
+            v52 = v33;
             _os_log_impl(&dword_1B236A000, v34, OS_LOG_TYPE_DEFAULT, "%@: Applying Suspension Delay Mitigations: Since version %@.%@, Threshold %@", buf, 0x2Au);
           }
 
@@ -1978,16 +1950,16 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
 
       v35 = dispatch_time(0, 1000000000 * v15);
       internalQueue = self->_internalQueue;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke;
-      v38[3] = &unk_1E7B24380;
-      v38[4] = self;
-      v39 = identifier;
-      v42 = v21;
-      v40 = v10;
-      v41 = v15;
-      dispatch_after(v35, internalQueue, v38);
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke;
+      v37[3] = &unk_1E7B24380;
+      v37[4] = self;
+      v38 = identifier;
+      v41 = v21;
+      v39 = v10;
+      v40 = v15;
+      dispatch_after(v35, internalQueue, v37);
     }
 
     else
@@ -1996,7 +1968,7 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v47 = identifier;
+        v46 = identifier;
         _os_log_impl(&dword_1B236A000, v20, OS_LOG_TYPE_DEFAULT, "Not expiring, task %{public}@ already finished", buf, 0xCu);
       }
     }
@@ -2006,8 +1978,6 @@ void __48__BGSystemTaskScheduler_handleDeniedTaskLaunch___block_invoke(uint64_t 
   {
     [BGSystemTaskScheduler expireTaskWithRegistration:withReason:];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke(uint64_t a1)
@@ -2044,18 +2014,18 @@ void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_i
 
         if (os_log_type_enabled(_log, OS_LOG_TYPE_FAULT))
         {
-          __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_cold_1((a1 + 40));
+          __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_cold_1();
         }
       }
     }
   }
 }
 
-void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2(uint64_t a1, char a2)
+void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0 && os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2_cold_1(a1);
+    __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2_cold_1();
   }
 }
 
@@ -2087,7 +2057,7 @@ void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_i
 
 void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) length];
   if (v3 <= [&unk_1F29A4CB8 unsignedLongValue])
@@ -2099,7 +2069,7 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uin
     {
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_2(v2);
+        __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_2();
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -2113,7 +2083,7 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uin
     {
       if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
       {
-        __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_1(v2);
+        __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_1();
       }
 
       *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -2122,12 +2092,12 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uin
 
     v8 = [*(a1 + 40) scheduler];
     v9 = *(a1 + 32);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_126;
-    v23[3] = &unk_1E7B24128;
-    v24 = v9;
-    [v8 unregisterSystemTaskWithIdentifier:v24 completionHandler:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_126;
+    v22[3] = &unk_1E7B24128;
+    v23 = v9;
+    [v8 unregisterSystemTaskWithIdentifier:v23 completionHandler:v22];
 
     v10 = [*(a1 + 40) pendingTaskRegistrationsMap];
     v11 = [v10 objectForKey:*(a1 + 32)];
@@ -2150,7 +2120,7 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uin
       {
         v15 = *v2;
         *buf = 138543362;
-        v26 = v15;
+        v25 = v15;
         _os_log_impl(&dword_1B236A000, v14, OS_LOG_TYPE_DEFAULT, "Deregistered expiring task %{public}@", buf, 0xCu);
       }
 
@@ -2175,7 +2145,7 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke(uin
       {
         v21 = *v2;
         *buf = 138543362;
-        v26 = v21;
+        v25 = v21;
         _os_log_impl(&dword_1B236A000, v20, OS_LOG_TYPE_DEFAULT, "Deregistered pre-running task %{public}@", buf, 0xCu);
       }
 
@@ -2190,17 +2160,15 @@ LABEL_27:
 LABEL_28:
 LABEL_29:
 
-    goto LABEL_30;
+    return;
   }
 
   if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4(v2);
+    __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4();
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
-LABEL_30:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_126(uint64_t result, char a2)
@@ -2217,7 +2185,7 @@ uint64_t __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke
 
 - (BOOL)taskStartedWithParameters:(id)parameters error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v7 = _log;
   if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
@@ -2229,31 +2197,31 @@ uint64_t __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x2020000000;
-  v28 = 1;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v26 = 0x2020000000;
+  v27 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   internalQueue = [(BGSystemTaskScheduler *)self internalQueue];
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __57__BGSystemTaskScheduler_taskStartedWithParameters_error___block_invoke;
-  v17 = &unk_1E7B241C8;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __57__BGSystemTaskScheduler_taskStartedWithParameters_error___block_invoke;
+  v16 = &unk_1E7B241C8;
   v9 = parametersCopy;
   p_buf = &buf;
-  v21 = &v22;
-  v18 = v9;
+  v20 = &v21;
+  v17 = v9;
   selfCopy = self;
-  dispatch_sync(internalQueue, &v14);
+  dispatch_sync(internalQueue, &v13);
 
   v10 = *(*(&buf + 1) + 24);
   if ((v10 & 1) == 0)
   {
-    v11 = v23[3];
+    v11 = v22[3];
     if (v11)
     {
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:v11 userInfo:{0, v14, v15, v16, v17}];
+      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:v11 userInfo:{0, v13, v14, v15, v16}];
       v10 = *(*(&buf + 1) + 24);
     }
 
@@ -2263,40 +2231,23 @@ uint64_t __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke
     }
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&buf, 8);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10 & 1;
 }
 
 void __57__BGSystemTaskScheduler_taskStartedWithParameters_error___block_invoke(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFD8] setWithObjects:{@"FeatureCode", @"TaskName", @"InvolvedProcesses", @"Paused", 0}];
   v3 = [MEMORY[0x1E695DFD8] setWithObjects:{@"FeatureCode", @"TaskName", 0}];
   v4 = MEMORY[0x1E695DFD8];
   v5 = [*(a1 + 32) allKeys];
   v6 = [v4 setWithArray:v5];
 
-  if (![v6 count])
+  if (![v6 count] || (objc_msgSend(v6, "isSubsetOfSet:", v2) & 1) == 0 || (v7 = MEMORY[0x1E695DFD8], objc_msgSend(*(a1 + 32), "allKeys"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "setWithArray:", v8), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v3, "isSubsetOfSet:", v9), v9, v8, (v10 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  if (([v6 isSubsetOfSet:v2] & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v7 = MEMORY[0x1E695DFD8];
-  v8 = [*(a1 + 32) allKeys];
-  v9 = [v7 setWithArray:v8];
-  v10 = [v3 isSubsetOfSet:v9];
-
-  if ((v10 & 1) == 0)
-  {
-LABEL_7:
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *(*(*(a1 + 56) + 8) + 24) = 4;
     goto LABEL_8;
@@ -2307,47 +2258,47 @@ LABEL_7:
 
   if (!v12)
   {
-    v17 = [*(a1 + 32) objectForKeyedSubscript:@"FeatureCode"];
-    v18 = [v17 isEqual:&unk_1F29A4C88];
+    v16 = [*(a1 + 32) objectForKeyedSubscript:@"FeatureCode"];
+    v17 = [v16 isEqual:&unk_1F29A4C88];
 
-    if (v18)
+    if (v17)
     {
-      v19 = [*(a1 + 40) scheduler];
-      v28 = *MEMORY[0x1E699A610];
-      v29 = &unk_1F29A4CD0;
-      v20 = MEMORY[0x1E695DF20];
-      v21 = &v29;
-      v22 = &v28;
+      v18 = [*(a1 + 40) scheduler];
+      v27 = *MEMORY[0x1E699A610];
+      v28 = &unk_1F29A4CD0;
+      v19 = MEMORY[0x1E695DF20];
+      v20 = &v28;
+      v21 = &v27;
     }
 
     else
     {
-      v23 = [*(a1 + 32) objectForKeyedSubscript:@"FeatureCode"];
-      v24 = [v23 isEqual:&unk_1F29A4CA0];
+      v22 = [*(a1 + 32) objectForKeyedSubscript:@"FeatureCode"];
+      v23 = [v22 isEqual:&unk_1F29A4CA0];
 
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_6;
       }
 
-      v19 = [*(a1 + 40) scheduler];
-      v26 = *MEMORY[0x1E699A600];
-      v27 = &unk_1F29A4CD0;
-      v20 = MEMORY[0x1E695DF20];
-      v21 = &v27;
-      v22 = &v26;
+      v18 = [*(a1 + 40) scheduler];
+      v25 = *MEMORY[0x1E699A600];
+      v26 = &unk_1F29A4CD0;
+      v19 = MEMORY[0x1E695DF20];
+      v20 = &v26;
+      v21 = &v25;
     }
 
-    v25 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
-    [v19 updateSystemConstraintsWithParameters:v25];
+    v24 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
+    [v18 updateSystemConstraintsWithParameters:v24];
 
     goto LABEL_8;
   }
 
   v13 = [*(a1 + 40) scheduler];
-  v30 = *MEMORY[0x1E699A618];
-  v31[0] = &unk_1F29A4CD0;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = *MEMORY[0x1E699A618];
+  v30[0] = &unk_1F29A4CD0;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   [v13 updateSystemConstraintsWithParameters:v14];
 
 LABEL_6:
@@ -2355,38 +2306,36 @@ LABEL_6:
   [v15 activityStartedWithParameters:*(a1 + 32)];
 
 LABEL_8:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)taskStoppedWithParameters:(id)parameters error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v6 = _log;
   if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = parametersCopy;
+    v14 = parametersCopy;
     _os_log_impl(&dword_1B236A000, v6, OS_LOG_TYPE_DEFAULT, "Task stopped %@", buf, 0xCu);
   }
 
   internalQueue = [(BGSystemTaskScheduler *)self internalQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke;
-  v11[3] = &unk_1E7B24150;
-  v12 = parametersCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke;
+  v10[3] = &unk_1E7B24150;
+  v11 = parametersCopy;
   selfCopy = self;
   v8 = parametersCopy;
-  dispatch_sync(internalQueue, v11);
+  dispatch_sync(internalQueue, v10);
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 void __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"FeatureCode"];
   v3 = [v2 isEqual:&unk_1F29A4C70];
 
@@ -2398,11 +2347,11 @@ void __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke(
     if (v8)
     {
       v6 = [*(a1 + 40) scheduler];
-      v18 = *MEMORY[0x1E699A610];
-      v19 = &unk_1F29A4CE8;
+      v17 = *MEMORY[0x1E699A610];
+      v18 = &unk_1F29A4CE8;
       v9 = MEMORY[0x1E695DF20];
-      v10 = &v19;
-      v11 = &v18;
+      v10 = &v18;
+      v11 = &v17;
     }
 
     else
@@ -2416,11 +2365,11 @@ void __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke(
       }
 
       v6 = [*(a1 + 40) scheduler];
-      v16 = *MEMORY[0x1E699A600];
-      v17 = &unk_1F29A4CE8;
+      v15 = *MEMORY[0x1E699A600];
+      v16 = &unk_1F29A4CE8;
       v9 = MEMORY[0x1E695DF20];
-      v10 = &v17;
-      v11 = &v16;
+      v10 = &v16;
+      v11 = &v15;
     }
 
     v14 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
@@ -2430,34 +2379,32 @@ void __57__BGSystemTaskScheduler_taskStoppedWithParameters_error___block_invoke(
   }
 
   v4 = [*(a1 + 40) scheduler];
-  v20 = *MEMORY[0x1E699A618];
-  v21[0] = &unk_1F29A4CE8;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x1E699A618];
+  v20[0] = &unk_1F29A4CE8;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   [v4 updateSystemConstraintsWithParameters:v5];
 
 LABEL_3:
   v6 = [*(a1 + 40) scheduler];
   [v6 activityStoppedWithParameters:*(a1 + 32)];
 LABEL_9:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)systemTask:(id)task producedResults:(id)results error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   resultsCopy = results;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 1;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
   v10 = _log;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
@@ -2473,30 +2420,29 @@ LABEL_9:
   block[3] = &unk_1E7B243F8;
   block[4] = self;
   v12 = taskCopy;
-  v18 = v12;
-  v20 = &v22;
-  v21 = &v28;
+  v17 = v12;
+  v19 = &v21;
+  v20 = &v27;
   v13 = resultsCopy;
-  v19 = v13;
+  v18 = v13;
   dispatch_sync(internalQueue, block);
 
-  v14 = *(v29 + 24);
-  if (error && (v29[3] & 1) == 0)
+  v14 = *(v28 + 24);
+  if (error && (v28[3] & 1) == 0)
   {
-    *error = v23[5];
-    v14 = *(v29 + 24);
+    *error = v22[5];
+    v14 = *(v28 + 24);
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
 void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke(uint64_t a1)
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) registrations];
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -2504,26 +2450,26 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
   v5 = [MEMORY[0x1E695DFA8] set];
   if (v4)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v6 = *(a1 + 48);
-    v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           v12 = *(a1 + 32);
           v13 = [v11 identifier];
           LOBYTE(v12) = [v12 canTaskRegistration:v4 produceResultOfIdentifier:v13];
@@ -2537,13 +2483,13 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
             }
 
             v17 = MEMORY[0x1E696ABC0];
-            v38[0] = @"taskIdentifier";
+            v37[0] = @"taskIdentifier";
             v18 = [*(a1 + 40) identifier];
-            v38[1] = @"resultIdentifier";
-            v39[0] = v18;
+            v37[1] = @"resultIdentifier";
+            v38[0] = v18;
             v19 = [v11 identifier];
-            v39[1] = v19;
-            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+            v38[1] = v19;
+            v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
             v21 = [v17 errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:7 userInfo:v20];
             v22 = *(*(a1 + 56) + 8);
             v23 = *(v22 + 40);
@@ -2557,7 +2503,7 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
           [v5 addObject:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
         if (v8)
         {
           continue;
@@ -2569,12 +2515,12 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
 
     v6 = [*(a1 + 32) scheduler];
     v15 = [*(a1 + 40) identifier];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_140;
-    v32[3] = &unk_1E7B243D0;
-    v33 = *(a1 + 56);
-    [v6 reportSystemTaskWithIdentifier:v15 producedResults:v5 completionHandler:v32];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_140;
+    v31[3] = &unk_1E7B243D0;
+    v32 = *(a1 + 56);
+    [v6 reportSystemTaskWithIdentifier:v15 producedResults:v5 completionHandler:v31];
 
 LABEL_14:
   }
@@ -2584,14 +2530,14 @@ LABEL_14:
     v24 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_cold_2((a1 + 40), v24);
+      __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_cold_2(a1 + 40, v24);
     }
 
     v25 = MEMORY[0x1E696ABC0];
-    v41 = @"taskIdentifier";
+    v40 = @"taskIdentifier";
     v26 = [*(a1 + 40) identifier];
-    v42[0] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v41[0] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     v28 = [v25 errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:6 userInfo:v27];
     v29 = *(*(a1 + 56) + 8);
     v30 = *(v29 + 40);
@@ -2599,8 +2545,6 @@ LABEL_14:
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_140(uint64_t a1, char a2, id obj)
@@ -2612,19 +2556,19 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
 
 - (BOOL)systemTask:(id)task consumedResults:(id)results error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   resultsCopy = results;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 1;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 1;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__0;
+  v25 = __Block_byref_object_dispose__0;
+  v26 = 0;
   v10 = _log;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
@@ -2640,30 +2584,29 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
   block[3] = &unk_1E7B243F8;
   block[4] = self;
   v12 = taskCopy;
-  v18 = v12;
-  v20 = &v22;
-  v21 = &v28;
+  v17 = v12;
+  v19 = &v21;
+  v20 = &v27;
   v13 = resultsCopy;
-  v19 = v13;
+  v18 = v13;
   dispatch_sync(internalQueue, block);
 
-  v14 = *(v29 + 24);
-  if (error && (v29[3] & 1) == 0)
+  v14 = *(v28 + 24);
+  if (error && (v28[3] & 1) == 0)
   {
-    *error = v23[5];
-    v14 = *(v29 + 24);
+    *error = v22[5];
+    v14 = *(v28 + 24);
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 
 void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke(uint64_t a1)
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) registrations];
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -2672,58 +2615,58 @@ void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke
   v6 = [MEMORY[0x1E695DFA8] set];
   if (v4)
   {
-    v41 = v4;
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
+    v40 = v4;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v7 = [v4 taskRequest];
     v8 = [v7 dependencies];
 
-    v9 = [v8 countByEnumeratingWithState:&v48 objects:v55 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v47 objects:v54 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v49;
+      v11 = *v48;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v49 != v11)
+          if (*v48 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [*(*(&v48 + 1) + 8 * i) identifier];
+          v13 = [*(*(&v47 + 1) + 8 * i) identifier];
           [v5 addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v48 objects:v55 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v47 objects:v54 count:16];
       }
 
       while (v10);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v14 = *(a1 + 48);
-    v15 = [v14 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v45;
+      v17 = *v44;
       while (2)
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v45 != v17)
+          if (*v44 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v44 + 1) + 8 * j);
+          v19 = *(*(&v43 + 1) + 8 * j);
           v20 = [v19 identifier];
           v21 = [v5 containsObject:v20];
 
@@ -2736,13 +2679,13 @@ void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke
             }
 
             v26 = MEMORY[0x1E696ABC0];
-            v52[0] = @"taskIdentifier";
+            v51[0] = @"taskIdentifier";
             v27 = [*(a1 + 40) identifier];
-            v52[1] = @"resultIdentifier";
-            v53[0] = v27;
+            v51[1] = @"resultIdentifier";
+            v52[0] = v27;
             v28 = [v19 identifier];
-            v53[1] = v28;
-            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+            v52[1] = v28;
+            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
             v30 = [v26 errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:7 userInfo:v29];
             v31 = *(*(a1 + 56) + 8);
             v32 = *(v31 + 40);
@@ -2756,7 +2699,7 @@ void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke
           [v6 addObject:v22];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v44 objects:v54 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v43 objects:v53 count:16];
         if (v16)
         {
           continue;
@@ -2768,15 +2711,15 @@ void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke
 
     v23 = [*(a1 + 32) scheduler];
     v24 = [*(a1 + 40) identifier];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_142;
-    v42[3] = &unk_1E7B243D0;
-    v43 = *(a1 + 56);
-    [v23 reportSystemTaskWithIdentifier:v24 consumedResults:v6 completionHandler:v42];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_142;
+    v41[3] = &unk_1E7B243D0;
+    v42 = *(a1 + 56);
+    [v23 reportSystemTaskWithIdentifier:v24 consumedResults:v6 completionHandler:v41];
 
 LABEL_21:
-    v4 = v41;
+    v4 = v40;
   }
 
   else
@@ -2784,14 +2727,14 @@ LABEL_21:
     v33 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_cold_2((a1 + 40), v33);
+      __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_cold_2(a1 + 40, v33);
     }
 
     v34 = MEMORY[0x1E696ABC0];
-    v56 = @"taskIdentifier";
+    v55 = @"taskIdentifier";
     v35 = [*(a1 + 40) identifier];
-    v57[0] = v35;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+    v56[0] = v35;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
     v37 = [v34 errorWithDomain:@"BGSystemTaskSchedulerErrorDomain" code:6 userInfo:v36];
     v38 = *(*(a1 + 56) + 8);
     v39 = *(v38 + 40);
@@ -2799,8 +2742,6 @@ LABEL_21:
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_142(uint64_t a1, char a2, id obj)
@@ -2838,36 +2779,36 @@ void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke
 
 void __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) registrations];
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 objectForKeyedSubscript:v3];
 
   if (v4)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = [v4 taskRequest];
     v6 = [v5 dependencies];
 
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
           v11 = *(a1 + 48);
-          v12 = [*(*(&v15 + 1) + 8 * i) identifier];
+          v12 = [*(*(&v14 + 1) + 8 * i) identifier];
           LODWORD(v11) = [v11 isEqualToString:v12];
 
           if (v11)
@@ -2877,7 +2818,7 @@ void __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -2895,13 +2836,11 @@ LABEL_12:
     v13 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block_invoke_cold_1((a1 + 40), v13);
+      __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block_invoke_cold_1(a1 + 40, v13);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)systemTask:(id)task resetResultsForIdentifier:(id)identifier error:(id *)error
@@ -2955,7 +2894,7 @@ void __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___bl
   {
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_2(a1);
+      __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_2();
     }
 
     v8 = MEMORY[0x1E696ABC0];
@@ -2968,7 +2907,7 @@ void __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___bl
     v10 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
     {
-      __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_1((a1 + 40), v10, (a1 + 48));
+      __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_1((a1 + 40), v10);
     }
 
     v8 = MEMORY[0x1E696ABC0];
@@ -3019,40 +2958,40 @@ LABEL_11:
 
 - (BOOL)reportProgressMetrics:(id)metrics error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   metricsCopy = metrics;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 1;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__0;
-  v30 = __Block_byref_object_dispose__0;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 1;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   v7 = _log;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     performanceMetricIdentifier = [metricsCopy performanceMetricIdentifier];
     *buf = 138412290;
-    v37 = performanceMetricIdentifier;
+    v36 = performanceMetricIdentifier;
     _os_log_impl(&dword_1B236A000, v7, OS_LOG_TYPE_DEFAULT, "Reporting progress metrics for %@", buf, 0xCu);
   }
 
   internalQueue = [(BGSystemTaskScheduler *)self internalQueue];
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __53__BGSystemTaskScheduler_reportProgressMetrics_error___block_invoke;
-  v21 = &unk_1E7B24470;
-  v24 = &v32;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __53__BGSystemTaskScheduler_reportProgressMetrics_error___block_invoke;
+  v20 = &unk_1E7B24470;
+  v23 = &v31;
   selfCopy = self;
   v10 = metricsCopy;
-  v23 = v10;
-  v25 = &v26;
-  dispatch_sync(internalQueue, &v18);
+  v22 = v10;
+  v24 = &v25;
+  dispatch_sync(internalQueue, &v17);
 
-  LODWORD(internalQueue) = *(v33 + 24);
+  LODWORD(internalQueue) = *(v32 + 24);
   v11 = _log;
   v12 = v11;
   if (internalQueue == 1)
@@ -3061,7 +3000,7 @@ LABEL_11:
     {
       performanceMetricIdentifier2 = [v10 performanceMetricIdentifier];
       *buf = 138412290;
-      v37 = performanceMetricIdentifier2;
+      v36 = performanceMetricIdentifier2;
       _os_log_impl(&dword_1B236A000, v12, OS_LOG_TYPE_DEFAULT, "reportProgressMetrics: Reported progress metrics successfully for %@", buf, 0xCu);
     }
   }
@@ -3076,16 +3015,15 @@ LABEL_11:
 
     if (error)
     {
-      *error = v27[5];
+      *error = v26[5];
     }
   }
 
-  v15 = *(v33 + 24);
+  v15 = *(v32 + 24);
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -3106,340 +3044,267 @@ void __53__BGSystemTaskScheduler_reportProgressMetrics_error___block_invoke(uint
   *(*(*(a1 + 48) + 8) + 24) = v8;
 }
 
-void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_1(uint64_t a1)
+void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_1B236A000, v1, OS_LOG_TYPE_DEBUG, "registerForTaskWithIdentifier: %{public}@", v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B236A000, v0, OS_LOG_TYPE_DEBUG, "registerForTaskWithIdentifier: %{public}@", v1, 0xCu);
 }
 
-void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_2(uint64_t *a1)
+void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "Launch handler for task with identifier %@ has already been registered", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "Launch handler for task with identifier %@ has already been registered", v2, v3, v4, v5);
 }
 
-void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_3(uint64_t *a1)
+void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "Converting from XPC event descriptor to task request failed for: %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "Converting from XPC event descriptor to task request failed for: %{public}@", v2, v3, v4, v5);
 }
 
-void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4(uint64_t *a1)
+void __80__BGSystemTaskScheduler_registerForTaskWithIdentifier_usingQueue_launchHandler___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2_cold_1(uint64_t *a1)
+void __50__BGSystemTaskScheduler_installEventStreamHandler__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "No registration from client for: %{public}@. Unregistering!", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "No registration from client for: %{public}@. Unregistering!", v2, v3, v4, v5);
 }
 
 - (void)processEvent:(void *)a1 forRegistration:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_3(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_4(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_4(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_5(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_5(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_6(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_cold_6(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
-void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89_cold_1(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_submitTaskRequest_error___block_invoke_89_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_3(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_3(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_4(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_4(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_5(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_5(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_6(uint64_t *a1, void *a2)
+void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_cold_6(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 void __49__BGSystemTaskScheduler_updateTaskRequest_error___block_invoke_91_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
-void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_1(uint64_t *a1)
+void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "cancelTaskRequestWithIdentifier called for an already running task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "cancelTaskRequestWithIdentifier called for an already running task %{public}@", v2, v3, v4, v5);
 }
 
-void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_2(uint64_t *a1)
+void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "cancelTaskRequestWithIdentifier No task request found for %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "cancelTaskRequestWithIdentifier No task request found for %{public}@", v2, v3, v4, v5);
 }
 
-void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_3(uint64_t *a1)
+void __63__BGSystemTaskScheduler_cancelTaskRequestWithIdentifier_error___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "cancelTaskRequestWithIdentifier called before registering task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "cancelTaskRequestWithIdentifier called before registering task %{public}@", v2, v3, v4, v5);
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_1(uint64_t *a1)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "resumeScheduling called for a pre-running task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "resumeScheduling called for a pre-running task %{public}@", v2, v3, v4, v5);
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_2(uint64_t *a1)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "resumeScheduling called for an already running task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "resumeScheduling called for an already running task %{public}@", v2, v3, v4, v5);
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_3(uint64_t *a1)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "resumeScheduling: No task request found for %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "resumeScheduling: No task request found for %{public}@", v2, v3, v4, v5);
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_4(uint64_t *a1)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "resumeScheduling called before registering task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "resumeScheduling called before registering task %{public}@", v2, v3, v4, v5);
 }
 
-void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93_cold_1(uint64_t a1)
+void __48__BGSystemTaskScheduler_resumeScheduling_error___block_invoke_93_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "resumeScheduling failed for %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)runTaskWithRegistration:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "%{public}@ already running, did dasd crash?", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "resumeScheduling failed for %{public}@", v2, v3, v4, v5);
 }
 
 - (void)runTaskWithRegistration:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(&dword_1B236A000, v0, OS_LOG_TYPE_FAULT, "Found registration of invalid type for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B236A000, v0, OS_LOG_TYPE_FAULT, "Found registration of invalid type for %@", v1, 0xCu);
 }
 
-void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99_cold_1(uint64_t a1)
+void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_99_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "Unable to ack task %{public}@ expiration; missing strong reference to BGSystemTask", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "Unable to ack task %{public}@ expiration; missing strong reference to BGSystemTask", v2, v3, v4, v5);
 }
 
-void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101_cold_1(uint64_t a1)
+void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_101_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "Unable to ack task %{public}@ proactive deferral; missing strong reference to BGSystemTask", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "Unable to ack task %{public}@ proactive deferral; missing strong reference to BGSystemTask", v2, v3, v4, v5);
 }
 
-void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102_cold_1(uint64_t a1)
+void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_102_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "handleClientLedSystemTaskExpirationWithIdentifier failed for %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "handleClientLedSystemTaskExpirationWithIdentifier failed for %{public}@", v2, v3, v4, v5);
 }
 
-void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2_cold_1(uint64_t a1)
+void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_2();
-  v6 = v2;
-  OUTLINED_FUNCTION_12(&dword_1B236A000, v3, v3, "System task launch acknowledgment failed for %{public}@ (error: %@)", v5);
   v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2();
+  v3 = v0;
+  OUTLINED_FUNCTION_12(&dword_1B236A000, v1, v1, "System task launch acknowledgment failed for %{public}@ (error: %@)", v2);
 }
 
 - (void)handleDeniedTaskLaunch:.cold.1()
@@ -3463,57 +3328,43 @@ void __49__BGSystemTaskScheduler_runTaskWithRegistration___block_invoke_2_cold_1
   OUTLINED_FUNCTION_12(&dword_1B236A000, v6, v4, "Task request for %{public}@ was already cleared before handleDeniedTaskLaunch could copy it (%@)", v5);
 }
 
-- (void)expireTaskWithRegistration:withReason:.cold.1()
+void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "Unable to expire %{public}@ since it wasn't found running", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 56);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  v7 = 2048;
-  v8 = v3;
-  _os_log_fault_impl(&dword_1B236A000, v4, OS_LOG_TYPE_FAULT, "%@ was expired %lds ago, but hasn't responded yet", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_fault_impl(&dword_1B236A000, v1, OS_LOG_TYPE_FAULT, "%@ was expired %lds ago, but hasn't responded yet", v2, 0x16u);
 }
 
 void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_cold_2(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ was expired %lds ago, but hasn't responded yet", *a1, *(a2 + 56)];
-  [v3 UTF8String];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ was expired %lds ago, but hasn't responded yet", *a1, *(a2 + 56)];
+  [v2 UTF8String];
 
   _os_crash();
   __break(1u);
 }
 
-void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2_cold_1(uint64_t a1)
+void __63__BGSystemTaskScheduler_expireTaskWithRegistration_withReason___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "handleClientFailedtoExpireTaskWithIdentifier failed for %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "handleClientFailedtoExpireTaskWithIdentifier failed for %{public}@", v2, v3, v4, v5);
 }
 
-void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_1(uint64_t *a1)
+void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "deregisterTaskWithIdentifier isn't supported for an already running task %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "deregisterTaskWithIdentifier isn't supported for an already running task %{public}@", v2, v3, v4, v5);
 }
 
-void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_2(uint64_t *a1)
+void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v1, v2, "deregisterTaskWithIdentifier: No registration found for task with identifier %{public}@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "deregisterTaskWithIdentifier: No registration found for task with identifier %{public}@", v2, v3, v4, v5);
 }
 
 - (void)systemTask:producedResults:error:.cold.1()
@@ -3525,27 +3376,25 @@ void __54__BGSystemTaskScheduler_deregisterTaskWithIdentifier___block_invoke_col
 
 void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_cold_1(void **a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a2;
   [v2 identifier];
   objc_claimAutoreleasedReturnValue();
-  v11 = [OUTLINED_FUNCTION_7() identifier];
-  OUTLINED_FUNCTION_11(&dword_1B236A000, v4, v5, "Task %{public}@ is not registered to produce results for %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = [OUTLINED_FUNCTION_7() identifier];
+  *v11 = 138543618;
+  *&v11[4] = v2;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_11(&dword_1B236A000, v5, v6, "Task %{public}@ is not registered to produce results for %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
-void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)systemTask:consumedResults:error:.cold.1()
@@ -3557,59 +3406,41 @@ void __58__BGSystemTaskScheduler_systemTask_producedResults_error___block_invoke
 
 void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_cold_1(void *a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [a2 identifier];
-  v14 = [*a3 identifier];
-  OUTLINED_FUNCTION_11(&dword_1B236A000, v7, v8, "validateTaskIdentifier:resultConsumption: No dependency found for %@ on %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v7 = [*a3 identifier];
+  *v14 = 138412546;
+  *&v14[4] = v6;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_11(&dword_1B236A000, v8, v9, "validateTaskIdentifier:resultConsumption: No dependency found for %@ on %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
-void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __58__BGSystemTaskScheduler_systemTask_consumedResults_error___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __65__BGSystemTaskScheduler_systemTask_canConsumeResultOfIdentifier___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10(a1, a2);
-  v4 = [OUTLINED_FUNCTION_7() identifier];
+  v3 = [OUTLINED_FUNCTION_7() identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_1(void **a1, void *a2, uint64_t *a3)
+void __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_1(void **a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = a2;
-  v6 = [v4 identifier];
-  v7 = *a3;
+  v2 = *a1;
+  v3 = a2;
+  v4 = [v2 identifier];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_11(&dword_1B236A000, v8, v9, "resetResultsForIdentifier: Task with identifier %{public}@ is not registered to produce results for %@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-void __68__BGSystemTaskScheduler_systemTask_resetResultsForIdentifier_error___block_invoke_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v2, v3, "resetResultsForIdentifier: No registration found for task with identifier %{public}@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_11(&dword_1B236A000, v5, v6, "resetResultsForIdentifier: Task with identifier %{public}@ is not registered to produce results for %@", v7, v8, v9, v10);
 }
 
 - (void)reportProgressMetrics:(os_log_t)log error:.cold.1(void *a1, uint8_t *buf, os_log_t log)

@@ -21,11 +21,14 @@
 - (void)_finalizeForSnapshotting:(id)snapshotting;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadSnapshotContentViews;
 - (void)_updatePausedState;
 - (void)cleanupAfterEditing;
 - (void)layoutSubviews;
 - (void)prepareForEditing;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setAnalogHandsColor;
 @end
 
@@ -142,6 +145,16 @@
   [secondHandView setHandDotColor:v9];
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKPrideWeaveFaceView;
+  groupCopy = group;
+  [(NTKPrideWeaveFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIMetalQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)prepareForEditing
 {
   v3.receiver = self;
@@ -171,6 +184,22 @@
   v3.receiver = self;
   v3.super_class = NTKPrideWeaveFaceView;
   [(NTKPrideWeaveFaceView *)&v3 _applyDataMode];
+  [(NTKPrideWeaveFaceView *)self _updatePausedState];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKPrideWeaveFaceView;
+  [(NTKPrideWeaveFaceView *)&v4 screenWillTurnOnAnimated:animated];
+  [(NTKPrideWeaveFaceView *)self _updatePausedState];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKPrideWeaveFaceView;
+  [(NTKPrideWeaveFaceView *)&v4 screenDidTurnOffAnimated:animated];
   [(NTKPrideWeaveFaceView *)self _updatePausedState];
 }
 
@@ -237,23 +266,22 @@ LABEL_5:
   if (mode == 12)
   {
     toOptionCopy = toOption;
-    v11 = flt_1B128[[option dialShape]];
-    dialShape = [toOptionCopy dialShape];
+    [option dialShape];
+    [toOptionCopy dialShape];
 
-    v13 = flt_1B128[dialShape];
     CLKInterpolateBetweenFloatsUnclipped();
-    v15 = v14;
-    *&v14 = v15;
-    [(NTKPrideWeaveBarberQuad *)self->_barberQuad setViewMode:v14];
-    *&v16 = v15;
-    [(NTKPrideWeaveSpiroQuad *)self->_spiroQuad setViewMode:v16];
-    *&v17 = 1.0 - fminf(v15 + v15, 1.0);
-    [(NTKPrideWeaveBarberQuad *)self->_barberQuad setThickness:v17];
+    v12 = v11;
+    *&v11 = v12;
+    [(NTKPrideWeaveBarberQuad *)self->_barberQuad setViewMode:v11];
+    *&v13 = v12;
+    [(NTKPrideWeaveSpiroQuad *)self->_spiroQuad setViewMode:v13];
+    *&v14 = 1.0 - fminf(v12 + v12, 1.0);
+    [(NTKPrideWeaveBarberQuad *)self->_barberQuad setThickness:v14];
     spiroQuad = self->_spiroQuad;
-    v19 = 1.0 - fmin(1.0 - v15 + 1.0 - v15, 1.0);
-    *&v19 = v19;
+    v16 = 1.0 - fmin(1.0 - v12 + 1.0 - v12, 1.0);
+    *&v16 = v16;
 
-    [(NTKPrideWeaveSpiroQuad *)spiroQuad setThickness:v19];
+    [(NTKPrideWeaveSpiroQuad *)spiroQuad setThickness:v16];
   }
 }
 

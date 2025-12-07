@@ -65,7 +65,7 @@
   selfCopy = self;
   *(v3 + 32) = [v5 keyCommandWithInput:v4 modifierFlags:0 action:sel_cancelButtonTapped];
 
-  sub_1D7992EFC(0, &unk_1EE0BF118);
+  sub_1D7992EFC(0, &unk_1EE0BF118, 0x1E69DCBA0);
   v7 = sub_1D7D3062C();
 
   return v7;
@@ -74,13 +74,13 @@
 - (void)nextButtonTapped
 {
   selfCopy = self;
-  sub_1D7CF8370(&qword_1EC9DFE78);
+  sub_1D7CF8370(&qword_1EC9DFE78, &qword_1EC9E6AB8, sub_1D7C0115C);
 }
 
 - (void)previousButtonTapped
 {
   selfCopy = self;
-  sub_1D7CF8370(&qword_1EC9DFE80);
+  sub_1D7CF8370(&qword_1EC9DFE80, &qword_1EC9E6AC0, sub_1D7C012B8);
 }
 
 - (void)textFieldDidChange:(id)change
@@ -98,7 +98,7 @@
     *v10 = v7;
     v10[1] = v9;
 
-    sub_1D7CF8370(&qword_1EC9DFE70);
+    sub_1D7CF8370(&qword_1EC9DFE70, &qword_1EC9E6AB0, sub_1D7C01000);
   }
 }
 
@@ -113,10 +113,10 @@
   v4 = sub_1D7D2802C();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7D27FFC();
   selfCopy = self;
-  sub_1D7CF89F4();
+  sub_1D7CF89F4(v10);
 
   (*(v5 + 8))(v8, v4);
 }

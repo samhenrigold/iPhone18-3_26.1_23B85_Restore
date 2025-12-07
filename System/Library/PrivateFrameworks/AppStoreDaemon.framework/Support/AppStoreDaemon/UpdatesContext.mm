@@ -82,7 +82,7 @@
   dCopy = d;
   v18 = sub_1001713A0(reason, token, key, v13, v14, metrics, lookup, initiated, d);
 
-  sub_100006F8C(v13);
+  sub_100006F8C(v13, v14);
   return v18;
 }
 

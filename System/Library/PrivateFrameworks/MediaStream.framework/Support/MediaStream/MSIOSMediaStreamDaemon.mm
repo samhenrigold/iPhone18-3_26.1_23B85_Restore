@@ -96,7 +96,7 @@
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ Server-side configuration has changed for personID %@. Reading new values.", v9, 0x16u);
       }
 
-      [(MSIOSMediaStreamDaemon *)self _readPowerBudgetParametersForPersonID:changeCopy, *v9, *&v9[16]];
+      [(MSIOSMediaStreamDaemon *)self _readPowerBudgetParametersForPersonID:changeCopy, *v9, *&v9[8]];
     }
   }
 

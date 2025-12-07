@@ -66,7 +66,7 @@ LABEL_8:
 
           v21 = shortDescription;
 
-          LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 0x1Eu, "Lost %@\n", v22, v23, v24, v25, v21);
+          LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 30, "Lost %@\n", v22, v23, v24, v25, v21);
           goto LABEL_24;
         }
 
@@ -100,7 +100,7 @@ LABEL_24:
         v20 = self->_ucat;
       }
 
-      LogPrintF(v20, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 0x1Eu, "### Bonjour lost untracked device\n", v11, v12, v13, v14, v27);
+      LogPrintF(v20, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 30, "### Bonjour lost untracked device\n", v11, v12, v13, v14, v27);
     }
 
 LABEL_26:
@@ -121,7 +121,7 @@ LABEL_26:
       v9 = self->_ucat;
     }
 
-    LogPrintF(v9, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 0x5Au, "### Bonjour device found without identifier: %@\n", v5, v6, v7, v8, deviceCopy);
+    LogPrintF(v9, "[CUBonjourBrowser _bonjourHandleRemoveDevice:]", 90, "### Bonjour device found without identifier: %@\n", v5, v6, v7, v8, deviceCopy);
   }
 
 LABEL_27:
@@ -171,7 +171,7 @@ LABEL_8:
 
           v27 = shortDescription;
 
-          LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 0x1Eu, "Changed %@ %#{flags}\n", v28, v29, v30, v31, v27);
+          LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 30, "Changed %@ %#{flags}\n", v28, v29, v30, v31, v27);
           goto LABEL_30;
         }
 
@@ -247,7 +247,7 @@ LABEL_14:
 
         v33 = shortDescription2;
 
-        LogPrintF(v24, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 0x1Eu, "Found %@\n", v34, v35, v36, v37, v33);
+        LogPrintF(v24, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 30, "Found %@\n", v34, v35, v36, v37, v33);
         goto LABEL_34;
       }
 
@@ -281,7 +281,7 @@ LABEL_34:
       v9 = self->_ucat;
     }
 
-    LogPrintF(v9, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 0x5Au, "### Bonjour device found without identifier: %@\n", v5, v6, v7, v8, deviceCopy);
+    LogPrintF(v9, "[CUBonjourBrowser _bonjourHandleAddOrUpdateDevice:]", 90, "### Bonjour device found without identifier: %@\n", v5, v6, v7, v8, deviceCopy);
   }
 
 LABEL_38:
@@ -328,7 +328,7 @@ LABEL_38:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleEventType:info:]", 0x3Cu, "### Bonjour daemon crashed\n", v7, v8, v9, v10, v14);
+    LogPrintF(ucat, "[CUBonjourBrowser _bonjourHandleEventType:info:]", 60, "### Bonjour daemon crashed\n", v7, v8, v9, v10, v14);
 LABEL_15:
     infoCopy = [(CUBonjourBrowser *)self _interrupted];
     goto LABEL_20;
@@ -347,7 +347,7 @@ LABEL_15:
       v12 = self->_ucat;
     }
 
-    LogPrintF(v12, "[CUBonjourBrowser _bonjourHandleEventType:info:]", 0x1Eu, "Bonjour stopped\n", v7, v8, v9, v10, v14);
+    LogPrintF(v12, "[CUBonjourBrowser _bonjourHandleEventType:info:]", 30, "Bonjour stopped\n", v7, v8, v9, v10, v14);
   }
 
 LABEL_17:
@@ -407,7 +407,7 @@ LABEL_20:
     if (ucat->var0 != -1)
     {
 LABEL_8:
-      LogPrintF(ucat, "[CUBonjourBrowser _bonjourStart]", 0x3Cu, "### Bonjour start failed: %#m\n", v11, v12, v13, v14, v15);
+      LogPrintF(ucat, "[CUBonjourBrowser _bonjourStart]", 60, "### Bonjour start failed: %#m\n", v11, v12, v13, v14, v15);
       goto LABEL_10;
     }
 
@@ -446,7 +446,7 @@ LABEL_10:
         if (ucat->var0 != -1)
         {
 LABEL_5:
-          LogPrintF(ucat, "[CUBonjourBrowser _updateLocked]", 0x5Au, "### Bonjour start update failed: %#m\n", v4, v5, v6, v7, v8);
+          LogPrintF(ucat, "[CUBonjourBrowser _updateLocked]", 90, "### Bonjour start update failed: %#m\n", v4, v5, v6, v7, v8);
           return;
         }
 
@@ -513,7 +513,7 @@ void __35__CUBonjourBrowser__lostAllDevices__block_invoke(uint64_t a1, void *a2,
     if (*v11 != -1)
     {
 LABEL_3:
-      LogPrintF(v11, "[CUBonjourBrowser _lostAllDevices]_block_invoke", 0x1Eu, "Bonjour lost    %@\n", v5, v6, v7, v8, v9);
+      LogPrintF(v11, "[CUBonjourBrowser _lostAllDevices]_block_invoke", 30, "Bonjour lost    %@\n", v5, v6, v7, v8, v9);
       v10 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -554,7 +554,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBonjourBrowser _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v19);
+      LogPrintF(ucat, "[CUBonjourBrowser _invalidated]", 50, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v19);
     }
   }
 
@@ -596,7 +596,7 @@ LABEL_7:
         v18 = self->_ucat;
       }
 
-      LogPrintF(v18, "[CUBonjourBrowser _invalidated]", 0xAu, "Invalidated\n", v14, v15, v16, v17, v21);
+      LogPrintF(v18, "[CUBonjourBrowser _invalidated]", 10, "Invalidated\n", v14, v15, v16, v17, v21);
     }
   }
 }
@@ -612,9 +612,9 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__CUBonjourBrowser_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__30__CUBonjourBrowser_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 24))
   {
     return result;
@@ -622,14 +622,14 @@ uint64_t __30__CUBonjourBrowser_invalidate__block_invoke(uint64_t result, uint64
 
   v11 = result;
   *(v10 + 24) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = *(v12 + 40);
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(*(v12 + 40), 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -638,8 +638,8 @@ uint64_t __30__CUBonjourBrowser_invalidate__block_invoke(uint64_t result, uint64
       v13 = *(v12 + 40);
     }
 
-    LogPrintF(v13, "[CUBonjourBrowser invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUBonjourBrowser invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
@@ -648,7 +648,7 @@ LABEL_6:
   {
     CFRetain(*(v12 + 16));
     dispatch_async_f(v15[2], v15, _BonjourBrowser_Stop);
-    v12 = *(v11 + 32);
+    v12 = v11[4];
   }
 
   return [v12 _invalidated];
@@ -723,7 +723,7 @@ uint64_t __28__CUBonjourBrowser_activate__block_invoke(uint64_t a1, uint64_t a2,
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUBonjourBrowser activate]_block_invoke", 0x1Eu, "Activate %@\n", a5, a6, a7, a8, *(v9 + 104));
+      LogPrintF(v10, "[CUBonjourBrowser activate]_block_invoke", 30, "Activate %@\n", a5, a6, a7, a8, *(v9 + 104));
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

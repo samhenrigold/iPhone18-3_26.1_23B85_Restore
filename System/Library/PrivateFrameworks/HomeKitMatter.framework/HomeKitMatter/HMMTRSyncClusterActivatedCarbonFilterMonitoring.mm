@@ -20,15 +20,16 @@
 
 uint64_t __62__HMMTRSyncClusterActivatedCarbonFilterMonitoring_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v15 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15;
+  logCategory__hmf_once_v15 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)updatedValuePluginConditionForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -65,32 +66,32 @@ uint64_t __62__HMMTRSyncClusterActivatedCarbonFilterMonitoring_logCategory__bloc
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     HMFGetLogIdentifier();
-    v17 = v68 = v13;
+    v17 = v67 = v13;
     [v10 endpoint];
-    v18 = v66 = handlerCopy;
+    v18 = v65 = handlerCopy;
     cluster = [v10 cluster];
     [v10 attribute];
-    v20 = v64 = v14;
+    v20 = v63 = v14;
     v21 = *MEMORY[0x277CD50D8];
     [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50D8]];
     v23 = v22 = selfCopy;
     *buf = 138544386;
-    v71 = v17;
-    v72 = 2112;
-    v73 = v18;
-    v74 = 2112;
-    v75 = cluster;
-    v76 = 2112;
-    v77 = v20;
-    v78 = 2112;
-    v79 = v23;
+    v70 = v17;
+    v71 = 2112;
+    v72 = v18;
+    v73 = 2112;
+    v74 = cluster;
+    v75 = 2112;
+    v76 = v20;
+    v77 = 2112;
+    v78 = v23;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
     selfCopy = v22;
-    v14 = v64;
+    v14 = v63;
 
-    handlerCopy = v66;
-    v13 = v68;
+    handlerCopy = v65;
+    v13 = v67;
   }
 
   else
@@ -137,113 +138,113 @@ LABEL_21:
   }
 
   v32 = v31;
-  v69 = v13;
-  v65 = v10;
+  v68 = v13;
+  v64 = v10;
   integerValue = [v31 integerValue];
   if (integerValue < 0x65)
   {
-    v40 = integerValue;
-    v63 = v32;
-    v41 = objc_alloc_init(MEMORY[0x277CD54D8]);
-    v42 = [(MTRClusterActivatedCarbonFilterMonitoring *)v28 readAttributeDegradationDirectionWithParams:v41];
-    v43 = v42;
-    v67 = handlerCopy;
-    if (v42)
+    v39 = integerValue;
+    v62 = v32;
+    v40 = objc_alloc_init(MEMORY[0x277CD54D8]);
+    v41 = [(MTRClusterActivatedCarbonFilterMonitoring *)v28 readAttributeDegradationDirectionWithParams:v40];
+    v42 = v41;
+    v66 = handlerCopy;
+    if (v41)
     {
-      v44 = [v42 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
+      v43 = [v41 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v45 = v44;
+        v44 = v43;
       }
 
       else
       {
-        v45 = 0;
+        v44 = 0;
       }
 
-      v46 = v45;
+      v45 = v44;
 
-      if (v46)
+      if (v45)
       {
-        integerValue2 = [v46 integerValue];
+        integerValue2 = [v45 integerValue];
         if (integerValue2 == 1)
         {
-          (v67[2])(v67, v63, v69);
+          (v66[2])(v66, v62, v68);
         }
 
         else
         {
           if (integerValue2)
           {
-            v59 = objc_autoreleasePoolPush();
-            v60 = v28;
-            v61 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+            v58 = objc_autoreleasePoolPush();
+            v59 = v28;
+            v60 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
-              v62 = HMFGetLogIdentifier();
+              v61 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v71 = v62;
-              v72 = 2112;
-              v73 = v46;
-              _os_log_impl(&dword_22AEAE000, v61, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid %@ value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0x16u);
+              v70 = v61;
+              v71 = 2112;
+              v72 = v45;
+              _os_log_impl(&dword_22AEAE000, v60, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid %@ value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v59);
-            v48 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-            v49 = v67[2];
+            objc_autoreleasePoolPop(v58);
+            v47 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+            v48 = v66[2];
           }
 
           else
           {
-            v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:100 - v40];
-            v49 = v67[2];
+            v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:100 - v39];
+            v48 = v66[2];
           }
 
-          v49();
+          v48();
         }
       }
 
       else
       {
-        v54 = objc_autoreleasePoolPush();
-        v55 = v28;
-        v56 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v53 = objc_autoreleasePoolPush();
+        v54 = v28;
+        v55 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
-          v57 = HMFGetLogIdentifier();
+          v56 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v71 = v57;
-          _os_log_impl(&dword_22AEAE000, v56, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid nil value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0xCu);
+          v70 = v56;
+          _os_log_impl(&dword_22AEAE000, v55, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid nil value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v54);
-        v58 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-        (v67[2])(v67, 0, v58);
+        objc_autoreleasePoolPop(v53);
+        v57 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+        (v66[2])(v66, 0, v57);
 
-        v46 = 0;
+        v45 = 0;
       }
     }
 
     else
     {
-      v50 = objc_autoreleasePoolPush();
-      v51 = v28;
-      v52 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v49 = objc_autoreleasePoolPush();
+      v50 = v28;
+      v51 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v53 = HMFGetLogIdentifier();
+        v52 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v71 = v53;
-        _os_log_impl(&dword_22AEAE000, v52, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0xCu);
+        v70 = v52;
+        _os_log_impl(&dword_22AEAE000, v51, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v50);
-      v46 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-      (v67[2])(v67, 0, v46);
+      objc_autoreleasePoolPop(v49);
+      v45 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+      (v66[2])(v66, 0, v45);
     }
 
-    handlerCopy = v67;
+    handlerCopy = v66;
   }
 
   else
@@ -255,9 +256,9 @@ LABEL_21:
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v71 = v37;
-      v72 = 2112;
-      v73 = v32;
+      v70 = v37;
+      v71 = 2112;
+      v72 = v32;
       _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid %@ value received from Condition attribute report for MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0x16u);
     }
 
@@ -266,16 +267,14 @@ LABEL_21:
     (handlerCopy[2])(handlerCopy, 0, v38);
   }
 
-  v10 = v65;
-  v13 = v69;
+  v10 = v64;
+  v13 = v68;
 LABEL_22:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginConditionWithParams:(id)params
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterActivatedCarbonFilterMonitoring *)self readAttributeDegradationDirectionWithParams:v5];
@@ -320,7 +319,7 @@ LABEL_22:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v19;
+        v40 = v19;
         v20 = "%{public}@Error: Invalid nil value read for Condition attribute from MTRClusterActivatedCarbonFilterMonitoring cluster";
         v26 = v18;
         v27 = 12;
@@ -343,9 +342,9 @@ LABEL_24:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v41 = v19;
-        v42 = 2112;
-        v43 = v14;
+        v40 = v19;
+        v41 = 2112;
+        v42 = v14;
         v20 = "%{public}@Error: Invalid %@ value read for Condition attribute from MTRClusterActivatedCarbonFilterMonitoring cluster";
 LABEL_23:
         v26 = v18;
@@ -361,11 +360,11 @@ LABEL_23:
     if (integerValue2 == 1)
     {
       v33 = *MEMORY[0x277CD5198];
-      v36[0] = *MEMORY[0x277CD5188];
-      v36[1] = v7;
-      v37[0] = v33;
-      v37[1] = v14;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v35[0] = *MEMORY[0x277CD5188];
+      v35[1] = v7;
+      v36[0] = v33;
+      v36[1] = v14;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
     }
 
     else
@@ -379,9 +378,9 @@ LABEL_23:
         {
           v19 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v41 = v19;
-          v42 = 2112;
-          v43 = v10;
+          v40 = v19;
+          v41 = 2112;
+          v42 = v10;
           v20 = "%{public}@Error: Invalid %@ value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster";
           goto LABEL_23;
         }
@@ -395,12 +394,12 @@ LABEL_25:
 
       v30 = *MEMORY[0x277CD5188];
       v31 = *MEMORY[0x277CD5198];
-      v38[1] = v7;
-      v39[0] = v31;
-      v38[0] = v30;
+      v37[1] = v7;
+      v38[0] = v31;
+      v37[0] = v30;
       v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:100 - v28];
-      v39[1] = v32;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+      v38[1] = v32;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
     }
 
 LABEL_26:
@@ -415,15 +414,13 @@ LABEL_26:
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v41 = v24;
+    v40 = v24;
     _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@Error: Invalid nil value read for Degradation Direction attribute from MTRClusterActivatedCarbonFilterMonitoring cluster", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v21);
   v25 = 0;
 LABEL_27:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

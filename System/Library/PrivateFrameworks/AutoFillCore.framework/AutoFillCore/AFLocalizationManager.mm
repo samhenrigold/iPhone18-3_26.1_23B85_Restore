@@ -65,14 +65,14 @@
 
 - (id)localizedStringForKey:(id)key
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
   preferredLocalizations = [v4 preferredLocalizations];
   v7 = MEMORY[0x277CCA8D8];
-  v16[0] = _deviceLanguage;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = _deviceLanguage;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v9 = [v7 preferredLocalizationsFromArray:preferredLocalizations forPreferences:v8];
 
   firstObject = [v9 firstObject];
@@ -89,8 +89,6 @@
 
   v13 = v12;
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -104,8 +102,6 @@
   v3 = MEMORY[0x277CCACA8];
   uUIDString = [v2 UUIDString];
   v5 = [v3 stringWithFormat:@"*%@*", uUIDString];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -145,10 +141,10 @@
 
         if (v19)
         {
-          v22 = AFLocalizationManagerOSLogFacility();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v23 = AFLocalizationManagerOSLogFacility(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [(AFLocalizationManager *)v29 accessibilityLabelsForSecureHeaders:v19 secureContents:v30 truncationSentinel:v22];
+            [(AFLocalizationManager *)v29 accessibilityLabelsForSecureHeaders:v19 secureContents:v30 truncationSentinel:v23];
           }
         }
 
@@ -160,7 +156,7 @@
 
       if ([v13 length])
       {
-        v23 = v13;
+        v24 = v13;
       }
 
       else
@@ -171,10 +167,10 @@
           goto LABEL_17;
         }
 
-        v23 = v14;
+        v24 = v14;
       }
 
-      v21 = v23;
+      v21 = v24;
 LABEL_17:
       [v10 addObject:v21];
 
@@ -184,21 +180,19 @@ LABEL_17:
     while (v11 < [headersCopy count]);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)accessibilityLabelForAFTextContentType:(id)type
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
   preferredLocalizations = [v4 preferredLocalizations];
   v7 = MEMORY[0x277CCA8D8];
-  v16[0] = _deviceLanguage;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = _deviceLanguage;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v9 = [v7 preferredLocalizationsFromArray:preferredLocalizations forPreferences:v8];
 
   firstObject = [v9 firstObject];
@@ -214,8 +208,6 @@ LABEL_17:
   }
 
   v13 = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

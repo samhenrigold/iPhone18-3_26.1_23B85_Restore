@@ -235,15 +235,15 @@ void __28__PAEnrollmentNode_isEqual___block_invoke(uint64_t a1, void *a2, uint64
 
 - (NSArray)stimuli
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   section = self->_section;
   if (section == 6 || section == 4)
   {
     v4 = +[PAStimulus musicStimulus];
-    v9 = v4;
-    v5 = &v9;
+    v8 = v4;
+    v5 = &v8;
 LABEL_7:
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:{1, v9, v10, v11, v12}];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:{1, v8, v9, v10, v11}];
 
     goto LABEL_12;
   }
@@ -253,15 +253,15 @@ LABEL_7:
     if (self->_index == 2)
     {
       v4 = +[PAStimulus louderSinStimulus];
-      v11 = v4;
-      v5 = &v11;
+      v10 = v4;
+      v5 = &v10;
     }
 
     else
     {
       v4 = +[PAStimulus sinStimulus];
-      v10 = v4;
-      v5 = &v10;
+      v9 = v4;
+      v5 = &v9;
     }
 
     goto LABEL_7;
@@ -269,7 +269,6 @@ LABEL_7:
 
   v6 = 0;
 LABEL_12:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -11,14 +11,14 @@
 
 - (void)_authenticate
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = +[HMDAppleAccountManager sharedManager];
   accountStore = [v3 accountStore];
 
   account = [(HMDRemoteLoginInitiatorCompanionAuthentication *)self account];
-  v27 = 0;
-  v6 = [accountStore credentialForAccount:account error:&v27];
-  v7 = v27;
+  v26 = 0;
+  v6 = [accountStore credentialForAccount:account error:&v26];
+  v7 = v26;
 
   if (v6)
   {
@@ -35,11 +35,11 @@
       identifier = [account3 identifier];
       account4 = [(HMDRemoteLoginInitiatorCompanionAuthentication *)selfCopy account];
       *buf = 138543874;
-      v31 = v12;
-      v32 = 2112;
-      v33 = identifier;
-      v34 = 2112;
-      v35 = account4;
+      v30 = v12;
+      v31 = 2112;
+      v32 = identifier;
+      v33 = 2112;
+      v34 = account4;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Loaded credentials for account %@, %@", buf, 0x20u);
     }
 
@@ -55,25 +55,23 @@
 
     [(HMDRemoteLoginCompanionAuthenticationRequest *)v19 setCompanionDevice:currentDevice];
     [(HMDRemoteLoginAuthenticationRequest *)v19 setTargetedAccountType:0];
-    v28 = @"kHMDRemoteLoginCompanionAuthenticationRequest";
+    v27 = @"kHMDRemoteLoginCompanionAuthenticationRequest";
     v21 = encodeRootObject();
-    v29 = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v28 = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
 
     objc_initWeak(buf, selfCopy);
     remoteMessageSender = [(HMDRemoteLoginAuthentication *)selfCopy remoteMessageSender];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_invoke;
-    v25[3] = &unk_278687FB0;
-    objc_copyWeak(&v26, buf);
-    [remoteMessageSender sendRemoteMessageWithName:@"kHMDRemoteLoginCompanionAuthenticationRequest" payload:v22 responseHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_invoke;
+    v24[3] = &unk_278687FB0;
+    objc_copyWeak(&v25, buf);
+    [remoteMessageSender sendRemoteMessageWithName:@"kHMDRemoteLoginCompanionAuthenticationRequest" payload:v22 responseHandler:v24];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(buf);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -107,7 +105,7 @@ void __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_i
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -115,17 +113,16 @@ void __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_i
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Dealloc %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDRemoteLoginInitiatorCompanionAuthentication;
-  [(HMDRemoteLoginInitiatorCompanionAuthentication *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDRemoteLoginInitiatorCompanionAuthentication;
+  [(HMDRemoteLoginInitiatorCompanionAuthentication *)&v7 dealloc];
 }
 
 - (HMDRemoteLoginInitiatorCompanionAuthentication)initWithSessionID:(id)d remoteDevice:(id)device workQueue:(id)queue remoteMessageSender:(id)sender delegate:(id)delegate account:(id)account
@@ -157,10 +154,9 @@ void __63__HMDRemoteLoginInitiatorCompanionAuthentication__authenticate__block_i
 
 void __61__HMDRemoteLoginInitiatorCompanionAuthentication_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_119916;
-  logCategory__hmf_once_v2_119916 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_119916;
+  logCategory__hmf_once_v2_119916 = v0;
 }
 
 @end

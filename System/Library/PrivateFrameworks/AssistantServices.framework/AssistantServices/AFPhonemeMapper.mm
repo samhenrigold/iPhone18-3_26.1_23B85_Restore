@@ -134,37 +134,37 @@ void __53__AFPhonemeMapper_stringByReplacingPhonemesInString___block_invoke(uint
 
 + (id)_buildRegexMatchingSubstrings:(id)substrings
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   substringsCopy = substrings;
   if ([substringsCopy count])
   {
     v4 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithString:", @"(");
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = substringsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [MEMORY[0x1E696AE70] escapedPatternForString:{*(*(&v14 + 1) + 8 * i), v14}];
+          v10 = [MEMORY[0x1E696AE70] escapedPatternForString:{*(*(&v13 + 1) + 8 * i), v13}];
           [v4 appendString:v10];
 
           [v4 appendString:@"|"];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -178,8 +178,6 @@ void __53__AFPhonemeMapper_stringByReplacingPhonemesInString___block_invoke(uint
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -392,9 +392,9 @@ LABEL_65:
           case 6:
             v45 = [CCToolKitToolTypedValuePrimitiveValueDecimalMantissa alloc];
             v46 = CCPBReaderReadDataNoCopy();
-            v67 = 0;
-            v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v67];
-            v9 = v67;
+            v65 = 0;
+            v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v65];
+            v9 = v65;
             mantissa = self->_mantissa;
             self->_mantissa = v47;
 
@@ -456,7 +456,6 @@ LABEL_78:
 
       v58 = objc_opt_class();
       v46 = NSStringFromClass(v58);
-      v59 = *&v5[*v8];
       v9 = CCSkipFieldErrorForMessage();
       goto LABEL_80;
     }
@@ -474,23 +473,22 @@ LABEL_84:
   if (!*&v5[*v8])
   {
     v9 = 0;
-    v64 = 1;
+    v62 = 1;
     goto LABEL_88;
   }
 
 LABEL_85:
-  v60 = objc_opt_class();
-  v61 = NSStringFromClass(v60);
-  v62 = *&v5[*v8];
-  v63 = CCInvalidBufferErrorForMessage();
+  v59 = objc_opt_class();
+  v60 = NSStringFromClass(v59);
+  v61 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v9 = 0;
 LABEL_86:
-  v64 = 0;
+  v62 = 0;
 LABEL_88:
 
-  return v64;
+  return v62;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueDecimal)initWithSign:(unsigned int)sign exponent:(id)exponent isCompact:(id)compact length:(id)length mantissa:(id)mantissa error:(id *)error

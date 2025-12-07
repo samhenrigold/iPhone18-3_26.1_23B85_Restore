@@ -64,7 +64,7 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
 - (id)addObserver:(id)observer
 {
   observerCopy = observer;
-  if (observerCopy && ![(NSHashTable *)self->_observers containsObject:observerCopy])
+  if (observerCopy && (objc_msgSend_containsObject_(self->_observers) & 1) == 0)
   {
     observers = self->_observers;
     if (!observers)
@@ -136,76 +136,6 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionWillBegin:(id)begin
 {
-  v27 = *MEMORY[0x277D85DE8];
-  viewfinderCopy = viewfinder;
-  beginCopy = begin;
-  v8 = beginCopy;
-  v9 = MEMORY[0x277CF0B98];
-  if (beginCopy)
-  {
-    [beginCopy clientAuditToken];
-  }
-
-  else
-  {
-    memset(buf, 0, 32);
-  }
-
-  v10 = [v9 tokenFromAuditToken:buf];
-  if (v10)
-  {
-    v20 = viewfinderCopy;
-    objc_storeStrong(&self->_activeSessionAuditToken, v10);
-    v11 = SBLogCaptureViewfinderMonitor();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      bundleID = [v10 bundleID];
-      v13 = [v10 pid];
-      *buf = 138412546;
-      *&buf[4] = bundleID;
-      *&buf[12] = 1024;
-      *&buf[14] = v13;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "viewfinderSessionWillBegin: Camera Viewfinder Active for: %@, pid: %i", buf, 0x12u);
-    }
-
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v14 = [(NSHashTable *)self->_observers copy];
-    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v15)
-    {
-      v16 = v15;
-      v17 = *v22;
-      do
-      {
-        for (i = 0; i != v16; ++i)
-        {
-          if (*v22 != v17)
-          {
-            objc_enumerationMutation(v14);
-          }
-
-          v19 = *(*(&v21 + 1) + 8 * i);
-          if (objc_opt_respondsToSelector())
-          {
-            [v19 cameraViewfinderMonitorSessionWillBegin:self auditToken:v10];
-          }
-        }
-
-        v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      }
-
-      while (v16);
-    }
-
-    viewfinderCopy = v20;
-  }
-}
-
-- (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidBegin:(id)begin
-{
   v28 = *MEMORY[0x277D85DE8];
   viewfinderCopy = viewfinder;
   beginCopy = begin;
@@ -213,7 +143,7 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
   v9 = MEMORY[0x277CF0B98];
   if (beginCopy)
   {
-    [beginCopy clientAuditToken];
+    objc_msgSend_clientAuditToken(beginCopy);
   }
 
   else
@@ -222,26 +152,22 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
   }
 
   v10 = [v9 tokenFromAuditToken:buf];
-  v11 = v10;
   if (v10)
   {
     v21 = viewfinderCopy;
-    if (([v10 hasSameProcessAsAuditToken:self->_activeSessionAuditToken] & 1) == 0)
+    objc_storeStrong(&self->_activeSessionAuditToken, v10);
+    v12 = SBLogCaptureViewfinderMonitor(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = SBLogCaptureViewfinderMonitor();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        bundleID = [v11 bundleID];
-        v14 = [v11 pid];
-        *buf = 138412546;
-        *&buf[4] = bundleID;
-        *&buf[12] = 1024;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "viewfinderSessionDidBegin: Camera Viewfinder Active for: %@, pid: %i", buf, 0x12u);
-      }
+      bundleID = [v10 bundleID];
+      v14 = [v10 pid];
+      *buf = 138412546;
+      *&buf[4] = bundleID;
+      *&buf[12] = 1024;
+      *&buf[14] = v14;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "viewfinderSessionWillBegin: Camera Viewfinder Active for: %@, pid: %i", buf, 0x12u);
     }
 
-    objc_storeStrong(&self->_activeSessionAuditToken, v11);
     v24 = 0u;
     v25 = 0u;
     v22 = 0u;
@@ -264,7 +190,7 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
           v20 = *(*(&v22 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [v20 cameraViewfinderMonitorSessionDidBegin:self auditToken:v11];
+            [v20 cameraViewfinderMonitorSessionWillBegin:self auditToken:v10];
           }
         }
 
@@ -278,22 +204,97 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
   }
 }
 
-- (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidEnd:(id)end
+- (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidBegin:(id)begin
 {
   v29 = *MEMORY[0x277D85DE8];
+  viewfinderCopy = viewfinder;
+  beginCopy = begin;
+  v8 = beginCopy;
+  v9 = MEMORY[0x277CF0B98];
+  if (beginCopy)
+  {
+    objc_msgSend_clientAuditToken(beginCopy);
+  }
+
+  else
+  {
+    memset(buf, 0, 32);
+  }
+
+  v10 = [v9 tokenFromAuditToken:buf];
+  v11 = v10;
+  if (v10)
+  {
+    v22 = viewfinderCopy;
+    v12 = [v10 hasSameProcessAsAuditToken:self->_activeSessionAuditToken];
+    if ((v12 & 1) == 0)
+    {
+      v13 = SBLogCaptureViewfinderMonitor(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        bundleID = [v11 bundleID];
+        v15 = [v11 pid];
+        *buf = 138412546;
+        *&buf[4] = bundleID;
+        *&buf[12] = 1024;
+        *&buf[14] = v15;
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "viewfinderSessionDidBegin: Camera Viewfinder Active for: %@, pid: %i", buf, 0x12u);
+      }
+    }
+
+    objc_storeStrong(&self->_activeSessionAuditToken, v11);
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v16 = [(NSHashTable *)self->_observers copy];
+    v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v24;
+      do
+      {
+        for (i = 0; i != v18; ++i)
+        {
+          if (*v24 != v19)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v21 = *(*(&v23 + 1) + 8 * i);
+          if (objc_opt_respondsToSelector())
+          {
+            [v21 cameraViewfinderMonitorSessionDidBegin:self auditToken:v11];
+          }
+        }
+
+        v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      }
+
+      while (v18);
+    }
+
+    viewfinderCopy = v22;
+  }
+}
+
+- (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidEnd:(id)end
+{
+  v30 = *MEMORY[0x277D85DE8];
   viewfinderCopy = viewfinder;
   endCopy = end;
   v8 = endCopy;
   v9 = MEMORY[0x277CF0B98];
   if (endCopy)
   {
-    [endCopy clientAuditToken];
+    objc_msgSend_clientAuditToken(endCopy);
   }
 
   else
   {
     *buf = 0u;
-    v28 = 0u;
+    v29 = 0u;
   }
 
   v10 = [v9 tokenFromAuditToken:buf];
@@ -305,50 +306,50 @@ void __43__SBCameraViewfinderMonitor_sharedInstance__block_invoke(uint64_t a1)
       activeSessionAuditToken = self->_activeSessionAuditToken;
       self->_activeSessionAuditToken = 0;
 
-      v13 = SBLogCaptureViewfinderMonitor();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogCaptureViewfinderMonitor(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         bundleID = [v11 bundleID];
         *buf = 138412290;
         *&buf[4] = bundleID;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Camera Viewfinder Inactive for: %@", buf, 0xCu);
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Camera Viewfinder Inactive for: %@", buf, 0xCu);
       }
     }
 
-    v21 = viewfinderCopy;
-    v24 = 0u;
+    v22 = viewfinderCopy;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v15 = [(NSHashTable *)self->_observers copy];
-    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v16)
+    v24 = 0u;
+    v16 = [(NSHashTable *)self->_observers copy];
+    v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v23;
+      v18 = v17;
+      v19 = *v24;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v23 != v18)
+          if (*v24 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v22 + 1) + 8 * i);
+          v21 = *(*(&v23 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [v20 cameraViewfinderMonitorSessionDidEnd:self auditToken:v11];
+            [v21 cameraViewfinderMonitorSessionDidEnd:self auditToken:v11];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    viewfinderCopy = v21;
+    viewfinderCopy = v22;
   }
 }
 

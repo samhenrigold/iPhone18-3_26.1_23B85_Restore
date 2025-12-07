@@ -19,24 +19,22 @@
 
 + (id)_proxiedProtocols
 {
-  v4[14] = *MEMORY[0x1E69E9840];
-  v4[0] = &unk_1F45E8930;
-  v4[1] = &unk_1F45E8D78;
-  v4[2] = &unk_1F45EBC58;
-  v4[3] = &unk_1F45EE650;
-  v4[4] = &unk_1F4629640;
-  v4[5] = &unk_1F4612C80;
-  v4[6] = &unk_1F45FCC80;
-  v4[7] = &unk_1F45EAB98;
-  v4[8] = &unk_1F45F79B8;
-  v4[9] = &unk_1F46016B8;
-  v4[10] = &unk_1F45ECD50;
-  v4[11] = &unk_1F46296A0;
-  v4[12] = &unk_1F4629700;
-  v4[13] = &unk_1F4606088;
-  result = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:14];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[14] = *MEMORY[0x1E69E9840];
+  v3[0] = &unk_1F45E8930;
+  v3[1] = &unk_1F45E8D78;
+  v3[2] = &unk_1F45EBC58;
+  v3[3] = &unk_1F45EE650;
+  v3[4] = &unk_1F4629640;
+  v3[5] = &unk_1F4612C80;
+  v3[6] = &unk_1F45FCC80;
+  v3[7] = &unk_1F45EAB98;
+  v3[8] = &unk_1F45F79B8;
+  v3[9] = &unk_1F46016B8;
+  v3[10] = &unk_1F45ECD50;
+  v3[11] = &unk_1F46296A0;
+  v3[12] = &unk_1F4629700;
+  v3[13] = &unk_1F4606088;
+  return [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:14];
 }
 
 + (OS_os_log)log
@@ -101,31 +99,31 @@ os_log_t __32__EDPersistenceHookRegistry_log__block_invoke(uint64_t a1)
 
 - (void)_initializeMethodSignatures
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [objc_opt_class() _proxiedProtocols];
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v23 = *v27;
+    v22 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
+        v6 = *(*(&v25 + 1) + 8 * i);
         outCount = -1431655766;
         v7 = protocol_copyMethodDescriptionList(v6, 1, 1, &outCount);
-        v24 = -1431655766;
-        v8 = protocol_copyMethodDescriptionList(v6, 0, 1, &v24);
+        v23 = -1431655766;
+        v8 = protocol_copyMethodDescriptionList(v6, 0, 1, &v23);
         if (outCount)
         {
           v9 = 0;
@@ -153,7 +151,7 @@ os_log_t __32__EDPersistenceHookRegistry_log__block_invoke(uint64_t a1)
           while (v9 < outCount);
         }
 
-        if (v24)
+        if (v23)
         {
           v15 = 0;
           v16 = &v8->types;
@@ -177,7 +175,7 @@ os_log_t __32__EDPersistenceHookRegistry_log__block_invoke(uint64_t a1)
             v16 += 2;
           }
 
-          while (v15 < v24);
+          while (v15 < v23);
         }
 
         if (v7)
@@ -191,13 +189,11 @@ os_log_t __32__EDPersistenceHookRegistry_log__block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v4);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerSelector:(SEL)selector types:(const char *)types
@@ -289,8 +285,8 @@ LABEL_5:
 {
   outCount = -1431655766;
   v8 = protocol_copyMethodDescriptionList(protocol, 1, 1, &outCount);
-  v16 = -1431655766;
-  v9 = protocol_copyMethodDescriptionList(protocol, 0, 1, &v16);
+  v14 = -1431655766;
+  v9 = protocol_copyMethodDescriptionList(protocol, 0, 1, &v14);
   os_unfair_lock_lock(&self->_lock);
   if (outCount)
   {
@@ -298,7 +294,6 @@ LABEL_5:
     v11 = v8;
     do
     {
-      name = v11->name;
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
         [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
@@ -312,23 +307,22 @@ LABEL_5:
     while (v10 < outCount);
   }
 
-  if (v16)
+  if (v14)
   {
-    v13 = 0;
-    v14 = v9;
+    v12 = 0;
+    v13 = v9;
     do
     {
-      v15 = v14->name;
       if (objc_opt_respondsToSelector())
       {
-        [(EDPersistenceHookRegistry *)self _registerHookResponder:responder withMethodDescription:v14->name, v14->types];
+        [(EDPersistenceHookRegistry *)self _registerHookResponder:responder withMethodDescription:v13->name, v13->types];
       }
 
+      ++v12;
       ++v13;
-      ++v14;
     }
 
-    while (v13 < v16);
+    while (v12 < v14);
   }
 
   os_unfair_lock_unlock(&self->_lock);
@@ -394,7 +388,7 @@ LABEL_5:
 
 - (void)_messageRespondersWithInvocation:(id)invocation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = -[EDPersistenceHookRegistry _copyRespondersForSelector:](self, "_copyRespondersForSelector:", [invocation selector]);
   v5 = +[EDPersistenceHookRegistry log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -402,26 +396,26 @@ LABEL_5:
     [(EDPersistenceHookRegistry *)invocation _messageRespondersWithInvocation:v4, v5];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
-  v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         [invocation invokeWithTarget:v10];
         objc_autoreleasePoolPop(v11);
@@ -429,23 +423,20 @@ LABEL_5:
       }
 
       while (v7 != v9);
-      v7 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_messageRespondersWithInvocation:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 138543618;
-  v7 = NSStringFromSelector([a1 selector]);
-  v8 = 2114;
-  v9 = a2;
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = NSStringFromSelector([a1 selector]);
+  v7 = 2114;
+  v8 = a2;
 }
 
 @end

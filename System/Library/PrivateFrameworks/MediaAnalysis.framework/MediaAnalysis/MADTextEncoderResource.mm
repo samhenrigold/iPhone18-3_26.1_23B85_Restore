@@ -28,11 +28,11 @@
   return v6;
 }
 
-id __40__MADTextEncoderResource_sharedResource__block_invoke()
+id __40__MADTextEncoderResource_sharedResource__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
+  v2 = objc_alloc_init(objc_opt_class());
 
-  return v0;
+  return v2;
 }
 
 + (id)sharedResource:(int64_t)resource
@@ -129,7 +129,7 @@ LABEL_18:
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 10;
   }
@@ -142,7 +142,7 @@ LABEL_18:
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 10;
   }
@@ -222,7 +222,7 @@ LABEL_18:
 
 void __37__MADTextEncoderResource_textEncoder__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = v2[2];
   if (v3)
@@ -233,36 +233,36 @@ void __37__MADTextEncoderResource_textEncoder__block_invoke(uint64_t a1)
   v4 = [v2 revision];
   if (v4)
   {
-    v18 = 0;
-    v5 = [MEMORY[0x1E6999168] createForRevision:v4 error:&v18];
-    v6 = v18;
+    v21 = 0;
+    v5 = [MEMORY[0x1E6999168] createForRevision:v4 error:&v21];
+    v6 = v21;
     if (v5)
     {
       v7 = [*(a1 + 32) additionalLayerNames];
       [v5 setAdditionalLayerNames:v7];
 
-      v8 = VCPSignPostLog();
-      v9 = os_signpost_id_generate(v8);
+      v9 = VCPSignPostLog(v8);
+      v10 = os_signpost_id_generate(v9);
 
-      v10 = VCPSignPostLog();
-      v11 = v10;
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      v12 = VCPSignPostLog(v11);
+      v13 = v12;
+      if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "CSUTextEncoder_init", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CSUTextEncoder_init", "", buf, 2u);
       }
 
-      v12 = [objc_alloc(MEMORY[0x1E6999160]) initWithConfiguration:v5];
-      v13 = *(a1 + 32);
-      v14 = *(v13 + 16);
-      *(v13 + 16) = v12;
+      v14 = [objc_alloc(MEMORY[0x1E6999160]) initWithConfiguration:v5];
+      v15 = *(a1 + 32);
+      v16 = *(v15 + 16);
+      *(v15 + 16) = v14;
 
-      v15 = VCPSignPostLog();
-      v16 = v15;
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+      v18 = VCPSignPostLog(v17);
+      v19 = v18;
+      if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v9, "CSUTextEncoder_init", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v10, "CSUTextEncoder_init", "", buf, 2u);
       }
 
       if (*(*(a1 + 32) + 16))
@@ -283,9 +283,9 @@ LABEL_2:
 
     else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = [v6 description];
+      v20 = [v6 description];
       *buf = 138412290;
-      v20 = v17;
+      v23 = v20;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create text encoder configuration (%@)", buf, 0xCu);
     }
 

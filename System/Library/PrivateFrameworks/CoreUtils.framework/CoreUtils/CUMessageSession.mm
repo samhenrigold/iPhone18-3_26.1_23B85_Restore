@@ -47,7 +47,7 @@
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUMessageSession remoteRequestID:options:request:responseHandler:]", 0x3Cu, "### No entry for request ID '%@'\n", v14, v15, v16, v17, dCopy);
+    LogPrintF(ucat, "[CUMessageSession remoteRequestID:options:request:responseHandler:]", 60, "### No entry for request ID '%@'\n", v14, v15, v16, v17, dCopy);
     goto LABEL_14;
   }
 
@@ -73,7 +73,7 @@
         v26 = self->_ucat;
       }
 
-      LogPrintF(v26, "[CUMessageSession remoteRequestID:options:request:responseHandler:]", 0x3Cu, "### No handler for request ID '%@'\n", v20, v21, v22, v23, dCopy);
+      LogPrintF(v26, "[CUMessageSession remoteRequestID:options:request:responseHandler:]", 60, "### No handler for request ID '%@'\n", v20, v21, v22, v23, dCopy);
     }
   }
 
@@ -151,14 +151,14 @@ uint64_t __66__CUMessageSession_sendRequestID_options_request_responseHandler___
     {
       if (*result != -1)
       {
-        return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 0x3Cu, "### SendRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
+        return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 60, "### SendRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
       }
 
       result = _LogCategory_Initialize(result, 0x3Cu);
       if (result)
       {
         result = *(a1[4] + 64);
-        return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 0x3Cu, "### SendRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
+        return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 60, "### SendRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
       }
     }
 
@@ -168,7 +168,7 @@ uint64_t __66__CUMessageSession_sendRequestID_options_request_responseHandler___
   v11 = *(result + 56);
   if (v11)
   {
-    (*(v11 + 16))(*(result + 56), a1[5], a1[6], a1[7], a1[8]);
+    (*(v11 + 16))(*(result + 56), a1[5], a1[6], a1[7], a1[8], a6, a7, a8);
     result = a1[4];
     if (!*(result + 40))
     {
@@ -206,7 +206,7 @@ LABEL_9:
     result = *(a1[4] + 64);
   }
 
-  return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 0x3Cu, "### No handler or endpoint to send requests\n", a5, a6, a7, a8, a9);
+  return LogPrintF(result, "[CUMessageSession sendRequestID:options:request:responseHandler:]_block_invoke", 60, "### No handler or endpoint to send requests\n", a5, a6, a7, a8, a9);
 }
 
 - (void)_registerRequestID:(id)d options:(id)options handler:(id)handler
@@ -257,7 +257,7 @@ void __55__CUMessageSession__registerRequestID_options_handler___block_invoke(ui
     if (*v9 != -1)
     {
 LABEL_3:
-      LogPrintF(v9, "[CUMessageSession _registerRequestID:options:handler:]_block_invoke", 0x3Cu, "### RegisterRequestID '%@' failed: %{error}\n", v4, v5, v6, v7, *(a1 + 40));
+      LogPrintF(v9, "[CUMessageSession _registerRequestID:options:handler:]_block_invoke", 60, "### RegisterRequestID '%@' failed: %{error}\n", v4, v5, v6, v7, *(a1 + 40));
       v8 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -305,14 +305,14 @@ uint64_t __54__CUMessageSession_registerRequestID_options_handler___block_invoke
     {
       if (*result != -1)
       {
-        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 0x3Cu, "### RegisterRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
+        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 60, "### RegisterRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
       }
 
       result = _LogCategory_Initialize(result, 0x3Cu);
       if (result)
       {
         result = *(a1[4] + 64);
-        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 0x3Cu, "### RegisterRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
+        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 60, "### RegisterRequestID '%@' after invalidate\n", a5, a6, a7, a8, a1[5]);
       }
     }
   }
@@ -322,13 +322,13 @@ uint64_t __54__CUMessageSession_registerRequestID_options_handler___block_invoke
     v11 = *(result + 48);
     if (v11)
     {
-      (*(v11 + 16))(*(result + 48), a1[5], a1[6], a1[7]);
+      (*(v11 + 16))(*(result + 48), a1[5], a1[6], a1[7], a5, a6, a7, a8);
       result = a1[4];
     }
 
     if (*(result + 40))
     {
-      [result _registerRequestID:a1[5] options:a1[6] handler:a1[7]];
+      [result _registerRequestID:a1[5] options:a1[6] handler:{a1[7], a6, a7, a8}];
       result = a1[4];
     }
 
@@ -348,7 +348,7 @@ uint64_t __54__CUMessageSession_registerRequestID_options_handler___block_invoke
           result = *(a1[4] + 64);
         }
 
-        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 0x3Cu, "### No handler or endpoint to register requests\n", a5, a6, a7, a8, a9);
+        return LogPrintF(result, "[CUMessageSession registerRequestID:options:handler:]_block_invoke", 60, "### No handler or endpoint to register requests\n", a5, a6, a7, a8, a9);
       }
     }
   }
@@ -372,7 +372,7 @@ uint64_t __54__CUMessageSession_registerRequestID_options_handler___block_invoke
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUMessageSession _invalidated]", 0x3Cu, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v14);
+        LogPrintF(ucat, "[CUMessageSession _invalidated]", 60, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v14);
         goto LABEL_7;
       }
 
@@ -406,7 +406,7 @@ LABEL_7:
       v13 = self->_ucat;
     }
 
-    LogPrintF(v13, "[CUMessageSession _invalidated]", 0x1Eu, "Invalidated\n", v9, v10, v11, v12, v16);
+    LogPrintF(v13, "[CUMessageSession _invalidated]", 30, "Invalidated\n", v9, v10, v11, v12, v16);
   }
 }
 
@@ -446,7 +446,7 @@ void __30__CUMessageSession_invalidate__block_invoke(uint64_t a1, uint64_t a2, u
       v11 = *(v10 + 64);
     }
 
-    LogPrintF(v11, "[CUMessageSession invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v20);
+    LogPrintF(v11, "[CUMessageSession invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v20);
     v10 = *(a1 + 32);
   }
 
@@ -496,7 +496,7 @@ LABEL_6:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUMessageSession _interrupted]", 0x3Cu, "### Interrupted\n", v3, v4, v5, v6, v9);
+    LogPrintF(ucat, "[CUMessageSession _interrupted]", 60, "### Interrupted\n", v3, v4, v5, v6, v9);
   }
 }
 
@@ -553,7 +553,7 @@ LABEL_6:
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUMessageSession _ensureXPCStarted]", 0x3Cu, "### No XPC listener endpoint\n", v7, v8, v9, v10, v17[0]);
+        LogPrintF(ucat, "[CUMessageSession _ensureXPCStarted]", 60, "### No XPC listener endpoint\n", v7, v8, v9, v10, v17[0]);
       }
     }
 

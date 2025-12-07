@@ -83,8 +83,8 @@ LABEL_4:
     [storage range];
     v43.location = NSExpandedRange();
     v43.length = v23;
-    TSWPAttributeArray::begin(insertionChangesTable, &v43, &v41);
-    TSWPAttributeArray::end(insertionChangesTable, &v43, &v39);
+    TSWPAttributeArray::begin(&v41, insertionChangesTable, &v43);
+    TSWPAttributeArray::end(&v39, insertionChangesTable, &v43);
     for (i = v42; ; i = ++v42)
     {
       if (i == v40)
@@ -149,8 +149,8 @@ LABEL_9:
     [storage range];
     v43.location = NSExpandedRange();
     v43.length = v32;
-    TSWPAttributeArray::begin(insertionChangesTable, &v43, &v41);
-    TSWPAttributeArray::end(insertionChangesTable, &v43, &v39);
+    TSWPAttributeArray::begin(&v41, insertionChangesTable, &v43);
+    TSWPAttributeArray::end(&v39, insertionChangesTable, &v43);
     for (j = v42; j != v40; j = ++v42)
     {
       v34 = *(v41->var4 + 2 * j + 1);

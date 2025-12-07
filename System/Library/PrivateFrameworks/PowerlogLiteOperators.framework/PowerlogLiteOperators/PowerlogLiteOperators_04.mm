@@ -1,35 +1,34 @@
-CFDictionaryRef get_asp_magazine_stats_dict(int a1, int a2)
+CFDictionaryRef get_asp_magazine_stats_dict(uint64_t a1, int a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v6 = 0;
-  v7 = 0;
-  if (!getStatsMagazineBufferFromPast(0, a1, a2, &v7, &v6))
+  v9 = 0;
+  v10 = 0;
+  if (!getStatsMagazineBufferFromPast(0, a1, a2, &v10, &v9, a3, a4, a5))
   {
     return 0;
   }
 
   if (a2)
   {
-    v3 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v3 = 3;
+    v6 = 3;
   }
 
-  stats_dict = _get_stats_dict(v7, v6 >> 3, v3);
-  free(v7);
+  stats_dict = _get_stats_dict(v10, v9 >> 3, v6);
+  free(v10);
   return stats_dict;
 }
 
 CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
 {
-  v743 = *MEMORY[0x277D85DE8];
+  v742 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
-    Copy = 0;
-    goto LABEL_4198;
+    return 0;
   }
 
   v7 = Mutable;
@@ -39,9 +38,9 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
   }
 
   v8 = a3 & 3;
-  v737 = 0;
-  v738 = 0;
   v736 = 0;
+  v737 = 0;
+  v735 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
@@ -58,7 +57,7 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
     }
 
     capacity = v16;
-    v739 = a2 - 1;
+    v738 = a2 - 1;
     if (v13 > 49)
     {
       if (v13 > 128)
@@ -82,7 +81,7 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
       {
         if (v13 == 50)
         {
-          v736 = *v14;
+          v735 = *v14;
           v17 = "pagesPerVirtualBlock";
           goto LABEL_30;
         }
@@ -100,7 +99,7 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
     {
       if (v13 == 20)
       {
-        v737 = *v14;
+        v736 = *v14;
         v17 = "bandErases";
         goto LABEL_30;
       }
@@ -123,7 +122,7 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
 
       if (v13 == 4)
       {
-        v738 = *v14;
+        v737 = *v14;
         v17 = "hostWrites";
         goto LABEL_30;
       }
@@ -143,9 +142,9 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
 
     if ((a3 & 1) != 0 && v13 == 680)
     {
-      v734 = v11;
-      v735 = v9;
-      v733 = v10;
+      v733 = v11;
+      v734 = v9;
+      v732 = v10;
       v20 = v12;
       v21 = v7;
       v22 = a3;
@@ -186,7 +185,7 @@ CFDictionaryRef _get_stats_dict(char *a1, int a2, uint64_t a3)
       v8 = v23;
       a3 = v22;
       v12 = v20;
-      v10 = v733;
+      v10 = v732;
       goto LABEL_44;
     }
 
@@ -264,10 +263,10 @@ LABEL_30:
       goto LABEL_33;
     }
 
-    v734 = v11;
-    v735 = v9;
+    v733 = v11;
+    v734 = v9;
     v31 = v7;
-    v732 = v8;
+    v731 = v8;
     if ((a3 & 1) != 0 && v13 == 9)
     {
       v32 = "shutdowns";
@@ -11662,11 +11661,11 @@ LABEL_120:
       CFDictionarySetValue(v31, v33, v34);
       CFRelease(v34);
       CFRelease(v33);
-      v8 = v732;
+      v8 = v731;
       a3 = a3;
 LABEL_44:
-      v11 = v734;
-      v9 = v735;
+      v11 = v733;
+      v9 = v734;
       goto LABEL_33;
     }
 
@@ -11712,11 +11711,11 @@ LABEL_44:
     v19 = 0;
     v18 = 0;
 LABEL_101:
-    v8 = v732;
+    v8 = v731;
     a3 = a3;
     v7 = v31;
-    v11 = v734;
-    v9 = v735;
+    v11 = v733;
+    v9 = v734;
     if (v18)
     {
 LABEL_31:
@@ -11730,13 +11729,13 @@ LABEL_31:
 
 LABEL_33:
     a1 = &v14[8 * capacity];
-    a2 = v739 - capacity;
+    a2 = v738 - capacity;
   }
 
-  while (v739 != capacity);
-  if (v738)
+  while (v738 != capacity);
+  if (v737)
   {
-    *__str = v737 * ((v736 * v9) >> 12) / v738;
+    *__str = v736 * ((v735 * v9) >> 12) / v737;
     v723 = CFStringCreateWithCString(0, "WriteAmp", 0x8000100u);
     v724 = CFNumberCreate(0, kCFNumberDoubleType, __str);
     CFDictionarySetValue(v7, v723, v724);
@@ -11746,7 +11745,7 @@ LABEL_33:
     {
       if (v11)
       {
-        valuePtr = v10 * ((v9 * v11) >> 12) / v738;
+        valuePtr = v10 * ((v9 * v11) >> 12) / v737;
         v725 = CFStringCreateWithCString(0, "IntermediateWriteAmp", 0x8000100u);
         v726 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
         CFDictionarySetValue(v7, v725, v726);
@@ -11769,7 +11768,5 @@ LABEL_33:
 LABEL_4196:
   Copy = CFDictionaryCreateCopy(0, v7);
   CFRelease(v7);
-LABEL_4198:
-  v730 = *MEMORY[0x277D85DE8];
   return Copy;
 }

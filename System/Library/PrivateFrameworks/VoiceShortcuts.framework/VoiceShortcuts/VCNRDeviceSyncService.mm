@@ -99,7 +99,7 @@
 
 - (VCNRDeviceSyncService)initWithCompanionSyncService:(id)service device:(id)device
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   deviceCopy = device;
   v9 = deviceCopy;
@@ -126,9 +126,9 @@
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"VCNRDeviceSyncService.m" lineNumber:39 description:{@"Invalid parameter not satisfying: %@", @"device"}];
 
 LABEL_3:
-  v34.receiver = self;
-  v34.super_class = VCNRDeviceSyncService;
-  v10 = [(VCNRDeviceSyncService *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = VCNRDeviceSyncService;
+  v10 = [(VCNRDeviceSyncService *)&v33 init];
   if (v10)
   {
     if (objc_opt_class())
@@ -187,9 +187,9 @@ LABEL_12:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v36 = "[VCNRDeviceSyncService initWithCompanionSyncService:device:]";
-        v37 = 2114;
-        v38 = v9;
+        v35 = "[VCNRDeviceSyncService initWithCompanionSyncService:device:]";
+        v36 = 2114;
+        v37 = v9;
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_INFO, "%s Won't sync to device %{public}@ because it does not support shortcuts", buf, 0x16u);
       }
     }
@@ -201,9 +201,9 @@ LABEL_12:
       {
         v18 = objc_opt_class();
         *buf = 136315394;
-        v36 = "[VCNRDeviceSyncService initWithCompanionSyncService:device:]";
-        v37 = 2114;
-        v38 = v18;
+        v35 = "[VCNRDeviceSyncService initWithCompanionSyncService:device:]";
+        v36 = 2114;
+        v37 = v18;
         v19 = v18;
         _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_INFO, "%s Can't create a %{public}@ because NanoRegistry is not available", buf, 0x16u);
       }
@@ -218,7 +218,6 @@ LABEL_21:
   v16 = 0;
 LABEL_22:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

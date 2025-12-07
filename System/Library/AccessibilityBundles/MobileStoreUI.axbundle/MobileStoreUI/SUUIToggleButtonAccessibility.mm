@@ -47,27 +47,27 @@
 
 - (id)_accessibilityFindAttributedStringView
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   [(SUUIToggleButtonAccessibility *)self subviews];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         NSClassFromString(&cfstr_Suuiattributed.isa);
         if (objc_opt_isKindOfClass())
         {
@@ -76,7 +76,7 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -88,8 +88,6 @@
 
   v8 = 0;
 LABEL_11:
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

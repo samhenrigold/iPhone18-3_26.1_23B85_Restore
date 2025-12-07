@@ -29,7 +29,6 @@
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
   if (*((*(&self->super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(&self->super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v8 = *((*(&self->super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x10);
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 

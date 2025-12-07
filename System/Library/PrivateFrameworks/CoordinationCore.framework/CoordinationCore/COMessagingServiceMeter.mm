@@ -20,46 +20,44 @@ void __32___COMessagingServiceMeter_init__block_invoke(uint64_t a1)
 
 void __32___COMessagingServiceMeter_init__block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) peaks];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v18 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         v7 = COCoreLogForCategory(9);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           v8 = [v1 objectForKey:v6];
           *buf = 138412546;
-          v15 = v6;
-          v16 = 2112;
-          v17 = v8;
+          v14 = v6;
+          v15 = 2112;
+          v16 = v8;
           _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_INFO, "Peak usage for %@: %@ bytes", buf, 0x16u);
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v18 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v17 count:16];
     }
 
     while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59___COMessagingServiceMeter_clientIdentifier_canSendLength___block_invoke(uint64_t a1)

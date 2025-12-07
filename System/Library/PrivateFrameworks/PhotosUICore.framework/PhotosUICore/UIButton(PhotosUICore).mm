@@ -32,7 +32,7 @@
 
 - (void)px_updateTitleUsingBlock:()PhotosUICore
 {
-  (*(a3 + 16))(a3);
+  (*(a3 + 16))(a3, a2);
   titleLabel = [self titleLabel];
   layer = [titleLabel layer];
   [layer removeAllAnimations];

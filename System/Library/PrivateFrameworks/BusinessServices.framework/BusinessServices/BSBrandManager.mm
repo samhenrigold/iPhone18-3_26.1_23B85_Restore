@@ -1,5 +1,8 @@
 @interface BSBrandManager
 - (BOOL)isBrandRegisteredWithIdentifier:(id)identifier forService:(id)service timeout:(double)timeout error:(id *)error;
+- (BSBrandManager)initWithBrandType:(int64_t)type cachingEnabled:(BOOL)enabled;
+- (BSBrandManager)initWithBrandType:(int64_t)type cachingEnabled:(BOOL)enabled brandDataSourceOpaqueWrapper:(id)wrapper;
+- (BSBrandManager)initWithCachingEnabled:(BOOL)enabled cacheURL:(id)l brandDataSourceOpaqueWrapper:(id)wrapper;
 - (void)brandAssetWithIdentifier:(id)identifier forService:(id)service completion:(id)completion;
 - (void)brandWithIdentifier:(id)identifier forService:(id)service completion:(id)completion;
 - (void)brandWithURI:(id)i completion:(id)completion;
@@ -10,6 +13,71 @@
 @end
 
 @implementation BSBrandManager
+
+- (BSBrandManager)initWithBrandType:(int64_t)type cachingEnabled:(BOOL)enabled
+{
+  if (self)
+  {
+    return [(BSBrandManager *)self initWithCachingEnabled:enabled cacheURL:0 brandDataSourceOpaqueWrapper:0];
+  }
+
+  return self;
+}
+
+- (BSBrandManager)initWithBrandType:(int64_t)type cachingEnabled:(BOOL)enabled brandDataSourceOpaqueWrapper:(id)wrapper
+{
+  enabledCopy = enabled;
+  wrapperCopy = wrapper;
+  if (wrapperCopy)
+  {
+    selfCopy2 = self;
+    v9 = enabledCopy;
+    v10 = wrapperCopy;
+  }
+
+  else
+  {
+    if (!self)
+    {
+      v11 = 0;
+      goto LABEL_6;
+    }
+
+    selfCopy2 = self;
+    v9 = enabledCopy;
+    v10 = 0;
+  }
+
+  v11 = [(BSBrandManager *)selfCopy2 initWithCachingEnabled:v9 cacheURL:0 brandDataSourceOpaqueWrapper:v10];
+LABEL_6:
+  v12 = v11;
+
+  return v12;
+}
+
+- (BSBrandManager)initWithCachingEnabled:(BOOL)enabled cacheURL:(id)l brandDataSourceOpaqueWrapper:(id)wrapper
+{
+  enabledCopy = enabled;
+  lCopy = l;
+  wrapperCopy = wrapper;
+  v15.receiver = self;
+  v15.super_class = BSBrandManager;
+  v10 = [(BSBrandManager *)&v15 init];
+  if (v10)
+  {
+    if (!wrapperCopy)
+    {
+      v11 = objc_alloc_init(IMBrandChatBotBrandDataSourceObjcShim);
+      wrapperCopy = [(IMBrandChatBotBrandDataSourceObjcShim *)v11 opaqueWrapper];
+    }
+
+    v12 = [[BSBrandManagerObjcShim alloc] initWithCachingEnabled:enabledCopy cacheURL:lCopy brandDataSourceWrapper:wrapperCopy];
+    shim = v10->_shim;
+    v10->_shim = v12;
+  }
+
+  return v10;
+}
 
 - (void)brandWithURI:(id)i completion:(id)completion
 {

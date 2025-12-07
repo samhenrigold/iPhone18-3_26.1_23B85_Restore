@@ -10,7 +10,9 @@
 - (void)_unconfigure;
 - (void)audioControl:(id)control didUpdateMuted:(BOOL)muted;
 - (void)audioControl:(id)control didUpdateVolume:(float)volume;
+- (void)setMuted:(BOOL)muted;
 - (void)setVolume:(float)volume;
+- (void)updateMuted:(BOOL)muted completionHandler:(id)handler;
 - (void)updateVolume:(float)volume completionHandler:(id)handler;
 @end
 
@@ -18,35 +20,93 @@
 
 void __49___HMAudioControl_updateMuted_completionHandler___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v14 = @"muted";
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"muted";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-  v15[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v4 = MEMORY[0x1E69A2A10];
   v5 = [*(a1 + 32) messageDestination];
   v6 = [v4 messageWithName:@"HMAC.sa" destination:v5 payload:v3];
 
   objc_initWeak(&location, *(a1 + 32));
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __49___HMAudioControl_updateMuted_completionHandler___block_invoke_2;
-  v9[3] = &unk_1E754A018;
-  objc_copyWeak(&v11, &location);
-  v12 = *(a1 + 56);
-  v10 = *(a1 + 48);
-  [v6 setResponseHandler:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __49___HMAudioControl_updateMuted_completionHandler___block_invoke_2;
+  v8[3] = &unk_1E754A018;
+  objc_copyWeak(&v10, &location);
+  v11 = *(a1 + 56);
+  v9 = *(a1 + 48);
+  [v6 setResponseHandler:v8];
   v7 = [*(a1 + 40) messageDispatcher];
   [v7 sendMessage:v6 completionHandler:0];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49___HMAudioControl_updateMuted_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (!v5)
+  {
+    v8 = objc_autoreleasePoolPush();
+    v9 = WeakRetained;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = HMFGetLogIdentifier();
+      v12 = HMFBooleanToString();
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set the mute state to %@", &v15, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v8);
+    [v9 setMuted:*(a1 + 48)];
+  }
+
+  v13 = [WeakRetained context];
+  v14 = [v13 delegateCaller];
+  [v14 callCompletion:*(a1 + 32) error:v5];
+}
+
+void __50___HMAudioControl_updateVolume_completionHandler___block_invoke(uint64_t a1, double a2)
+{
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14 = @"volume";
+  LODWORD(a2) = *(a1 + 56);
+  v3 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
+  v15[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+
+  v5 = MEMORY[0x1E69A2A10];
+  v6 = [*(a1 + 32) messageDestination];
+  v7 = [v5 messageWithName:@"HMAC.sa" destination:v6 payload:v4];
+
+  objc_initWeak(&location, *(a1 + 32));
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50___HMAudioControl_updateVolume_completionHandler___block_invoke_2;
+  v9[3] = &unk_1E7547928;
+  objc_copyWeak(&v11, &location);
+  v12 = *(a1 + 56);
+  v10 = *(a1 + 48);
+  [v7 setResponseHandler:v9];
+  v8 = [*(a1 + 40) messageDispatcher];
+  [v8 sendMessage:v7 completionHandler:0];
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
+}
+
+void __50___HMAudioControl_updateVolume_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -60,78 +120,13 @@ void __49___HMAudioControl_updateMuted_completionHandler___block_invoke_2(uint64
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v12 = *(a1 + 48);
-      v13 = HMFBooleanToString();
+      LODWORD(v12) = *(a1 + 48);
+      v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
       v17 = 138543618;
       v18 = v11;
       v19 = 2112;
       v20 = v13;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set the mute state to %@", &v17, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v8);
-    [v9 setMuted:*(a1 + 48)];
-  }
-
-  v14 = [WeakRetained context];
-  v15 = [v14 delegateCaller];
-  [v15 callCompletion:*(a1 + 32) error:v5];
-
-  v16 = *MEMORY[0x1E69E9840];
-}
-
-void __50___HMAudioControl_updateVolume_completionHandler___block_invoke(uint64_t a1, double a2)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = @"volume";
-  LODWORD(a2) = *(a1 + 56);
-  v3 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v16[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-
-  v5 = MEMORY[0x1E69A2A10];
-  v6 = [*(a1 + 32) messageDestination];
-  v7 = [v5 messageWithName:@"HMAC.sa" destination:v6 payload:v4];
-
-  objc_initWeak(&location, *(a1 + 32));
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __50___HMAudioControl_updateVolume_completionHandler___block_invoke_2;
-  v10[3] = &unk_1E7547928;
-  objc_copyWeak(&v12, &location);
-  v13 = *(a1 + 56);
-  v11 = *(a1 + 48);
-  [v7 setResponseHandler:v10];
-  v8 = [*(a1 + 40) messageDispatcher];
-  [v8 sendMessage:v7 completionHandler:0];
-
-  objc_destroyWeak(&v12);
-  objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __50___HMAudioControl_updateVolume_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (!v5)
-  {
-    v8 = objc_autoreleasePoolPush();
-    v9 = WeakRetained;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-    {
-      v11 = HMFGetLogIdentifier();
-      LODWORD(v12) = *(a1 + 48);
-      v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-      v18 = 138543618;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set the volume to %@", &v18, 0x16u);
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Successfully set the volume to %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -142,8 +137,6 @@ void __50___HMAudioControl_updateVolume_completionHandler___block_invoke_2(uint6
   v15 = [WeakRetained context];
   v16 = [v15 delegateCaller];
   [v16 callCompletion:*(a1 + 32) error:v5];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __38___HMAudioControl_mergeFromNewObject___block_invoke(uint64_t a1)
@@ -179,7 +172,7 @@ void __38___HMAudioControl_mergeFromNewObject___block_invoke_27(uint64_t a1)
 
 uint64_t __38___HMAudioControl_mergeFromNewObject___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -188,18 +181,16 @@ uint64_t __38___HMAudioControl_mergeFromNewObject___block_invoke_2(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     LODWORD(v6) = *(a1 + 48);
     v7 = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateVolume : %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateVolume : %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   LODWORD(v8) = *(a1 + 48);
-  result = [*(a1 + 40) audioControl:*(a1 + 32) didUpdateVolume:v8];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) audioControl:*(a1 + 32) didUpdateVolume:v8];
 }
 
 - (HMMediaSession)mediaSession
@@ -292,32 +283,45 @@ uint64_t __38___HMAudioControl_mergeFromNewObject___block_invoke_2(uint64_t a1)
   return v9;
 }
 
+- (void)updateMuted:(BOOL)muted completionHandler:(id)handler
+{
+  mutedCopy = muted;
+  handlerCopy = handler;
+  audioControl = [(HMAudioControl *)self audioControl];
+  [audioControl updateMuted:mutedCopy completionHandler:handlerCopy];
+}
+
 - (void)updateVolume:(float)volume completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (volume < 0.0 || volume > 1.0)
   {
-    v10 = objc_autoreleasePoolPush();
+    v9 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = HMFGetLogIdentifier();
+      v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Volume must be between 0.0 - 1.0", buf, 0xCu);
+      v16 = v13;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Volume must be between 0.0 - 1.0", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
     objc_exception_throw(*MEMORY[0x1E695DA20]);
   }
 
   audioControl = [(HMAudioControl *)self audioControl];
   *&v8 = volume;
   [audioControl updateVolume:handlerCopy completionHandler:v8];
+}
 
-  v9 = *MEMORY[0x1E69E9840];
+- (void)setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  audioControl = [(HMAudioControl *)self audioControl];
+  [audioControl setMuted:mutedCopy];
 }
 
 - (BOOL)isMuted

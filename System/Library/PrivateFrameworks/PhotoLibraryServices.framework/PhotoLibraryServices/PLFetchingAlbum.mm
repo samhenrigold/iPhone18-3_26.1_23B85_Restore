@@ -196,7 +196,7 @@ LABEL_10:
   v6 = fetchedAssets;
   if (fetchedAssets)
   {
-    v7 = [fetchedAssets count];
+    v7 = objc_msgSend_count(fetchedAssets);
     if (v7)
     {
       v8 = v7;
@@ -307,9 +307,9 @@ LABEL_27:
 
     if (fetchBatchSize)
     {
-      if ([assetsCopy count] > (2 * fetchBatchSize))
+      if (objc_msgSend_count(assetsCopy) > (2 * fetchBatchSize))
       {
-        v7 = [assetsCopy count];
+        v7 = objc_msgSend_count(assetsCopy);
         v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:v7];
         if (v7)
         {
@@ -333,7 +333,7 @@ LABEL_27:
         managedObjectContext = [(PLFetchingAlbum *)self managedObjectContext];
         v17 = [managedObjectContext executeFetchRequest:v14 error:0];
 
-        if ([v17 count])
+        if (objc_msgSend_count(v17))
         {
           managedObjectContext2 = [(PLFetchingAlbum *)self managedObjectContext];
           v19 = [managedObjectContext2 _orderedSetWithResultsFromFetchRequest:v17];
@@ -389,7 +389,7 @@ LABEL_11:
     [v8 setPredicate:predicate];
 
     [v8 setFetchLimit:3];
-    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(sortDescriptors, "count")}];
+    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(sortDescriptors)];
     v26 = 0u;
     v27 = 0u;
     v24 = 0u;
@@ -716,7 +716,7 @@ LABEL_9:
         _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_ERROR, "Failed to get count for %@: %@", buf, 0x16u);
       }
 
-      self->_countForDisplay = [(PLFetchingAlbum *)self count];
+      self->_countForDisplay = objc_msgSend_count(self);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -729,7 +729,7 @@ LABEL_9:
 - (unint64_t)count
 {
   assets = [(PLFetchingAlbum *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }

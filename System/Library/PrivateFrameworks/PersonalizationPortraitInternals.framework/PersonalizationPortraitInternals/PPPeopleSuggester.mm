@@ -21,7 +21,7 @@
 
 void __32__PPPeopleSuggester__sweepCache__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_contacts_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -36,38 +36,38 @@ void __32__PPPeopleSuggester__sweepCache__block_invoke(uint64_t a1, void *a2)
   v8 = [v7 keyEnumerator];
   v9 = [v8 allObjects];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v11)
   {
     v13 = v11;
     v14 = 0;
-    v15 = *v28;
+    v15 = *v27;
     *&v12 = 138739971;
-    v26 = v12;
+    v25 = v12;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
-        v18 = [v3[2] objectForKey:{v17, v26, v27}];
+        v17 = *(*(&v26 + 1) + 8 * i);
+        v18 = [v3[2] objectForKey:{v17, v25, v26}];
         v19 = v18;
         if (v18 && *(v18 + 8) < v6)
         {
           v20 = pp_contacts_log_handle();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v26;
-            v32 = v17;
+            *buf = v25;
+            v31 = v17;
             _os_log_debug_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEBUG, "PPPeopleSuggester: removing entry for %{sensitive}@", buf, 0xCu);
           }
 
@@ -76,7 +76,7 @@ void __32__PPPeopleSuggester__sweepCache__block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v13);
@@ -96,11 +96,9 @@ void __32__PPPeopleSuggester__sweepCache__block_invoke(uint64_t a1, void *a2)
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    LODWORD(v32) = v21;
+    LODWORD(v31) = v21;
     _os_log_debug_impl(&dword_23224A000, v24, OS_LOG_TYPE_DEBUG, "PPPeopleSuggester: removed %d entries from cache", buf, 8u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -162,14 +160,14 @@ void __32__PPPeopleSuggester__sweepCache__block_invoke(uint64_t a1, void *a2)
 
 void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_contacts_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v40 = [*(a1 + 32) length];
+    v39 = [*(a1 + 32) length];
     *buf = 134217984;
-    v51 = v40;
+    v50 = v39;
     _os_log_debug_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEBUG, "PPPeopleSuggester: _rankedContactIdentifiersMatchingName: name.length: %tu", buf, 0xCu);
   }
 
@@ -185,7 +183,7 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
 
   else
   {
-    v41 = v6;
+    v40 = v6;
     v9 = [*(a1 + 32) length];
     v10 = v3[1];
     v11 = objc_opt_new();
@@ -199,40 +197,40 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
       [v10 rankedGlobalSuggestionsFromContext:v11 contactsOnly:1];
     }
     v15 = ;
-    v42 = a1;
-    v43 = v3;
+    v41 = a1;
+    v42 = v3;
 
     v16 = pp_contacts_log_handle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [v15 count];
       *buf = 134217984;
-      v51 = v17;
+      v50 = v17;
       _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "PPPeopleSuggester: %tu suggestions", buf, 0xCu);
     }
 
     v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v15, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v14 = v15;
-    v19 = [v14 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v19 = [v14 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v46;
+      v21 = *v45;
       do
       {
         v22 = 0;
         do
         {
-          if (*v46 != v21)
+          if (*v45 != v21)
           {
             objc_enumerationMutation(v14);
           }
 
-          v23 = *(*(&v45 + 1) + 8 * v22);
+          v23 = *(*(&v44 + 1) + 8 * v22);
           v24 = objc_autoreleasePoolPush();
           v25 = [v23 conversationIdentifier];
           v26 = [v25 length];
@@ -244,7 +242,7 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
             {
               v29 = [v23 conversationIdentifier];
               *buf = 138412290;
-              v51 = v29;
+              v50 = v29;
               _os_log_debug_impl(&dword_23224A000, v27, OS_LOG_TYPE_DEBUG, "PPPeopleSuggester: _PSSuggestion: id: %@", buf, 0xCu);
             }
 
@@ -257,7 +255,7 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
         }
 
         while (v20 != v22);
-        v20 = [v14 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v20 = [v14 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v20);
@@ -275,17 +273,17 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
       v30[2] = v33;
     }
 
-    v3 = v43;
+    v3 = v42;
 
-    [v43[2] setObject:v30 forKey:v42[5]];
-    objc_storeStrong((*(v42[7] + 8) + 40), v18);
+    [v42[2] setObject:v30 forKey:v41[5]];
+    objc_storeStrong((*(v41[7] + 8) + 40), v18);
     v34 = objc_opt_new();
-    [v34 timeIntervalSinceDate:v43[3]];
+    [v34 timeIntervalSinceDate:v42[3]];
     v36 = v35;
 
     if (v36 > 60.0)
     {
-      v37 = v42[6];
+      v37 = v41[6];
       v38 = *(v37 + 16);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
@@ -295,10 +293,8 @@ void __59__PPPeopleSuggester__rankedContactIdentifiersMatchingName___block_invok
       dispatch_async(v38, block);
     }
 
-    v6 = v41;
+    v6 = v40;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (PPPeopleSuggester)init

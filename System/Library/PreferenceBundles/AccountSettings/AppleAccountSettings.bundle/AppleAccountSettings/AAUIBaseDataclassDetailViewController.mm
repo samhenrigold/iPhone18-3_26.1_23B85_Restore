@@ -3,6 +3,7 @@
 - (id)accountsForAccountManager:(id)manager;
 - (id)specifiers;
 - (void)_loadNotesDetailViewController;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AAUIBaseDataclassDetailViewController
@@ -36,6 +37,23 @@
   return v9;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AAUIBaseDataclassDetailViewController;
+  v4 = [(AAUIBaseDataclassDetailViewController *)&v6 viewWillAppear:appear];
+  v5 = _AAUILogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    sub_330D8(self, v5);
+  }
+
+  if ([(NSString *)self->_bundleID isEqualToString:@"com.apple.mobilenotes"])
+  {
+    [(AAUIBaseDataclassDetailViewController *)self _loadNotesDetailViewController];
+  }
+}
+
 - (void)_loadNotesDetailViewController
 {
   _notesDataclassDetailViewController = [(AAUIBaseDataclassDetailViewController *)self _notesDataclassDetailViewController];
@@ -61,7 +79,7 @@
   v3 = OBJC_IVAR___PSListController__specifiers;
   if (!*&self->ACUIDataclassConfigurationViewController_opaque[OBJC_IVAR___PSListController__specifiers])
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       bundleID = self->_bundleID;

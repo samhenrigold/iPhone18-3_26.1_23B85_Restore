@@ -99,9 +99,9 @@ LABEL_7:
 
 - (id)_initWithInput:(id)input mediaType:(id)type formatDescription:(opaqueCMFormatDescription *)description enabled:(BOOL)enabled sourceDeviceType:(id)deviceType sourceDevicePosition:(int64_t)position
 {
-  v24.receiver = self;
-  v24.super_class = AVCaptureInputPort;
-  v14 = [(AVCaptureInputPort *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = AVCaptureInputPort;
+  v14 = [(AVCaptureInputPort *)&v25 init];
   if (v14)
   {
     v15 = objc_alloc_init(AVCaptureInputPortInternal);
@@ -113,21 +113,21 @@ LABEL_7:
       if (objc_opt_isKindOfClass())
       {
         device = [input device];
-        IsLaunchPrewarmingEnabled = AVCaptureSessionIsLaunchPrewarmingEnabled();
-        v23 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        IsLaunchPrewarmingEnabled = AVCaptureSessionIsLaunchPrewarmingEnabled(device, v17);
+        v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         if (IsLaunchPrewarmingEnabled)
         {
-          v20 = [v23 initWithFormat:@"<%@ %@>", v19, objc_msgSend(device, "uniqueID")];
+          v21 = [v24 initWithFormat:@"<%@ %@>", v20, objc_msgSend(device, "uniqueID")];
         }
 
         else
         {
-          v20 = [v23 initWithFormat:@"<%@ %p>", v19, device];
+          v21 = [v24 initWithFormat:@"<%@ %p>", v20, device];
         }
 
-        v14->_internal->sourceID = v20;
+        v14->_internal->sourceID = v21;
         v14->_internal->sourceDeviceType = deviceType;
         v14->_internal->sourceDevicePosition = position;
       }
@@ -135,15 +135,15 @@ LABEL_7:
       v14->_internal->mediaType = [type copy];
       if (description)
       {
-        v21 = CFRetain(description);
+        v22 = CFRetain(description);
       }
 
       else
       {
-        v21 = 0;
+        v22 = 0;
       }
 
-      v14->_internal->formatDescription = v21;
+      v14->_internal->formatDescription = v22;
       v14->_internal->enabled = enabled;
       -[AVCaptureInputPort _setClock:](v14, "_setClock:", [input clock]);
     }
@@ -856,7 +856,7 @@ LABEL_111:
         v48 = 0;
         if (device)
         {
-          [device activeDepthDataMinFrameDuration];
+          objc_msgSend_activeDepthDataMinFrameDuration(device);
           if ((BYTE12(v47) & 0x1D) == 1)
           {
             if (v47)
@@ -948,7 +948,7 @@ LABEL_15:
 
   if (input)
   {
-    [(AVCaptureInput *)input activeLockedVideoFrameDuration];
+    objc_msgSend_activeLockedVideoFrameDuration(input);
   }
 
   else
@@ -960,7 +960,7 @@ LABEL_15:
   [OUTLINED_FUNCTION_0_5() setLockedFrameRate:?];
   if (input)
   {
-    [(AVCaptureInput *)input activeExternalSyncVideoFrameDuration];
+    objc_msgSend_activeExternalSyncVideoFrameDuration(input);
   }
 
   else
@@ -987,7 +987,7 @@ LABEL_15:
 
     if (device)
     {
-      [device activeVideoMinFrameDuration];
+      objc_msgSend_activeVideoMinFrameDuration(device);
     }
 
     else
@@ -999,7 +999,7 @@ LABEL_15:
     [OUTLINED_FUNCTION_0_5() setRequiredMaxFrameRate:?];
     if (device)
     {
-      [device activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(device);
     }
 
     else
@@ -1089,11 +1089,11 @@ LABEL_15:
     v19 = *&v18;
     if (input)
     {
-      [(AVCaptureInput *)input videoMinFrameDurationOverride];
+      objc_msgSend_videoMinFrameDurationOverride(input);
       if (v46)
       {
-        [(AVCaptureInput *)input videoMinFrameDurationOverride];
-        [(AVCaptureInput *)input videoMinFrameDurationOverride];
+        objc_msgSend_videoMinFrameDurationOverride(input);
+        objc_msgSend_videoMinFrameDurationOverride(input);
         v19 = v45 / v44;
         [objc_msgSend(v10 "requiredFormat")];
         if (v19 > v20)
@@ -1142,7 +1142,7 @@ LABEL_15:
       if (device)
       {
 LABEL_79:
-        [device activeMaxExposureDurationClientOverride];
+        objc_msgSend_activeMaxExposureDurationClientOverride(device);
 LABEL_85:
         v47 = v42;
         v48 = v43;
@@ -1177,8 +1177,8 @@ LABEL_85:
           if (dynamicAspectRatioAndDynamicAspectRatioRequestID)
           {
             v30 = dynamicAspectRatioAndDynamicAspectRatioRequestID;
-            v31 = [dynamicAspectRatioAndDynamicAspectRatioRequestID objectForKeyedSubscript:0x1F1CC5388];
-            LODWORD(v30) = [objc_msgSend(v30 objectForKeyedSubscript:{0x1F1CC53A8), "intValue"}];
+            v31 = objc_msgSend_objectForKeyedSubscript_(dynamicAspectRatioAndDynamicAspectRatioRequestID);
+            LODWORD(v30) = [objc_msgSend_objectForKeyedSubscript_(v30) intValue];
             [objc_msgSend(v10 "requiredFormat")];
             AVCaptureTranslateAVCaptureAspectRatioToFig(v31, v32);
             [OUTLINED_FUNCTION_1_7() setOutputAspectRatio:?];
@@ -1242,7 +1242,7 @@ LABEL_85:
         [OUTLINED_FUNCTION_1_7() setLensSmudgeDetectionEnabled:?];
         if (device)
         {
-          [device cameraLensSmudgeDetectionInterval];
+          objc_msgSend_cameraLensSmudgeDetectionInterval(device);
         }
 
         else

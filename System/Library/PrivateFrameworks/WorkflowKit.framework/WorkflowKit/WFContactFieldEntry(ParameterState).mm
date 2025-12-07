@@ -15,7 +15,7 @@
 
 - (id)serializedRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   if ([self type])
   {
     underlyingObject = [self underlyingObject];
@@ -32,12 +32,12 @@
     wfSerializedRepresentation2 = wfSerializedRepresentation;
     if (wfSerializedRepresentation)
     {
-      v9[0] = @"EntryType";
+      v8[0] = @"EntryType";
       v6 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(self, "type")}];
-      v9[1] = @"SerializedEntry";
-      v10[0] = v6;
-      v10[1] = wfSerializedRepresentation2;
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+      v8[1] = @"SerializedEntry";
+      v9[0] = v6;
+      v9[1] = wfSerializedRepresentation2;
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
     }
 
     else
@@ -53,14 +53,12 @@
     v5 = [wfSerializedRepresentation2 objectForKeyedSubscript:*MEMORY[0x1E6997140]];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)initWithSerializedRepresentation:()ParameterState variableProvider:parameter:
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -83,9 +81,9 @@ LABEL_25:
     if (!v11)
     {
       v15 = MEMORY[0x1E6996D00];
-      v24 = *MEMORY[0x1E6997140];
-      v25[0] = v8;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E6997140];
+      v24[0] = v8;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v17 = [v15 objectWithWFSerializedRepresentation:v16];
 
       if (v17)
@@ -175,7 +173,6 @@ LABEL_24:
   selfCopy3 = self;
 LABEL_26:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 

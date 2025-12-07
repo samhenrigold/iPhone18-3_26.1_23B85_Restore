@@ -111,7 +111,7 @@ LABEL_6:
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;
-  v9 = _s5Books30PalettePresentationInteractionC17gestureRecognizer_33shouldRecognizeSimultaneouslyWithSbSo09UIGestureF0C_AGtF_0();
+  v9 = _s5Books30PalettePresentationInteractionC17gestureRecognizer_33shouldRecognizeSimultaneouslyWithSbSo09UIGestureF0C_AGtF_0(recognizerCopy);
 
   return v9 & 1;
 }

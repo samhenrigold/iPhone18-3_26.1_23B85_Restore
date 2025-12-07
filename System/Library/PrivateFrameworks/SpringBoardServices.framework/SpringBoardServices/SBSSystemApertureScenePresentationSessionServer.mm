@@ -111,7 +111,7 @@ void __62__SBSSystemApertureScenePresentationSessionServer_startServer__block_in
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -120,34 +120,34 @@ void __62__SBSSystemApertureScenePresentationSessionServer_startServer__block_in
 
   if (v12)
   {
-    objc_initWeak(&location, self);
-    v13 = SBLogSystemApertureHosting();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v15 = SBLogSystemApertureHosting(inited);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_19169D000, v13, OS_LOG_TYPE_DEFAULT, "SBSSystemApertureScenePresentationSessionServer received connection %@", buf, 0xCu);
+      v21 = connectionCopy;
+      _os_log_impl(&dword_19169D000, v15, OS_LOG_TYPE_DEFAULT, "SBSSystemApertureScenePresentationSessionServer received connection %@", buf, 0xCu);
     }
 
     [(SBSSystemApertureScenePresentationSessionServer *)self _addConnection:connectionCopy];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __93__SBSSystemApertureScenePresentationSessionServer_listener_didReceiveConnection_withContext___block_invoke;
-    v15[3] = &unk_1E735F0A8;
-    v15[4] = self;
-    objc_copyWeak(&v16, &location);
-    [connectionCopy configureConnection:v15];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __93__SBSSystemApertureScenePresentationSessionServer_listener_didReceiveConnection_withContext___block_invoke;
+    v17[3] = &unk_1E735F0A8;
+    v17[4] = self;
+    objc_copyWeak(&v18, &location);
+    [connectionCopy configureConnection:v17];
     [connectionCopy activate];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v14 = SBLogSystemApertureHosting();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SBLogSystemApertureHosting(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [SBSSystemApertureScenePresentationSessionServer listener:connectionCopy didReceiveConnection:v14 withContext:?];
+      [SBSSystemApertureScenePresentationSessionServer listener:connectionCopy didReceiveConnection:v16 withContext:?];
     }
 
     [connectionCopy invalidate];
@@ -177,7 +177,7 @@ void __93__SBSSystemApertureScenePresentationSessionServer_listener_didReceiveCo
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogSystemApertureHosting();
+  v4 = SBLogSystemApertureHosting(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

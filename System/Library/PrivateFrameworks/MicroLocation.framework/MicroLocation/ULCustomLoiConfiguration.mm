@@ -1,10 +1,26 @@
 @interface ULCustomLoiConfiguration
 - (ULCustomLoiConfiguration)initWithCoder:(id)coder;
+- (ULCustomLoiConfiguration)initWithEnableInRoomDetection:(BOOL)detection;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation ULCustomLoiConfiguration
+
+- (ULCustomLoiConfiguration)initWithEnableInRoomDetection:(BOOL)detection
+{
+  detectionCopy = detection;
+  v7.receiver = self;
+  v7.super_class = ULCustomLoiConfiguration;
+  v4 = [(ULCustomLoiConfiguration *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(ULCustomLoiConfiguration *)v4 setIsInRoomDetectionEnabled:detectionCopy];
+  }
+
+  return v5;
+}
 
 - (id)copyWithZone:(_NSZone *)zone
 {

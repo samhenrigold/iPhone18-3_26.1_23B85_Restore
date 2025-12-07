@@ -5,8 +5,11 @@
 + (__MDPlistBytes)emptyArrayPlistBytes;
 + (__MDPlistBytes)emptyDictionaryPlistBytes;
 + (__MDPlistBytes)nullObjectPlistBytes;
++ (void)enumerateObjectsFromPlistBytes:(char *)bytes count:(unsigned int)count shouldDeallocate:(BOOL)deallocate usingBlock:(id)block;
 - (BOOL)enumerateQueryResults:(unint64_t)results attributeSize:(unint64_t)size stringCache:(id *)cache usingBlock:(id)block;
 - (BOOL)isEqual:(id)equal;
+- (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count deallocator:(id)deallocator;
+- (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count shouldDeallocate:(BOOL)deallocate;
 - (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count trusted:(unsigned __int8)trusted deallocator:(id)deallocator;
 - (__CFData)copyData;
 - (__CFData)copyDataWithBytesNoCopy;
@@ -22,7 +25,7 @@
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ((*(self + 34) & 4) != 0)
   {
     [_MDPlistBytes dealloc];
@@ -49,41 +52,35 @@
     free(self->_uidVector);
   }
 
-  v6.receiver = self;
-  v6.super_class = _MDPlistBytes;
-  [(_MDPlistBytes *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = _MDPlistBytes;
+  [(_MDPlistBytes *)&v5 dealloc];
 }
 
 + (__MDPlistBytes)createArrayPlistBytesUsingBlock:(id)block
 {
-  v5 = *MEMORY[0x1E69E9840];
   result = [_MDMutablePlistBytes createArrayPlistBytesUsingBlock:block];
   if (result)
   {
     *(result + 34) &= ~1u;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (__MDPlistBytes)createDictionaryPlistBytesUsingBlock:(id)block
 {
-  v5 = *MEMORY[0x1E69E9840];
   result = [_MDMutablePlistBytes createDictionaryPlistBytesUsingBlock:block];
   if (result)
   {
     *(result + 34) &= ~1u;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (__MDPlistBytes)createPlistBytes:(id)bytes
 {
-  v8 = *MEMORY[0x1E69E9840];
   v4 = [[_MDMutablePlistBytes alloc] initWithCapacity:0 useMalloc:0];
   if (!v4)
   {
@@ -99,77 +96,120 @@
   }
 
   *(v5 + 34) &= ~1u;
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (__MDPlistBytes)emptyArrayPlistBytes
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (qword_1ED6F3F28 != -1)
   {
     +[_MDPlistBytes emptyArrayPlistBytes];
   }
 
-  result = qword_1ED6F3F20;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return qword_1ED6F3F20;
 }
 
 + (__MDPlistBytes)emptyDictionaryPlistBytes
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (qword_1ED6F3F38 != -1)
   {
     +[_MDPlistBytes emptyDictionaryPlistBytes];
   }
 
-  result = qword_1ED6F3F30;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return qword_1ED6F3F30;
+}
+
++ (void)enumerateObjectsFromPlistBytes:(char *)bytes count:(unsigned int)count shouldDeallocate:(BOOL)deallocate usingBlock:(id)block
+{
+  if (!bytes)
+  {
+    if (qword_1ED6F3FE0 == -1)
+    {
+      v13 = CFRetain(qword_1ED6F3FD8);
+      if (!v13)
+      {
+        return;
+      }
+    }
+
+    else
+    {
+      +[_MDPlistBytes enumerateObjectsFromPlistBytes:count:shouldDeallocate:usingBlock:];
+      v13 = CFRetain(qword_1ED6F3FD8);
+      if (!v13)
+      {
+        return;
+      }
+    }
+
+    goto LABEL_8;
+  }
+
+  deallocateCopy = deallocate;
+  v8 = *&count;
+  v10 = [_MDPlistBytes alloc];
+  if (deallocateCopy)
+  {
+    v11 = &__block_literal_global_108;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = [(_MDPlistBytes *)v10 initWithByteVector:bytes count:v8 trusted:0 deallocator:v11];
+  v13 = v12;
+  if (v12)
+  {
+    CFRetain(v12);
+  }
+
+  if (v13)
+  {
+LABEL_8:
+    [v13 enumerateObjectsUsingBlock:block];
+
+    CFRelease(v13);
+  }
 }
 
 + (__MDPlistBytes)nullObjectPlistBytes
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (qword_1ED6F3F48 != -1)
   {
     +[_MDPlistBytes nullObjectPlistBytes];
   }
 
-  result = qword_1ED6F3F40;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return qword_1ED6F3F40;
 }
 
 - (BOOL)enumerateQueryResults:(unint64_t)results attributeSize:(unint64_t)size stringCache:(id *)cache usingBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17[0] = 0;
-  v19 = 0;
-  v17[1] = block;
-  v17[2] = size;
-  v18 = malloc_type_calloc(size, 8uLL, 0x80040B8603338uLL);
-  memset(v12, 0, sizeof(v12));
-  v13 = _QueryResultsBeginArray;
-  v14 = _QueryResultsValue;
-  v15 = _QueryResultsEndArray;
+  v19 = *MEMORY[0x1E69E9840];
+  v16[0] = 0;
+  v18 = 0;
+  v16[1] = block;
+  v16[2] = size;
+  v17 = malloc_type_calloc(size, 8uLL, 0x80040B8603338uLL);
+  memset(v11, 0, sizeof(v11));
+  v12 = _QueryResultsBeginArray;
+  v13 = _QueryResultsValue;
+  v14 = _QueryResultsEndArray;
   cacheCopy = cache;
-  v9 = _MDPlistBytesCopyPlistAtIndexWithCallbacksAndAllocator(*MEMORY[0x1E695E480], self, results, v12, v17);
+  v9 = _MDPlistBytesCopyPlistAtIndexWithCallbacksAndAllocator(*MEMORY[0x1E695E480], self, results, v11, v16);
   if (v9)
   {
     CFRelease(v9);
   }
 
-  free(v18);
-  v10 = *MEMORY[0x1E69E9840];
-  return BYTE1(v19) & ~v19 & 1;
+  free(v17);
+  return BYTE1(v18) & ~v18 & 1;
 }
 
 - (void)enumerateQueryResults:(unint64_t)results stringCache:(id *)cache usingBlock:(id)block
 {
   v6 = 0;
-  v10 = *MEMORY[0x1E69E9840];
   do
   {
     v7 = v6 + 1;
@@ -178,16 +218,15 @@
   }
 
   while (v8);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count trusted:(unsigned __int8)trusted deallocator:(id)deallocator
 {
   trustedCopy = trusted;
-  v18 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = _MDPlistBytes;
-  result = [(_MDPlistBytes *)&v17 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = _MDPlistBytes;
+  result = [(_MDPlistBytes *)&v16 init];
   if (result)
   {
     if (vector)
@@ -218,7 +257,7 @@
         v14 = trustedCopy != 0;
         v15 = result;
         _maybeSwapPlistBytes(result, v14);
-        result = v15;
+        return v15;
       }
     }
 
@@ -231,59 +270,70 @@
       }
 
       v13 = CFRetain(qword_1ED6F3FD8);
-      result = CFMakeCollectable(v13);
+      return CFMakeCollectable(v13);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
+}
+
+- (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count shouldDeallocate:(BOOL)deallocate
+{
+  if (deallocate)
+  {
+    v5 = &__block_literal_global_108;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return [(_MDPlistBytes *)self initWithByteVector:vector count:*&count deallocator:v5];
+}
+
+- (_MDPlistBytes)initWithByteVector:(char *)vector count:(unsigned int)count deallocator:(id)deallocator
+{
+
+  return [(_MDPlistBytes *)self initWithByteVector:vector count:*&count trusted:0 deallocator:deallocator];
 }
 
 - (unint64_t)_cfTypeID
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (qword_1ED6F3F50 != -1)
   {
     _MDPlistBytesGetTypeID_cold_1();
   }
 
-  result = qword_1ED6F3F58;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return qword_1ED6F3F58;
 }
 
 - (id)description
 {
-  v6 = *MEMORY[0x1E69E9840];
   v2 = __MDPlistBytesCopyDebugDescription(self);
   v3 = CFMakeCollectable(v2);
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v12 = *MEMORY[0x1E69E9840];
   _cfTypeID = [equal _cfTypeID];
   if (qword_1ED6F3F50 == -1)
   {
     if (_cfTypeID != qword_1ED6F3F58)
     {
-LABEL_6:
-      result = 0;
-      v8 = *MEMORY[0x1E69E9840];
-      return result;
+      return 0;
     }
   }
 
   else
   {
-    v11 = _cfTypeID;
+    v9 = _cfTypeID;
     _MDPlistBytesGetTypeID_cold_1();
-    if (v11 != qword_1ED6F3F58)
+    if (v9 != qword_1ED6F3F58)
     {
-      goto LABEL_6;
+      return 0;
     }
   }
 
@@ -292,61 +342,55 @@ LABEL_6:
   {
     if (byteVectorCnt != *(equal + 4))
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    v9 = *(equal + 1);
+    v8 = *(equal + 1);
   }
 
   else
   {
     if (byteVectorCnt)
     {
-      goto LABEL_6;
+      return 0;
     }
 
-    v9 = 0;
+    v8 = 0;
   }
 
-  result = memcmp(self->_byteVector, v9, byteVectorCnt) == 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return memcmp(self->_byteVector, v8, byteVectorCnt) == 0;
 }
 
 - (__CFData)copyData
 {
-  v7 = *MEMORY[0x1E69E9840];
   byteVector = self->_byteVector;
   byteVectorCnt = self->_byteVectorCnt;
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E695E480];
+  v4 = *MEMORY[0x1E695E480];
 
-  return CFDataCreate(v5, byteVector, byteVectorCnt);
+  return CFDataCreate(v4, byteVector, byteVectorCnt);
 }
 
 - (__CFData)copyDataWithBytesNoCopy
 {
-  v8 = *MEMORY[0x1E69E9840];
   byteVector = self->_byteVector;
   byteVectorCnt = self->_byteVectorCnt;
-  v4 = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E695E480];
-  v6 = *MEMORY[0x1E695E498];
+  v4 = *MEMORY[0x1E695E480];
+  v5 = *MEMORY[0x1E695E498];
 
-  return CFDataCreateWithBytesNoCopy(v5, byteVector, byteVectorCnt, v6);
+  return CFDataCreateWithBytesNoCopy(v4, byteVector, byteVectorCnt, v5);
 }
 
 - (void)dumpUIDs
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = _MDLogForCategoryDefault();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     uidCount = self->_uidCount;
     *buf = 134218240;
-    *v11 = self;
-    *&v11[8] = 1024;
-    *&v11[10] = uidCount;
+    *v10 = self;
+    *&v10[8] = 1024;
+    *&v10[10] = uidCount;
     _os_log_impl(&dword_1B238B000, v3, OS_LOG_TYPE_DEFAULT, "_MDPlistBytes:%p UID Count: %d", buf, 0x12u);
   }
 
@@ -361,17 +405,17 @@ LABEL_6:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67110400;
-        *v11 = v5;
-        *&v11[4] = 2048;
-        *&v11[6] = v6;
-        v12 = 1024;
-        v13 = BYTE3(v6);
-        v14 = 1024;
-        v15 = HIDWORD(v6);
-        v16 = 1024;
-        v17 = v6 & 0xFFFFFF;
-        v18 = 2048;
-        v19 = v7;
+        *v10 = v5;
+        *&v10[4] = 2048;
+        *&v10[6] = v6;
+        v11 = 1024;
+        v12 = BYTE3(v6);
+        v13 = 1024;
+        v14 = HIDWORD(v6);
+        v15 = 1024;
+        v16 = v6 & 0xFFFFFF;
+        v17 = 2048;
+        v18 = v7;
         _os_log_impl(&dword_1B238B000, v8, OS_LOG_TYPE_DEFAULT, "   desc[%d]: 0x%16.16llx tag: %2.2x var: 0x%4.4x qc: 0x%4.4x 0x%16.16llx", buf, 0x2Eu);
       }
 
@@ -380,15 +424,13 @@ LABEL_6:
 
     while (v5 < self->_uidCount);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateObjectsUsingBlock:(id)block
 {
   v5 = 0;
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
   v6 = *MEMORY[0x1E695E480];
   do
   {
@@ -399,13 +441,12 @@ LABEL_6:
     }
 
     v8 = v7;
-    (*(block + 2))(block, v7, v5, &v10);
+    (*(block + 2))(block, v7, v5, &v9);
     CFRelease(v8);
     ++v5;
   }
 
-  while ((v10 & 1) == 0);
-  v9 = *MEMORY[0x1E69E9840];
+  while ((v9 & 1) == 0);
 }
 
 @end

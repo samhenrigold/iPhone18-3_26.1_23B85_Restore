@@ -140,7 +140,7 @@ LABEL_9:
     if (_durationEventBuilder)
     {
       v19 = MEMORY[0x277CCABB0];
-      [_durationEventBuilder duration];
+      objc_msgSend_duration(_durationEventBuilder);
       v20 = [v19 numberWithDouble:?];
       [v14 setCurrentDuration:v20];
     }

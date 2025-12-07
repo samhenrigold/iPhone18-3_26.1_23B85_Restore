@@ -2,6 +2,7 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WLQRCodeListViewController
@@ -27,6 +28,18 @@
 
   tableView4 = [(OBTableWelcomeController *)self tableView];
   [tableView4 setTranslatesAutoresizingMaskIntoConstraints:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = WLQRCodeListViewController;
+  [(OBBaseWelcomeController *)&v5 viewWillDisappear:disappear];
+  if (!self->_attempts)
+  {
+    mEMORY[0x277D7B8D0] = [MEMORY[0x277D7B8D0] sharedInstance];
+    [mEMORY[0x277D7B8D0] didLoadAndroidStore:0 selected:0 canceled:1 inAttempts:0];
+  }
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

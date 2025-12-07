@@ -36,7 +36,7 @@
 - (void)device:(id)device didRequestSuiteRunWithDestinations:(id)destinations confirmation:(id)confirmation
 {
   v7 = _Block_copy(confirmation);
-  sub_10003E110(0, &qword_100201818);
+  sub_10003E110(0, &qword_100201818, ASTSelfServiceDestination_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = swift_allocObject();
   *(v9 + 16) = v7;
@@ -44,6 +44,8 @@
   selfCopy = self;
   sub_100105570(device, v8, sub_100105A5C, v9);
   swift_unknownObjectRelease();
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)device:(id)device didFinishTestSuite:(id)suite withEntry:(id)entry error:(id)error

@@ -136,7 +136,7 @@ void __33__EMGroupedSender_initWithCoder___block_invoke(uint64_t a1, void *a2)
 
 void __33__EMGroupedSender_setRepository___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -150,11 +150,9 @@ void __33__EMGroupedSender_setRepository___block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v3 ef_publicDescription];
-      __33__EMGroupedSender_setRepository___block_invoke_cold_1(v5, v7, v4);
+      __33__EMGroupedSender_setRepository___block_invoke_cold_1(v5, v6, v4);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (EMCollectionItemID)itemID
@@ -212,7 +210,7 @@ void __33__EMGroupedSender_setRepository___block_invoke(uint64_t a1, void *a2)
 
 id __33__EMGroupedSender_displayMessage__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) displayMessageObjectID];
   if (![v3 em_isItemNotFoundError] || *(a1 + 40) == v4)
@@ -220,19 +218,19 @@ id __33__EMGroupedSender_displayMessage__block_invoke(uint64_t a1, void *a2)
     v10 = +[EMGroupedSender log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = [*(a1 + 32) ef_publicDescription];
-      v15 = [*(a1 + 32) displayMessageObjectID];
-      v16 = [*(a1 + 32) displayMessageItemID];
-      v17 = [v3 ef_publicDescription];
-      v18 = 138544130;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v15;
-      v22 = 2114;
-      v23 = v16;
-      v24 = 2114;
-      v25 = v17;
-      _os_log_error_impl(&dword_1C6655000, v10, OS_LOG_TYPE_ERROR, "%{public}@\ndisplayMessageObjectID: %{public}@, displayMessageItemID: %{public}@, error: %{public}@", &v18, 0x2Au);
+      v13 = [*(a1 + 32) ef_publicDescription];
+      v14 = [*(a1 + 32) displayMessageObjectID];
+      v15 = [*(a1 + 32) displayMessageItemID];
+      v16 = [v3 ef_publicDescription];
+      v17 = 138544130;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      v23 = 2114;
+      v24 = v16;
+      _os_log_error_impl(&dword_1C6655000, v10, OS_LOG_TYPE_ERROR, "%{public}@\ndisplayMessageObjectID: %{public}@, displayMessageItemID: %{public}@, error: %{public}@", &v17, 0x2Au);
     }
 
     v9 = [MEMORY[0x1E699B7C8] futureWithError:v3];
@@ -246,15 +244,15 @@ id __33__EMGroupedSender_displayMessage__block_invoke(uint64_t a1, void *a2)
       v6 = [*(a1 + 32) ef_publicDescription];
       v7 = *(a1 + 40);
       v8 = [v3 ef_publicDescription];
-      v18 = 138544130;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v7;
-      v22 = 2114;
-      v23 = v4;
-      v24 = 2114;
-      v25 = v8;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@\nre-trying request for displayMessage: objectID: %{public}@, updatedObjectID: %{public}@, error: %{public}@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v6;
+      v19 = 2114;
+      v20 = v7;
+      v21 = 2114;
+      v22 = v4;
+      v23 = 2114;
+      v24 = v8;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@\nre-trying request for displayMessage: objectID: %{public}@, updatedObjectID: %{public}@, error: %{public}@", &v17, 0x2Au);
     }
 
     v9 = [*(a1 + 32) displayMessage];
@@ -262,14 +260,12 @@ id __33__EMGroupedSender_displayMessage__block_invoke(uint64_t a1, void *a2)
 
   v11 = v9;
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 id __33__EMGroupedSender_displayMessage__block_invoke_47(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -281,24 +277,22 @@ id __33__EMGroupedSender_displayMessage__block_invoke_47(uint64_t a1, void *a2)
     v4 = +[EMGroupedSender log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 32) ef_publicDescription];
-      v11 = [*(a1 + 32) displayMessageObjectID];
-      v12 = [*(a1 + 32) displayMessageItemID];
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v12;
-      _os_log_error_impl(&dword_1C6655000, v4, OS_LOG_TYPE_ERROR, "%{public}@\ndisplayMessageObjectID: %{public}@, displayMessageItemID: %{public}@, message isNull", &v13, 0x20u);
+      v9 = [*(a1 + 32) ef_publicDescription];
+      v10 = [*(a1 + 32) displayMessageObjectID];
+      v11 = [*(a1 + 32) displayMessageItemID];
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
+      _os_log_error_impl(&dword_1C6655000, v4, OS_LOG_TYPE_ERROR, "%{public}@\ndisplayMessageObjectID: %{public}@, displayMessageItemID: %{public}@, message isNull", &v12, 0x20u);
     }
 
     v5 = MEMORY[0x1E699B7C8];
     v6 = [MEMORY[0x1E696ABC0] em_itemNotFoundErrorWithItemID:*(a1 + 40)];
     v7 = [v5 futureWithError:v6];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

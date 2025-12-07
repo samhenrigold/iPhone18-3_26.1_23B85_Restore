@@ -5,6 +5,7 @@
 - (IXATestAppRelayServer)init;
 - (void)dealloc;
 - (void)fetchEndpointForServiceName:(id)name completion:(id)completion;
+- (void)registerEndpoint:(id)endpoint forServiceName:(id)name withEntitlement:(id)entitlement canReplace:(BOOL)replace completion:(id)completion;
 - (void)unregisterEndpointForServiceName:(id)name completion:(id)completion;
 @end
 
@@ -24,9 +25,9 @@
 
 - (IXATestAppRelayServer)init
 {
-  v14.receiver = self;
-  v14.super_class = IXATestAppRelayServer;
-  v2 = [(IXATestAppRelayServer *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = IXATestAppRelayServer;
+  v2 = [(IXATestAppRelayServer *)&v15 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -47,11 +48,11 @@
     registrations = v2->_registrations;
     v2->_registrations = v9;
 
-    v11 = IXATestAppRelayLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = IXATestAppRelayLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "The service was initialized.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "The service was initialized.", v14, 2u);
     }
   }
 
@@ -75,8 +76,7 @@
   connectionCopy = connection;
   if ((TI_IS_INTERNAL_INSTALL() & 1) == 0)
   {
-    [connectionCopy invalidate];
-    v6 = IXATestAppRelayLog();
+    v6 = IXATestAppRelayLog([connectionCopy invalidate]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000D354();
@@ -87,18 +87,18 @@
 
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
   {
-    memset(v12, 0, sizeof(v12));
+    memset(v13, 0, sizeof(v13));
   }
 
-  if (![(IXATestAppRelayServer *)self _checkEntitlement:@"com.apple.inputanalytics.testAppRelay" withAuditToken:v12])
+  v7 = [(IXATestAppRelayServer *)self _checkEntitlement:@"com.apple.inputanalytics.testAppRelay" withAuditToken:v13];
+  if ((v7 & 1) == 0)
   {
-    [connectionCopy invalidate];
-    v6 = IXATestAppRelayLog();
+    v6 = IXATestAppRelayLog([connectionCopy invalidate]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10000D390();
@@ -106,74 +106,142 @@
 
 LABEL_13:
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_14;
   }
 
-  v7 = IXATestAppRelayLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = IXATestAppRelayLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     processIdentifier = [connectionCopy processIdentifier];
-    LODWORD(v12[0]) = 67109120;
-    DWORD1(v12[0]) = processIdentifier;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Accepting connection from client (pid=%d).", v12, 8u);
+    LODWORD(v13[0]) = 67109120;
+    DWORD1(v13[0]) = processIdentifier;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Accepting connection from client (pid=%d).", v13, 8u);
   }
 
   [connectionCopy setExportedObject:self];
-  v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___IXATestAppRelayProtocol];
-  [connectionCopy setExportedInterface:v9];
+  v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___IXATestAppRelayProtocol];
+  [connectionCopy setExportedInterface:v10];
 
   [connectionCopy resume];
-  v10 = 1;
+  v11 = 1;
 LABEL_14:
 
-  return v10;
+  return v11;
+}
+
+- (void)registerEndpoint:(id)endpoint forServiceName:(id)name withEntitlement:(id)entitlement canReplace:(BOOL)replace completion:(id)completion
+{
+  replaceCopy = replace;
+  endpointCopy = endpoint;
+  nameCopy = name;
+  entitlementCopy = entitlement;
+  completionCopy = completion;
+  v16 = TI_IS_INTERNAL_INSTALL();
+  if ((v16 & 1) == 0)
+  {
+    v24 = IXATestAppRelayLog(v16);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000D354();
+    }
+
+    goto LABEL_14;
+  }
+
+  if (!endpointCopy || (v16 = [nameCopy length]) == 0 || (v16 = objc_msgSend(entitlementCopy, "length")) == 0)
+  {
+    v24 = IXATestAppRelayLog(v16);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000D440();
+    }
+
+LABEL_14:
+
+    completionCopy[2](completionCopy, 0);
+    goto LABEL_15;
+  }
+
+  registrations = [(IXATestAppRelayServer *)self registrations];
+  v18 = [registrations objectForKey:nameCopy];
+
+  if (v18 && (v19 = [v18 canReplace], (v19 & 1) == 0))
+  {
+    v25 = IXATestAppRelayLog(v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000D3CC();
+    }
+
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v20 = [[IXATestAppRelayRegistration alloc] initWithEndpoint:endpointCopy andEntitlement:entitlementCopy canReplace:replaceCopy];
+    registrations2 = [(IXATestAppRelayServer *)self registrations];
+    [registrations2 setObject:v20 forKey:nameCopy];
+
+    v23 = IXATestAppRelayLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = 138412290;
+      v27 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Registered endpoint for service name '%@'.", &v26, 0xCu);
+    }
+
+    completionCopy[2](completionCopy, 1);
+  }
+
+LABEL_15:
 }
 
 - (void)unregisterEndpointForServiceName:(id)name completion:(id)completion
 {
   nameCopy = name;
   completionCopy = completion;
-  if (TI_IS_INTERNAL_INSTALL())
+  v8 = TI_IS_INTERNAL_INSTALL();
+  if (v8)
   {
     registrations = [(IXATestAppRelayServer *)self registrations];
-    v9 = [registrations objectForKey:nameCopy];
+    v10 = [registrations objectForKey:nameCopy];
 
-    if (v9)
+    if (v10)
     {
-      entitlement = [v9 entitlement];
-      v11 = +[NSXPCConnection currentConnection];
-      v12 = v11;
-      if (v11)
+      entitlement = [v10 entitlement];
+      v13 = +[NSXPCConnection currentConnection];
+      v14 = v13;
+      if (v13)
       {
-        [v11 auditToken];
+        objc_msgSend_auditToken(v13);
       }
 
       else
       {
-        memset(v17, 0, sizeof(v17));
+        memset(v21, 0, sizeof(v21));
       }
 
-      v15 = [(IXATestAppRelayServer *)self _checkEntitlement:entitlement withAuditToken:v17];
+      v17 = [(IXATestAppRelayServer *)self _checkEntitlement:entitlement withAuditToken:v21];
 
-      if (v15)
+      if (v17)
       {
         registrations2 = [(IXATestAppRelayServer *)self registrations];
         [registrations2 removeObjectForKey:nameCopy];
 
-        v14 = IXATestAppRelayLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = IXATestAppRelayLog(v20);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v17[0]) = 138412290;
-          *(v17 + 4) = nameCopy;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unregistered endpoint for service name '%@'.", v17, 0xCu);
+          LODWORD(v21[0]) = 138412290;
+          *(v21 + 4) = nameCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Unregistered endpoint for service name '%@'.", v21, 0xCu);
         }
       }
 
       else
       {
-        v14 = IXATestAppRelayLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v16 = IXATestAppRelayLog(v18);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           sub_10000D47C();
         }
@@ -182,8 +250,8 @@ LABEL_14:
 
     else
     {
-      v14 = IXATestAppRelayLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = IXATestAppRelayLog(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10000D4B8();
       }
@@ -194,8 +262,8 @@ LABEL_14:
 
   else
   {
-    v13 = IXATestAppRelayLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = IXATestAppRelayLog(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10000D354();
     }
@@ -208,46 +276,47 @@ LABEL_14:
 {
   nameCopy = name;
   completionCopy = completion;
-  if (TI_IS_INTERNAL_INSTALL())
+  v8 = TI_IS_INTERNAL_INSTALL();
+  if (v8)
   {
     registrations = [(IXATestAppRelayServer *)self registrations];
-    v9 = [registrations objectForKey:nameCopy];
+    v10 = [registrations objectForKey:nameCopy];
 
-    if (v9)
+    if (v10)
     {
-      entitlement = [v9 entitlement];
-      v11 = +[NSXPCConnection currentConnection];
-      v12 = v11;
-      if (v11)
+      entitlement = [v10 entitlement];
+      v13 = +[NSXPCConnection currentConnection];
+      v14 = v13;
+      if (v13)
       {
-        [v11 auditToken];
+        objc_msgSend_auditToken(v13);
       }
 
       else
       {
-        memset(v18, 0, sizeof(v18));
+        memset(v21, 0, sizeof(v21));
       }
 
-      v15 = [(IXATestAppRelayServer *)self _checkEntitlement:entitlement withAuditToken:v18];
+      v17 = [(IXATestAppRelayServer *)self _checkEntitlement:entitlement withAuditToken:v21];
 
-      v16 = IXATestAppRelayLog();
-      v14 = v16;
-      if (v15)
+      v19 = IXATestAppRelayLog(v18);
+      v16 = v19;
+      if (v17)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v18[0]) = 138412290;
-          *(v18 + 4) = nameCopy;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Fetched endpoint for service name '%@'.", v18, 0xCu);
+          LODWORD(v21[0]) = 138412290;
+          *(v21 + 4) = nameCopy;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Fetched endpoint for service name '%@'.", v21, 0xCu);
         }
 
-        endpoint = [v9 endpoint];
+        endpoint = [v10 endpoint];
         completionCopy[2](completionCopy, endpoint);
 
         goto LABEL_18;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_10000D47C();
       }
@@ -255,8 +324,8 @@ LABEL_14:
 
     else
     {
-      v14 = IXATestAppRelayLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = IXATestAppRelayLog(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10000D4B8();
       }
@@ -268,8 +337,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v13 = IXATestAppRelayLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = IXATestAppRelayLog(v8);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     sub_10000D354();
   }
@@ -302,10 +371,10 @@ LABEL_19:
     {
       if (*cf.val)
       {
-        v13 = IXATestAppRelayLog();
+        v13 = IXATestAppRelayLog(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          sub_10000D52C(&cf);
+          sub_10000D52C();
         }
 
         CFRelease(*cf.val);

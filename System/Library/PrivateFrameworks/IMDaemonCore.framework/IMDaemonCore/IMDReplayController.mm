@@ -1,5 +1,6 @@
 @interface IMDReplayController
 + (IMDReplayController)sharedInstance;
+- (BOOL)storeMessage:(id)message type:(unsigned __int8)type error:(id *)error;
 - (IMDReplayController)init;
 - (IMDReplayController)initWithStorageController:(id)controller;
 - (void)_fetchNexBatchOfMessagesAndReplay;
@@ -60,29 +61,151 @@
   [(IMDReplayController *)&v3 dealloc];
 }
 
+- (BOOL)storeMessage:(id)message type:(unsigned __int8)type error:(id *)error
+{
+  typeCopy = type;
+  v25 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v9 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      messageCopy5 = message;
+      v23 = 1024;
+      LODWORD(v24) = typeCopy;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Request to store replay message %@ type %d", buf, 0x12u);
+    }
+  }
+
+  messageCopy2 = message;
+  if (!message)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "IMDReplayContoller message was nil", buf, 2u);
+      }
+    }
+
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMDReplayControllerErrorDomain" code:0 userInfo:0];
+    }
+
+    return 0;
+  }
+
+  if (typeCopy >= 3)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        *buf = 67109120;
+        LODWORD(messageCopy5) = typeCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "IMDReplayContoller Incorrect message type %d", buf, 8u);
+      }
+    }
+
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"__kIMDReplayControllerErrorDomain" code:1 userInfo:0];
+    }
+
+LABEL_11:
+
+    return 0;
+  }
+
+  objc_opt_class();
+  messageCopy3 = message;
+  if (objc_opt_isKindOfClass())
+  {
+    messageCopy3 = [message dictionaryRepresentation];
+    if (!messageCopy3)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          messageCopy5 = message;
+          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "IMDReplayContoller Unable to archive message object: %@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:typeCopy];
+  if (v16)
+  {
+    CFDictionarySetValue(Mutable, @"mT", v16);
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    sub_22B7D85EC();
+  }
+
+  CFDictionarySetValue(Mutable, @"mPL", messageCopy3);
+  v20 = 0;
+  v13 = [(IMDReplayStorageController *)self->_storageController storeDictionary:Mutable error:&v20];
+  if (!v13)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412546;
+        messageCopy5 = message;
+        v23 = 2112;
+        v24 = v20;
+        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "IMDReplayMessageController. Storing message %@ failed with error %@", buf, 0x16u);
+      }
+    }
+
+    if (error)
+    {
+      *error = v20;
+    }
+  }
+
+  return v13;
+}
+
 - (void)_processBatch:(id)batch
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v4 = [batch countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v4 = [batch countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
-    v5 = *v25;
+    v5 = *v24;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(batch);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
+        v7 = *(*(&v23 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         v9 = [objc_msgSend(v7 valueForKey:{@"mT", "integerValue"}];
         v10 = [v7 valueForKey:@"mPL"];
@@ -145,7 +268,7 @@
         objc_autoreleasePoolPop(v8);
       }
 
-      v4 = [batch countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v4 = [batch countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v4);
@@ -154,7 +277,7 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v29 = 0;
+  v28 = 0;
   if ([array count])
   {
     ++*(*&buf[8] + 24);
@@ -165,28 +288,27 @@
     ++*(*&buf[8] + 24);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = sub_22B663CD0;
-  v23[3] = &unk_278707370;
-  v23[4] = self;
-  v23[5] = buf;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = sub_22B663CD0;
+  v22[3] = &unk_278707370;
+  v22[4] = self;
+  v22[5] = buf;
   v15 = [(NSDictionary *)self->_syncTaskByServiceName valueForKey:*MEMORY[0x277D1A620]];
   batchProcessingBlock = [v15 batchProcessingBlock];
   if ([array count] && v15 && objc_msgSend(v15, "batchProcessingBlock") && batchProcessingBlock)
   {
-    (*(batchProcessingBlock + 16))(batchProcessingBlock, array, v23);
+    (*(batchProcessingBlock + 16))(batchProcessingBlock, array, v22);
   }
 
   v17 = [(NSDictionary *)self->_syncTaskByServiceName valueForKey:*MEMORY[0x277D1A610]];
   batchProcessingBlock2 = [v17 batchProcessingBlock];
   if ([array2 count] && v17 && objc_msgSend(v17, "batchProcessingBlock") && batchProcessingBlock2)
   {
-    (*(batchProcessingBlock2 + 16))(batchProcessingBlock2, array2, v23);
+    (*(batchProcessingBlock2 + 16))(batchProcessingBlock2, array2, v22);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replayMessages
@@ -215,12 +337,12 @@
 
 - (void)_fetchNexBatchOfMessagesAndReplay
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   heldDeletionContext = [(IMDReplayController *)self heldDeletionContext];
   v4 = objc_autoreleasePoolPush();
-  v18 = heldDeletionContext;
-  v5 = [(IMDReplayStorageController *)self->_storageController copyNextBatchWithSize:200 iterationContext:&v18];
-  if (heldDeletionContext != v18)
+  v17 = heldDeletionContext;
+  v5 = [(IMDReplayStorageController *)self->_storageController copyNextBatchWithSize:200 iterationContext:&v17];
+  if (heldDeletionContext != v17)
   {
     [(IMDReplayController *)self setHeldDeletionContext:?];
   }
@@ -232,26 +354,26 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allKeys = [(NSDictionary *)self->_syncTaskByServiceName allKeys];
-    v7 = [(NSArray *)allKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [(NSArray *)allKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = [-[NSDictionary valueForKey:](self->_syncTaskByServiceName valueForKey:{*(*(&v14 + 1) + 8 * v9)), "completionBlock"}];
+          v10 = [-[NSDictionary valueForKey:](self->_syncTaskByServiceName valueForKey:{*(*(&v13 + 1) + 8 * v9)), "completionBlock"}];
           if (v10)
           {
             (*(v10 + 16))(v10, 0);
@@ -261,7 +383,7 @@
         }
 
         while (v7 != v9);
-        v7 = [(NSArray *)allKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v7 = [(NSArray *)allKeys countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v7);
@@ -279,8 +401,8 @@
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Deleting replay DB after replaying messages", v13, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Deleting replay DB after replaying messages", v12, 2u);
       }
     }
 
@@ -288,12 +410,11 @@
   }
 
   objc_autoreleasePoolPop(v4);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteReplayDBIfNotUnderFirstUnlock
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [objc_msgSend(MEMORY[0x277D1ACB8] "sharedInstance")];
   if (IMOSLoggingEnabled())
   {
@@ -306,9 +427,9 @@
         v5 = @"YES";
       }
 
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "deleteReplayDBIfNotUnderFirstUnlock isUnderFirstUnlock %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "deleteReplayDBIfNotUnderFirstUnlock isUnderFirstUnlock %@", &v9, 0xCu);
     }
   }
 
@@ -320,8 +441,8 @@
       v7 = OSLogHandleForIMEventCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Not deleting replay DB", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Not deleting replay DB", &v9, 2u);
       }
     }
   }
@@ -333,28 +454,26 @@
       v8 = OSLogHandleForIMEventCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Deleting replay DB on imagent launch after first unlock", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Deleting replay DB on imagent launch after first unlock", &v9, 2u);
       }
     }
 
     [(IMDReplayStorageController *)self->_storageController deleteReplayDB];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideStorageControllerWithDatabaseFromPath:(id)path
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMEventCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412290;
+      v10 = 138412290;
       pathCopy = path;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Setting up new replay database at path: %@", &v11, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Setting up new replay database at path: %@", &v10, 0xCu);
     }
   }
 
@@ -368,8 +487,8 @@
         v7 = OSLogHandleForIMEventCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v11) = 0;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "An replay database was already overriding the default, ending previous override", &v11, 2u);
+          LOWORD(v10) = 0;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "An replay database was already overriding the default, ending previous override", &v10, 2u);
         }
       }
     }
@@ -388,13 +507,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       filePath = [(IMDReplayStorageController *)self->_storageController filePath];
-      v11 = 138412290;
+      v10 = 138412290;
       pathCopy = filePath;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Unable to setup replayStorageController, previous store controller with database at path %@ remains active", &v11, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Unable to setup replayStorageController, previous store controller with database at path %@ remains active", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreDefaultStoreControllerInstance

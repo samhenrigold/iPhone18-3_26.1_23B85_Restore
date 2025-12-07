@@ -2,11 +2,13 @@
 - (void)addBookToWantToReadCollection:(id)collection :(id)a4 :(id)a5;
 - (void)assetsOfPurchasedBooks:(id)books;
 - (void)cancelDownloadForBook:(id)book :(id)a4 :(id)a5;
+- (void)downloadBookWithRedownloadParameters:(id)parameters :(BOOL)a4 :(id)a5 :(id)a6 :(BOOL)a7;
 - (void)downloadBooks:(id)books :(id)a4;
 - (void)filterPurchasedBooks:(id)books callback:(id)callback;
 - (void)getCollectionNameForCollectionID:(id)d :(id)a4;
 - (void)getStoreIDsWithAvailableUpdatesWithCompletion:(id)completion;
 - (void)getVersion:(id)version;
+- (void)markBookAsFinished:(id)finished :(BOOL)a4 :(id)a5 :(id)a6;
 - (void)openBook:(id)book :(id)a4 :(id)a5 :(id)a6;
 - (void)openSampleBook:(id)book downloadSampleURL:(id)l options:(id)options callback:(id)callback tracker:(id)tracker;
 - (void)previewAudiobook:(id)audiobook :(id)a4 :(id)a5 :(id)a6;
@@ -67,6 +69,41 @@
   v10 = &off_100032500;
   v9 = [NSArray arrayWithObjects:&v10 count:1];
   [v8 enqueueValueCall:v5 arguments:v9 file:@"PPXJSALibraryManager.m" line:60];
+}
+
+- (void)downloadBookWithRedownloadParameters:(id)parameters :(BOOL)a4 :(id)a5 :(id)a6 :(BOOL)a7
+{
+  v7 = a7;
+  v9 = a4;
+  v11 = a6;
+  v12 = a5;
+  parametersCopy = parameters;
+  v14 = +[JSABridge sharedInstance];
+  windowManager = [v14 windowManager];
+
+  v16 = +[PPXProductPageActions sharedInstance];
+  [v16 downloadBookWithRedownloadParameters:parametersCopy isAudiobook:v9 hasRacSupport:v7 uiManager:windowManager tracker:v11];
+
+  v17 = +[JSABridge sharedInstance];
+  v19 = &off_100032528;
+  v18 = [NSArray arrayWithObjects:&v19 count:1];
+  [v17 enqueueValueCall:v12 arguments:v18 file:@"PPXJSALibraryManager.m" line:70];
+}
+
+- (void)markBookAsFinished:(id)finished :(BOOL)a4 :(id)a5 :(id)a6
+{
+  v7 = a4;
+  v9 = a5;
+  finishedCopy = finished;
+  [PPXBookDataStoreServices setFinishedState:v7 storeID:finishedCopy tracker:a6];
+  v11 = BSUIGetLibraryItemStateUpdater();
+  [v11 updateFinishedState:v7 identifier:finishedCopy];
+
+  v12 = BSUIGetLibraryItemStateUpdater();
+  [v12 updateItemOfInterestForItemIdentifier:finishedCopy];
+
+  v13 = +[JSABridge sharedInstance];
+  [v13 enqueueValueCall:v9 arguments:0 file:@"PPXJSALibraryManager.m" line:78];
 }
 
 - (void)openBook:(id)book :(id)a4 :(id)a5 :(id)a6

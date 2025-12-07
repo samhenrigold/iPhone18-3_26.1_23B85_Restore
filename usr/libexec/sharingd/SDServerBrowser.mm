@@ -42,215 +42,215 @@
 
 - (NSString)description
 {
-  v83 = 0;
-  NSAppendPrintF();
-  v82 = 0;
-  NSAppendPrintF();
-  v3 = v82;
+  v86 = 0;
+  NSAppendPrintF(&v86, "ServerBrowser\n");
+  v3 = v86;
+  v85 = v3;
+  NSAppendPrintF(&v85, "--------------\n");
+  v4 = v85;
 
-  v81 = v3;
-  v42 = [(SDServerBrowser *)self stringForBrowserMode:self->_mode];
-  NSAppendPrintF();
-  v4 = v3;
+  v84 = v4;
+  v5 = [(SDServerBrowser *)self stringForBrowserMode:self->_mode];
+  NSAppendPrintF(&v84, "Mode:                                %@\n", v5);
+  v6 = v84;
 
   if ([(NSMutableDictionary *)self->_bonjourBrowsers count])
   {
-    v80 = v4;
-    NSAppendPrintF();
-    v5 = v4;
+    v83 = v6;
+    NSAppendPrintF(&v83, "Bonjour Browsers:\n");
+    v7 = v83;
 
-    v78 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
+    v80 = 0u;
     obj = self->_bonjourBrowsers;
-    v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v76 objects:v87 count:16];
-    if (v6)
+    v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v79 objects:v90 count:16];
+    if (v8)
     {
-      v7 = v6;
-      v8 = *v77;
+      v9 = v8;
+      v10 = *v80;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v77 != v8)
+          if (*v80 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v76 + 1) + 8 * i);
-          v11 = [(NSMutableDictionary *)self->_bonjourBrowsers objectForKeyedSubscript:v10, v43];
-          v12 = [v11 objectForKeyedSubscript:@"Browser"];
-          v75 = v5;
-          v44 = v10;
-          NSAppendPrintF();
-          v13 = v5;
+          v12 = *(*(&v79 + 1) + 8 * i);
+          v13 = [(NSMutableDictionary *)self->_bonjourBrowsers objectForKeyedSubscript:v12];
+          v14 = [v13 objectForKeyedSubscript:@"Browser"];
+          v78 = v7;
+          NSAppendPrintF(&v78, "Domain:                              %@\n", v12);
+          v15 = v78;
 
-          v74 = v13;
-          v43 = [v12 description];
-          NSAppendPrintF();
-          v5 = v13;
+          v77 = v15;
+          v16 = [v14 description];
+          NSAppendPrintF(&v77, "%@", v16);
+          v7 = v77;
         }
 
-        v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v76 objects:v87 count:16, v43];
+        v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v79 objects:v90 count:16];
       }
 
-      while (v7);
+      while (v9);
     }
 
-    v73 = v5;
-    NSAppendPrintF();
-    v4 = v5;
+    v76 = v7;
+    NSAppendPrintF(&v76, "\n");
+    v6 = v76;
   }
 
   if ([(NSMutableDictionary *)self->_airDropBrowsers count])
   {
-    v72 = v4;
-    NSAppendPrintF();
-    v14 = v4;
+    v75 = v6;
+    NSAppendPrintF(&v75, "AirDrop Browsers:\n");
+    v17 = v75;
 
-    v70 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
+    v72 = 0u;
     obja = self->_airDropBrowsers;
-    v15 = [(NSMutableDictionary *)obja countByEnumeratingWithState:&v68 objects:v86 count:16];
-    if (v15)
+    v18 = [(NSMutableDictionary *)obja countByEnumeratingWithState:&v71 objects:v89 count:16];
+    if (v18)
     {
-      v16 = v15;
-      v17 = *v69;
+      v19 = v18;
+      v20 = *v72;
       do
       {
-        for (j = 0; j != v16; j = j + 1)
+        for (j = 0; j != v19; j = j + 1)
         {
-          if (*v69 != v17)
+          if (*v72 != v20)
           {
             objc_enumerationMutation(obja);
           }
 
-          v19 = *(*(&v68 + 1) + 8 * j);
-          v20 = [(NSMutableDictionary *)self->_airDropBrowsers objectForKeyedSubscript:v19, v43];
-          v21 = [v20 objectForKeyedSubscript:@"Browser"];
-          v67 = v14;
-          v45 = v19;
-          NSAppendPrintF();
-          v22 = v14;
+          v22 = *(*(&v71 + 1) + 8 * j);
+          v23 = [(NSMutableDictionary *)self->_airDropBrowsers objectForKeyedSubscript:v22];
+          v24 = [v23 objectForKeyedSubscript:@"Browser"];
+          v70 = v17;
+          NSAppendPrintF(&v70, "Domain:                              %@\n", v22);
+          v25 = v70;
 
-          v66 = v22;
-          v43 = [v21 description];
-          NSAppendPrintF();
-          v14 = v22;
+          v69 = v25;
+          v26 = [v24 description];
+          NSAppendPrintF(&v69, "%@", v26);
+          v17 = v69;
         }
 
-        v16 = [(NSMutableDictionary *)obja countByEnumeratingWithState:&v68 objects:v86 count:16, v43];
+        v19 = [(NSMutableDictionary *)obja countByEnumeratingWithState:&v71 objects:v89 count:16];
       }
 
-      while (v16);
+      while (v19);
     }
 
-    v65 = v14;
-    NSAppendPrintF();
-    v4 = v14;
+    v68 = v17;
+    NSAppendPrintF(&v68, "\n");
+    v6 = v68;
   }
 
   if ([(NSMutableDictionary *)self->_windowsBrowsers count])
   {
-    v64 = v4;
-    NSAppendPrintF();
-    v23 = v4;
+    v67 = v6;
+    NSAppendPrintF(&v67, "Windows Browsers:\n");
+    v27 = v67;
 
-    v62 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v64 = 0u;
     v63 = 0u;
-    v61 = 0u;
-    v60 = 0u;
     objb = self->_windowsBrowsers;
-    v24 = [(NSMutableDictionary *)objb countByEnumeratingWithState:&v60 objects:v85 count:16];
-    if (v24)
+    v28 = [(NSMutableDictionary *)objb countByEnumeratingWithState:&v63 objects:v88 count:16];
+    if (v28)
     {
-      v25 = v24;
-      v26 = *v61;
+      v29 = v28;
+      v30 = *v64;
       do
       {
-        for (k = 0; k != v25; k = k + 1)
+        for (k = 0; k != v29; k = k + 1)
         {
-          if (*v61 != v26)
+          if (*v64 != v30)
           {
             objc_enumerationMutation(objb);
           }
 
-          v28 = *(*(&v60 + 1) + 8 * k);
-          v29 = [(NSMutableDictionary *)self->_windowsBrowsers objectForKeyedSubscript:v28, v43];
-          v30 = [v29 objectForKeyedSubscript:@"Browser"];
-          v59 = v23;
-          v46 = v28;
-          NSAppendPrintF();
-          v31 = v23;
+          v32 = *(*(&v63 + 1) + 8 * k);
+          v33 = [(NSMutableDictionary *)self->_windowsBrowsers objectForKeyedSubscript:v32];
+          v34 = [v33 objectForKeyedSubscript:@"Browser"];
+          v62 = v27;
+          NSAppendPrintF(&v62, "Domain:                              %@\n", v32);
+          v35 = v62;
 
-          v58 = v31;
-          v43 = [v30 description];
-          NSAppendPrintF();
-          v23 = v31;
+          v61 = v35;
+          v36 = [v34 description];
+          NSAppendPrintF(&v61, "%@", v36);
+          v27 = v61;
         }
 
-        v25 = [(NSMutableDictionary *)objb countByEnumeratingWithState:&v60 objects:v85 count:16, v43];
+        v29 = [(NSMutableDictionary *)objb countByEnumeratingWithState:&v63 objects:v88 count:16];
       }
 
-      while (v25);
+      while (v29);
     }
 
-    v57 = v23;
-    NSAppendPrintF();
-    v4 = v23;
+    v60 = v27;
+    NSAppendPrintF(&v60, "\n");
+    v6 = v60;
   }
 
   if ([(NSMutableDictionary *)self->_odiskBrowsers count])
   {
-    v56 = v4;
-    NSAppendPrintF();
-    v32 = v4;
+    v59 = v6;
+    NSAppendPrintF(&v59, "ODisk Browsers:\n");
+    v37 = v59;
 
-    v54 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v56 = 0u;
     objc = self->_odiskBrowsers;
-    v33 = [(NSMutableDictionary *)objc countByEnumeratingWithState:&v52 objects:v84 count:16];
-    if (v33)
+    v38 = [(NSMutableDictionary *)objc countByEnumeratingWithState:&v55 objects:v87 count:16];
+    if (v38)
     {
-      v34 = v33;
-      v35 = *v53;
+      v39 = v38;
+      v40 = *v56;
       do
       {
-        for (m = 0; m != v34; m = m + 1)
+        for (m = 0; m != v39; m = m + 1)
         {
-          if (*v53 != v35)
+          if (*v56 != v40)
           {
             objc_enumerationMutation(objc);
           }
 
-          v37 = *(*(&v52 + 1) + 8 * m);
-          v38 = [(NSMutableDictionary *)self->_odiskBrowsers objectForKeyedSubscript:v37, v43];
-          v39 = [v38 objectForKeyedSubscript:@"Browser"];
-          v47 = v37;
-          NSAppendPrintF();
-          v40 = v32;
+          v42 = *(*(&v55 + 1) + 8 * m);
+          v43 = [(NSMutableDictionary *)self->_odiskBrowsers objectForKeyedSubscript:v42];
+          v44 = [v43 objectForKeyedSubscript:@"Browser"];
+          v54 = v37;
+          NSAppendPrintF(&v54, "Domain:                              %@\n", v42);
+          v45 = v54;
 
-          v43 = [v39 description];
-          NSAppendPrintF();
-          v32 = v40;
+          v53 = v45;
+          v46 = [v44 description];
+          NSAppendPrintF(&v53, "%@", v46);
+          v37 = v53;
         }
 
-        v34 = [(NSMutableDictionary *)objc countByEnumeratingWithState:&v52 objects:v84 count:16, v43];
+        v39 = [(NSMutableDictionary *)objc countByEnumeratingWithState:&v55 objects:v87 count:16];
       }
 
-      while (v34);
+      while (v39);
     }
 
-    NSAppendPrintF();
-    v4 = v32;
+    v52 = v37;
+    NSAppendPrintF(&v52, "\n");
+    v6 = v52;
   }
 
-  return v4;
+  return v6;
 }
 
 - (SDServerBrowser)init

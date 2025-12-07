@@ -170,27 +170,29 @@
   {
     font = [(UILabel *)self->_titleLabel font];
     [font lineHeight];
-    PKFloatRoundToPixel();
-    v8 = v7 + 200.0;
+    v7.n128_u64[0] = 28.0;
+    v9.n128_f64[0] = v8 + 28.0;
+    PKFloatRoundToPixel(v9, v7);
+    v11 = v10 + 200.0;
   }
 
   else
   {
-    v8 = 200.0;
+    v11 = 200.0;
   }
 
-  v9 = width;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v12 = width;
+  v13 = v11;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 
 - (void)layoutSubviews
 {
-  v23.receiver = self;
-  v23.super_class = PKPaymentTransactionMapCollectionViewCell;
-  [(PKDashboardCollectionViewCell *)&v23 layoutSubviews];
+  v56.receiver = self;
+  v56.super_class = PKPaymentTransactionMapCollectionViewCell;
+  [(PKDashboardCollectionViewCell *)&v56 layoutSubviews];
   contentView = [(PKPaymentTransactionMapCollectionViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -202,17 +204,17 @@
   remainder.size.width = v8;
   remainder.size.height = v10;
 
-  memset(&v21, 0, sizeof(v21));
-  v24.origin.x = v5;
-  v24.origin.y = v7;
-  v24.size.width = v9;
-  v24.size.height = v11;
-  CGRectDivide(v24, &v21, &remainder, 200.0, CGRectMinYEdge);
-  [(PKTransactionMapView *)self->_mapView setFrame:*&v21.origin, *&v21.size];
-  CGRectDivide(remainder, &v21, &remainder, 14.0, CGRectMinYEdge);
-  CGRectDivide(remainder, &v21, &remainder, 14.0, CGRectMinXEdge);
-  CGRectDivide(remainder, &v21, &remainder, 14.0, CGRectMaxXEdge);
-  CGRectDivide(remainder, &v21, &remainder, 14.0, CGRectMaxYEdge);
+  memset(&v54, 0, sizeof(v54));
+  v57.origin.x = v5;
+  v57.origin.y = v7;
+  v57.size.width = v9;
+  v57.size.height = v11;
+  CGRectDivide(v57, &v54, &remainder, 200.0, CGRectMinYEdge);
+  [(PKTransactionMapView *)self->_mapView setFrame:*&v54.origin, *&v54.size];
+  CGRectDivide(remainder, &v54, &remainder, 14.0, CGRectMinYEdge);
+  CGRectDivide(remainder, &v54, &remainder, 14.0, CGRectMinXEdge);
+  CGRectDivide(remainder, &v54, &remainder, 14.0, CGRectMaxXEdge);
+  CGRectDivide(remainder, &v54, &remainder, 14.0, CGRectMaxYEdge);
   superview = [(UIActivityIndicatorView *)self->_spinner superview];
 
   if (superview)
@@ -220,13 +222,20 @@
     [(UIActivityIndicatorView *)self->_spinner frame];
     PKSizeAspectFit();
     v14 = v13;
+    v16 = v15;
     spinner = self->_spinner;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v18 = PKContentAlignmentMake();
+    v19.n128_u64[0] = *&remainder.origin.x;
+    v20.n128_u64[0] = *&remainder.origin.y;
+    v21.n128_u64[0] = *&remainder.size.width;
+    v22.n128_u64[0] = *&remainder.size.height;
+    v23.n128_f64[0] = v14;
+    v24.n128_u64[0] = v16;
+    PKSizeAlignedInRect(v18, v23, v24, v19, v20, v21, v22, v25);
     [(UIActivityIndicatorView *)spinner setFrame:?];
-    v16 = v14 + 14.0;
+    v26 = v14 + 14.0;
 LABEL_5:
-    CGRectDivide(remainder, &v21, &remainder, v16, CGRectMaxXEdge);
+    CGRectDivide(remainder, &v54, &remainder, v26, CGRectMaxXEdge);
     goto LABEL_6;
   }
 
@@ -235,20 +244,36 @@ LABEL_5:
   if (superview2)
   {
     [(UIImageView *)self->_disclosureView frame];
-    CGRectDivide(remainder, &v21, &remainder, v18, CGRectMaxXEdge);
+    v29 = *&v28;
+    v31 = v30;
+    CGRectDivide(remainder, &v54, &remainder, v28, CGRectMaxXEdge);
     disclosureView = self->_disclosureView;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v33 = PKContentAlignmentMake();
+    v35.n128_u64[0] = *&v54.origin.y;
+    v34.n128_u64[0] = *&v54.origin.x;
+    v37.n128_u64[0] = *&v54.size.height;
+    v36.n128_u64[0] = *&v54.size.width;
+    v38.n128_u64[0] = v29;
+    v39.n128_u64[0] = v31;
+    PKSizeAlignedInRect(v33, v38, v39, v34, v35, v36, v37, v40);
     [(UIImageView *)disclosureView setFrame:?];
-    v16 = 14.0;
+    v26 = 14.0;
     goto LABEL_5;
   }
 
 LABEL_6:
   [(UILabel *)self->_titleLabel pkui_sizeThatFits:remainder.size.width, remainder.size.height];
+  v42 = v41;
+  v44 = v43;
   titleLabel = self->_titleLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v46 = PKContentAlignmentMake();
+  v47.n128_u64[0] = *&remainder.origin.x;
+  v48.n128_u64[0] = *&remainder.origin.y;
+  v49.n128_u64[0] = *&remainder.size.width;
+  v50.n128_u64[0] = *&remainder.size.height;
+  v51.n128_u64[0] = v42;
+  v52.n128_u64[0] = v44;
+  PKSizeAlignedInRect(v46, v51, v52, v47, v48, v49, v50, v53);
   [(UILabel *)titleLabel setFrame:?];
 }
 

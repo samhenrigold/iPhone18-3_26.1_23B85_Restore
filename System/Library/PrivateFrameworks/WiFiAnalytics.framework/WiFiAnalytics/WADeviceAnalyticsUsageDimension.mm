@@ -56,31 +56,31 @@
 
 - (BOOL)useDimensionAs:(unint64_t)as withPredicate:(id)predicate withError:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v9 = predicateCopy;
   if (!predicateCopy && (as & 2) != 0)
   {
-    v12 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v22 = "[WADeviceAnalyticsUsageDimension useDimensionAs:withPredicate:withError:]";
-      v23 = 1024;
-      v24 = 92;
+      v21 = "[WADeviceAnalyticsUsageDimension useDimensionAs:withPredicate:withError:]";
+      v22 = 1024;
+      v23 = 92;
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v27 = *MEMORY[0x1E696A588];
-      v28[0] = @"WAErrorCodeInvalidInput";
-      v14 = MEMORY[0x1E695DF20];
-      v15 = v28;
-      v16 = &v27;
+      v12 = MEMORY[0x1E696ABC0];
+      v26 = *MEMORY[0x1E696A588];
+      v27[0] = @"WAErrorCodeInvalidInput";
+      v13 = MEMORY[0x1E695DF20];
+      v14 = v27;
+      v15 = &v26;
 LABEL_17:
-      v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:{1, v19, v20}];
-      *error = [v13 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v18];
+      v17 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:{1, v18, v19}];
+      *error = [v12 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9035 userInfo:v17];
 
       LOBYTE(error) = 0;
     }
@@ -101,32 +101,31 @@ LABEL_17:
       goto LABEL_8;
     }
 
-    v17 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v22 = "[WADeviceAnalyticsUsageDimension useDimensionAs:withPredicate:withError:]";
-      v23 = 1024;
-      v24 = 96;
-      v25 = 2048;
+      v21 = "[WADeviceAnalyticsUsageDimension useDimensionAs:withPredicate:withError:]";
+      v22 = 1024;
+      v23 = 96;
+      v24 = 2048;
       asCopy = as;
     }
 
     if (error)
     {
-      v13 = MEMORY[0x1E696ABC0];
-      v19 = *MEMORY[0x1E696A588];
-      v20 = @"WAErrorCodeInvalidInput";
-      v14 = MEMORY[0x1E695DF20];
-      v15 = &v20;
-      v16 = &v19;
+      v12 = MEMORY[0x1E696ABC0];
+      v18 = *MEMORY[0x1E696A588];
+      v19 = @"WAErrorCodeInvalidInput";
+      v13 = MEMORY[0x1E695DF20];
+      v14 = &v19;
+      v15 = &v18;
       goto LABEL_17;
     }
   }
 
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -184,16 +183,14 @@ LABEL_8:
 
 + (id)usedDimensionsIn:(id)in
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   allValues = [in allValues];
   v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"useAs != 0"];
   v5 = [WAUtil filterArray:allValues usingPredicate:v4];
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"dimension" ascending:1];
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -141,7 +141,7 @@ void __49__CFXCameraStreamBufferQueue_headBufferTimestamp__block_invoke(uint64_t
 {
   v4 = [*(a1 + 32) outputBuffers];
   v2 = [v4 firstObject];
-  [v2 timestamp];
+  objc_msgSend_timestamp(v2);
   *(*(*(a1 + 40) + 8) + 24) = v3;
 }
 

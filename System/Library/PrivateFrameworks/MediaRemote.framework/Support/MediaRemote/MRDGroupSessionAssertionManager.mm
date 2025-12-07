@@ -50,9 +50,10 @@
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
   selfCopy = self;
-  v8 = sub_1003785A0(v4, v6);
+  sub_1003785A0(v4, v6);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 - (void)addObserver:(id)observer

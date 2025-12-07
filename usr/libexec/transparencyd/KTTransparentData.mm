@@ -301,35 +301,13 @@
   v23.super_class = KTTransparentData;
   v17 = [(KTTransparentData *)&v23 init];
   v18 = v17;
-  if (!v17)
+  if (v17 && ((objc_storeStrong(&v17->_uriVRFOutput, output), +[NSMutableArray array], v19 = objc_claimAutoreleasedReturnValue(), accounts = v18->_accounts, v18->_accounts = v19, accounts, [(KTTransparentData *)v18 setDeps:depsCopy], [(KTTransparentData *)v18 setStaticKeyStatus:3], leafCopy) && ![(KTTransparentData *)v18 updateWithMapLeaf:leafCopy error:error]|| tsCopy && ![(KTTransparentData *)v18 updateWithSMTs:tsCopy error:error]))
   {
-    goto LABEL_6;
-  }
-
-  objc_storeStrong(&v17->_uriVRFOutput, output);
-  v19 = +[NSMutableArray array];
-  accounts = v18->_accounts;
-  v18->_accounts = v19;
-
-  [(KTTransparentData *)v18 setDeps:depsCopy];
-  [(KTTransparentData *)v18 setStaticKeyStatus:3];
-  if (leafCopy)
-  {
-    if (![(KTTransparentData *)v18 updateWithMapLeaf:leafCopy error:error])
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if (tsCopy && ![(KTTransparentData *)v18 updateWithSMTs:tsCopy error:error])
-  {
-LABEL_7:
     v21 = 0;
   }
 
   else
   {
-LABEL_6:
     v21 = v18;
   }
 
@@ -2846,25 +2824,11 @@ LABEL_8:
 
                 if (v20 != -1 && ([v18 synced] & 1) == 0)
                 {
-                  if (!v10)
+                  if (!v10 || ([v18 escrowExpiry], (v21 = objc_claimAutoreleasedReturnValue()) != 0) && (v22 = v21, objc_msgSend(v18, "escrowExpiry"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v10, "compare:", v23), v23, v22, v24 == -1))
                   {
-                    goto LABEL_17;
-                  }
+                    escrowExpiry = [v18 escrowExpiry];
 
-                  escrowExpiry = [v18 escrowExpiry];
-                  if (escrowExpiry)
-                  {
-                    v22 = escrowExpiry;
-                    escrowExpiry2 = [v18 escrowExpiry];
-                    v24 = [v10 compare:escrowExpiry2];
-
-                    if (v24 == -1)
-                    {
-LABEL_17:
-                      escrowExpiry3 = [v18 escrowExpiry];
-
-                      v10 = escrowExpiry3;
-                    }
+                    v10 = escrowExpiry;
                   }
                 }
               }

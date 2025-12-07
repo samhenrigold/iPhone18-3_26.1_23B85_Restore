@@ -60,82 +60,81 @@
 
 - (void)configureWithConfiguration:(id)configuration
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = configurationCopy;
-    remoteObjectInterface = [v5 remoteObjectInterface];
+    v6 = configurationCopy;
+    remoteObjectInterface = [v6 remoteObjectInterface];
     [(NSXPCConnection *)self->_connection setRemoteObjectInterface:remoteObjectInterface];
 
-    exportedInterface = [v5 exportedInterface];
+    exportedInterface = [v6 exportedInterface];
     [(NSXPCConnection *)self->_connection setExportedInterface:exportedInterface];
 
-    exportedObject = [v5 exportedObject];
+    exportedObject = [v6 exportedObject];
     [(NSXPCConnection *)self->_connection setExportedObject:exportedObject];
 
     objc_initWeak(&location, self);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_invoke;
-    v22[3] = &unk_1E7A95380;
-    objc_copyWeak(&v23, &location);
-    [(NSXPCConnection *)self->_connection setInterruptionHandler:v22];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_invoke_2;
-    v20[3] = &unk_1E7A95380;
-    objc_copyWeak(&v21, &location);
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:v20];
-    connectionUID = [v5 connectionUID];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_invoke;
+    v23[3] = &unk_1E7A95380;
+    objc_copyWeak(&v24, &location);
+    [(NSXPCConnection *)self->_connection setInterruptionHandler:v23];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_invoke_2;
+    v21[3] = &unk_1E7A95380;
+    objc_copyWeak(&v22, &location);
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:v21];
+    connectionUID = [v6 connectionUID];
     LOBYTE(exportedObject) = connectionUID == 0;
 
     if ((exportedObject & 1) == 0)
     {
-      connectionUID2 = [v5 connectionUID];
+      connectionUID2 = [v6 connectionUID];
       intValue = [connectionUID2 intValue];
 
-      v12 = LACLogXPC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = LACLogXPC(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         connection = self->_connection;
         *buf = 138412546;
-        v26 = connection;
-        v27 = 1024;
-        v28 = intValue;
-        _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%@ XPC target UID: %u (UI)", buf, 0x12u);
+        v27 = connection;
+        v28 = 1024;
+        v29 = intValue;
+        _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "%@ XPC target UID: %u (UI)", buf, 0x12u);
       }
 
       _xpcConnection = [(NSXPCConnection *)self->_connection _xpcConnection];
       xpc_connection_set_target_uid();
     }
 
-    replyQueue = [v5 replyQueue];
-    v16 = replyQueue == 0;
+    replyQueue = [v6 replyQueue];
+    v18 = replyQueue == 0;
 
-    if (!v16)
+    if (!v18)
     {
-      v17 = self->_connection;
-      replyQueue2 = [v5 replyQueue];
-      [(NSXPCConnection *)v17 _setQueue:replyQueue2];
+      v19 = self->_connection;
+      replyQueue2 = [v6 replyQueue];
+      [(NSXPCConnection *)v19 _setQueue:replyQueue2];
     }
 
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v5 = LACLogXPC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = LACLogXPC(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(LACXPCConnectionDefaultAdapter *)self configureWithConfiguration:configurationCopy, v5];
+      [(LACXPCConnectionDefaultAdapter *)self configureWithConfiguration:configurationCopy, v6];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_invoke(uint64_t a1)
@@ -211,13 +210,12 @@ void __61__LACXPCConnectionDefaultAdapter_configureWithConfiguration___block_inv
 
 - (void)configureWithConfiguration:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%@ configured with unsupported configuration object %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%@ configured with unsupported configuration object %@", &v3, 0x16u);
 }
 
 @end

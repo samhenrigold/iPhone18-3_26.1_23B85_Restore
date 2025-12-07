@@ -139,158 +139,158 @@
 - (CGImage)newShadowImageForRep:(id)rep withSize:(CGSize)size drawSelector:(SEL)selector unflipped:(BOOL)unflipped
 {
   unflippedCopy = unflipped;
-  v10 = TSDRoundedSize();
+  v10 = TSDRoundedSize(self, size.width, size.height);
   v12 = v11;
   v13 = TSDRectWithSize();
-  v17 = TSDRoundedRect(v13, v14, v15, v16);
+  v18 = TSDRoundedRect(v14, v13, v15, v16, v17);
   Image = 0;
-  if (v19 != 0.0 && v20 != 0.0)
+  if (v20 != 0.0 && v21 != 0.0)
   {
-    v22 = v17;
-    v23 = v19;
-    v24 = vcvtpd_u64_f64(fmax(v10, v19));
-    v25 = vcvtpd_u64_f64(fmax(v12, v20));
-    if (v24)
+    v23 = v18;
+    v24 = v20;
+    v25 = vcvtpd_u64_f64(fmax(v10, v20));
+    v26 = vcvtpd_u64_f64(fmax(v12, v21));
+    if (v25)
     {
-      v26 = v25 == 0;
+      v27 = v26 == 0;
     }
 
     else
     {
-      v26 = 1;
+      v27 = 1;
     }
 
-    if (v26)
+    if (v27)
     {
       return 0;
     }
 
-    v27 = v18;
+    v28 = v19;
     color = [(TSDShadow *)self color];
-    v29 = TSDBitmapContextCreate(11, v23);
-    if (!v29)
+    v30 = TSDBitmapContextCreate(11, v24);
+    if (!v30)
     {
       return 0;
     }
 
     else
     {
-      v30 = v29;
+      v31 = v30;
       layout = [rep layout];
       if (layout)
       {
-        [layout transformInRoot];
+        objc_msgSend_transformInRoot(layout);
       }
 
       else
       {
-        v59 = 0u;
         v60 = 0u;
-        v58 = 0u;
+        v61 = 0u;
+        v59 = 0u;
       }
 
-      v32 = TSDTransformAngle(&v58);
-      TSDSetCGContextInfoForShadowContext(v30, v32);
+      v33 = TSDTransformAngle(&v59);
+      TSDSetCGContextInfoForShadowContext(v31, v33);
       [(TSDShadow *)self radius];
-      v34 = v33;
-      CGContextTranslateCTM(v30, -v22, -v27);
-      CGContextTranslateCTM(v30, -(v24 + 10.0), -0.0);
+      v35 = v34;
+      CGContextTranslateCTM(v31, -v23, -v28);
+      CGContextTranslateCTM(v31, -(v25 + 10.0), -0.0);
       if (unflippedCopy)
       {
-        v59 = 0u;
         v60 = 0u;
-        v58 = 0u;
-        v35 = [objc_msgSend(rep "layout")];
-        if (v35)
+        v61 = 0u;
+        v59 = 0u;
+        v36 = [objc_msgSend(rep "layout")];
+        if (v36)
         {
-          [v35 transform];
-          v37 = *(&v58 + 1);
-          v36 = *&v58;
-          v39 = *(&v59 + 1);
-          v38 = *&v59;
+          objc_msgSend_transform(v36);
+          v38 = *(&v59 + 1);
+          v37 = *&v59;
+          v40 = *(&v60 + 1);
+          v39 = *&v60;
         }
 
         else
         {
-          v59 = 0u;
           v60 = 0u;
+          v61 = 0u;
+          v40 = 0.0;
+          v38 = 0.0;
           v39 = 0.0;
           v37 = 0.0;
-          v38 = 0.0;
-          v36 = 0.0;
-          v58 = 0u;
+          v59 = 0u;
         }
 
-        if (TSDCrossPoints(v36, v38, v37, v39) > 0.0)
+        if (TSDCrossPoints(v37, v39, v38, v40) > 0.0)
         {
-          v57.a = -1.0;
-          v57.b = 0.0;
-          v57.c = 0.0;
-          v57.d = 1.0;
-          v57.tx = v10;
-          v57.ty = 0.0;
-          CGContextConcatCTM(v30, &v57);
+          v58.a = -1.0;
+          v58.b = 0.0;
+          v58.c = 0.0;
+          v58.d = 1.0;
+          v58.tx = v10;
+          v58.ty = 0.0;
+          CGContextConcatCTM(v31, &v58);
         }
 
-        v57.b = 0.0;
-        v57.c = 0.0;
-        v57.a = 1.0;
-        *&v57.d = xmmword_26CA65110;
-        v57.ty = v12;
-        CGContextConcatCTM(v30, &v57);
+        v58.b = 0.0;
+        v58.c = 0.0;
+        v58.a = 1.0;
+        *&v58.d = xmmword_26CA65110;
+        v58.ty = v12;
+        CGContextConcatCTM(v31, &v58);
       }
 
-      v61.height = 0.0;
-      v61.width = (v24 + 10.0);
-      CGContextSetShadowWithColor(v30, v61, v34, color);
-      CGContextTranslateCTM(v30, v34, v34);
+      v62.height = 0.0;
+      v62.width = (v25 + 10.0);
+      CGContextSetShadowWithColor(v31, v62, v35, color);
+      CGContextTranslateCTM(v31, v35, v35);
       if ([rep canDrawShadowInOneStepWithChildren:1])
       {
-        [rep performSelector:selector withObject:v30];
+        [rep performSelector:selector withObject:v31];
       }
 
       else
       {
         [rep naturalBounds];
-        v41 = v40;
-        v43 = v42;
+        v42 = v41;
+        v44 = v43;
         TSDRectWithSize();
-        v45 = v44;
-        v47 = v46;
-        v48 = TSDShrinkSizeToFitInSize(v41, v43, 2048.0, 2048.0);
-        if (v48 > 0.0 && v49 > 0.0)
+        v46 = v45;
+        v48 = v47;
+        v49 = TSDShrinkSizeToFitInSize(v42, v44, 2048.0, 2048.0);
+        if (v49 > 0.0 && v50 > 0.0)
         {
-          v50 = v48 / v45;
-          v51 = v49 / v47;
-          v52 = CGLayerCreateWithContext(v30, *&v48, 0);
-          Context = CGLayerGetContext(v52);
+          v51 = v49 / v46;
+          v52 = v50 / v48;
+          v53 = CGLayerCreateWithContext(v31, *&v49, 0);
+          Context = CGLayerGetContext(v53);
           layout2 = [rep layout];
           if (layout2)
           {
-            [layout2 transformInRoot];
+            objc_msgSend_transformInRoot(layout2);
           }
 
           else
           {
-            v59 = 0u;
             v60 = 0u;
-            v58 = 0u;
+            v61 = 0u;
+            v59 = 0u;
           }
 
-          v55 = TSDTransformAngle(&v58);
-          TSDSetCGContextInfoForShadowContext(Context, v55);
-          CGContextScaleCTM(Context, v50, v51);
+          v56 = TSDTransformAngle(&v59);
+          TSDSetCGContextInfoForShadowContext(Context, v56);
+          CGContextScaleCTM(Context, v51, v52);
           [rep performSelector:selector withObject:Context];
           TSDClearCGContextInfo(Context);
-          v62.origin.x = TSDRectWithSize();
-          CGContextDrawLayerInRect(v30, v62, v52);
-          CGLayerRelease(v52);
+          v63.origin.x = TSDRectWithSize();
+          CGContextDrawLayerInRect(v31, v63, v53);
+          CGLayerRelease(v53);
         }
       }
 
-      Image = CGBitmapContextCreateImage(v30);
-      TSDClearCGContextInfo(v30);
-      CGContextRelease(v30);
+      Image = CGBitmapContextCreateImage(v31);
+      TSDClearCGContextInfo(v31);
+      CGContextRelease(v31);
     }
   }
 

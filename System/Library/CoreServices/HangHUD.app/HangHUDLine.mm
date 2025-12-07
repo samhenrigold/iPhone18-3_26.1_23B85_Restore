@@ -14,53 +14,54 @@
   nameCopy = name;
   themeCopy = theme;
   delegateCopy = delegate;
-  v22.receiver = self;
-  v22.super_class = HangHUDLine;
-  v16 = [(HUDLine *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = HangHUDLine;
+  v16 = [(HUDLine *)&v24 init];
+  v18 = v16;
   if (v16)
   {
-    [(HUDLine *)v16 setSpacing:sub_1000172DC()];
-    v17 = +[CATextLayer layer];
-    processNameLayer = v16->_processNameLayer;
-    v16->_processNameLayer = v17;
+    [(HUDLine *)v16 setSpacing:sub_1000172DC(v16, v17)];
+    v19 = +[CATextLayer layer];
+    processNameLayer = v18->_processNameLayer;
+    v18->_processNameLayer = v19;
 
-    [(CATextLayer *)v16->_processNameLayer setTruncationMode:kCATruncationEnd];
+    [(CATextLayer *)v18->_processNameLayer setTruncationMode:kCATruncationEnd];
     if (qword_10003E760 != -1)
     {
       sub_100019814();
     }
 
-    [(CATextLayer *)v16->_processNameLayer setFont:qword_10003E768];
-    [(CATextLayer *)v16->_processNameLayer setFontSize:size];
-    [(HUDLine *)v16 contentScaleForTexts];
-    [(CATextLayer *)v16->_processNameLayer setContentsScale:?];
-    [(CATextLayer *)v16->_processNameLayer setString:nameCopy];
-    [(HUDLine *)v16 setVibrancyFilter:v16->_processNameLayer];
-    v19 = +[HUDDurationLayer layer];
-    durationLayer = v16->_durationLayer;
-    v16->_durationLayer = v19;
+    [(CATextLayer *)v18->_processNameLayer setFont:qword_10003E768];
+    [(CATextLayer *)v18->_processNameLayer setFontSize:size];
+    [(HUDLine *)v18 contentScaleForTexts];
+    [(CATextLayer *)v18->_processNameLayer setContentsScale:?];
+    [(CATextLayer *)v18->_processNameLayer setString:nameCopy];
+    [(HUDLine *)v18 setVibrancyFilter:v18->_processNameLayer];
+    v21 = +[HUDDurationLayer layer];
+    durationLayer = v18->_durationLayer;
+    v18->_durationLayer = v21;
 
     if (qword_10003E770 != -1)
     {
       sub_100019864();
     }
 
-    [(HUDDurationLayer *)v16->_durationLayer setFont:qword_10003E778];
-    [(HUDDurationLayer *)v16->_durationLayer setFontSize:size];
-    [(HUDLine *)v16 contentScaleForTexts];
-    [(HUDDurationLayer *)v16->_durationLayer setContentsScale:?];
-    [(HUDDurationLayer *)v16->_durationLayer setAlignmentMode:kCAAlignmentRight];
-    [(HUDDurationLayer *)v16->_durationLayer setQueue:queueCopy];
-    [(HUDLine *)v16 setVibrancyFilter:v16->_durationLayer];
-    [(HangHUDLine *)v16 addSublayer:v16->_processNameLayer];
-    [(HangHUDLine *)v16 addSublayer:v16->_durationLayer];
-    objc_storeStrong(&v16->_currentTheme, theme);
-    [(HUDLine *)v16 setLineDelegate:delegateCopy];
-    [(HUDLine *)v16 setKeyLayer:v16->_processNameLayer];
-    [(HUDLine *)v16 setValueLayer:v16->_durationLayer];
+    [(HUDDurationLayer *)v18->_durationLayer setFont:qword_10003E778];
+    [(HUDDurationLayer *)v18->_durationLayer setFontSize:size];
+    [(HUDLine *)v18 contentScaleForTexts];
+    [(HUDDurationLayer *)v18->_durationLayer setContentsScale:?];
+    [(HUDDurationLayer *)v18->_durationLayer setAlignmentMode:kCAAlignmentRight];
+    [(HUDDurationLayer *)v18->_durationLayer setQueue:queueCopy];
+    [(HUDLine *)v18 setVibrancyFilter:v18->_durationLayer];
+    [(HangHUDLine *)v18 addSublayer:v18->_processNameLayer];
+    [(HangHUDLine *)v18 addSublayer:v18->_durationLayer];
+    objc_storeStrong(&v18->_currentTheme, theme);
+    [(HUDLine *)v18 setLineDelegate:delegateCopy];
+    [(HUDLine *)v18 setKeyLayer:v18->_processNameLayer];
+    [(HUDLine *)v18 setValueLayer:v18->_durationLayer];
   }
 
-  return v16;
+  return v18;
 }
 
 - (void)nilifyCALayers
@@ -115,32 +116,34 @@
 - (void)update:(id)update options:(unint64_t)options
 {
   updateCopy = update;
-  if (![(HUDLine *)self updatesComplete])
+  updatesComplete = [(HUDLine *)self updatesComplete];
+  if (!updatesComplete)
   {
-    v7 = updateCopy;
-    v8 = [(CATextLayer *)self->_processNameLayer animationForKey:@"foreground-color-fade-animation"];
-    if (v8)
+    v8 = updateCopy;
+    v9 = [(CATextLayer *)self->_processNameLayer animationForKey:@"foreground-color-fade-animation"];
+    v10 = v9;
+    if (v9)
     {
-      v9 = sub_100002F0C();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002F0C(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Attempting to update a HUD line with an animation in progress!", v18, 2u);
+        *v21 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to update a HUD line with an animation in progress!", v21, 2u);
       }
     }
 
     else
     {
       durationLayer = self->_durationLayer;
-      [v7 hangDurationMS];
-      v12 = v11;
+      [v8 hangDurationMS];
+      v14 = v13;
       [(HUDDurationLayer *)self->_durationLayer hangDuration];
-      [(HUDDurationLayer *)durationLayer setHangDuration:v13 > 0.0 animated:v12];
-      [v7 hangDurationMS];
-      v14 = [(HangHUDLine *)self statusForHangWithDuration:(options >> 1) & 1 timedOut:?];
-      v15 = [(HUDTheme *)self->_currentTheme currentHangTextColorForStatus:v14];
-      [(CATextLayer *)self->_processNameLayer setForegroundColor:v15];
-      [(HUDDurationLayer *)self->_durationLayer setForegroundColor:v15];
+      [(HUDDurationLayer *)durationLayer setHangDuration:v15 > 0.0 animated:v14];
+      [v8 hangDurationMS];
+      v16 = [(HangHUDLine *)self statusForHangWithDuration:(options >> 1) & 1 timedOut:?];
+      v17 = [(HUDTheme *)self->_currentTheme currentHangTextColorForStatus:v16];
+      [(CATextLayer *)self->_processNameLayer setForegroundColor:v17];
+      v18 = [(HUDDurationLayer *)self->_durationLayer setForegroundColor:v17];
       if (options)
       {
 LABEL_12:
@@ -148,32 +151,32 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v16 = sub_100002F0C();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v19 = sub_100002F0C(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        sub_100019908(v7);
+        sub_100019908(v8);
       }
 
       [(HUDLine *)self setUpdatesComplete:1];
-      v9 = [CABasicAnimation animationWithKeyPath:@"foregroundColor"];
-      [v9 setRemovedOnCompletion:0];
-      [v9 setFillMode:kCAFillModeForwards];
-      [v9 setToValue:[(HUDTheme *)self->_currentTheme previousHangTextColorForStatus:v14]];
-      [v9 setDuration:0.5];
-      v17 = objc_alloc_init(HUDLineAnimationDelegate);
-      [(HUDLineAnimationDelegate *)v17 setHudLine:self];
-      [v9 setDelegate:v17];
-      [(CATextLayer *)self->_processNameLayer addAnimation:v9 forKey:@"foreground-color-fade-animation"];
-      [(HUDDurationLayer *)self->_durationLayer addAnimation:v9 forKey:@"foreground-color-fade-animation"];
+      v11 = [CABasicAnimation animationWithKeyPath:@"foregroundColor"];
+      [v11 setRemovedOnCompletion:0];
+      [v11 setFillMode:kCAFillModeForwards];
+      [v11 setToValue:[(HUDTheme *)self->_currentTheme previousHangTextColorForStatus:v16]];
+      [v11 setDuration:0.5];
+      v20 = objc_alloc_init(HUDLineAnimationDelegate);
+      [(HUDLineAnimationDelegate *)v20 setHudLine:self];
+      [v11 setDelegate:v20];
+      [(CATextLayer *)self->_processNameLayer addAnimation:v11 forKey:@"foreground-color-fade-animation"];
+      [(HUDDurationLayer *)self->_durationLayer addAnimation:v11 forKey:@"foreground-color-fade-animation"];
     }
 
     goto LABEL_12;
   }
 
-  v7 = sub_100002F0C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100002F0C(updatesComplete);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100019984(self, v7);
+    sub_100019984(self, v8);
   }
 
 LABEL_13:

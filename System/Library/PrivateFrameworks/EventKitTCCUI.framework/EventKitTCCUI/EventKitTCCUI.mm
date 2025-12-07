@@ -1,13 +1,13 @@
-id logHandle()
+id logHandle(uint64_t a1)
 {
   if (logHandle_onceToken != -1)
   {
     logHandle_cold_1();
   }
 
-  v1 = logHandle_handle;
+  v2 = logHandle_handle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __logHandle_block_invoke()
@@ -38,37 +38,36 @@ void __swiftcall EventPreviewWrapper.getPreviewController(forPrompt:)(UIViewCont
 {
   v4 = sub_24A093230();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  (MEMORY[0x28223BE20])();
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF335A0, &qword_24A093680) - 8) + 64);
-  v10 = (MEMORY[0x28223BE20])();
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v23 - v13;
-  v15 = *(v2 + OBJC_IVAR____TtC13EventKitTCCUI19EventPreviewWrapper_event);
-  if (v15)
+  MEMORY[0x28223BE20](v4);
+  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF335A0, &qword_24A093680);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v22 - v12;
+  v14 = *(v2 + OBJC_IVAR____TtC13EventKitTCCUI19EventPreviewWrapper_event);
+  if (v14)
   {
-    v16 = MEMORY[0x277CF7D00];
+    v15 = MEMORY[0x277CF7D00];
     if (!forPrompt)
     {
-      v16 = MEMORY[0x277CF7D08];
+      v15 = MEMORY[0x277CF7D08];
     }
 
-    (*(v5 + 104))(v8, *v16, v4);
-    v17 = v15;
+    (*(v5 + 104))(v7, *v15, v4);
+    v16 = v14;
     sub_24A093220();
-    sub_24A092F10(v14, v12);
-    v18 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF335A8, &qword_24A093688));
-    v19 = sub_24A093240();
-    v20 = [v19 view];
-    if (v20)
+    sub_24A092F10(v13, v11);
+    v17 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF335A8, &qword_24A093688));
+    v18 = sub_24A093240();
+    v19 = [v18 view];
+    if (v19)
     {
-      v21 = v20;
-      v22 = [objc_opt_self() clearColor];
-      [v21 setBackgroundColor_];
+      v20 = v19;
+      v21 = [objc_opt_self() clearColor];
+      [v20 setBackgroundColor_];
 
-      sub_24A092F80(v14);
+      sub_24A092F80(v13);
     }
 
     else
@@ -83,7 +82,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

@@ -29,7 +29,6 @@
 
 uint64_t __42__ADDeviceKnowledgeManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_4 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -187,19 +186,17 @@ uint64_t __36__ADDeviceKnowledgeManager_runTask___block_invoke(uint64_t a1)
 
     else
     {
-      v6 = *(a1 + 32);
-      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] ERROR Unable to inform the system we have completed the Device Knowledge task. Please file a radar...", objc_opt_class()];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] ERROR Unable to inform the system we have completed the Device Knowledge task. Please file a radar...", objc_opt_class()];
       _ADLog();
     }
   }
 
-  v8 = *(a1 + 32);
-  objc_sync_enter(v8);
+  v7 = *(a1 + 32);
+  objc_sync_enter(v7);
   *(*(a1 + 32) + 8) = 0;
-  objc_sync_exit(v8);
+  objc_sync_exit(v7);
 
-  v9 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Releasing an XPC transaction for %@", objc_opt_class(), @"Device Knowledge In Progress"];
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Releasing an XPC transaction for %@", objc_opt_class(), @"Device Knowledge In Progress"];
   _ADLog();
 
   return releaseXPCTransaction();

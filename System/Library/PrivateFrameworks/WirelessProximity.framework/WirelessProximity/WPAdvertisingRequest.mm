@@ -1,4 +1,5 @@
 @interface WPAdvertisingRequest
++ (id)requestForClientType:(unsigned __int8)type;
 - (WPAdvertisingRequest)init;
 - (WPAdvertisingRequest)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -7,6 +8,7 @@
 - (void)changePriorityValue:(int64_t)value;
 - (void)encodeWithCoder:(id)coder;
 - (void)setAdvertisingData:(id)data;
+- (void)setClientType:(unsigned __int8)type;
 @end
 
 @implementation WPAdvertisingRequest
@@ -41,6 +43,15 @@
   }
 
   return v3;
+}
+
++ (id)requestForClientType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v4 = objc_alloc_init(self);
+  [v4 setClientType:typeCopy];
+
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -93,11 +104,11 @@
 
 - (WPAdvertisingRequest)initWithCoder:(id)coder
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = WPAdvertisingRequest;
-  v5 = [(WPAdvertisingRequest *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = WPAdvertisingRequest;
+  v5 = [(WPAdvertisingRequest *)&v19 init];
   if (v5)
   {
     v5->_clientType = [coderCopy decodeIntegerForKey:@"kClientType"];
@@ -111,11 +122,11 @@
     v5->_updateTime = v8;
     v5->_connectable = [coderCopy decodeBoolForKey:@"kConnectableAdvert"];
     v9 = MEMORY[0x277CBEB98];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v21[2] = objc_opt_class();
-    v21[3] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v20[2] = objc_opt_class();
+    v20[3] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"kAdvertisingOptions"];
     advertisingOptions = v5->_advertisingOptions;
@@ -132,7 +143,6 @@
     v5->_advertisingRandomData = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -224,6 +234,88 @@
 
   advertisingData = self->_advertisingData;
   self->_advertisingData = dataCopy;
+}
+
+- (void)setClientType:(unsigned __int8)type
+{
+  switch(type)
+  {
+    case 0u:
+    case 1u:
+    case 3u:
+    case 6u:
+    case 7u:
+    case 0x11u:
+    case 0x1Cu:
+      [MEMORY[0x277CBEAD8] raise:@"Advertising not supported" format:{@"Advertising is not supported for client type %hhu", type}];
+      break;
+    case 2u:
+      v5 = 9;
+      goto LABEL_23;
+    case 4u:
+      v5 = 6;
+      goto LABEL_23;
+    case 5u:
+      v5 = 15;
+      goto LABEL_23;
+    case 8u:
+      v5 = 17;
+      goto LABEL_23;
+    case 9u:
+      v5 = 8;
+      goto LABEL_23;
+    case 0xAu:
+      v5 = 10;
+      goto LABEL_23;
+    case 0xBu:
+      v5 = 5;
+      goto LABEL_23;
+    case 0xCu:
+      v5 = 7;
+      goto LABEL_23;
+    case 0xDu:
+      v5 = 12;
+      goto LABEL_23;
+    case 0xEu:
+      v5 = 11;
+      goto LABEL_23;
+    case 0xFu:
+      v5 = 14;
+      goto LABEL_23;
+    case 0x10u:
+      v5 = 3;
+      goto LABEL_23;
+    case 0x12u:
+    case 0x1Bu:
+      v5 = 99;
+      goto LABEL_23;
+    case 0x13u:
+      v5 = 13;
+      goto LABEL_23;
+    case 0x14u:
+    case 0x17u:
+    case 0x19u:
+      [MEMORY[0x277CBEAD8] raise:@"WPClientType not used" format:{@"WPClientType: %hhu not used in advertising", type}];
+      break;
+    case 0x15u:
+      v5 = 16;
+      goto LABEL_23;
+    case 0x16u:
+      v5 = 1;
+      goto LABEL_23;
+    case 0x18u:
+      v5 = 2;
+      goto LABEL_23;
+    case 0x1Au:
+      v5 = 4;
+LABEL_23:
+      [(WPAdvertisingRequest *)self setPriorityValue:v5];
+      break;
+    default:
+      break;
+  }
+
+  self->_clientType = type;
 }
 
 - (void)changePriorityValue:(int64_t)value

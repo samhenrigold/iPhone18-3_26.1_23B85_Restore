@@ -67,9 +67,9 @@
   {
     v4 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, v2);
     path = self->_path;
-    v14 = 0;
-    v7 = objc_msgSend_removeItemAtPath_error_(v4, v6, path, &v14);
-    v8 = v14;
+    v15 = 0;
+    v7 = objc_msgSend_removeItemAtPath_error_(v4, v6, path, &v15);
+    v8 = v15;
     v11 = v8;
     if ((v7 & 1) == 0)
     {
@@ -82,7 +82,7 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v4 = BUZipLog();
+      v4 = BUZipLog(v13);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_241DCF6E4(v11, &self->_path, v4);
@@ -93,9 +93,9 @@ LABEL_7:
   }
 
 LABEL_8:
-  v13.receiver = self;
-  v13.super_class = BUTemporaryDirectory;
-  [(BUTemporaryDirectory *)&v13 dealloc];
+  v14.receiver = self;
+  v14.super_class = BUTemporaryDirectory;
+  [(BUTemporaryDirectory *)&v14 dealloc];
 }
 
 - (BOOL)_createDirectoryWithSignature:(id)signature subdirectory:(id)subdirectory error:(id *)error

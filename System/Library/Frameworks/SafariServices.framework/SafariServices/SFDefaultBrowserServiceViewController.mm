@@ -80,7 +80,7 @@ void __80__SFDefaultBrowserServiceViewController_prepareForDisplayWithCompletion
 
 - (id)_makeDefaultBrowserInformationViewController
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = _WBSLocalizedString();
   _SFDeviceIsPad();
   v4 = _WBSLocalizedString();
@@ -105,36 +105,37 @@ void __80__SFDefaultBrowserServiceViewController_prepareForDisplayWithCompletion
 
   if (hasShownBrowserChoiceScreenOnOtherDevices)
   {
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v10 = getDMGetUserDataDispositionSymbolLoc_ptr;
-    v31 = getDMGetUserDataDispositionSymbolLoc_ptr;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
+    v12 = getDMGetUserDataDispositionSymbolLoc_ptr;
+    v33 = getDMGetUserDataDispositionSymbolLoc_ptr;
     if (!getDMGetUserDataDispositionSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v33 = __getDMGetUserDataDispositionSymbolLoc_block_invoke;
-      v34 = &unk_1E848F710;
-      v35 = &v28;
+      v35 = __getDMGetUserDataDispositionSymbolLoc_block_invoke;
+      v36 = &unk_1E848F710;
+      v37 = &v30;
       __getDMGetUserDataDispositionSymbolLoc_block_invoke(&buf);
-      v10 = v29[3];
+      v12 = v31[3];
     }
 
-    _Block_object_dispose(&v28, 8);
-    if (!v10)
+    _Block_object_dispose(&v30, 8);
+    if (!v12)
     {
       [SFDefaultBrowserListView productDetailsUserDidInteractWithApp:interactionType:];
       __break(1u);
     }
 
-    if ((v10(v11) & 4) != 0)
+    v9 = v12(v13);
+    if ((v9 & 4) != 0)
     {
       _SFDeviceIsPad();
-      v12 = _WBSLocalizedString();
+      v14 = _WBSLocalizedString();
 
       self->_userCohort = 2;
-      v4 = v12;
+      v4 = v14;
     }
   }
 
@@ -143,72 +144,72 @@ void __80__SFDefaultBrowserServiceViewController_prepareForDisplayWithCompletion
     self->_userCohort = 3;
   }
 
-  v13 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v15 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v9, v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     userCohort = self->_userCohort;
     LODWORD(buf) = 134217984;
     *(&buf + 4) = userCohort;
-    _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_INFO, "User cohort type: %lu", &buf, 0xCu);
+    _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, "User cohort type: %lu", &buf, 0xCu);
   }
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2050000000;
-  v15 = getOBWelcomeControllerClass_softClass_1;
-  v31 = getOBWelcomeControllerClass_softClass_1;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2050000000;
+  v17 = getOBWelcomeControllerClass_softClass_1;
+  v33 = getOBWelcomeControllerClass_softClass_1;
   if (!getOBWelcomeControllerClass_softClass_1)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v33 = __getOBWelcomeControllerClass_block_invoke_1;
-    v34 = &unk_1E848F710;
-    v35 = &v28;
+    v35 = __getOBWelcomeControllerClass_block_invoke_1;
+    v36 = &unk_1E848F710;
+    v37 = &v30;
     __getOBWelcomeControllerClass_block_invoke_1(&buf);
-    v15 = v29[3];
+    v17 = v31[3];
   }
 
-  v16 = v15;
-  _Block_object_dispose(&v28, 8);
-  v17 = [v15 alloc];
-  v18 = [MEMORY[0x1E69DCAB8] systemImageNamed:{@"network", v28}];
-  v19 = [v17 initWithTitle:v3 detailText:v4 icon:v18 contentLayout:2];
+  v18 = v17;
+  _Block_object_dispose(&v30, 8);
+  v19 = [v17 alloc];
+  v20 = [MEMORY[0x1E69DCAB8] systemImageNamed:{@"network", v30}];
+  v21 = [v19 initWithTitle:v3 detailText:v4 icon:v20 contentLayout:2];
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2050000000;
-  v20 = getOBBoldTrayButtonClass_softClass_0;
-  v31 = getOBBoldTrayButtonClass_softClass_0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2050000000;
+  v22 = getOBBoldTrayButtonClass_softClass_0;
+  v33 = getOBBoldTrayButtonClass_softClass_0;
   if (!getOBBoldTrayButtonClass_softClass_0)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v33 = __getOBBoldTrayButtonClass_block_invoke_0;
-    v34 = &unk_1E848F710;
-    v35 = &v28;
+    v35 = __getOBBoldTrayButtonClass_block_invoke_0;
+    v36 = &unk_1E848F710;
+    v37 = &v30;
     __getOBBoldTrayButtonClass_block_invoke_0(&buf);
-    v20 = v29[3];
+    v22 = v31[3];
   }
 
-  v21 = v20;
-  _Block_object_dispose(&v28, 8);
-  boldButton = [v20 boldButton];
-  v23 = _WBSLocalizedString();
-  [boldButton setTitle:v23 forState:0];
+  v23 = v22;
+  _Block_object_dispose(&v30, 8);
+  boldButton = [v22 boldButton];
+  v25 = _WBSLocalizedString();
+  [boldButton setTitle:v25 forState:0];
 
   [boldButton addTarget:self action:sel__showListOfAvailableBrowsers forControlEvents:64];
-  buttonTray = [v19 buttonTray];
+  buttonTray = [v21 buttonTray];
   [buttonTray addButton:boldButton];
 
-  buttonTray2 = [v19 buttonTray];
+  buttonTray2 = [v21 buttonTray];
   [buttonTray2 setPrivacyLinkForBundles:&unk_1F5023F68];
 
-  view = [v19 view];
+  view = [v21 view];
   [view setAccessibilityIdentifier:@"BrowserChoiceSheet"];
 
   [boldButton setAccessibilityIdentifier:@"ContinueButton"];
 
-  return v19;
+  return v21;
 }
 
 - (id)_makeDefaultBrowserSelectionViewController
@@ -377,20 +378,20 @@ void __66__SFDefaultBrowserServiceViewController__showConnectionErrorAlert__bloc
 void __59__SFDefaultBrowserServiceViewController__postNotification___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-  v4 = v3;
+  v4 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v2, v3);
+  v5 = v4;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __59__SFDefaultBrowserServiceViewController__postNotification___block_invoke_cold_1(v4);
+      __59__SFDefaultBrowserServiceViewController__postNotification___block_invoke_cold_1(v5);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "Successfully posted default web browser updated notification", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Successfully posted default web browser updated notification", v6, 2u);
   }
 }
 
@@ -411,53 +412,55 @@ void __59__SFDefaultBrowserServiceViewController__postNotification___block_invok
 void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_cold_1(v5);
+      __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_cold_1(v7);
     }
   }
 
   else
   {
-    v6 = objc_alloc_init(MEMORY[0x1E6983220]);
-    v7 = _WBSLocalizedString();
-    [v6 setTitle:v7];
+    v8 = objc_alloc_init(MEMORY[0x1E6983220]);
+    v9 = _WBSLocalizedString();
+    [v8 setTitle:v9];
 
-    v8 = [*(a1 + 32) bundleIdentifier];
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = _WBSLocalizedString();
-    v11 = [*(a1 + 32) localizedName];
-    v12 = [v9 stringWithFormat:v10, v11];
-    [v6 setBody:v12];
+    v10 = [*(a1 + 32) bundleIdentifier];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = _WBSLocalizedString();
+    v13 = [*(a1 + 32) localizedName];
+    v14 = [v11 stringWithFormat:v12, v13];
+    [v8 setBody:v14];
 
-    v13 = [MEMORY[0x1E695DFF8] URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Settings.Apps.DefaultApps"];
-    [v6 setDefaultActionURL:v13];
+    v15 = [MEMORY[0x1E695DFF8] URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Settings.Apps.DefaultApps"];
+    [v8 setDefaultActionURL:v15];
 
-    v14 = [MEMORY[0x1E6963608] defaultWorkspace];
-    v15 = objc_alloc_init(MEMORY[0x1E69636B8]);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131;
-    v17[3] = &unk_1E8496058;
-    v17[4] = *(a1 + 40);
-    v18 = v6;
-    v16 = v6;
-    [v14 openApplicationWithBundleIdentifier:v8 usingConfiguration:v15 completionHandler:v17];
+    v16 = [MEMORY[0x1E6963608] defaultWorkspace];
+    v17 = objc_alloc_init(MEMORY[0x1E69636B8]);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131;
+    v19[3] = &unk_1E8496058;
+    v19[4] = *(a1 + 40);
+    v20 = v8;
+    v18 = v8;
+    [v16 openApplicationWithBundleIdentifier:v10 usingConfiguration:v17 completionHandler:v19];
   }
 }
 
 void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131_cold_1(v5);
+      __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131_cold_1(v7);
     }
   }
 
@@ -469,15 +472,16 @@ void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord
   identifierCopy = identifier;
   if (result != 2)
   {
-    v18 = 0;
-    v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v18];
-    v8 = v18;
+    v20 = 0;
+    v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v20];
+    v8 = v20;
+    v10 = v8;
     if (!v7)
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v8, v9);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [SFDefaultBrowserServiceViewController didChangeDefaultBrowserWithBundleIdentifier:v13 browserChoiceResult:?];
+        [SFDefaultBrowserServiceViewController didChangeDefaultBrowserWithBundleIdentifier:v15 browserChoiceResult:?];
       }
 
       goto LABEL_12;
@@ -486,21 +490,21 @@ void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord
     bundleIdentifier = [v7 bundleIdentifier];
     if (result == 1)
     {
-      v10 = +[SFDefaultBrowserPromptController sharedController];
+      v12 = +[SFDefaultBrowserPromptController sharedController];
       localizedName = [v7 localizedName];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __105__SFDefaultBrowserServiceViewController_didChangeDefaultBrowserWithBundleIdentifier_browserChoiceResult___block_invoke;
-      v14[3] = &unk_1E848F660;
-      v14[4] = self;
-      v15 = v7;
-      v17 = 1;
-      v16 = bundleIdentifier;
-      v12 = [v10 browserIconReplacementAlertController:v16 browserLocalizedName:localizedName completionHandler:v14];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __105__SFDefaultBrowserServiceViewController_didChangeDefaultBrowserWithBundleIdentifier_browserChoiceResult___block_invoke;
+      v16[3] = &unk_1E848F660;
+      v16[4] = self;
+      v17 = v7;
+      v19 = 1;
+      v18 = bundleIdentifier;
+      v14 = [v12 browserIconReplacementAlertController:v18 browserLocalizedName:localizedName completionHandler:v16];
 
-      if (v12)
+      if (v14)
       {
-        [(SFDefaultBrowserServiceViewController *)self presentViewController:v12 animated:0 completion:0];
+        [(SFDefaultBrowserServiceViewController *)self presentViewController:v14 animated:0 completion:0];
 
 LABEL_11:
 LABEL_12:
@@ -535,7 +539,7 @@ void __59__SFDefaultBrowserServiceViewController__postNotification___block_invok
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to post default web browser updated notification: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to post default web browser updated notification: %{public}@", v6, v7, v8, v9);
 }
 
 void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_cold_1(void *a1)
@@ -543,7 +547,7 @@ void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to set default browser app with error: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to set default browser app with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord___block_invoke_131_cold_1(void *a1)
@@ -551,7 +555,7 @@ void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to open application: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to open application: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)didChangeDefaultBrowserWithBundleIdentifier:(void *)a1 browserChoiceResult:.cold.1(void *a1)
@@ -559,7 +563,7 @@ void __73__SFDefaultBrowserServiceViewController__updateDefaultBrowserWithRecord
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to get app record with error: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to get app record with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

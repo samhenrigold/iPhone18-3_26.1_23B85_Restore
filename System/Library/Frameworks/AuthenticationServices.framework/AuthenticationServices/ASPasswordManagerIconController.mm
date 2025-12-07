@@ -5,44 +5,42 @@
 
 void __65___ASPasswordManagerIconController__privacyProxyStateInitialized__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = WeakRetained[15];
-    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+          (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65___ASPasswordManagerIconController__privacyProxyStateInitialized__block_invoke_2(uint64_t a1)
@@ -93,7 +91,7 @@ void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_2(uint64
 
 void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_3(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -101,26 +99,26 @@ void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_3(uint64
     v4 = *(WeakRetained + 6);
     *(WeakRetained + 6) = v3;
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * i);
+          v10 = *(*(&v25 + 1) + 8 * i);
           v11 = [v10 url];
           v12 = [v11 host];
           v13 = [v12 safari_highLevelDomainFromHost];
@@ -141,7 +139,7 @@ void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_3(uint64
           [v14 addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v7)
         {
           continue;
@@ -151,29 +149,29 @@ void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_3(uint64
       }
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v15 = *(WeakRetained + 8);
-    v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v23;
+      v18 = *v22;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v23 != v18)
+          if (*v22 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          (*(*(*(&v22 + 1) + 8 * j) + 16))(*(*(&v22 + 1) + 8 * j));
+          (*(*(*(&v21 + 1) + 8 * j) + 16))(*(*(&v21 + 1) + 8 * j));
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v17);
@@ -186,8 +184,6 @@ void __49___ASPasswordManagerIconController__fetchHistory__block_invoke_3(uint64
   }
 
 LABEL_21:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __58___ASPasswordManagerIconController_clearIconFetchingState__block_invoke(uint64_t a1)
@@ -207,18 +203,18 @@ void __58___ASPasswordManagerIconController_clearIconFetchingState__block_invoke
 
 void __50___ASPasswordManagerIconController_cancelRequest___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(a1 + 40)];
-  if (v2)
+  v3 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(a1 + 40)];
+  if (v3)
   {
-    [*(*(a1 + 32) + 80) cancelRequestWithToken:v2];
+    [*(*(a1 + 32) + 80) cancelRequestWithToken:v3];
     [*(*(a1 + 32) + 32) removeObjectForKey:*(a1 + 40)];
-    [*(*(a1 + 32) + 40) removeObject:v2];
+    [*(*(a1 + 32) + 40) removeObject:v3];
   }
 
   else
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXPasswordManager(0, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __50___ASPasswordManagerIconController_cancelRequest___block_invoke_cold_1();
     }
@@ -227,37 +223,32 @@ void __50___ASPasswordManagerIconController_cancelRequest___block_invoke(uint64_
 
 void __76___ASPasswordManagerIconController_iconForDomain_requestID_responseHandler___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 56) containsObject:*(a1 + 40)];
-  [*(*(a1 + 32) + 56) addObject:*(a1 + 40)];
+  v3 = [*(*(a1 + 32) + 56) addObject:*(a1 + 40)];
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      v8 = 141558275;
-      v9 = 1752392040;
-      v10 = 2117;
-      v11 = v4;
-      _os_log_impl(&dword_1B1C8D000, v3, OS_LOG_TYPE_DEFAULT, "Touch icon already requested; domain=%{sensitive, mask.hash}@", &v8, 0x16u);
+      v6 = *(a1 + 40);
+      v9 = 141558275;
+      v10 = 1752392040;
+      v11 = 2117;
+      v12 = v6;
+      _os_log_impl(&dword_1B1C8D000, v5, OS_LOG_TYPE_DEFAULT, "Touch icon already requested; domain=%{sensitive, mask.hash}@", &v9, 0x16u);
     }
   }
 
   [*(a1 + 32) _fetchTouchIconForDomain:*(a1 + 40) requestID:*(a1 + 48) responseHandler:*(a1 + 56)];
-  v5 = *(a1 + 56);
-  v6 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
-  (*(v5 + 16))(v5, v6);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 56);
+  v8 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
+  (*(v7 + 16))(v7, v8);
 }
 
 uint64_t __61___ASPasswordManagerIconController_backgroundColorForDomain___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -270,18 +261,17 @@ void __62___ASPasswordManagerIconController__mobileSafariContainerPath__block_in
   v0 = xpc_array_create(&objects, 1uLL);
   container_query_set_identifiers();
   container_query_operation_set_flags();
-  v1 = *MEMORY[0x1E69E9980];
   container_query_set_persona_unique_string();
   if (container_query_get_single_result())
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:container_get_path()];
-    v3 = _mobileSafariContainerPath_mobileSafariContainerPath;
-    _mobileSafariContainerPath_mobileSafariContainerPath = v2;
+    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:container_get_path()];
+    v2 = _mobileSafariContainerPath_mobileSafariContainerPath;
+    _mobileSafariContainerPath_mobileSafariContainerPath = v1;
 
-    v4 = container_copy_sandbox_token();
+    v3 = container_copy_sandbox_token();
     if ((sandbox_extension_consume() & 0x8000000000000000) == 0)
     {
-      free(v4);
+      free(v3);
     }
 
     container_query_free();
@@ -290,14 +280,14 @@ void __62___ASPasswordManagerIconController__mobileSafariContainerPath__block_in
   else
   {
     container_query_get_last_error();
-    v5 = container_error_copy_unlocalized_description();
-    v6 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
+    v4 = container_error_copy_unlocalized_description();
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v4, v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __62___ASPasswordManagerIconController__mobileSafariContainerPath__block_invoke_cold_1();
     }
 
-    free(v5);
+    free(v4);
     container_query_free();
     v7 = _mobileSafariContainerPath_mobileSafariContainerPath;
     _mobileSafariContainerPath_mobileSafariContainerPath = 0;
@@ -311,11 +301,12 @@ void __43___ASPasswordManagerIconController_dealloc__block_invoke(uint64_t a1)
   [v1 cancelRequestsWithTokens:v2];
 }
 
-void __58___ASPasswordManagerIconController_performMaintenanceWork__block_invoke(uint64_t a1, int a2)
+void __58___ASPasswordManagerIconController_performMaintenanceWork__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
+  v2 = a2;
+  v4 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(a1, a2);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -336,11 +327,11 @@ void __58___ASPasswordManagerIconController_performMaintenanceWork__block_invoke
   }
 }
 
-void __68___ASPasswordManagerIconController_prepareForApplicationTermination__block_invoke(uint64_t a1, int a2)
+void __68___ASPasswordManagerIconController_prepareForApplicationTermination__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
+    v2 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(a1, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -351,28 +342,28 @@ void __68___ASPasswordManagerIconController_prepareForApplicationTermination__bl
   else
   {
     v4 = dispatch_group_create();
-    v5 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1C8D000, v5, OS_LOG_TYPE_DEFAULT, "Starting to save pending changes with background task assertion", buf, 2u);
+      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_DEFAULT, "Starting to save pending changes with background task assertion", buf, 2u);
     }
 
     dispatch_group_enter(v4);
-    v6 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __68___ASPasswordManagerIconController_prepareForApplicationTermination__block_invoke_31;
-    v9[3] = &unk_1E7AF7608;
-    v7 = v4;
-    v10 = v7;
-    [v6 savePendingProviderChangesWithCompletion:v9];
-    dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = *(a1 + 32);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __68___ASPasswordManagerIconController_prepareForApplicationTermination__block_invoke_31;
+    v12[3] = &unk_1E7AF7608;
+    v8 = v4;
+    v13 = v8;
+    [v7 savePendingProviderChangesWithCompletion:v12];
+    v9 = dispatch_group_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1C8D000, v8, OS_LOG_TYPE_DEFAULT, "Saved pending changes to database", buf, 2u);
+      _os_log_impl(&dword_1B1C8D000, v11, OS_LOG_TYPE_DEFAULT, "Saved pending changes to database", buf, 2u);
     }
   }
 }
@@ -432,32 +423,30 @@ void __87___ASPasswordManagerIconController__fetchTouchIconForDomain_requestID_r
 
 uint64_t __87___ASPasswordManagerIconController__fetchTouchIconForDomain_requestID_responseHandler___block_invoke_2(uint64_t a1, int a2)
 {
-  v2 = *(a1 + 32);
   if (a2)
   {
-    v3 = 6;
+    v2 = 6;
   }
 
   else
   {
-    v3 = 4;
+    v2 = 4;
   }
 
-  return [*(a1 + 32) _requestTouchIconForDomain:*(a1 + 40) options:v3 requestID:*(a1 + 48) responseHandler:*(a1 + 56)];
+  return [*(a1 + 32) _requestTouchIconForDomain:*(a1 + 40) options:v2 requestID:*(a1 + 48) responseHandler:*(a1 + 56)];
 }
 
 uint64_t __87___ASPasswordManagerIconController__fetchTouchIconForDomain_requestID_responseHandler___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 112) initialized] && objc_msgSend(*(*(a1 + 32) + 112), "shouldFetchPasswordManagerWebsiteDataUsingPrivacyProxy"))
   {
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    v5 = *(a1 + 56);
-    v6 = *MEMORY[0x1E69E9840];
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 56);
 
-    return [v2 _requestTouchIconForDomain:v3 options:14 requestID:v4 responseHandler:v5];
+    return [v3 _requestTouchIconForDomain:v4 options:14 requestID:v5 responseHandler:v6];
   }
 
   else
@@ -465,30 +454,27 @@ uint64_t __87___ASPasswordManagerIconController__fetchTouchIconForDomain_request
     v8 = *(a1 + 32);
     if ((v8[9] & 1) == 0)
     {
-      [v8 _requestTouchIconForDomain:*(a1 + 40) options:0 requestID:*(a1 + 48) responseHandler:*(a1 + 56)];
+      v8 = [v8 _requestTouchIconForDomain:*(a1 + 40) options:0 requestID:*(a1 + 48) responseHandler:*(a1 + 56)];
     }
 
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v8, v2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 40);
-      v12 = 141558275;
-      v13 = 1752392040;
-      v14 = 2117;
-      v15 = v10;
-      _os_log_impl(&dword_1B1C8D000, v9, OS_LOG_TYPE_DEFAULT, "Fetching touch icon in history; domain=%{sensitive, mask.hash}@", &v12, 0x16u);
+      v11 = 141558275;
+      v12 = 1752392040;
+      v13 = 2117;
+      v14 = v10;
+      _os_log_impl(&dword_1B1C8D000, v9, OS_LOG_TYPE_DEFAULT, "Fetching touch icon in history; domain=%{sensitive, mask.hash}@", &v11, 0x16u);
     }
 
-    result = [*(a1 + 32) _fetchIconInHistoryWithBlock:*(a1 + 64)];
-    v11 = *MEMORY[0x1E69E9840];
+    return [*(a1 + 32) _fetchIconInHistoryWithBlock:*(a1 + 64)];
   }
-
-  return result;
 }
 
 void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -511,73 +497,71 @@ LABEL_14:
     }
 
     getSFScreenScale();
-    +[_ASPasswordManagerIconController _preferredIconSize];
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = +[_ASPasswordManagerIconController _preferredIconSize];
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = (*(a1 + 64) >> 3) & 1;
+      v10 = *(a1 + 32);
+      v11 = (*(a1 + 64) >> 3) & 1;
       *buf = 141558531;
       *&buf[4] = 1752392040;
       *&buf[12] = 2117;
-      *&buf[14] = v8;
+      *&buf[14] = v10;
       *&buf[22] = 1024;
-      LODWORD(v33) = v9;
-      _os_log_impl(&dword_1B1C8D000, v7, OS_LOG_TYPE_DEFAULT, "Fetching touch icon; domain=%{sensitive, mask.hash}@; enablePrivateRelay=%{BOOL}d", buf, 0x1Cu);
+      LODWORD(v34) = v11;
+      _os_log_impl(&dword_1B1C8D000, v9, OS_LOG_TYPE_DEFAULT, "Fetching touch icon; domain=%{sensitive, mask.hash}@; enablePrivateRelay=%{BOOL}d", buf, 0x1Cu);
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
-    v10 = get_SFSavedAccountTouchIconRequestClass_softClass;
-    v31 = get_SFSavedAccountTouchIconRequestClass_softClass;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
+    v12 = get_SFSavedAccountTouchIconRequestClass_softClass;
+    v32 = get_SFSavedAccountTouchIconRequestClass_softClass;
     if (!get_SFSavedAccountTouchIconRequestClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __get_SFSavedAccountTouchIconRequestClass_block_invoke;
-      v33 = &unk_1E7AF7948;
-      v34 = &v28;
+      v34 = &unk_1E7AF7948;
+      v35 = &v29;
       __get_SFSavedAccountTouchIconRequestClass_block_invoke(buf);
-      v10 = v29[3];
+      v12 = v30[3];
     }
 
-    v11 = v10;
-    _Block_object_dispose(&v28, 8);
-    v12 = [*(a1 + 32) safari_bestURLForUserTypedString];
+    v13 = v12;
+    _Block_object_dispose(&v29, 8);
+    v14 = [*(a1 + 32) safari_bestURLForUserTypedString];
     +[_ASPasswordManagerIconController _minimumIconSize];
-    v13 = [v10 requestWithTitle:0 url:v12 minimumIconSize:*(a1 + 64) maximumIconSize:? options:?];
+    v15 = [v12 requestWithTitle:0 url:v14 minimumIconSize:*(a1 + 64) maximumIconSize:? options:?];
 
-    v14 = v3[10];
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_36;
-    v22 = &unk_1E7AF7880;
-    v23 = v3;
-    objc_copyWeak(v27, (a1 + 56));
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 64);
-    v24 = v15;
-    v27[1] = v16;
-    v25 = *(a1 + 40);
-    v26 = *(a1 + 48);
-    v17 = [v14 registerRequest:v13 priority:2 responseHandler:&v19];
-    if (v17)
+    v16 = v3[10];
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_36;
+    v23 = &unk_1E7AF7880;
+    v24 = v3;
+    objc_copyWeak(v28, (a1 + 56));
+    v17 = *(a1 + 32);
+    v18 = *(a1 + 64);
+    v25 = v17;
+    v28[1] = v18;
+    v26 = *(a1 + 40);
+    v27 = *(a1 + 48);
+    v19 = [v16 registerRequest:v15 priority:2 responseHandler:&v20];
+    if (v19)
     {
-      [v3[5] addObject:{v17, v19, v20, v21, v22, v23, v24, v25}];
+      [v3[5] addObject:{v19, v20, v21, v22, v23, v24, v25, v26}];
       if (*(a1 + 40))
       {
-        [v3[4] setObject:v17 forKeyedSubscript:?];
+        [v3[4] setObject:v19 forKeyedSubscript:?];
       }
     }
 
-    objc_destroyWeak(v27);
+    objc_destroyWeak(v28);
     goto LABEL_14;
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_36(uint64_t a1, void *a2)
@@ -604,11 +588,10 @@ void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_r
 
 void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   v26 = 0;
   v27 = &v26;
   v28 = 0x2050000000;
-  v3 = getWBSTouchIconResponseClass_softClass;
+  v2 = getWBSTouchIconResponseClass_softClass;
   v29 = getWBSTouchIconResponseClass_softClass;
   if (!getWBSTouchIconResponseClass_softClass)
   {
@@ -618,25 +601,25 @@ void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_r
     v25[3] = &unk_1E7AF7948;
     v25[4] = &v26;
     __getWBSTouchIconResponseClass_block_invoke(v25);
-    v3 = v27[3];
+    v2 = v27[3];
   }
 
-  v4 = v3;
+  v3 = v2;
   _Block_object_dispose(&v26, 8);
   if (objc_opt_isKindOfClass())
   {
     WeakRetained = objc_loadWeakRetained((a1 + 64));
     if (WeakRetained)
     {
-      v6 = *(a1 + 32);
-      v7 = [v6 touchIcon];
-      v8 = v7;
-      if (!v7 || ([v7 size], v9 == 0.0) || (objc_msgSend(v8, "size"), v10 == 0.0))
+      v5 = *(a1 + 32);
+      v6 = [v5 touchIcon];
+      v8 = v6;
+      if (!v6 || (v6 = [v6 size], v9 == 0.0) || (v6 = objc_msgSend(v8, "size"), v10 == 0.0))
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
+        v13 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v6, v7);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1(a1);
+          __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1();
         }
 
         v14 = WeakRetained[9];
@@ -645,7 +628,7 @@ void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_r
         block[2] = __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_37;
         block[3] = &unk_1E7AF7808;
         objc_copyWeak(&v24, (a1 + 64));
-        v15 = v6;
+        v15 = v5;
         v22 = v15;
         v23 = *(a1 + 40);
         dispatch_async(v14, block);
@@ -694,18 +677,18 @@ void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_r
   v3 = *(a1 + 32);
   +[_ASPasswordManagerIconController _preferredIconSize];
   v4 = [WBSImageUtilitiesClass resizedImage:v3 withSize:?];
-  v5 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-  v6 = v5;
+  v6 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v4, v5);
+  v7 = v6;
   if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       v9 = 141558275;
       v10 = 1752392040;
       v11 = 2117;
-      v12 = v7;
-      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_DEFAULT, "Finished fetching touch icon; domain=%{sensitive, mask.hash}@", &v9, 0x16u);
+      v12 = v8;
+      _os_log_impl(&dword_1B1C8D000, v7, OS_LOG_TYPE_DEFAULT, "Finished fetching touch icon; domain=%{sensitive, mask.hash}@", &v9, 0x16u);
     }
 
     [*(*(a1 + 48) + 16) setObject:v4 forKey:*(a1 + 40)];
@@ -715,15 +698,13 @@ void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_r
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1(a1);
+      __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __113___ASPasswordManagerIconController__handleIconFetchFailureWithDomain_options_requestID_response_responseHandler___block_invoke(uint64_t a1)
@@ -753,32 +734,32 @@ void __73___ASPasswordManagerIconController__populateDomainToAppIDWithCompletion
 
 void __73___ASPasswordManagerIconController__populateDomainToAppIDWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
   v3 = *(a1 + 32);
   v4 = *(v3 + 88);
   *(v3 + 88) = v2;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         v11 = MEMORY[0x1E69C8DE8];
         v12 = [v10 domain];
         v13 = [v11 domainByStrippingSubdomainWildcardPrefixIfNecessary:v12];
@@ -794,35 +775,35 @@ void __73___ASPasswordManagerIconController__populateDomainToAppIDWithCompletion
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = *(*(a1 + 32) + 96);
-  v17 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        (*(*(*(&v24 + 1) + 8 * j) + 16))(*(*(&v24 + 1) + 8 * j));
+        (*(*(*(&v23 + 1) + 8 * j) + 16))(*(*(&v23 + 1) + 8 * j));
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
@@ -831,8 +812,6 @@ void __73___ASPasswordManagerIconController__populateDomainToAppIDWithCompletion
   v21 = *(a1 + 32);
   v22 = *(v21 + 96);
   *(v21 + 96) = 0;
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke(uint64_t a1)
@@ -867,23 +846,23 @@ void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandle
       if (v8)
       {
         WBSImageUtilitiesClass = getWBSImageUtilitiesClass();
-        v10 = iconForApplicationProxy(v6);
+        v12 = iconForApplicationProxy(v6);
         +[_ASPasswordManagerIconController _preferredIconSize];
-        v11 = [WBSImageUtilitiesClass resizedImage:v10 withSize:?];
+        v13 = [WBSImageUtilitiesClass resizedImage:v12 withSize:?];
 
-        if (v11)
+        if (v13)
         {
-          [v3[2] setObject:v11 forKey:*(a1 + 32)];
+          [v3[2] setObject:v13 forKey:*(a1 + 32)];
           (*(*(a1 + 40) + 16))();
           [v3 _iconDidUpdateForDomain:*(a1 + 32)];
         }
 
         else
         {
-          v13 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v17 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v14, v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_2((a1 + 32));
+            __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_2();
           }
 
           (*(*(a1 + 40) + 16))();
@@ -892,52 +871,35 @@ void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandle
 
       else
       {
-        v12 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v16 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(v9, v10);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_1((a1 + 32));
+          __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_1();
         }
       }
     }
   }
 }
 
-void __62___ASPasswordManagerIconController__mobileSafariContainerPath__block_invoke_cold_1()
+void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __97___ASPasswordManagerIconController__requestTouchIconForDomain_options_requestID_responseHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_2(uint64_t *a1)
+void __74___ASPasswordManagerIconController_fetchAppIconForDomain_responseHandler___block_invoke_2_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

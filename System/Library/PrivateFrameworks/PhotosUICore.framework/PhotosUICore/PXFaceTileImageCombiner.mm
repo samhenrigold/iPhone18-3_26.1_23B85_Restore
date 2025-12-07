@@ -242,74 +242,74 @@ void __78__PXFaceTileImageCombiner_requestCombinedImageForItems_context_resultHa
   objc_destroyWeak(v23);
 }
 
-void __78__PXFaceTileImageCombiner_requestCombinedImageForItems_context_resultHandler___block_invoke_2_88(uint64_t a1)
+void __78__PXFaceTileImageCombiner_requestCombinedImageForItems_context_resultHandler___block_invoke_2_88(uint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = PLUIGetLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-  if (v2)
+  v31 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = PLUIGetLog();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v7 = *(a1 + 96);
+      v6 = *(a1 + 40);
+      v7 = *(a1 + 48);
+      v8 = *(a1 + 96);
       *buf = 138412802;
-      v23 = v5;
-      v24 = 2112;
-      v25 = v6;
-      v26 = 2048;
-      v27 = v7;
-      _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "%@ Received image for item:%@, generation:%lu", buf, 0x20u);
+      v24 = v6;
+      v25 = 2112;
+      v26 = v7;
+      v27 = 2048;
+      v28 = v8;
+      _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_DEBUG, "%@ Received image for item:%@, generation:%lu", buf, 0x20u);
     }
 
     [*(a1 + 56) replacePointerAtIndex:*(a1 + 104) withPointer:*(a1 + 32)];
-    v8 = PLUIGetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLUIGetLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 96);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 96);
       *buf = 138412546;
-      v23 = v9;
-      v24 = 2048;
-      v25 = v10;
-      _os_log_impl(&dword_1A3C1C000, v8, OS_LOG_TYPE_DEBUG, "%@ Generating a combined image for generation:%lu", buf, 0x16u);
+      v24 = v10;
+      v25 = 2048;
+      v26 = v11;
+      _os_log_impl(&dword_1A3C1C000, v9, OS_LOG_TYPE_DEBUG, "%@ Generating a combined image for generation:%lu", buf, 0x16u);
     }
 
-    v11 = [PXFaceTileImageCombiner _generateCombinedImageFromImages:*(a1 + 56) context:*(a1 + 64)];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __78__PXFaceTileImageCombiner_requestCombinedImageForItems_context_resultHandler___block_invoke_89;
-    v18[3] = &unk_1E7743E48;
-    objc_copyWeak(v21, (a1 + 88));
-    v12 = *(a1 + 96);
-    v19 = v11;
-    v21[1] = v12;
-    v20 = *(a1 + 80);
-    v13 = v11;
-    dispatch_async(MEMORY[0x1E69E96A0], v18);
+    v12 = [PXFaceTileImageCombiner _generateCombinedImageFromImages:*(a1 + 56) context:*(a1 + 64)];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __78__PXFaceTileImageCombiner_requestCombinedImageForItems_context_resultHandler___block_invoke_89;
+    v19[3] = &unk_1E7743E48;
+    objc_copyWeak(v22, (a1 + 88));
+    v13 = *(a1 + 96);
+    v20 = v12;
+    v22[1] = v13;
+    v21 = *(a1 + 80);
+    v14 = v12;
+    dispatch_async(MEMORY[0x1E69E96A0], v19);
 
-    objc_destroyWeak(v21);
+    objc_destroyWeak(v22);
   }
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 48);
-      v16 = *(a1 + 96);
-      v17 = *(a1 + 72);
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 48);
+      v17 = *(a1 + 96);
+      v18 = *(a1 + 72);
       *buf = 138413058;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      v26 = 2048;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "%@ No image for item:%@, generation:%lu, error:%@", buf, 0x2Au);
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2048;
+      v28 = v17;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_DEBUG, "%@ No image for item:%@, generation:%lu, error:%@", buf, 0x2Au);
     }
   }
 }

@@ -34,7 +34,7 @@
 
 - (void)_updateTimers
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (self->_fireTimer && [(PCDispatchTimer *)self->_preventSleepTimer isValid])
   {
     if (self->_sleepIsImminent)
@@ -57,7 +57,7 @@ LABEL_7:
       [(PCDispatchTimer *)fireTimer setFireDate:distantFuture2];
 LABEL_31:
 
-      goto LABEL_32;
+      return;
     }
 
     Current = CFAbsoluteTimeGetCurrent();
@@ -72,8 +72,8 @@ LABEL_31:
         v14 = self->_lastUpdateTime - v10;
         *buf = 138543618;
         selfCopy2 = v13;
-        v36 = 2048;
-        v37 = v14;
+        v35 = 2048;
+        v36 = v14;
         _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "Firing simple timer that was scheduled to fire at [%{public}@] since time has moved backwards by at least %g seconds", buf, 0x16u);
       }
 
@@ -87,9 +87,9 @@ LABEL_31:
     fireTime = self->_fireTime;
     if (PCScheduledWakeRTCPrecision_onceToken != -1)
     {
-      v33 = self->_fireTime;
+      v32 = self->_fireTime;
       PCScheduledWakeRTCPrecision_cold_1();
-      fireTime = v33;
+      fireTime = v32;
     }
 
     v17 = [v15 dateWithTimeIntervalSinceReferenceDate:fireTime - *&PCScheduledWakeRTCPrecision_scheduledWakeRTCPrecision];
@@ -122,8 +122,8 @@ LABEL_31:
           v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
           *buf = 138543618;
           selfCopy2 = self;
-          v36 = 2114;
-          v37 = v24;
+          v35 = 2114;
+          v36 = v24;
           _os_log_impl(&dword_25E3EF000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ Canceling system wake for simpletimer [%{public}@]", buf, 0x16u);
         }
 
@@ -146,12 +146,12 @@ LABEL_29:
         earlyFireDelta = self->_earlyFireDelta;
         *buf = 138544130;
         selfCopy2 = self;
-        v36 = 2114;
-        v37 = v27;
-        v38 = 2114;
-        v39 = v28;
-        v40 = 2048;
-        v41 = earlyFireDelta;
+        v35 = 2114;
+        v36 = v27;
+        v37 = 2114;
+        v38 = v28;
+        v39 = 2048;
+        v40 = earlyFireDelta;
         _os_log_impl(&dword_25E3EF000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ Existing wake at %{public}@ re-scheduling to %{public}@ with leeway of %g", buf, 0x2Au);
       }
 
@@ -170,14 +170,11 @@ LABEL_29:
 
     goto LABEL_31;
   }
-
-LABEL_32:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleTimer
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   fireTimer = selfCopy->_fireTimer;
@@ -188,11 +185,11 @@ LABEL_32:
     {
       v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:selfCopy->_fireTime];
       v6 = PCStringFromDate(v5);
-      v20 = 138543618;
-      v21 = selfCopy;
-      v22 = 2114;
-      v23 = v6;
-      _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "Started simple timer %{public}@ with fire date [%{public}@]", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = selfCopy;
+      v21 = 2114;
+      v22 = v6;
+      _os_log_impl(&dword_25E3EF000, v4, OS_LOG_TYPE_DEFAULT, "Started simple timer %{public}@ with fire date [%{public}@]", &v19, 0x16u);
     }
 
     Current = CFAbsoluteTimeGetCurrent();
@@ -225,15 +222,15 @@ LABEL_32:
     {
       v17 = selfCopy->_preventSleepTimer;
       v18 = selfCopy->_fireTimer;
-      v20 = 138544130;
-      v21 = selfCopy;
-      v22 = 2114;
-      v23 = v17;
-      v24 = 2114;
-      v25 = v18;
-      v26 = 2114;
-      v27 = v11;
-      _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ created preventSleepTimer %{public}@ and fireTimer %{public}@ on queue %{public}@", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = selfCopy;
+      v21 = 2114;
+      v22 = v17;
+      v23 = 2114;
+      v24 = v18;
+      v25 = 2114;
+      v26 = v11;
+      _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ created preventSleepTimer %{public}@ and fireTimer %{public}@ on queue %{public}@", &v19, 0x2Au);
     }
 
     fireTimer = selfCopy->_fireTimer;
@@ -245,8 +242,6 @@ LABEL_32:
   [(PCSimpleTimer *)selfCopy _setSignificantTimeChangeMonitoringEnabled:1];
   [(PCSimpleTimer *)selfCopy _updateTimers];
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)lastSystemWakeDate
@@ -333,7 +328,7 @@ LABEL_32:
 
 - (void)_fireTimerFired
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_target)
@@ -347,7 +342,7 @@ LABEL_32:
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = selfCopy;
+      v16 = selfCopy;
       _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "SimpleTimer %{public}@ has fired", buf, 0xCu);
     }
 
@@ -398,13 +393,11 @@ LABEL_32:
     block[1] = 3221225472;
     block[2] = __32__PCSimpleTimer__fireTimerFired__block_invoke;
     block[3] = &unk_279A1A2E0;
-    v14 = selfCopy;
-    v15 = selector;
-    v13 = v4;
+    v13 = selfCopy;
+    v14 = selector;
+    v12 = v4;
     dispatch_async(queue, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (PCSimpleTimer)initWithFireDate:(id)date serviceIdentifier:(id)identifier target:(id)target selector:(SEL)selector userInfo:(id)info
@@ -471,7 +464,7 @@ LABEL_32:
 - (void)updateFireTime:(double)time triggerOnGMTChange:(BOOL)change
 {
   changeCopy = change;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   fireTime = selfCopy->_fireTime;
@@ -488,7 +481,7 @@ LABEL_32:
       v14 = v13;
       triggerOnGMTChange = selfCopy->_triggerOnGMTChange;
       v16 = @"NO";
-      v19 = 138544898;
+      v18 = 138544898;
       if (triggerOnGMTChange)
       {
         v17 = @"YES";
@@ -499,25 +492,25 @@ LABEL_32:
         v17 = @"NO";
       }
 
-      v20 = selfCopy;
-      v21 = 2114;
+      v19 = selfCopy;
+      v20 = 2114;
       if (changeCopy)
       {
         v16 = @"YES";
       }
 
-      v22 = v11;
-      v23 = 2048;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v13;
-      v27 = 2048;
-      v28 = v10;
-      v29 = 2114;
-      v30 = v17;
-      v31 = 2114;
-      v32 = v16;
-      _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ updateFireTime from %{public}@ + %g to %{public}@ + %g, trigger from %{public}@ to %{public}@", &v19, 0x48u);
+      v21 = v11;
+      v22 = 2048;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v13;
+      v26 = 2048;
+      v27 = v10;
+      v28 = 2114;
+      v29 = v17;
+      v30 = 2114;
+      v31 = v16;
+      _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ updateFireTime from %{public}@ + %g to %{public}@ + %g, trigger from %{public}@ to %{public}@", &v18, 0x48u);
     }
 
     selfCopy->_earlyFireDelta = v10;
@@ -527,8 +520,6 @@ LABEL_32:
   }
 
   objc_sync_exit(selfCopy);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDisableSystemWaking:(BOOL)waking
@@ -643,7 +634,7 @@ LABEL_3:
 - (void)_invalidateAllowAsync:(BOOL)async
 {
   asyncCopy = async;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_target)
@@ -652,7 +643,7 @@ LABEL_3:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = selfCopy;
+      v23 = selfCopy;
       _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating simple timer %{public}@", buf, 0xCu);
     }
 
@@ -688,7 +679,7 @@ LABEL_3:
         {
           v17 = PCStringFromDate(selfCopy->_scheduledWakeDate);
           *buf = 138543362;
-          v24 = v17;
+          v23 = v17;
           _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "Canceling system wake for simpletimer [%{public}@]", buf, 0xCu);
         }
 
@@ -702,7 +693,7 @@ LABEL_3:
         {
           v15 = PCStringFromDate(selfCopy->_scheduledWakeDate);
           *buf = 138543362;
-          v24 = v15;
+          v23 = v15;
           _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Not canceling system wake for [%{public}@], which is in the past", buf, 0xCu);
         }
       }
@@ -718,7 +709,7 @@ LABEL_3:
       {
         powerAssertionID = selfCopy->_powerAssertionID;
         *buf = 67109120;
-        LODWORD(v24) = powerAssertionID;
+        LODWORD(v23) = powerAssertionID;
         _os_log_impl(&dword_25E3EF000, v19, OS_LOG_TYPE_DEFAULT, "Releasing prevent sleep power assertion %i", buf, 8u);
       }
 
@@ -740,8 +731,6 @@ LABEL_3:
   }
 
   objc_sync_exit(selfCopy);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isValid
@@ -788,11 +777,10 @@ LABEL_3:
 
 - (void)_preventSleepFired
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_fault_impl(&dword_25E3EF000, a2, OS_LOG_TYPE_FAULT, "Unable to take power assertion. IOPMAssertionCreateWithDescription() returned %#x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_fault_impl(&dword_25E3EF000, a2, OS_LOG_TYPE_FAULT, "Unable to take power assertion. IOPMAssertionCreateWithDescription() returned %#x", v2, 8u);
 }
 
 - (void)_setPowerMonitoringEnabled:(BOOL)enabled
@@ -800,7 +788,7 @@ LABEL_3:
   if (enabled)
   {
     selfCopy2 = self;
-    v4 = _GetPowerMonitoringQueue();
+    v4 = _GetPowerMonitoringQueue(selfCopy2);
     block = MEMORY[0x277D85DD0];
     v8 = 3221225472;
     v5 = ___EnablePowerMonitoring_block_invoke;
@@ -809,7 +797,7 @@ LABEL_3:
   else
   {
     selfCopy2 = self;
-    v4 = _GetPowerMonitoringQueue();
+    v4 = _GetPowerMonitoringQueue(selfCopy2);
     block = MEMORY[0x277D85DD0];
     v8 = 3221225472;
     v5 = ___DisablePowerMonitoring_block_invoke;

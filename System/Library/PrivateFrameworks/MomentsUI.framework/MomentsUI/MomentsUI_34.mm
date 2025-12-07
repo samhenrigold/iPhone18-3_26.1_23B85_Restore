@@ -60,12 +60,12 @@ void CloudManager.handleWillFetchChanges(_:syncEngine:)()
   v3 = v0[27];
   v4 = v0[18];
   v5 = v0[15];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_21658CA50;
   Changes = type metadata accessor for CKSyncEngine.Event.WillFetchChanges();
   *(v6 + 56) = Changes;
-  *(v6 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.WillFetchChanges and conformance CKSyncEngine.Event.WillFetchChanges, MEMORY[0x277CBBD10]);
+  *(v6 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.WillFetchChanges and conformance CKSyncEngine.Event.WillFetchChanges, MEMORY[0x277CBBD10], MEMORY[0x277CBBD18]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v6 + 32));
   (*(*(Changes - 8) + 16))(boxed_opaque_existential_1, v5, Changes);
   static CloudLog.LogBegin(_:_:)(v6, "handleWillFetchChanges(_:syncEngine:)", 37, 2, v4, &protocol witness table for CloudManager);
@@ -126,7 +126,7 @@ void CloudManager.handleWillFetchChanges(_:syncEngine:)()
     *(v31 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000025, 0x8000000216584C50, &v74);
     *(v31 + 22) = 2080;
     MEMORY[0x21CE916C0]();
-    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.FetchChangesOptions.Scope and conformance CKSyncEngine.FetchChangesOptions.Scope, MEMORY[0x277CBBC38]);
+    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.FetchChangesOptions.Scope and conformance CKSyncEngine.FetchChangesOptions.Scope, MEMORY[0x277CBBC38], MEMORY[0x277CBBC40]);
     v35 = dispatch thunk of CustomStringConvertible.description.getter();
     v37 = v36;
     (*(v29 + 8))(v28, v30);
@@ -137,7 +137,7 @@ void CloudManager.handleWillFetchChanges(_:syncEngine:)()
     *(v31 + 24) = v39;
     *(v31 + 32) = 2080;
     v40 = CKSyncEngine.FetchChangesOptions.prioritizedZoneIDs.getter();
-    v41 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+    v41 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
     v42 = MEMORY[0x21CE922B0](v40, v41);
     v44 = v43;
 
@@ -260,77 +260,78 @@ uint64_t CloudManager.handleWillFetchChanges(_:syncEngine:)()
   return MEMORY[0x2822009F8](CloudManager.handleWillFetchChanges(_:syncEngine:), v1, 0);
 }
 
+uint64_t CloudManager.handleWillFetchChanges(_:syncEngine:)(uint64_t a1)
 {
-  v35 = v0;
-  v1 = v0[44];
-  v2 = v0[37];
-  v3 = v0[36];
-  v4 = v0[25];
-  v5 = v0[23];
-  v6 = v0[19];
+  v36 = v1;
+  v2 = v1[44];
+  v3 = v1[37];
+  v4 = v1[36];
+  v5 = v1[25];
+  v6 = v1[23];
+  v7 = v1[19];
   static Date.now.getter();
-  CloudManager.lastSyncEnd.setter(v6);
-  v2(v4, v3, v5);
-  v7 = v1;
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.error.getter();
+  CloudManager.lastSyncEnd.setter(v7);
+  v3(v5, v4, v6);
+  v8 = v2;
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v9, v10))
   {
-    v10 = v0[44];
-    v32 = v0[35];
-    v33 = v0[39];
-    v30 = v0[40];
-    v31 = v0[30];
-    v28 = v0[23];
-    v29 = v0[25];
-    v11 = swift_slowAlloc();
+    v11 = v1[44];
+    v33 = v1[35];
+    v34 = v1[39];
+    v31 = v1[40];
+    v32 = v1[30];
+    v29 = v1[23];
+    v30 = v1[25];
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v34 = v13;
-    *v11 = 136446722;
+    v14 = swift_slowAlloc();
+    v35 = v14;
+    *v12 = 136446722;
     swift_beginAccess();
-    v14 = StaticString.description.getter();
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v34);
+    v15 = StaticString.description.getter();
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v35);
 
-    *(v11 + 4) = v16;
-    *(v11 + 12) = 2082;
-    *(v11 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000025, 0x8000000216584C50, &v34);
-    *(v11 + 22) = 2112;
-    v17 = v10;
-    v18 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 24) = v18;
-    *v12 = v18;
-    _os_log_impl(&dword_21607C000, v8, v9, "%{public}s.%{public}s CloudKit Fetch ABORTED %@", v11, 0x20u);
-    outlined destroy of UTType?(v12, &_sSo8NSObjectCSgMd);
-    MEMORY[0x21CE94770](v12, -1, -1);
-    swift_arrayDestroy();
+    *(v12 + 4) = v17;
+    *(v12 + 12) = 2082;
+    *(v12 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000025, 0x8000000216584C50, &v35);
+    *(v12 + 22) = 2112;
+    v18 = v11;
+    v19 = _swift_stdlib_bridgeErrorToNSError();
+    *(v12 + 24) = v19;
+    *v13 = v19;
+    _os_log_impl(&dword_21607C000, v9, v10, "%{public}s.%{public}s CloudKit Fetch ABORTED %@", v12, 0x20u);
+    outlined destroy of UTType?(v13, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v13, -1, -1);
-    MEMORY[0x21CE94770](v11, -1, -1);
+    swift_arrayDestroy();
+    MEMORY[0x21CE94770](v14, -1, -1);
+    MEMORY[0x21CE94770](v12, -1, -1);
 
-    v30(v29, v28);
-    v33(v32, v31);
+    v31(v30, v29);
+    v34(v33, v32);
   }
 
   else
   {
-    v19 = v0[44];
-    v21 = v0[39];
-    v20 = v0[40];
-    v22 = v0[35];
-    v23 = v0[30];
-    v24 = v0[25];
-    v25 = v0[23];
+    v20 = v1[44];
+    v22 = v1[39];
+    v21 = v1[40];
+    v23 = v1[35];
+    v24 = v1[30];
+    v25 = v1[25];
+    v26 = v1[23];
 
-    v20(v24, v25);
-    v21(v22, v23);
+    v21(v25, v26);
+    v22(v23, v24);
   }
 
-  static CloudLog.LogEnd(_:)("handleWillFetchChanges(_:syncEngine:)", 37, 2, v0[18], &protocol witness table for CloudManager);
+  static CloudLog.LogEnd(_:)("handleWillFetchChanges(_:syncEngine:)", 37, 2, v1[18], &protocol witness table for CloudManager);
 
-  v26 = v0[1];
+  v27 = v1[1];
 
-  return v26();
+  return v27();
 }
 
 uint64_t CloudManager.handleDidFetchChanges(_:syncEngine:)(uint64_t a1, uint64_t a2)
@@ -366,12 +367,12 @@ uint64_t CloudManager.handleDidFetchChanges(_:syncEngine:)()
   v2 = v0[14];
   v1 = v0[15];
   v3 = v0[12];
-  v0[29] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  v0[29] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_21658CA50;
   Changes = type metadata accessor for CKSyncEngine.Event.DidFetchChanges();
   *(v4 + 56) = Changes;
-  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.DidFetchChanges and conformance CKSyncEngine.Event.DidFetchChanges, MEMORY[0x277CBBCF0]);
+  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.DidFetchChanges and conformance CKSyncEngine.Event.DidFetchChanges, MEMORY[0x277CBBCF0], MEMORY[0x277CBBCF8]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v4 + 32));
   (*(*(Changes - 8) + 16))(boxed_opaque_existential_1, v3, Changes);
   static CloudLog.LogBegin(_:_:)(v4, "handleDidFetchChanges(_:syncEngine:)", 36, 2, v1, &protocol witness table for CloudManager);
@@ -486,7 +487,7 @@ uint64_t CloudManager.handleDidFetchChanges(_:syncEngine:)()
     *(v14 + 14) = v18;
     *v15 = v18;
     _os_log_impl(&dword_21607C000, v7, v8, "CloudManager.%{public}s: CloudKit Fetch FAILED %@", v14, 0x16u);
-    outlined destroy of UTType?(v15, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v15, -1, -1);
     __swift_destroy_boxed_opaque_existential_1(v16);
     MEMORY[0x21CE94770](v16, -1, -1);
@@ -509,96 +510,96 @@ uint64_t CloudManager.handleDidFetchChanges(_:syncEngine:)()
   return v21();
 }
 
-id CloudManager.handleDidFetchChanges(_:syncEngine:)()
+id CloudManager.handleDidFetchChanges(_:syncEngine:)(__n128 a1)
 {
-  *(v0 + 72) = MEMORY[0x277D84FA0];
+  *(v1 + 72) = MEMORY[0x277D84FA0];
   CKSyncEngine.state.getter();
-  v1 = CKSyncEngine.State.pendingDatabaseChanges.getter();
+  v2 = CKSyncEngine.State.pendingDatabaseChanges.getter();
 
-  v2 = *(v1 + 16);
+  v3 = *(v2 + 16);
 
-  if (v2)
+  if (v3)
   {
     CKSyncEngine.state.getter();
-    v3 = CKSyncEngine.State.pendingDatabaseChanges.getter();
+    v4 = CKSyncEngine.State.pendingDatabaseChanges.getter();
 
-    v4 = CloudManager._pendingDatabaseChanges2ZoneIDs(changes:)(v3);
+    v5 = CloudManager._pendingDatabaseChanges2ZoneIDs(changes:)(v4);
 
-    specialized Set.formUnion<A>(_:)(v4);
+    specialized Set.formUnion<A>(_:)(v5);
   }
 
   CKSyncEngine.state.getter();
-  v5 = CKSyncEngine.State.pendingRecordZoneChanges.getter();
+  v6 = CKSyncEngine.State.pendingRecordZoneChanges.getter();
 
-  v6 = *(v5 + 16);
+  v7 = *(v6 + 16);
 
-  if (v6)
+  if (v7)
   {
     CKSyncEngine.state.getter();
-    v7 = CKSyncEngine.State.pendingRecordZoneChanges.getter();
+    v8 = CKSyncEngine.State.pendingRecordZoneChanges.getter();
 
-    v8 = CloudManager._pendingRecordZoneChanges2ZoneIDs(changes:)(v7);
+    v9 = CloudManager._pendingRecordZoneChanges2ZoneIDs(changes:)(v8);
 
-    specialized Set.formUnion<A>(_:)(v8);
+    specialized Set.formUnion<A>(_:)(v9);
   }
 
-  v9 = *(v0 + 72);
-  *(v0 + 272) = v9;
-  if ((v9 & 0xC000000000000001) != 0)
+  v10 = *(v1 + 72);
+  *(v1 + 272) = v10;
+  if ((v10 & 0xC000000000000001) != 0)
   {
-    v10 = __CocoaSet.count.getter();
+    v11 = __CocoaSet.count.getter();
   }
 
   else
   {
-    v10 = *(v9 + 16);
+    v11 = *(v10 + 16);
   }
 
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_21658CA40;
-  v12 = MEMORY[0x277D837D0];
-  v13 = MEMORY[0x277D83838];
-  *(v11 + 56) = MEMORY[0x277D837D0];
-  *(v11 + 64) = v13;
-  v14 = MEMORY[0x277D83B88];
-  v15 = MEMORY[0x277D83BF8];
-  *(v11 + 32) = 0xD00000000000004ALL;
-  *(v11 + 40) = 0x8000000216584CB0;
-  *(v11 + 96) = v14;
-  *(v11 + 104) = v15;
-  v16 = v14;
-  *(v11 + 72) = v10;
-  *(v0 + 80) = 1;
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_21658CA40;
+  v13 = MEMORY[0x277D837D0];
+  v14 = MEMORY[0x277D83838];
+  *(v12 + 56) = MEMORY[0x277D837D0];
+  *(v12 + 64) = v14;
+  v15 = MEMORY[0x277D83B88];
+  v16 = MEMORY[0x277D83BF8];
+  *(v12 + 32) = 0xD00000000000004ALL;
+  *(v12 + 40) = 0x8000000216584CB0;
+  *(v12 + 96) = v15;
+  *(v12 + 104) = v16;
+  v17 = v15;
+  *(v12 + 72) = v11;
+  *(v1 + 80) = 1;
   type metadata accessor for CKOperationGroupTransferSize(0);
-  v17 = String.init<A>(describing:)();
-  *(v11 + 136) = v12;
-  *(v11 + 144) = v13;
-  *(v11 + 112) = v17;
-  *(v11 + 120) = v18;
-  *(v11 + 176) = v12;
-  *(v11 + 184) = v13;
-  *(v11 + 152) = 0xD000000000000024;
-  *(v11 + 160) = 0x8000000216584C80;
-  *(v11 + 216) = v16;
-  *(v11 + 224) = v15;
-  *(v11 + 192) = 1826;
+  v18 = String.init<A>(describing:)();
+  *(v12 + 136) = v13;
+  *(v12 + 144) = v14;
+  *(v12 + 112) = v18;
+  *(v12 + 120) = v19;
+  *(v12 + 176) = v13;
+  *(v12 + 184) = v14;
+  *(v12 + 152) = 0xD000000000000024;
+  *(v12 + 160) = 0x8000000216584C80;
+  *(v12 + 216) = v17;
+  *(v12 + 224) = v16;
+  *(v12 + 192) = 1826;
   if (one-time initialization token for $inDelegate != -1)
   {
     swift_once();
   }
 
-  v19 = *(v0 + 120);
+  v20 = *(v1 + 120);
   TaskLocal.get()();
-  v20 = *(v0 + 312);
-  v21 = MEMORY[0x277D839D8];
-  *(v11 + 256) = MEMORY[0x277D839B0];
-  *(v11 + 264) = v21;
-  *(v11 + 232) = v20;
-  static CloudLog.LogBegin(_:_:)(v11, "_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, v19, &protocol witness table for CloudManager);
+  v21 = *(v1 + 312);
+  v22 = MEMORY[0x277D839D8];
+  *(v12 + 256) = MEMORY[0x277D839B0];
+  *(v12 + 264) = v22;
+  *(v12 + 232) = v21;
+  static CloudLog.LogBegin(_:_:)(v12, "_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, v20, &protocol witness table for CloudManager);
 
-  if ((v9 & 0xC000000000000001) != 0)
+  if ((v10 & 0xC000000000000001) != 0)
   {
-    v22 = v10;
+    v24 = v11;
     if (!__CocoaSet.count.getter())
     {
       goto LABEL_17;
@@ -607,95 +608,95 @@ id CloudManager.handleDidFetchChanges(_:syncEngine:)()
 
   else
   {
-    v22 = v10;
-    if (!*(v9 + 16))
+    v24 = v11;
+    if (!*(v10 + 16))
     {
 LABEL_17:
-      static CloudLog.LogEnd(_:)("_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, *(v0 + 120), &protocol witness table for CloudManager);
+      static CloudLog.LogEnd(_:)("_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, *(v1 + 120), &protocol witness table for CloudManager);
 
-      v40 = *(v0 + 224);
-      v41 = *(v0 + 120);
+      v42 = *(v1 + 224);
+      v43 = *(v1 + 120);
       static Date.now.getter();
-      CloudManager.lastSyncEnd.setter(v40);
-      static CloudLog.LogEnd(_:)("handleDidFetchChanges(_:syncEngine:)", 36, 2, v41, &protocol witness table for CloudManager);
+      CloudManager.lastSyncEnd.setter(v42);
+      static CloudLog.LogEnd(_:)("handleDidFetchChanges(_:syncEngine:)", 36, 2, v43, &protocol witness table for CloudManager);
 
-      v42 = *(v0 + 8);
+      v44 = *(v1 + 8);
 
-      return v42();
+      return v44();
     }
   }
 
-  v49 = specialized _copyCollectionToContiguousArray<A>(_:)(v9);
-  v23 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
-  *(v0 + 280) = v23;
-  v24 = MEMORY[0x21CE91FC0](0xD00000000000004ALL, 0x8000000216584CB0);
-  [v23 setName_];
+  v51 = specialized _copyCollectionToContiguousArray<A>(_:)(v10, v23);
+  v25 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
+  *(v1 + 280) = v25;
+  v26 = MEMORY[0x21CE91FC0](0xD00000000000004ALL, 0x8000000216584CB0);
+  [v25 setName_];
 
-  [v23 setQuantity_];
-  [v23 setExpectedSendSize_];
-  result = [v23 defaultConfiguration];
+  [v25 setQuantity_];
+  [v25 setExpectedSendSize_];
+  result = [v25 defaultConfiguration];
   if (!result)
   {
     __break(1u);
     return result;
   }
 
-  v26 = result;
-  v28 = *(v0 + 208);
-  v27 = *(v0 + 216);
-  v46 = *(v0 + 200);
-  v47 = *(v0 + 192);
-  v29 = *(v0 + 176);
-  v30 = *(v0 + 184);
-  v31 = *(v0 + 160);
-  v32 = *(v0 + 168);
-  v33 = *(v0 + 152);
-  v50 = *(v0 + 120);
-  v48 = *(v0 + 104);
+  v28 = result;
+  v30 = *(v1 + 208);
+  v29 = *(v1 + 216);
+  v48 = *(v1 + 200);
+  v49 = *(v1 + 192);
+  v31 = *(v1 + 176);
+  v32 = *(v1 + 184);
+  v33 = *(v1 + 160);
+  v34 = *(v1 + 168);
+  v35 = *(v1 + 152);
+  v52 = *(v1 + 120);
+  v50 = *(v1 + 104);
   [result setAllowsCellularAccess_];
 
-  *v32 = v49;
-  (*(v31 + 104))(v32, *MEMORY[0x277CBBC18], v33);
-  v34 = v23;
+  *v34 = v51;
+  (*(v33 + 104))(v34, *MEMORY[0x277CBBC18], v35);
+  v36 = v25;
   CKSyncEngine.SendChangesOptions.init(scope:operationGroup:)();
-  v35 = *(v30 + 16);
-  v35(v28, v27, v29);
-  v35(v46, v28, v29);
-  v36 = (*(v30 + 80) + 48) & ~*(v30 + 80);
-  v37 = swift_allocObject();
-  *(v0 + 288) = v37;
-  *(v37 + 2) = 0xD000000000000024;
-  *(v37 + 3) = 0x8000000216584C80;
-  *(v37 + 4) = 1826;
-  *(v37 + 5) = v48;
-  (*(v30 + 32))(&v37[v36], v28, v29);
-  *&v37[(v47 + v36 + 7) & 0xFFFFFFFFFFFFFFF8] = v50;
+  v37 = *(v32 + 16);
+  v37(v30, v29, v31);
+  v37(v48, v30, v31);
+  v38 = (*(v32 + 80) + 48) & ~*(v32 + 80);
+  v39 = swift_allocObject();
+  *(v1 + 288) = v39;
+  *(v39 + 2) = 0xD000000000000024;
+  *(v39 + 3) = 0x8000000216584C80;
+  *(v39 + 4) = 1826;
+  *(v39 + 5) = v50;
+  (*(v32 + 32))(&v39[v38], v30, v31);
+  *&v39[(v49 + v38 + 7) & 0xFFFFFFFFFFFFFFF8] = v52;
 
   TaskLocal.get()();
-  if (*(v0 + 313))
+  if (*(v1 + 313))
   {
-    v38 = *(*(v0 + 184) + 8);
-    v38(*(v0 + 200), *(v0 + 176));
+    v40 = *(*(v1 + 184) + 8);
+    v40(*(v1 + 200), *(v1 + 176));
     _StringGuts.grow(_:)(27);
 
-    *(v0 + 88) = 1826;
-    v39 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x21CE92100](v39);
+    *(v1 + 88) = 1826;
+    v41 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x21CE92100](v41);
 
-    specialized static BTask.detached(name:operation:)(0xD00000000000007DLL, 0x8000000216584D50, &async function pointer to partial apply for closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:), v37);
+    specialized static BTask.detached(name:operation:)(0xD00000000000007DLL, 0x8000000216584D50, &async function pointer to partial apply for closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:), v39);
 
-    v38(*(v0 + 216), *(v0 + 176));
+    v40(*(v1 + 216), *(v1 + 176));
     goto LABEL_17;
   }
 
-  v43 = swift_task_alloc();
-  *(v0 + 296) = v43;
-  *v43 = v0;
-  v43[1] = CloudManager.handleDidFetchChanges(_:syncEngine:);
-  v44 = *(v0 + 200);
-  v45 = *(v0 + 104);
+  v45 = swift_task_alloc();
+  *(v1 + 296) = v45;
+  *v45 = v1;
+  v45[1] = CloudManager.handleDidFetchChanges(_:syncEngine:);
+  v46 = *(v1 + 200);
+  v47 = *(v1 + 104);
 
-  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(0xD000000000000024, 0x8000000216584C80, 1826, v45, v44);
+  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(0xD000000000000024, 0x8000000216584C80, 1826, v47, v46);
 }
 
 uint64_t CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -705,7 +706,7 @@ uint64_t CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)(uint64_t a1, uint
   v4[6] = a1;
   v4[7] = a2;
   v4[10] = *v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd, &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMR);
   v4[11] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](CloudManager.nextRecordZoneChangeBatch(_:syncEngine:), v3, 0);
@@ -716,12 +717,12 @@ uint64_t CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
   v2 = v0[9];
   v1 = v0[10];
   v3 = v0[7];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_21658CA50;
   v5 = type metadata accessor for CKSyncEngine.SendChangesContext();
   *(v4 + 56) = v5;
-  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.SendChangesContext and conformance CKSyncEngine.SendChangesContext, MEMORY[0x277CBBC08]);
+  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.SendChangesContext and conformance CKSyncEngine.SendChangesContext, MEMORY[0x277CBBC08], MEMORY[0x277CBBC10]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v4 + 32));
   (*(*(v5 - 8) + 16))(boxed_opaque_existential_1, v3, v5);
   static CloudLog.LogBegin(_:_:)(v4, "nextRecordZoneChangeBatch(_:syncEngine:)", 40, 2, v1, &protocol witness table for CloudManager);
@@ -763,7 +764,7 @@ uint64_t CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
   *(v7 + 40) = v4;
   *(v7 + 48) = v6;
   *(v7 + 56) = v5;
-  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager);
+  _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager, &protocol conformance descriptor for CloudManager);
   v8 = swift_task_alloc();
   *(v0 + 120) = v8;
   *v8 = v0;
@@ -774,7 +775,7 @@ uint64_t CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
 
 {
   v1 = v0[10];
-  outlined init with take of URL?(v0[11], v0[6], &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd);
+  outlined init with take of URL?(v0[11], v0[6], &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd, &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMR);
   static CloudLog.LogEnd(_:)("nextRecordZoneChangeBatch(_:syncEngine:)", 40, 2, v1, &protocol witness table for CloudManager);
 
   v2 = v0[1];
@@ -814,7 +815,7 @@ uint64_t closure #1 in CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)(uin
   v7[5] = a5;
   v7[2] = a2;
   v7[3] = a3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd, &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMR);
   v7[8] = swift_task_alloc();
   v9 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
   v7[9] = v9;
@@ -924,7 +925,7 @@ uint64_t closure #1 in CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
           *v30 = 136446466;
           *(v30 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x8000000216584DD0, v194);
           *(v30 + 12) = 2080;
-          _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78]);
+          _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78], MEMORY[0x277CBBC80]);
           v32 = v10;
           v33 = dispatch thunk of CustomStringConvertible.description.getter();
           v34 = v9;
@@ -963,7 +964,7 @@ uint64_t closure #1 in CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
         v66 = v9[3];
         if (v67 >= v66 >> 1)
         {
-          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v66 > 1, v67 + 1, 1, v9);
+          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v66 > 1), v67 + 1, 1, v9);
         }
 
         v68 = v0[18];
@@ -1005,7 +1006,7 @@ uint64_t closure #1 in CloudManager.nextRecordZoneChangeBatch(_:syncEngine:)()
         {
           if (*(v187 + 16))
           {
-            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+            type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
             v118 = NSObject._rawHashValue(seed:)(*(v187 + 40));
             v119 = -1 << *(v187 + 32);
             v120 = v118 & ~v119;
@@ -1058,7 +1059,7 @@ LABEL_30:
                 *v82 = 136446466;
                 *(v82 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x8000000216584DD0, v194);
                 *(v82 + 12) = 2080;
-                _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78]);
+                _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78], MEMORY[0x277CBBC80]);
                 v83 = dispatch thunk of CustomStringConvertible.description.getter();
                 v84 = v9;
                 v86 = v85;
@@ -1116,7 +1117,7 @@ LABEL_56:
           *v133 = 136446466;
           *(v133 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x8000000216584DD0, v194);
           *(v133 + 12) = 2080;
-          _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78]);
+          _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78], MEMORY[0x277CBBC80]);
           v135 = v10;
           v136 = dispatch thunk of CustomStringConvertible.description.getter();
           v137 = v9;
@@ -1157,7 +1158,7 @@ LABEL_56:
         v115 = v114 + 1;
         if (v114 >= v143 >> 1)
         {
-          v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v143 > 1, v114 + 1, 1, v10);
+          v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v143 > 1), v114 + 1, 1, v10);
         }
 
         v116 = v0[20];
@@ -1205,7 +1206,7 @@ LABEL_8:
     {
       if (*(v187 + 16))
       {
-        type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+        type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
         v88 = NSObject._rawHashValue(seed:)(*(v187 + 40));
         v89 = -1 << *(v187 + 32);
         v90 = v88 & ~v89;
@@ -1258,7 +1259,7 @@ LABEL_17:
             *v57 = 136446466;
             *(v57 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x8000000216584DD0, v194);
             *(v57 + 12) = 2080;
-            _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78]);
+            _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78], MEMORY[0x277CBBC80]);
             v58 = v9;
             v59 = dispatch thunk of CustomStringConvertible.description.getter();
             log = v51;
@@ -1318,7 +1319,7 @@ LABEL_39:
       *v103 = 136446466;
       *(v103 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x8000000216584DD0, v194);
       *(v103 + 12) = 2080;
-      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78]);
+      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.PendingRecordZoneChange and conformance CKSyncEngine.PendingRecordZoneChange, MEMORY[0x277CBBC78], MEMORY[0x277CBBC80]);
       v105 = v10;
       v106 = dispatch thunk of CustomStringConvertible.description.getter();
       v107 = v9;
@@ -1359,7 +1360,7 @@ LABEL_39:
     v115 = v114 + 1;
     if (v114 >= v113 >> 1)
     {
-      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v113 > 1, v114 + 1, 1, v10);
+      v10 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v113 > 1), v114 + 1, 1, v10);
     }
 
     v116 = v0[20];
@@ -1447,7 +1448,7 @@ LABEL_81:
   v1 = v0[26];
   v3 = v0[24];
   v2 = v0[25];
-  outlined assign with take of AttributedString?(v0[8], v0[5], &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd);
+  outlined assign with take of AttributedString?(v0[8], v0[5], &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMd, &_s8CloudKit12CKSyncEngineC21RecordZoneChangeBatchVSgMR);
 
   (*(v2 + 8))(v1, v3);
 
@@ -1508,7 +1509,7 @@ uint64_t closure #2 in closure #1 in CloudManager.nextRecordZoneChangeBatch(_:sy
       *v8 = v6;
       v10 = v6;
       _os_log_impl(&dword_21607C000, v4, v5, "CloudManager.%{public}s Unknown recordID:%@", v7, 0x16u);
-      outlined destroy of UTType?(v8, &_sSo8NSObjectCSgMd);
+      outlined destroy of UTType?(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x21CE94770](v8, -1, -1);
       __swift_destroy_boxed_opaque_existential_1(v9);
       MEMORY[0x21CE94770](v9, -1, -1);
@@ -1517,7 +1518,7 @@ uint64_t closure #2 in closure #1 in CloudManager.nextRecordZoneChangeBatch(_:sy
 
     v11 = *(v0 + 80);
     CKSyncEngine.state.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR);
     v12 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
     v13 = *(v12 - 8);
     v14 = (*(v13 + 80) + 32) & ~*(v13 + 80);
@@ -1591,7 +1592,7 @@ uint64_t closure #2 in closure #1 in CloudManager.nextRecordZoneChangeBatch(_:sy
       *v8 = v6;
       v10 = v6;
       _os_log_impl(&dword_21607C000, v4, v5, "CloudManager.%{public}s Unknown recordID:%@", v7, 0x16u);
-      outlined destroy of UTType?(v8, &_sSo8NSObjectCSgMd);
+      outlined destroy of UTType?(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x21CE94770](v8, -1, -1);
       __swift_destroy_boxed_opaque_existential_1(v9);
       MEMORY[0x21CE94770](v9, -1, -1);
@@ -1600,7 +1601,7 @@ uint64_t closure #2 in closure #1 in CloudManager.nextRecordZoneChangeBatch(_:sy
 
     v11 = v0[10];
     CKSyncEngine.state.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_ss23_ContiguousArrayStorageCy8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR);
     v12 = type metadata accessor for CKSyncEngine.PendingRecordZoneChange();
     v13 = *(v12 - 8);
     v14 = (*(v13 + 80) + 32) & ~*(v13 + 80);
@@ -1725,7 +1726,7 @@ uint64_t CloudManager.nextFetchChangesOptions(_:syncEngine:)(uint64_t a1, uint64
   v3[21] = Changes;
   v3[22] = *(Changes - 8);
   v3[23] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMR);
   v3[24] = swift_task_alloc();
   v3[25] = swift_task_alloc();
   v3[26] = swift_task_alloc();
@@ -1745,27 +1746,27 @@ uint64_t CloudManager.nextFetchChangesOptions(_:syncEngine:)(uint64_t a1, uint64
 void CloudManager.nextFetchChangesOptions(_:syncEngine:)()
 {
   v77 = v0 + 7;
-  v85 = v0 + 15;
+  v84 = v0 + 15;
   v2 = v0[19];
   v1 = v0[20];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21658CA50;
   ChangesContext = type metadata accessor for CKSyncEngine.FetchChangesContext();
   *(v3 + 56) = ChangesContext;
-  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.FetchChangesContext and conformance CKSyncEngine.FetchChangesContext, MEMORY[0x277CBBC20]);
+  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.FetchChangesContext and conformance CKSyncEngine.FetchChangesContext, MEMORY[0x277CBBC20], MEMORY[0x277CBBC28]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v3 + 32));
   (*(*(ChangesContext - 8) + 16))(boxed_opaque_existential_1, v2, ChangesContext);
   static CloudLog.LogBegin(_:_:)(v3, "nextFetchChangesOptions(_:syncEngine:)", 38, 2, v1, &protocol witness table for CloudManager);
 
   CKSyncEngine.FetchChangesContext.options.getter();
-  v88 = MEMORY[0x277D84F90];
-  v6 = _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudDevicesDB.cloudRecordTypes);
+  v87 = MEMORY[0x277D84F90];
+  v6 = _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudDevicesDB.cloudRecordTypes, one-time initialization function for cloudRecordTypes);
   if ((v6 & 0xC000000000000001) != 0)
   {
     __CocoaSet.makeIterator()();
-    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
-    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID);
+    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
+    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8, MEMORY[0x277D85378]);
     Set.Iterator.init(_cocoa:)();
     v8 = v0[2];
     v9 = v0[3];
@@ -1779,7 +1780,7 @@ void CloudManager.nextFetchChangesOptions(_:syncEngine:)()
     v11 = 0;
     v13 = -1 << *(v6 + 32);
     v8 = v6;
-    v9 = v6 + 56;
+    v9 = (v6 + 56);
     v10 = ~v13;
     v14 = -v13;
     if (v14 < 64)
@@ -1796,12 +1797,11 @@ void CloudManager.nextFetchChangesOptions(_:syncEngine:)()
   }
 
   v79 = v0;
-  v80 = v10;
   v16 = (v10 + 64) >> 6;
-  v86 = (v0[31] + 8);
-  v83 = (v0[28] + 8);
-  v87 = MEMORY[0x277D84F90];
-  v81 = v16;
+  v85 = (v0[31] + 8);
+  v82 = (v0[28] + 8);
+  v86 = MEMORY[0x277D84F90];
+  v80 = v16;
 LABEL_8:
   v17 = v11;
   if (v8 < 0)
@@ -1815,7 +1815,7 @@ LABEL_8:
       }
 
       v79[17] = v22;
-      type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
+      type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
       swift_dynamicCast();
       v21 = v79[16];
       v11 = v17;
@@ -1834,25 +1834,25 @@ LABEL_17:
       v28 = v79[27];
       Changes = CKSyncEngine.FetchChangesContext.options.getter();
       MEMORY[0x21CE916C0](Changes);
-      (*v86)(v25, v26);
+      (*v85)(v25, v26);
       v30 = CKSyncEngine.FetchChangesOptions.Scope.contains(_:)(v21);
-      (*v83)(v27, v28);
+      (*v82)(v27, v28);
       if (v30)
       {
         v31 = v21;
         MEMORY[0x21CE92260]();
-        if (*((v88 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v88 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        if (*((v87 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v87 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-        v87 = v88;
+        v86 = v87;
         v12 = v20;
         v8 = v24;
         v9 = v23;
-        v16 = v81;
+        v16 = v80;
         goto LABEL_8;
       }
 
@@ -1860,7 +1860,7 @@ LABEL_17:
       v12 = v20;
       v8 = v24;
       v9 = v23;
-      v16 = v81;
+      v16 = v80;
       if ((v8 & 0x8000000000000000) == 0)
       {
         goto LABEL_9;
@@ -1886,11 +1886,10 @@ LABEL_9:
 
         if (v11 >= v16)
         {
-          v12 = 0;
-          goto LABEL_24;
+          goto LABEL_23;
         }
 
-        v19 = *(v9 + 8 * v11);
+        v19 = v9[v11];
         ++v18;
         if (v19)
         {
@@ -1899,7 +1898,7 @@ LABEL_9:
       }
 
       __break(1u);
-      goto LABEL_56;
+      goto LABEL_55;
     }
 
 LABEL_13:
@@ -1911,20 +1910,20 @@ LABEL_13:
     }
   }
 
-LABEL_24:
-  outlined consume of Set<CKRecordZoneID>.Iterator._Variant(v8, v9, v80, v17, v12);
-  v7 = v87;
-  if (!(v87 >> 62))
+LABEL_23:
+  outlined consume of Set<CKRecordZoneID>.Iterator._Variant(v8);
+  v7 = v86;
+  if (!(v86 >> 62))
   {
-    v32 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    goto LABEL_26;
+    v32 = *((v86 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    goto LABEL_25;
   }
 
-LABEL_56:
+LABEL_55:
   v73 = v7;
   v32 = __CocoaSet.count.getter();
   v7 = v73;
-LABEL_26:
+LABEL_25:
   v33 = v77;
   v34 = v79;
   if (v32)
@@ -1933,15 +1932,15 @@ LABEL_26:
     {
       v35 = 0;
       v36 = v79[22];
-      v82 = v7 & 0xC000000000000001;
-      v84 = v32;
+      v81 = v7 & 0xC000000000000001;
+      v83 = v32;
       v74 = v36;
       v78 = (v36 + 56);
       v75 = (v36 + 32);
       v76 = (v36 + 48);
       while (1)
       {
-        if (v82)
+        if (v81)
         {
           v39 = MEMORY[0x21CE93180](v35);
         }
@@ -1955,7 +1954,7 @@ LABEL_26:
         v41 = CKSyncEngine.FetchChangesOptions.prioritizedZoneIDs.getter();
         v34[15] = v40;
         v42 = swift_task_alloc();
-        *(v42 + 16) = v85;
+        *(v42 + 16) = v84;
         v43 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v42, v41);
 
         if ((v43 & 1) == 0)
@@ -1985,7 +1984,7 @@ LABEL_26:
 
             v57 = *v78;
             (*v78)(v54, 1, 1, v56);
-            outlined destroy of UTType?(v54, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd);
+            outlined destroy of UTType?(v54, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMR);
             v58 = v40;
             CKSyncEngine.FetchChangesOptions.ZoneConfiguration.init(shouldFetchAssetContents:resultsLimit:)();
             v57(v55, 0, 1, v56);
@@ -1995,10 +1994,10 @@ LABEL_26:
             if ((*v76)(v55, 1, v56) == 1)
             {
               v37 = v79[24];
-              outlined destroy of UTType?(v79[25], &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd);
+              outlined destroy of UTType?(v79[25], &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMR);
               specialized Dictionary._Variant.removeValue(forKey:)(v58, v37);
 
-              outlined destroy of UTType?(v37, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd);
+              outlined destroy of UTType?(v37, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMR);
             }
 
             else
@@ -2006,19 +2005,19 @@ LABEL_26:
               v62 = v79[23];
               (*v75)(v62, v79[25], v79[21]);
               isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              v89 = *v61;
+              v88 = *v61;
               *v61 = 0x8000000000000000;
               specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v62, v58, isUniquelyReferenced_nonNull_native);
 
-              *v61 = v89;
+              *v61 = v88;
             }
 
             v59();
 
             v33 = v77;
-            v7 = v87;
-            v38 = v84;
-            goto LABEL_31;
+            v7 = v86;
+            v38 = v83;
+            goto LABEL_30;
           }
 
           v52 = v34[26];
@@ -2026,28 +2025,28 @@ LABEL_26:
           (*(v74 + 16))(v52, *(v49 + 56) + *(v74 + 72) * v50, v53);
 
           (*(v74 + 56))(v52, 0, 1, v53);
-          outlined destroy of UTType?(v52, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd);
+          outlined destroy of UTType?(v52, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMd, &_s8CloudKit12CKSyncEngineC19FetchChangesOptionsV17ZoneConfigurationVSgMR);
         }
 
         else
         {
         }
 
-        v7 = v87;
-        v38 = v84;
-LABEL_31:
+        v7 = v86;
+        v38 = v83;
+LABEL_30:
         if (v38 == ++v35)
         {
-          goto LABEL_48;
+          goto LABEL_47;
         }
       }
     }
 
     __break(1u);
-    goto LABEL_58;
+    goto LABEL_57;
   }
 
-LABEL_48:
+LABEL_47:
   v64 = specialized static DefaultsManager.MomentsUIDomain.BOOLeanValueFor(_:)();
   if (v64 == 2 || (v64 & 1) != 0)
   {
@@ -2060,7 +2059,7 @@ LABEL_48:
 
   if (!v66)
   {
-LABEL_58:
+LABEL_57:
     __break(1u);
     return;
   }
@@ -2100,11 +2099,11 @@ uint64_t CloudManager._pendingDatabaseChanges2ZoneIDs(changes:)(uint64_t a1)
   v8 = (&v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v6);
   v10 = (&v27 - v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_21658CA50;
-  *(v11 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMd);
-  *(v11 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKSyncEngine.PendingDatabaseChange] and conformance [A], &_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMd);
+  *(v11 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMd, &_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMR);
+  *(v11 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKSyncEngine.PendingDatabaseChange] and conformance [A], &_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMd, &_sSay8CloudKit12CKSyncEngineC21PendingDatabaseChangeOGMR, MEMORY[0x277D839A0]);
   *(v11 + 32) = a1;
 
   static CloudLog.LogBegin(_:_:)(v11, "_pendingDatabaseChanges2ZoneIDs(changes:)", 41, 2, v3, &protocol witness table for CloudManager);
@@ -2190,11 +2189,11 @@ uint64_t CloudManager._pendingRecordZoneChanges2ZoneIDs(changes:)(uint64_t a1)
   v8 = (&v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v6);
   v10 = &v25 - v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_21658CA50;
-  *(v11 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
-  *(v11 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKSyncEngine.PendingRecordZoneChange] and conformance [A], &_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd);
+  *(v11 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR);
+  *(v11 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKSyncEngine.PendingRecordZoneChange] and conformance [A], &_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMd, &_sSay8CloudKit12CKSyncEngineC23PendingRecordZoneChangeOGMR, MEMORY[0x277D839A0]);
   *(v11 + 32) = a1;
 
   static CloudLog.LogBegin(_:_:)(v11, "_pendingRecordZoneChanges2ZoneIDs(changes:)", 43, 2, v3, &protocol witness table for CloudManager);
@@ -2297,11 +2296,11 @@ uint64_t protocol witness for CKSyncEngineDelegate.shouldFetchChanges(zoneID:syn
 {
   v2 = v0[2];
   v1 = v0[3];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21658CA50;
-  *(v3 + 56) = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
-  *(v3 + 64) = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID);
+  *(v3 + 56) = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
+  *(v3 + 64) = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8, MEMORY[0x277CC9E10]);
   *(v3 + 32) = v2;
   v4 = v2;
   static CloudLog.LogBeginInfo(_:_:)(v3, "shouldFetchChanges(zoneID:syncEngine:)", 38, 2, v1, &protocol witness table for CloudManager);
@@ -2324,11 +2323,11 @@ uint64_t CloudManager.shouldFetchChanges(zoneID:syncEngine:)()
 {
   v2 = v0[2];
   v1 = v0[3];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21658CA50;
-  *(v3 + 56) = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
-  *(v3 + 64) = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID);
+  *(v3 + 56) = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
+  *(v3 + 64) = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8, MEMORY[0x277CC9E10]);
   *(v3 + 32) = v2;
   v4 = v2;
   static CloudLog.LogBeginInfo(_:_:)(v3, "shouldFetchChanges(zoneID:syncEngine:)", 38, 2, v1, &protocol witness table for CloudManager);
@@ -2367,16 +2366,16 @@ uint64_t CloudManager._waitForInitialization(_:_:)(uint64_t a1, uint64_t a2, cha
   *(v5 + 112) = a1;
   *(v5 + 120) = a2;
   *(v5 + 144) = *v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR);
   *(v5 + 152) = v6;
   *(v5 + 160) = *(v6 - 8);
   *(v5 + 168) = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR);
   *(v5 + 176) = v7;
   *(v5 + 184) = *(v7 - 8);
   *(v5 + 192) = swift_task_alloc();
   *(v5 + 200) = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR);
   *(v5 + 208) = v8;
   *(v5 + 216) = *(v8 - 8);
   *(v5 + 224) = swift_task_alloc();
@@ -2397,7 +2396,7 @@ uint64_t CloudManager._waitForInitialization(_:_:)()
   v3 = *(v0 + 128);
   v5 = *(v0 + 314);
   v6 = *(v0 + 112);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_21658CA60;
   v8 = MEMORY[0x277D840F8];
@@ -2419,7 +2418,7 @@ uint64_t CloudManager._waitForInitialization(_:_:)()
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter((v0 + 312));
 
   *(v0 + 315) = *(v0 + 312);
 
@@ -2499,7 +2498,7 @@ uint64_t CloudManager._waitForInitialization(_:_:)()
 
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   Published.projectedValue.getter();
   swift_endAccess();
 
@@ -2514,13 +2513,13 @@ uint64_t CloudManager._waitForInitialization(_:_:)()
   v6 = v0[23];
   v5 = v0[24];
   v7 = v0[22];
-  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
   MEMORY[0x21CE912F0](v3, v8);
   (*(v2 + 8))(v1, v3);
   (*(v6 + 16))(v5, v4, v7);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR, MEMORY[0x277CBCDE0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
   v10 = swift_task_alloc();
   v0[38] = v10;
   *v10 = v0;
@@ -2611,7 +2610,7 @@ uint64_t CloudManager._waitForInitialization(_:_:)()
 
   else
   {
-    v22 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+    v22 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
     v23 = swift_task_alloc();
     *(v0 + 304) = v23;
     *v23 = v0;
@@ -2627,16 +2626,16 @@ uint64_t CloudManager.getAccountState()(uint64_t a1)
   v2[31] = a1;
   v2[32] = v1;
   v2[33] = *v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR);
   v2[34] = v3;
   v2[35] = *(v3 - 8);
   v2[36] = swift_task_alloc();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR);
   v2[37] = v4;
   v2[38] = *(v4 - 8);
   v2[39] = swift_task_alloc();
   v2[40] = swift_task_alloc();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR);
   v2[41] = v5;
   v2[42] = *(v5 - 8);
   v2[43] = swift_task_alloc();
@@ -2947,7 +2946,7 @@ uint64_t CloudManager.getAccountState()()
 
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   Published.projectedValue.getter();
   swift_endAccess();
 
@@ -2962,13 +2961,13 @@ uint64_t CloudManager.getAccountState()()
   v6 = v0[38];
   v5 = v0[39];
   v7 = v0[37];
-  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
   MEMORY[0x21CE912F0](v3, v8);
   (*(v2 + 8))(v1, v3);
   (*(v6 + 16))(v5, v4, v7);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR, MEMORY[0x277CBCDE0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
   v10 = swift_task_alloc();
   v0[59] = v10;
   *v10 = v0;
@@ -3056,7 +3055,7 @@ uint64_t CloudManager.getAccountState()()
 
   else
   {
-    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
     v3 = swift_task_alloc();
     *(v0 + 472) = v3;
     *v3 = v0;
@@ -3070,7 +3069,7 @@ uint64_t CloudManager.getAccountState()()
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter((v0 + 232));
 
   *(v0 + 490) = *(v0 + 232);
 
@@ -3102,7 +3101,7 @@ uint64_t CloudManager.getAccountState()()
     *(v5 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000011, 0x8000000216584E60, v21);
     *(v5 + 22) = 2080;
     *(v0 + 489) = v3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI24CloudManagerAccountStateOSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI24CloudManagerAccountStateOSgMd, &_s9MomentsUI24CloudManagerAccountStateOSgMR);
     v10 = String.init<A>(describing:)();
     v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, v21);
 
@@ -3137,16 +3136,16 @@ uint64_t CloudManager.getCurrentUser()()
 {
   v1[7] = v0;
   v1[8] = *v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR);
   v1[9] = v2;
   v1[10] = *(v2 - 8);
   v1[11] = swift_task_alloc();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR);
   v1[12] = v3;
   v1[13] = *(v3 - 8);
   v1[14] = swift_task_alloc();
   v1[15] = swift_task_alloc();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR);
   v1[16] = v4;
   v1[17] = *(v4 - 8);
   v1[18] = swift_task_alloc();
@@ -3209,7 +3208,7 @@ uint64_t CloudManager.getCurrentUser()()
 
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   Published.projectedValue.getter();
   swift_endAccess();
 
@@ -3224,13 +3223,13 @@ uint64_t CloudManager.getCurrentUser()()
   v6 = v0[13];
   v5 = v0[14];
   v7 = v0[12];
-  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+  v8 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
   MEMORY[0x21CE912F0](v3, v8);
   (*(v2 + 8))(v1, v3);
   (*(v6 + 16))(v5, v4, v7);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR, MEMORY[0x277CBCDE0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v9 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
   v10 = swift_task_alloc();
   v0[21] = v10;
   *v10 = v0;
@@ -3277,7 +3276,7 @@ uint64_t CloudManager.getCurrentUser()()
 
   else
   {
-    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
     v3 = swift_task_alloc();
     *(v0 + 168) = v3;
     *v3 = v0;
@@ -3291,9 +3290,9 @@ uint64_t CloudManager.getCurrentUser()()
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(v0 + 5);
 
-  *(v0 + 176) = *(v0 + 48);
+  v0[22] = v0[6];
 
   return MEMORY[0x2822009F8](CloudManager.getCurrentUser(), 0, 0);
 }
@@ -3314,6 +3313,7 @@ uint64_t CloudManager._getDeviceDB()()
   return MEMORY[0x2822009F8](CloudManager._getDeviceDB(), v0, 0);
 }
 
+void CloudManager._getDeviceDB()()
 {
   v1 = v0[11];
   static CloudLog.LogBegin(_:_:)(0, "_getDeviceDB()", 14, 2, v0[12], &protocol witness table for CloudManager);
@@ -3324,28 +3324,27 @@ uint64_t CloudManager._getDeviceDB()()
   v5 = *(v3 + 40);
   swift_unknownObjectRetain();
   v6 = v5(ObjectType, v3);
-  result = swift_unknownObjectRelease();
-  v8 = *(v6 + 16);
-  if (v8)
+  swift_unknownObjectRelease();
+  v7 = *(v6 + 16);
+  if (v7)
   {
-    v9 = 0;
-    v10 = v6 + 32;
-    while (v9 < *(v6 + 16))
+    v8 = 0;
+    v9 = v6 + 32;
+    while (v8 < *(v6 + 16))
     {
-      outlined init with copy of DBObject(v10, (v0 + 2));
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI10CloudSubDB_pMd);
-      type metadata accessor for CloudDevicesDB();
-      result = swift_dynamicCast();
-      if (result)
+      outlined init with copy of DBObject(v9, (v0 + 2));
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI10CloudSubDB_pMd, &_s9MomentsUI10CloudSubDB_pMR);
+      type metadata accessor for CloudDevicesDB(0);
+      if (swift_dynamicCast())
       {
 
-        v11 = v0[10];
+        v10 = v0[10];
         goto LABEL_8;
       }
 
-      ++v9;
-      v10 += 40;
-      if (v8 == v9)
+      ++v8;
+      v9 += 40;
+      if (v7 == v8)
       {
         goto LABEL_6;
       }
@@ -3358,15 +3357,13 @@ uint64_t CloudManager._getDeviceDB()()
   {
 LABEL_6:
 
-    v11 = 0;
+    v10 = 0;
 LABEL_8:
     static CloudLog.LogEnd(_:)("_getDeviceDB()", 14, 2, v0[12], &protocol witness table for CloudManager);
-    v12 = v0[1];
+    v11 = v0[1];
 
-    return v12(v11);
+    v11(v10);
   }
-
-  return result;
 }
 
 uint64_t closure #3 in CloudManager.getFastDBManager()()
@@ -3511,7 +3508,7 @@ uint64_t CloudManager.refresh(force:wait:_:_:)()
     v5 = *(v0 + 32);
     v6 = *(v0 + 16);
     v7 = *(v0 + 72);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
     v8 = swift_allocObject();
     v9 = MEMORY[0x277D839D8];
     *(v8 + 56) = MEMORY[0x277D839B0];
@@ -3593,18 +3590,18 @@ uint64_t CloudManager._refresh(force:wait:)(char a1, char a2)
   *(v3 + 504) = ChangesOptions;
   *(v3 + 512) = *(ChangesOptions - 8);
   *(v3 + 520) = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR);
   *(v3 + 528) = v9;
   *(v3 + 536) = *(v9 - 8);
   *(v3 + 544) = swift_task_alloc();
   *(v3 + 552) = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR);
   *(v3 + 560) = v10;
   *(v3 + 568) = *(v10 - 8);
   *(v3 + 576) = swift_task_alloc();
   *(v3 + 584) = swift_task_alloc();
   *(v3 + 592) = swift_task_alloc();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR);
   *(v3 + 600) = v11;
   *(v3 + 608) = *(v11 - 8);
   *(v3 + 616) = swift_task_alloc();
@@ -3648,7 +3645,7 @@ uint64_t CloudManager._refresh(force:wait:)()
     *(v0 + 744) = OBJC_IVAR____TtC9MomentsUI12CloudManager___isRefreshing;
     swift_getKeyPath();
     swift_getKeyPath();
-    static Published.subscript.getter();
+    static Published.subscript.getter((v0 + 964));
 
     if (*(v0 + 964) == 1)
     {
@@ -3687,10 +3684,10 @@ uint64_t CloudManager._refresh(force:wait:)()
       v17 = *(v0 + 608);
       v18 = *(v0 + 600);
       swift_beginAccess();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
       Published.projectedValue.getter();
       swift_endAccess();
-      v19 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+      v19 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
       MEMORY[0x21CE912F0](v18, v19);
       (*(v17 + 8))(v16, v18);
       v20 = CloudManager._refresh(force:wait:);
@@ -3704,7 +3701,7 @@ LABEL_33:
   {
     swift_getKeyPath();
     swift_getKeyPath();
-    static Published.subscript.getter();
+    static Published.subscript.getter((v0 + 960));
 
     if (*(v0 + 960) == 1)
     {
@@ -3829,10 +3826,10 @@ LABEL_4:
     v68 = *(v0 + 608);
     v69 = *(v0 + 600);
     swift_beginAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
     Published.projectedValue.getter();
     swift_endAccess();
-    v70 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+    v70 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
     MEMORY[0x21CE912F0](v69, v70);
     (*(v68 + 8))(v67, v69);
     v20 = CloudManager._refresh(force:wait:);
@@ -3859,9 +3856,9 @@ LABEL_4:
 
 {
   (*(v0[71] + 16))(v0[73], v0[74], v0[70]);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR, MEMORY[0x277CBCDE0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v1 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v1 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
   v2 = swift_task_alloc();
   v0[94] = v2;
   *v2 = v0;
@@ -3908,7 +3905,7 @@ LABEL_4:
 
   else
   {
-    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
     v3 = swift_task_alloc();
     *(v0 + 752) = v3;
     *v3 = v0;
@@ -3923,7 +3920,7 @@ LABEL_4:
   v61 = v0;
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter((v0 + 964));
 
   if (*(v0 + 964) == 1)
   {
@@ -3962,10 +3959,10 @@ LABEL_4:
     v14 = *(v0 + 608);
     v15 = *(v0 + 600);
     swift_beginAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
     Published.projectedValue.getter();
     swift_endAccess();
-    v16 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+    v16 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
     MEMORY[0x21CE912F0](v15, v16);
     (*(v14 + 8))(v13, v15);
     v17 = CloudManager._refresh(force:wait:);
@@ -4066,10 +4063,10 @@ LABEL_21:
     v56 = *(v0 + 608);
     v57 = *(v0 + 600);
     swift_beginAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
     Published.projectedValue.getter();
     swift_endAccess();
-    v58 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+    v58 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
     MEMORY[0x21CE912F0](v57, v58);
     (*(v56 + 8))(v55, v57);
     v17 = CloudManager._refresh(force:wait:);
@@ -4092,113 +4089,6 @@ LABEL_21:
   v26[1] = CloudManager._refresh(force:wait:);
 
   return v59(ObjectType, v24);
-}
-
-{
-  v45 = v0;
-  v1 = specialized _copyCollectionToContiguousArray<A>(_:)(v0[97]);
-
-  if (one-time initialization token for Log != -1)
-  {
-    swift_once();
-  }
-
-  v2 = v0[90];
-  v3 = v0[80];
-  v4 = v0[79];
-  v5 = __swift_project_value_buffer(v4, static CloudManager.Log);
-  v0[98] = v5;
-  swift_beginAccess();
-  v6 = *(v3 + 16);
-  v0[99] = v6;
-  v0[100] = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v6(v2, v5, v4);
-
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.info.getter();
-
-  v9 = os_log_type_enabled(v7, v8);
-  v10 = v0[80];
-  v41 = v0[79];
-  v42 = v0[90];
-  if (v9)
-  {
-    v40 = v1;
-    v11 = swift_slowAlloc();
-    v39 = v6;
-    v12 = swift_slowAlloc();
-    v44 = v12;
-    *v11 = 136315394;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v44);
-    *(v11 + 12) = 2080;
-    v13 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
-    v14 = MEMORY[0x21CE922B0](v40, v13);
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v44);
-
-    *(v11 + 14) = v16;
-    _os_log_impl(&dword_21607C000, v7, v8, "CloudManager.%s CKSyncEngine fetching zones: %s", v11, 0x16u);
-    swift_arrayDestroy();
-    v17 = v12;
-    v6 = v39;
-    MEMORY[0x21CE94770](v17, -1, -1);
-    v18 = v11;
-    v1 = v40;
-    MEMORY[0x21CE94770](v18, -1, -1);
-  }
-
-  v19 = *(v10 + 8);
-  v19(v42, v41);
-  v0[101] = v19;
-  v20 = v0[89];
-  v21 = v0[79];
-  v22 = v0[61];
-  v23 = v0[62];
-  v24 = v0[60];
-  *v23 = v1;
-  (*(v22 + 104))(v23, *MEMORY[0x277CBBC30], v24);
-  CKSyncEngine.FetchChangesOptions.init(scope:operationGroup:)();
-  v6(v20, v5, v21);
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.info.getter();
-  v27 = os_log_type_enabled(v25, v26);
-  v28 = v0[89];
-  v29 = v0[79];
-  if (v27)
-  {
-    v43 = v0[89];
-    v30 = swift_slowAlloc();
-    v31 = swift_slowAlloc();
-    v44 = v31;
-    *v30 = 136446466;
-    swift_beginAccess();
-    v32 = StaticString.description.getter();
-    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v33, &v44);
-
-    *(v30 + 4) = v34;
-    *(v30 + 12) = 2082;
-    *(v30 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v44);
-    _os_log_impl(&dword_21607C000, v25, v26, "%{public}s.%{public}s CKSyncEngine.fetchChanges BEGIN", v30, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x21CE94770](v31, -1, -1);
-    MEMORY[0x21CE94770](v30, -1, -1);
-
-    v35 = v43;
-  }
-
-  else
-  {
-
-    v35 = v28;
-  }
-
-  v19(v35, v29);
-  v36 = swift_task_alloc();
-  v0[102] = v36;
-  *v36 = v0;
-  v36[1] = CloudManager._refresh(force:wait:);
-  v37 = v0[65];
-
-  return MEMORY[0x28210DB30](v37);
 }
 
 {
@@ -4296,10 +4186,10 @@ LABEL_21:
   v26 = *(v0 + 608);
   v27 = *(v0 + 600);
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   Published.projectedValue.getter();
   swift_endAccess();
-  v28 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+  v28 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
   MEMORY[0x21CE912F0](v27, v28);
   (*(v26 + 8))(v25, v27);
 
@@ -4308,9 +4198,9 @@ LABEL_21:
 
 {
   (*(v0[71] + 16))(v0[73], v0[72], v0[70]);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher> and conformance AsyncPublisher<A>, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMd, &_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySb_GGMR, MEMORY[0x277CBCDE0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
-  v1 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+  v1 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
   v2 = swift_task_alloc();
   v0[108] = v2;
   *v2 = v0;
@@ -4357,7 +4247,7 @@ LABEL_21:
 
   else
   {
-    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd);
+    v2 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type AsyncPublisher<Published<Bool>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMd, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySb_G_GMR, MEMORY[0x277CBCDD0]);
     v3 = swift_task_alloc();
     *(v0 + 864) = v3;
     *v3 = v0;
@@ -4598,7 +4488,7 @@ LABEL_21:
     *(v17 + 14) = v21;
     *v18 = v21;
     _os_log_impl(&dword_21607C000, v10, v11, "CloudManager.%{public}s CKSyncEngine fetch failed: %@", v17, 0x16u);
-    outlined destroy of UTType?(v18, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v18, -1, -1);
     __swift_destroy_boxed_opaque_existential_1(v19);
     MEMORY[0x21CE94770](v19, -1, -1);
@@ -4653,10 +4543,10 @@ LABEL_21:
   v36 = v0[76];
   v37 = v0[75];
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   Published.projectedValue.getter();
   swift_endAccess();
-  v38 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd);
+  v38 = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Bool>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR, MEMORY[0x277CBCEC8]);
   MEMORY[0x21CE912F0](v37, v38);
   (*(v36 + 8))(v35, v37);
 
@@ -4678,9 +4568,117 @@ uint64_t CloudManager._refresh(force:wait:)(uint64_t a1)
   return MEMORY[0x2822009F8](CloudManager._refresh(force:wait:), v2, 0);
 }
 
+uint64_t CloudManager._refresh(force:wait:)(__n128 a1)
+{
+  v46 = v1;
+  v2 = specialized _copyCollectionToContiguousArray<A>(_:)(v1[97], a1);
+
+  if (one-time initialization token for Log != -1)
+  {
+    swift_once();
+  }
+
+  v3 = v1[90];
+  v4 = v1[80];
+  v5 = v1[79];
+  v6 = __swift_project_value_buffer(v5, static CloudManager.Log);
+  v1[98] = v6;
+  swift_beginAccess();
+  v7 = *(v4 + 16);
+  v1[99] = v7;
+  v1[100] = (v4 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v7(v3, v6, v5);
+
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.info.getter();
+
+  v10 = os_log_type_enabled(v8, v9);
+  v11 = v1[80];
+  v42 = v1[79];
+  v43 = v1[90];
+  if (v10)
+  {
+    v41 = v2;
+    v12 = swift_slowAlloc();
+    v40 = v7;
+    v13 = swift_slowAlloc();
+    v45 = v13;
+    *v12 = 136315394;
+    *(v12 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v45);
+    *(v12 + 12) = 2080;
+    v14 = type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
+    v15 = MEMORY[0x21CE922B0](v41, v14);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v45);
+
+    *(v12 + 14) = v17;
+    _os_log_impl(&dword_21607C000, v8, v9, "CloudManager.%s CKSyncEngine fetching zones: %s", v12, 0x16u);
+    swift_arrayDestroy();
+    v18 = v13;
+    v7 = v40;
+    MEMORY[0x21CE94770](v18, -1, -1);
+    v19 = v12;
+    v2 = v41;
+    MEMORY[0x21CE94770](v19, -1, -1);
+  }
+
+  v20 = *(v11 + 8);
+  v20(v43, v42);
+  v1[101] = v20;
+  v21 = v1[89];
+  v22 = v1[79];
+  v23 = v1[61];
+  v24 = v1[62];
+  v25 = v1[60];
+  *v24 = v2;
+  (*(v23 + 104))(v24, *MEMORY[0x277CBBC30], v25);
+  CKSyncEngine.FetchChangesOptions.init(scope:operationGroup:)();
+  v7(v21, v6, v22);
+  v26 = Logger.logObject.getter();
+  v27 = static os_log_type_t.info.getter();
+  v28 = os_log_type_enabled(v26, v27);
+  v29 = v1[89];
+  v30 = v1[79];
+  if (v28)
+  {
+    v44 = v1[89];
+    v31 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v45 = v32;
+    *v31 = 136446466;
+    swift_beginAccess();
+    v33 = StaticString.description.getter();
+    v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v34, &v45);
+
+    *(v31 + 4) = v35;
+    *(v31 + 12) = 2082;
+    *(v31 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v45);
+    _os_log_impl(&dword_21607C000, v26, v27, "%{public}s.%{public}s CKSyncEngine.fetchChanges BEGIN", v31, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x21CE94770](v32, -1, -1);
+    MEMORY[0x21CE94770](v31, -1, -1);
+
+    v36 = v44;
+  }
+
+  else
+  {
+
+    v36 = v29;
+  }
+
+  v20(v36, v30);
+  v37 = swift_task_alloc();
+  v1[102] = v37;
+  *v37 = v1;
+  v37[1] = CloudManager._refresh(force:wait:);
+  v38 = v1[65];
+
+  return MEMORY[0x28210DB30](v38);
+}
+
 id CloudManager._refresh(force:wait:)()
 {
-  v69 = v0;
+  v70 = v0;
   (*(v0 + 840))(*(v0 + 664), *(v0 + 848), *(v0 + 632));
 
   v1 = Logger.logObject.getter();
@@ -4688,19 +4686,19 @@ id CloudManager._refresh(force:wait:)()
 
   if (os_log_type_enabled(v1, v2))
   {
-    v66 = *(v0 + 832);
-    v63 = *(v0 + 632);
-    v65 = *(v0 + 664);
+    v67 = *(v0 + 832);
+    v64 = *(v0 + 632);
+    v66 = *(v0 + 664);
     v3 = swift_slowAlloc();
     v4 = swift_slowAlloc();
-    v67 = v4;
+    v68 = v4;
     *v3 = 136446466;
-    *(v3 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v67);
+    *(v3 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v68);
     *(v3 + 12) = 2080;
-    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID);
-    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID);
+    type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8);
+    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CKRecordZoneID and conformance NSObject, &lazy cache variable for type metadata for CKRecordZoneID, 0x277CBC5F8, MEMORY[0x277D85378]);
     v5 = Set.description.getter();
-    v7 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v6, &v67);
+    v7 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v6, &v68);
 
     *(v3 + 14) = v7;
     _os_log_impl(&dword_21607C000, v1, v2, "CloudManager.%{public}s CKSyncEngine sending zones: %s", v3, 0x16u);
@@ -4708,7 +4706,7 @@ id CloudManager._refresh(force:wait:)()
     MEMORY[0x21CE94770](v4, -1, -1);
     MEMORY[0x21CE94770](v3, -1, -1);
 
-    v66(v65, v63);
+    v67(v66, v64);
   }
 
   else
@@ -4732,14 +4730,14 @@ id CloudManager._refresh(force:wait:)()
     v17 = swift_slowAlloc();
     v18 = swift_slowAlloc();
     *v17 = 136446466;
-    v67 = v18;
+    v68 = v18;
     swift_beginAccess();
     v19 = StaticString.description.getter();
-    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v67);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v20, &v68);
 
     *(v17 + 4) = v21;
     *(v17 + 12) = 2082;
-    *(v17 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v67);
+    *(v17 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000015, 0x80000002165853A0, &v68);
     _os_log_impl(&dword_21607C000, v11, v12, "%{public}s.%{public}s _sendChanges BEGIN", v17, 0x16u);
     swift_arrayDestroy();
     MEMORY[0x21CE94770](v18, -1, -1);
@@ -4752,7 +4750,7 @@ id CloudManager._refresh(force:wait:)()
 
   v23 = *(v22 + 16);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v24 = swift_allocObject();
   *(v24 + 16) = xmmword_21658CA40;
   v25 = MEMORY[0x277D837D0];
@@ -4795,27 +4793,27 @@ id CloudManager._refresh(force:wait:)()
   *(v24 + 232) = v33;
   static CloudLog.LogBegin(_:_:)(v24, "_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, v32, &protocol witness table for CloudManager);
 
-  v35 = *(v0 + 920);
+  v36 = *(v0 + 920);
   if ((v31 & 0xC000000000000001) != 0)
   {
-    v36 = __CocoaSet.count.getter();
-    v35 = *(v0 + 920);
-    if (!v36)
+    v37 = __CocoaSet.count.getter();
+    v36 = *(v0 + 920);
+    if (!v37)
     {
       goto LABEL_15;
     }
   }
 
-  else if (!*(v35 + 16))
+  else if (!*(v36 + 16))
   {
 LABEL_15:
     static CloudLog.LogEnd(_:)("_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, *(v0 + 400), &protocol witness table for CloudManager);
 
     specialized $defer #3 () in CloudManager._refresh(force:wait:)("%{public}s.%{public}s _sendChanges END");
 
-    v54 = *(v0 + 392);
+    v55 = *(v0 + 392);
     specialized $defer #3 () in CloudManager._refresh(force:wait:)("%{public}s.%{public}s SubDB.refresh END");
-    *(v54 + OBJC_IVAR____TtC9MomentsUI12CloudManager__cancelRefresh) = 0;
+    *(v55 + OBJC_IVAR____TtC9MomentsUI12CloudManager__cancelRefresh) = 0;
     swift_getKeyPath();
     swift_getKeyPath();
     *(v0 + 963) = 0;
@@ -4823,86 +4821,86 @@ LABEL_15:
     static Published.subscript.setter();
     static CloudLog.LogEnd(_:)("_refresh(force:wait:)", 21, 2, *(v0 + 400), &protocol witness table for CloudManager);
 
-    v55 = *(v0 + 8);
+    v56 = *(v0 + 8);
 
-    return v55();
+    return v56();
   }
 
-  v64 = specialized _copyCollectionToContiguousArray<A>(_:)(v35);
-  v37 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
-  *(v0 + 928) = v37;
-  v38 = MEMORY[0x21CE91FC0](0xD00000000000003BLL, 0x80000002165853C0);
-  [v37 setName_];
+  v65 = specialized _copyCollectionToContiguousArray<A>(_:)(v36, v35);
+  v38 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
+  *(v0 + 928) = v38;
+  v39 = MEMORY[0x21CE91FC0](0xD00000000000003BLL, 0x80000002165853C0);
+  [v38 setName_];
 
-  [v37 setQuantity_];
-  [v37 setExpectedSendSize_];
-  result = [v37 defaultConfiguration];
+  [v38 setQuantity_];
+  [v38 setExpectedSendSize_];
+  result = [v38 defaultConfiguration];
   if (!result)
   {
     __break(1u);
     return result;
   }
 
-  v40 = result;
-  v42 = *(v0 + 464);
-  v41 = *(v0 + 472);
-  v59 = *(v0 + 456);
-  v60 = *(v0 + 448);
-  v44 = *(v0 + 432);
-  v43 = *(v0 + 440);
-  v45 = *(v0 + 416);
-  v46 = *(v0 + 424);
-  v47 = *(v0 + 408);
-  v61 = *(v0 + 400);
-  v62 = *(v0 + 904);
+  v41 = result;
+  v43 = *(v0 + 464);
+  v42 = *(v0 + 472);
+  v60 = *(v0 + 456);
+  v61 = *(v0 + 448);
+  v45 = *(v0 + 432);
+  v44 = *(v0 + 440);
+  v46 = *(v0 + 416);
+  v47 = *(v0 + 424);
+  v48 = *(v0 + 408);
+  v62 = *(v0 + 400);
+  v63 = *(v0 + 904);
   [result setAllowsCellularAccess_];
 
-  *v46 = v64;
-  (*(v45 + 104))(v46, *MEMORY[0x277CBBC18], v47);
-  v48 = v37;
+  *v47 = v65;
+  (*(v46 + 104))(v47, *MEMORY[0x277CBBC18], v48);
+  v49 = v38;
   CKSyncEngine.SendChangesOptions.init(scope:operationGroup:)();
-  v49 = *(v43 + 16);
-  v49(v42, v41, v44);
-  v49(v59, v42, v44);
-  v50 = (*(v43 + 80) + 48) & ~*(v43 + 80);
-  v51 = swift_allocObject();
-  *(v0 + 936) = v51;
-  *(v51 + 2) = 0xD000000000000015;
-  *(v51 + 3) = 0x80000002165853A0;
-  *(v51 + 4) = 2097;
-  *(v51 + 5) = v62;
-  (*(v43 + 32))(&v51[v50], v42, v44);
-  *&v51[(v60 + v50 + 7) & 0xFFFFFFFFFFFFFFF8] = v61;
+  v50 = *(v44 + 16);
+  v50(v43, v42, v45);
+  v50(v60, v43, v45);
+  v51 = (*(v44 + 80) + 48) & ~*(v44 + 80);
+  v52 = swift_allocObject();
+  *(v0 + 936) = v52;
+  *(v52 + 2) = 0xD000000000000015;
+  *(v52 + 3) = 0x80000002165853A0;
+  *(v52 + 4) = 2097;
+  *(v52 + 5) = v63;
+  (*(v44 + 32))(&v52[v51], v43, v45);
+  *&v52[(v61 + v51 + 7) & 0xFFFFFFFFFFFFFFF8] = v62;
 
   TaskLocal.get()();
   if (*(v0 + 961))
   {
-    v52 = *(*(v0 + 440) + 8);
-    v52(*(v0 + 456), *(v0 + 432));
-    v67 = 0;
-    v68 = 0xE000000000000000;
+    v53 = *(*(v0 + 440) + 8);
+    v53(*(v0 + 456), *(v0 + 432));
+    v68 = 0;
+    v69 = 0xE000000000000000;
     _StringGuts.grow(_:)(27);
 
-    v67 = 0xD00000000000006ELL;
-    v68 = 0x8000000216585400;
+    v68 = 0xD00000000000006ELL;
+    v69 = 0x8000000216585400;
     *(v0 + 384) = 2097;
-    v53 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x21CE92100](v53);
+    v54 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x21CE92100](v54);
 
-    specialized static BTask.detached(name:operation:)(v67, v68, &closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)partial apply, v51);
+    specialized static BTask.detached(name:operation:)(v68, v69, &closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)partial apply, v52);
 
-    v52(*(v0 + 472), *(v0 + 432));
+    v53(*(v0 + 472), *(v0 + 432));
     goto LABEL_15;
   }
 
-  v56 = *(v0 + 904);
-  v57 = swift_task_alloc();
-  *(v0 + 944) = v57;
-  *v57 = v0;
-  v57[1] = CloudManager._refresh(force:wait:);
-  v58 = *(v0 + 456);
+  v57 = *(v0 + 904);
+  v58 = swift_task_alloc();
+  *(v0 + 944) = v58;
+  *v58 = v0;
+  v58[1] = CloudManager._refresh(force:wait:);
+  v59 = *(v0 + 456);
 
-  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(0xD000000000000015, 0x80000002165853A0, 2097, v56, v58);
+  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(0xD000000000000015, 0x80000002165853A0, 2097, v57, v59);
 }
 
 uint64_t CloudManager.add(pendingRecordZoneChanges:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -4929,7 +4927,7 @@ uint64_t CloudManager.add(pendingRecordZoneChanges:_:_:)()
   v3 = v0[13];
   v4 = v0[14];
   v5 = v0[12];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v6 = swift_allocObject();
   v7 = MEMORY[0x277D837D0];
   v8 = MEMORY[0x277D83838];
@@ -5046,13 +5044,13 @@ uint64_t CloudManager.add(pendingDatabaseChanges:_:_:)(uint64_t a1, uint64_t a2,
 
 id CloudManager.add(pendingDatabaseChanges:_:_:)()
 {
-  v77 = v0;
+  v78 = v0;
   v2 = *(v0 + 144);
   v1 = *(v0 + 152);
   v3 = *(v0 + 128);
   v4 = *(v0 + 136);
   v5 = *(v0 + 120);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v6 = swift_allocObject();
   v7 = MEMORY[0x277D837D0];
   v8 = MEMORY[0x277D83838];
@@ -5078,41 +5076,41 @@ id CloudManager.add(pendingDatabaseChanges:_:_:)()
       swift_once();
     }
 
-    v47 = *(v0 + 168);
-    v46 = *(v0 + 176);
-    v48 = *(v0 + 160);
-    v49 = __swift_project_value_buffer(v48, static CloudManager.Log);
+    v48 = *(v0 + 168);
+    v47 = *(v0 + 176);
+    v49 = *(v0 + 160);
+    v50 = __swift_project_value_buffer(v49, static CloudManager.Log);
     swift_beginAccess();
-    (*(v47 + 16))(v46, v49, v48);
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.info.getter();
-    v52 = os_log_type_enabled(v50, v51);
-    v54 = *(v0 + 168);
-    v53 = *(v0 + 176);
-    v55 = *(v0 + 160);
-    if (v52)
+    (*(v48 + 16))(v47, v50, v49);
+    v51 = Logger.logObject.getter();
+    v52 = static os_log_type_t.info.getter();
+    v53 = os_log_type_enabled(v51, v52);
+    v55 = *(v0 + 168);
+    v54 = *(v0 + 176);
+    v56 = *(v0 + 160);
+    if (v53)
     {
-      v56 = swift_slowAlloc();
       v57 = swift_slowAlloc();
-      v75 = v57;
-      *v56 = 136446466;
+      v58 = swift_slowAlloc();
+      v76 = v58;
+      *v57 = 136446466;
       swift_beginAccess();
-      v58 = StaticString.description.getter();
-      v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v59, &v75);
+      v59 = StaticString.description.getter();
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v60, &v76);
 
-      *(v56 + 4) = v60;
-      *(v56 + 12) = 2082;
-      *(v56 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000020, 0x8000000216584F30, &v75);
-      _os_log_impl(&dword_21607C000, v50, v51, "%{public}s.%{public}s CKSyncEngine not available yet, buffering request", v56, 0x16u);
+      *(v57 + 4) = v61;
+      *(v57 + 12) = 2082;
+      *(v57 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000020, 0x8000000216584F30, &v76);
+      _os_log_impl(&dword_21607C000, v51, v52, "%{public}s.%{public}s CKSyncEngine not available yet, buffering request", v57, 0x16u);
       swift_arrayDestroy();
+      MEMORY[0x21CE94770](v58, -1, -1);
       MEMORY[0x21CE94770](v57, -1, -1);
-      MEMORY[0x21CE94770](v56, -1, -1);
     }
 
-    (*(v54 + 8))(v53, v55);
+    (*(v55 + 8))(v54, v56);
     swift_beginAccess();
 
-    specialized Array.append<A>(contentsOf:)(v61);
+    specialized Array.append<A>(contentsOf:)(v62);
     swift_endAccess();
     goto LABEL_17;
   }
@@ -5127,10 +5125,10 @@ id CloudManager.add(pendingDatabaseChanges:_:_:)()
 
   v16 = CloudManager._pendingDatabaseChanges2ZoneIDs(changes:)(v15);
   *(v0 + 264) = v16;
-  v70 = v16;
-  v73 = *(v15 + 16);
-  v75 = v14;
-  v76 = v13;
+  v71 = v16;
+  v74 = *(v15 + 16);
+  v76 = v14;
+  v77 = v13;
 
   MEMORY[0x21CE92100](58, 0xE100000000000000);
   *(v0 + 88) = v12;
@@ -5139,9 +5137,9 @@ id CloudManager.add(pendingDatabaseChanges:_:_:)()
 
   MEMORY[0x21CE92100](8236, 0xE200000000000000);
   MEMORY[0x21CE92100](0xD000000000000020, 0x8000000216584F30);
-  v19 = v75;
-  v18 = v76;
-  *(v0 + 272) = v76;
+  v19 = v76;
+  v18 = v77;
+  *(v0 + 272) = v77;
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_21658CA40;
   v21 = MEMORY[0x277D837D0];
@@ -5153,7 +5151,7 @@ id CloudManager.add(pendingDatabaseChanges:_:_:)()
   v23 = MEMORY[0x277D83B88];
   *(v20 + 96) = MEMORY[0x277D83B88];
   *(v20 + 104) = v10;
-  *(v20 + 72) = v73;
+  *(v20 + 72) = v74;
   *(v0 + 96) = 1;
   type metadata accessor for CKOperationGroupTransferSize(0);
   v24 = String.init<A>(describing:)();
@@ -5184,7 +5182,7 @@ id CloudManager.add(pendingDatabaseChanges:_:_:)()
   *(v20 + 232) = v28;
   static CloudLog.LogBegin(_:_:)(v20, "_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, v27, &protocol witness table for CloudManager);
 
-  if ((v70 & 0xC000000000000001) != 0)
+  if ((v71 & 0xC000000000000001) != 0)
   {
     if (__CocoaSet.count.getter())
     {
@@ -5196,97 +5194,97 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (!*(v70 + 16))
+  if (!*(v71 + 16))
   {
     goto LABEL_15;
   }
 
 LABEL_6:
-  v66 = v19;
-  v67 = v18;
-  v68 = v11;
-  v71 = specialized _copyCollectionToContiguousArray<A>(_:)(v70);
-  v30 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
-  *(v0 + 280) = v30;
-  v31 = MEMORY[0x21CE91FC0](0xD000000000000040, 0x8000000216584F60);
-  [v30 setName_];
+  v67 = v19;
+  v68 = v18;
+  v69 = v11;
+  v72 = specialized _copyCollectionToContiguousArray<A>(_:)(v71, v30);
+  v31 = [objc_allocWithZone(MEMORY[0x277CBC4F8]) init];
+  *(v0 + 280) = v31;
+  v32 = MEMORY[0x21CE91FC0](0xD000000000000040, 0x8000000216584F60);
+  [v31 setName_];
 
-  [v30 setQuantity_];
-  [v30 setExpectedSendSize_];
-  result = [v30 defaultConfiguration];
+  [v31 setQuantity_];
+  [v31 setExpectedSendSize_];
+  result = [v31 defaultConfiguration];
   if (!result)
   {
     __break(1u);
     return result;
   }
 
-  v33 = result;
-  v34 = *(v0 + 240);
-  v35 = *(v0 + 248);
-  v65 = *(v0 + 232);
-  v69 = *(v0 + 224);
-  v37 = *(v0 + 208);
-  v36 = *(v0 + 216);
-  v38 = *(v0 + 192);
-  v39 = *(v0 + 200);
-  v40 = *(v0 + 184);
-  v74 = *(v0 + 152);
+  v34 = result;
+  v35 = *(v0 + 240);
+  v36 = *(v0 + 248);
+  v66 = *(v0 + 232);
+  v70 = *(v0 + 224);
+  v38 = *(v0 + 208);
+  v37 = *(v0 + 216);
+  v39 = *(v0 + 192);
+  v40 = *(v0 + 200);
+  v41 = *(v0 + 184);
+  v75 = *(v0 + 152);
   [result setAllowsCellularAccess_];
 
-  *v39 = v71;
-  (*(v38 + 104))(v39, *MEMORY[0x277CBBC18], v40);
-  v72 = v30;
+  *v40 = v72;
+  (*(v39 + 104))(v40, *MEMORY[0x277CBBC18], v41);
+  v73 = v31;
   CKSyncEngine.SendChangesOptions.init(scope:operationGroup:)();
-  v41 = *(v36 + 16);
-  v41(v34, v35, v37);
-  v41(v65, v34, v37);
-  v42 = (*(v36 + 80) + 48) & ~*(v36 + 80);
-  v43 = swift_allocObject();
-  *(v0 + 288) = v43;
-  *(v43 + 2) = v66;
-  *(v43 + 3) = v67;
-  *(v43 + 4) = 2149;
-  *(v43 + 5) = v68;
-  (*(v36 + 32))(&v43[v42], v34, v37);
-  *&v43[(v69 + v42 + 7) & 0xFFFFFFFFFFFFFFF8] = v74;
+  v42 = *(v37 + 16);
+  v42(v35, v36, v38);
+  v42(v66, v35, v38);
+  v43 = (*(v37 + 80) + 48) & ~*(v37 + 80);
+  v44 = swift_allocObject();
+  *(v0 + 288) = v44;
+  *(v44 + 2) = v67;
+  *(v44 + 3) = v68;
+  *(v44 + 4) = 2149;
+  *(v44 + 5) = v69;
+  (*(v37 + 32))(&v44[v43], v35, v38);
+  *&v44[(v70 + v43 + 7) & 0xFFFFFFFFFFFFFFF8] = v75;
 
   TaskLocal.get()();
   if (*(v0 + 313))
   {
-    v44 = *(*(v0 + 216) + 8);
-    v44(*(v0 + 232), *(v0 + 208));
+    v45 = *(*(v0 + 216) + 8);
+    v45(*(v0 + 232), *(v0 + 208));
     _StringGuts.grow(_:)(27);
 
-    v75 = 0xD000000000000058;
-    v76 = 0x8000000216584FB0;
-    MEMORY[0x21CE92100](v66, v67);
+    v76 = 0xD000000000000058;
+    v77 = 0x8000000216584FB0;
+    MEMORY[0x21CE92100](v67, v68);
 
     MEMORY[0x21CE92100](58, 0xE100000000000000);
     *(v0 + 104) = 2149;
-    v45 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x21CE92100](v45);
+    v46 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x21CE92100](v46);
 
-    specialized static BTask.detached(name:operation:)(v75, v76, &closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)partial apply, v43);
+    specialized static BTask.detached(name:operation:)(v76, v77, &closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)partial apply, v44);
 
-    v44(*(v0 + 248), *(v0 + 208));
+    v45(*(v0 + 248), *(v0 + 208));
 LABEL_16:
     static CloudLog.LogEnd(_:)("_sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)", 68, 2, *(v0 + 152), &protocol witness table for CloudManager);
 
 LABEL_17:
     static CloudLog.LogEnd(_:)("add(pendingDatabaseChanges:_:_:)", 32, 2, *(v0 + 152), &protocol witness table for CloudManager);
 
-    v62 = *(v0 + 8);
+    v63 = *(v0 + 8);
 
-    return v62();
+    return v63();
   }
 
-  v63 = swift_task_alloc();
-  *(v0 + 296) = v63;
-  *v63 = v0;
-  v63[1] = CloudManager.add(pendingDatabaseChanges:_:_:);
-  v64 = *(v0 + 232);
+  v64 = swift_task_alloc();
+  *(v0 + 296) = v64;
+  *v64 = v0;
+  v64[1] = CloudManager.add(pendingDatabaseChanges:_:_:);
+  v65 = *(v0 + 232);
 
-  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(v66, v67, 2149, v68, v64);
+  return specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(v67, v68, 2149, v69, v65);
 }
 
 uint64_t CloudManager.add(pendingDatabaseChanges:_:_:)()
@@ -5317,32 +5315,32 @@ uint64_t CloudManager.add(pendingDatabaseChanges:_:_:)()
   return v2();
 }
 
-void closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t a1)
+void closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd);
-  v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2);
-  v5 = &v14 - v4;
-  v6 = objc_allocWithZone(MEMORY[0x277CBC3E0]);
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd, &_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMR);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v16 - v6;
+  v8 = objc_allocWithZone(MEMORY[0x277CBC3E0]);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CKRecordID, 0x277CBC5D0);
   isa = Array._bridgeToObjectiveC()().super.isa;
-  v8 = [v6 initWithRecordIDs_];
+  v10 = [v8 initWithRecordIDs_];
 
-  [v8 setShouldFetchAssetContent_];
+  [v10 setShouldFetchAssetContent_];
 
   CKFetchRecordsOperation.desiredKeys.setter();
-  v9 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo10CKRecordIDC_s6ResultOySo0C0Cs5Error_pGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCySDySo10CKRecordIDCs6ResultOySo0C0Cs5Error_pGGSo16os_unfair_lock_sVGMd);
-  v10 = swift_allocObject();
-  *(v10 + 24) = 0;
-  *(v10 + 16) = v9;
+  v11 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo10CKRecordIDC_s6ResultOySo0C0Cs5Error_pGTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCySDySo10CKRecordIDCs6ResultOySo0C0Cs5Error_pGGSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCySDySo10CKRecordIDCs6ResultOySo0C0Cs5Error_pGGSo16os_unfair_lock_sVGMR);
+  v12 = swift_allocObject();
+  *(v12 + 24) = 0;
+  *(v12 + 16) = v11;
 
   CKFetchRecordsOperation.perRecordResultBlock.setter();
-  (*(v3 + 16))(v5, a1, v2);
-  v11 = (*(v3 + 80) + 24) & ~*(v3 + 80);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v10;
-  (*(v3 + 32))(v12 + v11, v5, v2);
+  (*(v5 + 16))(v7, a1, v4);
+  v13 = (*(v5 + 80) + 24) & ~*(v5 + 80);
+  v14 = swift_allocObject();
+  *(v14 + 16) = v12;
+  (*(v5 + 32))(v14 + v13, v7, v4);
 
   CKFetchRecordsOperation.fetchRecordsResultBlock.setter();
   if (one-time initialization token for container != -1)
@@ -5350,15 +5348,15 @@ void closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t a1
     swift_once();
   }
 
-  v13 = [static CloudManager.container privateCloudDatabase];
-  [v13 addOperation_];
+  v15 = [static CloudManager.container privateCloudDatabase];
+  [v15 addOperation_];
 }
 
-void closure #1 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void closure #1 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t a1, uint64_t a2, uint64_t a3, os_unfair_lock_s *a4)
 {
-  os_unfair_lock_lock((a4 + 24));
-  partial apply for closure #1 in closure #1 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)((a4 + 16));
-  os_unfair_lock_unlock((a4 + 24));
+  os_unfair_lock_lock(a4 + 6);
+  partial apply for closure #1 in closure #1 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(&a4[4]);
+  os_unfair_lock_unlock(a4 + 6);
 }
 
 void closure #1 in closure #1 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(uint64_t *a1, void *a2, void *a3, char a4)
@@ -5381,13 +5379,13 @@ uint64_t closure #2 in closure #1 in CloudManager.records(ids:desiredKeys:loadAs
   {
 
     v6 = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd, &_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMR);
     return CheckedContinuation.resume(throwing:)();
   }
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd, &_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMR);
     return CheckedContinuation.resume(returning:)();
   }
 }
@@ -5411,32 +5409,6 @@ id protocol witness for static CloudManagerProtocol.environment.getter in confor
 
   v0 = [static CloudManager.container containerID];
   v1 = [v0 environment];
-
-  return v1;
-}
-
-uint64_t protocol witness for CloudManagerProtocol.primaryID.getter in conformance CloudManager()
-{
-  return protocol witness for CloudManagerProtocol.primaryID.getter in conformance CloudManager();
-}
-
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  return v1;
-}
-
-uint64_t protocol witness for CloudManagerProtocol.onboarded.getter in conformance CloudManager()
-{
-  return protocol witness for CloudManagerProtocol.onboarded.getter in conformance CloudManager();
-}
-
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
 
   return v1;
 }
@@ -5531,7 +5503,7 @@ uint64_t protocol witness for CloudManagerProtocol.getDBManager() in conformance
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter((v0 + 16));
 
   *(v0 + 48) = *(v0 + 16);
 
@@ -5546,17 +5518,13 @@ uint64_t protocol witness for CloudManagerProtocol.getDBManager() in conformance
   return v1(v2);
 }
 
-uint64_t protocol witness for CloudManagerProtocol.gcActiveCount.getter in conformance CloudManager()
-{
-  return protocol witness for CloudManagerProtocol.gcActiveCount.getter in conformance CloudManager();
-}
-
+uint64_t protocol witness for CloudManagerProtocol.gcActiveCount.getter in conformance CloudManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v5);
 
-  return v1;
+  return v5;
 }
 
 uint64_t protocol witness for CloudManagerProtocol.retainUIActive(_:_:_:) in conformance CloudManager(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
@@ -5579,7 +5547,7 @@ uint64_t protocol witness for CloudManagerProtocol.releaseUIActive(_:_:_:) in co
   return CloudManager.releaseUIActive(_:_:_:)(a1, a2, a3, a4, a5);
 }
 
-uint64_t protocol witness for CloudManagerProtocol.setSnapshotGeneration(_:) in conformance CloudManager()
+uint64_t protocol witness for CloudManagerProtocol.setSnapshotGeneration(_:) in conformance CloudManager(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -5591,7 +5559,7 @@ uint64_t protocol witness for CloudManagerProtocol.latestLocalSnapshotSequence.g
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v1);
 
   return v1;
 }
@@ -5600,7 +5568,7 @@ uint64_t protocol witness for CloudManagerProtocol.newlyOnboardedDevices.getter 
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v1);
 
   return v1;
 }
@@ -5621,7 +5589,7 @@ uint64_t protocol witness for CloudManagerProtocol.clearNewlyOnboardedDevices() 
 
 {
 
-  v1 = CloudManager.devicesDB.getter();
+  CloudManager.devicesDB.getter();
   v0[4] = v1;
   if (v1)
   {
@@ -5647,11 +5615,13 @@ uint64_t protocol witness for CloudManagerProtocol.clearNewlyOnboardedDevices() 
   return MEMORY[0x2822009F8](protocol witness for CloudManagerProtocol.clearNewlyOnboardedDevices() in conformance CloudManager, v1, 0);
 }
 
-uint64_t protocol witness for CloudManagerProtocol.freeSpace.getter in conformance CloudManager()
+double protocol witness for CloudManagerProtocol.freeSpace.getter in conformance CloudManager@<D0>(void *a1@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(a1);
+
+  return result;
 }
 
 uint64_t protocol witness for CloudManagerProtocol.checkFreeSpace() in conformance CloudManager(uint64_t a1)
@@ -5674,6 +5644,15 @@ uint64_t protocol witness for CloudManagerProtocol.checkiCloudPhotoLibraryAvaila
   return CloudManager.checkiCloudPhotoLibraryAvailable()();
 }
 
+uint64_t protocol witness for CloudManagerProtocol.onboarded.getter in conformance CloudManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter(&v5);
+
+  return v5;
+}
+
 uint64_t protocol witness for CloudManagerProtocol.checkHealthDataAvailable() in conformance CloudManager()
 {
   v1 = swift_task_alloc();
@@ -5684,19 +5663,28 @@ uint64_t protocol witness for CloudManagerProtocol.checkHealthDataAvailable() in
   return CloudManager.checkHealthDataAvailable()();
 }
 
-uint64_t protocol witness for CloudManagerProtocol.accountStatePublisher.getter in conformance CloudManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t protocol witness for CloudManagerProtocol.accountStatePublisher.getter in conformance CloudManager(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, uint64_t *a5)
 {
   swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(a4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
   Published.projectedValue.getter();
   return swift_endAccess();
 }
 
 uint64_t protocol witness for CloudManagerProtocol.dbSnapshotEventPublisher.getter in conformance CloudManager()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMd);
-  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PassthroughSubject<DBSnapshotAnalytics.SnapshotEvent?, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMd, &_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMR);
+  lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type PassthroughSubject<DBSnapshotAnalytics.SnapshotEvent?, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMd, &_s7Combine18PassthroughSubjectCy9MomentsUI19DBSnapshotAnalyticsC13SnapshotEventVSgs5NeverOGMR, MEMORY[0x277CBCE20]);
   return Publisher.eraseToAnyPublisher()();
+}
+
+uint64_t protocol witness for CloudManagerProtocol.primaryID.getter in conformance CloudManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_getKeyPath();
+  swift_getKeyPath();
+  static Published.subscript.getter(&v5);
+
+  return v5;
 }
 
 uint64_t protocol witness for CloudManagerProtocol.refresh(force:wait:_:_:) in conformance CloudManager(char a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -5826,17 +5814,16 @@ uint64_t CloudManager.deleteLocalData()()
   return v2();
 }
 
-uint64_t key path getter for CloudManager.dbManager : CloudManager@<X0>(void *a1@<X8>)
+void key path getter for CloudManager.dbManager : CloudManager(void *a2@<X8>)
 {
   swift_getKeyPath();
   swift_getKeyPath();
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v3);
 
-  *a1 = v3;
-  return result;
+  *a2 = v3;
 }
 
-uint64_t key path setter for CloudManager.dbManager : CloudManager()
+uint64_t key path setter for CloudManager.dbManager : CloudManager(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -5922,7 +5909,7 @@ LABEL_15:
   return v11 & 1;
 }
 
-uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
+uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *, __n128), uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   if (v4)
@@ -5935,7 +5922,7 @@ uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t 
       v12[0] = *(v7 - 1);
       v12[1] = v8;
 
-      v9 = a1(v12);
+      v9 = (a1)(v12);
 
       if (v3)
       {
@@ -5957,9 +5944,9 @@ uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t 
   return v9 & 1;
 }
 
-uint64_t specialized CloudManager.cloudModel.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double specialized CloudManager.cloudModel.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = (a2 + OBJC_IVAR____TtC9MomentsUI12CloudManager_cloudModel);
@@ -5971,7 +5958,7 @@ uint64_t specialized CloudManager.cloudModel.setter(uint64_t a1, uint64_t a2, ui
   {
     v12 = type metadata accessor for TaskPriority();
     (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-    v13 = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager);
+    v13 = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager, &protocol conformance descriptor for CloudManager);
     v14 = swift_allocObject();
     v14[2] = a2;
     v14[3] = v13;
@@ -5980,7 +5967,8 @@ uint64_t specialized CloudManager.cloudModel.setter(uint64_t a1, uint64_t a2, ui
     _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, &async function pointer to partial apply for closure #1 in CloudManager.cloudModel.didset, v14);
   }
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
 uint64_t specialized closure #1 in CloudManager.retainUIActive(_:_:_:)(uint64_t a1, uint64_t a2)
@@ -6034,7 +6022,7 @@ uint64_t specialized closure #1 in CloudManager.retainUIActive(_:_:_:)(uint64_t 
       *(v24 + 12) = 2082;
       *(v24 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000016, 0x8000000216584840, &v40);
       *(v24 + 22) = 2080;
-      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
       v28 = dispatch thunk of CustomStringConvertible.description.getter();
       v30 = v29;
       (*(v6 + 8))(v21, v5);
@@ -6137,7 +6125,7 @@ uint64_t specialized static CloudManager._checkTCC(retrying:)()
     *(v11 + 12) = 2082;
     swift_beginAccess();
     *(v0 + 144) = *(v8 + 16);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
     v13 = String.init<A>(describing:)();
     v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v23);
 
@@ -6179,7 +6167,7 @@ uint64_t specialized closure #1 in CloudManager.releaseUIActive(_:_:_:)(uint64_t
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v9 = &v36[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v36[-v11];
   v13 = OBJC_IVAR____TtC9MomentsUI12CloudManager__uiActiveIDs;
@@ -6193,7 +6181,7 @@ uint64_t specialized closure #1 in CloudManager.releaseUIActive(_:_:_:)(uint64_t
     swift_beginAccess();
     specialized Set._Variant.remove(_:)(a1, v12);
     swift_endAccess();
-    return outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd);
+    return outlined destroy of UTType?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   }
 
   else
@@ -6232,7 +6220,7 @@ uint64_t specialized closure #1 in CloudManager.releaseUIActive(_:_:_:)(uint64_t
       *(v26 + 12) = 2082;
       *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000017, 0x80000002165848C0, &v43);
       *(v26 + 22) = 2080;
-      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
+      _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
       v31 = dispatch thunk of CustomStringConvertible.description.getter();
       v33 = v32;
       (*(v29 + 8))(v21, v22);
@@ -6257,7 +6245,7 @@ uint64_t specialized closure #1 in CloudManager.releaseUIActive(_:_:_:)(uint64_t
   }
 }
 
-uint64_t _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6270,7 +6258,7 @@ uint64_t _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(unint64_t *a1,
   return result;
 }
 
-uint64_t type metadata accessor for CloudManager()
+uint64_t type metadata accessor for CloudManager(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CloudManager;
   if (!type metadata singleton initialization cache for CloudManager)
@@ -6362,20 +6350,20 @@ uint64_t partial apply for closure #1 in CloudManager.handleEvent(_:syncEngine:)
   return closure #1 in CloudManager.handleEvent(_:syncEngine:)(a1, v4, v5, v6);
 }
 
-uint64_t specialized static CloudSubDB.zones.getter()
+unint64_t *specialized static CloudSubDB.zones.getter()
 {
-  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudSuggestionsDB.cloudRecordTypes);
+  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudSuggestionsDB.cloudRecordTypes, one-time initialization function for cloudRecordTypes);
 }
 
 {
-  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudSyncDB.cloudRecordTypes);
+  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudSyncDB.cloudRecordTypes, one-time initialization function for cloudRecordTypes);
 }
 
 {
-  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudDevicesDB.cloudRecordTypes);
+  return _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(&one-time initialization token for cloudRecordTypes, &static CloudDevicesDB.cloudRecordTypes, one-time initialization function for cloudRecordTypes);
 }
 
-uint64_t _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(void *a1, uint64_t *a2)
+unint64_t *_s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7DevicesE0C_Ttg5Tm(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
@@ -6383,41 +6371,41 @@ uint64_t _s9MomentsUI10CloudSubDBPAAE5zonesShySo14CKRecordZoneIDCGvgZAA0c7Device
   }
 
   swift_beginAccess();
-  v3 = *a2;
-  v4 = *(v3 + 16);
-  v5 = MEMORY[0x277D84F90];
-  if (v4)
+  v5 = *a2;
+  v6 = *(v5 + 16);
+  v7 = MEMORY[0x277D84F90];
+  if (v6)
   {
-    v16 = MEMORY[0x277D84F90];
+    v18 = MEMORY[0x277D84F90];
 
     specialized ContiguousArray.reserveCapacity(_:)();
-    v6 = v3 + 40;
+    v8 = v5 + 40;
     do
     {
-      v7 = (*(*v6 + 32))();
-      v9 = v8;
-      v10 = objc_allocWithZone(MEMORY[0x277CBC5E8]);
-      v11 = MEMORY[0x21CE91FC0](v7, v9);
+      v9 = (*(*v8 + 32))();
+      v11 = v10;
+      v12 = objc_allocWithZone(MEMORY[0x277CBC5E8]);
+      v13 = MEMORY[0x21CE91FC0](v9, v11);
 
-      v12 = [v10 initWithZoneName_];
+      v14 = [v12 initWithZoneName_];
 
-      v13 = [v12 zoneID];
+      v15 = [v14 zoneID];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      v6 += 16;
-      --v4;
+      v8 += 16;
+      --v6;
     }
 
-    while (v4);
+    while (v6);
 
-    v5 = v16;
+    v7 = v18;
   }
 
-  v14 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo14CKRecordZoneIDC_SayAEGTt0g5Tf4g_n(v5);
+  v16 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo14CKRecordZoneIDC_SayAEGTt0g5Tf4g_n(v7, v4);
 
-  return v14;
+  return v16;
 }
 
 uint64_t specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numRecords:expectedSize:syncEngine:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -6594,7 +6582,7 @@ uint64_t specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numR
     *(v13 + 34) = v17;
     *v14 = v17;
     _os_log_impl(&dword_21607C000, v3, v4, "CloudManager.%{public}s Forced send From: %{public}s:%ld ERROR: %@", v13, 0x2Au);
-    outlined destroy of UTType?(v14, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v14, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v14, -1, -1);
     swift_arrayDestroy();
     MEMORY[0x21CE94770](v15, -1, -1);
@@ -6614,7 +6602,7 @@ uint64_t specialized closure #1 in CloudManager._sendChanges(zoneSet:reason:numR
   return v18();
 }
 
-uint64_t specialized $defer #3 () in CloudManager._refresh(force:wait:)(const char *a1)
+uint64_t specialized $defer #3 () in CloudManager._refresh(force:wait:)(const char *a1, ...)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
@@ -6804,8 +6792,8 @@ LABEL_25:
 
         MEMORY[0x21CE92100](8250, 0xE200000000000000);
         v66 = v9;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-        lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+        lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR, MEMORY[0x277D83958]);
         v46 = BidirectionalCollection<>.joined(separator:)();
         v48 = v47;
 
@@ -6866,8 +6854,8 @@ LABEL_25:
         MEMORY[0x21CE92100](v59);
 
         MEMORY[0x21CE92100](0x73656972746E6520, 0xEA0000000000203ALL);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
-        lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+        lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR, MEMORY[0x277D83958]);
         v60 = BidirectionalCollection<>.joined(separator:)();
         v62 = v61;
 
@@ -6964,7 +6952,7 @@ uint64_t specialized CloudManager.handleStateChange(_:syncEngine:)(uint64_t a1)
   v2[6] = a1;
   v2[7] = v1;
   v2[8] = *v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   v2[9] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](specialized CloudManager.handleStateChange(_:syncEngine:), v1, 0);
@@ -6975,12 +6963,12 @@ uint64_t specialized CloudManager.handleStateChange(_:syncEngine:)()
   v2 = v0[7];
   v1 = v0[8];
   v3 = v0[6];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_21658CA50;
   v5 = type metadata accessor for CKSyncEngine.Event.StateUpdate();
   *(v4 + 56) = v5;
-  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.StateUpdate and conformance CKSyncEngine.Event.StateUpdate, MEMORY[0x277CBBC88]);
+  *(v4 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.StateUpdate and conformance CKSyncEngine.Event.StateUpdate, MEMORY[0x277CBBC88], MEMORY[0x277CBBC90]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v4 + 32));
   (*(*(v5 - 8) + 16))(boxed_opaque_existential_1, v3, v5);
   static CloudLog.LogBegin(_:_:)(v4, "handleStateChange(_:syncEngine:)", 32, 2, v1, &protocol witness table for CloudManager);
@@ -7086,12 +7074,12 @@ uint64_t specialized CloudManager.handleAccountChange(_:syncEngine:)()
   v3 = v0[6];
   v4 = v0[7];
   v5 = v0[4];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_21658CA50;
   v7 = type metadata accessor for CKSyncEngine.Event.AccountChange();
   *(v6 + 56) = v7;
-  *(v6 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.AccountChange and conformance CKSyncEngine.Event.AccountChange, MEMORY[0x277CBBCC0]);
+  *(v6 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.AccountChange and conformance CKSyncEngine.Event.AccountChange, MEMORY[0x277CBBCC0], MEMORY[0x277CBBCC8]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v6 + 32));
   (*(*(v7 - 8) + 16))(boxed_opaque_existential_1, v5, v7);
   static CloudLog.LogBegin(_:_:)(v6, "handleAccountChange(_:syncEngine:)", 34, 2, v3, &protocol witness table for CloudManager);
@@ -7164,12 +7152,12 @@ uint64_t specialized CloudManager.handleFetchedDatabaseChanges(_:syncEngine:)()
 {
   v1 = *(v0 + 184);
   v2 = *(v0 + 168);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21658CA50;
   v4 = type metadata accessor for CKSyncEngine.Event.FetchedDatabaseChanges();
   *(v3 + 56) = v4;
-  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.FetchedDatabaseChanges and conformance CKSyncEngine.Event.FetchedDatabaseChanges, MEMORY[0x277CBBD48]);
+  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.FetchedDatabaseChanges and conformance CKSyncEngine.Event.FetchedDatabaseChanges, MEMORY[0x277CBBD48], MEMORY[0x277CBBD50]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v3 + 32));
   (*(*(v4 - 8) + 16))(boxed_opaque_existential_1, v2, v4);
   static CloudLog.LogBegin(_:_:)(v3, "handleFetchedDatabaseChanges(_:syncEngine:)", 43, 2, v1, &protocol witness table for CloudManager);
@@ -7312,7 +7300,7 @@ LABEL_5:
         *(v22 + 4) = v24;
         *v23 = v24;
         _os_log_impl(&dword_21607C000, v16, v17, "Zone: %@ was PURGED!", v22, 0xCu);
-        outlined destroy of UTType?(v23, &_sSo8NSObjectCSgMd);
+        outlined destroy of UTType?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x21CE94770](v23, -1, -1);
         MEMORY[0x21CE94770](v22, -1, -1);
       }
@@ -7388,7 +7376,7 @@ LABEL_5:
     *(v42 + 4) = v44;
     *v43 = v44;
     _os_log_impl(&dword_21607C000, log, v34, "Received deletion for unknown zone: %@", v42, 0xCu);
-    outlined destroy of UTType?(v43, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v43, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v43, -1, -1);
     MEMORY[0x21CE94770](v42, -1, -1);
 
@@ -7647,7 +7635,7 @@ LABEL_5:
     *(v30 + 4) = v32;
     *v31 = v32;
     _os_log_impl(&dword_21607C000, log, v22, "Received modification for unknown zone: %@", v30, 0xCu);
-    outlined destroy of UTType?(v31, &_sSo8NSObjectCSgMd);
+    outlined destroy of UTType?(v31, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x21CE94770](v31, -1, -1);
     MEMORY[0x21CE94770](v30, -1, -1);
 
@@ -7811,12 +7799,12 @@ uint64_t specialized CloudManager.handleFetchedRecordZoneChanges(_:syncEngine:)(
 {
   v1 = *(v0 + 152);
   v2 = *(v0 + 136);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21658CA50;
   v4 = type metadata accessor for CKSyncEngine.Event.FetchedRecordZoneChanges();
   *(v3 + 56) = v4;
-  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.FetchedRecordZoneChanges and conformance CKSyncEngine.Event.FetchedRecordZoneChanges, MEMORY[0x277CBBD60]);
+  *(v3 + 64) = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CKSyncEngine.Event.FetchedRecordZoneChanges and conformance CKSyncEngine.Event.FetchedRecordZoneChanges, MEMORY[0x277CBBD60], MEMORY[0x277CBBD68]);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v3 + 32));
   (*(*(v4 - 8) + 16))(boxed_opaque_existential_1, v2, v4);
   static CloudLog.LogBegin(_:_:)(v3, "handleFetchedRecordZoneChanges(_:syncEngine:)", 45, 2, v1, &protocol witness table for CloudManager);
@@ -7911,7 +7899,7 @@ uint64_t specialized CloudManager.handleFetchedRecordZoneChanges(_:syncEngine:)(
         *(v43 + 4) = v45;
         *v44 = v45;
         _os_log_impl(&dword_21607C000, v37, v38, "Received record deletion: %@", v43, 0xCu);
-        outlined destroy of UTType?(v44, &_sSo8NSObjectCSgMd);
+        outlined destroy of UTType?(v44, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x21CE94770](v44, -1, -1);
         MEMORY[0x21CE94770](v43, -1, -1);
       }
@@ -8096,7 +8084,7 @@ uint64_t specialized CloudManager.handleFetchedRecordZoneChanges(_:syncEngine:)(
         *(v22 + 4) = v24;
         *v23 = v24;
         _os_log_impl(&dword_21607C000, v16, v17, "Received record deletion: %@", v22, 0xCu);
-        outlined destroy of UTType?(v23, &_sSo8NSObjectCSgMd);
+        outlined destroy of UTType?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x21CE94770](v23, -1, -1);
         MEMORY[0x21CE94770](v22, -1, -1);
       }
@@ -8241,7 +8229,7 @@ uint64_t specialized CloudManager.handleFetchedRecordZoneChanges(_:syncEngine:)(
       *(v21 + 4) = v23;
       *v22 = v23;
       _os_log_impl(&dword_21607C000, v15, v16, "Received record deletion: %@", v21, 0xCu);
-      outlined destroy of UTType?(v22, &_sSo8NSObjectCSgMd);
+      outlined destroy of UTType?(v22, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x21CE94770](v22, -1, -1);
       MEMORY[0x21CE94770](v21, -1, -1);
     }
@@ -8338,37 +8326,40 @@ uint64_t specialized CloudManager.relatedApplicationBundleIdentifiers(zoneIDs:re
   v1 = v0[3];
   v2 = v0[4];
   v3 = v0[2];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_21658CA60;
-  *(v4 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo14CKRecordZoneIDCGMd);
-  *(v4 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKRecordZoneID] and conformance [A], &_sSaySo14CKRecordZoneIDCGMd);
+  *(v4 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo14CKRecordZoneIDCGMd, &_sSaySo14CKRecordZoneIDCGMR);
+  v5 = MEMORY[0x277D839A0];
+  *(v4 + 64) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKRecordZoneID] and conformance [A], &_sSaySo14CKRecordZoneIDCGMd, &_sSaySo14CKRecordZoneIDCGMR, MEMORY[0x277D839A0]);
   *(v4 + 32) = v3;
-  *(v4 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo10CKRecordIDCGMd);
-  *(v4 + 104) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKRecordID] and conformance [A], &_sSaySo10CKRecordIDCGMd);
+  *(v4 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo10CKRecordIDCGMd, &_sSaySo10CKRecordIDCGMR);
+  *(v4 + 104) = lazy protocol witness table accessor for type Published<DBManager?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type [CKRecordID] and conformance [A], &_sSaySo10CKRecordIDCGMd, &_sSaySo10CKRecordIDCGMR, v5);
   *(v4 + 72) = v1;
 
   static CloudLog.LogBeginInfo(_:_:)(v4, "relatedApplicationBundleIdentifiers(zoneIDs:recordIDs:syncEngine:)", 66, 2, v2, &protocol witness table for CloudManager);
 
   static CloudLog.LogEndInfo(_:)("relatedApplicationBundleIdentifiers(zoneIDs:recordIDs:syncEngine:)", 66, 2, v2, &protocol witness table for CloudManager);
-  v5 = v0[1];
+  v6 = v0[1];
 
-  return v5(0);
+  return v6(0);
 }
 
 uint64_t instantiation function for generic protocol witness table for CloudManager(uint64_t a1)
 {
-  result = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager);
+  result = _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudManager and conformance CloudManager, type metadata accessor for CloudManager, &protocol conformance descriptor for CloudManager);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t keypath_get_210Tm@<X0>(void *a1@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
+double keypath_get_210Tm@<D0>(void *a1@<X3>, uint64_t *a2@<X4>, void *a3@<X8>)
 {
   swift_beginAccess();
   v6 = *a2;
   *a3 = *a1;
   a3[1] = v6;
+
+  return result;
 }
 
 uint64_t dispatch thunk of CloudManagerProtocol.getAccountState()(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8536,40 +8527,40 @@ uint64_t dispatch thunk of CloudManagerProtocol.records(ids:desiredKeys:loadAsse
   return v13(a1, a2, a3, a4, a5);
 }
 
-void type metadata completion function for CloudManager()
+void type metadata completion function for CloudManager(uint64_t a1)
 {
-  type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<String?>, &_sSSSgMd);
-  if (v0 <= 0x3F)
+  type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<String?>, &_sSSSgMd, &_sSSSgMR);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<Bool?>, &_sSbSgMd);
-    if (v1 <= 0x3F)
+    type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<Bool?>, &_sSbSgMd, &_sSbSgMR);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<(CloudManagerAccountState?, CKRecordID?)>, &_s9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtMd);
-      if (v2 <= 0x3F)
+      type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<(CloudManagerAccountState?, CKRecordID?)>, &_s9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtMd, &_s9MomentsUI24CloudManagerAccountStateOSg_So10CKRecordIDCSgtMR);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for Published<Bool>(319, &lazy cache variable for type metadata for Published<Bool>);
-        if (v3 <= 0x3F)
+        type metadata accessor for Published<Bool>(319, &lazy cache variable for type metadata for Published<Bool>, MEMORY[0x277D839B0]);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<CloudManager.FreeSpace?>, &_s9MomentsUI12CloudManagerC9FreeSpaceOSgMd);
-          if (v4 <= 0x3F)
+          type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<CloudManager.FreeSpace?>, &_s9MomentsUI12CloudManagerC9FreeSpaceOSgMd, &_s9MomentsUI12CloudManagerC9FreeSpaceOSgMR);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for Published<Bool>(319, &lazy cache variable for type metadata for Published<Int>);
-            if (v5 <= 0x3F)
+            type metadata accessor for Published<Bool>(319, &lazy cache variable for type metadata for Published<Int>, MEMORY[0x277D83B88]);
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<DBManager?>, &_s9MomentsUI9DBManagerCSgMd);
-              if (v6 <= 0x3F)
+              type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<DBManager?>, &_s9MomentsUI9DBManagerCSgMd, &_s9MomentsUI9DBManagerCSgMR);
+              if (v7 <= 0x3F)
               {
-                type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<(sequence: UInt64, suggestions: UInt64?)?>, &_ss6UInt64V8sequence_ABSg11suggestionstSgMd);
-                if (v7 <= 0x3F)
+                type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<(sequence: UInt64, suggestions: UInt64?)?>, &_ss6UInt64V8sequence_ABSg11suggestionstSgMd, &_ss6UInt64V8sequence_ABSg11suggestionstSgMR);
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<[CloudDevice]>, &_sSay9MomentsUI11CloudDeviceVGMd);
-                  if (v8 <= 0x3F)
+                  type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<[CloudDevice]>, &_sSay9MomentsUI11CloudDeviceVGMd, &_sSay9MomentsUI11CloudDeviceVGMR);
+                  if (v9 <= 0x3F)
                   {
-                    type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<CloudDB?>, &_s9MomentsUI7CloudDB_pSgMd);
-                    if (v9 <= 0x3F)
+                    type metadata accessor for Published<String?>(319, &lazy cache variable for type metadata for Published<CloudDB?>, &_s9MomentsUI7CloudDB_pSgMd, &_s9MomentsUI7CloudDB_pSgMR);
+                    if (v10 <= 0x3F)
                     {
                       type metadata accessor for Date();
-                      if (v10 <= 0x3F)
+                      if (v11 <= 0x3F)
                       {
                         swift_updateClassMetadata2();
                       }
@@ -8613,7 +8604,7 @@ uint64_t partial apply for closure #2 in closure #1 in CloudManager.nextRecordZo
 
 uint64_t partial apply for closure #1 in closure #1 in static CloudManager._checkTCC(retrying:)(char a1)
 {
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd) - 8);
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR) - 8);
   v4 = v1[2];
   v5 = v1[3];
   v6 = v1[4];
@@ -8665,8 +8656,8 @@ unint64_t lazy protocol witness table accessor for type [CloudDevice] and confor
   result = lazy protocol witness table cache variable for type [CloudDevice] and conformance <A> [A];
   if (!lazy protocol witness table cache variable for type [CloudDevice] and conformance <A> [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI11CloudDeviceVGMd);
-    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudDevice and conformance CloudDevice, type metadata accessor for CloudDevice);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9MomentsUI11CloudDeviceVGMd, &_sSay9MomentsUI11CloudDeviceVGMR);
+    _s10Foundation4UUIDVACs23CustomStringConvertibleAAWlTm_2(&lazy protocol witness table cache variable for type CloudDevice and conformance CloudDevice, type metadata accessor for CloudDevice, &protocol conformance descriptor for CloudDevice);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [CloudDevice] and conformance <A> [A]);
   }
@@ -8693,7 +8684,7 @@ uint64_t partial apply for closure #1 in closure #2 in CloudManager.initializeBa
 uint64_t partial apply for closure #1 in closure #5 in CloudManager.initializeBasicSyncEngine()(uint64_t a1)
 {
   v3 = v2;
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd) - 8);
+  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s9MomentsUI11CloudDeviceVSgMd, &_s9MomentsUI11CloudDeviceVSgMR) - 8);
   v6 = (*(v5 + 80) + 40) & ~*(v5 + 80);
   v7 = v1[2];
   v8 = v1[3];
@@ -8708,14 +8699,14 @@ uint64_t partial apply for closure #1 in closure #5 in CloudManager.initializeBa
 
 uint64_t outlined destroy of CloudDevice(uint64_t a1)
 {
-  v2 = type metadata accessor for CloudDevice();
+  v2 = type metadata accessor for CloudDevice(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t outlined init with take of CloudDevice(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CloudDevice();
+  v4 = type metadata accessor for CloudDevice(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -8734,11 +8725,11 @@ uint64_t partial apply for closure #1 in closure #6 in CloudManager.initializeBa
   return closure #1 in closure #6 in CloudManager.initializeBasicSyncEngine()(a1, v4, v5, v6, v7);
 }
 
-uint64_t objectdestroy_164Tm(void (*a1)(void), uint64_t a2)
+uint64_t objectdestroy_164Tm(void (*a1)(void, __n128), uint64_t a2)
 {
   swift_unknownObjectRelease();
 
-  a1(*(v2 + 40));
+  (a1)(*(v2 + 40));
 
   return MEMORY[0x2821FE8E8](v2, a2, 7);
 }
@@ -8800,7 +8791,7 @@ uint64_t partial apply for closure #1 in closure #1 in CloudManager.initializeBa
 
 uint64_t partial apply for closure #2 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(void *a1, char a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMd, &_sScCySDySo10CKRecordIDCs6ResultOySo0A0Cs5Error_pGGsAG_pGMR);
   v5 = *(v2 + 16);
 
   return closure #2 in closure #1 in CloudManager.records(ids:desiredKeys:loadAssets:)(a1, a2 & 1, v5);
@@ -8880,7 +8871,7 @@ id PrivacyViewController.init()()
 id PrivacyViewController.__allocating_init(title:detailText:symbolName:contentLayout:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v8 = v7;
-  v14 = MEMORY[0x21CE91FC0]();
+  v14 = MEMORY[0x21CE91FC0](a1);
 
   if (!a4)
   {
@@ -8914,7 +8905,7 @@ LABEL_6:
 id PrivacyViewController.__allocating_init(title:detailText:icon:contentLayout:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v7 = v6;
-  v12 = MEMORY[0x21CE91FC0]();
+  v12 = MEMORY[0x21CE91FC0](a1);
 
   if (a4)
   {
@@ -8938,10 +8929,11 @@ id PrivacyViewController.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t CloudRootDB.__allocating_init(emptyDB:config:)(int a1, uint64_t a2)
+uint64_t CloudRootDB.__allocating_init(emptyDB:config:)(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   v4 = swift_allocObject();
-  CloudRootDB.init(emptyDB:config:)(a1, a2);
+  CloudRootDB.init(emptyDB:config:)(v3, a2);
   return v4;
 }
 
@@ -8954,20 +8946,20 @@ uint64_t static CloudRootDB.Class.setter(char *a1, uint64_t a2, char a3)
   return result;
 }
 
-uint64_t CloudRootDB.defaultSyncStateURL.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t CloudRootDB.defaultSyncStateURL.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 == -1)
   {
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
   else
   {
     swift_once();
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
-  return __swift_project_value_buffer(v4, a3);
+  return __swift_project_value_buffer(v5, a3);
 }
 
 uint64_t static CloudRootDB.Log.getter@<X0>(uint64_t a1@<X8>)
@@ -8999,15 +8991,15 @@ uint64_t static CloudRootDB.Log.setter(uint64_t a1)
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*static CloudRootDB.Log.modify())()
+uint64_t (*static CloudRootDB.Log.modify(uint64_t a1))()
 {
   if (one-time initialization token for Log != -1)
   {
     swift_once();
   }
 
-  v0 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v0, static CloudRootDB.Log);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static CloudRootDB.Log);
   swift_beginAccess();
   return MutableVideoViewModel.video.modify;
 }
@@ -9027,14 +9019,14 @@ uint64_t protocol witness for static CloudLog.Log.getter in conformance CloudRoo
 
 uint64_t one-time initialization function for modelTypes()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MomentsUI10CloudSubDB_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MomentsUI10CloudSubDB_pXpGMd, &_ss23_ContiguousArrayStorageCy9MomentsUI10CloudSubDB_pXpGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_21658E190;
-  *(v0 + 32) = type metadata accessor for CloudDevicesDB();
+  *(v0 + 32) = type metadata accessor for CloudDevicesDB(0);
   *(v0 + 40) = &protocol witness table for CloudDevicesDB;
-  *(v0 + 48) = type metadata accessor for CloudSuggestionsDB();
+  *(v0 + 48) = type metadata accessor for CloudSuggestionsDB(0);
   *(v0 + 56) = &protocol witness table for CloudSuggestionsDB;
-  result = type metadata accessor for CloudSyncDB();
+  result = type metadata accessor for CloudSyncDB(0);
   *(v0 + 64) = result;
   *(v0 + 72) = &protocol witness table for CloudSyncDB;
   static CloudRootDB.modelTypes = v0;
@@ -9051,7 +9043,7 @@ uint64_t *CloudRootDB.modelTypes.unsafeMutableAddressor()
   return &static CloudRootDB.modelTypes;
 }
 
-uint64_t static CloudRootDB.modelTypes.getter()
+double static CloudRootDB.modelTypes.getter()
 {
   if (one-time initialization token for modelTypes != -1)
   {
@@ -9059,9 +9051,11 @@ uint64_t static CloudRootDB.modelTypes.getter()
   }
 
   swift_beginAccess();
+
+  return result;
 }
 
-uint64_t static CloudRootDB.modelTypes.setter(uint64_t a1)
+double static CloudRootDB.modelTypes.setter(uint64_t a1)
 {
   if (one-time initialization token for modelTypes != -1)
   {
@@ -9070,9 +9064,11 @@ uint64_t static CloudRootDB.modelTypes.setter(uint64_t a1)
 
   swift_beginAccess();
   static CloudRootDB.modelTypes = a1;
+
+  return result;
 }
 
-uint64_t (*static CloudRootDB.modelTypes.modify())()
+uint64_t (*static CloudRootDB.modelTypes.modify(uint64_t a1))()
 {
   if (one-time initialization token for modelTypes != -1)
   {
@@ -9083,7 +9079,7 @@ uint64_t (*static CloudRootDB.modelTypes.modify())()
   return MutableVideoViewModel.videoDurationSeconds.modify;
 }
 
-uint64_t key path getter for static CloudRootDB.modelTypes : CloudRootDB.Type@<X0>(void *a1@<X8>)
+double key path getter for static CloudRootDB.modelTypes : CloudRootDB.Type@<D0>(void *a1@<X8>)
 {
   if (one-time initialization token for modelTypes != -1)
   {
@@ -9092,9 +9088,11 @@ uint64_t key path getter for static CloudRootDB.modelTypes : CloudRootDB.Type@<X
 
   swift_beginAccess();
   *a1 = static CloudRootDB.modelTypes;
+
+  return result;
 }
 
-uint64_t key path setter for static CloudRootDB.modelTypes : CloudRootDB.Type(uint64_t *a1)
+double key path setter for static CloudRootDB.modelTypes : CloudRootDB.Type(uint64_t *a1)
 {
   v1 = *a1;
   v2 = one-time initialization token for modelTypes;
@@ -9106,18 +9104,20 @@ uint64_t key path setter for static CloudRootDB.modelTypes : CloudRootDB.Type(ui
 
   swift_beginAccess();
   static CloudRootDB.modelTypes = v1;
+
+  return result;
 }
 
-uint64_t one-time initialization function for defaultSyncStateURL()
+void one-time initialization function for defaultSyncStateURL()
 {
   v0 = type metadata accessor for URL.DirectoryHint();
   v1 = *(v0 - 8);
   MEMORY[0x28223BE20](v0);
-  v3 = v13 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
   v6 = MEMORY[0x28223BE20](v4);
-  v8 = v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_allocate_value_buffer(v6, static CloudRootDB.defaultSyncStateURL);
   __swift_project_value_buffer(v4, static CloudRootDB.defaultSyncStateURL);
   v9 = [objc_opt_self() defaultManager];
@@ -9131,20 +9131,20 @@ uint64_t one-time initialization function for defaultSyncStateURL()
     {
       (*(v5 + 16))(v8, v11 + ((*(v5 + 80) + 32) & ~*(v5 + 80)), v4);
 
-      v13[0] = 0xD000000000000016;
-      v13[1] = 0x8000000216585B60;
+      v12[0] = 0xD000000000000016;
+      v12[1] = 0x8000000216585B60;
       (*(v1 + 104))(v3, *MEMORY[0x277CC91D8], v0);
       lazy protocol witness table accessor for type String and conformance String();
       URL.appending<A>(component:directoryHint:)();
       (*(v1 + 8))(v3, v0);
-      return (*(v5 + 8))(v8, v4);
+      (*(v5 + 8))(v8, v4);
+      return;
     }
 
     __break(1u);
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t static CloudRootDB.defaultSyncStateURL.getter@<X0>(uint64_t a1@<X8>)
@@ -9212,7 +9212,7 @@ uint64_t CloudRootDB.stateDBURL.setter(uint64_t a1)
   swift_beginAccess();
   v9 = *(v5 + 16);
   v9(v7, v2 + v8, v4);
-  lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+  lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9278]);
   v15 = a1;
   LOBYTE(a1) = dispatch thunk of static Equatable.== infix(_:_:)();
   v10 = *(v5 + 8);
@@ -9265,7 +9265,7 @@ uint64_t key path getter for CloudRootDB._cloudManager : CloudRootDB@<X0>(uint64
   return swift_unknownObjectRetain();
 }
 
-uint64_t key path setter for CloudRootDB._cloudManager : CloudRootDB(uint64_t *a1, uint64_t *a2)
+double key path setter for CloudRootDB._cloudManager : CloudRootDB(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -9275,6 +9275,8 @@ uint64_t key path setter for CloudRootDB._cloudManager : CloudRootDB(uint64_t *a
   v7[3] = v2;
   v7[4] = v3;
   (*(*v4 + 664))(KeyPath, closure #1 in CloudRootDB._cloudManager.setterpartial apply, v7, MEMORY[0x277D84F78] + 8);
+
+  return result;
 }
 
 uint64_t CloudRootDB._cloudManager.getter()
@@ -9285,14 +9287,15 @@ uint64_t CloudRootDB._cloudManager.getter()
   return swift_unknownObjectRetain();
 }
 
-uint64_t CloudRootDB.cloudManager.setter(uint64_t a1, uint64_t a2)
+double CloudRootDB.cloudManager.setter(uint64_t a1, uint64_t a2)
 {
   specialized CloudRootDB.cloudManager.setter(a1, a2);
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
-uint64_t (*CloudRootDB.cloudManager.modify(uint64_t a1))(uint64_t *a1, char a2)
+double (*CloudRootDB.cloudManager.modify(uint64_t a1))(uint64_t *a1, char a2)
 {
   *(a1 + 16) = v1;
   KeyPath = swift_getKeyPath();
@@ -9303,7 +9306,7 @@ uint64_t (*CloudRootDB.cloudManager.modify(uint64_t a1))(uint64_t *a1, char a2)
   return CloudRootDB.cloudManager.modify;
 }
 
-uint64_t CloudRootDB.cloudManager.modify(uint64_t *a1, char a2)
+double CloudRootDB.cloudManager.modify(uint64_t *a1, char a2)
 {
   v2 = a1[1];
   v3 = *a1;
@@ -9319,7 +9322,8 @@ uint64_t CloudRootDB.cloudManager.modify(uint64_t *a1, char a2)
     specialized CloudRootDB.cloudManager.setter(v3, v2);
   }
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
 uint64_t CloudRootDB.accountStateSubscription.getter()
@@ -9337,7 +9341,7 @@ uint64_t key path getter for CloudRootDB.accountStateSubscription : CloudRootDB@
   *a2 = *(v3 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB__accountStateSubscription);
 }
 
-uint64_t CloudRootDB.accountStateSubscription.setter(uint64_t a1)
+double CloudRootDB.accountStateSubscription.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB__accountStateSubscription;
   if (*(v1 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB__accountStateSubscription))
@@ -9345,7 +9349,7 @@ uint64_t CloudRootDB.accountStateSubscription.setter(uint64_t a1)
     if (a1)
     {
       type metadata accessor for AnyCancellable();
-      lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x277CBCDA8]);
+      lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x277CBCDA8], MEMORY[0x277CBCDB8]);
       swift_retain_n();
       v4 = dispatch thunk of static Equatable.== infix(_:_:)();
 
@@ -9359,6 +9363,8 @@ LABEL_6:
     KeyPath = swift_getKeyPath();
     v6 = MEMORY[0x28223BE20](KeyPath);
     (*(*v1 + 664))(v6, partial apply for closure #1 in CloudRootDB.accountStateSubscription.setter);
+
+    return result;
   }
 
   if (a1)
@@ -9368,6 +9374,8 @@ LABEL_6:
 
 LABEL_7:
   *(v1 + v3) = a1;
+
+  return result;
 }
 
 void *key path getter for CloudRootDB._accountState : CloudRootDB@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
@@ -9395,30 +9403,25 @@ uint64_t CloudRootDB._accountState.getter@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t CloudRootDB._accountState.setter(unsigned __int8 *a1)
+void CloudRootDB._accountState.setter(unsigned __int8 *a1)
 {
   v2 = *a1;
   v3 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___accountState;
   swift_beginAccess();
-  result = specialized CloudRootDB.shouldNotifyObservers<A>(_:_:)(*(v1 + v3), v2);
-  if (result)
+  if (specialized CloudRootDB.shouldNotifyObservers<A>(_:_:)(*(v1 + v3), v2))
   {
     KeyPath = swift_getKeyPath();
-    v6 = MEMORY[0x28223BE20](KeyPath);
-    v7 = v1;
-    v8 = v2;
-    (*(*v1 + 664))(v6, partial apply for closure #1 in CloudRootDB._accountState.setter);
+    v5 = MEMORY[0x28223BE20](KeyPath);
+    (*(*v1 + 664))(v5, partial apply for closure #1 in CloudRootDB._accountState.setter);
   }
 
   else
   {
     *(v1 + v3) = v2;
   }
-
-  return result;
 }
 
-void (*CloudRootDB._accountState.modify(uint64_t *a1))(void *a1)
+uint64_t (*CloudRootDB._accountState.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9439,35 +9442,20 @@ void (*CloudRootDB._accountState.modify(uint64_t *a1))(void *a1)
   v4[5] = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___observationRegistrar;
   *v4 = v1;
   swift_getKeyPath();
-  v4[6] = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CloudRootDB and conformance CloudRootDB, type metadata accessor for CloudRootDB);
+  v4[6] = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CloudRootDB and conformance CloudRootDB, type metadata accessor for CloudRootDB, &protocol conformance descriptor for CloudRootDB);
   ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
-  v4[7] = CloudRootDB.__accountState.modify();
+  v4[7] = CloudRootDB.__accountState.modify(v4);
   return CloudRootDB._accountState.modify;
 }
 
-void CloudRootDB._accountState.modify(void *a1)
+double CloudRootDB.accountState.setter(unsigned __int8 *a1)
 {
-  CloudRootDB._accountState.modify(a1);
-}
-
-{
-  v1 = *a1;
-  (*(*a1 + 56))(*a1, 0);
-  *v1 = v1[4];
-  swift_getKeyPath();
-  ObservationRegistrar.didSet<A, B>(_:keyPath:)();
-
-  free(v1);
-}
-
-void *CloudRootDB.accountState.setter(unsigned __int8 *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   v4 = MEMORY[0x28223BE20](v3 - 8);
   v6 = &v15 - v5;
   v7 = *a1;
-  result = (*(*v1 + 328))(&v17, v4);
+  (*(*v1 + 328))(&v17, v4);
   if (v17 == 4)
   {
     if (v7 >= 2)
@@ -9487,7 +9475,8 @@ void *CloudRootDB.accountState.setter(unsigned __int8 *a1)
   {
 LABEL_9:
     v16 = v7;
-    return (*(*v1 + 336))(&v16);
+    (*(*v1 + 336))(&v16);
+    return result;
   }
 
   if (v17 == 3)
@@ -9579,14 +9568,14 @@ LABEL_8:
   return result;
 }
 
-void *(*CloudRootDB.accountState.modify(void *a1))(uint64_t a1, char a2)
+double (*CloudRootDB.accountState.modify(void *a1))(uint64_t a1, char a2)
 {
   *a1 = v1;
   (*(*v1 + 328))();
   return CloudRootDB.accountState.modify;
 }
 
-void *CloudRootDB.accountState.modify(uint64_t a1, char a2)
+double CloudRootDB.accountState.modify(uint64_t a1, char a2)
 {
   if (a2)
   {
@@ -9616,7 +9605,7 @@ uint64_t key path getter for CloudRootDB._stateSerialization : CloudRootDB@<X0>(
 
 uint64_t key path setter for CloudRootDB._stateSerialization : CloudRootDB(uint64_t a1, uint64_t *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10[-v5];
   outlined init with copy of CKSyncEngine.State.Serialization?(a1, &v10[-v5]);
@@ -9626,7 +9615,7 @@ uint64_t key path setter for CloudRootDB._stateSerialization : CloudRootDB(uint6
   v12 = v6;
   (*(*v7 + 664))(KeyPath, closure #1 in CloudRootDB._stateSerialization.setterpartial apply, v10, MEMORY[0x277D84F78] + 8);
 
-  return outlined destroy of UTType?(v6, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  return outlined destroy of UTType?(v6, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
 }
 
 uint64_t closure #1 in CloudRootDB._stateSerialization.setter(uint64_t a1, uint64_t a2)
@@ -9639,7 +9628,7 @@ uint64_t closure #1 in CloudRootDB._stateSerialization.setter(uint64_t a1, uint6
 
 uint64_t key path setter for CloudRootDB.stateSerialization : CloudRootDB(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v8 - v5;
   outlined init with copy of CKSyncEngine.State.Serialization?(a1, &v8 - v5);
@@ -9658,7 +9647,7 @@ uint64_t CloudRootDB._stateSerialization.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t CloudRootDB.stateSerialization.setter(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v9[-v4];
   outlined init with copy of CKSyncEngine.State.Serialization?(a1, &v9[-v4]);
@@ -9667,9 +9656,9 @@ uint64_t CloudRootDB.stateSerialization.setter(uint64_t a1)
   v11 = v5;
   (*(*v1 + 664))(KeyPath, partial apply for closure #1 in CloudRootDB._stateSerialization.setter, v9, MEMORY[0x277D84F78] + 8);
 
-  v7 = outlined destroy of UTType?(v5, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v7 = outlined destroy of UTType?(v5, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   (*(*v1 + 544))(v7);
-  return outlined destroy of UTType?(a1, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  return outlined destroy of UTType?(a1, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
 }
 
 void (*CloudRootDB.stateSerialization.modify(uint64_t *a1))(uint64_t a1, char a2)
@@ -9688,7 +9677,7 @@ void (*CloudRootDB.stateSerialization.modify(uint64_t *a1))(uint64_t a1, char a2
   v5 = v4;
   *a1 = v4;
   *(v4 + 24) = v1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd) - 8) + 64);
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR) - 8) + 64);
   if (v3)
   {
     v5[4] = swift_coroFrameAlloc();
@@ -9729,9 +9718,9 @@ void CloudRootDB.stateSerialization.modify(uint64_t a1, char a2)
     v9 = MEMORY[0x28223BE20](KeyPath);
     (*(*v6 + 664))(v9, closure #1 in CloudRootDB._stateSerialization.setterpartial apply);
 
-    v10 = outlined destroy of UTType?(v7, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+    v10 = outlined destroy of UTType?(v7, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
     (*(*v6 + 544))(v10);
-    outlined destroy of UTType?(v4, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+    outlined destroy of UTType?(v4, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   }
 
   else
@@ -9740,11 +9729,11 @@ void CloudRootDB.stateSerialization.modify(uint64_t a1, char a2)
     v12 = MEMORY[0x28223BE20](v11);
     (*(*v6 + 664))(v12, closure #1 in CloudRootDB._stateSerialization.setterpartial apply);
 
-    v13 = outlined destroy of UTType?(v4, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+    v13 = outlined destroy of UTType?(v4, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
     (*(*v6 + 544))(v13);
   }
 
-  outlined destroy of UTType?(v5, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  outlined destroy of UTType?(v5, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   free(v5);
   free(v4);
   free(v7);
@@ -9758,37 +9747,39 @@ uint64_t key path getter for CloudRootDB.subDBs : CloudRootDB@<X0>(uint64_t a1@<
   return result;
 }
 
-uint64_t key path setter for CloudRootDB.subDBs : CloudRootDB(uint64_t a1, uint64_t a2)
+uint64_t key path setter for CloudRootDB.subDBs : CloudRootDB(void *a1, uint64_t a2)
 {
   v2 = *(**a2 + 480);
 
   return v2(v3);
 }
 
-uint64_t CloudRootDB.subDBs.getter()
+double CloudRootDB.subDBs.getter()
 {
   swift_getKeyPath();
   (*(*v0 + 656))();
 
   swift_beginAccess();
+
+  return result;
 }
 
-uint64_t CloudRootDB.subDBs.setter(uint64_t a1)
+double CloudRootDB.subDBs.setter(uint64_t a1)
 {
   swift_getKeyPath();
-  v4 = v1;
-  v5 = a1;
   (*(*v1 + 664))();
+
+  return result;
 }
 
-uint64_t closure #1 in CloudRootDB.subDBs.setter(uint64_t a1, uint64_t a2)
+void closure #1 in CloudRootDB.subDBs.setter(uint64_t a1, uint64_t a2)
 {
   v4 = OBJC_IVAR____TtC9MomentsUI11CloudRootDB__subDBs;
   swift_beginAccess();
   *(a1 + v4) = a2;
 }
 
-void (*CloudRootDB.subDBs.modify(uint64_t *a1))(void *a1)
+uint64_t (*CloudRootDB.subDBs.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -9809,11 +9800,22 @@ void (*CloudRootDB.subDBs.modify(uint64_t *a1))(void *a1)
   v4[5] = OBJC_IVAR____TtC9MomentsUI11CloudRootDB___observationRegistrar;
   *v4 = v1;
   swift_getKeyPath();
-  v4[6] = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CloudRootDB and conformance CloudRootDB, type metadata accessor for CloudRootDB);
+  v4[6] = lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CloudRootDB and conformance CloudRootDB, type metadata accessor for CloudRootDB, &protocol conformance descriptor for CloudRootDB);
   ObservationRegistrar.willSet<A, B>(_:keyPath:)();
 
-  v4[7] = CloudRootDB._subDBs.modify();
+  v4[7] = CloudRootDB._subDBs.modify(v4);
   return CloudRootDB.subDBs.modify;
+}
+
+void CloudRootDB._accountState.modify(void *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *a1;
+  (*(*a1 + 56))(*a1, 0);
+  *v3 = v3[4];
+  swift_getKeyPath();
+  ObservationRegistrar.didSet<A, B>(_:keyPath:)();
+
+  free(v3);
 }
 
 uint64_t *CloudRootDB.init(emptyDB:config:)(int a1, uint64_t a2)
@@ -9829,10 +9831,10 @@ uint64_t *CloudRootDB.init(emptyDB:config:)(int a1, uint64_t a2)
   v85 = v83 - v7;
   MEMORY[0x28223BE20](v6);
   v87 = v83 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMd, &_s8CloudKit12CKSyncEngineC5StateC13SerializationVSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v89 = v83 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = v83 - v12;
   v14 = type metadata accessor for URL();
@@ -9869,7 +9871,7 @@ uint64_t *CloudRootDB.init(emptyDB:config:)(int a1, uint64_t a2)
   *(v2 + OBJC_IVAR____TtC9MomentsUI11CloudRootDB__subDBs) = MEMORY[0x277D84F90];
   v96 = v2;
   ObservationRegistrar.init()();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_21658CA50;
   v31 = MEMORY[0x277D839D8];
@@ -9902,7 +9904,7 @@ uint64_t *CloudRootDB.init(emptyDB:config:)(int a1, uint64_t a2)
     (*(v15 + 56))(v13, 1, 1, v14);
   }
 
-  outlined destroy of UTType?(v13, &_s10Foundation3URLVSgMd);
+  outlined destroy of UTType?(v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   (v24)(v20, v92, v14);
   v37 = v96;
   CloudRootDB.stateDBURL.setter(v20);
@@ -9919,7 +9921,7 @@ LABEL_9:
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization and conformance CKSyncEngine.State.Serialization, MEMORY[0x277CBBD98]);
+  lazy protocol witness table accessor for type CloudRootDB and conformance CloudRootDB(&lazy protocol witness table cache variable for type CKSyncEngine.State.Serialization and conformance CKSyncEngine.State.Serialization, MEMORY[0x277CBBD98], MEMORY[0x277CBBDA8]);
   v42 = v89;
   v43 = v88;
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();

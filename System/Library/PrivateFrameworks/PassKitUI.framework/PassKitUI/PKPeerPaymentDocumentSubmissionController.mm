@@ -100,7 +100,7 @@ void __53__PKPeerPaymentDocumentSubmissionController_uploadID__block_invoke(uint
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __53__PKPeerPaymentDocumentSubmissionController_uploadID__block_invoke_2(uint64_t a1)
+void *__53__PKPeerPaymentDocumentSubmissionController_uploadID__block_invoke_2(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69DC668] sharedApplication];
   [v2 setIdleTimerDisabled:0];
@@ -166,7 +166,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __53__PKPeerPaymentDocumentSubmissionController_uploadID__block_invoke_3(uint64_t a1, void *a2)
+void *__53__PKPeerPaymentDocumentSubmissionController_uploadID__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = [a2 state];
   if (v3 == 2)
@@ -213,14 +213,15 @@ LABEL_7:
   [(PKPeerPaymentAccountResolutionController *)self->_accountResolutionController presentFlowForAccountResolution:3 configuration:0 completion:&__block_literal_global_82];
 }
 
-void __64__PKPeerPaymentDocumentSubmissionController_contactApplePressed__block_invoke(uint64_t a1, int a2)
+void __64__PKPeerPaymentDocumentSubmissionController_contactApplePressed__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
-    if (a2)
+    if (v2)
     {
       v4 = @"YES";
     }

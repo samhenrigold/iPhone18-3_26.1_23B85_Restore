@@ -167,7 +167,7 @@
     v8 = [timelineCopy valueAtDate:startDate];
 
     [v5 addEntriesFromDictionary:v8];
-    v9 = [v5 count];
+    v9 = objc_msgSend_count(v5);
     v10 = +[_APRSPrewarmRecommendation sharedInstance];
     prewarmCount = [v10 prewarmCount];
 
@@ -240,7 +240,7 @@
     v6 = [_APRSPrewarmRecommendation candidatesFromTimeline:timelineCopy];
     v7 = [v6 mutableCopy];
 
-    if ([v7 count])
+    if (objc_msgSend_count(v7))
     {
       v8 = [_APRSPrewarmRecommendation scoresToConfidenceLevels:v7];
       v9 = [v8 mutableCopy];

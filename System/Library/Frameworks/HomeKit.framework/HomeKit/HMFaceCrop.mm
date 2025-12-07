@@ -66,7 +66,7 @@
 
 - (HMFaceCrop)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMFC.ck.u"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMFC.ck.dr"];
@@ -90,15 +90,15 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138544130;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded UUID: %@ dataRepresentation: %@ dateCreated: %@", &v17, 0x2Au);
+      v16 = 138544130;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded UUID: %@ dataRepresentation: %@ dateCreated: %@", &v16, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -111,7 +111,6 @@
     v14 = selfCopy;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

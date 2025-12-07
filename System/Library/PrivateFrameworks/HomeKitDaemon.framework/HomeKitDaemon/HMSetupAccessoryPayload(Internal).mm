@@ -51,7 +51,7 @@
     [string appendString:@"BTLE  "];
   }
 
-  v3 = [string copy];
+  v3 = objc_msgSend_copy(string);
 
   return v3;
 }

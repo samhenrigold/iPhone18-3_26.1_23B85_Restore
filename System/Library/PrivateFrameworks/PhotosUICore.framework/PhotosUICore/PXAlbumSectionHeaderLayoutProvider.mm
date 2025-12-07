@@ -26,7 +26,7 @@
   dataSource = [headerCopy dataSource];
   if (headerCopy)
   {
-    [headerCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(headerCopy);
   }
 
   else
@@ -58,32 +58,32 @@
   selectionSnapshot = [selectionManager selectionSnapshot];
   dataSource = [selectionSnapshot dataSource];
 
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   if (headerCopy)
   {
-    [headerCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(headerCopy);
   }
 
   else
   {
-    memset(v19, 0, sizeof(v19));
+    memset(&v18[2], 0, 32);
   }
 
   dataSource2 = [headerCopy dataSource];
   if (dataSource)
   {
-    [dataSource convertIndexPath:v19 fromSectionedDataSource:dataSource2];
+    objc_msgSend_convertIndexPath_fromSectionedDataSource_(dataSource);
   }
 
   else
   {
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
   }
 
-  v18[0] = v20;
-  v18[1] = v21;
+  v18[0] = v19;
+  v18[1] = v20;
   v12 = [off_1E7721768 indexPathSetWithIndexPath:v18];
   v13 = [dataSource itemIndexPathsForSections:v12];
 
@@ -103,7 +103,7 @@
   dataSource = [headerCopy dataSource];
   if (headerCopy)
   {
-    [headerCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(headerCopy);
   }
 
   else
@@ -164,7 +164,7 @@ void __58__PXAlbumSectionHeaderLayoutProvider_didTapSectionHeader___block_invoke
   dataSource = [layoutCopy dataSource];
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   else
@@ -250,7 +250,7 @@ void __58__PXAlbumSectionHeaderLayoutProvider_didTapSectionHeader___block_invoke
   v37 = 0u;
   if (layoutCopy)
   {
-    [layoutCopy sectionIndexPath];
+    objc_msgSend_sectionIndexPath(layoutCopy);
   }
 
   v34 = 0;

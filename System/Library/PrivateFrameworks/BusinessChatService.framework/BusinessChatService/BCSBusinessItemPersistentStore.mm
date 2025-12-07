@@ -38,11 +38,10 @@
 
 - (BOOL)insertOrReplaceBusinessItem:(id)item withTTL:(double)l
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    v22 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   itemCopy = item;
@@ -129,11 +128,11 @@
     v45 = ABSLogCommon();
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      v48 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+      v47 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
       *buf = 134218242;
-      v51 = v44;
-      v52 = 2080;
-      v53 = v48;
+      v50 = v44;
+      v51 = 2080;
+      v52 = v47;
       _os_log_error_impl(&dword_242072000, v45, OS_LOG_TYPE_ERROR, "Error while finalizing insert business item %lu %s", buf, 0x16u);
     }
 
@@ -144,8 +143,6 @@ LABEL_7:
   [(BCSPersistentStore *)self endBatch];
 
   [(BCSPersistentStore *)self endBatch];
-LABEL_9:
-  v46 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -295,7 +292,7 @@ LABEL_9:
 
 - (BCSPersistentBusinessItemObject)_executeFetchPersistentBusinessItemObjectSQLQuery:(void *)query
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   if (query)
   {
     [query beginBatch];
@@ -310,18 +307,7 @@ LABEL_9:
       if (sqlite3_column_text(ppStmt, 1))
       {
         v4 = objc_alloc(MEMORY[0x277CCACA8]);
-        v84 = [v4 initWithUTF8String:{sqlite3_column_text(ppStmt, 1)}];
-      }
-
-      else
-      {
-        v84 = &stru_28544C2A0;
-      }
-
-      if (sqlite3_column_text(ppStmt, 2))
-      {
-        v8 = objc_alloc(MEMORY[0x277CCACA8]);
-        v83 = [v8 initWithUTF8String:{sqlite3_column_text(ppStmt, 2)}];
+        v83 = [v4 initWithUTF8String:{sqlite3_column_text(ppStmt, 1)}];
       }
 
       else
@@ -329,10 +315,10 @@ LABEL_9:
         v83 = &stru_28544C2A0;
       }
 
-      if (sqlite3_column_text(ppStmt, 3))
+      if (sqlite3_column_text(ppStmt, 2))
       {
-        v9 = objc_alloc(MEMORY[0x277CCACA8]);
-        v82 = [v9 initWithUTF8String:{sqlite3_column_text(ppStmt, 3)}];
+        v7 = objc_alloc(MEMORY[0x277CCACA8]);
+        v82 = [v7 initWithUTF8String:{sqlite3_column_text(ppStmt, 2)}];
       }
 
       else
@@ -340,28 +326,25 @@ LABEL_9:
         v82 = &stru_28544C2A0;
       }
 
-      v75 = sqlite3_column_int64(ppStmt, 4);
-      v10 = sqlite3_column_text(ppStmt, 5);
-      v11 = MEMORY[0x277CBEBC0];
-      if (v10)
+      if (sqlite3_column_text(ppStmt, 3))
       {
-        v12 = objc_alloc(MEMORY[0x277CCACA8]);
-        v13 = [v12 initWithUTF8String:{sqlite3_column_text(ppStmt, 5)}];
-        v81 = [v11 URLWithString:v13];
+        v8 = objc_alloc(MEMORY[0x277CCACA8]);
+        v81 = [v8 initWithUTF8String:{sqlite3_column_text(ppStmt, 3)}];
       }
 
       else
       {
-        v81 = [MEMORY[0x277CBEBC0] URLWithString:&stru_28544C2A0];
+        v81 = &stru_28544C2A0;
       }
 
-      v14 = sqlite3_column_text(ppStmt, 6);
-      v15 = MEMORY[0x277CBEBC0];
-      if (v14)
+      v74 = sqlite3_column_int64(ppStmt, 4);
+      v9 = sqlite3_column_text(ppStmt, 5);
+      v10 = MEMORY[0x277CBEBC0];
+      if (v9)
       {
-        v16 = objc_alloc(MEMORY[0x277CCACA8]);
-        v17 = [v16 initWithUTF8String:{sqlite3_column_text(ppStmt, 6)}];
-        v80 = [v15 URLWithString:v17];
+        v11 = objc_alloc(MEMORY[0x277CCACA8]);
+        v12 = [v11 initWithUTF8String:{sqlite3_column_text(ppStmt, 5)}];
+        v80 = [v10 URLWithString:v12];
       }
 
       else
@@ -369,143 +352,157 @@ LABEL_9:
         v80 = [MEMORY[0x277CBEBC0] URLWithString:&stru_28544C2A0];
       }
 
-      v67 = sqlite3_column_int(ppStmt, 7);
-      v18 = sqlite3_column_int(ppStmt, 8);
-      v76 = sqlite3_column_int(ppStmt, 10);
-      v78 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{sqlite3_column_int(ppStmt, 13)}];
-      v77 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{sqlite3_column_double(ppStmt, 14)}];
-      if (sqlite3_column_text(ppStmt, 15))
+      v13 = sqlite3_column_text(ppStmt, 6);
+      v14 = MEMORY[0x277CBEBC0];
+      if (v13)
       {
-        v19 = objc_alloc(MEMORY[0x277CCACA8]);
-        v79 = [v19 initWithUTF8String:{sqlite3_column_text(ppStmt, 15)}];
+        v15 = objc_alloc(MEMORY[0x277CCACA8]);
+        v16 = [v15 initWithUTF8String:{sqlite3_column_text(ppStmt, 6)}];
+        v79 = [v14 URLWithString:v16];
       }
 
       else
       {
-        v79 = &stru_28544C2A0;
+        v79 = [MEMORY[0x277CBEBC0] URLWithString:&stru_28544C2A0];
+      }
+
+      v66 = sqlite3_column_int(ppStmt, 7);
+      v17 = sqlite3_column_int(ppStmt, 8);
+      v75 = sqlite3_column_int(ppStmt, 10);
+      v77 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{sqlite3_column_int(ppStmt, 13)}];
+      v76 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{sqlite3_column_double(ppStmt, 14)}];
+      if (sqlite3_column_text(ppStmt, 15))
+      {
+        v18 = objc_alloc(MEMORY[0x277CCACA8]);
+        v78 = [v18 initWithUTF8String:{sqlite3_column_text(ppStmt, 15)}];
+      }
+
+      else
+      {
+        v78 = &stru_28544C2A0;
       }
 
       if (sqlite3_column_text(ppStmt, 16))
       {
-        v20 = objc_alloc(MEMORY[0x277CCACA8]);
-        v69 = [v20 initWithUTF8String:{sqlite3_column_text(ppStmt, 16)}];
+        v19 = objc_alloc(MEMORY[0x277CCACA8]);
+        v68 = [v19 initWithUTF8String:{sqlite3_column_text(ppStmt, 16)}];
       }
 
       else
       {
-        v69 = &stru_28544C2A0;
+        v68 = &stru_28544C2A0;
       }
 
-      v21 = sqlite3_column_blob(ppStmt, 9);
-      v22 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:{sqlite3_column_bytes(ppStmt, 9)}];
-      v23 = MEMORY[0x277CCAAC8];
-      v24 = MEMORY[0x277CBEB98];
-      v25 = objc_opt_class();
-      v26 = [v24 setWithObjects:{v25, NSClassFromString(&cfstr_Bcscalltoactio.isa), 0}];
-      v88 = 0;
-      v74 = v22;
-      v73 = [v23 unarchivedObjectOfClasses:v26 fromData:v22 error:&v88];
-      v27 = v88;
+      v20 = sqlite3_column_blob(ppStmt, 9);
+      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:{sqlite3_column_bytes(ppStmt, 9)}];
+      v22 = MEMORY[0x277CCAAC8];
+      v23 = MEMORY[0x277CBEB98];
+      v24 = objc_opt_class();
+      v25 = [v23 setWithObjects:{v24, NSClassFromString(&cfstr_Bcscalltoactio.isa), 0}];
+      v87 = 0;
+      v73 = v21;
+      v72 = [v22 unarchivedObjectOfClasses:v25 fromData:v21 error:&v87];
+      v26 = v87;
 
-      if (v27)
+      if (v26)
       {
-        v28 = ABSLogCommon();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v27 = ABSLogCommon();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        {
+          v58 = sqlite3_errmsg([query openedDatabase]);
+          *buf = 134218242;
+          v90 = v26;
+          v91 = 2080;
+          v92 = v58;
+          _os_log_error_impl(&dword_242072000, v27, OS_LOG_TYPE_ERROR, "error while unarchiving BCSCallToActionItem %lu %s", buf, 0x16u);
+        }
+      }
+
+      v71 = v26;
+      v28 = sqlite3_column_blob(ppStmt, 11);
+      v29 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:{sqlite3_column_bytes(ppStmt, 11)}];
+      v30 = MEMORY[0x277CCAAC8];
+      v31 = MEMORY[0x277CBEB98];
+      v32 = NSClassFromString(&cfstr_Bcsopenhours.isa);
+      v33 = objc_opt_class();
+      v34 = [v31 setWithObjects:{v32, v33, objc_opt_class(), 0}];
+      v86 = 0;
+      v70 = v29;
+      v65 = [v30 unarchivedObjectOfClasses:v34 fromData:v29 error:&v86];
+      v35 = v86;
+
+      if (v35)
+      {
+        v36 = ABSLogCommon();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           v59 = sqlite3_errmsg([query openedDatabase]);
           *buf = 134218242;
-          v91 = v27;
-          v92 = 2080;
-          v93 = v59;
-          _os_log_error_impl(&dword_242072000, v28, OS_LOG_TYPE_ERROR, "error while unarchiving BCSCallToActionItem %lu %s", buf, 0x16u);
+          v90 = v35;
+          v91 = 2080;
+          v92 = v59;
+          _os_log_error_impl(&dword_242072000, v36, OS_LOG_TYPE_ERROR, "error while unarchiving BCSOpenHours %lu %s", buf, 0x16u);
         }
       }
 
-      v72 = v27;
-      v29 = sqlite3_column_blob(ppStmt, 11);
-      v30 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:{sqlite3_column_bytes(ppStmt, 11)}];
-      v31 = MEMORY[0x277CCAAC8];
-      v32 = MEMORY[0x277CBEB98];
-      v33 = NSClassFromString(&cfstr_Bcsopenhours.isa);
-      v34 = objc_opt_class();
-      v35 = [v32 setWithObjects:{v33, v34, objc_opt_class(), 0}];
-      v87 = 0;
-      v71 = v30;
-      v66 = [v31 unarchivedObjectOfClasses:v35 fromData:v30 error:&v87];
-      v36 = v87;
+      v69 = v35;
+      v37 = sqlite3_column_blob(ppStmt, 12);
+      v38 = [MEMORY[0x277CBEA90] dataWithBytes:v37 length:{sqlite3_column_bytes(ppStmt, 12)}];
+      v39 = MEMORY[0x277CCAAC8];
+      v40 = MEMORY[0x277CBEB98];
+      v41 = NSClassFromString(&cfstr_Bcsopenhours.isa);
+      v42 = objc_opt_class();
+      v43 = [v40 setWithObjects:{v41, v42, objc_opt_class(), 0}];
+      v85 = 0;
+      v44 = [v39 unarchivedObjectOfClasses:v43 fromData:v38 error:&v85];
+      v45 = v85;
 
-      if (v36)
+      if (v45)
       {
-        v37 = ABSLogCommon();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v46 = ABSLogCommon();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           v60 = sqlite3_errmsg([query openedDatabase]);
           *buf = 134218242;
-          v91 = v36;
-          v92 = 2080;
-          v93 = v60;
-          _os_log_error_impl(&dword_242072000, v37, OS_LOG_TYPE_ERROR, "error while unarchiving BCSOpenHours %lu %s", buf, 0x16u);
+          v90 = v45;
+          v91 = 2080;
+          v92 = v60;
+          _os_log_error_impl(&dword_242072000, v46, OS_LOG_TYPE_ERROR, "error while unarchiving BCSOpenHours %lu %s", buf, 0x16u);
         }
       }
 
-      v70 = v36;
-      v38 = sqlite3_column_blob(ppStmt, 12);
-      v39 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:{sqlite3_column_bytes(ppStmt, 12)}];
-      v40 = MEMORY[0x277CCAAC8];
-      v41 = MEMORY[0x277CBEB98];
-      v42 = NSClassFromString(&cfstr_Bcsopenhours.isa);
-      v43 = objc_opt_class();
-      v44 = [v41 setWithObjects:{v42, v43, objc_opt_class(), 0}];
-      v86 = 0;
-      v45 = [v40 unarchivedObjectOfClasses:v44 fromData:v39 error:&v86];
-      v46 = v86;
+      v63 = v66;
+      v64 = v45;
+      v47 = sqlite3_column_blob(ppStmt, 17);
+      v48 = [MEMORY[0x277CBEA90] dataWithBytes:v47 length:{sqlite3_column_bytes(ppStmt, 17)}];
+      v49 = MEMORY[0x277CCAAC8];
+      v50 = MEMORY[0x277CBEB98];
+      v51 = NSClassFromString(&cfstr_Bcsvisibilityi.isa);
+      v52 = objc_opt_class();
+      v53 = [v50 setWithObjects:{v51, v52, objc_opt_class(), 0}];
+      v84 = 0;
+      v67 = v48;
+      v54 = [v49 unarchivedObjectOfClasses:v53 fromData:v48 error:&v84];
+      v55 = v84;
 
-      if (v46)
+      if (v55)
       {
-        v47 = ABSLogCommon();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v56 = ABSLogCommon();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           v61 = sqlite3_errmsg([query openedDatabase]);
           *buf = 134218242;
-          v91 = v46;
-          v92 = 2080;
-          v93 = v61;
-          _os_log_error_impl(&dword_242072000, v47, OS_LOG_TYPE_ERROR, "error while unarchiving BCSOpenHours %lu %s", buf, 0x16u);
-        }
-      }
-
-      v64 = v67;
-      v65 = v46;
-      v48 = sqlite3_column_blob(ppStmt, 17);
-      v49 = [MEMORY[0x277CBEA90] dataWithBytes:v48 length:{sqlite3_column_bytes(ppStmt, 17)}];
-      v50 = MEMORY[0x277CCAAC8];
-      v51 = MEMORY[0x277CBEB98];
-      v52 = NSClassFromString(&cfstr_Bcsvisibilityi.isa);
-      v53 = objc_opt_class();
-      v54 = [v51 setWithObjects:{v52, v53, objc_opt_class(), 0}];
-      v85 = 0;
-      v68 = v49;
-      v55 = [v50 unarchivedObjectOfClasses:v54 fromData:v49 error:&v85];
-      v56 = v85;
-
-      if (v56)
-      {
-        v57 = ABSLogCommon();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
-        {
-          v62 = sqlite3_errmsg([query openedDatabase]);
-          *buf = 134218242;
-          v91 = v56;
-          v92 = 2080;
-          v93 = v62;
-          _os_log_error_impl(&dword_242072000, v57, OS_LOG_TYPE_ERROR, "error while unarchiving BCSVisibilityItem %lu %s", buf, 0x16u);
+          v90 = v55;
+          v91 = 2080;
+          v92 = v61;
+          _os_log_error_impl(&dword_242072000, v56, OS_LOG_TYPE_ERROR, "error while unarchiving BCSVisibilityItem %lu %s", buf, 0x16u);
         }
       }
 
       sqlite3_finalize(ppStmt);
-      LOBYTE(v63) = v76 == 1;
-      v58 = [[BCSBusinessItem alloc] initWithBizID:v84 phoneNumber:v83 name:v82 phoneHash:v75 squareLogoURL:v81 wideLogoURL:v80 tintColor:v64 backgroundColor:v18 callToActions:v73 messagingOpenHours:v66 callingOpenHours:v45 isVerified:v63 intentID:v79 groupID:v69 visibilityItems:v55];
-      v5 = [[BCSPersistentBusinessItemObject alloc] initWithBusinessItem:v58 lastRetrievedDate:v78 TTLDate:v77];
+      LOBYTE(v62) = v75 == 1;
+      v57 = [[BCSBusinessItem alloc] initWithBizID:v83 phoneNumber:v82 name:v81 phoneHash:v74 squareLogoURL:v80 wideLogoURL:v79 tintColor:v63 backgroundColor:v17 callToActions:v72 messagingOpenHours:v65 callingOpenHours:v44 isVerified:v62 intentID:v78 groupID:v68 visibilityItems:v54];
+      v5 = [[BCSPersistentBusinessItemObject alloc] initWithBusinessItem:v57 lastRetrievedDate:v77 TTLDate:v76];
     }
 
     [query endBatch];
@@ -515,8 +512,6 @@ LABEL_9:
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

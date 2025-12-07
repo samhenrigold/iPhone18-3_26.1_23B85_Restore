@@ -112,10 +112,10 @@ id __62__SLDisambiguationCollectionViewController_initWithHighlight___block_invo
 
 - (void)viewDidLayoutSubviews
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = SLDisambiguationCollectionViewController;
-  [(SLDisambiguationCollectionViewController *)&v37 viewDidLayoutSubviews];
+  v38 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = SLDisambiguationCollectionViewController;
+  [(SLDisambiguationCollectionViewController *)&v36 viewDidLayoutSubviews];
   if ([(SLDisambiguationCollectionViewController *)self isInitialLoad])
   {
     view = [(SLDisambiguationCollectionViewController *)self view];
@@ -140,29 +140,29 @@ id __62__SLDisambiguationCollectionViewController_initWithHighlight___block_invo
     {
       if ([(SLDisambiguationCollectionViewController *)self isInitialLoad])
       {
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         collectionView3 = [(SLDisambiguationCollectionViewController *)self collectionView];
         visibleCells2 = [collectionView3 visibleCells];
 
-        v27 = [visibleCells2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v27 = [visibleCells2 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v34;
+          v29 = *v33;
           do
           {
             v30 = 0;
             do
             {
-              if (*v34 != v29)
+              if (*v33 != v29)
               {
                 objc_enumerationMutation(visibleCells2);
               }
 
-              v31 = *(*(&v33 + 1) + 8 * v30);
+              v31 = *(*(&v32 + 1) + 8 * v30);
               [v31 setContentMode:1];
               [v31 setFrame:{v15, v17, v19, v21}];
 
@@ -170,7 +170,7 @@ id __62__SLDisambiguationCollectionViewController_initWithHighlight___block_invo
             }
 
             while (v28 != v30);
-            v28 = [visibleCells2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+            v28 = [visibleCells2 countByEnumeratingWithState:&v32 objects:v37 count:16];
           }
 
           while (v28);
@@ -181,8 +181,6 @@ id __62__SLDisambiguationCollectionViewController_initWithHighlight___block_invo
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAnimation
@@ -250,37 +248,37 @@ id __58__SLDisambiguationCollectionViewController_startAnimation__block_invoke(u
 
 void __68__SLDisambiguationCollectionViewController_updateDataSourceSnapshot__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = [*(a1 + 32) attributionMap];
   v4 = [v3 allKeys];
 
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         if (([v2 containsObject:v9] & 1) == 0)
         {
           [v2 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v6);
@@ -292,8 +290,8 @@ void __68__SLDisambiguationCollectionViewController_updateDataSourceSnapshot__bl
   if (v11 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = [*(a1 + 32) snapshot];
-    v22 = @"MainSection";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v21 = @"MainSection";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     [v12 appendSectionsWithIdentifiers:v13];
   }
 
@@ -303,36 +301,34 @@ void __68__SLDisambiguationCollectionViewController_updateDataSourceSnapshot__bl
   v15 = [*(a1 + 32) dataSource];
   v16 = [*(a1 + 32) snapshot];
   [v15 applySnapshot:v16 animatingDifferences:1];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createAttributionMapWithHighlight:(id)highlight
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   highlightCopy = highlight;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v17 = highlightCopy;
+  v16 = highlightCopy;
   attributions = [highlightCopy attributions];
-  v7 = [attributions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [attributions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(attributions);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         uniqueIdentifier = [v11 uniqueIdentifier];
         v13 = [uniqueIdentifier length];
 
@@ -348,13 +344,11 @@ void __68__SLDisambiguationCollectionViewController_updateDataSourceSnapshot__bl
         }
       }
 
-      v8 = [attributions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [attributions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

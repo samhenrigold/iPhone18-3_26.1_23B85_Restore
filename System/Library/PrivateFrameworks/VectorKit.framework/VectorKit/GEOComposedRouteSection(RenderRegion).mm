@@ -98,7 +98,7 @@
             if ([v38 routeCoordinateRange])
             {
               routeCoordinateRange = [v38 routeCoordinateRange];
-              std::__tree<int>::__emplace_unique_key_args<int,int>(&v125, routeCoordinateRange);
+              std::__tree<int>::__emplace_unique_key_args<int,int>(&v125, routeCoordinateRange, &routeCoordinateRange);
             }
 
             [v38 routeCoordinateRange];
@@ -106,7 +106,7 @@
             {
               [v38 routeCoordinateRange];
               routeCoordinateRange = v40;
-              std::__tree<int>::__emplace_unique_key_args<int,int>(&v125, v40);
+              std::__tree<int>::__emplace_unique_key_args<int,int>(&v125, v40, &routeCoordinateRange);
             }
           }
         }
@@ -125,7 +125,7 @@
       v43 = 0;
       do
       {
-        v44 = *(v42 + 7);
+        v44 = *(v42 + 28);
         splitSections2 = [v110 splitSections];
         v46 = splitSections2;
         v47 = splitSections2[1];
@@ -189,7 +189,7 @@
         }
 
         v46[1] = v49;
-        v58 = v42[1];
+        v58 = *(v42 + 8);
         if (v58)
         {
           do
@@ -205,7 +205,7 @@
         {
           do
           {
-            v59 = v42[2];
+            v59 = *(v42 + 16);
             v60 = *v59 == v42;
             v42 = v59;
           }

@@ -23,37 +23,37 @@
 
 - (void)write:(id)write
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   name = [(CoreDAVItem *)self name];
   nameSpace = [(CoreDAVItem *)self nameSpace];
   [writeCopy startElement:name inNamespace:nameSpace withAttributeNamesAndValues:0];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   privileges = [(CoreDAVGrantItem *)self privileges];
-  v8 = [privileges countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [privileges countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(privileges);
         }
 
-        [*(*(&v15 + 1) + 8 * v11++) write:writeCopy];
+        [*(*(&v14 + 1) + 8 * v11++) write:writeCopy];
       }
 
       while (v9 != v11);
-      v9 = [privileges countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [privileges countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -62,8 +62,6 @@
   name2 = [(CoreDAVItem *)self name];
   nameSpace2 = [(CoreDAVItem *)self nameSpace];
   [writeCopy endElement:name2 inNamespace:nameSpace2];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)copyParseRules

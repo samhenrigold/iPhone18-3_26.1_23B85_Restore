@@ -17,8 +17,8 @@
 
 + (void)registerDependency:(id)dependency forKey:(id)key
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280426FA0, &qword_26B9B02E0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280426FA0, &qword_26B9B02E0);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   v8 = sub_26B9AC504();
   v10 = v9;
@@ -48,8 +48,8 @@
 
 + (void)annotateSearchField:(id)field
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804261B8, &qword_26B9B05D0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2804261B8, &qword_26B9B05D0);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v11 - v5;
   v7 = objc_opt_self();
   fieldCopy = field;

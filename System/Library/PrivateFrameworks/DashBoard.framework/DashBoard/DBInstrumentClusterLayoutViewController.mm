@@ -25,7 +25,8 @@
   v13 = v12;
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  return DBInstrumentClusterLayoutViewController.init(themeController:environment:displayID:workspaceIdentifier:error:)(controllerCopy, environment, v11, v13, identifier, error);
+  DBInstrumentClusterLayoutViewController.init(themeController:environment:displayID:workspaceIdentifier:error:)(controllerCopy, environment, v11, v13, identifier, error);
+  return result;
 }
 
 - (void)dealloc
@@ -50,7 +51,7 @@
   selfCopy = self;
   DBInstrumentClusterLayoutViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE92960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE92960, &unk_24839D480);
   v3 = sub_248383B00();
 
   return v3;
@@ -169,7 +170,7 @@
 
 - (void)setThemeData:(id)data error:(id *)error
 {
-  sub_24814FB28(0, &qword_27EE8FEF8);
+  sub_24814FB28(0, &qword_27EE8FEF8, 0x277CF8A50);
   v6 = sub_2483838A0();
   selfCopy = self;
   DBInstrumentClusterLayoutViewController.setThemeData(_:)(v6);

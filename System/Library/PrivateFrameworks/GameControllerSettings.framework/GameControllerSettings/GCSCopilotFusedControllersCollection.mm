@@ -53,28 +53,28 @@
 
 - (id)copilotFusedControllerForControllerIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         fusedControllerIdentifier = [v10 fusedControllerIdentifier];
         if ([fusedControllerIdentifier isEqualToString:identifierCopy])
         {
@@ -100,7 +100,7 @@ LABEL_15:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       v15 = 0;
       if (v7)
       {
@@ -118,34 +118,32 @@ LABEL_15:
 
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)copilotFusedControllerForFusedControllerIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         fusedControllerIdentifier = [v9 fusedControllerIdentifier];
         v11 = [fusedControllerIdentifier isEqualToString:identifierCopy];
 
@@ -156,7 +154,7 @@ LABEL_16:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -168,34 +166,32 @@ LABEL_16:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)copilotFusedControllerForPilotControllerIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         pilotIdentifier = [v9 pilotIdentifier];
         v11 = [pilotIdentifier isEqualToString:identifierCopy];
 
@@ -206,7 +202,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -218,34 +214,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)copilotFusedControllerForCopilotControllerIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_values;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         copilotIdentifier = [v9 copilotIdentifier];
         v11 = [copilotIdentifier isEqualToString:identifierCopy];
 
@@ -256,7 +250,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -268,14 +262,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)updateCopilotFusedControllers:(id)controllers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [(GCSCopilotFusedControllersCollection *)self storeVersionIsCompatible])
@@ -284,48 +276,47 @@ LABEL_11:
     if (v5)
     {
       v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSObject count](v5, "count")}];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       v5 = v5;
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v19;
+        v9 = *v18;
         do
         {
           v10 = 0;
           do
           {
-            if (*v19 != v9)
+            if (*v18 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v18 + 1) + 8 * v10);
+            v11 = *(*(&v17 + 1) + 8 * v10);
             v12 = [GCSCopilotFusedController alloc];
-            v13 = [(GCSCopilotFusedController *)v12 initWithJSONObject:v11, v18];
+            v13 = [(GCSCopilotFusedController *)v12 initWithJSONObject:v11, v17];
             [v6 addObject:v13];
 
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v8);
       }
 
-      [(GCSCopilotFusedControllersCollection *)self setValues:v6];
-      v14 = getGCSLogger();
+      v14 = getGCSLogger([(GCSCopilotFusedControllersCollection *)self setValues:v6]);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         values = [(GCSCopilotFusedControllersCollection *)self values];
         *buf = 138412290;
-        v24 = values;
+        v23 = values;
         _os_log_impl(&dword_24E4FA000, v14, OS_LOG_TYPE_INFO, "GCSCopilotFusedControllersCollection.values = %@", buf, 0xCu);
       }
     }
@@ -333,18 +324,15 @@ LABEL_11:
 
   else
   {
-    [(GCSCopilotFusedControllersCollection *)self setValues:MEMORY[0x277CBEBF8]];
-    v5 = getGCSLogger();
+    v5 = getGCSLogger([(GCSCopilotFusedControllersCollection *)self setValues:MEMORY[0x277CBEBF8]]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       values2 = [(GCSCopilotFusedControllersCollection *)self values];
       *buf = 138412290;
-      v24 = values2;
+      v23 = values2;
       _os_log_impl(&dword_24E4FA000, v5, OS_LOG_TYPE_INFO, "GCSCopilotFusedControllersCollection.values = %@", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -468,45 +456,45 @@ LABEL_7:
 
 - (void)_unitTest_saveCopilotFusedControllers:(id)controllers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = controllersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        jsonObject = [*(*(&v17 + 1) + 8 * v10) jsonObject];
+        jsonObject = [*(*(&v16 + 1) + 8 * v10) jsonObject];
         [v5 addObject:jsonObject];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v8);
   }
 
-  v21[0] = @"data";
-  v21[1] = @"tombstones";
-  v22[0] = v5;
+  v20[0] = @"data";
+  v20[1] = @"tombstones";
+  v21[0] = v5;
   v12 = [(GCUserDefaults *)self->_userDefaults objectForKey:?];
   v13 = v12;
   v14 = MEMORY[0x277CBEBF8];
@@ -515,13 +503,11 @@ LABEL_7:
     v14 = v12;
   }
 
-  v22[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:{2, v17}];
+  v21[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:{2, v16}];
 
   [(GCUserDefaults *)self->_userDefaults setObject:@"10.1.21" forKey:@"settingsVersion"];
   [(GCUserDefaults *)self->_userDefaults setObject:v15 forKey:@"copilotFusedControllers"];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (GCSSettingsStoreService)settingsStore

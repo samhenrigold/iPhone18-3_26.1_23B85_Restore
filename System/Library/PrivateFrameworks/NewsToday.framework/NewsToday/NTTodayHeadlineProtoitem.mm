@@ -147,68 +147,66 @@ LABEL_6:
 
 void __58__NTTodayHeadlineProtoitem_assetHandlesWithOperationInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) thumbnailSizePreset];
   v5 = *(a1 + 40);
   [*(a1 + 32) dynamicThumbnailSizeMinimumSizeInPixels];
-  v6 = NTHeadlineThumbnailFromFCHeadline(v5, v4);
-  v7 = [v6 thumbnailAssetHandle];
+  v8 = NTHeadlineThumbnailFromFCHeadline(v5, v4, v6, v7);
+  v9 = [v8 thumbnailAssetHandle];
 
-  v8 = NTSharedLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-  if (v7)
+  v11 = NTSharedLog(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  if (v9)
   {
-    if (v9)
+    if (v12)
     {
-      v10 = *(a1 + 40);
-      v18 = 138412290;
-      v19 = v10;
-      _os_log_impl(&dword_25BF21000, v8, OS_LOG_TYPE_INFO, "Including thumbnailAssetHandle for headline: %@", &v18, 0xCu);
+      v13 = *(a1 + 40);
+      v20 = 138412290;
+      v21 = v13;
+      _os_log_impl(&dword_25BF21000, v11, OS_LOG_TYPE_INFO, "Including thumbnailAssetHandle for headline: %@", &v20, 0xCu);
     }
 
-    [v3 addObject:v7];
+    [v3 addObject:v9];
   }
 
   else
   {
-    if (v9)
+    if (v12)
     {
-      v11 = *(a1 + 40);
-      v18 = 138412290;
-      v19 = v11;
-      _os_log_impl(&dword_25BF21000, v8, OS_LOG_TYPE_INFO, "Missing thumbnailAssetHandle for headline: %@", &v18, 0xCu);
+      v14 = *(a1 + 40);
+      v20 = 138412290;
+      v21 = v14;
+      _os_log_impl(&dword_25BF21000, v11, OS_LOG_TYPE_INFO, "Missing thumbnailAssetHandle for headline: %@", &v20, 0xCu);
     }
   }
 
-  v12 = NTHeadlineSourceNameImageMaskAssetHandleFromFCHeadline(*(a1 + 40), [*(a1 + 32) sourceNameImageSizePreset]);
-  v13 = NTSharedLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
-  if (v12)
+  v15 = NTHeadlineSourceNameImageMaskAssetHandleFromFCHeadline(*(a1 + 40), [*(a1 + 32) sourceNameImageSizePreset]);
+  v16 = NTSharedLog(v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+  if (v15)
   {
-    if (v14)
+    if (v17)
     {
-      v15 = *(a1 + 40);
-      v18 = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_INFO, "Including nameImageMaskAssetHandle for headline: %@", &v18, 0xCu);
+      v18 = *(a1 + 40);
+      v20 = 138412290;
+      v21 = v18;
+      _os_log_impl(&dword_25BF21000, v16, OS_LOG_TYPE_INFO, "Including nameImageMaskAssetHandle for headline: %@", &v20, 0xCu);
     }
 
-    [v3 addObject:v12];
+    [v3 addObject:v15];
   }
 
   else
   {
-    if (v14)
+    if (v17)
     {
-      v16 = *(a1 + 40);
-      v18 = 138412290;
-      v19 = v16;
-      _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_INFO, "Missing nameImageMaskAssetHandle for headline: %@", &v18, 0xCu);
+      v19 = *(a1 + 40);
+      v20 = 138412290;
+      v21 = v19;
+      _os_log_impl(&dword_25BF21000, v16, OS_LOG_TYPE_INFO, "Missing nameImageMaskAssetHandle for headline: %@", &v20, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NTTodayHeadlineProtoitem)itemWithContentContext:(id)context operationInfo:(id)info sectionDescriptor:(id)descriptor todayData:(id)data assetFileURLsByRemoteURL:(id)l
@@ -260,102 +258,83 @@ LABEL_6:
 
 LABEL_11:
   headline = [(NTTodayHeadlineProtoitem *)self headline];
-  v27 = NTHeadlineAdElementFromFCHeadline(headline);
+  v31 = NTHeadlineAdElementFromFCHeadline(headline);
   v18 = NTHeadlineAnalyticsElementFromFCHeadline(headline, [descriptorCopy seenArticlesFilterMethod]);
   v19 = NTHeadlineBackingElementFromFCHeadline(headline);
   actionURL = [(NTTodayHeadlineProtoitem *)self actionURL];
   thumbnailSizePreset = [infoCopy thumbnailSizePreset];
   [infoCopy dynamicThumbnailSizeMinimumSizeInPixels];
+  v23 = v22;
+  v25 = v24;
   sourceNameImageSizePreset = [infoCopy sourceNameImageSizePreset];
   [infoCopy assetsDirectoryFileURL];
-  v23 = v26 = descriptorCopy;
-  v24 = NTHeadlineFromFCHeadline(headline, actionURL, v16, thumbnailSizePreset, sourceNameImageSizePreset, v27, v18, v19, dataCopy, v23, lCopy);
+  v27 = v30 = descriptorCopy;
+  v28 = NTHeadlineFromFCHeadline(headline, actionURL, v16, thumbnailSizePreset, sourceNameImageSizePreset, v31, v18, v19, v23, v25, dataCopy, v27, lCopy);
 
-  return v24;
+  return v28;
 }
 
 - (void)initWithIdentifier:headline:actionURL:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "identifier", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithIdentifier:headline:actionURL:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "headline", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)assetHandlesWithOperationInfo:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)itemWithContentContext:operationInfo:sectionDescriptor:todayData:assetFileURLsByRemoteURL:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "contentContext", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)itemWithContentContext:operationInfo:sectionDescriptor:todayData:assetFileURLsByRemoteURL:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "operationInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "operationInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)itemWithContentContext:operationInfo:sectionDescriptor:todayData:assetFileURLsByRemoteURL:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)itemWithContentContext:operationInfo:sectionDescriptor:todayData:assetFileURLsByRemoteURL:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "assetFileURLsByRemoteURL"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "assetFileURLsByRemoteURL", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

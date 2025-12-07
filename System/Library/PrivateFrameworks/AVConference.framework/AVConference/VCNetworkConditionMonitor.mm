@@ -3,13 +3,13 @@
 
 @implementation VCNetworkConditionMonitor
 
-void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t a1)
+void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t result)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 41);
-  v3 = *(a1 + 41);
-  v4 = *(a1 + 32);
-  if (*(a1 + 40) == 1)
+  v2 = (result + 41);
+  v3 = *(result + 41);
+  v4 = *(result + 32);
+  if (*(result + 40) == 1)
   {
     if (*(v4 + 122) == v3)
     {
@@ -28,7 +28,7 @@ void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t a1
   }
 
   *(v4 + 122) = v3;
-  if (*(a1 + 40))
+  if (*(result + 40))
   {
     v2 = (v4 + 123);
   }
@@ -40,8 +40,8 @@ void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t a1
     v6 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 32);
+      v7 = *(result + 40);
+      v8 = *(result + 32);
       v9 = *(v8 + 122);
       LODWORD(v8) = *(v8 + 123);
       v11 = 136316674;
@@ -62,8 +62,8 @@ void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t a1
     }
   }
 
-  v10 = *(a1 + 32);
-  if (*(a1 + 40) == 1)
+  v10 = *(result + 32);
+  if (*(result + 40) == 1)
   {
     _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(v10);
   }
@@ -74,12 +74,12 @@ void __VCNetworkConditionMonitor_SetBrokenNetworkStatus_block_invoke(uint64_t a1
   }
 }
 
-void __VCNetworkConditionMonitor_SetWiFiChannelQualityScore_block_invoke(uint64_t a1, double a2)
+void __VCNetworkConditionMonitor_SetWiFiChannelQualityScore_block_invoke(unsigned __int8 *result, double a2)
 {
   v28 = *MEMORY[0x1E69E9840];
-  LOBYTE(a2) = *(a1 + 40);
+  LOBYTE(a2) = result[40];
   v2 = *&a2;
-  v3 = *(a1 + 32);
+  v3 = *(result + 4);
   v4 = *(v3 + 104);
   v5 = 72;
   if (v4 < v2)
@@ -100,9 +100,9 @@ void __VCNetworkConditionMonitor_SetWiFiChannelQualityScore_block_invoke(uint64_
       v11 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
+        v12 = *(result + 4);
         v13 = "recovered";
-        v14 = *(a1 + 40);
+        v14 = result[40];
         if (*(v12 + 120))
         {
           v13 = "degraded";
@@ -125,16 +125,16 @@ void __VCNetworkConditionMonitor_SetWiFiChannelQualityScore_block_invoke(uint64_
       }
     }
 
-    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(a1 + 32));
+    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(result + 4));
   }
 }
 
-void __VCNetworkConditionMonitor_SetCellSignalStrengthBars_block_invoke(uint64_t a1, double a2)
+void __VCNetworkConditionMonitor_SetCellSignalStrengthBars_block_invoke(unsigned __int8 *result, double a2)
 {
   v34 = *MEMORY[0x1E69E9840];
-  LOBYTE(a2) = *(a1 + 40);
+  LOBYTE(a2) = result[40];
   v2 = *&a2;
-  v3 = *(a1 + 32);
+  v3 = *(result + 4);
   v4 = *(v3 + 112);
   v5 = 88;
   if (v4 < v2)
@@ -146,7 +146,7 @@ void __VCNetworkConditionMonitor_SetCellSignalStrengthBars_block_invoke(uint64_t
   *&v7 = v4 * (1.0 - v6);
   v8 = *&v7 + v2 * v6;
   *(v3 + 112) = v8;
-  LOBYTE(v7) = *(a1 + 41);
+  LOBYTE(v7) = result[41];
   v9 = v7;
   *(v3 + 56) = v9;
   v10 = *(v3 + 121);
@@ -160,15 +160,15 @@ void __VCNetworkConditionMonitor_SetCellSignalStrengthBars_block_invoke(uint64_t
       v14 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 32);
+        v15 = *(result + 4);
         v16 = "recovered";
-        v17 = *(a1 + 40);
+        v17 = result[40];
         if (*(v15 + 121))
         {
           v16 = "degraded";
         }
 
-        v18 = *(a1 + 41);
+        v18 = result[41];
         v19 = *(v15 + 112);
         v20 = 136316674;
         v21 = v13;
@@ -188,7 +188,7 @@ void __VCNetworkConditionMonitor_SetCellSignalStrengthBars_block_invoke(uint64_t
       }
     }
 
-    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(a1 + 32));
+    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(result + 4));
   }
 }
 
@@ -225,11 +225,11 @@ void __VCNetworkConditionMonitor_SetRemoteNetworkQuality_block_invoke(uint64_t a
   }
 }
 
-void __VCNetworkConditionMonitor_SetIsLocalActiveOnCellular_block_invoke(uint64_t a1)
+void __VCNetworkConditionMonitor_SetIsLocalActiveOnCellular_block_invoke(unsigned __int8 *result)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 126) != v2)
   {
     *(v1 + 126) = v2;
@@ -239,7 +239,7 @@ void __VCNetworkConditionMonitor_SetIsLocalActiveOnCellular_block_invoke(uint64_
       v5 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(*(a1 + 32) + 126);
+        v6 = *(*(result + 4) + 126);
         v7 = 136316162;
         v8 = v4;
         v9 = 2080;
@@ -254,7 +254,7 @@ void __VCNetworkConditionMonitor_SetIsLocalActiveOnCellular_block_invoke(uint64_
       }
     }
 
-    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(a1 + 32));
+    _VCNetworkConditionMonitor_RunLocalNetworkDetectionAlgorithm(*(result + 4));
   }
 }
 

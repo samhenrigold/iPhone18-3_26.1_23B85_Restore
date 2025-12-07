@@ -72,12 +72,12 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"%@, duration %d, parking events %d, suppressedParkingEvents %d, assistances %d, assistedParkingEvents %d, engagements %d, engagedParkingEvents %d, locationType %d", v4, objc_msgSend(self, "duration"), objc_msgSend(self, "parkingEvents"), objc_msgSend(self, "suppressedParkingEvents"), objc_msgSend(self, "assistances"), objc_msgSend(self, "assistedParkingEvents"), objc_msgSend(self, "engagements"), objc_msgSend(self, "engagedParkingEvents"), objc_msgSend(self, "locationType")];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@, duration %d, parking events %d, suppressedParkingEvents %d, assistances %d, assistedParkingEvents %d, engagements %d, engagedParkingEvents %d, locationType %d", v5, objc_msgSend(self, "duration"), objc_msgSend(self, "parkingEvents"), objc_msgSend(self, "suppressedParkingEvents"), objc_msgSend(self, "assistances"), objc_msgSend(self, "assistedParkingEvents"), objc_msgSend(self, "engagements"), objc_msgSend(self, "engagedParkingEvents"), objc_msgSend(self, "locationType")];
 
-  return v5;
+  return v6;
 }
 
 @end

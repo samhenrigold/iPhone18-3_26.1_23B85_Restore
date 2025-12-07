@@ -17,25 +17,25 @@
   detectionCopy = detection;
   v9 = sub_1CF9E5A58();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v22[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v22[-v15];
-  v17 = _Block_copy(completion);
-  v18 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
-  v20 = v19;
+  v12 = &v28[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v28[-v14];
+  v16 = _Block_copy(completion);
+  v17 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
+  v19 = v18;
   sub_1CF9E59D8();
   sub_1CF9E59D8();
-  _Block_copy(v17);
+  _Block_copy(v16);
 
-  sub_1CF72594C(v18, v20, v16, v13, detectionCopy, self, v17);
-  _Block_release(v17);
-  _Block_release(v17);
+  sub_1CF72594C(v17, v19, v15, v12, detectionCopy, self, v16);
+  _Block_release(v16);
+  _Block_release(v16);
 
-  v21 = *(v10 + 8);
-  v21(v13, v9);
-  v21(v16, v9);
+  v19, v20, v21, v22, v23, v24, v25, v26;
+  v27 = *(v10 + 8);
+  v27(v12, v9);
+  v27(v15, v9);
 }
 
 - (void)createItemOfKind:(int64_t)kind parentID:(int64_t)d filename:(id)filename content:(id)content isResurrected:(BOOL)resurrected uniqueFPID:(id)iD completion:(id)aBlock
@@ -78,6 +78,8 @@
   _Block_release(v15);
   _Block_release(v15);
   sub_1CEFE48D8(content, v28);
+
+  v18, v29, v30, v31, v32, v33, v34, v35;
 }
 
 - (void)moveItemWithHandle:(id)handle underParent:(id)parent filename:(id)filename replaceTarget:(BOOL)target completion:(id)completion
@@ -107,7 +109,7 @@
   sub_1CF72826C(v16, v18, parentCopy, v19, v21, targetCopy, self, v12);
   _Block_release(v12);
   _Block_release(v12);
-
+  v21, v22, v23, v24, v25, v26, v27, v28;
   sub_1CEFE4714(v16, v18);
 }
 
@@ -191,41 +193,39 @@
 {
   v5 = sub_1CF9E5A58();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(completion);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(completion);
   sub_1CF9E59D8();
-  _Block_copy(v10);
+  _Block_copy(v9);
 
-  sub_1CF729C08(v9, v10);
-  _Block_release(v10);
-  _Block_release(v10);
+  sub_1CF729C08(v8, v9);
+  _Block_release(v9);
+  _Block_release(v9);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)moveItemAtURL:(id)l toURL:(id)rL completion:(id)completion
 {
   v6 = sub_1CF9E5A58();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v16 - v12;
-  v14 = _Block_copy(completion);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v15 - v11;
+  v13 = _Block_copy(completion);
   sub_1CF9E59D8();
   sub_1CF9E59D8();
-  _Block_copy(v14);
+  _Block_copy(v13);
 
-  sub_1CF729D3C(v13, v10, v14);
-  _Block_release(v14);
-  _Block_release(v14);
+  sub_1CF729D3C(v12, v9, v13);
+  _Block_release(v13);
+  _Block_release(v13);
 
-  v15 = *(v7 + 8);
-  v15(v10, v6);
-  v15(v13, v6);
+  v14 = *(v7 + 8);
+  v14(v9, v6);
+  v14(v12, v6);
 }
 
 @end

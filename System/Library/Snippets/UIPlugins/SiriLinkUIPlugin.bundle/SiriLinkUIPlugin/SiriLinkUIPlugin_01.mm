@@ -1,748 +1,303 @@
-uint64_t OUTLINED_FUNCTION_3_6()
+uint64_t closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter@<X0>(void *a1@<X0>, char *a2@<X8>)
 {
-  v2 = *(v0 - 368);
+  v56 = a2;
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
+  __chkstk_darwin(v54);
+  v4 = &v47 - v3;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSALGAA15ModifiedContentVyAA4LinkVyALGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSALGAA15ModifiedContentVyAA4LinkVyALGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_MR);
+  v53 = *(v55 - 8);
+  v5 = __chkstk_darwin(v55);
+  v57 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v8 = &v47 - v7;
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo_MR);
+  v9 = *(v52 - 8);
+  v10 = __chkstk_darwin(v52);
+  v12 = &v47 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v14 = &v47 - v13;
+  v15 = a1[3];
+  v51 = a1[2];
+  v16 = a1;
 
-  return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-}
-
-__n128 OUTLINED_FUNCTION_5_2()
-{
-  *(v3 - 168) = v1;
-  *(v3 - 160) = v2;
-  result = *(v0 + 16);
-  v5 = *(v0 + 32);
-  *(v3 - 152) = result;
-  *(v3 - 136) = v5;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_6_1()
-{
-  v2 = *(v0 - 256);
-
-  return KeyedDecodingContainer.decode<A>(_:forKey:)();
-}
-
-__n128 OUTLINED_FUNCTION_13_0()
-{
-  v1 = *(v0 - 208);
-  v2 = *(v0 - 200);
-  v3 = *(v0 - 184);
-  result = *(v0 - 160);
-  *(v0 - 240) = *(v0 - 176);
-  *(v0 - 224) = v2;
-  v5 = *(v0 - 144);
-  *(v0 - 128) = result;
-  *(v0 - 112) = v5;
-  return result;
-}
-
-unint64_t OUTLINED_FUNCTION_14()
-{
-  v3 = *(v0 + 64);
-  *(v1 - 120) = *(v0 + 48);
-  *(v1 - 104) = v3;
-
-  return lazy protocol witness table accessor for type AutoShortcutAppPhrasesViewModel and conformance AutoShortcutAppPhrasesViewModel();
-}
-
-uint64_t OUTLINED_FUNCTION_16()
-{
-
-  return swift_unknownObjectRelease();
-}
-
-uint64_t CustomIntentConfirmationView.body.getter()
-{
-  v1 = v0;
-  v2 = type metadata accessor for CustomIntentConfirmationView();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2 - 8);
-  if (one-time initialization token for voiceCommands != -1)
+  v17 = static Edge.Set.leading.getter();
+  v18 = Edge.Set.init(rawValue:)();
+  Edge.Set.init(rawValue:)();
+  if (Edge.Set.init(rawValue:)() != v17)
   {
-    swift_once();
+    v18 = Edge.Set.init(rawValue:)();
   }
 
-  v5 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v5, static Logger.voiceCommands);
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v6, v7))
-  {
-    v8 = swift_slowAlloc();
-    *v8 = 0;
-    _os_log_impl(&dword_0, v6, v7, "#CustomIntentConfirmationView", v8, 2u);
-  }
-
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(v1, &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v10 = swift_allocObject();
-  outlined init with take of CustomIntentConfirmationView(&v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v10 + v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy16SiriLinkUIPlugin012CustomIntentD0V_AD024ConfirmationBinaryButtonD0VtGMd, &_s7SwiftUI9TupleViewVy16SiriLinkUIPlugin012CustomIntentD0V_AD024ConfirmationBinaryButtonD0VtGMR);
-  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(CustomIntentView, ConfirmationBinaryButtonView)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy16SiriLinkUIPlugin012CustomIntentD0V_AD024ConfirmationBinaryButtonD0VtGMd, &_s7SwiftUI9TupleViewVy16SiriLinkUIPlugin012CustomIntentD0V_AD024ConfirmationBinaryButtonD0VtGMR);
-  return ComponentStack.init(content:)();
-}
-
-uint64_t type metadata accessor for CustomIntentConfirmationView()
-{
-  result = type metadata singleton initialization cache for CustomIntentConfirmationView;
-  if (!type metadata singleton initialization cache for CustomIntentConfirmationView)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in CustomIntentConfirmationView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v33 = a2;
-  v3 = type metadata accessor for ConfirmationBinaryButtonView();
-  v4 = (v3 - 8);
-  v5 = *(*(v3 - 8) + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v32 - v9;
-  v11 = type metadata accessor for CustomIntentView();
-  v12 = *(*(v11 - 8) + 64);
-  v13 = __chkstk_darwin(v11 - 8);
-  v15 = &v32 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v13);
-  v18 = &v32 - v17;
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(a1, &v32 + *(v16 + 28) - v17);
-  ActionHandler.init()();
-  v19 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-  v20 = *(v19 + 24);
-  v21 = (a1 + *(v19 + 20));
-  v23 = *v21;
-  v22 = v21[1];
-  v25 = *(a1 + v20);
-  v24 = *(a1 + v20 + 8);
-  v26 = v4[9];
-
-  static ButtonStyle<>.buttonItemStandard.getter();
-  ActionHandler.init()();
-  v27 = &v10[v4[7]];
-  *v27 = v23;
-  *(v27 + 1) = v22;
-  v28 = &v10[v4[8]];
-  *v28 = v25;
-  *(v28 + 1) = v24;
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(v18, v15);
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(v10, v8);
-  v29 = v33;
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(v15, v33);
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin16CustomIntentViewV_AA024ConfirmationBinaryButtonF0VtMd, &_s16SiriLinkUIPlugin16CustomIntentViewV_AA024ConfirmationBinaryButtonF0VtMR);
-  outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(v8, v29 + *(v30 + 48));
-  _s16SiriLinkUIPlugin28ConfirmationBinaryButtonViewVWOhTm_0(v10, type metadata accessor for ConfirmationBinaryButtonView);
-  _s16SiriLinkUIPlugin28ConfirmationBinaryButtonViewVWOhTm_0(v18, type metadata accessor for CustomIntentView);
-  _s16SiriLinkUIPlugin28ConfirmationBinaryButtonViewVWOhTm_0(v8, type metadata accessor for ConfirmationBinaryButtonView);
-  return _s16SiriLinkUIPlugin28ConfirmationBinaryButtonViewVWOhTm_0(v15, type metadata accessor for CustomIntentView);
-}
-
-uint64_t sub_19260()
-{
-  v1 = *(type metadata accessor for CustomIntentConfirmationView() - 8);
-  v2 = *(v1 + 80);
-  v3 = (v2 + 16) & ~v2;
-  v4 = *(v1 + 64);
-  v5 = v0 + v3;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_0_1(v6);
-  (*(v7 + 8))(v0 + v3);
-  v8 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for CodableINInteraction();
-  OUTLINED_FUNCTION_0_1(v10);
-  (*(v11 + 8))(v0 + v3 + v9);
-  v12 = v8[6];
-  v13 = type metadata accessor for VisualProperty();
-  if (!__swift_getEnumTagSinglePayload(v0 + v3 + v12, 1, v13))
-  {
-    (*(*(v13 - 8) + 8))(v5 + v12, v13);
-  }
-
-  v14 = *(v5 + v8[7] + 8);
-
-  v15 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-  v16 = *(v5 + *(v15 + 20) + 8);
-
-  v17 = *(v5 + *(v15 + 24) + 8);
-
-  return _swift_deallocObject(v0, v3 + v4, v2 | 7);
-}
-
-uint64_t partial apply for closure #1 in CustomIntentConfirmationView.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(type metadata accessor for CustomIntentConfirmationView() - 8);
-  v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
-
-  return closure #1 in CustomIntentConfirmationView.body.getter(v4, a1);
-}
-
-uint64_t outlined init with take of CustomIntentConfirmationView(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_1_0();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_0_1(v6);
-  (*(v7 + 32))(a2, v2);
-  return a2;
-}
-
-uint64_t sub_19544(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_1_0();
-  v5 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(v4);
-
-  return __swift_getEnumTagSinglePayload(v2, a2, v5);
-}
-
-uint64_t sub_1959C(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_1_0();
-  v5 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(v4);
-
-  return __swift_storeEnumTagSinglePayload(v2, a2, a2, v5);
-}
-
-uint64_t type metadata completion function for CustomIntentConfirmationView()
-{
-  result = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(319);
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of WorkflowDataModels.CustomIntentConfirmationModel(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_1_0();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_0_1(v6);
-  (*(v7 + 16))(a2, v2);
-  return a2;
-}
-
-uint64_t _s16SiriLinkUIPlugin28ConfirmationBinaryButtonViewVWOhTm_0(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_0_1(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-uint64_t AutoShortcutFirstRunComponentView.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = static HorizontalAlignment.leading.getter();
-  v4 = v1[10];
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  *(a1 + 16) = 0;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA0D0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAPyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA08_PaddingG0VG_Qo__AA7DividerVAPyAPyAA6HStackVyAIyAkLEAmNQrSb_tFQOyAPyAPy16SiriLinkUIPlugin04IconD0VA_GA_G_Qo__AkLEAmNQrSb_tFQOyAA0F0VyAIyARSg_AA7ForEachVys10ArraySliceVySSGSSARGAPyAA4LinkVyARGATyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGA_GAA010_FixedSizeG0VGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA0D0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAPyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA08_PaddingG0VG_Qo__AA7DividerVAPyAPyAA6HStackVyAIyAkLEAmNQrSb_tFQOyAPyAPy16SiriLinkUIPlugin04IconD0VA_GA_G_Qo__AkLEAmNQrSb_tFQOyAA0F0VyAIyARSg_AA7ForEachVys10ArraySliceVySSGSSARGAPyAA4LinkVyARGATyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGA_GAA010_FixedSizeG0VGtGGMR);
-  closure #1 in AutoShortcutFirstRunComponentView.body.getter(v1, (a1 + *(v5 + 44)));
-  v6 = static Edge.Set.top.getter();
   EdgeInsets.init(_all:)();
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v15 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGMR) + 36);
-  *v15 = v6;
-  *(v15 + 8) = v8;
-  *(v15 + 16) = v10;
-  *(v15 + 24) = v12;
-  *(v15 + 32) = v14;
-  *(v15 + 40) = 0;
-  v16 = static Edge.Set.bottom.getter();
-  EdgeInsets.init(_all:)();
-  v18 = v17;
   v20 = v19;
   v22 = v21;
   v24 = v23;
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGAWGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGAWGMR);
-  v26 = a1 + *(result + 36);
-  *v26 = v16;
-  *(v26 + 8) = v18;
-  *(v26 + 16) = v20;
-  *(v26 + 24) = v22;
-  *(v26 + 32) = v24;
-  *(v26 + 40) = 0;
-  return result;
-}
-
-uint64_t closure #1 in AutoShortcutFirstRunComponentView.body.getter@<X0>(void *a1@<X0>, char *a2@<X8>)
-{
-  v93 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6HStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALy16SiriLinkUIPlugin04IconE0VAA14_PaddingLayoutVGAQG_Qo__AgHEAiJQrSb_tFQOyAA6VStackVyAEyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGALyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALy16SiriLinkUIPlugin04IconE0VAA14_PaddingLayoutVGAQG_Qo__AgHEAiJQrSb_tFQOyAA6VStackVyAEyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGALyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGMR);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v89 = (&v83 - v5);
-  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGMR);
-  v6 = *(*(v88 - 8) + 64);
-  __chkstk_darwin(v88);
-  v87 = &v83 - v7;
-  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMR);
-  v8 = *(*(v86 - 8) + 64);
-  v9 = __chkstk_darwin(v86);
-  v100 = &v83 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v9);
-  v85 = &v83 - v12;
-  __chkstk_darwin(v11);
-  v99 = &v83 - v13;
-  v14 = type metadata accessor for Divider();
-  v91 = *(v14 - 8);
-  v92 = v14;
-  v15 = *(v91 + 64);
-  v16 = __chkstk_darwin(v14);
-  v98 = &v83 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v95 = &v83 - v18;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  __chkstk_darwin(v19 - 8);
-  v22 = &v83 - v21;
-  v23 = type metadata accessor for Font.TextStyle();
-  v24 = *(v23 - 8);
-  v25 = *(v24 + 64);
-  __chkstk_darwin(v23);
-  v27 = &v83 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo_MR);
-  v97 = *(v84 - 8);
-  v28 = v97[8];
-  v29 = __chkstk_darwin(v84);
-  v96 = &v83 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v29);
-  v94 = &v83 - v31;
-  v90 = a1;
-  memcpy(v104, a1, sizeof(v104));
-  __dst[0] = v104[4];
-  __dst[1] = v104[5];
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v32 = Text.init<A>(_:)();
-  v34 = v33;
-  v36 = v35;
-  (*(v24 + 104))(v27, enum case for Font.TextStyle.headline(_:), v23);
-  v37 = type metadata accessor for Font.Design();
-  __swift_storeEnumTagSinglePayload(v22, 1, 1, v37);
-  static Font.Weight.semibold.getter();
-  static Font.system(_:design:weight:)();
-  outlined destroy of StandardActionHandler?(v22, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-  (*(v24 + 8))(v27, v23);
-  v38 = Text.font(_:)();
-  v40 = v39;
-  LOBYTE(v27) = v41;
-  v43 = v42;
-
-  outlined consume of Text.Storage(v32, v34, v36 & 1);
-
-  KeyPath = swift_getKeyPath();
-  LOBYTE(v32) = static Edge.Set.horizontal.getter();
-  EdgeInsets.init(_all:)();
-  v103 = v27 & 1;
-  v102 = 0;
-  v101[0] = v38;
-  v101[1] = v40;
-  LOBYTE(v101[2]) = v27 & 1;
-  v101[3] = v43;
-  v101[4] = KeyPath;
-  v101[5] = 0x4014000000000000;
-  LOBYTE(v101[6]) = v32;
-  v101[7] = v45;
-  v101[8] = v46;
-  v101[9] = v47;
-  v101[10] = v48;
-  LOBYTE(v101[11]) = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMR);
-  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>>, _PaddingLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMR, lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>> and conformance <> ModifiedContent<A, B>);
-  v49 = v94;
-  View.ambientDrawable(renderWithDrawingGroup:)();
-  memcpy(__dst, v101, 0x59uLL);
-  outlined destroy of StandardActionHandler?(__dst, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVGMR);
-  v50 = v95;
-  Divider.init()();
-  v51 = *(AutoShortcutAppPhrasesViewModel.displayPhrases.getter() + 2);
-
-  if (v51 == 1)
-  {
-    v52 = static VerticalAlignment.center.getter();
-  }
-
-  else
-  {
-    v52 = static VerticalAlignment.top.getter();
-  }
-
-  v54 = v89;
-  v53 = v90;
-  v55 = v90[10];
-  *v89 = v52;
-  v54[1] = v55;
-  *(v54 + 16) = 0;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA0D0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAPy16SiriLinkUIPlugin04IconD0VAA08_PaddingG0VGAUG_Qo__AkLEAmNQrSb_tFQOyAA6VStackVyAIyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSA0_GAPyAA0S0VyA0_GAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA0D0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAPy16SiriLinkUIPlugin04IconD0VAA08_PaddingG0VGAUG_Qo__AkLEAmNQrSb_tFQOyAA6VStackVyAIyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSA0_GAPyAA0S0VyA0_GAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGMR);
-  closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter(v53, v54 + *(v56 + 44));
-  LOBYTE(v53) = static Edge.Set.horizontal.getter();
-  EdgeInsets.init(_all:)();
-  v58 = v57;
-  v60 = v59;
-  v62 = v61;
-  v64 = v63;
-  v65 = v87;
-  outlined init with take of HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>();
-  v66 = &v65[*(v88 + 36)];
-  *v66 = v53;
-  *(v66 + 1) = v58;
-  *(v66 + 2) = v60;
-  *(v66 + 3) = v62;
-  *(v66 + 4) = v64;
-  v66[40] = 0;
-  v67 = v85;
-  outlined init with take of HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>();
-  *&v67[*(v86 + 36)] = 256;
-  outlined init with take of HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>();
-  v68 = v96;
-  v69 = v97[2];
-  v70 = v84;
-  v69(v96, v49, v84);
-  v71 = v91;
-  v72 = *(v91 + 16);
-  v73 = v50;
-  v74 = v92;
-  v72(v98, v73, v92);
-  sub_1BF14();
-  v75 = v93;
-  v69(v93, v68, v70);
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVAHyAHyAA6HStackVyAA05TupleC0VyAcDEAeFQrSb_tFQOyAHyAHy16SiriLinkUIPlugin04IconC0VASGASG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyA_yAJSg_AA7ForEachVys10ArraySliceVySSGSSAJGAHyAA4LinkVyAJGALyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGASGAA010_FixedSizeV0VGtMd, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVAHyAHyAA6HStackVyAA05TupleC0VyAcDEAeFQrSb_tFQOyAHyAHy16SiriLinkUIPlugin04IconC0VASGASG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyA_yAJSg_AA7ForEachVys10ArraySliceVySSGSSAJGAHyAA4LinkVyAJGALyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGASGAA010_FixedSizeV0VGtMR);
-  v77 = v98;
-  v72(&v75[*(v76 + 48)], v98, v74);
-  v78 = *(v76 + 64);
-  v79 = v100;
-  sub_1BF14();
-  sub_1BF78(v99);
-  v80 = *(v71 + 8);
-  v80(v95, v74);
-  v81 = v97[1];
-  v81(v94, v70);
-  sub_1BF78(v79);
-  v80(v77, v74);
-  return (v81)(v96, v70);
-}
-
-uint64_t closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter@<X0>(void *a1@<X0>, char *a2@<X8>)
-{
-  v59 = a2;
-  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
-  v3 = *(*(v57 - 8) + 64);
-  __chkstk_darwin(v57);
-  v5 = &v50 - v4;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSALGAA15ModifiedContentVyAA4LinkVyALGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSALGAA15ModifiedContentVyAA4LinkVyALGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_MR);
-  v56 = *(v58 - 8);
-  v6 = *(v56 + 64);
-  v7 = __chkstk_darwin(v58);
-  v60 = &v50 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v10 = &v50 - v9;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo_Md, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo_MR);
-  v11 = *(v55 - 8);
-  v12 = v11[8];
-  v13 = __chkstk_darwin(v55);
-  v15 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v50 - v16;
-  v18 = a1[3];
-  v54 = a1[2];
-  v19 = a1;
-
-  v20 = static Edge.Set.leading.getter();
-  v21 = Edge.Set.init(rawValue:)();
-  Edge.Set.init(rawValue:)();
-  if (Edge.Set.init(rawValue:)() != v20)
-  {
-    v21 = Edge.Set.init(rawValue:)();
-  }
-
-  EdgeInsets.init(_all:)();
-  v23 = v22;
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
+  v26 = v25;
   __dst[112] = 0;
-  v30 = static Edge.Set.top.getter();
-  v31 = Edge.Set.init(rawValue:)();
+  v27 = static Edge.Set.top.getter();
+  v28 = Edge.Set.init(rawValue:)();
   Edge.Set.init(rawValue:)();
-  if (Edge.Set.init(rawValue:)() != v30)
+  if (Edge.Set.init(rawValue:)() != v27)
   {
-    v31 = Edge.Set.init(rawValue:)();
+    v28 = Edge.Set.init(rawValue:)();
   }
 
   EdgeInsets.init(_all:)();
   __dst[120] = 0;
-  __src[0] = v54;
-  __src[1] = v18;
-  LOBYTE(__src[2]) = v21;
-  __src[3] = v23;
-  __src[4] = v25;
-  __src[5] = v27;
-  __src[6] = v29;
+  __src[0] = v51;
+  __src[1] = v15;
+  LOBYTE(__src[2]) = v18;
+  __src[3] = v20;
+  __src[4] = v22;
+  __src[5] = v24;
+  __src[6] = v26;
   LOBYTE(__src[7]) = 0;
-  LOBYTE(__src[8]) = v31;
-  __src[9] = v32;
-  __src[10] = v33;
-  __src[11] = v34;
-  __src[12] = v35;
+  LOBYTE(__src[8]) = v28;
+  __src[9] = v29;
+  __src[10] = v30;
+  __src[11] = v31;
+  __src[12] = v32;
   LOBYTE(__src[13]) = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMd, &_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMR);
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>>, _PaddingLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<IconView, _PaddingLayout>, _PaddingLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMd, &_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMR, lazy protocol witness table accessor for type ModifiedContent<IconView, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
-  v53 = v17;
+  v50 = v14;
   View.ambientDrawable(renderWithDrawingGroup:)();
   memcpy(__dst, __src, 0x69uLL);
   outlined destroy of StandardActionHandler?(__dst, &_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMd, &_s7SwiftUI15ModifiedContentVyACy16SiriLinkUIPlugin8IconViewVAA14_PaddingLayoutVGAHGMR);
-  *v5 = static HorizontalAlignment.leading.getter();
-  *(v5 + 1) = 0x4010000000000000;
-  v5[16] = 0;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAKGAA15ModifiedContentVyAA4LinkVyAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAKGAA15ModifiedContentVyAA4LinkVyAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
-  closure #1 in closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter(v19, &v5[*(v36 + 44)]);
-  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(Text?, ForEach<ArraySlice<String>, String, Text>, ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
-  v51 = v10;
+  *v4 = static HorizontalAlignment.leading.getter();
+  *(v4 + 1) = 0x4010000000000000;
+  v4[16] = 0;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAKGAA15ModifiedContentVyAA4LinkVyAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAKGAA15ModifiedContentVyAA4LinkVyAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
+  closure #1 in closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter(v16, &v4[*(v33 + 44)]);
+  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(Text?, ForEach<ArraySlice<String>, String, Text>, ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR, &protocol conformance descriptor for VStack<A>);
+  v48 = v8;
   View.ambientDrawable(renderWithDrawingGroup:)();
-  outlined destroy of StandardActionHandler?(v5, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
-  v37 = v11[2];
-  v52 = v15;
-  v38 = v55;
-  v37(v15, v17, v55);
-  v39 = v56;
-  v40 = *(v56 + 16);
-  v41 = v10;
-  v42 = v58;
-  v40(v60, v41, v58);
-  v43 = v59;
-  v37(v59, v15, v38);
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAVGAHyAA0N0VyAVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtMd, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAVGAHyAA0N0VyAVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtMR);
-  v45 = v60;
-  v40(&v43[*(v44 + 48)], v60, v42);
-  v46 = &v43[*(v44 + 64)];
-  *v46 = 0;
-  v46[8] = 1;
-  v47 = *(v39 + 8);
-  v47(v51, v42);
-  v48 = v11[1];
-  v48(v53, v38);
-  v47(v45, v42);
-  return (v48)(v52, v38);
+  outlined destroy of StandardActionHandler?(v4, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAGGAA15ModifiedContentVyAA4LinkVyAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGGMR);
+  v34 = *(v9 + 16);
+  v49 = v12;
+  v35 = v52;
+  v34(v12, v14, v52);
+  v36 = v53;
+  v37 = *(v53 + 16);
+  v38 = v8;
+  v39 = v55;
+  v37(v57, v38, v55);
+  v40 = v56;
+  v34(v56, v12, v35);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAVGAHyAA0N0VyAVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtMd, &_s7SwiftUI4ViewP07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyAHy16SiriLinkUIPlugin04IconC0VAA14_PaddingLayoutVGAMG_Qo__AcDEAeFQrSb_tFQOyAA6VStackVyAA05TupleC0VyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAVGAHyAA0N0VyAVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtMR);
+  v42 = v57;
+  v37(&v40[*(v41 + 48)], v57, v39);
+  v43 = &v40[*(v41 + 64)];
+  *v43 = 0;
+  v43[8] = 1;
+  v44 = *(v36 + 8);
+  v44(v48, v39);
+  v45 = *(v9 + 8);
+  v45(v50, v35);
+  v44(v42, v39);
+  return (v45)(v49, v35);
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter@<X0>(const void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v116 = a2;
-  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
-  v3 = *(*(v115 - 8) + 64);
-  __chkstk_darwin(v115);
-  v108 = &v100 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v100 - v7;
-  v9 = type metadata accessor for URL();
-  v107 = *(v9 - 8);
-  v10 = *(v107 + 64);
-  v11 = __chkstk_darwin(v9);
-  v105 = &v100 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v106 = &v100 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v119 = &v100 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v120 = &v100 - v18;
-  v118 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVys10ArraySliceVySSGSSAA4TextVGMd, &_s7SwiftUI7ForEachVys10ArraySliceVySSGSSAA4TextVGMR);
-  v114 = *(v118 - 8);
-  v19 = *(v114 + 64);
-  v20 = __chkstk_darwin(v118);
-  v117 = &v100 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v121 = &v100 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  __chkstk_darwin(v23 - 8);
-  v26 = &v100 - v25;
-  v27 = type metadata accessor for Font.TextStyle();
-  v28 = *(v27 - 8);
-  v29 = *(v28 + 64);
-  __chkstk_darwin(v27);
-  v31 = &v100 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  memcpy(__dst, a1, sizeof(__dst));
-  v32 = AutoShortcutAppPhrasesViewModel.displayPhrases.getter();
-  v33 = v32[2];
-  v104 = v27;
-  v103 = v26;
-  v102 = v28;
-  v101 = v31;
-  if (v33)
+  v111 = a2;
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+  __chkstk_darwin(v110);
+  v103 = &v95 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v95 - v5;
+  v7 = type metadata accessor for URL();
+  v102 = *(v7 - 8);
+  v8 = __chkstk_darwin(v7);
+  v100 = &v95 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v101 = &v95 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
+  v12 = __chkstk_darwin(v11 - 8);
+  v114 = &v95 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v115 = &v95 - v14;
+  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVys10ArraySliceVySSGSSAA4TextVGMd, &_s7SwiftUI7ForEachVys10ArraySliceVySSGSSAA4TextVGMR);
+  v109 = *(v113 - 8);
+  v15 = __chkstk_darwin(v113);
+  v112 = &v95 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v116 = &v95 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
+  __chkstk_darwin(v18 - 8);
+  v20 = &v95 - v19;
+  v21 = type metadata accessor for Font.TextStyle();
+  v22 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v24 = &v95 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = memcpy(__dst, a1, sizeof(__dst));
+  v26 = AutoShortcutAppPhrasesViewModel.displayPhrases.getter(v25);
+  v27 = v26[2];
+  v99 = v21;
+  v98 = v20;
+  v97 = v22;
+  v96 = v24;
+  if (v27)
   {
-    v109 = v8;
-    v34 = v32[4];
-    v35 = v32[5];
+    v104 = v6;
+    v28 = v26[4];
+    v29 = v26[5];
 
-    v122 = v34;
-    v123 = v35;
+    v117 = v28;
+    v118 = v29;
     lazy protocol witness table accessor for type String and conformance String();
-    v36 = Text.init<A>(_:)();
-    v38 = v37;
-    v100 = v9;
-    v40 = v39;
-    v113 = v41;
-    (*(v28 + 104))(v31, enum case for Font.TextStyle.title3(_:), v27);
-    v42 = v28;
-    v43 = enum case for Font.Design.rounded(_:);
-    v44 = v31;
-    v45 = type metadata accessor for Font.Design();
-    (*(*(v45 - 8) + 104))(v26, v43, v45);
-    __swift_storeEnumTagSinglePayload(v26, 0, 1, v45);
+    v30 = Text.init<A>(_:)();
+    v32 = v31;
+    v95 = v7;
+    v34 = v33;
+    v108 = v35;
+    (*(v22 + 104))(v24, enum case for Font.TextStyle.title3(_:), v21);
+    v36 = v22;
+    v37 = enum case for Font.Design.rounded(_:);
+    v38 = v24;
+    v39 = type metadata accessor for Font.Design();
+    (*(*(v39 - 8) + 104))(v20, v37, v39);
+    __swift_storeEnumTagSinglePayload(v20, 0, 1, v39);
     static Font.Weight.medium.getter();
     static Font.system(_:design:weight:)();
-    outlined destroy of StandardActionHandler?(v26, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-    (*(v42 + 8))(v44, v27);
-    v46 = Text.font(_:)();
-    v48 = v47;
-    LOBYTE(v42) = v49;
+    outlined destroy of StandardActionHandler?(v20, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
+    (*(v36 + 8))(v38, v21);
+    v40 = Text.font(_:)();
+    v42 = v41;
+    LOBYTE(v36) = v43;
 
-    v50 = v40 & 1;
-    v9 = v100;
-    outlined consume of Text.Storage(v36, v38, v50);
+    v44 = v34 & 1;
+    v7 = v95;
+    outlined consume of Text.Storage(v30, v32, v44);
 
     static Color.primary.getter();
-    v51 = Text.foregroundColor(_:)();
-    v53 = v52;
-    LOBYTE(v44) = v54;
+    v45 = Text.foregroundColor(_:)();
+    v47 = v46;
+    LOBYTE(v38) = v48;
 
-    v55 = v42 & 1;
-    v8 = v109;
-    outlined consume of Text.Storage(v46, v48, v55);
+    v49 = v36 & 1;
+    v6 = v104;
+    outlined consume of Text.Storage(v40, v42, v49);
 
-    LODWORD(v122) = static HierarchicalShapeStyle.primary.getter();
-    v56 = Text.foregroundStyle<A>(_:)();
-    v58 = v57;
-    LOBYTE(v38) = v59;
-    v61 = v60;
-    outlined consume of Text.Storage(v51, v53, v44 & 1);
+    LODWORD(v117) = static HierarchicalShapeStyle.primary.getter();
+    v50 = Text.foregroundStyle<A>(_:)();
+    v52 = v51;
+    LOBYTE(v32) = v53;
+    v55 = v54;
+    outlined consume of Text.Storage(v45, v47, v38 & 1);
 
-    v113 = v56;
-    v112 = v58;
-    v110 = v38 & 1;
-    outlined copy of Text.Storage(v56, v58, v38 & 1);
-    v111 = v61;
+    v108 = v50;
+    v107 = v52;
+    v105 = v32 & 1;
+    outlined copy of Text.Storage(v50, v52, v32 & 1);
+    v106 = v55;
   }
 
   else
   {
 
-    v113 = 0;
-    v112 = 0;
-    v110 = 0;
-    v111 = 0;
+    v108 = 0;
+    v107 = 0;
+    v105 = 0;
+    v106 = 0;
   }
 
-  v62 = AutoShortcutAppPhrasesViewModel.displayPhrases.getter();
-  v63 = 1;
-  v64 = specialized Collection.dropFirst(_:)(1, v62);
-  v122 = v64;
-  v123 = v65;
-  v124 = v66;
-  v125 = v67;
+  v57 = AutoShortcutAppPhrasesViewModel.displayPhrases.getter(v56);
+  v58 = 1;
+  v59 = specialized Collection.dropFirst(_:)(1, v57);
+  v117 = v59;
+  v118 = v60;
+  v119 = v61;
+  v120 = v62;
   swift_getKeyPath();
-  v109 = v64;
+  v104 = v59;
   swift_unknownObjectRetain();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVySSGMd, &_ss10ArraySliceVySSGMR);
-  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ArraySlice<String> and conformance ArraySlice<A>, &_ss10ArraySliceVySSGMd, &_ss10ArraySliceVySSGMR);
+  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type ArraySlice<String> and conformance ArraySlice<A>, &_ss10ArraySliceVySSGMd, &_ss10ArraySliceVySSGMR, &protocol conformance descriptor for ArraySlice<A>);
   ForEach<>.init(_:id:content:)();
-  v68 = __dst[7];
+  v63 = __dst[7];
   if (__dst[7])
   {
-    v69 = __dst[6];
+    v64 = __dst[6];
 
     AutoShortcutAppPhrasesViewModel.punchoutURL.getter();
     URL.init(string:)();
 
-    if (__swift_getEnumTagSinglePayload(v8, 1, v9) != 1)
+    if (__swift_getEnumTagSinglePayload(v6, 1, v7) != 1)
     {
-      v71 = v107;
-      v72 = v106;
-      v73 = v9;
-      (*(v107 + 32))(v106, v8, v9);
-      v122 = v69;
-      v123 = v68;
-      (*(v71 + 16))(v105, v72, v9);
+      v66 = v102;
+      v67 = v101;
+      v68 = v7;
+      (*(v102 + 32))(v101, v6, v7);
+      v117 = v64;
+      v118 = v63;
+      (*(v66 + 16))(v100, v67, v7);
       lazy protocol witness table accessor for type String and conformance String();
-      v74 = v108;
+      v69 = v103;
       Link<>.init<A>(_:destination:)();
-      v75 = v102;
-      v76 = v101;
-      v77 = v104;
-      (*(v102 + 104))(v101, enum case for Font.TextStyle.title3(_:), v104);
-      v78 = enum case for Font.Design.rounded(_:);
-      v79 = type metadata accessor for Font.Design();
-      v80 = v103;
-      (*(*(v79 - 8) + 104))(v103, v78, v79);
-      __swift_storeEnumTagSinglePayload(v80, 0, 1, v79);
+      v70 = v97;
+      v71 = v96;
+      v72 = v99;
+      (*(v97 + 104))(v96, enum case for Font.TextStyle.title3(_:), v99);
+      v73 = enum case for Font.Design.rounded(_:);
+      v74 = type metadata accessor for Font.Design();
+      v75 = v98;
+      (*(*(v74 - 8) + 104))(v98, v73, v74);
+      __swift_storeEnumTagSinglePayload(v75, 0, 1, v74);
       static Font.Weight.medium.getter();
-      v81 = static Font.system(_:design:weight:)();
-      outlined destroy of StandardActionHandler?(v80, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-      (*(v75 + 8))(v76, v77);
-      (*(v71 + 8))(v72, v73);
+      v76 = static Font.system(_:design:weight:)();
+      outlined destroy of StandardActionHandler?(v75, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
+      (*(v70 + 8))(v71, v72);
+      (*(v66 + 8))(v67, v68);
       KeyPath = swift_getKeyPath();
-      v70 = v115;
-      v83 = (v74 + *(v115 + 36));
-      *v83 = KeyPath;
-      v83[1] = v81;
-      outlined init with take of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>(v74, v120);
-      v63 = 0;
+      v65 = v110;
+      v78 = (v69 + *(v110 + 36));
+      *v78 = KeyPath;
+      v78[1] = v76;
+      outlined init with take of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>(v69, v115);
+      v58 = 0;
       goto LABEL_9;
     }
 
-    outlined destroy of StandardActionHandler?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v63 = 1;
+    outlined destroy of StandardActionHandler?(v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v58 = 1;
   }
 
-  v70 = v115;
+  v65 = v110;
 LABEL_9:
-  v84 = v120;
-  __swift_storeEnumTagSinglePayload(v120, v63, 1, v70);
-  v85 = v114;
-  v86 = *(v114 + 16);
-  v87 = v117;
-  v86(v117, v121, v118);
-  outlined init with copy of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?(v84, v119);
-  v88 = v116;
-  v89 = v113;
-  v90 = v112;
-  *v116 = v113;
-  v88[1] = v90;
-  v91 = v110;
-  v92 = v111;
-  v88[2] = v110;
-  v88[3] = v92;
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextVSg_AA7ForEachVys10ArraySliceVySSGSSACGAA15ModifiedContentVyAA4LinkVyACGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtMd, &_s7SwiftUI4TextVSg_AA7ForEachVys10ArraySliceVySSGSSACGAA15ModifiedContentVyAA4LinkVyACGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtMR);
-  v94 = v87;
-  v95 = v118;
-  v86(v88 + *(v93 + 48), v94, v118);
-  v96 = v88 + *(v93 + 64);
-  v97 = v119;
-  outlined init with copy of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?(v119, v96);
-  outlined copy of Text?(v89, v90, v91, v92);
-  outlined consume of Text?(v89, v90, v91, v92);
+  v79 = v115;
+  __swift_storeEnumTagSinglePayload(v115, v58, 1, v65);
+  v80 = v109;
+  v81 = *(v109 + 16);
+  v82 = v112;
+  v81(v112, v116, v113);
+  outlined init with copy of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?(v79, v114);
+  v83 = v111;
+  v84 = v108;
+  v85 = v107;
+  *v111 = v108;
+  v83[1] = v85;
+  v86 = v105;
+  v87 = v106;
+  v83[2] = v105;
+  v83[3] = v87;
+  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4TextVSg_AA7ForEachVys10ArraySliceVySSGSSACGAA15ModifiedContentVyAA4LinkVyACGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtMd, &_s7SwiftUI4TextVSg_AA7ForEachVys10ArraySliceVySSGSSACGAA15ModifiedContentVyAA4LinkVyACGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtMR);
+  v89 = v82;
+  v90 = v113;
+  v81(v83 + *(v88 + 48), v89, v113);
+  v91 = v83 + *(v88 + 64);
+  v92 = v114;
+  outlined init with copy of ModifiedContent<Link<Text>, _EnvironmentKeyWritingModifier<Font?>>?(v114, v91);
+  outlined copy of Text?(v84, v85, v86, v87);
+  outlined consume of Text?(v84, v85, v86, v87);
   swift_unknownObjectRelease();
-  outlined destroy of StandardActionHandler?(v120, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
-  v98 = *(v85 + 8);
-  v98(v121, v95);
-  outlined destroy of StandardActionHandler?(v97, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
-  v98(v117, v95);
-  return outlined consume of Text?(v89, v90, v91, v92);
+  outlined destroy of StandardActionHandler?(v115, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
+  v93 = *(v80 + 8);
+  v93(v116, v90);
+  outlined destroy of StandardActionHandler?(v92, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4LinkVyAA4TextVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgMR);
+  v93(v112, v90);
+  return outlined consume of Text?(v84, v85, v86, v87);
 }
 
 uint64_t specialized Collection.dropFirst(_:)(uint64_t result, uint64_t a2)
@@ -775,59 +330,57 @@ uint64_t specialized Collection.dropFirst(_:)(uint64_t result, uint64_t a2)
 
 uint64_t closure #1 in closure #1 in closure #1 in closure #1 in AutoShortcutFirstRunComponentView.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v37[0] = a2;
+  v35[0] = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = v37 - v5;
-  v7 = type metadata accessor for Font.TextStyle();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *a1;
-  v13 = a1[1];
-  v38 = v12;
-  v39 = v13;
+  v5 = v35 - v4;
+  v6 = type metadata accessor for Font.TextStyle();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *a1;
+  v11 = a1[1];
+  v36 = v10;
+  v37 = v11;
   lazy protocol witness table accessor for type String and conformance String();
 
-  v14 = Text.init<A>(_:)();
+  v12 = Text.init<A>(_:)();
+  v14 = v13;
   v16 = v15;
-  v18 = v17;
-  (*(v8 + 104))(v11, enum case for Font.TextStyle.title3(_:), v7);
-  v19 = enum case for Font.Design.rounded(_:);
-  v20 = type metadata accessor for Font.Design();
-  (*(*(v20 - 8) + 104))(v6, v19, v20);
-  __swift_storeEnumTagSinglePayload(v6, 0, 1, v20);
+  (*(v7 + 104))(v9, enum case for Font.TextStyle.title3(_:), v6);
+  v17 = enum case for Font.Design.rounded(_:);
+  v18 = type metadata accessor for Font.Design();
+  (*(*(v18 - 8) + 104))(v5, v17, v18);
+  __swift_storeEnumTagSinglePayload(v5, 0, 1, v18);
   static Font.Weight.medium.getter();
   static Font.system(_:design:weight:)();
-  outlined destroy of StandardActionHandler?(v6, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
-  (*(v8 + 8))(v11, v7);
-  v21 = Text.font(_:)();
-  v23 = v22;
-  LOBYTE(v6) = v24;
+  outlined destroy of StandardActionHandler?(v5, &_s7SwiftUI4FontV6DesignOSgMd, &_s7SwiftUI4FontV6DesignOSgMR);
+  (*(v7 + 8))(v9, v6);
+  v19 = Text.font(_:)();
+  v21 = v20;
+  LOBYTE(v5) = v22;
 
-  outlined consume of Text.Storage(v14, v16, v18 & 1);
+  outlined consume of Text.Storage(v12, v14, v16 & 1);
 
   static Color.secondary.getter();
-  v25 = Text.foregroundColor(_:)();
-  v27 = v26;
-  LOBYTE(v16) = v28;
+  v23 = Text.foregroundColor(_:)();
+  v25 = v24;
+  LOBYTE(v14) = v26;
 
-  outlined consume of Text.Storage(v21, v23, v6 & 1);
+  outlined consume of Text.Storage(v19, v21, v5 & 1);
 
-  LODWORD(v38) = static HierarchicalShapeStyle.secondary.getter();
-  v29 = Text.foregroundStyle<A>(_:)();
-  v31 = v30;
-  LOBYTE(v23) = v32;
-  v34 = v33;
-  outlined consume of Text.Storage(v25, v27, v16 & 1);
+  LODWORD(v36) = static HierarchicalShapeStyle.secondary.getter();
+  v27 = Text.foregroundStyle<A>(_:)();
+  v29 = v28;
+  LOBYTE(v21) = v30;
+  v32 = v31;
+  outlined consume of Text.Storage(v23, v25, v14 & 1);
 
-  v36 = v37[0];
-  *v37[0] = v29;
-  *(v36 + 8) = v31;
-  *(v36 + 16) = v23 & 1;
-  *(v36 + 24) = v34;
+  v34 = v35[0];
+  *v35[0] = v27;
+  *(v34 + 8) = v29;
+  *(v34 + 16) = v21 & 1;
+  *(v34 + 24) = v32;
   return result;
 }
 
@@ -861,13 +414,6 @@ double IconView.body.getter()
   result = *&v9;
   *(v3 + 48) = v9;
   return result;
-}
-
-double protocol witness for View.body.getter in conformance IconView()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return IconView.body.getter();
 }
 
 uint64_t getEnumTagSinglePayload for AutoShortcutFirstRunComponentView(uint64_t *a1, int a2)
@@ -943,7 +489,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<T
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVACyACyAA6HStackVyAGyAiJEAkLQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAWGAWG_Qo__AiJEAkLQrSb_tFQOyAEyAGyANSg_AA7ForEachVys10ArraySliceVySSGSSANGACyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGAWGMR);
-    lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVALyALyAA6HStackVyAEyAgHEAiJQrSb_tFQOyALyALy16SiriLinkUIPlugin04IconE0VAWGAWG_Qo__AgHEAiJQrSb_tFQOyACyAEyANSg_AA7ForEachVys10ArraySliceVySSGSSANGALyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVALyALyAA6HStackVyAEyAgHEAiJQrSb_tFQOyALyALy16SiriLinkUIPlugin04IconE0VAWGAWG_Qo__AgHEAiJQrSb_tFQOyACyAEyANSg_AA7ForEachVys10ArraySliceVySSGSSANGALyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGMR);
+    lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVALyALyAA6HStackVyAEyAgHEAiJQrSb_tFQOyALyALy16SiriLinkUIPlugin04IconE0VAWGAWG_Qo__AgHEAiJQrSb_tFQOyACyAEyANSg_AA7ForEachVys10ArraySliceVySSGSSANGALyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA0E0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyAA15ModifiedContentVyALyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGAA14_PaddingLayoutVG_Qo__AA7DividerVALyALyAA6HStackVyAEyAgHEAiJQrSb_tFQOyALyALy16SiriLinkUIPlugin04IconE0VAWGAWG_Qo__AgHEAiJQrSb_tFQOyACyAEyANSg_AA7ForEachVys10ArraySliceVySSGSSANGALyAA4LinkVyANGAPyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAWGAA010_FixedSizeX0VGtGGMR, &protocol conformance descriptor for VStack<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Divider, ModifiedContent<ModifiedContent<HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>, _PaddingLayout>, _FixedSizeLayout>)>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -1098,13 +644,6 @@ id WFApertureIconView.__allocating_init(applicationBundleIdentifier:)()
   return v2;
 }
 
-uint64_t protocol witness for UIViewRepresentable.updateUIView(_:context:) in conformance StackIconView(Swift::String bundleIdentifier)
-{
-  v2 = *v1;
-  v3 = v1[1];
-  return IconView.init(bundleIdentifier:)(bundleIdentifier).bundleIdentifier._countAndFlagsBits;
-}
-
 uint64_t protocol witness for static View._makeView(view:inputs:) in conformance StackIconView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = lazy protocol witness table accessor for type StackIconView and conformance StackIconView();
@@ -1119,7 +658,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return static UIViewRepresentable._makeViewList(view:inputs:)(a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance StackIconView()
+void protocol witness for View.body.getter in conformance StackIconView(uint64_t a1)
 {
   lazy protocol witness table accessor for type StackIconView and conformance StackIconView();
   UIViewRepresentable.body.getter();
@@ -1159,7 +698,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _E
   if (!lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGMd, &_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGGMR);
-    lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<CGFloat> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGMR);
+    lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<CGFloat> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVy12CoreGraphics7CGFloatVGMR, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<CGFloat>> and conformance <> ModifiedContent<A, B>);
   }
@@ -1170,26 +709,26 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _E
 uint64_t outlined init with take of HStack<TupleView<(<<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, <<opaque return type of View.ambientDrawable(renderWithDrawingGroup:)>>.0, Spacer)>>()
 {
   OUTLINED_FUNCTION_1_10();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
-  OUTLINED_FUNCTION_0_1(v4);
-  (*(v5 + 32))(v0, v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_0_1();
+  (*(v4 + 32))(v0, v1);
   return v0;
 }
 
 uint64_t sub_1BF14()
 {
   OUTLINED_FUNCTION_1_10();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMR);
-  OUTLINED_FUNCTION_0_1(v2);
-  (*(v3 + 16))(v0, v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMR);
+  OUTLINED_FUNCTION_0_1();
+  (*(v2 + 16))(v0, v1);
   return v0;
 }
 
 uint64_t sub_1BF78(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMR);
-  OUTLINED_FUNCTION_0_1(v2);
-  (*(v3 + 8))(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMd, &_s7SwiftUI15ModifiedContentVyACyAA6HStackVyAA9TupleViewVyAA0G0P07SnippetB0E15ambientDrawable22renderWithDrawingGroupQrSb_tFQOyACyACy16SiriLinkUIPlugin04IconG0VAA14_PaddingLayoutVGAQG_Qo__AiJEAkLQrSb_tFQOyAA6VStackVyAGyAA4TextVSg_AA7ForEachVys10ArraySliceVySSGSSAXGACyAA0P0VyAXGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGSgtGG_Qo_AA6SpacerVtGGAQGAA010_FixedSizeT0VGMR);
+  OUTLINED_FUNCTION_0_1();
+  (*(v2 + 8))(a1);
   return a1;
 }
 
@@ -1275,12 +814,12 @@ LABEL_14:
 
 uint64_t ConfirmActionView.model.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for ConfirmActionView() + 20);
+  v3 = v1 + *(type metadata accessor for ConfirmActionView(0) + 20);
 
   return outlined init with copy of WorkflowDataModels.ConfirmActionModel(v3, a1);
 }
 
-uint64_t type metadata accessor for ConfirmActionView()
+uint64_t type metadata accessor for ConfirmActionView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ConfirmActionView;
   if (!type metadata singleton initialization cache for ConfirmActionView)
@@ -1293,7 +832,7 @@ uint64_t type metadata accessor for ConfirmActionView()
 
 uint64_t ConfirmActionView.body.getter()
 {
-  v1 = type metadata accessor for ConfirmActionView();
+  v1 = type metadata accessor for ConfirmActionView(0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 64);
   __chkstk_darwin(v1 - 8);
@@ -1302,63 +841,51 @@ uint64_t ConfirmActionView.body.getter()
   v5 = swift_allocObject();
   outlined init with take of ConfirmActionView(&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v5 + v4, type metadata accessor for ConfirmActionView);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMR);
-  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(SimpleItemRichView?, ArchivedView?, ConfirmationBinaryButtonView)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMR);
+  lazy protocol witness table accessor for type TupleView<(LinkActionView, ForEach<[LNChoiceOption], UUID, AnyView>)> and conformance TupleView<A>(&lazy protocol witness table cache variable for type TupleView<(SimpleItemRichView?, ArchivedView?, ConfirmationBinaryButtonView)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMd, &_s7SwiftUI9TupleViewVy07SnippetB0014SimpleItemRichD0VSg_16SiriLinkUIPlugin08ArchivedD0VSgAH024ConfirmationBinaryButtonD0VtGMR, &protocol conformance descriptor for TupleView<A>);
   return ComponentStack.init(content:)();
 }
 
 uint64_t closure #1 in ConfirmActionView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v75 = a2;
+  v69 = a2;
   v3 = type metadata accessor for ButtonItemButtonStyle();
-  v73 = *(v3 - 8);
-  v74 = v3;
-  v4 = *(v73 + 64);
+  v67 = *(v3 - 8);
+  v68 = v3;
   __chkstk_darwin(v3);
-  v72 = &v64 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v70 = type metadata accessor for ConfirmationBinaryButtonView();
-  v6 = *(*(v70 - 8) + 64);
-  v7 = __chkstk_darwin(v70);
-  v71 = &v64 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v64 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v64 - v12;
-  v67 = type metadata accessor for ArchivedView();
-  v14 = *(*(v67 - 8) + 64);
-  __chkstk_darwin(v67);
-  v65 = &v64 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = __chkstk_darwin(v16 - 8);
-  v68 = &v64 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = &v58 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = type metadata accessor for ConfirmationBinaryButtonView(0);
+  v5 = __chkstk_darwin(v64);
+  v65 = &v58 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __chkstk_darwin(v5);
+  v9 = &v58 - v8;
+  __chkstk_darwin(v7);
+  v11 = &v58 - v10;
+  v61 = type metadata accessor for ArchivedView(0);
+  __chkstk_darwin(v61);
+  v59 = &v58 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
+  v14 = __chkstk_darwin(v13 - 8);
+  v62 = &v58 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14);
+  v17 = &v58 - v16;
+  v18 = type metadata accessor for SimpleItemRichView();
+  v19 = *(v18 - 8);
   __chkstk_darwin(v18);
-  v21 = &v64 - v20;
-  v22 = type metadata accessor for SimpleItemRichView();
-  v23 = *(v22 - 8);
-  v24 = *(v23 + 64);
-  __chkstk_darwin(v22);
-  v26 = &v64 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
-  v28 = *(*(v27 - 8) + 64);
-  v29 = __chkstk_darwin(v27 - 8);
-  v69 = &v64 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v29);
-  v32 = &v64 - v31;
-  v33 = (a1 + *(type metadata accessor for ConfirmActionView() + 20));
-  v34 = v33[12];
-  if (v34)
+  v21 = &v58 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
+  v23 = __chkstk_darwin(v22 - 8);
+  v63 = &v58 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v23);
+  v26 = &v58 - v25;
+  v27 = (a1 + *(type metadata accessor for ConfirmActionView(0) + 20));
+  v28 = v27[12];
+  if (v28)
   {
-    v35 = v33[11];
-    v103 = &type metadata for String;
-    v104 = &protocol witness table for String;
-    v100 = v35;
-    v101 = v34;
-    v99 = 0;
-    v97 = 0u;
-    v98 = 0u;
-    v96 = 0;
-    v94 = 0u;
-    v95 = 0u;
+    v29 = v27[11];
+    v97 = &type metadata for String;
+    v98 = &protocol witness table for String;
+    v94 = v29;
+    v95 = v28;
     v93 = 0;
     v91 = 0u;
     v92 = 0u;
@@ -1377,126 +904,123 @@ uint64_t closure #1 in ConfirmActionView.body.getter@<X0>(uint64_t a1@<X0>, uint
     v78 = 0;
     v76 = 0u;
     v77 = 0u;
+    v75 = 0;
+    v73 = 0u;
+    v74 = 0u;
+    v72 = 0;
+    v70 = 0u;
+    v71 = 0u;
 
     SimpleItemRichView.init(text1:text2:text3:text4:text5:text6:text7:text8:thumbnail:)();
-    (*(v23 + 32))(v32, v26, v22);
-    v36 = 0;
+    (*(v19 + 32))(v26, v21, v18);
+    v30 = 0;
   }
 
   else
   {
-    v36 = 1;
+    v30 = 1;
   }
 
-  v37 = 1;
-  v38 = v32;
-  __swift_storeEnumTagSinglePayload(v32, v36, 1, v22);
-  v39 = v33[9];
-  if (v39 >> 60 != 15)
+  v31 = 1;
+  v32 = v26;
+  __swift_storeEnumTagSinglePayload(v26, v30, 1, v18);
+  v33 = v27[9];
+  if (v33 >> 60 != 15)
   {
-    v40 = v33[2];
-    v41 = v33[3];
-    v42 = *v33;
-    v43 = v33[1];
-    v100 = v33[8];
-    v101 = v39;
-    v102 = v42;
-    v103 = v43;
-    v104 = v40;
-    v105 = v41;
-    outlined copy of Data?(v100, v39);
+    v34 = v27[2];
+    v35 = v27[3];
+    v36 = *v27;
+    v37 = v27[1];
+    v94 = v27[8];
+    v95 = v33;
+    v96 = v36;
+    v97 = v37;
+    v98 = v34;
+    v99 = v35;
+    outlined copy of Data?(v94, v33);
 
-    v44 = v65;
-    ArchivedView.init(model:)(&v100, v65);
-    outlined init with take of ConfirmActionView(v44, v21, type metadata accessor for ArchivedView);
-    v37 = 0;
+    v38 = v59;
+    ArchivedView.init(model:)(&v94, v59);
+    outlined init with take of ConfirmActionView(v38, v17, type metadata accessor for ArchivedView);
+    v31 = 0;
   }
 
-  v45 = v21;
-  __swift_storeEnumTagSinglePayload(v21, v37, 1, v67);
-  v47 = v33[4];
-  v46 = v33[5];
-  v49 = v33[6];
-  v48 = v33[7];
-  v50 = *(v33 + 80);
+  v39 = v17;
+  __swift_storeEnumTagSinglePayload(v17, v31, 1, v61);
+  v41 = v27[4];
+  v40 = v27[5];
+  v43 = v27[6];
+  v42 = v27[7];
+  v44 = *(v27 + 80);
 
-  if (v50 == 1)
+  if (v44 == 1)
   {
-    v51 = v72;
+    v45 = v66;
     static ButtonStyle<>.buttonItemPreferredAndDestructive.getter();
   }
 
   else
   {
-    v51 = v72;
+    v45 = v66;
     static ButtonStyle<>.buttonItemPreferred.getter();
   }
 
   ActionHandler.init()();
-  v52 = v70;
-  v53 = &v11[*(v70 + 20)];
-  *v53 = v47;
-  *(v53 + 1) = v46;
-  v54 = &v11[*(v52 + 24)];
-  *v54 = v49;
-  *(v54 + 1) = v48;
-  (*(v73 + 32))(&v11[*(v52 + 28)], v51, v74);
-  outlined init with take of ConfirmActionView(v11, v13, type metadata accessor for ConfirmationBinaryButtonView);
-  v66 = v38;
+  v46 = v64;
+  v47 = &v9[*(v64 + 20)];
+  *v47 = v41;
+  *(v47 + 1) = v40;
+  v48 = &v9[*(v46 + 24)];
+  *v48 = v43;
+  *(v48 + 1) = v42;
+  (*(v67 + 32))(&v9[*(v46 + 28)], v45, v68);
+  outlined init with take of ConfirmActionView(v9, v11, type metadata accessor for ConfirmationBinaryButtonView);
+  v60 = v32;
+  v49 = v63;
+  outlined init with copy of SimpleItemRichView?(v32, v63, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
+  v50 = v39;
+  v51 = v62;
+  outlined init with copy of SimpleItemRichView?(v39, v62, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
+  v52 = v65;
+  outlined init with copy of ConfirmActionView(v11, v65, type metadata accessor for ConfirmationBinaryButtonView);
+  v53 = v11;
+  v54 = v52;
   v55 = v69;
-  outlined init with copy of SimpleItemRichView?(v38, v69, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
-  v56 = v45;
-  v57 = v68;
-  outlined init with copy of SimpleItemRichView?(v45, v68, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
-  v58 = v71;
-  outlined init with copy of ConfirmActionView(v13, v71, type metadata accessor for ConfirmationBinaryButtonView);
-  v59 = v13;
-  v60 = v58;
-  v61 = v75;
-  outlined init with copy of SimpleItemRichView?(v55, v75, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI18SimpleItemRichViewVSg_16SiriLinkUIPlugin08ArchivedF0VSgAE024ConfirmationBinaryButtonF0VtMd, &_s9SnippetUI18SimpleItemRichViewVSg_16SiriLinkUIPlugin08ArchivedF0VSgAE024ConfirmationBinaryButtonF0VtMR);
-  outlined init with copy of SimpleItemRichView?(v57, v61 + *(v62 + 48), &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
-  outlined init with copy of ConfirmActionView(v60, v61 + *(v62 + 64), type metadata accessor for ConfirmationBinaryButtonView);
-  outlined destroy of ConfirmationBinaryButtonView(v59);
-  outlined destroy of StandardActionHandler?(v56, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
-  outlined destroy of StandardActionHandler?(v66, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
-  outlined destroy of ConfirmationBinaryButtonView(v60);
-  outlined destroy of StandardActionHandler?(v57, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
-  return outlined destroy of StandardActionHandler?(v55, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
+  outlined init with copy of SimpleItemRichView?(v49, v69, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI18SimpleItemRichViewVSg_16SiriLinkUIPlugin08ArchivedF0VSgAE024ConfirmationBinaryButtonF0VtMd, &_s9SnippetUI18SimpleItemRichViewVSg_16SiriLinkUIPlugin08ArchivedF0VSgAE024ConfirmationBinaryButtonF0VtMR);
+  outlined init with copy of SimpleItemRichView?(v51, v55 + *(v56 + 48), &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
+  outlined init with copy of ConfirmActionView(v54, v55 + *(v56 + 64), type metadata accessor for ConfirmationBinaryButtonView);
+  outlined destroy of ConfirmationBinaryButtonView(v53);
+  outlined destroy of StandardActionHandler?(v50, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
+  outlined destroy of StandardActionHandler?(v60, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
+  outlined destroy of ConfirmationBinaryButtonView(v54);
+  outlined destroy of StandardActionHandler?(v51, &_s16SiriLinkUIPlugin12ArchivedViewVSgMd, &_s16SiriLinkUIPlugin12ArchivedViewVSgMR);
+  return outlined destroy of StandardActionHandler?(v49, &_s9SnippetUI18SimpleItemRichViewVSgMd, &_s9SnippetUI18SimpleItemRichViewVSgMR);
 }
 
 uint64_t sub_1CB0C()
 {
-  v1 = (type metadata accessor for ConfirmActionView() - 8);
+  v1 = (type metadata accessor for ConfirmActionView(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
-  v5 = type metadata accessor for ActionHandler();
-  OUTLINED_FUNCTION_0_1(v5);
-  (*(v6 + 8))(v0 + v3);
-  v7 = (v0 + v3 + v1[7]);
-  v8 = v7[1];
+  type metadata accessor for ActionHandler();
+  OUTLINED_FUNCTION_0_1();
+  (*(v5 + 8))(v0 + v3);
+  v6 = v0 + v3 + v1[7];
 
-  v9 = v7[3];
-
-  v10 = v7[5];
-
-  v11 = v7[7];
-
-  v12 = v7[9];
-  if (v12 >> 60 != 15)
+  v7 = *(v6 + 72);
+  if (v7 >> 60 != 15)
   {
-    outlined consume of Data._Representation(v7[8], v12);
+    outlined consume of Data._Representation(*(v6 + 64), v7);
   }
-
-  v13 = v7[12];
 
   return _swift_deallocObject(v0, v3 + v4, v2 | 7);
 }
 
 uint64_t partial apply for closure #1 in ConfirmActionView.body.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for ConfirmActionView() - 8);
+  v3 = *(type metadata accessor for ConfirmActionView(0) - 8);
   v4 = v1 + ((*(v3 + 80) + 16) & ~*(v3 + 80));
 
   return closure #1 in ConfirmActionView.body.getter(v4, a1);
@@ -1505,7 +1029,7 @@ uint64_t partial apply for closure #1 in ConfirmActionView.body.getter@<X0>(uint
 void *ConfirmActionView.init(model:)@<X0>(const void *a1@<X0>, uint64_t a2@<X8>)
 {
   ActionHandler.init()();
-  v4 = (a2 + *(type metadata accessor for ConfirmActionView() + 20));
+  v4 = (a2 + *(type metadata accessor for ConfirmActionView(0) + 20));
 
   return memcpy(v4, a1, 0x68uLL);
 }
@@ -1548,10 +1072,10 @@ uint64_t sub_1CDE0(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t type metadata completion function for ConfirmActionView()
+uint64_t type metadata completion function for ConfirmActionView(uint64_t a1)
 {
   result = type metadata accessor for ActionHandler();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1560,26 +1084,26 @@ uint64_t type metadata completion function for ConfirmActionView()
   return result;
 }
 
-uint64_t outlined init with copy of ConfirmActionView(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t outlined init with copy of ConfirmActionView(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0_1(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0_1();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
 uint64_t outlined destroy of ConfirmationBinaryButtonView(uint64_t a1)
 {
-  v2 = type metadata accessor for ConfirmationBinaryButtonView();
+  v2 = type metadata accessor for ConfirmationBinaryButtonView(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t outlined init with take of ConfirmActionView(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t outlined init with take of ConfirmActionView(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_0_1(v5);
-  (*(v6 + 32))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_0_1();
+  (*(v5 + 32))(a2, a1);
   return a2;
 }
 
@@ -1697,21 +1221,19 @@ uint64_t VoiceShortcutClientWrapper.isVoiceShortcutInstalled(voiceCommandPhrase:
 uint64_t VoiceShortcutClientWrapper.isVoiceShortcutInstalled(voiceCommandPhrase:)()
 {
   OUTLINED_FUNCTION_9_1();
-  v2 = v0[19];
-  v1 = v0[20];
-  v3 = [objc_opt_self() standardClient];
-  v0[21] = v3;
-  v4 = String._bridgeToObjectiveC()();
-  v0[22] = v4;
+  v1 = [objc_opt_self() standardClient];
+  v0[21] = v1;
+  v2 = String._bridgeToObjectiveC()();
+  v0[22] = v2;
   v0[2] = v0;
   v0[7] = v0 + 18;
   v0[3] = VoiceShortcutClientWrapper.isVoiceShortcutInstalled(voiceCommandPhrase:);
   OUTLINED_FUNCTION_17();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
-  OUTLINED_FUNCTION_6_2(v5);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
+  OUTLINED_FUNCTION_6_2(v3);
   v0[11] = 1107296256;
   OUTLINED_FUNCTION_5_3();
-  [v3 getVoiceShortcutWithPhrase:v4 completion:v0 + 10];
+  [v1 getVoiceShortcutWithPhrase:v2 completion:v0 + 10];
 
   return _swift_continuation_await(v0 + 2);
 }
@@ -1751,14 +1273,13 @@ uint64_t VoiceShortcutClientWrapper.isVoiceShortcutInstalled(voiceCommandPhrase:
 {
   OUTLINED_FUNCTION_9_1();
   v1 = v0[22];
-  v2 = v0[23];
-  v3 = v0[21];
+  v2 = v0[21];
   swift_willThrow();
 
   OUTLINED_FUNCTION_7_2();
-  v5 = v0[23] == 0;
+  v4 = v0[23] == 0;
 
-  return v4(v5);
+  return v3(v4);
 }
 
 uint64_t *@objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned VCVoiceShortcut?, @unowned NSError?) -> () with result type VCVoiceShortcut(uint64_t a1, void *a2, void *a3)
@@ -1789,27 +1310,24 @@ uint64_t VoiceShortcutClientWrapper.installVoiceShortcut(url:voiceCommandPhrase:
 
 uint64_t VoiceShortcutClientWrapper.installVoiceShortcut(url:voiceCommandPhrase:)()
 {
-  v2 = v0[20];
-  v1 = v0[21];
-  v3 = v0[19];
-  v4 = [objc_opt_self() standardClient];
-  v0[22] = v4;
-  URL._bridgeToObjectiveC()(v5);
-  v7 = v6;
-  v0[23] = v6;
-  v8 = String._bridgeToObjectiveC()();
-  v0[24] = v8;
+  v1 = [objc_opt_self() standardClient];
+  v0[22] = v1;
+  URL._bridgeToObjectiveC()(v2);
+  v4 = v3;
+  v0[23] = v3;
+  v5 = String._bridgeToObjectiveC()();
+  v0[24] = v5;
   v0[2] = v0;
   v0[7] = v0 + 18;
   v0[3] = VoiceShortcutClientWrapper.installVoiceShortcut(url:voiceCommandPhrase:);
-  v9 = swift_continuation_init();
+  v6 = swift_continuation_init();
   v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
   v0[10] = _NSConcreteStackBlock;
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned VCVoiceShortcut?, @unowned NSError?) -> () with result type VCVoiceShortcut;
   v0[13] = &block_descriptor_3;
-  v0[14] = v9;
-  [v4 importTopLevelShortcutFromURL:v7 withName:v8 completion:v0 + 10];
+  v0[14] = v6;
+  [v1 importTopLevelShortcutFromURL:v4 withName:v5 completion:v0 + 10];
 
   return _swift_continuation_await(v0 + 2);
 }
@@ -1849,15 +1367,13 @@ uint64_t VoiceShortcutClientWrapper.installVoiceShortcut(url:voiceCommandPhrase:
 {
   OUTLINED_FUNCTION_9_1();
   v1 = v0[24];
-  v2 = v0[25];
-  v4 = v0[22];
-  v3 = v0[23];
+  v3 = v0[22];
+  v2 = v0[23];
   swift_willThrow();
 
   OUTLINED_FUNCTION_11_1();
-  v6 = v0[25];
 
-  return v5();
+  return v4();
 }
 
 uint64_t VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)(uint64_t a1, uint64_t a2)
@@ -1872,22 +1388,21 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)()
   OUTLINED_FUNCTION_9_1();
   if (v0[20])
   {
-    v1 = v0[19];
-    v2 = [objc_opt_self() standardClient];
-    v0[21] = v2;
-    v3 = String._bridgeToObjectiveC()();
-    v0[22] = v3;
+    v1 = [objc_opt_self() standardClient];
+    v0[21] = v1;
+    v2 = String._bridgeToObjectiveC()();
+    v0[22] = v2;
     v0[2] = v0;
     v0[7] = v0 + 18;
     v0[3] = VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:);
-    v4 = OUTLINED_FUNCTION_17();
+    v3 = OUTLINED_FUNCTION_17();
     v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
     v0[10] = _NSConcreteStackBlock;
     v0[11] = 1107296256;
     v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned VCVoiceShortcut?, @unowned NSError?) -> () with result type VCVoiceShortcut;
     v0[13] = &block_descriptor_7;
-    v0[14] = v4;
-    [v2 getVoiceShortcutWithPhrase:v3 completion:v0 + 10];
+    v0[14] = v3;
+    [v1 getVoiceShortcutWithPhrase:v2 completion:v0 + 10];
 
     return _swift_continuation_await(v0 + 2);
   }
@@ -1896,7 +1411,7 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)()
   {
     OUTLINED_FUNCTION_7_2();
 
-    return v5(0);
+    return v4(0);
   }
 }
 
@@ -1933,14 +1448,13 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)()
 
 {
   OUTLINED_FUNCTION_9_1();
-  v1 = v0[22];
-  v2 = v0[23];
-  v3 = v0[21];
+  v1 = *(v0 + 176);
+  v2 = *(v0 + 168);
   swift_willThrow();
 
   OUTLINED_FUNCTION_7_2();
 
-  return v4(0);
+  return v3(0);
 }
 
 uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)(uint64_t a1, uint64_t a2)
@@ -1953,13 +1467,11 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)(uint64
 uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)()
 {
   OUTLINED_FUNCTION_2_11();
-  v0[4] = [objc_opt_self() standardClient];
+  *(v0 + 32) = [objc_opt_self() standardClient];
   v1 = swift_task_alloc();
-  v0[5] = v1;
+  *(v0 + 40) = v1;
   *v1 = v0;
   v1[1] = VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:);
-  v2 = v0[2];
-  v3 = v0[3];
   OUTLINED_FUNCTION_2();
 
   return _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCommandId0je2ByL0SSSgSS_So07VCVoiceE0CSSYaKXEtYaFZfA0_AISSYaKYCcSo0neF0Ccfu_AISSYaKYCcfu0_();
@@ -1970,24 +1482,23 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)()
   v3 = v2;
   OUTLINED_FUNCTION_4_5();
   v5 = v4;
-  v6 = *(v4 + 40);
-  v7 = *v1;
+  v6 = *v1;
   OUTLINED_FUNCTION_1_11();
-  *v8 = v7;
+  *v7 = v6;
   *(v5 + 48) = v0;
 
   if (v0)
   {
-    v9 = VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:);
+    v8 = VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:);
   }
 
   else
   {
     *(v5 + 56) = v3;
-    v9 = VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:);
+    v8 = VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:);
   }
 
-  return _swift_task_switch(v9, 0, 0);
+  return _swift_task_switch(v8, 0, 0);
 }
 
 {
@@ -2004,44 +1515,41 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)()
 }
 
 {
-  v22 = v0;
+  v19 = v0;
   if (one-time initialization token for voiceCommands != -1)
   {
-    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_1_1(&one-time initialization token for voiceCommands);
   }
 
-  v1 = v0[6];
-  v2 = v0[3];
-  v3 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v3, static Logger.voiceCommands);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Logger.voiceCommands);
 
   swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
 
-  v6 = os_log_type_enabled(v4, v5);
-  v7 = v0[6];
-  v8 = v0[4];
-  if (v6)
+  v4 = os_log_type_enabled(v2, v3);
+  v5 = v0[4];
+  if (v4)
   {
-    v10 = v0[2];
-    v9 = v0[3];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v21 = v13;
-    *v11 = 136315394;
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v9, &v21);
-    OUTLINED_FUNCTION_16_0(v14);
-    v15 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 14) = v15;
-    *v12 = v15;
-    OUTLINED_FUNCTION_15_0(&dword_0, v16, v17, "voiceShortcut NOT found from identifier=%s; error: %@");
-    outlined destroy of NSObject?(v12);
-    OUTLINED_FUNCTION_7_0();
-    __swift_destroy_boxed_opaque_existential_1Tm(v13);
-    OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_7_0();
+    v7 = v0[2];
+    v6 = v0[3];
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    v10 = swift_slowAlloc();
+    v18 = v10;
+    *v8 = 136315394;
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v6, &v18);
+    OUTLINED_FUNCTION_16_0(v11);
+    v12 = _swift_stdlib_bridgeErrorToNSError();
+    *(v8 + 14) = v12;
+    *v9 = v12;
+    OUTLINED_FUNCTION_15_0(&dword_0, v13, v14, "voiceShortcut NOT found from identifier=%s; error: %@");
+    outlined destroy of NSObject?(v9);
+    OUTLINED_FUNCTION_7_0(v9);
+    __swift_destroy_boxed_opaque_existential_1Tm(v10);
+    OUTLINED_FUNCTION_7_0(v10);
+    OUTLINED_FUNCTION_7_0(v8);
   }
 
   else
@@ -2049,9 +1557,9 @@ uint64_t VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:)()
   }
 
   OUTLINED_FUNCTION_12_1();
-  v18 = OUTLINED_FUNCTION_2();
+  v15 = OUTLINED_FUNCTION_2();
 
-  return v19(v18);
+  return v16(v15);
 }
 
 uint64_t static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:)()
@@ -2061,14 +1569,13 @@ uint64_t static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:v
   v4 = v3;
   v0[2] = v3;
   v0[3] = v1;
-  v9 = (v5 + *v5);
-  v6 = v5[1];
-  v7 = swift_task_alloc();
-  v0[4] = v7;
-  *v7 = v0;
-  v7[1] = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
+  v8 = (v5 + *v5);
+  v6 = swift_task_alloc();
+  v0[4] = v6;
+  *v6 = v0;
+  v6[1] = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
 
-  return v9(v4, v2);
+  return v8(v4, v2);
 }
 
 {
@@ -2076,24 +1583,23 @@ uint64_t static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:v
   v3 = v2;
   OUTLINED_FUNCTION_4_5();
   v5 = v4;
-  v6 = *(v4 + 32);
-  v7 = *v1;
+  v6 = *v1;
   OUTLINED_FUNCTION_1_11();
-  *v8 = v7;
+  *v7 = v6;
   *(v5 + 40) = v0;
 
   if (v0)
   {
-    v9 = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
+    v8 = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
   }
 
   else
   {
     *(v5 + 48) = v3;
-    v9 = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
+    v8 = static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:voiceShortcutById:);
   }
 
-  return _swift_task_switch(v9, 0, 0);
+  return _swift_task_switch(v8, 0, 0);
 }
 
 {
@@ -2109,43 +1615,39 @@ uint64_t static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:v
 }
 
 {
-  v21 = v0;
+  v17 = v0;
   if (one-time initialization token for voiceCommands != -1)
   {
-    OUTLINED_FUNCTION_1_1();
+    OUTLINED_FUNCTION_1_1(&one-time initialization token for voiceCommands);
   }
 
-  v1 = v0[5];
-  v2 = v0[3];
-  v3 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v3, static Logger.voiceCommands);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Logger.voiceCommands);
 
   swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
 
-  v6 = os_log_type_enabled(v4, v5);
-  v7 = v0[5];
-  if (v6)
+  if (os_log_type_enabled(v2, v3))
   {
-    v9 = v0[2];
-    v8 = v0[3];
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v20 = v12;
-    *v10 = 136315394;
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v8, &v20);
-    OUTLINED_FUNCTION_16_0(v13);
-    v14 = _swift_stdlib_bridgeErrorToNSError();
-    *(v10 + 14) = v14;
-    *v11 = v14;
-    OUTLINED_FUNCTION_15_0(&dword_0, v15, v16, "voiceShortcut NOT found from identifier=%s; error: %@");
-    outlined destroy of NSObject?(v11);
-    OUTLINED_FUNCTION_7_0();
-    __swift_destroy_boxed_opaque_existential_1Tm(v12);
-    OUTLINED_FUNCTION_7_0();
-    OUTLINED_FUNCTION_7_0();
+    v5 = *(v0 + 16);
+    v4 = *(v0 + 24);
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v16 = v8;
+    *v6 = 136315394;
+    v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v4, &v16);
+    OUTLINED_FUNCTION_16_0(v9);
+    v10 = _swift_stdlib_bridgeErrorToNSError();
+    *(v6 + 14) = v10;
+    *v7 = v10;
+    OUTLINED_FUNCTION_15_0(&dword_0, v11, v12, "voiceShortcut NOT found from identifier=%s; error: %@");
+    outlined destroy of NSObject?(v7);
+    OUTLINED_FUNCTION_7_0(v7);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
+    OUTLINED_FUNCTION_7_0(v8);
+    OUTLINED_FUNCTION_7_0(v6);
   }
 
   else
@@ -2153,9 +1655,9 @@ uint64_t static VoiceShortcutClientWrapper.getVoiceShortcutName(voiceCommandId:v
   }
 
   OUTLINED_FUNCTION_12_1();
-  v17 = OUTLINED_FUNCTION_2();
+  v13 = OUTLINED_FUNCTION_2();
 
-  return v18(v17);
+  return v14(v13);
 }
 
 uint64_t _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCommandId0je2ByL0SSSgSS_So07VCVoiceE0CSSYaKXEtYaFZfA0_AISSYaKYCcSo0neF0Ccfu_AISSYaKYCcfu0_()
@@ -2186,20 +1688,18 @@ uint64_t _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCom
 uint64_t _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCommandId0je2ByL0SSSgSS_So07VCVoiceE0CSSYaKXEtYaFZfA0_AISSYaKYCcSo0neF0Ccfu_AISSYaKYCcfu0_TY0_()
 {
   OUTLINED_FUNCTION_9_1();
-  v1 = v0[20];
-  v2 = v0[21];
-  v3 = v0[19];
-  v4 = String._bridgeToObjectiveC()();
-  v0[24] = v4;
+  v1 = v0[21];
+  v2 = String._bridgeToObjectiveC()();
+  v0[24] = v2;
   v0[2] = v0;
   v0[7] = v0 + 18;
   v0[3] = _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCommandId0je2ByL0SSSgSS_So07VCVoiceE0CSSYaKXEtYaFZfA0_AISSYaKYCcSo0neF0Ccfu_AISSYaKYCcfu0_TQ1_;
   OUTLINED_FUNCTION_17();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
-  OUTLINED_FUNCTION_6_2(v5);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo15VCVoiceShortcutCs5Error_pGMd, &_sSccySo15VCVoiceShortcutCs5Error_pGMR);
+  OUTLINED_FUNCTION_6_2(v3);
   v0[11] = 1107296256;
   OUTLINED_FUNCTION_5_3();
-  [v2 getVoiceShortcutWithIdentifier:v4 completion:v0 + 10];
+  [v1 getVoiceShortcutWithIdentifier:v2 completion:v0 + 10];
 
   return _swift_continuation_await(v0 + 2);
 }
@@ -2242,27 +1742,24 @@ uint64_t _s16SiriLinkUIPlugin26VoiceShortcutClientWrapperC03getdE4Name14voiceCom
 {
   OUTLINED_FUNCTION_10_1();
   v1 = *(v0 + 192);
-  v2 = *(v0 + 200);
   swift_willThrow();
 
   OUTLINED_FUNCTION_11_1();
-  v4 = *(v0 + 200);
 
-  return v3();
+  return v2();
 }
 
 uint64_t _sScA_pSgSSSo15VCVoiceShortcutCs5Error_pIegHgILgozo_SSACsAD_pIegHgozo_TR()
 {
   OUTLINED_FUNCTION_10_1();
-  v6 = (v1 + *v1);
-  v2 = v1[1];
-  v3 = swift_task_alloc();
-  *(v0 + 16) = v3;
-  *v3 = v0;
-  v3[1] = _sScA_pSgSSSo15VCVoiceShortcutCs5Error_pIegHgILgozo_SSACsAD_pIegHgozo_TRTQ0_;
-  v4 = OUTLINED_FUNCTION_2();
+  v5 = (v1 + *v1);
+  v2 = swift_task_alloc();
+  *(v0 + 16) = v2;
+  *v2 = v0;
+  v2[1] = _sScA_pSgSSSo15VCVoiceShortcutCs5Error_pIegHgILgozo_SSACsAD_pIegHgozo_TRTQ0_;
+  v3 = OUTLINED_FUNCTION_2();
 
-  return v6(v4);
+  return v5(v3);
 }
 
 uint64_t _sScA_pSgSSSo15VCVoiceShortcutCs5Error_pIegHgILgozo_SSACsAD_pIegHgozo_TRTQ0_()
@@ -2270,18 +1767,17 @@ uint64_t _sScA_pSgSSSo15VCVoiceShortcutCs5Error_pIegHgILgozo_SSACsAD_pIegHgozo_T
   OUTLINED_FUNCTION_2_11();
   v3 = v2;
   OUTLINED_FUNCTION_4_5();
-  v5 = *(v4 + 16);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_1_11();
-  *v7 = v6;
+  *v5 = v4;
 
   OUTLINED_FUNCTION_7_2();
   if (!v0)
   {
-    v8 = v3;
+    v6 = v3;
   }
 
-  return v9(v8);
+  return v7(v6);
 }
 
 void VoiceShortcutClientWrapper.getSiriAutoShortcutsEnablement(forBundleIdentifier:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2302,11 +1798,10 @@ void VoiceShortcutClientWrapper.getSiriAutoShortcutsEnablement(forBundleIdentifi
 
 void thunk for @escaping @callee_guaranteed @Sendable (@unowned Bool, @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 }
 
 uint64_t VoiceShortcutClientWrapper.setSiriAutoShortcutsEnablement(_:forBundleIdentifier:)(char a1, uint64_t a2, uint64_t a3)
@@ -2320,23 +1815,21 @@ uint64_t VoiceShortcutClientWrapper.setSiriAutoShortcutsEnablement(_:forBundleId
 uint64_t VoiceShortcutClientWrapper.setSiriAutoShortcutsEnablement(_:forBundleIdentifier:)()
 {
   OUTLINED_FUNCTION_9_1();
-  v2 = *(v0 + 144);
-  v1 = *(v0 + 152);
-  v3 = *(v0 + 184);
-  v4 = [objc_opt_self() standardClient];
-  *(v0 + 160) = v4;
-  v5 = String._bridgeToObjectiveC()();
-  *(v0 + 168) = v5;
+  v1 = *(v0 + 184);
+  v2 = [objc_opt_self() standardClient];
+  *(v0 + 160) = v2;
+  v3 = String._bridgeToObjectiveC()();
+  *(v0 + 168) = v3;
   *(v0 + 16) = v0;
   *(v0 + 24) = VoiceShortcutClientWrapper.setSiriAutoShortcutsEnablement(_:forBundleIdentifier:);
-  v6 = OUTLINED_FUNCTION_17();
+  v4 = OUTLINED_FUNCTION_17();
   *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5Error_pGMd, &_sSccyyts5Error_pGMR);
   *(v0 + 80) = _NSConcreteStackBlock;
   *(v0 + 88) = 1107296256;
   *(v0 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> () with result type ();
   *(v0 + 104) = &block_descriptor_15;
-  *(v0 + 112) = v6;
-  [v4 setSiriAutoShortcutsEnablement:v3 forBundleIdentifier:v5 completion:v0 + 80];
+  *(v0 + 112) = v4;
+  [v2 setSiriAutoShortcutsEnablement:v1 forBundleIdentifier:v3 completion:v0 + 80];
 
   return _swift_continuation_await(v0 + 16);
 }
@@ -2373,26 +1866,22 @@ uint64_t VoiceShortcutClientWrapper.setSiriAutoShortcutsEnablement(_:forBundleId
 
 {
   OUTLINED_FUNCTION_10_1();
-  v1 = v0[21];
-  v2 = v0[22];
-  v3 = v0[20];
+  v1 = *(v0 + 168);
+  v2 = *(v0 + 160);
   swift_willThrow();
 
   OUTLINED_FUNCTION_11_1();
-  v5 = v0[22];
 
-  return v4();
+  return v3();
 }
 
 uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> () with result type ()(uint64_t a1, void *a2)
 {
-  v3 = __swift_project_boxed_opaque_existential_1((a1 + 32), *(a1 + 56));
+  v3 = *__swift_project_boxed_opaque_existential_1((a1 + 32), *(a1 + 56));
   if (a2)
   {
-    return specialized _resumeUnsafeThrowingContinuationWithError<A>(_:_:)(*v3, a2);
+    return specialized _resumeUnsafeThrowingContinuationWithError<A>(_:_:)(v3, a2);
   }
-
-  v5 = *v3;
 
   return specialized _resumeUnsafeThrowingContinuation<A>(_:_:)();
 }
@@ -2412,14 +1901,13 @@ uint64_t protocol witness for VoiceShortcutClientWrapping.isVoiceShortcutInstall
   OUTLINED_FUNCTION_2_11();
   v2 = v1;
   OUTLINED_FUNCTION_4_5();
-  v4 = *(v3 + 16);
-  v5 = *v0;
+  v3 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v6 = v5;
+  *v4 = v3;
 
   OUTLINED_FUNCTION_7_2();
 
-  return v7(v2);
+  return v5(v2);
 }
 
 uint64_t protocol witness for VoiceShortcutClientWrapping.installVoiceShortcut(url:voiceCommandPhrase:) in conformance VoiceShortcutClientWrapper(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2458,14 +1946,13 @@ uint64_t protocol witness for VoiceShortcutClientWrapping.getVoiceShortcutName(v
   v2 = v1;
   v4 = v3;
   OUTLINED_FUNCTION_4_5();
-  v6 = *(v5 + 16);
-  v7 = *v0;
+  v5 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v8 = v7;
+  *v6 = v5;
 
   OUTLINED_FUNCTION_12_1();
 
-  return v9(v4, v2);
+  return v7(v4, v2);
 }
 
 uint64_t protocol witness for VoiceShortcutClientWrapping.setSiriAutoShortcutsEnablement(_:forBundleIdentifier:) in conformance VoiceShortcutClientWrapper(char a1, uint64_t a2, uint64_t a3)
@@ -2482,14 +1969,13 @@ uint64_t protocol witness for VoiceShortcutClientWrapping.setSiriAutoShortcutsEn
 {
   OUTLINED_FUNCTION_2_11();
   OUTLINED_FUNCTION_4_5();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v4 = v3;
+  *v2 = v1;
 
   OUTLINED_FUNCTION_11_1();
 
-  return v5();
+  return v3();
 }
 
 uint64_t outlined destroy of NSObject?(uint64_t a1)
@@ -2520,13 +2006,6 @@ uint64_t OUTLINED_FUNCTION_6_2(uint64_t result)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_11_1()
-{
-  result = v0 + 8;
-  v2 = *(v0 + 8);
-  return result;
-}
-
 void OUTLINED_FUNCTION_15_0(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
@@ -2549,37 +2028,35 @@ uint64_t OUTLINED_FUNCTION_17()
 
 uint64_t AutoShortcutFirstRunView.body.getter@<X0>(void *a1@<X8>)
 {
-  v3 = type metadata accessor for ConfirmationBinaryButtonView();
-  v4 = (v3 - 8);
-  v5 = *(*(v3 - 8) + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v16 - v9;
-  memcpy(v18, v1, sizeof(v18));
-  v11 = v1[5];
-  v16 = v1[6];
-  v17 = v11;
-  v12 = v4[9];
-  outlined init with copy of AutoShortcutAppPhrasesViewModel(v18, __dst);
-  outlined init with copy of String(&v17, __dst);
-  outlined init with copy of String(&v16, __dst);
+  v3 = type metadata accessor for ConfirmationBinaryButtonView(0);
+  v4 = v3 - 8;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v14 - v8;
+  memcpy(v16, v1, sizeof(v16));
+  v10 = v1[5];
+  v14 = v1[6];
+  v15 = v10;
+  outlined init with copy of AutoShortcutAppPhrasesViewModel(v16, __dst);
+  outlined init with copy of String(&v15, __dst);
+  outlined init with copy of String(&v14, __dst);
   static ButtonStyle<>.buttonItemPreferred.getter();
   ActionHandler.init()();
-  v13 = v16;
-  *&v10[v4[7]] = v17;
-  *&v10[v4[8]] = v13;
-  outlined init with copy of ConfirmationBinaryButtonView(v10, v8);
-  memcpy(v19, v1, 0x50uLL);
-  v19[10] = 0x4028000000000000;
-  memcpy(a1, v19, 0x58uLL);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin33AutoShortcutFirstRunComponentViewV_AA024ConfirmationBinaryButtonI0VtMd, &_s16SiriLinkUIPlugin33AutoShortcutFirstRunComponentViewV_AA024ConfirmationBinaryButtonI0VtMR);
-  outlined init with copy of ConfirmationBinaryButtonView(v8, a1 + *(v14 + 48));
-  outlined init with copy of AutoShortcutFirstRunComponentView(v19, __dst);
-  outlined destroy of ConfirmationBinaryButtonView(v10);
-  outlined destroy of ConfirmationBinaryButtonView(v8);
+  v11 = v14;
+  *&v9[*(v4 + 28)] = v15;
+  *&v9[*(v4 + 32)] = v11;
+  outlined init with copy of ConfirmationBinaryButtonView(v9, v7);
+  memcpy(v17, v1, 0x50uLL);
+  v17[10] = 0x4028000000000000;
+  memcpy(a1, v17, 0x58uLL);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin33AutoShortcutFirstRunComponentViewV_AA024ConfirmationBinaryButtonI0VtMd, &_s16SiriLinkUIPlugin33AutoShortcutFirstRunComponentViewV_AA024ConfirmationBinaryButtonI0VtMR);
+  outlined init with copy of ConfirmationBinaryButtonView(v7, a1 + *(v12 + 48));
+  outlined init with copy of AutoShortcutFirstRunComponentView(v17, __dst);
+  outlined destroy of ConfirmationBinaryButtonView(v9);
+  outlined destroy of ConfirmationBinaryButtonView(v7);
   memcpy(__dst, v1, sizeof(__dst));
-  v21 = 0x4028000000000000;
+  v19 = 0x4028000000000000;
   return outlined destroy of AutoShortcutFirstRunComponentView(__dst);
 }
 
@@ -2675,13 +2152,11 @@ uint64_t WorkflowDataModels.LinkActionModel.renderModel.getter()
   OUTLINED_FUNCTION_120();
   v1 = swift_allocObject();
   memcpy((v1 + 16), v0, 0x50uLL);
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21ArchiveRenderingModelCySo8LNActionCGMd, &_s9SnippetUI21ArchiveRenderingModelCySo8LNActionCGMR);
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9SnippetUI21ArchiveRenderingModelCySo8LNActionCGMd, &_s9SnippetUI21ArchiveRenderingModelCySo8LNActionCGMR);
   swift_allocObject();
   outlined init with copy of CodableAction<LNAction>();
-  v5 = OUTLINED_FUNCTION_118();
-  outlined init with copy of WorkflowDataModels.LinkActionModel(v5, v6);
+  v2 = OUTLINED_FUNCTION_118();
+  outlined init with copy of WorkflowDataModels.LinkActionModel(v2, v3);
   return ArchiveRenderingModel.init(source:snippetEnvironmentProvider:)();
 }
 
@@ -2743,14 +2218,6 @@ uint64_t WorkflowDataModels.ConfirmActionModel.archivedViewModel.getter@<X0>(uin
   a1[4] = v5;
   a1[5] = v3;
   return result;
-}
-
-uint64_t AutoShortcutAppPhrasesViewModel.moreShortcutsLabel.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-
-  return OUTLINED_FUNCTION_2_8();
 }
 
 uint64_t WorkflowDataModels.ShowAlertModel.asSnippetPluginModel()@<X0>(_OWORD *a1@<X8>)
@@ -2867,45 +2334,36 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.ShowAlertModel.encode(to:)()
+void WorkflowDataModels.ShowAlertModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v17);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel.CodingKeys and conformance WorkflowDataModels.ShowAlertModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = *v1;
-  v7 = v1[1];
+  v18 = lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel.CodingKeys and conformance WorkflowDataModels.ShowAlertModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CE88, v19, v18);
   OUTLINED_FUNCTION_157();
   OUTLINED_FUNCTION_11_2();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v0)
+  if (!v16)
   {
-    v8 = v1[2];
-    v9 = v1[3];
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v10 = v1[4];
-    v11 = v1[5];
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v12 = v1[6];
-    v13 = v1[7];
     OUTLINED_FUNCTION_130();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v14 = OUTLINED_FUNCTION_25();
-  v15(v14);
+  v20 = OUTLINED_FUNCTION_25();
+  v21(v20);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
@@ -2918,95 +2376,84 @@ void __swiftcall WorkflowDataModels.ShowAlertModel.init(confirmLabel:cancelLabel
   retstr->message = message;
 }
 
-void WorkflowDataModels.ShowAlertModel.init(from:)()
+void WorkflowDataModels.ShowAlertModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v3 = v2;
-  v5 = v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v6);
-  v8 = v7;
-  v10 = *(v9 + 64);
+  v26 = v25;
+  v28 = v27;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14ShowAlertModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v31 = v30;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v32);
   OUTLINED_FUNCTION_43();
-  v12 = v3[4];
-  OUTLINED_FUNCTION_52(v3, v3[3]);
+  OUTLINED_FUNCTION_52(v26, v26[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel.CodingKeys and conformance WorkflowDataModels.ShowAlertModel.CodingKeys();
   OUTLINED_FUNCTION_129();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
   }
 
   else
   {
     OUTLINED_FUNCTION_112();
-    v13 = KeyedDecodingContainer.decode(_:forKey:)();
-    v27 = v14;
+    v33 = KeyedDecodingContainer.decode(_:forKey:)();
+    v47 = v34;
     OUTLINED_FUNCTION_112();
-    v15 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26 = v16;
-    v24 = v15;
-    LOBYTE(v32[0]) = 2;
+    v35 = KeyedDecodingContainer.decode(_:forKey:)();
+    v46 = v36;
+    v44 = v35;
+    LOBYTE(v52[0]) = 2;
     OUTLINED_FUNCTION_112();
-    v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v25 = v17;
+    v43 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v45 = v37;
     OUTLINED_FUNCTION_112();
-    v18 = KeyedDecodingContainer.decode(_:forKey:)();
-    v20 = v19;
-    (*(v8 + 8))(v1, v6);
-    *&v28 = v13;
-    *(&v28 + 1) = v27;
-    *&v29 = v24;
-    *(&v29 + 1) = v26;
-    *&v30 = v23;
-    *(&v30 + 1) = v25;
-    *&v31 = v18;
-    *(&v31 + 1) = v20;
-    outlined init with copy of WorkflowDataModels.ShowAlertModel(&v28, v32);
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
-    v32[0] = v13;
-    v32[1] = v27;
-    v32[2] = v24;
-    v32[3] = v26;
-    v32[4] = v23;
-    v32[5] = v25;
-    v32[6] = v18;
-    v32[7] = v20;
-    outlined destroy of WorkflowDataModels.ShowAlertModel(v32);
-    v21 = v29;
-    *v5 = v28;
-    v5[1] = v21;
-    v22 = v31;
-    v5[2] = v30;
-    v5[3] = v22;
+    v38 = KeyedDecodingContainer.decode(_:forKey:)();
+    v40 = v39;
+    (*(v31 + 8))(v24, v29);
+    *&v48 = v33;
+    *(&v48 + 1) = v47;
+    *&v49 = v44;
+    *(&v49 + 1) = v46;
+    *&v50 = v43;
+    *(&v50 + 1) = v45;
+    *&v51 = v38;
+    *(&v51 + 1) = v40;
+    outlined init with copy of WorkflowDataModels.ShowAlertModel(&v48, v52);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+    v52[0] = v33;
+    v52[1] = v47;
+    v52[2] = v44;
+    v52[3] = v46;
+    v52[4] = v43;
+    v52[5] = v45;
+    v52[6] = v38;
+    v52[7] = v40;
+    outlined destroy of WorkflowDataModels.ShowAlertModel(v52);
+    v41 = v49;
+    *v28 = v48;
+    v28[1] = v41;
+    v42 = v51;
+    v28[2] = v50;
+    v28[3] = v42;
   }
 
   OUTLINED_FUNCTION_128();
   OUTLINED_FUNCTION_76();
 }
 
-uint64_t protocol witness for SnippetPluginModelProviding.asSnippetPluginModel() in conformance WorkflowDataModels.ShowAlertModel@<X0>(_OWORD *a1@<X8>)
+double protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.ShowAlertModel@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, _OWORD *a9@<X8>)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v5 = v1[2];
-  v6 = v1[3];
-  return WorkflowDataModels.ShowAlertModel.asSnippetPluginModel()(a1);
-}
-
-double protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.ShowAlertModel@<D0>(_OWORD *a1@<X8>)
-{
-  WorkflowDataModels.ShowAlertModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.ShowAlertModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v12, v14, SWORD2(v14), SBYTE6(v14), SHIBYTE(v14), v15, v17, v18, v20, v21, v23, v24, v25, vars0, vars8);
+  if (!v9)
   {
-    *a1 = v4;
-    a1[1] = v5;
-    result = *&v6;
-    a1[2] = v6;
-    a1[3] = v7;
+    *a9 = v13;
+    a9[1] = v16;
+    result = *&v19;
+    a9[2] = v19;
+    a9[3] = v22;
   }
 
   return result;
@@ -3106,135 +2553,100 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.EnableTCCModel.encode(to:)()
+void WorkflowDataModels.EnableTCCModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v17);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCModel.CodingKeys and conformance WorkflowDataModels.EnableTCCModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = *v1;
-  v7 = v1[1];
+  v18 = lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCModel.CodingKeys and conformance WorkflowDataModels.EnableTCCModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CDF8, v19, v18);
   OUTLINED_FUNCTION_157();
   OUTLINED_FUNCTION_11_2();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v0)
+  if (!v16)
   {
-    v8 = v1[2];
-    v9 = v1[3];
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v10 = v1[4];
-    v11 = v1[5];
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  v12 = OUTLINED_FUNCTION_25();
-  v13(v12);
+  v20 = OUTLINED_FUNCTION_25();
+  v21(v20);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
 
-void WorkflowDataModels.EnableTCCModel.init(from:)()
+void WorkflowDataModels.EnableTCCModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   OUTLINED_FUNCTION_75();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v5);
-  v7 = *(v6 + 64);
+  v21 = v20;
+  v23 = v22;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO14EnableTCCModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_56();
-  v9 = v2[4];
-  OUTLINED_FUNCTION_52(v2, v2[3]);
+  OUTLINED_FUNCTION_52(v21, v21[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCModel.CodingKeys and conformance WorkflowDataModels.EnableTCCModel.CodingKeys();
   OUTLINED_FUNCTION_166();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v19)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
+    __swift_destroy_boxed_opaque_existential_1Tm(v21);
   }
 
   else
   {
-    v10 = KeyedDecodingContainer.decode(_:forKey:)();
-    v20 = v11;
+    v26 = KeyedDecodingContainer.decode(_:forKey:)();
+    v36 = v27;
     OUTLINED_FUNCTION_49();
-    v18 = KeyedDecodingContainer.decode(_:forKey:)();
-    v19 = v12;
+    v34 = KeyedDecodingContainer.decode(_:forKey:)();
+    v35 = v28;
     OUTLINED_FUNCTION_85();
-    v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v14 = OUTLINED_FUNCTION_83();
-    v16 = v15;
-    v17(v14, v5);
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
-    *v4 = v10;
-    v4[1] = v20;
-    v4[2] = v18;
-    v4[3] = v19;
-    v4[4] = v13;
-    v4[5] = v16;
+    v29 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v30 = OUTLINED_FUNCTION_83();
+    v32 = v31;
+    v33(v30, v24);
+    __swift_destroy_boxed_opaque_existential_1Tm(v21);
+    *v23 = v26;
+    v23[1] = v36;
+    v23[2] = v34;
+    v23[3] = v35;
+    v23[4] = v29;
+    v23[5] = v32;
   }
 
   OUTLINED_FUNCTION_104();
   OUTLINED_FUNCTION_76();
 }
 
-double protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.EnableTCCModel@<D0>(_OWORD *a1@<X8>)
-{
-  WorkflowDataModels.EnableTCCModel.init(from:)();
-  if (!v1)
-  {
-    *a1 = v4;
-    a1[1] = v5;
-    result = *&v6;
-    a1[2] = v6;
-  }
-
-  return result;
-}
-
 uint64_t WorkflowDataModels.WatchModel.viewType.getter()
 {
-  v1 = v0[2];
-  v2 = v0[3];
-  v4 = v0[4];
-  v3 = v0[5];
-  v5 = OUTLINED_FUNCTION_163();
-  outlined copy of WatchViewType(v5, v6);
+  v2 = *(v0 + 32);
+  v1 = *(v0 + 40);
+  v3 = OUTLINED_FUNCTION_163();
+  outlined copy of WatchViewType(v3, v4, v2, v1);
   return OUTLINED_FUNCTION_163();
 }
 
 uint64_t WorkflowDataModels.WatchModel.confirmLabel.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 56);
 
   *(v2 + 48) = a1;
   *(v2 + 56) = a2;
   return result;
 }
 
-uint64_t AutoShortcutAppPhrasesViewModel.footnoteLabel.getter()
-{
-  v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
-
-  return OUTLINED_FUNCTION_2_8();
-}
-
 uint64_t WorkflowDataModels.WatchModel.cancelLabel.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 72);
 
   *(v2 + 64) = a1;
   *(v2 + 72) = a2;
@@ -3344,153 +2756,141 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.WatchModel.encode(to:)()
+void WorkflowDataModels.WatchModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v13);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.WatchModel.CodingKeys and conformance WorkflowDataModels.WatchModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = *v1;
-  v7 = v1[1];
+  v14 = lazy protocol witness table accessor for type WorkflowDataModels.WatchModel.CodingKeys and conformance WorkflowDataModels.WatchModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CD68, v15, v14);
   OUTLINED_FUNCTION_11_2();
   KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-  if (!v0)
+  if (!v12)
   {
-    v14 = *(v1 + 1);
-    v15 = *(v1 + 2);
     lazy protocol witness table accessor for type WatchViewType and conformance WatchViewType();
     OUTLINED_FUNCTION_38();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v8 = v1[6];
-    v9 = v1[7];
     OUTLINED_FUNCTION_9_2(2);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v10 = v1[8];
-    v11 = v1[9];
     OUTLINED_FUNCTION_9_2(3);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  v12 = OUTLINED_FUNCTION_25();
-  v13(v12);
+  v16 = OUTLINED_FUNCTION_25();
+  v17(v16);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
 
-void WorkflowDataModels.WatchModel.init(from:)()
+void WorkflowDataModels.WatchModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v3 = v2;
-  v5 = v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v6);
-  v8 = v7;
-  v10 = *(v9 + 64);
+  v26 = v25;
+  v28 = v27;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10WatchModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v31 = v30;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v32);
   OUTLINED_FUNCTION_42();
-  v12 = v3[4];
-  OUTLINED_FUNCTION_52(v3, v3[3]);
+  OUTLINED_FUNCTION_52(v26, v26[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.WatchModel.CodingKeys and conformance WorkflowDataModels.WatchModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
   }
 
   else
   {
     OUTLINED_FUNCTION_131();
-    v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v29 = v14;
-    LOBYTE(v30[0]) = 1;
+    v33 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v49 = v34;
+    LOBYTE(v50[0]) = 1;
     lazy protocol witness table accessor for type WatchViewType and conformance WatchViewType();
     OUTLINED_FUNCTION_57();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v28 = v32;
-    v27 = v33;
-    LOBYTE(v31[0]) = 2;
+    v48 = v52;
+    v47 = v53;
+    LOBYTE(v51[0]) = 2;
     OUTLINED_FUNCTION_131();
     KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
     OUTLINED_FUNCTION_131();
-    v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v16 = v1;
-    v18 = v17;
-    (*(v8 + 8))(v16, v6);
-    v30[0] = v13;
-    v30[1] = v29;
+    v35 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v36 = v24;
+    v38 = v37;
+    (*(v31 + 8))(v36, v29);
+    v50[0] = v33;
+    v50[1] = v49;
     OUTLINED_FUNCTION_156();
-    v30[2] = v20;
-    v30[3] = v19;
-    v30[4] = v32;
-    v30[5] = v33;
+    v50[2] = v40;
+    v50[3] = v39;
+    v50[4] = v52;
+    v50[5] = v53;
     OUTLINED_FUNCTION_155();
-    v30[6] = v22;
-    v30[7] = v21;
-    v30[8] = v15;
-    v30[9] = v18;
-    outlined init with copy of WorkflowDataModels.WatchModel(v30, v31);
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
-    v31[0] = v13;
-    v31[1] = v29;
+    v50[6] = v42;
+    v50[7] = v41;
+    v50[8] = v35;
+    v50[9] = v38;
+    outlined init with copy of WorkflowDataModels.WatchModel(v50, v51);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+    v51[0] = v33;
+    v51[1] = v49;
     OUTLINED_FUNCTION_156();
-    v32 = v24;
-    v33 = v23;
-    v34 = v28;
-    v35 = v27;
+    v52 = v44;
+    v53 = v43;
+    v54 = v48;
+    v55 = v47;
     OUTLINED_FUNCTION_155();
-    v36 = v26;
-    v37 = v25;
-    v38 = v15;
-    v39 = v18;
-    outlined destroy of WorkflowDataModels.WatchModel(v31);
-    memcpy(v5, v30, 0x50uLL);
+    v56 = v46;
+    v57 = v45;
+    v58 = v35;
+    v59 = v38;
+    outlined destroy of WorkflowDataModels.WatchModel(v51);
+    memcpy(v28, v50, 0x50uLL);
   }
 
   OUTLINED_FUNCTION_128();
   OUTLINED_FUNCTION_76();
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.WatchModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.WatchModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.WatchModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.WatchModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11[0], v11[1], SWORD2(v11[1]), SBYTE6(v11[1]), SHIBYTE(v11[1]), v11[2], v11[3], v11[4], v11[5], v11[6], v11[7], v11[8], v11[9], v11[10], v11[11]);
+  if (!v9)
   {
-    memcpy(a1, v3, 0x50uLL);
+    memcpy(a9, v11, 0x50uLL);
   }
 }
 
 uint64_t WorkflowDataModels.CustomIntentModel.appPunchOut.getter()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_0_1(v0);
-  v2 = *(v1 + 16);
-  v3 = OUTLINED_FUNCTION_2_8();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_0_1();
+  v0 = OUTLINED_FUNCTION_2_8();
 
-  return v4(v3);
+  return v1(v0);
 }
 
 uint64_t WorkflowDataModels.CustomIntentModel.interaction.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = *(type metadata accessor for WorkflowDataModels.CustomIntentModel(0) + 20);
-  v4 = type metadata accessor for CodableINInteraction();
-  v5 = OUTLINED_FUNCTION_0_1(v4);
-  v7 = *(v6 + 16);
+  type metadata accessor for CodableINInteraction();
+  OUTLINED_FUNCTION_0_1();
+  v6 = *(v5 + 16);
 
-  return v7(a1, v1 + v3, v5);
+  return v6(a1, v1 + v3, v4);
 }
 
 uint64_t WorkflowDataModels.CustomIntentModel.title.getter()
 {
-  v0 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  OUTLINED_FUNCTION_137(*(v0 + 28));
+  type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  OUTLINED_FUNCTION_137();
   return OUTLINED_FUNCTION_2_8();
 }
 
@@ -3587,51 +2987,48 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.CustomIntentModel.encode(to:)()
+void WorkflowDataModels.CustomIntentModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v17);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentModel.CodingKeys and conformance WorkflowDataModels.CustomIntentModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v5 = OUTLINED_FUNCTION_51();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v5, v6);
+  v18 = lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentModel.CodingKeys and conformance WorkflowDataModels.CustomIntentModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CCD8, v19, v18);
+  v20 = OUTLINED_FUNCTION_51();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
   OUTLINED_FUNCTION_19();
-  lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v7);
+  lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v22);
   OUTLINED_FUNCTION_115();
   OUTLINED_FUNCTION_38();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v0)
+  if (!v16)
   {
-    v8 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-    v9 = v8[5];
+    v23 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
     OUTLINED_FUNCTION_49();
     type metadata accessor for CodableINInteraction();
     OUTLINED_FUNCTION_66();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v10);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v24);
     OUTLINED_FUNCTION_23();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v11 = v8[6];
     OUTLINED_FUNCTION_85();
     type metadata accessor for VisualProperty();
     OUTLINED_FUNCTION_4_6();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v12);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v25);
     OUTLINED_FUNCTION_23();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    OUTLINED_FUNCTION_150(v8[7]);
+    OUTLINED_FUNCTION_150(*(v23 + 28));
     OUTLINED_FUNCTION_130();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v13 = OUTLINED_FUNCTION_25();
-  v14(v13);
+  v26 = OUTLINED_FUNCTION_25();
+  v27(v26);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
@@ -3640,104 +3037,95 @@ uint64_t WorkflowDataModels.CustomIntentModel.init(appPunchOut:interaction:image
 {
   OUTLINED_FUNCTION_40();
   v9 = v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_0_1(v10);
-  v12 = *(v11 + 32);
-  v13 = OUTLINED_FUNCTION_78();
-  v14(v13);
-  v15 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  v16 = v15[5];
-  v17 = type metadata accessor for CodableINInteraction();
-  OUTLINED_FUNCTION_0_1(v17);
-  (*(v18 + 32))(v9 + v16, v6);
-  v19 = v15[6];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_0_1();
+  v10 = OUTLINED_FUNCTION_78();
+  v11(v10);
+  v12 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  v13 = *(v12 + 20);
+  type metadata accessor for CodableINInteraction();
+  OUTLINED_FUNCTION_0_1();
+  (*(v14 + 32))(v9 + v13, v6);
   result = outlined init with take of VisualProperty?();
-  v21 = (v9 + v15[7]);
-  *v21 = v5;
-  v21[1] = a5;
+  v16 = (v9 + *(v12 + 28));
+  *v16 = v5;
+  v16[1] = a5;
   return result;
 }
 
-void WorkflowDataModels.CustomIntentModel.init(from:)()
+void WorkflowDataModels.CustomIntentModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   OUTLINED_FUNCTION_75();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14VisualPropertyVSgMd, &_s10SnippetKit14VisualPropertyVSgMR);
-  OUTLINED_FUNCTION_4(v3);
-  v5 = *(v4 + 64);
+  v23 = v22;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14VisualPropertyVSgMd, &_s10SnippetKit14VisualPropertyVSgMR);
+  OUTLINED_FUNCTION_4(v24);
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_136();
-  v46 = type metadata accessor for CodableINInteraction();
-  v7 = OUTLINED_FUNCTION_2_0(v46);
-  v44 = v8;
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_3_5();
-  v13 = v12 - v11;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_2_0(v14);
-  v45 = v15;
-  v17 = *(v16 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v18);
-  OUTLINED_FUNCTION_11_0();
-  v47 = v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v20);
-  v22 = *(v21 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v23);
-  OUTLINED_FUNCTION_13_1();
-  v24 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  v25 = OUTLINED_FUNCTION_0_1(v24);
-  v27 = *(v26 + 64);
-  __chkstk_darwin(v25);
+  v53 = type metadata accessor for CodableINInteraction();
+  OUTLINED_FUNCTION_2_0();
+  v51 = v26;
+  __chkstk_darwin(v27);
   OUTLINED_FUNCTION_3_5();
   v30 = v29 - v28;
-  v31 = v2[4];
-  OUTLINED_FUNCTION_52(v2, v2[3]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_2_0();
+  v52 = v31;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v32);
+  OUTLINED_FUNCTION_11_0();
+  v54 = v33;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17CustomIntentModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v34);
+  OUTLINED_FUNCTION_13_1();
+  v35 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v36);
+  OUTLINED_FUNCTION_3_5();
+  v39 = v38 - v37;
+  OUTLINED_FUNCTION_52(v23, v23[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentModel.CodingKeys and conformance WorkflowDataModels.CustomIntentModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v21)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
+    __swift_destroy_boxed_opaque_existential_1Tm(v23);
   }
 
   else
   {
     OUTLINED_FUNCTION_22();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v32);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v40);
     OUTLINED_FUNCTION_115();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v45 + 32))(v30, v47);
+    (*(v52 + 32))(v39, v54);
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_66();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v33);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v41);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v44 + 32))(v30 + v24[5], v13, v46);
+    (*(v51 + 32))(v39 + *(v35 + 20), v30, v53);
     type metadata accessor for VisualProperty();
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_4_6();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v34);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v42);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v35 = v24[6];
     outlined init with take of VisualProperty?();
     OUTLINED_FUNCTION_130();
-    v36 = KeyedDecodingContainer.decode(_:forKey:)();
-    v43 = v37;
-    v38 = v36;
-    v39 = OUTLINED_FUNCTION_126();
-    v40(v39);
-    v41 = (v30 + v24[7]);
-    *v41 = v38;
-    v41[1] = v43;
+    v43 = KeyedDecodingContainer.decode(_:forKey:)();
+    v50 = v44;
+    v45 = v43;
+    v46 = OUTLINED_FUNCTION_126();
+    v47(v46);
+    v48 = (v39 + *(v35 + 28));
+    *v48 = v45;
+    v48[1] = v50;
     OUTLINED_FUNCTION_72();
     outlined init with copy of WorkflowDataModels.CustomIntentModel();
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
+    __swift_destroy_boxed_opaque_existential_1Tm(v23);
     OUTLINED_FUNCTION_21();
-    outlined destroy of WorkflowDataModels.CustomIntentModel(v30, v42);
+    outlined destroy of WorkflowDataModels.CustomIntentModel(v39, v49);
   }
 
   OUTLINED_FUNCTION_128();
@@ -3746,8 +3134,8 @@ void WorkflowDataModels.CustomIntentModel.init(from:)()
 
 uint64_t WorkflowDataModels.CustomIntentConfirmationModel.cancelLabel.getter()
 {
-  v0 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-  OUTLINED_FUNCTION_137(*(v0 + 24));
+  type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
+  OUTLINED_FUNCTION_137();
   return OUTLINED_FUNCTION_2_8();
 }
 
@@ -3840,104 +3228,97 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.CustomIntentConfirmationModel.encode(to:)()
+void WorkflowDataModels.CustomIntentConfirmationModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v17);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
+  v18 = lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CC48, v19, v18);
   type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v5);
+  lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v20);
   OUTLINED_FUNCTION_115();
   OUTLINED_FUNCTION_23();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v0)
+  if (!v16)
   {
-    v6 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-    OUTLINED_FUNCTION_150(*(v6 + 20));
+    v21 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
+    OUTLINED_FUNCTION_150(*(v21 + 20));
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    OUTLINED_FUNCTION_150(*(v6 + 24));
+    OUTLINED_FUNCTION_150(*(v21 + 24));
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v7 = OUTLINED_FUNCTION_25();
-  v8(v7);
+  v22 = OUTLINED_FUNCTION_25();
+  v23(v22);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
 
-void WorkflowDataModels.CustomIntentConfirmationModel.init(from:)()
+void WorkflowDataModels.CustomIntentConfirmationModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   OUTLINED_FUNCTION_75();
-  v2 = v1;
-  v3 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  v4 = OUTLINED_FUNCTION_0_1(v3);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  v21 = v20;
+  type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v22);
   OUTLINED_FUNCTION_3_5();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v7);
-  v31 = v8;
-  v10 = *(v9 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO29CustomIntentConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v23);
   OUTLINED_FUNCTION_43();
-  v12 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-  v13 = OUTLINED_FUNCTION_0_1(v12);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
+  v24 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_3_5();
-  v18 = v17 - v16;
-  v19 = v2[4];
-  OUTLINED_FUNCTION_52(v2, v2[3]);
+  v28 = v27 - v26;
+  OUTLINED_FUNCTION_52(v21, v21[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationModel.CodingKeys();
   OUTLINED_FUNCTION_129();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v19)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
+    __swift_destroy_boxed_opaque_existential_1Tm(v21);
   }
 
   else
   {
     OUTLINED_FUNCTION_6_3();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v20);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v29);
     OUTLINED_FUNCTION_115();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     OUTLINED_FUNCTION_1_12();
     outlined init with take of WorkflowDataModels.CustomIntentModel();
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_112();
-    v21 = KeyedDecodingContainer.decode(_:forKey:)();
-    v22 = (v18 + *(v12 + 20));
-    *v22 = v21;
-    v22[1] = v23;
+    v30 = KeyedDecodingContainer.decode(_:forKey:)();
+    v31 = (v28 + *(v24 + 20));
+    *v31 = v30;
+    v31[1] = v32;
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_112();
-    v24 = KeyedDecodingContainer.decode(_:forKey:)();
-    v32 = v25;
-    v26 = v24;
-    v27 = *(v31 + 8);
-    v28 = OUTLINED_FUNCTION_82();
-    v29(v28);
-    v30 = (v18 + *(v12 + 24));
-    *v30 = v26;
-    v30[1] = v32;
+    v33 = KeyedDecodingContainer.decode(_:forKey:)();
+    v39 = v34;
+    v35 = v33;
+    v36 = OUTLINED_FUNCTION_82();
+    v37(v36);
+    v38 = (v28 + *(v24 + 24));
+    *v38 = v35;
+    v38[1] = v39;
     outlined init with copy of WorkflowDataModels.CustomIntentModel();
-    __swift_destroy_boxed_opaque_existential_1Tm(v2);
-    outlined destroy of WorkflowDataModels.CustomIntentModel(v18, type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel);
+    __swift_destroy_boxed_opaque_existential_1Tm(v21);
+    outlined destroy of WorkflowDataModels.CustomIntentModel(v28, type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel);
   }
 
   OUTLINED_FUNCTION_76();
@@ -3957,10 +3338,10 @@ uint64_t WorkflowDataModels.CustomIntentConfirmationModel.init(intentModel:confi
   return result;
 }
 
-uint64_t WorkflowDataModels.CustomIntentConfirmationModel.confirmLabel.getter(uint64_t (*a1)(void))
+uint64_t WorkflowDataModels.CustomIntentConfirmationModel.confirmLabel.getter(void (*a1)(void))
 {
-  v1 = a1(0);
-  OUTLINED_FUNCTION_137(*(v1 + 20));
+  a1(0);
+  OUTLINED_FUNCTION_137();
   return OUTLINED_FUNCTION_2_8();
 }
 
@@ -4057,119 +3438,108 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.CustomIntentHandledModel.encode(to:)()
+void WorkflowDataModels.CustomIntentHandledModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = v3;
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v22);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledModel.CodingKeys and conformance WorkflowDataModels.CustomIntentHandledModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
+  v23 = lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledModel.CodingKeys and conformance WorkflowDataModels.CustomIntentHandledModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CBB8, v24, v23);
   type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v8);
+  lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v25);
   OUTLINED_FUNCTION_115();
   OUTLINED_FUNCTION_23();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v0)
+  if (!v21)
   {
-    v9 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
-    OUTLINED_FUNCTION_150(v9[5]);
+    v26 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
+    OUTLINED_FUNCTION_150(*(v26 + 20));
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v10 = v9[6];
     OUTLINED_FUNCTION_85();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGMd, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGMR);
     OUTLINED_FUNCTION_19();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v11);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v27);
     OUTLINED_FUNCTION_38();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v12 = *(v1 + v9[7]);
     OUTLINED_FUNCTION_130();
     OUTLINED_FUNCTION_38();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v13 = *(v4 + 8);
-  v14 = OUTLINED_FUNCTION_53();
-  v15(v14);
+  v28 = OUTLINED_FUNCTION_53();
+  v29(v28);
   OUTLINED_FUNCTION_104();
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.CustomIntentHandledModel.init(from:)()
+void WorkflowDataModels.CustomIntentHandledModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   OUTLINED_FUNCTION_75();
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMd, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMR);
-  OUTLINED_FUNCTION_4(v5);
-  v7 = *(v6 + 64);
+  v25 = v24;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMd, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMR);
+  OUTLINED_FUNCTION_4(v26);
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v27);
   OUTLINED_FUNCTION_45();
-  v9 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  v10 = OUTLINED_FUNCTION_0_1(v9);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
+  type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v28);
   OUTLINED_FUNCTION_3_5();
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v32);
-  v31 = v13;
-  v15 = *(v14 + 64);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO24CustomIntentHandledModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v41 = v29;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v16);
+  __chkstk_darwin(v30);
   OUTLINED_FUNCTION_43();
-  v17 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
-  v18 = OUTLINED_FUNCTION_0_1(v17);
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v18);
+  v31 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v32);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_91();
-  v21 = v4[4];
-  OUTLINED_FUNCTION_52(v4, v4[3]);
+  OUTLINED_FUNCTION_52(v25, v25[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledModel.CodingKeys and conformance WorkflowDataModels.CustomIntentHandledModel.CodingKeys();
   OUTLINED_FUNCTION_129();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v21)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v4);
+    __swift_destroy_boxed_opaque_existential_1Tm(v25);
   }
 
   else
   {
     OUTLINED_FUNCTION_6_3();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v22);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v33);
     OUTLINED_FUNCTION_115();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     OUTLINED_FUNCTION_1_12();
     outlined init with take of WorkflowDataModels.CustomIntentModel();
     OUTLINED_FUNCTION_49();
-    v23 = KeyedDecodingContainer.decode(_:forKey:)();
-    v24 = (v1 + v17[5]);
-    *v24 = v23;
-    v24[1] = v25;
-    v26 = OUTLINED_FUNCTION_51();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v26, v27);
+    v34 = KeyedDecodingContainer.decode(_:forKey:)();
+    v35 = (v22 + *(v31 + 20));
+    *v35 = v34;
+    v35[1] = v36;
+    v37 = OUTLINED_FUNCTION_51();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v37, v38);
     OUTLINED_FUNCTION_85();
     OUTLINED_FUNCTION_22();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v28);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v39);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v29 = v17[6];
     outlined init with take of VisualProperty?();
     OUTLINED_FUNCTION_130();
-    v30 = KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v31 + 8))(v2, v32);
-    *(v1 + v17[7]) = v30 & 1;
+    v40 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v41 + 8))(v23, v42);
+    *(v22 + *(v31 + 28)) = v40 & 1;
     outlined init with copy of WorkflowDataModels.CustomIntentModel();
-    __swift_destroy_boxed_opaque_existential_1Tm(v4);
-    outlined destroy of WorkflowDataModels.CustomIntentModel(v1, type metadata accessor for WorkflowDataModels.CustomIntentHandledModel);
+    __swift_destroy_boxed_opaque_existential_1Tm(v25);
+    outlined destroy of WorkflowDataModels.CustomIntentModel(v22, type metadata accessor for WorkflowDataModels.CustomIntentHandledModel);
   }
 
   OUTLINED_FUNCTION_76();
@@ -4191,11 +3561,11 @@ uint64_t WorkflowDataModels.CustomIntentHandledModel.init(intentModel:doneButton
 uint64_t WorkflowDataModels.CustomIntentErrorModel.appPunchOut.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = *(type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0) + 20);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  v5 = OUTLINED_FUNCTION_0_1(v4);
-  v7 = *(v6 + 16);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_0_1();
+  v6 = *(v5 + 16);
 
-  return v7(a1, v1 + v3, v5);
+  return v6(a1, v1 + v3, v4);
 }
 
 uint64_t WorkflowDataModels.CustomIntentErrorModel.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -4270,31 +3640,28 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.CustomIntentErrorModel.encode(to:)()
+void WorkflowDataModels.CustomIntentErrorModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v3);
+  OUTLINED_FUNCTION_2_0();
   v5 = v4;
-  v7 = *(v6 + 64);
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v6);
   OUTLINED_FUNCTION_45();
   OUTLINED_FUNCTION_3_8();
   lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentErrorModel.CodingKeys and conformance WorkflowDataModels.CustomIntentErrorModel.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v9 = *v0;
-  v10 = v0[1];
   OUTLINED_FUNCTION_157();
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v1)
   {
-    v11 = *(type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0) + 20);
+    type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
     OUTLINED_FUNCTION_49();
-    v12 = OUTLINED_FUNCTION_51();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v12, v13);
+    v7 = OUTLINED_FUNCTION_51();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v7, v8);
     OUTLINED_FUNCTION_19();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v14);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v9);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
@@ -4303,54 +3670,50 @@ void WorkflowDataModels.CustomIntentErrorModel.encode(to:)()
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.CustomIntentErrorModel.init(from:)()
+void WorkflowDataModels.CustomIntentErrorModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v4 = v3;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_2_0(v22);
-  v21 = v5;
-  v7 = *(v6 + 64);
+  v27 = v26;
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_2_0();
+  v37 = v28;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v29);
   OUTLINED_FUNCTION_44();
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v23);
-  v10 = *(v9 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO22CustomIntentErrorModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v30);
   OUTLINED_FUNCTION_43();
-  v12 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
-  v13 = OUTLINED_FUNCTION_0_1(v12);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
+  v31 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v32);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_91();
-  v16 = v4[4];
-  OUTLINED_FUNCTION_52(v4, v4[3]);
+  OUTLINED_FUNCTION_52(v27, v27[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentErrorModel.CodingKeys and conformance WorkflowDataModels.CustomIntentErrorModel.CodingKeys();
   OUTLINED_FUNCTION_129();
   OUTLINED_FUNCTION_151();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v4);
+    __swift_destroy_boxed_opaque_existential_1Tm(v27);
   }
 
   else
   {
-    *v1 = KeyedDecodingContainer.decode(_:forKey:)();
-    v1[1] = v17;
+    *v24 = KeyedDecodingContainer.decode(_:forKey:)();
+    v24[1] = v33;
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_22();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v18);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v34);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v19 = OUTLINED_FUNCTION_122();
-    v20(v19);
-    (*(v21 + 32))(v1 + *(v12 + 20), v2, v22);
+    v35 = OUTLINED_FUNCTION_122();
+    v36(v35);
+    (*(v37 + 32))(v24 + *(v31 + 20), v25, v38);
     outlined init with copy of WorkflowDataModels.CustomIntentModel();
-    __swift_destroy_boxed_opaque_existential_1Tm(v4);
-    outlined destroy of WorkflowDataModels.CustomIntentModel(v1, type metadata accessor for WorkflowDataModels.CustomIntentErrorModel);
+    __swift_destroy_boxed_opaque_existential_1Tm(v27);
+    outlined destroy of WorkflowDataModels.CustomIntentModel(v24, type metadata accessor for WorkflowDataModels.CustomIntentErrorModel);
   }
 
   OUTLINED_FUNCTION_76();
@@ -4361,27 +3724,17 @@ uint64_t WorkflowDataModels.CustomIntentErrorModel.init(openAppButtonLabel:appPu
   *a4 = a1;
   *(a4 + 1) = a2;
   v6 = *(type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0) + 20);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
-  OUTLINED_FUNCTION_0_1(v7);
-  v9 = *(v8 + 32);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMd, &_s10SnippetKit16CodableAceObjectVySo32SAIntentGroupLaunchAppWithIntentCGMR);
+  OUTLINED_FUNCTION_0_1();
+  v8 = *(v7 + 32);
 
-  return v9(&a4[v6], a3);
+  return v8(&a4[v6], a3);
 }
 
 uint64_t WorkflowDataModels.ConfirmActionModel.archivedViewData.getter()
 {
-  v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
-  v3 = OUTLINED_FUNCTION_2_8();
-  outlined copy of Data?(v3, v4);
-  return OUTLINED_FUNCTION_2_8();
-}
-
-uint64_t WorkflowDataModels.ConfirmActionModel.prompt.getter()
-{
-  v1 = *(v0 + 88);
-  v2 = *(v0 + 96);
-
+  v0 = OUTLINED_FUNCTION_2_8();
+  outlined copy of Data?(v0, v1);
   return OUTLINED_FUNCTION_2_8();
 }
 
@@ -4534,53 +3887,41 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.ConfirmActionModel.encode(to:)()
+void WorkflowDataModels.ConfirmActionModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_168();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionModel.CodingKeys and conformance WorkflowDataModels.ConfirmActionModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = *v1;
-  v7 = v1[1];
+  v4 = lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionModel.CodingKeys and conformance WorkflowDataModels.ConfirmActionModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5CA98, v5, v4);
   OUTLINED_FUNCTION_12_2();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v0)
+  if (!v1)
   {
-    v8 = v1[2];
-    v9 = v1[3];
     OUTLINED_FUNCTION_9_2(1);
     KeyedEncodingContainer.encode(_:forKey:)();
-    v10 = v1[4];
-    v11 = v1[5];
     OUTLINED_FUNCTION_9_2(2);
     KeyedEncodingContainer.encode(_:forKey:)();
-    v12 = v1[6];
-    v13 = v1[7];
     OUTLINED_FUNCTION_9_2(3);
     KeyedEncodingContainer.encode(_:forKey:)();
-    v19 = *(v1 + 4);
+    v8 = *(v2 + 64);
     outlined init with copy of CodableAction<LNAction>();
     lazy protocol witness table accessor for type Data and conformance Data();
     OUTLINED_FUNCTION_48();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Data?(v19, *(&v19 + 1));
-    v14 = *(v1 + 80);
+    outlined consume of Data?(v8, *(&v8 + 1));
     KeyedEncodingContainer.encode(_:forKey:)();
-    v15 = v1[11];
-    v16 = v1[12];
     OUTLINED_FUNCTION_9_2(6);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  v17 = OUTLINED_FUNCTION_25();
-  v18(v17);
+  v6 = OUTLINED_FUNCTION_25();
+  v7(v6);
   OUTLINED_FUNCTION_172();
 }
 
@@ -4602,107 +3943,105 @@ uint64_t WorkflowDataModels.ConfirmActionModel.init(appBundleId:appDisplayName:c
   return result;
 }
 
-void WorkflowDataModels.ConfirmActionModel.init(from:)()
+void WorkflowDataModels.ConfirmActionModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v3 = v2;
-  v5 = v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v6);
-  v8 = v7;
-  v10 = *(v9 + 64);
+  v26 = v25;
+  v28 = v27;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO18ConfirmActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v31 = v30;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v32);
   OUTLINED_FUNCTION_44();
-  v12 = v3[4];
-  OUTLINED_FUNCTION_52(v3, v3[3]);
+  OUTLINED_FUNCTION_52(v26, v26[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionModel.CodingKeys and conformance WorkflowDataModels.ConfirmActionModel.CodingKeys();
   OUTLINED_FUNCTION_151();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
   }
 
   else
   {
-    LOBYTE(v34) = 0;
-    v13 = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = v14;
+    LOBYTE(v54) = 0;
+    v33 = KeyedDecodingContainer.decode(_:forKey:)();
+    v35 = v34;
     OUTLINED_FUNCTION_32(1);
-    v30 = KeyedDecodingContainer.decode(_:forKey:)();
-    v32 = v16;
+    v50 = KeyedDecodingContainer.decode(_:forKey:)();
+    v52 = v36;
     OUTLINED_FUNCTION_32(2);
-    v27 = KeyedDecodingContainer.decode(_:forKey:)();
-    v28 = v13;
-    v31 = v17;
+    v47 = KeyedDecodingContainer.decode(_:forKey:)();
+    v48 = v33;
+    v51 = v37;
     OUTLINED_FUNCTION_32(3);
-    v18 = KeyedDecodingContainer.decode(_:forKey:)();
-    v29 = v19;
-    v26 = v18;
-    LOBYTE(v33[0]) = 4;
+    v38 = KeyedDecodingContainer.decode(_:forKey:)();
+    v49 = v39;
+    v46 = v38;
+    LOBYTE(v53[0]) = 4;
     lazy protocol witness table accessor for type Data and conformance Data();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v25 = v34;
-    v24 = v35;
+    v45 = v54;
+    v44 = v55;
     OUTLINED_FUNCTION_32(5);
-    v20 = KeyedDecodingContainer.decode(_:forKey:)() & 1;
-    v21 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v23 = v22;
-    (*(v8 + 8))(v1, v6);
-    v33[0] = v28;
-    v33[1] = v15;
-    v33[2] = v30;
-    v33[3] = v32;
-    v33[4] = v27;
-    v33[5] = v31;
-    v33[6] = v26;
-    v33[7] = v29;
-    v33[8] = v34;
-    v33[9] = v35;
-    LOBYTE(v33[10]) = v20;
-    v33[11] = v21;
-    v33[12] = v23;
-    outlined init with copy of WorkflowDataModels.ConfirmActionModel(v33, &v34);
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
-    v34 = v28;
-    v35 = v15;
-    v36 = v30;
-    v37 = v32;
-    v38 = v27;
-    v39 = v31;
-    v40 = v26;
-    v41 = v29;
-    v42 = v25;
-    v43 = v24;
-    v44 = v20;
-    v45 = v21;
-    v46 = v23;
-    outlined destroy of WorkflowDataModels.ConfirmActionModel(&v34);
-    memcpy(v5, v33, 0x68uLL);
+    v40 = KeyedDecodingContainer.decode(_:forKey:)() & 1;
+    v41 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v43 = v42;
+    (*(v31 + 8))(v24, v29);
+    v53[0] = v48;
+    v53[1] = v35;
+    v53[2] = v50;
+    v53[3] = v52;
+    v53[4] = v47;
+    v53[5] = v51;
+    v53[6] = v46;
+    v53[7] = v49;
+    v53[8] = v54;
+    v53[9] = v55;
+    LOBYTE(v53[10]) = v40;
+    v53[11] = v41;
+    v53[12] = v43;
+    outlined init with copy of WorkflowDataModels.ConfirmActionModel(v53, &v54);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+    v54 = v48;
+    v55 = v35;
+    v56 = v50;
+    v57 = v52;
+    v58 = v47;
+    v59 = v51;
+    v60 = v46;
+    v61 = v49;
+    v62 = v45;
+    v63 = v44;
+    v64 = v40;
+    v65 = v41;
+    v66 = v43;
+    outlined destroy of WorkflowDataModels.ConfirmActionModel(&v54);
+    memcpy(v28, v53, 0x68uLL);
   }
 
   OUTLINED_FUNCTION_76();
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.ConfirmActionModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.ConfirmActionModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.ConfirmActionModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.ConfirmActionModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11, __src[0], SWORD2(__src[0]), SBYTE6(__src[0]), SHIBYTE(__src[0]), __src[1], __src[2], __src[3], __src[4], __src[5], __src[6], __src[7], __src[8], __src[9], __src[10]);
+  if (!v9)
   {
-    memcpy(a1, __src, 0x68uLL);
+    memcpy(a9, __src, 0x68uLL);
   }
 }
 
-uint64_t WorkflowDataModels.DisambiguateItemsModel.asSnippetPluginModel()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t WorkflowDataModels.DisambiguateItemsModel.asSnippetPluginModel()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a5@<X8>)
 {
-  return WorkflowDataModels.DisambiguateItemsModel.asSnippetPluginModel()(a1, a2, a3, a4);
+  return WorkflowDataModels.DisambiguateItemsModel.asSnippetPluginModel()(a1, a2, a3, a5);
 }
 
 {
-  *a4 = a1;
-  a4[1] = a2;
-  a4[2] = a3;
+  *a5 = a1;
+  a5[1] = a2;
+  a5[2] = a3;
   type metadata accessor for WorkflowDataModels(0);
   swift_storeEnumTagMultiPayload();
 }
@@ -4741,94 +4080,11 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.DisambiguateItemsModel.encode(to:)()
-{
-  WorkflowDataModels.DisambiguateItemsModel.encode(to:)();
-}
-
-{
-  OUTLINED_FUNCTION_75();
-  v2 = v1;
-  v4 = v3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(v5, v6);
-  OUTLINED_FUNCTION_2_0(v7);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_13_1();
-  v13 = v4[4];
-  __swift_project_boxed_opaque_existential_1(v4, v4[3]);
-  v2();
-  OUTLINED_FUNCTION_151();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  OUTLINED_FUNCTION_157();
-  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-  if (!v0)
-  {
-    OUTLINED_FUNCTION_49();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
-    OUTLINED_FUNCTION_69();
-    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v14);
-    OUTLINED_FUNCTION_23();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-  }
-
-  v15 = *(v9 + 8);
-  v16 = OUTLINED_FUNCTION_53();
-  v17(v16);
-  OUTLINED_FUNCTION_104();
-  OUTLINED_FUNCTION_76();
-}
-
-void WorkflowDataModels.DisambiguateItemsModel.init(from:)()
-{
-  WorkflowDataModels.DisambiguateItemsModel.init(from:)();
-}
-
-{
-  OUTLINED_FUNCTION_75();
-  v1 = v0;
-  v3 = v2;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
-  OUTLINED_FUNCTION_2_0(v13);
-  v7 = *(v6 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_88();
-  v9 = v3[4];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
-  v1();
-  OUTLINED_FUNCTION_73();
-  OUTLINED_FUNCTION_166();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
-  OUTLINED_FUNCTION_49();
-  OUTLINED_FUNCTION_67();
-  lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v10);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = OUTLINED_FUNCTION_54();
-  v12(v11);
-  __swift_destroy_boxed_opaque_existential_1Tm(v3);
-  OUTLINED_FUNCTION_64();
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_76();
-}
-
-void protocol witness for Encodable.encode(to:) in conformance WorkflowDataModels.DisambiguateItemsModel()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  WorkflowDataModels.DisambiguateItemsModel.encode(to:)();
-}
-
 uint64_t WorkflowDataModels.DisambiguateItemsModel.CodingKeys.init(stringValue:)()
 {
   OUTLINED_FUNCTION_1_10();
   v3 = v1 == 0x74706D6F7270 && v2 == 0xE600000000000000;
-  if (v3 || (OUTLINED_FUNCTION_84() & 1) != 0)
+  if (v3 || (OUTLINED_FUNCTION_84(0x74706D6F7270, 0xE600000000000000) & 1) != 0)
   {
 
     return 0;
@@ -4842,7 +4098,7 @@ uint64_t WorkflowDataModels.DisambiguateItemsModel.CodingKeys.init(stringValue:)
 
   else
   {
-    OUTLINED_FUNCTION_84();
+    OUTLINED_FUNCTION_84(0x736D657469, 0xE500000000000000);
     OUTLINED_FUNCTION_175();
     if (v1)
     {
@@ -4868,6 +4124,67 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   v2 = lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsModel.CodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel.CodingKeys();
 
   return CodingKey.debugDescription.getter(a1, v2);
+}
+
+void WorkflowDataModels.DisambiguateItemsModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, __int16 a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  OUTLINED_FUNCTION_75();
+  v24 = v23;
+  v26 = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(v27, v28);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v29);
+  OUTLINED_FUNCTION_13_1();
+  __swift_project_boxed_opaque_existential_1(v26, v26[3]);
+  v24();
+  OUTLINED_FUNCTION_151();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  OUTLINED_FUNCTION_157();
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  if (!v22)
+  {
+    OUTLINED_FUNCTION_49();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
+    OUTLINED_FUNCTION_69();
+    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v30);
+    OUTLINED_FUNCTION_23();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  v31 = OUTLINED_FUNCTION_53();
+  v32(v31);
+  OUTLINED_FUNCTION_104();
+  OUTLINED_FUNCTION_76();
+}
+
+void WorkflowDataModels.DisambiguateItemsModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+{
+  OUTLINED_FUNCTION_75();
+  v24 = v23;
+  v26 = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(v27, v28);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v29);
+  OUTLINED_FUNCTION_88();
+  __swift_project_boxed_opaque_existential_1(v26, v26[3]);
+  v24();
+  OUTLINED_FUNCTION_73();
+  OUTLINED_FUNCTION_166();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
+  OUTLINED_FUNCTION_49();
+  OUTLINED_FUNCTION_67();
+  lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v30);
+  KeyedDecodingContainer.decode<A>(_:forKey:)();
+  v31 = OUTLINED_FUNCTION_54();
+  v32(v31);
+  __swift_destroy_boxed_opaque_existential_1Tm(v26);
+  OUTLINED_FUNCTION_64();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_76();
 }
 
 uint64_t WorkflowDataModels.InvocationCommand.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -4929,7 +4246,7 @@ uint64_t WorkflowDataModels.InvocationCommand.CodingKeys.stringValue.getter(char
 uint64_t WorkflowDataModels.InvocationCommand.DirectInvocationWithDataCodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
 {
   v3 = a1 == 25705 && a2 == 0xE200000000000000;
-  if (v3 || (OUTLINED_FUNCTION_84() & 1) != 0)
+  if (v3 || (OUTLINED_FUNCTION_84(25705, 0xE200000000000000) & 1) != 0)
   {
 
     return 0;
@@ -4943,7 +4260,7 @@ uint64_t WorkflowDataModels.InvocationCommand.DirectInvocationWithDataCodingKeys
 
   else
   {
-    OUTLINED_FUNCTION_84();
+    OUTLINED_FUNCTION_84(0x64616F6C796170, 0xE700000000000000);
     OUTLINED_FUNCTION_175();
     if (a1)
     {
@@ -4999,14 +4316,6 @@ uint64_t protocol witness for Decodable.init(from:) in conformance WorkflowDataM
   }
 
   return result;
-}
-
-void protocol witness for Encodable.encode(to:) in conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  WorkflowDataModels.DisambiguateSmartPromptItemsModel.encode(to:)();
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance WorkflowDataModels.InvocationCommand.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -5086,190 +4395,170 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, started);
 }
 
-void WorkflowDataModels.InvocationCommand.encode(to:)()
+void WorkflowDataModels.InvocationCommand.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_75();
-  v53 = v2;
-  v51 = v3;
-  v45 = v4;
-  v52 = v5;
-  v7 = v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  v9 = OUTLINED_FUNCTION_2_0(v8);
-  v47 = v10;
-  v48 = v9;
-  v12 = *(v11 + 64);
+  v57 = v22;
+  v55 = v23;
+  v49 = v24;
+  v56 = v25;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v51 = v27;
+  v52 = v26;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v13);
+  __chkstk_darwin(v28);
   OUTLINED_FUNCTION_42();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  v15 = OUTLINED_FUNCTION_2_0(v14);
-  v49 = v16;
-  v50 = v15;
-  v18 = *(v17 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v19);
-  OUTLINED_FUNCTION_56();
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v20);
-  v46 = v21;
-  v23 = *(v22 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v24);
-  v26 = &v45 - v25;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v27);
-  v54 = v28;
-  v30 = *(v29 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v53 = v30;
+  v54 = v29;
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v31);
+  OUTLINED_FUNCTION_56();
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v50 = v33;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v34);
+  v36 = &v49 - v35;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v58 = v38;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v39);
   OUTLINED_FUNCTION_13_1();
-  v32 = *(v7 + 24);
-  v33 = *(v7 + 32);
-  v34 = OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_52(v34, v35);
+  v40 = OUTLINED_FUNCTION_99();
+  OUTLINED_FUNCTION_52(v40, v41);
   lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.CodingKeys and conformance WorkflowDataModels.InvocationCommand.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v51)
+  if (v55)
   {
-    if (v51 != 1)
+    if (v55 != 1)
     {
       lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.StartRequestCodingKeys and conformance WorkflowDataModels.InvocationCommand.StartRequestCodingKeys();
       OUTLINED_FUNCTION_89();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       KeyedEncodingContainer.encode(_:forKey:)();
-      v41 = *(v47 + 8);
-      v42 = OUTLINED_FUNCTION_63();
-      v43(v42);
-      v44 = *(v54 + 8);
-      v38 = OUTLINED_FUNCTION_53();
+      v47 = OUTLINED_FUNCTION_63();
+      v48(v47);
+      v44 = OUTLINED_FUNCTION_53();
       goto LABEL_11;
     }
 
     lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.DirectInvocationWithStringCodingKeys and conformance WorkflowDataModels.InvocationCommand.DirectInvocationWithStringCodingKeys();
     OUTLINED_FUNCTION_89();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v36 = v50;
+    v42 = v54;
     KeyedEncodingContainer.encode(_:forKey:)();
-    if (!v0)
+    if (!v20)
     {
-      HIBYTE(v55) = 1;
+      HIBYTE(v59) = 1;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
       lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
       OUTLINED_FUNCTION_165();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
     }
 
-    (*(v49 + 8))(v1, v36);
+    (*(v53 + 8))(v21, v42);
   }
 
   else
   {
-    v37 = v46;
+    v43 = v50;
     lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.DirectInvocationWithDataCodingKeys and conformance WorkflowDataModels.InvocationCommand.DirectInvocationWithDataCodingKeys();
     OUTLINED_FUNCTION_89();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     KeyedEncodingContainer.encode(_:forKey:)();
-    if (!v0)
+    if (!v20)
     {
-      HIBYTE(v55) = 1;
+      HIBYTE(v59) = 1;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation4DataVGMd, &_sSDySS10Foundation4DataVGMR);
       lazy protocol witness table accessor for type [String : Data] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Data] and conformance <> [A : B]);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
     }
 
-    (*(v37 + 8))(v26, v20);
+    (*(v43 + 8))(v36, v32);
   }
 
-  v38 = OUTLINED_FUNCTION_98();
-  v40 = v27;
+  v44 = OUTLINED_FUNCTION_98();
+  v46 = v37;
 LABEL_11:
-  v39(v38, v40);
+  v45(v44, v46);
   OUTLINED_FUNCTION_103();
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.InvocationCommand.init(from:)()
+void WorkflowDataModels.InvocationCommand.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_75();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v3);
-  v61 = v4;
-  v6 = *(v5 + 64);
+  v22 = v21;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO22StartRequestCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v23);
   OUTLINED_FUNCTION_11_0();
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v63);
-  v60 = v8;
-  v10 = *(v9 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06DirectJ20WithStringCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v24);
   OUTLINED_FUNCTION_13_1();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v12);
-  v62 = v13;
-  v15 = *(v14 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO06Directj4WithH10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v16);
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_45();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v17);
-  v19 = v18;
-  v21 = *(v20 + 64);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v22);
+  __chkstk_darwin(v27);
   OUTLINED_FUNCTION_56();
-  v23 = v2[4];
-  v64 = v2;
-  OUTLINED_FUNCTION_52(v2, v2[3]);
+  v54 = v22;
+  OUTLINED_FUNCTION_52(v22, v22[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.CodingKeys and conformance WorkflowDataModels.InvocationCommand.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v20)
   {
     goto LABEL_10;
   }
 
-  v59 = v19;
-  v24 = KeyedDecodingContainer.allKeys.getter();
-  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLO_Tt1g5(v24, 0);
-  if (v26 == v25 >> 1)
+  v28 = KeyedDecodingContainer.allKeys.getter();
+  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLO_Tt1g5(v28, 0);
+  if (v30 == v29 >> 1)
   {
 LABEL_9:
-    v36 = type metadata accessor for DecodingError();
+    type metadata accessor for DecodingError();
     swift_allocError();
-    v38 = v37;
-    v39 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v38 = &type metadata for WorkflowDataModels.InvocationCommand;
-    KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_110();
-    OUTLINED_FUNCTION_41(v36);
-    (*(v40 + 104))(v38);
+    v41 = v40;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v41 = &type metadata for WorkflowDataModels.InvocationCommand;
+    v42 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_110(v42);
+    OUTLINED_FUNCTION_41();
+    (*(v43 + 104))(v41);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v41 = *(v59 + 8);
-    v42 = OUTLINED_FUNCTION_134();
-    v43(v42);
+    v44 = OUTLINED_FUNCTION_134();
+    v45(v44);
 LABEL_10:
-    __swift_destroy_boxed_opaque_existential_1Tm(v64);
+    __swift_destroy_boxed_opaque_existential_1Tm(v54);
     OUTLINED_FUNCTION_76();
     return;
   }
 
   OUTLINED_FUNCTION_121();
-  if (v30 < (v29 >> 1))
+  if (v34 < (v33 >> 1))
   {
-    v31 = *(v28 + v27);
-    specialized ArraySlice.subscript.getter(v27 + 1);
-    v33 = v32;
-    v35 = v34;
+    v35 = *(v32 + v31);
+    specialized ArraySlice.subscript.getter(v31 + 1);
+    v37 = v36;
+    v39 = v38;
     swift_unknownObjectRelease();
-    if (v33 == v35 >> 1)
+    if (v37 == v39 >> 1)
     {
-      if (v31)
+      if (v35)
       {
-        if (v31 == 1)
+        if (v35 == 1)
         {
           lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand.DirectInvocationWithStringCodingKeys and conformance WorkflowDataModels.InvocationCommand.DirectInvocationWithStringCodingKeys();
           OUTLINED_FUNCTION_132();
@@ -5280,10 +4569,7 @@ LABEL_10:
           OUTLINED_FUNCTION_116();
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           swift_unknownObjectRelease();
-          v48 = *(v60 + 8);
-          v49 = OUTLINED_FUNCTION_99();
-          v50(v49);
-          v51 = *(v59 + 8);
+          v46 = OUTLINED_FUNCTION_99();
         }
 
         else
@@ -5293,14 +4579,12 @@ LABEL_10:
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
           KeyedDecodingContainer.decode(_:forKey:)();
           swift_unknownObjectRelease();
-          v44 = *(v61 + 8);
-          v45 = OUTLINED_FUNCTION_58();
-          v46(v45);
-          v47 = *(v59 + 8);
+          v46 = OUTLINED_FUNCTION_58();
         }
 
-        v52 = OUTLINED_FUNCTION_133();
-        v53(v52);
+        v47(v46);
+        v48 = OUTLINED_FUNCTION_133();
+        v49(v48);
       }
 
       else
@@ -5313,11 +4597,10 @@ LABEL_10:
         OUTLINED_FUNCTION_116();
         KeyedDecodingContainer.decode<A>(_:forKey:)();
         swift_unknownObjectRelease();
-        v54 = *(v62 + 8);
-        v55 = OUTLINED_FUNCTION_78();
-        v56(v55);
-        v57 = OUTLINED_FUNCTION_98();
-        v58(v57, v17);
+        v50 = OUTLINED_FUNCTION_78();
+        v51(v50);
+        v52 = OUTLINED_FUNCTION_98();
+        v53(v52, v26);
       }
 
       goto LABEL_10;
@@ -5329,46 +4612,20 @@ LABEL_10:
   __break(1u);
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.InvocationCommand(uint64_t a1@<X8>)
-{
-  WorkflowDataModels.InvocationCommand.init(from:)();
-  if (!v1)
-  {
-    *a1 = v3;
-    *(a1 + 8) = v4;
-    *(a1 + 16) = v5;
-    *(a1 + 24) = v6;
-  }
-}
-
-void protocol witness for Encodable.encode(to:) in conformance WorkflowDataModels.InvocationCommand()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 24);
-  WorkflowDataModels.InvocationCommand.encode(to:)();
-}
-
 uint64_t WorkflowDataModels.DisambiguationItemModel.invocationCommand.getter()
 {
-  v1 = v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand;
-  v2 = *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand);
-  v3 = *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 8);
-  v4 = *(v1 + 16);
-  v5 = *(v1 + 24);
-  v6 = OUTLINED_FUNCTION_2_8();
-  outlined copy of WorkflowDataModels.InvocationCommand(v6, v7, v4, v5);
+  v1 = *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 16);
+  v2 = *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 24);
+  v3 = OUTLINED_FUNCTION_2_8();
+  outlined copy of WorkflowDataModels.InvocationCommand(v3, v4, v1, v2);
   return OUTLINED_FUNCTION_2_8();
 }
 
 uint64_t WorkflowDataModels.DisambiguationItemModel.__allocating_init(title:subtitle:thumbnail:invocationCommand:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v18 = *(v9 + 48);
-  v19 = *(v9 + 52);
-  v20 = swift_allocObject();
+  v17 = swift_allocObject();
   WorkflowDataModels.DisambiguationItemModel.init(title:subtitle:thumbnail:invocationCommand:)(a1, a2, a3, a4, a5, a6, a7, a8, a9);
-  return v20;
+  return v17;
 }
 
 void *WorkflowDataModels.DisambiguationItemModel.init(title:subtitle:thumbnail:invocationCommand:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
@@ -5481,9 +4738,6 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t WorkflowDataModels.DisambiguationItemModel.deinit()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   outlined destroy of StandardActionHandler?(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_thumbnail, &_s10SnippetKit14VisualPropertyVSgMd, &_s10SnippetKit14VisualPropertyVSgMR);
   outlined consume of WorkflowDataModels.InvocationCommand(*(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand), *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 8), *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 16), *(v0 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 24));
@@ -5499,125 +4753,100 @@ uint64_t WorkflowDataModels.DisambiguationItemModel.__deallocating_deinit()
   return _swift_deallocClassInstance(v0, v1, v2);
 }
 
-void WorkflowDataModels.DisambiguationItemModel.encode(to:)()
+void WorkflowDataModels.DisambiguationItemModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v13);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = v1[2];
-  v7 = v1[3];
+  v14 = lazy protocol witness table accessor for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5C6A8, v15, v14);
   OUTLINED_FUNCTION_11_2();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v0)
+  if (!v12)
   {
-    v8 = v1[4];
-    v9 = v1[5];
     OUTLINED_FUNCTION_9_2(1);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
     type metadata accessor for VisualProperty();
     OUTLINED_FUNCTION_4_6();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v10);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v16);
     OUTLINED_FUNCTION_23();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v13 = *(v1 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand);
-    v14 = *(v1 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 16);
-    v15 = *(v1 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand + 24);
     lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand();
     OUTLINED_FUNCTION_38();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v11 = OUTLINED_FUNCTION_25();
-  v12(v11);
+  v17 = OUTLINED_FUNCTION_25();
+  v18(v17);
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_172();
 }
 
-uint64_t WorkflowDataModels.DisambiguationItemModel.__allocating_init(from:)()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  WorkflowDataModels.DisambiguationItemModel.init(from:)();
-  return v3;
-}
-
-void WorkflowDataModels.DisambiguationItemModel.init(from:)()
+void WorkflowDataModels.DisambiguationItemModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v2 = v0;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14VisualPropertyVSgMd, &_s10SnippetKit14VisualPropertyVSgMR);
-  OUTLINED_FUNCTION_4(v5);
-  v7 = *(v6 + 64);
+  v25 = v23;
+  v27 = v26;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit14VisualPropertyVSgMd, &_s10SnippetKit14VisualPropertyVSgMR);
+  OUTLINED_FUNCTION_4(v28);
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v29);
   OUTLINED_FUNCTION_88();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v9);
-  v11 = v10;
-  v13 = *(v12 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelC10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v14);
+  __chkstk_darwin(v30);
   OUTLINED_FUNCTION_56();
-  v15 = v4[4];
-  OUTLINED_FUNCTION_52(v4, v4[3]);
-  lazy protocol witness table accessor for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys();
-  OUTLINED_FUNCTION_109();
-  if (v1)
+  OUTLINED_FUNCTION_52(v27, v27[3]);
+  v31 = lazy protocol witness table accessor for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys();
+  OUTLINED_FUNCTION_109(&unk_5C6A8, v32, v31);
+  if (v24)
   {
     type metadata accessor for WorkflowDataModels.DisambiguationItemModel(0);
-    v19 = *(*v2 + 48);
-    v20 = *(*v2 + 52);
     swift_deallocPartialClassInstance();
   }
 
   else
   {
     OUTLINED_FUNCTION_165();
-    v2[2] = KeyedDecodingContainer.decode(_:forKey:)();
-    v2[3] = v16;
+    v25[2] = KeyedDecodingContainer.decode(_:forKey:)();
+    v25[3] = v33;
     OUTLINED_FUNCTION_165();
-    v2[4] = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v2[5] = v17;
+    v25[4] = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v25[5] = v34;
     type metadata accessor for VisualProperty();
-    LOBYTE(v25) = 2;
+    LOBYTE(v39) = 2;
     OUTLINED_FUNCTION_4_6();
-    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v18);
+    lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v35);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     outlined init with take of VisualProperty?();
     lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand();
     OUTLINED_FUNCTION_89();
     OUTLINED_FUNCTION_165();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v21 = *(v11 + 8);
-    v22 = OUTLINED_FUNCTION_50();
-    v23(v22);
-    v24 = v2 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand;
-    *v24 = v25;
-    *(v24 + 2) = v26;
-    v24[24] = v27;
+    v36 = OUTLINED_FUNCTION_50();
+    v37(v36);
+    v38 = v25 + OBJC_IVAR____TtCO16SiriLinkUIPlugin18WorkflowDataModels23DisambiguationItemModel_invocationCommand;
+    *v38 = v39;
+    *(v38 + 2) = v40;
+    v38[24] = v41;
   }
 
-  __swift_destroy_boxed_opaque_existential_1Tm(v4);
+  __swift_destroy_boxed_opaque_existential_1Tm(v27);
   OUTLINED_FUNCTION_103();
   OUTLINED_FUNCTION_76();
 }
 
-uint64_t protocol witness for Identifiable.id.getter in conformance WorkflowDataModels.DisambiguationItemModel@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for Identifiable.id.getter in conformance WorkflowDataModels.DisambiguationItemModel@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *v1;
   type metadata accessor for WorkflowDataModels.DisambiguationItemModel(0);
   result = Identifiable<>.id.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -5632,16 +4861,8 @@ uint64_t protocol witness for Decodable.init(from:) in conformance WorkflowDataM
   return result;
 }
 
-uint64_t key path setter for WorkflowDataModels.LinkMultiChoiceModel.options : WorkflowDataModels.LinkMultiChoiceModel(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return WorkflowDataModels.LinkMultiChoiceModel.options.setter(v2);
-}
-
 uint64_t WorkflowDataModels.LinkMultiChoiceModel.options.setter(uint64_t a1)
 {
-  v3 = *(v1 + 80);
 
   *(v1 + 80) = a1;
   return result;
@@ -5691,66 +4912,58 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.LinkMultiChoiceModel.encode(to:)()
+void WorkflowDataModels.LinkMultiChoiceModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_168();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_45();
-  v9 = v0[4];
-  OUTLINED_FUNCTION_52(v0, v0[3]);
+  OUTLINED_FUNCTION_52(v1, v1[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys();
   OUTLINED_FUNCTION_166();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  OUTLINED_FUNCTION_174(v22);
-  OUTLINED_FUNCTION_174(&v21);
-  outlined init with copy of WorkflowDataModels.LinkActionModel(v22, v20);
+  OUTLINED_FUNCTION_174(v14);
+  OUTLINED_FUNCTION_174(&v13);
+  outlined init with copy of WorkflowDataModels.LinkActionModel(v14, v12);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
   OUTLINED_FUNCTION_138();
-  v10 = OUTLINED_FUNCTION_152();
-  memcpy(v10, v11, v12);
-  outlined destroy of WorkflowDataModels.LinkActionModel(v20);
-  if (!v1)
+  v4 = OUTLINED_FUNCTION_152();
+  memcpy(v4, v5, v6);
+  outlined destroy of WorkflowDataModels.LinkActionModel(v12);
+  if (!v2)
   {
-    v19 = *(v2 + 80);
     OUTLINED_FUNCTION_49();
-    v13 = OUTLINED_FUNCTION_134();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v13, v14);
+    v7 = OUTLINED_FUNCTION_134();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v7, v8);
     OUTLINED_FUNCTION_101();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v15);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v9);
     OUTLINED_FUNCTION_162();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v16 = *(v5 + 8);
-  v17 = OUTLINED_FUNCTION_58();
-  v18(v17);
+  v10 = OUTLINED_FUNCTION_58();
+  v11(v10);
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.LinkMultiChoiceModel.init(from:)()
+void WorkflowDataModels.LinkMultiChoiceModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_124();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v16);
-  v4 = v3;
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E16MultiChoiceModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v26);
   OUTLINED_FUNCTION_42();
-  v8 = v1[4];
-  OUTLINED_FUNCTION_52(v1, v1[3]);
-  lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys();
-  OUTLINED_FUNCTION_109();
-  if (v0)
+  OUTLINED_FUNCTION_52(v24, v24[3]);
+  v27 = lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys();
+  OUTLINED_FUNCTION_109(&unk_5C618, v28, v27);
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v1);
+    __swift_destroy_boxed_opaque_existential_1Tm(v24);
   }
 
   else
@@ -5758,24 +4971,23 @@ void WorkflowDataModels.LinkMultiChoiceModel.init(from:)()
     lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
     OUTLINED_FUNCTION_57();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    memcpy(v20, v19, sizeof(v20));
-    v9 = OUTLINED_FUNCTION_134();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v9, v10);
+    memcpy(v38, v37, sizeof(v38));
+    v29 = OUTLINED_FUNCTION_134();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v29, v30);
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_101();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v11);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v31);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v12 = *(v4 + 8);
-    v13 = OUTLINED_FUNCTION_64();
-    v14(v13);
-    v15 = v18[11];
-    OUTLINED_FUNCTION_113(v17);
-    v17[10] = v15;
-    outlined init with copy of WorkflowDataModels.LinkMultiChoiceModel(v17, v18);
+    v32 = OUTLINED_FUNCTION_64();
+    v33(v32);
+    v34 = v36[11];
+    OUTLINED_FUNCTION_113(v35);
+    v35[10] = v34;
+    outlined init with copy of WorkflowDataModels.LinkMultiChoiceModel(v35, v36);
     OUTLINED_FUNCTION_90();
-    v18[10] = v15;
-    outlined destroy of WorkflowDataModels.LinkMultiChoiceModel(v18);
-    memcpy(v2, v17, 0x58uLL);
+    v36[10] = v34;
+    outlined destroy of WorkflowDataModels.LinkMultiChoiceModel(v36);
+    memcpy(v25, v35, 0x58uLL);
   }
 
   OUTLINED_FUNCTION_103();
@@ -5789,21 +5001,19 @@ void *WorkflowDataModels.LinkPromptForValueModel.init(linkModel:options:)@<X0>(v
   return result;
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkMultiChoiceModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkMultiChoiceModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.LinkMultiChoiceModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.LinkMultiChoiceModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11, __src[0], SWORD2(__src[0]), SBYTE6(__src[0]), SHIBYTE(__src[0]), __src[1], __src[2], __src[3], __src[4], __src[5], __src[6], __src[7], __src[8], __src[9], __src[10]);
+  if (!v9)
   {
-    memcpy(a1, __src, 0x58uLL);
+    memcpy(a9, __src, 0x58uLL);
   }
 }
 
 uint64_t WorkflowDataModels.LinkActionModel.archivedViewData.getter()
 {
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-  v3 = OUTLINED_FUNCTION_2_8();
-  outlined copy of Data?(v3, v4);
+  v0 = OUTLINED_FUNCTION_2_8();
+  outlined copy of Data?(v0, v1);
   return OUTLINED_FUNCTION_2_8();
 }
 
@@ -5856,21 +5066,16 @@ uint64_t closure #1 in closure #1 in WorkflowDataModels.LinkActionModel.renderMo
 
 uint64_t sub_274EC()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 56);
-
-  v4 = *(v0 + 72);
-  if (v4 >> 60 != 15)
+  v1 = *(v0 + 72);
+  if (v1 >> 60 != 15)
   {
-    outlined consume of Data._Representation(*(v0 + 64), v4);
+    outlined consume of Data._Representation(*(v0 + 64), v1);
   }
 
   OUTLINED_FUNCTION_120();
 
-  return _swift_deallocObject(v5, v6, v7);
+  return _swift_deallocObject(v2, v3, v4);
 }
 
 uint64_t partial apply for closure #1 in closure #1 in WorkflowDataModels.LinkActionModel.renderModel.getter()
@@ -5888,14 +5093,13 @@ uint64_t partial apply for closure #1 in closure #1 in WorkflowDataModels.LinkAc
   OUTLINED_FUNCTION_2_11();
   v2 = v1;
   OUTLINED_FUNCTION_4_5();
-  v4 = *(v3 + 16);
-  v5 = *v0;
+  v3 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v6 = v5;
+  *v4 = v3;
 
-  v7 = *(v5 + 8);
+  v5 = *(v3 + 8);
 
-  return v7(v2);
+  return v5(v2);
 }
 
 unint64_t lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel.CodingKeys and conformance WorkflowDataModels.ShowAlertModel.CodingKeys()
@@ -5988,13 +5192,11 @@ unint64_t lazy protocol witness table accessor for type WorkflowDataModels.Enabl
   return result;
 }
 
-uint64_t outlined copy of WatchViewType(uint64_t a1, uint64_t a2)
+void outlined copy of WatchViewType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type WorkflowDataModels.WatchModel.CodingKeys and conformance WorkflowDataModels.WatchModel.CodingKeys()
@@ -6135,11 +5337,10 @@ unint64_t lazy protocol witness table accessor for type CodableINInteraction and
 uint64_t outlined init with copy of WorkflowDataModels.CustomIntentModel()
 {
   OUTLINED_FUNCTION_1_10();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_0_1(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_2_8();
-  v6(v5);
+  v1(0);
+  OUTLINED_FUNCTION_0_1();
+  v2 = OUTLINED_FUNCTION_2_8();
+  v3(v2);
   return v0;
 }
 
@@ -6188,11 +5389,11 @@ unint64_t lazy protocol witness table accessor for type WorkflowDataModels.Custo
   return result;
 }
 
-uint64_t outlined destroy of WorkflowDataModels.CustomIntentModel(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of WorkflowDataModels.CustomIntentModel(uint64_t a1, void (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_0_1(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_0_1();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
@@ -6334,11 +5535,10 @@ unint64_t lazy protocol witness table accessor for type WorkflowDataModels.Confi
 uint64_t outlined init with copy of CodableAction<LNAction>()
 {
   OUTLINED_FUNCTION_1_10();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_0_1(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_2_8();
-  v7(v6);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_0_1();
+  v3 = OUTLINED_FUNCTION_2_8();
+  v4(v3);
   return v0;
 }
 
@@ -6387,7 +5587,7 @@ unint64_t lazy protocol witness table accessor for type WorkflowDataModels.Disam
   return result;
 }
 
-uint64_t type metadata accessor for WorkflowDataModels(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for WorkflowDataModels(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -6768,132 +5968,121 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.LinkActionModel.encode(to:)()
+void WorkflowDataModels.LinkActionModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_168();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  v6 = *v1;
-  v7 = v1[1];
+  v4 = lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5C588, v5, v4);
   OUTLINED_FUNCTION_12_2();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v0)
+  if (!v1)
   {
-    v8 = v1[2];
-    v9 = v1[3];
     OUTLINED_FUNCTION_9_2(1);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v10 = v1[4];
-    v11 = v1[5];
     OUTLINED_FUNCTION_9_2(2);
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v20 = *(v1 + 3);
+    v14 = *(v2 + 48);
     outlined init with copy of CodableAction<LNAction>();
     lazy protocol witness table accessor for type Data and conformance Data();
     OUTLINED_FUNCTION_48();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Data?(v20, *(&v20 + 1));
-    v21 = v1[8];
-    v12 = OUTLINED_FUNCTION_51();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v12, v13);
+    outlined consume of Data?(v14, *(&v14 + 1));
+    v6 = OUTLINED_FUNCTION_51();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
     OUTLINED_FUNCTION_101();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v14);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v8);
     OUTLINED_FUNCTION_161();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v22 = v1[9];
-    v15 = OUTLINED_FUNCTION_134();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v15, v16);
+    v9 = OUTLINED_FUNCTION_134();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v9, v10);
     OUTLINED_FUNCTION_101();
-    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v17);
+    lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(v11);
     OUTLINED_FUNCTION_161();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v18 = OUTLINED_FUNCTION_25();
-  v19(v18);
+  v12 = OUTLINED_FUNCTION_25();
+  v13(v12);
   OUTLINED_FUNCTION_172();
 }
 
-void WorkflowDataModels.LinkActionModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void WorkflowDataModels.LinkActionModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_75();
-  v12 = v11;
-  v14 = v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v15);
-  v17 = *(v16 + 64);
+  v22 = v21;
+  v24 = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E11ActionModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_44();
-  v19 = v12[4];
-  OUTLINED_FUNCTION_52(v12, v12[3]);
+  OUTLINED_FUNCTION_52(v22, v22[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys();
   OUTLINED_FUNCTION_151();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v10)
+  if (v20)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v12);
+    __swift_destroy_boxed_opaque_existential_1Tm(v22);
   }
 
   else
   {
     OUTLINED_FUNCTION_127();
-    v20 = KeyedDecodingContainer.decode(_:forKey:)();
-    v34 = v21;
+    v26 = KeyedDecodingContainer.decode(_:forKey:)();
+    v40 = v27;
     OUTLINED_FUNCTION_127();
-    v22 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v33 = v23;
-    v31 = v22;
-    LOBYTE(v36) = 2;
+    v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v39 = v29;
+    v37 = v28;
+    LOBYTE(v42) = 2;
     OUTLINED_FUNCTION_127();
-    v30 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v32 = v24;
+    v36 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v38 = v30;
     lazy protocol witness table accessor for type Data and conformance Data();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v29 = v36;
-    v28 = v37;
+    v35 = v42;
+    v34 = v43;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin13CodableActionVySo8LNActionCGMd, &_s16SiriLinkUIPlugin13CodableActionVySo8LNActionCGMR);
     lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableAction<LNAction> and conformance CodableAction<A>);
     OUTLINED_FUNCTION_147();
-    v27 = v36;
+    v33 = v42;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriLinkUIPlugin18CodableEnvironmentVySo09LNSnippetE0CGMd, &_s16SiriLinkUIPlugin18CodableEnvironmentVySo09LNSnippetE0CGMR);
-    v46 = 5;
+    v52 = 5;
     lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(&lazy protocol witness table cache variable for type CodableEnvironment<LNSnippetEnvironment> and conformance CodableEnvironment<A>);
     OUTLINED_FUNCTION_147();
-    v25 = OUTLINED_FUNCTION_36();
-    v26(v25);
-    v35[0] = v20;
-    v35[1] = v34;
-    v35[2] = v31;
-    v35[3] = v33;
-    v35[4] = v30;
-    v35[5] = v32;
-    v35[6] = v36;
-    v35[7] = v37;
-    v35[8] = v36;
-    v35[9] = a10;
-    outlined init with copy of WorkflowDataModels.LinkActionModel(v35, &v36);
-    __swift_destroy_boxed_opaque_existential_1Tm(v12);
-    v36 = v20;
-    v37 = v34;
-    v38 = v31;
-    v39 = v33;
-    v40 = v30;
-    v41 = v32;
-    v42 = v29;
-    v43 = v28;
-    v44 = v27;
-    v45 = a10;
-    outlined destroy of WorkflowDataModels.LinkActionModel(&v36);
-    memcpy(v14, v35, 0x50uLL);
+    v31 = OUTLINED_FUNCTION_36();
+    v32(v31);
+    v41[0] = v26;
+    v41[1] = v40;
+    v41[2] = v37;
+    v41[3] = v39;
+    v41[4] = v36;
+    v41[5] = v38;
+    v41[6] = v42;
+    v41[7] = v43;
+    v41[8] = v42;
+    v41[9] = a10;
+    outlined init with copy of WorkflowDataModels.LinkActionModel(v41, &v42);
+    __swift_destroy_boxed_opaque_existential_1Tm(v22);
+    v42 = v26;
+    v43 = v40;
+    v44 = v37;
+    v45 = v39;
+    v46 = v36;
+    v47 = v38;
+    v48 = v35;
+    v49 = v34;
+    v50 = v33;
+    v51 = a10;
+    outlined destroy of WorkflowDataModels.LinkActionModel(&v42);
+    memcpy(v24, v41, 0x50uLL);
   }
 
   OUTLINED_FUNCTION_128();
@@ -6902,27 +6091,11 @@ void WorkflowDataModels.LinkActionModel.init(from:)(uint64_t a1, uint64_t a2, ui
 
 void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkActionModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.LinkActionModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11[0], v11[1]);
+  WorkflowDataModels.LinkActionModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11[0], v11[1], v11[2], v11[3], v11[4], v11[5], v11[6], v11[7], v11[8], v11[9], v11[10], v11[11]);
   if (!v9)
   {
     memcpy(a9, v11, 0x50uLL);
   }
-}
-
-uint64_t WorkflowDataModels.AutoShortcutFirstRunModel.confirmLabel.getter()
-{
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
-
-  return OUTLINED_FUNCTION_2_8();
-}
-
-uint64_t WorkflowDataModels.AutoShortcutFirstRunModel.cancelLabel.getter()
-{
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 104);
-
-  return OUTLINED_FUNCTION_2_8();
 }
 
 uint64_t WorkflowDataModels.LinkConfirmationModel.asSnippetPluginModel()@<X0>(uint64_t a1@<X8>)
@@ -7028,109 +6201,101 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.LinkConfirmationModel.encode(to:)()
+void WorkflowDataModels.LinkConfirmationModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v24);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_176(v18);
-  OUTLINED_FUNCTION_176(&v17);
-  outlined init with copy of WorkflowDataModels.LinkActionModel(v18, v16);
+  v25 = lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5C4F8, v26, v25);
+  OUTLINED_FUNCTION_176(v34);
+  OUTLINED_FUNCTION_176(&v33);
+  outlined init with copy of WorkflowDataModels.LinkActionModel(v34, v32);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
   OUTLINED_FUNCTION_38();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  v6 = OUTLINED_FUNCTION_159();
-  if (v0)
+  v27 = OUTLINED_FUNCTION_159();
+  if (v23)
   {
-    memcpy(v6, v7, v8);
-    outlined destroy of WorkflowDataModels.LinkActionModel(v16);
+    memcpy(v27, v28, v29);
+    outlined destroy of WorkflowDataModels.LinkActionModel(v32);
   }
 
   else
   {
-    memcpy(v6, v7, v8);
-    outlined destroy of WorkflowDataModels.LinkActionModel(v16);
-    v9 = *(v1 + 80);
-    v10 = *(v1 + 88);
+    memcpy(v27, v28, v29);
+    outlined destroy of WorkflowDataModels.LinkActionModel(v32);
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v11 = *(v1 + 96);
-    v12 = *(v1 + 104);
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v13 = *(v1 + 112);
     OUTLINED_FUNCTION_38();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v14 = OUTLINED_FUNCTION_25();
-  v15(v14);
+  v30 = OUTLINED_FUNCTION_25();
+  v31(v30);
   OUTLINED_FUNCTION_104();
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.LinkConfirmationModel.init(from:)()
+void WorkflowDataModels.LinkConfirmationModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_124();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v18);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E17ConfirmationModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v26);
   OUTLINED_FUNCTION_43();
-  v6 = v0[4];
-  OUTLINED_FUNCTION_52(v0, v0[3]);
+  OUTLINED_FUNCTION_52(v23, v23[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys();
   OUTLINED_FUNCTION_129();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v1)
+  if (v24)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v0);
+    __swift_destroy_boxed_opaque_existential_1Tm(v23);
   }
 
   else
   {
     lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    memcpy(v23, v22, sizeof(v23));
+    memcpy(v42, v41, sizeof(v42));
     OUTLINED_FUNCTION_160(1);
-    v7 = KeyedDecodingContainer.decode(_:forKey:)();
-    v17 = v8;
-    v16 = v7;
+    v27 = KeyedDecodingContainer.decode(_:forKey:)();
+    v37 = v28;
+    v36 = v27;
     OUTLINED_FUNCTION_160(2);
-    v9 = KeyedDecodingContainer.decode(_:forKey:)();
-    v11 = v10;
-    v15 = v9;
-    v12 = KeyedDecodingContainer.decode(_:forKey:)();
-    v13 = OUTLINED_FUNCTION_81();
-    v14(v13);
-    v12 &= 1u;
-    OUTLINED_FUNCTION_113(v19);
-    v19[10] = v16;
-    v19[11] = v17;
-    v19[12] = v15;
-    v19[13] = v11;
-    LOBYTE(v19[14]) = v12;
-    outlined init with copy of WorkflowDataModels.LinkConfirmationModel(v19, v20);
-    __swift_destroy_boxed_opaque_existential_1Tm(v0);
-    OUTLINED_FUNCTION_113(v20);
-    v20[10] = v16;
-    v20[11] = v17;
-    v20[12] = v15;
-    v20[13] = v11;
-    v21 = v12;
-    outlined destroy of WorkflowDataModels.LinkConfirmationModel(v20);
-    memcpy(v2, v19, 0x71uLL);
+    v29 = KeyedDecodingContainer.decode(_:forKey:)();
+    v31 = v30;
+    v35 = v29;
+    v32 = KeyedDecodingContainer.decode(_:forKey:)();
+    v33 = OUTLINED_FUNCTION_81();
+    v34(v33);
+    v32 &= 1u;
+    OUTLINED_FUNCTION_113(v38);
+    v38[10] = v36;
+    v38[11] = v37;
+    v38[12] = v35;
+    v38[13] = v31;
+    LOBYTE(v38[14]) = v32;
+    outlined init with copy of WorkflowDataModels.LinkConfirmationModel(v38, v39);
+    __swift_destroy_boxed_opaque_existential_1Tm(v23);
+    OUTLINED_FUNCTION_113(v39);
+    v39[10] = v36;
+    v39[11] = v37;
+    v39[12] = v35;
+    v39[13] = v31;
+    v40 = v32;
+    outlined destroy of WorkflowDataModels.LinkConfirmationModel(v39);
+    memcpy(v25, v38, 0x71uLL);
   }
 
   OUTLINED_FUNCTION_103();
@@ -7148,12 +6313,12 @@ void *WorkflowDataModels.LinkConfirmationModel.init(linkModel:confirmLabel:cance
   return result;
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkConfirmationModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkConfirmationModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.LinkConfirmationModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.LinkConfirmationModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11, __src[0], SWORD2(__src[0]), SBYTE6(__src[0]), SHIBYTE(__src[0]), __src[1], __src[2], __src[3], __src[4], __src[5], __src[6], __src[7], __src[8], __src[9], __src[10]);
+  if (!v9)
   {
-    memcpy(a1, __src, 0x71uLL);
+    memcpy(a9, __src, 0x71uLL);
   }
 }
 
@@ -7171,7 +6336,7 @@ uint64_t WorkflowDataModels.LinkMultiChoiceModel.CodingKeys.init(stringValue:)()
 {
   OUTLINED_FUNCTION_1_10();
   v3 = v1 == 0x65646F4D6B6E696CLL && v2 == 0xE90000000000006CLL;
-  if (v3 || (OUTLINED_FUNCTION_84() & 1) != 0)
+  if (v3 || (OUTLINED_FUNCTION_84(0x65646F4D6B6E696CLL, 0xE90000000000006CLL) & 1) != 0)
   {
 
     return 0;
@@ -7185,7 +6350,7 @@ uint64_t WorkflowDataModels.LinkMultiChoiceModel.CodingKeys.init(stringValue:)()
 
   else
   {
-    OUTLINED_FUNCTION_84();
+    OUTLINED_FUNCTION_84(0x736E6F6974706FLL, 0xE700000000000000);
     OUTLINED_FUNCTION_175();
     if (v1)
     {
@@ -7213,65 +6378,57 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.LinkPromptForValueModel.encode(to:)()
+void WorkflowDataModels.LinkPromptForValueModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_168();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_45();
-  v9 = v0[4];
-  OUTLINED_FUNCTION_52(v0, v0[3]);
+  OUTLINED_FUNCTION_52(v1, v1[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys();
   OUTLINED_FUNCTION_166();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  OUTLINED_FUNCTION_174(v20);
-  OUTLINED_FUNCTION_174(&v19);
-  outlined init with copy of WorkflowDataModels.LinkActionModel(v20, v18);
+  OUTLINED_FUNCTION_174(v12);
+  OUTLINED_FUNCTION_174(&v11);
+  outlined init with copy of WorkflowDataModels.LinkActionModel(v12, v10);
   lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
   OUTLINED_FUNCTION_138();
-  v10 = OUTLINED_FUNCTION_152();
-  memcpy(v10, v11, v12);
-  outlined destroy of WorkflowDataModels.LinkActionModel(v18);
-  if (!v1)
+  v4 = OUTLINED_FUNCTION_152();
+  memcpy(v4, v5, v6);
+  outlined destroy of WorkflowDataModels.LinkActionModel(v10);
+  if (!v2)
   {
-    v17 = *(v2 + 80);
     OUTLINED_FUNCTION_49();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
     OUTLINED_FUNCTION_69();
-    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v13);
+    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v7);
     OUTLINED_FUNCTION_162();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v14 = *(v5 + 8);
-  v15 = OUTLINED_FUNCTION_58();
-  v16(v15);
+  v8 = OUTLINED_FUNCTION_58();
+  v9(v8);
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.LinkPromptForValueModel.init(from:)()
+void WorkflowDataModels.LinkPromptForValueModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_124();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v14);
-  v4 = v3;
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E19PromptForValueModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v26);
   OUTLINED_FUNCTION_42();
-  v8 = v1[4];
-  OUTLINED_FUNCTION_52(v1, v1[3]);
-  lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys();
-  OUTLINED_FUNCTION_109();
-  if (v0)
+  OUTLINED_FUNCTION_52(v24, v24[3]);
+  v27 = lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys();
+  OUTLINED_FUNCTION_109(&unk_5C468, v28, v27);
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v1);
+    __swift_destroy_boxed_opaque_existential_1Tm(v24);
   }
 
   else
@@ -7279,35 +6436,34 @@ void WorkflowDataModels.LinkPromptForValueModel.init(from:)()
     lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
     OUTLINED_FUNCTION_89();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    memcpy(v18, v17, sizeof(v18));
+    memcpy(v36, v35, sizeof(v36));
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMd, &_sSay16SiriLinkUIPlugin18WorkflowDataModelsO23DisambiguationItemModelCGMR);
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_67();
-    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v9);
+    lazy protocol witness table accessor for type [WorkflowDataModels.DisambiguationItemModel] and conformance <A> [A](v29);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v10 = *(v4 + 8);
-    v11 = OUTLINED_FUNCTION_63();
-    v12(v11);
-    v13 = v16[11];
-    OUTLINED_FUNCTION_113(v15);
-    v15[10] = v13;
-    outlined init with copy of WorkflowDataModels.LinkPromptForValueModel(v15, v16);
+    v30 = OUTLINED_FUNCTION_63();
+    v31(v30);
+    v32 = v34[11];
+    OUTLINED_FUNCTION_113(v33);
+    v33[10] = v32;
+    outlined init with copy of WorkflowDataModels.LinkPromptForValueModel(v33, v34);
     OUTLINED_FUNCTION_90();
-    v16[10] = v13;
-    outlined destroy of WorkflowDataModels.LinkPromptForValueModel(v16);
-    memcpy(v2, v15, 0x58uLL);
+    v34[10] = v32;
+    outlined destroy of WorkflowDataModels.LinkPromptForValueModel(v34);
+    memcpy(v25, v33, 0x58uLL);
   }
 
   OUTLINED_FUNCTION_103();
   OUTLINED_FUNCTION_76();
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkPromptForValueModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.LinkPromptForValueModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.LinkPromptForValueModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.LinkPromptForValueModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11, __src[0], SWORD2(__src[0]), SBYTE6(__src[0]), SHIBYTE(__src[0]), __src[1], __src[2], __src[3], __src[4], __src[5], __src[6], __src[7], __src[8], __src[9], __src[10]);
+  if (!v9)
   {
-    memcpy(a1, __src, 0x58uLL);
+    memcpy(a9, __src, 0x58uLL);
   }
 }
 
@@ -7398,72 +6554,65 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, Run);
 }
 
-void WorkflowDataModels.AutoShortcutFirstRunModel.encode(to:)()
+void WorkflowDataModels.AutoShortcutFirstRunModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
   OUTLINED_FUNCTION_27();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v2);
-  v4 = *(v3 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v24);
   OUTLINED_FUNCTION_13_1();
   OUTLINED_FUNCTION_3_8();
-  lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys();
-  OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_176(v17);
-  OUTLINED_FUNCTION_176(&v16);
-  outlined init with copy of AutoShortcutAppPhrasesViewModel(v17, v15);
+  Run = lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys();
+  OUTLINED_FUNCTION_29(&unk_5C3D8, v26, Run);
+  OUTLINED_FUNCTION_176(v34);
+  OUTLINED_FUNCTION_176(&v33);
+  outlined init with copy of AutoShortcutAppPhrasesViewModel(v34, v32);
   lazy protocol witness table accessor for type AutoShortcutAppPhrasesViewModel and conformance AutoShortcutAppPhrasesViewModel();
   OUTLINED_FUNCTION_38();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  v6 = OUTLINED_FUNCTION_159();
-  if (v0)
+  v27 = OUTLINED_FUNCTION_159();
+  if (v23)
   {
-    memcpy(v6, v7, v8);
-    outlined destroy of AutoShortcutAppPhrasesViewModel(v15);
+    memcpy(v27, v28, v29);
+    outlined destroy of AutoShortcutAppPhrasesViewModel(v32);
   }
 
   else
   {
-    memcpy(v6, v7, v8);
-    outlined destroy of AutoShortcutAppPhrasesViewModel(v15);
-    v9 = v1[10];
-    v10 = v1[11];
+    memcpy(v27, v28, v29);
+    outlined destroy of AutoShortcutAppPhrasesViewModel(v32);
     OUTLINED_FUNCTION_49();
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
-    v11 = v1[12];
-    v12 = v1[13];
     OUTLINED_FUNCTION_11_2();
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  v13 = OUTLINED_FUNCTION_25();
-  v14(v13);
+  v30 = OUTLINED_FUNCTION_25();
+  v31(v30);
   OUTLINED_FUNCTION_104();
   OUTLINED_FUNCTION_76();
 }
 
-void WorkflowDataModels.AutoShortcutFirstRunModel.init(from:)()
+void WorkflowDataModels.AutoShortcutFirstRunModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v3 = v2;
-  v5 = v4;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v18);
-  v7 = v6;
-  v9 = *(v8 + 64);
+  v26 = v25;
+  v28 = v27;
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO25AutoShortcutFirstRunModelV10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v30 = v29;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v31);
   OUTLINED_FUNCTION_42();
-  v11 = v3[4];
-  OUTLINED_FUNCTION_52(v3, v3[3]);
+  OUTLINED_FUNCTION_52(v26, v26[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
   }
 
   else
@@ -7471,29 +6620,29 @@ void WorkflowDataModels.AutoShortcutFirstRunModel.init(from:)()
     lazy protocol witness table accessor for type AutoShortcutAppPhrasesViewModel and conformance AutoShortcutAppPhrasesViewModel();
     OUTLINED_FUNCTION_57();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    memcpy(v26, v25, sizeof(v26));
-    v20[0] = 1;
+    memcpy(v46, v45, sizeof(v46));
+    v40[0] = 1;
     OUTLINED_FUNCTION_131();
-    v16 = KeyedDecodingContainer.decode(_:forKey:)();
-    v17 = v12;
+    v36 = KeyedDecodingContainer.decode(_:forKey:)();
+    v37 = v32;
     OUTLINED_FUNCTION_131();
-    v13 = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = v14;
-    (*(v7 + 8))(v1, v18);
-    OUTLINED_FUNCTION_113(v19);
-    v19[10] = v16;
-    v19[11] = v17;
-    v19[12] = v13;
-    v19[13] = v15;
-    outlined init with copy of WorkflowDataModels.AutoShortcutFirstRunModel(v19, v20);
-    __swift_destroy_boxed_opaque_existential_1Tm(v3);
-    OUTLINED_FUNCTION_113(v20);
-    v21 = v16;
-    v22 = v17;
-    v23 = v13;
-    v24 = v15;
-    outlined destroy of WorkflowDataModels.AutoShortcutFirstRunModel(v20);
-    memcpy(v5, v19, 0x70uLL);
+    v33 = KeyedDecodingContainer.decode(_:forKey:)();
+    v35 = v34;
+    (*(v30 + 8))(v24, v38);
+    OUTLINED_FUNCTION_113(v39);
+    v39[10] = v36;
+    v39[11] = v37;
+    v39[12] = v33;
+    v39[13] = v35;
+    outlined init with copy of WorkflowDataModels.AutoShortcutFirstRunModel(v39, v40);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+    OUTLINED_FUNCTION_113(v40);
+    v41 = v36;
+    v42 = v37;
+    v43 = v33;
+    v44 = v35;
+    outlined destroy of WorkflowDataModels.AutoShortcutFirstRunModel(v40);
+    memcpy(v28, v39, 0x70uLL);
   }
 
   OUTLINED_FUNCTION_104();
@@ -7512,12 +6661,12 @@ void __swiftcall WorkflowDataModels.AutoShortcutFirstRunModel.init(viewModel:con
   v9[13] = object;
 }
 
-void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.AutoShortcutFirstRunModel(void *a1@<X8>)
+void protocol witness for Decodable.init(from:) in conformance WorkflowDataModels.AutoShortcutFirstRunModel(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>)
 {
-  WorkflowDataModels.AutoShortcutFirstRunModel.init(from:)();
-  if (!v1)
+  WorkflowDataModels.AutoShortcutFirstRunModel.init(from:)(a1, a2, a3, a4, a5, a6, a7, a8, v11[0], v11[1], SWORD2(v11[1]), SBYTE6(v11[1]), SHIBYTE(v11[1]), v11[2], v11[3], v11[4], v11[5], v11[6], v11[7], v11[8], v11[9], v11[10], v11[11]);
+  if (!v9)
   {
-    memcpy(a1, v3, 0x70uLL);
+    memcpy(a9, v11, 0x70uLL);
   }
 }
 
@@ -7531,52 +6680,41 @@ uint64_t static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifie
   v0[4] = v5;
   v6 = type metadata accessor for ImageElement.ImageStyle();
   v0[9] = v6;
-  v7 = *(v6 - 8);
-  v0[10] = v7;
-  v8 = *(v7 + 64) + 15;
+  v0[10] = *(v6 - 8);
   v0[11] = swift_task_alloc();
-  v9 = type metadata accessor for ImageElement();
-  v0[12] = v9;
-  v10 = *(v9 - 8);
-  v0[13] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for ImageElement();
+  v0[12] = v7;
+  v0[13] = *(v7 - 8);
   v0[14] = swift_task_alloc();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Intents10INShortcutOSgMd, &_s7Intents10INShortcutOSgMR);
-  OUTLINED_FUNCTION_4(v12);
-  v14 = *(v13 + 64) + 15;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Intents10INShortcutOSgMd, &_s7Intents10INShortcutOSgMR);
+  OUTLINED_FUNCTION_4(v8);
   v0[15] = swift_task_alloc();
   v0[16] = swift_task_alloc();
-  v15 = OUTLINED_FUNCTION_102();
+  v9 = OUTLINED_FUNCTION_102();
 
-  return _swift_task_switch(v15, v16, v17);
+  return _swift_task_switch(v9, v10, v11);
 }
 
 {
   if (!v3[6])
   {
     OUTLINED_FUNCTION_108();
-    v14 = OUTLINED_FUNCTION_154();
-    v15(v14);
+    v12 = OUTLINED_FUNCTION_154();
+    v13(v12);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMd, &_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMR);
-    v16 = type metadata accessor for _ProtoIdiom();
-    OUTLINED_FUNCTION_2_0(v16);
-    v18 = v17;
-    v20 = *(v19 + 72);
-    v21 = *(v17 + 80);
+    v14 = type metadata accessor for _ProtoIdiom();
+    OUTLINED_FUNCTION_2_0();
+    v16 = v15;
     OUTLINED_FUNCTION_93();
-    v22 = swift_allocObject();
-    *(v22 + 16) = xmmword_43980;
-    (*(v18 + 104))(v22 + v6, enum case for _ProtoIdiom.default(_:), v16);
-    v23 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v22);
-    OUTLINED_FUNCTION_139(v23, v24, v25, v26, v27, v28, v29, v30, v37, v38, v39);
+    v17 = swift_allocObject();
+    *(v17 + 16) = xmmword_43980;
+    (*(v16 + 104))(v17 + v6, enum case for _ProtoIdiom.default(_:), v14);
+    v18 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v17);
+    OUTLINED_FUNCTION_139(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29, v30);
 
     (*(v4 + 8))(v2, v5);
     ImageElement.convertToVisualProperty()();
     (*(v0 + 8))(v1);
-    v32 = v3[15];
-    v31 = v3[16];
-    v33 = v3[14];
-    v34 = v3[11];
 
     OUTLINED_FUNCTION_11_1();
     OUTLINED_FUNCTION_171();
@@ -7590,24 +6728,19 @@ uint64_t static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifie
   v3[18] = v7;
   *v7 = v3;
   v7[1] = static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifier:);
-  v9 = v3[5];
-  v8 = v3[6];
   OUTLINED_FUNCTION_171();
 
-  return VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)(v10, v11);
+  return VoiceShortcutClientWrapper.getVoiceShortcut(voiceCommandName:)(v8, v9);
 }
 
 {
   OUTLINED_FUNCTION_2_11();
   OUTLINED_FUNCTION_4_5();
-  v2 = v1;
-  v3 = *(v1 + 144);
-  v9 = *v0;
-  *(v2 + 152) = v4;
+  *(v1 + 152) = v0;
 
-  v5 = OUTLINED_FUNCTION_102();
+  v2 = OUTLINED_FUNCTION_102();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v2, v3, v4);
 }
 
 void static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifier:)()
@@ -7619,7 +6752,6 @@ void static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifier:)(
     if (v7)
     {
       v8 = v7;
-      v9 = *(v2 + 120);
       static INShortcut._unconditionallyBridgeFromObjectiveC(_:)();
 
       v0 = 0;
@@ -7631,12 +6763,12 @@ void static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifier:)(
     }
 
     v4 = *(v2 + 120);
-    v10 = *(v2 + 128);
+    v9 = *(v2 + 128);
     v1 = type metadata accessor for INShortcut();
     __swift_storeEnumTagSinglePayload(v4, v0, 1, v1);
     OUTLINED_FUNCTION_78();
     outlined init with take of VisualProperty?();
-    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v1);
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v9, 1, v1);
     v3 = *(v2 + 128);
     if (EnumTagSinglePayload == 1)
     {
@@ -7646,28 +6778,22 @@ void static WorkflowDataModels.getThumbnail(shortcutName:defaultAppIdentifier:)(
 
     else
     {
-      v12 = *(v2 + 128);
       v0 = INShortcut.intent.getter();
-      OUTLINED_FUNCTION_41(v1);
-      (*(v13 + 8))(v3, v1);
+      OUTLINED_FUNCTION_41();
+      (*(v11 + 8))(v3, v1);
       if (v0)
       {
         v1 = [v0 _keyImage];
 
-        v14 = outlined bridged method (ob) of @objc INImage._imageData.getter(v1);
-        if (v15 >> 60 != 15)
+        v12 = outlined bridged method (ob) of @objc INImage._imageData.getter(v1);
+        if (v13 >> 60 != 15)
         {
-          v39 = v14;
-          v40 = v15;
-          v41 = *(v2 + 32);
-          static WorkflowDataModels.getThumbnail(imageData:)();
-          outlined consume of Data?(v39, v40);
+          v30 = v12;
+          v31 = v13;
+          static WorkflowDataModels.getThumbnail(imageData:)(v12, v13);
+          outlined consume of Data?(v30, v31);
 
 LABEL_11:
-          v34 = *(v2 + 120);
-          v33 = *(v2 + 128);
-          v35 = *(v2 + 112);
-          v36 = *(v2 + 88);
 
           OUTLINED_FUNCTION_11_1();
           OUTLINED_FUNCTION_171();
@@ -7679,20 +6805,18 @@ LABEL_11:
   }
 
   OUTLINED_FUNCTION_108();
-  v16 = OUTLINED_FUNCTION_154();
-  v17(v16);
+  v14 = OUTLINED_FUNCTION_154();
+  v15(v14);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMd, &_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMR);
-  v18 = type metadata accessor for _ProtoIdiom();
-  OUTLINED_FUNCTION_2_0(v18);
-  v20 = v19;
-  v22 = *(v21 + 72);
-  v23 = *(v19 + 80);
+  v16 = type metadata accessor for _ProtoIdiom();
+  OUTLINED_FUNCTION_2_0();
+  v18 = v17;
   OUTLINED_FUNCTION_93();
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_43980;
-  (*(v20 + 104))(v24 + v5, enum case for _ProtoIdiom.default(_:), v18);
-  v25 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v24);
-  OUTLINED_FUNCTION_139(v25, v26, v27, v28, v29, v30, v31, v32, v42, v43, v44);
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_43980;
+  (*(v18 + 104))(v19 + v5, enum case for _ProtoIdiom.default(_:), v16);
+  v20 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v19);
+  OUTLINED_FUNCTION_139(v20, v21, v22, v23, v24, v25, v26, v27, v32, v33, v34);
 
   (*(v3 + 8))(v1, v4);
   ImageElement.convertToVisualProperty()();
@@ -7700,114 +6824,102 @@ LABEL_11:
   goto LABEL_11;
 }
 
-uint64_t static WorkflowDataModels.getThumbnail(imageData:)()
+uint64_t static WorkflowDataModels.getThumbnail(imageData:)(uint64_t a1, uint64_t a2)
 {
-  v3 = type metadata accessor for ImageElement.ImageStyle();
-  v4 = OUTLINED_FUNCTION_2_0(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v4);
+  v5 = type metadata accessor for ImageElement.ImageStyle();
+  OUTLINED_FUNCTION_2_0();
+  v7 = v6;
+  __chkstk_darwin(v8);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_91();
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit12ImageElementV11AspectRatioVSgMd, &_s10SnippetKit12ImageElementV11AspectRatioVSgMR);
   OUTLINED_FUNCTION_4(v9);
-  v11 = *(v10 + 64);
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v10);
   OUTLINED_FUNCTION_43();
-  v30 = type metadata accessor for ImageElement();
-  v13 = OUTLINED_FUNCTION_2_0(v30);
-  v15 = v14;
-  v17 = *(v16 + 64);
+  v23 = type metadata accessor for ImageElement();
+  OUTLINED_FUNCTION_2_0();
+  v12 = v11;
   __chkstk_darwin(v13);
   OUTLINED_FUNCTION_3_5();
-  v20 = v19 - v18;
-  v21 = type metadata accessor for ImageElement.AspectRatio();
-  __swift_storeEnumTagSinglePayload(v2, 1, 1, v21);
-  (*(v6 + 104))(v0, enum case for ImageElement.ImageStyle.default(_:), v3);
+  v16 = v15 - v14;
+  v17 = type metadata accessor for ImageElement.AspectRatio();
+  __swift_storeEnumTagSinglePayload(v4, 1, 1, v17);
+  (*(v7 + 104))(v2, enum case for ImageElement.ImageStyle.default(_:), v5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMd, &_ss23_ContiguousArrayStorageCy10SnippetKit11_ProtoIdiomOGMR);
-  v22 = type metadata accessor for _ProtoIdiom();
-  OUTLINED_FUNCTION_2_0(v22);
-  v24 = v23;
-  v26 = *(v25 + 72);
-  v27 = *(v23 + 80);
+  v18 = type metadata accessor for _ProtoIdiom();
+  OUTLINED_FUNCTION_2_0();
+  v20 = v19;
   OUTLINED_FUNCTION_93();
-  v28 = swift_allocObject();
-  *(v28 + 16) = xmmword_43980;
-  (*(v24 + 104))(v28 + v1, enum case for _ProtoIdiom.default(_:), v22);
-  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v28);
+  v21 = swift_allocObject();
+  *(v21 + 16) = xmmword_43980;
+  (*(v20 + 104))(v21 + v3, enum case for _ProtoIdiom.default(_:), v18);
+  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10SnippetKit11_ProtoIdiomO_Tt0gq5(v21);
   static ImageElement.pngData(_:darkModeData:imageStyle:aspectRatio:fixedWidth:fixedHeight:idioms:)();
 
-  (*(v6 + 8))(v0, v3);
-  outlined destroy of StandardActionHandler?(v2, &_s10SnippetKit12ImageElementV11AspectRatioVSgMd, &_s10SnippetKit12ImageElementV11AspectRatioVSgMR);
+  (*(v7 + 8))(v2, v5);
+  outlined destroy of StandardActionHandler?(v4, &_s10SnippetKit12ImageElementV11AspectRatioVSgMd, &_s10SnippetKit12ImageElementV11AspectRatioVSgMR);
   ImageElement.convertToVisualProperty()();
-  return (*(v15 + 8))(v20, v30);
+  return (*(v12 + 8))(v16, v23);
 }
 
 uint64_t static WorkflowDataModels.modelForShowAlert(deviceState:shortcutName:confirmLabel:cancelLabel:title:message:)()
 {
-  v1 = *(v0 + 24);
-  v2 = v1[4];
-  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
+  __swift_project_boxed_opaque_existential_1(*(v0 + 24), *(*(v0 + 24) + 24));
   OUTLINED_FUNCTION_163();
   if (dispatch thunk of DeviceState.isWatch.getter())
   {
-    v4 = *(v0 + 64);
-    v3 = *(v0 + 72);
-    v5 = (v0 + 40);
-    v18 = *(v0 + 32);
-    v20 = *(v0 + 48);
-    v6 = *(v0 + 16);
-    v6[3] = &type metadata for WorkflowDataModels.WatchModel;
-    v6[4] = &protocol witness table for WorkflowDataModels.WatchModel;
+    v2 = *(v0 + 64);
+    v1 = *(v0 + 72);
+    v12 = *(v0 + 32);
+    v14 = *(v0 + 48);
+    v3 = *(v0 + 16);
+    v3[3] = &type metadata for WorkflowDataModels.WatchModel;
+    v3[4] = &protocol witness table for WorkflowDataModels.WatchModel;
     OUTLINED_FUNCTION_120();
-    v7 = swift_allocObject();
-    *v6 = v7;
-    *(v7 + 16) = v18;
-    *(v7 + 32) = v20;
-    *(v7 + 48) = v4;
-    *(v7 + 56) = v3;
-    *(v7 + 64) = 0u;
-    *(v7 + 80) = 0u;
+    v4 = swift_allocObject();
+    *v3 = v4;
+    *(v4 + 16) = v12;
+    *(v4 + 32) = v14;
+    *(v4 + 48) = v2;
+    *(v4 + 56) = v1;
+    *(v4 + 64) = 0u;
+    *(v4 + 80) = 0u;
   }
 
   else
   {
-    v5 = (v0 + 104);
-    v8 = *(v0 + 104);
-    v9 = *(v0 + 88);
-    v10 = *(v0 + 96);
-    v11 = *(v0 + 80);
-    v19 = *(v0 + 48);
-    v21 = *(v0 + 64);
-    v12 = *(v0 + 16);
-    v12[3] = &type metadata for WorkflowDataModels.ShowAlertModel;
-    v12[4] = &protocol witness table for WorkflowDataModels.ShowAlertModel;
-    v13 = swift_allocObject();
-    *v12 = v13;
-    *(v13 + 16) = v19;
-    *(v13 + 32) = v21;
-    *(v13 + 48) = v11;
-    *(v13 + 56) = v9;
-    *(v13 + 64) = v10;
-    *(v13 + 72) = v8;
+    v5 = *(v0 + 104);
+    v6 = *(v0 + 88);
+    v7 = *(v0 + 96);
+    v8 = *(v0 + 80);
+    v13 = *(v0 + 48);
+    v15 = *(v0 + 64);
+    v9 = *(v0 + 16);
+    v9[3] = &type metadata for WorkflowDataModels.ShowAlertModel;
+    v9[4] = &protocol witness table for WorkflowDataModels.ShowAlertModel;
+    v10 = swift_allocObject();
+    *v9 = v10;
+    *(v10 + 16) = v13;
+    *(v10 + 32) = v15;
+    *(v10 + 48) = v8;
+    *(v10 + 56) = v6;
+    *(v10 + 64) = v7;
+    *(v10 + 72) = v5;
   }
 
-  v14 = *v5;
-  v15 = *(v0 + 72);
-  v16 = *(v0 + 56);
-  v22 = *(v0 + 8);
+  v16 = *(v0 + 8);
 
-  return v22();
+  return v16();
 }
 
 uint64_t static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intentResponse:doneButtonCommand:deviceState:shortcutName:title:image:doneButtonLabel:shouldShowDoneButton:)()
 {
   OUTLINED_FUNCTION_2_11();
-  *(v0 + 160) = v21;
-  *(v0 + 96) = v20;
-  *(v0 + 64) = v18;
-  *(v0 + 80) = v19;
+  *(v0 + 160) = v17;
+  *(v0 + 96) = v16;
+  *(v0 + 64) = v14;
+  *(v0 + 80) = v15;
   *(v0 + 48) = v1;
   *(v0 + 56) = v2;
   *(v0 + 32) = v3;
@@ -7816,95 +6928,84 @@ uint64_t static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intent
   *(v0 + 24) = v6;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMd, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMR);
   OUTLINED_FUNCTION_4(v7);
-  v9 = *(v8 + 64) + 15;
   *(v0 + 104) = swift_task_alloc();
   *(v0 + 112) = swift_task_alloc();
-  v10 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-  *(v0 + 120) = v10;
-  OUTLINED_FUNCTION_4(v10);
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+  *(v0 + 120) = v8;
+  OUTLINED_FUNCTION_4(v8);
   *(v0 + 128) = swift_task_alloc();
-  v13 = OUTLINED_FUNCTION_102();
+  v9 = OUTLINED_FUNCTION_102();
 
-  return _swift_task_switch(v13, v14, v15);
+  return _swift_task_switch(v9, v10, v11);
 }
 
 {
-  v1 = *(v0 + 56);
-  v2 = v1[4];
-  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
+  __swift_project_boxed_opaque_existential_1(*(v0 + 56), *(*(v0 + 56) + 24));
   OUTLINED_FUNCTION_163();
   if (dispatch thunk of DeviceState.isWatch.getter())
   {
-    v3 = *(v0 + 16);
-    v4 = [*(v0 + 32) _title];
-    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v7 = v6;
+    v1 = *(v0 + 16);
+    v2 = [*(v0 + 32) _title];
+    v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v5 = v4;
 
-    v3[3] = &type metadata for WorkflowDataModels.WatchModel;
-    v3[4] = &protocol witness table for WorkflowDataModels.WatchModel;
+    v1[3] = &type metadata for WorkflowDataModels.WatchModel;
+    v1[4] = &protocol witness table for WorkflowDataModels.WatchModel;
     OUTLINED_FUNCTION_120();
-    v8 = swift_allocObject();
-    *v3 = v8;
-    *(v8 + 16) = v5;
-    *(v8 + 24) = v7;
-    *(v8 + 32) = 0u;
-    *(v8 + 48) = 0u;
-    *(v8 + 64) = 0u;
-    *(v8 + 80) = 0u;
-    v9 = *(v0 + 128);
-    v10 = *(v0 + 104);
-    v11 = *(v0 + 112);
+    v6 = swift_allocObject();
+    *v1 = v6;
+    *(v6 + 16) = v3;
+    *(v6 + 24) = v5;
+    *(v6 + 32) = 0u;
+    *(v6 + 48) = 0u;
+    *(v6 + 64) = 0u;
+    *(v6 + 80) = 0u;
 
     OUTLINED_FUNCTION_11_1();
 
-    return v12();
+    return v7();
   }
 
   else
   {
-    v15 = *(v0 + 120);
-    v14 = *(v0 + 128);
-    v17 = *(v0 + 32);
-    v16 = *(v0 + 40);
-    v18 = *(v0 + 24);
+    v10 = *(v0 + 120);
+    v9 = *(v0 + 128);
+    v12 = *(v0 + 32);
+    v11 = *(v0 + 40);
     type metadata accessor for NSKeyedUnarchiver(0, &lazy cache variable for type metadata for SAIntentGroupLaunchAppWithIntent, SAIntentGroupLaunchAppWithIntent_ptr);
-    v19 = v16;
+    v13 = v11;
     OUTLINED_FUNCTION_99();
-    v20 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
-    *(v0 + 136) = v20;
+    v14 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
+    *(v0 + 136) = v14;
     type metadata accessor for NSKeyedUnarchiver(0, &lazy cache variable for type metadata for INInteraction, INInteraction_ptr);
-    v21 = v17;
-    v30.value.super.isa = v16;
-    isa = INInteraction.__allocating_init(intent:response:)(v21, v30).super.isa;
+    v15 = v12;
+    v22.value.super.isa = v11;
+    isa = INInteraction.__allocating_init(intent:response:)(v15, v22).super.isa;
     *(v0 + 144) = isa;
-    v23 = v20;
+    v17 = v14;
     CodableAceObject.init(wrappedValue:)();
-    v24 = *(v15 + 20);
-    v25 = isa;
+    v18 = isa;
     CodableINInteraction.init(wrappedValue:)();
-    v26 = *(v15 + 24);
-    v27 = swift_task_alloc();
-    *(v0 + 152) = v27;
-    *v27 = v0;
-    v27[1] = static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intentResponse:doneButtonCommand:deviceState:shortcutName:title:image:doneButtonLabel:shouldShowDoneButton:);
-    v28 = *(v0 + 80);
+    v19 = *(v10 + 24);
+    v20 = swift_task_alloc();
+    *(v0 + 152) = v20;
+    *v20 = v0;
+    v20[1] = static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intentResponse:doneButtonCommand:deviceState:shortcutName:title:image:doneButtonLabel:shouldShowDoneButton:);
 
-    return INImage.convertToVisualProperty()(v14 + v26);
+    return INImage.convertToVisualProperty()(v9 + v19);
   }
 }
 
 {
   OUTLINED_FUNCTION_2_11();
   OUTLINED_FUNCTION_4_5();
-  v2 = *(v1 + 152);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_102();
+  v3 = OUTLINED_FUNCTION_102();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3, v4, v5);
 }
 
 {
@@ -7922,11 +7023,10 @@ uint64_t static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intent
   {
     v9 = *(v0 + 104);
     v8 = *(v0 + 112);
-    v10 = *(v0 + 72);
-    v11 = *(v0 + 48);
+    v10 = *(v0 + 48);
     type metadata accessor for NSKeyedUnarchiver(0, &lazy cache variable for type metadata for SAStartLocalRequest, SAStartLocalRequest_ptr);
 
-    v12 = v11;
+    v11 = v10;
     CodableAceObject.init(wrappedValue:)();
 
     outlined destroy of StandardActionHandler?(v8, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMd, &_s10SnippetKit16CodableAceObjectVySo19SAStartLocalRequestCGSgMR);
@@ -7936,35 +7036,28 @@ uint64_t static WorkflowDataModels.modelForCustomIntentHandled(app:intent:intent
 
   else
   {
-    v13 = *(v0 + 72);
   }
 
-  v14 = *(v0 + 128);
-  v15 = *(v0 + 112);
-  v16 = *(v0 + 160);
-  v18 = *(v0 + 88);
-  v17 = *(v0 + 96);
-  v19 = *(v0 + 16);
-  v20 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
-  v19[3] = v20;
-  v19[4] = &protocol witness table for WorkflowDataModels.CustomIntentHandledModel;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v19);
+  v12 = *(v0 + 160);
+  v14 = *(v0 + 88);
+  v13 = *(v0 + 96);
+  v15 = *(v0 + 16);
+  v16 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
+  v15[3] = v16;
+  v15[4] = &protocol witness table for WorkflowDataModels.CustomIntentHandledModel;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v15);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_99();
   outlined init with take of WorkflowDataModels.CustomIntentModel();
-  v22 = (boxed_opaque_existential_1 + v20[5]);
-  *v22 = v18;
-  v22[1] = v17;
-  v23 = v20[6];
+  v18 = (boxed_opaque_existential_1 + *(v16 + 20));
+  *v18 = v14;
+  v18[1] = v13;
   outlined init with take of VisualProperty?();
-  *(boxed_opaque_existential_1 + v20[7]) = v16;
-  v24 = *(v0 + 128);
-  v26 = *(v0 + 104);
-  v25 = *(v0 + 112);
+  *(boxed_opaque_existential_1 + *(v16 + 28)) = v12;
 
   OUTLINED_FUNCTION_11_1();
 
-  return v27();
+  return v19();
 }
 
 INInteraction __swiftcall INInteraction.__allocating_init(intent:response:)(INIntent intent, INIntentResponse_optional response)
@@ -7977,91 +7070,84 @@ INInteraction __swiftcall INInteraction.__allocating_init(intent:response:)(INIn
 
 uint64_t static WorkflowDataModels.modelForCustomIntentConfirmation(app:intent:intentResponse:deviceState:confirmLabel:cancelLabel:title:image:)()
 {
-  v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
-  v4 = *(v0 + 24);
-  v3 = *(v0 + 32);
+  v1 = *(v0 + 48);
   type metadata accessor for NSKeyedUnarchiver(0, &lazy cache variable for type metadata for SAIntentGroupLaunchAppWithIntent, SAIntentGroupLaunchAppWithIntent_ptr);
-  v5 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
-  *(v0 + 112) = v5;
-  v6 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
+  v2 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
+  *(v0 + 112) = v2;
+  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
   if (dispatch thunk of DeviceState.isWatch.getter())
   {
-    v8 = *(v0 + 72);
-    v7 = *(v0 + 80);
-    v10 = *(v0 + 56);
-    v9 = *(v0 + 64);
-    v11 = *(v0 + 16);
-    v12 = [*(v0 + 32) _title];
-    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v15 = v14;
+    v4 = *(v0 + 72);
+    v3 = *(v0 + 80);
+    v6 = *(v0 + 56);
+    v5 = *(v0 + 64);
+    v7 = *(v0 + 16);
+    v8 = [*(v0 + 32) _title];
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
 
-    v11[3] = &type metadata for WorkflowDataModels.WatchModel;
-    v11[4] = &protocol witness table for WorkflowDataModels.WatchModel;
+    v7[3] = &type metadata for WorkflowDataModels.WatchModel;
+    v7[4] = &protocol witness table for WorkflowDataModels.WatchModel;
     OUTLINED_FUNCTION_120();
-    v16 = swift_allocObject();
-    *v11 = v16;
+    v12 = swift_allocObject();
+    *v7 = v12;
 
-    *(v16 + 16) = v13;
-    *(v16 + 24) = v15;
-    *(v16 + 32) = v10;
-    *(v16 + 40) = v9;
-    *(v16 + 48) = v8;
-    *(v16 + 56) = v7;
-    *(v16 + 64) = 0u;
-    *(v16 + 80) = 0u;
+    *(v12 + 16) = v9;
+    *(v12 + 24) = v11;
+    *(v12 + 32) = v6;
+    *(v12 + 40) = v5;
+    *(v12 + 48) = v4;
+    *(v12 + 56) = v3;
+    *(v12 + 64) = 0u;
+    *(v12 + 80) = 0u;
     OUTLINED_FUNCTION_11_1();
 
-    return v17();
+    return v13();
   }
 
   else
   {
-    v20 = *(v0 + 32);
-    v19 = *(v0 + 40);
-    v21 = *(v0 + 16);
+    v16 = *(v0 + 32);
+    v15 = *(v0 + 40);
+    v17 = *(v0 + 16);
     type metadata accessor for NSKeyedUnarchiver(0, &lazy cache variable for type metadata for INInteraction, INInteraction_ptr);
-    v22 = v19;
-    v23 = v20;
-    v35.value.super.isa = v19;
-    isa = INInteraction.__allocating_init(intent:response:)(v23, v35).super.isa;
+    v18 = v15;
+    v19 = v16;
+    v29.value.super.isa = v15;
+    isa = INInteraction.__allocating_init(intent:response:)(v19, v29).super.isa;
     *(v0 + 120) = isa;
-    v25 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
-    *(v0 + 128) = v25;
-    v21[3] = v25;
-    v21[4] = &protocol witness table for WorkflowDataModels.CustomIntentConfirmationModel;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v21);
+    v21 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
+    *(v0 + 128) = v21;
+    v17[3] = v21;
+    v17[4] = &protocol witness table for WorkflowDataModels.CustomIntentConfirmationModel;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v17);
     *(v0 + 136) = boxed_opaque_existential_1;
-    v27 = v5;
+    v23 = v2;
     CodableAceObject.init(wrappedValue:)();
-    v28 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
-    *(v0 + 144) = v28;
-    v29 = *(v28 + 20);
-    v30 = isa;
+    v24 = type metadata accessor for WorkflowDataModels.CustomIntentModel(0);
+    *(v0 + 144) = v24;
+    v25 = isa;
     CodableINInteraction.init(wrappedValue:)();
-    v31 = *(v28 + 24);
-    v32 = swift_task_alloc();
-    *(v0 + 152) = v32;
-    *v32 = v0;
-    v32[1] = static WorkflowDataModels.modelForCustomIntentConfirmation(app:intent:intentResponse:deviceState:confirmLabel:cancelLabel:title:image:);
-    v33 = *(v0 + 104);
+    v26 = *(v24 + 24);
+    v27 = swift_task_alloc();
+    *(v0 + 152) = v27;
+    *v27 = v0;
+    v27[1] = static WorkflowDataModels.modelForCustomIntentConfirmation(app:intent:intentResponse:deviceState:confirmLabel:cancelLabel:title:image:);
 
-    return INImage.convertToVisualProperty()(boxed_opaque_existential_1 + v31);
+    return INImage.convertToVisualProperty()(boxed_opaque_existential_1 + v26);
   }
 }
 
 {
   OUTLINED_FUNCTION_2_11();
   OUTLINED_FUNCTION_4_5();
-  v2 = *(v1 + 152);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_1_11();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_102();
+  v3 = OUTLINED_FUNCTION_102();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3, v4, v5);
 }
 
 {
@@ -8569,141 +7655,116 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WorkflowDataModels.encode(to:)()
+void WorkflowDataModels.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_75();
-  v3 = v2;
-  v210 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v210);
-  v5 = *(v4 + 64);
+  v4 = v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v5);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v6);
   OUTLINED_FUNCTION_11_0();
-  v208 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v208);
-  v8 = *(v7 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v7);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v8);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v9);
   OUTLINED_FUNCTION_11_0();
-  v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v207);
-  v11 = *(v10 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v10);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v11);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v12);
   OUTLINED_FUNCTION_11_0();
-  v206 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v206);
-  v14 = *(v13 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v13);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v14);
+  OUTLINED_FUNCTION_11_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v15);
   OUTLINED_FUNCTION_11_0();
-  v205 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v205);
-  v17 = *(v16 + 64);
+  v16 = OUTLINED_FUNCTION_136();
+  type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(v16);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v17);
+  OUTLINED_FUNCTION_3_5();
+  v139 = v19 - v18;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v20);
   OUTLINED_FUNCTION_11_0();
-  v204 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v204);
-  v20 = *(v19 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v21);
-  OUTLINED_FUNCTION_11_0();
-  v203 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v203);
-  v187 = v22;
-  v24 = *(v23 + 64);
+  v21 = OUTLINED_FUNCTION_136();
+  type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(v21);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v22);
+  OUTLINED_FUNCTION_3_5();
+  v138 = v24 - v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v25);
   OUTLINED_FUNCTION_11_0();
-  v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v202);
-  v186 = v26;
-  v28 = *(v27 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v29);
-  OUTLINED_FUNCTION_11_0();
-  v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v201);
-  v31 = *(v30 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v32);
-  OUTLINED_FUNCTION_11_0();
-  v200 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v200);
-  v34 = *(v33 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v35);
-  OUTLINED_FUNCTION_11_0();
-  v199 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v199);
-  v37 = *(v36 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v38);
-  OUTLINED_FUNCTION_11_0();
-  v39 = OUTLINED_FUNCTION_136();
-  v197 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(v39);
-  v40 = OUTLINED_FUNCTION_0_1(v197);
-  v42 = *(v41 + 64);
-  __chkstk_darwin(v40);
+  v26 = OUTLINED_FUNCTION_136();
+  type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(v26);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v27);
   OUTLINED_FUNCTION_3_5();
-  v198 = v44 - v43;
-  v196 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v196);
-  v46 = *(v45 + 64);
+  v137 = v29 - v28;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v47);
-  OUTLINED_FUNCTION_11_0();
-  v48 = OUTLINED_FUNCTION_136();
-  v194 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(v48);
-  v49 = OUTLINED_FUNCTION_0_1(v194);
-  v51 = *(v50 + 64);
-  __chkstk_darwin(v49);
-  OUTLINED_FUNCTION_3_5();
-  v195 = v53 - v52;
-  v193 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v193);
-  v55 = *(v54 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v56);
-  OUTLINED_FUNCTION_11_0();
-  v57 = OUTLINED_FUNCTION_136();
-  v191 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(v57);
-  v58 = OUTLINED_FUNCTION_0_1(v191);
-  v60 = *(v59 + 64);
-  __chkstk_darwin(v58);
-  OUTLINED_FUNCTION_3_5();
-  v192 = v62 - v61;
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v63);
-  v190 = v64;
-  v66 = *(v65 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v67);
+  __chkstk_darwin(v30);
   OUTLINED_FUNCTION_45();
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  v69 = OUTLINED_FUNCTION_2_0(v68);
-  v188 = v70;
-  v189 = v69;
-  v72 = *(v71 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v135 = v32;
+  v136 = v31;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v73);
+  __chkstk_darwin(v33);
   OUTLINED_FUNCTION_44();
-  v74 = type metadata accessor for WorkflowDataModels(0);
-  v75 = OUTLINED_FUNCTION_0_1(v74);
-  v77 = *(v76 + 64);
-  __chkstk_darwin(v75);
+  type metadata accessor for WorkflowDataModels(0);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v34);
   OUTLINED_FUNCTION_3_5();
   OUTLINED_FUNCTION_91();
-  v213 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v213);
-  v212 = v78;
-  v80 = *(v79 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v81);
+  __chkstk_darwin(v35);
   OUTLINED_FUNCTION_42();
-  v82 = v3[4];
-  OUTLINED_FUNCTION_52(v3, v3[3]);
+  OUTLINED_FUNCTION_52(v4, v4[3]);
   lazy protocol witness table accessor for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   outlined init with copy of WorkflowDataModels.CustomIntentModel();
@@ -8711,247 +7772,254 @@ void WorkflowDataModels.encode(to:)()
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v136 = v0[1];
-      v137 = v0[3];
-      v209 = v0[2];
-      v211 = *v0;
-      v139 = v0[4];
-      v138 = v0[5];
+      v88 = v1[1];
+      v89 = v1[3];
+      v140 = v1[2];
+      v141 = *v1;
+      v91 = v1[4];
+      v90 = v1[5];
       lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCViewCodingKeys and conformance WorkflowDataModels.EnableTCCViewCodingKeys();
       OUTLINED_FUNCTION_89();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v214 = v211;
-      *(&v214 + 1) = v136;
-      *&v215 = v209;
-      *(&v215 + 1) = v137;
-      *&v216 = v139;
-      *(&v216 + 1) = v138;
+      *&v143 = v141;
+      *(&v143 + 1) = v88;
+      *&v144 = v140;
+      *(&v144 + 1) = v89;
+      *&v145 = v91;
+      *(&v145 + 1) = v90;
       lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCModel and conformance WorkflowDataModels.EnableTCCModel();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v140 = *(v190 + 8);
-      v141 = OUTLINED_FUNCTION_58();
-      v142(v141);
-      v143 = OUTLINED_FUNCTION_17_0();
-      v144(v143);
+      v92 = OUTLINED_FUNCTION_58();
+      v93(v92);
+      v94 = OUTLINED_FUNCTION_17_0();
+      v95(v94);
 
       goto LABEL_19;
     case 2u:
-      v103 = v192;
+      v56 = v137;
       outlined init with take of WorkflowDataModels.CustomIntentModel();
-      LOBYTE(v214) = 2;
+      LOBYTE(v143) = 2;
       lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationViewCodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
+      OUTLINED_FUNCTION_14_0(&unk_5BC88);
       OUTLINED_FUNCTION_70();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v124);
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v77);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v125 = OUTLINED_FUNCTION_17_0();
-      v126(v125);
-      v107 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel;
+      v78 = OUTLINED_FUNCTION_17_0();
+      v79(v78);
+      v60 = type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel;
       goto LABEL_10;
     case 3u:
-      v103 = v195;
+      v56 = v138;
       outlined init with take of WorkflowDataModels.CustomIntentModel();
-      LOBYTE(v214) = 3;
+      LOBYTE(v143) = 3;
       lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentErrorViewCodingKeys and conformance WorkflowDataModels.CustomIntentErrorViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
+      OUTLINED_FUNCTION_14_0(&unk_5BD18);
       OUTLINED_FUNCTION_68();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v127);
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v80);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v128 = OUTLINED_FUNCTION_17_0();
-      v129(v128);
-      v107 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel;
+      v81 = OUTLINED_FUNCTION_17_0();
+      v82(v81);
+      v60 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel;
       goto LABEL_10;
     case 4u:
-      v103 = v198;
+      v56 = v139;
       outlined init with take of WorkflowDataModels.CustomIntentModel();
-      LOBYTE(v214) = 4;
+      LOBYTE(v143) = 4;
       lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledViewCodingKeys and conformance WorkflowDataModels.CustomIntentHandledViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
+      OUTLINED_FUNCTION_14_0(&unk_5BDA8);
       OUTLINED_FUNCTION_71();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v104);
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v57);
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v105 = OUTLINED_FUNCTION_17_0();
-      v106(v105);
-      v107 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel;
+      v58 = OUTLINED_FUNCTION_17_0();
+      v59(v58);
+      v60 = type metadata accessor for WorkflowDataModels.CustomIntentHandledModel;
 LABEL_10:
-      outlined destroy of WorkflowDataModels.CustomIntentModel(v103, v107);
-      v130 = OUTLINED_FUNCTION_7_3();
-      v131(v130);
+      outlined destroy of WorkflowDataModels.CustomIntentModel(v56, v60);
+      v83 = OUTLINED_FUNCTION_7_3();
+      v84(v83);
       break;
     case 5u:
-      v145 = OUTLINED_FUNCTION_95();
-      memcpy(v145, v146, 0x68uLL);
+      v96 = OUTLINED_FUNCTION_95();
+      memcpy(v96, v97, 0x68uLL);
+      LOBYTE(v142[0]) = 5;
       lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionViewCodingKeys and conformance WorkflowDataModels.ConfirmActionViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v147 = OUTLINED_FUNCTION_96();
-      memcpy(v147, v148, 0x68uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5BE38);
+      v98 = OUTLINED_FUNCTION_96();
+      memcpy(v98, v99, 0x68uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionModel and conformance WorkflowDataModels.ConfirmActionModel();
-      OUTLINED_FUNCTION_65();
-      v149 = OUTLINED_FUNCTION_17_0();
-      v150(v149);
-      v151 = OUTLINED_FUNCTION_7_3();
-      v152(v151);
-      outlined destroy of WorkflowDataModels.ConfirmActionModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v100 = OUTLINED_FUNCTION_17_0();
+      v101(v100);
+      v102 = OUTLINED_FUNCTION_7_3();
+      v103(v102);
+      outlined destroy of WorkflowDataModels.ConfirmActionModel(&v143);
       break;
     case 6u:
-      v161 = OUTLINED_FUNCTION_95();
-      memcpy(v161, v162, 0x50uLL);
+      v112 = OUTLINED_FUNCTION_95();
+      memcpy(v112, v113, 0x50uLL);
+      LOBYTE(v142[0]) = 6;
       lazy protocol witness table accessor for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v163 = OUTLINED_FUNCTION_96();
-      memcpy(v163, v164, 0x50uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5BEC8);
+      v114 = OUTLINED_FUNCTION_96();
+      memcpy(v114, v115, 0x50uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel();
-      OUTLINED_FUNCTION_65();
-      v165 = OUTLINED_FUNCTION_17_0();
-      v166(v165);
-      v167 = OUTLINED_FUNCTION_7_3();
-      v168(v167);
-      outlined destroy of WorkflowDataModels.WatchModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v116 = OUTLINED_FUNCTION_17_0();
+      v117(v116);
+      v118 = OUTLINED_FUNCTION_7_3();
+      v119(v118);
+      outlined destroy of WorkflowDataModels.WatchModel(&v143);
       break;
     case 7u:
-      v133 = *v0;
-      v132 = v0[1];
-      v134 = v0[2];
+      v86 = *v1;
+      v85 = v1[1];
+      v87 = v1[2];
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys();
       OUTLINED_FUNCTION_57();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v214 = v133;
-      *(&v214 + 1) = v132;
-      *&v215 = v134;
+      *&v143 = v86;
+      *(&v143 + 1) = v85;
+      *&v144 = v87;
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v135 = v186;
       goto LABEL_18;
     case 8u:
-      v178 = *v0;
-      v177 = v0[1];
-      v179 = v0[2];
+      v129 = *v1;
+      v128 = v1[1];
+      v130 = v1[2];
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys();
       OUTLINED_FUNCTION_57();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      *&v214 = v178;
-      *(&v214 + 1) = v177;
-      *&v215 = v179;
+      *&v143 = v129;
+      *(&v143 + 1) = v128;
+      *&v144 = v130;
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v135 = v187;
 LABEL_18:
-      v180 = *(v135 + 8);
-      v181 = OUTLINED_FUNCTION_82();
-      v182(v181);
-      v183 = *(v212 + 8);
-      v184 = OUTLINED_FUNCTION_64();
-      v185(v184);
+      v131 = OUTLINED_FUNCTION_82();
+      v132(v131);
+      v133 = OUTLINED_FUNCTION_64();
+      v134(v133);
 
 LABEL_19:
 
       break;
     case 9u:
-      v116 = OUTLINED_FUNCTION_95();
-      memcpy(v116, v117, 0x58uLL);
+      v69 = OUTLINED_FUNCTION_95();
+      memcpy(v69, v70, 0x58uLL);
+      LOBYTE(v142[0]) = 9;
       lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v118 = OUTLINED_FUNCTION_96();
-      memcpy(v118, v119, 0x58uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C078);
+      v71 = OUTLINED_FUNCTION_96();
+      memcpy(v71, v72, 0x58uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel();
-      OUTLINED_FUNCTION_65();
-      v120 = OUTLINED_FUNCTION_17_0();
-      v121(v120);
-      v122 = OUTLINED_FUNCTION_7_3();
-      v123(v122);
-      outlined destroy of WorkflowDataModels.LinkMultiChoiceModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v73 = OUTLINED_FUNCTION_17_0();
+      v74(v73);
+      v75 = OUTLINED_FUNCTION_7_3();
+      v76(v75);
+      outlined destroy of WorkflowDataModels.LinkMultiChoiceModel(&v143);
       break;
     case 0xAu:
-      v169 = OUTLINED_FUNCTION_95();
-      memcpy(v169, v170, 0x50uLL);
+      v120 = OUTLINED_FUNCTION_95();
+      memcpy(v120, v121, 0x50uLL);
+      LOBYTE(v142[0]) = 10;
       lazy protocol witness table accessor for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v171 = OUTLINED_FUNCTION_96();
-      memcpy(v171, v172, 0x50uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C108);
+      v122 = OUTLINED_FUNCTION_96();
+      memcpy(v122, v123, 0x50uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
-      OUTLINED_FUNCTION_65();
-      v173 = OUTLINED_FUNCTION_17_0();
-      v174(v173);
-      v175 = OUTLINED_FUNCTION_7_3();
-      v176(v175);
-      outlined destroy of WorkflowDataModels.LinkActionModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v124 = OUTLINED_FUNCTION_17_0();
+      v125(v124);
+      v126 = OUTLINED_FUNCTION_7_3();
+      v127(v126);
+      outlined destroy of WorkflowDataModels.LinkActionModel(&v143);
       break;
     case 0xBu:
-      v95 = OUTLINED_FUNCTION_95();
-      memcpy(v95, v96, 0x71uLL);
+      v48 = OUTLINED_FUNCTION_95();
+      memcpy(v48, v49, 0x71uLL);
+      LOBYTE(v142[0]) = 11;
       lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v97 = OUTLINED_FUNCTION_96();
-      memcpy(v97, v98, 0x71uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C198);
+      v50 = OUTLINED_FUNCTION_96();
+      memcpy(v50, v51, 0x71uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel();
-      OUTLINED_FUNCTION_65();
-      v99 = OUTLINED_FUNCTION_17_0();
-      v100(v99);
-      v101 = OUTLINED_FUNCTION_7_3();
-      v102(v101);
-      outlined destroy of WorkflowDataModels.LinkConfirmationModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v52 = OUTLINED_FUNCTION_17_0();
+      v53(v52);
+      v54 = OUTLINED_FUNCTION_7_3();
+      v55(v54);
+      outlined destroy of WorkflowDataModels.LinkConfirmationModel(&v143);
       break;
     case 0xCu:
-      v108 = OUTLINED_FUNCTION_95();
-      memcpy(v108, v109, 0x58uLL);
+      v61 = OUTLINED_FUNCTION_95();
+      memcpy(v61, v62, 0x58uLL);
+      LOBYTE(v142[0]) = 12;
       lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v110 = OUTLINED_FUNCTION_96();
-      memcpy(v110, v111, 0x58uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C228);
+      v63 = OUTLINED_FUNCTION_96();
+      memcpy(v63, v64, 0x58uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel();
-      OUTLINED_FUNCTION_65();
-      v112 = OUTLINED_FUNCTION_17_0();
-      v113(v112);
-      v114 = OUTLINED_FUNCTION_7_3();
-      v115(v114);
-      outlined destroy of WorkflowDataModels.LinkPromptForValueModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v65 = OUTLINED_FUNCTION_17_0();
+      v66(v65);
+      v67 = OUTLINED_FUNCTION_7_3();
+      v68(v67);
+      outlined destroy of WorkflowDataModels.LinkPromptForValueModel(&v143);
       break;
     case 0xDu:
-      v153 = OUTLINED_FUNCTION_95();
-      memcpy(v153, v154, 0x50uLL);
+      v104 = OUTLINED_FUNCTION_95();
+      memcpy(v104, v105, 0x50uLL);
+      LOBYTE(v142[0]) = 13;
       lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v155 = OUTLINED_FUNCTION_96();
-      memcpy(v155, v156, 0x50uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C2B8);
+      v106 = OUTLINED_FUNCTION_96();
+      memcpy(v106, v107, 0x50uLL);
       lazy protocol witness table accessor for type AutoShortcutAppPhrasesViewModel and conformance AutoShortcutAppPhrasesViewModel();
-      OUTLINED_FUNCTION_65();
-      v157 = OUTLINED_FUNCTION_17_0();
-      v158(v157);
-      v159 = OUTLINED_FUNCTION_7_3();
-      v160(v159);
-      outlined destroy of AutoShortcutAppPhrasesViewModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v108 = OUTLINED_FUNCTION_17_0();
+      v109(v108);
+      v110 = OUTLINED_FUNCTION_7_3();
+      v111(v110);
+      outlined destroy of AutoShortcutAppPhrasesViewModel(&v143);
       break;
     case 0xEu:
-      v87 = OUTLINED_FUNCTION_95();
-      memcpy(v87, v88, 0x70uLL);
+      v40 = OUTLINED_FUNCTION_95();
+      memcpy(v40, v41, 0x70uLL);
+      LOBYTE(v142[0]) = 14;
       lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys();
-      OUTLINED_FUNCTION_14_0();
-      v89 = OUTLINED_FUNCTION_96();
-      memcpy(v89, v90, 0x70uLL);
+      OUTLINED_FUNCTION_14_0(&unk_5C348);
+      v42 = OUTLINED_FUNCTION_96();
+      memcpy(v42, v43, 0x70uLL);
       lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel();
-      OUTLINED_FUNCTION_65();
-      v91 = OUTLINED_FUNCTION_17_0();
-      v92(v91);
-      v93 = OUTLINED_FUNCTION_7_3();
-      v94(v93);
-      outlined destroy of WorkflowDataModels.AutoShortcutFirstRunModel(&v214);
+      OUTLINED_FUNCTION_65(v142);
+      v44 = OUTLINED_FUNCTION_17_0();
+      v45(v44);
+      v46 = OUTLINED_FUNCTION_7_3();
+      v47(v46);
+      outlined destroy of WorkflowDataModels.AutoShortcutFirstRunModel(&v143);
       break;
     default:
-      v83 = *(v0 + 1);
-      v214 = *v0;
-      v215 = v83;
-      v84 = *(v0 + 3);
-      v216 = *(v0 + 2);
-      v217 = v84;
+      v36 = *(v1 + 1);
+      v143 = *v1;
+      v144 = v36;
+      v37 = *(v1 + 3);
+      v145 = *(v1 + 2);
+      v146 = v37;
       lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertViewCodingKeys and conformance WorkflowDataModels.ShowAlertViewCodingKeys();
       OUTLINED_FUNCTION_46();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+      v142[0] = v143;
+      v142[1] = v144;
+      v142[2] = v145;
+      v142[3] = v146;
       lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel and conformance WorkflowDataModels.ShowAlertModel();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v188 + 8))(v1, v189);
-      v85 = OUTLINED_FUNCTION_7_3();
-      v86(v85);
-      outlined destroy of WorkflowDataModels.ShowAlertModel(&v214);
+      (*(v135 + 8))(v2, v136);
+      v38 = OUTLINED_FUNCTION_7_3();
+      v39(v38);
+      outlined destroy of WorkflowDataModels.ShowAlertModel(&v143);
       break;
   }
 
@@ -8961,535 +8029,507 @@ LABEL_19:
 void WorkflowDataModels.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_75();
-  a19 = v21;
-  a20 = v22;
-  v315 = v20;
-  v24 = v23;
-  v306 = v25;
-  v309 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v309);
-  v308 = v26;
-  v28 = *(v27 + 64);
+  v302 = v20;
+  v22 = v21;
+  v292[9] = v23;
+  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO34AutoShortcutFirstRunViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v294 = v24;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v29);
+  __chkstk_darwin(v25);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v30);
-  v296 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v296);
-  v294 = v31;
-  v33 = *(v32 + 64);
+  OUTLINED_FUNCTION_60(v26);
+  v287 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO40AutoShortcutsAppEnablementViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v286[0] = v27;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v28);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_60(v29);
+  v286[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v285[0] = v30;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v31);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_60(v32);
+  v285[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v283 = v33;
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v34);
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_60(v35);
-  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E28PromptForValueViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v295);
-  v292 = v36;
-  v38 = *(v37 + 64);
+  v284 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v281 = v36;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v39);
+  __chkstk_darwin(v37);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v40);
-  v293 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E26ConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v293);
-  v290 = v41;
-  v43 = *(v42 + 64);
+  OUTLINED_FUNCTION_60(v38);
+  v282 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v279 = v39;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v44);
+  __chkstk_darwin(v40);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v45);
-  v291 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E20ActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v291);
-  v288 = v46;
-  v48 = *(v47 + 64);
+  OUTLINED_FUNCTION_60(v41);
+  v280 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v278 = v42;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v43);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_60(v44);
+  v277 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v276 = v45;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v46);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_60(v47);
+  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v273 = v48;
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v49);
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_60(v50);
-  v289 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO0E25MultiChoiceViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v289);
-  v286 = v51;
-  v53 = *(v52 + 64);
+  v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v270 = v51;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v54);
+  __chkstk_darwin(v52);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v55);
-  v287 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO42DisambiguateSmartPromptItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v287);
-  v285 = v56;
-  v58 = *(v57 + 64);
+  OUTLINED_FUNCTION_60(v53);
+  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v271 = v54;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v59);
+  __chkstk_darwin(v55);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v60);
-  v284 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31DisambiguateItemsViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v284);
-  v283 = v61;
-  v63 = *(v62 + 64);
+  v299 = v56;
+  v268 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v269 = v57;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v58);
+  OUTLINED_FUNCTION_11_0();
+  v298 = v59;
+  v267 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v266 = v60;
+  OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v61);
+  OUTLINED_FUNCTION_11_0();
+  OUTLINED_FUNCTION_60(v62);
+  v265 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v264 = v63;
   OUTLINED_FUNCTION_2_1();
   __chkstk_darwin(v64);
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_60(v65);
-  v282 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO19WatchViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v282);
-  v280 = v66;
-  v68 = *(v67 + 64);
+  v263 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v293 = v66;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v69);
+  __chkstk_darwin(v67);
   OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v70);
-  v281 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO27ConfirmActionViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v281);
-  v277 = v71;
-  v73 = *(v72 + 64);
+  OUTLINED_FUNCTION_60(v68);
+  v300 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v297 = v69;
   OUTLINED_FUNCTION_2_1();
+  __chkstk_darwin(v70);
+  OUTLINED_FUNCTION_11_0();
+  v307 = v71;
+  v72 = OUTLINED_FUNCTION_136();
+  v296 = type metadata accessor for WorkflowDataModels(v72);
+  OUTLINED_FUNCTION_0_1();
+  __chkstk_darwin(v73);
+  OUTLINED_FUNCTION_24();
   __chkstk_darwin(v74);
-  OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v75);
-  v279 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO33CustomIntentHandledViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v279);
-  v278 = v76;
-  v78 = *(v77 + 64);
-  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_87();
+  OUTLINED_FUNCTION_24();
+  __chkstk_darwin(v75);
+  OUTLINED_FUNCTION_87();
+  OUTLINED_FUNCTION_24();
+  __chkstk_darwin(v76);
+  OUTLINED_FUNCTION_87();
+  OUTLINED_FUNCTION_24();
+  __chkstk_darwin(v77);
+  OUTLINED_FUNCTION_87();
+  OUTLINED_FUNCTION_24();
+  __chkstk_darwin(v78);
+  OUTLINED_FUNCTION_87();
+  OUTLINED_FUNCTION_24();
   __chkstk_darwin(v79);
-  OUTLINED_FUNCTION_11_0();
-  v312 = v80;
-  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO31CustomIntentErrorViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v275);
-  v276 = v81;
-  v83 = *(v82 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v84);
-  OUTLINED_FUNCTION_11_0();
-  v311[1] = v85;
-  v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO38CustomIntentConfirmationViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v274);
-  v273 = v86;
-  v88 = *(v87 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v89);
-  OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v90);
-  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23EnableTCCViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v272);
-  v271 = v91;
-  v93 = *(v92 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v94);
-  OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v95);
-  v270 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO23ShowAlertViewCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v270);
-  v307 = v96;
-  v98 = *(v97 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v99);
-  OUTLINED_FUNCTION_11_0();
-  OUTLINED_FUNCTION_60(v100);
-  v313 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin18WorkflowDataModelsO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v313);
-  v311[0] = v101;
-  v103 = *(v102 + 64);
-  OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v104);
-  OUTLINED_FUNCTION_11_0();
-  a10 = v105;
-  v106 = OUTLINED_FUNCTION_136();
-  v310 = type metadata accessor for WorkflowDataModels(v106);
-  v107 = OUTLINED_FUNCTION_0_1(v310);
-  v109 = *(v108 + 64);
-  __chkstk_darwin(v107);
-  OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v110);
   OUTLINED_FUNCTION_87();
   OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v111);
+  __chkstk_darwin(v80);
   OUTLINED_FUNCTION_87();
   OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v112);
+  __chkstk_darwin(v81);
   OUTLINED_FUNCTION_87();
   OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v113);
+  __chkstk_darwin(v82);
   OUTLINED_FUNCTION_87();
   OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v114);
-  OUTLINED_FUNCTION_87();
-  OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v115);
-  OUTLINED_FUNCTION_87();
-  OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v116);
-  OUTLINED_FUNCTION_87();
-  OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v117);
-  OUTLINED_FUNCTION_87();
-  OUTLINED_FUNCTION_24();
-  __chkstk_darwin(v118);
-  OUTLINED_FUNCTION_87();
-  OUTLINED_FUNCTION_24();
-  v120 = __chkstk_darwin(v119);
-  v122 = &v261 - v121;
-  v123 = __chkstk_darwin(v120);
-  v125 = &v261 - v124;
-  v126 = __chkstk_darwin(v123);
-  v128 = &v261 - v127;
-  v129 = __chkstk_darwin(v126);
-  v131 = &v261 - v130;
-  v132 = __chkstk_darwin(v129);
-  v134 = &v261 - v133;
-  __chkstk_darwin(v132);
-  v136 = &v261 - v135;
-  v137 = v24[3];
-  v138 = v24[4];
-  v314 = v24;
-  v139 = OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_52(v139, v140);
+  v84 = __chkstk_darwin(v83);
+  v86 = &v254 - v85;
+  v87 = __chkstk_darwin(v84);
+  v89 = &v254 - v88;
+  v90 = __chkstk_darwin(v87);
+  v92 = &v254 - v91;
+  v93 = __chkstk_darwin(v90);
+  v95 = &v254 - v94;
+  v96 = __chkstk_darwin(v93);
+  v98 = &v254 - v97;
+  __chkstk_darwin(v96);
+  v100 = &v254 - v99;
+  v301 = v22;
+  v101 = OUTLINED_FUNCTION_99();
+  OUTLINED_FUNCTION_52(v101, v102);
   lazy protocol witness table accessor for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys();
-  v141 = v315;
+  v103 = v302;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v141)
+  if (v103)
   {
     goto LABEL_8;
   }
 
-  v263 = v134;
-  v315 = v131;
-  v264 = v128;
-  v265 = v125;
-  v266 = v122;
-  v142 = v312;
-  v267 = v136;
-  v143 = KeyedDecodingContainer.allKeys.getter();
-  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLO_Tt1g5(v143, 0);
-  if (v145 == v144 >> 1)
+  v256 = v98;
+  v302 = v95;
+  v257 = v92;
+  v258 = v89;
+  v259 = v86;
+  v104 = v299;
+  v260 = v100;
+  v105 = KeyedDecodingContainer.allKeys.getter();
+  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin18WorkflowDataModelsO17InvocationCommandO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLO_Tt1g5(v105, 0);
+  if (v107 == v106 >> 1)
   {
     goto LABEL_7;
   }
 
   OUTLINED_FUNCTION_121();
-  v262 = 0;
-  if (v149 >= (v148 >> 1))
+  v255 = 0;
+  if (v111 >= (v110 >> 1))
   {
     __break(1u);
     JUMPOUT(0x2F0D8);
   }
 
-  v261 = *(v147 + v146);
-  specialized ArraySlice.subscript.getter(v146 + 1);
-  v151 = v150;
-  v153 = v152;
+  v254 = *(v109 + v108);
+  specialized ArraySlice.subscript.getter(v108 + 1);
+  v113 = v112;
+  v115 = v114;
   swift_unknownObjectRelease();
-  v154 = v308;
-  v155 = v307;
-  if (v151 != v153 >> 1)
+  v116 = v294;
+  v117 = v293;
+  if (v113 != v115 >> 1)
   {
 LABEL_7:
-    v159 = v310;
-    v160 = type metadata accessor for DecodingError();
+    v121 = v296;
+    type metadata accessor for DecodingError();
     swift_allocError();
-    v162 = v161;
-    v163 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v162 = v159;
-    KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_110();
-    OUTLINED_FUNCTION_41(v160);
-    (*(v164 + 104))(v162);
+    v123 = v122;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v123 = v121;
+    v124 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_110(v124);
+    OUTLINED_FUNCTION_41();
+    (*(v125 + 104))(v123);
     swift_willThrow();
     swift_unknownObjectRelease();
     OUTLINED_FUNCTION_79();
-    v165 = OUTLINED_FUNCTION_134();
-    v166(v165);
+    v126 = OUTLINED_FUNCTION_134();
+    v127(v126);
 LABEL_8:
-    v167 = v314;
+    v128 = v301;
     goto LABEL_9;
   }
 
-  v156 = v262;
-  v157 = v315;
-  switch(v261)
+  v118 = v255;
+  v119 = v302;
+  switch(v254)
   {
     case 1:
-      LOBYTE(v316) = 1;
-      lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCViewCodingKeys and conformance WorkflowDataModels.EnableTCCViewCodingKeys();
-      v199 = v298;
-      OUTLINED_FUNCTION_61();
+      LOBYTE(v303) = 1;
+      v179 = lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCViewCodingKeys and conformance WorkflowDataModels.EnableTCCViewCodingKeys();
+      v180 = v289;
+      OUTLINED_FUNCTION_61(&unk_5BBF8, &v303, v181, v182, v179);
       lazy protocol witness table accessor for type WorkflowDataModels.EnableTCCModel and conformance WorkflowDataModels.EnableTCCModel();
-      v200 = v272;
+      v183 = v265;
       OUTLINED_FUNCTION_132();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       swift_unknownObjectRelease();
-      OUTLINED_FUNCTION_10_0(&v302);
-      v238(v199, v200);
+      OUTLINED_FUNCTION_10_0();
+      v233(v180, v183);
       OUTLINED_FUNCTION_79();
-      v239(v155, v313);
-      v240 = v317;
-      *v157 = v316;
-      v157[1] = v240;
-      v157[2] = v318[0];
+      v234(v117, v300);
+      v235 = v304;
+      *v119 = v303;
+      v119[1] = v235;
+      v119[2] = v305;
       OUTLINED_FUNCTION_55();
       goto LABEL_26;
     case 2:
-      LOBYTE(v316) = 2;
-      lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationViewCodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&v319);
+      LOBYTE(v303) = 2;
+      v170 = lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentConfirmationViewCodingKeys and conformance WorkflowDataModels.CustomIntentConfirmationViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5BC88, &v303, v171, v172, v170);
       type metadata accessor for WorkflowDataModels.CustomIntentConfirmationModel(0);
       OUTLINED_FUNCTION_70();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v194);
-      v195 = v274;
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v173);
+      v174 = v267;
       OUTLINED_FUNCTION_73();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       swift_unknownObjectRelease();
-      OUTLINED_FUNCTION_10_0(&v303);
-      v227(v154, v195);
+      OUTLINED_FUNCTION_10_0();
+      v223(v116, v174);
       OUTLINED_FUNCTION_79();
-      v228(v142, v155);
+      v224(v104, v117);
       OUTLINED_FUNCTION_55();
       goto LABEL_26;
     case 3:
-      LOBYTE(v316) = 3;
+      LOBYTE(v303) = 3;
       lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentErrorViewCodingKeys and conformance WorkflowDataModels.CustomIntentErrorViewCodingKeys();
-      v196 = v313;
+      v175 = v300;
       OUTLINED_FUNCTION_46();
-      v197 = a10;
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      if (v156)
+      if (v118)
       {
         OUTLINED_FUNCTION_79();
-        v219(v197, v196);
+        v217(v307, v175);
         swift_unknownObjectRelease();
         goto LABEL_8;
       }
 
       type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
       OUTLINED_FUNCTION_68();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v220);
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v218);
       OUTLINED_FUNCTION_158();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v221 = v311[0];
+      v219 = v297;
       swift_unknownObjectRelease();
-      v229 = OUTLINED_FUNCTION_4_4(&v304);
-      v230(v229);
-      (*(v221 + 8))(a10, v196);
+      v225 = OUTLINED_FUNCTION_4_4();
+      v226(v225);
+      (*(v219 + 8))(v307, v175);
       OUTLINED_FUNCTION_55();
       swift_storeEnumTagMultiPayload();
       OUTLINED_FUNCTION_5_4();
 LABEL_27:
       outlined init with take of WorkflowDataModels.CustomIntentModel();
-      v260 = v314;
+      v253 = v301;
       OUTLINED_FUNCTION_5_4();
       outlined init with take of WorkflowDataModels.CustomIntentModel();
-      v167 = v260;
+      v128 = v253;
       break;
     case 4:
-      LOBYTE(v316) = 4;
-      lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledViewCodingKeys and conformance WorkflowDataModels.CustomIntentHandledViewCodingKeys();
-      OUTLINED_FUNCTION_8_1();
+      LOBYTE(v303) = 4;
+      v147 = lazy protocol witness table accessor for type WorkflowDataModels.CustomIntentHandledViewCodingKeys and conformance WorkflowDataModels.CustomIntentHandledViewCodingKeys();
+      OUTLINED_FUNCTION_8_1(&unk_5BDA8, &v303, v148, v149, v147);
       type metadata accessor for WorkflowDataModels.CustomIntentHandledModel(0);
       OUTLINED_FUNCTION_71();
-      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v180);
-      v181 = v279;
+      lazy protocol witness table accessor for type CodableINInteraction and conformance CodableINInteraction(v150);
+      v151 = v272;
       OUTLINED_FUNCTION_73();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       swift_unknownObjectRelease();
-      OUTLINED_FUNCTION_10_0(&v306);
-      v225(v142, v181);
+      OUTLINED_FUNCTION_10_0();
+      v221(v104, v151);
       OUTLINED_FUNCTION_79();
-      v226(v142, v155);
+      v222(v104, v117);
       OUTLINED_FUNCTION_55();
       goto LABEL_26;
     case 5:
-      LOBYTE(v316) = 5;
-      lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionViewCodingKeys and conformance WorkflowDataModels.ConfirmActionViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&v320);
+      LOBYTE(v303) = 5;
+      v184 = lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionViewCodingKeys and conformance WorkflowDataModels.ConfirmActionViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5BE38, &v303, v185, v186, v184);
       lazy protocol witness table accessor for type WorkflowDataModels.ConfirmActionModel and conformance WorkflowDataModels.ConfirmActionModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v305);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v201 = OUTLINED_FUNCTION_28();
-      v202(v201);
-      v203 = OUTLINED_FUNCTION_33();
-      v204(v203);
-      v205 = OUTLINED_FUNCTION_97(&v292);
-      memcpy(v205, v206, 0x68uLL);
+      v187 = OUTLINED_FUNCTION_28();
+      v188(v187);
+      v189 = OUTLINED_FUNCTION_33();
+      v190(v189);
+      v191 = OUTLINED_FUNCTION_97(v285);
+      memcpy(v191, v192, 0x68uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 6:
-      LOBYTE(v316) = 6;
-      lazy protocol witness table accessor for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&v321);
+      LOBYTE(v303) = 6;
+      v202 = lazy protocol witness table accessor for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5BEC8, &v303, v203, v204, v202);
       lazy protocol witness table accessor for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v308);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v213 = OUTLINED_FUNCTION_28();
-      v214(v213);
-      v215 = OUTLINED_FUNCTION_33();
-      v216(v215);
-      v217 = OUTLINED_FUNCTION_97(&v294);
-      memcpy(v217, v218, 0x50uLL);
+      v205 = OUTLINED_FUNCTION_28();
+      v206(v205);
+      v207 = OUTLINED_FUNCTION_33();
+      v208(v207);
+      v209 = OUTLINED_FUNCTION_97(v286);
+      memcpy(v209, v210, 0x50uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 7:
-      LOBYTE(v316) = 7;
-      lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys();
-      OUTLINED_FUNCTION_61();
+      LOBYTE(v303) = 7;
+      v176 = lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys();
+      OUTLINED_FUNCTION_61(&unk_5BF58, &v303, v177, v178, v176);
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel();
       OUTLINED_FUNCTION_89();
       OUTLINED_FUNCTION_158();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v198 = v311[0];
       swift_unknownObjectRelease();
-      v231 = OUTLINED_FUNCTION_4_4(v311);
-      v232(v231);
-      v233 = *(v198 + 8);
-      v234 = OUTLINED_FUNCTION_53();
-      v235(v234);
-      v236 = v317;
-      v237 = v268;
-      *v268 = v316;
-      *(v237 + 2) = v236;
+      v227 = OUTLINED_FUNCTION_4_4();
+      v228(v227);
+      v229 = OUTLINED_FUNCTION_53();
+      v230(v229);
+      v231 = v304;
+      v232 = v261;
+      *v261 = v303;
+      *(v232 + 2) = v231;
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 8:
-      LOBYTE(v316) = 8;
-      lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys();
-      OUTLINED_FUNCTION_61();
+      LOBYTE(v303) = 8;
+      v214 = lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys();
+      OUTLINED_FUNCTION_61(&unk_5BFE8, &v303, v215, v216, v214);
       lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel();
       OUTLINED_FUNCTION_89();
       OUTLINED_FUNCTION_158();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v224 = v311[0];
       swift_unknownObjectRelease();
-      v253 = OUTLINED_FUNCTION_4_4(&v312);
-      v254(v253);
-      v255 = *(v224 + 8);
-      v256 = OUTLINED_FUNCTION_53();
-      v257(v256);
-      v258 = v317;
-      v259 = v269;
-      *v269 = v316;
-      *(v259 + 2) = v258;
+      v247 = OUTLINED_FUNCTION_4_4();
+      v248(v247);
+      v249 = OUTLINED_FUNCTION_53();
+      v250(v249);
+      v251 = v304;
+      v252 = v262;
+      *v262 = v303;
+      *(v252 + 2) = v251;
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 9:
-      LOBYTE(v316) = 9;
-      lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&v322);
+      LOBYTE(v303) = 9;
+      v161 = lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5C078, &v303, v162, v163, v161);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v313);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v188 = OUTLINED_FUNCTION_28();
-      v189(v188);
-      v190 = OUTLINED_FUNCTION_33();
-      v191(v190);
-      v192 = OUTLINED_FUNCTION_97(&v296);
-      memcpy(v192, v193, 0x58uLL);
+      v164 = OUTLINED_FUNCTION_28();
+      v165(v164);
+      v166 = OUTLINED_FUNCTION_33();
+      v167(v166);
+      v168 = OUTLINED_FUNCTION_97(&v287);
+      memcpy(v168, v169, 0x58uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 10:
-      LOBYTE(v316) = 10;
-      lazy protocol witness table accessor for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&a9);
+      LOBYTE(v303) = 10;
+      v211 = lazy protocol witness table accessor for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5C108, &v303, v212, v213, v211);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v315);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v247 = OUTLINED_FUNCTION_28();
-      v248(v247);
-      v249 = OUTLINED_FUNCTION_33();
-      v250(v249);
-      v251 = OUTLINED_FUNCTION_97(&v297);
-      memcpy(v251, v252, 0x50uLL);
+      v241 = OUTLINED_FUNCTION_28();
+      v242(v241);
+      v243 = OUTLINED_FUNCTION_33();
+      v244(v243);
+      v245 = OUTLINED_FUNCTION_97(&v288);
+      memcpy(v245, v246, 0x50uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 11:
-      LOBYTE(v316) = 11;
-      lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&a10);
+      LOBYTE(v303) = 11;
+      v138 = lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5C198, &v303, v139, v140, v138);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v316 + 8);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v174 = OUTLINED_FUNCTION_28();
-      v175(v174);
-      v176 = OUTLINED_FUNCTION_33();
-      v177(v176);
-      v178 = OUTLINED_FUNCTION_97(&v298);
-      memcpy(v178, v179, 0x71uLL);
+      v141 = OUTLINED_FUNCTION_28();
+      v142(v141);
+      v143 = OUTLINED_FUNCTION_33();
+      v144(v143);
+      v145 = OUTLINED_FUNCTION_97(&v289);
+      memcpy(v145, v146, 0x71uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 12:
-      LOBYTE(v316) = 12;
-      lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&a11);
+      LOBYTE(v303) = 12;
+      v152 = lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5C228, &v303, v153, v154, v152);
       lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(&v317 + 8);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v182 = OUTLINED_FUNCTION_28();
-      v183(v182);
-      v184 = OUTLINED_FUNCTION_33();
-      v185(v184);
-      v186 = OUTLINED_FUNCTION_97(&v299);
-      memcpy(v186, v187, 0x58uLL);
+      v155 = OUTLINED_FUNCTION_28();
+      v156(v155);
+      v157 = OUTLINED_FUNCTION_33();
+      v158(v157);
+      v159 = OUTLINED_FUNCTION_97(&v290);
+      memcpy(v159, v160, 0x58uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 13:
-      LOBYTE(v316) = 13;
-      lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys();
-      OUTLINED_FUNCTION_2_12(&a12);
+      LOBYTE(v303) = 13;
+      v193 = lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys();
+      OUTLINED_FUNCTION_2_12(&unk_5C2B8, &v303, v194, v195, v193);
       lazy protocol witness table accessor for type AutoShortcutAppPhrasesViewModel and conformance AutoShortcutAppPhrasesViewModel();
       OUTLINED_FUNCTION_26();
-      OUTLINED_FUNCTION_15_1(v318 + 8);
+      OUTLINED_FUNCTION_15_1();
       swift_unknownObjectRelease();
-      v207 = OUTLINED_FUNCTION_28();
-      v208(v207);
-      v209 = OUTLINED_FUNCTION_33();
-      v210(v209);
-      v211 = OUTLINED_FUNCTION_97(&v300);
-      memcpy(v211, v212, 0x50uLL);
+      v196 = OUTLINED_FUNCTION_28();
+      v197(v196);
+      v198 = OUTLINED_FUNCTION_33();
+      v199(v198);
+      v200 = OUTLINED_FUNCTION_97(&v291);
+      memcpy(v200, v201, 0x50uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     case 14:
-      LOBYTE(v316) = 14;
-      lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys();
-      OUTLINED_FUNCTION_8_1();
+      LOBYTE(v303) = 14;
+      RunViewCoding = lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys();
+      OUTLINED_FUNCTION_8_1(&unk_5C348, &v303, v130, v131, RunViewCoding);
       lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       swift_unknownObjectRelease();
-      v168 = OUTLINED_FUNCTION_28();
-      v169(v168);
-      v170 = OUTLINED_FUNCTION_33();
-      v171(v170);
-      v172 = OUTLINED_FUNCTION_97(&v301);
-      memcpy(v172, v173, 0x70uLL);
+      v132 = OUTLINED_FUNCTION_28();
+      v133(v132);
+      v134 = OUTLINED_FUNCTION_33();
+      v135(v134);
+      v136 = OUTLINED_FUNCTION_97(v292);
+      memcpy(v136, v137, 0x70uLL);
       OUTLINED_FUNCTION_20();
       goto LABEL_26;
     default:
-      LOBYTE(v316) = 0;
+      LOBYTE(v303) = 0;
       lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertViewCodingKeys and conformance WorkflowDataModels.ShowAlertViewCodingKeys();
-      v158 = v297;
+      v120 = v288;
       OUTLINED_FUNCTION_89();
       OUTLINED_FUNCTION_158();
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       lazy protocol witness table accessor for type WorkflowDataModels.ShowAlertModel and conformance WorkflowDataModels.ShowAlertModel();
-      v222 = v270;
+      v220 = v263;
       OUTLINED_FUNCTION_73();
       KeyedDecodingContainer.decode<A>(_:forKey:)();
-      v223 = (v311[0] + 8);
       swift_unknownObjectRelease();
-      (*(v155 + 8))(v158, v222);
-      v241 = *v223;
-      v242 = OUTLINED_FUNCTION_63();
-      v243(v242);
-      v244 = v317;
-      v245 = v263;
-      *v263 = v316;
-      v245[1] = v244;
-      v246 = v318[1];
-      v245[2] = v318[0];
-      v245[3] = v246;
+      (*(v117 + 8))(v120, v220);
+      v236 = OUTLINED_FUNCTION_63();
+      v237(v236);
+      v238 = v304;
+      v239 = v256;
+      *v256 = v303;
+      v239[1] = v238;
+      v240 = v306;
+      v239[2] = v305;
+      v239[3] = v240;
       OUTLINED_FUNCTION_20();
 LABEL_26:
       swift_storeEnumTagMultiPayload();
@@ -9498,7 +8538,7 @@ LABEL_26:
   }
 
 LABEL_9:
-  __swift_destroy_boxed_opaque_existential_1Tm(v167);
+  __swift_destroy_boxed_opaque_existential_1Tm(v128);
   OUTLINED_FUNCTION_76();
 }
 
@@ -9670,52 +8710,46 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-void WatchViewType.encode(to:)()
+void WatchViewType.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_75();
-  v31 = v4;
-  v6 = v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  v8 = OUTLINED_FUNCTION_2_0(v7);
-  v28 = v9;
-  v29 = v8;
-  v11 = *(v10 + 64);
+  v43 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v40 = v29;
+  v41 = v28;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v30);
   OUTLINED_FUNCTION_44();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v13);
-  v30 = v14;
-  v16 = *(v15 + 64);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v42 = v32;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v17);
+  __chkstk_darwin(v33);
   OUTLINED_FUNCTION_88();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v18);
-  v20 = v19;
-  v22 = *(v21 + 64);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedEncodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v36 = v35;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v37);
   OUTLINED_FUNCTION_56();
-  v24 = *(v6 + 24);
-  v25 = *(v6 + 32);
-  v26 = OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_52(v26, v27);
+  v38 = OUTLINED_FUNCTION_99();
+  OUTLINED_FUNCTION_52(v38, v39);
   lazy protocol witness table accessor for type WatchViewType.CodingKeys and conformance WatchViewType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v31)
+  if (v43)
   {
     lazy protocol witness table accessor for type WatchViewType.ConfirmationCodingKeys and conformance WatchViewType.ConfirmationCodingKeys();
     OUTLINED_FUNCTION_46();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     KeyedEncodingContainer.encode(_:forKey:)();
-    if (!v0)
+    if (!v23)
     {
       KeyedEncodingContainer.encode(_:forKey:)();
     }
 
-    (*(v30 + 8))(v1, v13);
-    (*(v20 + 8))(v2, v18);
+    (*(v42 + 8))(v24, v31);
+    (*(v36 + 8))(v25, v34);
   }
 
   else
@@ -9723,76 +8757,72 @@ void WatchViewType.encode(to:)()
     lazy protocol witness table accessor for type WatchViewType.HandledCodingKeys and conformance WatchViewType.HandledCodingKeys();
     OUTLINED_FUNCTION_46();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v28 + 8))(v3, v29);
-    (*(v20 + 8))(v2, v18);
+    (*(v40 + 8))(v26, v41);
+    (*(v36 + 8))(v25, v34);
   }
 
   OUTLINED_FUNCTION_103();
   OUTLINED_FUNCTION_76();
 }
 
-void WatchViewType.init(from:)()
+void WatchViewType.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_75();
-  v5 = v4;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v46);
-  v44 = v6;
-  v8 = *(v7 + 64);
+  v29 = v28;
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO17HandledCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v59 = v30;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v31);
   OUTLINED_FUNCTION_44();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v10);
-  v45 = v11;
-  v13 = *(v12 + 64);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO22ConfirmationCodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v60 = v33;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v14);
+  __chkstk_darwin(v34);
   OUTLINED_FUNCTION_13_1();
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
-  OUTLINED_FUNCTION_2_0(v15);
-  v47 = v16;
-  v18 = *(v17 + 64);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMd, &_ss22KeyedDecodingContainerVy16SiriLinkUIPlugin13WatchViewTypeO10CodingKeys33_849978E4D5D87ADEB69D13D2EA96D7F3LLOGMR);
+  OUTLINED_FUNCTION_2_0();
+  v62 = v36;
   OUTLINED_FUNCTION_2_1();
-  __chkstk_darwin(v19);
+  __chkstk_darwin(v37);
   OUTLINED_FUNCTION_88();
-  v20 = v5[4];
-  OUTLINED_FUNCTION_52(v5, v5[3]);
+  OUTLINED_FUNCTION_52(v29, v29[3]);
   lazy protocol witness table accessor for type WatchViewType.CodingKeys and conformance WatchViewType.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v24)
   {
     goto LABEL_9;
   }
 
-  v48 = v5;
-  v21 = KeyedDecodingContainer.allKeys.getter();
-  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin0jK9ViewModelO10CodingKeys33_6C7922447F58CAB4C80385A5B991317FLLO_Tt1g5Tm(v21, 0);
-  v43 = v15;
-  if (v23 == v22 >> 1)
+  v63 = v29;
+  v38 = KeyedDecodingContainer.allKeys.getter();
+  _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC16SiriLinkUIPlugin0jK9ViewModelO10CodingKeys33_6C7922447F58CAB4C80385A5B991317FLLO_Tt1g5Tm(v38, 0);
+  v58 = v35;
+  if (v40 == v39 >> 1)
   {
     goto LABEL_7;
   }
 
   OUTLINED_FUNCTION_121();
-  if (v27 < (v26 >> 1))
+  if (v44 < (v43 >> 1))
   {
-    v28 = *(v25 + v24);
-    specialized ArraySlice.subscript.getter(v24 + 1);
-    v30 = v29;
-    v32 = v31;
+    v45 = *(v42 + v41);
+    specialized ArraySlice.subscript.getter(v41 + 1);
+    v47 = v46;
+    v49 = v48;
     swift_unknownObjectRelease();
-    if (v30 == v32 >> 1)
+    if (v47 == v49 >> 1)
     {
-      if (v28)
+      if (v45)
       {
         lazy protocol witness table accessor for type WatchViewType.HandledCodingKeys and conformance WatchViewType.HandledCodingKeys();
         OUTLINED_FUNCTION_132();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
         swift_unknownObjectRelease();
-        (*(v44 + 8))(v3, v46);
-        v33 = OUTLINED_FUNCTION_54();
-        v34(v33);
+        (*(v59 + 8))(v27, v61);
+        v50 = OUTLINED_FUNCTION_54();
+        v51(v50);
       }
 
       else
@@ -9803,58 +8833,36 @@ void WatchViewType.init(from:)()
         KeyedDecodingContainer.decode(_:forKey:)();
         KeyedDecodingContainer.decode(_:forKey:)();
         swift_unknownObjectRelease();
-        (*(v45 + 8))(v1, v10);
-        (*(v47 + 8))(v2, v43);
+        (*(v60 + 8))(v25, v32);
+        (*(v62 + 8))(v26, v58);
       }
 
       goto LABEL_9;
     }
 
 LABEL_7:
-    v35 = type metadata accessor for DecodingError();
+    type metadata accessor for DecodingError();
     swift_allocError();
-    v37 = v36;
-    v38 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v37 = &type metadata for WatchViewType;
-    KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_110();
-    OUTLINED_FUNCTION_41(v35);
-    (*(v39 + 104))(v37);
+    v53 = v52;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v53 = &type metadata for WatchViewType;
+    v54 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_110(v54);
+    OUTLINED_FUNCTION_41();
+    (*(v55 + 104))(v53);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v40 = *(v47 + 8);
-    v41 = OUTLINED_FUNCTION_133();
-    v42(v41);
-    v5 = v48;
+    v56 = OUTLINED_FUNCTION_133();
+    v57(v56);
+    v29 = v63;
 LABEL_9:
-    __swift_destroy_boxed_opaque_existential_1Tm(v5);
+    __swift_destroy_boxed_opaque_existential_1Tm(v29);
     OUTLINED_FUNCTION_103();
     OUTLINED_FUNCTION_76();
     return;
   }
 
   __break(1u);
-}
-
-void protocol witness for Decodable.init(from:) in conformance WatchViewType(void *a1@<X8>)
-{
-  WatchViewType.init(from:)();
-  if (!v1)
-  {
-    *a1 = v3;
-    a1[1] = v4;
-    a1[2] = v5;
-    a1[3] = v6;
-  }
-}
-
-void protocol witness for Encodable.encode(to:) in conformance WatchViewType()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  WatchViewType.encode(to:)();
 }
 
 uint64_t outlined bridged method (ob) of @objc INImage._imageData.getter(void *a1)
@@ -9869,4 +8877,1000 @@ uint64_t outlined bridged method (ob) of @objc INImage._imageData.getter(void *a
   v3 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
 
   return v3;
+}
+
+uint64_t outlined copy of WorkflowDataModels.InvocationCommand(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
+{
+  result = a2;
+  if (a4 < 2u)
+  {
+  }
+
+  if (a4 == 2)
+  {
+  }
+
+  return result;
+}
+
+uint64_t outlined consume of WorkflowDataModels.InvocationCommand(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
+{
+  result = a2;
+  if (a4 < 2u)
+  {
+  }
+
+  if (a4 == 2)
+  {
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguationItemModel.CodingKeys and conformance WorkflowDataModels.DisambiguationItemModel.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.InvocationCommand and conformance WorkflowDataModels.InvocationCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel.CodingKeys and conformance WorkflowDataModels.LinkMultiChoiceModel.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel and conformance WorkflowDataModels.LinkActionModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionModel.CodingKeys and conformance WorkflowDataModels.LinkActionModel.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type CodableAceObject<SAIntentGroupLaunchAppWithIntent> and conformance CodableAceObject<A>(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_135(a1);
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v3, v4);
+    result = swift_getWitnessTable();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel.CodingKeys and conformance WorkflowDataModels.LinkConfirmationModel.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel.CodingKeys and conformance WorkflowDataModels.LinkPromptForValueModel.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunModel.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with take of VisualProperty?()
+{
+  OUTLINED_FUNCTION_1_10();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_0_1();
+  v3 = OUTLINED_FUNCTION_2_8();
+  v4(v3);
+  return v0;
+}
+
+uint64_t sub_305CC()
+{
+
+  return _swift_deallocObject(v0, 80, 7);
+}
+
+uint64_t sub_3061C()
+{
+
+  if (*(v0 + 40))
+  {
+  }
+
+  OUTLINED_FUNCTION_120();
+
+  return _swift_deallocObject(v1, v2, v3);
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.CodingKeys and conformance WorkflowDataModels.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys and conformance WorkflowDataModels.AutoShortcutFirstRunViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutFirstRunModel and conformance WorkflowDataModels.AutoShortcutFirstRunModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys and conformance WorkflowDataModels.AutoShortcutsAppEnablementViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueViewCodingKeys and conformance WorkflowDataModels.LinkPromptForValueViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkPromptForValueModel and conformance WorkflowDataModels.LinkPromptForValueModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationViewCodingKeys and conformance WorkflowDataModels.LinkConfirmationViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkConfirmationModel and conformance WorkflowDataModels.LinkConfirmationModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkActionViewCodingKeys and conformance WorkflowDataModels.LinkActionViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceViewCodingKeys and conformance WorkflowDataModels.LinkMultiChoiceViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.LinkMultiChoiceModel and conformance WorkflowDataModels.LinkMultiChoiceModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateSmartPromptItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateSmartPromptItemsModel and conformance WorkflowDataModels.DisambiguateSmartPromptItemsModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsViewCodingKeys and conformance WorkflowDataModels.DisambiguateItemsViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.DisambiguateItemsModel and conformance WorkflowDataModels.DisambiguateItemsModel);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchViewCodingKeys and conformance WorkflowDataModels.WatchViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel()
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel;
+  if (!lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type WorkflowDataModels.WatchModel and conformance WorkflowDataModels.WatchModel);
+  }
+
+  return result;
 }

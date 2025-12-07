@@ -13,9 +13,9 @@ void ___APAdvertiserHandleConnectivityHelperEvent_block_invoke(uint64_t a1)
     {
       if (gLogCategory_APAdvertiser <= 50)
       {
-        if (gLogCategory_APAdvertiser != -1 || (v6 = _LogCategory_Initialize(), v4 = *(a1 + 32), v6))
+        if (gLogCategory_APAdvertiser != -1 || (v8 = _LogCategory_Initialize(), v4 = *(a1 + 32), v8))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APAdvertiser, "void _APAdvertiserHandleConnectivityHelperEvent(APConnectivityHelperRef, APConnectivityHelperEventType, CFDictionaryRef, CFTypeRef)_block_invoke", 33554482, "[%{ptr}] AWDL Available\n", v4);
           v4 = *(a1 + 32);
         }
       }
@@ -36,9 +36,9 @@ void ___APAdvertiserHandleConnectivityHelperEvent_block_invoke(uint64_t a1)
     {
       if (gLogCategory_APAdvertiser <= 50)
       {
-        if (gLogCategory_APAdvertiser != -1 || (v5 = _LogCategory_Initialize(), v3 = *(a1 + 32), v5))
+        if (gLogCategory_APAdvertiser != -1 || (v7 = _LogCategory_Initialize(), v3 = *(a1 + 32), v7))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APAdvertiser, "void _APAdvertiserHandleConnectivityHelperEvent(APConnectivityHelperRef, APConnectivityHelperEventType, CFDictionaryRef, CFTypeRef)_block_invoke", 33554482, "[%{ptr}] WiFi Available\n", v3);
           v3 = *(a1 + 32);
         }
       }
@@ -55,14 +55,15 @@ LABEL_24:
 
   else if (gLogCategory_APAdvertiser <= 40 && (gLogCategory_APAdvertiser != -1 || _LogCategory_Initialize()))
   {
-    APConnectivityHelperGetEventString();
-    LogPrintF();
+    v5 = *(a1 + 32);
+    EventString = APConnectivityHelperGetEventString();
+    LogPrintF(&gLogCategory_APAdvertiser, "void _APAdvertiserHandleConnectivityHelperEvent(APConnectivityHelperRef, APConnectivityHelperEventType, CFDictionaryRef, CFTypeRef)_block_invoke", 33554472, "[%{ptr}] Received unhandled APConnectivityHelper event: %s", v5, EventString);
   }
 
   CFRelease(*(a1 + 32));
-  v7 = *(a1 + 40);
+  v9 = *(a1 + 40);
 
-  CFRelease(v7);
+  CFRelease(v9);
 }
 
 @end

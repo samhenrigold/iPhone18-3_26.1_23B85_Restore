@@ -24,7 +24,7 @@
   if (v10)
   {
     objc_storeStrong(&v10->_messageClass, class);
-    v12 = [schemaCopy copy];
+    v12 = objc_msgSend_copy(schemaCopy);
     schema = v11->_schema;
     v11->_schema = v12;
 
@@ -74,17 +74,15 @@
 
 void __106__HDIDSInvitationManager_sendInvitationToIdentifier_expirationDate_codableObject_serverAcknowledgedBlock___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"ObjectDataKey";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"ObjectDataKey";
   v2 = [*(a1 + 32) data];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   v4 = [objc_alloc(MEMORY[0x277D186F0]) initWithDictionary:v3 schema:*(*(a1 + 40) + 40)];
   v5 = [*(a1 + 40) invitationManager];
   [v5 sendInvitationToDestination:*(a1 + 48) expirationDate:*(a1 + 56) context:v4 serverAcknowledgedBlock:*(a1 + 64)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rescindInvitationWithUUID:(id)d serverAcknowledgedBlock:(id)block
@@ -165,31 +163,31 @@ uint64_t __76__HDIDSInvitationManager_rescindInvitationWithUUID_serverAcknowledg
 
 void __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke(id *a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = [a1[4] invitationManager];
   v3 = [v2 receivedInvitations];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke_2;
-  v12[3] = &unk_27862DB58;
-  v13 = a1[5];
-  v4 = [v3 hk_anyObjectPassingTest:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke_2;
+  v11[3] = &unk_27862DB58;
+  v12 = a1[5];
+  v4 = [v3 hk_anyObjectPassingTest:v11];
 
   if (v4)
   {
-    v14 = @"ObjectDataKey";
+    v13 = @"ObjectDataKey";
     v5 = [a1[6] data];
-    v15[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
     v7 = [objc_alloc(MEMORY[0x277D186F0]) initWithDictionary:v6 schema:*(a1[4] + 5)];
     v8 = [a1[4] invitationManager];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke_3;
-    v10[3] = &unk_2786200D0;
-    v11 = a1[7];
-    [v8 acceptInvitation:v4 withContext:v7 serverAcknowledgedBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke_3;
+    v9[3] = &unk_2786200D0;
+    v10 = a1[7];
+    [v8 acceptInvitation:v4 withContext:v7 serverAcknowledgedBlock:v9];
   }
 
   else
@@ -197,8 +195,6 @@ void __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverA
     v6 = [MEMORY[0x277CCA9B8] hk_error:118 description:@"Invitation not found"];
     (*(a1[7] + 2))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__HDIDSInvitationManager_acceptInvitationWithUUID_codableObject_serverAcknowledgedBlock___block_invoke_2(uint64_t a1, void *a2)

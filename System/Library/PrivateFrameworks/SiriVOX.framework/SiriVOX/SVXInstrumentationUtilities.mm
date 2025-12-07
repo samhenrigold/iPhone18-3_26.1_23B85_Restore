@@ -6,33 +6,53 @@
 - (int)rfSchemaRFSiriModeFromResponseMode:(id)mode;
 - (void)_emitUUFRSaidWithModeSupport:(id)support dialogIdentifier:(id)identifier dialogPhase:(id)phase speakableText:(id)text currentMode:(unint64_t)mode;
 - (void)emitPatternExecutedEvent:(id)event addViews:(id)views;
+- (void)emitSiriWasUnavailable:(id)unavailable reason:(int)reason;
 - (void)emitUUFRSaid:(id)said dialogIdentifier:(id)identifier dialogPhase:(id)phase;
 @end
 
 @implementation SVXInstrumentationUtilities
 
+- (void)emitSiriWasUnavailable:(id)unavailable reason:(int)reason
+{
+  v4 = *&reason;
+  v6 = MEMORY[0x277D5ABB0];
+  unavailableCopy = unavailable;
+  v15 = objc_alloc_init(v6);
+  [v15 setReason:v4];
+  [v15 setProduct:1];
+  v8 = objc_alloc_init(MEMORY[0x277D5A808]);
+  v9 = AFTurnIdentifierGenerate();
+  v10 = AFTurnIdentifierGetBytes();
+  [v8 setTurnID:v10];
+
+  v11 = objc_alloc_init(MEMORY[0x277D5A800]);
+  [v11 setUeiSiriWasUnavailable:v15];
+  [v11 setEventMetadata:v8];
+  v12 = [(SVXAssistantSiriAnalyticsProvider *)self->_siriAnalyticsProvider get];
+  defaultMessageStream = [v12 defaultMessageStream];
+  timestamp = [unavailableCopy timestamp];
+
+  [defaultMessageStream emitMessage:v11 timestamp:timestamp];
+}
+
 - (int)convertModeToResponseMode:(unint64_t)mode
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (mode >= 3)
+  v7 = *MEMORY[0x277D85DE8];
+  if (mode < 3)
   {
-    v4 = *MEMORY[0x277CEF098];
-    result = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      v6 = 136315138;
-      v7 = "[SVXInstrumentationUtilities convertModeToResponseMode:]";
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s #SVXInstrumentation - Unable to convert. Using unknown MDMode.", &v6, 0xCu);
-      result = 0;
-    }
+    return mode + 1;
   }
 
-  else
+  v4 = *MEMORY[0x277CEF098];
+  result = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR);
+  if (result)
   {
-    result = mode + 1;
+    v5 = 136315138;
+    v6 = "[SVXInstrumentationUtilities convertModeToResponseMode:]";
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s #SVXInstrumentation - Unable to convert. Using unknown MDMode.", &v5, 0xCu);
+    return 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -240,7 +260,7 @@
 
 - (void)emitPatternExecutedEvent:(id)event addViews:(id)views
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   viewsCopy = views;
   patternId = [viewsCopy patternId];
@@ -269,24 +289,22 @@
     v18 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v22 = 136315394;
-      v23 = "[SVXInstrumentationUtilities emitPatternExecutedEvent:addViews:]";
-      v24 = 2112;
-      v25 = viewsCopy;
-      _os_log_impl(&dword_2695B9000, v18, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit Pattern Executed event (addViews: %@)", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SVXInstrumentationUtilities emitPatternExecutedEvent:addViews:]";
+      v23 = 2112;
+      v24 = viewsCopy;
+      _os_log_impl(&dword_2695B9000, v18, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit Pattern Executed event (addViews: %@)", &v21, 0x16u);
     }
 
     v19 = [(SVXAssistantSiriAnalyticsProvider *)self->_siriAnalyticsProvider get];
     defaultMessageStream = [v19 defaultMessageStream];
     [defaultMessageStream emitMessage:v17];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_emitUUFRSaidWithModeSupport:(id)support dialogIdentifier:(id)identifier dialogPhase:(id)phase speakableText:(id)text currentMode:(unint64_t)mode
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   phaseCopy = phase;
   textCopy = text;
@@ -325,11 +343,11 @@
     }
 
     v22 = v21;
-    *v27 = 136315394;
-    *&v27[4] = "[SVXInstrumentationUtilities _emitUUFRSaidWithModeSupport:dialogIdentifier:dialogPhase:speakableText:currentMode:]";
-    *&v27[12] = 1024;
-    *&v27[14] = [v18 sonicResponse];
-    _os_log_impl(&dword_2695B9000, v22, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Added sonic response to UUFR said event (type: %d)", v27, 0x12u);
+    *v26 = 136315394;
+    *&v26[4] = "[SVXInstrumentationUtilities _emitUUFRSaidWithModeSupport:dialogIdentifier:dialogPhase:speakableText:currentMode:]";
+    *&v26[12] = 1024;
+    *&v26[14] = [v18 sonicResponse];
+    _os_log_impl(&dword_2695B9000, v22, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Added sonic response to UUFR said event (type: %d)", v26, 0x12u);
   }
 
 LABEL_7:
@@ -338,25 +356,23 @@ LABEL_7:
   {
     v24 = v23;
     v25 = MDModeGetName();
-    *v27 = 136315906;
-    *&v27[4] = "[SVXInstrumentationUtilities _emitUUFRSaidWithModeSupport:dialogIdentifier:dialogPhase:speakableText:currentMode:]";
-    *&v27[12] = 2112;
-    *&v27[14] = identifierCopy;
-    *&v27[22] = 2112;
-    v28 = phaseCopy;
-    v29 = 2112;
-    v30 = v25;
-    _os_log_impl(&dword_2695B9000, v24, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit UUFR said event (dialogIdentifier: %@, dialogPhase: %@, mode: %@)", v27, 0x2Au);
+    *v26 = 136315906;
+    *&v26[4] = "[SVXInstrumentationUtilities _emitUUFRSaidWithModeSupport:dialogIdentifier:dialogPhase:speakableText:currentMode:]";
+    *&v26[12] = 2112;
+    *&v26[14] = identifierCopy;
+    *&v26[22] = 2112;
+    v27 = phaseCopy;
+    v28 = 2112;
+    v29 = v25;
+    _os_log_impl(&dword_2695B9000, v24, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit UUFR said event (dialogIdentifier: %@, dialogPhase: %@, mode: %@)", v26, 0x2Au);
   }
 
-  [supportCopy emitInstrumentation:{v18, *v27, *&v27[16]}];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [supportCopy emitInstrumentation:{v18, *v26, *&v26[8]}];
 }
 
 - (void)emitUUFRSaid:(id)said dialogIdentifier:(id)identifier dialogPhase:(id)phase
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   phaseCopy = phase;
   v9 = MEMORY[0x277D5AA18];
@@ -371,18 +387,16 @@ LABEL_7:
   v13 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v15 = 136315650;
-    v16 = "[SVXInstrumentationUtilities emitUUFRSaid:dialogIdentifier:dialogPhase:]";
-    v17 = 2112;
-    v18 = identifierCopy;
-    v19 = 2112;
-    v20 = phaseCopy;
-    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit UUFR said event (dialogIdentifier: %@, dialogPhase: %@)", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[SVXInstrumentationUtilities emitUUFRSaid:dialogIdentifier:dialogPhase:]";
+    v16 = 2112;
+    v17 = identifierCopy;
+    v18 = 2112;
+    v19 = phaseCopy;
+    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit UUFR said event (dialogIdentifier: %@, dialogPhase: %@)", &v14, 0x20u);
   }
 
   [saidCopy emitInstrumentation:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXInstrumentationUtilities)initWithSiriAnalyticsProvider:(id)provider powerInstrumentation:(id)instrumentation

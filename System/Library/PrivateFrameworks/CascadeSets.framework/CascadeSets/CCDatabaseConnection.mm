@@ -1,4 +1,5 @@
 @interface CCDatabaseConnection
++ (id)connectionToDatabaseAtURL:(id)l dataProtectionClass:(int)class openMode:(int64_t)mode accessAssertion:(id)assertion;
 + (id)readOnlyConnectionToDatabaseAtURL:(id)l accessAssertion:(id)assertion;
 - (BOOL)_createTableWithRecordClass:(Class)class error:(id *)error;
 - (BOOL)beginTransactionWithError:(id *)error;
@@ -39,6 +40,31 @@
   v7 = [objc_opt_class() connectionToDatabaseAtURL:lCopy dataProtectionClass:0 openMode:1 accessAssertion:assertionCopy];
 
   return v7;
+}
+
++ (id)connectionToDatabaseAtURL:(id)l dataProtectionClass:(int)class openMode:(int64_t)mode accessAssertion:(id)assertion
+{
+  v7 = *&class;
+  assertionCopy = assertion;
+  lCopy = l;
+  v11 = [CCSQLiteDatabase alloc];
+  path = [lCopy path];
+
+  if ((mode - 1) >= 3)
+  {
+    modeCopy = 0;
+  }
+
+  else
+  {
+    modeCopy = mode;
+  }
+
+  v14 = [(CCSQLiteDatabase *)v11 initWithPath:path accessPermission:modeCopy threadingMode:3 dataProtectionClass:v7 databaseOptions:3];
+
+  v15 = [objc_alloc(objc_opt_class()) initWithDatabase:v14 accessAssertion:assertionCopy];
+
+  return v15;
 }
 
 - (CCDatabaseConnection)initWithDatabase:(id)database accessAssertion:(id)assertion
@@ -103,34 +129,34 @@
 
 - (BOOL)_createTableWithRecordClass:(Class)class error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   genSQLCreateStatements = [(objc_class *)class genSQLCreateStatements];
-  v7 = [genSQLCreateStatements countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [genSQLCreateStatements countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(genSQLCreateStatements);
         }
 
-        if (![(CCDatabase *)self->_db executeCommandString:*(*(&v14 + 1) + 8 * i) error:error])
+        if (![(CCDatabase *)self->_db executeCommandString:*(*(&v13 + 1) + 8 * i) error:error])
         {
           v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v8 = [genSQLCreateStatements countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [genSQLCreateStatements countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -143,19 +169,18 @@
   v11 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)beginTransactionWithError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (self->_inTransaction)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A278];
-    v13[0] = @"Attempted to begin transaction when one is already active";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A278];
+    v12[0] = @"Attempted to begin transaction when one is already active";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:11 userInfo:v5];
     CCSetError(error, v6);
 
@@ -178,13 +203,12 @@ LABEL_11:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)commitTransactionWithError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (self->_inTransaction)
   {
     v5 = __biome_log_for_category();
@@ -204,22 +228,21 @@ LABEL_11:
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A278];
-    v13[0] = @"Attempted to commit transaction when none are active";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A278];
+    v12[0] = @"Attempted to commit transaction when none are active";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:12 userInfo:v8];
     CCSetError(error, v9);
 
     LOBYTE(v6) = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)rollbackTransactionWithError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (self->_inTransaction)
   {
     v5 = __biome_log_for_category();
@@ -239,32 +262,31 @@ LABEL_11:
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A278];
-    v13[0] = @"Attempted to rollback transaction when none are active";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A278];
+    v12[0] = @"Attempted to rollback transaction when none are active";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:13 userInfo:v8];
     CCSetError(error, v9);
 
     LOBYTE(v6) = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)cleanup:(id *)cleanup
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (self->_inTransaction)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A278];
-    v12[0] = @"Attempted to cleanup while transaction is active";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A278];
+    v11[0] = @"Attempted to cleanup while transaction is active";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:16 userInfo:v5];
     CCSetError(cleanup, v6);
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -275,24 +297,21 @@ LABEL_11:
       [CCDatabaseConnection cleanup:];
     }
 
-    result = [(CCDatabase *)self->_db cleanup:cleanup];
+    return [(CCDatabase *)self->_db cleanup:cleanup];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)enumeratorForRowResultsOfSelect:(id)select error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   selectCopy = select;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A278];
-    v26[0] = @"Could not execute non-select command on read-only database connection";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A278];
+    v25[0] = @"Could not execute non-select command on read-only database connection";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     error = [v10 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:14 userInfo:v7];
     CCSetError(error, error);
 LABEL_7:
@@ -311,15 +330,15 @@ LABEL_7:
       commandString = [selectCopy commandString];
       parameters = [selectCopy parameters];
       path = [(CCDatabase *)self->_db path];
-      v17 = 138413058;
-      v18 = commandString;
-      v19 = 2112;
-      v20 = parameters;
-      v21 = 2112;
-      v22 = path;
-      v23 = 2112;
-      v24 = error;
-      _os_log_error_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_ERROR, "Could not execute command=%@ with parameters=%@ in database file at %@, err=%@", &v17, 0x2Au);
+      v16 = 138413058;
+      v17 = commandString;
+      v18 = 2112;
+      v19 = parameters;
+      v20 = 2112;
+      v21 = path;
+      v22 = 2112;
+      v23 = error;
+      _os_log_error_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_ERROR, "Could not execute command=%@ with parameters=%@ in database file at %@, err=%@", &v16, 0x2Au);
     }
 
     goto LABEL_7;
@@ -328,8 +347,6 @@ LABEL_7:
   v7 = v7;
   v11 = v7;
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -372,7 +389,7 @@ LABEL_8:
 
 BOOL __65__CCDatabaseConnection_firstResultOfSelect_outNumberValue_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   *a4 = 1;
   v6 = a2;
   v7 = [v6 columnCount];
@@ -381,8 +398,8 @@ BOOL __65__CCDatabaseConnection_firstResultOfSelect_outNumberValue_error___block
     v11 = MEMORY[0x1E696ABC0];
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Database result has more than a single value: %@", v6, *MEMORY[0x1E696A278]];
 
-    v18[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v14 = [v11 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:15 userInfo:v13];
     CCSetError(a3, v14);
   }
@@ -396,9 +413,7 @@ BOOL __65__CCDatabaseConnection_firstResultOfSelect_outNumberValue_error___block
     *(v9 + 40) = v8;
   }
 
-  result = v7 < 2;
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 < 2;
 }
 
 - (BOOL)enumerateRowResultsOfSelect:(id)select error:(id *)error usingBlock:(id)block
@@ -486,14 +501,14 @@ LABEL_7:
 
 uint64_t __84__CCDatabaseConnection_enumerateRecordResultsOfSelect_recordClass_error_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v7 = [*(a1 + 40) recordFromDatabaseValueRow:a2];
   if (!v7)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A278];
-    v15[0] = @"Unrecognized database record converted from SQLite value row";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A278];
+    v14[0] = @"Unrecognized database record converted from SQLite value row";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v11 = [v9 errorWithDomain:@"com.apple.CascadeSets.CCDatabase" code:15 userInfo:v10];
     CCSetError(a3, v11);
 
@@ -511,7 +526,6 @@ LABEL_5:
   v8 = 1;
 LABEL_6:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

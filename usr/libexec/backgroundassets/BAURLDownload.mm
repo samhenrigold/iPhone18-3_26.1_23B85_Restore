@@ -3,11 +3,13 @@
 - (BAURLDownload)init;
 - (BAURLDownload)initWithCoder:(id)coder;
 - (BAURLDownload)initWithIdentifier:(NSString *)identifier request:(NSURLRequest *)request essential:(BOOL)essential fileSize:(NSUInteger)fileSize applicationGroupIdentifier:(NSString *)applicationGroupIdentifier priority:(BADownloaderPriority)priority;
+- (BAURLDownload)initWithIdentifier:(id)identifier request:(id)request essential:(BOOL)essential fileSize:(unint64_t)size applicationGroupIdentifier:(id)groupIdentifier priority:(int64_t)priority forManagedAssetPack:(BOOL)pack;
 - (BOOL)_startDownloadWithDelegate:(id)delegate error:(id *)error;
 - (BOOL)startDownloadWithDelegate:(id)delegate error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
 - (int64_t)stopRequest;
+- (void)_cancelDownload:(BOOL)download;
 - (void)_handleChallenge:(id)challenge authenticationHandler:(id)handler;
 - (void)_handleDownloadCompletionWithFileLocation:(id)location response:(id)response;
 - (void)_handleDownloadFailureWithError:(id)error resumeData:(id)data response:(id)response;
@@ -50,7 +52,7 @@
 {
   delegateCopy = delegate;
   os_unfair_lock_assert_owner([(BADownload *)self downloadLock]);
-  v73 = delegateCopy;
+  v76 = delegateCopy;
   [(BADownload *)self setDelegate:delegateCopy];
   sub_10004C130(self, 2);
   [(BADownload *)self setDownloadError:0];
@@ -58,7 +60,7 @@
   isForegroundDownload = [(BADownload *)self isForegroundDownload];
   if ([(BAURLDownload *)self stopRequest]== 6)
   {
-    v7 = sub_100010694();
+    v7 = sub_100010694(6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -66,33 +68,33 @@
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Download timed out awaiting connectivity. Restarting Download: %{public}@", buf, 0xCu);
     }
 
-    v72 = 0;
+    v75 = 0;
   }
 
   else
   {
-    v72 = isForegroundDownload;
+    v75 = isForegroundDownload;
   }
 
   [(BAURLDownload *)self setStopRequest:0];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   request = [(BAURLDownload *)self request];
-  v76 = [request mutableCopy];
+  v79 = [request mutableCopy];
 
   objc_opt_class();
-  v75 = isKindOfClass & 1;
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v76 URL], v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v11 = objc_opt_isKindOfClass(), v10, (v11 & 1) == 0))
+  v78 = isKindOfClass & 1;
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v79 URL], v10 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v11 = objc_opt_isKindOfClass(), v10, (v11 & 1) == 0))
   {
-    v12 = [v76 URL];
+    v12 = [v79 URL];
     scheme = [v12 scheme];
     v14 = [scheme caseInsensitiveCompare:@"file"];
 
-    v15 = [v76 URL];
+    v15 = [v79 URL];
     scheme2 = [v15 scheme];
     v17 = [scheme2 caseInsensitiveCompare:@"https"];
 
-    if (!v75 || v14)
+    if (!v78 || v14)
     {
       if (v17)
       {
@@ -114,59 +116,59 @@ LABEL_60:
 
   if (applicationInfo)
   {
-    v20 = sub_100010694();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100010694(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Download %{public}@ is restricted, validating.", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Download %{public}@ is restricted, validating.", buf, 0xCu);
     }
 
     request2 = [(BAURLDownload *)self request];
-    v22 = [request2 URL];
-    host = [v22 host];
+    v23 = [request2 URL];
+    host = [v23 host];
 
     applicationInfo2 = [(BADownload *)self applicationInfo];
     allowedDownloadDomains = [applicationInfo2 allowedDownloadDomains];
-    LOBYTE(v22) = [allowedDownloadDomains containsObject:host];
+    LOBYTE(v23) = [allowedDownloadDomains containsObject:host];
 
-    if ((v22 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      v89 = 0u;
+      v92 = 0u;
+      v93 = 0u;
       v90 = 0u;
-      v87 = 0u;
-      v88 = 0u;
+      v91 = 0u;
       applicationInfo3 = [(BADownload *)self applicationInfo];
       allowedDownloadDomainWildcards = [applicationInfo3 allowedDownloadDomainWildcards];
 
-      v27 = [allowedDownloadDomainWildcards countByEnumeratingWithState:&v87 objects:v91 count:16];
-      if (v27)
+      v28 = [allowedDownloadDomainWildcards countByEnumeratingWithState:&v90 objects:v94 count:16];
+      if (v28)
       {
-        v28 = *v88;
+        v29 = *v91;
         while (2)
         {
-          for (i = 0; i != v27; i = i + 1)
+          for (i = 0; i != v28; i = i + 1)
           {
-            if (*v88 != v28)
+            if (*v91 != v29)
             {
               objc_enumerationMutation(allowedDownloadDomainWildcards);
             }
 
-            v30 = [*(*(&v87 + 1) + 8 * i) substringFromIndex:1];
+            v31 = [*(*(&v90 + 1) + 8 * i) substringFromIndex:1];
             request3 = [(BAURLDownload *)self request];
-            v32 = [request3 URL];
-            host2 = [v32 host];
-            v34 = [host2 hasSuffix:v30];
+            v33 = [request3 URL];
+            host2 = [v33 host];
+            v35 = [host2 hasSuffix:v31];
 
-            if (v34)
+            if (v35)
             {
 
               goto LABEL_31;
             }
           }
 
-          v27 = [allowedDownloadDomainWildcards countByEnumeratingWithState:&v87 objects:v91 count:16];
-          if (v27)
+          v28 = [allowedDownloadDomainWildcards countByEnumeratingWithState:&v90 objects:v94 count:16];
+          if (v28)
           {
             continue;
           }
@@ -175,10 +177,10 @@ LABEL_60:
         }
       }
 
-      if ((v75 & 1) == 0)
+      if ((v78 & 1) == 0)
       {
-        v35 = sub_100010694();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v37 = sub_100010694(v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           sub_100047868();
         }
@@ -188,9 +190,9 @@ LABEL_60:
           goto LABEL_59;
         }
 
-        v36 = 202;
+        v38 = 202;
 LABEL_58:
-        *error = sub_100027BE4(v36);
+        *error = sub_100027BE4(v38);
 LABEL_59:
 
         goto LABEL_60;
@@ -199,12 +201,12 @@ LABEL_59:
 
 LABEL_31:
     applicationInfo4 = [(BADownload *)self applicationInfo];
-    v38 = [applicationInfo4 remainingDownloadAllowanceWithNecessity:-[BADownload necessity](self isManifest:{"necessity"), v75}] == 0;
+    v40 = [applicationInfo4 remainingDownloadAllowanceWithNecessity:-[BADownload necessity](self isManifest:{"necessity"), v78}] == 0;
 
-    if (v38)
+    if (v40)
     {
-      v69 = sub_100010694();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v72 = sub_100010694(v41);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
       {
         sub_1000478D0();
       }
@@ -214,17 +216,17 @@ LABEL_31:
         goto LABEL_59;
       }
 
-      v36 = 203;
+      v38 = 203;
       goto LABEL_58;
     }
   }
 
   if ([(BADownload *)self isForegroundDownload])
   {
-    v39 = +[NSURLSessionConfiguration defaultSessionConfiguration];
-    [v39 setAllowsExpensiveNetworkAccess:1];
-    [v39 setTimeoutIntervalForRequest:60.0];
-    [v39 setWaitsForConnectivity:v72];
+    v42 = +[NSURLSessionConfiguration defaultSessionConfiguration];
+    [v42 setAllowsExpensiveNetworkAccess:1];
+    [v42 setTimeoutIntervalForRequest:60.0];
+    [v42 setWaitsForConnectivity:v75];
     applicationInfo5 = [(BADownload *)self applicationInfo];
     if (applicationInfo5)
     {
@@ -232,78 +234,78 @@ LABEL_31:
 
       if (permitInitialCellularDownload)
       {
-        [v39 setAllowsCellularAccess:1];
+        [v42 setAllowsCellularAccess:1];
       }
     }
 
-    v42 = 7;
+    v45 = 7;
   }
 
   else
   {
     uniqueIdentifier = [(BADownload *)self uniqueIdentifier];
-    v39 = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:uniqueIdentifier];
+    v42 = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:uniqueIdentifier];
 
-    [v39 setAllowsCellularAccess:0];
-    [v39 setAllowsExpensiveNetworkAccess:0];
-    [v39 set_allowsRetryForBackgroundDataTasks:0];
-    [v76 setAllowsCellularAccess:{objc_msgSend(v39, "allowsCellularAccess")}];
-    [v76 setAllowsExpensiveNetworkAccess:{objc_msgSend(v39, "allowsExpensiveNetworkAccess")}];
-    [v76 setNetworkServiceType:3];
-    v42 = 3;
+    [v42 setAllowsCellularAccess:0];
+    [v42 setAllowsExpensiveNetworkAccess:0];
+    [v42 set_allowsRetryForBackgroundDataTasks:0];
+    [v79 setAllowsCellularAccess:{objc_msgSend(v42, "allowsCellularAccess")}];
+    [v79 setAllowsExpensiveNetworkAccess:{objc_msgSend(v42, "allowsExpensiveNetworkAccess")}];
+    [v79 setNetworkServiceType:3];
+    v45 = 3;
   }
 
-  sub_10004C130(self, v42);
+  sub_10004C130(self, v45);
   applicationIdentifier = [(BADownload *)self applicationIdentifier];
-  [v39 set_sourceApplicationBundleIdentifier:applicationIdentifier];
+  [v42 set_sourceApplicationBundleIdentifier:applicationIdentifier];
 
-  v45 = [v76 copy];
-  [(BAURLDownload *)self setRequest:v45];
+  v48 = [v79 copy];
+  [(BAURLDownload *)self setRequest:v48];
 
   objc_initWeak(buf, self);
   resumeData = [(BADownload *)self resumeData];
 
-  v47 = [BAURLSession alloc];
+  v50 = [BAURLSession alloc];
   if (resumeData)
   {
     resumeData2 = [(BADownload *)self resumeData];
     downloadCachePath = [(BADownload *)self downloadCachePath];
-    v50 = [NSURL fileURLWithPath:downloadCachePath isDirectory:1];
+    v53 = [NSURL fileURLWithPath:downloadCachePath isDirectory:1];
     isForegroundDownload2 = [(BADownload *)self isForegroundDownload];
-    v85[0] = _NSConcreteStackBlock;
-    v85[1] = 3221225472;
-    v85[2] = sub_100003334;
-    v85[3] = &unk_100079238;
-    v52 = &v86;
-    objc_copyWeak(&v86, buf);
-    v53 = [(BAURLSession *)v47 initWithResumeData:resumeData2 withDestinationDirectory:v50 inBackground:isForegroundDownload2 ^ 1 withAuthenticationHandler:v85 withRedirectResponseHandler:0];
-    [(BADownload *)self setSession:v53];
+    v88[0] = _NSConcreteStackBlock;
+    v88[1] = 3221225472;
+    v88[2] = sub_100003334;
+    v88[3] = &unk_100079238;
+    v55 = &v89;
+    objc_copyWeak(&v89, buf);
+    v56 = [(BAURLSession *)v50 initWithResumeData:resumeData2 withDestinationDirectory:v53 inBackground:isForegroundDownload2 ^ 1 withAuthenticationHandler:v88 withRedirectResponseHandler:0];
+    [(BADownload *)self setSession:v56];
   }
 
   else
   {
     resumeData2 = [(BAURLDownload *)self request];
     downloadCachePath = [(BADownload *)self downloadCachePath];
-    v50 = [NSURL fileURLWithPath:downloadCachePath isDirectory:1];
+    v53 = [NSURL fileURLWithPath:downloadCachePath isDirectory:1];
     isForegroundDownload3 = [(BADownload *)self isForegroundDownload];
-    v83[0] = _NSConcreteStackBlock;
-    v83[1] = 3221225472;
-    v83[2] = sub_1000033AC;
-    v83[3] = &unk_100079238;
-    v52 = &v84;
-    objc_copyWeak(&v84, buf);
-    v53 = [(BAURLSession *)v47 initWithURLRequest:resumeData2 withDestinationDirectory:v50 inBackground:isForegroundDownload3 ^ 1 withAuthenticationHandler:v83];
-    [(BADownload *)self setSession:v53];
+    v86[0] = _NSConcreteStackBlock;
+    v86[1] = 3221225472;
+    v86[2] = sub_1000033AC;
+    v86[3] = &unk_100079238;
+    v55 = &v87;
+    objc_copyWeak(&v87, buf);
+    v56 = [(BAURLSession *)v50 initWithURLRequest:resumeData2 withDestinationDirectory:v53 inBackground:isForegroundDownload3 ^ 1 withAuthenticationHandler:v86];
+    [(BADownload *)self setSession:v56];
   }
 
-  objc_destroyWeak(v52);
+  objc_destroyWeak(v55);
   session = [(BADownload *)self session];
   v18 = session != 0;
 
   if (v18)
   {
-    v56 = +[NSDate now];
-    [(BADownload *)self setDownloadStartDate:v56];
+    v59 = +[NSDate now];
+    [(BADownload *)self setDownloadStartDate:v59];
 
     uniqueIdentifier2 = [(BADownload *)self uniqueIdentifier];
     [(BADownload *)self _addActivityWithIdentifier:uniqueIdentifier2 takePowerAssertion:[(BADownload *)self isForegroundDownload]];
@@ -312,9 +314,9 @@ LABEL_31:
     if (delegate)
     {
       delegate2 = [(BADownload *)self delegate];
-      v60 = objc_opt_respondsToSelector();
+      v63 = objc_opt_respondsToSelector();
 
-      if (v60)
+      if (v63)
       {
         responseQueue = [(BADownload *)self responseQueue];
         block[0] = _NSConcreteStackBlock;
@@ -329,41 +331,41 @@ LABEL_31:
     session2 = [(BADownload *)self session];
     [session2 setUseUniqueFileName:1];
 
-    if (v72)
+    if (v75)
     {
       necessity = [(BADownload *)self necessity];
       session3 = [(BADownload *)self session];
-      v65 = session3;
-      v66 = 60.0;
+      v68 = session3;
+      v69 = 60.0;
       if (necessity == 1)
       {
-        v66 = 10.0;
+        v69 = 10.0;
       }
 
-      [session3 setInitialConnectivityTimeout:v66];
+      [session3 setInitialConnectivityTimeout:v69];
     }
 
     session4 = [(BADownload *)self session];
     responseQueue2 = [(BADownload *)self responseQueue];
-    v81[0] = _NSConcreteStackBlock;
-    v81[1] = 3221225472;
-    v81[2] = sub_100003478;
-    v81[3] = &unk_100079288;
-    v81[4] = self;
-    v79[0] = _NSConcreteStackBlock;
-    v79[1] = 3221225472;
-    v79[2] = sub_100003B08;
-    v79[3] = &unk_1000792B0;
-    objc_copyWeak(&v80, buf);
-    v77[0] = _NSConcreteStackBlock;
-    v77[1] = 3221225472;
-    v77[2] = sub_100003B78;
-    v77[3] = &unk_1000792D8;
-    v77[4] = self;
-    v78 = v75;
-    [session4 startAsyncDownloadNotifyingOnQueue:responseQueue2 sessionConfiguration:v39 extractorFactory:v81 bytesReceivedHandler:v79 completionHandler:v77];
+    v84[0] = _NSConcreteStackBlock;
+    v84[1] = 3221225472;
+    v84[2] = sub_100003478;
+    v84[3] = &unk_100079288;
+    v84[4] = self;
+    v82[0] = _NSConcreteStackBlock;
+    v82[1] = 3221225472;
+    v82[2] = sub_100003B08;
+    v82[3] = &unk_1000792B0;
+    objc_copyWeak(&v83, buf);
+    v80[0] = _NSConcreteStackBlock;
+    v80[1] = 3221225472;
+    v80[2] = sub_100003B78;
+    v80[3] = &unk_1000792D8;
+    v80[4] = self;
+    v81 = v78;
+    [session4 startAsyncDownloadNotifyingOnQueue:responseQueue2 sessionConfiguration:v42 extractorFactory:v84 bytesReceivedHandler:v82 completionHandler:v80];
 
-    objc_destroyWeak(&v80);
+    objc_destroyWeak(&v83);
   }
 
   else if (error)
@@ -710,6 +712,43 @@ LABEL_12:
   }
 }
 
+- (void)_cancelDownload:(BOOL)download
+{
+  downloadCopy = download;
+  downloadLock = [(BADownload *)self downloadLock];
+  os_unfair_lock_lock(downloadLock);
+  if (sub_10004C244(self) != 8)
+  {
+    session = [(BADownload *)self session];
+
+    if (session)
+    {
+      if (downloadCopy)
+      {
+        v7 = 2;
+      }
+
+      else
+      {
+        v7 = 1;
+      }
+
+      [(BAURLDownload *)self setStopRequest:v7];
+      sub_10004C130(self, 6);
+      session2 = [(BADownload *)self session];
+      [session2 cancel];
+    }
+
+    else
+    {
+      session2 = [NSError errorWithDomain:NSURLErrorDomain code:-999 userInfo:0];
+      [(BAURLDownload *)self _informDelegateOfFailedDownloadWithError:session2 silentFailure:downloadCopy];
+    }
+  }
+
+  os_unfair_lock_unlock(downloadLock);
+}
+
 - (void)pauseDownload
 {
   downloadLock = [(BADownload *)self downloadLock];
@@ -777,7 +816,7 @@ LABEL_12:
     intValue = [v5 intValue];
     if (intValue == 1)
     {
-      v7 = sub_100010694();
+      v7 = sub_100010694(intValue);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138543362;
@@ -794,7 +833,7 @@ LABEL_10:
 
     if (!intValue)
     {
-      v7 = sub_100010694();
+      v7 = sub_100010694(intValue);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138543362;
@@ -923,6 +962,18 @@ LABEL_7:
 LABEL_8:
 
   return selfCopy;
+}
+
+- (BAURLDownload)initWithIdentifier:(id)identifier request:(id)request essential:(BOOL)essential fileSize:(unint64_t)size applicationGroupIdentifier:(id)groupIdentifier priority:(int64_t)priority forManagedAssetPack:(BOOL)pack
+{
+  v9 = [(BAURLDownload *)self initWithIdentifier:identifier request:request essential:essential fileSize:size applicationGroupIdentifier:groupIdentifier priority:priority];
+  v10 = v9;
+  if (v9)
+  {
+    sub_10004C1A0(v9, pack);
+  }
+
+  return v10;
 }
 
 - (BAURLDownload)initWithCoder:(id)coder

@@ -1,4 +1,5 @@
 @interface HDTreadmillData
++ (id)unitTest_fakeTreadmillDataForDistance:(unsigned int)distance energy:(unsigned __int16)energy elapsedTime:(unsigned __int16)time;
 - (id)_init;
 - (id)allFields;
 - (id)description;
@@ -539,6 +540,22 @@ LABEL_57:
   }
 
   return v10;
+}
+
++ (id)unitTest_fakeTreadmillDataForDistance:(unsigned int)distance energy:(unsigned __int16)energy elapsedTime:(unsigned __int16)time
+{
+  timeCopy = time;
+  energyCopy = energy;
+  v7 = *&distance;
+  _init = [[HDTreadmillData alloc] _init];
+  [_init[4] setValue:v7];
+  [_init[4] setIsSet:1];
+  [_init[11] setValue:energyCopy];
+  [_init[11] setIsSet:1];
+  [_init[16] setValue:timeCopy];
+  [_init[16] setIsSet:1];
+
+  return _init;
 }
 
 @end

@@ -279,20 +279,20 @@ void __77__MKIconManager_requestImageForStyleAttributes_size_scale_completionHan
   iconCopy = icon;
   v16 = *&format;
   styleCopy = style;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __142__MKIconManager_imageForStyle_size_forScale_format_customIconID_fallbackToBundleIcon_transparent_transitmode_interactive_isCarplay_nightMode___block_invoke;
-  v36[3] = &unk_1E76C7DC8;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __142__MKIconManager_imageForStyle_size_forScale_format_customIconID_fallbackToBundleIcon_transparent_transitmode_interactive_isCarplay_nightMode___block_invoke;
+  v37[3] = &unk_1E76C7DC8;
   carplayCopy = carplay;
   transitmodeCopy = transitmode;
-  v43 = transparentCopy;
+  v44 = transparentCopy;
   modeCopy = mode;
-  v34 = styleCopy;
-  v37 = v34;
+  v35 = styleCopy;
+  v38 = v35;
   selfCopy = self;
   scaleCopy = scale;
   sizeCopy = size;
-  v21 = MEMORY[0x1A58E9F30](v36);
+  v21 = MEMORY[0x1A58E9F30](v37);
   if (_diskCache(void)::once != -1)
   {
     dispatch_once(&_diskCache(void)::once, &__block_literal_global_202);
@@ -302,7 +302,7 @@ void __77__MKIconManager_requestImageForStyleAttributes_size_scale_completionHan
   v23 = v22;
   if (!d && v22 && GEOConfigGetBOOL())
   {
-    v24 = [v23 imageForStyleAttributes:v34 size:size scale:carplay isCarplay:transitmode isTransit:transparentCopy isTransparent:mode isNightMode:scale drawingBlock:v21];
+    v24 = [v23 imageForStyleAttributes:v35 size:size scale:carplay isCarplay:transitmode isTransit:transparentCopy isTransparent:mode isNightMode:scale drawingBlock:v21];
   }
 
   else
@@ -318,30 +318,30 @@ void __77__MKIconManager_requestImageForStyleAttributes_size_scale_completionHan
     _mapkitBundle = [MEMORY[0x1E696AAE8] _mapkitBundle];
     _cfBundle = [_mapkitBundle _cfBundle];
 
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2020000000;
     v29 = getLICreateIconForBundleSymbolLoc::ptr;
-    v53 = getLICreateIconForBundleSymbolLoc::ptr;
+    v54 = getLICreateIconForBundleSymbolLoc::ptr;
     if (!getLICreateIconForBundleSymbolLoc::ptr)
     {
-      v45 = MEMORY[0x1E69E9820];
-      v46 = 3221225472;
-      v47 = __getLICreateIconForBundleSymbolLoc_block_invoke;
-      v48 = &unk_1E76CD7B0;
-      v49 = &v50;
+      v46 = MEMORY[0x1E69E9820];
+      v47 = 3221225472;
+      v48 = __getLICreateIconForBundleSymbolLoc_block_invoke;
+      v49 = &unk_1E76CD7B0;
+      v50 = &v51;
       v30 = MobileIconsLibrary();
       v31 = dlsym(v30, "LICreateIconForBundle");
-      *(v49[1] + 24) = v31;
-      getLICreateIconForBundleSymbolLoc::ptr = *(v49[1] + 24);
-      v29 = v51[3];
+      *(v50[1] + 24) = v31;
+      getLICreateIconForBundleSymbolLoc::ptr = *(v50[1] + 24);
+      v29 = v52[3];
     }
 
-    _Block_object_dispose(&v50, 8);
+    _Block_object_dispose(&v51, 8);
     if (!v29)
     {
-      dlerror();
-      result = abort_report_np();
+      v34 = dlerror();
+      result = abort_report_np("%s", v34);
       __break(1u);
       return result;
     }

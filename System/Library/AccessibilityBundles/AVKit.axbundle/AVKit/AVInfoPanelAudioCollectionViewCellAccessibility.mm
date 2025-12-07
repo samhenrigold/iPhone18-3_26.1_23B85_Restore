@@ -3,9 +3,8 @@
 
 @implementation AVInfoPanelAudioCollectionViewCellAccessibility
 
-void __74__tvOS_AVInfoPanelAudioCollectionViewCellAccessibility_accessibilityValue__block_invoke(uint64_t a1)
+void __74__tvOS_AVInfoPanelAudioCollectionViewCellAccessibility_accessibilityValue__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v7 = [*(a1 + 32) safeValueForKey:@"route"];
   v4 = [v3 _imageForRoute:v7];

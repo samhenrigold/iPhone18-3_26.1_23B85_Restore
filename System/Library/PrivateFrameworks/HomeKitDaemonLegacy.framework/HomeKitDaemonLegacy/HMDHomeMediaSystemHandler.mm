@@ -78,7 +78,7 @@
 
 - (void)_userAssistantAccessControlDidUpdate:(id)update accessories:(id)accessories
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   accessoriesCopy = accessories;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -87,33 +87,33 @@
   if (_currentMediaSystemIfPrimary)
   {
     selfCopy = self;
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     accessories = [_currentMediaSystemIfPrimary accessories];
-    v12 = [accessories countByEnumeratingWithState:&v43 objects:v56 count:16];
+    v12 = [accessories countByEnumeratingWithState:&v42 objects:v55 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v44;
+      v15 = *v43;
       v16 = 1;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v44 != v15)
+          if (*v43 != v15)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v18 = [accessoriesCopy containsObject:*(*(&v43 + 1) + 8 * i)];
+          v18 = [accessoriesCopy containsObject:*(*(&v42 + 1) + 8 * i)];
           v14 |= v18;
           v16 &= v18;
         }
 
-        v13 = [accessories countByEnumeratingWithState:&v43 objects:v56 count:16];
+        v13 = [accessories countByEnumeratingWithState:&v42 objects:v55 count:16];
       }
 
       while (v13);
@@ -133,53 +133,53 @@
     {
       v22 = HMFGetLogIdentifier();
       [v10 accessories];
-      v23 = v37 = v10;
+      v23 = v36 = v10;
       *buf = 138544386;
-      v49 = v22;
-      v50 = 1024;
-      *v51 = v14 & 1;
-      *&v51[4] = 1024;
-      *&v51[6] = v16;
-      v52 = 2112;
-      v53 = v23;
-      v54 = 2112;
-      v55 = accessoriesCopy;
+      v48 = v22;
+      v49 = 1024;
+      *v50 = v14 & 1;
+      *&v50[4] = 1024;
+      *&v50[6] = v16;
+      v51 = 2112;
+      v52 = v23;
+      v53 = 2112;
+      v54 = accessoriesCopy;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@accessories in media system somePresent:%d allPresent:%d, ms acc:%@, incoming acc: %@", buf, 0x2Cu);
 
-      v10 = v37;
+      v10 = v36;
       self = selfCopy;
     }
 
     objc_autoreleasePoolPop(v19);
     if (!(v16 & 1 | ((v14 & 1) == 0)))
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       accessories2 = [v10 accessories];
-      v25 = [accessories2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v25 = [accessories2 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v40;
+        v27 = *v39;
         do
         {
           for (j = 0; j != v26; ++j)
           {
-            if (*v40 != v27)
+            if (*v39 != v27)
             {
               objc_enumerationMutation(accessories2);
             }
 
-            v29 = *(*(&v39 + 1) + 8 * j);
+            v29 = *(*(&v38 + 1) + 8 * j);
             if ([accessoriesCopy containsObject:v29])
             {
               [v8 addObject:v29];
             }
           }
 
-          v26 = [accessories2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v26 = [accessories2 countByEnumeratingWithState:&v38 objects:v46 count:16];
         }
 
         while (v26);
@@ -196,45 +196,43 @@
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v33;
-      v50 = 2112;
-      *v51 = v8;
+      v48 = v33;
+      v49 = 2112;
+      *v50 = v8;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@audit discovered accessories added by old controller, will remove %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
     delegate = [(HMDHomeMediaSystemHandler *)selfCopy2 delegate];
-    v35 = [v8 copy];
+    v35 = objc_msgSend_copy(v8);
     [delegate mediaSystemController:selfCopy2 removeAccessories:v35 fromAssistantAccessControl:updateCopy];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentMediaSystemIfPrimary
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (+[HMDDeviceCapabilities isAppleMediaAccessory])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     mediaSystems = [(HMDHomeMediaSystemHandler *)self mediaSystems];
-    v4 = [mediaSystems countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [mediaSystems countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
-      v5 = *v12;
+      v5 = *v11;
       while (2)
       {
         for (i = 0; i != v4; i = i + 1)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(mediaSystems);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * i);
+          v7 = *(*(&v10 + 1) + 8 * i);
           targetAccessory = [v7 targetAccessory];
           if ([targetAccessory isCurrentAccessory])
           {
@@ -244,7 +242,7 @@
           }
         }
 
-        v4 = [mediaSystems countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [mediaSystems countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v4)
         {
           continue;
@@ -262,38 +260,36 @@ LABEL_13:
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   mediaSystems = [(HMDHomeMediaSystemHandler *)self mediaSystems];
-  v5 = [mediaSystems countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [mediaSystems countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(mediaSystems);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -342,7 +338,7 @@ LABEL_13:
         [v15 addObject:v16];
       }
 
-      v6 = [mediaSystems countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v6 = [mediaSystems countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v6);
@@ -367,18 +363,16 @@ LABEL_13:
     v20 = array3;
     [coderCopy encodeObject:array3 forKey:@"ms.homepod6_1"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeMediaSystemHandler)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v7 = [v5 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:*MEMORY[0x277CD2480]];
@@ -435,9 +429,9 @@ LABEL_11:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     v20 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v20;
-    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Decoded home media system handler with no media systems", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v20;
+    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Decoded home media system handler with no media systems", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v17);
@@ -445,7 +439,6 @@ LABEL_11:
 LABEL_16:
   v21 = [(HMDHomeMediaSystemHandler *)self initWithMediaSystems:v14];
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -500,46 +493,45 @@ LABEL_16:
 
 - (id)backingStoreObjectsForVersion:(int64_t)version
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   mediaSystems = [(HMDHomeMediaSystemHandler *)self mediaSystems];
-  v7 = [mediaSystems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [mediaSystems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(mediaSystems);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) backingStoreObjectsForVersion:version];
+        v11 = [*(*(&v14 + 1) + 8 * i) backingStoreObjectsForVersion:version];
         [array addObjectsFromArray:v11];
       }
 
-      v8 = [mediaSystems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [mediaSystems countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v12 = [array copy];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(array);
 
   return v12;
 }
 
 - (void)_handleUpdateMediaSystemModel:(id)model message:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   if (isFeatureHomeTheaterQFAEnabledForTests && [isFeatureHomeTheaterQFAEnabledForTests BOOLValue])
@@ -550,9 +542,9 @@ LABEL_16:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping update model due to Home Theater QFA enabled", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping update model due to Home Theater QFA enabled", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -571,25 +563,23 @@ LABEL_16:
       v17 = HMFGetLogIdentifier();
       uuid2 = [modelCopy uuid];
       uUIDString = [uuid2 UUIDString];
-      v21 = 138543874;
-      v22 = v17;
-      v23 = 2112;
-      v24 = uUIDString;
-      v25 = 2112;
-      v26 = v13;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling update of media system %@, system: %@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v17;
+      v22 = 2112;
+      v23 = uUIDString;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling update of media system %@, system: %@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     [v13 transactionObjectUpdated:0 newValues:modelCopy message:messageCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRemoveMediaSystemModel:(id)model message:(id)message
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   if (isFeatureHomeTheaterQFAEnabledForTests && [isFeatureHomeTheaterQFAEnabledForTests BOOLValue])
@@ -600,9 +590,9 @@ LABEL_16:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping remove model due to Home Theater QFA enabled", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping remove model due to Home Theater QFA enabled", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -624,15 +614,15 @@ LABEL_16:
       uuid2 = [modelCopy uuid];
       uUIDString = [uuid2 UUIDString];
       identifier = [messageCopy identifier];
-      v30 = 138544130;
-      v31 = v17;
-      v32 = 2112;
-      v33 = uUIDString;
-      v34 = 2112;
-      v35 = identifier;
-      v36 = 2112;
-      v37 = v12;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removal of media system model uuid: %@ message identifier: %@ media system: %@", &v30, 0x2Au);
+      v29 = 138544130;
+      v30 = v17;
+      v31 = 2112;
+      v32 = uUIDString;
+      v33 = 2112;
+      v34 = identifier;
+      v35 = 2112;
+      v36 = v12;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Handling transaction removal of media system model uuid: %@ message identifier: %@ media system: %@", &v29, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -656,13 +646,13 @@ LABEL_16:
         uuid3 = [modelCopy uuid];
         uUIDString2 = [uuid3 UUIDString];
         mediaSystems = [(HMDHomeMediaSystemHandler *)v23 mediaSystems];
-        v30 = 138543874;
-        v31 = v25;
-        v32 = 2112;
-        v33 = uUIDString2;
-        v34 = 2112;
-        v35 = mediaSystems;
-        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Cannot find media system with UUID %@, current media systems: %@", &v30, 0x20u);
+        v29 = 138543874;
+        v30 = v25;
+        v31 = 2112;
+        v32 = uUIDString2;
+        v33 = 2112;
+        v34 = mediaSystems;
+        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Cannot find media system with UUID %@, current media systems: %@", &v29, 0x20u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -670,13 +660,11 @@ LABEL_16:
       [messageCopy respondWithError:transactionResult];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmPrimaryResidentIfFirstMediaSystem
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mediaSystems = [(HMDHomeMediaSystemHandler *)self mediaSystems];
   v4 = [mediaSystems count];
 
@@ -694,9 +682,9 @@ LABEL_16:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = HMFGetLogIdentifier();
-          v17 = 138543362;
-          v18 = v10;
-          _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Confirming primary resident due to first added media system", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = v10;
+          _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Confirming primary resident due to first added media system", &v16, 0xCu);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -713,21 +701,19 @@ LABEL_16:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v15;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to confirm primary resident due to no home", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to confirm primary resident due to no home", &v16, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToSettingsForNewlyAddedMediaSystem:(id)system
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   stereoPairSettingsController = [(HMDHomeMediaSystemHandler *)self stereoPairSettingsController];
 
@@ -739,24 +725,22 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = systemCopy;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stereo pair settings controller add media system: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = systemCopy;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stereo pair settings controller add media system: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     stereoPairSettingsController2 = [(HMDHomeMediaSystemHandler *)selfCopy stereoPairSettingsController];
     [stereoPairSettingsController2 subscribeToAddedMediaSystemIfPrimaryResident:systemCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMediaSystem:(id)system
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   [systemCopy setDataSource:self];
   messageDispatcher = [(HMDHomeMediaSystemHandler *)self messageDispatcher];
@@ -771,23 +755,21 @@ LABEL_16:
     v7 = logger;
     uuid = [systemCopy uuid];
     *buf = 138412290;
-    v16 = uuid;
+    v15 = uuid;
     _os_signpost_emit_with_name_impl(&dword_2531F8000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AddedMediaSystem", "mediaSystemUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
   }
 
   notificationCenter = [(HMDHomeMediaSystemHandler *)self notificationCenter];
   delegate = [(HMDHomeMediaSystemHandler *)self delegate];
-  v13 = @"HMDMediaSystemNotificationKey";
-  v14 = systemCopy;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = @"HMDMediaSystemNotificationKey";
+  v13 = systemCopy;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   [notificationCenter postNotificationName:@"HMDMediaSystemAddedNotification" object:delegate userInfo:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddMediaSystemModel:(id)model message:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   if (isFeatureHomeTheaterQFAEnabledForTests && [isFeatureHomeTheaterQFAEnabledForTests BOOLValue])
@@ -799,7 +781,7 @@ LABEL_16:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v11;
+      v39 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping add model due to Home Theater QFA enabled", buf, 0xCu);
     }
 
@@ -809,7 +791,7 @@ LABEL_16:
   else
   {
     home = [(HMDHomeMediaSystemHandler *)self home];
-    v36 = modelCopy;
+    v35 = modelCopy;
     v13 = modelCopy;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -849,7 +831,7 @@ LABEL_16:
       v19 = off_27971A1B0;
     }
 
-    v35 = home;
+    v34 = home;
     v20 = [objc_alloc(*v19) initWithMediaSystemModel:v16 home:home];
     v21 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -860,11 +842,11 @@ LABEL_16:
       uuid = [v16 uuid];
       uUIDString = [uuid UUIDString];
       *buf = 138543874;
-      v40 = v24;
-      v41 = 2112;
-      v42 = uUIDString;
-      v43 = 2112;
-      v44 = v20;
+      v39 = v24;
+      v40 = 2112;
+      v41 = uUIDString;
+      v42 = 2112;
+      v43 = v20;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Handling add of media system %@, system: %@", buf, 0x20u);
     }
 
@@ -872,10 +854,10 @@ LABEL_16:
     if (v20)
     {
       [(HMDHomeMediaSystemHandler *)selfCopy2 addMediaSystem:v20];
-      v37 = *MEMORY[0x277CD2418];
+      v36 = *MEMORY[0x277CD2418];
       serialize = [v20 serialize];
-      v38 = serialize;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v37 = serialize;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
       [messageCopy respondWithPayload:v28];
 
       transactionResult = [messageCopy transactionResult];
@@ -892,7 +874,7 @@ LABEL_16:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v33;
+        v39 = v33;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot create media system object", buf, 0xCu);
       }
 
@@ -901,15 +883,13 @@ LABEL_16:
       [messageCopy respondWithError:transactionResult];
     }
 
-    modelCopy = v36;
+    modelCopy = v35;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMediaSystemWithGroupIdentifier:(id)identifier usingData:(id)data
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dataCopy = data;
   v8 = objc_autoreleasePoolPush();
@@ -918,11 +898,11 @@ LABEL_16:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v24 = 138543618;
-    v25 = v11;
-    v26 = 2112;
-    v27 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding media system with identifier: %@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v11;
+    v25 = 2112;
+    v26 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding media system with identifier: %@", &v23, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -944,11 +924,11 @@ LABEL_16:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v22;
-        v26 = 2112;
-        v27 = dataCopy;
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to add media system using data: %@ due to no home", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v22;
+        v25 = 2112;
+        v26 = dataCopy;
+        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to add media system using data: %@ due to no home", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -963,19 +943,17 @@ LABEL_16:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v18;
-      v26 = 2112;
-      v27 = identifierCopy;
-      v28 = 2112;
-      v29 = dataCopy;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get data for media system to add with identifier: %@ data: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v18;
+      v25 = 2112;
+      v26 = identifierCopy;
+      v27 = 2112;
+      v28 = dataCopy;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to get data for media system to add with identifier: %@ data: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMediaSystemsWithIdentifiers:(id)identifiers usingData:(id)data
@@ -1064,7 +1042,7 @@ void __50__HMDHomeMediaSystemHandler_mergeMediaSystemData___block_invoke(uint64_
 
 - (void)messageHandlerRemoveMediaSystem:(id)system builderSession:(id)session message:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   sessionCopy = session;
   messageCopy = message;
@@ -1075,9 +1053,9 @@ void __50__HMDHomeMediaSystemHandler_mergeMediaSystemData___block_invoke(uint64_
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v14;
-    v30 = 2112;
-    v31 = sessionCopy;
+    v28 = v14;
+    v29 = 2112;
+    v30 = sessionCopy;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Received remove media system message for session ID %@", buf, 0x16u);
   }
 
@@ -1094,12 +1072,12 @@ void __50__HMDHomeMediaSystemHandler_mergeMediaSystemData___block_invoke(uint64_
     v21 = [backingStore transaction:@"Remove media system" options:v20];
 
     [v21 add:modelForMediaSystem withMessage:messageCopy];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSession_message___block_invoke;
-    v27[3] = &unk_2797359D8;
-    v27[4] = selfCopy;
-    [v21 run:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSession_message___block_invoke;
+    v26[3] = &unk_2797359D8;
+    v26[4] = selfCopy;
+    [v21 run:v26];
   }
 
   else
@@ -1111,9 +1089,9 @@ void __50__HMDHomeMediaSystemHandler_mergeMediaSystemData___block_invoke(uint64_
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v25;
-      v30 = 2112;
-      v31 = sessionCopy;
+      v28 = v25;
+      v29 = 2112;
+      v30 = sessionCopy;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@No media system for session ID found %@", buf, 0x16u);
     }
 
@@ -1121,13 +1099,11 @@ void __50__HMDHomeMediaSystemHandler_mergeMediaSystemData___block_invoke(uint64_
     modelForMediaSystem = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:modelForMediaSystem];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSession_message___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1137,22 +1113,20 @@ void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSess
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Remove media system transaction run completed with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Remove media system transaction run completed with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageHandlerUpdateMediaSystem:(id)system configuredName:(id)name leftUUID:(id)d leftAccessoryUUID:(id)iD rightUUID:(id)uID rightAccessoryUUID:(id)uUID builderSession:(id)session completion:(id)self0
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   nameCopy = name;
   dCopy = d;
@@ -1168,13 +1142,13 @@ void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSess
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v69 = v24;
-    v70 = 2112;
-    v71 = sessionCopy;
+    v68 = v24;
+    v69 = 2112;
+    v70 = sessionCopy;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Received update media system message for session ID %@", buf, 0x16u);
   }
 
-  v61 = sessionCopy;
+  v60 = sessionCopy;
 
   objc_autoreleasePoolPop(v21);
   v25 = [(HMDHomeMediaSystemHandler *)selfCopy mediaSystemWithUUID:systemCopy];
@@ -1184,9 +1158,9 @@ void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSess
     v27 = iDCopy;
     v28 = [dataSource mediaSystemController:selfCopy accessoryForUUID:iDCopy];
     v29 = [dataSource mediaSystemController:selfCopy accessoryForUUID:uUIDCopy];
-    v58 = v28;
-    v59 = nameCopy;
-    v60 = v29;
+    v57 = v28;
+    v58 = nameCopy;
+    v59 = v29;
     if (!v28 || !v29)
     {
       v43 = objc_autoreleasePoolPush();
@@ -1198,13 +1172,13 @@ void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSess
         [(HMDHomeMediaSystemHandler *)v44 delegate];
         v48 = v47 = dCopy;
         *buf = 138544130;
-        v69 = v46;
-        v70 = 2112;
-        v71 = v48;
-        v72 = 2112;
-        v73 = iDCopy;
-        v74 = 2112;
-        v75 = uUIDCopy;
+        v68 = v46;
+        v69 = 2112;
+        v70 = v48;
+        v71 = 2112;
+        v72 = iDCopy;
+        v73 = 2112;
+        v74 = uUIDCopy;
         _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Accessory cannot be found in home %@ for accessory IDs %@ %@", buf, 0x2Au);
 
         dCopy = v47;
@@ -1221,39 +1195,39 @@ void __84__HMDHomeMediaSystemHandler_messageHandlerRemoveMediaSystem_builderSess
       goto LABEL_19;
     }
 
-    v57 = dCopy;
+    v56 = dCopy;
     accessories = [v25 accessories];
     v31 = uIDCopy;
     if ([accessories containsObject:v28])
     {
       accessories2 = [v25 accessories];
-      v33 = [accessories2 containsObject:v60];
+      v33 = [accessories2 containsObject:v59];
 
       if (v33)
       {
         modelForMediaSystem = [v25 modelForMediaSystem];
         [modelForMediaSystem setObjectChangeType:2];
-        [modelForMediaSystem setConfiguredName:v59];
-        v35 = [MEMORY[0x277CD1BF8] encodeComponentDataWithLeftComponentUUID:v57 leftAccessoryUUID:v27 rightComponentUUID:uIDCopy rightAccessoryUUID:uUIDCopy];
+        [modelForMediaSystem setConfiguredName:v58];
+        v35 = [MEMORY[0x277CD1BF8] encodeComponentDataWithLeftComponentUUID:v56 leftAccessoryUUID:v27 rightComponentUUID:uIDCopy rightAccessoryUUID:uUIDCopy];
         [modelForMediaSystem setMediaSystemComponents:v35];
 
         backingStore = [dataSource backingStore];
         v37 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
         v38 = [backingStore transaction:@"Update media system" options:v37];
 
-        dCopy = v57;
+        dCopy = v56;
         [v38 add:modelForMediaSystem];
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke;
-        v65[3] = &unk_279735168;
-        v65[4] = selfCopy;
-        v66 = systemCopy;
-        v67 = completionCopy;
-        [v38 run:v65];
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke;
+        v64[3] = &unk_279735168;
+        v64[4] = selfCopy;
+        v65 = systemCopy;
+        v66 = completionCopy;
+        [v38 run:v64];
 
 LABEL_19:
-        nameCopy = v59;
+        nameCopy = v58;
         goto LABEL_20;
       }
     }
@@ -1270,22 +1244,22 @@ LABEL_19:
       v54 = HMFGetLogIdentifier();
       accessories3 = [v25 accessories];
       *buf = 138544386;
-      v69 = v54;
-      v70 = 2112;
-      v71 = accessories3;
-      v72 = 2112;
-      v73 = v25;
-      v74 = 2112;
-      v75 = v27;
-      v76 = 2112;
-      v77 = uUIDCopy;
+      v68 = v54;
+      v69 = 2112;
+      v70 = accessories3;
+      v71 = 2112;
+      v72 = v25;
+      v73 = 2112;
+      v74 = v27;
+      v75 = 2112;
+      v76 = uUIDCopy;
       _os_log_impl(&dword_2531F8000, v53, OS_LOG_TYPE_ERROR, "%{public}@Accessories %@ in media system %@ cannot be changed - accessory IDs %@ %@", buf, 0x34u);
     }
 
     objc_autoreleasePoolPop(v51);
     modelForMediaSystem = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     completionCopy[2](completionCopy, 0, modelForMediaSystem);
-    dCopy = v57;
+    dCopy = v56;
     goto LABEL_19;
   }
 
@@ -1296,9 +1270,9 @@ LABEL_19:
   {
     v42 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v69 = v42;
-    v70 = 2112;
-    v71 = systemCopy;
+    v68 = v42;
+    v69 = 2112;
+    v70 = systemCopy;
     _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@Media system with uuid %@ not found", buf, 0x16u);
   }
 
@@ -1308,8 +1282,6 @@ LABEL_19:
   v27 = iDCopy;
   v31 = uIDCopy;
 LABEL_20:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke(uint64_t a1, void *a2)
@@ -1331,7 +1303,7 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
 
 - (void)messageHandlerAddMediaSystem:(id)system configuredName:(id)name leftUUID:(id)d leftAccessoryUUID:(id)iD rightUUID:(id)uID rightAccessoryUUID:(id)uUID builderSession:(id)session completion:(id)self0
 {
-  v153 = *MEMORY[0x277D85DE8];
+  v152 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   nameCopy = name;
   dCopy = d;
@@ -1347,13 +1319,13 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v146 = v24;
-    v147 = 2112;
-    v148 = sessionCopy;
+    v145 = v24;
+    v146 = 2112;
+    v147 = sessionCopy;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Received add media system message for session ID %@", buf, 0x16u);
   }
 
-  v121 = sessionCopy;
+  v120 = sessionCopy;
 
   objc_autoreleasePoolPop(v21);
   v25 = [(HMDHomeMediaSystemHandler *)selfCopy mediaSystemWithUUID:systemCopy];
@@ -1365,32 +1337,32 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
     homeManager = [home homeManager];
 
     v36 = [dataSource mediaSystemController:selfCopy accessoryForUUID:iDCopy];
-    v117 = dataSource;
+    v116 = dataSource;
     v37 = dataSource;
     v38 = v36;
     v29 = uUIDCopy;
     v39 = [v37 mediaSystemController:selfCopy accessoryForUUID:uUIDCopy];
-    v118 = systemCopy;
-    v119 = v39;
+    v117 = systemCopy;
+    v118 = v39;
     if (!v38 || (v40 = v39) == 0)
     {
       v53 = objc_autoreleasePoolPush();
       v54 = selfCopy;
       v55 = HMFGetOSLogHandle();
-      v31 = v117;
+      v31 = v116;
       if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
         v56 = v38;
         v58 = v57 = homeManager;
         *buf = 138544130;
-        v146 = v58;
-        v147 = 2112;
-        v148 = v117;
-        v149 = 2112;
-        v150 = iDCopy;
-        v151 = 2112;
-        v152 = v29;
+        v145 = v58;
+        v146 = 2112;
+        v147 = v116;
+        v148 = 2112;
+        v149 = iDCopy;
+        v150 = 2112;
+        v151 = v29;
         _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_ERROR, "%{public}@Accessory cannot be found in home %@ for accessory IDs %@ %@", buf, 0x2Au);
 
         homeManager = v57;
@@ -1403,17 +1375,17 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
       (*(completionCopy + 2))(completionCopy, 0, v59);
 
       setupActivity = [homeManager setupActivity];
-      v143 = @"error.code";
+      v142 = @"error.code";
       v61 = [MEMORY[0x277CCABB0] numberWithInteger:2021];
-      v144 = v61;
-      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      v143 = v61;
+      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
 
       setupActivity2 = [homeManager setupActivity];
       [setupActivity2 markWithReason:@"HMDHomeMediaSystemHandler.addedMediaSystem.failure"];
       goto LABEL_50;
     }
 
-    v116 = homeManager;
+    v115 = homeManager;
     uuid = [v38 uuid];
     uuid2 = [v40 uuid];
     v43 = [uuid hmf_isEqualToUUID:uuid2];
@@ -1427,11 +1399,11 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
       {
         v47 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v146 = v47;
-        v147 = 2112;
-        v148 = iDCopy;
-        v149 = 2112;
-        v150 = uUIDCopy;
+        v145 = v47;
+        v146 = 2112;
+        v147 = iDCopy;
+        v148 = 2112;
+        v149 = uUIDCopy;
         _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Accessories in media system are not unique %@ - %@", buf, 0x20u);
       }
 
@@ -1440,69 +1412,69 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
       v32 = completionCopy;
       (*(completionCopy + 2))(completionCopy, 0, v48);
 
-      homeManager = v116;
-      setupActivity3 = [v116 setupActivity];
-      v141 = @"error.code";
+      homeManager = v115;
+      setupActivity3 = [v115 setupActivity];
+      v140 = @"error.code";
       v50 = [MEMORY[0x277CCABB0] numberWithInteger:2022];
-      v142 = v50;
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+      v141 = v50;
+      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
 
-      setupActivity2 = [v116 setupActivity];
+      setupActivity2 = [v115 setupActivity];
       [setupActivity2 markWithReason:@"HMDHomeMediaSystemHandler.addedMediaSystem.failure"];
-      v31 = v117;
+      v31 = v116;
       goto LABEL_50;
     }
 
-    v112 = v38;
+    v111 = v38;
     setupActivity2 = [MEMORY[0x277CBEB98] setWithObjects:{iDCopy, uUIDCopy, 0}];
+    v130 = 0u;
     v131 = 0u;
     v132 = 0u;
     v133 = 0u;
-    v134 = 0u;
     mediaSystems = [(HMDHomeMediaSystemHandler *)selfCopy mediaSystems];
-    v115 = iDCopy;
-    homeManager = v116;
-    v64 = v119;
-    v109 = [mediaSystems countByEnumeratingWithState:&v131 objects:v140 count:16];
-    if (v109)
+    v114 = iDCopy;
+    homeManager = v115;
+    v64 = v118;
+    v108 = [mediaSystems countByEnumeratingWithState:&v130 objects:v139 count:16];
+    if (v108)
     {
-      v65 = *v132;
-      v111 = dCopy;
-      v113 = mediaSystems;
-      v107 = *v132;
+      v65 = *v131;
+      v110 = dCopy;
+      v112 = mediaSystems;
+      v106 = *v131;
       do
       {
         v66 = 0;
         do
         {
-          if (*v132 != v65)
+          if (*v131 != v65)
           {
             objc_enumerationMutation(mediaSystems);
           }
 
-          v110 = v66;
-          v67 = *(*(&v131 + 1) + 8 * v66);
+          v109 = v66;
+          v67 = *(*(&v130 + 1) + 8 * v66);
+          v126 = 0u;
           v127 = 0u;
           v128 = 0u;
           v129 = 0u;
-          v130 = 0u;
-          v108 = v67;
+          v107 = v67;
           components = [v67 components];
-          v69 = [components countByEnumeratingWithState:&v127 objects:v139 count:16];
+          v69 = [components countByEnumeratingWithState:&v126 objects:v138 count:16];
           if (v69)
           {
             v70 = v69;
-            v71 = *v128;
+            v71 = *v127;
             while (2)
             {
               for (i = 0; i != v70; ++i)
               {
-                if (*v128 != v71)
+                if (*v127 != v71)
                 {
                   objc_enumerationMutation(components);
                 }
 
-                accessory = [*(*(&v127 + 1) + 8 * i) accessory];
+                accessory = [*(*(&v126 + 1) + 8 * i) accessory];
                 uuid3 = [accessory uuid];
                 v75 = [setupActivity2 containsObject:uuid3];
 
@@ -1515,17 +1487,17 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
                   {
                     v80 = HMFGetLogIdentifier();
                     *buf = 138543874;
-                    v146 = v80;
-                    v147 = 2112;
-                    v148 = accessory;
-                    v149 = 2112;
-                    v150 = v108;
+                    v145 = v80;
+                    v146 = 2112;
+                    v147 = accessory;
+                    v148 = 2112;
+                    v149 = v107;
                     _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_ERROR, "%{public}@Accessory %@ already used in another media system %@", buf, 0x20u);
                   }
 
                   objc_autoreleasePoolPop(v77);
-                  setupActivity4 = [v116 setupActivity];
-                  v137[0] = @"accessory.uuid";
+                  setupActivity4 = [v115 setupActivity];
+                  v136[0] = @"accessory.uuid";
                   uuid4 = [accessory uuid];
                   v83 = HMDailyRotatedUUID();
                   v84 = v83;
@@ -1539,30 +1511,30 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
                     v85 = @"no uuid";
                   }
 
-                  v137[1] = @"error.code";
-                  v138[0] = v85;
+                  v136[1] = @"error.code";
+                  v137[0] = v85;
                   v86 = [MEMORY[0x277CCABB0] numberWithInteger:2023];
-                  v138[1] = v86;
-                  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:v137 count:2];
+                  v137[1] = v86;
+                  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:2];
 
-                  homeManager = v116;
-                  setupActivity5 = [v116 setupActivity];
+                  homeManager = v115;
+                  setupActivity5 = [v115 setupActivity];
                   [setupActivity5 markWithReason:@"HMDHomeMediaSystemHandler.addedMediaSystem.failure"];
 
                   v89 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2023];
                   (*(completionCopy + 2))(completionCopy, 0, v89);
 
                   v32 = completionCopy;
-                  dCopy = v111;
-                  v38 = v112;
+                  dCopy = v110;
+                  v38 = v111;
                   v29 = uUIDCopy;
-                  v31 = v117;
-                  v90 = v113;
+                  v31 = v116;
+                  v90 = v112;
                   goto LABEL_49;
                 }
               }
 
-              v70 = [components countByEnumeratingWithState:&v127 objects:v139 count:16];
+              v70 = [components countByEnumeratingWithState:&v126 objects:v138 count:16];
               if (v70)
               {
                 continue;
@@ -1572,75 +1544,75 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
             }
           }
 
-          v66 = v110 + 1;
-          dCopy = v111;
-          homeManager = v116;
-          v64 = v119;
-          mediaSystems = v113;
-          v65 = v107;
+          v66 = v109 + 1;
+          dCopy = v110;
+          homeManager = v115;
+          v64 = v118;
+          mediaSystems = v112;
+          v65 = v106;
         }
 
-        while (v110 + 1 != v109);
+        while (v109 + 1 != v108);
         v29 = uUIDCopy;
-        v109 = [v113 countByEnumeratingWithState:&v131 objects:v140 count:16];
+        v108 = [v112 countByEnumeratingWithState:&v130 objects:v139 count:16];
       }
 
-      while (v109);
+      while (v108);
     }
 
-    v38 = v112;
-    if (isInternalBuild() && [(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v112 leftHomePod:v64 rightHomePod:?])
+    v38 = v111;
+    if (isInternalBuild() && [(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v111 leftHomePod:v64 rightHomePod:?])
     {
       v76 = off_27971A1B8;
-      v31 = v117;
+      v31 = v116;
     }
 
     else
     {
-      v31 = v117;
-      if ([(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v112 leftHomePod:v64 rightHomePod:?])
+      v31 = v116;
+      if ([(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v111 leftHomePod:v64 rightHomePod:?])
       {
         v76 = off_27971A1C8;
       }
 
-      else if ([(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v112 leftHomePod:v64 rightHomePod:?])
+      else if ([(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v111 leftHomePod:v64 rightHomePod:?])
       {
         v76 = off_27971A1C0;
       }
 
       else
       {
-        if (![(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v112 leftHomePod:v64 rightHomePod:?])
+        if (![(HMDHomeMediaSystemHandler *)selfCopy doAccessoriesSupportStereoPairVersion:v111 leftHomePod:v64 rightHomePod:?])
         {
-          v98 = objc_autoreleasePoolPush();
-          v99 = selfCopy;
-          v100 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+          v97 = objc_autoreleasePoolPush();
+          v98 = selfCopy;
+          v99 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
           {
-            v101 = HMFGetLogIdentifier();
+            v100 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v146 = v101;
-            v147 = 2112;
-            v148 = v112;
-            v149 = 2112;
-            v150 = v119;
-            _os_log_impl(&dword_2531F8000, v100, OS_LOG_TYPE_ERROR, "%{public}@There is a mismatch in the supported stereo pair versions %@, %@", buf, 0x20u);
+            v145 = v100;
+            v146 = 2112;
+            v147 = v111;
+            v148 = 2112;
+            v149 = v118;
+            _os_log_impl(&dword_2531F8000, v99, OS_LOG_TYPE_ERROR, "%{public}@There is a mismatch in the supported stereo pair versions %@, %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v98);
+          objc_autoreleasePoolPop(v97);
           setupActivity6 = [homeManager setupActivity];
-          v135[0] = @"error.code";
-          v103 = [MEMORY[0x277CCABB0] numberWithInteger:3];
-          v135[1] = @"error.code.private";
-          v136[0] = v103;
-          v38 = v112;
-          v104 = [MEMORY[0x277CCABB0] numberWithInteger:2024];
-          v136[1] = v104;
-          v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v136 forKeys:v135 count:2];
+          v134[0] = @"error.code";
+          v102 = [MEMORY[0x277CCABB0] numberWithInteger:3];
+          v134[1] = @"error.code.private";
+          v135[0] = v102;
+          v38 = v111;
+          v103 = [MEMORY[0x277CCABB0] numberWithInteger:2024];
+          v135[1] = v103;
+          v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:2];
 
-          v106 = MEMORY[0x277CCA9B8];
+          v105 = MEMORY[0x277CCA9B8];
           v90 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2024];
-          components = [v106 hmErrorWithCode:3 description:0 reason:0 suggestion:0 underlyingError:v90];
+          components = [v105 hmErrorWithCode:3 description:0 reason:0 suggestion:0 underlyingError:v90];
           v32 = completionCopy;
           (*(completionCopy + 2))(completionCopy, 0, components);
           goto LABEL_49;
@@ -1652,38 +1624,38 @@ void __158__HMDHomeMediaSystemHandler_messageHandlerUpdateMediaSystem_configured
 
     v91 = objc_alloc(*v76);
     parentUUID = [(HMDHomeMediaSystemHandler *)selfCopy parentUUID];
-    v93 = [v91 initWithObjectChangeType:1 uuid:v118 parentUUID:parentUUID];
+    v93 = [v91 initWithObjectChangeType:1 uuid:v117 parentUUID:parentUUID];
 
     if (nameCopy)
     {
       [v93 setConfiguredName:?];
     }
 
-    v94 = [MEMORY[0x277CD1BF8] encodeComponentDataWithLeftComponentUUID:dCopy leftAccessoryUUID:v115 rightComponentUUID:uIDCopy rightAccessoryUUID:v29];
+    v94 = [MEMORY[0x277CD1BF8] encodeComponentDataWithLeftComponentUUID:dCopy leftAccessoryUUID:v114 rightComponentUUID:uIDCopy rightAccessoryUUID:v29];
     [v93 setMediaSystemComponents:v94];
 
     backingStore = [v31 backingStore];
     +[HMDBackingStoreTransactionOptions defaultXPCOptions];
-    v96 = v114 = v93;
+    v96 = v113 = v93;
     components = [backingStore transaction:@"Add media system" options:v96];
 
-    v90 = v114;
-    [components add:v114];
-    v124[0] = MEMORY[0x277D85DD0];
-    v124[1] = 3221225472;
-    v124[2] = __155__HMDHomeMediaSystemHandler_messageHandlerAddMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke;
-    v124[3] = &unk_279735168;
-    v124[4] = selfCopy;
-    v125 = v118;
+    v90 = v113;
+    [components add:v113];
+    v123[0] = MEMORY[0x277D85DD0];
+    v123[1] = 3221225472;
+    v123[2] = __155__HMDHomeMediaSystemHandler_messageHandlerAddMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke;
+    v123[3] = &unk_279735168;
+    v123[4] = selfCopy;
+    v124 = v117;
     v32 = completionCopy;
-    v126 = completionCopy;
-    [components run:v124];
+    v125 = completionCopy;
+    [components run:v123];
 
 LABEL_49:
-    iDCopy = v115;
+    iDCopy = v114;
 LABEL_50:
 
-    systemCopy = v118;
+    systemCopy = v117;
     goto LABEL_51;
   }
 
@@ -1695,9 +1667,9 @@ LABEL_50:
   {
     v30 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v146 = v30;
-    v147 = 2112;
-    v148 = systemCopy;
+    v145 = v30;
+    v146 = 2112;
+    v147 = systemCopy;
     _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Media system with uuid %@ already exists", buf, 0x16u);
   }
 
@@ -1706,8 +1678,6 @@ LABEL_50:
   v32 = completionCopy;
   (*(completionCopy + 2))(completionCopy, 0, v31);
 LABEL_51:
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)doAccessoriesSupportStereoPairVersion:(void *)version leftHomePod:(void *)pod rightHomePod:
@@ -1726,7 +1696,7 @@ LABEL_51:
 
 void __155__HMDHomeMediaSystemHandler_messageHandlerAddMediaSystem_configuredName_leftUUID_leftAccessoryUUID_rightUUID_rightAccessoryUUID_builderSession_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 home];
@@ -1744,10 +1714,10 @@ void __155__HMDHomeMediaSystemHandler_messageHandlerAddMediaSystem_configuredNam
   }
 
   v9 = [v6 setupActivity];
-  v16[0] = @"error.code";
+  v15[0] = @"error.code";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v4, "code")}];
-  v16[1] = @"domain";
-  v17[0] = v10;
+  v15[1] = @"domain";
+  v16[0] = v10;
   v11 = [v4 domain];
   v12 = v11;
   v13 = @"no domain";
@@ -1756,11 +1726,10 @@ void __155__HMDHomeMediaSystemHandler_messageHandlerAddMediaSystem_configuredNam
     v13 = v11;
   }
 
-  v17[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   (*(*(a1 + 48) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routeMediaSystemWithMessage:(id)message
@@ -1820,7 +1789,7 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
 
 - (void)configure:(id)configure delegate:(id)delegate dataSource:(id)source queue:(id)queue messageDispatcher:(id)dispatcher notificationCenter:(id)center
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   delegateCopy = delegate;
   sourceCopy = source;
@@ -1836,24 +1805,24 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v23 = v38 = queueCopy;
+    v23 = v37 = queueCopy;
     [(HMDHomeMediaSystemHandler *)selfCopy mediaSystems];
     v25 = v24 = delegateCopy;
     *buf = 138543874;
-    v46 = v23;
-    v47 = 2112;
-    v48 = configureCopy;
-    v49 = 2112;
-    v50 = v25;
+    v45 = v23;
+    v46 = 2112;
+    v47 = configureCopy;
+    v48 = 2112;
+    v49 = v25;
     _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Configuring media system controller for home: %@ media systems: %@", buf, 0x20u);
 
     delegateCopy = v24;
-    queueCopy = v38;
+    queueCopy = v37;
   }
 
   objc_autoreleasePoolPop(v20);
   [(HMDHomeMediaSystemHandler *)selfCopy setHome:configureCopy];
-  v39 = delegateCopy;
+  v38 = delegateCopy;
   [(HMDHomeMediaSystemHandler *)selfCopy setDelegate:delegateCopy];
   [(HMDHomeMediaSystemHandler *)selfCopy setDataSource:sourceCopy];
   residentDeviceManager = [configureCopy residentDeviceManager];
@@ -1861,43 +1830,41 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
 
   [(HMDHomeMediaSystemHandler *)selfCopy setWorkQueue:queueCopy];
   [(HMDHomeMediaSystemHandler *)selfCopy setMessageDispatcher:dispatcherCopy];
-  v36 = centerCopy;
+  v35 = centerCopy;
   [(HMDHomeMediaSystemHandler *)selfCopy setNotificationCenter:centerCopy];
   v27 = queueCopy;
   v28 = [[HMDHomeMediaSystemControllerMessageHandler alloc] initWithQueue:queueCopy home:configureCopy messageDispatcher:dispatcherCopy delegate:selfCopy];
   [(HMDHomeMediaSystemHandler *)selfCopy setMessageHandler:v28];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   mediaSystems = [(HMDHomeMediaSystemHandler *)selfCopy mediaSystems];
-  v30 = [mediaSystems countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v30 = [mediaSystems countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v41;
+    v32 = *v40;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v41 != v32)
+        if (*v40 != v32)
         {
           objc_enumerationMutation(mediaSystems);
         }
 
-        v34 = *(*(&v40 + 1) + 8 * i);
+        v34 = *(*(&v39 + 1) + 8 * i);
         [v34 setDataSource:selfCopy];
         [v34 configureWithMessageDispatcher:dispatcherCopy];
       }
 
-      v31 = [mediaSystems countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v31 = [mediaSystems countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v31);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -1910,41 +1877,37 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   mediaSystems = [(HMDHomeMediaSystemHandler *)self mediaSystems];
   v4 = [mediaSystems na_map:&__block_literal_global_5];
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   parentUUID = [(HMDHomeMediaSystemHandler *)self parentUUID];
   v7 = [v5 initWithName:@"homeUUID" value:parentUUID];
-  v12[0] = v7;
+  v11[0] = v7;
   v8 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:@"mediaSystemUUIDs" value:v4];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (void)notifyOfRemovedMediaSystem:(id)system
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = *MEMORY[0x277CD2470];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277CD2470];
   uuid = [system uuid];
   uUIDString = [uuid UUIDString];
-  v11[0] = uUIDString;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = uUIDString;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   notificationCenter = [(HMDHomeMediaSystemHandler *)self notificationCenter];
   delegate = [(HMDHomeMediaSystemHandler *)self delegate];
   [notificationCenter postNotificationName:@"HMDMediaSystemRemovedNotification" object:delegate userInfo:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unsubscribeToSettingsForMediaSystem:(id)system
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   stereoPairSettingsController = [(HMDHomeMediaSystemHandler *)self stereoPairSettingsController];
 
@@ -1956,19 +1919,17 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = systemCopy;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stereo pair settings controller remove media system: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = systemCopy;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stereo pair settings controller remove media system: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     stereoPairSettingsController2 = [(HMDHomeMediaSystemHandler *)selfCopy stereoPairSettingsController];
     [stereoPairSettingsController2 unsubscribeToRemovedMediaSystemIfPrimaryResident:systemCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedMediaSystem:(id)system
@@ -1985,7 +1946,7 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
 
 - (void)removeMediaSystem:(id)system
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1993,11 +1954,11 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = systemCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing media system: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = systemCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing media system: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2020,13 +1981,11 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMediaSystem:(id)system
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   systemCopy = system;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2034,11 +1993,11 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = systemCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating media system: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = systemCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating media system: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2048,7 +2007,6 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
   [(NSMutableDictionary *)uuidToMediaSystems setObject:systemCopy forKey:uuid];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mediaSystemWithUUID:(id)d
@@ -2113,12 +2071,11 @@ uint64_t __53__HMDHomeMediaSystemHandler_mediaSystemForAccessory___block_invoke_
 
 uint64_t __40__HMDHomeMediaSystemHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_44596;
-  logCategory__hmf_once_v8_44596 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_44596;
+  logCategory__hmf_once_v8_44596 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -28,7 +28,7 @@
   [(TouchIdAlertController *)self _setHeaderContentViewController:v3];
 }
 
-id __59__TouchIdAlertController__setupHeaderContentViewController__block_invoke()
+UIViewController *__59__TouchIdAlertController__setupHeaderContentViewController__block_invoke()
 {
   v0 = objc_opt_new();
   v1 = __59__TouchIdAlertController__setupHeaderContentViewController__block_invoke_2();
@@ -37,7 +37,7 @@ id __59__TouchIdAlertController__setupHeaderContentViewController__block_invoke(
   return v0;
 }
 
-id __59__TouchIdAlertController__setupHeaderContentViewController__block_invoke_2()
+UIView *__59__TouchIdAlertController__setupHeaderContentViewController__block_invoke_2()
 {
   v0 = __59__TouchIdAlertController__setupHeaderContentViewController__block_invoke_3();
   v1 = objc_opt_new();

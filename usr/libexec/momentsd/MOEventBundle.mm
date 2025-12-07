@@ -73,21 +73,12 @@
 - (id)localEndDate
 {
   time = [(MOEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(MOEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[MOEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = [NSTimeZone alloc];
-    time3 = [(MOEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(MOEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     endDate = [(MOEventBundle *)self endDate];
     endDate2 = [MOTime localTimeOfDate:endDate timeZone:v10];
@@ -95,7 +86,6 @@
 
   else
   {
-LABEL_4:
     endDate2 = [(MOEventBundle *)self endDate];
   }
 
@@ -237,28 +227,18 @@ LABEL_4:
     }
 
     time = [(MOEventBundle *)self time];
-    if (!time)
-    {
-      goto LABEL_19;
-    }
-
-    v14 = time;
-    time2 = [(MOEventBundle *)self time];
-    timeZone = [time2 timeZone];
-
-    if (timeZone)
+    if (time && (v14 = time, -[MOEventBundle time](self, "time"), v15 = objc_claimAutoreleasedReturnValue(), [v15 timeZone], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16))
     {
       v17 = [NSTimeZone alloc];
-      time3 = [(MOEventBundle *)self time];
-      timeZone2 = [time3 timeZone];
-      v20 = [v17 initWithName:timeZone2];
+      time2 = [(MOEventBundle *)self time];
+      timeZone = [time2 timeZone];
+      v20 = [v17 initWithName:timeZone];
 
       startDate3 = [MOTime localTimeOfDate:v3 timeZone:v20];
     }
 
     else
     {
-LABEL_19:
       startDate3 = v3;
     }
   }
@@ -369,21 +349,12 @@ LABEL_19:
 - (id)localStartDate
 {
   time = [(MOEventBundle *)self time];
-  if (!time)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = time;
-  time2 = [(MOEventBundle *)self time];
-  timeZone = [time2 timeZone];
-
-  if (timeZone)
+  if (time && (v4 = time, -[MOEventBundle time](self, "time"), v5 = objc_claimAutoreleasedReturnValue(), [v5 timeZone], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v7 = [NSTimeZone alloc];
-    time3 = [(MOEventBundle *)self time];
-    timeZone2 = [time3 timeZone];
-    v10 = [v7 initWithName:timeZone2];
+    time2 = [(MOEventBundle *)self time];
+    timeZone = [time2 timeZone];
+    v10 = [v7 initWithName:timeZone];
 
     startDate = [(MOEventBundle *)self startDate];
     startDate2 = [MOTime localTimeOfDate:startDate timeZone:v10];
@@ -391,7 +362,6 @@ LABEL_19:
 
   else
   {
-LABEL_4:
     startDate2 = [(MOEventBundle *)self startDate];
   }
 
@@ -444,28 +414,18 @@ LABEL_4:
     }
 
     time = [(MOEventBundle *)self time];
-    if (!time)
-    {
-      goto LABEL_19;
-    }
-
-    v14 = time;
-    time2 = [(MOEventBundle *)self time];
-    timeZone = [time2 timeZone];
-
-    if (timeZone)
+    if (time && (v14 = time, -[MOEventBundle time](self, "time"), v15 = objc_claimAutoreleasedReturnValue(), [v15 timeZone], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v16))
     {
       v17 = [NSTimeZone alloc];
-      time3 = [(MOEventBundle *)self time];
-      timeZone2 = [time3 timeZone];
-      v20 = [v17 initWithName:timeZone2];
+      time2 = [(MOEventBundle *)self time];
+      timeZone = [time2 timeZone];
+      v20 = [v17 initWithName:timeZone];
 
       endDate3 = [MOTime localTimeOfDate:v3 timeZone:v20];
     }
 
     else
     {
-LABEL_19:
       endDate3 = v3;
     }
   }
@@ -2041,24 +2001,17 @@ LABEL_4:
         v11 = *(*(&v53 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = [[MOResource alloc] initWithPerson:v11];
-        if (!v13)
+        v15 = 1;
+        if (v13)
         {
-          goto LABEL_10;
-        }
+          sourceEventIdentifier = [v11 sourceEventIdentifier];
+          [(MOResource *)v13 setSourceEventIdentifier:sourceEventIdentifier];
 
-        sourceEventIdentifier = [v11 sourceEventIdentifier];
-        [(MOResource *)v13 setSourceEventIdentifier:sourceEventIdentifier];
-
-        (*(v6 + 2))(v6, v13, v61 + 3);
-        if (v61[3])
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-LABEL_10:
-          v15 = 1;
+          (*(v6 + 2))(v6, v13, v61 + 3);
+          if (v61[3])
+          {
+            v15 = 0;
+          }
         }
 
         objc_autoreleasePoolPop(v12);
@@ -2115,25 +2068,18 @@ LABEL_10:
     place4 = [(MOEventBundle *)selfCopy place];
     v26 = [(MOResource *)v24 initWithPlace:place4 startDate:startDate endDate:endDate];
 
-    if (!v26)
+    v29 = 1;
+    if (v26)
     {
-      goto LABEL_23;
-    }
+      place5 = [(MOEventBundle *)selfCopy place];
+      sourceEventIdentifier2 = [place5 sourceEventIdentifier];
+      [(MOResource *)v26 setSourceEventIdentifier:sourceEventIdentifier2];
 
-    place5 = [(MOEventBundle *)selfCopy place];
-    sourceEventIdentifier2 = [place5 sourceEventIdentifier];
-    [(MOResource *)v26 setSourceEventIdentifier:sourceEventIdentifier2];
-
-    (*(v6 + 2))(v6, v26, v61 + 3);
-    if (v61[3])
-    {
-      v29 = 0;
-    }
-
-    else
-    {
-LABEL_23:
-      v29 = 1;
+      (*(v6 + 2))(v6, v26, v61 + 3);
+      if (v61[3])
+      {
+        v29 = 0;
+      }
     }
 
     objc_autoreleasePoolPop(v19);
@@ -2718,35 +2664,40 @@ LABEL_96:
 - (void)addEvents:(id)events
 {
   eventsCopy = events;
+  v5 = eventsCopy;
   if (eventsCopy)
   {
-    v9 = eventsCopy;
-    if ([eventsCopy count])
+    v10 = eventsCopy;
+    eventsCopy = [eventsCopy count];
+    v5 = v10;
+    if (eventsCopy)
     {
       events = [(MOEventBundle *)self events];
 
       if (events)
       {
         events2 = [(MOEventBundle *)self events];
-        v7 = [NSMutableArray arrayWithArray:events2];
+        v8 = [NSMutableArray arrayWithArray:events2];
 
-        if ([v9 count])
+        if ([v10 count])
         {
-          [v7 addObjectsFromArray:v9];
+          [v8 addObjectsFromArray:v10];
         }
 
-        v8 = [v7 copy];
-        [(MOEventBundle *)self setEvents:v8];
+        v9 = [v8 copy];
+        [(MOEventBundle *)self setEvents:v9];
       }
 
       else
       {
-        [(MOEventBundle *)self setEvents:v9];
+        eventsCopy = [(MOEventBundle *)self setEvents:v10];
       }
+
+      v5 = v10;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(eventsCopy, v5);
 }
 
 - (MOEventBundle)initWithCoder:(id)coder
@@ -3811,30 +3762,7 @@ LABEL_7:
     }
 
     v17 = v12;
-    v18 = v13;
-    if (![v17 intersectsDateInterval:v18])
-    {
-      goto LABEL_14;
-    }
-
-    v19 = [v17 intersectionWithDateInterval:v18];
-    [v19 duration];
-    v21 = v20;
-
-    v22 = [v17 unionWithDateInterval:v18];
-    [v22 duration];
-    v24 = v23;
-
-    if (v24 == 0.0)
-    {
-LABEL_14:
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = v21 / v24 > threshold;
-    }
+    v14 = [v17 intersectsDateInterval:v18] && (objc_msgSend(v17, "intersectionWithDateInterval:", v18), v19 = v18 = v13;
   }
 
 LABEL_22:

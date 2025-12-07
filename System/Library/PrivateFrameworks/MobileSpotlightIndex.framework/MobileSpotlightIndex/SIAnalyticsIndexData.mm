@@ -39,10 +39,10 @@
 
 - (SIAnalyticsIndexData)initWithPrefix:(id)prefix data:(id)data
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = SIAnalyticsIndexData;
-  v6 = [(SIAnalyticsIndexData *)&v12 init];
+  v14 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = SIAnalyticsIndexData;
+  v6 = [(SIAnalyticsIndexData *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -51,20 +51,19 @@
     v7->_heartbeatLock._os_unfair_lock_opaque = 0;
     if (dword_1EBF46B20 >= 5)
     {
-      v10 = *__error();
-      v11 = _SILogForLogForCategory(21);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v9 = *__error();
+      v10 = _SILogForLogForCategory(21);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         prefixCopy = prefix;
-        _os_log_impl(&dword_1C278D000, v11, OS_LOG_TYPE_DEFAULT, "index init:%@", buf, 0xCu);
+        _os_log_impl(&dword_1C278D000, v10, OS_LOG_TYPE_DEFAULT, "index init:%@", buf, 0xCu);
       }
 
-      *__error() = v10;
+      *__error() = v9;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

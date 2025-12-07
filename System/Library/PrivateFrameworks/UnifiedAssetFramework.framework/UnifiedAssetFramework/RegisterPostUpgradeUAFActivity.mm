@@ -24,7 +24,7 @@ void ___RegisterPostUpgradeUAFActivity_block_invoke(uint64_t a1, void *a2)
 
 void ___RegisterPostUpgradeUAFActivity_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ((*(a1 + 32) & 1) == 0)
@@ -32,9 +32,9 @@ void ___RegisterPostUpgradeUAFActivity_block_invoke_2(uint64_t a1, void *a2, voi
     v7 = UAFGetLogCategory(&UAFLogContextXPCActivity);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "_RegisterPostUpgradeUAFActivity_block_invoke_2";
-      _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Post-Upgrade performing user subscription migration", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "_RegisterPostUpgradeUAFActivity_block_invoke_2";
+      _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Post-Upgrade performing user subscription migration", &v12, 0xCu);
     }
 
     if (+[UAFConfiguration subscriptionServiceEnabled])
@@ -51,9 +51,9 @@ void ___RegisterPostUpgradeUAFActivity_block_invoke_2(uint64_t a1, void *a2, voi
   {
     if (v11)
     {
-      v13 = 136315138;
-      v14 = "_RegisterPostUpgradeUAFActivity_block_invoke";
-      _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Disallowing removal of assets post-upgrade", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "_RegisterPostUpgradeUAFActivity_block_invoke";
+      _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s Disallowing removal of assets post-upgrade", &v12, 0xCu);
     }
 
     v10 = +[UAFSubscriptionStoreManager writeManager];
@@ -62,17 +62,15 @@ void ___RegisterPostUpgradeUAFActivity_block_invoke_2(uint64_t a1, void *a2, voi
 
   else if (v11)
   {
-    v13 = 136315138;
-    v14 = "_RegisterPostUpgradeUAFActivity_block_invoke";
-    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s XPC: Done triggering disabled UAF Post-Upgrade activity", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "_RegisterPostUpgradeUAFActivity_block_invoke";
+    _os_log_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_DEFAULT, "%s XPC: Done triggering disabled UAF Post-Upgrade activity", &v12, 0xCu);
   }
 
   if (v6)
   {
     v6[2](v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

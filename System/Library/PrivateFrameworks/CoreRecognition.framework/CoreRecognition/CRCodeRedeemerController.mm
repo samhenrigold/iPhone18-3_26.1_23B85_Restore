@@ -15,7 +15,7 @@
 
 - (CRCodeRedeemerController)init
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v8.receiver = self;
   v8.super_class = CRCodeRedeemerController;
   v2 = [(CRCameraReader *)&v8 init];
@@ -25,13 +25,13 @@
     v7.receiver = v2;
     v7.super_class = CRCodeRedeemerController;
     [(CRCameraReader *)&v7 setDelegate:v2];
-    v9[0] = @"CROutputTypeiTunesCode";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v9 = @"CROutputTypeiTunesCode";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
     v6.receiver = v3;
     v6.super_class = CRCodeRedeemerController;
     [(CRCameraReader *)&v6 setOutputObjectTypes:v4];
 
-    [(CRCodeRedeemerController *)v3 setDelegateQueue:MEMORY[0x277D85CD0]];
+    [(CRCodeRedeemerController *)v3 setDelegateQueue:?];
   }
 
   return v3;
@@ -39,22 +39,18 @@
 
 + (id)findCodeInImage:(vImage_Buffer *)image maxStage:(unint64_t)stage
 {
-  width = image->width;
-  height = image->height;
-  v6 = *&image->width;
-  v9[0] = *&image->data;
-  v9[1] = v6;
-  height = [CRCodeRedeemerController findCodeInImage:v9 maxStage:stage roi:0.0, 0.0, width, height];
+  v4 = *&image->width;
+  v7 = *&image->data;
+  v5 = [CRCodeRedeemerController findCodeInImage:v7 maxStage:v4 roi:?];
 
-  return height;
+  return v5;
 }
 
 + (id)findCodeInImage:(vImage_Buffer *)image maxStage:(unint64_t)stage roi:(CGRect)roi
 {
   v5 = *&image->width;
-  v8[0] = *&image->data;
-  v8[1] = v5;
-  v6 = [CRCameraReader findCodeInImage:v8 maxStage:stage roi:roi.origin.x, roi.origin.y, roi.size.width, roi.size.height];
+  v8 = *&image->data;
+  v6 = [CRCameraReader findCodeInImage:v8 maxStage:v5 roi:?];
 
   return v6;
 }
@@ -68,59 +64,54 @@
 
 - (void)cameraReader:(id)reader didFailWithError:(id)error
 {
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObject:error forKey:@"Error"];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObject:? forKey:?];
   delegate = [(CRCodeRedeemerController *)self delegate];
-  [delegate codeRedeemerController:self didEndWithInfo:v6];
+  [delegate codeRedeemerController:? didEndWithInfo:?];
 }
 
 - (void)cameraReader:(id)reader didRecognizeObjects:(id)objects
 {
-  v21 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v6 = objectsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
   if (v7)
   {
-    v8 = *v17;
+    v8 = MEMORY[0];
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v17 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(8 * i);
         type = [v10 type];
-        v12 = [type isEqualToString:@"CROutputTypeiTunesCode"];
+        v12 = [type isEqualToString:?];
 
         if (v12)
         {
           stringValue = [v10 stringValue];
-          [dictionary setObject:stringValue forKey:@"Code"];
+          [dictionary setObject:? forKey:?];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
 
   delegate = [(CRCodeRedeemerController *)self delegate];
-  [delegate codeRedeemerController:self didEndWithInfo:dictionary];
+  [delegate codeRedeemerController:? didEndWithInfo:?];
 }
 
 - (void)cameraReaderDidCancel:(id)cancel
 {
   delegate = [(CRCodeRedeemerController *)self delegate];
-  [delegate codeRedeemerControllerDidCancel:self];
+  [delegate codeRedeemerControllerDidCancel:?];
 }
 
 - (void)cameraReaderDidDisplayMessage:(id)message
@@ -131,7 +122,7 @@
   if (v4)
   {
     delegate2 = [(CRCodeRedeemerController *)self delegate];
-    [delegate2 codeRedeemerControllerDidDisplayMessage:self];
+    [delegate2 codeRedeemerControllerDidDisplayMessage:?];
   }
 }
 
@@ -143,7 +134,7 @@
   if (v4)
   {
     delegate2 = [(CRCodeRedeemerController *)self delegate];
-    [delegate2 codeRedeemerControllerDidFindBox:self];
+    [delegate2 codeRedeemerControllerDidFindBox:?];
   }
 }
 

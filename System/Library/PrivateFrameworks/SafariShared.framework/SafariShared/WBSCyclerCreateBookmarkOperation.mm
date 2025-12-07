@@ -42,40 +42,40 @@ uint64_t __59__WBSCyclerCreateBookmarkOperation__randomListWithContext___block_i
 
 - (void)_createRandomListWithContext:(id)context completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   v8 = [(WBSCyclerCreateBookmarkOperation *)self _randomListWithContext:contextCopy];
   uniqueIdentifier = [v8 uniqueIdentifier];
   randomItemTitle = [contextCopy randomItemTitle];
   v11 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [v8 numberOfChildren] + 1);
-  v12 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXCycler(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138543874;
-    v25 = randomItemTitle;
-    v26 = 2114;
-    v27 = uniqueIdentifier;
-    v28 = 1024;
-    v29 = v11;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Creating bookmark list with title %{public}@ in list with identifier %{public}@ at index %d", buf, 0x1Cu);
+    v26 = randomItemTitle;
+    v27 = 2114;
+    v28 = uniqueIdentifier;
+    v29 = 1024;
+    v30 = v11;
+    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Creating bookmark list with title %{public}@ in list with identifier %{public}@ at index %d", buf, 0x1Cu);
   }
 
   testTarget = [contextCopy testTarget];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __83__WBSCyclerCreateBookmarkOperation__createRandomListWithContext_completionHandler___block_invoke;
-  v18[3] = &unk_1E7FC50F8;
-  v19 = contextCopy;
-  v20 = uniqueIdentifier;
-  v21 = randomItemTitle;
-  v22 = handlerCopy;
-  v23 = v11;
-  v14 = randomItemTitle;
-  v15 = uniqueIdentifier;
-  v16 = contextCopy;
-  v17 = handlerCopy;
-  [testTarget createBookmarkListWithTitle:v14 inListWithIdentifier:v15 atIndex:v11 reply:v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __83__WBSCyclerCreateBookmarkOperation__createRandomListWithContext_completionHandler___block_invoke;
+  v19[3] = &unk_1E7FC50F8;
+  v20 = contextCopy;
+  v21 = uniqueIdentifier;
+  v22 = randomItemTitle;
+  v23 = handlerCopy;
+  v24 = v11;
+  v15 = randomItemTitle;
+  v16 = uniqueIdentifier;
+  v17 = contextCopy;
+  v18 = handlerCopy;
+  [testTarget createBookmarkListWithTitle:v15 inListWithIdentifier:v16 atIndex:v11 reply:v19];
 }
 
 void __83__WBSCyclerCreateBookmarkOperation__createRandomListWithContext_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -106,7 +106,7 @@ void __83__WBSCyclerCreateBookmarkOperation__createRandomListWithContext_complet
 
 - (void)_createRandomLeafWithContext:(id)context completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   v8 = [(WBSCyclerCreateBookmarkOperation *)self _randomListWithContext:contextCopy];
@@ -114,37 +114,37 @@ void __83__WBSCyclerCreateBookmarkOperation__createRandomListWithContext_complet
   randomItemTitle = [contextCopy randomItemTitle];
   v11 = +[WBSCyclerRandomnessUtilities randomURL];
   v12 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [v8 numberOfChildren] + 1);
-  v13 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = WBS_LOG_CHANNEL_PREFIXCycler(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138544130;
-    v28 = randomItemTitle;
-    v29 = 2114;
-    v30 = v11;
-    v31 = 2114;
-    v32 = uniqueIdentifier;
-    v33 = 1024;
-    v34 = v12;
-    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Creating bookmark leaf with title %{public}@ and URL %{public}@ in list with identifier %{public}@ at index %d", buf, 0x26u);
+    v29 = randomItemTitle;
+    v30 = 2114;
+    v31 = v11;
+    v32 = 2114;
+    v33 = uniqueIdentifier;
+    v34 = 1024;
+    v35 = v12;
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Creating bookmark leaf with title %{public}@ and URL %{public}@ in list with identifier %{public}@ at index %d", buf, 0x26u);
   }
 
   testTarget = [contextCopy testTarget];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __83__WBSCyclerCreateBookmarkOperation__createRandomLeafWithContext_completionHandler___block_invoke;
-  v20[3] = &unk_1E7FC5120;
-  v21 = contextCopy;
-  v22 = uniqueIdentifier;
-  v23 = v11;
-  v24 = randomItemTitle;
-  v25 = handlerCopy;
-  v26 = v12;
-  v15 = randomItemTitle;
-  v16 = v11;
-  v17 = uniqueIdentifier;
-  v18 = contextCopy;
-  v19 = handlerCopy;
-  [testTarget createBookmarkWithTitle:v15 url:v16 inListWithIdentifier:v17 atIndex:v12 reply:v20];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __83__WBSCyclerCreateBookmarkOperation__createRandomLeafWithContext_completionHandler___block_invoke;
+  v21[3] = &unk_1E7FC5120;
+  v22 = contextCopy;
+  v23 = uniqueIdentifier;
+  v24 = v11;
+  v25 = randomItemTitle;
+  v26 = handlerCopy;
+  v27 = v12;
+  v16 = randomItemTitle;
+  v17 = v11;
+  v18 = uniqueIdentifier;
+  v19 = contextCopy;
+  v20 = handlerCopy;
+  [testTarget createBookmarkWithTitle:v16 url:v17 inListWithIdentifier:v18 atIndex:v12 reply:v21];
 }
 
 void __83__WBSCyclerCreateBookmarkOperation__createRandomLeafWithContext_completionHandler___block_invoke(uint64_t a1, char a2)

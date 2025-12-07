@@ -362,7 +362,7 @@ void __45__FMAnnotationView_updateStyleForAnnotation___block_invoke(uint64_t a1)
   animatedCopy = animated;
   selectedCopy = selected;
   v17 = *MEMORY[0x277D85DE8];
-  v9 = LogCategory_Unspecified();
+  v9 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
@@ -455,7 +455,7 @@ void __33__FMAnnotationView_setTintColor___block_invoke_2(uint64_t a1)
   animatedCopy = animated;
   selectedCopy = selected;
   v13 = *MEMORY[0x277D85DE8];
-  v7 = LogCategory_Unspecified();
+  v7 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -475,7 +475,7 @@ void __33__FMAnnotationView_setTintColor___block_invoke_2(uint64_t a1)
 {
   updatedCopy = updated;
   v9 = *MEMORY[0x277D85DE8];
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109376;
@@ -495,7 +495,7 @@ void __33__FMAnnotationView_setTintColor___block_invoke_2(uint64_t a1)
 {
   sizeCopy = size;
   v10 = *MEMORY[0x277D85DE8];
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109120;

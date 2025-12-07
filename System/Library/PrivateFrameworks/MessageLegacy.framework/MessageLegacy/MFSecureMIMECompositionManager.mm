@@ -19,6 +19,8 @@
 - (void)_determineIdentitiesWithSendingAddress:(id)address forSigning:(BOOL)signing encryption:(BOOL)encryption;
 - (void)_determineRevocationStatusWithIdentity:(__SecIdentity *)identity sendingAddress:(id)address;
 - (void)_determineSigningStatusWithSendingAddress:(id)address;
+- (void)_notifyDelegateEncryptionStatusDidChange:(int)change certsByRecipient:(id)recipient errorsByRecipient:(id)byRecipient identity:(__SecIdentity *)identity error:(id)error;
+- (void)_notifyDelegateSigningStatusDidChange:(int)change identity:(__SecIdentity *)identity error:(id)error;
 - (void)_nts_copyEncryptionIdentity:(__SecIdentity *)identity error:(id *)error certificatesByRecipient:(id *)recipient errorsByRecipient:(id *)byRecipient;
 - (void)_nts_copySigningIdentity:(__SecIdentity *)identity error:(id *)error;
 - (void)_nts_setEncryptionIdentity:(__SecIdentity *)identity error:(id)error;
@@ -289,7 +291,7 @@ LABEL_4:
   }
 }
 
-uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(uint64_t a1)
+void *__52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _determineIdentitiesWithSendingAddress:*(a1 + 40) forSigning:*(a1 + 56) encryption:1];
   if (*(a1 + 56) == 1)
@@ -366,7 +368,7 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
 
 - (void)_determineRevocationStatusWithIdentity:(__SecIdentity *)identity sendingAddress:(id)address
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   certificateRef = 0;
   SecIdentityCopyCertificate(identity, &certificateRef);
   if (certificateRef)
@@ -384,14 +386,14 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
         if (_updateSigningStatus_nts)
         {
           queue = self->_queue;
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __88__MFSecureMIMECompositionManager__determineRevocationStatusWithIdentity_sendingAddress___block_invoke;
-          v14[3] = &unk_2798B78C8;
-          v15 = signingStatus;
-          v14[4] = self;
-          v14[5] = v7;
-          dispatch_async(queue, v14);
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __88__MFSecureMIMECompositionManager__determineRevocationStatusWithIdentity_sendingAddress___block_invoke;
+          v13[3] = &unk_2798B78C8;
+          v14 = signingStatus;
+          v13[4] = self;
+          v13[5] = v7;
+          dispatch_async(queue, v13);
         }
       }
 
@@ -412,8 +414,6 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
       _os_log_impl(&dword_258BDA000, v8, OS_LOG_TYPE_INFO, "#SMIMEErrors SecIdentityCopyCertificate could not find certificate for %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_determineSigningStatusWithSendingAddress:(id)address
@@ -461,6 +461,43 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
   if (v11)
   {
     CFRelease(v11);
+  }
+}
+
+- (void)_notifyDelegateSigningStatusDidChange:(int)change identity:(__SecIdentity *)identity error:(id)error
+{
+  v7 = *&change;
+  v17[1] = *MEMORY[0x277D85DE8];
+  delegate = [(MFSecureMIMECompositionManager *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    if (identity)
+    {
+      v16 = @"IdentityRef";
+      v17[0] = identity;
+      v10 = MEMORY[0x277CBEAC0];
+      v11 = v17;
+      v12 = &v16;
+    }
+
+    else
+    {
+      if (!error)
+      {
+        v13 = 0;
+        goto LABEL_7;
+      }
+
+      v14 = @"IdentityError";
+      errorCopy = error;
+      v10 = MEMORY[0x277CBEAC0];
+      v11 = &errorCopy;
+      v12 = &v14;
+    }
+
+    v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
+LABEL_7:
+    [(MFSecureMIMECompositionManagerDelegate *)delegate secureMIMECompositionManager:self signingStatusDidChange:v7 context:v13];
   }
 }
 
@@ -584,47 +621,47 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
 
 - (void)_determineEncryptionStatusWithNewRecipients:(id)recipients
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
+  v37 = 0;
   v38 = 0;
-  v39 = 0;
-  v36 = 0;
+  v35 = 0;
   cf = 0;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v7 = [recipients countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v7 = [recipients countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
-        v31 = 0;
-        v12 = [objc_opt_class() copyEncryptionCertificatesForAccount:self->_sendingAccount recipientAddress:v11 error:&v31];
+        v11 = *(*(&v31 + 1) + 8 * i);
+        v30 = 0;
+        v12 = [objc_opt_class() copyEncryptionCertificatesForAccount:self->_sendingAccount recipientAddress:v11 error:&v30];
         if (v12)
         {
           v13 = v12;
           [v5 setObject:v12 forKey:v11];
         }
 
-        else if (v31)
+        else if (v30)
         {
-          [v6 setObject:v31 forKey:v11];
+          [v6 setObject:v30 forKey:v11];
         }
       }
 
-      v8 = [recipients countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v8 = [recipients countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v8);
@@ -645,30 +682,30 @@ uint64_t __52__MFSecureMIMECompositionManager_setSendingAddress___block_invoke(u
 
   v15 = [recipients mutableCopy];
   [v15 minusSet:self->_recipients];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v16 = [v15 countByEnumeratingWithState:&v27 objects:v40 count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v16 = [v15 countByEnumeratingWithState:&v26 objects:v39 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * j);
+        v20 = *(*(&v26 + 1) + 8 * j);
         [v5 removeObjectForKey:v20];
         [v6 removeObjectForKey:v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v27 objects:v40 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v26 objects:v39 count:16];
     }
 
     while (v17);
@@ -703,7 +740,7 @@ LABEL_26:
     encryptionStatus = self->_encryptionStatus;
     if (_updateEncryptionStatus_nts)
     {
-      [(MFSecureMIMECompositionManager *)self _nts_copyEncryptionIdentity:&cf error:&v36 certificatesByRecipient:&v38 errorsByRecipient:&v39];
+      [(MFSecureMIMECompositionManager *)self _nts_copyEncryptionIdentity:&cf error:&v35 certificatesByRecipient:&v37 errorsByRecipient:&v38];
       v23 = 1;
     }
 
@@ -717,15 +754,13 @@ LABEL_26:
 
   if (v23)
   {
-    [(MFSecureMIMECompositionManager *)self _notifyDelegateEncryptionStatusDidChange:encryptionStatus certsByRecipient:v38 errorsByRecipient:v39 identity:cf error:v36];
+    [(MFSecureMIMECompositionManager *)self _notifyDelegateEncryptionStatusDidChange:encryptionStatus certsByRecipient:v37 errorsByRecipient:v38 identity:cf error:v35];
   }
 
   if (cf)
   {
     CFRelease(cf);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateEncryptionStatus_nts
@@ -831,6 +866,60 @@ LABEL_8:
   }
 }
 
+- (void)_notifyDelegateEncryptionStatusDidChange:(int)change certsByRecipient:(id)recipient errorsByRecipient:(id)byRecipient identity:(__SecIdentity *)identity error:(id)error
+{
+  v11 = *&change;
+  delegate = [(MFSecureMIMECompositionManager *)self delegate];
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    return;
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = v14;
+  if (recipient)
+  {
+    [v14 setObject:recipient forKey:@"CertificatesByRecipient"];
+  }
+
+  if (byRecipient)
+  {
+    [v15 setObject:byRecipient forKey:@"ErrorsByRecipient"];
+  }
+
+  if (identity)
+  {
+    v16 = @"IdentityRef";
+    v17 = v15;
+    errorCopy = identity;
+LABEL_11:
+    [v17 setObject:errorCopy forKey:v16];
+    goto LABEL_12;
+  }
+
+  if (error)
+  {
+    v16 = @"IdentityError";
+    v17 = v15;
+    errorCopy = error;
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  if ([v15 count])
+  {
+    v19 = v15;
+  }
+
+  else
+  {
+
+    v15 = 0;
+  }
+
+  [(MFSecureMIMECompositionManagerDelegate *)delegate secureMIMECompositionManager:self encryptionStatusDidChange:v11 context:v15];
+}
+
 - (int)encryptionStatus
 {
   [(NSLock *)self->_lock lock];
@@ -925,17 +1014,17 @@ LABEL_8:
 
 + (__SecIdentity)copySigningIdentityForAccount:(id)account sendingAddress:(id)address error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v7 = +[MFMessageKeychainManager copyIdentityForPersistentReference:error:](MFMessageKeychainManager, "copyIdentityForPersistentReference:error:", [account signingIdentityPersistentReferenceForAddress:address], &v12);
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v7 = +[MFMessageKeychainManager copyIdentityForPersistentReference:error:](MFMessageKeychainManager, "copyIdentityForPersistentReference:error:", [account signingIdentityPersistentReferenceForAddress:address], &v11);
   v8 = v7;
   if (error && !v7)
   {
-    if (v12)
+    if (v11)
     {
-      v13 = *MEMORY[0x277CCA7E8];
-      v14[0] = v12;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA7E8];
+      v13[0] = v11;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
 
     else
@@ -946,23 +1035,22 @@ LABEL_8:
     *error = +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1052, [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"SMIME_MISSING_SIGNING_IDENTITY_FORMAT", @"You can’t send signed messages because a signing identity for the address “%@” could not be found.  Go to the Advanced settings for this account to choose a signing identity.", @"Delayed", address], 0, v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (__SecIdentity)copyEncryptionIdentityForAccount:(id)account sendingAddress:(id)address error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v7 = +[MFMessageKeychainManager copyIdentityForPersistentReference:error:](MFMessageKeychainManager, "copyIdentityForPersistentReference:error:", [account encryptionIdentityPersistentReferenceForAddress:address], &v12);
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v7 = +[MFMessageKeychainManager copyIdentityForPersistentReference:error:](MFMessageKeychainManager, "copyIdentityForPersistentReference:error:", [account encryptionIdentityPersistentReferenceForAddress:address], &v11);
   v8 = v7;
   if (error && !v7)
   {
-    if (v12)
+    if (v11)
     {
-      v13 = *MEMORY[0x277CCA7E8];
-      v14[0] = v12;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA7E8];
+      v13[0] = v11;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
 
     else
@@ -973,44 +1061,43 @@ LABEL_8:
     *error = +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1052, [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"SMIME_MISSING_ENCRYPTION_IDENTITY_FORMAT", @"You can’t send encrypted messages because an encryption identity for the address “%@” could not be found.  Go to the Advanced settings for this account to choose an encryption identity.", @"Delayed", address], 0, v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)copyEncryptionCertificatesForAccount:(id)account recipientAddress:(id)address error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v7 = [account copyDataForRemoteEncryptionCertificatesForAddress:address error:&v28];
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0;
+  v7 = [account copyDataForRemoteEncryptionCertificatesForAddress:address error:&v27];
   if ([v7 count])
   {
     errorCopy = error;
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           v14 = SecCertificateCreateWithData(0, v13);
           if (v14)
           {
             v15 = v14;
-            v28 = checkCertificateExpiration(v14, address);
-            if (!v28)
+            v27 = checkCertificateExpiration(v14, address);
+            if (!v27)
             {
               [v8 addObject:v15];
             }
@@ -1028,11 +1115,11 @@ LABEL_8:
               _os_log_impl(&dword_258BDA000, v16, OS_LOG_TYPE_INFO, "#SMIMEErrors SecCertificateCreateWithData() failed for %@", buf, 0xCu);
             }
 
-            v28 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:MFLookupLocalizedString(@"MIME_GENERIC_REMOTE_ENCRYPTION_CERT_MESSAGE" title:@"An error occurred while retrieving the encryption certificate." userInfo:@"Delayed"), 0, 0];
+            v27 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:MFLookupLocalizedString(@"MIME_GENERIC_REMOTE_ENCRYPTION_CERT_MESSAGE" title:@"An error occurred while retrieving the encryption certificate." userInfo:@"Delayed"), 0, 0];
           }
         }
 
-        v10 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v10);
@@ -1054,8 +1141,8 @@ LABEL_8:
     if (v17)
     {
       v18 = v17;
-      v28 = checkCertificateExpiration(v17, address);
-      if (v28)
+      v27 = checkCertificateExpiration(v17, address);
+      if (v27)
       {
         v8 = 0;
       }
@@ -1068,7 +1155,7 @@ LABEL_8:
       CFRelease(v18);
     }
 
-    else if (v28)
+    else if (v27)
     {
       v8 = 0;
     }
@@ -1077,35 +1164,34 @@ LABEL_8:
     {
       if (*buf)
       {
-        v29 = *MEMORY[0x277CCA7E8];
-        v30 = *buf;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x277CCA7E8];
+        v29 = *buf;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         address = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"SMIME_OTHER_ENCRYPTION_CERT_ERROR_MESSAGE", @"An error occurred while searching for an encryption certificate for “%@” in your keychain.", @"Delayed", address];
       }
 
       else
       {
         address = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(@"SMIME_MISSING_ENCRYPTION_CERT_MESSAGE", @"You can’t send encrypted messages because an encryption certificate for the address “%@” could not be found.", @"Delayed", address];
-        v21 = 0;
+        v20 = 0;
       }
 
       v8 = 0;
-      v28 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:address title:MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_TITLE" userInfo:@"Unable to Encrypt", @"Delayed"), v21];
+      v27 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1035 localizedDescription:address title:MFLookupLocalizedString(@"SMIME_CANT_ENCRYPT_TITLE" userInfo:@"Unable to Encrypt", @"Delayed"), v20];
     }
   }
 
-  if (error && !v8 && v28)
+  if (error && !v8 && v27)
   {
-    *error = v28;
+    *error = v27;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (BOOL)isRevokedCertificate:(__SecCertificate *)certificate sendingAddress:(id)address
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
   v7 = [MFMessageKeychainManager copySMIMESigningPolicyForAddress:address];
   if (v7)
@@ -1169,7 +1255,7 @@ LABEL_15:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v22 = 0;
+        v21 = 0;
         _os_log_impl(&dword_258BDA000, v17, OS_LOG_TYPE_INFO, "#SMIMEErrors Revocation check succeeded (SecTrustResultType: %d)", buf, 8u);
       }
 
@@ -1177,26 +1263,23 @@ LABEL_15:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (void)isRevokedCertificate:(int)a1 sendingAddress:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecTrustCreateWithCertificates returned %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#SMIMEErrors SecTrustCreateWithCertificates returned %ld", &v2, 0xCu);
 }
 
 + (void)isRevokedCertificate:(int)a1 sendingAddress:(NSObject *)a2 .cold.2(int a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#SMIMEErrors Revocation check failed with status %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#SMIMEErrors Revocation check failed with status %ld", &v2, 0xCu);
 }
 
 @end

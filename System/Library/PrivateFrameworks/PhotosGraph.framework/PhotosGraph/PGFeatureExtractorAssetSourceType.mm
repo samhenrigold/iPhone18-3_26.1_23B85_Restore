@@ -61,13 +61,12 @@ LABEL_11:
 
 - (id)featureNames
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"SourceTypeNone";
-  v5[1] = @"UserLibrary";
-  v5[2] = @"CloudShared";
-  v5[3] = @"iTunesSynced";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"SourceTypeNone";
+  v4[1] = @"UserLibrary";
+  v4[2] = @"CloudShared";
+  v4[3] = @"iTunesSynced";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

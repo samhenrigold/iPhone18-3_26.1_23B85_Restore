@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (!self->_promiseFulfilled)
   {
     v3 = MTLogMaterials;
@@ -40,15 +40,14 @@
     [(MTPrunePromise *)self fulfillPromise];
   }
 
-  v5.receiver = self;
-  v5.super_class = MTPrunePromise;
-  [(MTPrunePromise *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MTPrunePromise;
+  [(MTPrunePromise *)&v4 dealloc];
 }
 
 - (void)fulfillPromise
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_promiseFulfilled)
   {
     self->_promiseFulfilled = 1;
@@ -56,17 +55,15 @@
     v4 = MTLogMaterials;
     if (os_log_type_enabled(MTLogMaterials, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543618;
+      v5 = 138543618;
       selfCopy = self;
-      v8 = 2114;
-      v9 = WeakRetained;
-      _os_log_impl(&dword_1BF527000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: pruning layer: %{public}@", &v6, 0x16u);
+      v7 = 2114;
+      v8 = WeakRetained;
+      _os_log_impl(&dword_1BF527000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: pruning layer: %{public}@", &v5, 0x16u);
     }
 
     [WeakRetained prune];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

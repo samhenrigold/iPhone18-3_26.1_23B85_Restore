@@ -24,7 +24,7 @@
 
 - (void)passesWithStyle:(id)style callback:(id)callback
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   styleCopy = style;
   callbackCopy = callback;
   if ((ATXHeuristicCanLearnFromApp(&unk_2850BA278) & 1) == 0)
@@ -50,42 +50,42 @@ LABEL_6:
   }
 
   v10 = objc_opt_new();
-  v48 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-2419200.0];
+  v47 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-2419200.0];
   if (![MEMORY[0x277D37FC0] isPassLibraryAvailable])
   {
     goto LABEL_30;
   }
 
-  v46 = callbackCopy;
-  v47 = styleCopy;
+  v45 = callbackCopy;
+  v46 = styleCopy;
   v11 = [(ATXWalletDataSource *)self _getPassStyleMaskForString:styleCopy];
   v12 = +[ATXHeuristicResultCache sharedPassLibrary];
   v13 = [v12 passesOfStyles:v11];
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+  v14 = [obj countByEnumeratingWithState:&v51 objects:v58 count:16];
   if (!v14)
   {
     goto LABEL_29;
   }
 
   v15 = v14;
-  v16 = *v53;
-  v49 = *MEMORY[0x277D38780];
+  v16 = *v52;
+  v48 = *MEMORY[0x277D38780];
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v53 != v16)
+      if (*v52 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v52 + 1) + 8 * i);
+      v18 = *(*(&v51 + 1) + 8 * i);
       v19 = objc_autoreleasePoolPush();
       v20 = objc_opt_new();
       relevantDate = [v18 relevantDate];
@@ -134,11 +134,11 @@ LABEL_6:
         goto LABEL_21;
       }
 
-      v36 = [v20 objectForKeyedSubscript:v49];
+      v36 = [v20 objectForKeyedSubscript:v48];
       v37 = v36;
       if (v36)
       {
-        v38 = [v36 earlierDate:v48];
+        v38 = [v36 earlierDate:v47];
 
         if (v38 != v37)
         {
@@ -151,7 +151,7 @@ LABEL_21:
         v39 = __atxlog_handle_heuristic();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
-          [ATXWalletDataSource passesWithStyle:v57 callback:v18];
+          [ATXWalletDataSource passesWithStyle:v56 callback:v18];
         }
       }
 
@@ -168,30 +168,28 @@ LABEL_27:
       objc_autoreleasePoolPop(v19);
     }
 
-    v15 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+    v15 = [obj countByEnumeratingWithState:&v51 objects:v58 count:16];
   }
 
   while (v15);
 LABEL_29:
 
-  callbackCopy = v46;
-  styleCopy = v47;
+  callbackCopy = v45;
+  styleCopy = v46;
 LABEL_30:
   v40 = [v10 count] == 0;
   v41 = +[ATXWalletDataSourceSharedData sharedInstance];
   [v41 setHasEmptyWalletPasses:v40];
 
   v42 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"date" ascending:1];
-  v56[0] = v42;
+  v55[0] = v42;
   v43 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"serial" ascending:1];
-  v56[1] = v43;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+  v55[1] = v43;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   [v10 sortUsingDescriptors:v44];
 
   (*(callbackCopy + 2))(callbackCopy, v10, 0);
 LABEL_31:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_getPassStyleMaskForString:(id)string
@@ -227,7 +225,7 @@ LABEL_9:
 
 - (id)_extractRelevantSemanticTagsFromPass:(id)pass
 {
-  v95[2] = *MEMORY[0x277D85DE8];
+  v94[2] = *MEMORY[0x277D85DE8];
   passCopy = pass;
   v4 = objc_opt_new();
   allSemantics = [passCopy allSemantics];
@@ -283,17 +281,17 @@ LABEL_9:
 
   if (locationValue)
   {
-    v94[0] = @"lat";
+    v93[0] = @"lat";
     v36 = MEMORY[0x277CCABB0];
     [locationValue coordinate];
     v37 = [v36 numberWithDouble:?];
-    v94[1] = @"lon";
-    v95[0] = v37;
+    v93[1] = @"lon";
+    v94[0] = v37;
     v38 = MEMORY[0x277CCABB0];
     [locationValue coordinate];
     v40 = [v38 numberWithDouble:v39];
-    v95[1] = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:2];
+    v94[1] = v40;
+    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:2];
     [v4 setObject:v41 forKeyedSubscript:v33];
   }
 
@@ -318,17 +316,17 @@ LABEL_9:
 
   if (locationValue2)
   {
-    v92[0] = @"lat";
+    v91[0] = @"lat";
     v54 = MEMORY[0x277CCABB0];
     [locationValue2 coordinate];
     v55 = [v54 numberWithDouble:?];
-    v92[1] = @"lon";
-    v93[0] = v55;
+    v91[1] = @"lon";
+    v92[0] = v55;
     v56 = MEMORY[0x277CCABB0];
     [locationValue2 coordinate];
     v58 = [v56 numberWithDouble:v57];
-    v93[1] = v58;
-    v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
+    v92[1] = v58;
+    v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
     [v4 setObject:v59 forKeyedSubscript:v51];
   }
 
@@ -338,17 +336,17 @@ LABEL_9:
 
   if (locationValue3)
   {
-    v90[0] = @"lat";
+    v89[0] = @"lat";
     v63 = MEMORY[0x277CCABB0];
     [locationValue3 coordinate];
     v64 = [v63 numberWithDouble:?];
-    v90[1] = @"lon";
-    v91[0] = v64;
+    v89[1] = @"lon";
+    v90[0] = v64;
     v65 = MEMORY[0x277CCABB0];
     [locationValue3 coordinate];
     v67 = [v65 numberWithDouble:v66];
-    v91[1] = v67;
-    v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:2];
+    v90[1] = v67;
+    v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:2];
     [v4 setObject:v68 forKeyedSubscript:v60];
   }
 
@@ -388,8 +386,6 @@ LABEL_9:
     [(ATXWalletDataSource *)v4 _extractRelevantSemanticTagsFromPass:v87];
   }
 
-  v88 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -411,11 +407,10 @@ LABEL_9:
 
 - (void)_extractRelevantSemanticTagsFromPass:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Extracted relevant semantic tags from pass: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Extracted relevant semantic tags from pass: %@", &v2, 0xCu);
 }
 
 @end

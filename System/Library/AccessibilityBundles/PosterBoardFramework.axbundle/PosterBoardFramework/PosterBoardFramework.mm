@@ -38,9 +38,9 @@ void sub_29C18A3F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29C18B6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_29C18B6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -54,28 +54,28 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 uint64_t AXLockScreenPostersCount(void *a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = [a1 _accessibilitySubviews];
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         MEMORY[0x29C2E7EC0](@"PosterBoard.LockScreenPosterCollectionViewCell");
         if (objc_opt_isKindOfClass())
         {
@@ -87,7 +87,7 @@ uint64_t AXLockScreenPostersCount(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
@@ -98,7 +98,6 @@ uint64_t AXLockScreenPostersCount(void *a1)
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -117,22 +116,8 @@ __CFString *AXWallpaperIdentifier(void *a1)
   v3 = MEMORY[0x29C2E7ED0](@"PBFPosterPreview");
   v4 = [v2 conformsToProtocol:v3];
 
-  if (!v4)
+  if (!v4 || (objc_opt_class(), [v2 safeValueForKeyPath:@"posterDescriptorLookupInfo.posterDescriptorPath.identity"], v5 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v6 = objc_claimAutoreleasedReturnValue(), v5, objc_msgSend(v6, "provider"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "descriptorIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), _AXCombinedPosterPrefixWithID(v7, v8), v9 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !v9))
   {
-    goto LABEL_3;
-  }
-
-  objc_opt_class();
-  v5 = [v2 safeValueForKeyPath:@"posterDescriptorLookupInfo.posterDescriptorPath.identity"];
-  v6 = __UIAccessibilityCastAsClass();
-
-  v7 = [v6 provider];
-  v8 = [v6 descriptorIdentifier];
-  v9 = _AXCombinedPosterPrefixWithID(v7, v8);
-
-  if (!v9)
-  {
-LABEL_3:
     v10 = AXPreviewIdentifier(v1);
     v11 = [v10 componentsSeparatedByString:@":"];
     v9 = &stru_2A229E280;
@@ -188,44 +173,43 @@ id AXPreviewIdentifier(void *a1)
   return v2;
 }
 
-void *AXMappedLabelOrValueForPosterPreview(void *a1)
+void *AXMappedLabelOrValueForPosterPreview(void *a1, int a2)
 {
   v14 = *MEMORY[0x29EDCA608];
-  v1 = AXWallpaperIdentifier(a1);
-  v2 = AXConvertWallpaperId(v1);
+  v2 = AXWallpaperIdentifier(a1);
+  v3 = AXConvertWallpaperId(v2);
 
-  v3 = [v2 rangeOfString:@"+isNotSuggested"];
-  if (v3 != 0x7FFFFFFFFFFFFFFFLL)
+  v4 = [v3 rangeOfString:@"+isNotSuggested"];
+  if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v4 = [v2 substringToIndex:v3];
+    v5 = [v3 substringToIndex:v4];
 
-    v2 = v4;
+    v3 = v5;
   }
 
-  v5 = AXLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = AXLogCommon();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v2;
-    _os_log_impl(&dword_29C185000, v5, OS_LOG_TYPE_DEFAULT, "WallpaperID: %@", buf, 0xCu);
+    v13 = v3;
+    _os_log_impl(&dword_29C185000, v6, OS_LOG_TYPE_DEFAULT, "WallpaperID: %@", buf, 0xCu);
   }
 
-  v6 = AXCFormattedString();
-  v7 = accessibilityLocalizedString(v6);
-  if ([v7 isEqualToString:{v6, v2}])
+  v7 = AXCFormattedString();
+  v8 = accessibilityLocalizedString(v7);
+  if ([v8 isEqualToString:{v7, v3}])
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7;
+    v9 = v8;
   }
 
-  v9 = v8;
+  v10 = v9;
 
-  v10 = *MEMORY[0x29EDCA608];
-  return v8;
+  return v9;
 }
 
 __CFString *AXConvertWallpaperId(void *a1)
@@ -268,7 +252,7 @@ uint64_t AXLayoutMode(void *a1)
 {
   v1 = AXCollectionViewController(a1);
   v2 = [v1 safeSwiftValueForKey:@"layoutMode"];
-  v3 = AXConvertToLayoutMode();
+  v3 = AXConvertToLayoutMode(v2);
 
   return v3;
 }
@@ -369,25 +353,25 @@ id AXCenteredPosterCellInCollectionView(void *a1)
   return v12;
 }
 
-uint64_t AXConvertToLayoutMode()
+uint64_t AXConvertToLayoutMode(uint64_t a1)
 {
   swift_unknownObjectRetain();
   sub_29C18C4D4();
   swift_unknownObjectRelease();
-  sub_29C18C384(v4, v3);
+  sub_29C18C384(v5, v4);
   type metadata accessor for PRUISSwitcherLayoutMode();
   if (swift_dynamicCast())
   {
-    v0 = v2;
+    v1 = v3;
   }
 
   else
   {
-    v0 = 0;
+    v1 = 0;
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v4);
-  return v0;
+  __swift_destroy_boxed_opaque_existential_0(v5);
+  return v1;
 }
 
 uint64_t sub_29C18C384(uint64_t a1, uint64_t a2)

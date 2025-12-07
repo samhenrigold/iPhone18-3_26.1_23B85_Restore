@@ -38,41 +38,41 @@
 
 void __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x3032000000;
-  v68[3] = __Block_byref_object_copy_;
-  v68[4] = __Block_byref_object_dispose_;
-  v69 = 0;
+  v67[0] = 0;
+  v67[1] = v67;
+  v67[2] = 0x3032000000;
+  v67[3] = __Block_byref_object_copy_;
+  v67[4] = __Block_byref_object_dispose_;
+  v68 = 0;
   v3 = [*(a1 + 32) remotePairingSwift];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_2;
-  v67[3] = &unk_2788F2BB0;
-  v67[4] = v68;
-  v4 = [v3 getPairedDevicesWithCompletion:v67];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_2;
+  v66[3] = &unk_2788F2BB0;
+  v66[4] = v67;
+  v4 = [v3 getPairedDevicesWithCompletion:v66];
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v5 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v5)
   {
-    v6 = *v64;
+    v6 = *v63;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v64 != v6)
+        if (*v63 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v63 + 1) + 8 * i);
+        v8 = *(*(&v62 + 1) + 8 * i);
         v9 = [v2 indexOfObject:v8];
         if (v9 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -89,38 +89,38 @@ void __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_inv
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v5 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v5);
   }
 
-  v52 = lockdown_copy_paired_host_info();
-  if (v52)
+  v51 = lockdown_copy_paired_host_info();
+  if (v51)
   {
-    [v52 allKeys];
+    [v51 allKeys];
+    v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v48 = v60 = 0u;
-    v13 = [v48 countByEnumeratingWithState:&v59 objects:v70 count:16];
+    v58 = 0u;
+    v47 = v59 = 0u;
+    v13 = [v47 countByEnumeratingWithState:&v58 objects:v69 count:16];
     if (!v13)
     {
       goto LABEL_41;
     }
 
-    v51 = *v60;
+    v50 = *v59;
     while (1)
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v60 != v51)
+        if (*v59 != v50)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v47);
         }
 
-        v15 = *(*(&v59 + 1) + 8 * j);
-        v16 = [v52 objectForKey:v15];
+        v15 = *(*(&v58 + 1) + 8 * j);
+        v16 = [v51 objectForKey:v15];
         v17 = [DSPairedComputer alloc];
         v18 = [v16 objectForKey:@"HostName"];
         v19 = [(DSPairedComputer *)v17 initWithDeviceName:v18];
@@ -170,13 +170,13 @@ void __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_inv
             goto LABEL_29;
           }
 
-          v57[0] = MEMORY[0x277D85DD0];
-          v57[1] = 3221225472;
-          v57[2] = __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_2;
-          v57[3] = &unk_2788F2BD8;
+          v56[0] = MEMORY[0x277D85DD0];
+          v56[1] = 3221225472;
+          v56[2] = __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_2;
+          v56[3] = &unk_2788F2BD8;
           v32 = v19;
-          v58 = v32;
-          v29 = [v2 indexOfObjectPassingTest:v57];
+          v57 = v32;
+          v29 = [v2 indexOfObjectPassingTest:v56];
           if (v29 == 0x7FFFFFFFFFFFFFFFLL)
           {
 
@@ -205,11 +205,11 @@ LABEL_29:
         else
         {
           v39 = [v34 marketingName];
-          v49 = v39;
+          v48 = v39;
         }
 
         [v34 setMarketingName:v39];
-        v40 = v49;
+        v40 = v48;
         if (v38)
         {
           v40 = v1;
@@ -231,7 +231,7 @@ LABEL_29:
 LABEL_39:
       }
 
-      v13 = [v48 countByEnumeratingWithState:&v59 objects:v70 count:16];
+      v13 = [v47 countByEnumeratingWithState:&v58 objects:v69 count:16];
       if (!v13)
       {
 LABEL_41:
@@ -247,14 +247,13 @@ LABEL_41:
   block[2] = __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_4;
   block[3] = &unk_2788F2C20;
   v44 = *(a1 + 40);
-  v55 = *(a1 + 48);
-  v56 = v68;
-  v54 = v2;
+  v54 = *(a1 + 48);
+  v55 = v67;
+  v53 = v2;
   v45 = v2;
   dispatch_async(v44, block);
 
-  _Block_object_dispose(v68, 8);
-  v46 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v67, 8);
 }
 
 void __61__DSRemotePairingStore_fetchPairedDevicesOnQueue_completion___block_invoke_2(uint64_t a1, void *a2)

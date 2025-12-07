@@ -13,10 +13,10 @@
 - (void)viewServiceDidTerminateWithError:(id)error
 {
   errorCopy = error;
-  v4 = _LTOSLogSystemTranslation();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = _LTOSLogSystemTranslation(errorCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [(LTUIRemoteViewController *)errorCopy viewServiceDidTerminateWithError:v4];
+    [(LTUIRemoteViewController *)errorCopy viewServiceDidTerminateWithError:v5];
   }
 }
 
@@ -60,11 +60,10 @@
 
 - (void)viewServiceDidTerminateWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26F4D2000, a2, OS_LOG_TYPE_ERROR, "View service terminated during system translation with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26F4D2000, a2, OS_LOG_TYPE_ERROR, "View service terminated during system translation with error: %@", &v2, 0xCu);
 }
 
 @end

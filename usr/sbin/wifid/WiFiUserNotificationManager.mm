@@ -1,4 +1,5 @@
 @interface WiFiUserNotificationManager
++ (BOOL)canRepromptForNotificationType:(int)type blacklistType:(int)blacklistType source:(int64_t)source atDate:(id)date count:(unint64_t)count;
 + (unint64_t)defaultThrottlingPeriodForBlacklistingType:(int)type source:(int64_t)source count:(unint64_t)count;
 - (WiFiUserNotificationManager)initWithQueue:(id)queue supportsWAPI:(BOOL)i manager:(__WiFiManager *)manager;
 - (int)dispatchNotificationWithAskToJoinHotspotRecommendation:(id)recommendation;
@@ -11,8 +12,11 @@
 - (void)dealloc;
 - (void)dismissJoinAlerts;
 - (void)dispatchAccessoryJoinAlertForNetwork:(id)network unsecured:(BOOL)unsecured;
+- (void)dispatchJoinAlertForNetwork:(id)network withProviderName:(id)name andReason:(int)reason;
+- (void)dispatchLowDataModeAlertForNetwork:(id)network withReason:(int)reason;
 - (void)dispatchNotificationWithColocatedScanResult:(id)result fromScanResult:(id)scanResult;
 - (void)dispatchNotificationWithRandomMAC:(id)c;
+- (void)enableTestMode:(BOOL)mode;
 - (void)registerCallback:(id)callback withContext:(void *)context;
 - (void)reset;
 - (void)startListening;
@@ -78,6 +82,13 @@
   }
 
   objc_autoreleasePoolPop(v2);
+}
+
++ (BOOL)canRepromptForNotificationType:(int)type blacklistType:(int)blacklistType source:(int64_t)source atDate:(id)date count:(unint64_t)count
+{
+  v9 = *&blacklistType;
+  [date timeIntervalSinceNow];
+  return -v10 > [WiFiUserNotificationManager defaultThrottlingPeriodForBlacklistingType:v9 source:source count:count];
 }
 
 + (unint64_t)defaultThrottlingPeriodForBlacklistingType:(int)type source:(int64_t)source count:(unint64_t)count
@@ -817,6 +828,235 @@ LABEL_41:
   [(WiFiUserNotificationManager *)self dispatchJoinAlertForNetwork:network withProviderName:0 andReason:v4];
 }
 
+- (void)dispatchJoinAlertForNetwork:(id)network withProviderName:(id)name andReason:(int)reason
+{
+  v5 = *&reason;
+  v9 = objc_autoreleasePoolPush();
+  if (network)
+  {
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:3 message:{"%s: ssid='%@' provider='%@'", "-[WiFiUserNotificationManager dispatchJoinAlertForNetwork:withProviderName:andReason:]", network, name}];
+    }
+
+    objc_autoreleasePoolPop(v9);
+    if ([(WiFiUserNotificationManager *)self visibleRequest])
+    {
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_1001136DC;
+      v21[3] = &unk_100263078;
+      v21[4] = self;
+      v21[5] = network;
+      v21[6] = name;
+      v22 = v5;
+      [(UNUserNotificationCenter *)[(WiFiUserNotificationManager *)self userNotificationCenterWiFi] getDeliveredNotificationsWithCompletionHandler:v21];
+    }
+
+    else
+    {
+      uUIDString = [+[NSUUID UUID](NSUUID UUIDString];
+      v11 = objc_alloc_init(UNMutableNotificationContent);
+      if ((v5 & 0xFFFFFFFE) == 6)
+      {
+        if (v5 == 7)
+        {
+          v12 = @"WIFI_ACCESSORY_JOIN_ALERT_JOINED_WIFI_NETWORK_TITLE_UNSECURED";
+        }
+
+        else
+        {
+          v12 = @"WIFI_ACCESSORY_JOIN_ALERT_JOINED_WIFI_NETWORK_TITLE";
+        }
+
+        network2 = sub_10010E234(v12);
+        network = [NSString stringWithFormat:sub_10010E234(@"WIFI_ACCESSORY_JOIN_ALERT_JOINED_NETWORK_BODY"), network];
+        if (v5 == 6)
+        {
+          [v11 setShouldIgnoreDoNotDisturb:1];
+        }
+      }
+
+      else
+      {
+        if (self->_supportsWAPI)
+        {
+          v15 = @"WIFI_JOIN_ALERT_JOINED_WIFI_NETWORK_TITLE_CH";
+        }
+
+        else
+        {
+          v15 = @"WIFI_JOIN_ALERT_JOINED_WIFI_NETWORK_TITLE";
+        }
+
+        network2 = [NSString stringWithFormat:sub_10010E234(v15), network];
+        if (name)
+        {
+          if (self->_supportsWAPI)
+          {
+            v16 = @"WIFI_JOIN_ALERT_JOINED_PROVIDED_NETWORK_BODY_CH";
+          }
+
+          else
+          {
+            v16 = @"WIFI_JOIN_ALERT_JOINED_PROVIDED_NETWORK_BODY";
+          }
+
+          name = [NSString stringWithFormat:sub_10010E234(v16), name];
+        }
+
+        else
+        {
+          name = sub_10010E234(@"WIFI_JOIN_ALERT_JOINED_NETWORK_BODY");
+        }
+
+        network = name;
+      }
+
+      [v11 setTitle:network2];
+      [v11 setBody:network];
+      [v11 setShouldSuppressDefaultAction:1];
+      [v11 setCategoryIdentifier:@"joinalert"];
+      v20[0] = 0;
+      v20[1] = v20;
+      v20[2] = 0x3052000000;
+      v20[3] = sub_100002BB0;
+      v20[4] = sub_1000067AC;
+      v20[5] = self;
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100113808;
+      v19[3] = &unk_100263028;
+      v19[4] = uUIDString;
+      v19[5] = v20;
+      [(UNUserNotificationCenter *)[(WiFiUserNotificationManager *)self userNotificationCenterWiFi] addNotificationRequest:[UNNotificationRequest withCompletionHandler:"requestWithIdentifier:content:trigger:destinations:" requestWithIdentifier:uUIDString content:v11 trigger:0 destinations:1], v19];
+      notificationMapping = [(WiFiUserNotificationManager *)self notificationMapping];
+      v23[0] = @"SSID";
+      v23[1] = @"Reason";
+      v24[0] = network;
+      v24[1] = [NSNumber numberWithUnsignedInt:v5];
+      [(NSMutableDictionary *)notificationMapping setObject:[NSDictionary forKey:"dictionaryWithObjects:forKeys:count:" dictionaryWithObjects:v24 forKeys:v23 count:2], uUIDString];
+      [(NSMutableDictionary *)[(WiFiUserNotificationManager *)self recentNotifications] setObject:+[NSDate forKey:"date"], network];
+      if (v11)
+      {
+        CFRelease(v11);
+      }
+
+      _Block_object_dispose(v20, 8);
+    }
+  }
+
+  else
+  {
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: nil ssid", "-[WiFiUserNotificationManager dispatchJoinAlertForNetwork:withProviderName:andReason:]"}];
+    }
+
+    objc_autoreleasePoolPop(v9);
+  }
+}
+
+- (void)dispatchLowDataModeAlertForNetwork:(id)network withReason:(int)reason
+{
+  if (network)
+  {
+    v4 = *&reason;
+    if ([(WiFiUserNotificationManager *)self visibleRequest])
+    {
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100113D1C;
+      v17[3] = &unk_1002630A0;
+      v17[4] = self;
+      v17[5] = network;
+      v18 = v4;
+      [(UNUserNotificationCenter *)[(WiFiUserNotificationManager *)self userNotificationCenterWiFi] getDeliveredNotificationsWithCompletionHandler:v17];
+    }
+
+    else
+    {
+      if ([(NSMutableDictionary *)[(WiFiUserNotificationManager *)self recentNotifications] objectForKey:network])
+      {
+        v8 = objc_autoreleasePoolPush();
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:3 message:{"%s: showing the notification again for %@", "-[WiFiUserNotificationManager dispatchLowDataModeAlertForNetwork:withReason:]", network}];
+        }
+
+        objc_autoreleasePoolPop(v8);
+        [(NSMutableDictionary *)[(WiFiUserNotificationManager *)self recentNotifications] removeObjectForKey:network];
+      }
+
+      uUIDString = [+[NSUUID UUID](NSUUID UUIDString];
+      v10 = objc_alloc_init(UNMutableNotificationContent);
+      v11 = sub_10010E234(@"WIFI_LOW_DATA_MODE_ALERT_JOINED_NETWORK_TITLE");
+      if ([(WiFiUserNotificationManager *)self deviceClass]== 1)
+      {
+        v12 = @"WIFI_LOW_DATA_MODE_ALERT_JOINED_NETWORK_BODY_IPHONE";
+      }
+
+      else if ([(WiFiUserNotificationManager *)self deviceClass]== 3)
+      {
+        v12 = @"WIFI_LOW_DATA_MODE_ALERT_JOINED_NETWORK_BODY_IPAD";
+      }
+
+      else if ([(WiFiUserNotificationManager *)self deviceClass]== 2)
+      {
+        v12 = @"WIFI_LOW_DATA_MODE_ALERT_JOINED_NETWORK_BODY_IPOD";
+      }
+
+      else
+      {
+        v12 = @"WIFI_LOW_DATA_MODE_ALERT_JOINED_NETWORK_BODY";
+      }
+
+      network = [NSString stringWithFormat:sub_10010E234(v12), network];
+      [v10 setTitle:v11];
+      [v10 setBody:network];
+      [v10 setShouldSuppressDefaultAction:1];
+      [v10 setCategoryIdentifier:@"lowdatamodealert"];
+      v16[0] = 0;
+      v16[1] = v16;
+      v16[2] = 0x3052000000;
+      v16[3] = sub_100002BB0;
+      v16[4] = sub_1000067AC;
+      v16[5] = self;
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100113E3C;
+      v15[3] = &unk_100263028;
+      v15[4] = uUIDString;
+      v15[5] = v16;
+      [(UNUserNotificationCenter *)[(WiFiUserNotificationManager *)self userNotificationCenterWiFi] addNotificationRequest:[UNNotificationRequest withCompletionHandler:"requestWithIdentifier:content:trigger:destinations:" requestWithIdentifier:uUIDString content:v10 trigger:0 destinations:1], v15];
+      notificationMapping = [(WiFiUserNotificationManager *)self notificationMapping];
+      v19[0] = @"SSID";
+      v19[1] = @"Reason";
+      v20[0] = network;
+      v20[1] = [NSNumber numberWithUnsignedInt:v4];
+      [(NSMutableDictionary *)notificationMapping setObject:[NSDictionary forKey:"dictionaryWithObjects:forKeys:count:" dictionaryWithObjects:v20 forKeys:v19 count:2], uUIDString];
+      [(NSMutableDictionary *)[(WiFiUserNotificationManager *)self recentNotifications] setObject:+[NSDate forKey:"date"], network];
+      if (v10)
+      {
+        CFRelease(v10);
+      }
+
+      _Block_object_dispose(v16, 8);
+    }
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: nil ssid", "-[WiFiUserNotificationManager dispatchLowDataModeAlertForNetwork:withReason:]"}];
+    }
+
+    objc_autoreleasePoolPop(v7);
+  }
+}
+
 - (void)dispatchNotificationWithColocatedScanResult:(id)result fromScanResult:(id)scanResult
 {
   if ([result networkName])
@@ -1083,6 +1323,22 @@ LABEL_41:
         }
       }
     }
+  }
+}
+
+- (void)enableTestMode:(BOOL)mode
+{
+  if (self->_enableTestMode != mode)
+  {
+    modeCopy = mode;
+    v5 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:3 message:{"%s: test mode %d", "-[WiFiUserNotificationManager enableTestMode:]", modeCopy}];
+    }
+
+    objc_autoreleasePoolPop(v5);
+    self->_enableTestMode = modeCopy;
   }
 }
 

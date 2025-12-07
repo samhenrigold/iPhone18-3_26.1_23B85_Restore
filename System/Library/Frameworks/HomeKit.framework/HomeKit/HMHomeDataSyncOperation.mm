@@ -5,15 +5,16 @@
 
 uint64_t __40____HMHomeDataSyncOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v8_53189 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_53189;
+  logCategory__hmf_once_v8_53189 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __33____HMHomeDataSyncOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -32,19 +33,19 @@ void __33____HMHomeDataSyncOperation_main__block_invoke(uint64_t a1, void *a2, v
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v26 = v13;
+          v25 = v13;
           _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Processing sync response", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v9);
         v14 = [v10 isRefresh];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __33____HMHomeDataSyncOperation_main__block_invoke_6;
-        v23[3] = &unk_1E754E2F8;
-        objc_copyWeak(&v24, (a1 + 32));
-        [v8 __processSyncResponse:v6 refreshRequested:v14 completionHandler:v23];
-        objc_destroyWeak(&v24);
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __33____HMHomeDataSyncOperation_main__block_invoke_6;
+        v22[3] = &unk_1E754E2F8;
+        objc_copyWeak(&v23, (a1 + 32));
+        [v8 __processSyncResponse:v6 refreshRequested:v14 completionHandler:v22];
+        objc_destroyWeak(&v23);
       }
 
       else
@@ -53,9 +54,9 @@ void __33____HMHomeDataSyncOperation_main__block_invoke(uint64_t a1, void *a2, v
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v26 = v20;
-          v27 = 2112;
-          v28 = v5;
+          v25 = v20;
+          v26 = 2112;
+          v27 = v5;
           _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Sync operation failed: %@", buf, 0x16u);
         }
 
@@ -79,7 +80,7 @@ void __33____HMHomeDataSyncOperation_main__block_invoke(uint64_t a1, void *a2, v
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v18;
+        v25 = v18;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Manager was deallocated before fetch response was handled", buf, 0xCu);
       }
 
@@ -88,13 +89,11 @@ void __33____HMHomeDataSyncOperation_main__block_invoke(uint64_t a1, void *a2, v
       [v16 cancelWithError:v19];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __33____HMHomeDataSyncOperation_main__block_invoke_6(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -106,11 +105,11 @@ void __33____HMHomeDataSyncOperation_main__block_invoke_6(uint64_t a1, void *a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to process sync response: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to process sync response: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -122,16 +121,14 @@ void __33____HMHomeDataSyncOperation_main__block_invoke_6(uint64_t a1, void *a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Successfully processed sync response", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Successfully processed sync response", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     [v6 finish];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

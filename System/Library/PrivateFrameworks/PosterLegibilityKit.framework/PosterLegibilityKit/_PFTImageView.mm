@@ -7,7 +7,7 @@
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"filters.colorMatrix.inputColorMatrix"])
+  if ([keyCopy isEqualToString:?])
   {
     v5 = 1;
   }

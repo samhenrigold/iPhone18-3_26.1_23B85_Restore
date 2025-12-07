@@ -39,7 +39,7 @@
 
 - (void)synchronizeUsing:(CNContactProviderSupportSession *)using bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -68,7 +68,7 @@
 
 - (void)invalidateExtensionFor:(NSString *)for bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -97,7 +97,7 @@
 
 - (void)resetEnumerationFor:(NSString *)for bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -136,7 +136,7 @@
 
 - (void)addDomain:(CNContactProviderSupportDomain *)domain bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -165,7 +165,7 @@
 
 - (void)removeDomainFor:(NSString *)for bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -194,7 +194,7 @@
 
 - (void)registeredDomainsFor:(NSString *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -221,7 +221,7 @@
 
 - (void)enableDomainFor:(NSString *)for bundleIdentifier:(NSString *)identifier showPrompt:(BOOL)prompt shouldSynchronize:(BOOL)synchronize completionHandler:(id)handler
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v24 - v14;
   v16 = _Block_copy(handler);
@@ -252,7 +252,7 @@
 
 - (void)disableDomainFor:(NSString *)for bundleIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAECE3B0, &qword_19567BD78);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -287,7 +287,7 @@
     sub_19565D81C();
   }
 
-  sub_1954C3460(0, &qword_1EAECB930);
+  sub_1954C3460(0, &qword_1EAECB930, 0x1E696AD98);
   v3 = sub_19565D73C();
 
   return v3;
@@ -298,7 +298,7 @@
   selfCopy = self;
   sub_19560BECC();
 
-  sub_1954C3460(0, &qword_1EAECDED8);
+  sub_1954C3460(0, &qword_1EAECDED8, off_1E74105C8);
   v3 = sub_19565D3EC();
 
   return v3;

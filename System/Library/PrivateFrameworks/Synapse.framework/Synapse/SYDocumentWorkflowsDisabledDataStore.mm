@@ -20,16 +20,14 @@
 
 void __64__SYDocumentWorkflowsDisabledDataStore__disabledRepositoryError__block_invoke()
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCA9B8];
-  v5 = *MEMORY[0x277CCA450];
-  v6[0] = @"Repository is disabled.";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = *MEMORY[0x277CCA450];
+  v5[0] = @"Repository is disabled.";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v2 = [v0 errorWithDomain:@"com.apple.synapse" code:-129 userInfo:v1];
   v3 = _disabledRepositoryError_error;
   _disabledRepositoryError_error = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchUserActivityWithRelatedUniqueIdentifier:(id)identifier error:(id *)error

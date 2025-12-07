@@ -31,7 +31,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -41,9 +41,9 @@
     v8 = HMFGetLogIdentifier();
     server = [(HMMTROTAAnnounceTimer *)selfCopy server];
     *buf = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = server;
+    v26 = v8;
+    v27 = 2112;
+    v28 = server;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@OTA Announce triggered for [%@]", buf, 0x16u);
   }
 
@@ -63,22 +63,20 @@
   softwareUpdateProvider = [browser softwareUpdateProvider];
   v21 = objc_loadWeakRetained(&selfCopy->_server);
   currentPairing = [v21 currentPairing];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke;
-  v24[3] = &unk_2786EDE88;
-  objc_copyWeak(&v25, buf);
-  [softwareUpdateProvider triggerQueryImageWithPairing:currentPairing accessoryInitiated:0 requestParams:v17 completionHandler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke;
+  v23[3] = &unk_2786EDE88;
+  objc_copyWeak(&v24, buf);
+  [softwareUpdateProvider triggerQueryImageWithPairing:currentPairing accessoryInitiated:0 requestParams:v17 completionHandler:v23];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -91,9 +89,9 @@ void __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke(uint64_t a1, void *
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v6;
+      v23 = v11;
+      v24 = 2112;
+      v25 = v6;
       v12 = "%{public}@Cannot get the status of the software update, ignore calling announceOTAProvider cmd %@.";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
@@ -119,7 +117,7 @@ LABEL_7:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v11;
+      v23 = v11;
       v12 = "%{public}@The software update is not available yet, no need to call announceOTAProvider cmd";
       v13 = v10;
       v14 = OS_LOG_TYPE_INFO;
@@ -134,15 +132,15 @@ LABEL_8:
 
   if (WeakRetained)
   {
-    v19 = [WeakRetained server];
-    v20 = [WeakRetained nodeId];
-    v21 = [WeakRetained endpoint];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke_9;
-    v22[3] = &unk_2786EF290;
-    v22[4] = WeakRetained;
-    [v19 announceOtaProvider:v20 providerEndpoint:v21 immediateAnnouncement:1 delayCounter:0 completionHandler:v22];
+    v18 = [WeakRetained server];
+    v19 = [WeakRetained nodeId];
+    v20 = [WeakRetained endpoint];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke_9;
+    v21[3] = &unk_2786EF290;
+    v21[4] = WeakRetained;
+    [v18 announceOtaProvider:v19 providerEndpoint:v20 immediateAnnouncement:1 delayCounter:0 completionHandler:v21];
 
     goto LABEL_10;
   }
@@ -153,7 +151,7 @@ LABEL_8:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_INFO, "%{public}@This object is already deallocated, we cannot call announceOTAProvider cmd", buf, 0xCu);
     goto LABEL_8;
   }
@@ -162,13 +160,11 @@ LABEL_9:
 
   objc_autoreleasePoolPop(v8);
 LABEL_10:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke_9(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -180,18 +176,18 @@ void __38__HMMTROTAAnnounceTimer_timerDidFire___block_invoke_9(uint64_t a1, void
     {
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 32) server];
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v3;
+      v14 = 138543874;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v3;
       v10 = "%{public}@OTA Announce failed for server:%@ with Error: %@.";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_22AEAE000, v11, v12, v10, &v15, v13);
+      _os_log_impl(&dword_22AEAE000, v11, v12, v10, &v14, v13);
     }
   }
 
@@ -199,10 +195,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v9 = [*(a1 + 32) server];
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
     v10 = "%{public}@OTA Announce completed for server:%@.";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
@@ -211,12 +207,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -224,23 +219,21 @@ LABEL_6:
   {
     v6 = HMFGetLogIdentifier();
     server = [(HMMTROTAAnnounceTimer *)selfCopy server];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = server;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Stop OTA Announce timeout for accessory server [%@]", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = server;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Stop OTA Announce timeout for accessory server [%@]", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   announceTimer = [(HMMTROTAAnnounceTimer *)selfCopy announceTimer];
   [announceTimer suspend];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -250,20 +243,18 @@ LABEL_6:
     [(HMFTimer *)selfCopy->_announceTimer timeInterval];
     v8 = v7;
     server = [(HMMTROTAAnnounceTimer *)selfCopy server];
-    v12 = 138543874;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2112;
-    v17 = server;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting OTA Announce timeout with delay of %f for accessory server [%@]", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2112;
+    v16 = server;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting OTA Announce timeout with delay of %f for accessory server [%@]", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
   announceTimer = [(HMMTROTAAnnounceTimer *)selfCopy announceTimer];
   [announceTimer resume];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMTROTAAnnounceTimer)initWithServer:(id)server nodeId:(id)id endpoint:(id)endpoint queue:(id)queue
@@ -306,10 +297,11 @@ LABEL_6:
 
 uint64_t __36__HMMTROTAAnnounceTimer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v9 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9;
+  logCategory__hmf_once_v9 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

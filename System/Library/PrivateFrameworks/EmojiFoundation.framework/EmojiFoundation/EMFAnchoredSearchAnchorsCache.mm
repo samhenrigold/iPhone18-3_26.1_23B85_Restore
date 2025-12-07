@@ -57,7 +57,7 @@ uint64_t __44__EMFAnchoredSearchAnchorsCache_sharedCache__block_invoke()
 
 - (void)setAnchorCollection:(id)collection forLocaleIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (collection | identifierCopy)
   {
@@ -65,12 +65,12 @@ uint64_t __44__EMFAnchoredSearchAnchorsCache_sharedCache__block_invoke()
     anchorsCache = [(EMFAnchoredSearchAnchorsCache *)self anchorsCache];
     [anchorsCache setObject:collectionCopy forKey:identifierCopy];
 
-    v9 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = emf_logging_get_default_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = identifierCopy;
-      _os_log_impl(&dword_1AF04E000, v9, OS_LOG_TYPE_INFO, "Caching search anchors for locale identifier '%{public}@'", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_1AF04E000, v10, OS_LOG_TYPE_INFO, "Caching search anchors for locale identifier '%{public}@'", &v11, 0xCu);
     }
   }
 }
@@ -92,7 +92,7 @@ uint64_t __44__EMFAnchoredSearchAnchorsCache_sharedCache__block_invoke()
 {
   v8 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v5 = emf_logging_get_default_log();
+  v5 = emf_logging_get_default_log(objectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;

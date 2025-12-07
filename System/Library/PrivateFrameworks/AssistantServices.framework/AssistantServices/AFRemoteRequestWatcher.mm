@@ -85,14 +85,14 @@ LABEL_8:
 
 - (void)_setupSpeechRequestListener
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_speechRequestToken == -1)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v13 = "[AFRemoteRequestWatcher _setupSpeechRequestListener]";
+      v12 = "[AFRemoteRequestWatcher _setupSpeechRequestListener]";
       _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
@@ -103,7 +103,7 @@ LABEL_8:
     handler[1] = 3221225472;
     handler[2] = __53__AFRemoteRequestWatcher__setupSpeechRequestListener__block_invoke;
     handler[3] = &unk_1E7347870;
-    objc_copyWeak(&v9, &location);
+    objc_copyWeak(&v8, &location);
     v5 = notify_register_dispatch("com.apple.assistant.speech-request", &out_token, queue, handler);
     if (v5)
     {
@@ -111,9 +111,9 @@ LABEL_8:
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v13 = "[AFRemoteRequestWatcher _setupSpeechRequestListener]";
-        v14 = 1024;
-        v15 = v5;
+        v12 = "[AFRemoteRequestWatcher _setupSpeechRequestListener]";
+        v13 = 1024;
+        v14 = v5;
         _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Notify register failed %u", buf, 0x12u);
       }
     }
@@ -123,37 +123,33 @@ LABEL_8:
       self->_speechRequestToken = out_token;
     }
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(&location);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AFRemoteRequestWatcher__setupSpeechRequestListener__block_invoke(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    *v9 = 136315138;
-    *&v9[4] = "[AFRemoteRequestWatcher _setupSpeechRequestListener]_block_invoke";
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s ", v9, 0xCu);
+    *v8 = 136315138;
+    *&v8[4] = "[AFRemoteRequestWatcher _setupSpeechRequestListener]_block_invoke";
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s ", v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    *v9 = 0;
-    notify_get_state(a2, v9);
+    *v8 = 0;
+    notify_get_state(a2, v8);
     v6 = [[AFSpeechRequestOptions alloc] initWithActivationEvent:0];
-    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v9];
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v8];
     [(AFSpeechRequestOptions *)v6 setNotifyState:v7];
 
     [WeakRetained _dispatchSpeechRequestOptions:v6];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActivationHandler:(id)handler
@@ -348,18 +344,17 @@ void __44__AFRemoteRequestWatcher_setPrewarmHandler___block_invoke(uint64_t a1)
 
 - (void)_setupRequestListener
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[AFRemoteRequestWatcher _setupRequestListener]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[AFRemoteRequestWatcher _setupRequestListener]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
   }
 
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
   CFNotificationCenterAddObserver(DistributedCenter, self, _StartUIRequest, @"com.apple.assistant.request", 0, CFNotificationSuspensionBehaviorDrop);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)siriActivationListener:(id)listener handleButtonEventFromContext:(id)context completion:(id)completion

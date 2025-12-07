@@ -11,6 +11,7 @@
 - (void)enumerateKeysAndUInt32sUsingBlock:(id)block;
 - (void)removeUInt32ForKey:(unint64_t)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
+- (void)setUInt32:(unsigned int)int32 forKey:(unint64_t)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -236,6 +237,17 @@
 
       sub_10002B180(autocreator, self);
     }
+  }
+}
+
+- (void)setUInt32:(unsigned int)int32 forKey:(unint64_t)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithUnsignedInt:" numberWithUnsignedInt:?], [NSNumber numberWithUnsignedLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_10002B180(autocreator, self);
   }
 }
 

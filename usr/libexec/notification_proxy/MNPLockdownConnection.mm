@@ -10,11 +10,10 @@
 
 - (void)dealloc
 {
-  conn = self->_conn;
   lockdown_disconnect();
-  v4.receiver = self;
-  v4.super_class = MNPLockdownConnection;
-  [(MNPLockdownConnection *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MNPLockdownConnection;
+  [(MNPLockdownConnection *)&v3 dealloc];
 }
 
 - (MNPLockdownConnection)initWithConnection:(_lockdown_connection *)connection
@@ -84,37 +83,35 @@
   v3 = &_os_log_default;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    conn = self->_conn;
     socket = lockdown_get_socket();
     *buf = 67109120;
-    v17 = socket;
+    v15 = socket;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Lockdown socket: %d", buf, 8u);
   }
 
-  v6 = self->_conn;
-  v7 = lockdown_get_socket();
-  v8 = dispatch_source_create(&_dispatch_source_type_read, v7, 0, self->_queue);
+  v5 = lockdown_get_socket();
+  v6 = dispatch_source_create(&_dispatch_source_type_read, v5, 0, self->_queue);
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_1000013A8;
   handler[3] = &unk_100008378;
-  objc_copyWeak(&v14, &location);
-  handler[4] = self;
-  dispatch_source_set_event_handler(v8, handler);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100001950;
-  v11[3] = &unk_1000083A0;
   objc_copyWeak(&v12, &location);
-  dispatch_source_set_cancel_handler(v8, v11);
+  handler[4] = self;
+  dispatch_source_set_event_handler(v6, handler);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100001950;
+  v9[3] = &unk_1000083A0;
+  objc_copyWeak(&v10, &location);
+  dispatch_source_set_cancel_handler(v6, v9);
   source = self->_source;
-  self->_source = v8;
-  v10 = v8;
+  self->_source = v6;
+  v8 = v6;
 
-  dispatch_resume(v10);
+  dispatch_resume(v8);
+  objc_destroyWeak(&v10);
+
   objc_destroyWeak(&v12);
-
-  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 }
 

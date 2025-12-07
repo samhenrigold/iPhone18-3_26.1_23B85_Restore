@@ -6,147 +6,146 @@
 
 - (void)performWithCompletion:(id)completion
 {
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v41 = sub_C1E8;
-  v42 = &unk_20748;
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v40 = sub_C1E8;
+  v41 = &unk_20748;
   selfCopy = self;
   completionCopy = completion;
   launchId = [(AAPCommandCheckRestriction *)self launchId];
   if (launchId)
   {
     v5 = launchId;
-    executionEnvironment = [(AAPCommandCheckRestriction *)self executionEnvironment];
-    if ([executionEnvironment isEqualToString:SAAppsLaunchAppSTARK_EXECUTION_ENVValue])
+    if (objc_msgSend_isEqualToString_([(AAPCommandCheckRestriction *)self executionEnvironment]))
     {
-      v7 = +[FBSOpenApplicationService dashboardService];
+      v6 = +[FBSOpenApplicationService dashboardService];
     }
 
     else
     {
-      v7 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
+      v6 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
     }
 
-    v10 = v7;
-    v39 = 1;
-    if ([(FBSOpenApplicationService *)v7 canOpenApplication:v5 reason:&v39])
+    v9 = v6;
+    v38 = 1;
+    if ([(FBSOpenApplicationService *)v6 canOpenApplication:v5 reason:&v38])
     {
-      v11 = AFSiriLogContextPlugin;
+      v10 = AFSiriLogContextPlugin;
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
       {
-        v12 = objc_opt_class();
+        v11 = objc_opt_class();
         *buf = 136315906;
-        v46 = "[AAPCommandCheckRestriction performWithCompletion:]";
-        v47 = 2114;
-        v48 = v12;
-        v49 = 2048;
+        v45 = "[AAPCommandCheckRestriction performWithCompletion:]";
+        v46 = 2114;
+        v47 = v11;
+        v48 = 2048;
         selfCopy6 = self;
-        v51 = 2112;
-        v52 = v5;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can be launched", buf, 0x2Au);
+        v50 = 2112;
+        v51 = v5;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can be launched", buf, 0x2Au);
       }
 
-      v13 = SACommandSucceeded_ptr;
+      v12 = SACommandSucceeded_ptr;
       goto LABEL_32;
     }
 
-    if (!v10)
+    if (!v9)
     {
-      v15 = AFSiriLogContextPlugin;
+      v14 = AFSiriLogContextPlugin;
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
       {
-        sub_12214(self, v5, v15);
+        sub_12214(self, v5, v14);
       }
 
       goto LABEL_31;
     }
 
-    if (v39 == 4)
+    if (v38 == 4)
     {
-      v16 = [LSApplicationProxy applicationProxyForIdentifier:v5];
-      if (v16)
+      v15 = [LSApplicationProxy applicationProxyForIdentifier:v5];
+      if (v15)
       {
-        v17 = v16;
-        isRestricted = [v16 isRestricted];
-        v14 = AFSiriLogContextPlugin;
-        v19 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO);
+        v16 = v15;
+        isRestricted = [v15 isRestricted];
+        v13 = AFSiriLogContextPlugin;
+        v18 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO);
         if (isRestricted)
         {
-          if (v19)
+          if (v18)
           {
-            v20 = objc_opt_class();
-            v21 = v39;
-            v22 = FBSOpenApplicationErrorCodeToString();
-            isRestricted2 = [v17 isRestricted];
+            v19 = objc_opt_class();
+            v20 = v38;
+            v21 = FBSOpenApplicationErrorCodeToString();
+            isRestricted2 = [v16 isRestricted];
             *buf = 136316674;
-            v46 = "[AAPCommandCheckRestriction performWithCompletion:]";
-            v47 = 2114;
-            v48 = v20;
-            v49 = 2048;
+            v45 = "[AAPCommandCheckRestriction performWithCompletion:]";
+            v46 = 2114;
+            v47 = v19;
+            v48 = 2048;
             selfCopy6 = self;
-            v51 = 2112;
-            v52 = v5;
-            v53 = 2048;
-            v54 = v21;
-            v55 = 2112;
-            v56 = v22;
-            v57 = 1024;
-            v58 = isRestricted2;
-            v24 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) restricted=%i";
-            v25 = v14;
-            v26 = 68;
+            v50 = 2112;
+            v51 = v5;
+            v52 = 2048;
+            v53 = v20;
+            v54 = 2112;
+            v55 = v21;
+            v56 = 1024;
+            v57 = isRestricted2;
+            v23 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) restricted=%i";
+            v24 = v13;
+            v25 = 68;
 LABEL_30:
-            _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, v24, buf, v26);
+            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, v23, buf, v25);
           }
         }
 
-        else if (v19)
+        else if (v18)
         {
 LABEL_28:
-          v34 = objc_opt_class();
-          v35 = v39;
-          v36 = FBSOpenApplicationErrorCodeToString();
+          v33 = objc_opt_class();
+          v34 = v38;
+          v35 = FBSOpenApplicationErrorCodeToString();
           *buf = 136316418;
-          v46 = "[AAPCommandCheckRestriction performWithCompletion:]";
-          v47 = 2114;
-          v48 = v34;
-          v49 = 2048;
+          v45 = "[AAPCommandCheckRestriction performWithCompletion:]";
+          v46 = 2114;
+          v47 = v33;
+          v48 = 2048;
           selfCopy6 = self;
-          v51 = 2112;
-          v52 = v5;
-          v53 = 2048;
-          v54 = v35;
-          v55 = 2112;
-          v56 = v36;
-          v24 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@)";
+          v50 = 2112;
+          v51 = v5;
+          v52 = 2048;
+          v53 = v34;
+          v54 = 2112;
+          v55 = v35;
+          v23 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@)";
           goto LABEL_29;
         }
       }
 
       else
       {
-        v14 = AFSiriLogContextPlugin;
+        v13 = AFSiriLogContextPlugin;
         if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
         {
-          v31 = objc_opt_class();
-          v32 = v39;
-          v33 = FBSOpenApplicationErrorCodeToString();
+          v30 = objc_opt_class();
+          v31 = v38;
+          v32 = FBSOpenApplicationErrorCodeToString();
           *buf = 136316418;
-          v46 = "[AAPCommandCheckRestriction performWithCompletion:]";
-          v47 = 2114;
-          v48 = v31;
-          v49 = 2048;
+          v45 = "[AAPCommandCheckRestriction performWithCompletion:]";
+          v46 = 2114;
+          v47 = v30;
+          v48 = 2048;
           selfCopy6 = self;
-          v51 = 2112;
-          v52 = v5;
-          v53 = 2048;
-          v54 = v32;
-          v55 = 2112;
-          v56 = v33;
-          v24 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) (no app proxy)";
+          v50 = 2112;
+          v51 = v5;
+          v52 = 2048;
+          v53 = v31;
+          v54 = 2112;
+          v55 = v32;
+          v23 = "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) (no app proxy)";
 LABEL_29:
-          v25 = v14;
-          v26 = 62;
+          v24 = v13;
+          v25 = 62;
           goto LABEL_30;
         }
       }
@@ -154,33 +153,33 @@ LABEL_29:
 
     else
     {
-      if (v39 != 5)
+      if (v38 != 5)
       {
-        v27 = AFSiriLogContextPlugin;
+        v26 = AFSiriLogContextPlugin;
         if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
         {
-          v28 = objc_opt_class();
-          v29 = v39;
-          v30 = FBSOpenApplicationErrorCodeToString();
+          v27 = objc_opt_class();
+          v28 = v38;
+          v29 = FBSOpenApplicationErrorCodeToString();
           *buf = 136316418;
-          v46 = "[AAPCommandCheckRestriction performWithCompletion:]";
-          v47 = 2114;
-          v48 = v28;
-          v49 = 2048;
+          v45 = "[AAPCommandCheckRestriction performWithCompletion:]";
+          v46 = 2114;
+          v47 = v27;
+          v48 = 2048;
           selfCopy6 = self;
-          v51 = 2112;
-          v52 = v5;
-          v53 = 2048;
-          v54 = v29;
-          v55 = 2112;
-          v56 = v30;
-          _os_log_error_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) (could not determine)", buf, 0x3Eu);
+          v50 = 2112;
+          v51 = v5;
+          v52 = 2048;
+          v53 = v28;
+          v54 = 2112;
+          v55 = v29;
+          _os_log_error_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: <%{public}@:%p> app (%@) can not be launched with result=%li(%@) (could not determine)", buf, 0x3Eu);
         }
 
         goto LABEL_31;
       }
 
-      v14 = AFSiriLogContextPlugin;
+      v13 = AFSiriLogContextPlugin;
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
       {
         goto LABEL_28;
@@ -188,23 +187,23 @@ LABEL_29:
     }
 
 LABEL_31:
-    v13 = SACommandFailed_ptr;
+    v12 = SACommandFailed_ptr;
 LABEL_32:
-    v9 = *v13;
+    v8 = *v12;
     goto LABEL_33;
   }
 
-  v8 = AFSiriLogContextPlugin;
+  v7 = AFSiriLogContextPlugin;
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
   {
-    sub_122C8(self, v8);
+    sub_122C8(self, v7);
   }
 
-  v9 = SACommandFailed;
+  v8 = SACommandFailed;
 LABEL_33:
-  v37 = objc_alloc_init(v9);
-  dictionary = [v37 dictionary];
-  v41(v40, dictionary);
+  v36 = objc_alloc_init(v8);
+  dictionary = [v36 dictionary];
+  v40(v39, dictionary);
 }
 
 @end

@@ -128,7 +128,7 @@ uint64_t __116__SBIconListViewDefaultAnimator_iconListView_wantsAnimatedLayoutFo
   return result;
 }
 
-uint64_t __116__SBIconListViewDefaultAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
+void *__116__SBIconListViewDefaultAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setCenter:{*(a1 + 40), *(a1 + 48)}];
   [*(a1 + 32) setIconContentScale:*(a1 + 56)];

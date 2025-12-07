@@ -1,41 +1,41 @@
-void FireMessageHandler::ExclusiveEntryCheck::enter(unsigned int *a1, signed int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void FireMessageHandler::ExclusiveEntryCheck::enter(unsigned int *a1, unsigned int a2)
 {
-  v8 = a2;
-  v9 = atomic_load(a1);
-  if (v9 == 3)
+  v3 = atomic_load(a1);
+  if (v3 == 3)
   {
     atomic_store(a2, a1);
-    v10 = &a1[2 * a2];
-    v11 = *(v10 + 1);
-    *(v10 + 1) = v11 + 1;
-    if (!v11)
+    v4 = &a1[2 * a2];
+    v5 = *(v4 + 1);
+    *(v4 + 1) = v5 + 1;
+    if (!v5)
     {
-      FireDeviceLog::DeviceLogBase(5, "ExclusiveEntryCheck,firstEntryofType,%d,recorded", a3, a4, a5, a6, a7, a8, a2);
+      FireDeviceLog::DeviceLogBase(5, "ExclusiveEntryCheck,firstEntryofType,%d,recorded", a2);
     }
 
-    FireDeviceLog::DeviceLogBase(8, "ExclusiveEntryCheck,enter,%d", a3, a4, a5, a6, a7, a8, v8);
+    FireDeviceLog::DeviceLogBase(8, "ExclusiveEntryCheck,enter,%d", a2);
   }
 
   else
   {
-    v12 = atomic_load(a1);
-    FireDeviceLog::DeviceLogBase(1, "ExclusiveEntryCheck,failed,active,%d,new,%d,", a3, a4, a5, a6, a7, a8, v12);
+    v6 = atomic_load(a1);
+    FireDeviceLog::DeviceLogBase(1, "ExclusiveEntryCheck,failed,active,%d,new,%d,", v6, a2);
 
     DeviceFaultNotify("FireMessageHandler.cpp", 825, "enter", "ExclusiveEntryCheck,failed,active,%d,new,%d,");
   }
 }
 
-void FireDeviceLog::DeviceLogBase(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void FireDeviceLog::DeviceLogBase(uint64_t a1, const char *a2, ...)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  va_start(va, a2);
+  v6 = *MEMORY[0x29EDCA608];
   if (*FireDeviceLog::StaticSetting::fInstance >= a1)
   {
-    FireDeviceLog::GetLineLeading(0x26, a1, &v12);
-    LODWORD(a2) = vsnprintf(__str, 0x100uLL, a2, &a9);
-    std::string::append(&v12, __str);
+    FireDeviceLog::GetLineLeading(0x26, a1, &v4);
+    LODWORD(a2) = vsnprintf(__str, 0x100uLL, a2, va);
+    std::string::append(&v4, __str);
     if (a2 >= 255)
     {
-      std::string::append(&v12, "...");
+      std::string::append(&v4, "...");
     }
 
     if (!FireResourceMgr::fInstance)
@@ -43,14 +43,12 @@ void FireDeviceLog::DeviceLogBase(uint64_t a1, const char *a2, uint64_t a3, uint
       operator new();
     }
 
-    (*(**(FireResourceMgr::fInstance + 16) + 16))(*(FireResourceMgr::fInstance + 16), a1, &v12);
-    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+    (*(**(FireResourceMgr::fInstance + 16) + 16))(*(FireResourceMgr::fInstance + 16), a1, &v4);
+    if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v12.__r_.__value_.__l.__data_);
+      operator delete(v4.__r_.__value_.__l.__data_);
     }
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void FireMessageHandler::ExclusiveEntryCheck::exit(FireMessageHandler::ExclusiveEntryCheck *this)
@@ -62,51 +60,51 @@ void FireMessageHandler::ExclusiveEntryCheck::exit(FireMessageHandler::Exclusive
 
   (*(**FireResourceMgr::fInstance + 112))();
   v2 = atomic_load(this);
-  FireDeviceLog::DeviceLogBase(8, "ExclusiveEntryCheck,exit,%d", v3, v4, v5, v6, v7, v8, v2);
+  FireDeviceLog::DeviceLogBase(8, "ExclusiveEntryCheck,exit,%d", v2);
   atomic_store(3u, this);
 }
 
-uint64_t gnss::FireGnssDevice::setConfigEnableGnssConstellations(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t gnss::FireGnssDevice::setConfigEnableGnssConstellations(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  FireDeviceLog::DeviceLogBase(6, "#fgd,setConfigEnableGnssConstellations,enableFlags,0x%x", a3, a4, a5, a6, a7, a8, a2);
+  FireDeviceLog::DeviceLogBase(6, "#fgd,setConfigEnableGnssConstellations,enableFlags,0x%x", a2);
   if (a2)
   {
-    v17 = *(a1 + 40);
-    if ((*(v17 + 1356) & 0xFFFFFFFE) == 2)
+    v6 = *(a1 + 40);
+    if ((*(v6 + 1356) & 0xFFFFFFFE) == 2)
     {
-      FireMessageHandler::setAssistanceNWRti(v17, a2, v11, v12, v13, v14, v15, v16);
-      v18 = 1;
+      FireMessageHandler::setAssistanceNWRti(v6, a2);
+      v7 = 1;
     }
 
     else
     {
-      *(v17 + 1056) = a2;
-      v18 = 1;
-      *(v17 + 1060) = 1;
+      *(v6 + 1056) = a2;
+      v7 = 1;
+      *(v6 + 1060) = 1;
     }
   }
 
   else
   {
-    v18 = 4;
+    v7 = 4;
   }
 
-  return std::function<void ()(gnss::Result)>::operator()(a3, v18);
+  return std::function<void ()(gnss::Result)>::operator()(a3, v7);
 }
 
-uint64_t FireMessageHandler::send(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t FireMessageHandler::send(uint64_t a1, uint64_t a2)
 {
-  v24 = a2;
+  v5 = a2;
   if (*(a1 + 1356) != 3 && (a2 == 1073741850 || a2 == 1073741825))
   {
-    std::deque<FireMessageHandler::Message>::push_back((a1 + 1080), &v24);
-    FireDeviceLog::DeviceLogBase(5, "send,message,StartCompletedd,%d,queued", v10, v11, v12, v13, v14, v15, v24);
+    std::deque<FireMessageHandler::Message>::push_back((a1 + 1080), &v5);
+    FireDeviceLog::DeviceLogBase(5, "send,message,StartCompletedd,%d,queued", v5);
   }
 
   else
   {
-    FireMessageHandler::ExclusiveEntryCheck::enter((a1 + 1008), 1, a3, a4, a5, a6, a7, a8);
-    FireMessageHandler::messageHandler(a1, a2, v16, v17, v18, v19, v20, v21, v23);
+    FireMessageHandler::ExclusiveEntryCheck::enter((a1 + 1008), 1u);
+    FireMessageHandler::messageHandler(a1, a2);
     FireMessageHandler::ExclusiveEntryCheck::exit((a1 + 1008));
   }
 
@@ -125,36 +123,34 @@ uint64_t std::function<void ()(gnss::Result)>::operator()(uint64_t a1, int a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t gnss::FireGnssDevice::start(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t gnss::FireGnssDevice::start(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   *(a1 + 360) = 0;
-  FireDeviceLog::DeviceLogBase(5, "Version %s, build at %s", a3, a4, a5, a6, a7, a8, "FIRE@125.0.3 GLL@643487");
-  FireDeviceLog::DeviceLogBase(5, "#fgd,start,coexConfig,0x%llx", v12, v13, v14, v15, v16, v17, a2);
-  v18 = *(a1 + 40);
-  *(v18 + 2192) = a2;
-  FireMessageHandler::send(v18, 1073741840, v19, v20, v21, v22, v23, v24);
-  v25 = *(a1 + 40);
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v40, a4);
-  std::function<void ()(gnss::Result)>::operator=((v25 + 944), v40);
-  FireDeviceLog::DeviceLogBase(6, "#fmh,setOnEngineStartCompleted,%p", v26, v27, v28, v29, v30, v31, v40);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v40);
-  FireMessageHandler::send(*(a1 + 40), 0x40000000, v32, v33, v34, v35, v36, v37);
-  result = std::function<void ()(gnss::Result)>::operator()(a3, 1);
-  v39 = *MEMORY[0x29EDCA608];
-  return result;
+  FireDeviceLog::DeviceLogBase(5, "Version %s, build at %s", "FIRE@125.0.3 GLL@643487", "Oct 10 2025, 20:40:09");
+  FireDeviceLog::DeviceLogBase(5, "#fgd,start,coexConfig,0x%llx", a2);
+  v8 = *(a1 + 40);
+  *(v8 + 2192) = a2;
+  FireMessageHandler::send(v8, 1073741840);
+  v9 = *(a1 + 40);
+  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v11, a4);
+  std::function<void ()(gnss::Result)>::operator=((v9 + 944), v11);
+  FireDeviceLog::DeviceLogBase(6, "#fmh,setOnEngineStartCompleted,%p", v11);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11);
+  FireMessageHandler::send(*(a1 + 40), 0x40000000);
+  return std::function<void ()(gnss::Result)>::operator()(a3, 1);
 }
 
-void sub_29879AE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29879AE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void FireMessageHandler::messageHandler(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void FireMessageHandler::messageHandler(uint64_t a1, uint64_t a2)
 {
-  v101 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   if (a2 == 1073741831)
   {
     if (*(a1 + 1784))
@@ -162,9 +158,9 @@ void FireMessageHandler::messageHandler(uint64_t a1, int a2, uint64_t a3, uint64
       memcpy(__dst, (*(*(a1 + 1752) + ((*(a1 + 1776) >> 1) & 0x7FFFFFFFFFFFFFF8)) + 3560 * (*(a1 + 1776) & 0xFLL)), sizeof(__dst));
       FireMessageHandler::logFireOnMsg(1073741831, *__dst);
       (*(**(a1 + 1296) + 520))();
-      v10 = vaddq_s64(*(a1 + 1776), xmmword_298A2F6E0);
-      *(a1 + 1776) = v10;
-      if (v10.i64[0] >= 0x20uLL)
+      v3 = vaddq_s64(*(a1 + 1776), xmmword_298A2F6E0);
+      *(a1 + 1776) = v3;
+      if (v3.i64[0] >= 0x20uLL)
       {
         operator delete(**(a1 + 1752));
         *(a1 + 1752) += 8;
@@ -174,15 +170,13 @@ void FireMessageHandler::messageHandler(uint64_t a1, int a2, uint64_t a3, uint64
 
     else
     {
-      v14 = "fAssistanceExternalSensor.empty()";
+      v6 = "fAssistanceExternalSensor.empty()";
 LABEL_10:
-      v15 = 2;
+      v7 = 2;
 LABEL_67:
-      FireDeviceLog::DeviceLogBase(v15, v14, a3, a4, a5, a6, a7, a8, v80);
+      FireDeviceLog::DeviceLogBase(v7, v6, v37, v38, v39);
     }
 
-LABEL_68:
-    v74 = *MEMORY[0x29EDCA608];
     return;
   }
 
@@ -190,48 +184,44 @@ LABEL_68:
   switch(a2)
   {
     case 1073741824:
-      FireMessageHandler::EngineState::update((a1 + 1356), 1, a3, a4, a5, a6, a7, a8);
+      FireMessageHandler::EngineState::update((a1 + 1356), 1);
       if (FireConfig::isSvIqDataEnabled((a1 + 1048)))
       {
-        v56 = FireCallback::GlReqOnSvIqData;
+        v27 = FireCallback::GlReqOnSvIqData;
       }
 
       else
       {
-        v56 = 0;
+        v27 = 0;
       }
 
-      GlRequestImplGnssMeasData = BlueFin::GlDbgRequest::CreateGlRequestImplGnssMeasData(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, FireCallback::GlReqOnGnssMeasData, 0, FireCallback::GlReqOnGnssSvInfoData, 0, v56, 0);
+      GlRequestImplGnssMeasData = BlueFin::GlDbgRequest::CreateGlRequestImplGnssMeasData(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, FireCallback::GlReqOnGnssMeasData, 0, FireCallback::GlReqOnGnssSvInfoData, 0, v27, 0);
       (*(*GlRequestImplGnssMeasData + 72))(GlRequestImplGnssMeasData, FireCallback::GlReqOnStop);
       (*(*GlRequestImplGnssMeasData + 16))(GlRequestImplGnssMeasData, 0);
       FireMessageHandler::startRequest(a1, 2, GlRequestImplGnssMeasData);
-      GlRequestImplPosPeriodic = BlueFin::GlDbgRequest::CreateGlRequestImplPosPeriodic(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, 0x3E8u, 60, 400);
+      GlRequestImplPosPeriodic = BlueFin::GlDbgRequest::CreateGlRequestImplPosPeriodic(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, 1000, 60, 400);
       (*(*GlRequestImplPosPeriodic + 72))(GlRequestImplPosPeriodic, FireCallback::GlReqOnStop);
       (*(*GlRequestImplPosPeriodic + 24))(GlRequestImplPosPeriodic, FireCallback::GlReqOnFixStatus);
       (*(*GlRequestImplPosPeriodic + 16))(GlRequestImplPosPeriodic, FireCallback::GlReqOnNmea);
-      v59 = *MEMORY[0x29EDCA608];
 
       FireMessageHandler::startRequest(a1, 0, GlRequestImplPosPeriodic);
       return;
     case 1073741825:
       FireMessageHandler::stopRequest(a1, 1);
       FireMessageHandler::stopRequest(a1, 0);
-      v45 = *MEMORY[0x29EDCA608];
 
       FireMessageHandler::stopRequest(a1, 2);
       return;
     case 1073741826:
-      FireDeviceLog::DeviceLogBase(6, "#fmh SetAllowGnssDwellDutyCycling,%d", a3, a4, a5, a6, a7, a8, *(a1 + 1352));
-      v54 = *(**(a1 + 1296) + 208);
-      v55 = *MEMORY[0x29EDCA608];
+      FireDeviceLog::DeviceLogBase(6, "#fmh SetAllowGnssDwellDutyCycling,%d", *(a1 + 1352));
+      v26 = *(**(a1 + 1296) + 208);
 
-      v54();
+      v26();
       return;
     case 1073741827:
       if (*(a1 + 1692) == 1)
       {
         memcpy(__dst, (a1 + 1424), 0x108uLL);
-        v46 = *(a1 + 1688);
         (*(**(a1 + 1296) + 360))();
         if (*(a1 + 1692) == 1)
         {
@@ -239,248 +229,221 @@ LABEL_68:
         }
       }
 
-      goto LABEL_68;
+      return;
     case 1073741828:
       if (*(a1 + 1736))
       {
-        v50 = (*(*(a1 + 1704) + 8 * (*(a1 + 1728) / 0x55uLL)) + 48 * (*(a1 + 1728) % 0x55uLL));
-        v51 = *v50;
-        v52 = v50[2];
-        *&__dst[16] = v50[1];
-        *&__dst[32] = v52;
-        *__dst = v51;
+        v21 = (*(*(a1 + 1704) + 8 * (*(a1 + 1728) / 0x55uLL)) + 48 * (*(a1 + 1728) % 0x55uLL));
+        v22 = *v21;
+        v23 = v21[2];
+        *&__dst[16] = v21[1];
+        *&__dst[32] = v23;
+        *__dst = v22;
         (*(**(a1 + 1296) + 392))();
         *(a1 + 1728) = vaddq_s64(*(a1 + 1728), xmmword_298A2F6E0);
         std::deque<FireMessageHandler::GLRefPositionExtended>::__maybe_remove_front_spare[abi:ne200100](a1 + 1696);
-        goto LABEL_68;
+        return;
       }
 
-      v77 = *MEMORY[0x29EDCA608];
-      v44 = "fAsstPosition.empty()";
+      v17 = "fAsstPosition.empty()";
       goto LABEL_74;
     case 1073741829:
       goto LABEL_12;
     case 1073741830:
-      v60 = (*(**(a1 + 1296) + 640))(*(a1 + 1296));
-      if (v60 <= 1)
+      v30 = (*(**(a1 + 1296) + 640))(*(a1 + 1296));
+      if (v30 <= 1)
       {
-        if (!v60)
+        if (!v30)
         {
-          v78 = *MEMORY[0x29EDCA608];
-          v44 = "#fmh,injectAssistanceFile,GL_READ_LTO_SUCCESS";
+          v17 = "#fmh,injectAssistanceFile,GL_READ_LTO_SUCCESS";
           goto LABEL_64;
         }
 
-        if (v60 != 1)
+        if (v30 != 1)
         {
-          goto LABEL_68;
+          return;
         }
 
-        v61 = *MEMORY[0x29EDCA608];
-        v44 = "#fmh,#warning,injectAssistanceFile,GL_READ_LTO_NOT_READY";
+        v17 = "#fmh,#warning,injectAssistanceFile,GL_READ_LTO_NOT_READY";
         goto LABEL_80;
       }
 
-      if (v60 == 2)
+      if (v30 == 2)
       {
-        v79 = *MEMORY[0x29EDCA608];
-        v44 = "#fmh,#warning,injectAssistanceFile,GL_READ_LTO_IGNORED";
+        v17 = "#fmh,#warning,injectAssistanceFile,GL_READ_LTO_IGNORED";
 LABEL_80:
-        v72 = 5;
+        v35 = 5;
         goto LABEL_75;
       }
 
-      if (v60 != 3)
+      if (v30 != 3)
       {
-        goto LABEL_68;
+        return;
       }
 
-      v76 = *MEMORY[0x29EDCA608];
-      v44 = "#fmh,injectAssistanceFile,GL_READ_LTO_FAILURE";
+      v17 = "#fmh,injectAssistanceFile,GL_READ_LTO_FAILURE";
 LABEL_74:
-      v72 = 2;
+      v35 = 2;
 LABEL_75:
 
-      FireDeviceLog::DeviceLogBase(v72, v44, a3, a4, a5, a6, a7, a8, a9);
+      FireDeviceLog::DeviceLogBase(v35, v17);
       return;
     case 1073741832:
-      goto LABEL_68;
+      return;
     case 1073741833:
       if (!*(a1 + 1880))
       {
-        goto LABEL_68;
+        return;
       }
 
-      v65 = *MEMORY[0x29EDCA608];
-      v64 = (a1 + 1840);
+      v32 = (a1 + 1840);
       goto LABEL_57;
     case 1073741834:
       if (!*(a1 + 1928))
       {
-        goto LABEL_68;
+        return;
       }
 
-      v63 = *MEMORY[0x29EDCA608];
-      v64 = (a1 + 1888);
+      v32 = (a1 + 1888);
 LABEL_57:
 
-      FireMessageHandler::SetAssistanceRawSensor(a1, v64, a3, a4, a5, a6, a7, a8, a9);
+      FireMessageHandler::SetAssistanceRawSensor(a1, v32);
       return;
     case 1073741835:
-      v33 = *(a1 + 2120);
-      v34 = *(a1 + 2128);
+      v13 = *(a1 + 2120);
+      v14 = *(a1 + 2128);
       *(a1 + 2120) = 0u;
       *(a1 + 2136) = 0;
-      if (v33 != v34)
+      if (v13 != v14)
       {
-        v35 = v33;
+        v15 = v13;
         do
         {
-          (*(**(a1 + 1296) + 400))(*(a1 + 1296), v35, 0);
-          FireDeviceLog::DeviceLogBase(6, "setAssistanceNetworkGpsEphemeris,SatID,%d,pass,%d", v36, v37, v38, v39, v40, v41, *v35);
-          v35 += 35;
+          v16 = (*(**(a1 + 1296) + 400))(*(a1 + 1296), v15, 0);
+          FireDeviceLog::DeviceLogBase(6, "setAssistanceNetworkGpsEphemeris,SatID,%d,pass,%d", *v15, v16);
+          v15 += 35;
         }
 
-        while (v35 != v34);
+        while (v15 != v14);
       }
 
-      if (!v33)
+      if (v13)
       {
-        goto LABEL_68;
+
+        operator delete(v13);
       }
 
-      v42 = *MEMORY[0x29EDCA608];
-
-      operator delete(v33);
       return;
     case 1073741836:
-      v53 = *(a1 + 1960);
-      (*(**(a1 + 1296) + 672))(*(a1 + 1296), v53, *(a1 + 1968));
-      LOBYTE(v80) = v53;
-      v14 = "#fmh,SetThermalRiskState,time,%llu,ns,pass,%d,level,%d";
+      v24 = *(a1 + 1960);
+      v25 = *(a1 + 1968);
+      v38 = (*(**(a1 + 1296) + 672))(*(a1 + 1296), v24, v25);
+      v39 = v25;
+      v37 = v24;
+      v6 = "#fmh,SetThermalRiskState,time,%llu,ns,pass,%d,level,%d";
       goto LABEL_51;
     case 1073741837:
-      GlRequestImplSyncin = BlueFin::GlDbgRequest::CreateGlRequestImplSyncin(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, -1, FireCallback::GlReqOnSyncinReport, FireCallback::GlReqOnSyncInStatus, FireCallback::GlReqOnSyncInLatched);
+      GlRequestImplSyncin = BlueFin::GlDbgRequest::CreateGlRequestImplSyncin(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, 0xFFFFFFFFLL, FireCallback::GlReqOnSyncinReport, FireCallback::GlReqOnSyncInStatus, FireCallback::GlReqOnSyncInLatched);
       (*(*GlRequestImplSyncin + 72))(GlRequestImplSyncin, FireCallback::GlReqOnStop);
       (*(*GlRequestImplSyncin + 80))(GlRequestImplSyncin, FireCallback::GlReqOnSyncinReportCurrentTime);
       FireMessageHandler::startRequest(a1, 1, GlRequestImplSyncin);
-      DeviceCommon::GetMachContinuousTime(v48);
-      LOBYTE(v80) = v49;
-      v14 = "#tt,RequestOneShotTimeSync,StartRequest,%.3lf,preq,%p";
+      DeviceCommon::GetMachContinuousTime(v19);
+      v38 = GlRequestImplSyncin;
+      v37 = v20;
+      v6 = "#tt,RequestOneShotTimeSync,StartRequest,%.3lf,preq,%p";
       goto LABEL_66;
     case 1073741840:
       *(a1 + 1048) = *(a1 + 2192);
-      goto LABEL_68;
+      return;
     case 1073741841:
-      v62 = *MEMORY[0x29EDCA608];
-      v44 = "kUpdateCoexConfig,notSupported";
+      v17 = "kUpdateCoexConfig,notSupported";
       goto LABEL_74;
     case 1073741842:
-      (*(**(a1 + 1296) + 744))(*(a1 + 1296), a1 + 2144);
-      v80 = *(a1 + 2144);
-      v14 = "#fmh,kUpdateRfBandEnable,fBandConstraints,%d,pass,%d";
+      v31 = (*(**(a1 + 1296) + 744))(*(a1 + 1296), a1 + 2144);
+      v37 = *(a1 + 2144);
+      v38 = v31;
+      v6 = "#fmh,kUpdateRfBandEnable,fBandConstraints,%d,pass,%d";
 LABEL_51:
-      v15 = 5;
+      v7 = 5;
       goto LABEL_67;
     case 1073741843:
-      v71 = *MEMORY[0x29EDCA608];
-      v44 = "SetAssistanceAlongTrackVelocity not available on this platform.";
+      v17 = "SetAssistanceAlongTrackVelocity not available on this platform.";
       goto LABEL_64;
     case 1073741844:
-      FireMessageHandler::EngineState::update((a1 + 1356), 1, a3, a4, a5, a6, a7, a8);
-      v99 = *(a1 + 1194);
-      v97 = *(a1 + 1190);
-      v98 = *(a1 + 1192);
-      v95 = *(a1 + 1244);
-      v96 = *(a1 + 1245);
-      v94 = *(a1 + 1208);
-      v92 = *(a1 + 1188);
-      v88 = *(a1 + 1182);
-      v90 = *(a1 + 1184);
-      v82 = *(a1 + 1178);
-      v85 = *(a1 + 1180);
-      FireDeviceLog::DeviceLogBase(6, "factoryTestConf,gps,%d,glo,%d,%d,%d,bds,%d,nic,%d,item,%d,mode,%d,duraSec,%d,nOffset,%d,extend,%d,L5a(%d,%d),L5b(%d,%d)", *(a1 + 1196), *(a1 + 1200), *(a1 + 1204), v66, v67, v68, *(a1 + 1176));
-      GlRequestImplFactoryTest = BlueFin::GlDbgRequest::CreateGlRequestImplFactoryTest(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, *(a1 + 1176), *(a1 + 1178), *(a1 + 1184), *(a1 + 1186), *(a1 + 1200), *(a1 + 1204), WORD2(*(a1 + 1204)), HIWORD(*(a1 + 1204)), *(a1 + 1240), HIWORD(*(a1 + 1240)), *(a1 + 1244), HIBYTE(*(a1 + 1244)), *(a1 + 1190), HIBYTE(*(a1 + 1190)), *(a1 + 1192), SHIBYTE(v85), *(a1 + 1194), HIBYTE(*(a1 + 1194)), *(a1 + 1196), 0, 0, *(a1 + 1180), HIWORD(*(a1 + 1180)), *(a1 + 1188), HIBYTE(*(a1 + 1188)), *(a1 + 1246), SHIBYTE(v88), 255);
-      v70 = GlRequestImplFactoryTest;
+      FireMessageHandler::EngineState::update((a1 + 1356), 1);
+      FireDeviceLog::DeviceLogBase(6, "factoryTestConf,gps,%d,glo,%d,%d,%d,bds,%d,nic,%d,item,%d,mode,%d,duraSec,%d,nOffset,%d,extend,%d,L5a(%d,%d),L5b(%d,%d)", *(a1 + 1176), *(a1 + 1178), *(a1 + 1180), *(a1 + 1182), *(a1 + 1184), *(a1 + 1188), *(a1 + 1200), *(a1 + 1204), *(a1 + 1208), *(a1 + 1244), *(a1 + 1245), *(a1 + 1190), *(a1 + 1192), *(a1 + 1194), *(a1 + 1196));
+      BYTE2(v41) = 0;
+      LOWORD(v41) = *(a1 + 1196);
+      GlRequestImplFactoryTest = BlueFin::GlDbgRequest::CreateGlRequestImplFactoryTest(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, *(a1 + 1176), *(a1 + 1178), *(a1 + 1184), *(a1 + 1186), *(a1 + 1200), *(a1 + 1204), WORD2(*(a1 + 1204)), HIWORD(*(a1 + 1204)), *(a1 + 1240), HIWORD(*(a1 + 1240)), *(a1 + 1244), *(a1 + 1190), *(a1 + 1192), v40, *(a1 + 1194), HIBYTE(*(a1 + 1194)), v41, *(a1 + 1180), *(a1 + 1188), *(a1 + 1246), 255);
+      v34 = GlRequestImplFactoryTest;
       if (*(a1 + 1184) != 255)
       {
         *(a1 + 1073) = 1;
       }
 
       (*(*GlRequestImplFactoryTest + 72))(GlRequestImplFactoryTest, FireCallback::GlReqOnStop);
-      (*(*v70 + 64))(v70, FireCallback::GlReqOnFactTest);
-      (*(*v70 + 16))(v70, FireCallback::GlReqOnNmea);
-      FireMessageHandler::startRequest(a1, 3, v70);
-      LOBYTE(v80) = v70;
-      v14 = "#fmh,factoryTestRequest,0x%p";
+      (*(*v34 + 64))(v34, FireCallback::GlReqOnFactTest);
+      (*(*v34 + 16))(v34, FireCallback::GlReqOnNmea);
+      FireMessageHandler::startRequest(a1, 3, v34);
+      v37 = v34;
+      v6 = "#fmh,factoryTestRequest,0x%p";
       goto LABEL_66;
     case 1073741845:
     case 1073741847:
-      v12 = *(**(a1 + 1296) + 352);
-      v13 = *MEMORY[0x29EDCA608];
+      v5 = *(**(a1 + 1296) + 352);
 
-      v12();
+      v5();
       return;
     case 1073741846:
-      v91 = *(a1 + 1264);
-      v93 = *(a1 + 1268);
-      v86 = *(a1 + 1256);
-      v89 = *(a1 + 1260);
-      v83 = *(a1 + 1252);
-      FireDeviceLog::DeviceLogBase(6, "#fmh,start,freqScan,init,%d,end,%d,step,%d,rbw,%d,vbw,%d,flags,0x%X", a3, a4, a5, a6, a7, a8, *(a1 + 1248));
-      v73 = BlueFin::GlDbgRequest::CreateGlRequestImplFactoryTest(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, *(a1 + 1248), *(a1 + 1252), *(a1 + 1256), *(a1 + 1260), *(a1 + 1264), *(a1 + 1268), *(a1 + 1272));
-      (*(*v73 + 72))(v73, FireCallback::GlReqOnStop);
-      (*(*v73 + 64))(v73, FireCallback::GlReqOnFactTest);
-      FireMessageHandler::startRequest(a1, 4, v73);
-      LOBYTE(v80) = v73;
-      v14 = "#fmh,freqScan,0x%p";
+      FireDeviceLog::DeviceLogBase(6, "#fmh,start,freqScan,init,%d,end,%d,step,%d,rbw,%d,vbw,%d,flags,0x%X", *(a1 + 1248), *(a1 + 1252), *(a1 + 1256), *(a1 + 1260), *(a1 + 1264), *(a1 + 1268));
+      v36 = BlueFin::GlDbgRequest::CreateGlRequestImplFactoryTest(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, *(a1 + 1248), *(a1 + 1252), *(a1 + 1256), *(a1 + 1260), *(a1 + 1264), *(a1 + 1268));
+      (*(*v36 + 72))(v36, FireCallback::GlReqOnStop);
+      (*(*v36 + 64))(v36, FireCallback::GlReqOnFactTest);
+      FireMessageHandler::startRequest(a1, 4, v36);
+      v37 = v36;
+      v6 = "#fmh,freqScan,0x%p";
 LABEL_66:
-      v15 = 6;
+      v7 = 6;
       goto LABEL_67;
     case 1073741848:
-      v84 = *(a1 + 1280);
-      v87 = *(a1 + 1284);
-      v81 = *(a1 + 1288);
-      FireDeviceLog::DeviceLogBase(5, "#fftd,kStartCommStressRequest,duration,%d,loops,%u,maxKb,%u,startup,%u", a3, a4, a5, a6, a7, a8, *(a1 + 1276));
+      FireDeviceLog::DeviceLogBase(5, "#fftd,kStartCommStressRequest,duration,%d,loops,%u,maxKb,%u,startup,%u", *(a1 + 1276), *(a1 + 1288), *(a1 + 1280), *(a1 + 1284));
       *__dst = *(a1 + 1280);
       *&__dst[8] = *(a1 + 1288);
       GlRequestImplComStressTest = BlueFin::GlDbgRequest::CreateGlRequestImplComStressTest(CbGlOnMemAlloc, CbGlOnMemFree, FireCallback::GlReqOnStart, FireCallback::GlReqOnStressTest, *(a1 + 1276), __dst);
       (*(*GlRequestImplComStressTest + 72))(GlRequestImplComStressTest, FireCallback::GlReqOnStop);
       FireMessageHandler::startRequest(a1, 5, GlRequestImplComStressTest);
-      FireDeviceLog::DeviceLogBase(6, "#fmh,commStress,0x%p", v17, v18, v19, v20, v21, v22, GlRequestImplComStressTest);
+      FireDeviceLog::DeviceLogBase(6, "#fmh,commStress,0x%p", GlRequestImplComStressTest);
 LABEL_12:
-      v23 = *(a1 + 1936);
-      v24 = *(a1 + 1944);
-      if (v23 != v24)
+      v9 = *(a1 + 1936);
+      v10 = *(a1 + 1944);
+      if (v9 != v10)
       {
-        v25 = (*(**(a1 + 1296) + 512))(*(a1 + 1296), v23, (v24 - v23));
+        v11 = (*(**(a1 + 1296) + 512))(*(a1 + 1296), v9, (v10 - v9));
         *(a1 + 1944) = *(a1 + 1936);
-        v32 = "SetFail";
-        if (v25)
+        v12 = "SetFail";
+        if (v11)
         {
-          v32 = "SetSuccess";
+          v12 = "SetSuccess";
         }
 
-        FireDeviceLog::DeviceLogBase(6, "GnssRTI,%s", v26, v27, v28, v29, v30, v31, v32);
+        FireDeviceLog::DeviceLogBase(6, "GnssRTI,%s", v12);
       }
 
-      goto LABEL_68;
+      return;
     case 1073741850:
       if (!(*(**(a1 + 1296) + 504))(*(a1 + 1296), a1 + 1976))
       {
-        v75 = *MEMORY[0x29EDCA608];
-        v44 = "setNWRtiInfo,fail";
+        v17 = "setNWRtiInfo,fail";
         goto LABEL_74;
       }
 
-      v43 = *MEMORY[0x29EDCA608];
-      v44 = "setNWRtiInfo,pass";
+      v17 = "setNWRtiInfo,pass";
 LABEL_64:
-      v72 = 6;
+      v35 = 6;
       goto LABEL_75;
     default:
-      LOBYTE(v80) = a2;
-      v14 = "Unsupported message type: %d";
+      v37 = a2;
+      v6 = "Unsupported message type: %d";
       goto LABEL_10;
   }
 }
@@ -502,18 +465,14 @@ void FireMessageHandler::logFireOnMsg(int a1, int a2)
       }
     }
 
-    else
+    else if (a2 < 0)
     {
-      v10 = off_29EEAC0D8[a1 - 0x40000000];
-      if (a2 < 0)
-      {
 LABEL_6:
-        FireDeviceLog::DeviceLogBase(6, "msg,%d,%s", v4, v5, v6, v7, v8, v9, a1);
-        return;
-      }
+      FireDeviceLog::DeviceLogBase(6, "msg,%d,%s");
+      return;
     }
 
-    FireDeviceLog::DeviceLogBase(6, "msg,%d,%s,type,%d", v4, v5, v6, v7, v8, v9, a1);
+    FireDeviceLog::DeviceLogBase(6, "msg,%d,%s,type,%d");
   }
 }
 
@@ -587,11 +546,10 @@ void sub_29879C114(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::function<void ()(gnss::Result)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(gnss::Result)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x29EDCA608];
+  v4[4] = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(gnss::Result)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
@@ -646,7 +604,7 @@ uint64_t std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:
 
 void *std::__function::__value_func<void ()(gnss::Result)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x29EDCA608];
+  v5[3] = *MEMORY[0x29EDCA608];
   if (a2 != result)
   {
     v3 = result;
@@ -656,15 +614,15 @@ void *std::__function::__value_func<void ()(gnss::Result)>::swap[abi:ne200100](v
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -692,7 +650,6 @@ void *std::__function::__value_func<void ()(gnss::Result)>::swap[abi:ne200100](v
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -722,35 +679,35 @@ uint64_t std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi
   return a1;
 }
 
-void FireMessageHandler::EngineState::update(int *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void FireMessageHandler::EngineState::update(int *a1, int a2)
 {
-  FireDeviceLog::DeviceLogBase(5, "EngineState,update,state,%d,new,%d", a3, a4, a5, a6, a7, a8, *a1);
-  v16 = *a1;
+  FireDeviceLog::DeviceLogBase(5, "EngineState,update,state,%d,new,%d", *a1, a2);
+  v4 = *a1;
   if (a2 == 2)
   {
-    if ((v16 & 0xFFFFFFFE) == 2)
+    if ((v4 & 0xFFFFFFFE) == 2)
     {
       goto LABEL_7;
     }
 
-    v16 = 2;
+    v4 = 2;
   }
 
   else
   {
-    if ((v16 - 1) < 3)
+    if ((v4 - 1) < 3)
     {
       goto LABEL_7;
     }
 
-    v16 = 1;
+    v4 = 1;
   }
 
-  *a1 = v16;
+  *a1 = v4;
 LABEL_7:
-  if (v16 != a2)
+  if (v4 != a2)
   {
-    FireDeviceLog::DeviceLogBase(3, "EngineState,update,noChange,state,%d,new,%d", v10, v11, v12, v13, v14, v15, v16);
+    FireDeviceLog::DeviceLogBase(3, "EngineState,update,noChange,state,%d,new,%d", v4, a2);
   }
 }
 
@@ -761,10 +718,9 @@ unint64_t FireConfig::isSvIqDataEnabled(FireConfig *this)
     operator new();
   }
 
-  v1 = (*(**(FireResourceMgr::fInstance + 40) + 104))(*(FireResourceMgr::fInstance + 40));
-  v2 = v1 >> 63;
-  FireDeviceLog::DeviceLogBase(5, "#fc,isSvIqDataEnabled,%d", v3, v4, v5, v6, v7, v8, v1 < 0);
-  return v2;
+  v1 = (*(**(FireResourceMgr::fInstance + 40) + 104))(*(FireResourceMgr::fInstance + 40)) >> 63;
+  FireDeviceLog::DeviceLogBase(5, "#fc,isSvIqDataEnabled,%d", v1);
+  return v1;
 }
 
 uint64_t BlueFin::GlDbgRequest::CreateGlRequestImplGnssMeasData(uint64_t (*a1)(uint64_t), void (*a2)(uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
@@ -942,10 +898,10 @@ uint64_t BlueFin::GlEventPump::Run(BlueFin::GlEventPump *this, unsigned int *a2,
       }
 
       v11 = *(this + j);
-      BlueFin::GlQueue::get((v11 + 40), v20);
-      v12 = *(v11 + 32);
-      v13 = *(v11 + 8);
-      *(v11 + 32) = v13;
+      BlueFin::GlQueue::get(v20, v11 + 5);
+      v12 = v11[4];
+      v13 = v11[1];
+      v11[4] = v13;
       do
       {
         v21 = 0;
@@ -956,15 +912,15 @@ uint64_t BlueFin::GlEventPump::Run(BlueFin::GlEventPump *this, unsigned int *a2,
 
         else
         {
-          v13 = (*(v11 + 32))(v11, v20);
+          v13 = (v11[4])(v11, v20);
         }
 
-        *(v11 + 32) = v13;
+        v11[4] = v13;
       }
 
       while (v13);
       j = 0;
-      *(v11 + 32) = v12;
+      v11[4] = v12;
     }
   }
 
@@ -1066,15 +1022,15 @@ uint64_t BlueFin::GlPeEngineCallBacks::OnTimerRq(BlueFin::GlPeEngineCallBacks *t
   }
 }
 
-uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void (**a19)(BlueFin::GlGpsTime *__hidden this), uint64_t a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24, __int128 a25, __int128 a26, __int128 a27, __int128 a28, uint64_t a29, uint64_t a30, BlueFin::GlRequestImpl *__src, int a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, int a55, char a56, int a57, char a58)
+uint64_t BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void (**a19)(BlueFin::GlGpsTime *__hidden this), uint64_t a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24, __int128 a25, __int128 a26, __int128 a27, __int128 a28, uint64_t a29, uint64_t a30, uint64_t __src, int a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, int a55, char a56, int a57, char a58)
 {
   STACK[0x508] = *MEMORY[0x29EDCA608];
-  if ((this[74] & 1) == 0)
+  if ((*(this + 592) & 1) == 0)
   {
     v58 = this;
     *(this + 592) = 1;
     a18 = 0;
-    this = BlueFin::GlEventPump::Run(this[2], &a18 + 1, &a18);
+    this = BlueFin::GlEventPump::Run(*(this + 16), &a18 + 1, &a18);
     v59 = *(v58 + 24);
     if (v59)
     {
@@ -1145,29 +1101,50 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
 
         else
         {
-          v75 = v70 & v69;
+          v73 = v70 & v69;
           if ((v71 | v70 & v69))
           {
-            v76 = *(v58 + 8);
-            if (!v76)
+            v74 = *(v58 + 8);
+            if (!v74)
             {
               DeviceFaultNotify("glengine_std.cpp", 384, "ReloadComponents", "m_ptGlSettingsImpl != nullptr");
               __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glengine_std.cpp", 384, "m_ptGlSettingsImpl != nullptr");
             }
 
-            v77 = *(v76 + 32);
-            v78 = *(v62 + 2469);
+            v75 = *(v74 + 32);
+            v76 = *(v62 + 2469);
             if (v68 >= 0x3E8)
             {
-              v79 = 78;
+              v77 = 78;
             }
 
             else
             {
+              v77 = 89;
+            }
+
+            if (v76)
+            {
+              v78 = 89;
+            }
+
+            else
+            {
+              v78 = 78;
+            }
+
+            v189 = v78;
+            if (v71)
+            {
               v79 = 89;
             }
 
-            if (v78)
+            else
+            {
+              v79 = 78;
+            }
+
+            if (v70)
             {
               v80 = 89;
             }
@@ -1177,8 +1154,8 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
               v80 = 78;
             }
 
-            v191 = v80;
-            if (v71)
+            v188 = v79;
+            if ((v75 & 0x10000) != 0)
             {
               v81 = 89;
             }
@@ -1188,7 +1165,7 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
               v81 = 78;
             }
 
-            if (v70)
+            if ((v75 & 0x4000) != 0)
             {
               v82 = 89;
             }
@@ -1198,231 +1175,210 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
               v82 = 78;
             }
 
-            v190 = v81;
-            if ((v77 & 0x10000) != 0)
-            {
-              v83 = 89;
-            }
-
-            else
-            {
-              v83 = 78;
-            }
-
-            if ((v77 & 0x4000) != 0)
-            {
-              v84 = 89;
-            }
-
-            else
-            {
-              v84 = 78;
-            }
-
-            GlCustomLog(14, "ReloadComponents() PSF={DERATE_TIME:%c  RECOVER_JOBS:%c}  Reset:%c  Restart:%c  CloseCom:%c  Abort:%c  LmsRollover:%c\n", v84, v83, v82, v190, v191, 78, v79);
-            v85 = *(v58 + 440);
-            v86 = (*(v58 + 432))(31680);
-            v87 = v86;
-            if (!v86)
+            GlCustomLog(14, "ReloadComponents() PSF={DERATE_TIME:%c  RECOVER_JOBS:%c}  Reset:%c  Restart:%c  CloseCom:%c  Abort:%c  LmsRollover:%c\n", v82, v81, v80, v188, v189, 78, v77);
+            v83 = *(v58 + 440);
+            v84 = (*(v58 + 432))(31680);
+            v85 = v84;
+            if (!v84)
             {
               DeviceFaultNotify("glmemalloc.h", 74, "GlStackAlloc", "m_ptr != nullptr");
               __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmemalloc.h", 74, "m_ptr != nullptr");
             }
 
-            v193 = v85;
-            v88 = *(v58 + 24);
-            *v86 = 0;
-            *(v86 + 8) = 0;
-            v196 = v86 + 16;
-            bzero((v86 + 16), 0x362uLL);
-            BlueFin::GlPePendingBag::GlPePendingBag((v87 + 896));
-            v89 = (v87 + 21188);
-            v90 = (v88 + 136408);
-            *(v87 + 5280) = 0;
-            v192 = (v87 + 5288);
-            *(v87 + 5288) = 0;
-            *(v87 + 5296) = -1;
-            *(v87 + 5304) = xmmword_298A3BA20;
-            *(v87 + 5320) = 0;
-            *(v87 + 5344) = 0;
-            v91 = (v87 + 5352);
-            v92 = 15840;
+            v191 = v83;
+            v86 = *(v58 + 24);
+            *v84 = 0;
+            *(v84 + 8) = 0;
+            v194 = v84 + 16;
+            bzero((v84 + 16), 0x362uLL);
+            BlueFin::GlPePendingBag::GlPePendingBag((v85 + 896));
+            v87 = (v85 + 21188);
+            v88 = (v86 + 136408);
+            *(v85 + 5280) = 0;
+            v190 = (v85 + 5288);
+            *(v85 + 5288) = 0;
+            *(v85 + 5296) = -1;
+            *(v85 + 5304) = xmmword_298A3BA20;
+            *(v85 + 5320) = 0;
+            *(v85 + 5344) = 0;
+            v89 = (v85 + 5352);
+            v90 = 15840;
             do
             {
-              *(v91 - 2) = 112;
-              *v91 = 0uLL;
-              v91[1] = 0uLL;
-              v91[2] = 0uLL;
-              v91[3] = 0uLL;
-              *(v91 + 60) = 0uLL;
-              v91 += 5;
-              v92 -= 80;
+              *(v89 - 2) = 112;
+              *v89 = 0uLL;
+              v89[1] = 0uLL;
+              v89[2] = 0uLL;
+              v89[3] = 0uLL;
+              *(v89 + 60) = 0uLL;
+              v89 += 5;
+              v90 -= 80;
             }
 
-            while (v92);
-            *v89 = 0;
-            *(v87 + 22368) = v87 + 21216;
-            v195 = v87 + 5348;
-            bzero((v87 + 5348), 0x3DE0uLL);
-            bzero((v87 + 21216), 0x480uLL);
-            *(v87 + 22768) = 0u;
-            *(v87 + 22752) = 0u;
-            *(v87 + 22736) = 0u;
-            *(v87 + 22720) = 0u;
-            *(v87 + 22704) = 0u;
-            *(v87 + 22688) = 0u;
-            *(v87 + 22672) = 0u;
-            *(v87 + 22656) = 0u;
-            *(v87 + 22640) = 0u;
-            *(v87 + 22624) = 0u;
-            *(v87 + 22608) = 0u;
-            *(v87 + 22592) = 0u;
-            *(v87 + 22576) = 0u;
-            *(v87 + 22560) = 0u;
-            *(v87 + 22544) = 0u;
-            *(v87 + 22528) = 0u;
-            *(v87 + 22512) = 0u;
-            *(v87 + 22496) = 0u;
-            *(v87 + 22480) = 0u;
-            *(v87 + 22464) = 0u;
-            *(v87 + 22448) = 0u;
-            *(v87 + 22432) = 0u;
-            *(v87 + 22416) = 0u;
-            *(v87 + 22400) = 0u;
-            BlueFin::GlSatAidInfo::GlSatAidInfo(v87 + 22784);
-            *(v87 + 31616) = v87 + 31628;
-            *(v87 + 31624) = 8;
-            *(v87 + 31628) = 0u;
-            *(v87 + 31644) = 0u;
-            *(v87 + 880) = *(v88 + 140258);
-            *(v87 + 8) = 0;
-            v93 = v87 + 592;
+            while (v90);
+            *v87 = 0;
+            *(v85 + 22368) = v85 + 21216;
+            v193 = v85 + 5348;
+            bzero((v85 + 5348), 0x3DE0uLL);
+            bzero((v85 + 21216), 0x480uLL);
+            *(v85 + 22768) = 0u;
+            *(v85 + 22752) = 0u;
+            *(v85 + 22736) = 0u;
+            *(v85 + 22720) = 0u;
+            *(v85 + 22704) = 0u;
+            *(v85 + 22688) = 0u;
+            *(v85 + 22672) = 0u;
+            *(v85 + 22656) = 0u;
+            *(v85 + 22640) = 0u;
+            *(v85 + 22624) = 0u;
+            *(v85 + 22608) = 0u;
+            *(v85 + 22592) = 0u;
+            *(v85 + 22576) = 0u;
+            *(v85 + 22560) = 0u;
+            *(v85 + 22544) = 0u;
+            *(v85 + 22528) = 0u;
+            *(v85 + 22512) = 0u;
+            *(v85 + 22496) = 0u;
+            *(v85 + 22480) = 0u;
+            *(v85 + 22464) = 0u;
+            *(v85 + 22448) = 0u;
+            *(v85 + 22432) = 0u;
+            *(v85 + 22416) = 0u;
+            *(v85 + 22400) = 0u;
+            BlueFin::GlSatAidInfo::GlSatAidInfo(v85 + 22784);
+            *(v85 + 31616) = v85 + 31628;
+            *(v85 + 31624) = 8;
+            *(v85 + 31628) = 0u;
+            *(v85 + 31644) = 0u;
+            *(v85 + 880) = *(v86 + 140258);
+            *(v85 + 8) = 0;
+            v91 = v85 + 592;
             do
             {
-              v94 = BlueFin::GlPeReqBag::PopRequest((v88 + 137024));
-              v95 = v94;
-              if (!v94)
+              v92 = BlueFin::GlPeReqBag::PopRequest((v86 + 137024));
+              v93 = v92;
+              if (!v92)
               {
                 break;
               }
 
-              v96 = *(v87 + 8);
-              *(v196 + 8 * v96) = v94;
-              v97 = *(BlueFin::GlUtils::m_pInstance + 1092) - *(v94 + 28);
-              *(v93 + 4 * v96) = v97;
-              GlCustomLog(14, "GlEngineImplStd::RecoverAllJobs: ActiveReq Id:%2hu  Type:%2u  ElapsedTime(ms):%u\n", *(v94 + 24), *(v94 + 16), v97);
-              v98 = ++*(v87 + 8);
-              *v87 |= 1 << *(v95 + 16);
+              v94 = *(v85 + 8);
+              *(v194 + 8 * v94) = v92;
+              v95 = *(BlueFin::GlUtils::m_pInstance + 1092) - *(v92 + 28);
+              *(v91 + 4 * v94) = v95;
+              GlCustomLog(14, "GlEngineImplStd::RecoverAllJobs: ActiveReq Id:%2hu  Type:%2u  ElapsedTime(ms):%u\n", *(v92 + 24), *(v92 + 16), v95);
+              v96 = ++*(v85 + 8);
+              *v85 |= 1 << *(v93 + 16);
             }
 
-            while (v98 < 0x48);
-            BlueFin::GlPePendingBag::operator=(v87 + 896, v88 + 132640);
-            v194 = v75;
-            if (*(v88 + 180968) == 1)
+            while (v96 < 0x48);
+            BlueFin::GlPePendingBag::operator=(v85 + 896, v86 + 132640);
+            v192 = v73;
+            if (*(v86 + 180968) == 1)
             {
-              v99 = *(v88 + 180928);
-              a28 = *(v88 + 180944);
-              a29 = *(v88 + 180960);
-              v100 = a29;
-              v101 = *(v88 + 180880);
-              a23 = *(v88 + 180864);
-              a24 = v101;
-              v103 = *(v88 + 180896);
-              a26 = *(v88 + 180912);
-              v102 = a26;
-              a27 = v99;
-              a25 = v103;
-              v104 = *(v88 + 180848);
-              a21 = *(v88 + 180832);
-              a22 = v104;
-              *(v87 + 5248) |= 0x10000u;
-              *(v87 + 4544) = v104;
-              *(v87 + 4608) = v102;
-              v105 = a23;
-              v106 = a24;
-              *(v87 + 4528) = a21;
-              *(v87 + 4592) = a25;
-              *(v87 + 4576) = v106;
-              *(v87 + 4560) = v105;
-              *(v87 + 4656) = v100;
-              *(v87 + 4640) = a28;
-              *(v87 + 4624) = a27;
-              *(v87 + 4520) = 1;
+              v97 = *(v86 + 180928);
+              a28 = *(v86 + 180944);
+              a29 = *(v86 + 180960);
+              v98 = a29;
+              v99 = *(v86 + 180880);
+              a23 = *(v86 + 180864);
+              a24 = v99;
+              v101 = *(v86 + 180896);
+              a26 = *(v86 + 180912);
+              v100 = a26;
+              a27 = v97;
+              a25 = v101;
+              v102 = *(v86 + 180848);
+              a21 = *(v86 + 180832);
+              a22 = v102;
+              *(v85 + 5248) |= 0x10000u;
+              *(v85 + 4544) = v102;
+              *(v85 + 4608) = v100;
+              v103 = a23;
+              v104 = a24;
+              *(v85 + 4528) = a21;
+              *(v85 + 4592) = a25;
+              *(v85 + 4576) = v104;
+              *(v85 + 4560) = v103;
+              *(v85 + 4656) = v98;
+              *(v85 + 4640) = a28;
+              *(v85 + 4624) = a27;
+              *(v85 + 4520) = 1;
             }
 
-            v107 = *v90;
-            if (v107 >= 1)
+            v105 = *v88;
+            if (v105 >= 1)
             {
-              v108 = v88 + 136416;
+              v106 = v86 + 136416;
               do
               {
-                v109 = v107 - 1;
-                *v90 = v109;
-                v110 = *(v108 + 8 * v109);
-                *(v108 + 8 * v109) = 0;
-                GlCustomLog(14, "GlEngineImplStd::RecoverAllJobs: PendingReq Id:%2hu  Type:%2u\n", *(v110 + 24), *(v110 + 16));
-                *v87 |= 1 << *(v110 + 16);
-                v107 = *v90;
+                v107 = v105 - 1;
+                *v88 = v107;
+                v108 = *(v106 + 8 * v107);
+                *(v106 + 8 * v107) = 0;
+                GlCustomLog(14, "GlEngineImplStd::RecoverAllJobs: PendingReq Id:%2hu  Type:%2u\n", *(v108 + 24), *(v108 + 16));
+                *v85 |= 1 << *(v108 + 16);
+                v105 = *v88;
               }
 
-              while (v107 > 0);
+              while (v105 > 0);
             }
 
-            v111 = *(v88 + 124816);
-            if (v111 == -1)
+            v109 = *(v86 + 124816);
+            if (v109 == -1)
             {
-              v115 = 0;
-              v113 = v87 + 4520;
-              v114 = v194;
+              v113 = 0;
+              v111 = v85 + 4520;
+              v112 = v192;
             }
 
             else
             {
-              v112 = *(v88 + 124832);
-              v113 = v87 + 4520;
-              v114 = v194;
-              if (v112 == 4294967300.0)
+              v110 = *(v86 + 124832);
+              v111 = v85 + 4520;
+              v112 = v192;
+              if (v110 == 4294967300.0)
               {
-                v115 = 0;
+                v113 = 0;
               }
 
               else
               {
-                if ((v88 + 124808) != v192)
+                if ((v86 + 124808) != v190)
                 {
-                  *(v87 + 5288) = *(v88 + 124808);
-                  *(v87 + 5296) = v111;
-                  *(v87 + 5304) = *(v88 + 124824);
-                  *(v87 + 5312) = v112;
+                  *(v85 + 5288) = *(v86 + 124808);
+                  *(v85 + 5296) = v109;
+                  *(v85 + 5304) = *(v86 + 124824);
+                  *(v85 + 5312) = v110;
                 }
 
-                *(v87 + 5320) = *(v88 + 124800);
-                v115 = 1;
+                *(v85 + 5320) = *(v86 + 124800);
+                v113 = 1;
               }
             }
 
-            *(v113 + 760) = v115;
-            *(v113 + 824) = 0;
-            BlueFin::GlGnssSetIterator::GlGnssSetIterator(&__src, (v87 + 992));
-            v116 = a55;
+            *(v111 + 760) = v113;
+            *(v111 + 824) = 0;
+            BlueFin::GlGnssSetIterator::GlGnssSetIterator(&__src, (v85 + 992));
+            v114 = a55;
             for (i = a56; a55 != 6 || a56 != 14; i = a56)
             {
-              a57 = v116;
+              a57 = v114;
               a58 = i;
-              LODWORD(a19) = v116;
+              LODWORD(a19) = v114;
               BYTE4(a19) = i;
-              Mgr = BlueFin::GlPeGnssEphemerisMgr::GetMgr((v88 + 608), v116);
+              Mgr = BlueFin::GlPeGnssEphemerisMgr::GetMgr((v86 + 608), v114);
               if (Mgr)
               {
-                v119 = (*(*Mgr + 112))(Mgr, &a19 + 4, 1);
-                if (v119)
+                v117 = (*(*Mgr + 112))(Mgr, &a19 + 4, 1);
+                if (v117)
                 {
-                  if ((v119[8] & 0xF) == 1)
+                  if ((v117[8] & 0xF) == 1)
                   {
-                    v120 = *(v113 + 824);
-                    *(v113 + 824) = v120 + 1;
-                    (*(*v119 + 264))(v119, v195 + 80 * v120);
-                    if (*(v113 + 824) == 198)
+                    v118 = *(v111 + 824);
+                    *(v111 + 824) = v118 + 1;
+                    (*(*v117 + 264))(v117, v193 + 80 * v118);
+                    if (*(v111 + 824) == 198)
                     {
                       break;
                     }
@@ -1431,26 +1387,26 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
               }
 
               BlueFin::GlGnssSetIterator::operator++(&__src);
-              v116 = a55;
+              v114 = a55;
             }
 
-            v122 = (*(v87 + 1160) + 8);
-            v123 = 7;
+            v120 = (*(v85 + 1160) + 8);
+            v121 = 7;
             do
             {
-              v124 = *(v122 - 1);
-              v125 = *v122;
-              v122 += 24;
-              bzero(v124, ((4 * v125 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-              --v123;
+              v122 = *(v120 - 1);
+              v123 = *v120;
+              v120 += 24;
+              bzero(v122, ((4 * v123 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
+              --v121;
             }
 
-            while (v123);
-            *v89 = 0;
-            LOBYTE(__src) = *(v87 + 1336);
-            v126 = *(v87 + 1328);
-            v127 = 4 * __src;
-            memcpy(&a32, v126, v127);
+            while (v121);
+            *v87 = 0;
+            LOBYTE(__src) = *(v85 + 1336);
+            v124 = *(v85 + 1328);
+            v125 = 4 * __src;
+            memcpy(&a32, v124, v125);
             WORD1(__src) = 0;
             BYTE1(__src) = 0;
             HIDWORD(__src) = a32;
@@ -1459,320 +1415,320 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
             {
               do
               {
-                if (BlueFin::GlPeAlmMgr::GetAsstAlm(v88 + 34336, 0, (BYTE2(__src) + 1), (*(v87 + 22368) + 36 * *v89)))
+                if (BlueFin::GlPeAlmMgr::GetAsstAlm(v86 + 34336, 0, (BYTE2(__src) + 1), (*(v85 + 22368) + 36 * *v87)))
                 {
-                  ++*v89;
+                  ++*v87;
                 }
 
                 BlueFin::GlSetIterator::operator++(&__src);
               }
 
               while (BYTE1(__src) != __src);
-              v126 = *(v87 + 1328);
-              v127 = 4 * *(v87 + 1336);
+              v124 = *(v85 + 1328);
+              v125 = 4 * *(v85 + 1336);
             }
 
-            bzero(v126, ((v127 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-            BlueFin::GlPeReqBag::GetPreviousPositionBuffer((v88 + 137024), (v87 + 22400), 380, (v87 + 22780));
-            *(v87 + 31664) = 0;
-            if (*(v88 + 273552) < 10.0)
+            bzero(v124, ((v125 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
+            BlueFin::GlPeReqBag::GetPreviousPositionBuffer((v86 + 137024), (v85 + 22400), 380, (v85 + 22780));
+            *(v85 + 31664) = 0;
+            if (*(v86 + 273552) < 10.0)
             {
-              BlueFin::GlSatAidInfo::operator=(v87 + 22784, v88 + 273536);
-              BlueFin::GlSetBase::operator=(v87 + 31616, v88 + 283624);
-              v130 = *(v88 + 283652);
-              *(v87 + 31628) = *(v88 + 283636);
-              *(v87 + 31644) = v130;
-              *(v87 + 31664) = 1;
+              BlueFin::GlSatAidInfo::operator=(v85 + 22784, v86 + 273536);
+              BlueFin::GlSetBase::operator=(v85 + 31616, v86 + 283624);
+              v128 = *(v86 + 283652);
+              *(v85 + 31628) = *(v86 + 283636);
+              *(v85 + 31644) = v128;
+              *(v85 + 31664) = 1;
             }
 
-            if (v114)
+            if (v112)
             {
-              v131 = *(*(v58 + 24) + 123784) + 7201002;
-              v132 = v131 >= 0x3E8;
-              if (v131 >= 0x3E8)
+              v129 = *(*(v58 + 24) + 123784) + 7201002;
+              v130 = v129 >= 0x3E8;
+              if (v129 >= 0x3E8)
               {
-                v133 = "Abnormal";
+                v131 = "Abnormal";
               }
 
               else
               {
-                v133 = "Normal";
+                v131 = "Normal";
               }
 
-              v134 = "Time is bad";
-              if (!v132)
+              v132 = "Time is bad";
+              if (!v130)
               {
-                v134 = "LMS Rollover";
+                v132 = "LMS Rollover";
               }
 
-              v135 = 78;
-              if (*(v113 + 760))
+              v133 = 78;
+              if (*(v111 + 760))
               {
-                v135 = 89;
+                v133 = 89;
               }
 
-              GlCustomLog(10, "%s GlEngine restart. %s. Restarting.  RecoveryTimeValid:%c\n", v133, v134, v135);
+              GlCustomLog(10, "%s GlEngine restart. %s. Restarting.  RecoveryTimeValid:%c\n", v131, v132, v133);
             }
 
-            v136 = *v87;
-            BlueFin::GlEngineImplStd::DisposeComponents(v58, (*v87 == 0), v128, v129);
-            BlueFin::GlEngineImplStd::setOnChipMeSetting(v58, v87, 0);
-            if (v136)
+            v134 = *v85;
+            BlueFin::GlEngineImplStd::DisposeComponents(v58, (*v85 == 0), v126, v127);
+            BlueFin::GlEngineImplStd::setOnChipMeSetting(v58, v85, 0);
+            if (v134)
             {
               if (BlueFin::GlEngineImplStd::LoadComponents(v58, 0))
               {
-                v137 = *(v58 + 24);
-                *(v137 + 140258) = *(v87 + 880);
-                *(v137 + 180714) = 1;
-                if (*(v87 + 8))
+                v135 = *(v58 + 24);
+                *(v135 + 140258) = *(v85 + 880);
+                *(v135 + 180714) = 1;
+                if (*(v85 + 8))
                 {
-                  v138 = 0;
+                  v136 = 0;
                   do
                   {
-                    v139 = (v93 + 8 * v138 - 576);
-                    (*(**v139 + 464))(*v139, *(v93 + 4 * v138) > 0x3E8u);
-                    __src = *v139;
+                    v137 = (v91 + 8 * v136 - 576);
+                    (*(**v137 + 464))(*v137, *(v91 + 4 * v136) > 0x3E8u);
+                    __src = *v137;
                     BlueFin::GlPosEng::StartRequest(*(v58 + 24), &__src);
-                    ++v138;
+                    ++v136;
                   }
 
-                  while (v138 < *(v87 + 8));
+                  while (v136 < *(v85 + 8));
                 }
 
-                v140 = *(v87 + 4664);
-                if (v140 >= 1)
+                v138 = *(v85 + 4664);
+                if (v138 >= 1)
                 {
-                  v141 = v87 + 4672;
+                  v139 = v85 + 4672;
                   do
                   {
-                    LOWORD(v140) = v140 - 1;
-                    *(v87 + 4664) = v140;
-                    v142 = *(v141 + 8 * v140);
-                    *(v141 + 8 * v140) = 0;
-                    if (v142)
+                    LOWORD(v138) = v138 - 1;
+                    *(v85 + 4664) = v138;
+                    v140 = *(v139 + 8 * v138);
+                    *(v139 + 8 * v138) = 0;
+                    if (v140)
                     {
-                      __src = v142;
+                      __src = v140;
                       BlueFin::GlPosEng::StartRequest(*(v58 + 24), &__src);
-                      LOWORD(v140) = *(v87 + 4664);
+                      LOWORD(v138) = *(v85 + 4664);
                     }
                   }
 
-                  while (v140 > 0);
+                  while (v138 > 0);
                 }
 
-                BlueFin::GlPeReqBag::SetPreviousPositionBuffer((*(v58 + 24) + 137024), (v87 + 22400), 380, *(v87 + 22780));
-                v143 = *(v58 + 24);
-                *(v143 + 180714) = 0;
-                BlueFin::GlReqSm::SetPendingBag((v143 + 126144), (v87 + 896));
+                BlueFin::GlPeReqBag::SetPreviousPositionBuffer((*(v58 + 24) + 137024), (v85 + 22400), 380, *(v85 + 22780));
+                v141 = *(v58 + 24);
+                *(v141 + 180714) = 0;
+                BlueFin::GlReqSm::SetPendingBag((v141 + 126144), (v85 + 896));
                 for (j = 0; j != 7; ++j)
                 {
-                  v145 = BlueFin::GlPeGnssEphemerisMgr::GetMgr((*(v58 + 24) + 608), j);
-                  if (v145)
+                  v143 = BlueFin::GlPeGnssEphemerisMgr::GetMgr((*(v58 + 24) + 608), j);
+                  if (v143)
                   {
-                    (*(*v145 + 224))(v145, v195, *(v113 + 824), 1);
+                    (*(*v143 + 224))(v143, v193, *(v111 + 824), 1);
                   }
                 }
 
-                if (*v89)
+                if (*v87)
                 {
-                  v146 = 0;
-                  v147 = 0;
+                  v144 = 0;
+                  v145 = 0;
                   do
                   {
-                    BlueFin::GlReqSm::SetAsstAlm(*(v58 + 24) + 126144, (*(v87 + 22368) + v146));
-                    ++v147;
-                    v146 += 36;
+                    BlueFin::GlReqSm::SetAsstAlm(*(v58 + 24) + 126144, (*(v85 + 22368) + v144));
+                    ++v145;
+                    v144 += 36;
                   }
 
-                  while (v147 < *v89);
+                  while (v145 < *v87);
                 }
 
-                if ((v194 & 1) != 0 && *(v113 + 760) == 1)
+                if ((v192 & 1) != 0 && *(v111 + 760) == 1)
                 {
-                  v148 = *(BlueFin::GlUtils::m_pInstance + 1092);
+                  v146 = *(BlueFin::GlUtils::m_pInstance + 1092);
                   *&a21 = &off_2A1F0B5F0;
                   *(&a21 + 1) = 0;
-                  BlueFin::GlPeGnssTime::GetGps(v192, &a21);
-                  *v149.i64 = BlueFin::GlPeGnssTime::GetUncUs(v192, 0);
-                  *v151.i64 = *v149.i64 + trunc(*v149.i64 * 2.32830644e-10) * -4294967300.0;
-                  v152.f64[0] = NAN;
-                  v152.f64[1] = NAN;
-                  v153 = vnegq_f64(v152);
-                  v154 = vbslq_s8(v153, v151, v149);
-                  if (*v149.i64 > 4294967300.0)
+                  BlueFin::GlPeGnssTime::GetGps(v190, &a21);
+                  *v147.i64 = BlueFin::GlPeGnssTime::GetUncUs(v190, 0);
+                  *v149.i64 = *v147.i64 + trunc(*v147.i64 * 2.32830644e-10) * -4294967300.0;
+                  v150.f64[0] = NAN;
+                  v150.f64[1] = NAN;
+                  v151 = vnegq_f64(v150);
+                  v152 = vbslq_s8(v151, v149, v147);
+                  if (*v147.i64 > 4294967300.0)
                   {
-                    v149.i64[0] = v154.i64[0];
+                    v147.i64[0] = v152.i64[0];
                   }
 
-                  if (*v149.i64 < -4294967300.0)
+                  if (*v147.i64 < -4294967300.0)
                   {
-                    *v150.i64 = -*v149.i64;
-                    *v149.i64 = -(*v149.i64 - trunc(*v149.i64 * -2.32830644e-10) * -4294967300.0);
-                    v149 = vbslq_s8(v153, v149, v150);
-                    *v149.i64 = -*v149.i64;
+                    *v148.i64 = -*v147.i64;
+                    *v147.i64 = -(*v147.i64 - trunc(*v147.i64 * -2.32830644e-10) * -4294967300.0);
+                    v147 = vbslq_s8(v151, v147, v148);
+                    *v147.i64 = -*v147.i64;
                   }
 
-                  v155 = -*v149.i64;
-                  v156 = *v149.i64;
-                  v158 = *v149.i64 < 0.0;
-                  *v149.i64 = (v148 - *(v87 + 5320));
-                  if (v158)
+                  v153 = -*v147.i64;
+                  v154 = *v147.i64;
+                  v156 = *v147.i64 < 0.0;
+                  *v147.i64 = (v146 - *(v85 + 5320));
+                  if (v156)
                   {
-                    v157 = -v155;
+                    v155 = -v153;
                   }
 
                   else
                   {
-                    v157 = v156;
+                    v155 = v154;
                   }
 
-                  *v154.i64 = *v149.i64 * 0.001;
+                  *v152.i64 = *v147.i64 * 0.001;
                   a20 = *(&a21 + 1);
                   a19 = &off_2A1F0B5F0;
-                  *v149.i64 = *v149.i64 * 0.001 - trunc(*v149.i64 * 0.001);
-                  v149.i64[0] = vbslq_s8(v153, v149, v154).i64[0];
-                  v158 = *v149.i64 >= 0.0 && *v149.i64 < 1.0;
-                  if (!v158)
+                  *v147.i64 = *v147.i64 * 0.001 - trunc(*v147.i64 * 0.001);
+                  v147.i64[0] = vbslq_s8(v151, v147, v152).i64[0];
+                  v156 = *v147.i64 >= 0.0 && *v147.i64 < 1.0;
+                  if (!v156)
                   {
                     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
                     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
                   }
 
-                  v159 = *v149.i64 * 4294967300.0 + 0.5;
-                  v160 = v159;
-                  v197 = *v154.i64;
-                  v161 = HIDWORD(a21) + *v154.i64;
-                  if (v159 >= 4294967300.0)
+                  v157 = *v147.i64 * 4294967300.0 + 0.5;
+                  v158 = v157;
+                  v195 = *v152.i64;
+                  v159 = HIDWORD(a21) + *v152.i64;
+                  if (v157 >= 4294967300.0)
                   {
-                    v160 = 0xFFFFFFFFLL;
+                    v158 = 0xFFFFFFFFLL;
                   }
 
-                  v162 = v160 + DWORD2(a21);
-                  LODWORD(a20) = v160 + DWORD2(a21);
-                  HIDWORD(a20) = v161 + HIDWORD(v162);
-                  GlCustomLog(14, "TimeRecovery(%u): GlEngineImplStd::ReloadComponents:  OsTime:%u  Lms:%.0lf  GpsWeek:%d  GpsTow:%.6lf\n", *(*(v58 + 24) + 123784), v148, *(v113 + 784), (v161 + HIDWORD(v162)) / 0x93A80, v162 * 2.32830644e-10 + ((v161 + HIDWORD(v162)) % 0x93A80));
+                  v160 = v158 + DWORD2(a21);
+                  LODWORD(a20) = v158 + DWORD2(a21);
+                  HIDWORD(a20) = v159 + HIDWORD(v160);
+                  GlCustomLog(14, "TimeRecovery(%u): GlEngineImplStd::ReloadComponents:  OsTime:%u  Lms:%.0lf  GpsWeek:%d  GpsTow:%.6lf\n", *(*(v58 + 24) + 123784), v146, *(v111 + 784), (v159 + HIDWORD(v160)) / 0x93A80, v160 * 2.32830644e-10 + ((v159 + HIDWORD(v160)) % 0x93A80));
                   BYTE6(__src) = 0;
-                  v166 = (a19[4])(&a19);
-                  LODWORD(v165) = a20;
-                  *v166.i64 = (v165 * 2.32830644e-10 + (v164 % 0x93A80)) * 1000.0;
-                  *v167.i64 = *v166.i64 + trunc(*v166.i64 * 2.32830644e-10) * -4294967300.0;
-                  v168.f64[0] = NAN;
-                  v168.f64[1] = NAN;
-                  v169 = vnegq_f64(v168);
-                  *&v170 = vbslq_s8(v169, v167, v166).u64[0];
-                  if (*v166.i64 > 4294967300.0)
+                  v164 = (a19[4])(&a19);
+                  LODWORD(v163) = a20;
+                  *v164.i64 = (v163 * 2.32830644e-10 + (v162 % 0x93A80)) * 1000.0;
+                  *v165.i64 = *v164.i64 + trunc(*v164.i64 * 2.32830644e-10) * -4294967300.0;
+                  v166.f64[0] = NAN;
+                  v166.f64[1] = NAN;
+                  v167 = vnegq_f64(v166);
+                  *&v168 = vbslq_s8(v167, v165, v164).u64[0];
+                  if (*v164.i64 > 4294967300.0)
                   {
-                    *v166.i64 = v170;
+                    *v164.i64 = v168;
                   }
 
-                  if (*v166.i64 < -4294967300.0)
+                  if (*v164.i64 < -4294967300.0)
                   {
-                    *v163.i64 = -*v166.i64;
-                    *v166.i64 = -(*v166.i64 - trunc(*v166.i64 * -2.32830644e-10) * -4294967300.0);
-                    *v166.i64 = -*vbslq_s8(v169, v166, v163).i64;
+                    *v161.i64 = -*v164.i64;
+                    *v164.i64 = -(*v164.i64 - trunc(*v164.i64 * -2.32830644e-10) * -4294967300.0);
+                    *v164.i64 = -*vbslq_s8(v167, v164, v161).i64;
                   }
 
-                  if (*v166.i64 < 0.0)
+                  if (*v164.i64 < 0.0)
                   {
-                    v171 = --*v166.i64;
-                  }
-
-                  else
-                  {
-                    v171 = *v166.i64;
-                  }
-
-                  LODWORD(__src) = v171;
-                  v172 = (a19[4])(&a19) / 0x93A80;
-                  WORD2(__src) = v172;
-                  if (v157 <= 0x30D40)
-                  {
-                    v173 = 200000;
+                    v169 = --*v164.i64;
                   }
 
                   else
                   {
-                    v173 = v157;
+                    v169 = *v164.i64;
                   }
 
-                  if (*(v87 + 5296))
+                  LODWORD(__src) = v169;
+                  v170 = (a19[4])(&a19) / 0x93A80;
+                  WORD2(__src) = v170;
+                  if (v155 <= 0x30D40)
                   {
-                    v174 = v173 + 5000000;
+                    v171 = 200000;
                   }
 
                   else
                   {
-                    v174 = v173;
+                    v171 = v155;
                   }
 
-                  v175 = (*(a21 + 32))(&a21);
-                  v176 = (*(a21 + 32))(&a21);
-                  LODWORD(v177) = DWORD2(a21);
-                  GlCustomLog(10, "Abnormal restart recover time [%d %.0f] + %.0f = [%hu %u]\n", v175 / 0x93A80, (v177 * 2.32830644e-10 + (v176 % 0x93A80)) * 1000.0, v197 * 1000.0, v172, v171);
-                  v178 = *(v58 + 24);
-                  if ((((v174 + 999) * 0x4189374BC6A7F0uLL) >> 64) <= 1)
+                  if (*(v85 + 5296))
                   {
-                    v179 = 1;
+                    v172 = v171 + 5000000;
                   }
 
                   else
                   {
-                    v179 = ((v174 + 999) * 0x4189374BC6A7F0uLL) >> 64;
+                    v172 = v171;
                   }
 
-                  *(v178 + 350216) = 1;
-                  BlueFin::GlReqSm::SetAsstTime(v178 + 126144, &__src, v179);
+                  v173 = (*(a21 + 32))(&a21);
+                  v174 = (*(a21 + 32))(&a21);
+                  LODWORD(v175) = DWORD2(a21);
+                  GlCustomLog(10, "Abnormal restart recover time [%d %.0f] + %.0f = [%hu %u]\n", v173 / 0x93A80, (v175 * 2.32830644e-10 + (v174 % 0x93A80)) * 1000.0, v195 * 1000.0, v170, v169);
+                  v176 = *(v58 + 24);
+                  if ((((v172 + 999) * 0x4189374BC6A7F0uLL) >> 64) <= 1)
+                  {
+                    v177 = 1;
+                  }
+
+                  else
+                  {
+                    v177 = ((v172 + 999) * 0x4189374BC6A7F0uLL) >> 64;
+                  }
+
+                  *(v176 + 350216) = 1;
+                  BlueFin::GlReqSm::SetAsstTime(v176 + 126144, &__src, v177);
                 }
               }
 
               else
               {
-                if (*(v87 + 8))
+                if (*(v85 + 8))
                 {
-                  v180 = 0;
+                  v178 = 0;
                   do
                   {
-                    v181 = *(v196 + 8 * v180);
-                    v182 = *(v181 + 56);
-                    if (v182)
+                    v179 = *(v194 + 8 * v178);
+                    v180 = *(v179 + 56);
+                    if (v180)
                     {
-                      v182();
-                      v181 = *(v196 + 8 * v180);
+                      v180();
+                      v179 = *(v194 + 8 * v178);
                     }
 
-                    BlueFin::GlRequestBase::Destroy(v181);
-                    ++v180;
+                    BlueFin::GlRequestBase::Destroy(v179);
+                    ++v178;
                   }
 
-                  while (v180 < *(v87 + 8));
+                  while (v178 < *(v85 + 8));
                 }
 
-                v183 = v87 + 4672;
+                v181 = v85 + 4672;
                 while (1)
                 {
-                  v184 = *(v87 + 4664);
-                  v185 = __OFSUB__(v184, 1);
-                  v186 = v184 - 1;
-                  if (v186 < 0 != v185)
+                  v182 = *(v85 + 4664);
+                  v183 = __OFSUB__(v182, 1);
+                  v184 = v182 - 1;
+                  if (v184 < 0 != v183)
                   {
                     break;
                   }
 
-                  *(v87 + 4664) = v186;
-                  v187 = *(v183 + 8 * v186);
-                  *(v183 + 8 * v186) = 0;
-                  v188 = *(v187 + 56);
-                  if (v188)
+                  *(v85 + 4664) = v184;
+                  v185 = *(v181 + 8 * v184);
+                  *(v181 + 8 * v184) = 0;
+                  v186 = *(v185 + 56);
+                  if (v186)
                   {
-                    v188(v187);
+                    v186(v185);
                   }
 
-                  BlueFin::GlRequestBase::Destroy(v187);
+                  BlueFin::GlRequestBase::Destroy(v185);
                 }
               }
             }
 
-            v193(v87);
+            v191(v85);
             if (*(v58 + 32) == 1)
             {
               v60 = BlueFin::GlEventPump::Run(*(v58 + 16), &a18 + 1, &a18);
@@ -1786,18 +1742,18 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
 
           else if (*(v58 + 560) == 1 && *(v59 + 126253) == 1 && (*(*(v58 + 8) + 25964) & 1) == 0)
           {
-            v189 = *(v58 + 344);
-            if (v189)
+            v187 = *(v58 + 344);
+            if (v187)
             {
-              v189(*(v58 + 272), 0);
+              v187(*(v58 + 272), 0);
               *(v58 + 560) = 0;
             }
           }
 
           else if (*(v59 + 180178) == 1)
           {
-            BlueFin::GlPeReqBag::GetNonInstantaneousRequests(v59 + 137024, &a21);
-            BlueFin::GlPePendingBag::GetNonInstantaneousRequests(*(v58 + 24) + 132640, &a19);
+            BlueFin::GlPeReqBag::GetNonInstantaneousRequests(&a21, (v59 + 137024));
+            BlueFin::GlPePendingBag::GetNonInstantaneousRequests(&a19, (*(v58 + 24) + 132640));
             LODWORD(__src) = a19 | a21;
             BlueFin::GlEngineImplStd::setOnChipMeSetting(v58, &__src, 0);
             v72 = *(v58 + 24);
@@ -1811,9 +1767,9 @@ uint64_t *BlueFin::GlEngineImplStd::CommonAPIcode(uint64_t *this, uint64_t a2, u
       if (!v72)
       {
 LABEL_21:
-        this = BlueFin::GlPeTimerMgr::UpdateExpirationTime((v58 + 600), v60, v72 & 1);
+        this = BlueFin::GlPeTimerMgr::UpdateExpirationTime(v58 + 600, v60, v72 & 1);
         *(v58 + 592) = 0;
-        goto LABEL_22;
+        return this;
       }
 
 LABEL_20:
@@ -1822,19 +1778,17 @@ LABEL_20:
     }
   }
 
-LABEL_22:
-  v73 = STACK[0x508];
-  v74 = *MEMORY[0x29EDCA608];
   return this;
 }
 
-void *BlueFin::GlMemAlloc::glAllocateMemory(int a1, uint64_t a2, uint64_t (*a3)(uint64_t))
+void *BlueFin::GlMemAlloc::glAllocateMemory(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
 {
+  v3 = a1;
   if (!a3 || (v4 = a2, (v5 = a3(a2)) == 0))
   {
     if (BlueFin::GlUtils::m_pInstance)
     {
-      GlCustomLog(12, "OOM(%d)\n", a1);
+      GlCustomLog(12, "OOM(%d)\n", v3);
     }
 
     DeviceFaultNotify("glmem_alloc.cpp", 80, "glAllocateMemory", "ptr != nullptr");
@@ -1965,51 +1919,51 @@ BlueFin::GlDbgCodec *BlueFin::GlDbgRequest::SetOnNmea(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void FireMessageHandler::startRequest(uint64_t a1, int a2, uint64_t a3)
+void FireMessageHandler::startRequest(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = a2;
-  v21 = &v20;
+  v4 = a2;
+  v6 = a2;
+  v7 = &v6;
   if (std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::find<FireMessageHandler::Request>((a1 + 1304), a2))
   {
-    v18 = std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>((a1 + 1304), a2)[3];
-    FireDeviceLog::DeviceLogBase(2, "#fmh,startRequest,%p,%d,alreadyExist", v6, v7, v8, v9, v10, v11, v18);
+    std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>((a1 + 1304), v4, &v7);
+    FireDeviceLog::DeviceLogBase(2, "#fmh,startRequest,%p,%d,alreadyExist");
   }
 
   else
   {
-    std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>((a1 + 1304), a2)[3] = a3;
+    std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>((a1 + 1304), v4, &v7)[3] = a3;
     (*(**(a1 + 1296) + 248))(*(a1 + 1296), a3);
-    v19 = *(a1 + 1328);
-    FireDeviceLog::DeviceLogBase(6, "fmh,StartRequest,request,%p,%d,size,%zu", v12, v13, v14, v15, v16, v17, a3);
+    FireDeviceLog::DeviceLogBase(6, "fmh,StartRequest,request,%p,%d,size,%zu");
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::__emplace_unique_key_args<FireMessageHandler::Request,std::piecewise_construct_t const&,std::tuple<FireMessageHandler::Request const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -2017,44 +1971,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::__unordered_map_hasher<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::hash<FireMessageHandler::Request>,std::equal_to<FireMessageHandler::Request>,true>,std::__unordered_map_equal<FireMessageHandler::Request,std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>,std::equal_to<FireMessageHandler::Request>,std::hash<FireMessageHandler::Request>,true>,std::allocator<std::__hash_value_type<FireMessageHandler::Request,BlueFin::GlRequest *>>>::find<FireMessageHandler::Request>(void *a1, int a2)
@@ -2121,6 +2075,179 @@ uint64_t *std::__hash_table<std::__hash_value_type<FireMessageHandler::Request,B
   }
 
   return result;
+}
+
+uint64_t BlueFin::GlDbgProxy::WriteDbgMetaData(BlueFin::GlDbgProxy *this, _BOOL4 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, int a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, int a51, char a52, int a53, char a54, uint64_t a55, uint64_t a56, char a57)
+{
+  STACK[0x548] = *MEMORY[0x29EDCA608];
+  v83[7] = a2;
+  BlueFin::GlDbgCodec::WriteStart(this, 5121);
+  if ((*(*this + 120))(this))
+  {
+    BlueFin::GlDbgCodec::Write(this, this + 1643);
+  }
+
+  BlueFin::GlDbgCodec::Write(this, &BlueFin::GlVersion::ulChangeList);
+  v59 = 0;
+  v60 = "11561015,10000000,00000000,00000000,00000080";
+  do
+  {
+    v61 = 0;
+    v62 = v60;
+    v63 = 32;
+    do
+    {
+      v65 = *v62++;
+      v64 = v65;
+      if (v65 >= 58)
+      {
+        v66 = -55;
+      }
+
+      else
+      {
+        v66 = -48;
+      }
+
+      v63 -= 4;
+      v61 |= (v66 + v64) << v63;
+    }
+
+    while (v63);
+    a27 = v61;
+    BlueFin::GlDbgCodec::Write(this, &a27);
+    ++v59;
+    v60 += 9;
+  }
+
+  while (v59 != 5);
+  v67 = (*(*(this + 122) + 704))(this + 976);
+  if (!v67)
+  {
+    DeviceFaultNotify("gldebug_proxy.cpp", 7350, "WriteDbgMetaData", "eEngineType != GL_ENGINE_TYPE_UNSET");
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "gldebug_proxy.cpp", 7350, "eEngineType != GL_ENGINE_TYPE_UNSET");
+  }
+
+  v68 = "unset";
+  if (v67 == 2)
+  {
+    v68 = "hairtail";
+  }
+
+  if (v67 == 1)
+  {
+    v69 = "sardine";
+  }
+
+  else
+  {
+    v69 = v68;
+  }
+
+  *v83 = strlen(v69);
+  BlueFin::GlDbgCodec::WriteArray(this, v69, v83);
+  if ((*(*this + 120))(this))
+  {
+    BlueFin::GlDbgCodec::Write(this, &v83[7]);
+  }
+
+  if (a2)
+  {
+    v70 = 0;
+    STACK[0x518] = &a57;
+    do
+    {
+      v71 = STACK[0x518] + v70;
+      *(v71 + 12) = 0;
+      *v71 = v71 + 12;
+      *(v71 + 8) = 2;
+      v70 += 24;
+    }
+
+    while (v70 != 168);
+    for (i = 0; i != 168; i += 24)
+    {
+      v73 = &v84 + i;
+      *(&v86 + i + 4) = 0;
+      *v73 = &v86 + i + 4;
+      v73[8] = 2;
+    }
+
+    for (j = 0; j != 7; ++j)
+    {
+      BlueFin::GlGnssSet::SetAll(&v84, j);
+    }
+
+    BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a27, &v84);
+    while (a51 != 6 || a52 != 14)
+    {
+      a53 = a51;
+      a54 = a52;
+      v84 = a51;
+      v85 = a52;
+      if (BlueFin::GlPeAlmMgr::GetDefaultAlm(&v84))
+      {
+        a53 = a51;
+        a54 = a52;
+        v84 = a51;
+        v85 = a52;
+        BlueFin::GlGnssSet::Add(&a57, &v84);
+      }
+
+      BlueFin::GlGnssSetIterator::operator++(&a27);
+    }
+
+    v76 = 0;
+    v77 = STACK[0x518];
+    v78 = 7;
+    do
+    {
+      v76 += BlueFin::GlSetBase::Cnt(v77);
+      v77 = (v77 + 24);
+      --v78;
+    }
+
+    while (v78);
+    v82[3] = v76;
+    if ((*(*this + 120))(this))
+    {
+      BlueFin::GlDbgCodec::Write(this, &v82[3]);
+    }
+
+    BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a27, &a57);
+    while (a51 != 6 || a52 != 14)
+    {
+      a53 = a51;
+      a54 = a52;
+      v84 = a51;
+      v85 = a52;
+      DefaultAlm = BlueFin::GlPeAlmMgr::GetDefaultAlm(&v84);
+      if (DefaultAlm)
+      {
+        a53 = a51;
+        a54 = a52;
+        v84 = -65536;
+        v86 = 0;
+        var8 = 0u;
+        *&_2F8 = 0;
+        LODWORD(v87) = 0;
+        v84 = *DefaultAlm;
+        v86 = *(DefaultAlm + 1);
+        LODWORD(v87) = *(DefaultAlm + 4);
+        var8 = *(DefaultAlm + 12);
+        _2F8 = *(DefaultAlm + 20);
+        if ((*(*this + 120))(this))
+        {
+          *(this + 143) = 2;
+          BlueFin::GlDbgCodec::Rvw(this, &v84);
+        }
+      }
+
+      BlueFin::GlGnssSetIterator::operator++(&a27);
+    }
+  }
+
+  return (*(*this + 32))(this, 1);
 }
 
 BlueFin::GlSetBase *BlueFin::GlSetBase::GlSetBase(BlueFin::GlSetBase *this, unsigned int *__dst, unsigned int a3, const void **a4)
@@ -2218,64 +2345,6 @@ uint64_t BlueFin::GlSetBase::Remove(uint64_t this, int a2)
   return this;
 }
 
-BlueFin::GlDbgRequest *BlueFin::GlDbgEngine::StartRequest(uint64_t a1, BlueFin::GlDbgRequest *this)
-{
-  started = this;
-  v4 = *(a1 + 8);
-  if (this)
-  {
-    *(this + 1) = v4;
-    v5 = BlueFin::GlDbgRequest::Id(this, 1);
-    v13 = v5;
-    v6 = *(a1 + 8);
-    if ((v5 & 0x80000000) != 0)
-    {
-      (*(*v6 + 104))(v6, 1, "/Library/Caches/com.apple.xbs/Sources/FIREGPS7/proprietary/deliverables/gll_dev/gldebug/src/gldebug_engine.cpp:1581");
-      return 0;
-    }
-
-    else
-    {
-      *(v6 + 8 * v5 + 5928) = started;
-      BlueFin::GlDbgProxy::WriteDbgMetaData(*(a1 + 8), 0);
-      BlueFin::GlDbgCodec::WriteStart(*(a1 + 8), 1585);
-      v7 = *(a1 + 8);
-      if ((*(*v7 + 120))(v7))
-      {
-        BlueFin::GlDbgCodec::Write(v7, &v13);
-      }
-
-      BlueFin::GlDbgCodec::Write(*(a1 + 8), *(started + 3));
-      (*(**(a1 + 8) + 32))(*(a1 + 8), 1);
-      v8 = *(started + 3);
-      started = BlueFin::GlEngineImplStd::StartRequest((a1 + 368));
-      v12 = started;
-      BlueFin::GlDbgCodec::WriteFinal(*(a1 + 8), 1585);
-      v9 = *(a1 + 8);
-      if ((*(*v9 + 120))(v9))
-      {
-        BlueFin::GlDbgCodec::Write(v9, &v13);
-      }
-
-      v10 = *(a1 + 8);
-      if ((*(*v10 + 120))(v10))
-      {
-        BlueFin::GlDbgCodec::Write(v10, &v12);
-      }
-
-      (*(**(a1 + 8) + 32))(*(a1 + 8), 1);
-      GlCustomLog(14, "DBG SIZE %zu\n", 0x1B58uLL);
-    }
-  }
-
-  else
-  {
-    (*(*v4 + 104))(v4, 1, "/Library/Caches/com.apple.xbs/Sources/FIREGPS7/proprietary/deliverables/gll_dev/gldebug/src/gldebug_engine.cpp:1570");
-  }
-
-  return started;
-}
-
 uint64_t BlueFin::GlPeEngineCallBacks::OnTimerSet(uint64_t this, uint64_t a2, uint64_t a3)
 {
   v3 = *(this + 96);
@@ -2343,63 +2412,62 @@ uint64_t BlueFin::GlDbgProxy::HalGlEngineOnTimerSet(uint64_t this, uint64_t a2, 
   return this;
 }
 
-void FireCallback::GlEngineOnTimerSet(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void FireCallback::GlEngineOnTimerSet(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
   if (FireCallback::pInstance)
   {
-    v11 = *(FireCallback::pInstance + 472);
-    if (v11)
+    v6 = *(FireCallback::pInstance + 472);
+    if (v6)
     {
-      v16 = a1;
-      v15 = a2;
-      v14 = a3;
-      v13 = a4;
-      (*(*v11 + 48))(v11, &v16, &v15, &v14, &v13);
+      v11 = a1;
+      v10 = a2;
+      v9 = a3;
+      v8 = a4;
+      (*(*v6 + 48))(v6, &v11, &v10, &v9, &v8);
       return;
     }
 
-    v12 = "fcb,fEngineOnTimerSetCb,nullptr";
+    v7 = "fcb,fEngineOnTimerSetCb,nullptr";
   }
 
   else
   {
-    v12 = "fcb,GlEngineOnTimerSet,nullptr";
+    v7 = "fcb,GlEngineOnTimerSet,nullptr";
   }
 
-  FireDeviceLog::DeviceLogBase(2, v12, a3, a4, a5, a6, a7, a8, a9);
+  FireDeviceLog::DeviceLogBase(2, v7, a3, a4);
 }
 
-uint64_t std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_4,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_4>,void ()(BlueFin::GlEngine *,unsigned int,short,BOOL)>::operator()(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_4,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_4>,void ()(BlueFin::GlEngine *,unsigned int,short,BOOL)>::operator()(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v8 = *a3;
-  v9 = *(a1 + 8);
-  if (v8 == 100000000)
+  v9 = *MEMORY[0x29EDCA608];
+  v3 = *a3;
+  v4 = *(a1 + 8);
+  if (v3 == 100000000)
   {
     if (!FireResourceMgr::fInstance)
     {
       operator new();
     }
 
-    result = (*(**(FireResourceMgr::fInstance + 8) + 32))(*(FireResourceMgr::fInstance + 8));
-    *(*(v9 + 936) + 56) = 0x7FEFFFFFFFFFFFFFLL;
+    result = (*(**(FireResourceMgr::fInstance + 8) + 32))(*(FireResourceMgr::fInstance + 8), a2);
+    *(*(v4 + 936) + 56) = 0x7FEFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v11 = *(v9 + 936);
-    v14 = 0;
-    FireMessageHandler::Tick::appendCallback(v11, v13, v8, a4, a5, a6, a7, a8);
-    result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v13);
+    v6 = *(v4 + 936);
+    v8 = 0;
+    FireMessageHandler::Tick::appendCallback(v6, v7, v3);
+    return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_29879F728(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29879F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2505,30 +2573,29 @@ uint64_t BlueFin::GlDbgProxy::HalGlEngineOnTimerRq(BlueFin::GlDbgProxy *this)
   return *(this + 1642);
 }
 
-uint64_t FireCallback::GlEngineOnTimerRq(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t FireCallback::GlEngineOnTimerRq(uint64_t a1)
 {
   if (FireCallback::pInstance)
   {
-    v9 = *(FireCallback::pInstance + 440);
-    if (v9)
+    v2 = *(FireCallback::pInstance + 440);
+    if (v2)
     {
-      v13 = a1;
-      return (*(*v9 + 48))(v9, &v13);
+      v4 = a1;
+      return (*(*v2 + 48))(v2, &v4);
     }
 
-    v11 = "fcb,fEngineOnTimerRqCb,nullptr";
+    FireDeviceLog::DeviceLogBase(2, "fcb,fEngineOnTimerRqCb,nullptr");
   }
 
   else
   {
-    v11 = "fcb,GlEngineOnTimerRq,nullptr";
+    FireDeviceLog::DeviceLogBase(2, "fcb,GlEngineOnTimerRq,nullptr");
   }
 
-  FireDeviceLog::DeviceLogBase(2, v11, a3, a4, a5, a6, a7, a8, v12);
   return 0;
 }
 
-uint64_t *BlueFin::GlPeTimerMgr::UpdateExpirationTime(uint64_t *this, int a2, int a3)
+uint64_t BlueFin::GlPeTimerMgr::UpdateExpirationTime(uint64_t this, int a2, int a3)
 {
   v5 = this;
   if (BlueFin::GlUtils::m_pInstance)
@@ -2538,41 +2605,40 @@ uint64_t *BlueFin::GlPeTimerMgr::UpdateExpirationTime(uint64_t *this, int a2, in
 
   else
   {
-    v7 = *this;
-    this = (*(**v5 + 56))();
+    this = (*(**this + 56))();
     v6 = this;
   }
 
   if (*(v5 + 16))
   {
-    v8 = *(v5 + 24);
-    v9 = v8[7];
-    this = (*(*v8 + 184))(v8);
-    if (v9 - v6 + this < a2)
+    v7 = *(v5 + 24);
+    v8 = v7[7];
+    this = (*(*v7 + 184))(v7);
+    if (v8 - v6 + this < a2)
     {
-      a2 = v9 - v6 + this;
+      a2 = v8 - v6 + this;
     }
   }
 
-  v10 = a2 + v6;
-  if (*(v5 + 8) != 1 || v10 != *(v5 + 12) || *(v5 + 9) != a3)
+  v9 = a2 + v6;
+  if (*(v5 + 8) != 1 || v9 != *(v5 + 12) || *(v5 + 9) != a3)
   {
     *(v5 + 8) = 1;
-    *(v5 + 12) = v10;
+    *(v5 + 12) = v9;
     if (a2 == 100000000)
     {
-      v11 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v11 = a3;
+      v10 = a3;
     }
 
-    *(v5 + 9) = v11;
-    v12 = *(**v5 + 48);
+    *(v5 + 9) = v10;
+    v11 = *(**v5 + 48);
 
-    return v12();
+    return v11();
   }
 
   return this;
@@ -2581,7 +2647,7 @@ uint64_t *BlueFin::GlPeTimerMgr::UpdateExpirationTime(uint64_t *this, int a2, in
 uint64_t GlCustomLog(uint64_t result, char *__format, ...)
 {
   va_start(va, __format);
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v2 = *(FireDeviceLog::StaticSetting::fInstance + 4);
   if (v2)
   {
@@ -2595,13 +2661,13 @@ uint64_t GlCustomLog(uint64_t result, char *__format, ...)
 
   if (v3)
   {
-    goto LABEL_44;
+    return result;
   }
 
   v4 = *(FireDeviceLog::StaticSetting::fInstance + 8);
   if (!v4 || ((1 << (result >> 3)) & v4) == 0)
   {
-    goto LABEL_44;
+    return result;
   }
 
   v7 = (result & 7) - 4;
@@ -2617,16 +2683,17 @@ uint64_t GlCustomLog(uint64_t result, char *__format, ...)
 
   if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
-    v16 = result;
-    v17 = __cxa_guard_acquire(&_MergedGlobals_0);
-    LODWORD(result) = v16;
-    if (v17)
+    v15 = result;
+    v16 = __cxa_guard_acquire(&_MergedGlobals_0);
+    LODWORD(result) = v15;
+    if (v16)
     {
+      *&byte_2A18BB170[8] = 0;
       *&byte_2A18BB170[16] = 0;
-      *byte_2A18BB170 = 0uLL;
+      *byte_2A18BB170 = 0;
       __cxa_atexit(MEMORY[0x29EDC9388], byte_2A18BB170, &dword_29879A000);
       __cxa_guard_release(&_MergedGlobals_0);
-      LODWORD(result) = v16;
+      LODWORD(result) = v15;
     }
   }
 
@@ -2703,7 +2770,7 @@ LABEL_32:
     v14 = *byte_2A18BB170;
     if (*(*byte_2A18BB170 + *&byte_2A18BB170[8] - 1) != 10)
     {
-      goto LABEL_44;
+      return result;
     }
 
     v13 = --*&byte_2A18BB170[8];
@@ -2713,7 +2780,7 @@ LABEL_32:
   {
     if (*(&_MergedGlobals_0 + byte_2A18BB170[23] + 7) != 10)
     {
-      goto LABEL_44;
+      return result;
     }
 
     v13 = byte_2A18BB170[23] - 1;
@@ -2740,8 +2807,6 @@ LABEL_32:
     byte_2A18BB170[23] = 0;
   }
 
-LABEL_44:
-  v15 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3025,16 +3090,26 @@ uint64_t (*BlueFin::GlMeSrdMeasTimingMgr::idle(uint64_t a1, unsigned __int8 *a2)
   return v3;
 }
 
-void std::__function::__func<FireMessageHandler::createGlEngine(void)::$_1,std::allocator<FireMessageHandler::createGlEngine(void)::$_1>,void ()(unsigned char *,unsigned long)>::operator()(uint64_t a1, gnss::fire **a2, const unsigned __int8 **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void std::__function::__func<FireMessageHandler::createGlEngine(void)::$_1,std::allocator<FireMessageHandler::createGlEngine(void)::$_1>,void ()(unsigned char *,unsigned long)>::operator()(uint64_t a1, gnss::fire **a2, const unsigned __int8 **a3, char a4)
 {
-  v8 = *a2;
-  v9 = *a3;
-  v10 = *(a1 + 8);
-  v11 = *(v10 + 1356);
-  if ((v11 - 1) >= 3)
+  v4 = *a2;
+  v5 = *a3;
+  v6 = *(a1 + 8);
+  v7 = *(v6 + 1356);
+  if ((v7 - 1) >= 3)
   {
-    gnss::fire::charToHex(*a2, *a3, 44, &__p);
-    FireDeviceLog::DeviceLogBase(2, "chipData,outOfSession,state,%d,size,%zu,data,%s", v16, v17, v18, v19, v20, v21, v11);
+    gnss::fire::charToHex(&__p, *a2, *a3, 44);
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    FireDeviceLog::DeviceLogBase(2, "chipData,outOfSession,state,%d,size,%zu,data,%s", v7, v5, p_p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3043,33 +3118,33 @@ void std::__function::__func<FireMessageHandler::createGlEngine(void)::$_1,std::
 
   else
   {
-    FireMessageHandler::ExclusiveEntryCheck::enter((v10 + 1008), 2, a3, a4, a5, a6, a7, a8);
-    if (v9)
+    FireMessageHandler::ExclusiveEntryCheck::enter((v6 + 1008), 2u);
+    if (v5)
     {
-      v12 = 0;
-      v13 = v9;
+      v8 = 0;
+      v9 = v5;
       do
       {
-        v14 = v13 - 268;
-        if (v13 >= 0x10C)
+        v10 = v9 - 268;
+        if (v9 >= 0x10C)
         {
-          v15 = 268;
+          v11 = 268;
         }
 
         else
         {
-          v15 = v13;
+          v11 = v9;
         }
 
-        (*(**(v10 + 1296) + 184))(*(v10 + 1296), v8 + v12, v15);
-        v12 += 268;
-        v13 = v14;
+        (*(**(v6 + 1296) + 184))(*(v6 + 1296), v4 + v8, v11);
+        v8 += 268;
+        v9 = v10;
       }
 
-      while (v12 < v9);
+      while (v8 < v5);
     }
 
-    FireMessageHandler::ExclusiveEntryCheck::exit((v10 + 1008));
+    FireMessageHandler::ExclusiveEntryCheck::exit((v6 + 1008));
   }
 }
 
@@ -3132,13 +3207,13 @@ __int16 *BlueFin::GlReqSm::ProcessChipData(__int16 *this, const char *a2)
   if (v2 >= 1)
   {
     v4 = this;
-    v5 = (this + 170);
+    v5 = this + 170;
     this = (*(**(this + 39) + 200))(*(this + 39), this + 170, v3);
     v6 = (v4[169] - v3);
     v4[169] -= v3;
     if (v6 >= 1)
     {
-      this = memcpy(v4 + 170, &v5[v3], v6);
+      this = memcpy(v4 + 170, v5 + v3, v6);
     }
   }
 
@@ -3300,41 +3375,41 @@ LABEL_20:
   return this;
 }
 
-char *BlueFin::GlQueue::get@<X0>(char *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *BlueFin::GlQueue::get@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = *this;
   if (*this)
   {
-    v3 = this[1];
+    v3 = *(this + 1);
     if (*(this + 21))
     {
       --*(this + 21);
-      v4 = *(this + 4);
+      v4 = this[4];
       v5 = *v4++;
       *this = v5;
-      *(this + 4) = v4;
-      if (v4 == *(this + 2))
+      this[4] = v4;
+      if (v4 == this[2])
       {
-        *(this + 4) = *(this + 1);
+        this[4] = this[1];
       }
     }
 
     else
     {
       *this = 0;
-      this[47] &= ~this[46];
+      *(this + 47) &= ~*(this + 46);
     }
 
-    *a2 = v2;
+    *a1 = v2;
   }
 
   else
   {
-    *a2 = 0;
-    v3 = this[1];
+    *a1 = 0;
+    v3 = *(this + 1);
   }
 
-  a2[1] = v3;
+  *(a1 + 1) = v3;
   return this;
 }
 
@@ -3382,13 +3457,11 @@ uint64_t (*BlueFin::GlReqSm::on(BlueFin::GlReqSm *this, const char *a2))()
     case 0x34:
     case 0x35:
     case 0x36:
-      v14 = *a2;
       GlCustomLog(14, "GlReqSm::Error: Substates of ON didnot handle the event %i\n");
       return 0;
     case 8:
       BlueFin::GlPeReqBag::TerminateRequest(this + 10880, *v6);
       BlueFin::GlPePendingBag::TerminateRequest(this + 6496, *v6);
-      v15 = *a2;
       GlCustomLog(14, "GlReqSm::Error: Substates of ON didnot handle the event %i causing the ON to Handle StopRequest\n");
       return 0;
     case 9:
@@ -3405,7 +3478,7 @@ uint64_t (*BlueFin::GlReqSm::on(BlueFin::GlReqSm *this, const char *a2))()
     case 0x2D:
       if (BlueFin::GlPePendingBag::HasNILRReq((this + 6496)))
       {
-        goto LABEL_28;
+        goto LABEL_27;
       }
 
       v10 = 0;
@@ -3424,8 +3497,7 @@ uint64_t (*BlueFin::GlReqSm::on(BlueFin::GlReqSm *this, const char *a2))()
       while (v10 != 72);
       if (v11)
       {
-LABEL_28:
-        v13 = *(*(this + 785) + 2568);
+LABEL_27:
         GlCustomLog(13, "GlReqSm::CheckRtiEmergencyActive (LMS:%d): still in NILR session!\n");
         return 0;
       }
@@ -3445,7 +3517,7 @@ LABEL_28:
         return 0;
       }
 
-      BlueFin::GlPeRtiRequestor::onRtiEnterEmergencySession(*(this + 6854), this + 54688);
+      BlueFin::GlPeRtiRequestor::onRtiEnterEmergencySession(*(this + 6854), this + 3418);
       result = 0;
       *(this + 54680) = 1;
       return result;
@@ -3475,7 +3547,6 @@ LABEL_28:
         {
           *(this + 53968) = 0;
           BlueFin::GlTimer::disarm(this + 6741);
-          v16 = *(*(this + 785) + 2568);
           GlCustomLog(14, "MI2: disable timer @Lms: %d\n");
         }
       }
@@ -3522,7 +3593,7 @@ uint64_t (*(*BlueFin::GlReqSm::host_based_positioning(uint64_t a1, unsigned __in
   return 0;
 }
 
-uint64_t BlueFin::GlMeSrdCtrlSm::SetAsicData(BlueFin::GlMeSrdCtrlSm *this, unsigned __int8 *a2, int a3)
+uint64_t BlueFin::GlMeSrdCtrlSm::SetAsicData(BlueFin::GlMeSrdCtrlSm *this, unsigned __int8 *a2, uint64_t a3)
 {
   if (*(this + 219) != 1)
   {
@@ -3535,7 +3606,7 @@ uint64_t BlueFin::GlMeSrdCtrlSm::SetAsicData(BlueFin::GlMeSrdCtrlSm *this, unsig
     v4 = *(this + 14);
   }
 
-  return (**v4)(v4, a2);
+  return (**v4)(v4, a2, a3);
 }
 
 uint64_t BlueFin::GlActive::GetCurrentTimeoutPeriod(BlueFin::GlActive *this)
@@ -3744,7 +3815,7 @@ int *BlueFin::GlMeRxParamStd::rMap(int **this)
   return this[2];
 }
 
-unint64_t BlueFin::GlMeRxParamLimits::GetMaxAllowedSrchParamIds(int a1)
+unint64_t BlueFin::GlMeRxParamLimits::GetMaxAllowedSrchParamIds(unsigned int a1)
 {
   if (a1 >= 6)
   {
@@ -3823,7 +3894,7 @@ uint64_t BlueFin::GlSetBase::OperatorBinaryAnd(uint64_t this, int **a2, int **a3
 
 void *BlueFin::QHsm::tran(void *a1, uint64_t (*a2)(), uint64_t a3)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (a2 == BlueFin::QHsm::top)
   {
     v18 = "target != &QHsm::top";
@@ -3881,10 +3952,10 @@ LABEL_8:
     while (v8 != v7);
   }
 
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v30 = 0;
-  v31 = v4;
+  v29 = 0;
+  v30 = v4;
   if (v7 == v4)
   {
 LABEL_33:
@@ -3943,7 +4014,7 @@ LABEL_34:
     goto LABEL_59;
   }
 
-  *&v32 = v9;
+  *&v31 = v9;
   if (BlueFin::patch_trigger(v9, a1, BlueFin::__pkgStdEvt, &BlueFin::_patched_state))
   {
     v13 = BlueFin::_patched_state;
@@ -3963,7 +4034,7 @@ LABEL_25:
       while (a1[4] != v13)
       {
         v9 = v13;
-        *(&v30 + v14) = v13;
+        *(&v29 + v14) = v13;
         if (BlueFin::patch_trigger(v13, a1, BlueFin::__pkgStdEvt, &BlueFin::_patched_state))
         {
           v13 = BlueFin::_patched_state;
@@ -4000,7 +4071,7 @@ LABEL_39:
     v16 = v9;
     while (v11 != v16)
     {
-      v16 = *(&v30 + v12);
+      v16 = *(&v29 + v12);
       v12 -= 8;
       if (!v16)
       {
@@ -4052,7 +4123,7 @@ LABEL_50:
     v17 = v9;
     while (v11 != v17)
     {
-      v17 = *(&v30 + v12);
+      v17 = *(&v29 + v12);
       v12 -= 8;
       if (!v17)
       {
@@ -4071,8 +4142,8 @@ LABEL_58:
   }
 
 LABEL_59:
-  v20 = &v30 + v12;
-  v21 = *(&v30 + v12);
+  v20 = &v29 + v12;
+  v21 = *(&v29 + v12);
   if (v21)
   {
     do
@@ -4112,12 +4183,12 @@ LABEL_85:
     result = BlueFin::_patched_state;
     if (BlueFin::_patched_state)
     {
-      goto LABEL_83;
+      return result;
     }
 
 LABEL_70:
     v25 = a1[1];
-    v31 = v25;
+    v30 = v25;
     if (BlueFin::patch_trigger(v25, a1, BlueFin::__pkgStdEvt, &BlueFin::_patched_state))
     {
       v26 = BlueFin::_patched_state;
@@ -4128,7 +4199,7 @@ LABEL_70:
       v26 = (v25)(a1, BlueFin::__pkgStdEvt);
     }
 
-    v27 = &v31;
+    v27 = &v30;
     if (v26 != v4)
     {
       do
@@ -4171,8 +4242,6 @@ LABEL_70:
     goto LABEL_70;
   }
 
-LABEL_83:
-  v29 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4264,111 +4333,105 @@ LABEL_11:
   return result;
 }
 
-void FireMessageHandler::Tick::appendCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void FireMessageHandler::Tick::appendCallback(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (a3)
   {
     if (a3 <= 100)
     {
-      v10 = 100;
+      v5 = 100;
     }
 
     else
     {
-      v10 = a3;
+      v5 = a3;
     }
 
     DeviceCommon::GetMachContinuousTime(a1);
-    v18 = v17;
+    v7 = v6;
     if (*(a2 + 24))
     {
-      v19 = *(a1 + 40);
-      if (v19 >= *(a1 + 48))
+      v8 = *(a1 + 40);
+      if (v8 >= *(a1 + 48))
       {
-        v26 = std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>&>((a1 + 32), a2);
+        v9 = std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>&>((a1 + 32), a2);
       }
 
       else
       {
         std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](*(a1 + 40), a2);
-        v26 = v19 + 32;
-        *(a1 + 40) = v19 + 32;
+        v9 = v8 + 32;
+        *(a1 + 40) = v8 + 32;
       }
 
-      *(a1 + 40) = v26;
-      v29 = *(a2 + 24);
-      if (v29)
+      *(a1 + 40) = v9;
+      v12 = *(a2 + 24);
+      if (v12)
       {
-        v30 = (*(*v29 + 64))(v29);
+        v13 = (*(*v12 + 64))(v12);
       }
 
       else
       {
-        v30 = MEMORY[0x29EDC9500];
+        v13 = MEMORY[0x29EDC9500];
       }
 
-      FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,%s,tickTimeMs,%d", v20, v21, v22, v23, v24, v25, *(v30 + 8));
+      FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,%s,tickTimeMs,%d", (*(v13 + 8) & 0x7FFFFFFFFFFFFFFFLL), v5);
     }
 
-    v31 = v18 * 1000.0 + v10;
-    v32 = *(a1 + 56);
-    if (v31 + 100.0 >= v32)
+    v14 = v7 * 1000.0 + v5;
+    if (v14 + 100.0 >= *(a1 + 56))
     {
-      FireDeviceLog::DeviceLogBase(8, "timer,appendCallback,alreadyScheduled,%.2f,current,%.2f,timeout,%d", v11, v12, v13, v14, v15, v16, SLOBYTE(v32));
+      FireDeviceLog::DeviceLogBase(8, "timer,appendCallback,alreadyScheduled,%.2f,current,%.2f,timeout,%d");
     }
 
     else
     {
-      *(a1 + 56) = v31;
+      *(a1 + 56) = v14;
       if (!FireResourceMgr::fInstance)
       {
         operator new();
       }
 
-      (*(**(FireResourceMgr::fInstance + 8) + 24))(*(FireResourceMgr::fInstance + 8), v10, 0);
-      FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,startTimer,%d", v33, v34, v35, v36, v37, v38, v10);
+      (*(**(FireResourceMgr::fInstance + 8) + 24))(*(FireResourceMgr::fInstance + 8), v5, 0);
+      FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,startTimer,%d");
     }
   }
 
   else if (*(a2 + 24))
   {
-    v27 = *(a1 + 40);
-    if (v27 >= *(a1 + 48))
+    v10 = *(a1 + 40);
+    if (v10 >= *(a1 + 48))
     {
-      v28 = std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>&>((a1 + 32), a2);
+      v11 = std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>&>((a1 + 32), a2);
     }
 
     else
     {
       std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](*(a1 + 40), a2);
-      v28 = v27 + 32;
-      *(a1 + 40) = v27 + 32;
+      v11 = v10 + 32;
+      *(a1 + 40) = v10 + 32;
     }
 
-    *(a1 + 40) = v28;
+    *(a1 + 40) = v11;
     if (!FireResourceMgr::fInstance)
     {
       operator new();
     }
 
     (*(**(FireResourceMgr::fInstance + 8) + 24))(*(FireResourceMgr::fInstance + 8), 0, 0);
-    v45 = *(a2 + 24);
-    if (v45)
+    v15 = *(a2 + 24);
+    if (v15)
     {
-      v46 = (*(*v45 + 64))(v45);
+      (*(*v15 + 64))(v15);
     }
 
-    else
-    {
-      v46 = MEMORY[0x29EDC9500];
-    }
-
-    FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,bounce,%s,tickTimeMs,%d", v39, v40, v41, v42, v43, v44, *(v46 + 8));
+    FireDeviceLog::DeviceLogBase(6, "timer,appendCallback,bounce,%s,tickTimeMs,%d");
   }
 
   else
   {
-    FireDeviceLog::DeviceLogBase(1, "timer,appendCallback,bounce,nullptr", a3, a4, a5, a6, a7, a8, v47);
+    FireDeviceLog::DeviceLogBase(1, "timer,appendCallback,bounce,nullptr");
 
     DeviceFaultNotify("FireMessageHandler.cpp", 1567, "appendCallback", "timer,appendCallback,bounce,nullptr");
   }
@@ -4455,25 +4518,25 @@ BOOL BlueFin::GlMeSrdAsicConfig::IsMinnowAsicType(BlueFin::GlMeSrdAsicConfig *th
   return v1 == 5;
 }
 
-void DeviceFaultNotify(char *__s, int a2, char *a3, char a4)
+void DeviceFaultNotify(char *__s, int a2, char *a3, const char *a4)
 {
-  std::string::basic_string[abi:ne200100]<0>(v19, __s);
-  v21 = a2;
+  std::string::basic_string[abi:ne200100]<0>(v14, __s);
+  v16 = a2;
   std::string::basic_string[abi:ne200100]<0>(&__p, a3);
-  v17 = 0;
-  v18 = 0;
-  v14 = 0;
-  v15 = 0;
+  v12 = 0;
   v13 = 0;
-  v16 = 0;
-  v14 = std::vector<GnssHal::ExtensionsFire::RecoveryPoint>::__emplace_back_slow_path<GnssHal::ExtensionsFire::RecoveryPoint&>(&v13, v19);
-  FireDeviceLog::DeviceLogBase(2, "DeviceFaultNotify,msg,%s,file,%s,line,%d,func,%s", v7, v8, v9, v10, v11, v12, a4);
+  v9 = 0;
+  v10 = 0;
+  v8 = 0;
+  v11 = 0;
+  v9 = std::vector<GnssHal::ExtensionsFire::RecoveryPoint>::__emplace_back_slow_path<GnssHal::ExtensionsFire::RecoveryPoint&>(&v8, v14);
+  FireDeviceLog::DeviceLogBase(2, "DeviceFaultNotify,msg,%s,file,%s,line,%d,func,%s", a4, __s, a2, a3);
   if (!FireResourceMgr::fInstance)
   {
     operator new();
   }
 
-  (*(**(FireResourceMgr::fInstance + 40) + 144))(*(FireResourceMgr::fInstance + 40), &v13);
+  (*(**(FireResourceMgr::fInstance + 40) + 144))(*(FireResourceMgr::fInstance + 40), &v8);
   if (!FireResourceMgr::fInstance)
   {
     operator new();
@@ -4487,16 +4550,16 @@ void DeviceFaultNotify(char *__s, int a2, char *a3, char a4)
 
   (*(**(FireResourceMgr::fInstance + 24) + 56))(*(FireResourceMgr::fInstance + 24));
   usleep(0xC350u);
-  v24 = &v13;
-  std::vector<GnssHal::ExtensionsFire::RecoveryPoint>::__destroy_vector::operator()[abi:ne200100](&v24);
-  if (v23 < 0)
+  v19 = &v8;
+  std::vector<GnssHal::ExtensionsFire::RecoveryPoint>::__destroy_vector::operator()[abi:ne200100](&v19);
+  if (v18 < 0)
   {
     operator delete(__p);
   }
 
-  if (v20 < 0)
+  if (v15 < 0)
   {
-    operator delete(v19[0]);
+    operator delete(v14[0]);
   }
 }
 
@@ -4513,7 +4576,7 @@ void sub_2987A265C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t (*BlueFin::GlMeSrdAsicinit::bri_startup_asic(BlueFin::GlMeSrdAsicinit *this, unsigned __int8 *a2))()
 {
   result = 0;
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v4 = *a2;
   if (v4 <= 5)
   {
@@ -4521,10 +4584,10 @@ uint64_t (*BlueFin::GlMeSrdAsicinit::bri_startup_asic(BlueFin::GlMeSrdAsicinit *
     {
       if (v4 != 3)
       {
-        goto LABEL_7;
+        return BlueFin::QHsm::top;
       }
 
-      goto LABEL_41;
+      return result;
     }
 
     v5 = *(*(this + 16) + 1418);
@@ -4535,52 +4598,52 @@ LABEL_40:
       BlueFin::GlTimer::arm((this + 656), 6, 0, 0xFu);
       result = 0;
       *(this + 680) = 1;
-      goto LABEL_41;
+      return result;
     }
 
     *(this + 732) = 0;
-    v37[2] = xmmword_298A3414F;
-    v37[3] = unk_298A3415F;
-    v38[0] = xmmword_298A3416F;
-    *(v38 + 9) = *(&xmmword_298A3416F + 9);
-    v37[0] = xmmword_298A3412F;
-    v37[1] = unk_298A3413F;
-    v35[6] = xmmword_298A341E8;
-    v35[7] = unk_298A341F8;
-    v35[8] = xmmword_298A34208;
-    v35[2] = xmmword_298A341A8;
-    v35[3] = unk_298A341B8;
-    v35[5] = unk_298A341D8;
-    v35[4] = xmmword_298A341C8;
-    v35[1] = unk_298A34198;
-    v35[0] = xmmword_298A34188;
-    v36 = 28350213;
+    v36[2] = xmmword_298A3414F;
+    v36[3] = unk_298A3415F;
+    v37[0] = xmmword_298A3416F;
+    *(v37 + 9) = *(&xmmword_298A3416F + 9);
+    v36[0] = xmmword_298A3412F;
+    v36[1] = unk_298A3413F;
+    v34[6] = xmmword_298A341E8;
+    v34[7] = unk_298A341F8;
+    v34[8] = xmmword_298A34208;
+    v34[2] = xmmword_298A341A8;
+    v34[3] = unk_298A341B8;
+    v34[5] = unk_298A341D8;
+    v34[4] = xmmword_298A341C8;
+    v34[1] = unk_298A34198;
+    v34[0] = xmmword_298A34188;
+    v35 = 28350213;
     memcpy(__dst, &unk_298A3421C, sizeof(__dst));
-    memcpy(v33, &unk_298A34357, 0x13FuLL);
-    v29 = xmmword_298A34516;
-    v30 = unk_298A34526;
-    v31 = xmmword_298A34536;
-    v32 = unk_298A34546;
-    v25 = xmmword_298A344D6;
-    v26 = unk_298A344E6;
-    v27 = xmmword_298A344F6;
-    v28 = unk_298A34506;
-    *v21 = xmmword_298A34496;
-    v22 = unk_298A344A6;
-    v23 = xmmword_298A344B6;
-    v24 = unk_298A344C6;
-    v19[8] = xmmword_298A345D6;
-    v19[9] = unk_298A345E6;
-    v19[10] = xmmword_298A345F6;
-    v19[4] = xmmword_298A34596;
-    v19[5] = unk_298A345A6;
-    v19[6] = xmmword_298A345B6;
-    v19[7] = unk_298A345C6;
-    v19[0] = xmmword_298A34556;
-    v19[1] = unk_298A34566;
-    v20 = 432;
-    v19[2] = xmmword_298A34576;
-    v19[3] = unk_298A34586;
+    memcpy(v32, &unk_298A34357, 0x13FuLL);
+    v28 = xmmword_298A34516;
+    v29 = unk_298A34526;
+    v30 = xmmword_298A34536;
+    v31 = unk_298A34546;
+    v24 = xmmword_298A344D6;
+    v25 = unk_298A344E6;
+    v26 = xmmword_298A344F6;
+    v27 = unk_298A34506;
+    *v20 = xmmword_298A34496;
+    v21 = unk_298A344A6;
+    v22 = xmmword_298A344B6;
+    v23 = unk_298A344C6;
+    v18[8] = xmmword_298A345D6;
+    v18[9] = unk_298A345E6;
+    v18[10] = xmmword_298A345F6;
+    v18[4] = xmmword_298A34596;
+    v18[5] = unk_298A345A6;
+    v18[6] = xmmword_298A345B6;
+    v18[7] = unk_298A345C6;
+    v18[0] = xmmword_298A34556;
+    v18[1] = unk_298A34566;
+    v19 = 432;
+    v18[2] = xmmword_298A34576;
+    v18[3] = unk_298A34586;
     if ((v5 - 4) > 0xFFFFFFFC)
     {
       v6 = "A0";
@@ -4598,13 +4661,13 @@ LABEL_40:
       v7 = (*(**(this + 16) + 1368))();
       if (v5 == 1 && v7)
       {
-        v8 = v35;
+        v8 = v34;
         v9 = this;
       }
 
       else if (v5 == 1)
       {
-        v8 = v37;
+        v8 = v36;
         v9 = this;
       }
 
@@ -4613,7 +4676,7 @@ LABEL_40:
         v17 = (*(**(this + 16) + 1368))(*(this + 16));
         if (v5 == 2 && v17)
         {
-          v8 = v33;
+          v8 = v32;
           v9 = this;
         }
 
@@ -4627,12 +4690,12 @@ LABEL_40:
         {
           if ((*(**(this + 16) + 1368))(*(this + 16)))
           {
-            v8 = v19;
+            v8 = v18;
           }
 
           else
           {
-            v8 = v21;
+            v8 = v20;
           }
 
           v9 = this;
@@ -4669,9 +4732,9 @@ LABEL_19:
         }
 
         *(this + 737) = 1;
-        memset(v33, 128, 16);
+        memset(v32, 128, 16);
         *(this + 732) = 0;
-        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v33);
+        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v32);
         if ((*(*(this + 16) + 352) - 1) > 1)
         {
           v15 = "&GlMeSrdAsicinit::bri_wait4version";
@@ -4685,8 +4748,7 @@ LABEL_19:
         }
 
         BlueFin::QHsm::tran(this, v16, v15);
-        result = 0;
-        goto LABEL_41;
+        return 0;
       }
 
       v12 = "ERROR :Asic Type Not Supported: Check your RfType\n";
@@ -4706,12 +4768,9 @@ LABEL_19:
 
   if (v4 != 12)
   {
-LABEL_7:
-    result = BlueFin::QHsm::top;
+    return BlueFin::QHsm::top;
   }
 
-LABEL_41:
-  v18 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4785,7 +4844,7 @@ LABEL_17:
         goto LABEL_20;
       }
 
-      BlueFin::GlPePendingBag::GetPendingRequestTypes(this + 6496, &v13);
+      BlueFin::GlPePendingBag::GetPendingRequestTypes(&v13, this + 812);
       if ((v13 & 0xFFFFCFFF) == 0 && (v13 & 0x3000) != 0 && (*(*(this + 784) + 1318) & 1) == 0)
       {
         goto LABEL_20;
@@ -4875,7 +4934,7 @@ BOOL BlueFin::GlPeTimeManager::TimeKnown(uint64_t a1, int a2, unsigned int a3)
   return v4 + *(BlueFin::GlPeGnssTime::GetConversionTable((a1 + 2608)) + 4 * a2 + 48) <= a3;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4889,13 +4948,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4915,54 +4974,55 @@ uint64_t std::__function::__value_func<void ()(gnss::DecodedExtendedEphemeris &&
   return a1;
 }
 
-uint64_t gnss::FireGnssDevice::injectAssistanceFile(uint64_t a1, __n128 *a2, unsigned __int8 a3, uint64_t a4, uint64_t a5)
+uint64_t gnss::FireGnssDevice::injectAssistanceFile(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24[3] = *MEMORY[0x29EDCA608];
+  v6 = a3;
+  v17[3] = *MEMORY[0x29EDCA608];
   v9 = *(a4 + 24);
   if (v9)
   {
     if (v9 == a4)
     {
-      v23 = v22;
-      (*(*v9 + 24))(v9, v22);
+      v16 = v15;
+      (*(*v9 + 24))(v9, v15);
     }
 
     else
     {
-      v23 = (*(*v9 + 16))(v9);
+      v16 = (*(*v9 + 16))(v9);
     }
   }
 
   else
   {
-    v23 = 0;
+    v16 = 0;
   }
 
   v10 = a1 + 264;
-  if (v22 != (a1 + 264))
+  if (v15 != (a1 + 264))
   {
-    v11 = v23;
+    v11 = v16;
     v12 = *(a1 + 288);
-    if (v23 == v22)
+    if (v16 == v15)
     {
       if (v12 == v10)
       {
-        (*(*v23 + 24))();
-        (*(*v23 + 32))(v23);
-        v23 = 0;
-        (*(**(a1 + 288) + 24))(*(a1 + 288), v22);
+        (*(*v16 + 24))();
+        (*(*v16 + 32))(v16);
+        v16 = 0;
+        (*(**(a1 + 288) + 24))(*(a1 + 288), v15);
         (*(**(a1 + 288) + 32))(*(a1 + 288));
         *(a1 + 288) = 0;
-        v23 = v22;
-        (*(v24[0] + 24))(v24, a1 + 264);
-        (*(v24[0] + 32))(v24);
+        v16 = v15;
+        (*(v17[0] + 24))(v17, a1 + 264);
+        (*(v17[0] + 32))(v17);
       }
 
       else
       {
-        (*(*v23 + 24))();
-        (*(*v23 + 32))(v23);
-        v23 = *(a1 + 288);
+        (*(*v16 + 24))();
+        (*(*v16 + 32))(v16);
+        v16 = *(a1 + 288);
       }
 
       *(a1 + 288) = v10;
@@ -4970,25 +5030,24 @@ uint64_t gnss::FireGnssDevice::injectAssistanceFile(uint64_t a1, __n128 *a2, uns
 
     else if (v12 == v10)
     {
-      (*(*v12 + 24))(*(a1 + 288), v22);
+      (*(*v12 + 24))(*(a1 + 288), v15);
       (*(**(a1 + 288) + 32))(*(a1 + 288));
-      *(a1 + 288) = v23;
-      v23 = v22;
+      *(a1 + 288) = v16;
+      v16 = v15;
     }
 
     else
     {
-      v23 = *(a1 + 288);
+      v16 = *(a1 + 288);
       *(a1 + 288) = v11;
     }
   }
 
-  std::__function::__value_func<void ()(gnss::DecodedExtendedEphemeris &&)>::~__value_func[abi:ne200100](v22);
-  FireDeviceLog::DeviceLogBase(6, "injectAssistanceFile,size,%zu,type,%d", v13, v14, v15, v16, v17, v18, a2->n128_u8[8] - a2->n128_u8[0]);
-  v19 = FireMessageHandler::sendInjectAssistanceFile(*(a1 + 40), a3, a2);
-  v20 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(gnss::DecodedExtendedEphemeris &&)>::~__value_func[abi:ne200100](v15);
+  FireDeviceLog::DeviceLogBase(6, "injectAssistanceFile,size,%zu,type,%d", a2->n128_u64[1] - a2->n128_u64[0], v6);
+  v13 = FireMessageHandler::sendInjectAssistanceFile(*(a1 + 40), v6, a2);
 
-  return std::function<void ()(gnss::Result)>::operator()(a5, v19);
+  return std::function<void ()(gnss::Result)>::operator()(a5, v13);
 }
 
 void sub_2987A34FC(_Unwind_Exception *a1, int a2)
@@ -5001,13 +5060,13 @@ void sub_2987A34FC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t FireMessageHandler::sendInjectAssistanceFile(uint64_t a1, unsigned __int8 a2, __n128 *a3)
+uint64_t FireMessageHandler::sendInjectAssistanceFile(uint64_t a1, char a2, __n128 *a3)
 {
-  v13 = a2;
-  v14 = &v13;
-  v5 = std::__hash_table<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::__unordered_map_hasher<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::hash<gnss::SvPositionSource>,std::equal_to<gnss::SvPositionSource>,true>,std::__unordered_map_equal<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::equal_to<gnss::SvPositionSource>,std::hash<gnss::SvPositionSource>,true>,std::allocator<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>>>::__emplace_unique_key_args<gnss::SvPositionSource,std::piecewise_construct_t const&,std::tuple<gnss::SvPositionSource const&>,std::tuple<>>((a1 + 2152), &v13);
+  v7 = a2;
+  v8 = &v7;
+  v5 = std::__hash_table<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::__unordered_map_hasher<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::hash<gnss::SvPositionSource>,std::equal_to<gnss::SvPositionSource>,true>,std::__unordered_map_equal<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::equal_to<gnss::SvPositionSource>,std::hash<gnss::SvPositionSource>,true>,std::allocator<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>>>::__emplace_unique_key_args<gnss::SvPositionSource,std::piecewise_construct_t const&,std::tuple<gnss::SvPositionSource const&>,std::tuple<>>((a1 + 2152), &v7, &std::piecewise_construct, &v8);
   std::vector<unsigned char>::__move_assign((v5 + 3), a3);
-  FireMessageHandler::send(a1, 1073741830, v6, v7, v8, v9, v10, v11);
+  FireMessageHandler::send(a1, 1073741830);
   return 1;
 }
 
@@ -5054,12 +5113,12 @@ uint64_t BlueFin::GlPosEng::readLtoFile(BlueFin::GlPosEng *this, unsigned int *a
     GlCustomLog(14, " Start reading %s ...\n", v9);
   }
 
-  BlueFin::GlPeTimeManager::GetTime((this + 121216), 1, v35);
-  v36 = &off_2A1F0B5F0;
-  v37 = 0;
-  Gps = BlueFin::GlPeGnssTime::GetGps(v35, &v36);
-  v11 = (v36[4])(&v36, Gps);
-  v13.i32[0] = v37;
+  BlueFin::GlPeTimeManager::GetTime((this + 121216), 1, v34);
+  v35 = &off_2A1F0B5F0;
+  v36 = 0;
+  Gps = BlueFin::GlPeGnssTime::GetGps(v34, &v35);
+  v11 = (v35[4])(&v35, Gps);
+  v13.i32[0] = v36;
   *v13.i64 = v13.u64[0] * 2.32830644e-10 + v11;
   *v14.i64 = *v13.i64 + trunc(*v13.i64 * 2.32830644e-10) * -4294967300.0;
   v15.f64[0] = NAN;
@@ -5084,13 +5143,13 @@ uint64_t BlueFin::GlPosEng::readLtoFile(BlueFin::GlPosEng *this, unsigned int *a
   }
 
   v19 = *(this + 2);
-  v20 = (v36[4])(&v36);
+  v20 = (v35[4])(&v35);
   BlueFin::GlSettingsImpl::UpdateLtOcbeeQaData(v19, v20 / 0x93A80);
-  v34 = 6;
+  v33 = 6;
   v21 = (*(**(this + 4) + 88))(*(this + 4));
-  v35[0].n128_u64[1] = (*(**(this + 4) + 96))(*(this + 4));
+  v34[0].n128_u64[1] = (*(**(this + 4) + 96))(*(this + 4));
   v22 = v21(102560);
-  v35[0].n128_u64[0] = v22;
+  v34[0].n128_u64[0] = v22;
   if (!v22)
   {
     DeviceFaultNotify("glmemalloc.h", 74, "GlStackAlloc", "m_ptr != nullptr");
@@ -5108,7 +5167,7 @@ uint64_t BlueFin::GlPosEng::readLtoFile(BlueFin::GlPosEng *this, unsigned int *a
     v24 = v18;
   }
 
-  BlueFin::GlPeLtoReader::GlPeLtoReader(v22, this + 7648, 0, v24, &v34, *(*(this + 4) + 8), this + 224, this + 121216, *(this + 4), this + 350608, this + 264320, this + 181312, this + 181056, this + 56, this + 373088, this + 160);
+  BlueFin::GlPeLtoReader::GlPeLtoReader(v22, this + 7648, 0, v24, &v33, *(*(this + 4) + 8), this + 224, this + 121216, *(this + 4), this + 350608, this + 264320, this + 181312, this + 181056, this + 56, this + 373088, this + 160);
   if (*(*(this + 2) + 26012))
   {
     *(v23 + 50704) = *(*(this + 2) + 26012);
@@ -5124,8 +5183,8 @@ uint64_t BlueFin::GlPosEng::readLtoFile(BlueFin::GlPosEng *this, unsigned int *a
   v27 = (this + 158164);
   v28 = (this + 123784);
   v7 = *(v23 + 9748);
-  BlueFin::GlStackAlloc<BlueFin::GlPeLtoReader>::~GlStackAlloc(v35);
-  v29 = v34;
+  BlueFin::GlStackAlloc<BlueFin::GlPeLtoReader>::~GlStackAlloc(v34);
+  v29 = v33;
   if (*v6)
   {
     GlCustomLog(14, "readLtoFile::%s reading complete  Pass:%c  NumBytes:%u\n");
@@ -5133,7 +5192,6 @@ uint64_t BlueFin::GlPosEng::readLtoFile(BlueFin::GlPosEng *this, unsigned int *a
 
   else
   {
-    v33 = *v28;
     GlCustomLog(14, "readLtoFile::%s reading complete  Pass:%c  NumBytes:%u LMS: %u\n");
   }
 
@@ -5190,9 +5248,9 @@ LABEL_6:
   return result;
 }
 
-void sub_2987A3A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2987A3A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   BlueFin::GlStackAlloc<BlueFin::GlPeLtoReader>::~GlStackAlloc(va);
   _Unwind_Resume(a1);
 }
@@ -5215,7 +5273,7 @@ uint64_t BlueFin::GlMeSrdAsicinit::SetAsicData(uint64_t this, unsigned __int8 *a
     v75 = a2;
     if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
     {
-      this = off_2A1F0D5F0(&v73);
+      this = off_2A1F0D5F0(&v73, 0, 0);
     }
 
     *(v5 + 752) += a3;
@@ -5664,7 +5722,7 @@ LABEL_145:
   v75 = a2;
   if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
   {
-    this = off_2A1F0D5F0(&v73);
+    this = off_2A1F0D5F0(&v73, 0, 0);
   }
 
   *(v5 + 752) += a3;
@@ -5864,42 +5922,40 @@ LABEL_56:
   return this;
 }
 
-uint64_t std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_2,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_2>,void ()(unsigned char *,short)>::operator()(uint64_t a1, uint64_t *a2, __int16 *a3)
+uint64_t std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_2,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_2>,void ()(unsigned char *,short)>::operator()()
 {
   if (!FireResourceMgr::fInstance)
   {
     operator new();
   }
 
-  v4 = *a3;
-  v5 = *a2;
-  v6 = *(**FireResourceMgr::fInstance + 96);
+  v1 = *(**FireResourceMgr::fInstance + 96);
 
-  return v6();
+  return v1();
 }
 
-void FireCallback::GlEngineOnAsicData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void FireCallback::GlEngineOnAsicData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (FireCallback::pInstance)
   {
-    v10 = *(FireCallback::pInstance + 504);
-    if (v10)
+    v4 = *(FireCallback::pInstance + 504);
+    if (v4)
     {
-      v13 = a2;
-      v12 = a3;
-      (*(*v10 + 48))(v10, &v13, &v12);
+      v7 = a2;
+      v6 = a3;
+      (*(*v4 + 48))(v4, &v7, &v6);
       return;
     }
 
-    v11 = "fcb,fEngineOnAsicDataCb,nullptr";
+    v5 = "fcb,fEngineOnAsicDataCb,nullptr";
   }
 
   else
   {
-    v11 = "fcb,GlEngineOnAsicData,nullptr";
+    v5 = "fcb,GlEngineOnAsicData,nullptr";
   }
 
-  FireDeviceLog::DeviceLogBase(2, v11, a3, a4, a5, a6, a7, a8, a9);
+  FireDeviceLog::DeviceLogBase(2, v5, a3);
 }
 
 uint64_t BlueFin::GlDbgProxy::HalGlEngineOnAsicData(uint64_t this, char *a2, uint64_t a3)
@@ -5981,9 +6037,9 @@ uint64_t BlueFin::GlPosEng::SendAsicData(uint64_t this, unsigned __int8 *a2, __i
   return this;
 }
 
-uint64_t (*BlueFin::GlMeSrdAsicinit::bri_wait4patchblockload(BlueFin::GlMeSrdAsicinit *this, BlueFin::GlMeSrdAsicinit *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7))()
+uint64_t (*(*(*BlueFin::GlMeSrdAsicinit::bri_wait4patchblockload(BlueFin::GlMeSrdAsicinit *this, BlueFin::GlMeSrdAsicinit *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7))(uint64_t a1, unsigned __int8 *a2))(uint64_t a1, unsigned __int8 *a2))()
 {
-  v53 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   v8 = *a2;
   v9 = BlueFin::GlMeSrdAsicinit::bri_wait4patchload;
   if (v8 <= 4)
@@ -5992,22 +6048,22 @@ uint64_t (*BlueFin::GlMeSrdAsicinit::bri_wait4patchblockload(BlueFin::GlMeSrdAsi
     {
       if (v8 == 3)
       {
-        BlueFin::GlQueue::Remove(this + 40, 5);
+        BlueFin::GlQueue::Remove(this + 5, 5);
         BlueFin::GlTimer::disarm(this + 82);
-        goto LABEL_65;
+        return 0;
       }
 
-      goto LABEL_66;
+      return v9;
     }
 
-    v47 = this + 296;
+    v46 = this + 296;
 LABEL_13:
     if (!BlueFin::GlMeSrdAsicInitPatchLoader::QueuePacketIntoBuffer((this + 200)))
     {
-      goto LABEL_65;
+      return 0;
     }
 
-    v14 = &v47[40 * *(this + 619)];
+    v14 = &v46[40 * *(this + 619)];
     v15 = *(v14 + 1);
     v16 = *(v14 + 6) - v15;
     v17 = *(this + 118);
@@ -6035,7 +6091,7 @@ LABEL_13:
       goto LABEL_58;
     }
 
-    v48 = v16;
+    v47 = v16;
     v20 = *(v14 + 2) + v15;
     v21 = *(v14 + 3) + v15;
     *(this + 732) = 0;
@@ -6066,12 +6122,12 @@ LABEL_13:
       {
         if (v25 == 1)
         {
-          v50[0] = -2;
-          v50[1] = v23 >> 2;
-          *&v50[2] = -568892931;
-          v50[6] = -64;
-          *v51 = v22;
-          BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v50);
+          v49[0] = -2;
+          v49[1] = v23 >> 2;
+          *&v49[2] = -568892931;
+          v49[6] = -64;
+          *v50 = v22;
+          BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v49);
           if ((v23 & 0x3FC) != 0)
           {
             do
@@ -6106,13 +6162,13 @@ LABEL_13:
         }
       }
 
-      v50[0] = -2;
-      v50[1] = (v23 >> 2) - 1;
-      *&v50[2] = 19709;
-      *&v50[4] = v22;
-      v50[6] = BYTE2(v22);
-      v51[0] = HIBYTE(v22);
-      BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v50);
+      v49[0] = -2;
+      v49[1] = (v23 >> 2) - 1;
+      *&v49[2] = 19709;
+      *&v49[4] = v22;
+      v49[6] = BYTE2(v22);
+      v50[0] = HIBYTE(v22);
+      BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, v49);
       if ((v23 & 0x3FC) != 0)
       {
         do
@@ -6136,19 +6192,19 @@ LABEL_13:
       }
 
 LABEL_39:
-      v49 = -4;
-      BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, &v49);
+      v48 = -4;
+      BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, &v48);
       ++*(this + 187);
       if ((v23 & 3) != 0)
       {
         v28 = *(*(this + 16) + 8);
         if ((v28 - 2) < 2 || v28 == 5)
         {
-          *v50 = 1291649278;
-          *&v50[4] = v22 + (v23 | 0xFFFC);
-          v50[6] = BYTE2(v22);
-          v51[0] = HIBYTE(v22);
-          v49 = -4;
+          *v49 = 1291649278;
+          *&v49[4] = v22 + (v23 | 0xFFFC);
+          v49[6] = BYTE2(v22);
+          v50[0] = HIBYTE(v22);
+          v48 = -4;
           v30 = this;
         }
 
@@ -6162,17 +6218,17 @@ LABEL_39:
             goto LABEL_58;
           }
 
-          *v50 = 1643971070;
-          *&v50[4] = -8681;
-          v50[6] = -64;
-          *v51 = v22 + (v23 | 0xFFFC);
-          v49 = -4;
+          *v49 = 1643971070;
+          *&v49[4] = -8681;
+          v49[6] = -64;
+          *v50 = v22 + (v23 | 0xFFFC);
+          v48 = -4;
           v30 = this;
         }
 
-        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(v30, v50);
+        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(v30, v49);
         BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, (v20 + v22 + (v23 | 0xFFFFFFFC) - v21));
-        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, &v49);
+        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(this, &v48);
         ++*(this + 187);
       }
 
@@ -6190,12 +6246,12 @@ LABEL_39:
           if (v31 == 5)
           {
 LABEL_53:
-            *v50 = 1258094846;
-            *&v50[4] = v21;
-            v50[6] = BYTE2(v21);
-            v51[0] = HIBYTE(v21);
-            *&v51[1] = v48;
-            v52 = -4;
+            *v49 = 1258094846;
+            *&v49[4] = v21;
+            v49[6] = BYTE2(v21);
+            v50[0] = HIBYTE(v21);
+            *&v50[1] = v47;
+            v51 = -4;
             v32 = this;
             goto LABEL_55;
           }
@@ -6207,14 +6263,14 @@ LABEL_58:
           __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_asicinit.cpp", v40, v39);
         }
 
-        *v50 = 570228990;
-        v50[4] = 24;
-        *&v50[5] = v21;
-        *v51 = v48;
-        v51[2] = -4;
+        *v49 = 570228990;
+        v49[4] = 24;
+        *&v49[5] = v21;
+        *v50 = v47;
+        v50[2] = -4;
         v32 = this;
 LABEL_55:
-        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(v32, v50);
+        BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(v32, v49);
         ++*(this + 187);
         BlueFin::GlMeSrdAsicInitPatchLoader::IncLastPacketSent((this + 200), v33, v34, v35, v36, v37, v38);
         *(this + 86) = this;
@@ -6222,7 +6278,7 @@ LABEL_55:
         *(this + 680) = 1;
         if (*(this + 617) + *(this + 620) == 8)
         {
-          goto LABEL_65;
+          return 0;
         }
 
         goto LABEL_13;
@@ -6237,12 +6293,12 @@ LABEL_55:
 
   if (v8 != 12)
   {
-    goto LABEL_66;
+    return v9;
   }
 
   if (*(a2 + 1) != 14)
   {
-    goto LABEL_65;
+    return 0;
   }
 
   v10 = *(this + 618);
@@ -6265,7 +6321,7 @@ LABEL_55:
   {
 LABEL_64:
     BlueFin::GlMeSrdAsicinit::RetryBri(this, a2);
-    goto LABEL_65;
+    return 0;
   }
 
 LABEL_60:
@@ -6283,7 +6339,7 @@ LABEL_60:
   {
     if (v42)
     {
-      goto LABEL_65;
+      return 0;
     }
 
     v9 = 0;
@@ -6296,18 +6352,18 @@ LABEL_60:
     {
       if (v41 != *(this + 272))
       {
-        goto LABEL_65;
+        return 0;
       }
 
-      v45 = "&GlMeSrdAsicinit::bri_wait4patchblockload";
-      v46 = BlueFin::GlMeSrdAsicinit::bri_wait4patchblockload;
+      v44 = "&GlMeSrdAsicinit::bri_wait4patchblockload";
+      v45 = BlueFin::GlMeSrdAsicinit::bri_wait4patchblockload;
     }
 
     else
     {
       if (*(this + 620))
       {
-        goto LABEL_65;
+        return 0;
       }
 
       if ((*(**(this + 16) + 256))(*(this + 16)) && ((*(**(this + 16) + 32))(*(this + 16)) & 1) == 0)
@@ -6316,27 +6372,24 @@ LABEL_60:
       }
 
       BlueFin::GlMeSrdAsicinit::Bri_GetOutOfLegacy(this);
-      v45 = "&GlMeSrdAsicinit::esw_wait4version";
-      v46 = BlueFin::GlMeSrdAsicinit::esw_wait4version;
+      v44 = "&GlMeSrdAsicinit::esw_wait4version";
+      v45 = BlueFin::GlMeSrdAsicinit::esw_wait4version;
     }
 
-    BlueFin::QHsm::tran(this, v46, v45);
-LABEL_65:
-    v9 = 0;
+    BlueFin::QHsm::tran(this, v45, v44);
+    return 0;
   }
 
-LABEL_66:
-  v43 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(BlueFin::GlMeSrdAsicinit *this, const unsigned __int8 *a2)
 {
-  v2 = MEMORY[0x2A1C7C4A8](this);
+  v2 = MEMORY[0x2A1C7C4A8](this, a2);
   LOWORD(v4) = v3;
   v6 = v5;
   v7 = v2;
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (v2[698] == 1)
   {
     if (v3)
@@ -6349,7 +6402,7 @@ uint64_t BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(BlueFin::GlMeSrdAsicinit *th
         v9 = v10;
         if (v10 == 224)
         {
-          *&v17[v4] = 736;
+          *&v16[v4] = 736;
         }
 
         else
@@ -6359,21 +6412,21 @@ uint64_t BlueFin::GlMeSrdAsicinit::Bri_SendAsicData(BlueFin::GlMeSrdAsicinit *th
             v11 = v4 + 1;
             if (v9 == v2[697])
             {
-              v17[v4] = -32;
+              v16[v4] = -32;
               v4 += 2;
-              v17[v11] = 4;
+              v16[v11] = 4;
             }
 
             else
             {
-              v17[v4] = v9;
+              v16[v4] = v9;
               v4 = v4 + 1;
             }
 
             goto LABEL_9;
           }
 
-          *&v17[v4] = 992;
+          *&v16[v4] = 992;
         }
 
         v4 += 2;
@@ -6390,27 +6443,25 @@ LABEL_9:
       while (v8);
     }
 
-    v6 = v17;
+    v6 = v16;
   }
 
   if (v2[736] == 1)
   {
-    v14 = &unk_2A1F0D590;
-    v15 = v4;
-    v16 = v6;
+    v13 = &unk_2A1F0D590;
+    v14 = v4;
+    v15 = v6;
     if (BlueFin::GlUtils::m_pInstance)
     {
       if (*(BlueFin::GlUtils::m_pInstance + 1122) == 1)
       {
-        off_2A1F0D5A8(&v14);
+        off_2A1F0D5A8(&v13, 0, 0);
       }
     }
   }
 
   *(v7 + 186) += v4;
-  result = (*(**(v7 + 14) + 40))(*(v7 + 14), v6, v4);
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(**(v7 + 14) + 40))(*(v7 + 14), v6, v4);
 }
 
 uint64_t BlueFin::GlMeSrdAsicInitPatchLoader::CopyPacketIntoBuffer(BlueFin::GlMeSrdAsicInitPatchLoader *this, unsigned int a2)
@@ -6520,21 +6571,21 @@ BOOL BlueFin::GlMeSrdAsicInitPatchLoader::SetNextBlock(BlueFin::GlMeSrdAsicInitP
   return *(this + 16) < *(this + 10);
 }
 
-uint64_t BlueFin::GlQueue::Remove(uint64_t this, int a2)
+uint64_t *BlueFin::GlQueue::Remove(uint64_t *this, int a2)
 {
   if (*this)
   {
     v2 = this;
-    v3 = *(this + 42) + 1;
+    v3 = *(this + 21) + 1;
     if ((v3 & 0x10000) == 0)
     {
       v5 = 0;
       do
       {
-        this = BlueFin::GlQueue::get(v2, v6);
-        if (v6[0] != a2)
+        this = BlueFin::GlQueue::get(&v6, v2);
+        if (v6 != a2)
         {
-          this = BlueFin::GlQueue::putLIFO(v2, v6[0], v6[1]);
+          this = BlueFin::GlQueue::putLIFO(v2, v6, SBYTE1(v6));
         }
 
         ++v5;
@@ -6686,7 +6737,7 @@ char *BlueFin::GlDbgCodec::Write(BlueFin::GlDbgCodec *this, unsigned int *a2)
   return result;
 }
 
-uint64_t BlueFin::GlDbgCodec::Write(BlueFin::GlDbgCodec *this, const BlueFin::GlRequestImpl *a2)
+void *BlueFin::GlDbgCodec::Write(BlueFin::GlDbgCodec *this, const BlueFin::GlRequestImpl *a2)
 {
   result = (*(*this + 120))(this);
   if (result)
@@ -7196,74 +7247,6 @@ uint64_t BlueFin::GlDbgProxyGlEngineOnStart(uint64_t a1, BlueFin::GlSettingsImpl
   return BlueFin::GlDbgProxy::HalGlEngineOnStart(v3, a2);
 }
 
-uint64_t BlueFin::GlDbgProxy::HalGlEngineOnStart(BlueFin::GlDbgProxy *this, BlueFin::GlSettingsImpl *a2)
-{
-  v12 = *MEMORY[0x29EDCA608];
-  v10 = 1;
-  *(this + 5912) = 1;
-  *(this + 874) = a2;
-  v3 = *(this + 3256);
-  if ((v3 & 0x80000000) == 0)
-  {
-    (*(*a2 + 728))(a2, v3, 1);
-  }
-
-  if (*(this + 1629))
-  {
-    (*(**(this + 874) + 1024))(*(this + 874));
-  }
-
-  v4 = *(this + 112);
-  if (v4)
-  {
-    if (!*(this + 1476))
-    {
-      DeviceFaultNotify("gldebug_proxy.cpp", 5871, "HalGlEngineOnStart", "m_engine.GetEngineType() != GL_ENGINE_TYPE_UNSET");
-      __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "gldebug_proxy.cpp", 5871, "m_engine.GetEngineType() != GL_ENGINE_TYPE_UNSET");
-    }
-
-    v4(this + 608, &BlueFin::GlVersion::m_acVersionString);
-    BlueFin::GlFormat::glsnprintf(v11, 0x100, "%s cfg. %s\n", v5, "@(#)Broadcom GLL", "11561015,10000000,00000000,00000000,00000080");
-    (*(this + 112))(this + 608, v11);
-  }
-
-  if (*(this + 101))
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    BlueFin::GlDbgProxy::WriteDbgMetaData(this, 1);
-    BlueFin::GlDbgCodec::WriteStart(this, 530);
-    if ((*(*this + 120))(this))
-    {
-      *(this + 143) = 2;
-      BlueFin::GlDbgCodec::Rvw(this, (this + 976));
-    }
-
-    v6 = 1;
-    (*(*this + 32))(this, 1);
-    v7 = *(this + 110);
-    if (v7)
-    {
-      v6 = v7(this + 608, this + 6976);
-      v10 = v6;
-    }
-
-    BlueFin::GlDbgCodec::WriteFinal(this, 530);
-    if ((*(*this + 120))(this))
-    {
-      BlueFin::GlDbgCodec::Write(this, &v10);
-    }
-
-    (*(*this + 32))(this, 1);
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return v6;
-}
-
 void FireDeviceLog::DeviceLogLine(FireDeviceLog *this, const char *a2)
 {
   FireDeviceLog::GetLineLeading(0x53, 3, &v12);
@@ -7344,7 +7327,7 @@ void sub_2987A6B00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7356,11 +7339,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 uint64_t BlueFin::GlEngineImplStd::setOnChipMeSetting(uint64_t result, int *a2, char a3)
@@ -7372,9 +7355,9 @@ uint64_t BlueFin::GlEngineImplStd::setOnChipMeSetting(uint64_t result, int *a2, 
     v6 = *(result + 24);
     if (v6)
     {
-      BlueFin::GlPeReqBag::GetNonInstantaneousRequests(v6 + 137024, &v21);
-      v7 = v21;
-      BlueFin::GlPePendingBag::GetNonInstantaneousRequests(*(v4 + 24) + 132640, &v20);
+      BlueFin::GlPeReqBag::GetNonInstantaneousRequests((&v20 + 4), (v6 + 137024));
+      v7 = HIDWORD(v20);
+      BlueFin::GlPePendingBag::GetNonInstantaneousRequests(&v20, (*(v4 + 24) + 132640));
       v5 |= v7 | v20;
     }
 
@@ -7470,7 +7453,7 @@ uint64_t BlueFin::GlSetBase::GetULong(BlueFin::GlSetBase *this, unsigned int a2)
   return *(*this + 4 * a2);
 }
 
-unint64_t BlueFin::GlFormat::gl_format(BlueFin::GlFormat *this, char *a2, unsigned __int8 *a3, const char *a4, char *__s, char *a6, void *a7)
+unint64_t BlueFin::GlFormat::gl_format(BlueFin::GlFormat *this, char *a2, unsigned __int8 *a3, const char *a4, char *__s, char *a6, _BOOL8 a7)
 {
   result = 0;
   v85 = a4;
@@ -7484,7 +7467,7 @@ unint64_t BlueFin::GlFormat::gl_format(BlueFin::GlFormat *this, char *a2, unsign
   {
     v14 = 0;
     result = 0;
-    if ((a7 & 1) == 0)
+    if (!a7)
     {
       return result;
     }
@@ -7608,7 +7591,7 @@ LABEL_28:
 
       v17 |= 4 * (v28 >> 31);
       v19 = 0;
-      if ((a7 & 1) == 0)
+      if (!a7)
       {
         *this = v20;
         v49 = (this + 1);
@@ -7675,7 +7658,7 @@ LABEL_62:
       }
 
       v19 = v54 & ~(v54 >> 31);
-      if ((a7 & 1) == 0)
+      if (!a7)
       {
         *this = v19;
         v49 = (this + 1);
@@ -7747,7 +7730,7 @@ LABEL_30:
               {
                 *this = v56;
                 v61 = 1;
-                if (&a2[-v14] != 1 && (a7 & 1) == 0)
+                if (&a2[-v14] != 1 && !a7)
                 {
                   *(this + 1) = 0;
                   v61 = 2;
@@ -7932,7 +7915,7 @@ LABEL_30:
           goto LABEL_159;
         }
 
-        v63 = BlueFin::GlFormat::gl_format_param(this, &a2[-v14], 115, v17, v20, v19, __s, a7, v84[0]);
+        v63 = BlueFin::GlFormat::gl_format_param(this, &a2[-v14], 0x73uLL, v17, v20, v19, __s, a7, v84[0]);
         LODWORD(v64) = *__s;
         if (*__s)
         {
@@ -8330,198 +8313,19 @@ void *BlueFin::GlDbgMemory::Allocate(BlueFin::GlDbgMemory *this)
   return result;
 }
 
-unint64_t BlueFin::GlFormat::gl_format_param(BlueFin::GlFormat *this, char *a2, int a3, unsigned int a4, int a5, int a6, char *__s, void *a8, BOOL a9)
+unint64_t BlueFin::GlFormat::gl_format_param(BlueFin::GlFormat *this, char *a2, unint64_t a3, unsigned int a4, int a5, unsigned int a6, char *__s, _BOOL8 a8, BOOL a9)
 {
-  v137 = *MEMORY[0x29EDCA608];
+  v134 = *MEMORY[0x29EDCA608];
   if (!a2)
   {
-    result = 0;
-    goto LABEL_72;
+    return 0;
   }
 
   v9 = a8;
   v12 = a5;
   v14 = a3;
   result = 0;
-  if (a3 <= 100)
-  {
-    if (a3 <= 87)
-    {
-      if (a3 != 69 && a3 != 71)
-      {
-        goto LABEL_72;
-      }
-
-      goto LABEL_36;
-    }
-
-    if (a3 != 88)
-    {
-      if (a3 == 99)
-      {
-        *this = *__s;
-        result = 1;
-        if (a2 == 1 || (a8 & 1) != 0)
-        {
-          goto LABEL_72;
-        }
-
-        goto LABEL_130;
-      }
-
-      if (a3 == 100)
-      {
-LABEL_12:
-        v18 = *__s;
-        if (a8)
-        {
-          if (v18 >= 0)
-          {
-            v19 = *__s;
-          }
-
-          else
-          {
-            v19 = -v18;
-          }
-
-          v20 = *MEMORY[0x29EDCA608];
-          v21 = v18 >= 0;
-          v22 = this;
-          goto LABEL_77;
-        }
-
-        if ((a4 & 0x100) == 0)
-        {
-          if ((a4 & 0x400) != 0)
-          {
-            *this = v18;
-            v55 = this + 1;
-            if (a2 == 1)
-            {
-              result = 1;
-            }
-
-            else
-            {
-              v55 = this + 2;
-              *(this + 1) = BYTE1(v18);
-              result = 2;
-            }
-
-            v123 = result;
-            if (result < a2)
-            {
-              *v55++ = BYTE2(v18);
-              v123 = (result + 1);
-              result = v123;
-            }
-
-            if (v123 >= a2)
-            {
-              goto LABEL_72;
-            }
-
-            v57 = v18 >> 24;
-          }
-
-          else
-          {
-            if ((a4 & 0x800) == 0)
-            {
-              *this = v18;
-              if (a2 != 1)
-              {
-                *(this + 1) = BYTE1(v18);
-LABEL_131:
-                result = 2;
-                goto LABEL_72;
-              }
-
-              goto LABEL_129;
-            }
-
-            *this = v18;
-            v55 = this + 1;
-            if (a2 == 1)
-            {
-              result = 1;
-            }
-
-            else
-            {
-              v55 = this + 2;
-              *(this + 1) = BYTE1(v18);
-              result = 2;
-            }
-
-            v124 = result;
-            if (result < a2)
-            {
-              *v55++ = BYTE2(v18);
-              v124 = (result + 1);
-              result = v124;
-            }
-
-            if (v124 < a2)
-            {
-              *v55++ = BYTE3(v18);
-              v124 = (result + 1);
-              result = v124;
-            }
-
-            if (v124 < a2)
-            {
-              *v55++ = BYTE4(v18);
-              v124 = (result + 1);
-              result = v124;
-            }
-
-            if (v124 < a2)
-            {
-              *v55++ = BYTE5(v18);
-              v124 = (result + 1);
-              result = v124;
-            }
-
-            if (v124 < a2)
-            {
-              *v55++ = BYTE6(v18);
-              v124 = (result + 1);
-              result = v124;
-            }
-
-            if (v124 >= a2)
-            {
-              goto LABEL_72;
-            }
-
-            v57 = HIBYTE(v18);
-          }
-
-          goto LABEL_127;
-        }
-
-        *this = v18;
-        if (a2 == 1)
-        {
-LABEL_129:
-          result = 1;
-          goto LABEL_72;
-        }
-
-LABEL_130:
-        *(this + 1) = 0;
-        goto LABEL_131;
-      }
-
-LABEL_72:
-      v42 = *MEMORY[0x29EDCA608];
-      return result;
-    }
-  }
-
-  else
+  if (a3 > 100)
   {
     if (a3 <= 110)
     {
@@ -8529,46 +8333,56 @@ LABEL_72:
       {
         if (a3 != 105)
         {
-          goto LABEL_72;
+          return result;
         }
 
         goto LABEL_12;
       }
 
 LABEL_36:
-      v29 = *__s;
+      v28 = *__s;
       __src = *__s;
       if (a8)
       {
-        if (v29 < 0.0)
+        if (v28 < 0.0)
         {
-          v30 = -v29;
+          v29 = -v28;
         }
 
         else
         {
-          v30 = v29;
+          v29 = v28;
         }
 
         if (a6 >= 0x11)
         {
-          v31 = 17;
+          v30 = 17;
         }
 
         else
         {
-          v31 = a6;
+          v30 = a6;
         }
 
-        v32 = a4 & 0xDF;
+        v31 = a4 & 0xDF;
         if (a6 > 0)
         {
-          v32 = a4;
+          v31 = a4;
         }
 
         else
         {
-          v31 = 0;
+          v30 = 0;
+        }
+
+        if ((a4 & 0x20) != 0)
+        {
+          v32 = v30;
+        }
+
+        else
+        {
+          v32 = 6;
         }
 
         if ((a4 & 0x20) != 0)
@@ -8578,62 +8392,52 @@ LABEL_36:
 
         else
         {
-          v33 = 6;
+          v33 = a4 | 0x20;
         }
 
-        if ((a4 & 0x20) != 0)
-        {
-          v34 = v32;
-        }
-
-        else
-        {
-          v34 = a4 | 0x20;
-        }
-
-        v130 = v34;
+        v127 = v33;
         __y = 0.0;
-        v35 = a3 & 0xFFFFFFDF;
+        v34 = a3 & 0xFFFFFFDF;
         if ((a3 & 0xFFFFFFDF) == 0x47)
         {
-          if (v30 >= 1000000.0 || (v36 = pow(0.1, (v33 / 3u)), v37 = 102, v29 != 0.0) && v30 < v36)
+          if (v29 >= 1000000.0 || (v35 = pow(0.1, (v32 / 3u)), v36 = 102, v28 != 0.0) && v29 < v35)
           {
-            v37 = v14 - 2;
+            v36 = v14 - 2;
           }
 
-          if (v33)
+          if (v32)
           {
-            v38 = v37 == 102;
+            v37 = v36 == 102;
           }
 
           else
           {
-            v38 = 1;
+            v37 = 1;
           }
 
-          v39 = !v38;
-          v33 -= v39;
-          v14 = v37;
+          v38 = !v37;
+          v32 -= v38;
+          v14 = v36;
         }
 
         if ((v14 & 0xDF) == 0x45)
         {
-          if (v29 == 0.0)
+          if (v28 == 0.0)
           {
-            v40 = 0;
+            v39 = 0;
           }
 
           else
           {
-            v40 = vcvtmd_s64_f64(log10(v30));
-            if (v40 < -299)
+            v39 = vcvtmd_s64_f64(log10(v29));
+            if (v39 < -299)
             {
-              v30 = v30 * __exp10((-100 - v40)) * 1.0e100;
+              v29 = v29 * __exp10((-100 - v39)) * 1.0e100;
             }
 
             else
             {
-              v30 = v30 * __exp10(-v40);
+              v29 = v29 * __exp10(-v39);
             }
           }
 
@@ -8642,500 +8446,500 @@ LABEL_36:
 
         else
         {
-          v40 = 0;
+          v39 = 0;
         }
 
-        *v62.i64 = modf(v30, &__y);
-        v60.i64[0] = BlueFin::dPow10[v33];
-        *v61.i64 = *v60.i64 * (*v62.i64 + 0.5 / *v60.i64);
-        *v62.i64 = __y;
-        if (*v61.i64 >= *v60.i64)
+        *v59.i64 = modf(v29, &__y);
+        v57.i64[0] = BlueFin::dPow10[v32];
+        *v58.i64 = *v57.i64 * (*v59.i64 + 0.5 / *v57.i64);
+        *v59.i64 = __y;
+        if (*v58.i64 >= *v57.i64)
         {
-          *v62.i64 = __y + 1.0;
-          if ((v14 & 0xDF) == 0x45 && *v62.i64 >= 10.0)
+          *v59.i64 = __y + 1.0;
+          if ((v14 & 0xDF) == 0x45 && *v59.i64 >= 10.0)
           {
-            v61.i64[0] = 0;
-            v125 = v61;
-            ++v40;
-            *v62.i64 = *v62.i64 / 10.0;
+            v58.i64[0] = 0;
+            v122 = v58;
+            ++v39;
+            *v59.i64 = *v59.i64 / 10.0;
           }
 
           else
           {
-            v60.i64[0] = 0;
-            v125 = v60;
+            v57.i64[0] = 0;
+            v122 = v57;
           }
         }
 
         else
         {
-          v125 = v61;
+          v122 = v58;
         }
 
-        v128 = v14 & 0xDF;
-        v129 = v40;
-        if (*v62.i64 <= 1000000000.0)
+        v125 = v14 & 0xDF;
+        v126 = v39;
+        if (*v59.i64 <= 1000000000.0)
         {
-          *v58.i64 = *v62.i64 + trunc(*v62.i64 * 2.32830644e-10) * -4294967300.0;
+          *v55.i64 = *v59.i64 + trunc(*v59.i64 * 2.32830644e-10) * -4294967300.0;
+          v74.f64[0] = NAN;
+          v74.f64[1] = NAN;
+          v75 = vnegq_f64(v74);
+          v55.i64[0] = vbslq_s8(v75, v55, v59).u64[0];
+          if (*v59.i64 > 4294967300.0)
+          {
+            v59.i64[0] = v55.i64[0];
+          }
+
+          if (*v59.i64 < -4294967300.0)
+          {
+            *v58.i64 = -*v59.i64;
+            *v59.i64 = -(*v59.i64 - trunc(*v59.i64 * -2.32830644e-10) * -4294967300.0);
+            *v59.i64 = -*vbslq_s8(v75, v59, v58).i64;
+          }
+
+          if (*v59.i64 < 0.0)
+          {
+            v76 = --*v59.i64;
+          }
+
+          else
+          {
+            v76 = *v59.i64;
+          }
+
+          v69 = BlueFin::GlFormat::gl_output_num(v133, 0x14, 117, 0, 0, v76, 1);
+        }
+
+        else
+        {
+          *v58.i64 = *v59.i64 * 0.000000001;
+          *v56.i64 = *v59.i64 * 0.000000001 + trunc(*v59.i64 * 0.000000001 * 2.32830644e-10) * -4294967300.0;
+          v60.f64[0] = NAN;
+          v60.f64[1] = NAN;
+          v61 = vnegq_f64(v60);
+          v56.i64[0] = vbslq_s8(v61, v56, v58).u64[0];
+          if (*v59.i64 * 0.000000001 > 4294967300.0)
+          {
+            v58.i64[0] = v56.i64[0];
+          }
+
+          if (*v58.i64 < -4294967300.0)
+          {
+            *v55.i64 = -*v58.i64;
+            *v58.i64 = -(*v58.i64 - trunc(*v58.i64 * -2.32830644e-10) * -4294967300.0);
+            v58 = vbslq_s8(v61, v58, v55);
+            *v58.i64 = -*v58.i64;
+          }
+
+          if (*v58.i64 < 0.0)
+          {
+            v62 = --*v58.i64;
+          }
+
+          else
+          {
+            v62 = *v58.i64;
+          }
+
+          *v59.i64 = *v59.i64 + v62 * -1000000000.0;
+          *v58.i64 = *v59.i64 + trunc(*v59.i64 * 2.32830644e-10) * -4294967300.0;
+          v63 = vbslq_s8(v61, v58, v59);
+          if (*v59.i64 > 4294967300.0)
+          {
+            v59.i64[0] = v63.i64[0];
+          }
+
+          v64 = v34;
+          if (*v59.i64 < -4294967300.0)
+          {
+            *v63.i64 = -*v59.i64;
+            *v59.i64 = -(*v59.i64 - trunc(*v59.i64 * -2.32830644e-10) * -4294967300.0);
+            v65.f64[0] = NAN;
+            v65.f64[1] = NAN;
+            *v59.i64 = -*vbslq_s8(vnegq_f64(v65), v59, v63).i64;
+          }
+
+          if (*v59.i64 < 0.0)
+          {
+            v66 = --*v59.i64;
+          }
+
+          else
+          {
+            v66 = *v59.i64;
+          }
+
+          if (v66 > 0x3B9AC9FF)
+          {
+            v67 = v66 + 1000000000;
+          }
+
+          else
+          {
+            v67 = v66;
+          }
+
+          v68 = BlueFin::GlFormat::gl_output_num(v133, 0x14, 117, 0, 0, v62 - (v66 > 0x3B9AC9FF), 1);
+          v69 = BlueFin::GlFormat::gl_output_num(&v133[v68], (20 - v68), 117, 2, 9, v67, 1) + v68;
+          v34 = v64;
+        }
+
+        if (*v122.i64 <= 1000000000.0)
+        {
+          *v70.i64 = *v122.i64 + trunc(*v122.i64 * 2.32830644e-10) * -4294967300.0;
+          v87.f64[0] = NAN;
+          v87.f64[1] = NAN;
+          v88 = vnegq_f64(v87);
+          v89 = vbslq_s8(v88, v70, v122);
+          if (*v122.i64 <= 4294967300.0)
+          {
+            v89.i64[0] = v122.i64[0];
+          }
+
+          if (*v89.i64 < -4294967300.0)
+          {
+            *v72.i64 = -*v89.i64;
+            *v89.i64 = -(*v89.i64 - trunc(*v89.i64 * -2.32830644e-10) * -4294967300.0);
+            *v89.i64 = -*vbslq_s8(v88, v89, v72).i64;
+          }
+
+          if (*v89.i64 < 0.0)
+          {
+            v90 = --*v89.i64;
+          }
+
+          else
+          {
+            v90 = *v89.i64;
+          }
+
+          v86 = BlueFin::GlFormat::gl_output_num(v132, 0x14, 117, 0, 0, v90, 1);
+        }
+
+        else
+        {
+          *v71.i64 = *v122.i64 * 0.000000001;
+          *v73.i64 = *v122.i64 * 0.000000001 + trunc(*v122.i64 * 0.000000001 * 2.32830644e-10) * -4294967300.0;
           v77.f64[0] = NAN;
           v77.f64[1] = NAN;
           v78 = vnegq_f64(v77);
-          v58.i64[0] = vbslq_s8(v78, v58, v62).u64[0];
-          if (*v62.i64 > 4294967300.0)
+          v73.i64[0] = vbslq_s8(v78, v73, v71).u64[0];
+          if (*v122.i64 * 0.000000001 > 4294967300.0)
           {
-            v62.i64[0] = v58.i64[0];
+            v71.i64[0] = v73.i64[0];
           }
 
-          if (*v62.i64 < -4294967300.0)
+          if (*v71.i64 < -4294967300.0)
           {
-            *v61.i64 = -*v62.i64;
-            *v62.i64 = -(*v62.i64 - trunc(*v62.i64 * -2.32830644e-10) * -4294967300.0);
-            *v62.i64 = -*vbslq_s8(v78, v62, v61).i64;
+            *v72.i64 = -*v71.i64;
+            *v71.i64 = -(*v71.i64 - trunc(*v71.i64 * -2.32830644e-10) * -4294967300.0);
+            v71 = vbslq_s8(v78, v71, v72);
+            *v71.i64 = -*v71.i64;
           }
 
-          if (*v62.i64 < 0.0)
+          if (*v71.i64 < 0.0)
           {
-            v79 = --*v62.i64;
+            v79 = --*v71.i64;
           }
 
           else
           {
-            v79 = *v62.i64;
+            v79 = *v71.i64;
           }
 
-          v72 = BlueFin::GlFormat::gl_output_num(v136, 0x14, 117, 0, 0, v79, 1);
+          *v71.i64 = *v122.i64 + v79 * -1000000000.0;
+          *v72.i64 = *v71.i64 + trunc(*v71.i64 * 2.32830644e-10) * -4294967300.0;
+          v80 = vbslq_s8(v78, v72, v71);
+          if (*v71.i64 <= 4294967300.0)
+          {
+            *v80.i64 = *v122.i64 + v79 * -1000000000.0;
+          }
+
+          v81 = v34;
+          if (*v80.i64 < -4294967300.0)
+          {
+            *v71.i64 = -*v80.i64;
+            *v80.i64 = -(*v80.i64 - trunc(*v80.i64 * -2.32830644e-10) * -4294967300.0);
+            v82.f64[0] = NAN;
+            v82.f64[1] = NAN;
+            *v80.i64 = -*vbslq_s8(vnegq_f64(v82), v80, v71).i64;
+          }
+
+          if (*v80.i64 < 0.0)
+          {
+            v83 = --*v80.i64;
+          }
+
+          else
+          {
+            v83 = *v80.i64;
+          }
+
+          if (v83 > 0x3B9AC9FF)
+          {
+            v84 = v83 + 1000000000;
+          }
+
+          else
+          {
+            v84 = v83;
+          }
+
+          v85 = BlueFin::GlFormat::gl_output_num(v132, 0x14, 117, 0, 0, v79 - (v83 > 0x3B9AC9FF), 1);
+          v86 = BlueFin::GlFormat::gl_output_num(&v132[v85], (20 - v85), 117, 2, 9, v84, 1) + v85;
+          v34 = v81;
+        }
+
+        if (v32)
+        {
+          v91 = v86;
         }
 
         else
         {
-          *v61.i64 = *v62.i64 * 0.000000001;
-          *v59.i64 = *v62.i64 * 0.000000001 + trunc(*v62.i64 * 0.000000001 * 2.32830644e-10) * -4294967300.0;
-          v63.f64[0] = NAN;
-          v63.f64[1] = NAN;
-          v64 = vnegq_f64(v63);
-          v59.i64[0] = vbslq_s8(v64, v59, v61).u64[0];
-          if (*v62.i64 * 0.000000001 > 4294967300.0)
-          {
-            v61.i64[0] = v59.i64[0];
-          }
-
-          if (*v61.i64 < -4294967300.0)
-          {
-            *v58.i64 = -*v61.i64;
-            *v61.i64 = -(*v61.i64 - trunc(*v61.i64 * -2.32830644e-10) * -4294967300.0);
-            v61 = vbslq_s8(v64, v61, v58);
-            *v61.i64 = -*v61.i64;
-          }
-
-          if (*v61.i64 < 0.0)
-          {
-            v65 = --*v61.i64;
-          }
-
-          else
-          {
-            v65 = *v61.i64;
-          }
-
-          *v62.i64 = *v62.i64 + v65 * -1000000000.0;
-          *v61.i64 = *v62.i64 + trunc(*v62.i64 * 2.32830644e-10) * -4294967300.0;
-          v66 = vbslq_s8(v64, v61, v62);
-          if (*v62.i64 > 4294967300.0)
-          {
-            v62.i64[0] = v66.i64[0];
-          }
-
-          v67 = v35;
-          if (*v62.i64 < -4294967300.0)
-          {
-            *v66.i64 = -*v62.i64;
-            *v62.i64 = -(*v62.i64 - trunc(*v62.i64 * -2.32830644e-10) * -4294967300.0);
-            v68.f64[0] = NAN;
-            v68.f64[1] = NAN;
-            *v62.i64 = -*vbslq_s8(vnegq_f64(v68), v62, v66).i64;
-          }
-
-          if (*v62.i64 < 0.0)
-          {
-            v69 = --*v62.i64;
-          }
-
-          else
-          {
-            v69 = *v62.i64;
-          }
-
-          if (v69 > 0x3B9AC9FF)
-          {
-            v70 = v69 + 1000000000;
-          }
-
-          else
-          {
-            v70 = v69;
-          }
-
-          v71 = BlueFin::GlFormat::gl_output_num(v136, 0x14, 117, 0, 0, v65 - (v69 > 0x3B9AC9FF), 1);
-          v72 = BlueFin::GlFormat::gl_output_num(&v136[v71], (20 - v71), 117, 2, 9, v70, 1) + v71;
-          v35 = v67;
+          v91 = 0;
         }
 
-        if (*v125.i64 <= 1000000000.0)
+        if (v32)
         {
-          *v73.i64 = *v125.i64 + trunc(*v125.i64 * 2.32830644e-10) * -4294967300.0;
-          v90.f64[0] = NAN;
-          v90.f64[1] = NAN;
-          v91 = vnegq_f64(v90);
-          v92 = vbslq_s8(v91, v73, v125);
-          if (*v125.i64 <= 4294967300.0)
-          {
-            v92.i64[0] = v125.i64[0];
-          }
-
-          if (*v92.i64 < -4294967300.0)
-          {
-            *v75.i64 = -*v92.i64;
-            *v92.i64 = -(*v92.i64 - trunc(*v92.i64 * -2.32830644e-10) * -4294967300.0);
-            *v92.i64 = -*vbslq_s8(v91, v92, v75).i64;
-          }
-
-          if (*v92.i64 < 0.0)
-          {
-            v93 = --*v92.i64;
-          }
-
-          else
-          {
-            v93 = *v92.i64;
-          }
-
-          v89 = BlueFin::GlFormat::gl_output_num(v135, 0x14, 117, 0, 0, v93, 1);
+          v92 = v32 - v86;
         }
 
         else
         {
-          *v74.i64 = *v125.i64 * 0.000000001;
-          *v76.i64 = *v125.i64 * 0.000000001 + trunc(*v125.i64 * 0.000000001 * 2.32830644e-10) * -4294967300.0;
-          v80.f64[0] = NAN;
-          v80.f64[1] = NAN;
-          v81 = vnegq_f64(v80);
-          v76.i64[0] = vbslq_s8(v81, v76, v74).u64[0];
-          if (*v125.i64 * 0.000000001 > 4294967300.0)
-          {
-            v74.i64[0] = v76.i64[0];
-          }
-
-          if (*v74.i64 < -4294967300.0)
-          {
-            *v75.i64 = -*v74.i64;
-            *v74.i64 = -(*v74.i64 - trunc(*v74.i64 * -2.32830644e-10) * -4294967300.0);
-            v74 = vbslq_s8(v81, v74, v75);
-            *v74.i64 = -*v74.i64;
-          }
-
-          if (*v74.i64 < 0.0)
-          {
-            v82 = --*v74.i64;
-          }
-
-          else
-          {
-            v82 = *v74.i64;
-          }
-
-          *v74.i64 = *v125.i64 + v82 * -1000000000.0;
-          *v75.i64 = *v74.i64 + trunc(*v74.i64 * 2.32830644e-10) * -4294967300.0;
-          v83 = vbslq_s8(v81, v75, v74);
-          if (*v74.i64 <= 4294967300.0)
-          {
-            *v83.i64 = *v125.i64 + v82 * -1000000000.0;
-          }
-
-          v84 = v35;
-          if (*v83.i64 < -4294967300.0)
-          {
-            *v74.i64 = -*v83.i64;
-            *v83.i64 = -(*v83.i64 - trunc(*v83.i64 * -2.32830644e-10) * -4294967300.0);
-            v85.f64[0] = NAN;
-            v85.f64[1] = NAN;
-            *v83.i64 = -*vbslq_s8(vnegq_f64(v85), v83, v74).i64;
-          }
-
-          if (*v83.i64 < 0.0)
-          {
-            v86 = --*v83.i64;
-          }
-
-          else
-          {
-            v86 = *v83.i64;
-          }
-
-          if (v86 > 0x3B9AC9FF)
-          {
-            v87 = v86 + 1000000000;
-          }
-
-          else
-          {
-            v87 = v86;
-          }
-
-          v88 = BlueFin::GlFormat::gl_output_num(v135, 0x14, 117, 0, 0, v82 - (v86 > 0x3B9AC9FF), 1);
-          v89 = BlueFin::GlFormat::gl_output_num(&v135[v88], (20 - v88), 117, 2, 9, v87, 1) + v88;
-          v35 = v84;
+          v92 = 0;
         }
 
-        if (v33)
+        v93 = v12 - (v69 + v91 + v92);
+        if (v34 == 71)
         {
-          v94 = v89;
-        }
-
-        else
-        {
-          v94 = 0;
-        }
-
-        if (v33)
-        {
-          v95 = v33 - v89;
-        }
-
-        else
-        {
-          v95 = 0;
-        }
-
-        v96 = v12 - (v72 + v94 + v95);
-        if (v35 == 71)
-        {
-          if (v94 < 1)
+          if (v91 < 1)
           {
-            v99 = v12 - (v72 + v94 + v95);
-            v100 = v130;
+            v96 = v12 - (v69 + v91 + v92);
+            v97 = v127;
 LABEL_215:
-            if (v100 & 1 | v94)
+            if (v97 & 1 | v91)
             {
-              v96 = v99;
+              v93 = v96;
             }
 
             else
             {
-              v100 &= 0xDEu;
-              v96 = v95 + v99 - 1;
-              v94 = 0;
-              if (v95 < 1)
+              v97 &= 0xDEu;
+              v93 = v92 + v96 - 1;
+              v91 = 0;
+              if (v92 < 1)
               {
-                v96 = v99;
+                v93 = v96;
               }
 
               else
               {
-                v95 = 1;
+                v92 = 1;
               }
             }
           }
 
           else
           {
-            v97 = v94 - 2;
-            v98 = &v135[v94 - 1];
-            v99 = v12 - v72 - v95;
-            v100 = v130;
-            while (*v98 == 48)
+            v94 = v91 - 2;
+            v95 = &v132[v91 - 1];
+            v96 = v12 - v69 - v92;
+            v97 = v127;
+            while (*v95 == 48)
             {
-              if ((v97 & 0x80000000) == 0)
+              if ((v94 & 0x80000000) == 0)
               {
-                --v98;
-                ++v96;
-                --v97;
-                v49 = v89-- <= 1;
-                if (!v49)
+                --v95;
+                ++v93;
+                --v94;
+                v46 = v86-- <= 1;
+                if (!v46)
                 {
                   continue;
                 }
               }
 
-              v94 = 0;
+              v91 = 0;
               goto LABEL_215;
             }
 
-            v94 = v89;
+            v91 = v86;
           }
         }
 
         else
         {
-          v100 = v130;
+          v97 = v127;
         }
 
-        v101 = 0;
-        v102 = (v100 & 0x18) == 0 && v29 >= 0.0;
-        v103 = v96 + ((v100 & 0x20) == 0) + v102 - 2;
-        v104 = v103 & ~(v103 >> 31);
-        v105 = v100 & 6;
-        if ((v100 & 6) == 0 && v103 >= 1)
+        v98 = 0;
+        v99 = (v97 & 0x18) == 0 && v28 >= 0.0;
+        v100 = v93 + ((v97 & 0x20) == 0) + v99 - 2;
+        v101 = v100 & ~(v100 >> 31);
+        v102 = v97 & 6;
+        if ((v97 & 6) == 0 && v100 >= 1)
         {
-          if ((a2 - 1) >= (v104 - 1))
+          if ((a2 - 1) >= (v101 - 1))
           {
-            v106 = (v104 - 1);
+            v103 = (v101 - 1);
           }
 
           else
           {
-            v106 = a2 - 1;
+            v103 = a2 - 1;
           }
 
-          v131 = v100;
-          v126 = v14;
-          v107 = v100 & 6;
-          memset(this, 32, (v106 + 1));
-          v105 = v107;
-          v14 = v126;
-          this = &v106[this + 1];
-          v104 = v104 - v106 - 2;
-          v101 = (v106 + 1);
-          v100 = v131;
+          v128 = v97;
+          v123 = v14;
+          v104 = v97 & 6;
+          memset(this, 32, (v103 + 1));
+          v102 = v104;
+          v14 = v123;
+          this = &v103[this + 1];
+          v101 = v101 - v103 - 2;
+          v98 = (v103 + 1);
+          v97 = v128;
         }
 
-        v108 = v101 >= a2 || v102;
-        if ((v108 & 1) == 0)
+        v105 = v98 >= a2 || v99;
+        if ((v105 & 1) == 0)
         {
-          if ((v100 & 0x10) != 0)
+          if ((v97 & 0x10) != 0)
           {
-            v109 = 43;
+            v106 = 43;
           }
 
           else
           {
-            v109 = 32;
+            v106 = 32;
           }
 
-          if (v29 < 0.0)
+          if (v28 < 0.0)
           {
-            v109 = 45;
+            v106 = 45;
           }
 
-          *this = v109;
+          *this = v106;
           this = (this + 1);
-          v101 = (v101 + 1);
+          v98 = (v98 + 1);
         }
 
-        v110 = v100 & 0x20;
-        if (v105 == 2 && v104 >= 1)
+        v107 = v97 & 0x20;
+        if (v102 == 2 && v101 >= 1)
         {
-          if (v101 >= a2)
+          if (v98 >= a2)
           {
-            --v104;
+            --v101;
           }
 
           else
           {
-            if (&a2[~v101] >= (v104 - 1))
+            if (&a2[~v98] >= (v101 - 1))
             {
-              v111 = (v104 - 1);
+              v108 = (v101 - 1);
             }
 
             else
             {
-              v111 = &a2[~v101];
+              v108 = &a2[~v98];
             }
 
-            v132 = v100;
-            v127 = v100 & 0x20;
-            memset(this, 48, v111 + 1);
-            v110 = v127;
-            this = (this + v111 + 1);
-            v100 = v132;
-            v104 = v104 - v111 - 2;
-            v101 = (v101 + v111 + 1);
+            v129 = v97;
+            v124 = v97 & 0x20;
+            memset(this, 48, v108 + 1);
+            v107 = v124;
+            this = (this + v108 + 1);
+            v97 = v129;
+            v101 = v101 - v108 - 2;
+            v98 = (v98 + v108 + 1);
           }
         }
 
-        v112 = v101 < a2;
-        if (v72 >= 1 && v101 < a2)
+        v109 = v98 < a2;
+        if (v69 >= 1 && v98 < a2)
         {
-          v113 = v136;
+          v110 = v133;
           do
           {
-            v114 = *v113++;
-            *this = v114;
+            v111 = *v110++;
+            *this = v111;
             this = (this + 1);
-            v101 = (v101 + 1);
-            v112 = v101 < a2;
-            if (v72 < 2)
+            v98 = (v98 + 1);
+            v109 = v98 < a2;
+            if (v69 < 2)
             {
               break;
             }
 
-            --v72;
+            --v69;
           }
 
-          while (v101 < a2);
+          while (v98 < a2);
         }
 
-        if (v110)
+        if (v107)
         {
-          v115 = v129;
-          if (v112)
+          v112 = v126;
+          if (v109)
           {
             *this = 46;
             this = (this + 1);
-            v116 = (v101 + 1);
-            v117 = v116;
-            if (v95 < 1)
+            v113 = (v98 + 1);
+            v114 = v113;
+            if (v92 < 1)
             {
-              i = v128;
+              i = v125;
             }
 
             else
             {
-              for (i = v128; v116 < a2; --v95)
+              for (i = v125; v113 < a2; --v92)
               {
                 *this = 48;
                 this = (this + 1);
-                v116 = (v117 + 1);
-                v117 = v116;
-                if (v95 < 2)
+                v113 = (v114 + 1);
+                v114 = v113;
+                if (v92 < 2)
                 {
                   break;
                 }
               }
             }
 
-            if (v94 >= 1 && v116 < a2)
+            if (v91 >= 1 && v113 < a2)
             {
-              v119 = v135;
+              v116 = v132;
               do
               {
-                v120 = *v119++;
-                *this = v120;
+                v117 = *v116++;
+                *this = v117;
                 this = (this + 1);
-                v117 = (v117 + 1);
-                if (v94 < 2)
+                v114 = (v114 + 1);
+                if (v91 < 2)
                 {
                   break;
                 }
 
-                --v94;
+                --v91;
               }
 
-              while (v117 < a2);
+              while (v114 < a2);
             }
           }
 
           else
           {
-            v117 = v101;
-            i = v128;
+            v114 = v98;
+            i = v125;
           }
         }
 
         else
         {
-          v117 = v101;
-          i = v128;
-          v115 = v129;
+          v114 = v98;
+          i = v125;
+          v112 = v126;
         }
 
         if (i != 69)
@@ -9143,82 +8947,82 @@ LABEL_215:
           goto LABEL_285;
         }
 
-        v121 = v117;
-        if (v117 < a2)
+        v118 = v114;
+        if (v114 < a2)
         {
           *this = v14;
           this = (this + 1);
-          v121 = (v117 + 1);
-          v117 = v121;
+          v118 = (v114 + 1);
+          v114 = v118;
         }
 
-        if (v121 < a2)
+        if (v118 < a2)
         {
-          if (v115 >= 0)
+          if (v112 >= 0)
           {
-            v122 = 43;
+            v119 = 43;
           }
 
           else
           {
-            v122 = 45;
+            v119 = 45;
           }
 
-          if (v115 < 0)
+          if (v112 < 0)
           {
-            v115 = -v115;
+            v112 = -v112;
           }
 
-          *this = v122;
+          *this = v119;
           this = (this + 1);
-          v121 = (v117 + 1);
-          v117 = v121;
+          v118 = (v114 + 1);
+          v114 = v118;
         }
 
-        if (v121 < a2 && v115 >= 100)
+        if (v118 < a2 && v112 >= 100)
         {
-          *this = v115 / 0x64u + 48;
+          *this = v112 / 0x64u + 48;
           this = (this + 1);
-          v121 = (v117 + 1);
-          v115 %= 0x64u;
-          v117 = v121;
+          v118 = (v114 + 1);
+          v112 %= 0x64u;
+          v114 = v118;
         }
 
-        if (v121 < a2)
+        if (v118 < a2)
         {
-          *this = v115 / 10 + 48;
+          *this = v112 / 10 + 48;
           this = (this + 1);
-          v121 = (v117 + 1);
-          v115 %= 10;
-          v117 = v121;
+          v118 = (v114 + 1);
+          v112 %= 10;
+          v114 = v118;
         }
 
-        if (v121 < a2)
+        if (v118 < a2)
         {
-          *this = v115 + 48;
+          *this = v112 + 48;
           this = (this + 1);
-          result = (v117 + 1);
+          result = (v114 + 1);
         }
 
         else
         {
 LABEL_285:
-          result = v117;
+          result = v114;
         }
 
-        if ((v100 & 4) != 0 && v104 >= 1 && result < a2)
+        if ((v97 & 4) != 0 && v101 >= 1 && result < a2)
         {
           do
           {
             *this = 32;
             this = (this + 1);
             result = (result + 1);
-            if (v104 < 2)
+            if (v101 < 2)
             {
               break;
             }
 
-            --v104;
+            --v101;
           }
 
           while (result < a2);
@@ -9229,170 +9033,186 @@ LABEL_285:
       {
         if ((a2 - 1) >= 7)
         {
-          v41 = 7;
+          v40 = 7;
         }
 
         else
         {
-          v41 = (a2 - 1);
+          v40 = (a2 - 1);
         }
 
-        memcpy(this, &__src, v41 + 1);
-        result = (v41 + 1);
+        memcpy(this, &__src, v40 + 1);
+        return (v40 + 1);
       }
 
-      goto LABEL_72;
+      return result;
     }
 
     if (a3 > 116)
     {
       if (a3 != 117 && a3 != 120)
       {
-        goto LABEL_72;
+        return result;
       }
     }
 
     else if (a3 != 111)
     {
-      if (a3 == 115)
+      if (a3 != 115)
       {
-        v23 = strlen(__s);
-        v24 = 0;
-        v25 = a6;
-        if (a6 >= a2)
-        {
-          v25 = a2;
-        }
+        return result;
+      }
 
-        if (((a6 >= 0) & (a4 >> 5)) != 0)
-        {
-          v26 = v25;
-        }
+      v22 = strlen(__s);
+      v23 = 0;
+      v24 = a6;
+      if (a6 >= a2)
+      {
+        v24 = a2;
+      }
 
-        else
-        {
-          v26 = a2;
-        }
+      if ((((a6 & 0x80000000) == 0) & (a4 >> 5)) != 0)
+      {
+        v25 = v24;
+      }
 
-        if (v12 < 1 || (v27 = v12 - v23, v12 <= v23))
-        {
-          v27 = 0;
-        }
+      else
+      {
+        v25 = a2;
+      }
 
-        else
-        {
-          v24 = 0;
-          if ((a4 & 4) == 0 && v27 && v26)
-          {
-            v24 = 0;
-            do
-            {
-              v28 = v24;
-              *this = 32;
-              this = (this + 1);
-              ++v24;
-            }
+      if (v12 < 1 || (v26 = v12 - v22, v12 <= v22))
+      {
+        v26 = 0;
+      }
 
-            while (v27 - 1 != v28 && v26 > v24);
-            v27 -= v24;
-          }
-        }
-
-        v47 = *__s;
-        v48 = v24;
-        if (*__s)
+      else
+      {
+        v23 = 0;
+        if ((a4 & 4) == 0 && v26 && v25)
         {
-          v49 = v26 > v24;
-        }
-
-        else
-        {
-          v49 = 0;
-        }
-
-        if (v49)
-        {
-          v50 = __s + 1;
-          LODWORD(v48) = v24;
+          v23 = 0;
           do
           {
-            *this = v47;
-            this = (this + 1);
-            v48 = (v48 + 1);
-            v51 = *v50++;
-            v47 = v51;
-            if (v51)
-            {
-              v52 = v26 > v48;
-            }
-
-            else
-            {
-              v52 = 0;
-            }
-
-            v24 = v48;
-          }
-
-          while (v52);
-        }
-
-        if (v27 && v26 > v48)
-        {
-          v53 = v27 - 1;
-          do
-          {
+            v27 = v23;
             *this = 32;
             this = (this + 1);
-            v48 = (v24 + 1);
-            v24 = v48;
-            v54 = v53-- != 0;
+            ++v23;
           }
 
-          while (v54 && v26 > v48);
-        }
-
-        if (v9)
-        {
-          goto LABEL_117;
-        }
-
-        if (v48 < a2)
-        {
-          *this = 0;
-          result = (v24 + 1);
-          if ((v24 & 1) == 0 && result < a2)
-          {
-            *(this + 1) = 0;
-            result = (v24 + 2);
-          }
-
-          goto LABEL_72;
-        }
-
-        *(this - 1) = 0;
-        if ((v24 & 1) == 0)
-        {
-LABEL_117:
-          result = v24;
-        }
-
-        else
-        {
-          *(this - 2) = 0;
-          result = (v24 - 1);
+          while (v26 - 1 != v27 && v25 > v23);
+          v26 -= v23;
         }
       }
 
-      goto LABEL_72;
+      v44 = *__s;
+      v45 = v23;
+      if (*__s)
+      {
+        v46 = v25 > v23;
+      }
+
+      else
+      {
+        v46 = 0;
+      }
+
+      if (v46)
+      {
+        v47 = __s + 1;
+        LODWORD(v45) = v23;
+        do
+        {
+          *this = v44;
+          this = (this + 1);
+          v45 = (v45 + 1);
+          v48 = *v47++;
+          v44 = v48;
+          if (v48)
+          {
+            v49 = v25 > v45;
+          }
+
+          else
+          {
+            v49 = 0;
+          }
+
+          v23 = v45;
+        }
+
+        while (v49);
+      }
+
+      if (v26 && v25 > v45)
+      {
+        v50 = v26 - 1;
+        do
+        {
+          *this = 32;
+          this = (this + 1);
+          v45 = (v23 + 1);
+          v23 = v45;
+          v51 = v50-- != 0;
+        }
+
+        while (v51 && v25 > v45);
+      }
+
+      if (!v9)
+      {
+        if (v45 < a2)
+        {
+          *this = 0;
+          result = (v23 + 1);
+          if ((v23 & 1) == 0 && result < a2)
+          {
+            *(this + 1) = 0;
+            return (v23 + 2);
+          }
+
+          return result;
+        }
+
+        *(this - 1) = 0;
+        if (v23)
+        {
+          *(this - 2) = 0;
+          return (v23 - 1);
+        }
+      }
+
+      return v23;
     }
+
+    goto LABEL_75;
   }
 
-  v19 = *__s;
-  if (!a8)
+  if (a3 <= 87)
   {
+    if (a3 != 69 && a3 != 71)
+    {
+      return result;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (a3 == 88)
+  {
+LABEL_75:
+    v19 = *__s;
+    if (a8)
+    {
+      v21 = this;
+      v20 = 1;
+LABEL_77:
+
+      return BlueFin::GlFormat::gl_output_num(v21, a2, a3, a4, a5, v19, v20);
+    }
+
     *this = v19;
-    v44 = this + 1;
+    v41 = this + 1;
     if (a2 == 1)
     {
       result = 1;
@@ -9402,80 +9222,224 @@ LABEL_117:
     {
       if ((a4 & 0x100) != 0)
       {
-        v45 = 0;
+        v42 = 0;
       }
 
       else
       {
-        v45 = BYTE1(v19);
+        v42 = BYTE1(v19);
       }
 
-      v44 = this + 2;
-      *(this + 1) = v45;
+      v41 = this + 2;
+      *(this + 1) = v42;
       result = 2;
     }
 
-    v46 = result;
+    v43 = result;
     if ((a4 & 0x400) != 0 && result < a2)
     {
-      *v44 = BYTE2(v19);
-      v46 = (result + 1);
-      if (v46 >= a2)
+      *v41 = BYTE2(v19);
+      v43 = (result + 1);
+      if (v43 >= a2)
       {
         result = (result + 1);
-        ++v44;
+        ++v41;
       }
 
       else
       {
-        v44[1] = BYTE3(v19);
-        v44 += 2;
-        v46 = (result + 2);
-        result = v46;
+        v41[1] = BYTE3(v19);
+        v41 += 2;
+        v43 = (result + 2);
+        result = v43;
       }
     }
 
-    if ((a4 & 0x800) == 0 || v46 >= a2)
+    if ((a4 & 0x800) == 0 || v43 >= a2)
     {
-      goto LABEL_72;
+      return result;
     }
 
-    *v44 = BYTE4(v19);
-    v55 = v44 + 1;
-    v56 = (result + 1);
-    if (v56 < a2)
+    *v41 = BYTE4(v19);
+    v52 = v41 + 1;
+    v53 = (result + 1);
+    if (v53 < a2)
     {
-      v55 = v44 + 2;
-      v44[1] = BYTE5(v19);
-      v56 = (result + 2);
+      v52 = v41 + 2;
+      v41[1] = BYTE5(v19);
+      v53 = (result + 2);
     }
 
-    result = v56;
-    if (v56 < a2)
+    result = v53;
+    if (v53 < a2)
     {
-      *v55++ = BYTE6(v19);
-      v56 = (v56 + 1);
+      *v52++ = BYTE6(v19);
+      v53 = (v53 + 1);
       result = (result + 1);
     }
 
-    if (v56 >= a2)
+    if (v53 >= a2)
     {
-      goto LABEL_72;
+      return result;
     }
 
-    v57 = HIBYTE(v19);
+    v54 = HIBYTE(v19);
 LABEL_127:
-    *v55 = v57;
-    result = (result + 1);
-    goto LABEL_72;
+    *v52 = v54;
+    return (result + 1);
   }
 
-  v43 = *MEMORY[0x29EDCA608];
-  v22 = this;
-  v21 = 1;
-LABEL_77:
+  if (a3 == 99)
+  {
+    *this = *__s;
+    result = 1;
+    if (a2 == 1 || a8)
+    {
+      return result;
+    }
 
-  return BlueFin::GlFormat::gl_output_num(v22, a2, a3, a4, a5, v19, v21);
+    goto LABEL_130;
+  }
+
+  if (a3 != 100)
+  {
+    return result;
+  }
+
+LABEL_12:
+  v18 = *__s;
+  if (a8)
+  {
+    if (v18 >= 0)
+    {
+      v19 = *__s;
+    }
+
+    else
+    {
+      v19 = -v18;
+    }
+
+    v20 = v18 >= 0;
+    v21 = this;
+    goto LABEL_77;
+  }
+
+  if ((a4 & 0x100) != 0)
+  {
+    *this = v18;
+    if (a2 == 1)
+    {
+      return 1;
+    }
+
+LABEL_130:
+    *(this + 1) = 0;
+    return 2;
+  }
+
+  if ((a4 & 0x400) != 0)
+  {
+    *this = v18;
+    v52 = this + 1;
+    if (a2 == 1)
+    {
+      result = 1;
+    }
+
+    else
+    {
+      v52 = this + 2;
+      *(this + 1) = BYTE1(v18);
+      result = 2;
+    }
+
+    v120 = result;
+    if (result < a2)
+    {
+      *v52++ = BYTE2(v18);
+      v120 = (result + 1);
+      result = v120;
+    }
+
+    if (v120 >= a2)
+    {
+      return result;
+    }
+
+    v54 = v18 >> 24;
+    goto LABEL_127;
+  }
+
+  if ((a4 & 0x800) == 0)
+  {
+    *this = v18;
+    if (a2 != 1)
+    {
+      *(this + 1) = BYTE1(v18);
+      return 2;
+    }
+
+    return 1;
+  }
+
+  *this = v18;
+  v52 = this + 1;
+  if (a2 == 1)
+  {
+    result = 1;
+  }
+
+  else
+  {
+    v52 = this + 2;
+    *(this + 1) = BYTE1(v18);
+    result = 2;
+  }
+
+  v121 = result;
+  if (result < a2)
+  {
+    *v52++ = BYTE2(v18);
+    v121 = (result + 1);
+    result = v121;
+  }
+
+  if (v121 < a2)
+  {
+    *v52++ = BYTE3(v18);
+    v121 = (result + 1);
+    result = v121;
+  }
+
+  if (v121 < a2)
+  {
+    *v52++ = BYTE4(v18);
+    v121 = (result + 1);
+    result = v121;
+  }
+
+  if (v121 < a2)
+  {
+    *v52++ = BYTE5(v18);
+    v121 = (result + 1);
+    result = v121;
+  }
+
+  if (v121 < a2)
+  {
+    *v52++ = BYTE6(v18);
+    v121 = (result + 1);
+    result = v121;
+  }
+
+  if (v121 < a2)
+  {
+    v54 = HIBYTE(v18);
+    goto LABEL_127;
+  }
+
+  return result;
 }
 
 uint64_t BlueFin::GlSetBase::SetULong(uint64_t this, unsigned int a2, int a3)
@@ -9509,7 +9473,7 @@ BlueFin::GlGnssSetIterator *BlueFin::GlGnssSetIterator::GlGnssSetIterator(BlueFi
   return this;
 }
 
-unint64_t BlueFin::GlGnssSet::Has(uint64_t a1, int *a2)
+uint64_t BlueFin::GlGnssSet::Has(uint64_t a1, unsigned int *a2)
 {
   if (*a2 > 6 || (v2 = *(a2 + 4), (v2 - 1) >= 0x3F))
   {
@@ -9588,14 +9552,13 @@ LABEL_43:
   }
 
   (*(*GlSettingImpl + 1088))(GlSettingImpl, 1);
-  v21 = *(this + 593);
   (*(**(this + 1) + 1120))();
   (*(**(this + 1) + 416))();
   v20 = *(this + 1);
   **(v20 + 26232) |= 2u;
 LABEL_33:
-  v22 = *(this + 35);
-  if (!v22 || v22(*(this + 34), v20))
+  v21 = *(this + 35);
+  if (!v21 || v21(*(this + 34), v20))
   {
     goto LABEL_35;
   }
@@ -9613,18 +9576,18 @@ LABEL_5:
       }
 
 LABEL_35:
-      v23 = *(this + 36);
-      if (v23)
+      v22 = *(this + 36);
+      if (v22)
       {
-        v23(*(this + 34), 1, 0);
+        v22(*(this + 34), 1, 0);
       }
 
       if (*(this + 4409) == 1)
       {
-        v24 = *(this + 10);
-        if (v24)
+        v23 = *(this + 10);
+        if (v23)
         {
-          v24(*(this + 1));
+          v23(*(this + 1));
         }
 
         *(this + 1) = 0;
@@ -9724,27 +9687,26 @@ uint64_t BlueFin::GlGnssSet::SetAll(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t FireCallback::GlEngineOnStart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t FireCallback::GlEngineOnStart(uint64_t a1, uint64_t a2)
 {
   if (FireCallback::pInstance)
   {
-    v9 = *(FireCallback::pInstance + 376);
-    if (v9)
+    v3 = *(FireCallback::pInstance + 376);
+    if (v3)
     {
-      v12 = a2;
-      v13 = a1;
-      return (*(*v9 + 48))(v9, &v13, &v12);
+      v5 = a2;
+      v6 = a1;
+      return (*(*v3 + 48))(v3, &v6, &v5);
     }
 
-    v11 = "fcb,fEngineOnStartCb,nullptr";
+    FireDeviceLog::DeviceLogBase(2, "fcb,fEngineOnStartCb,nullptr");
   }
 
   else
   {
-    v11 = "fcb,GlEngineOnStart,nullptr";
+    FireDeviceLog::DeviceLogBase(2, "fcb,GlEngineOnStart,nullptr");
   }
 
-  FireDeviceLog::DeviceLogBase(2, v11, a3, a4, a5, a6, a7, a8, v12);
   return 0;
 }
 
@@ -9779,7 +9741,7 @@ LABEL_11:
   return result;
 }
 
-unint64_t BlueFin::GlGnssSetIterator::operator++(uint64_t a1)
+uint64_t BlueFin::GlGnssSetIterator::operator++(uint64_t a1)
 {
   for (i = a1 + 192; ; i = a1 + 192)
   {
@@ -9832,7 +9794,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t BlueFin::GlGnssSet::Add(uint64_t result, int *a2)
+uint64_t BlueFin::GlGnssSet::Add(uint64_t result, unsigned int *a2)
 {
   if (*a2 > 6 || (v2 = *(a2 + 4), (v2 - 1) >= 0x3F))
   {

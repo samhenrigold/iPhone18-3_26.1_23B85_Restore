@@ -24,17 +24,17 @@
   if (v5)
   {
     v6 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([@"image" isEqualToString:v6])
+    if (objc_msgSend_isEqualToString_(@"image"))
     {
       v7 = 1;
     }
 
-    else if ([@"video" isEqualToString:v6])
+    else if (objc_msgSend_isEqualToString_(@"video"))
     {
       v7 = 2;
     }
 
-    else if ([@"bundleAsset" isEqualToString:v6])
+    else if (objc_msgSend_isEqualToString_(@"bundleAsset"))
     {
       v7 = 3;
     }

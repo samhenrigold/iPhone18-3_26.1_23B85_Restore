@@ -24,7 +24,7 @@
 
 + (id)em_contentTypeForFilename:()Email fileURL:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   pathExtension = [v5 pathExtension];
@@ -34,13 +34,13 @@
     v10 = [MEMORY[0x1E6982C40] log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_debug_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEBUG, "Content type is %{public}@ for attachment file name '%@', file URL '%@'", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_debug_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEBUG, "Content type is %{public}@ for attachment file name '%@', file URL '%@'", &v15, 0x20u);
     }
   }
 
@@ -53,13 +53,13 @@
       v12 = [MEMORY[0x1E6982C40] log];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412802;
-        v17 = v5;
-        v18 = 2112;
-        v19 = v6;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_error_impl(&dword_1C6655000, v12, OS_LOG_TYPE_ERROR, "Unable to determine content type for item from its filename '%@'. Falling back to attachment file URL '%@': %@", &v16, 0x20u);
+        v15 = 138412802;
+        v16 = v5;
+        v17 = 2112;
+        v18 = v6;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_error_impl(&dword_1C6655000, v12, OS_LOG_TYPE_ERROR, "Unable to determine content type for item from its filename '%@'. Falling back to attachment file URL '%@': %@", &v15, 0x20u);
       }
     }
 
@@ -77,20 +77,17 @@
     pathExtension = pathExtension2;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (void)em_contentTypeForFilename:()Email fileURL:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "Unable to determine content type for item. Attachment file name '%@', file URL: '%@'", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C6655000, log, OS_LOG_TYPE_ERROR, "Unable to determine content type for item. Attachment file name '%@', file URL: '%@'", &v3, 0x16u);
 }
 
 @end

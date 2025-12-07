@@ -9,11 +9,11 @@
 
 - (STShowWeatherForecastRequest)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = STShowWeatherForecastRequest;
-  v5 = [(AFSiriRequest *)&v19 initWithCoder:coderCopy];
+  v18.receiver = self;
+  v18.super_class = STShowWeatherForecastRequest;
+  v5 = [(AFSiriRequest *)&v18 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_currentConditions"];
@@ -21,9 +21,9 @@
     v5->_currentConditions = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"_hourlyForecasts"];
     hourlyForecasts = v5->_hourlyForecasts;
@@ -40,7 +40,6 @@
     v5->_forecastType = [coderCopy decodeIntegerForKey:@"_forecastType"];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

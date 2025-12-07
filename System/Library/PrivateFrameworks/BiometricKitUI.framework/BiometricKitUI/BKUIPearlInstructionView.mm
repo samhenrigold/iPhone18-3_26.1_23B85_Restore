@@ -18,10 +18,10 @@
 
 - (BKUIPearlInstructionView)init
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = BKUIPearlInstructionView;
-  v2 = [(BKUIPearlInstructionView *)&v32 init];
+  v34 = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = BKUIPearlInstructionView;
+  v2 = [(BKUIPearlInstructionView *)&v31 init];
   if (v2)
   {
     v3 = _os_feature_enabled_impl();
@@ -52,7 +52,7 @@
       v5 = *MEMORY[0x277D76A28];
     }
 
-    v27 = v4;
+    v26 = v4;
     objc_storeWeak(&v2->_instructionLabel, v4);
     v11 = objc_alloc_init(MEMORY[0x277D756B8]);
     if (v2->_isSolarium)
@@ -65,7 +65,7 @@
       v12 = *MEMORY[0x277D76918];
     }
 
-    v26 = v12;
+    v25 = v12;
     v13 = [MEMORY[0x277D74300] preferredFontForTextStyle:?];
     [v11 setFont:v13];
 
@@ -76,31 +76,31 @@
     }
 
     objc_storeWeak(&v2->_detailLabel, v11);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v15 = objc_loadWeakRetained(&v2->_instructionLabel);
-    v33[0] = v15;
+    v32[0] = v15;
     v16 = objc_loadWeakRetained(&v2->_detailLabel);
-    v33[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
 
-    v18 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v28 + 1) + 8 * i);
+          v22 = *(*(&v27 + 1) + 8 * i);
           [v22 setTextAlignment:1];
           [v22 setNumberOfLines:0];
           if (!v2->_isSolarium)
@@ -113,7 +113,7 @@
           [(BKUIPearlInstructionView *)v2 addSubview:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v19);
@@ -124,56 +124,55 @@
     [(BKUIPearlInstructionView *)v2 setLabelsHorizontalMargin:?];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)_configureConstraints
 {
-  v44[7] = *MEMORY[0x277D85DE8];
+  v43[7] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_instructionLabel);
   widthAnchor = [WeakRetained widthAnchor];
   widthAnchor2 = [(BKUIPearlInstructionView *)self widthAnchor];
   v6 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
   [(BKUIPearlInstructionView *)self setLabelsWidthConstraint:v6];
 
-  v33 = MEMORY[0x277CCAAD0];
+  v32 = MEMORY[0x277CCAAD0];
   labelsWidthConstraint = [(BKUIPearlInstructionView *)self labelsWidthConstraint];
-  v44[0] = labelsWidthConstraint;
-  v42 = objc_loadWeakRetained(&self->_instructionLabel);
-  topAnchor = [v42 topAnchor];
+  v43[0] = labelsWidthConstraint;
+  v41 = objc_loadWeakRetained(&self->_instructionLabel);
+  topAnchor = [v41 topAnchor];
   topAnchor2 = [(BKUIPearlInstructionView *)self topAnchor];
-  v39 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
-  v44[1] = v39;
-  v38 = objc_loadWeakRetained(&self->_instructionLabel);
-  centerXAnchor = [v38 centerXAnchor];
+  v38 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
+  v43[1] = v38;
+  v37 = objc_loadWeakRetained(&self->_instructionLabel);
+  centerXAnchor = [v37 centerXAnchor];
   centerXAnchor2 = [(BKUIPearlInstructionView *)self centerXAnchor];
-  v35 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v44[2] = v35;
-  v34 = objc_loadWeakRetained(&self->_instructionLabel);
-  bottomAnchor = [v34 bottomAnchor];
-  v32 = objc_loadWeakRetained(&self->_detailLabel);
-  topAnchor3 = [v32 topAnchor];
-  v29 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3];
-  v44[3] = v29;
-  v28 = objc_loadWeakRetained(&self->_detailLabel);
-  centerXAnchor3 = [v28 centerXAnchor];
+  v34 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v43[2] = v34;
+  v33 = objc_loadWeakRetained(&self->_instructionLabel);
+  bottomAnchor = [v33 bottomAnchor];
+  v31 = objc_loadWeakRetained(&self->_detailLabel);
+  topAnchor3 = [v31 topAnchor];
+  v28 = [bottomAnchor constraintLessThanOrEqualToAnchor:topAnchor3];
+  v43[3] = v28;
+  v27 = objc_loadWeakRetained(&self->_detailLabel);
+  centerXAnchor3 = [v27 centerXAnchor];
   centerXAnchor4 = [(BKUIPearlInstructionView *)self centerXAnchor];
-  v25 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v44[4] = v25;
-  v24 = objc_loadWeakRetained(&self->_detailLabel);
-  widthAnchor3 = [v24 widthAnchor];
+  v24 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  v43[4] = v24;
+  v23 = objc_loadWeakRetained(&self->_detailLabel);
+  widthAnchor3 = [v23 widthAnchor];
   v8 = objc_loadWeakRetained(&self->_instructionLabel);
   widthAnchor4 = [v8 widthAnchor];
   v10 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4];
-  v44[5] = v10;
+  v43[5] = v10;
   v11 = objc_loadWeakRetained(&self->_detailLabel);
   bottomAnchor2 = [v11 bottomAnchor];
   bottomAnchor3 = [(BKUIPearlInstructionView *)self bottomAnchor];
   v14 = [bottomAnchor2 constraintLessThanOrEqualToAnchor:bottomAnchor3];
-  v44[6] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:7];
-  [v33 activateConstraints:v15];
+  v43[6] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:7];
+  [v32 activateConstraints:v15];
 
   if (self->_isSolarium)
   {
@@ -194,8 +193,6 @@
   LODWORD(v22) = 1144750080;
   [v21 setPriority:v22];
   [v21 setActive:1];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDarkMode:(BOOL)mode

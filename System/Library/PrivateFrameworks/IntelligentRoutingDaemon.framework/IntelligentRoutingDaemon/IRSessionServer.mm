@@ -141,7 +141,7 @@ uint64_t __33__IRSessionServer_initWithQueue___block_invoke(uint64_t a1, uint64_
 
 - (id)registerWithServiceIdentifier:(id)identifier withConnection:(id)connection
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   connectionCopy = connection;
   os_unfair_lock_lock(&self->_lock);
@@ -159,14 +159,14 @@ uint64_t __33__IRSessionServer_initWithQueue___block_invoke(uint64_t a1, uint64_
       v13 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v35 = MEMORY[0x277CCABB0];
+        v34 = MEMORY[0x277CCABB0];
         client = [connectionCopy client];
         connection = [client connection];
-        v38 = [v35 numberWithInt:{objc_msgSend(connection, "processIdentifier")}];
+        v37 = [v34 numberWithInt:{objc_msgSend(connection, "processIdentifier")}];
         *buf = 138412546;
-        v44 = identifierCopy;
-        v45 = 2112;
-        v46 = v38;
+        v43 = identifierCopy;
+        v44 = 2112;
+        v45 = v37;
         _os_log_error_impl(&dword_25543D000, v13, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Duplicate connection] Registering the same connection twice: %@ for pid: %@", buf, 0x16u);
       }
 
@@ -192,7 +192,7 @@ LABEL_6:
 
   if (!v14)
   {
-    v40 = [IRServiceContainer alloc];
+    v39 = [IRServiceContainer alloc];
     avOutputDeviceProvider = [(IRSessionServer *)self avOutputDeviceProvider];
     biomeProvider = [(IRSessionServer *)self biomeProvider];
     rapportProvider = [(IRSessionServer *)self rapportProvider];
@@ -201,15 +201,15 @@ LABEL_6:
     displayMonitor = [(IRSessionServer *)self displayMonitor];
     audioAVOutputContextController = [(IRSessionServer *)self audioAVOutputContextController];
     persistenceManager2 = [(IRSessionServer *)self persistenceManager];
-    LOBYTE(v39) = [IRSessionServer isGlobalLowLatencyMiLoWithPersistenceManager:persistenceManager2];
-    v14 = [(IRServiceContainer *)v40 initWithServiceIdentifier:identifierCopy delegate:self avOutputDeviceProvider:avOutputDeviceProvider biomeProvider:biomeProvider rapportProvider:rapportProvider proximityProvider:proximityProvider persistenceManager:persistenceManager displayMonitor:displayMonitor audioAVOutputContextController:audioAVOutputContextController isLowLatencyMiLo:v39];
+    LOBYTE(v38) = [IRSessionServer isGlobalLowLatencyMiLoWithPersistenceManager:persistenceManager2];
+    v14 = [(IRServiceContainer *)v39 initWithServiceIdentifier:identifierCopy delegate:self avOutputDeviceProvider:avOutputDeviceProvider biomeProvider:biomeProvider rapportProvider:rapportProvider proximityProvider:proximityProvider persistenceManager:persistenceManager displayMonitor:displayMonitor audioAVOutputContextController:audioAVOutputContextController isLowLatencyMiLo:v38];
 
     if (!v14)
     {
-      v34 = *MEMORY[0x277D21260];
+      v33 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
       {
-        [IRSessionServer registerWithServiceIdentifier:identifierCopy withConnection:v34];
+        [IRSessionServer registerWithServiceIdentifier:identifierCopy withConnection:v33];
       }
 
       goto LABEL_6;
@@ -228,9 +228,9 @@ LABEL_6:
     connection2 = [client2 connection];
     v31 = [v28 numberWithInt:{objc_msgSend(connection2, "processIdentifier")}];
     *buf = 138412546;
-    v44 = identifierCopy;
-    v45 = 2112;
-    v46 = v31;
+    v43 = identifierCopy;
+    v44 = 2112;
+    v45 = v31;
     _os_log_impl(&dword_25543D000, v27, OS_LOG_TYPE_DEFAULT, "#session-server, New connection registered for serviceIdentifier: %@ and pid: %@", buf, 0x16u);
   }
 
@@ -238,14 +238,12 @@ LABEL_6:
 LABEL_14:
   os_unfair_lock_unlock(&self->_lock);
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)unregisterWithServiceIdentifier:(id)identifier withConnection:(id)connection
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   connectionCopy = connection;
   os_unfair_lock_lock(&self->_lock);
@@ -262,11 +260,11 @@ LABEL_14:
       client = [connectionCopy client];
       connection = [client connection];
       v22 = [v19 numberWithInt:{objc_msgSend(connection, "processIdentifier")}];
-      v39 = 138412546;
-      v40 = identifierCopy;
-      v41 = 2112;
-      v42 = v22;
-      _os_log_error_impl(&dword_25543D000, v18, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Unregister unavailable connection] Unregistering a connection which is not available: %@ for pid: %@", &v39, 0x16u);
+      v38 = 138412546;
+      v39 = identifierCopy;
+      v40 = 2112;
+      v41 = v22;
+      _os_log_error_impl(&dword_25543D000, v18, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Unregister unavailable connection] Unregistering a connection which is not available: %@ for pid: %@", &v38, 0x16u);
     }
 
     goto LABEL_9;
@@ -280,15 +278,15 @@ LABEL_14:
     v18 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v35 = MEMORY[0x277CCABB0];
+      v34 = MEMORY[0x277CCABB0];
       client2 = [connectionCopy client];
       connection2 = [client2 connection];
-      v38 = [v35 numberWithInt:{objc_msgSend(connection2, "processIdentifier")}];
-      v39 = 138412546;
-      v40 = identifierCopy;
-      v41 = 2112;
-      v42 = v38;
-      _os_log_error_impl(&dword_25543D000, v18, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Unregister unavailable identifier] Unregistering a serviceIdentifier which is not available: %@ for pid: %@", &v39, 0x16u);
+      v37 = [v34 numberWithInt:{objc_msgSend(connection2, "processIdentifier")}];
+      v38 = 138412546;
+      v39 = identifierCopy;
+      v40 = 2112;
+      v41 = v37;
+      _os_log_error_impl(&dword_25543D000, v18, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Unregister unavailable identifier] Unregistering a serviceIdentifier which is not available: %@ for pid: %@", &v38, 0x16u);
     }
 
 LABEL_9:
@@ -330,11 +328,11 @@ LABEL_9:
     client3 = [connectionCopy client];
     connection3 = [client3 connection];
     v32 = [v29 numberWithInt:{objc_msgSend(connection3, "processIdentifier")}];
-    v39 = 138412546;
-    v40 = identifierCopy;
-    v41 = 2112;
-    v42 = v32;
-    _os_log_impl(&dword_25543D000, v28, OS_LOG_TYPE_DEFAULT, "#session-server, Unregister connection for serviceIdentifier: %@ and pid: %@", &v39, 0x16u);
+    v38 = 138412546;
+    v39 = identifierCopy;
+    v40 = 2112;
+    v41 = v32;
+    _os_log_impl(&dword_25543D000, v28, OS_LOG_TYPE_DEFAULT, "#session-server, Unregister connection for serviceIdentifier: %@ and pid: %@", &v38, 0x16u);
   }
 
   [(IRSessionServer *)self _logConnectionsAndServices];
@@ -342,13 +340,12 @@ LABEL_9:
 LABEL_14:
   os_unfair_lock_unlock(&self->_lock);
 
-  v33 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)shouldAcceptNewConnection:(id)connection
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   os_unfair_lock_lock(&self->_lock);
   v5 = [[IRSessionClientProxy alloc] initWithConnection:connectionCopy];
@@ -363,30 +360,30 @@ LABEL_14:
 
     [connectionCopy setExportedObject:v6];
     objc_initWeak(&location, v6);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __45__IRSessionServer_shouldAcceptNewConnection___block_invoke;
-    v16[3] = &unk_2797E0C18;
-    objc_copyWeak(&v17, &location);
-    [connectionCopy setInterruptionHandler:v16];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __45__IRSessionServer_shouldAcceptNewConnection___block_invoke_2;
-    v14[3] = &unk_2797E0C18;
-    objc_copyWeak(&v15, &location);
-    [connectionCopy setInvalidationHandler:v14];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __45__IRSessionServer_shouldAcceptNewConnection___block_invoke;
+    v15[3] = &unk_2797E0C18;
+    objc_copyWeak(&v16, &location);
+    [connectionCopy setInterruptionHandler:v15];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __45__IRSessionServer_shouldAcceptNewConnection___block_invoke_2;
+    v13[3] = &unk_2797E0C18;
+    objc_copyWeak(&v14, &location);
+    [connectionCopy setInvalidationHandler:v13];
     [connectionCopy resume];
     v9 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(connectionCopy, "processIdentifier")}];
       *buf = 138412290;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "#session-server, Accepting connection for pid: %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
@@ -401,7 +398,6 @@ LABEL_14:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
@@ -470,29 +466,29 @@ void __56__IRSessionServer_performXPCActivityUnderServerContext___block_invoke(u
 
 + (BOOL)isGlobalLowLatencyMiLoWithPersistenceManager:(id)manager
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   if ([managerCopy connectToStore])
   {
     [IRServiceStore fetchAllServicesWithPersistenceManager:managerCopy];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    obj = v26 = 0u;
-    v22 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v22)
+    obj = v25 = 0u;
+    v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v21)
     {
-      v21 = *v24;
+      v20 = *v23;
       while (2)
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v24 != v21)
+          if (*v23 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v23 + 1) + 8 * i);
+          v5 = *(*(&v22 + 1) + 8 * i);
           v6 = [IRServiceStore alloc];
           serviceIdentifier = [v5 serviceIdentifier];
           v8 = managerCopy;
@@ -516,8 +512,8 @@ void __56__IRSessionServer_performXPCActivityUnderServerContext___block_invoke(u
           managerCopy = v8;
         }
 
-        v22 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-        if (v22)
+        v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        if (v21)
         {
           continue;
         }
@@ -535,7 +531,6 @@ LABEL_13:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -570,7 +565,7 @@ LABEL_13:
 
 - (void)_logConnectionsAndServices
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
@@ -578,20 +573,18 @@ LABEL_13:
     v5 = v3;
     services = [(IRSessionServer *)self services];
     v7 = [v4 numberWithUnsignedInteger:{objc_msgSend(services, "count")}];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-server, Number of active services: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-server, Number of active services: %@", &v9, 0xCu);
   }
 
   connections = [(IRSessionServer *)self connections];
   [connections enumerateKeysAndObjectsUsingBlock:&__block_literal_global_24];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -599,19 +592,17 @@ void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1,
     v6 = MEMORY[0x277CCABB0];
     v7 = v5;
     v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(a3, "count")}];
-    v10 = 138412546;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-server, [%@]: number of active connections: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-server, [%@]: number of active connections: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logStateOnStateCaptureEvent
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D21270];
   v4 = *MEMORY[0x277D21270];
   if (os_log_type_enabled(*MEMORY[0x277D21270], OS_LOG_TYPE_DEFAULT))
@@ -619,9 +610,9 @@ void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1,
     v5 = v4;
     v6 = +[IRPreferences shared];
     preferenceString = [v6 preferenceString];
-    v23 = 138412290;
-    v24 = preferenceString;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = preferenceString;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v22, 0xCu);
   }
 
   v8 = *v3;
@@ -630,9 +621,9 @@ void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1,
     v9 = v8;
     persistenceManager = [(IRSessionServer *)self persistenceManager];
     v11 = [IRServiceStore generateLogForStringNumEntitiesInDatabaseWithPersistenceManager:persistenceManager];
-    v23 = 138412290;
-    v24 = v11;
-    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v11;
+    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v22, 0xCu);
   }
 
   v12 = *v3;
@@ -641,9 +632,9 @@ void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1,
     v13 = v12;
     persistenceManager2 = [(IRSessionServer *)self persistenceManager];
     v15 = [IRServiceStore generateLogForServicesDatabaseWithPersistenceManager:persistenceManager2];
-    v23 = 138412290;
-    v24 = v15;
-    _os_log_impl(&dword_25543D000, v13, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v15;
+    _os_log_impl(&dword_25543D000, v13, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v22, 0xCu);
   }
 
   rapportProvider = [(IRSessionServer *)self rapportProvider];
@@ -658,12 +649,10 @@ void __45__IRSessionServer__logConnectionsAndServices__block_invoke(uint64_t a1,
     v19 = v18;
     v20 = +[IRAirPlaySettings shared];
     dumpState = [v20 dumpState];
-    v23 = 138412290;
-    v24 = dumpState;
-    _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = dumpState;
+    _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_DEFAULT, "#session-server, %@", &v22, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dispatchToConnectionsForServiceContainer:(id)container usingBlock:(id)block
@@ -741,7 +730,7 @@ void __112__IRSessionServer_IRServiceContainerDelegate__serviceContainer_didSpot
   v4 = *(a1 + 32);
   v7 = v3;
   v5 = [v3 client];
-  v6 = [v5 clientIdentifier];
+  v6 = objc_msgSend_clientIdentifier(v5);
   LODWORD(v4) = [v4 containsObject:v6];
 
   if (v4)
@@ -764,11 +753,10 @@ void __112__IRSessionServer_IRServiceContainerDelegate__serviceContainer_didSpot
 
 - (void)registerWithServiceIdentifier:(uint64_t)a1 withConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Service create error] Could not create a new service for identifier: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Service create error] Could not create a new service for identifier: %@", &v2, 0xCu);
 }
 
 - (void)shouldAcceptNewConnection:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -780,11 +768,10 @@ void __112__IRSessionServer_IRServiceContainerDelegate__serviceContainer_didSpot
 
 - (void)refreshUpdateModeForServiceIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Refresh unavailable service] Refreshing update mode for a a serviceIdentifier which is not available: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25543D000, a2, OS_LOG_TYPE_ERROR, "#session-server, [ErrorId - Refresh unavailable service] Refreshing update mode for a a serviceIdentifier which is not available: %@", &v2, 0xCu);
 }
 
 @end

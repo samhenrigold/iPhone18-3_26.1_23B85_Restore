@@ -61,7 +61,7 @@
 
   selfCopy = self;
   sub_251122774(v7, v6);
-  sub_251102FFC(v7);
+  sub_251102FFC(v7, v6);
 }
 
 - (void)muteAudioFeedbackWithSetting:(BOOL)setting

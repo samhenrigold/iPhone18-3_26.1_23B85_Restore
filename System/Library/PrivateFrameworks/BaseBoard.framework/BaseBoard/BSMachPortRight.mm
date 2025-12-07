@@ -272,7 +272,7 @@
   return v3 & 1;
 }
 
-uint64_t __38__BSMachPortRight_matchesPortOfRight___block_invoke(uint64_t result, int a2)
+void *__38__BSMachPortRight_matchesPortOfRight___block_invoke(void *result, int a2)
 {
   if ((a2 - 1) <= 0xFFFFFFFD)
   {
@@ -282,8 +282,8 @@ uint64_t __38__BSMachPortRight_matchesPortOfRight___block_invoke(uint64_t result
     v5[1] = 3221225472;
     v5[2] = __38__BSMachPortRight_matchesPortOfRight___block_invoke_2;
     v5[3] = &unk_1E72CB6D8;
-    v4 = *(result + 32);
-    v5[4] = *(result + 40);
+    v4 = result[4];
+    v5[4] = result[5];
     v6 = a2;
     return [v4 accessPort:v5];
   }
@@ -404,7 +404,7 @@ uint64_t __38__BSMachPortRight_matchesPortOfRight___block_invoke(uint64_t result
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (_type - 1 > 2)
+    if ((_type - 1) > 2)
     {
       v6 = MEMORY[0x1E69E9ED0];
     }

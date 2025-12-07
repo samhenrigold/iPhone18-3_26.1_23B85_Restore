@@ -110,7 +110,7 @@
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v4 + 8))(v6, v3);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction, 0x1E69DC5E8);
   v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v7.super.isa;
@@ -304,7 +304,7 @@
     selfCopy = self;
     swift_unknownObjectRetain();
     _bridgeAnyObjectToAny(_:)();
-    selfCopy2 = swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   else
@@ -314,9 +314,9 @@
     selfCopy2 = self;
   }
 
-  RecentsListViewController.acceptedContactActionsManager(_:didRecordRecentEvent:)(selfCopy2);
+  RecentsListViewController.acceptedContactActionsManager(_:didRecordRecentEvent:)();
 
-  outlined destroy of CallControlsService?(v10, &_sypSgMd);
+  outlined destroy of CallControlsService?(v10, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)acceptedContactActionsManager:(id)manager didCreateNewContact:(id)contact

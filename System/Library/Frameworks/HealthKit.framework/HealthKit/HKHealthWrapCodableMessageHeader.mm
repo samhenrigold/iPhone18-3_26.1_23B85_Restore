@@ -157,50 +157,48 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_encryptedMessageKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_encryptionIdentity)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_uploadUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_studyIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_encryptedHMACKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    trailingHMACLength = self->_trailingHMACLength;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -219,22 +217,20 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  trailingSHALength = self->_trailingSHALength;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_16:
-    compressed = self->_compressed;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_17:
   if (self->_studyUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -399,7 +395,6 @@ LABEL_7:
     goto LABEL_32;
   }
 
-  v5 = *(equalCopy + 76);
   if (*&self->_has)
   {
     if ((*(equalCopy + 76) & 1) == 0 || self->_version != *(equalCopy + 1))
@@ -455,7 +450,6 @@ LABEL_7:
     }
   }
 
-  v11 = *(equalCopy + 76);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_trailingHMACLength != *(equalCopy + 14))
@@ -490,7 +484,7 @@ LABEL_7:
     }
 
 LABEL_32:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_33;
   }
 
@@ -499,7 +493,6 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v15 = *(equalCopy + 72);
   if (self->_compressed)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -517,17 +510,17 @@ LABEL_29:
   studyUUID = self->_studyUUID;
   if (studyUUID | *(equalCopy + 6))
   {
-    v13 = [(NSData *)studyUUID isEqual:?];
+    v11 = [(NSData *)studyUUID isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_33:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

@@ -63,33 +63,33 @@
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   os_unfair_lock_lock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_history;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [string appendString:{*(*(&v12 + 1) + 8 * i), v12}];
+        [string appendString:{*(*(&v11 + 1) + 8 * i), v11}];
         [string appendString:@"\n"];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -97,8 +97,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
   v9 = [string copy];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -205,7 +203,7 @@
 - (void)log:(id)log withType:(unsigned __int8)type capture:(BOOL)capture
 {
   captureCopy = capture;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   logCopy = log;
   prefix = [(MRLogBuffer *)self prefix];
   v10 = [prefix length];
@@ -218,9 +216,9 @@
     {
       prefix2 = [(MRLogBuffer *)self prefix];
       *buf = 138412546;
-      v23 = prefix2;
-      v24 = 2112;
-      v25 = logCopy;
+      v22 = prefix2;
+      v23 = 2112;
+      v24 = logCopy;
       _os_log_impl(&dword_1A2860000, category, type, "%@ %@", buf, 0x16u);
     }
   }
@@ -228,7 +226,7 @@
   else if (v12)
   {
     *buf = 138412290;
-    v23 = logCopy;
+    v22 = logCopy;
     _os_log_impl(&dword_1A2860000, category, type, "%@", buf, 0xCu);
   }
 
@@ -251,8 +249,6 @@
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

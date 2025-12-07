@@ -10,36 +10,36 @@
 {
   animatedCopy = animated;
   selectedCopy = selected;
-  sub_1B9F65DE4();
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for ContentConfigurationTableViewCell();
-  v13.receiver = self;
-  v13.super_class = v10;
+  sub_1B9F65DE4(0);
+  MEMORY[0x1EEE9AC00](v7 - 8, v8);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for ContentConfigurationTableViewCell();
+  v14.receiver = self;
+  v14.super_class = v11;
   selfCopy = self;
-  [(ContentConfigurationTableViewCell *)&v13 setSelected:selectedCopy animated:animatedCopy];
-  sub_1BA2BE2C0(selectedCopy, [(ContentConfigurationTableViewCell *)selfCopy isHighlighted], v9);
-  v12 = sub_1BA4A4168();
-  (*(*(v12 - 8) + 56))(v9, 0, 1, v12);
-  MEMORY[0x1BFAF1B90](v9);
+  [(ContentConfigurationTableViewCell *)&v14 setSelected:selectedCopy animated:animatedCopy];
+  sub_1BA2BE2C0(selectedCopy, [(ContentConfigurationTableViewCell *)selfCopy isHighlighted], v10);
+  v13 = sub_1BA4A4168();
+  (*(*(v13 - 8) + 56))(v10, 0, 1, v13);
+  MEMORY[0x1BFAF1B90](v10);
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
   animatedCopy = animated;
   highlightedCopy = highlighted;
-  sub_1B9F65DE4();
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for ContentConfigurationTableViewCell();
-  v13.receiver = self;
-  v13.super_class = v10;
+  sub_1B9F65DE4(0);
+  MEMORY[0x1EEE9AC00](v7 - 8, v8);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for ContentConfigurationTableViewCell();
+  v14.receiver = self;
+  v14.super_class = v11;
   selfCopy = self;
-  [(ContentConfigurationTableViewCell *)&v13 setHighlighted:highlightedCopy animated:animatedCopy];
-  sub_1BA2BE2C0([(ContentConfigurationTableViewCell *)selfCopy isSelected], highlightedCopy, v9);
-  v12 = sub_1BA4A4168();
-  (*(*(v12 - 8) + 56))(v9, 0, 1, v12);
-  MEMORY[0x1BFAF1B90](v9);
+  [(ContentConfigurationTableViewCell *)&v14 setHighlighted:highlightedCopy animated:animatedCopy];
+  sub_1BA2BE2C0([(ContentConfigurationTableViewCell *)selfCopy isSelected], highlightedCopy, v10);
+  v13 = sub_1BA4A4168();
+  (*(*(v13 - 8) + 56))(v10, 0, 1, v13);
+  MEMORY[0x1BFAF1B90](v10);
 }
 
 - (_TtC18HealthExperienceUI33ContentConfigurationTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

@@ -1,13 +1,13 @@
-id DRLogTarget()
+id DRLogTarget(uint64_t a1)
 {
   if (DRLogTarget_onceToken != -1)
   {
     DRLogTarget_cold_1();
   }
 
-  v1 = DRLogTarget_log;
+  v2 = DRLogTarget_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DRLogTarget_block_invoke()

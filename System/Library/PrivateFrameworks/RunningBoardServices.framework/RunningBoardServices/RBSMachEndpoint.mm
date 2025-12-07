@@ -20,7 +20,6 @@
     self->_lock_hasCheckedEndpoint = 1;
     if ([(RBSMachEndpoint *)self _isCachedPortValid])
     {
-      port = self->_port;
       if (xpc_mach_send_copy_right() - 1 <= 0xFFFFFFFD)
       {
         bs_from_port = xpc_endpoint_create_bs_from_port();
@@ -31,18 +30,16 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v6 = self->_getterCache_endpoint;
+  v5 = self->_getterCache_endpoint;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)_isCachedPortValid
 {
-  port = self->_port;
   right = xpc_mach_send_get_right();
   if (right)
   {
-    v5 = self->_port;
     LOBYTE(right) = xpc_mach_send_get_right() != -1;
   }
 
@@ -109,12 +106,11 @@ LABEL_3:
 
 - (id)_copy
 {
-  port = self->_port;
   xpc_mach_send_get_right();
-  v4 = xpc_mach_send_create_with_disposition();
-  v5 = [[RBSMachEndpoint alloc] _initWithName:self->_name nonLaunching:self->_nonLaunching port:v4];
+  v3 = xpc_mach_send_create_with_disposition();
+  v4 = [[RBSMachEndpoint alloc] _initWithName:self->_name nonLaunching:self->_nonLaunching port:v3];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)_isEquivalentToEndpoint:(id)endpoint

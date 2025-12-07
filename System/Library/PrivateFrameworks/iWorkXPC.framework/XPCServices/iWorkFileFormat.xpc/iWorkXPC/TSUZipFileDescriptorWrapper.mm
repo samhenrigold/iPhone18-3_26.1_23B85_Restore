@@ -1,5 +1,6 @@
 @interface TSUZipFileDescriptorWrapper
 - (TSUZipFileDescriptorWrapper)init;
+- (TSUZipFileDescriptorWrapper)initWithFileDescriptor:(int)descriptor;
 - (void)dealloc;
 @end
 
@@ -37,6 +38,51 @@
   v8 = v7;
 
   objc_exception_throw(v7);
+}
+
+- (TSUZipFileDescriptorWrapper)initWithFileDescriptor:(int)descriptor
+{
+  selfCopy = self;
+  if ((descriptor & 0x80000000) == 0)
+  {
+    v4 = *&descriptor;
+    v14.receiver = self;
+    v14.super_class = TSUZipFileDescriptorWrapper;
+    v5 = [(TSUZipFileDescriptorWrapper *)&v14 init];
+    selfCopy = v5;
+    if (!v5)
+    {
+      close(v4);
+      goto LABEL_7;
+    }
+
+    v5->_fileDescriptor = v4;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10007EBBC;
+    v12[3] = &unk_1001CC6B0;
+    v13 = v4;
+    v6 = [[TSUFileIOChannel alloc] initForReadingDescriptor:v4 cleanupHandler:v12];
+    readChannel = selfCopy->_readChannel;
+    selfCopy->_readChannel = v6;
+
+    if (selfCopy->_readChannel)
+    {
+      v8 = dispatch_group_create();
+      accessGroup = selfCopy->_accessGroup;
+      selfCopy->_accessGroup = v8;
+
+LABEL_7:
+      selfCopy = selfCopy;
+      v10 = selfCopy;
+      goto LABEL_8;
+    }
+  }
+
+  v10 = 0;
+LABEL_8:
+
+  return v10;
 }
 
 - (void)dealloc

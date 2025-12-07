@@ -1,13 +1,13 @@
-id BooksNotificationLog()
+id BooksNotificationLog(uint64_t a1)
 {
   if (qword_10000CE98 != -1)
   {
     sub_100004888();
   }
 
-  v1 = qword_10000CE90;
+  v2 = qword_10000CE90;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001C84(id a1)
@@ -77,7 +77,7 @@ void sub_100002744(uint64_t a1, char a2)
 {
   if (a2)
   {
-    v2 = BooksNotificationLog();
+    v2 = BooksNotificationLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10000489C(v2);
@@ -151,49 +151,47 @@ id sub_100002B64(uint64_t a1)
 
 uint64_t sub_100003354(void *a1)
 {
-  v2 = BooksNotificationLog();
+  v2 = BooksNotificationLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = objc_opt_class();
-    v5 = a1[5];
-    v6 = a1[7];
-    v11 = 138543874;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    v7 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL and bump'd %@ in WTR position to #1 for action type %ld", &v11, 0x20u);
+    v3 = objc_opt_class();
+    v4 = a1[5];
+    v5 = a1[7];
+    v10 = 138543874;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2048;
+    v15 = v5;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL and bump'd %@ in WTR position to #1 for action type %ld", &v10, 0x20u);
   }
 
-  return (*(a1[6] + 16))(a1[6], 1, v8, v9);
+  return (*(a1[6] + 16))(a1[6], 1, v7, v8);
 }
 
 uint64_t sub_100003448(void *a1)
 {
-  v2 = BooksNotificationLog();
+  v2 = BooksNotificationLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = objc_opt_class();
-    v5 = a1[5];
-    v6 = a1[9];
-    v12 = 138543874;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2048;
-    v17 = v6;
-    v7 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL and bump'd %@ in WTR position to #1 for action type %ld", &v12, 0x20u);
+    v3 = objc_opt_class();
+    v4 = a1[5];
+    v5 = a1[9];
+    v11 = 138543874;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
+    v15 = 2048;
+    v16 = v5;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL and bump'd %@ in WTR position to #1 for action type %ld", &v11, 0x20u);
   }
 
-  v8 = +[LSApplicationWorkspace defaultWorkspace];
-  [v8 openSensitiveURL:a1[6] withOptions:a1[7]];
+  v7 = +[LSApplicationWorkspace defaultWorkspace];
+  [v7 openSensitiveURL:a1[6] withOptions:a1[7]];
 
-  return (*(a1[8] + 16))(a1[8], 1, v9, v10);
+  return (*(a1[8] + 16))(a1[8], 1, v8, v9);
 }
 
 void sub_1000039B0(uint64_t a1)
@@ -234,12 +232,13 @@ void sub_100003D14(uint64_t a1)
 void sub_100003F14(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = BooksNotificationLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = BooksNotificationLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100004978(a1, v4, v5);
+      sub_100004978(a1, v5, v6);
     }
   }
 }
@@ -251,56 +250,56 @@ uint64_t sub_100004568(uint64_t a1)
   return _objc_release_x1();
 }
 
-uint64_t LibraryAnalyticsDataProvider.seriesType(for:)@<X0>(uint64_t a1@<X8>)
+uint64_t LibraryAnalyticsDataProvider.seriesType(for:)@<X0>(uint64_t a3@<X8>)
 {
-  v2 = BSUIGetLibraryItemStateProvider();
-  v3 = sub_100004A54();
-  v4 = [v2 itemStateWithIdentifier:v3];
+  v4 = BSUIGetLibraryItemStateProvider();
+  v5 = sub_100004A54();
+  v6 = [v4 itemStateWithIdentifier:v5];
 
   swift_unknownObjectRelease();
-  v5 = [v4 seriesType];
+  v7 = [v6 seriesType];
   swift_unknownObjectRelease();
-  if (v5 > 1)
+  if (v7 > 1)
   {
-    if (v5 == 2)
+    if (v7 == 2)
     {
-      v6 = &enum case for SeriesType.ordered(_:);
+      v8 = &enum case for SeriesType.ordered(_:);
       goto LABEL_9;
     }
 
-    if (v5 == 3)
+    if (v7 == 3)
     {
-      v6 = &enum case for SeriesType.unOrdered(_:);
+      v8 = &enum case for SeriesType.unOrdered(_:);
       goto LABEL_9;
     }
 
 LABEL_7:
-    v7 = sub_100004A24();
-    v8 = *(*(v7 - 8) + 56);
-    v9 = v7;
-    v10 = a1;
-    v11 = 1;
+    v9 = sub_100004A24();
+    v10 = *(*(v9 - 8) + 56);
+    v11 = v9;
+    v12 = a3;
+    v13 = 1;
     goto LABEL_10;
   }
 
-  if (v5 != 1)
+  if (v7 != 1)
   {
     goto LABEL_7;
   }
 
-  v6 = &enum case for SeriesType.nonSeries(_:);
+  v8 = &enum case for SeriesType.nonSeries(_:);
 LABEL_9:
-  v12 = *v6;
-  v13 = sub_100004A24();
-  v15 = *(v13 - 8);
-  (*(v15 + 104))(a1, v12, v13);
-  v8 = *(v15 + 56);
-  v10 = a1;
-  v11 = 0;
-  v9 = v13;
+  v14 = *v8;
+  v15 = sub_100004A24();
+  v17 = *(v15 - 8);
+  (*(v17 + 104))(a3, v14, v15);
+  v10 = *(v17 + 56);
+  v12 = a3;
+  v13 = 0;
+  v11 = v15;
 LABEL_10:
 
-  return v8(v10, v11, 1, v9);
+  return v10(v12, v13, 1, v11);
 }
 
 uint64_t static EventReporter.setupLibraryAnalyticsDataProvider()()
@@ -339,11 +338,10 @@ void sub_1000048E0(uint64_t a1, NSObject *a2)
 
 void sub_100004978(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *(a1 + 32);
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a2;
-  v6 = v8;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%{public}@: can't flush Figaro event due to %@", &v7, 0x16u);
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%{public}@: can't flush Figaro event due to %@", &v6, 0x16u);
 }

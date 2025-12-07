@@ -1046,9 +1046,11 @@ LABEL_6:
 {
   if (!self->_shareeOperations)
   {
-    self->_shareeOperations = [[ADCloudKitShareeOperations alloc] initWithQueue:self->_serialQueue container:self->_primaryContainer instanceContext:self->_instanceContext];
+    v4 = [[ADCloudKitShareeOperations alloc] initWithQueue:self->_serialQueue container:self->_primaryContainer instanceContext:self->_instanceContext];
+    shareeOperations = self->_shareeOperations;
+    self->_shareeOperations = v4;
 
-    _objc_release_x1();
+    _objc_release_x1(v4, shareeOperations);
   }
 }
 
@@ -1904,22 +1906,22 @@ LABEL_10:
   if ([dictionaryCopy count])
   {
     objc_opt_class();
-    v10 = [dictionaryCopy objectForKey:@"fileName"];
+    v10 = objc_msgSend_objectForKey_(dictionaryCopy);
     if ((objc_opt_isKindOfClass() & 1) != 0 && [v10 length])
     {
-      v11 = [dictionaryCopy objectForKey:@"fileCompressionType"];
+      v11 = objc_msgSend_objectForKey_(dictionaryCopy);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = [dictionaryCopy objectForKey:@"fileAssetSize"];
+        v12 = objc_msgSend_objectForKey_(dictionaryCopy);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = [dictionaryCopy objectForKey:@"fileAsset"];
+          v13 = objc_msgSend_objectForKey_(dictionaryCopy);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = [dictionaryCopy objectForKey:@"languages"];
+            v14 = objc_msgSend_objectForKey_(dictionaryCopy);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v14 count])
             {
@@ -1966,7 +1968,7 @@ LABEL_10:
                 }
               }
 
-              v19 = [dictionaryCopy objectForKey:@"productType"];
+              v19 = objc_msgSend_objectForKey_(dictionaryCopy);
               v13 = v31;
               if (objc_opt_isKindOfClass())
               {
@@ -1975,7 +1977,7 @@ LABEL_10:
                 v12 = v32;
                 if (v20)
                 {
-                  v28 = [dictionaryCopy objectForKey:@"buildVersion"];
+                  v28 = objc_msgSend_objectForKey_(dictionaryCopy);
                   v14 = v30;
                   if ((objc_opt_isKindOfClass() & 1) != 0 && [v28 length])
                   {
@@ -3685,7 +3687,7 @@ LABEL_23:
       zoneName = [recordZoneID zoneName];
       if (zoneName)
       {
-        v14 = [(NSMutableDictionary *)self->_recordZoneInfoDict objectForKey:zoneName];
+        v14 = objc_msgSend_objectForKey_(self->_recordZoneInfoDict);
         if ([v14 count])
         {
           v44 = 0u;
@@ -3981,7 +3983,7 @@ LABEL_6:
   lowercaseString = [d lowercaseString];
   if (lowercaseString)
   {
-    v5 = [(NSMutableDictionary *)self->_ckAcctInfoDict objectForKey:lowercaseString];
+    v5 = objc_msgSend_objectForKey_(self->_ckAcctInfoDict);
   }
 
   else
@@ -4005,7 +4007,7 @@ LABEL_6:
   lowercaseString = [d lowercaseString];
   if (lowercaseString)
   {
-    v5 = [(NSMutableDictionary *)self->_containerDict objectForKey:lowercaseString];
+    v5 = objc_msgSend_objectForKey_(self->_containerDict);
   }
 
   else
@@ -4501,7 +4503,7 @@ LABEL_11:
         zoneName = [recordZoneID zoneName];
         if (zoneName)
         {
-          v12 = [(NSMutableDictionary *)self->_recordZoneInfoDict objectForKey:zoneName];
+          v12 = objc_msgSend_objectForKey_(self->_recordZoneInfoDict);
           firstObject = [v12 firstObject];
 
           if (firstObject)

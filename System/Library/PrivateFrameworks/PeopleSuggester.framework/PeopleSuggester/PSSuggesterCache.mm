@@ -5,7 +5,7 @@
 
 void __48___PSSuggesterCache_initWithMaxSuggestionCount___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -22,11 +22,11 @@ void __48___PSSuggesterCache_initWithMaxSuggestionCount___block_invoke(uint64_t 
     {
       if (v6)
       {
-        v8 = 134218240;
-        v9 = v4;
-        v10 = 2048;
-        v11 = v3;
-        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Timer tick: Refreshing cache (ticks=%tu, fetches=%tu)", &v8, 0x16u);
+        v7 = 134218240;
+        v8 = v4;
+        v9 = 2048;
+        v10 = v3;
+        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Timer tick: Refreshing cache (ticks=%tu, fetches=%tu)", &v7, 0x16u);
       }
 
       [(os_unfair_lock_s *)v2 refetch];
@@ -36,18 +36,16 @@ void __48___PSSuggesterCache_initWithMaxSuggestionCount___block_invoke(uint64_t 
     {
       if (v6)
       {
-        v8 = 134218240;
-        v9 = 0;
-        v10 = 2048;
-        v11 = v3;
-        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Timer tick: Initial fetch (ticks=%tu, fetches=%tu)", &v8, 0x16u);
+        v7 = 134218240;
+        v8 = 0;
+        v9 = 2048;
+        v10 = v3;
+        _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "_PSSuggesterCache: Timer tick: Initial fetch (ticks=%tu, fetches=%tu)", &v7, 0x16u);
       }
 
       [(os_unfair_lock_s *)v2 performInitialFetchIfNeeded];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58___PSSuggesterCache_defaultServiceWithMaxSuggestionCount___block_invoke(uint64_t a1)

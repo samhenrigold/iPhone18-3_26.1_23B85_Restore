@@ -44,10 +44,8 @@
 
 - (void)writeTo:(id)to
 {
-  key = self->_key;
   toCopy = to;
   PBDataWriterWriteStringField();
-  value = self->_value;
   PBDataWriterWriteStringField();
 }
 

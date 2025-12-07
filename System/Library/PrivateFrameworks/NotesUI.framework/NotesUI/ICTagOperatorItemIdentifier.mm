@@ -18,9 +18,10 @@
 
 uint64_t __51__ICTagOperatorItemIdentifier_sharedItemIdentifier__block_invoke()
 {
-  sharedItemIdentifier_itemIdentifier = objc_alloc_init(ICTagOperatorItemIdentifier);
+  v0 = objc_alloc_init(ICTagOperatorItemIdentifier);
+  sharedItemIdentifier_itemIdentifier = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 @end

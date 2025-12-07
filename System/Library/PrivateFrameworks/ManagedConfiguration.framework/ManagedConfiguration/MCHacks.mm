@@ -64,24 +64,22 @@ uint64_t __22__MCHacks_sharedHacks__block_invoke()
 
 void __39__MCHacks__permittedGracePeriodNumbers__block_invoke()
 {
-  v9[6] = *MEMORY[0x1E69E9840];
+  v8[6] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AD98] numberWithInt:0];
-  v9[0] = v0;
+  v8[0] = v0;
   v1 = [MEMORY[0x1E696AD98] numberWithInt:60];
-  v9[1] = v1;
+  v8[1] = v1;
   v2 = [MEMORY[0x1E696AD98] numberWithInt:300];
-  v9[2] = v2;
+  v8[2] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInt:900];
-  v9[3] = v3;
+  v8[3] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithInt:3600];
-  v9[4] = v4;
+  v8[4] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:14400];
-  v9[5] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:6];
+  v8[5] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:6];
   v7 = _permittedGracePeriodNumbers_numbers;
   _permittedGracePeriodNumbers_numbers = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)permittedAutoLockNumbers
@@ -96,79 +94,77 @@ void __39__MCHacks__permittedGracePeriodNumbers__block_invoke()
   return v3;
 }
 
-void __35__MCHacks_permittedAutoLockNumbers__block_invoke()
+void __35__MCHacks_permittedAutoLockNumbers__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  if (MCGestaltIsiPad())
+  v13[5] = *MEMORY[0x1E69E9840];
+  if (MCGestaltIsiPad(a1, a2))
   {
-    v0 = [MEMORY[0x1E696AD98] numberWithInt:120];
-    v12[0] = v0;
-    v1 = [MEMORY[0x1E696AD98] numberWithInt:300];
-    v12[1] = v1;
-    v2 = [MEMORY[0x1E696AD98] numberWithInt:600];
-    v12[2] = v2;
-    v3 = [MEMORY[0x1E696AD98] numberWithInt:900];
-    v12[3] = v3;
-    v4 = [MEMORY[0x1E696AD98] numberWithInt:0x7FFFFFFFLL];
-    v12[4] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:5];
-    v6 = permittedAutoLockNumbers_numbers;
-    permittedAutoLockNumbers_numbers = v5;
+    v2 = [MEMORY[0x1E696AD98] numberWithInt:120];
+    v13[0] = v2;
+    v3 = [MEMORY[0x1E696AD98] numberWithInt:300];
+    v13[1] = v3;
+    v4 = [MEMORY[0x1E696AD98] numberWithInt:600];
+    v13[2] = v4;
+    v5 = [MEMORY[0x1E696AD98] numberWithInt:900];
+    v13[3] = v5;
+    v6 = [MEMORY[0x1E696AD98] numberWithInt:0x7FFFFFFFLL];
+    v13[4] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:5];
+    v8 = permittedAutoLockNumbers_numbers;
+    permittedAutoLockNumbers_numbers = v7;
   }
 
   else
   {
-    v0 = [MEMORY[0x1E696AD98] numberWithInt:30];
-    v11[0] = v0;
-    v1 = [MEMORY[0x1E696AD98] numberWithInt:60];
-    v11[1] = v1;
-    v2 = [MEMORY[0x1E696AD98] numberWithInt:120];
-    v11[2] = v2;
-    v3 = [MEMORY[0x1E696AD98] numberWithInt:180];
-    v11[3] = v3;
-    v4 = [MEMORY[0x1E696AD98] numberWithInt:240];
-    v11[4] = v4;
-    v6 = [MEMORY[0x1E696AD98] numberWithInt:300];
-    v11[5] = v6;
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:0x7FFFFFFFLL];
-    v11[6] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
-    v9 = permittedAutoLockNumbers_numbers;
-    permittedAutoLockNumbers_numbers = v8;
+    v2 = [MEMORY[0x1E696AD98] numberWithInt:30];
+    v12[0] = v2;
+    v3 = [MEMORY[0x1E696AD98] numberWithInt:60];
+    v12[1] = v3;
+    v4 = [MEMORY[0x1E696AD98] numberWithInt:120];
+    v12[2] = v4;
+    v5 = [MEMORY[0x1E696AD98] numberWithInt:180];
+    v12[3] = v5;
+    v6 = [MEMORY[0x1E696AD98] numberWithInt:240];
+    v12[4] = v6;
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:300];
+    v12[5] = v8;
+    v9 = [MEMORY[0x1E696AD98] numberWithInt:0x7FFFFFFFLL];
+    v12[6] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
+    v11 = permittedAutoLockNumbers_numbers;
+    permittedAutoLockNumbers_numbers = v10;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_selectLargestNumberFromSortedArray:(id)array equalToOrLessThanNumber:(id)number
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   numberCopy = number;
   v7 = [arrayCopy objectAtIndex:0];
   if (numberCopy)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = arrayCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          if ([v13 compare:{numberCopy, v17}] != 1)
+          v13 = *(*(&v16 + 1) + 8 * i);
+          if ([v13 compare:{numberCopy, v16}] != 1)
           {
             v14 = v13;
 
@@ -176,14 +172,12 @@ void __35__MCHacks_permittedAutoLockNumbers__block_invoke()
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -211,61 +205,61 @@ void __35__MCHacks_permittedAutoLockNumbers__block_invoke()
   restrictionsCopy = restrictions;
   profileCopy = profile;
   v9 = [MCRestrictionManager unionValuesForFeature:@"blacklistedAppBundleIDs" withRestrictionsDictionary:restrictionsCopy];
-  v41 = [MCRestrictionManager unionValuesForFeature:@"blockedAppBundleIDs" withRestrictionsDictionary:restrictionsCopy];
-  if ([v9 count] || objc_msgSend(v41, "count"))
+  v42 = [MCRestrictionManager unionValuesForFeature:@"blockedAppBundleIDs" withRestrictionsDictionary:restrictionsCopy];
+  if ([v9 count] || objc_msgSend(v42, "count"))
   {
     selfCopy = self;
     v11 = profileCopy;
     v12 = v9;
     v13 = [MEMORY[0x1E695DFD8] setWithArray:v9];
-    v14 = [MEMORY[0x1E695DFA8] setWithArray:v41];
-    [v14 unionSet:v13];
+    v14 = [MEMORY[0x1E695DFA8] setWithArray:v42];
+    v15 = [v14 unionSet:v13];
     if (!apps)
     {
-      v15 = MCUnrestrictableApps();
-      [v14 minusSet:v15];
+      v16 = MCUnrestrictableApps(v15);
+      [v14 minusSet:v16];
     }
 
     allObjects = [v14 allObjects];
-    v17 = [allObjects copy];
-    [restrictionsCopy MCSetUnionRestriction:@"blockedAppBundleIDs" values:v17];
-
     v18 = [allObjects copy];
-    [restrictionsCopy MCSetUnionRestriction:@"blacklistedAppBundleIDs" values:v18];
+    [restrictionsCopy MCSetUnionRestriction:@"blockedAppBundleIDs" values:v18];
+
+    v19 = [allObjects copy];
+    [restrictionsCopy MCSetUnionRestriction:@"blacklistedAppBundleIDs" values:v19];
 
     profileCopy = v11;
     v9 = v12;
     self = selfCopy;
   }
 
-  v19 = [MCRestrictionManager intersectedValuesForFeature:@"appLockBundleIDs" withRestrictionsDictionary:restrictionsCopy];
-  if ([v19 count] && !apps)
+  v20 = [MCRestrictionManager intersectedValuesForFeature:@"appLockBundleIDs" withRestrictionsDictionary:restrictionsCopy];
+  if ([v20 count] && !apps)
   {
-    v20 = [MEMORY[0x1E695DFA8] setWithArray:v19];
-    v21 = MCUnrestrictableApps();
-    [v20 unionSet:v21];
+    v21 = [MEMORY[0x1E695DFA8] setWithArray:v20];
+    v22 = MCUnrestrictableApps(v21);
+    [v21 unionSet:v22];
 
-    allObjects2 = [v20 allObjects];
+    allObjects2 = [v21 allObjects];
     [restrictionsCopy MCSetIntersectionRestriction:@"appLockBundleIDs" values:allObjects2];
   }
 
   isEncrypted = [profileCopy isEncrypted];
-  v24 = restrictionsCopy;
+  v25 = restrictionsCopy;
   if (isEncrypted)
   {
-    v25 = [restrictionsCopy objectForKeyedSubscript:@"restrictedBool"];
-    v26 = [v25 objectForKeyedSubscript:@"forceEncryptedBackup"];
-    v27 = [v26 objectForKeyedSubscript:@"value"];
+    v26 = [restrictionsCopy objectForKeyedSubscript:@"restrictedBool"];
+    v27 = [v26 objectForKeyedSubscript:@"forceEncryptedBackup"];
+    v28 = [v27 objectForKeyedSubscript:@"value"];
 
-    v24 = restrictionsCopy;
-    if (!v27)
+    v25 = restrictionsCopy;
+    if (!v28)
     {
       [restrictionsCopy MCSetBoolRestriction:@"forceEncryptedBackup" value:1];
-      v24 = restrictionsCopy;
+      v25 = restrictionsCopy;
     }
   }
 
-  if ([MCRestrictionManager restrictedBoolForFeature:@"allowCamera" withRestrictionsDictionary:v24]== 2)
+  if ([MCRestrictionManager restrictedBoolForFeature:@"allowCamera" withRestrictionsDictionary:v25]== 2)
   {
     [restrictionsCopy MCSetBoolRestriction:@"allowVideoConferencing" value:0];
   }
@@ -290,38 +284,38 @@ void __35__MCHacks_permittedAutoLockNumbers__block_invoke()
     [restrictionsCopy MCSetBoolRestriction:@"allowiTunesSocialPages" value:0];
   }
 
-  v28 = [MCPasscodeManager unlockScreenTypeForRestrictions:restrictionsCopy];
-  v29 = restrictionsCopy;
-  if (v28)
+  v29 = [MCPasscodeManager unlockScreenTypeForRestrictions:restrictionsCopy];
+  v30 = restrictionsCopy;
+  if (v29)
   {
-    v30 = v28;
-    v31 = [MCRestrictionManager valueForFeature:@"passcodeKeyboardComplexity" withRestrictionsDictionary:restrictionsCopy];
-    if ([v31 unsignedIntValue] < v30)
+    v31 = v29;
+    v32 = [MCRestrictionManager valueForFeature:@"passcodeKeyboardComplexity" withRestrictionsDictionary:restrictionsCopy];
+    if ([v32 unsignedIntValue] < v31)
     {
-      v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v30];
-      [restrictionsCopy MCSetValueRestriction:@"passcodeKeyboardComplexity" value:v32];
+      v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v31];
+      [restrictionsCopy MCSetValueRestriction:@"passcodeKeyboardComplexity" value:v33];
     }
 
-    v29 = restrictionsCopy;
+    v30 = restrictionsCopy;
   }
 
-  v33 = [MCRestrictionManager valueForFeature:@"maxGracePeriod" withRestrictionsDictionary:v29];
-  if (v33)
+  v34 = [MCRestrictionManager valueForFeature:@"maxGracePeriod" withRestrictionsDictionary:v30];
+  if (v34)
   {
-    v34 = [(MCHacks *)self quantizedGracePeriodInSeconds:v33];
-    [restrictionsCopy MCSetValueRestriction:@"maxGracePeriod" value:v34];
+    v35 = [(MCHacks *)self quantizedGracePeriodInSeconds:v34];
+    [restrictionsCopy MCSetValueRestriction:@"maxGracePeriod" value:v35];
   }
 
-  v35 = [MCRestrictionManager valueForFeature:@"maxInactivity" withRestrictionsDictionary:restrictionsCopy];
-  if (v35)
+  v36 = [MCRestrictionManager valueForFeature:@"maxInactivity" withRestrictionsDictionary:restrictionsCopy];
+  if (v36)
   {
-    v36 = [(MCHacks *)self quantizedAutoLockInSeconds:v35];
-    [restrictionsCopy MCSetValueRestriction:@"maxInactivity" value:v36];
+    v37 = [(MCHacks *)self quantizedAutoLockInSeconds:v36];
+    [restrictionsCopy MCSetValueRestriction:@"maxInactivity" value:v37];
   }
 
-  v37 = [MCRestrictionManager valueForFeature:@"ratingApps" withRestrictionsDictionary:restrictionsCopy];
-  v38 = v37;
-  if (v37 && [v37 intValue] <= 999)
+  v38 = [MCRestrictionManager valueForFeature:@"ratingApps" withRestrictionsDictionary:restrictionsCopy];
+  v39 = v38;
+  if (v38 && [v38 intValue] <= 999)
   {
     [restrictionsCopy MCSetBoolRestriction:@"forceITunesStorePasswordEntry" value:1];
   }
@@ -398,7 +392,7 @@ void __35__MCHacks_permittedAutoLockNumbers__block_invoke()
 
   if (_os_feature_enabled_impl())
   {
-    if (+[MCRestrictionManager restrictedBoolForFeature:withRestrictionsDictionary:](MCRestrictionManager, "restrictedBoolForFeature:withRestrictionsDictionary:", @"allowPasscodeModification", restrictionsCopy) == 2 || (+[MCRestrictionManager valueForFeature:withRestrictionsDictionary:](MCRestrictionManager, "valueForFeature:withRestrictionsDictionary:", @"pinHistory", restrictionsCopy), v39 = objc_claimAutoreleasedReturnValue(), v40 = [v39 unsignedIntValue], v39, v40))
+    if (+[MCRestrictionManager restrictedBoolForFeature:withRestrictionsDictionary:](MCRestrictionManager, "restrictedBoolForFeature:withRestrictionsDictionary:", @"allowPasscodeModification", restrictionsCopy) == 2 || (+[MCRestrictionManager valueForFeature:withRestrictionsDictionary:](MCRestrictionManager, "valueForFeature:withRestrictionsDictionary:", @"pinHistory", restrictionsCopy), v40 = objc_claimAutoreleasedReturnValue(), v41 = [v40 unsignedIntValue], v40, v41))
     {
       [restrictionsCopy MCSetBoolRestriction:@"allowPasscodeRecovery" value:0];
     }
@@ -598,16 +592,17 @@ LABEL_28:
 LABEL_14:
   }
 
-  if ([MEMORY[0x1E6999800] isSharediPad])
+  isSharediPad = [MEMORY[0x1E6999800] isSharediPad];
+  if (isSharediPad)
   {
-    MCLKLogoutSupportClass();
-    v10 = objc_opt_new();
-    isCurrentUserAnonymous = [v10 isCurrentUserAnonymous];
+    MCLKLogoutSupportClass(isSharediPad);
+    v11 = objc_opt_new();
+    isCurrentUserAnonymous = [v11 isCurrentUserAnonymous];
 
     if (isCurrentUserAnonymous)
     {
-      v12 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-      mCMutableDeepCopy = [v12 MCMutableDeepCopy];
+      v13 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+      mCMutableDeepCopy = [v13 MCMutableDeepCopy];
 
       if (!mCMutableDeepCopy)
       {
@@ -615,15 +610,15 @@ LABEL_14:
       }
 
       MCFeatureSetBoolSetting(mCMutableDeepCopy, @"allowAccountModification", 0);
-      v14 = [mCMutableDeepCopy copy];
-      [settingsCopy setObject:v14 forKeyedSubscript:@"restrictedBool"];
+      v15 = [mCMutableDeepCopy copy];
+      [settingsCopy setObject:v15 forKeyedSubscript:@"restrictedBool"];
     }
   }
 
   if ([MCRestrictionManager BOOLSettingForFeature:@"forceWiFiWhitelisting" withUserSettingDictionary:settingsCopy]== 1 || [MCRestrictionManager BOOLSettingForFeature:@"forceWiFiToAllowedNetworksOnly" withUserSettingDictionary:settingsCopy]== 1)
   {
-    v15 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-    mCMutableDeepCopy2 = [v15 MCMutableDeepCopy];
+    v16 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+    mCMutableDeepCopy2 = [v16 MCMutableDeepCopy];
 
     if (!mCMutableDeepCopy2)
     {
@@ -637,8 +632,8 @@ LABEL_14:
 
   if ([MCRestrictionManager BOOLSettingForFeature:@"allowLockdownMode" withUserSettingDictionary:settingsCopy]== 1)
   {
-    v17 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-    mCMutableDeepCopy3 = [v17 MCMutableDeepCopy];
+    v18 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+    mCMutableDeepCopy3 = [v18 MCMutableDeepCopy];
 
     if (!mCMutableDeepCopy3)
     {
@@ -655,20 +650,20 @@ LABEL_14:
     [settingsCopy setObject:mCMutableDeepCopy3 forKeyedSubscript:@"restrictedBool"];
   }
 
-  v19 = _os_feature_enabled_impl();
-  v20 = settingsCopy;
-  if (v19)
+  v20 = _os_feature_enabled_impl();
+  v21 = settingsCopy;
+  if (v20)
   {
-    v21 = [MCRestrictionManager BOOLSettingForFeature:@"allowPasscodeModification" withUserSettingDictionary:settingsCopy];
-    v20 = settingsCopy;
-    if (v21 == 2)
+    v22 = [MCRestrictionManager BOOLSettingForFeature:@"allowPasscodeModification" withUserSettingDictionary:settingsCopy];
+    v21 = settingsCopy;
+    if (v22 == 2)
     {
-      v22 = [MCRestrictionManager BOOLSettingForFeature:@"allowPasscodeRecovery" withUserSettingDictionary:settingsCopy];
-      v20 = settingsCopy;
-      if (v22 != 2)
+      v23 = [MCRestrictionManager BOOLSettingForFeature:@"allowPasscodeRecovery" withUserSettingDictionary:settingsCopy];
+      v21 = settingsCopy;
+      if (v23 != 2)
       {
-        v23 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-        mCMutableDeepCopy4 = [v23 MCMutableDeepCopy];
+        v24 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+        mCMutableDeepCopy4 = [v24 MCMutableDeepCopy];
 
         if (!mCMutableDeepCopy4)
         {
@@ -678,15 +673,15 @@ LABEL_14:
         MCFeatureSetBoolSetting(mCMutableDeepCopy4, @"allowPasscodeRecovery", 0);
         [settingsCopy setObject:mCMutableDeepCopy4 forKeyedSubscript:@"restrictedBool"];
 
-        v20 = settingsCopy;
+        v21 = settingsCopy;
       }
     }
   }
 
-  if ([MCRestrictionManager BOOLSettingForFeature:@"allowControlCenter" withUserSettingDictionary:v20]== 2)
+  if ([MCRestrictionManager BOOLSettingForFeature:@"allowControlCenter" withUserSettingDictionary:v21]== 2)
   {
-    v25 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-    mCMutableDeepCopy5 = [v25 MCMutableDeepCopy];
+    v26 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+    mCMutableDeepCopy5 = [v26 MCMutableDeepCopy];
 
     if (!mCMutableDeepCopy5)
     {
@@ -699,8 +694,8 @@ LABEL_14:
 
   if ([MCRestrictionManager BOOLSettingForFeature:@"allowSpotlight" withUserSettingDictionary:settingsCopy]== 2)
   {
-    v27 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
-    mCMutableDeepCopy6 = [v27 MCMutableDeepCopy];
+    v28 = [settingsCopy objectForKeyedSubscript:@"restrictedBool"];
+    mCMutableDeepCopy6 = [v28 MCMutableDeepCopy];
 
     if (!mCMutableDeepCopy6)
     {
@@ -738,7 +733,7 @@ LABEL_14:
     v10 = array;
 
     v11 = [MEMORY[0x1E695DFA8] setWithArray:v10];
-    v12 = MCAlwaysRestrictedAppsInEDUMode();
+    v12 = MCAlwaysRestrictedAppsInEDUMode(v11);
     [v11 unionSet:v12];
 
     allObjects = [v11 allObjects];
@@ -803,7 +798,7 @@ LABEL_14:
 
 - (void)_applyHeuristicsToGranfatheredRestrictionPayloadKeys:(id)keys
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   if ([(MCHacks *)self isJapanSKU])
   {
@@ -811,7 +806,7 @@ LABEL_14:
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = @"allowSafari";
+      v12 = @"allowSafari";
       _os_log_impl(&dword_1A795B000, v5, OS_LOG_TYPE_DEFAULT, "Japan SKU device: Add %@ to grandfathered restrictions", buf, 0xCu);
     }
 
@@ -826,14 +821,12 @@ LABEL_14:
 
     else
     {
-      v11 = @"allowSafari";
-      allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+      v10 = @"allowSafari";
+      allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
     }
 
     [keysCopy setObject:allObjects forKeyedSubscript:@"restrictedBool"];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyInternalDiagnosticEnforcementToSettings:(id)settings
@@ -861,19 +854,20 @@ LABEL_14:
 
 - (void)_setRequriesEncryptedBackupInLockdownWithEffectiveUserSettings:(id)settings
 {
-  v3 = [MCRestrictionManager BOOLSettingForFeature:@"forceEncryptedBackup" withUserSettingDictionary:settings]== 1;
-  v4 = MCLockdownOperationQueue();
+  v3 = [MCRestrictionManager BOOLSettingForFeature:@"forceEncryptedBackup" withUserSettingDictionary:settings];
+  v4 = v3 == 1;
+  v5 = MCLockdownOperationQueue(v3);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __74__MCHacks__setRequriesEncryptedBackupInLockdownWithEffectiveUserSettings___block_invoke;
   block[3] = &__block_descriptor_33_e5_v8__0l;
-  v6 = v3;
-  dispatch_async(v4, block);
+  v7 = v4;
+  dispatch_async(v5, block);
 }
 
 uint64_t __74__MCHacks__setRequriesEncryptedBackupInLockdownWithEffectiveUserSettings___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = lockdown_connect();
   if (result)
   {
@@ -888,19 +882,18 @@ uint64_t __74__MCHacks__setRequriesEncryptedBackupInLockdownWithEffectiveUserSet
         v7 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
-          v9[0] = 67109120;
-          v9[1] = v6;
-          _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Could not set encrypted backup required key in lockdown: %d", v9, 8u);
+          v8[0] = 67109120;
+          v8[1] = v6;
+          _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_ERROR, "Could not set encrypted backup required key in lockdown: %d", v8, 8u);
         }
       }
 
       CFRelease(v4);
     }
 
-    result = lockdown_disconnect();
+    return lockdown_disconnect();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -927,25 +920,25 @@ void __41__MCHacks__deviceSpecificDefaultSettings__block_invoke(uint64_t a1)
   v5 = [v2 dataWithContentsOfFile:v4];
 
   v6 = [MEMORY[0x1E696AE40] MCSafePropertyListWithData:v5 options:2 format:0 error:0];
-  if (MCGestaltIsiPad())
+  if (MCGestaltIsiPad(v6, v7))
   {
-    v7 = _MCLogObjects;
+    v8 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_DEFAULT, "Applying iPad defaults", buf, 2u);
+      _os_log_impl(&dword_1A795B000, v8, OS_LOG_TYPE_DEFAULT, "Applying iPad defaults", buf, 2u);
     }
 
-    v8 = [v6 objectForKey:@"restrictedValue"];
-    v9 = [v8 objectForKey:@"maxInactivity"];
+    v9 = [v6 objectForKey:@"restrictedValue"];
+    v10 = [v9 objectForKey:@"maxInactivity"];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [MEMORY[0x1E696AD98] numberWithInt:120];
-      [v9 setObject:v10 forKey:@"value"];
-
       v11 = [MEMORY[0x1E696AD98] numberWithInt:120];
-      [v9 setObject:v11 forKey:@"rangeMinimum"];
+      [v10 setObject:v11 forKey:@"value"];
+
+      v12 = [MEMORY[0x1E696AD98] numberWithInt:120];
+      [v10 setObject:v12 forKey:@"rangeMinimum"];
     }
 
 LABEL_11:
@@ -955,77 +948,78 @@ LABEL_11:
 
   if (MCGestaltHasPearlIDCapability())
   {
-    v12 = [v6 objectForKey:@"restrictedValue"];
-    v9 = [v12 objectForKey:@"maxInactivity"];
+    v13 = [v6 objectForKey:@"restrictedValue"];
+    v10 = [v13 objectForKey:@"maxInactivity"];
 
-    if (v9)
+    if (v10)
     {
-      v13 = _MCLogObjects;
+      v14 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
       {
-        *v31 = 0;
-        _os_log_impl(&dword_1A795B000, v13, OS_LOG_TYPE_DEFAULT, "Applying FaceID defaults", v31, 2u);
+        *v34 = 0;
+        _os_log_impl(&dword_1A795B000, v14, OS_LOG_TYPE_DEFAULT, "Applying FaceID defaults", v34, 2u);
       }
 
-      [v9 setObject:&unk_1F1AA5860 forKey:@"value"];
+      [v10 setObject:&unk_1F1AA5860 forKey:@"value"];
     }
 
     goto LABEL_11;
   }
 
-  v28 = _MCLogObjects;
-  if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
+  v31 = _MCLogObjects;
+  v15 = os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT);
+  if (v15)
   {
-    *v30 = 0;
-    _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_DEFAULT, "Applying iPhone defaults", v30, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_DEFAULT, "Applying iPhone defaults", v33, 2u);
   }
 
 LABEL_12:
-  if (MCGestaltHasBiometricCapability())
+  if (MCGestaltHasBiometricCapability(v15, v16))
   {
-    v14 = [v6 objectForKey:@"restrictedValue"];
-    v15 = [v14 objectForKey:@"minLength"];
+    v17 = [v6 objectForKey:@"restrictedValue"];
+    v18 = [v17 objectForKey:@"minLength"];
 
-    if (v15)
+    if (v18)
     {
-      v16 = [v15 objectForKey:@"value"];
-      v17 = [v16 unsignedIntValue];
+      v19 = [v18 objectForKey:@"value"];
+      v20 = [v19 unsignedIntValue];
 
-      if (v17 <= 5)
+      if (v20 <= 5)
       {
-        v18 = _MCLogObjects;
+        v21 = _MCLogObjects;
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEFAULT))
         {
-          *v29 = 0;
-          _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_DEFAULT, "Applying TouchID defaults", v29, 2u);
+          *v32 = 0;
+          _os_log_impl(&dword_1A795B000, v21, OS_LOG_TYPE_DEFAULT, "Applying TouchID defaults", v32, 2u);
         }
 
-        [v15 setObject:&unk_1F1AA5878 forKey:@"value"];
+        [v18 setObject:&unk_1F1AA5878 forKey:@"value"];
       }
     }
   }
 
   [*(a1 + 32) _applyInternalDiagnosticEnforcementToSettings:v6];
-  v19 = [MEMORY[0x1E696AC08] defaultManager];
-  v20 = MDMFilePath();
-  v21 = [v19 fileExistsAtPath:v20 isDirectory:0];
+  v22 = [MEMORY[0x1E696AC08] defaultManager];
+  v23 = MDMFilePath();
+  v24 = [v22 fileExistsAtPath:v23 isDirectory:0];
 
-  if ((v21 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v22 = [MEMORY[0x1E69AD420] sharedConfiguration];
-    v23 = [v22 isSupervised];
+    v25 = [MEMORY[0x1E69AD420] sharedConfiguration];
+    v26 = [v25 isSupervised];
 
-    if (v23)
+    if (v26)
     {
-      v24 = [v6 objectForKey:@"restrictedBool"];
-      v25 = [v24 objectForKey:@"allowUSBRestrictedMode"];
+      v27 = [v6 objectForKey:@"restrictedBool"];
+      v28 = [v27 objectForKey:@"allowUSBRestrictedMode"];
 
-      v26 = [MEMORY[0x1E696AD98] numberWithBool:0];
-      [v25 setObject:v26 forKey:@"value"];
+      v29 = [MEMORY[0x1E696AD98] numberWithBool:0];
+      [v28 setObject:v29 forKey:@"value"];
     }
   }
 
-  v27 = _deviceSpecificDefaultSettings_dict;
+  v30 = _deviceSpecificDefaultSettings_dict;
   _deviceSpecificDefaultSettings_dict = v6;
 }
 
@@ -1064,13 +1058,13 @@ LABEL_12:
 
 - (BOOL)sanitizedProfileSignerCertificateChainIsAllowedToInstallUnsupportedPayload:(id)payload
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v4 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to install unsupported payloads.", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to install unsupported payloads.", v9, 2u);
   }
 
   v5 = objc_opt_new();
@@ -1078,24 +1072,23 @@ LABEL_12:
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = v6;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Unsupported evaluation result: %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v6;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Unsupported evaluation result: %d", v9, 8u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)sanitizedProfileSignerCertificateChainIsAllowedToWriteDefaults:(id)defaults
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   defaultsCopy = defaults;
   v4 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to write defaults.", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to write defaults.", v9, 2u);
   }
 
   v5 = objc_opt_new();
@@ -1103,24 +1096,23 @@ LABEL_12:
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = v6;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Evaluation result: %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v6;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Evaluation result: %d", v9, 8u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)sanitizedProfileSignerCertificateChainIsAllowedToInstallSupervisedRestrictionsOnUnsupervisedDevices:(id)devices
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   v4 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to install supervised only restrictions on an unsupervised device.", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_1A795B000, v4, OS_LOG_TYPE_INFO, "Evaluating whether the certificate signer is entitled to install supervised only restrictions on an unsupervised device.", v9, 2u);
   }
 
   v5 = objc_opt_new();
@@ -1128,12 +1120,11 @@ LABEL_12:
   v7 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
   {
-    v10[0] = 67109120;
-    v10[1] = v6;
-    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Evaluation result: %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v6;
+    _os_log_impl(&dword_1A795B000, v7, OS_LOG_TYPE_INFO, "Evaluation result: %d", v9, 8u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1194,34 +1185,34 @@ void __21__MCHacks_isGreenTea__block_invoke(uint64_t a1)
 
 void __21__MCHacks_isJapanSKU__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) _deviceRegionCode];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v2 = [&unk_1F1AA5A10 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [&unk_1F1AA5A10 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(&unk_1F1AA5A10);
         }
 
-        if ([v1 isEqualToString:*(*(&v7 + 1) + 8 * i)])
+        if ([v1 isEqualToString:*(*(&v6 + 1) + 8 * i)])
         {
           isJapanSKU_isJapanSKU = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [&unk_1F1AA5A10 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [&unk_1F1AA5A10 countByEnumeratingWithState:&v6 objects:v10 count:16];
       if (v3)
       {
         continue;
@@ -1232,8 +1223,6 @@ void __21__MCHacks_isJapanSKU__block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

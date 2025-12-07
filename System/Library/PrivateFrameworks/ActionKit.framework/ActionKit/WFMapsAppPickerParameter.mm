@@ -117,11 +117,11 @@ id __57__WFMapsAppPickerParameter_possibleStatesForLocalization__block_invoke(ui
 
 - (WFMapsAppPickerParameter)initWithDefinition:(id)definition
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   definitionCopy = definition;
-  v20.receiver = self;
-  v20.super_class = WFMapsAppPickerParameter;
-  v5 = [(WFMapsAppPickerParameter *)&v20 initWithDefinition:definitionCopy];
+  v19.receiver = self;
+  v19.super_class = WFMapsAppPickerParameter;
+  v5 = [(WFMapsAppPickerParameter *)&v19 initWithDefinition:definitionCopy];
   if (v5)
   {
     v6 = [definitionCopy objectForKey:@"SupportedApps"];
@@ -134,13 +134,13 @@ id __57__WFMapsAppPickerParameter_possibleStatesForLocalization__block_invoke(ui
       {
         v11 = objc_opt_class();
         *buf = 136315906;
-        v22 = "WFEnforceClass";
-        v23 = 2114;
-        v24 = v8;
-        v25 = 2114;
-        v26 = v11;
-        v27 = 2114;
-        v28 = v7;
+        v21 = "WFEnforceClass";
+        v22 = 2114;
+        v23 = v8;
+        v24 = 2114;
+        v25 = v11;
+        v26 = 2114;
+        v27 = v7;
         v12 = v11;
         _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
@@ -162,7 +162,6 @@ id __57__WFMapsAppPickerParameter_possibleStatesForLocalization__block_invoke(ui
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

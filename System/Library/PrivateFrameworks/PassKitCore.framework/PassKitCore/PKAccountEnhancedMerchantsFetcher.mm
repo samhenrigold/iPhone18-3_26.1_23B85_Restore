@@ -404,23 +404,23 @@ void __95__PKAccountEnhancedMerchantsFetcher_updateDataWithCooldownLevel_ignoreE
   }
 }
 
-uint64_t __95__PKAccountEnhancedMerchantsFetcher_updateDataWithCooldownLevel_ignoreErrorBackoff_completion___block_invoke_24(uint64_t a1)
+uint64_t __95__PKAccountEnhancedMerchantsFetcher_updateDataWithCooldownLevel_ignoreErrorBackoff_completion___block_invoke_24(void *a1)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v2 = DateIsWithinThresholdForCooldownLevel(*(a1 + 32), *(a1 + 56), *(a1 + 40));
+  v2 = DateIsWithinThresholdForCooldownLevel(a1[4], a1[7], a1[5]);
   v3 = PKLogFacilityTypeGetObject(0xFuLL);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
     if (v4)
     {
-      v5 = *(a1 + 56);
+      v5 = a1[7];
       v9 = 134217984;
       v10 = v5;
       _os_log_impl(&dword_1AD337000, v3, OS_LOG_TYPE_DEFAULT, "Successfully updated account enhanced merchants to within cooldown level %ld", &v9, 0xCu);
     }
 
-    result = *(a1 + 48);
+    result = a1[6];
     if (result)
     {
       v7 = *(result + 16);
@@ -432,13 +432,13 @@ uint64_t __95__PKAccountEnhancedMerchantsFetcher_updateDataWithCooldownLevel_ign
   {
     if (v4)
     {
-      v8 = *(a1 + 56);
+      v8 = a1[7];
       v9 = 134217984;
       v10 = v8;
       _os_log_impl(&dword_1AD337000, v3, OS_LOG_TYPE_DEFAULT, "Account enhanced merchants not updated to within provided cooldown level of %ld", &v9, 0xCu);
     }
 
-    result = *(a1 + 48);
+    result = a1[6];
     if (result)
     {
       v7 = *(result + 16);
@@ -549,7 +549,7 @@ uint64_t __74__PKAccountEnhancedMerchantsFetcher_enhancedMerchantsWithOrderingCo
   v6 = v5;
   if (v4 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -566,16 +566,16 @@ uint64_t __74__PKAccountEnhancedMerchantsFetcher_enhancedMerchantsWithOrderingCo
 
     if (v7)
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)enhancedMerchantMatchingPaymentIdentifier:(id)identifier
@@ -742,9 +742,9 @@ void __59__PKAccountEnhancedMerchantsFetcher__triggerUpdateHandlers__block_invok
     goto LABEL_9;
   }
 
-  v14 = [(NSString *)v11 isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-  if (v14)
+  if (isEqualToString)
   {
 LABEL_7:
     [(PKAccountEnhancedMerchantsFetcher *)self setItems:merchantsCopy];

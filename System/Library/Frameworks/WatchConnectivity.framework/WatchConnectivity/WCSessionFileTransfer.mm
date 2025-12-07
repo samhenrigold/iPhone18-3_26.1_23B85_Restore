@@ -85,19 +85,17 @@
 
 void __43__WCSessionFileTransfer_initializeProgress__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[WCSessionFileTransfer initializeProgress]_block_invoke";
-    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "[WCSessionFileTransfer initializeProgress]_block_invoke";
+    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained cancel];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

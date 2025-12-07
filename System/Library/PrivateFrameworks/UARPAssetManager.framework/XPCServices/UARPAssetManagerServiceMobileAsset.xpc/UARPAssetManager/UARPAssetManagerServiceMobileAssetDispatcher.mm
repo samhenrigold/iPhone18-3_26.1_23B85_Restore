@@ -1,5 +1,6 @@
 @interface UARPAssetManagerServiceMobileAssetDispatcher
 - (UARPAssetManagerServiceMobileAssetDispatcher)initWithConnection:(id)connection;
+- (void)assetAvailabilityUpdateForSubscription:(id)subscription cacheRecord:(id)record asyncUpdate:(BOOL)update;
 - (void)checkCacheForSubscription:(id)subscription withReply:(id)reply;
 - (void)copyCacheWithReply:(id)reply;
 - (void)copySubscriptionsWithReply:(id)reply;
@@ -84,6 +85,16 @@
   replyCopy = reply;
   copySubscriptions = [(UARPAssetManagerServiceMobileAsset *)assetManager copySubscriptions];
   replyCopy[2](replyCopy, copySubscriptions);
+}
+
+- (void)assetAvailabilityUpdateForSubscription:(id)subscription cacheRecord:(id)record asyncUpdate:(BOOL)update
+{
+  updateCopy = update;
+  xpcConnection = self->_xpcConnection;
+  recordCopy = record;
+  subscriptionCopy = subscription;
+  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:&stru_100014580];
+  [v10 assetAvailabilityUpdateForSubscription:subscriptionCopy cacheRecord:recordCopy asyncUpdate:updateCopy];
 }
 
 @end

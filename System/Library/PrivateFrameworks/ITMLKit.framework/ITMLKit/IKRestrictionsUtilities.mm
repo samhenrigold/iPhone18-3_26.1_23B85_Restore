@@ -51,23 +51,21 @@ uint64_t __53__IKRestrictionsUtilities__purgableRatingsDictionary__block_invoke(
 
 - (void)cache:(id)cache willEvictObject:(id)object
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = ITMLKitGetLogObject(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2549A4000, v4, OS_LOG_TYPE_INFO, "%@ cached ratings dictionary will be evicted", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_2549A4000, v4, OS_LOG_TYPE_INFO, "%@ cached ratings dictionary will be evicted", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)ratingForRestrictionRanking:(id)ranking inDomain:(id)domain countryCode:(id)code
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   rankingCopy = ranking;
   domainCopy = domain;
   codeCopy = code;
@@ -77,34 +75,34 @@ uint64_t __53__IKRestrictionsUtilities__purgableRatingsDictionary__block_invoke(
   v14 = *MEMORY[0x277CEC570];
   if (v13)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v15 = v11;
-    v16 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v29 = v11;
-      v30 = codeCopy;
-      v31 = domainCopy;
-      v32 = rankingCopy;
-      v33 = 0;
-      v18 = *v35;
-      v28 = v14;
+      v28 = v11;
+      v29 = codeCopy;
+      v30 = domainCopy;
+      v31 = rankingCopy;
+      v32 = 0;
+      v18 = *v34;
+      v27 = v14;
       v19 = v14;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v35 != v18)
+          if (*v34 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * i);
-          v22 = [v21 objectForKey:{@"rank", v28, v29, v30, v31, v32}];
+          v21 = *(*(&v33 + 1) + 8 * i);
+          v22 = [v21 objectForKey:{@"rank", v27, v28, v29, v30, v31}];
           integerValue2 = [v22 integerValue];
 
           if (integerValue2 >= integerValue && v19 >= integerValue2)
@@ -112,23 +110,23 @@ uint64_t __53__IKRestrictionsUtilities__purgableRatingsDictionary__block_invoke(
             v19 = integerValue2;
             v24 = v21;
 
-            v33 = v24;
+            v32 = v24;
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v17);
 
-      domainCopy = v31;
-      rankingCopy = v32;
-      v11 = v29;
-      codeCopy = v30;
-      v14 = v28;
-      if (v33)
+      domainCopy = v30;
+      rankingCopy = v31;
+      v11 = v28;
+      codeCopy = v29;
+      v14 = v27;
+      if (v32)
       {
-        v25 = [v33 objectForKey:@"rating"];
+        v25 = [v32 objectForKey:@"rating"];
 
         goto LABEL_23;
       }
@@ -166,8 +164,6 @@ uint64_t __53__IKRestrictionsUtilities__purgableRatingsDictionary__block_invoke(
 
 LABEL_23:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
@@ -198,7 +194,7 @@ LABEL_23:
 
 + (id)rankingForRestrictionRating:(id)rating inDomain:(id)domain countryCode:(id)code
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ratingCopy = rating;
   domainCopy = domain;
   codeCopy = code;
@@ -219,26 +215,26 @@ LABEL_5:
   }
 
   [self _ratingDictionaryForDomain:domainCopy countryCode:codeCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v14 = v27 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = v26 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
 LABEL_8:
     v18 = 0;
     while (1)
     {
-      if (*v25 != v17)
+      if (*v24 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v19 = *(*(&v24 + 1) + 8 * v18);
-      v20 = [v19 objectForKey:{@"rating", v24}];
+      v19 = *(*(&v23 + 1) + 8 * v18);
+      v20 = [v19 objectForKey:{@"rating", v23}];
       if ([v20 isEqualToString:ratingCopy])
       {
         break;
@@ -246,7 +242,7 @@ LABEL_8:
 
       if (v16 == ++v18)
       {
-        v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v16)
         {
           goto LABEL_8;
@@ -271,11 +267,10 @@ LABEL_8:
 LABEL_14:
 
 LABEL_17:
-    v13 = [MEMORY[0x277CCABB0] numberWithInt:{*MEMORY[0x277CEC570], v24}];
+    v13 = [MEMORY[0x277CCABB0] numberWithInt:{*MEMORY[0x277CEC570], v23}];
   }
 
 LABEL_19:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

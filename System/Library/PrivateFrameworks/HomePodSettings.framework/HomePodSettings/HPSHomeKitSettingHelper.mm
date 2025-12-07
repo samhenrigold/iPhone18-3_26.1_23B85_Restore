@@ -24,40 +24,38 @@
   keyPath = [settingCopy keyPath];
   v7 = [v5 objectForKey:keyPath];
   v8 = v7;
-  if (v7 && (v9 = NSSelectorFromString(v7), (objc_opt_respondsToSelector() & 1) != 0))
+  if (v7 && (v9 = NSSelectorFromString(v7), v10 = objc_opt_respondsToSelector(), (v10 & 1) != 0))
   {
-    v10 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _HPSLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       *&buf[4] = "+[HPSHomeKitSettingHelper compatibleReadSetting:]";
       v19 = 2112;
       v20 = keyPath;
-      _os_log_impl(&dword_2542B7000, v10, OS_LOG_TYPE_INFO, "%s fixing up %@", buf, 0x16u);
+      _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s fixing up %@", buf, 0x16u);
     }
 
-    v11 = MEMORY[0x277CBEAE8];
-    v12 = [self methodSignatureForSelector:v9];
-    v13 = [v11 invocationWithMethodSignature:v12];
+    v12 = MEMORY[0x277CBEAE8];
+    v13 = [self methodSignatureForSelector:v9];
+    v14 = [v12 invocationWithMethodSignature:v13];
 
-    [v13 setTarget:self];
-    [v13 setSelector:v9];
-    [v13 setArgument:&location atIndex:2];
-    [v13 invoke];
+    [v14 setTarget:self];
+    [v14 setSelector:v9];
+    [v14 setArgument:&location atIndex:2];
+    [v14 invoke];
     *buf = 0;
-    [v13 getReturnValue:buf];
+    [v14 getReturnValue:buf];
     objc_storeStrong(&location, *buf);
-    v14 = location;
+    v15 = location;
   }
 
   else
   {
-    v14 = settingCopy;
+    v15 = settingCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 + (id)compatibleWriteSetting:(id)setting
@@ -69,40 +67,38 @@
   keyPath = [settingCopy keyPath];
   v7 = [v5 objectForKey:keyPath];
   v8 = v7;
-  if (v7 && (v9 = NSSelectorFromString(v7), (objc_opt_respondsToSelector() & 1) != 0))
+  if (v7 && (v9 = NSSelectorFromString(v7), v10 = objc_opt_respondsToSelector(), (v10 & 1) != 0))
   {
-    v10 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _HPSLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       *&buf[4] = "+[HPSHomeKitSettingHelper compatibleWriteSetting:]";
       v19 = 2112;
       v20 = keyPath;
-      _os_log_impl(&dword_2542B7000, v10, OS_LOG_TYPE_INFO, "%s fixing up %@", buf, 0x16u);
+      _os_log_impl(&dword_2542B7000, v11, OS_LOG_TYPE_INFO, "%s fixing up %@", buf, 0x16u);
     }
 
-    v11 = MEMORY[0x277CBEAE8];
-    v12 = [self methodSignatureForSelector:v9];
-    v13 = [v11 invocationWithMethodSignature:v12];
+    v12 = MEMORY[0x277CBEAE8];
+    v13 = [self methodSignatureForSelector:v9];
+    v14 = [v12 invocationWithMethodSignature:v13];
 
-    [v13 setTarget:self];
-    [v13 setSelector:v9];
-    [v13 setArgument:&location atIndex:2];
-    [v13 invoke];
+    [v14 setTarget:self];
+    [v14 setSelector:v9];
+    [v14 setArgument:&location atIndex:2];
+    [v14 invoke];
     *buf = 0;
-    [v13 getReturnValue:buf];
+    [v14 getReturnValue:buf];
     objc_storeStrong(&location, *buf);
-    v14 = location;
+    v15 = location;
   }
 
   else
   {
-    v14 = settingCopy;
+    v15 = settingCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 + (id)compatibleReadResult:(id)result
@@ -198,24 +194,22 @@ uint64_t __49__HPSHomeKitSettingHelper_compatibleReadResults___block_invoke(uint
 
 void __46__HPSHomeKitSettingHelper_readSettingFixupMap__block_invoke()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"root.general.accessibility.interaction.touchAccommodations.tapAssistance.selection";
-  v3[1] = @"root.general.accessibility.vision.voiceOver.speakingRateSection.speakingRate";
-  v4[0] = @"fixUpTapAssistanceSelection:";
-  v4[1] = @"fixUpSpeakingRate:";
-  v3[2] = @"root.general.accessibility.vision.voiceOver.doubleTapSettings.timeoutSettings.timeoutInterval";
-  v3[3] = @"root.general.accessibility.interaction.touchAccommodations.ignoreRepeat.seconds";
-  v4[2] = @"fixUpTimeoutInterval:";
-  v4[3] = @"fixUpIgnoreRepeat:";
-  v3[4] = @"root.general.accessibility.interaction.touchAccommodations.holdDuration.seconds";
-  v3[5] = @"root.general.accessibility.autoAdjustSiriVolumeEnabled";
-  v4[4] = @"fixUpHoldDuration:";
-  v4[5] = @"fixUpAutoAdjustSiriVolumeEnabled:";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"root.general.accessibility.interaction.touchAccommodations.tapAssistance.selection";
+  v2[1] = @"root.general.accessibility.vision.voiceOver.speakingRateSection.speakingRate";
+  v3[0] = @"fixUpTapAssistanceSelection:";
+  v3[1] = @"fixUpSpeakingRate:";
+  v2[2] = @"root.general.accessibility.vision.voiceOver.doubleTapSettings.timeoutSettings.timeoutInterval";
+  v2[3] = @"root.general.accessibility.interaction.touchAccommodations.ignoreRepeat.seconds";
+  v3[2] = @"fixUpTimeoutInterval:";
+  v3[3] = @"fixUpIgnoreRepeat:";
+  v2[4] = @"root.general.accessibility.interaction.touchAccommodations.holdDuration.seconds";
+  v2[5] = @"root.general.accessibility.autoAdjustSiriVolumeEnabled";
+  v3[4] = @"fixUpHoldDuration:";
+  v3[5] = @"fixUpAutoAdjustSiriVolumeEnabled:";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = readSettingFixupMap_map;
   readSettingFixupMap_map = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)writeSettingFixupMap
@@ -232,14 +226,12 @@ void __46__HPSHomeKitSettingHelper_readSettingFixupMap__block_invoke()
 
 void __47__HPSHomeKitSettingHelper_writeSettingFixupMap__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"root.general.accessibility.autoAdjustSiriVolumeEnabled";
-  v4[0] = @"fixUpAutoAdjustSiriVolumeEnabled:";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"root.general.accessibility.autoAdjustSiriVolumeEnabled";
+  v3[0] = @"fixUpAutoAdjustSiriVolumeEnabled:";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = writeSettingFixupMap_map;
   writeSettingFixupMap_map = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fixUpTapAssistanceSelection:(id)selection

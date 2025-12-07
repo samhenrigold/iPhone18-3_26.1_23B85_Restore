@@ -856,9 +856,9 @@ LABEL_33:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -920,9 +920,9 @@ LABEL_12:
 
   if (v6 && v5)
   {
-    v7 = [(UIBarAppearance *)v5 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -1097,9 +1097,9 @@ LABEL_12:
   {
     if (v6 && v7)
     {
-      v9 = [(NSString *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_9;
       }
@@ -1375,7 +1375,7 @@ LABEL_11:
 
   badgeColor = [(_UITabBarItemAppearanceStorage *)appearanceStorage badgeColor];
   v9 = badgeColor;
-  if (badgeColor != v4 && ![(UIColor *)badgeColor isEqual:v4])
+  if (badgeColor != v4 && (objc_msgSend_isEqual_(badgeColor) & 1) == 0)
   {
     [(_UITabBarItemAppearanceStorage *)self->_appearanceStorage setBadgeColor:v4];
   }
@@ -1522,9 +1522,9 @@ void __48__UITabBarItem_setBadgeTextAttributes_forState___block_invoke(uint64_t 
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v10 copy];
@@ -1602,7 +1602,7 @@ LABEL_9:
   if (valueCopy && !v10)
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    if ([valueCopy isEqual:v11])
+    if (objc_msgSend_isEqual_(valueCopy))
     {
       goto LABEL_11;
     }
@@ -1612,7 +1612,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (!(valueCopy | v11) || ([valueCopy isEqual:v11] & 1) != 0)
+  if (!(valueCopy | v11) || (objc_msgSend_isEqual_(valueCopy) & 1) != 0)
   {
     goto LABEL_11;
   }

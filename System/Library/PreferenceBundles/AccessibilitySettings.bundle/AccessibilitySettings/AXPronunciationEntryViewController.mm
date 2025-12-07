@@ -708,7 +708,7 @@ LABEL_9:
   [(AXPronunciationEntryViewController *)self _stopRecording];
   if (![(AXPronunciationEntryViewController *)self _save])
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unable to save substitution. This might be because the back button was tapped.");
   }
 }
 

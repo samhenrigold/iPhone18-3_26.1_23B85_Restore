@@ -3,8 +3,8 @@
 + (uint64_t)generateImagePreviewsForAttachment:()PreviewGeneration withFallbackPDFData:;
 - (BOOL)needToGeneratePreviews;
 - (uint64_t)generateFallbackPDF;
-- (uint64_t)generateFallbackPDFIfNecessary;
 - (uint64_t)generatePreviewsInOperation:()PreviewGeneration;
+- (void)generateFallbackPDFIfNecessary;
 - (void)needToGeneratePreviews;
 @end
 
@@ -110,7 +110,7 @@ LABEL_12:
   return v2;
 }
 
-- (uint64_t)generateFallbackPDFIfNecessary
+- (void)generateFallbackPDFIfNecessary
 {
   result = [self needToGeneratePreviews];
   if (result)

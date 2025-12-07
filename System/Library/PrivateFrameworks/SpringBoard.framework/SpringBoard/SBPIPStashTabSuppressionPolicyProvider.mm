@@ -346,7 +346,7 @@ void __69__SBPIPStashTabSuppressionPolicyProvider__resetReevaluatePolicyTimer__b
   }
 }
 
-uint64_t __114__SBPIPStashTabSuppressionPolicyProvider_bannerManager_willPresentPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
+void *__114__SBPIPStashTabSuppressionPolicyProvider_bannerManager_willPresentPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -380,7 +380,7 @@ uint64_t __114__SBPIPStashTabSuppressionPolicyProvider_bannerManager_willPresent
   }
 }
 
-uint64_t __114__SBPIPStashTabSuppressionPolicyProvider_bannerManager_willDismissPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
+void *__114__SBPIPStashTabSuppressionPolicyProvider_bannerManager_willDismissPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

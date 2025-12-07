@@ -171,30 +171,30 @@ void __50__AVTCoreDataStoreMaintenance_runMaintenanceTasks__block_invoke(uint64_
 
 void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObjectContext_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v17 = a3;
-  [v17 subarrayWithRange:{1, objc_msgSend(v17, "count") - 1}];
+  v16 = a3;
+  [v16 subarrayWithRange:{1, objc_msgSend(v16, "count") - 1}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  obj = v21 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v18 + 1) + 8 * v9);
         v11 = [MEMORY[0x277CCAD78] UUID];
         [v10 setIdentifier:v11];
 
@@ -208,18 +208,16 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchDuplicatedRecordsForIdentifiers:(id)identifiers managedObjectContext:(id)context error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   contextCopy = context;
   v9 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"Avatar"];
@@ -227,42 +225,42 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
   [v9 setPredicate:identifiersCopy];
 
   v11 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"orderDate" ascending:1];
-  v36[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   [v9 setSortDescriptors:v12];
 
-  v35[0] = @"identifier";
-  v35[1] = @"orderDate";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[0] = @"identifier";
+  v34[1] = @"orderDate";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   [v9 setPropertiesToFetch:v13];
 
   v14 = [contextCopy executeFetchRequest:v9 error:error];
   if (v14)
   {
-    v28 = contextCopy;
-    v29 = identifiersCopy;
+    v27 = contextCopy;
+    v28 = identifiersCopy;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v27 = v14;
+    v26 = v14;
     v16 = v14;
-    v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v31;
+      v19 = *v30;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v31 != v19)
+          if (*v30 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * i);
+          v21 = *(*(&v29 + 1) + 8 * i);
           identifier = [v21 identifier];
           array = [dictionary objectForKeyedSubscript:identifier];
 
@@ -276,15 +274,15 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
           [array addObject:v21];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v18);
     }
 
-    contextCopy = v28;
-    identifiersCopy = v29;
-    v14 = v27;
+    contextCopy = v27;
+    identifiersCopy = v28;
+    v14 = v26;
   }
 
   else
@@ -292,14 +290,12 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
     dictionary = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)duplicatedIdentifiersInManagedObjectContext:(id)context error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBE428];
   contextCopy = context;
   v6 = [v4 fetchRequestWithEntityName:@"Avatar"];
@@ -307,25 +303,25 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
   v8 = objc_alloc_init(MEMORY[0x277CBE410]);
   [v8 setName:@"count"];
   v9 = MEMORY[0x277CCA9C0];
-  v29[0] = v7;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v7;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v11 = [v9 expressionForFunction:@"count:" arguments:v10];
   [v8 setExpression:v11];
 
   [v8 setExpressionResultType:300];
   [v6 setResultType:2];
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"identifier" ascending:1];
-  v28 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v27 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   [v6 setSortDescriptors:v13];
 
-  v27 = @"identifier";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v26 = @"identifier";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   [v6 setPropertiesToGroupBy:v14];
 
-  v26[0] = @"identifier";
-  v26[1] = v8;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = @"identifier";
+  v25[1] = v8;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   [v6 setPropertiesToFetch:v15];
 
   v16 = [MEMORY[0x277CCA9C0] expressionForVariable:@"count"];
@@ -347,8 +343,6 @@ void __88__AVTCoreDataStoreMaintenance_fixDuplicateRecordIdentifiers_managedObje
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

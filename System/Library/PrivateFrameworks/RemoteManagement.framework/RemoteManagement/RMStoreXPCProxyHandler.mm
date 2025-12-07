@@ -6,6 +6,7 @@
 - (void)certificatePersistentRefForAssetKey:(id)key storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)certificateStatusWithStoreIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)configurationUIsForStoreIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)createStoreWithType:(int64_t)type defaultToInteractive:(BOOL)interactive dataSeparated:(BOOL)separated options:(id)options completionHandler:(id)handler;
 - (void)declarationManifestForStoreIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)declarationWithIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier completionHandler:(id)handler;
 - (void)declarationsForStoreIdentifier:(id)identifier completionHandler:(id)handler;
@@ -23,10 +24,13 @@
 - (void)publishStatusWithStoreIdentifier:(id)identifier status:(id)status completionHandler:(id)handler;
 - (void)removeStatusWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier completionHandler:(id)handler;
 - (void)removeStoreWithIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)removeTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler;
 - (void)resolveAsset:(id)asset storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)saveDeclaration:(id)declaration storeIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)setConfigurationUIWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token visible:(BOOL)visible ui:(id)ui completionHandler:(id)handler;
 - (void)setMetadataValue:(id)value forKey:(id)key storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)setShouldInstallConfiguration:(id)configuration shouldInstall:(BOOL)install storeIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)setTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler;
 - (void)subscribedDeclarationsWithTypes:(id)types storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)subscribedStoreConfigurationsVisibleUIWithTypes:(id)types completionHandler:(id)handler;
 - (void)subscribedStoreDeclarationsWithTypes:(id)types completionHandler:(id)handler;
@@ -35,6 +39,7 @@
 - (void)unassignAssets:(id)assets completionHandler:(id)handler;
 - (void)waitForActiveAndValidDeclarations:(id)declarations timeout:(double)timeout storeIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)waitForProcessingOfDeclarations:(id)declarations timeout:(double)timeout storeIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)writeStatusWithStoreIdentifier:(id)identifier declarationType:(id)type declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier validity:(BOOL)validity reasons:(id)reasons completionHandler:(id)self0;
 @end
 
 @implementation RMStoreXPCProxyHandler
@@ -534,6 +539,43 @@ LABEL_17:
   {
     v14 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
     (*(handlerCopy + 2))(handlerCopy, 0, v14);
+  }
+}
+
+- (void)createStoreWithType:(int64_t)type defaultToInteractive:(BOOL)interactive dataSeparated:(BOOL)separated options:(id)options completionHandler:(id)handler
+{
+  separatedCopy = separated;
+  interactiveCopy = interactive;
+  optionsCopy = options;
+  handlerCopy = handler;
+  if ([(RMStoreXPCProxyHandler *)self hasProviderEntitlement])
+  {
+    v14 = _os_activity_create(&_mh_execute_header, "StoreXPCListenerDelegate: CreateStoreWithType from proxy handler", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v14, &state);
+    v15 = +[RMLog StoreXPCListenerDelegate];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CreateStoreWithType...", buf, 2u);
+    }
+
+    v16 = +[RMStoreController sharedController];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10008710C;
+    v18[3] = &unk_1000D3290;
+    v19 = handlerCopy;
+    [v16 createStoreWithType:type defaultToInteractive:interactiveCopy dataSeparated:separatedCopy options:optionsCopy completionHandler:v18];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    v17 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.provider"];
+    (*(handlerCopy + 2))(handlerCopy, 0, v17);
   }
 }
 
@@ -1119,6 +1161,66 @@ LABEL_17:
   }
 }
 
+- (void)writeStatusWithStoreIdentifier:(id)identifier declarationType:(id)type declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier validity:(BOOL)validity reasons:(id)reasons completionHandler:(id)self0
+{
+  validityCopy = validity;
+  identifierCopy = identifier;
+  typeCopy = type;
+  declarationIdentifierCopy = declarationIdentifier;
+  tokenCopy = token;
+  sourceIdentifierCopy = sourceIdentifier;
+  reasonsCopy = reasons;
+  handlerCopy = handler;
+  if ([(RMStoreXPCProxyHandler *)self hasSubscriberEntitlement])
+  {
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    v28 = _os_activity_create(&_mh_execute_header, "StoreXPCListenerDelegate: WriteStatusWithStoreIdentifier from proxy handler", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v28, &state);
+    v22 = +[RMLog StoreXPCListenerDelegate];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v33 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "WriteStatusWithStoreIdentifier with %{public}@...", buf, 0xCu);
+    }
+
+    v30 = 0;
+    v23 = [RMConfigurationStatusArchiver persistStatusForStoreIdentifier:identifierCopy declarationIdentifier:declarationIdentifierCopy declarationServerToken:tokenCopy sourceIdentifier:sourceIdentifierCopy validity:validityCopy reasons:reasonsCopy error:&v30];
+    v24 = v30;
+    if (v23)
+    {
+      v25 = +[RMLog StoreXPCListenerDelegate];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10008C9DC();
+      }
+
+      v26 = 0;
+    }
+
+    else
+    {
+      v25 = +[RMLog StoreXPCListenerDelegate];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        sub_10008C974();
+      }
+
+      v26 = v24;
+    }
+
+    (handlerCopy)[2](handlerCopy, v26);
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    v27 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
+    (handlerCopy)[2](handlerCopy, v27);
+  }
+}
+
 - (void)removeStatusWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier completionHandler:(id)handler
 {
   identifierCopy = identifier;
@@ -1176,6 +1278,45 @@ LABEL_17:
   }
 }
 
+- (void)setConfigurationUIWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token visible:(BOOL)visible ui:(id)ui completionHandler:(id)handler
+{
+  visibleCopy = visible;
+  identifierCopy = identifier;
+  declarationIdentifierCopy = declarationIdentifier;
+  tokenCopy = token;
+  uiCopy = ui;
+  handlerCopy = handler;
+  if ([(RMStoreXPCProxyHandler *)self hasSubscriberEntitlement])
+  {
+    v19 = _os_activity_create(&_mh_execute_header, "StoreXPCListenerDelegate: SetConfigurationUI from proxy handler", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v19, &state);
+    v20 = +[RMLog StoreXPCListenerDelegate];
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SetConfigurationUI...", buf, 2u);
+    }
+
+    v21 = +[RMStoreController sharedController];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10008A290;
+    v23[3] = &unk_1000D2CE0;
+    v24 = handlerCopy;
+    [v21 setConfigurationUIWithStoreIdentifier:identifierCopy declarationIdentifier:declarationIdentifierCopy declarationServerToken:tokenCopy visible:visibleCopy ui:uiCopy completionHandler:v23];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    v22 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
+    (*(handlerCopy + 2))(handlerCopy, v22);
+  }
+}
+
 - (void)publishStatusWithStoreIdentifier:(id)identifier status:(id)status completionHandler:(id)handler
 {
   identifierCopy = identifier;
@@ -1230,6 +1371,84 @@ LABEL_17:
   {
     v18 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
     (handlerCopy)[2](handlerCopy, v18);
+  }
+}
+
+- (void)setTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler
+{
+  trustCopy = trust;
+  refCopy = ref;
+  keyCopy = key;
+  handlerCopy = handler;
+  if ([(RMStoreXPCProxyHandler *)self hasSubscriberEntitlement])
+  {
+    v13 = _os_activity_create(&_mh_execute_header, "StoreXPCListenerDelegate: SetTrustForCertificateRef from proxy handler", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v13, &state);
+    v14 = +[RMLog StoreXPCListenerDelegate];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      storeIdentifier = [keyCopy storeIdentifier];
+      *buf = 138543362;
+      v22 = storeIdentifier;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SetTrustForCertificateRef with %{public}@...", buf, 0xCu);
+    }
+
+    v16 = +[RMStoreController sharedController];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10008A7A0;
+    v18[3] = &unk_1000D2CE0;
+    v19 = handlerCopy;
+    [v16 setTrustForCertificateRef:refCopy configurationKey:keyCopy fullTrust:trustCopy completionHandler:v18];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    v17 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
+    (*(handlerCopy + 2))(handlerCopy, v17);
+  }
+}
+
+- (void)removeTrustForCertificateRef:(id)ref configurationKey:(id)key fullTrust:(BOOL)trust completionHandler:(id)handler
+{
+  trustCopy = trust;
+  refCopy = ref;
+  keyCopy = key;
+  handlerCopy = handler;
+  if ([(RMStoreXPCProxyHandler *)self hasSubscriberEntitlement])
+  {
+    v13 = _os_activity_create(&_mh_execute_header, "StoreXPCListenerDelegate: RemoveTrustForCertificateRef from proxy handler", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v13, &state);
+    v14 = +[RMLog StoreXPCListenerDelegate];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      storeIdentifier = [keyCopy storeIdentifier];
+      *buf = 138543362;
+      v22 = storeIdentifier;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "RemoveTrustForCertificateRef with %{public}@...", buf, 0xCu);
+    }
+
+    v16 = +[RMStoreController sharedController];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10008AA68;
+    v18[3] = &unk_1000D2CE0;
+    v19 = handlerCopy;
+    [v16 removeTrustForCertificateRef:refCopy configurationKey:keyCopy fullTrust:trustCopy completionHandler:v18];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    v17 = [RMErrorUtilities createConnectionNotEntitledWithName:@"com.apple.private.remotemanagement.subscriber"];
+    (*(handlerCopy + 2))(handlerCopy, v17);
   }
 }
 

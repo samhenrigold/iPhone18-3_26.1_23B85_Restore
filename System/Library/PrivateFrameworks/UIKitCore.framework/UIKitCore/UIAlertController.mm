@@ -299,7 +299,7 @@
   }
 
   v5 = actionsCopy;
-  if (([(NSMutableArray *)self->_actions isEqual:v5]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_actions) & 1) == 0)
   {
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
@@ -471,7 +471,7 @@ uint64_t __57__UIAlertController__performBatchActionChangesWithBlock___block_inv
   actionCopy = action;
   inputCopy = input;
   v10 = [UIKeyCommand keyCommandWithInput:inputCopy modifierFlags:flags action:sel__handleKeyCommand_];
-  if ([actionCopy style] == 1 && objc_msgSend(inputCopy, "isEqualToString:", @"UIKeyInputEscape"))
+  if ([actionCopy style] == 1 && objc_msgSend_isEqualToString_(inputCopy))
   {
     [v10 setDiscoverabilityTitle:&stru_1EFB14550];
   }
@@ -1198,9 +1198,9 @@ LABEL_12:
     [v9 setTraitCollection:v20];
     [v9 setDescriptor:_currentDescriptor];
     _visualStyle = [(UIAlertController *)self _visualStyle];
-    v12 = [_visualStyle isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(_visualStyle);
 
-    if ((v12 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [(UIAlertController *)self _setVisualStyle:v9];
       [(UIAlertController *)self _updateShouldAlignToKeyboard];
@@ -1208,7 +1208,7 @@ LABEL_12:
 
     _alertControllerView = [(UIAlertController *)self _alertControllerView];
     _visualStyle2 = [_alertControllerView _visualStyle];
-    v15 = [_visualStyle2 isEqual:v9];
+    v15 = objc_msgSend_isEqual_(_visualStyle2);
 
     if ((v15 & 1) == 0)
     {
@@ -1216,7 +1216,7 @@ LABEL_12:
     }
 
     visualStyle = [(_UIAlertControllerTextFieldViewController *)self->_textFieldViewController visualStyle];
-    v17 = [visualStyle isEqual:v9];
+    v17 = objc_msgSend_isEqual_(visualStyle);
 
     if ((v17 & 1) == 0)
     {
@@ -1811,13 +1811,13 @@ LABEL_4:
 LABEL_18:
 }
 
-uint64_t __103__UIAlertController__dismissAnimated_triggeringAction_triggeredByPopoverDimmingView_dismissCompletion___block_invoke(uint64_t result)
+void *__103__UIAlertController__dismissAnimated_triggeringAction_triggeredByPopoverDimmingView_dismissCompletion___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 1160) & 1) == 0)
   {
     *(v1 + 1160) = 1;
-    return [*(result + 32) _invokeHandlersForAction:*(result + 40)];
+    return [*(result + 4) _invokeHandlersForAction:*(result + 5)];
   }
 
   return result;
@@ -2112,7 +2112,7 @@ LABEL_18:
   v4 = view;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
   }
 
   else
@@ -2299,7 +2299,7 @@ LABEL_18:
 - (void)setMessage:(NSString *)message
 {
   v7 = message;
-  if (([(NSString *)v7 isEqual:self->_message]& 1) == 0)
+  if ((objc_msgSend_isEqual_(v7) & 1) == 0)
   {
     v4 = [(NSString *)v7 copy];
     v5 = self->_message;
@@ -2313,7 +2313,7 @@ LABEL_18:
 - (void)_setAttributedTitle:(id)title
 {
   titleCopy = title;
-  if (([titleCopy isEqual:self->_attributedTitle] & 1) == 0)
+  if ((objc_msgSend_isEqual_(titleCopy) & 1) == 0)
   {
     v4 = [titleCopy copy];
     attributedTitle = self->_attributedTitle;
@@ -2347,7 +2347,7 @@ LABEL_18:
 - (void)_setAttributedMessage:(id)message
 {
   messageCopy = message;
-  if (([messageCopy isEqual:self->_attributedMessage] & 1) == 0)
+  if ((objc_msgSend_isEqual_(messageCopy) & 1) == 0)
   {
     v4 = [messageCopy copy];
     attributedMessage = self->_attributedMessage;
@@ -2361,7 +2361,7 @@ LABEL_18:
 - (void)_setAttributedDetailMessage:(id)message
 {
   messageCopy = message;
-  if (([messageCopy isEqual:self->_attributedDetailMessage] & 1) == 0)
+  if ((objc_msgSend_isEqual_(messageCopy) & 1) == 0)
   {
     v4 = [messageCopy copy];
     attributedDetailMessage = self->_attributedDetailMessage;
@@ -2863,7 +2863,7 @@ void __78__UIAlertController__childViewController_willTransitionToSize_withAnima
   [v6 viewWillTransitionToSize:v5 withTransitionCoordinator:{*(a1 + 32), *(a1 + 40)}];
 }
 
-uint64_t __78__UIAlertController__childViewController_willTransitionToSize_withAnimations___block_invoke_3(uint64_t a1)
+void *__78__UIAlertController__childViewController_willTransitionToSize_withAnimations___block_invoke_3(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
   result = [*(a1 + 32) conformsToProtocol:&unk_1EFF9DFA0];

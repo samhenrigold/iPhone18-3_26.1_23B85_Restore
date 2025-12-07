@@ -73,7 +73,7 @@
 
 - (BOOL)_validateChild:(id)child ofParent:(id)parent withParentAssociatedError:(id)error errorHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   childCopy = child;
   parentCopy = parent;
   errorCopy = error;
@@ -85,79 +85,89 @@
   }
 
   v15 = associatedError;
+  v17 = v15;
   if (childCopy)
   {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(isKindOfClass, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         expectedClass = self->_expectedClass;
-        v18 = v16;
-        v29 = 134349826;
-        v30 = childCopy;
-        v31 = 2050;
-        v32 = parentCopy;
-        v33 = 2114;
-        v34 = expectedClass;
-        v35 = 2114;
-        v36 = objc_opt_class();
-        v19 = v36;
-        _os_log_error_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_ERROR, "Child %{public}p of parent %{public}p: expected class %{public}@, actual class %{public}@", &v29, 0x2Au);
+        v22 = v20;
+        v37 = 134349826;
+        v38 = childCopy;
+        v39 = 2050;
+        v40 = parentCopy;
+        v41 = 2114;
+        v42 = expectedClass;
+        v43 = 2114;
+        v44 = objc_opt_class();
+        v23 = v44;
+        _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Child %{public}p of parent %{public}p: expected class %{public}@, actual class %{public}@", &v37, 0x2Au);
       }
 
 LABEL_19:
-      handlerCopy[2](handlerCopy, v15);
+      handlerCopy[2](handlerCopy, v17);
 LABEL_20:
-      v24 = 0;
+      v32 = 0;
       goto LABEL_21;
     }
   }
 
   else if (!self->_optional)
   {
-    v25 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v33 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v15, v16);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      [WBSParsecSchema _validateChild:parentCopy ofParent:v25 withParentAssociatedError:? errorHandler:?];
+      [WBSParsecSchema _validateChild:parentCopy ofParent:v33 withParentAssociatedError:? errorHandler:?];
     }
 
     goto LABEL_19;
   }
 
   validationBlock = self->_validationBlock;
-  if (validationBlock && (validationBlock[2](validationBlock, childCopy, parentCopy) & 1) == 0)
+  if (validationBlock)
   {
-    v26 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = validationBlock[2](validationBlock, childCopy, parentCopy);
+    if ((v25 & 1) == 0)
     {
-      [WBSParsecSchema _validateChild:ofParent:withParentAssociatedError:errorHandler:];
-    }
+      v34 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v25, v26);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        [WBSParsecSchema _validateChild:ofParent:withParentAssociatedError:errorHandler:];
+      }
 
-    goto LABEL_19;
+      goto LABEL_19;
+    }
   }
 
   specializedSchemaBlock = self->_specializedSchemaBlock;
   if (specializedSchemaBlock)
   {
-    v22 = specializedSchemaBlock[2](specializedSchemaBlock, childCopy, parentCopy);
-    v23 = v22;
-    if (v22 && ([v22 _validateChild:childCopy ofParent:parentCopy withParentAssociatedError:v15 errorHandler:handlerCopy] & 1) == 0)
+    v28 = specializedSchemaBlock[2](specializedSchemaBlock, childCopy, parentCopy);
+    v29 = v28;
+    if (v28)
     {
-      v28 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = [v28 _validateChild:childCopy ofParent:parentCopy withParentAssociatedError:v17 errorHandler:handlerCopy];
+      if ((v30 & 1) == 0)
       {
-        [WBSParsecSchema _validateChild:ofParent:withParentAssociatedError:errorHandler:];
-      }
+        v36 = WBS_LOG_CHANNEL_PREFIXSafariSuggestions(v30, v31);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          [WBSParsecSchema _validateChild:ofParent:withParentAssociatedError:errorHandler:];
+        }
 
-      goto LABEL_20;
+        goto LABEL_20;
+      }
     }
   }
 
-  v24 = 1;
+  v32 = 1;
 LABEL_21:
 
-  return v24;
+  return v32;
 }
 
 - (void)_validateChild:(uint64_t)a1 ofParent:(NSObject *)a2 withParentAssociatedError:errorHandler:.cold.1(uint64_t a1, NSObject *a2)

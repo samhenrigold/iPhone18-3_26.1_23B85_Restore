@@ -166,13 +166,13 @@ void sub_2461B2018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double **a4, char a5)
 {
-  v37 = a4;
-  v44 = *MEMORY[0x277D85DE8];
+  v36 = a4;
+  v43 = *MEMORY[0x277D85DE8];
   v8 = (a3[1] - *a3) >> 3;
   __lda = v8;
-  std::valarray<double>::valarray(&v40, a2);
-  v9 = v40;
-  if (v41 == v40)
+  std::valarray<double>::valarray(&v39, a2);
+  v9 = v39;
+  if (v40 == v39)
   {
     v9 = malloc_type_malloc(0x20uLL, 0x100004000313F17uLL);
     LODWORD(v8) = __lda;
@@ -185,24 +185,24 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
   {
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "dgetrf failed", 13);
     std::ios_base::getloc((v12 + *(*v12 - 24)));
-    v13 = std::locale::use_facet(&v43, MEMORY[0x277D82680]);
+    v13 = std::locale::use_facet(&v42, MEMORY[0x277D82680]);
     (v13->__vftable[2].~facet_0)(v13, 10);
-    std::locale::~locale(&v43);
+    std::locale::~locale(&v42);
     std::ostream::put();
     std::ostream::flush();
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "error = ", 8);
     v15 = MEMORY[0x24C19B430](v14, __info);
     std::ios_base::getloc((v15 + *(*v15 - 24)));
-    v16 = std::locale::use_facet(&v43, MEMORY[0x277D82680]);
+    v16 = std::locale::use_facet(&v42, MEMORY[0x277D82680]);
     (v16->__vftable[2].~facet_0)(v16, 10);
-    std::locale::~locale(&v43);
+    std::locale::~locale(&v42);
     std::ostream::put();
     std::ostream::flush();
     v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "matrix[] is:", 12);
     std::ios_base::getloc((v17 + *(*v17 - 24)));
-    v18 = std::locale::use_facet(&v43, MEMORY[0x277D82680]);
+    v18 = std::locale::use_facet(&v42, MEMORY[0x277D82680]);
     (v18->__vftable[2].~facet_0)(v18, 10);
-    std::locale::~locale(&v43);
+    std::locale::~locale(&v42);
     std::ostream::put();
     std::ostream::flush();
     v19 = 0;
@@ -212,9 +212,9 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
     {
       v22 = MEMORY[0x24C19B420](v20, v9[v19]);
       std::ios_base::getloc((v22 + *(*v22 - 24)));
-      v23 = std::locale::use_facet(&v43, v21);
+      v23 = std::locale::use_facet(&v42, v21);
       (v23->__vftable[2].~facet_0)(v23, 10);
-      std::locale::~locale(&v43);
+      std::locale::~locale(&v42);
       std::ostream::put();
       v11 = std::ostream::flush();
       ++v19;
@@ -223,9 +223,9 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
     while (v19 != 4);
   }
 
-  LODWORD(v43.__locale_) = 1;
+  LODWORD(v42.__locale_) = 1;
   MEMORY[0x28223BE20](v11);
-  v25 = (&v36 - ((v24 + 15) & 0xFFFFFFFF0));
+  v25 = (&v35 - ((v24 + 15) & 0xFFFFFFFF0));
   v26 = __lda;
   if (__lda >= 1)
   {
@@ -233,7 +233,8 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
     v28 = v25;
     do
     {
-      v29 = *v27++;
+      v29 = *v27;
+      v27 += 8;
       *v28++ = v29;
       --v26;
     }
@@ -243,12 +244,12 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
 
   __info = 0;
   __trans = 78;
-  dgetrs_(&__trans, &__lda, &v43, v9, &__lda, v10, v25, &__lda, &__info);
-  v30 = v37;
+  dgetrs_(&__trans, &__lda, &v42, v9, &__lda, v10, v25, &__lda, &__info);
+  v30 = v36;
   if (__info)
   {
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "dgetrs failed", 13);
-    std::endl[abi:ne200100]<char,std::char_traits<char>>(v35);
+    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "dgetrs failed", 13);
+    std::endl[abi:ne200100]<char,std::char_traits<char>>(v34);
     printf("No.%d value is illegal\n", -__info);
     exit(1);
   }
@@ -256,7 +257,7 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
   v31 = __lda;
   if (__lda >= 1)
   {
-    v32 = *v37;
+    v32 = *v36;
     do
     {
       v33 = *v25++;
@@ -282,17 +283,15 @@ void CoreOptimization::BFGS::Solve(uint64_t a1, double **a2, double **a3, double
     free(v9);
   }
 
-  if (v40)
+  if (v39)
   {
-    if (v41 != v40)
+    if (v40 != v39)
     {
-      v41 = (v41 + ((v40 - v41 + 7) & 0xFFFFFFFFFFFFFFF8));
+      v40 = (v40 + ((v39 - v40 + 7) & 0xFFFFFFFFFFFFFFF8));
     }
 
-    operator delete(v40);
+    operator delete(v39);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2461B256C(_Unwind_Exception *exception_object)
@@ -334,7 +333,7 @@ void CoreOptimization::BFGS::Optimize(CoreOptimization::BFGS *this)
   v3 = v2 >> 3;
   __A = 0;
   v57 = 0;
-  std::valarray<double>::resize(&__A, (v3 * v3));
+  std::valarray<double>::resize(&__A, (v3 * v3), 0.0);
   if (*this >= 3)
   {
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "B_inv = \n", 9);
@@ -573,18 +572,18 @@ void sub_2461B2CF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::valarray<double>::resize(uint64_t a1, unint64_t a2)
+void std::valarray<double>::resize(uint64_t a1, unint64_t a2, double a3)
 {
-  v4 = *a1;
-  if (v4)
+  v5 = *a1;
+  if (v5)
   {
-    v5 = *(a1 + 8);
-    if (v5 != v4)
+    v6 = *(a1 + 8);
+    if (v6 != v5)
     {
-      *(a1 + 8) = &v5[(v4 - v5 + 7) & 0xFFFFFFFFFFFFFFF8];
+      *(a1 + 8) = &v6[(v5 - v6 + 7) & 0xFFFFFFFFFFFFFFF8];
     }
 
-    operator delete(v4);
+    operator delete(v5);
     *a1 = 0;
     *(a1 + 8) = 0;
   }
@@ -602,24 +601,24 @@ void std::valarray<double>::resize(uint64_t a1, unint64_t a2)
 
 void CoreOptimization::BFGS::GoldenSectionSearch(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v16 = 1.0e-30;
+  v21 = *MEMORY[0x277D85DE8];
+  v15 = 1.0e-30;
   v6 = 100;
   do
   {
-    v16 = v16 + v16;
+    v15 = v15 + v15;
     v7 = (a3[1] - *a3) >> 3;
-    v20 = &v16;
-    v21 = v7;
-    v19 = a3;
-    v18 = a2;
-    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v17, &__p);
+    v19 = &v15;
+    v20 = v7;
+    v18 = a3;
+    v17 = a2;
+    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v16, &__p);
     v8 = (*(a1 + 40))(&__p, *(a1 + 64));
     if (__p)
     {
-      if (v15 != __p)
+      if (v14 != __p)
       {
-        v15 += (__p - v15 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v14 += (__p - v14 + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
       operator delete(__p);
@@ -632,15 +631,14 @@ void CoreOptimization::BFGS::GoldenSectionSearch(uint64_t a1, uint64_t a2, void 
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "search direction: ", 18);
     v11 = operator<<(v10, a3);
     std::ios_base::getloc((v11 + *(*v11 - 24)));
-    v12 = std::locale::use_facet(&v17, MEMORY[0x277D82680]);
+    v12 = std::locale::use_facet(&v16, MEMORY[0x277D82680]);
     (v12->__vftable[2].~facet_0)(v12, 10);
-    std::locale::~locale(&v17);
+    std::locale::~locale(&v16);
     std::ostream::put();
     std::ostream::flush();
   }
 
-  CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, 0.0, v16 * 0.25, v16 * 0.5, 0.01);
-  v13 = *MEMORY[0x277D85DE8];
+  CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, 0.0, v15 * 0.25, v15 * 0.5, 0.01);
 }
 
 void CoreOptimization::BFGS::Optimize0(CoreOptimization::BFGS *this)
@@ -682,7 +680,7 @@ void CoreOptimization::BFGS::Optimize0(CoreOptimization::BFGS *this)
 
   __p = 0;
   v49 = 0;
-  std::valarray<double>::resize(&__p, (v3 * v3));
+  std::valarray<double>::resize(&__p, (v3 * v3), 0.0);
   v8 = operator<<(MEMORY[0x277D82678], &__p);
   std::ios_base::getloc((v8 + *(*v8 - 24)));
   v9 = std::locale::use_facet(&v46, MEMORY[0x277D82680]);
@@ -898,7 +896,7 @@ void sub_2461B382C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 double CoreOptimization::BFGS::GoldenSectionSearch_r(uint64_t a1, uint64_t a2, void *a3, double a4, double a5, double a6, double a7)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (a6 - a5 <= a5 - a4)
   {
     v10 = a5 + (a5 - a4) * -0.381966011;
@@ -909,135 +907,129 @@ double CoreOptimization::BFGS::GoldenSectionSearch_r(uint64_t a1, uint64_t a2, v
     v10 = a5 + (a6 - a5) * 0.381966011;
   }
 
-  v37 = v10;
-  v38 = a5;
-  if (vabdd_f64(a6, a4) >= (fabs(a5) + fabs(v10)) * a7)
+  v36 = v10;
+  v37 = a5;
+  if (vabdd_f64(a6, a4) < (fabs(a5) + fabs(v10)) * a7)
   {
-    v15 = (a3[1] - *a3) >> 3;
-    v47 = &v37;
-    v48 = v15;
-    v46 = a3;
-    v45 = a2;
-    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v44, &v35);
-    v16 = (*(a1 + 40))(&v35, *(a1 + 64));
-    v17 = (a3[1] - *a3) >> 3;
-    v42 = &v38;
-    v43 = v17;
-    v41 = a3;
-    v40 = a2;
-    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(v39, &__p);
-    v18 = (*(a1 + 40))(&__p, *(a1 + 64));
+    return (a4 + a6) * 0.5;
+  }
+
+  v15 = (a3[1] - *a3) >> 3;
+  v46 = &v36;
+  v47 = v15;
+  v45 = a3;
+  v44 = a2;
+  std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v43, &v34);
+  v16 = (*(a1 + 40))(&v34, *(a1 + 64));
+  v17 = (a3[1] - *a3) >> 3;
+  v41 = &v37;
+  v42 = v17;
+  v40 = a3;
+  v39 = a2;
+  std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(v38, &__p);
+  v18 = (*(a1 + 40))(&__p, *(a1 + 64));
+  if (__p)
+  {
+    if (v33 != __p)
+    {
+      v33 += (__p - v33 + 7) & 0xFFFFFFFFFFFFFFF8;
+    }
+
+    operator delete(__p);
+  }
+
+  if (v34)
+  {
+    if (v35 != v34)
+    {
+      v35 += (v34 - v35 + 7) & 0xFFFFFFFFFFFFFFF8;
+    }
+
+    operator delete(v34);
+  }
+
+  if (v16 == v18)
+  {
+    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "Bang!", 5);
+    std::ios_base::getloc((v19 + *(*v19 - 24)));
+    v20 = std::locale::use_facet(&v43, MEMORY[0x277D82680]);
+    (v20->__vftable[2].~facet_0)(v20, 10);
+    std::locale::~locale(&v43);
+    std::ostream::put();
+    std::ostream::flush();
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "returning ", 10);
+    v11 = (a4 + a6) * 0.5;
+    v22 = MEMORY[0x24C19B420](v21, v11);
+    std::ios_base::getloc((v22 + *(*v22 - 24)));
+    v23 = std::locale::use_facet(&v43, MEMORY[0x277D82680]);
+    (v23->__vftable[2].~facet_0)(v23, 10);
+    std::locale::~locale(&v43);
+    std::ostream::put();
+    std::ostream::flush();
+  }
+
+  else
+  {
+    v24 = (a3[1] - *a3) >> 3;
+    v46 = &v36;
+    v47 = v24;
+    v45 = a3;
+    v44 = a2;
+    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v43, &v34);
+    v25 = (*(a1 + 40))(&v34, *(a1 + 64));
+    v26 = (a3[1] - *a3) >> 3;
+    v41 = &v37;
+    v42 = v26;
+    v40 = a3;
+    v39 = a2;
+    std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(v38, &__p);
+    v27 = (*(a1 + 40))(&__p, *(a1 + 64));
     if (__p)
     {
-      if (v34 != __p)
+      if (v33 != __p)
       {
-        v34 += (__p - v34 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v33 += (__p - v33 + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
       operator delete(__p);
     }
 
-    if (v35)
+    if (v34)
     {
-      if (v36 != v35)
+      if (v35 != v34)
       {
-        v36 += (v35 - v36 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v35 += (v34 - v35 + 7) & 0xFFFFFFFFFFFFFFF8;
       }
 
-      operator delete(v35);
+      operator delete(v34);
     }
 
-    if (v16 == v18)
+    v28 = a6 - v37;
+    v29 = v37 - a4;
+    if (v25 <= v27)
     {
-      v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "Bang!", 5);
-      std::ios_base::getloc((v19 + *(*v19 - 24)));
-      v20 = std::locale::use_facet(&v44, MEMORY[0x277D82680]);
-      (v20->__vftable[2].~facet_0)(v20, 10);
-      std::locale::~locale(&v44);
-      std::ostream::put();
-      std::ostream::flush();
-      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "returning ", 10);
-      v11 = (a4 + a6) * 0.5;
-      v22 = MEMORY[0x24C19B420](v21, v11);
-      std::ios_base::getloc((v22 + *(*v22 - 24)));
-      v23 = std::locale::use_facet(&v44, MEMORY[0x277D82680]);
-      (v23->__vftable[2].~facet_0)(v23, 10);
-      std::locale::~locale(&v44);
-      std::ostream::put();
-      std::ostream::flush();
-    }
-
-    else
-    {
-      v24 = (a3[1] - *a3) >> 3;
-      v47 = &v37;
-      v48 = v24;
-      v46 = a3;
-      v45 = a2;
-      std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(&v44, &v35);
-      v25 = (*(a1 + 40))(&v35, *(a1 + 64));
-      v26 = (a3[1] - *a3) >> 3;
-      v42 = &v38;
-      v43 = v26;
-      v41 = a3;
-      v40 = a2;
-      std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>(v39, &__p);
-      v27 = (*(a1 + 40))(&__p, *(a1 + 64));
-      if (__p)
+      if (v28 <= v29)
       {
-        if (v34 != __p)
-        {
-          v34 += (__p - v34 + 7) & 0xFFFFFFFFFFFFFFF8;
-        }
-
-        operator delete(__p);
-      }
-
-      if (v35)
-      {
-        if (v36 != v35)
-        {
-          v36 += (v35 - v36 + 7) & 0xFFFFFFFFFFFFFFF8;
-        }
-
-        operator delete(v35);
-      }
-
-      v28 = a6 - v38;
-      v29 = v38 - a4;
-      if (v25 <= v27)
-      {
-        if (v28 <= v29)
-        {
-          v30 = CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, v37, v38, a6, a7);
-        }
-
-        else
-        {
-          v30 = CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, a4, v38, v37, a7);
-        }
-      }
-
-      else if (v28 <= v29)
-      {
-        v30 = CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, a4, v37, v38, a7);
+        return CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, v36, v37, a6, a7);
       }
 
       else
       {
-        v30 = CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, v38, v37, a6, a7);
+        return CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, a4, v37, v36, a7);
       }
+    }
 
-      v11 = v30;
+    else if (v28 <= v29)
+    {
+      return CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, a4, v36, v37, a7);
+    }
+
+    else
+    {
+      return CoreOptimization::BFGS::GoldenSectionSearch_r(a1, a2, a3, v37, v36, a6, a7);
     }
   }
 
-  else
-  {
-    v11 = (a4 + a6) * 0.5;
-  }
-
-  v31 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1056,7 +1048,7 @@ void sub_2461B3E30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,std::__val_expr<std::_BinaryOp<std::multiplies<double>,std::valarray<double>,std::__scalar_expr<double>>>>>::operator std::valarray<double>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -1076,7 +1068,7 @@ uint64_t std::__val_expr<std::_BinaryOp<std::plus<double>,std::valarray<double>,
   return result;
 }
 
-double CoreOptimization::BFGS::GoldenSectionSearch0(uint64_t a1, double **a2, double **a3, int a4)
+double CoreOptimization::BFGS::GoldenSectionSearch0(std::locale::__imp *a1, double **a2, double **a3, int a4)
 {
   v8 = *a2;
   v7 = a2[1];
@@ -1161,13 +1153,13 @@ double CoreOptimization::BFGS::GoldenSectionSearch0(uint64_t a1, double **a2, do
       std::locale::~locale(&v48);
       std::ostream::put();
       std::ostream::flush();
-      v38 = (*(a1 + 40))(&v46, *(a1 + 64));
-      v39 = (*(a1 + 40))(&__p, *(a1 + 64));
+      v38 = (*(a1 + 5))(&v46, *(a1 + 8));
+      v39 = (*(a1 + 5))(&__p, *(a1 + 8));
       printf("\t(vlo, vhi)=(%lf, %lf)\n", -v38, -v39);
     }
 
-    v40 = (*(a1 + 40))(&v46, *(a1 + 64));
-    if (v40 <= (*(a1 + 40))(&__p, *(a1 + 64)))
+    v40 = (*(a1 + 5))(&v46, *(a1 + 8));
+    if (v40 <= (*(a1 + 5))(&__p, *(a1 + 8)))
     {
       v17 = v21;
     }
@@ -1213,7 +1205,7 @@ CoreOptimization::gradient_t *CoreOptimization::gradient_t::gradient_t(CoreOptim
 {
   *this = 0;
   *(this + 1) = 0;
-  std::valarray<double>::resize(this, a2);
+  std::valarray<double>::resize(this, a2, 0.0);
   return this;
 }
 
@@ -1224,10 +1216,10 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void *std::valarray<double>::valarray(void *result, void *a2)
+uint64_t *std::valarray<double>::valarray(uint64_t *a1, uint64_t **a2)
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
@@ -1239,7 +1231,7 @@ void *std::valarray<double>::valarray(void *result, void *a2)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
@@ -1248,16 +1240,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1280,9 +1272,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2461B46D8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2461B46D8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x24C19B410](&a10);
+  MEMORY[0x24C19B410](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();

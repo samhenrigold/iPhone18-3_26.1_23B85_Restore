@@ -241,12 +241,11 @@ LABEL_28:
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  sourceURL = self->_sourceURL;
+  v7 = HKSensitiveLogItem();
   v8 = HKSensitiveLogItem();
-  v9 = HKSensitiveLogItem();
-  v10 = [v4 stringWithFormat:@"<%@ %p source URL: %@, string data: %@>", v6, self, v8, v9];;
+  v9 = [v4 stringWithFormat:@"<%@ %p source URL: %@, string data: %@>", v6, self, v7, v8];;
 
-  return v10;
+  return v9;
 }
 
 @end

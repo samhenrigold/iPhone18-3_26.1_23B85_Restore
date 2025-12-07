@@ -150,7 +150,7 @@ LABEL_8:
   return v16;
 }
 
-uint64_t __33__PLAccountingNodeEntry_isEqual___block_invoke(uint64_t a1)
+void *__33__PLAccountingNodeEntry_isEqual___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   isEqual__classDebugEnabled = result;

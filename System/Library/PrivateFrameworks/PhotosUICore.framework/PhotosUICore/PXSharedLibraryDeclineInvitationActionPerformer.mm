@@ -57,36 +57,36 @@ void __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractio
   [v3 addActionWithTitle:v6 style:1 action:v7];
 }
 
-void __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_2(uint64_t a1)
+void __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User confirmed the decline invitation confirmation alert", buf, 2u);
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User confirmed the decline invitation confirmation alert", buf, 2u);
   }
 
-  v3 = [*(a1 + 32) invitation];
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_207;
-  v4[3] = &unk_1E774C5C0;
-  v4[4] = *(a1 + 32);
-  [v3 declineInvitationWithCompletion:v4];
+  v4 = [*(a1 + 32) invitation];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_207;
+  v5[3] = &unk_1E774C5C0;
+  v5[4] = *(a1 + 32);
+  [v4 declineInvitationWithCompletion:v5];
 }
 
-void __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_2_213(uint64_t a1)
+void __77__PXSharedLibraryDeclineInvitationActionPerformer_performUserInteractionTask__block_invoke_2_213(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User canceled the decline invitation confirmation alert", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User canceled the decline invitation confirmation alert", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = PXSharedLibraryUserCanceledErrorWithDebugDescription(@"Decline Assistant Confirmation");
-  [v3 completeUserInteractionTaskWithSuccess:0 error:v4];
+  v4 = *(a1 + 32);
+  v5 = PXSharedLibraryUserCanceledErrorWithDebugDescription(@"Decline Assistant Confirmation");
+  [v4 completeUserInteractionTaskWithSuccess:0 error:v5];
 }
 
 - (void)performActionWithInvitation:(id)invitation presentationEnvironment:(id)environment completionHandler:(id)handler

@@ -2,6 +2,7 @@
 - (id)_descriptionLeader;
 - (id)opString;
 - (ipp_request_t)init;
+- (ipp_request_t)initWithOp:(unsigned __int16)op;
 - (void)_setupNewRequest;
 @end
 
@@ -12,6 +13,22 @@
   v3.receiver = self;
   v3.super_class = ipp_request_t;
   return [(ipp_t *)&v3 init];
+}
+
+- (ipp_request_t)initWithOp:(unsigned __int16)op
+{
+  opCopy = op;
+  v7.receiver = self;
+  v7.super_class = ipp_request_t;
+  v4 = [(ipp_t *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(ipp_t *)v4 setOp_or_status:opCopy];
+    [(ipp_request_t *)v5 _setupNewRequest];
+  }
+
+  return v5;
 }
 
 - (void)_setupNewRequest

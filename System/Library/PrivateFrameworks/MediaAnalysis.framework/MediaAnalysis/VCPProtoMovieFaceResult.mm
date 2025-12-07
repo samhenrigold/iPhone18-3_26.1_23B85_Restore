@@ -79,11 +79,11 @@
     v4 = 2 * v3;
   }
 
-  timeRange = [(VCPProtoMovieFaceResult *)self timeRange];
-  v6 = timeRange;
-  if (timeRange)
+  v5 = objc_msgSend_timeRange(self);
+  v6 = v5;
+  if (v5)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v5);
   }
 
   else

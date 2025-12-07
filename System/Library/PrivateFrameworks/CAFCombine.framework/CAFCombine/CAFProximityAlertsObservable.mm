@@ -1,5 +1,7 @@
 @interface CAFProximityAlertsObservable
 - (NSString)description;
+- (void)proximityAlertsService:(id)service didUpdateProximityAlertRearLeft:(unsigned __int8)left;
+- (void)proximityAlertsService:(id)service didUpdateProximityAlertRearRight:(unsigned __int8)right;
 - (void)serviceDidFinishGroupUpdate:(id)update;
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate;
 - (void)serviceDidUpdate:(id)update receivedAllValues:(BOOL)values;
@@ -16,6 +18,22 @@
   v6 = MEMORY[0x245D0A4C0](v3, v5);
 
   return v6;
+}
+
+- (void)proximityAlertsService:(id)service didUpdateProximityAlertRearLeft:(unsigned __int8)left
+{
+  leftCopy = left;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFProximityAlertsObservable.proximityAlertsService(_:didUpdateProximityAlertRearLeft:)(selfCopy, leftCopy);
+}
+
+- (void)proximityAlertsService:(id)service didUpdateProximityAlertRearRight:(unsigned __int8)right
+{
+  rightCopy = right;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFProximityAlertsObservable.proximityAlertsService(_:didUpdateProximityAlertRearRight:)(selfCopy, rightCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

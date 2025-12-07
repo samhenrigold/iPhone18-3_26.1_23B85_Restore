@@ -7,8 +7,7 @@
 - (void)controller:(id)controller defersResponseReplacement:(id)replacement
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
+  MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v14 - v8;
   v10 = _Block_copy(replacement);
   v11 = swift_allocObject();

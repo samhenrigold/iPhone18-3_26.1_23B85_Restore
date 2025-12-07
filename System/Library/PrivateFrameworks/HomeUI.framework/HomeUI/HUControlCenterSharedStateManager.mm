@@ -69,7 +69,7 @@
   MEMORY[0x28223BE20](v0);
   v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = objc_opt_self();
-  sub_20CECF940(0, &qword_28111FE08);
+  sub_20CECF940(0, &qword_28111FE08, 0x277CD1A98);
   v5 = sub_20D5682A8();
   [v4 setConfiguration_];
 
@@ -106,7 +106,7 @@
     *v15 = homeManager;
     v16 = v11;
     _os_log_impl(&dword_20CEB6000, v12, v13, "ControlCenterSharedStateManager is bootstrapped: %@", v14, 0xCu);
-    sub_20CEF928C(v15, &unk_27C81BE60);
+    sub_20CEF928C(v15, &unk_27C81BE60, &unk_20D5BDEB0);
     MEMORY[0x20F31FC70](v15, -1, -1);
     MEMORY[0x20F31FC70](v14, -1, -1);
     v11 = v12;

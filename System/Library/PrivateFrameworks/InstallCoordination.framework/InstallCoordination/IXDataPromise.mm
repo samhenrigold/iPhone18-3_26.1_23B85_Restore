@@ -23,6 +23,7 @@
 - (unint64_t)totalBytesNeededOnDisk;
 - (void)_clientDelegate_didCancelWithError:(id)error client:(unint64_t)client;
 - (void)_clientDelegate_didComplete;
+- (void)_updateInitWithSeed:(id)seed notifyDaemon:(BOOL)daemon;
 - (void)cancelForReason:(id)reason client:(unint64_t)client completion:(id)completion;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -50,6 +51,28 @@
   }
 
   return v7;
+}
+
+- (void)_updateInitWithSeed:(id)seed notifyDaemon:(BOOL)daemon
+{
+  daemonCopy = daemon;
+  seedCopy = seed;
+  if (![(IXDataPromiseSeed *)seedCopy creatorIdentifier]|| ([(IXDataPromiseSeed *)seedCopy uniqueIdentifier], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+  {
+    v8 = MEMORY[0x1E695DF30];
+    v9 = *MEMORY[0x1E695D930];
+    creatorIdentifier = [(IXDataPromiseSeed *)seedCopy creatorIdentifier];
+    uniqueIdentifier = [(IXDataPromiseSeed *)seedCopy uniqueIdentifier];
+    [v8 raise:v9 format:{@"Expected client and uniqueID to be initialized but instead got %lu %@", creatorIdentifier, uniqueIdentifier}];
+  }
+
+  seed = self->_seed;
+  self->_seed = seedCopy;
+  v13 = seedCopy;
+
+  v14 = +[IXServerConnection sharedConnection];
+
+  [v14 registerDataPromiseForUpdates:self notifyDaemon:daemonCopy];
 }
 
 - (void)dealloc
@@ -134,31 +157,29 @@
 
 void __22__IXDataPromise_error__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXDataPromise error]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXDataPromise error]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __22__IXDataPromise_error__block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = v6;
   if (a2 && v6)
@@ -178,21 +199,19 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 136315650;
-      v12 = "[IXDataPromise error]_block_invoke";
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error property on %@ : %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXDataPromise error]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error property on %@ : %@", &v10, 0x20u);
     }
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSError)localError
@@ -241,27 +260,25 @@ LABEL_9:
 
 void __38__IXDataPromise_errorSourceIdentifier__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXDataPromise errorSourceIdentifier]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXDataPromise errorSourceIdentifier]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__IXDataPromise_errorSourceIdentifier__block_invoke_8(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = v6;
   if (a2 && v6)
@@ -281,21 +298,19 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 136315650;
-      v12 = "[IXDataPromise errorSourceIdentifier]_block_invoke";
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error source on %@ : %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[IXDataPromise errorSourceIdentifier]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_1DA47A000, v8, OS_LOG_TYPE_DEFAULT, "%s: Failed to get error source on %@ : %@", &v10, 0x20u);
     }
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isComplete
@@ -345,27 +360,25 @@ LABEL_9:
 
 void __27__IXDataPromise_isComplete__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXDataPromise isComplete]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXDataPromise isComplete]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __27__IXDataPromise_isComplete__block_invoke_9(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -373,13 +386,13 @@ void __27__IXDataPromise_isComplete__block_invoke_9(uint64_t a1, char a2, void *
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXDataPromise isComplete]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete on %@ : %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXDataPromise isComplete]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get isComplete on %@ : %@", &v8, 0x20u);
     }
   }
 
@@ -390,14 +403,12 @@ void __27__IXDataPromise_isComplete__block_invoke_9(uint64_t a1, char a2, void *
     *(*(a1 + 32) + 12) = a2;
     os_unfair_lock_unlock((*(a1 + 32) + 8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setComplete:(BOOL)complete
 {
   completeCopy = complete;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   localError = [(IXDataPromise *)self localError];
   if (localError)
   {
@@ -405,24 +416,22 @@ void __27__IXDataPromise_isComplete__block_invoke_9(uint64_t a1, char a2, void *
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "[IXDataPromise setComplete:]";
-      v12 = 2112;
-      v13 = localError;
+      v10 = "[IXDataPromise setComplete:]";
+      v11 = 2112;
+      v12 = localError;
       _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Called after error %@ occurred; ignoring.", buf, 0x16u);
     }
   }
 
   else if (completeCopy)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __29__IXDataPromise_setComplete___block_invoke;
-    v9[3] = &unk_1E85C6500;
-    v9[4] = self;
-    v7 = [IXServerConnection retrySynchronousIPC:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __29__IXDataPromise_setComplete___block_invoke;
+    v8[3] = &unk_1E85C6500;
+    v8[4] = self;
+    v7 = [IXServerConnection retrySynchronousIPC:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __29__IXDataPromise_setComplete___block_invoke(uint64_t a1)
@@ -458,31 +467,29 @@ id __29__IXDataPromise_setComplete___block_invoke(uint64_t a1)
 
 void __29__IXDataPromise_setComplete___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXDataPromise setComplete:]_block_invoke_2";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXDataPromise setComplete:]_block_invoke_2";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __29__IXDataPromise_setComplete___block_invoke_11(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -490,13 +497,13 @@ void __29__IXDataPromise_setComplete___block_invoke_11(uint64_t a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 136315650;
-      v9 = "[IXDataPromise setComplete:]_block_invoke";
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set isComplete on %@ : %@", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[IXDataPromise setComplete:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Failed to set isComplete on %@ : %@", &v7, 0x20u);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -508,8 +515,6 @@ void __29__IXDataPromise_setComplete___block_invoke_11(uint64_t a1, void *a2)
     *(*(a1 + 32) + 12) = 1;
     os_unfair_lock_unlock((*(a1 + 32) + 8));
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)localIsComplete
@@ -549,27 +554,25 @@ void __29__IXDataPromise_setComplete___block_invoke_11(uint64_t a1, void *a2)
 
 void __32__IXDataPromise_percentComplete__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXDataPromise percentComplete]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXDataPromise percentComplete]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed contacting daemon on %@ : %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __32__IXDataPromise_percentComplete__block_invoke_13(uint64_t a1, void *a2, double a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (v5)
   {
@@ -577,13 +580,13 @@ void __32__IXDataPromise_percentComplete__block_invoke_13(uint64_t a1, void *a2,
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 136315650;
-      v10 = "[IXDataPromise percentComplete]_block_invoke";
-      v11 = 2112;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get percentComplete on %@ : %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[IXDataPromise percentComplete]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed to get percentComplete on %@ : %@", &v8, 0x20u);
     }
   }
 
@@ -591,8 +594,6 @@ void __32__IXDataPromise_percentComplete__block_invoke_13(uint64_t a1, void *a2,
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPercentComplete:(double)complete
@@ -611,30 +612,28 @@ void __32__IXDataPromise_percentComplete__block_invoke_13(uint64_t a1, void *a2,
 
 void __36__IXDataPromise_setPercentComplete___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v8 = 136315906;
-    v9 = "[IXDataPromise setPercentComplete:]_block_invoke";
-    v10 = 2048;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set percentComplete to %f on %@ : %@", &v8, 0x2Au);
+    v7 = 136315906;
+    v8 = "[IXDataPromise setPercentComplete:]_block_invoke";
+    v9 = 2048;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to set percentComplete to %f on %@ : %@", &v7, 0x2Au);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (NSURL)preflightPath
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = +[IXGlobalConfiguration sharedInstance];
   userVolumeURL = [v3 userVolumeURL];
 
@@ -642,16 +641,14 @@ void __36__IXDataPromise_setPercentComplete___block_invoke(uint64_t a1, void *a2
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     path = [userVolumeURL path];
-    v9 = 136315650;
-    v10 = "[IXDataPromise preflightPath]";
-    v11 = 2112;
+    v8 = 136315650;
+    v9 = "[IXDataPromise preflightPath]";
+    v10 = 2112;
     selfCopy = self;
-    v13 = 2112;
-    v14 = path;
-    _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: WARNING: Preflight called on %@ which assumes data will end up on the volume containing %@; this may not be accurate.", &v9, 0x20u);
+    v12 = 2112;
+    v13 = path;
+    _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: WARNING: Preflight called on %@ which assumes data will end up on the volume containing %@; this may not be accurate.", &v8, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return userVolumeURL;
 }
@@ -810,23 +807,22 @@ LABEL_11:
 
 void __51__IXDataPromise_cancelForReason_client_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[IXDataPromise cancelForReason:client:completion:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[IXDataPromise cancelForReason:client:completion:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)cancelForReason:(id)reason client:(unint64_t)client error:(id *)error
@@ -908,26 +904,24 @@ LABEL_11:
 
 void __46__IXDataPromise_cancelForReason_client_error___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v9 = 136315650;
-    v10 = "[IXDataPromise cancelForReason:client:error:]_block_invoke";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[IXDataPromise cancelForReason:client:error:]_block_invoke";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel %@ : %@", &v8, 0x20u);
   }
 
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __46__IXDataPromise_cancelForReason_client_error___block_invoke_29(uint64_t a1, void *a2)
@@ -970,24 +964,22 @@ void __46__IXDataPromise_cancelForReason_client_error___block_invoke_29(uint64_t
 
 void __37__IXDataPromise_resetWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[IXDataPromise resetWithCompletion:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXDataPromise resetWithCompletion:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v5, 0x16u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__IXDataPromise_resetWithCompletion___block_invoke_30(uint64_t a1, void *a2)
@@ -1013,29 +1005,22 @@ void __37__IXDataPromise_resetWithCompletion___block_invoke_30(uint64_t a1, void
 
 void __37__IXDataPromise_resetWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXDataPromise resetWithCompletion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXDataPromise resetWithCompletion:]_block_invoke_2";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to cancel for reason: %@", &v5, 0x16u);
     }
   }
 
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resetWithError:(id *)error
@@ -1082,24 +1067,22 @@ void __37__IXDataPromise_resetWithCompletion___block_invoke_2(uint64_t a1, void 
 
 void __32__IXDataPromise_resetWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXDataPromise resetWithError:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[IXDataPromise resetWithError:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v6, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __32__IXDataPromise_resetWithError___block_invoke_31(uint64_t a1, void *a2)
@@ -1142,24 +1125,22 @@ uint64_t __32__IXDataPromise_resetWithError___block_invoke_31(uint64_t a1, void 
 
 void __41__IXDataPromise_preflightWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[IXDataPromise preflightWithCompletion:]_block_invoke";
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[IXDataPromise preflightWithCompletion:]_block_invoke";
+      v7 = 2112;
+      v8 = v3;
+      _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v5, 0x16u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightWithError:(id *)error
@@ -1200,46 +1181,42 @@ void __41__IXDataPromise_preflightWithCompletion___block_invoke(uint64_t a1, voi
 
 void __36__IXDataPromise_preflightWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXDataPromise preflightWithError:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[IXDataPromise preflightWithError:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Remote object proxy returned error %@", &v6, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __36__IXDataPromise_preflightWithError___block_invoke_33(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[IXDataPromise preflightWithError:]_block_invoke";
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Preflight failed with error: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[IXDataPromise preflightWithError:]_block_invoke";
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1DA47A000, v5, OS_LOG_TYPE_DEFAULT, "%s: Preflight failed with error: %@", &v6, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientDelegate_didComplete
@@ -1291,24 +1268,22 @@ void __36__IXDataPromise_preflightWithError___block_invoke_33(uint64_t a1, void 
 
 void __58__IXDataPromise_IXTesting__outstandingPromisesForCreator___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "+[IXDataPromise(IXTesting) outstandingPromisesForCreator:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to get registered data promise info: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "+[IXDataPromise(IXTesting) outstandingPromisesForCreator:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1DA47A000, v3, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to get registered data promise info: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __58__IXDataPromise_IXTesting__outstandingPromisesForCreator___block_invoke_137(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1316,19 +1291,17 @@ void __58__IXDataPromise_IXTesting__outstandingPromisesForCreator___block_invoke
     v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "+[IXDataPromise(IXTesting) outstandingPromisesForCreator:]_block_invoke";
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get reigstered data promise info: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[IXDataPromise(IXTesting) outstandingPromisesForCreator:]_block_invoke";
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Failed to get reigstered data promise info: %@", &v10, 0x16u);
     }
   }
 
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v5;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)promiseExists:(BOOL *)exists withUUID:(id)d error:(id *)error
@@ -1398,23 +1371,21 @@ LABEL_7:
 
 void __57__IXDataPromise_IXTesting__promiseExists_withUUID_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[IXDataPromise(IXTesting) promiseExists:withUUID:error:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to get promise info: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[IXDataPromise(IXTesting) promiseExists:withUUID:error:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon to get promise info: %@", &v7, 0x16u);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__IXDataPromise_IXTesting__promiseExists_withUUID_error___block_invoke_139(void *a1, char a2, void *a3)
@@ -1436,34 +1407,30 @@ void __57__IXDataPromise_IXTesting__promiseExists_withUUID_error___block_invoke_
 
 - (void)cancelForReason:client:completion:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with client of IXClientNone which is not valid. : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with client of IXClientNone which is not valid. : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)cancelForReason:client:completion:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with nil reason; this isn't valid. : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with nil reason; this isn't valid. : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)cancelForReason:client:error:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with client of IXClientNone which is not valid. : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with client of IXClientNone which is not valid. : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)cancelForReason:client:error:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with nil reason; this isn't valid. : %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1DA47A000, v0, v1, "%s: [IXDataPromise cancelForReason:client:completion:] was called with nil reason; this isn't valid. : %@", v2, v3, v4, v5, v6);
 }
 
 @end

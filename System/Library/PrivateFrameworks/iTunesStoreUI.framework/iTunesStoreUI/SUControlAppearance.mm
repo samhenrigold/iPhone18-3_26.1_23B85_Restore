@@ -73,7 +73,7 @@
   }
 }
 
-uint64_t __49__SUControlAppearance_enumerateImagesUsingBlock___block_invoke(uint64_t a1, void *a2)
+void *__49__SUControlAppearance_enumerateImagesUsingBlock___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 componentsSeparatedByString:@":"];
   result = [v3 count];

@@ -1,18 +1,51 @@
 @interface OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl
 - (BOOL)isEqual:(id)equal;
+- (id)appendWithChar:(unsigned __int16)char;
 - (id)appendWithJavaLangCharSequence:(id)sequence;
 - (id)appendWithJavaLangStringBuilder:(id)builder;
 - (id)appendWithNSString:(id)string;
 - (id)appendWithOrgApacheLuceneAnalysisTokenattributesCharTermAttribute:(id)attribute;
 - (id)clone;
 - (id)getBytesRef;
+- (id)setLengthWithInt:(int)int;
+- (id)subSequenceFrom:(int)from to:(int)to;
 - (uint64_t)appendNull;
+- (unsigned)charAtWithInt:(int)int;
+- (void)copyBufferWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)copyToWithOrgApacheLuceneUtilAttributeImpl:(id)impl;
 - (void)dealloc;
 - (void)reflectWithWithOrgApacheLuceneUtilAttributeReflector:(id)reflector;
 @end
 
 @implementation OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl
+
+- (void)copyBufferWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v8 = *&withInt;
+  v9 = *&int;
+  sub_1000BB7C8(self, withInt, array, *&int, *&withInt, v5, v6, v7);
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v9, self->termBuffer_, 0, v8);
+  self->termLength_ = v8;
+}
+
+- (id)setLengthWithInt:(int)int
+{
+  v8 = *(self + 2);
+  if (!v8)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if (*(v8 + 8) < int)
+  {
+    v9 = JreStrcat("$I$IC", a2, *&int, v3, v4, v5, v6, v7, @"length ");
+    v10 = new_JavaLangIllegalArgumentException_initWithNSString_(v9);
+    objc_exception_throw(v10);
+  }
+
+  *(self + 6) = int;
+  return self;
+}
 
 - (id)getBytesRef
 {
@@ -26,6 +59,44 @@
   v4 = self->builder_;
 
   return [(OrgApacheLuceneUtilBytesRefBuilder *)v4 get];
+}
+
+- (unsigned)charAtWithInt:(int)int
+{
+  if (self->termLength_ <= int)
+  {
+    v6 = new_JavaLangIndexOutOfBoundsException_init();
+    objc_exception_throw(v6);
+  }
+
+  termBuffer = self->termBuffer_;
+  if (!termBuffer)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = termBuffer->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return *(&termBuffer->super.size_ + int + 2);
+}
+
+- (id)subSequenceFrom:(int)from to:(int)to
+{
+  termLength = self->termLength_;
+  if (termLength < from || termLength < to)
+  {
+    v10 = new_JavaLangIndexOutOfBoundsException_init();
+    objc_exception_throw(v10);
+  }
+
+  v7 = *&from;
+  termBuffer = self->termBuffer_;
+
+  return [NSString stringWithCharacters:termBuffer offset:v7 length:(to - v7)];
 }
 
 - (id)appendWithJavaLangCharSequence:(id)sequence
@@ -91,6 +162,27 @@
   }
 
   *(v18 + 12 + 2 * v19) = 108;
+  return self;
+}
+
+- (id)appendWithChar:(unsigned __int16)char
+{
+  v10 = sub_1000BB87C(self, self->termLength_ + 1, char, v3, v4, v5, v6, v7);
+  if (!v10)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v11 = v10;
+  termLength = self->termLength_;
+  self->termLength_ = termLength + 1;
+  v13 = *(v10 + 8);
+  if (termLength < 0 || termLength >= v13)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v13, termLength);
+  }
+
+  *(v11 + 12 + 2 * termLength) = char;
   return self;
 }
 
@@ -248,16 +340,16 @@ LABEL_19:
     JreThrowNullPointerException();
   }
 
-  [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_() withNSString:@"term" withId:{-[OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl description](self, "description")}];
-  v5 = OrgApacheLuceneAnalysisTokenattributesTermToBytesRefAttribute_class_();
+  v5 = [reflector reflectWithIOSClass:OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(self withNSString:a2) withId:{@"term", -[OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl description](self, "description")}];
+  v7 = OrgApacheLuceneAnalysisTokenattributesTermToBytesRefAttribute_class_(v5, v6);
   getBytesRef = [(OrgApacheLuceneAnalysisTokenattributesCharTermAttributeImpl *)self getBytesRef];
 
-  [reflector reflectWithIOSClass:v5 withNSString:@"bytes" withId:getBytesRef];
+  [reflector reflectWithIOSClass:v7 withNSString:@"bytes" withId:getBytesRef];
 }
 
 - (void)copyToWithOrgApacheLuceneUtilAttributeImpl:(id)impl
 {
-  v5 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_();
+  v5 = OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(self, a2);
   if (!impl)
   {
     JreThrowNullPointerException();

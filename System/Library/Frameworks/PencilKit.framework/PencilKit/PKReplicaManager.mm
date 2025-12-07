@@ -203,7 +203,7 @@ LABEL_12:
 
       if (([v17 inUse] & 1) == 0)
       {
-        v19 = [*(a1 + 40) version];
+        v19 = objc_msgSend_version(*(a1 + 40));
         v20 = [v19 clockElementForUUID:v12];
 
         v21 = [v20 clock];
@@ -404,7 +404,7 @@ void __44__PKReplicaManager_updateVersionForDrawing___block_invoke(uint64_t a1)
             }
           }
 
-          v26 = [*(a1 + 40) version];
+          v26 = objc_msgSend_version(*(a1 + 40));
           v27 = [*(a1 + 40) replicaUUID];
           v28 = [v26 clockElementForUUID:v27];
 

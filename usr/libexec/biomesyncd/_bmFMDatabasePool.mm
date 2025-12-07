@@ -1,8 +1,12 @@
 @interface _bmFMDatabasePool
 + (id)databasePoolWithPath:(id)path;
++ (id)databasePoolWithPath:(id)path flags:(int)flags;
 + (id)databasePoolWithURL:(id)l;
++ (id)databasePoolWithURL:(id)l flags:(int)flags;
 - (_bmFMDatabasePool)initWithPath:(id)path flags:(int)flags vfs:(id)vfs;
 - (_bmFMDatabasePool)initWithURL:(id)l;
+- (_bmFMDatabasePool)initWithURL:(id)l flags:(int)flags;
+- (_bmFMDatabasePool)initWithURL:(id)l flags:(int)flags vfs:(id)vfs;
 - (id)db;
 - (id)inSavePoint:(id)point;
 - (unint64_t)countOfCheckedInDatabases;
@@ -34,6 +38,37 @@
   v7 = [v5 initWithPath:path];
 
   return v7;
+}
+
++ (id)databasePoolWithPath:(id)path flags:(int)flags
+{
+  v4 = *&flags;
+  pathCopy = path;
+  v7 = [[self alloc] initWithPath:pathCopy flags:v4];
+
+  return v7;
+}
+
++ (id)databasePoolWithURL:(id)l flags:(int)flags
+{
+  v4 = *&flags;
+  lCopy = l;
+  v7 = [self alloc];
+  path = [lCopy path];
+
+  v9 = [v7 initWithPath:path flags:v4];
+
+  return v9;
+}
+
+- (_bmFMDatabasePool)initWithURL:(id)l flags:(int)flags vfs:(id)vfs
+{
+  v5 = *&flags;
+  vfsCopy = vfs;
+  path = [l path];
+  v10 = [(_bmFMDatabasePool *)self initWithPath:path flags:v5 vfs:vfsCopy];
+
+  return v10;
 }
 
 - (_bmFMDatabasePool)initWithPath:(id)path flags:(int)flags vfs:(id)vfs
@@ -69,6 +104,15 @@
   }
 
   return v10;
+}
+
+- (_bmFMDatabasePool)initWithURL:(id)l flags:(int)flags
+{
+  v4 = *&flags;
+  path = [l path];
+  v7 = [(_bmFMDatabasePool *)self initWithPath:path flags:v4 vfs:0];
+
+  return v7;
 }
 
 - (_bmFMDatabasePool)initWithURL:(id)l

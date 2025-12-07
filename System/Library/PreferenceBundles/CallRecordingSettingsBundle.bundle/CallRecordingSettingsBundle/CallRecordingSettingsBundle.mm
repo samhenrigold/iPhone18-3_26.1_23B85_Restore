@@ -8,7 +8,7 @@ unint64_t GMAvailability.init(rawValue:)(unint64_t result)
   return result;
 }
 
-uint64_t *sub_25B0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *sub_25B0@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;
@@ -30,11 +30,11 @@ Swift::Int sub_25D8()
   return sub_3B64();
 }
 
-Swift::Int sub_264C()
+Swift::Int sub_264C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_3B44();
-  sub_3B54(v1);
+  sub_3B54(v2);
   return sub_3B64();
 }
 
@@ -42,45 +42,42 @@ uint64_t variable initialization expression of GenerativeModelAvailabilityContro
 {
   v0 = sub_3A54();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin();
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_3A24();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_3A24();
+  v5 = *(v4 - 8);
   __chkstk_darwin();
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3A14();
   sub_3A44();
-  (*(v6 + 8))(v9, v5);
+  (*(v5 + 8))(v7, v4);
   sub_3A34();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 uint64_t GenerativeModelAvailabilityControl.getAvailability()()
 {
   v1 = sub_3A04();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin();
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v2 + 16))(v5, v0 + OBJC_IVAR____TtC27CallRecordingSettingsBundle34GenerativeModelAvailabilityControl_available, v1);
-  v6 = (*(v2 + 88))(v5, v1);
-  if (&enum case for GenerativeModelsAvailability.Availability.restricted(_:) && v6 == enum case for GenerativeModelsAvailability.Availability.restricted(_:))
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v2 + 16))(v4, v0 + OBJC_IVAR____TtC27CallRecordingSettingsBundle34GenerativeModelAvailabilityControl_available, v1);
+  v5 = (*(v2 + 88))(v4, v1);
+  if (&enum case for GenerativeModelsAvailability.Availability.restricted(_:) && v5 == enum case for GenerativeModelsAvailability.Availability.restricted(_:))
   {
-    v7 = 1;
+    v6 = 1;
 LABEL_7:
-    (*(v2 + 8))(v5, v1);
-    return v7;
+    (*(v2 + 8))(v4, v1);
+    return v6;
   }
 
-  if (&enum case for GenerativeModelsAvailability.Availability.unavailable(_:) && v6 == enum case for GenerativeModelsAvailability.Availability.unavailable(_:))
+  if (&enum case for GenerativeModelsAvailability.Availability.unavailable(_:) && v5 == enum case for GenerativeModelsAvailability.Availability.unavailable(_:))
   {
-    v7 = 2;
+    v6 = 2;
     goto LABEL_7;
   }
 
-  if (&enum case for GenerativeModelsAvailability.Availability.available(_:) && v6 == enum case for GenerativeModelsAvailability.Availability.available(_:))
+  if (&enum case for GenerativeModelsAvailability.Availability.available(_:) && v5 == enum case for GenerativeModelsAvailability.Availability.available(_:))
   {
     return 0;
   }
@@ -102,26 +99,24 @@ id GenerativeModelAvailabilityControl.init()()
   v1 = v0;
   v2 = sub_3A54();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_3A24();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_3A24();
+  v7 = *(v6 - 8);
   __chkstk_darwin();
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3A14();
   sub_3A44();
-  (*(v8 + 8))(v11, v7);
+  (*(v7 + 8))(v9, v6);
   sub_3A34();
-  (*(v3 + 8))(v6, v2);
-  v12 = type metadata accessor for GenerativeModelAvailabilityControl();
-  v14.receiver = v1;
-  v14.super_class = v12;
-  return objc_msgSendSuper2(&v14, "init");
+  (*(v3 + 8))(v5, v2);
+  v10 = type metadata accessor for GenerativeModelAvailabilityControl(0);
+  v12.receiver = v1;
+  v12.super_class = v10;
+  return objc_msgSendSuper2(&v12, "init");
 }
 
-uint64_t type metadata accessor for GenerativeModelAvailabilityControl()
+uint64_t type metadata accessor for GenerativeModelAvailabilityControl(uint64_t a1)
 {
   result = qword_C988;
   if (!qword_C988)
@@ -135,7 +130,7 @@ uint64_t type metadata accessor for GenerativeModelAvailabilityControl()
 id GenerativeModelAvailabilityControl.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for GenerativeModelAvailabilityControl();
+  v2.super_class = type metadata accessor for GenerativeModelAvailabilityControl(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -151,12 +146,11 @@ unint64_t sub_2F1C()
   return result;
 }
 
-uint64_t sub_2FF4()
+uint64_t sub_2FF4(uint64_t a1)
 {
   result = sub_3A04();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -171,14 +165,13 @@ uint64_t CallRecordingSettingsBundleController.isStateDrivenNavigationPossible(p
 {
   v2 = sub_3AE4();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_3B04();
 
   LOBYTE(a1) = sub_3AC4();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -186,25 +179,23 @@ uint64_t CallRecordingSettingsBundleController.handleUserDidTapOnMainSpecifier(_
 {
   v3 = sub_3AE4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_3B24() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_3B24();
   __chkstk_darwin();
-  v9 = sub_3AB4();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_3AB4();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3B14();
   sub_3AA4();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_3B04();
 
   sub_3498();
   sub_3AD4();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_3498()
@@ -234,7 +225,7 @@ unint64_t sub_3748()
 
 uint64_t sub_37B8()
 {
-  v0 = *(*(sub_3A94() - 8) + 64);
+  sub_3A94();
   __chkstk_darwin();
   sub_38F8();
   sub_3A84();
@@ -293,7 +284,6 @@ uint64_t sub_39BC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

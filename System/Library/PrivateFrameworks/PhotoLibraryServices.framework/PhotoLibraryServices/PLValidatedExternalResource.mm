@@ -121,12 +121,12 @@
   {
     codecFourCharCode2 = [(PLValidatedExternalResource *)self codecFourCharCode];
     codecFourCharCode3 = [resourceCopy codecFourCharCode];
-    v16 = [codecFourCharCode2 isEqualToString:codecFourCharCode3];
+    isEqualToString = objc_msgSend_isEqualToString_(codecFourCharCode2);
 
     if (codecFourCharCode)
     {
 
-      if (!v16)
+      if (!isEqualToString)
       {
         goto LABEL_22;
       }
@@ -135,7 +135,7 @@
     else
     {
 
-      if ((v16 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_22;
       }
@@ -223,7 +223,7 @@ LABEL_23:
     fileURL = [(PLValidatedExternalResource *)self fileURL];
     lastPathComponent = [fileURL lastPathComponent];
 
-    if (-[PLValidatedExternalResource version](self, "version") || ([dCopy filename], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(lastPathComponent, "isEqualToString:", v8), v8, (v9 & 1) == 0))
+    if (-[PLValidatedExternalResource version](self, "version") || ([dCopy filename], v8 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(lastPathComponent), v8, (isEqualToString & 1) == 0))
     {
       resourceType = [(PLValidatedExternalResource *)self resourceType];
       version = [(PLValidatedExternalResource *)self version];

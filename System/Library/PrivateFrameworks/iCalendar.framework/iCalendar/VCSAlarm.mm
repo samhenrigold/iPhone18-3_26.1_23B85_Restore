@@ -267,7 +267,7 @@ LABEL_34:
 
   if (*uTF8String != 80)
   {
-    v16 = VCSLogHandle();
+    v16 = VCSLogHandle(uTF8String);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(VCSAlarm *)stringCopy _componentsWithISO8601DurationString:v16, v17, v18, v19, v20, v21, v22];
@@ -304,7 +304,7 @@ LABEL_34:
     v6 = __endptr;
     if (v12 == __endptr || v13 < 0)
     {
-      v23 = VCSLogHandle();
+      v23 = VCSLogHandle(v13);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [(VCSAlarm *)stringCopy _componentsWithISO8601DurationString:v23, v25, v26, v27, v28, v29, v30];
@@ -378,7 +378,7 @@ LABEL_30:
   }
 
 LABEL_38:
-  v23 = VCSLogHandle();
+  v23 = VCSLogHandle(v13);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     [(VCSAlarm *)stringCopy _componentsWithISO8601DurationString:v23, v31, v32, v33, v34, v35, v36];
@@ -398,23 +398,23 @@ LABEL_43:
 
 + (void)_componentsWithISO8601DurationString:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(1)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(1)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_componentsWithISO8601DurationString:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(3)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(3)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_componentsWithISO8601DurationString:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(2)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2754C5000, a2, a3, "String %@ is not a duration.(2)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

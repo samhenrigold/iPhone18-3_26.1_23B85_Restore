@@ -7,7 +7,7 @@
 
 + (id)_loadPHPropertyProvider:(id)provider forPHPhotoLibrary:(id)library
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   libraryCopy = library;
   v7 = NSClassFromString(providerCopy);
@@ -16,9 +16,9 @@
     v8 = CPAnalyticsLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = providerCopy;
-      _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Failed to load %@ class", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = providerCopy;
+      _os_log_error_impl(&dword_24260A000, v8, OS_LOG_TYPE_ERROR, "Failed to load %@ class", &v12, 0xCu);
     }
   }
 
@@ -32,22 +32,20 @@
     v10 = CPAnalyticsLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = providerCopy;
-      _os_log_error_impl(&dword_24260A000, v10, OS_LOG_TYPE_ERROR, "%@ does not comply with CPAnalyticsPhotoKitPropertyProvider protocol", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = providerCopy;
+      _os_log_error_impl(&dword_24260A000, v10, OS_LOG_TYPE_ERROR, "%@ does not comply with CPAnalyticsPhotoKitPropertyProvider protocol", &v12, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)_loadDynamicPHPropertyProvider:(id)provider forPHPhotoLibrary:(id)library
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   v7 = [self _loadPHPropertyProvider:providerCopy forPHPhotoLibrary:library];
   if ([objc_opt_class() instancesRespondToSelector:sel_getDynamicProperty_forEventName_payloadForSystemPropertyExtraction_])
@@ -60,15 +58,13 @@
     v9 = CPAnalyticsLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = providerCopy;
-      _os_log_error_impl(&dword_24260A000, v9, OS_LOG_TYPE_ERROR, "%@ does not comply with CPAnalyticsDynamicPropertyProvider protocol", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = providerCopy;
+      _os_log_error_impl(&dword_24260A000, v9, OS_LOG_TYPE_ERROR, "%@ does not comply with CPAnalyticsDynamicPropertyProvider protocol", &v11, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

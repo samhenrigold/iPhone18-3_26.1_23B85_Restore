@@ -17,13 +17,12 @@ void __49__PLActivityCriterionEntry_scheduleEntryListener__block_invoke(uint64_t
   {
     if (+[PLDefaults debugEnabled])
     {
-      v4 = *(a1 + 32);
-      v5 = objc_opt_class();
+      v4 = objc_opt_class();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __49__PLActivityCriterionEntry_scheduleEntryListener__block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v5;
+      block[4] = v4;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_3 != -1)
       {
         dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_3, block);
@@ -31,13 +30,13 @@ void __49__PLActivityCriterionEntry_scheduleEntryListener__block_invoke(uint64_t
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_3 == 1)
       {
-        v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLActivityCriterionEntry::entryListenerBlock: entry=%@ for criterion=%@", v3, *(a1 + 32)];
-        v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/Activity/PLActivityCriterionEntry.m"];
-        v8 = [v7 lastPathComponent];
-        v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry scheduleEntryListener]_block_invoke"];
-        [PLCoreStorage logMessage:v6 fromFile:v8 fromFunction:v9 fromLineNumber:117];
+        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLActivityCriterionEntry::entryListenerBlock: entry=%@ for criterion=%@", v3, *(a1 + 32)];
+        v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/Activity/PLActivityCriterionEntry.m"];
+        v7 = [v6 lastPathComponent];
+        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry scheduleEntryListener]_block_invoke"];
+        [PLCoreStorage logMessage:v5 fromFile:v7 fromFunction:v8 fromLineNumber:117];
 
-        v10 = PLLogCommon();
+        v10 = PLLogCommon(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -89,23 +88,21 @@ uint64_t __45__PLActivityCriterionEntry_audioOffCriterion__block_invoke(uint64_t
 
 + (id)pluggedInCriterion
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(objc_opt_class());
-  v13 = @"ExternalConnected";
-  v11 = &unk_1F5406078;
+  v12 = @"ExternalConnected";
+  v10 = &unk_1F5406078;
   null = [MEMORY[0x1E695DFB0] null];
-  v12 = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __46__PLActivityCriterionEntry_pluggedInCriterion__block_invoke;
-  v9[3] = &unk_1E851A758;
-  v10 = @"ExternalConnected";
-  v6 = [v2 initWithEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v5 withCriterionBlock:v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __46__PLActivityCriterionEntry_pluggedInCriterion__block_invoke;
+  v8[3] = &unk_1E851A758;
+  v9 = @"ExternalConnected";
+  v6 = [v2 initWithEntryKey:@"PLBatteryAgent_EventBackward_Battery" withFilter:v5 withCriterionBlock:v8];
 
   return v6;
 }
@@ -120,23 +117,21 @@ uint64_t __46__PLActivityCriterionEntry_pluggedInCriterion__block_invoke(uint64_
 
 + (id)displayOffCriterion
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(objc_opt_class());
-  v13 = @"Active";
-  v11 = &unk_1F5406078;
+  v12 = @"Active";
+  v10 = &unk_1F5406078;
   null = [MEMORY[0x1E695DFB0] null];
-  v12 = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __47__PLActivityCriterionEntry_displayOffCriterion__block_invoke;
-  v9[3] = &unk_1E851A758;
-  v10 = @"Active";
-  v6 = [v2 initWithEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v5 withCriterionBlock:v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __47__PLActivityCriterionEntry_displayOffCriterion__block_invoke;
+  v8[3] = &unk_1E851A758;
+  v9 = @"Active";
+  v6 = [v2 initWithEntryKey:@"PLDisplayAgent_EventPoint_Display" withFilter:v5 withCriterionBlock:v8];
 
   return v6;
 }
@@ -151,30 +146,29 @@ BOOL __47__PLActivityCriterionEntry_displayOffCriterion__block_invoke(uint64_t a
 
 + (id)audioOffCriterion
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__13;
-  v14 = __Block_byref_object_dispose__13;
-  v15 = @"Active";
+  v18[1] = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__13;
+  v13 = __Block_byref_object_dispose__13;
+  v14 = @"Active";
   v2 = objc_alloc(objc_opt_class());
-  v18 = v11[5];
-  v16 = &unk_1F5406078;
+  v17 = v10[5];
+  v15 = &unk_1F5406078;
   null = [MEMORY[0x1E695DFB0] null];
-  v17 = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __45__PLActivityCriterionEntry_audioOffCriterion__block_invoke;
-  v9[3] = &unk_1E851A780;
-  v9[4] = &v10;
-  v6 = [v2 initWithEntryKey:@"PLAudioAgent_EventForward_Routing" withFilter:v5 withCriterionBlock:v9];
+  v16 = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __45__PLActivityCriterionEntry_audioOffCriterion__block_invoke;
+  v8[3] = &unk_1E851A780;
+  v8[4] = &v9;
+  v6 = [v2 initWithEntryKey:@"PLAudioAgent_EventForward_Routing" withFilter:v5 withCriterionBlock:v8];
 
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
 
   return v6;
 }
@@ -203,55 +197,55 @@ BOOL __47__PLActivityCriterionEntry_displayOffCriterion__block_invoke(uint64_t a
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry didEnableActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:89];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v23.receiver = self;
-  v23.super_class = PLActivityCriterionEntry;
-  [(PLActivityCriterion *)&v23 didEnableActivity:activityCopy];
-  v11 = +[PowerlogCore sharedCore];
-  storage = [v11 storage];
+  v25.receiver = self;
+  v25.super_class = PLActivityCriterionEntry;
+  [(PLActivityCriterion *)&v25 didEnableActivity:activityCopy];
+  v12 = +[PowerlogCore sharedCore];
+  storage = [v12 storage];
   entryKey = [(PLActivityCriterionEntry *)self entryKey];
-  v14 = [storage lastEntryForKey:entryKey];
+  v15 = [storage lastEntryForKey:entryKey];
 
   if (+[PLDefaults debugEnabled])
   {
-    v15 = objc_opt_class();
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __46__PLActivityCriterionEntry_didEnableActivity___block_invoke_38;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v15;
+    v16 = objc_opt_class();
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __46__PLActivityCriterionEntry_didEnableActivity___block_invoke_38;
+    v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24[4] = v16;
     if (didEnableActivity__defaultOnce_36 != -1)
     {
-      dispatch_once(&didEnableActivity__defaultOnce_36, v22);
+      dispatch_once(&didEnableActivity__defaultOnce_36, v24);
     }
 
     if (didEnableActivity__classDebugEnabled_37 == 1)
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLActivityCriterionEntry::didEnableActivity: entry=%@", v14];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/Activity/PLActivityCriterionEntry.m"];
-      lastPathComponent2 = [v17 lastPathComponent];
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry didEnableActivity:]"];
-      [PLCoreStorage logMessage:v16 fromFile:lastPathComponent2 fromFunction:v19 fromLineNumber:93];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLActivityCriterionEntry::didEnableActivity: entry=%@", v15];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/Activity/PLActivityCriterionEntry.m"];
+      lastPathComponent2 = [v18 lastPathComponent];
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry didEnableActivity:]"];
+      [PLCoreStorage logMessage:v17 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:93];
 
-      v20 = PLLogCommon();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = PLLogCommon(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  if (v14)
+  if (v15)
   {
     criterionBlock = [(PLActivityCriterionEntry *)self criterionBlock];
-    [(PLActivityCriterion *)self setSatisfied:(criterionBlock)[2](criterionBlock, v14)];
+    [(PLActivityCriterion *)self setSatisfied:(criterionBlock)[2](criterionBlock, v15)];
   }
 
   [(PLActivityCriterionEntry *)self scheduleEntryListener];
@@ -295,17 +289,17 @@ BOOL __46__PLActivityCriterionEntry_didEnableActivity___block_invoke_38(uint64_t
       v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLActivityCriterionEntry didDisableActivity:]"];
       [PLCoreStorage logMessage:v6 fromFile:lastPathComponent fromFunction:v9 fromLineNumber:105];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v11.receiver = self;
-  v11.super_class = PLActivityCriterionEntry;
-  [(PLActivityCriterion *)&v11 didDisableActivity:activityCopy];
+  v12.receiver = self;
+  v12.super_class = PLActivityCriterionEntry;
+  [(PLActivityCriterion *)&v12 didDisableActivity:activityCopy];
   [(PLActivityCriterionEntry *)self setEntryListener:0];
 }
 

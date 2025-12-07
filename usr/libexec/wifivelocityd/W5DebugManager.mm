@@ -10,6 +10,7 @@
 + (void)__mostRecentLogWithSuffix:(id)suffix logPath:(id)path queue:(id)queue reply:(id)reply;
 + (void)__openDirectoryLoggingEnabledWithQueue:(id)queue reply:(id)reply;
 + (void)__setAirPlayLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply;
++ (void)__setBluetoothLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply;
 + (void)__setDHCPLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply;
 + (void)__setDNSLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply;
 + (void)__setEAPOLLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply;
@@ -461,6 +462,45 @@ LABEL_10:
     v12 = *(reply + 2);
 
     v12(reply, 0, v6 & v7 & v8 & bOOLValue & v11);
+  }
+}
+
++ (void)__setBluetoothLoggingEnabled:(BOOL)enabled queue:(id)queue reply:(id)reply
+{
+  enabledCopy = enabled;
+  [self __setValue:+[NSNumber numberWithBool:](NSNumber key:"numberWithBool:" domain:{enabled, queue), @"ShouldLog", @"com.apple.wirelessproxd.debug"}];
+  [self __setValue:+[NSNumber numberWithBool:](NSNumber key:"numberWithBool:" domain:{enabledCopy), @"DiagnosticMode", @"com.apple.MobileBluetooth.debug"}];
+  v8 = !enabledCopy;
+  if (enabledCopy)
+  {
+    v9 = @"Info";
+  }
+
+  else
+  {
+    v9 = @"Error";
+  }
+
+  if (v8)
+  {
+    v10 = &__kCFBooleanFalse;
+  }
+
+  else
+  {
+    v10 = &__kCFBooleanTrue;
+  }
+
+  [self __setValue:v9 key:@"DefaultLevel" domain:@"com.apple.MobileBluetooth.debug"];
+  v13 = @"StackDebugEnabled";
+  v14 = v10;
+  [self __setValue:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary key:"dictionaryWithObjects:forKeys:count:" domain:{&v14, &v13, 1), @"HCITraces", @"com.apple.MobileBluetooth.debug"}];
+  v11 = @"DebugLevel";
+  v12 = v9;
+  [self __setValue:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary key:"dictionaryWithObjects:forKeys:count:" domain:{&v12, &v11, 1), @"LE", @"com.apple.MobileBluetooth.debug"}];
+  if (reply)
+  {
+    (*(reply + 2))(reply, 0);
   }
 }
 

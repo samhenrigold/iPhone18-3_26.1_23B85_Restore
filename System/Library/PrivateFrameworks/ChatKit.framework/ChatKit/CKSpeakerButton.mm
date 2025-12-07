@@ -62,23 +62,23 @@
   textCopy = text;
   enabledCopy = enabled;
   orientationCopy = orientation;
-  v96[1] = *MEMORY[0x1E69E9840];
+  v98[1] = *MEMORY[0x1E69E9840];
   if (speakerImageWithOrientation_speakerEnabled_shouldShowText__once != -1)
   {
     +[CKSpeakerButton speakerImageWithOrientation:speakerEnabled:shouldShowText:];
   }
 
-  v90[0] = orientationCopy;
-  v90[1] = enabledCopy;
-  v90[2] = textCopy;
-  v8 = [MEMORY[0x1E696B098] value:v90 withObjCType:"{?=cBB}"];
+  v92[0] = orientationCopy;
+  v92[1] = enabledCopy;
+  v92[2] = textCopy;
+  v8 = [MEMORY[0x1E696B098] value:v92 withObjCType:"{?=cBB}"];
   v9 = [speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerImageCache objectForKey:v8];
   if (!v9)
   {
-    v88 = enabledCopy;
+    v90 = enabledCopy;
     v10 = [MEMORY[0x1E69DCAD8] configurationWithPointSize:4 weight:17.0];
     v11 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"speaker.wave.3.fill"];
-    v89 = v10;
+    v91 = v10;
     v12 = [v11 imageWithSymbolConfiguration:v10];
     tertiaryLabelColor = [MEMORY[0x1E69DC888] tertiaryLabelColor];
     v14 = [v12 imageWithTintColor:tertiaryLabelColor];
@@ -96,158 +96,158 @@
     v26 = MEMORY[0x1E69DB648];
     if (v22)
     {
-      v27 = CKFrameworkBundle();
+      v27 = CKFrameworkBundle(v22);
       v28 = [v27 localizedStringForKey:@"AUDIO_MESSAGE_SPEAKER_ON" value:&stru_1F04268F8 table:@"ChatKit"];
-      v95 = *MEMORY[0x1E69DB648];
-      v29 = v95;
+      v97 = *MEMORY[0x1E69DB648];
+      v29 = v97;
       +[CKUIBehavior sharedBehaviors];
-      v30 = v86 = v16;
+      v30 = v88 = v16;
       transcriptBoldFont = [v30 transcriptBoldFont];
-      v96[0] = transcriptBoldFont;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+      v98[0] = transcriptBoldFont;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:&v97 count:1];
       [v28 sizeWithAttributes:v32];
       v34 = v33;
       v36 = v35;
 
-      v37 = CKFrameworkBundle();
-      v38 = [v37 localizedStringForKey:@"AUDIO_MESSAGE_SPEAKER_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
-      v93 = v29;
+      v38 = CKFrameworkBundle(v37);
+      v39 = [v38 localizedStringForKey:@"AUDIO_MESSAGE_SPEAKER_OFF" value:&stru_1F04268F8 table:@"ChatKit"];
+      v95 = v29;
       v26 = MEMORY[0x1E69DB648];
-      v39 = +[CKUIBehavior sharedBehaviors];
-      transcriptBoldFont2 = [v39 transcriptBoldFont];
-      v94 = transcriptBoldFont2;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-      [v38 sizeWithAttributes:v41];
-      v43 = v42;
-      v45 = v44;
+      v40 = +[CKUIBehavior sharedBehaviors];
+      transcriptBoldFont2 = [v40 transcriptBoldFont];
+      v96 = transcriptBoldFont2;
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+      [v39 sizeWithAttributes:v42];
+      v44 = v43;
+      v46 = v45;
 
       v23 = &collaborationOptionsPopoverInsets_sBehavior_3;
-      v16 = v86;
+      v16 = v88;
 
       v25 = off_1E72E5000;
       v24 = &collaborationOptionsPopoverInsets_sBehavior_3;
-      speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerTextMaxWidth = fmax(v34, v43);
-      speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerTextMaxHeight = fmax(v36, v45);
+      speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerTextMaxWidth = fmax(v34, v44);
+      speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerTextMaxHeight = fmax(v36, v46);
       objc_storeStrong(&speakerImageWithOrientation_speakerEnabled_shouldShowText__sContentSizeCategory_SpeakerTextWidth, v21);
     }
 
-    v46 = *(v23 + 103);
-    v47 = v24[104];
+    v47 = *(v23 + 103);
+    v48 = v24[104];
 
-    v48 = v18 + 5.0 + v46;
-    v98.width = v48;
-    v98.height = v20;
-    UIGraphicsBeginImageContextWithOptions(v98, 0, 0.0);
-    v49 = *(MEMORY[0x1E695EFF8] + 8);
+    v49 = v18 + 5.0 + v47;
+    v100.width = v49;
+    v100.height = v20;
+    UIGraphicsBeginImageContextWithOptions(v100, 0, 0.0);
+    v50 = *(MEMORY[0x1E695EFF8] + 8);
     if (orientationCopy)
     {
-      v99.origin.x = 0.0;
-      v99.origin.y = 0.0;
-      v99.size.width = v18 + 5.0 + v46;
-      v99.size.height = v20;
-      v50 = CGRectGetMaxX(v99) - v18;
+      v101.origin.x = 0.0;
+      v101.origin.y = 0.0;
+      v101.size.width = v18 + 5.0 + v47;
+      v101.size.height = v20;
+      v51 = CGRectGetMaxX(v101) - v18;
     }
 
     else
     {
-      v50 = *MEMORY[0x1E695EFF8];
+      v51 = *MEMORY[0x1E695EFF8];
     }
 
-    [v16 drawInRect:{v50, v49, v18, v20}];
+    [v16 drawInRect:{v51, v50, v18, v20}];
     if (textCopy)
     {
-      v85 = v20;
-      v87 = v18 + 5.0 + v46;
-      v51 = v16;
+      v87 = v20;
+      v89 = v18 + 5.0 + v47;
+      v52 = v16;
       if (orientationCopy)
       {
-        v52 = v50 + -5.0 - v46;
+        v53 = v51 + -5.0 - v47;
       }
 
       else
       {
-        v100.origin.x = v50;
-        v100.origin.y = v49;
-        v100.size.width = v18;
-        v100.size.height = v20;
-        v52 = CGRectGetMaxX(v100) + 5.0;
+        v102.origin.x = v51;
+        v102.origin.y = v50;
+        v102.size.width = v18;
+        v102.size.height = v20;
+        v53 = CGRectGetMaxX(v102) + 5.0;
       }
 
-      v53 = v25;
+      v54 = v25;
       sharedBehaviors = [(__objc2_class *)v25[337] sharedBehaviors];
       [sharedBehaviors transcriptBoldTextAlignmentInsets];
-      v56 = v55;
-      v58 = v57;
-      v60 = v59;
-      v62 = v61;
+      v57 = v56;
+      v59 = v58;
+      v61 = v60;
+      v63 = v62;
 
-      v63 = v52 + v58;
-      v64 = v58 + v62;
-      v65 = v46 - v64;
-      v66 = v56 + v60;
-      v67 = v84 - v66;
+      v65 = v53 + v59;
+      v66 = v59 + v63;
+      v67 = v47 - v66;
+      v68 = v57 + v61;
+      v69 = v86 - v68;
       if (CKMainScreenScale_once_94 != -1)
       {
         +[CKSpeakerButton speakerImageWithOrientation:speakerEnabled:shouldShowText:];
       }
 
-      v68 = *&CKMainScreenScale_sMainScreenScale_94;
+      v70 = *&CKMainScreenScale_sMainScreenScale_94;
       if (*&CKMainScreenScale_sMainScreenScale_94 == 0.0)
       {
-        v68 = 1.0;
+        v70 = 1.0;
       }
 
-      v69 = floor((v49 + (v85 - v67) * 0.5) * v68) / v68;
-      v70 = v63 - v58;
-      v20 = v85;
-      v71 = v69 - v56;
-      v72 = v66 + v67;
-      v73 = CKFrameworkBundle();
-      v74 = v73;
-      if (v88)
+      v71 = floor((v50 + (v87 - v69) * 0.5) * v70) / v70;
+      v72 = v65 - v59;
+      v20 = v87;
+      v73 = v71 - v57;
+      v74 = v68 + v69;
+      v75 = CKFrameworkBundle(v64);
+      v76 = v75;
+      if (v90)
       {
-        v75 = @"AUDIO_MESSAGE_SPEAKER_ON";
+        v77 = @"AUDIO_MESSAGE_SPEAKER_ON";
       }
 
       else
       {
-        v75 = @"AUDIO_MESSAGE_SPEAKER_OFF";
+        v77 = @"AUDIO_MESSAGE_SPEAKER_OFF";
       }
 
-      v76 = [v73 localizedStringForKey:v75 value:&stru_1F04268F8 table:@"ChatKit"];
+      v78 = [v75 localizedStringForKey:v77 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v91 = *v26;
-      sharedBehaviors2 = [(__objc2_class *)v53[337] sharedBehaviors];
+      v93 = *v26;
+      sharedBehaviors2 = [(__objc2_class *)v54[337] sharedBehaviors];
       transcriptBoldFont3 = [sharedBehaviors2 transcriptBoldFont];
-      v92 = transcriptBoldFont3;
-      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-      [v76 drawInRect:v79 withAttributes:{v70, v71, v64 + v65, v72}];
+      v94 = transcriptBoldFont3;
+      v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+      [v78 drawInRect:v81 withAttributes:{v72, v73, v66 + v67, v74}];
 
-      v16 = v51;
-      v48 = v87;
+      v16 = v52;
+      v49 = v89;
     }
 
-    if (v88)
+    if (v90)
     {
       blackColor = [MEMORY[0x1E69DC888] blackColor];
-      v81 = 2;
+      v83 = 2;
     }
 
     else
     {
       blackColor = [MEMORY[0x1E69DC888] systemGrayColor];
-      v81 = 1;
+      v83 = 1;
     }
 
     [blackColor set];
-    v101.origin.x = 0.0;
-    v101.origin.y = 0.0;
-    v101.size.width = v48;
-    v101.size.height = v20;
-    UIRectFillUsingBlendMode(v101, kCGBlendModeSourceIn);
-    v82 = UIGraphicsGetImageFromCurrentImageContext();
+    v103.origin.x = 0.0;
+    v103.origin.y = 0.0;
+    v103.size.width = v49;
+    v103.size.height = v20;
+    UIRectFillUsingBlendMode(v103, kCGBlendModeSourceIn);
+    v84 = UIGraphicsGetImageFromCurrentImageContext();
 
-    v9 = [v82 imageWithRenderingMode:v81];
+    v9 = [v84 imageWithRenderingMode:v83];
 
     UIGraphicsEndImageContext();
     [speakerImageWithOrientation_speakerEnabled_shouldShowText__sSpeakerImageCache setObject:v9 forKey:v8];

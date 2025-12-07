@@ -8,7 +8,7 @@
 
 + (Class)containerViewClass
 {
-  sub_21D0D8CF0(0, &qword_27CE67280);
+  sub_21D0D8CF0(0, &qword_27CE67280, 0x277CEC630);
 
   return swift_getObjCClassFromMetadata();
 }

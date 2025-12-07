@@ -194,8 +194,8 @@ LABEL_28:
       goto LABEL_79;
     }
 
-    mlir::IntegerAttr::getValue(&v52, &v59);
-    mlir::IntegerAttr::getValue(&v49, &__p);
+    mlir::IntegerAttr::getValue(&v59, &v52);
+    mlir::IntegerAttr::getValue(&__p, &v49);
     mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v67, &v40, &v59, &__p);
     if (v56 >= 0x41 && __p)
     {
@@ -600,8 +600,8 @@ LABEL_28:
       goto LABEL_79;
     }
 
-    mlir::IntegerAttr::getValue(&v52, &v59);
-    mlir::IntegerAttr::getValue(&v49, &__p);
+    mlir::IntegerAttr::getValue(&v59, &v52);
+    mlir::IntegerAttr::getValue(&__p, &v49);
     mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::CeilDivSIOp::fold(mlir::arith::CeilDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::CeilDivSIOp::fold(mlir::arith::CeilDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v67, &v40, &v59, &__p);
     if (v56 >= 0x41 && __p)
     {
@@ -1006,8 +1006,8 @@ LABEL_28:
       goto LABEL_79;
     }
 
-    mlir::IntegerAttr::getValue(&v52, &v59);
-    mlir::IntegerAttr::getValue(&v49, &__p);
+    mlir::IntegerAttr::getValue(&v59, &v52);
+    mlir::IntegerAttr::getValue(&__p, &v49);
     mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v67, &v40, &v59, &__p);
     if (v56 >= 0x41 && __p)
     {
@@ -1245,19 +1245,19 @@ LABEL_80:
 
 unint64_t mlir::arith::RemUIOp::fold(uint64_t a1, uint64_t a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 40);
   v4 = v3[1];
   if (v4)
   {
-    LODWORD(v68) = 1;
+    LODWORD(v69) = 1;
     Context = 0;
-    v59 = &Context;
-    v6 = mlir::detail::constant_int_value_binder::match(&v59, v4);
-    v7 = v68;
+    v60 = &Context;
+    v6 = mlir::detail::constant_int_value_binder::match(&v60, v4);
+    v7 = v69;
     if (v6)
     {
-      if (v68 < 0x41)
+      if (v69 < 0x41)
       {
         v8 = Context == 1;
         goto LABEL_8;
@@ -1281,7 +1281,7 @@ LABEL_14:
     else
     {
       v8 = 0;
-      if (v68 < 0x41)
+      if (v69 < 0x41)
       {
         goto LABEL_8;
       }
@@ -1296,38 +1296,38 @@ LABEL_8:
     if (v8)
     {
       Context = mlir::Attribute::getContext((*a1 + 24));
-      return mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8)) & 0xFFFFFFFFFFFFFFFBLL;
+      return mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8), v9) & 0xFFFFFFFFFFFFFFFBLL;
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-  v41 = 0;
-  v40 = &v41;
-  v10 = *v3;
-  if (*v3 && *(*v10 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v42 = 0;
+  v41 = &v42;
+  v11 = *v3;
+  if (*v3 && *(*v11 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v3;
+    v12 = *v3;
     goto LABEL_80;
   }
 
-  v12 = v3 + 1;
-  v11 = v3[1];
-  if (v11 && *(*v11 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v13 = v3 + 1;
+  v12 = v3[1];
+  if (v12 && *(*v12 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
     goto LABEL_80;
   }
 
-  if (v10)
+  if (v11)
   {
-    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v10);
-    v68 = v13;
+    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v11);
+    v69 = v14;
     if (Context)
     {
       CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&Context);
-      v15 = *v12;
-      if (*v12)
+      v16 = *v13;
+      if (*v13)
       {
         goto LABEL_22;
       }
@@ -1339,16 +1339,16 @@ LABEL_15:
   else
   {
     Context = 0;
-    v68 = 0;
+    v69 = 0;
   }
 
   CallableForCallee = 0;
-  v15 = *v12;
-  if (*v12)
+  v16 = *v13;
+  if (*v13)
   {
 LABEL_22:
-    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v15);
-    v68 = v16;
+    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v16);
+    v69 = v17;
     if (!Context)
     {
       goto LABEL_79;
@@ -1358,87 +1358,87 @@ LABEL_22:
   }
 
 LABEL_27:
-  Context = v15;
-  v68 = 0;
-  if (!v15)
+  Context = v16;
+  v69 = 0;
+  if (!v16)
   {
     goto LABEL_79;
   }
 
 LABEL_28:
-  v17 = mlir::CallOpInterface::getCallableForCallee(&Context);
-  v11 = 0;
-  if (!CallableForCallee || !v17 || v17 != CallableForCallee)
+  v18 = mlir::CallOpInterface::getCallableForCallee(&Context);
+  v12 = 0;
+  if (!CallableForCallee || !v18 || v18 != CallableForCallee)
   {
     goto LABEL_80;
   }
 
-  v66 = CallableForCallee;
-  v18 = *v3;
-  if (*v3 && *(*v18 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v67 = CallableForCallee;
+  v19 = *v3;
+  if (*v3 && *(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v3;
+    v12 = *v3;
     goto LABEL_80;
   }
 
-  v19 = *v12;
-  if (!*v12)
+  v20 = *v13;
+  if (!*v13)
   {
     goto LABEL_79;
   }
 
-  v20 = *(*v19 + 136);
-  if (v20 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v21 = *(*v20 + 136);
+  if (v21 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v12;
+    v12 = *v13;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (!v18 || v20 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  if (!v19 || v21 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
     goto LABEL_80;
   }
 
-  if (v20 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v18 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+  if (v21 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
-    v52 = *v3;
-    v49 = v19;
-    Value = mlir::AffineMapAttr::getValue(&v52);
-    if (Value != mlir::AffineMapAttr::getValue(&v49))
+    v53 = *v3;
+    v50 = v20;
+    Value = mlir::AffineMapAttr::getValue(&v53);
+    if (Value != mlir::AffineMapAttr::getValue(&v50))
     {
       goto LABEL_79;
     }
 
-    mlir::IntegerAttr::getValue(&v52, &v59);
-    mlir::IntegerAttr::getValue(&v49, &__p);
-    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v40, &v59, &__p);
-    if (v56 >= 0x41 && __p)
+    mlir::IntegerAttr::getValue(&v60, &v53);
+    mlir::IntegerAttr::getValue(&__p, &v50);
+    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v41, &v60, &__p);
+    if (v57 >= 0x41 && __p)
     {
       operator delete[](__p);
     }
 
-    if (v60 >= 0x41 && v59)
+    if (v61 >= 0x41 && v60)
     {
-      operator delete[](v59);
+      operator delete[](v60);
     }
 
-    if (v69 != 1)
+    if (v70 != 1)
     {
       goto LABEL_79;
     }
 
-    v11 = mlir::IntegerAttr::get(v66, &Context);
-    if ((v69 & 1) == 0)
+    v12 = mlir::IntegerAttr::get(v67, &Context);
+    if ((v70 & 1) == 0)
     {
       goto LABEL_80;
     }
 
 LABEL_69:
-    if (v68 >= 0x41 && Context)
+    if (v69 >= 0x41 && Context)
     {
       operator delete[](Context);
     }
@@ -1448,150 +1448,150 @@ LABEL_69:
 
   if (mlir::DenseElementsAttr::classof(*v3))
   {
-    v22 = v18;
+    v23 = v19;
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  Context = v22;
-  if (!v22 || !mlir::DenseElementsAttr::isSplat(&Context) || !llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+  Context = v23;
+  if (!v23 || !mlir::DenseElementsAttr::isSplat(&Context) || !llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
   {
     if (llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v3) && llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v3 + 1))
     {
-      v64 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3);
-      v65 = v28;
-      v63[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3 + 1);
-      v63[1] = v29;
-      Type = mlir::ElementsAttr::getType(&v64);
-      if (Type == mlir::ElementsAttr::getType(v63))
+      v65 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3);
+      v66 = v29;
+      v64[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3 + 1);
+      v64[1] = v30;
+      Type = mlir::ElementsAttr::getType(&v65);
+      if (Type == mlir::ElementsAttr::getType(v64))
       {
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v64, &v59);
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v63, &__p);
-        if (v62 == 1 && v58 == 1)
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v65, &v60);
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v64, &__p);
+        if (v63 == 1 && v59 == 1)
         {
-          LOWORD(v52) = v59;
-          if (v59 == 1)
+          LOWORD(v53) = v60;
+          if (v60 == 1)
           {
-            v53 = v60;
+            v54 = v61;
           }
 
           else
           {
-            (*(*v60 + 16))(&v53);
+            (*(*v61 + 16))(&v54);
           }
 
-          v54 = v61;
-          LOWORD(v49) = __p;
+          v55 = v62;
+          LOWORD(v50) = __p;
           if (__p == 1)
           {
-            v50 = v56;
+            v51 = v57;
           }
 
           else
           {
-            (*(*v56 + 16))(&v50);
+            (*(*v57 + 16))(&v51);
           }
 
-          v51 = v57;
-          Context = &v69;
-          v68 = 0x400000000;
-          NumElements = mlir::ElementsAttr::getNumElements(v64, v65);
+          v52 = v58;
+          Context = &v70;
+          v69 = 0x400000000;
+          NumElements = mlir::ElementsAttr::getNumElements(v65, v66);
           llvm::SmallVectorImpl<llvm::APInt>::reserve(&Context, NumElements);
-          v34 = mlir::ElementsAttr::getNumElements(v64, v65);
-          if (v34)
+          v35 = mlir::ElementsAttr::getNumElements(v65, v66);
+          if (v35)
           {
-            v35 = v34;
+            v36 = v35;
             while (1)
             {
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v52, &v44);
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v49, &v42);
-              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v46, &v40, &v44, &v42);
-              if (v43 >= 0x41 && v42)
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v53, &v45);
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v50, &v43);
+              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v47, &v41, &v45, &v43);
+              if (v44 >= 0x41 && v43)
               {
-                operator delete[](v42);
+                operator delete[](v43);
               }
 
-              if (v45 >= 0x41 && v44)
+              if (v46 >= 0x41 && v45)
               {
-                operator delete[](v44);
+                operator delete[](v45);
               }
 
-              if (v48 != 1)
+              if (v49 != 1)
               {
                 break;
               }
 
-              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v46);
-              if ((v48 & 1) != 0 && v47 >= 0x41 && v46)
+              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v47);
+              if ((v49 & 1) != 0 && v48 >= 0x41 && v47)
               {
-                operator delete[](v46);
+                operator delete[](v47);
               }
 
-              ++v54;
-              ++v51;
-              if (!--v35)
+              ++v55;
+              ++v52;
+              if (!--v36)
               {
                 goto LABEL_110;
               }
             }
 
-            v11 = 0;
+            v12 = 0;
           }
 
           else
           {
 LABEL_110:
-            v36 = llvm::cast<mlir::ShapedType,mlir::Type>(&v66);
-            v11 = mlir::DenseElementsAttr::get(v36, v37, Context, v68);
+            v37 = llvm::cast<mlir::ShapedType,mlir::Type>(&v67);
+            v12 = mlir::DenseElementsAttr::get(v37, v38, Context, v69);
           }
 
           llvm::SmallVector<llvm::APInt,4u>::~SmallVector(&Context);
-          if ((v49 & 1) == 0)
+          if ((v50 & 1) == 0)
           {
-            v38 = v50;
-            v50 = 0;
-            if (v38)
-            {
-              (*(*v38 + 8))(v38);
-            }
-          }
-
-          if ((v52 & 1) == 0)
-          {
-            v39 = v53;
-            v53 = 0;
+            v39 = v51;
+            v51 = 0;
             if (v39)
             {
               (*(*v39 + 8))(v39);
+            }
+          }
+
+          if ((v53 & 1) == 0)
+          {
+            v40 = v54;
+            v54 = 0;
+            if (v40)
+            {
+              (*(*v40 + 8))(v40);
             }
           }
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
-        if (v58 == 1 && (__p & 1) == 0)
+        if (v59 == 1 && (__p & 1) == 0)
         {
-          v31 = v56;
-          v56 = 0;
-          if (v31)
-          {
-            (*(*v31 + 8))(v31);
-          }
-        }
-
-        if (v62 == 1 && (v59 & 1) == 0)
-        {
-          v32 = v60;
-          v60 = 0;
+          v32 = v57;
+          v57 = 0;
           if (v32)
           {
             (*(*v32 + 8))(v32);
+          }
+        }
+
+        if (v63 == 1 && (v60 & 1) == 0)
+        {
+          v33 = v61;
+          v61 = 0;
+          if (v33)
+          {
+            (*(*v33 + 8))(v33);
           }
         }
 
@@ -1602,69 +1602,69 @@ LABEL_110:
     goto LABEL_79;
   }
 
-  v23 = v3[1];
-  v52 = *v3;
-  v49 = v23;
-  v24 = mlir::ArrayAttr::getValue(&v52);
-  if (v24 != mlir::ArrayAttr::getValue(&v49))
+  v24 = v3[1];
+  v53 = *v3;
+  v50 = v24;
+  v25 = mlir::ArrayAttr::getValue(&v53);
+  if (v25 != mlir::ArrayAttr::getValue(&v50))
   {
     goto LABEL_79;
   }
 
-  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v52, &v59);
-  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v49, &__p);
-  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v40, &v59, &__p);
-  if (v56 >= 0x41 && __p)
+  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v53, &v60);
+  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v50, &__p);
+  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v41, &v60, &__p);
+  if (v57 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  if (v60 >= 0x41 && v59)
+  if (v61 >= 0x41 && v60)
   {
-    operator delete[](v59);
+    operator delete[](v60);
   }
 
-  if (v69 != 1)
+  if (v70 != 1)
   {
 LABEL_79:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_80;
   }
 
-  v25 = llvm::cast<mlir::ShapedType,mlir::Type>(&v66);
-  v11 = mlir::DenseElementsAttr::get(v25, v26, &Context, 1);
-  if (v69)
+  v26 = llvm::cast<mlir::ShapedType,mlir::Type>(&v67);
+  v12 = mlir::DenseElementsAttr::get(v26, v27, &Context, 1);
+  if (v70)
   {
     goto LABEL_69;
   }
 
 LABEL_80:
-  if (v41)
+  if (v42)
   {
     return 0;
   }
 
   else
   {
-    return v11 & 0xFFFFFFFFFFFFFFFBLL;
+    return v12 & 0xFFFFFFFFFFFFFFFBLL;
   }
 }
 
 unint64_t mlir::arith::RemSIOp::fold(uint64_t a1, uint64_t a2)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 40);
   v4 = v3[1];
   if (v4)
   {
-    LODWORD(v68) = 1;
+    LODWORD(v69) = 1;
     Context = 0;
-    v59 = &Context;
-    v6 = mlir::detail::constant_int_value_binder::match(&v59, v4);
-    v7 = v68;
+    v60 = &Context;
+    v6 = mlir::detail::constant_int_value_binder::match(&v60, v4);
+    v7 = v69;
     if (v6)
     {
-      if (v68 < 0x41)
+      if (v69 < 0x41)
       {
         v8 = Context == 1;
         goto LABEL_8;
@@ -1688,7 +1688,7 @@ LABEL_14:
     else
     {
       v8 = 0;
-      if (v68 < 0x41)
+      if (v69 < 0x41)
       {
         goto LABEL_8;
       }
@@ -1703,38 +1703,38 @@ LABEL_8:
     if (v8)
     {
       Context = mlir::Attribute::getContext((*a1 + 24));
-      return mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8)) & 0xFFFFFFFFFFFFFFFBLL;
+      return mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8), v9) & 0xFFFFFFFFFFFFFFFBLL;
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-  v41 = 0;
-  v40 = &v41;
-  v10 = *v3;
-  if (*v3 && *(*v10 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v42 = 0;
+  v41 = &v42;
+  v11 = *v3;
+  if (*v3 && *(*v11 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v3;
+    v12 = *v3;
     goto LABEL_80;
   }
 
-  v12 = v3 + 1;
-  v11 = v3[1];
-  if (v11 && *(*v11 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v13 = v3 + 1;
+  v12 = v3[1];
+  if (v12 && *(*v12 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
     goto LABEL_80;
   }
 
-  if (v10)
+  if (v11)
   {
-    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v10);
-    v68 = v13;
+    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v11);
+    v69 = v14;
     if (Context)
     {
       CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&Context);
-      v15 = *v12;
-      if (*v12)
+      v16 = *v13;
+      if (*v13)
       {
         goto LABEL_22;
       }
@@ -1746,16 +1746,16 @@ LABEL_15:
   else
   {
     Context = 0;
-    v68 = 0;
+    v69 = 0;
   }
 
   CallableForCallee = 0;
-  v15 = *v12;
-  if (*v12)
+  v16 = *v13;
+  if (*v13)
   {
 LABEL_22:
-    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v15);
-    v68 = v16;
+    Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v16);
+    v69 = v17;
     if (!Context)
     {
       goto LABEL_79;
@@ -1765,87 +1765,87 @@ LABEL_22:
   }
 
 LABEL_27:
-  Context = v15;
-  v68 = 0;
-  if (!v15)
+  Context = v16;
+  v69 = 0;
+  if (!v16)
   {
     goto LABEL_79;
   }
 
 LABEL_28:
-  v17 = mlir::CallOpInterface::getCallableForCallee(&Context);
-  v11 = 0;
-  if (!CallableForCallee || !v17 || v17 != CallableForCallee)
+  v18 = mlir::CallOpInterface::getCallableForCallee(&Context);
+  v12 = 0;
+  if (!CallableForCallee || !v18 || v18 != CallableForCallee)
   {
     goto LABEL_80;
   }
 
-  v66 = CallableForCallee;
-  v18 = *v3;
-  if (*v3 && *(*v18 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v67 = CallableForCallee;
+  v19 = *v3;
+  if (*v3 && *(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v3;
+    v12 = *v3;
     goto LABEL_80;
   }
 
-  v19 = *v12;
-  if (!*v12)
+  v20 = *v13;
+  if (!*v13)
   {
     goto LABEL_79;
   }
 
-  v20 = *(*v19 + 136);
-  if (v20 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v21 = *(*v20 + 136);
+  if (v21 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v11 = *v12;
+    v12 = *v13;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (!v18 || v20 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  if (!v19 || v21 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
     goto LABEL_80;
   }
 
-  if (v20 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v18 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+  if (v21 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
-    v52 = *v3;
-    v49 = v19;
-    Value = mlir::AffineMapAttr::getValue(&v52);
-    if (Value != mlir::AffineMapAttr::getValue(&v49))
+    v53 = *v3;
+    v50 = v20;
+    Value = mlir::AffineMapAttr::getValue(&v53);
+    if (Value != mlir::AffineMapAttr::getValue(&v50))
     {
       goto LABEL_79;
     }
 
-    mlir::IntegerAttr::getValue(&v52, &v59);
-    mlir::IntegerAttr::getValue(&v49, &__p);
-    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v40, &v59, &__p);
-    if (v56 >= 0x41 && __p)
+    mlir::IntegerAttr::getValue(&v60, &v53);
+    mlir::IntegerAttr::getValue(&__p, &v50);
+    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v41, &v60, &__p);
+    if (v57 >= 0x41 && __p)
     {
       operator delete[](__p);
     }
 
-    if (v60 >= 0x41 && v59)
+    if (v61 >= 0x41 && v60)
     {
-      operator delete[](v59);
+      operator delete[](v60);
     }
 
-    if (v69 != 1)
+    if (v70 != 1)
     {
       goto LABEL_79;
     }
 
-    v11 = mlir::IntegerAttr::get(v66, &Context);
-    if ((v69 & 1) == 0)
+    v12 = mlir::IntegerAttr::get(v67, &Context);
+    if ((v70 & 1) == 0)
     {
       goto LABEL_80;
     }
 
 LABEL_69:
-    if (v68 >= 0x41 && Context)
+    if (v69 >= 0x41 && Context)
     {
       operator delete[](Context);
     }
@@ -1855,150 +1855,150 @@ LABEL_69:
 
   if (mlir::DenseElementsAttr::classof(*v3))
   {
-    v22 = v18;
+    v23 = v19;
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  Context = v22;
-  if (!v22 || !mlir::DenseElementsAttr::isSplat(&Context) || !llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+  Context = v23;
+  if (!v23 || !mlir::DenseElementsAttr::isSplat(&Context) || !llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
   {
     if (llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v3) && llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v3 + 1))
     {
-      v64 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3);
-      v65 = v28;
-      v63[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3 + 1);
-      v63[1] = v29;
-      Type = mlir::ElementsAttr::getType(&v64);
-      if (Type == mlir::ElementsAttr::getType(v63))
+      v65 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3);
+      v66 = v29;
+      v64[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v3 + 1);
+      v64[1] = v30;
+      Type = mlir::ElementsAttr::getType(&v65);
+      if (Type == mlir::ElementsAttr::getType(v64))
       {
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v64, &v59);
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v63, &__p);
-        if (v62 == 1 && v58 == 1)
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v65, &v60);
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v64, &__p);
+        if (v63 == 1 && v59 == 1)
         {
-          LOWORD(v52) = v59;
-          if (v59 == 1)
+          LOWORD(v53) = v60;
+          if (v60 == 1)
           {
-            v53 = v60;
+            v54 = v61;
           }
 
           else
           {
-            (*(*v60 + 16))(&v53);
+            (*(*v61 + 16))(&v54);
           }
 
-          v54 = v61;
-          LOWORD(v49) = __p;
+          v55 = v62;
+          LOWORD(v50) = __p;
           if (__p == 1)
           {
-            v50 = v56;
+            v51 = v57;
           }
 
           else
           {
-            (*(*v56 + 16))(&v50);
+            (*(*v57 + 16))(&v51);
           }
 
-          v51 = v57;
-          Context = &v69;
-          v68 = 0x400000000;
-          NumElements = mlir::ElementsAttr::getNumElements(v64, v65);
+          v52 = v58;
+          Context = &v70;
+          v69 = 0x400000000;
+          NumElements = mlir::ElementsAttr::getNumElements(v65, v66);
           llvm::SmallVectorImpl<llvm::APInt>::reserve(&Context, NumElements);
-          v34 = mlir::ElementsAttr::getNumElements(v64, v65);
-          if (v34)
+          v35 = mlir::ElementsAttr::getNumElements(v65, v66);
+          if (v35)
           {
-            v35 = v34;
+            v36 = v35;
             while (1)
             {
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v52, &v44);
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v49, &v42);
-              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v46, &v40, &v44, &v42);
-              if (v43 >= 0x41 && v42)
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v53, &v45);
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v50, &v43);
+              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v47, &v41, &v45, &v43);
+              if (v44 >= 0x41 && v43)
               {
-                operator delete[](v42);
+                operator delete[](v43);
               }
 
-              if (v45 >= 0x41 && v44)
+              if (v46 >= 0x41 && v45)
               {
-                operator delete[](v44);
+                operator delete[](v45);
               }
 
-              if (v48 != 1)
+              if (v49 != 1)
               {
                 break;
               }
 
-              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v46);
-              if ((v48 & 1) != 0 && v47 >= 0x41 && v46)
+              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v47);
+              if ((v49 & 1) != 0 && v48 >= 0x41 && v47)
               {
-                operator delete[](v46);
+                operator delete[](v47);
               }
 
-              ++v54;
-              ++v51;
-              if (!--v35)
+              ++v55;
+              ++v52;
+              if (!--v36)
               {
                 goto LABEL_110;
               }
             }
 
-            v11 = 0;
+            v12 = 0;
           }
 
           else
           {
 LABEL_110:
-            v36 = llvm::cast<mlir::ShapedType,mlir::Type>(&v66);
-            v11 = mlir::DenseElementsAttr::get(v36, v37, Context, v68);
+            v37 = llvm::cast<mlir::ShapedType,mlir::Type>(&v67);
+            v12 = mlir::DenseElementsAttr::get(v37, v38, Context, v69);
           }
 
           llvm::SmallVector<llvm::APInt,4u>::~SmallVector(&Context);
-          if ((v49 & 1) == 0)
+          if ((v50 & 1) == 0)
           {
-            v38 = v50;
-            v50 = 0;
-            if (v38)
-            {
-              (*(*v38 + 8))(v38);
-            }
-          }
-
-          if ((v52 & 1) == 0)
-          {
-            v39 = v53;
-            v53 = 0;
+            v39 = v51;
+            v51 = 0;
             if (v39)
             {
               (*(*v39 + 8))(v39);
+            }
+          }
+
+          if ((v53 & 1) == 0)
+          {
+            v40 = v54;
+            v54 = 0;
+            if (v40)
+            {
+              (*(*v40 + 8))(v40);
             }
           }
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
-        if (v58 == 1 && (__p & 1) == 0)
+        if (v59 == 1 && (__p & 1) == 0)
         {
-          v31 = v56;
-          v56 = 0;
-          if (v31)
-          {
-            (*(*v31 + 8))(v31);
-          }
-        }
-
-        if (v62 == 1 && (v59 & 1) == 0)
-        {
-          v32 = v60;
-          v60 = 0;
+          v32 = v57;
+          v57 = 0;
           if (v32)
           {
             (*(*v32 + 8))(v32);
+          }
+        }
+
+        if (v63 == 1 && (v60 & 1) == 0)
+        {
+          v33 = v61;
+          v61 = 0;
+          if (v33)
+          {
+            (*(*v33 + 8))(v33);
           }
         }
 
@@ -2009,69 +2009,69 @@ LABEL_110:
     goto LABEL_79;
   }
 
-  v23 = v3[1];
-  v52 = *v3;
-  v49 = v23;
-  v24 = mlir::ArrayAttr::getValue(&v52);
-  if (v24 != mlir::ArrayAttr::getValue(&v49))
+  v24 = v3[1];
+  v53 = *v3;
+  v50 = v24;
+  v25 = mlir::ArrayAttr::getValue(&v53);
+  if (v25 != mlir::ArrayAttr::getValue(&v50))
   {
     goto LABEL_79;
   }
 
-  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v52, &v59);
-  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v49, &__p);
-  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v40, &v59, &__p);
-  if (v56 >= 0x41 && __p)
+  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v53, &v60);
+  mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v50, &__p);
+  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v41, &v60, &__p);
+  if (v57 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  if (v60 >= 0x41 && v59)
+  if (v61 >= 0x41 && v60)
   {
-    operator delete[](v59);
+    operator delete[](v60);
   }
 
-  if (v69 != 1)
+  if (v70 != 1)
   {
 LABEL_79:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_80;
   }
 
-  v25 = llvm::cast<mlir::ShapedType,mlir::Type>(&v66);
-  v11 = mlir::DenseElementsAttr::get(v25, v26, &Context, 1);
-  if (v69)
+  v26 = llvm::cast<mlir::ShapedType,mlir::Type>(&v67);
+  v12 = mlir::DenseElementsAttr::get(v26, v27, &Context, 1);
+  if (v70)
   {
     goto LABEL_69;
   }
 
 LABEL_80:
-  if (v41)
+  if (v42)
   {
     return 0;
   }
 
   else
   {
-    return v11 & 0xFFFFFFFFFFFFFFFBLL;
+    return v12 & 0xFFFFFFFFFFFFFFFBLL;
   }
 }
 
 unint64_t mlir::arith::AndIOp::fold(uint64_t *a1, uint64_t a2)
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   v4 = *(*(a2 + 40) + 8);
   if (!v4)
   {
-    v62 = 1;
-    v61 = 0;
+    v63 = 1;
+    v62 = 0;
     goto LABEL_21;
   }
 
   LODWORD(p_p) = 1;
   Context = 0;
-  v80 = &Context;
-  v5 = mlir::detail::constant_int_value_binder::match(&v80, v4);
+  v81 = &Context;
+  v5 = mlir::detail::constant_int_value_binder::match(&v81, v4);
   v6 = p_p;
   if (v5)
   {
@@ -2122,23 +2122,23 @@ LABEL_12:
 
 LABEL_16:
   v9 = *(*(a2 + 40) + 8);
-  v62 = 1;
-  v61 = 0;
-  Context = &v61;
+  v63 = 1;
+  v62 = 0;
+  Context = &v62;
   if (v9 && mlir::detail::constant_int_value_binder::match(&Context, v9))
   {
-    v10 = v62;
-    if (v62)
+    v10 = v63;
+    if (v63)
     {
-      if (v62 > 0x40)
+      if (v63 > 0x40)
       {
-        if (llvm::APInt::countTrailingOnesSlowCase(&v61) != v10)
+        if (llvm::APInt::countTrailingOnesSlowCase(&v62) != v10)
         {
           goto LABEL_21;
         }
       }
 
-      else if (v61 != (0xFFFFFFFFFFFFFFFFLL >> -v62))
+      else if (v62 != (0xFFFFFFFFFFFFFFFFLL >> -v63))
       {
         goto LABEL_21;
       }
@@ -2151,36 +2151,36 @@ LABEL_16:
 LABEL_21:
   v11 = *(*a1 + 72);
   v12 = *(v11 + 56);
-  v80 = *(v11 + 24);
-  v81 = &v61;
-  v73 = v12;
-  DefiningOp = mlir::Value::getDefiningOp(&v73);
+  v81 = *(v11 + 24);
+  v82 = &v62;
+  v74 = v12;
+  DefiningOp = mlir::Value::getDefiningOp(&v74);
   if (DefiningOp)
   {
     __p = DefiningOp;
     if (*(*(DefiningOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id && (*(DefiningOp + 46) & 0x80) != 0 && *(DefiningOp + 68) == 2)
     {
-      LOBYTE(v70) = 1;
-      Context = &v70;
+      LOBYTE(v71) = 1;
+      Context = &v71;
       p_p = &__p;
-      mlir::detail::enumerateImpl<std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> &,mlir::detail::RecursivePatternMatcher<mlir::arith::XOrIOp,mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder>::match(mlir::Operation *)::{lambda(unsigned long,std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> & &)#1},0ul,1ul>(&v80, &Context);
-      if (v70 == 1)
+      mlir::detail::enumerateImpl<std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> &,mlir::detail::RecursivePatternMatcher<mlir::arith::XOrIOp,mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder>::match(mlir::Operation *)::{lambda(unsigned long,std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> & &)#1},0ul,1ul>(&v81, &Context);
+      if (v71 == 1)
       {
-        v14 = v62;
-        if (!v62)
+        v14 = v63;
+        if (!v63)
         {
           goto LABEL_97;
         }
 
-        if (v62 > 0x40)
+        if (v63 > 0x40)
         {
-          if (llvm::APInt::countTrailingOnesSlowCase(&v61) == v14)
+          if (llvm::APInt::countTrailingOnesSlowCase(&v62) == v14)
           {
             goto LABEL_97;
           }
         }
 
-        else if (v61 == (0xFFFFFFFFFFFFFFFFLL >> -v62))
+        else if (v62 == (0xFFFFFFFFFFFFFFFFLL >> -v63))
         {
           goto LABEL_97;
         }
@@ -2190,41 +2190,41 @@ LABEL_21:
 
   v15 = *(*a1 + 72);
   v16 = *(v15 + 24);
-  v80 = *(v15 + 56);
-  v81 = &v61;
-  v73 = v16;
-  v17 = mlir::Value::getDefiningOp(&v73);
+  v81 = *(v15 + 56);
+  v82 = &v62;
+  v74 = v16;
+  v17 = mlir::Value::getDefiningOp(&v74);
   if (v17)
   {
     __p = v17;
     if (*(*(v17 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id && (*(v17 + 46) & 0x80) != 0 && *(v17 + 68) == 2)
     {
-      LOBYTE(v70) = 1;
-      Context = &v70;
+      LOBYTE(v71) = 1;
+      Context = &v71;
       p_p = &__p;
-      mlir::detail::enumerateImpl<std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> &,mlir::detail::RecursivePatternMatcher<mlir::arith::XOrIOp,mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder>::match(mlir::Operation *)::{lambda(unsigned long,std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> & &)#1},0ul,1ul>(&v80, &Context);
-      if (v70 == 1)
+      mlir::detail::enumerateImpl<std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> &,mlir::detail::RecursivePatternMatcher<mlir::arith::XOrIOp,mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder>::match(mlir::Operation *)::{lambda(unsigned long,std::tuple<mlir::detail::PatternMatcherValue,mlir::detail::constant_int_value_binder> & &)#1},0ul,1ul>(&v81, &Context);
+      if (v71 == 1)
       {
-        v18 = v62;
-        if (!v62)
+        v18 = v63;
+        if (!v63)
         {
           goto LABEL_97;
         }
 
-        if (v62 <= 0x40)
+        if (v63 <= 0x40)
         {
-          if (v61 != (0xFFFFFFFFFFFFFFFFLL >> -v62))
+          if (v62 != (0xFFFFFFFFFFFFFFFFLL >> -v63))
           {
             goto LABEL_41;
           }
 
 LABEL_97:
           Context = mlir::Attribute::getContext((*a1 + 24));
-          ZeroAttr = mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8));
+          ZeroAttr = mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8), v41);
           goto LABEL_122;
         }
 
-        if (llvm::APInt::countTrailingOnesSlowCase(&v61) == v18)
+        if (llvm::APInt::countTrailingOnesSlowCase(&v62) == v18)
         {
           goto LABEL_97;
         }
@@ -2354,7 +2354,7 @@ LABEL_68:
     goto LABEL_122;
   }
 
-  v87 = CallableForCallee;
+  v88 = CallableForCallee;
   v36 = *v28;
   if (*v28 && *(*v36 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
@@ -2388,41 +2388,41 @@ LABEL_68:
   {
     if (mlir::DenseElementsAttr::classof(*v28))
     {
-      v41 = v36;
+      v42 = v36;
     }
 
     else
     {
-      v41 = 0;
+      v42 = 0;
     }
 
-    Context = v41;
-    if (v41 && mlir::DenseElementsAttr::isSplat(&Context) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v28 + 1))
+    Context = v42;
+    if (v42 && mlir::DenseElementsAttr::isSplat(&Context) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v28 + 1))
     {
-      v42 = v28[1];
-      v73 = *v28;
-      v70 = v42;
-      Value = mlir::ArrayAttr::getValue(&v73);
-      if (Value == mlir::ArrayAttr::getValue(&v70))
+      v43 = v28[1];
+      v74 = *v28;
+      v71 = v43;
+      Value = mlir::ArrayAttr::getValue(&v74);
+      if (Value == mlir::ArrayAttr::getValue(&v71))
       {
-        mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v73, &v80);
-        mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v70, &__p);
-        mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v80, &__p);
-        if (v77 >= 0x41 && __p)
+        mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v74, &v81);
+        mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v71, &__p);
+        mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v81, &__p);
+        if (v78 >= 0x41 && __p)
         {
           operator delete[](__p);
         }
 
-        if (v81 >= 0x41 && v80)
+        if (v82 >= 0x41 && v81)
         {
-          operator delete[](v80);
+          operator delete[](v81);
         }
 
-        if (v90 == 1)
+        if (v91 == 1)
         {
-          v44 = llvm::cast<mlir::ShapedType,mlir::Type>(&v87);
-          ZeroAttr = mlir::DenseElementsAttr::get(v44, v45, &Context, 1);
-          if ((v90 & 1) == 0)
+          v45 = llvm::cast<mlir::ShapedType,mlir::Type>(&v88);
+          ZeroAttr = mlir::DenseElementsAttr::get(v45, v46, &Context, 1);
+          if ((v91 & 1) == 0)
           {
             goto LABEL_122;
           }
@@ -2434,115 +2434,115 @@ LABEL_68:
 
     else if (llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v28) && llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v28 + 1))
     {
-      v85 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v28);
-      v86 = v46;
-      v84[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v28 + 1);
-      v84[1] = v47;
-      Type = mlir::ElementsAttr::getType(&v85);
-      if (Type == mlir::ElementsAttr::getType(v84))
+      v86 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v28);
+      v87 = v47;
+      v85[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v28 + 1);
+      v85[1] = v48;
+      Type = mlir::ElementsAttr::getType(&v86);
+      if (Type == mlir::ElementsAttr::getType(v85))
       {
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v85, &v80);
-        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v84, &__p);
-        if (v83 == 1 && v79 == 1)
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v86, &v81);
+        mlir::ElementsAttr::try_value_begin<llvm::APInt>(v85, &__p);
+        if (v84 == 1 && v80 == 1)
         {
-          LOWORD(v73) = v80;
-          if (v80 == 1)
+          LOWORD(v74) = v81;
+          if (v81 == 1)
           {
-            v74 = v81;
+            v75 = v82;
           }
 
           else
           {
-            (*(*v81 + 2))(&v74);
+            (*(*v82 + 2))(&v75);
           }
 
-          v75 = v82;
-          LOWORD(v70) = __p;
+          v76 = v83;
+          LOWORD(v71) = __p;
           if (__p == 1)
           {
-            v71 = v77;
+            v72 = v78;
           }
 
           else
           {
-            (*(*v77 + 16))(&v71);
+            (*(*v78 + 16))(&v72);
           }
 
-          v72 = v78;
-          Context = &v90;
+          v73 = v79;
+          Context = &v91;
           p_p = 0x400000000;
-          NumElements = mlir::ElementsAttr::getNumElements(v85, v86);
+          NumElements = mlir::ElementsAttr::getNumElements(v86, v87);
           llvm::SmallVectorImpl<llvm::APInt>::reserve(&Context, NumElements);
-          v51 = mlir::ElementsAttr::getNumElements(v85, v86);
-          if (v51)
+          v52 = mlir::ElementsAttr::getNumElements(v86, v87);
+          if (v52)
           {
-            v52 = v51;
+            v53 = v52;
             while (1)
             {
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v73, &v65);
-              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v70, &v63);
-              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v67, &v65, &v63);
-              if (v64 >= 0x41 && v63)
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v74, &v66);
+              mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v71, &v64);
+              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v68, &v66, &v64);
+              if (v65 >= 0x41 && v64)
               {
-                operator delete[](v63);
+                operator delete[](v64);
               }
 
-              if (v66 >= 0x41 && v65)
+              if (v67 >= 0x41 && v66)
               {
-                operator delete[](v65);
+                operator delete[](v66);
               }
 
-              if (v69 != 1)
+              if (v70 != 1)
               {
                 break;
               }
 
-              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v67);
-              if ((v69 & 1) != 0 && v68 >= 0x41 && v67)
+              llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v68);
+              if ((v70 & 1) != 0 && v69 >= 0x41 && v68)
               {
-                operator delete[](v67);
+                operator delete[](v68);
               }
 
-              ++v75;
-              ++v72;
-              if (!--v52)
+              ++v76;
+              ++v73;
+              if (!--v53)
               {
                 goto LABEL_146;
               }
             }
 
-            v55 = 0;
+            v56 = 0;
           }
 
           else
           {
 LABEL_146:
-            v53 = llvm::cast<mlir::ShapedType,mlir::Type>(&v87);
-            v55 = mlir::DenseElementsAttr::get(v53, v54, Context, p_p);
+            v54 = llvm::cast<mlir::ShapedType,mlir::Type>(&v88);
+            v56 = mlir::DenseElementsAttr::get(v54, v55, Context, p_p);
           }
 
           llvm::SmallVector<llvm::APInt,4u>::~SmallVector(&Context);
-          if ((v70 & 1) == 0)
+          if ((v71 & 1) == 0)
           {
-            v56 = v71;
-            v71 = 0;
-            if (v56)
-            {
-              (*(*v56 + 8))(v56);
-            }
-          }
-
-          if ((v73 & 1) == 0)
-          {
-            v57 = v74;
-            v74 = 0;
+            v57 = v72;
+            v72 = 0;
             if (v57)
             {
-              (*(*v57 + 1))(v57);
+              (*(*v57 + 8))(v57);
             }
           }
 
-          ZeroAttr = v55;
+          if ((v74 & 1) == 0)
+          {
+            v58 = v75;
+            v75 = 0;
+            if (v58)
+            {
+              (*(*v58 + 1))(v58);
+            }
+          }
+
+          ZeroAttr = v56;
         }
 
         else
@@ -2550,37 +2550,37 @@ LABEL_146:
           ZeroAttr = 0;
         }
 
-        if (v79 == 1 && (__p & 1) == 0)
+        if (v80 == 1 && (__p & 1) == 0)
         {
-          v58 = v77;
-          v77 = 0;
-          if (v58)
+          v59 = v78;
+          v78 = 0;
+          if (v59)
           {
-            v59 = ZeroAttr;
-            (*(*v58 + 8))(v58);
-            ZeroAttr = v59;
+            v60 = ZeroAttr;
+            (*(*v59 + 8))(v59);
+            ZeroAttr = v60;
           }
         }
 
-        if (v83 != 1)
+        if (v84 != 1)
         {
           goto LABEL_122;
         }
 
-        if (v80)
+        if (v81)
         {
           goto LABEL_122;
         }
 
-        v60 = v81;
-        v81 = 0;
-        if (!v60)
+        v61 = v82;
+        v82 = 0;
+        if (!v61)
         {
           goto LABEL_122;
         }
 
         v40 = ZeroAttr;
-        (*(*v60 + 1))(v60);
+        (*(*v61 + 1))(v61);
 LABEL_93:
         ZeroAttr = v40;
         goto LABEL_122;
@@ -2592,34 +2592,34 @@ LABEL_121:
     goto LABEL_122;
   }
 
-  v73 = *v28;
-  v70 = v37;
-  v39 = mlir::AffineMapAttr::getValue(&v73);
-  if (v39 != mlir::AffineMapAttr::getValue(&v70))
+  v74 = *v28;
+  v71 = v37;
+  v39 = mlir::AffineMapAttr::getValue(&v74);
+  if (v39 != mlir::AffineMapAttr::getValue(&v71))
   {
     goto LABEL_121;
   }
 
-  mlir::IntegerAttr::getValue(&v73, &v80);
-  mlir::IntegerAttr::getValue(&v70, &__p);
-  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v80, &__p);
-  if (v77 >= 0x41 && __p)
+  mlir::IntegerAttr::getValue(&v81, &v74);
+  mlir::IntegerAttr::getValue(&__p, &v71);
+  mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v81, &__p);
+  if (v78 >= 0x41 && __p)
   {
     operator delete[](__p);
   }
 
-  if (v81 >= 0x41 && v80)
+  if (v82 >= 0x41 && v81)
   {
-    operator delete[](v80);
+    operator delete[](v81);
   }
 
-  if (v90 != 1)
+  if (v91 != 1)
   {
     goto LABEL_121;
   }
 
-  ZeroAttr = mlir::IntegerAttr::get(v87, &Context);
-  if (v90)
+  ZeroAttr = mlir::IntegerAttr::get(v88, &Context);
+  if (v91)
   {
 LABEL_90:
     if (p_p < 0x41 || !Context)
@@ -2635,13 +2635,13 @@ LABEL_90:
 LABEL_122:
   result = ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
 LABEL_123:
-  if (v62 >= 0x41)
+  if (v63 >= 0x41)
   {
-    if (v61)
+    if (v62)
     {
-      v49 = result;
-      operator delete[](v61);
-      return v49;
+      v50 = result;
+      operator delete[](v62);
+      return v50;
     }
   }
 
@@ -2885,8 +2885,8 @@ LABEL_44:
           Value = mlir::AffineMapAttr::getValue(&v65);
           if (Value == mlir::AffineMapAttr::getValue(&v62))
           {
-            mlir::IntegerAttr::getValue(&v65, &v72);
-            mlir::IntegerAttr::getValue(&v62, &__p);
+            mlir::IntegerAttr::getValue(&v72, &v65);
+            mlir::IntegerAttr::getValue(&__p, &v62);
             mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v80, &v72, &__p);
             if (v69 >= 0x41 && __p)
             {
@@ -3185,21 +3185,21 @@ LABEL_108:
 
 uint64_t mlir::arith::XOrIOp::fold(uint64_t *a1, uint64_t a2)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v4 = *(*(a2 + 40) + 8);
   if (!v4)
   {
     goto LABEL_15;
   }
 
-  LODWORD(v79) = 1;
+  LODWORD(v80) = 1;
   Context = 0;
-  v70 = &Context;
-  v5 = mlir::detail::constant_int_value_binder::match(&v70, v4);
-  v6 = v79;
+  v71 = &Context;
+  v5 = mlir::detail::constant_int_value_binder::match(&v71, v4);
+  v6 = v80;
   if (v5)
   {
-    if (v79 < 0x41)
+    if (v80 < 0x41)
     {
       v7 = Context == 0;
       goto LABEL_11;
@@ -3221,7 +3221,7 @@ uint64_t mlir::arith::XOrIOp::fold(uint64_t *a1, uint64_t a2)
   else
   {
     v7 = 0;
-    if (v79 < 0x41)
+    if (v80 < 0x41)
     {
       goto LABEL_11;
     }
@@ -3249,7 +3249,7 @@ LABEL_15:
   if (*(v9 + 24) == *(v9 + 56))
   {
     Context = mlir::Attribute::getContext((*a1 + 24));
-    ZeroAttr = mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8));
+    ZeroAttr = mlir::Builder::getZeroAttr(&Context, (*(*a1 - 8) & 0xFFFFFFFFFFFFFFF8), v16);
     return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
   }
 
@@ -3282,52 +3282,52 @@ LABEL_15:
   }
 
   Context = *(*(v11 + 72) + 56);
-  v17 = mlir::Value::getDefiningOp(&Context);
-  if (v17 && *(*(v17 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
+  v18 = mlir::Value::getDefiningOp(&Context);
+  if (v18 && *(*(v18 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
   {
-    v24 = *(v17 + 72);
-    v25 = *(v24 + 56);
-    v26 = *(*(*a1 + 72) + 24);
-    v13 = *(v24 + 24);
-    if (v25 == v26)
+    v25 = *(v18 + 72);
+    v26 = *(v25 + 56);
+    v27 = *(*(*a1 + 72) + 24);
+    v13 = *(v25 + 24);
+    if (v26 == v27)
     {
       return v13 | 4;
     }
 
-    if (v13 == v26)
+    if (v13 == v27)
     {
-      return v25 | 4;
+      return v26 | 4;
     }
   }
 
-  v18 = *(a2 + 40);
-  ZeroAttr = *v18;
-  if (!*v18 || *(*ZeroAttr + 136) != &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+  v19 = *(a2 + 40);
+  ZeroAttr = *v19;
+  if (!*v19 || *(*ZeroAttr + 136) != &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
   {
-    v20 = v18 + 1;
-    v19 = v18[1];
-    if (v19 && *(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+    v21 = v19 + 1;
+    v20 = v19[1];
+    if (v20 && *(*v20 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
     {
-      ZeroAttr = v18[1];
+      ZeroAttr = v19[1];
       return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
     }
 
     if (ZeroAttr)
     {
       Context = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(ZeroAttr);
-      v79 = v21;
+      v80 = v22;
       if (Context)
       {
         CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&Context);
-        ZeroAttr = *v20;
-        if (*v20)
+        ZeroAttr = *v21;
+        if (*v21)
         {
           goto LABEL_32;
         }
 
 LABEL_39:
         Context = ZeroAttr;
-        v79 = 0;
+        v80 = 0;
         if (ZeroAttr)
         {
           goto LABEL_40;
@@ -3340,45 +3340,45 @@ LABEL_39:
     else
     {
       Context = 0;
-      v79 = 0;
+      v80 = 0;
     }
 
     CallableForCallee = 0;
-    ZeroAttr = *v20;
-    if (*v20)
+    ZeroAttr = *v21;
+    if (*v21)
     {
 LABEL_32:
       ZeroAttr = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(ZeroAttr);
       Context = ZeroAttr;
-      v79 = v23;
+      v80 = v24;
       if (!ZeroAttr)
       {
         return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
       }
 
 LABEL_40:
-      v27 = mlir::CallOpInterface::getCallableForCallee(&Context);
+      v28 = mlir::CallOpInterface::getCallableForCallee(&Context);
       ZeroAttr = 0;
-      if (!CallableForCallee || !v27 || v27 != CallableForCallee)
+      if (!CallableForCallee || !v28 || v28 != CallableForCallee)
       {
         return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
       }
 
-      v77 = CallableForCallee;
-      v28 = *v18;
-      if (*v18 && *(*v28 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+      v78 = CallableForCallee;
+      v29 = *v19;
+      if (*v19 && *(*v29 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
       {
-        ZeroAttr = *v18;
+        ZeroAttr = *v19;
         return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
       }
 
-      v29 = *v20;
-      if (*v20)
+      v30 = *v21;
+      if (*v21)
       {
-        v30 = *(*v29 + 136);
-        if (v30 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+        v31 = *(*v30 + 136);
+        if (v31 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
         {
-          ZeroAttr = *v20;
+          ZeroAttr = *v21;
         }
 
         else
@@ -3386,45 +3386,45 @@ LABEL_40:
           ZeroAttr = 0;
         }
 
-        if (!v28 || v30 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
+        if (!v29 || v31 == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
         {
           return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
         }
 
-        if (v30 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v28 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
+        if (v31 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id && *(*v29 + 136) == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
         {
-          v63 = *v18;
-          v60 = v29;
-          Value = mlir::AffineMapAttr::getValue(&v63);
-          if (Value == mlir::AffineMapAttr::getValue(&v60))
+          v64 = *v19;
+          v61 = v30;
+          Value = mlir::AffineMapAttr::getValue(&v64);
+          if (Value == mlir::AffineMapAttr::getValue(&v61))
           {
-            mlir::IntegerAttr::getValue(&v63, &v70);
-            mlir::IntegerAttr::getValue(&v60, &__p);
-            mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v70, &__p);
-            if (v67 >= 0x41 && __p)
+            mlir::IntegerAttr::getValue(&v71, &v64);
+            mlir::IntegerAttr::getValue(&__p, &v61);
+            mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v71, &__p);
+            if (v68 >= 0x41 && __p)
             {
               operator delete[](__p);
             }
 
-            if (v71 >= 0x41 && v70)
+            if (v72 >= 0x41 && v71)
             {
-              operator delete[](v70);
+              operator delete[](v71);
             }
 
-            if (v80 == 1)
+            if (v81 == 1)
             {
-              ZeroAttr = mlir::IntegerAttr::get(v77, &Context);
-              if ((v80 & 1) == 0 || v79 < 0x41 || !Context)
+              ZeroAttr = mlir::IntegerAttr::get(v78, &Context);
+              if ((v81 & 1) == 0 || v80 < 0x41 || !Context)
               {
                 return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
               }
 
-              v32 = ZeroAttr;
-              v33 = Context;
+              v33 = ZeroAttr;
+              v34 = Context;
 LABEL_65:
-              operator delete[](v33);
+              operator delete[](v34);
 LABEL_66:
-              ZeroAttr = v32;
+              ZeroAttr = v33;
               return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
             }
           }
@@ -3432,49 +3432,49 @@ LABEL_66:
 
         else
         {
-          if (mlir::DenseElementsAttr::classof(*v18))
+          if (mlir::DenseElementsAttr::classof(*v19))
           {
-            v34 = v28;
+            v35 = v29;
           }
 
           else
           {
-            v34 = 0;
+            v35 = 0;
           }
 
-          Context = v34;
-          if (v34 && mlir::DenseElementsAttr::isSplat(&Context) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v18 + 1))
+          Context = v35;
+          if (v35 && mlir::DenseElementsAttr::isSplat(&Context) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v19 + 1))
           {
-            v35 = v18[1];
-            v63 = *v18;
-            v60 = v35;
-            v36 = mlir::ArrayAttr::getValue(&v63);
-            if (v36 == mlir::ArrayAttr::getValue(&v60))
+            v36 = v19[1];
+            v64 = *v19;
+            v61 = v36;
+            v37 = mlir::ArrayAttr::getValue(&v64);
+            if (v37 == mlir::ArrayAttr::getValue(&v61))
             {
-              mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v63, &v70);
-              mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v60, &__p);
-              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v70, &__p);
-              if (v67 >= 0x41 && __p)
+              mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v64, &v71);
+              mlir::DenseElementsAttr::getSplatValue<llvm::APInt>(&v61, &__p);
+              mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&Context, &v71, &__p);
+              if (v68 >= 0x41 && __p)
               {
                 operator delete[](__p);
               }
 
-              if (v71 >= 0x41 && v70)
+              if (v72 >= 0x41 && v71)
               {
-                operator delete[](v70);
+                operator delete[](v71);
               }
 
-              if (v80 == 1)
+              if (v81 == 1)
               {
-                v37 = llvm::cast<mlir::ShapedType,mlir::Type>(&v77);
-                ZeroAttr = mlir::DenseElementsAttr::get(v37, v38, &Context, 1);
-                if ((v80 & 1) == 0 || v79 < 0x41)
+                v38 = llvm::cast<mlir::ShapedType,mlir::Type>(&v78);
+                ZeroAttr = mlir::DenseElementsAttr::get(v38, v39, &Context, 1);
+                if ((v81 & 1) == 0 || v80 < 0x41)
                 {
                   return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
                 }
 
-                v32 = ZeroAttr;
-                v33 = Context;
+                v33 = ZeroAttr;
+                v34 = Context;
                 if (!Context)
                 {
                   goto LABEL_66;
@@ -3485,117 +3485,117 @@ LABEL_66:
             }
           }
 
-          else if (llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v18) && llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v18 + 1))
+          else if (llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v19) && llvm::isa<mlir::ElementsAttr,mlir::Attribute>(v19 + 1))
           {
-            v75 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v18);
-            v76 = v39;
-            v74[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v18 + 1);
-            v74[1] = v40;
-            Type = mlir::ElementsAttr::getType(&v75);
-            if (Type == mlir::ElementsAttr::getType(v74))
+            v76 = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v19);
+            v77 = v40;
+            v75[0] = llvm::cast<mlir::ElementsAttr,mlir::Attribute>(v19 + 1);
+            v75[1] = v41;
+            Type = mlir::ElementsAttr::getType(&v76);
+            if (Type == mlir::ElementsAttr::getType(v75))
             {
-              mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v75, &v70);
-              mlir::ElementsAttr::try_value_begin<llvm::APInt>(v74, &__p);
-              if (v73 == 1 && v69 == 1)
+              mlir::ElementsAttr::try_value_begin<llvm::APInt>(&v76, &v71);
+              mlir::ElementsAttr::try_value_begin<llvm::APInt>(v75, &__p);
+              if (v74 == 1 && v70 == 1)
               {
-                LOWORD(v63) = v70;
-                if (v70 == 1)
+                LOWORD(v64) = v71;
+                if (v71 == 1)
                 {
-                  v64 = v71;
+                  v65 = v72;
                 }
 
                 else
                 {
-                  (*(*v71 + 16))(&v64);
+                  (*(*v72 + 16))(&v65);
                 }
 
-                v65 = v72;
-                LOWORD(v60) = __p;
+                v66 = v73;
+                LOWORD(v61) = __p;
                 if (__p == 1)
                 {
-                  v61 = v67;
+                  v62 = v68;
                 }
 
                 else
                 {
-                  (*(*v67 + 16))(&v61);
+                  (*(*v68 + 16))(&v62);
                 }
 
-                v62 = v68;
-                Context = &v80;
-                v79 = 0x400000000;
-                NumElements = mlir::ElementsAttr::getNumElements(v75, v76);
+                v63 = v69;
+                Context = &v81;
+                v80 = 0x400000000;
+                NumElements = mlir::ElementsAttr::getNumElements(v76, v77);
                 llvm::SmallVectorImpl<llvm::APInt>::reserve(&Context, NumElements);
-                v43 = mlir::ElementsAttr::getNumElements(v75, v76);
-                if (v43)
+                v44 = mlir::ElementsAttr::getNumElements(v76, v77);
+                if (v44)
                 {
-                  v44 = v43;
+                  v45 = v44;
                   while (1)
                   {
-                    mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v63, &v55);
-                    mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v60, &v53);
-                    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v57, &v55, &v53);
-                    if (v54 >= 0x41 && v53)
+                    mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v64, &v56);
+                    mlir::detail::ElementsAttrIterator<llvm::APInt>::operator*(&v61, &v54);
+                    mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v58, &v56, &v54);
+                    if (v55 >= 0x41 && v54)
                     {
-                      operator delete[](v53);
+                      operator delete[](v54);
                     }
 
-                    if (v56 >= 0x41 && v55)
+                    if (v57 >= 0x41 && v56)
                     {
-                      operator delete[](v55);
+                      operator delete[](v56);
                     }
 
-                    if (v59 != 1)
+                    if (v60 != 1)
                     {
                       break;
                     }
 
-                    llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v57);
-                    if ((v59 & 1) != 0 && v58 >= 0x41 && v57)
+                    llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(&Context, &v58);
+                    if ((v60 & 1) != 0 && v59 >= 0x41 && v58)
                     {
-                      operator delete[](v57);
+                      operator delete[](v58);
                     }
 
-                    ++v65;
-                    ++v62;
-                    if (!--v44)
+                    ++v66;
+                    ++v63;
+                    if (!--v45)
                     {
                       goto LABEL_117;
                     }
                   }
 
-                  v47 = 0;
+                  v48 = 0;
                 }
 
                 else
                 {
 LABEL_117:
-                  v45 = llvm::cast<mlir::ShapedType,mlir::Type>(&v77);
-                  v47 = mlir::DenseElementsAttr::get(v45, v46, Context, v79);
+                  v46 = llvm::cast<mlir::ShapedType,mlir::Type>(&v78);
+                  v48 = mlir::DenseElementsAttr::get(v46, v47, Context, v80);
                 }
 
                 llvm::SmallVector<llvm::APInt,4u>::~SmallVector(&Context);
-                if ((v60 & 1) == 0)
+                if ((v61 & 1) == 0)
                 {
-                  v48 = v61;
-                  v61 = 0;
-                  if (v48)
-                  {
-                    (*(*v48 + 8))(v48);
-                  }
-                }
-
-                if ((v63 & 1) == 0)
-                {
-                  v49 = v64;
-                  v64 = 0;
+                  v49 = v62;
+                  v62 = 0;
                   if (v49)
                   {
                     (*(*v49 + 8))(v49);
                   }
                 }
 
-                ZeroAttr = v47;
+                if ((v64 & 1) == 0)
+                {
+                  v50 = v65;
+                  v65 = 0;
+                  if (v50)
+                  {
+                    (*(*v50 + 8))(v50);
+                  }
+                }
+
+                ZeroAttr = v48;
               }
 
               else
@@ -3603,37 +3603,37 @@ LABEL_117:
                 ZeroAttr = 0;
               }
 
-              if (v69 == 1 && (__p & 1) == 0)
+              if (v70 == 1 && (__p & 1) == 0)
               {
-                v50 = v67;
-                v67 = 0;
-                if (v50)
+                v51 = v68;
+                v68 = 0;
+                if (v51)
                 {
-                  v51 = ZeroAttr;
-                  (*(*v50 + 8))(v50);
-                  ZeroAttr = v51;
+                  v52 = ZeroAttr;
+                  (*(*v51 + 8))(v51);
+                  ZeroAttr = v52;
                 }
               }
 
-              if (v73 != 1)
+              if (v74 != 1)
               {
                 return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
               }
 
-              if (v70)
+              if (v71)
               {
                 return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
               }
 
-              v52 = v71;
-              v71 = 0;
-              if (!v52)
+              v53 = v72;
+              v72 = 0;
+              if (!v53)
               {
                 return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
               }
 
-              v32 = ZeroAttr;
-              (*(*v52 + 8))(v52);
+              v33 = ZeroAttr;
+              (*(*v53 + 8))(v53);
               goto LABEL_66;
             }
           }
@@ -3650,7 +3650,7 @@ LABEL_117:
   return ZeroAttr & 0xFFFFFFFFFFFFFFFBLL;
 }
 
-void mlir::arith::XOrIOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
+void mlir::arith::XOrIOp::getCanonicalizationPatterns(void *a1, mlir::StringAttr *a2)
 {
   v67 = *MEMORY[0x1E69E9840];
   v4 = operator new(0x60uLL);
@@ -3668,7 +3668,7 @@ void mlir::arith::XOrIOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
     }
 
 LABEL_14:
-    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), (v4 + 24), v5, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), v4 + 24, v5, 16);
     v4[22] = v4[22];
     v7 = a1[2];
     v6 = a1[3];
@@ -3802,7 +3802,7 @@ LABEL_27:
     }
 
 LABEL_40:
-    llvm::SmallVectorBase<unsigned int>::grow_pod((v24 + 20), (v24 + 24), v25, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((v24 + 20), v24 + 24, v25, 16);
     v24[22] = v24[22];
     v27 = a1[2];
     v26 = a1[3];
@@ -3936,7 +3936,7 @@ LABEL_53:
     }
 
 LABEL_66:
-    llvm::SmallVectorBase<unsigned int>::grow_pod((v44 + 20), (v44 + 24), v45, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((v44 + 20), v44 + 24, v45, 16);
     v44[22] = v44[22];
     v47 = a1[2];
     v46 = a1[3];
@@ -4090,8 +4090,8 @@ uint64_t mlir::arith::NegFOp::fold(uint64_t a1, uint64_t a2)
         if (v7 && mlir::DenseElementsAttr::isSplat(&v69))
         {
           v58 = *v4;
-          mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v58, v66);
-          mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(&v69, v66);
+          mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v58, &v66);
+          mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(&v69, &v66);
           v8 = v67[0];
           v10 = llvm::APFloatBase::PPCDoubleDouble(v9);
           if (v10 == v8)
@@ -4290,7 +4290,7 @@ LABEL_55:
                       (*(*v56 + 24))(&v64);
                     }
 
-                    mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(v66, &v64);
+                    mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(&v66, &v64);
                     v48 = v65[0];
                     v50 = llvm::APFloatBase::PPCDoubleDouble(v49);
                     if (v50 == v48)
@@ -4313,7 +4313,7 @@ LABEL_79:
                       }
                     }
 
-                    llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v69, v66);
+                    llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v69, &v66);
                     if (v68)
                     {
                       if (v50 == v67[0])
@@ -4376,8 +4376,8 @@ LABEL_54:
       }
 
       v58 = *v4;
-      mlir::FloatAttr::getValue(&v58, v66);
-      mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(&v69, v66);
+      mlir::FloatAttr::getValue(&v66, &v58);
+      mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(&v69, &v66);
       v22 = v67[0];
       v24 = llvm::APFloatBase::PPCDoubleDouble(v23);
       if (v24 == v22)
@@ -4420,13 +4420,13 @@ LABEL_30:
 
 uint64_t mlir::arith::AddFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 48);
   v4 = v3[1];
-  v57 = mlir::m_NegZeroFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v58 = mlir::m_NegZeroFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v4)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v57, v4))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v4))
     {
       return *(*(*a1 + 72) + 24) | 4;
     }
@@ -4450,11 +4450,11 @@ uint64_t mlir::arith::AddFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v7)
   {
-    v57 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-    v58 = v10;
-    if (v57)
+    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
+    v59 = v10;
+    if (v58)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v57);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
       v7 = *v9;
       if (*v9)
       {
@@ -4462,8 +4462,8 @@ uint64_t mlir::arith::AddFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_16:
-      v57 = v7;
-      v58 = 0;
+      v58 = v7;
+      v59 = 0;
       if (!v7)
       {
         return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -4475,8 +4475,8 @@ LABEL_16:
 
   else
   {
-    v57 = 0;
     v58 = 0;
+    v59 = 0;
   }
 
   CallableForCallee = 0;
@@ -4488,15 +4488,15 @@ LABEL_16:
 
 LABEL_12:
   v7 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-  v57 = v7;
-  v58 = v12;
+  v58 = v7;
+  v59 = v12;
   if (!v7)
   {
     return v7 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_17:
-  v13 = mlir::CallOpInterface::getCallableForCallee(&v57);
+  v13 = mlir::CallOpInterface::getCallableForCallee(&v58);
   v7 = 0;
   if (!CallableForCallee || !v13 || v13 != CallableForCallee)
   {
@@ -4538,14 +4538,14 @@ LABEL_17:
         Value = mlir::AffineMapAttr::getValue(&v46);
         if (Value == mlir::AffineMapAttr::getValue(v55))
         {
-          mlir::FloatAttr::getValue(&v46, v56);
-          mlir::FloatAttr::getValue(v55, v61);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-          llvm::APFloat::~APFloat(v61);
+          mlir::FloatAttr::getValue(v56, &v46);
+          mlir::FloatAttr::getValue(&v62, v55);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+          llvm::APFloat::~APFloat(&v62);
           llvm::APFloat::~APFloat(v56);
-          if (v60 == 1)
+          if (v61 == 1)
           {
-            v23 = mlir::FloatAttr::get(v53, &v57);
+            v23 = mlir::FloatAttr::get(v53, &v58);
             goto LABEL_46;
           }
 
@@ -4567,8 +4567,8 @@ LABEL_56:
           v18 = 0;
         }
 
-        v57 = v18;
-        if (v18 && mlir::DenseElementsAttr::isSplat(&v57) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+        v58 = v18;
+        if (v18 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
         {
           v19 = v3[1];
           v46 = *v3;
@@ -4577,18 +4577,18 @@ LABEL_56:
           if (v20 == mlir::ArrayAttr::getValue(v55))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v46, v56);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, v61);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-            llvm::APFloat::~APFloat(v61);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, &v62);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+            llvm::APFloat::~APFloat(&v62);
             llvm::APFloat::~APFloat(v56);
-            if (v60 == 1)
+            if (v61 == 1)
             {
               v21 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-              v23 = mlir::DenseElementsAttr::get(v21, v22, &v57, 1);
+              v23 = mlir::DenseElementsAttr::get(v21, v22, &v58, 1);
 LABEL_46:
               v25 = v23;
 LABEL_57:
-              std::optional<llvm::APFloat>::~optional(&v57);
+              std::optional<llvm::APFloat>::~optional(&v58);
 LABEL_58:
               v7 = v25;
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -4607,23 +4607,22 @@ LABEL_58:
           Type = mlir::ElementsAttr::getType(&v51);
           if (Type == mlir::ElementsAttr::getType(v50))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, v61);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, &v62);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v50, &v46);
-            if (v64 == 1 && v49 == 1)
+            if (v65 == 1 && v49 == 1)
             {
-              v43[0] = v61[0];
-              v43[1] = v61[1];
-              if (v61[0] == 1)
+              v43 = v62;
+              if (v62 == 1)
               {
-                v44 = v62;
+                v44 = v63;
               }
 
               else
               {
-                (*(*v62 + 16))(&v44);
+                (*(*v63 + 16))(&v44);
               }
 
-              v45 = v63;
+              v45 = v64;
               v40 = v46;
               if (v46 == 1)
               {
@@ -4636,27 +4635,27 @@ LABEL_58:
               }
 
               v42 = v48;
-              v57 = &v59;
-              v58 = 0x400000000;
+              v58 = &v60;
+              v59 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v51, v52);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v57, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
               v33 = mlir::ElementsAttr::getNumElements(v51, v52);
               if (v33)
               {
                 v34 = v33;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v43, v55);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v43, v55);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v40, v54);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v56, v55, v54);
                   llvm::APFloat::~APFloat(v54);
                   llvm::APFloat::~APFloat(v55);
-                  if (v56[32] != 1)
+                  if (v57 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v57, v56);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v56);
                   std::optional<llvm::APFloat>::~optional(v56);
                   ++v45;
                   ++v42;
@@ -4674,10 +4673,10 @@ LABEL_58:
               {
 LABEL_76:
                 v35 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-                v37 = mlir::DenseElementsAttr::get(v35, v36, v57, v58);
+                v37 = mlir::DenseElementsAttr::get(v35, v36, v58, v59);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v57);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
               if ((v40 & 1) == 0)
               {
                 v38 = v41;
@@ -4689,7 +4688,7 @@ LABEL_76:
               }
 
               v7 = v37;
-              if ((v43[0] & 1) == 0)
+              if ((v43 & 1) == 0)
               {
                 v39 = v44;
                 v44 = 0;
@@ -4718,18 +4717,18 @@ LABEL_76:
               }
             }
 
-            if (v64 != 1)
+            if (v65 != 1)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v61[0])
+            if (v62)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v31 = v62;
-            v62 = 0;
+            v31 = v63;
+            v63 = 0;
             if (!v31)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -4751,13 +4750,13 @@ LABEL_76:
 
 uint64_t mlir::arith::SubFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 48);
   v4 = v3[1];
-  v57 = mlir::m_PosZeroFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v58 = mlir::m_PosZeroFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v4)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v57, v4))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v4))
     {
       return *(*(*a1 + 72) + 24) | 4;
     }
@@ -4781,11 +4780,11 @@ uint64_t mlir::arith::SubFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v7)
   {
-    v57 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-    v58 = v10;
-    if (v57)
+    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
+    v59 = v10;
+    if (v58)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v57);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
       v7 = *v9;
       if (*v9)
       {
@@ -4793,8 +4792,8 @@ uint64_t mlir::arith::SubFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_16:
-      v57 = v7;
-      v58 = 0;
+      v58 = v7;
+      v59 = 0;
       if (!v7)
       {
         return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -4806,8 +4805,8 @@ LABEL_16:
 
   else
   {
-    v57 = 0;
     v58 = 0;
+    v59 = 0;
   }
 
   CallableForCallee = 0;
@@ -4819,15 +4818,15 @@ LABEL_16:
 
 LABEL_12:
   v7 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-  v57 = v7;
-  v58 = v12;
+  v58 = v7;
+  v59 = v12;
   if (!v7)
   {
     return v7 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_17:
-  v13 = mlir::CallOpInterface::getCallableForCallee(&v57);
+  v13 = mlir::CallOpInterface::getCallableForCallee(&v58);
   v7 = 0;
   if (!CallableForCallee || !v13 || v13 != CallableForCallee)
   {
@@ -4869,14 +4868,14 @@ LABEL_17:
         Value = mlir::AffineMapAttr::getValue(&v46);
         if (Value == mlir::AffineMapAttr::getValue(v55))
         {
-          mlir::FloatAttr::getValue(&v46, v56);
-          mlir::FloatAttr::getValue(v55, v61);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-          llvm::APFloat::~APFloat(v61);
+          mlir::FloatAttr::getValue(v56, &v46);
+          mlir::FloatAttr::getValue(&v62, v55);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+          llvm::APFloat::~APFloat(&v62);
           llvm::APFloat::~APFloat(v56);
-          if (v60 == 1)
+          if (v61 == 1)
           {
-            v23 = mlir::FloatAttr::get(v53, &v57);
+            v23 = mlir::FloatAttr::get(v53, &v58);
             goto LABEL_46;
           }
 
@@ -4898,8 +4897,8 @@ LABEL_56:
           v18 = 0;
         }
 
-        v57 = v18;
-        if (v18 && mlir::DenseElementsAttr::isSplat(&v57) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+        v58 = v18;
+        if (v18 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
         {
           v19 = v3[1];
           v46 = *v3;
@@ -4908,18 +4907,18 @@ LABEL_56:
           if (v20 == mlir::ArrayAttr::getValue(v55))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v46, v56);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, v61);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-            llvm::APFloat::~APFloat(v61);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, &v62);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+            llvm::APFloat::~APFloat(&v62);
             llvm::APFloat::~APFloat(v56);
-            if (v60 == 1)
+            if (v61 == 1)
             {
               v21 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-              v23 = mlir::DenseElementsAttr::get(v21, v22, &v57, 1);
+              v23 = mlir::DenseElementsAttr::get(v21, v22, &v58, 1);
 LABEL_46:
               v25 = v23;
 LABEL_57:
-              std::optional<llvm::APFloat>::~optional(&v57);
+              std::optional<llvm::APFloat>::~optional(&v58);
 LABEL_58:
               v7 = v25;
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -4938,23 +4937,22 @@ LABEL_58:
           Type = mlir::ElementsAttr::getType(&v51);
           if (Type == mlir::ElementsAttr::getType(v50))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, v61);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, &v62);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v50, &v46);
-            if (v64 == 1 && v49 == 1)
+            if (v65 == 1 && v49 == 1)
             {
-              v43[0] = v61[0];
-              v43[1] = v61[1];
-              if (v61[0] == 1)
+              v43 = v62;
+              if (v62 == 1)
               {
-                v44 = v62;
+                v44 = v63;
               }
 
               else
               {
-                (*(*v62 + 16))(&v44);
+                (*(*v63 + 16))(&v44);
               }
 
-              v45 = v63;
+              v45 = v64;
               v40 = v46;
               if (v46 == 1)
               {
@@ -4967,27 +4965,27 @@ LABEL_58:
               }
 
               v42 = v48;
-              v57 = &v59;
-              v58 = 0x400000000;
+              v58 = &v60;
+              v59 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v51, v52);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v57, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
               v33 = mlir::ElementsAttr::getNumElements(v51, v52);
               if (v33)
               {
                 v34 = v33;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v43, v55);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v43, v55);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v40, v54);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v56, v55, v54);
                   llvm::APFloat::~APFloat(v54);
                   llvm::APFloat::~APFloat(v55);
-                  if (v56[32] != 1)
+                  if (v57 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v57, v56);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v56);
                   std::optional<llvm::APFloat>::~optional(v56);
                   ++v45;
                   ++v42;
@@ -5005,10 +5003,10 @@ LABEL_58:
               {
 LABEL_76:
                 v35 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-                v37 = mlir::DenseElementsAttr::get(v35, v36, v57, v58);
+                v37 = mlir::DenseElementsAttr::get(v35, v36, v58, v59);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v57);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
               if ((v40 & 1) == 0)
               {
                 v38 = v41;
@@ -5020,7 +5018,7 @@ LABEL_76:
               }
 
               v7 = v37;
-              if ((v43[0] & 1) == 0)
+              if ((v43 & 1) == 0)
               {
                 v39 = v44;
                 v44 = 0;
@@ -5049,18 +5047,18 @@ LABEL_76:
               }
             }
 
-            if (v64 != 1)
+            if (v65 != 1)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v61[0])
+            if (v62)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v31 = v62;
-            v62 = 0;
+            v31 = v63;
+            v63 = 0;
             if (!v31)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -5082,7 +5080,7 @@ LABEL_76:
 
 uint64_t mlir::arith::MaximumFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 72);
   v3 = *(v2 + 24);
   if (v3 == *(v2 + 56))
@@ -5092,10 +5090,10 @@ uint64_t mlir::arith::MaximumFOp::fold(uint64_t a1, uint64_t a2)
 
   v4 = *(a2 + 48);
   v5 = v4[1];
-  v58 = mlir::m_NegInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v59 = mlir::m_NegInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v5)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v5))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v59, v5))
     {
       v3 = *(*(*a1 + 72) + 24);
       return v3 | 4;
@@ -5120,11 +5118,11 @@ uint64_t mlir::arith::MaximumFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v9)
   {
-    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-    v59 = v12;
-    if (v58)
+    v59 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
+    v60 = v12;
+    if (v59)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v59);
       v9 = *v11;
       if (*v11)
       {
@@ -5132,8 +5130,8 @@ uint64_t mlir::arith::MaximumFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_18:
-      v58 = v9;
-      v59 = 0;
+      v59 = v9;
+      v60 = 0;
       if (!v9)
       {
         return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -5145,8 +5143,8 @@ LABEL_18:
 
   else
   {
-    v58 = 0;
     v59 = 0;
+    v60 = 0;
   }
 
   CallableForCallee = 0;
@@ -5158,15 +5156,15 @@ LABEL_18:
 
 LABEL_14:
   v9 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-  v58 = v9;
-  v59 = v14;
+  v59 = v9;
+  v60 = v14;
   if (!v9)
   {
     return v9 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_19:
-  v15 = mlir::CallOpInterface::getCallableForCallee(&v58);
+  v15 = mlir::CallOpInterface::getCallableForCallee(&v59);
   v9 = 0;
   if (!CallableForCallee || !v15 || v15 != CallableForCallee)
   {
@@ -5208,18 +5206,18 @@ LABEL_19:
         Value = mlir::AffineMapAttr::getValue(&v47);
         if (Value == mlir::AffineMapAttr::getValue(v56))
         {
-          mlir::FloatAttr::getValue(&v47, v57);
-          mlir::FloatAttr::getValue(v56, v62);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-          llvm::APFloat::~APFloat(v62);
+          mlir::FloatAttr::getValue(v57, &v47);
+          mlir::FloatAttr::getValue(&v63, v56);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+          llvm::APFloat::~APFloat(&v63);
           llvm::APFloat::~APFloat(v57);
-          if (v61 == 1)
+          if (v62 == 1)
           {
-            v20 = mlir::FloatAttr::get(v54, &v58);
+            v20 = mlir::FloatAttr::get(v54, &v59);
 LABEL_35:
             v21 = v20;
 LABEL_57:
-            std::optional<llvm::APFloat>::~optional(&v58);
+            std::optional<llvm::APFloat>::~optional(&v59);
 LABEL_58:
             v9 = v21;
             return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -5241,8 +5239,8 @@ LABEL_58:
           v22 = 0;
         }
 
-        v58 = v22;
-        if (v22 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
+        v59 = v22;
+        if (v22 && mlir::DenseElementsAttr::isSplat(&v59) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
         {
           v23 = v4[1];
           v47 = *v4;
@@ -5251,14 +5249,14 @@ LABEL_58:
           if (v24 == mlir::ArrayAttr::getValue(v56))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v47, v57);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, v62);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-            llvm::APFloat::~APFloat(v62);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, &v63);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+            llvm::APFloat::~APFloat(&v63);
             llvm::APFloat::~APFloat(v57);
-            if (v61 == 1)
+            if (v62 == 1)
             {
               v25 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-              v20 = mlir::DenseElementsAttr::get(v25, v26, &v58, 1);
+              v20 = mlir::DenseElementsAttr::get(v25, v26, &v59, 1);
               goto LABEL_35;
             }
 
@@ -5277,23 +5275,22 @@ LABEL_56:
           Type = mlir::ElementsAttr::getType(&v52);
           if (Type == mlir::ElementsAttr::getType(v51))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, v62);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, &v63);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v51, &v47);
-            if (v65 == 1 && v50 == 1)
+            if (v66 == 1 && v50 == 1)
             {
-              v44[0] = v62[0];
-              v44[1] = v62[1];
-              if (v62[0] == 1)
+              v44 = v63;
+              if (v63 == 1)
               {
-                v45 = v63;
+                v45 = v64;
               }
 
               else
               {
-                (*(*v63 + 16))(&v45);
+                (*(*v64 + 16))(&v45);
               }
 
-              v46 = v64;
+              v46 = v65;
               v41 = v47;
               if (v47 == 1)
               {
@@ -5306,27 +5303,27 @@ LABEL_56:
               }
 
               v43 = v49;
-              v58 = &v60;
-              v59 = 0x400000000;
+              v59 = &v61;
+              v60 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v52, v53);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v59, NumElements);
               v31 = mlir::ElementsAttr::getNumElements(v52, v53);
               if (v31)
               {
                 v32 = v31;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v44, v56);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v44, v56);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v41, v55);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v57, v56, v55);
                   llvm::APFloat::~APFloat(v55);
                   llvm::APFloat::~APFloat(v56);
-                  if (v57[32] != 1)
+                  if (v58 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v57);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v59, v57);
                   std::optional<llvm::APFloat>::~optional(v57);
                   ++v46;
                   ++v43;
@@ -5344,10 +5341,10 @@ LABEL_56:
               {
 LABEL_68:
                 v33 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-                v35 = mlir::DenseElementsAttr::get(v33, v34, v58, v59);
+                v35 = mlir::DenseElementsAttr::get(v33, v34, v59, v60);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v59);
               if ((v41 & 1) == 0)
               {
                 v36 = v42;
@@ -5358,7 +5355,7 @@ LABEL_68:
                 }
               }
 
-              if ((v44[0] & 1) == 0)
+              if ((v44 & 1) == 0)
               {
                 v37 = v45;
                 v45 = 0;
@@ -5388,18 +5385,18 @@ LABEL_68:
               }
             }
 
-            if (v65 != 1)
+            if (v66 != 1)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v62[0])
+            if (v63)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v40 = v63;
-            v63 = 0;
+            v40 = v64;
+            v64 = 0;
             if (!v40)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -5842,8 +5839,8 @@ LABEL_86:
     goto LABEL_86;
   }
 
-  mlir::IntegerAttr::getValue(&v58, &v65);
-  mlir::IntegerAttr::getValue(&v55, &__p);
+  mlir::IntegerAttr::getValue(&v65, &v58);
+  mlir::IntegerAttr::getValue(&__p, &v55);
   mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::MaxSIOp::fold(mlir::arith::MaxSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaxSIOp::fold(mlir::arith::MaxSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v73, &v65, &__p);
   if (v62 >= 0x41 && __p)
   {
@@ -6051,8 +6048,8 @@ LABEL_33:
         Value = mlir::AffineMapAttr::getValue(&v55);
         if (Value == mlir::AffineMapAttr::getValue(&v52))
         {
-          mlir::IntegerAttr::getValue(&v55, &v62);
-          mlir::IntegerAttr::getValue(&v52, &__p);
+          mlir::IntegerAttr::getValue(&v62, &v55);
+          mlir::IntegerAttr::getValue(&__p, &v52);
           mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::MaxUIOp::fold(mlir::arith::MaxUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaxUIOp::fold(mlir::arith::MaxUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v70, &v62, &__p);
           if (v59 >= 0x41 && __p)
           {
@@ -6312,7 +6309,7 @@ LABEL_17:
 
 uint64_t mlir::arith::MinimumFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 72);
   v3 = *(v2 + 24);
   if (v3 == *(v2 + 56))
@@ -6322,10 +6319,10 @@ uint64_t mlir::arith::MinimumFOp::fold(uint64_t a1, uint64_t a2)
 
   v4 = *(a2 + 48);
   v5 = v4[1];
-  v58 = mlir::m_PosInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v59 = mlir::m_PosInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v5)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v5))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v59, v5))
     {
       v3 = *(*(*a1 + 72) + 24);
       return v3 | 4;
@@ -6350,11 +6347,11 @@ uint64_t mlir::arith::MinimumFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v9)
   {
-    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-    v59 = v12;
-    if (v58)
+    v59 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
+    v60 = v12;
+    if (v59)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v59);
       v9 = *v11;
       if (*v11)
       {
@@ -6362,8 +6359,8 @@ uint64_t mlir::arith::MinimumFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_18:
-      v58 = v9;
-      v59 = 0;
+      v59 = v9;
+      v60 = 0;
       if (!v9)
       {
         return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -6375,8 +6372,8 @@ LABEL_18:
 
   else
   {
-    v58 = 0;
     v59 = 0;
+    v60 = 0;
   }
 
   CallableForCallee = 0;
@@ -6388,15 +6385,15 @@ LABEL_18:
 
 LABEL_14:
   v9 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-  v58 = v9;
-  v59 = v14;
+  v59 = v9;
+  v60 = v14;
   if (!v9)
   {
     return v9 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_19:
-  v15 = mlir::CallOpInterface::getCallableForCallee(&v58);
+  v15 = mlir::CallOpInterface::getCallableForCallee(&v59);
   v9 = 0;
   if (!CallableForCallee || !v15 || v15 != CallableForCallee)
   {
@@ -6438,18 +6435,18 @@ LABEL_19:
         Value = mlir::AffineMapAttr::getValue(&v47);
         if (Value == mlir::AffineMapAttr::getValue(v56))
         {
-          mlir::FloatAttr::getValue(&v47, v57);
-          mlir::FloatAttr::getValue(v56, v62);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-          llvm::APFloat::~APFloat(v62);
+          mlir::FloatAttr::getValue(v57, &v47);
+          mlir::FloatAttr::getValue(&v63, v56);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+          llvm::APFloat::~APFloat(&v63);
           llvm::APFloat::~APFloat(v57);
-          if (v61 == 1)
+          if (v62 == 1)
           {
-            v20 = mlir::FloatAttr::get(v54, &v58);
+            v20 = mlir::FloatAttr::get(v54, &v59);
 LABEL_35:
             v21 = v20;
 LABEL_57:
-            std::optional<llvm::APFloat>::~optional(&v58);
+            std::optional<llvm::APFloat>::~optional(&v59);
 LABEL_58:
             v9 = v21;
             return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -6471,8 +6468,8 @@ LABEL_58:
           v22 = 0;
         }
 
-        v58 = v22;
-        if (v22 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
+        v59 = v22;
+        if (v22 && mlir::DenseElementsAttr::isSplat(&v59) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
         {
           v23 = v4[1];
           v47 = *v4;
@@ -6481,14 +6478,14 @@ LABEL_58:
           if (v24 == mlir::ArrayAttr::getValue(v56))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v47, v57);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, v62);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-            llvm::APFloat::~APFloat(v62);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, &v63);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+            llvm::APFloat::~APFloat(&v63);
             llvm::APFloat::~APFloat(v57);
-            if (v61 == 1)
+            if (v62 == 1)
             {
               v25 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-              v20 = mlir::DenseElementsAttr::get(v25, v26, &v58, 1);
+              v20 = mlir::DenseElementsAttr::get(v25, v26, &v59, 1);
               goto LABEL_35;
             }
 
@@ -6507,23 +6504,22 @@ LABEL_56:
           Type = mlir::ElementsAttr::getType(&v52);
           if (Type == mlir::ElementsAttr::getType(v51))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, v62);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, &v63);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v51, &v47);
-            if (v65 == 1 && v50 == 1)
+            if (v66 == 1 && v50 == 1)
             {
-              v44[0] = v62[0];
-              v44[1] = v62[1];
-              if (v62[0] == 1)
+              v44 = v63;
+              if (v63 == 1)
               {
-                v45 = v63;
+                v45 = v64;
               }
 
               else
               {
-                (*(*v63 + 16))(&v45);
+                (*(*v64 + 16))(&v45);
               }
 
-              v46 = v64;
+              v46 = v65;
               v41 = v47;
               if (v47 == 1)
               {
@@ -6536,27 +6532,27 @@ LABEL_56:
               }
 
               v43 = v49;
-              v58 = &v60;
-              v59 = 0x400000000;
+              v59 = &v61;
+              v60 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v52, v53);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v59, NumElements);
               v31 = mlir::ElementsAttr::getNumElements(v52, v53);
               if (v31)
               {
                 v32 = v31;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v44, v56);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v44, v56);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v41, v55);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v57, v56, v55);
                   llvm::APFloat::~APFloat(v55);
                   llvm::APFloat::~APFloat(v56);
-                  if (v57[32] != 1)
+                  if (v58 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v57);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v59, v57);
                   std::optional<llvm::APFloat>::~optional(v57);
                   ++v46;
                   ++v43;
@@ -6574,10 +6570,10 @@ LABEL_56:
               {
 LABEL_68:
                 v33 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-                v35 = mlir::DenseElementsAttr::get(v33, v34, v58, v59);
+                v35 = mlir::DenseElementsAttr::get(v33, v34, v59, v60);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v59);
               if ((v41 & 1) == 0)
               {
                 v36 = v42;
@@ -6588,7 +6584,7 @@ LABEL_68:
                 }
               }
 
-              if ((v44[0] & 1) == 0)
+              if ((v44 & 1) == 0)
               {
                 v37 = v45;
                 v45 = 0;
@@ -6618,18 +6614,18 @@ LABEL_68:
               }
             }
 
-            if (v65 != 1)
+            if (v66 != 1)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v62[0])
+            if (v63)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v40 = v63;
-            v63 = 0;
+            v40 = v64;
+            v64 = 0;
             if (!v40)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -6651,7 +6647,7 @@ LABEL_68:
 
 uint64_t mlir::arith::MinNumFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 72);
   v3 = *(v2 + 24);
   if (v3 == *(v2 + 56))
@@ -6661,10 +6657,10 @@ uint64_t mlir::arith::MinNumFOp::fold(uint64_t a1, uint64_t a2)
 
   v4 = *(a2 + 48);
   v5 = v4[1];
-  v58 = mlir::m_PosInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v59 = mlir::m_PosInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v5)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v5))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v59, v5))
     {
       v3 = *(*(*a1 + 72) + 24);
       return v3 | 4;
@@ -6689,11 +6685,11 @@ uint64_t mlir::arith::MinNumFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v9)
   {
-    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-    v59 = v12;
-    if (v58)
+    v59 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
+    v60 = v12;
+    if (v59)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v59);
       v9 = *v11;
       if (*v11)
       {
@@ -6701,8 +6697,8 @@ uint64_t mlir::arith::MinNumFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_18:
-      v58 = v9;
-      v59 = 0;
+      v59 = v9;
+      v60 = 0;
       if (!v9)
       {
         return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -6714,8 +6710,8 @@ LABEL_18:
 
   else
   {
-    v58 = 0;
     v59 = 0;
+    v60 = 0;
   }
 
   CallableForCallee = 0;
@@ -6727,15 +6723,15 @@ LABEL_18:
 
 LABEL_14:
   v9 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v9);
-  v58 = v9;
-  v59 = v14;
+  v59 = v9;
+  v60 = v14;
   if (!v9)
   {
     return v9 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_19:
-  v15 = mlir::CallOpInterface::getCallableForCallee(&v58);
+  v15 = mlir::CallOpInterface::getCallableForCallee(&v59);
   v9 = 0;
   if (!CallableForCallee || !v15 || v15 != CallableForCallee)
   {
@@ -6777,18 +6773,18 @@ LABEL_19:
         Value = mlir::AffineMapAttr::getValue(&v47);
         if (Value == mlir::AffineMapAttr::getValue(v56))
         {
-          mlir::FloatAttr::getValue(&v47, v57);
-          mlir::FloatAttr::getValue(v56, v62);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-          llvm::APFloat::~APFloat(v62);
+          mlir::FloatAttr::getValue(v57, &v47);
+          mlir::FloatAttr::getValue(&v63, v56);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+          llvm::APFloat::~APFloat(&v63);
           llvm::APFloat::~APFloat(v57);
-          if (v61 == 1)
+          if (v62 == 1)
           {
-            v20 = mlir::FloatAttr::get(v54, &v58);
+            v20 = mlir::FloatAttr::get(v54, &v59);
 LABEL_35:
             v21 = v20;
 LABEL_57:
-            std::optional<llvm::APFloat>::~optional(&v58);
+            std::optional<llvm::APFloat>::~optional(&v59);
 LABEL_58:
             v9 = v21;
             return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -6810,8 +6806,8 @@ LABEL_58:
           v22 = 0;
         }
 
-        v58 = v22;
-        if (v22 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
+        v59 = v22;
+        if (v22 && mlir::DenseElementsAttr::isSplat(&v59) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v4 + 1))
         {
           v23 = v4[1];
           v47 = *v4;
@@ -6820,14 +6816,14 @@ LABEL_58:
           if (v24 == mlir::ArrayAttr::getValue(v56))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v47, v57);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, v62);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v57, v62);
-            llvm::APFloat::~APFloat(v62);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v56, &v63);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v59, v57, &v63);
+            llvm::APFloat::~APFloat(&v63);
             llvm::APFloat::~APFloat(v57);
-            if (v61 == 1)
+            if (v62 == 1)
             {
               v25 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-              v20 = mlir::DenseElementsAttr::get(v25, v26, &v58, 1);
+              v20 = mlir::DenseElementsAttr::get(v25, v26, &v59, 1);
               goto LABEL_35;
             }
 
@@ -6846,23 +6842,22 @@ LABEL_56:
           Type = mlir::ElementsAttr::getType(&v52);
           if (Type == mlir::ElementsAttr::getType(v51))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, v62);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v52, &v63);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v51, &v47);
-            if (v65 == 1 && v50 == 1)
+            if (v66 == 1 && v50 == 1)
             {
-              v44[0] = v62[0];
-              v44[1] = v62[1];
-              if (v62[0] == 1)
+              v44 = v63;
+              if (v63 == 1)
               {
-                v45 = v63;
+                v45 = v64;
               }
 
               else
               {
-                (*(*v63 + 16))(&v45);
+                (*(*v64 + 16))(&v45);
               }
 
-              v46 = v64;
+              v46 = v65;
               v41 = v47;
               if (v47 == 1)
               {
@@ -6875,27 +6870,27 @@ LABEL_56:
               }
 
               v43 = v49;
-              v58 = &v60;
-              v59 = 0x400000000;
+              v59 = &v61;
+              v60 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v52, v53);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v59, NumElements);
               v31 = mlir::ElementsAttr::getNumElements(v52, v53);
               if (v31)
               {
                 v32 = v31;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v44, v56);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v44, v56);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v41, v55);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v57, v56, v55);
                   llvm::APFloat::~APFloat(v55);
                   llvm::APFloat::~APFloat(v56);
-                  if (v57[32] != 1)
+                  if (v58 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v57);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v59, v57);
                   std::optional<llvm::APFloat>::~optional(v57);
                   ++v46;
                   ++v43;
@@ -6913,10 +6908,10 @@ LABEL_56:
               {
 LABEL_68:
                 v33 = llvm::cast<mlir::ShapedType,mlir::Type>(&v54);
-                v35 = mlir::DenseElementsAttr::get(v33, v34, v58, v59);
+                v35 = mlir::DenseElementsAttr::get(v33, v34, v59, v60);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v59);
               if ((v41 & 1) == 0)
               {
                 v36 = v42;
@@ -6927,7 +6922,7 @@ LABEL_68:
                 }
               }
 
-              if ((v44[0] & 1) == 0)
+              if ((v44 & 1) == 0)
               {
                 v37 = v45;
                 v45 = 0;
@@ -6957,18 +6952,18 @@ LABEL_68:
               }
             }
 
-            if (v65 != 1)
+            if (v66 != 1)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v62[0])
+            if (v63)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v40 = v63;
-            v63 = 0;
+            v40 = v64;
+            v64 = 0;
             if (!v40)
             {
               return v9 & 0xFFFFFFFFFFFFFFFBLL;
@@ -7411,8 +7406,8 @@ LABEL_86:
     goto LABEL_86;
   }
 
-  mlir::IntegerAttr::getValue(&v58, &v65);
-  mlir::IntegerAttr::getValue(&v55, &__p);
+  mlir::IntegerAttr::getValue(&v65, &v58);
+  mlir::IntegerAttr::getValue(&__p, &v55);
   mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::MinSIOp::fold(mlir::arith::MinSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinSIOp::fold(mlir::arith::MinSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v73, &v65, &__p);
   if (v62 >= 0x41 && __p)
   {
@@ -7611,8 +7606,8 @@ LABEL_31:
         Value = mlir::AffineMapAttr::getValue(&v54);
         if (Value == mlir::AffineMapAttr::getValue(&v51))
         {
-          mlir::IntegerAttr::getValue(&v54, &v61);
-          mlir::IntegerAttr::getValue(&v51, &__p);
+          mlir::IntegerAttr::getValue(&v61, &v54);
+          mlir::IntegerAttr::getValue(&__p, &v51);
           mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::MinUIOp::fold(mlir::arith::MinUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinUIOp::fold(mlir::arith::MinUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(&v69, &v61, &__p);
           if (v58 >= 0x41 && __p)
           {
@@ -7872,13 +7867,13 @@ LABEL_15:
 
 uint64_t mlir::arith::MulFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 48);
   v4 = v3[1];
-  v57 = mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v58 = mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v4)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v57, v4))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v4))
     {
       return *(*(*a1 + 72) + 24) | 4;
     }
@@ -7902,11 +7897,11 @@ uint64_t mlir::arith::MulFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v7)
   {
-    v57 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-    v58 = v10;
-    if (v57)
+    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
+    v59 = v10;
+    if (v58)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v57);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
       v7 = *v9;
       if (*v9)
       {
@@ -7914,8 +7909,8 @@ uint64_t mlir::arith::MulFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_16:
-      v57 = v7;
-      v58 = 0;
+      v58 = v7;
+      v59 = 0;
       if (!v7)
       {
         return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -7927,8 +7922,8 @@ LABEL_16:
 
   else
   {
-    v57 = 0;
     v58 = 0;
+    v59 = 0;
   }
 
   CallableForCallee = 0;
@@ -7940,15 +7935,15 @@ LABEL_16:
 
 LABEL_12:
   v7 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-  v57 = v7;
-  v58 = v12;
+  v58 = v7;
+  v59 = v12;
   if (!v7)
   {
     return v7 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_17:
-  v13 = mlir::CallOpInterface::getCallableForCallee(&v57);
+  v13 = mlir::CallOpInterface::getCallableForCallee(&v58);
   v7 = 0;
   if (!CallableForCallee || !v13 || v13 != CallableForCallee)
   {
@@ -7990,14 +7985,14 @@ LABEL_17:
         Value = mlir::AffineMapAttr::getValue(&v46);
         if (Value == mlir::AffineMapAttr::getValue(v55))
         {
-          mlir::FloatAttr::getValue(&v46, v56);
-          mlir::FloatAttr::getValue(v55, v61);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-          llvm::APFloat::~APFloat(v61);
+          mlir::FloatAttr::getValue(v56, &v46);
+          mlir::FloatAttr::getValue(&v62, v55);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+          llvm::APFloat::~APFloat(&v62);
           llvm::APFloat::~APFloat(v56);
-          if (v60 == 1)
+          if (v61 == 1)
           {
-            v23 = mlir::FloatAttr::get(v53, &v57);
+            v23 = mlir::FloatAttr::get(v53, &v58);
             goto LABEL_46;
           }
 
@@ -8019,8 +8014,8 @@ LABEL_56:
           v18 = 0;
         }
 
-        v57 = v18;
-        if (v18 && mlir::DenseElementsAttr::isSplat(&v57) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+        v58 = v18;
+        if (v18 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
         {
           v19 = v3[1];
           v46 = *v3;
@@ -8029,18 +8024,18 @@ LABEL_56:
           if (v20 == mlir::ArrayAttr::getValue(v55))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v46, v56);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, v61);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-            llvm::APFloat::~APFloat(v61);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, &v62);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+            llvm::APFloat::~APFloat(&v62);
             llvm::APFloat::~APFloat(v56);
-            if (v60 == 1)
+            if (v61 == 1)
             {
               v21 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-              v23 = mlir::DenseElementsAttr::get(v21, v22, &v57, 1);
+              v23 = mlir::DenseElementsAttr::get(v21, v22, &v58, 1);
 LABEL_46:
               v25 = v23;
 LABEL_57:
-              std::optional<llvm::APFloat>::~optional(&v57);
+              std::optional<llvm::APFloat>::~optional(&v58);
 LABEL_58:
               v7 = v25;
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8059,23 +8054,22 @@ LABEL_58:
           Type = mlir::ElementsAttr::getType(&v51);
           if (Type == mlir::ElementsAttr::getType(v50))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, v61);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, &v62);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v50, &v46);
-            if (v64 == 1 && v49 == 1)
+            if (v65 == 1 && v49 == 1)
             {
-              v43[0] = v61[0];
-              v43[1] = v61[1];
-              if (v61[0] == 1)
+              v43 = v62;
+              if (v62 == 1)
               {
-                v44 = v62;
+                v44 = v63;
               }
 
               else
               {
-                (*(*v62 + 16))(&v44);
+                (*(*v63 + 16))(&v44);
               }
 
-              v45 = v63;
+              v45 = v64;
               v40 = v46;
               if (v46 == 1)
               {
@@ -8088,27 +8082,27 @@ LABEL_58:
               }
 
               v42 = v48;
-              v57 = &v59;
-              v58 = 0x400000000;
+              v58 = &v60;
+              v59 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v51, v52);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v57, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
               v33 = mlir::ElementsAttr::getNumElements(v51, v52);
               if (v33)
               {
                 v34 = v33;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v43, v55);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v43, v55);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v40, v54);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v56, v55, v54);
                   llvm::APFloat::~APFloat(v54);
                   llvm::APFloat::~APFloat(v55);
-                  if (v56[32] != 1)
+                  if (v57 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v57, v56);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v56);
                   std::optional<llvm::APFloat>::~optional(v56);
                   ++v45;
                   ++v42;
@@ -8126,10 +8120,10 @@ LABEL_58:
               {
 LABEL_76:
                 v35 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-                v37 = mlir::DenseElementsAttr::get(v35, v36, v57, v58);
+                v37 = mlir::DenseElementsAttr::get(v35, v36, v58, v59);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v57);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
               if ((v40 & 1) == 0)
               {
                 v38 = v41;
@@ -8141,7 +8135,7 @@ LABEL_76:
               }
 
               v7 = v37;
-              if ((v43[0] & 1) == 0)
+              if ((v43 & 1) == 0)
               {
                 v39 = v44;
                 v44 = 0;
@@ -8170,18 +8164,18 @@ LABEL_76:
               }
             }
 
-            if (v64 != 1)
+            if (v65 != 1)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v61[0])
+            if (v62)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v31 = v62;
-            v62 = 0;
+            v31 = v63;
+            v63 = 0;
             if (!v31)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8201,7 +8195,7 @@ LABEL_76:
   return v7 & 0xFFFFFFFFFFFFFFFBLL;
 }
 
-void mlir::arith::MulFOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
+void mlir::arith::MulFOp::getCanonicalizationPatterns(void *a1, mlir::StringAttr *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v4 = operator new(0x60uLL);
@@ -8219,7 +8213,7 @@ void mlir::arith::MulFOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
     }
 
 LABEL_14:
-    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), (v4 + 24), v5, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), v4 + 24, v5, 16);
     v4[22] = v4[22];
     v7 = a1[2];
     v6 = a1[3];
@@ -8342,13 +8336,13 @@ LABEL_27:
 
 uint64_t mlir::arith::DivFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 48);
   v4 = v3[1];
-  v57 = mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
+  v58 = mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke;
   if (v4)
   {
-    if (mlir::detail::constant_float_predicate_matcher::match(&v57, v4))
+    if (mlir::detail::constant_float_predicate_matcher::match(&v58, v4))
     {
       return *(*(*a1 + 72) + 24) | 4;
     }
@@ -8372,11 +8366,11 @@ uint64_t mlir::arith::DivFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v7)
   {
-    v57 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-    v58 = v10;
-    if (v57)
+    v58 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
+    v59 = v10;
+    if (v58)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v57);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v58);
       v7 = *v9;
       if (*v9)
       {
@@ -8384,8 +8378,8 @@ uint64_t mlir::arith::DivFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_16:
-      v57 = v7;
-      v58 = 0;
+      v58 = v7;
+      v59 = 0;
       if (!v7)
       {
         return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8397,8 +8391,8 @@ LABEL_16:
 
   else
   {
-    v57 = 0;
     v58 = 0;
+    v59 = 0;
   }
 
   CallableForCallee = 0;
@@ -8410,15 +8404,15 @@ LABEL_16:
 
 LABEL_12:
   v7 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v7);
-  v57 = v7;
-  v58 = v12;
+  v58 = v7;
+  v59 = v12;
   if (!v7)
   {
     return v7 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_17:
-  v13 = mlir::CallOpInterface::getCallableForCallee(&v57);
+  v13 = mlir::CallOpInterface::getCallableForCallee(&v58);
   v7 = 0;
   if (!CallableForCallee || !v13 || v13 != CallableForCallee)
   {
@@ -8460,14 +8454,14 @@ LABEL_17:
         Value = mlir::AffineMapAttr::getValue(&v46);
         if (Value == mlir::AffineMapAttr::getValue(v55))
         {
-          mlir::FloatAttr::getValue(&v46, v56);
-          mlir::FloatAttr::getValue(v55, v61);
-          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-          llvm::APFloat::~APFloat(v61);
+          mlir::FloatAttr::getValue(v56, &v46);
+          mlir::FloatAttr::getValue(&v62, v55);
+          mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+          llvm::APFloat::~APFloat(&v62);
           llvm::APFloat::~APFloat(v56);
-          if (v60 == 1)
+          if (v61 == 1)
           {
-            v23 = mlir::FloatAttr::get(v53, &v57);
+            v23 = mlir::FloatAttr::get(v53, &v58);
             goto LABEL_46;
           }
 
@@ -8489,8 +8483,8 @@ LABEL_56:
           v18 = 0;
         }
 
-        v57 = v18;
-        if (v18 && mlir::DenseElementsAttr::isSplat(&v57) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
+        v58 = v18;
+        if (v18 && mlir::DenseElementsAttr::isSplat(&v58) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v3 + 1))
         {
           v19 = v3[1];
           v46 = *v3;
@@ -8499,18 +8493,18 @@ LABEL_56:
           if (v20 == mlir::ArrayAttr::getValue(v55))
           {
             mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v46, v56);
-            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, v61);
-            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v57, v56, v61);
-            llvm::APFloat::~APFloat(v61);
+            mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v55, &v62);
+            mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v58, v56, &v62);
+            llvm::APFloat::~APFloat(&v62);
             llvm::APFloat::~APFloat(v56);
-            if (v60 == 1)
+            if (v61 == 1)
             {
               v21 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-              v23 = mlir::DenseElementsAttr::get(v21, v22, &v57, 1);
+              v23 = mlir::DenseElementsAttr::get(v21, v22, &v58, 1);
 LABEL_46:
               v25 = v23;
 LABEL_57:
-              std::optional<llvm::APFloat>::~optional(&v57);
+              std::optional<llvm::APFloat>::~optional(&v58);
 LABEL_58:
               v7 = v25;
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8529,23 +8523,22 @@ LABEL_58:
           Type = mlir::ElementsAttr::getType(&v51);
           if (Type == mlir::ElementsAttr::getType(v50))
           {
-            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, v61);
+            mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v51, &v62);
             mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v50, &v46);
-            if (v64 == 1 && v49 == 1)
+            if (v65 == 1 && v49 == 1)
             {
-              v43[0] = v61[0];
-              v43[1] = v61[1];
-              if (v61[0] == 1)
+              v43 = v62;
+              if (v62 == 1)
               {
-                v44 = v62;
+                v44 = v63;
               }
 
               else
               {
-                (*(*v62 + 16))(&v44);
+                (*(*v63 + 16))(&v44);
               }
 
-              v45 = v63;
+              v45 = v64;
               v40 = v46;
               if (v46 == 1)
               {
@@ -8558,27 +8551,27 @@ LABEL_58:
               }
 
               v42 = v48;
-              v57 = &v59;
-              v58 = 0x400000000;
+              v58 = &v60;
+              v59 = 0x400000000;
               NumElements = mlir::ElementsAttr::getNumElements(v51, v52);
-              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v57, NumElements);
+              llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v58, NumElements);
               v33 = mlir::ElementsAttr::getNumElements(v51, v52);
               if (v33)
               {
                 v34 = v33;
                 while (1)
                 {
-                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v43, v55);
+                  mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v43, v55);
                   mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v40, v54);
                   mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v56, v55, v54);
                   llvm::APFloat::~APFloat(v54);
                   llvm::APFloat::~APFloat(v55);
-                  if (v56[32] != 1)
+                  if (v57 != 1)
                   {
                     break;
                   }
 
-                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v57, v56);
+                  llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v58, v56);
                   std::optional<llvm::APFloat>::~optional(v56);
                   ++v45;
                   ++v42;
@@ -8596,10 +8589,10 @@ LABEL_58:
               {
 LABEL_76:
                 v35 = llvm::cast<mlir::ShapedType,mlir::Type>(&v53);
-                v37 = mlir::DenseElementsAttr::get(v35, v36, v57, v58);
+                v37 = mlir::DenseElementsAttr::get(v35, v36, v58, v59);
               }
 
-              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v57);
+              llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v58);
               if ((v40 & 1) == 0)
               {
                 v38 = v41;
@@ -8611,7 +8604,7 @@ LABEL_76:
               }
 
               v7 = v37;
-              if ((v43[0] & 1) == 0)
+              if ((v43 & 1) == 0)
               {
                 v39 = v44;
                 v44 = 0;
@@ -8640,18 +8633,18 @@ LABEL_76:
               }
             }
 
-            if (v64 != 1)
+            if (v65 != 1)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            if (v61[0])
+            if (v62)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
             }
 
-            v31 = v62;
-            v62 = 0;
+            v31 = v63;
+            v63 = 0;
             if (!v31)
             {
               return v7 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8671,7 +8664,7 @@ LABEL_76:
   return v7 & 0xFFFFFFFFFFFFFFFBLL;
 }
 
-void mlir::arith::DivFOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
+void mlir::arith::DivFOp::getCanonicalizationPatterns(void *a1, mlir::StringAttr *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v4 = operator new(0x60uLL);
@@ -8689,7 +8682,7 @@ void mlir::arith::DivFOp::getCanonicalizationPatterns(void *a1, uint64_t a2)
     }
 
 LABEL_14:
-    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), (v4 + 24), v5, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod((v4 + 20), v4 + 24, v5, 16);
     v4[22] = v4[22];
     v7 = a1[2];
     v6 = a1[3];
@@ -8812,7 +8805,7 @@ LABEL_27:
 
 unint64_t mlir::arith::RemFOp::fold(uint64_t a1, uint64_t a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 48);
   v3 = *v2;
   if (*v2 && *(*v3 + 136) == &mlir::detail::TypeIDResolver<mlir::ub::PoisonAttr,void>::id)
@@ -8830,11 +8823,11 @@ unint64_t mlir::arith::RemFOp::fold(uint64_t a1, uint64_t a2)
 
   if (v3)
   {
-    v54 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v3);
-    v55 = v6;
-    if (v54)
+    v55 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v3);
+    v56 = v6;
+    if (v55)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v54);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v55);
       v3 = *v5;
       if (*v5)
       {
@@ -8842,8 +8835,8 @@ unint64_t mlir::arith::RemFOp::fold(uint64_t a1, uint64_t a2)
       }
 
 LABEL_12:
-      v54 = v3;
-      v55 = 0;
+      v55 = v3;
+      v56 = 0;
       if (!v3)
       {
         return v3 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8855,8 +8848,8 @@ LABEL_12:
 
   else
   {
-    v54 = 0;
     v55 = 0;
+    v56 = 0;
   }
 
   CallableForCallee = 0;
@@ -8868,15 +8861,15 @@ LABEL_12:
 
 LABEL_8:
   v3 = llvm::DefaultDoCastIfPossible<mlir::TypedAttr,mlir::Attribute,llvm::CastInfo<mlir::TypedAttr,mlir::Attribute,void>>::doCastIfPossible(v3);
-  v54 = v3;
-  v55 = v8;
+  v55 = v3;
+  v56 = v8;
   if (!v3)
   {
     return v3 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
 LABEL_13:
-  v9 = mlir::CallOpInterface::getCallableForCallee(&v54);
+  v9 = mlir::CallOpInterface::getCallableForCallee(&v55);
   v3 = 0;
   if (!CallableForCallee || !v9 || v9 != CallableForCallee)
   {
@@ -8920,14 +8913,14 @@ LABEL_13:
     Value = mlir::AffineMapAttr::getValue(&v43);
     if (Value == mlir::AffineMapAttr::getValue(v52))
     {
-      mlir::FloatAttr::getValue(&v43, v53);
-      mlir::FloatAttr::getValue(v52, v58);
-      mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v54, v53, v58);
-      llvm::APFloat::~APFloat(v58);
+      mlir::FloatAttr::getValue(v53, &v43);
+      mlir::FloatAttr::getValue(&v59, v52);
+      mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v55, v53, &v59);
+      llvm::APFloat::~APFloat(&v59);
       llvm::APFloat::~APFloat(v53);
-      if (v57 == 1)
+      if (v58 == 1)
       {
-        v19 = mlir::FloatAttr::get(v50, &v54);
+        v19 = mlir::FloatAttr::get(v50, &v55);
         goto LABEL_42;
       }
 
@@ -8949,8 +8942,8 @@ LABEL_52:
     v14 = 0;
   }
 
-  v54 = v14;
-  if (v14 && mlir::DenseElementsAttr::isSplat(&v54) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v2 + 1))
+  v55 = v14;
+  if (v14 && mlir::DenseElementsAttr::isSplat(&v55) && llvm::isa<mlir::SplatElementsAttr,mlir::Attribute>(v2 + 1))
   {
     v15 = v2[1];
     v43 = *v2;
@@ -8959,18 +8952,18 @@ LABEL_52:
     if (v16 == mlir::ArrayAttr::getValue(v52))
     {
       mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(&v43, v53);
-      mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v52, v58);
-      mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v54, v53, v58);
-      llvm::APFloat::~APFloat(v58);
+      mlir::DenseElementsAttr::getSplatValue<llvm::APFloat>(v52, &v59);
+      mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(&v55, v53, &v59);
+      llvm::APFloat::~APFloat(&v59);
       llvm::APFloat::~APFloat(v53);
-      if (v57 == 1)
+      if (v58 == 1)
       {
         v17 = llvm::cast<mlir::ShapedType,mlir::Type>(&v50);
-        v19 = mlir::DenseElementsAttr::get(v17, v18, &v54, 1);
+        v19 = mlir::DenseElementsAttr::get(v17, v18, &v55, 1);
 LABEL_42:
         v21 = v19;
 LABEL_53:
-        std::optional<llvm::APFloat>::~optional(&v54);
+        std::optional<llvm::APFloat>::~optional(&v55);
 LABEL_54:
         v3 = v21;
         return v3 & 0xFFFFFFFFFFFFFFFBLL;
@@ -8989,23 +8982,22 @@ LABEL_50:
     return v3 & 0xFFFFFFFFFFFFFFFBLL;
   }
 
-  mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v48, v58);
+  mlir::ElementsAttr::try_value_begin<llvm::APFloat>(&v48, &v59);
   mlir::ElementsAttr::try_value_begin<llvm::APFloat>(v47, &v43);
-  if (v61 == 1 && v46 == 1)
+  if (v62 == 1 && v46 == 1)
   {
-    v40[0] = v58[0];
-    v40[1] = v58[1];
-    if (v58[0] == 1)
+    v40 = v59;
+    if (v59 == 1)
     {
-      v41 = v59;
+      v41 = v60;
     }
 
     else
     {
-      (*(*v59 + 16))(&v41);
+      (*(*v60 + 16))(&v41);
     }
 
-    v42 = v60;
+    v42 = v61;
     v37 = v43;
     if (v43 == 1)
     {
@@ -9018,27 +9010,27 @@ LABEL_50:
     }
 
     v39 = v45;
-    v54 = &v56;
-    v55 = 0x400000000;
+    v55 = &v57;
+    v56 = 0x400000000;
     NumElements = mlir::ElementsAttr::getNumElements(v48, v49);
-    llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v54, NumElements);
+    llvm::SmallVectorImpl<llvm::APFloat>::reserve(&v55, NumElements);
     v30 = mlir::ElementsAttr::getNumElements(v48, v49);
     if (v30)
     {
       v31 = v30;
       while (1)
       {
-        mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(v40, v52);
+        mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v40, v52);
         mlir::detail::ElementsAttrIterator<llvm::APFloat>::operator*(&v37, v51);
         mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(v53, v52, v51);
         llvm::APFloat::~APFloat(v51);
         llvm::APFloat::~APFloat(v52);
-        if (v53[32] != 1)
+        if (v54 != 1)
         {
           break;
         }
 
-        llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v54, v53);
+        llvm::SmallVectorTemplateBase<llvm::APFloat,false>::push_back(&v55, v53);
         std::optional<llvm::APFloat>::~optional(v53);
         ++v42;
         ++v39;
@@ -9056,10 +9048,10 @@ LABEL_50:
     {
 LABEL_72:
       v32 = llvm::cast<mlir::ShapedType,mlir::Type>(&v50);
-      v34 = mlir::DenseElementsAttr::get(v32, v33, v54, v55);
+      v34 = mlir::DenseElementsAttr::get(v32, v33, v55, v56);
     }
 
-    llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v54);
+    llvm::SmallVector<llvm::APFloat,1u>::~SmallVector(&v55);
     if ((v37 & 1) == 0)
     {
       v35 = v38;
@@ -9071,7 +9063,7 @@ LABEL_72:
     }
 
     v3 = v34;
-    if ((v40[0] & 1) == 0)
+    if ((v40 & 1) == 0)
     {
       v36 = v41;
       v41 = 0;
@@ -9100,10 +9092,10 @@ LABEL_72:
     }
   }
 
-  if (v61 == 1 && (v58[0] & 1) == 0)
+  if (v62 == 1 && (v59 & 1) == 0)
   {
-    v28 = v59;
-    v59 = 0;
+    v28 = v60;
+    v60 = 0;
     if (v28)
     {
       v21 = v3;
@@ -9142,8 +9134,8 @@ uint64_t mlir::arith::ExtUIOp::fold(uint64_t *a1, uint64_t a2)
     if (v8 == &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
     {
       __p = *v6;
-      mlir::IntegerAttr::getValue(&__p, v73);
-      llvm::APInt::zext(v73, v9, v75);
+      mlir::IntegerAttr::getValue(v73, &__p);
+      llvm::APInt::zext(v75, v73, v9);
       if (LODWORD(v73[1]) >= 0x41 && v73[0])
       {
         operator delete[](v73[0]);
@@ -9176,7 +9168,7 @@ uint64_t mlir::arith::ExtUIOp::fold(uint64_t *a1, uint64_t a2)
       *v73 = *v75;
       v74 = v76[0];
       mlir::DenseElementsAttr::IntElementIterator::operator*(v73, &__p);
-      llvm::APInt::zext(&__p, v9, v75);
+      llvm::APInt::zext(v75, &__p, v9);
       if (v69 >= 0x41 && __p)
       {
         operator delete[](__p);
@@ -9356,7 +9348,7 @@ LABEL_88:
           (*(*v69 + 24))(&v64);
         }
 
-        llvm::APInt::zext(&v64, v9, &v66);
+        llvm::APInt::zext(&v66, &v64, v9);
         if (v65 >= 0x41 && v64)
         {
           operator delete[](v64);

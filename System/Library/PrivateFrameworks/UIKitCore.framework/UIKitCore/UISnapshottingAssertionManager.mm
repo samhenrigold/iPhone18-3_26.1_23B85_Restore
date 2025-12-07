@@ -127,7 +127,7 @@ void __48__UISnapshottingAssertionManager_sharedInstance__block_invoke()
   }
 }
 
-uint64_t __62__UISnapshottingAssertionManager_executeIfNoActiveAssertions___block_invoke(uint64_t a1)
+void *__62__UISnapshottingAssertionManager_executeIfNoActiveAssertions___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 72) count];
   if (!result)

@@ -52,48 +52,58 @@ void __59__PUPickerActivityProgressController__setupAlertController__block_invok
 
 - (void)setMessage:(id)message
 {
-  messageCopy = message;
-  if (self->_message != messageCopy)
+  alertController = message;
+  v5 = alertController;
+  if (self->_message != alertController)
   {
-    v8 = messageCopy;
-    if (![(NSString *)messageCopy isEqualToString:?])
+    v8 = alertController;
+    alertController = [alertController isEqualToString:?];
+    v5 = v8;
+    if ((alertController & 1) == 0)
     {
-      v5 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       message = self->_message;
-      self->_message = v5;
+      self->_message = v6;
 
+      v5 = v8;
       alertController = self->_alertController;
       if (alertController)
       {
-        [(UIAlertController *)alertController setMessage:self->_message];
+        alertController = [alertController setMessage:self->_message];
+        v5 = v8;
       }
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](alertController, v5);
 }
 
 - (void)setTitle:(id)title
 {
-  titleCopy = title;
-  if (self->_title != titleCopy)
+  alertController = title;
+  v5 = alertController;
+  if (self->_title != alertController)
   {
-    v8 = titleCopy;
-    if (![(NSString *)titleCopy isEqualToString:?])
+    v8 = alertController;
+    alertController = [alertController isEqualToString:?];
+    v5 = v8;
+    if ((alertController & 1) == 0)
     {
-      v5 = [(NSString *)v8 copy];
+      v6 = [v8 copy];
       title = self->_title;
-      self->_title = v5;
+      self->_title = v6;
 
+      v5 = v8;
       alertController = self->_alertController;
       if (alertController)
       {
-        [(UIAlertController *)alertController setTitle:self->_title];
+        alertController = [alertController setTitle:self->_title];
+        v5 = v8;
       }
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](alertController, v5);
 }
 
 - (void)setProgress:(id)progress

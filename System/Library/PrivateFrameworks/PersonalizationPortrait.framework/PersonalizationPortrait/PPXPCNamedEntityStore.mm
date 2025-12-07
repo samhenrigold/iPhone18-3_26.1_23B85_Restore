@@ -7,6 +7,7 @@
 - (BOOL)deleteAllNamedEntitiesFromSourcesWithBundleId:(id)id groupIds:(id)ids deletedCount:(unint64_t *)count error:(id *)error;
 - (BOOL)donateLocationNamedEntities:(id)entities bundleId:(id)id groupId:(id)groupId error:(id *)error;
 - (BOOL)donateMapItem:(id)item forPlaceName:(id)name error:(id *)error;
+- (BOOL)donateNamedEntities:(id)entities source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score error:(id *)error;
 - (BOOL)flushDonationsWithError:(id *)error;
 - (BOOL)iterNamedEntityRecordsWithQuery:(id)query error:(id *)error block:(id)block;
 - (BOOL)iterRankedNamedEntitiesWithQuery:(id)query error:(id *)error block:(id)block;
@@ -112,41 +113,39 @@ uint64_t __53__PPXPCNamedEntityStore_registerFeedback_completion___block_invoke(
 
 void __50__PPXPCNamedEntityStore_unloadMonitoringDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [a2 objectEnumerator];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) monitoringHelper];
+        v8 = [*(*(&v9 + 1) + 8 * v7) monitoringHelper];
         [v8 unloadDelegate:*(a1 + 32)];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)loadNamedEntityRecordsAndMonitorChangesWithDelegate:(id)delegate error:(id *)error
@@ -207,36 +206,34 @@ void __89__PPXPCNamedEntityStore_loadNamedEntityRecordsAndMonitorChangesWithDele
 
 void __89__PPXPCNamedEntityStore_loadNamedEntityRecordsAndMonitorChangesWithDelegate_query_error___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = pp_entities_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A7FD3000, v3, OS_LOG_TYPE_DEFAULT, "loadNamedEntityRecordsAndMonitorChanges change block being called for query %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1A7FD3000, v3, OS_LOG_TYPE_DEFAULT, "loadNamedEntityRecordsAndMonitorChanges change block being called for query %@", &v5, 0xCu);
   }
 
   [WeakRetained _sendChangesToDelegatesForQuery:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __89__PPXPCNamedEntityStore_loadNamedEntityRecordsAndMonitorChangesWithDelegate_query_error___block_invoke_52(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = pp_entities_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1A7FD3000, v3, OS_LOG_TYPE_DEFAULT, "loadNamedEntityRecordsAndMonitorChanges invalidation block being called for query %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1A7FD3000, v3, OS_LOG_TYPE_DEFAULT, "loadNamedEntityRecordsAndMonitorChanges invalidation block being called for query %@", &v5, 0xCu);
   }
 
   [WeakRetained _sendResetToAllDelegatesForQuery:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadNamedEntityRecordsForQuery:(id)query withDelegate:(id)delegate
@@ -272,7 +269,7 @@ void __89__PPXPCNamedEntityStore_loadNamedEntityRecordsAndMonitorChangesWithDele
 
 id __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_opt_new();
   v4 = +[PPNamedEntityReadOnlyClient sharedInstance];
@@ -292,19 +289,19 @@ id __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke(ui
   v8 = [WeakRetained _lastCallDateForQuery:*(a1 + 32)];
   [v5 setFromDate:v8];
 
-  v23 = 0;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke_2;
-  v21 = &unk_1E77F6DC8;
+  v22 = 0;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke_2;
+  v20 = &unk_1E77F6DC8;
   v9 = v3;
-  v22 = v9;
-  v10 = [v4 namedEntityRecordsWithQuery:v5 error:&v23 handleBatch:&v18];
-  v11 = v23;
+  v21 = v9;
+  v10 = [v4 namedEntityRecordsWithQuery:v5 error:&v22 handleBatch:&v17];
+  v11 = v22;
 
   if (v10)
   {
-    [WeakRetained _setLastCallDateForQuery:{*(a1 + 32), v18, v19, v20, v21}];
+    [WeakRetained _setLastCallDateForQuery:{*(a1 + 32), v17, v18, v19, v20}];
   }
 
   else
@@ -312,27 +309,26 @@ id __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke(ui
     v12 = pp_entities_log_handle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 138412546;
-      v25 = v17;
-      v26 = 2112;
-      v27 = v11;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v11;
       _os_log_error_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_ERROR, "namedEntityRecordsWithQuery query: %@, returned error: %@", buf, 0x16u);
     }
   }
 
-  v13 = v22;
+  v13 = v21;
   v14 = v9;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
-uint64_t __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke_2(uint64_t result, uint64_t a2, _BYTE *a3)
+id *__57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_invoke_2(id *result, uint64_t a2, _BYTE *a3)
 {
   if ((*a3 & 1) == 0)
   {
-    return [*(result + 32) addObjectsFromArray:a2];
+    return [result[4] addObjectsFromArray:a2];
   }
 
   return result;
@@ -370,36 +366,36 @@ uint64_t __57__PPXPCNamedEntityStore__sendChangesToDelegatesForQuery___block_inv
 
 id __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v5 = pp_entities_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(a1 + 32);
+    v13 = *(a1 + 32);
     *buf = 138412546;
-    v23 = v3;
-    v24 = 2112;
-    v25 = v14;
+    v22 = v3;
+    v23 = 2112;
+    v24 = v13;
     _os_log_debug_impl(&dword_1A7FD3000, v5, OS_LOG_TYPE_DEBUG, "calling rankedNamedEntitiesWithQuery for delegate %@ and query %@", buf, 0x16u);
   }
 
   v6 = +[PPNamedEntityReadOnlyClient sharedInstance];
   v7 = [*(a1 + 32) copyForMonitoring];
-  v21 = 0;
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke_47;
-  v19 = &unk_1E77F6DC8;
+  v20 = 0;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke_47;
+  v18 = &unk_1E77F6DC8;
   v8 = v4;
-  v20 = v8;
-  v9 = [v6 rankedNamedEntitiesWithQuery:v7 error:&v21 handleBatch:&v16];
-  v10 = v21;
+  v19 = v8;
+  v9 = [v6 rankedNamedEntitiesWithQuery:v7 error:&v20 handleBatch:&v15];
+  v10 = v20;
 
   if (v9)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    [WeakRetained _setLastCallDateForQuery:*(a1 + 32), v16, v17, v18, v19];
+    [WeakRetained _setLastCallDateForQuery:*(a1 + 32), v15, v16, v17, v18];
   }
 
   else
@@ -407,50 +403,48 @@ id __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke(uint64_t 
     WeakRetained = pp_entities_log_handle();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
+      v14 = *(a1 + 32);
       *buf = 138412802;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v3;
-      v26 = 2112;
-      v27 = v15;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v3;
+      v25 = 2112;
+      v26 = v14;
       _os_log_error_impl(&dword_1A7FD3000, WeakRetained, OS_LOG_TYPE_ERROR, "error %@ during rankedNamedEntitiesWithQuery for delegate %@ and query %@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 void __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke_47(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
+          v12 = *(*(&v17 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           v14 = *(a1 + 32);
           v15 = [v12 item];
@@ -462,14 +456,12 @@ void __50__PPXPCNamedEntityStore__recordGeneratorForQuery___block_invoke_47(uint
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_monitoringHelperForQuery:(id)query createIfNeeded:(BOOL)needed
@@ -690,15 +682,69 @@ void __47__PPXPCNamedEntityStore__lastCallDateForQuery___block_invoke(uint64_t a
   return error;
 }
 
+- (BOOL)donateNamedEntities:(id)entities source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score error:(id *)error
+{
+  syncCopy = sync;
+  entitiesCopy = entities;
+  sourceCopy = source;
+  v17 = sourceCopy;
+  if (!entitiesCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPXPCNamedEntityStore.m" lineNumber:173 description:{@"Invalid parameter not satisfying: %@", @"entities"}];
+
+    if (v17)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_11:
+    currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PPXPCNamedEntityStore.m" lineNumber:174 description:{@"Invalid parameter not satisfying: %@", @"source"}];
+
+    goto LABEL_3;
+  }
+
+  if (!sourceCopy)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_3:
+  v18 = pp_entities_signpost_handle();
+  v19 = os_signpost_id_generate(v18);
+
+  v20 = pp_entities_signpost_handle();
+  v21 = v20;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v19, "PPXPCNamedEntityStore.donateNamedEntities", "", buf, 2u);
+  }
+
+  v22 = +[PPNamedEntityReadWriteClient sharedInstance];
+  v23 = [v22 donateNamedEntities:entitiesCopy source:v17 algorithm:algorithm cloudSync:syncCopy sentimentScore:error error:score];
+
+  v24 = pp_entities_signpost_handle();
+  v25 = v24;
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  {
+    *v29 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A7FD3000, v25, OS_SIGNPOST_INTERVAL_END, v19, "PPXPCNamedEntityStore.donateNamedEntities", "", v29, 2u);
+  }
+
+  return v23;
+}
+
 - (id)namedEntityRecordsWithQuery:(id)query error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v6 = objc_opt_new();
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v7 = pp_entities_signpost_handle();
   v8 = os_signpost_id_generate(v7);
 
@@ -711,14 +757,14 @@ void __47__PPXPCNamedEntityStore__lastCallDateForQuery___block_invoke(uint64_t a
   }
 
   v11 = +[PPNamedEntityReadOnlyClient sharedInstance];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __59__PPXPCNamedEntityStore_namedEntityRecordsWithQuery_error___block_invoke;
-  v28[3] = &unk_1E77F6748;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __59__PPXPCNamedEntityStore_namedEntityRecordsWithQuery_error___block_invoke;
+  v27[3] = &unk_1E77F6748;
   v12 = v6;
-  v29 = v12;
-  v30 = &v32;
-  v13 = [v11 namedEntityRecordsWithQuery:queryCopy error:error handleBatch:v28];
+  v28 = v12;
+  v29 = &v31;
+  v13 = [v11 namedEntityRecordsWithQuery:queryCopy error:error handleBatch:v27];
 
   v14 = pp_entities_signpost_handle();
   v15 = v14;
@@ -731,29 +777,29 @@ void __47__PPXPCNamedEntityStore__lastCallDateForQuery___block_invoke(uint64_t a
   if (v13)
   {
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
-    v17 = [v16 initWithCapacity:v33[3]];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v17 = [v16 initWithCapacity:v32[3]];
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = v12;
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
     if (v19)
     {
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v17 addObjectsFromArray:{*(*(&v24 + 1) + 8 * i), v24}];
+          [v17 addObjectsFromArray:{*(*(&v23 + 1) + 8 * i), v23}];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
       while (v19);
@@ -765,8 +811,7 @@ void __47__PPXPCNamedEntityStore__lastCallDateForQuery___block_invoke(uint64_t a
     v17 = 0;
   }
 
-  _Block_object_dispose(&v32, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 
   return v17;
 }
@@ -818,31 +863,30 @@ void __59__PPXPCNamedEntityStore_namedEntityRecordsWithQuery_error___block_invok
 
 void __69__PPXPCNamedEntityStore_iterNamedEntityRecordsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -851,7 +895,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -862,19 +906,17 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)rankedNamedEntitiesWithQuery:(id)query error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v6 = objc_opt_new();
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   v7 = pp_entities_signpost_handle();
   v8 = os_signpost_id_generate(v7);
 
@@ -887,14 +929,14 @@ LABEL_4:
   }
 
   v11 = +[PPNamedEntityReadOnlyClient sharedInstance];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __60__PPXPCNamedEntityStore_rankedNamedEntitiesWithQuery_error___block_invoke;
-  v28[3] = &unk_1E77F6748;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __60__PPXPCNamedEntityStore_rankedNamedEntitiesWithQuery_error___block_invoke;
+  v27[3] = &unk_1E77F6748;
   v12 = v6;
-  v29 = v12;
-  v30 = &v32;
-  v13 = [v11 rankedNamedEntitiesWithQuery:queryCopy error:error handleBatch:v28];
+  v28 = v12;
+  v29 = &v31;
+  v13 = [v11 rankedNamedEntitiesWithQuery:queryCopy error:error handleBatch:v27];
 
   v14 = pp_entities_signpost_handle();
   v15 = v14;
@@ -907,29 +949,29 @@ LABEL_4:
   if (v13)
   {
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
-    v17 = [v16 initWithCapacity:v33[3]];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v17 = [v16 initWithCapacity:v32[3]];
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = v12;
-    v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
     if (v19)
     {
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          [v17 addObjectsFromArray:{*(*(&v24 + 1) + 8 * i), v24}];
+          [v17 addObjectsFromArray:{*(*(&v23 + 1) + 8 * i), v23}];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
       while (v19);
@@ -941,8 +983,7 @@ LABEL_4:
     v17 = 0;
   }
 
-  _Block_object_dispose(&v32, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v31, 8);
 
   return v17;
 }
@@ -994,31 +1035,30 @@ void __60__PPXPCNamedEntityStore_rankedNamedEntitiesWithQuery_error___block_invo
 
 void __70__PPXPCNamedEntityStore_iterRankedNamedEntitiesWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -1027,7 +1067,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -1038,8 +1078,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

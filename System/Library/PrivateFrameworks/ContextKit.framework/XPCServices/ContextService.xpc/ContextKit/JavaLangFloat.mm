@@ -27,7 +27,7 @@
 
 - (JavaLangFloat)initWithNSString:(id)string
 {
-  JavaLangFloat_parseFloatWithNSString_(string);
+  JavaLangFloat_parseFloatWithNSString_(string, a2);
   self->value_ = v4;
   return self;
 }
@@ -163,7 +163,6 @@
 
 - (BOOL)isNaN
 {
-  value = self->value_;
   if ((atomic_load_explicit(JavaLangFloat__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10025EE68();

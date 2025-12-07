@@ -163,7 +163,7 @@ uint64_t __120__SBIconListViewDominoPivotAnimator_iconListView_wantsAnimatedLayo
   return [*(a1 + 48) dominoPivotAnimator:*(a1 + 56) didLayOutIconView:*(a1 + 32)];
 }
 
-uint64_t __120__SBIconListViewDominoPivotAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
+void *__120__SBIconListViewDominoPivotAnimator_iconListView_wantsAnimatedLayoutForIconView_withParameters_alongsideAnimationBlock___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setCenter:{*(a1 + 40), *(a1 + 48)}];
   [*(a1 + 32) setIconContentScale:*(a1 + 56)];

@@ -53,44 +53,44 @@
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   completionCopy = completion;
   v7 = pp_connections_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    *v48 = 138739971;
-    v49 = feedbackCopy;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPConnections: registerFeedback: %{sensitive}@", v48, 0xCu);
+    *v47 = 138739971;
+    v48 = feedbackCopy;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPConnections: registerFeedback: %{sensitive}@", v47, 0xCu);
   }
 
   v8 = feedbackCopy;
   if (self)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v35 = v8;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v34 = v8;
     obj = [v8 feedbackItems];
-    v9 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v9 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (!v9)
     {
       goto LABEL_39;
     }
 
-    v10 = *v39;
+    v10 = *v38;
     v11 = *MEMORY[0x277D3A6A0];
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         nameToIdentifierMap = self->_nameToIdentifierMap;
         itemString = [v13 itemString];
         v16 = [(NSCache *)nameToIdentifierMap objectForKey:itemString];
@@ -105,30 +105,30 @@
             goto LABEL_37;
           }
 
-          v42 = 0;
-          v43 = &v42;
-          v44 = 0x2050000000;
+          v41 = 0;
+          v42 = &v41;
+          v43 = 0x2050000000;
           v19 = getAFAnalyticsClass_softClass;
-          v45 = getAFAnalyticsClass_softClass;
+          v44 = getAFAnalyticsClass_softClass;
           if (!getAFAnalyticsClass_softClass)
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v51 = __getAFAnalyticsClass_block_invoke;
-            v52 = &unk_2789792D0;
-            v53 = &v42;
+            v50 = __getAFAnalyticsClass_block_invoke;
+            v51 = &unk_2789792D0;
+            v52 = &v41;
             __getAFAnalyticsClass_block_invoke(&buf);
-            v19 = v43[3];
+            v19 = v42[3];
           }
 
           v20 = v19;
-          _Block_object_dispose(&v42, 8);
+          _Block_object_dispose(&v41, 8);
           sharedAnalytics = [v19 sharedAnalytics];
           if (sharedAnalytics)
           {
-            v46 = @"identifier";
-            v47 = v16;
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+            v45 = @"identifier";
+            v46 = v16;
+            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
             v23 = pp_connections_log_handle();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
@@ -157,7 +157,7 @@
                 v29 = pp_default_log_handle();
                 if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
                 {
-                  clientIdentifier = [v35 clientIdentifier];
+                  clientIdentifier = [v34 clientIdentifier];
                   LODWORD(buf) = 138412290;
                   *(&buf + 4) = clientIdentifier;
                   _os_log_fault_impl(&dword_23224A000, v29, OS_LOG_TYPE_FAULT, "PPConnections: registerFeedback: received feedback of unknown type from %@", &buf, 0xCu);
@@ -205,12 +205,12 @@
 LABEL_37:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v9 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
       if (!v9)
       {
 LABEL_39:
 
-        v8 = v35;
+        v8 = v34;
         break;
       }
     }
@@ -226,34 +226,32 @@ LABEL_39:
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)recentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set timeout:(unint64_t)timeout error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v9 = [(PPConnectionsPredictionStore *)self->_predictionStore recentLocationsForConsumer:consumer criteria:criteria limit:limit explanationSet:set timeout:timeout error:error];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     v13 = *MEMORY[0x277D3A6A0];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         originatingBundleID = [v15 originatingBundleID];
         v17 = [originatingBundleID isEqualToString:v13];
 
@@ -271,13 +269,11 @@ LABEL_39:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

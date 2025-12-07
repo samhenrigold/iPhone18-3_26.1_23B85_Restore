@@ -33,28 +33,27 @@
 
 BOOL __35__ATXIdleTimeEndAnchor_filterBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
-    v5 = [v4 endTime];
-    v6 = [v4 startTime];
+    v3 = v2;
+    v4 = [v3 endTime];
+    v5 = [v3 startTime];
 
-    [v5 timeIntervalSinceDate:v6];
-    v8 = v7;
+    [v4 timeIntervalSinceDate:v5];
+    v7 = v6;
 
-    v9 = *(a1 + 32);
     [objc_opt_class() minimumSecondsForBeingIdle];
-    v11 = v8 >= v10;
+    v9 = v7 >= v8;
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 + (id)fetchAnchorOccurrencesBetweenStartDate:(id)date endDate:(id)endDate
@@ -92,29 +91,29 @@ BOOL __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate__
   v2 = [a2 endDate];
   v3 = [_ATXActionUtils localHourOfDayFromDate:v2];
 
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = __atxlog_handle_anchor(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_1();
   }
 
-  v5 = v3 - 4;
-  v6 = __atxlog_handle_anchor();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
-  if (v5 >= 8)
+  v6 = v3 - 4;
+  v8 = __atxlog_handle_anchor(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  if (v6 >= 8)
   {
-    if (v7)
+    if (v9)
     {
       __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_2();
     }
   }
 
-  else if (v7)
+  else if (v9)
   {
     __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_3();
   }
 
-  return v5 < 8;
+  return v6 < 8;
 }
 
 + (id)predicateForContextStoreRegistration
@@ -137,31 +136,31 @@ BOOL __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate__
   v2 = objc_opt_new();
   v3 = [_ATXActionUtils localHourOfDayFromDate:v2];
 
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = __atxlog_handle_anchor(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[ATXIdleTimeEndAnchor shouldProcessContextStoreNotification];
   }
 
-  v5 = v3 - 4;
-  v6 = __atxlog_handle_anchor();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
-  v8 = v5 >= 8;
-  v9 = v5 < 8;
-  if (v8)
+  v6 = v3 - 4;
+  v8 = __atxlog_handle_anchor(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  v10 = v6 >= 8;
+  v11 = v6 < 8;
+  if (v10)
   {
-    if (v7)
+    if (v9)
     {
       +[ATXIdleTimeEndAnchor shouldProcessContextStoreNotification];
     }
   }
 
-  else if (v7)
+  else if (v9)
   {
     +[ATXIdleTimeEndAnchor shouldProcessContextStoreNotification];
   }
 
-  return v9;
+  return v11;
 }
 
 + (id)sampleEvent
@@ -172,14 +171,6 @@ BOOL __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate__
   v5 = [(ATXScreenLockStateDuetEvent *)v2 initWithScreenLockState:0 startDate:v3 endDate:v4];
 
   return v5;
-}
-
-void __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__ATXIdleTimeEndAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_2()

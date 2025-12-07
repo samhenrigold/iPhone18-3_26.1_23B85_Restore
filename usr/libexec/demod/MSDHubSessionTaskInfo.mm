@@ -36,8 +36,8 @@
 
   if (!hmacKey)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v4);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000D1160();
     }
@@ -45,50 +45,50 @@
     goto LABEL_10;
   }
 
-  v4 = [AluminiumAuthenticator alloc];
+  v5 = [AluminiumAuthenticator alloc];
   hmacKey2 = [(MSDHubSessionTaskInfo *)self hmacKey];
-  v6 = [(AluminiumAuthenticator *)v4 initWithASCIIEncodedKey:hmacKey2];
+  v7 = [(AluminiumAuthenticator *)v5 initWithASCIIEncodedKey:hmacKey2];
 
-  if (!v6)
+  if (!v7)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000D1124();
     }
 
 LABEL_10:
-    v6 = 0;
-    v11 = 0;
     v7 = 0;
+    v13 = 0;
+    v9 = 0;
 LABEL_13:
 
-    v12 = 0;
+    v15 = 0;
     goto LABEL_5;
   }
 
-  v7 = [NSSet setWithObjects:@"X-Apple-OTA-UDID", @"X-Apple-HMAC-Sent-Timestamp", @"Host", 0];
+  v9 = [NSSet setWithObjects:@"X-Apple-OTA-UDID", @"X-Apple-HMAC-Sent-Timestamp", @"Host", 0];
   request = [(MSDSessionTaskInfo *)self request];
   postData = [(MSDSessionTaskInfo *)self postData];
-  v15 = 0;
-  v10 = [(AluminiumAuthenticator *)v6 addAuthenticationHeadersToRequest:request includedHeaders:v7 body:postData algorithm:0 error:&v15];
-  v11 = v15;
+  v18 = 0;
+  v12 = [(AluminiumAuthenticator *)v7 addAuthenticationHeadersToRequest:request includedHeaders:v9 body:postData algorithm:0 error:&v18];
+  v13 = v18;
 
-  if ((v10 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D1094(v11);
+      sub_1000D1094(v13);
     }
 
     goto LABEL_13;
   }
 
-  v12 = 1;
+  v15 = 1;
 LABEL_5:
 
-  return v12;
+  return v15;
 }
 
 - (id)getRequestForTimeout:(double)timeout
@@ -100,11 +100,11 @@ LABEL_5:
     server = [(MSDHubSessionTaskInfo *)self server];
     port = [(MSDHubSessionTaskInfo *)self port];
     endpoint = [(MSDHubSessionTaskInfo *)self endpoint];
-    v9 = [NSString stringWithFormat:@"https://%@:%@%@", server, port, endpoint];
-    v10 = [NSURL URLWithString:v9];
+    v10 = [NSString stringWithFormat:@"https://%@:%@%@", server, port, endpoint];
+    v11 = [NSURL URLWithString:v10];
 
-    v11 = [[NSMutableURLRequest alloc] initWithURL:v10 cachePolicy:1 timeoutInterval:timeout];
-    [(MSDSessionTaskInfo *)self setRequest:v11];
+    v12 = [[NSMutableURLRequest alloc] initWithURL:v11 cachePolicy:1 timeoutInterval:timeout];
+    [(MSDSessionTaskInfo *)self setRequest:v12];
 
     postData = [(MSDSessionTaskInfo *)self postData];
 
@@ -143,25 +143,25 @@ LABEL_5:
 
     else
     {
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = sub_100063A54(v18);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 0;
-        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Must specify device udid in request info", v23, 2u);
+        *v25 = 0;
+        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Must specify device udid in request info", v25, 2u);
       }
     }
   }
 
   else
   {
-    v21 = sub_100063A54();
-    if (sub_1000083A0(v21))
+    v23 = sub_100063A54(v6);
+    if (sub_1000083A0(v23))
     {
       *buf = 0;
       _os_log_error_impl(&_mh_execute_header, 0, OS_LOG_TYPE_ERROR, "Must specify device udid in request info", buf, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   request5 = 0;

@@ -7,7 +7,7 @@
 
 + (id)secureRandomZeroingDataWithLength:(unint64_t)length
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = NSRandomData();
   v6 = 0;
   if (!v5)
@@ -19,18 +19,16 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2048;
+      v13 = v10;
+      v14 = 2048;
       lengthCopy = length;
-      v17 = 2112;
-      v18 = v6;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not generate random data of length %lu: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

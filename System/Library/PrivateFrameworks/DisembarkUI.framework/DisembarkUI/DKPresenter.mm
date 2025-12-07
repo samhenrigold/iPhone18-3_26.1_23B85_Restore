@@ -89,7 +89,7 @@ void __85__DKPresenter_presentUsingParentViewController_configuration_willPresen
 
 + (void)presentInSettings
 {
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

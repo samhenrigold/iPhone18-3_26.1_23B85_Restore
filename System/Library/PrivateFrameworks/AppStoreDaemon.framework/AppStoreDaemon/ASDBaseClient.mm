@@ -31,7 +31,7 @@
 
 - (BOOL)_clientHasEntitlement:(uint64_t)entitlement
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (entitlement)
   {
@@ -45,11 +45,11 @@
       {
         v11 = objc_opt_class();
         *buf = 138412802;
-        v18 = v11;
-        v19 = 2112;
-        v20 = v3;
-        v21 = 2112;
-        v22 = error;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v3;
+        v20 = 2112;
+        v21 = error;
         v12 = v11;
         _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: Unable to get entitlements: %@ error: %@", buf, 0x20u);
 
@@ -68,11 +68,11 @@ LABEL_6:
         {
           v9 = objc_opt_class();
           *buf = 138412802;
-          v18 = v9;
-          v19 = 2112;
-          v20 = v3;
-          v21 = 1024;
-          LODWORD(v22) = v8;
+          v17 = v9;
+          v18 = 2112;
+          v19 = v3;
+          v20 = 1024;
+          LODWORD(v21) = v8;
           v10 = v9;
           _os_log_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@]: We have the entitlement: %@ result: %d", buf, 0x1Cu);
         }
@@ -90,10 +90,10 @@ LABEL_17:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v18 = objc_opt_class();
-      v19 = 2112;
-      v20 = v3;
-      v15 = v18;
+      v17 = objc_opt_class();
+      v18 = 2112;
+      v19 = v3;
+      v14 = v17;
       _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: No task for entitlement: %@", buf, 0x16u);
     }
   }
@@ -101,13 +101,12 @@ LABEL_17:
   v8 = 0;
 LABEL_18:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (uint64_t)_clientHasASDEntitlement:(uint64_t)entitlement
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (entitlement)
   {
@@ -121,11 +120,11 @@ LABEL_18:
       {
         v11 = objc_opt_class();
         *buf = 138412802;
-        v18 = v11;
-        v19 = 2112;
-        v20 = v3;
-        v21 = 2112;
-        v22 = error;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v3;
+        v20 = 2112;
+        v21 = error;
         v12 = v11;
         _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: Unable to get entitlements: %@ error: %@", buf, 0x20u);
 
@@ -153,11 +152,11 @@ LABEL_6:
         {
           v9 = objc_opt_class();
           *buf = 138412802;
-          v18 = v9;
-          v19 = 2112;
-          v20 = v3;
-          v21 = 1024;
-          LODWORD(v22) = v8;
+          v17 = v9;
+          v18 = 2112;
+          v19 = v3;
+          v20 = 1024;
+          LODWORD(v21) = v8;
           v10 = v9;
           _os_log_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@]: Results for entitlement: %@ result: %d", buf, 0x1Cu);
         }
@@ -175,10 +174,10 @@ LABEL_17:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v18 = objc_opt_class();
-      v19 = 2112;
-      v20 = v3;
-      v15 = v18;
+      v17 = objc_opt_class();
+      v18 = 2112;
+      v19 = v3;
+      v14 = v17;
       _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: No task for entitlement: %@", buf, 0x16u);
     }
   }
@@ -186,7 +185,6 @@ LABEL_17:
   v8 = 0;
 LABEL_18:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

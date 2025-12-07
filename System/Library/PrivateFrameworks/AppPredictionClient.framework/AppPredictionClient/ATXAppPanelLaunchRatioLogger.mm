@@ -63,10 +63,10 @@
     v8 = &unk_1F3E60630;
   }
 
-  v9 = __atxlog_handle_metrics();
+  v9 = __atxlog_handle_metrics(v6);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    +[ATXAppPanelLaunchRatioLogger logNonAppPanelAppLaunchFromDockWithUserDefaults:];
+    [ATXAppPanelLaunchRatioLogger logNonAppPanelAppLaunchFromDockWithUserDefaults:self];
   }
 
   [v5 setObject:v8 forKey:@"dockLaunches"];
@@ -75,7 +75,7 @@
 
 + (void)logNonAppPanelAppLaunchWithSBPageIndex:(unint64_t)index userDefaults:(id)defaults
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   defaultsCopy = defaults;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
   v8 = [self _getOrCreateDataDictionaryFromDefaults:defaultsCopy];
@@ -97,21 +97,22 @@
 
   else
   {
-    v14 = [v13 initWithUnsignedInteger:1];
+    v15 = [v13 initWithUnsignedInteger:1];
+    v14 = v15;
   }
 
-  v15 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = __atxlog_handle_metrics(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = 138412802;
-    v20 = v18;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_debug_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEBUG, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new static app launch count of %@ with pageIndex: %@", &v19, 0x20u);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = 138412802;
+    v21 = v19;
+    v22 = 2112;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_debug_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEBUG, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new static app launch count of %@ with pageIndex: %@", &v20, 0x20u);
   }
 
   [v11 setObject:v14 forKey:@"staticAppLaunches"];
@@ -123,7 +124,7 @@
 
 + (void)logAppPanelAppLaunchWithSBPageIndex:(unint64_t)index userDefaults:(id)defaults
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   defaultsCopy = defaults;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
   v8 = [self _getOrCreateDataDictionaryFromDefaults:defaultsCopy];
@@ -145,21 +146,22 @@
 
   else
   {
-    v14 = [v13 initWithUnsignedInteger:1];
+    v15 = [v13 initWithUnsignedInteger:1];
+    v14 = v15;
   }
 
-  v15 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = __atxlog_handle_metrics(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = 138412802;
-    v20 = v18;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_debug_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEBUG, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new panel app launch count of %@ with pageIndex: %@", &v19, 0x20u);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = 138412802;
+    v21 = v19;
+    v22 = 2112;
+    v23 = v14;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_debug_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEBUG, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new panel app launch count of %@ with pageIndex: %@", &v20, 0x20u);
   }
 
   [v11 setObject:v14 forKey:@"appPanelLaunches"];
@@ -335,7 +337,7 @@ void __98__ATXAppPanelLaunchRatioLogger_logCountedAppLaunchesToEventTracker_home
 
 + (void)_logRatioMetricToTracker:(id)tracker location:(int)location ratioType:(int)type numAppLaunches:(unint64_t)launches numAppsShown:(unint64_t)shown
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (shown)
   {
     v9 = *&type;
@@ -347,47 +349,47 @@ void __98__ATXAppPanelLaunchRatioLogger_logCountedAppLaunchesToEventTracker_home
     [v13 setRatioType:v9];
     [trackerCopy trackDistributionForMessage:v13 value:v11];
 
-    v14 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = __atxlog_handle_metrics(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       location = [v13 location];
       if ((location - 1) >= 6)
       {
-        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", location];
+        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", location];
       }
 
       else
       {
-        v18 = off_1E80C6620[(location - 1)];
+        v19 = off_1E80C6620[(location - 1)];
       }
 
-      v19 = v18;
+      v20 = v19;
       ratioType = [v13 ratioType];
       if ((ratioType - 1) >= 4)
       {
-        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", ratioType];
+        v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", ratioType];
       }
 
       else
       {
-        v21 = off_1E80C6650[(ratioType - 1)];
+        v22 = off_1E80C6650[(ratioType - 1)];
       }
 
       *buf = 138413570;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v21;
-      v28 = 2048;
-      v29 = v11;
-      v30 = 2048;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v11;
+      v31 = 2048;
       launchesCopy = launches;
-      v32 = 2048;
+      v33 = 2048;
       shownCopy = shown;
-      _os_log_debug_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker with location %@ ratioType %@ launchRatio %f numAppLaunches %lu numAppsShown %lu", buf, 0x3Eu);
+      _os_log_debug_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker with location %@ ratioType %@ launchRatio %f numAppLaunches %lu numAppsShown %lu", buf, 0x3Eu);
     }
   }
 }
@@ -407,62 +409,62 @@ void __98__ATXAppPanelLaunchRatioLogger_logCountedAppLaunchesToEventTracker_home
 
 + (id)_getOrCreateDataDictionaryFromDefaults:(id)defaults
 {
-  v3 = [defaults objectForKey:@"ATXAppPanelLaunchRatioLoggerDataDictionary"];
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v4 = [defaults objectForKey:@"ATXAppPanelLaunchRatioLoggerDataDictionary"];
+  if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v4 = [v3 mutableCopy];
+    v5 = [v4 mutableCopy];
   }
 
   else
   {
-    v4 = objc_opt_new();
+    v5 = objc_opt_new();
   }
 
-  v5 = v4;
-  v6 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = v5;
+  v7 = __atxlog_handle_metrics(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    +[ATXAppPanelLaunchRatioLogger _getOrCreateDataDictionaryFromDefaults:];
+    [ATXAppPanelLaunchRatioLogger _getOrCreateDataDictionaryFromDefaults:self];
   }
 
-  return v5;
+  return v6;
 }
 
 + (void)_writeDataDictionaryToDefaults:(id)defaults dataDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
   defaultsCopy = defaults;
-  v7 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __atxlog_handle_metrics(defaultsCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    +[ATXAppPanelLaunchRatioLogger _writeDataDictionaryToDefaults:dataDictionary:];
+    [ATXAppPanelLaunchRatioLogger _writeDataDictionaryToDefaults:self dataDictionary:?];
   }
 
   [defaultsCopy setObject:dictionaryCopy forKey:@"ATXAppPanelLaunchRatioLoggerDataDictionary"];
 }
 
-+ (void)logNonAppPanelAppLaunchFromDockWithUserDefaults:.cold.1()
++ (void)logNonAppPanelAppLaunchFromDockWithUserDefaults:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v2, v3, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new dock launch count of %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v3, v4, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker has new dock launch count of %@", v5, v6, v7, v8);
 }
 
-+ (void)_getOrCreateDataDictionaryFromDefaults:.cold.1()
++ (void)_getOrCreateDataDictionaryFromDefaults:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v2, v3, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker read dict %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v3, v4, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker read dict %@", v5, v6, v7, v8);
 }
 
-+ (void)_writeDataDictionaryToDefaults:dataDictionary:.cold.1()
++ (void)_writeDataDictionaryToDefaults:(uint64_t)a1 dataDictionary:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v2, v3, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker saving dict %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v3, v4, "%@ - ATXMPBHomeScreenAppPanelLaunchRatioTracker saving dict %@", v5, v6, v7, v8);
 }
 
 @end

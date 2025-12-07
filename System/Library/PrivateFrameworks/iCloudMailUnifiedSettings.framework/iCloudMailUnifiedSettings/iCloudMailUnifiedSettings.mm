@@ -12,29 +12,26 @@ void type metadata accessor for AIDAServiceType()
 
 uint64_t sub_27556269C()
 {
-  v1 = *v0;
-  v2 = sub_275565B9C();
-  v3 = MEMORY[0x277C7BC80](v2);
+  v0 = sub_275565B9C();
+  v1 = MEMORY[0x277C7BC80](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t sub_2755626D8()
+uint64_t sub_2755626D8(uint64_t a1)
 {
-  v1 = *v0;
   sub_275565B9C();
   sub_275565BAC();
 }
 
-uint64_t sub_27556272C()
+uint64_t sub_27556272C(uint64_t a1)
 {
-  v1 = *v0;
   sub_275565B9C();
   sub_275565C9C();
   sub_275565BAC();
-  v2 = sub_275565CAC();
+  v1 = sub_275565CAC();
 
-  return v2;
+  return v1;
 }
 
 uint64_t sub_2755627A8(uint64_t a1, id *a2)
@@ -51,63 +48,58 @@ uint64_t sub_275562820(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_2755628A0@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_2755628A0@<X0>(uint64_t *a2@<X8>)
 {
   sub_275565B9C();
-  v2 = sub_275565B6C();
+  v3 = sub_275565B6C();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_2755628E4(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2755628E4(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_275565B9C();
-  v6 = v5;
-  if (v4 == sub_275565B9C() && v6 == v7)
+  v2 = sub_275565B9C();
+  v4 = v3;
+  if (v2 == sub_275565B9C() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_275565C7C();
+    v7 = sub_275565C7C();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_27556296C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_27556296C@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_275565B6C();
+  v3 = sub_275565B6C();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_2755629B4@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_275565B9C();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_2755629E0(uint64_t a1)
 {
-  v2 = sub_275562B14(&qword_2809F8F00);
-  v3 = sub_275562B14(&unk_2809F8E60);
+  v2 = sub_275562B14(&qword_2809F8F00, &unk_275566464);
+  v3 = sub_275562B14(&unk_2809F8E60, &unk_2755663C4);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t sub_275562B14(unint64_t *a1)
+uint64_t sub_275562B14(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -130,14 +122,11 @@ uint64_t sub_275562B58()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -220,71 +209,70 @@ NSObject *iCloudMailUnifiedSettingsProvider.init(presenter:)(void *a1)
 {
   v3 = sub_275565B3C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   *&v1[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_mailSettingsProvider] = 0;
   *&v1[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager] = 0;
   result = [objc_opt_self() defaultStore];
   if (result)
   {
-    v9 = result;
-    v10 = [objc_allocWithZone(MEMORY[0x277CED1D0]) initWithAccountStore_];
+    v8 = result;
+    v9 = [objc_allocWithZone(MEMORY[0x277CED1D0]) initWithAccountStore_];
 
-    *&v1[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager] = v10;
+    *&v1[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager] = v9;
     *&v1[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_presenter] = a1;
-    v11 = type metadata accessor for iCloudMailUnifiedSettingsProvider();
-    v30.receiver = v1;
-    v30.super_class = v11;
-    v12 = a1;
-    v13 = objc_msgSendSuper2(&v30, sel_init);
-    v14 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager;
-    v15 = *&v13[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager];
-    v16 = v13;
-    [v15 setDelegate_];
+    v10 = type metadata accessor for iCloudMailUnifiedSettingsProvider();
+    v29.receiver = v1;
+    v29.super_class = v10;
+    v11 = a1;
+    v12 = objc_msgSendSuper2(&v29, sel_init);
+    v13 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager;
+    v14 = *&v12[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager];
+    v15 = v12;
+    [v14 setDelegate_];
     if (qword_2809F8DD0 != -1)
     {
       swift_once();
     }
 
-    v17 = __swift_project_value_buffer(v3, qword_2809F9280);
-    (*(v4 + 16))(v7, v17, v3);
-    v18 = v16;
-    v19 = sub_275565B1C();
-    v20 = sub_275565C0C();
+    v16 = __swift_project_value_buffer(v3, qword_2809F9280);
+    (*(v4 + 16))(v6, v16, v3);
+    v17 = v15;
+    v18 = sub_275565B1C();
+    v19 = sub_275565C0C();
 
-    if (os_log_type_enabled(v19, v20))
+    if (os_log_type_enabled(v18, v19))
     {
+      v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v29 = v12;
-      v23 = v22;
-      *v21 = 138412546;
-      *(v21 + 4) = v18;
-      *v22 = v13;
-      *(v21 + 12) = 2112;
-      v24 = *&v13[v14];
-      *(v21 + 14) = v24;
-      v22[1] = v24;
-      v25 = v18;
-      v26 = v24;
-      _os_log_impl(&dword_275561000, v19, v20, "Setting delegage %@ to %@", v21, 0x16u);
+      v28 = v11;
+      v22 = v21;
+      *v20 = 138412546;
+      *(v20 + 4) = v17;
+      *v21 = v12;
+      *(v20 + 12) = 2112;
+      v23 = *&v12[v13];
+      *(v20 + 14) = v23;
+      v21[1] = v23;
+      v24 = v17;
+      v25 = v23;
+      _os_log_impl(&dword_275561000, v18, v19, "Setting delegage %@ to %@", v20, 0x16u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8EF0, &unk_2755664D0);
       swift_arrayDestroy();
-      MEMORY[0x277C7C140](v23, -1, -1);
-      MEMORY[0x277C7C140](v21, -1, -1);
-      v27 = v29;
-      v12 = v25;
+      MEMORY[0x277C7C140](v22, -1, -1);
+      MEMORY[0x277C7C140](v20, -1, -1);
+      v26 = v28;
+      v11 = v24;
     }
 
     else
     {
-      v27 = v19;
-      v19 = v18;
+      v26 = v18;
+      v18 = v17;
     }
 
-    (*(v4 + 8))(v7, v3);
-    return v18;
+    (*(v4 + 8))(v6, v3);
+    return v17;
   }
 
   else
@@ -298,158 +286,156 @@ NSObject *iCloudMailUnifiedSettingsProvider.init(presenter:)(void *a1)
 uint64_t sub_2755632AC(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v58 = a1;
-  v59 = a2;
+  v56 = a1;
+  v57 = a2;
   v4 = sub_275565B3C();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = (MEMORY[0x28223BE20])();
-  v9 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
-  v60 = &v56 - v11;
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v56 - v13;
-  MEMORY[0x28223BE20](v12);
-  v16 = &v56 - v15;
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v54 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v58 = &v54 - v10;
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v54 - v12;
+  MEMORY[0x28223BE20](v11);
+  v15 = &v54 - v14;
   if (qword_2809F8DD0 != -1)
   {
     swift_once();
   }
 
-  v17 = __swift_project_value_buffer(v4, qword_2809F9280);
-  v18 = v5[2];
-  v61 = v17;
-  v62 = v18;
-  (v18)(v16);
-  v19 = sub_275565B1C();
-  v20 = sub_275565C0C();
-  if (os_log_type_enabled(v19, v20))
+  v16 = __swift_project_value_buffer(v4, qword_2809F9280);
+  v17 = *(v5 + 16);
+  v59 = v16;
+  v60 = v17;
+  (v17)(v15);
+  v18 = sub_275565B1C();
+  v19 = sub_275565C0C();
+  if (os_log_type_enabled(v18, v19))
   {
-    v21 = swift_slowAlloc();
-    *v21 = 0;
-    _os_log_impl(&dword_275561000, v19, v20, "Navigate to iCloud Mail Settings", v21, 2u);
-    MEMORY[0x277C7C140](v21, -1, -1);
+    v20 = swift_slowAlloc();
+    *v20 = 0;
+    _os_log_impl(&dword_275561000, v18, v19, "Navigate to iCloud Mail Settings", v20, 2u);
+    MEMORY[0x277C7C140](v20, -1, -1);
   }
 
-  v24 = v5[1];
-  v23 = v5 + 1;
-  v22 = v24;
-  v24(v16, v4);
+  v23 = *(v5 + 8);
+  v22 = v5 + 8;
+  v21 = v23;
+  v23(v15, v4);
   sub_2755656D8();
-  v25 = sub_275565B6C();
-  v26 = NSClassFromString(v25);
+  v24 = sub_275565B6C();
+  v25 = NSClassFromString(v24);
 
-  if (v26)
+  if (v25)
   {
     swift_getObjCClassMetadata();
-    v63 = &unk_28842F918;
+    v61 = &unk_28842F918;
     if (swift_dynamicCastTypeToObjCProtocolConditional())
     {
-      v57 = v22;
-      v62(v14, v61, v4);
-      v27 = v3;
-      v28 = sub_275565B1C();
-      v29 = sub_275565C0C();
+      v55 = v21;
+      v60(v13, v59, v4);
+      v26 = v3;
+      v27 = sub_275565B1C();
+      v28 = sub_275565C0C();
 
-      v30 = os_log_type_enabled(v28, v29);
+      v29 = os_log_type_enabled(v27, v28);
+      v30 = 0x2809F8000;
       v31 = 0x2809F8000;
-      v32 = 0x2809F8000;
-      v56 = v23;
-      if (v30)
+      v54 = v22;
+      if (v29)
       {
+        v32 = swift_slowAlloc();
         v33 = swift_slowAlloc();
-        v34 = swift_slowAlloc();
-        *v33 = 138412546;
-        v35 = *&v27[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager];
-        *(v33 + 4) = v35;
-        *v34 = v35;
-        *(v33 + 12) = 2112;
-        v36 = *&v27[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_presenter];
-        *(v33 + 14) = v36;
-        v34[1] = v36;
+        *v32 = 138412546;
+        v34 = *&v26[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_accountManager];
+        *(v32 + 4) = v34;
+        *v33 = v34;
+        *(v32 + 12) = 2112;
+        v35 = *&v26[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_presenter];
+        *(v32 + 14) = v35;
+        v33[1] = v35;
+        v36 = v34;
         v37 = v35;
-        v38 = v36;
-        _os_log_impl(&dword_275561000, v28, v29, "navigateToiCloudMailSettings, accountManager: %@, presenter: %@", v33, 0x16u);
+        _os_log_impl(&dword_275561000, v27, v28, "navigateToiCloudMailSettings, accountManager: %@, presenter: %@", v32, 0x16u);
         __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8EF0, &unk_2755664D0);
         swift_arrayDestroy();
-        v39 = v34;
-        v32 = 0x2809F8000uLL;
-        MEMORY[0x277C7C140](v39, -1, -1);
-        v40 = v33;
+        v38 = v33;
         v31 = 0x2809F8000uLL;
-        MEMORY[0x277C7C140](v40, -1, -1);
+        MEMORY[0x277C7C140](v38, -1, -1);
+        v39 = v32;
+        v30 = 0x2809F8000uLL;
+        MEMORY[0x277C7C140](v39, -1, -1);
       }
 
-      v57(v14, v4);
-      v41 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-      v42 = *&v27[*(v31 + 3808)];
-      v43 = [v41 initWithManager:v42 presenter:*&v27[*(v32 + 3816)]];
-      v44 = *&v27[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_mailSettingsProvider];
-      *&v27[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_mailSettingsProvider] = v43;
+      v55(v13, v4);
+      v40 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+      v41 = *&v26[*(v30 + 3808)];
+      v42 = [v40 initWithManager:v41 presenter:*&v26[*(v31 + 3816)]];
+      *&v26[OBJC_IVAR___iCloudMailUnifiedSettingsProvider_mailSettingsProvider] = v42;
       swift_unknownObjectRetain();
       swift_unknownObjectRelease();
-      if (v59)
+      if (v57)
       {
-        v45 = sub_275565B6C();
+        v43 = sub_275565B6C();
       }
 
       else
       {
-        v45 = 0;
+        v43 = 0;
       }
 
-      v49 = v60;
-      [v43 onMailTapWithDeeplink_];
+      v47 = v58;
+      [v42 onMailTapWithDeeplink_];
 
       swift_unknownObjectRelease();
-      v62(v49, v61, v4);
-      v50 = v27;
-      v46 = sub_275565B1C();
-      v51 = sub_275565C0C();
+      v60(v47, v59, v4);
+      v48 = v26;
+      v44 = sub_275565B1C();
+      v49 = sub_275565C0C();
 
-      if (!os_log_type_enabled(v46, v51))
+      if (!os_log_type_enabled(v44, v49))
       {
-        v22 = v57;
+        v21 = v55;
         goto LABEL_19;
       }
 
-      v48 = swift_slowAlloc();
-      v52 = swift_slowAlloc();
-      *v48 = 138412546;
-      *(v48 + 4) = v50;
-      *(v48 + 12) = 2112;
-      *(v48 + 14) = v42;
-      *v52 = v50;
-      v52[1] = v42;
-      v53 = v50;
-      v54 = v42;
-      _os_log_impl(&dword_275561000, v46, v51, "Delegate %@ to %@", v48, 0x16u);
+      v46 = swift_slowAlloc();
+      v50 = swift_slowAlloc();
+      *v46 = 138412546;
+      *(v46 + 4) = v48;
+      *(v46 + 12) = 2112;
+      *(v46 + 14) = v41;
+      *v50 = v48;
+      v50[1] = v41;
+      v51 = v48;
+      v52 = v41;
+      _os_log_impl(&dword_275561000, v44, v49, "Delegate %@ to %@", v46, 0x16u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8EF0, &unk_2755664D0);
       swift_arrayDestroy();
-      MEMORY[0x277C7C140](v52, -1, -1);
-      v22 = v57;
+      MEMORY[0x277C7C140](v50, -1, -1);
+      v21 = v55;
       goto LABEL_17;
     }
   }
 
-  v62(v9, v61, v4);
-  v46 = sub_275565B1C();
-  v47 = sub_275565BFC();
-  if (os_log_type_enabled(v46, v47))
+  v60(v8, v59, v4);
+  v44 = sub_275565B1C();
+  v45 = sub_275565BFC();
+  if (os_log_type_enabled(v44, v45))
   {
-    v48 = swift_slowAlloc();
-    *v48 = 0;
-    _os_log_impl(&dword_275561000, v46, v47, "[iCloudMailSettingsProvider] Unable to find MailSettingsSpecifierProvider", v48, 2u);
-    v49 = v9;
+    v46 = swift_slowAlloc();
+    *v46 = 0;
+    _os_log_impl(&dword_275561000, v44, v45, "[iCloudMailSettingsProvider] Unable to find MailSettingsSpecifierProvider", v46, 2u);
+    v47 = v8;
 LABEL_17:
-    MEMORY[0x277C7C140](v48, -1, -1);
+    MEMORY[0x277C7C140](v46, -1, -1);
     goto LABEL_19;
   }
 
-  v49 = v9;
+  v47 = v8;
 LABEL_19:
 
-  return (v22)(v49, v4);
+  return (v21)(v47, v4);
 }
 
 id iCloudMailUnifiedSettingsProvider.__allocating_init()()
@@ -466,130 +452,129 @@ id iCloudMailUnifiedSettingsProvider.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t *iCloudMailUnifiedSettingsProvider.accounts(for:)(void *a1)
+void *iCloudMailUnifiedSettingsProvider.accounts(for:)(void *a1)
 {
   v2 = v1;
   v4 = sub_275565B3C();
   v5 = *(v4 - 1);
-  v6 = v5[8];
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = v79 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
-  v83 = v79 - v11;
-  MEMORY[0x28223BE20](v10);
-  v13 = v79 - v12;
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v82 = v78 - v10;
+  MEMORY[0x28223BE20](v9);
+  v12 = v78 - v11;
   if (qword_2809F8DD0 != -1)
   {
     swift_once();
   }
 
-  v14 = __swift_project_value_buffer(v4, qword_2809F9280);
-  v15 = v5 + 2;
-  v85 = v5[2];
-  v86 = v14;
-  v85(v13);
-  v16 = a1;
-  v17 = sub_275565B1C();
-  v18 = sub_275565C0C();
-  v88 = v16;
+  v13 = __swift_project_value_buffer(v4, qword_2809F9280);
+  v14 = v5 + 16;
+  v84 = *(v5 + 16);
+  v85 = v13;
+  v84(v12);
+  v15 = a1;
+  v16 = sub_275565B1C();
+  v17 = sub_275565C0C();
+  v87 = v15;
 
-  if (os_log_type_enabled(v17, v18))
+  if (os_log_type_enabled(v16, v17))
   {
+    v18 = swift_slowAlloc();
     v19 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    *v19 = 138412290;
-    v21 = v88;
-    *(v19 + 4) = v88;
-    *v20 = v21;
-    v22 = v21;
-    _os_log_impl(&dword_275561000, v17, v18, "AIDAAccountManagerDelegate.accounts with %@", v19, 0xCu);
-    sub_2755659AC(v20);
-    v23 = v20;
-    v15 = v5 + 2;
-    MEMORY[0x277C7C140](v23, -1, -1);
-    MEMORY[0x277C7C140](v19, -1, -1);
+    *v18 = 138412290;
+    v20 = v87;
+    *(v18 + 4) = v87;
+    *v19 = v20;
+    v21 = v20;
+    _os_log_impl(&dword_275561000, v16, v17, "AIDAAccountManagerDelegate.accounts with %@", v18, 0xCu);
+    sub_2755659AC(v19);
+    v22 = v19;
+    v14 = v5 + 16;
+    MEMORY[0x277C7C140](v22, -1, -1);
+    MEMORY[0x277C7C140](v18, -1, -1);
   }
 
-  v87 = v5[1];
-  v87(v13, v4);
-  v90 = MEMORY[0x277D84F98];
-  v24 = sub_275562C74();
-  v25 = *MEMORY[0x277CED1A0];
-  v26 = [v24 accountForService_];
+  v86 = *(v5 + 8);
+  v86(v12, v4);
+  v89 = MEMORY[0x277D84F98];
+  v23 = sub_275562C74();
+  v24 = *MEMORY[0x277CED1A0];
+  v25 = [v23 accountForService_];
 
-  v84 = v5 + 1;
-  v82 = v9;
-  if (v26)
+  v83 = v5 + 8;
+  v81 = v8;
+  if (v25)
   {
-    v79[1] = v15;
-    (v85)(v83, v86, v4);
-    v27 = v88;
-    v80 = v2;
-    v28 = v2;
-    v29 = v26;
-    v30 = sub_275565B1C();
-    v31 = sub_275565C0C();
+    v78[1] = v14;
+    (v84)(v82, v85, v4);
+    v26 = v87;
+    v79 = v2;
+    v27 = v2;
+    v28 = v25;
+    v29 = sub_275565B1C();
+    v30 = sub_275565C0C();
 
-    v81 = v28;
-    if (os_log_type_enabled(v30, v31))
+    v80 = v27;
+    if (os_log_type_enabled(v29, v30))
     {
+      v31 = swift_slowAlloc();
       v32 = swift_slowAlloc();
-      v33 = swift_slowAlloc();
-      *v32 = 138412802;
-      *(v32 + 4) = v27;
-      *v33 = v27;
-      *(v32 + 12) = 2112;
-      v34 = v4;
-      v35 = *&v81[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager];
-      *(v32 + 14) = v35;
-      *(v32 + 22) = 2112;
-      *(v32 + 24) = v29;
-      v33[1] = v35;
-      v33[2] = v26;
-      v36 = v27;
-      v37 = v29;
-      v38 = v35;
-      v4 = v34;
-      _os_log_impl(&dword_275561000, v30, v31, "AIDAAccountManagerDelegate.accounts: %@ and %@ has appleAccount - %@", v32, 0x20u);
+      *v31 = 138412802;
+      *(v31 + 4) = v26;
+      *v32 = v26;
+      *(v31 + 12) = 2112;
+      v33 = v4;
+      v34 = *&v80[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager];
+      *(v31 + 14) = v34;
+      *(v31 + 22) = 2112;
+      *(v31 + 24) = v28;
+      v32[1] = v34;
+      v32[2] = v25;
+      v35 = v26;
+      v36 = v28;
+      v37 = v34;
+      v4 = v33;
+      _os_log_impl(&dword_275561000, v29, v30, "AIDAAccountManagerDelegate.accounts: %@ and %@ has appleAccount - %@", v31, 0x20u);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8EF0, &unk_2755664D0);
       swift_arrayDestroy();
-      MEMORY[0x277C7C140](v33, -1, -1);
       MEMORY[0x277C7C140](v32, -1, -1);
+      MEMORY[0x277C7C140](v31, -1, -1);
     }
 
-    v87(v83, v4);
-    v39 = v29;
-    v40 = v25;
-    v41 = v90;
+    v86(v82, v4);
+    v38 = v28;
+    v39 = v24;
+    v40 = v89;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v89 = v41;
-    sub_27556530C(v39, v40, isUniquelyReferenced_nonNull_native);
+    v88[0] = v40;
+    sub_27556530C(v38, v39, isUniquelyReferenced_nonNull_native);
 
-    v90 = v89;
-    v43 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
-    v44 = v81;
-    v45 = [*&v81[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager] altDSIDForAccount:v39 service:v40];
-    v2 = v80;
-    if (v45)
+    v89 = v88[0];
+    v42 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
+    v43 = v80;
+    v44 = [*&v80[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager] altDSIDForAccount:v38 service:v39];
+    v2 = v79;
+    if (v44)
     {
-      v46 = v45;
-      v47 = sub_275565B9C();
-      v49 = v48;
+      v45 = v44;
+      v46 = sub_275565B9C();
+      v48 = v47;
 
-      v50 = [*&v44[v43] DSIDForAccount:v39 service:v40];
-      if (v50)
+      v49 = [*&v43[v42] DSIDForAccount:v38 service:v39];
+      if (v49)
       {
-        v51 = v50;
-        v52 = sub_275565B9C();
-        v54 = v53;
+        v50 = v49;
+        v51 = sub_275565B9C();
+        v53 = v52;
 
-        v55 = *MEMORY[0x277CED1B0];
-        v56 = sub_2755642D0(*MEMORY[0x277CED1B0], v47, v49, v52, v54);
+        v54 = *MEMORY[0x277CED1B0];
+        v55 = sub_2755642D0(*MEMORY[0x277CED1B0], v46, v48, v51, v53);
 
-        if (v56)
+        if (v55)
         {
-          v57 = v56;
-          sub_2755641CC(v56, v55);
+          v56 = v55;
+          sub_2755641CC(v55, v54);
         }
       }
 
@@ -598,75 +583,75 @@ uint64_t *iCloudMailUnifiedSettingsProvider.accounts(for:)(void *a1)
       }
     }
 
-    v9 = v82;
+    v8 = v81;
   }
 
-  v58 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
-  v59 = *MEMORY[0x277CED1C0];
-  v60 = [*&v2[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager] accountForService_];
-  if (v60)
+  v57 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
+  v58 = *MEMORY[0x277CED1C0];
+  v59 = [*&v2[OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager] accountForService_];
+  if (v59)
   {
-    sub_2755641CC(v60, v59);
+    sub_2755641CC(v59, v58);
   }
 
-  (v85)(v9, v86, v4);
-  v61 = v88;
-  v62 = v2;
-  v63 = sub_275565B1C();
-  v64 = sub_275565C0C();
+  (v84)(v8, v85, v4);
+  v60 = v87;
+  v61 = v2;
+  v62 = sub_275565B1C();
+  v63 = sub_275565C0C();
 
-  if (os_log_type_enabled(v63, v64))
+  if (os_log_type_enabled(v62, v63))
   {
+    v64 = swift_slowAlloc();
     v65 = swift_slowAlloc();
-    v66 = swift_slowAlloc();
-    v88 = v4;
-    v67 = v66;
-    v86 = swift_slowAlloc();
-    v89 = v86;
-    *v65 = 138412802;
-    *(v65 + 4) = v61;
-    v68 = *&v2[v58];
-    *(v65 + 12) = 2112;
-    *(v65 + 14) = v68;
-    *v67 = v61;
-    v67[1] = v68;
-    *(v65 + 22) = 2080;
+    v87 = v4;
+    v66 = v65;
+    v85 = swift_slowAlloc();
+    v88[0] = v85;
+    *v64 = 138412802;
+    *(v64 + 4) = v60;
+    v67 = *&v2[v57];
+    *(v64 + 12) = 2112;
+    *(v64 + 14) = v67;
+    *v66 = v60;
+    v66[1] = v67;
+    *(v64 + 22) = 2080;
     swift_beginAccess();
     type metadata accessor for AIDAServiceType();
     sub_2755658BC();
     sub_275565908();
-    v69 = v61;
-    v70 = v68;
+    v68 = v60;
+    v69 = v67;
 
-    v71 = sub_275565B5C();
-    v73 = v72;
+    v70 = sub_275565B5C();
+    v72 = v71;
 
-    v74 = sub_275564844(v71, v73, &v89);
+    v73 = sub_275564844(v70, v72, v88);
 
-    *(v65 + 24) = v74;
-    _os_log_impl(&dword_275561000, v63, v64, "AIDAAccountManagerDelegate.accounts: %@ and %@ has accounts - %s", v65, 0x20u);
+    *(v64 + 24) = v73;
+    _os_log_impl(&dword_275561000, v62, v63, "AIDAAccountManagerDelegate.accounts: %@ and %@ has accounts - %s", v64, 0x20u);
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8EF0, &unk_2755664D0);
     swift_arrayDestroy();
-    MEMORY[0x277C7C140](v67, -1, -1);
-    v75 = v86;
-    __swift_destroy_boxed_opaque_existential_0(v86);
-    MEMORY[0x277C7C140](v75, -1, -1);
-    MEMORY[0x277C7C140](v65, -1, -1);
+    MEMORY[0x277C7C140](v66, -1, -1);
+    v74 = v85;
+    __swift_destroy_boxed_opaque_existential_0(v85);
+    MEMORY[0x277C7C140](v74, -1, -1);
+    MEMORY[0x277C7C140](v64, -1, -1);
 
-    v76 = v82;
-    v77 = v88;
+    v75 = v81;
+    v76 = v87;
   }
 
   else
   {
 
-    v76 = v9;
-    v77 = v4;
+    v75 = v8;
+    v76 = v4;
   }
 
-  v87(v76, v77);
+  v86(v75, v76);
   swift_beginAccess();
-  return v90;
+  return v89;
 }
 
 void sub_2755641CC(uint64_t a1, void *a2)
@@ -674,33 +659,30 @@ void sub_2755641CC(uint64_t a1, void *a2)
   v3 = v2;
   if (a1)
   {
-    v5 = *v2;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v15 = *v2;
+    v12 = *v2;
     sub_27556530C(a1, a2, isUniquelyReferenced_nonNull_native);
 
-    *v2 = v15;
+    *v2 = v12;
   }
 
   else
   {
-    v7 = *v2;
-    v8 = sub_275564DEC(a2);
-    if (v9)
+    v6 = sub_275564DEC(a2);
+    if (v7)
     {
-      v10 = v8;
-      v11 = *v3;
-      v12 = swift_isUniquelyReferenced_nonNull_native();
+      v8 = v6;
+      v9 = swift_isUniquelyReferenced_nonNull_native();
+      v10 = *v2;
       v13 = *v3;
-      v16 = *v3;
-      if (!v12)
+      if (!v9)
       {
         sub_275565578();
-        v13 = v16;
+        v10 = v13;
       }
 
-      sub_275565144(v10, v13);
-      *v3 = v13;
+      sub_275565144(v8, v10);
+      *v3 = v10;
     }
 
     else
@@ -711,90 +693,89 @@ void sub_2755641CC(uint64_t a1, void *a2)
 
 id sub_2755642D0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v61 = a4;
-  v62 = a5;
+  v60 = a4;
+  v61 = a5;
   v9 = sub_275565B3C();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v58 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v58 - v15;
-  v17 = sub_275562C74();
-  v18 = [v17 accountForService_];
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v57 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v57 - v14;
+  v16 = sub_275562C74();
+  v17 = [v16 accountForService_];
 
-  if (!v18)
+  if (!v17)
   {
     if (qword_2809F8DD0 != -1)
     {
       swift_once();
     }
 
-    v47 = __swift_project_value_buffer(v9, qword_2809F9280);
-    (*(v10 + 16))(v14, v47, v9);
-    v48 = a1;
-    v49 = sub_275565B1C();
-    v50 = sub_275565BFC();
+    v46 = __swift_project_value_buffer(v9, qword_2809F9280);
+    (*(v10 + 16))(v13, v46, v9);
+    v47 = a1;
+    v48 = sub_275565B1C();
+    v49 = sub_275565BFC();
 
-    if (os_log_type_enabled(v49, v50))
+    if (os_log_type_enabled(v48, v49))
     {
-      v51 = v10;
+      v50 = v10;
+      v51 = swift_slowAlloc();
       v52 = swift_slowAlloc();
-      v53 = swift_slowAlloc();
-      v63 = v53;
-      *v52 = 136315138;
-      v54 = sub_275565B9C();
-      v56 = sub_275564844(v54, v55, &v63);
+      v62 = v52;
+      *v51 = 136315138;
+      v53 = sub_275565B9C();
+      v55 = sub_275564844(v53, v54, &v62);
 
-      *(v52 + 4) = v56;
-      _os_log_impl(&dword_275561000, v49, v50, "No account exist for serviceType: %s", v52, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v53);
-      MEMORY[0x277C7C140](v53, -1, -1);
+      *(v51 + 4) = v55;
+      _os_log_impl(&dword_275561000, v48, v49, "No account exist for serviceType: %s", v51, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v52);
       MEMORY[0x277C7C140](v52, -1, -1);
+      MEMORY[0x277C7C140](v51, -1, -1);
 
-      (*(v51 + 8))(v14, v9);
+      (*(v50 + 8))(v13, v9);
     }
 
     else
     {
 
-      (*(v10 + 8))(v14, v9);
+      (*(v10 + 8))(v13, v9);
     }
 
     return 0;
   }
 
-  v59 = v16;
-  v60 = v10;
-  v19 = v9;
-  v20 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
-  v21 = [*(v5 + OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager) altDSIDForAccount:v18 service:a1];
-  if (v21)
+  v58 = v15;
+  v59 = v10;
+  v18 = v9;
+  v19 = OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager;
+  v20 = [*(v5 + OBJC_IVAR___iCloudMailUnifiedSettingsProvider____lazy_storage___serviceOwnersManager) altDSIDForAccount:v17 service:a1];
+  if (v20)
   {
-    v22 = v21;
-    v23 = sub_275565B9C();
-    v25 = v24;
+    v21 = v20;
+    v22 = sub_275565B9C();
+    v24 = v23;
 
-    if (v23 == a2 && v25 == a3)
+    if (v22 == a2 && v24 == a3)
     {
 LABEL_23:
 
-      return v18;
+      return v17;
     }
 
-    v27 = sub_275565C7C();
+    v26 = sub_275565C7C();
 
-    if (v27)
+    if (v26)
     {
-      return v18;
+      return v17;
     }
   }
 
-  v28 = [*(v5 + v20) DSIDForAccount:v18 service:a1];
-  v29 = v19;
-  v31 = v59;
-  v30 = v60;
-  if (!v28)
+  v27 = [*(v5 + v19) DSIDForAccount:v17 service:a1];
+  v28 = v18;
+  v30 = v58;
+  v29 = v59;
+  if (!v27)
   {
 LABEL_14:
     if (qword_2809F8DD0 != -1)
@@ -802,52 +783,52 @@ LABEL_14:
       swift_once();
     }
 
-    v38 = __swift_project_value_buffer(v29, qword_2809F9280);
-    (*(v30 + 16))(v31, v38, v29);
-    v39 = a1;
-    v40 = sub_275565B1C();
-    v41 = sub_275565BFC();
+    v37 = __swift_project_value_buffer(v28, qword_2809F9280);
+    (*(v29 + 16))(v30, v37, v28);
+    v38 = a1;
+    v39 = sub_275565B1C();
+    v40 = sub_275565BFC();
 
-    if (os_log_type_enabled(v40, v41))
+    if (os_log_type_enabled(v39, v40))
     {
+      v41 = swift_slowAlloc();
       v42 = swift_slowAlloc();
-      v43 = swift_slowAlloc();
-      v63 = v43;
-      *v42 = 136315138;
-      v44 = sub_275565B9C();
-      v46 = sub_275564844(v44, v45, &v63);
+      v62 = v42;
+      *v41 = 136315138;
+      v43 = sub_275565B9C();
+      v45 = sub_275564844(v43, v44, &v62);
 
-      *(v42 + 4) = v46;
-      _os_log_impl(&dword_275561000, v40, v41, "No matching account found for serviceType: %s", v42, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v43);
-      MEMORY[0x277C7C140](v43, -1, -1);
+      *(v41 + 4) = v45;
+      _os_log_impl(&dword_275561000, v39, v40, "No matching account found for serviceType: %s", v41, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v42);
       MEMORY[0x277C7C140](v42, -1, -1);
+      MEMORY[0x277C7C140](v41, -1, -1);
     }
 
-    (*(v30 + 8))(v31, v29);
+    (*(v29 + 8))(v30, v28);
     return 0;
   }
 
-  v32 = v28;
-  v33 = sub_275565B9C();
-  v35 = v34;
+  v31 = v27;
+  v32 = sub_275565B9C();
+  v34 = v33;
 
-  if (v33 == v61 && v35 == v62)
+  if (v32 == v60 && v34 == v61)
   {
     goto LABEL_23;
   }
 
-  v37 = sub_275565C7C();
+  v36 = sub_275565C7C();
 
-  if ((v37 & 1) == 0)
+  if ((v36 & 1) == 0)
   {
     goto LABEL_14;
   }
 
-  return v18;
+  return v17;
 }
 
-uint64_t sub_275564844(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_275564844(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_275564910(v11, 0, 0, 1, a1, a2);
@@ -945,16 +926,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_275564A1C(uint64_t a1, unint64_t a2)
+void *sub_275564A1C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_275564A68(a1, a2);
+  v3 = sub_275564A68(a1, a2);
   sub_275564B98(&unk_28842DC50);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_275564A68(uint64_t a1, unint64_t a2)
+void *sub_275564A68(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1051,7 +1030,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1065,15 +1043,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_275564CF8(result, v12, 1, v3);
+  result = sub_275564CF8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1088,15 +1066,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1105,12 +1083,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1220,157 +1198,151 @@ char *sub_275564CF8(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_275564DEC(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_275565B9C();
   sub_275565C9C();
   sub_275565BAC();
-  v4 = sub_275565CAC();
+  v2 = sub_275565CAC();
 
-  return sub_275565474(a1, v4);
+  return sub_275565474(a1, v2);
 }
 
-uint64_t sub_275564E80(uint64_t a1, char a2)
+uint64_t sub_275564E80(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F8F70, &qword_275566548);
-  v38 = a2;
+  v36 = v4;
   result = sub_275565C5C();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v34 = v2;
+    v35 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v17 = __clz(__rbit64(v13));
-      v39 = (v13 - 1) & v13;
-LABEL_17:
-      v20 = v17 | (v9 << 6);
-      v21 = *(v5 + 56);
-      v22 = *(*(v5 + 48) + 8 * v20);
-      v23 = *(v21 + 8 * v20);
-      if ((v38 & 1) == 0)
+      v16 = __clz(__rbit64(v12));
+      v37 = (v12 - 1) & v12;
+LABEL_15:
+      v19 = v16 | (v8 << 6);
+      v20 = *(v5 + 56);
+      v21 = *(*(v5 + 48) + 8 * v19);
+      v22 = *(v20 + 8 * v19);
+      if ((v36 & 1) == 0)
       {
+        v23 = v21;
         v24 = v22;
-        v25 = v23;
       }
 
-      v26 = *(v8 + 40);
       sub_275565B9C();
       sub_275565C9C();
       sub_275565BAC();
-      v27 = sub_275565CAC();
+      v25 = sub_275565CAC();
 
-      v28 = -1 << *(v8 + 32);
-      v29 = v27 & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v26 = -1 << *(v7 + 32);
+      v27 = v25 & ~v26;
+      v28 = v27 >> 6;
+      if (((-1 << v27) & ~*(v14 + 8 * (v27 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v29 = 0;
+        v30 = (63 - v26) >> 6;
+        while (++v28 != v30 || (v29 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v31 = v28 == v30;
+          if (v28 == v30)
           {
-            v30 = 0;
+            v28 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v29 |= v31;
+          v32 = *(v14 + 8 * v28);
+          if (v32 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v32)) + (v28 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v22;
-      *(*(v8 + 56) + 8 * v16) = v23;
-      ++*(v8 + 16);
-      v5 = v37;
-      v13 = v39;
+      v15 = __clz(__rbit64((-1 << v27) & ~*(v14 + 8 * (v27 >> 6)))) | v27 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      *(*(v7 + 48) + 8 * v15) = v21;
+      *(*(v7 + 56) + 8 * v15) = v22;
+      ++*(v7 + 16);
+      v5 = v35;
+      v12 = v37;
     }
 
-    v18 = v9;
+    v17 = v8;
     while (1)
     {
-      v9 = v18 + 1;
-      if (__OFADD__(v18, 1))
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v19 = v10[v9];
-      ++v18;
-      if (v19)
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
       {
-        v17 = __clz(__rbit64(v19));
-        v39 = (v19 - 1) & v19;
-        goto LABEL_17;
+        v16 = __clz(__rbit64(v18));
+        v37 = (v18 - 1) & v18;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v34;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v33 = 1 << *(v5 + 32);
+    v3 = v34;
+    if (v33 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v33 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v33;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -1386,45 +1358,44 @@ void sub_275565144(int64_t a1, uint64_t a2)
     v8 = (sub_275565C1C() + 1) & ~v5;
     do
     {
-      v9 = *(a2 + 40);
-      v10 = *(*(a2 + 48) + 8 * v6);
+      v9 = *(*(a2 + 48) + 8 * v6);
       sub_275565B9C();
       sub_275565C9C();
-      v11 = v10;
+      v10 = v9;
       sub_275565BAC();
-      v12 = sub_275565CAC();
+      v11 = sub_275565CAC();
 
-      v13 = v12 & v7;
+      v12 = v11 & v7;
       if (v3 >= v8)
       {
-        if (v13 < v8)
+        if (v12 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v13 >= v8)
+      else if (v12 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v13)
+      if (v3 >= v12)
       {
 LABEL_10:
-        v14 = *(a2 + 48);
-        v15 = (v14 + 8 * v3);
-        v16 = (v14 + 8 * v6);
-        if (v3 != v6 || v15 >= v16 + 1)
+        v13 = *(a2 + 48);
+        v14 = (v13 + 8 * v3);
+        v15 = (v13 + 8 * v6);
+        if (v3 != v6 || v14 >= v15 + 1)
         {
-          *v15 = *v16;
+          *v14 = *v15;
         }
 
-        v17 = *(a2 + 56);
-        v18 = (v17 + 8 * v3);
-        v19 = (v17 + 8 * v6);
-        if (v3 != v6 || v18 >= v19 + 1)
+        v16 = *(a2 + 56);
+        v17 = (v16 + 8 * v3);
+        v18 = (v16 + 8 * v6);
+        if (v3 != v6 || v17 >= v18 + 1)
         {
-          *v18 = *v19;
+          *v17 = *v18;
           v3 = v6;
         }
       }
@@ -1437,17 +1408,17 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v20 = *(a2 + 16);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v21)
+  v19 = *(a2 + 16);
+  v20 = __OFSUB__(v19, 1);
+  v21 = v19 - 1;
+  if (v20)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v22;
+    *(a2 + 16) = v21;
     ++*(a2 + 36);
   }
 }
@@ -1474,9 +1445,8 @@ uint64_t sub_27556530C(uint64_t a1, uint64_t a2, char a3)
     if (v15 < v13 || (a3 & 1) != 0)
     {
       sub_275564E80(v13, a3 & 1);
-      v17 = *v4;
       v8 = sub_275564DEC(a2);
-      if ((v14 & 1) != (v18 & 1))
+      if ((v14 & 1) != (v17 & 1))
       {
 LABEL_18:
         type metadata accessor for AIDAServiceType();
@@ -1494,22 +1464,20 @@ LABEL_18:
     }
   }
 
-  v19 = *v4;
+  v18 = *v4;
   if (v14)
   {
-    v20 = v19[7];
-    v21 = *(v20 + 8 * v8);
-    *(v20 + 8 * v8) = a1;
+    *(v18[7] + 8 * v8) = a1;
 
     return MEMORY[0x2821F96F8]();
   }
 
-  v19[(v8 >> 6) + 8] |= 1 << v8;
-  *(v19[6] + 8 * v8) = a2;
-  *(v19[7] + 8 * v8) = a1;
-  v22 = v19[2];
-  v12 = __OFADD__(v22, 1);
-  v23 = v22 + 1;
+  v18[(v8 >> 6) + 8] |= 1 << v8;
+  *(v18[6] + 8 * v8) = a2;
+  *(v18[7] + 8 * v8) = a1;
+  v19 = v18[2];
+  v12 = __OFADD__(v19, 1);
+  v20 = v19 + 1;
   if (v12)
   {
 LABEL_17:
@@ -1517,7 +1485,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v19[2] = v23;
+  v18[2] = v20;
 
   return MEMORY[0x2821F9840]();
 }
@@ -1531,17 +1499,16 @@ unint64_t sub_275565474(uint64_t a1, uint64_t a2)
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = sub_275565B9C();
-      v9 = v8;
-      if (v7 == sub_275565B9C() && v9 == v10)
+      v6 = sub_275565B9C();
+      v8 = v7;
+      if (v6 == sub_275565B9C() && v8 == v9)
       {
         break;
       }
 
-      v12 = sub_275565C7C();
+      v11 = sub_275565C7C();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -1667,7 +1634,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1701,15 +1667,17 @@ unint64_t sub_275565908()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_2755659AC(uint64_t a1)

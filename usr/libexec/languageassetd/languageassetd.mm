@@ -12,29 +12,29 @@ void sub_100000E68(uint64_t a1, uint64_t a2)
     if ((*(*(a1 + 40) + 24) & 1) == 0)
     {
       v5 = v4;
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
-      v6 = [v4 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v6 = [v4 countByEnumeratingWithState:&v66 objects:v75 count:16];
       if (v6)
       {
         v7 = v6;
         v8 = 0;
-        v9 = *v68;
+        v9 = *v67;
         do
         {
           for (i = 0; i != v7; i = i + 1)
           {
-            if (*v68 != v9)
+            if (*v67 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v8 += [objc_msgSend(*(*(&v67 + 1) + 8 * i) objectForKeyedSubscript:{@"downloadNeeded", "BOOLValue"}];
+            v8 += [objc_msgSend(*(*(&v66 + 1) + 8 * i) objectForKeyedSubscript:{@"downloadNeeded", "BOOLValue"}];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v67 objects:v76 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v66 objects:v75 count:16];
         }
 
         while (v7);
@@ -47,33 +47,32 @@ void sub_100000E68(uint64_t a1, uint64_t a2)
 
       v11 = [+[TIInputModeController sharedInputModeController](TIInputModeController "sharedInputModeController")];
       v12 = [NSMutableArray arrayWithCapacity:0];
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v13 = [v11 countByEnumeratingWithState:&v63 objects:v75 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v62 objects:v74 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v64;
+        v15 = *v63;
         do
         {
-          for (j = 0; j != v14; j = j + 1)
+          for (j = 0; j != v14; ++j)
           {
-            if (*v64 != v15)
+            if (*v63 != v15)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v63 + 1) + 8 * j);
-            v18 = [*(a1 + 40) normalizedLanguage:TIInputModeGetLanguageWithRegion()];
-            if (v18)
+            v17 = [*(a1 + 40) normalizedLanguage:TIInputModeGetLanguageWithRegion()];
+            if (v17)
             {
-              [(NSMutableArray *)v12 addObject:v18];
+              [(NSMutableArray *)v12 addObject:v17];
             }
           }
 
-          v14 = [v11 countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v14 = [v11 countByEnumeratingWithState:&v62 objects:v74 count:16];
         }
 
         while (v14);
@@ -82,103 +81,103 @@ void sub_100000E68(uint64_t a1, uint64_t a2)
       [*(a1 + 40) setDownloadFlagToAssetFlagArray:v5 primaryLanguages:v12 assetInfo:*(a1 + 48)];
       if ((*(*(a1 + 40) + 25) & 1) == 0)
       {
-        v19 = [NSMutableArray arrayWithCapacity:0];
-        v20 = +[NSLocale preferredLanguages];
+        v18 = [NSMutableArray arrayWithCapacity:0];
+        v19 = +[NSLocale preferredLanguages];
+        v58 = 0u;
         v59 = 0u;
         v60 = 0u;
         v61 = 0u;
-        v62 = 0u;
-        v21 = [(NSArray *)v20 countByEnumeratingWithState:&v59 objects:v74 count:16];
-        if (v21)
+        v20 = [(NSArray *)v19 countByEnumeratingWithState:&v58 objects:v73 count:16];
+        if (v20)
         {
-          v22 = v21;
-          v23 = *v60;
+          v21 = v20;
+          v22 = *v59;
           do
           {
-            for (k = 0; k != v22; k = k + 1)
+            for (k = 0; k != v21; k = k + 1)
             {
-              if (*v60 != v23)
+              if (*v59 != v22)
               {
-                objc_enumerationMutation(v20);
+                objc_enumerationMutation(v19);
               }
 
-              v25 = [*(a1 + 40) normalizedLanguage:*(*(&v59 + 1) + 8 * k)];
-              if (v25)
+              v24 = [*(a1 + 40) normalizedLanguage:*(*(&v58 + 1) + 8 * k)];
+              if (v24)
               {
-                [(NSMutableArray *)v19 addObject:v25];
+                [(NSMutableArray *)v18 addObject:v24];
               }
             }
 
-            v22 = [(NSArray *)v20 countByEnumeratingWithState:&v59 objects:v74 count:16];
+            v21 = [(NSArray *)v19 countByEnumeratingWithState:&v58 objects:v73 count:16];
           }
 
-          while (v22);
+          while (v21);
         }
 
-        [*(a1 + 40) setDownloadFlagToAssetFlagArray:v5 primaryLanguages:v19 assetInfo:*(a1 + 48)];
+        [*(a1 + 40) setDownloadFlagToAssetFlagArray:v5 primaryLanguages:v18 assetInfo:*(a1 + 48)];
       }
 
       if ([*(a1 + 32) isEqualToString:@"com.apple.MobileAsset.DictionaryServices.dictionary3iOS"])
       {
         [*(a1 + 40) purgeLocalAssetsWithType:@"com.apple.MobileAsset.DictionaryServices.dictionary2" mobileAssetVersionV2:1];
-        v26 = [*(a1 + 40) oldDictionaryAssetsWithLanguageAssetInfo:*(a1 + 48)];
-        if (!([v26 count] + v8))
+        v25 = [*(a1 + 40) oldDictionaryAssetsWithLanguageAssetInfo:*(a1 + 48)];
+        if (!([v25 count] + v8))
         {
-          v26 = DCSDictionaryAssetCopyDownloadedDictionaryIdentifiers();
+          v25 = DCSDictionaryAssetCopyDownloadedDictionaryIdentifiers();
         }
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        v45 = [v26 countByEnumeratingWithState:&v55 objects:v73 count:16];
-        if (v45)
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v44 = [v25 countByEnumeratingWithState:&v54 objects:v72 count:16];
+        if (v44)
         {
-          obj = v26;
-          v44 = *v56;
+          obj = v25;
+          v43 = *v55;
           do
           {
-            for (m = 0; m != v45; m = m + 1)
+            for (m = 0; m != v44; m = m + 1)
             {
-              if (*v56 != v44)
+              if (*v55 != v43)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v28 = *(*(&v55 + 1) + 8 * m);
+              v27 = *(*(&v54 + 1) + 8 * m);
+              v50 = 0u;
               v51 = 0u;
               v52 = 0u;
               v53 = 0u;
-              v54 = 0u;
-              v29 = [v5 countByEnumeratingWithState:&v51 objects:v72 count:16];
-              if (v29)
+              v28 = [v5 countByEnumeratingWithState:&v50 objects:v71 count:16];
+              if (v28)
               {
-                v30 = v29;
-                v31 = *v52;
+                v29 = v28;
+                v30 = *v51;
                 while (2)
                 {
-                  for (n = 0; n != v30; n = n + 1)
+                  for (n = 0; n != v29; n = n + 1)
                   {
-                    if (*v52 != v31)
+                    if (*v51 != v30)
                     {
                       objc_enumerationMutation(v5);
                     }
 
-                    v33 = *(*(&v51 + 1) + 8 * n);
-                    v34 = [v33 objectForKeyedSubscript:@"asset"];
-                    if ([objc_msgSend(*(a1 + 40) assetIdentifier:v34 assetInfo:{*(a1 + 48)), "isEqualToString:", v28}])
+                    v32 = *(*(&v50 + 1) + 8 * n);
+                    v33 = [v32 objectForKeyedSubscript:@"asset"];
+                    if ([objc_msgSend(*(a1 + 40) assetIdentifier:v33 assetInfo:{*(a1 + 48)), "isEqualToString:", v27}])
                     {
-                      if ([v34 state] == 1)
+                      if ([v33 state] == 1)
                       {
-                        [v33 setObject:&__kCFBooleanTrue forKeyedSubscript:@"downloadNeeded"];
+                        [v32 setObject:&__kCFBooleanTrue forKeyedSubscript:@"downloadNeeded"];
                       }
 
                       goto LABEL_55;
                     }
                   }
 
-                  v30 = [v5 countByEnumeratingWithState:&v51 objects:v72 count:16];
-                  if (v30)
+                  v29 = [v5 countByEnumeratingWithState:&v50 objects:v71 count:16];
+                  if (v29)
                   {
                     continue;
                   }
@@ -191,54 +190,54 @@ LABEL_55:
               ;
             }
 
-            v45 = [obj countByEnumeratingWithState:&v55 objects:v73 count:16];
+            v44 = [obj countByEnumeratingWithState:&v54 objects:v72 count:16];
           }
 
-          while (v45);
+          while (v44);
         }
       }
 
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
-      v35 = [v5 countByEnumeratingWithState:&v47 objects:v71 count:16];
-      if (v35)
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v34 = [v5 countByEnumeratingWithState:&v46 objects:v70 count:16];
+      if (v34)
       {
-        v36 = v35;
-        v37 = *v48;
+        v35 = v34;
+        v36 = *v47;
         do
         {
-          for (ii = 0; ii != v36; ii = ii + 1)
+          for (ii = 0; ii != v35; ii = ii + 1)
           {
-            if (*v48 != v37)
+            if (*v47 != v36)
             {
               objc_enumerationMutation(v5);
             }
 
-            v39 = *(*(&v47 + 1) + 8 * ii);
-            if ([objc_msgSend(v39 objectForKeyedSubscript:{@"downloadNeeded", "BOOLValue"}])
+            v38 = *(*(&v46 + 1) + 8 * ii);
+            if ([objc_msgSend(v38 objectForKeyedSubscript:{@"downloadNeeded", "BOOLValue"}])
             {
-              v40 = [v39 objectForKeyedSubscript:@"asset"];
-              v41 = [*(a1 + 40) assetIdentifier:v40 assetInfo:*(a1 + 48)];
-              [*(a1 + 40) updatePreferenceWithAssetIdentifier:v41];
-              NSLog(@"AssetType:%@: start downloading asset %@", *(a1 + 32), v41);
-              v42 = [*(a1 + 40) downloadOptions:*(a1 + 32)];
-              v46[0] = _NSConcreteStackBlock;
-              v46[1] = 3221225472;
-              v46[2] = sub_100004078;
-              v46[3] = &unk_100008558;
-              v46[4] = *(a1 + 32);
-              v46[5] = v41;
-              v46[6] = v40;
-              [v40 startDownload:v42 then:v46];
+              v39 = [v38 objectForKeyedSubscript:@"asset"];
+              v40 = [*(a1 + 40) assetIdentifier:v39 assetInfo:*(a1 + 48)];
+              [*(a1 + 40) updatePreferenceWithAssetIdentifier:v40];
+              NSLog(@"AssetType:%@: start downloading asset %@", *(a1 + 32), v40);
+              v41 = [*(a1 + 40) downloadOptions:*(a1 + 32)];
+              v45[0] = _NSConcreteStackBlock;
+              v45[1] = 3221225472;
+              v45[2] = sub_100004078;
+              v45[3] = &unk_100008558;
+              v45[4] = *(a1 + 32);
+              v45[5] = v40;
+              v45[6] = v39;
+              [v39 startDownload:v41 then:v45];
             }
           }
 
-          v36 = [v5 countByEnumeratingWithState:&v47 objects:v71 count:16];
+          v35 = [v5 countByEnumeratingWithState:&v46 objects:v70 count:16];
         }
 
-        while (v36);
+        while (v35);
       }
     }
   }
@@ -318,9 +317,9 @@ void sub_1000018F4(id a1, OS_xpc_object *a2)
   xpc_connection_resume(a2);
 }
 
-void sub_100001C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -450,7 +449,7 @@ id sub_100004078(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000446C()
+void sub_10000446C(uint64_t result, uint64_t a2)
 {
   if (qword_10000C5D0 != -1)
   {

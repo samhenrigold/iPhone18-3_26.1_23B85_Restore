@@ -30,23 +30,21 @@
 
 - (void)_systemControllerDied:(id)died
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   diedCopy = died;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSAudioPlayingAppMonitor _systemControllerDied:]";
-    v9 = 2114;
-    v10 = diedCopy;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSAudioPlayingAppMonitor _systemControllerDied:]";
+    v8 = 2114;
+    v9 = diedCopy;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v6, 0x16u);
   }
 
   [(CSAudioPlayingAppMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSAudioPlayingAppMonitor *)self _startObservingAudioPlayingState];
   [(CSAudioPlayingAppMonitor *)self handleAudioPlayingStateChange:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingAudioPlayingState
@@ -90,35 +88,35 @@
 
 - (id)playingApps
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   mEMORY[0x1E69AED08] = [MEMORY[0x1E69AED08] sharedAVSystemController];
   v3 = [mEMORY[0x1E69AED08] attributeForKey:*MEMORY[0x1E69AEB10]];
 
   if (v3)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v18 = v3;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v17 = v3;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v21;
+      v7 = *v20;
       v8 = MEMORY[0x1E69AEB18];
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = [*(*(&v20 + 1) + 8 * i) objectForKeyedSubscript:{*v8, v18}];
+          v10 = [*(*(&v19 + 1) + 8 * i) objectForKeyedSubscript:{*v8, v17}];
           v11 = v10;
           if (v10)
           {
@@ -137,16 +135,14 @@
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
     }
 
-    v3 = v18;
+    v3 = v17;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -183,9 +179,11 @@
 
 uint64_t __41__CSAudioPlayingAppMonitor_sharedMonitor__block_invoke()
 {
-  sharedMonitor_sharedMonitor = objc_alloc_init(CSAudioPlayingAppMonitor);
+  v0 = objc_alloc_init(CSAudioPlayingAppMonitor);
+  v1 = sharedMonitor_sharedMonitor;
+  sharedMonitor_sharedMonitor = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -607,7 +607,7 @@ void __36__PLGlobalKeyValue_allDecodeClasses__block_invoke(uint64_t a1, uint64_t
     goto LABEL_9;
   }
 
-  if ([keyCopy isEqualToString:@"LibraryCreateOptions"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v9 = PLDescriptionForLibraryCreateOptions([valueCopy integerValue]);
   }

@@ -28,6 +28,7 @@
 - (void)_createBatchIdFilterMapping:(BOOL)mapping withCommandEncoder:(id)encoder;
 - (void)_endEncodingForAllRemainingEncoders:(void *)encoders;
 - (void)_executeGraphicsFunction;
+- (void)_extractTileMemoryWithRenderPassDescriptor:(DYMTLRenderPassDescriptor *)descriptor renderEncoderID:(unint64_t)d isDrawCall:(BOOL)call;
 - (void)_forceAttachmentLoadActionToLoad:(id)load;
 - (void)_forceAttachmentStoreActionToStore:(id)store;
 - (void)_modifyDescriptorForLayering:(id)layering withBuffer:(id)buffer;
@@ -42,10 +43,13 @@
 - (void)_trackObjects;
 - (void)_updateMemorylessTextures:(id)textures;
 - (void)_updateRemainingCommandsForEncoder;
+- (void)allowOverlap:(BOOL)overlap withPState:(unsigned int)state;
 - (void)commitEncodersAndCommandBuffers;
 - (void)enableConsistentState:(BOOL)state;
+- (void)enableStatsSampling:(BOOL)sampling;
 - (void)encodeStoreActionForParallelRenderCommandEncoder:(id)encoder withDescriptor:(id)descriptor;
 - (void)encodeStoreActionForRenderCommandEncoder:(id)encoder withDescriptor:(id)descriptor;
+- (void)executeFunctions:(CoreFunction *)functions count:(unint64_t)count subCommandIndex:(unsigned int)index;
 - (void)executeGraphicsFunction;
 - (void)executePlatformFunction;
 - (void)extractCommandBufferTranslationData;
@@ -57,6 +61,7 @@
 - (void)resetPixelHistoryCache;
 - (void)sampleEncoderCounters;
 - (void)sampleSplitEncoderCounters;
+- (void)setConsistentStateTo:(unsigned int)to;
 - (void)setDevice:(id)device;
 - (void)setStatLocations:(unint64_t)locations;
 - (void)setupAllStatLocationsWithBlitOption:(BOOL)option;
@@ -146,38 +151,34 @@ void __55__DYMTLCommonDebugFunctionPlayer_initWithCaptureStore___block_invoke()
 
 - (id)thumbnailCache
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   device = [(DYMTLFunctionPlayer *)self device];
   v4 = [(DYMTLFunctionPlayer *)self keyForOriginalObject:device];
 
-  v10[0] = *MEMORY[0x277D0B4B0];
+  v9[0] = *MEMORY[0x277D0B4B0];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
-  v11[0] = v5;
-  v10[1] = *MEMORY[0x277D0B4C0];
+  v10[0] = v5;
+  v9[1] = *MEMORY[0x277D0B4C0];
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:self->_thumbnailDictionary];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
 
 - (id)dependencyGraphThumbnailCache
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   device = [(DYMTLFunctionPlayer *)self device];
   v4 = [(DYMTLFunctionPlayer *)self keyForOriginalObject:device];
 
-  v10[0] = *MEMORY[0x277D0B4B0];
+  v9[0] = *MEMORY[0x277D0B4B0];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
-  v11[0] = v5;
-  v10[1] = *MEMORY[0x277D0B4C0];
+  v10[0] = v5;
+  v9[1] = *MEMORY[0x277D0B4C0];
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:self->_dependencyGraphThumbnails];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
@@ -202,19 +203,17 @@ void __55__DYMTLCommonDebugFunctionPlayer_initWithCaptureStore___block_invoke()
 
 - (id)pixelHistoryCache
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   device = [(DYMTLFunctionPlayer *)self device];
   v4 = [(DYMTLFunctionPlayer *)self keyForOriginalObject:device inverseObjectMap:&self->_pixelHistoryInverseObjectMap];
 
-  v10[0] = *MEMORY[0x277D0B4B0];
+  v9[0] = *MEMORY[0x277D0B4B0];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
-  v11[0] = v5;
-  v10[1] = *MEMORY[0x277D0B4C0];
+  v10[0] = v5;
+  v9[1] = *MEMORY[0x277D0B4C0];
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:self->_pixelHistory];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
@@ -388,6 +387,31 @@ void __55__DYMTLCommonDebugFunctionPlayer_initWithCaptureStore___block_invoke()
   }
 
   return v49;
+}
+
+- (void)executeFunctions:(CoreFunction *)functions count:(unint64_t)count subCommandIndex:(unsigned int)index
+{
+  v5 = *&index;
+  if ([(DYMTLCommonDebugFunctionPlayer *)self shouldIgnoreCaptureFile]&& [(DYFunctionPlayer *)self mainExecutionMode])
+  {
+    *(&self->super.super.super.super.isa + *MEMORY[0x277D0AFA0]) = &functions[count];
+    *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF88]) += count;
+    *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]) += count;
+  }
+
+  else
+  {
+    v9 = &functions[count];
+    v10 = v9 - 1;
+    if ((GPUTools::MTL::IsFuncEnumDrawCall(v9[-1].var0) & 1) != 0 || (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(v10->var0) & 1) != 0 || GPUTools::MTL::IsFuncEnumTileCall(v10->var0))
+    {
+      self->_targetCommandEncoderId = v9[-1].var4.var0;
+    }
+
+    v11.receiver = self;
+    v11.super_class = DYMTLCommonDebugFunctionPlayer;
+    [(DYFunctionPlayer *)&v11 executeFunctions:functions count:count subCommandIndex:v5];
+  }
 }
 
 - (void)_splitBlitEncoder
@@ -730,11 +754,11 @@ LABEL_15:
 
 - (void)executeGraphicsFunction
 {
-  v576 = *MEMORY[0x277D85DE8];
-  v501 = objc_autoreleasePoolPush();
+  v572 = *MEMORY[0x277D85DE8];
+  v498 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v502 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF98]);
-  playbackMode = [v502 playbackMode];
+  v499 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF98]);
+  playbackMode = [v499 playbackMode];
   if (playbackMode > 6)
   {
     if (playbackMode <= 9)
@@ -749,7 +773,7 @@ LABEL_15:
           goto LABEL_125;
         }
 
-        if (!-[DYFunctionPlayer mainExecutionMode](self, "mainExecutionMode") || (v39 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]), v39 != [v502 targetFunctionIndex] - 1))
+        if (!-[DYFunctionPlayer mainExecutionMode](self, "mainExecutionMode") || (v39 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]), v39 != [v499 targetFunctionIndex] - 1))
         {
 LABEL_88:
           [(DYMTLCommonDebugFunctionPlayer *)selfCopy _executeGraphicsFunction];
@@ -764,7 +788,7 @@ LABEL_125:
         }
 
         v40 = *MEMORY[0x277D0AFA0];
-        __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v40) + 48, 0);
+        *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v40) + 48, 0);
         if (!std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &__p))
         {
           goto LABEL_324;
@@ -773,12 +797,12 @@ LABEL_125:
         engine = [(DYFunctionPlayer *)selfCopy engine];
         playbackOptions = [engine playbackOptions];
 
-        v553.i64[0] = 0;
+        v550.i64[0] = 0;
         if (GPUTools::MTL::IsFuncEnumIndirectExecuteCall(**(&selfCopy->super.super.super.super.isa + v40)))
         {
-          v528 = 0;
-          -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v528, &v553);
-          v43 = v528;
+          v525 = 0;
+          -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v525, &v550);
+          v43 = v525;
         }
 
         else
@@ -793,7 +817,7 @@ LABEL_125:
           {
             v148 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
             indirectCommandManager = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-            [indirectCommandManager executeIndirectRenderCommand:v148 withData:v553.i64[0] atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v43}];
+            [indirectCommandManager executeIndirectRenderCommand:v148 withData:v550.i64[0] atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v43}];
 LABEL_243:
 
             goto LABEL_244;
@@ -803,7 +827,7 @@ LABEL_243:
           {
             v148 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
             indirectCommandManager = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-            [indirectCommandManager executeIndirectComputeCommand:v148 withData:v553.i64[0] atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v43}];
+            [indirectCommandManager executeIndirectComputeCommand:v148 withData:v550.i64[0] atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v43}];
             goto LABEL_243;
           }
         }
@@ -828,43 +852,43 @@ LABEL_244:
       v35 = *MEMORY[0x277D0AFA0];
       if (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v35)))
       {
-        v553.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v35) + 48, 0);
-        v36 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v553);
+        v550.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v35) + 48, 0);
+        v36 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v550);
         if (v36)
         {
           v37 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandBufferMap.__table_.__bucket_list_.__ptr_, v36 + 3);
           if (v37)
           {
-            v565 = 0;
-            v38 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553);
+            v562 = 0;
+            v38 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550);
             if (v38)
             {
-              v565 = v38[3];
-              std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v565);
-              v462 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v565];
+              v562 = v38[3];
+              std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v562);
+              v459 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v562];
             }
 
             else
             {
-              v462 = 0;
+              v459 = 0;
             }
 
-            contexta = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v553.i64[0]];
-            v457 = v34;
+            contexta = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v550.i64[0]];
+            v454 = v34;
             if ([contexta conformsToProtocol:&unk_2860CBE88])
             {
-              v454 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v37[3]];
+              v451 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v37[3]];
               v150 = v37[2];
-              v482 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v150];
+              v479 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v150];
               descriptor = [contexta descriptor];
-              if (v462)
+              if (v459)
               {
-                v151 = DYMTLGetAssociatedObject(v462, 0);
+                v151 = DYMTLGetAssociatedObject(v459, 0);
 
                 descriptor = v151;
               }
 
-              [v454 commandBuffer];
+              [v451 commandBuffer];
               v153 = v152 = 0;
               do
               {
@@ -934,7 +958,7 @@ LABEL_244:
               stencilAttachment6 = [descriptor stencilAttachment];
               [stencilAttachment6 setStencilResolveFilter:0];
 
-              if (v462)
+              if (v459)
               {
                 v178 = DYMTLNewStatefulParallelRenderCommandEncoder(v153, descriptor);
                 v179 = DYMTLNewStatefulRenderCommandEncoder(v178);
@@ -948,28 +972,28 @@ LABEL_244:
                 v178 = 0;
               }
 
-              v564[0] = MEMORY[0x277D85DD0];
-              v564[1] = 3221225472;
-              v564[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke;
-              v564[3] = &unk_27930F3E0;
-              v564[4] = selfCopy;
-              [contexta applyAllStateToEncoder:v179 rawBytesBlock:v564];
+              v561[0] = MEMORY[0x277D85DD0];
+              v561[1] = 3221225472;
+              v561[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke;
+              v561[3] = &unk_27930F3E0;
+              v561[4] = selfCopy;
+              [contexta applyAllStateToEncoder:v179 rawBytesBlock:v561];
               [(DYMTLFunctionPlayer *)selfCopy setObject:v153 forKey:v150];
-              [(DYMTLFunctionPlayer *)selfCopy setObject:v179 forKey:v553.i64[0]];
-              if (v462)
+              [(DYMTLFunctionPlayer *)selfCopy setObject:v179 forKey:v550.i64[0]];
+              if (v459)
               {
-                [(DYMTLFunctionPlayer *)selfCopy setObject:v178 forKey:v565];
+                [(DYMTLFunctionPlayer *)selfCopy setObject:v178 forKey:v562];
               }
 
               [contexta endEncoding];
-              if (v462)
+              if (v459)
               {
-                [v462 endEncoding];
+                [v459 endEncoding];
               }
 
               if (objc_opt_respondsToSelector())
               {
-                playbackOptions2 = [v502 playbackOptions];
+                playbackOptions2 = [v499 playbackOptions];
                 if (playbackOptions2)
                 {
                   objc_opt_class();
@@ -977,24 +1001,24 @@ LABEL_244:
                   {
                     v220 = playbackOptions2;
                     v221 = [v220 objectForKeyedSubscript:*MEMORY[0x277D0B4C8]];
-                    GPUTraceResourceResolutionDecode(v221, &__p);
-                    v470 = v567;
-                    v474 = __p;
-                    v467 = v568;
+                    GPUTraceResourceResolutionDecode(&__p, v221);
+                    v467 = *(&__p + 1);
+                    v471 = __p;
+                    v464 = v564;
 
-                    v456 = [v220 objectForKeyedSubscript:*MEMORY[0x277D0B4E8]];
+                    v453 = [v220 objectForKeyedSubscript:*MEMORY[0x277D0B4E8]];
 
-                    if (v456)
+                    if (v453)
                     {
 LABEL_300:
-                      v465 = [v456 containsObject:@"All"];
-                      v562 = 0u;
-                      v563 = 0u;
+                      v462 = [v453 containsObject:@"All"];
+                      v559 = 0u;
                       v560 = 0u;
-                      v561 = 0u;
-                      v227 = v456;
-                      v478 = v227;
-                      v228 = [v227 countByEnumeratingWithState:&v560 objects:v575 count:16];
+                      v557 = 0u;
+                      v558 = 0u;
+                      v227 = v453;
+                      v475 = v227;
+                      v228 = [v227 countByEnumeratingWithState:&v557 objects:v571 count:16];
                       if (!v228)
                       {
                         v229 = 0;
@@ -1004,18 +1028,18 @@ LABEL_300:
 
                       v229 = 0;
                       v230 = 0;
-                      v493 = *v561;
-                      v496 = v228;
+                      v490 = *v558;
+                      v493 = v228;
                       while (1)
                       {
-                        for (i = 0; i != v496; ++i)
+                        for (i = 0; i != v493; ++i)
                         {
-                          if (*v561 != v493)
+                          if (*v558 != v490)
                           {
                             objc_enumerationMutation(v227);
                           }
 
-                          v232 = *(*(&v560 + 1) + 8 * i);
+                          v232 = *(*(&v557 + 1) + 8 * i);
                           if ([v232 hasPrefix:@"Color."])
                           {
                             v233 = v232;
@@ -1035,7 +1059,7 @@ LABEL_300:
                             v240 = 1;
                           }
 
-                          else if ([v232 isEqualToString:@"Depth."])
+                          else if (objc_msgSend_isEqualToString_(v232))
                           {
                             depthAttachment6 = [descriptor depthAttachment];
 
@@ -1045,7 +1069,7 @@ LABEL_300:
 
                           else
                           {
-                            if (![v232 isEqualToString:@"Stencil."])
+                            if (!objc_msgSend_isEqualToString_(v232))
                             {
                               continue;
                             }
@@ -1060,7 +1084,7 @@ LABEL_300:
 
                           if (texture && depthAttachment6)
                           {
-                            v491 = depthAttachment6;
+                            v488 = depthAttachment6;
                             v241 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80])];
                             v242 = MEMORY[0x277D25728];
                             objd = v241;
@@ -1068,30 +1092,30 @@ LABEL_300:
                             v244 = [v242 forDevice:device];
 
                             v245 = v240;
-                            __p = v474;
-                            v567 = v470;
-                            v568 = v467;
+                            *&__p = v471;
+                            *(&__p + 1) = v467;
+                            v564 = v464;
                             v246 = v229;
                             level = [v229 level];
                             slice = [v246 slice];
                             depthPlane = [v246 depthPlane];
-                            v556[0] = MEMORY[0x277D85DD0];
-                            v556[1] = 3221225472;
-                            v556[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_2;
-                            v556[3] = &unk_27930F6E0;
-                            v556[4] = selfCopy;
+                            v553[0] = MEMORY[0x277D85DD0];
+                            v553[1] = 3221225472;
+                            v553[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_2;
+                            v553[3] = &unk_27930F6E0;
+                            v553[4] = selfCopy;
                             v250 = objd;
-                            v557 = v250;
-                            v558 = texture;
-                            v559 = v232;
-                            v230 = v558;
-                            LODWORD(v441) = v245;
-                            [v244 resizeTexture:v558 resolution:&__p level:level slice:slice depthPlane:depthPlane inBuffer:v482 withType:v441 completion:v556];
+                            v554 = v250;
+                            v555 = texture;
+                            v556 = v232;
+                            v230 = v555;
+                            LODWORD(v438) = v245;
+                            [v244 resizeTexture:v555 resolution:&__p level:level slice:slice depthPlane:depthPlane inBuffer:v479 withType:v438 completion:v553];
 
-                            v227 = v478;
-                            v229 = v491;
+                            v227 = v475;
+                            v229 = v488;
 
-                            if ((v465 & 1) == 0)
+                            if ((v462 & 1) == 0)
                             {
                               goto LABEL_321;
                             }
@@ -1103,12 +1127,12 @@ LABEL_300:
                           }
                         }
 
-                        v496 = [v227 countByEnumeratingWithState:&v560 objects:v575 count:16];
-                        if (!v496)
+                        v493 = [v227 countByEnumeratingWithState:&v557 objects:v571 count:16];
+                        if (!v493)
                         {
 LABEL_321:
 
-                          [v482 commit];
+                          [v479 commit];
                           goto LABEL_322;
                         }
                       }
@@ -1129,22 +1153,22 @@ LABEL_297:
                     [v224 addObject:@"Depth."];
                     [v224 addObject:@"Stencil."];
                     [v224 addObject:@"First"];
-                    v456 = [MEMORY[0x277CBEA60] arrayWithArray:v224];
+                    v453 = [MEMORY[0x277CBEA60] arrayWithArray:v224];
 
                     goto LABEL_300;
                   }
                 }
               }
 
-              v474 = 512;
-              v470 = 128;
-              v467 = 32;
+              v471 = 512;
+              v467 = 128;
+              v464 = 32;
               goto LABEL_297;
             }
 
 LABEL_322:
 
-            v34 = v457;
+            v34 = v454;
           }
         }
       }
@@ -1170,12 +1194,12 @@ LABEL_322:
           case -16351:
             [(DYFunctionPlayer *)self processArguments];
             self->_parallelEncoderCommandBufferID = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v66) + 48, 0);
-            v185 = self + *MEMORY[0x277D0AF68];
-            v186 = GPUTools::MTL::MakeMTLRenderPassDescriptor(**(v185 + 1), [(DYMTLFunctionPlayer *)self objectMap]);
+            v185 = (self + *MEMORY[0x277D0AF68]);
+            v186 = GPUTools::MTL::MakeMTLRenderPassDescriptor(*v185[1], [(DYMTLFunctionPlayer *)self objectMap]);
             dependencyGraphParallelDescriptor = self->_dependencyGraphParallelDescriptor;
             self->_dependencyGraphParallelDescriptor = v186;
 
-            GPUTools::MTL::Utils::MakeDYMTLRenderPassDescriptor(**(v185 + 1), &self->_dependencyGraphDYMTLParallelDescriptor, v188);
+            GPUTools::MTL::Utils::MakeDYMTLRenderPassDescriptor(*v185[1], &self->_dependencyGraphDYMTLParallelDescriptor, v188);
             goto LABEL_328;
           case -16286:
             for (j = 0; j != 8; ++j)
@@ -1235,18 +1259,17 @@ LABEL_322:
               [stencilAttachment9 setStoreAction:1];
             }
 
-            v278 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:selfCopy->_parallelEncoderCommandBufferID];
-            v279 = [v278 renderCommandEncoderWithDescriptor:selfCopy->_dependencyGraphParallelDescriptor];
-            v553.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v66) + 24, 0);
-            [(DYMTLFunctionPlayer *)selfCopy setObject:v279 forKey:v553.i64[0]];
-            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v553);
+            v277 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:selfCopy->_parallelEncoderCommandBufferID];
+            v278 = [v277 renderCommandEncoderWithDescriptor:selfCopy->_dependencyGraphParallelDescriptor];
+            v550.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v66) + 24, 0);
+            [(DYMTLFunctionPlayer *)selfCopy setObject:v278 forKey:v550.i64[0]];
+            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v550);
             __p = selfCopy->_parallelEncoderCommandBufferID;
-            v567 = 0;
-            v568 = v553.i64[0];
-            v569 = 0;
-            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v553);
-            [(DYMTLCommonDebugFunctionPlayer *)selfCopy _addRenderPassDescriptorToEncoderMapFromRenderPassDescriptor:&selfCopy->_dependencyGraphDYMTLParallelDescriptor forEncoder:v553.i64[0]];
-            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553);
+            v564 = v550.i64[0];
+            v565 = 0;
+            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v550, &v550, &__p);
+            [(DYMTLCommonDebugFunctionPlayer *)selfCopy _addRenderPassDescriptorToEncoderMapFromRenderPassDescriptor:&selfCopy->_dependencyGraphDYMTLParallelDescriptor forEncoder:v550.i64[0]];
+            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550);
 
             goto LABEL_328;
           case -16285:
@@ -1292,7 +1315,7 @@ LABEL_322:
       v138 = *v137;
       if (v138 == -16376 || v138 == -15789 || v138 == -16246)
       {
-        __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v137 + 12), 0);
+        *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v137 + 12), 0);
         v141 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &__p);
         v142 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandBufferMap.__table_.__bucket_list_.__ptr_, v141 + 3);
         v143 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v142[3]];
@@ -1317,7 +1340,7 @@ LABEL_322:
       {
         if (objc_opt_respondsToSelector())
         {
-          playbackOptions3 = [v502 playbackOptions];
+          playbackOptions3 = [v499 playbackOptions];
           if (playbackOptions3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             v202 = playbackOptions3;
@@ -1332,85 +1355,85 @@ LABEL_322:
             if (v208)
             {
               v212 = 16;
-              v211 = 256;
-              v210 = 128;
+              v210 = 256;
+              v211 = 128;
             }
 
             else
             {
               v209 = [v202 objectForKeyedSubscript:v206];
-              GPUTraceResourceResolutionDecode(v209, &__p);
-              v210 = __p;
-              v211 = v567;
-              v212 = v568;
+              GPUTraceResourceResolutionDecode(&__p, v209);
+              v210 = *(&__p + 1);
+              v211 = __p;
+              v212 = v564;
             }
 
-            v336 = bOOLValue ^ 1;
+            v333 = bOOLValue ^ 1;
           }
 
           else
           {
             v205 = 0;
-            v336 = 1;
+            v333 = 1;
             v212 = 16;
-            v211 = 256;
-            v210 = 128;
+            v210 = 256;
+            v211 = 128;
           }
         }
 
         else
         {
           v205 = 0;
-          v336 = 1;
+          v333 = 1;
           v212 = 16;
-          v211 = 256;
-          v210 = 128;
+          v210 = 256;
+          v211 = 128;
         }
 
-        v404 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80])];
-        v405 = [v205 objectForKey:v404];
-        if (v405)
+        v401 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80])];
+        v402 = [v205 objectForKey:v401];
+        if (v402)
         {
-          v406 = v336;
+          v403 = v333;
         }
 
         else
         {
-          v406 = 1;
+          v403 = 1;
         }
 
-        if ((v406 & 1) == 0)
+        if ((v403 & 1) == 0)
         {
-          v553.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v66) + 48, 0);
-          v407 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v553);
-          if (v407)
+          v550.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v66) + 48, 0);
+          v404 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &v550);
+          if (v404)
           {
-            v408 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandBufferMap.__table_.__bucket_list_.__ptr_, v407 + 3);
-            if (v408)
+            v405 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandBufferMap.__table_.__bucket_list_.__ptr_, v404 + 3);
+            if (v405)
             {
-              v565 = 0;
-              v409 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553);
-              if (v409)
+              v562 = 0;
+              v406 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550);
+              if (v406)
               {
-                v565 = v409[3];
-                std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v565);
-                v410 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v565];
+                v562 = v406[3];
+                std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v562);
+                v407 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v562];
               }
 
               else
               {
-                v410 = 0;
+                v407 = 0;
               }
 
-              v411 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v408[2]];
-              v412 = objc_autoreleasePoolPush();
-              __p = v210;
-              v567 = v211;
-              v568 = v212;
-              v413 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy _generateThumbnailAndResourceInfoForRequestedTextures:v405 resolution:&__p commandBuffer:v411];
-              [(NSMutableDictionary *)selfCopy->_dependencyGraphThumbnails setObject:v413 forKey:v404];
+              v408 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v405[2]];
+              v409 = objc_autoreleasePoolPush();
+              *&__p = v211;
+              *(&__p + 1) = v210;
+              v564 = v212;
+              v410 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy _generateThumbnailAndResourceInfoForRequestedTextures:v402 resolution:&__p commandBuffer:v408];
+              [(NSMutableDictionary *)selfCopy->_dependencyGraphThumbnails setObject:v410 forKey:v401];
 
-              objc_autoreleasePoolPop(v412);
+              objc_autoreleasePoolPop(v409);
             }
           }
         }
@@ -1425,8 +1448,8 @@ LABEL_322:
     }
 
     v22 = objc_autoreleasePoolPush();
-    v461 = *MEMORY[0x277D0AFA0];
-    v23 = **(&self->super.super.super.super.isa + v461) + 16162;
+    v458 = *MEMORY[0x277D0AFA0];
+    v23 = **(&self->super.super.super.super.isa + v458) + 16162;
     if (v23 < 0xB && ((0x73Fu >> v23) & 1) != 0)
     {
       v24 = 1;
@@ -1436,16 +1459,16 @@ LABEL_322:
     context = v22;
     [(DYMTLCommonDebugFunctionPlayer *)self _executeGraphicsFunction];
     [(DYMTLCommonDebugFunctionPlayer *)self _trackObjects];
-    __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v461) + 48, 0);
-    v75 = *(&self->super.super.super.super.isa + v461);
+    *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v458) + 48, 0);
+    v75 = *(&self->super.super.super.super.isa + v458);
     if (*v75 == -16353)
     {
-      __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v75 + 6), 0);
+      *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v75 + 6), 0);
     }
 
     if (objc_opt_respondsToSelector())
     {
-      playbackOptions4 = [v502 playbackOptions];
+      playbackOptions4 = [v499 playbackOptions];
       if (playbackOptions4)
       {
         objc_opt_class();
@@ -1462,15 +1485,15 @@ LABEL_322:
           unsignedLongLongValue3 = [v81 unsignedLongLongValue];
 
           v82 = [v77 objectForKeyedSubscript:*MEMORY[0x277D0B458]];
-          v469 = [v82 unsignedLongLongValue] != 0;
+          v466 = [v82 unsignedLongLongValue] != 0;
 
           v83 = [v77 objectForKeyedSubscript:*MEMORY[0x277D0B450]];
-          v473 = [v83 unsignedLongLongValue] != 0;
+          v470 = [v83 unsignedLongLongValue] != 0;
 
           v84 = [v77 objectForKeyedSubscript:*MEMORY[0x277D0B448]];
           unsignedLongLongValue4 = [v84 unsignedLongLongValue];
 
-          v495 = [v77 objectForKeyedSubscript:*MEMORY[0x277D0B478]];
+          v492 = [v77 objectForKeyedSubscript:*MEMORY[0x277D0B478]];
 
           v86 = __p;
           if (unsignedLongLongValue && __p != unsignedLongLongValue)
@@ -1497,39 +1520,39 @@ LABEL_156:
 
           if (!v104)
           {
-            v463 = 0;
-            if (**(&selfCopy->super.super.super.super.isa + v461) != -16353)
+            v460 = 0;
+            if (**(&selfCopy->super.super.super.super.isa + v458) != -16353)
             {
               v24 = 2;
-              v477 = 0;
+              v474 = 0;
 LABEL_249:
 
               goto LABEL_250;
             }
 
-            v477 = 0;
+            v474 = 0;
             goto LABEL_166;
           }
 
-          v477 = v104;
+          v474 = v104;
           encoderFunctionIndex = [v104 encoderFunctionIndex];
           v106 = [(NSMutableDictionary *)selfCopy->_pixelHistory objectForKeyedSubscript:*MEMORY[0x277D0B3D0]];
           v107 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:encoderFunctionIndex];
-          v463 = [v106 objectForKeyedSubscript:v107];
+          v460 = [v106 objectForKeyedSubscript:v107];
 
-          v108 = **(&selfCopy->super.super.super.super.isa + v461);
+          v108 = **(&selfCopy->super.super.super.super.isa + v458);
           if (v108 != -16353)
           {
-            if (v463)
+            if (v460)
             {
               if (GPUTools::MTL::IsFuncEnumDrawCall(v108))
               {
                 goto LABEL_166;
               }
 
-              if (v473)
+              if (v470)
               {
-                v109 = **(&selfCopy->super.super.super.super.isa + v461);
+                v109 = **(&selfCopy->super.super.super.super.isa + v458);
                 if (IsFuncEnumPixelHistoryInterestingRenderPassStateItems(v109) || v109 == -16246)
                 {
                   goto LABEL_166;
@@ -1539,7 +1562,7 @@ LABEL_249:
 
             else
             {
-              v463 = 0;
+              v460 = 0;
             }
 
 LABEL_248:
@@ -1554,57 +1577,57 @@ LABEL_166:
             v111 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandEncoderDescriptorMap.__table_.__bucket_list_.__ptr_, v110 + 5);
             if (v111)
             {
-              v448 = v111;
+              v445 = v111;
               v112 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandBufferMap.__table_.__bucket_list_.__ptr_, v110 + 3);
               if (v112)
               {
-                v445 = v101;
-                v455 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-                v453 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v112[3]];
-                v446 = v112[2];
-                v464 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:?];
-                descriptor2 = [v455 descriptor];
+                v442 = v101;
+                v452 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+                v450 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v112[3]];
+                v443 = v112[2];
+                v461 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:?];
+                descriptor2 = [v452 descriptor];
                 v113 = v110[4];
-                v451 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v113];
-                v443 = v113;
-                if (**(&selfCopy->super.super.super.super.isa + v461) == -16353)
+                v448 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v113];
+                v440 = v113;
+                if (**(&selfCopy->super.super.super.super.isa + v458) == -16353)
                 {
-                  v481 = objc_opt_new();
+                  v478 = objc_opt_new();
                   v114 = 0;
                   do
                   {
                     v114 = [MEMORY[0x277CCACA8] stringWithFormat:@"Color.%u", v114];
-                    [v481 addObject:v114];
+                    [v478 addObject:v114];
 
                     v114 = (v114 + 1);
                   }
 
                   while (v114 != 8);
-                  [v481 addObject:@"Depth."];
-                  [v481 addObject:@"Stencil."];
+                  [v478 addObject:@"Depth."];
+                  [v478 addObject:@"Stencil."];
                   obj = objc_opt_new();
-                  v526 = 0u;
-                  v527 = 0u;
+                  v523 = 0u;
                   v524 = 0u;
-                  v525 = 0u;
-                  v116 = v481;
-                  v117 = [v116 countByEnumeratingWithState:&v524 objects:v573 count:16];
+                  v521 = 0u;
+                  v522 = 0u;
+                  v116 = v478;
+                  v117 = [v116 countByEnumeratingWithState:&v521 objects:v569 count:16];
                   if (v117)
                   {
-                    v118 = *v525;
+                    v118 = *v522;
                     do
                     {
                       for (k = 0; k != v117; ++k)
                       {
-                        if (*v525 != v118)
+                        if (*v522 != v118)
                         {
                           objc_enumerationMutation(v116);
                         }
 
-                        v120 = *(*(&v524 + 1) + 8 * k);
+                        v120 = *(*(&v521 + 1) + 8 * k);
                         if (![v120 hasPrefix:@"Color."])
                         {
-                          if ([v120 isEqualToString:@"Depth."])
+                          if (objc_msgSend_isEqualToString_(v120))
                           {
                             depthAttachment10 = [descriptor2 depthAttachment];
                             texture2 = [depthAttachment10 texture];
@@ -1617,7 +1640,7 @@ LABEL_166:
 
                           else
                           {
-                            if (![v120 isEqualToString:@"Stencil."])
+                            if (!objc_msgSend_isEqualToString_(v120))
                             {
 LABEL_191:
                               texture2 = 0;
@@ -1639,7 +1662,7 @@ LABEL_186:
                           if (depthAttachment10)
                           {
                             v126 = [(DYMTLFunctionPlayer *)selfCopy keyForOriginalObject:texture2 inverseObjectMap:&selfCopy->_pixelHistoryInverseObjectMap];
-                            if (!v495 || (v127 = v126, ![v495 count]) || (objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLongLong:", v127), v128 = objc_claimAutoreleasedReturnValue(), v129 = objc_msgSend(v495, "containsObject:", v128), v128, (v129 & 1) != 0))
+                            if (!v492 || (v127 = v126, ![v492 count]) || (objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedLongLong:", v127), v128 = objc_claimAutoreleasedReturnValue(), v129 = objc_msgSend(v492, "containsObject:", v128), v128, (v129 & 1) != 0))
                             {
                               [obj setObject:depthAttachment10 forKeyedSubscript:index];
                             }
@@ -1667,7 +1690,7 @@ LABEL_186:
 LABEL_192:
                       }
 
-                      v117 = [v116 countByEnumeratingWithState:&v524 objects:v573 count:16];
+                      v117 = [v116 countByEnumeratingWithState:&v521 objects:v569 count:16];
                     }
 
                     while (v117);
@@ -1688,241 +1711,241 @@ LABEL_192:
 
                 else
                 {
-                  v134 = v477;
+                  v134 = v474;
                 }
 
                 filteredGenerationOptions = [v134 filteredGenerationOptions];
-                v468 = v134;
-                v450 = filteredGenerationOptions;
-                v254 = [filteredGenerationOptions count];
-                if (v463 != 0 && v473)
+                v465 = v134;
+                v447 = filteredGenerationOptions;
+                v253 = [filteredGenerationOptions count];
+                if (v460 != 0 && v470)
                 {
-                  v255 = **(&selfCopy->super.super.super.super.isa + v461);
-                  if (IsFuncEnumPixelHistoryInterestingRenderPassStateItems(v255))
+                  v254 = **(&selfCopy->super.super.super.super.isa + v458);
+                  if (IsFuncEnumPixelHistoryInterestingRenderPassStateItems(v254))
                   {
-                    v256 = objc_opt_new();
-                    v257 = **(&selfCopy->super.super.super.super.isa + v461);
-                    switch(v257)
+                    v255 = objc_opt_new();
+                    v256 = **(&selfCopy->super.super.super.super.isa + v458);
+                    switch(v256)
                     {
                       case 0xFFFFC072:
-                        v257 = 4294951219;
+                        v256 = 4294951219;
                         break;
                       case 0xFFFFC077:
-                        v257 = 4294951220;
+                        v256 = 4294951220;
                         break;
                       case 0xFFFFC083:
-                        v257 = 4294951077;
+                        v256 = 4294951077;
                         break;
                     }
 
-                    v452 = v256;
+                    v449 = v255;
                     encoderStateFunctionIndexes = [v134 encoderStateFunctionIndexes];
-                    v342 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v257];
-                    v449 = [encoderStateFunctionIndexes objectForKeyedSubscript:v342];
+                    v339 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v256];
+                    v446 = [encoderStateFunctionIndexes objectForKeyedSubscript:v339];
 
-                    if (v449)
+                    if (v446)
                     {
-                      v343 = v452;
-                      unsignedLongValue = [v449 unsignedLongValue];
-                      lastInterestingFunctionIndex = [v468 lastInterestingFunctionIndex];
-                      v346 = *MEMORY[0x277D0B3A8];
+                      v340 = v449;
+                      unsignedLongValue = [v446 unsignedLongValue];
+                      lastInterestingFunctionIndex = [v465 lastInterestingFunctionIndex];
+                      v343 = *MEMORY[0x277D0B3A8];
                       if (unsignedLongValue <= lastInterestingFunctionIndex)
                       {
 LABEL_441:
-                        v348 = [v463 objectForKeyedSubscript:v346];
-                        v349 = *MEMORY[0x277D0AF80];
-                        v350 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v349)];
-                        [v348 setObject:v343 forKeyedSubscript:v350];
+                        v345 = [v460 objectForKeyedSubscript:v343];
+                        v346 = *MEMORY[0x277D0AF80];
+                        v347 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v346)];
+                        [v345 setObject:v340 forKeyedSubscript:v347];
 
-                        v351 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v349)];
-                        encoderStateFunctionIndexes2 = [v468 encoderStateFunctionIndexes];
-                        v352 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v257];
-                        [encoderStateFunctionIndexes2 setObject:v351 forKeyedSubscript:v352];
-                        v444 = v351;
+                        v348 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v346)];
+                        encoderStateFunctionIndexes2 = [v465 encoderStateFunctionIndexes];
+                        v349 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v256];
+                        [encoderStateFunctionIndexes2 setObject:v348 forKeyedSubscript:v349];
+                        v441 = v348;
 LABEL_579:
 
-                        v282 = v452;
+                        v281 = v449;
 LABEL_580:
 
-                        filteredGenerationOptions = v450;
+                        filteredGenerationOptions = v447;
                         goto LABEL_581;
                       }
 
-                      v347 = [v463 objectForKeyedSubscript:*MEMORY[0x277D0B3A8]];
-                      [v347 removeObjectForKey:v449];
+                      v344 = [v460 objectForKeyedSubscript:*MEMORY[0x277D0B3A8]];
+                      [v344 removeObjectForKey:v446];
                     }
 
                     else
                     {
-                      v346 = *MEMORY[0x277D0B3A8];
+                      v343 = *MEMORY[0x277D0B3A8];
                     }
 
-                    v343 = v452;
+                    v340 = v449;
                     goto LABEL_441;
                   }
 
-                  if (v255 == -16246)
+                  if (v254 == -16246)
                   {
-                    v522 = 0u;
-                    v523 = 0u;
+                    v519 = 0u;
                     v520 = 0u;
-                    v521 = 0u;
+                    v517 = 0u;
+                    v518 = 0u;
                     encoderStateFunctionIndexes3 = [v134 encoderStateFunctionIndexes];
                     allKeys = [encoderStateFunctionIndexes3 allKeys];
 
-                    v282 = allKeys;
-                    v283 = [allKeys countByEnumeratingWithState:&v520 objects:v572 count:16];
-                    if (v283)
+                    v281 = allKeys;
+                    v282 = [allKeys countByEnumeratingWithState:&v517 objects:v568 count:16];
+                    if (v282)
                     {
-                      v284 = *v521;
-                      v285 = *MEMORY[0x277D0B3A8];
+                      v283 = *v518;
+                      v284 = *MEMORY[0x277D0B3A8];
                       do
                       {
-                        for (m = 0; m != v283; ++m)
+                        for (m = 0; m != v282; ++m)
                         {
-                          if (*v521 != v284)
+                          if (*v518 != v283)
                           {
                             objc_enumerationMutation(allKeys);
                           }
 
-                          v287 = *(*(&v520 + 1) + 8 * m);
-                          encoderStateFunctionIndexes4 = [v468 encoderStateFunctionIndexes];
-                          v289 = [encoderStateFunctionIndexes4 objectForKeyedSubscript:v287];
+                          v286 = *(*(&v517 + 1) + 8 * m);
+                          encoderStateFunctionIndexes4 = [v465 encoderStateFunctionIndexes];
+                          v288 = [encoderStateFunctionIndexes4 objectForKeyedSubscript:v286];
 
-                          unsignedLongValue2 = [v289 unsignedLongValue];
-                          if (unsignedLongValue2 > [v468 lastInterestingFunctionIndex])
+                          unsignedLongValue2 = [v288 unsignedLongValue];
+                          if (unsignedLongValue2 > [v465 lastInterestingFunctionIndex])
                           {
-                            v291 = [v463 objectForKeyedSubscript:v285];
-                            [v291 removeObjectForKey:v289];
+                            v290 = [v460 objectForKeyedSubscript:v284];
+                            [v290 removeObjectForKey:v288];
                           }
                         }
 
-                        v282 = allKeys;
-                        v283 = [allKeys countByEnumeratingWithState:&v520 objects:v572 count:16];
+                        v281 = allKeys;
+                        v282 = [allKeys countByEnumeratingWithState:&v517 objects:v568 count:16];
                       }
 
-                      while (v283);
+                      while (v282);
                     }
 
                     goto LABEL_580;
                   }
                 }
 
-                if (!v254)
+                if (!v253)
                 {
 LABEL_581:
 
                   v24 = 0;
-                  v477 = v468;
+                  v474 = v465;
                   goto LABEL_249;
                 }
 
-                if (**(&selfCopy->super.super.super.super.isa + v461) == -16353)
+                if (**(&selfCopy->super.super.super.super.isa + v458) == -16353)
                 {
-                  v292 = objc_opt_new();
+                  v291 = objc_opt_new();
 
-                  v293 = [(NSMutableDictionary *)selfCopy->_pixelHistory objectForKeyedSubscript:*MEMORY[0x277D0B3D0]];
-                  v294 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80])];
-                  [v293 setObject:v292 forKeyedSubscript:v294];
+                  v292 = [(NSMutableDictionary *)selfCopy->_pixelHistory objectForKeyedSubscript:*MEMORY[0x277D0B3D0]];
+                  v293 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80])];
+                  [v292 setObject:v291 forKeyedSubscript:v293];
+
+                  v294 = objc_opt_new();
+                  [v291 setObject:v294 forKeyedSubscript:*MEMORY[0x277D0B3A8]];
 
                   v295 = objc_opt_new();
-                  [v292 setObject:v295 forKeyedSubscript:*MEMORY[0x277D0B3A8]];
+                  v480 = *MEMORY[0x277D0B3B8];
+                  [v291 setObject:v295 forKeyedSubscript:?];
 
                   v296 = objc_opt_new();
-                  v483 = *MEMORY[0x277D0B3B8];
-                  [v292 setObject:v296 forKeyedSubscript:?];
+                  v476 = *MEMORY[0x277D0B3C8];
+                  [v291 setObject:v296 forKeyedSubscript:?];
 
                   v297 = objc_opt_new();
-                  v479 = *MEMORY[0x277D0B3C8];
-                  [v292 setObject:v297 forKeyedSubscript:?];
+                  v472 = *MEMORY[0x277D0B3C0];
+                  [v291 setObject:v297 forKeyedSubscript:?];
 
-                  v298 = objc_opt_new();
-                  v475 = *MEMORY[0x277D0B3C0];
-                  [v292 setObject:v298 forKeyedSubscript:?];
-
-                  v518 = 0u;
-                  v519 = 0u;
+                  v515 = 0u;
                   v516 = 0u;
-                  v517 = 0u;
-                  v299 = filteredGenerationOptions;
-                  obja = v299;
-                  v300 = [v299 countByEnumeratingWithState:&v516 objects:v571 count:16];
-                  if (v300)
+                  v513 = 0u;
+                  v514 = 0u;
+                  v298 = filteredGenerationOptions;
+                  obja = v298;
+                  v299 = [v298 countByEnumeratingWithState:&v513 objects:v567 count:16];
+                  if (v299)
                   {
-                    v301 = *v517;
+                    v300 = *v514;
                     do
                     {
-                      for (n = 0; n != v300; ++n)
+                      for (n = 0; n != v299; ++n)
                       {
-                        if (*v517 != v301)
+                        if (*v514 != v300)
                         {
                           objc_enumerationMutation(obja);
                         }
 
-                        v303 = *(*(&v516 + 1) + 8 * n);
-                        v304 = [obja objectForKeyedSubscript:v303];
-                        texture3 = [v304 texture];
-                        v306 = [(DYMTLFunctionPlayer *)selfCopy keyForOriginalObject:texture3 inverseObjectMap:&selfCopy->_pixelHistoryInverseObjectMap];
+                        v302 = *(*(&v513 + 1) + 8 * n);
+                        v303 = [obja objectForKeyedSubscript:v302];
+                        texture3 = [v303 texture];
+                        v305 = [(DYMTLFunctionPlayer *)selfCopy keyForOriginalObject:texture3 inverseObjectMap:&selfCopy->_pixelHistoryInverseObjectMap];
                         objc_opt_class();
                         isKindOfClass = objc_opt_isKindOfClass();
-                        v308 = @"Color";
+                        v307 = @"Color";
                         if ((isKindOfClass & 1) == 0)
                         {
                           objc_opt_class();
-                          v309 = objc_opt_isKindOfClass();
-                          v308 = @"Depth";
-                          if ((v309 & 1) == 0)
+                          v308 = objc_opt_isKindOfClass();
+                          v307 = @"Depth";
+                          if ((v308 & 1) == 0)
                           {
                             objc_opt_class();
-                            v310 = objc_opt_isKindOfClass();
-                            v308 = @"Stencil";
-                            if ((v310 & 1) == 0)
+                            v309 = objc_opt_isKindOfClass();
+                            v307 = @"Stencil";
+                            if ((v309 & 1) == 0)
                             {
-                              v308 = 0;
+                              v307 = 0;
                             }
                           }
                         }
 
-                        v306 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%llu", v308, v306];
-                        v312 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v304, "loadAction")}];
-                        v313 = [v292 objectForKeyedSubscript:v483];
-                        [v313 setObject:v312 forKeyedSubscript:v306];
+                        v305 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%llu", v307, v305];
+                        v311 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v303, "loadAction")}];
+                        v312 = [v291 objectForKeyedSubscript:v480];
+                        [v312 setObject:v311 forKeyedSubscript:v305];
 
-                        v314 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v304, "storeAction")}];
-                        v315 = [v292 objectForKeyedSubscript:v479];
-                        [v315 setObject:v314 forKeyedSubscript:v306];
+                        v313 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v303, "storeAction")}];
+                        v314 = [v291 objectForKeyedSubscript:v476];
+                        [v314 setObject:v313 forKeyedSubscript:v305];
 
-                        v316 = [v292 objectForKeyedSubscript:v475];
-                        [v316 setObject:v303 forKeyedSubscript:v306];
+                        v315 = [v291 objectForKeyedSubscript:v472];
+                        [v315 setObject:v302 forKeyedSubscript:v305];
                       }
 
-                      v299 = obja;
-                      v300 = [obja countByEnumeratingWithState:&v516 objects:v571 count:16];
+                      v298 = obja;
+                      v299 = [obja countByEnumeratingWithState:&v513 objects:v567 count:16];
                     }
 
-                    while (v300);
+                    while (v299);
                   }
 
-                  v463 = v292;
+                  v460 = v291;
                 }
 
-                commandBuffer2 = [v453 commandBuffer];
-                v447 = *MEMORY[0x277D0AF80];
-                v318 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-contd-after-%u", *(&selfCopy->super.super.super.super.isa + v447)];
-                v452 = commandBuffer2;
-                [commandBuffer2 setLabel:v318];
+                commandBuffer2 = [v450 commandBuffer];
+                v444 = *MEMORY[0x277D0AF80];
+                v317 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-contd-after-%u", *(&selfCopy->super.super.super.super.isa + v444)];
+                v449 = commandBuffer2;
+                [commandBuffer2 setLabel:v317];
 
                 for (ii = 0; ii != 8; ++ii)
                 {
                   colorAttachments11 = [descriptor2 colorAttachments];
-                  v321 = [colorAttachments11 objectAtIndexedSubscript:ii];
+                  v320 = [colorAttachments11 objectAtIndexedSubscript:ii];
 
-                  [(DYMTLCommonDebugFunctionPlayer *)selfCopy _updateMemorylessTextures:v321];
-                  [v321 setResolveTexture:0];
-                  [v321 setLoadAction:1];
-                  if ([v321 storeAction] != 4)
+                  [(DYMTLCommonDebugFunctionPlayer *)selfCopy _updateMemorylessTextures:v320];
+                  [v320 setResolveTexture:0];
+                  [v320 setLoadAction:1];
+                  if ([v320 storeAction] != 4)
                   {
-                    [v321 setStoreAction:1];
+                    [v320 setStoreAction:1];
                   }
                 }
 
@@ -1944,156 +1967,154 @@ LABEL_581:
                   [stencilAttachment10 setStoreAction:1];
                 }
 
-                v324 = DYMTLNewStatefulRenderCommandEncoder(v452, descriptor2);
-                [(DYMTLCommonDebugFunctionPlayer *)selfCopy encodeStoreActionForRenderCommandEncoder:v324 withDescriptor:descriptor2];
-                v515[0] = MEMORY[0x277D85DD0];
-                v515[1] = 3221225472;
-                v515[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_4;
-                v515[3] = &unk_27930F3E0;
-                v515[4] = selfCopy;
-                [v455 applyAllStateToEncoder:v324 rawBytesBlock:v515];
-                [v455 endEncoding];
-                [v464 commit];
-                [v464 waitUntilCompleted];
-                v325 = MEMORY[0x277D25728];
+                v323 = DYMTLNewStatefulRenderCommandEncoder(v449, descriptor2);
+                [(DYMTLCommonDebugFunctionPlayer *)selfCopy encodeStoreActionForRenderCommandEncoder:v323 withDescriptor:descriptor2];
+                v512[0] = MEMORY[0x277D85DD0];
+                v512[1] = 3221225472;
+                v512[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_4;
+                v512[3] = &unk_27930F3E0;
+                v512[4] = selfCopy;
+                [v452 applyAllStateToEncoder:v323 rawBytesBlock:v512];
+                [v452 endEncoding];
+                [v461 commit];
+                [v461 waitUntilCompleted];
+                v324 = MEMORY[0x277D25728];
                 device3 = [(DYMTLFunctionPlayer *)selfCopy device];
-                v449 = v324;
-                v444 = [v325 forDevice:device3];
+                v446 = v323;
+                v441 = [v324 forDevice:device3];
 
                 encoderStateFunctionIndexes2 = objc_opt_new();
-                v327 = objc_opt_new();
-                v328 = *MEMORY[0x277D0B420];
-                v484 = v327;
+                v481 = objc_opt_new();
                 [encoderStateFunctionIndexes2 setObject:? forKeyedSubscript:?];
-                v330 = **(&selfCopy->super.super.super.super.isa + v461);
-                if (v330 != -16353 && GPUTools::MTL::IsFuncEnumDrawCall(v330))
+                v327 = **(&selfCopy->super.super.super.super.isa + v458);
+                if (v327 != -16353 && GPUTools::MTL::IsFuncEnumDrawCall(v327))
                 {
                   if ([(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer currentRenderPipelineHasBufferOrTextureReadWrite:__p])
                   {
-                    v331 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B440]];
-                    [encoderStateFunctionIndexes2 setObject:v331 forKeyedSubscript:*MEMORY[0x277D0B3D8]];
+                    v328 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B440]];
+                    [encoderStateFunctionIndexes2 setObject:v328 forKeyedSubscript:*MEMORY[0x277D0B3D8]];
                   }
 
                   else
                   {
-                    commandBuffer3 = [v453 commandBuffer];
+                    commandBuffer3 = [v450 commandBuffer];
 
-                    v359 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-total-draws-%u", *(&selfCopy->super.super.super.super.isa + v447)];
-                    [commandBuffer3 setLabel:v359];
+                    v356 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-total-draws-%u", *(&selfCopy->super.super.super.super.isa + v444)];
+                    [commandBuffer3 setLabel:v356];
 
-                    [(DYMTLPixelHistoryDrawStatsSupport *)selfCopy->_pixelHistoryDrawStatsRenderer prepareWithCommandEncoderId:__p parallelEncoderId:0 pipelineId:v443 renderPassDescriptor:v448 + 3];
-                    v514[0] = MEMORY[0x277D85DD0];
-                    v514[1] = 3221225472;
-                    v514[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_5;
-                    v514[3] = &unk_27930F730;
-                    v514[4] = selfCopy;
-                    v360 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy collectPixelDrawStatsTotal:commandBuffer3 originalPipeline:v451 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 draw:v514];
+                    [(DYMTLPixelHistoryDrawStatsSupport *)selfCopy->_pixelHistoryDrawStatsRenderer prepareWithCommandEncoderId:__p parallelEncoderId:0 pipelineId:v440 renderPassDescriptor:v445 + 3];
+                    v511[0] = MEMORY[0x277D85DD0];
+                    v511[1] = 3221225472;
+                    v511[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_5;
+                    v511[3] = &unk_27930F730;
+                    v511[4] = selfCopy;
+                    v357 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy collectPixelDrawStatsTotal:commandBuffer3 originalPipeline:v448 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 draw:v511];
                     [commandBuffer3 commit];
                     [commandBuffer3 waitUntilCompleted];
-                    [encoderStateFunctionIndexes2 addEntriesFromDictionary:v360];
+                    [encoderStateFunctionIndexes2 addEntriesFromDictionary:v357];
 
-                    v464 = commandBuffer3;
+                    v461 = commandBuffer3;
                   }
                 }
 
-                if (**(&selfCopy->super.super.super.super.isa + v461) != -16353)
+                if (**(&selfCopy->super.super.super.super.isa + v458) != -16353)
                 {
-                  v361 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
-                  v362 = [v361 longLongValue] == 0;
+                  v358 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
+                  v359 = [v358 longLongValue] == 0;
 
-                  v363 = v469 && v362;
-                  v329 = v452;
-                  v364 = v324;
-                  v352 = v484;
-                  if (v363)
+                  v360 = v466 && v359;
+                  v326 = v449;
+                  v361 = v323;
+                  v349 = v481;
+                  if (v360)
                   {
 LABEL_578:
-                    [(DYMTLFunctionPlayer *)selfCopy setObject:v329 forKey:v446];
-                    [(DYMTLFunctionPlayer *)selfCopy setObject:v364 forKey:__p];
+                    [(DYMTLFunctionPlayer *)selfCopy setObject:v326 forKey:v443];
+                    [(DYMTLFunctionPlayer *)selfCopy setObject:v361 forKey:__p];
                     goto LABEL_579;
                   }
                 }
 
-                v476 = *(v448 + 1616);
-                objb = [v453 commandBuffer];
+                v473 = *(v445 + 1616);
+                objb = [v450 commandBuffer];
 
-                v365 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-blits-n-additional-stats-%u", *(&selfCopy->super.super.super.super.isa + v447)];
-                [objb setLabel:v365];
+                v362 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-blits-n-additional-stats-%u", *(&selfCopy->super.super.super.super.isa + v444)];
+                [objb setLabel:v362];
 
-                v480 = [(NSMutableDictionary *)selfCopy->_pixelHistory objectForKeyedSubscript:*MEMORY[0x277D0B430]];
-                v512 = 0u;
-                v513 = 0u;
+                v477 = [(NSMutableDictionary *)selfCopy->_pixelHistory objectForKeyedSubscript:*MEMORY[0x277D0B430]];
+                v509 = 0u;
                 v510 = 0u;
-                v511 = 0u;
-                allValues = [v450 allValues];
-                v466 = allValues;
-                v367 = [allValues countByEnumeratingWithState:&v510 objects:v570 count:16];
-                if (v367)
+                v507 = 0u;
+                v508 = 0u;
+                allValues = [v447 allValues];
+                v463 = allValues;
+                v364 = [allValues countByEnumeratingWithState:&v507 objects:v566 count:16];
+                if (v364)
                 {
-                  v471 = *v511;
+                  v468 = *v508;
                   do
                   {
-                    for (jj = 0; jj != v367; ++jj)
+                    for (jj = 0; jj != v364; ++jj)
                     {
-                      if (*v511 != v471)
+                      if (*v508 != v468)
                       {
-                        objc_enumerationMutation(v466);
+                        objc_enumerationMutation(v463);
                       }
 
-                      v369 = *(*(&v510 + 1) + 8 * jj);
-                      texture4 = [v369 texture];
-                      v371 = [(DYMTLFunctionPlayer *)selfCopy keyForOriginalObject:texture4 inverseObjectMap:&selfCopy->_pixelHistoryInverseObjectMap];
-                      v372 = MEMORY[0x277D25720];
-                      level2 = [v369 level];
-                      slice2 = [v369 slice];
-                      depthPlane2 = [v369 depthPlane];
-                      v505[0] = MEMORY[0x277D85DD0];
-                      v505[1] = 3221225472;
-                      v505[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_6;
-                      v505[3] = &unk_27930F758;
-                      v506 = v480;
-                      v509 = v371;
-                      v376 = texture4;
-                      v507 = v376;
-                      v508 = v484;
-                      LOBYTE(v442) = v476;
-                      [v372 pixelValueFromTexture:v376 level:level2 slice:slice2 depthPlane:depthPlane2 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 inCommandBuffer:objb overHarvestForDepthStencil:v442 completion:v505];
+                      v366 = *(*(&v507 + 1) + 8 * jj);
+                      texture4 = [v366 texture];
+                      v368 = [(DYMTLFunctionPlayer *)selfCopy keyForOriginalObject:texture4 inverseObjectMap:&selfCopy->_pixelHistoryInverseObjectMap];
+                      v369 = MEMORY[0x277D25720];
+                      level2 = [v366 level];
+                      slice2 = [v366 slice];
+                      depthPlane2 = [v366 depthPlane];
+                      v502[0] = MEMORY[0x277D85DD0];
+                      v502[1] = 3221225472;
+                      v502[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_6;
+                      v502[3] = &unk_27930F758;
+                      v503 = v477;
+                      v506 = v368;
+                      v373 = texture4;
+                      v504 = v373;
+                      v505 = v481;
+                      LOBYTE(v439) = v473;
+                      [v369 pixelValueFromTexture:v373 level:level2 slice:slice2 depthPlane:depthPlane2 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 inCommandBuffer:objb overHarvestForDepthStencil:v439 completion:v502];
                     }
 
-                    allValues = v466;
-                    v367 = [v466 countByEnumeratingWithState:&v510 objects:v570 count:16];
+                    allValues = v463;
+                    v364 = [v463 countByEnumeratingWithState:&v507 objects:v566 count:16];
                   }
 
-                  while (v367);
+                  while (v364);
                 }
 
-                v377 = *MEMORY[0x277D0B3D8];
-                v378 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
-                v379 = [v378 longLongValue] > 0;
+                v374 = *MEMORY[0x277D0B3D8];
+                v375 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
+                v376 = [v375 longLongValue] > 0;
 
-                if (v379)
+                if (v376)
                 {
-                  v504[0] = MEMORY[0x277D85DD0];
-                  v504[1] = 3221225472;
-                  v504[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_7;
-                  v504[3] = &unk_27930F730;
-                  v504[4] = selfCopy;
-                  v380 = objb;
-                  v381 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy collectPixelDrawStats:objb originalEncoderId:__p originalEncoder:v455 originalPipeline:v451 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 draw:v504];
+                  v501[0] = MEMORY[0x277D85DD0];
+                  v501[1] = 3221225472;
+                  v501[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_7;
+                  v501[3] = &unk_27930F730;
+                  v501[4] = selfCopy;
+                  v377 = objb;
+                  v378 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy collectPixelDrawStats:objb originalEncoderId:__p originalEncoder:v452 originalPipeline:v448 atX:unsignedLongLongValue2 y:unsignedLongLongValue3 draw:v501];
                 }
 
                 else
                 {
-                  v381 = 0;
-                  v380 = objb;
+                  v378 = 0;
+                  v377 = objb;
                 }
 
-                [v380 commit];
-                [v380 waitUntilCompleted];
-                v472 = v381;
-                if (!v381)
+                [v377 commit];
+                [v377 waitUntilCompleted];
+                v469 = v378;
+                if (!v378)
                 {
-                  if (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v461)))
+                  if (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v458)))
                   {
                     [encoderStateFunctionIndexes2 setObject:&unk_2860BA1C8 forKeyedSubscript:*MEMORY[0x277D0B3A0]];
                     [encoderStateFunctionIndexes2 setObject:&unk_2860BA1C8 forKeyedSubscript:*MEMORY[0x277D0B3B0]];
@@ -2103,31 +2124,31 @@ LABEL_578:
                   goto LABEL_565;
                 }
 
-                [encoderStateFunctionIndexes2 addEntriesFromDictionary:v381];
-                v382 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3F0]];
-                longLongValue = [v382 longLongValue];
+                [encoderStateFunctionIndexes2 addEntriesFromDictionary:v378];
+                v379 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3F0]];
+                longLongValue = [v379 longLongValue];
 
-                v384 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B400]];
-                longLongValue2 = [v384 longLongValue];
+                v381 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B400]];
+                longLongValue2 = [v381 longLongValue];
 
-                v386 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3E0]];
-                longLongValue3 = [v386 longLongValue];
+                v383 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3E0]];
+                longLongValue3 = [v383 longLongValue];
 
-                v388 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3F8]];
-                longLongValue4 = [v388 longLongValue];
+                v385 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:*MEMORY[0x277D0B3F8]];
+                longLongValue4 = [v385 longLongValue];
 
-                v390 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue4];
-                [encoderStateFunctionIndexes2 setObject:v390 forKeyedSubscript:*MEMORY[0x277D0B3A0]];
+                v387 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue4];
+                [encoderStateFunctionIndexes2 setObject:v387 forKeyedSubscript:*MEMORY[0x277D0B3A0]];
 
-                depthStencilState = [v455 depthStencilState];
-                v392 = depthStencilState;
-                if (!depthStencilState || (DYMTLGetAssociatedObject(depthStencilState, 0), v393 = objc_claimAutoreleasedReturnValue(), v393, !v393))
+                depthStencilState = [v452 depthStencilState];
+                v389 = depthStencilState;
+                if (!depthStencilState || (DYMTLGetAssociatedObject(depthStencilState, 0), v390 = objc_claimAutoreleasedReturnValue(), v390, !v390))
                 {
                   [encoderStateFunctionIndexes2 setObject:&unk_2860BA1B0 forKeyedSubscript:*MEMORY[0x277D0B3B0]];
                   [encoderStateFunctionIndexes2 setObject:&unk_2860BA1B0 forKeyedSubscript:*MEMORY[0x277D0B410]];
 LABEL_564:
 
-                  v380 = objb;
+                  v377 = objb;
 LABEL_565:
                   stencilAttachment11 = [descriptor2 stencilAttachment];
                   texture5 = [stencilAttachment11 texture];
@@ -2135,71 +2156,71 @@ LABEL_565:
                   texture6 = [depthAttachment12 texture];
                   if (texture5 | texture6)
                   {
-                    commandBuffer4 = [v453 commandBuffer];
+                    commandBuffer4 = [v450 commandBuffer];
 
-                    v380 = commandBuffer4;
-                    v431 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-save-depth-stencil-%u", *(&selfCopy->super.super.super.super.isa + v447)];
-                    [v380 setLabel:v431];
+                    v377 = commandBuffer4;
+                    v428 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.dt.gputrace-replayer.pixel-history-save-depth-stencil-%u", *(&selfCopy->super.super.super.super.isa + v444)];
+                    [v377 setLabel:v428];
 
                     if (texture5)
                     {
-                      LOBYTE(v442) = v476;
-                      v432 = [MEMORY[0x277D25720] pixelValueFromTexture:texture5 level:objc_msgSend(stencilAttachment11 slice:"level") depthPlane:objc_msgSend(stencilAttachment11 atX:"slice") y:objc_msgSend(stencilAttachment11 inCommandBuffer:"depthPlane") overHarvestForDepthStencil:{unsignedLongLongValue2, unsignedLongLongValue3, v380, v442}];
+                      LOBYTE(v439) = v473;
+                      v429 = [MEMORY[0x277D25720] pixelValueFromTexture:texture5 level:objc_msgSend(stencilAttachment11 slice:"level") depthPlane:objc_msgSend(stencilAttachment11 atX:"slice") y:objc_msgSend(stencilAttachment11 inCommandBuffer:"depthPlane") overHarvestForDepthStencil:{unsignedLongLongValue2, unsignedLongLongValue3, v377, v439}];
                       pixelHistoryPixelPreviousStencil = selfCopy->_pixelHistoryPixelPreviousStencil;
-                      selfCopy->_pixelHistoryPixelPreviousStencil = v432;
+                      selfCopy->_pixelHistoryPixelPreviousStencil = v429;
                     }
 
                     if (texture6)
                     {
                       if (texture5 == texture6)
                       {
-                        v434 = selfCopy->_pixelHistoryPixelPreviousStencil;
+                        v431 = selfCopy->_pixelHistoryPixelPreviousStencil;
                       }
 
                       else
                       {
-                        LOBYTE(v442) = v476;
-                        v434 = [MEMORY[0x277D25720] pixelValueFromTexture:texture6 level:objc_msgSend(depthAttachment12 slice:"level") depthPlane:objc_msgSend(depthAttachment12 atX:"slice") y:objc_msgSend(depthAttachment12 inCommandBuffer:"depthPlane") overHarvestForDepthStencil:{unsignedLongLongValue2, unsignedLongLongValue3, v380, v442}];
+                        LOBYTE(v439) = v473;
+                        v431 = [MEMORY[0x277D25720] pixelValueFromTexture:texture6 level:objc_msgSend(depthAttachment12 slice:"level") depthPlane:objc_msgSend(depthAttachment12 atX:"slice") y:objc_msgSend(depthAttachment12 inCommandBuffer:"depthPlane") overHarvestForDepthStencil:{unsignedLongLongValue2, unsignedLongLongValue3, v377, v439}];
                       }
 
                       pixelHistoryPixelPreviousDepth = selfCopy->_pixelHistoryPixelPreviousDepth;
-                      selfCopy->_pixelHistoryPixelPreviousDepth = v434;
+                      selfCopy->_pixelHistoryPixelPreviousDepth = v431;
                     }
 
-                    [v380 commit];
-                    [v380 waitUntilCompleted];
+                    [v377 commit];
+                    [v377 waitUntilCompleted];
                   }
 
-                  objc = v380;
+                  objc = v377;
 
-                  [v468 setLastInterestingFunctionIndex:*(&selfCopy->super.super.super.super.isa + v447)];
-                  v436 = [v463 objectForKeyedSubscript:*MEMORY[0x277D0B3A8]];
-                  v437 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v447)];
-                  [v436 setObject:encoderStateFunctionIndexes2 forKeyedSubscript:v437];
+                  [v465 setLastInterestingFunctionIndex:*(&selfCopy->super.super.super.super.isa + v444)];
+                  v433 = [v460 objectForKeyedSubscript:*MEMORY[0x277D0B3A8]];
+                  v434 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(&selfCopy->super.super.super.super.isa + v444)];
+                  [v433 setObject:encoderStateFunctionIndexes2 forKeyedSubscript:v434];
 
-                  if (v445)
+                  if (v442)
                   {
-                    v438 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:v377];
-                    longLongValue5 = [v438 longLongValue];
+                    v435 = [encoderStateFunctionIndexes2 objectForKeyedSubscript:v374];
+                    longLongValue5 = [v435 longLongValue];
 
                     if (longLongValue5 >= 1)
                     {
-                      v440 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy generatePerPrimitiveHistory:longLongValue5 commandQueue:v453 currentEncoderId:__p originalEncoder:v455 originalPipeline:v451 atX:unsignedLongLongValue2 y:unsignedLongLongValue3];
-                      [encoderStateFunctionIndexes2 setObject:v440 forKeyedSubscript:*MEMORY[0x277D0B408]];
+                      v437 = [(DYMTLCommonDebugFunctionPlayer *)selfCopy generatePerPrimitiveHistory:longLongValue5 commandQueue:v450 currentEncoderId:__p originalEncoder:v452 originalPipeline:v448 atX:unsignedLongLongValue2 y:unsignedLongLongValue3];
+                      [encoderStateFunctionIndexes2 setObject:v437 forKeyedSubscript:*MEMORY[0x277D0B408]];
                     }
                   }
 
-                  v352 = v484;
-                  v464 = objc;
-                  v329 = v452;
-                  v364 = v449;
+                  v349 = v481;
+                  v461 = objc;
+                  v326 = v449;
+                  v361 = v446;
                   goto LABEL_578;
                 }
 
-                if ([v393 isDepthWriteEnabled])
+                if ([v390 isDepthWriteEnabled])
                 {
-                  v394 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue4];
-                  [encoderStateFunctionIndexes2 setObject:v394 forKeyedSubscript:*MEMORY[0x277D0B3B0]];
+                  v391 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue4];
+                  [encoderStateFunctionIndexes2 setObject:v391 forKeyedSubscript:*MEMORY[0x277D0B3B0]];
                 }
 
                 else
@@ -2207,25 +2228,25 @@ LABEL_565:
                   [encoderStateFunctionIndexes2 setObject:&unk_2860BA1B0 forKeyedSubscript:*MEMORY[0x277D0B3B0]];
                 }
 
-                v396 = *MEMORY[0x277D0B440];
+                v393 = *MEMORY[0x277D0B440];
                 if ((longLongValue | longLongValue2) < 0)
                 {
-                  v397 = v396;
+                  v394 = v393;
                 }
 
                 else
                 {
-                  v397 = longLongValue2 < longLongValue;
+                  v394 = longLongValue2 < longLongValue;
                 }
 
                 if ((longLongValue2 | longLongValue3) < 0)
                 {
-                  v398 = v396;
+                  v395 = v393;
                 }
 
                 else
                 {
-                  v398 = longLongValue3 < longLongValue2;
+                  v395 = longLongValue3 < longLongValue2;
                 }
 
                 if (longLongValue4 < 0)
@@ -2235,7 +2256,7 @@ LABEL_565:
                     longLongValue4 = 1;
                   }
 
-                  else if (longLongValue4 == v396)
+                  else if (longLongValue4 == v393)
                   {
                     longLongValue4 = 0xFFFFFFFFLL;
                   }
@@ -2246,93 +2267,93 @@ LABEL_565:
                   }
                 }
 
-                frontFaceStencil = [v393 frontFaceStencil];
+                frontFaceStencil = [v390 frontFaceStencil];
                 if ([frontFaceStencil stencilFailureOperation])
                 {
                 }
 
                 else
                 {
-                  backFaceStencil = [v393 backFaceStencil];
-                  v416 = [backFaceStencil stencilFailureOperation] == 0;
+                  backFaceStencil = [v390 backFaceStencil];
+                  v413 = [backFaceStencil stencilFailureOperation] == 0;
 
-                  if (v416)
+                  if (v413)
                   {
-                    v397 = 0;
+                    v394 = 0;
                   }
                 }
 
-                frontFaceStencil2 = [v393 frontFaceStencil];
+                frontFaceStencil2 = [v390 frontFaceStencil];
                 if ([frontFaceStencil2 depthFailureOperation])
                 {
                 }
 
                 else
                 {
-                  backFaceStencil2 = [v393 backFaceStencil];
-                  v419 = [backFaceStencil2 depthFailureOperation] == 0;
+                  backFaceStencil2 = [v390 backFaceStencil];
+                  v416 = [backFaceStencil2 depthFailureOperation] == 0;
 
-                  if (v419)
+                  if (v416)
                   {
                     goto LABEL_552;
                   }
                 }
 
-                if (v397)
+                if (v394)
                 {
-                  if (v398 > 0 && v397 < 0)
+                  if (v395 > 0 && v394 < 0)
                   {
-                    v397 = 1;
+                    v394 = 1;
                   }
 
                   else
                   {
-                    v397 = v397;
+                    v394 = v394;
                   }
                 }
 
                 else
                 {
-                  v397 = v398;
+                  v394 = v395;
                 }
 
 LABEL_552:
-                frontFaceStencil3 = [v393 frontFaceStencil];
+                frontFaceStencil3 = [v390 frontFaceStencil];
                 if ([frontFaceStencil3 depthStencilPassOperation])
                 {
                 }
 
                 else
                 {
-                  backFaceStencil3 = [v393 backFaceStencil];
-                  v423 = [backFaceStencil3 depthStencilPassOperation] == 0;
+                  backFaceStencil3 = [v390 backFaceStencil];
+                  v420 = [backFaceStencil3 depthStencilPassOperation] == 0;
 
-                  if (v423)
+                  if (v420)
                   {
 LABEL_563:
-                    v425 = [MEMORY[0x277CCABB0] numberWithInt:v397];
-                    [encoderStateFunctionIndexes2 setObject:v425 forKeyedSubscript:*MEMORY[0x277D0B410]];
+                    v422 = [MEMORY[0x277CCABB0] numberWithInt:v394];
+                    [encoderStateFunctionIndexes2 setObject:v422 forKeyedSubscript:*MEMORY[0x277D0B410]];
 
                     goto LABEL_564;
                   }
                 }
 
-                if (v397)
+                if (v394)
                 {
-                  if (longLongValue4 > 0 && v397 < 0)
+                  if (longLongValue4 > 0 && v394 < 0)
                   {
-                    v397 = 1;
+                    v394 = 1;
                   }
 
                   else
                   {
-                    v397 = v397;
+                    v394 = v394;
                   }
                 }
 
                 else
                 {
-                  v397 = longLongValue4;
+                  v394 = longLongValue4;
                 }
 
                 goto LABEL_563;
@@ -2347,9 +2368,9 @@ LABEL_563:
 
     unsignedLongLongValue3 = 0;
     unsignedLongLongValue2 = 0;
-    v495 = 0;
-    v469 = 0;
-    v473 = 0;
+    v492 = 0;
+    v466 = 0;
+    v470 = 0;
     v101 = 0;
     v86 = __p;
     goto LABEL_156;
@@ -2367,27 +2388,27 @@ LABEL_563:
       if ([(DYFunctionPlayer *)self mainExecutionMode])
       {
         v14 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]);
-        if (v14 == [v502 targetFunctionIndex] - 1)
+        if (v14 == [v499 targetFunctionIndex] - 1)
         {
           v15 = *MEMORY[0x277D0AFA0];
           if ((GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v15)) & 1) != 0 || GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v15)))
           {
-            __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v15) + 48, 0);
+            *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v15) + 48, 0);
             v16 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &__p);
             v17 = v16;
             if (v16)
             {
               v18 = v16[4];
-              v553.i64[0] = 0;
+              v550.i64[0] = 0;
               v19 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
-              if (!v19 || (v553.i64[0] = v19[3], (v17 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553)) != 0))
+              if (!v19 || (v550.i64[0] = v19[3], (v17 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550)) != 0))
               {
-                v565 = 0;
+                v562 = 0;
                 if (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v15)))
                 {
-                  v533 = 0;
-                  v20 = -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v533, &v565);
-                  v21 = v533;
+                  v530 = 0;
+                  v20 = -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v530, &v562);
+                  v21 = v530;
                   if (v20)
                   {
                     v18 = v20;
@@ -2404,14 +2425,14 @@ LABEL_563:
                 {
                   indirectCommandManager2 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
                   v223 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-                  [indirectCommandManager2 executeIndirectRenderCommand:v223 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v21}];
+                  [indirectCommandManager2 executeIndirectRenderCommand:v223 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v21}];
                 }
 
                 else
                 {
-                  v532.receiver = selfCopy;
-                  v532.super_class = DYMTLCommonDebugFunctionPlayer;
-                  [(DYMTLFunctionPlayer *)&v532 executeGraphicsFunction];
+                  v529.receiver = selfCopy;
+                  v529.super_class = DYMTLCommonDebugFunctionPlayer;
+                  [(DYMTLFunctionPlayer *)&v529 executeGraphicsFunction];
                 }
 
                 selfCopy->_targetFunctionNeedsSeparatedPostVertexDump = 0;
@@ -2426,24 +2447,24 @@ LABEL_563:
       goto LABEL_88;
     }
 
-    if (!-[DYFunctionPlayer mainExecutionMode](self, "mainExecutionMode") || (v44 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]), v44 != [v502 targetFunctionIndex] - 1) || (v45 = *MEMORY[0x277D0AFA0], (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v45)) & 1) == 0) && (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v45)) & 1) == 0 && !GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v45)))
+    if (!-[DYFunctionPlayer mainExecutionMode](self, "mainExecutionMode") || (v44 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]), v44 != [v499 targetFunctionIndex] - 1) || (v45 = *MEMORY[0x277D0AFA0], (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v45)) & 1) == 0) && (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v45)) & 1) == 0 && !GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v45)))
     {
       if ([(DYFunctionPlayer *)selfCopy mainExecutionMode])
       {
         v60 = *(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80]);
-        if (v60 == [v502 targetFunctionIndex] - 1)
+        if (v60 == [v499 targetFunctionIndex] - 1)
         {
           v61 = *MEMORY[0x277D0AFA0];
           if (GPUTools::MTL::IsFuncEnumIndirectExecuteComputeCall(**(&selfCopy->super.super.super.super.isa + v61)))
           {
             v62 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v61) + 48, 0);
-            __p = 0;
-            v534 = 0;
-            -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v534, &__p);
-            v63 = v534;
+            *&__p = 0;
+            v531 = 0;
+            -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v531, &__p);
+            v63 = v531;
             v64 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v62];
             indirectCommandManager3 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-            [indirectCommandManager3 executeIndirectComputeCommand:v64 withData:__p atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v63}];
+            [indirectCommandManager3 executeIndirectComputeCommand:v64 withData:__p atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v63}];
 
             [(DYMTLCommonDebugFunctionPlayer *)selfCopy extractIndirectArgumentBuffers];
             [(DYMTLCommonDebugFunctionPlayer *)selfCopy extractCommandBufferTranslationData];
@@ -2457,7 +2478,7 @@ LABEL_563:
       if ([(DYFunctionPlayer *)selfCopy mainExecutionMode])
       {
         v74 = *(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80]);
-        if (v74 == [v502 targetFunctionIndex] - 1)
+        if (v74 == [v499 targetFunctionIndex] - 1)
         {
           if (GPUTools::MTL::IsFuncEnumComputeCall(**(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AFA0])))
           {
@@ -2471,22 +2492,22 @@ LABEL_563:
       goto LABEL_125;
     }
 
-    __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v45) + 48, 0);
+    *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v45) + 48, 0);
     v46 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderMap.__table_.__bucket_list_.__ptr_, &__p);
     v47 = v46;
     if (v46)
     {
       v48 = v46[4];
-      v553.i64[0] = 0;
+      v550.i64[0] = 0;
       v49 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
-      if (!v49 || (v553.i64[0] = v49[3], (v47 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553)) != 0))
+      if (!v49 || (v550.i64[0] = v49[3], (v47 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550)) != 0))
       {
-        v565 = 0;
+        v562 = 0;
         if (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v45)))
         {
-          v547 = 0;
-          v50 = -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v547, &v565);
-          v498 = v547;
+          v544 = 0;
+          v50 = -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v544, &v562);
+          v495 = v544;
           if (v50)
           {
             v48 = v50;
@@ -2495,7 +2516,7 @@ LABEL_563:
 
         else
         {
-          v498 = 0;
+          v495 = 0;
         }
 
         v214 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_commandEncoderDescriptorMap.__table_.__bucket_list_.__ptr_, v47 + 5);
@@ -2517,7 +2538,7 @@ LABEL_563:
 
         else
         {
-          v217 = [(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer prepareWireframeTextureWithCommandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:v553.i64[0] pipelineId:v48 renderPassDescriptor:v216];
+          v217 = [(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer prepareWireframeTextureWithCommandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:v550.i64[0] pipelineId:v48 renderPassDescriptor:v216];
           selfCopy->_wireframeRenderMode = v217;
         }
 
@@ -2535,102 +2556,102 @@ LABEL_563:
         {
           if (!v217)
           {
-            if (v498)
+            if (v495)
             {
               indirectCommandManager4 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-              v269 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-              [indirectCommandManager4 executeIndirectRenderCommand:v269 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+              v268 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+              [indirectCommandManager4 executeIndirectRenderCommand:v268 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
-              v270 = selfCopy;
+              v269 = selfCopy;
             }
 
             else
             {
-              v270 = selfCopy;
-              v546.receiver = selfCopy;
-              v546.super_class = DYMTLCommonDebugFunctionPlayer;
-              [(DYMTLFunctionPlayer *)&v546 executeGraphicsFunction];
+              v269 = selfCopy;
+              v543.receiver = selfCopy;
+              v543.super_class = DYMTLCommonDebugFunctionPlayer;
+              [(DYMTLFunctionPlayer *)&v543 executeGraphicsFunction];
             }
 
-            [(DYMTLCommonDebugFunctionPlayer *)v270 extractIndirectArgumentBuffers];
-            [(DYMTLCommonDebugFunctionPlayer *)v270 extractCommandBufferTranslationData];
+            [(DYMTLCommonDebugFunctionPlayer *)v269 extractIndirectArgumentBuffers];
+            [(DYMTLCommonDebugFunctionPlayer *)v269 extractCommandBufferTranslationData];
             if (v218)
             {
-              [(DYMTLCommonDebugFunctionPlayer *)v270 _extractTileMemoryWithRenderPassDescriptor:v216 renderEncoderID:__p isDrawCall:GPUTools::MTL::IsFuncEnumDrawCall(**(&v270->super.super.super.super.isa + v45))];
+              [(DYMTLCommonDebugFunctionPlayer *)v269 _extractTileMemoryWithRenderPassDescriptor:v216 renderEncoderID:__p isDrawCall:GPUTools::MTL::IsFuncEnumDrawCall(**(&v269->super.super.super.super.isa + v45))];
             }
 
-            if ([(DYMTLPostVertexDump *)v270->_postVertexDump createAndSetPostVertexDumpPipelineState:v47[3] commandEncoderId:__p pipelineId:v48])
+            if ([(DYMTLPostVertexDump *)v269->_postVertexDump createAndSetPostVertexDumpPipelineState:v47[3] commandEncoderId:__p pipelineId:v48])
             {
-              if (v498)
+              if (v495)
               {
                 indirectCommandManager5 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-                v338 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-                [indirectCommandManager5 executeIndirectRenderCommand:v338 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+                v335 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+                [indirectCommandManager5 executeIndirectRenderCommand:v335 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
-                v270 = selfCopy;
+                v269 = selfCopy;
               }
 
               else
               {
-                v270 = selfCopy;
-                v545.receiver = selfCopy;
-                v545.super_class = DYMTLCommonDebugFunctionPlayer;
-                [(DYMTLFunctionPlayer *)&v545 executeGraphicsFunction];
+                v269 = selfCopy;
+                v542.receiver = selfCopy;
+                v542.super_class = DYMTLCommonDebugFunctionPlayer;
+                [(DYMTLFunctionPlayer *)&v542 executeGraphicsFunction];
               }
             }
 
-            if ([(DYMTLDebugWireframeRenderer *)v270->_wireframeRenderer createWireframeRenderCommandEncoder:v216])
+            if ([(DYMTLDebugWireframeRenderer *)v269->_wireframeRenderer createWireframeRenderCommandEncoder:v216])
             {
-              if (v498)
+              if (v495)
               {
                 indirectCommandManager6 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-                v355 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-                [indirectCommandManager6 executeIndirectRenderCommand:v355 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+                v352 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+                [indirectCommandManager6 executeIndirectRenderCommand:v352 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
-                v270 = selfCopy;
+                v269 = selfCopy;
               }
 
               else
               {
-                v270 = selfCopy;
-                v544.receiver = selfCopy;
-                v544.super_class = DYMTLCommonDebugFunctionPlayer;
-                [(DYMTLFunctionPlayer *)&v544 executeGraphicsFunction];
+                v269 = selfCopy;
+                v541.receiver = selfCopy;
+                v541.super_class = DYMTLCommonDebugFunctionPlayer;
+                [(DYMTLFunctionPlayer *)&v541 executeGraphicsFunction];
               }
 
-              if (v553.i64[0])
+              if (v550.i64[0])
               {
                 *(v47 + 48) = 1;
-                std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&v270->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
-                v270->_lastEncoderID = 0;
-                v553.i64[0] = 0;
+                std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&v269->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
+                v269->_lastEncoderID = 0;
+                v550.i64[0] = 0;
               }
 
-              if ([(DYMTLDebugWireframeRenderer *)v270->_wireframeRenderer createSolidRenderCommandEncoder:v216 commandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:0])
+              if ([(DYMTLDebugWireframeRenderer *)v269->_wireframeRenderer createSolidRenderCommandEncoder:v216 commandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:0])
               {
-                if (v498)
+                if (v495)
                 {
                   indirectCommandManager7 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-                  v357 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-                  [indirectCommandManager7 executeIndirectRenderCommand:v357 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+                  v354 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+                  [indirectCommandManager7 executeIndirectRenderCommand:v354 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
-                  v270 = selfCopy;
+                  v269 = selfCopy;
                 }
 
                 else
                 {
-                  v270 = selfCopy;
-                  v543.receiver = selfCopy;
-                  v543.super_class = DYMTLCommonDebugFunctionPlayer;
-                  [(DYMTLFunctionPlayer *)&v543 executeGraphicsFunction];
+                  v269 = selfCopy;
+                  v540.receiver = selfCopy;
+                  v540.super_class = DYMTLCommonDebugFunctionPlayer;
+                  [(DYMTLFunctionPlayer *)&v540 executeGraphicsFunction];
                 }
 
-                [(DYMTLDebugWireframeRenderer *)v270->_wireframeRenderer createOutlineTexture];
+                [(DYMTLDebugWireframeRenderer *)v269->_wireframeRenderer createOutlineTexture];
               }
             }
 
-            wireframeTexture = [(DYMTLDebugWireframeRenderer *)v270->_wireframeRenderer wireframeTexture];
-            [(DYMTLFunctionPlayer *)v270 setObject:wireframeTexture forKey:*MEMORY[0x277D25740]];
+            wireframeTexture = [(DYMTLDebugWireframeRenderer *)v269->_wireframeRenderer wireframeTexture];
+            [(DYMTLFunctionPlayer *)v269 setObject:wireframeTexture forKey:*MEMORY[0x277D25740]];
 
             outlineTexture = [(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer outlineTexture];
             [(DYMTLFunctionPlayer *)selfCopy setObject:outlineTexture forKey:*MEMORY[0x277D25730]];
@@ -2642,41 +2663,41 @@ LABEL_563:
 
           if (v217 == 1)
           {
-            if (v553.i64[0])
+            if (v550.i64[0])
             {
               *(v47 + 48) = 1;
               std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
               selfCopy->_lastEncoderID = 0;
             }
 
-            if (v498)
+            if (v495)
             {
               indirectCommandManager8 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-              v259 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-              [indirectCommandManager8 executeIndirectRenderCommand:v259 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+              v258 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+              [indirectCommandManager8 executeIndirectRenderCommand:v258 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
-              v260 = selfCopy;
+              v259 = selfCopy;
             }
 
             else
             {
-              v260 = selfCopy;
-              v542.receiver = selfCopy;
-              v542.super_class = DYMTLCommonDebugFunctionPlayer;
-              [(DYMTLFunctionPlayer *)&v542 executeGraphicsFunction];
+              v259 = selfCopy;
+              v539.receiver = selfCopy;
+              v539.super_class = DYMTLCommonDebugFunctionPlayer;
+              [(DYMTLFunctionPlayer *)&v539 executeGraphicsFunction];
             }
 
-            if (GPUTools::MTL::IsFuncEnumDrawCall(**(&v260->super.super.super.super.isa + v45)))
+            if (GPUTools::MTL::IsFuncEnumDrawCall(**(&v259->super.super.super.super.isa + v45)))
             {
-              v339 = 1;
+              v336 = 1;
             }
 
             else
             {
-              v339 = GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v45));
+              v336 = GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v45));
             }
 
-            selfCopy->_targetFunctionNeedsSeparatedPostVertexDump = v339;
+            selfCopy->_targetFunctionNeedsSeparatedPostVertexDump = v336;
             solidTexture = [(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer wireframeTexture];
             [(DYMTLFunctionPlayer *)selfCopy setObject:solidTexture forKey:*MEMORY[0x277D25740]];
 LABEL_518:
@@ -2690,20 +2711,20 @@ LABEL_519:
         if (v217 == 2)
         {
           p_isa = &selfCopy->super.super.super.super.isa;
-          if ([(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer createSolidRenderCommandEncoder:v216 commandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:v553.i64[0]])
+          if ([(DYMTLDebugWireframeRenderer *)selfCopy->_wireframeRenderer createSolidRenderCommandEncoder:v216 commandBufferId:v47[3] commandEncoderId:__p parallelEncoderId:v550.i64[0]])
           {
-            if (v553.i64[0])
+            if (v550.i64[0])
             {
               *(v47 + 48) = 1;
               std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
               selfCopy->_lastEncoderID = 0;
             }
 
-            if (v498)
+            if (v495)
             {
               indirectCommandManager9 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-              v273 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-              [indirectCommandManager9 executeIndirectRenderCommand:v273 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+              v272 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+              [indirectCommandManager9 executeIndirectRenderCommand:v272 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
 
               p_isa = &selfCopy->super.super.super.super.isa;
             }
@@ -2711,9 +2732,9 @@ LABEL_519:
             else
             {
               p_isa = &selfCopy->super.super.super.super.isa;
-              v541.receiver = selfCopy;
-              v541.super_class = DYMTLCommonDebugFunctionPlayer;
-              [(DYMTLFunctionPlayer *)&v541 executeGraphicsFunction];
+              v538.receiver = selfCopy;
+              v538.super_class = DYMTLCommonDebugFunctionPlayer;
+              [(DYMTLFunctionPlayer *)&v538 executeGraphicsFunction];
             }
 
             [p_isa[256] createOutlineTexture];
@@ -2734,39 +2755,39 @@ LABEL_519:
 
         if (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v45)))
         {
-          v497 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v48];
-          v261 = DYMTLGetAssociatedObject(v497, 2u);
-          v494 = v261;
-          if (v261)
+          v494 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v48];
+          v260 = DYMTLGetAssociatedObject(v494, 2u);
+          v491 = v260;
+          if (v260)
           {
-            v539 = 0u;
-            v540 = 0u;
+            v536 = 0u;
             v537 = 0u;
-            v538 = 0u;
-            vertexBindings = [v261 vertexBindings];
-            v263 = [vertexBindings countByEnumeratingWithState:&v537 objects:v574 count:16];
-            if (v263)
+            v534 = 0u;
+            v535 = 0u;
+            vertexBindings = [v260 vertexBindings];
+            v262 = [vertexBindings countByEnumeratingWithState:&v534 objects:v570 count:16];
+            if (v262)
             {
-              v264 = *v538;
+              v263 = *v535;
               while (2)
               {
-                for (kk = 0; kk != v263; ++kk)
+                for (kk = 0; kk != v262; ++kk)
                 {
-                  if (*v538 != v264)
+                  if (*v535 != v263)
                   {
                     objc_enumerationMutation(vertexBindings);
                   }
 
-                  v266 = *(*(&v537 + 1) + 8 * kk);
-                  if ([v266 access] == 1 && (objc_msgSend(v266, "type") | 2) == 2)
+                  v265 = *(*(&v534 + 1) + 8 * kk);
+                  if ([v265 access] == 1 && (objc_msgSend(v265, "type") | 2) == 2)
                   {
-                    v267 = 1;
+                    v266 = 1;
                     goto LABEL_443;
                   }
                 }
 
-                v263 = [vertexBindings countByEnumeratingWithState:&v537 objects:v574 count:16];
-                if (v263)
+                v262 = [vertexBindings countByEnumeratingWithState:&v534 objects:v570 count:16];
+                if (v262)
                 {
                   continue;
                 }
@@ -2775,22 +2796,22 @@ LABEL_519:
               }
             }
 
-            v267 = 0;
+            v266 = 0;
 LABEL_443:
           }
 
           else
           {
-            v267 = 0;
+            v266 = 0;
           }
 
           selfCopy->_targetFunctionNeedsSeparatedPostVertexDump = 0;
           if ([(DYMTLPostVertexDump *)selfCopy->_postVertexDump createAndSetPostVertexDumpPipelineState:v47[3] commandEncoderId:__p pipelineId:v48])
           {
-            v536.receiver = selfCopy;
-            v536.super_class = DYMTLCommonDebugFunctionPlayer;
-            [(DYMTLFunctionPlayer *)&v536 executeGraphicsFunction];
-            if (v267)
+            v533.receiver = selfCopy;
+            v533.super_class = DYMTLCommonDebugFunctionPlayer;
+            [(DYMTLFunctionPlayer *)&v533 executeGraphicsFunction];
+            if (v266)
             {
               selfCopy->_targetFunctionNeedsSeparatedPostVertexDump = 1;
 
@@ -2801,23 +2822,23 @@ LABEL_513:
               goto LABEL_519;
             }
 
-            v399 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-            [v399 setRenderPipelineState:v497];
+            v396 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+            [v396 setRenderPipelineState:v494];
           }
         }
 
-        if (v498)
+        if (v495)
         {
           indirectCommandManager10 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-          v401 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
-          [indirectCommandManager10 executeIndirectRenderCommand:v401 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v498}];
+          v398 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+          [indirectCommandManager10 executeIndirectRenderCommand:v398 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v495}];
         }
 
         else
         {
-          v535.receiver = selfCopy;
-          v535.super_class = DYMTLCommonDebugFunctionPlayer;
-          [(DYMTLFunctionPlayer *)&v535 executeGraphicsFunction];
+          v532.receiver = selfCopy;
+          v532.super_class = DYMTLCommonDebugFunctionPlayer;
+          [(DYMTLFunctionPlayer *)&v532 executeGraphicsFunction];
         }
 
         [(DYMTLCommonDebugFunctionPlayer *)selfCopy extractIndirectArgumentBuffers];
@@ -2835,7 +2856,7 @@ LABEL_324:
     v251 = *MEMORY[0x277D0AFA0];
     if ((GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v251)) & 1) != 0 || (GPUTools::MTL::IsFuncEnumComputeCall(**(&selfCopy->super.super.super.super.isa + v251)) & 1) != 0 || GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v251)))
     {
-      [v502 setExecutedDrawCallCount:{objc_msgSend(v502, "executedDrawCallCount") + 1}];
+      [v499 setExecutedDrawCallCount:{objc_msgSend(v499, "executedDrawCallCount") + 1}];
     }
 
     goto LABEL_328;
@@ -2850,7 +2871,7 @@ LABEL_324:
         if ([(DYFunctionPlayer *)self mainExecutionMode])
         {
           v4 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF80]);
-          v31 = v4 == [v502 targetFunctionIndex] - 1;
+          v31 = v4 == [v499 targetFunctionIndex] - 1;
           self = selfCopy;
           if (v31)
           {
@@ -2858,13 +2879,13 @@ LABEL_324:
             self = selfCopy;
             if (GPUTools::MTL::IsFuncEnumDrawCall(**(&selfCopy->super.super.super.super.isa + v5)) & 1) != 0 || (self = selfCopy, (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v5))) || (self = selfCopy, GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v5))))
             {
-              __p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v5) + 48, 0);
+              *&__p = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v5) + 48, 0);
               v6 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &__p);
               if (v6)
               {
-                v553.i64[0] = 0;
+                v550.i64[0] = 0;
                 v7 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &__p);
-                if (!v7 || (v553.i64[0] = v7[3], (v6 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v553)) != 0))
+                if (!v7 || (v550.i64[0] = v7[3], (v6 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&selfCopy->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v550)) != 0))
                 {
                   v9 = v6[5];
                   v8 = v6 + 5;
@@ -2886,36 +2907,36 @@ LABEL_324:
                     v12 = 0;
                   }
 
-                  v565 = 0;
+                  v562 = 0;
                   if (GPUTools::MTL::IsFuncEnumIndirectExecuteDrawCall(**(&selfCopy->super.super.super.super.isa + v5)))
                   {
-                    v531 = 0;
-                    -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v531, &v565);
-                    v332 = v531;
-                    v333 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
+                    v528 = 0;
+                    -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v528, &v562);
+                    v329 = v528;
+                    v330 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:__p];
                     indirectCommandManager11 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-                    [indirectCommandManager11 executeIndirectRenderCommand:v333 withData:v565 atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v332}];
+                    [indirectCommandManager11 executeIndirectRenderCommand:v330 withData:v562 atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v329}];
 
-                    v335 = selfCopy;
+                    v332 = selfCopy;
                   }
 
                   else
                   {
-                    v335 = selfCopy;
-                    v530.receiver = selfCopy;
-                    v530.super_class = DYMTLCommonDebugFunctionPlayer;
-                    v332 = 0;
-                    [(DYMTLFunctionPlayer *)&v530 executeGraphicsFunction];
+                    v332 = selfCopy;
+                    v527.receiver = selfCopy;
+                    v527.super_class = DYMTLCommonDebugFunctionPlayer;
+                    v329 = 0;
+                    [(DYMTLFunctionPlayer *)&v527 executeGraphicsFunction];
                   }
 
-                  [(DYMTLCommonDebugFunctionPlayer *)v335 extractIndirectArgumentBuffers];
-                  [(DYMTLCommonDebugFunctionPlayer *)v335 extractCommandBufferTranslationData];
+                  [(DYMTLCommonDebugFunctionPlayer *)v332 extractIndirectArgumentBuffers];
+                  [(DYMTLCommonDebugFunctionPlayer *)v332 extractCommandBufferTranslationData];
                   if (v12)
                   {
-                    [(DYMTLCommonDebugFunctionPlayer *)v335 _extractTileMemoryWithRenderPassDescriptor:v11 renderEncoderID:__p isDrawCall:GPUTools::MTL::IsFuncEnumDrawCall(**(&v335->super.super.super.super.isa + v5))];
+                    [(DYMTLCommonDebugFunctionPlayer *)v332 _extractTileMemoryWithRenderPassDescriptor:v11 renderEncoderID:__p isDrawCall:GPUTools::MTL::IsFuncEnumDrawCall(**(&v332->super.super.super.super.isa + v5))];
                   }
 
-                  v335->_targetFunctionNeedsSeparatedPostVertexDump = 0;
+                  v332->_targetFunctionNeedsSeparatedPostVertexDump = 0;
                 }
               }
 
@@ -2928,19 +2949,19 @@ LABEL_324:
       if ([(DYFunctionPlayer *)self mainExecutionMode])
       {
         v54 = *(&selfCopy->super.super.super.super.isa + *MEMORY[0x277D0AF80]);
-        if (v54 == [v502 targetFunctionIndex] - 1)
+        if (v54 == [v499 targetFunctionIndex] - 1)
         {
           v55 = *MEMORY[0x277D0AFA0];
           if (GPUTools::MTL::IsFuncEnumIndirectExecuteComputeCall(**(&selfCopy->super.super.super.super.isa + v55)))
           {
             v56 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v55) + 48, 0);
-            __p = 0;
-            v529 = 0;
-            -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v502 targetSubCommandIndex], &v529, &__p);
-            v57 = v529;
+            *&__p = 0;
+            v526 = 0;
+            -[DYMTLCommonDebugFunctionPlayer _executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:](selfCopy, "_executeIndirectCommandBufferUpToSubIndex:outBuffer:outDataPointer:", [v499 targetSubCommandIndex], &v526, &__p);
+            v57 = v526;
             v58 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v56];
             indirectCommandManager12 = [(DYMTLFunctionPlayer *)selfCopy indirectCommandManager];
-            [indirectCommandManager12 executeIndirectComputeCommand:v58 withData:__p atIndex:objc_msgSend(v502 forIndirectCommandBuffer:{"targetSubCommandIndex"), v57}];
+            [indirectCommandManager12 executeIndirectComputeCommand:v58 withData:__p atIndex:objc_msgSend(v499 forIndirectCommandBuffer:{"targetSubCommandIndex"), v57}];
 
             [(DYMTLCommonDebugFunctionPlayer *)selfCopy extractIndirectArgumentBuffers];
             [(DYMTLCommonDebugFunctionPlayer *)selfCopy extractCommandBufferTranslationData];
@@ -2972,12 +2993,12 @@ LABEL_74:
   }
 
 LABEL_44:
-  if ([v502 playbackMode] == 5 || objc_msgSend(v502, "playbackMode") == 11 || objc_msgSend(v502, "playbackMode") == 12) && (GPUTools::MTL::IsFuncEnumSampleCall(**(&self->super.super.super.super.isa + *MEMORY[0x277D0AFA0])))
+  if ([v499 playbackMode] == 5 || objc_msgSend(v499, "playbackMode") == 11 || objc_msgSend(v499, "playbackMode") == 12) && (GPUTools::MTL::IsFuncEnumSampleCall(**(&self->super.super.super.super.isa + *MEMORY[0x277D0AFA0])))
   {
     goto LABEL_324;
   }
 
-  if (!self->_isAGXDevice || [v502 playbackMode] != 5 && objc_msgSend(v502, "playbackMode") != 2 && objc_msgSend(v502, "playbackMode") != 5 && objc_msgSend(v502, "playbackMode") != 12)
+  if (!self->_isAGXDevice || [v499 playbackMode] != 5 && objc_msgSend(v499, "playbackMode") != 2 && objc_msgSend(v499, "playbackMode") != 5 && objc_msgSend(v499, "playbackMode") != 12)
   {
 LABEL_57:
     v29 = *MEMORY[0x277D0AFA0];
@@ -2996,7 +3017,7 @@ LABEL_57:
       {
         if (selfCopy->_isAGXDevice)
         {
-          if ([v502 playbackMode] == 12)
+          if ([v499 playbackMode] == 12)
           {
             v95 = *(&selfCopy->super.super.super.super.isa + v29);
             v96 = *(v95 + 16);
@@ -3009,9 +3030,9 @@ LABEL_57:
             v98 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:v96];
             v99 = DYMTLGetOriginalObject(v98);
 
-            v555.receiver = selfCopy;
-            v555.super_class = DYMTLCommonDebugFunctionPlayer;
-            [(DYMTLFunctionPlayer *)&v555 executeGraphicsFunction];
+            v552.receiver = selfCopy;
+            v552.super_class = DYMTLCommonDebugFunctionPlayer;
+            [(DYMTLFunctionPlayer *)&v552 executeGraphicsFunction];
             v100 = GPUTools::MTL::IsFuncEnumGPUCommandCall(**(&selfCopy->super.super.super.super.isa + v29));
             if ((v100 & 1) != 0 || GPUTools::MTL::IsFuncEnumEndEncoding(**(&selfCopy->super.super.super.super.isa + v29)))
             {
@@ -3023,7 +3044,7 @@ LABEL_494:
             goto LABEL_495;
           }
 
-          if ([v502 playbackMode] == 5 && selfCopy->_batchInfos)
+          if ([v499 playbackMode] == 5 && selfCopy->_batchInfos)
           {
             v180 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:(*(&selfCopy->super.super.super.super.isa + v29))[2]];
             v99 = v180;
@@ -3037,7 +3058,7 @@ LABEL_494:
             {
               if (v180)
               {
-                [v180 viewports];
+                objc_msgSend_viewports(v180);
                 v182 = 1;
                 goto LABEL_236;
               }
@@ -3045,9 +3066,8 @@ LABEL_494:
               v182 = 1;
             }
 
-            v567 = 0;
-            __p = 0;
-            v568 = 0;
+            __p = 0uLL;
+            v564 = 0;
 LABEL_236:
             renderPipelineState = [v99 renderPipelineState];
             if (v182)
@@ -3058,9 +3078,9 @@ LABEL_236:
                 [v99 setRenderPipelineState:v184];
                 if (GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v29)))
                 {
-                  v553 = vdupq_n_s64(1uLL);
-                  v554 = 1;
-                  [v99 dispatchThreadsPerTile:&v553];
+                  v550 = vdupq_n_s64(1uLL);
+                  v551 = 1;
+                  [v99 dispatchThreadsPerTile:&v550];
                 }
 
                 else
@@ -3077,27 +3097,27 @@ LABEL_236:
               v184 = 0;
             }
 
-            v552.receiver = selfCopy;
-            v552.super_class = DYMTLCommonDebugFunctionPlayer;
-            [(DYMTLFunctionPlayer *)&v552 executeGraphicsFunction];
+            v549.receiver = selfCopy;
+            v549.super_class = DYMTLCommonDebugFunctionPlayer;
+            [(DYMTLFunctionPlayer *)&v549 executeGraphicsFunction];
             if (v184)
             {
-              v395 = v182;
+              v392 = v182;
             }
 
             else
             {
-              v395 = 0;
+              v392 = 0;
             }
 
-            if (v395 == 1)
+            if (v392 == 1)
             {
               [v99 setRenderPipelineState:v184];
               if (GPUTools::MTL::IsFuncEnumTileCall(**(&selfCopy->super.super.super.super.isa + v29)))
               {
-                v553 = vdupq_n_s64(1uLL);
-                v554 = 1;
-                [v99 dispatchThreadsPerTile:&v553];
+                v550 = vdupq_n_s64(1uLL);
+                v551 = 1;
+                [v99 dispatchThreadsPerTile:&v550];
               }
 
               else
@@ -3110,16 +3130,16 @@ LABEL_236:
 
             if (__p)
             {
-              v567 = __p;
+              *(&__p + 1) = __p;
               operator delete(__p);
             }
 
             goto LABEL_494;
           }
 
-          v551.receiver = selfCopy;
-          v551.super_class = DYMTLCommonDebugFunctionPlayer;
-          [(DYMTLFunctionPlayer *)&v551 executeGraphicsFunction];
+          v548.receiver = selfCopy;
+          v548.super_class = DYMTLCommonDebugFunctionPlayer;
+          [(DYMTLFunctionPlayer *)&v548 executeGraphicsFunction];
           if (GPUTools::MTL::IsFuncEnumCreateCommandBuffer(**(&selfCopy->super.super.super.super.isa + v29)))
           {
             v213 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v29) + 24, 0)];
@@ -3136,9 +3156,9 @@ LABEL_236:
 
         else
         {
-          v550.receiver = selfCopy;
-          v550.super_class = DYMTLCommonDebugFunctionPlayer;
-          [(DYMTLFunctionPlayer *)&v550 executeGraphicsFunction];
+          v547.receiver = selfCopy;
+          v547.super_class = DYMTLCommonDebugFunctionPlayer;
+          [(DYMTLFunctionPlayer *)&v547 executeGraphicsFunction];
         }
 
 LABEL_495:
@@ -3146,7 +3166,7 @@ LABEL_495:
 LABEL_91:
         if (selfCopy->_isAGXDevice)
         {
-          if ([v502 playbackMode] == 3)
+          if ([v499 playbackMode] == 3)
           {
             v51 = *(&selfCopy->super.super.super.super.isa + v29);
             v52 = *v51;
@@ -3155,17 +3175,17 @@ LABEL_91:
               v53 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v51 + 6), 0)];
               if (v53)
               {
-                v548[0] = MEMORY[0x277D85DD0];
-                v548[1] = 3221225472;
-                v548[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_3;
-                v548[3] = &unk_27930F708;
-                v549 = v502;
-                [v53 addCompletedHandler:v548];
+                v545[0] = MEMORY[0x277D85DD0];
+                v545[1] = 3221225472;
+                v545[2] = __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_3;
+                v545[3] = &unk_27930F708;
+                v546 = v499;
+                [v53 addCompletedHandler:v545];
               }
             }
           }
 
-          else if ([v502 playbackMode] == 5 && selfCopy->_batchInfos || objc_msgSend(v502, "playbackMode") == 12)
+          else if ([v499 playbackMode] == 5 && selfCopy->_batchInfos || objc_msgSend(v499, "playbackMode") == 12)
           {
             [(DYMTLCommonDebugFunctionPlayer *)selfCopy _setupEncodersForBatchIdFiltering];
           }
@@ -3188,7 +3208,7 @@ LABEL_91:
   v28 = *v27;
   if (*v27 == -16351)
   {
-    if ([v502 playbackMode] == 2)
+    if ([v499 playbackMode] == 2)
     {
       goto LABEL_328;
     }
@@ -3197,9 +3217,9 @@ LABEL_91:
     v90 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:(*(&selfCopy->super.super.super.super.isa + v26))[2]];
     v91 = GPUTools::MTL::MakeMTLRenderPassDescriptor(**(&selfCopy->super.super.super._executePlatform + *MEMORY[0x277D0AF68]), [(DYMTLFunctionPlayer *)selfCopy objectMap]);
     v92 = DYMTLNewStatefulRenderCommandEncoder(v90, v91);
-    v553.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v26) + 24, 0);
-    __p = &v553;
-    v93 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(objectMap, &v553);
+    v550.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v26) + 24, 0);
+    *&__p = &v550;
+    v93 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(objectMap, &v550, &std::piecewise_construct, &__p);
     v94 = v93[3];
     v93[3] = v92;
   }
@@ -3207,9 +3227,9 @@ LABEL_91:
   else if (v28 == -16286)
   {
     v87 = [(DYMTLFunctionPlayer *)selfCopy objectForKey:*(v27 + 2)];
-    v553.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v26) + 24, 0);
-    __p = &v553;
-    v88 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(objectMap, &v553);
+    v550.i64[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&selfCopy->super.super.super.super.isa + v26) + 24, 0);
+    *&__p = &v550;
+    v88 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(objectMap, &v550, &std::piecewise_construct, &__p);
     v89 = v88[3];
     v88[3] = v87;
   }
@@ -3219,7 +3239,7 @@ LABEL_91:
     goto LABEL_57;
   }
 
-  if ([v502 playbackMode] == 5 && selfCopy->_batchInfos || objc_msgSend(v502, "playbackMode") == 12)
+  if ([v499 playbackMode] == 5 && selfCopy->_batchInfos || objc_msgSend(v499, "playbackMode") == 12)
   {
     [(DYMTLCommonDebugFunctionPlayer *)selfCopy _setupEncodersForBatchIdFiltering];
   }
@@ -3227,8 +3247,7 @@ LABEL_91:
   [(DYMTLCommonDebugFunctionPlayer *)selfCopy _trackObjects];
 LABEL_328:
 
-  objc_autoreleasePoolPop(v501);
-  v252 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v498);
 }
 
 uint64_t __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
@@ -3265,7 +3284,7 @@ uint64_t __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_inv
 
 void __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 4176) objectForKeyedSubscript:*(a1 + 40)];
   if (!v4)
@@ -3288,13 +3307,13 @@ void __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_
     v10 = objc_opt_new();
   }
 
-  v17[0] = v6;
+  v16[0] = v6;
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v3];
-  v17[1] = v8;
-  v18[0] = v11;
+  v16[1] = v8;
+  v17[0] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 48), "pixelFormat")}];
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [v10 setObject:v13 forKeyedSubscript:*(a1 + 56)];
 
   [v4 setObject:v10 forKeyedSubscript:v9];
@@ -3302,8 +3321,6 @@ void __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_
   v14 = sThumbnailTextures;
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v3];
   [v14 setObject:v3 forKey:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_3(uint64_t a1, void *a2)
@@ -3433,8 +3450,6 @@ id __57__DYMTLCommonDebugFunctionPlayer_executeGraphicsFunction__block_invoke_7(
 void __89__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStatsTotal_originalPipeline_atX_y_draw___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-  v4 = *MEMORY[0x277D0B3D8];
-  v5 = v3;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3714,16 +3729,12 @@ LABEL_40:
 void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoderId_originalEncoder_originalPipeline_atX_y_draw___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-  v4 = *MEMORY[0x277D0B3E8];
-  v5 = v3;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
 void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoderId_originalEncoder_originalPipeline_atX_y_draw___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-  v4 = *MEMORY[0x277D0B3F0];
-  v5 = v3;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3731,17 +3742,13 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B3F0]];
   v3 = *MEMORY[0x277D0B400];
-  v8 = v2;
+  v4 = v2;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
-  v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v5 = *MEMORY[0x277D0B3E0];
-  v9 = v4;
+  v5 = [*(a1 + 32) objectForKeyedSubscript:v3];
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
   v6 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v7 = *MEMORY[0x277D0B3F8];
-  v10 = v6;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3749,14 +3756,10 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 {
   if (!a2 || *(a1 + 40) == 2)
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-    v10 = *MEMORY[0x277D0B3E0];
-    v15 = v9;
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-    v12 = *MEMORY[0x277D0B3F8];
-    v14 = v11;
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 
@@ -3764,13 +3767,9 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
   {
     v4 = *MEMORY[0x277D0B438];
     v5 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B438]];
-    v6 = *MEMORY[0x277D0B3E0];
-    v13 = v5;
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
-    v7 = [MEMORY[0x277CCABB0] numberWithLongLong:v4];
-    v8 = *MEMORY[0x277D0B3F8];
-    v14 = v7;
+    v6 = [MEMORY[0x277CCABB0] numberWithLongLong:v4];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 }
@@ -3778,8 +3777,6 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoderId_originalEncoder_originalPipeline_atX_y_draw___block_invoke_5(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B3F0]];
-  v3 = *MEMORY[0x277D0B400];
-  v4 = v2;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3787,17 +3784,13 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 {
   if (!a2 || *(a1 + 40) == 2)
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-    v6 = *MEMORY[0x277D0B400];
-    v7 = v5;
+    v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 
   else
   {
     v3 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B438]];
-    v4 = *MEMORY[0x277D0B400];
-    v7 = v3;
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 }
@@ -3806,13 +3799,9 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 {
   v2 = *MEMORY[0x277D0B400];
   v3 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B400]];
-  v4 = *MEMORY[0x277D0B3E0];
-  v7 = v3;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
-  v5 = [*(a1 + 32) objectForKeyedSubscript:v2];
-  v6 = *MEMORY[0x277D0B3F8];
-  v8 = v5;
+  v4 = [*(a1 + 32) objectForKeyedSubscript:v2];
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3820,33 +3809,27 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 {
   if (!a2 || *(a1 + 40) == 2)
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
-    v6 = *MEMORY[0x277D0B3F8];
-    v7 = v5;
+    v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 
   else
   {
     v3 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B438]];
-    v4 = *MEMORY[0x277D0B3F8];
-    v7 = v3;
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
   }
 }
 
 void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoderId_originalEncoder_originalPipeline_atX_y_draw___block_invoke_9(uint64_t a1)
 {
-  v12 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B3F8]];
+  v6 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B3F8]];
   v2 = *MEMORY[0x277D0B3F0];
   v3 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x277D0B3F0]];
-  v4 = [v12 isEqualToNumber:v3];
+  v4 = [v6 isEqualToNumber:v3];
 
   if (v4)
   {
-    v5 = [*(a1 + 32) objectForKeyedSubscript:v2];
-    v6 = *MEMORY[0x277D0B400];
-    v13 = v5;
+    v7 = [*(a1 + 32) objectForKeyedSubscript:v2];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
     [*(a1 + 32) objectForKeyedSubscript:v2];
@@ -3854,17 +3837,13 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 
   else
   {
-    v9 = *MEMORY[0x277D0B440];
-    v10 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B440]];
-    v11 = *MEMORY[0x277D0B400];
-    v15 = v10;
+    v5 = *MEMORY[0x277D0B440];
+    v9 = [MEMORY[0x277CCABB0] numberWithLongLong:*MEMORY[0x277D0B440]];
     [*(a1 + 32) setObject:? forKeyedSubscript:?];
 
-    [MEMORY[0x277CCABB0] numberWithLongLong:v9];
+    [MEMORY[0x277CCABB0] numberWithLongLong:v5];
   }
-  v7 = ;
-  v8 = *MEMORY[0x277D0B3E0];
-  v14 = v7;
+  v8 = ;
   [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
@@ -3891,7 +3870,7 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
 - (id)generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount:(unint64_t)count vertexStart:(unint64_t)start vertexCount:(unint64_t)vertexCount total:(unint64_t)total commandQueue:(id)queue currentEncoderId:(unint64_t)id originalEncoder:(id)encoder originalPipeline:(id)self0 atX:(unint64_t)self1 y:(unint64_t)self2
 {
   encoderCopy = encoder;
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   encoderCopy2 = encoder;
   pipelineCopy = pipeline;
@@ -3909,17 +3888,17 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
   if (vertexCount == 3)
   {
     v19 = MEMORY[0x277CBEB38];
-    v46[0] = *MEMORY[0x277D0B3D8];
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+    v45[0] = *MEMORY[0x277D0B3D8];
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
     commandBuffer = [v19 dictionaryWithObjects:&unk_2860BA1F8 forKeys:v20];
 
     v21 = MEMORY[0x277CBEAC0];
-    v45 = commandBuffer;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
-    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:start];
-    v44 = v37;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-    encoderCopy = [v21 dictionaryWithObjects:v36 forKeys:v22];
+    v44 = commandBuffer;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:start];
+    v43 = v36;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    encoderCopy = [v21 dictionaryWithObjects:v35 forKeys:v22];
   }
 
   else
@@ -3930,52 +3909,52 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
     v24 = 3 * v23;
     if (v23)
     {
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __200__DYMTLCommonDebugFunctionPlayer_generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount_vertexStart_vertexCount_total_commandQueue_currentEncoderId_originalEncoder_originalPipeline_atX_y___block_invoke;
-      v43[3] = &unk_27930F7D0;
-      v43[4] = self;
-      v43[5] = id;
-      v43[6] = 3;
-      v43[7] = start;
-      v43[8] = 3 * v23;
-      v36 = [(DYMTLCommonDebugFunctionPlayer *)self collectPixelDrawStatsTotal:commandBuffer originalPipeline:pipelineCopy atX:x y:y draw:v43];
-    }
-
-    else
-    {
-      v36 = 0;
-    }
-
-    v34 = vertexCount - v24;
-    v35 = v24 + start;
-    if (vertexCount == v24)
-    {
-      v37 = 0;
-      v25 = commandBuffer;
-    }
-
-    else
-    {
       v42[0] = MEMORY[0x277D85DD0];
       v42[1] = 3221225472;
-      v42[2] = __200__DYMTLCommonDebugFunctionPlayer_generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount_vertexStart_vertexCount_total_commandQueue_currentEncoderId_originalEncoder_originalPipeline_atX_y___block_invoke_2;
+      v42[2] = __200__DYMTLCommonDebugFunctionPlayer_generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount_vertexStart_vertexCount_total_commandQueue_currentEncoderId_originalEncoder_originalPipeline_atX_y___block_invoke;
       v42[3] = &unk_27930F7D0;
       v42[4] = self;
       v42[5] = id;
       v42[6] = 3;
-      v42[7] = v24 + start;
-      v42[8] = vertexCount - v24;
+      v42[7] = start;
+      v42[8] = 3 * v23;
+      v35 = [(DYMTLCommonDebugFunctionPlayer *)self collectPixelDrawStatsTotal:commandBuffer originalPipeline:pipelineCopy atX:x y:y draw:v42];
+    }
+
+    else
+    {
+      v35 = 0;
+    }
+
+    v33 = vertexCount - v24;
+    v34 = v24 + start;
+    if (vertexCount == v24)
+    {
+      v36 = 0;
       v25 = commandBuffer;
-      v37 = [(DYMTLCommonDebugFunctionPlayer *)self collectPixelDrawStatsTotal:commandBuffer originalPipeline:pipelineCopy atX:x y:y draw:v42];
+    }
+
+    else
+    {
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __200__DYMTLCommonDebugFunctionPlayer_generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount_vertexStart_vertexCount_total_commandQueue_currentEncoderId_originalEncoder_originalPipeline_atX_y___block_invoke_2;
+      v41[3] = &unk_27930F7D0;
+      v41[4] = self;
+      v41[5] = id;
+      v41[6] = 3;
+      v41[7] = v24 + start;
+      v41[8] = vertexCount - v24;
+      v25 = commandBuffer;
+      v36 = [(DYMTLCommonDebugFunctionPlayer *)self collectPixelDrawStatsTotal:commandBuffer originalPipeline:pipelineCopy atX:x y:y draw:v41];
     }
 
     [v25 commit];
     [v25 waitUntilCompleted];
     v26 = MEMORY[0x277D0B3D8];
-    if (v36)
+    if (v35)
     {
-      v27 = [v36 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
+      v27 = [v35 objectForKeyedSubscript:*MEMORY[0x277D0B3D8]];
       longLongValue = [v27 longLongValue];
     }
 
@@ -3984,9 +3963,9 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
       longLongValue = 0;
     }
 
-    if (v37)
+    if (v36)
     {
-      v29 = [v37 objectForKeyedSubscript:*v26];
+      v29 = [v36 objectForKeyedSubscript:*v26];
       longLongValue2 = [v29 longLongValue];
     }
 
@@ -4006,14 +3985,12 @@ void __118__DYMTLCommonDebugFunctionPlayer_collectPixelDrawStats_originalEncoder
       goto LABEL_23;
     }
 
-    v22 = [(DYMTLCommonDebugFunctionPlayer *)self generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount:3 vertexStart:v35 vertexCount:v34 total:longLongValue2 commandQueue:queueCopy currentEncoderId:id originalEncoder:encoderCopy2 originalPipeline:pipelineCopy atX:x y:y];
+    v22 = [(DYMTLCommonDebugFunctionPlayer *)self generatePerPrimitiveHistory_drawPrimitives_vertexStart_vertexCount:3 vertexStart:v34 vertexCount:v33 total:longLongValue2 commandQueue:queueCopy currentEncoderId:id originalEncoder:encoderCopy2 originalPipeline:pipelineCopy atX:x y:y];
     [encoderCopy addEntriesFromDictionary:v22];
   }
 
 LABEL_23:
 LABEL_24:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return encoderCopy;
 }
@@ -4062,7 +4039,7 @@ void __200__DYMTLCommonDebugFunctionPlayer_generatePerPrimitiveHistory_drawPrimi
 {
   v55[0] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + *MEMORY[0x277D0AFA0]) + 48, 0);
   v52[0] = v55;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>([(DYMTLFunctionPlayer *)self objectMap], v55)[3];
+  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>([(DYMTLFunctionPlayer *)self objectMap], v55, &std::piecewise_construct, v52)[3];
   renderPipelineState = [v5 renderPipelineState];
   v7 = DYMTLGetAssociatedObject(renderPipelineState, 2u);
   if (v7)
@@ -4237,12 +4214,12 @@ LABEL_17:
 LABEL_23:
 }
 
-id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 32) + 8);
-  v7[0] = a3;
-  v7[2] = v7;
-  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v4 + 48, v7);
+  v7 = a3;
+  v8 = &v7;
+  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v4 + 48), &v7, &std::piecewise_construct, &v8);
   return DYMTLBoundBufferInfo::operator=(v5 + 5, a2);
 }
 
@@ -4297,10 +4274,10 @@ LABEL_13:
           {
             if (!v12[6])
             {
-              v23 = v16;
+              v25 = v16;
               v17 = *(a1 + 48);
-              v20 = &v23;
-              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v23);
+              v22 = &v25;
+              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v25, &std::piecewise_construct, &v22);
               if (v12[5] && !v12[6])
               {
                 v19 = v12[7];
@@ -4311,10 +4288,12 @@ LABEL_13:
                 v19 = 0;
               }
 
-              [*(a1 + 32) vertexFunction];
-              v21 = v20 = v19;
-              v22 = v3;
-              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v20);
+              v20 = [*(a1 + 32) vertexFunction];
+              v21 = v3;
+              v22 = v19;
+              v23 = v20;
+              v24 = v21;
+              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v22);
             }
           }
         }
@@ -4327,12 +4306,12 @@ LABEL_13:
   }
 }
 
-id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke_3(uint64_t a1, uint64_t a2, unint64_t a3)
+id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 32) + 8);
-  v7[0] = a3;
-  v7[2] = v7;
-  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v4 + 48, v7);
+  v7 = a3;
+  v8 = &v7;
+  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v4 + 48), &v7, &std::piecewise_construct, &v8);
   return DYMTLBoundBufferInfo::operator=(v5 + 5, a2);
 }
 
@@ -4387,10 +4366,10 @@ LABEL_13:
           {
             if (!v12[6])
             {
-              v23 = v16;
+              v25 = v16;
               v17 = *(a1 + 48);
-              v20 = &v23;
-              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v23);
+              v22 = &v25;
+              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v25, &std::piecewise_construct, &v22);
               if (v12[5] && !v12[6])
               {
                 v19 = v12[7];
@@ -4401,10 +4380,12 @@ LABEL_13:
                 v19 = 0;
               }
 
-              [*(a1 + 32) fragmentFunction];
-              v21 = v20 = v19;
-              v22 = v3;
-              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v20);
+              v20 = [*(a1 + 32) fragmentFunction];
+              v21 = v3;
+              v22 = v19;
+              v23 = v20;
+              v24 = v21;
+              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v22);
             }
           }
         }
@@ -4417,12 +4398,12 @@ LABEL_13:
   }
 }
 
-id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke_5(uint64_t a1, uint64_t a2, unint64_t a3)
+id *__71__DYMTLCommonDebugFunctionPlayer_extractRenderIndirectArgumentBuffers___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 32) + 8);
-  v7[0] = a3;
-  v7[2] = v7;
-  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v4 + 48, v7);
+  v7 = a3;
+  v8 = &v7;
+  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v4 + 48), &v7, &std::piecewise_construct, &v8);
   return DYMTLBoundBufferInfo::operator=(v5 + 5, a2);
 }
 
@@ -4477,10 +4458,10 @@ LABEL_13:
           {
             if (!v12[6])
             {
-              v23 = v16;
+              v25 = v16;
               v17 = *(a1 + 48);
-              v20 = &v23;
-              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v23);
+              v22 = &v25;
+              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v25, &std::piecewise_construct, &v22);
               if (v12[5] && !v12[6])
               {
                 v19 = v12[7];
@@ -4491,10 +4472,12 @@ LABEL_13:
                 v19 = 0;
               }
 
-              [*(a1 + 32) tileFunction];
-              v21 = v20 = v19;
-              v22 = v3;
-              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v20);
+              v20 = [*(a1 + 32) tileFunction];
+              v21 = v3;
+              v22 = v19;
+              v23 = v20;
+              v24 = v21;
+              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v22);
             }
           }
         }
@@ -4511,7 +4494,7 @@ LABEL_13:
 {
   v23 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + *MEMORY[0x277D0AFA0]) + 48, 0);
   v20[0] = &v23;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>([(DYMTLFunctionPlayer *)self objectMap], &v23)[3];
+  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>([(DYMTLFunctionPlayer *)self objectMap], &v23, &std::piecewise_construct, v20)[3];
   computePipelineState = [v5 computePipelineState];
   v13 = DYMTLGetAssociatedObject(computePipelineState, 2u);
   v14 = DYMTLGetAssociatedObject(computePipelineState, 0);
@@ -4567,12 +4550,12 @@ LABEL_6:
   std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::destroy(&v21, v22[0]);
 }
 
-id *__72__DYMTLCommonDebugFunctionPlayer_extractComputeIndirectArgumentBuffers___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+id *__72__DYMTLCommonDebugFunctionPlayer_extractComputeIndirectArgumentBuffers___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 32) + 8);
-  v7[0] = a3;
-  v7[2] = v7;
-  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v4 + 48, v7);
+  v7 = a3;
+  v8 = &v7;
+  v5 = std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v4 + 48), &v7, &std::piecewise_construct, &v8);
   return DYMTLBoundBufferInfo::operator=(v5 + 5, a2);
 }
 
@@ -4627,10 +4610,10 @@ LABEL_13:
           {
             if (!v12[6])
             {
-              v23 = v16;
+              v25 = v16;
               v17 = *(a1 + 48);
-              v20 = &v23;
-              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v23);
+              v22 = &v25;
+              v18 = std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(v17, &v25, &std::piecewise_construct, &v22);
               if (v12[5] && !v12[6])
               {
                 v19 = v12[7];
@@ -4641,10 +4624,12 @@ LABEL_13:
                 v19 = 0;
               }
 
-              [*(a1 + 32) computeFunction];
-              v21 = v20 = v19;
-              v22 = v3;
-              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v20);
+              v20 = [*(a1 + 32) computeFunction];
+              v21 = v3;
+              v22 = v19;
+              v23 = v20;
+              v24 = v21;
+              std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](v18 + 5, &v22);
             }
           }
         }
@@ -4655,6 +4640,96 @@ LABEL_13:
     {
     }
   }
+}
+
+- (void)_extractTileMemoryWithRenderPassDescriptor:(DYMTLRenderPassDescriptor *)descriptor renderEncoderID:(unint64_t)d isDrawCall:(BOOL)call
+{
+  callCopy = call;
+  v37 = 0;
+  v38 = 0;
+  v39 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x4812000000;
+  v33 = __Block_byref_object_copy__511;
+  v34 = __Block_byref_object_dispose__512;
+  v35 = "";
+  memset(v36, 0, sizeof(v36));
+  v8 = [(DYMTLFunctionPlayer *)self objectForKey:d];
+  renderPipelineState = [v8 renderPipelineState];
+  tileWidth = descriptor->tileWidth;
+  tileHeight = descriptor->tileHeight;
+  width = [v8 width];
+  height = [v8 height];
+  v14 = [DYMTLTileMemoryExtractor alloc];
+  device = [(DYMTLFunctionPlayer *)self device];
+  v29[0] = tileWidth;
+  v29[1] = tileHeight;
+  v29[2] = 1;
+  v28[0] = width;
+  v28[1] = height;
+  v28[2] = 0;
+  v16 = [(DYMTLTileMemoryExtractor *)v14 initWithRenderEncoder:v8 metalDevice:device tileSize:v29 texSize:v28];
+  tileMemoryExtractor = self->_tileMemoryExtractor;
+  self->_tileMemoryExtractor = v16;
+
+  v18 = DYMTLGetAssociatedObject(renderPipelineState, 2u);
+  [(DYMTLTileMemoryExtractor *)self->_tileMemoryExtractor processReflection:v18 isDrawCall:callCopy];
+  if ([(DYMTLTileMemoryExtractor *)self->_tileMemoryExtractor getImageBlockStatus])
+  {
+    [(DYMTLTileMemoryExtractor *)self->_tileMemoryExtractor harvestImageBlockData:&v37];
+  }
+
+  if ([(DYMTLTileMemoryExtractor *)self->_tileMemoryExtractor getThreadgroupStatus])
+  {
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescriptor_renderEncoderID_isDrawCall___block_invoke;
+    v27[3] = &unk_27930F820;
+    v27[4] = self;
+    v27[5] = &v30;
+    [v8 enumerateThreadgroupMemoryUsingBlock:v27];
+  }
+
+  v19 = v37;
+  if (v38 != v37)
+  {
+    v20 = 0;
+    v21 = *MEMORY[0x277D0B278];
+    v22 = 1;
+    do
+    {
+      [(DYMTLFunctionPlayer *)self setObject:*(v19 + 8 * v20) forKey:v21 + v20];
+      v20 = v22;
+      v19 = v37;
+      ++v22;
+    }
+
+    while (v20 < (v38 - v37) >> 3);
+  }
+
+  v23 = v31[6];
+  if (v31[7] != v23)
+  {
+    v24 = 0;
+    v25 = *MEMORY[0x277D0B280];
+    v26 = 1;
+    do
+    {
+      [(DYMTLFunctionPlayer *)self setObject:v23[v24] forKey:v25 + v24];
+      v24 = v26;
+      v23 = v31[6];
+      ++v26;
+    }
+
+    while (v24 < v31[7] - v23);
+  }
+
+  _Block_object_dispose(&v30, 8);
+  v29[0] = v36;
+  std::vector<objc_object  {objcproto10MTLTexture}* {__strong}>::__destroy_vector::operator()[abi:ne200100](v29);
+  v30 = &v37;
+  std::vector<objc_object  {objcproto10MTLTexture}* {__strong}>::__destroy_vector::operator()[abi:ne200100](&v30);
 }
 
 void __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescriptor_renderEncoderID_isDrawCall___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -4714,7 +4789,7 @@ void __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescr
         DYMTLAddDrawableTextureDescriptor(texture);
         [(DYMTLFunctionPlayer *)self setObject:texture forKey:v19];
         v25 = &v24;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_textureToDrawableMap.__table_.__bucket_list_.__ptr_, &v24)[3] = v18;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_textureToDrawableMap.__table_.__bucket_list_.__ptr_, &v24, &std::piecewise_construct, &v25)[3] = v18;
       }
     }
 
@@ -4732,7 +4807,7 @@ void __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescr
         {
           nextDrawable = [v13 nextDrawable];
           v25 = &v24;
-          *(std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v24) + 24) = 1;
+          *(std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v24, &std::piecewise_construct, &v25) + 24) = 1;
         }
 
         while (!nextDrawable);
@@ -4740,9 +4815,9 @@ void __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescr
 
       [(DYMTLFunctionPlayer *)self setObject:nextDrawable forKey:v24];
       v25 = &v24;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_drawableIdToLayerIdMap.__table_.__bucket_list_.__ptr_, &v24)[3] = v23;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_drawableIdToLayerIdMap.__table_.__bucket_list_.__ptr_, &v24, &std::piecewise_construct, &v25)[3] = v23;
       v25 = &v24;
-      v16 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->super._drawableMap.__table_.__bucket_list_.__ptr_, &v24);
+      v16 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto15CAMetalDrawable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto15CAMetalDrawable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&self->super._drawableMap.__table_.__bucket_list_.__ptr_, &v24, &std::piecewise_construct, &v25);
       v17 = v16[3];
       v16[3] = nextDrawable;
     }
@@ -4776,6 +4851,49 @@ void __104__DYMTLCommonDebugFunctionPlayer__extractTileMemoryWithRenderPassDescr
     }
 
     [v5 setStatOptions:v6];
+  }
+}
+
+- (void)allowOverlap:(BOOL)overlap withPState:(unsigned int)state
+{
+  v4 = *&state;
+  overlapCopy = overlap;
+  v10.receiver = self;
+  v10.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v10 commandQueue];
+  v8 = commandQueue;
+  if (commandQueue)
+  {
+    [commandQueue setGPUPriority:overlapCopy ^ 1];
+    [v8 setStatEnabled:overlapCopy];
+    if (v4)
+    {
+      [(DYMTLCommonDebugFunctionPlayer *)self setConsistentStateTo:v4];
+    }
+
+    if (overlapCopy)
+    {
+      v9 = 2952790016;
+    }
+
+    else
+    {
+      v9 = 0x10000000;
+    }
+
+    [v8 setStatOptions:v9];
+  }
+}
+
+- (void)setConsistentStateTo:(unsigned int)to
+{
+  v3 = *&to;
+  device = [(DYMTLFunctionPlayer *)self device];
+  v5 = DYMTLGetOriginalObject(device);
+
+  if (objc_opt_respondsToSelector())
+  {
+    [v5 setConsistentGPUPerfStateTo:v3];
   }
 }
 
@@ -5066,10 +5184,10 @@ LABEL_41:
 
 - (void)presentDrawable
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   if (self->_lastEncoderID)
   {
-    GPUTools::AutoCATransaction::AutoCATransaction(v72, 1, 1);
+    GPUTools::AutoCATransaction::AutoCATransaction(v71, 1, 1);
     v3 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &self->_lastEncoderID);
     if (!v3)
     {
@@ -5091,8 +5209,8 @@ LABEL_41:
       goto LABEL_45;
     }
 
-    [(DYMTLCommonDebugFunctionPlayer *)self _attachmentInfoForCommandEncoderID:?];
-    if (!v68)
+    objc_msgSend__attachmentInfoForCommandEncoderID_(self);
+    if (!v67)
     {
       goto LABEL_45;
     }
@@ -5103,21 +5221,21 @@ LABEL_41:
       goto LABEL_45;
     }
 
-    v66 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF98]);
-    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_textureToDrawableMap.__table_.__bucket_list_.__ptr_, &v68);
-    v67 = 0;
+    v65 = *(&self->super.super.super.super.isa + *MEMORY[0x277D0AF98]);
+    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_textureToDrawableMap.__table_.__bucket_list_.__ptr_, &v67);
+    v66 = 0;
     if (v6)
     {
-      v67 = v6[3];
-      v7 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_drawableIdToLayerIdMap.__table_.__bucket_list_.__ptr_, &v67);
-      v8 = v67;
+      v66 = v6[3];
+      v7 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_drawableIdToLayerIdMap.__table_.__bucket_list_.__ptr_, &v66);
+      v8 = v66;
       if (v7)
       {
-        v9 = [(DYMTLFunctionPlayer *)self objectForKey:v67];
+        v9 = [(DYMTLFunctionPlayer *)self objectForKey:v66];
         texture = [v9 texture];
 
         v11 = v7[3] == -1;
-        v8 = v67;
+        v8 = v66;
         goto LABEL_13;
       }
     }
@@ -5133,7 +5251,7 @@ LABEL_13:
     v12 = [(DYMTLCommonDebugFunctionPlayer *)self replayerLayerForDrawableId:v8];
     if (v11)
     {
-      v13 = [(DYMTLFunctionPlayer *)self objectForKey:v68];
+      v13 = [(DYMTLFunctionPlayer *)self objectForKey:v67];
 
       if (!v13)
       {
@@ -5143,30 +5261,30 @@ LABEL_13:
 LABEL_44:
 
 LABEL_45:
-        GPUTools::AutoCATransaction::~AutoCATransaction(v72);
-        goto LABEL_46;
+        GPUTools::AutoCATransaction::~AutoCATransaction(v71);
+        return;
       }
 
       width = [v13 width];
-      if (width >> v69 <= 1)
+      if (width >> v68 <= 1)
       {
         v15 = 1;
       }
 
       else
       {
-        v15 = width >> v69;
+        v15 = width >> v68;
       }
 
       height = [v13 height];
-      if (height >> v69 <= 1)
+      if (height >> v68 <= 1)
       {
         v17 = 1;
       }
 
       else
       {
-        v17 = height >> v69;
+        v17 = height >> v68;
       }
 
       v18 = objc_opt_class();
@@ -5200,8 +5318,8 @@ LABEL_45:
     texture2 = [nextDrawable texture];
     if (texture2 && texture)
     {
-      v62 = [(DYMTLFunctionPlayer *)self objectForKey:v5[3]];
-      commandBuffer = [v62 commandBuffer];
+      v61 = [(DYMTLFunctionPlayer *)self objectForKey:v5[3]];
+      commandBuffer = [v61 commandBuffer];
       renderPassDescriptor = [MEMORY[0x277CD6F48] renderPassDescriptor];
       colorAttachments = [renderPassDescriptor colorAttachments];
       v30 = [colorAttachments objectAtIndexedSubscript:0];
@@ -5210,14 +5328,14 @@ LABEL_45:
       [v30 setLoadAction:2];
       [v30 setStoreAction:1];
       [v30 setClearColor:{0.0, 0.0, 0.0, 1.0}];
-      if (!v67)
+      if (!v66)
       {
         v31 = texture;
         v32 = v31;
         if (([v31 pixelFormat] & 0xFFFFFFFFFFFFFFFELL) == 0x226)
         {
           v33 = [MEMORY[0x277CD7050] texture2DDescriptorWithPixelFormat:objc_msgSend(texture2 width:"pixelFormat") height:objc_msgSend(texture2 mipmapped:"width"), objc_msgSend(texture2, "height"), 0];
-          device2 = [v62 device];
+          device2 = [v61 device];
           v32 = DYMTLNewTexture(device2, v33);
         }
 
@@ -5242,14 +5360,14 @@ LABEL_45:
           v32 = v39;
         }
 
-        v40 = [(DYMTLCommonDebugFunctionPlayer *)self _texture2DFromTexture:v32 level:v69 slice:v70 depthPlane:v71 commandBuffer:commandBuffer];
+        v40 = [(DYMTLCommonDebugFunctionPlayer *)self _texture2DFromTexture:v32 level:v68 slice:v69 depthPlane:v70 commandBuffer:commandBuffer];
 
         texture = v40;
       }
 
       v41 = DYMTLNewStatefulRenderCommandEncoder(commandBuffer, renderPassDescriptor);
       [(DYMTLTextureRenderer *)self->_textureRenderer renderTexture:texture withEncoder:v41 enableBlending:0 layerIndex:0];
-      if ([v66 enableWireframePresent])
+      if ([v65 enableWireframePresent])
       {
         if (!self->_disableWireframe)
         {
@@ -5258,10 +5376,10 @@ LABEL_45:
 
           if (!v43)
           {
-            wireframeLineColor = [v66 wireframeLineColor];
-            wireframeLineColor2 = [v66 wireframeLineColor];
-            wireframeLineColor3 = [v66 wireframeLineColor];
-            wireframeLineColor4 = [v66 wireframeLineColor];
+            wireframeLineColor = [v65 wireframeLineColor];
+            wireframeLineColor2 = [v65 wireframeLineColor];
+            wireframeLineColor3 = [v65 wireframeLineColor];
+            wireframeLineColor4 = [v65 wireframeLineColor];
             *&v46 = (wireframeLineColor & 0xFF000000) / 4278200000.0;
             *&v47 = (wireframeLineColor2 & 0xFF0000) / 16712000.0;
             *&v48 = (wireframeLineColor3 & 0xFF00) / 65280.0;
@@ -5274,7 +5392,7 @@ LABEL_45:
         }
       }
 
-      if ([v66 enableOutlinePresent])
+      if ([v65 enableOutlinePresent])
       {
         outlineTexture = [(DYMTLDebugWireframeRenderer *)self->_wireframeRenderer outlineTexture];
         v53 = outlineTexture == 0;
@@ -5301,15 +5419,12 @@ LABEL_45:
     objc_autoreleasePoolPop(context);
     goto LABEL_44;
   }
-
-LABEL_46:
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (id)replayerLayerForDrawableId:(unint64_t)id
 {
-  v20[0] = id;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, v20);
+  idCopy = id;
+  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, &idCopy);
   if (v4)
   {
     v5 = v4[3];
@@ -5321,10 +5436,10 @@ LABEL_46:
     if ([*(&self->super.super.super.super.isa + v6) conformsToProtocol:&unk_2860CCFF0])
     {
       v7 = *(&self->super.super.super.super.isa + v6);
-      v5 = [v7 createLayerWithID:v20[0] contentRect:0 contentsScale:0 properties:0.0 isCoreAnimationSurface:{0.0, 1.0, 1.0, 1.0}];
+      v5 = [v7 createLayerWithID:idCopy contentRect:0 contentsScale:0 properties:0.0 isCoreAnimationSurface:{0.0, 1.0, 1.0, 1.0}];
       if (v5)
       {
-        v8 = v20[0] == 0;
+        v8 = idCopy == 0;
       }
 
       else
@@ -5342,8 +5457,8 @@ LABEL_46:
         [v7 defaultContentsScale];
         [v7 updateLayer:v5 contentRect:0 contentsScale:v10 properties:{v12, v14, v16, v17}];
         [v5 setFramebufferOnly:0];
-        v20[2] = v20;
-        v18 = std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, v20);
+        v21 = &idCopy;
+        v18 = std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, &idCopy, &std::piecewise_construct, &v21);
         objc_storeStrong(v18 + 3, v5);
       }
     }
@@ -5359,12 +5474,12 @@ LABEL_46:
 
 - (void)updateReplayerLayer:(unint64_t)layer withOriginalLayer:(unint64_t)originalLayer
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   v5 = [(DYMTLCommonFunctionPlayer *)self layerForID:originalLayer];
-  *&v10[0] = &layerCopy;
-  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, &layerCopy)[3];
-  GPUTools::AutoCATransaction::AutoCATransaction(v20, 1, 1);
+  *&v9[0] = &layerCopy;
+  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_metalLayers.__table_.__bucket_list_.__ptr_, &layerCopy, &std::piecewise_construct, v9)[3];
+  GPUTools::AutoCATransaction::AutoCATransaction(v19, 1, 1);
   [v5 bounds];
   [v6 setBounds:?];
   [v5 position];
@@ -5375,30 +5490,30 @@ LABEL_46:
   [v6 setAnchorPointZ:?];
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
   }
 
-  v10[4] = v15;
-  v10[5] = v16;
-  v10[6] = v17;
-  v10[7] = v18;
-  v10[0] = v11;
-  v10[1] = v12;
-  v10[2] = v13;
-  v10[3] = v14;
-  [v6 setTransform:v10];
+  v9[4] = v14;
+  v9[5] = v15;
+  v9[6] = v16;
+  v9[7] = v17;
+  v9[0] = v10;
+  v9[1] = v11;
+  v9[2] = v12;
+  v9[3] = v13;
+  [v6 setTransform:v9];
   [v6 setPixelFormat:objc_msgSend(v5, "pixelFormat")];
   device = [v5 device];
   if (device)
@@ -5418,9 +5533,7 @@ LABEL_46:
   [v6 setFramebufferOnly:0];
   [v5 drawableSize];
   [v6 setDrawableSize:?];
-  GPUTools::AutoCATransaction::~AutoCATransaction(v20);
-
-  v9 = *MEMORY[0x277D85DE8];
+  GPUTools::AutoCATransaction::~AutoCATransaction(v19);
 }
 
 + (id)thumbnailTexture:(unint64_t)texture
@@ -5581,7 +5694,7 @@ LABEL_46:
         v59.super_class = DYMTLCommonDebugFunctionPlayer;
         [(DYMTLFunctionPlayer *)&v59 executeGraphicsFunction];
         v69 = &v61;
-        v8 = std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v61);
+        v8 = std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v61, &std::piecewise_construct, &v69);
         goto LABEL_46;
       }
 
@@ -5603,7 +5716,7 @@ LABEL_14:
           v60.super_class = DYMTLCommonDebugFunctionPlayer;
           [(DYMTLFunctionPlayer *)&v60 executeGraphicsFunction];
           v69 = &v61;
-          v8 = std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v61);
+          v8 = std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->super._drawableRenderabilityStatusMap.__table_.__bucket_list_.__ptr_, &v61, &std::piecewise_construct, &v69);
 LABEL_46:
           *(v8 + 24) = 0;
 LABEL_47:
@@ -5953,7 +6066,7 @@ LABEL_58:
   if (self->_currentParallelId)
   {
     std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_persistantEncoder2ParallelMap.__table_.__bucket_list_.__ptr_, &v69);
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned long long &>(&self->_persistantEncoder2ParallelMap.__table_.__bucket_list_.__ptr_, &v69);
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned long long &>(&self->_persistantEncoder2ParallelMap.__table_.__bucket_list_.__ptr_, &v69, &v69, &self->_currentParallelId);
   }
 }
 
@@ -6067,7 +6180,7 @@ uint64_t __69__DYMTLCommonDebugFunctionPlayer__attachmentInfoForCommandEncoderID
 - (void)_trackObjects
 {
   v3 = *MEMORY[0x277D0AFA0];
-  v22 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v3) + 48, 0);
+  v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v3) + 48, 0);
   _isFunctionCommandEncoderCreation = [(DYMTLCommonDebugFunctionPlayer *)self _isFunctionCommandEncoderCreation];
   if ([(DYMTLCommonDebugFunctionPlayer *)self _isReceiverTypeCommandEncoderRelated]|| _isFunctionCommandEncoderCreation)
   {
@@ -6101,22 +6214,21 @@ uint64_t __69__DYMTLCommonDebugFunctionPlayer__attachmentInfoForCommandEncoderID
               }
 
 LABEL_54:
-              v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-              std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
+              v20 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+              std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20);
               v18 = 0;
+              v17 = v21;
               v19 = 0;
-              v17 = v22;
-              v20 = 0;
-              std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
+              std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20, &v20, &v17);
               return;
             }
 
 LABEL_42:
-            *(std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v22) + 32) = 1;
+            *(std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v21) + 32) = 1;
             return;
           }
 
-          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v22);
+          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v21);
 LABEL_62:
           self->_lastEncoderID = 0;
           return;
@@ -6148,14 +6260,13 @@ LABEL_59:
 
           if (v7 == -16351)
           {
-            v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v21);
-            v17 = v22;
-            v18 = 0;
-            v19 = v21;
-            v20 = 0;
-            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v21);
-            [(DYMTLCommonDebugFunctionPlayer *)self _addRenderPassDescriptorToEncoderMapFromArgumentPointer:*(&self->super.super.super._executePlatform + *MEMORY[0x277D0AF68]) forEncoder:v21];
+            v20 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v20);
+            v17 = v21;
+            v18 = v20;
+            v19 = 0;
+            std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v20, &v20, &v17);
+            [(DYMTLCommonDebugFunctionPlayer *)self _addRenderPassDescriptorToEncoderMapFromArgumentPointer:*(&self->super.super.super._executePlatform + *MEMORY[0x277D0AF68]) forEncoder:v20];
           }
 
           return;
@@ -6170,11 +6281,11 @@ LABEL_59:
       }
 
 LABEL_71:
-      v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-      std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v21);
-      v17 = v22;
-      LOBYTE(v18) = 0;
-      std::__hash_table<std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CommandBufferInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,CommandBufferInfo>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v21);
+      v20 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+      std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v20);
+      *&v17 = v21;
+      BYTE8(v17) = 0;
+      std::__hash_table<std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CommandBufferInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,CommandBufferInfo>(&self->_commandBufferMap.__table_.__bucket_list_.__ptr_, &v20, &v20, &v17);
       return;
     }
 
@@ -6189,7 +6300,7 @@ LABEL_71:
         }
 
 LABEL_61:
-        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v22);
+        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
         goto LABEL_62;
       }
 
@@ -6197,15 +6308,15 @@ LABEL_61:
       {
         if (v7 == -16287)
         {
-          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v22);
+          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v21);
         }
 
         return;
       }
 
 LABEL_46:
-      v17 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long &>(&self->_commandQueueSet.__table_.__bucket_list_.__ptr_, &v17);
+      *&v17 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long &>(&self->_commandQueueSet.__table_.__bucket_list_.__ptr_, &v17, &v17);
       return;
     }
 
@@ -6213,24 +6324,23 @@ LABEL_46:
     {
       if (v7 == -16286)
       {
-        v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-        v15 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v22);
-        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
+        v20 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+        v15 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_parallelEncoderMap.__table_.__bucket_list_.__ptr_, &v21);
+        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20);
         v17 = v15[3];
-        v18 = 0;
-        v19 = v21;
-        v20 = 0;
-        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
-        v16 = v22;
-        v17 = &v21;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v21)[3] = v16;
+        v18 = v20;
+        v19 = 0;
+        std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20, &v20, &v17);
+        v16 = v21;
+        *&v17 = &v20;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_encoderToParallelEncoderMap.__table_.__bucket_list_.__ptr_, &v20, &std::piecewise_construct, &v17)[3] = v16;
       }
 
       else if (v7 == -16285)
       {
         v10 = 1912;
 LABEL_73:
-        *(std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>((&self->super.super.super.super.isa + v10), &v22) + 48) = 1;
+        *(std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>((&self->super.super.super.super.isa + v10), &v21) + 48) = 1;
         return;
       }
 
@@ -6246,7 +6356,7 @@ LABEL_73:
 LABEL_49:
     if (v7 == v8)
     {
-      v12 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v22);
+      v12 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
       v12[4] = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(*(&self->super.super.super.super.isa + v3) + 72, 0);
     }
 
@@ -6280,16 +6390,15 @@ LABEL_49:
         if (v7 == -16195)
         {
 LABEL_74:
-          v21 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
-          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
-          v17 = v22;
-          v18 = 0;
-          v19 = v21;
-          v20 = 0;
-          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v21);
-          [(DYMTLCommonDebugFunctionPlayer *)self _addRenderPassDescriptorToEncoderMapFromArgumentPointer:*(&self->super.super.super._executePlatform + *MEMORY[0x277D0AF68]) forEncoder:v21];
+          v20 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((v6 + 6), 0);
+          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20);
+          v17 = v21;
+          v18 = v20;
+          v19 = 0;
+          std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(&self->_encoderMap.__table_.__bucket_list_.__ptr_, &v20, &v20, &v17);
+          [(DYMTLCommonDebugFunctionPlayer *)self _addRenderPassDescriptorToEncoderMapFromArgumentPointer:*(&self->super.super.super._executePlatform + *MEMORY[0x277D0AF68]) forEncoder:v20];
           p_encoderToParallelEncoderMap = &self->_encoderToParallelEncoderMap;
-          v14 = &v21;
+          v14 = &v20;
           goto LABEL_75;
         }
 
@@ -6310,7 +6419,7 @@ LABEL_74:
         }
 
         p_encoderToParallelEncoderMap = &self->_textureToDrawableMap;
-        v14 = &v22;
+        v14 = &v21;
 LABEL_75:
         std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(p_encoderToParallelEncoderMap, v14);
         return;
@@ -6852,10 +6961,10 @@ LABEL_23:
 
 - (id)setupCounterConfigurationAndGetFrameProfilerCounters
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = DYMTLCommonDebugFunctionPlayer;
-  commandQueue = [(DYMTLFunctionPlayer *)&v16 commandQueue];
+  v17 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v15 commandQueue];
   if (commandQueue)
   {
     if ([(DYMTLCommonDebugFunctionPlayer *)self isBlitSamplingSupported])
@@ -6870,31 +6979,31 @@ LABEL_23:
 
     [commandQueue setStatLocations:v4];
     [commandQueue availableCounters];
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v5 = v13 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v11 = 0u;
+    v5 = v12 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v13;
+      v7 = *v12;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v12 + 1) + 8 * i) isEqualToString:{self->_statVertices, v12}])
+          if (objc_msgSend_isEqualToString_(*(*(&v11 + 1) + 8 * i), v11))
           {
 
             goto LABEL_15;
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -6915,47 +7024,67 @@ LABEL_15:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
+}
+
+- (void)enableStatsSampling:(BOOL)sampling
+{
+  samplingCopy = sampling;
+  v7.receiver = self;
+  v7.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v7 commandQueue];
+  v6 = commandQueue;
+  if (commandQueue)
+  {
+    [commandQueue setStatEnabled:samplingCopy];
+    if (samplingCopy)
+    {
+      [v6 setStatOptions:1];
+      if (self->_isAGXDevice)
+      {
+        [v6 setStatOptions:0x10000000];
+        [v6 setGPUPriority:0];
+      }
+    }
+  }
 }
 
 - (BOOL)isCounterAvailable:(id)available
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   availableCopy = available;
-  v17.receiver = self;
-  v17.super_class = DYMTLCommonDebugFunctionPlayer;
-  commandQueue = [(DYMTLFunctionPlayer *)&v17 commandQueue];
+  v16.receiver = self;
+  v16.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v16 commandQueue];
   v6 = commandQueue;
   if (commandQueue)
   {
     [commandQueue availableCounters];
+    v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v7 = v14 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v12 = 0u;
+    v7 = v13 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v14;
+      v9 = *v13;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          if ([availableCopy isEqualToString:{*(*(&v13 + 1) + 8 * i), v13}])
+          if (objc_msgSend_isEqualToString_(availableCopy, v12))
           {
             LOBYTE(v8) = 1;
             goto LABEL_12;
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -6973,7 +7102,6 @@ LABEL_12:
     LOBYTE(v8) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -7336,7 +7464,7 @@ void __63__DYMTLCommonDebugFunctionPlayer_setupProfilingForCounterLists__block_i
           v19 = *(&v79 + 1);
           __src = (v14 + 8 * *(*(a1 + 32) + 3980));
           v74 = 0;
-          std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v78, __src)[3] = v19;
+          std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v78, __src, &std::piecewise_construct, &__src)[3] = v19;
           v17 = v72;
           v18 = v73;
           if (v73)
@@ -7597,9 +7725,9 @@ void __57__DYMTLCommonDebugFunctionPlayer_setupFrameTimeProfiling__block_invoke(
   v4 = a2;
   v5 = a3;
   v6 = [v4 label];
-  v7 = [v6 isEqualToString:*MEMORY[0x277D0B020]];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     memset(__p, 0, sizeof(__p));
     [v4 GPUStartTime];
@@ -7610,10 +7738,10 @@ void __57__DYMTLCommonDebugFunctionPlayer_setupFrameTimeProfiling__block_invoke(
 
 - (BOOL)setupProfilingForListAtIndex:(unint64_t)index
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v43.receiver = self;
-  v43.super_class = DYMTLCommonDebugFunctionPlayer;
-  commandQueue = [(DYMTLFunctionPlayer *)&v43 commandQueue];
+  v43 = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v41 commandQueue];
   if (!commandQueue || (-[NSMutableArray objectAtIndexedSubscript:](self->_counterListsPerPass, "objectAtIndexedSubscript:", index), v5 = objc_claimAutoreleasedReturnValue(), v6 = [commandQueue requestCounters:v5 withIndex:index], v5, v6))
   {
     v7 = 0;
@@ -7646,12 +7774,12 @@ void __57__DYMTLCommonDebugFunctionPlayer_setupFrameTimeProfiling__block_invoke(
     v11 = 3;
   }
 
-  v41 = 0u;
-  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v12 = [(NSMutableArray *)self->_counterListsPerPass objectAtIndexedSubscript:index];
-  v13 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (!v13)
   {
     v7 = 1;
@@ -7661,21 +7789,20 @@ void __57__DYMTLCommonDebugFunctionPlayer_setupFrameTimeProfiling__block_invoke(
   obj = v12;
   v14 = 0;
   v15 = 0;
-  v16 = *v40;
+  v16 = *v38;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v40 != v16)
+      if (*v38 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v39 + 1) + 8 * i);
-      v19 = [(NSDictionary *)self->_counterInfos objectForKeyedSubscript:v18];
-      v20 = [v19 objectForKeyedSubscript:@"type"];
+      v18 = [(NSDictionary *)self->_counterInfos objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
+      v19 = [v18 objectForKeyedSubscript:@"type"];
 
-      if (!v20)
+      if (!v19)
       {
         v7 = 0;
         goto LABEL_37;
@@ -7684,32 +7811,32 @@ void __57__DYMTLCommonDebugFunctionPlayer_setupFrameTimeProfiling__block_invoke(
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        unsignedIntegerValue = [v20 unsignedIntegerValue];
+        unsignedIntegerValue = [v19 unsignedIntegerValue];
         begin = self->_isDeltaCounter.__begin_;
-        v23 = v14 >> 6;
-        v24 = 1 << v14;
+        v22 = v14 >> 6;
+        v23 = 1 << v14;
         if (unsignedIntegerValue == 1)
         {
 LABEL_19:
-          v25 = begin[v23] | v24;
+          v24 = begin[v22] | v23;
 LABEL_23:
-          begin[v23] = v25;
+          begin[v22] = v24;
           goto LABEL_24;
         }
 
 LABEL_22:
-        v25 = begin[v23] & ~v24;
+        v24 = begin[v22] & ~v23;
         goto LABEL_23;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v26 = [v20 isEqualToString:@"DELTA"];
+        isEqualToString = objc_msgSend_isEqualToString_(v19);
         begin = self->_isDeltaCounter.__begin_;
-        v23 = v14 >> 6;
-        v24 = 1 << v14;
-        if (v26)
+        v22 = v14 >> 6;
+        v23 = 1 << v14;
+        if (isEqualToString)
         {
           goto LABEL_19;
         }
@@ -7720,33 +7847,11 @@ LABEL_22:
 LABEL_24:
       if (v15 < v11)
       {
-        v27 = [@"MTLStatCommandBufferIndex" isEqualToString:v18];
-        v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__commandBufferIndex;
-        if (v27)
+        v26 = objc_msgSend_isEqualToString_(@"MTLStatCommandBufferIndex");
+        v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__commandBufferIndex;
+        if (v26 & 1) != 0 || (v28 = objc_msgSend_isEqualToString_(@"MTLStatEncoderIndex"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__encoderIndex, (v28) || (v29 = objc_msgSend_isEqualToString_(@"MTLStatCommandIndex"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__drawIndex, (v29) || (v30 = objc_msgSend_isEqualToString_(@"MTLStatDataMaster"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__datamasterIndex, (v30) || (v31 = objc_msgSend_isEqualToString_(@"MTLStatSampleLocation"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__sampleLocationIndex, (v31) || (v32 = objc_msgSend_isEqualToString_(@"MTLStatTotalGPUCycles"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__gpuCyclesIndex, (v32) || (v33 = objc_msgSend_isEqualToString_(@"MTLStat_nSec"), v27 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__nSecIndex, v33))
         {
-          goto LABEL_32;
-        }
-
-        v29 = [@"MTLStatEncoderIndex" isEqualToString:v18];
-        v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__encoderIndex;
-        if (v29)
-        {
-          goto LABEL_32;
-        }
-
-        v30 = [@"MTLStatCommandIndex" isEqualToString:v18];
-        v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__drawIndex;
-        if (v30)
-        {
-          goto LABEL_32;
-        }
-
-        v31 = [@"MTLStatDataMaster" isEqualToString:v18];
-        v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__datamasterIndex;
-        if (v31 & 1) != 0 || (v32 = [@"MTLStatSampleLocation" isEqualToString:v18], v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__sampleLocationIndex, (v32) || (v33 = objc_msgSend(@"MTLStatTotalGPUCycles", "isEqualToString:", v18), v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__gpuCyclesIndex, (v33) || (v34 = objc_msgSend(@"MTLStat_nSec", "isEqualToString:", v18), v28 = &OBJC_IVAR___DYMTLCommonDebugFunctionPlayer__nSecIndex, v34))
-        {
-LABEL_32:
-          *(&self->super.super.super.super.isa + *v28) = v14;
+          *(&self->super.super.super.super.isa + *v27) = v14;
           ++v15;
         }
       }
@@ -7754,7 +7859,7 @@ LABEL_32:
       ++v14;
     }
 
-    v13 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v13)
     {
       continue;
@@ -7769,23 +7874,22 @@ LABEL_37:
 LABEL_39:
 
 LABEL_40:
-  v35 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)counterInfo:(id)info
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v42 = infoCopy;
-  v41 = objc_opt_new();
-  v47.receiver = self;
-  v47.super_class = DYMTLCommonDebugFunctionPlayer;
-  commandQueue = [(DYMTLFunctionPlayer *)&v47 commandQueue];
+  v41 = infoCopy;
+  v40 = objc_opt_new();
+  v46.receiver = self;
+  v46.super_class = DYMTLCommonDebugFunctionPlayer;
+  commandQueue = [(DYMTLFunctionPlayer *)&v46 commandQueue];
   v6 = commandQueue;
   if (commandQueue)
   {
-    v40 = commandQueue;
+    v39 = commandQueue;
     isStatEnabled = [commandQueue isStatEnabled];
     if ((isStatEnabled & 1) == 0)
     {
@@ -7806,39 +7910,39 @@ LABEL_40:
       }
       v9 = ;
       v10 = [MEMORY[0x277CBEB98] setWithArray:v9];
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v11 = v7;
-      v12 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v12)
       {
-        v13 = *v44;
+        v13 = *v43;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v44 != v13)
+            if (*v43 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v43 + 1) + 8 * i);
+            v15 = *(*(&v42 + 1) + 8 * i);
             if (([v10 containsObject:v15] & 1) == 0)
             {
               [v9 addObject:v15];
             }
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
         while (v12);
       }
 
       availableCounters = v9;
-      v6 = v40;
+      v6 = v39;
     }
 
     else
@@ -7903,7 +8007,7 @@ LABEL_40:
             operator delete(v33);
           }
 
-          infoCopy = v42;
+          infoCopy = v41;
         }
 
         else
@@ -7923,22 +8027,20 @@ LABEL_40:
       while (v19 != v21);
     }
 
-    [v41 setObject:self->_counterListsPerPass forKeyedSubscript:*MEMORY[0x277D0B0C8]];
+    [v40 setObject:self->_counterListsPerPass forKeyedSubscript:*MEMORY[0x277D0B0C8]];
     v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19];
-    [v41 setObject:v36 forKeyedSubscript:*MEMORY[0x277D0B398]];
+    [v40 setObject:v36 forKeyedSubscript:*MEMORY[0x277D0B398]];
 
-    [v41 setObject:availableCounters forKeyedSubscript:*MEMORY[0x277D0B0D0]];
+    [v40 setObject:availableCounters forKeyedSubscript:*MEMORY[0x277D0B0D0]];
     if ((isStatEnabled & 1) == 0)
     {
-      [v40 setStatEnabled:0];
+      [v39 setStatEnabled:0];
     }
 
-    v6 = v40;
+    v6 = v39;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 - (void)sampleEncoderCounters

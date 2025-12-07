@@ -49,7 +49,7 @@
 
 - (NSArray)specifiers
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   specifiers = self->_specifiers;
   if (!specifiers)
   {
@@ -57,16 +57,14 @@
     v5 = _specifierForKeychainSync;
     if (_specifierForKeychainSync)
     {
-      v10[0] = _specifierForKeychainSync;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v9[0] = _specifierForKeychainSync;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
       v7 = self->_specifiers;
       self->_specifiers = v6;
     }
 
     specifiers = self->_specifiers;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return specifiers;
 }
@@ -135,7 +133,7 @@ LABEL_8:
 {
   if (self->_keychainStatusFetchInProgress)
   {
-    v2 = LogSubsystem();
+    v2 = LogSubsystem(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -160,54 +158,59 @@ void __53__ICSKeychainSpecifierProvider__refreshKeychainState__block_invoke(uint
 {
   v11 = *MEMORY[0x277D85DE8];
   v2 = +[ICSKeychainSyncController isKeychainSyncEnabled];
+  v3 = v2;
   *(*(a1 + 32) + 24) = 0;
-  v3 = LogSubsystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = LogSubsystem(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = v2;
-    _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "isKeychainSyncEnabled: %d", buf, 8u);
+    v10 = v3;
+    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "isKeychainSyncEnabled: %d", buf, 8u);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 16);
-  if (v2)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 16);
+  if (v3)
   {
-    if (v5 != 2)
+    if (v6 == 2)
     {
-      v6 = 2;
-LABEL_8:
-      *(v4 + 16) = v6;
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __53__ICSKeychainSpecifierProvider__refreshKeychainState__block_invoke_79;
-      block[3] = &unk_27A666198;
-      block[4] = *(a1 + 32);
-      dispatch_async(MEMORY[0x277D85CD0], block);
+      return;
     }
+
+    v7 = 2;
   }
 
-  else if (v5 != 1)
+  else
   {
-    v6 = 1;
-    goto LABEL_8;
+    if (v6 == 1)
+    {
+      return;
+    }
+
+    v7 = 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  *(v5 + 16) = v7;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __53__ICSKeychainSpecifierProvider__refreshKeychainState__block_invoke_79;
+  block[3] = &unk_27A666198;
+  block[4] = *(a1 + 32);
+  dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
 void __53__ICSKeychainSpecifierProvider__refreshKeychainState__block_invoke_79(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogSubsystem();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogSubsystem(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
   v4 = MEMORY[0x277CB89C0];
   if (v3)
   {
     v5 = *MEMORY[0x277CB89C0];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_275819000, v2, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
@@ -218,8 +221,6 @@ void __53__ICSKeychainSpecifierProvider__refreshKeychainState__block_invoke_79(u
     v8 = objc_loadWeakRetained((*(a1 + 32) + 32));
     [v8 reloadSpecifierForProvider:*(a1 + 32) identifier:*v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForKeychainSyncStatusChangeNotification
@@ -276,19 +277,18 @@ void __80__ICSKeychainSpecifierProvider__registerForKeychainSyncStatusChangeNoti
 
 - (void)_keychainSyncStateDidChange
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = LogSubsystem();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "%@ received keychain sync state change notification.", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "%@ received keychain sync state change notification.", &v6, 0xCu);
   }
 
   [(ICSKeychainSpecifierProvider *)self _refreshKeychainState];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (AAUISpecifierProviderDelegate)delegate

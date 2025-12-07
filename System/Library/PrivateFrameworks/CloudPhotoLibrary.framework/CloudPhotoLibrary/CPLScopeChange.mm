@@ -28,7 +28,7 @@
 
 - (void)updateScopeIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   _scopedIdentifier = [(CPLScopeChange *)self _scopedIdentifier];
   if (_scopedIdentifier)
@@ -36,9 +36,9 @@
     v6 = [CPLScopedIdentifier alloc];
     scopeIdentifier = [_scopedIdentifier scopeIdentifier];
     v8 = [(CPLScopedIdentifier *)v6 initWithScopeIdentifier:scopeIdentifier identifier:identifierCopy];
-    v12.receiver = self;
-    v12.super_class = CPLScopeChange;
-    [(CPLRecordChange *)&v12 setScopedIdentifier:v8];
+    v11.receiver = self;
+    v11.super_class = CPLScopeChange;
+    [(CPLRecordChange *)&v11 setScopedIdentifier:v8];
   }
 
   if ((_CPLSilentLogging & 1) == 0)
@@ -48,14 +48,12 @@
     {
       _scopedIdentifier2 = [(CPLScopeChange *)self _scopedIdentifier];
       *buf = 138412546;
-      v14 = _scopedIdentifier;
-      v15 = 2112;
-      v16 = _scopedIdentifier2;
+      v13 = _scopedIdentifier;
+      v14 = 2112;
+      v15 = _scopedIdentifier2;
       _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Updating %@ -> %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)needsToSetScopeIdentifier
@@ -265,7 +263,7 @@
 
 - (CPLScopeChange)initWithScopeIdentifier:(id)identifier type:(int64_t)type
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v8 = objc_opt_class();
   if (v8 == objc_opt_class())
@@ -282,40 +280,40 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = objc_opt_class();
-        v19 = v18;
-        v20 = [CPLScopeChange descriptionForScopeType:type];
+        v17 = objc_opt_class();
+        v18 = v17;
+        v19 = [CPLScopeChange descriptionForScopeType:type];
         *buf = 138412546;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v20;
-        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Invalid class %@ for scope type %@", buf, 0x16u);
+        v27 = v17;
+        v28 = 2112;
+        v29 = v19;
+        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Invalid class %@ for scope type %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLScopeChange.m"];
-    v23 = objc_opt_class();
-    v24 = [CPLScopeChange descriptionForScopeType:type];
-    [currentHandler handleFailureInMethod:a2 object:self file:v22 lineNumber:245 description:{@"Invalid class %@ for scope type %@", v23, v24}];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLScopeChange.m"];
+    v22 = objc_opt_class();
+    v23 = [CPLScopeChange descriptionForScopeType:type];
+    [currentHandler handleFailureInMethod:a2 object:self file:v21 lineNumber:245 description:{@"Invalid class %@ for scope type %@", v22, v23}];
 
     abort();
   }
 
-  v26.receiver = self;
-  v26.super_class = CPLScopeChange;
-  v9 = [(CPLScopeChange *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = CPLScopeChange;
+  v9 = [(CPLScopeChange *)&v25 init];
   v10 = v9;
   if (v9)
   {
     v9->_scopeType = type;
     v11 = [[CPLScopedIdentifier alloc] initWithScopeIdentifier:@"__SCOPE__" identifier:identifierCopy];
-    v25.receiver = v10;
-    v25.super_class = CPLScopeChange;
-    [(CPLRecordChange *)&v25 setScopedIdentifier:v11];
+    v24.receiver = v10;
+    v24.super_class = CPLScopeChange;
+    [(CPLRecordChange *)&v24 setScopedIdentifier:v11];
     v10->_activated = 1;
   }
 
@@ -324,7 +322,6 @@
 LABEL_8:
   v14 = v12;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -461,67 +458,41 @@ LABEL_8:
 
 + (Class)scopeChangeClassForType:(int64_t)type
 {
-  v3 = off_1E861A310;
   if (type <= 3)
   {
-    if ((type - 2) < 2)
+    if ((type - 2) >= 2 && type > 1)
     {
-      v3 = off_1E861A168;
-      goto LABEL_15;
+      goto LABEL_17;
     }
-
-    if (!type)
-    {
-      goto LABEL_15;
-    }
-
-    if (type == 1)
-    {
-      v3 = off_1E861A0E8;
-      goto LABEL_15;
-    }
-
-    goto LABEL_18;
   }
 
-  if (type <= 6)
+  else
   {
-    if ((type - 4) < 2)
+    if (type <= 6)
     {
-      v3 = off_1E861A0F0;
-      goto LABEL_15;
+      if ((type - 4) < 2 || type == 6)
+      {
+        goto LABEL_14;
+      }
+
+LABEL_17:
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLScopeChange.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:104 description:{@"unknown scope type %ld", type}];
+
+      abort();
     }
 
-    if (type == 6)
+    if ((type - 7) >= 2 && type != 0x7FFFFFFF)
     {
-      v3 = off_1E861A3B0;
-      goto LABEL_15;
+      goto LABEL_17;
     }
-
-LABEL_18:
-    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLScopeChange.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:104 description:{@"unknown scope type %ld", type}];
-
-    abort();
   }
 
-  if ((type - 7) < 2)
-  {
-    v3 = off_1E8619EB0;
-    goto LABEL_15;
-  }
+LABEL_14:
+  v3 = objc_opt_class();
 
-  if (type != 0x7FFFFFFF)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v3;
 }
 
 + (id)descriptionForBusyState:(int64_t)state
@@ -559,18 +530,16 @@ LABEL_15:
 
 void __53__CPLScopeChange_mappingForScopeBusyStateDescription__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F57EF2F0;
-  v3[1] = &unk_1F57EF308;
-  v4[0] = @"none";
-  v4[1] = @"busy";
-  v3[2] = &unk_1F57EF320;
-  v4[2] = @"snapshot";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F57EF2F0;
+  v2[1] = &unk_1F57EF308;
+  v3[0] = @"none";
+  v3[1] = @"busy";
+  v2[2] = &unk_1F57EF320;
+  v3[2] = @"snapshot";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = mappingForScopeBusyStateDescription_mapping;
   mappingForScopeBusyStateDescription_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)descriptionForScopeType:(int64_t)type
@@ -608,44 +577,42 @@ void __53__CPLScopeChange_mappingForScopeBusyStateDescription__block_invoke()
 
 void __48__CPLScopeChange_mappingForScopeTypeDescription__block_invoke()
 {
-  v4[10] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F57EF2F0;
-  v3[1] = &unk_1F57EF308;
-  v4[0] = @"unknown";
-  v4[1] = @"library";
-  v3[2] = &unk_1F57EF320;
-  v3[3] = &unk_1F57EF338;
-  v4[2] = @"owned-moment-share";
-  v4[3] = @"accepted-moment-share";
-  v3[4] = &unk_1F57EF350;
-  v3[5] = &unk_1F57EF368;
-  v4[4] = @"owned-library-share";
-  v4[5] = @"accepted-library-share";
-  v3[6] = &unk_1F57EF380;
-  v3[7] = &unk_1F57EF398;
-  v4[6] = @"staging";
-  v4[7] = @"owned-collection-share";
-  v3[8] = &unk_1F57EF3B0;
-  v3[9] = &unk_1F57EF3C8;
-  v4[8] = @"accepted-collection-share";
-  v4[9] = @"ignored";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:10];
+  v3[10] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F57EF2F0;
+  v2[1] = &unk_1F57EF308;
+  v3[0] = @"unknown";
+  v3[1] = @"library";
+  v2[2] = &unk_1F57EF320;
+  v2[3] = &unk_1F57EF338;
+  v3[2] = @"owned-moment-share";
+  v3[3] = @"accepted-moment-share";
+  v2[4] = &unk_1F57EF350;
+  v2[5] = &unk_1F57EF368;
+  v3[4] = @"owned-library-share";
+  v3[5] = @"accepted-library-share";
+  v2[6] = &unk_1F57EF380;
+  v2[7] = &unk_1F57EF398;
+  v3[6] = @"staging";
+  v3[7] = @"owned-collection-share";
+  v2[8] = &unk_1F57EF3B0;
+  v2[9] = &unk_1F57EF3C8;
+  v3[8] = @"accepted-collection-share";
+  v3[9] = @"ignored";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:10];
   v1 = mappingForScopeTypeDescription_mapping;
   mappingForScopeTypeDescription_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLScopeChange)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   if (v5 != objc_opt_class() || (v7 = +[CPLScopeChange scopeChangeClassForType:](CPLScopeChange, "scopeChangeClassForType:", [coderCopy decodeIntegerForKey:@"scopeType"]), v7 == v5))
   {
-    v12.receiver = self;
-    v12.super_class = CPLScopeChange;
-    self = [(CPLRecordChange *)&v12 initWithCoder:coderCopy];
+    v11.receiver = self;
+    v11.super_class = CPLScopeChange;
+    self = [(CPLRecordChange *)&v11 initWithCoder:coderCopy];
     selfCopy = self;
   }
 
@@ -659,15 +626,14 @@ void __48__CPLScopeChange_mappingForScopeTypeDescription__block_invoke()
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v14 = selfCopy;
-        v15 = 2112;
-        v16 = v8;
+        v13 = selfCopy;
+        v14 = 2112;
+        v15 = v8;
         _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Automatically upgrading %@ to %@", buf, 0x16u);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

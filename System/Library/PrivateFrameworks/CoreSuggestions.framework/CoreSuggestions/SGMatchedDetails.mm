@@ -1,5 +1,6 @@
 @interface SGMatchedDetails
 + (id)matchedDetailsWithContact:(id)contact matchinfoData:(id)data tokens:(id)tokens;
++ (int64_t)tokenMatchedDetailTypeForContact:(id)contact contactEntityId:(id)id detailEntityId:(id)entityId matchedDetailReader:(id)reader phraseNumber:(unsigned int)number token:(id)token;
 + (int64_t)tokenMatchedDetailTypeForContact:(id)contact matchedDetailReader:(id)reader phraseNumber:(unsigned int)number token:(id)token;
 + (int64_t)tokensMatchedDetailTypeForContact:(id)contact contactEntityId:(id)id detailEntityId:(id)entityId matchinfoData:(id)data tokens:(id)tokens;
 - (BOOL)isEqual:(id)equal;
@@ -76,20 +77,20 @@
 
 - (void)_processRawData:(id)data tokens:(id)tokens contact:(id)contact tokenDetailMap:(id)map
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   tokensCopy = tokens;
   contactCopy = contact;
-  v38 = tokensCopy;
+  v37 = tokensCopy;
   mapCopy = map;
   if ([tokensCopy count] == 1 && (objc_msgSend(dataCopy, "matchinfoData"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "length"), v13, !v14))
   {
     detailEntityId = [dataCopy detailEntityId];
-    v35 = +[SGRecordId recordIdWithNumericValue:](SGRecordId, "recordIdWithNumericValue:", [detailEntityId longLongValue]);
-    v36 = [contactCopy detailForRecordId:v35];
+    v34 = +[SGRecordId recordIdWithNumericValue:](SGRecordId, "recordIdWithNumericValue:", [detailEntityId longLongValue]);
+    v35 = [contactCopy detailForRecordId:v34];
 
-    v37 = [tokensCopy objectAtIndexedSubscript:0];
-    [(SGMatchedDetails *)self _addToTokenDetailMap:mapCopy token:v37 detail:v36];
+    v36 = [tokensCopy objectAtIndexedSubscript:0];
+    [(SGMatchedDetails *)self _addToTokenDetailMap:mapCopy token:v36 detail:v35];
   }
 
   else
@@ -109,7 +110,7 @@
           v20 = 1;
           do
           {
-            v21 = [v38 objectAtIndexedSubscript:v19];
+            v21 = [v37 objectAtIndexedSubscript:v19];
             v22 = objc_opt_class();
             entityId = [dataCopy entityId];
             detailEntityId2 = [dataCopy detailEntityId];
@@ -137,7 +138,7 @@
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138739971;
-          v41 = tokensCopy;
+          v40 = tokensCopy;
           _os_log_debug_impl(&dword_1BA729000, v31, OS_LOG_TYPE_DEBUG, "tokens.count != phraseCount: %{sensitive}@", buf, 0xCu);
         }
 
@@ -155,8 +156,6 @@
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addToTokenDetailMap:(id)map token:(id)token detail:(id)detail
@@ -217,28 +216,28 @@
 
 void __61__SGMatchedDetails__initilizeDictionariesFromTokenDetailMap___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [*(a1 + 32) objectForKeyedSubscript:v11];
 
         if (!v12)
@@ -251,52 +250,50 @@ void __61__SGMatchedDetails__initilizeDictionariesFromTokenDetailMap___block_inv
         [v14 addObject:v5];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMatchedDetails)initWithContact:(id)contact matchinfoData:(id)data tokens:(id)tokens
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   dataCopy = data;
   tokensCopy = tokens;
-  v24.receiver = self;
-  v24.super_class = SGMatchedDetails;
-  v11 = [(SGMatchedDetails *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SGMatchedDetails;
+  v11 = [(SGMatchedDetails *)&v23 init];
   if (v11)
   {
     v12 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v13 = dataCopy;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [(SGMatchedDetails *)v11 _processRawData:*(*(&v20 + 1) + 8 * v17++) tokens:tokensCopy contact:contactCopy tokenDetailMap:v12, v20];
+          [(SGMatchedDetails *)v11 _processRawData:*(*(&v19 + 1) + 8 * v17++) tokens:tokensCopy contact:contactCopy tokenDetailMap:v12, v19];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v15);
@@ -305,8 +302,26 @@ void __61__SGMatchedDetails__initilizeDictionariesFromTokenDetailMap___block_inv
     [(SGMatchedDetails *)v11 _initilizeDictionariesFromTokenDetailMap:v12];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
++ (int64_t)tokenMatchedDetailTypeForContact:(id)contact contactEntityId:(id)id detailEntityId:(id)entityId matchedDetailReader:(id)reader phraseNumber:(unsigned int)number token:(id)token
+{
+  v9 = *&number;
+  contactCopy = contact;
+  readerCopy = reader;
+  tokenCopy = token;
+  if ([id isEqual:entityId])
+  {
+    v16 = [objc_opt_class() tokenMatchedDetailTypeForContact:contactCopy matchedDetailReader:readerCopy phraseNumber:v9 token:tokenCopy];
+  }
+
+  else
+  {
+    v16 = 1;
+  }
+
+  return v16;
 }
 
 + (int64_t)tokenMatchedDetailTypeForContact:(id)contact matchedDetailReader:(id)reader phraseNumber:(unsigned int)number token:(id)token

@@ -14,7 +14,7 @@
   if (v9)
   {
     v10 = [elementCopy getAttribute:@"type"];
-    v9->_facebookType = [v10 isEqualToString:@"large"];
+    v9->_facebookType = objc_msgSend_isEqualToString_(v10);
 
     v11 = [elementCopy getAttribute:@"url"];
     urlString = v9->_urlString;

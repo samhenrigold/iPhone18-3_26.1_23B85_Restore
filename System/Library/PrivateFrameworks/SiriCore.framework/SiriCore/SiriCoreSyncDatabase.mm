@@ -179,7 +179,7 @@ LABEL_8:
 
 - (BOOL)_insertSyncRec:(id)rec intoTable:(id)table error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recCopy = rec;
   tableCopy = table;
   v10 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:8];
@@ -209,11 +209,11 @@ LABEL_8:
   v20 = [v18 numberWithInt:v19];
   [v10 setValue:v20 forKey:@"update_time"];
 
-  v27 = 0;
+  v26 = 0;
   checkHash = [recCopy checkHash];
-  [checkHash getBytes:&v27 length:8];
+  [checkHash getBytes:&v26 length:8];
 
-  v22 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
+  v22 = [MEMORY[0x277CCABB0] numberWithDouble:v26];
   [v10 setValue:v22 forKey:@"v_hash"];
 
   v23 = [(SiriCoreSQLiteDatabase *)self->_db insertIntoTableWithName:tableCopy valueMap:v10 error:error];
@@ -223,22 +223,21 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277CEF0F0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v29 = "[SiriCoreSyncDatabase _insertSyncRec:intoTable:error:]";
-      v30 = 2112;
-      v31 = tableCopy;
-      v32 = 2112;
-      v33 = recCopy;
+      v28 = "[SiriCoreSyncDatabase _insertSyncRec:intoTable:error:]";
+      v29 = 2112;
+      v30 = tableCopy;
+      v31 = 2112;
+      v32 = recCopy;
       _os_log_impl(&dword_2669D1000, v24, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not insert tble: %@ record: %@", buf, 0x20u);
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)removeAllItemsOfKey:(id)key error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO removed_items SELECT sourcekey, uniqueid, update_time FROM sync_items WHERE sourcekey = %@", keyCopy];;
   if ([(SiriCoreSyncDatabase *)self _executeStatement:keyCopy error:error])
@@ -252,11 +251,11 @@ LABEL_8:
       {
         path = self->_path;
         *buf = 136315650;
-        v17 = "[SiriCoreSyncDatabase removeAllItemsOfKey:error:]";
-        v18 = 2112;
-        v19 = keyCopy;
-        v20 = 2112;
-        v21 = path;
+        v16 = "[SiriCoreSyncDatabase removeAllItemsOfKey:error:]";
+        v17 = 2112;
+        v18 = keyCopy;
+        v19 = 2112;
+        v20 = path;
         _os_log_impl(&dword_2669D1000, v10, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not remove all items from key %@ in db %@", buf, 0x20u);
       }
     }
@@ -270,23 +269,22 @@ LABEL_8:
     {
       v13 = self->_path;
       *buf = 136315650;
-      v17 = "[SiriCoreSyncDatabase removeAllItemsOfKey:error:]";
-      v18 = 2112;
-      v19 = keyCopy;
-      v20 = 2112;
-      v21 = v13;
+      v16 = "[SiriCoreSyncDatabase removeAllItemsOfKey:error:]";
+      v17 = 2112;
+      v18 = keyCopy;
+      v19 = 2112;
+      v20 = v13;
       _os_log_impl(&dword_2669D1000, v12, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not tombstone all items from key %@ in db %@", buf, 0x20u);
       v9 = 0;
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)remove:(id)remove error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
   v8 = [removeCopy key];
@@ -309,9 +307,9 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277CEF0F0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "[SiriCoreSyncDatabase remove:error:]";
-      v32 = 2112;
-      v33 = removeCopy;
+      v30 = "[SiriCoreSyncDatabase remove:error:]";
+      v31 = 2112;
+      v32 = removeCopy;
       _os_log_impl(&dword_2669D1000, v16, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not add deletion record %@", buf, 0x16u);
     }
   }
@@ -325,9 +323,9 @@ LABEL_8:
   if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[SiriCoreSyncDatabase remove:error:]";
-    v32 = 2112;
-    v33 = v20;
+    v30 = "[SiriCoreSyncDatabase remove:error:]";
+    v31 = 2112;
+    v32 = v20;
     _os_log_impl(&dword_2669D1000, v21, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync delete cmd %@", buf, 0x16u);
   }
 
@@ -342,24 +340,23 @@ LABEL_8:
       identifier3 = [removeCopy identifier];
       path = self->_path;
       *buf = 136315906;
-      v31 = "[SiriCoreSyncDatabase remove:error:]";
-      v32 = 2112;
-      v33 = v25;
-      v34 = 2112;
-      v35 = identifier3;
-      v36 = 2112;
-      v37 = path;
+      v30 = "[SiriCoreSyncDatabase remove:error:]";
+      v31 = 2112;
+      v32 = v25;
+      v33 = 2112;
+      v34 = identifier3;
+      v35 = 2112;
+      v36 = path;
       _os_log_impl(&dword_2669D1000, v24, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not delete (%@, %@) of  in db %@", buf, 0x2Au);
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (BOOL)succeedOrRollbackOnFail:(id)fail error:(id *)error whileExecuting:(id)executing
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   failCopy = fail;
   executingCopy = executing;
   if ([(SiriCoreSyncDatabase *)self beginTransactionWithError:error])
@@ -388,11 +385,11 @@ LABEL_20:
     v16 = *MEMORY[0x277CEF0A0];
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315394;
-      v22 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
-      v23 = 2112;
-      v24 = failCopy;
-      _os_log_error_impl(&dword_2669D1000, v16, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to commit succeedOrRollBack %@", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
+      v22 = 2112;
+      v23 = failCopy;
+      _os_log_error_impl(&dword_2669D1000, v16, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to commit succeedOrRollBack %@", &v20, 0x16u);
       if (v10)
       {
         goto LABEL_12;
@@ -410,22 +407,22 @@ LABEL_12:
     v17 = *v15;
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136315394;
-      v22 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
-      v23 = 2112;
-      v24 = failCopy;
-      _os_log_error_impl(&dword_2669D1000, v17, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to complete succeedOrRollBack block %@", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
+      v22 = 2112;
+      v23 = failCopy;
+      _os_log_error_impl(&dword_2669D1000, v17, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to complete succeedOrRollBack block %@", &v20, 0x16u);
       if (!v14)
       {
 LABEL_17:
         v18 = *v15;
         if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
         {
-          v21 = 136315394;
-          v22 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
-          v23 = 2112;
-          v24 = failCopy;
-          _os_log_error_impl(&dword_2669D1000, v18, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync ...and failed to rollback %@. DB is in trouble.", &v21, 0x16u);
+          v20 = 136315394;
+          v21 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
+          v22 = 2112;
+          v23 = failCopy;
+          _os_log_error_impl(&dword_2669D1000, v18, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync ...and failed to rollback %@. DB is in trouble.", &v20, 0x16u);
         }
       }
     }
@@ -443,23 +440,22 @@ LABEL_17:
   v12 = *MEMORY[0x277CEF0A0];
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
   {
-    v21 = 136315394;
-    v22 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
-    v23 = 2112;
-    v24 = failCopy;
-    _os_log_error_impl(&dword_2669D1000, v12, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to begin transaction for succeedOrRollBack %@", &v21, 0x16u);
+    v20 = 136315394;
+    v21 = "[SiriCoreSyncDatabase succeedOrRollbackOnFail:error:whileExecuting:]";
+    v22 = 2112;
+    v23 = failCopy;
+    _os_log_error_impl(&dword_2669D1000, v12, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Failed to begin transaction for succeedOrRollBack %@", &v20, 0x16u);
   }
 
   v13 = 0;
 LABEL_21:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_executeStatement:(id)statement error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   statementCopy = statement;
   v7 = [(SiriCoreSQLiteDatabase *)self->_db executeQueryString:statementCopy error:error];
   if (!v7)
@@ -468,26 +464,25 @@ LABEL_21:
     if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_ERROR))
     {
       path = self->_path;
-      v12 = *error;
-      v13 = 136315906;
-      v14 = "[SiriCoreSyncDatabase _executeStatement:error:]";
-      v15 = 2112;
-      v16 = statementCopy;
-      v17 = 2112;
-      v18 = path;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_error_impl(&dword_2669D1000, v8, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Could not execute %@ in database file at %@, err=%@", &v13, 0x2Au);
+      v11 = *error;
+      v12 = 136315906;
+      v13 = "[SiriCoreSyncDatabase _executeStatement:error:]";
+      v14 = 2112;
+      v15 = statementCopy;
+      v16 = 2112;
+      v17 = path;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_error_impl(&dword_2669D1000, v8, OS_LOG_TYPE_ERROR, "%s SiriCoreDbSync Could not execute %@ in database file at %@, err=%@", &v12, 0x2Au);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)rollbackTransactionWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_inTransaction)
   {
     result = [(SiriCoreSQLiteDatabase *)self->_db rollbackTransactionWithError:error];
@@ -499,22 +494,21 @@ LABEL_21:
     if (error)
     {
       v6 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA068];
-      v10[0] = @"attempted to finalize transaction when none are in active";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = *MEMORY[0x277CCA068];
+      v9[0] = @"attempted to finalize transaction when none are in active";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       *error = [v6 errorWithDomain:@"com.apple.assistant.syncdb" code:101 userInfo:v7];
     }
 
-    result = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)commitTransactionWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_inTransaction)
   {
     result = [(SiriCoreSQLiteDatabase *)self->_db commitTransactionWithError:error];
@@ -526,34 +520,33 @@ LABEL_21:
     if (error)
     {
       v6 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA068];
-      v10[0] = @"attempted to finalize transaction when none are in active";
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = *MEMORY[0x277CCA068];
+      v9[0] = @"attempted to finalize transaction when none are in active";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       *error = [v6 errorWithDomain:@"com.apple.assistant.syncdb" code:101 userInfo:v7];
     }
 
-    result = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)beginTransactionWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (self->_inTransaction)
   {
     if (error)
     {
       v4 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA068];
-      v10[0] = @"attempted to begin transaction when one is already active";
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = *MEMORY[0x277CCA068];
+      v9[0] = @"attempted to begin transaction when one is already active";
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       *error = [v4 errorWithDomain:@"com.apple.assistant.syncdb" code:100 userInfo:v5];
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -562,25 +555,24 @@ LABEL_21:
     self->_inTransaction = result;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)prepare
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v43 = 0;
-  v3 = [(SiriCoreSyncDatabase *)self openWithError:&v43];
-  v4 = v43;
+  v45 = *MEMORY[0x277D85DE8];
+  v42 = 0;
+  v3 = [(SiriCoreSyncDatabase *)self openWithError:&v42];
+  v4 = v42;
   v5 = v4;
   if (!v3)
   {
     goto LABEL_24;
   }
 
-  v42 = v4;
-  v3 = [(SiriCoreSyncDatabase *)self beginTransactionWithError:&v42];
-  v6 = v42;
+  v41 = v4;
+  v3 = [(SiriCoreSyncDatabase *)self beginTransactionWithError:&v41];
+  v6 = v41;
 
   if (!v3)
   {
@@ -592,13 +584,13 @@ LABEL_21:
   if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v45 = "[SiriCoreSyncDatabase prepare]";
+    v44 = "[SiriCoreSyncDatabase prepare]";
     _os_log_impl(&dword_2669D1000, v7, OS_LOG_TYPE_DEFAULT, "%s Prepping Sync DB", buf, 0xCu);
   }
 
-  v41 = v6;
-  v8 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS db_metadata(metadatakey varchar NOT NULL error:value varchar);", &v41];
-  v9 = v41;
+  v40 = v6;
+  v8 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS db_metadata(metadatakey varchar NOT NULL error:value varchar);", &v40];
+  v9 = v40;
 
   v10 = MEMORY[0x277CEF0F0];
   if (!v8)
@@ -606,45 +598,45 @@ LABEL_21:
     goto LABEL_16;
   }
 
-  v40 = v9;
-  v11 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sync_items (sourcekey varchar NOT NULL error:priority integer, uniqueid varchar NOT NULL, debug varchar, update_time integer, v_hash integer, app_meta blob, sync_value blob, added_value blob, PRIMARY KEY(sourcekey, uniqueid));", &v40];
-  v12 = v40;
+  v39 = v9;
+  v11 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sync_items (sourcekey varchar NOT NULL error:priority integer, uniqueid varchar NOT NULL, debug varchar, update_time integer, v_hash integer, app_meta blob, sync_value blob, added_value blob, PRIMARY KEY(sourcekey, uniqueid));", &v39];
+  v12 = v39;
 
   if (!v11)
   {
     goto LABEL_15;
   }
 
-  v39 = v12;
-  v13 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS removed_items(sourcekey varchar NOT NULL error:uniqueid varchar NOT NULL, update_time integer, PRIMARY KEY(sourcekey, uniqueid));", &v39];
-  v9 = v39;
+  v38 = v12;
+  v13 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS removed_items(sourcekey varchar NOT NULL error:uniqueid varchar NOT NULL, update_time integer, PRIMARY KEY(sourcekey, uniqueid));", &v38];
+  v9 = v38;
 
   if (!v13)
   {
     goto LABEL_16;
   }
 
-  v38 = v9;
-  v14 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS dk ON sync_items (sourcekey error:uniqueid);", &v38];
-  v12 = v38;
+  v37 = v9;
+  v14 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS dk ON sync_items (sourcekey error:uniqueid);", &v37];
+  v12 = v37;
 
   if (!v14)
   {
     goto LABEL_15;
   }
 
-  v37 = v12;
-  v15 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS du ON sync_items (update_time);" error:&v37];
-  v9 = v37;
+  v36 = v12;
+  v15 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS du ON sync_items (update_time);" error:&v36];
+  v9 = v36;
 
   if (!v15)
   {
     goto LABEL_16;
   }
 
-  v36 = v9;
-  v16 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS rk ON removed_items (sourcekey error:uniqueid);", &v36];
-  v12 = v36;
+  v35 = v9;
+  v16 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE INDEX IF NOT EXISTS rk ON removed_items (sourcekey error:uniqueid);", &v35];
+  v12 = v35;
 
   if (!v16)
   {
@@ -653,18 +645,18 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v35 = v12;
-  v17 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sync_anchors(sourcekey varchar NOT NULL error:anchor integer, update_time integer, PRIMARY KEY(sourcekey, anchor));", &v35];
-  v9 = v35;
+  v34 = v12;
+  v17 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sync_anchors(sourcekey varchar NOT NULL error:anchor integer, update_time integer, PRIMARY KEY(sourcekey, anchor));", &v34];
+  v9 = v34;
 
-  if (!v17 || (v34 = v9, v18 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sent_items (sourcekey varchar NOT NULL error:priority integer, uniqueid varchar NOT NULL, debug varchar, update_time integer, v_hash integer, app_meta blob, sync_value blob, added_value blob);", &v34], v19 = v34, v9, v9 = v19, !v18))
+  if (!v17 || (v33 = v9, v18 = [(SiriCoreSyncDatabase *)self _executeStatement:@"CREATE TABLE IF NOT EXISTS sent_items (sourcekey varchar NOT NULL error:priority integer, uniqueid varchar NOT NULL, debug varchar, update_time integer, v_hash integer, app_meta blob, sync_value blob, added_value blob);", &v33], v19 = v33, v9, v9 = v19, !v18))
   {
 LABEL_16:
     v20 = *v10;
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v45 = "[SiriCoreSyncDatabase prepare]";
+      v44 = "[SiriCoreSyncDatabase prepare]";
       _os_log_impl(&dword_2669D1000, v20, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not initialize db schema", buf, 0xCu);
     }
   }
@@ -673,15 +665,15 @@ LABEL_16:
   [v21 setValue:@"version" forKey:@"metadatakey"];
   [v21 setValue:@"0.1" forKey:@"value"];
   db = self->_db;
-  v33 = v9;
-  v23 = [(SiriCoreSQLiteDatabase *)db insertIntoTableWithName:@"db_metadata" valueMap:v21 error:&v33];
-  v24 = v33;
+  v32 = v9;
+  v23 = [(SiriCoreSQLiteDatabase *)db insertIntoTableWithName:@"db_metadata" valueMap:v21 error:&v32];
+  v24 = v32;
 
   if (v23)
   {
-    v32 = v24;
-    v25 = &v32;
-    LOBYTE(v3) = [(SiriCoreSyncDatabase *)self commitTransactionWithError:&v32];
+    v31 = v24;
+    v25 = &v31;
+    LOBYTE(v3) = [(SiriCoreSyncDatabase *)self commitTransactionWithError:&v31];
   }
 
   else
@@ -690,24 +682,23 @@ LABEL_16:
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v45 = "[SiriCoreSyncDatabase prepare]";
+      v44 = "[SiriCoreSyncDatabase prepare]";
       _os_log_impl(&dword_2669D1000, v26, OS_LOG_TYPE_DEFAULT, "%s SiriCoreDbSync Could not initialize db version info", buf, 0xCu);
     }
 
-    v31 = v24;
-    v25 = &v31;
-    [(SiriCoreSyncDatabase *)self rollbackTransactionWithError:&v31];
+    v30 = v24;
+    v25 = &v30;
+    [(SiriCoreSyncDatabase *)self rollbackTransactionWithError:&v30];
     LOBYTE(v3) = 0;
   }
 
   v5 = *v25;
 
 LABEL_24:
-  v30 = v5;
-  [(SiriCoreSyncDatabase *)self closeWithError:&v30];
-  v27 = v30;
+  v29 = v5;
+  [(SiriCoreSyncDatabase *)self closeWithError:&v29];
+  v27 = v29;
 
-  v28 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -734,7 +725,7 @@ LABEL_24:
 
 + (void)removeCurrentSyncDatabase
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBC0];
   v3 = _SiriCoreSharedResourcesDirectory();
   v4 = [v2 fileURLWithPath:v3];
@@ -749,16 +740,16 @@ LABEL_24:
     v9 = v8;
     path = [v5 path];
     *buf = 136315394;
-    v22 = "+[SiriCoreSyncDatabase removeCurrentSyncDatabase]";
-    v23 = 2112;
-    v24 = path;
+    v21 = "+[SiriCoreSyncDatabase removeCurrentSyncDatabase]";
+    v22 = 2112;
+    v23 = path;
     _os_log_impl(&dword_2669D1000, v9, OS_LOG_TYPE_DEFAULT, "%s removing Sync DB at %@", buf, 0x16u);
   }
 
   path2 = [v5 path];
-  v20 = 0;
-  v12 = [defaultManager removeItemAtPath:path2 error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [defaultManager removeItemAtPath:path2 error:&v19];
+  v13 = v19;
 
   if (v12)
   {
@@ -775,22 +766,20 @@ LABEL_24:
     v15 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
-      v18 = v15;
+      v17 = v15;
       path3 = [v5 path];
       *buf = 136315650;
-      v22 = "+[SiriCoreSyncDatabase removeCurrentSyncDatabase]";
-      v23 = 2112;
-      v24 = path3;
-      v25 = 2112;
-      v26 = v13;
-      _os_log_error_impl(&dword_2669D1000, v18, OS_LOG_TYPE_ERROR, "%s failedremoving Sync DB at %@ err: %@", buf, 0x20u);
+      v21 = "+[SiriCoreSyncDatabase removeCurrentSyncDatabase]";
+      v22 = 2112;
+      v23 = path3;
+      v24 = 2112;
+      v25 = v13;
+      _os_log_error_impl(&dword_2669D1000, v17, OS_LOG_TYPE_ERROR, "%s failedremoving Sync DB at %@ err: %@", buf, 0x20u);
     }
   }
 
   v16 = _currentSyncDB;
   _currentSyncDB = 0;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)currentSyncDatabase

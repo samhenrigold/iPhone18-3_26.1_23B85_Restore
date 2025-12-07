@@ -5,7 +5,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)priorityAsString:(int)string;
 - (id)shortDebugDescription;
+- (id)typeAsString:(int)string;
 - (int)StringAsPriority:(id)priority;
 - (int)StringAsType:(id)type;
 - (int)priority;
@@ -13,6 +15,7 @@
 - (int64_t)IDSMessagePriority;
 - (unint64_t)hash;
 - (void)addArgument:(id)argument;
+- (void)addArgument:(id)argument withCompressionType:(int)type;
 - (void)addCompressedArgument:(id)argument;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
@@ -58,6 +61,345 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string > 202)
+  {
+    if (string > 400)
+    {
+      if (string > 599)
+      {
+        if (string > 1499)
+        {
+          if (string == 1500)
+          {
+            v4 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+          }
+
+          else
+          {
+            if (string != 1501)
+            {
+              goto LABEL_84;
+            }
+
+            v4 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+          }
+        }
+
+        else if (string == 600)
+        {
+          v4 = @"FETCH_ROUTE_GENIUS";
+        }
+
+        else
+        {
+          if (string != 1000)
+          {
+            goto LABEL_84;
+          }
+
+          v4 = @"PING";
+        }
+      }
+
+      else if (string > 500)
+      {
+        if (string == 501)
+        {
+          v4 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+        }
+
+        else
+        {
+          if (string != 502)
+          {
+            goto LABEL_84;
+          }
+
+          v4 = @"SERVICE_REQUEST";
+        }
+      }
+
+      else if (string == 401)
+      {
+        v4 = @"OPEN_URL";
+      }
+
+      else
+      {
+        if (string != 500)
+        {
+          goto LABEL_84;
+        }
+
+        v4 = @"PLACE_DATA_MUID_LOOKUP";
+      }
+    }
+
+    else if (string <= 205)
+    {
+      if (string == 203)
+      {
+        v4 = @"FAILED_TO_UPDATE_LOCATION";
+      }
+
+      else if (string == 204)
+      {
+        v4 = @"DID_PAUSE_LOCATION_UPDATES";
+      }
+
+      else
+      {
+        v4 = @"DID_RESUME_LOCATION_UPDATES";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 300:
+          v4 = @"UPDATE_NAV_ROUTE_DETAILS";
+
+          break;
+        case 301:
+          v4 = @"UPDATE_NAV_ROUTE_STATUS";
+
+          break;
+        case 302:
+          v4 = @"START_NAV";
+
+          break;
+        case 303:
+          v4 = @"STOP_NAV";
+
+          break;
+        case 304:
+          v4 = @"PREVIEW_NAV";
+
+          break;
+        case 305:
+          v4 = @"CLEAR_NAV_PREVIEW";
+
+          break;
+        case 306:
+          v4 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+
+          break;
+        case 307:
+          v4 = @"DISMISS_NAV_SAFETY_ALERT";
+
+          break;
+        case 308:
+          v4 = @"AVAILABLE_ROUTE";
+
+          break;
+        case 309:
+          v4 = @"SELECTED_ROUTE";
+
+          break;
+        case 310:
+          v4 = @"REQUEST_NAVIGATION_UPDATE";
+
+          break;
+        case 311:
+          v4 = @"UPDATE_NAV_ROUTE_UPDATE";
+
+          break;
+        case 312:
+          v4 = @"AVAILABLE_ROUTE_UPDATE";
+
+          break;
+        case 313:
+          v4 = @"PAUSE_NAV";
+
+          break;
+        case 314:
+          v4 = @"RESUME_NAV";
+
+          break;
+        case 315:
+          v4 = @"SET_DISPLAYED_STEP";
+
+          break;
+        default:
+          if (string != 206)
+          {
+            goto LABEL_84;
+          }
+
+          v4 = @"APPLY_LOCATION_AUTHORIZATION";
+
+          break;
+      }
+    }
+  }
+
+  else if (string > 99)
+  {
+    if (string <= 102)
+    {
+      if (string == 100)
+      {
+        v4 = @"CHECKIN_WITH_TILE_GROUP";
+      }
+
+      else if (string == 101)
+      {
+        v4 = @"FORCE_UPDATE_MANIFEST";
+      }
+
+      else
+      {
+        v4 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+      }
+    }
+
+    else if (string > 200)
+    {
+      if (string == 201)
+      {
+        v4 = @"STOP_LOCATION_UPDATE";
+      }
+
+      else
+      {
+        v4 = @"UPDATED_LOCATION";
+      }
+    }
+
+    else if (string == 103)
+    {
+      v4 = @"FETCH_RESOURCE";
+    }
+
+    else
+    {
+      if (string != 200)
+      {
+        goto LABEL_84;
+      }
+
+      v4 = @"START_LOCATION_UPDATE";
+    }
+  }
+
+  else
+  {
+    if (string > 3)
+    {
+      switch(string)
+      {
+        case '2':
+          v4 = @"START_INITIAL_SYNC";
+
+          break;
+        case '3':
+          v4 = @"FETCH_CURRENT_COUNTRY_CODE";
+
+          break;
+        case '4':
+          v4 = @"FETCH_EXPERIMENTS_CONFIG";
+
+          break;
+        case '5':
+          v4 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+
+          break;
+        case '6':
+          v4 = @"SYNC_UP_NEXT_ITEMS";
+
+          break;
+        case '7':
+          v4 = @"REQUEST_UP_NEXT_ITEMS";
+
+          break;
+        case '8':
+          v4 = @"SYNC_CONFIG_STORE";
+
+          break;
+        case '9':
+          v4 = @"CHECKIN_WITH_CONFIG_STORE";
+
+          break;
+        case ':':
+          v4 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+
+          break;
+        case ';':
+          v4 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+
+          break;
+        case '<':
+          v4 = @"SYNC_SUBSCRIPTION_INFO";
+
+          break;
+        case '=':
+          v4 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+
+          break;
+        case '>':
+          goto LABEL_84;
+        case '?':
+          v4 = @"UPDATE_SUBSCRIPTION_STATE";
+
+          break;
+        case '@':
+          v4 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+
+          break;
+        case 'A':
+          v4 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+
+          break;
+        case 'B':
+          v4 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+
+          break;
+        case 'C':
+          v4 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+
+          break;
+        default:
+          if (string != 4)
+          {
+            goto LABEL_84;
+          }
+
+          v4 = @"FETCHED_TILE";
+
+          break;
+      }
+
+      return v4;
+    }
+
+    switch(string)
+    {
+      case 1:
+        v4 = @"FETCH_TILES";
+
+        break;
+      case 2:
+        v4 = @"CANCEL_TILES";
+
+        break;
+      case 3:
+        v4 = @"REPORT_CORRUPT_TILE";
+
+        return v4;
+      default:
+LABEL_84:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -413,6 +755,31 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)priorityAsString:(int)string
+{
+  switch(string)
+  {
+    case 100:
+      v4 = @"Sync";
+
+      break;
+    case 300:
+      v4 = @"Urgent";
+
+      break;
+    case 200:
+      v4 = @"Default";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsPriority:(id)priority
@@ -895,66 +1262,63 @@ LABEL_91:
   toCopy = to;
   if ((*&self->_has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v6 = self->_arguments;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v27;
-    do
-    {
-      for (i = 0; i != v8; i = i + 1)
-      {
-        if (*v27 != v9)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v11 = *(*(&v26 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    }
-
-    while (v8);
-  }
-
-  v24 = 0u;
-  v25 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v12 = self->_compressedArguments;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v13)
+  v20 = 0u;
+  v21 = 0u;
+  v5 = self->_arguments;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v6)
   {
-    v14 = v13;
-    v15 = *v23;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      for (j = 0; j != v14; j = j + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v15)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v5);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v14);
+    while (v7);
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_compressedArguments;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v17;
+    do
+    {
+      for (j = 0; j != v12; ++j)
+      {
+        if (*v17 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    }
+
+    while (v12);
   }
 
   if (self->_senderUUID)
@@ -971,7 +1335,6 @@ LABEL_91:
     }
 
 LABEL_25:
-    sentTimestamp = self->_sentTimestamp;
     PBDataWriterWriteDoubleField();
     if ((*&self->_has & 1) == 0)
     {
@@ -981,7 +1344,6 @@ LABEL_25:
     goto LABEL_22;
   }
 
-  priority = self->_priority;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -993,7 +1355,6 @@ LABEL_21:
   if (has)
   {
 LABEL_22:
-    enqueuedTimeInterval = self->_enqueuedTimeInterval;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1198,7 +1559,6 @@ LABEL_20:
     goto LABEL_27;
   }
 
-  v5 = *(equalCopy + 60);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 60) & 8) == 0 || self->_type != *(equalCopy + 14))
@@ -1210,7 +1570,7 @@ LABEL_20:
   else if ((*(equalCopy + 60) & 8) != 0)
   {
 LABEL_27:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_28;
   }
 
@@ -1264,7 +1624,7 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v9 = (*(equalCopy + 60) & 1) == 0;
+  v8 = (*(equalCopy + 60) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_enqueuedTimeInterval != *(equalCopy + 1))
@@ -1272,12 +1632,12 @@ LABEL_27:
       goto LABEL_27;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_28:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -1555,6 +1915,28 @@ LABEL_23:
 LABEL_11:
 
   return v10;
+}
+
+- (void)addArgument:(id)argument withCompressionType:(int)type
+{
+  v4 = *&type;
+  argumentCopy = argument;
+  if (argumentCopy)
+  {
+    v8 = argumentCopy;
+    v7 = [argumentCopy _nm_compressedArgument:v4];
+    if (v7)
+    {
+      [(NMMessage *)self addCompressedArgument:v7];
+    }
+
+    else
+    {
+      [(NMMessage *)self addArgument:v8];
+    }
+
+    argumentCopy = v8;
+  }
 }
 
 - (BOOL)decompressArguments

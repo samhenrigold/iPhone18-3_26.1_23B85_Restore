@@ -67,7 +67,7 @@
 - (box<glm::detail::tvec2<int>>)bounds
 {
   v6 = v2;
-  v7 = objc_msgSend_size(self, a2, v3, v4, v5);
+  v7 = objc_msgSend_size(self, v3, v4, v5, a2);
   *v6 = 0;
   v6[1] = v9;
   result._max = v8;
@@ -151,150 +151,150 @@
 {
   flippedCopy = flipped;
   bufferCopy = buffer;
-  v120 = bufferCopy;
-  v127 = objc_msgSend_buffer(bufferCopy, v10, v11, v12, v13);
+  v119 = bufferCopy;
+  v126 = objc_msgSend_buffer(bufferCopy, v10, v11, v12, v13);
   if (bufferCopy)
   {
-    objc_msgSend_size(bufferCopy, v14, v15, v16, v17);
+    objc_msgSend_size(bufferCopy, v14, v15, v16);
   }
 
   else
   {
-    v131 = 0;
+    v130 = 0;
   }
 
-  v18 = *(region + 3);
-  v19 = *(region + 2);
-  v20 = *(region + 1);
-  v125 = *region;
-  objc_msgSend_size(self, v14, v15, v16, v17);
-  v21 = v129;
-  v22 = *targetRegion;
-  if (v129 < *targetRegion || (v23 = v130, v130 < v22.i32[1]) || (v24 = *(targetRegion + 2), v24 < 0) || (v25 = *(targetRegion + 3), v25 < 0))
+  v17 = *(region + 3);
+  v18 = *(region + 2);
+  v19 = *(region + 1);
+  v124 = *region;
+  objc_msgSend_size(self, v14, v15, v16);
+  v20 = v128;
+  v21 = *targetRegion;
+  if (v128 < *targetRegion || (v22 = v129, v129 < v21.i32[1]) || (v23 = *(targetRegion + 2), v23 < 0) || (v24 = *(targetRegion + 3), v24 < 0))
   {
-    v128 = xmmword_2764D6090;
-    v27 = 2;
+    v127 = xmmword_2764D6090;
+    v26 = 2;
   }
 
   else
   {
-    v26 = vmax_s32(v22, 0);
+    v25 = vmax_s32(v21, 0);
+    if (v128 >= v23)
+    {
+      v20 = *(targetRegion + 2);
+    }
+
     if (v129 >= v24)
     {
-      v21 = *(targetRegion + 2);
+      v22 = *(targetRegion + 3);
     }
 
-    if (v130 >= v25)
-    {
-      v23 = *(targetRegion + 3);
-    }
-
-    *&v128 = v26;
-    *(&v128 + 1) = __PAIR64__(v23, v21);
-    v27 = v23 - v26.i32[1];
+    *&v127 = v25;
+    *(&v127 + 1) = __PAIR64__(v22, v20);
+    v26 = v22 - v25.i32[1];
   }
 
-  if ((sub_276171128(&v128, targetRegion, 0) & 1) == 0)
+  if ((sub_276171128(&v127, targetRegion, 0) & 1) == 0)
   {
-    v32 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, v29, v30, v31, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
-    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v39, v40, v41, v42, v33, v38, 100, 0, "Target region not inside pixel buffer");
+    v31 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28, v29, v30, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v38, v39, v40, v41, v32, v37, 100, 0, "Target region not inside pixel buffer");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44, v45, v46);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44, v45);
   }
 
-  v126 = objc_msgSend_buffer(self, v28, v29, v30, v31);
-  if (!v127)
+  v125 = objc_msgSend_buffer(self, v27, v28, v29, v30);
+  if (!v126)
   {
-    v90 = MEMORY[0x277D81150];
-    v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
-    v96 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, v93, v94, v95, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v97, v98, v99, v100, v91, v96, 104, 0, "invalid nil value for '%{public}s'", "sourceBuffer");
+    v89 = MEMORY[0x277D81150];
+    v90 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
+    v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, v92, v93, v94, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v89, v96, v97, v98, v99, v90, v95, 104, 0, "invalid nil value for '%{public}s'", "sourceBuffer");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v101, v102, v103, v104);
-    if (v126)
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v100, v101, v102, v103);
+    if (v125)
     {
       goto LABEL_35;
     }
 
 LABEL_34:
-    v105 = MEMORY[0x277D81150];
-    v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
-    v111 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v107, v108, v109, v110, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v105, v112, v113, v114, v115, v106, v111, 105, 0, "invalid nil value for '%{public}s'", "targetBuffer");
+    v104 = MEMORY[0x277D81150];
+    v105 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
+    v110 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v106, v107, v108, v109, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v104, v111, v112, v113, v114, v105, v110, 105, 0, "invalid nil value for '%{public}s'", "targetBuffer");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v116, v117, v118, v119);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v115, v116, v117, v118);
     goto LABEL_35;
   }
 
-  if (!v126)
+  if (!v125)
   {
     goto LABEL_34;
   }
 
-  if (v18 - v20 >= v27)
+  if (v17 - v19 >= v26)
   {
-    v51 = v27;
+    v50 = v26;
   }
 
   else
   {
-    v51 = v18 - v20;
+    v50 = v17 - v19;
   }
 
-  if (v51 >= 1)
+  if (v50 >= 1)
   {
-    v52 = v51;
-    v121 = (v18 - v20) * (v19 - v125);
-    v122 = v19 - v125;
-    v53 = *(targetRegion + 1);
-    v123 = *targetRegion;
-    v54 = -v53;
-    v55 = 0x277CCA000uLL;
+    v51 = v50;
+    v120 = (v17 - v19) * (v18 - v124);
+    v121 = v18 - v124;
+    v52 = *(targetRegion + 1);
+    v122 = *targetRegion;
+    v53 = -v52;
+    v54 = 0x277CCA000uLL;
     do
     {
       components = self->_components;
-      v57 = (v125 + v20 * v131) * components;
-      if (v57 < 0 || v57 >= (components * v121))
+      v56 = (v124 + v19 * v130) * components;
+      if (v56 < 0 || v56 >= (components * v120))
       {
-        v58 = MEMORY[0x277D81150];
-        v59 = objc_msgSend_stringWithUTF8String_(*(v55 + 3240), v47, v48, v49, v50, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
-        v64 = objc_msgSend_stringWithUTF8String_(*(v55 + 3240), v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v65, v66, v67, v68, v59, v64, 113, 0, "source index out of range");
+        v57 = MEMORY[0x277D81150];
+        v58 = objc_msgSend_stringWithUTF8String_(*(v54 + 3240), v46, v47, v48, v49, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
+        v63 = objc_msgSend_stringWithUTF8String_(*(v54 + 3240), v59, v60, v61, v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v64, v65, v66, v67, v58, v63, 113, 0, "source index out of range");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
-        v55 = 0x277CCA000uLL;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v68, v69, v70, v71);
+        v54 = 0x277CCA000uLL;
         components = self->_components;
       }
 
-      v73 = v54 + v130 - 1;
+      v72 = v53 + v129 - 1;
       if (!flippedCopy)
       {
-        v73 = v53;
+        v72 = v52;
       }
 
-      v74 = (v123 + v73 * v129) * components;
-      if (v74 < 0 || v74 >= (components * v130 * v129))
+      v73 = (v122 + v72 * v128) * components;
+      if (v73 < 0 || v73 >= (components * v129 * v128))
       {
-        v75 = MEMORY[0x277D81150];
-        v76 = objc_msgSend_stringWithUTF8String_(*(v55 + 3240), v47, v48, v49, v50, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
-        v81 = objc_msgSend_stringWithUTF8String_(*(v55 + 3240), v77, v78, v79, v80, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v75, v82, v83, v84, v85, v76, v81, 118, 0, "target index out of range");
+        v74 = MEMORY[0x277D81150];
+        v75 = objc_msgSend_stringWithUTF8String_(*(v54 + 3240), v46, v47, v48, v49, "[TSCH3DPixelBuffer copyPixelsFromSourceBuffer:sourceRegion:targetRegion:flipped:]");
+        v80 = objc_msgSend_stringWithUTF8String_(*(v54 + 3240), v76, v77, v78, v79, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DPixelBuffer.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v81, v82, v83, v84, v75, v80, 118, 0, "target index out of range");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v86, v87, v88, v89);
-        v55 = 0x277CCA000;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v85, v86, v87, v88);
+        v54 = 0x277CCA000;
         components = self->_components;
       }
 
-      memcpy((v126 + v74), (v127 + v57), components * v122);
-      ++v53;
-      --v54;
-      ++v20;
-      --v52;
+      memcpy((v125 + v73), (v126 + v56), components * v121);
+      ++v52;
+      --v53;
+      ++v19;
+      --v51;
     }
 
-    while (v52);
+    while (v51);
   }
 
 LABEL_35:
@@ -361,7 +361,7 @@ LABEL_35:
   v27 = v22;
   if (v22)
   {
-    objc_msgSend_bounds(v22, v23, v24, v25, v26);
+    objc_msgSend_bounds(v22, v24, v25, v26);
     objc_msgSend_copyPixelsFromSourceBuffer_sourceRegion_targetRegion_flipped_(self, v28, v29, v30, v31, v27, v48, targetRegion, flippedCopy);
   }
 

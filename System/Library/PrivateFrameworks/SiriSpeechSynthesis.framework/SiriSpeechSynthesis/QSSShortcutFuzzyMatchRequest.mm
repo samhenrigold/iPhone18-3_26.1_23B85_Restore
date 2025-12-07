@@ -45,7 +45,7 @@ flatbuffers::DetachedBuffer *__44__QSSShortcutFuzzyMatchRequest_flatbuffData__bl
 
 - (Offset<siri::speech::schema_fb::ShortcutFuzzyMatchRequest>)addObjectToBuffer:(void *)buffer
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   utterance = [(QSSShortcutFuzzyMatchRequest *)self utterance];
   v4 = [utterance addObjectToBuffer:buffer];
 
@@ -61,17 +61,12 @@ flatbuffers::DetachedBuffer *__44__QSSShortcutFuzzyMatchRequest_flatbuffData__bl
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  memset(v48, 0, sizeof(v48));
   shortcuts2 = [(QSSShortcutFuzzyMatchRequest *)self shortcuts];
-  v47 = v4;
-  if ([shortcuts2 countByEnumeratingWithState:&v50 objects:v54 count:16])
+  v45 = v4;
+  if ([shortcuts2 countByEnumeratingWithState:v48 objects:v49 count:16])
   {
-    *v51;
-    *v51;
-    [**(&v50 + 1) addObjectToBuffer:buffer];
+    [**(&v48[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -97,7 +92,7 @@ flatbuffers::DetachedBuffer *__44__QSSShortcutFuzzyMatchRequest_flatbuffData__bl
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v16 = strlen(uTF8String2);
-  v45 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v16);
+  v43 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v16);
 
   interaction_id = [(QSSShortcutFuzzyMatchRequest *)self interaction_id];
   v18 = interaction_id;
@@ -148,9 +143,9 @@ flatbuffers::DetachedBuffer *__44__QSSShortcutFuzzyMatchRequest_flatbuffData__bl
   v37 = *(buffer + 8);
   v38 = *(buffer + 12);
   v39 = *(buffer + 10);
-  if (v47)
+  if (v45)
   {
-    v40 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v47);
+    v40 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v45);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v40);
   }
 
@@ -161,14 +156,12 @@ flatbuffers::DetachedBuffer *__44__QSSShortcutFuzzyMatchRequest_flatbuffData__bl
   }
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v45);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v43);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v21);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 14, v26);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, v31);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v36);
-  v42.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v37 - v38 + v39);
-  v43 = *MEMORY[0x277D85DE8];
-  return v42;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v37 - v38 + v39);
 }
 
 - (NSString)context

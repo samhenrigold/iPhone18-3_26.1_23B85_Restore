@@ -91,51 +91,7 @@
   v38.receiver = self;
   v38.super_class = INDeferredLocalizedString;
   v5 = [(INDeferredLocalizedString *)&v38 init];
-  if (!v5)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = objc_opt_class();
-  v7 = NSStringFromSelector(sel__formatKey);
-  v8 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
-  formatKey = v5->_formatKey;
-  v5->_formatKey = v8;
-
-  if (!v5->_formatKey)
-  {
-    goto LABEL_9;
-  }
-
-  v10 = objc_opt_class();
-  v11 = NSStringFromSelector(sel__table);
-  v12 = [coderCopy decodeObjectOfClass:v10 forKey:v11];
-  table = v5->_table;
-  v5->_table = v12;
-
-  v14 = MEMORY[0x1E695DFD8];
-  v15 = objc_opt_class();
-  v16 = [v14 setWithObjects:{v15, objc_opt_class(), 0}];
-  v17 = NSStringFromSelector(sel__arguments);
-  v18 = [coderCopy decodeObjectOfClasses:v16 forKey:v17];
-  v19 = v18;
-  v20 = (v18 ? v18 : MEMORY[0x1E695E0F0]);
-  objc_storeStrong(&v5->_arguments, v20);
-
-  v21 = objc_opt_class();
-  v22 = NSStringFromSelector(sel__bundleIdentifier);
-  v23 = [coderCopy decodeObjectOfClass:v21 forKey:v22];
-  bundleIdentifier = v5->_bundleIdentifier;
-  v5->_bundleIdentifier = v23;
-
-  v25 = objc_opt_class();
-  v26 = NSStringFromSelector(sel__bundleURL);
-  v27 = [coderCopy decodeObjectOfClass:v25 forKey:v26];
-  bundleURL = v5->_bundleURL;
-  v5->_bundleURL = v27;
-
-  v29 = v5->_bundleURL;
-  if (!v29 || [(NSURL *)v29 isFileURL])
+  if (v5 && (v6 = objc_opt_class(), NSStringFromSelector(sel__formatKey), v7 = objc_claimAutoreleasedReturnValue(), [coderCopy decodeObjectOfClass:v6 forKey:v7], v8 = objc_claimAutoreleasedReturnValue(), formatKey = v5->_formatKey, v5->_formatKey = v8, formatKey, v7, v5->_formatKey) && ((v10 = objc_opt_class(), NSStringFromSelector(sel__table), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v10, v11), v12 = objc_claimAutoreleasedReturnValue(), table = v5->_table, v5->_table = v12, table, v11, v14 = MEMORY[0x1E695DFD8], v15 = objc_opt_class(), objc_msgSend(v14, "setWithObjects:", v15, objc_opt_class(), 0), v16 = objc_claimAutoreleasedReturnValue(), NSStringFromSelector(sel__arguments), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v16, v17), v18 = objc_claimAutoreleasedReturnValue(), (v19 = v18) != 0) ? (v20 = v18) : (v20 = MEMORY[0x1E695E0F0]), (objc_storeStrong(&v5->_arguments, v20), v19, v17, v16, v21 = objc_opt_class(), NSStringFromSelector(sel__bundleIdentifier), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v21, v22), v23 = objc_claimAutoreleasedReturnValue(), bundleIdentifier = v5->_bundleIdentifier, v5->_bundleIdentifier = v23, bundleIdentifier, v22, v25 = objc_opt_class(), NSStringFromSelector(sel__bundleURL), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", v25, v26), v27 = objc_claimAutoreleasedReturnValue(), bundleURL = v5->_bundleURL, v5->_bundleURL = v27, bundleURL, v26, (v29 = v5->_bundleURL) == 0) || -[NSURL isFileURL](v29, "isFileURL")))
   {
     v30 = objc_opt_class();
     v31 = NSStringFromSelector(sel__cachedLocalization);
@@ -152,7 +108,6 @@
 
   else
   {
-LABEL_9:
     v36 = 0;
   }
 
@@ -308,34 +263,7 @@ LABEL_9:
   formatKey = v5->_formatKey;
   v5->_formatKey = v7;
 
-  if (!v5->_formatKey)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = NSStringFromSelector(sel__table);
-  v10 = [representationCopy intents_stringForKey:v9];
-  table = v5->_table;
-  v5->_table = v10;
-
-  v12 = NSStringFromSelector(sel__arguments);
-  v13 = [representationCopy intents_safeObjectForKey:v12 ofType:objc_opt_class()];
-  v14 = v13;
-  v15 = (v13 ? v13 : MEMORY[0x1E695E0F0]);
-  objc_storeStrong(&v5->_arguments, v15);
-
-  v16 = NSStringFromSelector(sel__bundleIdentifier);
-  v17 = [representationCopy intents_stringForKey:v16];
-  bundleIdentifier = v5->_bundleIdentifier;
-  v5->_bundleIdentifier = v17;
-
-  v19 = NSStringFromSelector(sel__bundleURL);
-  v20 = [representationCopy intents_urlForKey:v19];
-  bundleURL = v5->_bundleURL;
-  v5->_bundleURL = v20;
-
-  v22 = v5->_bundleURL;
-  if (!v22 || [(NSURL *)v22 isFileURL])
+  if (v5->_formatKey && ((NSStringFromSelector(sel__table), v9 = objc_claimAutoreleasedReturnValue(), [representationCopy intents_stringForKey:v9], v10 = objc_claimAutoreleasedReturnValue(), table = v5->_table, v5->_table = v10, table, v9, NSStringFromSelector(sel__arguments), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(representationCopy, "intents_safeObjectForKey:ofType:", v12, objc_opt_class()), v13 = objc_claimAutoreleasedReturnValue(), (v14 = v13) != 0) ? (v15 = v13) : (v15 = MEMORY[0x1E695E0F0]), (objc_storeStrong(&v5->_arguments, v15), v14, v12, NSStringFromSelector(sel__bundleIdentifier), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(representationCopy, "intents_stringForKey:", v16), v17 = objc_claimAutoreleasedReturnValue(), bundleIdentifier = v5->_bundleIdentifier, v5->_bundleIdentifier = v17, bundleIdentifier, v16, NSStringFromSelector(sel__bundleURL), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(representationCopy, "intents_urlForKey:", v19), v20 = objc_claimAutoreleasedReturnValue(), bundleURL = v5->_bundleURL, v5->_bundleURL = v20, bundleURL, v19, (v22 = v5->_bundleURL) == 0) || -[NSURL isFileURL](v22, "isFileURL")))
   {
     v23 = NSStringFromSelector(sel__cachedLocalization);
     v24 = [representationCopy intents_stringForKey:v23];
@@ -351,7 +279,6 @@ LABEL_9:
 
   else
   {
-LABEL_8:
     v28 = 0;
   }
 
@@ -369,10 +296,10 @@ LABEL_8:
 
 - (id)_intents_encodeForProto
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v12];
-  v3 = v12;
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v11];
+  v3 = v11;
   if (v2)
   {
     v4 = MEMORY[0x1E696AEC0];
@@ -388,16 +315,14 @@ LABEL_8:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[INDeferredLocalizedString(ProtoUtils) _intents_encodeForProto]";
-      v15 = 2112;
-      v16 = v3;
+      v13 = "[INDeferredLocalizedString(ProtoUtils) _intents_encodeForProto]";
+      v14 = 2112;
+      v15 = v3;
       _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Failed to encode string for proto: %@", buf, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -80,80 +80,70 @@ uint64_t __86___DKPerformSyncUpHistoryDeletionsOperation__updateEventStatsWithTo
 
 void __74___DKPerformSyncUpHistoryDeletionsOperation_performSyncUpHistoryDeletions__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() description];
-  v8 = [(NSDate *)*(a1 + 40) dk_localtimeString];
-  v9 = [(NSDate *)*(a1 + 48) dk_localtimeString];
-  v10 = [a2 domain];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = [objc_opt_class() description];
+  v7 = [(NSDate *)*(a1 + 40) dk_localtimeString];
+  v8 = [(NSDate *)*(a1 + 48) dk_localtimeString];
+  v9 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_1_19();
-  _os_log_error_impl(&dword_191750000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Failed while fast forwarding bookmark [%{public}@ ending %{public}@]: %{public}@:%lld (%@)", v12, 0x3Eu);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Failed while fast forwarding bookmark [%{public}@ ending %{public}@]: %{public}@:%lld (%@)", v10, 0x3Eu);
 }
 
 void __74___DKPerformSyncUpHistoryDeletionsOperation_performSyncUpHistoryDeletions__block_invoke_cold_2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() description];
-  v8 = [(NSDate *)*(a1 + 40) dk_localtimeString];
-  v9 = [(NSDate *)*(a1 + 48) dk_localtimeString];
-  v10 = [a2 domain];
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = [objc_opt_class() description];
+  v7 = [(NSDate *)*(a1 + 40) dk_localtimeString];
+  v8 = [(NSDate *)*(a1 + 48) dk_localtimeString];
+  v9 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_1_19();
-  OUTLINED_FUNCTION_15_0(&dword_191750000, a3, v11, "%{public}@: Did not fast forwarding bookmark [%{public}@ ending %{public}@]: %{public}@:%lld (%@)", v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_15_0(&dword_191750000, a3, v10, "%{public}@: Did not fast forwarding bookmark [%{public}@ ending %{public}@]: %{public}@:%lld (%@)", v11);
 }
 
 void __74___DKPerformSyncUpHistoryDeletionsOperation_performSyncUpHistoryDeletions__block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v3 = a1;
-  v27 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() description];
-  v6 = [(NSDate *)*(v3 + 40) dk_localtimeString];
-  v7 = [(NSDate *)*(v3 + 48) dk_localtimeString];
-  v8 = &stru_1F05B9908;
-  if ([*(*(v3 + 32) + 320) me])
+  v25 = *MEMORY[0x1E69E9840];
+  v4 = [objc_opt_class() description];
+  v5 = [(NSDate *)*(a1 + 40) dk_localtimeString];
+  v6 = [(NSDate *)*(a1 + 48) dk_localtimeString];
+  v7 = &stru_1F05B9908;
+  if ([*(*(a1 + 32) + 320) me])
   {
-    v9 = @"pseudo ";
+    v8 = @"pseudo ";
   }
 
   else
   {
-    v9 = &stru_1F05B9908;
+    v8 = &stru_1F05B9908;
   }
 
-  v10 = [OUTLINED_FUNCTION_11_7() identifier];
-  v12 = [OUTLINED_FUNCTION_11_7() model];
-  if (v12)
+  v9 = [OUTLINED_FUNCTION_11_7() identifier];
+  v11 = [OUTLINED_FUNCTION_11_7() model];
+  if (v11)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v3 = [OUTLINED_FUNCTION_11_7() model];
-    v8 = [v13 stringWithFormat:@" (%@)", v3];
+    v12 = MEMORY[0x1E696AEC0];
+    a1 = [OUTLINED_FUNCTION_11_7() model];
+    v7 = [v12 stringWithFormat:@" (%@)", a1];
   }
 
-  v15 = 138544642;
+  v13 = 138544642;
+  v14 = v4;
+  v15 = 2114;
   v16 = v5;
   v17 = 2114;
   v18 = v6;
   v19 = 2114;
-  v20 = v7;
+  v20 = v8;
   v21 = 2114;
   v22 = v9;
   v23 = 2114;
-  v24 = v10;
-  v25 = 2114;
-  v26 = v8;
-  OUTLINED_FUNCTION_15_0(&dword_191750000, a2, v11, "%{public}@: Successfully fast forwarded bookmark [%{public}@ ending %{public}@] for %{public}@peer %{public}@%{public}@", &v15);
-  if (v12)
+  v24 = v7;
+  OUTLINED_FUNCTION_15_0(&dword_191750000, a2, v10, "%{public}@: Successfully fast forwarded bookmark [%{public}@ ending %{public}@] for %{public}@peer %{public}@%{public}@", &v13);
+  if (v11)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -16,7 +16,7 @@
   sharingFaceClassificationsEnabled = [(HMDPhotosPersonManagerSettingsModel *)self sharingFaceClassificationsEnabled];
   [v3 setSharingFaceClassificationsEnabled:{objc_msgSend(sharingFaceClassificationsEnabled, "BOOLValue")}];
 
-  v6 = [v3 copy];
+  v6 = objc_msgSend_copy(v3);
 
   return v6;
 }
@@ -73,18 +73,16 @@ uint64_t __57__HMDPhotosPersonManagerSettingsModel_sentinelParentUUID__block_inv
 
 void __52__HMDPhotosPersonManagerSettingsModel_hmbProperties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"sharingFaceClassificationsEnabled";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"sharingFaceClassificationsEnabled";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[1] = @"zoneUUID";
-  v6[0] = v0;
+  v4[1] = @"zoneUUID";
+  v5[0] = v0;
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = hmbProperties_properties_110282;
   hmbProperties_properties_110282 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

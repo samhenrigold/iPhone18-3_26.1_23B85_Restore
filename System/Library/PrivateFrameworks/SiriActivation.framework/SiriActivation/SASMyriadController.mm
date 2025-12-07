@@ -2,6 +2,7 @@
 - (BOOL)_isTrialMotionBoostEnabled;
 - (BOOL)_isTrialUnlockBoostEnabled;
 - (BOOL)_isTrialWakeBoostEnabled;
+- (BOOL)activateForRequest:(id)request visible:(BOOL)visible;
 - (BOOL)activateForRequest:(id)request withTimeout:(id)timeout visible:(BOOL)visible quiet:(BOOL)quiet;
 - (SASMyriadController)initWithDelegate:(id)delegate;
 - (unsigned)_calculateExpBoosts:(double)boosts eventTime:(double)time trialBoostSecondDegree:(id)degree trialBoostFirstDegree:(id)firstDegree trialBoostIntercept:(id)intercept;
@@ -94,7 +95,7 @@
 
     dispatch_set_qos_class_floor(*(v5 + 13), QOS_CLASS_USER_INITIATED, 0);
     dispatch_activate(*(v5 + 13));
-    if (MobileTimerLibraryCore())
+    if (MobileTimerLibraryCore(0))
     {
       v68 = 0;
       v69 = &v68;
@@ -121,7 +122,7 @@
       v20 = 0;
     }
 
-    if (MobileTimerLibraryCore())
+    if (MobileTimerLibraryCore(0))
     {
       v68 = 0;
       v69 = &v68;
@@ -270,7 +271,7 @@
 
 void __40__SASMyriadController_initWithDelegate___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -287,16 +288,14 @@ void __40__SASMyriadController_initWithDelegate___block_invoke(uint64_t a1, void
       v11 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136315394;
-        v14 = "[SASMyriadController initWithDelegate:]_block_invoke";
-        v15 = 2112;
-        v16 = v9;
-        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE observerCalled. Screen is not activeOn. Ignoring transition=%@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[SASMyriadController initWithDelegate:]_block_invoke";
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE observerCalled. Screen is not activeOn. Ignoring transition=%@", &v12, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cacheFactors
@@ -317,47 +316,46 @@ void __40__SASMyriadController_initWithDelegate___block_invoke(uint64_t a1, void
 
 - (void)_setupTrialRefresh
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A8];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v17 = "[SASMyriadController _setupTrialRefresh]";
+    v16 = "[SASMyriadController _setupTrialRefresh]";
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_INFO, "%s Registering update handler", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __41__SASMyriadController__setupTrialRefresh__block_invoke;
-  v13 = &unk_1E82F3820;
-  objc_copyWeak(&v15, buf);
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __41__SASMyriadController__setupTrialRefresh__block_invoke;
+  v12 = &unk_1E82F3820;
+  objc_copyWeak(&v14, buf);
   selfCopy = self;
-  v4 = _Block_copy(&v10);
+  v4 = _Block_copy(&v9);
   v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v6 = dispatch_queue_create("SASMyriadController", v5);
 
   trialRefreshQueue = self->_trialRefreshQueue;
   self->_trialRefreshQueue = v6;
 
-  v8 = [(TRIClient *)self->_trialClient addUpdateHandlerForNamespaceName:@"MYRIAD_BOOSTS" queue:self->_trialRefreshQueue usingBlock:v4, v10, v11, v12, v13];
-  objc_destroyWeak(&v15);
+  v8 = [(TRIClient *)self->_trialClient addUpdateHandlerForNamespaceName:@"MYRIAD_BOOSTS" queue:self->_trialRefreshQueue usingBlock:v4, v9, v10, v11, v12];
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E698D0A8];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A8], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[SASMyriadController _setupTrialRefresh]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_INFO, "%s Myriad Trial boosts updated: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SASMyriadController _setupTrialRefresh]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_INFO, "%s Myriad Trial boosts updated: %@", &v7, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -367,8 +365,6 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
     [WeakRetained[2] refresh];
     [*(a1 + 32) _cacheFactors];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -390,28 +386,47 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
 - (void)setCanceledByMyriad:(BOOL)myriad
 {
   myriadCopy = myriad;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SASMyriadController setCanceledByMyriad:]";
-    v9 = 1024;
-    v10 = myriadCopy;
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad setCanceledByMyriad: %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[SASMyriadController setCanceledByMyriad:]";
+    v8 = 1024;
+    v9 = myriadCopy;
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad setCanceledByMyriad: %d", &v6, 0x12u);
   }
 
   self->_canceledByMyriad = myriadCopy;
-  v6 = *MEMORY[0x1E69E9840];
+}
+
+- (BOOL)activateForRequest:(id)request visible:(BOOL)visible
+{
+  visibleCopy = visible;
+  requestCopy = request;
+  if ([requestCopy isVoiceRequest] && (+[SASSystemState sharedSystemState](SASSystemState, "sharedSystemState"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isConnectedToCarPlay"), v7, v8))
+  {
+    v9 = objc_alloc(MEMORY[0x1E696AD98]);
+    LODWORD(v10) = 1148846080;
+    v11 = [v9 initWithFloat:v10];
+    v12 = [(SASMyriadController *)self activateForRequest:requestCopy withTimeout:v11 visible:visibleCopy];
+  }
+
+  else
+  {
+    v12 = [(SASMyriadController *)self activateForRequest:requestCopy withTimeout:0 visible:visibleCopy];
+  }
+
+  return v12;
 }
 
 - (BOOL)activateForRequest:(id)request withTimeout:(id)timeout visible:(BOOL)visible quiet:(BOOL)quiet
 {
   visibleCopy = visible;
-  v170 = *MEMORY[0x1E69E9840];
+  v169 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   timeoutCopy = timeout;
-  v147 = requestCopy;
+  v146 = requestCopy;
   context = [requestCopy context];
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -425,7 +440,7 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
     speechRequestOptions = 0;
   }
 
-  v148 = speechRequestOptions;
+  v147 = speechRequestOptions;
   if ([speechRequestOptions isVoiceTrigger])
   {
     scdaContext = [speechRequestOptions scdaContext];
@@ -443,9 +458,9 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
       block[1] = 3221225472;
       block[2] = __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke;
       block[3] = &unk_1E82F37D0;
-      objc_copyWeak(&v164, location);
+      objc_copyWeak(&v163, location);
       scdaContext = scdaContext;
-      v163 = scdaContext;
+      v162 = scdaContext;
       dispatch_async(myriadAttentionQueue, block);
       v14 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
@@ -453,7 +468,7 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
         [(SASMyriadController *)v14 activateForRequest:v15 withTimeout:v16 visible:v17 quiet:v18, v19, v20, v21];
       }
 
-      objc_destroyWeak(&v164);
+      objc_destroyWeak(&v163);
       objc_destroyWeak(location);
     }
   }
@@ -471,7 +486,7 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
       [(SASMyriadController *)v22 activateForRequest:v23 withTimeout:v24 visible:v25 quiet:v26, v27, v28, v29];
     }
 
-    v144 = 0;
+    v143 = 0;
   }
 
   else
@@ -479,21 +494,21 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
     os_unfair_lock_lock(&self->_activityManagerLock);
     if (self->_activityManager)
     {
-      v158 = 0x10000000000000;
+      v157 = 0x10000000000000;
       liftEndTime = self->_liftEndTime;
       processInfo = [MEMORY[0x1E696AE30] processInfo];
       [processInfo systemUptime];
-      v144 = SASMyriadUtilCurrentBoostForDecay(20, &v158, 10.0, liftEndTime, v32);
+      v143 = SASMyriadUtilCurrentBoostForDecay(20, &v157, 10.0, liftEndTime, v32);
 
       v33 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *location = 136315650;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 2048;
-        *v167 = v158;
-        *&v167[8] = 1024;
-        *&v167[10] = v144;
+        v165 = 2048;
+        *v166 = v157;
+        *&v166[8] = 1024;
+        *&v166[10] = v143;
         _os_log_impl(&dword_1C8137000, v33, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE lift time delta %f, adjusting by %d", location, 0x1Cu);
       }
 
@@ -521,14 +536,14 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
           [processInfo2 systemUptime];
           v38 = v37;
 
-          v144 = [(SASMyriadController *)self _calculateExpBoosts:@"MOTION_BOOST_SECOND_DEGREE_COEFF" eventTime:@"MOTION_BOOST_FIRST_DEGREE_COEFF" trialBoostSecondDegree:@"MOTION_BOOST_INTERCEPT" trialBoostFirstDegree:v38 trialBoostIntercept:self->_liftEndTime];
+          v143 = [(SASMyriadController *)self _calculateExpBoosts:@"MOTION_BOOST_SECOND_DEGREE_COEFF" eventTime:@"MOTION_BOOST_FIRST_DEGREE_COEFF" trialBoostSecondDegree:@"MOTION_BOOST_INTERCEPT" trialBoostFirstDegree:v38 trialBoostIntercept:self->_liftEndTime];
         }
       }
     }
 
     else
     {
-      v144 = 0;
+      v143 = 0;
     }
 
     os_unfair_lock_unlock(&self->_activityManagerLock);
@@ -536,7 +551,7 @@ void __41__SASMyriadController__setupTrialRefresh__block_invoke(uint64_t a1, voi
 
   if (AFMyriadEmitSelfMetrics())
   {
-    [(SCDACoordinator *)self->_scdaCoordinator instrumentationUpdateBoost:5 value:v144];
+    [(SCDACoordinator *)self->_scdaCoordinator instrumentationUpdateBoost:5 value:v143];
   }
 
   lockState = [(SASLockStateMonitor *)self->_lockStateMonitor lockState];
@@ -558,21 +573,21 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  v158 = 0x10000000000000;
+  v157 = 0x10000000000000;
   unlockTime = self->_unlockTime;
   processInfo3 = [MEMORY[0x1E696AE30] processInfo];
   [processInfo3 systemUptime];
-  v48 = SASMyriadUtilCurrentBoostForDecay(4, &v158, 180.0, unlockTime, v100);
+  v48 = SASMyriadUtilCurrentBoostForDecay(4, &v157, 180.0, unlockTime, v100);
 
   v101 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
   {
     *location = 136315650;
     *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-    v166 = 2048;
-    *v167 = v158;
-    *&v167[8] = 1024;
-    *&v167[10] = v48;
+    v165 = 2048;
+    *v166 = v157;
+    *&v166[8] = 1024;
+    *&v166[10] = v48;
     _os_log_impl(&dword_1C8137000, v101, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE unlock time delta %f, adjusting by %d", location, 0x1Cu);
   }
 
@@ -626,32 +641,32 @@ LABEL_39:
     isScreenOn2 = [(SASLockStateMonitor *)self->_lockStateMonitor isScreenOn];
     *location = 136315906;
     *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-    v166 = 1024;
-    *v167 = lockState != 0;
-    *&v167[4] = 1024;
-    *&v167[6] = isScreenOn2;
-    *&v167[10] = 1024;
-    *&v167[12] = isScreenOn;
+    v165 = 1024;
+    *v166 = lockState != 0;
+    *&v166[4] = 1024;
+    *&v166[6] = isScreenOn2;
+    *&v166[10] = 1024;
+    *&v166[12] = isScreenOn;
     _os_log_impl(&dword_1C8137000, v50, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE raise-to-wake locked=%d, screen=%d => shouldBoost:%d", location, 0x1Eu);
   }
 
   if (self->_displayMonitor != 0 && isScreenOn)
   {
-    v158 = 0x10000000000000;
+    v157 = 0x10000000000000;
     raiseToWakeTime = self->_raiseToWakeTime;
     processInfo5 = [MEMORY[0x1E696AE30] processInfo];
     [processInfo5 systemUptime];
-    v55 = SASMyriadUtilCurrentBoostForDecay(85, &v158, 17.0, raiseToWakeTime, v54);
+    v55 = SASMyriadUtilCurrentBoostForDecay(85, &v157, 17.0, raiseToWakeTime, v54);
 
     v56 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *location = 136315650;
       *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-      v166 = 2048;
-      *v167 = v158;
-      *&v167[8] = 1024;
-      *&v167[10] = v55;
+      v165 = 2048;
+      *v166 = v157;
+      *&v166[8] = 1024;
+      *&v166[10] = v55;
       _os_log_impl(&dword_1C8137000, v56, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE raise-to-wake time delta %f, adjusting by %d", location, 0x1Cu);
     }
 
@@ -711,15 +726,15 @@ LABEL_39:
     LODWORD(v55) = 0;
   }
 
-  if ([v147 isVoiceRequest] && (+[SASSystemState sharedSystemState](SASSystemState, "sharedSystemState"), v68 = objc_claimAutoreleasedReturnValue(), v69 = objc_msgSend(v68, "isConnectedToCarPlay"), v68, v69))
+  if ([v146 isVoiceRequest] && (+[SASSystemState sharedSystemState](SASSystemState, "sharedSystemState"), v68 = objc_claimAutoreleasedReturnValue(), v69 = objc_msgSend(v68, "isConnectedToCarPlay"), v68, v69))
   {
     v70 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
     {
       *location = 136315394;
       *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-      v166 = 1024;
-      *v167 = 15;
+      v165 = 1024;
+      *v166 = 15;
       _os_log_impl(&dword_1C8137000, v70, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE connected to carplay, adjusting by %d", location, 0x12u);
     }
 
@@ -736,27 +751,27 @@ LABEL_39:
     v71 = 0;
   }
 
-  v158 = 0;
-  v159 = &v158;
-  v160 = 0x2020000000;
-  v161 = 0;
-  v154 = 0;
-  v155 = &v154;
-  v156 = 0x2020000000;
   v157 = 0;
+  v158 = &v157;
+  v159 = 0x2020000000;
+  v160 = 0;
+  v153 = 0;
+  v154 = &v153;
+  v155 = 0x2020000000;
+  v156 = 0;
   objc_initWeak(&from, self);
   v72 = qos_class_self();
-  v151[0] = MEMORY[0x1E69E9820];
-  v151[1] = 3221225472;
-  v151[2] = __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_83;
-  v151[3] = &unk_1E82F3848;
-  objc_copyWeak(&v152, &from);
-  v151[4] = &v158;
-  v151[5] = &v154;
-  v73 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_INHERIT_QOS_CLASS, v72, 0, v151);
+  v150[0] = MEMORY[0x1E69E9820];
+  v150[1] = 3221225472;
+  v150[2] = __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_83;
+  v150[3] = &unk_1E82F3848;
+  objc_copyWeak(&v151, &from);
+  v150[4] = &v157;
+  v150[5] = &v153;
+  v73 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_INHERIT_QOS_CLASS, v72, 0, v150);
   dispatch_sync(self->_myriadWorkQueue, v73);
-  v74 = *(v159 + 24);
-  v142 = *(v155 + 24);
+  v74 = *(v158 + 24);
+  v141 = *(v154 + 24);
   if (![speechRequestOptions isVoiceTrigger])
   {
     v93 = *MEMORY[0x1E698D0A0];
@@ -782,7 +797,7 @@ LABEL_39:
 
   scdaContext3 = [speechRequestOptions scdaContext];
 
-  if ([v147 isVoiceRequest] && (+[SASSystemState sharedSystemState](SASSystemState, "sharedSystemState"), v76 = objc_claimAutoreleasedReturnValue(), v77 = objc_msgSend(v76, "isConnectedToCarPlay"), v76, v77))
+  if ([v146 isVoiceRequest] && (+[SASSystemState sharedSystemState](SASSystemState, "sharedSystemState"), v76 = objc_claimAutoreleasedReturnValue(), v77 = objc_msgSend(v76, "isConnectedToCarPlay"), v76, v77))
   {
     v78 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
@@ -791,13 +806,13 @@ LABEL_39:
     }
 
     v86 = MEMORY[0x1E69CE390];
-    v149[0] = MEMORY[0x1E69E9820];
-    v149[1] = 3221225472;
-    v149[2] = __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_85;
-    v149[3] = &unk_1E82F3870;
+    v148[0] = MEMORY[0x1E69E9820];
+    v148[1] = 3221225472;
+    v148[2] = __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_85;
+    v148[3] = &unk_1E82F3870;
     v87 = scdaContext3;
-    v150 = v87;
-    v88 = [v86 newWithBuilder:v149];
+    v149 = v87;
+    v88 = [v86 newWithBuilder:v148];
 
     v89 = v55;
     v90 = v73;
@@ -815,22 +830,22 @@ LABEL_39:
 
   if (!visibleCopy)
   {
-    v107 = v91 + v144 + v89 + v71;
+    v107 = v91 + v143 + v89 + v71;
     v108 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
     {
       *location = 136316418;
       *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-      v166 = 1024;
-      *v167 = v91;
+      v165 = 1024;
+      *v166 = v91;
+      *&v166[4] = 1024;
+      *&v166[6] = v143;
+      *&v166[10] = 1024;
+      *&v166[12] = v71;
+      *&v166[16] = 1024;
+      *v167 = v89;
       *&v167[4] = 1024;
-      *&v167[6] = v144;
-      *&v167[10] = 1024;
-      *&v167[12] = v71;
-      *&v167[16] = 1024;
-      *v168 = v89;
-      *&v168[4] = 1024;
-      *v169 = v91 + v144 + v89 + v71;
+      *v168 = v91 + v143 + v89 + v71;
       _os_log_impl(&dword_1C8137000, v108, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Myriad voice trigger advertising needed adjusted by ul=%d + lt=%d + cp=%d + rtw=%d = %d", location, 0x2Au);
     }
 
@@ -857,14 +872,14 @@ LABEL_39:
     {
       *location = 136316162;
       *&location[4] = "getSCDAGoodnessScoreContext";
-      v166 = 2048;
-      *v167 = mediaPlaybackState;
-      *&v167[8] = 2048;
-      *&v167[10] = v117;
+      v165 = 2048;
+      *v166 = mediaPlaybackState;
+      *&v166[8] = 2048;
+      *&v166[10] = v117;
+      *v167 = 1024;
+      *&v167[2] = v74;
       *v168 = 1024;
-      *&v168[2] = v74;
-      *v169 = 1024;
-      *&v169[2] = v142;
+      *&v168[2] = v141;
       _os_log_impl(&dword_1C8137000, v118, OS_LOG_TYPE_INFO, "%s #myriad getSCDAGoodnessScoreContext observed AFMediaPlaybackState %ld and interrupted time %f timer firing state %d and alarm firing state %d", location, 0x2Cu);
     }
 
@@ -882,7 +897,7 @@ LABEL_39:
       [v115 setMediaPlaybackInterruptedTime:v117];
     }
 
-    if ((v142 | v74) == 1)
+    if ((v141 | v74) == 1)
     {
       [v116 addObject:&unk_1F47D1710];
     }
@@ -895,8 +910,8 @@ LABEL_39:
       {
         *location = 136315394;
         *&location[4] = "getSCDAGoodnessScoreContext";
-        v166 = 2112;
-        *v167 = v116;
+        v165 = 2112;
+        *v166 = v116;
         _os_log_impl(&dword_1C8137000, v119, OS_LOG_TYPE_INFO, "%s #myriad getSCDAGoodnessScoreContext reasons %@", location, 0x16u);
       }
 
@@ -927,8 +942,8 @@ LABEL_39:
         adjustedScoreOverride = [scdaContext2 adjustedScoreOverride];
         *location = 136315394;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 2112;
-        *v167 = adjustedScoreOverride;
+        v165 = 2112;
+        *v166 = adjustedScoreOverride;
         _os_log_impl(&dword_1C8137000, v122, OS_LOG_TYPE_DEFAULT, "%s #myriad adjustedScoreOverride %@", location, 0x16u);
       }
     }
@@ -941,10 +956,10 @@ LABEL_39:
       {
         *location = 136315650;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 2112;
-        *v167 = scdaContext2;
-        *&v167[8] = 2112;
-        *&v167[10] = scdaContext;
+        v165 = 2112;
+        *v166 = scdaContext2;
+        *&v166[8] = 2112;
+        *&v166[10] = scdaContext;
         _os_log_impl(&dword_1C8137000, v124, OS_LOG_TYPE_DEFAULT, "%s #myriad goodnesscontext %@ scda context %@ ", location, 0x20u);
       }
 
@@ -957,10 +972,10 @@ LABEL_39:
       {
         *location = 136315650;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 1024;
-        *v167 = v107;
-        *&v167[4] = 2112;
-        *&v167[6] = scdaContext;
+        v165 = 1024;
+        *v166 = v107;
+        *&v166[4] = 2112;
+        *&v166[6] = scdaContext;
         _os_log_impl(&dword_1C8137000, v124, OS_LOG_TYPE_DEFAULT, "%s #myriad adjustedScore %d scda context %@ ", location, 0x1Cu);
       }
 
@@ -973,8 +988,8 @@ LABEL_39:
       {
         *location = 136315394;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 1024;
-        *v167 = v107;
+        v165 = 1024;
+        *v166 = v107;
         _os_log_impl(&dword_1C8137000, v124, OS_LOG_TYPE_DEFAULT, "%s #myriad adjustedScore %d", location, 0x12u);
       }
 
@@ -1015,11 +1030,11 @@ LABEL_136:
     v126 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
     {
-      activationEvent = [v147 activationEvent];
+      activationEvent = [v146 activationEvent];
       *location = 136315394;
       *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-      v166 = 2048;
-      *v167 = activationEvent;
+      v165 = 2048;
+      *v166 = activationEvent;
       _os_log_impl(&dword_1C8137000, v126, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Siri is delayed for Myriad decision, evt = %ld", location, 0x16u);
     }
 
@@ -1040,8 +1055,8 @@ LABEL_136:
       {
         *location = 136315394;
         *&location[4] = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
-        v166 = 2048;
-        *v167 = v132;
+        v165 = 2048;
+        *v166 = v132;
         _os_log_impl(&dword_1C8137000, v134, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE timed out waiting for Myriad decision, sem=%ld", location, 0x16u);
       }
     }
@@ -1076,12 +1091,11 @@ LABEL_149:
   v139 = 1;
 LABEL_151:
 
-  objc_destroyWeak(&v152);
+  objc_destroyWeak(&v151);
   objc_destroyWeak(&from);
-  _Block_object_dispose(&v154, 8);
-  _Block_object_dispose(&v158, 8);
+  _Block_object_dispose(&v153, 8);
+  _Block_object_dispose(&v157, 8);
 
-  v140 = *MEMORY[0x1E69E9840];
   return v139;
 }
 
@@ -1117,7 +1131,7 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
 
 void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_83(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1133,25 +1147,23 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
       v8 = v3[17];
       v9 = v3[18];
       v10 = v3[19];
-      v12 = 136316674;
-      v13 = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]_block_invoke";
-      v14 = 1024;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 1024;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad isTimerFiring = %d, firing timerID: %@, timer fired date: %@, isAlarmFiring = %d, firing alarmID: %@, alarm fired date: %@", &v12, 0x40u);
+      v11 = 136316674;
+      v12 = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]_block_invoke";
+      v13 = 1024;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 1024;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriad isTimerFiring = %d, firing timerID: %@, timer fired date: %@, isAlarmFiring = %d, firing alarmID: %@, alarm fired date: %@", &v11, 0x40u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_85(uint64_t a1, void *a2)
@@ -1203,7 +1215,7 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
 
 - (unsigned)_calculateExpBoosts:(double)boosts eventTime:(double)time trialBoostSecondDegree:(id)degree trialBoostFirstDegree:(id)firstDegree trialBoostIntercept:(id)intercept
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   degreeCopy = degree;
   firstDegreeCopy = firstDegree;
   interceptCopy = intercept;
@@ -1227,9 +1239,9 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
     LOBYTE(v20) = 0;
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 136315138;
-      v37 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
-      _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #myriad error reading trial levels for trialBoostSecondDegree", &v36, 0xCu);
+      v35 = 136315138;
+      v36 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
+      _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #myriad error reading trial levels for trialBoostSecondDegree", &v35, 0xCu);
       LOBYTE(v20) = 0;
     }
   }
@@ -1246,21 +1258,21 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
     v28 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 136316674;
-      v37 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
-      v38 = 2112;
-      v39 = degreeCopy;
-      v40 = 2048;
-      v41 = v22;
-      v42 = 2112;
-      v43 = firstDegreeCopy;
-      v44 = 2048;
-      v45 = v24;
-      v46 = 2112;
-      v47 = interceptCopy;
-      v48 = 2048;
-      v49 = v26;
-      _os_log_impl(&dword_1C8137000, v28, OS_LOG_TYPE_DEFAULT, "%s #myriad trial coefficients %@:%f, %@:%f, %@:%f", &v36, 0x48u);
+      v35 = 136316674;
+      v36 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
+      v37 = 2112;
+      v38 = degreeCopy;
+      v39 = 2048;
+      v40 = v22;
+      v41 = 2112;
+      v42 = firstDegreeCopy;
+      v43 = 2048;
+      v44 = v24;
+      v45 = 2112;
+      v46 = interceptCopy;
+      v47 = 2048;
+      v48 = v26;
+      _os_log_impl(&dword_1C8137000, v28, OS_LOG_TYPE_DEFAULT, "%s #myriad trial coefficients %@:%f, %@:%f, %@:%f", &v35, 0x48u);
     }
 
     v20 = SCDAGoodnessComputeExponentialBoost();
@@ -1270,33 +1282,32 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
       v31 = MEMORY[0x1E696AD98];
       v32 = v30;
       v33 = [v31 numberWithUnsignedChar:v20];
-      v36 = 136315394;
-      v37 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
-      v38 = 2112;
-      v39 = v33;
-      _os_log_impl(&dword_1C8137000, v32, OS_LOG_TYPE_DEFAULT, "%s #myriad trial bump uint8_t %@", &v36, 0x16u);
+      v35 = 136315394;
+      v36 = "[SASMyriadController _calculateExpBoosts:eventTime:trialBoostSecondDegree:trialBoostFirstDegree:trialBoostIntercept:]";
+      v37 = 2112;
+      v38 = v33;
+      _os_log_impl(&dword_1C8137000, v32, OS_LOG_TYPE_DEFAULT, "%s #myriad trial bump uint8_t %@", &v35, 0x16u);
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)activateForInTaskRequest:(BOOL)request isVisible:(BOOL)visible
 {
   requestCopy = request;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = *MEMORY[0x1E698D0A0];
   v7 = os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT);
   if (visible)
   {
     if (v7)
     {
-      v10 = 136315394;
-      v11 = "[SASMyriadController activateForInTaskRequest:isVisible:]";
-      v12 = 1024;
-      v13 = requestCopy;
-      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Myriad voice trigger advertising while is visible [isVoiceTrigger %d]", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[SASMyriadController activateForInTaskRequest:isVisible:]";
+      v11 = 1024;
+      v12 = requestCopy;
+      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Myriad voice trigger advertising while is visible [isVoiceTrigger %d]", &v9, 0x12u);
     }
 
     if (!requestCopy)
@@ -1308,31 +1319,29 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
 
   else if (v7)
   {
-    v10 = 136315650;
-    v11 = "[SASMyriadController activateForInTaskRequest:isVisible:]";
-    v12 = 1024;
-    v13 = requestCopy;
-    v14 = 1024;
-    v15 = 0;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Myriad ignoring advertisement [isVoiceTrigger %d, isVisible %d]", &v10, 0x18u);
+    v9 = 136315650;
+    v10 = "[SASMyriadController activateForInTaskRequest:isVisible:]";
+    v11 = 1024;
+    v12 = requestCopy;
+    v13 = 1024;
+    v14 = 0;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE Myriad ignoring advertisement [isVoiceTrigger %d, isVisible %d]", &v9, 0x18u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateRaiseToWakeTimeForTransition:(id)transition
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   transitionCopy = transition;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[SASMyriadController _updateRaiseToWakeTimeForTransition:]";
-    v14 = 2112;
-    v15 = transitionCopy;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE observerCalled transition=%@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SASMyriadController _updateRaiseToWakeTimeForTransition:]";
+    v13 = 2112;
+    v14 = transitionCopy;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE observerCalled transition=%@", &v11, 0x16u);
   }
 
   transitionReasons = [transitionCopy transitionReasons];
@@ -1345,13 +1354,11 @@ void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___bl
     v10 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[SASMyriadController _updateRaiseToWakeTimeForTransition:]";
-      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE wake gesture noted", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SASMyriadController _updateRaiseToWakeTimeForTransition:]";
+      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #myriad BTLE wake gesture noted", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scdaCheckForAttention:(id)attention withTimeout:(double)timeout
@@ -1425,14 +1432,14 @@ LABEL_14:
 
 - (void)scdaShouldContinue:(id)continue
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   continueCopy = continue;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASMyriadController scdaShouldContinue:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASMyriadController scdaShouldContinue:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad", &v10, 0xCu);
   }
 
   myriadFinishedSemaphore = self->_myriadFinishedSemaphore;
@@ -1449,20 +1456,18 @@ LABEL_14:
     v9 = objc_loadWeakRetained(&self->_delegate);
     [v9 scdaShouldContinue:self];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scdaShouldAbortAnotherDeviceBetter:(id)better
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   betterCopy = better;
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASMyriadController scdaShouldAbortAnotherDeviceBetter:]";
-    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASMyriadController scdaShouldAbortAnotherDeviceBetter:]";
+    _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, "%s #myriad", &v10, 0xCu);
   }
 
   self->_canceledByMyriad = 1;
@@ -1480,32 +1485,29 @@ LABEL_14:
     v9 = objc_loadWeakRetained(&self->_delegate);
     [v9 scdaShouldAbort:self];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetMTTimerObserver
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SASMyriadController _resetMTTimerObserver]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SASMyriadController _resetMTTimerObserver]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v4, 0xCu);
   }
 
   self->_mobileClockObserver.isTimerFiring = 0;
   [(NSMutableDictionary *)self->_mobileClockObserver.lastTimerFiringDates removeAllObjects];
   [(NSMutableSet *)self->_mobileClockObserver.lastFiringTimerIDs removeAllObjects];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingMTTimerNotifications
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(SASMyriadController *)self _stopObservingMTTimerNotifications];
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v3 = getMTTimerManagerTimersChanged();
   }
@@ -1515,7 +1517,7 @@ LABEL_14:
     v3 = 0;
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v4 = getMTTimerManagerStateReset();
     v5 = v4;
@@ -1524,13 +1526,13 @@ LABEL_14:
       v6 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v10 = 136315650;
-        v11 = "[SASMyriadController _startObservingMTTimerNotifications]";
-        v12 = 2112;
-        v13 = v3;
-        v14 = 2112;
-        v15 = v5;
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad observing timer notifications: %@, %@", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SASMyriadController _startObservingMTTimerNotifications]";
+        v11 = 2112;
+        v12 = v3;
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad observing timer notifications: %@, %@", &v9, 0x20u);
       }
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1545,14 +1547,12 @@ LABEL_14:
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopObservingMTTimerNotifications
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (MobileTimerLibraryCore())
+  v15 = *MEMORY[0x1E69E9840];
+  if (MobileTimerLibraryCore(0))
   {
     v3 = getMTTimerManagerTimersChanged();
   }
@@ -1562,7 +1562,7 @@ LABEL_14:
     v3 = 0;
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v4 = getMTTimerManagerStateReset();
     v5 = v4;
@@ -1571,13 +1571,13 @@ LABEL_14:
       v6 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v10 = 136315650;
-        v11 = "[SASMyriadController _stopObservingMTTimerNotifications]";
-        v12 = 2112;
-        v13 = v3;
-        v14 = 2112;
-        v15 = v5;
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad ignoring timer notifications %@, %@", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SASMyriadController _stopObservingMTTimerNotifications]";
+        v11 = 2112;
+        v12 = v3;
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad ignoring timer notifications %@, %@", &v9, 0x20u);
       }
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1592,32 +1592,29 @@ LABEL_14:
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetMTAlarmObserver
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[SASMyriadController _resetMTAlarmObserver]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SASMyriadController _resetMTAlarmObserver]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_INFO, "%s #myriad", &v4, 0xCu);
   }
 
   self->_mobileClockObserver.isAlarmFiring = 0;
   [(NSMutableDictionary *)self->_mobileClockObserver.lastAlarmFiringDates removeAllObjects];
   [(NSMutableSet *)self->_mobileClockObserver.lastFiringAlarmIDs removeAllObjects];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingMTAlarmNotifications
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(SASMyriadController *)self _stopObservingMTAlarmNotifications];
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v3 = getMTAlarmManagerAlarmsChanged();
   }
@@ -1627,7 +1624,7 @@ LABEL_14:
     v3 = 0;
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v4 = getMTAlarmManagerStateReset();
     v5 = v4;
@@ -1636,13 +1633,13 @@ LABEL_14:
       v6 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v10 = 136315650;
-        v11 = "[SASMyriadController _startObservingMTAlarmNotifications]";
-        v12 = 2112;
-        v13 = v3;
-        v14 = 2112;
-        v15 = v5;
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad observing alarm notifications: %@, %@", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SASMyriadController _startObservingMTAlarmNotifications]";
+        v11 = 2112;
+        v12 = v3;
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad observing alarm notifications: %@, %@", &v9, 0x20u);
       }
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1657,14 +1654,12 @@ LABEL_14:
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopObservingMTAlarmNotifications
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (MobileTimerLibraryCore())
+  v15 = *MEMORY[0x1E69E9840];
+  if (MobileTimerLibraryCore(0))
   {
     v3 = getMTAlarmManagerAlarmsChanged();
   }
@@ -1674,7 +1669,7 @@ LABEL_14:
     v3 = 0;
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v4 = getMTAlarmManagerStateReset();
     v5 = v4;
@@ -1683,13 +1678,13 @@ LABEL_14:
       v6 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v10 = 136315650;
-        v11 = "[SASMyriadController _stopObservingMTAlarmNotifications]";
-        v12 = 2112;
-        v13 = v3;
-        v14 = 2112;
-        v15 = v5;
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad ignoring alarm notifications %@, %@", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SASMyriadController _stopObservingMTAlarmNotifications]";
+        v11 = 2112;
+        v12 = v3;
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_INFO, "%s #myriad ignoring alarm notifications %@, %@", &v9, 0x20u);
       }
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -1704,41 +1699,39 @@ LABEL_14:
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setFiringTimerIfNeeded:(id)needed
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   v4 = neededCopy;
   if (neededCopy && [neededCopy count])
   {
-    v28 = v4;
-    if (!MobileTimerLibraryCore())
+    v27 = v4;
+    if (!MobileTimerLibraryCore(0))
     {
       goto LABEL_35;
     }
 
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2050000000;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2050000000;
     v5 = getMTMutableTimerClass_softClass;
-    v38 = getMTMutableTimerClass_softClass;
+    v37 = getMTMutableTimerClass_softClass;
     if (!getMTMutableTimerClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getMTMutableTimerClass_block_invoke;
-      v40 = &unk_1E82F38F8;
-      v41 = &v35;
+      v39 = &unk_1E82F38F8;
+      v40 = &v34;
       __getMTMutableTimerClass_block_invoke(buf);
-      v5 = v36[3];
+      v5 = v35[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
     if (!v5)
     {
 LABEL_35:
@@ -1746,25 +1739,25 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = v4;
-    v7 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+    v7 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
     if (v7)
     {
-      v8 = *v32;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             firedDate = [v10 firedDate];
@@ -1780,13 +1773,13 @@ LABEL_35:
               *&buf[12] = 2112;
               *&buf[14] = v10;
               *&buf[22] = 2112;
-              v40 = timerID;
-              LOWORD(v41) = 1024;
-              *(&v41 + 2) = isFiring;
-              HIWORD(v41) = 2112;
-              v42 = firedDate;
-              v43 = 2112;
-              v44 = dismissedDate;
+              v39 = timerID;
+              LOWORD(v40) = 1024;
+              *(&v40 + 2) = isFiring;
+              HIWORD(v40) = 2112;
+              v41 = firedDate;
+              v42 = 2112;
+              v43 = dismissedDate;
               _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_INFO, "%s #myriad timer: %@, timerID: %@, isFiring: %d, fired date: %@ dismissed date: %@", buf, 0x3Au);
             }
 
@@ -1824,16 +1817,16 @@ LABEL_35:
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+        v7 = [obj countByEnumeratingWithState:&v30 objects:v44 count:16];
       }
 
       while (v7);
     }
 
-    if (![(NSMutableSet *)self->_mobileClockObserver.lastFiringTimerIDs count]|| (v4 = v28, ![(NSMutableDictionary *)self->_mobileClockObserver.lastTimerFiringDates count]))
+    if (![(NSMutableSet *)self->_mobileClockObserver.lastFiringTimerIDs count]|| (v4 = v27, ![(NSMutableDictionary *)self->_mobileClockObserver.lastTimerFiringDates count]))
     {
       [(SASMyriadController *)self _resetMTTimerObserver];
-      v4 = v28;
+      v4 = v27;
     }
   }
 
@@ -1847,13 +1840,11 @@ LABEL_35:
     *&buf[12] = 2112;
     *&buf[14] = v25;
     *&buf[22] = 2112;
-    v40 = v26;
+    v39 = v26;
     _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_INFO, "%s #myriad Firing timers: %@, last firing dates: %@", buf, 0x20u);
   }
 
 LABEL_36:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timersChanged:(id)changed
@@ -1869,7 +1860,7 @@ LABEL_36:
     _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_INFO, "%s #myriad", &buf, 0xCu);
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v19 = 0;
     v20 = &v19;
@@ -1893,8 +1884,8 @@ LABEL_36:
     _Block_object_dispose(&v19, 8);
     if (!v6)
     {
-      dlerror();
-      abort_report_np();
+      v14 = dlerror();
+      abort_report_np("%s", v14);
       __break(1u);
     }
 
@@ -1923,8 +1914,6 @@ LABEL_36:
   }
 
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SASMyriadController_timersChanged___block_invoke(uint64_t a1)
@@ -1949,13 +1938,13 @@ void __37__SASMyriadController_timersChanged___block_invoke(uint64_t a1)
 
 void __35__SASMyriadController_timersReset___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SASMyriadController timersReset:]_block_invoke";
-    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_INFO, "%s #myriad", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SASMyriadController timersReset:]_block_invoke";
+    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1963,41 +1952,39 @@ void __35__SASMyriadController_timersReset___block_invoke(uint64_t a1)
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 _startObservingMTTimerNotifications];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setFiringAlarmIfNeeded:(id)needed
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   v4 = neededCopy;
   if (neededCopy && [neededCopy count])
   {
-    v28 = v4;
-    if (!MobileTimerLibraryCore())
+    v27 = v4;
+    if (!MobileTimerLibraryCore(0))
     {
       goto LABEL_34;
     }
 
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2050000000;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x2050000000;
     v5 = getMTMutableAlarmClass_softClass;
-    v39 = getMTMutableAlarmClass_softClass;
+    v38 = getMTMutableAlarmClass_softClass;
     if (!getMTMutableAlarmClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getMTMutableAlarmClass_block_invoke;
-      v41 = &unk_1E82F38F8;
-      v42 = &v36;
+      v40 = &unk_1E82F38F8;
+      v41 = &v35;
       __getMTMutableAlarmClass_block_invoke(buf);
-      v5 = v37[3];
+      v5 = v36[3];
     }
 
     v6 = v5;
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
     if (!v5)
     {
 LABEL_34:
@@ -2005,25 +1992,25 @@ LABEL_34:
       goto LABEL_35;
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = v4;
-    v7 = [obj countByEnumeratingWithState:&v32 objects:v50 count:16];
+    v7 = [obj countByEnumeratingWithState:&v31 objects:v49 count:16];
     if (v7)
     {
-      v31 = *v33;
+      v30 = *v32;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v33 != v31)
+          if (*v32 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v32 + 1) + 8 * i);
+          v9 = *(*(&v31 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             firedDate = [v9 firedDate];
@@ -2041,17 +2028,17 @@ LABEL_34:
               *&buf[12] = 2112;
               *&buf[14] = v9;
               *&buf[22] = 2112;
-              v41 = alarmID;
-              LOWORD(v42) = 1024;
-              *(&v42 + 2) = isSleepAlarm;
-              HIWORD(v42) = 1024;
-              v43 = isFiring;
-              v44 = 1024;
-              v45 = isSnoozed;
-              v46 = 2112;
-              v47 = firedDate;
-              v48 = 2112;
-              v49 = dismissedDate;
+              v40 = alarmID;
+              LOWORD(v41) = 1024;
+              *(&v41 + 2) = isSleepAlarm;
+              HIWORD(v41) = 1024;
+              v42 = isFiring;
+              v43 = 1024;
+              v44 = isSnoozed;
+              v45 = 2112;
+              v46 = firedDate;
+              v47 = 2112;
+              v48 = dismissedDate;
               _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_INFO, "%s #myriad alarm: %@, alarmID: %@, isSleepAlarm: %d, isFiring: %d, isSnoozed: %d fired date: %@, dismissed date: %@", buf, 0x46u);
             }
 
@@ -2093,16 +2080,16 @@ LABEL_34:
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v32 objects:v50 count:16];
+        v7 = [obj countByEnumeratingWithState:&v31 objects:v49 count:16];
       }
 
       while (v7);
     }
 
-    if (![(NSMutableSet *)self->_mobileClockObserver.lastFiringAlarmIDs count]|| (v4 = v28, ![(NSMutableDictionary *)self->_mobileClockObserver.lastAlarmFiringDates count]))
+    if (![(NSMutableSet *)self->_mobileClockObserver.lastFiringAlarmIDs count]|| (v4 = v27, ![(NSMutableDictionary *)self->_mobileClockObserver.lastAlarmFiringDates count]))
     {
       [(SASMyriadController *)self _resetMTAlarmObserver];
-      v4 = v28;
+      v4 = v27;
     }
   }
 
@@ -2116,13 +2103,11 @@ LABEL_34:
     *&buf[12] = 2112;
     *&buf[14] = v25;
     *&buf[22] = 2112;
-    v41 = v26;
+    v40 = v26;
     _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_INFO, "%s #myriad Firing alarms: %@, last firing dates: %@", buf, 0x20u);
   }
 
 LABEL_35:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)alarmsChanged:(id)changed
@@ -2138,7 +2123,7 @@ LABEL_35:
     _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_INFO, "%s #myriad", &buf, 0xCu);
   }
 
-  if (MobileTimerLibraryCore())
+  if (MobileTimerLibraryCore(0))
   {
     v19 = 0;
     v20 = &v19;
@@ -2162,8 +2147,8 @@ LABEL_35:
     _Block_object_dispose(&v19, 8);
     if (!v6)
     {
-      dlerror();
-      abort_report_np();
+      v14 = dlerror();
+      abort_report_np("%s", v14);
       __break(1u);
     }
 
@@ -2192,8 +2177,6 @@ LABEL_35:
   }
 
   objc_destroyWeak(&location);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SASMyriadController_alarmsChanged___block_invoke(uint64_t a1)
@@ -2218,13 +2201,13 @@ void __37__SASMyriadController_alarmsChanged___block_invoke(uint64_t a1)
 
 void __35__SASMyriadController_alarmsReset___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SASMyriadController alarmsReset:]_block_invoke";
-    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_INFO, "%s #myriad", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SASMyriadController alarmsReset:]_block_invoke";
+    _os_log_impl(&dword_1C8137000, v2, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2232,24 +2215,22 @@ void __35__SASMyriadController_alarmsReset___block_invoke(uint64_t a1)
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 _startObservingMTAlarmNotifications];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeLockState:(unint64_t)state toState:(unint64_t)toState
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = (toState == 0) & state;
   v6 = (state == 0) & toState;
   v7 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v15 = "[SASMyriadController didChangeLockState:toState:]";
-    v16 = 1024;
-    v17 = v5;
-    v18 = 1024;
-    v19 = v6;
+    v14 = "[SASMyriadController didChangeLockState:toState:]";
+    v15 = 1024;
+    v16 = v5;
+    v17 = 1024;
+    v18 = v6;
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_INFO, "%s #myriad screen lock -> unlock: %d, screen unlock -> lock: %d", buf, 0x18u);
   }
 
@@ -2258,28 +2239,23 @@ void __35__SASMyriadController_alarmsReset___block_invoke(uint64_t a1)
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     [processInfo systemUptime];
     self->_unlockTime = v9;
-
-LABEL_6:
-    objc_initWeak(buf, self);
-    myriadWorkQueue = self->_myriadWorkQueue;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __50__SASMyriadController_didChangeLockState_toState___block_invoke;
-    block[3] = &unk_1E82F36D0;
-    objc_copyWeak(&v13, buf);
-    dispatch_async(myriadWorkQueue, block);
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(buf);
-    goto LABEL_7;
   }
 
-  if (v6)
+  else if (!v6)
   {
-    goto LABEL_6;
+    return;
   }
 
-LABEL_7:
-  v11 = *MEMORY[0x1E69E9840];
+  objc_initWeak(buf, self);
+  myriadWorkQueue = self->_myriadWorkQueue;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __50__SASMyriadController_didChangeLockState_toState___block_invoke;
+  block[3] = &unk_1E82F36D0;
+  objc_copyWeak(&v12, buf);
+  dispatch_async(myriadWorkQueue, block);
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(buf);
 }
 
 void __50__SASMyriadController_didChangeLockState_toState___block_invoke(uint64_t a1)
@@ -2309,7 +2285,7 @@ void __50__SASMyriadController_didChangeLockState_toState___block_invoke(uint64_
 
 void __54__SASMyriadController__configureMotionActivityManager__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E69634C0] isActivityAvailable])
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2323,9 +2299,9 @@ void __54__SASMyriadController__configureMotionActivityManager__block_invoke(uin
         v6 = v4;
         v7 = [v5 currentThread];
         *buf = 136315394;
-        v18 = "[SASMyriadController _configureMotionActivityManager]_block_invoke";
-        v19 = 2048;
-        v20 = [v7 qualityOfService];
+        v17 = "[SASMyriadController _configureMotionActivityManager]_block_invoke";
+        v18 = 2048;
+        v19 = [v7 qualityOfService];
         _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_activityManagerLock about to lock with qos: %zd", buf, 0x16u);
       }
 
@@ -2334,7 +2310,7 @@ void __54__SASMyriadController__configureMotionActivityManager__block_invoke(uin
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v18 = "[SASMyriadController _configureMotionActivityManager]_block_invoke";
+        v17 = "[SASMyriadController _configureMotionActivityManager]_block_invoke";
         _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_activityManagerLock successfully locked", buf, 0xCu);
       }
 
@@ -2344,27 +2320,25 @@ void __54__SASMyriadController__configureMotionActivityManager__block_invoke(uin
 
       v11 = *&WeakRetained[48]._os_unfair_lock_opaque;
       v12 = [MEMORY[0x1E696ADC8] mainQueue];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __54__SASMyriadController__configureMotionActivityManager__block_invoke_110;
-      v15[3] = &unk_1E82F3898;
-      objc_copyWeak(&v16, (a1 + 32));
-      [v11 startActivityUpdatesToQueue:v12 withHandler:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __54__SASMyriadController__configureMotionActivityManager__block_invoke_110;
+      v14[3] = &unk_1E82F3898;
+      objc_copyWeak(&v15, (a1 + 32));
+      [v11 startActivityUpdatesToQueue:v12 withHandler:v14];
 
       os_unfair_lock_unlock(WeakRetained + 46);
       v13 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v18 = "[SASMyriadController _configureMotionActivityManager]_block_invoke_2";
+        v17 = "[SASMyriadController _configureMotionActivityManager]_block_invoke_2";
         _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_activityManagerLock unlocked", buf, 0xCu);
       }
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SASMyriadController__configureMotionActivityManager__block_invoke_110(uint64_t a1, void *a2)
@@ -2396,124 +2370,114 @@ void __54__SASMyriadController__configureMotionActivityManager__block_invoke_110
 
 - (void)activateForRequest:(void *)a1 withTimeout:(NSObject *)a2 visible:quiet:.cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
-  v6[0] = 136315394;
+  v5[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  v7 = v4;
-  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #myriad scdaContext: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = v4;
+  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #myriad scdaContext: %@", v5, 0x16u);
 }
 
 - (void)activateForRequest:(uint64_t)a3 withTimeout:(uint64_t)a4 visible:(uint64_t)a5 quiet:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad attention dispatched", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
+  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad attention dispatched", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)activateForRequest:(uint64_t)a3 withTimeout:(uint64_t)a4 visible:(uint64_t)a5 quiet:(uint64_t)a6 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad motion bump is ignored due to awareness being on", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
+  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad motion bump is ignored due to awareness being on", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)activateForRequest:(uint64_t)a3 withTimeout:(uint64_t)a4 visible:(uint64_t)a5 quiet:(uint64_t)a6 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad unlock bump is ignored due to awareness being on", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
+  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad unlock bump is ignored due to awareness being on", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)activateForRequest:(uint64_t)a3 withTimeout:(uint64_t)a4 visible:(uint64_t)a5 quiet:(uint64_t)a6 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad request from CarPlay", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]";
+  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad request from CarPlay", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad attention start", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]_block_invoke";
+  OUTLINED_FUNCTION_1(&dword_1C8137000, a1, a3, "%s #myriad attention start", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __68__SASMyriadController_activateForRequest_withTimeout_visible_quiet___block_invoke_cold_2(char a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]_block_invoke";
-  v5 = 1024;
-  v6 = a1 & 1;
-  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #myriad attention isScreenOn?: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SASMyriadController activateForRequest:withTimeout:visible:quiet:]_block_invoke";
+  v4 = 1024;
+  v5 = a1 & 1;
+  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #myriad attention isScreenOn?: %d", &v2, 0x12u);
 }
 
 - (void)_scdaCheckForAttention:(os_log_t)log withTimeout:(double)a2 .cold.1(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SASMyriadController _scdaCheckForAttention:withTimeout:]";
-  v5 = 2048;
-  v6 = a2;
-  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #myriad attention with timeout: %f", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SASMyriadController _scdaCheckForAttention:withTimeout:]";
+  v4 = 2048;
+  v5 = a2;
+  _os_log_debug_impl(&dword_1C8137000, log, OS_LOG_TYPE_DEBUG, "%s #myriad attention with timeout: %f", &v2, 0x16u);
 }
 
 - (void)_scdaCheckForAttention:withTimeout:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 136315394;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  v4 = v0;
-  _os_log_error_impl(&dword_1C8137000, v1, OS_LOG_TYPE_ERROR, "%s #myriad attention failed with resumeWithError: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1C8137000, v1, OS_LOG_TYPE_ERROR, "%s #myriad attention failed with resumeWithError: %@", v2, 0x16u);
 }
 
 - (void)_scdaCheckForAttention:(void *)a3 withTimeout:.cold.3(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a3 debugDescription];
-  v10[0] = 136315650;
+  v9[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v11 = a1;
-  v12 = v7;
-  v13 = v8;
-  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad attention timed out with event: %@, error: %@", v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = a1;
+  v11 = v7;
+  v12 = v8;
+  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad attention timed out with event: %@, error: %@", v9, 0x20u);
 }
 
 - (void)_scdaCheckForAttention:(void *)a3 withTimeout:.cold.4(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a1 isMetadataValid];
   v7 = [a3 debugDescription];
-  v11[0] = 136315906;
+  v10[0] = 136315906;
   OUTLINED_FUNCTION_0();
-  v12 = a1;
-  v13 = 1024;
-  v14 = v6;
-  v15 = v8;
-  v16 = v9;
-  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad attention awareness received attention event: %@, isMetadataValid %d, error: %@", v11, 0x26u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = a1;
+  v12 = 1024;
+  v13 = v6;
+  v14 = v8;
+  v15 = v9;
+  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #myriad attention awareness received attention event: %@, isMetadataValid %d, error: %@", v10, 0x26u);
 }
 
 - (void)_scdaCheckForAttention:withTimeout:.cold.5()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 136315394;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  v4 = v0;
-  _os_log_error_impl(&dword_1C8137000, v1, OS_LOG_TYPE_ERROR, "%s #myriad attention failed suspendWithError: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1C8137000, v1, OS_LOG_TYPE_ERROR, "%s #myriad attention failed suspendWithError: %@", v2, 0x16u);
 }
 
 @end

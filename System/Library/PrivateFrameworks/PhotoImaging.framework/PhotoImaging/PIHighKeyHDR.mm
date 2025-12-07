@@ -43,7 +43,7 @@
   {
     v4 = inputImage;
     _highKeyHDR = [(PIHighKeyHDR *)self _highKeyHDR];
-    [(CIImage *)self->inputImage extent];
+    objc_msgSend_extent(self->inputImage);
     v7 = v6;
     v9 = v8;
     v11 = v10;

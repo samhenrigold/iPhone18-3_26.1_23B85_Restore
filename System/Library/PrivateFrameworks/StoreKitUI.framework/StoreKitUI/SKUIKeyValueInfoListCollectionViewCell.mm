@@ -635,10 +635,10 @@ LABEL_16:
 - (void)layoutSubviews
 {
   selfCopy = self;
-  v70 = *MEMORY[0x277D85DE8];
-  v68.receiver = self;
-  v68.super_class = SKUIKeyValueInfoListCollectionViewCell;
-  [(SKUICollectionViewCell *)&v68 layoutSubviews];
+  v72 = *MEMORY[0x277D85DE8];
+  v70.receiver = self;
+  v70.super_class = SKUIKeyValueInfoListCollectionViewCell;
+  [(SKUICollectionViewCell *)&v70 layoutSubviews];
   contentView = [(SKUIKeyValueInfoListCollectionViewCell *)selfCopy contentView];
   [contentView bounds];
   v5 = v4;
@@ -646,179 +646,179 @@ LABEL_16:
   v9 = v8;
   v11 = v10;
 
-  [(SKUIViewReuseCollectionViewCell *)selfCopy contentInset];
-  MaxY = v12;
-  v15 = v14;
-  v60 = v16;
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  contentInset = [(SKUIViewReuseCollectionViewCell *)selfCopy contentInset];
+  MaxY = v13;
+  v16 = v15;
+  v62 = v17;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(contentInset, v18);
   y = *(MEMORY[0x277CBF3A0] + 8);
   titleView = selfCopy->_titleView;
   rect = y;
   if (titleView)
   {
     [(SKUIAttributedStringView *)titleView firstBaselineOffset];
-    v56 = v20;
+    v58 = v22;
     [(SKUIAttributedStringView *)selfCopy->_titleView sizeThatFits:selfCopy->_titleColumnWidth, 1.79769313e308];
-    v22 = v21;
     v24 = v23;
+    v26 = v25;
     if (ShouldReverseLayoutDirection)
     {
-      v71.origin.x = v5;
-      v71.origin.y = v7;
-      v71.size.width = v9;
-      v71.size.height = v11;
-      v25 = CGRectGetMaxX(v71) - v15 - selfCopy->_titleColumnWidth;
+      v73.origin.x = v5;
+      v73.origin.y = v7;
+      v73.size.width = v9;
+      v73.size.height = v11;
+      v27 = CGRectGetMaxX(v73) - v16 - selfCopy->_titleColumnWidth;
     }
 
     else
     {
-      v25 = v15 + selfCopy->_titleColumnWidth - v21;
+      v27 = v16 + selfCopy->_titleColumnWidth - v23;
     }
 
-    v28 = MaxY;
-    v29 = v22;
-    v30 = v24;
-    v72 = CGRectIntegral(*&v25);
-    y = v72.origin.y;
-    height = v72.size.height;
-    [(SKUIAttributedStringView *)selfCopy->_titleView setFrame:v72.origin.x];
+    v30 = MaxY;
+    v31 = v24;
+    v32 = v26;
+    v74 = CGRectIntegral(*&v27);
+    y = v74.origin.y;
+    height = v74.size.height;
+    [(SKUIAttributedStringView *)selfCopy->_titleView setFrame:v74.origin.x];
     if (ShouldReverseLayoutDirection)
     {
       goto LABEL_8;
     }
 
 LABEL_5:
-    v26 = v15 + selfCopy->_titleColumnWidth;
-    v27 = 14.0;
+    v28 = v16 + selfCopy->_titleColumnWidth;
+    v29 = 14.0;
     goto LABEL_9;
   }
 
   height = *(MEMORY[0x277CBF3A0] + 24);
-  v56 = 0.0;
+  v58 = 0.0;
   if ((ShouldReverseLayoutDirection & 1) == 0)
   {
     goto LABEL_5;
   }
 
 LABEL_8:
-  v73.origin.x = v5;
-  v73.origin.y = v7;
-  v73.size.width = v9;
-  v73.size.height = v11;
-  v26 = CGRectGetMaxX(v73) - v15 - selfCopy->_titleColumnWidth;
-  v27 = -14.0;
+  v75.origin.x = v5;
+  v75.origin.y = v7;
+  v75.size.width = v9;
+  v75.size.height = v11;
+  v28 = CGRectGetMaxX(v75) - v16 - selfCopy->_titleColumnWidth;
+  v29 = -14.0;
 LABEL_9:
-  v31 = v26 + v27;
+  v33 = v28 + v29;
   [(SKUIViewReuseCollectionViewCell *)selfCopy allExistingViews];
-  v64 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  obj = v67 = 0u;
-  v32 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-  if (v32)
+  v67 = 0u;
+  v68 = 0u;
+  obj = v69 = 0u;
+  v34 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+  if (v34)
   {
-    v33 = v32;
-    v34 = 0;
-    v35 = v9 - v60 - v31;
-    v36 = floorf(v35);
-    v37 = *v65;
-    v57 = y + v56;
-    v59 = *v65;
+    v35 = v34;
+    v36 = 0;
+    v37 = v9 - v62 - v33;
+    v38 = floorf(v37);
+    v39 = *v67;
+    v59 = y + v58;
+    v61 = *v67;
     do
     {
-      v38 = 0;
-      v61 = v33;
+      v40 = 0;
+      v63 = v35;
       do
       {
-        if (*v65 != v37)
+        if (*v67 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = *(*(&v64 + 1) + 8 * v38);
-        if (v39 != selfCopy->_titleView)
+        v41 = *(*(&v66 + 1) + 8 * v40);
+        if (v41 != selfCopy->_titleView)
         {
-          [*(*(&v64 + 1) + 8 * v38) sizeThatFits:{v36, 1.79769313e308}];
-          v41 = v40;
+          [*(*(&v66 + 1) + 8 * v40) sizeThatFits:{v38, 1.79769313e308}];
           v43 = v42;
-          v44 = v31;
+          v45 = v44;
+          v46 = v33;
           if (ShouldReverseLayoutDirection)
           {
-            v74.origin.x = v31;
-            v74.origin.y = rect;
-            v74.size.width = v41;
-            v74.size.height = v43;
-            v44 = v31 - CGRectGetWidth(v74);
+            v76.origin.x = v33;
+            v76.origin.y = rect;
+            v76.size.width = v43;
+            v76.size.height = v45;
+            v46 = v33 - CGRectGetWidth(v76);
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v45 = ShouldReverseLayoutDirection;
-            v46 = v39;
-            [(SKUIAttributedStringView *)v46 firstBaselineOffset];
-            v48 = v47;
-            v49 = selfCopy;
+            v47 = ShouldReverseLayoutDirection;
+            v48 = v41;
+            [(SKUIAttributedStringView *)v48 firstBaselineOffset];
+            v50 = v49;
+            v51 = selfCopy;
             usesTallCharacterSet = [(SKUIAttributedStringView *)selfCopy->_titleView usesTallCharacterSet];
-            usesTallCharacterSet2 = [(SKUIAttributedStringView *)v46 usesTallCharacterSet];
+            usesTallCharacterSet2 = [(SKUIAttributedStringView *)v48 usesTallCharacterSet];
 
-            if (v34)
+            if (v36)
             {
-              ShouldReverseLayoutDirection = v45;
-              selfCopy = v49;
-              v37 = v59;
-              v33 = v61;
+              ShouldReverseLayoutDirection = v47;
+              selfCopy = v51;
+              v39 = v61;
+              v35 = v63;
 LABEL_27:
-              [(SKUIAttributedStringView *)v39 setFrame:v44, MaxY, v41, v43];
-              v75.origin.x = v44;
-              v75.origin.y = MaxY;
-              v75.size.width = v41;
-              v75.size.height = v43;
-              MaxY = CGRectGetMaxY(v75);
-              ++v34;
+              [(SKUIAttributedStringView *)v41 setFrame:v46, MaxY, v43, v45];
+              v77.origin.x = v46;
+              v77.origin.y = MaxY;
+              v77.size.width = v43;
+              v77.size.height = v45;
+              MaxY = CGRectGetMaxY(v77);
+              ++v36;
               goto LABEL_28;
             }
 
-            v52 = usesTallCharacterSet == usesTallCharacterSet2;
-            ShouldReverseLayoutDirection = v45;
-            selfCopy = v49;
-            v37 = v59;
-            v33 = v61;
-            if (!v52)
+            v54 = usesTallCharacterSet == usesTallCharacterSet2;
+            ShouldReverseLayoutDirection = v47;
+            selfCopy = v51;
+            v39 = v61;
+            v35 = v63;
+            if (!v54)
             {
-              v53 = MaxY + v56 - v48;
-              v54 = floorf(v53);
+              v55 = MaxY + v58 - v50;
+              v56 = floorf(v55);
               goto LABEL_26;
             }
           }
 
-          else if (v34)
+          else if (v36)
           {
             goto LABEL_27;
           }
 
           MaxY = rect;
-          if (v43 >= height)
+          if (v45 >= height)
           {
             goto LABEL_27;
           }
 
-          v55 = v57 - v43;
-          v54 = ceilf(v55);
+          v57 = v59 - v45;
+          v56 = ceilf(v57);
 LABEL_26:
-          MaxY = v54;
+          MaxY = v56;
           goto LABEL_27;
         }
 
 LABEL_28:
-        ++v38;
+        ++v40;
       }
 
-      while (v33 != v38);
-      v33 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+      while (v35 != v40);
+      v35 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
-    while (v33);
+    while (v35);
   }
 }
 
@@ -884,24 +884,24 @@ LABEL_28:
 
   v18 = style;
 
-  v19 = SKUIViewElementFontWithStyle(v18);
-  if (!v19)
+  v20 = SKUIViewElementFontWithStyle(v18);
+  if (!v20)
   {
-    v19 = SKUIFontPreferredFontForTextStyle(5);
+    v20 = SKUIFontPreferredFontForTextStyle(5, v19);
   }
 
   tintColor = [contextCopy tintColor];
-  v21 = SKUIViewElementPlainColorWithStyle(v18, tintColor);
+  v22 = SKUIViewElementPlainColorWithStyle(v18, tintColor);
 
-  if (!v21)
+  if (!v22)
   {
-    v21 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+    v22 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
   }
 
   buttonText = [buttonCopy buttonText];
-  v23 = [buttonText attributedStringWithDefaultFont:v19 foregroundColor:v21 style:v18];
+  v24 = [buttonText attributedStringWithDefaultFont:v20 foregroundColor:v22 style:v18];
 
-  return v23;
+  return v24;
 }
 
 + (id)_attributedStringForLabel:(id)label context:(id)context
@@ -921,25 +921,73 @@ LABEL_28:
   }
 
   style = [labelCopy style];
-  v16 = SKUIViewElementFontWithStyle(style);
-  if (!v16)
+  v17 = SKUIViewElementFontWithStyle(style);
+  if (!v17)
   {
-    v16 = SKUIFontPreferredFontForTextStyle(5);
+    v17 = SKUIFontPreferredFontForTextStyle(5, v16);
   }
 
   tintColor = [contextCopy tintColor];
-  v18 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v19 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v18)
+  if (!v19)
   {
-    v19 = [labelCopy labelViewStyle] == 5;
-    v18 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v19]];
+    v20 = [labelCopy labelViewStyle] == 5;
+    v19 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v20]];
   }
 
   text = [labelCopy text];
-  v21 = [text attributedStringWithDefaultFont:v16 foregroundColor:v18 style:style];
+  v22 = [text attributedStringWithDefaultFont:v17 foregroundColor:v19 style:style];
 
-  return v21;
+  return v22;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIKeyValueInfoListCollectionViewCell initWithFrame:]";
+}
+
++ (void)titleColumnWidthWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell titleColumnWidthWithViewElement:width:context:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)_attributedStringForButton:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell _attributedStringForButton:context:]";
+}
+
++ (void)_attributedStringForLabel:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIKeyValueInfoListCollectionViewCell _attributedStringForLabel:context:]";
 }
 
 @end

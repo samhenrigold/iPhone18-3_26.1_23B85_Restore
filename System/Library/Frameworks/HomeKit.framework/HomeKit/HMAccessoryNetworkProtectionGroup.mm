@@ -22,26 +22,24 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMAccessoryNetworkProtectionGroup *)self uniqueIdentifier];
   v5 = [v3 initWithName:@"uniqueIdentifier" value:uniqueIdentifier];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   manufacturer = [(HMAccessoryNetworkProtectionGroup *)self manufacturer];
   v8 = [v6 initWithName:@"manufacturer" value:manufacturer];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   category = [(HMAccessoryNetworkProtectionGroup *)self category];
   v11 = [v9 initWithName:@"category" value:category];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMAccessoryNetworkProtectionGroup targetProtectionMode](self, "targetProtectionMode")}];
   v14 = [v12 initWithName:@"targetProtectionMode" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -62,30 +60,30 @@
 
 - (NSArray)accessories
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   home = [(HMAccessoryNetworkProtectionGroup *)self home];
   accessories = [home accessories];
 
-  v6 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         networkProtectionGroupUUID = [v10 networkProtectionGroupUUID];
         uuid = [(HMAccessoryNetworkProtectionGroup *)self uuid];
         v13 = [networkProtectionGroupUUID isEqual:uuid];
@@ -96,14 +94,13 @@
         }
       }
 
-      v7 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [array copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

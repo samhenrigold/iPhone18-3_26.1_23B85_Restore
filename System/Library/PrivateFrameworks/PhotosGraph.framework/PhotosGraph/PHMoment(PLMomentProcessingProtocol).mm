@@ -17,7 +17,6 @@
   else
   {
     v4 = *MEMORY[0x277CE4278];
-    v5 = *(MEMORY[0x277CE4278] + 8);
   }
 
   return v4;

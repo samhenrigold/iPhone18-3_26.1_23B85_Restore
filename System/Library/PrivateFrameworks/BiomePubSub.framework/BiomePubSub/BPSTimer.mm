@@ -49,7 +49,7 @@
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [BPSDebounce subscribe:];
+    [BPSDebounce subscribe:?];
   }
 
   v6 = [_BPSTimerInner alloc];
@@ -64,19 +64,17 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSTimer *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)nextEvent
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   pendingTimers = [(BPSTimer *)self pendingTimers];
   v4 = [pendingTimers count];
 
@@ -91,7 +89,7 @@
     nextEvent = __biome_log_for_category();
     if (os_log_type_enabled(nextEvent, OS_LOG_TYPE_DEBUG))
     {
-      [BPSTimer nextEvent];
+      [(BPSTimer *)self nextEvent];
     }
 
     goto LABEL_4;
@@ -106,51 +104,51 @@
     goto LABEL_5;
   }
 
-  *&v12 = 138412802;
-  v42 = v12;
+  *&v11 = 138412802;
+  v41 = v11;
   while (1)
   {
     getTimestamp = [(BPSTimer *)self getTimestamp];
-    v14 = (getTimestamp)[2](getTimestamp, nextEvent);
+    v13 = (getTimestamp)[2](getTimestamp, nextEvent);
 
-    v15 = __biome_log_for_category();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = __biome_log_for_category();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v37 = objc_opt_class();
-      v38 = [v14 description];
-      *buf = v42;
-      v44 = v37;
-      v45 = 2112;
-      v46 = nextEvent;
-      v47 = 2112;
-      v48 = v38;
-      _os_log_debug_impl(&dword_1C871B000, v15, OS_LOG_TYPE_DEBUG, "%@ - receiving: %@ at %@", buf, 0x20u);
+      v36 = objc_opt_class();
+      v37 = [v13 description];
+      *buf = v41;
+      v43 = v36;
+      v44 = 2112;
+      v45 = nextEvent;
+      v46 = 2112;
+      v47 = v37;
+      _os_log_debug_impl(&dword_1C871B000, v14, OS_LOG_TYPE_DEBUG, "%@ - receiving: %@ at %@", buf, 0x20u);
     }
 
     nextIntervalBoundary = [(BPSTimer *)self nextIntervalBoundary];
     distantPast = [MEMORY[0x1E695DF00] distantPast];
-    v18 = [nextIntervalBoundary isEqualToDate:distantPast];
+    v17 = [nextIntervalBoundary isEqualToDate:distantPast];
 
-    if ((v18 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       break;
     }
 
-    v19 = MEMORY[0x1E695DF00];
+    v18 = MEMORY[0x1E695DF00];
     [(BPSTimer *)self interval];
-    v20 = [v19 dateWithTimeInterval:v14 sinceDate:?];
-    [(BPSTimer *)self setNextIntervalBoundary:v20];
+    v19 = [v18 dateWithTimeInterval:v13 sinceDate:?];
+    [(BPSTimer *)self setNextIntervalBoundary:v19];
 
-    v21 = __biome_log_for_category();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v20 = __biome_log_for_category();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v39 = objc_opt_class();
+      v38 = objc_opt_class();
       nextIntervalBoundary2 = [(BPSTimer *)self nextIntervalBoundary];
       *buf = 138412546;
-      v44 = v39;
-      v45 = 2112;
-      v46 = nextIntervalBoundary2;
-      _os_log_debug_impl(&dword_1C871B000, v21, OS_LOG_TYPE_DEBUG, "%@ - started with nextIntervalBoundary: %@", buf, 0x16u);
+      v43 = v38;
+      v44 = 2112;
+      v45 = nextIntervalBoundary2;
+      _os_log_debug_impl(&dword_1C871B000, v20, OS_LOG_TYPE_DEBUG, "%@ - started with nextIntervalBoundary: %@", buf, 0x16u);
     }
 
 LABEL_25:
@@ -165,9 +163,9 @@ LABEL_25:
   }
 
   nextIntervalBoundary3 = [(BPSTimer *)self nextIntervalBoundary];
-  v23 = [v14 compare:nextIntervalBoundary3];
+  v22 = [v13 compare:nextIntervalBoundary3];
 
-  if (v23 != 1)
+  if (v22 != 1)
   {
     goto LABEL_25;
   }
@@ -187,44 +185,43 @@ LABEL_25:
       nextEvent2 = [(BPSTimer *)self nextIntervalBoundary];
     }
 
-    v26 = MEMORY[0x1E695DF00];
+    v25 = MEMORY[0x1E695DF00];
     [(BPSTimer *)self interval];
-    v28 = v27;
+    v27 = v26;
     nextIntervalBoundary5 = [(BPSTimer *)self nextIntervalBoundary];
-    v30 = [v26 dateWithTimeInterval:nextIntervalBoundary5 sinceDate:v28];
-    [(BPSTimer *)self setNextIntervalBoundary:v30];
+    v29 = [v25 dateWithTimeInterval:nextIntervalBoundary5 sinceDate:v27];
+    [(BPSTimer *)self setNextIntervalBoundary:v29];
 
-    v31 = __biome_log_for_category();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v30 = __biome_log_for_category();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v34 = objc_opt_class();
+      v33 = objc_opt_class();
       nextIntervalBoundary6 = [(BPSTimer *)self nextIntervalBoundary];
       *buf = 138412546;
-      v44 = v34;
-      v45 = 2112;
-      v46 = nextIntervalBoundary6;
-      _os_log_debug_impl(&dword_1C871B000, v31, OS_LOG_TYPE_DEBUG, "%@ - set new nextIntervalBoundary: %@", buf, 0x16u);
+      v43 = v33;
+      v44 = 2112;
+      v45 = nextIntervalBoundary6;
+      _os_log_debug_impl(&dword_1C871B000, v30, OS_LOG_TYPE_DEBUG, "%@ - set new nextIntervalBoundary: %@", buf, 0x16u);
     }
 
     nextIntervalBoundary7 = [(BPSTimer *)self nextIntervalBoundary];
-    v33 = [v14 compare:nextIntervalBoundary7];
+    v32 = [v13 compare:nextIntervalBoundary7];
   }
 
-  while (v33 == 1);
+  while (v32 == 1);
   if (!nextEvent2)
   {
     goto LABEL_25;
   }
 
-  v41 = __biome_log_for_category();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  v40 = __biome_log_for_category();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
   {
-    [BPSTimer nextEvent];
+    [(BPSTimer *)self nextEvent];
   }
 
 LABEL_4:
 LABEL_5:
-  v9 = *MEMORY[0x1E69E9840];
 
   return nextEvent2;
 }
@@ -265,12 +262,10 @@ LABEL_5:
 
 - (void)nextEvent
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

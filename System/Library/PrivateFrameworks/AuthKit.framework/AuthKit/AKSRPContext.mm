@@ -59,71 +59,68 @@
 {
   if (self->_underlyingContext)
   {
-    underlyingContext = self->_underlyingContext;
-    v4 = AppleIDAuthSupportCopyProvidedData();
+    v3 = AppleIDAuthSupportCopyProvidedData();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (AKMasterToken)masterToken
 {
   selfCopy = self;
-  v11 = a2;
+  v10 = a2;
   if (self->_underlyingContext)
   {
-    underlyingContext = selfCopy->_underlyingContext;
-    v10 = AppleIDAuthSupportCopyToken();
-    if (v10)
+    v9 = AppleIDAuthSupportCopyToken();
+    if (v9)
     {
-      v9 = AppleIDAuthSupportTokenCopyExternalizedVersion();
-      v5 = v9;
+      v8 = AppleIDAuthSupportTokenCopyExternalizedVersion();
+      v4 = v8;
       serverProvidedData = [(AKSRPContext *)selfCopy serverProvidedData];
-      v6 = [(NSDictionary *)serverProvidedData objectForKeyedSubscript:@"duration"];
-      v8 = [AKMasterToken tokenWithExternalizedVersion:v5 lifetime:?];
-      _objc_release(v6);
+      v5 = [(NSDictionary *)serverProvidedData objectForKeyedSubscript:@"duration"];
+      v7 = [AKMasterToken tokenWithExternalizedVersion:v4 lifetime:?];
+      _objc_release(v5);
       _objc_release(serverProvidedData);
-      CFRelease(v10);
-      v13 = _objc_retain(v8);
+      CFRelease(v9);
+      v12 = _objc_retain(v7);
+      objc_storeStrong(&v7, 0);
       objc_storeStrong(&v8, 0);
-      objc_storeStrong(&v9, 0);
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v3 = v13;
+  v2 = v12;
 
-  return v3;
+  return v2;
 }
 
 - (NSDictionary)status
 {
   if (self->_underlyingContext)
   {
-    underlyingContext = self->_underlyingContext;
-    v4 = AppleIDAuthSupportGetStatus();
+    v3 = AppleIDAuthSupportGetStatus();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 @end

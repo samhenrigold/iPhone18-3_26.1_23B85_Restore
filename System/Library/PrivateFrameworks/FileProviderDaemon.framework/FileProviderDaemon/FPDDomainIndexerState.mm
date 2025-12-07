@@ -1,6 +1,7 @@
 @interface FPDDomainIndexerState
 - (FPDDomainIndexerState)initWithSupportURL:(id)l;
 - (id)getFileRedonationRequests;
+- (void)addToFileRedonationRequests:(int)requests;
 - (void)archiveLastDropData;
 - (void)dumpStateTo:(id)to;
 - (void)loadPersistedState;
@@ -179,11 +180,10 @@
 
 - (void)archiveLastDropData
 {
-  v9 = *MEMORY[0x1E69E9840];
   fp_prettyDescription = [self fp_prettyDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't persist index drop reason, error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = fp_prettyDescription;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't persist index drop reason, error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)loadPersistedState
@@ -207,6 +207,24 @@
   [(FPDDomainIndexerState *)self setLastDropReason:reason];
   v5 = [MEMORY[0x1E695DF00] now];
   [(FPDDomainIndexerState *)self setLastDropDate:v5];
+
+  [(FPDDomainIndexerState *)self archiveLastDropData];
+}
+
+- (void)addToFileRedonationRequests:(int)requests
+{
+  v3 = *&requests;
+  fileRedonationRequests = self->_fileRedonationRequests;
+  if (!fileRedonationRequests)
+  {
+    v6 = [[FPDDailyTelemetryCounter alloc] initWithData:0];
+    v7 = self->_fileRedonationRequests;
+    self->_fileRedonationRequests = v6;
+
+    fileRedonationRequests = self->_fileRedonationRequests;
+  }
+
+  [(FPDDailyTelemetryCounter *)fileRedonationRequests addNow:v3];
 
   [(FPDDomainIndexerState *)self archiveLastDropData];
 }
@@ -263,7 +281,6 @@
 {
   if (self->_needsIndexing != indexing)
   {
-    needsIndexingURL = self->_needsIndexingURL;
     [FPDDomainIndexerState setBoolValue:"setBoolValue:atURL:" atURL:?];
     self->_needsIndexing = indexing;
   }
@@ -273,7 +290,6 @@
 {
   if (self->_droppedIndex != index)
   {
-    droppedIndexURL = self->_droppedIndexURL;
     [FPDDomainIndexerState setBoolValue:"setBoolValue:atURL:" atURL:?];
     self->_droppedIndex = index;
   }
@@ -283,7 +299,6 @@
 {
   if (self->_needsAuth != auth)
   {
-    needsAuthURL = self->_needsAuthURL;
     [FPDDomainIndexerState setBoolValue:"setBoolValue:atURL:" atURL:?];
     self->_needsAuth = auth;
   }
@@ -303,20 +318,18 @@
 
 - (void)unarchiveLastDropData:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't load index drop reason, error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't load index drop reason, error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)setBoolValue:(void *)a1 atURL:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't persist BOOL value, error: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] [Indexer] Can't persist BOOL value, error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

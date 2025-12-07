@@ -73,7 +73,7 @@
 
 - (void)enqueueEnableMonitoringAgentsWithGeneration:(int)generation completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   if (self->_generation != generation)
@@ -86,9 +86,9 @@
     }
 
     generation = self->_generation;
-    v22[0] = 67109376;
-    v22[1] = generation;
-    v23 = 1024;
+    v21[0] = 67109376;
+    v21[1] = generation;
+    v22 = 1024;
     generationCopy = generation;
     v15 = "Ignoring call to enable with non-current generation (current = %i, received = %i)";
     v16 = v12;
@@ -126,13 +126,13 @@
   v19 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v12, v19))
   {
-    LOWORD(v22[0]) = 0;
+    LOWORD(v21[0]) = 0;
     v15 = "Received more requests to start agents than to stop them. Ignoring request to start.";
     v16 = v12;
     v17 = v19;
     v18 = 2;
 LABEL_12:
-    _os_log_impl(&dword_248524000, v16, v17, v15, v22, v18);
+    _os_log_impl(&dword_248524000, v16, v17, v15, v21, v18);
   }
 
 LABEL_13:
@@ -145,8 +145,6 @@ LABEL_13:
   }
 
 LABEL_15:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -256,38 +254,36 @@ uint64_t __71__DADAgentStopStartController__enqueueBlockIfNotEnqueuedAndPendingW
 
 - (void)callBlocks:(id)blocks
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   blocksCopy = blocks;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [blocksCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [blocksCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(blocksCopy);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v8 + 1) + 8 * v7++) + 16))();
       }
 
       while (v5 != v7);
-      v5 = [blocksCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [blocksCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

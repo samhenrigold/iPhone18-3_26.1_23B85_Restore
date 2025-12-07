@@ -73,7 +73,7 @@
       v5 = equalCopy;
       WeakRetained = objc_loadWeakRetained(&v5->_delegate);
       v7 = objc_loadWeakRetained(&self->_delegate);
-      v8 = WeakRetained == v7 && vabdd_f64(v5->_expansionFactor, self->_expansionFactor) <= 2.22044605e-16 && vabdd_f64(v5->_horizontalExpansionFactor, self->_horizontalExpansionFactor) <= 2.22044605e-16 && vabdd_f64(v5->_stretchLimit, self->_stretchLimit) <= 2.22044605e-16 && v5->_minimumValueView == self->_minimumValueView && v5->_maximumValueView == self->_maximumValueView && [(UIVisualEffect *)v5->_minimumTrackEffect isEqual:self->_minimumTrackEffect]&& [(UIVisualEffect *)v5->_maximumTrackEffect isEqual:self->_maximumTrackEffect]&& v5->_disableAllSliderVisuals == self->_disableAllSliderVisuals && v5->_disableSliderRubberbandTransform == self->_disableSliderRubberbandTransform;
+      v8 = WeakRetained == v7 && vabdd_f64(v5->_expansionFactor, self->_expansionFactor) <= 2.22044605e-16 && vabdd_f64(v5->_horizontalExpansionFactor, self->_horizontalExpansionFactor) <= 2.22044605e-16 && vabdd_f64(v5->_stretchLimit, self->_stretchLimit) <= 2.22044605e-16 && v5->_minimumValueView == self->_minimumValueView && v5->_maximumValueView == self->_maximumValueView && objc_msgSend_isEqual_(v5->_minimumTrackEffect) && objc_msgSend_isEqual_(v5->_maximumTrackEffect) && v5->_disableAllSliderVisuals == self->_disableAllSliderVisuals && v5->_disableSliderRubberbandTransform == self->_disableSliderRubberbandTransform;
     }
 
     else

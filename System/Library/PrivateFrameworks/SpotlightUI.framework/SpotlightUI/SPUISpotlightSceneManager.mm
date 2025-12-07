@@ -14,7 +14,7 @@
 
 void __33__SPUISpotlightSceneManager_init__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.spotlightui"];
   v6 = [v5 BOOLForKey:@"SPUIPrewarmSpotlightDisabled"];
@@ -24,12 +24,12 @@ void __33__SPUISpotlightSceneManager_init__block_invoke(uint64_t a1, uint64_t a2
     goto LABEL_18;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v7 = [v4 elements];
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v8)
   {
 
@@ -38,30 +38,30 @@ void __33__SPUISpotlightSceneManager_init__block_invoke(uint64_t a1, uint64_t a2
 
   v9 = v8;
   obj = v7;
-  v24 = a1;
-  v25 = v4;
+  v23 = a1;
+  v24 = v4;
   v10 = 0;
   v11 = 0;
-  v26 = 0;
-  v12 = *v29;
+  v25 = 0;
+  v12 = *v28;
   v13 = *MEMORY[0x277D66F20];
   v14 = *MEMORY[0x277D0ABA0];
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v29 != v12)
+      if (*v28 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v28 + 1) + 8 * i);
+      v16 = *(*(&v27 + 1) + 8 * i);
       v17 = [v16 identifier];
       v18 = [v17 isEqualToString:v13];
 
       if (v18)
       {
-        v26 = 1;
+        v25 = 1;
         if (!v10)
         {
           goto LABEL_9;
@@ -87,21 +87,19 @@ LABEL_9:
       v10 = 1;
     }
 
-    v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v9);
 
-  v22 = v11 | ~v26 | v10;
-  v4 = v25;
-  if ((v22 & 1) == 0 && [v25 displayBacklightLevel] >= 1)
+  v22 = v11 | ~v25 | v10;
+  v4 = v24;
+  if ((v22 & 1) == 0 && [v24 displayBacklightLevel] >= 1)
   {
-    [*(v24 + 32) launchSpotlightIfNeededWithForegroundPriority:0];
+    [*(v23 + 32) launchSpotlightIfNeededWithForegroundPriority:0];
   }
 
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedManager
@@ -185,109 +183,97 @@ uint64_t __42__SPUISpotlightSceneManager_sharedManager__block_invoke()
 
 void __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke(uint64_t a1)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) spotlightProcessHandle];
-  if (!v2)
+  if (!v2 || (v4 = v2, [*(a1 + 32) spotlightProcessHandle], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "currentState"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isRunning"), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 32) spotlightProcessHandle];
-  v5 = [v4 currentState];
-  v6 = [v5 isRunning];
-
-  if ((v6 & 1) == 0)
-  {
-LABEL_3:
-    v7 = qword_280F8EFF0;
+    v8 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v7 = qword_280F8EFF0;
+      SPUIInitLogging(v2, v3);
+      v8 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26B824000, v7, OS_LOG_TYPE_DEFAULT, "Spotlight launch via runningboard", buf, 2u);
+      _os_log_impl(&dword_26B824000, v8, OS_LOG_TYPE_DEFAULT, "Spotlight launch via runningboard", buf, 2u);
     }
 
-    v8 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Spotlight"];
-    v9 = [MEMORY[0x277D46EB0] contextWithIdentity:v8];
-    [v9 setExplanation:@"Spotlight launch via runningboard"];
+    v9 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Spotlight"];
+    v10 = [MEMORY[0x277D46EB0] contextWithIdentity:v9];
+    [v10 setExplanation:@"Spotlight launch via runningboard"];
     if (*(a1 + 40) == 1)
     {
-      v10 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.spotlight" name:@"LaunchInForeground"];
-      v29[0] = v10;
-      v11 = v29;
+      v11 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.spotlight" name:@"LaunchInForeground"];
+      v32[0] = v11;
+      v12 = v32;
     }
 
     else
     {
-      v10 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.spotlight" name:@"LaunchInBackground"];
-      v28 = v10;
-      v11 = &v28;
+      v11 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.spotlight" name:@"LaunchInBackground"];
+      v31 = v11;
+      v12 = &v31;
     }
 
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-    [v9 setAttributes:v12];
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    [v10 setAttributes:v13];
 
-    v13 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v9];
-    v14 = v13;
-    if (v13)
+    v14 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v10];
+    v16 = v14;
+    if (v14)
     {
-      v25 = 0;
-      v26 = 0;
-      v24 = 0;
-      v15 = [v13 execute:&v26 assertion:&v25 error:&v24];
-      v16 = v26;
-      v17 = v25;
-      v18 = v24;
-      if ((v15 & 1) == 0)
+      v28 = 0;
+      v29 = 0;
+      v27 = 0;
+      v17 = [v14 execute:&v29 assertion:&v28 error:&v27];
+      v18 = v29;
+      v19 = v28;
+      v20 = v27;
+      v22 = v20;
+      if ((v17 & 1) == 0)
       {
-        v19 = qword_280F8EFF0;
+        v23 = qword_280F8EFF0;
         if (!qword_280F8EFF0)
         {
-          SPUIInitLogging();
-          v19 = qword_280F8EFF0;
+          SPUIInitLogging(v20, v21);
+          v23 = qword_280F8EFF0;
         }
 
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke_cold_1(v18, v19);
+          __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke_cold_1(v22, v23);
         }
       }
 
-      [*(a1 + 32) setSpotlightProcessHandle:v16];
-      v20 = [*(a1 + 32) initializationAssertions];
-      [v20 invalidate];
+      [*(a1 + 32) setSpotlightProcessHandle:v18];
+      v24 = [*(a1 + 32) initializationAssertions];
+      [v24 invalidate];
 
-      [*(a1 + 32) setInitializationAssertions:v17];
+      [*(a1 + 32) setInitializationAssertions:v19];
       if ((*(a1 + 40) & 1) == 0)
       {
-        v21 = [*(a1 + 32) delegate];
-        [v21 willLaunchSpotlightInBackground];
+        v25 = [*(a1 + 32) delegate];
+        [v25 willLaunchSpotlightInBackground];
       }
     }
 
     else
     {
-      v22 = qword_280F8EFF0;
+      v26 = qword_280F8EFF0;
       if (!qword_280F8EFF0)
       {
-        SPUIInitLogging();
-        v22 = qword_280F8EFF0;
+        SPUIInitLogging(0, v15);
+        v26 = qword_280F8EFF0;
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke_cold_2(v22);
+        __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke_cold_2(v26);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addScene:(id)scene
@@ -315,16 +301,16 @@ LABEL_3:
 
   if (v6)
   {
-    v7 = qword_280F8EFF0;
+    v9 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v7 = qword_280F8EFF0;
+      SPUIInitLogging(v7, v8);
+      v9 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(SPUISpotlightSceneManager *)v7 sceneWillForeground:foregroundCopy];
+      [(SPUISpotlightSceneManager *)v9 sceneWillForeground:foregroundCopy];
     }
 
     [(SPUIAppService *)self->_appService activate];
@@ -344,16 +330,16 @@ LABEL_3:
 
   if (v6)
   {
-    v7 = qword_280F8EFF0;
+    v9 = qword_280F8EFF0;
     if (!qword_280F8EFF0)
     {
-      SPUIInitLogging();
-      v7 = qword_280F8EFF0;
+      SPUIInitLogging(v7, v8);
+      v9 = qword_280F8EFF0;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(SPUISpotlightSceneManager *)v7 sceneWillBackground:backgroundCopy];
+      [(SPUISpotlightSceneManager *)v9 sceneWillBackground:backgroundCopy];
     }
 
     [(SPUIAppService *)self->_appService deactivate];
@@ -367,7 +353,7 @@ LABEL_3:
 
 - (void)spendMoreTimeReleasingMemory
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   backgroundingAssertions = [(SPUISpotlightSceneManager *)self backgroundingAssertions];
   [backgroundingAssertions invalidate];
 
@@ -379,35 +365,33 @@ LABEL_3:
     v6 = objc_alloc(MEMORY[0x277D46DB8]);
     v7 = [MEMORY[0x277D47008] targetWithProcessIdentity:identity];
     v8 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.spotlight" name:@"ReleaseMemory"];
-    v18[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v19[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v10 = [v6 initWithExplanation:@"spotlightMemoryBG" target:v7 attributes:v9];
     [(SPUISpotlightSceneManager *)self setBackgroundingAssertions:v10];
 
     backgroundingAssertions2 = [(SPUISpotlightSceneManager *)self backgroundingAssertions];
-    v15 = 0;
-    [backgroundingAssertions2 acquireWithError:&v15];
-    v12 = v15;
+    v16 = 0;
+    [backgroundingAssertions2 acquireWithError:&v16];
+    v12 = v16;
 
     if (v12)
     {
-      v13 = qword_280F8EFF0;
+      v15 = qword_280F8EFF0;
       if (!qword_280F8EFF0)
       {
-        SPUIInitLogging();
-        v13 = qword_280F8EFF0;
+        SPUIInitLogging(v13, v14);
+        v15 = qword_280F8EFF0;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = v12;
-        _os_log_impl(&dword_26B824000, v13, OS_LOG_TYPE_DEFAULT, "Failed to acquire background assertion with error %@", buf, 0xCu);
+        v18 = v12;
+        _os_log_impl(&dword_26B824000, v15, OS_LOG_TYPE_DEFAULT, "Failed to acquire background assertion with error %@", buf, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (SPUISpotlightSceneManagerDelegate)delegate
@@ -419,31 +403,28 @@ LABEL_3:
 
 void __75__SPUISpotlightSceneManager_launchSpotlightIfNeededWithForegroundPriority___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B824000, a2, OS_LOG_TYPE_ERROR, "Spotlight launch failed because of error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B824000, a2, OS_LOG_TYPE_ERROR, "Spotlight launch failed because of error: %@", &v2, 0xCu);
 }
 
 - (void)sceneWillForeground:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_0_0(&dword_26B824000, v5, v6, "Activate for %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_26B824000, v5, v6, "Activate for %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)sceneWillBackground:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_0_0(&dword_26B824000, v5, v6, "Deactivate for %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_26B824000, v5, v6, "Deactivate for %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

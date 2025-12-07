@@ -49,7 +49,7 @@
 
 - (void)_queue_setLocation:(id)location
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v6 = RELogForDomain(5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -93,8 +93,6 @@
     block[4] = self;
     dispatch_after(v14, queue, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__REPipedLocationReceiver__queue_setLocation___block_invoke(uint64_t a1, void *a2)
@@ -107,10 +105,10 @@ void __46__REPipedLocationReceiver__queue_setLocation___block_invoke(uint64_t a1
   }
 }
 
-uint64_t __46__REPipedLocationReceiver__queue_setLocation___block_invoke_5(uint64_t result)
+void *__46__REPipedLocationReceiver__queue_setLocation___block_invoke_5(void *result)
 {
-  --*(*(result + 32) + 24);
-  v1 = *(result + 32);
+  --*(result[4] + 24);
+  v1 = result[4];
   if (*(v1 + 24) <= 0 && *(v1 + 8))
   {
     v2 = result;
@@ -121,7 +119,7 @@ uint64_t __46__REPipedLocationReceiver__queue_setLocation___block_invoke_5(uint6
       _os_log_impl(&dword_22859F000, v3, OS_LOG_TYPE_INFO, "Closing out REPipedLocationReceiver connection", v4, 2u);
     }
 
-    return [*(*(v2 + 32) + 8) invalidate];
+    return [*(v2[4] + 8) invalidate];
   }
 
   return result;
@@ -156,32 +154,32 @@ uint64_t __46__REPipedLocationReceiver__queue_setLocation___block_invoke_5(uint6
   self->_connection = v3;
 
   v5 = self->_connection;
-  v6 = REPipedLocationReceiverInterface();
-  [(NSXPCConnection *)v5 setRemoteObjectInterface:v6];
+  v7 = REPipedLocationReceiverInterface(v6);
+  [(NSXPCConnection *)v5 setRemoteObjectInterface:v7];
 
-  v7 = self->_connection;
-  v8 = REPipedLocationDonorInterface();
-  [(NSXPCConnection *)v7 setExportedInterface:v8];
+  v8 = self->_connection;
+  v10 = REPipedLocationDonorInterface(v9);
+  [(NSXPCConnection *)v8 setExportedInterface:v10];
 
   [(NSXPCConnection *)self->_connection setExportedObject:self];
   objc_initWeak(&location, self);
-  v9 = self->_connection;
+  v11 = self->_connection;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __49__REPipedLocationReceiver__queue_setupConnection__block_invoke;
+  v15[3] = &unk_2785F9A90;
+  objc_copyWeak(&v16, &location);
+  [(NSXPCConnection *)v11 setInterruptionHandler:v15];
+  v12 = self->_connection;
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
-  v13[2] = __49__REPipedLocationReceiver__queue_setupConnection__block_invoke;
+  v13[2] = __49__REPipedLocationReceiver__queue_setupConnection__block_invoke_2;
   v13[3] = &unk_2785F9A90;
   objc_copyWeak(&v14, &location);
-  [(NSXPCConnection *)v9 setInterruptionHandler:v13];
-  v10 = self->_connection;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __49__REPipedLocationReceiver__queue_setupConnection__block_invoke_2;
-  v11[3] = &unk_2785F9A90;
-  objc_copyWeak(&v12, &location);
-  [(NSXPCConnection *)v10 setInvalidationHandler:v11];
+  [(NSXPCConnection *)v12 setInvalidationHandler:v13];
   [(NSXPCConnection *)self->_connection resume];
-  objc_destroyWeak(&v12);
   objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 }
 
@@ -241,13 +239,11 @@ void __49__REPipedLocationReceiver__queue_setupConnection__block_invoke_2(uint64
 
 void __46__REPipedLocationReceiver__queue_setLocation___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 136315138;
-  v6 = [v3 UTF8String];
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Failed to get REPipedLocationReceiver proxy: %s", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315138;
+  v5 = [v3 UTF8String];
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Failed to get REPipedLocationReceiver proxy: %s", &v4, 0xCu);
 }
 
 @end

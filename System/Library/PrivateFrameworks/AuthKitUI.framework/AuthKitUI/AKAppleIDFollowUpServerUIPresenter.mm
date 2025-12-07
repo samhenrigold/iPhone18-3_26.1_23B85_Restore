@@ -71,7 +71,6 @@
   [(AKAppleIDFollowUpServerUIPresenter *)selfCopy _presentServerUIWithCompletion:v9, v6];
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)presentServerUIWithContext:(id)context withCompletion:(id)completion withResponse:(id)response
@@ -206,7 +205,6 @@
 
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__AKAppleIDFollowUpServerUIPresenter__presentServerUIWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -272,7 +270,6 @@ void __69__AKAppleIDFollowUpServerUIPresenter__presentServerUIWithCompletion___b
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_authContextWithAltDSID:(id)d account:(id)account
@@ -370,7 +367,6 @@ void __69__AKAppleIDFollowUpServerUIPresenter__presentServerUIWithCompletion___b
   [(AKAppleIDAuthenticationController *)v7 getServerUILoadDelegateWithContext:v6 completion:&v9];
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__AKAppleIDFollowUpServerUIPresenter__prepareServerUIContext__block_invoke(id *a1, void *a2, void *a3)
@@ -508,7 +504,6 @@ void __61__AKAppleIDFollowUpServerUIPresenter__prepareServerUIContext__block_inv
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&mEMORY[0x277CF0130], 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __73__AKAppleIDFollowUpServerUIPresenter__signRequestAndPrepareServerConfig___block_invoke(id *a1, void *a2, void *a3, void *a4)
@@ -614,7 +609,6 @@ void __73__AKAppleIDFollowUpServerUIPresenter__signRequestAndPrepareServerConfig
   [(AKAppleIDAuthenticationInAppContext *)authContext presentServerProvidedUIWithConfiguration:v3 completion:&v11];
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __72__AKAppleIDFollowUpServerUIPresenter__presentServerUIWithConfiguration___block_invoke(id *a1, void *a2, void *a3, void *a4)
@@ -723,7 +717,6 @@ void __72__AKAppleIDFollowUpServerUIPresenter__presentServerUIWithConfiguration_
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __115__AKAppleIDFollowUpServerUIPresenter_acknowledgeActionTakenOnFollowUpWithIdentifier_withAdditionalData_completion___block_invoke(NSObject *a1, char a2, id obj)
@@ -759,7 +752,6 @@ void __115__AKAppleIDFollowUpServerUIPresenter_acknowledgeActionTakenOnFollowUpW
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)signAdditionalHeadersWithRequest:(id)request
@@ -808,7 +800,6 @@ void __115__AKAppleIDFollowUpServerUIPresenter_acknowledgeActionTakenOnFollowUpW
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSignWithIDMSAppleIDHeader
@@ -919,7 +910,6 @@ void __115__AKAppleIDFollowUpServerUIPresenter_acknowledgeActionTakenOnFollowUpW
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v30, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -988,7 +978,6 @@ uint64_t __63__AKAppleIDFollowUpServerUIPresenter__fetchCurrentFollowUpItem__blo
   (*(v15 + 2))(v15, location[0]);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_performClientCompletionWithSuccess:(BOOL)success error:(id)error
@@ -1354,7 +1343,6 @@ void __93__AKAppleIDFollowUpServerUIPresenter__performAuthKitActionWithResponse_
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

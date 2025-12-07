@@ -9,7 +9,7 @@
 
 + (id)createWithCodableConcept:()HDSyncSupport profile:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (![v6 isMemberOfClass:objc_opt_class()])
@@ -69,9 +69,9 @@
     v20 = MEMORY[0x277CCAAC8];
     v21 = objc_opt_class();
     linksData2 = [v6 linksData];
-    v56 = 0;
-    v23 = [v20 unarchivedObjectOfClass:v21 fromData:linksData2 error:&v56];
-    v24 = v56;
+    v55 = 0;
+    v23 = [v20 unarchivedObjectOfClass:v21 fromData:linksData2 error:&v55];
+    v24 = v55;
 
     if (v23)
     {
@@ -193,15 +193,14 @@ LABEL_19:
 LABEL_34:
 
 LABEL_35:
-  v54 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (HDCodableUserDomainConcept)codableRepresentationForSyncWithProfile:()HDSyncSupport
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v41 = a3;
+  v59 = *MEMORY[0x277D85DE8];
+  v40 = a3;
   v4 = objc_alloc_init(HDCodableUserDomainConcept);
   uUID = [self UUID];
   hk_dataForUUIDBytes = [uUID hk_dataForUUIDBytes];
@@ -216,12 +215,12 @@ LABEL_35:
   [(HDCodableUserDomainConcept *)v4 setCreationDate:?];
   [self modificationTimestamp];
   [(HDCodableUserDomainConcept *)v4 setModificationDate:?];
-  [self operatingSystemVersion];
-  [(HDCodableUserDomainConcept *)v4 setMajorVersion:v56];
-  [self operatingSystemVersion];
-  [(HDCodableUserDomainConcept *)v4 setMinorVersion:v55];
-  [self operatingSystemVersion];
-  [(HDCodableUserDomainConcept *)v4 setPatchVersion:v54];
+  objc_msgSend_operatingSystemVersion(self);
+  [(HDCodableUserDomainConcept *)v4 setMajorVersion:v55[0]];
+  objc_msgSend_operatingSystemVersion(self);
+  [(HDCodableUserDomainConcept *)v4 setMinorVersion:v54];
+  objc_msgSend_operatingSystemVersion(self);
+  [(HDCodableUserDomainConcept *)v4 setPatchVersion:v53];
   build = [self build];
   [(HDCodableUserDomainConcept *)v4 setBuild:build];
 
@@ -235,85 +234,85 @@ LABEL_35:
     [(HDCodableUserDomainConcept *)v4 setLinksData:v13];
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   linkCollection3 = [self linkCollection];
-  v15 = [linkCollection3 countByEnumeratingWithState:&v50 objects:v59 count:16];
+  v15 = [linkCollection3 countByEnumeratingWithState:&v49 objects:v58 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v51;
+    v17 = *v50;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v51 != v17)
+        if (*v50 != v17)
         {
           objc_enumerationMutation(linkCollection3);
         }
 
-        codableRepresentationForSync2 = [*(*(&v50 + 1) + 8 * i) codableRepresentationForSync];
+        codableRepresentationForSync2 = [*(*(&v49 + 1) + 8 * i) codableRepresentationForSync];
         [(HDCodableUserDomainConcept *)v4 addLinks:codableRepresentationForSync2];
       }
 
-      v16 = [linkCollection3 countByEnumeratingWithState:&v50 objects:v59 count:16];
+      v16 = [linkCollection3 countByEnumeratingWithState:&v49 objects:v58 count:16];
     }
 
     while (v16);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   codingCollection = [self codingCollection];
-  v21 = [codingCollection countByEnumeratingWithState:&v46 objects:v58 count:16];
+  v21 = [codingCollection countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v47;
+    v23 = *v46;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v47 != v23)
+        if (*v46 != v23)
         {
           objc_enumerationMutation(codingCollection);
         }
 
-        codableRepresentationForSync3 = [*(*(&v46 + 1) + 8 * j) codableRepresentationForSync];
+        codableRepresentationForSync3 = [*(*(&v45 + 1) + 8 * j) codableRepresentationForSync];
         [(HDCodableUserDomainConcept *)v4 addCodings:codableRepresentationForSync3];
       }
 
-      v22 = [codingCollection countByEnumeratingWithState:&v46 objects:v58 count:16];
+      v22 = [codingCollection countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v22);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   selfCopy = self;
   propertyCollection = [self propertyCollection];
-  v27 = [propertyCollection countByEnumeratingWithState:&v42 objects:v57 count:16];
+  v27 = [propertyCollection countByEnumeratingWithState:&v41 objects:v56 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v43;
+    v29 = *v42;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v43 != v29)
+        if (*v42 != v29)
         {
           objc_enumerationMutation(propertyCollection);
         }
 
-        v31 = *(*(&v42 + 1) + 8 * k);
+        v31 = *(*(&v41 + 1) + 8 * k);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -354,13 +353,13 @@ LABEL_35:
         }
       }
 
-      v28 = [propertyCollection countByEnumeratingWithState:&v42 objects:v57 count:16];
+      v28 = [propertyCollection countByEnumeratingWithState:&v41 objects:v56 count:16];
     }
 
     while (v28);
   }
 
-  syncIdentityManager = [v41 syncIdentityManager];
+  syncIdentityManager = [v40 syncIdentityManager];
   currentSyncIdentity = [syncIdentityManager currentSyncIdentity];
 
   identity = [currentSyncIdentity identity];
@@ -372,8 +371,6 @@ LABEL_35:
     codableSubclassData = [selfCopy codableSubclassData];
     [(HDCodableUserDomainConcept *)v4 setTypeData:codableSubclassData];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

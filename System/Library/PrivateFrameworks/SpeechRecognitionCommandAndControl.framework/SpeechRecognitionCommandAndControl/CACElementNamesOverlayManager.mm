@@ -104,7 +104,7 @@ CACElementNamesOverlayViewController *__54__CACElementNamesOverlayManager_showNa
   }
 }
 
-uint64_t __61__CACElementNamesOverlayManager_startDelayedDimmingOfNumbers__block_invoke(uint64_t a1)
+void *__61__CACElementNamesOverlayManager_startDelayedDimmingOfNumbers__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) activeDimmingTransactionID];
   result = [*(a1 + 32) pendingDimmingTransactionID];

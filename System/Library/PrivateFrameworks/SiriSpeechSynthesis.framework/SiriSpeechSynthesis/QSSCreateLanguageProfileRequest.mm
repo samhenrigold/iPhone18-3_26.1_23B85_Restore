@@ -42,7 +42,7 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
 
 - (Offset<siri::speech::schema_fb::CreateLanguageProfileRequest>)addObjectToBuffer:(void *)buffer
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSCreateLanguageProfileRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -63,7 +63,7 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v30 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v28 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   language = [(QSSCreateLanguageProfileRequest *)self language];
   v14 = language;
@@ -74,7 +74,7 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
 
   uTF8String3 = [(__CFString *)language UTF8String];
   v16 = strlen(uTF8String3);
-  v29 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  v27 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   user_data = [(QSSCreateLanguageProfileRequest *)self user_data];
   v18 = [user_data count];
@@ -88,16 +88,11 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  memset(v31, 0, sizeof(v31));
   obj = [(QSSCreateLanguageProfileRequest *)self user_data];
-  if ([obj countByEnumeratingWithState:&v33 objects:v37 count:16])
+  if ([obj countByEnumeratingWithState:v31 objects:v32 count:16])
   {
-    *v34;
-    *v34;
-    [**(&v33 + 1) addObjectToBuffer:buffer];
+    [**(&v31[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
@@ -112,8 +107,8 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
   v23 = *(buffer + 12);
   v24 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v30);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v29);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v28);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 8, v27);
   if (v19)
   {
     v25 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v19);
@@ -121,9 +116,7 @@ flatbuffers::DetachedBuffer *__47__QSSCreateLanguageProfileRequest_flatbuffData_
   }
 
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v21);
-  v26.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v22 - v23 + v24);
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  return flatbuffers::FlatBufferBuilder::EndTable(buffer, v22 - v23 + v24);
 }
 
 - (QSSUserLanguageProfile)user_language_profile

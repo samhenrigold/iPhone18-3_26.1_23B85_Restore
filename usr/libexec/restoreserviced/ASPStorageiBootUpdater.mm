@@ -1,5 +1,6 @@
 @interface ASPStorageiBootUpdater
 + (id)IOMatchingPropertyTable;
+- (ASPStorageiBootUpdater)initWithIOService:(unsigned int)service;
 - (BOOL)updateBootFirmwareWithError:(id *)error;
 - (void)dealloc;
 @end
@@ -11,6 +12,37 @@
   v3 = @"IOProviderClass";
   v4 = @"ASPStorage";
   return [NSDictionary dictionaryWithObjects:&v4 forKeys:&v3 count:1];
+}
+
+- (ASPStorageiBootUpdater)initWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  v8.receiver = self;
+  v8.super_class = ASPStorageiBootUpdater;
+  v4 = [(MSUBootFirmwareUpdater *)&v8 initWithIOService:?];
+  if (v4)
+  {
+    v4->_llbWriter = [[DevNodeWriter alloc] initWithServiceNamed:@"EmbeddedDeviceTypeLLBFirmware" parent:v3];
+    v5 = [[DevNodeWriter alloc] initWithServiceNamed:@"EmbeddedDeviceTypeFirmware" parent:v3];
+    v4->_firmwareWriter = v5;
+    if (v4->_llbWriter)
+    {
+      v6 = v5 == 0;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    if (v6)
+    {
+
+      return 0;
+    }
+  }
+
+  return v4;
 }
 
 - (BOOL)updateBootFirmwareWithError:(id *)error

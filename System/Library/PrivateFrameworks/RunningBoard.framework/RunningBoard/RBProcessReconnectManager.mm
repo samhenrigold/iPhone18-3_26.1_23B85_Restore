@@ -52,32 +52,30 @@
 
 - (void)reconnectProcesses:(id)processes
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   processesCopy = processes;
   v5 = rbs_process_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349056;
-    v10 = [processesCopy count];
+    v9 = [processesCopy count];
     _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_DEFAULT, "Reconnecting to %{public}lu processes", buf, 0xCu);
   }
 
   assertionOriginatorPidStore = [(RBDaemonContextProviding *)self->_daemonContext assertionOriginatorPidStore];
   [assertionOriginatorPidStore setValidProcesses:processesCopy];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__RBProcessReconnectManager_reconnectProcesses___block_invoke;
-  v8[3] = &unk_279B33A18;
-  v8[4] = self;
-  [processesCopy enumerateObjectsUsingBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __48__RBProcessReconnectManager_reconnectProcesses___block_invoke;
+  v7[3] = &unk_279B33A18;
+  v7[4] = self;
+  [processesCopy enumerateObjectsUsingBlock:v7];
 }
 
 void __48__RBProcessReconnectManager_reconnectProcesses___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 8) assertionOriginatorPidStore];
   v5 = [v4 isValid];
@@ -103,13 +101,12 @@ LABEL_8:
   v10 = rbs_process_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = v3;
-    _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_DEFAULT, "Pid store does not include process: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v3;
+    _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_DEFAULT, "Pid store does not include process: %{public}@", &v11, 0xCu);
   }
 
 LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didInvalidateAssertion:(id)assertion
@@ -128,18 +125,18 @@ LABEL_6:
 
 void __52__RBProcessReconnectManager_didInvalidateAssertion___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 48));
   v2 = [*(a1 + 40) identifier];
   if ([*(*(a1 + 32) + 24) containsObject:v2])
   {
-    v4 = rbs_assertion_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = rbs_assertion_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Invalidated assertion %{public}@ for reconnected process", &v6, 0xCu);
+      v4 = *(a1 + 40);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Invalidated assertion %{public}@ for reconnected process", &v5, 0xCu);
     }
 
     [*(*(a1 + 32) + 24) removeObject:v2];
@@ -151,13 +148,11 @@ void __52__RBProcessReconnectManager_didInvalidateAssertion___block_invoke(uint6
   {
     os_unfair_lock_unlock((*(a1 + 32) + 48));
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 40));
   v4 = rbs_assertion_log();
@@ -178,20 +173,18 @@ void __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke(
     {
       v6 = *(a1 + 48);
       v7 = *(a1 + 40);
-      v9[0] = 67109634;
-      v9[1] = v6;
-      v10 = 2114;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v7;
-      _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_INFO, "Acquired assertion for reconnected process %d with identifier %{public}@ replacing temporary identifier %{public}@", v9, 0x1Cu);
+      v8[0] = 67109634;
+      v8[1] = v6;
+      v9 = 2114;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v7;
+      _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_INFO, "Acquired assertion for reconnected process %d with identifier %{public}@ replacing temporary identifier %{public}@", v8, 0x1Cu);
     }
 
     [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
     [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)debugDescription
@@ -218,10 +211,7 @@ void __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke(
 
 uint64_t __45__RBProcessReconnectManager_debugDescription__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"<ReconnectManager:%d pending>", objc_msgSend(*(*(a1 + 32) + 32), "count")];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CCACA8] stringWithFormat:@"<ReconnectManager:%d pending>", objc_msgSend(*(*(a1 + 32) + 32), "count")];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -235,100 +225,96 @@ uint64_t __45__RBProcessReconnectManager_debugDescription__block_invoke(uint64_t
     [*(process + 32) addObject:v3];
 
     os_unfair_lock_unlock((process + 48));
-    v4 = *(process + 40);
     OUTLINED_FUNCTION_0_1();
-    v7 = 3221225472;
-    v8 = __47__RBProcessReconnectManager__reconnectProcess___block_invoke;
-    v9 = &unk_279B32CB0;
+    v6 = 3221225472;
+    v7 = __47__RBProcessReconnectManager__reconnectProcess___block_invoke;
+    v8 = &unk_279B32CB0;
     processCopy = process;
-    dispatch_async(v5, block);
+    dispatch_async(v4, block);
   }
 }
 
 - (void)_lockQueue_resumeNextProcess
 {
-  v30 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v28 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_10:
-    v6 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  dispatch_assert_queue_V2(*(self + 40));
-  os_unfair_lock_lock((self + 48));
-  if ([*(self + 24) count] != 4)
-  {
-    anyObject = [*(self + 32) anyObject];
-    v4 = anyObject;
-    if (anyObject)
+    dispatch_assert_queue_V2(*(self + 40));
+    os_unfair_lock_lock((self + 48));
+    if ([*(self + 24) count] == 4)
     {
-      handle = [anyObject handle];
-      v8 = [handle pid];
 
-      v9 = rbs_process_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = [*(self + 32) count];
-        v11 = [*(self + 24) count];
-        *buf = 67109888;
-        *v25 = v8;
-        *&v25[4] = 2048;
-        *&v25[6] = v10;
-        v26 = 2048;
-        v27 = v11;
-        v28 = 2048;
-        v29 = 4;
-        _os_log_impl(&dword_262485000, v9, OS_LOG_TYPE_DEFAULT, "Preparing to reconnect to process %d; %lu left in the queue; %lu of %lu in flight", buf, 0x26u);
-      }
-
-      [*(self + 32) removeObject:v4];
-      v5 = [(RBProcessReconnectManager *)self _assertionDescriptorForProcess:v4];
-      identifier = [v5 identifier];
-      [*(self + 24) addObject:identifier];
-      v13 = rbs_assertion_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        *buf = 138543874;
-        *v25 = identifier;
-        *&v25[8] = 1024;
-        *&v25[10] = v8;
-        v26 = 2048;
-        v27 = 0x4000000000000000;
-        _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_INFO, "Acquiring assertion with temporary identifier %{public}@ for reconnected process %d for %fs", buf, 0x1Cu);
-      }
-
-      v14 = [RBAssertionAcquisitionContext contextForProcess:*(self + 16) withDescriptor:v5 daemonContext:*(self + 8)];
-      [v14 setAcquisitionPolicy:0];
-      assertionManager = [*(self + 8) assertionManager];
-      OUTLINED_FUNCTION_0_1();
-      v18 = 3221225472;
-      v19 = __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke;
-      v20 = &unk_279B33A40;
-      v23 = v8;
-      selfCopy = self;
-      v22 = identifier;
-      v16 = identifier;
-      [assertionManager acquireAssertionWithContext:v14 completion:v17];
+      os_unfair_lock_unlock((self + 48));
     }
 
     else
     {
-      v5 = rbs_process_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      anyObject = [*(self + 32) anyObject];
+      v3 = anyObject;
+      if (anyObject)
       {
-        *buf = 0;
-        _os_log_impl(&dword_262485000, v5, OS_LOG_TYPE_DEFAULT, "Reconnect queue is empty; reconnect done", buf, 2u);
+        handle = [anyObject handle];
+        v6 = [handle pid];
+
+        v7 = rbs_process_log();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          v8 = [*(self + 32) count];
+          v9 = [*(self + 24) count];
+          *buf = 67109888;
+          *v23 = v6;
+          *&v23[4] = 2048;
+          *&v23[6] = v8;
+          v24 = 2048;
+          v25 = v9;
+          v26 = 2048;
+          v27 = 4;
+          _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to reconnect to process %d; %lu left in the queue; %lu of %lu in flight", buf, 0x26u);
+        }
+
+        [*(self + 32) removeObject:v3];
+        v4 = [(RBProcessReconnectManager *)self _assertionDescriptorForProcess:v3];
+        identifier = [v4 identifier];
+        [*(self + 24) addObject:identifier];
+        v11 = rbs_assertion_log();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543874;
+          *v23 = identifier;
+          *&v23[8] = 1024;
+          *&v23[10] = v6;
+          v24 = 2048;
+          v25 = 0x4000000000000000;
+          _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_INFO, "Acquiring assertion with temporary identifier %{public}@ for reconnected process %d for %fs", buf, 0x1Cu);
+        }
+
+        v12 = [RBAssertionAcquisitionContext contextForProcess:*(self + 16) withDescriptor:v4 daemonContext:*(self + 8)];
+        [v12 setAcquisitionPolicy:0];
+        assertionManager = [*(self + 8) assertionManager];
+        OUTLINED_FUNCTION_0_1();
+        v16 = 3221225472;
+        v17 = __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke;
+        v18 = &unk_279B33A40;
+        v21 = v6;
+        selfCopy = self;
+        v20 = identifier;
+        v14 = identifier;
+        [assertionManager acquireAssertionWithContext:v12 completion:v15];
       }
+
+      else
+      {
+        v4 = rbs_process_log();
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Reconnect queue is empty; reconnect done", buf, 2u);
+        }
+      }
+
+      os_unfair_lock_unlock((self + 48));
     }
-
-    os_unfair_lock_unlock((self + 48));
-    goto LABEL_10;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-
-  os_unfair_lock_unlock((self + 48));
 }
 
 - (id)_assertionDescriptorForProcess:(id)process
@@ -353,7 +339,7 @@ LABEL_10:
 
 - (id)_assertionAttributes
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     domainAttributeManager = [*(self + 8) domainAttributeManager];
@@ -365,30 +351,30 @@ LABEL_10:
     {
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Using domain attribute for reconnect", v11, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_262485000, v4, OS_LOG_TYPE_DEFAULT, "Using domain attribute for reconnect", v10, 2u);
       }
 
       grantWithUserInteractivity = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.coreos" name:@"reconnect"];
-      v13[0] = grantWithUserInteractivity;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      v12[0] = grantWithUserInteractivity;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     }
 
     else
     {
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 0;
-        _os_log_error_impl(&dword_262485000, v4, OS_LOG_TYPE_ERROR, "Missing domain attribute for reconnect", v11, 2u);
+        *v10 = 0;
+        _os_log_error_impl(&dword_262485000, v4, OS_LOG_TYPE_ERROR, "Missing domain attribute for reconnect", v10, 2u);
       }
 
       grantWithUserInteractivity = [MEMORY[0x277D46DF0] grantWithUserInteractivity];
-      v12[0] = grantWithUserInteractivity;
+      v11[0] = grantWithUserInteractivity;
       grantWithBackgroundPriority = [MEMORY[0x277D46EA8] grantWithBackgroundPriority];
-      v12[1] = grantWithBackgroundPriority;
+      v11[1] = grantWithBackgroundPriority;
       v8 = [MEMORY[0x277D46E48] attributeWithDuration:1 warningDuration:1 startPolicy:2.0 endPolicy:0.0];
-      v12[2] = v8;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+      v11[2] = v8;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
     }
   }
 
@@ -397,24 +383,21 @@ LABEL_10:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 void __57__RBProcessReconnectManager__lockQueue_resumeNextProcess__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v6 = 138543874;
-  v7 = v3;
-  v8 = 1024;
-  v9 = v4;
-  v10 = 2114;
-  v11 = a2;
-  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Error acquiring reconnection assertion with temporary identifier %{public}@ for process %d: <%{public}@>", &v6, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543874;
+  v6 = v3;
+  v7 = 1024;
+  v8 = v4;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Error acquiring reconnection assertion with temporary identifier %{public}@ for process %d: <%{public}@>", &v5, 0x1Cu);
 }
 
 @end

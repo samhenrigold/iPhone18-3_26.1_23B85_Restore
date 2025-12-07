@@ -61,44 +61,42 @@
 void __67__NPKAssertionController_createAssertionForOwnerObject_withReason___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = (*(*(*(a1 + 32) + 8) + 16))();
-  if (v3)
+  v2 = (*(*(*(a1 + 32) + 8) + 16))();
+  if (v2)
   {
-    v4 = [[NPKAssertionWrapper alloc] initWithAssertion:v3 invalidator:*(*(a1 + 32) + 16)];
-    [*(a1 + 32) _inQueue_releaseAssertionWithOwner:*(a1 + 48)];
-    v5 = pk_General_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v3 = [[NPKAssertionWrapper alloc] initWithAssertion:v2 invalidator:*(*(a1 + 32) + 16)];
+    v4 = pk_General_log([*(a1 + 32) _inQueue_releaseAssertionWithOwner:*(a1 + 48)]);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v5)
     {
-      v7 = pk_General_log();
+      v7 = pk_General_log(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 48);
         v14 = 138412546;
-        v15 = v4;
+        v15 = v3;
         v16 = 2112;
         v17 = v8;
         _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Obtained assertion:%@ for Owner:%@", &v14, 0x16u);
       }
     }
 
-    [*(*(a1 + 32) + 24) setObject:v4 forKey:*(a1 + 48)];
+    [*(*(a1 + 32) + 24) setObject:v3 forKey:*(a1 + 48)];
   }
 
   else
   {
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v9 = pk_General_log(0);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-    if (!v11)
+    if (!v10)
     {
       goto LABEL_8;
     }
 
-    v4 = pk_General_log();
-    if (os_log_type_enabled(&v4->super, OS_LOG_TYPE_ERROR))
+    v3 = pk_General_log(v11);
+    if (os_log_type_enabled(&v3->super, OS_LOG_TYPE_ERROR))
     {
       v13 = *(a1 + 40);
       v12 = *(a1 + 48);
@@ -106,12 +104,11 @@ void __67__NPKAssertionController_createAssertionForOwnerObject_withReason___blo
       v15 = v12;
       v16 = 2112;
       v17 = v13;
-      _os_log_impl(&dword_25B300000, &v4->super, OS_LOG_TYPE_ERROR, "Error: Attempted to create assertion for %@ with reason: %@, but received nil.", &v14, 0x16u);
+      _os_log_impl(&dword_25B300000, &v3->super, OS_LOG_TYPE_ERROR, "Error: Attempted to create assertion for %@ with reason: %@, but received nil.", &v14, 0x16u);
     }
   }
 
 LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseAssertionFromOwnerObject:(id)object
@@ -130,65 +127,64 @@ LABEL_8:
 
 - (void)_releaseAssertionFromOwnerObject:(id)object withDelay:(double)delay completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   completionCopy = completion;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__16;
-  v31 = __Block_byref_object_dispose__16;
-  v32 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__16;
+  v32 = __Block_byref_object_dispose__16;
+  v33 = 0;
   semaphoreQueue = self->_semaphoreQueue;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke;
-  v24[3] = &unk_279946940;
-  v26 = &v27;
-  v24[4] = self;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke;
+  v25[3] = &unk_279946940;
+  v27 = &v28;
+  v25[4] = self;
   v11 = objectCopy;
-  v25 = v11;
-  [(NPKSemaphoreQueue *)semaphoreQueue dispatchSync:v24];
-  if (v28[5])
+  v26 = v11;
+  v12 = [(NPKSemaphoreQueue *)semaphoreQueue dispatchSync:v25];
+  if (v29[5])
   {
-    v12 = pk_General_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = pk_General_log(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = pk_General_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_General_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = v28[5];
+        v17 = v29[5];
         *buf = 138412802;
-        v34 = v15;
-        v35 = 2112;
-        v36 = v11;
-        v37 = 2048;
+        v35 = v17;
+        v36 = 2112;
+        v37 = v11;
+        v38 = 2048;
         delayCopy = delay;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Scheduled to invalidate assertion:%@ for owner:%@ with delay:%f", buf, 0x20u);
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Scheduled to invalidate assertion:%@ for owner:%@ with delay:%f", buf, 0x20u);
       }
     }
 
     objc_initWeak(buf, self);
-    v16 = dispatch_time(0, (delay * 1000000000.0));
+    v18 = dispatch_time(0, (delay * 1000000000.0));
     internalQueue = self->_internalQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke_59;
     block[3] = &unk_279948E20;
-    objc_copyWeak(&v23, buf);
-    v20 = v11;
-    v22 = &v27;
-    v21 = completionCopy;
-    dispatch_after(v16, internalQueue, block);
+    objc_copyWeak(&v24, buf);
+    v21 = v11;
+    v23 = &v28;
+    v22 = completionCopy;
+    dispatch_after(v18, internalQueue, block);
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 }
 
 void __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke(void *a1)
@@ -201,82 +197,82 @@ void __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_com
 
 void __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke_59(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained[5];
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke_2;
-  v16 = &unk_2799454E0;
-  v17 = WeakRetained;
-  v18 = *(a1 + 32);
-  [v3 dispatchSync:&v13];
-  v4 = [*(*(*(a1 + 48) + 8) + 40) invalidateAssertionExpected:{1, v13, v14, v15, v16, v17}];
-  v5 = pk_General_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __80__NPKAssertionController__releaseAssertionFromOwnerObject_withDelay_completion___block_invoke_2;
+  v17 = &unk_2799454E0;
+  v18 = WeakRetained;
+  v19 = *(a1 + 32);
+  [v3 dispatchSync:&v14];
+  v4 = [*(*(*(a1 + 48) + 8) + 40) invalidateAssertionExpected:{1, v14, v15, v16, v17, v18}];
+  v5 = v4;
+  v6 = pk_General_log(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = pk_General_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_General_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(*(*(a1 + 48) + 8) + 40);
+        v10 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412290;
-        v20 = v8;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Invalidated assertion:%@", buf, 0xCu);
+        v21 = v10;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Invalidated assertion:%@", buf, 0xCu);
       }
     }
 
-    v9 = *(a1 + 40);
-    if (v9)
+    v11 = *(a1 + 40);
+    if (v11)
     {
-      (*(v9 + 16))();
+      (*(v11 + 16))();
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    v10 = pk_General_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_General_log(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(*(a1 + 48) + 8) + 40);
+      v13 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138412290;
-      v20 = v11;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Fail scheduled invalidation assertion:%@", buf, 0xCu);
+      v21 = v13;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Fail scheduled invalidation assertion:%@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_inQueue_releaseAssertionWithOwner:(id)owner
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   v5 = [(NSMapTable *)self->_assertionMaps objectForKey:ownerCopy];
   v6 = v5;
   if (v5)
   {
     v7 = [v5 invalidateAssertionExpected:1];
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v8 = v7;
+    v9 = pk_General_log(v7);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      if (v9)
+      if (v10)
       {
-        v10 = pk_General_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = pk_General_log(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 138412546;
-          v14 = v6;
-          v15 = 2112;
-          v16 = ownerCopy;
-          v11 = "Notice: Invalidated assertion:%@ for owner:%@";
+          v14 = 138412546;
+          v15 = v6;
+          v16 = 2112;
+          v17 = ownerCopy;
+          v13 = "Notice: Invalidated assertion:%@ for owner:%@";
 LABEL_9:
-          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, v11, &v13, 0x16u);
+          _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, v13, &v14, 0x16u);
           goto LABEL_10;
         }
 
@@ -284,24 +280,22 @@ LABEL_9:
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412546;
-        v14 = v6;
-        v15 = 2112;
-        v16 = ownerCopy;
-        v11 = "Notice: Fail scheduled invalidation assertion:%@ for owner:%@";
+        v14 = 138412546;
+        v15 = v6;
+        v16 = 2112;
+        v17 = ownerCopy;
+        v13 = "Notice: Fail scheduled invalidation assertion:%@ for owner:%@";
         goto LABEL_9;
       }
 
 LABEL_10:
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

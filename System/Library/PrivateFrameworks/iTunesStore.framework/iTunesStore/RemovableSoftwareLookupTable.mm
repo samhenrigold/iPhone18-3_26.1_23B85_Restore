@@ -96,7 +96,7 @@
 
 - (void)_populateBundleDictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v3 = +[ISURLBagCache sharedCache];
   v4 = [MEMORY[0x277D69C90] contextWithBagType:0];
@@ -106,30 +106,30 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = v5;
+    v21 = v5;
     selfCopy = self;
-    v21 = v6;
+    v20 = v6;
     v7 = v6;
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         v11 = 0;
         do
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * v11);
+          v12 = *(*(&v24 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -158,22 +158,20 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
     }
 
-    v5 = v22;
+    v5 = v21;
     self = selfCopy;
-    v6 = v21;
+    v6 = v20;
   }
 
   v18 = [dictionary copy];
   bundleDictionary = self->_bundleDictionary;
   self->_bundleDictionary = v18;
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_identifierForBundleIdentifier:(id)identifier

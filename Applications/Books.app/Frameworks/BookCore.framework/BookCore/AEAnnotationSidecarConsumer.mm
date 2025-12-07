@@ -236,26 +236,26 @@
         {
           if ([@"5" compare:v15 options:64] == -1)
           {
-            v21 = BCIMLog();
+            v21 = BCIMLog(-1);
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
-              v23 = 136315650;
-              v24 = "[AEAnnotationSidecarConsumer read]";
-              v25 = 2080;
-              v26 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/AssetsEngine/AECore/AEAnnotationSidecarConsumer.m";
-              v27 = 1024;
-              v28 = 310;
-              _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%s %s:%d", &v23, 0x1Cu);
+              v24 = 136315650;
+              v25 = "[AEAnnotationSidecarConsumer read]";
+              v26 = 2080;
+              v27 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/AssetsEngine/AECore/AEAnnotationSidecarConsumer.m";
+              v28 = 1024;
+              v29 = 310;
+              _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "%s %s:%d", &v24, 0x1Cu);
             }
 
-            v22 = BCIMLog();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v23 = BCIMLog(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
-              v23 = 138412546;
-              v24 = v15;
-              v25 = 2112;
-              v26 = @"5";
-              _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "@Can't consume sidecar. Wrapper-Revision too high. Wrapper-Revision {%@} Annotation-Current {%@}", &v23, 0x16u);
+              v24 = 138412546;
+              v25 = v15;
+              v26 = 2112;
+              v27 = @"5";
+              _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "@Can't consume sidecar. Wrapper-Revision too high. Wrapper-Revision {%@} Annotation-Current {%@}", &v24, 0x16u);
             }
           }
 

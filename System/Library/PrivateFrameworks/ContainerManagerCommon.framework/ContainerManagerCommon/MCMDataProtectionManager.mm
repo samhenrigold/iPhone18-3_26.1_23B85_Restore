@@ -1,26 +1,17 @@
 @interface MCMDataProtectionManager
 + (id)defaultManager;
 - (MCMDataProtectionManager)init;
-- (OS_dispatch_queue)protectionOperationFileQueue;
 - (int)desiredDataProtectionClassForMetadata:(id)metadata clientIdentity:(id)identity;
 - (int)intendedDataProtectionClassBasedOnEntitlementsForIdentifier:(id)identifier clientIdentity:(id)identity containerClass:(unint64_t)class info:(id)info;
 - (void)_startDataProtectionChangeOperation:(id)operation withCompletion:(id)completion;
 - (void)restartPendingDataProtectionOperations;
+- (void)setDataProtectionOnDataContainerForMetadata:(id)metadata isSecondOrThirdPartyApp:(BOOL)app retryIfLocked:(BOOL)locked deferUntilNextLaunch:(BOOL)launch withCompletion:(id)completion;
 @end
 
 @implementation MCMDataProtectionManager
 
-- (OS_dispatch_queue)protectionOperationFileQueue
-{
-  result = self->_protectionOperationFileQueue;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (int)desiredDataProtectionClassForMetadata:(id)metadata clientIdentity:(id)identity
 {
-  v17 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   identityCopy = identity;
   containerPath = [metadataCopy containerPath];
@@ -41,13 +32,11 @@
     v14 = -1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (int)intendedDataProtectionClassBasedOnEntitlementsForIdentifier:(id)identifier clientIdentity:(id)identity containerClass:(unint64_t)class info:(id)info
 {
-  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   identityCopy = identity;
   infoCopy = info;
@@ -99,17 +88,252 @@ LABEL_15:
 
 LABEL_16:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
+}
+
+- (void)setDataProtectionOnDataContainerForMetadata:(id)metadata isSecondOrThirdPartyApp:(BOOL)app retryIfLocked:(BOOL)locked deferUntilNextLaunch:(BOOL)launch withCompletion:(id)completion
+{
+  launchCopy = launch;
+  lockedCopy = locked;
+  appCopy = app;
+  v59 = *MEMORY[0x1E69E9840];
+  metadataCopy = metadata;
+  completionCopy = completion;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 1;
+  dataProtectionClass = [metadataCopy dataProtectionClass];
+  containerClass = [metadataCopy containerClass];
+  if (containerClass > 0xB || ((1 << containerClass) & 0xED4) == 0 || (v15 = [metadataCopy containerClass], v15 == 13) || v15 == 7)
+  {
+    v49[3] = 11;
+    v16 = container_log_handle_for_category();
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+LABEL_6:
+      v17 = 0;
+      goto LABEL_7;
+    }
+
+    *buf = 138412290;
+    *v53 = metadataCopy;
+    v27 = "Can't act on an invalid object: %@";
+    goto LABEL_21;
+  }
+
+  containerPath = [metadataCopy containerPath];
+  containerClassPath = [containerPath containerClassPath];
+  supportsDataProtection = [containerClassPath supportsDataProtection];
+
+  if ((supportsDataProtection & 1) == 0)
+  {
+    v49[3] = 72;
+    v16 = container_log_handle_for_category();
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_6;
+    }
+
+    containerClass2 = [metadataCopy containerClass];
+    *buf = 134217984;
+    *v53 = containerClass2;
+    v27 = "Data protection not supported for containers of class [%llu]";
+LABEL_21:
+    v28 = v16;
+    v29 = 12;
+LABEL_22:
+    _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, v27, buf, v29);
+    goto LABEL_6;
+  }
+
+  info = [metadataCopy info];
+
+  if (info)
+  {
+    info2 = [metadataCopy info];
+    v23 = [info2 objectForKeyedSubscript:@"com.apple.MobileInstallation.ContentProtectionClass"];
+    objc_opt_class();
+    v24 = v23;
+    if (objc_opt_isKindOfClass())
+    {
+      v25 = v24;
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    if (v25)
+    {
+      info = [v25 intValue];
+    }
+
+    else
+    {
+      info = 0;
+    }
+  }
+
+  v30 = [MEMORY[0x1E696AD98] numberWithInt:info];
+  v31 = [MEMORY[0x1E696AD98] numberWithInt:dataProtectionClass];
+  v32 = [MCMFileHandle compareDataProtectionClassTarget:v30 withExisting:v31];
+
+  if (v32 == 3)
+  {
+    protectionOperationFileQueue = [(MCMDataProtectionManager *)self protectionOperationFileQueue];
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata_isSecondOrThirdPartyApp_retryIfLocked_deferUntilNextLaunch_withCompletion___block_invoke;
+    block[3] = &unk_1E86B07A8;
+    v46 = metadataCopy;
+    v47 = &v48;
+    dispatch_sync(protectionOperationFileQueue, block);
+
+    if (completionCopy && v49[3] == 1)
+    {
+      completionCopy[2](completionCopy, 1);
+
+      completionCopy = 0;
+    }
+
+    v17 = 0;
+    v16 = v46;
+  }
+
+  else
+  {
+    if (!v32)
+    {
+      v49[3] = 72;
+      v16 = container_log_handle_for_category();
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_6;
+      }
+
+      *buf = 67109376;
+      *v53 = info;
+      *&v53[4] = 1024;
+      *&v53[6] = dataProtectionClass;
+      v27 = "Unable to determine precedence of data protection; desired = %d, original = %d";
+      v28 = v16;
+      v29 = 14;
+      goto LABEL_22;
+    }
+
+    if (info == 2)
+    {
+      v49[3] = 38;
+      v16 = container_log_handle_for_category();
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_6;
+      }
+
+      *buf = 67109120;
+      *v53 = 2;
+      v27 = "Data protection class %d is not allowed";
+      goto LABEL_36;
+    }
+
+    if (appCopy && (info > 7 || ((1 << info) & 0x8B) == 0))
+    {
+      v49[3] = 38;
+      v16 = container_log_handle_for_category();
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_6;
+      }
+
+      *buf = 67109120;
+      *v53 = info;
+      v27 = "Data protection class %d is invalid for 2nd and 3rd party apps";
+LABEL_36:
+      v28 = v16;
+      v29 = 8;
+      goto LABEL_22;
+    }
+
+    v34 = info;
+    protectionOperationFileQueue2 = [(MCMDataProtectionManager *)self protectionOperationFileQueue];
+    if (v32 == 1)
+    {
+      v36 = 7;
+    }
+
+    else
+    {
+      v36 = 1;
+    }
+
+    v17 = [MCMDataProtectionChangeOperation dataProtectionChangeOperationWithContainerMetadata:metadataCopy settingClass:info retryingIfLocked:lockedCopy changeType:v36 queue:protectionOperationFileQueue2];
+
+    v44 = 0;
+    v37 = [v17 writeToDiskWithError:&v44];
+    v38 = v44;
+    v16 = v38;
+    if (v37)
+    {
+      if (launchCopy)
+      {
+        v39 = container_log_handle_for_category();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+        {
+          identifier = [metadataCopy identifier];
+          containerClass3 = [metadataCopy containerClass];
+          *buf = 138413058;
+          *v53 = identifier;
+          *&v53[8] = 2048;
+          v54 = containerClass3;
+          v55 = 1024;
+          v56 = dataProtectionClass;
+          v57 = 1024;
+          v58 = v34;
+          _os_log_debug_impl(&dword_1DF2C3000, v39, OS_LOG_TYPE_DEBUG, "Wrote DP class update operation for [%@(%llu)] %d → %d, deferred until next daemon launch.", buf, 0x22u);
+        }
+      }
+
+      else
+      {
+        [(MCMDataProtectionManager *)self _startDataProtectionChangeOperation:v17 withCompletion:completionCopy];
+        v39 = completionCopy;
+        completionCopy = 0;
+      }
+    }
+
+    else
+    {
+      type = [v38 type];
+      v49[3] = type;
+      v39 = container_log_handle_for_category();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        *v53 = v16;
+        _os_log_error_impl(&dword_1DF2C3000, v39, OS_LOG_TYPE_ERROR, "Failed to write data protection update file to disk: %@", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_7:
+
+  if (completionCopy && v49[3] != 1)
+  {
+    (completionCopy[2])(completionCopy);
+  }
+
+  _Block_object_dispose(&v48, 8);
 }
 
 void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata_isSecondOrThirdPartyApp_retryIfLocked_deferUntilNextLaunch_withCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) containerIdentity];
-  v7 = 0;
-  v3 = [MCMDataProtectionChangeOperation deleteUpdateFileWithContainerIdentity:v2 error:&v7];
-  v4 = v7;
+  v6 = 0;
+  v3 = [MCMDataProtectionChangeOperation deleteUpdateFileWithContainerIdentity:v2 error:&v6];
+  v4 = v6;
 
   if (!v3)
   {
@@ -117,19 +341,17 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v9 = v4;
+      v8 = v4;
       _os_log_error_impl(&dword_1DF2C3000, v5, OS_LOG_TYPE_ERROR, "Failed to delete existing data protection update file: %@", buf, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = [v4 type];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restartPendingDataProtectionOperations
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v3 = containermanager_copy_global_configuration();
   managedPathRegistry = [v3 managedPathRegistry];
   containermanagerPendingUpdates = [managedPathRegistry containermanagerPendingUpdates];
@@ -138,50 +360,50 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
   if (v6)
   {
     v7 = +[MCMFileManager defaultManager];
-    v45 = 0;
-    v8 = [v7 urlsForItemsInDirectoryAtURL:v6 error:&v45];
-    v9 = v45;
+    v44 = 0;
+    v8 = [v7 urlsForItemsInDirectoryAtURL:v6 error:&v44];
+    v9 = v44;
 
     if (v8)
     {
-      v35 = v9;
-      v36 = v6;
-      v37 = containermanagerPendingUpdates;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
+      v34 = v9;
+      v35 = v6;
+      v36 = containermanagerPendingUpdates;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v51 objects:v50 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v50 objects:v49 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v52;
-        v38 = v10;
+        v13 = *v51;
+        v37 = v10;
         do
         {
           v14 = 0;
           do
           {
-            if (*v52 != v13)
+            if (*v51 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v51 + 1) + 8 * v14);
+            v15 = *(*(&v50 + 1) + 8 * v14);
             v16 = container_log_handle_for_category();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
               path = [v15 path];
               *buf = 138412290;
-              *v47 = path;
+              *v46 = path;
               _os_log_debug_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_DEBUG, "Found pending data protection operation at %@", buf, 0xCu);
             }
 
             protectionOperationFileQueue = [(MCMDataProtectionManager *)self protectionOperationFileQueue];
-            v44 = 0;
-            v18 = [MCMDataProtectionChangeOperation dataProtectionChangeOperationAtURL:v15 queue:protectionOperationFileQueue error:&v44];
-            v19 = v44;
+            v43 = 0;
+            v18 = [MCMDataProtectionChangeOperation dataProtectionChangeOperationAtURL:v15 queue:protectionOperationFileQueue error:&v43];
+            v19 = v43;
 
             if (v18)
             {
@@ -196,16 +418,16 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
                 dataContainerMetadata3 = [v18 dataContainerMetadata];
                 containerClass = [dataContainerMetadata3 containerClass];
                 *buf = 67109890;
-                *v47 = newDataProtectionClass;
-                *&v47[4] = 2112;
-                *&v47[6] = userIdentity;
-                *&v47[14] = 2112;
-                *&v47[16] = identifier;
-                v48 = 2048;
-                v49 = containerClass;
+                *v46 = newDataProtectionClass;
+                *&v46[4] = 2112;
+                *&v46[6] = userIdentity;
+                *&v46[14] = 2112;
+                *&v46[16] = identifier;
+                v47 = 2048;
+                v48 = containerClass;
                 _os_log_debug_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_DEBUG, "Starting pending data protection update to protection class %d for user: %@, ID: %@, containerClass: %llu", buf, 0x26u);
 
-                v10 = v38;
+                v10 = v37;
               }
 
               v21 = MCMDataProtectionQueue();
@@ -214,7 +436,7 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
               block[2] = __66__MCMDataProtectionManager_restartPendingDataProtectionOperations__block_invoke;
               block[3] = &unk_1E86B0CC8;
               block[4] = self;
-              v43 = v18;
+              v42 = v18;
               dispatch_async(v21, block);
             }
 
@@ -225,9 +447,9 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
               {
                 path2 = [v15 path];
                 *buf = 138412546;
-                *v47 = path2;
-                *&v47[8] = 2112;
-                *&v47[10] = v19;
+                *v46 = path2;
+                *&v46[8] = 2112;
+                *&v46[10] = v19;
                 _os_log_error_impl(&dword_1DF2C3000, v22, OS_LOG_TYPE_ERROR, "Failed to read data protection change operation at %@ : %@", buf, 0x16u);
               }
             }
@@ -236,16 +458,16 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v51 objects:v50 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v50 objects:v49 count:16];
         }
 
         while (v12);
       }
 
       v29 = v10;
-      v6 = v36;
-      containermanagerPendingUpdates = v37;
-      v9 = v35;
+      v6 = v35;
+      containermanagerPendingUpdates = v36;
+      v9 = v34;
     }
 
     else
@@ -268,12 +490,12 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
       v29 = container_log_handle_for_category();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v33 = [containermanagerPendingUpdates url];
-        path3 = [v33 path];
+        v32 = [containermanagerPendingUpdates url];
+        path3 = [v32 path];
         *buf = 138412546;
-        *v47 = path3;
-        *&v47[8] = 2112;
-        *&v47[10] = v9;
+        *v46 = path3;
+        *&v46[8] = 2112;
+        *&v46[10] = v9;
         _os_log_error_impl(&dword_1DF2C3000, v29, OS_LOG_TYPE_ERROR, "Failed to get items at pendingUpdates URL %@ : %@", buf, 0x16u);
       }
     }
@@ -292,12 +514,10 @@ void __146__MCMDataProtectionManager_setDataProtectionOnDataContainerForMetadata
   }
 
 LABEL_30:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__MCMDataProtectionManager_restartPendingDataProtectionOperations__block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
 
@@ -306,15 +526,15 @@ uint64_t __66__MCMDataProtectionManager_restartPendingDataProtectionOperations__
 
 - (void)_startDataProtectionChangeOperation:(id)operation withCompletion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   completionCopy = completion;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__9329;
-  v32 = __Block_byref_object_dispose__9330;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__9329;
+  v31 = __Block_byref_object_dispose__9330;
+  v32 = 0;
   dataContainerMetadata = [operationCopy dataContainerMetadata];
   objc_initWeak(&location, dataContainerMetadata);
 
@@ -324,40 +544,37 @@ uint64_t __66__MCMDataProtectionManager_restartPendingDataProtectionOperations__
   v10 = objc_loadWeakRetained(&location);
   identifier = [v10 identifier];
   v12 = [(MCMApplicationTerminationAssertion *)v9 initWithBundleIdentifier:identifier reason:@"preventing app launch during container data protection class change"];
-  v13 = v29[5];
-  v29[5] = v12;
+  v13 = v28[5];
+  v28[5] = v12;
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke;
-  v25[3] = &unk_1E86B0758;
-  v25[4] = &v28;
-  objc_copyWeak(&v26, &location);
-  [operationCopy setRetryStartBlock:v25];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke_2;
-  v19 = &unk_1E86B0780;
-  objc_copyWeak(&v22, &location);
-  v23 = dataContainerMetadata;
-  v24 = retryIfLocked;
-  v21 = &v28;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke;
+  v24[3] = &unk_1E86B0758;
+  v24[4] = &v27;
+  objc_copyWeak(&v25, &location);
+  [operationCopy setRetryStartBlock:v24];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke_2;
+  v18 = &unk_1E86B0780;
+  objc_copyWeak(&v21, &location);
+  v22 = dataContainerMetadata;
+  v23 = retryIfLocked;
+  v20 = &v27;
   v14 = completionCopy;
-  v20 = v14;
-  [operationCopy setCompletionBlock:&v16];
+  v19 = v14;
+  [operationCopy setCompletionBlock:&v15];
   [operationCopy performChangeOperation];
 
-  objc_destroyWeak(&v22);
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v28, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 }
 
 void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 32) + 8) + 40);
   if (v2)
   {
@@ -371,13 +588,11 @@ void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withComp
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (v3)
@@ -386,20 +601,20 @@ void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withComp
     v6 = container_log_handle_for_category();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = [WeakRetained identifier];
-      v13 = [WeakRetained containerPath];
-      v14 = [v13 containerDataURL];
-      v15 = [v14 path];
-      v16 = *(a1 + 56);
-      v17 = 138413058;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v15;
-      v21 = 1024;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v3;
-      _os_log_error_impl(&dword_1DF2C3000, v6, OS_LOG_TYPE_ERROR, "Failed to set data protection on container with identifier %@ at %@ to %d: %@", &v17, 0x26u);
+      v11 = [WeakRetained identifier];
+      v12 = [WeakRetained containerPath];
+      v13 = [v12 containerDataURL];
+      v14 = [v13 path];
+      v15 = *(a1 + 56);
+      v16 = 138413058;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 1024;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v3;
+      _os_log_error_impl(&dword_1DF2C3000, v6, OS_LOG_TYPE_ERROR, "Failed to set data protection on container with identifier %@ at %@ to %d: %@", &v16, 0x26u);
     }
 
     if (v5 == 61)
@@ -409,8 +624,8 @@ void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withComp
         v7 = container_log_handle_for_category();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v17) = 0;
-          _os_log_error_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_ERROR, "Unexpectedly got completion block called while locked", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_error_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_ERROR, "Unexpectedly got completion block called while locked", &v16, 2u);
         }
       }
 
@@ -433,16 +648,14 @@ void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withComp
   {
     (*(v10 + 16))(v10, v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMDataProtectionManager)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = MCMDataProtectionManager;
-  v2 = [(MCMDataProtectionManager *)&v8 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = MCMDataProtectionManager;
+  v2 = [(MCMDataProtectionManager *)&v7 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -451,35 +664,30 @@ void __79__MCMDataProtectionManager__startDataProtectionChangeOperation_withComp
     v2->_protectionOperationFileQueue = v4;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 + (id)defaultManager
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __42__MCMDataProtectionManager_defaultManager__block_invoke;
-  v5[3] = &__block_descriptor_40_e5_v8__0l;
-  v5[4] = self;
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __42__MCMDataProtectionManager_defaultManager__block_invoke;
+  v4[3] = &__block_descriptor_40_e5_v8__0l;
+  v4[4] = self;
   if (defaultManager_onceToken != -1)
   {
-    dispatch_once(&defaultManager_onceToken, v5);
+    dispatch_once(&defaultManager_onceToken, v4);
   }
 
   v2 = defaultManager_defaultManager;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
-uint64_t __42__MCMDataProtectionManager_defaultManager__block_invoke(uint64_t a1)
+uint64_t __42__MCMDataProtectionManager_defaultManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   defaultManager_defaultManager = objc_alloc_init(objc_opt_class());
-  v2 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }

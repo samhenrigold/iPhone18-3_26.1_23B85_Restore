@@ -81,14 +81,12 @@ uint64_t sub_100001E40()
 
 uint64_t sub_100001E78()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 24, 7);
 }
 
 uint64_t sub_100001EB0()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -545,21 +543,21 @@ void sub_100003F10(_Unwind_Exception *a1)
 
 void sub_10000426C(uint64_t a1, void *a2, void *a3)
 {
-  v20 = a2;
-  v19 = a3;
-  if (v19)
+  v19 = a2;
+  v18 = a3;
+  if (v18)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v5 = [v19 description];
-      v6 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v19 code]);
-      v7 = [v19 localizedFailureReason];
+      v5 = [v18 description];
+      v6 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v18 code]);
+      v7 = [v18 localizedFailureReason];
       *buf = 138412802;
-      v27 = v5;
-      v28 = 2112;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v7;
+      v26 = v5;
+      v27 = 2112;
+      v28 = v6;
+      v29 = 2112;
+      v30 = v7;
       _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "HighEngagement: Category error: %@, %@, %@", buf, 0x20u);
     }
   }
@@ -572,25 +570,25 @@ void sub_10000426C(uint64_t a1, void *a2, void *a3)
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "HighEngagement: generateTotalByCategory in completion handler", buf, 2u);
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    obj = v20;
-    v8 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    obj = v19;
+    v8 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           v12 = [obj objectForKeyedSubscript:v11];
           v13 = [v12 identifier];
 
@@ -604,14 +602,13 @@ void sub_10000426C(uint64_t a1, void *a2, void *a3)
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v8 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
       }
 
       while (v8);
     }
   }
 
-  v18 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -622,10 +619,11 @@ void sub_100004990(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100005038(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005038(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100005334(void *a1)
@@ -758,7 +756,7 @@ void sub_1000058F0(uint64_t a1, void *a2, void *a3, void *a4)
     v10 = OSAStabilityMonitorLogDomain();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100014DFC(a1);
+      sub_100014DFC();
     }
   }
 }
@@ -789,7 +787,7 @@ void sub_100005B20(uint64_t a1, void *a2, void *a3)
     v11 = OSAStabilityMonitorLogDomain();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100014E68(a1);
+      sub_100014E68();
     }
   }
 }
@@ -853,7 +851,7 @@ void sub_100005C54(uint64_t a1, void *a2, void *a3)
     v13 = OSAStabilityMonitorLogDomain();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100014ED4(a1);
+      sub_100014ED4();
     }
   }
 }
@@ -949,39 +947,38 @@ void sub_1000069B0(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = *(a1 + 32);
-    v8 = v7[3];
-    v19 = v8;
-    v20 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    v11 = [v5 firstPartyBundleIDs];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100006BBC;
-    v21[3] = &unk_100024E28;
-    v21[4] = *(a1 + 32);
-    v22 = *(a1 + 64);
-    v23 = *(a1 + 72);
-    v24 = *(a1 + 80);
-    v25 = v5;
-    v12 = *(a1 + 88);
-    v13 = *(a1 + 96);
-    v14 = *(a1 + 104);
-    v15 = *(a1 + 112);
-    *&v16 = v14;
-    *(&v16 + 1) = v15;
-    *&v17 = v12;
-    *(&v17 + 1) = v13;
-    v26 = v17;
-    v27 = v16;
-    v28 = *(a1 + 120);
-    [v7 totalUptimeFrom:v20 to:v10 targetBundleID:v19 targetAppVersions:v9 firstPartyBundleIDs:v11 completionHandler:v21];
+    v18 = v7[3];
+    v19 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    v10 = [v5 firstPartyBundleIDs];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100006BBC;
+    v20[3] = &unk_100024E28;
+    v20[4] = *(a1 + 32);
+    v21 = *(a1 + 64);
+    v22 = *(a1 + 72);
+    v23 = *(a1 + 80);
+    v24 = v5;
+    v11 = *(a1 + 88);
+    v12 = *(a1 + 96);
+    v13 = *(a1 + 104);
+    v14 = *(a1 + 112);
+    *&v15 = v13;
+    *(&v15 + 1) = v14;
+    *&v16 = v11;
+    *(&v16 + 1) = v12;
+    v25 = v16;
+    v26 = v15;
+    v27 = *(a1 + 120);
+    [v7 totalUptimeFrom:v19 to:v9 targetBundleID:v18 targetAppVersions:v8 firstPartyBundleIDs:v10 completionHandler:v20];
   }
 
   else
   {
-    v18 = OSAStabilityMonitorLogDomain();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = OSAStabilityMonitorLogDomain();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000151C0();
     }
@@ -1036,10 +1033,10 @@ void sub_100006BBC(id *a1, void *a2, void *a3)
           }
 
           v14 = *(*(&v84 + 1) + 8 * v13);
-          v15 = [a1[5] objectForKeyedSubscript:*&v14];
+          v15 = [a1[5] objectForKeyedSubscript:v14];
           v16 = [v15 unsignedIntegerValue];
 
-          v17 = [a1[6] objectForKeyedSubscript:*&v14];
+          v17 = [a1[6] objectForKeyedSubscript:v14];
           [v17 doubleValue];
           v19 = v18;
 
@@ -1047,9 +1044,9 @@ void sub_100006BBC(id *a1, void *a2, void *a3)
           if (v19 >= v20)
           {
             v22 = [v5 totals];
-            v23 = [v22 objectForKeyedSubscript:*&v14];
+            v23 = [v22 objectForKeyedSubscript:v14];
             v24 = [a1[8] totals];
-            v25 = [v24 objectForKeyedSubscript:*&v14];
+            v25 = [v24 objectForKeyedSubscript:v14];
             v26 = [OSAStabilityMonitor calculateStabilityRateWithAppUsage:v23 crashCounts:v25];
 
             v27 = [v26 crashCount];
@@ -1058,17 +1055,17 @@ void sub_100006BBC(id *a1, void *a2, void *a3)
               v28 = OSAStabilityMonitorLogDomain();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                v29 = COERCE_DOUBLE([v26 crashCount]);
+                v29 = [v26 crashCount];
                 *buf = 138543618;
                 v89 = v14;
                 v90 = 2050;
-                v91 = v29;
+                v91 = *&v29;
                 _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Crash count for %{public}@ is %{public}lu, which is below the threshold.", buf, 0x16u);
               }
 
               v30 = a1[4];
               v31 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v26 crashCount]);
-              [v30 reportResultsForBundleID:*&v14 crashes:v31 uptime:0 MTBF:0 result:0 status:@"Crash count below threshold"];
+              [v30 reportResultsForBundleID:v14 crashes:v31 uptime:0 MTBF:0 result:0 status:@"Crash count below threshold"];
               goto LABEL_32;
             }
 
@@ -1080,7 +1077,7 @@ void sub_100006BBC(id *a1, void *a2, void *a3)
               v33 = OSAStabilityMonitorLogDomain();
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
-                v70 = COERCE_DOUBLE([v26 crashCount]);
+                v70 = [v26 crashCount];
                 [v26 uptime];
                 v72 = v71;
                 v73 = [v26 MTBF];
@@ -1088,7 +1085,7 @@ void sub_100006BBC(id *a1, void *a2, void *a3)
                 *buf = 138544130;
                 v89 = v14;
                 v90 = 2050;
-                v91 = v70;
+                v91 = *&v70;
                 v92 = 2050;
                 v93 = v72;
                 v94 = 2050;
@@ -1125,7 +1122,7 @@ LABEL_27:
                     *buf = 134349314;
                     v89 = v45;
                     v90 = 2114;
-                    v91 = v14;
+                    v91 = *&v14;
                     v46 = v43;
                     v47 = "MTBF of %{public}f for %{public}@ does not meet filtering criteria.";
                     goto LABEL_38;
@@ -1146,7 +1143,7 @@ LABEL_27:
                 }
 
 LABEL_41:
-                v59 = [a1[4] recommendRollbackForBundleID:*&v14 reason:&v83];
+                v59 = [a1[4] recommendRollbackForBundleID:v14 reason:&v83];
               }
 
               else
@@ -1156,7 +1153,7 @@ LABEL_41:
                 {
                   v52 = a1[13];
                   *buf = 138543362;
-                  v89 = *&v52;
+                  v89 = v52;
                   _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Baseline has no crashes; adjusting maximum MTBF to %{public}@", buf, 0xCu);
                 }
 
@@ -1179,7 +1176,7 @@ LABEL_41:
                   *buf = 134349314;
                   v89 = v58;
                   v90 = 2114;
-                  v91 = v14;
+                  v91 = *&v14;
                   v46 = v43;
                   v47 = "MTBF of %{public}f for %{public}@ does not meet adjusted filtering criteria.";
 LABEL_38:
@@ -1206,7 +1203,7 @@ LABEL_39:
               [v26 uptime];
               v68 = [NSNumber numberWithDouble:?];
               v69 = [v26 MTBF];
-              [v66 reportResultsForBundleID:*&v14 crashes:v67 uptime:v68 MTBF:v69 result:v59 status:v65];
+              [v66 reportResultsForBundleID:v14 crashes:v67 uptime:v68 MTBF:v69 result:v59 status:v65];
             }
 
             else
@@ -1214,12 +1211,12 @@ LABEL_39:
               v48 = OSAStabilityMonitorLogDomain();
               if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
               {
-                v75 = COERCE_DOUBLE([v26 crashCount]);
+                v75 = [v26 crashCount];
                 [v26 uptime];
                 *buf = 138543874;
                 v89 = v14;
                 v90 = 2050;
-                v91 = v75;
+                v91 = *&v75;
                 v92 = 2050;
                 v93 = v76;
                 _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Error calculating MTBF for %{public}@ with crash count=%{public}lu and uptime=%{public}0.1f", buf, 0x20u);
@@ -1229,7 +1226,7 @@ LABEL_39:
               v31 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v26 crashCount]);
               [v26 uptime];
               v50 = [NSNumber numberWithDouble:?];
-              [v49 reportResultsForBundleID:*&v14 crashes:v31 uptime:v50 MTBF:0 result:0 status:@"Error calculating MTBF"];
+              [v49 reportResultsForBundleID:v14 crashes:v31 uptime:v50 MTBF:0 result:0 status:@"Error calculating MTBF"];
 
 LABEL_32:
             }
@@ -1251,7 +1248,7 @@ LABEL_32:
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Baseline uptime for %{public}@ is %{public}lf, which is below the threshold.", buf, 0x16u);
           }
 
-          [a1[4] reportResultsForBundleID:*&v14 crashes:0 uptime:0 MTBF:0 result:0 status:@"Baseline uptime below threshold"];
+          [a1[4] reportResultsForBundleID:v14 crashes:0 uptime:0 MTBF:0 result:0 status:@"Baseline uptime below threshold"];
 LABEL_47:
           v13 = v13 + 1;
         }
@@ -1332,11 +1329,12 @@ void sub_100007B60(uint64_t a1, void *a2)
   }
 }
 
-void sub_10000805C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000805C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1487,9 +1485,9 @@ void sub_100008D2C(id a1)
   _objc_release_x1();
 }
 
-void sub_10000A0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1539,28 +1537,30 @@ void sub_10000A824(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10000A844(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A844(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10000A88C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A88C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-id sub_10000A8AC()
+id sub_10000A8AC(uint64_t a1)
 {
   if (qword_10002A410 != -1)
   {
     sub_100015448();
   }
 
-  v1 = qword_10002A408;
+  v2 = qword_10002A408;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000A8F0(id a1)
@@ -1596,7 +1596,7 @@ void sub_10000AEF8(uint64_t a1, void *a2, void *a3, void *a4)
     }
 
     v10 = v8;
-    v13 = sub_10000A8AC();
+    v13 = sub_10000A8AC(v10);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
@@ -1758,26 +1758,25 @@ void sub_10000C7A0(void *a1)
     [NSException raise:NSInvalidUnarchiveOperationException format:@"Putative set of strings was a %@", objc_opt_class()];
   }
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v8 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -1785,7 +1784,7 @@ void sub_10000C7A0(void *a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -1803,10 +1802,11 @@ id sub_10000C938()
   return v2;
 }
 
-void sub_10000CB50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000CB50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 void sub_10000CB9C(id a1)
@@ -1943,7 +1943,7 @@ void sub_10000D4B8(const char *a1, void *a2)
 
       else if (d_type == 8)
       {
-        v3[2](v3, a1, i->d_name);
+        (*(v3 + 2))(v3, a1, i->d_name);
       }
     }
 
@@ -2633,9 +2633,9 @@ BOOL sub_10000EA84(uint64_t a1, int a2, void *a3)
   return v11;
 }
 
-void sub_10000F038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000F038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2766,9 +2766,9 @@ LABEL_19:
   return v12;
 }
 
-void sub_10000FD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000FD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2821,9 +2821,9 @@ uint64_t sub_100010254(void *a1)
   return v4 & 1;
 }
 
-void sub_100010348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100010348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2854,9 +2854,9 @@ void sub_100010518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100010930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2995,38 +2995,35 @@ uint64_t sub_1000123B8(uint64_t a1, uint64_t a2, xpc_object_t xstring)
 
 id sub_10001279C()
 {
-  v15 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v0 = *(v15 - 8);
-  v1 = *(v0 + 64);
-  __chkstk_darwin(v15);
-  v3 = &v13 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4);
-  v6 = type metadata accessor for DispatchQoS();
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
+  v12 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v0 = *(v12 - 8);
+  __chkstk_darwin(v12);
+  v2 = &v10 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v3);
+  v4 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v4 - 8);
   sub_100014A88(0, &qword_10002A398, OS_os_log_ptr);
   static OS_os_log.default.getter();
   Logger.init(_:)();
-  v13 = sub_100014A88(0, &qword_10002A3A0, OS_dispatch_queue_ptr);
+  v10 = sub_100014A88(0, &qword_10002A3A0, OS_dispatch_queue_ptr);
   static DispatchQoS.utility.getter();
-  v17 = &_swiftEmptyArrayStorage;
-  sub_100014AD0(&qword_10002A3A8, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v14 = &_swiftEmptyArrayStorage;
+  sub_100014AD0(&qword_10002A3A8, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_100014338(&qword_10002A3B0, &unk_10001AAB0);
   sub_100014B18(&qword_10002A3B8, &qword_10002A3B0, &unk_10001AAB0);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v0 + 104))(v3, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v15);
-  v8 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v9 = v14;
-  *&v14[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue] = v8;
-  v10 = type metadata accessor for OSAJobQuiescenceMonitor();
-  v16.receiver = v9;
-  v16.super_class = v10;
-  v11 = objc_msgSendSuper2(&v16, "init");
+  (*(v0 + 104))(v2, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v12);
+  v5 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v6 = v11;
+  *&v11[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue] = v5;
+  v7 = type metadata accessor for OSAJobQuiescenceMonitor(0);
+  v13.receiver = v6;
+  v13.super_class = v7;
+  v8 = objc_msgSendSuper2(&v13, "init");
   sub_100013D40();
 
-  return v11;
+  return v8;
 }
 
 uint64_t sub_100012A98()
@@ -3034,209 +3031,208 @@ uint64_t sub_100012A98()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = v3[8];
-  v5 = (__chkstk_darwin)();
-  v66 = &v60[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = __chkstk_darwin(v5);
-  v65 = &v60[-v8];
-  v9 = __chkstk_darwin(v7);
-  v63 = &v60[-v10];
-  v11 = __chkstk_darwin(v9);
-  v13 = &v60[-v12];
-  v14 = __chkstk_darwin(v11);
-  v64 = &v60[-v15];
-  v16 = __chkstk_darwin(v14);
-  v62 = &v60[-v17];
-  v18 = __chkstk_darwin(v16);
-  v20 = &v60[-v19];
-  __chkstk_darwin(v18);
-  v22 = &v60[-v21];
-  v68 = v3[2];
-  v69 = OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger;
-  v68(&v60[-v21], (v1 + OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger), v2);
-  v23 = Logger.logObject.getter();
-  v24 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v23, v24))
+  v4 = __chkstk_darwin(v2);
+  v65 = &v59[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = __chkstk_darwin(v4);
+  v64 = &v59[-v7];
+  v8 = __chkstk_darwin(v6);
+  v62 = &v59[-v9];
+  v10 = __chkstk_darwin(v8);
+  v12 = &v59[-v11];
+  v13 = __chkstk_darwin(v10);
+  v63 = &v59[-v14];
+  v15 = __chkstk_darwin(v13);
+  v61 = &v59[-v16];
+  v17 = __chkstk_darwin(v15);
+  v19 = &v59[-v18];
+  __chkstk_darwin(v17);
+  v21 = &v59[-v20];
+  v67 = *(v3 + 16);
+  v68 = OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger;
+  v67(&v59[-v20], (v1 + OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger), v2);
+  v22 = Logger.logObject.getter();
+  v23 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v22, v23))
   {
-    v25 = swift_slowAlloc();
-    *v25 = 0;
-    _os_log_impl(&_mh_execute_header, v23, v24, "Syncing and submitting logs", v25, 2u);
+    v24 = swift_slowAlloc();
+    *v24 = 0;
+    _os_log_impl(&_mh_execute_header, v22, v23, "Syncing and submitting logs", v24, 2u);
   }
 
-  v26 = v3[1];
-  (v26)(v22, v2);
-  v27 = v68;
-  v68(v20, &v69[v1], v2);
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.default.getter();
-  v30 = os_log_type_enabled(v28, v29);
-  v67 = v3 + 1;
-  if (v30)
+  v25 = *(v3 + 8);
+  (v25)(v21, v2);
+  v26 = v67;
+  v67(v19, &v68[v1], v2);
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.default.getter();
+  v29 = os_log_type_enabled(v27, v28);
+  v66 = v3 + 8;
+  if (v29)
   {
-    v31 = swift_slowAlloc();
-    *v31 = 0;
-    _os_log_impl(&_mh_execute_header, v28, v29, "Attempting rollover of CoreAnalytics log", v31, 2u);
+    v30 = swift_slowAlloc();
+    *v30 = 0;
+    _os_log_impl(&_mh_execute_header, v27, v28, "Attempting rollover of CoreAnalytics log", v30, 2u);
   }
 
-  (v26)(v20, v2);
-  v61 = AnalyticsRolloverEvents();
-  if (v61)
+  (v25)(v19, v2);
+  v60 = AnalyticsRolloverEvents();
+  if (v60)
   {
-    v32 = v62;
-    v27(v62, &v69[v1], v2);
-    v33 = Logger.logObject.getter();
-    v34 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v33, v34))
+    v31 = v61;
+    v26(v61, &v68[v1], v2);
+    v32 = Logger.logObject.getter();
+    v33 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v32, v33))
     {
-      v35 = swift_slowAlloc();
-      *v35 = 0;
-      _os_log_impl(&_mh_execute_header, v33, v34, "Successful CoreAnalytics log rollover", v35, 2u);
-      v64 = v32;
+      v34 = swift_slowAlloc();
+      *v34 = 0;
+      _os_log_impl(&_mh_execute_header, v32, v33, "Successful CoreAnalytics log rollover", v34, 2u);
+      v63 = v31;
 LABEL_10:
 
-      v38 = v68;
-      v32 = v64;
+      v37 = v67;
+      v31 = v63;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v32 = v64;
-    v27(v64, &v69[v1], v2);
-    v33 = Logger.logObject.getter();
-    v36 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v33, v36))
+    v31 = v63;
+    v26(v63, &v68[v1], v2);
+    v32 = Logger.logObject.getter();
+    v35 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v32, v35))
     {
-      v37 = swift_slowAlloc();
-      *v37 = 0;
-      _os_log_impl(&_mh_execute_header, v33, v36, "Failed to rollover CoreAnalytics log", v37, 2u);
+      v36 = swift_slowAlloc();
+      *v36 = 0;
+      _os_log_impl(&_mh_execute_header, v32, v35, "Failed to rollover CoreAnalytics log", v36, 2u);
       goto LABEL_10;
     }
   }
 
-  v38 = v68;
+  v37 = v67;
 LABEL_12:
 
-  (v26)(v32, v2);
-  v38(v13, &v69[v1], v2);
-  v39 = Logger.logObject.getter();
-  v40 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v39, v40))
+  (v25)(v31, v2);
+  v37(v12, &v68[v1], v2);
+  v38 = Logger.logObject.getter();
+  v39 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v38, v39))
   {
-    v41 = swift_slowAlloc();
-    *v41 = 0;
-    _os_log_impl(&_mh_execute_header, v39, v40, "Attempting submission of logs", v41, 2u);
+    v40 = swift_slowAlloc();
+    *v40 = 0;
+    _os_log_impl(&_mh_execute_header, v38, v39, "Attempting submission of logs", v40, 2u);
   }
 
-  (v26)(v13, v2);
-  v42 = [objc_allocWithZone(OSASubmissionClient) init];
-  v43 = [v42 submit];
+  (v25)(v12, v2);
+  v41 = [objc_allocWithZone(OSASubmissionClient) init];
+  v42 = [v41 submit];
 
-  LODWORD(v64) = v43;
-  if (v43)
+  LODWORD(v63) = v42;
+  if (v42)
   {
-    v44 = v63;
-    v38(v63, &v69[v1], v2);
-    v45 = Logger.logObject.getter();
-    v46 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v45, v46))
+    v43 = v62;
+    v37(v62, &v68[v1], v2);
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v47 = swift_slowAlloc();
-      *v47 = 0;
-      _os_log_impl(&_mh_execute_header, v45, v46, "Logs submitted successfully", v47, 2u);
-      v65 = v44;
+      v46 = swift_slowAlloc();
+      *v46 = 0;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Logs submitted successfully", v46, 2u);
+      v64 = v43;
 LABEL_19:
 
-      v44 = v65;
+      v43 = v64;
     }
   }
 
   else
   {
-    v44 = v65;
-    v38(v65, &v69[v1], v2);
-    v45 = Logger.logObject.getter();
-    v48 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v45, v48))
+    v43 = v64;
+    v37(v64, &v68[v1], v2);
+    v44 = Logger.logObject.getter();
+    v47 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v44, v47))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      _os_log_impl(&_mh_execute_header, v45, v48, "Failed to submit logs", v49, 2u);
-      v38 = v68;
+      v48 = swift_slowAlloc();
+      *v48 = 0;
+      _os_log_impl(&_mh_execute_header, v44, v47, "Failed to submit logs", v48, 2u);
+      v37 = v67;
       goto LABEL_19;
     }
 
-    v38 = v68;
+    v37 = v67;
   }
 
-  (v26)(v44, v2);
-  v38(v66, &v69[v1], v2);
-  v50 = Logger.logObject.getter();
-  v51 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v50, v51))
+  (v25)(v43, v2);
+  v37(v65, &v68[v1], v2);
+  v49 = Logger.logObject.getter();
+  v50 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v49, v50))
   {
-    v52 = swift_slowAlloc();
-    v70 = swift_slowAlloc();
-    *v52 = 136446466;
-    if (v61)
+    v51 = swift_slowAlloc();
+    v69 = swift_slowAlloc();
+    *v51 = 136446466;
+    if (v60)
     {
-      v53 = 1702195828;
+      v52 = 1702195828;
     }
 
     else
     {
-      v53 = 0x65736C6166;
+      v52 = 0x65736C6166;
     }
 
-    v69 = v26;
-    if (v61)
+    v68 = v25;
+    if (v60)
     {
-      v54 = 0xE400000000000000;
+      v53 = 0xE400000000000000;
     }
 
     else
     {
-      v54 = 0xE500000000000000;
+      v53 = 0xE500000000000000;
     }
 
-    v55 = sub_100014434(v53, v54, &v70);
+    v54 = sub_100014434(v52, v53, &v69);
 
-    *(v52 + 4) = v55;
-    *(v52 + 12) = 2082;
-    if (v64)
+    *(v51 + 4) = v54;
+    *(v51 + 12) = 2082;
+    if (v63)
     {
-      v56 = 1702195828;
+      v55 = 1702195828;
     }
 
     else
     {
-      v56 = 0x65736C6166;
+      v55 = 0x65736C6166;
     }
 
-    if (v64)
+    if (v63)
     {
-      v57 = 0xE400000000000000;
+      v56 = 0xE400000000000000;
     }
 
     else
     {
-      v57 = 0xE500000000000000;
+      v56 = 0xE500000000000000;
     }
 
-    v58 = sub_100014434(v56, v57, &v70);
+    v57 = sub_100014434(v55, v56, &v69);
 
-    *(v52 + 14) = v58;
-    _os_log_impl(&_mh_execute_header, v50, v51, "Completed sync and submission of logs (rollover: %{public}s, submission: %{public}s)", v52, 0x16u);
+    *(v51 + 14) = v57;
+    _os_log_impl(&_mh_execute_header, v49, v50, "Completed sync and submission of logs (rollover: %{public}s, submission: %{public}s)", v51, 0x16u);
     swift_arrayDestroy();
 
-    return (v69)(v66, v2);
+    return (v68)(v65, v2);
   }
 
   else
   {
 
-    return (v26)(v66, v2);
+    return (v25)(v65, v2);
   }
 }
 
@@ -3244,96 +3240,87 @@ void sub_1000132B0()
 {
   v0 = type metadata accessor for DispatchWorkItemFlags();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v49 = &v43 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v50 = type metadata accessor for DispatchQoS();
-  v48 = *(v50 - 8);
-  v4 = *(v48 + 64);
-  __chkstk_darwin(v50);
-  v47 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v51 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v12 = &v43 - v11;
-  v13 = type metadata accessor for PostQuiesceActions();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = &v32 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = type metadata accessor for DispatchQoS();
+  v37 = *(v39 - 8);
+  __chkstk_darwin(v39);
+  v36 = &v32 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Logger();
+  v5 = *(v4 - 8);
+  v6 = __chkstk_darwin(v4);
+  v40 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v32 - v8;
+  v10 = type metadata accessor for PostQuiesceActions();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v32 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static PostQuiesceActions.shutdown.getter();
   sub_100014380();
-  v18 = dispatch thunk of SetAlgebra.isSuperset(of:)();
-  (*(v14 + 8))(v17, v13);
-  if ((v18 & 1) != 0 || (v19 = [objc_opt_self() standardUserDefaults], v20 = String._bridgeToObjectiveC()(), v21 = objc_msgSend(v19, "BOOLForKey:", v20), v19, v20, v21))
+  v14 = dispatch thunk of SetAlgebra.isSuperset(of:)();
+  (*(v11 + 8))(v13, v10);
+  if ((v14 & 1) != 0 || (v15 = [objc_opt_self() standardUserDefaults], v16 = String._bridgeToObjectiveC()(), v17 = objc_msgSend(v15, "BOOLForKey:", v16), v15, v16, v17))
   {
-    v44 = v1;
-    v45 = v0;
-    (*(v7 + 16))(v12, &v52[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger], v6);
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v22, v23))
+    v33 = v1;
+    v34 = v0;
+    (*(v5 + 16))(v9, &v41[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger], v4);
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
     {
-      v24 = swift_slowAlloc();
-      *v24 = 0;
-      _os_log_impl(&_mh_execute_header, v22, v23, "Quiesce request accepted. Queueing quiescence tasks.", v24, 2u);
+      v20 = swift_slowAlloc();
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Quiesce request accepted. Queueing quiescence tasks.", v20, 2u);
     }
 
-    v46 = *(v7 + 8);
-    v46(v12, v6);
-    v25 = type metadata accessor for JQXPCConnection();
-    v26 = *(v25 + 48);
-    v27 = *(v25 + 52);
+    v35 = *(v5 + 8);
+    v35(v9, v4);
+    type metadata accessor for JQXPCConnection();
     swift_allocObject();
     JQXPCConnection.init()();
-    v28 = swift_allocObject();
-    *(v28 + 16) = 0;
-    v29 = type metadata accessor for JQTaskDescriptor();
-    v30 = *(*(v29 - 8) + 64);
-    __chkstk_darwin(v29 - 8);
+    v21 = swift_allocObject();
+    *(v21 + 16) = 0;
+    v22 = type metadata accessor for JQTaskDescriptor();
+    __chkstk_darwin(v22 - 8);
 
     getpid();
     JQTaskDescriptor.init(name:pid:duration:jobGroup:)();
-    v31 = type metadata accessor for JQTask();
-    v32 = *(v31 + 48);
-    v33 = *(v31 + 52);
+    type metadata accessor for JQTask();
     swift_allocObject();
-    *(v28 + 16) = JQTask.init(conn:description:)();
+    *(v21 + 16) = JQTask.init(conn:description:)();
 
     dispatch thunk of JQTask.begin()();
 
-    v34 = v52;
-    v35 = *&v52[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue];
-    v36 = swift_allocObject();
-    *(v36 + 16) = v34;
-    *(v36 + 24) = v28;
+    v23 = v41;
+    v24 = *&v41[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue];
+    v25 = swift_allocObject();
+    *(v25 + 16) = v23;
+    *(v25 + 24) = v21;
     aBlock[4] = sub_1000143CC;
-    aBlock[5] = v36;
+    aBlock[5] = v25;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100013CFC;
     aBlock[3] = &unk_1000255C8;
-    v37 = _Block_copy(aBlock);
-    v38 = v35;
-    v39 = v34;
+    v26 = _Block_copy(aBlock);
+    v27 = v24;
+    v28 = v23;
 
-    v40 = v47;
+    v29 = v36;
     static DispatchQoS.unspecified.getter();
-    v53 = &_swiftEmptyArrayStorage;
-    sub_100014AD0(&qword_10002A378, &type metadata accessor for DispatchWorkItemFlags);
+    v42 = &_swiftEmptyArrayStorage;
+    sub_100014AD0(&qword_10002A378, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
     sub_100014338(&qword_10002A380, &qword_10001AAA0);
     sub_100014B18(&qword_10002A388, &qword_10002A380, &qword_10001AAA0);
-    v41 = v49;
-    v42 = v45;
+    v30 = v38;
+    v31 = v34;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     OS_dispatch_queue.async(group:qos:flags:execute:)();
-    _Block_release(v37);
+    _Block_release(v26);
 
-    (*(v44 + 8))(v41, v42);
-    (*(v48 + 8))(v40, v50);
+    (*(v33 + 8))(v30, v31);
+    (*(v37 + 8))(v29, v39);
   }
 }
 
@@ -3341,43 +3328,41 @@ uint64_t sub_100013A88(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Logger();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = __chkstk_darwin(v4);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v22 - v10;
-  v12 = OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger;
-  v24 = v5[2];
-  v24(&v22 - v10, a1 + OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger, v4);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v13, v14))
+  v6 = __chkstk_darwin(v4);
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v20 - v9;
+  v11 = OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger;
+  v22 = *(v5 + 16);
+  v22(&v20 - v9, a1 + OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger, v4);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    v23 = a2;
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v13, v14, "Beginning quiescence task", v15, 2u);
-    a2 = v23;
+    v14 = swift_slowAlloc();
+    v21 = a2;
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v12, v13, "Beginning quiescence task", v14, 2u);
+    a2 = v21;
   }
 
-  v16 = v5[1];
-  v16(v11, v4);
+  v15 = *(v5 + 8);
+  v15(v10, v4);
   sub_100012A98();
-  v24(v9, a1 + v12, v4);
-  v17 = Logger.logObject.getter();
-  v18 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v17, v18))
+  v22(v8, a1 + v11, v4);
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v16, v17))
   {
-    v19 = swift_slowAlloc();
-    *v19 = 0;
-    _os_log_impl(&_mh_execute_header, v17, v18, "Completed quiescence task", v19, 2u);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&_mh_execute_header, v16, v17, "Completed quiescence task", v18, 2u);
   }
 
-  v16(v9, v4);
+  v15(v8, v4);
   result = swift_beginAccess();
   if (*(a2 + 16))
   {
-    v21 = *(a2 + 16);
 
     dispatch thunk of JQTask.end()();
   }
@@ -3388,9 +3373,8 @@ uint64_t sub_100013A88(uint64_t a1, uint64_t a2)
 uint64_t sub_100013CFC(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 void sub_100013D40()
@@ -3398,41 +3382,40 @@ void sub_100013D40()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = v3[8];
-  v5 = __chkstk_darwin(v2);
-  v19 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v8 = &v17 - v7;
-  v17 = v3[2];
-  v17(&v17 - v7, &v1[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger], v2);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v4 = __chkstk_darwin(v2);
+  v18 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v16 - v6;
+  v16 = *(v3 + 16);
+  v16(&v16 - v6, &v1[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_logger], v2);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v9, v10, "Starting JobQuiescence monitor", v11, 2u);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, v9, "Starting JobQuiescence monitor", v10, 2u);
   }
 
-  v18 = v3[1];
-  v18(v8, v2);
-  v12 = objc_allocWithZone(type metadata accessor for JQLaunchEventSubscription());
-  v13 = JQLaunchEventSubscription.init(subscriptionName:subscriberName:)();
-  v14 = *&v1[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue];
+  v17 = *(v3 + 8);
+  v17(v7, v2);
+  v11 = objc_allocWithZone(type metadata accessor for JQLaunchEventSubscription());
+  v12 = JQLaunchEventSubscription.init(subscriptionName:subscriberName:)();
+  v13 = *&v1[OBJC_IVAR____TtC17osanalyticshelper23OSAJobQuiescenceMonitor_queue];
   *(swift_allocObject() + 16) = v1;
-  v15 = v14;
-  v16 = v1;
+  v14 = v13;
+  v15 = v1;
   dispatch thunk of JQLaunchEventSubscription.register(on:for:notification:)();
 }
 
 id sub_1000140CC()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for OSAJobQuiescenceMonitor();
+  v2.super_class = type metadata accessor for OSAJobQuiescenceMonitor(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for OSAJobQuiescenceMonitor()
+uint64_t type metadata accessor for OSAJobQuiescenceMonitor(uint64_t a1)
 {
   result = qword_10002A4A8;
   if (!qword_10002A4A8)
@@ -3443,12 +3426,11 @@ uint64_t type metadata accessor for OSAJobQuiescenceMonitor()
   return result;
 }
 
-uint64_t sub_1000141D4()
+uint64_t sub_1000141D4(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -3461,7 +3443,7 @@ uint64_t sub_1000141D4()
 
 id sub_10001429C()
 {
-  result = [objc_allocWithZone(type metadata accessor for OSAJobQuiescenceMonitor()) init];
+  result = [objc_allocWithZone(type metadata accessor for OSAJobQuiescenceMonitor(0)) init];
   qword_10002A498 = result;
   return result;
 }
@@ -3478,7 +3460,6 @@ uint64_t sub_100014338(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3511,7 +3492,6 @@ uint64_t sub_1000143EC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3519,7 +3499,7 @@ uint64_t sub_1000143EC(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100014434(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100014434(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100014500(v11, 0, 0, 1, a1, a2);
@@ -3617,15 +3597,17 @@ LABEL_8:
   }
 }
 
-uint64_t sub_10001460C(uint64_t *a1)
+uint64_t sub_10001460C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100014658(uint64_t a1, uint64_t a2)
@@ -3638,11 +3620,9 @@ uint64_t sub_100014658(uint64_t a1, uint64_t a2)
 
 char *sub_1000146B4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100014700(a1, a2);
+  v3 = sub_100014700(a1, a2);
   sub_100014830(&off_100025528);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100014700(uint64_t a1, unint64_t a2)
@@ -3742,7 +3722,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -3756,15 +3735,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100014990(result, v12, 1, v3);
+  result = sub_100014990(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -3779,15 +3758,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3796,12 +3775,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -3909,12 +3888,11 @@ char *sub_100014990(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_100014A88(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100014A88(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3923,7 +3901,7 @@ uint64_t sub_100014A88(uint64_t a1, unint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_100014AD0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100014AD0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3956,32 +3934,11 @@ void sub_100014CE0(void *a1, uint8_t *buf)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "HighEngagement: Error querying knowledge store: %@", buf, 0xCu);
 }
 
-void sub_100014DFC(uint64_t a1)
+void sub_100014D84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 48);
-  sub_10000A80C();
-  sub_10000A824(&_mh_execute_header, v2, v3, "Error finding end date from baseline (%{public}@): %{public}@");
-}
-
-void sub_100014E68(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  sub_10000A80C();
-  sub_10000A824(&_mh_execute_header, v2, v3, "Error calculating app uptime from baseline (%{public}@): %{public}@");
-}
-
-void sub_100014ED4(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_10000A80C();
-  sub_10000A824(&_mh_execute_header, v2, v3, "Error calculating crashes count from baseline (%{public}@): %{public}@");
-}
-
-void sub_100014F40(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_10000A80C();
-  sub_10000A824(&_mh_execute_header, v2, v3, "Unexpectedly would have recommended a rollback when targeting %{public}@ for %{public}@");
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 8);
+  sub_10000A844(&_mh_execute_header, &_os_log_default, a3, "Required parameter for maximum days was not available from %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100015064()
@@ -3992,22 +3949,27 @@ void sub_100015064()
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Retrieved baseline values: crash count=%{public}@; uptime=%{public}@", v2, 0x16u);
 }
 
-void sub_1000152E8(void *a1, uint64_t *a2)
+void sub_1000150E8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v4 = [a1 stringValue];
-  v5 = [a1 startDate];
-  v6 = *a2;
-  sub_10000A860();
-  sub_10000A88C(&_mh_execute_header, v7, v8, "Clamping start date for %{public}@ from %{public}@ to %{public}@", v9, v10, v11, v12, v13);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 8);
+  sub_10000A844(&_mh_execute_header, a2, a3, "Missing at least one required parameter value from %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_100015398(void *a1, uint64_t *a2)
+void sub_1000152E8(void *a1)
 {
-  v4 = [a1 stringValue];
-  v5 = [a1 endDate];
-  v6 = *a2;
+  v2 = [a1 stringValue];
+  v3 = [a1 startDate];
   sub_10000A860();
-  sub_10000A88C(&_mh_execute_header, v7, v8, "Clamping end date for %{public}@ from %{public}@ to %{public}@", v9, v10, v11, v12, v13);
+  sub_10000A88C(&_mh_execute_header, v4, v5, "Clamping start date for %{public}@ from %{public}@ to %{public}@", v6, v7, v8, v9);
+}
+
+void sub_100015398(void *a1)
+{
+  v2 = [a1 stringValue];
+  v3 = [a1 endDate];
+  sub_10000A860();
+  sub_10000A88C(&_mh_execute_header, v4, v5, "Clamping end date for %{public}@ from %{public}@ to %{public}@", v6, v7, v8, v9);
 }
 
 void sub_1000154D0()
@@ -4089,6 +4051,20 @@ void sub_1000158F4(void *a1, NSObject *a2)
   v4 = 2114;
   v5 = @"com.apple.osanalytics.canusediagnosticmonitor";
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Adding client connection from pid %d which lacks entitlement %{public}@ -- observer registration attempts will fail.", v3, 0x12u);
+}
+
+void sub_100015994(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 processIdentifier];
+  sub_10000CB50(&_mh_execute_header, v1, v2, "Adding entitled client connection from pid %d", v3, v4, v5, v6, v7);
+}
+
+void sub_100015A10(uint64_t a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [*(a1 + 32) pid];
+  sub_10000CB50(&_mh_execute_header, v1, v2, "Removing invalidated client connection for pid %d", v3, v4, v5, v6, v7);
 }
 
 void sub_100015AA4(uint64_t *a1)

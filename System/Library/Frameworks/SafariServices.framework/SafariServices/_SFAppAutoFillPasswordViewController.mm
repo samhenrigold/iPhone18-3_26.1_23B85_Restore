@@ -57,22 +57,22 @@
 - (id)_connectToServiceWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [(_SFAppAutoFillPasswordViewController *)self _connectToServiceWithCompletion:v5];
+    [(_SFAppAutoFillPasswordViewController *)self _connectToServiceWithCompletion:v6];
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke;
-  v9[3] = &unk_1E8490270;
-  v9[4] = self;
-  v10 = completionCopy;
-  v6 = completionCopy;
-  v7 = [(SFPasswordRemoteViewController *)SFPasswordPickerRemoteViewController requestViewControllerWithConnectionHandler:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke;
+  v10[3] = &unk_1E8490270;
+  v10[4] = self;
+  v11 = completionCopy;
+  v7 = completionCopy;
+  v8 = [(SFPasswordRemoteViewController *)SFPasswordPickerRemoteViewController requestViewControllerWithConnectionHandler:v10];
 
-  return v7;
+  return v8;
 }
 
 - (void)viewDidLoad
@@ -100,28 +100,28 @@
   popoverCopy = popover;
   completionCopy = completion;
   contextCopy = context;
-  v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(contextCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [_SFAppAutoFillPasswordViewController authenticateToPresentInPopover:v10 savedAccountContext:? completion:?];
+    [_SFAppAutoFillPasswordViewController authenticateToPresentInPopover:v11 savedAccountContext:? completion:?];
   }
 
   serviceProxy = self->_serviceProxy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __102___SFAppAutoFillPasswordViewController_authenticateToPresentInPopover_savedAccountContext_completion___block_invoke;
-  v13[3] = &unk_1E8490C40;
-  v13[4] = self;
-  v14 = completionCopy;
-  v12 = completionCopy;
-  [(SFPasswordPickerServiceViewControllerProtocol *)serviceProxy authenticateToPresentInPopover:popoverCopy savedAccountContext:contextCopy completion:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __102___SFAppAutoFillPasswordViewController_authenticateToPresentInPopover_savedAccountContext_completion___block_invoke;
+  v14[3] = &unk_1E8490C40;
+  v14[4] = self;
+  v15 = completionCopy;
+  v13 = completionCopy;
+  [(SFPasswordPickerServiceViewControllerProtocol *)serviceProxy authenticateToPresentInPopover:popoverCopy savedAccountContext:contextCopy completion:v14];
 }
 
 - (void)setWebViewURL:(id)l
 {
   lCopy = l;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(lCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setWebViewURL:];
   }
@@ -132,8 +132,8 @@
 - (void)setRemoteAppID:(id)d
 {
   dCopy = d;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(dCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setRemoteAppID:];
   }
@@ -144,8 +144,8 @@
 - (void)setRemoteLocalizedAppName:(id)name
 {
   nameCopy = name;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(nameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setRemoteLocalizedAppName:];
   }
@@ -156,8 +156,8 @@
 - (void)setRemoteUnlocalizedAppName:(id)name
 {
   nameCopy = name;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(nameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setRemoteUnlocalizedAppName:];
   }
@@ -168,8 +168,8 @@
 - (void)setExternallyVerifiedAndApprovedSharedWebCredentialsDomains:(id)domains
 {
   domainsCopy = domains;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(domainsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setExternallyVerifiedAndApprovedSharedWebCredentialsDomains:];
   }
@@ -179,7 +179,7 @@
 
 - (void)setAuthenticationGracePeriod:(double)period
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
+  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(_SFAppAutoFillPasswordViewController *)self setAuthenticationGracePeriod:v5, period];
@@ -190,22 +190,22 @@
 
 - (void)setPageID:(id)d frameID:(id)iD credentialType:(id)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   typeCopy = type;
-  v11 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(typeCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 134218754;
+    v13 = 134218754;
     selfCopy = self;
-    v14 = 2112;
-    v15 = dCopy;
-    v16 = 2112;
-    v17 = iDCopy;
-    v18 = 2112;
-    v19 = typeCopy;
-    _os_log_debug_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEBUG, "In-process view controller %p setPageID: %@ frameID: %@ credentialType: %@", &v12, 0x2Au);
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = iDCopy;
+    v19 = 2112;
+    v20 = typeCopy;
+    _os_log_debug_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEBUG, "In-process view controller %p setPageID: %@ frameID: %@ credentialType: %@", &v13, 0x2Au);
   }
 
   [(SFPasswordPickerServiceViewControllerProtocol *)self->_serviceProxy setPageID:dCopy frameID:iDCopy credentialType:typeCopy];
@@ -214,8 +214,8 @@
 - (void)setSystemAutoFillDocumentTraits:(id)traits
 {
   traitsCopy = traits;
-  v5 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(traitsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_SFAppAutoFillPasswordViewController setSystemAutoFillDocumentTraits:];
   }

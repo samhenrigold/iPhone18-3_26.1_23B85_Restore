@@ -25,20 +25,20 @@
   y = frame.origin.y;
   x = frame.origin.x;
   deviceCopy = device;
-  v145.receiver = self;
-  v145.super_class = NTKExplorerDialView;
-  height = [(NTKExplorerDialView *)&v145 initWithFrame:x, y, width, height];
+  v147.receiver = self;
+  v147.super_class = NTKExplorerDialView;
+  height = [(NTKExplorerDialView *)&v147 initWithFrame:x, y, width, height];
   v12 = height;
   if (height)
   {
-    v128 = deviceCopy;
+    v130 = deviceCopy;
     objc_storeStrong(&height->_device, device);
     v13 = +[UIColor blackColor];
     [(NTKExplorerDialView *)v12 setBackgroundColor:v13];
 
-    v138 = 0u;
-    memset(v137, 0, sizeof(v137));
-    sub_78B4(v12->_device, v137);
+    v140 = 0u;
+    memset(v139, 0, sizeof(v139));
+    sub_78B4(v12->_device, v139);
     layer = [(NTKExplorerDialView *)v12 layer];
     [layer bounds];
     v16 = v15;
@@ -57,274 +57,272 @@
     ringLayer = v12->_ringLayer;
     v12->_ringLayer = v26;
 
-    v135 = v23;
+    v137 = v23;
     [(CALayer *)v12->_ringLayer setPosition:v23, v24];
     [(CALayer *)v12->_ringLayer setBounds:v16, v18, v20, v22];
-    [(CALayer *)v12->_ringLayer setCornerRadius:width * 0.5];
-    v28 = v12->_ringLayer;
-    v29 = _ringColor();
-    -[CALayer setBorderColor:](v28, "setBorderColor:", [v29 CGColor]);
+    v28 = [(CALayer *)v12->_ringLayer setCornerRadius:width * 0.5];
+    v29 = v12->_ringLayer;
+    v30 = _ringColor(v28);
+    -[CALayer setBorderColor:](v29, "setBorderColor:", [v30 CGColor]);
 
-    v30 = *v137;
-    [(CALayer *)v12->_ringLayer setBorderWidth:*v137];
+    v31 = *v139;
+    [(CALayer *)v12->_ringLayer setBorderWidth:*v139];
     [layer addSublayer:v12->_ringLayer];
-    v31 = objc_opt_new();
+    v32 = objc_opt_new();
     hourReplicatorLayer = v12->_hourReplicatorLayer;
-    v12->_hourReplicatorLayer = v31;
+    v12->_hourReplicatorLayer = v32;
 
     [(CAReplicatorLayer *)v12->_hourReplicatorLayer setFillMode:kCAFillModeBoth];
     [(CAReplicatorLayer *)v12->_hourReplicatorLayer setPosition:v23, v24];
     [(CAReplicatorLayer *)v12->_hourReplicatorLayer setBounds:v16, v18, v20, v22];
     [(CAReplicatorLayer *)v12->_hourReplicatorLayer setInstanceCount:12];
-    v33 = v12->_hourReplicatorLayer;
-    CATransform3DMakeRotation(&v136, 0.523598776, 0.0, 0.0, 1.0);
-    [(CAReplicatorLayer *)v33 setInstanceTransform:&v136];
+    v34 = v12->_hourReplicatorLayer;
+    CATransform3DMakeRotation(&v138, 0.523598776, 0.0, 0.0, 1.0);
+    [(CAReplicatorLayer *)v34 setInstanceTransform:&v138];
     [layer addSublayer:v12->_hourReplicatorLayer];
-    v34 = objc_opt_new();
-    v133 = v12;
+    v35 = objc_opt_new();
+    v135 = v12;
     hourTickLayer = v12->_hourTickLayer;
-    v12->_hourTickLayer = v34;
+    v12->_hourTickLayer = v35;
 
-    v131 = CGPointZero.y;
-    v36 = v138;
+    v133 = CGPointZero.y;
+    v37 = v140;
     [(CALayer *)v12->_hourTickLayer setBounds:?];
-    [(CALayer *)v12->_hourTickLayer setCornerRadius:*&v36 * 0.5];
-    v37 = v12->_hourTickLayer;
-    v38 = +[UIColor whiteColor];
-    -[CALayer setBackgroundColor:](v37, "setBackgroundColor:", [v38 CGColor]);
+    [(CALayer *)v12->_hourTickLayer setCornerRadius:*&v37 * 0.5];
+    v38 = v12->_hourTickLayer;
+    v39 = +[UIColor whiteColor];
+    -[CALayer setBackgroundColor:](v38, "setBackgroundColor:", [v39 CGColor]);
 
     [(CALayer *)v12->_hourTickLayer setPosition:v23];
     [(CALayer *)v12->_hourTickLayer setActions:v25];
-    [(CAReplicatorLayer *)v133->_hourReplicatorLayer addSublayer:v133->_hourTickLayer];
-    v39 = objc_opt_new();
+    [(CAReplicatorLayer *)v135->_hourReplicatorLayer addSublayer:v135->_hourTickLayer];
+    v40 = objc_opt_new();
     minuteReplicatorLayer = v12->_minuteReplicatorLayer;
-    v12->_minuteReplicatorLayer = v39;
+    v12->_minuteReplicatorLayer = v40;
 
     [(CAReplicatorLayer *)v12->_minuteReplicatorLayer setFillMode:kCAFillModeBoth];
     [(CAReplicatorLayer *)v12->_minuteReplicatorLayer setPosition:v23, v24];
     [(CAReplicatorLayer *)v12->_minuteReplicatorLayer setBounds:v16, v18, v20, v22];
     [(CAReplicatorLayer *)v12->_minuteReplicatorLayer setInstanceCount:12];
-    v41 = v12->_minuteReplicatorLayer;
-    CATransform3DMakeRotation(&v136, 0.523598776, 0.0, 0.0, 1.0);
-    [(CAReplicatorLayer *)v41 setInstanceTransform:&v136];
+    v42 = v12->_minuteReplicatorLayer;
+    CATransform3DMakeRotation(&v138, 0.523598776, 0.0, 0.0, 1.0);
+    [(CAReplicatorLayer *)v42 setInstanceTransform:&v138];
     [(CAReplicatorLayer *)v12->_minuteReplicatorLayer setInstanceDelay:5.0];
     [layer addSublayer:v12->_minuteReplicatorLayer];
-    v42 = objc_opt_new();
+    v43 = objc_opt_new();
     minuteCollectionLayer = v12->_minuteCollectionLayer;
-    v12->_minuteCollectionLayer = v42;
+    v12->_minuteCollectionLayer = v43;
 
     [(CAReplicatorLayer *)v12->_minuteCollectionLayer setFillMode:kCAFillModeBoth];
     [(CAReplicatorLayer *)v12->_minuteCollectionLayer setPosition:v23, v24];
     [(CAReplicatorLayer *)v12->_minuteCollectionLayer setBounds:v16, v18, v20, v22];
-    v44 = v12->_minuteCollectionLayer;
-    CATransform3DMakeRotation(&v136, 0.261799388, 0.0, 0.0, 1.0);
-    [(CAReplicatorLayer *)v44 setTransform:&v136];
     v45 = v12->_minuteCollectionLayer;
-    v46 = *&CATransform3DIdentity.m33;
-    *&v136.m31 = *&CATransform3DIdentity.m31;
-    *&v136.m33 = v46;
-    v47 = *&CATransform3DIdentity.m43;
-    *&v136.m41 = *&CATransform3DIdentity.m41;
-    *&v136.m43 = v47;
-    v48 = *&CATransform3DIdentity.m13;
-    *&v136.m11 = *&CATransform3DIdentity.m11;
-    *&v136.m13 = v48;
-    v49 = *&CATransform3DIdentity.m23;
-    *&v136.m21 = *&CATransform3DIdentity.m21;
-    *&v136.m23 = v49;
-    [(CAReplicatorLayer *)v45 setInstanceTransform:&v136];
+    CATransform3DMakeRotation(&v138, 0.261799388, 0.0, 0.0, 1.0);
+    [(CAReplicatorLayer *)v45 setTransform:&v138];
+    v46 = v12->_minuteCollectionLayer;
+    v47 = *&CATransform3DIdentity.m33;
+    *&v138.m31 = *&CATransform3DIdentity.m31;
+    *&v138.m33 = v47;
+    v48 = *&CATransform3DIdentity.m43;
+    *&v138.m41 = *&CATransform3DIdentity.m41;
+    *&v138.m43 = v48;
+    v49 = *&CATransform3DIdentity.m13;
+    *&v138.m11 = *&CATransform3DIdentity.m11;
+    *&v138.m13 = v49;
+    v50 = *&CATransform3DIdentity.m23;
+    *&v138.m21 = *&CATransform3DIdentity.m21;
+    *&v138.m23 = v50;
+    [(CAReplicatorLayer *)v46 setInstanceTransform:&v138];
     [(CAReplicatorLayer *)v12->_minuteCollectionLayer setActions:v25];
-    [(CAReplicatorLayer *)v133->_minuteReplicatorLayer addSublayer:v133->_minuteCollectionLayer];
-    v50 = objc_opt_new();
+    [(CAReplicatorLayer *)v135->_minuteReplicatorLayer addSublayer:v135->_minuteCollectionLayer];
+    v51 = objc_opt_new();
     minuteTickLayer = v12->_minuteTickLayer;
-    v12->_minuteTickLayer = v50;
+    v12->_minuteTickLayer = v51;
 
-    v52 = v139;
-    [(CALayer *)v12->_minuteTickLayer setBounds:CGPointZero.x, v131, v139, v140];
-    [(CALayer *)v12->_minuteTickLayer setCornerRadius:v52 * 0.5];
-    [(CALayer *)v12->_minuteTickLayer setPosition:v23, v30 * 0.5];
-    v53 = v12->_minuteTickLayer;
-    v54 = _minuteTickColor();
-    -[CALayer setBackgroundColor:](v53, "setBackgroundColor:", [v54 CGColor]);
+    v53 = v141;
+    [(CALayer *)v12->_minuteTickLayer setBounds:CGPointZero.x, v133, v141, v142];
+    [(CALayer *)v12->_minuteTickLayer setCornerRadius:v53 * 0.5];
+    v54 = [(CALayer *)v12->_minuteTickLayer setPosition:v23, v31 * 0.5];
+    v55 = v12->_minuteTickLayer;
+    v56 = _minuteTickColor(v54);
+    -[CALayer setBackgroundColor:](v55, "setBackgroundColor:", [v56 CGColor]);
 
     [(CALayer *)v12->_minuteTickLayer setActions:v25];
-    [(CAReplicatorLayer *)v133->_minuteCollectionLayer addSublayer:v133->_minuteTickLayer];
-    v55 = objc_opt_new();
+    [(CAReplicatorLayer *)v135->_minuteCollectionLayer addSublayer:v135->_minuteTickLayer];
+    v57 = objc_opt_new();
     subdialReplicatorLayer = v12->_subdialReplicatorLayer;
-    v12->_subdialReplicatorLayer = v55;
+    v12->_subdialReplicatorLayer = v57;
 
     [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setFillMode:kCAFillModeBoth];
-    [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setBounds:CGPointZero.x, v131, *(v137 + 1), *(v137 + 1)];
-    v134 = v24;
+    [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setBounds:CGPointZero.x, v133, *(v139 + 1), *(v139 + 1)];
+    v136 = v24;
     [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setPosition:v23, v24];
     [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setActions:v25];
     [layer addSublayer:v12->_subdialReplicatorLayer];
-    v57 = objc_opt_new();
+    v59 = objc_opt_new();
     secondTickLayer = v12->_secondTickLayer;
-    v12->_secondTickLayer = v57;
+    v12->_secondTickLayer = v59;
 
-    v59 = v141;
-    v60 = v142;
-    [(CALayer *)v12->_secondTickLayer setBounds:CGPointZero.x, v131, v141, v142];
-    [(CALayer *)v12->_secondTickLayer setCornerRadius:v59 * 0.5];
-    v61 = v12->_secondTickLayer;
-    [(CAReplicatorLayer *)v12->_subdialReplicatorLayer bounds];
-    [(CALayer *)v61 setPosition:v62 * 0.5, v60 * 0.5];
-    [(CALayer *)v12->_secondTickLayer setActions:v25];
+    v61 = v143;
+    v62 = v144;
+    [(CALayer *)v12->_secondTickLayer setBounds:CGPointZero.x, v133, v143, v144];
+    [(CALayer *)v12->_secondTickLayer setCornerRadius:v61 * 0.5];
     v63 = v12->_secondTickLayer;
-    v64 = +[UIColor whiteColor];
-    -[CALayer setBackgroundColor:](v63, "setBackgroundColor:", [v64 CGColor]);
+    [(CAReplicatorLayer *)v12->_subdialReplicatorLayer bounds];
+    [(CALayer *)v63 setPosition:v64 * 0.5, v62 * 0.5];
+    [(CALayer *)v12->_secondTickLayer setActions:v25];
+    v65 = v12->_secondTickLayer;
+    v66 = +[UIColor whiteColor];
+    -[CALayer setBackgroundColor:](v65, "setBackgroundColor:", [v66 CGColor]);
 
     [(CAReplicatorLayer *)v12->_subdialReplicatorLayer addSublayer:v12->_secondTickLayer];
     [(CAReplicatorLayer *)v12->_subdialReplicatorLayer setInstanceCount:12];
-    v65 = v12->_subdialReplicatorLayer;
-    v66 = v25;
-    CATransform3DMakeRotation(&v136, 0.523598776, 0.0, 0.0, 1.0);
-    v67 = v65;
-    v68 = layer;
-    [(CAReplicatorLayer *)v67 setInstanceTransform:&v136];
-    v132 = [NSMutableArray arrayWithCapacity:3];
-    v69 = 0;
-    v70 = v144;
-    v71 = UIFontWeightBold;
-    v72 = NSFontAttributeName;
-    v74 = CGSizeZero.width;
-    v73 = CGSizeZero.height;
-    v75 = &v137[1] + 1;
-    v76 = &NTKAllSignatureCornerTypes_ptr;
-    v77 = &NTKAllSignatureCornerTypes_ptr;
+    v67 = v12->_subdialReplicatorLayer;
+    v68 = v25;
+    CATransform3DMakeRotation(&v138, 0.523598776, 0.0, 0.0, 1.0);
+    v69 = v67;
+    v70 = layer;
+    [(CAReplicatorLayer *)v69 setInstanceTransform:&v138];
+    v134 = [NSMutableArray arrayWithCapacity:3];
+    v71 = 0;
+    v72 = v146;
+    v73 = UIFontWeightBold;
+    v74 = NSFontAttributeName;
+    v76 = CGSizeZero.width;
+    v75 = CGSizeZero.height;
+    v77 = &v139[1] + 1;
+    v78 = &NTKAllSignatureCornerTypes_ptr;
+    v79 = &NTKAllSignatureCornerTypes_ptr;
     do
     {
-      v78 = v76;
-      v79 = [v76[109] localizedStringWithFormat:@"%i", dword_CC70[v69]];
-      v80 = *(v75 - 1);
-      v81 = *v75;
-      v82 = v77;
-      v83 = v71;
-      v84 = [v77[106] systemFontOfSize:CLKRoundedFontDesignName weight:v70 design:v71];
-      v148 = v72;
-      v149 = v84;
-      v85 = [NSDictionary dictionaryWithObjects:&v149 forKeys:&v148 count:1];
-      [v79 boundingRectWithSize:3 options:v85 attributes:0 context:{v74, v73}];
-      v87 = v86;
+      v80 = v78;
+      v81 = [v78[109] localizedStringWithFormat:@"%i", dword_CC70[v71]];
+      v82 = *(v77 - 1);
+      v83 = *v77;
+      v84 = v79;
+      v85 = v73;
+      v86 = [v79[106] systemFontOfSize:CLKRoundedFontDesignName weight:v72 design:v73];
+      v150 = v74;
+      v151 = v86;
+      v87 = [NSDictionary dictionaryWithObjects:&v151 forKeys:&v150 count:1];
+      [v81 boundingRectWithSize:3 options:v87 attributes:0 context:{v76, v75}];
+      v89 = v88;
 
-      v88 = CLKLocaleCurrentNumberSystem();
-      if ((v88 - 3) < 0xC || v88 == -1)
+      v90 = CLKLocaleCurrentNumberSystem();
+      if ((v90 - 3) < 0xC || v90 == -1)
       {
-        [v84 capHeight];
-        v90 = v89 + 1.0;
-        v91 = &NTKAllSignatureCornerTypes_ptr;
+        [v86 capHeight];
+        v92 = v91 + 1.0;
+        v93 = &NTKAllSignatureCornerTypes_ptr;
       }
 
       else
       {
-        v91 = &NTKAllSignatureCornerTypes_ptr;
-        if (v88 == 2)
+        v93 = &NTKAllSignatureCornerTypes_ptr;
+        if (v90 == 2)
         {
-          [v84 capHeight];
-          v98 = v97;
-          [v84 descender];
-          v90 = v98 - v99;
+          [v86 capHeight];
+          v100 = v99;
+          [v86 descender];
+          v92 = v100 - v101;
         }
 
         else
         {
-          [v84 capHeight];
-          v90 = v100 + 1.0;
+          [v86 capHeight];
+          v92 = v102 + 1.0;
         }
       }
 
-      layer2 = [v91[101] layer];
-      [layer2 setString:v79];
-      v93 = _numeralsGreyColor();
-      [layer2 setForegroundColor:{objc_msgSend(v93, "CGColor")}];
+      layer2 = [v93[101] layer];
+      v95 = _numeralsGreyColor([layer2 setString:v81]);
+      [layer2 setForegroundColor:{objc_msgSend(v95, "CGColor")}];
 
-      [v84 ascender];
-      v95 = v94;
-      [v84 capHeight];
-      [layer2 setBounds:{0.0, v95 - v96 + -1.0, v87, ceil(v90)}];
-      [layer2 setFont:v84];
-      [layer2 setFontSize:v70];
+      [v86 ascender];
+      v97 = v96;
+      [v86 capHeight];
+      [layer2 setBounds:{0.0, v97 - v98 + -1.0, v89, ceil(v92)}];
+      [layer2 setFont:v86];
+      [layer2 setFontSize:v72];
       [layer2 setAnchorPoint:{0.5, 0.5}];
-      [layer2 setPosition:{v135 + v80, v134 + v81}];
-      [layer2 setActions:v66];
+      [layer2 setPosition:{v137 + v82, v136 + v83}];
+      [layer2 setActions:v68];
       [layer2 setContentsScale:2.0];
-      [v68 addSublayer:layer2];
-      [v132 addObject:layer2];
+      [v70 addSublayer:layer2];
+      [v134 addObject:layer2];
 
-      ++v69;
-      v75 += 2;
-      v71 = v83;
-      v74 = CGSizeZero.width;
-      v76 = v78;
-      v72 = NSFontAttributeName;
-      v77 = v82;
+      ++v71;
+      v77 += 2;
+      v73 = v85;
+      v76 = CGSizeZero.width;
+      v78 = v80;
+      v74 = NSFontAttributeName;
+      v79 = v84;
     }
 
-    while (v69 != 3);
-    v101 = [v132 copy];
-    hourNumerals = v133->_hourNumerals;
-    v133->_hourNumerals = v101;
+    while (v71 != 3);
+    v103 = [v134 copy];
+    hourNumerals = v135->_hourNumerals;
+    v135->_hourNumerals = v103;
 
-    v103 = [NSMutableArray arrayWithCapacity:12];
-    v104 = v143;
-    v105 = v66;
-    v130 = v68;
-    v106 = &v137[19] + 1;
-    v107 = -60;
-    v129 = v73;
+    v105 = [NSMutableArray arrayWithCapacity:12];
+    v106 = v145;
+    v107 = v68;
+    v132 = v70;
+    v108 = &v139[19] + 1;
+    v109 = -60;
+    v131 = v75;
     do
     {
-      v108 = [v76[109] localizedStringWithFormat:@"%02i", v107 + 65];
-      v109 = *(v106 - 25);
-      v110 = *(v106 - 24);
-      v111 = [v77[106] systemFontOfSize:CLKRoundedFontDesignName weight:v104 design:v71];
-      v146 = v72;
-      v147 = v111;
-      v112 = [NSDictionary dictionaryWithObjects:&v147 forKeys:&v146 count:1];
-      [v108 boundingRectWithSize:3 options:v112 attributes:0 context:{v74, v129}];
-      v114 = v113;
+      v110 = [v78[109] localizedStringWithFormat:@"%02i", v109 + 65];
+      v111 = *(v108 - 25);
+      v112 = *(v108 - 24);
+      v113 = [v79[106] systemFontOfSize:CLKRoundedFontDesignName weight:v106 design:v73];
+      v148 = v74;
+      v149 = v113;
+      v114 = [NSDictionary dictionaryWithObjects:&v149 forKeys:&v148 count:1];
+      [v110 boundingRectWithSize:3 options:v114 attributes:0 context:{v76, v131}];
       v116 = v115;
       v118 = v117;
       v120 = v119;
+      v122 = v121;
 
-      v121 = +[CATextLayer layer];
-      [v121 setString:v108];
-      v122 = _numeralsGreyColor();
-      [v121 setForegroundColor:{objc_msgSend(v122, "CGColor")}];
+      v123 = +[CATextLayer layer];
+      v124 = _numeralsGreyColor([v123 setString:v110]);
+      [v123 setForegroundColor:{objc_msgSend(v124, "CGColor")}];
 
-      v123 = v114;
-      v71 = v83;
-      v124 = v116;
-      v74 = CGSizeZero.width;
-      [v121 setBounds:{v123, v124, v118, v120}];
-      [v121 setFont:v111];
-      [v121 setFontSize:v104];
-      [v121 setAnchorPoint:{*(v106 - 1), *v106}];
-      [v121 setPosition:{v135 + v109, v134 + v110}];
-      [v121 setActions:v105];
-      [v121 setContentsScale:2.0];
-      [v130 addSublayer:v121];
-      [v103 addObject:v121];
+      v125 = v116;
+      v73 = v85;
+      v126 = v118;
+      v76 = CGSizeZero.width;
+      [v123 setBounds:{v125, v126, v120, v122}];
+      [v123 setFont:v113];
+      [v123 setFontSize:v106];
+      [v123 setAnchorPoint:{*(v108 - 1), *v108}];
+      [v123 setPosition:{v137 + v111, v136 + v112}];
+      [v123 setActions:v107];
+      [v123 setContentsScale:2.0];
+      [v132 addSublayer:v123];
+      [v105 addObject:v123];
 
-      v72 = NSFontAttributeName;
-      v77 = v82;
+      v74 = NSFontAttributeName;
+      v79 = v84;
 
-      v76 = v78;
-      v106 += 2;
-      v107 += 5;
+      v78 = v80;
+      v108 += 2;
+      v109 += 5;
     }
 
-    while (v107);
-    v125 = [v103 copy];
-    v12 = v133;
-    minuteNumerals = v133->_minuteNumerals;
-    v133->_minuteNumerals = v125;
+    while (v109);
+    v127 = [v105 copy];
+    v12 = v135;
+    minuteNumerals = v135->_minuteNumerals;
+    v135->_minuteNumerals = v127;
 
-    v133->_currentDensityTransition = 0x7FFFFFFFFFFFFFFFLL;
-    v133->_density = 0x7FFFFFFFFFFFFFFFLL;
+    v135->_currentDensityTransition = 0x7FFFFFFFFFFFFFFFLL;
+    v135->_density = 0x7FFFFFFFFFFFFFFFLL;
 
-    deviceCopy = v128;
+    deviceCopy = v130;
   }
 
   return v12;
@@ -593,14 +591,14 @@ LABEL_8:
     sub_837C();
   }
 
-  v18 = xmmword_16558;
-  v19 = unk_16568;
-  v20 = xmmword_16578;
-  v21 = unk_16588;
-  v14 = xmmword_16518;
-  v15 = unk_16528;
-  v16 = xmmword_16538;
-  v17 = unk_16548;
+  v18 = *&byte_16518[64];
+  v19 = *&byte_16518[80];
+  v20 = *&byte_16518[96];
+  v21 = *&byte_16518[112];
+  v14 = *byte_16518;
+  v15 = *&byte_16518[16];
+  v16 = *&byte_16518[32];
+  v17 = *&byte_16518[48];
   v4 = [NSValue valueWithCATransform3D:&v14];
   [v3 setFromValue:v4];
 
@@ -628,14 +626,14 @@ LABEL_8:
     sub_83B8();
   }
 
-  v18 = xmmword_163D0;
-  v19 = unk_163E0;
-  v20 = xmmword_163F0;
-  v21 = unk_16400;
-  v14 = xmmword_16390;
-  v15 = unk_163A0;
-  v16 = xmmword_163B0;
-  v17 = unk_163C0;
+  v18 = *&byte_16390[64];
+  v19 = *&byte_16390[80];
+  v20 = *&byte_16390[96];
+  v21 = *&byte_16390[112];
+  v14 = *byte_16390;
+  v15 = *&byte_16390[16];
+  v16 = *&byte_16390[32];
+  v17 = *&byte_16390[48];
   v7 = [NSValue valueWithCATransform3D:&v14];
   [v6 setFromValue:v7];
 
@@ -644,14 +642,14 @@ LABEL_8:
     sub_83B8();
   }
 
-  v18 = xmmword_162D0;
-  v19 = unk_162E0;
-  v20 = xmmword_162F0;
-  v21 = unk_16300;
-  v14 = xmmword_16290;
-  v15 = unk_162A0;
-  v16 = xmmword_162B0;
-  v17 = unk_162C0;
+  v18 = *&byte_16290[64];
+  v19 = *&byte_16290[80];
+  v20 = *&byte_16290[96];
+  v21 = *&byte_16290[112];
+  v14 = *byte_16290;
+  v15 = *&byte_16290[16];
+  v16 = *&byte_16290[32];
+  v17 = *&byte_16290[48];
   v8 = [NSValue valueWithCATransform3D:&v14];
   [v6 setToValue:v8];
 
@@ -772,14 +770,14 @@ LABEL_8:
     sub_8368();
   }
 
-  v17 = xmmword_162D0;
-  v18 = unk_162E0;
-  v19 = xmmword_162F0;
-  v20 = unk_16300;
-  v13 = xmmword_16290;
-  v14 = unk_162A0;
-  v15 = xmmword_162B0;
-  v16 = unk_162C0;
+  v17 = *&byte_16290[64];
+  v18 = *&byte_16290[80];
+  v19 = *&byte_16290[96];
+  v20 = *&byte_16290[112];
+  v13 = *byte_16290;
+  v14 = *&byte_16290[16];
+  v15 = *&byte_16290[32];
+  v16 = *&byte_16290[48];
   v3 = [NSValue valueWithCATransform3D:&v13];
   [v2 setFromValue:v3];
 
@@ -788,14 +786,14 @@ LABEL_8:
     sub_83B8();
   }
 
-  v17 = xmmword_16350;
-  v18 = unk_16360;
-  v19 = xmmword_16370;
-  v20 = unk_16380;
-  v13 = xmmword_16310;
-  v14 = unk_16320;
-  v15 = xmmword_16330;
-  v16 = unk_16340;
+  v17 = *&byte_16310[64];
+  v18 = *&byte_16310[80];
+  v19 = *&byte_16310[96];
+  v20 = *&byte_16310[112];
+  v13 = *byte_16310;
+  v14 = *&byte_16310[16];
+  v15 = *&byte_16310[32];
+  v16 = *&byte_16310[48];
   v4 = [NSValue valueWithCATransform3D:&v13];
   [v2 setToValue:v4];
 
@@ -829,14 +827,14 @@ LABEL_8:
     sub_8390();
   }
 
-  v17 = xmmword_164D8;
-  v18 = unk_164E8;
-  v19 = xmmword_164F8;
-  v20 = unk_16508;
-  v13 = xmmword_16498;
-  v14 = unk_164A8;
-  v15 = xmmword_164B8;
-  v16 = unk_164C8;
+  v17 = *&byte_16498[64];
+  v18 = *&byte_16498[80];
+  v19 = *&byte_16498[96];
+  v20 = *&byte_16498[112];
+  v13 = *byte_16498;
+  v14 = *&byte_16498[16];
+  v15 = *&byte_16498[32];
+  v16 = *&byte_16498[48];
   v9 = [NSValue valueWithCATransform3D:&v13];
   [v7 setToValue:v9];
 

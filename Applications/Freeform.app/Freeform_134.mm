@@ -1,3 +1,1295 @@
+void sub_10101F654(uint64_t a1, uint64_t a2)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v3 = Strong;
+    sub_10101F6C4();
+  }
+}
+
+void sub_10101F6C4()
+{
+  v1 = [objc_allocWithZone(HLPHelpViewController) init];
+  [v1 setShowTopicViewOnLoad:1];
+  v2 = String._bridgeToObjectiveC()();
+  [v1 setSelectedHelpTopicID:v2];
+
+  v3 = objc_allocWithZone(UINavigationController);
+  v4 = v1;
+  v5 = [v3 initWithRootViewController:v4];
+  [v4 setModalPresentationStyle:1];
+
+  [v0 presentViewController:v5 animated:1 completion:0];
+}
+
+void sub_10101F7C8()
+{
+  v1 = v0;
+  v26.receiver = v0;
+  v26.super_class = type metadata accessor for CRLiOSBoardViewController(0);
+  objc_msgSendSuper2(&v26, "viewDidLayoutSubviews");
+  if ((v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isTornDown] & 1) == 0)
+  {
+    sub_101025F4C();
+  }
+
+  v23 = &type metadata for CRLFeatureFlags;
+  v24 = sub_100004D60();
+  LOBYTE(v22[0]) = 20;
+  v2 = isFeatureEnabled(_:)();
+  sub_100005070(v22);
+  if (v2)
+  {
+    v3 = v1;
+    v4 = v3;
+    while (1)
+    {
+      v5 = v4;
+      v4 = [v4 presentedViewController];
+
+      if (!v4)
+      {
+        break;
+      }
+
+      type metadata accessor for CRLScenesViewController_iv();
+      if (!swift_dynamicCastClass())
+      {
+        type metadata accessor for CRLCompactScenesViewController_i();
+        if (!swift_dynamicCastClass())
+        {
+          continue;
+        }
+      }
+
+      v6 = *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
+      v7 = swift_allocObject();
+      *(v7 + 16) = v3;
+      v24 = sub_10105AE64;
+      v25 = v7;
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = *"";
+      v22[2] = sub_100007638;
+      v23 = &unk_1018AF038;
+      v8 = _Block_copy(v22);
+      v9 = v3;
+
+      [v6 performBlockOnMainThreadAfterLayoutIfNecessary:v8];
+      _Block_release(v8);
+      break;
+    }
+  }
+
+  v10 = [v1 presentedViewController];
+  v11 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController;
+  v12 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController];
+  if (v10)
+  {
+    v13 = v10;
+    if (!v12)
+    {
+      v20 = 0;
+
+      goto LABEL_19;
+    }
+
+    sub_100006370(0, &qword_101A10AB0, UIViewController_ptr);
+    v14 = v12;
+    v15 = static NSObject.== infix(_:_:)();
+
+    if ((v15 & 1) == 0)
+    {
+LABEL_19:
+      v12 = *&v1[v11];
+      if (!v12)
+      {
+        return;
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    if (v12)
+    {
+LABEL_20:
+      v21 = v12;
+      sub_100F239FC();
+
+      return;
+    }
+
+    v16 = 0;
+  }
+
+  v17 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesNavigatorState];
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v18 = v17;
+  static Published.subscript.getter();
+
+  if (v22[0])
+  {
+    goto LABEL_19;
+  }
+
+  v19 = *&v1[v11];
+  if (v19)
+  {
+    [v19 dismissViewControllerAnimated:0 completion:0];
+  }
+}
+
+uint64_t sub_10101FA98(uint64_t a1)
+{
+  [*(a1 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController) visibleUnscaledRect];
+  v2 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState;
+  v3 = *(a1 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState);
+  v6 = v4 / v5;
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v7 = v3;
+  static Published.subscript.getter();
+
+  result = sub_1007C87EC(v6, v11);
+  if ((result & 1) == 0)
+  {
+    v9 = *(a1 + v2);
+    swift_getKeyPath();
+    swift_getKeyPath();
+    v10 = v9;
+    return static Published.subscript.setter();
+  }
+
+  return result;
+}
+
+void sub_10101FBE4(uint64_t a1, char a2, uint64_t (*a3)(), uint64_t a4)
+{
+  v9 = sub_100D1D100();
+  type metadata accessor for CRLScenesNavigatorViewController();
+  if (swift_dynamicCastClass())
+  {
+    v10 = 1;
+  }
+
+  else
+  {
+    objc_opt_self();
+    v10 = swift_dynamicCastObjCClass() != 0;
+  }
+
+  v11 = [v4 presentedViewController];
+  v236 = v4;
+  if (!v11)
+  {
+LABEL_7:
+    if (a3)
+    {
+      v241 = a3;
+      v242 = a4;
+      aBlock = _NSConcreteStackBlock;
+      v238 = *"";
+      v239 = sub_100007638;
+      v240 = &unk_1018AEF48;
+      v13 = _Block_copy(&aBlock);
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = type metadata accessor for CRLiOSBoardViewController(0);
+    v243.receiver = v4;
+    v243.super_class = v14;
+    objc_msgSendSuper2(&v243, "presentViewController:animated:completion:", a1, a2 & 1, v13);
+    goto LABEL_14;
+  }
+
+  v12 = v11;
+  if ([v11 isBeingDismissed])
+  {
+
+    goto LABEL_7;
+  }
+
+  if (v10)
+  {
+    if (a3)
+    {
+      v241 = a3;
+      v242 = a4;
+      aBlock = _NSConcreteStackBlock;
+      v238 = *"";
+      v239 = sub_100007638;
+      v240 = &unk_1018AEFC0;
+      v13 = _Block_copy(&aBlock);
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    [v9 presentViewController:a1 animated:1 completion:v13];
+  }
+
+  else
+  {
+    v126 = swift_allocObject();
+    *(v126 + 16) = v4;
+    *(v126 + 24) = a1;
+    *(v126 + 32) = a2 & 1;
+    *(v126 + 40) = a3;
+    *(v126 + 48) = a4;
+    v241 = sub_10105AE34;
+    v242 = v126;
+    aBlock = _NSConcreteStackBlock;
+    v238 = *"";
+    v239 = sub_100007638;
+    v240 = &unk_1018AEF98;
+    v13 = _Block_copy(&aBlock);
+    sub_10067F2EC(a3, a4);
+    v127 = v4;
+    v128 = a1;
+
+    [v127 dismissViewControllerAnimated:a2 & 1 completion:v13];
+  }
+
+LABEL_14:
+  _Block_release(v13);
+  v15 = sub_101012FD4();
+  v16 = [v15 mode];
+
+  LODWORD(v15) = [v16 wantsToEndForNonPopoverPresentations];
+  v17 = &selRef_p_writingDirectionForCharAtIndex_;
+  p_class_meths = &OBJC_PROTOCOL___UIWritingToolsCoordinatorDelegate.class_meths;
+  if (!v15)
+  {
+    goto LABEL_89;
+  }
+
+  v19 = [a1 presentationController];
+  if (!v19)
+  {
+    v235 = v9;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_10146C6B0;
+    v234 = a1;
+    swift_getObjectType();
+    ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+    v82 = NSStringFromClass(ObjCClassFromMetadata);
+    v83 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v85 = v84;
+
+    *(inited + 56) = &type metadata for String;
+    v86 = sub_1000053B0();
+    *(inited + 32) = v83;
+    v87 = inited + 32;
+    v232 = v86;
+    *(inited + 64) = v86;
+    *(inited + 40) = v85;
+    v231 = objc_opt_self();
+    v88 = [v231 _atomicIncrementAssertCount];
+    aBlock = [objc_allocWithZone(NSString) init];
+    v233 = inited;
+    sub_100604538(inited, &aBlock, "Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2u);
+    StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+    v89 = String._bridgeToObjectiveC()();
+
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+    v90 = String._bridgeToObjectiveC()();
+
+    v91 = [v90 lastPathComponent];
+
+    v92 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v94 = v93;
+
+    if (qword_1019F20A0 != -1)
+    {
+      swift_once();
+    }
+
+    v95 = static OS_os_log.crlAssert;
+    v96 = swift_allocObject();
+    *(v96 + 16) = xmmword_10146CA70;
+    *(v96 + 56) = &type metadata for Int32;
+    *(v96 + 64) = &protocol witness table for Int32;
+    *(v96 + 32) = v88;
+    v97 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+    *(v96 + 96) = v97;
+    v98 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+    *(v96 + 72) = v89;
+    *(v96 + 136) = &type metadata for String;
+    *(v96 + 144) = v232;
+    *(v96 + 104) = v98;
+    *(v96 + 112) = v92;
+    *(v96 + 120) = v94;
+    *(v96 + 176) = &type metadata for UInt;
+    *(v96 + 184) = &protocol witness table for UInt;
+    *(v96 + 152) = 1032;
+    v99 = v89;
+    v100 = aBlock;
+    *(v96 + 216) = v97;
+    *(v96 + 224) = v98;
+    *(v96 + 192) = v100;
+    v101 = v99;
+    v102 = v100;
+    v103 = static os_log_type_t.error.getter();
+    sub_100005404(v95, &_mh_execute_header, v103, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v96);
+    swift_setDeallocating();
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+    swift_arrayDestroy();
+    swift_deallocClassInstance();
+    v104 = static os_log_type_t.error.getter();
+    v105 = v233;
+    sub_100005404(v95, &_mh_execute_header, v104, "Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2, v233);
+
+    type metadata accessor for __VaListBuilder();
+    a1 = swift_allocObject();
+    *(a1 + 16) = 8;
+    *(a1 + 24) = 0;
+    v20 = (a1 + 24);
+    *(a1 + 32) = 0;
+    *(a1 + 40) = 0;
+    v106 = v233[2];
+    if (!v106)
+    {
+LABEL_80:
+      v122 = __VaListBuilder.va_list()();
+      StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+      v123 = String._bridgeToObjectiveC()();
+
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+      v124 = String._bridgeToObjectiveC()();
+
+      StaticString.description.getter("Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2);
+      v125 = String._bridgeToObjectiveC()();
+
+      [v231 handleFailureInFunction:v123 file:v124 lineNumber:1032 isFatal:0 format:v125 args:v122];
+
+      swift_setDeallocating();
+      swift_arrayDestroy();
+      v4 = v236;
+      [*(v236 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___documentModeController) resetToDefaultModeAnimated:1];
+      goto LABEL_81;
+    }
+
+    v63 = 0;
+    p_class_meths = 40;
+    while (1)
+    {
+      sub_100020E58((v87 + 40 * v63), *(v87 + 40 * v63 + 24));
+      v107 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+      v67 = *v20;
+      v108 = *(v107 + 16);
+      v69 = __OFADD__(*v20, v108);
+      v109 = *v20 + v108;
+      if (v69)
+      {
+        goto LABEL_161;
+      }
+
+      v110 = *(a1 + 32);
+      if (v110 >= v109)
+      {
+        goto LABEL_72;
+      }
+
+      if (v110 + 0x4000000000000000 < 0)
+      {
+        goto LABEL_164;
+      }
+
+      v111 = *(a1 + 40);
+      if (2 * v110 > v109)
+      {
+        v109 = 2 * v110;
+      }
+
+      *(a1 + 32) = v109;
+      if ((v109 - 0x1000000000000000) >> 61 != 7)
+      {
+LABEL_165:
+        __break(1u);
+LABEL_166:
+        __break(1u);
+LABEL_167:
+        __break(1u);
+LABEL_168:
+        __break(1u);
+LABEL_169:
+        __break(1u);
+LABEL_170:
+        swift_once();
+LABEL_122:
+        v189 = static OS_os_log.crlAssert;
+        v190 = swift_initStackObject();
+        *(v190 + 16) = xmmword_10146CA70;
+        *(v190 + 56) = &type metadata for Int32;
+        *(v190 + 64) = &protocol witness table for Int32;
+        *(v190 + 32) = v63;
+        v191 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+        *(v190 + 96) = v191;
+        v192 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+        *(v190 + 72) = v234;
+        v193 = aBlock;
+        *(v190 + 136) = &type metadata for String;
+        *(v190 + 144) = v236;
+        *(v190 + 104) = v192;
+        *(v190 + 112) = p_class_meths;
+        *(v190 + 120) = v20;
+        *(v190 + 176) = &type metadata for UInt;
+        *(v190 + 184) = &protocol witness table for UInt;
+        *(v190 + 152) = 1060;
+        *(v190 + 216) = v191;
+        *(v190 + 224) = v192;
+        *(v190 + 192) = v193;
+        v194 = v234;
+        v195 = v193;
+        v196 = static os_log_type_t.error.getter();
+        sub_100005404(v189, &_mh_execute_header, v196, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v190);
+        swift_setDeallocating();
+        v236 = sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+        swift_arrayDestroy();
+        v197 = static os_log_type_t.error.getter();
+        sub_100005404(v189, &_mh_execute_header, v197, "Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2, a1);
+
+        type metadata accessor for __VaListBuilder();
+        p_class_meths = swift_allocObject();
+        *(p_class_meths + 16) = 8;
+        *(p_class_meths + 24) = 0;
+        v20 = (p_class_meths + 24);
+        *(p_class_meths + 32) = 0;
+        *(p_class_meths + 40) = 0;
+        v63 = *(a1 + 16);
+        v198 = a1;
+        if (!v63)
+        {
+LABEL_147:
+          v214 = __VaListBuilder.va_list()();
+          StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+          v215 = String._bridgeToObjectiveC()();
+
+          StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+          v216 = String._bridgeToObjectiveC()();
+
+          StaticString.description.getter("Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2);
+          v217 = String._bridgeToObjectiveC()();
+
+          [v233 handleFailureInFunction:v215 file:v216 lineNumber:1060 isFatal:0 format:v217 args:v214];
+
+          swift_setDeallocating();
+          swift_arrayDestroy();
+
+          return;
+        }
+
+        v9 = 0;
+        a1 = 40;
+        while (2)
+        {
+          v4 = sub_100020E58((v67 + 40 * v9), *(v67 + 40 * v9 + 24));
+          v199 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+          v200 = *v20;
+          v201 = *(v199 + 16);
+          v69 = __OFADD__(*v20, v201);
+          v202 = *v20 + v201;
+          if (v69)
+          {
+            goto LABEL_160;
+          }
+
+          v203 = *(p_class_meths + 32);
+          if (v203 >= v202)
+          {
+LABEL_139:
+            v208 = *(p_class_meths + 40);
+            if (!v208)
+            {
+              goto LABEL_146;
+            }
+          }
+
+          else
+          {
+            if (v203 + 0x4000000000000000 < 0)
+            {
+              goto LABEL_162;
+            }
+
+            v4 = *(p_class_meths + 40);
+            if (2 * v203 > v202)
+            {
+              v202 = 2 * v203;
+            }
+
+            *(p_class_meths + 32) = v202;
+            if ((v202 - 0x1000000000000000) >> 61 != 7)
+            {
+              goto LABEL_163;
+            }
+
+            v204 = v67;
+            v205 = v198;
+            v206 = v199;
+            v207 = swift_slowAlloc();
+            v208 = v207;
+            *(p_class_meths + 40) = v207;
+            if (v4)
+            {
+              if (v207 != v4 || v207 >= &v4[v200])
+              {
+                memmove(v207, v4, 8 * v200);
+              }
+
+              v4 = p_class_meths;
+              __VaListBuilder.deallocStorage(wordCount:storage:)();
+              v199 = v206;
+              v198 = v205;
+              v67 = v204;
+              a1 = 40;
+              goto LABEL_139;
+            }
+
+            v199 = v206;
+            v198 = v205;
+            v67 = v204;
+            a1 = 40;
+            if (!v208)
+            {
+LABEL_146:
+              __break(1u);
+              goto LABEL_147;
+            }
+          }
+
+          v210 = *(v199 + 16);
+          if (v210)
+          {
+            v211 = (v199 + 32);
+            v212 = *v20;
+            while (1)
+            {
+              v213 = *v211++;
+              v208[v212] = v213;
+              v212 = *v20 + 1;
+              if (__OFADD__(*v20, 1))
+              {
+                break;
+              }
+
+              *v20 = v212;
+              if (!--v210)
+              {
+                goto LABEL_124;
+              }
+            }
+
+            __break(1u);
+            goto LABEL_154;
+          }
+
+LABEL_124:
+
+          v9 = v9 + 1;
+          if (v9 == v63)
+          {
+            goto LABEL_147;
+          }
+
+          continue;
+        }
+      }
+
+      v112 = v87;
+      v113 = v105;
+      v114 = v107;
+      v115 = swift_slowAlloc();
+      v116 = v115;
+      *(a1 + 40) = v115;
+      if (v111)
+      {
+        break;
+      }
+
+      v107 = v114;
+      v105 = v113;
+      v87 = v112;
+      p_class_meths = 40;
+      if (!v116)
+      {
+LABEL_79:
+        __break(1u);
+        goto LABEL_80;
+      }
+
+LABEL_73:
+      v118 = *(v107 + 16);
+      if (v118)
+      {
+        v119 = (v107 + 32);
+        v120 = *v20;
+        while (1)
+        {
+          v121 = *v119++;
+          *&v116[8 * v120] = v121;
+          v120 = *v20 + 1;
+          if (__OFADD__(*v20, 1))
+          {
+            break;
+          }
+
+          *v20 = v120;
+          if (!--v118)
+          {
+            goto LABEL_57;
+          }
+        }
+
+        __break(1u);
+LABEL_157:
+        v222 = __VaListBuilder.va_list()();
+        StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+        v223 = String._bridgeToObjectiveC()();
+
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+        v224 = String._bridgeToObjectiveC()();
+
+        StaticString.description.getter("Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2);
+        v225 = String._bridgeToObjectiveC()();
+
+        [v227 handleFailureInFunction:v223 file:v224 lineNumber:1024 isFatal:0 format:v225 args:v222];
+
+        swift_setDeallocating();
+        swift_arrayDestroy();
+        swift_deallocClassInstance();
+        v4 = v236;
+        v226 = *(v236 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___documentModeController);
+        [v226 resetToDefaultModeAnimated:1];
+        swift_unknownObjectRelease();
+
+LABEL_81:
+        a1 = v234;
+        v9 = v235;
+LABEL_88:
+        v17 = &selRef_p_writingDirectionForCharAtIndex_;
+        p_class_meths = &OBJC_PROTOCOL___UIWritingToolsCoordinatorDelegate.class_meths;
+LABEL_89:
+        if (*(v4 + *(p_class_meths + 184)))
+        {
+          v130 = [a1 v17[360]];
+          if (!v130)
+          {
+LABEL_121:
+            v235 = v9;
+            sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+            a1 = swift_initStackObject();
+            *(a1 + 16) = xmmword_10146C6B0;
+            swift_getObjectType();
+            v181 = swift_getObjCClassFromMetadata();
+            v182 = NSStringFromClass(v181);
+            v183 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v63 = v184;
+
+            *(a1 + 56) = &type metadata for String;
+            v185 = sub_1000053B0();
+            *(a1 + 32) = v183;
+            v67 = a1 + 32;
+            v236 = v185;
+            *(a1 + 64) = v185;
+            *(a1 + 40) = v63;
+            v233 = objc_opt_self();
+            LODWORD(v63) = [v233 _atomicIncrementAssertCount];
+            aBlock = [objc_allocWithZone(NSString) init];
+            sub_100604538(a1, &aBlock, "Presentation controller should not be nil when presenting view controller (%{public}@).", 87, 2u);
+            StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+            v234 = String._bridgeToObjectiveC()();
+
+            StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+            v186 = String._bridgeToObjectiveC()();
+
+            v187 = [v186 lastPathComponent];
+
+            p_class_meths = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v20 = v188;
+
+            if (qword_1019F20A0 != -1)
+            {
+              goto LABEL_170;
+            }
+
+            goto LABEL_122;
+          }
+
+          v20 = v130;
+          v131 = [v130 presentationStyle];
+          v132 = [v4 traitCollection];
+          v133 = [v20 adaptivePresentationStyleForTraitCollection:v132];
+
+          sub_101021A10(v131, v133);
+          if ([v20 delegate])
+          {
+            swift_unknownObjectRelease();
+            v134 = [v20 delegate];
+            if (v134)
+            {
+              v135 = v134;
+              v136 = [v236 traitCollection];
+              v137 = [v136 userInterfaceIdiom];
+
+              if (v137 && v135 != v236)
+              {
+                v235 = v9;
+                sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+                v138 = swift_initStackObject();
+                *(v138 + 16) = xmmword_10146C4D0;
+                swift_getObjectType();
+                v139 = swift_getObjCClassFromMetadata();
+                v140 = NSStringFromClass(v139);
+                v141 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v143 = v142;
+
+                *(v138 + 56) = &type metadata for String;
+                v144 = sub_1000053B0();
+                *(v138 + 32) = v141;
+                v236 = (v138 + 32);
+                *(v138 + 64) = v144;
+                *(v138 + 40) = v143;
+                swift_getObjectType();
+                v145 = swift_getObjCClassFromMetadata();
+                v146 = NSStringFromClass(v145);
+                v147 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v149 = v148;
+
+                *(v138 + 96) = &type metadata for String;
+                *(v138 + 104) = v144;
+                *(v138 + 72) = v147;
+                *(v138 + 80) = v149;
+                v63 = v138;
+                swift_getObjectType();
+                v150 = swift_getObjCClassFromMetadata();
+                v151 = NSStringFromClass(v150);
+                v152 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v71 = v153;
+
+                *(v138 + 136) = &type metadata for String;
+                *(v138 + 144) = v144;
+                v234 = v144;
+                *(v138 + 112) = v152;
+                *(v138 + 120) = v71;
+                v230 = objc_opt_self();
+                LODWORD(v71) = [v230 _atomicIncrementAssertCount];
+                aBlock = [objc_allocWithZone(NSString) init];
+                sub_100604538(v138, &aBlock, "Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2u);
+                StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+                v233 = String._bridgeToObjectiveC()();
+
+                StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+                v154 = String._bridgeToObjectiveC()();
+
+                v155 = [v154 lastPathComponent];
+
+                v64 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v65 = v156;
+
+                if (qword_1019F20A0 == -1)
+                {
+                  goto LABEL_96;
+                }
+
+                goto LABEL_173;
+              }
+
+              swift_unknownObjectRelease();
+            }
+          }
+
+          else
+          {
+            [v20 setDelegate:v236];
+          }
+        }
+
+        return;
+      }
+
+LABEL_57:
+
+      if (++v63 == v106)
+      {
+        goto LABEL_80;
+      }
+    }
+
+    if (v115 != v111 || v115 >= &v111[8 * v67])
+    {
+      memmove(v115, v111, 8 * v67);
+    }
+
+    __VaListBuilder.deallocStorage(wordCount:storage:)();
+    v107 = v114;
+    v105 = v113;
+    v87 = v112;
+    p_class_meths = 40;
+LABEL_72:
+    v116 = *(a1 + 40);
+    if (!v116)
+    {
+      goto LABEL_79;
+    }
+
+    goto LABEL_73;
+  }
+
+  v20 = v19;
+  v21 = [v19 presentationStyle];
+  v22 = [v4 traitCollection];
+  v23 = [v20 adaptivePresentationStyleForTraitCollection:v22];
+
+  if (!*(v4 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_undoAlertController))
+  {
+    v24 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___documentModeController;
+    v25 = [*(v4 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___documentModeController) mode];
+    v26 = [v25 wantsToEndForNonPopoverPresentations];
+
+    if (v26)
+    {
+      if (v21 != 7 && v23 != 7 || v23 != -1 && v23 != 7)
+      {
+        v129 = *(v4 + v24);
+        [v129 resetToDefaultModeAnimated:1];
+
+        goto LABEL_87;
+      }
+    }
+  }
+
+  if (![v20 delegate])
+  {
+    [v20 setDelegate:v4];
+    goto LABEL_87;
+  }
+
+  swift_unknownObjectRelease();
+  if ([v20 crl_willOnlyEverBePresentedAsAPopover])
+  {
+LABEL_87:
+
+    goto LABEL_88;
+  }
+
+  v27 = [v20 delegate];
+  p_class_meths = 0x101A28000;
+  if (!v27)
+  {
+LABEL_155:
+
+    v17 = &selRef_p_writingDirectionForCharAtIndex_;
+    goto LABEL_89;
+  }
+
+  v28 = v27;
+  v29 = [v4 traitCollection];
+  v30 = [v29 userInterfaceIdiom];
+
+  if (!v30 || v28 == v4)
+  {
+LABEL_154:
+    swift_unknownObjectRelease();
+    goto LABEL_155;
+  }
+
+  v235 = v9;
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+  v31 = swift_allocObject();
+  *(v31 + 16) = xmmword_10146C4D0;
+  swift_getObjectType();
+  v32 = swift_getObjCClassFromMetadata();
+  v33 = NSStringFromClass(v32);
+  v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v36 = v35;
+
+  *(v31 + 56) = &type metadata for String;
+  v37 = sub_1000053B0();
+  *(v31 + 32) = v34;
+  v233 = (v31 + 32);
+  v234 = a1;
+  *(v31 + 64) = v37;
+  *(v31 + 40) = v36;
+  swift_getObjectType();
+  v38 = swift_getObjCClassFromMetadata();
+  v39 = NSStringFromClass(v38);
+  v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v42 = v41;
+
+  *(v31 + 96) = &type metadata for String;
+  *(v31 + 104) = v37;
+  *(v31 + 72) = v40;
+  *(v31 + 80) = v42;
+  swift_getObjectType();
+  v43 = swift_getObjCClassFromMetadata();
+  v44 = NSStringFromClass(v43);
+  v45 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v47 = v46;
+
+  *(v31 + 136) = &type metadata for String;
+  *(v31 + 144) = v37;
+  v229 = v37;
+  *(v31 + 112) = v45;
+  *(v31 + 120) = v47;
+  v227 = objc_opt_self();
+  v48 = [v227 _atomicIncrementAssertCount];
+  aBlock = [objc_allocWithZone(NSString) init];
+  sub_100604538(v31, &aBlock, "Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2u);
+  StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+  v228 = String._bridgeToObjectiveC()();
+
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+  v49 = String._bridgeToObjectiveC()();
+
+  v50 = [v49 lastPathComponent];
+
+  v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v53 = v52;
+
+  if (qword_1019F20A0 != -1)
+  {
+    swift_once();
+  }
+
+  v54 = static OS_os_log.crlAssert;
+  v55 = swift_allocObject();
+  *(v55 + 16) = xmmword_10146CA70;
+  *(v55 + 56) = &type metadata for Int32;
+  *(v55 + 64) = &protocol witness table for Int32;
+  *(v55 + 32) = v48;
+  v56 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+  *(v55 + 96) = v56;
+  v57 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+  *(v55 + 72) = v228;
+  *(v55 + 136) = &type metadata for String;
+  *(v55 + 144) = v229;
+  *(v55 + 104) = v57;
+  *(v55 + 112) = v51;
+  *(v55 + 120) = v53;
+  *(v55 + 176) = &type metadata for UInt;
+  *(v55 + 184) = &protocol witness table for UInt;
+  *(v55 + 152) = 1024;
+  v58 = aBlock;
+  *(v55 + 216) = v56;
+  *(v55 + 224) = v57;
+  *(v55 + 192) = v58;
+  v59 = v228;
+  v60 = v58;
+  v61 = static os_log_type_t.error.getter();
+  sub_100005404(v54, &_mh_execute_header, v61, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v55);
+  swift_setDeallocating();
+  v230 = sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+  swift_arrayDestroy();
+  swift_deallocClassInstance();
+  v62 = static os_log_type_t.error.getter();
+  sub_100005404(v54, &_mh_execute_header, v62, "Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2, v31);
+
+  type metadata accessor for __VaListBuilder();
+  v63 = swift_allocObject();
+  *(v63 + 16) = 8;
+  *(v63 + 24) = 0;
+  a1 = v63 + 24;
+  *(v63 + 32) = 0;
+  *(v63 + 40) = 0;
+  v64 = *(v31 + 16);
+  if (!v64)
+  {
+    goto LABEL_157;
+  }
+
+  p_class_meths = 0;
+  v65 = 0xF000000000000000;
+  while (1)
+  {
+    sub_100020E58(&v233[5 * p_class_meths], v233[5 * p_class_meths + 3]);
+    v66 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+    v67 = *a1;
+    v68 = *(v66 + 16);
+    v69 = __OFADD__(*a1, v68);
+    v70 = *a1 + v68;
+    if (v69)
+    {
+      goto LABEL_169;
+    }
+
+    v71 = v66;
+    v72 = *(v63 + 32);
+    if (v72 >= v70)
+    {
+      goto LABEL_46;
+    }
+
+    if (v72 + 0x4000000000000000 < 0)
+    {
+      __break(1u);
+LABEL_172:
+      __break(1u);
+LABEL_173:
+      swift_once();
+LABEL_96:
+      v157 = static OS_os_log.crlAssert;
+      v158 = swift_initStackObject();
+      *(v158 + 16) = xmmword_10146CA70;
+      *(v158 + 56) = &type metadata for Int32;
+      *(v158 + 64) = &protocol witness table for Int32;
+      *(v158 + 32) = v71;
+      v159 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+      *(v158 + 96) = v159;
+      v160 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+      *(v158 + 72) = v233;
+      *(v158 + 136) = &type metadata for String;
+      *(v158 + 144) = v234;
+      *(v158 + 104) = v160;
+      *(v158 + 112) = v64;
+      *(v158 + 120) = v65;
+      *(v158 + 176) = &type metadata for UInt;
+      *(v158 + 184) = &protocol witness table for UInt;
+      *(v158 + 152) = 1054;
+      v161 = aBlock;
+      *(v158 + 216) = v159;
+      *(v158 + 224) = v160;
+      *(v158 + 192) = v161;
+      v162 = v233;
+      v163 = v161;
+      v164 = static os_log_type_t.error.getter();
+      sub_100005404(v157, &_mh_execute_header, v164, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v158);
+      swift_setDeallocating();
+      v234 = sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+      swift_arrayDestroy();
+      v165 = static os_log_type_t.error.getter();
+      sub_100005404(v157, &_mh_execute_header, v165, "Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2, v63);
+
+      type metadata accessor for __VaListBuilder();
+      a1 = swift_allocObject();
+      *(a1 + 16) = 8;
+      *(a1 + 24) = 0;
+      v166 = (a1 + 24);
+      *(a1 + 32) = 0;
+      *(a1 + 40) = 0;
+      v9 = *(v63 + 16);
+      if (!v9)
+      {
+LABEL_152:
+        v218 = __VaListBuilder.va_list()();
+        StaticString.description.getter("present(_:animated:completion:)", 31, 2);
+        v219 = String._bridgeToObjectiveC()();
+
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+        v220 = String._bridgeToObjectiveC()();
+
+        StaticString.description.getter("Board view controller can't become presentation delegate (of %{public}@ presenting %{public}@) if it's already set (%{public}@).", 128, 2);
+        v221 = String._bridgeToObjectiveC()();
+
+        [v230 handleFailureInFunction:v219 file:v220 lineNumber:1054 isFatal:0 format:v221 args:v218];
+
+        swift_setDeallocating();
+        swift_arrayDestroy();
+
+        swift_unknownObjectRelease();
+        return;
+      }
+
+      p_class_meths = 0;
+      while (1)
+      {
+        sub_100020E58(&v236[5 * p_class_meths], v236[5 * p_class_meths + 3]);
+        v167 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+        v67 = *v166;
+        v168 = *(v167 + 16);
+        v69 = __OFADD__(*v166, v168);
+        v169 = *v166 + v168;
+        if (v69)
+        {
+          goto LABEL_166;
+        }
+
+        v170 = *(a1 + 32);
+        if (v170 >= v169)
+        {
+          goto LABEL_113;
+        }
+
+        if (v170 + 0x4000000000000000 < 0)
+        {
+          goto LABEL_167;
+        }
+
+        v171 = *(a1 + 40);
+        if (2 * v170 > v169)
+        {
+          v169 = 2 * v170;
+        }
+
+        *(a1 + 32) = v169;
+        if ((v169 - 0x1000000000000000) >> 61 != 7)
+        {
+          goto LABEL_168;
+        }
+
+        v172 = v63;
+        v173 = v167;
+        v174 = swift_slowAlloc();
+        v175 = v174;
+        *(a1 + 40) = v174;
+        if (v171)
+        {
+          break;
+        }
+
+        v167 = v173;
+        v63 = v172;
+        if (!v175)
+        {
+LABEL_120:
+          __break(1u);
+          goto LABEL_121;
+        }
+
+LABEL_114:
+        v177 = *(v167 + 16);
+        if (v177)
+        {
+          v178 = (v167 + 32);
+          v179 = *v166;
+          while (1)
+          {
+            v180 = *v178++;
+            *&v175[8 * v179] = v180;
+            v179 = *v166 + 1;
+            if (__OFADD__(*v166, 1))
+            {
+              break;
+            }
+
+            *v166 = v179;
+            if (!--v177)
+            {
+              goto LABEL_98;
+            }
+          }
+
+          __break(1u);
+          goto LABEL_159;
+        }
+
+LABEL_98:
+
+        if (++p_class_meths == v9)
+        {
+          goto LABEL_152;
+        }
+      }
+
+      if (v174 != v171 || v174 >= &v171[8 * v67])
+      {
+        memmove(v174, v171, 8 * v67);
+      }
+
+      __VaListBuilder.deallocStorage(wordCount:storage:)();
+      v167 = v173;
+      v63 = v172;
+LABEL_113:
+      v175 = *(a1 + 40);
+      if (!v175)
+      {
+        goto LABEL_120;
+      }
+
+      goto LABEL_114;
+    }
+
+    v73 = *(v63 + 40);
+    if (2 * v72 > v70)
+    {
+      v70 = 2 * v72;
+    }
+
+    *(v63 + 32) = v70;
+    if ((v70 - 0x1000000000000000) >> 61 != 7)
+    {
+      goto LABEL_172;
+    }
+
+    v74 = swift_slowAlloc();
+    *(v63 + 40) = v74;
+    if (v73)
+    {
+      if (v74 != v73 || v74 >= &v73[8 * v67])
+      {
+        memmove(v74, v73, 8 * v67);
+      }
+
+      __VaListBuilder.deallocStorage(wordCount:storage:)();
+LABEL_46:
+      v74 = *(v63 + 40);
+    }
+
+    if (!v74)
+    {
+      break;
+    }
+
+    v76 = *(v71 + 16);
+    if (v76)
+    {
+      v77 = (v71 + 32);
+      v78 = *a1;
+      while (1)
+      {
+        v79 = *v77++;
+        *&v74[8 * v78] = v79;
+        v78 = *a1 + 1;
+        if (__OFADD__(*a1, 1))
+        {
+          break;
+        }
+
+        *a1 = v78;
+        if (!--v76)
+        {
+          goto LABEL_31;
+        }
+      }
+
+LABEL_159:
+      __break(1u);
+LABEL_160:
+      __break(1u);
+LABEL_161:
+      __break(1u);
+LABEL_162:
+      __break(1u);
+LABEL_163:
+      __break(1u);
+LABEL_164:
+      __break(1u);
+      goto LABEL_165;
+    }
+
+LABEL_31:
+
+    if (++p_class_meths == v64)
+    {
+      goto LABEL_157;
+    }
+  }
+
+  __break(1u);
+}
+
 void sub_101021928(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
@@ -16,85 +1308,84 @@ void sub_101021928(void *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
     v8 = 0;
   }
 
-  v9 = type metadata accessor for CRLiOSBoardViewController();
+  v9 = type metadata accessor for CRLiOSBoardViewController(0);
   v11.receiver = a1;
   v11.super_class = v9;
   objc_msgSendSuper2(&v11, "presentViewController:animated:completion:", a2, a3 & 1, v8);
   _Block_release(v8);
 }
 
-uint64_t sub_101021A10(uint64_t result, uint64_t a2)
+void sub_101021A10(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_bottomToolTray);
   if (!v3)
   {
     *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isSuppressingBottomToolTrayForPresentationController) = 0;
-    return result;
+    return;
   }
 
-  v5 = result;
   v6 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isSuppressingBottomToolTrayForPresentationController;
   v7 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isSuppressingBottomToolTrayForPresentationController);
   swift_unknownObjectRetain();
   if ((v7 & 1) != 0 || ([v3 hidden] & 1) == 0)
   {
-    if (!*(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_undoAlertController) || (v5 == 7 || a2 == 7) && (a2 == -1 || a2 == 7))
+    if (!*(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_undoAlertController) || (a1 == 7 || a2 == 7) && (a2 == -1 || a2 == 7))
     {
       if (v7)
       {
         [v3 setToolTrayHidden:0 animated:1];
-        result = swift_unknownObjectRelease();
+        swift_unknownObjectRelease();
         *(v2 + v6) = 0;
-        return result;
+        return;
       }
     }
 
     else if ((v7 & 1) == 0)
     {
       [v3 setToolTrayHidden:1 animated:1];
-      result = swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
       *(v2 + v6) = 1;
-      return result;
+      return;
     }
   }
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
 }
 
-void sub_101021C18()
+void sub_101021C18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v4 = Strong;
     sub_101023CD0();
   }
 }
 
-void sub_101021C6C()
+void sub_101021C6C(uint64_t a1, uint64_t a2)
 {
-  v6 = &type metadata for CRLFeatureFlags;
-  v7 = sub_100004D60();
-  v5[0] = 20;
-  v0 = isFeatureEnabled(_:)();
-  sub_100005070(v5);
-  if (v0)
+  v7[3] = &type metadata for CRLFeatureFlags;
+  v7[4] = sub_100004D60();
+  LOBYTE(v7[0]) = 20;
+  v2 = isFeatureEnabled(_:)();
+  sub_100005070(v7);
+  if (v2)
   {
     swift_beginAccess();
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v2 = Strong;
+      v4 = Strong;
       sub_1010193C0();
     }
   }
 
   swift_beginAccess();
-  v3 = swift_unknownObjectWeakLoadStrong();
-  if (v3)
+  v5 = swift_unknownObjectWeakLoadStrong();
+  if (v5)
   {
-    v4 = v3;
+    v6 = v5;
     sub_101023CD0();
   }
 }
@@ -106,10 +1397,10 @@ uint64_t sub_101021D20()
 
   v2 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scrollObserver;
   swift_beginAccess();
-  sub_10000BE14(v0 + v2, &v5, &unk_1019F4D00);
+  sub_10000BE14(v0 + v2, &v5, &unk_1019F4D00, &unk_10146E7F0);
   if (!*(&v6 + 1))
   {
-    return sub_10000CAAC(&v5, &unk_1019F4D00);
+    return sub_10000CAAC(&v5, &unk_1019F4D00, &unk_10146E7F0);
   }
 
   sub_10000BF3C(&v5, &v7);
@@ -121,7 +1412,7 @@ uint64_t sub_101021D20()
   v5 = 0u;
   v6 = 0u;
   swift_beginAccess();
-  sub_10002C638(&v5, v0 + v2, &unk_1019F4D00);
+  sub_10002C638(&v5, v0 + v2, &unk_1019F4D00, &unk_10146E7F0);
   swift_endAccess();
   return sub_100005070(&v7);
 }
@@ -198,7 +1489,7 @@ uint64_t sub_1010221C0()
   }
 
   v1 = static OS_os_log.contentState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -212,7 +1503,7 @@ uint64_t sub_1010221C0()
   sub_100005404(v1, &_mh_execute_header, v6, "Failed to archive view state in database. %@", 44, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   v7 = *(v0 + 8);
 
   return v7();
@@ -258,11 +1549,11 @@ void sub_10102231C(uint64_t a1@<X8>)
     v68 = objc_opt_self();
     v20 = [v68 _atomicIncrementAssertCount];
     v74[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v74);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v74, "Freehand toolkit should not be nil while saving view state.", 59, 2u);
+    StaticString.description.getter("viewState", 9, 2);
     v21 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v22 = String._bridgeToObjectiveC()();
 
     v23 = [v22 lastPathComponent];
@@ -276,15 +1567,15 @@ void sub_10102231C(uint64_t a1@<X8>)
     }
 
     v27 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v20;
-    v29 = sub_100006370(0, &qword_1019F4D30);
+    v29 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v29;
-    v30 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v30 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v30;
     *(inited + 72) = v21;
     *(inited + 136) = &type metadata for String;
@@ -304,7 +1595,7 @@ void sub_10102231C(uint64_t a1@<X8>)
     v35 = static os_log_type_t.error.getter();
     sub_100005404(v27, &_mh_execute_header, v35, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v36 = static os_log_type_t.error.getter();
     sub_100005404(v27, &_mh_execute_header, v36, "Freehand toolkit should not be nil while saving view state.", 59, 2, _swiftEmptyArrayStorage);
@@ -316,13 +1607,13 @@ void sub_10102231C(uint64_t a1@<X8>)
     v37[4] = 0;
     v37[5] = 0;
     v38 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("viewState", 9, 2);
     v39 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v40 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("Freehand toolkit should not be nil while saving view state.", 59, 2);
     v41 = String._bridgeToObjectiveC()();
 
     [v68 handleFailureInFunction:v39 file:v40 lineNumber:1119 isFatal:0 format:v41 args:v38];
@@ -354,11 +1645,11 @@ void sub_10102231C(uint64_t a1@<X8>)
   v67 = objc_opt_self();
   v45 = [v67 _atomicIncrementAssertCount];
   v74[0] = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, v74);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, v74, "invalid nil found when unwrapping value", 39, 2u);
+  StaticString.description.getter("viewState", 9, 2);
   v46 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v47 = String._bridgeToObjectiveC()();
 
   v48 = [v47 lastPathComponent];
@@ -372,15 +1663,15 @@ void sub_10102231C(uint64_t a1@<X8>)
   }
 
   v52 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v53 = swift_initStackObject();
   *(v53 + 16) = xmmword_10146CA70;
   *(v53 + 56) = &type metadata for Int32;
   *(v53 + 64) = &protocol witness table for Int32;
   *(v53 + 32) = v45;
-  v54 = sub_100006370(0, &qword_1019F4D30);
+  v54 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(v53 + 96) = v54;
-  v55 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v55 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(v53 + 104) = v55;
   *(v53 + 72) = v46;
   *(v53 + 136) = &type metadata for String;
@@ -400,7 +1691,7 @@ void sub_10102231C(uint64_t a1@<X8>)
   v60 = static os_log_type_t.error.getter();
   sub_100005404(v52, &_mh_execute_header, v60, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v53);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v61 = static os_log_type_t.error.getter();
   sub_100005404(v52, &_mh_execute_header, v61, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -412,13 +1703,13 @@ void sub_10102231C(uint64_t a1@<X8>)
   v62[4] = 0;
   v62[5] = 0;
   v63 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("viewState", 9, 2);
   v64 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v65 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v66 = String._bridgeToObjectiveC()();
 
   [v67 handleFailureInFunction:v64 file:v65 lineNumber:1122 isFatal:0 format:v66 args:v63];
@@ -526,7 +1817,7 @@ void sub_101022DF4(uint64_t a1)
 
   v5 = v1;
   v6 = *(a1 + 40);
-  sub_100006370(0, &qword_101A28708);
+  sub_100006370(0, &qword_101A28708, off_10182F838);
   sub_100024E98(v6, v2);
   v7 = sub_100CA40E4(v6, v2);
   if (!v7)
@@ -535,11 +1826,11 @@ void sub_101022DF4(uint64_t a1)
     v60 = objc_opt_self();
     v16 = [v60 _atomicIncrementAssertCount];
     v63[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v63);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v63, "Unable to deserialize/unarchive freehand toolkit UI state from view state.", 74, 2u);
+    StaticString.description.getter("restoreFreehandDrawingUIState(viewState:)", 41, 2);
     v17 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v18 = String._bridgeToObjectiveC()();
 
     v19 = [v18 lastPathComponent];
@@ -553,15 +1844,15 @@ void sub_101022DF4(uint64_t a1)
     }
 
     v23 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v16;
-    v25 = sub_100006370(0, &qword_1019F4D30);
+    v25 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v25;
-    v26 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v26 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v26;
     *(inited + 72) = v17;
     *(inited + 136) = &type metadata for String;
@@ -581,7 +1872,7 @@ void sub_101022DF4(uint64_t a1)
     v31 = static os_log_type_t.error.getter();
     sub_100005404(v23, &_mh_execute_header, v31, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v32 = static os_log_type_t.error.getter();
     sub_100005404(v23, &_mh_execute_header, v32, "Unable to deserialize/unarchive freehand toolkit UI state from view state.", 74, 2, _swiftEmptyArrayStorage);
@@ -593,13 +1884,13 @@ void sub_101022DF4(uint64_t a1)
     v33[4] = 0;
     v33[5] = 0;
     v34 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("restoreFreehandDrawingUIState(viewState:)", 41, 2);
     v35 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v36 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("Unable to deserialize/unarchive freehand toolkit UI state from view state.", 74, 2);
     v37 = String._bridgeToObjectiveC()();
 
     [v60 handleFailureInFunction:v35 file:v36 lineNumber:1167 isFatal:0 format:v37 args:v34];
@@ -615,11 +1906,11 @@ void sub_101022DF4(uint64_t a1)
     v61 = objc_opt_self();
     v38 = [v61 _atomicIncrementAssertCount];
     v63[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v63);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v63, "Freehand toolkit should not be nil while restoring view state.", 62, 2u);
+    StaticString.description.getter("restoreFreehandDrawingUIState(viewState:)", 41, 2);
     v59 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v39 = String._bridgeToObjectiveC()();
 
     v40 = [v39 lastPathComponent];
@@ -633,15 +1924,15 @@ void sub_101022DF4(uint64_t a1)
     }
 
     v44 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v45 = swift_initStackObject();
     *(v45 + 16) = xmmword_10146CA70;
     *(v45 + 56) = &type metadata for Int32;
     *(v45 + 64) = &protocol witness table for Int32;
     *(v45 + 32) = v38;
-    v46 = sub_100006370(0, &qword_1019F4D30);
+    v46 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v45 + 96) = v46;
-    v47 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v47 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(v45 + 104) = v47;
     *(v45 + 72) = v59;
     *(v45 + 136) = &type metadata for String;
@@ -661,7 +1952,7 @@ void sub_101022DF4(uint64_t a1)
     v52 = static os_log_type_t.error.getter();
     sub_100005404(v44, &_mh_execute_header, v52, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v45);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v53 = static os_log_type_t.error.getter();
     sub_100005404(v44, &_mh_execute_header, v53, "Freehand toolkit should not be nil while restoring view state.", 62, 2, _swiftEmptyArrayStorage);
@@ -673,13 +1964,13 @@ void sub_101022DF4(uint64_t a1)
     v54[4] = 0;
     v54[5] = 0;
     v55 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("restoreFreehandDrawingUIState(viewState:)", 41, 2);
     v56 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v57 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("Freehand toolkit should not be nil while restoring view state.", 62, 2);
     v58 = String._bridgeToObjectiveC()();
 
     [v61 handleFailureInFunction:v56 file:v57 lineNumber:1164 isFatal:0 format:v58 args:v55];
@@ -706,15 +1997,15 @@ LABEL_20:
   *(v5 + v11) = v14;
 }
 
-uint64_t sub_1010236F0(uint64_t result)
+void sub_1010236F0(uint64_t a1)
 {
-  v2 = *(result + 64);
+  v2 = *(a1 + 64);
   if (v2 >> 60 == 15)
   {
-    return result;
+    return;
   }
 
-  v3 = *(result + 56);
+  v3 = *(a1 + 56);
   v4 = *(v1 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasViewController);
   sub_100024E98(v3, v2);
   if ([v4 pencilMediator])
@@ -725,7 +2016,8 @@ uint64_t sub_1010236F0(uint64_t result)
       sub_100F96D9C(v3, v2);
       sub_100025870(v3, v2);
 
-      return swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
+      return;
     }
 
     swift_unknownObjectRelease();
@@ -735,11 +2027,11 @@ uint64_t sub_1010236F0(uint64_t result)
   v27 = objc_opt_self();
   v5 = [v27 _atomicIncrementAssertCount];
   v29 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v29);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &v29, "invalid nil found when unwrapping value", 39, 2u);
+  StaticString.description.getter("restorePencilMediatorUIState(viewState:)", 40, 2);
   v6 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v7 = String._bridgeToObjectiveC()();
 
   v8 = [v7 lastPathComponent];
@@ -753,15 +2045,15 @@ uint64_t sub_1010236F0(uint64_t result)
   }
 
   v12 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = v5;
-  v14 = sub_100006370(0, &qword_1019F4D30);
+  v14 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v14;
-  v15 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v15 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v15;
   *(inited + 72) = v6;
   *(inited + 136) = &type metadata for String;
@@ -781,7 +2073,7 @@ uint64_t sub_1010236F0(uint64_t result)
   v20 = static os_log_type_t.error.getter();
   sub_100005404(v12, &_mh_execute_header, v20, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v21 = static os_log_type_t.error.getter();
   sub_100005404(v12, &_mh_execute_header, v21, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -793,21 +2085,21 @@ uint64_t sub_1010236F0(uint64_t result)
   v22[4] = 0;
   v22[5] = 0;
   v23 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("restorePencilMediatorUIState(viewState:)", 40, 2);
   v24 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v25 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v26 = String._bridgeToObjectiveC()();
 
   [v27 handleFailureInFunction:v24 file:v25 lineNumber:1176 isFatal:0 format:v26 args:v23];
 
-  return sub_100025870(v28, v2);
+  sub_100025870(v28, v2);
 }
 
-id sub_101023BFC()
+char *sub_101023BFC()
 {
   v1 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
   v2 = sub_101012FD4();
@@ -847,11 +2139,11 @@ void sub_101023CD0()
     v4 = objc_opt_self();
     LODWORD(v2) = [v4 _atomicIncrementAssertCount];
     v30 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v30);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v30, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("updateUserActivities()", 22, 2);
     v6 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v11 = String._bridgeToObjectiveC()();
 
     v12 = [v11 lastPathComponent];
@@ -863,15 +2155,15 @@ void sub_101023CD0()
     {
 LABEL_8:
       v14 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10146CA70;
       *(inited + 56) = &type metadata for Int32;
       *(inited + 64) = &protocol witness table for Int32;
       *(inited + 32) = v2;
-      v16 = sub_100006370(0, &qword_1019F4D30);
+      v16 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(inited + 96) = v16;
-      v17 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+      v17 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
       *(inited + 104) = v17;
       *(inited + 72) = v6;
       *(inited + 136) = &type metadata for String;
@@ -891,7 +2183,7 @@ LABEL_8:
       v22 = static os_log_type_t.error.getter();
       sub_100005404(v14, &_mh_execute_header, v22, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v23 = static os_log_type_t.error.getter();
       sub_100005404(v14, &_mh_execute_header, v23, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -903,13 +2195,13 @@ LABEL_8:
       v24[4] = 0;
       v24[5] = 0;
       v25 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("updateUserActivities()", 22, 2);
       v26 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
       v27 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
       v28 = String._bridgeToObjectiveC()();
 
       [v4 handleFailureInFunction:v26 file:v27 lineNumber:1216 isFatal:0 format:v28 args:v25];
@@ -923,7 +2215,6 @@ LABEL_14:
   }
 
   v4 = v3;
-  sub_1005B981C(&unk_1019F4D60);
   v5 = swift_initStackObject();
   *(v5 + 16) = xmmword_10146CE00;
   v6 = v4;
@@ -1007,12 +2298,12 @@ id sub_1010241BC(uint64_t a1)
     sub_100024E84(v6, v5);
 
     [v9 performBlockOnMainThreadAfterLayoutIfNecessary:v14];
-    sub_10000CAAC(v19, &qword_1019FE618);
+    sub_10000CAAC(v19, &qword_1019FE618, &qword_1014B6B70);
     _Block_release(v14);
     v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_didRestoreCanvasViewState] = 1;
   }
 
-  v15 = type metadata accessor for CRLiOSBoardViewController();
+  v15 = type metadata accessor for CRLiOSBoardViewController(0);
   v18.receiver = v2;
   v18.super_class = v15;
   return objc_msgSendSuper2(&v18, "restoreUserActivityState:", a1);
@@ -1040,7 +2331,7 @@ id sub_1010243F4()
 
       if (v5)
       {
-        type metadata accessor for CRLiOSSceneDelegate();
+        type metadata accessor for CRLiOSSceneDelegate(0);
         result = swift_dynamicCastClass();
         if (result)
         {
@@ -1058,7 +2349,7 @@ id sub_1010243F4()
 void sub_1010244C0(char a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v27 - v5;
   v7 = *(*&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_editingCoordinator] + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_followCoordinator);
@@ -1130,7 +2421,7 @@ void sub_1010244C0(char a1)
     sub_101011590(0, 1);
   }
 
-  v26 = type metadata accessor for CRLiOSBoardViewController();
+  v26 = type metadata accessor for CRLiOSBoardViewController(0);
   v28.receiver = v2;
   v28.super_class = v26;
   objc_msgSendSuper2(&v28, "viewWillDisappear:", a1 & 1);
@@ -1140,7 +2431,7 @@ void sub_101024838(char a1)
 {
   v2 = v1;
   v20.receiver = v2;
-  v20.super_class = type metadata accessor for CRLiOSBoardViewController();
+  v20.super_class = type metadata accessor for CRLiOSBoardViewController(0);
   objc_msgSendSuper2(&v20, "viewDidDisappear:", a1 & 1);
   v4 = [objc_opt_self() defaultCenter];
   if (qword_1019F16E8 != -1)
@@ -1242,7 +2533,7 @@ LABEL_18:
 
 id sub_101024B7C(uint64_t a1, double a2, double a3)
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v23 - v8;
   if ([objc_opt_self() crl_padUI])
@@ -1284,7 +2575,7 @@ id sub_101024B7C(uint64_t a1, double a2, double a3)
   v20[4] = v18;
   sub_10064191C(0, 0, v9, &unk_1014C23E0, v20);
 
-  v21 = type metadata accessor for CRLiOSBoardViewController();
+  v21 = type metadata accessor for CRLiOSBoardViewController(0);
   v24.receiver = v18;
   v24.super_class = v21;
   return objc_msgSendSuper2(&v24, "viewWillTransitionToSize:withTransitionCoordinator:", a1, a2, a3);
@@ -1371,7 +2662,7 @@ uint64_t sub_101025154()
 
       if (v10)
       {
-        type metadata accessor for CRLiOSSceneDelegate();
+        type metadata accessor for CRLiOSSceneDelegate(0);
         v11 = swift_dynamicCastClass();
         *(v0 + 72) = v11;
         if (v11)
@@ -1453,9 +2744,9 @@ uint64_t sub_1010255A4()
 
 id sub_101025690(uint64_t a1, uint64_t a2)
 {
-  v14 = &type metadata for CRLFeatureFlags;
-  v15 = sub_100004D60();
-  v13[0] = 20;
+  v13[3] = &type metadata for CRLFeatureFlags;
+  v13[4] = sub_100004D60();
+  LOBYTE(v13[0]) = 20;
   v5 = isFeatureEnabled(_:)();
   sub_100005070(v13);
   if ((v5 & 1) != 0 && [objc_opt_self() crl_padUI])
@@ -1494,7 +2785,7 @@ id sub_101025690(uint64_t a1, uint64_t a2)
   }
 
   v12.receiver = v2;
-  v12.super_class = type metadata accessor for CRLiOSBoardViewController();
+  v12.super_class = type metadata accessor for CRLiOSBoardViewController(0);
   return objc_msgSendSuper2(&v12, "willTransitionToTraitCollection:withTransitionCoordinator:", a1, a2);
 }
 
@@ -1688,8 +2979,8 @@ void sub_101025F4C()
   v2 = v1;
   [v1 safeAreaInsets];
   v4 = v3;
-  v145 = v6;
-  v146 = v5;
+  v147 = v6;
+  v148 = v5;
   v8 = v7;
 
   top = UIEdgeInsetsZero.top;
@@ -1721,16 +3012,16 @@ void sub_101025F4C()
 
   else
   {
-    v20 = left - v146;
+    v20 = left - v148;
   }
 
-  v21 = right - v145;
+  v21 = right - v147;
   if (right <= 0.0)
   {
     v21 = right;
   }
 
-  v148 = v21;
+  v150 = v21;
   if (UIEdgeInsetsZero.top <= 0.0)
   {
     v22 = UIEdgeInsetsZero.top;
@@ -1753,9 +3044,9 @@ void sub_101025F4C()
       v26 = [objc_opt_self() sharedKeyboardMonitor];
       [v26 keyboardFrame];
       v28 = v27;
-      v140 = v30;
-      v142 = v29;
-      v139 = v31;
+      v142 = v30;
+      v144 = v29;
+      v141 = v31;
 
       v32 = [v0 view];
       if (v32)
@@ -1764,11 +3055,11 @@ void sub_101025F4C()
         v34 = [v32 window];
         if (v34 && (v35 = v34, v36 = [v34 screen], v35, v37 = objc_msgSend(v36, "coordinateSpace"), v36, v37))
         {
-          [v33 convertRect:v37 fromCoordinateSpace:{v28, v142, v140, v139}];
-          MaxY = CGRectGetMaxY(v151);
+          [v33 convertRect:v37 fromCoordinateSpace:{v28, v144, v142, v141}];
+          MaxY = CGRectGetMaxY(v153);
           [v33 bounds];
           v38 = v23;
-          v39 = CGRectGetMaxY(v152);
+          v39 = CGRectGetMaxY(v154);
           swift_unknownObjectRelease();
 
           v23 = v38 + v39 - MaxY;
@@ -1793,39 +3084,39 @@ void sub_101025F4C()
   }
 
   v46 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scrollView];
-  if (top != v22 || left != v20 || bottom != v23 || right != v148)
+  if (top != v22 || left != v20 || bottom != v23 || right != v150)
   {
     v50 = v23;
     v51 = v20;
     [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scrollView] safeAreaInsets];
     v53 = v52;
     v55 = v54;
-    v139 = v56;
+    v141 = v56;
     [v46 contentOffset];
     v58 = v57;
     v60 = v59;
     [v46 contentSize];
-    v141 = v62;
-    v144 = v61;
-    [*&v0[v40] setAdditionalSafeAreaInsets:{v22, v51, v50, v148}];
-    [v46 safeAreaInsets];
-    v66 = v64;
-    if (v53 != v63)
+    v143 = v62;
+    v146 = v61;
+    [*&v0[v40] setAdditionalSafeAreaInsets:{v22, v51, v50, v150}];
+    v63 = [v46 safeAreaInsets];
+    v68 = v66;
+    if (v53 != v65)
     {
-      v70 = v63 < fabs(v60) && v60 < 0.0;
-      v71 = -v63;
-      if (v70)
+      v72 = v65 < fabs(v60) && v60 < 0.0;
+      v73 = -v65;
+      if (v72)
       {
-        v60 = v71;
+        v60 = v73;
       }
 
       goto LABEL_51;
     }
 
-    if (v55 == v64)
+    if (v55 == v66)
     {
-      v67 = v139;
-      if (v139 == v65)
+      v69 = v141;
+      if (v141 == v67)
       {
         goto LABEL_56;
       }
@@ -1833,221 +3124,221 @@ void sub_101025F4C()
 
     else
     {
-      v67 = v139;
-      if (v139 == v65)
+      v69 = v141;
+      if (v141 == v67)
       {
         goto LABEL_51;
       }
     }
 
-    [v46 contentOffset];
-    v60 = v72;
+    v63 = [v46 contentOffset];
+    v60 = v74;
 LABEL_51:
-    if (v58 < 0.0 && v66 < fabs(v58) && sub_100076BAC())
+    if (v58 < 0.0 && v68 < fabs(v58) && sub_100076BAC(v63, v64))
     {
-      v58 = -v66;
+      v58 = -v68;
     }
 
-    [v46 setContentOffset:v58 relativeToOriginalSize:{v60, v144, v141}];
+    [v46 setContentOffset:v58 relativeToOriginalSize:{v60, v146, v143}];
     goto LABEL_56;
   }
 
-  v68 = [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scrollView] delegate];
-  if (v68)
+  v70 = [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scrollView] delegate];
+  if (v70)
   {
-    v69 = v68;
-    if ([v68 respondsToSelector:"scrollViewDidChangeAdjustedContentInset:"])
+    v71 = v70;
+    if ([v70 respondsToSelector:"scrollViewDidChangeAdjustedContentInset:"])
     {
-      [v69 scrollViewDidChangeAdjustedContentInset:v46];
+      [v71 scrollViewDidChangeAdjustedContentInset:v46];
     }
 
     swift_unknownObjectRelease();
   }
 
 LABEL_56:
-  v73 = *&v0[v40];
-  v149 = v73;
+  v75 = *&v0[v40];
+  v151 = v75;
   [v46 contentInset];
-  if (v73)
+  if (v75)
   {
-    v75 = v74;
-    [v149 additionalSafeAreaInsets];
-    v76 = 0.0;
-    v77 = 0.0;
-    if (v78 == 0.0)
+    v77 = v76;
+    [v151 additionalSafeAreaInsets];
+    v78 = 0.0;
+    v79 = 0.0;
+    if (v80 == 0.0)
     {
-      v79 = [v0 view];
-      if (!v79)
+      v81 = [v0 view];
+      if (!v81)
       {
 LABEL_84:
         __break(1u);
         return;
       }
 
-      v80 = v79;
-      [v79 safeAreaInsets];
       v82 = v81;
+      [v81 safeAreaInsets];
+      v84 = v83;
 
-      v77 = -v82;
+      v79 = -v84;
     }
 
-    [v149 additionalSafeAreaInsets];
-    if (v83 == 0.0)
+    [v151 additionalSafeAreaInsets];
+    if (v85 == 0.0)
     {
-      v84 = -v146;
+      v86 = -v148;
     }
 
     else
     {
-      v84 = 0.0;
+      v86 = 0.0;
     }
 
-    [v149 additionalSafeAreaInsets];
-    if (v85 == 0.0)
+    [v151 additionalSafeAreaInsets];
+    if (v87 == 0.0)
     {
-      v76 = -v145;
+      v78 = -v147;
     }
 
-    v74 = v75;
+    v76 = v77;
   }
 
   else
   {
-    v76 = 0.0;
-    v84 = 0.0;
-    v77 = 0.0;
+    v78 = 0.0;
+    v86 = 0.0;
+    v79 = 0.0;
   }
 
-  [v46 setContentInset:{v74, v84, v77, v76, *&v139}];
+  [v46 setContentInset:{v76, v86, v79, v78, *&v141}];
   sub_1010549A0();
-  v87 = v86;
   v89 = v88;
   v91 = v90;
   v93 = v92;
+  v95 = v94;
   if (sub_1004A48FC())
   {
-    v94 = v93;
-    v95 = [v0 view];
-    if (!v95)
+    v96 = v95;
+    v97 = [v0 view];
+    if (!v97)
     {
 LABEL_82:
       __break(1u);
       goto LABEL_83;
     }
 
-    v96 = v95;
-    [v95 frame];
     v98 = v97;
+    [v97 frame];
     v100 = v99;
     v102 = v101;
     v104 = v103;
+    v106 = v105;
 
-    v153.origin.x = v98;
-    v153.origin.y = v100;
-    v153.size.width = v102;
-    v153.size.height = v104;
-    MaxX = CGRectGetMaxX(v153);
-    v106 = v87;
-    v154.origin.x = v87;
-    v107 = v89;
-    v154.origin.y = v89;
-    v108 = v91;
-    v154.size.width = v91;
-    v109 = v94;
-    v154.size.height = v94;
-    v110 = MaxX - CGRectGetMaxX(v154);
-    v155.origin.x = v106;
-    v155.origin.y = v107;
-    v155.size.width = v108;
-    v155.size.height = v94;
-    MinX = CGRectGetMinX(v155);
+    v155.origin.x = v100;
+    v155.origin.y = v102;
+    v155.size.width = v104;
+    v155.size.height = v106;
+    MaxX = CGRectGetMaxX(v155);
+    v108 = v89;
+    v156.origin.x = v89;
+    v109 = v91;
+    v156.origin.y = v91;
+    v110 = v93;
+    v156.size.width = v93;
+    v111 = v96;
+    v156.size.height = v96;
+    v112 = MaxX - CGRectGetMaxX(v156);
+    v157.origin.x = v108;
+    v157.origin.y = v109;
+    v157.size.width = v110;
+    v157.size.height = v96;
+    MinX = CGRectGetMinX(v157);
   }
 
   else
   {
-    v156.origin.x = v87;
-    v156.origin.y = v89;
-    v156.size.width = v91;
-    v156.size.height = v93;
-    v147 = CGRectGetMinX(v156);
-    v112 = [v0 view];
-    if (!v112)
+    v158.origin.x = v89;
+    v158.origin.y = v91;
+    v158.size.width = v93;
+    v158.size.height = v95;
+    v149 = CGRectGetMinX(v158);
+    v114 = [v0 view];
+    if (!v114)
     {
 LABEL_83:
       __break(1u);
       goto LABEL_84;
     }
 
-    v113 = v112;
-    [v112 frame];
     v115 = v114;
+    [v114 frame];
     v117 = v116;
     v119 = v118;
     v121 = v120;
+    v123 = v122;
 
-    v157.origin.x = v115;
-    v157.origin.y = v117;
-    v157.size.width = v119;
-    v157.size.height = v121;
-    v122 = CGRectGetMaxX(v157);
-    v158.origin.x = v87;
-    v158.origin.y = v89;
-    v158.size.width = v91;
-    v158.size.height = v93;
-    MinX = v122 - CGRectGetMaxX(v158);
-    v106 = v87;
-    v107 = v89;
-    v108 = v91;
-    v109 = v93;
-    v110 = v147;
+    v159.origin.x = v117;
+    v159.origin.y = v119;
+    v159.size.width = v121;
+    v159.size.height = v123;
+    v124 = CGRectGetMaxX(v159);
+    v160.origin.x = v89;
+    v160.origin.y = v91;
+    v160.size.width = v93;
+    v160.size.height = v95;
+    MinX = v124 - CGRectGetMaxX(v160);
+    v108 = v89;
+    v109 = v91;
+    v110 = v93;
+    v111 = v95;
+    v112 = v149;
   }
 
-  v123 = -MinX;
-  [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_leadingUnobscuredRectLayoutGuideConstraint] setConstant:v110];
-  [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_trailingUnobscuredRectLayoutGuideConstraint] setConstant:v123];
-  v124 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_topUnobscuredRectLayoutGuideConstraint];
-  if (v124)
+  v125 = -MinX;
+  [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_leadingUnobscuredRectLayoutGuideConstraint] setConstant:v112];
+  [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_trailingUnobscuredRectLayoutGuideConstraint] setConstant:v125];
+  v126 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_topUnobscuredRectLayoutGuideConstraint];
+  if (v126)
   {
-    v125 = v124;
-    v159.origin.x = v106;
-    v159.origin.y = v107;
-    v159.size.width = v108;
-    v159.size.height = v109;
-    [v125 setConstant:CGRectGetMinY(v159)];
+    v127 = v126;
+    v161.origin.x = v108;
+    v161.origin.y = v109;
+    v161.size.width = v110;
+    v161.size.height = v111;
+    [v127 setConstant:CGRectGetMinY(v161)];
   }
 
-  v126 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_bottomUnobscuredRectLayoutGuideConstraint];
-  if (!v126)
+  v128 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_bottomUnobscuredRectLayoutGuideConstraint];
+  if (!v128)
   {
     goto LABEL_77;
   }
 
-  v127 = v126;
-  v128 = [v0 view];
-  if (!v128)
+  v129 = v128;
+  v130 = [v0 view];
+  if (!v130)
   {
 LABEL_81:
     __break(1u);
     goto LABEL_82;
   }
 
-  v129 = v128;
-  [v128 frame];
   v131 = v130;
+  [v130 frame];
   v133 = v132;
   v135 = v134;
   v137 = v136;
+  v139 = v138;
 
-  v160.origin.x = v131;
-  v160.origin.y = v133;
-  v160.size.width = v135;
-  v160.size.height = v137;
-  v138 = CGRectGetMaxY(v160);
-  v161.origin.x = v106;
-  v161.origin.y = v107;
-  v161.size.width = v108;
-  v161.size.height = v109;
-  [v127 setConstant:-(v138 - CGRectGetMaxY(v161))];
+  v162.origin.x = v133;
+  v162.origin.y = v135;
+  v162.size.width = v137;
+  v162.size.height = v139;
+  v140 = CGRectGetMaxY(v162);
+  v163.origin.x = v108;
+  v163.origin.y = v109;
+  v163.size.width = v110;
+  v163.size.height = v111;
+  [v129 setConstant:-(v140 - CGRectGetMaxY(v163))];
 
 LABEL_77:
 }
@@ -2077,7 +3368,7 @@ uint64_t sub_101026768(uint64_t a1)
   swift_beginAccess();
   sub_100050004(v17 + v18, v8, type metadata accessor for CRLBoardCRDTData);
   v19 = v15;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v8, type metadata accessor for CRLBoardCRDTData);
   v20 = (*&v15[v16] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -2099,13 +3390,13 @@ uint64_t sub_101026768(uint64_t a1)
   v26 = v59[1];
   v27 = v59[2];
   v61 = v59[0];
-  sub_10000CAAC(&v61, &unk_1019FB880);
+  sub_10000CAAC(&v61, &unk_1019FB880, &unk_101474EC0);
   v62 = v27;
-  sub_10000CAAC(&v62, &unk_101A22E80);
+  sub_10000CAAC(&v62, &unk_101A22E80, &unk_1014A08B0);
   v63 = v25;
-  sub_10000CAAC(&v63, &qword_1019FB890);
+  sub_10000CAAC(&v63, &qword_1019FB890, &qword_101474ED0);
   v64 = v24;
-  sub_10000CAAC(&v64, &qword_1019FB890);
+  sub_10000CAAC(&v64, &qword_1019FB890, &qword_101474ED0);
   LOBYTE(v25) = sub_10079DDA0(v14, v26);
 
   if ((v25 & 1) == 0)
@@ -2154,7 +3445,7 @@ uint64_t sub_101026768(uint64_t a1)
     [*&v28[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController] updateCanvasDotGridVisibilityIfNeeded];
     v57 = &type metadata for CRLFeatureFlags;
     v58 = sub_100004D60();
-    v56[0] = 10;
+    LOBYTE(v56[0]) = 10;
     v35 = isFeatureEnabled(_:)();
     sub_100005070(v56);
     if (v35)
@@ -2171,7 +3462,7 @@ uint64_t sub_101026768(uint64_t a1)
   v57 = &type metadata for CRLFeatureFlags;
   v38 = sub_100004D60();
   v58 = v38;
-  v56[0] = 10;
+  LOBYTE(v56[0]) = 10;
   v39 = isFeatureEnabled(_:)();
   sub_100005070(v56);
   if (v39)
@@ -2194,7 +3485,7 @@ uint64_t sub_101026768(uint64_t a1)
 
   v57 = &type metadata for CRLFeatureFlags;
   v58 = v38;
-  v56[0] = 20;
+  LOBYTE(v56[0]) = 20;
   v43 = isFeatureEnabled(_:)();
   sub_100005070(v56);
   if ((v43 & 1) == 0)
@@ -2213,10 +3504,10 @@ uint64_t sub_101026768(uint64_t a1)
   v49 = v48;
   static Published.subscript.getter();
 
-  if (((v47 ^ v56[0]) & 1) != 0 && (v46 & 1) == 0)
+  if (((v47 ^ LOBYTE(v56[0])) & 1) != 0 && (v46 & 1) == 0)
   {
     v50 = *&v28[v44];
-    sub_10091FD94();
+    sub_10091FD94(v47 & 1);
   }
 
   sub_1010193C0();
@@ -2355,7 +3646,7 @@ uint64_t sub_1010276C8()
   v1 = v0[25];
   v2 = v0[26];
   v3 = static OS_os_log.crlError;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -2369,7 +3660,7 @@ uint64_t sub_1010276C8()
   sub_100005404(v3, &_mh_execute_header, v8, "Caught error trying to present alert for handling unsupported board: %@", 71, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   v9 = v0[1];
 
   return v9();
@@ -2406,7 +3697,7 @@ uint64_t sub_101027840()
   sub_100064288(*(v4 + 56) + 32 * v6, v19);
   sub_100064234(v18);
 
-  sub_1005B981C(&unk_1019F4D80);
+  sub_1005B981C(&unk_1019F4D80, &unk_10146CF20);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_9:
@@ -2431,7 +3722,7 @@ LABEL_9:
 uint64_t sub_101027A80()
 {
   v1 = v0;
-  v2 = sub_1005B981C(&unk_1019FB770);
+  v2 = sub_1005B981C(&unk_1019FB770, &unk_10146FA30);
   __chkstk_darwin(v2 - 8);
   v4 = &v32 - v3;
   v34 = _s4NodeVMa(0);
@@ -2454,7 +3745,7 @@ uint64_t sub_101027A80()
   swift_beginAccess();
   sub_100050004(v18 + v19, v9, type metadata accessor for CRLBoardCRDTData);
   v20 = v16;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v9, type metadata accessor for CRLBoardCRDTData);
   v21 = (*&v16[v17] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -2491,12 +3782,12 @@ uint64_t sub_101027A80()
   }
 
   sub_10003D7BC(v15, type metadata accessor for CRLBoardIdentifier);
-  return sub_10000CAAC(v4, &unk_1019FB770);
+  return sub_10000CAAC(v4, &unk_1019FB770, &unk_10146FA30);
 }
 
-uint64_t sub_101027EC0(uint64_t a1, unint64_t a2)
+double sub_101027EC0(uint64_t a1, unint64_t a2)
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = v25 - v6;
   v8 = type metadata accessor for CRLBoardCRDTData(0);
@@ -2506,7 +3797,7 @@ uint64_t sub_101027EC0(uint64_t a1, unint64_t a2)
   v12 = OBJC_IVAR____TtC8Freeform12CRLBoardData_crdtData;
   swift_beginAccess();
   sub_100050004(v11 + v12, v10, type metadata accessor for CRLBoardCRDTData);
-  sub_1005B981C(&qword_101A1A020);
+  sub_1005B981C(&qword_101A1A020, &unk_10146C6C0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v10, type metadata accessor for CRLBoardCRDTData);
   v14 = v25[1];
@@ -2517,7 +3808,7 @@ uint64_t sub_101027EC0(uint64_t a1, unint64_t a2)
   v17 = a2;
   if (v15 >= 256)
   {
-    sub_10105235C(255);
+    sub_10105235C(255, a1, a2);
 
     v16 = static String._fromSubstring(_:)();
     v17 = v18;
@@ -2555,6 +3846,8 @@ uint64_t sub_101027EC0(uint64_t a1, unint64_t a2)
 
     sub_10064191C(0, 0, v7, &unk_1014C22C8, v24);
   }
+
+  return result;
 }
 
 uint64_t sub_10102820C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -2600,7 +3893,7 @@ void sub_10102833C()
     swift_beginAccess();
     sub_100050004(v9 + v10, v4, type metadata accessor for CRLBoardCRDTData);
     v11 = v7;
-    sub_1005B981C(&unk_1019F5250);
+    sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
     CRRegister.wrappedValue.getter();
     sub_10003D7BC(v4, type metadata accessor for CRLBoardCRDTData);
     v12 = (*&v7[v8] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -2609,7 +3902,7 @@ void sub_10102833C()
 
     sub_10084BD4C(v3, v13, v14, v2);
 
-    v15 = type metadata accessor for CRLSetBoardTitleCommand();
+    v15 = type metadata accessor for CRLSetBoardTitleCommand(0);
     v16 = objc_allocWithZone(v15);
     v17 = &v16[OBJC_IVAR____TtC8Freeform23CRLSetBoardTitleCommand_previousBoardTitle];
     *v17 = 0;
@@ -2725,7 +4018,7 @@ uint64_t sub_1010289EC()
   sub_10064253C(v5, v4);
   *(v0 + 216) = v1;
   swift_errorRetain();
-  sub_1005B981C(&unk_1019F6B40);
+  sub_1005B981C(&unk_1019F6B40, &qword_10146F320);
   if (swift_dynamicCast())
   {
     v6 = *(v0 + 176);
@@ -2779,7 +4072,7 @@ uint64_t sub_1010289EC()
   v24 = *(v0 + 272);
   v23 = *(v0 + 280);
   v25 = static OS_os_log.crlDefault;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146BDE0;
   *(inited + 56) = &type metadata for String;
@@ -2799,7 +4092,7 @@ uint64_t sub_1010289EC()
   sub_100005404(v25, &_mh_execute_header, v30, "Error renaming item (%@): %@", 28, 2, inited);
 
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
 LABEL_10:
 
@@ -2810,9 +4103,9 @@ LABEL_10:
 
 void sub_101028E9C(char a1)
 {
-  v3 = sub_1005B981C(&qword_1019FB750);
+  v3 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v3 - 8);
-  v5 = &v17[-v4 - 8];
+  v5 = &v17[-1] - v4;
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
@@ -2832,11 +4125,11 @@ void sub_101028E9C(char a1)
     v12 = v1;
     sub_100CA64C8(0, 0, v5, &unk_1014C22B0, v10);
 
-    sub_10000CAAC(v5, &qword_1019FB750);
+    sub_10000CAAC(v5, &qword_1019FB750, &qword_10146F1B0);
     [*&v12[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController] updateCanvasDotGridVisibilityIfNeeded];
-    v18 = &type metadata for CRLFeatureFlags;
-    v19 = sub_100004D60();
-    v17[0] = 10;
+    v17[3] = &type metadata for CRLFeatureFlags;
+    v17[4] = sub_100004D60();
+    LOBYTE(v17[0]) = 10;
     v13 = isFeatureEnabled(_:)();
     sub_100005070(v17);
     if (v13)
@@ -2866,7 +4159,7 @@ uint64_t sub_101029084(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_101029144()
 {
-  sub_1005B981C(&qword_101A28700);
+  sub_1005B981C(&qword_101A28700, &unk_101494A70);
   v1 = type metadata accessor for CRLBoardIdentifierAndValue(0);
   *(v0 + 112) = v1;
   *(v0 + 184) = *(*(v1 - 8) + 80);
@@ -2905,7 +4198,7 @@ uint64_t sub_101029308()
   v9 = OBJC_IVAR____TtC8Freeform12CRLBoardData_crdtData;
   swift_beginAccess();
   sub_100050004(v8 + v9, v3, type metadata accessor for CRLBoardCRDTData);
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
   v10 = (*&v1[v7] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -2969,7 +4262,7 @@ uint64_t sub_1010296D0()
   *(v0 + 16) = 10;
   *(v0 + 48) = v3;
   LOBYTE(v2) = isFeatureEnabled(_:)();
-  sub_100005070(v0 + 16);
+  sub_100005070((v0 + 16));
   if (v2)
   {
     v4 = *(*(v0 + 88) + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_boardControlsViewController);
@@ -2991,7 +4284,7 @@ uint64_t sub_1010297CC()
   return v1();
 }
 
-uint64_t sub_10102983C()
+void *sub_10102983C()
 {
   v1 = type metadata accessor for CRLBoardCRDTData(0);
   __chkstk_darwin(v1 - 8);
@@ -3016,7 +4309,7 @@ uint64_t sub_10102983C()
     swift_beginAccess();
     sub_100050004(v17 + v18, v3, type metadata accessor for CRLBoardCRDTData);
     v19 = v15;
-    sub_1005B981C(&unk_1019F5250);
+    sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
     CRRegister.wrappedValue.getter();
     sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
     v20 = (*&v15[v16] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3052,7 +4345,7 @@ uint64_t sub_101029B48(unsigned __int8 *a1, uint64_t a2, uint64_t *a3, uint64_t 
 
 void sub_101029C04(char a1)
 {
-  v3 = sub_1005B981C(&qword_1019FB750);
+  v3 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v16 - v4;
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -3074,7 +4367,7 @@ void sub_101029C04(char a1)
     v12 = v1;
     sub_100CA64C8(0, 0, v5, &unk_1014C2298, v10);
 
-    sub_10000CAAC(v5, &qword_1019FB750);
+    sub_10000CAAC(v5, &qword_1019FB750, &qword_10146F1B0);
     v13 = [v12 traitCollection];
     if ([v13 horizontalSizeClass] == 1)
     {
@@ -3114,7 +4407,7 @@ uint64_t sub_101029E14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_101029ED4()
 {
-  sub_1005B981C(&qword_101A28700);
+  sub_1005B981C(&qword_101A28700, &unk_101494A70);
   v1 = type metadata accessor for CRLBoardIdentifierAndValue(0);
   *(v0 + 72) = v1;
   *(v0 + 144) = *(*(v1 - 8) + 80);
@@ -3153,7 +4446,7 @@ uint64_t sub_10102A098()
   v9 = OBJC_IVAR____TtC8Freeform12CRLBoardData_crdtData;
   swift_beginAccess();
   sub_100050004(v8 + v9, v3, type metadata accessor for CRLBoardCRDTData);
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
   v10 = (*&v1[v7] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3224,7 +4517,7 @@ uint64_t sub_10102A4E8()
   return v1();
 }
 
-uint64_t sub_10102A558()
+void *sub_10102A558()
 {
   v1 = type metadata accessor for CRLBoardCRDTData(0);
   __chkstk_darwin(v1 - 8);
@@ -3249,7 +4542,7 @@ uint64_t sub_10102A558()
     swift_beginAccess();
     sub_100050004(v17 + v18, v3, type metadata accessor for CRLBoardCRDTData);
     v19 = v15;
-    sub_1005B981C(&unk_1019F5250);
+    sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
     CRRegister.wrappedValue.getter();
     sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
     v20 = (*&v15[v16] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3324,7 +4617,7 @@ void sub_10102A85C()
   }
 }
 
-uint64_t sub_10102AA70()
+void *sub_10102AA70()
 {
   v1 = type metadata accessor for CRLBoardCRDTData(0);
   __chkstk_darwin(v1 - 8);
@@ -3349,7 +4642,7 @@ uint64_t sub_10102AA70()
     swift_beginAccess();
     sub_100050004(v17 + v18, v3, type metadata accessor for CRLBoardCRDTData);
     v19 = v15;
-    sub_1005B981C(&unk_1019F5250);
+    sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
     CRRegister.wrappedValue.getter();
     sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
     v20 = (*&v15[v16] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3372,7 +4665,7 @@ uint64_t sub_10102AA70()
 void sub_10102ADC0(uint64_t a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v46 - v5;
   v7 = type metadata accessor for CRLBoardCRDTData(0);
@@ -3391,7 +4684,7 @@ void sub_10102ADC0(uint64_t a1)
   swift_beginAccess();
   sub_100050004(v18 + v19, v9, type metadata accessor for CRLBoardCRDTData);
   v20 = v16;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v9, type metadata accessor for CRLBoardCRDTData);
   v21 = (*&v16[v17] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3608,7 +4901,7 @@ void sub_10102B848()
   swift_beginAccess();
   sub_100050004(v12 + v13, v3, type metadata accessor for CRLBoardCRDTData);
   v14 = v10;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v3, type metadata accessor for CRLBoardCRDTData);
   v15 = (*&v10[v11] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3807,31 +5100,31 @@ LABEL_33:
   [v68 presentViewController:v60 animated:1 completion:0];
 }
 
-void *sub_10102C254()
+void *sub_10102C254(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1005B981C(&unk_1019F33C0);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v8 - v1;
-  v3 = type metadata accessor for URL();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v10 - v3;
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
 
-    sub_101012178(v2);
-    if ((*(v4 + 48))(v2, 1, v3) == 1)
+    sub_101012178(v4);
+    if ((*(v6 + 48))(v4, 1, v5) == 1)
     {
-      return sub_10000CAAC(v2, &unk_1019F33C0);
+      return sub_10000CAAC(v4, &unk_1019F33C0, &unk_101468A60);
     }
 
     else
     {
-      (*(v4 + 32))(v6, v2, v3);
-      sub_100878B04(v6);
-      return (*(v4 + 8))(v6, v3);
+      (*(v6 + 32))(v8, v4, v5);
+      sub_100878B04(v8);
+      return (*(v6 + 8))(v8, v5);
     }
   }
 
@@ -3857,7 +5150,7 @@ uint64_t sub_10102C400(void *a1)
   swift_beginAccess();
   sub_100050004(v15 + v16, v6, type metadata accessor for CRLBoardCRDTData);
   v17 = v13;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v6, type metadata accessor for CRLBoardCRDTData);
   v18 = (*&v13[v14] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -3867,7 +5160,7 @@ uint64_t sub_10102C400(void *a1)
   sub_10084BD4C(v9, v19, v20, v12);
 
   v111 = v2;
-  if ((sub_100C86910(a1, v12) & 1) == 0)
+  if (!sub_100C86910(a1, v12))
   {
     return sub_10003D7BC(v12, type metadata accessor for CRLBoardIdentifier);
   }
@@ -3898,11 +5191,11 @@ LABEL_7:
     v108 = objc_opt_self();
     v28 = [v108 _atomicIncrementAssertCount];
     v112 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v112);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v112, "expected cloud quota message for alert to be quota almost full", 62, 2u);
+    StaticString.description.getter("promptCloudQuotaMessage(_:)", 27, 2);
     v29 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v30 = String._bridgeToObjectiveC()();
 
     v31 = [v30 lastPathComponent];
@@ -3916,15 +5209,15 @@ LABEL_7:
     }
 
     v35 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v28;
-    v37 = sub_100006370(0, &qword_1019F4D30);
+    v37 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v37;
-    v38 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v38 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v38;
     *(inited + 72) = v29;
     *(inited + 136) = &type metadata for String;
@@ -3944,7 +5237,7 @@ LABEL_7:
     v43 = static os_log_type_t.error.getter();
     sub_100005404(v35, &_mh_execute_header, v43, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v44 = static os_log_type_t.error.getter();
     sub_100005404(v35, &_mh_execute_header, v44, "expected cloud quota message for alert to be quota almost full", 62, 2, _swiftEmptyArrayStorage);
@@ -3956,13 +5249,13 @@ LABEL_7:
     v45[4] = 0;
     v45[5] = 0;
     v46 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("promptCloudQuotaMessage(_:)", 27, 2);
     v47 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v48 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("expected cloud quota message for alert to be quota almost full", 62, 2);
     v49 = String._bridgeToObjectiveC()();
 
     [v108 handleFailureInFunction:v47 file:v48 lineNumber:1932 isFatal:0 format:v49 args:v46];
@@ -3972,7 +5265,7 @@ LABEL_7:
 
 LABEL_10:
   v50 = [a1 actions];
-  sub_100006370(0, &qword_101A286F8);
+  sub_100006370(0, &qword_101A286F8, ICQInAppAction_ptr);
   v51 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v51 >> 62)
@@ -3990,11 +5283,11 @@ LABEL_10:
     v108 = objc_opt_self();
     v53 = [v108 _atomicIncrementAssertCount];
     v112 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v112);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v112, "expected only one action for quota almost full message", 54, 2u);
+    StaticString.description.getter("promptCloudQuotaMessage(_:)", 27, 2);
     v54 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v55 = String._bridgeToObjectiveC()();
 
     v56 = [v55 lastPathComponent];
@@ -4008,15 +5301,15 @@ LABEL_10:
     }
 
     v60 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v61 = swift_initStackObject();
     *(v61 + 16) = xmmword_10146CA70;
     *(v61 + 56) = &type metadata for Int32;
     *(v61 + 64) = &protocol witness table for Int32;
     *(v61 + 32) = v53;
-    v62 = sub_100006370(0, &qword_1019F4D30);
+    v62 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(v61 + 96) = v62;
-    v63 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v63 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(v61 + 104) = v63;
     *(v61 + 72) = v54;
     *(v61 + 136) = &type metadata for String;
@@ -4036,7 +5329,7 @@ LABEL_10:
     v68 = static os_log_type_t.error.getter();
     sub_100005404(v60, &_mh_execute_header, v68, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v61);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v69 = static os_log_type_t.error.getter();
     sub_100005404(v60, &_mh_execute_header, v69, "expected only one action for quota almost full message", 54, 2, _swiftEmptyArrayStorage);
@@ -4048,13 +5341,13 @@ LABEL_10:
     v70[4] = 0;
     v70[5] = 0;
     v71 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("promptCloudQuotaMessage(_:)", 27, 2);
     v72 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v73 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("expected only one action for quota almost full message", 54, 2);
     v74 = String._bridgeToObjectiveC()();
 
     [v108 handleFailureInFunction:v72 file:v73 lineNumber:1933 isFatal:0 format:v74 args:v71];
@@ -4184,22 +5477,22 @@ LABEL_26:
   return sub_10003D7BC(v12, type metadata accessor for CRLBoardIdentifier);
 }
 
-uint64_t sub_10102D2BC()
+uint64_t sub_10102D2BC(uint64_t a1)
 {
   if (qword_1019F21F0 != -1)
   {
     swift_once();
   }
 
-  v0 = static OS_os_log.crlCloudQuotaMessaging;
-  v1 = static os_log_type_t.default.getter();
+  v1 = static OS_os_log.crlCloudQuotaMessaging;
+  v2 = static os_log_type_t.default.getter();
 
-  return sub_100005404(v0, &_mh_execute_header, v1, "performing cloud quota message alert action Dismiss", 53, 2, _swiftEmptyArrayStorage);
+  return sub_100005404(v1, &_mh_execute_header, v2, "performing cloud quota message alert action Dismiss", 53, 2, _swiftEmptyArrayStorage);
 }
 
 uint64_t sub_10102D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = sub_1005B981C(&unk_1019F33C0);
+  v6 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v6 - 8);
   v8 = &v18[-v7];
   v9 = type metadata accessor for URL();
@@ -4214,7 +5507,7 @@ uint64_t sub_10102D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_101012178(v8);
     if ((*(v10 + 48))(v8, 1, v9) == 1)
     {
-      sub_10000CAAC(v8, &unk_1019F33C0);
+      sub_10000CAAC(v8, &unk_1019F33C0, &unk_101468A60);
     }
 
     else
@@ -4231,7 +5524,7 @@ uint64_t sub_10102D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v14 = static OS_os_log.crlCloudQuotaMessaging;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   *(inited + 56) = &type metadata for String;
@@ -4242,7 +5535,7 @@ uint64_t sub_10102D350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v16 = static os_log_type_t.default.getter();
   sub_100005404(v14, &_mh_execute_header, v16, "performing cloud quota message alert action %@", 48, 2, inited);
   swift_setDeallocating();
-  return sub_100005070(inited + 32);
+  return sub_100005070((inited + 32));
 }
 
 uint64_t sub_10102D7D8()
@@ -4308,7 +5601,7 @@ uint64_t sub_10102DB44()
 
 void sub_10102DBB0(uint64_t a1, void *a2, void *a3)
 {
-  v6 = sub_1005B981C(&qword_101A15A30);
+  v6 = sub_1005B981C(&qword_101A15A30, &qword_1014B6A70);
   v7 = *(v6 - 8);
   *&v8 = __chkstk_darwin(v6).n128_u64[0];
   v10 = aBlock - v9;
@@ -4341,14 +5634,14 @@ void sub_10102DBB0(uint64_t a1, void *a2, void *a3)
   _Block_release(v16);
 }
 
-void sub_10102DDB4(uint64_t a1, void *a2, int a3)
+double sub_10102DDB4(uint64_t a1, void *a2, int a3)
 {
-  HIDWORD(v24) = a3;
-  v25 = a1;
-  v4 = sub_1005B981C(&qword_101A15A30);
+  HIDWORD(v25) = a3;
+  v26 = a1;
+  v4 = sub_1005B981C(&qword_101A15A30, &qword_1014B6A70);
   v5 = *(v4 - 8);
   *&v6 = __chkstk_darwin(v4).n128_u64[0];
-  v8 = &v24 - v7;
+  v8 = &v25 - v7;
   v9 = [a2 traitCollection];
   v10 = [v9 crl_isCompactWidth];
 
@@ -4384,13 +5677,13 @@ void sub_10102DDB4(uint64_t a1, void *a2, int a3)
 
   if ((v14 & 1) == 0)
   {
-    v20 = a2;
+    v21 = a2;
     while (1)
     {
-      v21 = v20;
-      v20 = [v20 presentedViewController];
+      v22 = v21;
+      v21 = [v21 presentedViewController];
 
-      if (!v20)
+      if (!v21)
       {
         break;
       }
@@ -4405,13 +5698,13 @@ void sub_10102DDB4(uint64_t a1, void *a2, int a3)
         }
       }
 
-      (*(v5 + 16))(v8, v25, v4);
-      v22 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-      v23 = swift_allocObject();
-      (*(v5 + 32))(v23 + v22, v8, v4);
-      sub_10102E160(BYTE4(v24) & 1, sub_10105B420, v23);
+      (*(v5 + 16))(v8, v26, v4);
+      v23 = (*(v5 + 80) + 16) & ~*(v5 + 80);
+      v24 = swift_allocObject();
+      (*(v5 + 32))(v24 + v23, v8, v4);
+      sub_10102E160(BYTE4(v25) & 1, sub_10105B420, v24);
 
-      return;
+      return result;
     }
   }
 
@@ -4419,7 +5712,7 @@ void sub_10102DDB4(uint64_t a1, void *a2, int a3)
   if (v15)
   {
     v16 = v15;
-    (*(v5 + 16))(v8, v25, v4);
+    (*(v5 + 16))(v8, v26, v4);
     v17 = (*(v5 + 80) + 16) & ~*(v5 + 80);
     v18 = swift_allocObject();
     (*(v5 + 32))(v18 + v17, v8, v4);
@@ -4431,7 +5724,7 @@ void sub_10102DDB4(uint64_t a1, void *a2, int a3)
     aBlock[3] = &unk_1018AE160;
     v19 = _Block_copy(aBlock);
 
-    [v16 dismissViewControllerAnimated:BYTE4(v24) & 1 completion:v19];
+    [v16 dismissViewControllerAnimated:BYTE4(v25) & 1 completion:v19];
     _Block_release(v19);
   }
 
@@ -4440,6 +5733,8 @@ void sub_10102DDB4(uint64_t a1, void *a2, int a3)
 LABEL_10:
     CheckedContinuation.resume(returning:)();
   }
+
+  return result;
 }
 
 void sub_10102E160(char a1, void *a2, uint64_t a3)
@@ -4569,7 +5864,7 @@ LABEL_26:
       v28 = sub_100007638;
       v29 = v24;
       v22 = _Block_copy(&v26);
-      sub_10067F2EC(a1);
+      sub_10067F2EC(a1, a2);
 
       [v9 dismissViewControllerAnimated:1 completion:{v22, v26, v27}];
 LABEL_27:
@@ -4605,7 +5900,7 @@ LABEL_10:
     v15 = swift_allocObject();
     *(v15 + 16) = a1;
     *(v15 + 24) = a2;
-    sub_10067F2EC(a1);
+    sub_10067F2EC(a1, a2);
     sub_10102E160(1, sub_10105B424, v15);
 
     return;
@@ -4619,7 +5914,7 @@ LABEL_10:
     if (v18)
     {
       v19 = v18;
-      sub_100006370(0, &qword_101A10AB0);
+      sub_100006370(0, &qword_101A10AB0, UIViewController_ptr);
       v7 = v17;
       v20 = static NSObject.== infix(_:_:)();
 
@@ -4635,7 +5930,7 @@ LABEL_10:
         v28 = sub_100007638;
         v29 = &unk_1018AE8E0;
         v22 = _Block_copy(&v26);
-        sub_10067F2EC(a1);
+        sub_10067F2EC(a1, a2);
 
         [v7 dismissViewControllerAnimated:0 completion:{v22, v26, v27}];
         goto LABEL_27;
@@ -4673,40 +5968,40 @@ void sub_10102E794()
   }
 }
 
-id sub_10102EAFC()
+id sub_10102EAFC(uint64_t a1)
 {
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
-  v42 = sub_100006370(0, &qword_1019F8508);
-  sub_1005B981C(&qword_101A286F0);
+  v43 = sub_100006370(0, &qword_1019F8508, off_10182F8A8);
+  sub_1005B981C(&qword_101A286F0, qword_1014C2228);
   String.init<A>(describing:)();
-  v1 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  v2 = sub_100006370(0, &qword_1019F4D30);
-  *(inited + 56) = v2;
-  v3 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
-  *(inited + 32) = v1;
-  v4 = inited + 32;
-  v5 = inited;
-  *(inited + 64) = v3;
+  v3 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+  *(inited + 56) = v3;
+  v4 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+  *(inited + 32) = v2;
+  v5 = inited + 32;
+  v6 = inited;
+  *(inited + 64) = v4;
   if ((static NSObject.== infix(_:_:)() & 1) == 0)
   {
-    v40 = objc_opt_self();
-    LODWORD(v6) = [v40 _atomicIncrementAssertCount];
-    v42 = [objc_allocWithZone(NSString) init];
-    sub_100604538(v5, &v42);
-    StaticString.description.getter();
-    v41 = v5;
-    v7 = String._bridgeToObjectiveC()();
-
-    StaticString.description.getter();
+    v41 = objc_opt_self();
+    LODWORD(v7) = [v41 _atomicIncrementAssertCount];
+    v43 = [objc_allocWithZone(NSString) init];
+    sub_100604538(v6, &v43, "expected equality between two values of type %{public}@", 55, 2u);
+    StaticString.description.getter("editorController(for:)", 22, 2);
+    v42 = v6;
     v8 = String._bridgeToObjectiveC()();
 
-    v9 = [v8 lastPathComponent];
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+    v9 = String._bridgeToObjectiveC()();
 
-    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
+    v10 = [v9 lastPathComponent];
+
+    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v13 = v12;
 
     if (qword_1019F20A0 != -1)
     {
@@ -4715,119 +6010,119 @@ id sub_10102EAFC()
 
     while (1)
     {
-      v13 = static OS_os_log.crlAssert;
-      v14 = swift_initStackObject();
-      *(v14 + 16) = xmmword_10146CA70;
-      *(v14 + 56) = &type metadata for Int32;
-      *(v14 + 64) = &protocol witness table for Int32;
-      *(v14 + 32) = v6;
-      *(v14 + 96) = v2;
-      *(v14 + 104) = v3;
-      *(v14 + 72) = v7;
-      *(v14 + 136) = &type metadata for String;
-      v15 = sub_1000053B0();
-      *(v14 + 112) = v10;
-      *(v14 + 120) = v12;
-      *(v14 + 176) = &type metadata for UInt;
-      *(v14 + 184) = &protocol witness table for UInt;
-      *(v14 + 144) = v15;
-      *(v14 + 152) = 2087;
-      v16 = v42;
-      *(v14 + 216) = v2;
-      *(v14 + 224) = v3;
-      *(v14 + 192) = v16;
-      v17 = v7;
-      v18 = v16;
-      v19 = static os_log_type_t.error.getter();
-      sub_100005404(v13, &_mh_execute_header, v19, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v14);
-      swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
-      swift_arrayDestroy();
+      v14 = static OS_os_log.crlAssert;
+      v15 = swift_initStackObject();
+      *(v15 + 16) = xmmword_10146CA70;
+      *(v15 + 56) = &type metadata for Int32;
+      *(v15 + 64) = &protocol witness table for Int32;
+      *(v15 + 32) = v7;
+      *(v15 + 96) = v3;
+      *(v15 + 104) = v4;
+      *(v15 + 72) = v8;
+      *(v15 + 136) = &type metadata for String;
+      v16 = sub_1000053B0();
+      *(v15 + 112) = v11;
+      *(v15 + 120) = v13;
+      *(v15 + 176) = &type metadata for UInt;
+      *(v15 + 184) = &protocol witness table for UInt;
+      *(v15 + 144) = v16;
+      *(v15 + 152) = 2087;
+      v17 = v43;
+      *(v15 + 216) = v3;
+      *(v15 + 224) = v4;
+      *(v15 + 192) = v17;
+      v18 = v8;
+      v19 = v17;
       v20 = static os_log_type_t.error.getter();
-      sub_100005404(v13, &_mh_execute_header, v20, "expected equality between two values of type %{public}@", 55, 2, v41);
+      sub_100005404(v14, &_mh_execute_header, v20, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v15);
+      swift_setDeallocating();
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+      swift_arrayDestroy();
+      v21 = static os_log_type_t.error.getter();
+      sub_100005404(v14, &_mh_execute_header, v21, "expected equality between two values of type %{public}@", 55, 2, v42);
 
       type metadata accessor for __VaListBuilder();
-      v21 = swift_allocObject();
-      v21[2] = 8;
-      v21[3] = 0;
-      v2 = v21 + 3;
-      v21[4] = 0;
-      v21[5] = 0;
-      v3 = *(v41 + 16);
-      if (!v3)
+      v22 = swift_allocObject();
+      v22[2] = 8;
+      v22[3] = 0;
+      v3 = v22 + 3;
+      v22[4] = 0;
+      v22[5] = 0;
+      v4 = *(v42 + 16);
+      if (!v4)
       {
 LABEL_29:
-        v35 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
-        v36 = String._bridgeToObjectiveC()();
-
-        StaticString.description.getter();
+        v36 = __VaListBuilder.va_list()();
+        StaticString.description.getter("editorController(for:)", 22, 2);
         v37 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
         v38 = String._bridgeToObjectiveC()();
 
-        [v40 handleFailureInFunction:v36 file:v37 lineNumber:2087 isFatal:0 format:v38 args:v35];
+        StaticString.description.getter("expected equality between two values of type %{public}@", 55, 2);
+        v39 = String._bridgeToObjectiveC()();
+
+        [v41 handleFailureInFunction:v37 file:v38 lineNumber:2087 isFatal:0 format:v39 args:v36];
 
         return sub_101012B64();
       }
 
-      v7 = 0;
+      v8 = 0;
       while (1)
       {
-        v22 = (v4 + 40 * v7);
-        v12 = v22[3];
-        LODWORD(v6) = sub_100020E58(v22, v12);
-        v23 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
-        v10 = *v2;
-        v24 = *(v23 + 16);
-        v25 = __OFADD__(*v2, v24);
-        v26 = *v2 + v24;
-        if (v25)
+        v23 = (v5 + 40 * v8);
+        v13 = v23[3];
+        LODWORD(v7) = sub_100020E58(v23, v13);
+        v24 = dispatch thunk of CVarArg._cVarArgEncoding.getter();
+        v11 = *v3;
+        v25 = *(v24 + 16);
+        v26 = __OFADD__(*v3, v25);
+        v27 = *v3 + v25;
+        if (v26)
         {
           break;
         }
 
-        v12 = v21[4];
-        if (v12 >= v26)
+        v13 = v22[4];
+        if (v13 >= v27)
         {
           goto LABEL_21;
         }
 
-        if (v12 + 0x4000000000000000 < 0)
+        if (v13 + 0x4000000000000000 < 0)
         {
           goto LABEL_33;
         }
 
-        v6 = v21[5];
-        if (2 * v12 > v26)
+        v7 = v22[5];
+        if (2 * v13 > v27)
         {
-          v26 = 2 * v12;
+          v27 = 2 * v13;
         }
 
-        v21[4] = v26;
-        if ((v26 - 0x1000000000000000) >> 61 != 7)
+        v22[4] = v27;
+        if ((v27 - 0x1000000000000000) >> 61 != 7)
         {
           goto LABEL_34;
         }
 
-        v27 = v23;
-        v28 = swift_slowAlloc();
-        v29 = v28;
-        v21[5] = v28;
-        if (v6)
+        v28 = v24;
+        v29 = swift_slowAlloc();
+        v30 = v29;
+        v22[5] = v29;
+        if (v7)
         {
-          if (v28 != v6 || v28 >= &v6[8 * v10])
+          if (v29 != v7 || v29 >= &v7[8 * v11])
           {
-            memmove(v28, v6, 8 * v10);
+            memmove(v29, v7, 8 * v11);
           }
 
-          LODWORD(v6) = v21;
+          LODWORD(v7) = v22;
           __VaListBuilder.deallocStorage(wordCount:storage:)();
-          v23 = v27;
+          v24 = v28;
 LABEL_21:
-          v29 = v21[5];
-          if (!v29)
+          v30 = v22[5];
+          if (!v30)
           {
             goto LABEL_28;
           }
@@ -4835,8 +6130,8 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v23 = v27;
-        if (!v29)
+        v24 = v28;
+        if (!v30)
         {
 LABEL_28:
           __break(1u);
@@ -4844,23 +6139,23 @@ LABEL_28:
         }
 
 LABEL_22:
-        v31 = *(v23 + 16);
-        if (v31)
+        v32 = *(v24 + 16);
+        if (v32)
         {
-          v32 = (v23 + 32);
-          v33 = *v2;
+          v33 = (v24 + 32);
+          v34 = *v3;
           while (1)
           {
-            v34 = *v32++;
-            *&v29[8 * v33] = v34;
-            v33 = *v2 + 1;
-            if (__OFADD__(*v2, 1))
+            v35 = *v33++;
+            *&v30[8 * v34] = v35;
+            v34 = *v3 + 1;
+            if (__OFADD__(*v3, 1))
             {
               break;
             }
 
-            *v2 = v33;
-            if (!--v31)
+            *v3 = v34;
+            if (!--v32)
             {
               goto LABEL_6;
             }
@@ -4872,8 +6167,8 @@ LABEL_22:
 
 LABEL_6:
 
-        v7 = v7 + 1;
-        if (v7 == v3)
+        v8 = v8 + 1;
+        if (v8 == v4)
         {
           goto LABEL_29;
         }
@@ -4892,121 +6187,121 @@ LABEL_35:
   return sub_101012B64();
 }
 
-char *sub_10102F450()
+char *sub_10102F450(uint64_t a1)
 {
-  v1 = v0;
-  v2 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_mediaReplacer;
-  v3 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_mediaReplacer];
-  if (v3)
+  v2 = v1;
+  v3 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_mediaReplacer;
+  v4 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_mediaReplacer];
+  if (v4)
   {
-    sub_100006370(0, &qword_1019F54D0);
-    v4 = *&v3[OBJC_IVAR____TtC8Freeform19CRLiOSMediaReplacer_interactiveCanvasController];
-    v5 = v3;
+    sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
+    v5 = *&v4[OBJC_IVAR____TtC8Freeform19CRLiOSMediaReplacer_interactiveCanvasController];
     v6 = v4;
-    v7 = static NSObject.== infix(_:_:)();
+    v7 = v5;
+    v8 = static NSObject.== infix(_:_:)();
 
-    if (v7)
+    if (v8)
     {
-      return v5;
+      return v6;
     }
 
-    v37 = v5;
-    v36 = objc_opt_self();
-    v9 = [v36 _atomicIncrementAssertCount];
-    v38 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v38);
-    StaticString.description.getter();
-    v35 = String._bridgeToObjectiveC()();
+    v38 = v6;
+    v37 = objc_opt_self();
+    v10 = [v37 _atomicIncrementAssertCount];
+    v39 = [objc_allocWithZone(NSString) init];
+    sub_100604538(_swiftEmptyArrayStorage, &v39, "Existing media replacer is for a different ICC. Replacing it with a new instance.", 81, 2u);
+    StaticString.description.getter("mediaReplacer(for:)", 19, 2);
+    v36 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
-    v10 = String._bridgeToObjectiveC()();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
+    v11 = String._bridgeToObjectiveC()();
 
-    v11 = [v10 lastPathComponent];
+    v12 = [v11 lastPathComponent];
 
-    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v34 = v13;
+    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v35 = v14;
 
     if (qword_1019F20A0 != -1)
     {
       swift_once();
     }
 
-    v14 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    v15 = static OS_os_log.crlAssert;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
-    *(inited + 32) = v9;
-    v16 = sub_100006370(0, &qword_1019F4D30);
-    *(inited + 96) = v16;
-    v17 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
-    *(inited + 104) = v17;
-    *(inited + 72) = v35;
+    *(inited + 32) = v10;
+    v17 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+    *(inited + 96) = v17;
+    v18 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
+    *(inited + 104) = v18;
+    *(inited + 72) = v36;
     *(inited + 136) = &type metadata for String;
-    v18 = sub_1000053B0();
-    *(inited + 112) = v12;
-    *(inited + 120) = v34;
+    v19 = sub_1000053B0();
+    *(inited + 112) = v13;
+    *(inited + 120) = v35;
     *(inited + 176) = &type metadata for UInt;
     *(inited + 184) = &protocol witness table for UInt;
-    *(inited + 144) = v18;
+    *(inited + 144) = v19;
     *(inited + 152) = 2290;
-    v19 = v38;
-    *(inited + 216) = v16;
-    *(inited + 224) = v17;
-    *(inited + 192) = v19;
-    v20 = v35;
-    v21 = v19;
-    v22 = static os_log_type_t.error.getter();
-    sub_100005404(v14, &_mh_execute_header, v22, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
-    swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
-    swift_arrayDestroy();
+    v20 = v39;
+    *(inited + 216) = v17;
+    *(inited + 224) = v18;
+    *(inited + 192) = v20;
+    v21 = v36;
+    v22 = v20;
     v23 = static os_log_type_t.error.getter();
-    sub_100005404(v14, &_mh_execute_header, v23, "Existing media replacer is for a different ICC. Replacing it with a new instance.", 81, 2, _swiftEmptyArrayStorage);
+    sub_100005404(v15, &_mh_execute_header, v23, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
+    swift_setDeallocating();
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+    swift_arrayDestroy();
+    v24 = static os_log_type_t.error.getter();
+    sub_100005404(v15, &_mh_execute_header, v24, "Existing media replacer is for a different ICC. Replacing it with a new instance.", 81, 2, _swiftEmptyArrayStorage);
 
     type metadata accessor for __VaListBuilder();
-    v24 = swift_allocObject();
-    v24[2] = 8;
-    v24[3] = 0;
-    v24[4] = 0;
-    v24[5] = 0;
-    v25 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
-    v26 = String._bridgeToObjectiveC()();
-
-    StaticString.description.getter();
+    v25 = swift_allocObject();
+    v25[2] = 8;
+    v25[3] = 0;
+    v25[4] = 0;
+    v25[5] = 0;
+    v26 = __VaListBuilder.va_list()();
+    StaticString.description.getter("mediaReplacer(for:)", 19, 2);
     v27 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v28 = String._bridgeToObjectiveC()();
 
-    [v36 handleFailureInFunction:v26 file:v27 lineNumber:2290 isFatal:0 format:v28 args:v25];
+    StaticString.description.getter("Existing media replacer is for a different ICC. Replacing it with a new instance.", 81, 2);
+    v29 = String._bridgeToObjectiveC()();
+
+    [v37 handleFailureInFunction:v27 file:v28 lineNumber:2290 isFatal:0 format:v29 args:v26];
   }
 
-  v29 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
-  v30 = objc_allocWithZone(type metadata accessor for CRLiOSMediaReplacer());
-  v31 = sub_100AF4ACC(v29, v1);
-  v32 = *&v1[v2];
-  *&v1[v2] = v31;
-  v33 = v31;
+  v30 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
+  v31 = objc_allocWithZone(type metadata accessor for CRLiOSMediaReplacer());
+  v32 = sub_100AF4ACC(v30, v2);
+  v33 = *&v2[v3];
+  *&v2[v3] = v32;
+  v34 = v32;
 
-  return v33;
+  return v34;
 }
 
-uint64_t sub_10102FA64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t (*a6)(void))
+uint64_t sub_10102FA64(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t (*a6)(void))
 {
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
-  v57 = sub_100006370(0, &qword_1019F8508);
-  sub_1005B981C(&qword_101A286F0);
+  v58 = sub_100006370(0, &qword_1019F8508, off_10182F8A8);
+  sub_1005B981C(&qword_101A286F0, qword_1014C2228);
   String.init<A>(describing:)();
   v7 = String._bridgeToObjectiveC()();
 
-  v8 = sub_100006370(0, &qword_1019F4D30);
+  v8 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 56) = v8;
-  v9 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v9 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 32) = v7;
   v10 = inited + 32;
   v11 = inited;
@@ -5019,12 +6314,12 @@ uint64_t sub_10102FA64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   v50 = objc_opt_self();
   LODWORD(v12) = [v50 _atomicIncrementAssertCount];
-  v57 = [objc_allocWithZone(NSString) init];
-  sub_100604538(v11, &v57);
-  StaticString.description.getter();
+  v58 = [objc_allocWithZone(NSString) init];
+  sub_100604538(v11, &v58, "expected equality between two values of type %{public}@", 55, 2u);
+  StaticString.description.getter(a2, a3, 2);
   v13 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v51 = v11;
   v14 = String._bridgeToObjectiveC()();
 
@@ -5056,7 +6351,7 @@ LABEL_4:
   *(v20 + 184) = &protocol witness table for UInt;
   *(v20 + 144) = v21;
   *(v20 + 152) = a4;
-  v22 = v57;
+  v22 = v58;
   *(v20 + 216) = v8;
   *(v20 + 224) = v9;
   *(v20 + 192) = v22;
@@ -5065,7 +6360,7 @@ LABEL_4:
   v25 = static os_log_type_t.error.getter();
   sub_100005404(v19, &_mh_execute_header, v25, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v20);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v26 = static os_log_type_t.error.getter();
   sub_100005404(v19, &_mh_execute_header, v26, "expected equality between two values of type %{public}@", 55, 2, v51);
@@ -5203,24 +6498,24 @@ LABEL_21:
 
 LABEL_29:
   v43 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter(a2, v9, 2);
   v44 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v45 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("expected equality between two values of type %{public}@", 55, 2);
   v46 = String._bridgeToObjectiveC()();
 
   [v50 handleFailureInFunction:v44 file:v45 lineNumber:a4 isFatal:0 format:v46 args:v43];
 
 LABEL_30:
   v47 = *a5;
-  v48 = *(v55 + *a5);
+  v48 = *(v56 + *a5);
   if (v48 == 2)
   {
     LOBYTE(v48) = a6();
-    *(v55 + v47) = v48 & 1;
+    *(v56 + v47) = v48 & 1;
   }
 
   return v48 & 1;
@@ -5244,7 +6539,7 @@ void sub_101030138()
     {
       if (v5)
       {
-        type metadata accessor for CRLSceneInfo();
+        type metadata accessor for CRLSceneInfo(0);
         v7 = static NSObject.== infix(_:_:)();
 
         if (v7)
@@ -5320,7 +6615,7 @@ id sub_1010304A0()
     {
       if (v5)
       {
-        sub_100006370(0, &unk_101A286E0);
+        sub_100006370(0, &unk_101A286E0, UIWindow_ptr);
         v2 = v2;
         v6 = static NSObject.== infix(_:_:)();
       }
@@ -5393,27 +6688,27 @@ void sub_101030634(void *a1)
   }
 }
 
-void sub_101030890()
+void sub_101030890(uint64_t a1)
 {
-  if (v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isTornDown])
+  if (v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_isTornDown])
   {
     if (qword_1019F2098 != -1)
     {
       swift_once();
     }
 
-    v1 = static OS_os_log.crlDefault;
-    v2 = static os_log_type_t.info.getter();
+    v2 = static OS_os_log.crlDefault;
+    v3 = static os_log_type_t.info.getter();
 
-    sub_100005404(v1, &_mh_execute_header, v2, "Skipping request to update toolbar buttons after teardown.", 58, 2, _swiftEmptyArrayStorage);
+    sub_100005404(v2, &_mh_execute_header, v3, "Skipping request to update toolbar buttons after teardown.", 58, 2, _swiftEmptyArrayStorage);
   }
 
   else
   {
-    v3 = [v0 traitCollection];
-    sub_100642864(v3, [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController] documentIsSharedReadOnly], v4);
-    sub_100642CDC(v4, 0);
-    sub_1005EB2D4(v4);
+    v4 = [v1 traitCollection];
+    sub_100642864(v4, [*&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController] documentIsSharedReadOnly], v5);
+    sub_100642CDC(v5, 0);
+    sub_1005EB2D4(v5);
   }
 }
 
@@ -5510,91 +6805,91 @@ void sub_101030C98(void *a1)
     {
       v27 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesNavigatorState;
       v28 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesNavigatorState];
-      sub_10102AA70();
-      sub_10091FD94();
+      v29 = sub_10102AA70();
+      sub_10091FD94(v29 & 1);
 
-      v29 = *&v1[v27];
-      v30 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState];
-      v50 = type metadata accessor for CRLScenesNavigatorViewController();
-      v31 = objc_allocWithZone(v50);
-      v32 = &v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate];
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate + 8] = 0;
+      v30 = *&v1[v27];
+      v31 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState];
+      v51 = type metadata accessor for CRLScenesNavigatorViewController();
+      v32 = objc_allocWithZone(v51);
+      v33 = &v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate];
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate + 8] = 0;
       swift_unknownObjectWeakInit();
       swift_unknownObjectWeakInit();
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesNavigatorStatePassthroughObserver] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_notificationObservers] = _swiftEmptyDictionarySingleton;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatingTopCaptureSnapshotView] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatingBottomCaptureSnapshotView] = 0;
-      v33 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_floatingView;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesNavigatorStatePassthroughObserver] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_notificationObservers] = _swiftEmptyDictionarySingleton;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatingTopCaptureSnapshotView] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatingBottomCaptureSnapshotView] = 0;
+      v34 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_floatingView;
       type metadata accessor for CRLShadowView();
-      v34 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-      v35 = v29;
+      v35 = objc_allocWithZone(swift_getObjCClassFromMetadata());
       v36 = v30;
-      *&v31[v33] = [v34 init];
-      v37 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_bezelView;
-      *&v31[v37] = [objc_allocWithZone(UIView) init];
-      v38 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_drawerView;
-      *&v31[v38] = [objc_allocWithZone(UIView) init];
-      v39 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_backdropView;
-      *&v31[v39] = [objc_allocWithZone(UIView) init];
-      v40 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_leadingSeparatorView;
-      *&v31[v40] = [objc_allocWithZone(UIView) init];
-      v41 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_trailingSeparatorView;
-      *&v31[v41] = [objc_allocWithZone(UIView) init];
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___grabberButton] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___previousSceneButton] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___nextSceneButton] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___popoverButton] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___navigationButtons] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___drawerWidthConstraint] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___baseConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___grabberConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___separatorHeightConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___noGrabberConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatsCenterAlignedConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatsTrailingAlignedConstraints] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___attachedToZoomControlConstraints] = 0;
-      v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_useCompactFloatingStyle] = 0;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesNavigatorState] = v35;
-      *&v31[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesPopoverState] = v36;
-      *(v32 + 1) = &off_1018ADCE0;
+      v37 = v31;
+      *&v32[v34] = [v35 init];
+      v38 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_bezelView;
+      *&v32[v38] = [objc_allocWithZone(UIView) init];
+      v39 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_drawerView;
+      *&v32[v39] = [objc_allocWithZone(UIView) init];
+      v40 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_backdropView;
+      *&v32[v40] = [objc_allocWithZone(UIView) init];
+      v41 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_leadingSeparatorView;
+      *&v32[v41] = [objc_allocWithZone(UIView) init];
+      v42 = OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_trailingSeparatorView;
+      *&v32[v42] = [objc_allocWithZone(UIView) init];
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___grabberButton] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___previousSceneButton] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___nextSceneButton] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___popoverButton] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___navigationButtons] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___drawerWidthConstraint] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___baseConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___grabberConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___separatorHeightConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___noGrabberConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatsCenterAlignedConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___floatsTrailingAlignedConstraints] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController____lazy_storage___attachedToZoomControlConstraints] = 0;
+      v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_useCompactFloatingStyle] = 0;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesNavigatorState] = v36;
+      *&v32[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_scenesPopoverState] = v37;
+      *(v33 + 1) = &off_1018ADCE0;
       swift_unknownObjectWeakAssign();
       swift_unknownObjectWeakAssign();
-      v52.receiver = v31;
-      v52.super_class = v50;
-      v42 = objc_msgSendSuper2(&v52, "initWithNibName:bundle:", 0, 0);
-      [v1 addChildViewController:v42];
-      [v42 didMoveToParentViewController:v1];
-      v43 = *&v1[v26];
-      *&v1[v26] = v42;
+      v53.receiver = v32;
+      v53.super_class = v51;
+      v43 = objc_msgSendSuper2(&v53, "initWithNibName:bundle:", 0, 0);
+      [v1 addChildViewController:v43];
+      [v43 didMoveToParentViewController:v1];
+      v44 = *&v1[v26];
+      *&v1[v26] = v43;
     }
 
-    v44 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController;
-    v45 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController];
-    if (!v45)
-    {
-      return;
-    }
-
-    [v45 removeFromParentViewController];
-    v46 = *&v1[v44];
+    v45 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController;
+    v46 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController];
     if (!v46)
     {
       return;
     }
 
-    [v46 didMoveToParentViewController:0];
-    v47 = *&v1[v44];
+    [v46 removeFromParentViewController];
+    v47 = *&v1[v45];
     if (!v47)
     {
       return;
     }
 
-    v48 = [v47 view];
-    if (v48)
+    [v47 didMoveToParentViewController:0];
+    v48 = *&v1[v45];
+    if (!v48)
     {
-      v25 = v48;
-      [v48 removeFromSuperview];
+      return;
+    }
+
+    v49 = [v48 view];
+    if (v49)
+    {
+      v25 = v49;
+      [v49 removeFromSuperview];
       goto LABEL_12;
     }
 
@@ -5638,8 +6933,8 @@ LABEL_10:
   {
     v10 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesNavigatorState];
     v11 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState];
-    v49 = type metadata accessor for CRLScenesNavigatorViewController();
-    v12 = objc_allocWithZone(v49);
+    v50 = type metadata accessor for CRLScenesNavigatorViewController();
+    v12 = objc_allocWithZone(v50);
     v13 = &v12[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate];
     *&v12[OBJC_IVAR____TtC8Freeform32CRLScenesNavigatorViewController_delegate + 8] = 0;
     swift_unknownObjectWeakInit();
@@ -5683,9 +6978,9 @@ LABEL_10:
     *(v13 + 1) = &off_1018ADCE0;
     swift_unknownObjectWeakAssign();
     swift_unknownObjectWeakAssign();
-    v51.receiver = v12;
-    v51.super_class = v49;
-    v23 = objc_msgSendSuper2(&v51, "initWithNibName:bundle:", 0, 0);
+    v52.receiver = v12;
+    v52.super_class = v50;
+    v23 = objc_msgSendSuper2(&v52, "initWithNibName:bundle:", 0, 0);
     v24 = *&v1[v9];
     *&v1[v9] = v23;
     v25 = v23;
@@ -5743,10 +7038,9 @@ LABEL_11:
 
   v77 = v10;
   v11 = [v77 subviews];
-  sub_100006370(0, &qword_1019F6D00);
+  sub_100006370(0, &qword_1019F6D00, UIView_ptr);
   v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1005B981C(&unk_1019F4D60);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_10146CE00;
   *(v13 + 32) = v6;
@@ -5829,7 +7123,6 @@ LABEL_17:
       v78 = v9;
       [v38 addSubview:v22];
 
-      sub_1005B981C(&unk_1019F4D60);
       v40 = swift_allocObject();
       *(v40 + 16) = xmmword_1014C1BF0;
       v41 = [v22 leadingAnchor];
@@ -5886,7 +7179,7 @@ LABEL_17:
           v71 = [v69 constraintEqualToAnchor:v70];
 
           *(v40 + 96) = v71;
-          sub_100006370(0, &qword_1019F4D70);
+          sub_100006370(0, &qword_1019F4D70, NSLayoutConstraint_ptr);
           isa = Array._bridgeToObjectiveC()().super.isa;
 
           [v76 activateConstraints:isa];
@@ -5950,7 +7243,6 @@ void sub_101031D9C(void *a1)
         v14 = v13;
         [v12 addSubview:v13];
 
-        sub_1005B981C(&unk_1019F4D60);
         v15 = swift_allocObject();
         *(v15 + 16) = xmmword_10146CE00;
         v16 = [v10 view];
@@ -5982,7 +7274,7 @@ void sub_101031D9C(void *a1)
 
                 v28 = [v23 constraintEqualToAnchor:v27 constant:-20.0];
                 *(v15 + 40) = v28;
-                sub_100006370(0, &qword_1019F4D70);
+                sub_100006370(0, &qword_1019F4D70, NSLayoutConstraint_ptr);
                 isa = Array._bridgeToObjectiveC()().super.isa;
 
                 [v26 activateConstraints:isa];
@@ -6107,7 +7399,7 @@ void sub_101032280()
     v4[1] = &off_1018ADCE0;
     swift_unknownObjectWeakInit();
     v44[1] = type metadata accessor for CRLScenesPopoverState(0);
-    sub_100006760(&qword_101A10C98, type metadata accessor for CRLScenesPopoverState);
+    sub_100006760(&qword_101A10C98, type metadata accessor for CRLScenesPopoverState, byte_1014953B0);
     v10 = v7;
     v11 = v6;
     v12 = v1;
@@ -6118,13 +7410,13 @@ void sub_101032280()
     v4[3] = v15;
     v16 = *(v2 + 24);
     *(v4 + v16) = swift_getKeyPath();
-    sub_1005B981C(&unk_101A286B0);
+    sub_1005B981C(&unk_101A286B0, &qword_1014C2180);
     swift_storeEnumTagMultiPayload();
     v17 = *(v2 + 28);
     *(v4 + v17) = swift_getKeyPath();
-    sub_1005B981C(&qword_101A0A8A0);
+    sub_1005B981C(&qword_101A0A8A0, &qword_101495510);
     swift_storeEnumTagMultiPayload();
-    v18 = objc_allocWithZone(sub_1005B981C(&qword_101A286C0));
+    v18 = objc_allocWithZone(sub_1005B981C(&qword_101A286C0, &qword_1014C21C0));
     *&v8[OBJC_IVAR____TtC8Freeform26CRLScenesViewController_iv_hostingController] = UIHostingController.init(rootView:)();
     *&v8[OBJC_IVAR____TtC8Freeform26CRLScenesViewController_iv_scenesPopoverState] = v14;
     v19 = v45;
@@ -6217,7 +7509,6 @@ void sub_1010326E8(void *a1)
         v16 = v15;
         [v14 addSubview:v15];
 
-        sub_1005B981C(&unk_1019F4D60);
         v17 = swift_allocObject();
         *(v17 + 16) = xmmword_10146CE00;
         v18 = [v12 view];
@@ -6249,7 +7540,7 @@ void sub_1010326E8(void *a1)
 
                 v30 = [v25 constraintEqualToAnchor:v29 constant:-20.0];
                 *(v17 + 40) = v30;
-                sub_100006370(0, &qword_1019F4D70);
+                sub_100006370(0, &qword_1019F4D70, NSLayoutConstraint_ptr);
                 isa = Array._bridgeToObjectiveC()().super.isa;
 
                 [v28 activateConstraints:isa];
@@ -6382,7 +7673,7 @@ void sub_101032B94()
     static Published.subscript.setter();
     v10 = *&v0[v3];
     sub_1008DCA8C(v55);
-    v11 = objc_allocWithZone(sub_1005B981C(&unk_101A286A0));
+    v11 = objc_allocWithZone(sub_1005B981C(&unk_101A286A0, &qword_1014C2148));
     v12 = UIHostingController.init(rootView:)();
     v13 = [v12 view];
     if (v13)
@@ -6415,7 +7706,6 @@ void sub_101032B94()
 
               [v2 addChildViewController:v12];
               [v12 didMoveToParentViewController:v2];
-              sub_1005B981C(&unk_1019F4D60);
               v24 = swift_allocObject();
               *(v24 + 16) = xmmword_10146E8B0;
               v25 = [v12 view];
@@ -6475,7 +7765,7 @@ void sub_101032B94()
 
                               v52 = [v47 constraintEqualToAnchor:v51];
                               *(v24 + 56) = v52;
-                              sub_100006370(0, &qword_1019F4D70);
+                              sub_100006370(0, &qword_1019F4D70, NSLayoutConstraint_ptr);
                               isa = Array._bridgeToObjectiveC()().super.isa;
 
                               [v50 activateConstraints:isa];
@@ -6602,7 +7892,7 @@ double sub_1010332F8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   v8 = *&v4[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasViewController];
   v38 = v4;
   v39 = v8;
-  sub_10000BE14(a2, &v41, &unk_1019F4D00);
+  sub_10000BE14(a2, &v41, &unk_1019F4D00, &unk_10146E7F0);
   v9 = *(&v42 + 1);
   if (*(&v42 + 1))
   {
@@ -6625,7 +7915,7 @@ double sub_1010332F8@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   swift_unknownObjectRelease();
   if (v16)
   {
-    *(a3 + 24) = sub_100006370(0, &qword_101A34200);
+    *(a3 + 24) = sub_100006370(0, &qword_101A34200, off_10182FA38);
     v17 = v39;
 LABEL_11:
     *a3 = v17;
@@ -6634,7 +7924,7 @@ LABEL_11:
     return result;
   }
 
-  sub_10000BE14(a2, &v41, &unk_1019F4D00);
+  sub_10000BE14(a2, &v41, &unk_1019F4D00, &unk_10146E7F0);
   v18 = *(&v42 + 1);
   if (*(&v42 + 1))
   {
@@ -6657,12 +7947,12 @@ LABEL_11:
   swift_unknownObjectRelease();
   if (v25)
   {
-    *(a3 + 24) = type metadata accessor for CRLiOSBoardViewController();
+    *(a3 + 24) = type metadata accessor for CRLiOSBoardViewController(0);
     v17 = v38;
     goto LABEL_11;
   }
 
-  sub_10000BE14(a2, &v41, &unk_1019F4D00);
+  sub_10000BE14(a2, &v41, &unk_1019F4D00, &unk_10146E7F0);
   v28 = *(&v42 + 1);
   if (*(&v42 + 1))
   {
@@ -6681,7 +7971,7 @@ LABEL_11:
     v34 = 0;
   }
 
-  v35 = type metadata accessor for CRLiOSBoardViewController();
+  v35 = type metadata accessor for CRLiOSBoardViewController(0);
   v40.receiver = v38;
   v40.super_class = v35;
   v36 = objc_msgSendSuper2(&v40, "targetForAction:withSender:", a1, v34);
@@ -6773,7 +8063,7 @@ uint64_t sub_1010338FC(uint64_t a1, uint64_t a2)
 
       else
       {
-        sub_10000BE14(a2, v21, &unk_1019F4D00);
+        sub_10000BE14(a2, v21, &unk_1019F4D00, &unk_10146E7F0);
         v11 = v22;
         if (v22)
         {
@@ -6792,7 +8082,7 @@ uint64_t sub_1010338FC(uint64_t a1, uint64_t a2)
           v17 = 0;
         }
 
-        v18 = type metadata accessor for CRLiOSBoardViewController();
+        v18 = type metadata accessor for CRLiOSBoardViewController(0);
         v24.receiver = v2;
         v24.super_class = v18;
         v19 = objc_msgSendSuper2(&v24, "canPerformAction:withSender:", a1, v17);
@@ -6806,7 +8096,7 @@ uint64_t sub_1010338FC(uint64_t a1, uint64_t a2)
 void sub_101033D0C(void *a1)
 {
   v21.receiver = v1;
-  v21.super_class = type metadata accessor for CRLiOSBoardViewController();
+  v21.super_class = type metadata accessor for CRLiOSBoardViewController(0);
   objc_msgSendSuper2(&v21, "validateCommand:", a1);
   [a1 action];
   v3 = String._bridgeToObjectiveC()();
@@ -6963,7 +8253,7 @@ uint64_t sub_101034298()
   swift_beginAccess();
   sub_100050004(v16 + v17, v7, type metadata accessor for CRLBoardCRDTData);
   v18 = v14;
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D7BC(v7, type metadata accessor for CRLBoardCRDTData);
   v19 = (*&v14[v15] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -6991,10 +8281,10 @@ uint64_t sub_101034298()
   }
 }
 
-uint64_t sub_1010346B0()
+double sub_1010346B0()
 {
   v1 = v0;
-  v2 = sub_1005B981C(&qword_1019FB750);
+  v2 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v2 - 8);
   v4 = &v12 - v3;
   v5 = *(*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_editingCoordinator] + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_mainBoard);
@@ -7013,6 +8303,8 @@ uint64_t sub_1010346B0()
   *(v10 + 40) = 0;
   *(v10 + 48) = v6;
   sub_10064191C(0, 0, v4, &unk_1014C2360, v10);
+
+  return result;
 }
 
 uint64_t sub_10103483C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
@@ -7020,7 +8312,7 @@ uint64_t sub_10103483C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   *(v6 + 328) = a5;
   *(v6 + 192) = a4;
   *(v6 + 200) = a6;
-  sub_1005B981C(&qword_101A0A320);
+  sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   *(v6 + 208) = swift_task_alloc();
   *(v6 + 216) = swift_task_alloc();
   *(v6 + 224) = swift_task_alloc();
@@ -7033,7 +8325,7 @@ uint64_t sub_10103483C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
   return _swift_task_switch(sub_10103492C, v8, v7);
 }
 
-uint64_t sub_10103492C()
+uint64_t sub_10103492C(uint64_t a1)
 {
   if (qword_1019F1910 != -1)
   {
@@ -7042,46 +8334,46 @@ uint64_t sub_10103492C()
 
   if (*(qword_101AD6B18 + OBJC_IVAR____TtC8Freeform22CRLiOSPrintCoordinator_isPresenting) == 1)
   {
-    v1 = *(qword_101AD6B18 + OBJC_IVAR____TtC8Freeform22CRLiOSPrintCoordinator_parentViewController);
-    if (v1)
+    v2 = *(qword_101AD6B18 + OBJC_IVAR____TtC8Freeform22CRLiOSPrintCoordinator_parentViewController);
+    if (v2)
     {
-      v2 = *(v0 + 192);
-      sub_100006370(0, &qword_101A10AB0);
-      v3 = v1;
+      v3 = *(v1 + 192);
+      sub_100006370(0, &qword_101A10AB0, UIViewController_ptr);
       v4 = v2;
-      v5 = static NSObject.== infix(_:_:)();
+      v5 = v3;
+      v6 = static NSObject.== infix(_:_:)();
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    *(v0 + 329) = v5 & 1;
-    v8 = [objc_opt_self() sharedPrintController];
-    *(v0 + 264) = v8;
-    *(v0 + 16) = v0;
-    *(v0 + 24) = sub_101034B88;
-    v9 = swift_continuation_init();
-    *(v0 + 136) = sub_1005B981C(&qword_101A14AA0);
-    *(v0 + 80) = _NSConcreteStackBlock;
-    *(v0 + 88) = *"";
-    *(v0 + 96) = sub_100675B28;
-    *(v0 + 104) = &unk_1018AE110;
-    *(v0 + 112) = v9;
-    [v8 dismissAnimated:1 completionHandler:v0 + 80];
+    *(v1 + 329) = v6 & 1;
+    v9 = [objc_opt_self() sharedPrintController];
+    *(v1 + 264) = v9;
+    *(v1 + 16) = v1;
+    *(v1 + 24) = sub_101034B88;
+    v10 = swift_continuation_init();
+    *(v1 + 136) = sub_1005B981C(&qword_101A14AA0, &unk_10148DF50);
+    *(v1 + 80) = _NSConcreteStackBlock;
+    *(v1 + 88) = *"";
+    *(v1 + 96) = sub_100675B28;
+    *(v1 + 104) = &unk_1018AE110;
+    *(v1 + 112) = v10;
+    [v9 dismissAnimated:1 completionHandler:v1 + 80];
 
-    return _swift_continuation_await(v0 + 16);
+    return _swift_continuation_await(v1 + 16);
   }
 
   else
   {
-    *(v0 + 272) = static MainActor.shared.getter();
-    v7 = dispatch thunk of Actor.unownedExecutor.getter();
-    *(v0 + 280) = v7;
-    *(v0 + 288) = v6;
+    *(v1 + 272) = static MainActor.shared.getter();
+    v8 = dispatch thunk of Actor.unownedExecutor.getter();
+    *(v1 + 280) = v8;
+    *(v1 + 288) = v7;
 
-    return _swift_task_switch(sub_101034FB8, v7, v6);
+    return _swift_task_switch(sub_101034FB8, v8, v7);
   }
 }
 
@@ -7106,19 +8398,19 @@ uint64_t sub_101034C90()
   v5 = *(v0 + 192);
   v6 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_lastPrintContentDate;
   swift_beginAccess();
-  sub_10000BE14(v5 + v6, v4, &qword_101A0A320);
+  sub_10000BE14(v5 + v6, v4, &qword_101A0A320, &qword_10146D650);
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
   v9 = *(v8 + 48);
   v10 = v9(v4, 1, v7);
-  sub_10000CAAC(v4, &qword_101A0A320);
+  sub_10000CAAC(v4, &qword_101A0A320, &qword_10146D650);
   if (v10 == 1)
   {
     goto LABEL_8;
   }
 
   v11 = *(v0 + 216);
-  sub_10000BE14(v5 + v6, v11, &qword_101A0A320);
+  sub_10000BE14(v5 + v6, v11, &qword_101A0A320, &qword_10146D650);
   result = v9(v11, 1, v7);
   if (result == 1)
   {
@@ -7146,7 +8438,7 @@ LABEL_8:
     static Date.now.getter();
     (*(v8 + 56))(v15, 0, 1, v7);
     swift_beginAccess();
-    sub_10002C638(v15, v5 + v6, &qword_101A0A320);
+    sub_10002C638(v15, v5 + v6, &qword_101A0A320, &qword_10146D650);
     swift_endAccess();
     v16 = sub_101012FD4();
     v17 = [v16 mode];
@@ -7168,20 +8460,21 @@ LABEL_8:
   }
 }
 
-uint64_t sub_101034FB8()
+uint64_t sub_101034FB8(uint64_t a1)
 {
-  v1 = v0[24];
-  v0[37] = static MainActor.shared.getter();
-  v2 = swift_task_alloc();
-  v0[38] = v2;
-  *(v2 + 16) = v1;
-  *(v2 + 24) = 1;
-  v3 = swift_task_alloc();
-  v0[39] = v3;
-  *v3 = v0;
-  v3[1] = sub_1010350C8;
+  v2 = v1[24];
+  v3 = static MainActor.shared.getter();
+  v1[37] = v3;
+  v4 = swift_task_alloc();
+  v1[38] = v4;
+  *(v4 + 16) = v2;
+  *(v4 + 24) = 1;
+  v5 = swift_task_alloc();
+  v1[39] = v5;
+  *v5 = v1;
+  v5[1] = sub_1010350C8;
 
-  return withCheckedContinuation<A>(isolation:function:_:)();
+  return withCheckedContinuation<A>(isolation:function:_:)(v5, v3, &protocol witness table for MainActor, 0xD000000000000048, 0x80000001015BA8D0, sub_101052DEC, v4, &type metadata for () + 8);
 }
 
 uint64_t sub_1010350C8()
@@ -7209,19 +8502,19 @@ uint64_t sub_10103528C()
   v2 = *(v0 + 192);
   v3 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_lastPrintContentDate;
   swift_beginAccess();
-  sub_10000BE14(v2 + v3, v1, &qword_101A0A320);
+  sub_10000BE14(v2 + v3, v1, &qword_101A0A320, &qword_10146D650);
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
   v6 = *(v5 + 48);
   v7 = v6(v1, 1, v4);
-  sub_10000CAAC(v1, &qword_101A0A320);
+  sub_10000CAAC(v1, &qword_101A0A320, &qword_10146D650);
   if (v7 == 1)
   {
     goto LABEL_4;
   }
 
   v8 = *(v0 + 216);
-  sub_10000BE14(v2 + v3, v8, &qword_101A0A320);
+  sub_10000BE14(v2 + v3, v8, &qword_101A0A320, &qword_10146D650);
   result = v6(v8, 1, v4);
   if (result == 1)
   {
@@ -7240,7 +8533,7 @@ LABEL_4:
     static Date.now.getter();
     (*(v5 + 56))(v13, 0, 1, v4);
     swift_beginAccess();
-    sub_10002C638(v13, v2 + v3, &qword_101A0A320);
+    sub_10002C638(v13, v2 + v3, &qword_101A0A320, &qword_10146D650);
     swift_endAccess();
     v14 = sub_101012FD4();
     v15 = [v14 mode];
@@ -7395,12 +8688,12 @@ uint64_t sub_101035BB8()
 
   v1 = *(v0 + 152);
   v2 = static OS_os_log.crlDefault;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   *(v0 + 88) = v1;
   swift_errorRetain();
-  sub_1005B981C(&unk_1019F6B40);
+  sub_1005B981C(&unk_1019F6B40, &qword_10146F320);
   v4 = String.init<A>(describing:)();
   v6 = v5;
   *(inited + 56) = &type metadata for String;
@@ -7411,7 +8704,7 @@ uint64_t sub_101035BB8()
   sub_100005404(v2, &_mh_execute_header, v7, "Error trying to show print UI. %@", 33, 2, inited);
 
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   v8 = [*(v0 + 136) textInputResponder];
   if (v8)
   {
@@ -7450,7 +8743,7 @@ id sub_101035D60()
     swift_beginAccess();
     sub_100050004(v18 + v19, v4, type metadata accessor for CRLBoardCRDTData);
     v20 = v16;
-    sub_1005B981C(&unk_1019F5250);
+    sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
     CRRegister.wrappedValue.getter();
     sub_10003D7BC(v4, type metadata accessor for CRLBoardCRDTData);
     v21 = (*&v16[v17] + OBJC_IVAR____TtC8Freeform12CRLBoardData_ownerName);
@@ -7486,10 +8779,10 @@ id sub_101035D60()
   return result;
 }
 
-void sub_1010360D0()
+void sub_1010360D0(uint64_t a1)
 {
-  sub_10000D990();
-  if (v0 <= 0x3F)
+  sub_10000D990(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
@@ -7505,7 +8798,7 @@ uint64_t sub_101036390()
     v4 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesNavigatorViewController];
     if (v4)
     {
-      sub_100006370(0, &qword_1019F54D0);
+      sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
       v5 = v4;
       v6 = static NSObject.== infix(_:_:)();
 
@@ -7523,7 +8816,7 @@ uint64_t sub_101036390()
   return v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_willPresentCompactScenesNavigator];
 }
 
-id sub_10103658C(void *a1)
+void sub_10103658C(void *a1)
 {
   v2 = v1;
   v4 = sub_101012FD4();
@@ -7556,10 +8849,10 @@ id sub_10103658C(void *a1)
     *(v17 + 1) = v10;
     *(v17 + 2) = v12;
     *(v17 + 3) = v14;
-    v81.receiver = v16;
-    v81.super_class = v15;
+    v87.receiver = v16;
+    v87.super_class = v15;
     v18 = v6;
-    v19 = objc_msgSendSuper2(&v81, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+    v19 = objc_msgSendSuper2(&v87, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
     v20 = objc_opt_self();
     v21 = v19;
     v22 = [v20 clearColor];
@@ -7578,168 +8871,168 @@ id sub_10103658C(void *a1)
 
   v25 = v24;
   [v25 setTranslatesAutoresizingMaskIntoConstraints:0];
-  result = [v2 view];
-  if (!result)
+  v26 = [v2 view];
+  if (!v26)
   {
     __break(1u);
     goto LABEL_23;
   }
 
-  v27 = result;
-  [result addSubview:v25];
+  v27 = v26;
+  [v26 addSubview:v25];
 
-  sub_1005B981C(&unk_1019F4D60);
   v28 = swift_allocObject();
   *(v28 + 16) = xmmword_10146E8B0;
   v29 = [v25 topAnchor];
-  result = [v2 view];
-  if (!result)
+  v30 = [v2 view];
+  if (!v30)
   {
 LABEL_23:
     __break(1u);
     goto LABEL_24;
   }
 
-  v30 = result;
-  v31 = [result safeAreaLayoutGuide];
+  v31 = v30;
+  v32 = [v30 safeAreaLayoutGuide];
 
-  v32 = [v31 topAnchor];
-  v33 = [v29 constraintEqualToAnchor:v32];
+  v33 = [v32 topAnchor];
+  v34 = [v29 constraintEqualToAnchor:v33];
 
-  *(v28 + 32) = v33;
-  v34 = [v25 leadingAnchor];
-  result = [v2 view];
-  if (!result)
+  *(v28 + 32) = v34;
+  v35 = [v25 leadingAnchor];
+  v36 = [v2 view];
+  if (!v36)
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v35 = result;
-  v36 = [result leadingAnchor];
+  v37 = v36;
+  v38 = [v36 leadingAnchor];
 
-  v37 = [v34 constraintEqualToAnchor:v36];
-  *(v28 + 40) = v37;
-  v38 = [v25 trailingAnchor];
-  result = [v2 view];
-  if (!result)
+  v39 = [v35 constraintEqualToAnchor:v38];
+  *(v28 + 40) = v39;
+  v40 = [v25 trailingAnchor];
+  v41 = [v2 view];
+  if (!v41)
   {
 LABEL_25:
     __break(1u);
     goto LABEL_26;
   }
 
-  v39 = result;
-  v40 = [result trailingAnchor];
+  v42 = v41;
+  v43 = [v41 trailingAnchor];
 
-  v41 = [v38 constraintEqualToAnchor:v40];
-  *(v28 + 48) = v41;
-  v42 = [v25 bottomAnchor];
+  v44 = [v40 constraintEqualToAnchor:v43];
+  *(v28 + 48) = v44;
+  v45 = [v25 bottomAnchor];
 
-  result = [v2 view];
-  if (!result)
+  v46 = [v2 view];
+  if (!v46)
   {
 LABEL_26:
     __break(1u);
-    return result;
+    return;
   }
 
-  v43 = result;
-  v44 = objc_opt_self();
-  v45 = [v43 bottomAnchor];
+  v47 = v46;
+  v48 = objc_opt_self();
+  v49 = [v47 bottomAnchor];
 
-  v46 = [v42 constraintEqualToAnchor:v45];
-  *(v28 + 56) = v46;
-  sub_100006370(0, &qword_1019F4D70);
+  v50 = [v45 constraintEqualToAnchor:v49];
+  *(v28 + 56) = v50;
+  sub_100006370(0, &qword_1019F4D70, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v44 activateConstraints:isa];
+  [v48 activateConstraints:isa];
 
 LABEL_12:
-  v48 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasZoomControlViewController];
-  if (v48)
+  v52 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasZoomControlViewController];
+  if (v52)
   {
-    v49 = v48;
-    v50 = sub_1006A4EF0();
-    v51 = OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu;
-    v52 = *&v49[OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu];
-    *&v49[OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu] = v50;
+    v53 = v52;
+    v54 = sub_1006A4EF0();
+    v55 = OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu;
+    v56 = *&v53[OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu];
+    *&v53[OBJC_IVAR____TtC8Freeform37CRLiOSCanvasZoomControlViewController_menu] = v54;
 
-    v53 = sub_1006A4738();
-    v54 = *&v49[v51];
-    [v53 setMenu:v54];
+    v57 = sub_1006A4738();
+    v58 = *&v53[v55];
+    [v57 setMenu:v58];
   }
 
-  v55 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_boardControlsViewController];
-  if (v55)
+  v59 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_boardControlsViewController];
+  if (v59)
   {
-    v56 = v55;
+    v60 = v59;
     sub_100ACD0A8();
   }
 
   *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___boardViewControlsItem] = sub_10064E0E4();
 
-  v57 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
-  v58 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager];
-  [v57 unobscuredScrollViewFrame];
-  v60 = v59;
-  v61 = *(*&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_editingCoordinator] + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_followCoordinator);
-  v62 = sub_10090E86C();
+  v61 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
+  v62 = *&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager];
+  [v61 unobscuredScrollViewFrame];
+  v64 = v63;
+  v65 = *(*&v2[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_editingCoordinator] + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_followCoordinator);
+  v66 = sub_10090E86C();
 
-  v63 = swift_allocObject();
-  *(v63 + 16) = v2;
-  v64 = type metadata accessor for CRLPersistentFollowHUDController();
-  v65 = objc_allocWithZone(v64);
-  v66 = objc_allocWithZone(v64);
-  v67 = a1;
-  v68 = v2;
-  v69 = v62;
-  v70 = sub_101050AC0(v58, v67, 0, v62, v66);
+  v67 = swift_allocObject();
+  *(v67 + 16) = v2;
+  v68 = type metadata accessor for CRLPersistentFollowHUDController(0);
+  v69 = objc_allocWithZone(v68);
+  v70 = objc_allocWithZone(v68);
+  v71 = a1;
+  v72 = v2;
+  v73 = v66;
+  v74 = sub_101050AC0(v62, v71, 0, v66, v70);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  v71 = &v70[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_canvasWidth];
-  *v71 = v60;
-  v71[8] = 0;
-  v72 = &v70[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler];
-  v73 = *&v70[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler];
-  *v72 = sub_10105A5C8;
-  v72[1] = v63;
-  v74 = v70;
+  v75 = &v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_canvasWidth];
+  *v75 = v64;
+  v75[8] = 0;
+  v76 = &v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler];
+  v77 = *&v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler];
+  v78 = *&v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_stopButtonClickedHandler + 8];
+  *v76 = sub_10105A5C8;
+  v76[1] = v67;
+  v79 = v74;
 
-  sub_1000C1014(v73);
-  if ((v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_setupDone] & 1) == 0)
+  sub_1000C1014(v77, v78);
+  if ((v79[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_setupDone] & 1) == 0)
   {
-    v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_setupDone] = 1;
-    sub_10100E5B0();
-    [*&v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_containerView] addSubview:*&v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_hudView]];
+    v79[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_setupDone] = 1;
+    sub_10100E5B0(v80);
+    [*&v79[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_containerView] addSubview:*&v79[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_hudView]];
     sub_100A4D7F4();
   }
 
-  v75 = sub_100A4C94C();
-  v77 = v76;
+  v81 = sub_100A4C94C();
+  v83 = v82;
 
-  v78 = &v74[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_accessibilityAnnouncement];
-  *v78 = v75;
-  v78[1] = v77;
+  v84 = &v79[OBJC_IVAR____TtC8Freeform32CRLPersistentFollowHUDController_accessibilityAnnouncement];
+  *v84 = v81;
+  v84[1] = v83;
 
   swift_unknownObjectWeakAssign();
-  v79 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD;
-  v80 = *&v68[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD];
-  if (v80)
+  v85 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD;
+  v86 = *&v72[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD];
+  if (v86)
   {
     swift_unknownObjectRetain();
-    sub_10104E1D0(v80, v74, v58, &unk_1018AE878, sub_10105B434, &unk_1018AE890);
+    sub_10104E1D0(v86, v79, v62, &unk_1018AE878, sub_10105B434, &unk_1018AE890);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    sub_10104E784(v74, v58, &unk_1018AE878, sub_10105B434, &unk_1018AE890, 0.0);
+    sub_10104E784(v79, v62, &unk_1018AE878, sub_10105B434, &unk_1018AE890, 0.0);
   }
 
-  *&v68[v79] = v74;
-  return swift_unknownObjectRelease();
+  *&v72[v85] = v79;
+  swift_unknownObjectRelease();
 }
 
 void sub_101036E30(uint64_t a1)
@@ -7748,7 +9041,7 @@ void sub_101036E30(uint64_t a1)
   sub_1008FEE94(0);
 }
 
-void sub_101036F04(void *a1, char a2)
+double sub_101036F04(void *a1, char a2)
 {
   v3 = v2;
   v6 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followBorderHighlightView;
@@ -7789,70 +9082,71 @@ void sub_101036F04(void *a1, char a2)
 
   *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController____lazy_storage___boardViewControlsItem] = sub_10064E0E4();
 
-  v18 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD;
+  v19 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD;
   if (*&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_followHUD])
   {
-    v19 = *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager];
+    v20 = *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager];
     if ((a2 & 1) != 0 && a1)
     {
-      v20 = *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
-      v21 = v19;
-      v22 = a1;
-      v23 = v21;
+      v21 = *&v3[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
+      v22 = v20;
+      v23 = a1;
       v24 = v22;
+      v25 = v23;
       swift_unknownObjectRetain();
-      [v20 unobscuredScrollViewFrame];
-      v26 = v25;
-      v27 = swift_allocObject();
-      *(v27 + 16) = v3;
-      *(v27 + 24) = v24;
-      v28 = type metadata accessor for CRLTransientRefollowHUDController();
-      v29 = objc_allocWithZone(v28);
-      v30 = objc_allocWithZone(v28);
-      v31 = v24;
+      [v21 unobscuredScrollViewFrame];
+      v27 = v26;
+      v28 = swift_allocObject();
+      *(v28 + 16) = v3;
+      *(v28 + 24) = v25;
+      v29 = type metadata accessor for CRLTransientRefollowHUDController(0);
+      v30 = objc_allocWithZone(v29);
+      v31 = objc_allocWithZone(v29);
+      v32 = v25;
       v3;
-      v49 = v23;
-      v32 = sub_101050F18(v23, v31, 0, v30);
+      v53 = v24;
+      v33 = sub_101050F18(v24, v32, 0, v31);
       swift_getObjectType();
       swift_deallocPartialClassInstance();
-      v33 = &v32[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_canvasWidth];
-      *v33 = v26;
-      v33[8] = 0;
-      v34 = &v32[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler];
-      v35 = *&v32[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler];
-      *v34 = sub_10105A5C0;
-      v34[1] = v27;
-      v36 = v32;
+      v34 = &v33[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_canvasWidth];
+      *v34 = v27;
+      v34[8] = 0;
+      v35 = &v33[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler];
+      v36 = *&v33[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler];
+      v37 = *&v33[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler + 8];
+      *v35 = sub_10105A5C0;
+      v35[1] = v28;
+      v38 = v33;
 
-      sub_1000C1014(v35);
-      if ((v36[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_setupDone] & 1) == 0)
+      sub_1000C1014(v36, v37);
+      if ((v38[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_setupDone] & 1) == 0)
       {
-        v36[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_setupDone] = 1;
-        sub_10100E5B0();
-        [*&v36[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_containerView] addSubview:*&v36[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_hudView]];
+        v38[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_setupDone] = 1;
+        sub_10100E5B0(v39);
+        [*&v38[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_containerView] addSubview:*&v38[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_hudView]];
         sub_100B0A760();
       }
 
-      v37 = [objc_opt_self() mainBundle];
-      v38 = String._bridgeToObjectiveC()();
-      v39 = String._bridgeToObjectiveC()();
-      v40 = [v37 localizedStringForKey:v38 value:v39 table:0];
+      v40 = [objc_opt_self() mainBundle];
+      v41 = String._bridgeToObjectiveC()();
+      v42 = String._bridgeToObjectiveC()();
+      v43 = [v40 localizedStringForKey:v41 value:v42 table:0];
 
-      v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v43 = v42;
+      v44 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v46 = v45;
 
-      v44 = &v36[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_accessibilityAnnouncement];
-      *v44 = v41;
-      v44[1] = v43;
+      v47 = &v38[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_accessibilityAnnouncement];
+      *v47 = v44;
+      v47[1] = v46;
 
-      v45 = swift_unknownObjectRetain();
-      sub_10104E1D0(v45, v36, v49, &unk_1018AE800, sub_10105B434, &unk_1018AE818);
+      v48 = swift_unknownObjectRetain();
+      sub_10104E1D0(v48, v38, v53, &unk_1018AE800, sub_10105B434, &unk_1018AE818);
       swift_unknownObjectRelease();
-      *&v3[v18] = v36;
-      v50 = v36;
+      *&v3[v19] = v38;
+      v54 = v38;
       swift_unknownObjectRelease();
-      v46 = *&v50[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_hudView];
-      CRLAccessibilityPostLayoutChangedNotification(v46);
+      v49 = *&v54[OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_hudView];
+      CRLAccessibilityPostLayoutChangedNotification(v49, v50);
 
       swift_unknownObjectRelease();
       swift_unknownObjectWeakAssign();
@@ -7860,16 +9154,18 @@ void sub_101036F04(void *a1, char a2)
 
     else
     {
-      v47 = v19;
-      v48 = swift_unknownObjectRetain();
-      CRLStatusHUDManager.hide(hudController:)(v48);
+      v51 = v20;
+      v52 = swift_unknownObjectRetain();
+      CRLStatusHUDManager.hide(hudController:)(v52);
 
       swift_unknownObjectRelease();
-      *&v3[v18] = 0;
+      *&v3[v19] = 0;
 
       swift_unknownObjectRelease();
     }
   }
+
+  return result;
 }
 
 void sub_101037408(uint64_t a1, char **a2)
@@ -7878,18 +9174,19 @@ void sub_101037408(uint64_t a1, char **a2)
   sub_100900650(a2, 1);
 }
 
-void sub_10103755C(void *a1, char a2)
+void sub_10103755C(void *a1, uint64_t a2)
 {
+  v3 = a2;
   v5 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager);
   v6 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController);
   v7 = v5;
   [v6 unobscuredScrollViewFrame];
   v9 = v8;
-  started = type metadata accessor for CRLTransientStartEndFollowHUDController();
+  started = type metadata accessor for CRLTransientStartEndFollowHUDController(0);
   objc_allocWithZone(started);
   v11 = objc_allocWithZone(started);
   v12 = a1;
-  v21 = sub_101051384(v7, a1, 0, 0, a2, v11);
+  v21 = sub_101051384(v7, a1, 0, 0, v3, v11);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
   v13 = &v21[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_canvasWidth];
@@ -7904,7 +9201,7 @@ void sub_10103755C(void *a1, char a2)
   {
     v21[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_setupDone] = 1;
     v15 = v21;
-    sub_10100E5B0();
+    sub_10100E5B0(v15);
     [*&v15[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_containerView] addSubview:*&v15[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_hudView]];
     sub_100807FC4();
   }
@@ -7923,16 +9220,17 @@ void sub_10103755C(void *a1, char a2)
   sub_10104E784(v21, v7, &unk_1018AE788, sub_10105B434, &unk_1018AE7A0, 0.0);
 }
 
-void sub_1010378A8(void *a1, char a2)
+void sub_1010378A8(void *a1, uint64_t a2)
 {
+  v3 = a2;
   v5 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_statusHUDManager);
   v6 = *(v2 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController);
   v7 = v5;
   [v6 unobscuredScrollViewFrame];
   v9 = v8;
-  started = type metadata accessor for CRLTransientStartEndFollowHUDController();
+  started = type metadata accessor for CRLTransientStartEndFollowHUDController(0);
   objc_allocWithZone(started);
-  v19 = sub_101051384(v7, a1, 1, 0, a2, objc_allocWithZone(started));
+  v19 = sub_101051384(v7, a1, 1, 0, v3, objc_allocWithZone(started));
   swift_getObjectType();
   swift_deallocPartialClassInstance();
   v11 = &v19[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_canvasWidth];
@@ -7947,7 +9245,7 @@ void sub_1010378A8(void *a1, char a2)
   {
     v19[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_setupDone] = 1;
     v13 = v19;
-    sub_10100E5B0();
+    sub_10100E5B0(v13);
     [*&v13[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_containerView] addSubview:*&v13[OBJC_IVAR____TtC8Freeform39CRLTransientStartEndFollowHUDController_hudView]];
     sub_100807FC4();
   }
@@ -7987,8 +9285,7 @@ void sub_101037B6C(unint64_t a1)
   v10 = [objc_opt_self() actionWithTitle:v9 style:0 handler:0];
 
   [v11 addAction:v10];
-  sub_1011047E4(v11);
-  [v1 presentViewController:v11 animated:1 completion:0];
+  [v1 presentViewController:v11 animated:1 completion:{0, sub_1011047E4(v11)}];
 }
 
 void sub_101037DA4(uint64_t a1, uint64_t a2)
@@ -8018,8 +9315,7 @@ void sub_101037DA4(uint64_t a1, uint64_t a2)
   v17 = [objc_opt_self() actionWithTitle:v16 style:0 handler:0];
 
   [v18 addAction:v17];
-  sub_1011047E4(v18);
-  [v2 presentViewController:v18 animated:1 completion:0];
+  [v2 presentViewController:v18 animated:1 completion:{0, sub_1011047E4(v18)}];
 }
 
 void sub_101038090()
@@ -8054,11 +9350,10 @@ void sub_101038090()
   v17 = [objc_opt_self() actionWithTitle:v16 style:0 handler:0];
 
   [v18 addAction:v17];
-  sub_1011047E4(v18);
-  [v0 presentViewController:v18 animated:1 completion:0];
+  [v0 presentViewController:v18 animated:1 completion:{0, sub_1011047E4(v18)}];
 }
 
-void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, void (*a4)(int a1), uint64_t a5)
 {
   v6 = v5;
   v12 = String._bridgeToObjectiveC()();
@@ -8107,11 +9402,11 @@ void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
   v49 = objc_opt_self();
   v17 = [v49 _atomicIncrementAssertCount];
   aBlock = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &aBlock);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &aBlock, "invalid nil found when unwrapping value", 39, 2u);
+  StaticString.description.getter("beginModalOperation(withPresentedLocalizedMessage:progress:cancelHandler:)", 74, 2);
   v18 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v19 = String._bridgeToObjectiveC()();
 
   v20 = [v19 lastPathComponent];
@@ -8125,15 +9420,15 @@ void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
   }
 
   v24 = static OS_os_log.crlAssert;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   *(inited + 56) = &type metadata for Int32;
   *(inited + 64) = &protocol witness table for Int32;
   *(inited + 32) = v17;
-  v26 = sub_100006370(0, &qword_1019F4D30);
+  v26 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
   *(inited + 96) = v26;
-  v27 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+  v27 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
   *(inited + 104) = v27;
   *(inited + 72) = v18;
   *(inited + 136) = &type metadata for String;
@@ -8153,7 +9448,7 @@ void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
   v32 = static os_log_type_t.error.getter();
   sub_100005404(v24, &_mh_execute_header, v32, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v33 = static os_log_type_t.error.getter();
   sub_100005404(v24, &_mh_execute_header, v33, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8165,13 +9460,13 @@ void *sub_10103848C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
   v34[4] = 0;
   v34[5] = 0;
   v35 = __VaListBuilder.va_list()();
-  StaticString.description.getter();
+  StaticString.description.getter("beginModalOperation(withPresentedLocalizedMessage:progress:cancelHandler:)", 74, 2);
   v36 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
   v37 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
   v38 = String._bridgeToObjectiveC()();
 
   [v49 handleFailureInFunction:v36 file:v37 lineNumber:3101 isFatal:0 format:v38 args:v35];
@@ -8202,7 +9497,7 @@ LABEL_12:
     v58 = &unk_1018AE638;
     v41 = _Block_copy(&aBlock);
     v42 = a3;
-    sub_10067F2EC(a4);
+    sub_10067F2EC(a4, a5);
     v43 = v16;
     v44 = v42;
     v45 = v6;
@@ -8245,7 +9540,7 @@ void sub_101038A88(int a1, id a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_
       v19 = swift_allocObject();
       *(v19 + 16) = v18;
       *(v19 + 24) = v17;
-      sub_10067F2EC(a6);
+      sub_10067F2EC(a6, a7);
       v20 = String._bridgeToObjectiveC()();
       v33 = sub_10105A5A8;
       v34 = v19;
@@ -8303,11 +9598,11 @@ void sub_101038E3C(uint64_t a1)
     v32 = objc_opt_self();
     v5 = [v32 _atomicIncrementAssertCount];
     v33 = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, &v33);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, &v33, "invalid nil found when unwrapping value", 39, 2u);
+    StaticString.description.getter("endModalOperation(with:)", 24, 2);
     v6 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v7 = String._bridgeToObjectiveC()();
 
     v8 = [v7 lastPathComponent];
@@ -8321,15 +9616,15 @@ void sub_101038E3C(uint64_t a1)
     }
 
     v12 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v5;
-    v14 = sub_100006370(0, &qword_1019F4D30);
+    v14 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v14;
-    v15 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30);
+    v15 = sub_10000FDE0(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v15;
     *(inited + 72) = v6;
     *(inited + 136) = &type metadata for String;
@@ -8349,7 +9644,7 @@ void sub_101038E3C(uint64_t a1)
     v20 = static os_log_type_t.error.getter();
     sub_100005404(v12, &_mh_execute_header, v20, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v21 = static os_log_type_t.error.getter();
     sub_100005404(v12, &_mh_execute_header, v21, "invalid nil found when unwrapping value", 39, 2, _swiftEmptyArrayStorage);
@@ -8361,13 +9656,13 @@ void sub_101038E3C(uint64_t a1)
     v22[4] = 0;
     v22[5] = 0;
     v23 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("endModalOperation(with:)", 24, 2);
     v24 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/iOS/Views/CRLiOSBoardViewController.swift", 95, 2);
     v25 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("invalid nil found when unwrapping value", 39, 2);
     v26 = String._bridgeToObjectiveC()();
 
     [v32 handleFailureInFunction:v24 file:v25 lineNumber:3126 isFatal:0 format:v26 args:v23];
@@ -8401,33 +9696,27 @@ BOOL sub_101039428()
 
     v2 = static OS_os_log.crlDefault;
     v3 = static os_log_type_t.info.getter();
-    v4 = "attempting to present tip whilst in drawing mode!";
-    v5 = v2;
-    v6 = 49;
-LABEL_10:
-    sub_100005404(v5, &_mh_execute_header, v3, v4, v6, 2, _swiftEmptyArrayStorage);
+    sub_100005404(v2, &_mh_execute_header, v3, "attempting to present tip whilst in drawing mode!", 49, 2, _swiftEmptyArrayStorage);
     return 0;
   }
 
-  v7 = sub_1010243F4();
-  if (v7)
+  v4 = sub_1010243F4();
+  if (v4)
   {
-    v8 = v7;
-    v9 = sub_100C0BA2C();
+    v5 = v4;
+    v6 = sub_100C0BA2C();
 
-    if (v9)
+    if (v6)
     {
       if (qword_1019F2098 != -1)
       {
         swift_once();
       }
 
-      v10 = static OS_os_log.crlDefault;
-      v3 = static os_log_type_t.info.getter();
-      v4 = "attempting to present tip whilst welcome controller is visible";
-      v5 = v10;
-      v6 = 62;
-      goto LABEL_10;
+      v7 = static OS_os_log.crlDefault;
+      v8 = static os_log_type_t.info.getter();
+      sub_100005404(v7, &_mh_execute_header, v8, "attempting to present tip whilst welcome controller is visible", 62, 2, _swiftEmptyArrayStorage);
+      return 0;
     }
   }
 
@@ -8438,15 +9727,15 @@ LABEL_10:
     return 0;
   }
 
-  v13 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentlyPresentedTip;
+  v11 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentlyPresentedTip;
   swift_beginAccess();
-  sub_10000BE14(v1 + v13, v15, &unk_1019F6DA0);
-  v14 = v16 == 0;
-  sub_10000CAAC(v15, &unk_1019F6DA0);
-  return v14;
+  sub_10000BE14(v1 + v11, v13, &unk_1019F6DA0, &unk_1014C20F0);
+  v12 = v14 == 0;
+  sub_10000CAAC(v13, &unk_1019F6DA0, &unk_1014C20F0);
+  return v12;
 }
 
-void sub_1010395E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ValueMetadata *a5, unint64_t a6)
+void sub_1010395E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ValueMetadata *a5, uint64_t (*a6)())
 {
   v36 = a2;
   Description = a5[-1].Description;
@@ -8468,7 +9757,7 @@ void sub_1010395E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ValueMeta
     }
 
     v13 = static OS_os_log.crlDefault;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146C6B0;
     v15 = dispatch thunk of Tip.id.getter();
@@ -8480,7 +9769,7 @@ void sub_1010395E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ValueMeta
     v18 = static os_log_type_t.info.getter();
     sub_100005404(v13, &_mh_execute_header, v18, "presenting tip from a barButtonItem: %{public}@", 47, 2, inited);
     swift_setDeallocating();
-    sub_100005070(inited + 32);
+    sub_100005070((inited + 32));
     v19 = v35;
     if (sub_101039428())
     {
@@ -8519,1319 +9808,11 @@ void sub_1010395E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ValueMeta
       v30 = _Block_copy(aBlock);
       v31 = v19;
       v32 = v23;
-      sub_10067F2EC(v28);
+      sub_10067F2EC(v28, v29);
 
       [v31 presentViewController:v32 animated:1 completion:v30];
 
       _Block_release(v30);
     }
-  }
-}
-
-uint64_t sub_101039978(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  swift_unknownObjectWeakAssign();
-  v15[3] = a6;
-  v15[4] = a7;
-  v12 = sub_10002C58C(v15);
-  (*(*(a6 - 8) + 16))(v12, a3, a6);
-  v13 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentlyPresentedTip;
-  swift_beginAccess();
-  sub_10002C638(v15, a1 + v13, &unk_1019F6DA0);
-  result = swift_endAccess();
-  if (a4)
-  {
-    return a4(result);
-  }
-
-  return result;
-}
-
-void sub_101039A5C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v21 = &type metadata for CRLFeatureFlags;
-  v22 = sub_100004D60();
-  LOBYTE(aBlock[0]) = 0;
-  v7 = isFeatureEnabled(_:)();
-  sub_100005070(aBlock);
-  if (v7)
-  {
-    if (qword_1019F2098 != -1)
-    {
-      swift_once();
-    }
-
-    v8 = static OS_os_log.crlDefault;
-    sub_1005B981C(&qword_1019F54E0);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_10146C6B0;
-    v10 = sub_10067E804();
-    v11 = dispatch thunk of Tip.id.getter();
-    v13 = v12;
-    *(inited + 56) = &type metadata for String;
-    *(inited + 64) = sub_1000053B0();
-    *(inited + 32) = v11;
-    *(inited + 40) = v13;
-    v14 = static os_log_type_t.info.getter();
-    sub_100005404(v8, &_mh_execute_header, v14, "presenting tip on source item  menu: %{public}@", 47, 2, inited);
-    swift_setDeallocating();
-    sub_100005070(inited + 32);
-    if (sub_101039428())
-    {
-      type metadata accessor for TipUIPopoverViewController();
-      v21 = &type metadata for CRLTipScenesEntryPointCompact;
-      v22 = v10;
-      swift_unknownObjectRetain();
-      v15 = TipUIPopoverViewController.__allocating_init(_:sourceItem:actionHandler:)();
-      swift_unknownObjectRetain();
-      TipUIPopoverViewController.presentationDelegate.setter();
-      v16 = swift_allocObject();
-      v16[2] = v4;
-      v16[3] = v15;
-      v16[4] = a2;
-      v16[5] = a3;
-      v22 = sub_10105B160;
-      v23 = v16;
-      aBlock[0] = _NSConcreteStackBlock;
-      aBlock[1] = *"";
-      aBlock[2] = sub_100007638;
-      v21 = &unk_1018AF1F0;
-      v17 = _Block_copy(aBlock);
-      v18 = v4;
-      v19 = v15;
-      sub_10067F2EC(a2);
-
-      [v18 presentViewController:v19 animated:1 completion:v17];
-
-      _Block_release(v17);
-    }
-  }
-}
-
-uint64_t sub_101039CF8()
-{
-  if (qword_1019F2B58 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = sub_1005B981C(&unk_101A287C0);
-  sub_1005EB3DC(v0, qword_101AD9430);
-  Tips.Event.sendDonation<>(_:)();
-  if (qword_1019F1BC0 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = sub_1005B981C(&unk_1019F6CF0);
-  sub_1005EB3DC(v1, qword_101AD71B0);
-  swift_beginAccess();
-  Tips.Parameter.wrappedValue.setter();
-  return swift_endAccess();
-}
-
-uint64_t sub_101039E00(void *a1)
-{
-  v2 = [a1 knobs];
-  sub_100006370(0, &unk_101A28760);
-  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v35 = _swiftEmptyArrayStorage;
-  if (v3 >> 62)
-  {
-    goto LABEL_22;
-  }
-
-  for (i = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
-  {
-    v34 = v1;
-    v5 = 0;
-    while (1)
-    {
-      if ((v3 & 0xC000000000000001) != 0)
-      {
-        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-      }
-
-      else
-      {
-        if (v5 >= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          goto LABEL_21;
-        }
-
-        v6 = *(v3 + 8 * v5 + 32);
-      }
-
-      v1 = v6;
-      v7 = v5 + 1;
-      if (__OFADD__(v5, 1))
-      {
-        break;
-      }
-
-      type metadata accessor for CRLConnectionLineKnob();
-      v8 = swift_dynamicCastClass();
-      if (v8)
-      {
-        v9 = v8;
-        v10 = v1;
-        v11 = [v9 rep];
-        if (!v11)
-        {
-          goto LABEL_16;
-        }
-
-        v1 = v11;
-        v12 = [v11 interactiveCanvasController];
-        if (!v12)
-        {
-
-LABEL_16:
-LABEL_17:
-
-          goto LABEL_5;
-        }
-
-        v13 = v12;
-        [v9 position];
-        [v1 convertNaturalPointToUnscaledCanvas:?];
-        [v13 convertUnscaledToBoundsPoint:?];
-        v15 = v14;
-        v17 = v16;
-        [v13 visibleBoundsRect];
-        v36.x = v15;
-        v36.y = v17;
-        v18 = CGRectContainsPoint(v37, v36);
-
-        if (!v18)
-        {
-          goto LABEL_17;
-        }
-
-        specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-        specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v1 = &v35;
-        specialized ContiguousArray._endMutation()();
-      }
-
-      else
-      {
-      }
-
-LABEL_5:
-      ++v5;
-      if (v7 == i)
-      {
-        v1 = v34;
-        v19 = v35;
-        goto LABEL_24;
-      }
-    }
-
-    __break(1u);
-LABEL_21:
-    __break(1u);
-LABEL_22:
-    ;
-  }
-
-  v19 = _swiftEmptyArrayStorage;
-LABEL_24:
-
-  v20 = [v1 traitCollection];
-  LODWORD(v21) = [v20 crl_isCompactWidth];
-
-  v22 = &off_1018740B8;
-  v23 = &off_101874078;
-  v24 = &unk_101874088;
-  if (!v21)
-  {
-    v24 = &unk_1018740C8;
-  }
-
-  v25 = *v24;
-  if (*v24)
-  {
-    if ((v19 & 0x8000000000000000) != 0 || (v19 & 0x4000000000000000) != 0)
-    {
-LABEL_54:
-      v26 = _CocoaArrayWrapper.endIndex.getter();
-    }
-
-    else
-    {
-      v26 = *(v19 + 16);
-    }
-
-    v27 = 0;
-    if (v21)
-    {
-      v28 = v23;
-    }
-
-    else
-    {
-      v28 = v22;
-    }
-
-    v33 = v28 + 4;
-    v22 = &selRef_shouldQueueBeginScribbleMode;
-    while (1)
-    {
-      if (v27 == (v25 & ~(v25 >> 63)))
-      {
-LABEL_53:
-        __break(1u);
-        goto LABEL_54;
-      }
-
-      if (v26)
-      {
-        break;
-      }
-
-LABEL_34:
-      if (++v27 == v25)
-      {
-        goto LABEL_48;
-      }
-    }
-
-    v21 = 0;
-    v29 = v33[v27];
-    while (1)
-    {
-      if ((v19 & 0xC000000000000001) != 0)
-      {
-        v30 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-      }
-
-      else
-      {
-        if (v21 >= *(v19 + 16))
-        {
-          goto LABEL_52;
-        }
-
-        v30 = *(v19 + 8 * v21 + 32);
-      }
-
-      v23 = v30;
-      v31 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        __break(1u);
-LABEL_52:
-        __break(1u);
-        goto LABEL_53;
-      }
-
-      if ([v30 tag] == v29)
-      {
-        break;
-      }
-
-      ++v21;
-      if (v31 == v26)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    type metadata accessor for CRLConnectionLineKnob();
-    result = swift_dynamicCastClass();
-    if (result)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-LABEL_48:
-  }
-
-  return 0;
-}
-
-uint64_t sub_10103A1CC(void *a1)
-{
-  v2 = sub_100F25480();
-  v23 = &type metadata for CRLFeatureFlags;
-  v24 = sub_100004D60();
-  LOBYTE(aBlock[0]) = 0;
-  v3 = isFeatureEnabled(_:)();
-  sub_100005070(aBlock);
-  if ((v3 & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  if (qword_1019F2098 != -1)
-  {
-    swift_once();
-  }
-
-  v4 = static OS_os_log.crlDefault;
-  sub_1005B981C(&qword_1019F54E0);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_10146C6B0;
-  v6 = sub_10067E858();
-  v7 = dispatch thunk of Tip.id.getter();
-  v9 = v8;
-  *(inited + 56) = &type metadata for String;
-  *(inited + 64) = sub_1000053B0();
-  *(inited + 32) = v7;
-  *(inited + 40) = v9;
-  v10 = static os_log_type_t.info.getter();
-  sub_100005404(v4, &_mh_execute_header, v10, "presenting tip on canvas: %{public}@", 36, 2, inited);
-  swift_setDeallocating();
-  sub_100005070(inited + 32);
-  if (sub_101039428())
-  {
-    type metadata accessor for TipUIPopoverViewController();
-    v23 = &type metadata for CRLTipScenesEntryPointFull;
-    v24 = v6;
-    swift_unknownObjectRetain();
-    v11 = TipUIPopoverViewController.__allocating_init(_:sourceItem:actionHandler:)();
-    swift_unknownObjectRetain();
-    TipUIPopoverViewController.presentationDelegate.setter();
-    v12 = TipUIPopoverViewController.popoverPresentationController.getter();
-    if (v12)
-    {
-      v13 = v12;
-      v14 = [a1 traitCollection];
-      v15 = [v14 verticalSizeClass];
-
-      if (v15 != 1)
-      {
-        [v13 setPermittedArrowDirections:3];
-      }
-    }
-
-    v16 = swift_allocObject();
-    v16[2] = a1;
-    v16[3] = v11;
-    v16[4] = 0;
-    v16[5] = 0;
-    v24 = sub_10105B1EC;
-    v25 = v16;
-    aBlock[0] = _NSConcreteStackBlock;
-    aBlock[1] = *"";
-    aBlock[2] = sub_100007638;
-    v23 = &unk_1018AF240;
-    v17 = _Block_copy(aBlock);
-    v18 = a1;
-    v19 = v11;
-
-    [v18 presentViewController:v19 animated:1 completion:v17];
-
-    _Block_release(v17);
-  }
-
-  else
-  {
-LABEL_10:
-  }
-
-  if (qword_1019F2058 != -1)
-  {
-    swift_once();
-  }
-
-  v20 = sub_1005B981C(&unk_101A287C0);
-  sub_1005EB3DC(v20, qword_101AD7C20);
-  return Tips.Event.sendDonation<>(_:)();
-}
-
-void sub_10103A51C()
-{
-  v1 = v0;
-  v2 = type metadata accessor for Tips.InvalidationReason();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [v0 traitCollection];
-  if ([v6 horizontalSizeClass] == 1)
-  {
-  }
-
-  else
-  {
-    v7 = [objc_opt_self() crl_phoneUI];
-
-    if (!v7)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if (qword_1019F2050 != -1)
-  {
-    swift_once();
-  }
-
-  v8 = sub_1005B981C(&unk_1019F6CF0);
-  sub_1005EB3DC(v8, qword_101AD7C08);
-  swift_beginAccess();
-  Tips.Parameter.wrappedValue.getter();
-  v9 = HIBYTE(v14);
-  swift_endAccess();
-  if ((v9 & 1) == 0)
-  {
-    HIBYTE(v14) = 1;
-    swift_beginAccess();
-    Tips.Parameter.wrappedValue.setter();
-    swift_endAccess();
-    (*(v3 + 104))(v5, enum case for Tips.InvalidationReason.actionPerformed(_:), v2);
-    sub_10067E804();
-LABEL_10:
-    Tip.invalidate(reason:)();
-    (*(v3 + 8))(v5, v2);
-    return;
-  }
-
-LABEL_7:
-  v10 = [v1 traitCollection];
-  if ([v10 horizontalSizeClass] == 1)
-  {
-
-    return;
-  }
-
-  v11 = [objc_opt_self() crl_phoneUI];
-
-  if ((v11 & 1) == 0)
-  {
-    if (qword_1019F16C0 != -1)
-    {
-      swift_once();
-    }
-
-    v12 = sub_1005B981C(&unk_1019F6CF0);
-    sub_1005EB3DC(v12, qword_101AD6800);
-    swift_beginAccess();
-    Tips.Parameter.wrappedValue.getter();
-    v13 = HIBYTE(v14);
-    swift_endAccess();
-    if ((v13 & 1) == 0)
-    {
-      HIBYTE(v14) = 1;
-      swift_beginAccess();
-      Tips.Parameter.wrappedValue.setter();
-      swift_endAccess();
-      (*(v3 + 104))(v5, enum case for Tips.InvalidationReason.actionPerformed(_:), v2);
-      sub_10067E858();
-      goto LABEL_10;
-    }
-  }
-}
-
-void sub_10103A88C(uint64_t a1@<X8>)
-{
-  v3 = *&v1[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_interactiveCanvasController];
-  v4 = [v3 editorController];
-  if (!v4 || (v5 = v4, v6 = [v4 selectionPath], v5, !v6))
-  {
-    if (qword_1019F20A8 != -1)
-    {
-      swift_once();
-    }
-
-    v23 = static OS_os_log.crlError;
-    v24 = static os_log_type_t.error.getter();
-    sub_100005404(v23, &_mh_execute_header, v24, "Unable to get the knob position for the first selected item because we cannot get the current selection path", 108, 2, _swiftEmptyArrayStorage);
-    goto LABEL_19;
-  }
-
-  v7 = [v3 selectionModelTranslator];
-  if (!v7 || (v8 = v7, v9 = [v7 infosForSelectionPath:v6], v8, v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)(), v9, !v10))
-  {
-    v43 = 0;
-    v41 = 0u;
-    v42 = 0u;
-    goto LABEL_15;
-  }
-
-  sub_100BC1A08(v10, &v41);
-
-  if (!*(&v42 + 1))
-  {
-LABEL_15:
-    sub_10000CAAC(&v41, &unk_101A27F50);
-    goto LABEL_16;
-  }
-
-  sub_1005B981C(&qword_1019F5720);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-LABEL_16:
-    if (qword_1019F20A8 != -1)
-    {
-      swift_once();
-    }
-
-    v25 = static OS_os_log.crlError;
-    v26 = static os_log_type_t.error.getter();
-    sub_100005404(v25, &_mh_execute_header, v26, "Unable to get the knob position for the first selected item because the returned first selected item is not a canvas element", 124, 2, _swiftEmptyArrayStorage);
-
-    goto LABEL_19;
-  }
-
-  v11 = [v3 repForInfo:v40 createIfNeeded:0];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = sub_101039E00(v11);
-    if (v13)
-    {
-      v14 = v13;
-      [v13 position];
-      [v12 convertNaturalPointToUnscaledCanvas:?];
-      [v3 convertUnscaledToBoundsPoint:?];
-      v17 = sub_10011EC70(v15, v16, 25.0);
-      v38 = v18;
-      v39 = v17;
-      v36 = v19;
-      v37 = v20;
-      v21 = [v1 traitCollection];
-      v22 = [v21 crl_isCompactWidth];
-
-      if (v22)
-      {
-
-        swift_unknownObjectRelease();
-      }
-
-      else
-      {
-        v35 = [v14 tag];
-        swift_unknownObjectRelease();
-
-        if ((v35 - 2) <= 4)
-        {
-          v27 = qword_1014C2500[(v35 - 2)];
-LABEL_30:
-          *&v30 = v38;
-          *&v28 = v39;
-          v29 = 0;
-          *(&v28 + 1) = v36;
-          *(&v30 + 1) = v37;
-          goto LABEL_20;
-        }
-      }
-
-      v27 = 3;
-      goto LABEL_30;
-    }
-
-    if (qword_1019F20A8 != -1)
-    {
-      swift_once();
-    }
-
-    v33 = static OS_os_log.crlError;
-    v34 = static os_log_type_t.error.getter();
-    sub_100005404(v33, &_mh_execute_header, v34, "Unable to get the knob position for the first selected item because there is no connection line knob to present off of", 118, 2, _swiftEmptyArrayStorage);
-
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    if (qword_1019F20A8 != -1)
-    {
-      swift_once();
-    }
-
-    v31 = static OS_os_log.crlError;
-    v32 = static os_log_type_t.error.getter();
-    sub_100005404(v31, &_mh_execute_header, v32, "Unable to get the knob position for the first selected item because could not fetch a rep for the first selected canvas element", 127, 2, _swiftEmptyArrayStorage);
-
-    swift_unknownObjectRelease();
-  }
-
-LABEL_19:
-  v27 = 0;
-  v28 = 0uLL;
-  v29 = 1;
-  v30 = 0uLL;
-LABEL_20:
-  *a1 = v28;
-  *(a1 + 16) = v30;
-  *(a1 + 32) = v27;
-  *(a1 + 40) = v29;
-}
-
-uint64_t sub_10103AD54(void *a1, uint64_t a2)
-{
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  v3 = sub_1005B981C(&unk_101A287C0);
-  sub_1005EB3DC(v3, a2);
-  return Tips.Event.sendDonation<>(_:)();
-}
-
-void sub_10103ADB8(char a1)
-{
-  v3 = type metadata accessor for Tips.InvalidationReason();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_unknownObjectWeakAssign();
-  if (a1)
-  {
-    v7 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentlyPresentedTip;
-    swift_beginAccess();
-    sub_10000BE14(v1 + v7, &v14, &unk_1019F6DA0);
-    v8 = *(&v15 + 1);
-    sub_10000CAAC(&v14, &unk_1019F6DA0);
-    if (v8)
-    {
-      sub_10000BE14(v1 + v7, &v14, &unk_1019F6DA0);
-      if (*(&v15 + 1))
-      {
-        sub_10000630C(&v14, v13);
-        sub_10000CAAC(&v14, &unk_1019F6DA0);
-        sub_100020E58(v13, v13[3]);
-        (*(v4 + 104))(v6, enum case for Tips.InvalidationReason.tipClosed(_:), v3);
-        Tip.invalidate(reason:)();
-        (*(v4 + 8))(v6, v3);
-        sub_100005070(v13);
-      }
-
-      else
-      {
-        sub_10000CAAC(&v14, &unk_1019F6DA0);
-      }
-    }
-  }
-
-  v16 = 0;
-  v14 = 0u;
-  v15 = 0u;
-  v9 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentlyPresentedTip;
-  swift_beginAccess();
-  sub_10002C638(&v14, v1 + v9, &unk_1019F6DA0);
-  swift_endAccess();
-  v10 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_tipPresentationView;
-  v11 = *(v1 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_tipPresentationView);
-  if (v11)
-  {
-    [v11 removeFromSuperview];
-    v12 = *(v1 + v10);
-    *(v1 + v10) = 0;
-  }
-}
-
-void sub_10103B084()
-{
-  v1 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasViewController];
-  v2 = [v1 miniFormatterPresenter];
-  if (v2 && (v3 = [v2 isPresentingSecondLayerPopover], swift_unknownObjectRelease(), v3))
-  {
-    v4 = [v1 presentedViewController];
-    if (v4)
-    {
-      v5 = v4;
-      v6 = swift_allocObject();
-      *(v6 + 16) = v0;
-      v12[4] = sub_10105A58C;
-      v12[5] = v6;
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = *"";
-      v12[2] = sub_100007638;
-      v12[3] = &unk_1018AE548;
-      v7 = _Block_copy(v12);
-      v8 = v0;
-
-      [v5 dismissViewControllerAnimated:1 completion:v7];
-      _Block_release(v7);
-    }
-  }
-
-  else
-  {
-    v9 = &v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_delegate];
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      v10 = *(v9 + 1);
-      ObjectType = swift_getObjectType();
-      (*(v10 + 16))(v0, ObjectType, v10);
-
-      swift_unknownObjectRelease();
-    }
-  }
-}
-
-uint64_t sub_10103B23C(uint64_t a1)
-{
-  v2 = a1 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_delegate;
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    v4 = *(v2 + 8);
-    ObjectType = swift_getObjectType();
-    (*(v4 + 16))(a1, ObjectType, v4);
-
-    return swift_unknownObjectRelease();
-  }
-
-  return result;
-}
-
-void sub_10103B2E4()
-{
-  v1 = [v0 presentedViewController];
-  if (v1)
-  {
-
-    v2 = [v0 presentedViewController];
-    if (v2)
-    {
-      v9 = v2;
-      v3 = [v0 presentedViewController];
-      if (v3)
-      {
-        v4 = v3;
-        objc_opt_self();
-        v5 = swift_dynamicCastObjCClass() == 0;
-      }
-
-      else
-      {
-        v5 = 1;
-      }
-
-      [v9 dismissViewControllerAnimated:v5 completion:0];
-    }
-  }
-
-  else
-  {
-    [*&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_canvasViewController] hideEditMenu];
-    v6 = &v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_delegate];
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      v7 = *(v6 + 1);
-      ObjectType = swift_getObjectType();
-      (*(v7 + 8))(v0, ObjectType, v7);
-
-      swift_unknownObjectRelease();
-    }
-  }
-}
-
-void sub_10103B558()
-{
-  v1 = [v0 view];
-  if (v1)
-  {
-    v2 = v1;
-    type metadata accessor for CRLiOSBoardView();
-    v3 = [swift_dynamicCastClassUnconditional() window];
-
-    if (v3)
-    {
-      v4 = [v3 windowScene];
-
-      if (v4)
-      {
-        v5 = [v4 delegate];
-
-        if (v5)
-        {
-          type metadata accessor for CRLiOSSceneDelegate();
-          if (swift_dynamicCastClass())
-          {
-            sub_100C29FB8();
-          }
-
-          swift_unknownObjectRelease();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
-void sub_10103B738()
-{
-  v1 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState;
-  v2 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState];
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v3 = v2;
-  static Published.subscript.getter();
-
-  if (v30 >> 62)
-  {
-    v29 = _CocoaArrayWrapper.endIndex.getter();
-
-    if (!v29)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v4 = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-    if (!v4)
-    {
-      return;
-    }
-  }
-
-  v5 = [v0 presentedViewController];
-  if (v5)
-  {
-    v6 = v5;
-    type metadata accessor for CRLScenesViewController_iv();
-    v7 = swift_dynamicCastClass();
-    if (v7)
-    {
-      v8 = v7;
-      v9 = [objc_opt_self() isReduceMotionEnabled];
-      if (([v8 isBeingDismissed] & 1) == 0)
-      {
-        [v8 dismissViewControllerAnimated:v9 ^ 1 completion:0];
-      }
-
-      v10 = 0;
-      goto LABEL_17;
-    }
-  }
-
-  v11 = [v0 presentedViewController];
-  if (!v11 || (v12 = v11, type metadata accessor for CRLCompactScenesViewController_i(), v13 = swift_dynamicCastClass(), v12, !v13))
-  {
-    v10 = 0;
-    goto LABEL_18;
-  }
-
-  v14 = *&v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesPresenter];
-  if (!v14)
-  {
-    v10 = 1;
-    goto LABEL_18;
-  }
-
-  v6 = v14;
-  v10 = 1;
-  if (([v6 isBeingDismissed] & 1) == 0)
-  {
-    [v6 dismissViewControllerAnimated:1 completion:0];
-  }
-
-LABEL_17:
-
-LABEL_18:
-  v15 = [v0 presentedViewController];
-  if (v15)
-  {
-    v16 = v15;
-    type metadata accessor for CRLScenesViewController_iv();
-    v17 = swift_dynamicCastClass();
-    if (v17)
-    {
-      v18 = v17;
-      v19 = [objc_opt_self() isReduceMotionEnabled];
-      if (([v18 isBeingDismissed] & 1) == 0)
-      {
-        [v18 dismissViewControllerAnimated:v19 ^ 1 completion:0];
-      }
-    }
-  }
-
-  v20 = &v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentSceneIndex];
-  if (v0[OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentSceneIndex + 8])
-  {
-    goto LABEL_28;
-  }
-
-  v21 = *v20 + 1;
-  if (__OFADD__(*v20, 1))
-  {
-    goto LABEL_42;
-  }
-
-  v22 = *&v0[v1];
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v23 = v22;
-  static Published.subscript.getter();
-
-  if (v30 >> 62)
-  {
-    goto LABEL_43;
-  }
-
-  for (i = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = _CocoaArrayWrapper.endIndex.getter())
-  {
-
-    if (v21 >= i)
-    {
-LABEL_28:
-      v21 = 0;
-    }
-
-    *v20 = v21;
-    v20[8] = 0;
-    v25 = *&v0[v1];
-    swift_getKeyPath();
-    swift_getKeyPath();
-    v26 = v25;
-    static Published.subscript.getter();
-
-    if ((v30 & 0xC000000000000001) != 0)
-    {
-      break;
-    }
-
-    if (v21 < 0)
-    {
-      __break(1u);
-    }
-
-    else if (v21 < *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      v27 = *(v30 + 8 * v21 + 32);
-      goto LABEL_33;
-    }
-
-    __break(1u);
-LABEL_42:
-    __break(1u);
-LABEL_43:
-    ;
-  }
-
-  v27 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-LABEL_33:
-  v28 = v27;
-
-  sub_10104A928(v28);
-  if (v10)
-  {
-    sub_1010100AC(SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:), 0);
-  }
-}
-
-void sub_10103BB74()
-{
-  v1 = OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState;
-  v2 = *(v0 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_scenesPopoverState);
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v3 = v2;
-  static Published.subscript.getter();
-
-  if (v25 >> 62)
-  {
-    v24 = _CocoaArrayWrapper.endIndex.getter();
-
-    if (!v24)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v4 = *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10);
-
-    if (!v4)
-    {
-      return;
-    }
-  }
-
-  v5 = [v0 presentedViewController];
-  if (v5)
-  {
-    v6 = v5;
-    type metadata accessor for CRLScenesViewController_iv();
-    v7 = swift_dynamicCastClass();
-    if (v7)
-    {
-      v8 = v7;
-      v9 = [objc_opt_self() isReduceMotionEnabled];
-      if (([v8 isBeingDismissed] & 1) == 0)
-      {
-        [v8 dismissViewControllerAnimated:v9 ^ 1 completion:0];
-      }
-
-      v10 = 0;
-LABEL_17:
-
-      goto LABEL_18;
-    }
-  }
-
-  v11 = [v0 presentedViewController];
-  if (v11 && (v12 = v11, type metadata accessor for CRLCompactScenesViewController_i(), v13 = swift_dynamicCastClass(), v12, v13))
-  {
-    v14 = *(v0 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_compactScenesPresenter);
-    if (v14)
-    {
-      v6 = v14;
-      v10 = 1;
-      if (([v6 isBeingDismissed] & 1) == 0)
-      {
-        [v6 dismissViewControllerAnimated:1 completion:0];
-      }
-
-      goto LABEL_17;
-    }
-
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-LABEL_18:
-  v15 = v0 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentSceneIndex;
-  if ((*(v0 + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_currentSceneIndex + 8) & 1) == 0)
-  {
-    v16 = *v15 - 1;
-    if (__OFSUB__(*v15, 1))
-    {
-LABEL_39:
-      __break(1u);
-      return;
-    }
-
-    if ((v16 & 0x8000000000000000) == 0)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v17 = *&v1[v0];
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v18 = v17;
-  static Published.subscript.getter();
-
-  if (v25 >> 62)
-  {
-    goto LABEL_37;
-  }
-
-  for (i = *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = _CocoaArrayWrapper.endIndex.getter())
-  {
-
-    v20 = __OFSUB__(i, 1);
-    v16 = i - 1;
-    if (v20)
-    {
-      __break(1u);
-      goto LABEL_39;
-    }
-
-LABEL_24:
-    *v15 = v16;
-    v15[8] = 0;
-    v21 = *&v1[v0];
-    swift_getKeyPath();
-    swift_getKeyPath();
-    v1 = v21;
-    static Published.subscript.getter();
-
-    if ((v25 & 0xC000000000000001) != 0)
-    {
-      break;
-    }
-
-    if ((v16 & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else if (v16 < *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      v22 = *(v25 + 8 * v16 + 32);
-      goto LABEL_28;
-    }
-
-    __break(1u);
-LABEL_37:
-    ;
-  }
-
-  v22 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-LABEL_28:
-  v23 = v22;
-
-  sub_10104A928(v23);
-  if (v10)
-  {
-    sub_1010100AC(SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:), 0);
-  }
-}
-
-uint64_t sub_10103BF30(void *a1, uint64_t a2, uint64_t a3, void (*a4)(id))
-{
-  if (a3)
-  {
-    v6 = a1;
-    swift_unknownObjectRetain();
-    _bridgeAnyObjectToAny(_:)();
-    v7 = swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    memset(v9, 0, sizeof(v9));
-    v7 = a1;
-  }
-
-  a4(v7);
-
-  return sub_10000CAAC(v9, &unk_1019F4D00);
-}
-
-uint64_t sub_10103BFBC()
-{
-  sub_101013118();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v1 = Strong;
-    v2 = [Strong editingCoordinator];
-
-    if (v2)
-    {
-      v4 = *&v2[OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_boardItemFactory];
-
-      v5 = [objc_allocWithZone(NSAttributedString) init];
-      v6 = sub_10110F4B0(v5);
-
-      sub_1005B981C(&unk_1019F4D60);
-      v7 = swift_allocObject();
-      *(v7 + 16) = xmmword_101465920;
-      *(v7 + 32) = v6;
-
-      v8 = v6;
-      sub_1006799F0(v7, 0, 0);
-    }
-  }
-
-  else
-  {
-  }
-
-  return result;
-}
-
-void sub_10103C138(uint64_t a1)
-{
-  v2 = sub_1005B981C(&unk_101A0B1C0);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v16 - v3;
-  sub_10000BE14(a1, &v33, &unk_1019F4D00);
-  if (!*(&v34 + 1))
-  {
-    goto LABEL_13;
-  }
-
-  sub_100006370(0, &unk_1019FF3D0);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-    return;
-  }
-
-  v5 = v16;
-  if ([v16 propertyList])
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v16 = 0u;
-    v17 = 0u;
-  }
-
-  v33 = v16;
-  v34 = v17;
-  if (!*(&v17 + 1))
-  {
-
-LABEL_13:
-    sub_10000CAAC(&v33, &unk_1019F4D00);
-    return;
-  }
-
-  sub_100006370(0, &qword_1019FF3E0);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-LABEL_11:
-
-    return;
-  }
-
-  v6 = v32;
-  v7 = [v32 integerValue];
-
-  sub_101013118();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v9 = Strong;
-    v10 = [Strong editingCoordinator];
-
-    if (v10)
-    {
-      v11 = *&v10[OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_boardItemFactory];
-
-      v12 = type metadata accessor for CRLWPStorageCRDTData(0);
-      (*(*(v12 - 8) + 56))(v4, 1, 1, v12);
-      sub_1006950BC(&v16);
-      v45 = v28;
-      v46 = v29;
-      v47 = v30;
-      v48 = v31;
-      v41 = v24;
-      v42 = v25;
-      v43 = v26;
-      v44 = v27;
-      v37 = v20;
-      v38 = v21;
-      v39 = v22;
-      v40 = v23;
-      v33 = v16;
-      v34 = v17;
-      v35 = v18;
-      v36 = v19;
-      v13 = sub_1011133FC(v7, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 1, 1, 1, 1, 0, v4, &v33, 0, 0, 0, 0, 1u);
-
-      sub_10000CAAC(v4, &unk_101A0B1C0);
-      sub_1005B981C(&unk_1019F4D60);
-      v14 = swift_allocObject();
-      *(v14 + 16) = xmmword_101465920;
-      *(v14 + 32) = v13;
-
-      v15 = v13;
-      sub_1006799F0(v14, 0, 0);
-    }
-
-    goto LABEL_11;
   }
 }

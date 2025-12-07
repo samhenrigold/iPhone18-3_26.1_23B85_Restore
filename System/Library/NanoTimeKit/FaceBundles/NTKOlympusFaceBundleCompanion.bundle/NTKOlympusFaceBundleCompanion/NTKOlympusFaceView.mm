@@ -24,6 +24,7 @@
 - (void)_applyDataMode;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_applyRubberBandingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
+- (void)_applyTransitionFraction:(double)fraction fromColorPalette:(id)palette toColorPalette:(id)colorPalette animateElements:(BOOL)elements;
 - (void)_applyTransitionFraction:(double)fraction fromComplication:(id)complication toComplication:(id)toComplication slot:(id)slot;
 - (void)_applyTransitionFraction:(double)fraction fromDial:(unint64_t)dial toDial:(unint64_t)toDial;
 - (void)_applyTransitionFraction:(double)fraction fromOption:(id)option toOption:(id)toOption forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -205,9 +206,7 @@
 {
   if (!self->_olympusController)
   {
-    v3 = [[NTKOlympusController alloc] initWithFaceView:self olympusView:self->_olympusView];
-    olympusController = self->_olympusController;
-    self->_olympusController = v3;
+    self->_olympusController = [[NTKOlympusController alloc] initWithFaceView:self olympusView:self->_olympusView];
 
     _objc_release_x1();
   }
@@ -995,6 +994,54 @@ LABEL_8:
 
   [v24 setStyle:toStyle];
   [(NTKOlympusFaceView *)self _applyTransitionFraction:v25 fromColorPalette:v24 toColorPalette:0 animateElements:fraction];
+}
+
+- (void)_applyTransitionFraction:(double)fraction fromColorPalette:(id)palette toColorPalette:(id)colorPalette animateElements:(BOOL)elements
+{
+  elementsCopy = elements;
+  colorPaletteCopy = colorPalette;
+  paletteCopy = palette;
+  v31 = [[NTKOlympusAnalogBackgroundPalette alloc] initWithOlympusColorPalette:paletteCopy];
+  v30 = [[NTKOlympusAnalogBackgroundPalette alloc] initWithOlympusColorPalette:colorPaletteCopy];
+  [(NTKVictoryAnalogBackgroundView *)self->_analogBackgroundView applyTransitionFraction:v31 fromPalette:v30 toPalette:4 style:elementsCopy animateElements:fraction];
+  [(NTKOlympusTimeView *)self->_olympusView applyTransitionFraction:paletteCopy fromColorPalette:colorPaletteCopy toColorPalette:elementsCopy animateElements:fraction];
+  largeHandsColor = [paletteCopy largeHandsColor];
+  largeHandsColor2 = [colorPaletteCopy largeHandsColor];
+  v14 = NTKInterpolateBetweenColors();
+
+  secondHandColor = [paletteCopy secondHandColor];
+  secondHandColor2 = [colorPaletteCopy secondHandColor];
+  v28 = NTKInterpolateBetweenColors();
+
+  timeView = [(NTKOlympusFaceView *)self timeView];
+  minuteHandView = [timeView minuteHandView];
+  v29 = v14;
+  [minuteHandView setColor:v14];
+
+  hourHandView = [timeView hourHandView];
+  [hourHandView setColor:v14];
+
+  secondHandView = [timeView secondHandView];
+  [secondHandView setColor:v28];
+
+  cornerComplicationsAccentColor = [paletteCopy cornerComplicationsAccentColor];
+  cornerComplicationsAccentColor2 = [colorPaletteCopy cornerComplicationsAccentColor];
+  v23 = NTKInterpolateBetweenColors();
+  [(NTKOlympusFaceView *)self setInterpolatedComplicationColor:v23];
+  [(NTKOlympusFaceView *)self setComplicationColor:cornerComplicationsAccentColor2];
+  [NTKOlympusTimeContentView scaleForViewDuringColorChangeTransitionWithFraction:fraction];
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_40B0;
+  v32[3] = &unk_10378;
+  v32[4] = v24;
+  [(NTKOlympusFaceView *)self enumerateComplicationDisplayWrappersWithBlock:v32];
+  bezelComplicationColor = [paletteCopy bezelComplicationColor];
+  bezelComplicationColor2 = [colorPaletteCopy bezelComplicationColor];
+  v27 = NTKInterpolateBetweenColors();
+  [(NTKOlympusFaceView *)self _updateDialBezelComplicationColor:v27];
+
+  [(NTKCircularAnalogDialView *)self->_dialView applyColorTransitionFraction:paletteCopy fromColorPalette:colorPaletteCopy toColorPalette:fraction];
 }
 
 - (void)_updateDialBezelComplicationColor:(id)color

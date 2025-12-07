@@ -216,7 +216,7 @@ void __70__CKMentionsAnimationController__updateMentionAttributes_textEffects___
   }
 }
 
-uint64_t __70__CKMentionsAnimationController__updateMentionAttributes_textEffects___block_invoke_2(uint64_t a1, void *a2)
+void *__70__CKMentionsAnimationController__updateMentionAttributes_textEffects___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isIdle];
   if (result)

@@ -17,7 +17,7 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   validateCopy = validate;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -28,12 +28,12 @@
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v33[0] = *MEMORY[0x1E696A578];
+    v32[0] = *MEMORY[0x1E696A578];
     v15 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v7, @"<%@> is not a comparison predicate", validateCopy);
-    v33[1] = @"ck_isComparisonError";
-    v34[0] = v15;
-    v34[1] = MEMORY[0x1E695E118];
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v34, v33, 2);
+    v32[1] = @"ck_isComparisonError";
+    v33[0] = v15;
+    v33[1] = MEMORY[0x1E695E118];
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v33, v32, 2);
     v19 = objc_msgSend_errorWithDomain_code_userInfo_(v14, v18, @"CKErrorDomain", 12, v17);
 LABEL_8:
 
@@ -53,15 +53,15 @@ LABEL_8:
     }
 
     v20 = MEMORY[0x1E696ABC0];
-    v31[0] = *MEMORY[0x1E696A578];
+    v30[0] = *MEMORY[0x1E696A578];
     v21 = MEMORY[0x1E696AEC0];
     v22 = objc_msgSend_comparisonPredicateModifier(validateCopy, v12, v13);
     v15 = sub_18869BE94(v22, v23);
     v17 = objc_msgSend_stringWithFormat_(v21, v24, @"Unsupported predicate modifier: %@", v15);
-    v31[1] = @"ck_isComparisonError";
-    v32[0] = v17;
-    v32[1] = MEMORY[0x1E695E118];
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v32, v31, 2);
+    v30[1] = @"ck_isComparisonError";
+    v31[0] = v17;
+    v31[1] = MEMORY[0x1E695E118];
+    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v31, v30, 2);
     v19 = objc_msgSend_errorWithDomain_code_userInfo_(v20, v27, @"CKErrorDomain", 12, v26);
 
     goto LABEL_8;
@@ -70,7 +70,6 @@ LABEL_8:
   LOBYTE(error) = 1;
 LABEL_9:
 
-  v29 = *MEMORY[0x1E69E9840];
   return error;
 }
 

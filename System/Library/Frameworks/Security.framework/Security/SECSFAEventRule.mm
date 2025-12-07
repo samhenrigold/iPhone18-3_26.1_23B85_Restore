@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventClassAsString:(int)string;
 - (int)StringAsEventClass:(id)class;
 - (int)eventClass;
 - (unint64_t)hash;
@@ -364,56 +365,53 @@ LABEL_27:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (self->_eventType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_match)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_action)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    repeatAfterSeconds = self->_repeatAfterSeconds;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_processName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    eventClass = self->_eventClass;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_versions)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    matchOnFirstFailure = self->_matchOnFirstFailure;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -552,6 +550,21 @@ LABEL_27:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)eventClassAsString:(int)string
+{
+  if (string < 0xF && ((0x7C03u >> string) & 1) != 0)
+  {
+    v4 = off_1E70D5070[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

@@ -30,19 +30,17 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = self[10];
   name = [self name];
   client = [self client];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2112;
-  v11 = name;
-  v12 = 2112;
-  v13 = client;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "[error] id=%lu name=%@ client=%@ not explicitly ended, this can lead to incorrect measurements", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2112;
+  v10 = name;
+  v11 = 2112;
+  v12 = client;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "[error] id=%lu name=%@ client=%@ not explicitly ended, this can lead to incorrect measurements", &v7, 0x20u);
 }
 
 - (_CDMemoryUsageInterval)initWithName:(id)name client:(id)client

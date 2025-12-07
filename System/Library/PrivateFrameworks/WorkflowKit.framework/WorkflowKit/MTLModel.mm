@@ -27,7 +27,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (self == equalCopy)
   {
@@ -36,26 +36,26 @@
 
   else if ([(MTLModel *)equalCopy isMemberOfClass:objc_opt_class()])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     permanentPropertyKeys = [objc_opt_class() permanentPropertyKeys];
-    v6 = [permanentPropertyKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [permanentPropertyKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(permanentPropertyKeys);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [(MTLModel *)self valueForKey:v10];
           v12 = [(MTLModel *)equalCopy valueForKey:v10];
           if (v11 | v12)
@@ -71,7 +71,7 @@
           }
         }
 
-        v7 = [permanentPropertyKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [permanentPropertyKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v7)
         {
           continue;
@@ -90,38 +90,37 @@ LABEL_16:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (unint64_t)hash
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   permanentPropertyKeys = [objc_opt_class() permanentPropertyKeys];
-  v4 = [permanentPropertyKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [permanentPropertyKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(permanentPropertyKeys);
         }
 
-        v9 = [(MTLModel *)self valueForKey:*(*(&v12 + 1) + 8 * i)];
+        v9 = [(MTLModel *)self valueForKey:*(*(&v11 + 1) + 8 * i)];
         v6 ^= [v9 hash];
       }
 
-      v5 = [permanentPropertyKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [permanentPropertyKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -132,7 +131,6 @@ LABEL_16:
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -158,27 +156,27 @@ LABEL_16:
 
 - (BOOL)validate:(id *)validate
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   propertyKeys = [objc_opt_class() propertyKeys];
-  v6 = [propertyKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [propertyKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(propertyKeys);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [(MTLModel *)self valueForKey:v10];
         LODWORD(v10) = MTLValidateAndSetValue(self, v10, v11, 0, validate);
 
@@ -189,7 +187,7 @@ LABEL_16:
         }
       }
 
-      v7 = [propertyKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [propertyKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -202,48 +200,45 @@ LABEL_16:
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)mergeValuesForKeysFromModel:(id)model
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   propertyKeys = [objc_opt_class() propertyKeys];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   propertyKeys2 = [objc_opt_class() propertyKeys];
-  v7 = [propertyKeys2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [propertyKeys2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(propertyKeys2);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([propertyKeys containsObject:v11])
         {
           [(MTLModel *)self mergeValueForKey:v11 fromModel:modelCopy];
         }
       }
 
-      v8 = [propertyKeys2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [propertyKeys2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeValueForKey:(id)key fromModel:(id)model
@@ -287,32 +282,32 @@ LABEL_11:
 
 - (MTLModel)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [(MTLModel *)self init];
   if (v7)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v22 = dictionaryCopy;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = dictionaryCopy;
     v8 = dictionaryCopy;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           v14 = [v8 objectForKey:v13];
           v15 = v14;
           null = [MEMORY[0x1E695DFB0] null];
@@ -336,7 +331,7 @@ LABEL_11:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v10)
         {
           continue;
@@ -348,7 +343,7 @@ LABEL_11:
 
     v19 = v7;
 LABEL_15:
-    dictionaryCopy = v22;
+    dictionaryCopy = v21;
   }
 
   else
@@ -356,7 +351,6 @@ LABEL_15:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -526,29 +520,29 @@ void __24__MTLModel_propertyKeys__block_invoke(uint64_t a1, objc_property_t prop
 
 + (void)generateAndCacheStorageBehaviors
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
   v4 = [MEMORY[0x1E695DFA8] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   propertyKeys = [self propertyKeys];
-  v6 = [propertyKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [propertyKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(propertyKeys);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [self storageBehaviorForPropertyWithKey:v10];
         v12 = v3;
         if (v11 != 1)
@@ -564,7 +558,7 @@ void __24__MTLModel_propertyKeys__block_invoke(uint64_t a1, objc_property_t prop
         [v12 addObject:v10];
       }
 
-      v7 = [propertyKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [propertyKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -572,8 +566,6 @@ void __24__MTLModel_propertyKeys__block_invoke(uint64_t a1, objc_property_t prop
 
   objc_setAssociatedObject(self, MTLModelCachedTransitoryPropertyKeysKey, v3, 0x303);
   objc_setAssociatedObject(self, MTLModelCachedPermanentPropertyKeysKey, v4, 0x303);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -642,7 +634,7 @@ void __38__MTLModel_NSCoding__encodeWithCoder___block_invoke(uint64_t a1, void *
 
 - (MTLModel)initWithCoder:(id)coder
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v6 = coderRequiresSecureCoding(coderCopy);
   if (v6)
@@ -687,13 +679,13 @@ LABEL_8:
           goto LABEL_28;
         }
 
-        v36 = 0;
-        v17 = [(MTLModel *)self initWithDictionary:v16 error:&v36];
-        v18 = v36;
+        v35 = 0;
+        v17 = [(MTLModel *)self initWithDictionary:v16 error:&v35];
+        v18 = v35;
         if (!v17)
         {
-          v29 = objc_opt_class();
-          NSLog(&cfstr_CouldNotDecode.isa, v29, v18);
+          v28 = objc_opt_class();
+          NSLog(&cfstr_CouldNotDecode.isa, v28, v18);
         }
 
 LABEL_27:
@@ -708,26 +700,26 @@ LABEL_28:
 
     propertyKeys = [objc_opt_class() propertyKeys];
     v16 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(propertyKeys, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v14 = propertyKeys;
-    v20 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v20 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v33;
+      v22 = *v32;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v33 != v22)
+          if (*v32 != v22)
           {
             objc_enumerationMutation(v14);
           }
 
-          v24 = *(*(&v32 + 1) + 8 * i);
+          v24 = *(*(&v31 + 1) + 8 * i);
           v25 = -[MTLModel decodeValueForKey:withCoder:modelVersion:](self, "decodeValueForKey:withCoder:modelVersion:", v24, coderCopy, [v8 unsignedIntegerValue]);
           if (v25)
           {
@@ -735,19 +727,19 @@ LABEL_28:
           }
         }
 
-        v21 = [v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v21 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v21);
     }
 
-    v31 = 0;
-    v17 = [(MTLModel *)self initWithDictionary:v16 error:&v31];
-    v18 = v31;
+    v30 = 0;
+    v17 = [(MTLModel *)self initWithDictionary:v16 error:&v30];
+    v18 = v30;
     if (!v17)
     {
-      v30 = objc_opt_class();
-      NSLog(&cfstr_CouldNotUnarch.isa, v30, v18);
+      v29 = objc_opt_class();
+      NSLog(&cfstr_CouldNotUnarch.isa, v29, v18);
     }
 
     goto LABEL_27;
@@ -762,7 +754,6 @@ LABEL_28:
   selfCopy = 0;
 LABEL_29:
 
-  v26 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -828,7 +819,7 @@ LABEL_11:
 
 + (id)allowedSecureCodingClassesByPropertyKey
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = objc_getAssociatedObject(self, MTLModelCachedAllowedClassesKey);
   v4 = v3;
   if (v3)
@@ -841,29 +832,29 @@ LABEL_11:
   v7 = [encodingBehaviorsByPropertyKey keysOfEntriesPassingTest:&__block_literal_global_50164];
 
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (!v8)
   {
     goto LABEL_20;
   }
 
-  v9 = *v27;
+  v9 = *v26;
   do
   {
     v10 = 0;
     do
     {
-      if (*v27 != v9)
+      if (*v26 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v26 + 1) + 8 * v10);
+      v11 = *(*(&v25 + 1) + 8 * v10);
       v12 = v11;
       Property = class_getProperty(self, [v11 UTF8String]);
       if (Property)
@@ -894,15 +885,15 @@ LABEL_11:
           goto LABEL_16;
         }
 
-        v30 = *(v15 + 5);
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+        v29 = *(v15 + 5);
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
         [v5 setObject:v18 forKeyedSubscript:v11];
       }
 
       else
       {
-        v31 = objc_opt_class();
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+        v30 = objc_opt_class();
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
         [v5 setObject:v18 forKeyedSubscript:v11];
       }
 
@@ -913,7 +904,7 @@ LABEL_16:
     }
 
     while (v8 != v10);
-    v20 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v20 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     v8 = v20;
   }
 
@@ -924,36 +915,34 @@ LABEL_20:
   v4 = 0;
 LABEL_21:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)encodingBehaviorsByPropertyKey
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   propertyKeys = [self propertyKeys];
   v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(propertyKeys, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = propertyKeys;
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       v7 = 0;
       do
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * v7);
+        v8 = *(*(&v22 + 1) + 8 * v7);
         v9 = v8;
         Property = class_getProperty(self, [v8 UTF8String]);
         if (Property)
@@ -994,14 +983,12 @@ LABEL_21:
       }
 
       while (v5 != v7);
-      v17 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       v5 = v17;
     }
 
     while (v17);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

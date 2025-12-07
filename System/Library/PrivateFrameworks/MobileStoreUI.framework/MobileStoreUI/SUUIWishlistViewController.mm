@@ -137,20 +137,20 @@
 
 - (void)loadView
 {
-  v13 = objc_alloc_init(MEMORY[0x277D75D18]);
+  v15 = objc_alloc_init(MEMORY[0x277D75D18]);
   clearColor = [MEMORY[0x277D75348] clearColor];
-  [v13 setBackgroundColor:clearColor];
+  [v15 setBackgroundColor:clearColor];
 
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   if ([currentDevice userInterfaceIdiom])
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    v8 = v7;
-    v9 = SUUICompactThreshold();
+    bounds = [keyWindow bounds];
+    v9 = v8;
+    v11 = SUUICompactThreshold(bounds, v10);
 
-    if (v8 > v9)
+    if (v9 > v11)
     {
       goto LABEL_8;
     }
@@ -163,16 +163,16 @@
   backdropView = self->_backdropView;
   if (!backdropView)
   {
-    v11 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:10060];
-    v12 = self->_backdropView;
-    self->_backdropView = v11;
+    v13 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:10060];
+    v14 = self->_backdropView;
+    self->_backdropView = v13;
 
     backdropView = self->_backdropView;
   }
 
-  [v13 addSubview:backdropView];
+  [v15 addSubview:backdropView];
 LABEL_8:
-  [(SUUIWishlistViewController *)self setView:v13];
+  [(SUUIWishlistViewController *)self setView:v15];
   [(SUUIWishlistViewController *)self _reloadChildView];
 }
 
@@ -506,9 +506,9 @@ void __48__SUUIWishlistViewController__emptyWishlistView__block_invoke(uint64_t 
     if ([errorCopy code] == 1)
     {
       domain = [errorCopy domain];
-      v10 = [domain isEqualToString:*MEMORY[0x277D6A678]];
+      isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-      if (v10)
+      if (isEqualToString)
       {
         self->_wishlistState = 1;
 LABEL_4:
@@ -823,11 +823,11 @@ LABEL_25:
     {
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       keyWindow = [mEMORY[0x277D75128] keyWindow];
-      [keyWindow bounds];
-      v25 = v24;
-      v26 = SUUICompactThreshold();
+      bounds = [keyWindow bounds];
+      v26 = v25;
+      v28 = SUUICompactThreshold(bounds, v27);
 
-      if (v25 > v26)
+      if (v26 > v28)
       {
         goto LABEL_27;
       }
@@ -837,10 +837,10 @@ LABEL_25:
     {
     }
 
-    v27 = objc_alloc_init(MEMORY[0x277D751E0]);
-    [v27 setAction:sel__doneAction_];
-    [v27 setStyle:2];
-    [v27 setTarget:self];
+    v29 = objc_alloc_init(MEMORY[0x277D751E0]);
+    [v29 setAction:sel__doneAction_];
+    [v29 setStyle:2];
+    [v29 setTarget:self];
     if (clientContext)
     {
       [clientContext localizedStringForKey:@"WISH_LIST_DONE_BUTTON"];
@@ -850,20 +850,20 @@ LABEL_25:
     {
       [SUUIClientContext localizedStringForKey:@"WISH_LIST_DONE_BUTTON" inBundles:0];
     }
-    v28 = ;
-    [v27 setTitle:v28];
+    v30 = ;
+    [v29 setTitle:v30];
 
-    [navigationItem setRightBarButtonItem:v27 animated:animatedCopy];
+    [navigationItem setRightBarButtonItem:v29 animated:animatedCopy];
   }
 
 LABEL_27:
   navigationController = [(SUUIWishlistViewController *)self navigationController];
   view = [navigationController view];
-  [view setSemanticContentAttribute:storeSemanticContentAttribute()];
+  [view setSemanticContentAttribute:{storeSemanticContentAttribute(view, v33)}];
 
   navigationController2 = [(SUUIWishlistViewController *)self navigationController];
   navigationBar = [navigationController2 navigationBar];
-  [navigationBar setSemanticContentAttribute:storeSemanticContentAttribute()];
+  [navigationBar setSemanticContentAttribute:{storeSemanticContentAttribute(navigationBar, v36)}];
 }
 
 - (void)_reloadWishlist

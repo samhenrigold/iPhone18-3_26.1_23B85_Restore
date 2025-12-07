@@ -22,8 +22,9 @@
 {
   var0 = path->var0;
   var1 = path->var1;
+  var3 = path->var3;
   selfCopy = self;
-  sub_220F60618(var0, var1);
+  sub_220F60618(var0, var1, var3);
 }
 
 @end

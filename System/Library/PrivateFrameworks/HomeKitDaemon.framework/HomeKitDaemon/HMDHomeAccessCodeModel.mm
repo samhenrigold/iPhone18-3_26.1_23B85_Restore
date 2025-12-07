@@ -51,21 +51,19 @@
 
 void __36__HMDHomeAccessCodeModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"label";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"label";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:3];
-  v7[0] = v0;
-  v6[1] = @"value";
+  v6[0] = v0;
+  v5[1] = @"value";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:3];
-  v7[1] = v1;
-  v6[2] = @"hh2ModelID";
+  v6[1] = v1;
+  v5[2] = @"hh2ModelID";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_166074;
   properties__properties_166074 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context

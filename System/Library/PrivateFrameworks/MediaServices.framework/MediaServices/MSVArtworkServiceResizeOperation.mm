@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   request = [(MSVArtworkServiceOperation *)self request];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -21,15 +21,15 @@
   [request2 consumeSandboxExtensions];
   v7 = objc_alloc_init(MEMORY[0x1E696AC08]);
   array = [MEMORY[0x1E695DF70] array];
-  v79[0] = MEMORY[0x1E69E9820];
-  v79[1] = 3221225472;
-  v79[2] = __40__MSVArtworkServiceResizeOperation_main__block_invoke;
-  v79[3] = &unk_1E7981958;
+  v78[0] = MEMORY[0x1E69E9820];
+  v78[1] = 3221225472;
+  v78[2] = __40__MSVArtworkServiceResizeOperation_main__block_invoke;
+  v78[3] = &unk_1E7981958;
   v9 = v7;
-  v80 = v9;
+  v79 = v9;
   v10 = array;
-  v81 = v10;
-  [request2 enumerateDestinationsUsingBlock:v79];
+  v80 = v10;
+  [request2 enumerateDestinationsUsingBlock:v78];
   if (![v10 count])
   {
     [(MSVArtworkServiceOperation *)self setDebugMessage:@"No resizing needed, all destinations already exist on disk."];
@@ -51,28 +51,28 @@
 
   if (!operationError)
   {
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
-    v67 = v10;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v66 = v10;
     v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v75 objects:v83 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v74 objects:v82 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v76;
-      v65 = request2;
+      v20 = *v75;
+      v64 = request2;
       while (2)
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v76 != v20)
+          if (*v75 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          destinationURL = [*(*(&v75 + 1) + 8 * i) destinationURL];
+          destinationURL = [*(*(&v74 + 1) + 8 * i) destinationURL];
           uRLByDeletingLastPathComponent = [destinationURL URLByDeletingLastPathComponent];
 
           path = [uRLByDeletingLastPathComponent path];
@@ -90,16 +90,16 @@ LABEL_21:
               v30 = v29;
               [(MSVArtworkServiceOperation *)self setOperationError:v29];
 
-              request2 = v65;
+              request2 = v64;
               goto LABEL_22;
             }
           }
 
           else
           {
-            v74 = 0;
-            [v9 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v74];
-            v29 = v74;
+            v73 = 0;
+            [v9 createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v73];
+            v29 = v73;
             if (v29)
             {
               goto LABEL_21;
@@ -110,8 +110,8 @@ LABEL_21:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v75 objects:v83 count:16];
-        request2 = v65;
+        v19 = [v17 countByEnumeratingWithState:&v74 objects:v82 count:16];
+        request2 = v64;
         if (v19)
         {
           continue;
@@ -123,7 +123,7 @@ LABEL_21:
 
 LABEL_22:
 
-    v10 = v67;
+    v10 = v66;
   }
 
   operationError2 = [(MSVArtworkServiceOperation *)self operationError];
@@ -137,12 +137,12 @@ LABEL_22:
   Width = CGImageGetWidth(ImageFromSource);
   cf = ImageFromSource;
   Height = CGImageGetHeight(ImageFromSource);
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v35 = v10;
-  v36 = [v35 countByEnumeratingWithState:&v70 objects:v82 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v69 objects:v81 count:16];
   if (!v36)
   {
     v60 = cf;
@@ -150,29 +150,29 @@ LABEL_22:
   }
 
   v37 = v36;
-  v66 = request2;
-  v68 = v10;
-  v69 = 0;
+  v65 = request2;
+  v67 = v10;
+  v68 = 0;
   v38 = Width;
   v39 = Height;
-  v40 = *v71;
+  v40 = *v70;
   while (2)
   {
     for (j = 0; j != v37; ++j)
     {
-      if (*v71 != v40)
+      if (*v70 != v40)
       {
         objc_enumerationMutation(v35);
       }
 
-      v42 = *(*(&v70 + 1) + 8 * j);
+      v42 = *(*(&v69 + 1) + 8 * j);
       [v42 size];
       if (v43 >= v38)
       {
         [v42 size];
         if (v44 >= v39)
         {
-          ++v69;
+          ++v68;
           continue;
         }
       }
@@ -246,7 +246,7 @@ LABEL_43:
       }
     }
 
-    v37 = [v35 countByEnumeratingWithState:&v70 objects:v82 count:16];
+    v37 = [v35 countByEnumeratingWithState:&v69 objects:v81 count:16];
     if (v37)
     {
       continue;
@@ -257,12 +257,12 @@ LABEL_43:
 
 LABEL_51:
 
-  request2 = v66;
-  v10 = v68;
+  request2 = v65;
+  v10 = v67;
   v60 = cf;
-  if (v69)
+  if (v68)
   {
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Skipped %lu destinations that were larger than the source image.", v69];
+    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Skipped %lu destinations that were larger than the source image.", v68];
     [(MSVArtworkServiceOperation *)self setDebugMessage:v35];
 LABEL_53:
   }
@@ -280,8 +280,6 @@ LABEL_56:
 
 LABEL_58:
   [request2 releaseSandboxExtensions];
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 void __40__MSVArtworkServiceResizeOperation_main__block_invoke(uint64_t a1, void *a2)

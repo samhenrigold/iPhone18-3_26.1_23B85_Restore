@@ -138,7 +138,7 @@
   blue = components.blue;
   green = components.green;
   red = components.red;
-  v23 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v10 = CGImageSourceCreateWithData(dataCopy, 0);
   Status = CGImageSourceGetStatus(v10);
@@ -153,28 +153,26 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 67109376;
-        v20 = Status;
-        v21 = 2048;
-        v22 = v13;
+        v24 = Status;
+        v25 = 2048;
+        v26 = v13;
         _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "Invalid image source for image: %d %zu", buf, 0x12u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      v17 = Status;
-      v18 = v13;
-      _CKLogExternal();
+      _CKLogExternal(3u, @"Invalid image source for image: %d %zu", v15, v16, v17, v18, v19, v20, Status);
     }
   }
 
-  v15 = [self _encodeCGImageSource:v10 withColorComponents:{red, green, blue, alpha, v17, v18}];
+  v21 = [self _encodeCGImageSource:v10 withColorComponents:{red, green, blue, alpha}];
   if (v10)
   {
     CFRelease(v10);
   }
 
-  return v15;
+  return v21;
 }
 
 + (id)_encodeCGImageSource:(CGImageSource *)source withColorComponents:(IMColorComponents)components
@@ -243,23 +241,23 @@
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(3u, @"Unable to create XMP Tag for messageTintColor", v20, v21, v22, v23, v24, v25, v34);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(3);
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "Unable to set XMP Tag for messageTintColor", v22, 2u);
+        LOWORD(v34) = 0;
+        _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "Unable to set XMP Tag for messageTintColor", &v34, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(3u, @"Unable to set XMP Tag for messageTintColor", v27, v28, v29, v30, v31, v32, v34);
     }
 
     Mutable = 0;

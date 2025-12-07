@@ -93,12 +93,12 @@
 
 - (id)initPrimaryAccount
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inited = objc_msgSend_initInternal(self, a2, v2);
   if (!inited)
   {
 LABEL_7:
-    v15 = inited;
+    v14 = inited;
     goto LABEL_13;
   }
 
@@ -107,7 +107,6 @@ LABEL_7:
   inited[2] = v6;
 
   v8 = *MEMORY[0x277CBC878];
-  v9 = *MEMORY[0x277CBC880];
   if (inited[2])
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -115,14 +114,14 @@ LABEL_7:
       dispatch_once(MEMORY[0x277CBC880], v8);
     }
 
-    v10 = *MEMORY[0x277CBC830];
+    v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v11 = v10;
-      v14 = objc_msgSend_accountID(inited, v12, v13);
-      v19 = 138412290;
-      v20 = v14;
-      _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Created primary backing account with ID %@", &v19, 0xCu);
+      v10 = v9;
+      v13 = objc_msgSend_accountID(inited, v11, v12);
+      v17 = 138412290;
+      v18 = v13;
+      _os_log_impl(&dword_22506F000, v10, OS_LOG_TYPE_INFO, "Created primary backing account with ID %@", &v17, 0xCu);
     }
 
     goto LABEL_7;
@@ -133,18 +132,17 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], v8);
   }
 
-  v16 = *MEMORY[0x277CBC830];
+  v15 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v19) = 0;
-    _os_log_error_impl(&dword_22506F000, v16, OS_LOG_TYPE_ERROR, "Could not create primary backing account", &v19, 2u);
+    LOWORD(v17) = 0;
+    _os_log_error_impl(&dword_22506F000, v15, OS_LOG_TYPE_ERROR, "Could not create primary backing account", &v17, 2u);
   }
 
-  v15 = 0;
+  v14 = 0;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 - (id)initInternal
@@ -186,7 +184,7 @@ LABEL_13:
 
 - (NSString)serverPreferredPushEnvironment
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_backingAccount(self, a2, v2);
   v7 = objc_msgSend_serverPreferredPushEnvironment(v4, v5, v6);
 
@@ -210,9 +208,9 @@ LABEL_13:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v22 = objc_msgSend_backingAccount(selfCopy, v20, v21);
-          v27 = 138412290;
-          v28 = v22;
-          _os_log_impl(&dword_22506F000, v19, OS_LOG_TYPE_INFO, "Warn: Couldn't determine server preferred push environment from backing account %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = v22;
+          _os_log_impl(&dword_22506F000, v19, OS_LOG_TYPE_INFO, "Warn: Couldn't determine server preferred push environment from backing account %@", &v26, 0xCu);
         }
 
         objc_msgSend_setHaveWarnedAboutServerPreferredPushEnvironment_(selfCopy, v23, 1);
@@ -225,8 +223,6 @@ LABEL_13:
 
     v7 = v24;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -402,13 +398,13 @@ LABEL_13:
 
 - (CKDAccount)initWithAccountID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   inited = objc_msgSend_initInternal(self, v5, v6);
   if (!inited)
   {
 LABEL_7:
-    v18 = inited;
+    v17 = inited;
     goto LABEL_13;
   }
 
@@ -417,7 +413,6 @@ LABEL_7:
   inited[2] = v9;
 
   v11 = *MEMORY[0x277CBC878];
-  v12 = *MEMORY[0x277CBC880];
   if (inited[2])
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -425,14 +420,14 @@ LABEL_7:
       dispatch_once(MEMORY[0x277CBC880], v11);
     }
 
-    v13 = *MEMORY[0x277CBC830];
+    v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v14 = v13;
-      v17 = objc_msgSend_accountID(inited, v15, v16);
-      v22 = 138412290;
-      v23 = v17;
-      _os_log_impl(&dword_22506F000, v14, OS_LOG_TYPE_INFO, "Created backing account with ID %@", &v22, 0xCu);
+      v13 = v12;
+      v16 = objc_msgSend_accountID(inited, v14, v15);
+      v20 = 138412290;
+      v21 = v16;
+      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Created backing account with ID %@", &v20, 0xCu);
     }
 
     goto LABEL_7;
@@ -443,30 +438,29 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], v11);
   }
 
-  v19 = *MEMORY[0x277CBC830];
+  v18 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v22 = 138412290;
-    v23 = dCopy;
-    _os_log_error_impl(&dword_22506F000, v19, OS_LOG_TYPE_ERROR, "Could not create backing account with ID %@", &v22, 0xCu);
+    v20 = 138412290;
+    v21 = dCopy;
+    _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Could not create backing account with ID %@", &v20, 0xCu);
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 - (CKDAccount)initWithAltDSID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   inited = objc_msgSend_initInternal(self, v5, v6);
   if (!inited)
   {
 LABEL_7:
-    v18 = inited;
+    v17 = inited;
     goto LABEL_13;
   }
 
@@ -475,7 +469,6 @@ LABEL_7:
   inited[2] = v9;
 
   v11 = *MEMORY[0x277CBC878];
-  v12 = *MEMORY[0x277CBC880];
   if (inited[2])
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -483,14 +476,14 @@ LABEL_7:
       dispatch_once(MEMORY[0x277CBC880], v11);
     }
 
-    v13 = *MEMORY[0x277CBC830];
+    v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v14 = v13;
-      v17 = objc_msgSend_altDSID(inited, v15, v16);
-      v22 = 138412290;
-      v23 = v17;
-      _os_log_impl(&dword_22506F000, v14, OS_LOG_TYPE_INFO, "Created backing account with altDSID %@", &v22, 0xCu);
+      v13 = v12;
+      v16 = objc_msgSend_altDSID(inited, v14, v15);
+      v20 = 138412290;
+      v21 = v16;
+      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Created backing account with altDSID %@", &v20, 0xCu);
     }
 
     goto LABEL_7;
@@ -501,30 +494,29 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], v11);
   }
 
-  v19 = *MEMORY[0x277CBC830];
+  v18 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v22 = 138412290;
-    v23 = dCopy;
-    _os_log_error_impl(&dword_22506F000, v19, OS_LOG_TYPE_ERROR, "Could not create backing account with altDSID %@", &v22, 0xCu);
+    v20 = 138412290;
+    v21 = dCopy;
+    _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Could not create backing account with altDSID %@", &v20, 0xCu);
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 - (id)initExplicitCredentialsAccountWithAccountOverrideInfo:(id)info
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   inited = objc_msgSend_initInternal(self, v5, v6);
   if (!inited)
   {
 LABEL_7:
-    v33 = inited;
+    v32 = inited;
     goto LABEL_13;
   }
 
@@ -538,7 +530,6 @@ LABEL_7:
   inited[2] = v24;
 
   v26 = *MEMORY[0x277CBC878];
-  v27 = *MEMORY[0x277CBC880];
   if (inited[2])
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -546,16 +537,16 @@ LABEL_7:
       dispatch_once(MEMORY[0x277CBC880], v26);
     }
 
-    v28 = *MEMORY[0x277CBC830];
+    v27 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v29 = v28;
-      v32 = objc_msgSend_accountID(inited, v30, v31);
-      v37 = 138412546;
-      v38 = infoCopy;
-      v39 = 2112;
-      v40 = v32;
-      _os_log_impl(&dword_22506F000, v29, OS_LOG_TYPE_INFO, "Created fake backing account with account override info %@ and ID %@", &v37, 0x16u);
+      v28 = v27;
+      v31 = objc_msgSend_accountID(inited, v29, v30);
+      v35 = 138412546;
+      v36 = infoCopy;
+      v37 = 2112;
+      v38 = v31;
+      _os_log_impl(&dword_22506F000, v28, OS_LOG_TYPE_INFO, "Created fake backing account with account override info %@ and ID %@", &v35, 0x16u);
     }
 
     goto LABEL_7;
@@ -566,31 +557,30 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], v26);
   }
 
-  v34 = *MEMORY[0x277CBC830];
+  v33 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v37 = 138412290;
-    v38 = infoCopy;
-    _os_log_error_impl(&dword_22506F000, v34, OS_LOG_TYPE_ERROR, "Could not create fake backing account with account override info %@", &v37, 0xCu);
+    v35 = 138412290;
+    v36 = infoCopy;
+    _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Could not create fake backing account with account override info %@", &v35, 0xCu);
   }
 
-  v33 = 0;
+  v32 = 0;
 LABEL_13:
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 - (id)initMockAccountWithTestAccount:(id)account testDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   deviceCopy = device;
   inited = objc_msgSend_initInternal(self, v8, v9);
   if (!inited)
   {
 LABEL_7:
-    v17 = inited;
+    v16 = inited;
     goto LABEL_13;
   }
 
@@ -599,7 +589,6 @@ LABEL_7:
   inited[2] = v12;
 
   v14 = *MEMORY[0x277CBC878];
-  v15 = *MEMORY[0x277CBC880];
   if (inited[2])
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -607,14 +596,14 @@ LABEL_7:
       dispatch_once(MEMORY[0x277CBC880], v14);
     }
 
-    v16 = *MEMORY[0x277CBC830];
+    v15 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
-      v21 = 138412546;
-      v22 = accountCopy;
-      v23 = 2112;
-      v24 = deviceCopy;
-      _os_log_impl(&dword_22506F000, v16, OS_LOG_TYPE_INFO, "Created mock backing account with test account %@, testDevice %@", &v21, 0x16u);
+      v19 = 138412546;
+      v20 = accountCopy;
+      v21 = 2112;
+      v22 = deviceCopy;
+      _os_log_impl(&dword_22506F000, v15, OS_LOG_TYPE_INFO, "Created mock backing account with test account %@, testDevice %@", &v19, 0x16u);
     }
 
     goto LABEL_7;
@@ -625,21 +614,20 @@ LABEL_7:
     dispatch_once(MEMORY[0x277CBC880], v14);
   }
 
-  v18 = *MEMORY[0x277CBC830];
+  v17 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v21 = 138412546;
-    v22 = accountCopy;
-    v23 = 2112;
-    v24 = deviceCopy;
-    _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Could not create mock backing account with test account %@, test device %@", &v21, 0x16u);
+    v19 = 138412546;
+    v20 = accountCopy;
+    v21 = 2112;
+    v22 = deviceCopy;
+    _os_log_error_impl(&dword_22506F000, v17, OS_LOG_TYPE_ERROR, "Could not create mock backing account with test account %@, test device %@", &v19, 0x16u);
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 - (NSPersonNameComponents)fullName
@@ -864,7 +852,7 @@ LABEL_6:
 - (void)_lockedRenewTokenWithReason:(id)reason shouldForce:(BOOL)force container:(id)container tokenFetchBlock:(id)block completionHandler:(id)handler
 {
   forceCopy = force;
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   containerCopy = container;
   blockCopy = block;
@@ -872,9 +860,9 @@ LABEL_6:
   v18 = objc_msgSend_authTokenQueue(self, v16, v17);
   dispatch_assert_queue_V2(v18);
 
-  v102 = 0;
-  v19 = blockCopy[2](blockCopy, &v102);
-  v22 = v102;
+  v101 = 0;
+  v19 = blockCopy[2](blockCopy, &v101);
+  v22 = v101;
   if (!v22 && v19 && !forceCopy)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -888,7 +876,7 @@ LABEL_6:
       v26 = v23;
       v29 = objc_msgSend_accountID(self, v27, v28);
       *buf = 138412290;
-      v104 = v29;
+      v103 = v29;
       _os_log_impl(&dword_22506F000, v26, OS_LOG_TYPE_INFO, "The CloudKit auth token for account %@ has changed since the last one we attempted. Trying again with the new token.", buf, 0xCu);
     }
 
@@ -897,11 +885,11 @@ LABEL_6:
     block[1] = 3221225472;
     block[2] = sub_22510B300;
     block[3] = &unk_2785456A0;
-    v101 = handlerCopy;
+    v100 = handlerCopy;
     dispatch_async(v30, block);
 
     v22 = 0;
-    v31 = v101;
+    v31 = v100;
     goto LABEL_43;
   }
 
@@ -935,15 +923,15 @@ LABEL_6:
       if (handlerCopy)
       {
         v72 = objc_msgSend_authTokenCallbackQueue(self, v70, v71);
-        v73 = v97;
-        v97[0] = MEMORY[0x277D85DD0];
-        v97[1] = 3221225472;
-        v97[2] = sub_22510B320;
-        v97[3] = &unk_2785456C8;
-        v99 = handlerCopy;
+        v73 = v96;
+        v96[0] = MEMORY[0x277D85DD0];
+        v96[1] = 3221225472;
+        v96[2] = sub_22510B320;
+        v96[3] = &unk_2785456C8;
+        v98 = handlerCopy;
         v22 = v22;
-        v98 = v22;
-        dispatch_async(v72, v97);
+        v97 = v22;
+        dispatch_async(v72, v96);
 
 LABEL_37:
         v31 = v73[5];
@@ -980,23 +968,23 @@ LABEL_14:
         objc_initWeak(buf, self);
         v56 = objc_msgSend_accountID(self, v54, v55);
         v59 = objc_msgSend_backingAccount(self, v57, v58);
-        v90[0] = MEMORY[0x277D85DD0];
-        v90[1] = 3221225472;
-        v90[2] = sub_22510B350;
-        v90[3] = &unk_278545718;
-        objc_copyWeak(&v93, buf);
+        v89[0] = MEMORY[0x277D85DD0];
+        v89[1] = 3221225472;
+        v89[2] = sub_22510B350;
+        v89[3] = &unk_278545718;
+        objc_copyWeak(&v92, buf);
         v60 = v56;
-        v91 = v60;
-        v92 = handlerCopy;
-        objc_msgSend_renewAuthTokenWithOptions_completionHandler_(v59, v61, v31, v90);
+        v90 = v60;
+        v91 = handlerCopy;
+        objc_msgSend_renewAuthTokenWithOptions_completionHandler_(v59, v61, v31, v89);
 
-        objc_destroyWeak(&v93);
+        objc_destroyWeak(&v92);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v85 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v53, *MEMORY[0x277CBC120], 1002, @"Can't renew credentials because we don't have an account");
+        v84 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v53, *MEMORY[0x277CBC120], 1002, @"Can't renew credentials because we don't have an account");
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -1008,20 +996,20 @@ LABEL_14:
           v78 = v75;
           v81 = objc_msgSend_accountID(self, v79, v80);
           *buf = 138412290;
-          v104 = v81;
+          v103 = v81;
           _os_log_impl(&dword_22506F000, v78, OS_LOG_TYPE_INFO, "Can't renew credentials with account ID '%@' because we don't have an account", buf, 0xCu);
         }
 
         v82 = objc_msgSend_authTokenCallbackQueue(self, v76, v77);
-        v86[0] = MEMORY[0x277D85DD0];
-        v86[1] = 3221225472;
-        v86[2] = sub_22510B5E8;
-        v86[3] = &unk_2785456F0;
-        v89 = 0;
-        v87 = v85;
-        v88 = handlerCopy;
-        v83 = v85;
-        dispatch_async(v82, v86);
+        v85[0] = MEMORY[0x277D85DD0];
+        v85[1] = 3221225472;
+        v85[2] = sub_22510B5E8;
+        v85[3] = &unk_2785456F0;
+        v88 = 0;
+        v86 = v84;
+        v87 = handlerCopy;
+        v83 = v84;
+        dispatch_async(v82, v85);
       }
 
       goto LABEL_43;
@@ -1044,7 +1032,7 @@ LABEL_14:
     v65 = v62;
     v68 = objc_msgSend_accountID(self, v66, v67);
     *buf = 138412290;
-    v104 = v68;
+    v103 = v68;
     _os_log_impl(&dword_22506F000, v65, OS_LOG_TYPE_INFO, "Can't access the account with ID %@, so failing this auth token renew request", buf, 0xCu);
   }
 
@@ -1063,22 +1051,20 @@ LABEL_14:
   {
 LABEL_36:
     v74 = objc_msgSend_authTokenCallbackQueue(self, v63, v64);
-    v73 = v94;
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = sub_22510B338;
-    v94[3] = &unk_2785456C8;
-    v96 = handlerCopy;
+    v73 = v93;
+    v93[0] = MEMORY[0x277D85DD0];
+    v93[1] = 3221225472;
+    v93[2] = sub_22510B338;
+    v93[3] = &unk_2785456C8;
+    v95 = handlerCopy;
     v22 = v22;
-    v95 = v22;
-    dispatch_async(v74, v94);
+    v94 = v22;
+    dispatch_async(v74, v93);
 
     goto LABEL_37;
   }
 
 LABEL_44:
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renewCloudKitAuthTokenWithReason:(id)reason shouldForce:(BOOL)force container:(id)container failedToken:(id)token completionHandler:(id)handler
@@ -1188,7 +1174,7 @@ LABEL_44:
 
 - (id)_lockedCloudKitAuthTokenWithContainer:(id)container error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v9 = objc_msgSend_authTokenQueue(self, v7, v8);
   dispatch_assert_queue_V2(v9);
@@ -1236,9 +1222,9 @@ LABEL_22:
   }
 
   v21 = objc_msgSend_backingAccount(self, v19, v20);
-  v35 = 0;
-  v23 = objc_msgSend_cloudKitAuthTokenWithError_(v21, v22, &v35);
-  v24 = v35;
+  v34 = 0;
+  v23 = objc_msgSend_cloudKitAuthTokenWithError_(v21, v22, &v34);
+  v24 = v34;
 
   if (v23 && objc_msgSend_containsObject_(qword_280D54EA8, v25, v23))
   {
@@ -1251,7 +1237,7 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v37 = v23;
+      v36 = v23;
       _os_log_impl(&dword_22506F000, v26, OS_LOG_TYPE_INFO, "Found token: %@ in failedTokenCache.", buf, 0xCu);
     }
 
@@ -1279,7 +1265,7 @@ LABEL_22:
     }
 
     *buf = 138412290;
-    v37 = v24;
+    v36 = v24;
     _os_log_error_impl(&dword_22506F000, v29, OS_LOG_TYPE_ERROR, "Error getting CloudKit auth token: %@", buf, 0xCu);
     if (error)
     {
@@ -1290,8 +1276,6 @@ LABEL_16:
   }
 
 LABEL_23:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1403,7 +1387,7 @@ LABEL_23:
 
 - (id)_lockediCloudAuthTokenWithContainer:(id)container error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   v9 = objc_msgSend_authTokenQueue(self, v7, v8);
   dispatch_assert_queue_V2(v9);
@@ -1430,9 +1414,9 @@ LABEL_23:
   if (objc_msgSend_canAccessAccount(containerCopy, v17, v18))
   {
     v21 = objc_msgSend_backingAccount(self, v19, v20);
-    v37 = 0;
-    v23 = objc_msgSend_iCloudAuthTokenWithError_(v21, v22, &v37);
-    v24 = v37;
+    v36 = 0;
+    v23 = objc_msgSend_iCloudAuthTokenWithError_(v21, v22, &v36);
+    v24 = v36;
 
     if (v24)
     {
@@ -1492,7 +1476,7 @@ LABEL_14:
   }
 
   *buf = 138412290;
-  v39 = v24;
+  v38 = v24;
   _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Error getting iCloud auth token: %@", buf, 0xCu);
   if (error)
   {
@@ -1502,8 +1486,6 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -1531,14 +1513,14 @@ LABEL_20:
 
 - (id)_lockediCloudAuthTokenWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_authTokenQueue(self, a2, error);
   dispatch_assert_queue_V2(v5);
 
   v8 = objc_msgSend_backingAccount(self, v6, v7);
-  v22 = 0;
-  v10 = objc_msgSend_iCloudAuthTokenWithError_(v8, v9, &v22);
-  v11 = v22;
+  v21 = 0;
+  v10 = objc_msgSend_iCloudAuthTokenWithError_(v8, v9, &v21);
+  v11 = v21;
 
   if (v11)
   {
@@ -1575,7 +1557,7 @@ LABEL_2:
     }
 
     *buf = 138412290;
-    v24 = v11;
+    v23 = v11;
     _os_log_error_impl(&dword_22506F000, v14, OS_LOG_TYPE_ERROR, "Error getting iCloud auth token: %@", buf, 0xCu);
     if (error)
     {
@@ -1586,8 +1568,6 @@ LABEL_6:
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1652,7 +1632,7 @@ LABEL_6:
 
 - (BOOL)isValidTestAccount
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_backingAccount(self, a2, v2);
   v6 = objc_msgSend_iCloudAuthTokenWithError_(v4, v5, 0);
 
@@ -1671,9 +1651,9 @@ LABEL_6:
       v31 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v54 = 138412290;
+        v53 = 138412290;
         selfCopy5 = self;
-        _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it has no iCloud auth token", &v54, 0xCu);
+        _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it has no iCloud auth token", &v53, 0xCu);
       }
 
       v30 = 0;
@@ -1694,18 +1674,18 @@ LABEL_6:
       v32 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v43 = v32;
-        v46 = objc_msgSend_backingAccount(self, v44, v45);
-        v48 = objc_msgSend_accountPropertiesForDataclass_(v46, v47, *MEMORY[0x277CB90D8]);
-        v51 = objc_msgSend_backingAccount(self, v49, v50);
-        v53 = objc_msgSend_accountPropertiesForDataclass_(v51, v52, @"com.apple.Dataclass.Account");
-        v54 = 138412802;
+        v42 = v32;
+        v45 = objc_msgSend_backingAccount(self, v43, v44);
+        v47 = objc_msgSend_accountPropertiesForDataclass_(v45, v46, *MEMORY[0x277CB90D8]);
+        v50 = objc_msgSend_backingAccount(self, v48, v49);
+        v52 = objc_msgSend_accountPropertiesForDataclass_(v50, v51, @"com.apple.Dataclass.Account");
+        v53 = 138412802;
         selfCopy5 = self;
-        v56 = 2112;
-        v57 = v48;
-        v58 = 2112;
-        v59 = v53;
-        _os_log_error_impl(&dword_22506F000, v43, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it is a non-carry prod account according to these property sets: %@ %@", &v54, 0x20u);
+        v55 = 2112;
+        v56 = v47;
+        v57 = 2112;
+        v58 = v52;
+        _os_log_error_impl(&dword_22506F000, v42, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it is a non-carry prod account according to these property sets: %@ %@", &v53, 0x20u);
       }
 
       goto LABEL_26;
@@ -1727,7 +1707,7 @@ LABEL_6:
         goto LABEL_26;
       }
 
-      v54 = 138412290;
+      v53 = 138412290;
       selfCopy5 = self;
       v28 = "Account %@ is not valid because it's marked as suspended";
     }
@@ -1760,12 +1740,12 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      v54 = 138412290;
+      v53 = 138412290;
       selfCopy5 = self;
       v28 = "Account %@ is not valid because it can't get Stingray identities via PCS";
     }
 
-    _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, v28, &v54, 0xCu);
+    _os_log_error_impl(&dword_22506F000, v27, OS_LOG_TYPE_ERROR, v28, &v53, 0xCu);
     goto LABEL_26;
   }
 
@@ -1777,15 +1757,14 @@ LABEL_31:
   v29 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
   {
-    v54 = 138412290;
+    v53 = 138412290;
     selfCopy5 = self;
-    _os_log_error_impl(&dword_22506F000, v29, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it has no iCloud auth token", &v54, 0xCu);
+    _os_log_error_impl(&dword_22506F000, v29, OS_LOG_TYPE_ERROR, "Account %@ is not valid because it has no iCloud auth token", &v53, 0xCu);
   }
 
   v30 = 0;
 LABEL_32:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

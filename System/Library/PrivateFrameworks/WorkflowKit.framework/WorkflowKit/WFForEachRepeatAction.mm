@@ -12,29 +12,29 @@
 
 - (NSString)itemVariableName
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   workflow = [(WFAction *)self workflow];
   actionTree = [workflow actionTree];
   v5 = [actionTree outputsForAction:self];
 
-  variableName = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  variableName = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (variableName)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != variableName; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 outputType] == 3)
         {
           variableName = [v9 variableName];
@@ -42,7 +42,7 @@
         }
       }
 
-      variableName = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      variableName = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (variableName)
       {
         continue;
@@ -53,8 +53,6 @@
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return variableName;
 }
@@ -89,36 +87,36 @@ LABEL_11:
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
-  v32.receiver = self;
-  v32.super_class = WFForEachRepeatAction;
-  [(WFRepeatAction *)&v32 runWithInput:inputCopy error:error];
+  v31.receiver = self;
+  v31.super_class = WFForEachRepeatAction;
+  [(WFRepeatAction *)&v31 runWithInput:inputCopy error:error];
   variableSource = [(WFAction *)self variableSource];
   mode = [(WFControlFlowAction *)self mode];
   if (mode == 2)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     items = [inputCopy items];
-    v21 = [items countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v21 = [items countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v29;
+      v23 = *v28;
       do
       {
         v24 = 0;
         do
         {
-          if (*v29 != v23)
+          if (*v28 != v23)
           {
             objc_enumerationMutation(items);
           }
 
-          v25 = *(*(&v28 + 1) + 8 * v24);
+          v25 = *(*(&v27 + 1) + 8 * v24);
           output = [(WFAction *)self output];
           [output addItem:v25];
 
@@ -126,7 +124,7 @@ LABEL_11:
         }
 
         while (v22 != v24);
-        v22 = [items countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v22 = [items countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v22);
@@ -156,8 +154,8 @@ LABEL_11:
     if (firstObject)
     {
       v14 = MEMORY[0x1E6996D40];
-      v34[0] = firstObject;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+      v33[0] = firstObject;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
       v16 = [v14 collectionWithItems:v15];
       [(WFAction *)self setOutput:v16];
 
@@ -178,8 +176,6 @@ LABEL_11:
 
 LABEL_20:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)repeatCollectionWithVariableSource:(id)source

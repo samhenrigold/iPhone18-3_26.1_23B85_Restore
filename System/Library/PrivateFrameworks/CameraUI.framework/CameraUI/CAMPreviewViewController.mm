@@ -752,7 +752,7 @@ LABEL_2:
     v33 = v32;
     if (v32)
     {
-      [v32 viewportAnchorsForFrontPIPOriginWithSize:{v29, v31}];
+      objc_msgSend_viewportAnchorsForFrontPIPOriginWithSize_(v32, v29, v31);
     }
 
     else
@@ -1275,7 +1275,7 @@ LABEL_15:
   }
 }
 
-uint64_t __54__CAMPreviewViewController__deactivateFocusIndicator___block_invoke(uint64_t a1)
+void *__54__CAMPreviewViewController__deactivateFocusIndicator___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alpha];
   if (v3 > 0.0)
@@ -1633,59 +1633,59 @@ uint64_t __65__CAMPreviewViewController__fadeOutView_withDuration_completion___b
   v12 = center.y;
   v13 = center.x;
   viewCopy = view;
-  v44 = 0u;
-  memset(v45, 0, sizeof(v45));
   v43 = 0u;
-  [(CAMPreviewViewController *)self _geometryAnimationParametersForViewType:type];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __74__CAMPreviewViewController__animateView_type_withCenter_bounds_transform___block_invoke;
-  v39[3] = &unk_1E76FA580;
-  v17 = viewCopy;
-  v40 = v17;
-  v41 = v13;
-  v42 = v12;
+  memset(v44, 0, sizeof(v44));
+  v42 = 0u;
+  objc_msgSend__geometryAnimationParametersForViewType_(self);
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __74__CAMPreviewViewController__animateView_type_withCenter_bounds_transform___block_invoke;
+  v38[3] = &unk_1E76FA580;
+  v16 = viewCopy;
+  v39 = v16;
+  v40 = v13;
+  v41 = v12;
+  v35 = v42;
   v36 = v43;
-  v37 = v44;
-  *&v38 = v45[0];
-  [(CAMPreviewViewController *)self _animateIfNeededWithParameters:&v36 animations:v39 completion:0];
-  layer = [v17 layer];
-  v19 = [layer valueForKeyPath:@"transform.rotation.z"];
-  [v19 doubleValue];
-  v21 = v20;
+  *&v37 = v44[0];
+  [(CAMPreviewViewController *)self _animateIfNeededWithParameters:&v35 animations:v38 completion:0];
+  layer = [v16 layer];
+  v18 = [layer valueForKeyPath:@"transform.rotation.z"];
+  [v18 doubleValue];
+  v20 = v19;
 
-  v22 = atan2(transform->b, transform->a);
-  v23 = vabdd_f64(v22, v21);
-  if (v23 <= vabdd_f64(v22, v21 + 1.57079633) && v23 <= vabdd_f64(v22, v21 + -1.57079633))
+  v21 = atan2(transform->b, transform->a);
+  v22 = vabdd_f64(v21, v20);
+  if (v22 <= vabdd_f64(v21, v20 + 1.57079633) && v22 <= vabdd_f64(v21, v20 + -1.57079633))
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __74__CAMPreviewViewController__animateView_type_withCenter_bounds_transform___block_invoke_2;
-    v27[3] = &unk_1E76FC540;
-    v28 = v17;
-    v29 = x;
-    v30 = y;
-    v31 = width;
-    v32 = height;
-    v26 = *&transform->c;
-    v33 = *&transform->a;
-    v34 = v26;
-    v35 = *&transform->tx;
-    v36 = *&v45[1];
-    v37 = *&v45[3];
-    *&v38 = v45[5];
-    [(CAMPreviewViewController *)self _animateIfNeededWithParameters:&v36 animations:v27 completion:0];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __74__CAMPreviewViewController__animateView_type_withCenter_bounds_transform___block_invoke_2;
+    v26[3] = &unk_1E76FC540;
+    v27 = v16;
+    v28 = x;
+    v29 = y;
+    v30 = width;
+    v31 = height;
+    v25 = *&transform->c;
+    v32 = *&transform->a;
+    v33 = v25;
+    v34 = *&transform->tx;
+    v35 = *&v44[1];
+    v36 = *&v44[3];
+    *&v37 = v44[5];
+    [(CAMPreviewViewController *)self _animateIfNeededWithParameters:&v35 animations:v26 completion:0];
   }
 
   else
   {
-    v24 = *&transform->c;
-    v36 = *&transform->a;
-    v25 = *&transform->tx;
+    v23 = *&transform->c;
+    v35 = *&transform->a;
+    v24 = *&transform->tx;
+    v36 = v23;
     v37 = v24;
-    v38 = v25;
-    [v17 setTransform:&v36];
-    [v17 setBounds:{x, y, width, height}];
+    [v16 setTransform:&v35];
+    [v16 setBounds:{x, y, width, height}];
   }
 }
 
@@ -1809,7 +1809,7 @@ uint64_t __74__CAMPreviewViewController__animateView_type_withCenter_bounds_tran
   }
 }
 
-uint64_t __91__CAMPreviewViewController__fadeOutAndRemoveIndicatorView_forType_identifier_withDuration___block_invoke(uint64_t a1)
+void *__91__CAMPreviewViewController__fadeOutAndRemoveIndicatorView_forType_identifier_withDuration___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alpha];
   if (v3 == 0.0)
@@ -2495,7 +2495,7 @@ LABEL_6:
       v6 = os_log_create("com.apple.camera", "Camera");
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
+        v9[0] = 0;
         _os_log_impl(&dword_1A3640000, v6, OS_LOG_TYPE_DEFAULT, "Trying to group a metadata object that is not a body, assigning a random groupID", v9, 2u);
       }
     }
@@ -5451,7 +5451,7 @@ void __61__CAMPreviewViewController__updatePortraitModeViewsAnimated___block_inv
   v16 = previewView;
   if (previewView)
   {
-    [previewView viewportAnchorsForFrontPIP];
+    objc_msgSend_viewportAnchorsForFrontPIP(previewView);
   }
 
   else
@@ -5545,7 +5545,7 @@ void __61__CAMPreviewViewController__updatePortraitModeViewsAnimated___block_inv
   [frontPIPVideoPreviewView frame];
   if (previewView3)
   {
-    [previewView3 viewportAnchorsForFrontPIPOriginWithSize:{v9, v10}];
+    objc_msgSend_viewportAnchorsForFrontPIPOriginWithSize_(previewView3, v9, v10);
   }
 
   else

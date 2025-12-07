@@ -77,13 +77,13 @@
 
 void __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = ACHLogProgress();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "Progress Engine added provider %@.", buf, 0xCu);
   }
 
@@ -107,40 +107,37 @@ void __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke(
 
   v9 = objc_alloc(MEMORY[0x277CCDD98]);
   v10 = [*(a1 + 40) providerQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke_344;
-  v13[3] = &unk_2784920F0;
-  objc_copyWeak(&v14, &location);
-  objc_copyWeak(&v15, buf);
-  v11 = [v9 initWithMode:0 queue:v10 delay:v13 block:v8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke_344;
+  v12[3] = &unk_2784920F0;
+  objc_copyWeak(&v13, &location);
+  objc_copyWeak(&v14, buf);
+  v11 = [v9 initWithMode:0 queue:v10 delay:v12 block:v8];
 
   [*(*(a1 + 40) + 16) setObject:v11 forKey:*(a1 + 32)];
-  objc_destroyWeak(&v15);
   objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke_344(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = ACHLogProgress();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v8 = 138412290;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "Execute delayed task for provider: %@.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_221DDC000, v2, OS_LOG_TYPE_DEFAULT, "Execute delayed task for provider: %@.", &v7, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 40));
   v5 = [v4 achievementStore];
   v6 = objc_loadWeakRetained((a1 + 32));
   [v5 requestUpdateProgressValuesForProgressProvider:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterProgressProvider:(id)provider
@@ -170,7 +167,7 @@ void __57__ACHAchievementProgressEngine_registerProgressProvider___block_invoke_
 
 void __59__ACHAchievementProgressEngine_deregisterProgressProvider___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) providers];
   v3 = [v2 containsObject:*(a1 + 40)];
 
@@ -181,9 +178,9 @@ void __59__ACHAchievementProgressEngine_deregisterProgressProvider___block_invok
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 40);
-      v15 = 138412290;
-      v16 = v6;
-      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Progress Engine removed provider %@.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v6;
+      _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "Progress Engine removed provider %@.", &v14, 0xCu);
     }
 
     v7 = [*(a1 + 32) providers];
@@ -198,8 +195,6 @@ void __59__ACHAchievementProgressEngine_deregisterProgressProvider___block_invok
   {
     __59__ACHAchievementProgressEngine_deregisterProgressProvider___block_invoke_cold_1((a1 + 40), v5, v8, v9, v10, v11, v12, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestProgressUpdateForProgressProvider:(id)provider
@@ -326,105 +321,103 @@ LABEL_5:
 
 - (void)populateProgressAndGoalForAchievements:(id)achievements
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   achievementsCopy = achievements;
   v5 = ACHLogProgress();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v12 = [achievementsCopy count];
+    v11 = [achievementsCopy count];
     _os_log_impl(&dword_221DDC000, v5, OS_LOG_TYPE_DEFAULT, "populateProgressAndGoalForAchievements: %lu", buf, 0xCu);
   }
 
   providerQueue = [(ACHAchievementProgressEngine *)self providerQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke;
-  v9[3] = &unk_278490898;
-  v9[4] = self;
-  v10 = achievementsCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke;
+  v8[3] = &unk_278490898;
+  v8[4] = self;
+  v9 = achievementsCopy;
   v7 = achievementsCopy;
-  dispatch_async(providerQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(providerQueue, v8);
 }
 
 void __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v2 = [*(a1 + 32) providers];
   v3 = [v2 allObjects];
 
-  v28 = [v3 countByEnumeratingWithState:&v37 objects:v46 count:16];
-  if (v28)
+  v27 = [v3 countByEnumeratingWithState:&v36 objects:v45 count:16];
+  if (v27)
   {
-    v27 = *v38;
+    v26 = *v37;
     *&v4 = 138412546;
-    v26 = v4;
+    v25 = v4;
     do
     {
       v5 = 0;
       do
       {
-        if (*v38 != v27)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(v3);
         }
 
-        v30 = v5;
-        v6 = *(*(&v37 + 1) + 8 * v5);
+        v29 = v5;
+        v6 = *(*(&v36 + 1) + 8 * v5);
         v7 = MEMORY[0x277CBEB58];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke_2;
-        v36[3] = &unk_278492140;
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke_2;
+        v35[3] = &unk_278492140;
         v9 = *(a1 + 32);
         v8 = *(a1 + 40);
-        v29 = v6;
-        v36[4] = v6;
-        v36[5] = v9;
-        v10 = [v8 hk_filter:{v36, v26}];
+        v28 = v6;
+        v35[4] = v6;
+        v35[5] = v9;
+        v10 = [v8 hk_filter:{v35, v25}];
         v11 = [v7 setWithArray:v10];
 
         v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         v13 = v11;
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v45 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v44 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v33;
+          v16 = *v32;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v33 != v16)
+              if (*v32 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v32 + 1) + 8 * i);
+              v18 = *(*(&v31 + 1) + 8 * i);
               v19 = *(a1 + 40);
-              v31[0] = MEMORY[0x277D85DD0];
-              v31[1] = 3221225472;
-              v31[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke_3;
-              v31[3] = &unk_278492168;
-              v31[4] = v18;
-              v20 = [v19 hk_firstObjectPassingTest:v31];
+              v30[0] = MEMORY[0x277D85DD0];
+              v30[1] = 3221225472;
+              v30[2] = __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke_3;
+              v30[3] = &unk_278492168;
+              v30[4] = v18;
+              v20 = [v19 hk_firstObjectPassingTest:v30];
               if (v20)
               {
                 [v12 addObject:v20];
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v32 objects:v45 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v31 objects:v44 count:16];
           }
 
           while (v15);
@@ -438,28 +431,26 @@ void __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements__
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             v23 = [v21 count];
-            *buf = v26;
-            v42 = v29;
-            v43 = 2048;
-            v44 = v23;
+            *buf = v25;
+            v41 = v28;
+            v42 = 2048;
+            v43 = v23;
             _os_log_impl(&dword_221DDC000, v22, OS_LOG_TYPE_DEFAULT, "Request Progress, provider to %@ for %lu templates", buf, 0x16u);
           }
 
           v24 = [v21 allObjects];
-          [v29 requestAchievementProgressUpdatesForTemplates:v24];
+          [v28 requestAchievementProgressUpdatesForTemplates:v24];
         }
 
-        v5 = v30 + 1;
+        v5 = v29 + 1;
       }
 
-      while (v30 + 1 != v28);
-      v28 = [v3 countByEnumeratingWithState:&v37 objects:v46 count:16];
+      while (v29 + 1 != v27);
+      v27 = [v3 countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__ACHAchievementProgressEngine_populateProgressAndGoalForAchievements___block_invoke_2(uint64_t a1, void *a2)
@@ -583,24 +574,23 @@ void __45__ACHAchievementProgressEngine_providerCount__block_invoke(uint64_t a1)
 
 - (void)registerProgressProvider:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not add provider %@ since it doesn't conform to the provider protocol.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not add provider %@ since it doesn't conform to the provider protocol.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)deregisterProgressProvider:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not remove provider %@ since it doesn't conform to the provider protocol.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not remove provider %@ since it doesn't conform to the provider protocol.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __59__ACHAchievementProgressEngine_deregisterProgressProvider___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not remove provider %@ since it was not previously registered.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_221DDC000, a2, a3, "Progress Engine did not remove provider %@ since it was not previously registered.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

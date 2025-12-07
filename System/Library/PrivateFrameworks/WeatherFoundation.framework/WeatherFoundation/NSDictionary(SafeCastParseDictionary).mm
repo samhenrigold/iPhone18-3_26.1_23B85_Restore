@@ -207,7 +207,7 @@
 
 - (uint64_t)BOOLForKey:()SafeCastParseDictionary defaultValue:
 {
-  v5 = [self numberForKey:?];
+  v5 = [self numberForKey:a3];
   v6 = v5;
   if (v5)
   {

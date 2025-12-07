@@ -15,7 +15,7 @@
   if (v2)
   {
     v2->_policy = 0;
-    v4 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:512 valueOptions:0 capacity:0];
+    v4 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:? valueOptions:? capacity:?];
     resources = v3->_resources;
     v3->_resources = v4;
   }
@@ -27,18 +27,18 @@
 {
   resources = self->_resources;
   assetCopy = asset;
-  [(NSMapTable *)resources removeObjectForKey:assetCopy];
+  [(NSMapTable *)resources removeObjectForKey:?];
   [assetCopy decrUseCount];
 }
 
 - (id)resourceForAsset:(id)asset
 {
   assetCopy = asset;
-  v5 = [(NSMapTable *)self->_resources objectForKey:assetCopy];
+  v5 = [(NSMapTable *)self->_resources objectForKey:?];
   if (!v5)
   {
-    v5 = [assetCopy resourceByCachingIfNeeded:self->_policy != 1];
-    [(NSMapTable *)self->_resources setObject:v5 forKey:assetCopy];
+    v5 = [assetCopy resourceByCachingIfNeeded:?];
+    [NSMapTable setObject:"setObject:forKey:" forKey:?];
   }
 
   return v5;

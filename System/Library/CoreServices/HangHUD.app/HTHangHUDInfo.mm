@@ -66,28 +66,29 @@
 
 - (BOOL)isCurrent:(unint64_t)current withHUDUpdateInterval:(double)interval
 {
-  v7 = sub_100017A6C(current - [(HTHangHUDInfo *)self receivedTimestamp]);
+  receivedTimestamp = [(HTHangHUDInfo *)self receivedTimestamp];
+  v9 = sub_100017A6C(current - receivedTimestamp, v8);
   getHangHUDInfoKey = [(HTHangHUDInfo *)self getHangHUDInfoKey];
-  v9 = sub_100002F0C();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100002F0C(getHangHUDInfoKey);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_100019D94(getHangHUDInfoKey, v9, v7);
+    sub_100019D94(getHangHUDInfoKey, v11, v9);
   }
 
-  if ([(HTHangHUDInfo *)self hangEndTime]== 0x7FFFFFFFFFFFFFFFLL || sub_100017A6C(current - [(HTHangHUDInfo *)self hangEndTime]) >= 200.0)
+  if ([(HTHangHUDInfo *)self hangEndTime]== 0x7FFFFFFFFFFFFFFFLL || (v12 = [(HTHangHUDInfo *)self hangEndTime], sub_100017A6C(current - v12, v13) >= 200.0))
   {
-    v11 = +[HangDataStreamStatusTracker sharedInstance];
-    v12 = [v11 isHangEndedWithDuration:getHangHUDInfoKey updateInterval:v7 hangID:interval];
+    v15 = +[HangDataStreamStatusTracker sharedInstance];
+    v16 = [v15 isHangEndedWithDuration:getHangHUDInfoKey updateInterval:v9 hangID:interval];
 
-    v10 = v12 ^ 1;
+    v14 = v16 ^ 1;
   }
 
   else
   {
-    v10 = 1;
+    v14 = 1;
   }
 
-  return v10;
+  return v14;
 }
 
 @end

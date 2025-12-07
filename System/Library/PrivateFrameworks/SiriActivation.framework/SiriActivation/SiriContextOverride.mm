@@ -16,9 +16,100 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)currentSpokenLanguageCodeForSystemState:(id)state;
 - (void)encodeWithCoder:(id)coder;
+- (void)overrideAccessibilityShortcutEnabled:(BOOL)enabled;
+- (void)overrideCarDNDActive:(BOOL)active;
+- (void)overrideConnectedToCarPlay:(BOOL)play;
+- (void)overrideConnectedToTrustedCarPlay:(BOOL)play;
+- (void)overrideDeviceIsBlocked:(BOOL)blocked;
+- (void)overrideDeviceIsPasscodeLocked:(BOOL)locked;
+- (void)overrideHasUnlockedSinceBoot:(BOOL)boot;
+- (void)overrideIsPad:(BOOL)pad;
+- (void)overridePocketStateShouldPreventVoiceTrigger:(BOOL)trigger;
+- (void)overrideSiriIsEnabled:(BOOL)enabled;
+- (void)overrideSiriIsRestricted:(BOOL)restricted;
+- (void)overrideSiriIsSupported:(BOOL)supported;
+- (void)overrideSmartCoverClosed:(BOOL)closed;
 @end
 
 @implementation SiriContextOverride
+
+- (void)overrideHasUnlockedSinceBoot:(BOOL)boot
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:boot];
+  [(SiriContextOverride *)self setUnlockedSinceBoot:v4];
+}
+
+- (void)overrideDeviceIsBlocked:(BOOL)blocked
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:blocked];
+  [(SiriContextOverride *)self setDeviceIsBlocked:v4];
+}
+
+- (void)overrideDeviceIsPasscodeLocked:(BOOL)locked
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:locked];
+  [(SiriContextOverride *)self setDeviceIsPasscodeLocked:v4];
+}
+
+- (void)overridePocketStateShouldPreventVoiceTrigger:(BOOL)trigger
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:trigger];
+  [(SiriContextOverride *)self setPocketStateShouldPreventVoiceTrigger:v4];
+}
+
+- (void)overrideIsPad:(BOOL)pad
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:pad];
+  [(SiriContextOverride *)self setPad:v4];
+}
+
+- (void)overrideSmartCoverClosed:(BOOL)closed
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:closed];
+  [(SiriContextOverride *)self setSmartCoverClosed:v4];
+}
+
+- (void)overrideAccessibilityShortcutEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(SiriContextOverride *)self setAccessibilityShortcutEnabled:v4];
+}
+
+- (void)overrideCarDNDActive:(BOOL)active
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:active];
+  [(SiriContextOverride *)self setCarDNDActive:v4];
+}
+
+- (void)overrideConnectedToTrustedCarPlay:(BOOL)play
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:play];
+  [(SiriContextOverride *)self setConnectedToTrustedCarPlay:v4];
+}
+
+- (void)overrideConnectedToCarPlay:(BOOL)play
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:play];
+  [(SiriContextOverride *)self setConnectedToCarPlay:v4];
+}
+
+- (void)overrideSiriIsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(SiriContextOverride *)self setSiriIsEnabled:v4];
+}
+
+- (void)overrideSiriIsRestricted:(BOOL)restricted
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:restricted];
+  [(SiriContextOverride *)self setSiriIsRestricted:v4];
+}
+
+- (void)overrideSiriIsSupported:(BOOL)supported
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:supported];
+  [(SiriContextOverride *)self setSiriIsSupported:v4];
+}
 
 - (id)currentSpokenLanguageCodeForSystemState:(id)state
 {

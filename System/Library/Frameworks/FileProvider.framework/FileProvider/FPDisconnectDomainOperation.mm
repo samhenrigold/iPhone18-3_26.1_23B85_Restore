@@ -78,12 +78,11 @@ void __55__FPDisconnectDomainOperation__tryDisconnectingSafely___block_invoke(ui
   }
 }
 
-uint64_t __55__FPDisconnectDomainOperation__tryDisconnectingSafely___block_invoke_2(uint64_t result, char a2, uint64_t a3)
+void *__55__FPDisconnectDomainOperation__tryDisconnectingSafely___block_invoke_2(void *result, char a2, uint64_t a3)
 {
   if ((a2 & 1) == 0)
   {
-    v4 = *(result + 40);
-    v3 = *(result + 32);
+    v3 = *(result + 4);
     return [v3 completedWithResult:? error:?];
   }
 
@@ -94,11 +93,11 @@ uint64_t __55__FPDisconnectDomainOperation__tryDisconnectingSafely___block_invok
       return result;
     }
 
-    v3 = *(result + 32);
+    v3 = *(result + 4);
     return [v3 completedWithResult:? error:?];
   }
 
-  return [*(result + 32) _tryDisconnectingSafely:0];
+  return [*(result + 4) _tryDisconnectingSafely:0];
 }
 
 - (void)cancel

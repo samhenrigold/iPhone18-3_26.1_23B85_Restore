@@ -236,7 +236,7 @@ void __74__AVTrackReaderInspector__getFigSampleCursorServiceReportingTimeAccurac
     result = [segments objectAtIndex:0];
     if (result)
     {
-      result = [($2FE3C3292E52C4A5B67D27538456EAD9 *)result timeMapping];
+      result = objc_msgSend_timeMapping(result);
     }
 
     else
@@ -277,7 +277,7 @@ LABEL_10:
   v10 = [segments objectAtIndex:0];
   if (v10)
   {
-    [v10 timeMapping];
+    objc_msgSend_timeMapping(v10);
   }
 
   else
@@ -297,7 +297,7 @@ LABEL_10:
   v12 = [segments objectAtIndex:v6];
   if (v12)
   {
-    [v12 timeMapping];
+    objc_msgSend_timeMapping(v12);
   }
 
   else

@@ -28,18 +28,17 @@
 
 - (void)doMaintenance
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.DPSubmissionService";
-  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Could not create connection to %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.DPSubmissionService";
+  _os_log_error_impl(&dword_22622D000, log, OS_LOG_TYPE_ERROR, "Could not create connection to %@", &v1, 0xCu);
 }
 
 - (BOOL)cleanupStaleTokensInPath:(id)path
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v27 = pathCopy;
+  v26 = pathCopy;
   if (pathCopy)
   {
     v4 = pathCopy;
@@ -53,28 +52,28 @@
   v5 = [_DPReportFilesMaintainer reportsInDirectory:v4, v4];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   date = [MEMORY[0x277CBEAA8] date];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v8 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       v11 = 0;
-      v28 = v9;
+      v27 = v9;
       do
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        path = [*(*(&v31 + 1) + 8 * v11) path];
+        path = [*(*(&v30 + 1) + 8 * v11) path];
         v13 = [defaultManager attributesOfItemAtPath:path error:0];
         fileCreationDate = [v13 fileCreationDate];
 
@@ -83,10 +82,10 @@
         {
           v16 = v10;
           v17 = date;
-          v30 = 0;
+          v29 = 0;
           v18 = defaultManager;
-          v19 = [defaultManager removeItemAtPath:path error:&v30];
-          v20 = v30;
+          v19 = [defaultManager removeItemAtPath:path error:&v29];
+          v20 = v29;
           v21 = +[_DPLog framework];
           v22 = v21;
           if (v19)
@@ -94,7 +93,7 @@
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v36 = path;
+              v35 = path;
               _os_log_impl(&dword_22622D000, v22, OS_LOG_TYPE_INFO, "Successfully removed token bucket file %@.", buf, 0xCu);
             }
           }
@@ -103,29 +102,28 @@
           {
             localizedDescription = [v20 localizedDescription];
             *buf = 138412546;
-            v36 = path;
-            v37 = 2112;
-            v38 = localizedDescription;
+            v35 = path;
+            v36 = 2112;
+            v37 = localizedDescription;
             _os_log_error_impl(&dword_22622D000, v22, OS_LOG_TYPE_ERROR, "Failed to remove token bucket file %@ with error %@.", buf, 0x16u);
           }
 
           date = v17;
           v10 = v16;
           defaultManager = v18;
-          v9 = v28;
+          v9 = v27;
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v9);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -145,7 +143,7 @@
 
 + (unint64_t)getTaskPeriodSeconds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = kSecondsIn4Hours;
   v3 = +[_DPStrings submissionServiceDomainName];
   v4 = +[_DPStrings tokenRefreshHoursKeyName];
@@ -156,10 +154,10 @@
     v8 = +[_DPLog framework];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412546;
-      v15 = v3;
-      v16 = 2048;
-      v17 = v2;
+      v13 = 138412546;
+      v14 = v3;
+      v15 = 2048;
+      v16 = v2;
       v9 = "No defaults in %@, using default token fresh interval of %lu seconds";
       v10 = v8;
       v11 = 22;
@@ -178,17 +176,17 @@ LABEL_8:
     v8 = +[_DPLog framework];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412802;
-      v15 = v3;
-      v16 = 2112;
-      v17 = v4;
-      v18 = 2048;
-      v19 = v2;
+      v13 = 138412802;
+      v14 = v3;
+      v15 = 2112;
+      v16 = v4;
+      v17 = 2048;
+      v18 = v2;
       v9 = "Using value from %@.%@ to refresh tokens every %ld seconds";
       v10 = v8;
       v11 = 32;
 LABEL_7:
-      _os_log_impl(&dword_22622D000, v10, OS_LOG_TYPE_INFO, v9, &v14, v11);
+      _os_log_impl(&dword_22622D000, v10, OS_LOG_TYPE_INFO, v9, &v13, v11);
       goto LABEL_8;
     }
 
@@ -197,7 +195,6 @@ LABEL_7:
 
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

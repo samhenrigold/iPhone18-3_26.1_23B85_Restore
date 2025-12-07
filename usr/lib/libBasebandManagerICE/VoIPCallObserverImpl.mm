@@ -7,10 +7,10 @@
 
 - (VoIPCallObserverImpl)initWithCallback:(function<void)(BOOL queue:()BOOL
 {
-  v26[3] = *MEMORY[0x29EDCA608];
-  v23.receiver = self;
-  v23.super_class = VoIPCallObserverImpl;
-  v6 = [(VoIPCallObserverImpl *)&v23 init];
+  v25[3] = *MEMORY[0x29EDCA608];
+  v22.receiver = self;
+  v22.super_class = VoIPCallObserverImpl;
+  v6 = [(VoIPCallObserverImpl *)&v22 init];
   v7 = v6;
   v8 = v6;
   if (!v6)
@@ -29,11 +29,11 @@
   {
     f = (*(*f->__f_.__buf_.__data + 16))(f);
 LABEL_5:
-    v25 = f;
+    v24 = f;
     goto LABEL_7;
   }
 
-  v25 = buf;
+  v24 = buf;
   (*(*f->__f_.__buf_.__data + 24))(f, buf);
 LABEL_7:
   data = v7->fCallback.__f_.__buf_.__data;
@@ -42,25 +42,25 @@ LABEL_7:
     goto LABEL_16;
   }
 
-  v11 = v25;
+  v11 = v24;
   v12 = v8->fCallback.__f_.__f_;
-  if (v25 == buf)
+  if (v24 == buf)
   {
     if (v12 == data)
     {
-      memset(v26, 170, 24);
-      (*(*v25 + 24))();
-      (*(*v25 + 32))(v25);
-      v25 = 0;
+      memset(v25, 170, 24);
+      (*(*v24 + 24))();
+      (*(*v24 + 32))(v24);
+      v24 = 0;
       (*(*v8->fCallback.__f_.__f_ + 24))(v8->fCallback.__f_.__f_, buf);
       (*(*v8->fCallback.__f_.__f_ + 32))(v8->fCallback.__f_.__f_);
       v8->fCallback.__f_.__f_ = 0;
-      v25 = buf;
-      (*(v26[0] + 24))(v26, data);
-      (*(v26[0] + 32))(v26);
+      v24 = buf;
+      (*(v25[0] + 24))(v25, data);
+      (*(v25[0] + 32))(v25);
       v8->fCallback.__f_.__f_ = data;
-      v13 = v25;
-      if (v25 == buf)
+      v13 = v24;
+      if (v24 == buf)
       {
         goto LABEL_11;
       }
@@ -68,10 +68,10 @@ LABEL_7:
 
     else
     {
-      (*(*v25 + 24))();
-      (*(*v25 + 32))(v25);
-      v25 = v8->fCallback.__f_.__f_;
-      v14 = v25;
+      (*(*v24 + 24))();
+      (*(*v24 + 32))(v24);
+      v24 = v8->fCallback.__f_.__f_;
+      v14 = v24;
       v8->fCallback.__f_.__f_ = data;
       v13 = v14;
       if (v14 == buf)
@@ -87,11 +87,11 @@ LABEL_7:
   {
     (*(*v12 + 24))(v8->fCallback.__f_.__f_, buf);
     (*(*v8->fCallback.__f_.__f_ + 32))(v8->fCallback.__f_.__f_);
-    v8->fCallback.__f_.__f_ = v25;
-    v25 = buf;
+    v8->fCallback.__f_.__f_ = v24;
+    v24 = buf;
 LABEL_16:
-    v13 = v25;
-    if (v25 == buf)
+    v13 = v24;
+    if (v24 == buf)
     {
       goto LABEL_11;
     }
@@ -99,7 +99,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v25 = v8->fCallback.__f_.__f_;
+  v24 = v8->fCallback.__f_.__f_;
   v8->fCallback.__f_.__f_ = v11;
   v13 = v12;
   if (v12 == buf)
@@ -188,13 +188,12 @@ LABEL_24:
   v19 = v8;
 LABEL_29:
 
-  v21 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
 - (void)callObserver:(id)observer callChanged:(id)changed
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   observerCopy = observer;
   changedCopy = changed;
   if ((atomic_load_explicit(&qword_2A18CB148, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A18CB148))
@@ -254,10 +253,10 @@ LABEL_30:
     *&buf[4] = hasConnected;
     *&buf[8] = 1024;
     *&buf[10] = hasEnded;
-    v30 = 1024;
-    v31 = fVoIPCallStarting;
-    v32 = 1024;
-    v33 = fVoIPCallActive;
+    v29 = 1024;
+    v30 = fVoIPCallStarting;
+    v31 = 1024;
+    v32 = fVoIPCallActive;
     _os_log_debug_impl(&dword_297476000, v9, OS_LOG_TYPE_DEBUG, "(1) call connected: %{BOOL}d, call ended: %{BOOL}d, fVoIPCallStarting: %{BOOL}d, fVoIPCallActive: %{BOOL}d", buf, 0x1Au);
     goto LABEL_7;
   }
@@ -340,16 +339,16 @@ LABEL_22:
 
   hasConnected2 = [changedCopy hasConnected];
   hasEnded2 = [changedCopy hasEnded];
-  v25 = self->fVoIPCallStarting;
-  v26 = self->fVoIPCallActive;
+  v24 = self->fVoIPCallStarting;
+  v25 = self->fVoIPCallActive;
   *buf = 67109888;
   *&buf[4] = hasConnected2;
   *&buf[8] = 1024;
   *&buf[10] = hasEnded2;
-  v30 = 1024;
-  v31 = v25;
-  v32 = 1024;
-  v33 = v26;
+  v29 = 1024;
+  v30 = v24;
+  v31 = 1024;
+  v32 = v25;
   _os_log_debug_impl(&dword_297476000, v11, OS_LOG_TYPE_DEBUG, "(2) call connected: %{BOOL}d, call ended: %{BOOL}d, fVoIPCallStarting: %{BOOL}d, fVoIPCallActive: %{BOOL}d", buf, 0x1Au);
   if (!v10)
   {
@@ -361,8 +360,8 @@ LABEL_23:
   v13 = self->fVoIPCallActive;
   providerIdentifier2 = [changedCopy providerIdentifier];
   v15 = providerIdentifier2;
-  v28 = v12;
-  v27 = v13;
+  v27 = v12;
+  v26 = v13;
   *buf = [providerIdentifier2 UTF8String];
   f = self->fCallback.__f_.__f_;
   if (!f)
@@ -370,10 +369,9 @@ LABEL_23:
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*f + 48))(f, &v28, &v27, buf);
+  (*(*f + 48))(f, &v27, &v26, buf);
 
 LABEL_25:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 @end

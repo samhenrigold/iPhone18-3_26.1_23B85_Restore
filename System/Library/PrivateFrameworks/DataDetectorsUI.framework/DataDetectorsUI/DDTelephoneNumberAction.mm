@@ -186,28 +186,25 @@ void __39__DDTelephoneNumberAction_compactTitle__block_invoke(uint64_t a1)
 
 - (id)contactAndLabelForPhoneNumber:(id *)number
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CBDAB8] authorizationStatusForEntityType:0] == 3)
   {
-    v5 = self->super._result;
     if (DDResultGetCategory() != 2)
     {
       goto LABEL_5;
     }
 
-    v6 = self->super._result;
-    v7 = *MEMORY[0x277D041C0];
     if (DDResultGetSubresultWithType())
     {
-      v8 = DDResultGetMatchedString();
-      if (v8)
+      v5 = DDResultGetMatchedString();
+      if (v5)
       {
         goto LABEL_6;
       }
 
 LABEL_5:
-      v8 = self->_phoneNumber;
-      if (v8)
+      v5 = self->_phoneNumber;
+      if (v5)
       {
         goto LABEL_6;
       }
@@ -218,27 +215,26 @@ LABEL_5:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       [DDTelephoneNumberAction contactAndLabelForPhoneNumber:];
-      v20 = self->super._result;
       SubResults = DDResultGetSubResults();
       if (SubResults)
       {
 LABEL_13:
-        v14 = SubResults;
+        v10 = SubResults;
         if (CFArrayGetCount(SubResults) >= 1)
         {
-          v18 = 0;
-          v19 = MEMORY[0x277D86220];
+          v14 = 0;
+          v15 = MEMORY[0x277D86220];
           do
           {
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              [(DDTelephoneNumberAction *)v34 contactAndLabelForPhoneNumber:v14, v18, (v34 + 4)];
+              [(DDTelephoneNumberAction *)v28 contactAndLabelForPhoneNumber:v10, v14, (v28 + 4)];
             }
 
-            ++v18;
+            ++v14;
           }
 
-          while (v18 < CFArrayGetCount(v14));
+          while (v14 < CFArrayGetCount(v10));
         }
 
         goto LABEL_21;
@@ -247,7 +243,6 @@ LABEL_13:
 
     else
     {
-      v12 = self->super._result;
       SubResults = DDResultGetSubResults();
       if (SubResults)
       {
@@ -261,14 +256,14 @@ LABEL_13:
     }
 
 LABEL_21:
-    DDUILogAssertionFailure("valueResult != NULL", "/Library/Caches/com.apple.xbs/Sources/MobileDataDetectorsUI/Actions/DDCallAction.m", "[DDTelephoneNumberAction contactAndLabelForPhoneNumber:]", 209, @"PhoneNumber without a <Value>", v15, v16, v17, v34[0]);
-    v8 = self->_phoneNumber;
-    if (v8)
+    DDUILogAssertionFailure("valueResult != NULL", "/Library/Caches/com.apple.xbs/Sources/MobileDataDetectorsUI/Actions/DDCallAction.m", "[DDTelephoneNumberAction contactAndLabelForPhoneNumber:]", 209, @"PhoneNumber without a <Value>", v11, v12, v13, v28[0]);
+    v5 = self->_phoneNumber;
+    if (v5)
     {
 LABEL_6:
-      dd_formattedPhoneNumber = v8;
-      v10 = DDMakeContactStore();
-      if (v10)
+      dd_formattedPhoneNumber = v5;
+      v7 = DDMakeContactStore();
+      if (v7)
       {
         goto LABEL_34;
       }
@@ -277,17 +272,17 @@ LABEL_6:
     }
 
 LABEL_22:
-    if (self->super._result && (v21 = DDResultCopyExtractedURL()) != 0)
+    if (self->super._result && (v16 = DDResultCopyExtractedURL()) != 0)
     {
-      v22 = v21;
-      v23 = [MEMORY[0x277CBEBC0] URLWithString:v21];
-      scheme = [v23 scheme];
+      v17 = v16;
+      v18 = [MEMORY[0x277CBEBC0] URLWithString:v16];
+      scheme = [v18 scheme];
       lowercaseString = [scheme lowercaseString];
-      v26 = [lowercaseString isEqualToString:@"tel"];
+      v21 = [lowercaseString isEqualToString:@"tel"];
 
-      if (v26)
+      if (v21)
       {
-        dd_formattedPhoneNumber = [(NSURL *)v23 dd_formattedPhoneNumber];
+        dd_formattedPhoneNumber = [(NSURL *)v18 dd_formattedPhoneNumber];
       }
 
       else
@@ -295,27 +290,27 @@ LABEL_22:
         dd_formattedPhoneNumber = 0;
       }
 
-      CFRelease(v22);
+      CFRelease(v17);
 
-      v10 = DDMakeContactStore();
-      if (v10)
+      v7 = DDMakeContactStore();
+      if (v7)
       {
 LABEL_34:
-        v29 = v10;
-        v30 = [(DDTelephoneNumberAction *)self contactsMatchingPhoneNumber:dd_formattedPhoneNumber inContactStore:v10];
-        if ([v30 count] != 1)
+        v23 = v7;
+        v24 = [(DDTelephoneNumberAction *)self contactsMatchingPhoneNumber:dd_formattedPhoneNumber inContactStore:v7];
+        if ([v24 count] != 1)
         {
-          v11 = 0;
+          v8 = 0;
           goto LABEL_42;
         }
 
-        v11 = [v30 objectAtIndexedSubscript:0];
+        v8 = [v24 objectAtIndexedSubscript:0];
         if (number)
         {
           if ([dd_formattedPhoneNumber containsString:@"@"])
           {
-            v32 = [(DDTelephoneNumberAction *)self labelToUseForEmail:dd_formattedPhoneNumber ofContact:v11];
-            if (!v32)
+            v26 = [(DDTelephoneNumberAction *)self labelToUseForEmail:dd_formattedPhoneNumber ofContact:v8];
+            if (!v26)
             {
               goto LABEL_42;
             }
@@ -325,29 +320,29 @@ LABEL_34:
 
           if (dd_formattedPhoneNumber)
           {
-            v31 = [MEMORY[0x277CBDB70] phoneNumberWithStringValue:dd_formattedPhoneNumber];
-            if (!v31)
+            v25 = [MEMORY[0x277CBDB70] phoneNumberWithStringValue:dd_formattedPhoneNumber];
+            if (!v25)
             {
 
               goto LABEL_42;
             }
 
-            v33 = v31;
-            v32 = [(DDTelephoneNumberAction *)self labelToUseForPhoneNumber:v31 ofContact:v11];
+            v27 = v25;
+            v26 = [(DDTelephoneNumberAction *)self labelToUseForPhoneNumber:v25 ofContact:v8];
 
-            if (!v32)
+            if (!v26)
             {
               goto LABEL_42;
             }
 
 LABEL_40:
-            *number = [MEMORY[0x277CBDB20] localizedStringForLabel:v32];
+            *number = [MEMORY[0x277CBDB20] localizedStringForLabel:v26];
           }
         }
 
 LABEL_42:
 
-        v10 = v29;
+        v7 = v23;
         goto LABEL_28;
       }
     }
@@ -355,15 +350,15 @@ LABEL_42:
     else
     {
       dd_formattedPhoneNumber = 0;
-      v10 = DDMakeContactStore();
-      if (v10)
+      v7 = DDMakeContactStore();
+      if (v7)
       {
         goto LABEL_34;
       }
     }
 
 LABEL_27:
-    v11 = 0;
+    v8 = 0;
 LABEL_28:
 
     goto LABEL_29;
@@ -374,16 +369,15 @@ LABEL_28:
     [DDTelephoneNumberAction contactAndLabelForPhoneNumber:];
   }
 
-  v11 = 0;
+  v8 = 0;
 LABEL_29:
-  v27 = *MEMORY[0x277D85DE8];
 
-  return v11;
+  return v8;
 }
 
 - (id)contactsMatchingPhoneNumber:(void *)number inContactStore:
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v5 = a2;
   numberCopy = number;
   if (self)
@@ -410,13 +404,13 @@ LABEL_29:
             }
 
             v10 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-            v21[0] = v10;
+            v20[0] = v10;
             v11 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:1000];
             v12 = *MEMORY[0x277CBD098];
-            v21[1] = v11;
-            v21[2] = v12;
-            v21[3] = *MEMORY[0x277CBCFC0];
-            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+            v20[1] = v11;
+            v20[2] = v12;
+            v20[3] = *MEMORY[0x277CBCFC0];
+            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
             self = [numberCopy unifiedContactsMatchingPredicate:v8 keysToFetch:v13 error:0];
           }
@@ -429,7 +423,7 @@ LABEL_29:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
             OUTLINED_FUNCTION_3_0();
-            _os_log_debug_impl(v16, v17, v18, v19, v20, 0x16u);
+            _os_log_debug_impl(v15, v16, v17, v18, v19, 0x16u);
           }
         }
 
@@ -441,14 +435,11 @@ LABEL_29:
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return self;
 }
 
 - (id)labelToUseForPhoneNumber:(void *)number ofContact:
 {
-  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -496,14 +487,11 @@ LABEL_29:
 LABEL_12:
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return self;
 }
 
 - (id)labelToUseForEmail:(void *)email ofContact:
 {
-  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   emailCopy = email;
   if (self && [v5 length])
@@ -558,17 +546,7 @@ LABEL_15:
     lowercaseString = v5;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return label;
-}
-
-- (void)contactAndLabelForPhoneNumber:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contactAndLabelForPhoneNumber:(CFIndex)idx .cold.3(uint8_t *a1, CFArrayRef theArray, CFIndex idx, uint64_t *a4)

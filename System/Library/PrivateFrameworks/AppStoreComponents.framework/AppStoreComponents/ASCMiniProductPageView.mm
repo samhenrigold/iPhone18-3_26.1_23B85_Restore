@@ -196,17 +196,17 @@ id __40__ASCMiniProductPageView_initWithFrame___block_invoke(uint64_t a1)
 
   if (v3)
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = ASCLocalizedFormatString(@"AX_APP_ICON");
-    v7 = [v5 localizedStringWithFormat:v6, v3];
+    v4 = MEMORY[0x277CCACA8];
+    v5 = ASCLocalizedFormatString(@"AX_APP_ICON");
+    v6 = [v4 localizedStringWithFormat:v5, v3];
   }
 
   else
   {
-    v7 = ASCLocalizedString(@"AX_APP_ICON_PLACEHOLDER", v4);
+    v6 = ASCLocalizedString(@"AX_APP_ICON_PLACEHOLDER");
   }
 
-  return v7;
+  return v6;
 }
 
 - (ASCMiniProductPageView)initWithCoder:(id)coder

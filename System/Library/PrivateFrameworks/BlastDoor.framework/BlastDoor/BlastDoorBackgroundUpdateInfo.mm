@@ -34,11 +34,10 @@
     }
 
     v4 = *&self->backgroundUpdateInfo[OBJC_IVAR___BlastDoorBackgroundUpdateInfo_backgroundUpdateInfo + 176];
-    v5 = *&self->backgroundUpdateInfo[OBJC_IVAR___BlastDoorBackgroundUpdateInfo_backgroundUpdateInfo + 184];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else
@@ -114,11 +113,10 @@
     }
 
     v4 = *&self->backgroundUpdateInfo[OBJC_IVAR___BlastDoorBackgroundUpdateInfo_backgroundUpdateInfo + 264];
-    v5 = *&self->backgroundUpdateInfo[OBJC_IVAR___BlastDoorBackgroundUpdateInfo_backgroundUpdateInfo + 272];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else

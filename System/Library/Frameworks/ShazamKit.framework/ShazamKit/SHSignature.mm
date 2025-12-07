@@ -28,18 +28,18 @@
   v8 = 0;
   v3 = [SHSigUtilities signatureFileTypeForData:data error:&v8];
   v4 = v8;
+  v5 = v4;
   if (!v3)
   {
-    v5 = sh_log_object();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sh_log_object(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_ERROR, "Could not determine signature file type %@", buf, 0xCu);
+      v10 = v5;
+      _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Could not determine signature file type %@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -133,14 +133,15 @@ LABEL_16:
       v9 = v19;
       v10 = v18;
       v11 = v17;
+      v12 = v11;
       if (!v8)
       {
-        v14 = sh_log_object();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = sh_log_object(v11);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v22 = v11;
-          _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_ERROR, "Could not separate signatures: %@", buf, 0xCu);
+          v22 = v12;
+          _os_log_impl(&dword_230F52000, v15, OS_LOG_TYPE_ERROR, "Could not separate signatures: %@", buf, 0xCu);
         }
 
         selfCopy = 0;
@@ -161,7 +162,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -177,6 +177,7 @@ LABEL_11:
   v13 = v22;
   v14 = v21;
   v15 = v20;
+  v16 = v15;
   if (v12)
   {
     self = [(SHSignature *)self initWithID:dCopy spectralPeaksData:v13 musicalFeaturesData:v14 startTime:timeCopy error:error];
@@ -185,18 +186,17 @@ LABEL_11:
 
   else
   {
-    v17 = sh_log_object();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sh_log_object(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v15;
-      _os_log_impl(&dword_230F52000, v17, OS_LOG_TYPE_ERROR, "Could not separate signatures: %@", buf, 0xCu);
+      v24 = v16;
+      _os_log_impl(&dword_230F52000, v18, OS_LOG_TYPE_ERROR, "Could not separate signatures: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -258,7 +258,7 @@ LABEL_11:
   {
     data = [MEMORY[0x277CBEA90] data];
 LABEL_11:
-    v13 = data;
+    v14 = data;
     goto LABEL_16;
   }
 
@@ -290,23 +290,22 @@ LABEL_11:
 
   else
   {
-    v14 = sh_log_object();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sh_log_object(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v19 = v11;
-      _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_ERROR, "Could not coalesce signature with error %@", buf, 0xCu);
+      _os_log_impl(&dword_230F52000, v15, OS_LOG_TYPE_ERROR, "Could not coalesce signature with error %@", buf, 0xCu);
     }
 
     data2 = [MEMORY[0x277CBEA90] data];
   }
 
-  v13 = data2;
+  v14 = data2;
 
 LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
 
-  return v13;
+  return v14;
 }
 
 - (SHSignature)init
@@ -387,14 +386,15 @@ LABEL_16:
     [SHSigUtilities signatureDurationForData:dataCopy error:&v10];
     v5 = v4;
     v6 = v10;
+    v7 = v6;
     if (v6)
     {
-      v7 = sh_log_object();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sh_log_object(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v6;
-        _os_log_impl(&dword_230F52000, v7, OS_LOG_TYPE_ERROR, "Error getting signature duration, returning 0, %@", buf, 0xCu);
+        v12 = v7;
+        _os_log_impl(&dword_230F52000, v8, OS_LOG_TYPE_ERROR, "Error getting signature duration, returning 0, %@", buf, 0xCu);
       }
 
       v5 = 0.0;
@@ -406,7 +406,6 @@ LABEL_16:
     v5 = 0.0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -529,30 +528,30 @@ LABEL_16:
 
     if (v17)
     {
-      v18 = sh_log_object();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = sh_log_object(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         dataRepresentation3 = [(SHSignature *)self dataRepresentation];
         *buf = 138412546;
         v33 = dataRepresentation3;
         v34 = 2112;
         v35 = v17;
-        _os_log_impl(&dword_230F52000, v18, OS_LOG_TYPE_ERROR, "Could not retrieve signature info for data %@ with error: %@", buf, 0x16u);
+        _os_log_impl(&dword_230F52000, v19, OS_LOG_TYPE_ERROR, "Could not retrieve signature info for data %@ with error: %@", buf, 0x16u);
       }
     }
 
-    v20 = [v16 valueForKey:0x2845C8610];
-    unsignedLongValue = [v20 unsignedLongValue];
+    v21 = [v16 valueForKey:0x2845C8610];
+    unsignedLongValue = [v21 unsignedLongValue];
 
-    v22 = [v16 valueForKey:0x2845C8630];
-    v23 = [v16 valueForKey:0x2845C8650];
-    v24 = [v16 valueForKey:0x2845C8670];
-    unsignedLongValue2 = [v24 unsignedLongValue];
+    v23 = [v16 valueForKey:0x2845C8630];
+    v24 = [v16 valueForKey:0x2845C8650];
+    v25 = [v16 valueForKey:0x2845C8670];
+    unsignedLongValue2 = [v25 unsignedLongValue];
 
-    v26 = [v16 valueForKey:0x2845C8690];
-    unsignedLongValue3 = [v26 unsignedLongValue];
+    v27 = [v16 valueForKey:0x2845C8690];
+    unsignedLongValue3 = [v27 unsignedLongValue];
 
-    [v7 appendFormat:@" sampleRate='%lu Hz' softwareVersion='%@' fileVersion='%@' numberOfFeatures='%lu' numberOfBands='%lu'", unsignedLongValue, v22, v23, unsignedLongValue2, unsignedLongValue3];
+    [v7 appendFormat:@" sampleRate='%lu Hz' softwareVersion='%@' fileVersion='%@' numberOfFeatures='%lu' numberOfBands='%lu'", unsignedLongValue, v23, v24, unsignedLongValue2, unsignedLongValue3];
   }
 
   else
@@ -562,7 +561,6 @@ LABEL_16:
   }
 
   [v7 appendString:@">"];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -84,10 +84,11 @@ void sub_100001D8C(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_100002420(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002420(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 Swift::Int sub_100002498()
@@ -98,11 +99,11 @@ Swift::Int sub_100002498()
   return sub_100004970();
 }
 
-Swift::Int sub_10000250C()
+Swift::Int sub_10000250C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_100004950();
-  sub_100004960(v1);
+  sub_100004960(v2);
   return sub_100004970();
 }
 
@@ -266,6 +267,82 @@ id ICCloudSyncingObject.MoveAction.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
+Swift::Void __swiftcall ICCloudSyncingObject.persistParticipantActivityEvents(oldShare:newShare:)(CKShare_optional oldShare, CKShare_optional newShare)
+{
+  v3 = v2;
+  v4 = *&oldShare.is_nil;
+  isa = oldShare.value.super.super.isa;
+  v6 = sub_1000041D0(&qword_10000C558, &qword_1000051B0);
+  v28 = *(v6 - 8);
+  v29 = v6;
+  __chkstk_darwin(v6);
+  v8 = &v27 - v7;
+  v9 = sub_1000041D0(&qword_10000C560, &qword_1000051B8);
+  v10 = __chkstk_darwin(isa);
+  v12 = &v27 - v11;
+  if (v10)
+  {
+    v13 = [v10 ic_nonCurrentUserParticipants];
+    sub_100004408(0, &qword_10000C580, CKShareParticipant_ptr);
+    v14 = sub_1000048B0();
+  }
+
+  else
+  {
+    v14 = &_swiftEmptyArrayStorage;
+  }
+
+  v15 = sub_1000033B4(v14);
+  if (v4)
+  {
+    v16 = [v4 ic_nonCurrentUserParticipants];
+    sub_100004408(0, &qword_10000C580, CKShareParticipant_ptr);
+    v17 = sub_1000048B0();
+  }
+
+  else
+  {
+    v17 = &_swiftEmptyArrayStorage;
+  }
+
+  v30[0] = sub_1000033B4(v17);
+  v30[4] = v15;
+  sub_1000041D0(&qword_10000C568, &qword_1000051C0);
+  sub_1000043BC(&qword_10000C570, &qword_10000C568, &qword_1000051C0, &protocol conformance descriptor for [A]);
+  sub_100004260();
+  sub_1000048A0();
+
+  v19 = v28;
+  v18 = v29;
+  (*(v28 + 16))(v12, v8, v29);
+  v20 = *(v9 + 36);
+  sub_1000043BC(&qword_10000C588, &qword_10000C558, &qword_1000051B0, &protocol conformance descriptor for CollectionDifference<A>);
+  sub_1000048C0();
+  (*(v19 + 8))(v8, v18);
+  while (1)
+  {
+    sub_1000048D0();
+    if (*&v12[v20] == v30[0])
+    {
+      break;
+    }
+
+    v21 = sub_1000048F0();
+    v23 = *(v22 + 8);
+    v24 = *(v22 + 25);
+    v25 = v23;
+    v21(v30, 0);
+    sub_1000048E0();
+    v26 = &selRef_persistRemoveParticipantActivityEventForObject_participant_;
+    if (!v24)
+    {
+      v26 = &selRef_persistAddParticipantActivityEventForObject_participant_;
+    }
+  }
+
+  sub_1000042D0(v12, &qword_10000C560, &qword_1000051B8);
+}
+
 void *sub_1000033B4(unint64_t a1)
 {
   if (!(a1 >> 62))
@@ -281,13 +358,13 @@ LABEL_7:
     return &_swiftEmptyArrayStorage;
   }
 
-  v4 = v3;
-  v5 = sub_100003A44(v3, 0);
-  sub_100003890(v5 + 32, v4, a1);
-  v7 = v6;
+  v6 = v3;
+  v7 = sub_100003A44(v3, 0, v4, v5);
+  sub_100003890(v7 + 32, v6, a1);
+  v9 = v8;
 
-  result = v5;
-  if (v7 != v4)
+  result = v7;
+  if (v9 != v6)
   {
     __break(1u);
     goto LABEL_7;
@@ -298,41 +375,37 @@ LABEL_7:
 
 uint64_t sub_100003530(unsigned int *a1)
 {
-  v22 = a1;
-  v23 = sub_100004860();
-  v2 = *(v23 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v23);
-  v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100004870();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1000041D0(&qword_10000C590, &qword_1000051C8);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v22 - v13;
-  v15 = sub_100004890();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = &v22 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = v1;
+  v18 = a1;
+  v19 = sub_100004860();
+  v2 = *(v19 - 8);
+  __chkstk_darwin(v19);
+  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100004870();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_1000041D0(&qword_10000C590, &qword_1000051C8);
+  __chkstk_darwin(v9 - 8);
+  v11 = &v18 - v10;
+  v12 = sub_100004890();
+  v13 = *(v12 - 8);
+  __chkstk_darwin(v12);
+  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = v1;
   sub_100004880();
-  if ((*(v16 + 48))(v14, 1, v15) == 1)
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    return sub_1000042D0(v14, &qword_10000C590, &qword_1000051C8);
+    return sub_1000042D0(v11, &qword_10000C590, &qword_1000051C8);
   }
 
-  (*(v16 + 32))(v19, v14, v15);
-  (*(v16 + 16))(v10, v19, v15);
-  (*(v7 + 104))(v10, *v22, v6);
+  (*(v13 + 32))(v15, v11, v12);
+  (*(v13 + 16))(v8, v15, v12);
+  (*(v6 + 104))(v8, *v18, v5);
   sub_100004850();
 
-  (*(v2 + 8))(v5, v23);
-  (*(v7 + 8))(v10, v6);
-  return (*(v16 + 8))(v19, v15);
+  (*(v2 + 8))(v4, v19);
+  (*(v6 + 8))(v8, v5);
+  return (*(v13 + 8))(v15, v12);
 }
 
 uint64_t sub_100003890(uint64_t result, uint64_t a2, unint64_t a3)
@@ -370,7 +443,7 @@ uint64_t sub_100003890(uint64_t result, uint64_t a2, unint64_t a3)
       {
         if (v6 >= 1)
         {
-          sub_1000043BC(&qword_10000C5C8, &qword_10000C568, &qword_1000051C0);
+          sub_1000043BC(&qword_10000C5C8, &qword_10000C568, &qword_1000051C0, &protocol conformance descriptor for [A]);
           for (i = 0; i != v6; ++i)
           {
             sub_1000041D0(&qword_10000C568, &qword_1000051C0);
@@ -408,37 +481,37 @@ LABEL_16:
   return result;
 }
 
-void *sub_100003A44(uint64_t a1, uint64_t a2)
+void *sub_100003A44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 <= a1)
   {
-    v2 = a1;
+    v4 = a1;
   }
 
   else
   {
-    v2 = a2;
+    v4 = a2;
   }
 
-  if (!v2)
+  if (!v4)
   {
     return &_swiftEmptyArrayStorage;
   }
 
   sub_1000041D0(&qword_10000C5D0, "X\r");
-  v4 = swift_allocObject();
-  v5 = j__malloc_size(v4);
-  result = v4;
-  v8 = v5 - 32;
-  v7 = v5 < 32;
-  v9 = v5 - 25;
-  if (!v7)
+  v6 = swift_allocObject();
+  v7 = j__malloc_size(v6);
+  result = v6;
+  v10 = v7 - 32;
+  v9 = v7 < 32;
+  v11 = v7 - 25;
+  if (!v9)
   {
-    v9 = v8;
+    v11 = v10;
   }
 
-  v4[2] = a1;
-  v4[3] = (2 * (v9 >> 3)) | 1;
+  v6[2] = a1;
+  v6[3] = (2 * (v11 >> 3)) | 1;
   return result;
 }
 
@@ -643,7 +716,6 @@ LABEL_33:
     }
 
 LABEL_39:
-    v31 = *(a1 + OBJC_IVAR___ICCloudSyncingObjectMoveAction_type);
     sub_100004940();
     __break(1u);
     return;
@@ -708,7 +780,6 @@ uint64_t sub_1000041D0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -721,7 +792,6 @@ uint64_t sub_100004218(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -761,7 +831,7 @@ unint64_t sub_100004334()
   return result;
 }
 
-uint64_t sub_1000043BC(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_1000043BC(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -774,12 +844,11 @@ uint64_t sub_1000043BC(unint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_100004408(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100004408(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);

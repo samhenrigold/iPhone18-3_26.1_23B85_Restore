@@ -1,3 +1,802 @@
+void xmlInitNodeInfoSeq(xmlParserNodeInfoSeqPtr seq)
+{
+  if (seq)
+  {
+    seq->maximum = 0;
+    seq->length = 0;
+    seq->buffer = 0;
+  }
+}
+
+void xmlClearParserCtxt(xmlParserCtxtPtr ctxt)
+{
+  if (ctxt)
+  {
+    buffer = ctxt->node_seq.buffer;
+    if (buffer)
+    {
+      free(buffer);
+    }
+
+    ctxt->node_seq.maximum = 0;
+    ctxt->node_seq.length = 0;
+    ctxt->node_seq.buffer = 0;
+
+    xmlCtxtReset(ctxt);
+  }
+}
+
+void xmlClearNodeInfoSeq(xmlParserNodeInfoSeqPtr seq)
+{
+  if (seq)
+  {
+    buffer = seq->buffer;
+    if (buffer)
+    {
+      free(buffer);
+    }
+
+    seq->maximum = 0;
+    seq->length = 0;
+    seq->buffer = 0;
+  }
+}
+
+const xmlParserNodeInfo *__cdecl xmlParserFindNodeInfo(const xmlParserCtxtPtr ctxt, const xmlNodePtr node)
+{
+  result = 0;
+  if (ctxt)
+  {
+    if (node)
+    {
+      NodeInfoIndex = xmlParserFindNodeInfoIndex(&ctxt->node_seq, node);
+      if (NodeInfoIndex >= ctxt->node_seq.length)
+      {
+        return 0;
+      }
+
+      result = &ctxt->node_seq.buffer[NodeInfoIndex];
+      if (result->node != node)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+unint64_t xmlParserFindNodeInfoIndex(const xmlParserNodeInfoSeqPtr seq, const xmlNodePtr node)
+{
+  length = -1;
+  if (seq)
+  {
+    if (node)
+    {
+      length = seq->length;
+      if (length)
+      {
+        v3 = 1;
+        do
+        {
+          v4 = v3 + ((length - v3) >> 1);
+          v5 = seq->buffer[v4 - 1].node;
+          if (v5 > node)
+          {
+            length = v4 - 1;
+          }
+
+          if (v5 < node)
+          {
+            v3 = v4 + 1;
+          }
+        }
+
+        while (v3 <= length && v5 != node);
+        if (v4)
+        {
+          if (seq->buffer[v4 - 1].node >= node)
+          {
+            return v4 - 1;
+          }
+
+          else
+          {
+            return v4;
+          }
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return length;
+}
+
+void xmlParserAddNodeInfo(xmlParserCtxtPtr ctxt, const xmlParserNodeInfoPtr info)
+{
+  if (!ctxt || !info)
+  {
+    return;
+  }
+
+  node = info->node;
+  NodeInfoIndex = xmlParserFindNodeInfoIndex(&ctxt->node_seq, info->node);
+  v6 = NodeInfoIndex;
+  length = ctxt->node_seq.length;
+  if (NodeInfoIndex < length)
+  {
+    buffer = ctxt->node_seq.buffer;
+    if (buffer)
+    {
+      v9 = &buffer[NodeInfoIndex];
+      if (v9->node == node)
+      {
+        v20 = *&info->node;
+        v21 = *&info->begin_line;
+        v9->end_line = info->end_line;
+        *&v9->node = v20;
+        *&v9->begin_line = v21;
+        return;
+      }
+    }
+  }
+
+  maximum = ctxt->node_seq.maximum;
+  if (length + 1 <= maximum)
+  {
+    v11 = ctxt->node_seq.buffer;
+    if (v11)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  if (maximum)
+  {
+    if (maximum >= 0x3333334)
+    {
+      v12 = "detected unsigned wraparound \n";
+LABEL_23:
+
+      xmlErrMemory(ctxt, v12);
+      return;
+    }
+  }
+
+  else
+  {
+    LODWORD(maximum) = 2;
+    ctxt->node_seq.maximum = 2;
+  }
+
+  v13 = ctxt->node_seq.buffer;
+  if (!v13)
+  {
+    v11 = malloc_type_malloc((80 * maximum), 0x1060040A09B13B7uLL);
+    if (v11)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_22:
+    v12 = "failed to allocate buffer\n";
+    goto LABEL_23;
+  }
+
+  v11 = malloc_type_realloc(v13, (80 * maximum), 0x1060040A09B13B7uLL);
+  if (!v11)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_14:
+  ctxt->node_seq.buffer = v11;
+  length = ctxt->node_seq.length;
+  ctxt->node_seq.maximum *= 2;
+LABEL_15:
+  if (length > v6)
+  {
+    v14 = length;
+    do
+    {
+      v15 = &ctxt->node_seq.buffer[v14];
+      v16 = *&v15[-1].begin_line;
+      *&v15->node = *&v15[-1].node;
+      *&v15->begin_line = v16;
+      v15->end_line = v15[-1].end_line;
+      --length;
+      --v14;
+    }
+
+    while (length > v6);
+    v11 = ctxt->node_seq.buffer;
+  }
+
+  v17 = &v11[v6];
+  v18 = *&info->node;
+  v19 = *&info->begin_line;
+  v17->end_line = info->end_line;
+  *&v17->node = v18;
+  *&v17->begin_line = v19;
+  ++ctxt->node_seq.length;
+}
+
+int xmlPedanticParserDefault(int val)
+{
+  v2 = *__xmlPedanticParserDefaultValue();
+  *__xmlPedanticParserDefaultValue() = val;
+  return v2;
+}
+
+int xmlLineNumbersDefault(int val)
+{
+  v2 = *__xmlLineNumbersDefaultValue();
+  *__xmlLineNumbersDefaultValue() = val;
+  return v2;
+}
+
+int xmlSubstituteEntitiesDefault(int val)
+{
+  v2 = *__xmlSubstituteEntitiesDefaultValue();
+  *__xmlSubstituteEntitiesDefaultValue() = val;
+  return v2;
+}
+
+int xmlKeepBlanksDefault(int val)
+{
+  v2 = *__xmlKeepBlanksDefaultValue();
+  *__xmlKeepBlanksDefaultValue() = val;
+  if (!val)
+  {
+    *__xmlIndentTreeOutput() = 1;
+  }
+
+  return v2;
+}
+
+void xmlFreePatternList(xmlPatternPtr comp)
+{
+  if (comp)
+  {
+    v1 = comp;
+    do
+    {
+      v2 = *(v1 + 2);
+      *(v1 + 2) = 0;
+      v3 = *(v1 + 7);
+      if (v3)
+      {
+        xmlFreeStreamComp(v3);
+      }
+
+      v4 = *(v1 + 3);
+      if (v4)
+      {
+        free(v4);
+      }
+
+      v5 = *(v1 + 6);
+      if (v5)
+      {
+        if (!*(v1 + 1) && *(v1 + 9) >= 1)
+        {
+          v6 = 0;
+          v7 = 0;
+          do
+          {
+            v8 = *(v1 + 6) + v6;
+            v9 = *(v8 + 8);
+            if (v9)
+            {
+              free(v9);
+            }
+
+            v10 = *(v8 + 16);
+            if (v10)
+            {
+              free(v10);
+            }
+
+            ++v7;
+            v6 += 24;
+          }
+
+          while (v7 < *(v1 + 9));
+          v5 = *(v1 + 6);
+        }
+
+        free(v5);
+      }
+
+      v11 = *(v1 + 1);
+      if (v11)
+      {
+        xmlDictFree(v11);
+      }
+
+      *&v12 = -1;
+      *(&v12 + 1) = -1;
+      *(v1 + 2) = v12;
+      *(v1 + 3) = v12;
+      *v1 = v12;
+      *(v1 + 1) = v12;
+      free(v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+void xmlFreeStreamCtxt(xmlStreamCtxtPtr stream)
+{
+  if (stream)
+  {
+    v1 = stream;
+    do
+    {
+      v2 = *v1;
+      v3 = *(v1 + 4);
+      if (v3)
+      {
+        free(v3);
+      }
+
+      free(v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+uint64_t xmlStreamPushInternal(uint64_t *a1, xmlChar *a2, xmlChar *a3, int a4)
+{
+  if (!a1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v4 = a1;
+  v5 = 0xFFFFFFFFLL;
+  if ((a1[2] & 0x80000000) == 0)
+  {
+    v7 = a3;
+    v8 = a2;
+    v9 = 0;
+    v10 = 0;
+    if (a2)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v11 = a4 == 1;
+    }
+
+    v13 = v11 && a3 == 0;
+    v64 = a4 - 3;
+    while (1)
+    {
+      v14 = 0;
+      v15 = v10;
+      v16 = v4;
+      while (1)
+      {
+        v17 = *(v16 + 8);
+        if (v13)
+        {
+          break;
+        }
+
+        if (*(v17 + 8))
+        {
+          if (*(v16 + 44) != -1 || v64 <= 0xFFFFFFFD && (*(v17 + 25) & 0x40) == 0)
+          {
+LABEL_79:
+            ++*(v16 + 24);
+            goto LABEL_17;
+          }
+
+          v60 = v10;
+          v61 = v9;
+          str2 = v8;
+          v63 = v7;
+          v19 = *(v16 + 16);
+          if (v19 >= 1)
+          {
+            v20 = 0;
+            v21 = *(v17 + 24);
+            do
+            {
+              v22 = *(v16 + 32);
+              if ((v21 & 0x10000) != 0)
+              {
+                v25 = *(v22 + 4 * (2 * v20));
+                if ((v25 & 0x80000000) != 0)
+                {
+                  goto LABEL_67;
+                }
+
+                v34 = *(v22 + 4 * ((2 * v20) | 1u));
+                v24 = *(v16 + 24);
+                if (v34 > v24)
+                {
+                  goto LABEL_67;
+                }
+
+                v26 = *(v17 + 16);
+                if (v34 < v24 && (*(v26 + 32 * v25) & 1) == 0)
+                {
+                  goto LABEL_67;
+                }
+              }
+
+              else
+              {
+                v23 = 2 * *(v16 + 16);
+                v24 = *(v16 + 24);
+                if (*(v22 + 4 * (v23 - 1)) < v24)
+                {
+                  return 0xFFFFFFFFLL;
+                }
+
+                LODWORD(v25) = *(v22 + 4 * (v23 - 2));
+                v26 = *(v17 + 16);
+                v20 = v19;
+              }
+
+              v27 = (v26 + 32 * v25);
+              v28 = *v27;
+              v29 = v27[6];
+              if (v29 == a4)
+              {
+                if (a4 != 100)
+                {
+                  v30 = *(v27 + 1);
+                  v31 = *(v27 + 2);
+                  if (v30)
+                  {
+                    v32 = 1;
+                    if (!str2 || (v63 == 0) == (v31 != 0))
+                    {
+                      goto LABEL_60;
+                    }
+
+                    if (*v30 != *str2)
+                    {
+                      goto LABEL_59;
+                    }
+
+                    v56 = v14;
+                    v57 = v15;
+                    if (!xmlStrEqual(v30, str2))
+                    {
+                      v32 = 1;
+                      v14 = v56;
+                      v15 = v57;
+                      goto LABEL_60;
+                    }
+
+                    LODWORD(v15) = v57;
+                    if (v31 != v63)
+                    {
+                      v33 = xmlStrEqual(v31, v63);
+                      v14 = v56;
+                      v15 = v57;
+                      if (!v33)
+                      {
+                        goto LABEL_59;
+                      }
+                    }
+                  }
+
+                  else if (v31)
+                  {
+                    if (!v63)
+                    {
+                      goto LABEL_59;
+                    }
+
+                    v58 = v15;
+                    v36 = v14;
+                    v37 = xmlStrEqual(*(v27 + 2), v63);
+                    v15 = v58;
+                    if (!v37)
+                    {
+                      v14 = v36;
+LABEL_59:
+                      v32 = 1;
+                      goto LABEL_60;
+                    }
+                  }
+                }
+              }
+
+              else if (v29 != 100)
+              {
+                if (v29 != 2 || (v21 & 0x10000) != 0)
+                {
+                  goto LABEL_67;
+                }
+
+LABEL_65:
+                *(v16 + 44) = v24 + 1;
+                goto LABEL_67;
+              }
+
+              if ((v28 & 2) != 0)
+              {
+                v32 = 0;
+                v14 = v28 & 2;
+                v15 = 1;
+              }
+
+              else
+              {
+                v38 = v25 + 1;
+                v39 = v15;
+                xmlStreamCtxtAddState(v16, v38, *(v16 + 24) + 1);
+                v32 = 0;
+                if (v39 == 1)
+                {
+                  v15 = 1;
+                }
+
+                else
+                {
+                  v15 = (v28 >> 5) & 1;
+                }
+
+                v14 = 0;
+              }
+
+LABEL_60:
+              v21 = *(v17 + 24);
+              if ((v21 & 0x10000) == 0)
+              {
+                if (v14)
+                {
+                  v32 = 1;
+                }
+
+                if (v32 != 1)
+                {
+                  v14 = 0;
+                  goto LABEL_67;
+                }
+
+                v24 = *(v16 + 24);
+                goto LABEL_65;
+              }
+
+LABEL_67:
+              ++v20;
+            }
+
+            while (v20 < v19);
+          }
+
+          v40 = *(v16 + 24);
+          *(v16 + 24) = v40 + 1;
+          v41 = *(v17 + 16);
+          v42 = *v41;
+          if ((*v41 & 4) != 0)
+          {
+            v9 = v61;
+            v7 = v63;
+          }
+
+          else
+          {
+            v43 = *(v41 + 1);
+            v44 = *(v41 + 2);
+            v45 = v41[6];
+            v46 = *(v16 + 40);
+            v7 = v63;
+            if ((v46 & 7) != 0)
+            {
+              if (v40)
+              {
+                if ((v42 & 1) == 0 && (v40 != 1 || (v46 & 6) == 0))
+                {
+                  goto LABEL_96;
+                }
+              }
+
+              else if ((v46 & 6) != 0)
+              {
+                goto LABEL_96;
+              }
+            }
+
+            if (v45 == a4)
+            {
+              if (a4 == 100)
+              {
+                goto LABEL_94;
+              }
+
+              if (v43)
+              {
+                if (!str2 || (v63 == 0) == (v44 != 0) || *v43 != *str2 || (v47 = v15, v48 = xmlStrEqual(v43, str2), v15 = v47, !v48) || v44 != v63 && (v49 = xmlStrEqual(v44, v63), v15 = v47, !v49))
+                {
+LABEL_106:
+                  v14 = v42 & 2;
+                  v50 = 1;
+                  goto LABEL_107;
+                }
+
+LABEL_94:
+                v14 = v42 & 2;
+                if ((v42 & 2) != 0)
+                {
+LABEL_95:
+                  v50 = 0;
+                  v15 = 1;
+                  goto LABEL_107;
+                }
+
+LABEL_102:
+                v52 = v15;
+                xmlStreamCtxtAddState(v16, 1, *(v16 + 24));
+                v14 = 0;
+                if (v52 == 1)
+                {
+                  v15 = 1;
+                }
+
+                else
+                {
+                  v15 = (v42 >> 5) & 1;
+                }
+
+                v50 = 0;
+LABEL_107:
+                v10 = v60;
+                v9 = v61;
+              }
+
+              else
+              {
+                if (!v44)
+                {
+                  goto LABEL_94;
+                }
+
+                if (!v63)
+                {
+                  goto LABEL_106;
+                }
+
+                v59 = v15;
+                v51 = xmlStrEqual(v44, v63);
+                v14 = v42 & 2;
+                if (v51)
+                {
+                  LODWORD(v15) = v59;
+                  if ((v42 & 2) != 0)
+                  {
+                    goto LABEL_95;
+                  }
+
+                  goto LABEL_102;
+                }
+
+                v50 = 1;
+                v10 = v60;
+                v9 = v61;
+                v15 = v59;
+              }
+
+              v8 = str2;
+              if ((*(v17 + 26) & 1) == 0)
+              {
+                if (((v14 == 0) & ~v50) != 0)
+                {
+                  v14 = 0;
+                }
+
+                else
+                {
+                  *(v16 + 44) = *(v16 + 24);
+                }
+              }
+
+              goto LABEL_17;
+            }
+
+            if (a4 != 2 && v45 == 100)
+            {
+              goto LABEL_94;
+            }
+
+LABEL_96:
+            v9 = v61;
+          }
+
+          v8 = str2;
+          v10 = v60;
+          goto LABEL_17;
+        }
+
+        v18 = *(v16 + 40);
+        if ((v18 & 1) == 0)
+        {
+          if (a4 != 2 && ((v18 & 6) == 0 || !*(v16 + 24)))
+          {
+            v15 = 1;
+          }
+
+          goto LABEL_79;
+        }
+
+LABEL_17:
+        v16 = *v16;
+        if (!v16)
+        {
+          LODWORD(v10) = v15;
+LABEL_125:
+          if (v9 > 0)
+          {
+            return 0xFFFFFFFFLL;
+          }
+
+          else
+          {
+            return v10;
+          }
+        }
+      }
+
+      *(v4 + 4) = 0;
+      *(v4 + 6) = 0;
+      *(v4 + 11) = -1;
+      if ((*(v17 + 25) & 0x80) != 0)
+      {
+        v53 = *(v17 + 8);
+        if (v53)
+        {
+          if (v53 != 1)
+          {
+            v54 = *(v17 + 16);
+LABEL_120:
+            if ((*v54 & 4) != 0)
+            {
+              v9 += xmlStreamCtxtAddState(v4, 0, 0) >> 31;
+            }
+
+            goto LABEL_122;
+          }
+
+          v54 = *(v17 + 16);
+          if (*(v54 + 24) != 100 || (*v54 & 1) == 0)
+          {
+            goto LABEL_120;
+          }
+        }
+
+        v10 = 1;
+      }
+
+LABEL_122:
+      v4 = *v4;
+      if (!v4)
+      {
+        goto LABEL_125;
+      }
+    }
+  }
+
+  return v5;
+}
+
 int xmlStreamPop(xmlStreamCtxtPtr stream)
 {
   result = -1;
@@ -472,14 +1271,14 @@ LABEL_105:
       }
 
       *v10 = v20 + 1;
-      if (!*(v20 + 1))
+      if (!v20[1])
       {
         goto LABEL_112;
       }
 
-      v29 = (v20 + 2);
+      v29 = v20 + 2;
       *v10 = v20 + 2;
-      LODWORD(v20) = *(v20 + 2);
+      LODWORD(v20) = v20[2];
     }
 
     else
@@ -1416,10 +2215,10 @@ LABEL_4:
   return result;
 }
 
-void xmlCompileStepPattern(uint64_t a1)
+void xmlCompileStepPattern(const xmlChar **a1)
 {
   v1 = a1;
-  for (i = *a1 + 1; ; ++i)
+  for (i = (*a1 + 1); ; ++i)
   {
     v3 = *(i - 1) - 9;
     if (v3 > 0x37)
@@ -1439,7 +2238,7 @@ void xmlCompileStepPattern(uint64_t a1)
   {
     if (v3 == 55)
     {
-      if ((*(*(a1 + 32) + 32) & 2) == 0)
+      if ((a1[4][32] & 2) == 0)
       {
         *a1 = i;
 LABEL_9:
@@ -1467,7 +2266,7 @@ LABEL_12:
 
       else
       {
-        v9 = (v5 + 1);
+        v9 = v5 + 1;
         while (v6 <= 0x20 && ((1 << v6) & 0x100002600) != 0)
         {
           *v1 = v9;
@@ -1475,7 +2274,7 @@ LABEL_12:
           v6 = v10;
         }
 
-        v5 = (v9 - 1);
+        v5 = v9 - 1;
         v13 = 1;
       }
 
@@ -1497,11 +2296,11 @@ LABEL_64:
           goto LABEL_65;
         }
 
-        *v1 = v5 + 1;
-        v14 = *(v5 + 1);
+        *v1 = (v5 + 1);
+        v14 = v5[1];
         if (v14 == 58)
         {
-          *v1 = v5 + 2;
+          *v1 = (v5 + 2);
           if (xmlStrEqual(v4, "child"))
           {
             if (!*(v1[4] + 8))
@@ -1562,12 +2361,12 @@ LABEL_86:
                   v27 = v1[6];
                   if (v26)
                   {
-                    v28 = xmlDictLookup(v26, *&v27[v22], -1);
+                    v28 = xmlDictLookup(v26, *(v27 + v22), -1);
                   }
 
                   else
                   {
-                    v28 = xmlStrdup(*&v27[v22]);
+                    v28 = xmlStrdup(*(v27 + v22));
                   }
 
                   v25 = v28;
@@ -1585,20 +2384,20 @@ LABEL_86:
               goto LABEL_71;
             }
 
-            v19 = (v16 + 1);
+            v19 = v16 + 1;
             goto LABEL_39;
           }
 
           if (xmlStrEqual(v7, "attribute"))
           {
             v24 = v1[4];
-            if (!*(v24 + 1))
+            if (!*(v24 + 8))
             {
               free(v7);
               v24 = v1[4];
             }
 
-            if ((v24[32] & 2) == 0)
+            if ((*(v24 + 32) & 2) == 0)
             {
               goto LABEL_9;
             }
@@ -1736,7 +2535,7 @@ LABEL_39:
   }
 
   *a1 = i;
-  v11 = *(a1 + 32);
+  v11 = a1[4];
   v12 = 2;
 LABEL_22:
 
@@ -1782,7 +2581,7 @@ uint64_t xmlPatternGrow(uint64_t a1)
   return 0xFFFFFFFFLL;
 }
 
-void xmlCompileAttributeTest(uint64_t *a1)
+void xmlCompileAttributeTest(int *a1)
 {
   for (i = *a1 + 1; ; ++i)
   {
@@ -1805,13 +2604,13 @@ void xmlCompileAttributeTest(uint64_t *a1)
     v10 = v7;
     if (v9 == 58)
     {
-      *a1 = (v8 + 1);
-      v11 = v8[1];
+      *a1 = v8 + 1;
+      v11 = *(v8 + 1);
       v4 = v11 > 0x20;
       v12 = (1 << v11) & 0x100002600;
       if (!v4 && v12 != 0)
       {
-        if (!*(a1[4] + 8))
+        if (!*(*(a1 + 4) + 8))
         {
           free(v7);
         }
@@ -1822,7 +2621,7 @@ void xmlCompileAttributeTest(uint64_t *a1)
       v15 = xmlPatScanName(a1);
       if (*v10 == 120 && v10[1] == 109 && v10[2] == 108 && !v10[3])
       {
-        v22 = *(a1[4] + 8);
+        v22 = *(*(a1 + 4) + 8);
         if (v22)
         {
           v23 = xmlDictLookup(v22, "http://www.w3.org/XML/1998/namespace", -1);
@@ -1838,7 +2637,7 @@ void xmlCompileAttributeTest(uint64_t *a1)
 
       else
       {
-        if (*(a1 + 14) < 1)
+        if (a1[14] < 1)
         {
           LODWORD(v17) = 0;
 LABEL_34:
@@ -1849,34 +2648,34 @@ LABEL_34:
         {
           v16 = 0;
           v17 = 0;
-          while (!xmlStrEqual(*(a1[6] + v16 + 8), v10))
+          while (!xmlStrEqual(*(*(a1 + 6) + v16 + 8), v10))
           {
             ++v17;
             v16 += 16;
-            if (v17 >= *(a1 + 14))
+            if (v17 >= a1[14])
             {
               goto LABEL_34;
             }
           }
 
-          v19 = *(a1[4] + 8);
-          v20 = a1[6];
+          v19 = *(*(a1 + 4) + 8);
+          v20 = *(a1 + 6);
           if (v19)
           {
-            v21 = xmlDictLookup(v19, *&v20[v16], -1);
+            v21 = xmlDictLookup(v19, *(v20 + v16), -1);
           }
 
           else
           {
-            v21 = xmlStrdup(*&v20[v16]);
+            v21 = xmlStrdup(*(v20 + v16));
           }
 
           v18 = v21;
         }
 
-        if (v17 >= *(a1 + 14))
+        if (v17 >= a1[14])
         {
-          if (!*(a1[4] + 8))
+          if (!*(*(a1 + 4) + 8))
           {
             free(v10);
           }
@@ -1885,14 +2684,14 @@ LABEL_34:
         }
       }
 
-      if (!*(a1[4] + 8))
+      if (!*(*(a1 + 4) + 8))
       {
         free(v10);
       }
 
       if (v15)
       {
-        if (!xmlPatternAdd(a1, a1[4], 4, v15, v18))
+        if (!xmlPatternAdd(a1, *(a1 + 4), 4, v15, v18))
         {
           return;
         }
@@ -1904,7 +2703,7 @@ LABEL_34:
       {
         ++*a1;
         v15 = 0;
-        if (!xmlPatternAdd(a1, a1[4], 4, 0, v18))
+        if (!xmlPatternAdd(a1, *(a1 + 4), 4, 0, v18))
         {
           return;
         }
@@ -1914,14 +2713,14 @@ LABEL_34:
 
       v15 = 0;
 LABEL_51:
-      *(a1 + 4) = 1;
+      a1[4] = 1;
 LABEL_52:
-      if (v18 && !*(a1[4] + 8))
+      if (v18 && !*(*(a1 + 4) + 8))
       {
         free(v18);
       }
 
-      if (v15 && !*(a1[4] + 8))
+      if (v15 && !*(*(a1 + 4) + 8))
       {
 
         free(v15);
@@ -1930,7 +2729,7 @@ LABEL_52:
       return;
     }
 
-    v14 = a1[4];
+    v14 = *(a1 + 4);
 
     xmlPatternAdd(a1, v14, 4, v7, 0);
   }
@@ -1940,11 +2739,11 @@ LABEL_52:
     if (v9 != 42)
     {
 LABEL_19:
-      *(a1 + 4) = 1;
+      a1[4] = 1;
       return;
     }
 
-    if (!xmlPatternAdd(a1, a1[4], 4, 0, 0) && **a1)
+    if (!xmlPatternAdd(a1, *(a1 + 4), 4, 0, 0) && **a1)
     {
       ++*a1;
     }
@@ -2309,26 +3108,28 @@ void xmlRelaxNGFree(xmlRelaxNGPtr schema)
 
 void xmlRelaxNGFreeGrammar(void *a1)
 {
-  if (a1[1])
-  {
-    xmlRelaxNGFreeGrammar();
-  }
-
-  if (a1[2])
-  {
-    xmlRelaxNGFreeGrammar();
-  }
-
-  v2 = a1[7];
+  v2 = a1[1];
   if (v2)
   {
-    xmlHashFree(v2, 0);
+    xmlRelaxNGFreeGrammar(v2);
   }
 
-  v3 = a1[6];
+  v3 = a1[2];
   if (v3)
   {
-    xmlHashFree(v3, 0);
+    xmlRelaxNGFreeGrammar(v3);
+  }
+
+  v4 = a1[7];
+  if (v4)
+  {
+    xmlHashFree(v4, 0);
+  }
+
+  v5 = a1[6];
+  if (v5)
+  {
+    xmlHashFree(v5, 0);
   }
 
   free(a1);
@@ -2878,7 +3679,7 @@ xmlRelaxNGParserCtxtPtr xmlRelaxNGNewParserCtxt(const char *URL)
   return v3;
 }
 
-_DWORD *xmlRngPErrMemory(uint64_t a1, const xmlChar *a2)
+xmlError *xmlRngPErrMemory(uint64_t a1, const xmlChar *a2)
 {
   if (a1)
   {
@@ -3290,7 +4091,7 @@ LABEL_22:
   return Memory;
 }
 
-_DWORD *xmlRngPErr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6)
+xmlError *xmlRngPErr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6)
 {
   if (a1)
   {
@@ -3429,7 +4230,7 @@ LABEL_14:
           i = *(i + 48);
         }
 
-        xmlRelaxNGCheckRules(a1, i, 16, -1);
+        xmlRelaxNGCheckRules(a1, i, 0x10u, -1);
       }
     }
   }
@@ -3781,7 +4582,7 @@ LABEL_8:
   return 0;
 }
 
-uint64_t xmlRelaxNGTryCompile(uint64_t a1, uint64_t a2)
+uint64_t xmlRelaxNGTryCompile(uint64_t a1, int *a2)
 {
   if (!a2)
   {
@@ -3795,7 +4596,7 @@ uint64_t xmlRelaxNGTryCompile(uint64_t a1, uint64_t a2)
     if ((*v2 | 0x10) == 0x14)
     {
       result = xmlRelaxNGIsCompilable(v2);
-      if ((*(v2 + 98) & 0x40) != 0 && *(v2 + 96) != -25)
+      if ((*(v2 + 49) & 0x40) != 0 && *(v2 + 48) != -25)
       {
         *(a1 + 232) = 0;
 
@@ -3821,7 +4622,7 @@ uint64_t xmlRelaxNGTryCompile(uint64_t a1, uint64_t a2)
       break;
     }
 
-    v2 = *(v2 + 48);
+    v2 = *(v2 + 6);
     if (!v2)
     {
       return 0xFFFFFFFFLL;
@@ -3833,7 +4634,7 @@ uint64_t xmlRelaxNGTryCompile(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v7 = *(v2 + 48);
+  v7 = *(v2 + 6);
   if (v7)
   {
     while (1)
@@ -4097,37 +4898,38 @@ LABEL_19:
   return v3;
 }
 
-void xmlRelaxNGAddValidError(uint64_t a1, int a2, xmlChar *cur, xmlChar *a4, int a5)
+void xmlRelaxNGAddValidError(char *result, uint64_t a2, xmlChar *cur, xmlChar *a4, int a5)
 {
-  if (!a1 || (*(a1 + 56) & 8) != 0)
+  if (!result || (*(result + 14) & 8) != 0)
   {
     return;
   }
 
-  if ((*(a1 + 56) & 3) == 1)
+  v8 = a2;
+  if ((*(result + 14) & 3) == 1)
   {
-    v10 = *(a1 + 88);
+    v10 = *(result + 11);
     if (!v10)
     {
-      *(a1 + 80) = 0x800000000;
+      *(result + 10) = 0x800000000;
       v10 = malloc_type_malloc(0x140uLL, 0x10700406E71CC98uLL);
-      *(a1 + 88) = v10;
+      *(result + 11) = v10;
       if (!v10)
       {
 LABEL_27:
 
-        xmlRngVErrMemory(a1, "pushing error\n");
+        xmlRngVErrMemory(result, "pushing error\n");
         return;
       }
 
-      *(a1 + 72) = 0;
+      *(result + 9) = 0;
     }
 
-    v11 = *(a1 + 80);
-    v12 = *(a1 + 84);
+    v11 = *(result + 20);
+    v12 = *(result + 21);
     if (v11 < v12)
     {
-      v13 = *(a1 + 72);
+      v13 = *(result + 9);
       if (!v13)
       {
         goto LABEL_19;
@@ -4136,19 +4938,19 @@ LABEL_27:
       goto LABEL_16;
     }
 
-    *(a1 + 84) = 2 * v12;
+    *(result + 21) = 2 * v12;
     v10 = malloc_type_realloc(v10, 80 * v12, 0x10700406E71CC98uLL);
-    *(a1 + 88) = v10;
+    *(result + 11) = v10;
     if (v10)
     {
-      v11 = *(a1 + 80);
+      v11 = *(result + 20);
       v13 = &v10[40 * v11 - 40];
-      *(a1 + 72) = v13;
+      *(result + 9) = v13;
       if (&v10[40 * v11] == 40)
       {
 LABEL_19:
         v18 = &v10[40 * v11];
-        *v18 = a2;
+        *v18 = v8;
         if (a5)
         {
           *(v18 + 3) = xmlStrdup(cur);
@@ -4164,7 +4966,7 @@ LABEL_19:
 
         *(v18 + 4) = a4;
         *(v18 + 1) = v19;
-        v20 = *(a1 + 96);
+        v20 = *(result + 12);
         if (v20)
         {
           v21 = *v20;
@@ -4176,14 +4978,14 @@ LABEL_19:
         }
 
         *(v18 + 8) = v21;
-        *(a1 + 72) = v18;
-        ++*(a1 + 80);
+        *(result + 9) = v18;
+        ++*(result + 20);
         return;
       }
 
 LABEL_16:
-      v17 = *(a1 + 96);
-      if (v17 && *(v13 + 8) == *v17 && *v13 == a2)
+      v17 = *(result + 12);
+      if (v17 && *(v13 + 8) == *v17 && *v13 == v8)
       {
         return;
       }
@@ -4194,12 +4996,12 @@ LABEL_16:
     goto LABEL_27;
   }
 
-  if (*(a1 + 80))
+  if (*(result + 20))
   {
-    xmlRelaxNGDumpValidError(a1);
+    xmlRelaxNGDumpValidError(result);
   }
 
-  v14 = *(a1 + 96);
+  v14 = *(result + 12);
   if (v14)
   {
     v15 = *v14;
@@ -4214,10 +5016,10 @@ LABEL_16:
 
   if (!(v15 | v16))
   {
-    v15 = *(a1 + 168);
+    v15 = *(result + 21);
   }
 
-  xmlRelaxNGShowValidError(a1, a2, v15, v16, cur, a4);
+  xmlRelaxNGShowValidError(result, v8, v15, v16, cur, a4);
 }
 
 void xmlRelaxNGValidateProgressiveCallback(int a1, const char *a2, uint64_t a3, uint64_t a4)
@@ -4393,7 +5195,7 @@ LABEL_12:
   *(a4 + 96) = v10;
 }
 
-_DWORD *xmlRelaxNGElemPush(uint64_t a1, uint64_t a2)
+xmlError *xmlRelaxNGElemPush(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 152);
   if (result || (*(a1 + 148) = 10, result = malloc_type_malloc(0x50uLL, 0x2004093837F09uLL), (*(a1 + 152) = result) != 0))
@@ -4404,7 +5206,7 @@ _DWORD *xmlRelaxNGElemPush(uint64_t a1, uint64_t a2)
     {
 LABEL_6:
       *(a1 + 144) = v5 + 1;
-      *&result[2 * v5] = a2;
+      *(&result->domain + v5) = a2;
       *(a1 + 136) = a2;
       return result;
     }
@@ -4557,10 +5359,10 @@ int xmlRelaxNGValidateFullElement(xmlRelaxNGValidCtxtPtr ctxt, xmlDocPtr doc, xm
   return v4;
 }
 
-void *xmlRelaxNGNewValidState(uint64_t a1, uint64_t a2)
+uint64_t *xmlRelaxNGNewValidState(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  memset(v19, 0, sizeof(v19));
+  v19 = *MEMORY[0x1E69E9840];
+  memset(v18, 0, sizeof(v18));
   if (a2)
   {
     v4 = *(a2 + 88);
@@ -4571,7 +5373,7 @@ void *xmlRelaxNGNewValidState(uint64_t a1, uint64_t a2)
       {
         if (v5 <= 0x13)
         {
-          *(v19 + v5) = v4;
+          *(v18 + v5) = v4;
         }
 
         ++v5;
@@ -4594,8 +5396,7 @@ void *xmlRelaxNGNewValidState(uint64_t a1, uint64_t a2)
     RootElement = xmlDocGetRootElement(*(a1 + 48));
     if (!RootElement)
     {
-      v10 = 0;
-      goto LABEL_36;
+      return 0;
     }
 
     v6 = RootElement;
@@ -4679,13 +5480,13 @@ LABEL_28:
 
       else
       {
-        memcpy(v13, v19, (8 * v5));
+        memcpy(v13, v18, (8 * v5));
         LODWORD(v5) = *(v10 + 4);
       }
 
 LABEL_34:
       *(v10 + 6) = v5;
-      goto LABEL_36;
+      return v10;
     }
   }
 
@@ -4712,8 +5513,6 @@ LABEL_34:
 
 LABEL_30:
   xmlRngVErrMemory(a1, "allocating states\n");
-LABEL_36:
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -5026,7 +5825,7 @@ xmlRelaxNGValidCtxtPtr xmlRelaxNGNewValidCtxt(xmlRelaxNGPtr schema)
   return v3;
 }
 
-_DWORD *xmlRngVErrMemory(uint64_t a1, const xmlChar *a2)
+xmlError *xmlRngVErrMemory(uint64_t a1, const xmlChar *a2)
 {
   if (a1)
   {
@@ -7004,12 +7803,12 @@ LABEL_30:
 
 void *xmlRelaxNGParseGrammar(uint64_t a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v4 = xmlRelaxNGNewGrammar(a1);
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_47;
+    return v5;
   }
 
   v6 = *(a1 + 48);
@@ -7134,7 +7933,7 @@ LABEL_22:
       if (*(a1 + 104) || (v27 = xmlHashCreate(10), (*(a1 + 104) = v27) != 0))
       {
         *__str = 0u;
-        v38 = 0u;
+        v37 = 0u;
         v28 = *(a1 + 96);
         *(a1 + 96) = v28 + 1;
         snprintf(__str, 0x20uLL, "interleave%d", v28);
@@ -7174,8 +7973,6 @@ LABEL_42:
   }
 
   *(a1 + 48) = v6;
-LABEL_47:
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -7356,7 +8153,7 @@ LABEL_15:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t xmlRelaxNGSimplify(uint64_t result, uint64_t a2, unint64_t a3)
+uint64_t xmlRelaxNGSimplify(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (!a2)
   {
@@ -7634,7 +8431,7 @@ LABEL_73:
   return result;
 }
 
-uint64_t xmlRelaxNGCheckRules(uint64_t a1, unsigned int *a2, uint64_t a3, int a4)
+uint64_t xmlRelaxNGCheckRules(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
 {
   if (!a2)
   {
@@ -7649,22 +8446,22 @@ uint64_t xmlRelaxNGCheckRules(uint64_t a1, unsigned int *a2, uint64_t a3, int a4
   while (2)
   {
     v12 = *v6;
-    switch(v12)
+    switch(*v6)
     {
       case 0:
         if ((a3 & 8) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1071, "Found forbidden pattern data/except//empty\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1071, "Found forbidden pattern data/except//empty\n", 0, 0);
         }
 
         if ((a3 & 0x10) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1090, "Found forbidden pattern start//empty\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1090, "Found forbidden pattern start//empty\n", 0, 0);
         }
 
         goto LABEL_170;
       case 2:
-        v29 = *(v6 + 7);
+        v29 = *(v6 + 56);
         v28 = a3;
         if (v29)
         {
@@ -7679,14 +8476,14 @@ uint64_t xmlRelaxNGCheckRules(uint64_t a1, unsigned int *a2, uint64_t a3, int a4
           }
         }
 
-        v26 = *(v6 + 6);
+        v26 = *(v6 + 48);
         v27 = a1;
         v12 = 2;
         goto LABEL_166;
       case 3:
         if ((a3 & 4) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1083, "Found forbidden pattern list//text\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1083, "Found forbidden pattern list//text\n", 0, 0);
           if ((a3 & 8) == 0)
           {
 LABEL_33:
@@ -7704,20 +8501,20 @@ LABEL_33:
           goto LABEL_33;
         }
 
-        xmlRngPErr(a1, *(v6 + 1), 1077, "Found forbidden pattern data/except//text\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1077, "Found forbidden pattern data/except//text\n", 0, 0);
         if ((a3 & 0x10) == 0)
         {
           goto LABEL_79;
         }
 
 LABEL_78:
-        xmlRngPErr(a1, *(v6 + 1), 1095, "Found forbidden pattern start//text\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1095, "Found forbidden pattern start//text\n", 0, 0);
         goto LABEL_79;
       case 4:
         xmlRelaxNGCheckGroupAttrs(a1, v6);
         if ((a3 & 8) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1070, "Found forbidden pattern data/except//element(ref)\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1070, "Found forbidden pattern data/except//element(ref)\n", 0, 0);
           if ((a3 & 4) == 0)
           {
 LABEL_68:
@@ -7735,18 +8532,18 @@ LABEL_68:
           goto LABEL_68;
         }
 
-        xmlRngPErr(a1, *(v6 + 1), 1079, "Found forbidden pattern list//element(ref)\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1079, "Found forbidden pattern list//element(ref)\n", 0, 0);
         if ((a3 & 1) == 0)
         {
 LABEL_70:
-          if (xmlRelaxNGCheckRules(a1, *(v6 + 9), 0, *v6))
+          if (xmlRelaxNGCheckRules(a1, *(v6 + 72), 0, *v6))
           {
-            xmlRngPErr(a1, *(v6 + 1), 1015, "Element %s attributes have a content type error\n", *(v6 + 2), 0);
+            xmlRngPErr(a1, *(v6 + 8), 1015, "Element %s attributes have a content type error\n", *(v6 + 16), 0);
           }
 
-          if (xmlRelaxNGCheckRules(a1, *(v6 + 6), 0, *v6) == -1)
+          if (xmlRelaxNGCheckRules(a1, *(v6 + 48), 0, *v6) == -1)
           {
-            xmlRngPErr(a1, *(v6 + 1), 1016, "Element %s has a content type error\n", *(v6 + 2), 0);
+            xmlRngPErr(a1, *(v6 + 8), 1016, "Element %s has a content type error\n", *(v6 + 16), 0);
             v18 = -1;
             goto LABEL_171;
           }
@@ -7757,8 +8554,8 @@ LABEL_79:
         }
 
 LABEL_69:
-        xmlRngPErr(a1, *(v6 + 1), 1068, "Found forbidden pattern attribute//element(ref)\n", 0, 0);
-        xmlRngPErr(a1, *(v6 + 1), 1068, "Found forbidden pattern attribute//element(ref)\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1068, "Found forbidden pattern attribute//element(ref)\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1068, "Found forbidden pattern attribute//element(ref)\n", 0, 0);
         goto LABEL_70;
       case 5:
         if ((a3 & 0x10) == 0)
@@ -7767,7 +8564,7 @@ LABEL_69:
           goto LABEL_102;
         }
 
-        v30 = *(v6 + 1);
+        v30 = *(v6 + 8);
         v31 = a1;
         v32 = 1089;
         v33 = "Found forbidden pattern start//data\n";
@@ -7775,7 +8572,7 @@ LABEL_69:
       case 7:
         if ((a3 & 0x10) != 0)
         {
-          v30 = *(v6 + 1);
+          v30 = *(v6 + 8);
           v31 = a1;
           v32 = 1096;
           v33 = "Found forbidden pattern start//value\n";
@@ -7790,13 +8587,13 @@ LABEL_101:
         }
 
 LABEL_102:
-        xmlRelaxNGCheckRules(a1, *(v6 + 6), a3, v25);
+        xmlRelaxNGCheckRules(a1, *(v6 + 48), a3, v25);
         v18 = 1;
         goto LABEL_171;
       case 8:
         if ((a3 & 4) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1081, "Found forbidden pattern list//list\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1081, "Found forbidden pattern list//list\n", 0, 0);
           if ((a3 & 8) == 0)
           {
 LABEL_49:
@@ -7814,22 +8611,22 @@ LABEL_49:
           goto LABEL_49;
         }
 
-        xmlRngPErr(a1, *(v6 + 1), 1074, "Found forbidden pattern data/except//list\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1074, "Found forbidden pattern data/except//list\n", 0, 0);
         if ((a3 & 0x10) != 0)
         {
 LABEL_50:
-          xmlRngPErr(a1, *(v6 + 1), 1093, "Found forbidden pattern start//list\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1093, "Found forbidden pattern start//list\n", 0, 0);
         }
 
 LABEL_51:
-        v26 = *(v6 + 6);
+        v26 = *(v6 + 48);
         v12 = *v6;
         v28 = a3 | 4;
         goto LABEL_65;
       case 9:
         if (a3)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1067, "Found forbidden pattern attribute//attribute\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1067, "Found forbidden pattern attribute//attribute\n", 0, 0);
           if ((a3 & 4) == 0)
           {
 LABEL_54:
@@ -7847,7 +8644,7 @@ LABEL_54:
           goto LABEL_54;
         }
 
-        xmlRngPErr(a1, *(v6 + 1), 1078, "Found forbidden pattern list//attribute\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1078, "Found forbidden pattern list//attribute\n", 0, 0);
         if ((a3 & 0x20) == 0)
         {
 LABEL_55:
@@ -7860,7 +8657,7 @@ LABEL_55:
         }
 
 LABEL_86:
-        xmlRngPErr(a1, *(v6 + 1), 1086, "Found forbidden pattern oneOrMore//group//attribute\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1086, "Found forbidden pattern oneOrMore//group//attribute\n", 0, 0);
         if ((a3 & 0x40) == 0)
         {
 LABEL_56:
@@ -7873,7 +8670,7 @@ LABEL_56:
         }
 
 LABEL_87:
-        xmlRngPErr(a1, *(v6 + 1), 1087, "Found forbidden pattern oneOrMore//interleave//attribute\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1087, "Found forbidden pattern oneOrMore//interleave//attribute\n", 0, 0);
         if ((a3 & 8) == 0)
         {
 LABEL_57:
@@ -7886,7 +8683,7 @@ LABEL_57:
         }
 
 LABEL_88:
-        xmlRngPErr(a1, *(v6 + 1), 1069, "Found forbidden pattern data/except//attribute\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1069, "Found forbidden pattern data/except//attribute\n", 0, 0);
         if ((a3 & 0x10) == 0)
         {
 LABEL_58:
@@ -7899,16 +8696,16 @@ LABEL_58:
         }
 
 LABEL_89:
-        xmlRngPErr(a1, *(v6 + 1), 1088, "Found forbidden pattern start//attribute\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1088, "Found forbidden pattern start//attribute\n", 0, 0);
         if ((a3 & 2) != 0)
         {
           goto LABEL_169;
         }
 
 LABEL_90:
-        if (!*(v6 + 2) && !*(v6 + 10))
+        if (!*(v6 + 16) && !*(v6 + 80))
         {
-          if (*(v6 + 3))
+          if (*(v6 + 24))
           {
             v34 = 1056;
             v35 = "Found nsName attribute without oneOrMore ancestor\n";
@@ -7920,22 +8717,22 @@ LABEL_90:
             v35 = "Found anyName attribute without oneOrMore ancestor\n";
           }
 
-          xmlRngPErr(a1, *(v6 + 1), v34, v35, 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), v34, v35, 0, 0);
         }
 
 LABEL_169:
-        xmlRelaxNGCheckRules(a1, *(v6 + 6), a3 | 1, *v6);
+        xmlRelaxNGCheckRules(a1, *(v6 + 48), a3 | 1, *v6);
 LABEL_170:
         v18 = 0;
         goto LABEL_171;
-      case 11:
-      case 13:
+      case 0xB:
+      case 0xD:
         if ((a3 & 8) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1076, "Found forbidden pattern data/except//ref\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1076, "Found forbidden pattern data/except//ref\n", 0, 0);
         }
 
-        if (!*(v6 + 6))
+        if (!*(v6 + 48))
         {
           if (*v6 == 13)
           {
@@ -7946,9 +8743,9 @@ LABEL_170:
 
           else
           {
-            if (*(v6 + 2))
+            if (*(v6 + 16))
             {
-              v15 = *(v6 + 2);
+              v15 = *(v6 + 16);
             }
 
             else
@@ -7960,10 +8757,10 @@ LABEL_170:
             v14 = "Internal found no define for ref %s\n";
           }
 
-          xmlRngPErr(v13, *(v6 + 1), 1101, v14, v15, 0);
+          xmlRngPErr(v13, *(v6 + 8), 1101, v14, v15, 0);
         }
 
-        v36 = *(v6 + 48);
+        v36 = *(v6 + 96);
         if (v36 < -3)
         {
           v55 = v36 == -4;
@@ -7981,25 +8778,25 @@ LABEL_170:
 
         else
         {
-          *(v6 + 48) = -4;
-          v18 = xmlRelaxNGCheckRules(a1, *(v6 + 6), a3, *v6);
-          *(v6 + 48) = v18 - 15;
+          *(v6 + 96) = -4;
+          v18 = xmlRelaxNGCheckRules(a1, *(v6 + 48), a3, *v6);
+          *(v6 + 96) = v18 - 15;
         }
 
         goto LABEL_171;
-      case 15:
-      case 16:
+      case 0xF:
+      case 0x10:
         if ((a3 & 8) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1075, "Found forbidden pattern data/except//oneOrMore\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1075, "Found forbidden pattern data/except//oneOrMore\n", 0, 0);
         }
 
         if ((a3 & 0x10) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1094, "Found forbidden pattern start//oneOrMore\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1094, "Found forbidden pattern start//oneOrMore\n", 0, 0);
         }
 
-        v16 = xmlRelaxNGCheckRules(a1, *(v6 + 6), a3 | 2, *v6);
+        v16 = xmlRelaxNGCheckRules(a1, *(v6 + 48), a3 | 2, *v6);
         if (v16 == 2)
         {
           v17 = 2;
@@ -8021,15 +8818,15 @@ LABEL_170:
         }
 
         goto LABEL_171;
-      case 17:
-        if ((*(v6 + 49) & 0x20) != 0 || *(a1 + 68))
+      case 0x11:
+        if ((*(v6 + 98) & 0x20) != 0 || *(a1 + 68))
         {
           goto LABEL_165;
         }
 
         v61 = v10;
         v19 = xmlRelaxNGIsNullable(v6);
-        v20 = *(v6 + 6);
+        v20 = *(v6 + 48);
         v60 = v11;
         for (i = 0; v20; v20 = *(v20 + 64))
         {
@@ -8059,7 +8856,7 @@ LABEL_170:
           v64 = 1;
         }
 
-        v38 = *(v6 + 6);
+        v38 = *(v6 + 48);
         v62 = a1;
         if (!v38)
         {
@@ -8197,7 +8994,7 @@ LABEL_143:
           free(v23);
           if (v50)
           {
-            *(v6 + 49) |= 4u;
+            *(v6 + 98) |= 4u;
           }
         }
 
@@ -8210,8 +9007,8 @@ LABEL_143:
         v11 = v60;
         if (v64 == 1)
         {
-          *(v6 + 49) |= 0x10u;
-          *(v6 + 5) = v24;
+          *(v6 + 98) |= 0x10u;
+          *(v6 + 40) = v24;
           a1 = v62;
         }
 
@@ -8224,17 +9021,17 @@ LABEL_143:
           }
         }
 
-        *(v6 + 49) |= 0x20u;
+        *(v6 + 98) |= 0x20u;
         v9 = v59;
 LABEL_165:
-        v26 = *(v6 + 6);
+        v26 = *(v6 + 48);
         v12 = *v6;
         v27 = a1;
         v28 = a3;
 LABEL_166:
         v18 = xmlRelaxNGCheckRules(v27, v26, v28, v12);
 LABEL_171:
-        v6 = *(v6 + 8);
+        v6 = *(v6 + 64);
         if (a4 <= 16)
         {
           if (a4 == 2)
@@ -8344,24 +9141,24 @@ LABEL_179:
         }
 
         return v8;
-      case 18:
+      case 0x12:
         if ((a3 & 8) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1072, "Found forbidden pattern data/except//group\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1072, "Found forbidden pattern data/except//group\n", 0, 0);
         }
 
         if ((a3 & 0x10) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1091, "Found forbidden pattern start//group\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1091, "Found forbidden pattern start//group\n", 0, 0);
         }
 
-        v18 = xmlRelaxNGCheckRules(a1, *(v6 + 6), v11 | a3, *v6);
+        v18 = xmlRelaxNGCheckRules(a1, *(v6 + 48), v11 | a3, *v6);
         xmlRelaxNGCheckGroupAttrs(a1, v6);
         goto LABEL_171;
-      case 19:
+      case 0x13:
         if ((a3 & 4) != 0)
         {
-          xmlRngPErr(a1, *(v6 + 1), 1080, "Found forbidden pattern list//interleave\n", 0, 0);
+          xmlRngPErr(a1, *(v6 + 8), 1080, "Found forbidden pattern list//interleave\n", 0, 0);
           if ((a3 & 8) == 0)
           {
 LABEL_62:
@@ -8379,11 +9176,11 @@ LABEL_62:
           goto LABEL_62;
         }
 
-        xmlRngPErr(a1, *(v6 + 1), 1073, "Found forbidden pattern data/except//interleave\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1073, "Found forbidden pattern data/except//interleave\n", 0, 0);
         if ((a3 & 0x10) == 0)
         {
 LABEL_64:
-          v26 = *(v6 + 6);
+          v26 = *(v6 + 48);
           v12 = *v6;
           v28 = v10 | a3;
 LABEL_65:
@@ -8392,10 +9189,10 @@ LABEL_65:
         }
 
 LABEL_63:
-        xmlRngPErr(a1, *(v6 + 1), 1073, "Found forbidden pattern start//interleave\n", 0, 0);
+        xmlRngPErr(a1, *(v6 + 8), 1073, "Found forbidden pattern start//interleave\n", 0, 0);
         goto LABEL_64;
       default:
-        v26 = *(v6 + 6);
+        v26 = *(v6 + 48);
         v27 = a1;
         v28 = a3;
         goto LABEL_166;
@@ -8506,43 +9303,43 @@ LABEL_50:
           xmlRngPErr(a1, v3, 1012, "define has no children\n", 0, 0);
         }
 
-        v29 = *(*(a1 + 48) + 48);
-        if (!v29)
+        v30 = *(*(a1 + 48) + 48);
+        if (!v30)
         {
-          v29 = xmlHashCreate(10);
-          *(*(a1 + 48) + 48) = v29;
-          if (!v29)
+          v30 = xmlHashCreate(10);
+          *(*(a1 + 48) + 48) = v30;
+          if (!v30)
           {
-            v32 = a1;
-            v33 = v3;
-            v34 = "Could not create definition hash\n";
-            v35 = 0;
+            v33 = a1;
+            v34 = v3;
+            v35 = "Could not create definition hash\n";
+            v36 = 0;
 LABEL_49:
-            xmlRngPErr(v32, v33, 1011, v34, v35, 0);
+            xmlRngPErr(v33, v34, 1011, v35, v36, 0);
             goto LABEL_50;
           }
         }
 
-        if (xmlHashAddEntry(v29, v13, v15) < 0)
+        if (xmlHashAddEntry(v30, v13, v15) < 0)
         {
-          v30 = xmlHashLookup(*(*(a1 + 48) + 48), v13);
-          if (v30)
+          v31 = xmlHashLookup(*(*(a1 + 48) + 48), v13);
+          if (v31)
           {
             do
             {
-              v31 = v30;
-              v30 = v30[11];
+              v32 = v31;
+              v31 = v31[11];
             }
 
-            while (v30);
-            v31[11] = v15;
+            while (v31);
+            v32[11] = v15;
             goto LABEL_35;
           }
 
-          v32 = a1;
-          v33 = v3;
-          v34 = "Internal error on define aggregation of %s\n";
-          v35 = v13;
+          v33 = a1;
+          v34 = v3;
+          v35 = "Internal error on define aggregation of %s\n";
+          v36 = v13;
           goto LABEL_49;
         }
       }
@@ -8573,19 +9370,21 @@ LABEL_24:
           v22 = RootElement;
           if (xmlStrEqual(RootElement->name, "grammar"))
           {
-            if (v22->children)
+            children = v22->children;
+            if (children)
             {
-              v23 = xmlRelaxNGParseGrammarContent(a1) == 0;
+              v24 = xmlRelaxNGParseGrammarContent(a1, children) == 0;
             }
 
             else
             {
-              v23 = 1;
+              v24 = 1;
             }
 
-            if (!*(v3 + 24) || !xmlRelaxNGParseGrammarContent(a1))
+            v41 = *(v3 + 24);
+            if (!v41 || !xmlRelaxNGParseGrammarContent(a1, v41))
             {
-              if (v23)
+              if (v24)
               {
                 v4 = v4;
               }
@@ -8601,44 +9400,44 @@ LABEL_24:
             goto LABEL_58;
           }
 
-          v36 = a1;
-          v37 = v3;
-          v38 = 1038;
-          v39 = "Include document root is not a grammar\n";
+          v37 = a1;
+          v38 = v3;
+          v39 = 1038;
+          v40 = "Include document root is not a grammar\n";
         }
 
         else
         {
-          v36 = a1;
-          v37 = v3;
-          v38 = 1022;
-          v39 = "Include document is empty\n";
+          v37 = a1;
+          v38 = v3;
+          v39 = 1022;
+          v40 = "Include document is empty\n";
         }
 
-        xmlRngPErr(v36, v37, v38, v39, 0, 0);
+        xmlRngPErr(v37, v38, v39, v40, 0, 0);
 LABEL_58:
         v4 = 0xFFFFFFFFLL;
         goto LABEL_35;
       }
 
-      v25 = a1;
-      v26 = v3;
-      v27 = 1042;
-      v28 = "Include node has no data\n";
-      v24 = 0;
+      v26 = a1;
+      v27 = v3;
+      v28 = 1042;
+      v29 = "Include node has no data\n";
+      v25 = 0;
     }
 
     else
     {
 LABEL_33:
-      v24 = *(v3 + 16);
-      v25 = a1;
-      v26 = v3;
-      v27 = 1036;
-      v28 = "grammar has unexpected child %s\n";
+      v25 = *(v3 + 16);
+      v26 = a1;
+      v27 = v3;
+      v28 = 1036;
+      v29 = "grammar has unexpected child %s\n";
     }
 
-    xmlRngPErr(v25, v26, v27, v28, v24, 0);
+    xmlRngPErr(v26, v27, v28, v29, v25, 0);
     v4 = 0xFFFFFFFFLL;
     goto LABEL_35;
   }
@@ -8647,13 +9446,11 @@ LABEL_33:
   return 0xFFFFFFFFLL;
 }
 
-_DWORD *xmlRelaxNGCheckCombine(_DWORD *result, uint64_t a2, const xmlChar *a3)
+xmlError *xmlRelaxNGCheckCombine(xmlError *result, uint64_t a2, const xmlChar *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (!*(result + 11))
+  v29 = *MEMORY[0x1E69E9840];
+  if (!*&result[1].domain)
   {
-LABEL_37:
-    v26 = *MEMORY[0x1E69E9840];
     return result;
   }
 
@@ -8663,7 +9460,7 @@ LABEL_37:
   v8 = result;
   do
   {
-    Prop = xmlGetProp(v8[1], "combine");
+    Prop = xmlGetProp(v8->message, "combine");
     if (Prop)
     {
       v10 = Prop;
@@ -8682,7 +9479,7 @@ LABEL_15:
       {
         if (!xmlStrEqual(v10, "interleave"))
         {
-          v11 = *(v5 + 1);
+          message = v5->message;
           v12 = a2;
           v13 = 1114;
           v14 = "Defines for %s use unknown combine value '%s''\n";
@@ -8698,104 +9495,111 @@ LABEL_15:
         }
       }
 
-      v11 = *(v5 + 1);
+      message = v5->message;
       v12 = a2;
       v13 = 1010;
       v14 = "Defines for %s use both 'choice' and 'interleave'\n";
       v15 = a3;
       v16 = 0;
 LABEL_14:
-      xmlRngPErr(v12, v11, v13, v14, v15, v16);
+      xmlRngPErr(v12, message, v13, v14, v15, v16);
       goto LABEL_15;
     }
 
     if (v6)
     {
-      xmlRngPErr(a2, *(v5 + 1), 1054, "Some defines for %s needs the combine attribute\n", a3, 0);
+      xmlRngPErr(a2, v5->message, 1054, "Some defines for %s needs the combine attribute\n", a3, 0);
     }
 
     v6 = 1;
 LABEL_16:
-    v8 = v8[11];
+    v8 = *&v8[1].domain;
   }
 
   while (v8);
-  result = xmlRelaxNGNewDefine(a2, *(v5 + 1));
-  if (!result)
+  result = xmlRelaxNGNewDefine(a2, v5->message);
+  if (result)
   {
-    goto LABEL_37;
-  }
-
-  v17 = result;
-  v18 = 0;
-  v19 = v7 + 1;
-  v20 = (v7 + 1) >= 2 ? 17 : 19;
-  *result = v20;
-  v21 = result + 12;
-  v22 = v5;
-  do
-  {
-    result = *(v22 + 6);
-    if (result)
+    v17 = result;
+    v18 = 0;
+    v19 = v7 + 1;
+    if ((v7 + 1) >= 2)
     {
-      if (*(result + 8))
+      v20 = 17;
+    }
+
+    else
+    {
+      v20 = 19;
+    }
+
+    result->domain = v20;
+    p_str2 = &result->str2;
+    v22 = v5;
+    do
+    {
+      result = v22->str2;
+      if (result)
       {
-        result = xmlRelaxNGNewDefine(a2, *(result + 1));
-        if (!result)
+        if (*&result->int1)
         {
-          break;
+          result = xmlRelaxNGNewDefine(a2, result->message);
+          if (!result)
+          {
+            break;
+          }
+
+          result->domain = 18;
+          result->str2 = v22->str2;
         }
 
-        *result = 18;
-        *(result + 6) = *(v22 + 6);
+        p_int1 = &v18->int1;
+        if (!v18)
+        {
+          p_int1 = p_str2;
+        }
+
+        *p_int1 = result;
+        v18 = result;
       }
 
-      v23 = v18 + 16;
-      if (!v18)
-      {
-        v23 = v21;
-      }
-
-      *v23 = result;
-      v18 = result;
+      v22->str2 = v17;
+      v22 = *&v22[1].domain;
     }
 
-    *(v22 + 6) = v17;
-    v22 = *(v22 + 11);
-  }
-
-  while (v22);
-  *(v5 + 6) = v17;
-  if (v19 > 1)
-  {
-    goto LABEL_37;
-  }
-
-  if (*(a2 + 104) || (v24 = xmlHashCreate(10), (*(a2 + 104) = v24) != 0))
-  {
-    *__str = 0u;
-    v30 = 0u;
-    v25 = *(a2 + 96);
-    *(a2 + 96) = v25 + 1;
-    snprintf(__str, 0x20uLL, "interleave%d", v25);
-    result = xmlHashAddEntry(*(a2 + 104), __str, v17);
-    if ((result & 0x80000000) != 0)
+    while (v22);
+    v5->str2 = v17;
+    if (v19 <= 1)
     {
-      result = xmlRngPErr(a2, *(v5 + 1), 1046, "Failed to add %s to hash table\n", __str, 0);
-    }
+      if (*(a2 + 104) || (v24 = xmlHashCreate(10), (*(a2 + 104) = v24) != 0))
+      {
+        *__str = 0u;
+        v28 = 0u;
+        v25 = *(a2 + 96);
+        *(a2 + 96) = v25 + 1;
+        snprintf(__str, 0x20uLL, "interleave%d", v25);
+        result = xmlHashAddEntry(*(a2 + 104), __str, v17);
+        if ((result & 0x80000000) != 0)
+        {
+          return xmlRngPErr(a2, v5->message, 1046, "Failed to add %s to hash table\n", __str, 0);
+        }
+      }
 
-    goto LABEL_37;
+      else
+      {
+        v26 = v5->message;
+
+        return xmlRngPErr(a2, v26, 1046, "Failed to create interleaves hash table\n", 0, 0);
+      }
+    }
   }
 
-  v27 = *(v5 + 1);
-  v28 = *MEMORY[0x1E69E9840];
-
-  return xmlRngPErr(a2, v27, 1046, "Failed to create interleaves hash table\n", 0, 0);
+  return result;
 }
 
-_DWORD *xmlRelaxNGCheckReference(_DWORD *result, uint64_t a2, const xmlChar *a3)
+xmlError *xmlRelaxNGCheckReference(xmlError *result, uint64_t a2, const xmlChar *a3)
 {
-  if ((*(result + 49) & 0x100) != 0)
+  if ((WORD1(result[1].message) & 0x100) != 0)
   {
     return result;
   }
@@ -8804,7 +9608,7 @@ _DWORD *xmlRelaxNGCheckReference(_DWORD *result, uint64_t a2, const xmlChar *a3)
   v6 = *(a2 + 48);
   if (v6)
   {
-    if (!*(result + 6))
+    if (!result->str2)
     {
       v11 = *(v6 + 48);
       if (v11)
@@ -8814,8 +9618,8 @@ _DWORD *xmlRelaxNGCheckReference(_DWORD *result, uint64_t a2, const xmlChar *a3)
         {
           do
           {
-            v5[6] = result;
-            v5 = v5[11];
+            v5->str2 = result;
+            v5 = *&v5[1].domain;
           }
 
           while (v5);
@@ -8823,20 +9627,20 @@ _DWORD *xmlRelaxNGCheckReference(_DWORD *result, uint64_t a2, const xmlChar *a3)
         }
       }
 
-      v7 = v5[1];
+      message = v5->message;
       v8 = "Reference %s has no matching definition\n";
       v9 = a2;
       v10 = 1101;
       goto LABEL_7;
     }
 
-    v7 = *(result + 1);
+    message = result->message;
     v8 = "Internal error: reference has content in CheckReference %s\n";
   }
 
   else
   {
-    v7 = *(result + 1);
+    message = result->message;
     v8 = "Internal error: no grammar in CheckReference %s\n";
   }
 
@@ -8844,10 +9648,10 @@ _DWORD *xmlRelaxNGCheckReference(_DWORD *result, uint64_t a2, const xmlChar *a3)
   v10 = 1;
 LABEL_7:
 
-  return xmlRngPErr(v9, v7, v10, v8, a3, 0);
+  return xmlRngPErr(v9, message, v10, v8, a3, 0);
 }
 
-uint64_t *xmlRelaxNGParsePatterns(uint64_t a1, uint64_t a2, int a3)
+_DWORD *xmlRelaxNGParsePatterns(uint64_t a1, uint64_t a2, int a3)
 {
   if (!a2)
   {
@@ -8881,14 +9685,14 @@ uint64_t *xmlRelaxNGParsePatterns(uint64_t a1, uint64_t a2, int a3)
           }
 
           *v11 = 18;
-          v11[6] = v6;
+          *(v11 + 6) = v6;
         }
 
-        v6[8] = v10;
+        *(v6 + 8) = v10;
         v9 = v7;
       }
 
-      v10[7] = v8;
+      *(v10 + 7) = v8;
       v7 = v9;
     }
 
@@ -8900,7 +9704,7 @@ uint64_t *xmlRelaxNGParsePatterns(uint64_t a1, uint64_t a2, int a3)
         v10 = v12;
         if (v7)
         {
-          v6[8] = v12;
+          *(v6 + 8) = v12;
         }
 
         else
@@ -8938,7 +9742,7 @@ _OWORD *xmlRelaxNGParseElement(uint64_t a1, uint64_t a2)
       {
         v7 = 0;
         v8 = *(a1 + 80);
-        v9 = (v5 + 3);
+        v9 = v5 + 3;
         *(a1 + 80) = 0;
         while (1)
         {
@@ -8946,7 +9750,7 @@ _OWORD *xmlRelaxNGParseElement(uint64_t a1, uint64_t a2)
           if (v10)
           {
             v11 = v10;
-            v10[7] = v5;
+            *(v10 + 7) = v5;
             v12 = *v10;
             if (*v10 <= 5)
             {
@@ -8959,17 +9763,17 @@ LABEL_17:
                   {
                     v17 = xmlRelaxNGNewDefine(a1, a2);
                     *v9 = v17;
-                    v18 = (v5 + 3);
+                    v18 = v5 + 3;
                     if (v17)
                     {
                       *v17 = 18;
-                      v18 = (v17 + 6);
+                      v18 = v17 + 3;
                     }
 
                     *v18 = v7;
                   }
 
-                  v7[8] = v11;
+                  *(v7 + 8) = v11;
                 }
 
                 else
@@ -9008,7 +9812,7 @@ LABEL_17:
 
                 if (v12 == 9)
                 {
-                  v10[8] = *(v5 + 9);
+                  *(v10 + 8) = *(v5 + 9);
                   *(v5 + 9) = v10;
                   goto LABEL_32;
                 }
@@ -9065,1048 +9869,4 @@ LABEL_33:
   }
 
   return v5;
-}
-
-uint64_t *xmlRelaxNGParsePattern(uint64_t a1, uint64_t a2)
-{
-  if (!*(a2 + 72) || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v4 = xmlStrEqual(*(a2 + 16), "element");
-  v5 = *(a2 + 72);
-  if (v4)
-  {
-    if (xmlStrEqual(*(v5 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-
-      return xmlRelaxNGParseElement(a1, a2);
-    }
-
-    v5 = *(a2 + 72);
-  }
-
-  if (!v5 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v7 = xmlStrEqual(*(a2 + 16), "attribute");
-  v8 = *(a2 + 72);
-  if (v7)
-  {
-    if (xmlStrEqual(*(v8 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v9 = xmlRelaxNGNewDefine(a1, a2);
-      v10 = v9;
-      if (!v9)
-      {
-        return v10;
-      }
-
-      *v9 = 9;
-      *(v9 + 7) = *(a1 + 88);
-      v11 = *(a2 + 24);
-      if (v11)
-      {
-        v12 = *(a1 + 64);
-        *(a1 + 64) = v12 | 1;
-        if (!xmlRelaxNGParseNameClass(a1, v11, v9) || (v11 = *(v11 + 48)) != 0)
-        {
-          v13 = xmlRelaxNGParsePattern(a1, v11);
-          if (v13)
-          {
-            v14 = *v13 + 1;
-            if (v14 <= 0x15)
-            {
-              v15 = 1 << v14;
-              if ((v15 & 0x1FFF76) != 0)
-              {
-                *(v10 + 6) = v13;
-                *(v13 + 56) = v10;
-              }
-
-              else
-              {
-                if ((v15 & 0x200088) != 0)
-                {
-                  v28 = "attribute has invalid content\n";
-                  v29 = a1;
-                  v30 = a2;
-                  v31 = 1003;
-                }
-
-                else
-                {
-                  v28 = "RNG Internal error, noop found in attribute\n";
-                  v29 = a1;
-                  v30 = a2;
-                  v31 = 1005;
-                }
-
-                xmlRngPErr(v29, v30, v31, v28, 0, 0);
-              }
-            }
-          }
-
-          if (*(v11 + 48))
-          {
-            xmlRngPErr(a1, a2, 1002, "attribute has multiple children\n", 0, 0);
-          }
-        }
-
-        *(a1 + 64) = v12;
-        return v10;
-      }
-
-      v19 = "xmlRelaxNGParseattribute: attribute has no children\n";
-      v20 = a1;
-      v21 = a2;
-      v22 = 1004;
-      goto LABEL_33;
-    }
-
-    v8 = *(a2 + 72);
-  }
-
-  if (!v8 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v16 = xmlStrEqual(*(a2 + 16), "empty");
-  v17 = *(a2 + 72);
-  if (v16)
-  {
-    if (xmlStrEqual(*(v17 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v18 = xmlRelaxNGNewDefine(a1, a2);
-      v10 = v18;
-      if (!v18)
-      {
-        return v10;
-      }
-
-      *v18 = 0;
-      if (!*(a2 + 24))
-      {
-        return v10;
-      }
-
-      v19 = "empty: had a child node\n";
-      v20 = a1;
-      v21 = a2;
-      v22 = 1025;
-      goto LABEL_33;
-    }
-
-    v17 = *(a2 + 72);
-  }
-
-  if (!v17 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v25 = xmlStrEqual(*(a2 + 16), "text");
-  v26 = *(a2 + 72);
-  if (v25)
-  {
-    if (xmlStrEqual(*(v26 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v27 = xmlRelaxNGNewDefine(a1, a2);
-      v10 = v27;
-      if (!v27)
-      {
-        return v10;
-      }
-
-      *v27 = 3;
-      if (!*(a2 + 24))
-      {
-        return v10;
-      }
-
-      v19 = "text: had a child node\n";
-      v20 = a1;
-      v21 = a2;
-      v22 = 1109;
-      goto LABEL_33;
-    }
-
-    v26 = *(a2 + 72);
-  }
-
-  if (!v26 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v32 = xmlStrEqual(*(a2 + 16), "zeroOrMore");
-  v33 = *(a2 + 72);
-  if (v32)
-  {
-    if (xmlStrEqual(*(v33 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v34 = 15;
-LABEL_53:
-      *v10 = v34;
-      if (*(a2 + 24))
-      {
-        v35 = a1;
-LABEL_55:
-        v36 = xmlRelaxNGParsePatterns(v35);
-LABEL_56:
-        *(v10 + 6) = v36;
-        return v10;
-      }
-
-      goto LABEL_82;
-    }
-
-    v33 = *(a2 + 72);
-  }
-
-  if (!v33 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v37 = xmlStrEqual(*(a2 + 16), "oneOrMore");
-  v38 = *(a2 + 72);
-  if (v37)
-  {
-    if (xmlStrEqual(*(v38 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v34 = 16;
-      goto LABEL_53;
-    }
-
-    v38 = *(a2 + 72);
-  }
-
-  if (!v38 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v39 = xmlStrEqual(*(a2 + 16), "optional");
-  v40 = *(a2 + 72);
-  if (v39)
-  {
-    if (xmlStrEqual(*(v40 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v34 = 14;
-      goto LABEL_53;
-    }
-
-    v40 = *(a2 + 72);
-  }
-
-  if (!v40 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v41 = xmlStrEqual(*(a2 + 16), "choice");
-  v42 = *(a2 + 72);
-  if (v41)
-  {
-    if (xmlStrEqual(*(v42 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v43 = 17;
-LABEL_80:
-      *v10 = v43;
-      if (*(a2 + 24))
-      {
-        v35 = a1;
-        goto LABEL_55;
-      }
-
-LABEL_82:
-      name = *(a2 + 16);
-      v19 = "Element %s is empty\n";
-      v20 = a1;
-      v21 = a2;
-      v22 = 1023;
-      goto LABEL_34;
-    }
-
-    v42 = *(a2 + 72);
-  }
-
-  if (!v42 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v44 = xmlStrEqual(*(a2 + 16), "group");
-  v45 = *(a2 + 72);
-  if (v44)
-  {
-    if (xmlStrEqual(*(v45 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v43 = 18;
-      goto LABEL_80;
-    }
-
-    v45 = *(a2 + 72);
-  }
-
-  if (!v45 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v46 = xmlStrEqual(*(a2 + 16), "ref");
-  v47 = *(a2 + 72);
-  if (v46)
-  {
-    if (xmlStrEqual(*(v47 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v48 = xmlRelaxNGNewDefine(a1, a2);
-      v10 = v48;
-      if (!v48)
-      {
-        return v10;
-      }
-
-      *v48 = 11;
-      Prop = xmlGetProp(a2, "name");
-      *(v10 + 2) = Prop;
-      if (Prop)
-      {
-        xmlRelaxNGNormExtSpace(Prop);
-        if (!xmlValidateNCName(*(v10 + 2), 0))
-        {
-LABEL_119:
-          if (*(a2 + 24))
-          {
-            xmlRngPErr(a1, a2, 1103, "ref is not empty\n", 0, 0);
-          }
-
-          v63 = *(*(a1 + 48) + 56);
-          if (v63 || (v63 = xmlHashCreate(10), (*(*(a1 + 48) + 56) = v63) != 0))
-          {
-            if ((xmlHashAddEntry(v63, *(v10 + 2), v10) & 0x80000000) == 0)
-            {
-              return v10;
-            }
-
-            v64 = xmlHashLookup(*(*(a1 + 48) + 56), *(v10 + 2));
-            if (v64)
-            {
-LABEL_125:
-              *(v10 + 11) = v64[11];
-              v64[11] = v10;
-              return v10;
-            }
-
-            v78 = *(v10 + 2);
-            if (v78)
-            {
-              v74 = "Error refs definitions '%s'\n";
-            }
-
-            else
-            {
-              v74 = "Error refs definitions\n";
-            }
-
-            v75 = a1;
-            v76 = a2;
-            v77 = 1098;
-            goto LABEL_267;
-          }
-
-          v74 = "Could not create references hash\n";
-          v75 = a1;
-          v76 = a2;
-          v77 = 1098;
-          goto LABEL_145;
-        }
-
-        v50 = *(v10 + 2);
-        v51 = "ref name '%s' is not an NCName\n";
-        v52 = a1;
-        v53 = a2;
-        v54 = 1100;
-      }
-
-      else
-      {
-        v51 = "ref has no name\n";
-        v52 = a1;
-        v53 = a2;
-        v54 = 1102;
-        v50 = 0;
-      }
-
-      xmlRngPErr(v52, v53, v54, v51, v50, 0);
-      goto LABEL_119;
-    }
-
-    v47 = *(a2 + 72);
-  }
-
-  if (!v47 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v55 = xmlStrEqual(*(a2 + 16), "data");
-  v56 = *(a2 + 72);
-  if (v55)
-  {
-    if (xmlStrEqual(*(v56 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v57 = xmlGetProp(a2, "type");
-      if (v57)
-      {
-        v58 = v57;
-        xmlRelaxNGNormExtSpace(v57);
-        if (xmlValidateNCName(v58, 0))
-        {
-          xmlRngPErr(a1, a2, 1112, "data type '%s' is not an NCName\n", v58, 0);
-        }
-
-        v59 = xmlRelaxNGGetDataTypeLibrary(a2);
-        if (!v59)
-        {
-          v59 = xmlStrdup("http://relaxng.org/ns/structure/1.0");
-        }
-
-        v60 = xmlRelaxNGNewDefine(a1, a2);
-        v10 = v60;
-        if (!v60)
-        {
-          free(v59);
-          free(v58);
-          return v10;
-        }
-
-        *v60 = 5;
-        *(v60 + 2) = v58;
-        *(v60 + 3) = v59;
-        v61 = xmlHashLookup(xmlRelaxNGRegisteredTypes, v59);
-        if (!v61)
-        {
-          xmlRngPErr(a1, a2, 1116, "Use of unregistered type library '%s'\n", v59, 0);
-          *(v10 + 5) = 0;
-          goto LABEL_160;
-        }
-
-        *(v10 + 5) = v61;
-        v62 = v61[2];
-        if (v62)
-        {
-          if (v62(v61[1], *(v10 + 2)) == 1)
-          {
-            if (xmlStrEqual(v59, "http://www.w3.org/2001/XMLSchema-datatypes") && (xmlStrEqual(*(v10 + 2), "IDREF") || xmlStrEqual(*(v10 + 2), "IDREFS")))
-            {
-              *(a1 + 224) = 1;
-            }
-
-LABEL_160:
-            v87 = *(a2 + 24);
-            if (v87)
-            {
-              v88 = 0;
-              while (xmlStrEqual(v87->name, "param"))
-              {
-                if (xmlStrEqual(v59, "http://relaxng.org/ns/structure/1.0"))
-                {
-                  xmlRngPErr(a1, a2, 1058, "Type library '%s' does not allow type parameters\n", v59, 0);
-                  while (1)
-                  {
-                    v87 = v87->next;
-                    if (!v87)
-                    {
-                      return v10;
-                    }
-
-                    if (!xmlStrEqual(v87->name, "param"))
-                    {
-                      goto LABEL_175;
-                    }
-                  }
-                }
-
-                v89 = xmlRelaxNGNewDefine(a1, a2);
-                if (v89)
-                {
-                  v90 = v89;
-                  *v89 = 6;
-                  v91 = xmlGetProp(v87, "name");
-                  *(v90 + 2) = v91;
-                  if (!v91)
-                  {
-                    xmlRngPErr(a1, a2, 1059, "param has no name\n", 0, 0);
-                  }
-
-                  *(v90 + 4) = xmlNodeGetContent(v87);
-                  v92 = v88 + 4;
-                  if (!v88)
-                  {
-                    v92 = v10 + 9;
-                  }
-
-                  *v92 = v90;
-                  v88 = v90;
-                }
-
-                v87 = v87->next;
-LABEL_175:
-                if (!v87)
-                {
-                  return v10;
-                }
-              }
-
-              if (!xmlStrEqual(v87->name, "except"))
-              {
-                goto LABEL_224;
-              }
-
-              v95 = xmlRelaxNGNewDefine(a1, a2);
-              if (v95)
-              {
-                *v95 = 2;
-                children = v87->children;
-                *(v10 + 6) = v95;
-                if (children)
-                {
-                  v97 = 0;
-                  v98 = (v95 + 3);
-                  do
-                  {
-                    v99 = xmlRelaxNGParsePattern(a1, children);
-                    if (v99)
-                    {
-                      v100 = (v97 + 64);
-                      if (!v97)
-                      {
-                        v100 = v98;
-                      }
-
-                      *v100 = v99;
-                      v97 = v99;
-                    }
-
-                    children = children->next;
-                  }
-
-                  while (children);
-                }
-
-                else
-                {
-                  xmlRngPErr(a1, v87, 1030, "except has no content\n", 0, 0);
-                }
-
-                v87 = v87->next;
-                if (v87)
-                {
-LABEL_224:
-                  name = v87->name;
-                  v19 = "Element data has unexpected content %s\n";
-                  v20 = a1;
-                  v21 = v87;
-                  v22 = 1009;
-                  goto LABEL_34;
-                }
-              }
-            }
-
-            return v10;
-          }
-
-          v85 = *(v10 + 2);
-          v81 = "Error type '%s' is not exported by type library '%s'\n";
-          v82 = a1;
-          v83 = a2;
-          v84 = 1111;
-          v86 = v59;
-        }
-
-        else
-        {
-          v81 = "Internal error with type library '%s': no 'have'\n";
-          v82 = a1;
-          v83 = a2;
-          v84 = 1026;
-          v85 = v59;
-          v86 = 0;
-        }
-
-        xmlRngPErr(v82, v83, v84, v81, v85, v86);
-        goto LABEL_160;
-      }
-
-      v74 = "data has no type\n";
-      v75 = a1;
-      v76 = a2;
-      v77 = 1110;
-LABEL_145:
-      v78 = 0;
-LABEL_267:
-      xmlRngPErr(v75, v76, v77, v74, v78, 0);
-      return 0;
-    }
-
-    v56 = *(a2 + 72);
-  }
-
-  if (!v56 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v65 = xmlStrEqual(*(a2 + 16), "value");
-  v66 = *(a2 + 72);
-  if (v65)
-  {
-    if (xmlStrEqual(*(v66 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v67 = xmlRelaxNGNewDefine(a1, a2);
-      v10 = v67;
-      if (!v67)
-      {
-        return v10;
-      }
-
-      *v67 = 7;
-      v68 = xmlGetProp(a2, "type");
-      v69 = v68;
-      if (v68)
-      {
-        xmlRelaxNGNormExtSpace(v68);
-        if (xmlValidateNCName(v69, 0))
-        {
-          xmlRngPErr(a1, a2, 1112, "value type '%s' is not an NCName\n", v69, 0);
-        }
-
-        v70 = xmlRelaxNGGetDataTypeLibrary(a2);
-        if (!v70)
-        {
-          v70 = xmlStrdup("http://relaxng.org/ns/structure/1.0");
-        }
-
-        *(v10 + 2) = v69;
-        *(v10 + 3) = v70;
-        v71 = xmlHashLookup(xmlRelaxNGRegisteredTypes, v70);
-        v69 = v71;
-        if (!v71)
-        {
-          xmlRngPErr(a1, a2, 1116, "Use of unregistered type library '%s'\n", v70, 0);
-          v73 = 0;
-          *(v10 + 5) = 0;
-          goto LABEL_200;
-        }
-
-        *(v10 + 5) = v71;
-        v72 = *(v71 + 2);
-        if (v72)
-        {
-          if (v72(*(v71 + 1), *(v10 + 2)) == 1)
-          {
-            v73 = 1;
-            goto LABEL_200;
-          }
-
-          v105 = *(v10 + 2);
-          v101 = "Error type '%s' is not exported by type library '%s'\n";
-          v102 = a1;
-          v103 = a2;
-          v104 = 1111;
-          v106 = v70;
-        }
-
-        else
-        {
-          v101 = "Internal error with type library '%s': no 'have'\n";
-          v102 = a1;
-          v103 = a2;
-          v104 = 1026;
-          v105 = v70;
-          v106 = 0;
-        }
-
-        xmlRngPErr(v102, v103, v104, v101, v105, v106);
-      }
-
-      v73 = 0;
-LABEL_200:
-      v107 = *(a2 + 24);
-      if (!v107)
-      {
-        *(v10 + 4) = xmlStrdup("");
-        return v10;
-      }
-
-      if ((*(v107 + 8) - 3) > 1 || *(v107 + 48))
-      {
-        v19 = "Expecting a single text value for <value>content\n";
-        v20 = a1;
-        v21 = a2;
-        v22 = 1108;
-      }
-
-      else
-      {
-        Content = xmlNodeGetContent(a2);
-        *(v10 + 4) = Content;
-        if (Content)
-        {
-          if (!v69)
-          {
-            return v10;
-          }
-
-          v109 = *(v69 + 3);
-          v110 = v73 ^ 1;
-          if (!v109)
-          {
-            v110 = 1;
-          }
-
-          if (v110)
-          {
-            return v10;
-          }
-
-          v135 = 0;
-          if (v109(*(v69 + 1), *(v10 + 2), Content, &v135, a2) == 1)
-          {
-            if (v135)
-            {
-              *(v10 + 9) = v135;
-            }
-
-            return v10;
-          }
-
-          name = *(v10 + 4);
-          v24 = *(v10 + 2);
-          v19 = "Value '%s' is not acceptable for type '%s'\n";
-          v20 = a1;
-          v21 = a2;
-          v22 = 1051;
-          goto LABEL_35;
-        }
-
-        v19 = "Element <value> has no content\n";
-        v20 = a1;
-        v21 = a2;
-        v22 = 1120;
-      }
-
-      goto LABEL_33;
-    }
-
-    v66 = *(a2 + 72);
-  }
-
-  if (!v66 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v79 = xmlStrEqual(*(a2 + 16), "list");
-  v80 = *(a2 + 72);
-  if (v79)
-  {
-    if (xmlStrEqual(*(v80 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-      v10 = xmlRelaxNGNewDefine(a1, a2);
-      if (!v10)
-      {
-        return v10;
-      }
-
-      v43 = 8;
-      goto LABEL_80;
-    }
-
-    v80 = *(a2 + 72);
-  }
-
-  if (!v80 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v93 = xmlStrEqual(*(a2 + 16), "interleave");
-  v94 = *(a2 + 72);
-  if (v93)
-  {
-    if (xmlStrEqual(*(v94 + 16), "http://relaxng.org/ns/structure/1.0"))
-    {
-
-      return xmlRelaxNGParseInterleave(a1, a2);
-    }
-
-    v94 = *(a2 + 72);
-  }
-
-  if (!v94 || *(a2 + 8) != 1)
-  {
-    goto LABEL_266;
-  }
-
-  v111 = xmlStrEqual(*(a2 + 16), "externalRef");
-  v112 = *(a2 + 72);
-  if (!v111)
-  {
-LABEL_227:
-    if (v112 && *(a2 + 8) == 1)
-    {
-      v113 = xmlStrEqual(*(a2 + 16), "notAllowed");
-      v114 = *(a2 + 72);
-      if (v113)
-      {
-        if (xmlStrEqual(*(v114 + 16), "http://relaxng.org/ns/structure/1.0"))
-        {
-          v115 = xmlRelaxNGNewDefine(a1, a2);
-          v10 = v115;
-          if (!v115)
-          {
-            return v10;
-          }
-
-          *v115 = 1;
-          if (!*(a2 + 24))
-          {
-            return v10;
-          }
-
-          v19 = "xmlRelaxNGParse: notAllowed element is not empty\n";
-          v20 = a1;
-          v21 = a2;
-          v22 = 1055;
-LABEL_33:
-          name = 0;
-LABEL_34:
-          v24 = 0;
-LABEL_35:
-          xmlRngPErr(v20, v21, v22, v19, name, v24);
-          return v10;
-        }
-
-        v114 = *(a2 + 72);
-      }
-
-      if (v114 && *(a2 + 8) == 1)
-      {
-        v116 = xmlStrEqual(*(a2 + 16), "grammar");
-        v117 = *(a2 + 72);
-        if (v116)
-        {
-          if (xmlStrEqual(*(v117 + 16), "http://relaxng.org/ns/structure/1.0"))
-          {
-            v118 = *(a1 + 48);
-            v134 = *(a1 + 48);
-            *(a1 + 56) = v134;
-            v119 = xmlRelaxNGParseGrammar(a1, *(a2 + 24));
-            if (v118)
-            {
-              *(a1 + 48) = v134;
-            }
-
-            if (v119)
-            {
-              return *(v119 + 24);
-            }
-
-            return 0;
-          }
-
-          v117 = *(a2 + 72);
-        }
-
-        if (v117 && *(a2 + 8) == 1)
-        {
-          v120 = xmlStrEqual(*(a2 + 16), "parentRef");
-          v121 = *(a2 + 72);
-          if (v120)
-          {
-            if (xmlStrEqual(*(v121 + 16), "http://relaxng.org/ns/structure/1.0"))
-            {
-              if (!*(a1 + 56))
-              {
-                v74 = "Use of parentRef without a parent grammar\n";
-                v75 = a1;
-                v76 = a2;
-                v77 = 1063;
-                goto LABEL_145;
-              }
-
-              v122 = xmlRelaxNGNewDefine(a1, a2);
-              v10 = v122;
-              if (!v122)
-              {
-                return v10;
-              }
-
-              *v122 = 13;
-              v123 = xmlGetProp(a2, "name");
-              *(v10 + 2) = v123;
-              if (v123)
-              {
-                xmlRelaxNGNormExtSpace(v123);
-                if (!xmlValidateNCName(*(v10 + 2), 0))
-                {
-LABEL_273:
-                  if (*(a2 + 24))
-                  {
-                    xmlRngPErr(a1, a2, 1064, "parentRef is not empty\n", 0, 0);
-                  }
-
-                  v132 = *(*(a1 + 56) + 56);
-                  if (v132 || (v132 = xmlHashCreate(10), (*(*(a1 + 56) + 56) = v132) != 0))
-                  {
-                    v133 = *(v10 + 2);
-                    if (!v133 || (xmlHashAddEntry(v132, v133, v10) & 0x80000000) == 0)
-                    {
-                      return v10;
-                    }
-
-                    v64 = xmlHashLookup(*(*(a1 + 56) + 56), *(v10 + 2));
-                    if (v64)
-                    {
-                      goto LABEL_125;
-                    }
-
-                    v78 = *(v10 + 2);
-                    v74 = "Internal error parentRef definitions '%s'\n";
-                    v75 = a1;
-                    v76 = a2;
-                    v77 = 1060;
-                    goto LABEL_267;
-                  }
-
-                  v74 = "Could not create references hash\n";
-                  v75 = a1;
-                  v76 = a2;
-                  v77 = 1060;
-                  goto LABEL_145;
-                }
-
-                v124 = *(v10 + 2);
-                v125 = "parentRef name '%s' is not an NCName\n";
-                v126 = a1;
-                v127 = a2;
-                v128 = 1061;
-              }
-
-              else
-              {
-                v125 = "parentRef has no name\n";
-                v126 = a1;
-                v127 = a2;
-                v128 = 1062;
-                v124 = 0;
-              }
-
-              xmlRngPErr(v126, v127, v128, v125, v124, 0);
-              goto LABEL_273;
-            }
-
-            v121 = *(a2 + 72);
-          }
-
-          if (v121 && *(a2 + 8) == 1 && xmlStrEqual(*(a2 + 16), "mixed") && xmlStrEqual(*(*(a2 + 72) + 16), "http://relaxng.org/ns/structure/1.0"))
-          {
-            if (*(a2 + 24))
-            {
-              v129 = xmlRelaxNGParseInterleave(a1, a2);
-              v10 = v129;
-              if (!v129)
-              {
-                return v10;
-              }
-
-              v130 = v129[6];
-              if (v130)
-              {
-                if (*(v130 + 64))
-                {
-                  v131 = xmlRelaxNGNewDefine(a1, a2);
-                  if (v131)
-                  {
-                    *v131 = 18;
-                    *(v131 + 6) = *(v10 + 6);
-                    *(v10 + 6) = v131;
-                  }
-                }
-              }
-
-              v36 = xmlRelaxNGNewDefine(a1, a2);
-              if (!v36)
-              {
-                return v10;
-              }
-
-              *v36 = 3;
-              *(v36 + 8) = *(v10 + 6);
-              goto LABEL_56;
-            }
-
-            v74 = "Mixed is empty\n";
-            v75 = a1;
-            v76 = a2;
-            v77 = 1023;
-            goto LABEL_145;
-          }
-        }
-      }
-    }
-
-LABEL_266:
-    v78 = *(a2 + 16);
-    v74 = "Unexpected node %s is not a pattern\n";
-    v75 = a1;
-    v76 = a2;
-    v77 = 1115;
-    goto LABEL_267;
-  }
-
-  if (!xmlStrEqual(*(v112 + 16), "http://relaxng.org/ns/structure/1.0"))
-  {
-    v112 = *(a2 + 72);
-    goto LABEL_227;
-  }
-
-  return xmlRelaxNGProcessExternalRef(a1, a2);
 }

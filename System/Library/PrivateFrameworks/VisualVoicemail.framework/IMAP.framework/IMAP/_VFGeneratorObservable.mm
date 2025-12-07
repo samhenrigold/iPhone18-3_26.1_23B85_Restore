@@ -74,12 +74,11 @@
 
 - (void)_updateState
 {
+  v3 = (*(self->_nextStateForState + 2))();
   state = self->_state;
-  v4 = (*(self->_nextStateForState + 2))();
-  v5 = self->_state;
-  self->_state = v4;
+  self->_state = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, state);
 }
 
 @end

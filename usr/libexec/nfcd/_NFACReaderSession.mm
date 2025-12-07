@@ -24,6 +24,7 @@
 - (void)restartPolling:(id)polling;
 - (void)setTagDataRate:(int64_t)rate callback:(id)callback;
 - (void)startPolling:(id)polling;
+- (void)startPollingForTechnology:(unsigned int)technology lpcd:(BOOL)lpcd callback:(id)callback;
 - (void)stopPolling:(id)polling;
 - (void)transceive:(id)transceive callback:(id)callback;
 - (void)transceiveAccessoryCommand:(id)command callback:(id)callback;
@@ -158,7 +159,7 @@
   v35.super_class = _NFACReaderSession;
   [(_NFACSession *)&v35 didStartSession:sessionCopy];
   driverWrapper = [(_NFACSession *)self driverWrapper];
-  v19 = sub_10004C268();
+  v19 = sub_10004C268(NFRoutingConfig);
   v20 = [driverWrapper setRouting:v19];
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -277,7 +278,7 @@
 
     sub_1001AF894(self->_powerConsumptionReporter, self);
     driverWrapper2 = [(_NFACSession *)self driverWrapper];
-    v17 = sub_10004C268();
+    v17 = sub_10004C268(NFRoutingConfig);
     v18 = [driverWrapper2 setRouting:v17];
   }
 
@@ -503,6 +504,71 @@
   block[4] = self;
   v19 = pollingCopy;
   v16 = pollingCopy;
+  dispatch_async(workQueue, block);
+}
+
+- (void)startPollingForTechnology:(unsigned int)technology lpcd:(BOOL)lpcd callback:(id)callback
+{
+  v6 = *&technology;
+  callbackCopy = callback;
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v11 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v14 = 45;
+    if (isMetaClass)
+    {
+      v14 = 43;
+    }
+
+    v11(6, "%c[%{public}s %{public}s]:%i tech = 0x%04x", v14, ClassName, Name, 215, v6);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v15 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = object_getClass(self);
+    if (class_isMetaClass(v16))
+    {
+      v17 = 43;
+    }
+
+    else
+    {
+      v17 = 45;
+    }
+
+    *buf = 67110146;
+    v28 = v17;
+    v29 = 2082;
+    v30 = object_getClassName(self);
+    v31 = 2082;
+    v32 = sel_getName(a2);
+    v33 = 1024;
+    v34 = 215;
+    v35 = 1024;
+    v36 = v6;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i tech = 0x%04x", buf, 0x28u);
+  }
+
+  v26.receiver = self;
+  v26.super_class = _NFACReaderSession;
+  workQueue = [(_NFACSession *)&v26 workQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000598D8;
+  block[3] = &unk_100316728;
+  lpcdCopy = lpcd;
+  v24 = v6;
+  block[4] = self;
+  v23 = callbackCopy;
+  v19 = callbackCopy;
   dispatch_async(workQueue, block);
 }
 

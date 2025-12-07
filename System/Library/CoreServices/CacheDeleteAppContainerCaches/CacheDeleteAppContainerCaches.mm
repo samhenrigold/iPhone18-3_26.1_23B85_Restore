@@ -90,9 +90,9 @@ LABEL_15:
   }
 }
 
-void sub_1000013D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000013D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -109,10 +109,7 @@ uint64_t __RegisterCacheDeleteAppFreezerService_block_invoke_19(uint64_t a1)
   result = isAppFreezerEnabled();
   if (result)
   {
-    v3 = [NSNumber numberWithUnsignedLongLong:sizeOfFreezeFiles()];
-    v4 = *(*(a1 + 32) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 32) + 8) + 40) = [NSNumber numberWithUnsignedLongLong:sizeOfFreezeFiles()];
 
     return _objc_release_x1();
   }
@@ -181,9 +178,9 @@ uint64_t sizeOfFreezeFiles()
   return v0;
 }
 
-void sub_1000016B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000016B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -271,22 +268,30 @@ int main(int argc, const char **argv, const char **envp)
   dispatch_main();
 }
 
-void sub_10000365C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a9);
+  va_start(va, a25);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100003AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000365C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a13);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100004CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_100003AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100004CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
+{
+  va_start(va, a60);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
@@ -294,7 +299,7 @@ void sub_100004CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a61, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -333,7 +338,6 @@ void __RegisterCacheManagementAssetsService_block_invoke_3(uint64_t a1)
 
     if (v2)
     {
-      v4 = *(a1 + 40);
       qword_100010618 = [CacheDeleteManagedAssets cacheDeleteManagedAssetsWithInfo:"cacheDeleteManagedAssetsWithInfo:atUrgency:" atUrgency:?];
 
       _objc_release_x1();
@@ -350,117 +354,113 @@ void __RegisterCacheManagementAssetsService_block_invoke_3(uint64_t a1)
 
 void *__RegisterCacheManagementAssetsService_block_invoke_4(uint64_t a1, void *a2)
 {
-  v72 = +[NSMutableDictionary dictionary];
+  v70 = +[NSMutableDictionary dictionary];
   v4 = a2;
   v5 = [v4 objectForKeyedSubscript:@"CACHE_DELETE_OPERATIONS"];
   v6 = CDGetLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    *v94 = v4;
+    *v92 = v4;
     _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "com.apple.mobile.cache_delete_managed_assets Callback ENTRY, info: %@", buf, 0xCu);
   }
 
-  v67 = v4;
+  v65 = v4;
 
-  v82 = 0u;
-  v83 = 0u;
   v80 = 0u;
   v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v80 objects:v95 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v78 objects:v93 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = &CDGetLogHandle_ptr;
-    v73 = *v81;
-    v70 = v7;
-    v69 = a1;
+    v71 = *v79;
+    v68 = v7;
+    v67 = a1;
     do
     {
-      v11 = 0;
-      v71 = v9;
+      v10 = 0;
+      v69 = v9;
       do
       {
-        if (*v81 != v73)
+        if (*v79 != v71)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v80 + 1) + 8 * v11);
-        v13 = [v7 objectForKeyedSubscript:v12];
-        v14 = v10[96];
+        v11 = *(*(&v78 + 1) + 8 * v10);
+        v12 = [v7 objectForKeyedSubscript:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v74 = [TestTelemetry testTelemetryWithInfo:v13];
-          v15 = [v13 objectForKeyedSubscript:@"CACHE_DELETE_URGENCY"];
-          [v15 integerValue];
+          v72 = [TestTelemetry testTelemetryWithInfo:v12];
+          v13 = [v12 objectForKeyedSubscript:@"CACHE_DELETE_URGENCY"];
+          [v13 integerValue];
 
-          v16 = [v13 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-          v17 = evaluateStringProperty();
-          v18 = [CacheDeleteVolume volumeWithPath:v17];
+          v14 = [v12 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
+          v15 = evaluateStringProperty();
+          v16 = [CacheDeleteVolume volumeWithPath:v15];
 
-          v19 = CDGetLogHandle();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v17 = CDGetLogHandle();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v18 mountPoint];
+            v18 = [v16 mountPoint];
             *buf = 67109378;
-            *v94 = 496;
-            *&v94[4] = 2112;
-            *&v94[6] = v20;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%d CacheManagmentAssets volume: %@", buf, 0x12u);
+            *v92 = 496;
+            *&v92[4] = 2112;
+            *&v92[6] = v18;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%d CacheManagmentAssets volume: %@", buf, 0x12u);
           }
 
-          if ([v12 isEqualToString:@"CACHE_DELETE_PURGE_OPERATION"])
+          if ([v11 isEqualToString:@"CACHE_DELETE_PURGE_OPERATION"])
           {
-            v21 = [v13 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
-            v22 = evaluateNumberProperty();
+            v19 = [v12 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+            v20 = evaluateNumberProperty();
 
-            v23 = [v18 mountPoint];
+            v21 = [v16 mountPoint];
             if (hasUserVolume())
             {
-              v24 = "/private/var/mobile";
+              v22 = "/private/var/mobile";
             }
 
             else
             {
-              v24 = "/private/var";
+              v22 = "/private/var";
             }
 
-            v25 = [NSString stringWithUTF8String:v24];
-            if ([v23 isEqualToString:v25] && v22)
+            v23 = [NSString stringWithUTF8String:v22];
+            if ([v21 isEqualToString:v23] && v20)
             {
-              v26 = [v22 longLongValue];
+              v24 = [v20 longLongValue];
 
-              if (v26 >= 1)
+              if (v24 >= 1)
               {
-                v27 = (*(*(v69 + 32) + 16))();
-                if (v27)
+                v25 = (*(*(v67 + 32) + 16))();
+                if (v25)
                 {
-                  v28 = [v27 purgeAssets:objc_msgSend(v22 testObject:{"unsignedLongLongValue"), v74}];
-                  v29 = (*(*(v69 + 32) + 16))();
-                  v91[0] = @"CACHE_DELETE_AMOUNT";
-                  v30 = [NSNumber numberWithLongLong:v28];
-                  v91[1] = @"CACHE_DELETE_VOLUME";
-                  v92[0] = v30;
-                  v31 = [v27 volume];
-                  v92[1] = v31;
-                  v10 = &CDGetLogHandle_ptr;
-                  v32 = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:2];
+                  v26 = [v25 purgeAssets:objc_msgSend(v20 testObject:{"unsignedLongLongValue"), v72}];
+                  v27 = (*(*(v67 + 32) + 16))();
+                  v89[0] = @"CACHE_DELETE_AMOUNT";
+                  v28 = [NSNumber numberWithLongLong:v26];
+                  v89[1] = @"CACHE_DELETE_VOLUME";
+                  v90[0] = v28;
+                  v29 = [v25 volume];
+                  v90[1] = v29;
+                  v30 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:2];
 
                   goto LABEL_43;
                 }
 
-                v32 = &off_10000CE50;
-                v7 = v70;
-                v10 = &CDGetLogHandle_ptr;
+                v30 = &off_10000CE50;
+                v7 = v68;
 LABEL_44:
 
-                [v72 setObject:v32 forKeyedSubscript:@"CACHE_DELETE_PURGE_OPERATION"];
+                [v70 setObject:v30 forKeyedSubscript:@"CACHE_DELETE_PURGE_OPERATION"];
 LABEL_61:
 
-                v9 = v71;
+                v9 = v69;
                 goto LABEL_62;
               }
             }
@@ -469,202 +469,196 @@ LABEL_61:
             {
             }
 
-            v27 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Amount doesn't make sense: %lld", [v22 longLongValue], v67);
-            v89 = @"CACHE_DELETE_ERROR";
-            v90 = v27;
-            v10 = &CDGetLogHandle_ptr;
-            v32 = [NSDictionary dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+            v25 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Amount doesn't make sense: %lld", [v20 longLongValue], v65);
+            v87 = @"CACHE_DELETE_ERROR";
+            v88 = v25;
+            v30 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
 LABEL_43:
-            v7 = v70;
+            v7 = v68;
             goto LABEL_44;
           }
 
-          if ([v12 isEqualToString:@"CACHE_DELETE_PURGEABLE_OPERATION"])
+          if ([v11 isEqualToString:@"CACHE_DELETE_PURGEABLE_OPERATION"])
           {
-            v34 = [v18 mountPoint];
+            v32 = [v16 mountPoint];
             if (hasUserVolume())
             {
-              v35 = "/private/var/mobile";
+              v33 = "/private/var/mobile";
             }
 
             else
             {
-              v35 = "/private/var";
+              v33 = "/private/var";
             }
 
-            v36 = [NSString stringWithUTF8String:v35];
-            v37 = [v34 isEqualToString:v36];
+            v34 = [NSString stringWithUTF8String:v33];
+            v35 = [v32 isEqualToString:v34];
 
-            if (v37)
+            if (v35)
             {
-              v38 = (*(*(v69 + 32) + 16))();
-              if (v38)
+              v36 = (*(*(v67 + 32) + 16))();
+              if (v36)
               {
-                v79 = 0;
-                v68 = v38;
-                v39 = [v38 sizeEligibleAsset:&v79];
-                v40 = (*(*(v69 + 32) + 16))();
-                v41 = CDGetLogHandle();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+                v77 = 0;
+                v66 = v36;
+                v37 = [v36 sizeEligibleAsset:&v77];
+                v38 = (*(*(v67 + 32) + 16))();
+                v39 = CDGetLogHandle();
+                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 0;
-                  _os_log_debug_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "purgeableAssets:", buf, 2u);
+                  _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "purgeableAssets:", buf, 2u);
                 }
 
-                v77 = 0u;
-                v78 = 0u;
                 v75 = 0u;
                 v76 = 0u;
-                v42 = v39;
-                v43 = [v42 countByEnumeratingWithState:&v75 objects:v88 count:16];
-                if (v43)
+                v73 = 0u;
+                v74 = 0u;
+                v40 = v37;
+                v41 = [v40 countByEnumeratingWithState:&v73 objects:v86 count:16];
+                if (v41)
                 {
-                  v44 = v43;
-                  v45 = *v76;
+                  v42 = v41;
+                  v43 = *v74;
                   do
                   {
-                    for (i = 0; i != v44; i = i + 1)
+                    for (i = 0; i != v42; i = i + 1)
                     {
-                      if (*v76 != v45)
+                      if (*v74 != v43)
                       {
-                        objc_enumerationMutation(v42);
+                        objc_enumerationMutation(v40);
                       }
 
-                      v47 = *(*(&v75 + 1) + 8 * i);
-                      v48 = CDGetLogHandle();
-                      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+                      v45 = *(*(&v73 + 1) + 8 * i);
+                      v46 = CDGetLogHandle();
+                      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412290;
-                        *v94 = v47;
-                        _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                        *v92 = v45;
+                        _os_log_debug_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                       }
                     }
 
-                    v44 = [v42 countByEnumeratingWithState:&v75 objects:v88 count:16];
+                    v42 = [v40 countByEnumeratingWithState:&v73 objects:v86 count:16];
                   }
 
-                  while (v44);
+                  while (v42);
                 }
 
-                v86[0] = @"CACHE_DELETE_AMOUNT";
-                v49 = [NSNumber numberWithLongLong:v79];
-                v86[1] = @"CACHE_DELETE_VOLUME";
-                v87[0] = v49;
-                v50 = [v68 volume];
-                v87[1] = v50;
-                v51 = [NSDictionary dictionaryWithObjects:v87 forKeys:v86 count:2];
+                v84[0] = @"CACHE_DELETE_AMOUNT";
+                v47 = [NSNumber numberWithLongLong:v77];
+                v84[1] = @"CACHE_DELETE_VOLUME";
+                v85[0] = v47;
+                v48 = [v66 volume];
+                v85[1] = v48;
+                v49 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:2];
 
-                v10 = &CDGetLogHandle_ptr;
-                v52 = v68;
+                v50 = v66;
               }
 
               else
               {
-                v52 = 0;
-                v51 = &off_10000CE78;
-                v10 = &CDGetLogHandle_ptr;
+                v50 = 0;
+                v49 = &off_10000CE78;
               }
             }
 
             else
             {
-              v54 = CDGetLogHandle();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+              v52 = CDGetLogHandle();
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
               {
-                v55 = [v13 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
+                v53 = [v12 objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
                 *buf = 67109378;
-                *v94 = 544;
-                *&v94[4] = 2112;
-                *&v94[6] = v55;
-                _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%d CacheManagementAssets Purgeable skipping volume: %@", buf, 0x12u);
+                *v92 = 544;
+                *&v92[4] = 2112;
+                *&v92[6] = v53;
+                _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%d CacheManagementAssets Purgeable skipping volume: %@", buf, 0x12u);
               }
 
-              v84[0] = @"CACHE_DELETE_AMOUNT";
-              v84[1] = @"CACHE_DELETE_VOLUME";
-              v85[0] = &off_10000CD98;
-              v52 = [v13 objectForKeyedSubscript:?];
-              v85[1] = v52;
-              v10 = &CDGetLogHandle_ptr;
-              v51 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:2];
+              v82[0] = @"CACHE_DELETE_AMOUNT";
+              v82[1] = @"CACHE_DELETE_VOLUME";
+              v83[0] = &off_10000CD98;
+              v50 = [v12 objectForKeyedSubscript:?];
+              v83[1] = v50;
+              v49 = [NSDictionary dictionaryWithObjects:v83 forKeys:v82 count:2];
             }
 
-            [v72 setObject:v51 forKeyedSubscript:@"CACHE_DELETE_PURGEABLE_OPERATION"];
+            [v70 setObject:v49 forKeyedSubscript:@"CACHE_DELETE_PURGEABLE_OPERATION"];
           }
 
           else
           {
-            v10 = &CDGetLogHandle_ptr;
-            if ([v12 isEqualToString:@"CACHE_DELETE_PURGE_CANCEL_OPERATION"])
+            if ([v11 isEqualToString:@"CACHE_DELETE_PURGE_CANCEL_OPERATION"])
             {
-              v53 = (*(*(v69 + 32) + 16))();
+              v51 = (*(*(v67 + 32) + 16))();
               goto LABEL_61;
             }
 
-            if (![v12 isEqualToString:@"CACHE_DELETE_PERIODIC_OPERATION"])
+            if (![v11 isEqualToString:@"CACHE_DELETE_PERIODIC_OPERATION"])
             {
-              if ([v12 isEqualToString:@"CACHE_DELETE_ANALYTICS_REPORT"])
+              if ([v11 isEqualToString:@"CACHE_DELETE_ANALYTICS_REPORT"])
               {
-                v60 = objc_alloc_init(NSMutableDictionary);
+                v58 = objc_alloc_init(NSMutableDictionary);
                 for (j = 1; j != 5; ++j)
                 {
-                  v62 = (*(*(v69 + 32) + 16))();
-                  v63 = [v62 analytics];
-                  [v60 addEntriesFromDictionary:v63];
+                  v60 = (*(*(v67 + 32) + 16))();
+                  v61 = [v60 analytics];
+                  [v58 addEntriesFromDictionary:v61];
 
-                  v64 = (*(*(v69 + 32) + 16))();
+                  v62 = (*(*(v67 + 32) + 16))();
                 }
 
-                [v72 setObject:v60 forKeyedSubscript:@"CACHE_DELETE_ANALYTICS_REPORT"];
+                [v70 setObject:v58 forKeyedSubscript:@"CACHE_DELETE_ANALYTICS_REPORT"];
 
-                v7 = v70;
-                v10 = &CDGetLogHandle_ptr;
+                v7 = v68;
               }
 
               goto LABEL_61;
             }
 
-            v56 = (*(*(v69 + 32) + 16))();
-            v57 = v56;
-            if (v56)
+            v54 = (*(*(v67 + 32) + 16))();
+            v55 = v54;
+            if (v54)
             {
-              [v56 periodic:v74];
-              v58 = (*(*(v69 + 32) + 16))();
-              v59 = 0;
+              [v54 periodic:v72];
+              v56 = (*(*(v67 + 32) + 16))();
+              v57 = 0;
             }
 
             else
             {
-              v59 = &off_10000CEA0;
+              v57 = &off_10000CEA0;
             }
 
-            [v72 setObject:v59 forKeyedSubscript:@"CACHE_DELETE_PERIODIC_OPERATION"];
+            [v70 setObject:v57 forKeyedSubscript:@"CACHE_DELETE_PERIODIC_OPERATION"];
           }
 
-          v7 = v70;
+          v7 = v68;
           goto LABEL_61;
         }
 
-        v33 = CDGetLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v31 = CDGetLogHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *v94 = v13;
-          _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "operation info is not a dictionary: %@", buf, 0xCu);
+          *v92 = v12;
+          _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "operation info is not a dictionary: %@", buf, 0xCu);
         }
 
-        [v72 setObject:&off_10000CE28 forKeyedSubscript:@"CACHE_DELETE_SERVICE_REQUEST_OPERATION"];
+        [v70 setObject:&off_10000CE28 forKeyedSubscript:@"CACHE_DELETE_SERVICE_REQUEST_OPERATION"];
 LABEL_62:
 
-        v11 = v11 + 1;
+        v10 = v10 + 1;
       }
 
-      while (v11 != v9);
-      v65 = [v7 countByEnumeratingWithState:&v80 objects:v95 count:16];
-      v9 = v65;
+      while (v10 != v9);
+      v63 = [v7 countByEnumeratingWithState:&v78 objects:v93 count:16];
+      v9 = v63;
     }
 
-    while (v65);
+    while (v63);
   }
 
-  return v72;
+  return v70;
 }

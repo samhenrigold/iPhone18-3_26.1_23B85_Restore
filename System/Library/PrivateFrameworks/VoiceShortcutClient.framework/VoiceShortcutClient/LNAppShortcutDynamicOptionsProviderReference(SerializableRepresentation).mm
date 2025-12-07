@@ -7,22 +7,20 @@
 
 - (id)serializableRepresentation
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v9[0] = @"appShortcutsProviderMangledTypeName";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v8[0] = @"appShortcutsProviderMangledTypeName";
   appShortcutsProviderMangledTypeName = [self appShortcutsProviderMangledTypeName];
-  v10[0] = appShortcutsProviderMangledTypeName;
-  v9[1] = @"parameterIdentifier";
+  v9[0] = appShortcutsProviderMangledTypeName;
+  v8[1] = @"parameterIdentifier";
   parameterIdentifier = [self parameterIdentifier];
-  v10[1] = parameterIdentifier;
-  v9[2] = @"appShortcutIndex";
+  v9[1] = parameterIdentifier;
+  v8[2] = @"appShortcutIndex";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(self, "appShortcutIndex")}];
-  v10[2] = v4;
-  v9[3] = @"optionsProviderIndex";
+  v9[2] = v4;
+  v8[3] = @"optionsProviderIndex";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(self, "optionsProviderIndex")}];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }

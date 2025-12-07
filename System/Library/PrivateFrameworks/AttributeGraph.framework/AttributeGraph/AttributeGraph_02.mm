@@ -1,163 +1,7 @@
-uint64_t AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::~vector(uint64_t a1)
-{
-  v3 = *a1;
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    for (i = 0; i < v2; ++i)
-    {
-      v5 = v3[i];
-      v3[i] = 0;
-      if (v5)
-      {
-        free(v5);
-        v2 = *(a1 + 8);
-      }
-    }
-
-    v3 = *a1;
-  }
-
-  if (v3)
-  {
-    free(v3);
-  }
-
-  return a1;
-}
-
-void *AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
-  {
-    v3 = a2;
-  }
-
-  else
-  {
-    v3 = *(a1 + 16) + (*(a1 + 16) >> 1);
-  }
-
-  result = AG::details::realloc_vector<unsigned long,8ul>(*a1, (a1 + 16), v3);
-  *a1 = result;
-  return result;
-}
-
-void *AG::details::realloc_vector<unsigned long,8ul>(void *a1, size_t *a2, uint64_t a3)
-{
-  v4 = a1;
-  if (a3)
-  {
-    v5 = malloc_good_size(8 * a3);
-    v6 = v5 >> 3;
-    if (v5 >> 3 != *a2)
-    {
-      v7 = malloc_type_realloc(v4, v5, 0x15CB70FBuLL);
-      if (!v7)
-      {
-        AG::precondition_failure("allocation failure", v8);
-      }
-
-      v4 = v7;
-      *a2 = v6;
-    }
-  }
-
-  else
-  {
-    *a2 = 0;
-    free(a1);
-    return 0;
-  }
-
-  return v4;
-}
-
-void AG::data::table::print(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 4);
-  fprintf(*MEMORY[0x1E69E9848], "data::table %p:\n  %.2fKB allocated, %.2fKB used, %.2fKB reusable.\n", this, vcvtd_n_f64_u32(this[5]._os_unfair_lock_opaque - 512, 0xAuLL), vcvtd_n_f64_u32(this[7]._os_unfair_lock_opaque << 9, 0xAuLL), vcvtd_n_f64_u32(this[8]._os_unfair_lock_opaque, 0xAuLL));
-
-  os_unfair_lock_unlock(this + 4);
-}
-
-uint64_t AG::data::zone::print(const void ***this)
-{
-  v2 = *(this + 4);
-  v3 = 0;
-  if (v2)
-  {
-    v4 = 0uLL;
-    do
-    {
-      v5 = AG::data::_shared_table_bytes + v2;
-      ++v3;
-      v4 = vaddw_u32(v4, *(v5 + 12));
-      v2 = *(v5 + 8);
-    }
-
-    while (v2);
-    v6 = vmulq_f64(vcvtq_f64_u64(v4), vdupq_n_s64(0x3F50000000000000uLL));
-  }
-
-  else
-  {
-    v6 = 0uLL;
-  }
-
-  v7 = *(this + 2);
-  if (v7)
-  {
-    v18 = v6;
-    v8 = 0;
-    v9 = *this;
-    v10 = 8 * v7;
-    do
-    {
-      v11 = *v9++;
-      v8 += malloc_size(v11);
-      v10 -= 8;
-    }
-
-    while (v10);
-    v12 = vcvtd_n_f64_u64(v8, 0xAuLL);
-    v6 = v18;
-  }
-
-  else
-  {
-    v12 = 0.0;
-  }
-
-  v13 = *(this + 5);
-  if (v13)
-  {
-    v14 = 0;
-    v15 = 0;
-    do
-    {
-      ++v15;
-      v16 = AG::data::_shared_table_bytes + v13;
-      v13 = *(AG::data::_shared_table_bytes + v13);
-      v14 += *(v16 + 4);
-    }
-
-    while (v13);
-  }
-
-  else
-  {
-    v15 = 0;
-    v14 = 0;
-  }
-
-  return fprintf(*MEMORY[0x1E69E9848], "%-16p %6lu %8.2f %8.2f    %6lu %6lu     %6lu %8.2f\n", this, v3, v6.f64[0], v6.f64[1], v15, v14, *(this + 2), v12);
-}
-
-uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t a2, void *a3, unsigned int a4, uint64_t (*a5)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4), void (*a6)(AG::data::table *, uint64_t, uint64_t, unint64_t *, uint64_t), void (*a7)(unsigned int, void *, unsigned int, vm_range_t *, unsigned int))
+uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t a2, void *a3, uint64_t a4, uint64_t (*a5)(), void (*a6)(AG::data::table *, uint64_t, uint64_t), void (*a7)(unsigned int, void *, unsigned int, vm_range_t *, unsigned int))
 {
   v7 = a3;
-  v76[1] = *MEMORY[0x1E69E9840];
+  v75[1] = *MEMORY[0x1E69E9840];
   if (a5)
   {
     v10 = a5;
@@ -168,45 +12,45 @@ uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t
     v10 = AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_1::__invoke;
   }
 
-  v62[1] = v10;
-  v62[0] = this;
-  v61[0] = AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_2::__invoke;
-  v61[1] = v62;
-  util::MemoryReader::read_bytes(v61, __dst);
+  v61[1] = v10;
+  v61[0] = this;
+  v60[0] = AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_2::__invoke;
+  v60[1] = v61;
+  util::MemoryReader::read_bytes(v60, __dst);
   if ((v7 & 0x800) != 0)
   {
-    util::MemoryReader::read_bytes(v61, __dst);
+    util::MemoryReader::read_bytes(v60, __dst);
     v11 = __dst[0];
-    util::MemoryReader::read_bytes(v61, __dst);
-    v63 = v11;
-    v64 = LODWORD(__dst[0]);
-    a6(this, a2, 2049, &v63, 1);
+    util::MemoryReader::read_bytes(v60, __dst);
+    v62 = v11;
+    v63 = LODWORD(__dst[0]);
+    (a6)(this, a2, 2049, &v62, 1);
     if ((v7 & 1) == 0)
     {
-      util::MemoryReader::read_bytes(v61, &v74);
-      v72 = 0;
-      v73 = 0x800000000;
-      if (v75)
+      util::MemoryReader::read_bytes(v60, &v73);
+      v71 = 0;
+      v72 = 0x800000000;
+      if (v74)
       {
         v12 = 0;
-        for (i = 0; i < v75; ++i)
+        for (i = 0; i < v74; ++i)
         {
-          util::MemoryReader::read_bytes(v61, v66);
-          v14 = *&v66[0];
-          v15 = DWORD2(v66[0]);
-          v16 = v73;
-          v17 = v73 + 1;
-          if (HIDWORD(v73) < (v73 + 1))
+          util::MemoryReader::read_bytes(v60, v65);
+          v14 = *&v65[0];
+          v15 = DWORD2(v65[0]);
+          v16 = v72;
+          v17 = v72 + 1;
+          if (HIDWORD(v72) < (v72 + 1))
           {
-            AG::vector<vm_range_t,8ul,unsigned int>::reserve_slow(__dst, v73 + 1);
-            v16 = v73;
-            v17 = v73 + 1;
+            AG::vector<vm_range_t,8ul,unsigned int>::reserve_slow(__dst, v72 + 1);
+            v16 = v72;
+            v17 = v72 + 1;
           }
 
-          v18 = v72;
-          if (v72)
+          v18 = v71;
+          if (v71)
           {
-            v19 = v72;
+            v19 = v71;
           }
 
           else
@@ -217,14 +61,14 @@ uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t
           v20 = &v19[16 * v16];
           *v20 = v14;
           *(v20 + 1) = v15;
-          LODWORD(v73) = v17;
+          LODWORD(v72) = v17;
           v12 += 16;
         }
 
         if (v17)
         {
-          (a6)(this, a2, 2048);
-          v18 = v72;
+          a6(this, a2, 2048);
+          v18 = v71;
         }
 
         if (v18)
@@ -238,27 +82,27 @@ uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t
   result = 0;
   if ((v7 & 3) != 0 && (v7 & 0x100) != 0)
   {
-    util::MemoryReader::read_bytes(v61, __dst);
+    util::MemoryReader::read_bytes(v60, __dst);
     v22 = __dst[0];
-    util::MemoryReader::read_bytes(v61, __dst);
+    util::MemoryReader::read_bytes(v60, __dst);
     v23 = LODWORD(__dst[0]);
-    util::MemoryReader::read_bytes(v61, &v74);
+    util::MemoryReader::read_bytes(v60, &v73);
     v24 = 0uLL;
-    memset(v66, 0, sizeof(v66));
-    v67 = 1065353216;
-    __dst[0] = v61;
+    memset(v65, 0, sizeof(v65));
+    v66 = 1065353216;
+    __dst[0] = v60;
     __dst[1] = v22;
     __dst[2] = v23 + v22;
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    if (v75)
+    if (v74)
     {
-      for (j = 0; j < v75; ++j)
+      for (j = 0; j < v74; ++j)
       {
-        util::MemoryReader::read_bytes(v61, &v63);
-        v26 = v63;
-        if (v63)
+        util::MemoryReader::read_bytes(v60, &v62);
+        v26 = v62;
+        if (v62)
         {
           v27 = 0;
           v28 = (j << 15) | 0x200;
@@ -266,43 +110,43 @@ uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t
           {
             if (v26)
             {
-              util::MemoryReader::read_bytes(v61, &v63);
-              v29 = v65;
-              v30 = DWORD2(v69);
-              if (HIDWORD(v69) < DWORD2(v69) + 1)
+              util::MemoryReader::read_bytes(v60, &v62);
+              v29 = v64;
+              v30 = DWORD2(v68);
+              if (HIDWORD(v68) < DWORD2(v68) + 1)
               {
-                AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(&v69, DWORD2(v69) + 1);
-                v30 = DWORD2(v69);
+                AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(&v68, DWORD2(v68) + 1);
+                v30 = DWORD2(v68);
               }
 
-              v31 = (v69 + 8 * v30);
+              v31 = (v68 + 8 * v30);
               *v31 = (v28 + (v27 << 9)) | 0x18;
               v31[1] = v29 - 24;
-              ++DWORD2(v69);
-              v76[0] = v63;
-              std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(v66, v76);
+              ++DWORD2(v68);
+              v75[0] = v62;
+              std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(v65, v75, v75);
               if (v32)
               {
-                util::MemoryReader::read_bytes(v61, v76);
-                v33 = v76[0];
-                if (LODWORD(v76[0]))
+                util::MemoryReader::read_bytes(v60, v75);
+                v33 = v75[0];
+                if (LODWORD(v75[0]))
                 {
                   do
                   {
-                    util::MemoryReader::read_bytes(v61, v76);
-                    v34 = v76[0];
-                    v35 = DWORD2(v70);
-                    if (HIDWORD(v70) < DWORD2(v70) + 1)
+                    util::MemoryReader::read_bytes(v60, v75);
+                    v34 = v75[0];
+                    v35 = DWORD2(v69);
+                    if (HIDWORD(v69) < DWORD2(v69) + 1)
                     {
-                      AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(&v70, DWORD2(v70) + 1);
-                      v35 = DWORD2(v70);
+                      AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(&v69, DWORD2(v69) + 1);
+                      v35 = DWORD2(v69);
                     }
 
-                    v36 = v70 + 16 * v35;
+                    v36 = v69 + 16 * v35;
                     *v36 = v33;
                     *(v36 + 4) = (v34 >> 31) & 0xFFFFFFFE;
                     *(v36 + 8) = 0;
-                    ++DWORD2(v70);
+                    ++DWORD2(v69);
                     v33 = v34;
                   }
 
@@ -320,22 +164,22 @@ uint64_t AG::data::table::malloc_zone_enumerator(AG::data::table *this, uint64_t
         }
       }
 
-      v37 = v70;
-      v38 = (v70 + 16 * DWORD2(v70));
-      if (DWORD2(v70))
+      v37 = v69;
+      v38 = (v69 + 16 * DWORD2(v69));
+      if (DWORD2(v69))
       {
-        v39 = 126 - 2 * __clz(DWORD2(v70));
+        v39 = 126 - 2 * __clz(DWORD2(v69));
 LABEL_38:
-        if (DWORD2(v69))
+        if (DWORD2(v68))
         {
-          v40 = v69;
-          v41 = v70;
-          v59 = v69 + 8 * DWORD2(v69);
+          v40 = v68;
+          v41 = v69;
+          v58 = v68 + 8 * DWORD2(v68);
           do
           {
             v42 = *v40;
             v43 = v22 + *v40;
-            for (k = v70 + 16 * DWORD2(v70); v41 != k; v41 += 4)
+            for (k = v69 + 16 * DWORD2(v69); v41 != k; v41 += 4)
             {
               v45 = *v41;
               v46 = v42 == v45 || v45 + v22 >= v43;
@@ -360,16 +204,16 @@ LABEL_38:
                 v50 = *(v41 + 1);
                 if (v48 > v43 && (v48 - v43) >= 8)
                 {
-                  v63 = v43;
-                  v64 = v48 - v43;
-                  a6(this, a2, 259, &v63, 1);
+                  v62 = v43;
+                  v63 = v48 - v43;
+                  (a6)(this, a2, 259, &v62, 1);
                   range_recorder_swift_type = 0;
                 }
 
                 if ((v49 & 1) != 0 && (v50 || v49 >= 0x10))
                 {
-                  v63 = v48;
-                  v64 = v49 >> 1;
+                  v62 = v48;
+                  v63 = v49 >> 1;
                   if (v50)
                   {
                     range_recorder_swift_type = v50;
@@ -381,7 +225,7 @@ LABEL_38:
                     v51 = 259;
                   }
 
-                  a6(this, a2, v51, &v63, 1);
+                  (a6)(this, a2, v51, &v62, 1);
                   range_recorder_swift_type = 0;
                 }
 
@@ -389,27 +233,27 @@ LABEL_38:
                 v43 = v48 + (v49 >> 1);
               }
 
-              while (v41 != (v70 + 16 * DWORD2(v70)));
+              while (v41 != (v69 + 16 * DWORD2(v69)));
             }
 
             if ((v47 - v43) >= 8)
             {
-              v63 = v43;
-              v64 = v47 - v43;
-              a6(this, a2, 259, &v63, 1);
+              v62 = v43;
+              v63 = v47 - v43;
+              (a6)(this, a2, 259, &v62, 1);
               range_recorder_swift_type = 0;
             }
 
             ++v40;
           }
 
-          while (v40 != v59);
+          while (v40 != v58);
         }
 
-        if ((v7 & 0x200) != 0 && DWORD2(v71))
+        if ((v7 & 0x200) != 0 && DWORD2(v70))
         {
-          v52 = v71;
-          v53 = v71 + 24 * DWORD2(v71);
+          v52 = v70;
+          v53 = v70 + 24 * DWORD2(v70);
           do
           {
             v54 = v52[2];
@@ -426,8 +270,8 @@ LABEL_38:
 
             if (!v56)
             {
-              v63 = *v52;
-              v64 = v55;
+              v62 = *v52;
+              v63 = v55;
               if (v54)
               {
                 range_recorder_swift_type = v54;
@@ -439,7 +283,7 @@ LABEL_38:
                 v57 = 771;
               }
 
-              a6(this, a2, v57, &v63, 1);
+              (a6)(this, a2, v57, &v62, 1);
               range_recorder_swift_type = 0;
             }
 
@@ -447,11 +291,6 @@ LABEL_38:
           }
 
           while (v52 != v53);
-        }
-
-        if (v71)
-        {
-          free(v71);
         }
 
         if (v70)
@@ -464,9 +303,13 @@ LABEL_38:
           free(v69);
         }
 
-        std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::~__hash_table(v66);
-        result = 0;
-        goto LABEL_81;
+        if (v68)
+        {
+          free(v68);
+        }
+
+        std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::~__hash_table(v65);
+        return 0;
       }
     }
 
@@ -480,8 +323,6 @@ LABEL_38:
     goto LABEL_38;
   }
 
-LABEL_81:
-  v58 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -541,25 +382,25 @@ BOOL AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,un
 
 util::MemoryReader **AG::data::anonymous namespace::EnumeratorRegions::push_back(util::MemoryReader **result, unint64_t a2, unint64_t a3)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v5 = result;
-    util::MemoryReader::read_bytes(*result, v18);
-    result = util::MemoryReader::read_bytes(*v5, v18);
-    if (v18[0])
+    util::MemoryReader::read_bytes(*result, v17);
+    result = util::MemoryReader::read_bytes(*v5, v17);
+    if (v17[0])
     {
       v6 = v5[1];
       if (a3 >= v6 && v5[2] >= a3)
       {
         v11 = a3 - v6;
-        v12 = (2 * LODWORD(v18[0])) | 1;
+        v12 = (2 * LODWORD(v17[0])) | 1;
         v13 = *(v5 + 12);
         if (*(v5 + 13) < v13 + 1)
         {
-          v17 = (2 * LODWORD(v18[0])) | 1;
-          result = AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow((v5 + 5), v13 + 1);
-          v12 = v17;
+          v16 = (2 * LODWORD(v17[0])) | 1;
+          result = AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(v5 + 5, v13 + 1);
+          v12 = v16;
           v13 = *(v5 + 12);
         }
 
@@ -572,13 +413,13 @@ util::MemoryReader **AG::data::anonymous namespace::EnumeratorRegions::push_back
 
       else
       {
-        v7 = v18[0] + a3;
+        v7 = v17[0] + a3;
         v8 = *(v5 + 16);
         v9 = v8 + 1;
         if (*(v5 + 17) < v8 + 1)
         {
-          v16 = v18[0] + a3;
-          v7 = v16;
+          v15 = v17[0] + a3;
+          v7 = v15;
           v8 = *(v5 + 16);
           v9 = v8 + 1;
         }
@@ -592,23 +433,22 @@ util::MemoryReader **AG::data::anonymous namespace::EnumeratorRegions::push_back
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *AG::vector<AG::data::anonymous namespace::EnumeratorRegions::ExternalValue,0ul,unsigned int>::reserve_slow(uint64_t a1, unsigned int a2)
+void *AG::vector<AG::data::anonymous namespace::EnumeratorRegions::ExternalValue,0ul,unsigned int>::reserve_slow(void **a1, unsigned int a2)
 {
-  if (*(a1 + 12) + (*(a1 + 12) >> 1) <= a2)
+  if (*(a1 + 3) + (*(a1 + 3) >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 12) + (*(a1 + 12) >> 1);
+    v3 = *(a1 + 3) + (*(a1 + 3) >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned int,24ul>(*a1, (a1 + 12), v3);
+  result = AG::details::realloc_vector<unsigned int,24ul>(*a1, a1 + 3, v3);
   *a1 = result;
   return result;
 }
@@ -643,309 +483,390 @@ void *AG::details::realloc_vector<unsigned int,24ul>(void *a1, _DWORD *a2, unsig
   return v4;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_0 &,AG::data::anonymous namespace::EnumeratorRegions::Value *,false>(uint64_t a1, __n128 *a2, uint64_t a3, char a4, __n128 a5)
+void std::__introsort<std::_ClassicAlgPolicy,AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_0 &,AG::data::anonymous namespace::EnumeratorRegions::Value *,false>(unint64_t result, __n128 *a2, uint64_t a3, char a4, __n128 a5)
 {
-  v151 = *MEMORY[0x1E69E9840];
-LABEL_2:
+LABEL_1:
   v9 = a2 - 1;
   v10 = a2 - 2;
   v11 = a2 - 3;
-  v12 = a1;
+  v12 = result;
   while (1)
   {
-    a1 = v12;
+    result = v12;
     v13 = (a2 - v12) >> 4;
-    if (v13 > 2)
+    if (v13 <= 2)
+    {
+      if (v13 < 2)
+      {
+        return;
+      }
+
+      if (v13 == 2)
+      {
+        v57 = a2[-1].n128_u32[0];
+        v56 = a2 - 1;
+        if (v57 >= *v12)
+        {
+          return;
+        }
+
+LABEL_107:
+        v136 = *v12;
+        *v12 = *v56;
+        v62 = v136;
+LABEL_108:
+        *v56 = v62;
+        return;
+      }
+
+      goto LABEL_9;
+    }
+
+    if (v13 == 3)
     {
       break;
     }
 
-    if (v13 < 2)
+    if (v13 == 4)
     {
-      goto LABEL_194;
-    }
-
-    if (v13 == 2)
-    {
-      v58 = a2[-1].n128_u32[0];
-      v57 = a2 - 1;
-      if (v58 >= *v12)
+      v58 = (v12 + 16);
+      v63 = *(v12 + 16);
+      v64 = (v12 + 32);
+      v65 = *(v12 + 32);
+      if (v63 >= *v12)
       {
-        goto LABEL_194;
+        if (v65 < v63)
+        {
+          v105 = *v58;
+          *v58 = *v64;
+          *v64 = v105;
+          if (*(v12 + 16) < *v12)
+          {
+            v141 = *v12;
+            *v12 = *v58;
+            *v58 = v141;
+          }
+        }
       }
 
-LABEL_108:
-      v138 = *v12;
-      *v12 = *v57;
-      v63 = v138;
-LABEL_109:
-      *v57 = v63;
-      goto LABEL_194;
+      else
+      {
+        if (v65 < v63)
+        {
+          v137 = *v12;
+          *v12 = *v64;
+          v66 = v137;
+          goto LABEL_187;
+        }
+
+        v144 = *v12;
+        *v12 = *v58;
+        *v58 = v144;
+        if (v65 < *(v12 + 16))
+        {
+          v66 = *v58;
+          *v58 = *v64;
+LABEL_187:
+          *v64 = v66;
+        }
+      }
+
+      if (v9->n128_u32[0] >= v64->n128_u32[0])
+      {
+        return;
+      }
+
+      v109 = *v64;
+      *v64 = *v9;
+      *v9 = v109;
+      if (v64->n128_u32[0] >= v58->n128_u32[0])
+      {
+        return;
+      }
+
+      v110 = *v58;
+      *v58 = *v64;
+      *v64 = v110;
+LABEL_191:
+      if (*(v12 + 16) < *v12)
+      {
+        v145 = *v12;
+        *v12 = *v58;
+        *v58 = v145;
+      }
+
+      return;
     }
 
-LABEL_10:
+    if (v13 == 5)
+    {
+
+      return;
+    }
+
+LABEL_9:
     if (v13 <= 23)
     {
-      v68 = (v12 + 16);
-      v70 = v12 == a2 || v68 == a2;
+      v67 = (v12 + 16);
+      v69 = v12 == a2 || v67 == a2;
       if (a4)
       {
-        if (!v70)
+        if (!v69)
         {
-          v71 = 0;
-          v72 = v12;
+          v70 = 0;
+          v71 = v12;
           do
           {
-            v73 = v68;
-            v74 = *(v72 + 16);
-            if (v74 < *v72)
+            v72 = v67;
+            v73 = *(v71 + 16);
+            if (v73 < *v71)
             {
-              v140 = *(v72 + 20);
-              v148 = *(v72 + 28);
-              v75 = v71;
+              v138 = *(v71 + 20);
+              v146 = *(v71 + 28);
+              v74 = v70;
               while (1)
               {
-                *(v12 + v75 + 16) = *(v12 + v75);
-                if (!v75)
+                *(v12 + v74 + 16) = *(v12 + v74);
+                if (!v74)
                 {
                   break;
                 }
 
-                v76 = *(v12 + v75 - 16);
-                v75 -= 16;
-                if (v74 >= v76)
+                v75 = *(v12 + v74 - 16);
+                v74 -= 16;
+                if (v73 >= v75)
                 {
-                  v77 = v12 + v75 + 16;
-                  goto LABEL_128;
+                  v76 = v12 + v74 + 16;
+                  goto LABEL_127;
                 }
               }
 
-              v77 = v12;
-LABEL_128:
-              *v77 = v74;
-              *(v77 + 12) = v148;
-              *(v77 + 4) = v140;
+              v76 = v12;
+LABEL_127:
+              *v76 = v73;
+              *(v76 + 12) = v146;
+              *(v76 + 4) = v138;
             }
 
-            v68 = v73 + 1;
-            v71 += 16;
-            v72 = v73;
+            v67 = v72 + 1;
+            v70 += 16;
+            v71 = v72;
           }
 
-          while (&v73[1] != a2);
+          while (&v72[1] != a2);
         }
       }
 
-      else if (!v70)
+      else if (!v69)
       {
         do
         {
-          v107 = v68;
-          v108 = *(a1 + 16);
-          if (v108 < *a1)
+          v106 = v67;
+          v107 = *(result + 16);
+          if (v107 < *result)
           {
-            v144 = *(a1 + 20);
-            v150 = *(a1 + 28);
+            v142 = *(result + 20);
+            v148 = *(result + 28);
             do
             {
-              *v68 = v68[-1];
-              v109 = v68[-2].n128_u32[0];
-              --v68;
+              *v67 = v67[-1];
+              v108 = v67[-2].n128_u32[0];
+              --v67;
             }
 
-            while (v108 < v109);
-            v68->n128_u32[0] = v108;
-            v68->n128_u32[3] = v150;
-            *(v68->n128_u64 + 4) = v144;
+            while (v107 < v108);
+            v67->n128_u32[0] = v107;
+            v67->n128_u32[3] = v148;
+            *(v67->n128_u64 + 4) = v142;
           }
 
-          v68 = (v107 + 16);
-          a1 = v107;
+          v67 = (v106 + 16);
+          result = v106;
         }
 
-        while ((v107 + 16) != a2);
+        while ((v106 + 16) != a2);
       }
 
-      goto LABEL_194;
+      return;
     }
 
     if (!a3)
     {
       if (v12 != a2)
       {
-        v78 = (v13 - 2) >> 1;
-        v79 = v78;
+        v77 = (v13 - 2) >> 1;
+        v78 = v77;
         do
         {
-          v80 = v79;
-          if (v78 >= v79)
+          v79 = v78;
+          if (v77 >= v78)
           {
-            v81 = (2 * v79) | 1;
-            v82 = (v12 + 16 * v81);
-            if (2 * v80 + 2 >= v13)
+            v80 = (2 * v78) | 1;
+            v81 = (v12 + 16 * v80);
+            if (2 * v79 + 2 >= v13)
             {
-              v83 = *v82;
+              v82 = *v81;
             }
 
             else
             {
-              v83 = v82[4];
-              v84 = *v82 >= v83;
-              if (*v82 > v83)
+              v82 = v81[4];
+              v83 = *v81 >= v82;
+              if (*v81 > v82)
               {
-                v83 = *v82;
+                v82 = *v81;
               }
 
-              if (!v84)
+              if (!v83)
               {
-                v82 += 4;
-                v81 = 2 * v80 + 2;
+                v81 += 4;
+                v80 = 2 * v79 + 2;
               }
             }
 
-            v85 = (v12 + 16 * v80);
-            v86 = *v85;
-            if (v83 >= *v85)
+            v84 = (v12 + 16 * v79);
+            v85 = *v84;
+            if (v82 >= *v84)
             {
-              v149 = v85[3];
-              v141 = *(v85 + 1);
+              v147 = v84[3];
+              v139 = *(v84 + 1);
               do
               {
-                v87 = v85;
-                v85 = v82;
-                *v87 = *v82;
-                if (v78 < v81)
+                v86 = v84;
+                v84 = v81;
+                *v86 = *v81;
+                if (v77 < v80)
                 {
                   break;
                 }
 
-                v88 = (2 * v81) | 1;
-                v82 = (v12 + 16 * v88);
-                v81 = 2 * v81 + 2;
-                if (v81 >= v13)
+                v87 = (2 * v80) | 1;
+                v81 = (v12 + 16 * v87);
+                v80 = 2 * v80 + 2;
+                if (v80 >= v13)
                 {
-                  v89 = *v82;
-                  v81 = v88;
+                  v88 = *v81;
+                  v80 = v87;
                 }
 
                 else
                 {
-                  v89 = *v82;
-                  v90 = v82[4];
-                  if (*v82 <= v90)
+                  v88 = *v81;
+                  v89 = v81[4];
+                  if (*v81 <= v89)
                   {
-                    v89 = v82[4];
+                    v88 = v81[4];
                   }
 
-                  if (*v82 >= v90)
+                  if (*v81 >= v89)
                   {
-                    v81 = v88;
+                    v80 = v87;
                   }
 
                   else
                   {
-                    v82 += 4;
+                    v81 += 4;
                   }
                 }
               }
 
-              while (v89 >= v86);
-              *v85 = v86;
-              v85[3] = v149;
-              *(v85 + 1) = v141;
+              while (v88 >= v85);
+              *v84 = v85;
+              v84[3] = v147;
+              *(v84 + 1) = v139;
             }
           }
 
-          v79 = v80 - 1;
+          v78 = v79 - 1;
         }
 
-        while (v80);
+        while (v79);
         do
         {
-          v91 = 0;
-          v142 = *v12;
-          v92 = v12;
+          v90 = 0;
+          v140 = *v12;
+          v91 = v12;
           do
           {
-            v93 = &v92[v91];
-            v94 = v93 + 1;
-            v95 = (2 * v91) | 1;
-            v91 = 2 * v91 + 2;
-            if (v91 >= v13)
+            v92 = &v91[v90];
+            v93 = v92 + 1;
+            v94 = (2 * v90) | 1;
+            v90 = 2 * v90 + 2;
+            if (v90 >= v13)
             {
-              v91 = v95;
+              v90 = v94;
             }
 
             else
             {
-              v97 = v93[2].n128_u32[0];
-              v96 = v93 + 2;
-              if (v96[-1].n128_u32[0] >= v97)
+              v96 = v92[2].n128_u32[0];
+              v95 = v92 + 2;
+              if (v95[-1].n128_u32[0] >= v96)
               {
-                v91 = v95;
+                v90 = v94;
               }
 
               else
               {
-                v94 = v96;
+                v93 = v95;
               }
             }
 
-            *v92 = *v94;
-            v92 = v94;
+            *v91 = *v93;
+            v91 = v93;
           }
 
-          while (v91 <= ((v13 - 2) >> 1));
-          if (v94 == --a2)
+          while (v90 <= ((v13 - 2) >> 1));
+          if (v93 == --a2)
           {
-            *v94 = v142;
+            *v93 = v140;
           }
 
           else
           {
-            *v94 = *a2;
-            *a2 = v142;
-            v98 = (&v94[1] - v12) >> 4;
-            v99 = v98 < 2;
-            v100 = v98 - 2;
-            if (!v99)
+            *v93 = *a2;
+            *a2 = v140;
+            v97 = (&v93[1] - v12) >> 4;
+            v98 = v97 < 2;
+            v99 = v97 - 2;
+            if (!v98)
             {
-              v101 = v100 >> 1;
-              v102 = (v12 + 16 * v101);
-              v103 = v94->n128_u32[0];
-              if (v102->n128_u32[0] < v94->n128_u32[0])
+              v100 = v99 >> 1;
+              v101 = (v12 + 16 * v100);
+              v102 = v93->n128_u32[0];
+              if (v101->n128_u32[0] < v93->n128_u32[0])
               {
-                v118 = v94->n128_i32[3];
-                v115 = *(v94->n128_u64 + 4);
+                v116 = v93->n128_i32[3];
+                v113 = *(v93->n128_u64 + 4);
                 do
                 {
-                  v104 = v94;
-                  v94 = v102;
-                  *v104 = *v102;
-                  if (!v101)
+                  v103 = v93;
+                  v93 = v101;
+                  *v103 = *v101;
+                  if (!v100)
                   {
                     break;
                   }
 
-                  v101 = (v101 - 1) >> 1;
-                  v102 = (v12 + 16 * v101);
+                  v100 = (v100 - 1) >> 1;
+                  v101 = (v12 + 16 * v100);
                 }
 
-                while (v102->n128_u32[0] < v103);
-                v94->n128_u32[0] = v103;
-                v94->n128_u32[3] = v118;
-                *(v94->n128_u64 + 4) = v115;
+                while (v101->n128_u32[0] < v102);
+                v93->n128_u32[0] = v102;
+                v93->n128_u32[3] = v116;
+                *(v93->n128_u64 + 4) = v113;
               }
             }
           }
 
-          v99 = v13-- <= 2;
+          v98 = v13-- <= 2;
         }
 
-        while (!v99);
+        while (!v98);
       }
 
-      goto LABEL_194;
+      return;
     }
 
     v14 = (v12 + 16 * (v13 >> 1));
@@ -958,14 +879,14 @@ LABEL_128:
       {
         if (v16 < v17)
         {
-          v121 = *v14;
+          v119 = *v14;
           *v14 = *v9;
-          *v9 = v121;
+          *v9 = v119;
           if (v14->n128_u32[0] < *v12)
           {
-            v122 = *v12;
+            v120 = *v12;
             *v12 = *v14;
-            *v14 = v122;
+            *v14 = v120;
           }
         }
       }
@@ -974,20 +895,20 @@ LABEL_128:
       {
         if (v16 < v17)
         {
-          v119 = *v12;
+          v117 = *v12;
           *v12 = *v9;
-          goto LABEL_27;
+          goto LABEL_26;
         }
 
-        v125 = *v12;
+        v123 = *v12;
         *v12 = *v14;
-        *v14 = v125;
+        *v14 = v123;
         if (v9->n128_u32[0] < v14->n128_u32[0])
         {
-          v119 = *v14;
+          v117 = *v14;
           *v14 = *v9;
-LABEL_27:
-          *v9 = v119;
+LABEL_26:
+          *v9 = v117;
         }
       }
 
@@ -999,9 +920,9 @@ LABEL_27:
       {
         if (v22 < v21)
         {
-          v126 = *v20;
+          v124 = *v20;
           *v20 = *v10;
-          *v10 = v126;
+          *v10 = v124;
           if (v20->n128_u32[0] < v19->n128_u32[0])
           {
             v24 = *v19;
@@ -1017,7 +938,7 @@ LABEL_27:
         {
           v23 = *v19;
           *v19 = *v10;
-          goto LABEL_39;
+          goto LABEL_38;
         }
 
         v25 = *v19;
@@ -1025,10 +946,10 @@ LABEL_27:
         *v20 = v25;
         if (v10->n128_u32[0] < v20->n128_u32[0])
         {
-          v128 = *v20;
+          v126 = *v20;
           *v20 = *v10;
-          v23 = v128;
-LABEL_39:
+          v23 = v126;
+LABEL_38:
           *v10 = v23;
         }
       }
@@ -1042,9 +963,9 @@ LABEL_39:
       {
         if (v30 < v28)
         {
-          v129 = *v27;
+          v127 = *v27;
           *v27 = *v11;
-          *v11 = v129;
+          *v11 = v127;
           if (v27->n128_u32[0] < v26->n128_u32[0])
           {
             v32 = *v26;
@@ -1060,7 +981,7 @@ LABEL_39:
         {
           v31 = *v26;
           *v26 = *v11;
-          goto LABEL_48;
+          goto LABEL_47;
         }
 
         v33 = *v26;
@@ -1068,10 +989,10 @@ LABEL_39:
         *v27 = v33;
         if (v11->n128_u32[0] < v27->n128_u32[0])
         {
-          v130 = *v27;
+          v128 = *v27;
           *v27 = *v11;
-          v31 = v130;
-LABEL_48:
+          v31 = v128;
+LABEL_47:
           *v11 = v31;
         }
       }
@@ -1082,14 +1003,14 @@ LABEL_48:
       {
         if (v35 < v34)
         {
-          v132 = *v15;
+          v130 = *v15;
           *v15 = *v27;
-          *v27 = v132;
+          *v27 = v130;
           if (*v15 < v20->n128_u32[0])
           {
-            v133 = *v20;
+            v131 = *v20;
             *v20 = *v15;
-            *v15 = v133;
+            *v15 = v131;
           }
         }
       }
@@ -1098,28 +1019,28 @@ LABEL_48:
       {
         if (v35 < v34)
         {
-          v131 = *v20;
+          v129 = *v20;
           *v20 = *v27;
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
-        v134 = *v20;
+        v132 = *v20;
         *v20 = *v15;
-        *v15 = v134;
+        *v15 = v132;
         if (v27->n128_u32[0] < *v15)
         {
-          v131 = *v15;
+          v129 = *v15;
           *v15 = *v27;
-LABEL_57:
-          *v27 = v131;
+LABEL_56:
+          *v27 = v129;
         }
       }
 
-      v135 = *v12;
+      v133 = *v12;
       *v12 = *v15;
-      a5 = v135;
-      *v15 = v135;
-      goto LABEL_59;
+      a5 = v133;
+      *v15 = v133;
+      goto LABEL_58;
     }
 
     v18 = *v12;
@@ -1127,52 +1048,52 @@ LABEL_57:
     {
       if (v16 < v18)
       {
-        v123 = *v12;
+        v121 = *v12;
         *v12 = *v9;
-        a5 = v123;
-        *v9 = v123;
+        a5 = v121;
+        *v9 = v121;
         if (*v12 < v14->n128_u32[0])
         {
-          v124 = *v14;
+          v122 = *v14;
           *v14 = *v12;
-          a5 = v124;
-          *v12 = v124;
+          a5 = v122;
+          *v12 = v122;
         }
       }
 
-      goto LABEL_59;
+      goto LABEL_58;
     }
 
     if (v16 < v18)
     {
-      v120 = *v14;
+      v118 = *v14;
       *v14 = *v9;
-LABEL_36:
-      a5 = v120;
-      *v9 = v120;
-      goto LABEL_59;
+LABEL_35:
+      a5 = v118;
+      *v9 = v118;
+      goto LABEL_58;
     }
 
-    v127 = *v14;
+    v125 = *v14;
     *v14 = *v12;
-    a5 = v127;
-    *v12 = v127;
+    a5 = v125;
+    *v12 = v125;
     if (v9->n128_u32[0] < *v12)
     {
-      v120 = *v12;
+      v118 = *v12;
       *v12 = *v9;
-      goto LABEL_36;
+      goto LABEL_35;
     }
 
-LABEL_59:
+LABEL_58:
     --a3;
     if (a4)
     {
       v36 = *v12;
-LABEL_62:
+LABEL_61:
       v37 = 0;
-      v116 = *(v12 + 12);
-      v113 = *(v12 + 4);
+      v114 = *(v12 + 12);
+      v111 = *(v12 + 4);
       do
       {
         v38 = *(v12 + v37 + 16);
@@ -1216,10 +1137,10 @@ LABEL_62:
         v43 = v40;
         do
         {
-          v136 = *v12;
+          v134 = *v12;
           *v12 = *v43;
-          a5 = v136;
-          *v43 = v136;
+          a5 = v134;
+          *v43 = v134;
           do
           {
             v44 = *(v12 + 16);
@@ -1240,33 +1161,33 @@ LABEL_62:
       }
 
       v46 = (v12 - 16);
-      if (v12 - 16 != a1)
+      if (v12 - 16 != result)
       {
         a5 = *v46;
-        *a1 = *v46;
+        *result = *v46;
       }
 
       *(v12 - 16) = v36;
-      *(v12 - 4) = v116;
-      *(v12 - 12) = v113;
+      *(v12 - 4) = v114;
+      *(v12 - 12) = v111;
       if (v39 < v40)
       {
-        goto LABEL_81;
+        goto LABEL_80;
       }
 
       {
         a2 = (v12 - 16);
         if (!v47)
         {
-          goto LABEL_2;
+          goto LABEL_1;
         }
 
-        goto LABEL_194;
+        return;
       }
 
       if (!v47)
       {
-LABEL_81:
+LABEL_80:
         a4 = 0;
       }
     }
@@ -1276,11 +1197,11 @@ LABEL_81:
       v36 = *v12;
       if (*(v12 - 16) < *v12)
       {
-        goto LABEL_62;
+        goto LABEL_61;
       }
 
-      v117 = *(v12 + 12);
-      v114 = *(v12 + 4);
+      v115 = *(v12 + 12);
+      v112 = *(v12 + 4);
       if (v36 >= v9->n128_u32[0])
       {
         v50 = v12 + 16;
@@ -1324,10 +1245,10 @@ LABEL_81:
 
       while (v12 < v51)
       {
-        v137 = *v12;
+        v135 = *v12;
         *v12 = *v51;
-        a5 = v137;
-        *v51 = v137;
+        a5 = v135;
+        *v51 = v135;
         do
         {
           v53 = *(v12 + 16);
@@ -1345,139 +1266,51 @@ LABEL_81:
       }
 
       v55 = (v12 - 16);
-      if (v12 - 16 != a1)
+      if (v12 - 16 != result)
       {
         a5 = *v55;
-        *a1 = *v55;
+        *result = *v55;
       }
 
       a4 = 0;
       *(v12 - 16) = v36;
-      *(v12 - 4) = v117;
-      *(v12 - 12) = v114;
+      *(v12 - 4) = v115;
+      *(v12 - 12) = v112;
     }
   }
 
-  if (v13 == 3)
+  v58 = (v12 + 16);
+  v59 = *(v12 + 16);
+  v61 = a2[-1].n128_u32[0];
+  v56 = a2 - 1;
+  v60 = v61;
+  if (v59 >= *v12)
   {
-    v59 = (v12 + 16);
-    v60 = *(v12 + 16);
-    v62 = a2[-1].n128_i32[0];
-    v57 = a2 - 1;
-    v61 = v62;
-    if (v60 < *v12)
+    if (v60 >= v59)
     {
-      if (v61 < v60)
-      {
-        goto LABEL_108;
-      }
-
-      v145 = *v12;
-      *v12 = *v59;
-      *v59 = v145;
-      if (v57->n128_u32[0] < *(v12 + 16))
-      {
-        v63 = *v59;
-        *v59 = *v57;
-        goto LABEL_109;
-      }
-
-LABEL_194:
-      v112 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    if (v61 >= v60)
-    {
-      goto LABEL_194;
-    }
-
-    v105 = *v59;
-    *v59 = *v57;
-    *v57 = v105;
-LABEL_192:
-    if (*(v12 + 16) < *v12)
-    {
-      v147 = *v12;
-      *v12 = *v59;
-      *v59 = v147;
-    }
-
-    goto LABEL_194;
+    v104 = *v58;
+    *v58 = *v56;
+    *v56 = v104;
+    goto LABEL_191;
   }
 
-  if (v13 == 4)
+  if (v60 < v59)
   {
-    v59 = (v12 + 16);
-    v64 = *(v12 + 16);
-    v65 = (v12 + 32);
-    v66 = *(v12 + 32);
-    if (v64 >= *v12)
-    {
-      if (v66 < v64)
-      {
-        v106 = *v59;
-        *v59 = *v65;
-        *v65 = v106;
-        if (*(v12 + 16) < *v12)
-        {
-          v143 = *v12;
-          *v12 = *v59;
-          *v59 = v143;
-        }
-      }
-
-      goto LABEL_189;
-    }
-
-    if (v66 >= v64)
-    {
-      v146 = *v12;
-      *v12 = *v59;
-      *v59 = v146;
-      if (v66 >= *(v12 + 16))
-      {
-        goto LABEL_189;
-      }
-
-      v67 = *v59;
-      *v59 = *v65;
-    }
-
-    else
-    {
-      v139 = *v12;
-      *v12 = *v65;
-      v67 = v139;
-    }
-
-    *v65 = v67;
-LABEL_189:
-    if (v9->n128_u32[0] >= v65->n128_u32[0])
-    {
-      goto LABEL_194;
-    }
-
-    v110 = *v65;
-    *v65 = *v9;
-    *v9 = v110;
-    if (v65->n128_u32[0] >= v59->n128_u32[0])
-    {
-      goto LABEL_194;
-    }
-
-    v111 = *v59;
-    *v59 = *v65;
-    *v65 = v111;
-    goto LABEL_192;
+    goto LABEL_107;
   }
 
-  if (v13 != 5)
+  v143 = *v12;
+  *v12 = *v58;
+  *v58 = v143;
+  if (v56->n128_u32[0] < *(v12 + 16))
   {
-    goto LABEL_10;
+    v62 = *v58;
+    *v58 = *v56;
+    goto LABEL_108;
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_0 &,AG::data::anonymous namespace::EnumeratorRegions::Value *,0>(__n128 *a1, __n128 *a2, unsigned int *a3, _OWORD *a4, _OWORD *a5, __n128 result)
@@ -1570,9 +1403,8 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_0 &,AG::data::anonymous namespace::EnumeratorRegions::Value *>(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::data::table::malloc_zone_enumerator(unsigned int,void *,unsigned int,unsigned long,int (*)(unsigned int,unsigned long,unsigned long,void **),void (*)(unsigned int,void *,unsigned int,vm_range_t *,unsigned int))::$_0 &,AG::data::anonymous namespace::EnumeratorRegions::Value *>(uint64_t a1, int *a2, __n128 a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
   v3 = (a2 - a1) >> 4;
   if (v3 > 2)
   {
@@ -1580,8 +1412,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::d
     {
       v6 = (a1 + 16);
       v7 = *(a1 + 16);
-      v9 = *(a2 - 16);
-      v4 = (a2 - 16);
+      v9 = *(a2 - 4);
+      v4 = (a2 - 4);
       v8 = v9;
       if (v7 < *a1)
       {
@@ -1592,7 +1424,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::d
           *v6 = v28;
           if (v4->n128_u32[0] >= *(a1 + 16))
           {
-            goto LABEL_52;
+            return 1;
           }
 
           v10 = *v6;
@@ -1605,12 +1437,12 @@ LABEL_12:
         *a1 = *v4;
 LABEL_13:
         *v4 = v10;
-        goto LABEL_52;
+        return 1;
       }
 
       if (v8 >= v7)
       {
-        goto LABEL_52;
+        return 1;
       }
 
       v23 = *v6;
@@ -1624,7 +1456,7 @@ LABEL_50:
         *v6 = v40;
       }
 
-      goto LABEL_52;
+      return 1;
     }
 
     if (v3 != 4)
@@ -1634,16 +1466,14 @@ LABEL_50:
         goto LABEL_14;
       }
 
-LABEL_52:
-      result = 1;
-      goto LABEL_53;
+      return 1;
     }
 
     v6 = (a1 + 16);
     v17 = *(a1 + 16);
     v18 = (a1 + 32);
     v19 = *(a1 + 32);
-    v20 = (a2 - 16);
+    v20 = (a2 - 4);
     v21 = *a1;
     if (v17 >= *a1)
     {
@@ -1687,7 +1517,7 @@ LABEL_52:
 LABEL_47:
     if (v20->n128_u32[0] >= v18->n128_u32[0])
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v38 = *v18;
@@ -1695,7 +1525,7 @@ LABEL_47:
     *v20 = v38;
     if (v18->n128_u32[0] >= v6->n128_u32[0])
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v39 = *v6;
@@ -1706,16 +1536,16 @@ LABEL_47:
 
   if (v3 < 2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   if (v3 == 2)
   {
-    v5 = *(a2 - 16);
-    v4 = (a2 - 16);
+    v5 = *(a2 - 4);
+    v4 = (a2 - 4);
     if (v5 >= *a1)
     {
-      goto LABEL_52;
+      return 1;
     }
 
     goto LABEL_12;
@@ -1769,10 +1599,10 @@ LABEL_14:
   }
 
 LABEL_33:
-  v30 = a1 + 48;
-  if (a1 + 48 == a2)
+  v30 = (a1 + 48);
+  if ((a1 + 48) == a2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   v31 = 0;
@@ -1782,8 +1612,8 @@ LABEL_33:
     v33 = *v30;
     if (*v30 < v11->n128_u32[0])
     {
-      v43 = *(v30 + 4);
-      v44 = *(v30 + 12);
+      v42 = *(v30 + 1);
+      v43 = v30[3];
       v34 = v31;
       while (1)
       {
@@ -1805,27 +1635,22 @@ LABEL_33:
       v36 = a1;
 LABEL_41:
       *v36 = v33;
-      *(v36 + 4) = v43;
-      *(v36 + 12) = v44;
+      *(v36 + 4) = v42;
+      *(v36 + 12) = v43;
       if (++v32 == 8)
       {
-        break;
+        return v30 + 4 == a2;
       }
     }
 
     v11 = v30;
     v31 += 16;
-    v30 += 16;
+    v30 += 4;
     if (v30 == a2)
     {
-      goto LABEL_52;
+      return 1;
     }
   }
-
-  result = v30 + 16 == a2;
-LABEL_53:
-  v42 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void std::default_delete<AG::data::table::malloc_zone>::operator()[abi:ne200100](int a1, malloc_zone_t *zone)
@@ -1838,7 +1663,7 @@ void std::default_delete<AG::data::table::malloc_zone>::operator()[abi:ne200100]
   }
 }
 
-void *AG::vector<vm_range_t,8ul,unsigned int>::reserve_slow(void *__dst, unsigned int a2)
+void *AG::vector<vm_range_t,8ul,unsigned int>::reserve_slow(void **__dst, unsigned int a2)
 {
   if (*(__dst + 35) + (*(__dst + 35) >> 1) <= a2)
   {
@@ -1850,8 +1675,8 @@ void *AG::vector<vm_range_t,8ul,unsigned int>::reserve_slow(void *__dst, unsigne
     v3 = *(__dst + 35) + (*(__dst + 35) >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned int,16ul>(*(__dst + 16), __dst, 8u, __dst + 35, v3);
-  *(__dst + 16) = result;
+  result = AG::details::realloc_vector<unsigned int,16ul>(__dst[16], __dst, 8u, __dst + 35, v3);
+  __dst[16] = result;
   return result;
 }
 
@@ -1922,33 +1747,33 @@ uint64_t std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<
   return a1;
 }
 
-void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long>(float *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -1956,44 +1781,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -2002,7 +1827,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2018,7 +1843,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2026,7 +1851,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2050,7 +1875,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2261,7 +2086,7 @@ uint64_t AG::swift::context_descriptor::count_generic_args(AG::swift::context_de
 
 uint64_t AG::swift::metadata::visit_heap_class(AG::swift::metadata *this, AG::swift::metadata_visitor *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (!this)
   {
     goto LABEL_22;
@@ -2292,8 +2117,7 @@ uint64_t AG::swift::metadata::visit_heap_class(AG::swift::metadata *this, AG::sw
 
       if (!AG::swift::metadata::visit_heap_class(v7, a2))
       {
-        v21 = 0;
-        goto LABEL_26;
+        return 0;
       }
     }
   }
@@ -2302,7 +2126,7 @@ uint64_t AG::swift::metadata::visit_heap_class(AG::swift::metadata *this, AG::sw
   v9 = *(v6 + 16);
   if (!v9)
   {
-    goto LABEL_25;
+    return 1;
   }
 
   if ((v9 & 3) != 1)
@@ -2313,40 +2137,36 @@ uint64_t AG::swift::metadata::visit_heap_class(AG::swift::metadata *this, AG::sw
       goto LABEL_13;
     }
 
-LABEL_25:
-    v21 = 1;
-LABEL_26:
-    v22 = *MEMORY[0x1E69E9840];
-    return v21;
+    return 1;
   }
 
   v10 = *((v9 & 0xFFFFFFFFFFFFFFFCLL) + v8);
   if (!v10)
   {
-    goto LABEL_25;
+    return 1;
   }
 
 LABEL_13:
   v11 = *(v10 + 12);
   if (!v11)
   {
-    goto LABEL_25;
+    return 1;
   }
 
   if (v11 == *(v6 + 36))
   {
     if ((*(this + 40) & 2) == 0)
     {
-      HIDWORD(v34) = 0;
-      v12 = class_copyIvarList(this, &v34 + 1);
+      HIDWORD(v29) = 0;
+      v12 = class_copyIvarList(this, &v29 + 1);
       v13 = v12;
       if (v12)
       {
-        v14 = HIDWORD(v34);
-        if (HIDWORD(v34) == *(v10 + 12))
+        v14 = HIDWORD(v29);
+        if (HIDWORD(v29) == *(v10 + 12))
         {
           MEMORY[0x1EEE9AC00](v12);
-          v16 = &v34 - ((v15 + 15) & 0xFFFFFFFF0);
+          v16 = &v29 - ((v15 + 15) & 0xFFFFFFFF0);
           bzero(v16, v15);
           if (v14)
           {
@@ -2357,7 +2177,7 @@ LABEL_13:
               ++v17;
             }
 
-            while (v17 < HIDWORD(v34));
+            while (v17 < HIDWORD(v29));
           }
         }
 
@@ -2377,85 +2197,75 @@ LABEL_13:
 LABEL_40:
       if (v16 && *v16)
       {
-        v27 = v10 + 16;
-        v28 = (v16 + 8);
-        v29 = 1;
+        v24 = v10 + 16;
+        v25 = v16 + 8;
+        v26 = 1;
         do
         {
-          v30 = *(v10 + 12);
-          v21 = v29 - 1 >= v30;
-          if (v29 - 1 >= v30)
+          v27 = *(v10 + 12);
+          v20 = v26 - 1 >= v27;
+          if (v26 - 1 >= v27)
           {
             break;
           }
 
-          if (v29 < v30)
-          {
-            v31 = *v28;
-          }
-
-          v32 = *(v28 - 1);
-          v33 = (*(*a2 + 16))(a2, this, v27);
-          ++v28;
-          ++v29;
-          v27 += 12;
+          v28 = (*(*a2 + 16))(a2, this, v24);
+          v25 += 8;
+          ++v26;
+          v24 += 12;
         }
 
-        while ((v33 & 1) != 0);
-        goto LABEL_26;
+        while ((v28 & 1) != 0);
+        return v20;
       }
 
-      goto LABEL_48;
+      return (**a2)(a2);
     }
 
-    v23 = *v5;
+    v21 = *v5;
     if (*v5)
     {
-      v24 = *v5;
-      v25 = *(v23 + 40);
-      if (!v25)
+      v22 = *(v21 + 40);
+      if (!v22)
       {
-        goto LABEL_48;
+        return (**a2)(a2);
       }
     }
 
     else
     {
-      v25 = MEMORY[0x28];
+      v22 = MEMORY[0x28];
       if (!MEMORY[0x28])
       {
-LABEL_48:
-        v21 = (**a2)(a2);
-        goto LABEL_26;
+        return (**a2)(a2);
       }
 
-      v23 = 0;
+      v21 = 0;
     }
 
-    if ((*(v23 + 3) & 0x20) != 0)
+    if ((*(v21 + 3) & 0x20) != 0)
     {
-      v26 = (AG::swift::class_type_descriptor::immediate_members_offset(v23) >> 3) + v25;
+      v23 = (AG::swift::class_type_descriptor::immediate_members_offset(v21) >> 3) + v22;
     }
 
     else
     {
-      v26 = v25;
+      v23 = v22;
     }
 
-    v16 = this + 8 * v26;
+    v16 = this + 8 * v23;
     goto LABEL_40;
   }
 
 LABEL_22:
   v18 = **a2;
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18(a2);
 }
 
 void AG::swift::metadata::append_description(AG::swift::metadata *this, __CFString *a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   while (*this == 770)
   {
     CFStringAppendCString(a2, "(", 0x8000100u);
@@ -2492,11 +2302,10 @@ void AG::swift::metadata::append_description(AG::swift::metadata *this, __CFStri
     CFStringAppendCString(a2, " -> ", 0x8000100u);
     if (!this)
     {
-      v7 = *MEMORY[0x1E69E9840];
-      v8 = "nil";
+      v7 = "nil";
 LABEL_78:
 
-      CFStringAppendCString(a2, v8, 0x8000100u);
+      CFStringAppendCString(a2, v7, 0x8000100u);
       return;
     }
   }
@@ -2508,19 +2317,19 @@ LABEL_78:
       CFStringAppendCString(a2, "(", 0x8000100u);
       if (*(this + 1))
       {
-        v9 = 0;
-        v10 = (this + 24);
+        v8 = 0;
+        v9 = (this + 24);
         do
         {
-          v11 = *v10;
-          if (v9)
+          v10 = *v9;
+          if (v8)
           {
             CFStringAppendCString(a2, ", ", 0x8000100u);
           }
 
-          if (v11)
+          if (v10)
           {
-            AG::swift::metadata::append_description(v11, a2);
+            AG::swift::metadata::append_description(v10, a2);
           }
 
           else
@@ -2528,229 +2337,224 @@ LABEL_78:
             CFStringAppendCString(a2, "nil", 0x8000100u);
           }
 
-          ++v9;
-          v10 += 2;
+          ++v8;
+          v9 += 2;
         }
 
-        while (v9 < *(this + 1));
+        while (v8 < *(this + 1));
       }
 
-      v12 = *MEMORY[0x1E69E9840];
-      v8 = ")";
+      v7 = ")";
     }
 
     else
     {
-      v44 = *MEMORY[0x1E69E9840];
-      v8 = "Void";
+      v7 = "Void";
     }
 
     goto LABEL_78;
   }
 
-  v51 = 0;
-  v52 = 0;
-  v53 = 8;
-  v13 = AG::swift::metadata::descriptor(this);
-  if (!v13)
+  v46 = 0;
+  v47 = 0;
+  v48 = 8;
+  v11 = AG::swift::metadata::descriptor(this);
+  if (!v11)
   {
     goto LABEL_41;
   }
 
-  v14 = v13;
-  v15 = 0;
+  v12 = v11;
+  v13 = 0;
   while (1)
   {
-    if ((*v14 & 0x1Fu) - 19 >= 0xFFFFFFFE || (*v14 & 0x1F) == 0x10)
+    if ((*v12 & 0x1Fu) - 19 >= 0xFFFFFFFE || (*v12 & 0x1F) == 0x10)
     {
-      v16 = v14 + 2;
-      v17 = v14[2];
-      if (v17)
+      v14 = v12 + 2;
+      v15 = v12[2];
+      if (v15)
       {
-        v18 = v16 + v17;
-        if ((v16 + v17))
+        v16 = v14 + v15;
+        if ((v14 + v15))
         {
-          v19 = AG::swift::context_descriptor::count_generic_args(v14);
-          v20 = v52;
-          v15 = v52 + 1;
-          if (v53 < v52 + 1)
+          v17 = AG::swift::context_descriptor::count_generic_args(v12);
+          v18 = v47;
+          v13 = v47 + 1;
+          if (v48 < v47 + 1)
           {
-            AG::vector<std::pair<char const*,unsigned long>,8ul,unsigned long>::reserve_slow(__dst, v15);
-            v20 = v52;
-            v15 = v52 + 1;
+            AG::vector<std::pair<char const*,unsigned long>,8ul,unsigned long>::reserve_slow(__dst, v13);
+            v18 = v47;
+            v13 = v47 + 1;
           }
 
-          v21 = v51;
-          if (!v51)
+          v19 = v46;
+          if (!v46)
           {
-            v21 = __dst;
+            v19 = __dst;
           }
 
-          v22 = &v21[16 * v20];
-          *v22 = v18;
-          v22[1] = v19;
-          v52 = v15;
+          v20 = &v19[16 * v18];
+          *v20 = v16;
+          v20[1] = v17;
+          v47 = v13;
         }
       }
     }
 
-    v25 = v14[1];
-    v24 = v14 + 1;
-    v23 = v25;
-    if (!v25)
+    v23 = v12[1];
+    v22 = v12 + 1;
+    v21 = v23;
+    if (!v23)
     {
       break;
     }
 
-    if ((v23 & 3) == 1)
+    if ((v21 & 3) == 1)
     {
-      v26 = v23 & 0xFFFFFFFFFFFFFFFCLL;
-      if (!*(v24 + v26))
+      if (!*(v22 + (v21 & 0xFFFFFFFFFFFFFFFCLL)))
       {
         break;
       }
 
-      v14 = *(v24 + v26);
+      v12 = *(v22 + (v21 & 0xFFFFFFFFFFFFFFFCLL));
     }
 
     else
     {
-      v14 = (v24 + v23);
-      if (!v14)
+      v12 = (v22 + v21);
+      if (!v12)
       {
         break;
       }
     }
   }
 
-  if (!v15)
+  if (!v13)
   {
 LABEL_41:
     TypeName = swift_getTypeName();
     if (TypeName)
     {
-      v28 = v52;
-      v29 = v52 + 1;
-      if (v53 < v52 + 1)
+      v25 = v47;
+      v26 = v47 + 1;
+      if (v48 < v47 + 1)
       {
-        AG::vector<std::pair<char const*,unsigned long>,8ul,unsigned long>::reserve_slow(__dst, v29);
-        v28 = v52;
-        v29 = v52 + 1;
+        AG::vector<std::pair<char const*,unsigned long>,8ul,unsigned long>::reserve_slow(__dst, v26);
+        v25 = v47;
+        v26 = v47 + 1;
       }
 
-      v30 = v51;
-      if (!v51)
+      v27 = v46;
+      if (!v46)
       {
-        v30 = __dst;
+        v27 = __dst;
       }
 
-      v31 = &v30[16 * v28];
-      *v31 = TypeName;
-      v31[1] = 0;
-      v52 = v29;
+      v28 = &v27[16 * v25];
+      *v28 = TypeName;
+      v28[1] = 0;
+      v47 = v26;
     }
   }
 
-  v47 = 0;
-  v48 = 0;
-  v49 = 8;
-  v32 = AG::swift::metadata::descriptor(this);
-  if (v32)
+  v42 = 0;
+  v43 = 0;
+  v44 = 8;
+  v29 = AG::swift::metadata::descriptor(this);
+  if (v29)
   {
-    AG::swift::context_descriptor::push_generic_args(v32, this, v46);
+    AG::swift::context_descriptor::push_generic_args(v29, this, v41);
   }
 
-  v33 = v52;
-  if (v52)
+  v30 = v47;
+  if (v47)
   {
-    v34 = 0;
-    v35 = 0;
+    v31 = 0;
+    v32 = 0;
     while (1)
     {
-      --v33;
-      v36 = v51;
-      if (!v51)
+      --v30;
+      v33 = v46;
+      if (!v46)
       {
-        v36 = __dst;
+        v33 = __dst;
       }
 
-      v37 = &v36[16 * v33];
-      v45 = *(v37 + 1);
-      CFStringAppendCString(a2, *v37, 0x8000100u);
-      if (v45 != v34)
+      v34 = &v33[16 * v30];
+      v40 = *(v34 + 1);
+      CFStringAppendCString(a2, *v34, 0x8000100u);
+      if (v40 != v31)
       {
         CFStringAppendCString(a2, "<", 0x8000100u);
-        v38 = 0;
-        v39 = v45 - v34;
+        v35 = 0;
+        v36 = v40 - v31;
         do
         {
-          if (v38)
+          if (v35)
           {
             CFStringAppendCString(a2, ", ", 0x8000100u);
           }
 
-          v40 = v47;
-          if (!v47)
+          v37 = v42;
+          if (!v42)
           {
-            v40 = v46;
+            v37 = v41;
           }
 
-          v41 = &v40[3 * v35 + 3 * v38];
-          if (*(v41 + 16) == 1)
+          v38 = v37 + 24 * v32 + 24 * v35;
+          if (*(v38 + 16) == 1)
           {
             CFStringAppendCString(a2, "Pack{", 0x8000100u);
           }
 
-          if (*(v41 + 8))
+          if (*(v38 + 8))
           {
-            v42 = 0;
+            v39 = 0;
             do
             {
-              if (v42)
+              if (v39)
               {
                 CFStringAppendCString(a2, ", ", 0x8000100u);
               }
 
-              AG::swift::metadata::append_description(*(*v41 + 8 * v42++), a2);
+              AG::swift::metadata::append_description(*(*v38 + 8 * v39++), a2);
             }
 
-            while (v42 < *(v41 + 8));
+            while (v39 < *(v38 + 8));
           }
 
-          if (*(v41 + 16))
+          if (*(v38 + 16))
           {
             CFStringAppendCString(a2, "}", 0x8000100u);
           }
 
-          ++v38;
+          ++v35;
         }
 
-        while (v38 != v39);
+        while (v35 != v36);
         CFStringAppendCString(a2, ">", 0x8000100u);
-        v35 += v39;
+        v32 += v36;
       }
 
-      if (!v33)
+      if (!v30)
       {
         break;
       }
 
       CFStringAppendCString(a2, ".", 0x8000100u);
-      v34 = v45;
+      v31 = v40;
     }
   }
 
-  if (v47)
+  if (v42)
   {
-    free(v47);
+    free(v42);
   }
 
-  if (v51)
+  if (v46)
   {
-    free(v51);
+    free(v46);
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B49284E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54)
@@ -2765,7 +2569,7 @@ void sub_1B49284E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unsigned __int8 *AG::swift::metadata::signature(AG::swift::metadata *this)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
@@ -2773,97 +2577,97 @@ unsigned __int8 *AG::swift::metadata::signature(AG::swift::metadata *this)
   v2 = AG::swift::metadata::signature(void)const::cache;
   os_unfair_lock_lock(AG::swift::metadata::signature(void)const::cache);
   v3 = *(v2 + 8);
-  v32[0] = 0;
-  v4 = util::UntypedTable::lookup(v3, this, v32);
-  v5 = v32[0];
+  v31[0] = 0;
+  v4 = util::UntypedTable::lookup(v3, this, v31);
+  v5 = v31[0];
   os_unfair_lock_unlock(v2);
   if (!v5)
   {
-    v46 = 0;
-    v47 = 8;
-    v42 = 0;
-    v41 = 0;
-    v43 = 8;
-    v38 = 0;
-    v37 = 0;
-    v39 = 8;
-    v6 = 1;
     v45 = 0;
-    v30 = this;
+    v46 = 8;
+    v41 = 0;
+    v40 = 0;
+    v42 = 8;
+    v37 = 0;
+    v36 = 0;
+    v38 = 8;
+    v6 = 1;
+    v44 = 0;
+    v29 = this;
     __dst[0] = this;
     do
     {
-      v7 = v45;
-      if (!v45)
+      v7 = v44;
+      if (!v44)
       {
         v7 = __dst;
       }
 
       v8 = v7[--v6];
-      v46 = v6;
-      v38 = 0;
+      v45 = v6;
+      v37 = 0;
       v9 = AG::swift::metadata::descriptor(v8);
       if (v9)
       {
         v10 = v9;
-        AG::swift::context_descriptor::push_generic_args(v9, v8, v36);
-        v11 = v42;
-        v12 = v42 + 1;
-        if (v43 < v42 + 1)
+        AG::swift::context_descriptor::push_generic_args(v9, v8, v35);
+        v11 = v41;
+        v12 = v41 + 1;
+        if (v42 < (v41 + 1))
         {
-          AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(v40, v12);
-          v11 = v42;
-          v12 = v42 + 1;
+          AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(v39, v12);
+          v11 = v41;
+          v12 = v41 + 1;
         }
 
-        v13 = v41;
-        if (!v41)
+        v13 = v40;
+        if (!v40)
         {
-          v13 = v40;
+          v13 = v39;
         }
 
         *&v13[8 * v11] = v10;
-        v42 = v12;
-        if (v37)
-        {
-          v14 = v37;
-        }
-
-        else
+        v41 = v12;
+        if (v36)
         {
           v14 = v36;
         }
 
-        if (v38)
+        else
         {
-          v15 = &v14[24 * v38];
+          v14 = v35;
+        }
+
+        if (v37)
+        {
+          v15 = &v14[24 * v37];
           do
           {
             v16 = *(v14 + 1);
             if (v16)
             {
               v17 = *v14;
-              v18 = v46;
+              v18 = v45;
               v19 = 8 * v16;
               do
               {
                 v20 = *v17;
                 v21 = v18 + 1;
-                if (v47 < v18 + 1)
+                if (v46 < v18 + 1)
                 {
                   AG::vector<AG::swift::metadata const*,8ul,unsigned long>::reserve_slow(__dst, v21);
-                  v18 = v46;
-                  v21 = v46 + 1;
+                  v18 = v45;
+                  v21 = v45 + 1;
                 }
 
-                v22 = v45;
-                if (!v45)
+                v22 = v44;
+                if (!v44)
                 {
                   v22 = __dst;
                 }
 
                 v22[v18] = v20;
-                v46 = v21;
+                v45 = v21;
                 ++v17;
                 v18 = v21;
                 v19 -= 8;
@@ -2878,40 +2682,40 @@ unsigned __int8 *AG::swift::metadata::signature(AG::swift::metadata *this)
           while (v14 != v15);
         }
 
-        v6 = v46;
+        v6 = v45;
       }
     }
 
     while (v6);
-    if (v42)
+    if (v41)
     {
       CC_SHA1_Init(&c);
-      v23 = v30;
+      v23 = v29;
       CC_SHA1_Update(&c, "AGTypeSignature", 0xFu);
+      v32 = 0;
       v33 = 0;
-      v34 = 0;
-      v35 = 8;
-      v24 = v42;
-      if (v42 > 8)
+      v34 = 8;
+      v24 = v41;
+      if (v41 > 8)
       {
-        AG::vector<dyld_image_uuid_offset,8ul,unsigned long>::reserve_slow(v32, v42);
+        AG::vector<dyld_image_uuid_offset,8ul,unsigned long>::reserve_slow(v31, v41);
       }
 
-      v34 = v24;
+      v33 = v24;
       _dyld_images_for_addresses();
-      if (v33)
-      {
-        v25 = v33;
-      }
-
-      else
+      if (v32)
       {
         v25 = v32;
       }
 
-      if (v34)
+      else
       {
-        v26 = &v25[32 * v34];
+        v25 = v31;
+      }
+
+      if (v33)
+      {
+        v26 = &v25[32 * v33];
         do
         {
           CC_SHA1_Update(&c, v25, 0x10u);
@@ -2925,38 +2729,37 @@ unsigned __int8 *AG::swift::metadata::signature(AG::swift::metadata *this)
 
       v4 = malloc_type_malloc(0x14uLL, 0x100004077774924uLL);
       CC_SHA1_Final(v4, &c);
-      if (v33)
+      if (v32)
       {
-        free(v33);
+        free(v32);
       }
     }
 
     else
     {
       v4 = 0;
-      v23 = v30;
+      v23 = v29;
     }
 
     os_unfair_lock_lock(v2);
     util::UntypedTable::insert(*(v2 + 8), v23, v4);
     os_unfair_lock_unlock(v2);
-    if (v37)
+    if (v36)
     {
-      free(v37);
+      free(v36);
     }
 
-    if (v41)
+    if (v40)
     {
-      free(v41);
+      free(v40);
     }
 
-    if (v45)
+    if (v44)
     {
-      free(v45);
+      free(v44);
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2968,18 +2771,15 @@ void sub_1B49288CC(_Unwind_Exception *a1)
 
 uint64_t AG::swift::metadata::copy_on_write_heap_object(AG::swift::metadata *this, void **a2)
 {
-  v4 = *a2;
   result = swift_isUniquelyReferencedNonObjC();
   if ((result & 1) == 0)
   {
-    v6 = *a2;
-    v7 = (*(*(this - 1) + 80) + 16) & ~*(*(this - 1) + 80);
-    v8 = **a2;
-    v9 = *(*(this - 1) + 64);
-    v10 = swift_allocObject();
-    (*(*(this - 1) + 16))(&v10[v7], v6 + v7, this);
+    v5 = *a2;
+    v6 = (*(*(this - 1) + 80) + 16) & ~*(*(this - 1) + 80);
+    v7 = swift_allocObject();
+    (*(*(this - 1) + 16))(&v7[v6], v5 + v6, this);
 
-    *a2 = v10;
+    *a2 = v7;
   }
 
   return result;
@@ -3050,20 +2850,20 @@ uint64_t AG::swift::anonymous namespace::TypeCache::TypeCache(void)::$_3::__invo
   return result;
 }
 
-void *AG::vector<dyld_image_uuid_offset,8ul,unsigned long>::reserve_slow(void *__dst, size_t a2)
+void *AG::vector<dyld_image_uuid_offset,8ul,unsigned long>::reserve_slow(size_t *__dst, char *a2)
 {
-  if (*(__dst + 34) + (*(__dst + 34) >> 1) <= a2)
+  if (__dst[34] + (__dst[34] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(__dst + 34) + (*(__dst + 34) >> 1);
+    v3 = (__dst[34] + (__dst[34] >> 1));
   }
 
-  result = AG::details::realloc_vector<unsigned long,32ul>(*(__dst + 32), __dst, 8uLL, __dst + 34, v3);
-  *(__dst + 32) = result;
+  result = AG::details::realloc_vector<unsigned long,32ul>(__dst[32], __dst, 8uLL, __dst + 34, v3);
+  __dst[32] = result;
   return result;
 }
 
@@ -3216,7 +3016,7 @@ uint64_t AGTupleElementOffsetChecked(void *a1, const char *a2, void *a3)
     }
 
 LABEL_9:
-    AG::precondition_failure("index out of range: %d", a2, a2);
+    AG::precondition_failure("index out of range: %d", a2, a3, a2);
   }
 
   if (a2)
@@ -3239,9 +3039,9 @@ uint64_t AGTupleSetElement(const AG::swift::metadata *a1, char *a2, unint64_t a3
   {
     if (*(a1 + 1) > a3)
     {
-      v7 = (a1 + 16 * a3);
-      v6 = v7[3];
-      a2 += v7[4];
+      v7 = a1 + 16 * a3;
+      v6 = *(v7 + 3);
+      a2 += *(v7 + 4);
       goto LABEL_5;
     }
 
@@ -3312,9 +3112,9 @@ uint64_t AGTupleGetElement(const AG::swift::metadata *a1, const char *a2, unint6
   {
     if (*(a1 + 1) > a3)
     {
-      v7 = (a1 + 16 * a3);
-      v6 = v7[3];
-      a2 += v7[4];
+      v7 = a1 + 16 * a3;
+      v6 = *(v7 + 3);
+      a2 += *(v7 + 4);
       goto LABEL_5;
     }
 
@@ -3377,7 +3177,7 @@ uint64_t util::MemoryReader::read_bytes(util::MemoryReader *this, void *a2)
   return result;
 }
 
-unint64_t AG::Graph::UpdateStack::global_top(unint64_t this)
+uint64_t AG::Graph::UpdateStack::global_top(uint64_t this)
 {
   if (this)
   {
@@ -3550,7 +3350,7 @@ void AG::Graph::UpdateStack::~UpdateStack(AG::Graph::UpdateStack *this, const ch
   }
 }
 
-void *AG::Graph::collect_stack(uint64_t a1, void *a2)
+void *AG::Graph::collect_stack(uint64_t a1, void **a2)
 {
   v2 = AG::Graph::_current_update_key;
   for (i = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v2); i; i = *(v5 + 16))
@@ -3581,7 +3381,7 @@ void *AG::Graph::collect_stack(uint64_t a1, void *a2)
           v10 = v7 + 1;
         }
 
-        *(*a2 + 4 * v7) = *(v9 + v8);
+        *(*a2 + v7) = *(v9 + v8);
         a2[1] = v10;
         v8 -= 8;
         v7 = v10;
@@ -3747,19 +3547,19 @@ uint64_t AG::Graph::dispatch_main(AG::Graph::UpdateStack &)::$_0::__invoke(uint6
   return result;
 }
 
-void *AG::vector<AG::data::ptr<AG::Node>,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
+void *AG::vector<AG::data::ptr<AG::Node>,0ul,unsigned long>::reserve_slow(void **a1, char *a2)
 {
-  if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
+  if (a1[2] + (a1[2] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 16) + (*(a1 + 16) >> 1);
+    v3 = a1[2] + (a1[2] >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned long,4ul>(*a1, (a1 + 16), v3);
+  result = AG::details::realloc_vector<unsigned long,4ul>(*a1, a1 + 2, v3);
   *a1 = result;
   return result;
 }
@@ -3794,17 +3594,17 @@ void *AG::details::realloc_vector<unsigned long,4ul>(void *a1, size_t *a2, uint6
   return v4;
 }
 
-void *AG::Graph::ProfileTrace::begin_update(void *result, unint64_t a2)
+void *AG::Graph::ProfileTrace::begin_update(void *result, uint64_t a2)
 {
   if (*(*a2 + 248) == 1)
   {
-    v7[7] = v2;
-    v7[8] = v3;
+    v8[5] = v2;
+    v8[6] = v3;
     v5 = result;
     v6 = mach_absolute_time();
-    v7[0] = a2;
-    v7[2] = v7;
-    result = std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(v5 + 2, v7);
+    v7 = a2;
+    v8[0] = &v7;
+    result = std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(v5 + 2, &v7, &std::piecewise_construct, v8);
     result[4] = 0;
     result[5] = 0;
     result[3] = v6;
@@ -3888,7 +3688,7 @@ uint64_t AG::Graph::ProfileTrace::begin_update(uint64_t a1)
   return result;
 }
 
-uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, unsigned int a2, int a3)
+uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, int a2, uint64_t a3)
 {
   v5 = AG::Graph::_current_update_key;
   v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v5);
@@ -3914,7 +3714,7 @@ uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, unsigned int a2, int 
       if (*(v11 + 248) == 1)
       {
         v12 = mach_absolute_time();
-        v10 = v9[5];
+        v10 = *(v9 + 40);
       }
 
       else
@@ -3923,7 +3723,7 @@ uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, unsigned int a2, int 
       }
 
       v13 = v12 - v10;
-      v14 = v9[4];
+      v14 = *(v9 + 32);
       v15 = v13 >= v14;
       v16 = v13 - v14;
       if (v15)
@@ -3936,7 +3736,7 @@ uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, unsigned int a2, int 
         v17 = 0;
       }
 
-      v9[4] = 0;
+      *(v9 + 32) = 0;
       return AG::Graph::add_profile_update(v11, a2, v17, a3);
     }
   }
@@ -3944,7 +3744,7 @@ uint64_t *AG::Graph::ProfileTrace::end_update(uint64_t a1, unsigned int a2, int 
   return result;
 }
 
-uint64_t *AG::Graph::add_profile_update(uint64_t *result, unsigned int a2, unint64_t a3, int a4)
+uint64_t *AG::Graph::add_profile_update(uint64_t *result, int a2, unint64_t a3, uint64_t a4)
 {
   if (*(result + 248) == 1)
   {
@@ -3986,7 +3786,7 @@ int64x2_t *AG::Graph::ProfileData::Item::operator+=(int64x2_t *a1, int64x2_t *a2
     v9 = v8;
     do
     {
-      v10 = &v8[3 * v7];
+      v10 = (v8 + 48 * v7);
       if (v9 == v10)
       {
         goto LABEL_10;
@@ -4004,7 +3804,7 @@ int64x2_t *AG::Graph::ProfileData::Item::operator+=(int64x2_t *a1, int64x2_t *a2
         v9 += 3;
         if (v9 == v10)
         {
-          v9 = &v8[3 * v7];
+          v9 = (v8 + 48 * v7);
           goto LABEL_10;
         }
       }
@@ -4015,12 +3815,12 @@ LABEL_10:
         v14 = v8;
         if (a1[3].i64[0] < v7 + 1)
         {
-          AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(a1[2].i64, v7 + 1);
+          AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(&a1[2], (v7 + 1));
           v14 = a1[2].i64[0];
           v7 = a1[2].u64[1];
         }
 
-        v15 = v9 - v8;
+        v15 = v9->i64 - v8;
         v16 = 0xAAAAAAAAAAAAAAABLL * (v15 >> 4);
         v17 = v7 > v16;
         v18 = v7 - v16;
@@ -4064,7 +3864,7 @@ double AG::Graph::ProfileData::Item::mark(AG::Graph::ProfileData::Item *this, in
     v6 = *(this + 5);
     if (*(this + 6) < (v6 + 1))
     {
-      AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(this + 32, v6 + 1);
+      AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(this + 4, (v6 + 1));
       v6 = *(this + 5);
     }
 
@@ -4084,7 +3884,7 @@ double AG::Graph::ProfileData::Item::mark(AG::Graph::ProfileData::Item *this, in
   return result;
 }
 
-uint64_t *AG::Graph::ProfileData::Category::add_update(void *a1, unsigned int a2, uint64_t a3, int a4)
+uint64_t *AG::Graph::ProfileData::Category::add_update(void *a1, int a2, uint64_t a3, int a4)
 {
   v7 = a2;
   ++*a1;
@@ -4096,7 +3896,7 @@ uint64_t *AG::Graph::ProfileData::Category::add_update(void *a1, unsigned int a2
   }
 
   v8 = &v7;
-  result = std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<AG::data::ptr<AG::Node>,std::piecewise_construct_t const&,std::tuple<AG::data::ptr<AG::Node> const&>,std::tuple<>>(a1 + 7, &v7);
+  result = std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<AG::data::ptr<AG::Node>,std::piecewise_construct_t const&,std::tuple<AG::data::ptr<AG::Node> const&>,std::tuple<>>(a1 + 7, &v7, &std::piecewise_construct, &v8);
   ++result[3];
   result[5] += a3;
   if (a4)
@@ -4162,7 +3962,7 @@ void AG::Graph::ProfileData::Category::mark(AG::Graph::ProfileData::Category *th
   }
 }
 
-uint64_t AG::Graph::ProfileData::remove_node(void *a1, unsigned int a2, unsigned int a3)
+uint64_t AG::Graph::ProfileData::remove_node(void *a1, int a2, int a3)
 {
   v10 = a2;
   v11 = a3;
@@ -4171,7 +3971,7 @@ uint64_t AG::Graph::ProfileData::remove_node(void *a1, unsigned int a2, unsigned
   {
     v5 = result;
     v12 = &v11;
-    v6 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 13, &v11);
+    v6 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 13, &v11, &std::piecewise_construct, &v12);
     AG::Graph::ProfileData::Item::operator+=((v6 + 3), (v5 + 24));
     result = std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::erase(a1 + 8, v5);
   }
@@ -4183,7 +3983,7 @@ uint64_t AG::Graph::ProfileData::remove_node(void *a1, unsigned int a2, unsigned
     {
       v8 = result;
       v12 = &v11;
-      v9 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(i + 15, &v11);
+      v9 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(i + 15, &v11, &std::piecewise_construct, &v12);
       AG::Graph::ProfileData::Item::operator+=((v9 + 3), (v8 + 24));
       result = std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::erase(i + 10, v8);
     }
@@ -4223,14 +4023,14 @@ void AG::Graph::start_profiling(AG::Graph *this, char a2)
   }
 }
 
-_DWORD *AG::Graph::stop_profiling(_DWORD *this)
+void *AG::Graph::stop_profiling(void *this)
 {
   v1 = this;
-  v2 = *(this + 33);
+  v2 = this[33];
   if (v2)
   {
     this = AG::Graph::remove_trace(this, *(v2 + 8));
-    *(v1 + 33) = 0;
+    v1[33] = 0;
   }
 
   *(v1 + 248) = 0;
@@ -4244,8 +4044,8 @@ uint64_t *std::unique_ptr<AG::Graph::ProfileData>::reset[abi:ne200100](uint64_t 
   if (v2)
   {
     std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::~__hash_table(v2 + 144);
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(v2 + 104);
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(v2 + 64);
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((v2 + 104));
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((v2 + 64));
     v3 = *(v2 + 40);
     if (v3)
     {
@@ -4391,8 +4191,9 @@ uint64_t AG::Graph::begin_profile_event(AG::Graph *this, unsigned int a2, char *
   return mach_absolute_time();
 }
 
-void *AG::Graph::end_profile_event(uint64_t a1, unsigned int a2, char *a3, uint64_t a4, int a5)
+void *AG::Graph::end_profile_event(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, int a5)
 {
+  v7 = a2;
   result = AG::Graph::intern_key(a1, a3);
   v10 = result;
   if (*(a1 + 248) == 1)
@@ -4416,15 +4217,15 @@ void *AG::Graph::end_profile_event(uint64_t a1, unsigned int a2, char *a3, uint6
     }
 
     v17 = &v16;
-    v14 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v12 + 144), &v16);
-    result = AG::Graph::ProfileData::Category::add_update(v14 + 3, a2, v13, a5);
+    v14 = std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v12 + 144), &v16, &std::piecewise_construct, &v17);
+    result = AG::Graph::ProfileData::Category::add_update(v14 + 3, v7, v13, a5);
     *(v12 + 184) = 1;
   }
 
   v15 = *(a1 + 176);
   if (v15)
   {
-    return AG::Graph::end_profile_event(a2, v15, (a1 + 168), v10);
+    return AG::Graph::end_profile_event(v7, v15, (a1 + 168), v10);
   }
 
   return result;
@@ -4443,20 +4244,20 @@ void AG::Graph::ProfileTrace::~ProfileTrace(AG::Graph::ProfileTrace *this)
   JUMPOUT(0x1B8C7ACE0);
 }
 
-void AG::Graph::ProfileData::Category::~Category(AG::Graph::ProfileData::Category *this)
+void AG::Graph::ProfileData::Category::~Category(void **this)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(this + 96);
-  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(this + 56);
-  v2 = *(this + 4);
+  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(this + 12);
+  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(this + 7);
+  v2 = this[4];
   if (v2)
   {
     free(v2);
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -4556,33 +4357,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::G
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4590,44 +4391,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -4773,33 +4574,33 @@ LABEL_19:
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4807,53 +4608,53 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *a2)
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,void *>>>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8) == 1)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a2 + 15));
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a2 + 10));
-    v3 = a2[7];
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a2 + 120));
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a2 + 80));
+    v3 = *(a2 + 56);
     if (v3)
     {
       free(v3);
@@ -4870,8 +4671,8 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
 
 uint64_t std::pair<unsigned int const,AG::Graph::ProfileData::Category>::~pair(uint64_t a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(a1 + 104);
-  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(a1 + 64);
+  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a1 + 104));
+  std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((a1 + 64));
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -4881,33 +4682,33 @@ uint64_t std::pair<unsigned int const,AG::Graph::ProfileData::Category>::~pair(u
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4915,44 +4716,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,AG::Graph::ProfileTrace::UpdateData>>>::find<unsigned long>(void *a1, unint64_t *a2)
@@ -4986,45 +4787,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::ProfileT
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -5044,19 +4837,19 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long,AG::Graph::Profi
   return v2;
 }
 
-void *AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
+void *AG::vector<AG::Graph::ProfileData::Mark,0ul,unsigned long>::reserve_slow(void **a1, char *a2)
 {
-  if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
+  if (a1[2] + (a1[2] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 16) + (*(a1 + 16) >> 1);
+    v3 = a1[2] + (a1[2] >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned long,48ul>(*a1, (a1 + 16), v3);
+  result = AG::details::realloc_vector<unsigned long,48ul>(*a1, a1 + 2, v3);
   *a1 = result;
   return result;
 }
@@ -5091,33 +4884,33 @@ void *AG::details::realloc_vector<unsigned long,48ul>(void *a1, unint64_t *a2, u
   return v4;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<AG::data::ptr<AG::Node>,std::piecewise_construct_t const&,std::tuple<AG::data::ptr<AG::Node> const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::hash<AG::data::ptr<AG::Node>>,std::equal_to<AG::data::ptr<AG::Node>>,true>,std::__unordered_map_equal<AG::data::ptr<AG::Node>,std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>,std::equal_to<AG::data::ptr<AG::Node>>,std::hash<AG::data::ptr<AG::Node>>,true>,std::allocator<std::__hash_value_type<AG::data::ptr<AG::Node>,AG::Graph::ProfileData::Item>>>::__emplace_unique_key_args<AG::data::ptr<AG::Node>,std::piecewise_construct_t const&,std::tuple<AG::data::ptr<AG::Node> const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5125,44 +4918,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::~__hash_table(uint64_t a1)
@@ -5227,7 +5020,7 @@ uint64_t AGTypeApplyEnumData(AG::swift::metadata *a1, void *a2, void (*a3)(void,
         v17 = a2;
         if (*(v14 - 4))
         {
-          v17 = *a2 + ((*(*(v16 - 8) + 80) + 16) & ~*(*(v16 - 8) + 80));
+          v17 = (*a2 + ((*(*(v16 - 8) + 80) + 16) & ~*(*(v16 - 8) + 80)));
         }
 
         a3(v7, v16, v17);
@@ -5319,9 +5112,7 @@ uint64_t AGTypeApplyFields::Visitor::visit_field(uint64_t a1, AG::swift::metadat
       v13 = "";
     }
 
-    v14 = *(a1 + 8);
-    v15 = *(a1 + 16);
-    v14(v13, a4, v11);
+    (*(a1 + 8))(v13, a4, v11);
   }
 
   return 1;
@@ -5391,7 +5182,7 @@ uint64_t std::tuple<unsigned int,unsigned int,AG::vector<char const*,0ul,unsigne
   return a1;
 }
 
-uint64_t *std::unique_ptr<std::unordered_map<AG::Subgraph *,AG::Graph::TreeDataElement>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+void ***std::unique_ptr<std::unordered_map<AG::Subgraph *,AG::Graph::TreeDataElement>>::~unique_ptr[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5411,8 +5202,8 @@ uint64_t *std::unique_ptr<AG::Graph::ProfileData>::~unique_ptr[abi:ne200100](uin
   if (v2)
   {
     std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Category>>>::~__hash_table(v2 + 144);
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(v2 + 104);
-    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table(v2 + 64);
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((v2 + 104));
+    std::__hash_table<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AG::Graph::ProfileData::Item>>>::~__hash_table((v2 + 64));
     v3 = *(v2 + 40);
     if (v3)
     {
@@ -5545,7 +5336,7 @@ void *AG::Graph::add_trace(void *this, AG::Trace *a2)
     v5 = v4 + 1;
     if (*(v3 + 180) < v4 + 1)
     {
-      this = AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(v3 + 168, v5);
+      this = AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow((v3 + 168), v5);
       v4 = *(v3 + 176);
       v5 = v4 + 1;
     }
@@ -5652,7 +5443,7 @@ uint64_t AG::Graph::intern_type(uint64_t a1, uint64_t a2)
     v10 = v6 + 1;
     if (*(a1 + 100) < (v6 + 1))
     {
-      AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(a1 + 88, v10);
+      AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow((a1 + 88), v10);
       v11 = *(a1 + 96);
       v10 = v11 + 1;
     }
@@ -5913,13 +5704,13 @@ uint64_t AG::Graph::key_name(AG::Graph *this, const char *a2)
   return *(*v2 + 8 * a2);
 }
 
-int *AG::Graph::TreeDataElement::sort_nodes(int *this)
+uint64_t AG::Graph::TreeDataElement::sort_nodes(uint64_t this)
 {
-  if ((this[6] & 1) == 0)
+  if ((*(this + 24) & 1) == 0)
   {
     v1 = this;
     v2 = *this;
-    v3 = *(v1 + 1);
+    v3 = *(v1 + 8);
     v4 = 126 - 2 * __clz(v3);
     if (v3)
     {
@@ -5931,14 +5722,14 @@ int *AG::Graph::TreeDataElement::sort_nodes(int *this)
       v5 = 0;
     }
 
-    this = std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,false>(v2, &v2[2 * v3], v5, 1);
+    this = std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,false>(v2, (v2 + 8 * v3), v5, 1);
     *(v1 + 24) = 1;
   }
 
   return this;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,AG::Graph::index_of_input_slow(AG::Node &,AG::InputEdge::Comparator)::$_0 &,AG::InputEdge*,false>(uint64_t result, unint64_t a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,AG::Graph::index_of_input_slow(AG::Node &,AG::InputEdge::Comparator)::$_0 &,AG::InputEdge*,false>(uint64_t result, unsigned int *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -5961,7 +5752,7 @@ LABEL_2:
       if (v13 == 2)
       {
         v89 = *(a2 - 5);
-        v88 = a2 - 5;
+        v88 = (a2 - 5);
         if (v89 >= *v11)
         {
           return result;
@@ -6128,7 +5919,7 @@ LABEL_125:
             v103 = v104;
           }
 
-          while (v104 + 5 != a2);
+          while ((v104 + 5) != a2);
         }
       }
 
@@ -6160,7 +5951,7 @@ LABEL_125:
           v7 = v148;
         }
 
-        while (v148 + 5 != a2);
+        while ((v148 + 5) != a2);
       }
 
       return result;
@@ -6295,7 +6086,7 @@ LABEL_125:
           }
 
           while (v125 <= ((v124 - 2) >> 1));
-          a2 -= 5;
+          a2 = (a2 - 5);
           if (v128 == a2)
           {
             *(v128 + 4) = v210;
@@ -6750,7 +6541,7 @@ LABEL_57:
       result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::Graph::index_of_input_slow(AG::Node &,AG::InputEdge::Comparator)::$_0 &,AG::InputEdge*>(v11, a2);
       if (result)
       {
-        a2 = v11 - 5;
+        a2 = (v11 - 5);
         if (!v78)
         {
           goto LABEL_2;
@@ -6852,7 +6643,7 @@ LABEL_78:
   v90 = v11 + 5;
   v91 = *(v11 + 5);
   v93 = *(a2 - 5);
-  v88 = a2 - 5;
+  v88 = (a2 - 5);
   v92 = v93;
   if (v91 >= *v11)
   {
@@ -7048,10 +6839,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::G
   {
     if (v2 == 3)
     {
-      v5 = a1 + 5;
+      v5 = (a1 + 5);
       v6 = *(a1 + 5);
       v8 = *(a2 - 5);
-      v3 = a2 - 5;
+      v3 = (a2 - 5);
       v7 = v8;
       if (v6 < *a1)
       {
@@ -7125,7 +6916,7 @@ LABEL_48:
       return 1;
     }
 
-    v5 = a1 + 5;
+    v5 = (a1 + 5);
     v19 = *(a1 + 5);
     v20 = (a1 + 10);
     v21 = *(a1 + 10);
@@ -7219,7 +7010,7 @@ LABEL_45:
   if (v2 == 2)
   {
     v4 = *(a2 - 5);
-    v3 = a2 - 5;
+    v3 = (a2 - 5);
     if (v4 >= *a1)
     {
       return 1;
@@ -7366,12 +7157,12 @@ uint64_t AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned 
   return a1;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,false>(int *result, char *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,false>(uint64_t result, unsigned int *a2, uint64_t a3, char a4)
 {
   v7 = result;
   while (2)
   {
-    v8 = a2 - 4;
+    v8 = a2 - 1;
     v9 = v7;
     while (1)
     {
@@ -7398,7 +7189,7 @@ int *std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_no
 
                   v9[2] = v97;
                   *(a2 - 2) = v95;
-                  v8 = (v9 + 3);
+                  v8 = v9 + 3;
                   v149 = v9[3];
                   v9[3] = *(a2 - 1);
                   *(a2 - 1) = v149;
@@ -7411,14 +7202,14 @@ int *std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_no
 
                   *v9 = v150;
                   v9[2] = v151;
-                  v98 = (v9 + 1);
+                  v98 = v9 + 1;
                 }
 
                 else
                 {
                   if (v97 >= v95)
                   {
-                    v98 = (v9 + 3);
+                    v98 = v9 + 3;
                     v162 = v9[3];
                     v163 = v9[1];
                     *v9 = v95;
@@ -7436,7 +7227,7 @@ int *std::__introsort<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_no
 
                   else
                   {
-                    v98 = (v9 + 1);
+                    v98 = v9 + 1;
                     *v9 = v97;
                   }
 
@@ -7570,7 +7361,7 @@ LABEL_204:
 
           if (v10 <= 23)
           {
-            v103 = (v9 + 2);
+            v103 = v9 + 2;
             v105 = v9 == a2 || v103 == a2;
             if (a4)
             {
@@ -7586,7 +7377,7 @@ LABEL_204:
                   if (v108 < v109)
                   {
                     v111 = *v103;
-                    v110 = *(v103 + 1);
+                    v110 = v103[1];
                     v112 = v106;
                     while (1)
                     {
@@ -7614,7 +7405,7 @@ LABEL_137:
                     v115[1] = v110;
                   }
 
-                  v103 = (v107 + 2);
+                  v103 = v107 + 2;
                   v106 += 8;
                 }
 
@@ -7648,7 +7439,7 @@ LABEL_137:
                   *(v159 - 1) = v158;
                 }
 
-                v103 = (v7 + 2);
+                v103 = v7 + 2;
                 v155 += 2;
               }
 
@@ -7757,7 +7548,7 @@ LABEL_137:
                 do
                 {
                   v132 = &v131[2 * v129];
-                  v133 = (v132 + 2);
+                  v133 = v132 + 2;
                   v134 = (2 * v129) | 1;
                   v129 = 2 * v129 + 2;
                   if (v129 >= v10)
@@ -7769,7 +7560,7 @@ LABEL_137:
                   else
                   {
                     v137 = v132[4];
-                    v136 = (v132 + 4);
+                    v136 = v132 + 4;
                     v135 = v137;
                     v138 = *(v136 - 2);
                     v139 = v138 >= v137;
@@ -7790,12 +7581,12 @@ LABEL_137:
                   }
 
                   *v131 = v135;
-                  v131[1] = *(v133 + 1);
+                  v131[1] = v133[1];
                   v131 = v133;
                 }
 
                 while (v129 <= ((v10 - 2) >> 1));
-                if (v133 == a2 - 8)
+                if (v133 == a2 - 2)
                 {
                   *v133 = v130;
                 }
@@ -7803,7 +7594,7 @@ LABEL_137:
                 else
                 {
                   *v133 = *(a2 - 2);
-                  *(v133 + 1) = *(a2 - 1);
+                  v133[1] = *(a2 - 1);
                   *(a2 - 1) = v130;
                   v140 = (v133 - v9 + 8) >> 3;
                   v141 = v140 < 2;
@@ -7816,13 +7607,13 @@ LABEL_137:
                     if (*v144 < *v133)
                     {
                       v146 = *v133;
-                      v147 = *(v133 + 1);
+                      v147 = v133[1];
                       do
                       {
                         v148 = v133;
                         v133 = v144;
                         *v148 = v145;
-                        *(v148 + 1) = *(v144 + 1);
+                        v148[1] = v144[1];
                         if (!v143)
                         {
                           break;
@@ -7835,12 +7626,12 @@ LABEL_137:
 
                       while (*v144 < v146);
                       *v133 = v146;
-                      *(v133 + 1) = v147;
+                      v133[1] = v147;
                     }
                   }
                 }
 
-                a2 -= 8;
+                a2 -= 2;
                 v141 = v10-- <= 2;
               }
 
@@ -7859,7 +7650,7 @@ LABEL_137:
             v15 = *v9;
             if (*v11 >= *v9)
             {
-              if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = (v11 + 1), v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
+              if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = v11 + 1, v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
               {
 LABEL_29:
                 v30 = v11 - 2;
@@ -7868,7 +7659,7 @@ LABEL_29:
                 v33 = *(a2 - 4);
                 if (v31 >= v32)
                 {
-                  if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = (v11 - 1), v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
+                  if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = v11 - 1, v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
                   {
 LABEL_42:
                     v47 = v11[2];
@@ -7882,7 +7673,7 @@ LABEL_42:
                       {
                         *v45 = v49;
                         *(a2 - 6) = v46;
-                        v52 = (v45 + 1);
+                        v52 = v45 + 1;
                         v51 = v45[1];
                         v45[1] = *(a2 - 5);
                         *(a2 - 5) = v51;
@@ -7892,7 +7683,7 @@ LABEL_42:
                         {
                           v9[4] = v46;
                           *v45 = v53;
-                          v50 = (v9 + 5);
+                          v50 = v9 + 5;
 LABEL_51:
                           v57 = *v50;
                           *v50 = *v52;
@@ -7906,15 +7697,15 @@ LABEL_51:
                     {
                       if (v49 < v46)
                       {
-                        v50 = (v9 + 5);
+                        v50 = v9 + 5;
                         v9[4] = v49;
 LABEL_50:
                         *(a2 - 6) = v48;
-                        v52 = a2 - 20;
+                        v52 = a2 - 5;
                         goto LABEL_51;
                       }
 
-                      v50 = (v45 + 1);
+                      v50 = v45 + 1;
                       v54 = v45[1];
                       v55 = v9[5];
                       v9[4] = v46;
@@ -7940,9 +7731,9 @@ LABEL_50:
 LABEL_62:
                         v67 = *v9;
                         *v9 = v58;
-                        v19 = (v9 + 1);
+                        v19 = v9 + 1;
                         *v12 = v67;
-                        v25 = (v12 + 1);
+                        v25 = v12 + 1;
                         goto LABEL_63;
                       }
 
@@ -8035,7 +7826,7 @@ LABEL_62:
                   }
 
                   *(a2 - 4) = v32;
-                  v36 = a2 - 12;
+                  v36 = a2 - 3;
                 }
 
                 v44 = *v34;
@@ -8045,7 +7836,7 @@ LABEL_62:
               }
 
               *v9 = *v11;
-              v16 = (v9 + 1);
+              v16 = v9 + 1;
               *v11 = v22;
             }
 
@@ -8053,7 +7844,7 @@ LABEL_62:
             {
               if (v13 >= v14)
               {
-                v16 = (v11 + 1);
+                v16 = v11 + 1;
                 v26 = v11[1];
                 v27 = v9[1];
                 *v9 = v14;
@@ -8071,12 +7862,12 @@ LABEL_62:
 
               else
               {
-                v16 = (v9 + 1);
+                v16 = v9 + 1;
                 *v9 = v13;
               }
 
               *(a2 - 2) = v15;
-              v21 = a2 - 4;
+              v21 = a2 - 1;
             }
 
             v29 = *v16;
@@ -8101,8 +7892,8 @@ LABEL_62:
               {
                 *v12 = *v9;
                 *v9 = v24;
-                v19 = (v12 + 1);
-                v25 = (v9 + 1);
+                v19 = v12 + 1;
+                v25 = v9 + 1;
 LABEL_63:
                 v68 = *v19;
                 *v19 = *v25;
@@ -8115,15 +7906,15 @@ LABEL_63:
           {
             if (v13 < v17)
             {
-              v19 = (v11 + 1);
+              v19 = v11 + 1;
               *v12 = v13;
 LABEL_37:
               *(a2 - 2) = v18;
-              v25 = a2 - 4;
+              v25 = a2 - 1;
               goto LABEL_63;
             }
 
-            v19 = (v9 + 1);
+            v19 = v9 + 1;
             v38 = v9[1];
             v39 = v12[1];
             *v12 = v17;
@@ -8147,7 +7938,7 @@ LABEL_37:
           v82 = *v9;
           if (*(a2 - 2) <= *v9)
           {
-            v84 = v9 + 2;
+            v84 = (v9 + 2);
             do
             {
               v9 = v84;
@@ -8156,7 +7947,7 @@ LABEL_37:
                 break;
               }
 
-              v84 += 2;
+              v84 += 8;
             }
 
             while (*v9 <= v82);
@@ -8250,7 +8041,7 @@ LABEL_37:
             }
 
             v75 = *(v73 - 2);
-            v73 -= 8;
+            v73 -= 2;
           }
 
           while (v75 >= v70);
@@ -8261,7 +8052,7 @@ LABEL_37:
           do
           {
             v74 = *(v73 - 2);
-            v73 -= 8;
+            v73 -= 2;
           }
 
           while (v74 >= v70);
@@ -8335,7 +8126,7 @@ LABEL_87:
       }
     }
 
-    a2 = (v9 - 2);
+    a2 = v9 - 2;
     if (!v81)
     {
       continue;
@@ -8345,7 +8136,7 @@ LABEL_87:
   }
 }
 
-int *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,0>(int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
+unsigned int *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AG::Graph::TreeDataElement::sort_nodes(void)::$_0 &,std::pair<AG::data::ptr<AG::Graph::TreeElement>,AG::data::ptr<AG::Node>> *,0>(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
 {
   v5 = *a2;
   v6 = *result;
@@ -8356,7 +8147,7 @@ int *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AG::Graph::TreeDataElemen
     {
       *a2 = v7;
       *a3 = v5;
-      v10 = (a2 + 1);
+      v10 = a2 + 1;
       v9 = a2[1];
       a2[1] = a3[1];
       a3[1] = v9;
@@ -8364,7 +8155,7 @@ int *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,AG::Graph::TreeDataElemen
       if (*a2 < *result)
       {
         *result = *a2;
-        v8 = result + 1;
+        v8 = (result + 1);
         *a2 = v11;
 LABEL_10:
         v13 = *v8;
@@ -8378,11 +8169,11 @@ LABEL_10:
   {
     if (v7 < v5)
     {
-      v8 = result + 1;
+      v8 = (result + 1);
       *result = v7;
 LABEL_9:
       *a3 = v6;
-      v10 = (a3 + 1);
+      v10 = a3 + 1;
       goto LABEL_10;
     }
 
@@ -8487,7 +8278,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::G
 
         a1[2] = v8;
         *(a2 - 2) = v6;
-        v20 = (a1 + 3);
+        v20 = a1 + 3;
         v19 = a1[3];
         a1[3] = *(a2 - 1);
         *(a2 - 1) = v19;
@@ -8500,14 +8291,14 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::G
 
         *a1 = v21;
         a1[2] = v22;
-        v9 = (a1 + 1);
+        v9 = a1 + 1;
       }
 
       else
       {
         if (v8 >= v6)
         {
-          v9 = (a1 + 3);
+          v9 = a1 + 3;
           v29 = a1[3];
           v30 = a1[1];
           *a1 = v6;
@@ -8525,12 +8316,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::G
 
         else
         {
-          v9 = (a1 + 1);
+          v9 = a1 + 1;
           *a1 = v8;
         }
 
         *(a2 - 2) = v7;
-        v20 = a2 - 4;
+        v20 = (a2 - 4);
       }
 
       v32 = *v9;
@@ -8557,7 +8348,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AG::G
     {
       if (v17 < v15)
       {
-        v27 = (a1 + 3);
+        v27 = a1 + 3;
         v26 = a1[3];
         v28 = a1[5];
         a1[2] = v17;
@@ -8573,7 +8364,7 @@ LABEL_51:
 
         *a1 = v17;
         a1[2] = v16;
-        v18 = (a1 + 1);
+        v18 = a1 + 1;
 LABEL_50:
         v48 = *v18;
         *v18 = *v27;
@@ -8586,16 +8377,16 @@ LABEL_50:
     {
       if (v17 < v15)
       {
-        v18 = (a1 + 1);
+        v18 = a1 + 1;
         *a1 = v17;
 LABEL_49:
         a1[4] = v16;
-        v27 = (a1 + 5);
+        v27 = a1 + 5;
         v15 = v16;
         goto LABEL_50;
       }
 
-      v18 = (a1 + 3);
+      v18 = a1 + 3;
       v46 = a1[3];
       v47 = a1[1];
       *a1 = v15;
@@ -8665,7 +8456,7 @@ LABEL_52:
   }
 
 LABEL_13:
-  v10 = (a1 + 4);
+  v10 = a1 + 4;
   v11 = a1[4];
   v12 = a1[2];
   v13 = *a1;
@@ -8673,7 +8464,7 @@ LABEL_13:
   {
     if (v11 >= v12)
     {
-      v14 = (a1 + 3);
+      v14 = a1 + 3;
       v33 = a1[3];
       v34 = a1[1];
       *a1 = v12;
@@ -8690,18 +8481,18 @@ LABEL_13:
 
     else
     {
-      v14 = (a1 + 1);
+      v14 = a1 + 1;
       *a1 = v11;
     }
 
     a1[4] = v13;
-    v24 = (a1 + 5);
+    v24 = a1 + 5;
     goto LABEL_35;
   }
 
   if (v11 < v12)
   {
-    v24 = (a1 + 3);
+    v24 = a1 + 3;
     v23 = a1[3];
     v25 = a1[5];
     a1[2] = v11;
@@ -8712,7 +8503,7 @@ LABEL_13:
     {
       *a1 = v11;
       a1[2] = v13;
-      v14 = (a1 + 1);
+      v14 = a1 + 1;
 LABEL_35:
       v35 = *v14;
       *v14 = *v24;
@@ -8721,7 +8512,7 @@ LABEL_35:
   }
 
 LABEL_36:
-  v36 = (a1 + 6);
+  v36 = a1 + 6;
   if (a1 + 6 == a2)
   {
     return 1;
@@ -8735,7 +8526,7 @@ LABEL_36:
     if (*v36 < *v10)
     {
       v41 = *v36;
-      v40 = *(v36 + 1);
+      v40 = v36[1];
       v42 = v37;
       while (1)
       {
@@ -8763,13 +8554,13 @@ LABEL_44:
       v45[1] = v40;
       if (++v38 == 8)
       {
-        return v36 + 8 == a2;
+        return v36 + 2 == a2;
       }
     }
 
     v10 = v36;
     v37 += 8;
-    v36 += 8;
+    v36 += 2;
     if (v36 == a2)
     {
       return 1;
@@ -8777,10 +8568,10 @@ LABEL_44:
   }
 }
 
-uint64_t AG::vector<std::unique_ptr<AG::AttributeType,AG::AttributeType::deleter>,0ul,unsigned int>::~vector(uint64_t a1)
+char **AG::vector<std::unique_ptr<AG::AttributeType,AG::AttributeType::deleter>,0ul,unsigned int>::~vector(char **a1)
 {
   v2 = *a1;
-  if (*(a1 + 8))
+  if (*(a1 + 2))
   {
     v3 = 0;
     do
@@ -8790,7 +8581,7 @@ uint64_t AG::vector<std::unique_ptr<AG::AttributeType,AG::AttributeType::deleter
       ++v2;
     }
 
-    while (v3 < *(a1 + 8));
+    while (v3 < *(a1 + 2));
     v2 = *a1;
   }
 
@@ -8818,9 +8609,9 @@ uint64_t std::unique_ptr<AG::AttributeType,AG::AttributeType::deleter>::reset[ab
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8876,20 +8667,20 @@ void util::Table<unsigned long,AG::Graph::Context *>::for_each<AG::Graph::update
   **a3 = v3;
 }
 
-void *AG::vector<AG::AttributeID,8ul,unsigned long>::reserve_slow(void *__dst, size_t a2)
+void *AG::vector<AG::AttributeID,8ul,unsigned long>::reserve_slow(size_t *__dst, char *a2)
 {
-  if (*(__dst + 6) + (*(__dst + 6) >> 1) <= a2)
+  if (__dst[6] + (__dst[6] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(__dst + 6) + (*(__dst + 6) >> 1);
+    v3 = (__dst[6] + (__dst[6] >> 1));
   }
 
-  result = AG::details::realloc_vector<unsigned long,4ul>(*(__dst + 4), __dst, 8uLL, __dst + 6, v3);
-  *(__dst + 4) = result;
+  result = AG::details::realloc_vector<unsigned long,4ul>(__dst[4], __dst, 8uLL, __dst + 6, v3);
+  __dst[4] = result;
   return result;
 }
 
@@ -8935,27 +8726,13 @@ LABEL_8:
   return v7;
 }
 
-uint64_t *OUTLINED_FUNCTION_1()
-{
-  result = *(*v0 + 8 * v1);
-  v3 = *result;
-  return result;
-}
-
-uint64_t *OUTLINED_FUNCTION_2@<X0>(uint64_t a1@<X8>)
-{
-  result = *(a1 + 8 * v1);
-  v3 = *result;
-  return result;
-}
-
 uint64_t OUTLINED_FUNCTION_5()
 {
 
   return AG::swift::metadata::name(v0, 0);
 }
 
-uint64_t AG::DebugServer::start(AG::DebugServer *this)
+AG::DebugServer *AG::DebugServer::start(AG::DebugServer *this)
 {
   v1 = AG::DebugServer::_shared_server;
   if ((this & 1) != 0 && !AG::DebugServer::_shared_server)
@@ -8986,7 +8763,7 @@ uint64_t AG::DebugServer::stop(AG::DebugServer *this)
 
 AG::DebugServer *AG::DebugServer::DebugServer(AG::DebugServer *this, char a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   *this = 0xFFFFFFFFLL;
   *(this + 4) = 0;
   v4 = arc4random();
@@ -8998,14 +8775,14 @@ AG::DebugServer *AG::DebugServer::DebugServer(AG::DebugServer *this, char a2)
   if (v5 < 0)
   {
     perror("AGDebugServer: socket");
-    goto LABEL_25;
+    return this;
   }
 
   fcntl(v5, 2, 1);
-  v19 = 1;
-  setsockopt(*this, 0xFFFF, 4130, &v19, 4u);
-  v27.sa_family = 2;
-  *v27.sa_data = 0;
+  v18 = 1;
+  setsockopt(*this, 0xFFFF, 4130, &v18, 4u);
+  v26.sa_family = 2;
+  *v26.sa_data = 0;
   if ((a2 & 2) != 0)
   {
     v6 = 0;
@@ -9016,34 +8793,34 @@ AG::DebugServer *AG::DebugServer::DebugServer(AG::DebugServer *this, char a2)
     v6 = 16777343;
   }
 
-  *&v27.sa_data[2] = v6;
-  if (bind(*this, &v27, 0x10u))
+  *&v26.sa_data[2] = v6;
+  if (bind(*this, &v26, 0x10u))
   {
     perror("AGDebugServer: bind");
     AG::DebugServer::shutdown(this);
-    goto LABEL_25;
+    return this;
   }
 
-  v18 = 16;
-  if (getsockname(*this, &v27, &v18))
+  v17 = 16;
+  if (getsockname(*this, &v26, &v17))
   {
     v10 = "AGDebugServer: getsockname";
 LABEL_27:
     perror(v10);
     AG::DebugServer::shutdown(this);
-    goto LABEL_25;
+    return this;
   }
 
-  *(this + 1) = bswap32(*&v27.sa_data[2]);
-  *(this + 4) = bswap32(*v27.sa_data) >> 16;
+  *(this + 1) = bswap32(*&v26.sa_data[2]);
+  *(this + 4) = bswap32(*v26.sa_data) >> 16;
   if ((a2 & 2) != 0)
   {
-    v26[0] = 0;
-    if (!getifaddrs(v26))
+    v25[0] = 0;
+    if (!getifaddrs(v25))
     {
-      if (v26[0])
+      if (v25[0])
       {
-        v7 = v26[0];
+        v7 = v25[0];
         while (1)
         {
           ifa_addr = v7->ifa_addr;
@@ -9086,25 +8863,23 @@ LABEL_20:
   dispatch_set_context(v11, this);
   dispatch_source_set_event_handler_f(*(this + 2), AG::DebugServer::accept_handler);
   dispatch_resume(*(this + 2));
-  *&v27.sa_data[2] = bswap32(*(this + 1));
-  v12 = inet_ntop(2, &v27.sa_data[2], v26, 0x20u);
+  *&v26.sa_data[2] = bswap32(*(this + 1));
+  v12 = inet_ntop(2, &v26.sa_data[2], v25, 0x20u);
   v13 = AG::misc_log(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = *(this + 4);
     v15 = *(this + 3);
     *buf = 136315650;
-    v21 = v26;
-    v22 = 1024;
-    v23 = v14;
-    v24 = 1024;
-    v25 = v15;
+    v20 = v25;
+    v21 = 1024;
+    v22 = v14;
+    v23 = 1024;
+    v24 = v15;
     _os_log_impl(&dword_1B490B000, v13, OS_LOG_TYPE_DEFAULT, "debug server graph://%s:%d/?token=%u", buf, 0x18u);
   }
 
-  fprintf(*MEMORY[0x1E69E9848], "debug server graph://%s:%d/?token=%u\n", v26, *(this + 4), *(this + 3));
-LABEL_25:
-  v16 = *MEMORY[0x1E69E9840];
+  fprintf(*MEMORY[0x1E69E9848], "debug server graph://%s:%d/?token=%u\n", v25, *(this + 4), *(this + 3));
   return this;
 }
 
@@ -9138,16 +8913,15 @@ uint64_t AG::DebugServer::shutdown(AG::DebugServer *this)
 
 void AG::DebugServer::accept_handler(AG::DebugServer *this, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 16;
-  if ((accept(*this, &v5, &v4) & 0x80000000) == 0)
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 16;
+  if ((accept(*this, &v4, &v3) & 0x80000000) == 0)
   {
     fcntl(*this, 2, 1);
     operator new();
   }
 
   perror("AGDebugServer: accept");
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void AG::DebugServer::~DebugServer(id *this)
@@ -9175,23 +8949,17 @@ void AG::DebugServer::~DebugServer(id *this)
 
 CFURLRef AG::DebugServer::copy_url(AG::DebugServer *this)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((*this & 0x80000000) != 0)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    v5 = bswap32(*(this + 1));
-    inet_ntop(2, &v5, v7, 0x20u);
-    snprintf_l(__s, 0x100uLL, 0, "graph://%s:%d/?token=%u", v7, *(this + 4), *(this + 3));
-    v2 = strlen(__s);
-    result = CFURLCreateWithBytes(0, __s, v2, 0x8000100u, 0);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = bswap32(*(this + 1));
+  inet_ntop(2, &v4, v6, 0x20u);
+  snprintf_l(__s, 0x100uLL, 0, "graph://%s:%d/?token=%u", v6, *(this + 4), *(this + 3));
+  v2 = strlen(__s);
+  return CFURLCreateWithBytes(0, __s, v2, 0x8000100u, 0);
 }
 
 void AG::DebugServer::run(AG::DebugServer *this, int a2)
@@ -9201,11 +8969,11 @@ void AG::DebugServer::run(AG::DebugServer *this, int a2)
 LABEL_2:
   while ((v3 & 1) == 0 || *(this + 4))
   {
-    memset(&v20, 0, sizeof(v20));
+    memset(&v22, 0, sizeof(v22));
     v5 = *this;
-    if (__darwin_check_fd_set_overflow(*this, &v20, 0))
+    if (__darwin_check_fd_set_overflow(*this, &v22, 0))
     {
-      *(v20.fds_bits + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
+      *(v22.fds_bits + ((v5 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v5;
     }
 
     v6 = *this;
@@ -9217,9 +8985,9 @@ LABEL_2:
       do
       {
         v10 = *(*v8 + 8);
-        if (__darwin_check_fd_set_overflow(v10, &v20, 0))
+        if (__darwin_check_fd_set_overflow(v10, &v22, 0))
         {
-          *(v20.fds_bits + ((v10 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v10;
+          *(v22.fds_bits + ((v10 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v10;
         }
 
         v11 = *v8++;
@@ -9235,9 +9003,9 @@ LABEL_2:
       while (v9);
     }
 
-    v19.tv_sec = v4;
-    v19.tv_usec = 0;
-    if (select(v6 + 1, 0, &v20, 0, &v19) <= 0)
+    v21.tv_sec = v4;
+    v21.tv_usec = 0;
+    if (select(v6 + 1, 0, &v22, 0, &v21) <= 0)
     {
       if (*__error() != 35)
       {
@@ -9249,7 +9017,7 @@ LABEL_2:
     else
     {
       v13 = *this;
-      if (__darwin_check_fd_set_overflow(*this, &v20, 0) && ((*(v20.fds_bits + ((v13 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v13) & 1) != 0)
+      if (__darwin_check_fd_set_overflow(*this, &v22, 0) && ((*(v22.fds_bits + ((v13 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v13) & 1) != 0)
       {
         AG::DebugServer::accept_handler(this, v14);
         v3 = 1;
@@ -9263,9 +9031,9 @@ LABEL_2:
           while (1)
           {
             v16 = *(*(*(this + 3) + 8 * v15) + 8);
-            if (__darwin_check_fd_set_overflow(v16, &v20, 0))
+            if (__darwin_check_fd_set_overflow(v16, &v22, 0))
             {
-              if ((*(v20.fds_bits + ((v16 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v16))
+              if ((*(v22.fds_bits + ((v16 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v16))
               {
                 break;
               }
@@ -9278,12 +9046,12 @@ LABEL_2:
           }
 
           v17 = *(*(*(this + 3) + 8 * v15) + 8);
-          if (__darwin_check_fd_set_overflow(v17, &v20, 0))
+          if (__darwin_check_fd_set_overflow(v17, &v22, 0))
           {
-            *(v20.fds_bits + ((v17 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v17);
+            *(v22.fds_bits + ((v17 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) &= ~(1 << v17);
           }
 
-          AG::DebugServer::Connection::handler(*(*(this + 3) + 8 * v15), v18);
+          AG::DebugServer::Connection::handler(*(*(this + 3) + 8 * v15), v18, v19, v20);
           v15 = 0;
         }
 
@@ -9293,63 +9061,63 @@ LABEL_2:
   }
 }
 
-void AG::DebugServer::Connection::handler(AG::DebugServer::Connection *this, void *a2)
+void AG::DebugServer::Connection::handler(AG::DebugServer::Connection *this, void *a2, uint64_t a3, unint64_t a4)
 {
-  v2 = this;
+  v4 = this;
   {
     goto LABEL_12;
   }
 
   capacity_4 = 0;
-  if (v13 != *(*v2 + 12))
+  if (v15 != *(*v4 + 12))
   {
     goto LABEL_12;
   }
 
-  v3 = capacity;
+  v5 = capacity;
   Mutable = CFDataCreateMutable(0, capacity);
-  v5 = Mutable;
+  v7 = Mutable;
   theData[1] = Mutable;
   if (!Mutable)
   {
     goto LABEL_12;
   }
 
-  CFDataSetLength(Mutable, v3);
-  v6 = v2[2];
-  MutableBytePtr = CFDataGetMutableBytePtr(v5);
+  CFDataSetLength(Mutable, v5);
+  v8 = v4[2];
+  MutableBytePtr = CFDataGetMutableBytePtr(v7);
   {
-    AG::DebugServer::receive(v5, theData);
-    v8 = theData[0];
+    AG::DebugServer::receive(v7, theData);
+    v10 = theData[0];
     if (theData[0])
     {
       Length = CFDataGetLength(theData[0]);
       capacity = Length;
       {
-        v10 = v2[2];
-        BytePtr = CFDataGetBytePtr(v8);
+        v12 = v4[2];
+        BytePtr = CFDataGetBytePtr(v10);
         {
-          v2 = 0;
+          v4 = 0;
         }
       }
 
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 
-  CFRelease(v5);
-  if (v2)
+  CFRelease(v7);
+  if (v4)
   {
 LABEL_12:
-    AG::DebugServer::close_connection(*v2, v2);
+    AG::DebugServer::close_connection(*v4, v4);
   }
 }
 
-void sub_1B492FBAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B492FBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   util::cf_ptr<__CFData *>::~cf_ptr(va);
-  AG::DebugServer::close_connection(*v2, v2);
+  AG::DebugServer::close_connection(*v3, v3);
   _Unwind_Resume(a1);
 }
 
@@ -9387,7 +9155,7 @@ AG::DebugServer::Connection **AG::DebugServer::close_connection(AG::DebugServer:
 
 void AG::DebugServer::receive(uint64_t a1@<X3>, void *a2@<X8>)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a1 options:0 error:0];
   if (!v5)
@@ -9432,112 +9200,108 @@ void AG::DebugServer::receive(uint64_t a1@<X3>, void *a2@<X8>)
 
       else
       {
-        v17 = [v7 isEqual:@"profiler/reset"];
-        if (v17)
+        v16 = [v7 isEqual:@"profiler/reset"];
+        if (v16)
         {
-          AG::Graph::all_reset_profile(v17);
+          AG::Graph::all_reset_profile(v16);
         }
 
         else if ([v7 isEqual:@"profiler/mark"])
         {
-          v18 = [v6 objectForKeyedSubscript:@"name"];
+          v17 = [v6 objectForKeyedSubscript:@"name"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v19 = [v18 UTF8String];
-            AG::Graph::all_mark_profile(v19, v20);
+            v18 = [v17 UTF8String];
+            AG::Graph::all_mark_profile(v18, v19);
           }
         }
 
         else if ([v7 isEqual:@"tracing/start"])
         {
-          v21 = [v6 objectForKeyedSubscript:@"flags"];
+          v20 = [v6 objectForKeyedSubscript:@"flags"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = [v21 unsignedIntValue] | 1;
+            v21 = [v20 unsignedIntValue] | 1;
           }
 
           else
           {
-            v22 = 1;
+            v21 = 1;
           }
 
-          v37 = 0;
           v38 = 0;
           v39 = 0;
-          v24 = [v6 objectForKeyedSubscript:@"subsystems"];
+          v40 = 0;
+          v23 = [v6 objectForKeyedSubscript:@"subsystems"];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          if ((objc_opt_isKindOfClass() & 1) != 0 && (v36 = 0u, v37 = 0u, v34 = 0u, v35 = 0u, (v24 = [v23 countByEnumeratingWithState:&v34 objects:v41 count:16]) != 0))
           {
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
-            v34 = 0u;
-            v25 = [v24 countByEnumeratingWithState:&v33 objects:v40 count:16];
-            if (v25)
+            v25 = *v35;
+            do
             {
-              v26 = *v34;
-              do
+              for (i = 0; i != v24; ++i)
               {
-                v27 = 0;
-                do
+                if (*v35 != v25)
                 {
-                  if (*v34 != v26)
-                  {
-                    objc_enumerationMutation(v24);
-                  }
-
-                  v28 = *(*(&v33 + 1) + 8 * v27);
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    v29 = [v28 UTF8String];
-                    v30 = v38;
-                    v31 = v38 + 1;
-                    if (v39 < v38 + 1)
-                    {
-                      AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(&v37, v31);
-                      v30 = v38;
-                      v31 = v38 + 1;
-                    }
-
-                    *(v37 + v30) = v29;
-                    v38 = v31;
-                  }
-
-                  ++v27;
+                  objc_enumerationMutation(v23);
                 }
 
-                while (v25 != v27);
-                v25 = [v24 countByEnumeratingWithState:&v33 objects:v40 count:16];
+                v27 = *(*(&v34 + 1) + 8 * i);
+                objc_opt_class();
+                if (objc_opt_isKindOfClass())
+                {
+                  v28 = [v27 UTF8String];
+                  v29 = v39;
+                  v30 = v39 + 1;
+                  if (v40 < (v39 + 1))
+                  {
+                    AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(&v38, v30);
+                    v29 = v39;
+                    v30 = v39 + 1;
+                  }
+
+                  *(v38 + v29) = v28;
+                  v39 = v30;
+                }
               }
 
-              while (v25);
+              v24 = [v23 countByEnumeratingWithState:&v34 objects:v41 count:16];
             }
+
+            while (v24);
+            v31 = v38;
+            v32 = v39;
           }
 
-          AG::Graph::all_start_tracing(v22);
-          if (v37)
+          else
           {
-            free(v37);
+            v32 = 0;
+            v31 = 0;
+          }
+
+          AG::Graph::all_start_tracing(v21, v31, v32);
+          if (v38)
+          {
+            free(v38);
           }
         }
 
         else
         {
-          v23 = [v7 isEqual:@"tracing/stop"];
-          if (v23)
+          v22 = [v7 isEqual:@"tracing/stop"];
+          if (v22)
           {
-            AG::Graph::all_stop_tracing(v23);
+            AG::Graph::all_stop_tracing(v22);
           }
 
           else
           {
-            v32 = [v7 isEqual:@"tracing/sync"];
-            if (v32)
+            v33 = [v7 isEqual:@"tracing/sync"];
+            if (v33)
             {
-              AG::Graph::all_sync_tracing(v32);
+              AG::Graph::all_sync_tracing(v33);
             }
           }
         }
@@ -9567,7 +9331,6 @@ LABEL_14:
 LABEL_15:
   *a2 = v12;
   objc_autoreleasePoolPop(v4);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B4930048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
@@ -9602,7 +9365,7 @@ void AG::DebugServer::Connection::~Connection(AG::DebugServer::Connection *this)
   close(*(this + 2));
 }
 
-BOOL AG::anonymous namespace::blocking_read(AG::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
+uint64_t AG::anonymous namespace::blocking_read(AG::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -9643,7 +9406,7 @@ BOOL AG::anonymous namespace::blocking_read(AG::_anonymous_namespace_ *this, uin
   return v8;
 }
 
-BOOL AG::anonymous namespace::blocking_write(AG::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
+uint64_t AG::anonymous namespace::blocking_write(AG::_anonymous_namespace_ *this, uint64_t a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -9719,4 +9482,244 @@ AG::DebugServer::Connection **std::unique_ptr<AG::DebugServer::Connection>::~uni
   }
 
   return a1;
+}
+
+const void **util::cf_ptr<__CFData const*>::~cf_ptr(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+const void **util::cf_ptr<__CFData *>::~cf_ptr(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+__n128 AG::Encoder::Encoder(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = a2;
+  *(a1 + 8) = a3;
+  *(a1 + 16) = 0;
+  result = 0uLL;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  if (!a2)
+  {
+    if (a3)
+    {
+      AG::precondition_failure("need a delegate if flush interval is non-zero", 0);
+    }
+  }
+
+  return result;
+}
+
+void sub_1B4930470(_Unwind_Exception *exception_object)
+{
+  v4 = *(v1 + 48);
+  if (v4)
+  {
+    free(v4);
+  }
+
+  if (*v2)
+  {
+    free(*v2);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t **AG::Encoder::flush(uint64_t **this)
+{
+  if (this[4])
+  {
+    v1 = this;
+    this = *this;
+    if (this)
+    {
+      this = (**this)(this, v1);
+      v1[4] = 0;
+    }
+  }
+
+  return this;
+}
+
+void *AG::Encoder::encode_varint(void *this, unint64_t a2)
+{
+  v2 = a2;
+  v3 = this;
+  if (a2 > 0x7F)
+  {
+    v5 = (147 * (70 - __clz(a2))) >> 10;
+    v4 = this[4];
+  }
+
+  else
+  {
+    v4 = this[4];
+    if (this[5] > v4)
+    {
+      *(this[3] + v4) = a2;
+      ++this[4];
+      return this;
+    }
+
+    v5 = 1;
+  }
+
+  v6 = v4 + v5;
+  if (v4 < v4 + v5 && this[5] < v6)
+  {
+    this = AG::vector<unsigned char,0ul,unsigned long>::reserve_slow((this + 3), v6);
+  }
+
+  v3[4] = v6;
+  v7 = (v3[3] + v4);
+  do
+  {
+    v8 = v2 > 0x7F;
+    v9 = v2 > 0x7F;
+    v10 = v2 & 0x7F;
+    v2 >>= 7;
+    *v7++ = v10 | (v9 << 7);
+  }
+
+  while (v8);
+  return this;
+}
+
+void *AG::Encoder::encode_fixed64(void *this, uint64_t a2)
+{
+  v3 = this;
+  v4 = this[4];
+  v5 = v4 + 8;
+  if (v4 <= 0xFFFFFFFFFFFFFFF7 && this[5] < v5)
+  {
+    this = AG::vector<unsigned char,0ul,unsigned long>::reserve_slow((this + 3), v4 + 8);
+  }
+
+  *(v3 + 32) = v5;
+  *(*(v3 + 24) + v4) = a2;
+  return this;
+}
+
+void *AG::Encoder::encode_data(AG::Encoder *this, const void *a2, unint64_t a3)
+{
+  result = AG::Encoder::encode_varint(this, a3);
+  if (a3)
+  {
+    v7 = *(this + 4);
+    v8 = v7 + a3;
+    if (v7 < v7 + a3 && *(this + 5) < v8)
+    {
+      AG::vector<unsigned char,0ul,unsigned long>::reserve_slow(this + 24, v7 + a3);
+    }
+
+    *(this + 4) = v8;
+    v9 = (*(this + 3) + v7);
+
+    return memcpy(v9, a2, a3);
+  }
+
+  return result;
+}
+
+void *AG::Encoder::begin_length_delimited(void *this)
+{
+  v1 = this;
+  v2 = *(this + 4);
+  v3 = v2 + 1;
+  if (v2 != -1 && *(this + 5) < v3)
+  {
+    this = AG::vector<unsigned char,0ul,unsigned long>::reserve_slow(this + 24, v2 + 1);
+  }
+
+  *(v1 + 4) = v3;
+  v4 = *(v1 + 7);
+  if (*(v1 + 8) < (v4 + 1))
+  {
+    this = AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(v1 + 6, (v4 + 1));
+    v4 = *(v1 + 7);
+  }
+
+  *(*(v1 + 6) + 8 * v4) = v2;
+  ++*(v1 + 7);
+  return this;
+}
+
+uint64_t (***AG::Encoder::end_length_delimited(uint64_t (***this)(void *, void *)))(void *, void *)
+{
+  v1 = this;
+  v2 = this[7];
+  v3 = this[6][v2 - 1];
+  this[7] = (v2 - 1);
+  v4 = this[4];
+  v5 = v3 + 1;
+  v6 = v4 - (v3 + 1);
+  if (v6 > 0x7F)
+  {
+    v8 = (147 * (70 - __clz(v6))) >> 10;
+    v9 = v4 + v8 - 1;
+    if (v4 < v9 && this[5] < v9)
+    {
+      v15 = v4 + v8 - 1;
+      v14 = v8;
+      AG::vector<unsigned char,0ul,unsigned long>::reserve_slow((this + 3), v9);
+      v8 = v14;
+      v5 = v3 + 1;
+      v9 = v15;
+    }
+
+    v1[4] = v9;
+    this = memmove(v3 + v1[3] + v8, &v5[v1[3]], v6);
+    v10 = v3 + v1[3];
+    do
+    {
+      v11 = v6 > 0x7F;
+      v12 = v6 > 0x7F;
+      v13 = v6 & 0x7F;
+      v6 >>= 7;
+      *v10++ = v13 | (v12 << 7);
+    }
+
+    while (v11);
+  }
+
+  else
+  {
+    *(v3 + this[3]) = v6;
+  }
+
+  if (!v1[7])
+  {
+    v7 = v1[1];
+    if (v7)
+    {
+      if (v1[4] >= v7)
+      {
+        this = *v1;
+        if (*v1)
+        {
+          this = (**this)(this, v1);
+          v1[4] = 0;
+        }
+      }
+    }
+  }
+
+  return this;
 }

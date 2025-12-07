@@ -40,20 +40,18 @@
 
 void __36__CSOSTransactionStat_reportDestroy__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   --*(*(a1 + 32) + 8);
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 8);
-    v5 = 136315394;
-    v6 = "[CSOSTransactionStat reportDestroy]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s NumTransactionNow = %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[CSOSTransactionStat reportDestroy]_block_invoke";
+    v6 = 1024;
+    v7 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s NumTransactionNow = %d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportCreation
@@ -69,20 +67,18 @@ void __36__CSOSTransactionStat_reportDestroy__block_invoke(uint64_t a1)
 
 void __37__CSOSTransactionStat_reportCreation__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   ++*(*(a1 + 32) + 8);
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 8);
-    v5 = 136315394;
-    v6 = "[CSOSTransactionStat reportCreation]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s NumTransactionNow = %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[CSOSTransactionStat reportCreation]_block_invoke";
+    v6 = 1024;
+    v7 = v3;
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s NumTransactionNow = %d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (CSOSTransactionStat)init
@@ -114,9 +110,11 @@ void __37__CSOSTransactionStat_reportCreation__block_invoke(uint64_t a1)
 
 uint64_t __37__CSOSTransactionStat_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_2400 = objc_alloc_init(CSOSTransactionStat);
+  v0 = objc_alloc_init(CSOSTransactionStat);
+  v1 = sharedInstance_sharedInstance_2400;
+  sharedInstance_sharedInstance_2400 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

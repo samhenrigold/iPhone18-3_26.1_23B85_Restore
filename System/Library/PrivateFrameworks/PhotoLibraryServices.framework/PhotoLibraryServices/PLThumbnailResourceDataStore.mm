@@ -75,17 +75,17 @@
     v8 = v7;
     v9 = [objc_alloc(MEMORY[0x1E69BF320]) initWithCFUUIDBytes:{*&v8->var0.var0, *&v8->var0.var8}];
     uuid = [dCopy uuid];
-    v11 = [v9 isEqualToString:uuid];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
     free(v8);
   }
 
   else
   {
-    v11 = 0;
+    isEqualToString = 0;
   }
 
-  return v11;
+  return isEqualToString;
 }
 
 - (CGImage)newTableThumbImageForKey:(id)key
@@ -124,7 +124,7 @@
     goto LABEL_4;
   }
 
-  v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(&unk_1F0FBF3E8, "count")}];
+  v35 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(&unk_1F0FBF3E8)];
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;

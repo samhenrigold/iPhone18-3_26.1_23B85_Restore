@@ -612,7 +612,7 @@ void PKCGrid::setData(PKCGrid *this, const unsigned __int8 *a2, int a3, unsigned
   }
 }
 
-void PKCGrid::setVectorData(PKCGrid *this, const unsigned __int8 *a2, int a3, int a4)
+void PKCGrid::setVectorData(PKCGrid *this, const unsigned __int8 *a2, unsigned int a3, int a4)
 {
   if (a3)
   {
@@ -620,7 +620,7 @@ void PKCGrid::setVectorData(PKCGrid *this, const unsigned __int8 *a2, int a3, in
     {
       *this = a3;
       *(this + 1) = a4;
-      _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6resizeEm(this + 8, a4 * a3);
+      _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6resizeEm(this + 8, (a4 * a3));
       if (a4 >= 1)
       {
         v12 = 0;
@@ -670,20 +670,20 @@ void PKCGrid::setVectorData(PKCGrid *this, const unsigned __int8 *a2, int a3, in
   }
 }
 
-void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -857,11 +857,12 @@ void rdpReduce(uint64_t a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
       v24 = 0;
       v25 = 0;
       std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGPoint const*>,std::__wrap_iter<CGPoint const*>>(&v23, 0, (v20 + *a1), *(a1 + 8), (*(a1 + 8) - (v20 + *a1)) >> 4);
-      rdpReduce(&v26, a3);
-      rdpReduce(&v23, a3);
+      rdpReduce(&v26, a2, a3);
+      rdpReduce(&v23, &__p, a3);
       std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGPoint*>,std::__wrap_iter<CGPoint*>>(a2, *(a2 + 8), __p + 16, v22, (v22 - (__p + 16)) >> 4);
       if (__p)
       {
+        v22 = __p;
         operator delete(__p);
       }
 
@@ -964,11 +965,12 @@ void rdpReduce(uint64_t a1@<X0>, uint64_t a2@<X8>, float a3@<S0>)
       v27 = 0;
       v28 = 0;
       std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PKPoint const*>,std::__wrap_iter<PKPoint const*>>(&v26, 0, (v23 + *a1), *(a1 + 8), (*(a1 + 8) - (v23 + *a1)) >> 3);
-      rdpReduce(&v29, a3);
-      rdpReduce(&v26, a3);
+      rdpReduce(&v29, a2, a3);
+      rdpReduce(&v26, &__p, a3);
       std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PKPoint*>,std::__wrap_iter<PKPoint*>>(a2, *(a2 + 8), __p + 8, v25, (v25 - (__p + 8)) >> 3);
       if (__p)
       {
+        v25 = __p;
         operator delete(__p);
       }
 
@@ -1387,114 +1389,114 @@ void PKCGrid::labelGrid(PKCGrid *this)
 
 void PKCGrid::calcQuadTree(PKCGrid *this, const CGRect *a2)
 {
-  v4 = (this + 112);
+  v5 = (this + 112);
   *(this + 15) = *(this + 14);
-  v6 = *(this + 5);
-  v5 = *(this + 6);
-  if (v5 != v6)
+  v7 = *(this + 5);
+  v6 = *(this + 6);
+  if (v6 != v7)
   {
-    std::vector<unsigned char>::__append(this + 14, v5 - v6);
+    std::vector<unsigned char>::__append(this + 14, v6 - v7);
   }
 
-  memset(v32, 0, sizeof(v32));
+  memset(v33, 0, sizeof(v33));
   memset(__p, 0, sizeof(__p));
   PKCGrid::labelGrid(this);
-  v7 = *(this + 11);
-  for (i = *(this + 12); v7 != i; ++v7)
+  v8 = *(this + 11);
+  for (i = *(this + 12); v8 != i; ++v8)
   {
-    v9 = *v7;
-    v10 = v9 % *this;
-    if (v10 < *this - 2)
+    v10 = *v8;
+    v11 = v10 % *this;
+    if (v11 < *this - 2)
     {
-      v11 = v9 + 1;
-      v12 = *v4;
-      v13 = *(*v4 + v9 + 1);
-      if (v13 == 3)
+      v12 = v10 + 1;
+      v13 = *v5;
+      v14 = *(*v5 + v10 + 1);
+      if (v14 == 3)
       {
-        *(v12 + v11) = 1;
-        LODWORD(v30) = v9 + 1;
-        std::vector<int>::push_back[abi:ne200100](__p, &v30);
+        *(v13 + v12) = 1;
+        LODWORD(v31) = v10 + 1;
+        std::vector<int>::push_back[abi:ne200100](__p, &v31);
       }
 
-      else if (v13 == 253)
+      else if (v14 == 253)
       {
-        *(v12 + v11) = -1;
-        LODWORD(v30) = v9 + 1;
-        std::vector<int>::push_back[abi:ne200100](v32, &v30);
+        *(v13 + v12) = -1;
+        LODWORD(v31) = v10 + 1;
+        std::vector<int>::push_back[abi:ne200100](v33, &v31);
       }
     }
 
-    if (v10 >= 1)
+    if (v11 >= 1)
     {
-      v14 = v9 - 1;
-      v15 = *v4;
-      v16 = *(*v4 + v9 - 1);
-      if (v16 == 3)
+      v15 = v10 - 1;
+      v16 = *v5;
+      v17 = *(*v5 + v10 - 1);
+      if (v17 == 3)
       {
-        *(v15 + v14) = 1;
-        LODWORD(v30) = v9 - 1;
-        std::vector<int>::push_back[abi:ne200100](__p, &v30);
+        *(v16 + v15) = 1;
+        LODWORD(v31) = v10 - 1;
+        std::vector<int>::push_back[abi:ne200100](__p, &v31);
       }
 
-      else if (v16 == 253)
+      else if (v17 == 253)
       {
-        *(v15 + v14) = -1;
-        LODWORD(v30) = v9 - 1;
-        std::vector<int>::push_back[abi:ne200100](v32, &v30);
+        *(v16 + v15) = -1;
+        LODWORD(v31) = v10 - 1;
+        std::vector<int>::push_back[abi:ne200100](v33, &v31);
       }
     }
 
-    v17 = v9 / *this;
-    if (v17 < *(this + 1) - 2)
+    v18 = v10 / *this;
+    if (v18 < *(this + 1) - 2)
     {
-      v18 = *this + v9;
-      v19 = *v4;
-      v20 = *(*v4 + v18);
-      if (v20 == 3)
+      v19 = *this + v10;
+      v20 = *v5;
+      v21 = *(*v5 + v19);
+      if (v21 == 3)
       {
-        *(v19 + v18) = 1;
-        LODWORD(v30) = *this + v9;
-        std::vector<int>::push_back[abi:ne200100](__p, &v30);
+        *(v20 + v19) = 1;
+        LODWORD(v31) = *this + v10;
+        std::vector<int>::push_back[abi:ne200100](__p, &v31);
       }
 
-      else if (v20 == 253)
+      else if (v21 == 253)
       {
-        *(v19 + v18) = -1;
-        LODWORD(v30) = *this + v9;
-        std::vector<int>::push_back[abi:ne200100](v32, &v30);
+        *(v20 + v19) = -1;
+        LODWORD(v31) = *this + v10;
+        std::vector<int>::push_back[abi:ne200100](v33, &v31);
       }
     }
 
-    if (v17 >= 1)
+    if (v18 >= 1)
     {
-      v21 = v9 - *this;
-      v22 = *(this + 14);
-      v23 = *(v22 + v21);
-      if (v23 == 3)
+      v22 = v10 - *this;
+      v23 = *(this + 14);
+      v24 = *(v23 + v22);
+      if (v24 == 3)
       {
-        *(v22 + v21) = 1;
-        LODWORD(v30) = v9 - *this;
-        std::vector<int>::push_back[abi:ne200100](__p, &v30);
+        *(v23 + v22) = 1;
+        LODWORD(v31) = v10 - *this;
+        std::vector<int>::push_back[abi:ne200100](__p, &v31);
       }
 
-      else if (v23 == 253)
+      else if (v24 == 253)
       {
-        *(v22 + v21) = -1;
-        LODWORD(v30) = v9 - *this;
-        std::vector<int>::push_back[abi:ne200100](v32, &v30);
+        *(v23 + v22) = -1;
+        LODWORD(v31) = v10 - *this;
+        std::vector<int>::push_back[abi:ne200100](v33, &v31);
       }
     }
   }
 
   x = a2->origin.x;
-  v25 = PKGet_INV_PTM_RATIO();
+  v26 = PKGet_INV_PTM_RATIO();
   width = a2->size.width;
-  v27 = PKGet_INV_PTM_RATIO();
+  v28 = PKGet_INV_PTM_RATIO();
   PKGet_INV_PTM_RATIO();
   PKGet_INV_PTM_RATIO();
-  v28 = x * v25;
-  v29 = v28 + width * v27;
-  v30 = v28 - ((v29 - v28) * 0.5);
+  v29 = x * v26;
+  v30 = v29 + width * v28;
+  v31 = v29 - ((v30 - v29) * 0.5);
   std::allocate_shared[abi:ne200100]<QuadTree,std::allocator<QuadTree>,float,float,float,float,float,0>();
 }
 
@@ -1513,7 +1515,7 @@ void sub_25E7DA588(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1934,7 +1936,7 @@ LABEL_7:
   return v13;
 }
 
-void PKCGrid::physicsBodyFromSmoothedOutline(PKCGrid *this, float a2, const CGSize *a3)
+void PKCGrid::physicsBodyFromSmoothedOutline(PKCGrid *this, float a2, float64x2_t *a3)
 {
   memset(__p, 0, sizeof(__p));
   PKCGrid::traceOutline(this, __p, a2);
@@ -1957,10 +1959,10 @@ void sub_25E7DAEC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void PKCGrid::pathFromOutlineWithSmoothingThreshold(PKCGrid *this, float a2, float a3, float a4, float a5, float a6)
+void PKCGrid::pathFromOutlineWithSmoothingThreshold(PKCGrid *this, float a2)
 {
-  memset(v6, 0, sizeof(v6));
-  PKCGrid::traceOutline(this, v6, a2);
+  memset(v7, 0, sizeof(v7));
+  PKCGrid::traceOutline(this, v7, a2);
   operator new();
 }
 
@@ -2444,7 +2446,7 @@ void _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE8__appendEm(uint64_t a1, unint64_
   }
 }
 
-uint64_t std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2466,7 +2468,7 @@ void sub_25E7DBA34(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2524,7 +2526,8 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
@@ -2619,7 +2622,7 @@ LABEL_34:
   return v5;
 }
 
-char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGPoint*>,std::__wrap_iter<CGPoint*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CGPoint*>,std::__wrap_iter<CGPoint*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -2628,8 +2631,8 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 4)
   {
     v11 = *a1;
@@ -2667,23 +2670,24 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
 
     while (v34);
-    memcpy((v33 + 16 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 16 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 16 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 16 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -2698,14 +2702,14 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
   {
     v29 = &__dst[16 * a5];
     v30 = (v10 - 16 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[16 * a5], __dst, v10 - v29);
@@ -2720,11 +2724,11 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[16 * a5];
@@ -2744,7 +2748,7 @@ char *std::vector<CGPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<CG
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[16 * a5], v5, v21 - v22);
@@ -2826,20 +2830,20 @@ void b2PrismaticJoint::b2PrismaticJoint(b2PrismaticJoint *this, const b2JointDef
   *(v3 + 136) = *(&a2[1].var0 + 1);
   v4 = *(&a2[1].var1 + 4);
   *(v3 + 144) = v4;
-  y = v4.y;
-  x = v4.x;
-  v7 = sqrtf((v4.y * v4.y) + (v4.x * v4.x));
+  v6 = *(&v4 + 1);
+  v5 = *&v4;
+  v7 = sqrtf((*(&v4 + 1) * *(&v4 + 1)) + (*&v4 * *&v4));
   if (v7 >= 0.00000011921)
   {
     v8 = 1.0 / v7;
-    x = v8 * v4.x;
-    y = v8 * v4.y;
-    *(v3 + 144) = v8 * v4.x;
-    *(v3 + 148) = v8 * v4.y;
+    v5 = v8 * *&v4;
+    v6 = v8 * *(&v4 + 1);
+    *(v3 + 144) = v8 * *&v4;
+    *(v3 + 148) = v8 * *(&v4 + 1);
   }
 
-  *(v3 + 152) = -y;
-  *(v3 + 156) = x;
+  *(v3 + 152) = -v6;
+  *(v3 + 156) = v5;
   *(v3 + 160) = HIDWORD(a2[1].var2);
   *(v3 + 312) = 0;
   *(v3 + 172) = 0;
@@ -5959,12 +5963,12 @@ LABEL_16:
   return triangleDoesNotContainOtherPoints(a4, v26, v25, v27);
 }
 
-uint64_t trisFromCCWFaces(uint64_t *a1, void *a2, const void **a3)
+uint64_t trisFromCCWFaces(uint64_t a1, void *a2, const void **a3)
 {
   __p = 0;
   v56 = 0;
   v57 = 0;
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, *a1, a1[1], (a1[1] - *a1) >> 3);
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(&__p, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
   v6 = __p;
   v7 = v56;
   if ((v56 - __p) >= 0x11)
@@ -6349,21 +6353,21 @@ void *erasePointsInclusive(void *result, int a2, void **a3)
   v10 = *a3 + v9;
   if (v7 <= v8)
   {
-    v13 = (v5 + 8 * v8 + 8 - v10);
+    v13 = &v5[8 * v8 + 8] - v10;
     if (!v13)
     {
       return result;
     }
 
-    v5 = v5 + v9;
-    v12 = &v13[v5];
+    v5 += v9;
+    v12 = &v5[v13];
     goto LABEL_10;
   }
 
   if (v10 != v4)
   {
-    v11 = v5 + v9;
-    if (v10 != v5 + v9)
+    v11 = &v5[v9];
+    if (v10 != &v5[v9])
     {
       result = memmove(*a3 + v9, v4, 0);
       v5 = *a3;
@@ -6375,7 +6379,7 @@ void *erasePointsInclusive(void *result, int a2, void **a3)
 
   if (8 * v8 != -8)
   {
-    v12 = v5 + 8 * v8 + 8;
+    v12 = &v5[8 * v8 + 8];
 LABEL_10:
     v14 = v4 - v12;
     if (v4 != v12)
@@ -6383,13 +6387,13 @@ LABEL_10:
       result = memmove(v5, v12, v4 - v12);
     }
 
-    a3[1] = v5 + v14;
+    a3[1] = &v5[v14];
   }
 
   return result;
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6573,7 +6577,7 @@ void printPKPath(void *a1, const CGPathElement *a2)
   }
 }
 
-BOOL PKPath::isEqualToPath(PKPath *this, PKPath *a2)
+uint64_t PKPath::isEqualToPath(PKPath *this, PKPath *a2)
 {
   v2 = *(this + 4);
   v3 = *(a2 + 4);
@@ -7277,7 +7281,8 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -7372,7 +7377,7 @@ LABEL_34:
   return v5;
 }
 
-char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PKPoint*>,std::__wrap_iter<PKPoint*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PKPoint*>,std::__wrap_iter<PKPoint*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -7381,8 +7386,8 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -7420,23 +7425,24 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -7451,14 +7457,14 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -7473,11 +7479,11 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -7497,7 +7503,7 @@ char *std::vector<PKPoint>::__insert_with_size[abi:ne200100]<std::__wrap_iter<PK
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -7682,11 +7688,12 @@ float srdnoise2_sincos(float *a1, float *a2, float a3, float a4, float a5, float
   return ((v29 + v39) + v49) * 40.0;
 }
 
-float srdnoise3(float *a1, float *a2, float *a3, float a4, float a5, float a6, float a7)
+double srdnoise3(float *a1, float *a2, float *a3, float a4, float a5, float a6, float a7)
 {
   v13 = __sincosf_stret(a7);
 
-  return srdnoise3_sincos(a1, a2, a3, a4, a5, a6, v13.__sinval, v13.__cosval);
+  *&result = srdnoise3_sincos(a1, a2, a3, a4, a5, a6, v13.__sinval, v13.__cosval);
+  return result;
 }
 
 float srdnoise3_sincos(float *a1, float *a2, float *a3, float a4, float a5, float a6, float a7, float a8)
@@ -8176,11 +8183,11 @@ float32_t PKPhysicsReapplyScaleOnFixture(b2FixtureDef *a1, b2Fixture *a2, float 
 
 void b2DistanceProxy::Set()
 {
-  if (__cxa_guard_acquire(&qword_27FD070C8))
+  if (__cxa_guard_acquire(byte_27FD070C8))
   {
     _MergedGlobals = 0;
 
-    __cxa_guard_release(&qword_27FD070C8);
+    __cxa_guard_release(byte_27FD070C8);
   }
 }
 

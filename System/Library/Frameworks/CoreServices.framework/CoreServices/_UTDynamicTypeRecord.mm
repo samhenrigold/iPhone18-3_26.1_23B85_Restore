@@ -4,12 +4,14 @@
 - (BOOL)isChildOfTypeIdentifier:(id)identifier;
 - (_UTDynamicTypeRecord)initWithCoder:(id)coder;
 - (id)_initWithContext:(LSContext *)context dynamicUTI:(id)i;
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)declaration;
 - (id)parentTypeIdentifiers;
 - (id)pedigreeWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)preferredTagOfClass:(id)class;
 - (id)tagSpecification;
+- (void)_enumerateRelatedTypeUnitsOrDynamicIdsWithContext:(LSContext *)context unitID:(unsigned int)d maximumDegreeOfSeparation:(int64_t)separation block:(id)block;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -155,15 +157,123 @@
   return v4;
 }
 
+- (void)_enumerateRelatedTypeUnitsOrDynamicIdsWithContext:(LSContext *)context unitID:(unsigned int)d maximumDegreeOfSeparation:(int64_t)separation block:(id)block
+{
+  v33 = *MEMORY[0x1E69E9840];
+  v15 = separation - 1;
+  if (separation >= 1)
+  {
+    v29[0] = 0;
+    v29[1] = v29;
+    v29[2] = 0x5812000000;
+    v29[3] = __Block_byref_object_copy__262;
+    v29[4] = __Block_byref_object_dispose__263;
+    v29[5] = &unk_1818533FF;
+    memset(v30, 0, sizeof(v30));
+    v31 = 1065353216;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v8 = [(_UTDynamicTypeRecord *)self parentTypeIdentifiers:context];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v32 count:16];
+    if (v9)
+    {
+      v10 = *v22;
+LABEL_4:
+      v11 = 0;
+      while (1)
+      {
+        if (*v22 != v10)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v12 = *(*(&v21 + 1) + 8 * v11);
+        v20 = 0;
+        if (_UTTypeIdentifierIsDynamic(v12))
+        {
+          v13 = objc_autoreleasePoolPush();
+          if (([0 containsObject:v12] & 1) == 0)
+          {
+            [0 addObject:v12];
+            v17[0] = v12;
+            v17[1] = 1;
+            v18 = 0;
+            v19 = 0;
+            (*(block + 2))(block, v17, v26 + 3);
+          }
+
+          objc_autoreleasePoolPop(v13);
+        }
+
+        else if (_UTGetActiveTypeForCFStringIdentifier(context->db, v12, &v20))
+        {
+          db = context->db;
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __113___UTDynamicTypeRecord__enumerateRelatedTypeUnitsOrDynamicIdsWithContext_unitID_maximumDegreeOfSeparation_block___block_invoke;
+          v16[3] = &unk_1E6A1F230;
+          v16[4] = block;
+          v16[5] = v29;
+          v16[6] = &v25;
+          _UTTypeSearchConformsToTypesWithBlock(db, v20, v15, 0, v16);
+        }
+
+        if (v26[3])
+        {
+          break;
+        }
+
+        if (v9 == ++v11)
+        {
+          v9 = [v8 countByEnumeratingWithState:&v21 objects:v32 count:16];
+          if (v9)
+          {
+            goto LABEL_4;
+          }
+
+          break;
+        }
+      }
+    }
+
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(v29, 8);
+    std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(v30);
+  }
+}
+
 + (id)_propertyClasses
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
+}
+
+- (id)_persistentIdentifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v12.receiver = self;
+  v12.super_class = _UTDynamicTypeRecord;
+  v7 = [(LSRecord *)&v12 _persistentIdentifierWithContext:context tableID:*&d unitID:*&iD unitBytes:bytes];
+  v8 = [v7 mutableCopy];
+
+  v9 = [(NSString *)self->_identifier dataUsingEncoding:4];
+  if (v9)
+  {
+    [v8 appendData:v9];
+  }
+
+  v10 = [v8 copy];
+
+  return v10;
 }
 
 - (void)encodeWithCoder:(id)coder

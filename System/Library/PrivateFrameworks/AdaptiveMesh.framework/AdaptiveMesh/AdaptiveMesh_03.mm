@@ -1,6 +1,6 @@
-uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::left(void *a1, int a2)
+uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::left(void *a1, uint64_t a2)
 {
-  if (a2 < 0 || ((a1[1] - *a1) >> 3) <= a2)
+  if ((a2 & 0x80000000) != 0 || ((a1[1] - *a1) >> 3) <= a2)
   {
     amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::left();
   }
@@ -8,9 +8,9 @@ uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::left(v
   return (2 * a2) | 1u;
 }
 
-uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::right(void *a1, int a2)
+uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::right(void *a1, uint64_t a2)
 {
-  if (a2 < 0 || ((a1[1] - *a1) >> 3) <= a2)
+  if ((a2 & 0x80000000) != 0 || ((a1[1] - *a1) >> 3) <= a2)
   {
     amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::right();
   }
@@ -18,12 +18,13 @@ uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::right(
   return (2 * a2 + 2);
 }
 
-void *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(void *result, int a2)
+void *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(void *result, uint64_t a2)
 {
   v2 = (result[1] - *result) >> 3;
   if (v2)
   {
-    if (a2 < 0 || v2 <= a2)
+    v3 = a2;
+    if ((a2 & 0x80000000) != 0 || v2 <= a2)
     {
       amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap();
     }
@@ -31,9 +32,9 @@ void *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(vo
     v4 = result;
     v5 = *(*result + 8 * a2);
     result = amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent(result, a2);
-    if (a2)
+    if (v3)
     {
-      v6 = a2;
+      v6 = v3;
       while (1)
       {
         v7 = *(*v4 + 8 * result);
@@ -55,7 +56,7 @@ void *amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::upheap(vo
 
       v8 = v6;
 LABEL_10:
-      if (v8 != a2)
+      if (v8 != v3)
       {
         *(*v4 + 8 * v8) = v5;
         *(v5 + 40) = v8;
@@ -66,9 +67,9 @@ LABEL_10:
   return result;
 }
 
-uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent(void *a1, int a2)
+uint64_t amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent(void *a1, uint64_t a2)
 {
-  if (a2 < 0 || ((a1[1] - *a1) >> 3) <= a2)
+  if ((a2 & 0x80000000) != 0 || ((a1[1] - *a1) >> 3) <= a2)
   {
     amt::MutablePriorityHeap<amt::TriangleMeshDecimatorImpl::DEdge>::parent();
   }
@@ -157,22 +158,22 @@ __CFDictionary *amt::AMTPipelineOptions::createOptionsInfo(amt::AMTPipelineOptio
   return Mutable;
 }
 
-void sub_23E780180(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E780180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, const void *);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v7 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v8 = va_arg(va3, const void *);
+  v9 = va_arg(va3, const void *);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va1);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va2);
   amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper(va3);
-  amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper((v2 - 24));
+  amt::AMTWrapper<__CFDictionary const*>::~AMTWrapper((v3 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -282,9 +283,9 @@ const void **amt::addBoolParameterInfo(amt *this, void *cf, __CFDictionary *a3, 
   return amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(&theDict);
 }
 
-void sub_23E780C8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23E780C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -315,14 +316,14 @@ const void **amt::addFloatParameterInfo(amt *this, void *cf, __CFDictionary *a3,
   return amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(&theDict);
 }
 
-void sub_23E780E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23E780E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va1);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va2);
@@ -355,14 +356,14 @@ const void **amt::addIntParameterInfo(amt *this, void *cf, __CFDictionary *a3, c
   return amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(&theDict);
 }
 
-void sub_23E780FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23E780FD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va);
   amt::AMTWrapper<__CFNumber const*>::~AMTWrapper(va1);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va2);
@@ -546,7 +547,7 @@ BOOL amt::parseFloatParameter<double>(_BOOL8 result, const __CFDictionary *a2, d
   return result;
 }
 
-BOOL amt::AMTPipelineOptions::parseSimplificationParameters(const __CFDictionary *a1, const __CFDictionary *a2, uint64_t a3)
+BOOL amt::AMTPipelineOptions::parseSimplificationParameters(const __CFDictionary *a1, const __CFDictionary *a2, double *a3)
 {
   if (a1 && (v6 = CFGetTypeID(a1), v6 == CFDictionaryGetTypeID()))
   {
@@ -592,63 +593,14 @@ BOOL amt::AMTPipelineOptions::parseSimplificationParameters(const __CFDictionary
             v16 = *(v34[0] + v10);
             v17 = CFStringCompare(v9, @"option.target_triangle_ratio", 1uLL);
             v18 = a3;
-            if (v17 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v19 = CFStringCompare(v9, @"option.tracked_point_normal_flip_threshold", 1uLL);
-            v18 = (a3 + 24);
-            if (v19 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v20 = CFStringCompare(v9, @"option.tracked_triangle_flip_threshold", 1uLL);
-            v18 = (a3 + 16);
-            if (v20 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v21 = CFStringCompare(v9, @"option.triangle_flip_threshold", 1uLL);
-            v18 = (a3 + 8);
-            if (v21 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v22 = CFStringCompare(v9, @"option.tracked_triangle_flip_threshold", 1uLL);
-            v18 = (a3 + 16);
-            if (v22 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v23 = CFStringCompare(v9, @"option.tracked_point_normal_flip_threshold", 1uLL);
-            v18 = (a3 + 24);
-            if (v23 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v24 = CFStringCompare(v9, @"option.triangle_flip_penalty", 1uLL);
-            v18 = (a3 + 32);
-            if (v24 == kCFCompareEqualTo)
-            {
-              goto LABEL_26;
-            }
-
-            v25 = CFStringCompare(v9, @"option.boundary_weight", 1uLL);
-            v18 = (a3 + 40);
-            if (v25 && (v26 = CFStringCompare(v9, @"option.angle_quality_threshold", 1uLL), v18 = (a3 + 48), v26) && (v27 = CFStringCompare(v9, @"option.max_error", 1uLL), v18 = (a3 + 56), v27))
+            if (v17 && (v19 = CFStringCompare(v9, @"option.tracked_point_normal_flip_threshold", 1uLL), v18 = a3 + 3, v19) && (v20 = CFStringCompare(v9, @"option.tracked_triangle_flip_threshold", 1uLL), v18 = a3 + 2, v20) && (v21 = CFStringCompare(v9, @"option.triangle_flip_threshold", 1uLL), v18 = a3 + 1, v21) && (v22 = CFStringCompare(v9, @"option.tracked_triangle_flip_threshold", 1uLL), v18 = a3 + 2, v22) && (v23 = CFStringCompare(v9, @"option.tracked_point_normal_flip_threshold", 1uLL), v18 = a3 + 3, v23) && (v24 = CFStringCompare(v9, @"option.triangle_flip_penalty", 1uLL), v18 = a3 + 4, v24) && (v25 = CFStringCompare(v9, @"option.boundary_weight", 1uLL), v18 = a3 + 5, v25) && (v26 = CFStringCompare(v9, @"option.angle_quality_threshold", 1uLL), v18 = a3 + 6, v26) && (v27 = CFStringCompare(v9, @"option.max_error", 1uLL), v18 = a3 + 7, v27))
             {
               if (CFStringCompare(v9, @"option.vertex_placement_strategy", 1uLL))
               {
                 if (CFStringCompare(v9, @"option.minimum_connected_component_triangle_count", 1uLL))
                 {
                   v28 = CFStringCompare(v9, @"option.kAMTOptionPreserveTrackedTriangleNormalsOrientation", 1uLL);
-                  v30 = (a3 + 72);
+                  v30 = (a3 + 9);
                   if (v28)
                   {
                     v31 = CFStringCompare(v9, @"option.use_area_weighted_quadratics", 1uLL);
@@ -664,19 +616,18 @@ BOOL amt::AMTPipelineOptions::parseSimplificationParameters(const __CFDictionary
 
                 else
                 {
-                  v32 = amt::parseIntParameter<amt::VertexPlacementStrategy>(v16, v14, (a3 + 68));
+                  v32 = amt::parseIntParameter<amt::VertexPlacementStrategy>(v16, v14, a3 + 17);
                 }
               }
 
               else
               {
-                v32 = amt::parseIntParameter<amt::VertexPlacementStrategy>(v16, v14, (a3 + 64));
+                v32 = amt::parseIntParameter<amt::VertexPlacementStrategy>(v16, v14, a3 + 16);
               }
             }
 
             else
             {
-LABEL_26:
               v32 = amt::parseFloatParameter<double>(v16, v14, v18);
             }
 
@@ -810,7 +761,7 @@ BOOL amt::parseIntParameter<amt::VertexPlacementStrategy>(const void *a1, CFType
   return result;
 }
 
-BOOL amt::AMTPipelineOptions::parseParameterizationParameters(const __CFDictionary *a1, const __CFDictionary *a2, uint64_t a3)
+BOOL amt::AMTPipelineOptions::parseParameterizationParameters(const __CFDictionary *a1, const __CFDictionary *a2, _DWORD *a3)
 {
   if (a1 && (v6 = CFGetTypeID(a1), v6 == CFDictionaryGetTypeID()))
   {
@@ -856,14 +807,14 @@ BOOL amt::AMTPipelineOptions::parseParameterizationParameters(const __CFDictiona
             v16 = values[0][v10];
             v17 = CFStringCompare(v9, @"option.maximum_stretch_ratio", 1uLL);
             v18 = a3;
-            if (v17 && (v19 = CFStringCompare(v9, @"option.texture_gutter", 1uLL), v18 = (a3 + 4), v19))
+            if (v17 && (v19 = CFStringCompare(v9, @"option.texture_gutter", 1uLL), v18 = (a3 + 1), v19))
             {
               v20 = CFStringCompare(v9, @"option.target_number_of_charts", 1uLL);
-              v21 = (a3 + 8);
-              if (v20 && (v22 = CFStringCompare(v9, @"option.texture_resolution", 1uLL), v21 = (a3 + 12), v22) && (v23 = CFStringCompare(v9, @"option.optimize_boundary_if_face_number_less_than", 1uLL), v21 = (a3 + 16), v23) && (v24 = CFStringCompare(v9, @"option.number_of_textures", 1uLL), v21 = (a3 + 20), v24))
+              v21 = a3 + 2;
+              if (v20 && (v22 = CFStringCompare(v9, @"option.texture_resolution", 1uLL), v21 = a3 + 3, v22) && (v23 = CFStringCompare(v9, @"option.optimize_boundary_if_face_number_less_than", 1uLL), v21 = a3 + 4, v23) && (v24 = CFStringCompare(v9, @"option.number_of_textures", 1uLL), v21 = a3 + 5, v24))
               {
                 v25 = CFStringCompare(v9, @"option.enable_parallel_processing", 1uLL);
-                v27 = (a3 + 24);
+                v27 = (a3 + 6);
                 if (v25)
                 {
                   v28 = CFStringCompare(v9, @"option.", 1uLL);
@@ -1037,46 +988,11 @@ BOOL amt::AMTPipelineOptions::parseFittingParameters(const __CFDictionary *a1, c
             v16 = *(v39[0] + v10);
             v17 = CFStringCompare(v9, @"option.smoothing_coeffcient", 1uLL);
             v18 = (a3 + 24);
-            if (v17 == kCFCompareEqualTo)
-            {
-              goto LABEL_29;
-            }
-
-            v19 = CFStringCompare(v9, @"option.smoothing_coeffcient_decay_ratio", 1uLL);
-            v18 = (a3 + 32);
-            if (v19 == kCFCompareEqualTo)
-            {
-              goto LABEL_29;
-            }
-
-            v20 = CFStringCompare(v9, @"option.missed_vertices_smoothing_coeffcient", 1uLL);
-            v18 = (a3 + 40);
-            if (v20 == kCFCompareEqualTo)
-            {
-              goto LABEL_29;
-            }
-
-            v21 = CFStringCompare(v9, @"option.missed_vertices_smoothing_coeffcient", 1uLL);
-            v18 = (a3 + 40);
-            if (v21 && (v22 = CFStringCompare(v9, @"option.triangle_normal_flip_threshold", 1uLL), v18 = (a3 + 48), v22) && (v23 = CFStringCompare(v9, @"option.normal_deviation_threshold", 1uLL), v18 = (a3 + 56), v23))
+            if (v17 && (v19 = CFStringCompare(v9, @"option.smoothing_coeffcient_decay_ratio", 1uLL), v18 = (a3 + 32), v19) && (v20 = CFStringCompare(v9, @"option.missed_vertices_smoothing_coeffcient", 1uLL), v18 = (a3 + 40), v20) && (v21 = CFStringCompare(v9, @"option.missed_vertices_smoothing_coeffcient", 1uLL), v18 = (a3 + 40), v21) && (v22 = CFStringCompare(v9, @"option.triangle_normal_flip_threshold", 1uLL), v18 = (a3 + 48), v22) && (v23 = CFStringCompare(v9, @"option.normal_deviation_threshold", 1uLL), v18 = (a3 + 56), v23))
             {
               v24 = CFStringCompare(v9, @"option.sampling_subdivision_iteration_count", 1uLL);
               v25 = a3;
-              if (v24 == kCFCompareEqualTo)
-              {
-                goto LABEL_34;
-              }
-
-              v26 = CFStringCompare(v9, @"option.subdivision_iteration_count", 1uLL);
-              v25 = (a3 + 4);
-              if (v26 == kCFCompareEqualTo)
-              {
-                goto LABEL_34;
-              }
-
-              v27 = CFStringCompare(v9, @"option.missed_vertices_smoothing_iteration_count", 1uLL);
-              v25 = (a3 + 12);
-              if (v27 && (v28 = CFStringCompare(v9, @"option.fitting_iteration_count", 1uLL), v25 = (a3 + 8), v28) && (v29 = CFStringCompare(v9, @"option.initial_deform_nearest_neighbor_count", 1uLL), v25 = (a3 + 16), v29))
+              if (v24 && (v26 = CFStringCompare(v9, @"option.subdivision_iteration_count", 1uLL), v25 = (a3 + 4), v26) && (v27 = CFStringCompare(v9, @"option.missed_vertices_smoothing_iteration_count", 1uLL), v25 = (a3 + 12), v27) && (v28 = CFStringCompare(v9, @"option.fitting_iteration_count", 1uLL), v25 = (a3 + 8), v28) && (v29 = CFStringCompare(v9, @"option.initial_deform_nearest_neighbor_count", 1uLL), v25 = (a3 + 16), v29))
               {
                 if (CFStringCompare(v9, @"option.smoothing_method", 1uLL))
                 {
@@ -1118,14 +1034,12 @@ BOOL amt::AMTPipelineOptions::parseFittingParameters(const __CFDictionary *a1, c
 
               else
               {
-LABEL_34:
                 v37 = amt::parseIntParameter<amt::VertexPlacementStrategy>(v16, v14, v25);
               }
             }
 
             else
             {
-LABEL_29:
               v37 = amt::parseFloatParameter<double>(v16, v14, v18);
             }
 
@@ -1405,10 +1319,10 @@ BOOL amt::AMTPipelineOptions::parse(const void *a1, const __CFDictionary *a2, ui
   result = amt::AMTPipelineOptions::parsePreprocessingParameters(v10, Value, a3);
   if (result)
   {
-    result = amt::AMTPipelineOptions::parseSimplificationParameters(v11, v9, a3 + 16);
+    result = amt::AMTPipelineOptions::parseSimplificationParameters(v11, v9, (a3 + 16));
     if (result)
     {
-      result = amt::AMTPipelineOptions::parseParameterizationParameters(v12, v18, a3 + 96);
+      result = amt::AMTPipelineOptions::parseParameterizationParameters(v12, v18, (a3 + 96));
       if (result)
       {
         result = amt::AMTPipelineOptions::parseFittingParameters(v17, v13, a3 + 128);
@@ -1590,17 +1504,17 @@ BOOL amt::AMTPipelineOptions::parse(const void *a1, const __CFDictionary *a2, _D
   return amt::AMTPipelineOptions::parseAttributeMapTransferParameters(v9, Value, a3);
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<void const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<void const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E782D38(_Unwind_Exception *exception_object)
@@ -1615,7 +1529,7 @@ void sub_23E782D38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1846,7 +1760,7 @@ const void *AMTAdaptiveMeshCreateWithBaseMeshOnly(uint64_t a1, void *cf, unsigne
   return result;
 }
 
-uint64_t AMTAdaptiveMeshCreateWithMesh(const __CFAllocator *a1, void *cf, uint64_t a3, __int128 *a4, CFErrorRef *a5)
+std::vector<int> *AMTAdaptiveMeshCreateWithMesh(const __CFAllocator *a1, void *cf, const __CFAllocator *a3, __int128 *a4, CFErrorRef *a5)
 {
   if (cf && (v10 = CFGetTypeID(cf), v10 == AMTMeshGetTypeID()))
   {
@@ -2255,9 +2169,9 @@ CFMutableDictionaryRef AMTComputeQuality(const __CFAllocator *a1, void *a2, void
   return v25;
 }
 
-void sub_23E783A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_23E783A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -2292,9 +2206,9 @@ CFMutableArrayRef AMTCreateAttributeMaps(const __CFAllocator *a1, void *a2, void
   return v22;
 }
 
-void sub_23E783B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_23E783B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   amt::AMTWrapper<__CFDictionary *>::~AMTWrapper(va);
   _Unwind_Resume(a1);
 }
@@ -2320,7 +2234,7 @@ CFMutableArrayRef AMTCreateAttributeMaps(const __CFAllocator *a1, char *a2, void
   return AMTCreateAttributeMaps(a1, HighestResolutionMesh, a3, a4, a5, a6, v18, a8);
 }
 
-unint64_t AMTGetBaseMeshTriangleIndexFromSubdvidedIndex(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t AMTGetBaseMeshTriangleIndexFromSubdvidedIndex(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (*(a1 + 280))
   {
@@ -2332,7 +2246,7 @@ unint64_t AMTGetBaseMeshTriangleIndexFromSubdvidedIndex(uint64_t a1, unint64_t a
     AMTGetBaseMeshTriangleIndexFromSubdvidedIndex_cold_2();
   }
 
-  if ((a3 & 0x8000000000000000) != 0 || *(v3 + 8 * a2 + 4) <= a3)
+  if (a3 < 0 || *(v3 + 8 * a2 + 4) <= a3)
   {
     AMTGetBaseMeshTriangleIndexFromSubdvidedIndex_cold_3();
   }
@@ -2340,7 +2254,7 @@ unint64_t AMTGetBaseMeshTriangleIndexFromSubdvidedIndex(uint64_t a1, unint64_t a
   return a3 >> (2 * a2);
 }
 
-uint64_t AMTAdaptiveMeshTessellate(uint64_t a1, CFTypeRef cf, const void *a3, CFErrorRef *a4)
+uint64_t AMTAdaptiveMeshTessellate(const __CFAllocator *a1, CFTypeRef cf, const __CFAllocator *a3, CFErrorRef *a4)
 {
   if (cf && (v8 = CFGetTypeID(cf), v8 == AMTAdaptiveMeshGetTypeID()) && (!a3 || (v9 = CFGetTypeID(a3), v9 == CFDictionaryGetTypeID())))
   {
@@ -2530,20 +2444,21 @@ void *AMTMeshElementGetSourceIndicesArray(void *result)
   return result;
 }
 
-unsigned __int8 *AMTMeshElementGetSourceIndicesWithSemantic(const void *a1, int a2, uint64_t a3)
+unsigned __int8 *AMTMeshElementGetSourceIndicesWithSemantic(const void *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
     return 0;
   }
 
+  v4 = a2;
   v6 = CFGetTypeID(a1);
   if (v6 != AMTMeshElementGetTypeID())
   {
     return 0;
   }
 
-  return __AMTMeshElement::findSourceIndices(a1, a2, a3);
+  return __AMTMeshElement::findSourceIndices(a1, v4, a3);
 }
 
 unsigned __int8 *__AMTMeshElement::findSourceIndices(uint64_t a1, int a2, uint64_t a3)

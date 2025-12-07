@@ -51,16 +51,16 @@
 
 - (NSUUID)callUUID
 {
-  v2 = sub_10014EA98(&qword_1003AAB40);
-  __chkstk_darwin(v2 - 8, v3);
-  v5 = &v9 - v4;
+  v2 = sub_10014EA98(&qword_1003AAB40, &unk_1002FAAB0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v8 - v3;
   sub_10021C8F0();
-  v6 = type metadata accessor for UUID();
+  v5 = type metadata accessor for UUID();
   isa = 0;
-  if (sub_100006AC0(v5, 1, v6) != 1)
+  if (sub_100006AC0(v4, 1, v5) != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(*(v6 - 8) + 8))(v5, v6);
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
   return isa;
@@ -94,15 +94,15 @@
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3, v5);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_10021CD84();
 
-  v9.super.isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v8.super.isa = Date._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v9.super.isa;
+  return v8.super.isa;
 }
 
 - (BOOL)isTranscriptionAvailable
@@ -164,40 +164,40 @@
 
 - (NSURL)dataURL
 {
-  v3 = sub_10014EA98(&qword_1003AAF20);
-  __chkstk_darwin(v3 - 8, v4);
-  v6 = &v13 - v5;
+  v3 = sub_10014EA98(&qword_1003AAF20, &unk_1002FABA0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v12 - v4;
   selfCopy = self;
-  sub_10021D1CC(v6);
+  sub_10021D1CC(v5);
 
-  v8 = type metadata accessor for URL();
-  v10 = 0;
-  if (sub_100006AC0(v6, 1, v8) != 1)
+  v7 = type metadata accessor for URL();
+  v9 = 0;
+  if (sub_100006AC0(v5, 1, v7) != 1)
   {
-    URL._bridgeToObjectiveC()(v9);
-    v10 = v11;
-    (*(*(v8 - 8) + 8))(v6, v8);
+    URL._bridgeToObjectiveC()(v8);
+    v9 = v10;
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSURL)thumbnailURL
 {
-  v2 = sub_10014EA98(&qword_1003AAF20);
-  __chkstk_darwin(v2 - 8, v3);
-  v5 = &v11 - v4;
+  v2 = sub_10014EA98(&qword_1003AAF20, &unk_1002FABA0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v10 - v3;
   sub_10021D334();
-  v6 = type metadata accessor for URL();
-  v8 = 0;
-  if (sub_100006AC0(v5, 1, v6) != 1)
+  v5 = type metadata accessor for URL();
+  v7 = 0;
+  if (sub_100006AC0(v4, 1, v5) != 1)
   {
-    URL._bridgeToObjectiveC()(v7);
-    v8 = v9;
-    (*(*(v6 - 8) + 8))(v5, v6);
+    URL._bridgeToObjectiveC()(v6);
+    v7 = v8;
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isDataAvailable
@@ -218,7 +218,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_10014EA98(&qword_1003AAF80);
+  sub_10014EA98(&qword_1003AAF80, &unk_1002FB7D0);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   storeCopy = store;
   selfCopy = self;

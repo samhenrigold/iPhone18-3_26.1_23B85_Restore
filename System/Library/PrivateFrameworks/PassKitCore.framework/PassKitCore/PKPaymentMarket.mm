@@ -563,7 +563,7 @@ void __61__PKPaymentMarket_initWithDictionary_forDeviceClass_version___block_inv
   return geoFences;
 }
 
-uint64_t __36__PKPaymentMarket_containsLocation___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__36__PKPaymentMarket_containsLocation___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 containsLocation:*(a1 + 32)];
   if (result)
@@ -598,7 +598,7 @@ uint64_t __36__PKPaymentMarket_containsLocation___block_invoke(uint64_t a1, void
   return v8;
 }
 
-uint64_t __48__PKPaymentMarket_shortestDistanceFromLocation___block_invoke(uint64_t a1, void *a2)
+void *__48__PKPaymentMarket_shortestDistanceFromLocation___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 distanceFromLocation:*(a1 + 32)];
   v5 = *(*(a1 + 40) + 8);

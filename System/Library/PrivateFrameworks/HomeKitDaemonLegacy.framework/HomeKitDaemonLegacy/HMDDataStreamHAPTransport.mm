@@ -47,7 +47,7 @@
 
 - (void)_handleInterruptCharacteristicValue:(id)value
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   workQueue = [(HMDDataStreamHAPTransport *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -68,9 +68,9 @@
 
   if (v8)
   {
-    v30 = 0;
-    v9 = [MEMORY[0x277CFEB10] parsedFromData:v8 error:&v30];
-    v10 = v30;
+    v29 = 0;
+    v9 = [MEMORY[0x277CFEB10] parsedFromData:v8 error:&v29];
+    v10 = v29;
     if (v10 || !v9)
     {
       v18 = objc_autoreleasePoolPush();
@@ -80,9 +80,9 @@
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v27;
-        v33 = 2112;
-        v34 = v10;
+        v31 = v27;
+        v32 = 2112;
+        v33 = v10;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@[Interrupt] The interrupt value could not be parsed (error=%@)", buf, 0x16u);
       }
     }
@@ -109,9 +109,9 @@
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v32 = v22;
-          v33 = 1024;
-          LODWORD(v34) = intValue;
+          v31 = v22;
+          v32 = 1024;
+          LODWORD(v33) = intValue;
           _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@[Interrupt] The interrupt value contains valid accessory Request To Send (0x%x)", buf, 0x12u);
         }
 
@@ -125,9 +125,9 @@
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v28;
-        v33 = 1024;
-        LODWORD(v34) = intValue;
+        v31 = v28;
+        v32 = 1024;
+        LODWORD(v33) = intValue;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@[Interrupt] The interrupt value does not contain any Request To Send (0x%x)", buf, 0x12u);
       }
     }
@@ -145,14 +145,12 @@ LABEL_19:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v32 = v26;
+    v31 = v26;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@[Interrupt] Received interrupt value but it was not of the expected type; IGNORING.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
 LABEL_20:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCharacteristicsValueUpdated:(id)updated
@@ -171,7 +169,7 @@ LABEL_20:
 
 void __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) name];
   v3 = [v2 isEqualToString:@"HMDAccessoryCharacteristicsChangedNotification"];
 
@@ -208,11 +206,11 @@ LABEL_7:
     {
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
-      v19 = 138543618;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling characteristics value updated notification: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v15;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling characteristics value updated notification: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -220,8 +218,6 @@ LABEL_7:
     v17 = [v10 value];
     [v16 _handleInterruptCharacteristicValue:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___block_invoke_2(uint64_t a1, void *a2)
@@ -234,7 +230,7 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
 
 - (void)_handleReceivedData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   v6 = dispatch_data_create([dataCopy bytes], objc_msgSend(dataCopy, "length"), 0, 0);
@@ -252,9 +248,9 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@DataStream has encountered irrecoverable framing issue. Closing stream.", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@DataStream has encountered irrecoverable framing issue. Closing stream.", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -288,7 +284,6 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
   }
 
   objc_autoreleasePoolPop(v5);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyWriteOperation:(id)operation didCompleteWithError:(id)error
@@ -309,33 +304,33 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
 
 - (void)_cancelAllPendingWritesWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pendingWrites = [(HMDDataStreamHAPTransport *)self pendingWrites];
-  v6 = [pendingWrites countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [pendingWrites countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(pendingWrites);
         }
 
-        [(HMDDataStreamHAPTransport *)self _notifyWriteOperation:*(*(&v12 + 1) + 8 * v9++) didCompleteWithError:errorCopy];
+        [(HMDDataStreamHAPTransport *)self _notifyWriteOperation:*(*(&v11 + 1) + 8 * v9++) didCompleteWithError:errorCopy];
       }
 
       while (v7 != v9);
-      v7 = [pendingWrites countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [pendingWrites countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -343,19 +338,17 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
 
   pendingWrites2 = [(HMDDataStreamHAPTransport *)self pendingWrites];
   [pendingWrites2 removeAllObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAndMarkCompleteAllCompletedWrites
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pendingWrites = [(HMDDataStreamHAPTransport *)self pendingWrites];
-  v4 = [pendingWrites countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [pendingWrites countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (!v4)
   {
     goto LABEL_13;
@@ -363,7 +356,7 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
 
   v5 = v4;
   v6 = 0;
-  v7 = *v13;
+  v7 = *v12;
   while (2)
   {
     v8 = 0;
@@ -371,12 +364,12 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
     v6 += v5;
     do
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(pendingWrites);
       }
 
-      v10 = *(*(&v12 + 1) + 8 * v8);
+      v10 = *(*(&v11 + 1) + 8 * v8);
       if (![v10 isComplete])
       {
         v6 = v9;
@@ -389,7 +382,7 @@ uint64_t __64__HMDDataStreamHAPTransport__handleCharacteristicsValueUpdated___bl
     }
 
     while (v5 != v8);
-    v5 = [pendingWrites countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [pendingWrites countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       continue;
@@ -408,7 +401,6 @@ LABEL_13:
   }
 
   [(HMDDataStreamHAPTransport *)self setIsWriteInProgress:0];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTransportForWriteFailureError:(id)error
@@ -419,7 +411,7 @@ LABEL_13:
 
 - (void)_handleCompletionWithResponseTuples:(id)tuples
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   tuplesCopy = tuples;
   isWriteInProgress = [(HMDDataStreamHAPTransport *)self isWriteInProgress];
   v6 = objc_autoreleasePoolPush();
@@ -432,35 +424,35 @@ LABEL_13:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v58 = v10;
-      v59 = 2112;
-      v60 = tuplesCopy;
+      v57 = v10;
+      v58 = 2112;
+      v59 = tuplesCopy;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@[Transport] Handling responses: %@", buf, 0x16u);
     }
 
-    v49 = selfCopy;
+    v48 = selfCopy;
     objc_autoreleasePoolPop(v6);
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
-    v50 = tuplesCopy;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v49 = tuplesCopy;
     v11 = tuplesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v51 objects:v55 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v53;
+      v14 = *v52;
 LABEL_6:
       v15 = 0;
       while (1)
       {
-        if (*v53 != v14)
+        if (*v52 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v52 + 1) + 8 * v15);
+        v16 = *(*(&v51 + 1) + 8 * v15);
         request = [v16 request];
         characteristic = [request characteristic];
         type = [characteristic type];
@@ -473,7 +465,7 @@ LABEL_6:
 
         if (v13 == ++v15)
         {
-          v13 = [v11 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v51 objects:v55 count:16];
           if (v13)
           {
             goto LABEL_6;
@@ -495,16 +487,16 @@ LABEL_6:
       if (error)
       {
         v24 = objc_autoreleasePoolPush();
-        v25 = v49;
+        v25 = v48;
         v26 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           v27 = HMFGetLogIdentifier();
           error2 = [v22 error];
           *buf = 138543618;
-          v58 = v27;
-          v59 = 2112;
-          v60 = error2;
+          v57 = v27;
+          v58 = 2112;
+          v59 = error2;
           _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Write response errored out: %@", buf, 0x16u);
         }
 
@@ -515,60 +507,60 @@ LABEL_6:
         goto LABEL_24;
       }
 
-      v35 = MEMORY[0x277CFEAF8];
+      v34 = MEMORY[0x277CFEAF8];
       value = [v22 value];
-      v51 = 0;
-      v37 = [v35 parsedFromData:value error:&v51];
-      v38 = v51;
+      v50 = 0;
+      v36 = [v34 parsedFromData:value error:&v50];
+      v37 = v50;
 
-      if (v38 || !v37)
+      if (v37 || !v36)
       {
-        v42 = objc_autoreleasePoolPush();
-        v43 = v49;
-        v44 = HMFGetOSLogHandle();
-        tuplesCopy = v50;
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v41 = objc_autoreleasePoolPush();
+        v42 = v48;
+        v43 = HMFGetOSLogHandle();
+        tuplesCopy = v49;
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v45 = HMFGetLogIdentifier();
+          v44 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v58 = v45;
-          v59 = 2112;
-          v60 = v38;
-          _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@[Start Stream] The setup transfer write reply could not be parsed (error=%@)", buf, 0x16u);
+          v57 = v44;
+          v58 = 2112;
+          v59 = v37;
+          _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@[Start Stream] The setup transfer write reply could not be parsed (error=%@)", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v42);
-        v46 = [MEMORY[0x277CCA9B8] hmErrorWithCode:50];
-        [(HMDDataStreamHAPTransport *)v43 _stopTransportForWriteFailureError:v46];
+        objc_autoreleasePoolPop(v41);
+        v45 = [MEMORY[0x277CCA9B8] hmErrorWithCode:50];
+        [(HMDDataStreamHAPTransport *)v42 _stopTransportForWriteFailureError:v45];
       }
 
       else
       {
-        accessoryRequestToSend = [v37 accessoryRequestToSend];
+        accessoryRequestToSend = [v36 accessoryRequestToSend];
 
-        tuplesCopy = v50;
+        tuplesCopy = v49;
         if (accessoryRequestToSend)
         {
-          accessoryRequestToSend2 = [v37 accessoryRequestToSend];
+          accessoryRequestToSend2 = [v36 accessoryRequestToSend];
           value2 = [accessoryRequestToSend2 value];
-          -[HMDDataStreamHAPTransport setLastAccessoryRequestToSendFlag:](v49, "setLastAccessoryRequestToSendFlag:", [value2 BOOLValue]);
+          -[HMDDataStreamHAPTransport setLastAccessoryRequestToSendFlag:](v48, "setLastAccessoryRequestToSendFlag:", [value2 BOOLValue]);
         }
 
         else
         {
-          [(HMDDataStreamHAPTransport *)v49 setLastAccessoryRequestToSendFlag:0];
+          [(HMDDataStreamHAPTransport *)v48 setLastAccessoryRequestToSendFlag:0];
         }
 
-        [(HMDDataStreamHAPTransport *)v49 _removeAndMarkCompleteAllCompletedWrites];
-        payload = [v37 payload];
+        [(HMDDataStreamHAPTransport *)v48 _removeAndMarkCompleteAllCompletedWrites];
+        payload = [v36 payload];
 
         if (payload)
         {
-          payload2 = [v37 payload];
-          [(HMDDataStreamHAPTransport *)v49 _handleReceivedData:payload2];
+          payload2 = [v36 payload];
+          [(HMDDataStreamHAPTransport *)v48 _handleReceivedData:payload2];
         }
 
-        [(HMDDataStreamHAPTransport *)v49 _doNextWriteOperation];
+        [(HMDDataStreamHAPTransport *)v48 _doNextWriteOperation];
       }
     }
 
@@ -578,13 +570,13 @@ LABEL_12:
 
 LABEL_21:
       v30 = objc_autoreleasePoolPush();
-      v31 = v49;
+      v31 = v48;
       v32 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v58 = v33;
+        v57 = v33;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Write-response contained no response; weird. Erroring out.", buf, 0xCu);
       }
 
@@ -592,7 +584,7 @@ LABEL_21:
       v22 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
       [(HMDDataStreamHAPTransport *)v31 _stopTransportForWriteFailureError:v22];
 LABEL_24:
-      tuplesCopy = v50;
+      tuplesCopy = v49;
     }
   }
 
@@ -602,19 +594,17 @@ LABEL_24:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v21;
+      v57 = v21;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Write-response returned but nothing in progress; stale reply? Ignoring", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doNextWriteOperation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (![(HMDDataStreamHAPTransport *)self isWriteInProgress])
   {
     pendingWrites = [(HMDDataStreamHAPTransport *)self pendingWrites];
@@ -624,7 +614,7 @@ LABEL_24:
 
       if (!lastAccessoryRequestToSendFlag)
       {
-        goto LABEL_24;
+        return;
       }
     }
 
@@ -638,9 +628,9 @@ LABEL_24:
       if (accessory)
       {
         [(HMDDataStreamHAPTransport *)self setIsWriteInProgress:1];
-        v25 = 0;
-        v6 = [(HMDDataStreamHAPTransport *)self _buildWriteRequestWithError:&v25 shouldForceClose:0];
-        v7 = v25;
+        v24 = 0;
+        v6 = [(HMDDataStreamHAPTransport *)self _buildWriteRequestWithError:&v24 shouldForceClose:0];
+        v7 = v24;
         if (v7)
         {
           v8 = objc_autoreleasePoolPush();
@@ -650,7 +640,7 @@ LABEL_24:
           {
             v11 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v28 = v11;
+            v27 = v11;
             _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Unable to write: building next payload failed and should not do that; closing.", buf, 0xCu);
           }
 
@@ -662,16 +652,16 @@ LABEL_24:
         else if (v6)
         {
           objc_initWeak(buf, self);
-          v26 = v6;
-          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke;
-          v23[3] = &unk_279735360;
-          objc_copyWeak(&v24, buf);
-          [(HMDDataStreamHAPTransport *)self _writeCharacteristicRequests:v21 completion:v23];
+          v25 = v6;
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke;
+          v22[3] = &unk_279735360;
+          objc_copyWeak(&v23, buf);
+          [(HMDDataStreamHAPTransport *)self _writeCharacteristicRequests:v21 completion:v22];
 
-          objc_destroyWeak(&v24);
+          objc_destroyWeak(&v23);
           objc_destroyWeak(buf);
         }
 
@@ -691,7 +681,7 @@ LABEL_24:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v28 = v20;
+          v27 = v20;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Unable to write: HAPAccessory is no longer active; closing.", buf, 0xCu);
         }
 
@@ -710,7 +700,7 @@ LABEL_24:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v16;
+        v27 = v16;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Unable to write: transport already closed.", buf, 0xCu);
       }
 
@@ -719,9 +709,6 @@ LABEL_24:
       [(HMDDataStreamHAPTransport *)selfCopy3 _cancelAllPendingWritesWithError:accessory];
     }
   }
-
-LABEL_24:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke(uint64_t a1, void *a2)
@@ -740,7 +727,7 @@ void __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke(uint64_
 
 - (void)_writeCharacteristicRequests:(id)requests completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   completionCopy = completion;
   accessory = [(HMDDataStreamHAPTransport *)self accessory];
@@ -752,9 +739,9 @@ void __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke(uint64_
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v13;
-    v22 = 2048;
-    v23 = [requestsCopy count];
+    v20 = v13;
+    v21 = 2048;
+    v22 = [requestsCopy count];
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@write characteristic requests size: %lu", buf, 0x16u);
   }
 
@@ -762,14 +749,14 @@ void __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke(uint64_
   if ([home isResidentFirstAccessoryCommunicationEnabled])
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __69__HMDDataStreamHAPTransport__writeCharacteristicRequests_completion___block_invoke;
-    v17[3] = &unk_279732AE8;
-    v17[4] = selfCopy;
-    v19 = completionCopy;
-    v18 = requestsCopy;
-    [home writeCharacteristicValues:v18 source:1090 biomeSource:0 identifier:uUID transport:0 qualityOfService:-1 withCompletionHandler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __69__HMDDataStreamHAPTransport__writeCharacteristicRequests_completion___block_invoke;
+    v16[3] = &unk_279732AE8;
+    v16[4] = selfCopy;
+    v18 = completionCopy;
+    v17 = requestsCopy;
+    [home writeCharacteristicValues:v17 source:1090 biomeSource:0 identifier:uUID transport:0 qualityOfService:-1 withCompletionHandler:v16];
   }
 
   else
@@ -777,8 +764,6 @@ void __50__HMDDataStreamHAPTransport__doNextWriteOperation__block_invoke(uint64_
     workQueue = [(HMDDataStreamHAPTransport *)selfCopy workQueue];
     [accessory writeCharacteristicValues:requestsCopy source:1090 queue:workQueue completionHandler:completionCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDDataStreamHAPTransport__writeCharacteristicRequests_completion___block_invoke(id *a1, void *a2, void *a3)
@@ -819,7 +804,7 @@ void __69__HMDDataStreamHAPTransport__writeCharacteristicRequests_completion___b
 - (id)_buildWriteRequestWithError:(id *)error shouldForceClose:(BOOL)close
 {
   closeCopy = close;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (close)
   {
     v7 = 0;
@@ -858,9 +843,9 @@ LABEL_5:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v31 = 138543362;
-        v32 = v21;
-        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Error: failed to serialize Controller Payload; should not happen!", &v31, 0xCu);
+        v30 = 138543362;
+        v31 = v21;
+        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Error: failed to serialize Controller Payload; should not happen!", &v30, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -872,13 +857,13 @@ LABEL_5:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         v23 = HMFGetLogIdentifier();
-        v31 = 138543874;
-        v32 = v23;
-        v33 = 1024;
-        v34 = [v7 length];
-        v35 = 1024;
+        v30 = 138543874;
+        v31 = v23;
+        v32 = 1024;
+        v33 = [v7 length];
+        v34 = 1024;
         lastAccessoryRequestToSendFlag = [(HMDDataStreamHAPTransport *)selfCopy lastAccessoryRequestToSendFlag];
-        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Writing: %u bytes (rts=%d)", &v31, 0x18u);
+        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Writing: %u bytes (rts=%d)", &v30, 0x18u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -889,52 +874,50 @@ LABEL_5:
     goto LABEL_16;
   }
 
-  v27 = objc_autoreleasePoolPush();
+  v26 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v28 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    v30 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v30;
-    _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Writing: nothing to write", &v31, 0xCu);
+    v29 = HMFGetLogIdentifier();
+    v30 = 138543362;
+    v31 = v29;
+    _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Writing: nothing to write", &v30, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v27);
+  objc_autoreleasePoolPop(v26);
   v22 = 0;
 LABEL_16:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 - (id)_getPendingWritesUpToLength:(unint64_t)length
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   pendingWrites = [(HMDDataStreamHAPTransport *)self pendingWrites];
-  v5 = [pendingWrites countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [pendingWrites countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v19;
+    v9 = *v18;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(pendingWrites);
         }
 
-        v11 = [*(*(&v18 + 1) + 8 * v10) popNextFrameUpToMaxLength:length];
+        v11 = [*(*(&v17 + 1) + 8 * v10) popNextFrameUpToMaxLength:length];
         if (![v11 length])
         {
           goto LABEL_13;
@@ -971,7 +954,7 @@ LABEL_13:
       }
 
       while (v6 != v10);
-      v13 = [pendingWrites countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [pendingWrites countByEnumeratingWithState:&v17 objects:v21 count:16];
       v6 = v13;
       if (!v13)
       {
@@ -996,7 +979,6 @@ LABEL_20:
 
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1088,7 +1070,7 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
 
 - (void)_deregisterForMessages
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
@@ -1096,8 +1078,8 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
   if (accessory)
   {
     interruptCharacteristic = [(HMDDataStreamHAPTransport *)self interruptCharacteristic];
-    v13 = interruptCharacteristic;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+    v12 = interruptCharacteristic;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
     notificationClientIdentifier = [(HMDDataStreamHAPTransport *)self notificationClientIdentifier];
     [accessory setNotificationsEnabled:0 forCharacteristics:v6 clientIdentifier:notificationClientIdentifier];
   }
@@ -1111,19 +1093,17 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Error: unable to deregister from event notifications on accessory (its weak pointer went to nil)", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDDataStreamHAPTransport *)self accessory];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__handleCharacteristicsValueUpdated_ name:@"HMDNotificationCharacteristicValueUpdated" object:accessory];
@@ -1138,37 +1118,35 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
   }
 
   interruptCharacteristic = [(HMDDataStreamHAPTransport *)self interruptCharacteristic];
-  v12[0] = interruptCharacteristic;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = interruptCharacteristic;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   notificationClientIdentifier = [(HMDDataStreamHAPTransport *)self notificationClientIdentifier];
   [accessory setNotificationsEnabled:1 forCharacteristics:v9 clientIdentifier:notificationClientIdentifier];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_teardownSessionWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if ([(HMDDataStreamHAPTransport *)self _isRunning])
   {
-    v16 = 0;
-    v5 = [(HMDDataStreamHAPTransport *)self _buildWriteRequestWithError:&v16 shouldForceClose:1];
-    v6 = v16;
+    v15 = 0;
+    v5 = [(HMDDataStreamHAPTransport *)self _buildWriteRequestWithError:&v15 shouldForceClose:1];
+    v6 = v15;
     if (v5)
     {
       objc_initWeak(location, self);
-      v17 = v5;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke;
-      v13[3] = &unk_2797353F8;
-      objc_copyWeak(&v15, location);
-      v14 = errorCopy;
-      [(HMDDataStreamHAPTransport *)self _writeCharacteristicRequests:v7 completion:v13];
+      v16 = v5;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke;
+      v12[3] = &unk_2797353F8;
+      objc_copyWeak(&v14, location);
+      v13 = errorCopy;
+      [(HMDDataStreamHAPTransport *)self _writeCharacteristicRequests:v7 completion:v12];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(location);
     }
 
@@ -1182,8 +1160,8 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
         v11 = HMFGetLogIdentifier();
         *location = 138543618;
         *&location[4] = v11;
-        v19 = 2112;
-        v20 = v6;
+        v18 = 2112;
+        v19 = v6;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@[Transport] Unable to write: Closing after session force close failed; error=%@", location, 0x16u);
       }
 
@@ -1196,8 +1174,6 @@ void __51__HMDDataStreamHAPTransport__notifyDelegateDidOpen__block_invoke(uint64
   {
     [(HMDDataStreamHAPTransport *)self _stopWithError:errorCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(uint64_t a1)
@@ -1246,7 +1222,7 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
 
 - (void)close
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _isRunning = [(HMDDataStreamHAPTransport *)self _isRunning];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1257,9 +1233,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@DataStream transport closing.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@DataStream transport closing.", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1271,20 +1247,18 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
     if (v7)
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket invoked closed but nothing to clean up.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@DataStream Socket invoked closed but nothing to clean up.", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([(HMDDataStreamHAPTransport *)self _isRunning])
   {
     v3 = objc_autoreleasePoolPush();
@@ -1293,9 +1267,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Connect called on an already-running transport", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_ERROR, "%{public}@Connect called on an already-running transport", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -1320,9 +1294,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             v15 = HMFGetLogIdentifier();
-            v27 = 138543362;
-            v28 = v15;
-            _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Connect] All good; connected!", &v27, 0xCu);
+            v26 = 138543362;
+            v27 = v15;
+            _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[Connect] All good; connected!", &v26, 0xCu);
           }
 
           objc_autoreleasePoolPop(v11);
@@ -1337,9 +1311,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             v24 = HMFGetLogIdentifier();
-            v27 = 138543362;
-            v28 = v24;
-            _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[Connect] Missing characteristics to create transport for HDS over HAP (Interrupt Characteristic does not exist)", &v27, 0xCu);
+            v26 = 138543362;
+            v27 = v24;
+            _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@[Connect] Missing characteristics to create transport for HDS over HAP (Interrupt Characteristic does not exist)", &v26, 0xCu);
           }
 
           objc_autoreleasePoolPop(v11);
@@ -1358,9 +1332,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = HMFGetLogIdentifier();
-          v27 = 138543362;
-          v28 = v23;
-          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@[Connect] Missing characteristics to create transport for HDS over HAP (Transport Characteristic does not exist)", &v27, 0xCu);
+          v26 = 138543362;
+          v27 = v23;
+          _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@[Connect] Missing characteristics to create transport for HDS over HAP (Transport Characteristic does not exist)", &v26, 0xCu);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -1377,9 +1351,9 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v27 = 138543362;
-        v28 = v19;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Connect called but accessory is no longer valid", &v27, 0xCu);
+        v26 = 138543362;
+        v27 = v19;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Connect called but accessory is no longer valid", &v26, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1387,8 +1361,6 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
       [(HMDDataStreamHAPTransport *)selfCopy4 _teardownSessionWithError:v9];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isRunning
@@ -1428,7 +1400,7 @@ void __55__HMDDataStreamHAPTransport__teardownSessionWithError___block_invoke(ui
     byteReader = v16->_byteReader;
     v16->_byteReader = v19;
 
-    v21 = [logIdentifierCopy copy];
+    v21 = objc_msgSend_copy(logIdentifierCopy);
     logIdentifier = v16->_logIdentifier;
     v16->_logIdentifier = v21;
 

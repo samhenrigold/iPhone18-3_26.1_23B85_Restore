@@ -41,7 +41,7 @@ flatbuffers::DetachedBuffer *__38__QSSRecoverPronsRequest_flatbuffData__block_in
 
 - (Offset<siri::speech::schema_fb::RecoverPronsRequest>)addObjectToBuffer:(void *)buffer
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSRecoverPronsRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -75,52 +75,52 @@ flatbuffers::DetachedBuffer *__38__QSSRecoverPronsRequest_flatbuffData__block_in
   v18 = strlen(uTF8String3);
   v19 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v18);
 
-  memset(&v41, 0, sizeof(v41));
+  memset(&v40, 0, sizeof(v40));
   apg_ids = [(QSSRecoverPronsRequest *)self apg_ids];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v41, [apg_ids count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v40, [apg_ids count]);
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   apg_ids2 = [(QSSRecoverPronsRequest *)self apg_ids];
-  v22 = [apg_ids2 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v22 = [apg_ids2 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v22)
   {
-    v23 = *v38;
+    v23 = *v37;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v38 != v23)
+        if (*v37 != v23)
         {
           objc_enumerationMutation(apg_ids2);
         }
 
-        uTF8String4 = [*(*(&v37 + 1) + 8 * i) UTF8String];
+        uTF8String4 = [*(*(&v36 + 1) + 8 * i) UTF8String];
         v26 = strlen(uTF8String4);
-        v36 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v26);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v41, &v36);
+        v35 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v26);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v40, &v35);
       }
 
-      v22 = [apg_ids2 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v22 = [apg_ids2 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v22);
   }
 
-  begin = v41.__begin_;
-  if (v41.__end_ == v41.__begin_)
+  begin = v40.__begin_;
+  if (v40.__end_ == v40.__begin_)
   {
     v28 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v28 = v41.__begin_;
+    v28 = v40.__begin_;
   }
 
-  v29 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v28, v41.__end_ - v41.__begin_);
+  v29 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v28, v40.__end_ - v40.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v30 = *(buffer + 8);
@@ -136,7 +136,6 @@ flatbuffers::DetachedBuffer *__38__QSSRecoverPronsRequest_flatbuffData__block_in
     operator delete(begin);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v33;
 }
 

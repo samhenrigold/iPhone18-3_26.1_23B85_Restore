@@ -109,8 +109,8 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   OUTLINED_FUNCTION_37_3();
-  OUTLINED_FUNCTION_190();
-  sub_1E386A7C8();
+  v5 = OUTLINED_FUNCTION_190();
+  sub_1E386A7C8(v5);
 }
 
 - (unint64_t)distribution
@@ -192,9 +192,9 @@
   v14 = v5;
   OUTLINED_FUNCTION_167_2();
   OUTLINED_FUNCTION_38_11();
-  sub_1E3870CE0();
-  v15 = OUTLINED_FUNCTION_53();
-  sub_1E37FAED8(v15, v16);
+  sub_1E3870CE0(v15, v16, v17, v18);
+  v19 = OUTLINED_FUNCTION_53();
+  sub_1E37FAED8(v19, v20);
 
   OUTLINED_FUNCTION_200();
 }
@@ -213,9 +213,9 @@
   v14 = v5;
   OUTLINED_FUNCTION_167_2();
   OUTLINED_FUNCTION_38_11();
-  sub_1E3870EF8();
-  v15 = OUTLINED_FUNCTION_53();
-  sub_1E37FAED8(v15, v16);
+  sub_1E3870EF8(v15, v16, v17, v18);
+  v19 = OUTLINED_FUNCTION_53();
+  sub_1E37FAED8(v19, v20);
 
   OUTLINED_FUNCTION_200();
 }

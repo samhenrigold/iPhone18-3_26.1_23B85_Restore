@@ -53,9 +53,9 @@
 {
   identifierCopy = identifier;
   dCopy = d;
-  v27.receiver = self;
-  v27.super_class = NTKPersistentFaceCollection;
-  v8 = [(NTKFaceCollection *)&v27 initWithCollectionIdentifier:identifierCopy deviceUUID:dCopy];
+  v29.receiver = self;
+  v29.super_class = NTKPersistentFaceCollection;
+  v8 = [(NTKFaceCollection *)&v29 initWithCollectionIdentifier:identifierCopy deviceUUID:dCopy];
   v9 = v8;
   if (v8)
   {
@@ -67,15 +67,15 @@
     v9->_connection = v11;
 
     v13 = v9->_connection;
-    v14 = NTKCollectionServerInterface();
-    [(NSXPCConnection *)v13 setRemoteObjectInterface:v14];
+    v15 = NTKCollectionServerInterface(v14);
+    [(NSXPCConnection *)v13 setRemoteObjectInterface:v15];
 
-    v15 = v9->_connection;
-    v16 = NTKCollectionClientInterface();
-    [(NSXPCConnection *)v15 setExportedInterface:v16];
+    v16 = v9->_connection;
+    v18 = NTKCollectionClientInterface(v17);
+    [(NSXPCConnection *)v16 setExportedInterface:v18];
 
-    v17 = [[_NTKCollectionClientProxy alloc] initWithWeakProxy:v9];
-    [(NSXPCConnection *)v9->_connection setExportedObject:v17];
+    v19 = [[_NTKCollectionClientProxy alloc] initWithWeakProxy:v9];
+    [(NSXPCConnection *)v9->_connection setExportedObject:v19];
     if (_initWithCollectionIdentifier_deviceUUID__onceToken != -1)
     {
       [NTKPersistentFaceCollection _initWithCollectionIdentifier:deviceUUID:];
@@ -83,19 +83,19 @@
 
     [(NSXPCConnection *)v9->_connection _setQueue:_initWithCollectionIdentifier_deviceUUID__xpcQueue];
     objc_initWeak(&location, v9);
-    v18 = v9->_connection;
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __72__NTKPersistentFaceCollection__initWithCollectionIdentifier_deviceUUID___block_invoke_2;
-    v24 = &unk_27877DC58;
-    objc_copyWeak(&v25, &location);
-    [(NSXPCConnection *)v18 setInterruptionHandler:&v21];
-    [(NSXPCConnection *)v9->_connection setInvalidationHandler:&__block_literal_global_84, v21, v22, v23, v24];
+    v20 = v9->_connection;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __72__NTKPersistentFaceCollection__initWithCollectionIdentifier_deviceUUID___block_invoke_2;
+    v26 = &unk_27877DC58;
+    objc_copyWeak(&v27, &location);
+    [(NSXPCConnection *)v20 setInterruptionHandler:&v23];
+    [(NSXPCConnection *)v9->_connection setInvalidationHandler:&__block_literal_global_84, v23, v24, v25, v26];
     [(NSXPCConnection *)v9->_connection resume];
     [(NTKPersistentFaceCollection *)v9 _register];
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v9, _handleDaemonDidLaunchNotification, @"com.apple.nanotimekit.daemondidlaunch", 0, 0);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 

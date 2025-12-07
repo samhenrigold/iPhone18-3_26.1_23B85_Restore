@@ -42,7 +42,7 @@ void __DepthWrapperDecoder_DecodeFrame_block_invoke(uint64_t a1, uint64_t a2, in
 
     else
     {
-      VTVideoDecoderGetCMBaseObject(*(a1 + 40));
+      VTVideoDecoderGetCMBaseObject();
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       Width = CVPixelBufferGetWidth(a4);
       Height = CVPixelBufferGetHeight(a4);

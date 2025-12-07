@@ -36,7 +36,7 @@
   selfCopy = self;
   ICPDFTextFindingResult.framesForHighlight(in:)(viewCopy);
 
-  sub_2151A6C9C(0, &qword_2811994C8);
+  sub_2151A6C9C(0, &qword_2811994C8, 0x277CCAE60);
   v6 = sub_2154A1F3C();
 
   return v6;
@@ -53,7 +53,7 @@
 {
   HIDWORD(v27) = with;
   attachmentCopy = attachment;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5ACE0, &qword_2154BED90);
   MEMORY[0x28223BE20](v16 - 8);
   v18 = &v27 - v17;
   v19 = _Block_copy(completion);

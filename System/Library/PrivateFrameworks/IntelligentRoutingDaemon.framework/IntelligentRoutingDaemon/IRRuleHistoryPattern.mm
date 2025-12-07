@@ -168,86 +168,86 @@ LABEL_5:
 
 - (id)_filterHistoryEvents:(id)events withSystemState:(id)state date:(id)date miloPrediction:(id)prediction candiatesContainer:(id)container
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   stateCopy = state;
   dateCopy = date;
   predictionCopy = prediction;
   containerCopy = container;
-  v43 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameMilo"];
-  v42 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameApp"];
-  v41 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSimilarApp"];
-  v40 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameLoi"];
+  v42 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameMilo"];
+  v41 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameApp"];
+  v40 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSimilarApp"];
+  v39 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameLoi"];
   v15 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterIsSameDay"];
   v16 = [(NSSet *)self->_filters containsObject:@"kIRRuleHistoryPatternFilterOnlyTestedCandidates"];
-  v38 = objc_opt_new();
+  v37 = objc_opt_new();
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v17 = eventsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (!v18)
   {
     goto LABEL_29;
   }
 
   v19 = v18;
-  v20 = *v45;
+  v20 = *v44;
   do
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v45 != v20)
+      if (*v44 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v44 + 1) + 8 * i);
+      v22 = *(*(&v43 + 1) + 8 * i);
       if (![(IRRuleHistoryPattern *)self _filterHistoryByEventsToWatch:v22])
       {
         continue;
       }
 
       v23 = [(IRRuleHistoryPattern *)self _filterHistoryByTimeInterval:v22 comparedToDate:dateCopy];
-      if (v43 && v23)
+      if (v42 && v23)
       {
         v24 = [(IRRuleHistoryPattern *)self _filterHistoryByMilo:v22 withMiloPrediction:predictionCopy];
       }
 
       else
       {
-        v24 = !v43 && v23;
+        v24 = !v42 && v23;
       }
 
-      if ((v42 & v24) == 1)
+      if ((v41 & v24) == 1)
       {
         v25 = [IRRuleHistoryPattern _filterHistoryBySameApp:v22 withSystemState:stateCopy];
       }
 
       else
       {
-        v25 = !v42 & v24;
+        v25 = !v41 & v24;
       }
 
-      if ((v41 & v25) == 1)
+      if ((v40 & v25) == 1)
       {
         v26 = [IRRuleHistoryPattern filterHistoryBySimilarApp:v22 withSystemState:stateCopy];
       }
 
       else
       {
-        v26 = !v41 & v25;
+        v26 = !v40 & v25;
       }
 
-      if ((v40 & v26) == 1)
+      if ((v39 & v26) == 1)
       {
         v27 = [(IRRuleHistoryPattern *)self _filterHistoryBySameLoi:v22 withSystemState:stateCopy];
       }
 
       else
       {
-        v27 = !v40 & v26;
+        v27 = !v39 & v26;
       }
 
       if ((v15 & v27) == 1)
@@ -277,18 +277,18 @@ LABEL_21:
       if (v28 && [(IRRuleHistoryPattern *)self _filterHistorywithSameCandidates:v22 withSameCandidates:containerCopy])
       {
 LABEL_26:
-        [v38 addObject:v22];
+        [v37 addObject:v22];
         continue;
       }
     }
 
-    v19 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v19 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
   }
 
   while (v19);
 LABEL_29:
 
-  v29 = [v38 count];
+  v29 = [v37 count];
   maxNumberOfEventsInHistory = [(IRRuleHistoryPattern *)self maxNumberOfEventsInHistory];
   v31 = (v29 - maxNumberOfEventsInHistory) & ~((v29 - maxNumberOfEventsInHistory) >> 63);
   maxNumberOfEventsInHistory2 = [(IRRuleHistoryPattern *)self maxNumberOfEventsInHistory];
@@ -302,48 +302,46 @@ LABEL_29:
     v33 = v29;
   }
 
-  v34 = [v38 subarrayWithRange:{v31, v33}];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = [v37 subarrayWithRange:{v31, v33}];
 
   return v34;
 }
 
 - (id)executeRuleWithCandiatesContainer:(id)container systemStatus:(id)status historyContainer:(id)historyContainer miloPrediction:(id)prediction nearbyDeviceContainer:(id)deviceContainer date:(id)date
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   statusCopy = status;
   predictionCopy = prediction;
   dateCopy = date;
   historyEvents = [historyContainer historyEvents];
   selfCopy = self;
-  v48 = predictionCopy;
-  v49 = statusCopy;
-  v47 = dateCopy;
+  v47 = predictionCopy;
+  v48 = statusCopy;
+  v46 = dateCopy;
   v18 = [(IRRuleHistoryPattern *)self _filterHistoryEvents:historyEvents withSystemState:statusCopy date:dateCopy miloPrediction:predictionCopy candiatesContainer:containerCopy];
 
   v19 = [MEMORY[0x277CCA940] set];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   v20 = v18;
-  v21 = [v20 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v55 objects:v60 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v57;
+    v23 = *v56;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v57 != v23)
+        if (*v56 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v56 + 1) + 8 * i);
+        v25 = *(*(&v55 + 1) + 8 * i);
         candidateIdentifier = [v25 candidateIdentifier];
 
         if (candidateIdentifier)
@@ -353,36 +351,36 @@ LABEL_29:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v55 objects:v60 count:16];
     }
 
     while (v22);
   }
 
-  v46 = v20;
+  v45 = v20;
   v28 = [v20 count];
   v29 = objc_opt_new();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v50 = containerCopy;
+  v49 = containerCopy;
   candidates = [containerCopy candidates];
-  v31 = [candidates countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v31 = [candidates countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v53;
+    v33 = *v52;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v53 != v33)
+        if (*v52 != v33)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v35 = *(*(&v52 + 1) + 8 * j);
+        v35 = *(*(&v51 + 1) + 8 * j);
         candidateIdentifier3 = [v35 candidateIdentifier];
         v37 = [v19 countForObject:candidateIdentifier3];
 
@@ -403,7 +401,7 @@ LABEL_29:
         [v29 setObject:v40 forKeyedSubscript:candidateIdentifier4];
       }
 
-      v32 = [candidates countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v32 = [candidates countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v32);
@@ -413,8 +411,6 @@ LABEL_29:
   [(IRRuleOutputHistoryPattern *)v42 setNumberOfEventsInHistory:v28];
   v43 = [v29 copy];
   [(IRRuleOutputHistoryPattern *)v42 setScoreForCandidates:v43];
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

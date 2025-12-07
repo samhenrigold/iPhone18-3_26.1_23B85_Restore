@@ -564,7 +564,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t HgcYUV420BiPlanar_709ToRGB::GetDOD(HgcYUV420BiPlanar_709ToRGB *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcYUV420BiPlanar_709ToRGB::GetDOD(HgcYUV420BiPlanar_709ToRGB *this, HGRenderer *a2, int a3, HGRect a4)
 {
   result = *&a4.var0;
   if (a3)
@@ -573,7 +573,7 @@ uint64_t HgcYUV420BiPlanar_709ToRGB::GetDOD(HgcYUV420BiPlanar_709ToRGB *this, HG
     {
       v5 = *&a4.var0;
       v6 = *&a4.var2;
-      v7 = HGRectMake4i(0, 0, a3, 1u);
+      v7 = HGRectMake4i(0, 0, a3, 1);
       v8 = HGRectGrow(v5, v6, v7);
       v9 = HGRectFloat(v8);
       v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -601,7 +601,7 @@ uint64_t HgcYUV420BiPlanar_709ToRGB::GetROI(HgcYUV420BiPlanar_709ToRGB *this, HG
       v9 = HGRectScale(v5, v6, v7, v8, 0.5);
       v14 = HGRectIntegral(v10, v9, v11, v12, v13);
       v16 = v15;
-      v17 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 0, 0);
+      v17 = HGRectMake4i(-1, -1, 0, 0);
       v18 = HGRectGrow(v14, v16, v17);
       return HGRectUnion(0, 0, v18, v19);
     }
@@ -3292,7 +3292,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t HgcYUV420BiPlanar_601ToRGB::GetDOD(HgcYUV420BiPlanar_601ToRGB *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcYUV420BiPlanar_601ToRGB::GetDOD(HgcYUV420BiPlanar_601ToRGB *this, HGRenderer *a2, int a3, HGRect a4)
 {
   result = *&a4.var0;
   if (a3)
@@ -3301,7 +3301,7 @@ uint64_t HgcYUV420BiPlanar_601ToRGB::GetDOD(HgcYUV420BiPlanar_601ToRGB *this, HG
     {
       v5 = *&a4.var0;
       v6 = *&a4.var2;
-      v7 = HGRectMake4i(0, 0, a3, 1u);
+      v7 = HGRectMake4i(0, 0, a3, 1);
       v8 = HGRectGrow(v5, v6, v7);
       v9 = HGRectFloat(v8);
       v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -3329,7 +3329,7 @@ uint64_t HgcYUV420BiPlanar_601ToRGB::GetROI(HgcYUV420BiPlanar_601ToRGB *this, HG
       v9 = HGRectScale(v5, v6, v7, v8, 0.5);
       v14 = HGRectIntegral(v10, v9, v11, v12, v13);
       v16 = v15;
-      v17 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 0, 0);
+      v17 = HGRectMake4i(-1, -1, 0, 0);
       v18 = HGRectGrow(v14, v16, v17);
       return HGRectUnion(0, 0, v18, v19);
     }
@@ -9132,7 +9132,7 @@ uint64_t HgcRasterizerTextureNoColor::GetDOD(HgcRasterizerTextureNoColor *this, 
   v6 = *&a4.var0;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     v6 = HGRectGrow(v6, v5, v8);
     v5 = v9;
   }
@@ -9165,7 +9165,7 @@ uint64_t HgcRasterizerTextureNoColor::GetROI(HgcRasterizerTextureNoColor *this, 
     HGTransform::~HGTransform(v17);
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v15 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v15 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(v4, v14, v15);
     }
   }
@@ -9376,9 +9376,9 @@ uint64_t HgcDemosaic_1::RenderTile(HgcDemosaic_1 *this, int32x2_t *a2)
       v7.i64[1] = 0x3F80000000000000;
       v8 = a2[10];
       v9 = a2[2];
-      v10 = &v8[2 * v6];
+      v10 = *&v8 + 32 * v6;
       v11 = 16 * v6;
-      v12 = &v8[v6];
+      v12 = *&v8 + 16 * v6;
       v13 = -2 * v6;
       v14 = -v6;
       v15 = 16 * a2[3].i32[0];
@@ -9531,15 +9531,15 @@ uint64_t HgcDemosaic_1::RenderTile(HgcDemosaic_1 *this, int32x2_t *a2)
           v117 = vbslq_s8(v36, vmaxq_f32(v116, vextq_s8(v116, v116, 8uLL)), v116);
           v115.i64[0] = vminq_f32(v117, vextq_s8(v115, v115, 8uLL)).u64[0];
           v115.i64[1] = vmaxq_f32(vextq_s8(*&v117, *&v117, 8uLL), vrev64q_s32(*&v117)).i64[1];
-          v118 = vbslq_s8(v36, v8[v13 + v17], v115);
+          v118 = vbslq_s8(v36, *(*&v8 + 16 * (v13 + v17)), v115);
           v119 = vextq_s8(v118, v118, 8uLL);
           v96.i64[0] = vbslq_s8(v36, v119, v115).u64[0];
-          v119.i64[0] = vbslq_s8(v36, v8[v14 + v17], vrev64q_s32(v12[v17])).u64[0];
+          v119.i64[0] = vbslq_s8(v36, *(*&v8 + 16 * (v14 + v17)), vrev64q_s32(*(v12 + 16 * v17))).u64[0];
           v120 = vextq_s8(v225, v225, 0xCuLL);
           v121 = vandq_s8(v113, vcgtq_f32(v113, v120));
           v115.i64[0] = v96.i64[0];
           v115.i64[1] = vdupq_laneq_s64(v121, 1).u64[0];
-          v122 = vsubq_f32(vbslq_s8(v47, vextq_s8(v10[v17], v10[v17], 4uLL), v119), v44);
+          v122 = vsubq_f32(vbslq_s8(v47, vextq_s8(*(v10 + 16 * v17), *(v10 + 16 * v17), 4uLL), v119), v44);
           v96.i64[1] = v121.i64[1];
           v123 = vbslq_s8(v47, vminq_f32(v94, vrev64q_s32(v115)), v96);
           v124 = vminq_f32(v50, vmulq_laneq_f32(v122, v23, 2));
@@ -9695,11 +9695,11 @@ uint64_t HgcDemosaic_1::RenderTile(HgcDemosaic_1 *this, int32x2_t *a2)
         }
 
         while (v4 != v17);
-        v8 = (v8 + v11);
+        *&v8 += v11;
         ++v5;
         v7 = vaddq_f32(v222, xmmword_2603429C0);
-        v10 = (v10 + v11);
-        v12 = (v12 + v11);
+        v10 += v11;
+        v12 += v11;
         *&v9 += v15;
       }
 
@@ -9719,7 +9719,7 @@ uint64_t HgcDemosaic_1::GetDOD(HgcDemosaic_1 *this, HGRenderer *a2, int a3, HGRe
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFFE, 0xFFFFFFFE, 2u, 2u);
+  v7 = HGRectMake4i(-2, -2, 2, 2);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -9732,7 +9732,7 @@ uint64_t HgcDemosaic_1::GetROI(HgcDemosaic_1 *this, HGRenderer *a2, int a3, HGRe
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFFE, 0xFFFFFFFE, 2u, 2u);
+  v7 = HGRectMake4i(-2, -2, 2, 2);
   return HGRectGrow(v6, v5, v7);
 }
 

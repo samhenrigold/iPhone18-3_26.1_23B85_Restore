@@ -1,3 +1,1954 @@
+uint64_t geom::point_tree<float,(unsigned char)3>::balance(float32x4_t *a1)
+{
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v20[0] = &unk_286292D38;
+  v20[1] = v18;
+  v20[3] = v20;
+  geom::point_tree<float,(unsigned char)3>::traverse(a1, 0, v20);
+  std::__function::__value_func<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::~__value_func[abi:nn200100](v20);
+  v2 = *(&v19 + 1);
+  if (*(&v19 + 1))
+  {
+    while (1)
+    {
+      v3 = *(*(*(&v18[0] + 1) + ((v19 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v19 & 0x1FF));
+      *&v19 = v19 + 1;
+      *(&v19 + 1) = v2 - 1;
+      if (v19 >= 0x400)
+      {
+        operator delete(**(&v18[0] + 1));
+        *(&v18[0] + 1) += 8;
+        *&v19 = v19 - 512;
+      }
+
+      if (*(a1[11].i64[0] + 8 * v3) == -1)
+      {
+        break;
+      }
+
+LABEL_26:
+      v2 = *(&v19 + 1);
+      if (!*(&v19 + 1))
+      {
+        return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
+      }
+    }
+
+    v4 = 0;
+    while (1)
+    {
+      v5 = geom::point_tree<float,(unsigned char)3>::neighbor(a1, v3, v4);
+      if (v5 != -1)
+      {
+        v6 = v5;
+        if (*(a1[11].i64[0] + 8 * v5) == -1)
+        {
+          break;
+        }
+      }
+
+LABEL_25:
+      if (++v4 == 6)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    if (v3)
+    {
+      v7 = *(a1[12].i64[1] + 24 * v3);
+      v8 = (63 - __clz(v7));
+      if (v7)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      if (v5)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+      if (v5)
+      {
+LABEL_13:
+        v10 = *(a1[12].i64[1] + 24 * v5);
+        v11 = (63 - __clz(v10));
+        if (v10)
+        {
+          v12 = v11;
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+LABEL_18:
+        if (v9 - v12 >= 2)
+        {
+          geom::point_tree<float,(unsigned char)3>::split(a1, v5);
+          if (*(a1[11].i64[0] + 8 * v6) != -1)
+          {
+            for (i = 0; i != 8; ++i)
+            {
+              v14 = *(a1[11].i64[0] + 8 * v6);
+              if (v14 == -1)
+              {
+                v15 = -1;
+              }
+
+              else
+              {
+                v15 = i + v14;
+              }
+
+              v17 = v15;
+              std::deque<unsigned long long>::push_back(v18, &v17);
+            }
+          }
+        }
+
+        goto LABEL_25;
+      }
+    }
+
+    v12 = 0;
+    goto LABEL_18;
+  }
+
+  return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
+}
+
+void *geom::point_tree<float,(unsigned char)3>::traverse(void *result, int a2, uint64_t a3)
+{
+  v4 = result;
+  if (a2 == 1)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    v14 = 0;
+    std::deque<unsigned long long>::push_back(&v15, &v14);
+    while (*(&v17 + 1))
+    {
+      v9 = *(*(*(&v15 + 1) + (((v17 + *(&v17 + 1) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v17 + *(&v17 + 1) - 1) & 0x1FF));
+      --*(&v17 + 1);
+      std::deque<std::pair<unsigned int,unsigned int>>::__maybe_remove_back_spare[abi:nn200100](&v15, 1);
+      std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v9);
+      if (*(v4[22] + 8 * v9) != -1)
+      {
+        for (i = 7; i != -1; --i)
+        {
+          v11 = *(v4[22] + 8 * v9);
+          if (v11 == -1)
+          {
+            v12 = -1;
+          }
+
+          else
+          {
+            v12 = i + v11;
+          }
+
+          v14 = v12;
+          std::deque<unsigned long long>::push_back(&v15, &v14);
+        }
+      }
+    }
+
+    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
+  }
+
+  if (a2 == 2)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    v14 = 0;
+    std::deque<unsigned long long>::push_back(&v15, &v14);
+    while (*(&v17 + 1))
+    {
+      v5 = *(*(*(&v15 + 1) + ((v17 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v17 & 0x1FF));
+      *&v17 = v17 + 1;
+      --*(&v17 + 1);
+      if (v17 >= 0x400)
+      {
+        operator delete(**(&v15 + 1));
+        *(&v15 + 1) += 8;
+        *&v17 = v17 - 512;
+      }
+
+      std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v5);
+      if (*(v4[22] + 8 * v5) != -1)
+      {
+        for (j = 0; j != 8; ++j)
+        {
+          v7 = *(v4[22] + 8 * v5);
+          if (v7 == -1)
+          {
+            v8 = -1;
+          }
+
+          else
+          {
+            v8 = j + v7;
+          }
+
+          v14 = v8;
+          std::deque<unsigned long long>::push_back(&v15, &v14);
+        }
+      }
+    }
+
+    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
+  }
+
+  if (result[20] != result[19])
+  {
+    v13 = 0;
+    do
+    {
+      result = std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(a3, v4, v13++);
+    }
+
+    while (v13 < (v4[20] - v4[19]) >> 3);
+  }
+
+  return result;
+}
+
+uint64_t std::function<void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = a3;
+  v3 = *(a1 + 24);
+  if (v3)
+  {
+    return (*(*v3 + 48))(v3, a2, &v7);
+  }
+
+  v5 = std::__throw_bad_function_call[abi:nn200100]();
+  return geom::point_tree<float,(unsigned char)3>::find_closest_point(v5, v6);
+}
+
+uint64_t geom::point_tree<float,(unsigned char)3>::find_closest_point(float32x4_t *a1, float32x4_t a2)
+{
+  __p = 0;
+  v5 = 0;
+  v6 = 0;
+  geom::point_tree<float,(unsigned char)3>::find_k_nearest(a1, 1u, &__p, a2);
+  v2 = *__p;
+  v5 = __p;
+  operator delete(__p);
+  return v2;
+}
+
+void geom::point_tree<float,(unsigned char)3>::find_k_nearest(float32x4_t *a1, unsigned int a2, void *a3, float32x4_t a4)
+{
+  v90 = *MEMORY[0x277D85DE8];
+  if (a2)
+  {
+    v87 = 0;
+    v88 = 0;
+    v89 = 0;
+    __p = 0;
+    v85 = 0;
+    v86 = 0;
+    *&v83 = 0;
+    geom::point_tree<float,(unsigned char)3>::centroid(a1, 0);
+    v8 = vsubq_f32(v7, a4);
+    v9 = vmulq_f32(v8, v8);
+    *(&v83 + 2) = v9.f32[2] + vaddv_f32(*v9.f32);
+    std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v83);
+    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v85, &v82, (v85 - __p) >> 4);
+    v10 = __p;
+    v11 = v85;
+    if (__p != v85)
+    {
+      v12 = a4;
+      v12.i32[3] = 0;
+      v78 = v12;
+      v13 = INFINITY;
+      do
+      {
+        v14 = *v10;
+        v15 = (v11 - v10) >> 4;
+        if (v15 >= 2)
+        {
+          v16 = 0;
+          v83 = *v10;
+          v17 = v10;
+          do
+          {
+            v18 = v17;
+            v17 += 2 * v16 + 2;
+            v19 = 2 * v16;
+            v16 = (2 * v16) | 1;
+            v20 = v19 + 2;
+            if (v20 < v15 && *(v17 + 2) > *(v17 + 6))
+            {
+              v17 += 2;
+              v16 = v20;
+            }
+
+            *v18 = *v17;
+          }
+
+          while (v16 <= ((v15 - 2) >> 1));
+          v21 = (v11 - 16);
+          if (v17 == v21)
+          {
+            *v17 = v83;
+          }
+
+          else
+          {
+            *v17 = *v21;
+            *v21 = v83;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v10, (v17 + 2), &v82, ((v17 + 2) - v10) >> 4);
+          }
+
+          v11 = v85;
+        }
+
+        v85 = v11 - 16;
+        if (*(a1[11].i64[0] + 8 * v14) == -1)
+        {
+          v36 = geom::point_tree<float,(unsigned char)3>::bounds(a1, v14);
+          v37 = v38;
+          v36.i32[3] = v76.i32[3];
+          v37.i32[3] = v74.i32[3];
+          v39 = v37;
+          v39.i32[3] = 0;
+          v40 = vminnmq_f32(v78, v39);
+          v40.i32[3] = 0;
+          v41 = v36;
+          v41.i32[3] = 0;
+          v42 = vsubq_f32(vmaxnmq_f32(v40, v41), a4);
+          v43 = vmulq_f32(v42, v42);
+          if ((v43.f32[2] + vaddv_f32(*v43.f32)) <= (v13 * v13))
+          {
+            v75 = v36;
+            v77 = v37;
+            v44 = (a1[14].i64[0] + 16 * v14);
+            v45 = *v44;
+            v46 = v44[1];
+            if (v45 != v46)
+            {
+              v47 = a1[6].i64[1];
+              v48 = (v47 + 8 * v46);
+              v49 = (v47 + 8 * v45);
+              do
+              {
+                v50 = *v49;
+                v51 = vsubq_f32(*(a1[5].i64[0] + 16 * *v49), a4);
+                v52 = vmulq_f32(v51, v51);
+                v53 = v52.f32[2] + vaddv_f32(*v52.f32);
+                v54 = v87;
+                v55 = v88;
+                v56 = (v88 - v87) >> 4;
+                if (v56 == a2 && v53 < v87[2])
+                {
+                  if (a2 != 1)
+                  {
+                    v57 = 0;
+                    v83 = *v87;
+                    v58 = v87;
+                    do
+                    {
+                      v59 = v58;
+                      v58 += 4 * v57 + 4;
+                      v60 = 2 * v57;
+                      v57 = (2 * v57) | 1;
+                      v61 = v60 + 2;
+                      if (v61 < a2 && v58[2] < v58[6])
+                      {
+                        v58 += 4;
+                        v57 = v61;
+                      }
+
+                      *v59 = *v58;
+                    }
+
+                    while (v57 <= ((a2 - 2) >> 1));
+                    v62 = v55 - 4;
+                    if (v58 == v62)
+                    {
+                      *v58 = v83;
+                    }
+
+                    else
+                    {
+                      *v58 = *v62;
+                      *v62 = v83;
+                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v54, (v58 + 4), &v82, ((v58 + 4) - v54) >> 4);
+                    }
+
+                    v54 = v87;
+                    v55 = v88;
+                  }
+
+                  v88 = v55 - 4;
+                  v56 = ((v55 - 4) - v54) >> 4;
+                }
+
+                if (v56 < a2)
+                {
+                  *&v83 = v50;
+                  *(&v83 + 2) = v53;
+                  std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&v87, &v83);
+                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v87, v88, &v82, (v88 - v87) >> 4);
+                }
+
+                ++v49;
+              }
+
+              while (v49 != v48);
+            }
+
+            if (a2 == (v88 - v87) >> 4)
+            {
+              v13 = v87[2];
+            }
+
+            v36 = v75;
+            v37 = v77;
+          }
+        }
+
+        else
+        {
+          for (i = 0; i != 8; ++i)
+          {
+            v23 = *(a1[11].i64[0] + 8 * v14);
+            if (v23 == -1)
+            {
+              v24 = -1;
+            }
+
+            else
+            {
+              v24 = i + v23;
+            }
+
+            if (*(a1[14].i64[0] + 16 * v24 + 8) != *(a1[14].i64[0] + 16 * v24))
+            {
+              v25 = geom::point_tree<float,(unsigned char)3>::bounds(a1, v24);
+              v27 = v26;
+              v25.i32[3] = v80;
+              v27.i32[3] = v81;
+              v28 = v27;
+              v28.i32[3] = 0;
+              v29 = vminnmq_f32(v78, v28);
+              v29.i32[3] = 0;
+              v30 = v25;
+              v30.i32[3] = 0;
+              v31 = vsubq_f32(vmaxnmq_f32(v29, v30), a4);
+              v32 = vmulq_f32(v31, v31);
+              if ((v32.f32[2] + vaddv_f32(*v32.f32)) <= (v13 * v13))
+              {
+                *&v83 = v24;
+                geom::point_tree<float,(unsigned char)3>::centroid(a1, v24);
+                v34 = vsubq_f32(v33, a4);
+                v35 = vmulq_f32(v34, v34);
+                *(&v83 + 2) = v35.f32[2] + vaddv_f32(*v35.f32);
+                std::vector<geom::point_tree<float,(unsigned char)2>::distance_query_item,std::allocator<geom::point_tree<float,(unsigned char)2>::distance_query_item>>::push_back[abi:nn200100](&__p, &v83);
+                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(__p, v85, &v82, (v85 - __p) >> 4);
+              }
+            }
+          }
+
+          v37 = v74;
+          v36 = v76;
+        }
+
+        v10 = __p;
+        v11 = v85;
+        v74 = v37;
+        v76 = v36;
+      }
+
+      while (__p != v85);
+    }
+
+    std::vector<double>::resize(a3, (v88 - v87) >> 4);
+    v63 = a3[1] - *a3;
+    if (v63)
+    {
+      v64 = v63 >> 3;
+      v65 = v88;
+      do
+      {
+        v66 = v87;
+        --v64;
+        *(*a3 + 8 * v64) = *v87;
+        v67 = (v65 - v66) >> 4;
+        if (v67 >= 2)
+        {
+          v68 = 0;
+          v83 = *v66;
+          v69 = v66;
+          do
+          {
+            v70 = v69;
+            v69 += 4 * v68 + 4;
+            v71 = 2 * v68;
+            v68 = (2 * v68) | 1;
+            v72 = v71 + 2;
+            if (v72 < v67 && v69[2] < v69[6])
+            {
+              v69 += 4;
+              v68 = v72;
+            }
+
+            *v70 = *v69;
+          }
+
+          while (v68 <= ((v67 - 2) >> 1));
+          v73 = v65 - 4;
+          if (v69 == v73)
+          {
+            *v69 = v83;
+          }
+
+          else
+          {
+            *v69 = *v73;
+            *v73 = v83;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<float,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<float,(unsigned char)2>::distance_query_item*>>(v66, (v69 + 4), &v82, ((v69 + 4) - v66) >> 4);
+          }
+
+          v65 = v88;
+        }
+
+        v65 -= 4;
+        v88 = v65;
+      }
+
+      while (v64);
+    }
+
+    if (__p)
+    {
+      v85 = __p;
+      operator delete(__p);
+    }
+
+    if (v87)
+    {
+      v88 = v87;
+      operator delete(v87);
+    }
+  }
+
+  else
+  {
+    a3[1] = *a3;
+  }
+}
+
+void geom::point_tree<float,(unsigned char)3>::precompute_cell_data(void *a1)
+{
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(a1 + 31, (a1[20] - a1[19]) >> 3);
+  if (a1[20] - a1[19] >= 9uLL)
+  {
+    v2 = 1;
+    do
+    {
+      geom::point_tree<float,(unsigned char)3>::centroid(a1, v2);
+      v4 = v3;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 31), &v4);
+      ++v2;
+    }
+
+    while (v2 < (a1[20] - a1[19]) >> 3);
+  }
+}
+
+void std::vector<std::array<std::bitset<64ul>,3ul>>::resize(void *result, unint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
+  v3 = a2 >= v2;
+  v4 = a2 - v2;
+  if (v4 != 0 && v3)
+  {
+    std::vector<std::array<std::bitset<64ul>,3ul>>::__append(result, v4);
+  }
+
+  else if (!v3)
+  {
+    result[1] = *result + 24 * a2;
+  }
+}
+
+void *geom::point_tree<float,(unsigned char)3>::partition(void *result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
+{
+  v9 = result;
+  if (a3 != 3)
+  {
+    v10 = a3;
+    v11 = 8 * a5;
+    v24 = a6;
+    v12 = 8 * a6;
+    do
+    {
+      v13 = v9[13];
+      v14 = (v11 + v13);
+      if (v11 != v12)
+      {
+        v15 = (v11 + v13);
+        v14 = (v12 + v13);
+        v16 = v9[10];
+        v26 = a7;
+        v17 = *(&v26 & 0xFFFFFFFFFFFFFFF3 | (4 * (v10 & 3)));
+        while (2)
+        {
+          while (1)
+          {
+            v18 = *v15;
+            if (*(v16 + 16 * *v15 + 4 * (v10 & 3)) >= v17)
+            {
+              break;
+            }
+
+            if (++v15 == v14)
+            {
+              goto LABEL_13;
+            }
+          }
+
+          do
+          {
+            if (--v14 == v15)
+            {
+              v14 = v15;
+              goto LABEL_13;
+            }
+          }
+
+          while (*(v16 + 16 * *v14 + 4 * (v10 & 3)) >= v17);
+          *v15++ = *v14;
+          *v14 = v18;
+          if (v14 != v15)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+LABEL_13:
+      v11 = v14 - v13;
+      v19 = (v14 - v13) >> 3;
+      v20 = 1 << v10++;
+      result = geom::point_tree<float,(unsigned char)3>::partition(v9, a2, v10, a4 & ~v20, a5, v19, a7);
+      a4 |= v20;
+      a5 = v19;
+    }
+
+    while (v10 != 3);
+    a5 = v19;
+    a6 = v24;
+  }
+
+  v21 = *(v9[22] + 8 * a2);
+  if (v21 == -1)
+  {
+    v22 = -1;
+  }
+
+  else
+  {
+    v22 = v21 + a4;
+  }
+
+  v23 = (v9[28] + 16 * v22);
+  *v23 = a5;
+  v23[1] = a6;
+  return result;
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::point_tree(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
+{
+  *a1 = 0;
+  *(a1 + 1) = a3;
+  *(a1 + 4) = a4;
+  v8 = vdupq_n_s64(0x7FF0000000000000uLL);
+  v9 = *a2;
+  v10 = *(a2 + 8);
+  v11 = vdupq_n_s64(0xFFF0000000000000);
+  *(a1 + 16) = v8;
+  *(a1 + 32) = v11;
+  if (v10)
+  {
+    v12 = 16 * v10;
+    do
+    {
+      v8 = vminnmq_f64(*v9, v8);
+      *(a1 + 16) = v8;
+      v13 = *v9++;
+      v11 = vmaxnmq_f64(v13, v11);
+      *(a1 + 32) = v11;
+      v12 -= 16;
+    }
+
+    while (v12);
+  }
+
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 80) = *a2;
+  *(a1 + 88) = *(a2 + 8);
+  *(a1 + 96) = *(a2 + 16);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a1 + 104) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 200) = 0u;
+  *(a1 + 248) = 0u;
+  *(a1 + 264) = 0;
+  *(a1 + 216) = 0u;
+  *(a1 + 232) = 0u;
+  *(a1 + 168) = 0u;
+  *(a1 + 184) = 0u;
+  *(a1 + 120) = 0u;
+  *(a1 + 136) = 0u;
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 16);
+  if (a5)
+  {
+    v58 = vsubq_f64(v14, v15);
+    v16 = (&v58 & 0xFFFFFFFFFFFFFFF7 | (8 * (*&vmovn_s64(vcgtq_f64(vdupq_laneq_s64(v58, 1), v58)) & 1)));
+    v17 = vld1q_dup_f64(v16);
+    v18 = vaddq_f64(v15, v17);
+    v15 = vminnmq_f64(v15, v18);
+    v14 = vmaxnmq_f64(v14, v18);
+    *(a1 + 16) = v15;
+    *(a1 + 32) = v14;
+  }
+
+  *(a1 + 48) = vsubq_f64(v14, v15);
+  v19 = vaddq_f64(v14, v15);
+  __asm { FMOV            V1.2D, #0.5 }
+
+  *(a1 + 64) = vmulq_f64(v19, _Q1);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 128, (a1 + 48));
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1 + 248, (a1 + 64));
+  std::vector<double>::resize((a1 + 104), *(a1 + 88));
+  v25 = *(a1 + 104);
+  v26 = *(a1 + 112);
+  if (v25 != v26)
+  {
+    v27 = 0;
+    v28 = (v26 - v25 - 8) >> 3;
+    v29 = vdupq_n_s64(v28);
+    v30 = (v28 + 2) & 0x3FFFFFFFFFFFFFFELL;
+    v31 = xmmword_2500C1680;
+    v32 = vdupq_n_s64(2uLL);
+    do
+    {
+      v33 = vmovn_s64(vcgeq_u64(v29, v31));
+      if (v33.i8[0])
+      {
+        *(v25 + 8 * v27) = v27;
+      }
+
+      if (v33.i8[4])
+      {
+        *(v25 + 8 * v27 + 8) = v27 + 1;
+      }
+
+      v27 += 2;
+      v31 = vaddq_s64(v31, v32);
+    }
+
+    while (v30 != v27);
+  }
+
+  v34 = (v26 - v25) >> 3;
+  v36 = *(a1 + 232);
+  v35 = *(a1 + 240);
+  if (v36 >= v35)
+  {
+    v38 = *(a1 + 224);
+    v39 = v36 - v38;
+    v40 = (v36 - v38) >> 4;
+    v41 = v40 + 1;
+    if ((v40 + 1) >> 60)
+    {
+      std::__throw_bad_array_new_length[abi:nn200100]();
+    }
+
+    v42 = v35 - v38;
+    if (v42 >> 3 > v41)
+    {
+      v41 = v42 >> 3;
+    }
+
+    _CF = v42 >= 0x7FFFFFFFFFFFFFF0;
+    v43 = 0xFFFFFFFFFFFFFFFLL;
+    if (!_CF)
+    {
+      v43 = v41;
+    }
+
+    if (v43)
+    {
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1 + 224, v43);
+    }
+
+    v44 = v40;
+    v45 = (16 * v40);
+    *v45 = 0;
+    v45[1] = v34;
+    v37 = 16 * v40 + 16;
+    v46 = &v45[-2 * v44];
+    memcpy(v46, v38, v39);
+    v47 = *(a1 + 224);
+    *(a1 + 224) = v46;
+    *(a1 + 232) = v37;
+    *(a1 + 240) = 0;
+    if (v47)
+    {
+      operator delete(v47);
+    }
+  }
+
+  else
+  {
+    *v36 = 0;
+    *(v36 + 1) = v34;
+    v37 = (v36 + 16);
+  }
+
+  *(a1 + 232) = v37;
+  std::vector<unsigned long long>::push_back[abi:nn200100]((a1 + 152), &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
+  std::vector<unsigned long long>::push_back[abi:nn200100]((a1 + 176), &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
+  v60[0] = 0uLL;
+  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](a1 + 200, v60);
+  *(*(a1 + 208) - 16) = vdupq_n_s64(1uLL);
+  v61 = 0u;
+  memset(v60, 0, sizeof(v60));
+  v59 = 0;
+  std::deque<unsigned long long>::push_back(v60, &v59);
+  v48 = *(&v61 + 1);
+  if (*(&v61 + 1))
+  {
+    v49 = a4;
+    do
+    {
+      v50 = *(*(*(&v60[0] + 1) + ((v61 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v61 & 0x1FF));
+      *&v61 = v61 + 1;
+      *(&v61 + 1) = v48 - 1;
+      if (v61 >= 0x400)
+      {
+        operator delete(**(&v60[0] + 1));
+        *(&v60[0] + 1) += 8;
+        *&v61 = v61 - 512;
+      }
+
+      if (*(*(a1 + 224) + 16 * v50 + 8) - *(*(a1 + 224) + 16 * v50) > v49)
+      {
+        if (v50)
+        {
+          v51 = *(*(a1 + 200) + 16 * v50);
+          v52 = 63 - __clz(v51);
+          v53 = v51 ? v52 : 0;
+        }
+
+        else
+        {
+          v53 = 0;
+        }
+
+        if (a3 > v53)
+        {
+          geom::point_tree<double,(unsigned char)2>::split(a1, v50);
+        }
+      }
+
+      if (*(*(a1 + 176) + 8 * v50) != -1)
+      {
+        for (i = 0; i != 4; ++i)
+        {
+          v55 = *(*(a1 + 176) + 8 * v50);
+          if (v55 == -1)
+          {
+            v56 = -1;
+          }
+
+          else
+          {
+            v56 = i + v55;
+          }
+
+          v59 = v56;
+          std::deque<unsigned long long>::push_back(v60, &v59);
+        }
+      }
+
+      v48 = *(&v61 + 1);
+    }
+
+    while (*(&v61 + 1));
+  }
+
+  std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v60);
+  return a1;
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::depth(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = *(*(a1 + 200) + 16 * a2);
+    v3 = 63 - __clz(v2);
+    if (v2)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void *geom::point_tree<double,(unsigned char)2>::split(unsigned __int8 *a1, unint64_t a2)
+{
+  v20 = a2;
+  v3 = a1 + 152;
+  v4 = (*(a1 + 20) - *(a1 + 19)) >> 3;
+  v5 = a1 + 176;
+  *(*(a1 + 22) + 8 * a2) = v4;
+  std::vector<unsigned long long>::resize(a1 + 19, v4 + 4, &v20);
+  std::vector<unsigned long long>::resize(v5, v4 + 4, &geom::point_tree<double,(unsigned char)2>::k_invalid_index);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v3 + 6, v4 + 4);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v3 + 9, v4 + 4);
+  v6 = v20;
+  if (v20)
+  {
+    v7 = *(*(v3 + 6) + 16 * v20);
+    v8 = 63 - __clz(v7);
+    if (v7)
+    {
+      v6 = v8;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  if (*a1 == v6)
+  {
+    v9 = v6 + 1;
+    *a1 = v9;
+    v19 = vdivq_f64(*(a1 + 3), vdupq_lane_s64(COERCE__INT64(ldexp(1.0, v9)), 0));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 128), &v19);
+  }
+
+  v10 = 0;
+  v11 = *(v3 + 6);
+  do
+  {
+    v12 = 0;
+    v13 = v4 + v10;
+    v14 = 1;
+    do
+    {
+      v15 = v14;
+      v19.f64[0] = *(v11 + 16 * v20 + 8 * v12);
+      std::bitset<64ul>::operator<<=[abi:nn200100](&v19, 1uLL);
+      v14 = 0;
+      *(*(v3 + 6) + 16 * v13 + 8 * v12) = v19.f64[0];
+      v11 = *(v3 + 6);
+      *(v11 + 16 * v13 + 8 * v12) = *(v11 + 16 * v13 + 8 * v12) & 0xFFFFFFFFFFFFFFFELL | (v10 >> v12) & 1;
+      v12 = 1;
+    }
+
+    while ((v15 & 1) != 0);
+    ++v10;
+  }
+
+  while (v10 != 4);
+  v16 = v20;
+  v17.n128_f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, v20);
+  return geom::point_tree<double,(unsigned char)2>::partition(a1, v16, 0, 0, *(*(a1 + 28) + 16 * v20), *(*(a1 + 28) + 16 * v20 + 8), v17);
+}
+
+float64x2_t geom::point_tree<double,(unsigned char)2>::bounds(__n128 *a1, unint64_t a2)
+{
+  if (a2)
+  {
+    result.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, a2);
+    v5 = *(a1[12].n128_u64[1] + 16 * a2);
+    v6 = (63 - __clz(v5));
+    if (v5)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    __asm { FMOV            V2.2D, #0.5 }
+
+    v13 = vmulq_f64(*(a1[8].n128_u64[0] + 16 * v7), _Q2);
+    *&result.f64[0] = *&vminnmq_f64(vsubq_f64(result, v13), vminnmq_f64(vaddq_f64(result, v13), vdupq_n_s64(0x7FF0000000000000uLL)));
+  }
+
+  else
+  {
+    return a1[1];
+  }
+
+  return result;
+}
+
+double geom::point_tree<double,(unsigned char)2>::centroid(uint64_t a1, unint64_t a2)
+{
+  v2 = *(a1 + 248);
+  if (a2 >= (*(a1 + 256) - v2) >> 4)
+  {
+    v4 = 0;
+    v5 = (*(a1 + 200) + 16 * a2);
+    v6 = 63 - __clz(*v5);
+    if (*v5)
+    {
+      v7 = v6;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v3 = *(a1 + 64);
+    v18 = *(a1 + 48);
+    v8 = 1;
+    do
+    {
+      v19 = v3;
+      v9 = v8;
+      if (v7)
+      {
+        v10 = v5[v4];
+        v11 = 0.0;
+        v12 = 2;
+        v13 = v7 - 1;
+        do
+        {
+          if ((v10 >> v13))
+          {
+            v14 = 1.0;
+          }
+
+          else
+          {
+            v14 = 0.0;
+          }
+
+          v15 = powf(-1.0, v14);
+          v11 = v11 + v15 * (1.0 / exp2(v12++));
+          --v13;
+        }
+
+        while (v13 != -1);
+      }
+
+      else
+      {
+        v11 = 0.0;
+      }
+
+      v8 = 0;
+      v20 = v18;
+      v16 = *(&v20 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1)));
+      v21 = v19;
+      *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1))) = *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1))) - v16 * v11;
+      v3 = v21;
+      v4 = 1;
+    }
+
+    while ((v9 & 1) != 0);
+  }
+
+  else
+  {
+    v3 = *(v2 + 16 * a2);
+  }
+
+  return *&v3;
+}
+
+__n128 geom::point_tree<double,(unsigned char)2>::sides(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = *(*(a1 + 200) + 16 * a2);
+    v3 = (63 - __clz(v2));
+    if (v2)
+    {
+      v4 = v3;
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return *(*(a1 + 128) + 16 * v4);
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::node(uint64_t a1, unint64_t *a2)
+{
+  v13 = 1;
+  v4 = std::__equal_aligned[abi:nn200100]<std::__bitset<1ul,64ul>,true,true>(a2, 0, (a2 + 1), 0, &v13);
+  result = 0;
+  if ((v4 & 1) == 0)
+  {
+    result = 0;
+    v6 = *a2;
+    if (*a2)
+    {
+      v7 = __clz(v6);
+      if (v7 != 63)
+      {
+        result = 0;
+        v8 = 62 - v7;
+        v9 = (63 - v7) - 1;
+        do
+        {
+          v10 = *(*(a1 + 176) + 8 * result);
+          if (v10 == -1)
+          {
+            break;
+          }
+
+          v11 = ((a2[1] >> v8) & 1) != 0 ? (v6 >> v8) & 1 | 2 : (v6 >> v8) & 1;
+          result = v10 + v11;
+          --v8;
+        }
+
+        while (v9--);
+      }
+    }
+  }
+
+  return result;
+}
+
+unint64_t geom::point_tree<double,(unsigned char)2>::locate(uint64_t a1, float64x2_t *a2)
+{
+  v2 = vorrq_s8(vcgtq_f64(*a2, *(a1 + 32)), vcgtq_f64(*(a1 + 16), *a2));
+  if ((vorrq_s8(vdupq_laneq_s64(v2, 1), v2).u64[0] & 0x8000000000000000) != 0)
+  {
+    return -1;
+  }
+
+  if (**(a1 + 176) == -1)
+  {
+    return 0;
+  }
+
+  v5 = 0;
+  do
+  {
+    *&v6 = geom::point_tree<double,(unsigned char)2>::centroid(a1, v5);
+    v7 = 0;
+    v8 = 0;
+    v9 = *a2;
+    v10 = 1;
+    do
+    {
+      v11 = v10;
+      v20 = v9;
+      v12 = *(&v20 & 0xFFFFFFFFFFFFFFF7 | (8 * (v7 & 1)));
+      v21 = v6;
+      v13 = *(&v21 & 0xFFFFFFFFFFFFFFF7 | (8 * (v7 & 1)));
+      v14 = 1 << v7;
+      v15 = v8 & ~v14;
+      v8 |= v14;
+      if (v12 < v13)
+      {
+        v8 = v15;
+      }
+
+      v7 = 1;
+      v10 = 0;
+    }
+
+    while ((v11 & 1) != 0);
+    v16 = *(a1 + 176);
+    v17 = *(v16 + 8 * v5);
+    v18 = v17 + v8;
+    if (v17 == -1)
+    {
+      v5 = -1;
+    }
+
+    else
+    {
+      v5 = v18;
+    }
+  }
+
+  while (*(v16 + 8 * v5) != -1);
+  return v5;
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::neighbor(void *a1, uint64_t a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    return -1;
+  }
+
+  v3 = (a1[25] + 16 * a2);
+  v4 = 63 - __clz(a3);
+  if ((a3 & 3) == 0)
+  {
+    v4 = 0;
+  }
+
+  if ((a3 & 1) != (v3[v4] & 1))
+  {
+    if (v4 >= 2)
+    {
+LABEL_30:
+      abort();
+    }
+
+    v5 = *v3 & 1 | (2 * (v3[1] & 1));
+    v6 = 1 << v4;
+    if ((v5 & v6) != 0)
+    {
+      v7 = v5 & ~v6;
+    }
+
+    else
+    {
+      v7 = v5 | v6;
+    }
+
+    v8 = *(a1[22] + 8 * *(a1[19] + 8 * a2));
+    v9 = v8 + v7;
+    if (v8 == -1)
+    {
+      return -1;
+    }
+
+    else
+    {
+      return v9;
+    }
+  }
+
+  v11 = 63 - __clz(*v3);
+  v12 = *v3 && v11 >= 2u;
+  if (!v12)
+  {
+    return -1;
+  }
+
+  v13 = v11;
+  v14 = 2;
+  while (((a3 ^ (v3[v4] >> (v14 - 1))) & 1) == 0)
+  {
+    v12 = v14++ >= v13;
+    if (v12)
+    {
+      return -1;
+    }
+  }
+
+  v15 = 0;
+  v17 = *v3;
+  v16 = *(&v17 + v4);
+  do
+  {
+    if (v15 == 64)
+    {
+      goto LABEL_30;
+    }
+
+    if ((v16 & (1 << v15)) != 0)
+    {
+      v16 &= ~(1 << v15);
+    }
+
+    else
+    {
+      v16 |= 1 << v15;
+    }
+
+    ++v15;
+    --v14;
+  }
+
+  while (v14);
+  *(&v17 + v4) = v16;
+  return geom::point_tree<double,(unsigned char)2>::node(a1, &v17);
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::balance(unsigned __int8 *a1)
+{
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v20[0] = &unk_286292DB8;
+  v20[1] = v18;
+  v20[3] = v20;
+  geom::point_tree<double,(unsigned char)2>::traverse(a1, 0, v20);
+  std::__function::__value_func<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::~__value_func[abi:nn200100](v20);
+  v2 = *(&v19 + 1);
+  if (*(&v19 + 1))
+  {
+    while (1)
+    {
+      v3 = *(*(*(&v18[0] + 1) + ((v19 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v19 & 0x1FF));
+      *&v19 = v19 + 1;
+      *(&v19 + 1) = v2 - 1;
+      if (v19 >= 0x400)
+      {
+        operator delete(**(&v18[0] + 1));
+        *(&v18[0] + 1) += 8;
+        *&v19 = v19 - 512;
+      }
+
+      if (*(*(a1 + 22) + 8 * v3) == -1)
+      {
+        break;
+      }
+
+LABEL_26:
+      v2 = *(&v19 + 1);
+      if (!*(&v19 + 1))
+      {
+        return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
+      }
+    }
+
+    v4 = 0;
+    while (1)
+    {
+      v5 = geom::point_tree<double,(unsigned char)2>::neighbor(a1, v3, v4);
+      if (v5 != -1)
+      {
+        v6 = v5;
+        if (*(*(a1 + 22) + 8 * v5) == -1)
+        {
+          break;
+        }
+      }
+
+LABEL_25:
+      if (++v4 == 4)
+      {
+        goto LABEL_26;
+      }
+    }
+
+    if (v3)
+    {
+      v7 = *(*(a1 + 25) + 16 * v3);
+      v8 = (63 - __clz(v7));
+      if (v7)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      if (v5)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+      if (v5)
+      {
+LABEL_13:
+        v10 = *(*(a1 + 25) + 16 * v5);
+        v11 = (63 - __clz(v10));
+        if (v10)
+        {
+          v12 = v11;
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+LABEL_18:
+        if (v9 - v12 >= 2)
+        {
+          geom::point_tree<double,(unsigned char)2>::split(a1, v5);
+          if (*(*(a1 + 22) + 8 * v6) != -1)
+          {
+            for (i = 0; i != 4; ++i)
+            {
+              v14 = *(*(a1 + 22) + 8 * v6);
+              if (v14 == -1)
+              {
+                v15 = -1;
+              }
+
+              else
+              {
+                v15 = i + v14;
+              }
+
+              v17 = v15;
+              std::deque<unsigned long long>::push_back(v18, &v17);
+            }
+          }
+        }
+
+        goto LABEL_25;
+      }
+    }
+
+    v12 = 0;
+    goto LABEL_18;
+  }
+
+  return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
+}
+
+void *geom::point_tree<double,(unsigned char)2>::traverse(void *result, int a2, uint64_t a3)
+{
+  v4 = result;
+  if (a2 == 1)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    v14 = 0;
+    std::deque<unsigned long long>::push_back(&v15, &v14);
+    while (*(&v17 + 1))
+    {
+      v9 = *(*(*(&v15 + 1) + (((v17 + *(&v17 + 1) - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v17 + *(&v17 + 1) - 1) & 0x1FF));
+      --*(&v17 + 1);
+      std::deque<std::pair<unsigned int,unsigned int>>::__maybe_remove_back_spare[abi:nn200100](&v15, 1);
+      std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v9);
+      if (*(v4[22] + 8 * v9) != -1)
+      {
+        for (i = 3; i != -1; --i)
+        {
+          v11 = *(v4[22] + 8 * v9);
+          if (v11 == -1)
+          {
+            v12 = -1;
+          }
+
+          else
+          {
+            v12 = i + v11;
+          }
+
+          v14 = v12;
+          std::deque<unsigned long long>::push_back(&v15, &v14);
+        }
+      }
+    }
+
+    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
+  }
+
+  if (a2 == 2)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    v14 = 0;
+    std::deque<unsigned long long>::push_back(&v15, &v14);
+    while (*(&v17 + 1))
+    {
+      v5 = *(*(*(&v15 + 1) + ((v17 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v17 & 0x1FF));
+      *&v17 = v17 + 1;
+      --*(&v17 + 1);
+      if (v17 >= 0x400)
+      {
+        operator delete(**(&v15 + 1));
+        *(&v15 + 1) += 8;
+        *&v17 = v17 - 512;
+      }
+
+      std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v5);
+      if (*(v4[22] + 8 * v5) != -1)
+      {
+        for (j = 0; j != 4; ++j)
+        {
+          v7 = *(v4[22] + 8 * v5);
+          if (v7 == -1)
+          {
+            v8 = -1;
+          }
+
+          else
+          {
+            v8 = j + v7;
+          }
+
+          v14 = v8;
+          std::deque<unsigned long long>::push_back(&v15, &v14);
+        }
+      }
+    }
+
+    return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
+  }
+
+  if (result[20] != result[19])
+  {
+    v13 = 0;
+    do
+    {
+      result = std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(a3, v4, v13++);
+    }
+
+    while (v13 < (v4[20] - v4[19]) >> 3);
+  }
+
+  return result;
+}
+
+uint64_t std::function<void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = a3;
+  v3 = *(a1 + 24);
+  if (v3)
+  {
+    return (*(*v3 + 48))(v3, a2, &v7);
+  }
+
+  v5 = std::__throw_bad_function_call[abi:nn200100]();
+  return geom::point_tree<double,(unsigned char)2>::find_closest_point(v5, v6);
+}
+
+uint64_t geom::point_tree<double,(unsigned char)2>::find_closest_point(__n128 *a1, float64x2_t a2)
+{
+  __p = 0;
+  v5 = 0;
+  v6 = 0;
+  geom::point_tree<double,(unsigned char)2>::find_k_nearest(a1, 1u, &__p, a2);
+  v2 = *__p;
+  v5 = __p;
+  operator delete(__p);
+  return v2;
+}
+
+void geom::point_tree<double,(unsigned char)2>::find_k_nearest(__n128 *a1, unsigned int a2, void *a3, float64x2_t a4)
+{
+  v69 = *MEMORY[0x277D85DE8];
+  if (a2)
+  {
+    v66 = 0;
+    v67 = 0;
+    v68 = 0;
+    __p = 0;
+    v64 = 0;
+    v65 = 0;
+    *&v62 = 0;
+    v7.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, 0);
+    v8 = vsubq_f64(v7, a4);
+    *(&v62 + 1) = vaddvq_f64(vmulq_f64(v8, v8));
+    std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&__p, &v62);
+    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(__p, v64, &v61, (v64 - __p) >> 4);
+    v9 = __p;
+    v10 = v64;
+    if (__p != v64)
+    {
+      v11 = INFINITY;
+      do
+      {
+        v12 = *v9;
+        v13 = (v10 - v9) >> 4;
+        if (v13 >= 2)
+        {
+          v14 = 0;
+          v62 = *v9;
+          v15 = v9;
+          do
+          {
+            v16 = v15;
+            v15 += 2 * v14 + 2;
+            v17 = 2 * v14;
+            v14 = (2 * v14) | 1;
+            v18 = v17 + 2;
+            if (v18 < v13 && *(v15 + 1) > *(v15 + 3))
+            {
+              v15 += 2;
+              v14 = v18;
+            }
+
+            *v16 = *v15;
+          }
+
+          while (v14 <= ((v13 - 2) >> 1));
+          v19 = (v10 - 16);
+          if (v15 == v19)
+          {
+            *v15 = v62;
+          }
+
+          else
+          {
+            *v15 = *v19;
+            *v19 = v62;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v9, (v15 + 2), &v61, ((v15 + 2) - v9) >> 4);
+          }
+
+          v10 = v64;
+        }
+
+        v64 = v10 - 16;
+        if (*(a1[11].n128_u64[0] + 8 * v12) == -1)
+        {
+          v28 = geom::point_tree<double,(unsigned char)2>::bounds(a1, v12);
+          v30 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(a4, v29), v28), a4);
+          if (vaddvq_f64(vmulq_f64(v30, v30)) <= v11 * v11)
+          {
+            v31 = (a1[14].n128_u64[0] + 16 * v12);
+            v32 = *v31;
+            v33 = v31[1];
+            if (v32 != v33)
+            {
+              v34 = a1[6].n128_u64[1];
+              v35 = (v34 + 8 * v33);
+              v36 = (v34 + 8 * v32);
+              do
+              {
+                v37 = *v36;
+                v38 = vsubq_f64(*(a1[5].n128_u64[0] + 16 * *v36), a4);
+                v39 = vaddvq_f64(vmulq_f64(v38, v38));
+                v40 = v66;
+                v41 = v67;
+                v42 = (v67 - v66) >> 4;
+                if (v42 == a2 && v39 < *(v66 + 1))
+                {
+                  if (a2 != 1)
+                  {
+                    v43 = 0;
+                    v62 = *v66;
+                    v44 = v66;
+                    do
+                    {
+                      v45 = v44;
+                      v44 += 16 * v43 + 16;
+                      v46 = 2 * v43;
+                      v43 = (2 * v43) | 1;
+                      v47 = v46 + 2;
+                      if (v47 < a2 && *(v44 + 1) < *(v44 + 3))
+                      {
+                        v44 += 16;
+                        v43 = v47;
+                      }
+
+                      *v45 = *v44;
+                    }
+
+                    while (v43 <= ((a2 - 2) >> 1));
+                    v48 = v41 - 16;
+                    if (v44 == v48)
+                    {
+                      *v44 = v62;
+                    }
+
+                    else
+                    {
+                      *v44 = *v48;
+                      *v48 = v62;
+                      std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v40, (v44 + 16), &v61, (v44 + 16 - v40) >> 4);
+                    }
+
+                    v40 = v66;
+                    v41 = v67;
+                  }
+
+                  v67 = v41 - 16;
+                  v42 = (v41 - 16 - v40) >> 4;
+                }
+
+                if (v42 < a2)
+                {
+                  *&v62 = v37;
+                  *(&v62 + 1) = v39;
+                  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v66, &v62);
+                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v66, v67, &v61, (v67 - v66) >> 4);
+                }
+
+                ++v36;
+              }
+
+              while (v36 != v35);
+            }
+
+            if (a2 == (v67 - v66) >> 4)
+            {
+              v11 = *(v66 + 1);
+            }
+          }
+        }
+
+        else
+        {
+          for (i = 0; i != 4; ++i)
+          {
+            v21 = *(a1[11].n128_u64[0] + 8 * v12);
+            if (v21 == -1)
+            {
+              v22 = -1;
+            }
+
+            else
+            {
+              v22 = i + v21;
+            }
+
+            if (*(a1[14].n128_u64[0] + 16 * v22 + 8) != *(a1[14].n128_u64[0] + 16 * v22))
+            {
+              v23 = geom::point_tree<double,(unsigned char)2>::bounds(a1, v22);
+              v25 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(a4, v24), v23), a4);
+              if (vaddvq_f64(vmulq_f64(v25, v25)) <= v11 * v11)
+              {
+                *&v62 = v22;
+                v26.f64[0] = geom::point_tree<double,(unsigned char)2>::centroid(a1, v22);
+                v27 = vsubq_f64(v26, a4);
+                *(&v62 + 1) = vaddvq_f64(vmulq_f64(v27, v27));
+                std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&__p, &v62);
+                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(__p, v64, &v61, (v64 - __p) >> 4);
+              }
+            }
+          }
+        }
+
+        v9 = __p;
+        v10 = v64;
+      }
+
+      while (__p != v64);
+    }
+
+    std::vector<double>::resize(a3, (v67 - v66) >> 4);
+    v49 = a3[1] - *a3;
+    if (v49)
+    {
+      v50 = v49 >> 3;
+      v51 = v67;
+      do
+      {
+        v52 = v66;
+        --v50;
+        *(*a3 + 8 * v50) = *v66;
+        v53 = (v51 - v52) >> 4;
+        if (v53 >= 2)
+        {
+          v54 = 0;
+          v62 = *v52;
+          v55 = v52;
+          do
+          {
+            v56 = v55;
+            v55 += 16 * v54 + 16;
+            v57 = 2 * v54;
+            v54 = (2 * v54) | 1;
+            v58 = v57 + 2;
+            if (v58 < v53 && *(v55 + 1) < *(v55 + 3))
+            {
+              v55 += 16;
+              v54 = v58;
+            }
+
+            *v56 = *v55;
+          }
+
+          while (v54 <= ((v53 - 2) >> 1));
+          v59 = v51 - 16;
+          if (v55 == v59)
+          {
+            *v55 = v62;
+          }
+
+          else
+          {
+            *v55 = *v59;
+            *v59 = v62;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v52, (v55 + 16), &v61, (v55 + 16 - v52) >> 4);
+          }
+
+          v51 = v67;
+        }
+
+        v51 -= 16;
+        v67 = v51;
+      }
+
+      while (v50);
+    }
+
+    if (__p)
+    {
+      v64 = __p;
+      operator delete(__p);
+    }
+
+    if (v66)
+    {
+      v67 = v66;
+      operator delete(v66);
+    }
+  }
+
+  else
+  {
+    a3[1] = *a3;
+  }
+}
+
+void geom::point_tree<double,(unsigned char)2>::precompute_cell_data(void *a1)
+{
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(a1 + 31, (a1[20] - a1[19]) >> 3);
+  if (a1[20] - a1[19] >= 9uLL)
+  {
+    v2 = 1;
+    do
+    {
+      *&v3 = geom::point_tree<double,(unsigned char)2>::centroid(a1, v2);
+      v4 = v3;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_((a1 + 31), &v4);
+      ++v2;
+    }
+
+    while (v2 < (a1[20] - a1[19]) >> 3);
+  }
+}
+
+void *geom::point_tree<double,(unsigned char)2>::partition(void *result, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
+{
+  v9 = result;
+  if (a3 != 2)
+  {
+    v10 = a3;
+    v11 = 8 * a5;
+    v24 = a6;
+    v12 = 8 * a6;
+    do
+    {
+      v13 = v9[13];
+      v14 = (v11 + v13);
+      if (v11 != v12)
+      {
+        v15 = (v11 + v13);
+        v14 = (v12 + v13);
+        v16 = v9[10];
+        v26 = a7;
+        v17 = *(&v26 & 0xFFFFFFFFFFFFFFF7 | (8 * (v10 & 1)));
+        while (2)
+        {
+          while (1)
+          {
+            v18 = *v15;
+            if (*(v16 + 16 * *v15 + 8 * (v10 & 1)) >= v17)
+            {
+              break;
+            }
+
+            if (++v15 == v14)
+            {
+              goto LABEL_13;
+            }
+          }
+
+          do
+          {
+            if (--v14 == v15)
+            {
+              v14 = v15;
+              goto LABEL_13;
+            }
+          }
+
+          while (*(v16 + 16 * *v14 + 8 * (v10 & 1)) >= v17);
+          *v15++ = *v14;
+          *v14 = v18;
+          if (v14 != v15)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+LABEL_13:
+      v11 = v14 - v13;
+      v19 = (v14 - v13) >> 3;
+      v20 = 1 << v10++;
+      result = geom::point_tree<double,(unsigned char)2>::partition(v9, a2, v10, a4 & ~v20, a5, v19, a7);
+      a4 |= v20;
+      a5 = v19;
+    }
+
+    while (v10 != 2);
+    a5 = v19;
+    a6 = v24;
+  }
+
+  v21 = *(v9[22] + 8 * a2);
+  if (v21 == -1)
+  {
+    v22 = -1;
+  }
+
+  else
+  {
+    v22 = v21 + a4;
+  }
+
+  v23 = (v9[28] + 16 * v22);
+  *v23 = a5;
+  v23[1] = a6;
+  return result;
+}
+
 uint64_t geom::point_tree<double,(unsigned char)3>::point_tree(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a4, int a5, double a6, __n128 a7, __n128 a8)
 {
   *a1 = 0;
@@ -264,14 +2215,6 @@ uint64_t geom::point_tree<double,(unsigned char)3>::point_tree(uint64_t a1, uint
   return a1;
 }
 
-uint64_t geom::point_tree<double,(unsigned char)3>::data(uint64_t a1, uint64_t a2)
-{
-  v2 = (*(a1 + 288) + 16 * a2);
-  result = *(a1 + 168) + 8 * *v2;
-  v4 = v2[1] - *v2;
-  return result;
-}
-
 uint64_t geom::point_tree<double,(unsigned char)3>::depth(uint64_t a1, uint64_t a2)
 {
   if (a2)
@@ -389,12 +2332,12 @@ __n128 geom::point_tree<double,(unsigned char)3>::bounds@<Q0>(uint64_t a1@<X0>, 
   return result;
 }
 
-void geom::point_tree<double,(unsigned char)3>::bounds(uint64_t a1@<X0>, unint64_t a2@<X1>, float64x2_t *a3@<X8>, __n128 a4@<Q0>)
+float64x2_t geom::point_tree<double,(unsigned char)3>::bounds@<Q0>(uint64_t a1@<X0>, unint64_t a2@<X1>, float64x2_t *a3@<X8>, __n128 a4@<Q0>)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    geom::point_tree<double,(unsigned char)3>::centroid(a1, a2, &v27, a4);
+    geom::point_tree<double,(unsigned char)3>::centroid(a1, a2, &v26, a4);
     v7 = 0;
     v8 = *(*(a1 + 264) + 24 * a2);
     v9 = (63 - __clz(v8));
@@ -413,19 +2356,19 @@ void geom::point_tree<double,(unsigned char)3>::bounds(uint64_t a1@<X0>, unint64
 
     v21 = vmulq_f64(v11[1], _Q4);
     v17 = vmulq_f64(*v11, _Q4);
-    v29[0] = vaddq_f64(v27, v17);
-    v29[1] = vaddq_f64(v28, v21);
-    v29[2] = vsubq_f64(v27, v17);
-    v29[3] = vsubq_f64(v28, v21);
-    v18 = vdupq_n_s64(0x7FF0000000000000uLL);
+    v28[0] = vaddq_f64(v26, v17);
+    v28[1] = vaddq_f64(v27, v21);
+    v28[2] = vsubq_f64(v26, v17);
+    v28[3] = vsubq_f64(v27, v21);
+    result = vdupq_n_s64(0x7FF0000000000000uLL);
     v19.f64[0] = INFINITY;
     v20 = vdupq_n_s64(0xFFF0000000000000);
     v21.f64[0] = -INFINITY;
     do
     {
-      v22 = v29[v7];
-      v23 = v29[v7 + 1];
-      v18 = vminnmq_f64(v22, v18);
+      v22 = v28[v7];
+      v23 = v28[v7 + 1];
+      result = vminnmq_f64(v22, result);
       v19 = vminnmq_f64(v23, *&v19.f64[0]);
       v20 = vmaxnmq_f64(v22, v20);
       v21 = vmaxnmq_f64(v23, *&v21.f64[0]);
@@ -433,7 +2376,7 @@ void geom::point_tree<double,(unsigned char)3>::bounds(uint64_t a1@<X0>, unint64
     }
 
     while (v7 != 4);
-    *a3 = v18;
+    *a3 = result;
     a3[1] = v19;
     a3[2] = v20;
     a3[3] = v21;
@@ -444,12 +2387,13 @@ void geom::point_tree<double,(unsigned char)3>::bounds(uint64_t a1@<X0>, unint64
     v24 = *(a1 + 32);
     *a3 = *(a1 + 16);
     a3[1] = v24;
+    result = *(a1 + 48);
     v25 = *(a1 + 64);
-    a3[2] = *(a1 + 48);
+    a3[2] = result;
     a3[3] = v25;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void geom::point_tree<double,(unsigned char)3>::centroid(uint64_t a1@<X0>, unint64_t a2@<X1>, _OWORD *a3@<X8>, __n128 a4@<Q0>)
@@ -624,7 +2568,7 @@ uint64_t geom::point_tree<double,(unsigned char)3>::node(uint64_t a1, unint64_t 
   return result;
 }
 
-uint64_t geom::point_tree<double,(unsigned char)3>::locate(uint64_t a1, float64x2_t *a2)
+unint64_t geom::point_tree<double,(unsigned char)3>::locate(uint64_t a1, float64x2_t *a2)
 {
   v2 = vorr_s8(vmovn_s64(vcgtq_f64(a2[1], *(a1 + 64))), vmovn_s64(vcgtq_f64(*(a1 + 32), a2[1])));
   v3.i64[0] = v2.u32[0];
@@ -804,27 +2748,27 @@ LABEL_34:
 
 uint64_t geom::point_tree<double,(unsigned char)3>::balance(unsigned __int8 *a1)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
-  v20 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v21[0] = &unk_286292E38;
-  v21[1] = v19;
-  v21[3] = v21;
-  geom::point_tree<double,(unsigned char)3>::traverse(a1, 0, v21);
-  std::__function::__value_func<void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::~__value_func[abi:nn200100](v21);
-  v2 = *(&v20 + 1);
-  if (*(&v20 + 1))
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v20[0] = &unk_286292E38;
+  v20[1] = v18;
+  v20[3] = v20;
+  geom::point_tree<double,(unsigned char)3>::traverse(a1, 0, v20);
+  std::__function::__value_func<void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::~__value_func[abi:nn200100](v20);
+  v2 = *(&v19 + 1);
+  if (*(&v19 + 1))
   {
     while (1)
     {
-      v3 = *(*(*(&v19[0] + 1) + ((v20 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v20 & 0x1FF));
-      *&v20 = v20 + 1;
-      *(&v20 + 1) = v2 - 1;
-      if (v20 >= 0x400)
+      v3 = *(*(*(&v18[0] + 1) + ((v19 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v19 & 0x1FF));
+      *&v19 = v19 + 1;
+      *(&v19 + 1) = v2 - 1;
+      if (v19 >= 0x400)
       {
-        operator delete(**(&v19[0] + 1));
-        *(&v19[0] + 1) += 8;
-        *&v20 = v20 - 512;
+        operator delete(**(&v18[0] + 1));
+        *(&v18[0] + 1) += 8;
+        *&v19 = v19 - 512;
       }
 
       if (*(*(a1 + 30) + 8 * v3) == -1)
@@ -833,10 +2777,10 @@ uint64_t geom::point_tree<double,(unsigned char)3>::balance(unsigned __int8 *a1)
       }
 
 LABEL_26:
-      v2 = *(&v20 + 1);
-      if (!*(&v20 + 1))
+      v2 = *(&v19 + 1);
+      if (!*(&v19 + 1))
       {
-        goto LABEL_27;
+        return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
       }
     }
 
@@ -917,8 +2861,8 @@ LABEL_18:
                 v15 = i + v14;
               }
 
-              v18 = v15;
-              std::deque<unsigned long long>::push_back(v19, &v18);
+              v17 = v15;
+              std::deque<unsigned long long>::push_back(v18, &v17);
             }
           }
         }
@@ -931,13 +2875,10 @@ LABEL_18:
     goto LABEL_18;
   }
 
-LABEL_27:
-  result = std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v19);
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](v18);
 }
 
-uint64_t geom::point_tree<double,(unsigned char)3>::traverse(uint64_t result, int a2, uint64_t a3)
+void *geom::point_tree<double,(unsigned char)3>::traverse(void *result, int a2, uint64_t a3)
 {
   v4 = result;
   if (a2 == 1)
@@ -1021,7 +2962,7 @@ uint64_t geom::point_tree<double,(unsigned char)3>::traverse(uint64_t result, in
     return std::deque<std::pair<unsigned int,unsigned int>>::~deque[abi:nn200100](&v15);
   }
 
-  if (*(result + 224) != *(result + 216))
+  if (result[28] != result[27])
   {
     v13 = 0;
     do
@@ -1037,15 +2978,15 @@ uint64_t geom::point_tree<double,(unsigned char)3>::traverse(uint64_t result, in
 
 uint64_t std::function<void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a3;
+  v7 = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, a2, &v6);
+    return (*(*v3 + 48))(v3, a2, &v7);
   }
 
   v5 = std::__throw_bad_function_call[abi:nn200100]();
-  return geom::point_tree<double,(unsigned char)3>::find_closest_point(v5);
+  return geom::point_tree<double,(unsigned char)3>::find_closest_point(v5, v6);
 }
 
 uint64_t geom::point_tree<double,(unsigned char)3>::find_closest_point(void *a1, __int128 *a2)
@@ -1066,30 +3007,30 @@ uint64_t geom::point_tree<double,(unsigned char)3>::find_closest_point(void *a1,
 
 void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD *a2, unsigned int a3, void *a4)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v7 = *a2;
-    v63 = *a2;
-    v64 = *(a2 + 1);
+    v62 = *a2;
+    v63 = *(a2 + 1);
+    v74 = 0;
     v75 = 0;
     v76 = 0;
-    v77 = 0;
+    v71 = 0;
     v72 = 0;
     v73 = 0;
-    v74 = 0;
-    v66.n128_u64[0] = 0;
-    geom::point_tree<double,(unsigned char)3>::centroid(a1, 0, v70, v7);
-    v8 = vsubq_f64(v70[0], v63);
-    v9 = vsubq_f64(v70[1], v64);
-    v66.n128_f64[1] = vmulq_f64(v9, v9).f64[0] + vaddvq_f64(vmulq_f64(v8, v8));
-    std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v72, &v66);
-    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v72, v73, &v71, (v73 - v72) >> 4);
-    v10 = v72;
-    v11 = v73;
-    if (v72 != v73)
+    v65.n128_u64[0] = 0;
+    geom::point_tree<double,(unsigned char)3>::centroid(a1, 0, v69, v7);
+    v8 = vsubq_f64(v69[0], v62);
+    v9 = vsubq_f64(v69[1], v63);
+    v65.n128_f64[1] = vmulq_f64(v9, v9).f64[0] + vaddvq_f64(vmulq_f64(v8, v8));
+    std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v71, &v65);
+    std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v71, v72, &v70, (v72 - v71) >> 4);
+    v10 = v71;
+    v11 = v72;
+    if (v71 != v72)
     {
-      v12 = *&v64.f64[0];
+      v12 = *&v63.f64[0];
       v13 = INFINITY;
       do
       {
@@ -1098,7 +3039,7 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
         if (v15 >= 2)
         {
           v16 = 0;
-          v66 = *v10;
+          v65 = *v10;
           v17 = v10;
           do
           {
@@ -1120,26 +3061,26 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
           v21 = (v11 - 2);
           if (v17 == v21)
           {
-            v12 = v66;
-            *v17 = v66;
+            v12 = v65;
+            *v17 = v65;
           }
 
           else
           {
             *v17 = *v21;
-            *v21 = v66;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v10, (v17 + 2), &v71, ((v17 + 2) - v10) >> 4);
+            *v21 = v65;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v10, (v17 + 2), &v70, ((v17 + 2) - v10) >> 4);
           }
 
-          v11 = v73;
+          v11 = v72;
         }
 
-        v73 = v11 - 2;
+        v72 = v11 - 2;
         if (*(a1[30] + 8 * v14) == -1)
         {
-          geom::point_tree<double,(unsigned char)3>::bounds(a1, v14, &v66, v12);
-          v29 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(v63, v68), v66), v63);
-          v30 = vsubq_f64(vmaxnmq_f64(*&vminnmq_f64(*&v64.f64[0], v69), v67), v64);
+          geom::point_tree<double,(unsigned char)3>::bounds(a1, v14, &v65, v12);
+          v29 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(v62, v67), v65), v62);
+          v30 = vsubq_f64(vmaxnmq_f64(*&vminnmq_f64(*&v63.f64[0], v68), v66), v63);
           v12 = vmulq_f64(v29, v29);
           v12.n128_f64[0] = vmulq_f64(v30, v30).f64[0] + vaddvq_f64(v12);
           if (v12.n128_f64[0] <= v13 * v13)
@@ -1156,23 +3097,23 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
               {
                 v37 = *v36;
                 v38 = (a1[18] + 32 * *v36);
-                v39 = vsubq_f64(*v38, v63);
-                v40 = vsubq_f64(v38[1], v64);
+                v39 = vsubq_f64(*v38, v62);
+                v40 = vsubq_f64(v38[1], v63);
                 v12 = vmulq_f64(v40, v40);
                 v41 = v12.n128_f64[0] + vaddvq_f64(vmulq_f64(v39, v39));
-                v42 = v75;
-                v43 = v76;
-                v44 = v76 - v75;
+                v42 = v74;
+                v43 = v75;
+                v44 = v75 - v74;
                 if (v44 == a3)
                 {
-                  v12.n128_u64[0] = *&v75->f64[1];
+                  v12.n128_u64[0] = *&v74->f64[1];
                   if (v41 < v12.n128_f64[0])
                   {
                     if (a3 != 1)
                     {
                       v45 = 0;
-                      v66 = *v75;
-                      v46 = v75;
+                      v65 = *v74;
+                      v46 = v74;
                       do
                       {
                         v47 = v46;
@@ -1193,32 +3134,32 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
                       v50 = &v43[-1];
                       if (v46 == v50)
                       {
-                        v12 = v66;
-                        *v46 = v66;
+                        v12 = v65;
+                        *v46 = v65;
                       }
 
                       else
                       {
                         *v46 = *v50;
-                        *v50 = v66;
-                        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v42, &v46[1], &v71, (&v46[1] - v42) >> 4);
+                        *v50 = v65;
+                        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v42, &v46[1], &v70, (&v46[1] - v42) >> 4);
                       }
 
-                      v42 = v75;
-                      v43 = v76;
+                      v42 = v74;
+                      v43 = v75;
                     }
 
-                    v76 = v43 - 1;
+                    v75 = v43 - 1;
                     v44 = &v43[-1] - v42;
                   }
                 }
 
                 if (v44 < a3)
                 {
-                  v66.n128_f64[0] = v37;
-                  v66.n128_f64[1] = v41;
-                  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v75, &v66);
-                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v75, v76, &v71, v76 - v75);
+                  v65.n128_f64[0] = v37;
+                  v65.n128_f64[1] = v41;
+                  std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v74, &v65);
+                  std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v74, v75, &v70, v75 - v74);
                 }
 
                 ++v36;
@@ -1227,9 +3168,9 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
               while (v36 != v35);
             }
 
-            if (a3 == v76 - v75)
+            if (a3 == v75 - v74)
             {
-              v13 = v75->f64[1];
+              v13 = v74->f64[1];
             }
           }
         }
@@ -1251,48 +3192,48 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
 
             if (*(a1[36] + 16 * v24 + 8) != *(a1[36] + 16 * v24))
             {
-              geom::point_tree<double,(unsigned char)3>::bounds(a1, v24, &v66, v12);
-              v25 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(v63, v68), v66), v63);
-              v26 = vsubq_f64(vmaxnmq_f64(*&vminnmq_f64(*&v64.f64[0], v69), v67), v64);
+              geom::point_tree<double,(unsigned char)3>::bounds(a1, v24, &v65, v12);
+              v25 = vsubq_f64(vmaxnmq_f64(vminnmq_f64(v62, v67), v65), v62);
+              v26 = vsubq_f64(vmaxnmq_f64(*&vminnmq_f64(*&v63.f64[0], v68), v66), v63);
               v12 = vmulq_f64(v26, v26);
               v12.n128_f64[0] = v12.n128_f64[0] + vaddvq_f64(vmulq_f64(v25, v25));
               if (v12.n128_f64[0] <= v13 * v13)
               {
-                v66.n128_u64[0] = v24;
-                geom::point_tree<double,(unsigned char)3>::centroid(a1, v24, v65, v12);
-                v27 = vsubq_f64(v65[0], v63);
-                v28 = vsubq_f64(v65[1], v64);
-                v66.n128_f64[1] = vmulq_f64(v28, v28).f64[0] + vaddvq_f64(vmulq_f64(v27, v27));
-                std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v72, &v66);
-                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v72, v73, &v71, (v73 - v72) >> 4);
+                v65.n128_u64[0] = v24;
+                geom::point_tree<double,(unsigned char)3>::centroid(a1, v24, v64, v12);
+                v27 = vsubq_f64(v64[0], v62);
+                v28 = vsubq_f64(v64[1], v63);
+                v65.n128_f64[1] = vmulq_f64(v28, v28).f64[0] + vaddvq_f64(vmulq_f64(v27, v27));
+                std::vector<std::array<std::bitset<64ul>,2ul>>::push_back[abi:nn200100](&v71, &v65);
+                std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::greater<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v71, v72, &v70, (v72 - v71) >> 4);
               }
             }
           }
         }
 
-        v10 = v72;
-        v11 = v73;
+        v10 = v71;
+        v11 = v72;
       }
 
-      while (v72 != v73);
+      while (v71 != v72);
     }
 
-    std::vector<double>::resize(a4, v76 - v75);
+    std::vector<double>::resize(a4, v75 - v74);
     v51 = a4[1] - *a4;
     if (v51)
     {
       v52 = v51 >> 3;
-      v53 = v76;
+      v53 = v75;
       do
       {
-        v54 = v75;
+        v54 = v74;
         --v52;
-        *(*a4 + 8 * v52) = v75->f64[0];
+        *(*a4 + 8 * v52) = v74->f64[0];
         v55 = v53 - v54;
         if (v55 >= 2)
         {
           v56 = 0;
-          v66 = *v54;
+          v65 = *v54;
           v57 = v54;
           do
           {
@@ -1314,35 +3255,35 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
           v61 = v53 - 1;
           if (v57 == v61)
           {
-            *v57 = v66;
+            *v57 = v65;
           }
 
           else
           {
             *v57 = *v61;
-            *v61 = v66;
-            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v54, &v57[1], &v71, &v57[1] - v54);
+            *v61 = v65;
+            std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,std::less<geom::point_tree<double,(unsigned char)2>::distance_query_item> &,std::__wrap_iter<geom::point_tree<double,(unsigned char)2>::distance_query_item*>>(v54, &v57[1], &v70, &v57[1] - v54);
           }
 
-          v53 = v76;
+          v53 = v75;
         }
 
-        v76 = --v53;
+        v75 = --v53;
       }
 
       while (v52);
     }
 
-    if (v72)
+    if (v71)
     {
-      v73 = v72;
-      operator delete(v72);
+      v72 = v71;
+      operator delete(v71);
     }
 
-    if (v75)
+    if (v74)
     {
-      v76 = v75;
-      operator delete(v75);
+      v75 = v74;
+      operator delete(v74);
     }
   }
 
@@ -1350,8 +3291,6 @@ void geom::point_tree<double,(unsigned char)3>::find_k_nearest(void *a1, _OWORD 
   {
     a4[1] = *a4;
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void geom::point_tree<double,(unsigned char)3>::precompute_cell_data(void *a1)
@@ -1375,138 +3314,144 @@ void geom::point_tree<double,(unsigned char)3>::precompute_cell_data(void *a1)
 
 void *geom::point_tree<double,(unsigned char)3>::partition(void *result, uint64_t a2, int a3, uint64_t a4, __int128 *a5, uint64_t a6, uint64_t a7)
 {
-  v9 = result;
+  v10 = result;
   if (a3 == 3)
   {
-    v10 = *(result[30] + 8 * a2);
-    if (v10 == -1)
+    v11 = *(result[30] + 8 * a2);
+    if (v11 == -1)
     {
-      v11 = -1;
+      v12 = -1;
     }
 
     else
     {
-      v11 = v10 + a4;
+      v12 = v11 + a4;
     }
 
-    v12 = (result[36] + 16 * v11);
-    *v12 = a6;
-    v12[1] = a7;
+    v13 = (result[36] + 16 * v12);
+    *v13 = a6;
+    v13[1] = a7;
   }
 
   else
   {
-    v13 = *a5;
-    v14 = a5[1];
-    v15 = result[21];
+    v14 = *a5;
+    v15 = a5[1];
+    v16 = result[21];
+    v17 = (v16 + 8 * a6);
     if (8 * a6 != 8 * a7)
     {
-      v16 = (v15 + 8 * a6);
-      v17 = (8 * a7 + v15);
-      v18 = result[18];
-      v32[0] = *a5;
-      v32[1] = v14;
-      v19 = *(v32 + (a3 & 3));
-LABEL_8:
-      while (1)
+      v18 = (v16 + 8 * a6);
+      v17 = (8 * a7 + v16);
+      v19 = result[18];
+      v34[0] = *a5;
+      v34[1] = v15;
+      v20 = *(v34 + (a3 & 3));
+      while (2)
       {
-        v20 = *v16;
-        v21 = (v18 + 32 * *v16);
-        v22 = v21[1];
-        v31[0] = *v21;
-        v31[1] = v22;
-        if (*(v31 + (a3 & 3)) >= v19)
+        while (1)
         {
-          break;
-        }
-
-        if (++v16 == v17)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      while (--v17 != v16)
-      {
-        v23 = *v17;
-        v24 = (v18 + 32 * *v17);
-        v25 = v24[1];
-        v30[0] = *v24;
-        v30[1] = v25;
-        if (*(v30 + (a3 & 3)) < v19)
-        {
-          *v16++ = v23;
-          *v17 = v20;
-          if (v17 != v16)
+          v21 = *v18;
+          v22 = (v19 + 32 * *v18);
+          v23 = v22[1];
+          v33[0] = *v22;
+          v33[1] = v23;
+          if (*(v33 + (a3 & 3)) >= v20)
           {
-            goto LABEL_8;
+            break;
           }
 
-          break;
+          if (++v18 == v17)
+          {
+            goto LABEL_16;
+          }
         }
+
+        do
+        {
+          if (--v17 == v18)
+          {
+            v17 = v18;
+            goto LABEL_16;
+          }
+
+          v24 = *v17;
+          v25 = (v19 + 32 * *v17);
+          v26 = v25[1];
+          v32[0] = *v25;
+          v32[1] = v26;
+        }
+
+        while (*(v32 + (a3 & 3)) >= v20);
+        *v18++ = v24;
+        *v17 = v21;
+        if (v17 != v18)
+        {
+          continue;
+        }
+
+        break;
       }
     }
 
-LABEL_14:
-    v26 = 1 << a3;
-    v27 = a3 + 1;
-    v33 = v13;
-    v34 = v14;
-    v28 = v14;
-    v29 = v13;
-    geom::point_tree<double,(unsigned char)3>::partition(v9, a2, (a3 + 1), a4 & ~(1 << a3), &v33);
-    v33 = v29;
-    v34 = v28;
-    return geom::point_tree<double,(unsigned char)3>::partition(v9, a2, v27, v26 | a4, &v33);
+LABEL_16:
+    v27 = (v17 - v16) >> 3;
+    v28 = 1 << a3;
+    v29 = a3 + 1;
+    v35 = v14;
+    v36 = v15;
+    v30 = v15;
+    v31 = v14;
+    geom::point_tree<double,(unsigned char)3>::partition(v10, a2, (a3 + 1), a4 & ~(1 << a3), &v35, a6, v27);
+    v35 = v31;
+    v36 = v30;
+    return geom::point_tree<double,(unsigned char)3>::partition(v10, a2, v29, v28 | a4, &v35, v27, a7);
   }
 
   return result;
 }
 
-void *std::deque<unsigned long long>::push_back(void *result, void *a2)
+void std::deque<unsigned long long>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<unsigned long long>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<unsigned long long>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<unsigned long long>::__add_back_capacity(void *a1)
+void std::deque<unsigned long long>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1514,25 +3459,25 @@ void *std::deque<unsigned long long>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(a1, &v9);
 }
 
 uint64_t std::__equal_aligned[abi:nn200100]<std::__bitset<1ul,64ul>,true,true>(void *a1, unsigned int a2, uint64_t a3, unsigned int a4, void *a5)
@@ -1599,15 +3544,13 @@ uint64_t std::__function::__func<geom::point_tree<float,(unsigned char)2>::balan
   return result;
 }
 
-void *std::__function::__func<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
+void std::__function::__func<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
 {
   v3 = *a3;
   if (*(*(a2 + 136) + 8 * v3) == -1)
   {
-    return std::deque<unsigned long long>::push_back(result[1], &v3);
+    std::deque<unsigned long long>::push_back(result[1], &v3);
   }
-
-  return result;
 }
 
 uint64_t std::__function::__func<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)2> const&,unsigned long long)>::target(uint64_t a1, uint64_t a2)
@@ -1936,55 +3879,54 @@ unsigned int *std::__copy_backward_aligned[abi:nn200100]<std::__bitset<1ul,64ul>
   {
     if (v6)
     {
-      v11 = 8 * (*a2 - *result) - v7 < 0;
       if (v8 >= v6)
       {
-        v12 = *(a2 + 8);
+        v11 = *(a2 + 8);
       }
 
       else
       {
-        v12 = v6 + 8 * (*a2 - *result) - v7;
+        v11 = v6 + 8 * (*a2 - *result) - v7;
       }
 
-      v8 -= v12;
-      v13 = (-1 << (v6 - v12)) & (0xFFFFFFFFFFFFFFFFLL >> -v6);
-      *v9 = *v9 & ~v13 | **a2 & v13;
-      *(a3 + 8) = (*(a3 + 8) - v12) & 0x3F;
+      v8 -= v11;
+      v12 = (-1 << (v6 - v11)) & (0xFFFFFFFFFFFFFFFFLL >> -v6);
+      *v9 = *v9 & ~v12 | **a2 & v12;
+      *(a3 + 8) = (*(a3 + 8) - v11) & 0x3F;
     }
 
     if (v8 >= 0)
     {
-      v14 = v8;
+      v13 = v8;
     }
 
     else
     {
-      v14 = v8 + 63;
+      v13 = v8 + 63;
     }
 
-    v15 = v14 >> 6;
-    *a3 = &v9[-(v14 >> 6)];
-    v16 = (*a2 - 8 * (v14 >> 6));
-    *a2 = v16;
+    v14 = v13 >> 6;
+    *a3 = &v9[-(v13 >> 6)];
+    v15 = (*a2 - 8 * (v13 >> 6));
+    *a2 = v15;
     if ((v8 + 63) >= 0x7F)
     {
-      result = memmove(*a3, v16, 8 * v15);
+      result = memmove(*a3, v15, 8 * v14);
     }
 
-    if (v8 - (v15 << 6) <= 0)
+    if (v8 - (v14 << 6) <= 0)
     {
       v9 = *a3;
     }
 
     else
     {
-      v17 = *(*a2 - 8);
+      v16 = *(*a2 - 8);
       *a2 -= 8;
       v9 = (*a3 - 8);
-      v18 = *v9;
+      v17 = *v9;
       *a3 = v9;
-      *v9 = v18 & ~(-1 << ((v15 << 6) - v8)) | v17 & (-1 << ((v15 << 6) - v8));
+      *v9 = v17 & ~(-1 << ((v14 << 6) - v8)) | v16 & (-1 << ((v14 << 6) - v8));
       *(a3 + 8) = -v8 & 0x3F;
     }
   }
@@ -2001,140 +3943,139 @@ unint64_t std::__copy_backward_unaligned[abi:nn200100]<std::__bitset<1ul,64ul>,f
   v6 = v4 + 8 * (*a2 - *result) - v5;
   if (v6 <= 0)
   {
-    v17 = *(a3 + 8);
+    v16 = *(a3 + 8);
   }
 
   else
   {
     if (v4)
     {
-      v7 = 8 * (*a2 - *result) - v5 < 0;
       if (v6 >= v4)
       {
-        v8 = *(a2 + 8);
+        v7 = *(a2 + 8);
       }
 
       else
       {
-        v8 = v4 + 8 * (*a2 - *result) - v5;
+        v7 = v4 + 8 * (*a2 - *result) - v5;
       }
 
-      v6 -= v8;
-      v9 = (-1 << (v4 - v8)) & (0xFFFFFFFFFFFFFFFFLL >> -v4) & **a2;
-      v10 = *(a3 + 8);
-      if (v8 >= v10)
+      v6 -= v7;
+      v8 = (-1 << (v4 - v7)) & (0xFFFFFFFFFFFFFFFFLL >> -v4) & **a2;
+      v9 = *(a3 + 8);
+      if (v7 >= v9)
       {
-        v11 = *(a3 + 8);
+        v10 = *(a3 + 8);
       }
 
       else
       {
-        v11 = v8;
+        v10 = v7;
       }
 
-      if (v10)
+      if (v9)
       {
-        v12 = v9 >> (v4 - v10);
-        v13 = v10 >= v4;
-        v15 = v10 - v4;
-        v14 = v15 != 0 && v13;
-        v16 = v9 << v15;
-        if (!v14)
+        v11 = v8 >> (v4 - v9);
+        v12 = v9 >= v4;
+        v14 = v9 - v4;
+        v13 = v14 != 0 && v12;
+        v15 = v8 << v14;
+        if (!v13)
         {
-          v16 = v12;
+          v15 = v11;
         }
 
-        **a3 = **a3 & ~((-1 << (v10 - v11)) & (0xFFFFFFFFFFFFFFFFLL >> -v10)) | v16;
-        v17 = (v10 - v11) & 0x3F;
-        *(a3 + 8) = v17;
-        v8 -= v11;
+        **a3 = **a3 & ~((-1 << (v9 - v10)) & (0xFFFFFFFFFFFFFFFFLL >> -v9)) | v15;
+        v16 = (v9 - v10) & 0x3F;
+        *(a3 + 8) = v16;
+        v7 -= v10;
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
       }
 
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
-        v19 = (*a3 - 8);
-        v18 = *v19;
-        *a3 = v19;
-        *(a3 + 8) = -v8 & 0x3F;
-        v20 = v18 & ~(-1 << -v8);
-        v21 = *(a2 + 8) - v8 - v11;
-        *(a2 + 8) = v21;
-        v17 = *(a3 + 8);
-        *v19 = (v9 << (v17 - v21)) | v20;
+        v18 = (*a3 - 8);
+        v17 = *v18;
+        *a3 = v18;
+        *(a3 + 8) = -v7 & 0x3F;
+        v19 = v17 & ~(-1 << -v7);
+        v20 = *(a2 + 8) - v7 - v10;
+        *(a2 + 8) = v20;
+        v16 = *(a3 + 8);
+        *v18 = (v8 << (v16 - v20)) | v19;
       }
     }
 
     else
     {
-      v17 = *(a3 + 8);
+      v16 = *(a3 + 8);
     }
 
-    v22 = 64 - v17;
-    v23 = 0xFFFFFFFFFFFFFFFFLL >> -v17;
+    v21 = 64 - v16;
+    v22 = 0xFFFFFFFFFFFFFFFFLL >> -v16;
     if (v6 < 64)
     {
-      v27 = v6;
+      v26 = v6;
     }
 
     else
     {
       do
       {
-        v24 = *(*a2 - 8);
+        v23 = *(*a2 - 8);
         *a2 -= 8;
-        v25 = *a3;
-        result = v24 >> v22;
-        *v25 = **a3 & ~v23 | (v24 >> v22);
-        v26 = *--v25;
-        *a3 = v25;
-        *v25 = v26 & v23 | (v24 << v17);
-        v27 = v6 - 64;
-        v14 = v6 > 0x7F;
+        v24 = *a3;
+        result = v23 >> v21;
+        *v24 = **a3 & ~v22 | (v23 >> v21);
+        v25 = *--v24;
+        *a3 = v24;
+        *v24 = v25 & v22 | (v23 << v16);
+        v26 = v6 - 64;
+        v13 = v6 > 0x7F;
         v6 -= 64;
       }
 
-      while (v14);
+      while (v13);
     }
 
-    if (v27 >= 1)
+    if (v26 >= 1)
     {
-      v28 = *(*a2 - 8);
+      v27 = *(*a2 - 8);
       *a2 -= 8;
-      v29 = v28 & (-1 << -v27);
-      if (v27 >= v17)
+      v28 = v27 & (-1 << -v26);
+      if (v26 >= v16)
       {
-        v30 = v17;
+        v29 = v16;
       }
 
       else
       {
-        v30 = v27;
+        v29 = v26;
       }
 
-      v31 = (-1 << (v17 - v30)) & v23;
-      v32 = *a3;
-      **a3 = **a3 & ~v31 | (v29 >> v22);
-      v17 = (v17 - v30) & 0x3F;
-      *(a3 + 8) = v17;
-      if (v27 - v30 >= 1)
+      v30 = (-1 << (v16 - v29)) & v22;
+      v31 = *a3;
+      **a3 = **a3 & ~v30 | (v28 >> v21);
+      v16 = (v16 - v29) & 0x3F;
+      *(a3 + 8) = v16;
+      if (v26 - v29 >= 1)
       {
-        v34 = *(v32 - 1);
-        v33 = v32 - 1;
-        *a3 = v33;
-        v17 = (v30 - v27) & 0x3F;
-        *(a3 + 8) = v17;
-        *v33 = v34 & ~(-1 << (v30 - v27)) | (v29 << (v27 + ((v30 - v27) & 0x3F)));
+        v33 = *(v31 - 1);
+        v32 = v31 - 1;
+        *a3 = v32;
+        v16 = (v29 - v26) & 0x3F;
+        *(a3 + 8) = v16;
+        *v32 = v33 & ~(-1 << (v29 - v26)) | (v28 << (v26 + ((v29 - v26) & 0x3F)));
       }
     }
   }
 
   *a4 = *a3;
-  *(a4 + 8) = v17;
+  *(a4 + 8) = v16;
   return result;
 }
 
@@ -2156,15 +4097,13 @@ uint64_t std::__function::__func<geom::point_tree<float,(unsigned char)3>::balan
   return result;
 }
 
-void *std::__function::__func<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
+void std::__function::__func<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
 {
   v3 = *a3;
   if (*(*(a2 + 176) + 8 * v3) == -1)
   {
-    return std::deque<unsigned long long>::push_back(result[1], &v3);
+    std::deque<unsigned long long>::push_back(result[1], &v3);
   }
-
-  return result;
 }
 
 uint64_t std::__function::__func<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<float,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<float,(unsigned char)3> const&,unsigned long long)>::target(uint64_t a1, uint64_t a2)
@@ -2252,15 +4191,13 @@ uint64_t std::__function::__func<geom::point_tree<double,(unsigned char)2>::bala
   return result;
 }
 
-void *std::__function::__func<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
+void std::__function::__func<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
 {
   v3 = *a3;
   if (*(*(a2 + 176) + 8 * v3) == -1)
   {
-    return std::deque<unsigned long long>::push_back(result[1], &v3);
+    std::deque<unsigned long long>::push_back(result[1], &v3);
   }
-
-  return result;
 }
 
 uint64_t std::__function::__func<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)2>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)2> const&,unsigned long long)>::target(uint64_t a1, uint64_t a2)
@@ -2353,15 +4290,13 @@ uint64_t std::__function::__func<geom::point_tree<double,(unsigned char)3>::bala
   return result;
 }
 
-void *std::__function::__func<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
+void std::__function::__func<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::operator()(void *result, uint64_t a2, uint64_t *a3)
 {
   v3 = *a3;
   if (*(*(a2 + 240) + 8 * v3) == -1)
   {
-    return std::deque<unsigned long long>::push_back(result[1], &v3);
+    std::deque<unsigned long long>::push_back(result[1], &v3);
   }
-
-  return result;
 }
 
 uint64_t std::__function::__func<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1},std::allocator<geom::point_tree<double,(unsigned char)3>::balance(void)::{lambda(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)#1}>,void ()(geom::point_tree<double,(unsigned char)3> const&,unsigned long long)>::target(uint64_t a1, uint64_t a2)
@@ -2499,7 +4434,7 @@ LABEL_16:
   return result;
 }
 
-float64_t geom_apply_catmull_clark_subdivision_stencil_3d@<D0>(int a1@<W0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, float64x2_t *a6@<X8>)
+float64_t geom_apply_catmull_clark_subdivision_stencil_3d@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, _OWORD *a6@<X8>)
 {
   geom::catmull_clark_vertex_evaluator<float>::catmull_clark_vertex_evaluator(v11, a1, a3, a5[a4 - 1], a5, a4);
   geom::catmull_clark_vertex_evaluator<double>::subdivided(v11, a2, v10);
@@ -2553,7 +4488,7 @@ void geom::catmull_clark_vertex_evaluator<double>::subdivided(uint64_t a1@<X0>, 
   a3[1] = v22;
 }
 
-float64_t geom_apply_catmull_clark_limit_stencil_3d@<D0>(int a1@<W0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, float64x2_t *a6@<X8>)
+float64_t geom_apply_catmull_clark_limit_stencil_3d@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, _OWORD *a6@<X8>)
 {
   geom::catmull_clark_vertex_evaluator<float>::catmull_clark_vertex_evaluator(v11, a1, a3, a5[a4 - 1], a5, a4);
   geom::catmull_clark_vertex_evaluator<double>::limit(v11, a2, v10);
@@ -2615,7 +4550,7 @@ void geom::catmull_clark_vertex_evaluator<double>::limit(uint64_t a1@<X0>, uint6
   a3[1] = v19;
 }
 
-float64_t geom_apply_catmull_clark_normal_stencil_3d@<D0>(int a1@<W0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, float64x2_t *a6@<X8>)
+float64_t geom_apply_catmull_clark_normal_stencil_3d@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, uint64_t a4@<X3>, unsigned int *a5@<X4>, _OWORD *a6@<X8>)
 {
   geom::catmull_clark_vertex_evaluator<float>::catmull_clark_vertex_evaluator(v11, a1, a3, a5[a4 - 1], a5, a4);
   geom::catmull_clark_vertex_evaluator<double>::normal(v11, a2, v10);
@@ -2994,7 +4929,7 @@ LABEL_13:
 float32x4_t geom::catmull_clark_vertex_evaluator<float>::compute_bspline_tangents(uint64_t a1, uint64_t a2, _OWORD *a3, _OWORD *a4)
 {
   v4 = 0;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   *a3 = 0u;
   *a4 = 0u;
   v5 = *(a1 + 32);
@@ -3005,7 +4940,7 @@ float32x4_t geom::catmull_clark_vertex_evaluator<float>::compute_bspline_tangent
   do
   {
     v13 = 0;
-    v24[v4] = 0uLL;
+    v23[v4] = 0uLL;
     v14 = 0uLL;
     do
     {
@@ -3022,7 +4957,7 @@ float32x4_t geom::catmull_clark_vertex_evaluator<float>::compute_bspline_tangent
           v16 = v13 + 1;
         }
 
-        v24[v4] = vaddq_f32(*(a2 + 16 * v6), *(a2 + 16 * *(v5 + 16 * v4 + 4 * v16)));
+        v23[v4] = vaddq_f32(*(a2 + 16 * v6), *(a2 + 16 * *(v5 + 16 * v4 + 4 * v16)));
       }
 
       v14 = vaddq_f32(v14, *(a2 + 16 * v15));
@@ -3030,21 +4965,20 @@ float32x4_t geom::catmull_clark_vertex_evaluator<float>::compute_bspline_tangent
     }
 
     while (v13 != 4);
-    *(&v25 + v4++) = vmulq_f32(v14, _Q0);
+    *(&v24 + v4++) = vmulq_f32(v14, _Q0);
     v12 += 16;
   }
 
   while (v4 != 4);
-  v17 = v25;
-  v18 = v26;
-  v19 = vaddq_f32(v25, vaddq_f32(v24[1], v26));
+  v17 = v24;
+  v18 = v25;
+  v19 = vaddq_f32(v24, vaddq_f32(v23[1], v25));
   __asm { FMOV            V17.4S, #4.0 }
 
-  v21 = vaddq_f32(v28, vmlaq_f32(v27, _Q17, vmulq_f32(vaddq_f32(v27, vaddq_f32(v28, v24[3])), _Q0)));
-  *a3 = vsubq_f32(vaddq_f32(v25, vmlaq_f32(v28, _Q17, vmulq_f32(vaddq_f32(vaddq_f32(v24[0], v25), v28), _Q0))), vaddq_f32(v27, vmlaq_f32(v26, _Q17, vmulq_f32(vaddq_f32(v26, vaddq_f32(v24[2], v27)), _Q0))));
+  v21 = vaddq_f32(v27, vmlaq_f32(v26, _Q17, vmulq_f32(vaddq_f32(v26, vaddq_f32(v27, v23[3])), _Q0)));
+  *a3 = vsubq_f32(vaddq_f32(v24, vmlaq_f32(v27, _Q17, vmulq_f32(vaddq_f32(vaddq_f32(v23[0], v24), v27), _Q0))), vaddq_f32(v26, vmlaq_f32(v25, _Q17, vmulq_f32(vaddq_f32(v25, vaddq_f32(v23[2], v26)), _Q0))));
   result = vsubq_f32(vaddq_f32(v18, vmlaq_f32(v17, _Q17, vmulq_f32(v19, _Q0))), v21);
   *a4 = result;
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3710,7 +5644,7 @@ LABEL_13:
 float64x2_t geom::catmull_clark_vertex_evaluator<double>::compute_bspline_tangents(uint64_t a1, uint64_t a2, _OWORD *a3, _OWORD *a4)
 {
   v4 = 0;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   *a3 = 0u;
   a3[1] = 0u;
   *a4 = 0u;
@@ -3724,7 +5658,7 @@ float64x2_t geom::catmull_clark_vertex_evaluator<double>::compute_bspline_tangen
   do
   {
     v14 = 0;
-    v15 = &v37[2 * v4];
+    v15 = &v36[2 * v4];
     *v15 = 0uLL;
     v15[1] = 0uLL;
     v16 = 0uLL;
@@ -3757,7 +5691,7 @@ float64x2_t geom::catmull_clark_vertex_evaluator<double>::compute_bspline_tangen
     }
 
     while (v14 != 4);
-    v23 = &v38 + 2 * v4;
+    v23 = &v37 + 2 * v4;
     *v23 = vmulq_f64(v16, _Q0);
     v23[1] = vmulq_f64(v17, _Q0);
     ++v4;
@@ -3765,24 +5699,23 @@ float64x2_t geom::catmull_clark_vertex_evaluator<double>::compute_bspline_tangen
   }
 
   while (v4 != 4);
-  v24 = v38;
-  v25 = v39;
-  v26 = v40;
-  v27 = v41;
-  v28 = vaddq_f64(v38, vaddq_f64(v37[2], v40));
-  v29 = vaddq_f64(v39, vaddq_f64(v37[3], v41));
+  v24 = v37;
+  v25 = v38;
+  v26 = v39;
+  v27 = v40;
+  v28 = vaddq_f64(v37, vaddq_f64(v36[2], v39));
+  v29 = vaddq_f64(v38, vaddq_f64(v36[3], v40));
   __asm { FMOV            V25.2D, #4.0 }
 
-  v31 = vaddq_f64(v44, vmlaq_f64(v42, _Q25, vmulq_f64(vaddq_f64(v42, vaddq_f64(v44, v37[6])), _Q0)));
-  v32 = vaddq_f64(v45, vmlaq_f64(v43, _Q25, vmulq_f64(vaddq_f64(v43, vaddq_f64(v45, v37[7])), _Q0)));
-  v33 = vsubq_f64(vaddq_f64(v39, vmlaq_f64(v45, _Q25, vmulq_f64(vaddq_f64(vaddq_f64(v37[1], v39), v45), _Q0))), vaddq_f64(v43, vmlaq_f64(v41, _Q25, vmulq_f64(vaddq_f64(v41, vaddq_f64(v37[5], v43)), _Q0))));
-  *a3 = vsubq_f64(vaddq_f64(v38, vmlaq_f64(v44, _Q25, vmulq_f64(vaddq_f64(vaddq_f64(v37[0], v38), v44), _Q0))), vaddq_f64(v42, vmlaq_f64(v40, _Q25, vmulq_f64(vaddq_f64(v40, vaddq_f64(v37[4], v42)), _Q0))));
+  v31 = vaddq_f64(v43, vmlaq_f64(v41, _Q25, vmulq_f64(vaddq_f64(v41, vaddq_f64(v43, v36[6])), _Q0)));
+  v32 = vaddq_f64(v44, vmlaq_f64(v42, _Q25, vmulq_f64(vaddq_f64(v42, vaddq_f64(v44, v36[7])), _Q0)));
+  v33 = vsubq_f64(vaddq_f64(v38, vmlaq_f64(v44, _Q25, vmulq_f64(vaddq_f64(vaddq_f64(v36[1], v38), v44), _Q0))), vaddq_f64(v42, vmlaq_f64(v40, _Q25, vmulq_f64(vaddq_f64(v40, vaddq_f64(v36[5], v42)), _Q0))));
+  *a3 = vsubq_f64(vaddq_f64(v37, vmlaq_f64(v43, _Q25, vmulq_f64(vaddq_f64(vaddq_f64(v36[0], v37), v43), _Q0))), vaddq_f64(v41, vmlaq_f64(v39, _Q25, vmulq_f64(vaddq_f64(v39, vaddq_f64(v36[4], v41)), _Q0))));
   a3[1] = v33;
   v34 = vmlaq_f64(v24, _Q25, vmulq_f64(v28, _Q0));
   result = vsubq_f64(vaddq_f64(v27, vmlaq_f64(v25, _Q25, vmulq_f64(v29, _Q0))), v32);
   *a4 = vsubq_f64(vaddq_f64(v26, v34), v31);
   a4[1] = result;
-  v36 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4382,17 +6315,21 @@ LABEL_11:
   return result;
 }
 
-uint64_t geom_sparse_linear_solver_create_f(int a1, int a2)
+uint64_t geom_sparse_linear_solver_create_f(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   v4 = geom_sparse_linear_solver_f_obj_alloc();
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v4 + 16, a1, a2);
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v4 + 16, v3, v2);
   return v4;
 }
 
-uint64_t geom_sparse_linear_solver_create_d(int a1, int a2)
+uint64_t geom_sparse_linear_solver_create_d(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   v4 = geom_sparse_linear_solver_d_obj_alloc();
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v4 + 16, a1, a2);
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v4 + 16, v3, v2);
   return v4;
 }
 
@@ -4403,31 +6340,6 @@ uint64_t geom::z_order_code(double a1)
   v3 = LOWORD(a1) | (LODWORD(a1) << 16) & 0xFFFF0000FFFFLL;
   v4 = (v3 | (v3 << 8)) & 0xF000F000F000FLL | (16 * ((v3 | (v3 << 8)) & 0xFF00FF00FF00FFLL)) & 0xF0F0F0F0F0F0F0FLL;
   return (v4 | (4 * v4)) & 0x1111111111111111 | (2 * ((v4 | (4 * v4)) & 0x3333333333333333)) & 0x5555555555555555 | (2 * ((v2 | (4 * v2)) & 0x1111111111111111 | (2 * ((v2 | (4 * v2)) & 0x3333333333333333)) & 0x5555555555555555));
-}
-
-{
-  v1 = (LOBYTE(a1) | (LOWORD(a1) << 24)) & 0xF0000000FLL | ((LOBYTE(a1) | (LOWORD(a1) << 24)) << 12);
-  v2 = (BYTE4(a1) | (WORD2(a1) << 24)) & 0xF0000000FLL | ((BYTE4(a1) | (WORD2(a1) << 24)) << 12) & 0xF000F000F000FLL;
-  v3.i32[0] = HIWORD(a1);
-  v3.i32[1] = WORD1(a1);
-  v4.i64[0] = HIWORD(a1);
-  v4.i64[1] = WORD1(a1);
-  v5.i64[0] = 0xFF00000000;
-  v5.i64[1] = 0xFF00000000;
-  v6 = vandq_s8(vshlq_n_s64(v4, 0x18uLL), v5);
-  v7 = vand_s8(v3, 0xFF000000FFLL);
-  v4.i64[0] = v7.u32[0];
-  v4.i64[1] = v7.u32[1];
-  v8 = vorrq_s8(v6, v4);
-  v9 = vorrq_s8((*&vshlq_n_s64(v8, 0xCuLL) & __PAIR128__(0xFFFF0FFFFFFF0FFFLL, 0xFFFF0FFFFFFF0FFFLL)), (*&v8 & __PAIR128__(0xFFFFFF0FFFFFFF0FLL, 0xFFFFFF0FFFFFFF0FLL)));
-  v10 = vorrq_s8((*&vshlq_n_s64(v9, 6uLL) & __PAIR128__(0xFF3FFF3FFF3FFF3FLL, 0xFF3FFF3FFF3FFF3FLL)), (*&v9 & __PAIR128__(0xFFF3FFF3FFF3FFF3, 0xFFF3FFF3FFF3FFF3)));
-  v5.i64[0] = 0x1010101010101010;
-  v5.i64[1] = 0x1010101010101010;
-  v11 = vandq_s8(vshlq_n_s64(v10, 3uLL), v5);
-  v5.i64[0] = 0x101010101010101;
-  v5.i64[1] = 0x101010101010101;
-  v12 = vshlq_u64(vorrq_s8(v11, vandq_s8(v10, v5)), xmmword_2500CBA50);
-  return v12.i64[0] | (4 * ((v2 | (v2 << 6) | (8 * (v2 | (v2 << 6)))) & 0x1111111111111111)) | v1 & 0x1000100010001 | ((v1 & 0xF000F000F000FLL) << 6) & 0x1111111111111111 | (8 * (v1 & 0xF000F000F000FLL | ((v1 & 0xF000F000F000FLL) << 6))) & 0x1111111111111111 | v12.i64[1];
 }
 
 uint64_t geom::z_order_code(unsigned int a1)
@@ -4479,9 +6391,35 @@ uint64_t geom::z_order_code(int a1)
   return v5.i32[0] | (4 * ((8 * (((BYTE2(a1) & 0xF | (BYTE2(a1) << 12)) << 6) & 0x3000300 | BYTE2(a1) & 3 | (BYTE2(a1) << 12) & 0x30003)) & 0x10101010 | ((BYTE2(a1) & 0xF | (BYTE2(a1) << 12)) << 6) & 0x1000100 | BYTE2(a1) & 1 | (BYTE2(a1) << 12) & 0x10001)) | ((a1 & 0xF | (a1 >> 4 << 16)) << 6) & 0x1000100 | a1 & 1 | (a1 >> 4 << 16) & 0x10001 | (8 * (((a1 & 0xF | (a1 >> 4 << 16)) << 6) & 0x3000300 | a1 & 3 | (a1 >> 4 << 16) & 0x30003)) & 0x10101010u | v5.i32[1];
 }
 
-BOOL geom::compare_z_order<float,(unsigned char)2>(double a1, double a2)
+unint64_t geom::z_order_code(double a1)
 {
-  v2 = vceq_f32(*&a1, *&a2);
+  v1 = (LOBYTE(a1) | (LOWORD(a1) << 24)) & 0xF0000000FLL | ((LOBYTE(a1) | (LOWORD(a1) << 24)) << 12);
+  v2 = (BYTE4(a1) | (WORD2(a1) << 24)) & 0xF0000000FLL | ((BYTE4(a1) | (WORD2(a1) << 24)) << 12) & 0xF000F000F000FLL;
+  v3.i32[0] = HIWORD(a1);
+  v3.i32[1] = WORD1(a1);
+  v4.i64[0] = HIWORD(a1);
+  v4.i64[1] = WORD1(a1);
+  v5.i64[0] = 0xFF00000000;
+  v5.i64[1] = 0xFF00000000;
+  v6 = vandq_s8(vshlq_n_s64(v4, 0x18uLL), v5);
+  v7 = vand_s8(v3, 0xFF000000FFLL);
+  v4.i64[0] = v7.u32[0];
+  v4.i64[1] = v7.u32[1];
+  v8 = vorrq_s8(v6, v4);
+  v9 = vorrq_s8((*&vshlq_n_s64(v8, 0xCuLL) & __PAIR128__(0xFFFF0FFFFFFF0FFFLL, 0xFFFF0FFFFFFF0FFFLL)), (*&v8 & __PAIR128__(0xFFFFFF0FFFFFFF0FLL, 0xFFFFFF0FFFFFFF0FLL)));
+  v10 = vorrq_s8((*&vshlq_n_s64(v9, 6uLL) & __PAIR128__(0xFF3FFF3FFF3FFF3FLL, 0xFF3FFF3FFF3FFF3FLL)), (*&v9 & __PAIR128__(0xFFF3FFF3FFF3FFF3, 0xFFF3FFF3FFF3FFF3)));
+  v5.i64[0] = 0x1010101010101010;
+  v5.i64[1] = 0x1010101010101010;
+  v11 = vandq_s8(vshlq_n_s64(v10, 3uLL), v5);
+  v5.i64[0] = 0x101010101010101;
+  v5.i64[1] = 0x101010101010101;
+  v12 = vshlq_u64(vorrq_s8(v11, vandq_s8(v10, v5)), xmmword_2500CBA50);
+  return v12.i64[0] | (4 * ((v2 | (v2 << 6) | (8 * (v2 | (v2 << 6)))) & 0x1111111111111111)) | v1 & 0x1000100010001 | ((v1 & 0xF000F000F000FLL) << 6) & 0x1111111111111111 | (8 * (v1 & 0xF000F000F000FLL | ((v1 & 0xF000F000F000FLL) << 6))) & 0x1111111111111111 | v12.i64[1];
+}
+
+BOOL geom::compare_z_order<float,(unsigned char)2>(float32x2_t a1, float32x2_t a2)
+{
+  v2 = vceq_f32(a1, a2);
   if ((vpmin_u32(v2, v2).u32[0] & 0x80000000) != 0)
   {
     return 0;
@@ -4489,9 +6427,9 @@ BOOL geom::compare_z_order<float,(unsigned char)2>(double a1, double a2)
 
   v3 = vmvn_s8(v2).u8[0];
   v4 = ~v3;
-  v5 = *(&a1 + 1);
-  v6 = *(&a2 + 1);
-  if (*(&a1 + 1) != *(&a2 + 1))
+  v5 = a1.f32[1];
+  v6 = a2.f32[1];
+  if (a1.f32[1] != a2.f32[1])
   {
     v11 = a1;
     v12 = a2;
@@ -6001,7 +7939,7 @@ BOOL geom::compare_z_order<unsigned long long,(unsigned char)2>(int64x2_t a1, in
 
   v3 = vmovn_s64(vmvnq_s8(v2)).u8[0];
   v4 = ~v3;
-  if ((vmovn_s64(v2).i32[1] & 1) == 0)
+  if ((vmovn_s64(*&v2).i32[1] & 1) == 0)
   {
     v5 = veorq_s8(a2, a1);
     v6.i64[0] = 0xFFFFFFFFLL;
@@ -6043,7 +7981,7 @@ BOOL geom_compare_z_order_2u64(int64x2_t a1, int64x2_t a2)
 
   v3 = vmovn_s64(vmvnq_s8(v2)).u8[0];
   v4 = ~v3;
-  if ((vmovn_s64(v2).i32[1] & 1) == 0)
+  if ((vmovn_s64(*&v2).i32[1] & 1) == 0)
   {
     v5 = veorq_s8(a2, a1);
     v6.i64[0] = 0xFFFFFFFFLL;
@@ -6075,12 +8013,12 @@ BOOL geom_compare_z_order_2u64(int64x2_t a1, int64x2_t a2)
   return v19 < *(&v22 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1)));
 }
 
-BOOL geom::compare_z_order<unsigned long long,(unsigned char)3>(uint64_t a1, uint64_t a2)
+BOOL geom::compare_z_order<unsigned long long,(unsigned char)3>(int64x2_t *a1, int64x2_t *a2)
 {
   v8 = *a1;
-  v9 = *(a1 + 16);
+  v9 = a1[1];
   v10 = *a2;
-  v11 = *(a2 + 16);
+  v11 = a2[1];
   v12 = vceqq_s64(v9, v11);
   v13 = vceqq_s64(*a1, *a2);
   if ((v13.i64[0] & v13.i64[1] & v12.i64[0]) < 0 != v2)
@@ -6132,7 +8070,7 @@ BOOL geom::compare_z_order<unsigned long long,(unsigned char)3>(uint64_t a1, uin
   v41 = vuzp1q_s32(vorrq_s8(vsubq_s64(v21, vtstq_s64(vshlq_u64(v38, v40), v36)), vorrq_s8(vorrq_s8(vorrq_s8(v26, v31), v35), v40)), vorrq_s8(vsubq_s64(v20, vtstq_s64(vshlq_u64(v7, v39), v37)), vorrq_s8(vorrq_s8(vorrq_s8(v25, v30), v34), v39)));
   v42 = vuzp1_s16(vmovn_s64(vmvnq_s8(v13)), *v10.i8).u8[0];
   v43 = (v42 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v13), *&v10).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v13), *&v10).i8[2] & 1) == 0)
   {
     v51 = v41;
     if ((v42 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v42 & 1) - 1) & 3))) > v41.i32[1])) == 0)
@@ -6161,12 +8099,12 @@ BOOL geom::compare_z_order<unsigned long long,(unsigned char)3>(uint64_t a1, uin
   return v46 < *(v48 + v45);
 }
 
-BOOL geom_compare_z_order_3u64(uint64_t a1, uint64_t a2)
+BOOL geom_compare_z_order_3u64(int64x2_t *a1, int64x2_t *a2)
 {
   v8 = *a1;
-  v9 = *(a1 + 16);
+  v9 = a1[1];
   v10 = *a2;
-  v11 = *(a2 + 16);
+  v11 = a2[1];
   v12 = vceqq_s64(v9, v11);
   v13 = vceqq_s64(*a1, *a2);
   if ((v13.i64[0] & v13.i64[1] & v12.i64[0]) < 0 != v2)
@@ -6218,7 +8156,7 @@ BOOL geom_compare_z_order_3u64(uint64_t a1, uint64_t a2)
   v41 = vuzp1q_s32(vorrq_s8(vsubq_s64(v21, vtstq_s64(vshlq_u64(v38, v40), v36)), vorrq_s8(vorrq_s8(vorrq_s8(v26, v31), v35), v40)), vorrq_s8(vsubq_s64(v20, vtstq_s64(vshlq_u64(v7, v39), v37)), vorrq_s8(vorrq_s8(vorrq_s8(v25, v30), v34), v39)));
   v42 = vuzp1_s16(vmovn_s64(vmvnq_s8(v13)), *v10.i8).u8[0];
   v43 = (v42 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v13), *&v10).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v13), *&v10).i8[2] & 1) == 0)
   {
     v51 = v41;
     if ((v42 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v42 & 1) - 1) & 3))) > v41.i32[1])) == 0)
@@ -6247,12 +8185,12 @@ BOOL geom_compare_z_order_3u64(uint64_t a1, uint64_t a2)
   return v46 < *(v48 + v45);
 }
 
-BOOL geom::compare_z_order<unsigned long long,(unsigned char)4>(uint64_t a1, uint64_t a2)
+BOOL geom::compare_z_order<unsigned long long,(unsigned char)4>(int64x2_t *a1, int64x2_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 16);
+  v3 = a1[1];
   v4 = *a2;
-  v5 = *(a2 + 16);
+  v5 = a2[1];
   v6 = vceqq_s64(v3, v5);
   v7 = vceqq_s64(*a1, *a2);
   v8 = vandq_s8(v7, v6);
@@ -6298,7 +8236,7 @@ BOOL geom::compare_z_order<unsigned long long,(unsigned char)4>(uint64_t a1, uin
   v38 = vuzp1q_s32(vorrq_s8(vsubq_s64(v15, vtstq_s64(vshlq_u64(v35, v37), v32)), vorrq_s8(vorrq_s8(vorrq_s8(v20, v25), v31), v37)), vorrq_s8(vsubq_s64(v14, vtstq_s64(vshlq_u64(v35, v36), v34)), vorrq_s8(vorrq_s8(vorrq_s8(v19, v24), v30), v36)));
   v39 = vuzp1_s16(vmovn_s64(vmvnq_s8(v7)), *v4.i8).u8[0];
   v40 = (v39 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v7), *&v4).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v7), *&v4).i8[2] & 1) == 0)
   {
     v51 = v38;
     if ((v39 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v39 & 1) - 1) & 3))) > v38.i32[1])) == 0)
@@ -6335,12 +8273,12 @@ BOOL geom::compare_z_order<unsigned long long,(unsigned char)4>(uint64_t a1, uin
   return v45 < *(v47 + v44);
 }
 
-BOOL geom_compare_z_order_4u64(uint64_t a1, uint64_t a2)
+BOOL geom_compare_z_order_4u64(int64x2_t *a1, int64x2_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 16);
+  v3 = a1[1];
   v4 = *a2;
-  v5 = *(a2 + 16);
+  v5 = a2[1];
   v6 = vceqq_s64(v3, v5);
   v7 = vceqq_s64(*a1, *a2);
   v8 = vandq_s8(v7, v6);
@@ -6386,7 +8324,7 @@ BOOL geom_compare_z_order_4u64(uint64_t a1, uint64_t a2)
   v38 = vuzp1q_s32(vorrq_s8(vsubq_s64(v15, vtstq_s64(vshlq_u64(v35, v37), v32)), vorrq_s8(vorrq_s8(vorrq_s8(v20, v25), v31), v37)), vorrq_s8(vsubq_s64(v14, vtstq_s64(vshlq_u64(v35, v36), v34)), vorrq_s8(vorrq_s8(vorrq_s8(v19, v24), v30), v36)));
   v39 = vuzp1_s16(vmovn_s64(vmvnq_s8(v7)), *v4.i8).u8[0];
   v40 = (v39 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v7), *&v4).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v7), *&v4).i8[2] & 1) == 0)
   {
     v51 = v38;
     if ((v39 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v39 & 1) - 1) & 3))) > v38.i32[1])) == 0)
@@ -7401,7 +9339,7 @@ BOOL geom::compare_z_order<long long,(unsigned char)2>(int64x2_t a1, int64x2_t a
 
   v3 = vmovn_s64(vmvnq_s8(v2)).u8[0];
   v4 = ~v3;
-  if ((vmovn_s64(v2).i32[1] & 1) == 0)
+  if ((vmovn_s64(*&v2).i32[1] & 1) == 0)
   {
     v5 = veorq_s8(a2, a1);
     v6.i64[0] = 0xFFFFFFFFLL;
@@ -7443,7 +9381,7 @@ BOOL geom_compare_z_order_2i64(int64x2_t a1, int64x2_t a2)
 
   v3 = vmovn_s64(vmvnq_s8(v2)).u8[0];
   v4 = ~v3;
-  if ((vmovn_s64(v2).i32[1] & 1) == 0)
+  if ((vmovn_s64(*&v2).i32[1] & 1) == 0)
   {
     v5 = veorq_s8(a2, a1);
     v6.i64[0] = 0xFFFFFFFFLL;
@@ -7475,12 +9413,12 @@ BOOL geom_compare_z_order_2i64(int64x2_t a1, int64x2_t a2)
   return v19 < *(&v22 & 0xFFFFFFFFFFFFFFF7 | (8 * (v4 & 1)));
 }
 
-BOOL geom::compare_z_order<long long,(unsigned char)3>(uint64_t a1, uint64_t a2)
+BOOL geom::compare_z_order<long long,(unsigned char)3>(int64x2_t *a1, int64x2_t *a2)
 {
   v8 = *a1;
-  v9 = *(a1 + 16);
+  v9 = a1[1];
   v10 = *a2;
-  v11 = *(a2 + 16);
+  v11 = a2[1];
   v12 = vceqq_s64(v9, v11);
   v13 = vceqq_s64(*a1, *a2);
   if ((v13.i64[0] & v13.i64[1] & v12.i64[0]) < 0 != v2)
@@ -7532,7 +9470,7 @@ BOOL geom::compare_z_order<long long,(unsigned char)3>(uint64_t a1, uint64_t a2)
   v41 = vuzp1q_s32(vorrq_s8(vsubq_s64(v21, vtstq_s64(vshlq_u64(v38, v40), v36)), vorrq_s8(vorrq_s8(vorrq_s8(v26, v31), v35), v40)), vorrq_s8(vsubq_s64(v20, vtstq_s64(vshlq_u64(v7, v39), v37)), vorrq_s8(vorrq_s8(vorrq_s8(v25, v30), v34), v39)));
   v42 = vuzp1_s16(vmovn_s64(vmvnq_s8(v13)), *v10.i8).u8[0];
   v43 = (v42 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v13), *&v10).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v13), *&v10).i8[2] & 1) == 0)
   {
     v51 = v41;
     if ((v42 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v42 & 1) - 1) & 3))) > v41.i32[1])) == 0)
@@ -7561,12 +9499,12 @@ BOOL geom::compare_z_order<long long,(unsigned char)3>(uint64_t a1, uint64_t a2)
   return v46 < *(v48 + v45);
 }
 
-BOOL geom_compare_z_order_3i64(uint64_t a1, uint64_t a2)
+BOOL geom_compare_z_order_3i64(int64x2_t *a1, int64x2_t *a2)
 {
   v8 = *a1;
-  v9 = *(a1 + 16);
+  v9 = a1[1];
   v10 = *a2;
-  v11 = *(a2 + 16);
+  v11 = a2[1];
   v12 = vceqq_s64(v9, v11);
   v13 = vceqq_s64(*a1, *a2);
   if ((v13.i64[0] & v13.i64[1] & v12.i64[0]) < 0 != v2)
@@ -7618,7 +9556,7 @@ BOOL geom_compare_z_order_3i64(uint64_t a1, uint64_t a2)
   v41 = vuzp1q_s32(vorrq_s8(vsubq_s64(v21, vtstq_s64(vshlq_u64(v38, v40), v36)), vorrq_s8(vorrq_s8(vorrq_s8(v26, v31), v35), v40)), vorrq_s8(vsubq_s64(v20, vtstq_s64(vshlq_u64(v7, v39), v37)), vorrq_s8(vorrq_s8(vorrq_s8(v25, v30), v34), v39)));
   v42 = vuzp1_s16(vmovn_s64(vmvnq_s8(v13)), *v10.i8).u8[0];
   v43 = (v42 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v13), *&v10).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v13), *&v10).i8[2] & 1) == 0)
   {
     v51 = v41;
     if ((v42 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v42 & 1) - 1) & 3))) > v41.i32[1])) == 0)
@@ -7647,12 +9585,12 @@ BOOL geom_compare_z_order_3i64(uint64_t a1, uint64_t a2)
   return v46 < *(v48 + v45);
 }
 
-BOOL geom::compare_z_order<long long,(unsigned char)4>(uint64_t a1, uint64_t a2)
+BOOL geom::compare_z_order<long long,(unsigned char)4>(int64x2_t *a1, int64x2_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 16);
+  v3 = a1[1];
   v4 = *a2;
-  v5 = *(a2 + 16);
+  v5 = a2[1];
   v6 = vceqq_s64(v3, v5);
   v7 = vceqq_s64(*a1, *a2);
   v8 = vandq_s8(v7, v6);
@@ -7698,7 +9636,7 @@ BOOL geom::compare_z_order<long long,(unsigned char)4>(uint64_t a1, uint64_t a2)
   v38 = vuzp1q_s32(vorrq_s8(vsubq_s64(v15, vtstq_s64(vshlq_u64(v35, v37), v32)), vorrq_s8(vorrq_s8(vorrq_s8(v20, v25), v31), v37)), vorrq_s8(vsubq_s64(v14, vtstq_s64(vshlq_u64(v35, v36), v34)), vorrq_s8(vorrq_s8(vorrq_s8(v19, v24), v30), v36)));
   v39 = vuzp1_s16(vmovn_s64(vmvnq_s8(v7)), *v4.i8).u8[0];
   v40 = (v39 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v7), *&v4).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v7), *&v4).i8[2] & 1) == 0)
   {
     v51 = v38;
     if ((v39 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v39 & 1) - 1) & 3))) > v38.i32[1])) == 0)
@@ -7735,12 +9673,12 @@ BOOL geom::compare_z_order<long long,(unsigned char)4>(uint64_t a1, uint64_t a2)
   return v45 < *(v47 + v44);
 }
 
-BOOL geom_compare_z_order_4i64(uint64_t a1, uint64_t a2)
+BOOL geom_compare_z_order_4i64(int64x2_t *a1, int64x2_t *a2)
 {
   v2 = *a1;
-  v3 = *(a1 + 16);
+  v3 = a1[1];
   v4 = *a2;
-  v5 = *(a2 + 16);
+  v5 = a2[1];
   v6 = vceqq_s64(v3, v5);
   v7 = vceqq_s64(*a1, *a2);
   v8 = vandq_s8(v7, v6);
@@ -7786,7 +9724,7 @@ BOOL geom_compare_z_order_4i64(uint64_t a1, uint64_t a2)
   v38 = vuzp1q_s32(vorrq_s8(vsubq_s64(v15, vtstq_s64(vshlq_u64(v35, v37), v32)), vorrq_s8(vorrq_s8(vorrq_s8(v20, v25), v31), v37)), vorrq_s8(vsubq_s64(v14, vtstq_s64(vshlq_u64(v35, v36), v34)), vorrq_s8(vorrq_s8(vorrq_s8(v19, v24), v30), v36)));
   v39 = vuzp1_s16(vmovn_s64(vmvnq_s8(v7)), *v4.i8).u8[0];
   v40 = (v39 & 1) - 1;
-  if ((vuzp1_s16(vmovn_s64(v7), *&v4).i8[2] & 1) == 0)
+  if ((vuzp1_s16(vmovn_s64(*&v7), *&v4).i8[2] & 1) == 0)
   {
     v51 = v38;
     if ((v39 & (*(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (((v39 & 1) - 1) & 3))) > v38.i32[1])) == 0)
@@ -7821,1931 +9759,4 @@ BOOL geom_compare_z_order_4i64(uint64_t a1, uint64_t a2)
   v47[0] = v4;
   v47[1] = v5;
   return v45 < *(v47 + v44);
-}
-
-uint64_t geom::anonymous namespace::msdb<float,0>(float a1, float a2)
-{
-  if (a1 == a2)
-  {
-    return 0;
-  }
-
-  if (a1 == 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  else
-  {
-    v3 = a1;
-  }
-
-  if (a2 == 0.0)
-  {
-    a2 = a1;
-    v4 = 0.0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if ((LODWORD(v4) ^ LODWORD(a2)) < 0)
-  {
-    return 128;
-  }
-
-  if (v4 == 0.0)
-  {
-    return (LODWORD(a2) >> 23) - 127;
-  }
-
-  v5 = (LODWORD(v4) >> 23);
-  v6 = (LODWORD(a2) >> 23);
-  if (v5 > v6)
-  {
-    v6 = (LODWORD(v4) >> 23);
-  }
-
-  v7 = v6 - 127;
-  v8 = v5 - __clz((LODWORD(v4) ^ LODWORD(a2)) & 0x7FFFFF) - 119;
-  if (v5 == (LODWORD(a2) >> 23))
-  {
-    return v8;
-  }
-
-  else
-  {
-    return v7;
-  }
-}
-
-uint64_t geom::anonymous namespace::msdb<double,0>(double a1, double a2)
-{
-  if (a1 == a2)
-  {
-    return 0;
-  }
-
-  if (a1 == 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  else
-  {
-    v3 = a1;
-  }
-
-  if (a2 == 0.0)
-  {
-    a2 = a1;
-    v4 = 0.0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (((*&v4 ^ *&a2) & 0x8000000000000000) != 0)
-  {
-    return 1024;
-  }
-
-  if (v4 == 0.0)
-  {
-    return ((*&a2 >> 52) & 0x7FF) - 1023;
-  }
-
-  v5 = (*&v4 >> 52) & 0x7FFLL;
-  v6 = (*&a2 >> 52) & 0x7FFLL;
-  if (v5 <= v6)
-  {
-    v7 = (*&a2 >> 52) & 0x7FF;
-  }
-
-  else
-  {
-    v7 = (*&v4 >> 52) & 0x7FF;
-  }
-
-  v8 = v7 - 1023;
-  v9 = v5 - __clz((*&v4 ^ *&a2) & 0xFFFFFFFFFFFFFLL) - 1012;
-  if (v5 == v6)
-  {
-    return v9;
-  }
-
-  else
-  {
-    return v8;
-  }
-}
-
-void geom::partitioned_set::split(uint64_t *a1, _DWORD *a2, unsigned int a3, std::vector<unsigned int> *this, uint64_t a5)
-{
-  std::vector<float>::resize(this, 0);
-  v10 = a3;
-  std::vector<unsigned int>::resize(this, a3, &geom::partitioned_set::null_index);
-  v11 = *a2;
-  v12 = a1[9];
-  v13 = a1 + 9;
-  if (v11 < (a1[10] - v12) >> 3)
-  {
-    v14 = *(v12 + 8 * v11);
-    if (v14 != -1)
-    {
-      if (!a3)
-      {
-        goto LABEL_10;
-      }
-
-      v15 = 0;
-      v16 = 4 * v10;
-      do
-      {
-        v17 = a1[13];
-        if (a1[12] == v17)
-        {
-          v18 = (a1[10] - a1[9]) >> 3;
-          v30 = -1;
-          _ZNSt3__16vectorIZNK4geom3bvhIfLh2EE13closest_pointINS_8functionIFDv2_fjS6_EEEEES6_T_S6_RfRjE5stateNS_9allocatorISC_EEE9push_backB8nn200100EOSC_((a1 + 9), &v30);
-        }
-
-        else
-        {
-          LODWORD(v18) = *(v17 - 4);
-          a1[13] = v17 - 4;
-        }
-
-        this->__begin_[v15 / 4] = v18;
-        v15 += 4;
-      }
-
-      while (v16 != v15);
-      v19 = *v13;
-      v14 = *(*v13 + 8 * *a2);
-      if (v14 == -1)
-      {
-        begin = this->__begin_;
-      }
-
-      else
-      {
-LABEL_10:
-        v20 = *a1;
-        do
-        {
-          v21 = v20[v14];
-          v22 = std::function<unsigned int ()>::operator()(a5, v14);
-          begin = this->__begin_;
-          v19 = *v13;
-          v24 = (*v13 + 8 * this->__begin_[v22]);
-          if (*v24 == -1)
-          {
-            *v24 = v14;
-            v24[1] = v14;
-            *(a1[3] + 4 * v14) = -1;
-            v20 = *a1;
-          }
-
-          else
-          {
-            v20 = *a1;
-            *(*a1 + 4 * v24[1]) = v14;
-            *(a1[3] + 4 * v14) = v24[1];
-            v24[1] = v14;
-          }
-
-          v20[v14] = -1;
-          v14 = v21;
-        }
-
-        while (v21 != -1);
-      }
-
-      end = this->__end_;
-      if (begin != end)
-      {
-        do
-        {
-          v26 = *begin;
-          v27 = *v13;
-          v28 = *(*v13 + 8 * v26);
-          if (v28 == -1)
-          {
-            std::vector<unsigned int>::push_back[abi:nn200100](a1 + 12, begin);
-            *begin = -1;
-          }
-
-          else
-          {
-            v29 = a1[6];
-            *(v29 + 4 * v28) = v26;
-            *(v29 + 4 * *(v27 + 8 * *begin + 4)) = *begin;
-          }
-
-          ++begin;
-        }
-
-        while (begin != end);
-        v19 = *v13;
-      }
-
-      *(v19 + 8 * *a2) = -1;
-      *(v19 + 8 * *a2 + 4) = -1;
-      std::vector<unsigned int>::push_back[abi:nn200100](a1 + 12, a2);
-    }
-  }
-}
-
-uint64_t std::function<unsigned int ()(unsigned int)>::operator()(uint64_t a1, int a2)
-{
-  v5 = a2;
-  v2 = *(a1 + 24);
-  if (v2)
-  {
-    return (*(*v2 + 48))(v2, &v5);
-  }
-
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return geom::partitioned_set::merge(v4);
-}
-
-uint64_t geom::partitioned_set::merge(uint64_t a1, unsigned int *a2, uint64_t a3)
-{
-  if (!a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v5 = 4 * a3;
-  v6 = 0xFFFFFFFFLL;
-  v7 = 0xFFFFFFFFLL;
-  v8 = 0xFFFFFFFFLL;
-  do
-  {
-    v9 = *a2;
-    v10 = *(a1 + 72);
-    if (v9 < (*(a1 + 80) - v10) >> 3)
-    {
-      v11 = (v10 + 8 * v9);
-      v12 = *v11;
-      if (v12 != -1)
-      {
-        if (v8 == -1)
-        {
-          v8 = v9;
-        }
-
-        else
-        {
-          v8 = v8;
-        }
-
-        if (v6 != -1)
-        {
-          *(*a1 + 4 * v7) = v12;
-          *(*(a1 + 24) + 4 * *v11) = v7;
-          LODWORD(v9) = *a2;
-          v12 = v6;
-        }
-
-        v7 = v11[1];
-        if (v8 != v9)
-        {
-          *v11 = -1;
-          std::vector<unsigned int>::push_back[abi:nn200100]((a1 + 96), a2);
-        }
-
-        v6 = v12;
-      }
-    }
-
-    ++a2;
-    v5 -= 4;
-  }
-
-  while (v5);
-  result = 0xFFFFFFFFLL;
-  if (v7 != 0xFFFFFFFFLL)
-  {
-    *(*a1 + 4 * v7) = -1;
-    *(*(a1 + 24) + 4 * v6) = -1;
-    v14 = *(a1 + 48);
-    *(v14 + 4 * v6) = v8;
-    *(v14 + 4 * v7) = v8;
-    v15 = (*(a1 + 72) + 8 * v8);
-    *v15 = v6;
-    v15[1] = v7;
-    return v8;
-  }
-
-  return result;
-}
-
-uint64_t geom::partitioned_set::extract(geom::partitioned_set *this, unsigned int a2)
-{
-  v4 = *(*(this + 3) + 4 * a2);
-  v5 = *(*this + 4 * a2);
-  if (v4 == -1 && v5 == -1)
-  {
-    return *(*(this + 6) + 4 * a2);
-  }
-
-  v7 = *(this + 13);
-  if (*(this + 12) == v7)
-  {
-    v8 = (*(this + 10) - *(this + 9)) >> 3;
-    LODWORD(v17) = a2;
-    HIDWORD(v17) = a2;
-    _ZNSt3__16vectorIZNK4geom3bvhIfLh2EE13closest_pointINS_8functionIFDv2_fjS6_EEEEES6_T_S6_RfRjE5stateNS_9allocatorISC_EEE9push_backB8nn200100EOSC_(this + 72, &v17);
-  }
-
-  else
-  {
-    v8 = *(v7 - 4);
-    *(this + 13) = v7 - 4;
-    *(*(this + 9) + 8 * v8) = vdup_n_s32(a2);
-  }
-
-  if (v4 == -1)
-  {
-    v11 = *(this + 6);
-    v12 = *(v11 + 4 * a2);
-    v9 = *this;
-    *(v11 + 4 * *(*this + 4 * a2)) = v12;
-    v10 = *(v9 + 4 * a2);
-    *(*(this + 9) + 8 * v12) = v10;
-  }
-
-  else
-  {
-    v9 = *this;
-    v10 = *(*this + 4 * a2);
-    *(*this + 4 * *(*(this + 3) + 4 * a2)) = v10;
-  }
-
-  if (v5 == -1)
-  {
-    v14 = *(this + 6);
-    v15 = *(v14 + 4 * a2);
-    v13 = *(this + 3);
-    *(v14 + 4 * *(v13 + 4 * a2)) = v15;
-    *(*(this + 9) + 8 * v15 + 4) = *(v13 + 4 * a2);
-  }
-
-  else
-  {
-    v13 = *(this + 3);
-    *(v13 + 4 * v10) = *(v13 + 4 * a2);
-    v14 = *(this + 6);
-  }
-
-  *(v9 + 4 * a2) = -1;
-  *(v13 + 4 * a2) = -1;
-  *(v14 + 4 * a2) = v8;
-  return v8;
-}
-
-void geom::partitioned_set::extract(geom::partitioned_set *this, unsigned int a2, unsigned int a3)
-{
-  v6 = *(this + 3);
-  v7 = *(v6 + 4 * a2);
-  v8 = *this;
-  v9 = *(*this + 4 * a2);
-  if (v7 == -1 && v9 == -1)
-  {
-    v18 = *(*(this + 6) + 4 * a2);
-    if (v18 == a3)
-    {
-      return;
-    }
-
-    std::vector<unsigned int>::push_back[abi:nn200100](this + 12, &v18);
-    v11 = *(this + 9);
-    *(v11 + 8 * v18 + 4) = -1;
-    *(v11 + 8 * v18) = -1;
-    v6 = *(this + 3);
-    v8 = *this;
-  }
-
-  else
-  {
-    if (v7 == -1)
-    {
-      v12 = *(this + 6);
-      v13 = *(v12 + 4 * a2);
-      *(v12 + 4 * v9) = v13;
-      *(*(this + 9) + 8 * v13) = *(v8 + 4 * a2);
-    }
-
-    else
-    {
-      *(v8 + 4 * v7) = v9;
-    }
-
-    if (v9 == -1)
-    {
-      v14 = *(this + 6);
-      v15 = *(v14 + 4 * a2);
-      *(v14 + 4 * *(v6 + 4 * a2)) = v15;
-      v11 = *(this + 9);
-      *(v11 + 8 * v15 + 4) = *(v6 + 4 * a2);
-    }
-
-    else
-    {
-      *(v6 + 4 * *(v8 + 4 * a2)) = *(v6 + 4 * a2);
-      v11 = *(this + 9);
-    }
-
-    *(v8 + 4 * a2) = -1;
-  }
-
-  v16 = v11 + 8 * a3;
-  v17 = *(v16 + 4);
-  *(v6 + 4 * a2) = v17;
-  *(v8 + 4 * v17) = a2;
-  *(*(this + 6) + 4 * a2) = a3;
-  *(v16 + 4) = a2;
-}
-
-void geom::acd<float>::impl::split_clusters_automatically(int *a1, unsigned int *a2)
-{
-  v23 = 0;
-  v24 = 0;
-  v25 = 0;
-  v4 = *(a1 + 16);
-  if (v4)
-  {
-    do
-    {
-      std::vector<unsigned int>::push_back[abi:nn200100](&v23, v4 + 4);
-      v4 = *v4;
-    }
-
-    while (v4);
-    v4 = v23;
-    v5 = v24;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v20 = a1;
-  v6 = (v5 - v4) >> 2;
-  if (v6 < 2)
-  {
-    goto LABEL_9;
-  }
-
-  v7 = (v6 - 2) >> 1;
-  v8 = v4 + v7;
-  v9 = v7 + 1;
-  do
-  {
-    std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::acd<float>::impl::split_clusters_automatically(geom::acd<float>::parameters const&)::{lambda(unsigned int,unsigned int)#1} &,std::__wrap_iter<unsigned int *>>(v4, &v20, v6, v8--);
-    --v9;
-  }
-
-  while (v9);
-  while (1)
-  {
-    v4 = v23;
-    v5 = v24;
-LABEL_9:
-    if (v4 == v5 || *(a1 + 17) >= *a2)
-    {
-      break;
-    }
-
-    v10 = *v4;
-    v20 = a1;
-    v11 = (v5 - v4) >> 2;
-    if (v11 >= 2)
-    {
-      v12 = *v4;
-      v13 = std::__floyd_sift_down[abi:nn200100]<std::_ClassicAlgPolicy,geom::acd<float>::impl::split_clusters_automatically(geom::acd<float>::parameters const&)::{lambda(unsigned int,unsigned int)#1} &,std::__wrap_iter<unsigned int *>>(v4, &v20, v11);
-      v14 = (v5 - 4);
-      if ((v5 - 4) == v13)
-      {
-        *v13 = v12;
-      }
-
-      else
-      {
-        *v13 = *v14;
-        *v14 = v12;
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::acd<float>::impl::split_clusters_automatically(geom::acd<float>::parameters const&)::{lambda(unsigned int,unsigned int)#1} &,std::__wrap_iter<unsigned int *>>(v4, (v13 + 1), &v20, ((v13 + 1) - v4) >> 2);
-      }
-    }
-
-    v24 = (v24 - 4);
-    v20 = 0;
-    v21 = 0;
-    v22 = 0;
-    geom::acd<float>::impl::cut_to_reduce_concavity(a1, v10, &v20, a2);
-    v15 = v20;
-    v16 = v21;
-    if ((v21 - v20) < 5 || v20 == v21)
-    {
-      if (v20)
-      {
-        goto LABEL_24;
-      }
-    }
-
-    else
-    {
-      do
-      {
-        v18 = *v15++;
-        v19 = v18;
-        std::vector<unsigned int>::push_back[abi:nn200100](&v23, &v19);
-        v26 = a1;
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::acd<float>::impl::split_clusters_automatically(geom::acd<float>::parameters const&)::{lambda(unsigned int,unsigned int)#1} &,std::__wrap_iter<unsigned int *>>(v23, v24, &v26, (v24 - v23) >> 2);
-      }
-
-      while (v15 != v16);
-      v15 = v20;
-      if (v20)
-      {
-LABEL_24:
-        v21 = v15;
-        operator delete(v15);
-      }
-    }
-  }
-
-  if (v4)
-  {
-    v24 = v4;
-    operator delete(v4);
-  }
-}
-
-void geom::acd<float>::impl::cut_to_reduce_concavity(void *a1, unsigned int a2, uint64_t a3, uint64_t a4)
-{
-  v155 = *MEMORY[0x277D85DE8];
-  v81 = a2;
-  v7 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(a1 + 14, &v81);
-  v8 = *(v7[3] + 24);
-  *(a3 + 8) = *a3;
-  std::vector<unsigned int>::push_back[abi:nn200100](a3, &v81);
-  if (v8 > 0.00000011921)
-  {
-    LOBYTE(v136) = 0;
-    v152 = 0;
-    v153 = 0;
-    v154 = 0;
-    v79 = 0;
-    v78 = 0;
-    v80 = 0;
-    geom::acd<float>::impl::find_best_cut_plane(a1, v7[3], 2u, 4, v135, &v78);
-    if (v152 == 1)
-    {
-      v9 = v7[3];
-      if ((((*(v9 + 24) - *(&v137 + 2)) - v148) / *(v9 + 24)) >= *(a4 + 4))
-      {
-        geom::cluster<float>::deinit(v9, (a1 + 28));
-        v25 = v7[3];
-        v26 = v136;
-        v136 = 0uLL;
-        v27 = *(v25 + 8);
-        *v25 = v26;
-        if (v27)
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v27);
-        }
-
-        v28 = *(v25 + 88);
-        *(v25 + 16) = v137;
-        v29 = v138;
-        v30 = v139;
-        v31 = v140;
-        *(v25 + 80) = v141;
-        *(v25 + 64) = v31;
-        *(v25 + 48) = v30;
-        *(v25 + 32) = v29;
-        if (v28)
-        {
-          *(v25 + 96) = v28;
-          operator delete(v28);
-          *(v25 + 88) = 0;
-          *(v25 + 96) = 0;
-          *(v25 + 104) = 0;
-        }
-
-        *(v25 + 88) = v142;
-        *(v25 + 104) = v143;
-        v142 = 0uLL;
-        v143 = 0;
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate((v25 + 112));
-        *(v25 + 112) = v144;
-        *(v25 + 128) = v145;
-        v145 = 0;
-        v144 = 0uLL;
-        *(v25 + 136) = v146;
-        operator new();
-      }
-
-      if (*(a4 + 12) == 1)
-      {
-        v40 = a4;
-        std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](&v78, v135);
-        v69 = 0uLL;
-        *&v70 = vneg_f32(0x3F0000003FLL);
-        DWORD2(v70) = 2143289344;
-        v10.i64[0] = 0x7F0000007FLL;
-        v10.i64[1] = 0x7F0000007FLL;
-        v71 = vnegq_f32(v10);
-        v72 = v10;
-        __p = 0u;
-        memset(v76, 0, sizeof(v76));
-        v77 = 0;
-        v60 = 0uLL;
-        *&v61 = v70;
-        DWORD2(v61) = 2143289344;
-        v62 = v71;
-        v63 = v10;
-        v66 = 0u;
-        memset(v67, 0, sizeof(v67));
-        v68 = 0;
-        v51 = 0uLL;
-        *&v52 = v70;
-        DWORD2(v52) = 2143289344;
-        v53 = v71;
-        v54 = v10;
-        v57 = 0u;
-        memset(v58, 0, sizeof(v58));
-        v59 = 0;
-        v42 = 0uLL;
-        *&v43 = v70;
-        DWORD2(v43) = 2143289344;
-        v44 = v71;
-        v45 = v10;
-        *v48 = 0u;
-        memset(v49, 0, sizeof(v49));
-        v50 = 0;
-        memset(v41, 0, sizeof(v41));
-        v11 = v78;
-        v12 = v79;
-        if (v78 != v79)
-        {
-          v13 = 0.0;
-          while (1)
-          {
-            v14 = &v11[1];
-            LOBYTE(v110) = 0;
-            v15 = &v11[10];
-            v132 = 0;
-            v133 = 0;
-            v134 = 0;
-            LOBYTE(v84) = 0;
-            v106 = 0;
-            v107 = 0;
-            v108 = 0;
-            geom::acd<float>::impl::find_best_cut_plane(a1, v11 + 1, 0, 0, v109, v41);
-            geom::acd<float>::impl::find_best_cut_plane(a1, v11 + 10, 0, 0, v83, v41);
-            if (v132)
-            {
-              if (v106)
-              {
-                v16 = ((((*(v7[3] + 24) - *(&v111 + 2)) - *(&v122 + 2)) - *(&v85 + 2)) - *(&v96 + 2)) / *(v7[3] + 24);
-                if (v16 <= v13)
-                {
-                  geom::cluster<float>::deinit(&v110, (a1 + 28));
-                  geom::cluster<float>::deinit(&v121, (a1 + 28));
-                  geom::cluster<float>::deinit(&v84, (a1 + 28));
-                  geom::cluster<float>::deinit(&v95, (a1 + 28));
-                }
-
-                else
-                {
-                  geom::cluster<float>::deinit(&v69, (a1 + 28));
-                  geom::cluster<float>::deinit(&v60, (a1 + 28));
-                  geom::cluster<float>::deinit(&v51, (a1 + 28));
-                  geom::cluster<float>::deinit(&v42, (a1 + 28));
-                  v17 = v110;
-                  v110 = 0uLL;
-                  v18 = *(&v69 + 1);
-                  v69 = v17;
-                  if (v18)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:nn200100](v18);
-                  }
-
-                  v72 = v113;
-                  v73 = v114;
-                  v74 = v115;
-                  v70 = v111;
-                  v71 = v112;
-                  if (__p)
-                  {
-                    *(&__p + 1) = __p;
-                    operator delete(__p);
-                  }
-
-                  __p = v116;
-                  v76[0] = v117;
-                  v117 = 0;
-                  v116 = 0uLL;
-                  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate(&v76[1]);
-                  *&v76[1] = v118;
-                  v76[3] = v119;
-                  v119 = 0;
-                  v118 = 0uLL;
-                  v77 = v120;
-                  v19 = v121;
-                  v121 = 0uLL;
-                  v20 = *(&v60 + 1);
-                  v60 = v19;
-                  if (v20)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:nn200100](v20);
-                  }
-
-                  v63 = v124;
-                  v64 = v125;
-                  v65 = v126;
-                  v61 = v122;
-                  v62 = v123;
-                  if (v66)
-                  {
-                    *(&v66 + 1) = v66;
-                    operator delete(v66);
-                  }
-
-                  v66 = v127;
-                  v67[0] = v128;
-                  v128 = 0;
-                  v127 = 0uLL;
-                  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate(&v67[1]);
-                  *&v67[1] = v129;
-                  v67[3] = v130;
-                  v130 = 0;
-                  v129 = 0uLL;
-                  v68 = v131;
-                  v21 = v84;
-                  v84 = 0uLL;
-                  v22 = *(&v51 + 1);
-                  v51 = v21;
-                  if (v22)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:nn200100](v22);
-                  }
-
-                  v54 = v87;
-                  v55 = v88;
-                  v56 = v89;
-                  v52 = v85;
-                  v53 = v86;
-                  if (v57)
-                  {
-                    *(&v57 + 1) = v57;
-                    operator delete(v57);
-                  }
-
-                  v57 = v90;
-                  v58[0] = v91;
-                  v91 = 0;
-                  v90 = 0uLL;
-                  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate(&v58[1]);
-                  *&v58[1] = v92;
-                  v58[3] = v93;
-                  v93 = 0;
-                  v92 = 0uLL;
-                  v59 = v94;
-                  v23 = v95;
-                  v95 = 0uLL;
-                  v24 = *(&v42 + 1);
-                  v42 = v23;
-                  if (v24)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:nn200100](v24);
-                  }
-
-                  v45 = v98;
-                  v46 = v99;
-                  v47 = v100;
-                  v43 = v96;
-                  v44 = v97;
-                  if (v48[0])
-                  {
-                    v48[1] = v48[0];
-                    operator delete(v48[0]);
-                  }
-
-                  *v48 = v101;
-                  v49[0] = v102;
-                  v102 = 0;
-                  v101 = 0uLL;
-                  std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate(&v49[1]);
-                  *&v49[1] = v103;
-                  v49[3] = v104;
-                  v104 = 0;
-                  v103 = 0uLL;
-                  v50 = v105;
-                  v13 = v16;
-                }
-              }
-
-              else
-              {
-                v14 = &v110;
-                v15 = &v121;
-              }
-            }
-
-            else
-            {
-              v15 = &v95;
-              v14 = &v84;
-              if ((v106 & 1) == 0)
-              {
-                goto LABEL_32;
-              }
-            }
-
-            geom::cluster<float>::deinit(v14, (a1 + 28));
-            geom::cluster<float>::deinit(v15, (a1 + 28));
-LABEL_32:
-            if (v106 == 1)
-            {
-              v82 = &v103;
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v82);
-              if (v101)
-              {
-                *(&v101 + 1) = v101;
-                operator delete(v101);
-              }
-
-              if (*(&v95 + 1))
-              {
-                std::__shared_weak_count::__release_shared[abi:nn200100](*(&v95 + 1));
-              }
-
-              v82 = &v92;
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v82);
-              if (v90)
-              {
-                *(&v90 + 1) = v90;
-                operator delete(v90);
-              }
-
-              if (*(&v84 + 1))
-              {
-                std::__shared_weak_count::__release_shared[abi:nn200100](*(&v84 + 1));
-              }
-            }
-
-            if (v132 == 1)
-            {
-              v83[0] = &v129;
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v83);
-              if (v127)
-              {
-                *(&v127 + 1) = v127;
-                operator delete(v127);
-              }
-
-              if (*(&v121 + 1))
-              {
-                std::__shared_weak_count::__release_shared[abi:nn200100](*(&v121 + 1));
-              }
-
-              v83[0] = &v118;
-              std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v83);
-              if (v116)
-              {
-                *(&v116 + 1) = v116;
-                operator delete(v116);
-              }
-
-              if (*(&v110 + 1))
-              {
-                std::__shared_weak_count::__release_shared[abi:nn200100](*(&v110 + 1));
-              }
-            }
-
-            v11 += 21;
-            if (v11 == v12)
-            {
-              goto LABEL_58;
-            }
-          }
-        }
-
-        v13 = 0.0;
-LABEL_58:
-        if (v13 >= *(v40 + 4))
-        {
-          geom::cluster<float>::deinit(v7[3], (a1 + 28));
-          v32 = v7[3];
-          v33 = v69;
-          v69 = 0uLL;
-          v34 = *(v32 + 8);
-          *v32 = v33;
-          if (v34)
-          {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v34);
-          }
-
-          v35 = *(v32 + 88);
-          *(v32 + 16) = v70;
-          v36 = v71;
-          v37 = v72;
-          v38 = v73;
-          *(v32 + 80) = v74;
-          *(v32 + 64) = v38;
-          *(v32 + 48) = v37;
-          *(v32 + 32) = v36;
-          if (v35)
-          {
-            *(v32 + 96) = v35;
-            operator delete(v35);
-            *(v32 + 88) = 0;
-            *(v32 + 96) = 0;
-            *(v32 + 104) = 0;
-          }
-
-          *(v32 + 88) = __p;
-          *(v32 + 104) = v76[0];
-          __p = 0uLL;
-          v76[0] = 0;
-          std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__vdeallocate((v32 + 112));
-          *(v32 + 112) = *&v76[1];
-          *(v32 + 128) = v76[3];
-          memset(&v76[1], 0, 24);
-          *(v32 + 136) = v77;
-          operator new();
-        }
-
-        v109[0] = v41;
-        std::vector<geom::cut_plane_search_candidate<float>>::__destroy_vector::operator()[abi:nn200100](v109);
-        v109[0] = &v49[1];
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-        if (v48[0])
-        {
-          v48[1] = v48[0];
-          operator delete(v48[0]);
-        }
-
-        if (*(&v42 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](*(&v42 + 1));
-        }
-
-        v109[0] = &v58[1];
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-        if (v57)
-        {
-          *(&v57 + 1) = v57;
-          operator delete(v57);
-        }
-
-        if (*(&v51 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](*(&v51 + 1));
-        }
-
-        v109[0] = &v67[1];
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-        if (v66)
-        {
-          *(&v66 + 1) = v66;
-          operator delete(v66);
-        }
-
-        if (*(&v60 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](*(&v60 + 1));
-        }
-
-        v109[0] = &v76[1];
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-        if (__p)
-        {
-          *(&__p + 1) = __p;
-          operator delete(__p);
-        }
-
-        if (*(&v69 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](*(&v69 + 1));
-        }
-      }
-    }
-
-    v109[0] = &v78;
-    std::vector<geom::cut_plane_search_candidate<float>>::__destroy_vector::operator()[abi:nn200100](v109);
-    if (v152 == 1)
-    {
-      v109[0] = &v151;
-      std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-      if (v149)
-      {
-        v150 = v149;
-        operator delete(v149);
-      }
-
-      if (v147)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v147);
-      }
-
-      v109[0] = &v144;
-      std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](v109);
-      if (v142)
-      {
-        *(&v142 + 1) = v142;
-        operator delete(v142);
-      }
-
-      if (*(&v136 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](*(&v136 + 1));
-      }
-    }
-  }
-
-  v39 = *MEMORY[0x277D85DE8];
-}
-
-float geom::acd<float>::impl::cut_plane_cost(float *a1, float *a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *(a4 + 24);
-  v23 = v4;
-  v24 = *(a3 + 24);
-  v5 = *a2;
-  v6 = *(a2 + 1);
-  if (v6)
-  {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = *a3;
-  v8 = *(a3 + 8);
-  if (v8)
-  {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v10 = *a4;
-  v9 = *(a4 + 8);
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v11 = v7[1];
-  v21 = *v7;
-  v22 = a1[84];
-  v12 = v10[1];
-  v20 = *v10;
-  v13 = *(v5 + 4);
-  v14 = a1[85];
-  v15 = *(a3 + 20);
-  v16 = *(a4 + 20);
-  v17 = a2[5];
-  v18 = a1[86];
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v9);
-  }
-
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v8);
-  }
-
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
-  }
-
-  return (v24 + v23) * (((((v22 * vabds_f32(v21, v20)) + (((v11 + v12) - v13) * v14)) + (((v15 + v16) - v17) * v18)) * 0.01) + 1.0);
-}
-
-void geom::acd<float>::impl::find_best_cut_plane(void *a1, float32x4_t *a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6)
-{
-  v12 = *(a1[35] + 4 * a3);
-  __p = 0;
-  v23 = 0;
-  v24 = 0;
-  v21 = 0;
-  if (v12)
-  {
-    for (i = 0; i < v12; v21 = i)
-    {
-      v14 = a1[32];
-      v15 = *(v14 + 16 * i);
-      if (COERCE_FLOAT(*(v14 + 16 * i + 8)) >= 0.00000011921 || *&v15 > -0.00000011921 && (*&v15 < 0.00000011921 ? (v16 = *(&v15 + 1) > -0.00000011921) : (v16 = 1), v16))
-      {
-        std::vector<unsigned int>::push_back[abi:nn200100](&__p, &v21);
-        i = v21;
-      }
-
-      ++i;
-    }
-
-    v17 = __p;
-    v18 = v23;
-  }
-
-  else
-  {
-    v18 = 0;
-    v17 = 0;
-  }
-
-  geom::acd<float>::impl::search_cut_planes_with_normals(a1, v17, (v18 - v17) >> 2, a2, a4, a5, a6);
-  if (*(a5 + 304) == 1)
-  {
-    v19 = a3 + 1;
-    if (v19 < ((a1[36] - a1[35]) >> 2))
-    {
-      v20 = 208 * v19;
-      do
-      {
-        v23 = __p;
-        geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex((a1[38] + v20), *a5, &__p);
-        geom::acd<float>::impl::search_cut_planes_with_normals(a1, __p, (v23 - __p) >> 2, a2, a4, a5, a6);
-        ++v19;
-        v20 += 208;
-      }
-
-      while (v19 < ((a1[36] - a1[35]) >> 2));
-    }
-  }
-
-  if (__p)
-  {
-    v23 = __p;
-    operator delete(__p);
-  }
-}
-
-uint64_t std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 16))
-  {
-    result = std::vector<geom::cut_plane_search_candidate<float>>::__emplace_back_slow_path<geom::cut_plane_search_candidate<float>>(a1, a2);
-  }
-
-  else
-  {
-    v5 = *a2;
-    *(v4 + 8) = *(a2 + 8);
-    *v4 = v5;
-    *(v4 + 16) = 0;
-    *(v4 + 304) = 0;
-    if (*(a2 + 304) == 1)
-    {
-      std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__construct[abi:nn200100]<std::tuple<geom::cluster<float>,geom::cluster<float>>>(v4 + 16, a2 + 16);
-    }
-
-    v6 = *(a2 + 320);
-    *(v4 + 328) = *(a2 + 328);
-    *(v4 + 320) = v6;
-    result = v4 + 336;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-void geom::acd<float>::impl::search_cut_planes_with_normals(uint64_t a1, unsigned int *a2, uint64_t a3, float32x4_t *a4, int a5, uint64_t a6, uint64_t a7)
-{
-  v85 = *MEMORY[0x277D85DE8];
-  v55 = a4[3];
-  v57 = a4[2];
-  v7 = vcgtq_f32(v57, v55);
-  v7.i32[3] = v7.i32[2];
-  if ((vmaxvq_u32(v7) & 0x80000000) != 0)
-  {
-    goto LABEL_66;
-  }
-
-  v70 = 0;
-  memset(v69, 0, sizeof(v69));
-  v66 = 0;
-  v67 = 0;
-  v68 = 0;
-  v63[0] = a1;
-  v63[1] = &v66;
-  v63[2] = a7;
-  v63[3] = &v65;
-  v64 = a5;
-  if (a3)
-  {
-    v12 = v57;
-    v12.i32[3] = 0;
-    v58 = v12;
-    v13 = v55;
-    v13.i32[3] = 0;
-    v56 = v13;
-    v14 = 4 * a3;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v54 = _Q0;
-    do
-    {
-      v19 = *a2;
-      v20 = *(*(a1 + 256) + 16 * v19);
-      v21.i64[0] = 0x8000000080000000;
-      v21.i64[1] = 0x8000000080000000;
-      v22 = vcvtq_s32_f32(vbslq_s8(vorrq_s8(vcltzq_f32(v20), vcgtzq_f32(v20)), vorrq_s8(vandq_s8(v20, v21), v54), 0));
-      v22.i32[3] = 0;
-      v23 = vcltzq_s32(v22);
-      v24 = vbslq_s8(v23, v56, v58);
-      v25 = vmulq_f32(v20, vorrq_s8(vbicq_s8(v56, v23), vandq_s8(v23, v58)));
-      v26 = vmulq_f32(v20, v24);
-      LOBYTE(v73) = 0;
-      v82 = 0;
-      v83 = 0;
-      v84 = 0;
-      LODWORD(v72) = v19;
-      *v26.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v25, v25, 8uLL), *&vextq_s8(v26, v26, 8uLL)), vadd_f32(vzip1_s32(*v25.i8, *v26.i8), vzip2_s32(*v25.i8, *v26.i8)));
-      *v24.f32 = vdup_lane_s32(*v26.i8, 0);
-      v24.f32[0] = -*&v26.i32[1];
-      *(&v72 + 4) = vmul_f32(vsub_f32(*v24.f32, *v26.i8), 0x3F0000003F000000);
-      std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](&v66, &v72);
-      if (v82 == 1)
-      {
-        v60 = &v81;
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v60);
-        if (__p)
-        {
-          v80 = __p;
-          operator delete(__p);
-        }
-
-        if (v78)
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v78);
-        }
-
-        v60 = &v77;
-        std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v60);
-        if (v75)
-        {
-          v76 = v75;
-          operator delete(v75);
-        }
-
-        if (*(&v73 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](*(&v73 + 1));
-        }
-      }
-
-      ++a2;
-      v14 -= 4;
-    }
-
-    while (v14);
-    v27 = v66;
-    v28 = v67;
-    v29 = *(a1 + 176);
-    v60 = 0;
-    v61 = 0;
-    v62 = 0;
-    if (v66 != v67)
-    {
-      v59 = v29;
-      do
-      {
-        v30 = vmulq_f32(v59, vabsq_f32(*(*(a1 + 256) + 16 * *v27)));
-        geom::cut_plane_search_candidate<float>::refine_to_new_range(v27, &v60, ((v30.f32[2] + vaddv_f32(*v30.f32)) * 8.0) * 0.5);
-        v27 += 84;
-      }
-
-      while (v27 != v28);
-      v31 = v60;
-      v32 = v61;
-      if (v60 != v61)
-      {
-        do
-        {
-          std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](&v66, v31);
-          v31 += 84;
-        }
-
-        while (v31 != v32);
-        v31 = v60;
-        v32 = v61;
-      }
-
-      while (v32 != v31)
-      {
-        v32 -= 84;
-        std::allocator_traits<std::allocator<geom::cut_plane_search_candidate<float>>>::destroy[abi:nn200100]<geom::cut_plane_search_candidate<float>,0>(&v60, v32);
-      }
-
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    v29 = *(a1 + 176);
-    v60 = 0;
-    v61 = 0;
-    v62 = 0;
-  }
-
-  v59 = v29;
-  v31 = 0;
-LABEL_25:
-  v61 = v31;
-  geom::acd<float>::impl::evaluate_candidate_cut_planes<std::__wrap_iter<geom::cut_plane_search_candidate<float> *>>(a1, v66, v67, a4, v69);
-  v72 = 0u;
-  v73 = 0u;
-  v74 = 1065353216;
-  v33 = v66;
-  v34 = v67;
-  if (v67 != v66)
-  {
-    v35 = 0;
-    v36 = 0;
-    do
-    {
-      v37 = &v33[84 * v35];
-      v38 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(&v72, v37);
-      if (v38)
-      {
-        v33 = v66;
-        if (*(v37 + 80) < *&v66[84 * *(v38 + 5) + 80])
-        {
-          *(v38 + 5) = v36;
-        }
-      }
-
-      else
-      {
-        v71 = v37;
-        *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v72, v37) + 5) = v36;
-        v33 = v66;
-      }
-
-      v34 = v67;
-      v35 = ++v36;
-    }
-
-    while (0xCF3CF3CF3CF3CF3DLL * ((v67 - v33) >> 4) > v36);
-  }
-
-  if (v34 != v33)
-  {
-    v39 = 0;
-    v40 = 0;
-    do
-    {
-      v41 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(&v72, &v33[84 * v39]);
-      if (v41 && *(v41 + 5) == v40)
-      {
-        v33 = v66;
-        v34 = v67;
-      }
-
-      else
-      {
-        geom::acd<float>::impl::search_cut_planes_with_normals(geom::slice<unsigned int>,geom::cluster<float> const&,unsigned int,geom::cut_plane_search_candidate<float> &,std::vector<geom::cut_plane_search_candidate<float>> &)::{lambda(unsigned long)#1}::operator()(v63, v39);
-        v33 = v66;
-        v34 = v67;
-        if (0xCF3CF3CF3CF3CF3DLL * ((v67 - v66) >> 4) <= v39)
-        {
-          --v40;
-        }
-
-        else
-        {
-          v42 = std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::find<unsigned int>(&v72, &v66[84 * v39]);
-          v33 = v66;
-          v34 = v67;
-          if (v42 && 0xCF3CF3CF3CF3CF3DLL * ((v67 - v66) >> 4) == *(v42 + 5))
-          {
-            *(v42 + 5) = v40;
-          }
-        }
-      }
-
-      v39 = ++v40;
-    }
-
-    while (0xCF3CF3CF3CF3CF3DLL * ((v34 - v33) >> 4) > v40);
-  }
-
-  for (i = v59; v33 != v34; v33 += 84)
-  {
-    v44 = vmulq_f32(i, vabsq_f32(*(*(a1 + 256) + 16 * *v33)));
-    geom::cut_plane_search_candidate<float>::refine_to_new_range(v33, &v60, v44.f32[2] + vaddv_f32(*v44.f32));
-    i = v59;
-  }
-
-  geom::acd<float>::impl::evaluate_candidate_cut_planes<std::__wrap_iter<geom::cut_plane_search_candidate<float> *>>(a1, v60, v61, a4, v69);
-  v45 = v60;
-  v46 = v61;
-  if (v60 != v61)
-  {
-    do
-    {
-      std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](&v66, v45);
-      v45 += 84;
-    }
-
-    while (v45 != v46);
-    v45 = v60;
-    v46 = v61;
-  }
-
-  while (v46 != v45)
-  {
-    v46 -= 84;
-    std::allocator_traits<std::allocator<geom::cut_plane_search_candidate<float>>>::destroy[abi:nn200100]<geom::cut_plane_search_candidate<float>,0>(&v60, v46);
-  }
-
-  v61 = v45;
-  v47 = v66;
-  v48 = v66 + 84;
-  if (v66 != v67 && v48 != v67)
-  {
-    do
-    {
-      if (*(v48 + 80) < *(v47 + 80))
-      {
-        v47 = v48;
-      }
-
-      v48 += 84;
-    }
-
-    while (v48 != v67);
-  }
-
-  v50 = *v47;
-  *(a6 + 8) = v47[2];
-  *a6 = v50;
-  std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>>(a6 + 16, (v47 + 4));
-  if (*(a6 + 328) == *(v47 + 328))
-  {
-    if (*(a6 + 328))
-    {
-      *(a6 + 320) = v47[80];
-      *(a6 + 324) = v47[81];
-    }
-  }
-
-  else if (*(a6 + 328))
-  {
-    *(a6 + 328) = 0;
-  }
-
-  else
-  {
-    *(a6 + 320) = *(v47 + 40);
-    *(a6 + 328) = 1;
-  }
-
-  std::swap[abi:nn200100]<geom::cut_plane_search_candidate<float>>(v47, v67 - 42);
-  v51 = v67 - 84;
-  std::allocator_traits<std::allocator<geom::cut_plane_search_candidate<float>>>::destroy[abi:nn200100]<geom::cut_plane_search_candidate<float>,0>(&v66, (v67 - 84));
-  v67 = v51;
-  for (j = v66; v66 != v67; v51 = v67)
-  {
-    geom::acd<float>::impl::search_cut_planes_with_normals(geom::slice<unsigned int>,geom::cluster<float> const&,unsigned int,geom::cut_plane_search_candidate<float> &,std::vector<geom::cut_plane_search_candidate<float>> &)::{lambda(unsigned long)#1}::operator()(v63, 0xCF3CF3CF3CF3CF3DLL * ((v51 - j) >> 4) - 1);
-    j = v66;
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::~__hash_table(&v72);
-  *&v72 = &v60;
-  std::vector<geom::cut_plane_search_candidate<float>>::__destroy_vector::operator()[abi:nn200100](&v72);
-  *&v72 = &v66;
-  std::vector<geom::cut_plane_search_candidate<float>>::__destroy_vector::operator()[abi:nn200100](&v72);
-  *&v72 = v69;
-  std::vector<geom::cluster_parallel_clipper<float>::clipping_context,std::allocator<geom::cluster_parallel_clipper<float>::clipping_context>>::__destroy_vector::operator()[abi:nn200100](&v72);
-LABEL_66:
-  v53 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<geom::cut_plane_search_candidate<float>>::__emplace_back_slow_path<geom::cut_plane_search_candidate<float> const&>(a1, a2);
-  }
-
-  else
-  {
-    result = geom::cut_plane_search_candidate<float>::cut_plane_search_candidate(v3, a2) + 336;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-void geom::cut_plane_search_candidate<float>::refine_to_new_range(uint64_t a1, uint64_t a2, float a3)
-{
-  v28 = *MEMORY[0x277D85DE8];
-  v6 = vcvtms_s32_f32(*(a1 + 8) / a3);
-  v7 = -1;
-  do
-  {
-    v8 = v7;
-    if (v6 >= 1)
-    {
-      v9 = v7 * a3;
-      v10 = 1;
-      v11 = v6;
-      do
-      {
-        v16 = 0;
-        v25 = 0;
-        v26 = 0;
-        v27 = 0;
-        *(&v14 + 1) = *(a1 + 4) + (v9 * v10);
-        v15 = a3;
-        LODWORD(v14) = *a1;
-        std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](a2, &v14);
-        if (v25 == 1)
-        {
-          v13 = &v24;
-          std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v13);
-          if (__p)
-          {
-            v23 = __p;
-            operator delete(__p);
-          }
-
-          if (v21)
-          {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v21);
-          }
-
-          v13 = &v20;
-          std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v13);
-          if (v18)
-          {
-            v19 = v18;
-            operator delete(v18);
-          }
-
-          if (v17)
-          {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v17);
-          }
-        }
-
-        ++v10;
-        --v11;
-      }
-
-      while (v11);
-    }
-
-    v7 = v8 + 2;
-  }
-
-  while (v8 < 0);
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void geom::acd<float>::impl::evaluate_candidate_cut_planes<std::__wrap_iter<geom::cut_plane_search_candidate<float> *>>(uint64_t *a1, unsigned int *a2, unsigned int *a3, void *a4, uint64_t *a5)
-{
-  v8 = a2;
-  v24 = 0;
-  v25 = a2;
-  __p = 0;
-  v23 = 0;
-  std::vector<geom::general_plane<float,(unsigned char)3>>::reserve(&__p, 0xCF3CF3CF3CF3CF3DLL * ((a3 - a2) >> 4));
-  if (a3 == v8)
-  {
-    v10 = v23;
-  }
-
-  else
-  {
-    v10 = v23;
-    do
-    {
-      v11 = *(a1[32] + 16 * *v8);
-      v12 = v8[1];
-      if (v10 >= v24)
-      {
-        v13 = (v10 - __p) >> 5;
-        if ((v13 + 1) >> 59)
-        {
-          std::__throw_bad_array_new_length[abi:nn200100]();
-        }
-
-        v14 = (v24 - __p) >> 4;
-        if (v14 <= v13 + 1)
-        {
-          v14 = v13 + 1;
-        }
-
-        if (v24 - __p >= 0x7FFFFFFFFFFFFFE0)
-        {
-          v15 = 0x7FFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v15 = v14;
-        }
-
-        if (v15)
-        {
-          v21 = *(a1[32] + 16 * *v8);
-          std::__allocate_at_least[abi:nn200100]<std::allocator<geom::general_plane<float,(unsigned char)3>>>(&__p, v15);
-        }
-
-        v16 = 32 * v13;
-        *v16 = v11;
-        *(v16 + 16) = v12;
-        v10 = 32 * v13 + 32;
-        v17 = (32 * v13 - (v23 - __p));
-        memcpy((v16 - (v23 - __p)), __p, v23 - __p);
-        v18 = __p;
-        __p = v17;
-        v23 = v10;
-        v24 = 0;
-        if (v18)
-        {
-          operator delete(v18);
-        }
-      }
-
-      else
-      {
-        *v10 = v11;
-        *(v10 + 16) = v12;
-        v10 += 32;
-      }
-
-      v23 = v10;
-      v8 += 84;
-    }
-
-    while (v8 != a3);
-  }
-
-  geom::cluster_parallel_clipper<float>::init(a5, a4, (a1 + 28), __p, (v10 - __p) >> 5);
-  v19 = a5[5];
-  v20 = ((a5[8] + ((v19[12] - v19[11]) >> 3) - 1) / a5[8] + (a5[7] + ((v19[15] - v19[14]) >> 4) - 1) / a5[7]) * a5[4];
-  block = MEMORY[0x277D85DD0];
-  v27 = 0x40000000;
-  v28 = ___ZN4geom14dispatch_applyIZNS_24cluster_parallel_clipperIfE24compute_clipped_clustersEvEUlmE_Lb1EEEvmP16dispatch_queue_sT__block_invoke_0;
-  v29 = &__block_descriptor_tmp_2;
-  v30 = a5;
-  dispatch_apply(v20, 0, &block);
-  block = MEMORY[0x277D85DD0];
-  v27 = 0x40000000;
-  v28 = ___ZN4geom14dispatch_applyIZNS_3acdIfE4impl29evaluate_candidate_cut_planesINSt3__111__wrap_iterIPNS_26cut_plane_search_candidateIfEEEEEEvT_SB_RKNS_7clusterIfEERNS_24cluster_parallel_clipperIfEEEUlmE_Lb1EEEvmP16dispatch_queue_sSB__block_invoke;
-  v29 = &__block_descriptor_tmp_2_0;
-  v30 = a1;
-  v31 = a5;
-  v32 = a4;
-  v33 = &v25;
-  dispatch_apply((v23 - __p) >> 5, 0, &block);
-  geom::cluster_parallel_clipper<float>::deinit(a5);
-  if (__p)
-  {
-    v23 = __p;
-    operator delete(__p);
-  }
-}
-
-void geom::acd<float>::impl::search_cut_planes_with_normals(geom::slice<unsigned int>,geom::cluster<float> const&,unsigned int,geom::cut_plane_search_candidate<float> &,std::vector<geom::cut_plane_search_candidate<float>> &)::{lambda(unsigned long)#1}::operator()(uint64_t *a1, uint64_t a2)
-{
-  v33 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = *a1[1] + 336 * a2;
-  if (*(v4 + 328) == 1)
-  {
-    v5 = *(a1 + 8);
-    if (v5)
-    {
-      v6 = a1[2];
-      if (0xCF3CF3CF3CF3CF3DLL * ((v6[1] - *v6) >> 4) < v5 || *(v4 + 324) < *(*v6 + 324))
-      {
-        std::vector<geom::cut_plane_search_candidate<float>>::push_back[abi:nn200100](v6, v4);
-        std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,geom::recursive_cut_candidate_heap_comparator<float> &,std::__wrap_iter<geom::cut_plane_search_candidate<float> *>>(*a1[2], *(a1[2] + 8), &v18, 0xCF3CF3CF3CF3CF3DLL * ((*(a1[2] + 8) - *a1[2]) >> 4));
-        v31 = 0u;
-        v32 = 0u;
-        memset(v30, 0, sizeof(v30));
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
-        v25 = 0u;
-        v23 = 0u;
-        memset(v22, 0, sizeof(v22));
-        *v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
-        memset(v19, 0, sizeof(v19));
-        *(v4 + 8) = 0;
-        *v4 = 0;
-        std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>>(v4 + 16, v19);
-        if (*(v4 + 328) == BYTE8(v32))
-        {
-          if (*(v4 + 328))
-          {
-            *(v4 + 320) = v32;
-          }
-        }
-
-        else if (*(v4 + 328))
-        {
-          *(v4 + 328) = 0;
-        }
-
-        else
-        {
-          *(v4 + 320) = v32;
-          *(v4 + 328) = 1;
-        }
-
-        if (v31 == 1)
-        {
-          v17 = v30;
-          std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v17);
-          if (*(&v28 + 1))
-          {
-            *&v29 = *(&v28 + 1);
-            operator delete(*(&v28 + 1));
-          }
-
-          if (*(&v23 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:nn200100](*(&v23 + 1));
-          }
-
-          v17 = v22;
-          std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v17);
-          if (v20[1])
-          {
-            *&v21 = v20[1];
-            operator delete(v20[1]);
-          }
-
-          if (*(&v19[0] + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:nn200100](*(&v19[0] + 1));
-          }
-        }
-
-        v7 = a1[2];
-        v8 = v7[1];
-        v9 = 0xCF3CF3CF3CF3CF3DLL * ((v8 - *v7) >> 4);
-        if (v9 > *(a1 + 8))
-        {
-          std::__pop_heap[abi:nn200100]<std::_ClassicAlgPolicy,geom::recursive_cut_candidate_heap_comparator<float>,std::__wrap_iter<geom::cut_plane_search_candidate<float> *>>(*v7, v8, &v18, v9);
-          v10 = a1[2];
-          v11 = *(v10 + 8) - 336;
-          std::allocator_traits<std::allocator<geom::cut_plane_search_candidate<float>>>::destroy[abi:nn200100]<geom::cut_plane_search_candidate<float>,0>(v10, v11);
-          *(v10 + 8) = v11;
-        }
-      }
-    }
-  }
-
-  if (*(v4 + 304) == 1)
-  {
-    geom::cluster<float>::deinit(v4 + 16, v3 + 224);
-    geom::cluster<float>::deinit(v4 + 160, v3 + 224);
-  }
-
-  v12 = *(a1[1] + 8);
-  v13 = *(v12 - 336);
-  *(v4 + 8) = *(v12 - 328);
-  *v4 = v13;
-  std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>>(v4 + 16, v12 - 320);
-  if (*(v4 + 328) == *(v12 - 8))
-  {
-    if (*(v4 + 328))
-    {
-      *(v4 + 320) = *(v12 - 16);
-      *(v4 + 324) = *(v12 - 12);
-    }
-  }
-
-  else if (*(v4 + 328))
-  {
-    *(v4 + 328) = 0;
-  }
-
-  else
-  {
-    *(v4 + 320) = *(v12 - 16);
-    *(v4 + 328) = 1;
-  }
-
-  v14 = a1[1];
-  v15 = *(v14 + 8) - 336;
-  std::allocator_traits<std::allocator<geom::cut_plane_search_candidate<float>>>::destroy[abi:nn200100]<geom::cut_plane_search_candidate<float>,0>(v14, v15);
-  *(v14 + 8) = v15;
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void std::swap[abi:nn200100]<geom::cut_plane_search_candidate<float>>(uint64_t *a1, uint64_t *a2)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  v8 = *(a1 + 2);
-  v9[0] = 0;
-  v18 = 0;
-  if (*(a1 + 304) == 1)
-  {
-    std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__construct[abi:nn200100]<std::tuple<geom::cluster<float>,geom::cluster<float>>>(v9, (a1 + 2));
-  }
-
-  v19 = a1[40];
-  v20 = *(a1 + 82);
-  v4 = *(a2 + 2);
-  *a1 = *a2;
-  *(a1 + 2) = v4;
-  std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>>((a1 + 2), (a2 + 2));
-  if (*(a1 + 328) == *(a2 + 328))
-  {
-    if (*(a1 + 328))
-    {
-      *(a1 + 80) = *(a2 + 80);
-      *(a1 + 81) = *(a2 + 81);
-    }
-  }
-
-  else if (*(a1 + 328))
-  {
-    *(a1 + 328) = 0;
-  }
-
-  else
-  {
-    a1[40] = a2[40];
-    *(a1 + 328) = 1;
-  }
-
-  *a2 = v7;
-  *(a2 + 2) = v8;
-  std::__optional_storage_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>::__assign_from[abi:nn200100]<std::__optional_move_assign_base<std::tuple<geom::cluster<float>,geom::cluster<float>>,false>>((a2 + 2), v9);
-  if (*(a2 + 328) == v20)
-  {
-    if (*(a2 + 328))
-    {
-      a2[40] = v19;
-    }
-  }
-
-  else if (*(a2 + 328))
-  {
-    *(a2 + 328) = 0;
-  }
-
-  else
-  {
-    a2[40] = v19;
-    *(a2 + 328) = 1;
-  }
-
-  if (v18 == 1)
-  {
-    v6 = &v17;
-    std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v6);
-    if (__p)
-    {
-      v16 = __p;
-      operator delete(__p);
-    }
-
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v14);
-    }
-
-    v6 = &v13;
-    std::vector<std::shared_ptr<geom::convex_mesh<float>>>::__destroy_vector::operator()[abi:nn200100](&v6);
-    if (v11)
-    {
-      v12 = v11;
-      operator delete(v11);
-    }
-
-    if (v10)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-    }
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
 }

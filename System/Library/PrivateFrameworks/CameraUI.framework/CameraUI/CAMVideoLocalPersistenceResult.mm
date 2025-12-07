@@ -101,7 +101,7 @@
   if (v5)
   {
     v17 = v13;
-    [v5 CMTimeValue];
+    objc_msgSend_CMTimeValue(v5);
     v13 = v17;
   }
 
@@ -109,7 +109,7 @@
   v31 = v14;
   if (v8)
   {
-    [v8 CMTimeValue];
+    objc_msgSend_CMTimeValue(v8);
   }
 
   v29 = 0;

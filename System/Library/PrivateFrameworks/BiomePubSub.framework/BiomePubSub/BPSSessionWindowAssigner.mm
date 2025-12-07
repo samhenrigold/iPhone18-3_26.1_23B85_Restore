@@ -38,13 +38,13 @@
 
 - (id)assignWindow:(id)window input:(id)input
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   windowCopy = window;
   inputCopy = input;
   v9 = [MEMORY[0x1E695DFD8] set];
   v10 = [v9 mutableCopy];
 
-  v45 = inputCopy;
+  v44 = inputCopy;
   v11 = (*(self->_timestamp + 2))();
   [v11 timeIntervalSinceReferenceDate];
   v13 = v12;
@@ -58,60 +58,59 @@
   }
 
   objc_storeStrong(p_lastTimestamp, v11);
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v17 = windowCopy;
-  v18 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v18)
   {
     v19 = v18;
-    v42 = v11;
-    v43 = v10;
+    v41 = v11;
+    v42 = v10;
     v20 = 0;
-    v21 = *v47;
+    v21 = *v46;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v47 != v21)
+        if (*v46 != v21)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v46 + 1) + 8 * i);
-        if (!v20)
+        v23 = *(*(&v45 + 1) + 8 * i);
+        if (v20)
         {
-          goto LABEL_10;
+          identifier = [*(*(&v45 + 1) + 8 * i) identifier];
+          integerValue = [identifier integerValue];
+          identifier2 = [v20 identifier];
+          integerValue2 = [identifier2 integerValue];
+
+          if (integerValue <= integerValue2)
+          {
+            continue;
+          }
         }
 
-        identifier = [*(*(&v46 + 1) + 8 * i) identifier];
-        integerValue = [identifier integerValue];
-        identifier2 = [v20 identifier];
-        integerValue2 = [identifier2 integerValue];
+        v28 = v23;
 
-        if (integerValue > integerValue2)
-        {
-LABEL_10:
-          v28 = v23;
-
-          v20 = v28;
-        }
+        v20 = v28;
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v19);
 
     if (v20)
     {
-      v10 = v43;
-      [v43 addObject:v20];
+      v10 = v42;
+      [v42 addObject:v20];
       dateInterval = [v20 dateInterval];
-      v11 = v42;
-      v30 = [dateInterval containsDate:v42];
+      v11 = v41;
+      v30 = [dateInterval containsDate:v41];
 
       if (v30)
       {
@@ -121,8 +120,8 @@ LABEL_10:
 
     else
     {
-      v11 = v42;
-      v10 = v43;
+      v11 = v41;
+      v10 = v42;
     }
   }
 
@@ -146,27 +145,26 @@ LABEL_10:
 LABEL_19:
   v39 = v10;
 
-  v40 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)updateAndReturnNewWindowStates:(id)states input:(id)input
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   inputCopy = input;
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   selfCopy = self;
-  v58 = inputCopy;
+  v57 = inputCopy;
   v10 = (*(self->_timestamp + 2))();
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   v11 = statesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v66 objects:v71 count:16];
-  v56 = v9;
+  v12 = [v11 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  v55 = v9;
   obj = v11;
   if (!v12)
   {
@@ -177,50 +175,49 @@ LABEL_19:
 
   v13 = v12;
   v14 = 0;
-  v60 = *v67;
+  v59 = *v66;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v67 != v60)
+      if (*v66 != v59)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v66 + 1) + 8 * i);
-      if (!v14)
+      v16 = *(*(&v65 + 1) + 8 * i);
+      if (v14)
       {
-        goto LABEL_8;
+        [*(*(&v65 + 1) + 8 * i) identifier];
+        v17 = v10;
+        v19 = v18 = v8;
+        integerValue = [v19 integerValue];
+        [v14 identifier];
+        v22 = v21 = v14;
+        integerValue2 = [v22 integerValue];
+
+        v14 = v21;
+        v8 = v18;
+        v10 = v17;
+        if (integerValue <= integerValue2)
+        {
+          continue;
+        }
       }
 
-      [*(*(&v66 + 1) + 8 * i) identifier];
-      v17 = v10;
-      v19 = v18 = v8;
-      integerValue = [v19 integerValue];
-      [v14 identifier];
-      v22 = v21 = v14;
-      integerValue2 = [v22 integerValue];
+      v24 = v16;
 
-      v14 = v21;
-      v8 = v18;
-      v10 = v17;
-      if (integerValue > integerValue2)
-      {
-LABEL_8:
-        v24 = v16;
-
-        v14 = v24;
-      }
+      v14 = v24;
     }
 
-    v13 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+    v13 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
   }
 
   while (v13);
 
   if (!v14)
   {
-    v9 = v56;
+    v9 = v55;
     goto LABEL_16;
   }
 
@@ -228,7 +225,7 @@ LABEL_8:
   dateInterval = [v14 dateInterval];
   v26 = [dateInterval containsDate:v10];
 
-  v9 = v56;
+  v9 = v55;
   if ((v26 & 1) == 0)
   {
 LABEL_16:
@@ -245,26 +242,26 @@ LABEL_16:
     ++selfCopy->_identifier;
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v61 = v8;
-  v33 = [v61 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v60 = v8;
+  v33 = [v60 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v63;
+    v35 = *v62;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v63 != v35)
+        if (*v62 != v35)
         {
-          objc_enumerationMutation(v61);
+          objc_enumerationMutation(v60);
         }
 
-        v37 = *(*(&v62 + 1) + 8 * j);
+        v37 = *(*(&v61 + 1) + 8 * j);
         dateInterval2 = [v37 dateInterval];
         v39 = [dateInterval2 containsDate:v10];
 
@@ -272,7 +269,7 @@ LABEL_16:
         {
           closure = [(BPSAggregator *)selfCopy->_aggregator closure];
           aggregate = [v37 aggregate];
-          v42 = (closure)[2](closure, aggregate, v58);
+          v42 = (closure)[2](closure, aggregate, v57);
           [v37 setAggregate:v42];
 
           [v10 timeIntervalSinceReferenceDate];
@@ -295,15 +292,14 @@ LABEL_16:
         }
       }
 
-      v34 = [v61 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v34 = [v60 countByEnumeratingWithState:&v61 objects:v69 count:16];
     }
 
     while (v34);
   }
 
-  v53 = v56;
-  v54 = *MEMORY[0x1E69E9840];
-  return v56;
+  v53 = v55;
+  return v55;
 }
 
 - (void)initWithGap:(uint64_t)a1 timestamp:(uint64_t)a2 aggregator:.cold.1(uint64_t a1, uint64_t a2)

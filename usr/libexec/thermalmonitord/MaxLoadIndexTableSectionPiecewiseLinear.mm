@@ -2,6 +2,7 @@
 - (MaxLoadIndexTableSectionPiecewiseLinear)initWithDecisionTreeSectionControlEfforts:(id)efforts maxLIs:(id)is unconstrainedMaxLI:(unint64_t)i;
 - (unint64_t)getControlEffortForMaxLI:(unint64_t)i;
 - (unint64_t)getMaxLI:(unint64_t)i;
+- (unint64_t)getReleaseMaxLI:(BOOL)i releaseRate:(int)rate;
 @end
 
 @implementation MaxLoadIndexTableSectionPiecewiseLinear
@@ -116,6 +117,13 @@
 LABEL_10:
   self->super._maxLI = result;
   return result;
+}
+
+- (unint64_t)getReleaseMaxLI:(BOOL)i releaseRate:(int)rate
+{
+  v5.receiver = self;
+  v5.super_class = MaxLoadIndexTableSectionPiecewiseLinear;
+  return [(MaxLoadIndexTableSection *)&v5 getReleaseMaxLI:i releaseRate:*&rate];
 }
 
 - (unint64_t)getControlEffortForMaxLI:(unint64_t)i

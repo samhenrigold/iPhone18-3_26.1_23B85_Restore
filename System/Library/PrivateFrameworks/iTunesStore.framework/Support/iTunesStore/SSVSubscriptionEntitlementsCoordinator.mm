@@ -40,31 +40,34 @@
     shouldLog = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
 
     if (v19)
     {
-      LODWORD(v39) = 138412290;
-      *(&v39 + 4) = objc_opt_class();
+      v39 = 138412290;
+      v40 = objc_opt_class();
       expiredCopy = expired;
       v22 = v8;
       v23 = v6;
-      v24 = *(&v39 + 4);
-      LODWORD(v38) = 12;
-      v37 = &v39;
-      v25 = _os_log_send_and_compose_impl();
+      v24 = v40;
+      v25 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cached subscription entitlements have expired.", &v39, 12);
 
       v6 = v23;
       v8 = v22;
@@ -73,7 +76,7 @@
 
       if (v25)
       {
-        v26 = [NSString stringWithCString:v25 encoding:4, &v39, v38, v39];
+        v26 = [NSString stringWithCString:v25 encoding:4];
         free(v25);
         v37 = v26;
         SSFileLog();
@@ -121,23 +124,23 @@
   if (v31)
   {
     v32 = objc_opt_class();
-    LODWORD(v39) = 138412290;
-    *(&v39 + 4) = v32;
+    v39 = 138412290;
+    v40 = v32;
     v33 = v32;
     LODWORD(v38) = 12;
-    v34 = _os_log_send_and_compose_impl();
+    v34 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Returning cached subscription entitlements.", &v39, v38);
 
     if (!v34)
     {
-      goto LABEL_28;
+      goto LABEL_29;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v34 encoding:4, &v39, v38];
+    oSLogObject2 = [NSString stringWithCString:v34 encoding:4];
     free(v34);
     SSFileLog();
   }
 
-LABEL_28:
+LABEL_29:
   v35 = [SSVSubscriptionEntitlements _parseJSONDictionary:_cachedSubscriptionEntitlementsDictionary];
 
   return v35;
@@ -154,31 +157,35 @@ LABEL_28:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    LODWORD(v14) = 138412290;
-    *(&v14 + 4) = objc_opt_class();
-    v7 = *(&v14 + 4);
-    LODWORD(v13) = 12;
-    v8 = _os_log_send_and_compose_impl();
+    v13 = 138412290;
+    v14 = objc_opt_class();
+    v7 = v14;
+    v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Marking the cached subscription entitlements as expired.", &v13, 12);
 
     if (v8)
     {
-      v9 = [NSString stringWithCString:v8 encoding:4, &v14, v13, v14];
+      v9 = [NSString stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog();
     }
@@ -217,31 +224,35 @@ LABEL_28:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      LODWORD(v24) = 138412290;
-      *(&v24 + 4) = objc_opt_class();
-      v9 = *(&v24 + 4);
-      LODWORD(v23) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v23 = 138412290;
+      v24 = objc_opt_class();
+      v9 = v24;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Caching subscription entitlements.", &v23, 12);
 
       if (v10)
       {
-        v11 = [NSString stringWithCString:v10 encoding:4, &v24, v23, v24];
+        v11 = [NSString stringWithCString:v10 encoding:4];
         free(v10);
         SSFileLog();
       }
@@ -272,31 +283,35 @@ LABEL_28:
     shouldLog2 = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog2 | 2;
+      LODWORD(v15) = shouldLog2 | 2;
     }
 
     else
     {
-      v15 = shouldLog2;
+      LODWORD(v15) = shouldLog2;
     }
 
     oSLogObject2 = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      LODWORD(v24) = 138412290;
-      *(&v24 + 4) = objc_opt_class();
-      v17 = *(&v24 + 4);
-      LODWORD(v23) = 12;
-      v18 = _os_log_send_and_compose_impl();
+      v23 = 138412290;
+      v24 = objc_opt_class();
+      v17 = v24;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Clearing cached subscription entitlements.", &v23, 12);
 
       if (v18)
       {
-        v19 = [NSString stringWithCString:v18 encoding:4, &v24, v23, v24];
+        v19 = [NSString stringWithCString:v18 encoding:4];
         free(v18);
         SSFileLog();
       }
@@ -323,12 +338,12 @@ LABEL_28:
   if (!v3)
   {
     v13 = 0;
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v16 = 0;
-  v4 = [NSPropertyListSerialization propertyListWithData:v3 options:0 format:0 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [NSPropertyListSerialization propertyListWithData:v3 options:0 format:0 error:&v15];
+  v5 = v15;
   if (v5)
   {
     v6 = +[SSLogConfig sharedDaemonConfig];
@@ -340,16 +355,21 @@ LABEL_28:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -357,30 +377,29 @@ LABEL_28:
     if (v8)
     {
       v10 = objc_opt_class();
-      v17 = 138412546;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v5;
+      v16 = 138412546;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v5;
       v11 = v10;
-      LODWORD(v15) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Failed to read the subscription entitlements from disk. %@", &v16, 22);
 
       if (!v12)
       {
-LABEL_14:
+LABEL_15:
 
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v17, v15];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-LABEL_15:
+LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v4 count])
   {
@@ -392,7 +411,7 @@ LABEL_15:
     v13 = 0;
   }
 
-LABEL_21:
+LABEL_22:
 
   return v13;
 }
@@ -418,44 +437,48 @@ LABEL_21:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v14) = 138412290;
-      *(&v14 + 4) = objc_opt_class();
-      v10 = *(&v14 + 4);
-      LODWORD(v13) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v13 = 138412290;
+      v14 = objc_opt_class();
+      v10 = v14;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Unable to determine the path of the cached subscription entitlements.", &v13, 12);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v14, v13, v14];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return v5;
 }
@@ -473,15 +496,15 @@ LABEL_14:
   _cachedSubscriptionEntitlementsPath = [self _cachedSubscriptionEntitlementsPath];
   if ([_cachedSubscriptionEntitlementsPath length])
   {
-    v17 = 0;
-    v6 = [NSPropertyListSerialization dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v17];
-    v7 = v17;
+    v16 = 0;
+    v6 = [NSPropertyListSerialization dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v16];
+    v7 = v16;
     if (!v7)
     {
-LABEL_15:
+LABEL_16:
       [v6 writeToFile:_cachedSubscriptionEntitlementsPath atomically:{1, v15}];
 
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
     v8 = +[SSLogConfig sharedDaemonConfig];
@@ -493,16 +516,21 @@ LABEL_15:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -510,32 +538,30 @@ LABEL_15:
     if (v10)
     {
       v12 = objc_opt_class();
-      v18 = 138412546;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v7;
+      v17 = 138412546;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v7;
       v13 = v12;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Failed to write the subscription entitlements to disk. %@", &v17, 22);
 
       if (!v14)
       {
-LABEL_14:
+LABEL_15:
 
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v14 encoding:4, &v18, v16];
+      oSLogObject = [NSString stringWithCString:v14 encoding:4];
       free(v14);
       v15 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-LABEL_16:
+LABEL_17:
 }
 
 @end

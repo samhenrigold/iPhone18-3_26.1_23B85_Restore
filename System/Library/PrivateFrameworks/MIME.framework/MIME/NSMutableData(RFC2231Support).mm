@@ -6,25 +6,25 @@
 
 - (void)mf_appendRFC2231CompliantValue:()RFC2231Support forKey:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v34 = v6;
+  v33 = v6;
   if (v6 && v7)
   {
-    v31 = v7;
-    v33 = [v7 dataUsingEncoding:1 allowLossyConversion:1];
+    v30 = v7;
+    v32 = [v7 dataUsingEncoding:1 allowLossyConversion:1];
     if (mf_appendRFC2231CompliantValue_forKey__onceToken != -1)
     {
       [NSMutableData(RFC2231Support) mf_appendRFC2231CompliantValue:forKey:];
     }
 
     v8 = [(__CFString *)v6 length];
-    v41.location = 0;
-    v41.length = v8;
-    if (CFStringFindCharacterFromSet(v34, mf_appendRFC2231CompliantValue_forKey__specialCSet, v41, 0, 0))
+    v40.location = 0;
+    v40.length = v8;
+    if (CFStringFindCharacterFromSet(v33, mf_appendRFC2231CompliantValue_forKey__specialCSet, v40, 0, 0))
     {
-      mf_bestMimeCharset = [(__CFString *)v34 mf_bestMimeCharset];
+      mf_bestMimeCharset = [(__CFString *)v33 mf_bestMimeCharset];
       cfStringEncoding = [mf_bestMimeCharset cfStringEncoding];
       charsetName = [mf_bestMimeCharset charsetName];
     }
@@ -43,26 +43,26 @@
       {
         *&v13 = 0xAAAAAAAAAAAAAAAALL;
         *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v38[2] = v13;
-        v38[3] = v13;
-        v38[0] = v13;
-        v38[1] = v13;
-        v36 = 0xAAAAAAAAAAAAAAAALL;
-        v40.location = v11;
-        v40.length = v8;
-        Bytes = MFStringGetBytes(v34, v40, cfStringEncoding, 0, 0, v38, 64, &v36);
+        v37[2] = v13;
+        v37[3] = v13;
+        v37[0] = v13;
+        v37[1] = v13;
+        v35 = 0xAAAAAAAAAAAAAAAALL;
+        v39.location = v11;
+        v39.length = v8;
+        Bytes = MFStringGetBytes(v33, v39, cfStringEncoding, 0, 0, v37, 64, &v35);
         [self mf_appendCString:";\n\t"];
-        [self appendData:v33];
+        [self appendData:v32];
         if (v8 > Bytes || (v12 & 0x80000000) == 0)
         {
-          memset(v37, 170, 20);
+          memset(v36, 170, 20);
           [self appendBytes:"*" length:1];
-          [self appendBytes:v37 length:{__snprintf_chk(v37, 0x14uLL, 0, 0x14uLL, "%d", ++v12)}];
+          [self appendBytes:v36 length:{__snprintf_chk(v36, 0x14uLL, 0, 0x14uLL, "%d", ++v12)}];
         }
 
-        v35 = v8 - Bytes;
-        v15 = v36;
-        v16 = v38 + v36;
+        v34 = v8 - Bytes;
+        v15 = v35;
+        v16 = v37 + v35;
         if (charsetName)
         {
           break;
@@ -74,7 +74,7 @@
           v23 = mf_appendRFC2231CompliantValue_forKey__mimeNeedsQuoteByteSet;
           mf_appendRFC2231CompliantValue_forKey__mimeNeedsQuoteByteSet = v22;
 
-          v24 = [objc_alloc(MEMORY[0x1E699B790]) initWithCString:"\"\\""];
+          v24 = [objc_alloc(MEMORY[0x1E699B790]) initWithCString:"\"];
           v25 = mf_appendRFC2231CompliantValue_forKey__mimeNeedsEscapeByteSet;
           mf_appendRFC2231CompliantValue_forKey__mimeNeedsEscapeByteSet = v24;
         }
@@ -82,7 +82,7 @@
         [self appendBytes:"=" length:1];
         if (v15 >= 1)
         {
-          v26 = v38;
+          v26 = v37;
           while (![mf_appendRFC2231CompliantValue_forKey__mimeNeedsQuoteByteSet byteIsMember:*v26])
           {
             if (++v26 >= v16)
@@ -99,10 +99,10 @@
 
         v20 = 0;
 LABEL_41:
-        v8 = v35;
+        v8 = v34;
 
         v11 += Bytes;
-        if (v35 <= 0)
+        if (v34 <= 0)
         {
           goto LABEL_42;
         }
@@ -136,9 +136,9 @@ LABEL_41:
 LABEL_27:
       if (v15 >= 1)
       {
-        v27 = v38;
-        v28 = v38;
-        v29 = v38;
+        v27 = v37;
+        v28 = v37;
+        v29 = v37;
         do
         {
           if ([v20 byteIsMember:*v29])
@@ -151,14 +151,14 @@ LABEL_27:
 
             if (charsetName)
             {
-              *v37 = -1431655766;
-              [self appendBytes:v37 length:{__snprintf_chk(v37, 4uLL, 0, 4uLL, "%%%02X", *v29)}];
+              *v36 = -1431655766;
+              [self appendBytes:v36 length:{__snprintf_chk(v36, 4uLL, 0, 4uLL, "%%%02X", *v29)}];
               ++v28;
             }
 
             else
             {
-              [self appendBytes:"\\"" length:1];
+              [self appendBytes:"\" length:1];
             }
           }
 
@@ -183,10 +183,8 @@ LABEL_27:
 
 LABEL_42:
 
-    v7 = v31;
+    v7 = v30;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 @end

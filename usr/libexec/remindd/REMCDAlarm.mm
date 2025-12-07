@@ -156,6 +156,8 @@
   contextCopy = context;
   v12 = static REMCDAlarm.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -179,6 +181,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDAlarm.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord
@@ -229,12 +233,18 @@
     v4 = trigger;
     sub_1000F5104(&unk_100938E80, &unk_1007959D0);
     v5 = swift_allocObject();
-    *(v5 + 16) = xmmword_100791300;
-    *(v5 + 56) = sub_1000060C8(0, &unk_100940330, off_1008D4148);
-    *(v5 + 32) = v4;
+    *v5->clientIdentity = xmmword_100791300;
+    *&v5->clientIdentity[40] = sub_1000060C8(0, &unk_100940330, off_1008D4148);
+    *&v5->clientIdentity[16] = v4;
+  }
+
+  else
+  {
+    v5 = &_swiftEmptyArrayStorage;
   }
 
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v5, v7, v8, v9, v10, v11, v12, v13;
 
   return v6.super.isa;
 }

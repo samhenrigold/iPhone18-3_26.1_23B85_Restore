@@ -60,44 +60,42 @@
 
 void __44__SPUISContactResultBuilder_supportsResult___block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"com.apple.spotlight.contacts";
-  v5[1] = @"com.apple.MobileAddressBook";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = @"com.apple.spotlight.contacts";
+  v4[1] = @"com.apple.MobileAddressBook";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = supportsResult__contactResultBundleIds;
   supportsResult__contactResultBundleIds = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)contactIdentifiersFromResults:(id)results
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v5 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = resultsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([(objc_class *)[SPUISResultBuilder isSubclassOfClass:v11 resultBuilderClassForResult:v15 preferAppVendedView:?], "isSubclassOfClass:", self])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([(objc_class *)[SPUISResultBuilder isSubclassOfClass:v11 resultBuilderClassForResult:v14 preferAppVendedView:?], "isSubclassOfClass:", self])
         {
           v12 = [self contactIdentifierFromResult:v11 contactEntity:0];
           if (v12)
@@ -107,13 +105,11 @@ void __44__SPUISContactResultBuilder_supportsResult___block_invoke()
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -161,29 +157,29 @@ void __44__SPUISContactResultBuilder_supportsResult___block_invoke()
 
 + (BOOL)doesNotContainObject:(id)object inArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objectCopy = object;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   arrayCopy = array;
-  v7 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [arrayCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if (([objectCopy isEqual:{v11, v15}] & 1) == 0)
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (([objectCopy isEqual:{v11, v14}] & 1) == 0)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -202,7 +198,7 @@ void __44__SPUISContactResultBuilder_supportsResult___block_invoke()
         goto LABEL_14;
       }
 
-      v8 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [arrayCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -215,97 +211,94 @@ void __44__SPUISContactResultBuilder_supportsResult___block_invoke()
   v12 = 1;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 + (id)labeledValuesFromStrings:(id)strings labeledValues:(id)values withStringForLabeledValueBlock:(id)block labeledValueForStringBlock:(id)stringBlock
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   valuesCopy = values;
   stringBlockCopy = stringBlock;
-  v32 = objc_opt_new();
+  v31 = objc_opt_new();
   v11 = objc_opt_new();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = valuesCopy;
-  v12 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v12 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v38;
+    v14 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
+        v16 = *(*(&v36 + 1) + 8 * i);
         v17 = objc_opt_class();
         value = [v16 value];
         LODWORD(v17) = [v17 doesNotContainObject:value inArray:v11];
 
         if (v17)
         {
-          [v32 addObject:v16];
+          [v31 addObject:v16];
           value2 = [v16 value];
           [v11 addObject:value2];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v13);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v30 = stringsCopy;
-  v20 = [v30 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v29 = stringsCopy;
+  v20 = [v29 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v29);
         }
 
-        v24 = stringBlockCopy[2](stringBlockCopy, *(*(&v33 + 1) + 8 * j));
+        v24 = stringBlockCopy[2](stringBlockCopy, *(*(&v32 + 1) + 8 * j));
         v25 = objc_opt_class();
         value3 = [v24 value];
         LODWORD(v25) = [v25 doesNotContainObject:value3 inArray:v11];
 
         if (v25)
         {
-          [v32 addObject:v24];
+          [v31 addObject:v24];
           value4 = [v24 value];
           [v11 addObject:value4];
         }
       }
 
-      v21 = [v30 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v21 = [v29 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v21);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (SPUISContactResultBuilder)initWithResult:(id)result contactEntity:(id)entity contact:(id)contact
@@ -493,7 +486,7 @@ LABEL_38:
 
   emailAddresses = [v21 emailAddresses];
   v60 = contactCopy;
-  if ([emailAddresses count])
+  if (objc_msgSend_count(emailAddresses))
   {
     [v21 emailAddresses];
   }
@@ -510,7 +503,7 @@ LABEL_38:
   [v32 setEmailAddresses:v46];
 
   rawPhoneNumbers = [v21 rawPhoneNumbers];
-  if ([rawPhoneNumbers count])
+  if (objc_msgSend_count(rawPhoneNumbers))
   {
     [v21 rawPhoneNumbers];
   }
@@ -527,7 +520,7 @@ LABEL_38:
   [v32 setPhoneNumbers:v51];
 
   addresses = [v21 addresses];
-  if ([addresses count])
+  if (objc_msgSend_count(addresses))
   {
     [v21 addresses];
   }
@@ -539,7 +532,7 @@ LABEL_38:
   v53 = ;
 
   postalAddresses = [v32 postalAddresses];
-  v55 = [postalAddresses count];
+  v55 = objc_msgSend_count(postalAddresses);
 
   if (!v55)
   {
@@ -663,7 +656,7 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
 - (id)buildHeaderResultForEntity
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   realContactIdentifier = [(SPUISContactResultBuilder *)self realContactIdentifier];
   v4 = objc_opt_new();
   [v4 setContactIdentifier:realContactIdentifier];
@@ -680,13 +673,13 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
   v9 = objc_opt_new();
   [v8 setCollectionStyle:v9];
 
-  v23[0] = v7;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v7;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   [v8 setCardSections:v10];
 
   v11 = objc_opt_new();
-  v22 = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v21 = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   [v11 setCardSections:v12];
 
   buildResult = [(SPUISContactResultBuilder *)self buildResult];
@@ -726,14 +719,12 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
   identifier = [buildResult identifier];
   [v7 setResultIdentifier:identifier];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return buildResult;
 }
 
 - (id)buildFooterResultForEntity
 {
-  v134 = *MEMORY[0x277D85DE8];
+  v133 = *MEMORY[0x277D85DE8];
   if (buildFooterResultForEntity_onceToken != -1)
   {
     [SPUISContactResultBuilder buildFooterResultForEntity];
@@ -743,33 +734,33 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
   selfCopy = self;
   contact = [(SPUISContactResultBuilder *)self contact];
   phoneNumbers = [contact phoneNumbers];
-  v6 = [phoneNumbers count];
+  v6 = objc_msgSend_count(phoneNumbers);
 
-  v100 = contact;
-  v101 = v3;
+  v99 = contact;
+  v100 = v3;
   if (v6)
   {
     v7 = objc_opt_new();
+    v119 = 0u;
     v120 = 0u;
     v121 = 0u;
     v122 = 0u;
-    v123 = 0u;
     obj = [contact phoneNumbers];
-    v8 = [obj countByEnumeratingWithState:&v120 objects:v133 count:16];
+    v8 = [obj countByEnumeratingWithState:&v119 objects:v132 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v121;
+      v10 = *v120;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v121 != v10)
+          if (*v120 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v120 + 1) + 8 * i);
+          v12 = *(*(&v119 + 1) + 8 * i);
           v13 = objc_opt_new();
           v14 = MEMORY[0x277CBDB20];
           label = [v12 label];
@@ -791,14 +782,14 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
           contact2 = [(SPUISContactResultBuilder *)selfCopy contact];
           v21 = [SPUISCommandConfiguration commandButtonItemForPhoneNumber:formattedStringValue contact:contact2];
-          v132 = v21;
-          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v132 count:1];
+          v131 = v21;
+          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v131 count:1];
           [v13 setValues:v22];
 
           [v7 addObject:v13];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v120 objects:v133 count:16];
+        v9 = [obj countByEnumeratingWithState:&v119 objects:v132 count:16];
       }
 
       while (v9);
@@ -806,38 +797,38 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
     v23 = objc_opt_new();
     [v23 setInfoTuples:v7];
-    v3 = v101;
-    [v101 addObject:v23];
+    v3 = v100;
+    [v100 addObject:v23];
 
-    contact = v100;
+    contact = v99;
   }
 
   emailAddresses = [contact emailAddresses];
-  v25 = [emailAddresses count];
+  v25 = objc_msgSend_count(emailAddresses);
 
   if (v25)
   {
     v26 = objc_opt_new();
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     obja = [contact emailAddresses];
-    v27 = [obja countByEnumeratingWithState:&v116 objects:v131 count:16];
+    v27 = [obja countByEnumeratingWithState:&v115 objects:v130 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v117;
+      v29 = *v116;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v117 != v29)
+          if (*v116 != v29)
           {
             objc_enumerationMutation(obja);
           }
 
-          v31 = *(*(&v116 + 1) + 8 * j);
+          v31 = *(*(&v115 + 1) + 8 * j);
           v32 = objc_opt_new();
           v33 = MEMORY[0x277CBDB20];
           label2 = [v31 label];
@@ -856,14 +847,14 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
           value2 = [v31 value];
           v38 = [SPUISCommandConfiguration commandButtonItemForEmail:value2];
-          v130 = v38;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v130 count:1];
+          v129 = v38;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
           [v32 setValues:v39];
 
           [v26 addObject:v32];
         }
 
-        v28 = [obja countByEnumeratingWithState:&v116 objects:v131 count:16];
+        v28 = [obja countByEnumeratingWithState:&v115 objects:v130 count:16];
       }
 
       while (v28);
@@ -871,38 +862,38 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
     v40 = objc_opt_new();
     [v40 setInfoTuples:v26];
-    v3 = v101;
-    [v101 addObject:v40];
+    v3 = v100;
+    [v100 addObject:v40];
 
-    contact = v100;
+    contact = v99;
   }
 
   postalAddresses = [contact postalAddresses];
-  v42 = [postalAddresses count];
+  v42 = objc_msgSend_count(postalAddresses);
 
   if (v42)
   {
     v43 = objc_opt_new();
+    v111 = 0u;
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
-    v115 = 0u;
     objb = [contact postalAddresses];
-    v44 = [objb countByEnumeratingWithState:&v112 objects:v129 count:16];
+    v44 = [objb countByEnumeratingWithState:&v111 objects:v128 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v113;
+      v46 = *v112;
       do
       {
         for (k = 0; k != v45; ++k)
         {
-          if (*v113 != v46)
+          if (*v112 != v46)
           {
             objc_enumerationMutation(objb);
           }
 
-          v48 = *(*(&v112 + 1) + 8 * k);
+          v48 = *(*(&v111 + 1) + 8 * k);
           v49 = objc_opt_new();
           v50 = MEMORY[0x277CBDB20];
           label3 = [v48 label];
@@ -924,14 +915,14 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
           v56 = [v54 stringFromPostalAddress:value3 style:0];
 
           v57 = [SPUISCommandConfiguration commandButtonItemForAddressLocation:v56];
-          v128 = v57;
-          v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
+          v127 = v57;
+          v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
           [v49 setValues:v58];
 
           [v43 addObject:v49];
         }
 
-        v45 = [objb countByEnumeratingWithState:&v112 objects:v129 count:16];
+        v45 = [objb countByEnumeratingWithState:&v111 objects:v128 count:16];
       }
 
       while (v45);
@@ -939,10 +930,10 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
     v59 = objc_opt_new();
     [v59 setInfoTuples:v43];
-    v3 = v101;
-    [v101 addObject:v59];
+    v3 = v100;
+    [v100 addObject:v59];
 
-    contact = v100;
+    contact = v99;
   }
 
   birthday = [contact birthday];
@@ -955,19 +946,19 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
     birthday2 = [contact birthday];
     v64 = [SPUISCommandConfiguration commandButtonItemForBirthday:birthday2];
-    v127 = v64;
-    v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+    v126 = v64;
+    v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
     [v61 setValues:v65];
 
     v66 = objc_opt_new();
-    v126 = v61;
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
+    v125 = v61;
+    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
     [v66 setInfoTuples:v67];
 
     [v3 addObject:v66];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v68 = objc_opt_new();
     [v68 setSymbolName:@"arrow.up.forward.app.fill"];
@@ -990,7 +981,7 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
 
     v74 = objc_opt_new();
     v75 = [SPUISUtilities localizedStringForKey:@"OPEN_IN_CONTACTS_TITLE"];
-    [v74 setTitle:v75];
+    objc_msgSend_setTitle_(v74);
 
     [v74 setImage:v68];
     [v74 setCommand:v70];
@@ -998,17 +989,17 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
     v77 = MEMORY[0x277D4C598];
     v78 = [SPUISUtilities localizedStringForKey:@"CONTACT_HEADER_TITLE"];
     v79 = [v77 textWithString:v78];
-    [v76 setTitle:v79];
+    objc_msgSend_setTitle_(v76);
 
     v80 = objc_opt_new();
     [v76 setCollectionStyle:v80];
 
     [v76 setCardSections:v3];
-    v107 = v74;
+    v106 = v74;
     [v76 setButtonItem:v74];
     v81 = objc_opt_new();
-    v125 = v76;
-    v82 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
+    v124 = v76;
+    v82 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
     [v81 setCardSections:v82];
 
     buildResult = [(SPUISContactResultBuilder *)v71 buildResult];
@@ -1019,8 +1010,8 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
     [buildResult setInlineCard:v81];
     [buildResult setCompactCard:v81];
     objc = v68;
-    v97 = v70;
-    v99 = identifier;
+    v96 = v70;
+    v98 = identifier;
     if (identifier)
     {
       v84 = identifier;
@@ -1042,49 +1033,47 @@ id __66__SPUISContactResultBuilder_initWithResult_contactEntity_contact___block_
       v86 = @"unknown";
     }
 
-    v87 = [@"com.apple.spotlight.contactInfo" stringByAppendingString:{v86, v97}];
+    v87 = [@"com.apple.spotlight.contactInfo" stringByAppendingString:{v86, v96}];
     [buildResult setIdentifier:v87];
 
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
     v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
     v88 = v3;
-    v89 = [v88 countByEnumeratingWithState:&v108 objects:v124 count:16];
+    v89 = [v88 countByEnumeratingWithState:&v107 objects:v123 count:16];
     if (v89)
     {
       v90 = v89;
-      v91 = *v109;
+      v91 = *v108;
       do
       {
         for (m = 0; m != v90; ++m)
         {
-          if (*v109 != v91)
+          if (*v108 != v91)
           {
             objc_enumerationMutation(v88);
           }
 
-          v93 = *(*(&v108 + 1) + 8 * m);
+          v93 = *(*(&v107 + 1) + 8 * m);
           identifier2 = [buildResult identifier];
           [v93 setResultIdentifier:identifier2];
         }
 
-        v90 = [v88 countByEnumeratingWithState:&v108 objects:v124 count:16];
+        v90 = [v88 countByEnumeratingWithState:&v107 objects:v123 count:16];
       }
 
       while (v90);
     }
 
-    contact = v100;
-    v3 = v101;
+    contact = v99;
+    v3 = v100;
   }
 
   else
   {
     buildResult = 0;
   }
-
-  v95 = *MEMORY[0x277D85DE8];
 
   return buildResult;
 }
@@ -1110,36 +1099,36 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
 
 - (id)buildSocialMediaResultForEntity
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (buildSocialMediaResultForEntity_onceToken != -1)
   {
     [SPUISContactResultBuilder buildSocialMediaResultForEntity];
   }
 
-  v51 = objc_opt_new();
+  v50 = objc_opt_new();
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   selfCopy = self;
   contact = [(SPUISContactResultBuilder *)self contact];
   socialProfiles = [contact socialProfiles];
 
   obj = socialProfiles;
-  v52 = [socialProfiles countByEnumeratingWithState:&v55 objects:v60 count:16];
-  if (v52)
+  v51 = [socialProfiles countByEnumeratingWithState:&v54 objects:v59 count:16];
+  if (v51)
   {
-    v50 = *v56;
+    v49 = *v55;
     do
     {
-      for (i = 0; i != v52; ++i)
+      for (i = 0; i != v51; ++i)
       {
-        if (*v56 != v50)
+        if (*v55 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        value = [*(*(&v55 + 1) + 8 * i) value];
+        value = [*(*(&v54 + 1) + 8 * i) value];
         service = [value service];
         urlString = [value urlString];
         bundleIdentifiers = [value bundleIdentifiers];
@@ -1171,8 +1160,8 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
           [v15 setSize:{45.0, 45.0}];
         }
 
-        v54 = firstObject2;
-        v53 = urlString;
+        v53 = firstObject2;
+        v52 = urlString;
         if ([urlString length])
         {
           v16 = MEMORY[0x277D4C550];
@@ -1191,10 +1180,10 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
         v21 = MEMORY[0x277D4C598];
         v22 = [MEMORY[0x277CBDBB0] localizedStringForService:service];
         v23 = [v21 textWithString:v22];
-        [v20 setTitle:v23];
+        objc_msgSend_setTitle_(v20);
 
-        title = [v20 title];
-        [title setMaxLines:1];
+        v24 = objc_msgSend_title(v20);
+        [v24 setMaxLines:1];
 
         v25 = MEMORY[0x277D4C598];
         username = [value username];
@@ -1207,16 +1196,16 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
         [v20 setImage:v15];
         [v20 setCardSectionId:@"com.apple.MobileAddressBook.SocialMedia"];
         [v20 setCommand:v19];
-        [v51 addObject:v20];
+        [v50 addObject:v20];
       }
 
-      v52 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v51 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
-    while (v52);
+    while (v51);
   }
 
-  if ([v51 count])
+  if (objc_msgSend_count(v50))
   {
     v29 = objc_opt_new();
     [v29 setNumberOfRows:1];
@@ -1224,13 +1213,13 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
     v31 = MEMORY[0x277D4C598];
     v32 = [SPUISUtilities localizedStringForKey:@"SOCIAL_MEDIA_SECTION_TITLE"];
     v33 = [v31 textWithString:v32];
-    [v30 setTitle:v33];
+    objc_msgSend_setTitle_(v30);
 
     [v30 setCollectionStyle:v29];
-    [v30 setCardSections:v51];
+    [v30 setCardSections:v50];
     v34 = objc_opt_new();
-    v59 = v30;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    v58 = v30;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
     [v34 setCardSections:v35];
 
     buildResult = [(SPUISContactResultBuilder *)selfCopy buildResult];
@@ -1280,30 +1269,28 @@ uint64_t __55__SPUISContactResultBuilder_buildFooterResultForEntity__block_invok
     buildResult = 0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return buildResult;
 }
 
 void __60__SPUISContactResultBuilder_buildSocialMediaResultForEntity__block_invoke()
 {
-  v9[8] = *MEMORY[0x277D85DE8];
+  v8[8] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CBD9A0];
-  v8[0] = *MEMORY[0x277CBD998];
-  v8[1] = v0;
-  v9[0] = @"com.facebook.Facebook";
-  v9[1] = @"com.yahoo.flickr";
+  v7[0] = *MEMORY[0x277CBD998];
+  v7[1] = v0;
+  v8[0] = @"com.facebook.Facebook";
+  v8[1] = @"com.yahoo.flickr";
   v1 = *MEMORY[0x277CBD9C0];
-  v8[2] = *MEMORY[0x277CBD9B8];
-  v8[3] = v1;
-  v9[2] = @"com.linkedin.LinkedIn";
-  v9[3] = &stru_287C50EE8;
+  v7[2] = *MEMORY[0x277CBD9B8];
+  v7[3] = v1;
+  v8[2] = @"com.linkedin.LinkedIn";
+  v8[3] = &stru_287C50EE8;
   v2 = *MEMORY[0x277CBD9D0];
-  v8[4] = *MEMORY[0x277CBD9C8];
-  v8[5] = v2;
-  v9[4] = @"com.sina.weibo";
-  v9[5] = @"com.sina.weibo";
-  v8[6] = *MEMORY[0x277CBD9D8];
+  v7[4] = *MEMORY[0x277CBD9C8];
+  v7[5] = v2;
+  v8[4] = @"com.sina.weibo";
+  v8[5] = @"com.sina.weibo";
+  v7[6] = *MEMORY[0x277CBD9D8];
   v3 = +[SPUISUtilities isMacOS];
   v4 = @"com.atebits.Tweetie2";
   if (v3)
@@ -1311,14 +1298,12 @@ void __60__SPUISContactResultBuilder_buildSocialMediaResultForEntity__block_invo
     v4 = @"maccatalyst.com.atebits.Tweetie2";
   }
 
-  v8[7] = *MEMORY[0x277CBD9E0];
-  v9[6] = v4;
-  v9[7] = @"com.yelp.yelpiphone";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:8];
+  v7[7] = *MEMORY[0x277CBD9E0];
+  v8[6] = v4;
+  v8[7] = @"com.yelp.yelpiphone";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:8];
   v6 = buildSocialMediaResultForEntity_bundleIDForDefaultServices;
   buildSocialMediaResultForEntity_bundleIDForDefaultServices = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildPreviewCommand
@@ -1343,7 +1328,7 @@ void __60__SPUISContactResultBuilder_buildSocialMediaResultForEntity__block_invo
 
 - (id)buildDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (!+[SPUISUtilities isMacOS]|| ([(SPUISContactResultBuilder *)self highlightedMatchedText], (v3 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     if ((isIpad() & 1) != 0 || +[SPUISUtilities isMacOS])
@@ -1373,11 +1358,10 @@ void __60__SPUISContactResultBuilder_buildSocialMediaResultForEntity__block_invo
 
   v4 = v3;
 LABEL_11:
-  v12[0] = v4;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v4;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
 LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1508,14 +1492,14 @@ LABEL_12:
 
 - (id)buildThumbnail
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   realContactIdentifier = [(SPUISContactResultBuilder *)self realContactIdentifier];
   v4 = objc_opt_new();
   if (realContactIdentifier)
   {
     [v4 setThreeDTouchEnabled:1];
-    v10[0] = realContactIdentifier;
-    contact = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = realContactIdentifier;
+    contact = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     [v4 setContactIdentifiers:contact];
   }
 
@@ -1527,8 +1511,6 @@ LABEL_12:
     v7 = [v6 stringFromContact:contact style:1002];
     [v4 setMonogramLetters:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1544,24 +1526,22 @@ LABEL_12:
 
 - (id)buildPreviewButtonItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   realContactIdentifier = [(SPUISContactResultBuilder *)self realContactIdentifier];
   if (realContactIdentifier)
   {
     v4 = objc_opt_new();
     [v4 setContactIdentifier:realContactIdentifier];
-    v9[0] = v4;
-    buildPreviewButtonItems = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    buildPreviewButtonItems = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = SPUISContactResultBuilder;
-    buildPreviewButtonItems = [(SPUISResultBuilder *)&v8 buildPreviewButtonItems];
+    v7.receiver = self;
+    v7.super_class = SPUISContactResultBuilder;
+    buildPreviewButtonItems = [(SPUISResultBuilder *)&v7 buildPreviewButtonItems];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return buildPreviewButtonItems;
 }

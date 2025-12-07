@@ -748,7 +748,7 @@ void __41__MPNowPlayingContentItem_setSongTraits___block_invoke_3(uint64_t a1, v
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v7];
 }
 
-uint64_t __37__MPNowPlayingContentItem_setLyrics___block_invoke_2(uint64_t a1)
+uint64_t __37__MPNowPlayingContentItem_setLyrics___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) mediaRemoteLyricsItem];
 
@@ -879,41 +879,41 @@ uint64_t __37__MPNowPlayingContentItem_setLyrics___block_invoke_2(uint64_t a1)
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v14];
 }
 
-uint64_t __39__MPNowPlayingContentItem_setSections___block_invoke_2(uint64_t a1)
+uint64_t __39__MPNowPlayingContentItem_setSections___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v10 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
+  v14 = 0u;
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v11;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v12 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
-        [v2 addObject:{objc_msgSend(v8, "_mediaRemoteContentItem", v10)}];
-        ++v7;
+        v9 = *(*(&v11 + 1) + 8 * v8);
+        [v3 addObject:{objc_msgSend(v9, "_mediaRemoteContentItem", v11)}];
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
   return MRContentItemSetSections();
@@ -1041,43 +1041,43 @@ uint64_t __39__MPNowPlayingContentItem_setSections___block_invoke_2(uint64_t a1)
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v16];
 }
 
-uint64_t __53__MPNowPlayingContentItem_setCurrentLanguageOptions___block_invoke_2(uint64_t a1)
+uint64_t __53__MPNowPlayingContentItem_setCurrentLanguageOptions___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v11 = 0u;
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v15 = 0u;
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v12;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        [v2 addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * v7++), "mrLanguageOption", v11)}];
+        [v3 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * v8++), "mrLanguageOption", v12)}];
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v8 = [v2 copy];
-  v9 = v8;
+  v9 = [v3 copy];
+  v10 = v9;
 
   return MRContentItemSetCurrentLanguageOptions();
 }
@@ -1156,43 +1156,43 @@ uint64_t __53__MPNowPlayingContentItem_setCurrentLanguageOptions___block_invoke_
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v16];
 }
 
-uint64_t __55__MPNowPlayingContentItem_setAvailableLanguageOptions___block_invoke_2(uint64_t a1)
+uint64_t __55__MPNowPlayingContentItem_setAvailableLanguageOptions___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v11 = 0u;
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v15 = 0u;
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v12;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        [v2 addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * v7++), "mrLanguageOptionGroup", v11)}];
+        [v3 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * v8++), "mrLanguageOptionGroup", v12)}];
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v8 = [v2 copy];
-  v9 = v8;
+  v9 = [v3 copy];
+  v10 = v9;
 
   return MRContentItemSetAvailableLanguageOptions();
 }
@@ -1283,7 +1283,7 @@ uint64_t __55__MPNowPlayingContentItem_setAvailableLanguageOptions___block_invok
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v7];
 }
 
-uint64_t __51__MPNowPlayingContentItem_setTranscriptAlignments___block_invoke_3(uint64_t a1)
+uint64_t __51__MPNowPlayingContentItem_setTranscriptAlignments___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) msv_map:&__block_literal_global_62];
 
@@ -1387,7 +1387,7 @@ LABEL_9:
   v8 = v4 - v7;
   [(MPNowPlayingContentItem *)self playbackRate];
   v10 = v6 + v8 * v9;
-  [(MPNowPlayingContentItem *)self duration];
+  objc_msgSend_duration(self);
   if (v10 < result)
   {
     return v10;
@@ -1543,7 +1543,7 @@ LABEL_21:
   }
 }
 
-uint64_t __40__MPNowPlayingContentItem_setMediaType___block_invoke()
+uint64_t __40__MPNowPlayingContentItem_setMediaType___block_invoke(uint64_t a1, uint64_t a2)
 {
   MRContentItemSetMediaType();
 
@@ -1661,7 +1661,7 @@ LABEL_19:
   [(MPContentItem *)self _postItemChangedNotificationWithDeltaBlock:v7];
 }
 
-uint64_t __45__MPNowPlayingContentItem_setCollectionInfo___block_invoke_2(uint64_t a1)
+uint64_t __45__MPNowPlayingContentItem_setCollectionInfo___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   MPNowPlayingCollectionInfoToMediaRemote(*(a1 + 32));
 
@@ -2689,7 +2689,7 @@ LABEL_7:
 
 - (void)setDuration:(double)duration
 {
-  [(MPNowPlayingContentItem *)self duration];
+  objc_msgSend_duration(self, a2);
   v6 = -v5;
   if (v5 >= 0.0)
   {

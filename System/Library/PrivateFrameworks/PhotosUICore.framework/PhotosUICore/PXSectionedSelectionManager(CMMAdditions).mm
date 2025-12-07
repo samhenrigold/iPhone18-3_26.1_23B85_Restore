@@ -36,7 +36,7 @@ LABEL_3:
   indexPathSet = [off_1E77217C8 indexPathSet];
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
   }
 
   else

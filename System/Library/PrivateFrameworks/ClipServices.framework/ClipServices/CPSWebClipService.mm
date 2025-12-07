@@ -24,15 +24,14 @@ void __67__CPSWebClipService_fetchWebClipsUUIDForClientBundleID_completion___blo
 {
   if (a2)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a3 safari_mapObjectsUsingBlock:&__block_literal_global];
+    v5 = [a3 safari_mapObjectsUsingBlock:&__block_literal_global];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -64,15 +63,14 @@ void __66__CPSWebClipService_fetchWebClipsURLForClientBundleID_completion___bloc
 {
   if (a2)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a3 safari_mapObjectsUsingBlock:&__block_literal_global_5];
+    v5 = [a3 safari_mapObjectsUsingBlock:&__block_literal_global_5];
     (*(*(a1 + 32) + 16))();
   }
 }

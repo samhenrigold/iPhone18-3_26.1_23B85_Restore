@@ -533,21 +533,21 @@ void __28__RTHealthKitManager__setup__block_invoke_625(uint64_t a1)
     dispatch_once(&qword_2814A7C98, &__block_literal_global_139);
   }
 
-  v4 = _MergedGlobals_1_1;
+  v4 = _MergedGlobals_1_1[0];
 
   return [v4 stringFromTimeInterval:interval];
 }
 
-uint64_t __45__RTHealthKitManager_stringFromTimeInterval___block_invoke()
+uint64_t __45__RTHealthKitManager_stringFromTimeInterval___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals_1_1;
-  _MergedGlobals_1_1 = v0;
+  v2 = objc_opt_new();
+  v3 = _MergedGlobals_1_1[0];
+  _MergedGlobals_1_1[0] = v2;
 
-  [_MergedGlobals_1_1 setAllowedUnits:224];
-  v2 = _MergedGlobals_1_1;
+  [_MergedGlobals_1_1[0] setAllowedUnits:224];
+  v4 = _MergedGlobals_1_1[0];
 
-  return [v2 setZeroFormattingBehavior:0x10000];
+  return [v4 setZeroFormattingBehavior:0x10000];
 }
 
 + (id)stringFromDate:(id)date dateFormat:(id)format
@@ -572,28 +572,28 @@ uint64_t __45__RTHealthKitManager_stringFromTimeInterval___block_invoke()
   return v10;
 }
 
-uint64_t __48__RTHealthKitManager_stringFromDate_dateFormat___block_invoke()
+uint64_t __48__RTHealthKitManager_stringFromDate_dateFormat___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = qword_2814A7CA0;
-  qword_2814A7CA0 = v0;
+  v2 = objc_opt_new();
+  v3 = qword_2814A7CA0;
+  qword_2814A7CA0 = v2;
 
-  v2 = qword_2814A7CA0;
-  v3 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
-  [v2 setTimeZone:v3];
+  v4 = qword_2814A7CA0;
+  v5 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+  [v4 setTimeZone:v5];
 
   [qword_2814A7CA0 setDateFormat:@"yyyy-MM-dd-HH-mm-ss-SSS"];
-  v4 = objc_opt_new();
-  v5 = qword_2814A7CA8;
-  qword_2814A7CA8 = v4;
-
-  v6 = qword_2814A7CA8;
-  v7 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
-  [v6 setTimeZone:v7];
+  v6 = objc_opt_new();
+  v7 = qword_2814A7CA8;
+  qword_2814A7CA8 = v6;
 
   v8 = qword_2814A7CA8;
+  v9 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+  [v8 setTimeZone:v9];
 
-  return [v8 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+  v10 = qword_2814A7CA8;
+
+  return [v10 setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
 }
 
 + (int64_t)RTHealthKitWorkoutActivityTypeFromHKWorkoutActivityType:(unint64_t)type
@@ -5258,7 +5258,7 @@ void __53__RTHealthKitManager__shiftLocations_locationsCount___block_invoke(uint
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t __53__RTHealthKitManager__shiftLocations_locationsCount___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__53__RTHealthKitManager__shiftLocations_locationsCount___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = (*(a1 + 32) + 16 * a3);
   result = [a2 coordinate];
@@ -9456,7 +9456,7 @@ LABEL_92:
               v33 = sourceRevision6;
               if (sourceRevision6)
               {
-                [sourceRevision6 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(sourceRevision6);
                 v34 = v221;
               }
 
@@ -9472,7 +9472,7 @@ LABEL_92:
               v36 = sourceRevision7;
               if (sourceRevision7)
               {
-                [sourceRevision7 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(sourceRevision7);
                 v37 = v219;
               }
 
@@ -9488,7 +9488,7 @@ LABEL_92:
               v39 = sourceRevision8;
               if (sourceRevision8)
               {
-                [sourceRevision8 operatingSystemVersion];
+                objc_msgSend_operatingSystemVersion(sourceRevision8);
                 v40 = v217;
               }
 

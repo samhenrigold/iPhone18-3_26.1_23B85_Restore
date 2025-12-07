@@ -7,8 +7,10 @@
 + (BOOL)isTransientError:(id)error;
 + (BOOL)isUnexpectedErrorCode:(int64_t)code;
 + (id)_errorWithCode:(int64_t)code URL:(id)l format:(id)format;
++ (id)_errorWithErrno:(int)errno code:(int64_t)code path:(id)path format:(id)format arguments:(char *)arguments;
 + (id)_formatErrors:(id)errors descriptionSelector:(SEL)selector;
 + (id)descriptionForError:(id)error paths:(BOOL)paths;
++ (id)dictionaryRepresentationForError:(id)error withMultiErrors:(BOOL)errors;
 + (id)errorForHTTPURLResponse:(id)response error:(id)error;
 + (id)errorForNSError:(id)error path:(id)path description:(id)description;
 + (id)errorForNSError:(id)error path:(id)path format:(id)format;
@@ -17,11 +19,13 @@
 + (id)errorWithCode:(int64_t)code error:(id)error path:(id)path format:(id)format;
 + (id)errorWithCode:(int64_t)code format:(id)format;
 + (id)errorWithCode:(int64_t)code path:(id)path format:(id)format;
++ (id)errorWithDictionaryRepresentation:(id)representation withMultiErrors:(BOOL)errors;
 + (id)errorWithDomain:(id)domain code:(int64_t)code format:(id)format;
 + (id)errorWithDomain:(id)domain code:(int64_t)code path:(id)path format:(id)format;
 + (id)errorWithErrors:(id)errors;
 + (id)loggableDescriptionForError:(id)error;
 + (id)signatureForError:(id)error;
++ (int)codeForErrno:(int)errno;
 + (int)codeForNSError:(id)error;
 + (int)errnoForError:(id)error;
 @end
@@ -96,97 +100,161 @@
   return [self isError:errorCopy withCode:223];
 }
 
-+ (int)errnoForError:(id)error
++ (int)codeForErrno:(int)errno
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (![objc_msgSend(error "domain")])
+  v3 = *&errno;
+  v8 = *MEMORY[0x1E69E9840];
+  if (errno <= 17)
   {
-    goto LABEL_19;
-  }
-
-  code = [error code];
-  if (code > 7)
-  {
-    if (code > 25)
+    if (errno <= 8)
     {
-      switch(code)
+      if (errno == 1)
       {
-        case 26:
-          result = 18;
-          goto LABEL_22;
-        case 105:
-          result = 28;
-          goto LABEL_22;
-        case 100:
-          goto LABEL_21;
+        return 24;
+      }
+
+      if (errno == 2)
+      {
+        return 4;
       }
     }
 
     else
     {
-      switch(code)
+      switch(errno)
       {
-        case 8:
-          result = 93;
-          goto LABEL_22;
         case 9:
-          goto LABEL_21;
-        case 14:
-          result = 16;
-          goto LABEL_22;
+          return 1;
+        case 16:
+          return 14;
+        case 17:
+          return 3;
       }
+    }
+  }
+
+  else if (errno > 27)
+  {
+    switch(errno)
+    {
+      case 28:
+        return 105;
+      case 62:
+        return 7;
+      case 93:
+        return 8;
+    }
+  }
+
+  else
+  {
+    switch(errno)
+    {
+      case 18:
+        return 26;
+      case 20:
+        return 5;
+      case 21:
+        return 6;
+    }
+  }
+
+  v5 = MBGetDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v7 = v3;
+    _os_log_impl(&dword_1DEB5D000, v5, OS_LOG_TYPE_DEFAULT, "No code for POSIX error: %{errno}d", buf, 8u);
+    _MBLog(@"Df", "No code for POSIX error: %{errno}d", v3);
+  }
+
+  return 100;
+}
+
++ (int)errnoForError:(id)error
+{
+  v9 = *MEMORY[0x1E69E9840];
+  code = [objc_msgSend(error "domain")];
+  if (!code)
+  {
+    goto LABEL_19;
+  }
+
+  code = [error code];
+  if (code <= 7)
+  {
+    if (code <= 4)
+    {
+      if (code != 3)
+      {
+        if (code == 4)
+        {
+          return 2;
+        }
+
+        goto LABEL_19;
+      }
+
+      return 17;
+    }
+
+    else if (code == 5)
+    {
+      return 20;
+    }
+
+    else if (code == 6)
+    {
+      return 21;
+    }
+
+    else
+    {
+      return 62;
+    }
+  }
+
+  if (code > 25)
+  {
+    switch(code)
+    {
+      case 26:
+        return 18;
+      case 105:
+        return 28;
+      case 100:
+        return 5;
     }
 
 LABEL_19:
-    v6 = MBGetDefaultLog();
+    v6 = MBGetDefaultLog(code);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       errorCopy = error;
       _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "No POSIX code for error: %@", buf, 0xCu);
-      _MBLog(@"Df", "No POSIX code for error: %@", v7, v8, v9, v10, v11, v12, error);
+      _MBLog(@"Df", "No POSIX code for error: %@", error);
     }
 
-LABEL_21:
-    result = 5;
-    goto LABEL_22;
+    return 5;
   }
 
-  if (code <= 4)
+  if (code != 8)
   {
-    if (code == 3)
+    if (code != 9)
     {
-      result = 17;
-      goto LABEL_22;
+      if (code == 14)
+      {
+        return 16;
+      }
+
+      goto LABEL_19;
     }
 
-    if (code == 4)
-    {
-      result = 2;
-      goto LABEL_22;
-    }
-
-    goto LABEL_19;
+    return 5;
   }
 
-  if (code == 5)
-  {
-    result = 20;
-  }
-
-  else if (code == 6)
-  {
-    result = 21;
-  }
-
-  else
-  {
-    result = 62;
-  }
-
-LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return 93;
 }
 
 + (int)codeForNSError:(id)error
@@ -312,49 +380,47 @@ LABEL_6:
     }
   }
 
-  v9 = v7;
-  v10 = [MBHTTPDateFormatter() dateFromString:v7];
-  if (v10)
+  v10 = v7;
+  v11 = [MBHTTPDateFormatter(v7 v8)];
+  if (v11)
   {
     if (!date)
     {
-      return v10 != 0;
+      return v11 != 0;
     }
   }
 
   else
   {
-    integerValue = [v9 integerValue];
+    integerValue = [v10 integerValue];
     if (integerValue < 1)
     {
       return 0;
     }
 
-    v10 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:integerValue];
+    v11 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:integerValue];
     if (!date)
     {
-      return v10 != 0;
+      return v11 != 0;
     }
   }
 
-  if (!v10)
+  if (!v11)
   {
-    return v10 != 0;
+    return v11 != 0;
   }
 
-  *date = v10;
+  *date = v11;
   return 1;
 }
 
 + (id)errorWithCode:(int64_t)code format:(id)format
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:format arguments:&v10];
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = v5;
-  result = [MEMORY[0x1E696ABC0] errorWithDomain:@"MBErrorDomain" code:code userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:format arguments:&v9];
+  v7 = *MEMORY[0x1E696A578];
+  v8[0] = v5;
+  return [MEMORY[0x1E696ABC0] errorWithDomain:@"MBErrorDomain" code:code userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
 }
 
 + (id)errorWithCode:(int64_t)code error:(id)error format:(id)format
@@ -394,13 +460,11 @@ LABEL_6:
 
 + (id)errorWithDomain:(id)domain code:(int64_t)code format:(id)format
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:format arguments:&v12];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = v7;
-  result = [MEMORY[0x1E696ABC0] errorWithDomain:domain code:code userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v11, &v10, 1)}];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:format arguments:&v11];
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = v7;
+  return [MEMORY[0x1E696ABC0] errorWithDomain:domain code:code userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v10, &v9, 1)}];
 }
 
 + (id)errorWithDomain:(id)domain code:(int64_t)code path:(id)path format:(id)format
@@ -412,10 +476,9 @@ LABEL_6:
 
 + (id)errorWithErrors:(id)errors
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([errors count] == 1)
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     return [errors objectAtIndexedSubscript:0];
   }
@@ -428,50 +491,86 @@ LABEL_6:
     }
 
     array = [MEMORY[0x1E695DF70] array];
+    v15 = 0u;
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v9 = [errors countByEnumeratingWithState:&v17 objects:v23 count:16];
-    if (v9)
+    v8 = [errors countByEnumeratingWithState:&v15 objects:v21 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v18;
+      v9 = v8;
+      v10 = *v16;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v11)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(errors);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          if (+[MBError isError:withCode:](MBError, "isError:withCode:", v13, 2) && (v14 = [objc_msgSend(v13 "userInfo")]) != 0)
+          v12 = *(*(&v15 + 1) + 8 * i);
+          if (+[MBError isError:withCode:](MBError, "isError:withCode:", v12, 2) && (v13 = [objc_msgSend(v12 "userInfo")]) != 0)
           {
-            [array addObjectsFromArray:v14];
+            [array addObjectsFromArray:v13];
           }
 
           else
           {
-            [array addObject:v13];
+            [array addObject:v12];
           }
         }
 
-        v10 = [errors countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v9 = [errors countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
 
-    v21 = @"kMBUnderlyingErrorsKey";
-    v22 = [array copy];
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    result = [MEMORY[0x1E696ABC0] errorWithDomain:@"MBErrorDomain" code:2 userInfo:v15];
-    v16 = *MEMORY[0x1E69E9840];
+    v19 = @"kMBUnderlyingErrorsKey";
+    v20 = [array copy];
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    return [MEMORY[0x1E696ABC0] errorWithDomain:@"MBErrorDomain" code:2 userInfo:v14];
+  }
+}
+
++ (id)_errorWithErrno:(int)errno code:(int64_t)code path:(id)path format:(id)format arguments:(char *)arguments
+{
+  v9 = *&errno;
+  v24[3] = *MEMORY[0x1E69E9840];
+  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:format arguments:arguments];
+  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %s (%d)", v10, strerror(v9), v9];
+  v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:v9 userInfo:0];
+  if (path)
+  {
+    v13 = *MEMORY[0x1E696A368];
+    v23[0] = *MEMORY[0x1E696A578];
+    v23[1] = v13;
+    v24[0] = v11;
+    v24[1] = path;
+    v23[2] = *MEMORY[0x1E696AA08];
+    v24[2] = v12;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = v24;
+    v16 = v23;
+    v17 = 3;
   }
 
-  return result;
+  else
+  {
+    v18 = *MEMORY[0x1E696AA08];
+    v21[0] = *MEMORY[0x1E696A578];
+    v21[1] = v18;
+    v22[0] = v11;
+    v22[1] = v12;
+    v14 = MEMORY[0x1E695DF20];
+    v15 = v22;
+    v16 = v21;
+    v17 = 2;
+  }
+
+  v19 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+  return [MEMORY[0x1E696ABC0] errorWithDomain:@"MBErrorDomain" code:code userInfo:v19];
 }
 
 + (id)errorForNSError:(id)error path:(id)path format:(id)format
@@ -804,6 +903,322 @@ LABEL_29:
   }
 
   return string;
+}
+
++ (id)dictionaryRepresentationForError:(id)error withMultiErrors:(BOOL)errors
+{
+  errorsCopy = errors;
+  v28 = *MEMORY[0x1E69E9840];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  [dictionary setValue:objc_msgSend(error forKey:{"domain"), @"domain"}];
+  [dictionary setValue:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInteger:", objc_msgSend(error, "code")), @"code"}];
+  localizedDescription = [error localizedDescription];
+  if (localizedDescription)
+  {
+    [dictionary setValue:localizedDescription forKey:@"localizedDescription"];
+  }
+
+  userInfo = [error userInfo];
+  v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A368]];
+  if (v10)
+  {
+    [dictionary setValue:v10 forKey:@"filePath"];
+  }
+
+  v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A998]];
+  if (v11)
+  {
+    [dictionary setValue:objc_msgSend(v11 forKey:{"absoluteString"), @"URL"}];
+  }
+
+  v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+  if (v12)
+  {
+    [dictionary setValue:objc_msgSend(self forKey:{"dictionaryRepresentationForError:withMultiErrors:", v12, errorsCopy), @"underlyingError"}];
+  }
+
+  if (errorsCopy)
+  {
+    v13 = [userInfo objectForKeyedSubscript:@"kMBUnderlyingErrorsKey"];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v16)
+      {
+        v17 = v16;
+        v18 = *v24;
+        do
+        {
+          v19 = 0;
+          do
+          {
+            if (*v24 != v18)
+            {
+              objc_enumerationMutation(v14);
+            }
+
+            [v15 addObject:{objc_msgSend(self, "dictionaryRepresentationForError:withMultiErrors:", *(*(&v23 + 1) + 8 * v19++), 1)}];
+          }
+
+          while (v17 != v19);
+          v17 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        }
+
+        while (v17);
+      }
+
+      [dictionary setObject:v15 forKey:@"underlyingErrors"];
+    }
+  }
+
+  v20 = [userInfo valueForKey:@"kMBErrorDateKey"];
+  if (v20)
+  {
+    [dictionary setObject:v20 forKeyedSubscript:@"date"];
+  }
+
+  v21 = [userInfo valueForKey:@"BuildVersion"];
+  if (v21)
+  {
+    [dictionary setObject:v21 forKeyedSubscript:@"BuildVersion"];
+  }
+
+  return dictionary;
+}
+
++ (id)errorWithDictionaryRepresentation:(id)representation withMultiErrors:(BOOL)errors
+{
+  v45 = *MEMORY[0x1E69E9840];
+  if (!representation)
+  {
+    return 0;
+  }
+
+  errorsCopy = errors;
+  result = [representation objectForKeyedSubscript:@"domain"];
+  if (!result)
+  {
+    return result;
+  }
+
+  v8 = result;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    return 0;
+  }
+
+  result = [representation objectForKeyedSubscript:@"code"];
+  if (!result)
+  {
+    return result;
+  }
+
+  v9 = result;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  integerValue = [v9 integerValue];
+  v10 = [representation objectForKeyedSubscript:@"localizedDescription"];
+  if (v10)
+  {
+    v11 = v10;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = [representation objectForKeyedSubscript:@"filePath"];
+  if (v13)
+  {
+    v14 = v13;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = [representation objectForKeyedSubscript:@"URL"];
+  if (v16)
+  {
+    v17 = v16;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v18 = v17;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  [dictionary setValue:v12 forKey:*MEMORY[0x1E696A578]];
+  [dictionary setValue:v15 forKey:*MEMORY[0x1E696A368]];
+  if (v18)
+  {
+    v20 = [MEMORY[0x1E695DFF8] URLWithString:v18];
+    [dictionary setValue:v20 forKey:*MEMORY[0x1E696A998]];
+  }
+
+  v21 = [representation objectForKeyedSubscript:@"underlyingError"];
+  if (v21)
+  {
+    v22 = v21;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v23 = v22;
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = [MBError errorWithDictionaryRepresentation:v23 withMultiErrors:errorsCopy];
+  [dictionary setObject:v24 forKeyedSubscript:*MEMORY[0x1E696AA08]];
+  v25 = [representation objectForKeyedSubscript:@"underlyingErrors"];
+  if (!v25 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v25, "count", dictionary)}];
+    v40 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v27 = [v25 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    if (v27)
+    {
+      v28 = v27;
+      v29 = *v41;
+LABEL_35:
+      v30 = 0;
+      while (1)
+      {
+        if (*v41 != v29)
+        {
+          objc_enumerationMutation(v25);
+        }
+
+        v31 = *(*(&v40 + 1) + 8 * v30);
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          break;
+        }
+
+        [v26 addObject:{objc_msgSend(self, "errorWithDictionaryRepresentation:withMultiErrors:", v31, 1)}];
+        if (v28 == ++v30)
+        {
+          v28 = [v25 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          if (v28)
+          {
+            goto LABEL_35;
+          }
+
+          break;
+        }
+      }
+    }
+
+    dictionary = v38;
+    [v38 setObject:v26 forKeyedSubscript:@"kMBUnderlyingErrorsKey"];
+  }
+
+  v32 = [representation objectForKeyedSubscript:@"date"];
+  if (v32)
+  {
+    v33 = v32;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v34 = v33;
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  [dictionary setObject:v34 forKeyedSubscript:@"kMBErrorDateKey"];
+  v35 = [representation objectForKeyedSubscript:@"BuildVersion"];
+  if (v35)
+  {
+    v36 = v35;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v37 = v36;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  [dictionary setObject:v37 forKeyedSubscript:@"BuildVersion"];
+  return [MEMORY[0x1E696ABC0] errorWithDomain:v8 code:integerValue userInfo:dictionary];
 }
 
 + (uint64_t)errorWithErrors:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

@@ -20,7 +20,7 @@
   if (!v8)
   {
 LABEL_6:
-    v26 = v8;
+    v27 = v8;
     goto LABEL_10;
   }
 
@@ -34,38 +34,37 @@ LABEL_6:
 
   if (v8->_writer)
   {
-    v14 = MEMORY[0x277CBEAC0];
-    v15 = *MEMORY[0x277CE62F8];
-    v16 = *MEMORY[0x277CE62C8];
-    v17 = [MEMORY[0x277CCABB0] numberWithInt:width];
-    v18 = *MEMORY[0x277CE63C0];
-    v19 = [MEMORY[0x277CCABB0] numberWithInt:height];
-    v20 = [v14 dictionaryWithObjectsAndKeys:{v15, v16, v17, v18, v19, *MEMORY[0x277CE6360], 0}];
+    v15 = MEMORY[0x277CBEAC0];
+    v16 = *MEMORY[0x277CE62F8];
+    v17 = *MEMORY[0x277CE62C8];
+    v18 = [MEMORY[0x277CCABB0] numberWithInt:width];
+    v19 = *MEMORY[0x277CE63C0];
+    v20 = [MEMORY[0x277CCABB0] numberWithInt:height];
+    v21 = [v15 dictionaryWithObjectsAndKeys:{v16, v17, v18, v19, v20, *MEMORY[0x277CE6360], 0}];
 
-    v21 = [MEMORY[0x277CE6468] assetWriterInputWithMediaType:*MEMORY[0x277CE5EA8] outputSettings:v20];
+    v22 = [MEMORY[0x277CE6468] assetWriterInputWithMediaType:*MEMORY[0x277CE5EA8] outputSettings:v21];
     writerInput = v8->_writerInput;
-    v8->_writerInput = v21;
+    v8->_writerInput = v22;
 
-    v23 = [MEMORY[0x277CE6478] assetWriterInputPixelBufferAdaptorWithAssetWriterInput:v8->_writerInput sourcePixelBufferAttributes:0];
+    v24 = [MEMORY[0x277CE6478] assetWriterInputPixelBufferAdaptorWithAssetWriterInput:v8->_writerInput sourcePixelBufferAttributes:0];
     inputAdaptor = v8->_inputAdaptor;
-    v8->_inputAdaptor = v23;
+    v8->_inputAdaptor = v24;
 
-    [(SIMovWriter *)v8 startRecording];
-    v25 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = __SceneIntelligenceLogSharedInstance([(SIMovWriter *)v8 startRecording]);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136380931;
       v33 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
       v34 = 1025;
       v35 = 49;
-      _os_log_impl(&dword_21DE0D000, v25, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** start recording ***", buf, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v26, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** start recording ***", buf, 0x12u);
     }
 
     goto LABEL_6;
   }
 
-  v27 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = __SceneIntelligenceLogSharedInstance(v14);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136381187;
     v33 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
@@ -73,81 +72,77 @@ LABEL_6:
     v35 = 35;
     v36 = 2113;
     v37 = v12;
-    _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** Couldn't instantiate a AVAssetWriter with error %{private}@ ***", buf, 0x1Cu);
+    _os_log_impl(&dword_21DE0D000, v28, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** Couldn't instantiate a AVAssetWriter with error %{private}@ ***", buf, 0x1Cu);
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_10:
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v27;
 }
 
 - (void)writeFrame:(__CVBuffer *)frame andTime:(id *)time
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(AVAssetWriterInput *)self->_writerInput isReadyForMoreMediaData])
   {
     inputAdaptor = self->_inputAdaptor;
-    *v17 = *&time->var0;
-    *&v17[16] = time->var3;
-    if (![(AVAssetWriterInputPixelBufferAdaptor *)inputAdaptor appendPixelBuffer:frame withPresentationTime:v17])
+    *v18 = *&time->var0;
+    *&v18[16] = time->var3;
+    v8 = [(AVAssetWriterInputPixelBufferAdaptor *)inputAdaptor appendPixelBuffer:frame withPresentationTime:v18];
+    if ((v8 & 1) == 0)
     {
-      v8 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = __SceneIntelligenceLogSharedInstance(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         error = [(AVAssetWriter *)self->_writer error];
         code = [error code];
         error2 = [(AVAssetWriter *)self->_writer error];
         localizedDescription = [error2 localizedDescription];
         uTF8String = [localizedDescription UTF8String];
-        *v17 = 136381443;
-        *&v17[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
-        *&v17[12] = 1025;
-        *&v17[14] = 60;
-        *&v17[18] = 2048;
-        *&v17[20] = code;
-        v18 = 2081;
-        v19 = uTF8String;
-        _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** assetWriter.error %ld %{private}s \n ***", v17, 0x26u);
+        *v18 = 136381443;
+        *&v18[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
+        *&v18[12] = 1025;
+        *&v18[14] = 60;
+        *&v18[18] = 2048;
+        *&v18[20] = code;
+        v19 = 2081;
+        v20 = uTF8String;
+        _os_log_impl(&dword_21DE0D000, v9, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** assetWriter.error %ld %{private}s \n ***", v18, 0x26u);
       }
 
-      v14 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = __SceneIntelligenceLogSharedInstance(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         status = [(AVAssetWriter *)self->_writer status];
-        *v17 = 136381187;
-        *&v17[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
-        *&v17[12] = 1025;
-        *&v17[14] = 61;
-        *&v17[18] = 1024;
-        *&v17[20] = status;
-        _os_log_impl(&dword_21DE0D000, v14, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** assetWriter.status = %u\n ***", v17, 0x18u);
+        *v18 = 136381187;
+        *&v18[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
+        *&v18[12] = 1025;
+        *&v18[14] = 61;
+        *&v18[18] = 1024;
+        *&v18[20] = status;
+        _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** assetWriter.status = %u\n ***", v18, 0x18u);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [(SIMovWriter *)self finishRecording];
-  v3 = __SceneIntelligenceLogSharedInstance();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = __SceneIntelligenceLogSharedInstance([(SIMovWriter *)self finishRecording]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136380931;
-    v7 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
-    v8 = 1025;
-    v9 = 68;
+    v6 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIMovWriter.m";
+    v7 = 1025;
+    v8 = 68;
     _os_log_impl(&dword_21DE0D000, v3, OS_LOG_TYPE_DEFAULT, " %{private}s:%{private}d *** finish recording ***", buf, 0x12u);
   }
 
-  v5.receiver = self;
-  v5.super_class = SIMovWriter;
-  [(SIMovWriter *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SIMovWriter;
+  [(SIMovWriter *)&v4 dealloc];
 }
 
 - (void)startRecording

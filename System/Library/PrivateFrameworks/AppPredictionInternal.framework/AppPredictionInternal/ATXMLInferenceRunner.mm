@@ -10,115 +10,116 @@
 
 - (id)initModelWithName:(id)name error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = MEMORY[0x277CEBCF8];
   nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Start ATXMLInferenceRunner loading: %@", nameCopy];
   [v7 logCurrentMemoryFootprint:nameCopy];
 
-  v43.receiver = self;
-  v43.super_class = ATXMLInferenceRunner;
-  v9 = [(ATXMLInferenceRunner *)&v43 init];
+  v44.receiver = self;
+  v44.super_class = ATXMLInferenceRunner;
+  v9 = [(ATXMLInferenceRunner *)&v44 init];
+  v10 = v9;
   if (v9)
   {
-    v10 = __atxlog_handle_ml_inference();
-    v11 = os_signpost_id_generate(v10);
+    v11 = __atxlog_handle_ml_inference(v9);
+    v12 = os_signpost_id_generate(v11);
 
-    v12 = __atxlog_handle_ml_inference();
-    v13 = v12;
-    v14 = v11 - 1;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = __atxlog_handle_ml_inference(v13);
+    v15 = v14;
+    v16 = v12 - 1;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      v15 = nameCopy;
+      v17 = nameCopy;
       uTF8String = [nameCopy UTF8String];
       *buf = 136446210;
-      v45 = uTF8String;
-      _os_signpost_emit_with_name_impl(&dword_2263AA000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "ModelLoading", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
+      v46 = uTF8String;
+      _os_signpost_emit_with_name_impl(&dword_2263AA000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "ModelLoading", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v40 = objc_opt_new();
-    [v40 setComputeUnits:0];
-    v42 = 0;
-    v17 = [ATXCoreMLUtilities loadCoreMLModelWithName:nameCopy withConfiguration:v40 error:&v42];
-    v41 = v42;
-    if (v17)
+    v41 = objc_opt_new();
+    [v41 setComputeUnits:0];
+    v43 = 0;
+    v19 = [ATXCoreMLUtilities loadCoreMLModelWithName:nameCopy withConfiguration:v41 error:&v43];
+    v20 = v43;
+    v42 = v20;
+    if (v19)
     {
-      modelDescription = [v17 modelDescription];
+      modelDescription = [v19 modelDescription];
       metadata = [modelDescription metadata];
-      v20 = [metadata objectForKeyedSubscript:*MEMORY[0x277CBFE90]];
+      v23 = [metadata objectForKeyedSubscript:*MEMORY[0x277CBFE90]];
 
-      v21 = [v20 objectForKey:@"feature_names"];
-      v22 = v21;
-      if (v21)
-      {
-        v23 = [v21 componentsSeparatedByString:{@", "}];
-        [(ATXMLInferenceRunner *)v9 setFeaturesToConcatenate:v23];
-      }
-
-      v24 = [v20 objectForKey:@"intermediate_values"];
+      v24 = [v23 objectForKey:@"feature_names"];
       v25 = v24;
       if (v24)
       {
         v26 = [v24 componentsSeparatedByString:{@", "}];
-        [(ATXMLInferenceRunner *)v9 setIntermediateValuesForInspection:v26];
+        [(ATXMLInferenceRunner *)v10 setFeaturesToConcatenate:v26];
       }
 
-      v27 = __atxlog_handle_ml_inference();
+      v27 = [v23 objectForKey:@"intermediate_values"];
       v28 = v27;
-      if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+      if (v27)
       {
-        v29 = nameCopy;
+        v29 = [v27 componentsSeparatedByString:{@", "}];
+        [(ATXMLInferenceRunner *)v10 setIntermediateValuesForInspection:v29];
+      }
+
+      v30 = __atxlog_handle_ml_inference(v27);
+      v31 = v30;
+      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+      {
+        v32 = nameCopy;
         uTF8String2 = [nameCopy UTF8String];
         *buf = 136446210;
-        v45 = uTF8String2;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v28, OS_SIGNPOST_INTERVAL_END, v11, "ModelLoading", "model=%{public,signpost.telemetry:string1}s-passed enableTelemetry=YES ", buf, 0xCu);
+        v46 = uTF8String2;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v31, OS_SIGNPOST_INTERVAL_END, v12, "ModelLoading", "model=%{public,signpost.telemetry:string1}s-passed enableTelemetry=YES ", buf, 0xCu);
       }
 
-      [(ATXMLInferenceRunner *)v9 setMlModel:v17];
-      [(ATXMLInferenceRunner *)v9 setModelName:nameCopy];
-      v31 = MEMORY[0x277CEBCF8];
+      [(ATXMLInferenceRunner *)v10 setMlModel:v19];
+      [(ATXMLInferenceRunner *)v10 setModelName:nameCopy];
+      v34 = MEMORY[0x277CEBCF8];
       nameCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"End ATXMLInferenceRunner loading: %@", nameCopy];
-      [v31 logCurrentMemoryFootprint:nameCopy2];
+      [v34 logCurrentMemoryFootprint:nameCopy2];
 
-      v33 = v9;
+      v36 = v10;
     }
 
     else
     {
       if (error)
       {
-        v34 = v41;
-        *error = v41;
+        v20 = v20;
+        *error = v42;
       }
 
-      v35 = __atxlog_handle_ml_inference();
-      v20 = v35;
-      if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+      v37 = __atxlog_handle_ml_inference(v20);
+      v23 = v37;
+      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
       {
-        v36 = nameCopy;
+        v38 = nameCopy;
         uTF8String3 = [nameCopy UTF8String];
         *buf = 136446210;
-        v45 = uTF8String3;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v20, OS_SIGNPOST_INTERVAL_END, v11, "ModelLoading", "model=%{public,signpost.telemetry:string1}s-failed enableTelemetry=YES ", buf, 0xCu);
+        v46 = uTF8String3;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v23, OS_SIGNPOST_INTERVAL_END, v12, "ModelLoading", "model=%{public,signpost.telemetry:string1}s-failed enableTelemetry=YES ", buf, 0xCu);
       }
 
-      v33 = 0;
+      v36 = 0;
     }
   }
 
   else if (error)
   {
     [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:6 userInfo:0];
-    *error = v33 = 0;
+    *error = v36 = 0;
   }
 
   else
   {
-    v33 = 0;
+    v36 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v36;
 }
 
 - (double)_getScoreFromInferenceResult:(id)result
@@ -186,15 +187,15 @@ LABEL_5:
 
       v11 = [resultCopy featureValueForName:firstObject];
       [ATXCoreMLUtilities scoreForModelOutputValue:v11];
-      v19 = v36;
+      v19 = v37;
     }
 
     else
     {
-      v37 = __atxlog_handle_ml_inference();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = __atxlog_handle_ml_inference(v31);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        [ATXMLInferenceRunner _getScoreFromInferenceResult:v37];
+        [ATXMLInferenceRunner _getScoreFromInferenceResult:v38];
       }
 
       v11 = 0;
@@ -209,7 +210,7 @@ LABEL_6:
 
 - (id)_inferenceResultWithOutputFeatureProvider:(id)provider inputFeatureProvider:(id)featureProvider
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   featureProviderCopy = featureProvider;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -219,15 +220,15 @@ LABEL_6:
   if (featuresToConcatenate)
   {
     featuresToConcatenate2 = [(ATXMLInferenceRunner *)self featuresToConcatenate];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __87__ATXMLInferenceRunner__inferenceResultWithOutputFeatureProvider_inputFeatureProvider___block_invoke;
-    v47[3] = &unk_278598990;
-    v48 = featureProviderCopy;
-    v49 = dictionary;
-    [featuresToConcatenate2 enumerateObjectsUsingBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __87__ATXMLInferenceRunner__inferenceResultWithOutputFeatureProvider_inputFeatureProvider___block_invoke;
+    v46[3] = &unk_278598990;
+    v47 = featureProviderCopy;
+    v48 = dictionary;
+    [featuresToConcatenate2 enumerateObjectsUsingBlock:v46];
 
-    v8 = v48;
+    v8 = v47;
   }
 
   else
@@ -236,28 +237,28 @@ LABEL_6:
     modelDescription = [mlModel modelDescription];
     inputDescriptionsByName = [modelDescription inputDescriptionsByName];
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v8 = inputDescriptionsByName;
-    v12 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v12 = [v8 countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (v12)
     {
-      v13 = *v44;
+      v13 = *v43;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v44 != v13)
+          if (*v43 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v43 + 1) + 8 * i);
+          v15 = *(*(&v42 + 1) + 8 * i);
           v16 = [featureProviderCopy featureValueForName:v15];
           v17 = v16;
-          if (v16 && [v16 type] == 2)
+          if (v16 && (v16 = [v16 type], v16 == 2))
           {
             v18 = MEMORY[0x277CCABB0];
             [v17 doubleValue];
@@ -267,15 +268,15 @@ LABEL_6:
 
           else
           {
-            v19 = __atxlog_handle_ml_inference();
+            v19 = __atxlog_handle_ml_inference(v16);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              [(ATXMLInferenceRunner *)&v41 _inferenceResultWithOutputFeatureProvider:v42 inputFeatureProvider:v19];
+              [(ATXMLInferenceRunner *)&v40 _inferenceResultWithOutputFeatureProvider:v41 inputFeatureProvider:v19];
             }
           }
         }
 
-        v12 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v12 = [v8 countByEnumeratingWithState:&v42 objects:v52 count:16];
       }
 
       while (v12);
@@ -283,25 +284,25 @@ LABEL_6:
   }
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   intermediateValuesForInspection = [(ATXMLInferenceRunner *)self intermediateValuesForInspection];
-  v22 = [intermediateValuesForInspection countByEnumeratingWithState:&v37 objects:v52 count:16];
+  v22 = [intermediateValuesForInspection countByEnumeratingWithState:&v36 objects:v51 count:16];
   if (v22)
   {
-    v23 = *v38;
+    v23 = *v37;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v38 != v23)
+        if (*v37 != v23)
         {
           objc_enumerationMutation(intermediateValuesForInspection);
         }
 
-        v25 = *(*(&v37 + 1) + 8 * j);
+        v25 = *(*(&v36 + 1) + 8 * j);
         v26 = [providerCopy featureValueForName:v25];
         if (v26)
         {
@@ -313,17 +314,17 @@ LABEL_6:
 
         else
         {
-          v28 = __atxlog_handle_ml_inference();
+          v28 = __atxlog_handle_ml_inference(0);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v51 = v25;
+            v50 = v25;
             _os_log_error_impl(&dword_2263AA000, v28, OS_LOG_TYPE_ERROR, "Could not retrieve intermediate feature value %@", buf, 0xCu);
           }
         }
       }
 
-      v22 = [intermediateValuesForInspection countByEnumeratingWithState:&v37 objects:v52 count:16];
+      v22 = [intermediateValuesForInspection countByEnumeratingWithState:&v36 objects:v51 count:16];
     }
 
     while (v22);
@@ -331,8 +332,6 @@ LABEL_6:
 
   [(ATXMLInferenceRunner *)selfCopy _getScoreFromInferenceResult:providerCopy];
   v30 = [[ATXMLInferenceResult alloc] initWithScore:dictionary inputs:dictionary2 intermediateValues:v29];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -352,7 +351,7 @@ void __87__ATXMLInferenceRunner__inferenceResultWithOutputFeatureProvider_inputF
 
 - (BOOL)runInferenceOnItems:(void *)items resultBlock:(id)block error:(id *)error
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = MEMORY[0x277CEBCF8];
   v10 = MEMORY[0x277CCACA8];
@@ -368,132 +367,131 @@ void __87__ATXMLInferenceRunner__inferenceResultWithOutputFeatureProvider_inputF
     [currentHandler handleFailureInMethod:a2 object:self file:@"ATXMLInferenceRunner.mm" lineNumber:180 description:@"Valid ML model should exist for inference"];
   }
 
-  v14 = __atxlog_handle_ml_inference();
-  v15 = os_signpost_id_generate(v14);
+  v15 = __atxlog_handle_ml_inference(v14);
+  v16 = os_signpost_id_generate(v15);
 
-  v16 = __atxlog_handle_ml_inference();
-  v17 = v16;
-  spid = v15;
-  v51 = v15 - 1;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = __atxlog_handle_ml_inference(v17);
+  v19 = v18;
+  spid = v16;
+  v55 = v16 - 1;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     modelName2 = [(ATXMLInferenceRunner *)self modelName];
     *buf = 136446210;
     uTF8String = [modelName2 UTF8String];
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "BatchedInference", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "BatchedInference", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
   }
 
   featuresToConcatenate = [(ATXMLInferenceRunner *)self featuresToConcatenate];
-  v20 = featuresToConcatenate == 0;
+  v22 = featuresToConcatenate == 0;
 
-  if (v20)
+  if (v22)
   {
-    v54 = [[ATXMLBatchInferenceFeatureProvider alloc] initWithFeatureVectors:items];
+    v58 = [[ATXMLBatchInferenceFeatureProvider alloc] initWithFeatureVectors:items];
   }
 
   else
   {
-    v21 = [ATXMLBatchInferenceMultiArrayFeatureProvider alloc];
+    v23 = [ATXMLBatchInferenceMultiArrayFeatureProvider alloc];
     featuresToConcatenate2 = [(ATXMLInferenceRunner *)self featuresToConcatenate];
-    v54 = [(ATXMLBatchInferenceMultiArrayFeatureProvider *)v21 initWithFeatureVectors:items featuresToConcatenate:featuresToConcatenate2];
+    v58 = [(ATXMLBatchInferenceMultiArrayFeatureProvider *)v23 initWithFeatureVectors:items featuresToConcatenate:featuresToConcatenate2];
   }
 
   mlModel2 = [(ATXMLInferenceRunner *)self mlModel];
-  v55 = 0;
-  v24 = [mlModel2 predictionsFromBatch:v54 error:&v55];
-  v53 = v55;
+  v59 = 0;
+  v26 = [mlModel2 predictionsFromBatch:v58 error:&v59];
+  v57 = v59;
 
-  if (!v24)
+  if (!v26)
   {
-    v30 = __atxlog_handle_ml_inference();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v33 = __atxlog_handle_ml_inference(v27);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       mlModel3 = [(ATXMLInferenceRunner *)self mlModel];
-      [ATXMLInferenceRunner runInferenceOnItems:mlModel3 resultBlock:v53 error:buf];
+      [ATXMLInferenceRunner runInferenceOnItems:mlModel3 resultBlock:v57 error:buf];
     }
 
     goto LABEL_19;
   }
 
-  if ([v24 count] != 0x13A524387AC82261 * ((*(items + 1) - *items) >> 3))
+  if ([v26 count] != 0x13A524387AC82261 * ((*(items + 1) - *items) >> 3))
   {
-    v32 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:6 userInfo:0];
+    v35 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEB260] code:6 userInfo:0];
 
-    v30 = __atxlog_handle_ml_inference();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v33 = __atxlog_handle_ml_inference(v36);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v47 = [v24 count];
-      v48 = 0x13A524387AC82261 * ((*(items + 1) - *items) >> 3);
+      v51 = [v26 count];
+      v52 = 0x13A524387AC82261 * ((*(items + 1) - *items) >> 3);
       *buf = 134218240;
-      uTF8String = v47;
-      v62 = 2048;
-      v63 = v48;
-      _os_log_error_impl(&dword_2263AA000, v30, OS_LOG_TYPE_ERROR, "Results size (%ld) != number of prediction items (%ld)", buf, 0x16u);
+      uTF8String = v51;
+      v66 = 2048;
+      v67 = v52;
+      _os_log_error_impl(&dword_2263AA000, v33, OS_LOG_TYPE_ERROR, "Results size (%ld) != number of prediction items (%ld)", buf, 0x16u);
     }
 
-    v53 = v32;
+    v57 = v35;
 LABEL_19:
 
-    v33 = 0;
+    v37 = 0;
     goto LABEL_21;
   }
 
-  v25 = 0;
-  for (i = 0; i < [v24 count]; ++i)
+  v28 = 0;
+  for (i = 0; i < [v26 count]; ++i)
   {
-    v27 = [v24 featuresAtIndex:i];
-    v28 = [(ATXMLBatchInferenceFeatureProvider *)v54 featuresAtIndex:i];
-    v29 = [(ATXMLInferenceRunner *)self _inferenceResultWithOutputFeatureProvider:v27 inputFeatureProvider:v28];
-    blockCopy[2](blockCopy, *items + v25, v29);
+    v30 = [v26 featuresAtIndex:i];
+    v31 = [(ATXMLBatchInferenceFeatureProvider *)v58 featuresAtIndex:i];
+    v32 = [(ATXMLInferenceRunner *)self _inferenceResultWithOutputFeatureProvider:v30 inputFeatureProvider:v31];
+    blockCopy[2](blockCopy, *items + v28, v32);
 
-    v25 += 3336;
+    v28 += 3336;
   }
 
-  v33 = 1;
+  v37 = 1;
 LABEL_21:
-  v34 = MEMORY[0x277CEBCF8];
-  v35 = MEMORY[0x277CCACA8];
+  v38 = MEMORY[0x277CEBCF8];
+  v39 = MEMORY[0x277CCACA8];
   modelName3 = [(ATXMLInferenceRunner *)self modelName];
-  v37 = [v35 stringWithFormat:@"End runInferenceOnItems loading: %@", modelName3];
-  [v34 logCurrentMemoryFootprint:v37];
+  v41 = [v39 stringWithFormat:@"End runInferenceOnItems loading: %@", modelName3];
+  [v38 logCurrentMemoryFootprint:v41];
 
-  v38 = __atxlog_handle_ml_inference();
-  v39 = v38;
-  if (v51 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+  v43 = __atxlog_handle_ml_inference(v42);
+  v44 = v43;
+  if (v55 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
   {
     modelName4 = [(ATXMLInferenceRunner *)self modelName];
-    v41 = modelName4;
+    v46 = modelName4;
     uTF8String2 = [modelName4 UTF8String];
-    *v56 = 136446466;
-    v57 = uTF8String2;
-    v58 = 1026;
-    v59 = v33;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v39, OS_SIGNPOST_INTERVAL_END, spid, "BatchedInference", "model=%{public,signpost.telemetry:string1}s-%{public,signpost.telemetry:number1}d enableTelemetry=YES ", v56, 0x12u);
+    *v60 = 136446466;
+    v61 = uTF8String2;
+    v62 = 1026;
+    v63 = v37;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v44, OS_SIGNPOST_INTERVAL_END, spid, "BatchedInference", "model=%{public,signpost.telemetry:string1}s-%{public,signpost.telemetry:number1}d enableTelemetry=YES ", v60, 0x12u);
   }
 
   if (error)
   {
-    v43 = v33;
+    v48 = v37;
   }
 
   else
   {
-    v43 = 1;
+    v48 = 1;
   }
 
-  if ((v43 & 1) == 0)
+  if ((v48 & 1) == 0)
   {
-    v44 = v53;
-    *error = v53;
+    v49 = v57;
+    *error = v57;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v37;
 }
 
 - (BOOL)runInferenceOnItem:(ATXPredictionItem *)item resultBlock:(id)block error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = MEMORY[0x277CEBCF8];
   v10 = MEMORY[0x277CCACA8];
@@ -509,93 +507,92 @@ LABEL_21:
     [currentHandler handleFailureInMethod:a2 object:self file:@"ATXMLInferenceRunner.mm" lineNumber:229 description:@"Valid ML model should exist for inference"];
   }
 
-  v14 = __atxlog_handle_ml_inference();
-  v15 = os_signpost_id_generate(v14);
+  v15 = __atxlog_handle_ml_inference(v14);
+  v16 = os_signpost_id_generate(v15);
 
-  v16 = __atxlog_handle_ml_inference();
-  v17 = v16;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = __atxlog_handle_ml_inference(v17);
+  v19 = v18;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     modelName2 = [(ATXMLInferenceRunner *)self modelName];
     *buf = 136446210;
     uTF8String = [modelName2 UTF8String];
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "SingleInference", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "SingleInference", "model=%{public,signpost.telemetry:string1}s enableTelemetry=YES ", buf, 0xCu);
   }
 
   featuresToConcatenate = [(ATXMLInferenceRunner *)self featuresToConcatenate];
-  v20 = featuresToConcatenate == 0;
+  v22 = featuresToConcatenate == 0;
 
-  if (v20)
+  if (v22)
   {
-    v23 = [[ATXMLInferenceFeatureProvider alloc] initWithPredictionItem:item];
+    v25 = [[ATXMLInferenceFeatureProvider alloc] initWithPredictionItem:item];
   }
 
   else
   {
-    v21 = [ATXMLInferenceMultiArrayFeatureProvider alloc];
+    v23 = [ATXMLInferenceMultiArrayFeatureProvider alloc];
     featuresToConcatenate2 = [(ATXMLInferenceRunner *)self featuresToConcatenate];
-    v23 = [(ATXMLInferenceMultiArrayFeatureProvider *)v21 initWithPredictionItem:item featuresToConcatenate:featuresToConcatenate2];
+    v25 = [(ATXMLInferenceMultiArrayFeatureProvider *)v23 initWithPredictionItem:item featuresToConcatenate:featuresToConcatenate2];
   }
 
   mlModel2 = [(ATXMLInferenceRunner *)self mlModel];
-  v44 = 0;
-  v25 = [mlModel2 predictionFromFeatures:v23 error:&v44];
-  v26 = v44;
+  v47 = 0;
+  v27 = [mlModel2 predictionFromFeatures:v25 error:&v47];
+  v28 = v47;
 
-  if (v25)
+  if (v27)
   {
-    v27 = [(ATXMLInferenceRunner *)self _inferenceResultWithOutputFeatureProvider:v25 inputFeatureProvider:v23];
-    blockCopy[2](blockCopy, item, v27);
+    v30 = [(ATXMLInferenceRunner *)self _inferenceResultWithOutputFeatureProvider:v27 inputFeatureProvider:v25];
+    blockCopy[2](blockCopy, item, v30);
   }
 
   else
   {
-    v27 = __atxlog_handle_ml_inference();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v30 = __atxlog_handle_ml_inference(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       mlModel3 = [(ATXMLInferenceRunner *)self mlModel];
-      [ATXMLInferenceRunner runInferenceOnItems:mlModel3 resultBlock:v26 error:buf];
+      [ATXMLInferenceRunner runInferenceOnItems:mlModel3 resultBlock:v28 error:buf];
     }
   }
 
-  v29 = MEMORY[0x277CEBCF8];
-  v30 = MEMORY[0x277CCACA8];
+  v32 = MEMORY[0x277CEBCF8];
+  v33 = MEMORY[0x277CCACA8];
   modelName3 = [(ATXMLInferenceRunner *)self modelName];
-  v32 = [v30 stringWithFormat:@"End single runInferenceOnItem loading: %@", modelName3];
-  [v29 logCurrentMemoryFootprint:v32];
+  v35 = [v33 stringWithFormat:@"End single runInferenceOnItem loading: %@", modelName3];
+  [v32 logCurrentMemoryFootprint:v35];
 
-  v33 = __atxlog_handle_ml_inference();
-  v34 = v33;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+  v37 = __atxlog_handle_ml_inference(v36);
+  v38 = v37;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
   {
     modelName4 = [(ATXMLInferenceRunner *)self modelName];
-    v36 = modelName4;
+    v40 = modelName4;
     uTF8String2 = [modelName4 UTF8String];
-    *v45 = 136446466;
-    v46 = uTF8String2;
-    v47 = 1026;
-    v48 = v25 != 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v34, OS_SIGNPOST_INTERVAL_END, v15, "SingleInference", "model=%{public,signpost.telemetry:string1}s-%{public,signpost.telemetry:number1}d enableTelemetry=YES ", v45, 0x12u);
+    *v48 = 136446466;
+    v49 = uTF8String2;
+    v50 = 1026;
+    v51 = v27 != 0;
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v38, OS_SIGNPOST_INTERVAL_END, v16, "SingleInference", "model=%{public,signpost.telemetry:string1}s-%{public,signpost.telemetry:number1}d enableTelemetry=YES ", v48, 0x12u);
   }
 
   if (error)
   {
-    v38 = v25 != 0;
+    v42 = v27 != 0;
   }
 
   else
   {
-    v38 = 1;
+    v42 = 1;
   }
 
-  if (!v38)
+  if (!v42)
   {
-    v39 = v26;
-    *error = v26;
+    v43 = v28;
+    *error = v28;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v25 != 0;
+  return v27 != 0;
 }
 
 - (void)_inferenceResultWithOutputFeatureProvider:(os_log_t)log inputFeatureProvider:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

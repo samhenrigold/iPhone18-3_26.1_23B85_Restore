@@ -91,7 +91,7 @@
     if (PlaneCount <= 1)
     {
       memset(dest, 0, 32);
-      PixelBufferUtils::asVImageBuffer(undistortedImage, 1, *MEMORY[0x277CBF3A0], dest);
+      PixelBufferUtils::asVImageBuffer(dest, undistortedImage, 1, *MEMORY[0x277CBF3A0]);
       *color = -32640;
       vImageBufferFill_CbCr8(dest, color, 0);
       goto LABEL_7;
@@ -139,7 +139,7 @@ LABEL_7:
           goto LABEL_70;
         }
 
-        PixelBufferUtils::asVImageBuffer(image, v14, *v11, &v77);
+        PixelBufferUtils::asVImageBuffer(&v77, image, v14, *v11);
         v21 = &dest[v14];
         v22 = *&v77.width;
         *&v21->data = *&v77.data;
@@ -148,7 +148,7 @@ LABEL_7:
         *&v22 = v11->origin.y;
         width = v11->size.width;
         height = v11->size.height;
-        PixelBufferUtils::asVImageBuffer(undistortedImage, v14, *(&v22 - 8), &v77);
+        PixelBufferUtils::asVImageBuffer(&v77, undistortedImage, v14, *(&v22 - 8));
         v30 = &color[32 * v14];
         v31 = *&v77.width;
         *v30 = *&v77.data;

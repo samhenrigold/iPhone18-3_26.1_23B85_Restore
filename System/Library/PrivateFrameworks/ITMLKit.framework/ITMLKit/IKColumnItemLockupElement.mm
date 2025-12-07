@@ -136,31 +136,31 @@
 
 - (void)_computeTitle:(id *)title subtitle:(id *)subtitle secondarySubtitle:(id *)secondarySubtitle unstyledTextElements:(id *)elements
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v8 = [(IKViewElement *)self childElementsWithType:138];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
     v14 = 0;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         if ([v17 textStyle] == 1)
         {
           v18 = v17;
@@ -181,7 +181,7 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
@@ -274,8 +274,6 @@ LABEL_28:
   {
     *elements = [v9 copy];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

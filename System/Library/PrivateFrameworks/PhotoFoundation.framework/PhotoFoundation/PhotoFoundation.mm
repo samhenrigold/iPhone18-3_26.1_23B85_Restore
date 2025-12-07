@@ -368,11 +368,11 @@ uint64_t PhotosFeatureFlags.hashValue.getter()
   return sub_1D8BA7738();
 }
 
-uint64_t sub_1D8B9E53C()
+uint64_t sub_1D8B9E53C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1D8BA7718();
-  MEMORY[0x1DA721570](v1);
+  MEMORY[0x1DA721570](v2);
   return sub_1D8BA7738();
 }
 
@@ -582,17 +582,15 @@ uint64_t __PFDeviceIsVirtualMachine_block_invoke()
 
 id PFPhotoFoundationBinaryImageUUID()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  v4[1] = 0;
+  v3[2] = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  v3[1] = 0;
   image_uuid = _dyld_get_image_uuid();
   v1 = 0;
   if (image_uuid)
   {
-    v1 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v4];
+    v1 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v3];
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -643,15 +641,15 @@ __CFString *PFStringVersionOfLinkTimeLibrary(void *a1)
 
 id PFStringWithValidatedFormatAndLocale(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = MEMORY[0x1E696AEC0];
   v10 = a3;
-  v33 = 0;
-  v11 = [[v9 alloc] initWithValidatedFormat:v7 validFormatSpecifiers:v8 locale:v10 arguments:a4 error:&v33];
+  v32 = 0;
+  v11 = [[v9 alloc] initWithValidatedFormat:v7 validFormatSpecifiers:v8 locale:v10 arguments:a4 error:&v32];
 
-  v12 = v33;
+  v12 = v32;
   if (!v11)
   {
     if (PFStringWithValidatedFormatAndLocale_predicate != -1)
@@ -707,7 +705,7 @@ id PFStringWithValidatedFormatAndLocale(void *a1, void *a2, void *a3, uint64_t a
                 else
                 {
                   v26 = [v15 objectForKeyedSubscript:@"zero"];
-                  v32 = v26;
+                  v31 = v26;
                   if (v26)
                   {
                     v27 = v26;
@@ -771,11 +769,11 @@ id PFStringWithValidatedFormatAndLocale(void *a1, void *a2, void *a3, uint64_t a
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v35 = v19;
-        v36 = 2112;
-        v37 = v8;
-        v38 = 2112;
-        v39 = v12;
+        v34 = v19;
+        v35 = 2112;
+        v36 = v8;
+        v37 = 2112;
+        v38 = v12;
         _os_log_fault_impl(&dword_1D8B9C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "failed to make string with validated format for '%@' with specifiers '%@': %@", buf, 0x20u);
       }
 
@@ -784,8 +782,6 @@ id PFStringWithValidatedFormatAndLocale(void *a1, void *a2, void *a3, uint64_t a
 
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:v29, v19];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -988,7 +984,7 @@ double PFFloatNan()
 
 id PFMap(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3)
@@ -1004,33 +1000,33 @@ id PFMap(void *a1, void *a2)
     }
 
     v7 = v6;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = v3;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = v4[2](v4, *(*(&v16 + 1) + 8 * i));
+          v13 = v4[2](v4, *(*(&v15 + 1) + 8 * i));
           if (v13)
           {
-            [v7 addObject:{v13, v16}];
+            [v7 addObject:{v13, v15}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -1042,40 +1038,38 @@ id PFMap(void *a1, void *a2)
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 id PFMapDictionary(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v16 = v3;
+    v15 = v3;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           v12 = [v6 objectForKeyedSubscript:v11];
           v13 = v4[2](v4, v11, v12);
           if (v13)
@@ -1084,21 +1078,19 @@ id PFMapDictionary(void *a1, void *a2)
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
     }
 
-    v3 = v16;
+    v3 = v15;
   }
 
   else
   {
     v5 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1126,39 +1118,39 @@ id PFMapIndexes(void *a1, void *a2)
 
 id PFFilter(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3)
   {
     v5 = [MEMORY[0x1E695DF70] array];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if (v4[2](v4, v11))
           {
-            [v5 addObject:{v11, v14}];
+            [v5 addObject:{v11, v13}];
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -1170,39 +1162,37 @@ id PFFilter(void *a1, void *a2)
     v5 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 uint64_t PFCount(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 += v4[2](v4, *(*(&v12 + 1) + 8 * i));
+        v7 += v4[2](v4, *(*(&v11 + 1) + 8 * i));
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -1213,59 +1203,10 @@ uint64_t PFCount(void *a1, void *a2)
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 id PFFind(void *a1, void *a2)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = a2;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
-  {
-    v7 = *v13;
-    while (2)
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v13 != v7)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if (v4[2](v4, v9))
-        {
-          v6 = v9;
-          goto LABEL_11;
-        }
-      }
-
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-uint64_t PFExists(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -1281,16 +1222,17 @@ uint64_t PFExists(void *a1, void *a2)
     v7 = *v12;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = i + 1)
       {
         if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (v4[2](v4, *(*(&v11 + 1) + 8 * i)))
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if (v4[2](v4, v9))
         {
-          v6 = 1;
+          v6 = v9;
           goto LABEL_11;
         }
       }
@@ -1307,27 +1249,71 @@ uint64_t PFExists(void *a1, void *a2)
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
+  return v6;
+}
+
+uint64_t PFExists(void *a1, void *a2)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = v3;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = *v11;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        if (v4[2](v4, *(*(&v10 + 1) + 8 * i)))
+        {
+          v6 = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
   return v6;
 }
 
 id PFReduce(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = v6;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v9 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   v10 = v8;
   if (v9)
   {
     v11 = v9;
-    v12 = *v18;
+    v12 = *v17;
     v10 = v8;
     do
     {
@@ -1335,70 +1321,67 @@ id PFReduce(void *a1, void *a2, void *a3)
       v14 = v10;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = v7[2](v7, *(*(&v17 + 1) + 8 * v13), v14);
+        v10 = v7[2](v7, *(*(&v16 + 1) + 8 * v13), v14);
 
         ++v13;
         v14 = v10;
       }
 
       while (v11 != v13);
-      v11 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 double PFReduceF(void *a1, void *a2, double a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        a3 = v6[2](v6, *(*(&v13 + 1) + 8 * v10++), a3);
+        a3 = v6[2](v6, *(*(&v12 + 1) + 8 * v10++), a3);
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
 __CFString *PFBitmaskDescription(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 count];
@@ -1424,48 +1407,46 @@ LABEL_6:
   }
 
 LABEL_3:
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __PFBitmaskDescription_block_invoke;
-  v17[3] = &unk_1E8563868;
-  v21 = a1;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __PFBitmaskDescription_block_invoke;
+  v16[3] = &unk_1E8563868;
+  v20 = a1;
   v9 = v8;
-  v18 = v9;
-  v19 = v6;
-  v20 = &v22;
-  [v5 enumerateObjectsUsingBlock:v17];
-  v10 = a1 & ~v23[3];
+  v17 = v9;
+  v18 = v6;
+  v19 = &v21;
+  [v5 enumerateObjectsUsingBlock:v16];
+  v10 = a1 & ~v22[3];
   if (v10)
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UNKNOWN(%lu)", v10];
-    [v9 addObject:v16];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"UNKNOWN(%lu)", v10];
+    [v9 addObject:v15];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v27 = v10;
+      v26 = v10;
       _os_log_error_impl(&dword_1D8B9C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unknown bitmask description (%lu)", buf, 0xCu);
     }
   }
 
   v11 = [v9 componentsJoinedByString:@"|"];
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
 LABEL_7:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
-void sub_1D8BA2270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D8BA2270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1752,56 +1733,56 @@ double PFLargestSalientAspectFilledCropRect(double a1, double a2, double a3, dou
 {
   if (a3 == 0.0)
   {
-    v20 = 0.0;
+    v15 = 0.0;
   }
 
   else
   {
-    v20 = 0.0;
+    v15 = 0.0;
     if (a4 != 0.0)
     {
-      v21 = fabs(a3 / a4) <= a5;
-      v22 = a4 * a5;
-      if (v21)
+      v16 = fabs(a3 / a4) <= a5;
+      v17 = a4 * a5;
+      if (v16)
       {
-        v22 = a3;
+        v17 = a3;
       }
 
       if (a3 != INFINITY || a4 != INFINITY)
       {
-        v20 = v22;
+        v15 = v17;
       }
     }
   }
 
-  v24 = a1 + a9 * a3;
-  v25 = a3 * a11;
-  v26 = a1 + a13 * a3 + a3 * a15 * 0.5 + v20 * -0.5;
-  v27 = v24 + a3 * a11 * 0.5;
-  if (v26 >= v24)
+  v19 = a1 + a9 * a3;
+  v20 = a3 * a11;
+  v21 = a1 + a13 * a3 + a3 * a15 * 0.5 + v15 * -0.5;
+  v22 = v19 + a3 * a11 * 0.5;
+  if (v21 >= v19)
   {
-    v28 = v24 + v25;
-    if (v20 + v26 > v28)
+    v23 = v19 + v20;
+    if (v15 + v21 > v23)
     {
-      v26 = v28 - v20;
-      v29 = v27 + v20 * -0.5;
-      if (v25 < v20)
+      v21 = v23 - v15;
+      v24 = v22 + v15 * -0.5;
+      if (v20 < v15)
       {
-        v26 = v29;
+        v21 = v24;
       }
     }
   }
 
   else
   {
-    v26 = v27 + v20 * -0.5;
-    if (v25 >= v20)
+    v21 = v22 + v15 * -0.5;
+    if (v20 >= v15)
     {
-      v26 = v24;
+      v21 = v19;
     }
   }
 
-  return fmax(fmin(v26, a3 - v20), 0.0);
+  return fmax(fmin(v21, a3 - v15), 0.0);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -2283,41 +2264,40 @@ void PFCrashWithUnknownErrno(void *a1)
 
 void PFTestAddressSanitizer()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v0 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
   v1 = PFBackendGetLog();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v4 = 134217984;
-    v5 = v0;
-    _os_log_impl(&dword_1D8B9C000, v1, OS_LOG_TYPE_ERROR, "Testing ASAN on buffer at %p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = v0;
+    _os_log_impl(&dword_1D8B9C000, v1, OS_LOG_TYPE_ERROR, "Testing ASAN on buffer at %p", &v3, 0xCu);
   }
 
   v0[1] = 7;
   v2 = PFBackendGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v4) = 0;
-    _os_log_impl(&dword_1D8B9C000, v2, OS_LOG_TYPE_ERROR, "Testing ASAN failed", &v4, 2u);
+    LOWORD(v3) = 0;
+    _os_log_impl(&dword_1D8B9C000, v2, OS_LOG_TYPE_ERROR, "Testing ASAN failed", &v3, 2u);
   }
 
   free(v0);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void PFTestThreadSanitizer()
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
   v0 = dispatch_get_global_queue(0, 0);
   v1 = PFBackendGetLog();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v12 = v8 + 3;
+    v11 = v7 + 3;
     _os_log_impl(&dword_1D8B9C000, v1, OS_LOG_TYPE_ERROR, "Testing TSAN on racyVar at %p", buf, 0xCu);
   }
 
@@ -2325,20 +2305,20 @@ void PFTestThreadSanitizer()
   block[1] = 3221225472;
   block[2] = __PFTestThreadSanitizer_block_invoke;
   block[3] = &unk_1E8563A60;
-  block[4] = &v7;
+  block[4] = &v6;
   dispatch_async(v0, block);
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __PFTestThreadSanitizer_block_invoke_2;
-  v5[3] = &unk_1E8563A60;
-  v5[4] = &v7;
-  dispatch_async(v0, v5);
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 3221225472;
-  v4[2] = __PFTestThreadSanitizer_block_invoke_3;
+  v4[2] = __PFTestThreadSanitizer_block_invoke_2;
   v4[3] = &unk_1E8563A60;
-  v4[4] = &v7;
-  dispatch_sync(v0, v4);
+  v4[4] = &v6;
+  dispatch_async(v0, v4);
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = __PFTestThreadSanitizer_block_invoke_3;
+  v3[3] = &unk_1E8563A60;
+  v3[4] = &v6;
+  dispatch_sync(v0, v3);
   v2 = PFBackendGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
@@ -2346,21 +2326,18 @@ void PFTestThreadSanitizer()
     _os_log_impl(&dword_1D8B9C000, v2, OS_LOG_TYPE_ERROR, "Testing TSAN failed", buf, 2u);
   }
 
-  _Block_object_dispose(&v7, 8);
-  v3 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v6, 8);
 }
 
 void __PFTestThreadSanitizer_block_invoke_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = PFBackendGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(*(*(a1 + 32) + 8) + 24);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&dword_1D8B9C000, v2, OS_LOG_TYPE_ERROR, "Value of the racyVar after TSAN race: %d\n", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_1D8B9C000, v2, OS_LOG_TYPE_ERROR, "Value of the racyVar after TSAN race: %d\n", v4, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }

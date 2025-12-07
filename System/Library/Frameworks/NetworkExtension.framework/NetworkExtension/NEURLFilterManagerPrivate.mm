@@ -8,29 +8,28 @@
 + (void)enableConfig:(BOOL)config serviceID:(NSUUID *)d completion:(id)completion
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v19 - v11;
-  v13 = _Block_copy(completion);
-  v14 = swift_allocObject();
-  *(v14 + 16) = config;
-  *(v14 + 24) = d;
-  *(v14 + 32) = v13;
-  *(v14 + 40) = self;
-  v15 = sub_1BAA39EFC();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v18 - v10;
+  v12 = _Block_copy(completion);
+  v13 = swift_allocObject();
+  *(v13 + 16) = config;
+  *(v13 + 24) = d;
+  *(v13 + 32) = v12;
+  *(v13 + 40) = self;
+  v14 = sub_1BAA39EFC();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1BAA4D8E0;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_1BAA4D8E0;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1BAA4D100;
-  v17[5] = v16;
+  v16[4] = &unk_1BAA4D100;
+  v16[5] = v15;
   dCopy = d;
-  sub_1BA8737D8(0, 0, v12, &unk_1BAA4CD70, v17);
+  sub_1BA8737D8(0, 0, v11, &unk_1BAA4CD70, v16);
 }
 
 - (NEURLFilterManagerPrivate)init

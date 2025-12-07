@@ -33,37 +33,37 @@
 
 - (NSString)locationDescription
 {
-  v25 = *MEMORY[0x277D85DE8];
-  GPUDebugFunctionInfo::GPUDebugFunctionInfo(v19, [(MTLGPUDebugGPULog *)self function], [(MTLGPUDebugGPULog *)self functionType], [(MTLGPUDebugGPULog *)self functionName]);
-  v18 = MEMORY[0x277CCACA8];
+  v24 = *MEMORY[0x277D85DE8];
+  GPUDebugFunctionInfo::GPUDebugFunctionInfo(v18, [(MTLGPUDebugGPULog *)self function], [(MTLGPUDebugGPULog *)self functionType], [(MTLGPUDebugGPULog *)self functionName]);
+  v17 = MEMORY[0x277CCACA8];
   pipelineIdentifier = [(MTLGPUDebugGPULog *)self pipelineIdentifier];
   encoderLabel = [(MTLGPUDebugGPULog *)self encoderLabel];
-  v3 = v19[2];
+  v3 = v18[2];
   callIndex = [(MTLGPUDebugGPULog *)self callIndex];
   errorStackTrace = [(MTLGPUDebugGPULog *)self errorStackTrace];
   if (errorStackTrace)
   {
     v6 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:&stru_2841C04D0];
     context = objc_autoreleasePoolPush();
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v7 = [(NSArray *)errorStackTrace countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v7 = [(NSArray *)errorStackTrace countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = 0;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(errorStackTrace);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           if ([objc_msgSend(v11 "URL")])
           {
             -[__CFString appendFormat:](v6, "appendFormat:", @"\t* frame #%d: %@\n", v8, [v11 description]);
@@ -71,7 +71,7 @@
           }
         }
 
-        v7 = [(NSArray *)errorStackTrace countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [(NSArray *)errorStackTrace countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -91,9 +91,7 @@
     v12 = v6;
   }
 
-  result = [v18 stringWithFormat:@"%@ encoder: %@, %@: %lu\n%@\n", pipelineIdentifier, encoderLabel, v3, callIndex, v12];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v17 stringWithFormat:@"%@ encoder: %@, %@: %lu\n%@\n", pipelineIdentifier, encoderLabel, v3, callIndex, v12];
 }
 
 @end

@@ -12,12 +12,14 @@
 - (NSString)appBundleIdentifier;
 - (NSString)localizedDescription;
 - (NSUUID)identifier;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)createEmptyConfigurationWithGrade:(void *)grade;
 - (void)fetchStatusWithCompletionHandler:(id)handler;
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)saveToPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)setDnsSettings:(NEDNSSettings *)dnsSettings;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setLocalizedDescription:(NSString *)localizedDescription;
 - (void)setOnDemandRules:(NSArray *)onDemandRules;
 @end
@@ -67,15 +69,10 @@ uint64_t __57__NEDNSSettingsManager_fetchStatusWithCompletionHandler___block_inv
     v3 = 0;
   }
 
-  v4 = [v3 status];
-  if (v4 <= 5)
-  {
-    v5 = qword_1BAA4F9D8[v4];
-  }
+  [v3 status];
+  v4 = *(*(a1 + 40) + 16);
 
-  v6 = *(*(a1 + 40) + 16);
-
-  return v6();
+  return v4();
 }
 
 - (BOOL)isConfigurationGradeEnterprise
@@ -132,6 +129,23 @@ uint64_t __57__NEDNSSettingsManager_fetchStatusWithCompletionHandler___block_inv
   }
 
   return [(NEDNSSettingsManager *)self identifier];
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  localizedDescription = [(NEDNSSettingsManager *)self localizedDescription];
+  [v7 appendPrettyObject:localizedDescription withName:@"localizedDescription" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEDNSSettingsManager isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  dnsSettings = [(NEDNSSettingsManager *)self dnsSettings];
+  [v7 appendPrettyObject:dnsSettings withName:@"dnsSettings" andIndent:v5 options:options];
+
+  onDemandRules = [(NEDNSSettingsManager *)self onDemandRules];
+  [v7 appendPrettyObject:onDemandRules withName:@"onDemandRules" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (void)setLocalizedDescription:(NSString *)localizedDescription
@@ -267,6 +281,24 @@ uint64_t __57__NEDNSSettingsManager_fetchStatusWithCompletionHandler___block_inv
   return settings;
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfa = self;
+  objc_sync_enter(selfa);
+  Property = selfa;
+  if (selfa)
+  {
+    Property = objc_getProperty(selfa, v4, 40, 1);
+  }
+
+  v6 = Property;
+  dnsSettings = [v6 dnsSettings];
+  [dnsSettings setEnabled:enabledCopy];
+
+  objc_sync_exit(selfa);
+}
+
 - (BOOL)isEnabled
 {
   selfCopy = self;
@@ -337,7 +369,7 @@ void __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_i
 
 void __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && [v3 code] != 9)
@@ -346,9 +378,9 @@ void __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[NEDNSSettingsManager saveToPreferencesWithCompletionHandler:]_block_invoke_2";
-      v14 = 2112;
-      v15 = v4;
+      v12 = "[NEDNSSettingsManager saveToPreferencesWithCompletionHandler:]_block_invoke_2";
+      v13 = 2112;
+      v14 = v4;
       _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%s: failed to save the new configuration: %@", buf, 0x16u);
     }
 
@@ -363,16 +395,14 @@ void __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_i
   v7 = *(a1 + 32);
   if (v7)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_invoke_29;
-    v9[3] = &unk_1E7F0B588;
-    v11 = v7;
-    v10 = v4;
-    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __63__NEDNSSettingsManager_saveToPreferencesWithCompletionHandler___block_invoke_29;
+    v8[3] = &unk_1E7F0B588;
+    v10 = v7;
+    v9 = v4;
+    dispatch_async(MEMORY[0x1E69E96A0], v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -450,7 +480,7 @@ void __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___blo
 
 void __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -458,9 +488,9 @@ void __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___blo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[NEDNSSettingsManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
-      v12 = 2112;
-      v13 = v3;
+      v10 = "[NEDNSSettingsManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
+      v11 = 2112;
+      v12 = v3;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%s: failed to remove the configuration: %@", buf, 0x16u);
     }
   }
@@ -468,16 +498,14 @@ void __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___blo
   v5 = *(a1 + 32);
   if (v5)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___block_invoke_28;
-    v7[3] = &unk_1E7F0B588;
-    v9 = v5;
-    v8 = v3;
-    dispatch_async(MEMORY[0x1E69E96A0], v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___block_invoke_28;
+    v6[3] = &unk_1E7F0B588;
+    v8 = v5;
+    v7 = v3;
+    dispatch_async(MEMORY[0x1E69E96A0], v6);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -514,33 +542,33 @@ void __67__NEDNSSettingsManager_removeFromPreferencesWithCompletionHandler___blo
 
 void __65__NEDNSSettingsManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v23 = a2;
+  v31 = *MEMORY[0x1E69E9840];
+  v22 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
   objc_sync_enter(v6);
   if (!v5)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
-    v7 = v23;
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v7 = v22;
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v8)
     {
       v9 = 0;
-      v10 = *v28;
+      v10 = *v27;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           v13 = [v12 dnsSettings];
           v14 = v13 == 0;
 
@@ -564,7 +592,7 @@ void __65__NEDNSSettingsManager_loadFromPreferencesWithCompletionHandler___block
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v8)
         {
           continue;
@@ -614,14 +642,12 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = __65__NEDNSSettingsManager_loadFromPreferencesWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0B588;
-    v26 = v21;
-    v25 = v5;
+    v25 = v21;
+    v24 = v5;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   objc_sync_exit(v6);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEmptyConfigurationWithGrade:(void *)grade
@@ -674,17 +700,17 @@ LABEL_23:
     dispatch_once(&globalConfigurationManager_onceToken_17817, &__block_literal_global_17_17818);
   }
 
-  v0 = globalConfigurationManager_gConfigurationManager_17819;
+  v1 = globalConfigurationManager_gConfigurationManager_17819;
 
-  return v0;
+  return v1;
 }
 
 void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = a2;
   group = dispatch_group_create();
-  v37 = v5;
+  v36 = v5;
   if (a3)
   {
     v6 = *(a1 + 32);
@@ -694,27 +720,27 @@ void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___bl
 
   else
   {
-    v36 = a1;
-    v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v35 = a1;
+    v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v9)
     {
-      v10 = *v46;
+      v10 = *v45;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v46 != v10)
+          if (*v45 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v45 + 1) + 8 * i);
+          v12 = *(*(&v44 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -726,7 +752,7 @@ void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___bl
               dispatch_group_enter(group);
               v15 = [NEDNSSettingsManager alloc];
               v16 = v12;
-              if (v15 && (v49.receiver = v15, v49.super_class = NEDNSSettingsManager, v17 = objc_msgSendSuper2(&v49, sel_init), (v18 = v17) != 0))
+              if (v15 && (v48.receiver = v15, v48.super_class = NEDNSSettingsManager, v17 = objc_msgSendSuper2(&v48, sel_init), (v18 = v17) != 0))
               {
                 objc_storeStrong(v17 + 5, v12);
                 v19 = +[NEDNSSettingsManager globalConfigurationManager];
@@ -746,25 +772,25 @@ void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___bl
                 v18 = 0;
               }
 
-              v43[0] = MEMORY[0x1E69E9820];
-              v43[1] = 3221225472;
-              v43[2] = __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
-              v43[3] = &unk_1E7F09758;
-              v43[4] = v16;
-              v44 = group;
-              v23 = v43;
+              v42[0] = MEMORY[0x1E69E9820];
+              v42[1] = 3221225472;
+              v42[2] = __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
+              v42[3] = &unk_1E7F09758;
+              v42[4] = v16;
+              v43 = group;
+              v23 = v42;
               if (v18)
               {
                 objc_initWeak(&location, v18);
                 v24 = [MEMORY[0x1E696AD88] defaultCenter];
                 v25 = v18[3];
                 v26 = [MEMORY[0x1E696ADC8] mainQueue];
-                v49.receiver = MEMORY[0x1E69E9820];
-                v49.super_class = 3221225472;
-                v50 = __58__NEDNSSettingsManager_setupSessionWithCompletionHandler___block_invoke;
-                v51 = &unk_1E7F09780;
-                objc_copyWeak(&v52, &location);
-                v27 = [v24 addObserverForName:@"com.apple.networkextension.statuschanged" object:v25 queue:v26 usingBlock:&v49];
+                v48.receiver = MEMORY[0x1E69E9820];
+                v48.super_class = 3221225472;
+                v49 = __58__NEDNSSettingsManager_setupSessionWithCompletionHandler___block_invoke;
+                v50 = &unk_1E7F09780;
+                objc_copyWeak(&v51, &location);
+                v27 = [v24 addObserverForName:@"com.apple.networkextension.statuschanged" object:v25 queue:v26 usingBlock:&v48];
                 v28 = v18[4];
                 v18[4] = v27;
 
@@ -776,16 +802,16 @@ void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___bl
                   [(NEVPNConnection *)v29 createSessionWithConfigurationIdentifier:v32 forceInfoFetch:0 completionHandler:v23];
                 }
 
-                objc_destroyWeak(&v52);
+                objc_destroyWeak(&v51);
                 objc_destroyWeak(&location);
               }
 
-              [v38 addObject:v18];
+              [v37 addObject:v18];
             }
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v44 objects:v53 count:16];
       }
 
       while (v9);
@@ -795,40 +821,36 @@ void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___bl
     block[1] = 3221225472;
     block[2] = __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_23;
     block[3] = &unk_1E7F0B588;
-    v33 = *(v36 + 32);
-    v41 = v38;
-    v42 = v33;
-    v34 = v38;
+    v33 = *(v35 + 32);
+    v40 = v37;
+    v41 = v33;
+    v34 = v37;
     dispatch_group_notify(group, MEMORY[0x1E69E96A0], block);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 32) name];
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a DNS settings session for configuration %@ (%@): %@", &v8, 0x20u);
+      v5 = [*(a1 + 32) name];
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a DNS settings session for configuration %@ (%@): %@", &v7, 0x20u);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __68__NEDNSSettingsManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_23(uint64_t a1)
@@ -901,7 +923,7 @@ void __50__NEDNSSettingsManager_globalConfigurationManager__block_invoke_2()
 
 void __37__NEDNSSettingsManager_sharedManager__block_invoke()
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (NEInitCFTypes_onceToken != -1)
   {
     dispatch_once(&NEInitCFTypes_onceToken, &__block_literal_global_25529);
@@ -913,9 +935,9 @@ void __37__NEDNSSettingsManager_sharedManager__block_invoke()
     goto LABEL_9;
   }
 
-  v12.receiver = v0;
-  v12.super_class = NEDNSSettingsManager;
-  v1 = objc_msgSendSuper2(&v12, sel_init);
+  v11.receiver = v0;
+  v11.super_class = NEDNSSettingsManager;
+  v1 = objc_msgSendSuper2(&v11, sel_init);
   if (!v1)
   {
     goto LABEL_11;
@@ -926,10 +948,10 @@ void __37__NEDNSSettingsManager_sharedManager__block_invoke()
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
+      v8 = objc_opt_class();
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v9;
-      v10 = v9;
+      *(&buf + 4) = v8;
+      v9 = v8;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@ objects cannot be instantiated from NEProvider processes", &buf, 0xCu);
     }
 
@@ -947,18 +969,17 @@ LABEL_9:
   v6 = MEMORY[0x1E69E96A0];
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v14 = __38__NEDNSSettingsManager_initWithGrade___block_invoke;
-  v15 = &unk_1E7F0ABE0;
-  objc_copyWeak(v16, &location);
+  v13 = __38__NEDNSSettingsManager_initWithGrade___block_invoke;
+  v14 = &unk_1E7F0ABE0;
+  objc_copyWeak(v15, &location);
   [v5 setChangedQueue:MEMORY[0x1E69E96A0] andHandler:&buf];
 
   [NEDNSSettingsManager createEmptyConfigurationWithGrade:v1];
-  objc_destroyWeak(v16);
+  objc_destroyWeak(v15);
   objc_destroyWeak(&location);
 LABEL_11:
   v7 = sharedManager_gDNSSettingsManager;
   sharedManager_gDNSSettingsManager = v1;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __38__NEDNSSettingsManager_initWithGrade___block_invoke(uint64_t a1, void *a2)

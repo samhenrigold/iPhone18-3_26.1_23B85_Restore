@@ -66,11 +66,11 @@
     x = self->_frame.origin.x;
     width = self->_frame.size.width;
     height = self->_frame.size.height;
-    v18.origin.y = CGImageGetHeight(v4) - (self->_frame.origin.y + height);
-    v18.origin.x = x;
-    v18.size.width = width;
-    v18.size.height = height;
-    self->_unslicedImage = CGImageCreateWithImageInRect(v5, v18);
+    v14.origin.y = CGImageGetHeight(v4) - (self->_frame.origin.y + height);
+    v14.origin.x = x;
+    v14.size.width = width;
+    v14.size.height = height;
+    self->_unslicedImage = CGImageCreateWithImageInRect(v5, v14);
     [CUIRenditionKey renditionKeyWithKeyList:[(CUIThemeRendition *)self key]];
     CGImageSetProperty();
     if ([objc_loadWeak(&self->_sourceProvider) caAllowSubimageOfImage:v5])
@@ -82,8 +82,9 @@
   else if (objc_loadWeak(&self->_sourceProvider) && ![(_CUIInternalLinkRendition *)self data])
   {
     v9 = [CUIRenditionKey renditionKeyWithKeyList:[(CUIThemeRendition *)self key]];
-    [objc_msgSend(objc_loadWeak(&self->_sourceProvider) "themeStore")];
-    _CUILog(4, "CoreUI: Unable to resolve link '%@' to parent image with key '%@' for internalLink image in source at path '%@'", v10, v11, v12, v13, v14, v15, v9);
+    referenceKey = self->_referenceKey;
+    v11 = [objc_msgSend(objc_loadWeak(&self->_sourceProvider) "themeStore")];
+    _CUILog(4, "CoreUI: Unable to resolve link '%@' to parent image with key '%@' for internalLink image in source at path '%@'", v9, referenceKey, v11);
   }
 
   unslicedImage = self->_unslicedImage;
@@ -92,16 +93,16 @@
 LABEL_9:
     CFRetain(unslicedImage);
     CFAutorelease(self->_unslicedImage);
-    v16 = self->_unslicedImage;
+    v12 = self->_unslicedImage;
   }
 
   else
   {
-    v16 = 0;
+    v12 = 0;
   }
 
   objc_sync_exit(self);
-  return v16;
+  return v12;
 }
 
 - (id)_sourceRendition
@@ -559,27 +560,27 @@ LABEL_9:
   *decode = xmmword_18E021C10;
   if (index < 0 || self->_nimages <= index)
   {
-    _CUILog(4, "Invalid slice index %ld for rendition", index, v3, v4, v5, v6, v7, index);
+    _CUILog(4, "Invalid slice index %ld for rendition", index);
     return 0;
   }
 
   else
   {
     [(_CUIInternalLinkRendition *)self _fillOutImageSlices];
-    v10 = self->_image[index];
-    Width = CGImageGetWidth(v10);
-    Height = CGImageGetHeight(v10);
-    BitsPerComponent = CGImageGetBitsPerComponent(v10);
-    BitsPerPixel = CGImageGetBitsPerPixel(v10);
-    BytesPerRow = CGImageGetBytesPerRow(v10);
-    DataProvider = CGImageGetDataProvider(v10);
-    ShouldInterpolate = CGImageGetShouldInterpolate(v10);
-    v18 = CGImageMaskCreate(Width, Height, BitsPerComponent, BitsPerPixel, BytesPerRow, DataProvider, decode, ShouldInterpolate);
-    v19 = [CUIImage imageWithCGImage:v18];
-    CGImageRelease(v18);
+    v5 = self->_image[index];
+    Width = CGImageGetWidth(v5);
+    Height = CGImageGetHeight(v5);
+    BitsPerComponent = CGImageGetBitsPerComponent(v5);
+    BitsPerPixel = CGImageGetBitsPerPixel(v5);
+    BytesPerRow = CGImageGetBytesPerRow(v5);
+    DataProvider = CGImageGetDataProvider(v5);
+    ShouldInterpolate = CGImageGetShouldInterpolate(v5);
+    v13 = CGImageMaskCreate(Width, Height, BitsPerComponent, BitsPerPixel, BytesPerRow, DataProvider, decode, ShouldInterpolate);
+    v14 = [CUIImage imageWithCGImage:v13];
+    CGImageRelease(v13);
   }
 
-  return v19;
+  return v14;
 }
 
 - (BOOL)isTiled
@@ -589,8 +590,7 @@ LABEL_9:
     return [(CUIThemeRendition *)self subtype]== 30 || [(CUIThemeRendition *)self subtype]== 11;
   }
 
-  name = [(CUIThemeRendition *)self name];
-  _CUILog(1, "WARNING: -isTiled called on rendition named: %@, which is not a one-part or nine-part image, but the method is only meaningful for one-part and nine-part images. Returning NO.", v5, v6, v7, v8, v9, v10, name);
+  _CUILog(1, "WARNING: -isTiled called on rendition named: %@, which is not a one-part or nine-part image, but the method is only meaningful for one-part and nine-part images. Returning NO.", [(CUIThemeRendition *)self name]);
   return 0;
 }
 

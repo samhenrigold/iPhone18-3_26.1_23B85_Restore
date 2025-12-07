@@ -83,7 +83,7 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     LOBYTE(v2) = 1;
@@ -94,22 +94,21 @@
     v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
     if (v2)
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline issue fetch operation requires a context"];
-      v6 = 136315906;
-      v7 = "[FCOfflineIssueFetchOperation validateOperation]";
-      v8 = 2080;
-      v9 = "FCOfflineIssueFetchOperation.m";
-      v10 = 1024;
-      v11 = 113;
-      v12 = 2114;
-      v13 = v4;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline issue fetch operation requires a context"];
+      v5 = 136315906;
+      v6 = "[FCOfflineIssueFetchOperation validateOperation]";
+      v7 = 2080;
+      v8 = "FCOfflineIssueFetchOperation.m";
+      v9 = 1024;
+      v10 = 113;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
 
       LOBYTE(v2) = 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -132,13 +131,13 @@
 
 - (void)performOperation
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = __Block_byref_object_copy__88;
-  v36[4] = __Block_byref_object_dispose__88;
-  v37 = 0;
+  v47 = *MEMORY[0x1E69E9840];
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy__88;
+  v35[4] = __Block_byref_object_dispose__88;
+  v36 = 0;
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -157,13 +156,13 @@
     {
       v6 = self->_issueID;
       config = self->_config;
-      v27 = v6;
+      v26 = v6;
     }
 
     else
     {
       v6 = 0;
-      v27 = 0;
+      v26 = 0;
       config = 0;
     }
 
@@ -201,73 +200,72 @@
       v13 = @"normal";
     }
 
-    v39 = shortOperationDescription;
-    v40 = 2114;
-    v41 = v5;
-    v42 = 2114;
-    v43 = v6;
-    v44 = 2114;
-    v45 = v9;
-    v46 = 2114;
-    v47 = v13;
+    v38 = shortOperationDescription;
+    v39 = 2114;
+    v40 = v5;
+    v41 = 2114;
+    v42 = v6;
+    v43 = 2114;
+    v44 = v9;
+    v45 = 2114;
+    v46 = v13;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will %{public}@ issue id=%{public}@, thumbnail variant=%{public}@, image variant=%{public}@", buf, 0x34u);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke;
-  v35[3] = &unk_1E7C396C0;
-  v35[4] = self;
-  v28 = [MEMORY[0x1E69B68F8] firstly:v35];
-  v26 = zalgo();
   v34[0] = MEMORY[0x1E69E9820];
   v34[1] = 3221225472;
-  v34[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_2;
-  v34[3] = &unk_1E7C474A8;
+  v34[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke;
+  v34[3] = &unk_1E7C396C0;
   v34[4] = self;
-  v34[5] = v36;
-  v25 = [v28 thenOn:v26 then:v34];
-  v14 = zalgo();
+  v27 = [MEMORY[0x1E69B68F8] firstly:v34];
+  v25 = zalgo();
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_3;
-  v33[3] = &unk_1E7C474D0;
+  v33[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_2;
+  v33[3] = &unk_1E7C474A8;
   v33[4] = self;
-  v33[5] = v36;
-  v15 = [v25 thenOn:v14 then:v33];
-  v16 = zalgo();
+  v33[5] = v35;
+  v24 = [v27 thenOn:v25 then:v33];
+  v14 = zalgo();
   v32[0] = MEMORY[0x1E69E9820];
   v32[1] = 3221225472;
-  v32[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_4;
+  v32[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_3;
   v32[3] = &unk_1E7C474D0;
   v32[4] = self;
-  v32[5] = v36;
-  v17 = [v15 thenOn:v16 then:v32];
-  v18 = zalgo();
+  v32[5] = v35;
+  v15 = [v24 thenOn:v14 then:v32];
+  v16 = zalgo();
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
-  v31[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_27;
-  v31[3] = &unk_1E7C45538;
+  v31[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_4;
+  v31[3] = &unk_1E7C474D0;
   v31[4] = self;
-  v31[5] = v36;
-  v19 = [v17 thenOn:v18 then:v31];
-  v20 = zalgo();
+  v31[5] = v35;
+  v17 = [v15 thenOn:v16 then:v31];
+  v18 = zalgo();
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
-  v30[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_2_29;
-  v30[3] = &unk_1E7C403D8;
+  v30[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_27;
+  v30[3] = &unk_1E7C45538;
   v30[4] = self;
-  v21 = [v19 thenOn:v20 then:v30];
-  v22 = zalgo();
+  v30[5] = v35;
+  v19 = [v17 thenOn:v18 then:v30];
+  v20 = zalgo();
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
-  v29[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_3_30;
-  v29[3] = &unk_1E7C36E50;
+  v29[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_2_29;
+  v29[3] = &unk_1E7C403D8;
   v29[4] = self;
-  v23 = [v21 errorOn:v22 error:v29];
+  v21 = [v19 thenOn:v20 then:v29];
+  v22 = zalgo();
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_3_30;
+  v28[3] = &unk_1E7C36E50;
+  v28[4] = self;
+  v23 = [v21 errorOn:v22 error:v28];
 
-  _Block_object_dispose(v36, 8);
-  v24 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v35, 8);
 }
 
 id __48__FCOfflineIssueFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -344,7 +342,7 @@ id __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_3(uint64_t 
 
 id __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_4(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = [*(*(*(a1 + 40) + 8) + 40) type];
   if (v3 == 1)
   {
@@ -370,10 +368,10 @@ id __48__FCOfflineIssueFetchOperation_performOperation__block_invoke_4(uint64_t 
     v25 = objc_alloc(MEMORY[0x1E69B68F8]);
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v32 = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke;
-    v33 = &unk_1E7C3B310;
-    v34 = v12;
-    v35 = v24;
+    v31 = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke;
+    v32 = &unk_1E7C3B310;
+    v33 = v12;
+    v34 = v24;
     v26 = [v25 initWithResolver:&buf];
     goto LABEL_13;
   }
@@ -418,22 +416,22 @@ LABEL_15:
       v15 = MEMORY[0x1E69B68F8];
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v32 = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2;
-      v33 = &unk_1E7C3AE08;
-      v34 = v1;
+      v31 = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2;
+      v32 = &unk_1E7C3AE08;
+      v33 = v1;
       v16 = v12;
-      v35 = v16;
+      v34 = v16;
       v17 = [v15 firstly:&buf];
       v18 = zalgo();
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_3;
-      v29[3] = &unk_1E7C47520;
-      v29[4] = v1;
-      v30 = v16;
-      v1 = [v17 thenOn:v18 then:v29];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_3;
+      v28[3] = &unk_1E7C47520;
+      v28[4] = v1;
+      v29 = v16;
+      v1 = [v17 thenOn:v18 then:v28];
 
-      v19 = v35;
+      v19 = v34;
 LABEL_14:
 
       goto LABEL_15;
@@ -441,13 +439,13 @@ LABEL_14:
 
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v32 = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke;
-    v33 = &unk_1E7C396C0;
-    v34 = v12;
+    v31 = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke;
+    v32 = &unk_1E7C396C0;
+    v33 = v12;
     v26 = __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke(&buf);
 LABEL_13:
     v1 = v26;
-    v19 = v34;
+    v19 = v33;
     goto LABEL_14;
   }
 
@@ -459,7 +457,6 @@ LABEL_13:
   }
 
 LABEL_16:
-  v27 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -554,20 +551,20 @@ LABEL_7:
 
 - (void)_updateProgress:(double *)progress
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (progress && ([progress isFinished] & 1) == 0)
   {
     if (progress[59] > a2 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch progress should never go backward"];
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"fetch progress should never go backward"];
       *buf = 136315906;
-      v11 = "[FCOfflineIssueFetchOperation _updateProgress:]";
-      v12 = 2080;
-      v13 = "FCOfflineIssueFetchOperation.m";
-      v14 = 1024;
-      v15 = 696;
-      v16 = 2114;
-      v17 = v8;
+      v10 = "[FCOfflineIssueFetchOperation _updateProgress:]";
+      v11 = 2080;
+      v12 = "FCOfflineIssueFetchOperation.m";
+      v13 = 1024;
+      v14 = 696;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -578,28 +575,31 @@ LABEL_7:
 
     if (progressQueue)
     {
-      if (progressHandler)
+      if (!progressHandler)
       {
-        progressQueue2 = [progress progressQueue];
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 3221225472;
-        block[2] = __48__FCOfflineIssueFetchOperation__updateProgress___block_invoke_120;
-        block[3] = &unk_1E7C36EA0;
-        block[4] = progress;
-        dispatch_async(progressQueue2, block);
-LABEL_11:
+        return;
       }
+
+      progressQueue2 = [progress progressQueue];
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __48__FCOfflineIssueFetchOperation__updateProgress___block_invoke_120;
+      block[3] = &unk_1E7C36EA0;
+      block[4] = progress;
+      dispatch_async(progressQueue2, block);
     }
 
-    else if (progressHandler)
+    else
     {
+      if (!progressHandler)
+      {
+        return;
+      }
+
       progressQueue2 = [progress progressHandler];
       (*(progressQueue2 + 16))(progress[59]);
-      goto LABEL_11;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __61__FCOfflineIssueFetchOperation_operationWillFinishWithError___block_invoke(uint64_t a1)
@@ -663,7 +663,7 @@ LABEL_7:
 
 void __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [FCIssuesFetchOperation alloc];
@@ -679,11 +679,11 @@ void __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke(uint64_t a1,
     v9 = 0;
   }
 
-  v29[0] = v8;
+  v28[0] = v8;
   v10 = MEMORY[0x1E695DEC8];
   v11 = v8;
   v12 = v9;
-  v13 = [v10 arrayWithObjects:v29 count:1];
+  v13 = [v10 arrayWithObjects:v28 count:1];
   v14 = [(FCIssuesFetchOperation *)v7 initWithContext:v12 issueIDs:v13];
 
   if ([*(a1 + 32) cachedOnly])
@@ -708,33 +708,31 @@ void __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke(uint64_t a1,
     [(FCIssuesFetchOperation *)v14 setCachePolicy:v17];
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_2;
-  v28[3] = &unk_1E7C40478;
-  v28[4] = *(a1 + 32);
-  [(FCIssuesFetchOperation *)v14 setInterestTokenHandler:v28];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_3;
-  v24 = &unk_1E7C474F8;
-  v25 = *(a1 + 32);
-  v26 = v6;
-  v27 = v5;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_2;
+  v27[3] = &unk_1E7C40478;
+  v27[4] = *(a1 + 32);
+  [(FCIssuesFetchOperation *)v14 setInterestTokenHandler:v27];
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_3;
+  v23 = &unk_1E7C474F8;
+  v24 = *(a1 + 32);
+  v25 = v6;
+  v26 = v5;
   v18 = v5;
   v19 = v6;
-  [(FCIssuesFetchOperation *)v14 setFetchCompletionHandler:&v21];
-  [*(a1 + 32) associateChildOperation:{v14, v21, v22, v23, v24, v25}];
+  [(FCIssuesFetchOperation *)v14 setFetchCompletionHandler:&v20];
+  [*(a1 + 32) associateChildOperation:{v14, v20, v21, v22, v23, v24}];
   [(FCOperation *)v14 start];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_2(uint64_t result, uint64_t a2)
+void *__45__FCOfflineIssueFetchOperation__promiseIssue__block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -869,35 +867,33 @@ void __57__FCOfflineIssueFetchOperation__promiseMetadataForIssue___block_invoke(
 
 void __57__FCOfflineIssueFetchOperation__promiseMetadataForIssue___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v6 = [*(a1 + 32) identifier];
-    v7 = [v5 initWithFormat:@"An issue is missing its metadata JSON asset handle, issueID=%@", v6];
+    v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v5 = [*(a1 + 32) identifier];
+    v6 = [v4 initWithFormat:@"An issue is missing its metadata JSON asset handle, issueID=%@", v5];
     *buf = 136315906;
-    v9 = "[FCOfflineIssueFetchOperation _promiseMetadataForIssue:]_block_invoke_2";
-    v10 = 2080;
-    v11 = "FCOfflineIssueFetchOperation.m";
-    v12 = 1024;
-    v13 = 246;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "[FCOfflineIssueFetchOperation _promiseMetadataForIssue:]_block_invoke_2";
+    v9 = 2080;
+    v10 = "FCOfflineIssueFetchOperation.m";
+    v11 = 1024;
+    v12 = 246;
+    v13 = 2114;
+    v14 = v6;
     _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingIssueMetadata) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v2 = *(a1 + 40);
   v3 = [MEMORY[0x1E696ABC0] fc_missingAssetErrorWithAssetHandles:MEMORY[0x1E695E0F0]];
   (*(v2 + 16))(v2, v3);
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __57__FCOfflineIssueFetchOperation__promiseMetadataForIssue___block_invoke_48(uint64_t result, uint64_t a2)
+void *__57__FCOfflineIssueFetchOperation__promiseMetadataForIssue___block_invoke_48(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -931,60 +927,54 @@ void __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invok
   v5 = a2;
   v6 = a3;
   v7 = [FCAssetsFetchOperation alloc];
-  v8 = *(a1 + 40);
-  if (v8)
-  {
-    v9 = *(v8 + 448);
-  }
+  v8 = FCOfflineThumbnailAssetHandlesForIssue(*(a1 + 32));
+  v9 = [(FCAssetsFetchOperation *)v7 initWithAssetHandles:v8];
 
-  v10 = FCOfflineThumbnailAssetHandlesForIssue(*(a1 + 32));
-  v11 = [(FCAssetsFetchOperation *)v7 initWithAssetHandles:v10];
-
-  [(FCOperation *)v11 setPurpose:@"offlineDownload"];
+  [(FCOperation *)v9 setPurpose:@"offlineDownload"];
   if ([*(a1 + 40) cachedOnly])
   {
-    v12 = 3;
+    v10 = 3;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  [(FCFetchOperation *)v11 setCachePolicy:v12];
-  -[FCFetchOperation setCanSendFetchCompletionSynchronously:](v11, "setCanSendFetchCompletionSynchronously:", [*(a1 + 40) cachedOnly]);
-  [(FCAssetsFetchOperation *)v11 setMaxConcurrentFetchCount:20];
-  [(FCFetchOperation *)v11 setShouldFailOnMissingObjects:1];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_2;
-  v22[3] = &unk_1E7C40478;
-  v22[4] = *(a1 + 40);
-  [(FCAssetsFetchOperation *)v11 setInterestTokenHandler:v22];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_3;
-  v21[3] = &unk_1E7C404A0;
-  v21[4] = *(a1 + 40);
-  [(FCAssetsFetchOperation *)v11 setArchiveHandler:v21];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_4;
-  v18 = &unk_1E7C404C8;
-  v19 = v5;
-  v20 = v6;
-  v13 = v6;
-  v14 = v5;
-  [(FCFetchOperation *)v11 setFetchCompletionBlock:&v15];
-  [*(a1 + 40) associateChildOperation:{v11, v15, v16, v17, v18}];
-  [(FCOperation *)v11 start];
+  [(FCFetchOperation *)v9 setCachePolicy:v10];
+  -[FCFetchOperation setCanSendFetchCompletionSynchronously:](v9, "setCanSendFetchCompletionSynchronously:", [*(a1 + 40) cachedOnly]);
+  [(FCAssetsFetchOperation *)v9 setMaxConcurrentFetchCount:20];
+  [(FCFetchOperation *)v9 setShouldFailOnMissingObjects:1];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_2;
+  v20[3] = &unk_1E7C40478;
+  v20[4] = *(a1 + 40);
+  [(FCAssetsFetchOperation *)v9 setInterestTokenHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_3;
+  v19[3] = &unk_1E7C404A0;
+  v19[4] = *(a1 + 40);
+  [(FCAssetsFetchOperation *)v9 setArchiveHandler:v19];
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_4;
+  v16 = &unk_1E7C404C8;
+  v17 = v5;
+  v18 = v6;
+  v11 = v6;
+  v12 = v5;
+  [(FCFetchOperation *)v9 setFetchCompletionBlock:&v13];
+  [*(a1 + 40) associateChildOperation:{v9, v13, v14, v15, v16}];
+  [(FCOperation *)v9 start];
 }
 
-uint64_t __59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_2(uint64_t result, uint64_t a2)
+void *__59__FCOfflineIssueFetchOperation__promiseCoverImageForIssue___block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -1107,16 +1097,14 @@ void __56__FCOfflineIssueFetchOperation__promiseRecipesForIssue___block_invoke_5
 
 id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E69B68F8]);
   v3 = MEMORY[0x1E696ABC0];
   v4 = [*(a1 + 32) metadataJSONAssetHandle];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = [v3 fc_missingAssetErrorWithAssetHandles:v5];
   v7 = [v2 initWithError:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1136,7 +1124,7 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
 
 - (id)_itemIdentifiersForKey:(void *)key fromMetadataJSONData:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   keyCopy = key;
   v7 = keyCopy;
@@ -1147,9 +1135,9 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
       array = [MEMORY[0x1E695DF70] array];
       v9 = objc_autoreleasePoolPush();
       objc_opt_class();
-      v44 = 0;
-      v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v44];
-      v11 = v44;
+      v43 = 0;
+      v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v43];
+      v11 = v43;
       if (v10)
       {
         if (objc_opt_isKindOfClass())
@@ -1172,7 +1160,7 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
 
       if (v14)
       {
-        v37 = v11;
+        v36 = v11;
         v15 = v14;
         objc_opt_class();
         v16 = [v15 objectForKeyedSubscript:@"items"];
@@ -1198,30 +1186,30 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
 
         if (v19)
         {
-          v34 = v15;
-          v35 = v9;
-          v36 = v7;
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
+          v33 = v15;
+          v34 = v9;
+          v35 = v7;
           v39 = 0u;
-          v33 = v19;
+          v40 = 0u;
+          v37 = 0u;
+          v38 = 0u;
+          v32 = v19;
           v20 = v19;
-          v21 = [v20 countByEnumeratingWithState:&v38 objects:v45 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v37 objects:v44 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v39;
+            v23 = *v38;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v39 != v23)
+                if (*v38 != v23)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v25 = *(*(&v38 + 1) + 8 * i);
+                v25 = *(*(&v37 + 1) + 8 * i);
                 objc_opt_class();
                 if (v25)
                 {
@@ -1267,16 +1255,16 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
                 [array fc_safelyAddObject:v30];
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v38 objects:v45 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v37 objects:v44 count:16];
             }
 
             while (v22);
           }
 
-          v9 = v35;
-          v7 = v36;
-          v19 = v33;
-          v15 = v34;
+          v9 = v34;
+          v7 = v35;
+          v19 = v32;
+          v15 = v33;
         }
 
         objc_autoreleasePoolPop(v9);
@@ -1285,14 +1273,14 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
 
       else
       {
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __76__FCOfflineIssueFetchOperation__itemIdentifiersForKey_fromMetadataJSONData___block_invoke_2;
-        v42[3] = &unk_1E7C3C728;
-        v42[4] = self;
-        v43 = v11;
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __76__FCOfflineIssueFetchOperation__itemIdentifiersForKey_fromMetadataJSONData___block_invoke_2;
+        v41[3] = &unk_1E7C3C728;
+        v41[4] = self;
+        v42 = v11;
         v18 = v11;
-        v13 = __76__FCOfflineIssueFetchOperation__itemIdentifiersForKey_fromMetadataJSONData___block_invoke_2(v42);
+        v13 = __76__FCOfflineIssueFetchOperation__itemIdentifiersForKey_fromMetadataJSONData___block_invoke_2(v41);
 
         objc_autoreleasePoolPop(v9);
       }
@@ -1308,8 +1296,6 @@ id __57__FCOfflineIssueFetchOperation__promiseANFPagesForIssue___block_invoke_2(
   {
     v13 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1438,11 +1424,11 @@ void __109__FCOfflineIssueFetchOperation__promiseANFArticlesForArticleIDs_withDo
   [v15 start];
 }
 
-uint64_t __109__FCOfflineIssueFetchOperation__promiseANFArticlesForArticleIDs_withDownloadProgressMin_downloadProgressMax___block_invoke_2(uint64_t result, uint64_t a2)
+void *__109__FCOfflineIssueFetchOperation__promiseANFArticlesForArticleIDs_withDownloadProgressMin_downloadProgressMax___block_invoke_2(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -1580,23 +1566,21 @@ void __107__FCOfflineIssueFetchOperation__promiseReplicaAdPagesForIssue_withDown
 
 void __107__FCOfflineIssueFetchOperation__promiseReplicaAdPagesForIssue_withDownloadProgressMin_downloadProgressMax___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ABC0];
   v2 = *(a1 + 40);
   v3 = [*(a1 + 32) metadataJSONAssetHandle];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   v5 = [v1 fc_missingAssetErrorWithAssetHandles:v4];
   (*(v2 + 16))(v2, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __107__FCOfflineIssueFetchOperation__promiseReplicaAdPagesForIssue_withDownloadProgressMin_downloadProgressMax___block_invoke_3(uint64_t result, uint64_t a2)
+void *__107__FCOfflineIssueFetchOperation__promiseReplicaAdPagesForIssue_withDownloadProgressMin_downloadProgressMax___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -1639,7 +1623,7 @@ void __107__FCOfflineIssueFetchOperation__promiseReplicaAdPagesForIssue_withDown
 
 void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) metadataJSONAssetHandle];
@@ -1647,24 +1631,24 @@ void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke(
 
   if (v8)
   {
-    v95 = v5;
+    v94 = v5;
     v9 = *(a1 + 40);
     v10 = [*(a1 + 32) metadataJSONAssetHandle];
     v11 = [v10 dataProvider];
     v12 = [v11 data];
-    v93 = v12;
-    v94 = v6;
+    v92 = v12;
+    v93 = v6;
     if (v9)
     {
       v13 = v12;
       if (v12)
       {
-        v91 = v11;
-        v92 = v10;
+        v90 = v11;
+        v91 = v10;
         objc_opt_class();
-        v132 = 0;
-        v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v13 options:0 error:&v132];
-        v15 = v132;
+        v131 = 0;
+        v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v13 options:0 error:&v131];
+        v15 = v131;
         if (v14)
         {
           if (objc_opt_isKindOfClass())
@@ -1685,56 +1669,36 @@ void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke(
 
         v18 = v16;
 
-        v90 = v18;
+        v89 = v18;
         if (!v18)
         {
-          v137[0] = MEMORY[0x1E69E9820];
-          v137[1] = 3221225472;
-          v137[2] = __65__FCOfflineIssueFetchOperation__resourceIDsFromMetadataJSONData___block_invoke_2;
-          v137[3] = &unk_1E7C3C728;
-          v137[4] = v9;
-          v138 = v15;
-          v17 = __65__FCOfflineIssueFetchOperation__resourceIDsFromMetadataJSONData___block_invoke_2(v137);
+          v136[0] = MEMORY[0x1E69E9820];
+          v136[1] = 3221225472;
+          v136[2] = __65__FCOfflineIssueFetchOperation__resourceIDsFromMetadataJSONData___block_invoke_2;
+          v136[3] = &unk_1E7C3C728;
+          v136[4] = v9;
+          v137 = v15;
+          v17 = __65__FCOfflineIssueFetchOperation__resourceIDsFromMetadataJSONData___block_invoke_2(v136);
 
-          v5 = v95;
-          v11 = v91;
-          v10 = v92;
+          v5 = v94;
+          v11 = v90;
+          v10 = v91;
 LABEL_92:
 
 LABEL_93:
-          v120[0] = MEMORY[0x1E69E9820];
-          v120[1] = 3221225472;
-          v120[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3;
-          v120[3] = &unk_1E7C40F48;
-          v120[4] = *(a1 + 40);
-          [v17 fc_arrayByTransformingWithBlock:v120];
+          v119[0] = MEMORY[0x1E69E9820];
+          v119[1] = 3221225472;
+          v119[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3;
+          v119[3] = &unk_1E7C40F48;
+          v119[4] = *(a1 + 40);
+          [v17 fc_arrayByTransformingWithBlock:v119];
           v65 = v64 = a1;
           v66 = [v65 fc_setByTransformingWithBlock:&__block_literal_global_74];
           if ([v66 count])
           {
             if (![*(v64 + 40) cachedOnly])
             {
-              if (!*(v64 + 40))
-              {
-                goto LABEL_106;
-              }
-
-              v68 = v64;
-              v69 = [*(v64 + 32) issueRecord];
-              v70 = [v69 pdfResourceArchiveURL];
-
-              if (v70)
-              {
-                v71 = [MEMORY[0x1E695DFF8] URLWithString:v70];
-              }
-
-              else
-              {
-                v71 = 0;
-              }
-
-              v64 = v68;
-              if (v71)
+              if (*(v64 + 40) && ((v68 = v64, [*(v64 + 32) issueRecord], v69 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v69, "pdfResourceArchiveURL"), v70 = objc_claimAutoreleasedReturnValue(), v69, !v70) ? (v71 = 0) : (objc_msgSend(MEMORY[0x1E695DFF8], "URLWithString:", v70), v71 = objc_claimAutoreleasedReturnValue()), v70, v64 = v68, v71))
               {
                 v72 = [FCResourceArchiveFetchOperation alloc];
                 v73 = *(v68 + 40);
@@ -1750,41 +1714,40 @@ LABEL_93:
 
                 v75 = [(FCResourceArchiveFetchOperation *)v72 initWithArchiveURL:v71 context:v74];
                 [(FCResourceArchiveFetchOperation *)v75 setMaxConcurrentFetchCount:20];
-                v113[0] = MEMORY[0x1E69E9820];
-                v113[1] = 3221225472;
-                v113[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3_79;
-                v113[3] = &unk_1E7C40478;
-                v76 = v68;
-                v113[4] = *(v68 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setInterestTokenHandler:v113];
                 v112[0] = MEMORY[0x1E69E9820];
                 v112[1] = 3221225472;
-                v112[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_4_80;
-                v112[3] = &unk_1E7C404A0;
+                v112[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3_79;
+                v112[3] = &unk_1E7C40478;
+                v76 = v68;
                 v112[4] = *(v68 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setArchiveHandler:v112];
+                [(FCResourceArchiveFetchOperation *)v75 setInterestTokenHandler:v112];
                 v111[0] = MEMORY[0x1E69E9820];
                 v111[1] = 3221225472;
-                v111[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5_81;
-                v111[3] = &unk_1E7C3B810;
+                v111[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_4_80;
+                v111[3] = &unk_1E7C404A0;
                 v111[4] = *(v68 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setProgressHandler:v111];
-                v108[0] = MEMORY[0x1E69E9820];
-                v108[1] = 3221225472;
-                v108[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_6;
-                v108[3] = &unk_1E7C42428;
-                v77 = &v109;
+                [(FCResourceArchiveFetchOperation *)v75 setArchiveHandler:v111];
+                v110[0] = MEMORY[0x1E69E9820];
+                v110[1] = 3221225472;
+                v110[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5_81;
+                v110[3] = &unk_1E7C3B810;
+                v110[4] = *(v68 + 40);
+                [(FCResourceArchiveFetchOperation *)v75 setProgressHandler:v110];
+                v107[0] = MEMORY[0x1E69E9820];
+                v107[1] = 3221225472;
+                v107[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_6;
+                v107[3] = &unk_1E7C42428;
+                v77 = &v108;
+                v108 = v93;
+                v78 = &v109;
                 v109 = v94;
-                v78 = &v110;
-                v110 = v95;
-                [(FCResourceArchiveFetchOperation *)v75 setFetchCompletionHandler:v108];
+                [(FCResourceArchiveFetchOperation *)v75 setFetchCompletionHandler:v107];
                 [*(v76 + 40) associateChildOperation:v75];
                 [(FCOperation *)v75 start];
               }
 
               else
               {
-LABEL_106:
                 v79 = [FCResourcesFetchOperation alloc];
                 v80 = v64;
                 v81 = *(v64 + 40);
@@ -1802,80 +1765,80 @@ LABEL_106:
                 [(FCOperation *)v75 setPurpose:@"offlineDownload"];
                 [(FCResourceArchiveFetchOperation *)v75 setMaxConcurrentFetchCount:20];
                 [(FCResourceArchiveFetchOperation *)v75 setShouldFailOnMissingObjects:1];
-                v107[0] = MEMORY[0x1E69E9820];
-                v107[1] = 3221225472;
-                v107[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_8;
-                v107[3] = &unk_1E7C40478;
-                v107[4] = *(v80 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setInterestTokenHandler:v107];
                 v106[0] = MEMORY[0x1E69E9820];
                 v106[1] = 3221225472;
-                v106[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_9;
-                v106[3] = &unk_1E7C404A0;
+                v106[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_8;
+                v106[3] = &unk_1E7C40478;
                 v106[4] = *(v80 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setArchiveHandler:v106];
+                [(FCResourceArchiveFetchOperation *)v75 setInterestTokenHandler:v106];
                 v105[0] = MEMORY[0x1E69E9820];
                 v105[1] = 3221225472;
-                v105[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_10;
-                v105[3] = &unk_1E7C3B810;
+                v105[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_9;
+                v105[3] = &unk_1E7C404A0;
                 v105[4] = *(v80 + 40);
-                [(FCResourceArchiveFetchOperation *)v75 setProgressHandler:v105];
-                v102[0] = MEMORY[0x1E69E9820];
-                v102[1] = 3221225472;
-                v102[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_11;
-                v102[3] = &unk_1E7C475C0;
-                v77 = &v103;
-                v103 = v95;
-                v78 = &v104;
-                v83 = v94;
+                [(FCResourceArchiveFetchOperation *)v75 setArchiveHandler:v105];
+                v104[0] = MEMORY[0x1E69E9820];
+                v104[1] = 3221225472;
+                v104[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_10;
+                v104[3] = &unk_1E7C3B810;
+                v104[4] = *(v80 + 40);
+                [(FCResourceArchiveFetchOperation *)v75 setProgressHandler:v104];
+                v101[0] = MEMORY[0x1E69E9820];
+                v101[1] = 3221225472;
+                v101[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_11;
+                v101[3] = &unk_1E7C475C0;
+                v77 = &v102;
+                v102 = v94;
+                v78 = &v103;
+                v83 = v93;
                 v84 = *(v80 + 40);
-                v104 = v83;
-                v102[4] = v84;
-                [(FCResourceArchiveFetchOperation *)v75 setFetchCompletionBlock:v102];
+                v103 = v83;
+                v101[4] = v84;
+                [(FCResourceArchiveFetchOperation *)v75 setFetchCompletionBlock:v101];
                 [*(v80 + 40) associateChildOperation:v75];
                 [(FCOperation *)v75 start];
                 v71 = 0;
               }
 
-              v5 = v95;
+              v5 = v94;
               goto LABEL_110;
             }
 
-            v114[0] = MEMORY[0x1E69E9820];
-            v114[1] = 3221225472;
-            v114[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2_77;
-            v114[3] = &unk_1E7C37778;
-            v116 = v94;
-            v115 = v66;
-            __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2_77(v114);
+            v113[0] = MEMORY[0x1E69E9820];
+            v113[1] = 3221225472;
+            v113[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2_77;
+            v113[3] = &unk_1E7C37778;
+            v115 = v93;
+            v114 = v66;
+            __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2_77(v113);
 
-            v67 = v116;
+            v67 = v115;
           }
 
           else
           {
-            v117[0] = MEMORY[0x1E69E9820];
-            v117[1] = 3221225472;
-            v117[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5;
-            v117[3] = &unk_1E7C38FF0;
-            v117[4] = *(v64 + 40);
-            v118 = v65;
-            v119 = v5;
-            __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5(v117);
+            v116[0] = MEMORY[0x1E69E9820];
+            v116[1] = 3221225472;
+            v116[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5;
+            v116[3] = &unk_1E7C38FF0;
+            v116[4] = *(v64 + 40);
+            v117 = v65;
+            v118 = v5;
+            __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5(v116);
 
-            v67 = v118;
+            v67 = v117;
           }
 
 LABEL_110:
-          v6 = v94;
+          v6 = v93;
           goto LABEL_111;
         }
 
-        v87 = v15;
+        v86 = v15;
         v19 = v18;
         v17 = [MEMORY[0x1E695DF70] array];
         objc_opt_class();
-        v89 = v19;
+        v88 = v19;
         v20 = [v19 objectForKeyedSubscript:@"pages"];
         if (v20)
         {
@@ -1895,43 +1858,43 @@ LABEL_110:
           v21 = 0;
         }
 
-        v5 = v95;
+        v5 = v94;
         v22 = v21;
 
         v23 = v22;
-        v11 = v91;
-        v10 = v92;
-        v88 = a1;
-        v86 = v23;
+        v11 = v90;
+        v10 = v91;
+        v87 = a1;
+        v85 = v23;
         if (v23)
         {
-          v135 = 0u;
-          v136 = 0u;
-          v133 = 0u;
           v134 = 0u;
+          v135 = 0u;
+          v132 = 0u;
+          v133 = 0u;
           obj = v23;
-          v24 = [obj countByEnumeratingWithState:&v133 objects:v137 count:16];
+          v24 = [obj countByEnumeratingWithState:&v132 objects:v136 count:16];
           if (!v24)
           {
 LABEL_91:
 
-            v15 = v87;
-            a1 = v88;
+            v15 = v86;
+            a1 = v87;
             goto LABEL_92;
           }
 
           v25 = v24;
-          v26 = *v134;
+          v26 = *v133;
           do
           {
             for (i = 0; i != v25; ++i)
             {
-              if (*v134 != v26)
+              if (*v133 != v26)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v28 = *(*(&v133 + 1) + 8 * i);
+              v28 = *(*(&v132 + 1) + 8 * i);
               objc_opt_class();
               if (v28)
               {
@@ -2000,7 +1963,7 @@ LABEL_91:
               [v17 fc_safelyAddObject:v36];
             }
 
-            v25 = [obj countByEnumeratingWithState:&v133 objects:v137 count:16];
+            v25 = [obj countByEnumeratingWithState:&v132 objects:v136 count:16];
           }
 
           while (v25);
@@ -2009,7 +1972,7 @@ LABEL_91:
         else
         {
           objc_opt_class();
-          v37 = [v89 objectForKeyedSubscript:@"content"];
+          v37 = [v88 objectForKeyedSubscript:@"content"];
           if (v37)
           {
             if (objc_opt_isKindOfClass())
@@ -2053,27 +2016,27 @@ LABEL_91:
 
           v42 = v41;
 
-          v130 = 0u;
-          v131 = 0u;
-          v128 = 0u;
           v129 = 0u;
-          v96 = [v42 allValues];
-          v99 = [v96 countByEnumeratingWithState:&v128 objects:v137 count:16];
-          if (v99)
+          v130 = 0u;
+          v127 = 0u;
+          v128 = 0u;
+          v95 = [v42 allValues];
+          v98 = [v95 countByEnumeratingWithState:&v127 objects:v136 count:16];
+          if (v98)
           {
-            v98 = *v129;
+            v97 = *v128;
             do
             {
               v43 = 0;
               do
               {
-                if (*v129 != v98)
+                if (*v128 != v97)
                 {
-                  objc_enumerationMutation(v96);
+                  objc_enumerationMutation(v95);
                 }
 
-                v101 = v43;
-                v44 = *(*(&v128 + 1) + 8 * v43);
+                v100 = v43;
+                v44 = *(*(&v127 + 1) + 8 * v43);
                 objc_opt_class();
                 if (v44)
                 {
@@ -2096,7 +2059,7 @@ LABEL_91:
                 v46 = v17;
                 v47 = v45;
                 objc_opt_class();
-                v100 = v47;
+                v99 = v47;
                 v48 = [v47 objectForKeyedSubscript:@"pdfOverlays"];
                 if (v48)
                 {
@@ -2118,26 +2081,26 @@ LABEL_91:
 
                 v50 = v49;
 
-                v126 = 0u;
-                v127 = 0u;
-                v124 = 0u;
                 v125 = 0u;
+                v126 = 0u;
+                v123 = 0u;
+                v124 = 0u;
                 v51 = v50;
-                v52 = [v51 countByEnumeratingWithState:&v124 objects:&v133 count:16];
+                v52 = [v51 countByEnumeratingWithState:&v123 objects:&v132 count:16];
                 if (v52)
                 {
                   v53 = v52;
-                  v54 = *v125;
+                  v54 = *v124;
                   do
                   {
                     for (j = 0; j != v53; ++j)
                     {
-                      if (*v125 != v54)
+                      if (*v124 != v54)
                       {
                         objc_enumerationMutation(v51);
                       }
 
-                      v56 = *(*(&v124 + 1) + 8 * j);
+                      v56 = *(*(&v123 + 1) + 8 * j);
                       objc_opt_class();
                       if (v56)
                       {
@@ -2189,27 +2152,27 @@ LABEL_91:
                       }
                     }
 
-                    v53 = [v51 countByEnumeratingWithState:&v124 objects:&v133 count:16];
+                    v53 = [v51 countByEnumeratingWithState:&v123 objects:&v132 count:16];
                   }
 
                   while (v53);
                 }
 
-                v43 = v101 + 1;
+                v43 = v100 + 1;
                 v17 = v46;
               }
 
-              while (v101 + 1 != v99);
-              v99 = [v96 countByEnumeratingWithState:&v128 objects:v137 count:16];
+              while (v100 + 1 != v98);
+              v98 = [v95 countByEnumeratingWithState:&v127 objects:v136 count:16];
             }
 
-            while (v99);
+            while (v98);
           }
         }
 
-        v5 = v95;
-        v11 = v91;
-        v10 = v92;
+        v5 = v94;
+        v11 = v90;
+        v10 = v91;
         goto LABEL_91;
       }
 
@@ -2221,22 +2184,20 @@ LABEL_91:
       v17 = 0;
     }
 
-    v5 = v95;
+    v5 = v94;
     goto LABEL_93;
   }
 
-  v121[0] = MEMORY[0x1E69E9820];
-  v121[1] = 3221225472;
-  v121[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2;
-  v121[3] = &unk_1E7C37778;
-  v123 = v6;
-  v122 = *(a1 + 32);
-  __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2(v121);
+  v120[0] = MEMORY[0x1E69E9820];
+  v120[1] = 3221225472;
+  v120[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2;
+  v120[3] = &unk_1E7C37778;
+  v122 = v6;
+  v121 = *(a1 + 32);
+  __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2(v120);
 
-  v17 = v123;
+  v17 = v122;
 LABEL_111:
-
-  v85 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_2(uint64_t a1)
@@ -2288,7 +2249,7 @@ id __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_4(
 
 uint64_t __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_5(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -2296,25 +2257,22 @@ uint64_t __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_inv
     v4 = v2;
     v5 = [v3 shortOperationDescription];
     *buf = 138543362;
-    v14 = v5;
+    v12 = v5;
     _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ already has all PDF pages in the cache", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_75;
-  v12[3] = &unk_1E7C43510;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_75;
+  v10[3] = &unk_1E7C43510;
   v6 = *(a1 + 40);
-  v12[4] = *(a1 + 32);
-  [v6 enumerateObjectsUsingBlock:v12];
+  v10[4] = *(a1 + 32);
+  [v6 enumerateObjectsUsingBlock:v10];
   v7 = *(a1 + 32);
   v8 = [*(a1 + 40) contentArchive];
   [(FCOfflineIssueFetchOperation *)v7 _handleArchive:v8];
 
-  v9 = *(a1 + 40);
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_75(uint64_t a1, void *a2)
@@ -2357,11 +2315,11 @@ void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_
   (*(v1 + 16))(v1, v2);
 }
 
-uint64_t __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3_79(uint64_t result, uint64_t a2)
+void *__57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_3_79(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -2387,11 +2345,11 @@ void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_
   }
 }
 
-uint64_t __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_8(uint64_t result, uint64_t a2)
+void *__57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_8(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 464) addObject:a2];
@@ -2434,43 +2392,41 @@ void __57__FCOfflineIssueFetchOperation__promisePDFPagesForIssue___block_invoke_
 
 uint64_t __76__FCOfflineIssueFetchOperation__itemIdentifiersForKey_fromMetadataJSONData___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 shortOperationDescription];
-    v8 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "%{public}@ error occurred trying to parse issue metadata JSON: %{public}@", &v9, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 shortOperationDescription];
+    v7 = *(a1 + 40);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error occurred trying to parse issue metadata JSON: %{public}@", &v8, 0x16u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return MEMORY[0x1E695E0F0];
 }
 
 uint64_t __65__FCOfflineIssueFetchOperation__resourceIDsFromMetadataJSONData___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 shortOperationDescription];
-    v8 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "%{public}@ error occurred trying to parse issue metadata JSON: %{public}@", &v9, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v2;
+    v6 = [v4 shortOperationDescription];
+    v7 = *(a1 + 40);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error occurred trying to parse issue metadata JSON: %{public}@", &v8, 0x16u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return MEMORY[0x1E695E0F0];
 }
 

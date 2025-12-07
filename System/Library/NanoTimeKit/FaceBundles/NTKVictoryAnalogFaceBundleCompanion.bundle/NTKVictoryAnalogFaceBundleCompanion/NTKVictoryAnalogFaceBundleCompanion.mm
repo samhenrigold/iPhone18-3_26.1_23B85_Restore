@@ -181,36 +181,35 @@ id sub_544C(uint64_t a1, void *a2)
   v12 = v11;
 
   [*(a1 + 32) setFill];
-  v32.origin.x = v6;
-  v32.origin.y = v8;
-  v32.size.width = v10;
-  v32.size.height = v12;
-  UIRectFill(v32);
+  v31.origin.x = v6;
+  v31.origin.y = v8;
+  v31.size.width = v10;
+  v31.size.height = v12;
+  UIRectFill(v31);
   v13 = [*(a1 + 40) layer];
   v14 = [v3 CGContext];
 
   [v13 renderInContext:v14];
-  y = CGPointZero.y;
   [*(a1 + 48) size];
   UIRectCenteredIntegralRectScale();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
   [*(a1 + 56) drawInRect:0];
-  v24 = *(a1 + 64);
-  if (v24)
+  v23 = *(a1 + 64);
+  if (v23)
   {
-    [v24 drawInRect:{v17, v19, v21, v23}];
+    [v23 drawInRect:{v16, v18, v20, v22}];
   }
 
-  [*(a1 + 48) drawInRect:{v17, v19, v21, v23}];
+  [*(a1 + 48) drawInRect:{v16, v18, v20, v22}];
   NTKCSecondHandCenterOffset();
-  v25 = *(a1 + 72);
-  v27 = v6 + v10 * 0.5 - v26;
-  v29 = v8 + v12 * 0.5 - v28;
+  v24 = *(a1 + 72);
+  v26 = v6 + v10 * 0.5 - v25;
+  v28 = v8 + v12 * 0.5 - v27;
 
-  return [v25 drawAtPoint:{v27, v29}];
+  return [v24 drawAtPoint:{v26, v28}];
 }
 
 void sub_55D0(uint64_t a1, void *a2)

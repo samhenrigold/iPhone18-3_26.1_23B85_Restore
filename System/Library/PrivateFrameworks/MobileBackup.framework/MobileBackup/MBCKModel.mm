@@ -364,7 +364,7 @@ LABEL_20:
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Saving record %{public}@ to server", buf, 0xCu);
 
       recordID2 = [recordRepresentation recordID];
-      _MBLog();
+      _MBLog(@"Db", "Saving record %{public}@ to server", recordID2);
     }
 
     v15[0] = _NSConcreteStackBlock;
@@ -383,11 +383,11 @@ LABEL_20:
       *buf = 138412290;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch the record representation for %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch the record representation for %@", self);
     }
 
-    v13 = [MBError errorWithCode:10 format:@"CloudKit record representation is nil for %@", self];
-    (v8)[2](v8, v13);
+    v14 = [MBError errorWithCode:10 format:@"CloudKit record representation is nil for %@", self];
+    (v8)[2](v8, v14);
   }
 }
 
@@ -471,7 +471,7 @@ LABEL_20:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Saving record %{public}@ to server", buf, 0xCu);
 
       recordID2 = [recordRepresentation recordID];
-      _MBLog();
+      _MBLog(@"Db", "Saving record %{public}@ to server", recordID2);
     }
 
     v14[0] = _NSConcreteStackBlock;
@@ -485,8 +485,8 @@ LABEL_20:
 
   else
   {
-    v12 = [MBError errorWithCode:10 format:@"CloudKit record representation is nil for %@", self];
-    (v8)[2](v8, v12);
+    v13 = [MBError errorWithCode:10 format:@"CloudKit record representation is nil for %@", self];
+    (v8)[2](v8, v13);
   }
 }
 
@@ -546,41 +546,41 @@ LABEL_20:
         }
 
         recordName3 = [(CKRecordID *)selfCopy->_recordID recordName];
-        _MBLog();
+        _MBLog(@"I ", "RecordID string has changed: %{public}@ -> %{public}@", recordName3, _getRecordIDString);
       }
 
       objc_storeStrong(&selfCopy->_recordIDString, _getRecordIDString);
-      v9 = [CKRecordID alloc];
-      v10 = [MBCKDatabaseManager zoneIDOfType:[(MBCKModel *)selfCopy recordZone]];
-      v11 = [v9 initWithRecordName:_getRecordIDString zoneID:v10];
+      v10 = [CKRecordID alloc];
+      v11 = [MBCKDatabaseManager zoneIDOfType:[(MBCKModel *)selfCopy recordZone]];
+      v12 = [v10 initWithRecordName:_getRecordIDString zoneID:v11];
       recordID = selfCopy->_recordID;
-      selfCopy->_recordID = v11;
+      selfCopy->_recordID = v12;
     }
   }
 
   else
   {
-    v13 = selfCopy->_recordIDString;
-    if (!v13)
+    v14 = selfCopy->_recordIDString;
+    if (!v14)
     {
       _getRecordIDString2 = [(MBCKModel *)selfCopy _getRecordIDString];
       recordIDString = selfCopy->_recordIDString;
       selfCopy->_recordIDString = _getRecordIDString2;
 
-      v13 = _getRecordIDString2;
+      v14 = _getRecordIDString2;
     }
 
-    v16 = [CKRecordID alloc];
-    v17 = [MBCKDatabaseManager zoneIDOfType:[(MBCKModel *)selfCopy recordZone]];
-    v18 = [v16 initWithRecordName:v13 zoneID:v17];
-    v19 = selfCopy->_recordID;
-    selfCopy->_recordID = v18;
+    v17 = [CKRecordID alloc];
+    v18 = [MBCKDatabaseManager zoneIDOfType:[(MBCKModel *)selfCopy recordZone]];
+    v19 = [v17 initWithRecordName:v14 zoneID:v18];
+    v20 = selfCopy->_recordID;
+    selfCopy->_recordID = v19;
   }
 
-  v20 = selfCopy->_recordID;
+  v21 = selfCopy->_recordID;
   objc_sync_exit(selfCopy);
 
-  return v20;
+  return v21;
 }
 
 - (NSString)recordIDString
@@ -639,12 +639,12 @@ LABEL_20:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v20 = objc_opt_class();
-      v21 = 2112;
-      v22 = errorCopy;
+      v21 = objc_opt_class();
+      v22 = 2112;
+      v23 = errorCopy;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to save a record for %{public}@: %@", buf, 0x16u);
-      objc_opt_class();
-      _MBLog();
+      v13 = objc_opt_class();
+      _MBLog(@"E ", "Failed to save a record for %{public}@: %@", v13, errorCopy);
     }
 
     completionCopy[2](completionCopy, errorCopy);
@@ -658,15 +658,15 @@ LABEL_20:
       recordID = [completeCopy recordID];
       recordName = [recordID recordName];
       *buf = 138543618;
-      v20 = recordType;
-      v21 = 2114;
-      v22 = recordName;
+      v21 = recordType;
+      v22 = 2114;
+      v23 = recordName;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}@ record %{public}@ saved to server successfully", buf, 0x16u);
 
       recordType2 = [completeCopy recordType];
       recordID2 = [completeCopy recordID];
       recordName2 = [recordID2 recordName];
-      _MBLog();
+      _MBLog(@"I ", "%{public}@ record %{public}@ saved to server successfully", recordType2, recordName2);
     }
 
     [(MBCKModel *)self refreshWithRecord:completeCopy];

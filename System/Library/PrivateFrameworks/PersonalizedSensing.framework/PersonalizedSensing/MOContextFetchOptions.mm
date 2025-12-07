@@ -17,10 +17,10 @@
 
 - (MOContextFetchOptions)initWithContextFormat:(unint64_t)format contextRetrieval:(unint64_t)retrieval contextCount:(unint64_t)count
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MOContextFetchOptions;
-  v8 = [(MOContextFetchOptions *)&v13 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MOContextFetchOptions;
+  v8 = [(MOContextFetchOptions *)&v12 init];
   v9 = v8;
   if (v8)
   {
@@ -32,15 +32,14 @@
     {
       *buf = 134218496;
       formatCopy = format;
-      v16 = 2048;
+      v15 = 2048;
       retrievalCopy = retrieval;
-      v18 = 2048;
+      v17 = 2048;
       countCopy = count;
       _os_log_impl(&dword_25E48F000, v10, OS_LOG_TYPE_INFO, "ContextFetchOptions contextFormat,%lu,contextRetrieval,%lu,contextCount,%lu", buf, 0x20u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

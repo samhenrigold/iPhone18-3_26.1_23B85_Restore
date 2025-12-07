@@ -45,7 +45,7 @@
   arrayCopy = array;
   memset(&v13, 0, sizeof(v13));
   v13.gl_matchc = 1000;
-  v7 = sub_1000278E8();
+  v7 = sub_1000278E8(arrayCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;

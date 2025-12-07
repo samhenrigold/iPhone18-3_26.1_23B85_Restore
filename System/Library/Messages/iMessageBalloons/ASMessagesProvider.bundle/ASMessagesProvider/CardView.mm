@@ -33,10 +33,11 @@
   selfCopy = self;
   if ([fromCopy state] == &dword_0 + 3 && (v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProviderP33_B2CE61E316D584CC4A2ADF6070E311B48CardView_tapAction)) != 0)
   {
+    v6 = *&selfCopy->tintView[OBJC_IVAR____TtC18ASMessagesProviderP33_B2CE61E316D584CC4A2ADF6070E311B48CardView_tapAction];
 
-    v5(v6);
+    v5(v7);
 
-    sub_F704(v5);
+    sub_F704(v5, v6);
   }
 
   else

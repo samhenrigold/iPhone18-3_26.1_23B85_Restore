@@ -1,6 +1,6 @@
 @interface FAHomeUISoftLinking
 + (id)getURLScheme;
-+ (uint64_t)getURLScheme;
++ (void)getURLScheme;
 - (FAHomeUISoftLinking)initWithHome:(id)home notificationName:(id)name;
 - (void)addPeopleViewController:(id)controller didSendInvitations:(id)invitations;
 @end
@@ -47,28 +47,29 @@
 
 + (id)getURLScheme
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getHFHomeURLSchemeSymbolLoc_ptr;
-  v10 = getHFHomeURLSchemeSymbolLoc_ptr;
+  v11 = getHFHomeURLSchemeSymbolLoc_ptr;
   if (!getHFHomeURLSchemeSymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getHFHomeURLSchemeSymbolLoc_block_invoke;
-    v6[3] = &unk_2782F2988;
-    v6[4] = &v7;
-    __getHFHomeURLSchemeSymbolLoc_block_invoke(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getHFHomeURLSchemeSymbolLoc_block_invoke;
+    v7[3] = &unk_2782F2988;
+    v7[4] = &v8;
+    __getHFHomeURLSchemeSymbolLoc_block_invoke(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v5 = +[FAHomeUISoftLinking getURLScheme];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    +[FAHomeUISoftLinking getURLScheme];
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = *v2;
@@ -83,11 +84,11 @@
   [defaultCenter postNotificationName:self->_homeReloadSignal object:0];
 }
 
-+ (uint64_t)getURLScheme
++ (void)getURLScheme
 {
-  dlerror();
-  abort_report_np();
-  return __getHUAddPeopleViewControllerClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getHUAddPeopleViewControllerClass_block_invoke_cold_1();
 }
 
 @end

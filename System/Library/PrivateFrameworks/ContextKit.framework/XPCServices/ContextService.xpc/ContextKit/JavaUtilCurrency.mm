@@ -34,8 +34,8 @@
     return *p_currencyCode;
   }
 
-  v6 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(locale);
-  if (!v6 || (v7 = v6, (internationalCurrencySymbol = v6->internationalCurrencySymbol_) == 0))
+  v7 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(locale, v6);
+  if (!v7 || (v8 = v7, (internationalCurrencySymbol = v7->internationalCurrencySymbol_) == 0))
   {
 LABEL_12:
     JreThrowNullPointerException();
@@ -45,7 +45,7 @@ LABEL_12:
   p_currencyCode = &self->currencyCode_;
   if ([(NSString *)internationalCurrencySymbol isEqual:currencyCode])
   {
-    p_currencyCode = &v7->currencySymbol_;
+    p_currencyCode = &v8->currencySymbol_;
   }
 
   else

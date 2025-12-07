@@ -200,81 +200,77 @@
 
 - (double)calculateButtonLayout
 {
-  v45[1] = *MEMORY[0x277D85DE8];
-  if (self)
+  v44[1] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v2 = *MEMORY[0x277D74410];
-    v3 = [MEMORY[0x277D74300] systemFontOfSize:11.0 weight:*MEMORY[0x277D74410]];
-    v4 = [MEMORY[0x277D74300] systemFontOfSize:23.0 weight:v2];
-    v5 = *(self + 480);
-    text = [v5 text];
-    v44 = *MEMORY[0x277D740A8];
-    v7 = v44;
-    v45[0] = v3;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    return 0.0;
+  }
 
-    [text sizeWithAttributes:v8];
-    v10 = v9;
-    v12 = v11;
+  v2 = *MEMORY[0x277D74410];
+  v3 = [MEMORY[0x277D74300] systemFontOfSize:11.0 weight:*MEMORY[0x277D74410]];
+  v4 = [MEMORY[0x277D74300] systemFontOfSize:23.0 weight:v2];
+  v5 = *(self + 480);
+  text = [v5 text];
+  v43 = *MEMORY[0x277D740A8];
+  v7 = v43;
+  v44[0] = v3;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
 
-    v13 = *(self + 472);
-    text2 = [v13 text];
-    v42 = v7;
-    v43 = v4;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  [text sizeWithAttributes:v8];
+  v10 = v9;
+  v12 = v11;
 
-    [text2 sizeWithAttributes:v15];
-    v17 = v16;
-    v19 = v18;
+  v13 = *(self + 472);
+  text2 = [v13 text];
+  v41 = v7;
+  v42 = v4;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
 
-    if (*(self + 456) == 1)
-    {
-      [*(self + 472) setFrame:{41.0, -6.0, v17, v19}];
-      v20 = &OBJC_IVAR___BCChatButton__smallLabel;
-      v21 = *(self + 472);
-      [v21 frame];
-      v23 = v19 + v22;
-    }
+  [text2 sizeWithAttributes:v15];
+  v17 = v16;
+  v19 = v18;
 
-    else
-    {
-      [*(self + 480) setFrame:{41.0, -1.0, v10, v12}];
-      v21 = *(self + 480);
-      [v21 frame];
-      v23 = v12 + v24 + -3.0;
-      v10 = v17;
-      v12 = v19;
-      v20 = &OBJC_IVAR___BCChatButton__label;
-    }
-
-    [*(self + *v20) setFrame:{41.0, v23, v10, v12}];
-
-    v25 = *(self + 472);
-    [v25 frame];
-    v27 = v26;
-    v28 = *(self + 472);
-    [v28 frame];
-    v30 = v27 + v29;
-    v31 = *(self + 480);
-    [v31 frame];
-    v33 = v32;
-    [*(self + 480) frame];
-    v35 = fmax(v30, v33 + v34);
-
-    [*(self + 488) setFrame:{0.0, 0.0, 32.0, 32.0}];
-    [self bounds];
-    v37 = v36 * 0.5 - v35 * 0.5;
-    [self bounds];
-    [*(self + 496) setFrame:{v37, v38 * 0.5 + -16.0, v35, 32.0}];
-    v39 = fmax(v35 + 18.0, 156.0);
+  if (*(self + 456) == 1)
+  {
+    [*(self + 472) setFrame:{41.0, -6.0, v17, v19}];
+    v20 = &OBJC_IVAR___BCChatButton__smallLabel;
+    v21 = *(self + 472);
+    [v21 frame];
+    v23 = v19 + v22;
   }
 
   else
   {
-    v39 = 0.0;
+    [*(self + 480) setFrame:{41.0, -1.0, v10, v12}];
+    v21 = *(self + 480);
+    [v21 frame];
+    v23 = v12 + v24 + -3.0;
+    v10 = v17;
+    v12 = v19;
+    v20 = &OBJC_IVAR___BCChatButton__label;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
+  [*(self + *v20) setFrame:{41.0, v23, v10, v12}];
+
+  v25 = *(self + 472);
+  [v25 frame];
+  v27 = v26;
+  v28 = *(self + 472);
+  [v28 frame];
+  v30 = v27 + v29;
+  v31 = *(self + 480);
+  [v31 frame];
+  v33 = v32;
+  [*(self + 480) frame];
+  v35 = fmax(v30, v33 + v34);
+
+  [*(self + 488) setFrame:{0.0, 0.0, 32.0, 32.0}];
+  [self bounds];
+  v37 = v36 * 0.5 - v35 * 0.5;
+  [self bounds];
+  [*(self + 496) setFrame:{v37, v38 * 0.5 + -16.0, v35, 32.0}];
+  v39 = fmax(v35 + 18.0, 156.0);
+
   return v39;
 }
 

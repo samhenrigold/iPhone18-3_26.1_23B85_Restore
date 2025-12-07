@@ -39,56 +39,57 @@
   connectionCopy = connection;
   v6 = [connectionCopy valueForEntitlement:@"com.apple.bulletindistributord.server"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v6 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [v6 BOOLValue], (isKindOfClass))
   {
-    v7 = [[BLTSubscriberRemoteClient alloc] initWithConnection:connectionCopy];
-    v8 = [[BLTBulletinDistributorSubscriber alloc] initWithClient:v7];
+    v8 = [[BLTSubscriberRemoteClient alloc] initWithConnection:connectionCopy];
+    v9 = [[BLTBulletinDistributorSubscriber alloc] initWithClient:v8];
     deviceDelegate = [(BLTPingSubscriberManager *)self deviceDelegate];
-    [(BLTBulletinDistributorSubscriber *)v8 setDeviceDelegate:deviceDelegate];
+    [(BLTBulletinDistributorSubscriber *)v9 setDeviceDelegate:deviceDelegate];
 
-    [connectionCopy setExportedObject:v8];
-    v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28544E800];
-    v11 = MEMORY[0x277CBEB98];
-    v12 = objc_opt_class();
-    v13 = [v11 setWithObjects:{v12, objc_opt_class(), 0}];
-    v14 = 1;
-    [v10 setClasses:v13 forSelector:sel_getWillNanoPresentNotificationForSectionID_subsectionIDs_completion_ argumentIndex:1 ofReply:0];
-    [connectionCopy setExportedInterface:v10];
-    v15 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285454D28];
-    [connectionCopy setRemoteObjectInterface:v15];
+    [connectionCopy setExportedObject:v9];
+    v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28544E800];
+    v12 = MEMORY[0x277CBEB98];
+    v13 = objc_opt_class();
+    v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
+    v15 = 1;
+    [v11 setClasses:v14 forSelector:sel_getWillNanoPresentNotificationForSectionID_subsectionIDs_completion_ argumentIndex:1 ofReply:0];
+    [connectionCopy setExportedInterface:v11];
+    v16 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285454D28];
+    [connectionCopy setRemoteObjectInterface:v16];
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __63__BLTPingSubscriberManager_listener_shouldAcceptNewConnection___block_invoke;
-    v21[3] = &unk_278D31400;
-    v21[4] = self;
-    v16 = v8;
-    v22 = v16;
-    [connectionCopy setInvalidationHandler:v21];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __63__BLTPingSubscriberManager_listener_shouldAcceptNewConnection___block_invoke_2;
-    v19[3] = &unk_278D31400;
-    v19[4] = self;
-    v20 = v16;
-    v17 = v16;
-    [connectionCopy setInterruptionHandler:v19];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __63__BLTPingSubscriberManager_listener_shouldAcceptNewConnection___block_invoke;
+    v22[3] = &unk_278D31400;
+    v22[4] = self;
+    v17 = v9;
+    v23 = v17;
+    [connectionCopy setInvalidationHandler:v22];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __63__BLTPingSubscriberManager_listener_shouldAcceptNewConnection___block_invoke_2;
+    v20[3] = &unk_278D31400;
+    v20[4] = self;
+    v21 = v17;
+    v18 = v17;
+    [connectionCopy setInterruptionHandler:v20];
     [connectionCopy resume];
-    [(BLTBulletinDistributorSubscriberList *)self->_subscribers addSubscriber:v17];
+    [(BLTBulletinDistributorSubscriberList *)self->_subscribers addSubscriber:v18];
   }
 
   else
   {
-    v7 = blt_general_log();
-    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
+    v8 = blt_general_log(isKindOfClass);
+    if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
     {
-      [BLTPingSubscriberManager listener:&v7->super shouldAcceptNewConnection:?];
+      [BLTPingSubscriberManager listener:&v8->super shouldAcceptNewConnection:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)_loadPingSubscriberBundles:(id)bundles
@@ -102,7 +103,7 @@
 
   if (v7)
   {
-    obj = blt_general_log();
+    obj = blt_general_log(v8);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       [(BLTPingSubscriberManager *)v7 _loadPingSubscriberBundles:?];
@@ -116,70 +117,68 @@
     v31 = 0u;
     v32 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v8)
+    v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v9)
     {
-      v9 = v8;
+      v10 = v9;
       v25 = v6;
-      v10 = *v32;
-      v11 = 0x277CCA000uLL;
-      v12 = &selRef_hasShowsOnExternalDevices;
+      v11 = *v32;
+      v12 = 0x277CCA000uLL;
+      v13 = &selRef_hasShowsOnExternalDevices;
       v27 = *v32;
       selfCopy = self;
       v26 = bundlesCopy;
       do
       {
-        v13 = 0;
-        v29 = v9;
+        v14 = 0;
+        v29 = v10;
         do
         {
-          if (*v32 != v10)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [bundlesCopy stringByAppendingPathComponent:*(*(&v31 + 1) + 8 * v13)];
-          v15 = [*(v11 + 2264) bundleWithPath:v14];
-          principalClass = [v15 principalClass];
+          v15 = [bundlesCopy stringByAppendingPathComponent:*(*(&v31 + 1) + 8 * v14)];
+          v16 = [*(v12 + 2264) bundleWithPath:v15];
+          principalClass = [v16 principalClass];
           if (principalClass)
           {
-            v17 = principalClass;
-            if ([(objc_class *)principalClass conformsToProtocol:v12[441]])
+            v18 = principalClass;
+            if ([(objc_class *)principalClass conformsToProtocol:v13[441]])
             {
-              v18 = objc_alloc_init(BLTLocalPingSubscriberService);
-              v19 = [[v17 alloc] initWithService:v18];
-              v20 = [[BLTBulletinDistributorSubscriber alloc] initWithClient:v19];
+              v19 = objc_alloc_init(BLTLocalPingSubscriberService);
+              v20 = [[v18 alloc] initWithService:v19];
+              v21 = [[BLTBulletinDistributorSubscriber alloc] initWithClient:v20];
               [(BLTPingSubscriberManager *)selfCopy deviceDelegate];
-              v21 = v12;
-              v23 = v22 = v11;
-              [(BLTBulletinDistributorSubscriber *)v20 setDeviceDelegate:v23];
+              v22 = v13;
+              v24 = v23 = v12;
+              [(BLTBulletinDistributorSubscriber *)v21 setDeviceDelegate:v24];
 
-              v11 = v22;
-              v12 = v21;
-              [(BLTLocalPingSubscriberService *)v18 setSubscriber:v20];
+              v12 = v23;
+              v13 = v22;
+              [(BLTLocalPingSubscriberService *)v19 setSubscriber:v21];
               bundlesCopy = v26;
-              v9 = v29;
-              [(BLTBulletinDistributorSubscriberList *)selfCopy->_subscribers addSubscriber:v20];
-              [v19 pingSubscriberDidLoad];
+              v10 = v29;
+              [(BLTBulletinDistributorSubscriberList *)selfCopy->_subscribers addSubscriber:v21];
+              [v20 pingSubscriberDidLoad];
 
-              v10 = v27;
+              v11 = v27;
             }
           }
 
-          ++v13;
+          ++v14;
         }
 
-        while (v9 != v13);
-        v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        while (v10 != v14);
+        v10 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
-      while (v9);
+      while (v10);
       v7 = 0;
       v6 = v25;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BLTBulletinDistributorSubscriberDeviceDelegate)deviceDelegate
@@ -191,20 +190,18 @@
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "No entitlement %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "No entitlement %@", &v2, 0xCu);
 }
 
 - (void)_loadPingSubscriberBundles:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error loading ping subscriber bundles: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error loading ping subscriber bundles: %@", &v2, 0xCu);
 }
 
 @end

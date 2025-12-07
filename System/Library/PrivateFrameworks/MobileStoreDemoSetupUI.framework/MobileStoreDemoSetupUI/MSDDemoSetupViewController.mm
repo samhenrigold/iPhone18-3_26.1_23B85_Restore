@@ -44,7 +44,7 @@
 {
   v24 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(tappedCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138543618;
@@ -57,66 +57,64 @@
 
   v6 = objc_alloc_init(MEMORY[0x277CBFC10]);
   authorizationStatus = [v6 authorizationStatus];
-  v8 = defaultLogHandle();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (authorizationStatus < 3)
+  v8 = authorizationStatus;
+  v9 = defaultLogHandle(authorizationStatus);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8 < 3)
   {
-    if (v9)
+    if (v10)
     {
-      v14 = objc_opt_class();
-      v15 = v14;
+      v15 = objc_opt_class();
+      v16 = v15;
       authorizationStatus2 = [v6 authorizationStatus];
       v20 = 138543618;
-      v21 = v14;
+      v21 = v15;
       v22 = 1024;
       LODWORD(v23) = authorizationStatus2;
-      _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: location authorization status is %d; showing Location view", &v20, 0x12u);
+      _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: location authorization status is %d; showing Location view", &v20, 0x12u);
     }
 
-    v13 = off_2798F1838;
+    v14 = off_2798F1838;
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
-      v10 = objc_opt_class();
-      v11 = v10;
+      v11 = objc_opt_class();
+      v12 = v11;
       authorizationStatus3 = [v6 authorizationStatus];
       v20 = 138543618;
-      v21 = v10;
+      v21 = v11;
       v22 = 1024;
       LODWORD(v23) = authorizationStatus3;
-      _os_log_impl(&dword_259BCA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: location is authorized: %d; showing Store Search view", &v20, 0x12u);
+      _os_log_impl(&dword_259BCA000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: location is authorized: %d; showing Store Search view", &v20, 0x12u);
     }
 
-    v13 = off_2798F1890;
+    v14 = off_2798F1890;
   }
 
-  v17 = objc_alloc_init(*v13);
-  v18 = +[MSDSetupUIController sharedInstance];
-  [v18 pushViewController:v17 andRemoveTopmostView:0];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = objc_alloc_init(*v14);
+  v19 = +[MSDSetupUIController sharedInstance];
+  [v19 pushViewController:v18 andRemoveTopmostView:0];
 }
 
 - (void)_skipTapped:(id)tapped
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
-  v5 = defaultLogHandle();
+  v5 = defaultLogHandle(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = tappedCopy;
-    v6 = v9;
-    _os_log_impl(&dword_259BCA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Not a Demo Device button tapped from: %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = tappedCopy;
+    v6 = v8;
+    _os_log_impl(&dword_259BCA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Not a Demo Device button tapped from: %{public}@", &v7, 0x16u);
   }
 
   [(MSDDemoSetupViewController *)self _showEraseConfirmation];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showEraseConfirmation
@@ -142,17 +140,17 @@ void __52__MSDDemoSetupViewController__showEraseConfirmation__block_invoke(uint6
   [*(a1 + 32) presentViewController:v4 animated:1 completion:0];
 }
 
-void __52__MSDDemoSetupViewController__showEraseConfirmation__block_invoke_2()
+void __52__MSDDemoSetupViewController__showEraseConfirmation__block_invoke_2(uint64_t a1)
 {
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_259BCA000, v0, OS_LOG_TYPE_DEFAULT, "EACS confirmed", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_259BCA000, v1, OS_LOG_TYPE_DEFAULT, "EACS confirmed", v3, 2u);
   }
 
-  v1 = +[MSDSetupUIController sharedInstance];
-  [v1 markAsNotDemoAndEraseDataPlan:1];
+  v2 = +[MSDSetupUIController sharedInstance];
+  [v2 markAsNotDemoAndEraseDataPlan:1];
 }
 
 @end

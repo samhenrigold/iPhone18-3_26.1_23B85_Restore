@@ -100,7 +100,7 @@
   {
     if (v6)
     {
-      v11 = sub_10007FAA0();
+      v11 = sub_10007FAA0(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(0);
@@ -242,7 +242,7 @@
 
 - (void)dump
 {
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(0);

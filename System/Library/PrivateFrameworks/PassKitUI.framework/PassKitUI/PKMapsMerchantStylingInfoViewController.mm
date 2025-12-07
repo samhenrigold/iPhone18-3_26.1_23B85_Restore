@@ -40,13 +40,23 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = PKMapsMerchantStylingInfoViewController;
-  [(PKMapsMerchantStylingInfoViewController *)&v5 viewDidLayoutSubviews];
+  v19.receiver = self;
+  v19.super_class = PKMapsMerchantStylingInfoViewController;
+  [(PKMapsMerchantStylingInfoViewController *)&v19 viewDidLayoutSubviews];
   iconImageView = self->_iconImageView;
   view = [(PKMapsMerchantStylingInfoViewController *)self view];
   [view bounds];
-  PKSizeAlignedInRect();
+  v6 = v5;
+  v8 = v7;
+  v10.n128_u64[0] = v9;
+  v12 = v11;
+  v13.n128_u64[0] = 0x4069000000000000;
+  v14.n128_u64[0] = 0x4069000000000000;
+  v15.n128_u64[0] = v6;
+  v16.n128_u64[0] = v8;
+  v17.n128_u64[0] = v10.n128_u64[0];
+  v18.n128_u64[0] = v12;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v13, v14, v15, v16, v17, v18, v10);
   [(UIImageView *)iconImageView setFrame:?];
 }
 

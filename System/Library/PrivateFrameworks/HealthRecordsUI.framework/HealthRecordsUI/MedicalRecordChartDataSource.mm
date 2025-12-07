@@ -57,15 +57,16 @@
 
   else
   {
-    memset(v12, 0, sizeof(v12));
+    memset(v13, 0, sizeof(v13));
     selfCopy2 = self;
   }
 
-  v10 = sub_1D11F6CF0(index, zoom, resolution);
+  sub_1D11F6CF0(index, zoom, resolution);
+  v11 = v10;
 
-  sub_1D11F9EFC(v12, sub_1D1096B8C);
+  sub_1D11F9EFC(v13, sub_1D1096B8C);
 
-  return v10;
+  return v11;
 }
 
 - (id)chartDisplayTypeWithVerticalAxis:(id)axis

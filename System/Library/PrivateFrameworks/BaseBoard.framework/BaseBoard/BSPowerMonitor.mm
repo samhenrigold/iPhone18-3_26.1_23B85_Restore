@@ -30,7 +30,7 @@ void __32__BSPowerMonitor_sharedInstance__block_invoke()
     v1 = objc_msgSendSuper2(&v10, sel_init);
     if (v1)
     {
-      v2 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.powermonitor", 0, QOS_CLASS_USER_INITIATED, 0);
+      v2 = BSDispatchQueueCreateWithQualityOfService("com.apple.baseboard.powermonitor", 0, 25, 0);
       v3 = *(v1 + 4);
       *(v1 + 4) = v2;
 

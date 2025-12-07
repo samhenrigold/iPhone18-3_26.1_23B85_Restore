@@ -250,7 +250,7 @@ LABEL_22:
   return v5;
 }
 
-uint64_t __59__VCVideoSourceTokenManager_tokenForDeviceName_sourceType___block_invoke(uint64_t a1)
+void *__59__VCVideoSourceTokenManager_tokenForDeviceName_sourceType___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:*(a1 + 40)];
   v3 = *(a1 + 32);
@@ -291,7 +291,7 @@ uint64_t __59__VCVideoSourceTokenManager_tokenForDeviceName_sourceType___block_i
   return v4;
 }
 
-uint64_t __48__VCVideoSourceTokenManager_deviceNameForToken___block_invoke(uint64_t a1)
+void *__48__VCVideoSourceTokenManager_deviceNameForToken___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", *(a1 + 48))}];
   *(*(*(a1 + 40) + 8) + 40) = result;

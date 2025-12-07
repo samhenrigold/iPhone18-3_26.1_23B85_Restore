@@ -380,7 +380,7 @@
   v28 = 0u;
   if (previewView)
   {
-    [previewView transform];
+    objc_msgSend_transform(previewView);
   }
 
   v18 = v4;
@@ -775,17 +775,12 @@
     v31 = v30;
     if (orientationCopy)
     {
-      orientation = [(CAMViewfinderView *)self orientation];
-    }
-
-    else
-    {
-      orientation = 1;
+      [(CAMViewfinderView *)self orientation];
     }
 
     previewView = [(CAMViewfinderView *)self previewView];
     [previewView frame];
-    [MEMORY[0x1E69C4998] cameraTopBarGeometryForReferenceBounds:orientation forContentSize:v25 withOrientation:{v27, v29, v31, v34, v35}];
+    objc_msgSend_cameraTopBarGeometryForReferenceBounds_forContentSize_withOrientation_(MEMORY[0x1E69C4998], v25, v27, v29, v31, v33, v34);
     if (bounds)
     {
       bounds->origin = 0u;
@@ -1143,7 +1138,11 @@ LABEL_4:
       v32 = v31;
       v34 = v33;
       [(CAMViewfinderView *)self _previewSizeForAspectRatio:ratio];
-      [MEMORY[0x1E69C4998] cameraContentGeometryForReferenceBounds:-[CAMViewfinderView orientation](self forContentSize:"orientation" withOrientation:0 shouldShiftPreviewForUtilityBar:{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), barCopy, v28, v30, v32, v34, v35, v36}];
+      v36 = v35;
+      v38 = v37;
+      v39 = MEMORY[0x1E69C4998];
+      [(CAMViewfinderView *)self orientation:0];
+      objc_msgSend_cameraContentGeometryForReferenceBounds_forContentSize_withOrientation_shouldShiftPreviewForUtilityBar_(v39, v28, v30, v32, v34, v36, v38);
       UIRectCenteredAboutPointScale();
     }
 
@@ -1152,20 +1151,20 @@ LABEL_4:
       [(CAMViewfinderView *)self _cameraPreviewFrameForAspectRatio:ratio topBarFrame:barCopy bottomBarFrame:v14 shouldShiftPreviewForUtilityBar:v13, v12, v11, x, y, width, height];
     }
 
-    v20 = v37;
-    v22 = v38;
-    v24 = v39;
-    v26 = v40;
+    v20 = v40;
+    v22 = v41;
+    v24 = v42;
+    v26 = v43;
   }
 
-  v41 = v20;
-  v42 = v22;
-  v43 = v24;
-  v44 = v26;
-  result.size.height = v44;
-  result.size.width = v43;
-  result.origin.y = v42;
-  result.origin.x = v41;
+  v44 = v20;
+  v45 = v22;
+  v46 = v24;
+  v47 = v26;
+  result.size.height = v47;
+  result.size.width = v46;
+  result.origin.y = v45;
+  result.origin.x = v44;
   return result;
 }
 
@@ -3206,11 +3205,11 @@ LABEL_7:
     {
       _modernLayout4 = [(CAMViewfinderView *)self _modernLayout];
       [_modernLayout4 viewportFrameForAspectRatio:0 accessoryAreaExpanded:0 smartStyleControlsExpanded:0];
-      MaxY = CGRectGetMaxY(v62);
+      MaxY = CGRectGetMaxY(v65);
 
       _modernLayout5 = [(CAMViewfinderView *)self _modernLayout];
       [_modernLayout5 viewportFrameForAspectRatio:1 accessoryAreaExpanded:0 smartStyleControlsExpanded:0];
-      v31 = CGRectGetMaxY(v63);
+      v31 = CGRectGetMaxY(v66);
 
       barFrame->origin.x = 0.0;
       barFrame->origin.y = MaxY;
@@ -3228,17 +3227,21 @@ LABEL_7:
     v38 = v37;
     v40 = v39;
     [(CAMViewfinderView *)self _previewSizeForAspectRatio:ratio];
-    [MEMORY[0x1E69C4998] cameraContentGeometryForReferenceBounds:-[CAMViewfinderView orientation](self forContentSize:"orientation" withOrientation:0 shouldShiftPreviewForUtilityBar:{0), barCopy, v34, v36, v38, v40, v41, v42}];
-    [MEMORY[0x1E69C4998] cameraTopBarFrameForReferenceBounds:{v34, v36, v38, v40}];
+    v42 = v41;
     v44 = v43;
-    v46 = v45;
-    v48 = v47;
-    v50 = v49;
+    v45 = MEMORY[0x1E69C4998];
+    [(CAMViewfinderView *)self orientation:0];
+    objc_msgSend_cameraContentGeometryForReferenceBounds_forContentSize_withOrientation_shouldShiftPreviewForUtilityBar_(v45, v34, v36, v38, v40, v42, v44);
+    [MEMORY[0x1E69C4998] cameraTopBarFrameForReferenceBounds:{v34, v36, v38, v40}];
+    v47 = v46;
+    v49 = v48;
+    v51 = v50;
+    v53 = v52;
     [MEMORY[0x1E69C4998] cameraBottomBarFrameForReferenceBounds:{v34, v36, v38, v40}];
-    v52 = v51;
-    v54 = v53;
-    v56 = v55;
-    v58 = v57;
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
+    v61 = v60;
     if (bounds)
     {
       bounds->origin.x = 0.0;
@@ -3250,24 +3253,24 @@ LABEL_7:
     if (center)
     {
       [(CAMViewfinderView *)self _previewOffset];
-      v60.f64[1] = v59;
-      *center = vaddq_f64(0, v60);
+      v63.f64[1] = v62;
+      *center = vaddq_f64(0, v63);
     }
 
     if (frame)
     {
-      frame->origin.x = v44;
-      frame->origin.y = v46;
-      frame->size.width = v48;
-      frame->size.height = v50;
+      frame->origin.x = v47;
+      frame->origin.y = v49;
+      frame->size.width = v51;
+      frame->size.height = v53;
     }
 
     if (barFrame)
     {
-      barFrame->origin.x = v52;
-      barFrame->origin.y = v54;
-      barFrame->size.width = v56;
-      barFrame->size.height = v58;
+      barFrame->origin.x = v55;
+      barFrame->origin.y = v57;
+      barFrame->size.width = v59;
+      barFrame->size.height = v61;
     }
   }
 
@@ -4395,7 +4398,7 @@ void __109__CAMViewfinderView__createPlaceholderSnapshotAndPerformSingleSidedFad
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else

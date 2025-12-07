@@ -45,7 +45,7 @@
     return 0;
   }
 
-  sub_10001A3E8();
+  sub_10001A3E8(self, a2);
   return !sub_100719350();
 }
 

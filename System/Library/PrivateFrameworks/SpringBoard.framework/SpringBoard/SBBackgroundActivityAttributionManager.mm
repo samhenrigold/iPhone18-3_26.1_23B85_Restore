@@ -1010,7 +1010,7 @@ void __80__SBBackgroundActivityAttributionManager__registerHandlerAndHandleExist
 
         v35 = *(*(&v110 + 1) + 8 * i);
         backgroundActivityIdentifier = [v35 backgroundActivityIdentifier];
-        if ([v83 containsObject:backgroundActivityIdentifier])
+        if (objc_msgSend_containsObject_(v83))
         {
           SBRemoveBackgroundActivityAttributionByIdentifier(v35, self->_suspendedAttributionsByBackgroundActivityIdentifier);
         }
@@ -1049,7 +1049,7 @@ void __80__SBBackgroundActivityAttributionManager__registerHandlerAndHandleExist
 
         v42 = *(*(&v106 + 1) + 8 * j);
         backgroundActivityIdentifier2 = [v42 backgroundActivityIdentifier];
-        if ([v82 containsObject:backgroundActivityIdentifier2])
+        if (objc_msgSend_containsObject_(v82))
         {
           SBAddBackgroundActivityAttributionByIdentifier(v42, self->_suspendedAttributionsByBackgroundActivityIdentifier);
         }

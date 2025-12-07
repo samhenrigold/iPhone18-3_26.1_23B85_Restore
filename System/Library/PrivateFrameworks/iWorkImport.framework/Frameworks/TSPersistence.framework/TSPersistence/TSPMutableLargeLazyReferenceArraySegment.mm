@@ -53,9 +53,9 @@
 - (id)referredObjectAtIndex:(unint64_t)index
 {
   v3 = objc_msgSend_objectAtIndex_(self, a2, index);
-  v48 = 0;
-  v5 = objc_msgSend_objectAndReturnError_(v3, v4, &v48);
-  v6 = v48;
+  v45 = 0;
+  v5 = objc_msgSend_objectAndReturnError_(v3, v4, &v45);
+  v6 = v45;
 
   if (!v5 && v6)
   {
@@ -76,20 +76,17 @@
       v23 = &stru_2885C9BB8;
     }
 
-    v46 = v21;
-    v44 = v15;
-    v45 = v23;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSPMutableLargeLazyReferenceArraySegment referredObjectAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyReferenceArraySegment.mm", 39, v9, v12, v15, v23, v21, v6);
 
     v24 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPMutableLargeLazyReferenceArraySegment referredObjectAtIndex:]", "[TSPMutableLargeLazyReferenceArraySegment referredObjectAtIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyReferenceArraySegment.mm", 39, v9, v12, v44, v45, v46, v6);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[TSPMutableLargeLazyReferenceArraySegment referredObjectAtIndex:]");
     v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPMutableLargeLazyReferenceArraySegment.mm");
     v29 = objc_opt_class();
     v30 = NSStringFromClass(v29);
     v33 = objc_msgSend_domain(v6, v31, v32);
     v36 = objc_msgSend_code(v6, v34, v35);
     v39 = objc_msgSend_tsp_isRecoverable(v6, v37, v38);
-    v47 = objc_msgSend_tsp_hintsDescription(v6, v40, v41);
+    v44 = objc_msgSend_tsp_hintsDescription(v6, v40, v41);
     if (v39)
     {
       v43 = @"recoverable=YES, ";
@@ -100,7 +97,7 @@
       v43 = &stru_2885C9BB8;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v42, v26, v28, 39, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v30, v33, v36, v43, v47, v6);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v42, v26, v28, 39, 1, "Failed to load lazy reference with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", v30, v33, v36, v43, v44, v6);
 
     TSUCrashBreakpoint();
     abort();
@@ -141,42 +138,42 @@
 
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = sub_276A21AC4;
-  v33[3] = &unk_27A6E2898;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = sub_276A21AC4;
+  v32[3] = &unk_27A6E2898;
   v7 = archiverCopy;
-  v34 = v7;
+  v33 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v33);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, message, v32);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   selfCopy2 = self;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v29, v36, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v10, &v28, v35, 16);
   if (v12)
   {
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       v14 = 0;
       do
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(selfCopy2);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * v14);
+        v15 = *(*(&v28 + 1) + 8 * v14);
         v16 = *(message + 5);
         if (!v16)
         {
           v18 = *(message + 9);
 LABEL_11:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(message + 6, v18 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((message + 24), v18 + 1);
           v16 = *(message + 5);
           v18 = *v16;
           goto LABEL_12;
@@ -187,7 +184,7 @@ LABEL_11:
         if (v17 < *v16)
         {
           *(message + 8) = v17 + 1;
-          objc_msgSend_setStrongLazyReference_message_(v7, v11, v15, *&v16[2 * v17 + 2], v29);
+          objc_msgSend_setStrongLazyReference_message_(v7, v11, v15, *&v16[2 * v17 + 2], v28);
           goto LABEL_13;
         }
 
@@ -203,13 +200,13 @@ LABEL_12:
         v21 = *(message + 5) + 8 * v20;
         *(message + 8) = v20 + 1;
         *(v21 + 8) = v19;
-        objc_msgSend_setStrongLazyReference_message_(v7, v22, v15, v19, v29);
+        objc_msgSend_setStrongLazyReference_message_(v7, v22, v15, v19, v28);
 LABEL_13:
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v29, v36, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(selfCopy2, v11, &v28, v35, 16);
     }
 
     while (v12);
@@ -217,8 +214,6 @@ LABEL_13:
 
   v26 = TSP::LargeLazyObjectArraySegment::ByteSizeLong(message, v23, v24, v25);
   objc_msgSend_setEstimatedByteSize_(selfCopy2, v27, v26);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver

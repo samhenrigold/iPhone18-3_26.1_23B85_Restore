@@ -20,7 +20,7 @@
   swift_unknownObjectRelease();
   sub_1BA111DEC();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)widthDesignationDidChangeWithTraitEnvironment:(id)environment previousTraitCollection:(id)collection

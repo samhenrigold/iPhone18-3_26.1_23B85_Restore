@@ -34,9 +34,9 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v21.receiver = self;
-  v21.super_class = CKPinnedConversationDropTargetCollectionViewCell;
-  v7 = [(CKPinnedConversationDropTargetCollectionViewCell *)&v21 initWithFrame:?];
+  v22.receiver = self;
+  v22.super_class = CKPinnedConversationDropTargetCollectionViewCell;
+  v7 = [(CKPinnedConversationDropTargetCollectionViewCell *)&v22 initWithFrame:?];
   v8 = v7;
   if (v7)
   {
@@ -48,9 +48,9 @@
     v8->_instructionLabel = v11;
 
     v13 = v8->_instructionLabel;
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"PIN_CONVERSATION_DROP_TARGET_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)v13 setText:v15];
+    v15 = CKFrameworkBundle(v14);
+    v16 = [v15 localizedStringForKey:@"PIN_CONVERSATION_DROP_TARGET_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)v13 setText:v16];
 
     [(UILabel *)v8->_instructionLabel setNumberOfLines:3];
     [(UILabel *)v8->_instructionLabel setTextAlignment:1];
@@ -61,9 +61,9 @@
     v8->_dropZoneCircleView = height;
 
     [contentView addSubview:v8->_dropZoneCircleView];
-    v18 = objc_alloc_init(CKPinnedConversationView);
+    v19 = objc_alloc_init(CKPinnedConversationView);
     prototypeConversationView = v8->_prototypeConversationView;
-    v8->_prototypeConversationView = v18;
+    v8->_prototypeConversationView = v19;
 
     [(CKPinnedConversationView *)v8->_prototypeConversationView configureAsPrototypeCell];
     [(CKPinnedConversationDropTargetCollectionViewCell *)v8 setShouldHideLabel:0];

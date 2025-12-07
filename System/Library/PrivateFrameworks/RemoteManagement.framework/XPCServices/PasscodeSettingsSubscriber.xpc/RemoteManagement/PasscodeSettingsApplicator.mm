@@ -8,12 +8,12 @@
 
 - (_TtC26PasscodeSettingsSubscriber26PasscodeSettingsApplicator)init
 {
-  v3 = [objc_allocWithZone(type metadata accessor for PasscodeSettingsAdapter()) init];
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for PasscodeSettingsApplicator();
-  v4 = [(PasscodeSettingsApplicator *)&v6 initWithAdapter:v3 inPlaceUpdates:1];
+  v4 = [objc_allocWithZone(type metadata accessor for PasscodeSettingsAdapter(0 a2];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for PasscodeSettingsApplicator(v4, v5, v6);
+  v7 = [(PasscodeSettingsApplicator *)&v9 initWithAdapter:v4 inPlaceUpdates:1];
 
-  return v4;
+  return v7;
 }
 
 + (id)supportedConfigurationTypes

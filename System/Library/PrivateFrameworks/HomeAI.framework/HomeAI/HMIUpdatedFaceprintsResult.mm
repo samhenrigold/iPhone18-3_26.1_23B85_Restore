@@ -28,28 +28,18 @@
 {
   v3 = [MEMORY[0x277CBEB58] set];
   existingAtCurrentVersion = [(HMIUpdatedFaceprintsResult *)self existingAtCurrentVersion];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke;
-  v16[3] = &unk_278753D48;
-  v16[4] = self;
-  v5 = v3;
-  v17 = v5;
-  [existingAtCurrentVersion na_each:v16];
+  v11 = v3;
+  [existingAtCurrentVersion na_each:?];
 
   createdAtCurrentVersion = [(HMIUpdatedFaceprintsResult *)self createdAtCurrentVersion];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke_149;
-  v13 = &unk_278753D48;
+  v9 = MEMORY[0x277D85DD0];
   selfCopy = self;
-  v15 = v5;
-  v7 = v5;
-  [createdAtCurrentVersion na_each:&v10];
+  v6 = v11;
+  [createdAtCurrentVersion na_each:{v9, 3221225472, __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke_149, &unk_278753D48, selfCopy}];
 
-  v8 = [v7 copy];
+  v7 = [v6 copy];
 
-  return v8;
+  return v7;
 }
 
 void __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke(uint64_t a1, void *a2)
@@ -74,7 +64,7 @@ void __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke(uint64_t
 
   else
   {
-    [*(a1 + 40) addObject:v3];
+    [*(a1 + 40) addObject:?];
   }
 }
 
@@ -100,7 +90,7 @@ void __49__HMIUpdatedFaceprintsResult_allAtCurrentVersion__block_invoke_149(uint
 
   else
   {
-    [*(a1 + 40) addObject:v3];
+    [*(a1 + 40) addObject:?];
   }
 }
 

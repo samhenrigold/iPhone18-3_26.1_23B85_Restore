@@ -171,7 +171,7 @@ void __65__SBSmartCoverService_listener_didReceiveConnection_withContext___block
   currentContext = [v4 currentContext];
   bOOLValue = [changesCopy BOOLValue];
 
-  v8 = [(NSMutableSet *)self->_observingConnections containsObject:currentContext];
+  v8 = objc_msgSend_containsObject_(self->_observingConnections);
   if (bOOLValue)
   {
     if ((v8 & 1) == 0)

@@ -295,16 +295,21 @@
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -314,24 +319,23 @@
       v60 = 138412290;
       v61 = objc_opt_class();
       v19 = v61;
-      LODWORD(v53) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not generate buy parameters", &v60, 12);
 
       if (!v20)
       {
-LABEL_18:
+LABEL_19:
 
         v21 = ISError();
         [(BuyMicroPaymentOperation *)self setError:v21];
-        goto LABEL_63;
+        goto LABEL_65;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v60, v53];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v9 = v8;
@@ -342,7 +346,7 @@ LABEL_18:
 
   if ([clientIdentity usesIdentityAttributes])
   {
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   bundleIdentifier = [clientIdentity bundleIdentifier];
@@ -350,20 +354,20 @@ LABEL_18:
   if (v13)
   {
     v14 = v13;
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v14 = [AppExtensionSupport supportedProxyExtensionForBundleIdentifier:bundleIdentifier];
   if (v14)
   {
-LABEL_20:
+LABEL_21:
     if ([v14 hasMIDBasedSINF])
     {
       [(PurchaseOperation *)v10 setRequiresSerialNumber:1];
     }
   }
 
-LABEL_23:
+LABEL_24:
   bundleIdentifier2 = [clientIdentity bundleIdentifier];
   v23 = [bundleIdentifier2 length];
 
@@ -412,7 +416,7 @@ LABEL_23:
       if (!ams_activeiTunesAccount)
       {
         v33 = 0;
-        goto LABEL_39;
+        goto LABEL_40;
       }
     }
   }
@@ -423,7 +427,7 @@ LABEL_23:
     {
       ams_activeiTunesAccount = +[SSAccountStore defaultStore];
       activeAccount = [ams_activeiTunesAccount activeAccount];
-      goto LABEL_37;
+      goto LABEL_38;
     }
 
     [(PurchaseOperation *)v10 setBagType:1];
@@ -433,16 +437,16 @@ LABEL_23:
     if (!ams_activeiTunesAccount)
     {
       v33 = 0;
-      goto LABEL_38;
+      goto LABEL_39;
     }
   }
 
   activeAccount = [[SSAccount alloc] initWithBackingAccount:ams_activeiTunesAccount];
-LABEL_37:
-  v33 = activeAccount;
 LABEL_38:
-
+  v33 = activeAccount;
 LABEL_39:
+
+LABEL_40:
   v36 = [[SSMutableAuthenticationContext alloc] initWithAccount:v33];
   [v36 setShouldCreateNewSession:1];
   [v36 setTokenType:1];
@@ -483,48 +487,53 @@ LABEL_39:
       v43 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v43 shouldLog];
+    LODWORD(v44) = [v43 shouldLog];
     if ([v43 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v44) = v44 | 2;
     }
 
     oSLogObject2 = [v43 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v44 = v44;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v44 &= 2u;
+    }
+
+    if (v44)
     {
       v46 = objc_opt_class();
       v60 = 138412290;
       v61 = v46;
       v54 = v46;
       LODWORD(v53) = 12;
-      v47 = _os_log_send_and_compose_impl();
+      v47 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not parse response", &v60, v53);
 
       if (!v47)
       {
-LABEL_56:
+LABEL_58:
 
         ISError();
         v37 = 0;
         v38 = appReceipt = v38;
-        goto LABEL_58;
+        goto LABEL_60;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v47 encoding:4, &v60, v53];
+      oSLogObject2 = [NSString stringWithCString:v47 encoding:4];
       free(v47);
       SSFileLog();
     }
 
-    goto LABEL_56;
+    goto LABEL_58;
   }
 
   appReceipt = [(MicroPaymentQueueResponse *)v39 appReceipt];
   [AppReceipt writeReceipt:appReceipt forStoreKitClient:clientIdentity];
-LABEL_58:
+LABEL_60:
   v4 = v58;
 
   [(BuyMicroPaymentOperation *)self setError:v38];
@@ -546,7 +555,7 @@ LABEL_58:
 
   v21 = v56;
   _appProxy = v57;
-LABEL_63:
+LABEL_65:
 }
 
 - (id)_appProxy
@@ -555,7 +564,7 @@ LABEL_63:
   if ([clientIdentity usesIdentityAttributes])
   {
     v3 = 0;
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
   bundleIdentifier = [clientIdentity bundleIdentifier];
@@ -574,51 +583,54 @@ LABEL_63:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      *v24 = 138543618;
-      *&v24[4] = objc_opt_class();
-      *&v24[12] = 2114;
-      *&v24[14] = bundleIdentifier;
-      v11 = *&v24[4];
-      LODWORD(v23) = 22;
-      v22 = v24;
-      v12 = _os_log_send_and_compose_impl();
+      v24 = 138543618;
+      v25 = objc_opt_class();
+      v26 = 2114;
+      v27 = bundleIdentifier;
+      v11 = v25;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Got invalid application proxy for bundle id: %{public}@. Checking for plugin", &v24, 22);
 
       if (!v12)
       {
-LABEL_15:
+LABEL_16:
 
         v13 = [AppExtensionSupport supportedProxyExtensionForBundleIdentifier:bundleIdentifier];
 
         v3 = v13;
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, v24, v23, *v24, *&v24[16]];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       v22 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-LABEL_16:
+LABEL_17:
   if (!v3)
   {
     v14 = +[SSLogConfig sharedDaemonConfig];
@@ -630,16 +642,21 @@ LABEL_16:
     shouldLog2 = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog2 | 2;
+      LODWORD(v16) = shouldLog2 | 2;
     }
 
     else
     {
-      v16 = shouldLog2;
+      LODWORD(v16) = shouldLog2;
     }
 
     oSLogObject2 = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -647,32 +664,32 @@ LABEL_16:
     if (v16)
     {
       v18 = objc_opt_class();
-      *v24 = 138412546;
-      *&v24[4] = v18;
-      *&v24[12] = 2112;
-      *&v24[14] = bundleIdentifier;
+      v24 = 138412546;
+      v25 = v18;
+      v26 = 2112;
+      v27 = bundleIdentifier;
       v19 = v18;
       LODWORD(v23) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not find application for identifier: %@", &v24, v23);
 
       if (!v20)
       {
-LABEL_28:
+LABEL_30:
 
-        goto LABEL_29;
+        goto LABEL_31;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v20 encoding:4, v24, v23];
+      oSLogObject2 = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
-LABEL_29:
+LABEL_31:
 
-LABEL_30:
+LABEL_32:
 
   return v3;
 }

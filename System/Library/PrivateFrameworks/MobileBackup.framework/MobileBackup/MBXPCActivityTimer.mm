@@ -85,7 +85,7 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "MBXPCTimer Unregistering XPC activity %@", buf, 0xCu);
 
     name2 = [(MBXPCActivityTimer *)self name];
-    _MBLog();
+    _MBLog(@"Df", "MBXPCTimer Unregistering XPC activity %@", name2);
   }
 
   name3 = [(MBXPCActivityTimer *)self name];
@@ -123,31 +123,32 @@
       v8 = v6;
     }
 
+    v9 = v8;
     *buf = 138412546;
-    v19 = name;
-    v20 = 2048;
-    v21 = v8;
+    v20 = name;
+    v21 = 2048;
+    v22 = v8;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MBXPCTimer: Scheduling XPC activity (%@) in %lld", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "MBXPCTimer: Scheduling XPC activity (%@) in %lld", name, v9);
   }
 
   objc_initWeak(buf, self);
   block = [(MBXPCActivityTimer *)self block];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100138194;
-  v14[3] = &unk_1003BF990;
-  objc_copyWeak(&v17, buf);
-  v15 = name;
-  v16 = block;
-  v10 = block;
-  v11 = name;
-  v12 = objc_retainBlock(v14);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_100138194;
+  v15[3] = &unk_1003BF990;
+  objc_copyWeak(&v18, buf);
+  v16 = name;
+  v17 = block;
+  v11 = block;
+  v12 = name;
+  v13 = objc_retainBlock(v15);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
 
-  return v12;
+  return v13;
 }
 
 - (void)handleActivity

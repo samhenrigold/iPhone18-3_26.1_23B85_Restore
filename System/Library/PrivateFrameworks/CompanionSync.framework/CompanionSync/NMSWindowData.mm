@@ -111,19 +111,18 @@ uint64_t __40__NMSWindowData_dateOfNextMessageExpiry__block_invoke(uint64_t a1)
 
 - (NMSWindowData)init
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = NSTemporaryDirectory();
-  v13[0] = v4;
+  v12[0] = v4;
   v5 = objc_opt_new();
   uUIDString = [v5 UUIDString];
-  v13[1] = uUIDString;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[1] = uUIDString;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v8 = [v3 pathWithComponents:v7];
   v9 = [v8 stringByAppendingPathExtension:@"sqlitedb"];
 
   v10 = [(NMSWindowData *)self initWithPath:v9 logFacility:@"com.apple.private.NanoMessagingService"];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -359,13 +358,12 @@ void __40__NMSWindowData__syncTransaction_block___block_invoke(uint64_t a1)
     goto LABEL_8;
   }
 
-  v4 = *(*(a1 + 32) + 32);
-  v5 = (*(*(a1 + 40) + 16))();
-  v6 = *(*(a1 + 32) + 32);
-  if (v5)
+  v4 = (*(*(a1 + 40) + 16))();
+  v5 = *(*(a1 + 32) + 32);
+  if (v4)
   {
-    v7 = ExecuteSQL(v6, "COMMIT TRANSACTION");
-    if (!v7)
+    v6 = ExecuteSQL(v5, "COMMIT TRANSACTION");
+    if (!v6)
     {
       return;
     }
@@ -373,15 +371,15 @@ void __40__NMSWindowData__syncTransaction_block___block_invoke(uint64_t a1)
 
   else
   {
-    v7 = ExecuteSQL(v6, "ROLLBACK TRANSACTION");
+    v6 = ExecuteSQL(v5, "ROLLBACK TRANSACTION");
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    if (!v7)
+    if (!v6)
     {
       return;
     }
   }
 
-  if (v7 != 101)
+  if (v6 != 101)
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -455,15 +453,15 @@ LABEL_9:
 - (BOOL)_openDBForceRecreate:(BOOL)recreate
 {
   recreateCopy = recreate;
-  v35[3] = *MEMORY[0x1E69E9840];
-  v33 = 1;
+  v34[3] = *MEMORY[0x1E69E9840];
+  v32 = 1;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   p_path = &self->_path;
-  v7 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v33];
+  v7 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v32];
 
   if (v7)
   {
-    v8 = v33 == 0;
+    v8 = v32 == 0;
   }
 
   else
@@ -475,9 +473,9 @@ LABEL_9:
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     v10 = *p_path;
-    v32 = 0;
-    v11 = [defaultManager2 removeItemAtPath:v10 error:&v32];
-    v12 = v32;
+    v31 = 0;
+    v11 = [defaultManager2 removeItemAtPath:v10 error:&v31];
+    v12 = v31;
 
     if (!v11)
     {
@@ -503,18 +501,18 @@ LABEL_9:
   }
 
   v13 = *MEMORY[0x1E696A328];
-  v34[0] = *MEMORY[0x1E696A360];
-  v34[1] = v13;
-  v35[0] = @"mobile";
-  v35[1] = @"mobile";
-  v34[2] = *MEMORY[0x1E696A370];
-  v35[2] = &unk_1F5AE2698;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v33[0] = *MEMORY[0x1E696A360];
+  v33[1] = v13;
+  v34[0] = @"mobile";
+  v34[1] = @"mobile";
+  v33[2] = *MEMORY[0x1E696A370];
+  v34[2] = &unk_1F5AE2698;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
   defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
   v16 = *p_path;
-  v31 = 0;
-  v17 = [defaultManager3 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:v14 error:&v31];
-  v18 = v31;
+  v30 = 0;
+  v17 = [defaultManager3 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:v14 error:&v30];
+  v18 = v30;
 
   if ((v17 & 1) == 0)
   {
@@ -536,9 +534,9 @@ LABEL_15:
   if (recreateCopy)
   {
     defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-    v30 = 0;
-    v21 = [defaultManager4 removeItemAtPath:v12 error:&v30];
-    v22 = v30;
+    v29 = 0;
+    v21 = [defaultManager4 removeItemAtPath:v12 error:&v29];
+    v22 = v29;
 
     if ((v21 & 1) == 0)
     {
@@ -616,7 +614,6 @@ LABEL_44:
   v25 = 1;
 LABEL_45:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -1119,79 +1116,64 @@ uint64_t __43__NMSWindowData_countOfAllMessagesInFlight__block_invoke(uint64_t a
 
 - (void)initWithPath:logFacility:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_fault_impl(&dword_1DF835000, v0, OS_LOG_TYPE_FAULT, "NMSWindowData: unable to create db file via path '%@', returning nil from -init, message windowing will FAIL.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DF835000, v0, OS_LOG_TYPE_FAULT, "NMSWindowData: unable to create db file via path '%@', returning nil from -init, message windowing will FAIL.", v1, 0xCu);
 }
 
 - (void)initWithSharedDBForServiceName:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_fault_impl(&dword_1DF835000, v0, OS_LOG_TYPE_FAULT, "NMSWindowData: unable to connect to shared DB for service %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __40__NMSWindowData__syncTransaction_block___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_0(&dword_1DF835000, v0, v1, "SQL Error: %{companionsync:sqlite3err}d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DF835000, v0, OS_LOG_TYPE_FAULT, "NMSWindowData: unable to connect to shared DB for service %{public}@", v1, 0xCu);
 }
 
 - (void)_openDBForceRecreate:(void *)a3 .cold.2(uint64_t *a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = a2;
   v6 = _SYObfuscate(a3);
+  LODWORD(v13) = 138412546;
+  *(&v13 + 4) = v4;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_5_2(&dword_1DF835000, v7, v8, "Unable to remove obstructing file at path '%@'. Error = %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_2(&dword_1DF835000, v7, v8, "Unable to remove obstructing file at path '%@'. Error = %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 - (void)_openDBForceRecreate:(void *)a3 .cold.4(uint64_t *a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = a2;
   v6 = _SYObfuscate(a3);
+  LODWORD(v13) = 138412546;
+  *(&v13 + 4) = v4;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_5_2(&dword_1DF835000, v7, v8, "Failed to create parent folder for messaging transmission window data at '%@'. Error = %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_2(&dword_1DF835000, v7, v8, "Failed to create parent folder for messaging transmission window data at '%@'. Error = %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 - (void)_openDBForceRecreate:(void *)a3 .cold.6(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = a2;
-  v5 = _SYObfuscate(a3);
+  v5 = a2;
+  v6 = _SYObfuscate(a3);
+  LODWORD(v13) = 138412546;
+  *(&v13 + 4) = a1;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_6_1(&dword_1DF835000, v6, v7, "NMSWindowData: Failed to remove un-openable DB file at '%@': %{public}@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_1(&dword_1DF835000, v7, v8, "NMSWindowData: Failed to remove un-openable DB file at '%@': %{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 - (void)_openDBForceRecreate:.cold.8()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_1DF835000, v1, OS_LOG_TYPE_ERROR, "Could not open database: (%@): %{companionsync:sqlite3err}d", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DF835000, v1, OS_LOG_TYPE_ERROR, "Could not open database: (%@): %{companionsync:sqlite3err}d", v2, 0x12u);
 }
 
 - (void)_openDBForceRecreate:.cold.10()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Database '%@' failed to open after second try.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Database '%@' failed to open after second try.", v1, 0xCu);
 }
 
 @end

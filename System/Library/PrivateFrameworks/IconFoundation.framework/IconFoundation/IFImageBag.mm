@@ -123,44 +123,44 @@
   v12 = v11 * scale;
   [v9 dimension];
   v14 = v13;
-  [v10 scale];
-  if (v14 * v15 < v12)
+  scale = [v10 scale];
+  if (v14 * v16 < v12)
   {
-    v16 = 2;
-    v17 = 1.0;
+    v17 = 2;
+    v18 = 1.0;
     do
     {
-      if (v17 != scale)
+      if (v18 != scale)
       {
-        v18 = [(IFImageBag *)self imagesForScale:v17];
+        v19 = [(IFImageBag *)self imagesForScale:v18];
 
-        v20 = __33__IFImageBag_imageForSize_scale___block_invoke(width, height, v19, v18);
-        [v20 dimension];
-        v22 = v21;
-        [v20 scale];
-        v24 = v22 * v23;
+        v21 = __33__IFImageBag_imageForSize_scale___block_invoke(width, height, v20, v19);
+        [v21 dimension];
+        v23 = v22;
+        [v21 scale];
+        v25 = v23 * v24;
         [v10 dimension];
-        v26 = v25;
+        v27 = v26;
         [v10 scale];
-        if (v24 >= v26 * v27)
+        if (v25 >= v27 * v28)
         {
-          v28 = v20;
+          v29 = v21;
 
-          v10 = v28;
+          v10 = v29;
         }
 
-        v8 = v18;
+        v8 = v19;
       }
 
-      v17 = v17 + 1.0;
-      --v16;
+      v18 = v18 + 1.0;
+      --v17;
     }
 
-    while (v16);
-    v29 = IFDefaultLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    while (v17);
+    v30 = IFDefaultLog(scale);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      [IFImageBag imageForSize:v10 scale:v29];
+      [IFImageBag imageForSize:v10 scale:v30];
     }
   }
 

@@ -59,39 +59,39 @@ void __35__EDTruncateMailboxUpgradeStep_log__block_invoke(uint64_t a1)
 
 + (int64_t)countOver10kWithConnection:(id)connection
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v5 = [connectionCopy preparedStatementForQueryString:{@"SELECT url, count() FROM messages m JOIN mailboxes mb ON (m.mailbox = mb.rowid) GROUP BY url"}];;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __59__EDTruncateMailboxUpgradeStep_countOver10kWithConnection___block_invoke;
-  v17[3] = &unk_1E8250178;
-  v19 = &v20;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __59__EDTruncateMailboxUpgradeStep_countOver10kWithConnection___block_invoke;
+  v16[3] = &unk_1E8250178;
+  v18 = &v19;
   v6 = v4;
-  v18 = v6;
-  v16 = 0;
-  v7 = [v5 executeUsingBlock:v17 error:&v16];
-  v8 = v16;
+  v17 = v6;
+  v15 = 0;
+  v7 = [v5 executeUsingBlock:v16 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
     v9 = +[EDTruncateMailboxUpgradeStep log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v21[3];
+      v10 = v20[3];
       *buf = 134218242;
-      v25 = v10;
-      v26 = 2114;
-      v27 = v6;
+      v24 = v10;
+      v25 = 2114;
+      v26 = v6;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Message counts over 10k: %lld, counts: %{public}@", buf, 0x16u);
     }
 
-    v11 = v21[3];
+    v11 = v20[3];
   }
 
   else
@@ -106,8 +106,7 @@ void __35__EDTruncateMailboxUpgradeStep_log__block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  _Block_object_dispose(&v20, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
   return v11;
 }
 

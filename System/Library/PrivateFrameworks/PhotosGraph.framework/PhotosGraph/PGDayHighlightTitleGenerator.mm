@@ -16,27 +16,26 @@
 
 - (id)dayHighlightMeaningLabels
 {
-  v5[11] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Entertainment";
-  v5[1] = @"Theater";
-  v5[2] = @"Dance";
-  v5[3] = @"AmusementPark";
-  v5[4] = @"SportEvent";
-  v5[5] = @"Performance";
-  v5[6] = @"Concert";
-  v5[7] = @"Festival";
-  v5[8] = @"Museum";
-  v5[9] = @"Birthday";
-  v5[10] = @"HolidayEvent";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:11];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[11] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Entertainment";
+  v4[1] = @"Theater";
+  v4[2] = @"Dance";
+  v4[3] = @"AmusementPark";
+  v4[4] = @"SportEvent";
+  v4[5] = @"Performance";
+  v4[6] = @"Concert";
+  v4[7] = @"Festival";
+  v4[8] = @"Museum";
+  v4[9] = @"Birthday";
+  v4[10] = @"HolidayEvent";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:11];
 
   return v2;
 }
 
 - (id)localizedTitleStringFromDistrictNode:(id)node districtName:(id)name
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   nameCopy = name;
   locationHelper = [(PGTitleGenerationContext *)self->_titleGenerationContext locationHelper];
@@ -44,7 +43,7 @@
 
   if ([v9 count] == 1)
   {
-    v43 = nodeCopy;
+    v42 = nodeCopy;
     anyNode = [v9 anyNode];
     locationHelper2 = [(PGTitleGenerationContext *)self->_titleGenerationContext locationHelper];
     v12 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:anyNode locationHelper:locationHelper2];
@@ -52,33 +51,33 @@
     v13 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:0];
     v14 = objc_opt_new();
     v15 = objc_opt_new();
-    v42 = v12;
+    v41 = v12;
     [v13 setString:v12];
     string = [v13 string];
     v17 = [string length];
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_districtName___block_invoke;
-    v47[3] = &unk_27887FF90;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_districtName___block_invoke;
+    v46[3] = &unk_27887FF90;
     v18 = v13;
-    v48 = v18;
+    v47 = v18;
     v19 = v14;
-    v49 = v19;
-    [v18 enumerateTokensInRange:0 usingBlock:{v17, v47}];
+    v48 = v19;
+    [v18 enumerateTokensInRange:0 usingBlock:{v17, v46}];
     [v18 setString:nameCopy];
     string2 = [v18 string];
     v21 = [string2 length];
 
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_districtName___block_invoke_2;
-    v44[3] = &unk_27887FF90;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_districtName___block_invoke_2;
+    v43[3] = &unk_27887FF90;
     v22 = v18;
-    v45 = v22;
+    v44 = v22;
     v23 = v15;
-    v46 = v23;
-    [v22 enumerateTokensInRange:0 usingBlock:{v21, v44}];
+    v45 = v23;
+    [v22 enumerateTokensInRange:0 usingBlock:{v21, v43}];
     v24 = [v23 count];
     v25 = [v19 count];
     v26 = v24 - v25;
@@ -88,12 +87,12 @@ LABEL_6:
       v30 = MEMORY[0x277CCACA8];
       v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v32 = [v31 localizedStringForKey:@"PGLocationTitleFormatOneDistrict %@ city %@" value:@"PGLocationTitleFormatOneDistrict %@ city %@" table:@"Localizable"];
-      v33 = v42;
-      v34 = [v30 localizedStringWithFormat:v32, nameCopy, v42];
+      v33 = v41;
+      v34 = [v30 localizedStringWithFormat:v32, nameCopy, v41];
 
-      v50[0] = nameCopy;
-      v50[1] = v42;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+      v49[0] = nameCopy;
+      v49[1] = v41;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
       v35 = [PGCommonTitleUtility titleWithNoLineBreakSpaceForTitle:v34 andUsedNames:v29];
     }
 
@@ -116,20 +115,20 @@ LABEL_6:
       }
 
       loggingConnection = self->_loggingConnection;
-      v33 = v42;
+      v33 = v41;
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v52 = v42;
-        v53 = 2112;
-        v54 = nameCopy;
+        v51 = v41;
+        v52 = 2112;
+        v53 = nameCopy;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Only city name %@ used for highlight subtitle, not using district name %@", buf, 0x16u);
       }
 
-      v35 = v42;
+      v35 = v41;
     }
 
-    nodeCopy = v43;
+    nodeCopy = v42;
   }
 
   else
@@ -137,19 +136,17 @@ LABEL_6:
     v36 = self->_loggingConnection;
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v40 = v36;
+      v39 = v36;
       uUID = [nodeCopy UUID];
       *buf = 138412546;
-      v52 = uUID;
-      v53 = 2112;
-      v54 = nameCopy;
-      _os_log_error_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_ERROR, "cityNode from districtNode count is invalid for districtNode: %@ with name: %@", buf, 0x16u);
+      v51 = uUID;
+      v52 = 2112;
+      v53 = nameCopy;
+      _os_log_error_impl(&dword_22F0FC000, v39, OS_LOG_TYPE_ERROR, "cityNode from districtNode count is invalid for districtNode: %@ with name: %@", buf, 0x16u);
     }
 
     v35 = 0;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -188,7 +185,7 @@ void __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_dis
 
 - (id)localizedTitleStringFromLocationFeature:(id)feature
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   v5 = [(PGDayHighlightTitleGenerator *)self nameFromLocationFeature:featureCopy];
   locationNode = [featureCopy locationNode];
@@ -219,17 +216,15 @@ void __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_dis
     loggingConnection = self->_loggingConnection;
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v17 = loggingConnection;
+      v16 = loggingConnection;
       name = [locationNode name];
       *buf = 138412290;
-      v20 = name;
-      _os_log_error_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_ERROR, "Nil beautified locationName for locationNode %@", buf, 0xCu);
+      v19 = name;
+      _os_log_error_impl(&dword_22F0FC000, v16, OS_LOG_TYPE_ERROR, "Nil beautified locationName for locationNode %@", buf, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -308,67 +303,64 @@ void __82__PGDayHighlightTitleGenerator_localizedTitleStringFromDistrictNode_dis
 
 - (id)localizedTitleStringForSortedSummarizedFeatures:(id)features
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v9 = featuresCopy;
-  v10 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         type = [v14 type];
         v16 = v4;
-        if (type == 1)
+        if (type != 1)
         {
-          goto LABEL_11;
-        }
-
-        type2 = [v14 type];
-        v16 = v5;
-        if (type2 != 3)
-        {
-          type3 = [v14 type];
-          v16 = v6;
-          if (type3 != 2)
+          type2 = [v14 type];
+          v16 = v5;
+          if (type2 != 3)
           {
-            type4 = [v14 type];
-            v16 = v7;
-            if (type4 != 4)
+            type3 = [v14 type];
+            v16 = v6;
+            if (type3 != 2)
             {
-              type5 = [v14 type];
-              v16 = v8;
-              if (type5 != 5)
+              type4 = [v14 type];
+              v16 = v7;
+              if (type4 != 4)
               {
-                continue;
+                type5 = [v14 type];
+                v16 = v8;
+                if (type5 != 5)
+                {
+                  continue;
+                }
               }
             }
           }
         }
 
-LABEL_11:
         [v16 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v11);
@@ -400,8 +392,6 @@ LABEL_11:
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

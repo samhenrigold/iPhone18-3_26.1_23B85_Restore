@@ -154,7 +154,7 @@
 
 - (BOOL)shouldDelayGroupSubmissionOfActivity:(id)activity
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   rateLimitConfigurationName = [activityCopy rateLimitConfigurationName];
 
@@ -175,72 +175,72 @@
         v10 = [objc_opt_class() pluginGroupNameForGroupName:_DASDefaultIntensiveGroupName];
         if (![v7 isEqualToString:v10])
         {
-          v13 = [objc_opt_class() pluginGroupNameForGroupName:_DASDefaultRemoteGroupName];
-          v14 = [v7 isEqualToString:v13];
+          v12 = [objc_opt_class() pluginGroupNameForGroupName:_DASDefaultRemoteGroupName];
+          v13 = [v7 isEqualToString:v12];
 
-          if ((v14 & 1) == 0)
+          if ((v13 & 1) == 0)
           {
-            v15 = [(_DASSubmissionManager *)self capacityForGroupName:v7];
-            v16 = self->_activityGroupQueue;
-            objc_sync_enter(v16);
-            v17 = [(NSMutableDictionary *)self->_submittedActivities objectForKeyedSubscript:v7];
-            v18 = v17;
-            if (v17)
+            v14 = [(_DASSubmissionManager *)self capacityForGroupName:v7];
+            v15 = self->_activityGroupQueue;
+            objc_sync_enter(v15);
+            v16 = [(NSMutableDictionary *)self->_submittedActivities objectForKeyedSubscript:v7];
+            v17 = v16;
+            if (v16)
             {
-              v19 = [v17 count];
-              if ([(_DASSubmissionManager *)self shouldQueueActivity:activityCopy]&& v19 >= v15 && v19 >= 0xF)
+              v18 = [v16 count];
+              if ([(_DASSubmissionManager *)self shouldQueueActivity:activityCopy]&& v18 >= v14 && v18 >= 0xF)
               {
-                v20 = [(NSMutableDictionary *)self->_activityGroupQueue objectForKeyedSubscript:v7];
-                if (!v20)
+                v19 = [(NSMutableDictionary *)self->_activityGroupQueue objectForKeyedSubscript:v7];
+                if (!v19)
                 {
-                  v20 = +[_DASPriorityQueue priorityQueue];
-                  [(NSMutableDictionary *)self->_activityGroupQueue setObject:v20 forKeyedSubscript:v7];
+                  v19 = +[_DASPriorityQueue priorityQueue];
+                  [(NSMutableDictionary *)self->_activityGroupQueue setObject:v19 forKeyedSubscript:v7];
                 }
 
-                -[NSObject addObject:withPriority:](v20, "addObject:withPriority:", activityCopy, [activityCopy schedulingPriority]);
-                v21 = self->_log;
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                -[NSObject addObject:withPriority:](v19, "addObject:withPriority:", activityCopy, [activityCopy schedulingPriority]);
+                v20 = self->_log;
+                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                 {
-                  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v20, "count")}];
-                  v26 = 138412546;
-                  v27 = v7;
-                  v28 = 2112;
-                  v29 = v22;
-                  _os_log_impl(&dword_1B6E2F000, v21, OS_LOG_TYPE_DEFAULT, "Group %@ has %@ activities queued in framework", &v26, 0x16u);
+                  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject count](v19, "count")}];
+                  v25 = 138412546;
+                  v26 = v7;
+                  v27 = 2112;
+                  v28 = v21;
+                  _os_log_impl(&dword_1B6E2F000, v20, OS_LOG_TYPE_DEFAULT, "Group %@ has %@ activities queued in framework", &v25, 0x16u);
                 }
 
-                v23 = 1;
+                v22 = 1;
               }
 
               else
               {
-                [v18 addObject:activityCopy];
-                v20 = self->_log;
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                [v17 addObject:activityCopy];
+                v19 = self->_log;
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
-                  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
-                  v26 = 138412546;
-                  v27 = v24;
-                  v28 = 2112;
-                  v29 = v7;
-                  _os_log_impl(&dword_1B6E2F000, v20, OS_LOG_TYPE_DEFAULT, "Have submitted to daemon %@ activities in group %@", &v26, 0x16u);
+                  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "count")}];
+                  v25 = 138412546;
+                  v26 = v23;
+                  v27 = 2112;
+                  v28 = v7;
+                  _os_log_impl(&dword_1B6E2F000, v19, OS_LOG_TYPE_DEFAULT, "Have submitted to daemon %@ activities in group %@", &v25, 0x16u);
                 }
 
-                v23 = 0;
+                v22 = 0;
               }
 
-              v25 = v18;
+              v24 = v17;
             }
 
             else
             {
-              v25 = [MEMORY[0x1E695DFA8] setWithObject:activityCopy];
-              [(NSMutableDictionary *)self->_submittedActivities setObject:v25 forKeyedSubscript:v7];
-              v23 = 0;
+              v24 = [MEMORY[0x1E695DFA8] setWithObject:activityCopy];
+              [(NSMutableDictionary *)self->_submittedActivities setObject:v24 forKeyedSubscript:v7];
+              v22 = 0;
             }
 
-            objc_sync_exit(v16);
-            v6 = (v18 != 0) & v23;
+            objc_sync_exit(v15);
+            v6 = (v17 != 0) & v22;
             goto LABEL_12;
           }
 
@@ -259,7 +259,6 @@ LABEL_12:
   v6 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -277,7 +276,7 @@ LABEL_13:
 
 - (void)admitNextActivityAfterCompletionOf:(id)of withScheduler:(id)scheduler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   ofCopy = of;
   schedulerCopy = scheduler;
   v8 = [objc_opt_class() groupNameForActivity:ofCopy];
@@ -299,9 +298,9 @@ LABEL_13:
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
-        v16 = 138412290;
-        v17 = popFirst;
-        _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_INFO, "ADMITTING delayed activity %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = popFirst;
+        _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_INFO, "ADMITTING delayed activity %@", &v15, 0xCu);
       }
 
       [schedulerCopy submitActivity:popFirst inGroupWithName:v8];
@@ -313,8 +312,6 @@ LABEL_13:
       objc_sync_exit(v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createActivityGroup:(id)group
@@ -328,7 +325,7 @@ LABEL_13:
 
 - (void)submitActivity:(id)activity withScheduler:(id)scheduler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   schedulerCopy = scheduler;
   if ([(_DASSubmissionRateLimiter *)self->_rateLimiter trackActivity:activityCopy]|| ![(_DASSubmissionManager *)self shouldDelayGroupSubmissionOfActivity:activityCopy])
@@ -344,47 +341,45 @@ LABEL_13:
     {
       v10 = log;
       shortDescription = [activityCopy shortDescription];
-      v13 = 138543874;
-      v14 = activityCopy;
-      v15 = 2112;
-      v16 = shortDescription;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_1B6E2F000, v10, OS_LOG_TYPE_DEFAULT, "Delaying submission of %{public}@ %@, group %{public}@ full", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = activityCopy;
+      v14 = 2112;
+      v15 = shortDescription;
+      v16 = 2114;
+      v17 = v8;
+      _os_log_impl(&dword_1B6E2F000, v10, OS_LOG_TYPE_DEFAULT, "Delaying submission of %{public}@ %@, group %{public}@ full", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitActivities:(id)activities withScheduler:(id)scheduler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   activitiesCopy = activities;
   schedulerCopy = scheduler;
   v7 = [activitiesCopy sortedArrayUsingComparator:&__block_literal_global_4];
-  v19 = activitiesCopy;
+  v18 = activitiesCopy;
   v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(activitiesCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if ([(_DASSubmissionManager *)self shouldDelayGroupSubmissionOfActivity:v14])
         {
           v15 = [objc_opt_class() groupNameForActivity:v14];
@@ -392,9 +387,9 @@ LABEL_13:
           if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v25 = v14;
-            v26 = 2114;
-            v27 = v15;
+            v24 = v14;
+            v25 = 2114;
+            v26 = v15;
             _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_INFO, "Delaying submission of %{public}@, group %{public}@ full", buf, 0x16u);
           }
         }
@@ -405,19 +400,18 @@ LABEL_13:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v11);
   }
 
   [schedulerCopy submitActivities:v8];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)submitActivity:(id)activity inGroup:(id)group withScheduler:(id)scheduler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   groupCopy = group;
   schedulerCopy = scheduler;
@@ -431,11 +425,11 @@ LABEL_13:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543618;
-      v17 = activityCopy;
-      v18 = 2114;
-      v19 = v13;
-      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Delaying submission of %{public}@, group %{public}@ full", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = activityCopy;
+      v17 = 2114;
+      v18 = v13;
+      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Delaying submission of %{public}@, group %{public}@ full", &v15, 0x16u);
     }
   }
 
@@ -443,8 +437,6 @@ LABEL_13:
   {
     [schedulerCopy submitActivity:activityCopy inGroup:groupCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activityCanceled:(id)canceled withScheduler:(id)scheduler
@@ -464,13 +456,12 @@ LABEL_13:
 
 - (void)capacityForGroupName:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = &unk_1F2ED4A30;
-  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Could not find group with name %@, using capacity %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = &unk_1F2ED4A30;
+  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Could not find group with name %@, using capacity %@", &v2, 0x16u);
 }
 
 @end

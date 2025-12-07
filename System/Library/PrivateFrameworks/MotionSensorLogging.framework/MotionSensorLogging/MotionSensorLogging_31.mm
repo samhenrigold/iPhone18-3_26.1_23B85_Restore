@@ -48,9 +48,9 @@ uint64_t sub_25AC0BCA0(uint64_t a1)
   return v3;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasCorrection(uint64_t this)
+void *CMMsl::Item::makeGyroBiasCorrection(void *this)
 {
-  if (!*(this + 1360))
+  if (!this[170])
   {
     operator new();
   }
@@ -58,9 +58,9 @@ uint64_t CMMsl::Item::makeGyroBiasCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasConstraints(uint64_t this)
+void *CMMsl::Item::makeGyroBiasConstraints(void *this)
 {
-  if (!*(this + 1352))
+  if (!this[169])
   {
     operator new();
   }
@@ -68,9 +68,9 @@ uint64_t CMMsl::Item::makeGyroBiasConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGravityCorrection(uint64_t this)
+void *CMMsl::Item::makeGravityCorrection(void *this)
 {
-  if (!*(this + 1328))
+  if (!this[166])
   {
     operator new();
   }
@@ -78,9 +78,9 @@ uint64_t CMMsl::Item::makeGravityCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGravityConstraints(uint64_t this)
+void *CMMsl::Item::makeGravityConstraints(void *this)
 {
-  if (!*(this + 1320))
+  if (!this[165])
   {
     operator new();
   }
@@ -88,9 +88,9 @@ uint64_t CMMsl::Item::makeGravityConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompassCorrection(uint64_t this)
+void *CMMsl::Item::makeCompassCorrection(void *this)
 {
-  if (!*(this + 768))
+  if (!this[96])
   {
     operator new();
   }
@@ -98,9 +98,9 @@ uint64_t CMMsl::Item::makeCompassCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompassConstraints(uint64_t this)
+void *CMMsl::Item::makeCompassConstraints(void *this)
 {
-  if (!*(this + 760))
+  if (!this[95])
   {
     operator new();
   }
@@ -108,9 +108,9 @@ uint64_t CMMsl::Item::makeCompassConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCourseCorrection(uint64_t this)
+void *CMMsl::Item::makeCourseCorrection(void *this)
 {
-  if (!*(this + 816))
+  if (!this[102])
   {
     operator new();
   }
@@ -118,9 +118,9 @@ uint64_t CMMsl::Item::makeCourseCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCourseConstraints(uint64_t this)
+void *CMMsl::Item::makeCourseConstraints(void *this)
 {
-  if (!*(this + 808))
+  if (!this[101])
   {
     operator new();
   }
@@ -128,9 +128,9 @@ uint64_t CMMsl::Item::makeCourseConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeIntersiloNSCodingData(uint64_t this)
+void *CMMsl::Item::makeIntersiloNSCodingData(void *this)
 {
-  if (!*(this + 1672))
+  if (!this[209])
   {
     operator new();
   }
@@ -138,9 +138,9 @@ uint64_t CMMsl::Item::makeIntersiloNSCodingData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDeviceMotionCovariance(uint64_t this)
+void *CMMsl::Item::makeDeviceMotionCovariance(void *this)
 {
-  if (!*(this + 856))
+  if (!this[107])
   {
     operator new();
   }
@@ -148,9 +148,9 @@ uint64_t CMMsl::Item::makeDeviceMotionCovariance(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryAccel(uint64_t this)
+void *CMMsl::Item::makeAccessoryAccel(void *this)
 {
-  if (!*(this + 112))
+  if (!this[14])
   {
     operator new();
   }
@@ -158,9 +158,9 @@ uint64_t CMMsl::Item::makeAccessoryAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryGyro(uint64_t this)
+void *CMMsl::Item::makeAccessoryGyro(void *this)
 {
-  if (!*(this + 176))
+  if (!this[22])
   {
     operator new();
   }
@@ -168,9 +168,9 @@ uint64_t CMMsl::Item::makeAccessoryGyro(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryProx(uint64_t this)
+void *CMMsl::Item::makeAccessoryProx(void *this)
 {
-  if (!*(this + 256))
+  if (!this[32])
   {
     operator new();
   }
@@ -178,9 +178,9 @@ uint64_t CMMsl::Item::makeAccessoryProx(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderAccel(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderAccel(void *this)
 {
-  if (!*(this + 3720))
+  if (!this[465])
   {
     operator new();
   }
@@ -188,9 +188,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderBodyMetrics(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderBodyMetrics(void *this)
 {
-  if (!*(this + 3760))
+  if (!this[470])
   {
     operator new();
   }
@@ -198,9 +198,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderBodyMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderElevation(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderElevation(void *this)
 {
-  if (!*(this + 3776))
+  if (!this[472])
   {
     operator new();
   }
@@ -208,9 +208,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderElevation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderHeartRate(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderHeartRate(void *this)
 {
-  if (!*(this + 3808))
+  if (!this[476])
   {
     operator new();
   }
@@ -218,9 +218,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderHeartRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderRotationRate(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderRotationRate(void *this)
 {
-  if (!*(this + 3864))
+  if (!this[483])
   {
     operator new();
   }
@@ -228,9 +228,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderRotationRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderOdometer(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderOdometer(void *this)
 {
-  if (!*(this + 3848))
+  if (!this[481])
   {
     operator new();
   }
@@ -238,9 +238,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderOdometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderWorkoutEvent(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderWorkoutEvent(void *this)
 {
-  if (!*(this + 3896))
+  if (!this[487])
   {
     operator new();
   }
@@ -248,9 +248,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderWorkoutEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVo2MaxInput(uint64_t this)
+void *CMMsl::Item::makeVo2MaxInput(void *this)
 {
-  if (!*(this + 3592))
+  if (!this[449])
   {
     operator new();
   }
@@ -258,9 +258,9 @@ uint64_t CMMsl::Item::makeVo2MaxInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBraveHeartDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeBraveHeartDeviceMotion(void *this)
 {
-  if (!*(this + 600))
+  if (!this[75])
   {
     operator new();
   }
@@ -268,9 +268,9 @@ uint64_t CMMsl::Item::makeBraveHeartDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBraveHeartNatalieData(uint64_t this)
+void *CMMsl::Item::makeBraveHeartNatalieData(void *this)
 {
-  if (!*(this + 608))
+  if (!this[76])
   {
     operator new();
   }
@@ -278,9 +278,9 @@ uint64_t CMMsl::Item::makeBraveHeartNatalieData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBraveHeartVO2MaxInput(uint64_t this)
+void *CMMsl::Item::makeBraveHeartVO2MaxInput(void *this)
 {
-  if (!*(this + 616))
+  if (!this[77])
   {
     operator new();
   }
@@ -288,9 +288,9 @@ uint64_t CMMsl::Item::makeBraveHeartVO2MaxInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBraveHeartAccel(uint64_t this)
+void *CMMsl::Item::makeBraveHeartAccel(void *this)
 {
-  if (!*(this + 592))
+  if (!this[74])
   {
     operator new();
   }
@@ -298,9 +298,9 @@ uint64_t CMMsl::Item::makeBraveHeartAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBraveHeartWorkoutEvent(uint64_t this)
+void *CMMsl::Item::makeBraveHeartWorkoutEvent(void *this)
 {
-  if (!*(this + 624))
+  if (!this[78])
   {
     operator new();
   }
@@ -308,9 +308,9 @@ uint64_t CMMsl::Item::makeBraveHeartWorkoutEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderHealthKitInfo(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderHealthKitInfo(void *this)
 {
-  if (!*(this + 3800))
+  if (!this[475])
   {
     operator new();
   }
@@ -318,9 +318,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderHealthKitInfo(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePearlAttitude(uint64_t this)
+void *CMMsl::Item::makePearlAttitude(void *this)
 {
-  if (!*(this + 2544))
+  if (!this[318])
   {
     operator new();
   }
@@ -328,9 +328,9 @@ uint64_t CMMsl::Item::makePearlAttitude(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRotationRate(uint64_t this)
+void *CMMsl::Item::makeRotationRate(void *this)
 {
-  if (!*(this + 2968))
+  if (!this[371])
   {
     operator new();
   }
@@ -338,9 +338,9 @@ uint64_t CMMsl::Item::makeRotationRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderWatchOrientationSettings(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderWatchOrientationSettings(void *this)
 {
-  if (!*(this + 3880))
+  if (!this[485])
   {
     operator new();
   }
@@ -348,9 +348,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderWatchOrientationSettings(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchOnWristState(uint64_t this)
+void *CMMsl::Item::makeWatchOnWristState(void *this)
 {
-  if (!*(this + 3672))
+  if (!this[459])
   {
     operator new();
   }
@@ -358,9 +358,9 @@ uint64_t CMMsl::Item::makeWatchOnWristState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCatherineHealthKitData(uint64_t this)
+void *CMMsl::Item::makeCatherineHealthKitData(void *this)
 {
-  if (!*(this + 688))
+  if (!this[86])
   {
     operator new();
   }
@@ -368,9 +368,9 @@ uint64_t CMMsl::Item::makeCatherineHealthKitData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWifiScanResults(uint64_t this)
+void *CMMsl::Item::makeWifiScanResults(void *this)
 {
-  if (!*(this + 3688))
+  if (!this[461])
   {
     operator new();
   }
@@ -378,9 +378,9 @@ uint64_t CMMsl::Item::makeWifiScanResults(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarTransitionEntry(uint64_t this)
+void *CMMsl::Item::makeInEarTransitionEntry(void *this)
 {
-  if (!*(this + 1640))
+  if (!this[205])
   {
     operator new();
   }
@@ -388,9 +388,9 @@ uint64_t CMMsl::Item::makeInEarTransitionEntry(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarSession(uint64_t this)
+void *CMMsl::Item::makeInEarSession(void *this)
 {
-  if (!*(this + 1624))
+  if (!this[203])
   {
     operator new();
   }
@@ -398,9 +398,9 @@ uint64_t CMMsl::Item::makeInEarSession(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarBaseline(uint64_t this)
+void *CMMsl::Item::makeInEarBaseline(void *this)
 {
-  if (!*(this + 1584))
+  if (!this[198])
   {
     operator new();
   }
@@ -408,9 +408,9 @@ uint64_t CMMsl::Item::makeInEarBaseline(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryProxSensorDrop(uint64_t this)
+void *CMMsl::Item::makeAccessoryProxSensorDrop(void *this)
 {
-  if (!*(this + 264))
+  if (!this[33])
   {
     operator new();
   }
@@ -418,9 +418,9 @@ uint64_t CMMsl::Item::makeAccessoryProxSensorDrop(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryProxTempComp(uint64_t this)
+void *CMMsl::Item::makeAccessoryProxTempComp(void *this)
 {
-  if (!*(this + 272))
+  if (!this[34])
   {
     operator new();
   }
@@ -428,9 +428,9 @@ uint64_t CMMsl::Item::makeAccessoryProxTempComp(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryWake(uint64_t this)
+void *CMMsl::Item::makeAccessoryWake(void *this)
 {
-  if (!*(this + 312))
+  if (!this[39])
   {
     operator new();
   }
@@ -438,9 +438,9 @@ uint64_t CMMsl::Item::makeAccessoryWake(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFacePose(uint64_t this)
+void *CMMsl::Item::makeFacePose(void *this)
 {
-  if (!*(this + 1024))
+  if (!this[128])
   {
     operator new();
   }
@@ -448,9 +448,9 @@ uint64_t CMMsl::Item::makeFacePose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderWifiScanResults(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderWifiScanResults(void *this)
 {
-  if (!*(this + 3888))
+  if (!this[486])
   {
     operator new();
   }
@@ -458,9 +458,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderWifiScanResults(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderPressure(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderPressure(void *this)
 {
-  if (!*(this + 3856))
+  if (!this[482])
   {
     operator new();
   }
@@ -468,9 +468,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderPressure(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarAdditionalState(uint64_t this)
+void *CMMsl::Item::makeInEarAdditionalState(void *this)
 {
-  if (!*(this + 1576))
+  if (!this[197])
   {
     operator new();
   }
@@ -478,9 +478,9 @@ uint64_t CMMsl::Item::makeInEarAdditionalState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeAccessoryDeviceMotion(void *this)
 {
-  if (!*(this + 160))
+  if (!this[20])
   {
     operator new();
   }
@@ -488,9 +488,9 @@ uint64_t CMMsl::Item::makeAccessoryDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVisionCompassBias(uint64_t this)
+void *CMMsl::Item::makeVisionCompassBias(void *this)
 {
-  if (!*(this + 3552))
+  if (!this[444])
   {
     operator new();
   }
@@ -498,9 +498,9 @@ uint64_t CMMsl::Item::makeVisionCompassBias(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeArSessionState(uint64_t this)
+void *CMMsl::Item::makeArSessionState(void *this)
 {
-  if (!*(this + 392))
+  if (!this[49])
   {
     operator new();
   }
@@ -508,9 +508,9 @@ uint64_t CMMsl::Item::makeArSessionState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVioEstimation(uint64_t this)
+void *CMMsl::Item::makeVioEstimation(void *this)
 {
-  if (!*(this + 3528))
+  if (!this[441])
   {
     operator new();
   }
@@ -518,9 +518,9 @@ uint64_t CMMsl::Item::makeVioEstimation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLslHeadingEstimation(uint64_t this)
+void *CMMsl::Item::makeLslHeadingEstimation(void *this)
 {
-  if (!*(this + 2088))
+  if (!this[261])
   {
     operator new();
   }
@@ -528,9 +528,9 @@ uint64_t CMMsl::Item::makeLslHeadingEstimation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallSnippet(uint64_t this)
+void *CMMsl::Item::makeFallSnippet(void *this)
 {
-  if (!*(this + 1112))
+  if (!this[139])
   {
     operator new();
   }
@@ -538,9 +538,9 @@ uint64_t CMMsl::Item::makeFallSnippet(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelerometerPace(uint64_t this)
+void *CMMsl::Item::makeAccelerometerPace(void *this)
 {
-  if (!*(this + 104))
+  if (!this[13])
   {
     operator new();
   }
@@ -548,9 +548,9 @@ uint64_t CMMsl::Item::makeAccelerometerPace(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMovementStats(uint64_t this)
+void *CMMsl::Item::makeMovementStats(void *this)
 {
-  if (!*(this + 2288))
+  if (!this[286])
   {
     operator new();
   }
@@ -558,9 +558,9 @@ uint64_t CMMsl::Item::makeMovementStats(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStepCountEntry(uint64_t this)
+void *CMMsl::Item::makeStepCountEntry(void *this)
 {
-  if (!*(this + 3280))
+  if (!this[410])
   {
     operator new();
   }
@@ -568,9 +568,9 @@ uint64_t CMMsl::Item::makeStepCountEntry(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMobilityBoutMetrics(uint64_t this)
+void *CMMsl::Item::makeMobilityBoutMetrics(void *this)
 {
-  if (!*(this + 2168))
+  if (!this[271])
   {
     operator new();
   }
@@ -578,9 +578,9 @@ uint64_t CMMsl::Item::makeMobilityBoutMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCoprocessorReplyGaitMetrics(uint64_t this)
+void *CMMsl::Item::makeCoprocessorReplyGaitMetrics(void *this)
 {
-  if (!*(this + 800))
+  if (!this[100])
   {
     operator new();
   }
@@ -588,9 +588,9 @@ uint64_t CMMsl::Item::makeCoprocessorReplyGaitMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVioPose(uint64_t this)
+void *CMMsl::Item::makeVioPose(void *this)
 {
-  if (!*(this + 3536))
+  if (!this[442])
   {
     operator new();
   }
@@ -598,9 +598,9 @@ uint64_t CMMsl::Item::makeVioPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSignalEnvironment(uint64_t this)
+void *CMMsl::Item::makeSignalEnvironment(void *this)
 {
-  if (!*(this + 3096))
+  if (!this[387])
   {
     operator new();
   }
@@ -608,9 +608,9 @@ uint64_t CMMsl::Item::makeSignalEnvironment(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVioReplayPose(uint64_t this)
+void *CMMsl::Item::makeVioReplayPose(void *this)
 {
-  if (!*(this + 3544))
+  if (!this[443])
   {
     operator new();
   }
@@ -618,9 +618,9 @@ uint64_t CMMsl::Item::makeVioReplayPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVisualStateMeasurement(uint64_t this)
+void *CMMsl::Item::makeVisualStateMeasurement(void *this)
 {
-  if (!*(this + 3584))
+  if (!this[448])
   {
     operator new();
   }
@@ -628,9 +628,9 @@ uint64_t CMMsl::Item::makeVisualStateMeasurement(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaTriggerDebug(uint64_t this)
+void *CMMsl::Item::makeKappaTriggerDebug(void *this)
 {
-  if (!*(this + 1960))
+  if (!this[245])
   {
     operator new();
   }
@@ -638,9 +638,9 @@ uint64_t CMMsl::Item::makeKappaTriggerDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaDirectionOfTravel(uint64_t this)
+void *CMMsl::Item::makeKappaDirectionOfTravel(void *this)
 {
-  if (!*(this + 1760))
+  if (!this[220])
   {
     operator new();
   }
@@ -648,9 +648,9 @@ uint64_t CMMsl::Item::makeKappaDirectionOfTravel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHgAccel(uint64_t this)
+void *CMMsl::Item::makeHgAccel(void *this)
 {
-  if (!*(this + 1552))
+  if (!this[194])
   {
     operator new();
   }
@@ -658,9 +658,9 @@ uint64_t CMMsl::Item::makeHgAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaSteps(uint64_t this)
+void *CMMsl::Item::makeKappaSteps(void *this)
 {
-  if (!*(this + 1928))
+  if (!this[241])
   {
     operator new();
   }
@@ -668,9 +668,9 @@ uint64_t CMMsl::Item::makeKappaSteps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeUserInteraction(uint64_t this)
+void *CMMsl::Item::makeUserInteraction(void *this)
 {
-  if (!*(this + 3448))
+  if (!this[431])
   {
     operator new();
   }
@@ -678,9 +678,9 @@ uint64_t CMMsl::Item::makeUserInteraction(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaRoads(uint64_t this)
+void *CMMsl::Item::makeKappaRoads(void *this)
 {
-  if (!*(this + 1888))
+  if (!this[236])
   {
     operator new();
   }
@@ -688,9 +688,9 @@ uint64_t CMMsl::Item::makeKappaRoads(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeUserStudyEvent(uint64_t this)
+void *CMMsl::Item::makeUserStudyEvent(void *this)
 {
-  if (!*(this + 3456))
+  if (!this[432])
   {
     operator new();
   }
@@ -698,9 +698,9 @@ uint64_t CMMsl::Item::makeUserStudyEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAuxiliaryDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeAuxiliaryDeviceMotion(void *this)
 {
-  if (!*(this + 424))
+  if (!this[53])
   {
     operator new();
   }
@@ -708,9 +708,9 @@ uint64_t CMMsl::Item::makeAuxiliaryDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTempestPoCAuxiliaryDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeTempestPoCAuxiliaryDeviceMotion(void *this)
 {
-  if (!*(this + 3392))
+  if (!this[424])
   {
     operator new();
   }
@@ -718,9 +718,9 @@ uint64_t CMMsl::Item::makeTempestPoCAuxiliaryDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAudioAccessoryDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeAudioAccessoryDeviceMotion(void *this)
 {
-  if (!*(this + 416))
+  if (!this[52])
   {
     operator new();
   }
@@ -728,9 +728,9 @@ uint64_t CMMsl::Item::makeAudioAccessoryDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTempestPoCListenerOrientation(uint64_t this)
+void *CMMsl::Item::makeTempestPoCListenerOrientation(void *this)
 {
-  if (!*(this + 3400))
+  if (!this[425])
   {
     operator new();
   }
@@ -738,9 +738,9 @@ uint64_t CMMsl::Item::makeTempestPoCListenerOrientation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderAccel800(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderAccel800(void *this)
 {
-  if (!*(this + 3728))
+  if (!this[466])
   {
     operator new();
   }
@@ -748,9 +748,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderAccel800(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAlsData(uint64_t this)
+void *CMMsl::Item::makeAlsData(void *this)
 {
-  if (!*(this + 336))
+  if (!this[42])
   {
     operator new();
   }
@@ -758,9 +758,9 @@ uint64_t CMMsl::Item::makeAlsData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderALSData(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderALSData(void *this)
 {
-  if (!*(this + 3712))
+  if (!this[464])
   {
     operator new();
   }
@@ -768,9 +768,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderALSData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVisualLocalization(uint64_t this)
+void *CMMsl::Item::makeVisualLocalization(void *this)
 {
-  if (!*(this + 3560))
+  if (!this[445])
   {
     operator new();
   }
@@ -778,9 +778,9 @@ uint64_t CMMsl::Item::makeVisualLocalization(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroFactoryCalibrationData(uint64_t this)
+void *CMMsl::Item::makeGyroFactoryCalibrationData(void *this)
 {
-  if (!*(this + 1448))
+  if (!this[181])
   {
     operator new();
   }
@@ -788,9 +788,9 @@ uint64_t CMMsl::Item::makeGyroFactoryCalibrationData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSpl(uint64_t this)
+void *CMMsl::Item::makeSpl(void *this)
 {
-  if (!*(this + 3184))
+  if (!this[398])
   {
     operator new();
   }
@@ -798,9 +798,9 @@ uint64_t CMMsl::Item::makeSpl(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFrequencyResponse(uint64_t this)
+void *CMMsl::Item::makeFrequencyResponse(void *this)
 {
-  if (!*(this + 1216))
+  if (!this[152])
   {
     operator new();
   }
@@ -808,9 +808,9 @@ uint64_t CMMsl::Item::makeFrequencyResponse(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeEmergencyState(uint64_t this)
+void *CMMsl::Item::makeEmergencyState(void *this)
 {
-  if (!*(this + 984))
+  if (!this[123])
   {
     operator new();
   }
@@ -818,9 +818,9 @@ uint64_t CMMsl::Item::makeEmergencyState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccel800(uint64_t this)
+void *CMMsl::Item::makeAccel800(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -828,9 +828,9 @@ uint64_t CMMsl::Item::makeAccel800(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionLocation(uint64_t this)
+void *CMMsl::Item::makeMotionLocation(void *this)
 {
-  if (!*(this + 2240))
+  if (!this[280])
   {
     operator new();
   }
@@ -838,9 +838,9 @@ uint64_t CMMsl::Item::makeMotionLocation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionActivity(uint64_t this)
+void *CMMsl::Item::makeMotionActivity(void *this)
 {
-  if (!*(this + 2200))
+  if (!this[275])
   {
     operator new();
   }
@@ -848,9 +848,9 @@ uint64_t CMMsl::Item::makeMotionActivity(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionPose(uint64_t this)
+void *CMMsl::Item::makeBioMotionPose(void *this)
 {
-  if (!*(this + 552))
+  if (!this[69])
   {
     operator new();
   }
@@ -858,9 +858,9 @@ uint64_t CMMsl::Item::makeBioMotionPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaTrigger(uint64_t this)
+void *CMMsl::Item::makeKappaTrigger(void *this)
 {
-  if (!*(this + 1944))
+  if (!this[243])
   {
     operator new();
   }
@@ -868,9 +868,9 @@ uint64_t CMMsl::Item::makeKappaTrigger(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelDMInSystemConfig(uint64_t this)
+void *CMMsl::Item::makeRelDMInSystemConfig(void *this)
 {
-  if (!*(this + 2912))
+  if (!this[364])
   {
     operator new();
   }
@@ -878,9 +878,9 @@ uint64_t CMMsl::Item::makeRelDMInSystemConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeJointLinkModelPose(uint64_t this)
+void *CMMsl::Item::makeJointLinkModelPose(void *this)
 {
-  if (!*(this + 1696))
+  if (!this[212])
   {
     operator new();
   }
@@ -888,9 +888,9 @@ uint64_t CMMsl::Item::makeJointLinkModelPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeConstrainedIntegratorPose(uint64_t this)
+void *CMMsl::Item::makeConstrainedIntegratorPose(void *this)
 {
-  if (!*(this + 792))
+  if (!this[99])
   {
     operator new();
   }
@@ -898,9 +898,9 @@ uint64_t CMMsl::Item::makeConstrainedIntegratorPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroCalibrationSample(uint64_t this)
+void *CMMsl::Item::makeGyroCalibrationSample(void *this)
 {
-  if (!*(this + 1408))
+  if (!this[176])
   {
     operator new();
   }
@@ -908,9 +908,9 @@ uint64_t CMMsl::Item::makeGyroCalibrationSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroCalibrationSampleNonlinear(uint64_t this)
+void *CMMsl::Item::makeGyroCalibrationSampleNonlinear(void *this)
 {
-  if (!*(this + 1416))
+  if (!this[177])
   {
     operator new();
   }
@@ -918,9 +918,9 @@ uint64_t CMMsl::Item::makeGyroCalibrationSampleNonlinear(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroCalibrationDataNonlinearNonFactory(uint64_t this)
+void *CMMsl::Item::makeGyroCalibrationDataNonlinearNonFactory(void *this)
 {
-  if (!*(this + 1400))
+  if (!this[175])
   {
     operator new();
   }
@@ -928,9 +928,9 @@ uint64_t CMMsl::Item::makeGyroCalibrationDataNonlinearNonFactory(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroCalibrationDataFactory(uint64_t this)
+void *CMMsl::Item::makeGyroCalibrationDataFactory(void *this)
 {
-  if (!*(this + 1392))
+  if (!this[174])
   {
     operator new();
   }
@@ -938,9 +938,9 @@ uint64_t CMMsl::Item::makeGyroCalibrationDataFactory(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionClassification(uint64_t this)
+void *CMMsl::Item::makeBioMotionClassification(void *this)
 {
-  if (!*(this + 528))
+  if (!this[66])
   {
     operator new();
   }
@@ -948,9 +948,9 @@ uint64_t CMMsl::Item::makeBioMotionClassification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFusedBioMotionClassification(uint64_t this)
+void *CMMsl::Item::makeFusedBioMotionClassification(void *this)
 {
-  if (!*(this + 1224))
+  if (!this[153])
   {
     operator new();
   }
@@ -958,9 +958,9 @@ uint64_t CMMsl::Item::makeFusedBioMotionClassification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeModelBasedBioMotionClassification(uint64_t this)
+void *CMMsl::Item::makeModelBasedBioMotionClassification(void *this)
 {
-  if (!*(this + 2192))
+  if (!this[274])
   {
     operator new();
   }
@@ -968,9 +968,9 @@ uint64_t CMMsl::Item::makeModelBasedBioMotionClassification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMLBasedBioMotionClassification(uint64_t this)
+void *CMMsl::Item::makeMLBasedBioMotionClassification(void *this)
 {
-  if (!*(this + 2096))
+  if (!this[262])
   {
     operator new();
   }
@@ -978,9 +978,9 @@ uint64_t CMMsl::Item::makeMLBasedBioMotionClassification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePose(uint64_t this)
+void *CMMsl::Item::makePose(void *this)
 {
-  if (!*(this + 2672))
+  if (!this[334])
   {
     operator new();
   }
@@ -988,9 +988,9 @@ uint64_t CMMsl::Item::makePose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePoseState(uint64_t this)
+void *CMMsl::Item::makePoseState(void *this)
 {
-  if (!*(this + 2680))
+  if (!this[335])
   {
     operator new();
   }
@@ -998,9 +998,9 @@ uint64_t CMMsl::Item::makePoseState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionPredictedPose(uint64_t this)
+void *CMMsl::Item::makeBioMotionPredictedPose(void *this)
 {
-  if (!*(this + 560))
+  if (!this[70])
   {
     operator new();
   }
@@ -1008,9 +1008,9 @@ uint64_t CMMsl::Item::makeBioMotionPredictedPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeJointLinkModelPredictedPose(uint64_t this)
+void *CMMsl::Item::makeJointLinkModelPredictedPose(void *this)
 {
-  if (!*(this + 1704))
+  if (!this[213])
   {
     operator new();
   }
@@ -1018,9 +1018,9 @@ uint64_t CMMsl::Item::makeJointLinkModelPredictedPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeConstrainedIntegratorModelPredictedPose(uint64_t this)
+void *CMMsl::Item::makeConstrainedIntegratorModelPredictedPose(void *this)
 {
-  if (!*(this + 784))
+  if (!this[98])
   {
     operator new();
   }
@@ -1028,9 +1028,9 @@ uint64_t CMMsl::Item::makeConstrainedIntegratorModelPredictedPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureCompensated(uint64_t this)
+void *CMMsl::Item::makePressureCompensated(void *this)
 {
-  if (!*(this + 2784))
+  if (!this[348])
   {
     operator new();
   }
@@ -1038,9 +1038,9 @@ uint64_t CMMsl::Item::makePressureCompensated(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVo2MaxOutput(uint64_t this)
+void *CMMsl::Item::makeVo2MaxOutput(void *this)
 {
-  if (!*(this + 3600))
+  if (!this[450])
   {
     operator new();
   }
@@ -1048,9 +1048,9 @@ uint64_t CMMsl::Item::makeVo2MaxOutput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagneticAccessoryType1(uint64_t this)
+void *CMMsl::Item::makeMagneticAccessoryType1(void *this)
 {
-  if (!*(this + 2112))
+  if (!this[264])
   {
     operator new();
   }
@@ -1058,9 +1058,9 @@ uint64_t CMMsl::Item::makeMagneticAccessoryType1(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagneticAccessoryType2(uint64_t this)
+void *CMMsl::Item::makeMagneticAccessoryType2(void *this)
 {
-  if (!*(this + 2120))
+  if (!this[265])
   {
     operator new();
   }
@@ -1068,9 +1068,9 @@ uint64_t CMMsl::Item::makeMagneticAccessoryType2(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureCalibration(uint64_t this)
+void *CMMsl::Item::makePressureCalibration(void *this)
 {
-  if (!*(this + 2776))
+  if (!this[347])
   {
     operator new();
   }
@@ -1078,9 +1078,9 @@ uint64_t CMMsl::Item::makePressureCalibration(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderMagnetometer(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderMagnetometer(void *this)
 {
-  if (!*(this + 3840))
+  if (!this[480])
   {
     operator new();
   }
@@ -1088,9 +1088,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderMagnetometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderCompassCalibration(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderCompassCalibration(void *this)
 {
-  if (!*(this + 3768))
+  if (!this[471])
   {
     operator new();
   }
@@ -1098,9 +1098,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderCompassCalibration(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRawAudio(uint64_t this)
+void *CMMsl::Item::makeRawAudio(void *this)
 {
-  if (!*(this + 2904))
+  if (!this[363])
   {
     operator new();
   }
@@ -1108,9 +1108,9 @@ uint64_t CMMsl::Item::makeRawAudio(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCV3DPredictedPose(uint64_t this)
+void *CMMsl::Item::makeCV3DPredictedPose(void *this)
 {
-  if (!*(this + 656))
+  if (!this[82])
   {
     operator new();
   }
@@ -1118,9 +1118,9 @@ uint64_t CMMsl::Item::makeCV3DPredictedPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionLinkLengthFitParameters(uint64_t this)
+void *CMMsl::Item::makeBioMotionLinkLengthFitParameters(void *this)
 {
-  if (!*(this + 536))
+  if (!this[67])
   {
     operator new();
   }
@@ -1128,9 +1128,9 @@ uint64_t CMMsl::Item::makeBioMotionLinkLengthFitParameters(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionOnlineLinkLengthUpdate(uint64_t this)
+void *CMMsl::Item::makeBioMotionOnlineLinkLengthUpdate(void *this)
 {
-  if (!*(this + 544))
+  if (!this[68])
   {
     operator new();
   }
@@ -1138,9 +1138,9 @@ uint64_t CMMsl::Item::makeBioMotionOnlineLinkLengthUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeOdtPose(uint64_t this)
+void *CMMsl::Item::makeOdtPose(void *this)
 {
-  if (!*(this + 2352))
+  if (!this[294])
   {
     operator new();
   }
@@ -1148,9 +1148,9 @@ uint64_t CMMsl::Item::makeOdtPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilTipForce(uint64_t this)
+void *CMMsl::Item::makePencilTipForce(void *this)
 {
-  if (!*(this + 2632))
+  if (!this[329])
   {
     operator new();
   }
@@ -1158,9 +1158,9 @@ uint64_t CMMsl::Item::makePencilTipForce(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilTouch(uint64_t this)
+void *CMMsl::Item::makePencilTouch(void *this)
 {
-  if (!*(this + 2640))
+  if (!this[330])
   {
     operator new();
   }
@@ -1168,9 +1168,9 @@ uint64_t CMMsl::Item::makePencilTouch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAveragedALSData(uint64_t this)
+void *CMMsl::Item::makeAveragedALSData(void *this)
 {
-  if (!*(this + 432))
+  if (!this[54])
   {
     operator new();
   }
@@ -1178,9 +1178,9 @@ uint64_t CMMsl::Item::makeAveragedALSData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTimestamp(uint64_t this)
+void *CMMsl::Item::makeTimestamp(void *this)
 {
-  if (!*(this + 3408))
+  if (!this[426])
   {
     operator new();
   }
@@ -1188,9 +1188,9 @@ uint64_t CMMsl::Item::makeTimestamp(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAppleCV3DSLAMState(uint64_t this)
+void *CMMsl::Item::makeAppleCV3DSLAMState(void *this)
 {
-  if (!*(this + 384))
+  if (!this[48])
   {
     operator new();
   }
@@ -1198,9 +1198,9 @@ uint64_t CMMsl::Item::makeAppleCV3DSLAMState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionAnchorPose(uint64_t this)
+void *CMMsl::Item::makeBioMotionAnchorPose(void *this)
 {
-  if (!*(this + 520))
+  if (!this[65])
   {
     operator new();
   }
@@ -1208,9 +1208,9 @@ uint64_t CMMsl::Item::makeBioMotionAnchorPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBioMotionPropagatedAnchor(uint64_t this)
+void *CMMsl::Item::makeBioMotionPropagatedAnchor(void *this)
 {
-  if (!*(this + 568))
+  if (!this[71])
   {
     operator new();
   }
@@ -1218,9 +1218,9 @@ uint64_t CMMsl::Item::makeBioMotionPropagatedAnchor(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWalkingSteadinessClassification(uint64_t this)
+void *CMMsl::Item::makeWalkingSteadinessClassification(void *this)
 {
-  if (!*(this + 3632))
+  if (!this[454])
   {
     operator new();
   }
@@ -1228,9 +1228,9 @@ uint64_t CMMsl::Item::makeWalkingSteadinessClassification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelResult(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelResult(void *this)
 {
-  if (!*(this + 3248))
+  if (!this[406])
   {
     operator new();
   }
@@ -1238,9 +1238,9 @@ uint64_t CMMsl::Item::makeSteadinessModelResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessEvent(uint64_t this)
+void *CMMsl::Item::makeSteadinessEvent(void *this)
 {
-  if (!*(this + 3208))
+  if (!this[401])
   {
     operator new();
   }
@@ -1248,9 +1248,9 @@ uint64_t CMMsl::Item::makeSteadinessEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelGaitBaselineFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelGaitBaselineFeatures(void *this)
 {
-  if (!*(this + 3232))
+  if (!this[404])
   {
     operator new();
   }
@@ -1258,9 +1258,9 @@ uint64_t CMMsl::Item::makeSteadinessModelGaitBaselineFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelContinuousWalkingFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelContinuousWalkingFeatures(void *this)
 {
-  if (!*(this + 3224))
+  if (!this[403])
   {
     operator new();
   }
@@ -1268,9 +1268,9 @@ uint64_t CMMsl::Item::makeSteadinessModelContinuousWalkingFeatures(uint64_t this
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelTemporalDispersionFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelTemporalDispersionFeatures(void *this)
 {
-  if (!*(this + 3256))
+  if (!this[407])
   {
     operator new();
   }
@@ -1278,9 +1278,9 @@ uint64_t CMMsl::Item::makeSteadinessModelTemporalDispersionFeatures(uint64_t thi
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelTemporalEntropyFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelTemporalEntropyFeatures(void *this)
 {
-  if (!*(this + 3264))
+  if (!this[408])
   {
     operator new();
   }
@@ -1288,9 +1288,9 @@ uint64_t CMMsl::Item::makeSteadinessModelTemporalEntropyFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelBalanceFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelBalanceFeatures(void *this)
 {
-  if (!*(this + 3216))
+  if (!this[402])
   {
     operator new();
   }
@@ -1298,9 +1298,9 @@ uint64_t CMMsl::Item::makeSteadinessModelBalanceFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagnetometerReset(uint64_t this)
+void *CMMsl::Item::makeMagnetometerReset(void *this)
 {
-  if (!*(this + 2144))
+  if (!this[268])
   {
     operator new();
   }
@@ -1308,9 +1308,9 @@ uint64_t CMMsl::Item::makeMagnetometerReset(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderWatchOnWristStatus(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderWatchOnWristStatus(void *this)
 {
-  if (!*(this + 3872))
+  if (!this[484])
   {
     operator new();
   }
@@ -1318,9 +1318,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderWatchOnWristStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLiftToWakeOnHeadStatus(uint64_t this)
+void *CMMsl::Item::makeLiftToWakeOnHeadStatus(void *this)
 {
-  if (!*(this + 2048))
+  if (!this[256])
   {
     operator new();
   }
@@ -1328,9 +1328,9 @@ uint64_t CMMsl::Item::makeLiftToWakeOnHeadStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryMagnetometer(uint64_t this)
+void *CMMsl::Item::makeAccessoryMagnetometer(void *this)
 {
-  if (!*(this + 232))
+  if (!this[29])
   {
     operator new();
   }
@@ -1338,9 +1338,9 @@ uint64_t CMMsl::Item::makeAccessoryMagnetometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStepCountEntryAddition(uint64_t this)
+void *CMMsl::Item::makeStepCountEntryAddition(void *this)
 {
-  if (!*(this + 3288))
+  if (!this[411])
   {
     operator new();
   }
@@ -1348,9 +1348,9 @@ uint64_t CMMsl::Item::makeStepCountEntryAddition(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStepDistanceFusionResult(uint64_t this)
+void *CMMsl::Item::makeStepDistanceFusionResult(void *this)
 {
-  if (!*(this + 3296))
+  if (!this[412])
   {
     operator new();
   }
@@ -1358,9 +1358,9 @@ uint64_t CMMsl::Item::makeStepDistanceFusionResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSkeleton3D(uint64_t this)
+void *CMMsl::Item::makeSkeleton3D(void *this)
 {
-  if (!*(this + 3152))
+  if (!this[394])
   {
     operator new();
   }
@@ -1368,9 +1368,9 @@ uint64_t CMMsl::Item::makeSkeleton3D(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCvWatchCalories(uint64_t this)
+void *CMMsl::Item::makeCvWatchCalories(void *this)
 {
-  if (!*(this + 832))
+  if (!this[104])
   {
     operator new();
   }
@@ -1378,9 +1378,9 @@ uint64_t CMMsl::Item::makeCvWatchCalories(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFaceBlendShapeCoefficientsSample(uint64_t this)
+void *CMMsl::Item::makeFaceBlendShapeCoefficientsSample(void *this)
 {
-  if (!*(this + 1000))
+  if (!this[125])
   {
     operator new();
   }
@@ -1388,9 +1388,9 @@ uint64_t CMMsl::Item::makeFaceBlendShapeCoefficientsSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBatteryStatus(uint64_t this)
+void *CMMsl::Item::makeBatteryStatus(void *this)
 {
-  if (!*(this + 512))
+  if (!this[64])
   {
     operator new();
   }
@@ -1398,9 +1398,9 @@ uint64_t CMMsl::Item::makeBatteryStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLockScreenStatus(uint64_t this)
+void *CMMsl::Item::makeLockScreenStatus(void *this)
 {
-  if (!*(this + 2080))
+  if (!this[260])
   {
     operator new();
   }
@@ -1408,9 +1408,9 @@ uint64_t CMMsl::Item::makeLockScreenStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBatterySaverModeStatus(uint64_t this)
+void *CMMsl::Item::makeBatterySaverModeStatus(void *this)
 {
-  if (!*(this + 504))
+  if (!this[63])
   {
     operator new();
   }
@@ -1418,9 +1418,9 @@ uint64_t CMMsl::Item::makeBatterySaverModeStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePowerManagementUserActivity(uint64_t this)
+void *CMMsl::Item::makePowerManagementUserActivity(void *this)
 {
-  if (!*(this + 2704))
+  if (!this[338])
   {
     operator new();
   }
@@ -1428,9 +1428,9 @@ uint64_t CMMsl::Item::makePowerManagementUserActivity(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFocusModes(uint64_t this)
+void *CMMsl::Item::makeFocusModes(void *this)
 {
-  if (!*(this + 1208))
+  if (!this[151])
   {
     operator new();
   }
@@ -1438,9 +1438,9 @@ uint64_t CMMsl::Item::makeFocusModes(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDisplayStatus(uint64_t this)
+void *CMMsl::Item::makeDisplayStatus(void *this)
 {
-  if (!*(this + 888))
+  if (!this[111])
   {
     operator new();
   }
@@ -1448,9 +1448,9 @@ uint64_t CMMsl::Item::makeDisplayStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAPSleep(uint64_t this)
+void *CMMsl::Item::makeAPSleep(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }
@@ -1458,9 +1458,9 @@ uint64_t CMMsl::Item::makeAPSleep(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAPWake(uint64_t this)
+void *CMMsl::Item::makeAPWake(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -1468,9 +1468,9 @@ uint64_t CMMsl::Item::makeAPWake(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAltimeterKF(uint64_t this)
+void *CMMsl::Item::makeAltimeterKF(void *this)
 {
-  if (!*(this + 360))
+  if (!this[45])
   {
     operator new();
   }
@@ -1478,9 +1478,9 @@ uint64_t CMMsl::Item::makeAltimeterKF(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLiftToWakeState(uint64_t this)
+void *CMMsl::Item::makeLiftToWakeState(void *this)
 {
-  if (!*(this + 2056))
+  if (!this[257])
   {
     operator new();
   }
@@ -1488,9 +1488,9 @@ uint64_t CMMsl::Item::makeLiftToWakeState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeViewObstructedState(uint64_t this)
+void *CMMsl::Item::makeViewObstructedState(void *this)
 {
-  if (!*(this + 3520))
+  if (!this[440])
   {
     operator new();
   }
@@ -1498,9 +1498,9 @@ uint64_t CMMsl::Item::makeViewObstructedState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningFormMetrics(uint64_t this)
+void *CMMsl::Item::makeRunningFormMetrics(void *this)
 {
-  if (!*(this + 2992))
+  if (!this[374])
   {
     operator new();
   }
@@ -1508,9 +1508,9 @@ uint64_t CMMsl::Item::makeRunningFormMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutSessionPriors(uint64_t this)
+void *CMMsl::Item::makeWorkoutSessionPriors(void *this)
 {
-  if (!*(this + 3912))
+  if (!this[489])
   {
     operator new();
   }
@@ -1518,9 +1518,9 @@ uint64_t CMMsl::Item::makeWorkoutSessionPriors(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderWorkoutSessionPriors(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderWorkoutSessionPriors(void *this)
 {
-  if (!*(this + 3904))
+  if (!this[488])
   {
     operator new();
   }
@@ -1528,9 +1528,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderWorkoutSessionPriors(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeArkitWorldPose(uint64_t this)
+void *CMMsl::Item::makeArkitWorldPose(void *this)
 {
-  if (!*(this + 400))
+  if (!this[50])
   {
     operator new();
   }
@@ -1538,9 +1538,9 @@ uint64_t CMMsl::Item::makeArkitWorldPose(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrImpulse(uint64_t this)
+void *CMMsl::Item::makePdrImpulse(void *this)
 {
-  if (!*(this + 2488))
+  if (!this[311])
   {
     operator new();
   }
@@ -1548,9 +1548,9 @@ uint64_t CMMsl::Item::makePdrImpulse(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePocketDetectionPacket(uint64_t this)
+void *CMMsl::Item::makePocketDetectionPacket(void *this)
 {
-  if (!*(this + 2664))
+  if (!this[333])
   {
     operator new();
   }
@@ -1558,9 +1558,9 @@ uint64_t CMMsl::Item::makePocketDetectionPacket(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLiftToWakeFeaturesNeo(uint64_t this)
+void *CMMsl::Item::makeLiftToWakeFeaturesNeo(void *this)
 {
-  if (!*(this + 2040))
+  if (!this[255])
   {
     operator new();
   }
@@ -1568,9 +1568,9 @@ uint64_t CMMsl::Item::makeLiftToWakeFeaturesNeo(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLiftToWakeStatusNeo(uint64_t this)
+void *CMMsl::Item::makeLiftToWakeStatusNeo(void *this)
 {
-  if (!*(this + 2064))
+  if (!this[258])
   {
     operator new();
   }
@@ -1578,9 +1578,9 @@ uint64_t CMMsl::Item::makeLiftToWakeStatusNeo(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningPower(uint64_t this)
+void *CMMsl::Item::makeRunningPower(void *this)
 {
-  if (!*(this + 3000))
+  if (!this[375])
   {
     operator new();
   }
@@ -1588,9 +1588,9 @@ uint64_t CMMsl::Item::makeRunningPower(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBasebandCompassCoex(uint64_t this)
+void *CMMsl::Item::makeBasebandCompassCoex(void *this)
 {
-  if (!*(this + 456))
+  if (!this[57])
   {
     operator new();
   }
@@ -1598,9 +1598,9 @@ uint64_t CMMsl::Item::makeBasebandCompassCoex(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBasebandCompassCoexConstraints(uint64_t this)
+void *CMMsl::Item::makeBasebandCompassCoexConstraints(void *this)
 {
-  if (!*(this + 464))
+  if (!this[58])
   {
     operator new();
   }
@@ -1608,9 +1608,9 @@ uint64_t CMMsl::Item::makeBasebandCompassCoexConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionContextActivity(uint64_t this)
+void *CMMsl::Item::makeMotionContextActivity(void *this)
 {
-  if (!*(this + 2216))
+  if (!this[277])
   {
     operator new();
   }
@@ -1618,9 +1618,9 @@ uint64_t CMMsl::Item::makeMotionContextActivity(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrAlgType(uint64_t this)
+void *CMMsl::Item::makePdrAlgType(void *this)
 {
-  if (!*(this + 2376))
+  if (!this[297])
   {
     operator new();
   }
@@ -1628,9 +1628,9 @@ uint64_t CMMsl::Item::makePdrAlgType(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelTNBFrame(uint64_t this)
+void *CMMsl::Item::makeAccelTNBFrame(void *this)
 {
-  if (!*(this + 96))
+  if (!this[12])
   {
     operator new();
   }
@@ -1638,9 +1638,9 @@ uint64_t CMMsl::Item::makeAccelTNBFrame(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDotEstimatorWithTNB(uint64_t this)
+void *CMMsl::Item::makeDotEstimatorWithTNB(void *this)
 {
-  if (!*(this + 936))
+  if (!this[117])
   {
     operator new();
   }
@@ -1648,9 +1648,9 @@ uint64_t CMMsl::Item::makeDotEstimatorWithTNB(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrMLModelOutput(uint64_t this)
+void *CMMsl::Item::makePdrMLModelOutput(void *this)
 {
-  if (!*(this + 2496))
+  if (!this[312])
   {
     operator new();
   }
@@ -1658,9 +1658,9 @@ uint64_t CMMsl::Item::makePdrMLModelOutput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGaitEventsModelOutput(uint64_t this)
+void *CMMsl::Item::makeGaitEventsModelOutput(void *this)
 {
-  if (!*(this + 1264))
+  if (!this[158])
   {
     operator new();
   }
@@ -1668,9 +1668,9 @@ uint64_t CMMsl::Item::makeGaitEventsModelOutput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGaitEventsStrideAggregation(uint64_t this)
+void *CMMsl::Item::makeGaitEventsStrideAggregation(void *this)
 {
-  if (!*(this + 1272))
+  if (!this[159])
   {
     operator new();
   }
@@ -1678,9 +1678,9 @@ uint64_t CMMsl::Item::makeGaitEventsStrideAggregation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGaitEventsHKResult(uint64_t this)
+void *CMMsl::Item::makeGaitEventsHKResult(void *this)
 {
-  if (!*(this + 1256))
+  if (!this[157])
   {
     operator new();
   }
@@ -1688,9 +1688,9 @@ uint64_t CMMsl::Item::makeGaitEventsHKResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFaceCovered(uint64_t this)
+void *CMMsl::Item::makeFaceCovered(void *this)
 {
-  if (!*(this + 1008))
+  if (!this[126])
   {
     operator new();
   }
@@ -1698,9 +1698,9 @@ uint64_t CMMsl::Item::makeFaceCovered(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderAveragedALSData(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderAveragedALSData(void *this)
 {
-  if (!*(this + 3752))
+  if (!this[469])
   {
     operator new();
   }
@@ -1708,9 +1708,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderAveragedALSData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStrideCalEntry(uint64_t this)
+void *CMMsl::Item::makeStrideCalEntry(void *this)
 {
-  if (!*(this + 3352))
+  if (!this[419])
   {
     operator new();
   }
@@ -1718,9 +1718,9 @@ uint64_t CMMsl::Item::makeStrideCalEntry(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningSpeedKFResult(uint64_t this)
+void *CMMsl::Item::makeRunningSpeedKFResult(void *this)
 {
-  if (!*(this + 3016))
+  if (!this[377])
   {
     operator new();
   }
@@ -1728,9 +1728,9 @@ uint64_t CMMsl::Item::makeRunningSpeedKFResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeProxPDP(uint64_t this)
+void *CMMsl::Item::makeProxPDP(void *this)
 {
-  if (!*(this + 2856))
+  if (!this[357])
   {
     operator new();
   }
@@ -1738,9 +1738,9 @@ uint64_t CMMsl::Item::makeProxPDP(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKeyboardMotionFeatures(uint64_t this)
+void *CMMsl::Item::makeKeyboardMotionFeatures(void *this)
 {
-  if (!*(this + 2000))
+  if (!this[250])
   {
     operator new();
   }
@@ -1748,9 +1748,9 @@ uint64_t CMMsl::Item::makeKeyboardMotionFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKeyboardMotionState(uint64_t this)
+void *CMMsl::Item::makeKeyboardMotionState(void *this)
 {
-  if (!*(this + 2008))
+  if (!this[251])
   {
     operator new();
   }
@@ -1758,9 +1758,9 @@ uint64_t CMMsl::Item::makeKeyboardMotionState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAlsPhone(uint64_t this)
+void *CMMsl::Item::makeAlsPhone(void *this)
 {
-  if (!*(this + 344))
+  if (!this[43])
   {
     operator new();
   }
@@ -1768,9 +1768,9 @@ uint64_t CMMsl::Item::makeAlsPhone(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKeyboardKeyPress(uint64_t this)
+void *CMMsl::Item::makeKeyboardKeyPress(void *this)
 {
-  if (!*(this + 1992))
+  if (!this[249])
   {
     operator new();
   }
@@ -1778,9 +1778,9 @@ uint64_t CMMsl::Item::makeKeyboardKeyPress(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWakeGestureNotification(uint64_t this)
+void *CMMsl::Item::makeWakeGestureNotification(void *this)
 {
-  if (!*(this + 3608))
+  if (!this[451])
   {
     operator new();
   }
@@ -1788,9 +1788,9 @@ uint64_t CMMsl::Item::makeWakeGestureNotification(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeProxBaselineEstimatorState(uint64_t this)
+void *CMMsl::Item::makeProxBaselineEstimatorState(void *this)
 {
-  if (!*(this + 2840))
+  if (!this[355])
   {
     operator new();
   }
@@ -1798,9 +1798,9 @@ uint64_t CMMsl::Item::makeProxBaselineEstimatorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBaselineResetCheck(uint64_t this)
+void *CMMsl::Item::makeBaselineResetCheck(void *this)
 {
-  if (!*(this + 480))
+  if (!this[60])
   {
     operator new();
   }
@@ -1808,9 +1808,9 @@ uint64_t CMMsl::Item::makeBaselineResetCheck(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRhythmicGnssOperatorStatus(uint64_t this)
+void *CMMsl::Item::makeRhythmicGnssOperatorStatus(void *this)
 {
-  if (!*(this + 2960))
+  if (!this[370])
   {
     operator new();
   }
@@ -1818,9 +1818,9 @@ uint64_t CMMsl::Item::makeRhythmicGnssOperatorStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKeyboardMotionTrackpad(uint64_t this)
+void *CMMsl::Item::makeKeyboardMotionTrackpad(void *this)
 {
-  if (!*(this + 2016))
+  if (!this[252])
   {
     operator new();
   }
@@ -1828,9 +1828,9 @@ uint64_t CMMsl::Item::makeKeyboardMotionTrackpad(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKeyboardAttached(uint64_t this)
+void *CMMsl::Item::makeKeyboardAttached(void *this)
 {
-  if (!*(this + 1984))
+  if (!this[248])
   {
     operator new();
   }
@@ -1838,9 +1838,9 @@ uint64_t CMMsl::Item::makeKeyboardAttached(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBacklightState(uint64_t this)
+void *CMMsl::Item::makeBacklightState(void *this)
 {
-  if (!*(this + 448))
+  if (!this[56])
   {
     operator new();
   }
@@ -1848,9 +1848,9 @@ uint64_t CMMsl::Item::makeBacklightState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBatchedLocationFromOdometer(uint64_t this)
+void *CMMsl::Item::makeBatchedLocationFromOdometer(void *this)
 {
-  if (!*(this + 488))
+  if (!this[61])
   {
     operator new();
   }
@@ -1858,9 +1858,9 @@ uint64_t CMMsl::Item::makeBatchedLocationFromOdometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeartRateReference(uint64_t this)
+void *CMMsl::Item::makeHeartRateReference(void *this)
 {
-  if (!*(this + 1536))
+  if (!this[192])
   {
     operator new();
   }
@@ -1868,9 +1868,9 @@ uint64_t CMMsl::Item::makeHeartRateReference(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSkeleton2D(uint64_t this)
+void *CMMsl::Item::makeSkeleton2D(void *this)
 {
-  if (!*(this + 3144))
+  if (!this[393])
   {
     operator new();
   }
@@ -1878,9 +1878,9 @@ uint64_t CMMsl::Item::makeSkeleton2D(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSkeleton3DRetargeted(uint64_t this)
+void *CMMsl::Item::makeSkeleton3DRetargeted(void *this)
 {
-  if (!*(this + 3168))
+  if (!this[396])
   {
     operator new();
   }
@@ -1888,9 +1888,9 @@ uint64_t CMMsl::Item::makeSkeleton3DRetargeted(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSkeleton3DLifted(uint64_t this)
+void *CMMsl::Item::makeSkeleton3DLifted(void *this)
 {
-  if (!*(this + 3160))
+  if (!this[395])
   {
     operator new();
   }
@@ -1898,9 +1898,9 @@ uint64_t CMMsl::Item::makeSkeleton3DLifted(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFitnessMachineSample(uint64_t this)
+void *CMMsl::Item::makeFitnessMachineSample(void *this)
 {
-  if (!*(this + 1144))
+  if (!this[143])
   {
     operator new();
   }
@@ -1908,9 +1908,9 @@ uint64_t CMMsl::Item::makeFitnessMachineSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchHeartRateData(uint64_t this)
+void *CMMsl::Item::makeWatchHeartRateData(void *this)
 {
-  if (!*(this + 3664))
+  if (!this[458])
   {
     operator new();
   }
@@ -1918,9 +1918,9 @@ uint64_t CMMsl::Item::makeWatchHeartRateData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFacePoseSynchronized(uint64_t this)
+void *CMMsl::Item::makeFacePoseSynchronized(void *this)
 {
-  if (!*(this + 1032))
+  if (!this[129])
   {
     operator new();
   }
@@ -1928,9 +1928,9 @@ uint64_t CMMsl::Item::makeFacePoseSynchronized(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchActiveCalories(uint64_t this)
+void *CMMsl::Item::makeWatchActiveCalories(void *this)
 {
-  if (!*(this + 3640))
+  if (!this[455])
   {
     operator new();
   }
@@ -1938,9 +1938,9 @@ uint64_t CMMsl::Item::makeWatchActiveCalories(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchBasalCalories(uint64_t this)
+void *CMMsl::Item::makeWatchBasalCalories(void *this)
 {
-  if (!*(this + 3648))
+  if (!this[456])
   {
     operator new();
   }
@@ -1948,9 +1948,9 @@ uint64_t CMMsl::Item::makeWatchBasalCalories(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTrackRunData(uint64_t this)
+void *CMMsl::Item::makeTrackRunData(void *this)
 {
-  if (!*(this + 3432))
+  if (!this[429])
   {
     operator new();
   }
@@ -1958,9 +1958,9 @@ uint64_t CMMsl::Item::makeTrackRunData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGnssAvailabilityPredictorData(uint64_t this)
+void *CMMsl::Item::makeGnssAvailabilityPredictorData(void *this)
 {
-  if (!*(this + 1304))
+  if (!this[163])
   {
     operator new();
   }
@@ -1968,9 +1968,9 @@ uint64_t CMMsl::Item::makeGnssAvailabilityPredictorData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGnssLeechLocationData(uint64_t this)
+void *CMMsl::Item::makeGnssLeechLocationData(void *this)
 {
-  if (!*(this + 1312))
+  if (!this[164])
   {
     operator new();
   }
@@ -1978,9 +1978,9 @@ uint64_t CMMsl::Item::makeGnssLeechLocationData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMapsRouteHintData(uint64_t this)
+void *CMMsl::Item::makeMapsRouteHintData(void *this)
 {
-  if (!*(this + 2152))
+  if (!this[269])
   {
     operator new();
   }
@@ -1988,9 +1988,9 @@ uint64_t CMMsl::Item::makeMapsRouteHintData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFitnessMachineData(uint64_t this)
+void *CMMsl::Item::makeFitnessMachineData(void *this)
 {
-  if (!*(this + 1136))
+  if (!this[142])
   {
     operator new();
   }
@@ -1998,9 +1998,9 @@ uint64_t CMMsl::Item::makeFitnessMachineData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderFitnessMachineData(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderFitnessMachineData(void *this)
 {
-  if (!*(this + 3792))
+  if (!this[474])
   {
     operator new();
   }
@@ -2008,9 +2008,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderFitnessMachineData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryActivityStateUpdate(uint64_t this)
+void *CMMsl::Item::makeAccessoryActivityStateUpdate(void *this)
 {
-  if (!*(this + 136))
+  if (!this[17])
   {
     operator new();
   }
@@ -2018,9 +2018,9 @@ uint64_t CMMsl::Item::makeAccessoryActivityStateUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePedestrianFenceExit(uint64_t this)
+void *CMMsl::Item::makePedestrianFenceExit(void *this)
 {
-  if (!*(this + 2568))
+  if (!this[321])
   {
     operator new();
   }
@@ -2028,9 +2028,9 @@ uint64_t CMMsl::Item::makePedestrianFenceExit(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInertialOdometry(uint64_t this)
+void *CMMsl::Item::makeInertialOdometry(void *this)
 {
-  if (!*(this + 1648))
+  if (!this[206])
   {
     operator new();
   }
@@ -2038,9 +2038,9 @@ uint64_t CMMsl::Item::makeInertialOdometry(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePhysicalEffortInput(uint64_t this)
+void *CMMsl::Item::makePhysicalEffortInput(void *this)
 {
-  if (!*(this + 2648))
+  if (!this[331])
   {
     operator new();
   }
@@ -2048,9 +2048,9 @@ uint64_t CMMsl::Item::makePhysicalEffortInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePhysicalEffortSample(uint64_t this)
+void *CMMsl::Item::makePhysicalEffortSample(void *this)
 {
-  if (!*(this + 2656))
+  if (!this[332])
   {
     operator new();
   }
@@ -2058,9 +2058,9 @@ uint64_t CMMsl::Item::makePhysicalEffortSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePedestrianCalorieModelDebugging(uint64_t this)
+void *CMMsl::Item::makePedestrianCalorieModelDebugging(void *this)
 {
-  if (!*(this + 2560))
+  if (!this[320])
   {
     operator new();
   }
@@ -2068,9 +2068,9 @@ uint64_t CMMsl::Item::makePedestrianCalorieModelDebugging(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeElevationThreshold(uint64_t this)
+void *CMMsl::Item::makeElevationThreshold(void *this)
 {
-  if (!*(this + 976))
+  if (!this[122])
   {
     operator new();
   }
@@ -2078,9 +2078,9 @@ uint64_t CMMsl::Item::makeElevationThreshold(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInitialHistoricalMeanSeaLevelPressure(uint64_t this)
+void *CMMsl::Item::makeInitialHistoricalMeanSeaLevelPressure(void *this)
 {
-  if (!*(this + 1656))
+  if (!this[207])
   {
     operator new();
   }
@@ -2088,9 +2088,9 @@ uint64_t CMMsl::Item::makeInitialHistoricalMeanSeaLevelPressure(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutActivity(uint64_t this)
+void *CMMsl::Item::makeWorkoutActivity(void *this)
 {
-  if (!*(this + 3696))
+  if (!this[462])
   {
     operator new();
   }
@@ -2098,9 +2098,9 @@ uint64_t CMMsl::Item::makeWorkoutActivity(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilDeviceMotion(uint64_t this)
+void *CMMsl::Item::makePencilDeviceMotion(void *this)
 {
-  if (!*(this + 2592))
+  if (!this[324])
   {
     operator new();
   }
@@ -2108,9 +2108,9 @@ uint64_t CMMsl::Item::makePencilDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilFusionResult(uint64_t this)
+void *CMMsl::Item::makePencilFusionResult(void *this)
 {
-  if (!*(this + 2616))
+  if (!this[327])
   {
     operator new();
   }
@@ -2118,9 +2118,9 @@ uint64_t CMMsl::Item::makePencilFusionResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHapticModuleState(uint64_t this)
+void *CMMsl::Item::makeHapticModuleState(void *this)
 {
-  if (!*(this + 1488))
+  if (!this[186])
   {
     operator new();
   }
@@ -2128,9 +2128,9 @@ uint64_t CMMsl::Item::makeHapticModuleState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSteadinessModelHarmonicFeatures(uint64_t this)
+void *CMMsl::Item::makeSteadinessModelHarmonicFeatures(void *this)
 {
-  if (!*(this + 3240))
+  if (!this[405])
   {
     operator new();
   }
@@ -2138,9 +2138,9 @@ uint64_t CMMsl::Item::makeSteadinessModelHarmonicFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilFusionReplayResult(uint64_t this)
+void *CMMsl::Item::makePencilFusionReplayResult(void *this)
 {
-  if (!*(this + 2608))
+  if (!this[326])
   {
     operator new();
   }
@@ -2148,9 +2148,9 @@ uint64_t CMMsl::Item::makePencilFusionReplayResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMobilitySmoothedGaitMetrics(uint64_t this)
+void *CMMsl::Item::makeMobilitySmoothedGaitMetrics(void *this)
 {
-  if (!*(this + 2184))
+  if (!this[273])
   {
     operator new();
   }
@@ -2158,9 +2158,9 @@ uint64_t CMMsl::Item::makeMobilitySmoothedGaitMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchEnclosureMaterial(uint64_t this)
+void *CMMsl::Item::makeWatchEnclosureMaterial(void *this)
 {
-  if (!*(this + 3656))
+  if (!this[457])
   {
     operator new();
   }
@@ -2168,9 +2168,9 @@ uint64_t CMMsl::Item::makeWatchEnclosureMaterial(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryHeartRate(uint64_t this)
+void *CMMsl::Item::makeAccessoryHeartRate(void *this)
 {
-  if (!*(this + 208))
+  if (!this[26])
   {
     operator new();
   }
@@ -2178,9 +2178,9 @@ uint64_t CMMsl::Item::makeAccessoryHeartRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryPPG(uint64_t this)
+void *CMMsl::Item::makeAccessoryPPG(void *this)
 {
-  if (!*(this + 248))
+  if (!this[31])
   {
     operator new();
   }
@@ -2188,9 +2188,9 @@ uint64_t CMMsl::Item::makeAccessoryPPG(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionLoiAltitudeData(uint64_t this)
+void *CMMsl::Item::makeMotionLoiAltitudeData(void *this)
 {
-  if (!*(this + 2248))
+  if (!this[281])
   {
     operator new();
   }
@@ -2198,9 +2198,9 @@ uint64_t CMMsl::Item::makeMotionLoiAltitudeData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDisplacingState(uint64_t this)
+void *CMMsl::Item::makeDisplacingState(void *this)
 {
-  if (!*(this + 872))
+  if (!this[109])
   {
     operator new();
   }
@@ -2208,9 +2208,9 @@ uint64_t CMMsl::Item::makeDisplacingState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePostureJoint(uint64_t this)
+void *CMMsl::Item::makePostureJoint(void *this)
 {
-  if (!*(this + 2688))
+  if (!this[336])
   {
     operator new();
   }
@@ -2218,9 +2218,9 @@ uint64_t CMMsl::Item::makePostureJoint(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePostureSkeleton(uint64_t this)
+void *CMMsl::Item::makePostureSkeleton(void *this)
 {
-  if (!*(this + 2696))
+  if (!this[337])
   {
     operator new();
   }
@@ -2228,9 +2228,9 @@ uint64_t CMMsl::Item::makePostureSkeleton(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHidShower(uint64_t this)
+void *CMMsl::Item::makeHidShower(void *this)
 {
-  if (!*(this + 1560))
+  if (!this[195])
   {
     operator new();
   }
@@ -2238,9 +2238,9 @@ uint64_t CMMsl::Item::makeHidShower(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderFaceCovered(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderFaceCovered(void *this)
 {
-  if (!*(this + 3784))
+  if (!this[473])
   {
     operator new();
   }
@@ -2248,9 +2248,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderFaceCovered(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStreamingHighFrequencyHeartRateData(uint64_t this)
+void *CMMsl::Item::makeStreamingHighFrequencyHeartRateData(void *this)
 {
-  if (!*(this + 3328))
+  if (!this[416])
   {
     operator new();
   }
@@ -2258,9 +2258,9 @@ uint64_t CMMsl::Item::makeStreamingHighFrequencyHeartRateData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeNormalGammaCalibrationBin(uint64_t this)
+void *CMMsl::Item::makeNormalGammaCalibrationBin(void *this)
 {
-  if (!*(this + 2328))
+  if (!this[291])
   {
     operator new();
   }
@@ -2268,9 +2268,9 @@ uint64_t CMMsl::Item::makeNormalGammaCalibrationBin(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMobilityCalibrationMessage(uint64_t this)
+void *CMMsl::Item::makeMobilityCalibrationMessage(void *this)
 {
-  if (!*(this + 2176))
+  if (!this[272])
   {
     operator new();
   }
@@ -2278,9 +2278,9 @@ uint64_t CMMsl::Item::makeMobilityCalibrationMessage(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeElevationBatchProcessingTimestamps(uint64_t this)
+void *CMMsl::Item::makeElevationBatchProcessingTimestamps(void *this)
 {
-  if (!*(this + 952))
+  if (!this[119])
   {
     operator new();
   }
@@ -2288,9 +2288,9 @@ uint64_t CMMsl::Item::makeElevationBatchProcessingTimestamps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompanionStepCountElevation(uint64_t this)
+void *CMMsl::Item::makeCompanionStepCountElevation(void *this)
 {
-  if (!*(this + 720))
+  if (!this[90])
   {
     operator new();
   }
@@ -2298,9 +2298,9 @@ uint64_t CMMsl::Item::makeCompanionStepCountElevation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGPSCalibrationBin(uint64_t this)
+void *CMMsl::Item::makeGPSCalibrationBin(void *this)
 {
-  if (!*(this + 1232))
+  if (!this[154])
   {
     operator new();
   }
@@ -2308,9 +2308,9 @@ uint64_t CMMsl::Item::makeGPSCalibrationBin(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryInEarDetection(uint64_t this)
+void *CMMsl::Item::makeAccessoryInEarDetection(void *this)
 {
-  if (!*(this + 216))
+  if (!this[27])
   {
     operator new();
   }
@@ -2318,9 +2318,9 @@ uint64_t CMMsl::Item::makeAccessoryInEarDetection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryBatchedPPG(uint64_t this)
+void *CMMsl::Item::makeAccessoryBatchedPPG(void *this)
 {
-  if (!*(this + 144))
+  if (!this[18])
   {
     operator new();
   }
@@ -2328,9 +2328,9 @@ uint64_t CMMsl::Item::makeAccessoryBatchedPPG(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBatchedPPGData(uint64_t this)
+void *CMMsl::Item::makeBatchedPPGData(void *this)
 {
-  if (!*(this + 496))
+  if (!this[62])
   {
     operator new();
   }
@@ -2338,9 +2338,9 @@ uint64_t CMMsl::Item::makeBatchedPPGData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderAudioAccessoryDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderAudioAccessoryDeviceMotion(void *this)
 {
-  if (!*(this + 3744))
+  if (!this[468])
   {
     operator new();
   }
@@ -2348,9 +2348,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderAudioAccessoryDeviceMotion(uint64_t thi
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderAccessoryDeviceMotionConfig(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderAccessoryDeviceMotionConfig(void *this)
 {
-  if (!*(this + 3736))
+  if (!this[467])
   {
     operator new();
   }
@@ -2358,9 +2358,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderAccessoryDeviceMotionConfig(uint64_t th
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeartRateSourceDevice(uint64_t this)
+void *CMMsl::Item::makeHeartRateSourceDevice(void *this)
 {
-  if (!*(this + 1544))
+  if (!this[193])
   {
     operator new();
   }
@@ -2368,9 +2368,9 @@ uint64_t CMMsl::Item::makeHeartRateSourceDevice(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAFHeartRate(uint64_t this)
+void *CMMsl::Item::makeAFHeartRate(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -2378,9 +2378,9 @@ uint64_t CMMsl::Item::makeAFHeartRate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStreamingHeartRateDataWatch(uint64_t this)
+void *CMMsl::Item::makeStreamingHeartRateDataWatch(void *this)
 {
-  if (!*(this + 3320))
+  if (!this[415])
   {
     operator new();
   }
@@ -2388,9 +2388,9 @@ uint64_t CMMsl::Item::makeStreamingHeartRateDataWatch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStreamingHighFrequencyHeartRateDataWatch(uint64_t this)
+void *CMMsl::Item::makeStreamingHighFrequencyHeartRateDataWatch(void *this)
 {
-  if (!*(this + 3336))
+  if (!this[417])
   {
     operator new();
   }
@@ -2398,9 +2398,9 @@ uint64_t CMMsl::Item::makeStreamingHighFrequencyHeartRateDataWatch(uint64_t this
   return this;
 }
 
-uint64_t CMMsl::Item::makeAudioAFDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeAudioAFDeviceMotion(void *this)
 {
-  if (!*(this + 408))
+  if (!this[51])
   {
     operator new();
   }
@@ -2408,9 +2408,9 @@ uint64_t CMMsl::Item::makeAudioAFDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAFDeviceMotionConfig(uint64_t this)
+void *CMMsl::Item::makeAFDeviceMotionConfig(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -2418,9 +2418,9 @@ uint64_t CMMsl::Item::makeAFDeviceMotionConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderHeartRateSourceDevice(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderHeartRateSourceDevice(void *this)
 {
-  if (!*(this + 3824))
+  if (!this[478])
   {
     operator new();
   }
@@ -2428,9 +2428,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderHeartRateSourceDevice(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderHighFrequencyHeartRateWatch(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderHighFrequencyHeartRateWatch(void *this)
 {
-  if (!*(this + 3832))
+  if (!this[479])
   {
     operator new();
   }
@@ -2438,9 +2438,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderHighFrequencyHeartRateWatch(uint64_t th
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutRecorderHeartRateAccessory(uint64_t this)
+void *CMMsl::Item::makeWorkoutRecorderHeartRateAccessory(void *this)
 {
-  if (!*(this + 3816))
+  if (!this[477])
   {
     operator new();
   }
@@ -2448,9 +2448,9 @@ uint64_t CMMsl::Item::makeWorkoutRecorderHeartRateAccessory(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeUltraFastAccel(uint64_t this)
+void *CMMsl::Item::makeUltraFastAccel(void *this)
 {
-  if (!*(this + 3440))
+  if (!this[430])
   {
     operator new();
   }
@@ -2458,9 +2458,9 @@ uint64_t CMMsl::Item::makeUltraFastAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccel(uint64_t this)
+void *CMMsl::Item::makeAccel(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -2468,9 +2468,9 @@ uint64_t CMMsl::Item::makeAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelBatch(uint64_t this)
+void *CMMsl::Item::makeAccelBatch(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -2478,9 +2478,9 @@ uint64_t CMMsl::Item::makeAccelBatch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelOscarEmu(uint64_t this)
+void *CMMsl::Item::makeAccelOscarEmu(void *this)
 {
-  if (!*(this + 88))
+  if (!this[11])
   {
     operator new();
   }
@@ -2488,9 +2488,9 @@ uint64_t CMMsl::Item::makeAccelOscarEmu(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelGesture(uint64_t this)
+void *CMMsl::Item::makeAccelGesture(void *this)
 {
-  if (!*(this + 72))
+  if (!this[9])
   {
     operator new();
   }
@@ -2498,9 +2498,9 @@ uint64_t CMMsl::Item::makeAccelGesture(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyro(uint64_t this)
+void *CMMsl::Item::makeGyro(void *this)
 {
-  if (!*(this + 1336))
+  if (!this[167])
   {
     operator new();
   }
@@ -2508,9 +2508,9 @@ uint64_t CMMsl::Item::makeGyro(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroOscarEmu(uint64_t this)
+void *CMMsl::Item::makeGyroOscarEmu(void *this)
 {
-  if (!*(this + 1464))
+  if (!this[183])
   {
     operator new();
   }
@@ -2518,9 +2518,9 @@ uint64_t CMMsl::Item::makeGyroOscarEmu(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroTemperature(uint64_t this)
+void *CMMsl::Item::makeGyroTemperature(void *this)
 {
-  if (!*(this + 1480))
+  if (!this[185])
   {
     operator new();
   }
@@ -2528,9 +2528,9 @@ uint64_t CMMsl::Item::makeGyroTemperature(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasAndVariance(uint64_t this)
+void *CMMsl::Item::makeGyroBiasAndVariance(void *this)
 {
-  if (!*(this + 1344))
+  if (!this[168])
   {
     operator new();
   }
@@ -2538,9 +2538,9 @@ uint64_t CMMsl::Item::makeGyroBiasAndVariance(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasFit(uint64_t this)
+void *CMMsl::Item::makeGyroBiasFit(void *this)
 {
-  if (!*(this + 1384))
+  if (!this[173])
   {
     operator new();
   }
@@ -2548,9 +2548,9 @@ uint64_t CMMsl::Item::makeGyroBiasFit(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroDt(uint64_t this)
+void *CMMsl::Item::makeGyroDt(void *this)
 {
-  if (!*(this + 1440))
+  if (!this[180])
   {
     operator new();
   }
@@ -2558,9 +2558,9 @@ uint64_t CMMsl::Item::makeGyroDt(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagnetometer(uint64_t this)
+void *CMMsl::Item::makeMagnetometer(void *this)
 {
-  if (!*(this + 2128))
+  if (!this[266])
   {
     operator new();
   }
@@ -2568,9 +2568,9 @@ uint64_t CMMsl::Item::makeMagnetometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompass(uint64_t this)
+void *CMMsl::Item::makeCompass(void *this)
 {
-  if (!*(this + 728))
+  if (!this[91])
   {
     operator new();
   }
@@ -2578,9 +2578,9 @@ uint64_t CMMsl::Item::makeCompass(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompassAlignment(uint64_t this)
+void *CMMsl::Item::makeCompassAlignment(void *this)
 {
-  if (!*(this + 736))
+  if (!this[92])
   {
     operator new();
   }
@@ -2588,9 +2588,9 @@ uint64_t CMMsl::Item::makeCompassAlignment(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroCompass(uint64_t this)
+void *CMMsl::Item::makeGyroCompass(void *this)
 {
-  if (!*(this + 1424))
+  if (!this[178])
   {
     operator new();
   }
@@ -2598,9 +2598,9 @@ uint64_t CMMsl::Item::makeGyroCompass(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompassCalibration(uint64_t this)
+void *CMMsl::Item::makeCompassCalibration(void *this)
 {
-  if (!*(this + 744))
+  if (!this[93])
   {
     operator new();
   }
@@ -2608,9 +2608,9 @@ uint64_t CMMsl::Item::makeCompassCalibration(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressure(uint64_t this)
+void *CMMsl::Item::makePressure(void *this)
 {
-  if (!*(this + 2768))
+  if (!this[346])
   {
     operator new();
   }
@@ -2618,9 +2618,9 @@ uint64_t CMMsl::Item::makePressure(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureOscarEmu(uint64_t this)
+void *CMMsl::Item::makePressureOscarEmu(void *this)
 {
-  if (!*(this + 2824))
+  if (!this[353])
   {
     operator new();
   }
@@ -2628,9 +2628,9 @@ uint64_t CMMsl::Item::makePressureOscarEmu(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureFiltered(uint64_t this)
+void *CMMsl::Item::makePressureFiltered(void *this)
 {
-  if (!*(this + 2792))
+  if (!this[349])
   {
     operator new();
   }
@@ -2638,9 +2638,9 @@ uint64_t CMMsl::Item::makePressureFiltered(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeProx(uint64_t this)
+void *CMMsl::Item::makeProx(void *this)
 {
-  if (!*(this + 2832))
+  if (!this[354])
   {
     operator new();
   }
@@ -2648,9 +2648,9 @@ uint64_t CMMsl::Item::makeProx(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTouchOscarEmu(uint64_t this)
+void *CMMsl::Item::makeTouchOscarEmu(void *this)
 {
-  if (!*(this + 3424))
+  if (!this[428])
   {
     operator new();
   }
@@ -2658,9 +2658,9 @@ uint64_t CMMsl::Item::makeTouchOscarEmu(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeDeviceMotion(void *this)
 {
-  if (!*(this + 840))
+  if (!this[105])
   {
     operator new();
   }
@@ -2668,9 +2668,9 @@ uint64_t CMMsl::Item::makeDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionStateUpdate(uint64_t this)
+void *CMMsl::Item::makeMotionStateUpdate(void *this)
 {
-  if (!*(this + 2264))
+  if (!this[283])
   {
     operator new();
   }
@@ -2678,9 +2678,9 @@ uint64_t CMMsl::Item::makeMotionStateUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelGps(uint64_t this)
+void *CMMsl::Item::makeAccelGps(void *this)
 {
-  if (!*(this + 80))
+  if (!this[10])
   {
     operator new();
   }
@@ -2688,9 +2688,9 @@ uint64_t CMMsl::Item::makeAccelGps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroGps(uint64_t this)
+void *CMMsl::Item::makeGyroGps(void *this)
 {
-  if (!*(this + 1456))
+  if (!this[182])
   {
     operator new();
   }
@@ -2698,9 +2698,9 @@ uint64_t CMMsl::Item::makeGyroGps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureGps(uint64_t this)
+void *CMMsl::Item::makePressureGps(void *this)
 {
-  if (!*(this + 2816))
+  if (!this[352])
   {
     operator new();
   }
@@ -2708,9 +2708,9 @@ uint64_t CMMsl::Item::makePressureGps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBTConnection(uint64_t this)
+void *CMMsl::Item::makeBTConnection(void *this)
 {
-  if (!*(this + 440))
+  if (!this[55])
   {
     operator new();
   }
@@ -2718,9 +2718,9 @@ uint64_t CMMsl::Item::makeBTConnection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSessionOverride(uint64_t this)
+void *CMMsl::Item::makeSessionOverride(void *this)
 {
-  if (!*(this + 3088))
+  if (!this[386])
   {
     operator new();
   }
@@ -2728,9 +2728,9 @@ uint64_t CMMsl::Item::makeSessionOverride(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLocationOscarEmu(uint64_t this)
+void *CMMsl::Item::makeLocationOscarEmu(void *this)
 {
-  if (!*(this + 2072))
+  if (!this[259])
   {
     operator new();
   }
@@ -2738,9 +2738,9 @@ uint64_t CMMsl::Item::makeLocationOscarEmu(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionHint(uint64_t this)
+void *CMMsl::Item::makeMotionHint(void *this)
 {
-  if (!*(this + 2232))
+  if (!this[279])
   {
     operator new();
   }
@@ -2748,9 +2748,9 @@ uint64_t CMMsl::Item::makeMotionHint(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeEnhancedDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeEnhancedDeviceMotion(void *this)
 {
-  if (!*(this + 992))
+  if (!this[124])
   {
     operator new();
   }
@@ -2758,9 +2758,9 @@ uint64_t CMMsl::Item::makeEnhancedDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeNonlinearBiasFit(uint64_t this)
+void *CMMsl::Item::makeNonlinearBiasFit(void *this)
 {
-  if (!*(this + 2320))
+  if (!this[290])
   {
     operator new();
   }
@@ -2768,9 +2768,9 @@ uint64_t CMMsl::Item::makeNonlinearBiasFit(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeNatalieData(uint64_t this)
+void *CMMsl::Item::makeNatalieData(void *this)
 {
-  if (!*(this + 2312))
+  if (!this[289])
   {
     operator new();
   }
@@ -2778,9 +2778,9 @@ uint64_t CMMsl::Item::makeNatalieData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBodyMetrics(uint64_t this)
+void *CMMsl::Item::makeBodyMetrics(void *this)
 {
-  if (!*(this + 584))
+  if (!this[73])
   {
     operator new();
   }
@@ -2788,9 +2788,9 @@ uint64_t CMMsl::Item::makeBodyMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWorkoutEvent(uint64_t this)
+void *CMMsl::Item::makeWorkoutEvent(void *this)
 {
-  if (!*(this + 3704))
+  if (!this[463])
   {
     operator new();
   }
@@ -2798,9 +2798,9 @@ uint64_t CMMsl::Item::makeWorkoutEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeOnsetHeartRateData(uint64_t this)
+void *CMMsl::Item::makeOnsetHeartRateData(void *this)
 {
-  if (!*(this + 2360))
+  if (!this[295])
   {
     operator new();
   }
@@ -2808,9 +2808,9 @@ uint64_t CMMsl::Item::makeOnsetHeartRateData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStreamingHeartRateData(uint64_t this)
+void *CMMsl::Item::makeStreamingHeartRateData(void *this)
 {
-  if (!*(this + 3312))
+  if (!this[414])
   {
     operator new();
   }
@@ -2818,9 +2818,9 @@ uint64_t CMMsl::Item::makeStreamingHeartRateData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeElevationChange(uint64_t this)
+void *CMMsl::Item::makeElevationChange(void *this)
 {
-  if (!*(this + 960))
+  if (!this[120])
   {
     operator new();
   }
@@ -2828,9 +2828,9 @@ uint64_t CMMsl::Item::makeElevationChange(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCoarseElevationChange(uint64_t this)
+void *CMMsl::Item::makeCoarseElevationChange(void *this)
 {
-  if (!*(this + 712))
+  if (!this[89])
   {
     operator new();
   }
@@ -2838,9 +2838,9 @@ uint64_t CMMsl::Item::makeCoarseElevationChange(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionGPSLocation(uint64_t this)
+void *CMMsl::Item::makeMotionGPSLocation(void *this)
 {
-  if (!*(this + 2224))
+  if (!this[278])
   {
     operator new();
   }
@@ -2848,9 +2848,9 @@ uint64_t CMMsl::Item::makeMotionGPSLocation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionWifiLocation(uint64_t this)
+void *CMMsl::Item::makeMotionWifiLocation(void *this)
 {
-  if (!*(this + 2280))
+  if (!this[285])
   {
     operator new();
   }
@@ -2858,9 +2858,9 @@ uint64_t CMMsl::Item::makeMotionWifiLocation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStrideCalBin(uint64_t this)
+void *CMMsl::Item::makeStrideCalBin(void *this)
 {
-  if (!*(this + 3344))
+  if (!this[418])
   {
     operator new();
   }
@@ -2868,9 +2868,9 @@ uint64_t CMMsl::Item::makeStrideCalBin(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCalorimetryPauseEvent(uint64_t this)
+void *CMMsl::Item::makeCalorimetryPauseEvent(void *this)
 {
-  if (!*(this + 680))
+  if (!this[85])
   {
     operator new();
   }
@@ -2878,9 +2878,9 @@ uint64_t CMMsl::Item::makeCalorimetryPauseEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeOdometer(uint64_t this)
+void *CMMsl::Item::makeOdometer(void *this)
 {
-  if (!*(this + 2336))
+  if (!this[292])
   {
     operator new();
   }
@@ -2888,9 +2888,9 @@ uint64_t CMMsl::Item::makeOdometer(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMetsInfo(uint64_t this)
+void *CMMsl::Item::makeMetsInfo(void *this)
 {
-  if (!*(this + 2160))
+  if (!this[270])
   {
     operator new();
   }
@@ -2898,9 +2898,9 @@ uint64_t CMMsl::Item::makeMetsInfo(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallStats(uint64_t this)
+void *CMMsl::Item::makeFallStats(void *this)
 {
-  if (!*(this + 1120))
+  if (!this[140])
   {
     operator new();
   }
@@ -2908,9 +2908,9 @@ uint64_t CMMsl::Item::makeFallStats(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBasebandSpeed(uint64_t this)
+void *CMMsl::Item::makeBasebandSpeed(void *this)
 {
-  if (!*(this + 472))
+  if (!this[59])
   {
     operator new();
   }
@@ -2918,9 +2918,9 @@ uint64_t CMMsl::Item::makeBasebandSpeed(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVibrationEvent(uint64_t this)
+void *CMMsl::Item::makeVibrationEvent(void *this)
 {
-  if (!*(this + 3488))
+  if (!this[436])
   {
     operator new();
   }
@@ -2928,9 +2928,9 @@ uint64_t CMMsl::Item::makeVibrationEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStepCadenceToStrideLengthBin(uint64_t this)
+void *CMMsl::Item::makeStepCadenceToStrideLengthBin(void *this)
 {
-  if (!*(this + 3272))
+  if (!this[409])
   {
     operator new();
   }
@@ -2938,9 +2938,9 @@ uint64_t CMMsl::Item::makeStepCadenceToStrideLengthBin(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWatchOrientationSettings(uint64_t this)
+void *CMMsl::Item::makeWatchOrientationSettings(void *this)
 {
-  if (!*(this + 3680))
+  if (!this[460])
   {
     operator new();
   }
@@ -2948,9 +2948,9 @@ uint64_t CMMsl::Item::makeWatchOrientationSettings(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionWifiAssociation(uint64_t this)
+void *CMMsl::Item::makeMotionWifiAssociation(void *this)
 {
-  if (!*(this + 2272))
+  if (!this[284])
   {
     operator new();
   }
@@ -2958,9 +2958,9 @@ uint64_t CMMsl::Item::makeMotionWifiAssociation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionLoiData(uint64_t this)
+void *CMMsl::Item::makeMotionLoiData(void *this)
 {
-  if (!*(this + 2256))
+  if (!this[282])
   {
     operator new();
   }
@@ -2968,9 +2968,9 @@ uint64_t CMMsl::Item::makeMotionLoiData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeOdometerWithAltitude(uint64_t this)
+void *CMMsl::Item::makeOdometerWithAltitude(void *this)
 {
-  if (!*(this + 2344))
+  if (!this[293])
   {
     operator new();
   }
@@ -2978,9 +2978,9 @@ uint64_t CMMsl::Item::makeOdometerWithAltitude(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureFilteredNoTemperature(uint64_t this)
+void *CMMsl::Item::makePressureFilteredNoTemperature(void *this)
 {
-  if (!*(this + 2808))
+  if (!this[351])
   {
     operator new();
   }
@@ -2988,9 +2988,9 @@ uint64_t CMMsl::Item::makePressureFilteredNoTemperature(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarTransition(uint64_t this)
+void *CMMsl::Item::makeInEarTransition(void *this)
 {
-  if (!*(this + 1632))
+  if (!this[204])
   {
     operator new();
   }
@@ -2998,9 +2998,9 @@ uint64_t CMMsl::Item::makeInEarTransition(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeClefCalibration(uint64_t this)
+void *CMMsl::Item::makeClefCalibration(void *this)
 {
-  if (!*(this + 704))
+  if (!this[88])
   {
     operator new();
   }
@@ -3008,9 +3008,9 @@ uint64_t CMMsl::Item::makeClefCalibration(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAirpodEvent(uint64_t this)
+void *CMMsl::Item::makeAirpodEvent(void *this)
 {
-  if (!*(this + 328))
+  if (!this[41])
   {
     operator new();
   }
@@ -3018,9 +3018,9 @@ uint64_t CMMsl::Item::makeAirpodEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarOptical(uint64_t this)
+void *CMMsl::Item::makeInEarOptical(void *this)
 {
-  if (!*(this + 1616))
+  if (!this[202])
   {
     operator new();
   }
@@ -3028,9 +3028,9 @@ uint64_t CMMsl::Item::makeInEarOptical(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarConstraints(uint64_t this)
+void *CMMsl::Item::makeInEarConstraints(void *this)
 {
-  if (!*(this + 1600))
+  if (!this[200])
   {
     operator new();
   }
@@ -3038,9 +3038,9 @@ uint64_t CMMsl::Item::makeInEarConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarOpenLid(uint64_t this)
+void *CMMsl::Item::makeInEarOpenLid(void *this)
 {
-  if (!*(this + 1608))
+  if (!this[201])
   {
     operator new();
   }
@@ -3048,9 +3048,9 @@ uint64_t CMMsl::Item::makeInEarOpenLid(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInEarBaselining(uint64_t this)
+void *CMMsl::Item::makeInEarBaselining(void *this)
 {
-  if (!*(this + 1592))
+  if (!this[199])
   {
     operator new();
   }
@@ -3058,9 +3058,9 @@ uint64_t CMMsl::Item::makeInEarBaselining(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryConfig(void *this)
 {
-  if (!*(this + 152))
+  if (!this[19])
   {
     operator new();
   }
@@ -3068,9 +3068,9 @@ uint64_t CMMsl::Item::makeAccessoryConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryAccelConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryAccelConfig(void *this)
 {
-  if (!*(this + 120))
+  if (!this[15])
   {
     operator new();
   }
@@ -3078,9 +3078,9 @@ uint64_t CMMsl::Item::makeAccessoryAccelConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryProximityConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryProximityConfig(void *this)
 {
-  if (!*(this + 280))
+  if (!this[35])
   {
     operator new();
   }
@@ -3088,9 +3088,9 @@ uint64_t CMMsl::Item::makeAccessoryProximityConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTapDetect(uint64_t this)
+void *CMMsl::Item::makeTapDetect(void *this)
 {
-  if (!*(this + 3384))
+  if (!this[423])
   {
     operator new();
   }
@@ -3098,9 +3098,9 @@ uint64_t CMMsl::Item::makeTapDetect(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTapAccept(uint64_t this)
+void *CMMsl::Item::makeTapAccept(void *this)
 {
-  if (!*(this + 3376))
+  if (!this[422])
   {
     operator new();
   }
@@ -3108,9 +3108,9 @@ uint64_t CMMsl::Item::makeTapAccept(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDoubleTap(uint64_t this)
+void *CMMsl::Item::makeDoubleTap(void *this)
 {
-  if (!*(this + 944))
+  if (!this[118])
   {
     operator new();
   }
@@ -3118,9 +3118,9 @@ uint64_t CMMsl::Item::makeDoubleTap(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryWakeDebug(uint64_t this)
+void *CMMsl::Item::makeAccessoryWakeDebug(void *this)
 {
-  if (!*(this + 320))
+  if (!this[40])
   {
     operator new();
   }
@@ -3128,9 +3128,9 @@ uint64_t CMMsl::Item::makeAccessoryWakeDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGeomagneticData(uint64_t this)
+void *CMMsl::Item::makeGeomagneticData(void *this)
 {
-  if (!*(this + 1280))
+  if (!this[160])
   {
     operator new();
   }
@@ -3138,9 +3138,9 @@ uint64_t CMMsl::Item::makeGeomagneticData(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelativeDeviceMotionInternal(uint64_t this)
+void *CMMsl::Item::makeRelativeDeviceMotionInternal(void *this)
 {
-  if (!*(this + 2936))
+  if (!this[367])
   {
     operator new();
   }
@@ -3148,9 +3148,9 @@ uint64_t CMMsl::Item::makeRelativeDeviceMotionInternal(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelativeGravityCorrection(uint64_t this)
+void *CMMsl::Item::makeRelativeGravityCorrection(void *this)
 {
-  if (!*(this + 2952))
+  if (!this[369])
   {
     operator new();
   }
@@ -3158,9 +3158,9 @@ uint64_t CMMsl::Item::makeRelativeGravityCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelativeGravityConstraints(uint64_t this)
+void *CMMsl::Item::makeRelativeGravityConstraints(void *this)
 {
-  if (!*(this + 2944))
+  if (!this[368])
   {
     operator new();
   }
@@ -3168,9 +3168,9 @@ uint64_t CMMsl::Item::makeRelativeGravityConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeZeroVelocityCorrection(uint64_t this)
+void *CMMsl::Item::makeZeroVelocityCorrection(void *this)
 {
-  if (!*(this + 3920))
+  if (!this[490])
   {
     operator new();
   }
@@ -3178,9 +3178,9 @@ uint64_t CMMsl::Item::makeZeroVelocityCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAnchorCorrection(uint64_t this)
+void *CMMsl::Item::makeAnchorCorrection(void *this)
 {
-  if (!*(this + 368))
+  if (!this[46])
   {
     operator new();
   }
@@ -3188,9 +3188,9 @@ uint64_t CMMsl::Item::makeAnchorCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePredictedRelativeDeviceMotion(uint64_t this)
+void *CMMsl::Item::makePredictedRelativeDeviceMotion(void *this)
 {
-  if (!*(this + 2760))
+  if (!this[345])
   {
     operator new();
   }
@@ -3198,9 +3198,9 @@ uint64_t CMMsl::Item::makePredictedRelativeDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMovementStatsSignal(uint64_t this)
+void *CMMsl::Item::makeMovementStatsSignal(void *this)
 {
-  if (!*(this + 2304))
+  if (!this[288])
   {
     operator new();
   }
@@ -3208,9 +3208,9 @@ uint64_t CMMsl::Item::makeMovementStatsSignal(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMovementStatsGravityProjection(uint64_t this)
+void *CMMsl::Item::makeMovementStatsGravityProjection(void *this)
 {
-  if (!*(this + 2296))
+  if (!this[287])
   {
     operator new();
   }
@@ -3218,9 +3218,9 @@ uint64_t CMMsl::Item::makeMovementStatsGravityProjection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBleedToZeroCorrection(uint64_t this)
+void *CMMsl::Item::makeBleedToZeroCorrection(void *this)
 {
-  if (!*(this + 576))
+  if (!this[72])
   {
     operator new();
   }
@@ -3228,9 +3228,9 @@ uint64_t CMMsl::Item::makeBleedToZeroCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryGyroConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryGyroConfig(void *this)
 {
-  if (!*(this + 192))
+  if (!this[24])
   {
     operator new();
   }
@@ -3238,9 +3238,9 @@ uint64_t CMMsl::Item::makeAccessoryGyroConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryGyroGYTT(uint64_t this)
+void *CMMsl::Item::makeAccessoryGyroGYTT(void *this)
 {
-  if (!*(this + 200))
+  if (!this[25])
   {
     operator new();
   }
@@ -3248,9 +3248,9 @@ uint64_t CMMsl::Item::makeAccessoryGyroGYTT(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryGyroCachedBias(uint64_t this)
+void *CMMsl::Item::makeAccessoryGyroCachedBias(void *this)
 {
-  if (!*(this + 184))
+  if (!this[23])
   {
     operator new();
   }
@@ -3258,9 +3258,9 @@ uint64_t CMMsl::Item::makeAccessoryGyroCachedBias(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGaitCycleSegment(uint64_t this)
+void *CMMsl::Item::makeGaitCycleSegment(void *this)
 {
-  if (!*(this + 1240))
+  if (!this[155])
   {
     operator new();
   }
@@ -3268,9 +3268,9 @@ uint64_t CMMsl::Item::makeGaitCycleSegment(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGaitCycleSegmentationState(uint64_t this)
+void *CMMsl::Item::makeGaitCycleSegmentationState(void *this)
 {
-  if (!*(this + 1248))
+  if (!this[156])
   {
     operator new();
   }
@@ -3278,9 +3278,9 @@ uint64_t CMMsl::Item::makeGaitCycleSegmentationState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCompassCalibrationAttempt(uint64_t this)
+void *CMMsl::Item::makeCompassCalibrationAttempt(void *this)
 {
-  if (!*(this + 752))
+  if (!this[94])
   {
     operator new();
   }
@@ -3288,9 +3288,9 @@ uint64_t CMMsl::Item::makeCompassCalibrationAttempt(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVisualLocalizationAttitudeCorrection(uint64_t this)
+void *CMMsl::Item::makeVisualLocalizationAttitudeCorrection(void *this)
 {
-  if (!*(this + 3576))
+  if (!this[447])
   {
     operator new();
   }
@@ -3298,9 +3298,9 @@ uint64_t CMMsl::Item::makeVisualLocalizationAttitudeCorrection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVisualLocalizationAttitudeConstraints(uint64_t this)
+void *CMMsl::Item::makeVisualLocalizationAttitudeConstraints(void *this)
 {
-  if (!*(this + 3568))
+  if (!this[446])
   {
     operator new();
   }
@@ -3308,9 +3308,9 @@ uint64_t CMMsl::Item::makeVisualLocalizationAttitudeConstraints(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryMagnetometerConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryMagnetometerConfig(void *this)
 {
-  if (!*(this + 240))
+  if (!this[30])
   {
     operator new();
   }
@@ -3318,9 +3318,9 @@ uint64_t CMMsl::Item::makeAccessoryMagnetometerConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionReferee(uint64_t this)
+void *CMMsl::Item::makeFallDetectionReferee(void *this)
 {
-  if (!*(this + 1064))
+  if (!this[133])
   {
     operator new();
   }
@@ -3328,9 +3328,9 @@ uint64_t CMMsl::Item::makeFallDetectionReferee(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionReplay(uint64_t this)
+void *CMMsl::Item::makeFallDetectionReplay(void *this)
 {
-  if (!*(this + 1072))
+  if (!this[134])
   {
     operator new();
   }
@@ -3338,9 +3338,9 @@ uint64_t CMMsl::Item::makeFallDetectionReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionStateMachine(uint64_t this)
+void *CMMsl::Item::makeFallDetectionStateMachine(void *this)
 {
-  if (!*(this + 1080))
+  if (!this[135])
   {
     operator new();
   }
@@ -3348,9 +3348,9 @@ uint64_t CMMsl::Item::makeFallDetectionStateMachine(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionDetector(uint64_t this)
+void *CMMsl::Item::makeFallDetectionDetector(void *this)
 {
-  if (!*(this + 1048))
+  if (!this[131])
   {
     operator new();
   }
@@ -3358,9 +3358,9 @@ uint64_t CMMsl::Item::makeFallDetectionDetector(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallFalsePositiveSuppressionFeatures(uint64_t this)
+void *CMMsl::Item::makeFallFalsePositiveSuppressionFeatures(void *this)
 {
-  if (!*(this + 1104))
+  if (!this[138])
   {
     operator new();
   }
@@ -3368,9 +3368,9 @@ uint64_t CMMsl::Item::makeFallFalsePositiveSuppressionFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryDeviceMotionConfig(uint64_t this)
+void *CMMsl::Item::makeAccessoryDeviceMotionConfig(void *this)
 {
-  if (!*(this + 168))
+  if (!this[21])
   {
     operator new();
   }
@@ -3378,9 +3378,9 @@ uint64_t CMMsl::Item::makeAccessoryDeviceMotionConfig(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelativeDeviceMotionCorrelatedMotion(uint64_t this)
+void *CMMsl::Item::makeRelativeDeviceMotionCorrelatedMotion(void *this)
 {
-  if (!*(this + 2928))
+  if (!this[366])
   {
     operator new();
   }
@@ -3388,9 +3388,9 @@ uint64_t CMMsl::Item::makeRelativeDeviceMotionCorrelatedMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRelativeDeviceMotionComplexTransition(uint64_t this)
+void *CMMsl::Item::makeRelativeDeviceMotionComplexTransition(void *this)
 {
-  if (!*(this + 2920))
+  if (!this[365])
   {
     operator new();
   }
@@ -3398,9 +3398,9 @@ uint64_t CMMsl::Item::makeRelativeDeviceMotionComplexTransition(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDeviceMotionAlwaysOn(uint64_t this)
+void *CMMsl::Item::makeDeviceMotionAlwaysOn(void *this)
 {
-  if (!*(this + 848))
+  if (!this[106])
   {
     operator new();
   }
@@ -3408,9 +3408,9 @@ uint64_t CMMsl::Item::makeDeviceMotionAlwaysOn(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionGyroControllerReplay(uint64_t this)
+void *CMMsl::Item::makeFallDetectionGyroControllerReplay(void *this)
 {
-  if (!*(this + 1056))
+  if (!this[132])
   {
     operator new();
   }
@@ -3418,9 +3418,9 @@ uint64_t CMMsl::Item::makeFallDetectionGyroControllerReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWalkingDetectionResult(uint64_t this)
+void *CMMsl::Item::makeWalkingDetectionResult(void *this)
 {
-  if (!*(this + 3624))
+  if (!this[453])
   {
     operator new();
   }
@@ -3428,9 +3428,9 @@ uint64_t CMMsl::Item::makeWalkingDetectionResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryInEarStatus(uint64_t this)
+void *CMMsl::Item::makeAccessoryInEarStatus(void *this)
 {
-  if (!*(this + 224))
+  if (!this[28])
   {
     operator new();
   }
@@ -3438,9 +3438,9 @@ uint64_t CMMsl::Item::makeAccessoryInEarStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionWristStateReplay(uint64_t this)
+void *CMMsl::Item::makeFallDetectionWristStateReplay(void *this)
 {
-  if (!*(this + 1088))
+  if (!this[136])
   {
     operator new();
   }
@@ -3448,9 +3448,9 @@ uint64_t CMMsl::Item::makeFallDetectionWristStateReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasEstimateError(uint64_t this)
+void *CMMsl::Item::makeGyroBiasEstimateError(void *this)
 {
-  if (!*(this + 1376))
+  if (!this[172])
   {
     operator new();
   }
@@ -3458,9 +3458,9 @@ uint64_t CMMsl::Item::makeGyroBiasEstimateError(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeStepLikelihoodFeatures(uint64_t this)
+void *CMMsl::Item::makeStepLikelihoodFeatures(void *this)
 {
-  if (!*(this + 3304))
+  if (!this[413])
   {
     operator new();
   }
@@ -3468,9 +3468,9 @@ uint64_t CMMsl::Item::makeStepLikelihoodFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFirstStepFeatures(uint64_t this)
+void *CMMsl::Item::makeFirstStepFeatures(void *this)
 {
-  if (!*(this + 1128))
+  if (!this[141])
   {
     operator new();
   }
@@ -3478,9 +3478,9 @@ uint64_t CMMsl::Item::makeFirstStepFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryStepDetectorDebug(uint64_t this)
+void *CMMsl::Item::makeAccessoryStepDetectorDebug(void *this)
 {
-  if (!*(this + 304))
+  if (!this[38])
   {
     operator new();
   }
@@ -3488,9 +3488,9 @@ uint64_t CMMsl::Item::makeAccessoryStepDetectorDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSitStandDetectorFeatures(uint64_t this)
+void *CMMsl::Item::makeSitStandDetectorFeatures(void *this)
 {
-  if (!*(this + 3112))
+  if (!this[389])
   {
     operator new();
   }
@@ -3498,9 +3498,9 @@ uint64_t CMMsl::Item::makeSitStandDetectorFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSitStandDetectorTransitions(uint64_t this)
+void *CMMsl::Item::makeSitStandDetectorTransitions(void *this)
 {
-  if (!*(this + 3136))
+  if (!this[392])
   {
     operator new();
   }
@@ -3508,9 +3508,9 @@ uint64_t CMMsl::Item::makeSitStandDetectorTransitions(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForSitToStand(uint64_t this)
+void *CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForSitToStand(void *this)
 {
-  if (!*(this + 3120))
+  if (!this[390])
   {
     operator new();
   }
@@ -3518,9 +3518,9 @@ uint64_t CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForSitToStand(uint
   return this;
 }
 
-uint64_t CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForStandToSit(uint64_t this)
+void *CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForStandToSit(void *this)
 {
-  if (!*(this + 3128))
+  if (!this[391])
   {
     operator new();
   }
@@ -3528,9 +3528,9 @@ uint64_t CMMsl::Item::makeSitStandDetectorPosteriorBufferStatsForStandToSit(uint
   return this;
 }
 
-uint64_t CMMsl::Item::makeSpatialEvent(uint64_t this)
+void *CMMsl::Item::makeSpatialEvent(void *this)
 {
-  if (!*(this + 3176))
+  if (!this[397])
   {
     operator new();
   }
@@ -3538,9 +3538,9 @@ uint64_t CMMsl::Item::makeSpatialEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDistanceReplay(uint64_t this)
+void *CMMsl::Item::makeFallDistanceReplay(void *this)
 {
-  if (!*(this + 1096))
+  if (!this[137])
   {
     operator new();
   }
@@ -3548,9 +3548,9 @@ uint64_t CMMsl::Item::makeFallDistanceReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeJitterBufferLevel(uint64_t this)
+void *CMMsl::Item::makeJitterBufferLevel(void *this)
 {
-  if (!*(this + 1688))
+  if (!this[211])
   {
     operator new();
   }
@@ -3558,9 +3558,9 @@ uint64_t CMMsl::Item::makeJitterBufferLevel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePressureFiltered1HzLowPass(uint64_t this)
+void *CMMsl::Item::makePressureFiltered1HzLowPass(void *this)
 {
-  if (!*(this + 2800))
+  if (!this[350])
   {
     operator new();
   }
@@ -3568,9 +3568,9 @@ uint64_t CMMsl::Item::makePressureFiltered1HzLowPass(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMotionActivityReplay(uint64_t this)
+void *CMMsl::Item::makeMotionActivityReplay(void *this)
 {
-  if (!*(this + 2208))
+  if (!this[276])
   {
     operator new();
   }
@@ -3578,9 +3578,9 @@ uint64_t CMMsl::Item::makeMotionActivityReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFallDetectionActivityClassifierReplay(uint64_t this)
+void *CMMsl::Item::makeFallDetectionActivityClassifierReplay(void *this)
 {
-  if (!*(this + 1040))
+  if (!this[130])
   {
     operator new();
   }
@@ -3588,9 +3588,9 @@ uint64_t CMMsl::Item::makeFallDetectionActivityClassifierReplay(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeLegacyALS5CHInput(uint64_t this)
+void *CMMsl::Item::makeLegacyALS5CHInput(void *this)
 {
-  if (!*(this + 2032))
+  if (!this[254])
   {
     operator new();
   }
@@ -3598,9 +3598,9 @@ uint64_t CMMsl::Item::makeLegacyALS5CHInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDopplerSample(uint64_t this)
+void *CMMsl::Item::makeDopplerSample(void *this)
 {
-  if (!*(this + 920))
+  if (!this[115])
   {
     operator new();
   }
@@ -3608,9 +3608,9 @@ uint64_t CMMsl::Item::makeDopplerSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDopplerProximityEvent(uint64_t this)
+void *CMMsl::Item::makeDopplerProximityEvent(void *this)
 {
-  if (!*(this + 904))
+  if (!this[113])
   {
     operator new();
   }
@@ -3618,9 +3618,9 @@ uint64_t CMMsl::Item::makeDopplerProximityEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDopplerRawDataInput(uint64_t this)
+void *CMMsl::Item::makeDopplerRawDataInput(void *this)
 {
-  if (!*(this + 912))
+  if (!this[114])
   {
     operator new();
   }
@@ -3628,9 +3628,9 @@ uint64_t CMMsl::Item::makeDopplerRawDataInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDopplerDebugRecord(uint64_t this)
+void *CMMsl::Item::makeDopplerDebugRecord(void *this)
 {
-  if (!*(this + 896))
+  if (!this[112])
   {
     operator new();
   }
@@ -3638,9 +3638,9 @@ uint64_t CMMsl::Item::makeDopplerDebugRecord(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeOrientation(uint64_t this)
+void *CMMsl::Item::makeOrientation(void *this)
 {
-  if (!*(this + 2368))
+  if (!this[296])
   {
     operator new();
   }
@@ -3648,9 +3648,9 @@ uint64_t CMMsl::Item::makeOrientation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaAudioResult(uint64_t this)
+void *CMMsl::Item::makeKappaAudioResult(void *this)
 {
-  if (!*(this + 1736))
+  if (!this[217])
   {
     operator new();
   }
@@ -3658,9 +3658,9 @@ uint64_t CMMsl::Item::makeKappaAudioResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaBaroResult(uint64_t this)
+void *CMMsl::Item::makeKappaBaroResult(void *this)
 {
-  if (!*(this + 1744))
+  if (!this[218])
   {
     operator new();
   }
@@ -3668,9 +3668,9 @@ uint64_t CMMsl::Item::makeKappaBaroResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaGpsResult(uint64_t this)
+void *CMMsl::Item::makeKappaGpsResult(void *this)
 {
-  if (!*(this + 1768))
+  if (!this[221])
   {
     operator new();
   }
@@ -3678,9 +3678,9 @@ uint64_t CMMsl::Item::makeKappaGpsResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPulseResult(uint64_t this)
+void *CMMsl::Item::makeKappaPulseResult(void *this)
 {
-  if (!*(this + 1856))
+  if (!this[232])
   {
     operator new();
   }
@@ -3688,9 +3688,9 @@ uint64_t CMMsl::Item::makeKappaPulseResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaZgResult(uint64_t this)
+void *CMMsl::Item::makeKappaZgResult(void *this)
 {
-  if (!*(this + 1976))
+  if (!this[247])
   {
     operator new();
   }
@@ -3698,9 +3698,9 @@ uint64_t CMMsl::Item::makeKappaZgResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaZgDetected(uint64_t this)
+void *CMMsl::Item::makeKappaZgDetected(void *this)
 {
-  if (!*(this + 1968))
+  if (!this[246])
   {
     operator new();
   }
@@ -3708,9 +3708,9 @@ uint64_t CMMsl::Item::makeKappaZgDetected(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPulseInertialAccel(uint64_t this)
+void *CMMsl::Item::makeKappaPulseInertialAccel(void *this)
 {
-  if (!*(this + 1840))
+  if (!this[230])
   {
     operator new();
   }
@@ -3718,9 +3718,9 @@ uint64_t CMMsl::Item::makeKappaPulseInertialAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeadTrackingClientModeUpdate(uint64_t this)
+void *CMMsl::Item::makeHeadTrackingClientModeUpdate(void *this)
 {
-  if (!*(this + 1528))
+  if (!this[191])
   {
     operator new();
   }
@@ -3728,9 +3728,9 @@ uint64_t CMMsl::Item::makeHeadTrackingClientModeUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeadTrackingBehaviorUpdate(uint64_t this)
+void *CMMsl::Item::makeHeadTrackingBehaviorUpdate(void *this)
 {
-  if (!*(this + 1520))
+  if (!this[190])
   {
     operator new();
   }
@@ -3738,9 +3738,9 @@ uint64_t CMMsl::Item::makeHeadTrackingBehaviorUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaAirbagResult(uint64_t this)
+void *CMMsl::Item::makeKappaAirbagResult(void *this)
 {
-  if (!*(this + 1728))
+  if (!this[216])
   {
     operator new();
   }
@@ -3748,9 +3748,9 @@ uint64_t CMMsl::Item::makeKappaAirbagResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaCrashResult(uint64_t this)
+void *CMMsl::Item::makeKappaCrashResult(void *this)
 {
-  if (!*(this + 1752))
+  if (!this[219])
   {
     operator new();
   }
@@ -3758,9 +3758,9 @@ uint64_t CMMsl::Item::makeKappaCrashResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaQuiescenceResult(uint64_t this)
+void *CMMsl::Item::makeKappaQuiescenceResult(void *this)
 {
-  if (!*(this + 1864))
+  if (!this[233])
   {
     operator new();
   }
@@ -3768,9 +3768,9 @@ uint64_t CMMsl::Item::makeKappaQuiescenceResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaRecoveryResult(uint64_t this)
+void *CMMsl::Item::makeKappaRecoveryResult(void *this)
 {
-  if (!*(this + 1872))
+  if (!this[234])
   {
     operator new();
   }
@@ -3778,9 +3778,9 @@ uint64_t CMMsl::Item::makeKappaRecoveryResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaRolloverCrashResult(uint64_t this)
+void *CMMsl::Item::makeKappaRolloverCrashResult(void *this)
 {
-  if (!*(this + 1904))
+  if (!this[238])
   {
     operator new();
   }
@@ -3788,9 +3788,9 @@ uint64_t CMMsl::Item::makeKappaRolloverCrashResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaMildImpactResult(uint64_t this)
+void *CMMsl::Item::makeKappaMildImpactResult(void *this)
 {
-  if (!*(this + 1808))
+  if (!this[226])
   {
     operator new();
   }
@@ -3798,9 +3798,9 @@ uint64_t CMMsl::Item::makeKappaMildImpactResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaLackOfMotionResult(uint64_t this)
+void *CMMsl::Item::makeKappaLackOfMotionResult(void *this)
 {
-  if (!*(this + 1792))
+  if (!this[224])
   {
     operator new();
   }
@@ -3808,9 +3808,9 @@ uint64_t CMMsl::Item::makeKappaLackOfMotionResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaSevereCrashResult(uint64_t this)
+void *CMMsl::Item::makeKappaSevereCrashResult(void *this)
 {
-  if (!*(this + 1912))
+  if (!this[239])
   {
     operator new();
   }
@@ -3818,9 +3818,9 @@ uint64_t CMMsl::Item::makeKappaSevereCrashResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaLocalAudioResult(uint64_t this)
+void *CMMsl::Item::makeKappaLocalAudioResult(void *this)
 {
-  if (!*(this + 1800))
+  if (!this[225])
   {
     operator new();
   }
@@ -3828,9 +3828,9 @@ uint64_t CMMsl::Item::makeKappaLocalAudioResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaRemoteAudioResult(uint64_t this)
+void *CMMsl::Item::makeKappaRemoteAudioResult(void *this)
 {
-  if (!*(this + 1880))
+  if (!this[235])
   {
     operator new();
   }
@@ -3838,9 +3838,9 @@ uint64_t CMMsl::Item::makeKappaRemoteAudioResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDirectionOfTravelMetrics(uint64_t this)
+void *CMMsl::Item::makeDirectionOfTravelMetrics(void *this)
 {
-  if (!*(this + 864))
+  if (!this[108])
   {
     operator new();
   }
@@ -3848,9 +3848,9 @@ uint64_t CMMsl::Item::makeDirectionOfTravelMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeViewObstructedMachineLearningDecision(uint64_t this)
+void *CMMsl::Item::makeViewObstructedMachineLearningDecision(void *this)
 {
-  if (!*(this + 3496))
+  if (!this[437])
   {
     operator new();
   }
@@ -3858,9 +3858,9 @@ uint64_t CMMsl::Item::makeViewObstructedMachineLearningDecision(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeadToHeadsetTransformationEstimate(uint64_t this)
+void *CMMsl::Item::makeHeadToHeadsetTransformationEstimate(void *this)
 {
-  if (!*(this + 1512))
+  if (!this[189])
   {
     operator new();
   }
@@ -3868,9 +3868,9 @@ uint64_t CMMsl::Item::makeHeadToHeadsetTransformationEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeViewObstructedMachineLearningFeatures(uint64_t this)
+void *CMMsl::Item::makeViewObstructedMachineLearningFeatures(void *this)
 {
-  if (!*(this + 3504))
+  if (!this[438])
   {
     operator new();
   }
@@ -3878,9 +3878,9 @@ uint64_t CMMsl::Item::makeViewObstructedMachineLearningFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeViewObstructedMachineLearningProbabilities(uint64_t this)
+void *CMMsl::Item::makeViewObstructedMachineLearningProbabilities(void *this)
 {
-  if (!*(this + 3512))
+  if (!this[439])
   {
     operator new();
   }
@@ -3888,9 +3888,9 @@ uint64_t CMMsl::Item::makeViewObstructedMachineLearningProbabilities(uint64_t th
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningArmSwingSignals(uint64_t this)
+void *CMMsl::Item::makeRunningArmSwingSignals(void *this)
 {
-  if (!*(this + 2976))
+  if (!this[372])
   {
     operator new();
   }
@@ -3898,9 +3898,9 @@ uint64_t CMMsl::Item::makeRunningArmSwingSignals(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningCentripetalAccelSignals(uint64_t this)
+void *CMMsl::Item::makeRunningCentripetalAccelSignals(void *this)
 {
-  if (!*(this + 2984))
+  if (!this[373])
   {
     operator new();
   }
@@ -3908,9 +3908,9 @@ uint64_t CMMsl::Item::makeRunningCentripetalAccelSignals(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningRotationAxis(uint64_t this)
+void *CMMsl::Item::makeRunningRotationAxis(void *this)
 {
-  if (!*(this + 3008))
+  if (!this[376])
   {
     operator new();
   }
@@ -3918,9 +3918,9 @@ uint64_t CMMsl::Item::makeRunningRotationAxis(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningVerticalOscillationSignals(uint64_t this)
+void *CMMsl::Item::makeRunningVerticalOscillationSignals(void *this)
 {
-  if (!*(this + 3048))
+  if (!this[381])
   {
     operator new();
   }
@@ -3928,9 +3928,9 @@ uint64_t CMMsl::Item::makeRunningVerticalOscillationSignals(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningVerticalOscillation(uint64_t this)
+void *CMMsl::Item::makeRunningVerticalOscillation(void *this)
 {
-  if (!*(this + 3032))
+  if (!this[379])
   {
     operator new();
   }
@@ -3938,9 +3938,9 @@ uint64_t CMMsl::Item::makeRunningVerticalOscillation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaSpinResult(uint64_t this)
+void *CMMsl::Item::makeKappaSpinResult(void *this)
 {
-  if (!*(this + 1920))
+  if (!this[240])
   {
     operator new();
   }
@@ -3948,9 +3948,9 @@ uint64_t CMMsl::Item::makeKappaSpinResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPulseDeltaV(uint64_t this)
+void *CMMsl::Item::makeKappaPulseDeltaV(void *this)
 {
-  if (!*(this + 1832))
+  if (!this[229])
   {
     operator new();
   }
@@ -3958,9 +3958,9 @@ uint64_t CMMsl::Item::makeKappaPulseDeltaV(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningStrideLength(uint64_t this)
+void *CMMsl::Item::makeRunningStrideLength(void *this)
 {
-  if (!*(this + 3024))
+  if (!this[378])
   {
     operator new();
   }
@@ -3968,9 +3968,9 @@ uint64_t CMMsl::Item::makeRunningStrideLength(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeIspPacket(uint64_t this)
+void *CMMsl::Item::makeIspPacket(void *this)
 {
-  if (!*(this + 1680))
+  if (!this[210])
   {
     operator new();
   }
@@ -3978,9 +3978,9 @@ uint64_t CMMsl::Item::makeIspPacket(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaHighSpeedCrashResult(uint64_t this)
+void *CMMsl::Item::makeKappaHighSpeedCrashResult(void *this)
 {
-  if (!*(this + 1784))
+  if (!this[223])
   {
     operator new();
   }
@@ -3988,9 +3988,9 @@ uint64_t CMMsl::Item::makeKappaHighSpeedCrashResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPulseInertialHgAccel(uint64_t this)
+void *CMMsl::Item::makeKappaPulseInertialHgAccel(void *this)
 {
-  if (!*(this + 1848))
+  if (!this[231])
   {
     operator new();
   }
@@ -3998,9 +3998,9 @@ uint64_t CMMsl::Item::makeKappaPulseInertialHgAccel(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHarmonicMetrics(uint64_t this)
+void *CMMsl::Item::makeHarmonicMetrics(void *this)
 {
-  if (!*(this + 1496))
+  if (!this[187])
   {
     operator new();
   }
@@ -4008,9 +4008,9 @@ uint64_t CMMsl::Item::makeHarmonicMetrics(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCalorimetryMETsConsumed(uint64_t this)
+void *CMMsl::Item::makeCalorimetryMETsConsumed(void *this)
 {
-  if (!*(this + 672))
+  if (!this[84])
   {
     operator new();
   }
@@ -4018,9 +4018,9 @@ uint64_t CMMsl::Item::makeCalorimetryMETsConsumed(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePedometerPathStraightness(uint64_t this)
+void *CMMsl::Item::makePedometerPathStraightness(void *this)
 {
-  if (!*(this + 2576))
+  if (!this[322])
   {
     operator new();
   }
@@ -4028,9 +4028,9 @@ uint64_t CMMsl::Item::makePedometerPathStraightness(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeComplexHandMotion(uint64_t this)
+void *CMMsl::Item::makeComplexHandMotion(void *this)
 {
-  if (!*(this + 776))
+  if (!this[97])
   {
     operator new();
   }
@@ -4038,9 +4038,9 @@ uint64_t CMMsl::Item::makeComplexHandMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeElevationGradeEstimator(uint64_t this)
+void *CMMsl::Item::makeElevationGradeEstimator(void *this)
 {
-  if (!*(this + 968))
+  if (!this[121])
   {
     operator new();
   }
@@ -4048,9 +4048,9 @@ uint64_t CMMsl::Item::makeElevationGradeEstimator(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVO2MaxModelInput(uint64_t this)
+void *CMMsl::Item::makeVO2MaxModelInput(void *this)
 {
-  if (!*(this + 3472))
+  if (!this[434])
   {
     operator new();
   }
@@ -4058,9 +4058,9 @@ uint64_t CMMsl::Item::makeVO2MaxModelInput(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeProxCalibration(uint64_t this)
+void *CMMsl::Item::makeProxCalibration(void *this)
 {
-  if (!*(this + 2848))
+  if (!this[356])
   {
     operator new();
   }
@@ -4068,9 +4068,9 @@ uint64_t CMMsl::Item::makeProxCalibration(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaStepsResult(uint64_t this)
+void *CMMsl::Item::makeKappaStepsResult(void *this)
 {
-  if (!*(this + 1936))
+  if (!this[242])
   {
     operator new();
   }
@@ -4078,9 +4078,9 @@ uint64_t CMMsl::Item::makeKappaStepsResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeWakeGestureSample(uint64_t this)
+void *CMMsl::Item::makeWakeGestureSample(void *this)
 {
-  if (!*(this + 3616))
+  if (!this[452])
   {
     operator new();
   }
@@ -4088,9 +4088,9 @@ uint64_t CMMsl::Item::makeWakeGestureSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaGravityAutocorrelationResult(uint64_t this)
+void *CMMsl::Item::makeKappaGravityAutocorrelationResult(void *this)
 {
-  if (!*(this + 1776))
+  if (!this[222])
   {
     operator new();
   }
@@ -4098,9 +4098,9 @@ uint64_t CMMsl::Item::makeKappaGravityAutocorrelationResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeRunningVerticalOscillationGradientBoostedSignals(uint64_t this)
+void *CMMsl::Item::makeRunningVerticalOscillationGradientBoostedSignals(void *this)
 {
-  if (!*(this + 3040))
+  if (!this[380])
   {
     operator new();
   }
@@ -4108,9 +4108,9 @@ uint64_t CMMsl::Item::makeRunningVerticalOscillationGradientBoostedSignals(uint6
   return this;
 }
 
-uint64_t CMMsl::Item::makeSubStats(uint64_t this)
+void *CMMsl::Item::makeSubStats(void *this)
 {
-  if (!*(this + 3360))
+  if (!this[420])
   {
     operator new();
   }
@@ -4118,9 +4118,9 @@ uint64_t CMMsl::Item::makeSubStats(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePedOdomFusionExtendedModeSegment(uint64_t this)
+void *CMMsl::Item::makePedOdomFusionExtendedModeSegment(void *this)
 {
-  if (!*(this + 2552))
+  if (!this[319])
   {
     operator new();
   }
@@ -4128,9 +4128,9 @@ uint64_t CMMsl::Item::makePedOdomFusionExtendedModeSegment(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagicMountState(uint64_t this)
+void *CMMsl::Item::makeMagicMountState(void *this)
 {
-  if (!*(this + 2104))
+  if (!this[263])
   {
     operator new();
   }
@@ -4138,9 +4138,9 @@ uint64_t CMMsl::Item::makeMagicMountState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrPedestrianClassifierState(uint64_t this)
+void *CMMsl::Item::makePdrPedestrianClassifierState(void *this)
 {
-  if (!*(this + 2504))
+  if (!this[313])
   {
     operator new();
   }
@@ -4148,9 +4148,9 @@ uint64_t CMMsl::Item::makePdrPedestrianClassifierState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrPlacementClassifierState(uint64_t this)
+void *CMMsl::Item::makePdrPlacementClassifierState(void *this)
 {
-  if (!*(this + 2512))
+  if (!this[314])
   {
     operator new();
   }
@@ -4158,9 +4158,9 @@ uint64_t CMMsl::Item::makePdrPlacementClassifierState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrSpeedEstimatorState(uint64_t this)
+void *CMMsl::Item::makePdrSpeedEstimatorState(void *this)
 {
-  if (!*(this + 2520))
+  if (!this[315])
   {
     operator new();
   }
@@ -4168,9 +4168,9 @@ uint64_t CMMsl::Item::makePdrSpeedEstimatorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorState(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorState(void *this)
 {
-  if (!*(this + 2384))
+  if (!this[298])
   {
     operator new();
   }
@@ -4178,9 +4178,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrVelocityEstimatorState(uint64_t this)
+void *CMMsl::Item::makePdrVelocityEstimatorState(void *this)
 {
-  if (!*(this + 2536))
+  if (!this[317])
   {
     operator new();
   }
@@ -4188,9 +4188,9 @@ uint64_t CMMsl::Item::makePdrVelocityEstimatorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKmVelocityEstimatorState(uint64_t this)
+void *CMMsl::Item::makeKmVelocityEstimatorState(void *this)
 {
-  if (!*(this + 2024))
+  if (!this[253])
   {
     operator new();
   }
@@ -4198,9 +4198,9 @@ uint64_t CMMsl::Item::makeKmVelocityEstimatorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeVelocityEstimatorFusionState(uint64_t this)
+void *CMMsl::Item::makeVelocityEstimatorFusionState(void *this)
 {
-  if (!*(this + 3480))
+  if (!this[435])
   {
     operator new();
   }
@@ -4208,9 +4208,9 @@ uint64_t CMMsl::Item::makeVelocityEstimatorFusionState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrFenceReference(uint64_t this)
+void *CMMsl::Item::makePdrFenceReference(void *this)
 {
-  if (!*(this + 2472))
+  if (!this[309])
   {
     operator new();
   }
@@ -4218,9 +4218,9 @@ uint64_t CMMsl::Item::makePdrFenceReference(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrFenceState(uint64_t this)
+void *CMMsl::Item::makePdrFenceState(void *this)
 {
-  if (!*(this + 2480))
+  if (!this[310])
   {
     operator new();
   }
@@ -4228,9 +4228,9 @@ uint64_t CMMsl::Item::makePdrFenceState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeUwbRange(uint64_t this)
+void *CMMsl::Item::makeUwbRange(void *this)
 {
-  if (!*(this + 3464))
+  if (!this[433])
   {
     operator new();
   }
@@ -4238,9 +4238,9 @@ uint64_t CMMsl::Item::makeUwbRange(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSwingDoTCandidate(uint64_t this)
+void *CMMsl::Item::makeSwingDoTCandidate(void *this)
 {
-  if (!*(this + 3368))
+  if (!this[421])
   {
     operator new();
   }
@@ -4248,9 +4248,9 @@ uint64_t CMMsl::Item::makeSwingDoTCandidate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDotEstimatorHandSwing(uint64_t this)
+void *CMMsl::Item::makeDotEstimatorHandSwing(void *this)
 {
-  if (!*(this + 928))
+  if (!this[116])
   {
     operator new();
   }
@@ -4258,9 +4258,9 @@ uint64_t CMMsl::Item::makeDotEstimatorHandSwing(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaTriggerClustersResult(uint64_t this)
+void *CMMsl::Item::makeKappaTriggerClustersResult(void *this)
 {
-  if (!*(this + 1952))
+  if (!this[244])
   {
     operator new();
   }
@@ -4268,9 +4268,9 @@ uint64_t CMMsl::Item::makeKappaTriggerClustersResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSimActivityEvent(uint64_t this)
+void *CMMsl::Item::makeSimActivityEvent(void *this)
 {
-  if (!*(this + 3104))
+  if (!this[388])
   {
     operator new();
   }
@@ -4278,9 +4278,9 @@ uint64_t CMMsl::Item::makeSimActivityEvent(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrFeatures(uint64_t this)
+void *CMMsl::Item::makePdrFeatures(void *this)
 {
-  if (!*(this + 2464))
+  if (!this[308])
   {
     operator new();
   }
@@ -4288,9 +4288,9 @@ uint64_t CMMsl::Item::makePdrFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateBody(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateBody(void *this)
 {
-  if (!*(this + 2400))
+  if (!this[300])
   {
     operator new();
   }
@@ -4298,9 +4298,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateBody(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateArmSwing(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateArmSwing(void *this)
 {
-  if (!*(this + 2392))
+  if (!this[299])
   {
     operator new();
   }
@@ -4308,9 +4308,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateArmSwing(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateHeading(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateHeading(void *this)
 {
-  if (!*(this + 2424))
+  if (!this[303])
   {
     operator new();
   }
@@ -4318,9 +4318,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateHeading(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessoryActivityAsleepConfidenceEpoch(uint64_t this)
+void *CMMsl::Item::makeAccessoryActivityAsleepConfidenceEpoch(void *this)
 {
-  if (!*(this + 128))
+  if (!this[16])
   {
     operator new();
   }
@@ -4328,9 +4328,9 @@ uint64_t CMMsl::Item::makeAccessoryActivityAsleepConfidenceEpoch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrSpeedEstimatorStateDebug(uint64_t this)
+void *CMMsl::Item::makePdrSpeedEstimatorStateDebug(void *this)
 {
-  if (!*(this + 2528))
+  if (!this[316])
   {
     operator new();
   }
@@ -4338,9 +4338,9 @@ uint64_t CMMsl::Item::makePdrSpeedEstimatorStateDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingDOTEstimate(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingDOTEstimate(void *this)
 {
-  if (!*(this + 2712))
+  if (!this[339])
   {
     operator new();
   }
@@ -4348,9 +4348,9 @@ uint64_t CMMsl::Item::makePrecisionFindingDOTEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingState(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingState(void *this)
 {
-  if (!*(this + 2736))
+  if (!this[342])
   {
     operator new();
   }
@@ -4358,9 +4358,9 @@ uint64_t CMMsl::Item::makePrecisionFindingState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaRoadsResult(uint64_t this)
+void *CMMsl::Item::makeKappaRoadsResult(void *this)
 {
-  if (!*(this + 1896))
+  if (!this[237])
   {
     operator new();
   }
@@ -4368,9 +4368,9 @@ uint64_t CMMsl::Item::makeKappaRoadsResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingVelocityEstimate(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingVelocityEstimate(void *this)
 {
-  if (!*(this + 2744))
+  if (!this[343])
   {
     operator new();
   }
@@ -4378,9 +4378,9 @@ uint64_t CMMsl::Item::makePrecisionFindingVelocityEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingRangeFilter(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingRangeFilter(void *this)
 {
-  if (!*(this + 2720))
+  if (!this[340])
   {
     operator new();
   }
@@ -4388,9 +4388,9 @@ uint64_t CMMsl::Item::makePrecisionFindingRangeFilter(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTMeasurementSelectorState(uint64_t this)
+void *CMMsl::Item::makePdrDOTMeasurementSelectorState(void *this)
 {
-  if (!*(this + 2456))
+  if (!this[307])
   {
     operator new();
   }
@@ -4398,9 +4398,9 @@ uint64_t CMMsl::Item::makePdrDOTMeasurementSelectorState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeBumpToWakeState(uint64_t this)
+void *CMMsl::Item::makeBumpToWakeState(void *this)
 {
-  if (!*(this + 632))
+  if (!this[79])
   {
     operator new();
   }
@@ -4408,9 +4408,9 @@ uint64_t CMMsl::Item::makeBumpToWakeState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorUncertaintyModelOnBody(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorUncertaintyModelOnBody(void *this)
 {
-  if (!*(this + 2448))
+  if (!this[306])
   {
     operator new();
   }
@@ -4418,9 +4418,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorUncertaintyModelOnBody(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePeerState(uint64_t this)
+void *CMMsl::Item::makePeerState(void *this)
 {
-  if (!*(this + 2584))
+  if (!this[323])
   {
     operator new();
   }
@@ -4428,9 +4428,9 @@ uint64_t CMMsl::Item::makePeerState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeMagnetometerCalibratorFilterParameters(uint64_t this)
+void *CMMsl::Item::makeMagnetometerCalibratorFilterParameters(void *this)
 {
-  if (!*(this + 2136))
+  if (!this[267])
   {
     operator new();
   }
@@ -4438,9 +4438,9 @@ uint64_t CMMsl::Item::makeMagnetometerCalibratorFilterParameters(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaActivityPhone(uint64_t this)
+void *CMMsl::Item::makeKappaActivityPhone(void *this)
 {
-  if (!*(this + 1712))
+  if (!this[214])
   {
     operator new();
   }
@@ -4448,9 +4448,9 @@ uint64_t CMMsl::Item::makeKappaActivityPhone(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaActivityWatch(uint64_t this)
+void *CMMsl::Item::makeKappaActivityWatch(void *this)
 {
-  if (!*(this + 1720))
+  if (!this[215])
   {
     operator new();
   }
@@ -4458,9 +4458,9 @@ uint64_t CMMsl::Item::makeKappaActivityWatch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingSessionStartStop(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingSessionStartStop(void *this)
 {
-  if (!*(this + 2728))
+  if (!this[341])
   {
     operator new();
   }
@@ -4468,9 +4468,9 @@ uint64_t CMMsl::Item::makePrecisionFindingSessionStartStop(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateDebug(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateDebug(void *this)
 {
-  if (!*(this + 2416))
+  if (!this[302])
   {
     operator new();
   }
@@ -4478,9 +4478,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateBodyDebug(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateBodyDebug(void *this)
 {
-  if (!*(this + 2408))
+  if (!this[301])
   {
     operator new();
   }
@@ -4488,9 +4488,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateBodyDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPeakDetectorMapResult(uint64_t this)
+void *CMMsl::Item::makeKappaPeakDetectorMapResult(void *this)
 {
-  if (!*(this + 1824))
+  if (!this[228])
   {
     operator new();
   }
@@ -4498,9 +4498,9 @@ uint64_t CMMsl::Item::makeKappaPeakDetectorMapResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeKappaPeakDetectorMapMagTimestamps(uint64_t this)
+void *CMMsl::Item::makeKappaPeakDetectorMapMagTimestamps(void *this)
 {
-  if (!*(this + 1816))
+  if (!this[227])
   {
     operator new();
   }
@@ -4508,9 +4508,9 @@ uint64_t CMMsl::Item::makeKappaPeakDetectorMapMagTimestamps(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePrecisionFindingVerticalState(uint64_t this)
+void *CMMsl::Item::makePrecisionFindingVerticalState(void *this)
 {
-  if (!*(this + 2752))
+  if (!this[344])
   {
     operator new();
   }
@@ -4518,9 +4518,9 @@ uint64_t CMMsl::Item::makePrecisionFindingVerticalState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAltimeter(uint64_t this)
+void *CMMsl::Item::makeAltimeter(void *this)
 {
-  if (!*(this + 352))
+  if (!this[44])
   {
     operator new();
   }
@@ -4528,9 +4528,9 @@ uint64_t CMMsl::Item::makeAltimeter(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFaceDownDetection(uint64_t this)
+void *CMMsl::Item::makeFaceDownDetection(void *this)
 {
-  if (!*(this + 1016))
+  if (!this[127])
   {
     operator new();
   }
@@ -4538,9 +4538,9 @@ uint64_t CMMsl::Item::makeFaceDownDetection(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilFusionDMYawAlignmentUpdate(uint64_t this)
+void *CMMsl::Item::makePencilFusionDMYawAlignmentUpdate(void *this)
 {
-  if (!*(this + 2600))
+  if (!this[325])
   {
     operator new();
   }
@@ -4548,9 +4548,9 @@ uint64_t CMMsl::Item::makePencilFusionDMYawAlignmentUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePencilFusionRingSensorTrustModelUpdate(uint64_t this)
+void *CMMsl::Item::makePencilFusionRingSensorTrustModelUpdate(void *this)
 {
-  if (!*(this + 2624))
+  if (!this[328])
   {
     operator new();
   }
@@ -4558,9 +4558,9 @@ uint64_t CMMsl::Item::makePencilFusionRingSensorTrustModelUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessorySleepStateUpdate(uint64_t this)
+void *CMMsl::Item::makeAccessorySleepStateUpdate(void *this)
 {
-  if (!*(this + 296))
+  if (!this[37])
   {
     operator new();
   }
@@ -4568,9 +4568,9 @@ uint64_t CMMsl::Item::makeAccessorySleepStateUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccessorySleepStateConfidenceEpoch(uint64_t this)
+void *CMMsl::Item::makeAccessorySleepStateConfidenceEpoch(void *this)
 {
-  if (!*(this + 288))
+  if (!this[36])
   {
     operator new();
   }
@@ -4578,9 +4578,9 @@ uint64_t CMMsl::Item::makeAccessorySleepStateConfidenceEpoch(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSafetyHertzSample(uint64_t this)
+void *CMMsl::Item::makeSafetyHertzSample(void *this)
 {
-  if (!*(this + 3064))
+  if (!this[383])
   {
     operator new();
   }
@@ -4588,9 +4588,9 @@ uint64_t CMMsl::Item::makeSafetyHertzSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSafetyCompanionStatus(uint64_t this)
+void *CMMsl::Item::makeSafetyCompanionStatus(void *this)
 {
-  if (!*(this + 3056))
+  if (!this[382])
   {
     operator new();
   }
@@ -4598,9 +4598,9 @@ uint64_t CMMsl::Item::makeSafetyCompanionStatus(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePtsConsumedGNSS(uint64_t this)
+void *CMMsl::Item::makePtsConsumedGNSS(void *this)
 {
-  if (!*(this + 2864))
+  if (!this[358])
   {
     operator new();
   }
@@ -4608,9 +4608,9 @@ uint64_t CMMsl::Item::makePtsConsumedGNSS(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePtsForwardPropagation(uint64_t this)
+void *CMMsl::Item::makePtsForwardPropagation(void *this)
 {
-  if (!*(this + 2872))
+  if (!this[359])
   {
     operator new();
   }
@@ -4618,9 +4618,9 @@ uint64_t CMMsl::Item::makePtsForwardPropagation(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePtsReconstructedRoute(uint64_t this)
+void *CMMsl::Item::makePtsReconstructedRoute(void *this)
 {
-  if (!*(this + 2888))
+  if (!this[361])
   {
     operator new();
   }
@@ -4628,9 +4628,9 @@ uint64_t CMMsl::Item::makePtsReconstructedRoute(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeHeadToHeadsetAttitudeEstimatorMeasurementUpdate(uint64_t this)
+void *CMMsl::Item::makeHeadToHeadsetAttitudeEstimatorMeasurementUpdate(void *this)
 {
-  if (!*(this + 1504))
+  if (!this[188])
   {
     operator new();
   }
@@ -4638,9 +4638,9 @@ uint64_t CMMsl::Item::makeHeadToHeadsetAttitudeEstimatorMeasurementUpdate(uint64
   return this;
 }
 
-uint64_t CMMsl::Item::makePtsMapMatchedRoute(uint64_t this)
+void *CMMsl::Item::makePtsMapMatchedRoute(void *this)
 {
-  if (!*(this + 2880))
+  if (!this[360])
   {
     operator new();
   }
@@ -4648,9 +4648,9 @@ uint64_t CMMsl::Item::makePtsMapMatchedRoute(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAnchorMotionCorrespondence(uint64_t this)
+void *CMMsl::Item::makeAnchorMotionCorrespondence(void *this)
 {
-  if (!*(this + 376))
+  if (!this[47])
   {
     operator new();
   }
@@ -4658,9 +4658,9 @@ uint64_t CMMsl::Item::makeAnchorMotionCorrespondence(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickGesture(uint64_t this)
+void *CMMsl::Item::makeFlickGesture(void *this)
 {
-  if (!*(this + 1176))
+  if (!this[147])
   {
     operator new();
   }
@@ -4668,9 +4668,9 @@ uint64_t CMMsl::Item::makeFlickGesture(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickFeatures(uint64_t this)
+void *CMMsl::Item::makeFlickFeatures(void *this)
 {
-  if (!*(this + 1168))
+  if (!this[146])
   {
     operator new();
   }
@@ -4678,9 +4678,9 @@ uint64_t CMMsl::Item::makeFlickFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickControlParameters(uint64_t this)
+void *CMMsl::Item::makeFlickControlParameters(void *this)
 {
-  if (!*(this + 1152))
+  if (!this[144])
   {
     operator new();
   }
@@ -4688,9 +4688,9 @@ uint64_t CMMsl::Item::makeFlickControlParameters(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSafetyRemoteSample(uint64_t this)
+void *CMMsl::Item::makeSafetyRemoteSample(void *this)
 {
-  if (!*(this + 3072))
+  if (!this[384])
   {
     operator new();
   }
@@ -4698,9 +4698,9 @@ uint64_t CMMsl::Item::makeSafetyRemoteSample(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSafetyTrustedAudioResult(uint64_t this)
+void *CMMsl::Item::makeSafetyTrustedAudioResult(void *this)
 {
-  if (!*(this + 3080))
+  if (!this[385])
   {
     operator new();
   }
@@ -4708,9 +4708,9 @@ uint64_t CMMsl::Item::makeSafetyTrustedAudioResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeDisplayPoseState(uint64_t this)
+void *CMMsl::Item::makeDisplayPoseState(void *this)
 {
-  if (!*(this + 880))
+  if (!this[110])
   {
     operator new();
   }
@@ -4718,9 +4718,9 @@ uint64_t CMMsl::Item::makeDisplayPoseState(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeTnb(uint64_t this)
+void *CMMsl::Item::makeTnb(void *this)
 {
-  if (!*(this + 3416))
+  if (!this[427])
   {
     operator new();
   }
@@ -4728,9 +4728,9 @@ uint64_t CMMsl::Item::makeTnb(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateTNBDebug(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateTNBDebug(void *this)
 {
-  if (!*(this + 2440))
+  if (!this[305])
   {
     operator new();
   }
@@ -4738,9 +4738,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateTNBDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCVIMUMeasurement(uint64_t this)
+void *CMMsl::Item::makeCVIMUMeasurement(void *this)
 {
-  if (!*(this + 664))
+  if (!this[83])
   {
     operator new();
   }
@@ -4748,9 +4748,9 @@ uint64_t CMMsl::Item::makeCVIMUMeasurement(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePdrDOTEstimatorStateSwingDebug(uint64_t this)
+void *CMMsl::Item::makePdrDOTEstimatorStateSwingDebug(void *this)
 {
-  if (!*(this + 2432))
+  if (!this[304])
   {
     operator new();
   }
@@ -4758,9 +4758,9 @@ uint64_t CMMsl::Item::makePdrDOTEstimatorStateSwingDebug(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeImuComboPacket(uint64_t this)
+void *CMMsl::Item::makeImuComboPacket(void *this)
 {
-  if (!*(this + 1568))
+  if (!this[196])
   {
     operator new();
   }
@@ -4768,9 +4768,9 @@ uint64_t CMMsl::Item::makeImuComboPacket(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroScaleEstimate(uint64_t this)
+void *CMMsl::Item::makeGyroScaleEstimate(void *this)
 {
-  if (!*(this + 1472))
+  if (!this[184])
   {
     operator new();
   }
@@ -4778,9 +4778,9 @@ uint64_t CMMsl::Item::makeGyroScaleEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroBiasEstimate(uint64_t this)
+void *CMMsl::Item::makeGyroBiasEstimate(void *this)
 {
-  if (!*(this + 1368))
+  if (!this[171])
   {
     operator new();
   }
@@ -4788,9 +4788,9 @@ uint64_t CMMsl::Item::makeGyroBiasEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeAccelBiasEstimate(uint64_t this)
+void *CMMsl::Item::makeAccelBiasEstimate(void *this)
 {
-  if (!*(this + 64))
+  if (!this[8])
   {
     operator new();
   }
@@ -4798,9 +4798,9 @@ uint64_t CMMsl::Item::makeAccelBiasEstimate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGyroController(uint64_t this)
+void *CMMsl::Item::makeGyroController(void *this)
 {
-  if (!*(this + 1432))
+  if (!this[179])
   {
     operator new();
   }
@@ -4808,9 +4808,9 @@ uint64_t CMMsl::Item::makeGyroController(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makePtsSmoothedRoute(uint64_t this)
+void *CMMsl::Item::makePtsSmoothedRoute(void *this)
 {
-  if (!*(this + 2896))
+  if (!this[362])
   {
     operator new();
   }
@@ -4818,9 +4818,9 @@ uint64_t CMMsl::Item::makePtsSmoothedRoute(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickMaxima(uint64_t this)
+void *CMMsl::Item::makeFlickMaxima(void *this)
 {
-  if (!*(this + 1200))
+  if (!this[150])
   {
     operator new();
   }
@@ -4828,9 +4828,9 @@ uint64_t CMMsl::Item::makeFlickMaxima(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickGyroMaxima(uint64_t this)
+void *CMMsl::Item::makeFlickGyroMaxima(void *this)
 {
-  if (!*(this + 1184))
+  if (!this[148])
   {
     operator new();
   }
@@ -4838,9 +4838,9 @@ uint64_t CMMsl::Item::makeFlickGyroMaxima(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickFPDetectorFeatures(uint64_t this)
+void *CMMsl::Item::makeFlickFPDetectorFeatures(void *this)
 {
-  if (!*(this + 1160))
+  if (!this[145])
   {
     operator new();
   }
@@ -4848,9 +4848,9 @@ uint64_t CMMsl::Item::makeFlickFPDetectorFeatures(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeFlickLPFDM6Data(uint64_t this)
+void *CMMsl::Item::makeFlickLPFDM6Data(void *this)
 {
-  if (!*(this + 1192))
+  if (!this[149])
   {
     operator new();
   }
@@ -4858,9 +4858,9 @@ uint64_t CMMsl::Item::makeFlickLPFDM6Data(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCourseFusion(uint64_t this)
+void *CMMsl::Item::makeCourseFusion(void *this)
 {
-  if (!*(this + 824))
+  if (!this[103])
   {
     operator new();
   }
@@ -4868,9 +4868,9 @@ uint64_t CMMsl::Item::makeCourseFusion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCMPedometerStep(uint64_t this)
+void *CMMsl::Item::makeCMPedometerStep(void *this)
 {
-  if (!*(this + 648))
+  if (!this[81])
   {
     operator new();
   }
@@ -4878,9 +4878,9 @@ uint64_t CMMsl::Item::makeCMPedometerStep(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeCMPedEntry(uint64_t this)
+void *CMMsl::Item::makeCMPedEntry(void *this)
 {
-  if (!*(this + 640))
+  if (!this[80])
   {
     operator new();
   }
@@ -4888,9 +4888,9 @@ uint64_t CMMsl::Item::makeCMPedEntry(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGestureQuaternion(uint64_t this)
+void *CMMsl::Item::makeGestureQuaternion(void *this)
 {
-  if (!*(this + 1296))
+  if (!this[162])
   {
     operator new();
   }
@@ -4898,9 +4898,9 @@ uint64_t CMMsl::Item::makeGestureQuaternion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeGestureLogSource(uint64_t this)
+void *CMMsl::Item::makeGestureLogSource(void *this)
 {
-  if (!*(this + 1288))
+  if (!this[161])
   {
     operator new();
   }
@@ -4908,9 +4908,9 @@ uint64_t CMMsl::Item::makeGestureLogSource(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSpuPlaybackExampleDeviceMotion(uint64_t this)
+void *CMMsl::Item::makeSpuPlaybackExampleDeviceMotion(void *this)
 {
-  if (!*(this + 3192))
+  if (!this[399])
   {
     operator new();
   }
@@ -4918,9 +4918,9 @@ uint64_t CMMsl::Item::makeSpuPlaybackExampleDeviceMotion(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeSpuPlaybackExampleMotionStateUpdate(uint64_t this)
+void *CMMsl::Item::makeSpuPlaybackExampleMotionStateUpdate(void *this)
 {
-  if (!*(this + 3200))
+  if (!this[400])
   {
     operator new();
   }
@@ -4928,9 +4928,9 @@ uint64_t CMMsl::Item::makeSpuPlaybackExampleMotionStateUpdate(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::Item::makeInterpolatedAccessoryAccel(uint64_t this)
+void *CMMsl::Item::makeInterpolatedAccessoryAccel(void *this)
 {
-  if (!*(this + 1664))
+  if (!this[208])
   {
     operator new();
   }
@@ -5076,7 +5076,6 @@ uint64_t CMMsl::JitterBufferLevel::formatText(CMMsl::JitterBufferLevel *this, PB
   v5 = *(this + 20);
   if (v5)
   {
-    v6 = *(this + 2);
     PB::TextFormatter::format(a2, "level");
     v5 = *(this + 20);
     if ((v5 & 2) == 0)
@@ -5096,7 +5095,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 3);
   PB::TextFormatter::format(a2, "threshold");
   if ((*(this + 20) & 4) != 0)
   {
@@ -5429,7 +5427,6 @@ uint64_t CMMsl::JitterBufferLevel::writeTo(uint64_t this, PB::Writer *a2)
     }
 
 LABEL_6:
-    v5 = *(v3 + 8);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 20) & 2) == 0)
     {
@@ -5453,7 +5450,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  v6 = *(v3 + 12);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -5523,11 +5519,11 @@ void CMMsl::JointLinkModelPose::~JointLinkModelPose(CMMsl::JointLinkModelPose *t
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::JointLinkModelPose::JointLinkModelPose(void *this, const CMMsl::JointLinkModelPose *a2)
+CMMsl::JointLinkModelPose *CMMsl::JointLinkModelPose::JointLinkModelPose(CMMsl::JointLinkModelPose *this, void ***a2)
 {
   *this = &unk_286C20F18;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5535,13 +5531,13 @@ void *CMMsl::JointLinkModelPose::JointLinkModelPose(void *this, const CMMsl::Joi
   return this;
 }
 
-const CMMsl::JointLinkModelPose *CMMsl::JointLinkModelPose::operator=(const CMMsl::JointLinkModelPose *a1, const CMMsl::JointLinkModelPose *a2)
+uint64_t CMMsl::JointLinkModelPose::operator=(uint64_t a1, void ***a2)
 {
   if (a1 != a2)
   {
     CMMsl::JointLinkModelPose::JointLinkModelPose(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::JointLinkModelPose::~JointLinkModelPose(&v5);
   }
@@ -5747,9 +5743,9 @@ CMMsl::BioMotionPose *CMMsl::JointLinkModelPose::hash_value(CMMsl::JointLinkMode
   return result;
 }
 
-uint64_t CMMsl::JointLinkModelPose::makeSuper(uint64_t this)
+void *CMMsl::JointLinkModelPose::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5776,11 +5772,11 @@ void CMMsl::JointLinkModelPredictedPose::~JointLinkModelPredictedPose(CMMsl::Joi
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::JointLinkModelPredictedPose::JointLinkModelPredictedPose(void *this, const CMMsl::JointLinkModelPredictedPose *a2)
+CMMsl::JointLinkModelPredictedPose *CMMsl::JointLinkModelPredictedPose::JointLinkModelPredictedPose(CMMsl::JointLinkModelPredictedPose *this, const CMMsl::PoseState ***a2)
 {
   *this = &unk_286C20F50;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5788,13 +5784,13 @@ void *CMMsl::JointLinkModelPredictedPose::JointLinkModelPredictedPose(void *this
   return this;
 }
 
-const CMMsl::JointLinkModelPredictedPose *CMMsl::JointLinkModelPredictedPose::operator=(const CMMsl::JointLinkModelPredictedPose *a1, const CMMsl::JointLinkModelPredictedPose *a2)
+uint64_t CMMsl::JointLinkModelPredictedPose::operator=(uint64_t a1, const CMMsl::PoseState ***a2)
 {
   if (a1 != a2)
   {
     CMMsl::JointLinkModelPredictedPose::JointLinkModelPredictedPose(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::JointLinkModelPredictedPose::~JointLinkModelPredictedPose(&v5);
   }
@@ -6000,9 +5996,9 @@ CMMsl::BioMotionPredictedPose *CMMsl::JointLinkModelPredictedPose::hash_value(CM
   return result;
 }
 
-uint64_t CMMsl::JointLinkModelPredictedPose::makeSuper(uint64_t this)
+void *CMMsl::JointLinkModelPredictedPose::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6264,7 +6260,7 @@ double CMMsl::KMVelocityEstimatorState::KMVelocityEstimatorState(uint64_t a1, ui
   return result;
 }
 
-CMMsl *CMMsl::KMVelocityEstimatorState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KMVelocityEstimatorState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6315,7 +6311,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  v6 = *(this + 48);
   PB::TextFormatter::format(a2, "validX");
   v5 = *(this + 26);
   if ((v5 & 0x200) == 0)
@@ -6330,7 +6325,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  v7 = *(this + 49);
   PB::TextFormatter::format(a2, "validY");
   v5 = *(this + 26);
   if ((v5 & 0x400) == 0)
@@ -6345,7 +6339,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  v8 = *(this + 50);
   PB::TextFormatter::format(a2, "validZ");
   v5 = *(this + 26);
   if ((v5 & 4) == 0)
@@ -6809,7 +6802,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  v5 = *(v3 + 48);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 52);
   if ((v4 & 0x200) == 0)
@@ -6821,7 +6813,6 @@ LABEL_10:
     }
 
 LABEL_22:
-    v7 = *(v3 + 50);
     this = PB::Writer::write(a2);
     if ((*(v3 + 52) & 2) == 0)
     {
@@ -6832,7 +6823,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  v6 = *(v3 + 49);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 52);
   if ((v4 & 0x400) != 0)
@@ -6847,9 +6837,9 @@ LABEL_11:
   }
 
 LABEL_23:
-  v8 = *(v3 + 16);
+  v5 = *(v3 + 16);
 
-  return PB::Writer::write(a2, v8);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::KMVelocityEstimatorState::hash_value(CMMsl::KMVelocityEstimatorState *this)
@@ -7297,7 +7287,7 @@ uint64_t CMMsl::KappaActivityPhone::KappaActivityPhone(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::KappaActivityPhone::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaActivityPhone::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7314,27 +7304,26 @@ uint64_t CMMsl::KappaActivityPhone::formatText(CMMsl::KappaActivityPhone *this, 
   PB::TextFormatter::beginObject(a2, a3);
   if ((*(this + 140) & 4) != 0)
   {
-    v5 = *(this + 30);
     PB::TextFormatter::format(a2, "armTimeActivityHints");
   }
 
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  while (v6 != v7)
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
   {
-    v8 = *v6++;
-    PB::TextFormatter::format(a2, "armTimeImuConfidences", v8);
+    v7 = *v5++;
+    PB::TextFormatter::format(a2, "armTimeImuConfidences", v7);
   }
 
-  v9 = *(this + 140);
-  if ((v9 & 8) != 0)
+  v8 = *(this + 140);
+  if ((v8 & 8) != 0)
   {
     PB::TextFormatter::format(a2, "sessionBtHintPercentage", *(this + 31));
-    v9 = *(this + 140);
-    if ((v9 & 0x10) == 0)
+    v8 = *(this + 140);
+    if ((v8 & 0x10) == 0)
     {
 LABEL_7:
-      if ((v9 & 0x20) == 0)
+      if ((v8 & 0x20) == 0)
       {
         goto LABEL_9;
       }
@@ -7356,31 +7345,31 @@ LABEL_8:
   }
 
 LABEL_9:
-  v10 = *(this + 4);
-  v11 = *(this + 5);
-  while (v10 != v11)
+  v9 = *(this + 4);
+  v10 = *(this + 5);
+  while (v9 != v10)
   {
-    v12 = *v10++;
+    v9 += 4;
     PB::TextFormatter::format(a2, "sessionSwivelAngleDegHistogram");
   }
 
-  v13 = *(this + 7);
-  v14 = *(this + 8);
-  while (v13 != v14)
+  v11 = *(this + 7);
+  v12 = *(this + 8);
+  while (v11 != v12)
   {
-    v15 = *v13++;
+    v11 += 4;
     PB::TextFormatter::format(a2, "sessionTiltAngleDegHistogram");
   }
 
-  v16 = *(this + 140);
-  if ((v16 & 0x40) != 0)
+  v13 = *(this + 140);
+  if ((v13 & 0x40) != 0)
   {
     PB::TextFormatter::format(a2, "sessionWifiHintPercentage", *(this + 34));
-    v16 = *(this + 140);
-    if ((v16 & 1) == 0)
+    v13 = *(this + 140);
+    if ((v13 & 1) == 0)
     {
 LABEL_15:
-      if ((v16 & 2) == 0)
+      if ((v13 & 2) == 0)
       {
         goto LABEL_17;
       }
@@ -7394,22 +7383,20 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v21 = *(this + 13);
   PB::TextFormatter::format(a2, "timestamp");
   if ((*(this + 140) & 2) != 0)
   {
 LABEL_16:
-    v17 = *(this + 14);
     PB::TextFormatter::format(a2, "triggerTimeLastHighImuDrivingConfidenceTimestamp");
   }
 
 LABEL_17:
-  v18 = *(this + 10);
-  v19 = *(this + 11);
-  while (v18 != v19)
+  v14 = *(this + 10);
+  v15 = *(this + 11);
+  while (v14 != v15)
   {
-    v20 = *v18++;
-    PB::TextFormatter::format(a2, "windowAfterArmImuConfidences", v20);
+    v16 = *v14++;
+    PB::TextFormatter::format(a2, "windowAfterArmImuConfidences", v16);
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -8735,63 +8722,60 @@ uint64_t CMMsl::KappaActivityPhone::writeTo(uint64_t this, PB::Writer *a2)
   v3 = this;
   if (*(this + 140))
   {
-    v4 = *(this + 104);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v5 = *(v3 + 8);
-  v6 = *(v3 + 16);
-  while (v5 != v6)
+  v4 = *(v3 + 8);
+  v5 = *(v3 + 16);
+  while (v4 != v5)
   {
-    v7 = *v5++;
-    this = PB::Writer::write(a2, v7);
+    v6 = *v4++;
+    this = PB::Writer::write(a2, v6);
   }
 
   if ((*(v3 + 140) & 4) != 0)
   {
-    v8 = *(v3 + 120);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v9 = *(v3 + 80);
-  v10 = *(v3 + 88);
-  while (v9 != v10)
+  v7 = *(v3 + 80);
+  v8 = *(v3 + 88);
+  while (v7 != v8)
   {
-    v11 = *v9++;
-    this = PB::Writer::write(a2, v11);
+    v9 = *v7++;
+    this = PB::Writer::write(a2, v9);
   }
 
   if ((*(v3 + 140) & 2) != 0)
   {
-    v12 = *(v3 + 112);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v13 = *(v3 + 32);
-  v14 = *(v3 + 40);
-  while (v13 != v14)
+  v10 = *(v3 + 32);
+  v11 = *(v3 + 40);
+  while (v10 != v11)
   {
-    v15 = *v13++;
+    v10 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v16 = *(v3 + 56);
-  v17 = *(v3 + 64);
-  while (v16 != v17)
+  v12 = *(v3 + 56);
+  v13 = *(v3 + 64);
+  while (v12 != v13)
   {
-    v18 = *v16++;
+    v12 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v19 = *(v3 + 140);
-  if ((v19 & 0x20) != 0)
+  v14 = *(v3 + 140);
+  if ((v14 & 0x20) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 132));
-    v19 = *(v3 + 140);
-    if ((v19 & 8) == 0)
+    v14 = *(v3 + 140);
+    if ((v14 & 8) == 0)
     {
 LABEL_21:
-      if ((v19 & 0x10) == 0)
+      if ((v14 & 0x10) == 0)
       {
         goto LABEL_22;
       }
@@ -8813,22 +8797,22 @@ LABEL_26:
   }
 
   this = PB::Writer::write(a2, *(v3 + 124));
-  v19 = *(v3 + 140);
-  if ((v19 & 0x10) != 0)
+  v14 = *(v3 + 140);
+  if ((v14 & 0x10) != 0)
   {
     goto LABEL_26;
   }
 
 LABEL_22:
-  if ((v19 & 0x40) == 0)
+  if ((v14 & 0x40) == 0)
   {
     return this;
   }
 
 LABEL_27:
-  v20 = *(v3 + 136);
+  v15 = *(v3 + 136);
 
-  return PB::Writer::write(a2, v20);
+  return PB::Writer::write(a2, v15);
 }
 
 uint64_t CMMsl::KappaActivityPhone::hash_value(CMMsl::KappaActivityPhone *this)
@@ -8843,12 +8827,21 @@ uint64_t CMMsl::KappaActivityPhone::hash_value(CMMsl::KappaActivityPhone *this)
     v2 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes();
+  v3 = PBHashBytes();
   if ((*(this + 140) & 4) != 0)
   {
-    v6 = *(this + 30);
+    v4 = *(this + 30);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = PBHashBytes();
+  if ((*(this + 140) & 2) != 0)
+  {
+    v6 = *(this + 14);
   }
 
   else
@@ -8856,35 +8849,18 @@ uint64_t CMMsl::KappaActivityPhone::hash_value(CMMsl::KappaActivityPhone *this)
     v6 = 0;
   }
 
-  v7 = *(this + 10);
-  v8 = *(this + 11);
-  v9 = PBHashBytes();
-  if ((*(this + 140) & 2) != 0)
-  {
-    v10 = *(this + 14);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *(this + 4);
-  v12 = *(this + 5);
-  v13 = PBHashBytes();
-  v14 = *(this + 7);
-  v15 = *(this + 8);
-  v16 = PBHashBytes();
+  v7 = PBHashBytes();
+  v8 = PBHashBytes();
   if ((*(this + 140) & 0x20) == 0)
   {
-    v17 = 0;
+    v9 = 0;
     if ((*(this + 140) & 8) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_24:
-    v19 = 0;
+    v11 = 0;
     if ((*(this + 140) & 0x10) != 0)
     {
       goto LABEL_15;
@@ -8893,11 +8869,11 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v24 = *(this + 33);
-  v17 = LODWORD(v24);
-  if (v24 == 0.0)
+  v16 = *(this + 33);
+  v9 = LODWORD(v16);
+  if (v16 == 0.0)
   {
-    v17 = 0;
+    v9 = 0;
   }
 
   if ((*(this + 140) & 8) == 0)
@@ -8906,21 +8882,21 @@ LABEL_24:
   }
 
 LABEL_12:
-  v18 = *(this + 31);
-  v19 = LODWORD(v18);
-  if (v18 == 0.0)
+  v10 = *(this + 31);
+  v11 = LODWORD(v10);
+  if (v10 == 0.0)
   {
-    v19 = 0;
+    v11 = 0;
   }
 
   if ((*(this + 140) & 0x10) != 0)
   {
 LABEL_15:
-    v20 = *(this + 32);
-    v21 = LODWORD(v20);
-    if (v20 == 0.0)
+    v12 = *(this + 32);
+    v13 = LODWORD(v12);
+    if (v12 == 0.0)
     {
-      v21 = 0;
+      v13 = 0;
     }
 
     if ((*(this + 140) & 0x40) != 0)
@@ -8929,26 +8905,26 @@ LABEL_15:
     }
 
 LABEL_26:
-    v23 = 0;
-    return v5 ^ v2 ^ v6 ^ v9 ^ v10 ^ v13 ^ v16 ^ v17 ^ v19 ^ v21 ^ v23;
+    v15 = 0;
+    return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9 ^ v11 ^ v13 ^ v15;
   }
 
 LABEL_25:
-  v21 = 0;
+  v13 = 0;
   if ((*(this + 140) & 0x40) == 0)
   {
     goto LABEL_26;
   }
 
 LABEL_18:
-  v22 = *(this + 34);
-  v23 = LODWORD(v22);
-  if (v22 == 0.0)
+  v14 = *(this + 34);
+  v15 = LODWORD(v14);
+  if (v14 == 0.0)
   {
-    v23 = 0;
+    v15 = 0;
   }
 
-  return v5 ^ v2 ^ v6 ^ v9 ^ v10 ^ v13 ^ v16 ^ v17 ^ v19 ^ v21 ^ v23;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ v8 ^ v9 ^ v11 ^ v13 ^ v15;
 }
 
 void CMMsl::KappaActivityWatch::~KappaActivityWatch(CMMsl::KappaActivityWatch *this)
@@ -9194,7 +9170,7 @@ uint64_t CMMsl::KappaActivityWatch::KappaActivityWatch(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::KappaActivityWatch::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaActivityWatch::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9225,20 +9201,19 @@ uint64_t CMMsl::KappaActivityWatch::formatText(CMMsl::KappaActivityWatch *this, 
   v7 = *(this + 2);
   while (v6 != v7)
   {
-    v8 = *v6++;
+    v6 += 4;
     PB::TextFormatter::format(a2, "sessionMeanPoseAngleXHistogram");
   }
 
-  v9 = *(this + 52);
-  if (v9)
+  v8 = *(this + 52);
+  if (v8)
   {
-    v13 = *(this + 7);
     PB::TextFormatter::format(a2, "timestamp");
-    v9 = *(this + 52);
-    if ((v9 & 0x20) == 0)
+    v8 = *(this + 52);
+    if ((v8 & 0x20) == 0)
     {
 LABEL_9:
-      if ((v9 & 2) == 0)
+      if ((v8 & 2) == 0)
       {
         goto LABEL_10;
       }
@@ -9247,18 +9222,17 @@ LABEL_9:
     }
   }
 
-  else if ((v9 & 0x20) == 0)
+  else if ((v8 & 0x20) == 0)
   {
     goto LABEL_9;
   }
 
-  v14 = *(this + 22);
   PB::TextFormatter::format(a2, "triggerTimeInternalDrivingState");
-  v9 = *(this + 52);
-  if ((v9 & 2) == 0)
+  v8 = *(this + 52);
+  if ((v8 & 2) == 0)
   {
 LABEL_10:
-    if ((v9 & 4) == 0)
+    if ((v8 & 4) == 0)
     {
       goto LABEL_11;
     }
@@ -9267,13 +9241,12 @@ LABEL_10:
   }
 
 LABEL_22:
-  v15 = *(this + 8);
   PB::TextFormatter::format(a2, "triggerTimeLastHighElevationGainTimestamp");
-  v9 = *(this + 52);
-  if ((v9 & 4) == 0)
+  v8 = *(this + 52);
+  if ((v8 & 4) == 0)
   {
 LABEL_11:
-    if ((v9 & 0x40) == 0)
+    if ((v8 & 0x40) == 0)
     {
       goto LABEL_12;
     }
@@ -9282,13 +9255,12 @@ LABEL_11:
   }
 
 LABEL_23:
-  v16 = *(this + 9);
   PB::TextFormatter::format(a2, "triggerTimeLastHighImuDrivingConfidenceTimestamp");
-  v9 = *(this + 52);
-  if ((v9 & 0x40) == 0)
+  v8 = *(this + 52);
+  if ((v8 & 0x40) == 0)
   {
 LABEL_12:
-    if ((v9 & 0x80) == 0)
+    if ((v8 & 0x80) == 0)
     {
       goto LABEL_13;
     }
@@ -9298,11 +9270,11 @@ LABEL_12:
 
 LABEL_24:
   PB::TextFormatter::format(a2, "windowAfterArmGreenFieldPercentage", *(this + 23));
-  v9 = *(this + 52);
-  if ((v9 & 0x80) == 0)
+  v8 = *(this + 52);
+  if ((v8 & 0x80) == 0)
   {
 LABEL_13:
-    if ((v9 & 0x100) == 0)
+    if ((v8 & 0x100) == 0)
     {
       goto LABEL_15;
     }
@@ -9319,11 +9291,11 @@ LABEL_14:
   }
 
 LABEL_15:
-  v10 = *(this + 4);
-  v11 = *(this + 5);
-  while (v10 != v11)
+  v9 = *(this + 4);
+  v10 = *(this + 5);
+  while (v9 != v10)
   {
-    v12 = *v10++;
+    v9 += 4;
     PB::TextFormatter::format(a2, "windowAfterArmMeanPoseAngleXHistogram");
   }
 

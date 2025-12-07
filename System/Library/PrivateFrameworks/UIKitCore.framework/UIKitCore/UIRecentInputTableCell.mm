@@ -211,7 +211,7 @@ void __75__UIRecentInputTableCell_didUpdateFocusInContext_withAnimationCoordinat
 
   else
   {
-    v3 = +[UIColor blackColor];
+    v3 = objc_msgSend_blackColor(UIColor, a2);
   }
 
   return v3;

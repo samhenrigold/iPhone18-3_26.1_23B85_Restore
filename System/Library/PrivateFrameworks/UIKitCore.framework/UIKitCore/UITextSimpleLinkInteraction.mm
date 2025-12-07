@@ -42,9 +42,9 @@ void __42___UITextSimpleLinkInteraction_highlight___block_invoke_2(uint64_t a1)
 
     else
     {
-      v7 = [v11 isEqual:v3];
+      isEqual = objc_msgSend_isEqual_(v11, v11, v3);
 
-      if (v7)
+      if (isEqual)
       {
         return;
       }

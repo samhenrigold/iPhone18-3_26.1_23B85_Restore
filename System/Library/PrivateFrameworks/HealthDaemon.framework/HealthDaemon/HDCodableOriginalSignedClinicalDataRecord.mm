@@ -258,7 +258,7 @@ LABEL_33:
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_messageVersion)
   {
@@ -290,30 +290,29 @@ LABEL_33:
     PBDataWriterWriteDataField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_types;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -326,7 +325,6 @@ LABEL_33:
 
   if ((*&self->_has & 4) != 0)
   {
-    receivedDate = self->_receivedDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -337,7 +335,6 @@ LABEL_33:
 
   if (*&self->_has)
   {
-    firstSeenDate = self->_firstSeenDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -348,7 +345,6 @@ LABEL_33:
 
   if ((*&self->_has & 8) != 0)
   {
-    signatureStatus = self->_signatureStatus;
     PBDataWriterWriteInt64Field();
   }
 
@@ -360,7 +356,6 @@ LABEL_33:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    lastModifiedDate = self->_lastModifiedDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -380,12 +375,10 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  deleted = self->_deleted;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_37:
-    sourceType = self->_sourceType;
     PBDataWriterWriteInt64Field();
   }
 
@@ -394,8 +387,6 @@ LABEL_38:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -530,7 +521,7 @@ LABEL_35:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(HDCodableMessageVersion *)self->_messageVersion copyWithZone:zone];
   v7 = *(v5 + 72);
@@ -556,30 +547,30 @@ LABEL_35:
   v17 = *(v5 + 88);
   *(v5 + 88) = v16;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v18 = self->_types;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v38;
+    v21 = *v37;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v38 != v21)
+        if (*v37 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v37 + 1) + 8 * i) copyWithZone:{zone, v37}];
+        v23 = [*(*(&v36 + 1) + 8 * i) copyWithZone:{zone, v36}];
         [v5 addType:v23];
       }
 
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v20);
@@ -595,7 +586,7 @@ LABEL_35:
     *(v5 + 148) |= 4u;
   }
 
-  v26 = [(NSString *)self->_receivedDateTimeZoneName copyWithZone:zone, v37];
+  v26 = [(NSString *)self->_receivedDateTimeZoneName copyWithZone:zone, v36];
   v27 = *(v5 + 96);
   *(v5 + 96) = v26;
 
@@ -659,7 +650,6 @@ LABEL_18:
   v34 = *(v5 + 120);
   *(v5 + 120) = v33;
 
-  v35 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -841,7 +831,7 @@ LABEL_18:
     }
 
 LABEL_61:
-    v20 = 0;
+    v19 = 0;
     goto LABEL_62;
   }
 
@@ -850,7 +840,6 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  v18 = *(equalCopy + 144);
   if (self->_deleted)
   {
     if ((*(equalCopy + 144) & 1) == 0)
@@ -881,17 +870,17 @@ LABEL_49:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 15))
   {
-    v20 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v19 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
 LABEL_62:
 
-  return v20;
+  return v19;
 }
 
 - (unint64_t)hash
@@ -1042,7 +1031,7 @@ LABEL_30:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   messageVersion = self->_messageVersion;
   v6 = *(fromCopy + 9);
@@ -1084,29 +1073,29 @@ LABEL_30:
     [(HDCodableOriginalSignedClinicalDataRecord *)self setRawContent:?];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = *(fromCopy + 16);
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(HDCodableOriginalSignedClinicalDataRecord *)self addType:*(*(&v18 + 1) + 8 * i), v18];
+        [(HDCodableOriginalSignedClinicalDataRecord *)self addType:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -1207,8 +1196,6 @@ LABEL_44:
   {
     [(HDCodableOriginalSignedClinicalDataRecord *)self setSyncIdentity:?];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

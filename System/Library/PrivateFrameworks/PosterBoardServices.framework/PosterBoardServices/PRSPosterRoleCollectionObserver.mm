@@ -38,22 +38,21 @@
 {
   stateCopy = state;
   v5 = MEMORY[0x1E695DFB8];
-  v13 = stateCopy;
+  v12 = stateCopy;
   v6 = [stateCopy bs_mapNoNulls:&__block_literal_global_348];
   v7 = [v5 orderedSetWithArray:v6];
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  posterCollection = selfCopy->_posterCollection;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v10 = selfCopy->_posterCollection;
+    v9 = selfCopy->_posterCollection;
     objc_storeStrong(&selfCopy->_posterCollection, v7);
     handler = [(PRSPosterRoleCollectionObserver *)selfCopy handler];
-    v12 = handler;
+    v11 = handler;
     if (handler)
     {
-      (*(handler + 16))(handler, selfCopy, v10, v7);
+      (*(handler + 16))(handler, selfCopy, v9, v7);
     }
   }
 
@@ -70,7 +69,7 @@ id __53__PRSPosterRoleCollectionObserver_issueUpdatedState___block_invoke(uint64
 
 - (void)initWithRole:(char *)a1 needsSandboxExtensions:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -78,7 +77,7 @@ id __53__PRSPosterRoleCollectionObserver_issueUpdatedState___block_invoke(uint64
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -88,7 +87,7 @@ id __53__PRSPosterRoleCollectionObserver_issueUpdatedState___block_invoke(uint64
 
 - (void)initWithRole:(char *)a1 needsSandboxExtensions:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -96,7 +95,7 @@ id __53__PRSPosterRoleCollectionObserver_issueUpdatedState___block_invoke(uint64
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

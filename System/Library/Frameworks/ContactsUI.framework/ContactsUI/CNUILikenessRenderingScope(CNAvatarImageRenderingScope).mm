@@ -1,10 +1,10 @@
 @interface CNUILikenessRenderingScope(CNAvatarImageRenderingScope)
-- (uint64_t)avatarViewBackgroundStyle;
+- (char)avatarViewBackgroundStyle;
 @end
 
 @implementation CNUILikenessRenderingScope(CNAvatarImageRenderingScope)
 
-- (uint64_t)avatarViewBackgroundStyle
+- (char)avatarViewBackgroundStyle
 {
   result = [self backgroundStyle];
   if ((result - 1) >= 4)

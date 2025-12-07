@@ -4,7 +4,6 @@
 - (double)_topPadding;
 - (double)preferredHeightForWidth:(double)width;
 - (void)_urlTapped:(id)tapped;
-- (void)clearSpecifier;
 - (void)dealloc;
 - (void)layoutSubviews;
 - (void)updateLabelText;
@@ -63,13 +62,6 @@
   [(CNFRegTableLabel *)&v3 dealloc];
 }
 
-- (void)clearSpecifier
-{
-  specifier = self->_specifier;
-  self->_specifier = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (double)_labelInset
 {
   PreferencesTableViewCellLeftPad();
@@ -106,7 +98,7 @@
 
 - (void)layoutSubviews
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   [(CNFRegTableLabel *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -116,23 +108,23 @@
   v12 = v11;
   [(CNFRegTableLabel *)self _labelInset];
   v14 = v12 + v13;
-  v53.origin.x = v4;
-  v53.origin.y = v6;
-  v53.size.width = v8;
-  v53.size.height = v10;
-  v54 = CGRectInset(v53, v14, 0.0);
-  x = v54.origin.x;
-  y = v54.origin.y;
-  width = v54.size.width;
-  height = v54.size.height;
-  v19 = CGRectGetWidth(v54);
+  v52.origin.x = v4;
+  v52.origin.y = v6;
+  v52.size.width = v8;
+  v52.size.height = v10;
+  v53 = CGRectInset(v52, v14, 0.0);
+  x = v53.origin.x;
+  y = v53.origin.y;
+  width = v53.size.width;
+  height = v53.size.height;
+  v19 = CGRectGetWidth(v53);
   text = [(UILabel *)self->_label text];
   if (text && (v21 = text, -[UILabel text](self->_label, "text"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 length], v22, v21, v23))
   {
-    v51 = *MEMORY[0x277D740A8];
+    v50 = *MEMORY[0x277D740A8];
     font = [(UILabel *)self->_label font];
-    v52[0] = font;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v51[0] = font;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
 
     text2 = [(UILabel *)self->_label text];
     [text2 boundingRectWithSize:1 options:v25 attributes:0 context:{v19, 1.79769313e308}];
@@ -142,11 +134,11 @@
     [(UILabel *)self->_label setTextAlignment:4];
     v30 = ceil(v29);
     y = v27;
-    v55.origin.x = x;
-    v55.origin.y = v27;
-    v55.size.width = width;
-    v55.size.height = height;
-    if (v30 >= CGRectGetHeight(v55))
+    v54.origin.x = x;
+    v54.origin.y = v27;
+    v54.size.width = width;
+    v54.size.height = height;
+    if (v30 >= CGRectGetHeight(v54))
     {
       v30 = height;
       v32 = v27;
@@ -175,8 +167,8 @@
   urlButton = self->_urlButton;
   if (urlButton)
   {
-    v48 = y;
-    v49 = width;
+    v47 = y;
+    v48 = width;
     rect = height;
     [(CNFRegLearnMoreButton *)urlButton sizeToFit];
     _labelTextAlignment = [(CNFRegTableLabel *)self _labelTextAlignment];
@@ -184,37 +176,37 @@
     v38 = v37;
     v40 = v39;
     v42 = v41;
-    v56.origin.x = x;
-    v56.origin.y = v32;
-    v56.size.width = v34;
-    v56.size.height = v30;
-    v43 = CGRectGetMaxY(v56) + 5.0;
+    v55.origin.x = x;
+    v55.origin.y = v32;
+    v55.size.width = v34;
+    v55.size.height = v30;
+    v43 = CGRectGetMaxY(v55) + 5.0;
     if (_labelTextAlignment == 2)
     {
-      v60.origin.x = v33;
-      v60.origin.y = v48;
-      v60.size.width = v49;
-      v60.size.height = rect;
-      MaxX = CGRectGetMaxX(v60);
-      v61.origin.x = v38;
-      v61.origin.y = v43;
-      v61.size.width = v40;
-      v61.size.height = v42;
-      MinX = MaxX - CGRectGetWidth(v61);
+      v59.origin.x = v33;
+      v59.origin.y = v47;
+      v59.size.width = v48;
+      v59.size.height = rect;
+      MaxX = CGRectGetMaxX(v59);
+      v60.origin.x = v38;
+      v60.origin.y = v43;
+      v60.size.width = v40;
+      v60.size.height = v42;
+      MinX = MaxX - CGRectGetWidth(v60);
     }
 
     else if (_labelTextAlignment == 1)
     {
-      v58.origin.x = v33;
-      v58.origin.y = v48;
-      v58.size.width = v49;
-      v58.size.height = rect;
-      MidX = CGRectGetMidX(v58);
-      v59.origin.x = v38;
-      v59.origin.y = v43;
-      v59.size.width = v40;
-      v59.size.height = v42;
-      MinX = MidX + CGRectGetWidth(v59) * -0.5;
+      v57.origin.x = v33;
+      v57.origin.y = v47;
+      v57.size.width = v48;
+      v57.size.height = rect;
+      MidX = CGRectGetMidX(v57);
+      v58.origin.x = v38;
+      v58.origin.y = v43;
+      v58.size.width = v40;
+      v58.size.height = v42;
+      MinX = MidX + CGRectGetWidth(v58) * -0.5;
     }
 
     else
@@ -223,22 +215,19 @@
       {
 LABEL_16:
         [(CNFRegLearnMoreButton *)self->_urlButton setFrame:v38, v43, v40, v42];
-        goto LABEL_17;
+        return;
       }
 
-      v57.origin.x = v33;
-      v57.origin.y = v48;
-      v57.size.width = v49;
-      v57.size.height = rect;
-      MinX = CGRectGetMinX(v57);
+      v56.origin.x = v33;
+      v56.origin.y = v47;
+      v56.size.width = v48;
+      v56.size.height = rect;
+      MinX = CGRectGetMinX(v56);
     }
 
     v38 = floor(MinX);
     goto LABEL_16;
   }
-
-LABEL_17:
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_urlTapped:(id)tapped
@@ -290,7 +279,7 @@ LABEL_17:
 
 - (double)preferredHeightForWidth:(double)width
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   if (width == 0.0)
   {
     widthCopy = 320.0;
@@ -334,10 +323,10 @@ LABEL_17:
 
     if (v18)
     {
-      v30 = *MEMORY[0x277D740A8];
+      v29 = *MEMORY[0x277D740A8];
       font = [(UILabel *)self->_label font];
-      v31[0] = font;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v30[0] = font;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
 
       text3 = [(UILabel *)self->_label text];
       [text3 boundingRectWithSize:1 options:v20 attributes:0 context:{v14, 1.79769313e308}];
@@ -361,7 +350,6 @@ LABEL_17:
     v9 = v9 + v27 + 5.0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return ceil(v9);
 }
 

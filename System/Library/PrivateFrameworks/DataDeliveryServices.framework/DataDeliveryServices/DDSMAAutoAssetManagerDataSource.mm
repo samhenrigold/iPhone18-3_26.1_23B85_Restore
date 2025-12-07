@@ -17,17 +17,15 @@
 
 void __70__DDSMAAutoAssetManagerDataSource_linguisticAssetCompatabilityVersion__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   linguisticAssetCompatabilityVersion_supportedCompatibilityVersion = DDSReadCompatabilityVersionFromFile(@"Info.plist");
-  v0 = DefaultLog();
+  v0 = DefaultLog(linguisticAssetCompatabilityVersion_supportedCompatibilityVersion);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 134217984;
-    v3 = linguisticAssetCompatabilityVersion_supportedCompatibilityVersion;
-    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for LinguisticData assets = %ld", &v2, 0xCu);
+    v1 = 134217984;
+    v2 = linguisticAssetCompatabilityVersion_supportedCompatibilityVersion;
+    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "Supported compatibility version for LinguisticData assets = %ld", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (id)supportedAutoAssetSpecifiers
@@ -48,20 +46,19 @@ void __63__DDSMAAutoAssetManagerDataSource_supportedAutoAssetSpecifiers__block_i
   v1 = supportedAutoAssetSpecifiers_supportedAutoAssetSpecifiers;
   supportedAutoAssetSpecifiers_supportedAutoAssetSpecifiers = v0;
 
-  v2 = DefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = DefaultLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __63__DDSMAAutoAssetManagerDataSource_supportedAutoAssetSpecifiers__block_invoke_cold_1(v2);
+    __63__DDSMAAutoAssetManagerDataSource_supportedAutoAssetSpecifiers__block_invoke_cold_1(v3);
   }
 }
 
 void __63__DDSMAAutoAssetManagerDataSource_supportedAutoAssetSpecifiers__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = supportedAutoAssetSpecifiers_supportedAutoAssetSpecifiers;
-  _os_log_debug_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_DEBUG, "Supported auto asset specifiers: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = supportedAutoAssetSpecifiers_supportedAutoAssetSpecifiers;
+  _os_log_debug_impl(&dword_1DF7C6000, log, OS_LOG_TYPE_DEBUG, "Supported auto asset specifiers: %@", &v1, 0xCu);
 }
 
 @end

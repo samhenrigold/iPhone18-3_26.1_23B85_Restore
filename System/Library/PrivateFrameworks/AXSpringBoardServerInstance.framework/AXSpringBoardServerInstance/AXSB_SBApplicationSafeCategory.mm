@@ -6,7 +6,7 @@
 
 - (void)_updateProcess:(id)process withState:(id)state
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   processCopy = process;
   stateCopy = state;
   buf[0] = 0;
@@ -28,10 +28,10 @@
 
   v18 = [v17 safeIntForKey:@"taskState"];
   v19 = [v17 safeIntForKey:@"visibility"];
-  v35.receiver = self;
-  v35.super_class = AXSB_SBApplicationSafeCategory;
-  v34 = stateCopy;
-  [(AXSB_SBApplicationSafeCategory *)&v35 _updateProcess:processCopy withState:stateCopy];
+  v34.receiver = self;
+  v34.super_class = AXSB_SBApplicationSafeCategory;
+  v33 = stateCopy;
+  [(AXSB_SBApplicationSafeCategory *)&v34 _updateProcess:processCopy withState:stateCopy];
   buf[0] = 0;
   v20 = [(AXSB_SBApplicationSafeCategory *)self safeValueForKey:@"_internalProcessState"];
   v21 = __UIAccessibilitySafeClass();
@@ -68,11 +68,11 @@
     {
       bundleIdentifier3 = [v9 bundleIdentifier];
       *buf = 138412802;
-      v37 = bundleIdentifier3;
-      v38 = 2112;
-      v39 = v17;
-      v40 = 2112;
-      v41 = v21;
+      v36 = bundleIdentifier3;
+      v37 = 2112;
+      v38 = v17;
+      v39 = 2112;
+      v40 = v21;
       _os_log_impl(&dword_21FE6B000, v31, OS_LOG_TYPE_DEFAULT, "Canceling RTT call prompt display because %@ moved from previous state %@ to new state %@", buf, 0x20u);
     }
 
@@ -80,8 +80,6 @@
   }
 
 LABEL_24:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

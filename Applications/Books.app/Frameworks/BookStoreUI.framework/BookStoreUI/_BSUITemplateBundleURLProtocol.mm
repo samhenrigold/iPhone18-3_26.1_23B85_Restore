@@ -23,7 +23,7 @@
   lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
 
   pathExtension = [v4 pathExtension];
-  v8 = BSUIBundle();
+  v8 = BSUIBundle(pathExtension);
   v9 = [v8 URLForResource:lastPathComponent withExtension:pathExtension];
 
   if (v9)

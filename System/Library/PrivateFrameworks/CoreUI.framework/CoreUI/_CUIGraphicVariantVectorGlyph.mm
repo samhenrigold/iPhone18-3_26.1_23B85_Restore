@@ -625,25 +625,26 @@
 {
   height = size.height;
   width = size.width;
-  if ([(_CUIGraphicVariantVectorGlyph *)self _containsWideGamutColor])
+  _containsWideGamutColor = [(_CUIGraphicVariantVectorGlyph *)self _containsWideGamutColor];
+  if (_containsWideGamutColor)
   {
-    v7 = 4097;
-    v8 = 16;
-    DisplayP3 = _CUIColorSpaceGetDisplayP3();
+    v9 = 4097;
+    v10 = 16;
+    DisplayP3 = _CUIColorSpaceGetDisplayP3(_containsWideGamutColor, v8);
   }
 
   else
   {
-    v7 = 8193;
-    v8 = 8;
-    DisplayP3 = _CUIColorSpaceGetSRGB();
+    v9 = 8193;
+    v10 = 8;
+    DisplayP3 = _CUIColorSpaceGetSRGB(_containsWideGamutColor, v8);
   }
 
   v12 = DisplayP3;
   v13 = vcvtpd_u64_f64(width * scale);
   v14 = vcvtpd_u64_f64(height * scale);
 
-  return CUICGBitmapContextCreate(v13, v14, v8, 0, v12, v7, v10, v11);
+  return CUICGBitmapContextCreate(v13, v14, v10, 0, v12, v9);
 }
 
 - (CGImage)_createBackgroundImageOfSize:(CGSize)size scale:(double)scale
@@ -1076,7 +1077,7 @@ LABEL_14:
   height = size.height;
   width = size.width;
   selfCopy = self;
-  v8 = sub_18DFFDEA4(scale, width, height);
+  v8 = sub_18DFFDEA4(0, 0, 4, scale, width, height);
 
   return v8;
 }
@@ -1086,7 +1087,7 @@ LABEL_14:
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_18DFFE920(0, 0, 4u, scale, width, height);
+  sub_18DFFE920(0, 0, 4, scale, width, height);
   v9 = v8;
 
   return v9;

@@ -6,7 +6,7 @@
 
 - (NSObject)amui_getConfiguredDisplayNameWithError:()AmbientUI
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [self pr_loadOtherMetadataWithError:?];
   v6 = v5;
   if (v5)
@@ -14,7 +14,7 @@
     displayNameLocalizationKey = [v5 displayNameLocalizationKey];
     if (!displayNameLocalizationKey)
     {
-      v8 = AMUILogSwitcher();
+      v8 = AMUILogSwitcher(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [(PRSPosterConfiguration(AmbientUI) *)self amui_getConfiguredDisplayNameWithError:v8];
@@ -44,16 +44,16 @@
 
           else
           {
-            v18 = AMUILogSwitcher();
+            v18 = AMUILogSwitcher(0);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              v21 = 138412802;
-              v22 = displayNameLocalizationKey;
-              v23 = 2112;
-              v24 = v14;
-              v25 = 2112;
+              v20 = 138412802;
+              v21 = displayNameLocalizationKey;
+              v22 = 2112;
+              v23 = v14;
+              v24 = 2112;
               selfCopy = self;
-              _os_log_error_impl(&dword_23F38B000, v18, OS_LOG_TYPE_ERROR, "Failed to load display name localization key %@ from bundle %@ for %@", &v21, 0x20u);
+              _os_log_error_impl(&dword_23F38B000, v18, OS_LOG_TYPE_ERROR, "Failed to load display name localization key %@ from bundle %@ for %@", &v20, 0x20u);
             }
 
             v17 = 0;
@@ -62,7 +62,7 @@
 
         else
         {
-          v16 = AMUILogSwitcher();
+          v16 = AMUILogSwitcher(0);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [PRSPosterConfiguration(AmbientUI) amui_getConfiguredDisplayNameWithError:];
@@ -74,7 +74,7 @@
         goto LABEL_29;
       }
 
-      v12 = AMUILogSwitcher();
+      v12 = AMUILogSwitcher(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [PRSPosterConfiguration(AmbientUI) amui_getConfiguredDisplayNameWithError:];
@@ -83,7 +83,7 @@
 
     else
     {
-      v12 = AMUILogSwitcher();
+      v12 = AMUILogSwitcher(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(PRSPosterConfiguration(AmbientUI) *)self amui_getConfiguredDisplayNameWithError:v12];
@@ -98,7 +98,8 @@ LABEL_29:
 
   if (a3)
   {
-    displayNameLocalizationKey = *a3;
+    v5 = *a3;
+    displayNameLocalizationKey = v5;
   }
 
   else
@@ -106,7 +107,7 @@ LABEL_29:
     displayNameLocalizationKey = 0;
   }
 
-  pr_posterProvider = AMUILogSwitcher();
+  pr_posterProvider = AMUILogSwitcher(v5);
   if (os_log_type_enabled(pr_posterProvider, OS_LOG_TYPE_ERROR))
   {
     [PRSPosterConfiguration(AmbientUI) amui_getConfiguredDisplayNameWithError:];
@@ -115,51 +116,23 @@ LABEL_29:
   v17 = 0;
 LABEL_30:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)amui_getConfiguredDisplayNameWithError:()AmbientUI .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "No display name localization key for configuration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)amui_getConfiguredDisplayNameWithError:()AmbientUI .cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Failed to load bundle %@ from %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)amui_getConfiguredDisplayNameWithError:()AmbientUI .cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "No extension record for provider %@ configuration %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "No display name localization key for configuration %@", &v2, 0xCu);
 }
 
 - (void)amui_getConfiguredDisplayNameWithError:()AmbientUI .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Missing poster provider from configuration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)amui_getConfiguredDisplayNameWithError:()AmbientUI .cold.5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Unable to load metadata for poster configuration %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Missing poster provider from configuration %@", &v2, 0xCu);
 }
 
 @end

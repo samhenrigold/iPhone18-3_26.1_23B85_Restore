@@ -19,7 +19,7 @@
   if (to)
   {
     toCopy = to;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD48B68);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD48B68, &unk_1BE0DD0A0);
     sub_1BE0518F4();
   }
 
@@ -43,7 +43,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD48B70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD48B70, &unk_1BE0E5BC0);
     sub_1BE0518F4();
   }
 

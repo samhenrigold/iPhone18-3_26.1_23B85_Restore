@@ -131,15 +131,15 @@
 
 - (void)willDismissServiceViewController
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXUserInterface();
+  v3 = WBS_LOG_CHANNEL_PREFIXUserInterface(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Safari View Controller will be dismissed", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Safari View Controller will be dismissed", v8, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained remoteViewControllerWillDismiss:self];
@@ -147,10 +147,10 @@
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXUserInterface();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXUserInterface(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SFBrowserRemoteViewController *)v6 willDismissServiceViewController];
+      [(SFBrowserRemoteViewController *)v7 willDismissServiceViewController];
     }
   }
 }

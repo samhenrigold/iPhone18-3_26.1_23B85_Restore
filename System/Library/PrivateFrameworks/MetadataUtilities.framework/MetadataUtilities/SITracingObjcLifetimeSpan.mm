@@ -7,7 +7,6 @@
 
 - (id)init:(SITracingSpan *)init kind:(char)kind what:(const char *)what
 {
-  v10 = *MEMORY[0x1E69E9840];
   traceid = init->traceid;
   add_explicit = atomic_fetch_add_explicit(&next_spanid, 1uLL, memory_order_relaxed);
   self->_mySpan.traceid = traceid;
@@ -21,22 +20,20 @@
     si_tracing_log_span_begin_cold_1();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (self->_mySpan.traceid && init_once != -1)
   {
     si_tracing_log_span_begin_cold_1();
   }
 
-  v4.receiver = self;
-  v4.super_class = SITracingObjcLifetimeSpan;
-  [(SITracingObjcLifetimeSpan *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = SITracingObjcLifetimeSpan;
+  [(SITracingObjcLifetimeSpan *)&v3 dealloc];
 }
 
 @end

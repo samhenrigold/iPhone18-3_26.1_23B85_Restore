@@ -91,17 +91,17 @@
 {
   if (!self)
   {
-    v51.receiver = 0;
-    v51.super_class = NRDNSProxyClient;
-    [(NRDNSProxy *)&v51 start];
+    v34.receiver = 0;
+    v34.super_class = NRDNSProxyClient;
+    [(NRDNSProxy *)&v34 start];
     return;
   }
 
   if (!self->super._started)
   {
-    v51.receiver = self;
-    v51.super_class = NRDNSProxyClient;
-    [(NRDNSProxy *)&v51 start];
+    v34.receiver = self;
+    v34.super_class = NRDNSProxyClient;
+    [(NRDNSProxy *)&v34 start];
     dnsProtocol = self->super._dnsProtocol;
     if (dnsProtocol != 1)
     {
@@ -120,17 +120,16 @@ LABEL_16:
     if (!self->super._isDiscoveryProxy)
     {
 LABEL_13:
-      nrUUID = self->super._nrUUID;
-      v18 = _NRCopyLogObjectForNRUUID();
+      v13 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v20 = self->super._nrUUID;
-        v21 = _NRCopyLogObjectForNRUUID();
-        v22 = self->super._dnsProtocol;
+        v15 = self->super._nrUUID;
+        v16 = _NRCopyLogObjectForNRUUID();
+        v17 = self->super._dnsProtocol;
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(v16, 17, "unsupported dns protocol %u", v17);
       }
 
 LABEL_15:
@@ -153,7 +152,7 @@ LABEL_15:
           dispatch_once(&qword_100228F10, &stru_1001FA698);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_100228F08, 17, "no server certificate failed");
       }
 
       goto LABEL_15;
@@ -162,99 +161,85 @@ LABEL_15:
     v6 = mrc_discovery_proxy_parameters_create();
     if (v6)
     {
-      v7 = self->super._nrUUID;
-      v8 = _NRCopyLogObjectForNRUUID();
-      v9 = _NRLogIsLevelEnabled();
+      v7 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRLogIsLevelEnabled();
 
-      if (v9)
+      if (v8)
       {
-        v10 = self->super._nrUUID;
-        v11 = _NRCopyLogObjectForNRUUID();
-        v48 = 197;
-        serverEndpoint = self->super._serverEndpoint;
-        v46 = "";
-        v47 = "[NRDNSProxyClient startDiscoveryProxyClient]";
-        _NRLogWithArgs();
+        v9 = self->super._nrUUID;
+        v10 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v10, 0, "%s%.30s:%-4d setting discovery proxy address %@", ", "[NRDNSProxyClient startDiscoveryProxyClient]"", 197, self->super._serverEndpoint);
       }
 
-      v12 = [(NWAddressEndpoint *)self->super._serverEndpoint addressFamily:v46];
-      v13 = self->super._serverEndpoint;
-      if (v12 == 2)
+      addressFamily = [(NWAddressEndpoint *)self->super._serverEndpoint addressFamily];
+      serverEndpoint = self->super._serverEndpoint;
+      if (addressFamily == 2)
       {
-        address = [(NWAddressEndpoint *)v13 address];
-        v15 = bswap32(address[1]);
-        v16 = bswap32(*(address + 1));
+        [(NWAddressEndpoint *)serverEndpoint address];
         mrc_discovery_proxy_parameters_add_server_ipv4_address();
       }
 
-      else if ([(NWAddressEndpoint *)v13 addressFamily]== 30)
+      else if ([(NWAddressEndpoint *)serverEndpoint addressFamily]== 30)
       {
-        address2 = [(NWAddressEndpoint *)self->super._serverEndpoint address];
-        v24 = bswap32(address2[1]);
-        v25 = *(address2 + 6);
+        [(NWAddressEndpoint *)self->super._serverEndpoint address];
         mrc_discovery_proxy_parameters_add_server_ipv6_address();
       }
 
       mrc_discovery_proxy_parameters_add_match_domain();
-      v26 = self->super._serverCertificateData;
-      [(NSData *)v26 bytes];
-      [(NSData *)v26 length];
+      v18 = self->super._serverCertificateData;
+      [(NSData *)v18 bytes];
+      [(NSData *)v18 length];
       mrc_discovery_proxy_parameters_add_server_certificate();
-      discoveryProxyInterfaceIndex = self->_discoveryProxyInterfaceIndex;
       mrc_discovery_proxy_parameters_set_interface();
-      v28 = self->super._nrUUID;
-      v29 = _NRCopyLogObjectForNRUUID();
-      v30 = _NRLogIsLevelEnabled();
+      v19 = _NRCopyLogObjectForNRUUID();
+      v20 = _NRLogIsLevelEnabled();
 
-      if (v30)
+      if (v20)
       {
-        v31 = self->super._nrUUID;
-        v32 = _NRCopyLogObjectForNRUUID();
-        v50 = self->_discoveryProxyInterfaceIndex;
-        _NRLogWithArgs();
+        v21 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v21, 0, "%s%.30s:%-4d setting interface index %u", ", "[NRDNSProxyClient startDiscoveryProxyClient]"", 211, self->_discoveryProxyInterfaceIndex);
       }
 
-      v33 = mrc_discovery_proxy_create();
-      if (v33)
+      v22 = mrc_discovery_proxy_create();
+      if (v22)
       {
-        queue = self->super._queue;
         mrc_discovery_proxy_set_queue();
         objc_initWeak(&location, self);
-        v52 = _NSConcreteStackBlock;
-        v53 = 3221225472;
-        v54 = sub_100023C44;
-        v55 = &unk_1001FA600;
-        objc_copyWeak(&v57, &location);
-        v56 = v33;
+        v35 = _NSConcreteStackBlock;
+        v36 = 3221225472;
+        v37 = sub_100023C44;
+        v38 = &unk_1001FA600;
+        objc_copyWeak(&v40, &location);
+        v39 = v22;
         mrc_discovery_proxy_set_event_handler();
         mrc_discovery_proxy_activate();
-        v35 = self->super._nrUUID;
-        v36 = _NRCopyLogObjectForNRUUID();
-        v37 = _NRLogIsLevelEnabled();
+        v23 = self->super._nrUUID;
+        v24 = _NRCopyLogObjectForNRUUID();
+        v25 = _NRLogIsLevelEnabled();
 
-        if (v37)
+        if (v25)
         {
-          v38 = self->super._nrUUID;
-          v39 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v26 = self->super._nrUUID;
+          v27 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v27, 0, "%s%.30s:%-4d discovery proxy client activated", ", "[NRDNSProxyClient startDiscoveryProxyClient]"", 255);
         }
 
-        objc_storeStrong(&self->_discoveryProxyClient, v33);
+        objc_storeStrong(&self->_discoveryProxyClient, v22);
         sub_100023B5C(self, 1);
 
-        objc_destroyWeak(&v57);
+        objc_destroyWeak(&v40);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v43 = sub_1000233CC();
-        v44 = _NRLogIsLevelEnabled();
+        v31 = sub_1000233CC();
+        v32 = _NRLogIsLevelEnabled();
 
-        if (v44)
+        if (v32)
         {
-          v45 = sub_1000233CC();
-          _NRLogWithArgs();
+          v33 = sub_1000233CC();
+          _NRLogWithArgs(v33, 17, "mrc_discovery_proxy_create failed");
         }
 
         sub_100023B5C(self, 4);
@@ -263,13 +248,13 @@ LABEL_15:
 
     else
     {
-      v40 = sub_1000233CC();
-      v41 = _NRLogIsLevelEnabled();
+      v28 = sub_1000233CC();
+      v29 = _NRLogIsLevelEnabled();
 
-      if (v41)
+      if (v29)
       {
-        v42 = sub_1000233CC();
-        _NRLogWithArgs();
+        v30 = sub_1000233CC();
+        _NRLogWithArgs(v30, 17, "mrc_discovery_proxy_parameters_create failed");
       }
 
       sub_100023B5C(self, 4);

@@ -1457,17 +1457,16 @@ void CMMsl::WifiScanResults::~WifiScanResults(CMMsl::WifiScanResults *this)
   operator delete();
 }
 
-void *CMMsl::WifiScanResults::WifiScanResults(void *this, const CMMsl::WifiScanResults *a2)
+CMMsl::WifiScanResults *CMMsl::WifiScanResults::WifiScanResults(CMMsl::WifiScanResults *this, const CMMsl::WifiScanResults *a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_100422DA8;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_10028FA50();
+    sub_10028FA50(this + 1, *v2);
   }
 
   return this;
@@ -1507,16 +1506,16 @@ void *CMMsl::swap(void *this, CMMsl::WifiScanResults *a2, CMMsl::WifiScanResults
   return this;
 }
 
-uint64_t CMMsl::WifiScanResults::WifiScanResults(uint64_t a1, uint64_t a2)
+void **CMMsl::WifiScanResults::WifiScanResults(void **a1, uint64_t a2)
 {
   *a1 = off_100422DA8;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -1525,13 +1524,13 @@ uint64_t CMMsl::WifiScanResults::WifiScanResults(uint64_t a1, uint64_t a2)
 
 {
   *a1 = off_100422DA8;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -1580,7 +1579,7 @@ uint64_t CMMsl::WifiScanResults::formatText(CMMsl::WifiScanResults *this, PB::Te
   return PB::TextFormatter::endObject(a2);
 }
 
-uint64_t CMMsl::WifiScanResults::readFrom(CMMsl::WifiScanResults *this, PB::Reader *a2)
+uint64_t CMMsl::WifiScanResults::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -1590,78 +1589,78 @@ uint64_t CMMsl::WifiScanResults::readFrom(CMMsl::WifiScanResults *this, PB::Read
     v4 = 0;
     do
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
-        v14 = 0;
         v15 = 0;
-        v9 = 0;
-        v16 = v3 >= v2;
-        v17 = v3 - v2;
-        if (!v16)
+        v16 = 0;
+        v10 = 0;
+        v17 = v3 >= v2;
+        v18 = v3 - v2;
+        if (!v17)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        v18 = (v6 + v2);
-        v19 = v2 + 1;
+        v19 = (v7 + v2);
+        v20 = v2 + 1;
         while (1)
         {
-          if (!v17)
+          if (!v18)
           {
             v4 = 1;
             *(a2 + 24) = 1;
             goto LABEL_29;
           }
 
-          v20 = *v18;
-          *(a2 + 1) = v19;
-          v9 |= (v20 & 0x7F) << v14;
-          if ((v20 & 0x80) == 0)
+          v21 = *v19;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
           {
             break;
           }
 
-          v14 += 7;
-          --v17;
-          ++v18;
+          v15 += 7;
+          --v18;
           ++v19;
-          v13 = v15++ > 8;
-          if (v13)
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
           {
 LABEL_18:
-            v9 = 0;
+            v10 = 0;
             goto LABEL_21;
           }
         }
 
         if (v4)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v7 = 0;
         v8 = 0;
         v9 = 0;
-        v10 = (v6 + v2);
-        v11 = v2 + 1;
+        v10 = 0;
+        v11 = (v7 + v2);
+        v12 = v2 + 1;
         while (1)
         {
-          *(a2 + 1) = v11;
-          v12 = *v10++;
-          v9 |= (v12 & 0x7F) << v7;
-          if ((v12 & 0x80) == 0)
+          *(a2 + 1) = v12;
+          v13 = *v11++;
+          v10 |= (v13 & 0x7F) << v8;
+          if ((v13 & 0x80) == 0)
           {
             break;
           }
 
-          v7 += 7;
-          ++v11;
-          v13 = v8++ > 8;
-          if (v13)
+          v8 += 7;
+          ++v12;
+          v14 = v9++ > 8;
+          if (v14)
           {
             goto LABEL_18;
           }
@@ -1669,20 +1668,20 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (v4 & 1 | ((v9 & 7) == 4))
+      if (v4 & 1 | ((v10 & 7) == 4))
       {
         break;
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
-        sub_100290078();
+        sub_100290078(this + 1);
       }
 
-      if ((PB::Reader::skip(a2, v9 >> 3, v9 & 7, 0) & 1) == 0)
+      if ((PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -1694,8 +1693,8 @@ LABEL_21:
   }
 
 LABEL_29:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t CMMsl::WifiScanResults::writeTo(uint64_t this, PB::Writer *a2)
@@ -4640,10 +4639,10 @@ void CMMsl::WorkoutRecorderALSData::~WorkoutRecorderALSData(CMMsl::WorkoutRecord
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderALSData::WorkoutRecorderALSData(void *this, const CMMsl::WorkoutRecorderALSData *a2)
+CMMsl::WorkoutRecorderALSData *CMMsl::WorkoutRecorderALSData::WorkoutRecorderALSData(CMMsl::WorkoutRecorderALSData *this, const CMMsl::WorkoutRecorderALSData *a2)
 {
   *this = off_100422E88;
-  this[1] = 0;
+  *(this + 1) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -4882,9 +4881,9 @@ uint64_t CMMsl::WorkoutRecorderALSData::hash_value(CMMsl::WorkoutRecorderALSData
   }
 }
 
-uint64_t CMMsl::WorkoutRecorderALSData::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderALSData::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4911,11 +4910,11 @@ void CMMsl::WorkoutRecorderAccel::~WorkoutRecorderAccel(CMMsl::WorkoutRecorderAc
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderAccel::WorkoutRecorderAccel(void *this, const CMMsl::WorkoutRecorderAccel *a2)
+CMMsl::WorkoutRecorderAccel *CMMsl::WorkoutRecorderAccel::WorkoutRecorderAccel(CMMsl::WorkoutRecorderAccel *this, const CMMsl::Accel **a2)
 {
   *this = off_100422EC0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -4923,13 +4922,13 @@ void *CMMsl::WorkoutRecorderAccel::WorkoutRecorderAccel(void *this, const CMMsl:
   return this;
 }
 
-const CMMsl::WorkoutRecorderAccel *CMMsl::WorkoutRecorderAccel::operator=(const CMMsl::WorkoutRecorderAccel *a1, const CMMsl::WorkoutRecorderAccel *a2)
+uint64_t CMMsl::WorkoutRecorderAccel::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderAccel::WorkoutRecorderAccel(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderAccel::~WorkoutRecorderAccel(&v5);
   }
@@ -5144,9 +5143,9 @@ CMMsl::Accel *CMMsl::WorkoutRecorderAccel::hash_value(CMMsl::WorkoutRecorderAcce
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderAccel::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderAccel::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5173,11 +5172,11 @@ void CMMsl::WorkoutRecorderAccel800::~WorkoutRecorderAccel800(CMMsl::WorkoutReco
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderAccel800::WorkoutRecorderAccel800(void *this, const CMMsl::WorkoutRecorderAccel800 *a2)
+CMMsl::WorkoutRecorderAccel800 *CMMsl::WorkoutRecorderAccel800::WorkoutRecorderAccel800(CMMsl::WorkoutRecorderAccel800 *this, const CMMsl::Accel **a2)
 {
   *this = off_100422EF8;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5185,13 +5184,13 @@ void *CMMsl::WorkoutRecorderAccel800::WorkoutRecorderAccel800(void *this, const 
   return this;
 }
 
-const CMMsl::WorkoutRecorderAccel800 *CMMsl::WorkoutRecorderAccel800::operator=(const CMMsl::WorkoutRecorderAccel800 *a1, const CMMsl::WorkoutRecorderAccel800 *a2)
+uint64_t CMMsl::WorkoutRecorderAccel800::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderAccel800::WorkoutRecorderAccel800(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderAccel800::~WorkoutRecorderAccel800(&v5);
   }
@@ -5406,9 +5405,9 @@ CMMsl::Accel *CMMsl::WorkoutRecorderAccel800::hash_value(CMMsl::WorkoutRecorderA
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderAccel800::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderAccel800::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5435,11 +5434,11 @@ void CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::~WorkoutRecorderAccessor
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::WorkoutRecorderAccessoryDeviceMotionConfig(void *this, const CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *a2)
+CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::WorkoutRecorderAccessoryDeviceMotionConfig(CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *this, const CMMsl::AccessoryDeviceMotionConfig **a2)
 {
   *this = off_100422F30;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5447,13 +5446,13 @@ void *CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::WorkoutRecorderAccessor
   return this;
 }
 
-const CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::operator=(const CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *a1, const CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig *a2)
+uint64_t CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::operator=(uint64_t a1, const CMMsl::AccessoryDeviceMotionConfig **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::WorkoutRecorderAccessoryDeviceMotionConfig(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::~WorkoutRecorderAccessoryDeviceMotionConfig(&v5);
   }
@@ -5668,9 +5667,9 @@ CMMsl::AccessoryDeviceMotionConfig *CMMsl::WorkoutRecorderAccessoryDeviceMotionC
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderAccessoryDeviceMotionConfig::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5697,11 +5696,11 @@ void CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::~WorkoutRecorderAudioAcce
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::WorkoutRecorderAudioAccessoryDeviceMotion(void *this, const CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *a2)
+CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::WorkoutRecorderAudioAccessoryDeviceMotion(CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *this, const CMMsl::AudioAccessoryDeviceMotion **a2)
 {
   *this = off_100422F68;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5709,13 +5708,13 @@ void *CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::WorkoutRecorderAudioAcce
   return this;
 }
 
-const CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::operator=(const CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *a1, const CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion *a2)
+uint64_t CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::operator=(uint64_t a1, const CMMsl::AudioAccessoryDeviceMotion **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::WorkoutRecorderAudioAccessoryDeviceMotion(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::~WorkoutRecorderAudioAccessoryDeviceMotion(&v5);
   }
@@ -5930,9 +5929,9 @@ CMMsl::AudioAccessoryDeviceMotion *CMMsl::WorkoutRecorderAudioAccessoryDeviceMot
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderAudioAccessoryDeviceMotion::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5959,11 +5958,11 @@ void CMMsl::WorkoutRecorderAveragedALSData::~WorkoutRecorderAveragedALSData(CMMs
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderAveragedALSData::WorkoutRecorderAveragedALSData(void *this, const CMMsl::WorkoutRecorderAveragedALSData *a2)
+CMMsl::WorkoutRecorderAveragedALSData *CMMsl::WorkoutRecorderAveragedALSData::WorkoutRecorderAveragedALSData(CMMsl::WorkoutRecorderAveragedALSData *this, const CMMsl::AveragedALSData **a2)
 {
   *this = off_100422FA0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5971,13 +5970,13 @@ void *CMMsl::WorkoutRecorderAveragedALSData::WorkoutRecorderAveragedALSData(void
   return this;
 }
 
-const CMMsl::WorkoutRecorderAveragedALSData *CMMsl::WorkoutRecorderAveragedALSData::operator=(const CMMsl::WorkoutRecorderAveragedALSData *a1, const CMMsl::WorkoutRecorderAveragedALSData *a2)
+uint64_t CMMsl::WorkoutRecorderAveragedALSData::operator=(uint64_t a1, const CMMsl::AveragedALSData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderAveragedALSData::WorkoutRecorderAveragedALSData(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderAveragedALSData::~WorkoutRecorderAveragedALSData(&v5);
   }
@@ -6209,9 +6208,9 @@ uint64_t CMMsl::WorkoutRecorderAveragedALSData::hash_value(CMMsl::WorkoutRecorde
   return v8 ^ v4;
 }
 
-uint64_t CMMsl::WorkoutRecorderAveragedALSData::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderAveragedALSData::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6238,11 +6237,11 @@ void CMMsl::WorkoutRecorderBodyMetrics::~WorkoutRecorderBodyMetrics(CMMsl::Worko
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderBodyMetrics::WorkoutRecorderBodyMetrics(void *this, const CMMsl::WorkoutRecorderBodyMetrics *a2)
+CMMsl::WorkoutRecorderBodyMetrics *CMMsl::WorkoutRecorderBodyMetrics::WorkoutRecorderBodyMetrics(CMMsl::WorkoutRecorderBodyMetrics *this, const CMMsl::BodyMetrics **a2)
 {
   *this = off_100422FD8;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6250,13 +6249,13 @@ void *CMMsl::WorkoutRecorderBodyMetrics::WorkoutRecorderBodyMetrics(void *this, 
   return this;
 }
 
-const CMMsl::WorkoutRecorderBodyMetrics *CMMsl::WorkoutRecorderBodyMetrics::operator=(const CMMsl::WorkoutRecorderBodyMetrics *a1, const CMMsl::WorkoutRecorderBodyMetrics *a2)
+uint64_t CMMsl::WorkoutRecorderBodyMetrics::operator=(uint64_t a1, const CMMsl::BodyMetrics **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderBodyMetrics::WorkoutRecorderBodyMetrics(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderBodyMetrics::~WorkoutRecorderBodyMetrics(&v5);
   }
@@ -6471,9 +6470,9 @@ CMMsl::BodyMetrics *CMMsl::WorkoutRecorderBodyMetrics::hash_value(CMMsl::Workout
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderBodyMetrics::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderBodyMetrics::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6500,11 +6499,11 @@ void CMMsl::WorkoutRecorderCompassCalibration::~WorkoutRecorderCompassCalibratio
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderCompassCalibration::WorkoutRecorderCompassCalibration(void *this, const CMMsl::WorkoutRecorderCompassCalibration *a2)
+CMMsl::WorkoutRecorderCompassCalibration *CMMsl::WorkoutRecorderCompassCalibration::WorkoutRecorderCompassCalibration(CMMsl::WorkoutRecorderCompassCalibration *this, const CMMsl::CompassCalibration **a2)
 {
   *this = off_100423010;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6512,13 +6511,13 @@ void *CMMsl::WorkoutRecorderCompassCalibration::WorkoutRecorderCompassCalibratio
   return this;
 }
 
-const CMMsl::WorkoutRecorderCompassCalibration *CMMsl::WorkoutRecorderCompassCalibration::operator=(const CMMsl::WorkoutRecorderCompassCalibration *a1, const CMMsl::WorkoutRecorderCompassCalibration *a2)
+uint64_t CMMsl::WorkoutRecorderCompassCalibration::operator=(uint64_t a1, const CMMsl::CompassCalibration **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderCompassCalibration::WorkoutRecorderCompassCalibration(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderCompassCalibration::~WorkoutRecorderCompassCalibration(&v5);
   }
@@ -6733,9 +6732,9 @@ CMMsl::CompassCalibration *CMMsl::WorkoutRecorderCompassCalibration::hash_value(
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderCompassCalibration::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderCompassCalibration::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6762,11 +6761,11 @@ void CMMsl::WorkoutRecorderElevation::~WorkoutRecorderElevation(CMMsl::WorkoutRe
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderElevation::WorkoutRecorderElevation(void *this, const CMMsl::WorkoutRecorderElevation *a2)
+CMMsl::WorkoutRecorderElevation *CMMsl::WorkoutRecorderElevation::WorkoutRecorderElevation(CMMsl::WorkoutRecorderElevation *this, const CMMsl::ElevationChange **a2)
 {
   *this = off_100423048;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6774,13 +6773,13 @@ void *CMMsl::WorkoutRecorderElevation::WorkoutRecorderElevation(void *this, cons
   return this;
 }
 
-const CMMsl::WorkoutRecorderElevation *CMMsl::WorkoutRecorderElevation::operator=(const CMMsl::WorkoutRecorderElevation *a1, const CMMsl::WorkoutRecorderElevation *a2)
+uint64_t CMMsl::WorkoutRecorderElevation::operator=(uint64_t a1, const CMMsl::ElevationChange **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderElevation::WorkoutRecorderElevation(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderElevation::~WorkoutRecorderElevation(&v5);
   }
@@ -6995,9 +6994,9 @@ CMMsl::ElevationChange *CMMsl::WorkoutRecorderElevation::hash_value(CMMsl::Worko
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderElevation::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderElevation::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7024,11 +7023,11 @@ void CMMsl::WorkoutRecorderFaceCovered::~WorkoutRecorderFaceCovered(CMMsl::Worko
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderFaceCovered::WorkoutRecorderFaceCovered(void *this, const CMMsl::WorkoutRecorderFaceCovered *a2)
+CMMsl::WorkoutRecorderFaceCovered *CMMsl::WorkoutRecorderFaceCovered::WorkoutRecorderFaceCovered(CMMsl::WorkoutRecorderFaceCovered *this, const CMMsl::FaceCovered **a2)
 {
   *this = off_100423080;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7036,13 +7035,13 @@ void *CMMsl::WorkoutRecorderFaceCovered::WorkoutRecorderFaceCovered(void *this, 
   return this;
 }
 
-const CMMsl::WorkoutRecorderFaceCovered *CMMsl::WorkoutRecorderFaceCovered::operator=(const CMMsl::WorkoutRecorderFaceCovered *a1, const CMMsl::WorkoutRecorderFaceCovered *a2)
+uint64_t CMMsl::WorkoutRecorderFaceCovered::operator=(uint64_t a1, const CMMsl::FaceCovered **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderFaceCovered::WorkoutRecorderFaceCovered(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderFaceCovered::~WorkoutRecorderFaceCovered(&v5);
   }
@@ -7265,9 +7264,9 @@ uint64_t CMMsl::WorkoutRecorderFaceCovered::hash_value(CMMsl::WorkoutRecorderFac
   return v4 ^ (*(v1 + 16) & (v2 << 30 >> 31));
 }
 
-uint64_t CMMsl::WorkoutRecorderFaceCovered::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderFaceCovered::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7294,11 +7293,11 @@ void CMMsl::WorkoutRecorderFitnessMachineData::~WorkoutRecorderFitnessMachineDat
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderFitnessMachineData::WorkoutRecorderFitnessMachineData(void *this, const CMMsl::WorkoutRecorderFitnessMachineData *a2)
+CMMsl::WorkoutRecorderFitnessMachineData *CMMsl::WorkoutRecorderFitnessMachineData::WorkoutRecorderFitnessMachineData(CMMsl::WorkoutRecorderFitnessMachineData *this, const CMMsl::FitnessMachineData **a2)
 {
   *this = off_1004230B8;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7306,13 +7305,13 @@ void *CMMsl::WorkoutRecorderFitnessMachineData::WorkoutRecorderFitnessMachineDat
   return this;
 }
 
-const CMMsl::WorkoutRecorderFitnessMachineData *CMMsl::WorkoutRecorderFitnessMachineData::operator=(const CMMsl::WorkoutRecorderFitnessMachineData *a1, const CMMsl::WorkoutRecorderFitnessMachineData *a2)
+uint64_t CMMsl::WorkoutRecorderFitnessMachineData::operator=(uint64_t a1, const CMMsl::FitnessMachineData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderFitnessMachineData::WorkoutRecorderFitnessMachineData(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderFitnessMachineData::~WorkoutRecorderFitnessMachineData(&v5);
   }
@@ -7527,9 +7526,9 @@ CMMsl::FitnessMachineData *CMMsl::WorkoutRecorderFitnessMachineData::hash_value(
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderFitnessMachineData::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderFitnessMachineData::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8053,11 +8052,11 @@ void CMMsl::WorkoutRecorderHeartRate::~WorkoutRecorderHeartRate(CMMsl::WorkoutRe
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderHeartRate::WorkoutRecorderHeartRate(void *this, const CMMsl::WorkoutRecorderHeartRate *a2)
+CMMsl::WorkoutRecorderHeartRate *CMMsl::WorkoutRecorderHeartRate::WorkoutRecorderHeartRate(CMMsl::WorkoutRecorderHeartRate *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_100423128;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8065,13 +8064,13 @@ void *CMMsl::WorkoutRecorderHeartRate::WorkoutRecorderHeartRate(void *this, cons
   return this;
 }
 
-const CMMsl::WorkoutRecorderHeartRate *CMMsl::WorkoutRecorderHeartRate::operator=(const CMMsl::WorkoutRecorderHeartRate *a1, const CMMsl::WorkoutRecorderHeartRate *a2)
+uint64_t CMMsl::WorkoutRecorderHeartRate::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderHeartRate::WorkoutRecorderHeartRate(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderHeartRate::~WorkoutRecorderHeartRate(&v5);
   }
@@ -8286,9 +8285,9 @@ CMMsl::OnsetHeartRateData *CMMsl::WorkoutRecorderHeartRate::hash_value(CMMsl::Wo
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderHeartRate::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderHeartRate::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8315,11 +8314,11 @@ void CMMsl::WorkoutRecorderHeartRateAccessory::~WorkoutRecorderHeartRateAccessor
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderHeartRateAccessory::WorkoutRecorderHeartRateAccessory(void *this, const CMMsl::WorkoutRecorderHeartRateAccessory *a2)
+CMMsl::WorkoutRecorderHeartRateAccessory *CMMsl::WorkoutRecorderHeartRateAccessory::WorkoutRecorderHeartRateAccessory(CMMsl::WorkoutRecorderHeartRateAccessory *this, const CMMsl::AccessoryHeartRate **a2)
 {
   *this = off_100423160;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8327,13 +8326,13 @@ void *CMMsl::WorkoutRecorderHeartRateAccessory::WorkoutRecorderHeartRateAccessor
   return this;
 }
 
-const CMMsl::WorkoutRecorderHeartRateAccessory *CMMsl::WorkoutRecorderHeartRateAccessory::operator=(const CMMsl::WorkoutRecorderHeartRateAccessory *a1, const CMMsl::WorkoutRecorderHeartRateAccessory *a2)
+uint64_t CMMsl::WorkoutRecorderHeartRateAccessory::operator=(uint64_t a1, const CMMsl::AccessoryHeartRate **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderHeartRateAccessory::WorkoutRecorderHeartRateAccessory(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderHeartRateAccessory::~WorkoutRecorderHeartRateAccessory(&v5);
   }
@@ -8548,9 +8547,9 @@ CMMsl::AccessoryHeartRate *CMMsl::WorkoutRecorderHeartRateAccessory::hash_value(
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderHeartRateAccessory::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderHeartRateAccessory::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8577,11 +8576,11 @@ void CMMsl::WorkoutRecorderHeartRateSourceDevice::~WorkoutRecorderHeartRateSourc
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderHeartRateSourceDevice::WorkoutRecorderHeartRateSourceDevice(void *this, const CMMsl::WorkoutRecorderHeartRateSourceDevice *a2)
+CMMsl::WorkoutRecorderHeartRateSourceDevice *CMMsl::WorkoutRecorderHeartRateSourceDevice::WorkoutRecorderHeartRateSourceDevice(CMMsl::WorkoutRecorderHeartRateSourceDevice *this, const CMMsl::HeartRateSourceDevice **a2)
 {
   *this = off_100423198;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8589,13 +8588,13 @@ void *CMMsl::WorkoutRecorderHeartRateSourceDevice::WorkoutRecorderHeartRateSourc
   return this;
 }
 
-const CMMsl::WorkoutRecorderHeartRateSourceDevice *CMMsl::WorkoutRecorderHeartRateSourceDevice::operator=(const CMMsl::WorkoutRecorderHeartRateSourceDevice *a1, const CMMsl::WorkoutRecorderHeartRateSourceDevice *a2)
+uint64_t CMMsl::WorkoutRecorderHeartRateSourceDevice::operator=(uint64_t a1, const CMMsl::HeartRateSourceDevice **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderHeartRateSourceDevice::WorkoutRecorderHeartRateSourceDevice(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderHeartRateSourceDevice::~WorkoutRecorderHeartRateSourceDevice(&v5);
   }
@@ -8810,9 +8809,9 @@ CMMsl::HeartRateSourceDevice *CMMsl::WorkoutRecorderHeartRateSourceDevice::hash_
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderHeartRateSourceDevice::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderHeartRateSourceDevice::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8839,11 +8838,11 @@ void CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::~WorkoutRecorderHighFreq
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::WorkoutRecorderHighFrequencyHeartRateWatch(void *this, const CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *a2)
+CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::WorkoutRecorderHighFrequencyHeartRateWatch(CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_1004231D0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -8851,13 +8850,13 @@ void *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::WorkoutRecorderHighFreq
   return this;
 }
 
-const CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::operator=(const CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *a1, const CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch *a2)
+uint64_t CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::WorkoutRecorderHighFrequencyHeartRateWatch(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::~WorkoutRecorderHighFrequencyHeartRateWatch(&v5);
   }
@@ -9072,9 +9071,9 @@ CMMsl::OnsetHeartRateData *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::ha
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderHighFrequencyHeartRateWatch::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9101,11 +9100,11 @@ void CMMsl::WorkoutRecorderMagnetometer::~WorkoutRecorderMagnetometer(CMMsl::Wor
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderMagnetometer::WorkoutRecorderMagnetometer(void *this, const CMMsl::WorkoutRecorderMagnetometer *a2)
+CMMsl::WorkoutRecorderMagnetometer *CMMsl::WorkoutRecorderMagnetometer::WorkoutRecorderMagnetometer(CMMsl::WorkoutRecorderMagnetometer *this, const CMMsl::Magnetometer **a2)
 {
   *this = off_100423208;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9113,13 +9112,13 @@ void *CMMsl::WorkoutRecorderMagnetometer::WorkoutRecorderMagnetometer(void *this
   return this;
 }
 
-const CMMsl::WorkoutRecorderMagnetometer *CMMsl::WorkoutRecorderMagnetometer::operator=(const CMMsl::WorkoutRecorderMagnetometer *a1, const CMMsl::WorkoutRecorderMagnetometer *a2)
+uint64_t CMMsl::WorkoutRecorderMagnetometer::operator=(uint64_t a1, const CMMsl::Magnetometer **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderMagnetometer::WorkoutRecorderMagnetometer(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderMagnetometer::~WorkoutRecorderMagnetometer(&v5);
   }
@@ -9334,9 +9333,9 @@ CMMsl::Magnetometer *CMMsl::WorkoutRecorderMagnetometer::hash_value(CMMsl::Worko
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderMagnetometer::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderMagnetometer::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9363,11 +9362,11 @@ void CMMsl::WorkoutRecorderOdometer::~WorkoutRecorderOdometer(CMMsl::WorkoutReco
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderOdometer::WorkoutRecorderOdometer(void *this, const CMMsl::WorkoutRecorderOdometer *a2)
+CMMsl::WorkoutRecorderOdometer *CMMsl::WorkoutRecorderOdometer::WorkoutRecorderOdometer(CMMsl::WorkoutRecorderOdometer *this, const CMMsl::Odometer ***a2)
 {
   *this = off_100423240;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9375,13 +9374,13 @@ void *CMMsl::WorkoutRecorderOdometer::WorkoutRecorderOdometer(void *this, const 
   return this;
 }
 
-const CMMsl::WorkoutRecorderOdometer *CMMsl::WorkoutRecorderOdometer::operator=(const CMMsl::WorkoutRecorderOdometer *a1, const CMMsl::WorkoutRecorderOdometer *a2)
+uint64_t CMMsl::WorkoutRecorderOdometer::operator=(uint64_t a1, const CMMsl::Odometer ***a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderOdometer::WorkoutRecorderOdometer(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderOdometer::~WorkoutRecorderOdometer(&v5);
   }
@@ -9596,9 +9595,9 @@ CMMsl::OdometerWithAltitude *CMMsl::WorkoutRecorderOdometer::hash_value(CMMsl::W
   return result;
 }
 
-uint64_t CMMsl::WorkoutRecorderOdometer::makeSuper(uint64_t this)
+void *CMMsl::WorkoutRecorderOdometer::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9625,11 +9624,11 @@ void CMMsl::WorkoutRecorderPressure::~WorkoutRecorderPressure(CMMsl::WorkoutReco
   operator delete();
 }
 
-void *CMMsl::WorkoutRecorderPressure::WorkoutRecorderPressure(void *this, const CMMsl::WorkoutRecorderPressure *a2)
+CMMsl::WorkoutRecorderPressure *CMMsl::WorkoutRecorderPressure::WorkoutRecorderPressure(CMMsl::WorkoutRecorderPressure *this, const CMMsl::Pressure **a2)
 {
   *this = off_100423278;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9637,13 +9636,13 @@ void *CMMsl::WorkoutRecorderPressure::WorkoutRecorderPressure(void *this, const 
   return this;
 }
 
-const CMMsl::WorkoutRecorderPressure *CMMsl::WorkoutRecorderPressure::operator=(const CMMsl::WorkoutRecorderPressure *a1, const CMMsl::WorkoutRecorderPressure *a2)
+uint64_t CMMsl::WorkoutRecorderPressure::operator=(uint64_t a1, const CMMsl::Pressure **a2)
 {
   if (a1 != a2)
   {
     CMMsl::WorkoutRecorderPressure::WorkoutRecorderPressure(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::WorkoutRecorderPressure::~WorkoutRecorderPressure(&v5);
   }

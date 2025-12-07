@@ -15,48 +15,49 @@
 - (id)_initWithType:(unint64_t)type supportedSizeClasses:(unint64_t)classes
 {
   v7 = [objc_alloc(MEMORY[0x1E6994290]) initWithExtensionBundleIdentifier:&stru_1F3D472A8 containerBundleIdentifier:0 deviceIdentifier:0];
-  v21.receiver = self;
-  v21.super_class = SBHSpecialWidgetDescriptor;
-  v8 = [(SBHSpecialWidgetDescriptor *)&v21 initWithExtensionIdentity:v7 kind:&stru_1F3D472A8 supportedFamilies:classes intentType:0];
+  v23.receiver = self;
+  v23.super_class = SBHSpecialWidgetDescriptor;
+  v8 = [(SBHSpecialWidgetDescriptor *)&v23 initWithExtensionIdentity:v7 kind:&stru_1F3D472A8 supportedFamilies:classes intentType:0];
+  v9 = v8;
   if (v8)
   {
-    v9 = type - 1;
+    v10 = type - 1;
     if (type - 1 > 5)
     {
-      v12 = @"None";
+      v13 = @"None";
     }
 
     else
     {
-      v10 = off_1E808C710[v9];
-      v11 = SBHBundle();
-      v12 = [v11 localizedStringForKey:v10 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v11 = off_1E808C710[v10];
+      v12 = SBHBundle(v8);
+      v13 = [v12 localizedStringForKey:v11 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     }
 
-    v13 = [(__CFString *)v12 copy];
-    displayName = v8->_displayName;
-    v8->_displayName = v13;
+    v14 = [(__CFString *)v13 copy];
+    displayName = v9->_displayName;
+    v9->_displayName = v14;
 
-    if (v9 > 5)
+    if (v10 > 5)
     {
-      v17 = @"None";
+      v19 = @"None";
     }
 
     else
     {
-      v15 = off_1E808C740[v9];
-      v16 = SBHBundle();
-      v17 = [v16 localizedStringForKey:v15 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v17 = off_1E808C740[v10];
+      v18 = SBHBundle(v16);
+      v19 = [v18 localizedStringForKey:v17 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     }
 
-    v18 = [(__CFString *)v17 copy];
-    description = v8->_description;
-    v8->_description = v18;
+    v20 = [(__CFString *)v19 copy];
+    description = v9->_description;
+    v9->_description = v20;
 
-    v8->_type = type;
+    v9->_type = type;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)backgroundColor

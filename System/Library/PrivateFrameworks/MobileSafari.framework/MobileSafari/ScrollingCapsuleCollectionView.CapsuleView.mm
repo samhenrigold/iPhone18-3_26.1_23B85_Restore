@@ -45,11 +45,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12MobileSafari30ScrollingCapsuleCollectionView11CapsuleView_tapHandler);
   if (v2)
   {
+    v3 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtCC12MobileSafari30ScrollingCapsuleCollectionView11CapsuleView_tapHandler);
     selfCopy = self;
-    sub_18B824D48(v2);
-    v2(selfCopy);
+    v5 = sub_18B824D48(v2, v3);
+    v2(selfCopy, v5);
 
-    sub_18B7E0A10(v2);
+    sub_18B7E0A10(v2, v3);
   }
 }
 
@@ -60,7 +61,7 @@
   state = [hoverCopy state];
   if (state != 1)
   {
-    state = [hoverCopy state] == 2;
+    LOBYTE(state) = [hoverCopy state] == 2;
   }
 
   sub_18BAAA8C0(state);

@@ -60,7 +60,7 @@
 
 - (void)didDismissNetworkViewController:(id)controller forContext:(id)context
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -82,11 +82,12 @@
       {
         v10 = WFLogForCategory(0);
         v11 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v10 && os_log_type_enabled(v10, v11))
+        v12 = v11;
+        if (WFCurrentLogLevel(v11, v13) >= 3 && v10 && os_log_type_enabled(v10, v12))
         {
-          v15 = 136315138;
-          v16 = "[WFSettingsViewProvider didDismissNetworkViewController:forContext:]";
-          _os_log_impl(&dword_273ECD000, v10, v11, "%s: settings view controller has detail view controller visible, popping navigation controller", &v15, 0xCu);
+          v16 = 136315138;
+          v17 = "[WFSettingsViewProvider didDismissNetworkViewController:forContext:]";
+          _os_log_impl(&dword_273ECD000, v10, v12, "%s: settings view controller has detail view controller visible, popping navigation controller", &v16, 0xCu);
         }
 
         settingsController2 = [(WFSettingsViewProvider *)self settingsController];
@@ -97,8 +98,6 @@
       [(WFSettingsViewProvider *)self setSettingsController:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (WFSettingsViewProvider)init

@@ -69,13 +69,13 @@
   if (self->_isPerformingRefresh)
   {
     os_unfair_lock_unlock(&self->_refreshLock);
-    v7 = sub_100030FE4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100030FE4(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = MSDDataRefreshReasonToString(reason);
+      v9 = MSDDataRefreshReasonToString(reason);
       *buf = 138412290;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Skipping request (reason: %@) to perform refresh. One underway", buf, 0xCu);
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Skipping request (reason: %@) to perform refresh. One underway", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
@@ -85,17 +85,17 @@
   {
     self->_isPerformingRefresh = 1;
     os_unfair_lock_unlock(&self->_refreshLock);
-    v9 = [[MSDDataRefresh alloc] initWithReason:reason];
+    v10 = [[MSDDataRefresh alloc] initWithReason:reason];
     objc_initWeak(buf, self);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100001A64;
-    v10[3] = &unk_1000508E8;
-    objc_copyWeak(&v12, buf);
-    v11 = completionCopy;
-    [(MSDDataRefresh *)v9 performRefreshWithCompletion:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100001A64;
+    v11[3] = &unk_1000508E8;
+    objc_copyWeak(&v13, buf);
+    v12 = completionCopy;
+    [(MSDDataRefresh *)v10 performRefreshWithCompletion:v11];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
 }
@@ -165,48 +165,52 @@
   servicesCopy = services;
   infoCopy = info;
   completionCopy = completion;
-  if (!servicesCopy || ![servicesCopy count])
+  if (!servicesCopy || (v10 = [servicesCopy count]) == 0)
   {
     if (!completionCopy)
     {
       goto LABEL_13;
     }
 
-    v12 = MSErrorDomain;
-    v20 = MSUserInfoErrorStringKey;
-    v21 = @"ServiceIDs specified is nil";
-    v13 = &v21;
-    v14 = &v20;
+    v13 = MSErrorDomain;
+    v21 = MSUserInfoErrorStringKey;
+    v22 = @"ServiceIDs specified is nil";
+    v14 = &v22;
+    v15 = &v21;
 LABEL_12:
-    v16 = [NSDictionary dictionaryWithObjects:v13 forKeys:v14 count:1];
-    v17 = [NSError errorWithDomain:v12 code:1 userInfo:v16];
-    completionCopy[2](completionCopy, 0, v17);
+    v17 = [NSDictionary dictionaryWithObjects:v14 forKeys:v15 count:1];
+    v18 = [NSError errorWithDomain:v13 code:1 userInfo:v17];
+    completionCopy[2](completionCopy, 0, v18);
 
     goto LABEL_13;
   }
 
-  if (infoCopy && [infoCopy count])
+  if (infoCopy)
   {
-    v10 = +[CKContainer MSDCloudKitContainer];
-    privateCloudDatabase = [v10 privateCloudDatabase];
-    [privateCloudDatabase removeMediaServices:servicesCopy withUserInfo:infoCopy completion:completionCopy];
+    v10 = [infoCopy count];
+    if (v10)
+    {
+      v11 = +[CKContainer MSDCloudKitContainer];
+      privateCloudDatabase = [v11 privateCloudDatabase];
+      [privateCloudDatabase removeMediaServices:servicesCopy withUserInfo:infoCopy completion:completionCopy];
 
-    goto LABEL_13;
+      goto LABEL_13;
+    }
   }
 
-  v15 = sub_100030FE4();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_100030FE4(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    sub_10001A824(v15);
+    sub_10001A824(v16);
   }
 
   if (completionCopy)
   {
-    v12 = MSErrorDomain;
-    v18 = MSUserInfoErrorStringKey;
-    v19 = @"Failed to remove services, NIL identifiers passed";
-    v13 = &v19;
-    v14 = &v18;
+    v13 = MSErrorDomain;
+    v19 = MSUserInfoErrorStringKey;
+    v20 = @"Failed to remove services, NIL identifiers passed";
+    v14 = &v20;
+    v15 = &v19;
     goto LABEL_12;
   }
 
@@ -307,7 +311,7 @@ LABEL_8:
   }
 
   v14 = *v13;
-  v15 = sub_100030FE4();
+  v15 = sub_100030FE4(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = @"is NOT";

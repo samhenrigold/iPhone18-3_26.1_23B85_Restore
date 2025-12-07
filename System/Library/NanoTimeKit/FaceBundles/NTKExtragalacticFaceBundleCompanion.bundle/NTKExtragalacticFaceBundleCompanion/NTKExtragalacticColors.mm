@@ -57,7 +57,7 @@
 
 + (id)lutFilterFromPalette:(id)palette
 {
-  v37[8] = *MEMORY[0x277D85DE8];
+  v35[8] = *MEMORY[0x277D85DE8];
   paletteCopy = palette;
   v4 = [MEMORY[0x277D75348] colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
   glyphColor0 = [paletteCopy glyphColor0];
@@ -67,61 +67,58 @@
   backgroundTopLeft = [paletteCopy backgroundTopLeft];
   backgroundTopRight = [paletteCopy backgroundTopRight];
   backgroundBottomLeft = [paletteCopy backgroundBottomLeft];
-  v26 = blackOverlapAndBackground;
-  v27 = glyphColor2;
-  v37[0] = blackOverlapAndBackground;
-  v37[1] = glyphColor0;
-  v28 = glyphColor1;
-  v29 = glyphColor0;
-  v37[2] = glyphColor1;
-  v37[3] = backgroundTopLeft;
-  v37[4] = glyphColor2;
-  v37[5] = backgroundTopRight;
-  v37[6] = backgroundBottomLeft;
-  v37[7] = v4;
-  v30 = v4;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:8];
+  v24 = blackOverlapAndBackground;
+  v25 = glyphColor2;
+  v35[0] = blackOverlapAndBackground;
+  v35[1] = glyphColor0;
+  v26 = glyphColor1;
+  v27 = glyphColor0;
+  v35[2] = glyphColor1;
+  v35[3] = backgroundTopLeft;
+  v35[4] = glyphColor2;
+  v35[5] = backgroundTopRight;
+  v35[6] = backgroundBottomLeft;
+  v35[7] = v4;
+  v28 = v4;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:8];
   array = [MEMORY[0x277CBEB18] array];
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v30;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v32 != v17)
+        if (*v30 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
-        v20 = NTKRGBAArrayWithColor();
-        [array addObjectsFromArray:v20];
+        v19 = NTKRGBAArrayWithColor();
+        [array addObjectsFromArray:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v16);
   }
 
-  v21 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA590]];
-  v22 = [array copy];
-  [v21 setValue:v22 forKey:*MEMORY[0x277CDA540]];
+  v20 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA590]];
+  v21 = [array copy];
+  [v20 setValue:v21 forKey:*MEMORY[0x277CDA540]];
 
-  v35 = v21;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v33 = v20;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 @end

@@ -8,29 +8,29 @@
 
 - (id)hmd_responseByRemovingEntriesForCharacteristics:()HMDCharacteristicResponse
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v29 = [self mutableCopy];
+  v28 = [self mutableCopy];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = v4;
-  v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v32)
   {
-    v32 = *v35;
+    v31 = *v34;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v34 + 1) + 8 * i);
+        v6 = *(*(&v33 + 1) + 8 * i);
         service = [v6 service];
         instanceID = [service instanceID];
         stringValue = [instanceID stringValue];
@@ -54,13 +54,13 @@
             v20 = [v18 hmf_dictionaryForKey:stringValue2];
             if (v20)
             {
-              v30 = v20;
+              v29 = v20;
               v21 = [v19 mutableCopy];
               [v21 setObject:0 forKeyedSubscript:stringValue2];
               v22 = [v16 mutableCopy];
               if ([v21 count])
               {
-                v23 = [v21 copy];
+                v23 = objc_msgSend_copy(v21);
                 [v22 setObject:v23 forKeyedSubscript:v17];
               }
 
@@ -71,18 +71,18 @@
 
               if ([v22 count])
               {
-                v24 = [v22 copy];
-                [v29 setObject:v24 forKeyedSubscript:uUIDString];
+                v24 = objc_msgSend_copy(v22);
+                [v28 setObject:v24 forKeyedSubscript:uUIDString];
               }
 
               else
               {
-                [v29 removeObjectForKey:uUIDString];
+                [v28 removeObjectForKey:uUIDString];
               }
 
               self = selfCopy;
 
-              v20 = v30;
+              v20 = v29;
             }
           }
 
@@ -90,21 +90,20 @@
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v32 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  v25 = [v29 copy];
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = objc_msgSend_copy(v28);
 
   return v25;
 }
 
 - (id)hmd_valueOfCharacteristic:()HMDCharacteristicResponse error:
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v6 = a3;
   service = [v6 service];
   instanceID = [service instanceID];
@@ -122,7 +121,7 @@
 
     if (v15)
     {
-      v44 = instanceID2;
+      v43 = instanceID2;
       stringValue2 = [instanceID2 stringValue];
       v17 = [v15 hmf_dictionaryForKey:stringValue2];
 
@@ -133,15 +132,15 @@
         v20 = v19;
         if (a4 && !v18)
         {
-          v40 = instanceID;
-          v42 = v19;
+          v39 = instanceID;
+          v41 = v19;
           v21 = MEMORY[0x277CCAAC8];
           v22 = objc_opt_class();
-          v46 = 0;
+          v45 = 0;
           v23 = v21;
-          v20 = v42;
-          v24 = [v23 unarchivedObjectOfClass:v22 fromData:v42 error:&v46];
-          v41 = v46;
+          v20 = v41;
+          v24 = [v23 unarchivedObjectOfClass:v22 fromData:v41 error:&v45];
+          v40 = v45;
           if (v24)
           {
             v25 = v24;
@@ -157,20 +156,20 @@
             {
               v36 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v48 = v36;
-              v49 = 2112;
-              v50 = v42;
-              v51 = 2112;
-              v52 = v41;
+              v47 = v36;
+              v48 = 2112;
+              v49 = v41;
+              v50 = 2112;
+              v51 = v40;
               _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode error from data %@:%@", buf, 0x20u);
 
-              v20 = v42;
+              v20 = v41;
             }
 
             objc_autoreleasePoolPop(context);
           }
 
-          instanceID = v40;
+          instanceID = v39;
         }
       }
 
@@ -181,18 +180,18 @@
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v34 = v43 = v32;
+          v34 = v42 = v32;
           *buf = 138544130;
-          v48 = v34;
-          v49 = 2112;
-          v50 = v44;
-          v51 = 2112;
-          v52 = instanceID;
-          v53 = 2112;
-          v54 = uuid;
+          v47 = v34;
+          v48 = 2112;
+          v49 = v43;
+          v50 = 2112;
+          v51 = instanceID;
+          v52 = 2112;
+          v53 = uuid;
           _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Missing entry for characteristic with iid of service with iid of accessory with uuid %@:%@:%@", buf, 0x2Au);
 
-          v32 = v43;
+          v32 = v42;
         }
 
         objc_autoreleasePoolPop(v32);
@@ -208,7 +207,7 @@
         }
       }
 
-      instanceID2 = v44;
+      instanceID2 = v43;
     }
 
     else
@@ -218,16 +217,16 @@
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v31 = v45 = instanceID2;
+        v31 = v44 = instanceID2;
         *buf = 138543874;
-        v48 = v31;
-        v49 = 2112;
-        v50 = instanceID;
-        v51 = 2112;
-        v52 = uuid;
+        v47 = v31;
+        v48 = 2112;
+        v49 = instanceID;
+        v50 = 2112;
+        v51 = uuid;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Missing entry for service with iid of accessory with uuid %@:%@", buf, 0x20u);
 
-        instanceID2 = v45;
+        instanceID2 = v44;
       }
 
       objc_autoreleasePoolPop(v29);
@@ -252,9 +251,9 @@
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v28;
-      v49 = 2112;
-      v50 = uuid;
+      v47 = v28;
+      v48 = 2112;
+      v49 = uuid;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Missing entry for accessory with uuid in write response %@", buf, 0x16u);
     }
 
@@ -271,36 +270,35 @@
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (uint64_t)hmd_isValidResponseForWriteRequest:()HMDCharacteristicResponse naturalLightingEnabled:error:
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v6 = a4;
+  v67[1] = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = objc_autoreleasePoolPush();
   v10 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v68[0] = v8;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
+    v67[0] = v8;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
     *buf = 138543874;
-    v61 = v11;
-    v62 = 2112;
-    v63 = v12;
-    v64 = 2112;
+    v60 = v11;
+    v61 = 2112;
+    v62 = v12;
+    v63 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@[Natural Lighting] Received response for requests %@:%@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   characteristic = [v8 characteristic];
-  v59 = 0;
-  v14 = [self hmd_valueOfCharacteristic:characteristic error:&v59];
-  v15 = v59;
+  v58 = 0;
+  v14 = [self hmd_valueOfCharacteristic:characteristic error:&v58];
+  v15 = v58;
 
   if (v14)
   {
@@ -321,7 +319,7 @@
 
     if (v17)
     {
-      v57 = v19;
+      v56 = v19;
       value = [v8 value];
       v21 = [v16 isEqual:value];
 
@@ -334,7 +332,7 @@
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v61 = v25;
+          v60 = v25;
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@[Natural Lighting] Calling completion by ignoring the write response", buf, 0xCu);
         }
 
@@ -350,16 +348,16 @@
           v37 = HMFGetLogIdentifier();
           hmf_hexadecimalRepresentation = [v16 hmf_hexadecimalRepresentation];
           *buf = 138543618;
-          v61 = v37;
-          v62 = 2112;
-          v63 = hmf_hexadecimalRepresentation;
+          v60 = v37;
+          v61 = 2112;
+          v62 = hmf_hexadecimalRepresentation;
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@[Natural Lighting] Decoding value transition control response: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v22);
-        v58 = v15;
-        v39 = [MEMORY[0x277CFEAC0] parsedFromData:v16 error:&v58];
-        v27 = v58;
+        v57 = v15;
+        v39 = [MEMORY[0x277CFEAC0] parsedFromData:v16 error:&v57];
+        v27 = v57;
 
         v40 = objc_autoreleasePoolPush();
         v41 = HMFGetOSLogHandle();
@@ -370,9 +368,9 @@
           {
             v43 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v61 = v43;
-            v62 = 2112;
-            v63 = v39;
+            v60 = v43;
+            v61 = 2112;
+            v62 = v39;
             _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@[Natural Lighting] Transition control response is: %@", buf, 0x16u);
           }
 
@@ -381,21 +379,21 @@
           service = [characteristic2 service];
           v46 = [service findCharacteristicWithType:*MEMORY[0x277CCF7D8]];
 
-          v47 = [v39 isNaturalLightingEnabledForCharacteristic:v46] ^ a4;
+          v47 = [v39 isNaturalLightingEnabledForCharacteristic:v46] ^ v6;
           if (v47 == 1)
           {
             context = objc_autoreleasePoolPush();
             v48 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
-              v55 = HMFGetLogIdentifier();
+              v54 = HMFGetLogIdentifier();
               v49 = HMFBooleanToString();
               v50 = HMFBooleanToString();
               *buf = 138543874;
-              v61 = v55;
-              v62 = 2112;
-              v63 = v49;
-              v64 = 2112;
+              v60 = v54;
+              v61 = 2112;
+              v62 = v49;
+              v63 = 2112;
               selfCopy = v50;
               _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_ERROR, "%{public}@[Natural Lighting] Write response indicates Natural Lighting was enabled: %@ expected: %@", buf, 0x20u);
             }
@@ -413,10 +411,10 @@
           {
             v51 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v61 = v51;
-            v62 = 2112;
-            v63 = v16;
-            v64 = 2112;
+            v60 = v51;
+            v61 = 2112;
+            v62 = v16;
+            v63 = 2112;
             selfCopy = v27;
             _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@[Natural Lighting] Failed to parse Transition Control Response %@:%@", buf, 0x20u);
           }
@@ -436,7 +434,7 @@
         }
       }
 
-      v19 = v57;
+      v19 = v56;
     }
 
     else
@@ -449,13 +447,13 @@
         v35 = v34 = v19;
         v36 = objc_opt_class();
         *buf = 138544130;
-        v61 = v35;
-        v62 = 2112;
-        v63 = v8;
-        v64 = 2112;
+        v60 = v35;
+        v61 = 2112;
+        v62 = v8;
+        v63 = 2112;
         selfCopy = v16;
-        v66 = 2112;
-        v67 = v36;
+        v65 = 2112;
+        v66 = v36;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@[Natural Lighting] Response value for request %@ is not of expected type %@:%@", buf, 0x2Au);
 
         v19 = v34;
@@ -487,10 +485,10 @@
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v61 = v30;
-      v62 = 2112;
-      v63 = v8;
-      v64 = 2112;
+      v60 = v30;
+      v61 = 2112;
+      v62 = v8;
+      v63 = 2112;
       selfCopy = v15;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@[Natural Lighting] Failed to parse response for request %@:%@", buf, 0x20u);
     }
@@ -509,7 +507,6 @@
     }
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

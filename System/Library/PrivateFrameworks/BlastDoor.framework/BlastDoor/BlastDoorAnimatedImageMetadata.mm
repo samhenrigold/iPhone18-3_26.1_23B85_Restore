@@ -10,10 +10,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata);
-  v5 = *&self->animatedImageMetadata[OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata];
-  v6 = *&self->animatedImageMetadata[OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata + 16];
-  v7 = *&self->animatedImageMetadata[OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata + 24];
 
   sub_2146D9608();
   v2 = sub_2146D9588();
@@ -23,11 +19,10 @@
 
 - (NSArray)durations
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata);
 
-  v3 = sub_2146D98E8();
+  v2 = sub_2146D98E8();
 
-  return v3;
+  return v2;
 }
 
 - (CGSize)pixelSize
@@ -41,12 +36,10 @@
 
 - (NSString)utTypeString
 {
-  v2 = *&self->animatedImageMetadata[OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata + 16];
-  v3 = *&self->animatedImageMetadata[OBJC_IVAR___BlastDoorAnimatedImageMetadata_animatedImageMetadata + 24];
 
-  v4 = sub_2146D9588();
+  v2 = sub_2146D9588();
 
-  return v4;
+  return v2;
 }
 
 - (BlastDoorAnimatedImageMetadata)init

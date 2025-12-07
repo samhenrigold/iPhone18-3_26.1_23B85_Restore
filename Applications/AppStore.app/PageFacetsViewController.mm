@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10009C3D0();
+  sub_10009C3D0(selfCopy, v2);
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path

@@ -16,6 +16,7 @@
 - (void)dealloc;
 - (void)didReceiveIncomingPushWithPayload:(id)payload withCompletionHandler:(id)handler;
 - (void)handlePushNotificationWithPayload:(id)payload environment:(id)environment completionHandler:(id)handler;
+- (void)setUseOpportunisticPushTopics:(BOOL)topics;
 @end
 
 @implementation CKNotificationListener
@@ -62,11 +63,11 @@
 
 - (CKNotificationListener)initWithStrategy:(unint64_t)strategy machServiceName:(id)name
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v93.receiver = self;
-  v93.super_class = CKNotificationListener;
-  v8 = [(CKNotificationListener *)&v93 init];
+  v92.receiver = self;
+  v92.super_class = CKNotificationListener;
+  v8 = [(CKNotificationListener *)&v92 init];
   if (!v8)
   {
     goto LABEL_18;
@@ -150,21 +151,21 @@ LABEL_11:
       }
 
 LABEL_10:
-      v92 = *MEMORY[0x1E698CF18];
+      v91 = *MEMORY[0x1E698CF18];
       v66 = objc_msgSend_lowercaseString(*MEMORY[0x1E698CF18], v47, v48);
       isEqualToString = objc_msgSend_isEqualToString_(v42, v67, v66);
 
       if ((isEqualToString & 1) == 0)
       {
-        v80 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v43, v44);
-        v81 = [CKSignificantIssue alloc];
-        v82 = [CKSourceCodeLocation alloc];
-        v84 = objc_msgSend_initWithFilePath_lineNumber_(v82, v83, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/Services/Scheduler/CKNotificationListener.m", 160);
-        v86 = objc_msgSend_initWithSourceCodeLocation_format_(v81, v85, v84, @"BUG IN CLIENT OF CLOUDKIT: CloudKit push notifications require the '%@' entitlement to be '%@' or '%@'. Current value='%@'", @"aps-environment", v45, v92, v42);
-        objc_msgSend_handleSignificantIssue_actions_(v80, v87, v86, 0);
+        v79 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v43, v44);
+        v80 = [CKSignificantIssue alloc];
+        v81 = [CKSourceCodeLocation alloc];
+        v83 = objc_msgSend_initWithFilePath_lineNumber_(v81, v82, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/Services/Scheduler/CKNotificationListener.m", 160);
+        v85 = objc_msgSend_initWithSourceCodeLocation_format_(v80, v84, v83, @"BUG IN CLIENT OF CLOUDKIT: CloudKit push notifications require the '%@' entitlement to be '%@' or '%@'. Current value='%@'", @"aps-environment", v45, v91, v42);
+        objc_msgSend_handleSignificantIssue_actions_(v79, v86, v85, 0);
 
-        v89 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v88, @"BUG IN CLIENT OF CLOUDKIT: CloudKit push notifications require the '%@' entitlement to be '%@' or '%@'. Current value='%@'", @"aps-environment", v45, v92, v42);
-        objc_msgSend_UTF8String(v89, v90, v91);
+        v88 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v87, @"BUG IN CLIENT OF CLOUDKIT: CloudKit push notifications require the '%@' entitlement to be '%@' or '%@'. Current value='%@'", @"aps-environment", v45, v91, v42);
+        objc_msgSend_UTF8String(v88, v89, v90);
         result = _os_crash();
         __break(1u);
         return result;
@@ -209,17 +210,16 @@ LABEL_18:
   if (os_log_type_enabled(ck_log_facility_notification_listener, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v95 = v8;
+    v94 = v8;
     _os_log_impl(&dword_1883EA000, v77, OS_LOG_TYPE_INFO, "Init notification listener %@", buf, 0xCu);
   }
 
-  v78 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)dealloc
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -239,40 +239,39 @@ LABEL_18:
     objc_msgSend_removeDelegate_(v6, v7, self);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = objc_msgSend_notificationObservers(self, v4, v5);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v21, v25, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v20, v24, 16);
   if (v10)
   {
     v13 = v10;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         v17 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v11, v12);
         objc_msgSend_removeObserver_(v17, v18, v16);
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v21, v25, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v20, v24, 16);
     }
 
     while (v13);
   }
 
-  v20.receiver = self;
-  v20.super_class = CKNotificationListener;
-  [(CKNotificationListener *)&v20 dealloc];
-  v19 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = CKNotificationListener;
+  [(CKNotificationListener *)&v19 dealloc];
 }
 
 - (void)CKDescribePropertiesUsing:(id)using
@@ -346,6 +345,27 @@ LABEL_18:
   return selfCopy;
 }
 
+- (void)setUseOpportunisticPushTopics:(BOOL)topics
+{
+  if (self && self->_strategy)
+  {
+    v5 = MEMORY[0x1E695DF30];
+    v6 = *MEMORY[0x1E695D940];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    objc_msgSend_raise_format_(v5, v9, v6, @"Cannot use opportunistic push topics for %@ outside of a daemon.", v8);
+  }
+
+  v10 = objc_msgSend_queue(self, a2, topics);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = sub_188647A30;
+  block[3] = &unk_1E70BFE40;
+  block[4] = self;
+  topicsCopy = topics;
+  dispatch_sync(v10, block);
+}
+
 - (void)_registerForSubscriptionWithID:(id)d inDatabase:(id)database handler:(id)handler completionHandler:(id)completionHandler
 {
   dCopy = d;
@@ -357,27 +377,8 @@ LABEL_18:
   v17 = _CKCheckArgument("database", databaseCopy, 0, 0, 0, &v67);
   v18 = v67;
   v19 = v18;
-  if ((v17 & 1) == 0)
+  if ((v17 & 1) == 0 || (v18, v66 = 0, v20 = _CKCheckArgument("container", v16, 0, 0, 0, &v66), v21 = v66, v19 = v21, (v20 & 1) == 0) || (v21, v65 = 0, v22 = _CKCheckArgument("subscriptionID", dCopy, 0, 0, 0, &v65), v23 = v65, v19 = v23, (v22 & 1) == 0) || (v23, v24 = _Block_copy(handlerCopy), v64 = 0, v25 = _CKCheckArgument("handler", v24, 0, 0, 0, &v64), v19 = v64, v24, (v25 & 1) == 0))
   {
-    goto LABEL_6;
-  }
-
-  v66 = 0;
-  v20 = _CKCheckArgument("container", v16, 0, 0, 0, &v66);
-  v21 = v66;
-  v19 = v21;
-  if ((v20 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v65 = 0;
-  v22 = _CKCheckArgument("subscriptionID", dCopy, 0, 0, 0, &v65);
-  v23 = v65;
-  v19 = v23;
-  if ((v22 & 1) == 0 || (v23, v24 = _Block_copy(handlerCopy), v64 = 0, v25 = _CKCheckArgument("handler", v24, 0, 0, 0, &v64), v19 = v64, v24, (v25 & 1) == 0))
-  {
-LABEL_6:
     v40 = [CKException alloc];
     v43 = objc_msgSend_code(v19, v41, v42);
     v46 = objc_msgSend_localizedDescription(v19, v44, v45);
@@ -584,7 +585,7 @@ LABEL_9:
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   tokenCopy = token;
   if (ck_log_initialization_predicate != -1)
@@ -595,17 +596,15 @@ LABEL_9:
   v7 = ck_log_facility_notification_listener;
   if (os_log_type_enabled(ck_log_facility_notification_listener, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138543362;
-    v10 = tokenCopy;
-    _os_log_debug_impl(&dword_1883EA000, v7, OS_LOG_TYPE_DEBUG, "APS connection received public token: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = tokenCopy;
+    _os_log_debug_impl(&dword_1883EA000, v7, OS_LOG_TYPE_DEBUG, "APS connection received public token: %{public}@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   messageCopy = message;
   if (ck_log_initialization_predicate != -1)
@@ -616,25 +615,25 @@ LABEL_9:
   v8 = ck_log_facility_notification_listener;
   if (os_log_type_enabled(ck_log_facility_notification_listener, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v8;
-    v21 = objc_msgSend_topic(messageCopy, v19, v20);
-    v24 = objc_msgSend_userInfo(messageCopy, v22, v23);
+    v17 = v8;
+    v20 = objc_msgSend_topic(messageCopy, v18, v19);
+    v23 = objc_msgSend_userInfo(messageCopy, v21, v22);
     *buf = 134218498;
     *&buf[4] = self;
     *&buf[12] = 2112;
-    *&buf[14] = v21;
+    *&buf[14] = v20;
     *&buf[22] = 2112;
-    v32 = v24;
-    _os_log_debug_impl(&dword_1883EA000, v18, OS_LOG_TYPE_DEBUG, "%p APS connection received incoming message on topic %@: %@", buf, 0x20u);
+    v31 = v23;
+    _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "%p APS connection received incoming message on topic %@: %@", buf, 0x20u);
   }
 
   v11 = objc_msgSend_userInfo(messageCopy, v9, v10);
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v32 = sub_1883EE180;
-  v33 = sub_1883EF774;
-  v34 = *MEMORY[0x1E698CF20];
+  v31 = sub_1883EE180;
+  v32 = sub_1883EF774;
+  v33 = *MEMORY[0x1E698CF20];
   if (self)
   {
     apsConnections = self->_apsConnections;
@@ -646,19 +645,17 @@ LABEL_9:
   }
 
   v13 = apsConnections;
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = sub_188649BA0;
-  v28 = &unk_1E70BFFA8;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = sub_188649BA0;
+  v27 = &unk_1E70BFFA8;
   v14 = connectionCopy;
-  v29 = v14;
-  v30 = buf;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v13, v15, &v25);
+  v28 = v14;
+  v29 = buf;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v13, v15, &v24);
 
-  objc_msgSend_handlePushNotificationWithPayload_environment_completionHandler_(self, v16, v11, *(*&buf[8] + 40), 0, v25, v26, v27, v28);
+  objc_msgSend_handlePushNotificationWithPayload_environment_completionHandler_(self, v16, v11, *(*&buf[8] + 40), 0, v24, v25, v26, v27);
   _Block_object_dispose(buf, 8);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePushNotificationWithPayload:(id)payload environment:(id)environment completionHandler:(id)handler
@@ -687,7 +684,7 @@ LABEL_9:
 - (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
 {
   statusCopy = status;
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   if (ck_log_initialization_predicate != -1)
   {
@@ -697,12 +694,10 @@ LABEL_9:
   v6 = ck_log_facility_notification_listener;
   if (os_log_type_enabled(ck_log_facility_notification_listener, OS_LOG_TYPE_DEBUG))
   {
-    v8[0] = 67109120;
-    v8[1] = statusCopy;
-    _os_log_debug_impl(&dword_1883EA000, v6, OS_LOG_TYPE_DEBUG, "APS connection status changed to connected=%d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = statusCopy;
+    _os_log_debug_impl(&dword_1883EA000, v6, OS_LOG_TYPE_DEBUG, "APS connection status changed to connected=%d", v7, 8u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionDidReconnect:(id)reconnect
@@ -723,7 +718,7 @@ LABEL_9:
 
 - (void)didReceiveIncomingPushWithPayload:(id)payload withCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   handlerCopy = handler;
   if (ck_log_initialization_predicate != -1)
@@ -736,21 +731,19 @@ LABEL_9:
   {
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2112;
-    v20 = payloadCopy;
+    v18 = 2112;
+    v19 = payloadCopy;
     _os_log_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEFAULT, "%@ received push via PushKit with payload %@", buf, 0x16u);
   }
 
   v11 = objc_msgSend_dictionaryPayload(payloadCopy, v9, v10);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_18864AF84;
-  v15[3] = &unk_1E70BC2C0;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_18864AF84;
+  v14[3] = &unk_1E70BC2C0;
+  v15 = handlerCopy;
   v12 = handlerCopy;
-  objc_msgSend_handlePushNotificationWithPayload_completionHandler_(self, v13, v11, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  objc_msgSend_handlePushNotificationWithPayload_completionHandler_(self, v13, v11, v14);
 }
 
 @end

@@ -8,9 +8,9 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v16.receiver = self;
-  v16.super_class = INCExtensionTransactionState;
-  v4 = [(INCExtensionTransactionState *)&v16 description];
+  v14.receiver = self;
+  v14.super_class = INCExtensionTransactionState;
+  v4 = [(INCExtensionTransactionState *)&v14 description];
   type = self->_type;
   if (type > 5)
   {
@@ -23,15 +23,13 @@
   }
 
   v7 = v6;
-  intent = self->_intent;
-  v9 = objc_opt_class();
-  v10 = NSStringFromClass(v9);
-  intentResponse = self->_intentResponse;
-  v12 = objc_opt_class();
-  v13 = NSStringFromClass(v12);
-  v14 = [v3 stringWithFormat:@"%@ {type = %ld (%@), intent = %@, intentResponse = %@, userActivities = %@}", v4, type, v7, v10, v13, self->_userActivities];
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v3 stringWithFormat:@"%@ {type = %ld (%@), intent = %@, intentResponse = %@, userActivities = %@}", v4, type, v7, v9, v11, self->_userActivities];
 
-  return v14;
+  return v12;
 }
 
 - (INCExtensionTransactionState)initWithType:(int64_t)type intent:(id)intent intentResponse:(id)response userActivities:(id)activities

@@ -377,98 +377,97 @@ LABEL_8:
     }
 
     *buf = 136447746;
-    v40 = "[DatapathMetricStream updateTimerConfiguration]";
-    v41 = 1024;
-    v42 = 212;
-    v43 = 1024;
-    *v44 = megawifiprofile_diagnostic_metrics_enabled;
-    *&v44[4] = 2048;
-    *&v44[6] = megawifiprofile_diagnostic_metrics_period_ms;
-    v45 = 1024;
-    v46 = timerRunning;
-    v47 = 1024;
-    v48 = v8;
-    v49 = 1024;
-    v50 = v9;
+    v39 = "[DatapathMetricStream updateTimerConfiguration]";
+    v40 = 1024;
+    v41 = 212;
+    v42 = 1024;
+    *v43 = megawifiprofile_diagnostic_metrics_enabled;
+    *&v43[4] = 2048;
+    *&v43[6] = megawifiprofile_diagnostic_metrics_period_ms;
+    v44 = 1024;
+    v45 = timerRunning;
+    v46 = 1024;
+    v47 = v8;
+    v48 = 1024;
+    v49 = v9;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:megawifiprofile_diagnostic_metrics_enabled is %d megawifiprofile_diagnostic_metrics_period_ms is %lu _timerRunning is %d _timer exists %d testcancel is %d", buf, 0x34u);
   }
 
-  v10 = self->_megawifiprofile_diagnostic_metrics_enabled;
   if (self->_timerRunning)
   {
     if (!self->_megawifiprofile_diagnostic_metrics_enabled || !self->_megawifiprofile_diagnostic_metrics_period_ms)
     {
-      v11 = self->_timer;
-      if (v11)
+      v10 = self->_timer;
+      if (v10)
       {
-        if (!dispatch_source_testcancel(v11))
+        if (!dispatch_source_testcancel(v10))
         {
-          v12 = WALogCategoryDefaultHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v11 = WALogCategoryDefaultHandle();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = self->_megawifiprofile_diagnostic_metrics_enabled;
-            v14 = self->_megawifiprofile_diagnostic_metrics_period_ms;
+            v12 = self->_megawifiprofile_diagnostic_metrics_enabled;
+            v13 = self->_megawifiprofile_diagnostic_metrics_period_ms;
             *buf = 136446978;
-            v40 = "[DatapathMetricStream updateTimerConfiguration]";
-            v41 = 1024;
-            v42 = 248;
-            v43 = 1024;
-            *v44 = v13;
-            *&v44[4] = 2048;
-            *&v44[6] = v14;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Timer exists and is valid, Suspending: Enabled %d Period(ms) %lu", buf, 0x22u);
+            v39 = "[DatapathMetricStream updateTimerConfiguration]";
+            v40 = 1024;
+            v41 = 248;
+            v42 = 1024;
+            *v43 = v12;
+            *&v43[4] = 2048;
+            *&v43[6] = v13;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Timer exists and is valid, Suspending: Enabled %d Period(ms) %lu", buf, 0x22u);
           }
 
           dispatch_suspend(self->_timer);
           self->_timerRunning = 0;
-          v15 = WALogCategoryDefaultHandle();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v14 = WALogCategoryDefaultHandle();
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_41;
           }
 
-          v16 = self->_timerRunning;
+          v15 = self->_timerRunning;
           *buf = 136446722;
-          v40 = "[DatapathMetricStream updateTimerConfiguration]";
-          v41 = 1024;
-          v42 = 251;
-          v43 = 1024;
-          *v44 = v16;
+          v39 = "[DatapathMetricStream updateTimerConfiguration]";
+          v40 = 1024;
+          v41 = 251;
+          v42 = 1024;
+          *v43 = v15;
 LABEL_40:
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:setting _timerRunning %d", buf, 0x18u);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:setting _timerRunning %d", buf, 0x18u);
 LABEL_41:
         }
       }
     }
 
 LABEL_42:
-    v33 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v32 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = self->_megawifiprofile_diagnostic_metrics_enabled;
-      v35 = self->_megawifiprofile_diagnostic_metrics_period_ms;
-      v36 = self->_timer;
-      if (v36)
+      v33 = self->_megawifiprofile_diagnostic_metrics_enabled;
+      v34 = self->_megawifiprofile_diagnostic_metrics_period_ms;
+      v35 = self->_timer;
+      if (v35)
       {
-        v37 = dispatch_source_testcancel(v36) == 0;
+        v36 = dispatch_source_testcancel(v35) == 0;
       }
 
       else
       {
-        v37 = 0;
+        v36 = 0;
       }
 
       *buf = 136447234;
-      v40 = "[DatapathMetricStream updateTimerConfiguration]";
-      v41 = 1024;
-      v42 = 255;
-      v43 = 1024;
-      *v44 = v34;
-      *&v44[4] = 2048;
-      *&v44[6] = v35;
-      v45 = 1024;
-      v46 = v37;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Timer State : Enabled %d Period(ms) %lu valid %d", buf, 0x28u);
+      v39 = "[DatapathMetricStream updateTimerConfiguration]";
+      v40 = 1024;
+      v41 = 255;
+      v42 = 1024;
+      *v43 = v33;
+      *&v43[4] = 2048;
+      *&v43[6] = v34;
+      v44 = 1024;
+      v45 = v36;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Timer State : Enabled %d Period(ms) %lu valid %d", buf, 0x28u);
     }
 
     goto LABEL_47;
@@ -479,129 +478,129 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  v17 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v16 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446466;
-    v40 = "[DatapathMetricStream updateTimerConfiguration]";
-    v41 = 1024;
-    v42 = 215;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Setting timer", buf, 0x12u);
+    v39 = "[DatapathMetricStream updateTimerConfiguration]";
+    v40 = 1024;
+    v41 = 215;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Setting timer", buf, 0x12u);
   }
 
-  v18 = self->_timer;
-  if (v18)
+  v17 = self->_timer;
+  if (v17)
   {
-    if (!dispatch_source_testcancel(v18))
+    if (!dispatch_source_testcancel(v17))
     {
 LABEL_32:
-      v26 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         megawifiprofile_diagnostic_metrics_period_ms = [(DatapathMetricStream *)self megawifiprofile_diagnostic_metrics_period_ms];
         *buf = 136446722;
-        v40 = "[DatapathMetricStream updateTimerConfiguration]";
-        v41 = 1024;
-        v42 = 235;
-        v43 = 2048;
-        *v44 = 1000000 * megawifiprofile_diagnostic_metrics_period_ms;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Starting dispatch_source_set_timer fire in %llu ns", buf, 0x1Cu);
+        v39 = "[DatapathMetricStream updateTimerConfiguration]";
+        v40 = 1024;
+        v41 = 235;
+        v42 = 2048;
+        *v43 = 1000000 * megawifiprofile_diagnostic_metrics_period_ms;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Starting dispatch_source_set_timer fire in %llu ns", buf, 0x1Cu);
       }
 
-      v28 = self->_timer;
-      v29 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 0);
-      dispatch_source_set_timer(v28, v29, 1000000 * [(DatapathMetricStream *)self megawifiprofile_diagnostic_metrics_period_ms], 0x5F5E100uLL);
+      v27 = self->_timer;
+      v28 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 0);
+      dispatch_source_set_timer(v27, v28, 1000000 * [(DatapathMetricStream *)self megawifiprofile_diagnostic_metrics_period_ms], 0x5F5E100uLL);
+      v29 = WALogCategoryDefaultHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446466;
+        v39 = "[DatapathMetricStream updateTimerConfiguration]";
+        v40 = 1024;
+        v41 = 237;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Starting dispatch_source_set_timer Done", buf, 0x12u);
+      }
+
       v30 = WALogCategoryDefaultHandle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v40 = "[DatapathMetricStream updateTimerConfiguration]";
-        v41 = 1024;
-        v42 = 237;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Starting dispatch_source_set_timer Done", buf, 0x12u);
-      }
-
-      v31 = WALogCategoryDefaultHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446466;
-        v40 = "[DatapathMetricStream updateTimerConfiguration]";
-        v41 = 1024;
-        v42 = 239;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dispatch_resume _timer", buf, 0x12u);
+        v39 = "[DatapathMetricStream updateTimerConfiguration]";
+        v40 = 1024;
+        v41 = 239;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:dispatch_resume _timer", buf, 0x12u);
       }
 
       dispatch_resume(self->_timer);
       self->_timerRunning = 1;
-      v15 = WALogCategoryDefaultHandle();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = WALogCategoryDefaultHandle();
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_41;
       }
 
-      v32 = self->_timerRunning;
+      v31 = self->_timerRunning;
       *buf = 136446722;
-      v40 = "[DatapathMetricStream updateTimerConfiguration]";
-      v41 = 1024;
-      v42 = 243;
-      v43 = 1024;
-      *v44 = v32;
+      v39 = "[DatapathMetricStream updateTimerConfiguration]";
+      v40 = 1024;
+      v41 = 243;
+      v42 = 1024;
+      *v43 = v31;
       goto LABEL_40;
     }
 
 LABEL_27:
-    v23 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v40 = "[DatapathMetricStream updateTimerConfiguration]";
-      v41 = 1024;
-      v42 = 227;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Setting dispatch_source_set_event_handler", buf, 0x12u);
+      v39 = "[DatapathMetricStream updateTimerConfiguration]";
+      v40 = 1024;
+      v41 = 227;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Setting dispatch_source_set_event_handler", buf, 0x12u);
     }
 
-    v24 = self->_timer;
+    v23 = self->_timer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100043834;
     handler[3] = &unk_1000ED880;
     handler[4] = self;
-    dispatch_source_set_event_handler(v24, handler);
-    v25 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    dispatch_source_set_event_handler(v23, handler);
+    v24 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136446466;
-      v40 = "[DatapathMetricStream updateTimerConfiguration]";
-      v41 = 1024;
-      v42 = 232;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Setting block Done", buf, 0x12u);
+      v39 = "[DatapathMetricStream updateTimerConfiguration]";
+      v40 = 1024;
+      v41 = 232;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Setting block Done", buf, 0x12u);
     }
 
     goto LABEL_32;
   }
 
-  v19 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v18 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v40 = "[DatapathMetricStream updateTimerConfiguration]";
-    v41 = 1024;
-    v42 = 221;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Creating _timer", buf, 0x12u);
+    v39 = "[DatapathMetricStream updateTimerConfiguration]";
+    v40 = 1024;
+    v41 = 221;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Creating _timer", buf, 0x12u);
   }
 
-  v20 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_queue);
-  v21 = self->_timer;
-  self->_timer = v20;
+  v19 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_queue);
+  v20 = self->_timer;
+  self->_timer = v19;
 
-  v22 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v21 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446466;
-    v40 = "[DatapathMetricStream updateTimerConfiguration]";
-    v41 = 1024;
-    v42 = 223;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Creating _timer Done", buf, 0x12u);
+    v39 = "[DatapathMetricStream updateTimerConfiguration]";
+    v40 = 1024;
+    v41 = 223;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Creating _timer Done", buf, 0x12u);
   }
 
   if (self->_timer)
@@ -609,11 +608,11 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v33 = WALogCategoryDefaultHandle();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+  v32 = WALogCategoryDefaultHandle();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
   {
     *buf = 0;
-    _os_log_fault_impl(&_mh_execute_header, v33, OS_LOG_TYPE_FAULT, "Failed to create _timer", buf, 2u);
+    _os_log_fault_impl(&_mh_execute_header, v32, OS_LOG_TYPE_FAULT, "Failed to create _timer", buf, 2u);
   }
 
 LABEL_47:

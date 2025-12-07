@@ -229,7 +229,7 @@ LABEL_16:
     v10 = [trackingData2 objectForKeyedSubscript:v6];
 
     v11 = objc_opt_new();
-    v12 = ARKitCoreBundle();
+    v12 = ARKitCoreBundle(v11);
     v13 = [v12 localizedStringForKey:@"Face tracking failed." value:&stru_1F4208A80 table:@"Localizable"];
     [v11 setObject:v13 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
@@ -243,7 +243,7 @@ LABEL_16:
 
     else
     {
-      v15 = ARKitCoreBundle();
+      v15 = ARKitCoreBundle(0);
       v16 = [v15 localizedStringForKey:@"An unknown error occurred" value:&stru_1F4208A80 table:@"Localizable"];
       [v11 setObject:v16 forKeyedSubscript:*MEMORY[0x1E696A588]];
     }
@@ -456,7 +456,7 @@ LABEL_16:
     bytes2 = [v97 bytes];
     v198 = 0uLL;
     *&v199 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v198, bytes2, bytes2 + ((v98 >> 2 << 32) >> 30), (v98 >> 2));
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v198, bytes2, (bytes2 + ((v98 >> 2 << 32) >> 30)), (v98 >> 2));
     p_blendShapeCoefficients = &selfCopy2->_blendShapeCoefficients;
     begin = selfCopy2->_blendShapeCoefficients.__begin_;
     if (begin)
@@ -485,7 +485,7 @@ LABEL_16:
           v107 = [v103 objectForKeyedSubscript:v106];
           integerValue = [v107 integerValue];
 
-          p_blendShapeCoefficients->__begin_[integerValue] = *(bytes2 + 4 * v104++);
+          LODWORD(p_blendShapeCoefficients->__begin_[integerValue]) = bytes2[v104++];
         }
 
         while (v105 != v104);
@@ -672,7 +672,7 @@ LABEL_16:
 
 - (uint64_t)imageVertices
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   dispatch_semaphore_wait(*(self + 184), 0xFFFFFFFFFFFFFFFFLL);
   v2 = (self + 32);
   v3 = *(self + 40) - *(self + 32);
@@ -702,85 +702,85 @@ LABEL_16:
 
     if (v7)
     {
-      v8 = *MEMORY[0x1E698C090];
-      v9 = [v7 objectForKeyedSubscript:*MEMORY[0x1E698C090]];
-      v10 = *MEMORY[0x1E698C0A0];
-      v11 = [v9 objectForKeyedSubscript:*MEMORY[0x1E698C0A0]];
-      ARMatrix3x3FromArray(v11);
+      v9 = *MEMORY[0x1E698C090];
+      v10 = [v7 objectForKeyedSubscript:*MEMORY[0x1E698C090]];
+      v11 = *MEMORY[0x1E698C0A0];
+      v12 = [v10 objectForKeyedSubscript:*MEMORY[0x1E698C0A0]];
+      ARMatrix3x3FromArray(v12);
 
-      v12 = [v7 objectForKeyedSubscript:v8];
-      v13 = *MEMORY[0x1E698C0C8];
-      v14 = [v12 objectForKeyedSubscript:*MEMORY[0x1E698C0C8]];
-      v60 = ARVector3FromArray(v14).n128_u64[0];
+      v13 = [v7 objectForKeyedSubscript:v9];
+      v14 = *MEMORY[0x1E698C0C8];
+      v15 = [v13 objectForKeyedSubscript:*MEMORY[0x1E698C0C8]];
+      v61 = ARVector3FromArray(v15).n128_u64[0];
 
-      ARVector3ScalarMultiplication(v60, 0.001);
+      ARVector3ScalarMultiplication(v61, 0.001);
       ARMatrix4x4FromRotationAndTranslation();
-      v61 = v16;
-      v63 = v15;
-      v65 = v18;
-      v67 = v17;
+      v62 = v17;
+      v64 = v16;
+      v66 = v19;
+      v68 = v18;
       trackingData2 = [self trackingData];
-      v20 = *MEMORY[0x1E698BFD0];
-      v21 = [trackingData2 objectForKeyedSubscript:*MEMORY[0x1E698BFD0]];
-      v22 = [v21 objectForKeyedSubscript:*MEMORY[0x1E698C068]];
-      v23 = ARMatrix3x3FromArray(v22);
-      v58 = v24;
-      v59 = v23;
-      v57 = v25;
+      v21 = *MEMORY[0x1E698BFD0];
+      v22 = [trackingData2 objectForKeyedSubscript:*MEMORY[0x1E698BFD0]];
+      v23 = [v22 objectForKeyedSubscript:*MEMORY[0x1E698C068]];
+      v24 = ARMatrix3x3FromArray(v23);
+      v59 = v25;
+      v60 = v24;
+      v58 = v26;
 
       trackingData3 = [self trackingData];
-      v27 = [trackingData3 objectForKeyedSubscript:v20];
-      v28 = *MEMORY[0x1E698C030];
-      v29 = [v27 objectForKeyedSubscript:*MEMORY[0x1E698C030]];
-      v30 = [v29 objectForKeyedSubscript:v10];
-      ARMatrix3x3FromArray(v30);
+      v28 = [trackingData3 objectForKeyedSubscript:v21];
+      v29 = *MEMORY[0x1E698C030];
+      v30 = [v28 objectForKeyedSubscript:*MEMORY[0x1E698C030]];
+      v31 = [v30 objectForKeyedSubscript:v11];
+      ARMatrix3x3FromArray(v31);
 
       trackingData4 = [self trackingData];
-      v32 = [trackingData4 objectForKeyedSubscript:v20];
-      v33 = [v32 objectForKeyedSubscript:v28];
-      v34 = [v33 objectForKeyedSubscript:v13];
-      v56 = ARVector3FromArray(v34);
+      v33 = [trackingData4 objectForKeyedSubscript:v21];
+      v34 = [v33 objectForKeyedSubscript:v29];
+      v35 = [v34 objectForKeyedSubscript:v14];
+      v57 = ARVector3FromArray(v35);
 
-      ARVector3ScalarMultiplication(v56.n128_u64[0], 0.001);
+      ARVector3ScalarMultiplication(v57.n128_u64[0], 0.001);
       ARMatrix4x4FromRotationAndTranslation();
-      v35 = 0;
-      v69 = v36;
+      v36 = 0;
       v70 = v37;
       v71 = v38;
       v72 = v39;
+      v73 = v40;
       do
       {
-        *&buf[v35] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v59, COERCE_FLOAT(*(&v69 + v35))), v58, *(&v69 + v35), 1), v57, *(&v69 + v35), 2), 0, *(&v69 + v35), 3);
-        v35 += 16;
+        *&buf[v36] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v60, COERCE_FLOAT(*(&v70 + v36))), v59, *(&v70 + v36), 1), v58, *(&v70 + v36), 2), 0, *(&v70 + v36), 3);
+        v36 += 16;
       }
 
-      while (v35 != 64);
-      v40 = 0;
-      v41 = *buf;
-      v42 = *&buf[16];
-      v43 = v74;
+      while (v36 != 64);
+      v41 = 0;
+      v42 = *buf;
+      v43 = *&buf[16];
       v44 = v75;
-      v69 = v63;
-      v70 = v61;
-      v71 = v67;
-      v72 = v65;
+      v45 = v76;
+      v70 = v64;
+      v71 = v62;
+      v72 = v68;
+      v73 = v66;
       do
       {
-        *&buf[v40] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v41, COERCE_FLOAT(*(&v69 + v40))), v42, *(&v69 + v40), 1), v43, *(&v69 + v40), 2), v44, *(&v69 + v40), 3);
-        v40 += 16;
+        *&buf[v41] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v42, COERCE_FLOAT(*(&v70 + v41))), v43, *(&v70 + v41), 1), v44, *(&v70 + v41), 2), v45, *(&v70 + v41), 3);
+        v41 += 16;
       }
 
-      while (v40 != 64);
-      v45 = 0;
-      v66 = *&buf[16];
-      v68 = *buf;
-      v62 = v75;
-      v64 = v74;
-      while ([self vertexCount] > v45)
+      while (v41 != 64);
+      v46 = 0;
+      v67 = *&buf[16];
+      v69 = *buf;
+      v63 = v76;
+      v65 = v75;
+      while ([self vertexCount] > v46)
       {
         vertices = [self vertices];
-        v47 = vaddq_f32(v62, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v68, COERCE_FLOAT(*(vertices + 16 * v45))), v66, *(vertices + 16 * v45), 1), v64, *(vertices + 16 * v45), 2));
-        *(*v2 + 8 * v45++) = vdiv_f32(*v47.i8, vdup_laneq_s32(v47, 2));
+        v48 = vaddq_f32(v63, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v69, COERCE_FLOAT(*(vertices + 16 * v46))), v67, *(vertices + 16 * v46), 1), v65, *(vertices + 16 * v46), 2));
+        *(*v2 + 8 * v46++) = vdiv_f32(*v48.i8, vdup_laneq_s32(v48, 2));
       }
 
       dispatch_semaphore_signal(*(self + 184));
@@ -794,32 +794,32 @@ LABEL_16:
         [ARFaceTrackingData imageVertices];
       }
 
-      v48 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v49 = _ARLogGeneral();
-      v50 = v49;
-      if (v48 == 1)
+      v49 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v50 = _ARLogGeneral(v8);
+      v51 = v50;
+      if (v49 == 1)
       {
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
-          v51 = objc_opt_class();
-          v52 = NSStringFromClass(v51);
+          v52 = objc_opt_class();
+          v53 = NSStringFromClass(v52);
           *buf = 138543618;
-          *&buf[4] = v52;
+          *&buf[4] = v53;
           *&buf[12] = 2048;
           *&buf[14] = self;
-          _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: No smoothed data available in tracking data", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: No smoothed data available in tracking data", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
       {
-        v53 = objc_opt_class();
-        v54 = NSStringFromClass(v53);
+        v54 = objc_opt_class();
+        v55 = NSStringFromClass(v54);
         *buf = 138543618;
-        *&buf[4] = v54;
+        *&buf[4] = v55;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: No smoothed data available in tracking data", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: No smoothed data available in tracking data", buf, 0x16u);
       }
 
       dispatch_semaphore_signal(*(self + 184));
@@ -877,7 +877,7 @@ LABEL_16:
         bytes = [v19 bytes];
         v53 = 0uLL;
         v54 = 0;
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes, bytes + 16 * (v20 >> 4), (v20 >> 4));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes, &bytes[(v20 >> 4)], (v20 >> 4));
         v22 = *(initPrivate + 1);
         if (v22)
         {
@@ -900,7 +900,7 @@ LABEL_16:
         bytes2 = [v24 bytes];
         v53 = 0uLL;
         v54 = 0;
-        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes2, bytes2 + 8 * (v25 >> 3), (v25 >> 3));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes2, &bytes2[(v25 >> 3)], (v25 >> 3));
         v27 = *(initPrivate + 4);
         if (v27)
         {
@@ -923,7 +923,7 @@ LABEL_16:
         bytes3 = [v29 bytes];
         v53 = 0uLL;
         v54 = 0;
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes3, bytes3 + 16 * (v30 >> 4), (v30 >> 4));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v53, bytes3, &bytes3[(v30 >> 4)], (v30 >> 4));
         v32 = *(initPrivate + 7);
         if (v32)
         {
@@ -946,7 +946,7 @@ LABEL_16:
         bytes4 = [v34 bytes];
         v53 = 0uLL;
         v54 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v53, bytes4, bytes4 + 4 * (v35 >> 2), (v35 >> 2));
+        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v53, bytes4, &bytes4[(v35 >> 2)], (v35 >> 2));
         v37 = *(initPrivate + 10);
         if (v37)
         {

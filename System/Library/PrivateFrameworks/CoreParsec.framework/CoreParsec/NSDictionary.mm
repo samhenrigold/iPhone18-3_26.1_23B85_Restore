@@ -43,7 +43,7 @@ id __54__NSDictionary_SFExtras__sf_asTextColumnsCardSection___block_invoke_2(uin
 
 id __51__NSDictionary_SFExtras__sf_asTableAlignmentSchema__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69CA4D8];
   v6 = a2;
   v7 = objc_alloc_init(v5);
@@ -81,9 +81,9 @@ LABEL_7:
   v15 = PARLogHandleForCategory_logHandles_1_365;
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_365, OS_LOG_TYPE_ERROR))
   {
-    v22 = 138412290;
-    v23 = v8;
-    _os_log_error_impl(&dword_1B1064000, v15, OS_LOG_TYPE_ERROR, "unknown table alignment schema column_align: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v8;
+    _os_log_error_impl(&dword_1B1064000, v15, OS_LOG_TYPE_ERROR, "unknown table alignment schema column_align: %@", &v21, 0xCu);
   }
 
 LABEL_8:
@@ -112,12 +112,12 @@ LABEL_8:
           dispatch_once(&PARLogHandleForCategory_onceToken_364, &__block_literal_global_1075);
         }
 
-        v21 = PARLogHandleForCategory_logHandles_1_365;
+        v20 = PARLogHandleForCategory_logHandles_1_365;
         if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_365, OS_LOG_TYPE_ERROR))
         {
-          v22 = 138412290;
-          v23 = v11;
-          _os_log_error_impl(&dword_1B1064000, v21, OS_LOG_TYPE_ERROR, "unknown table alignment schema within_column_align: %@", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = v11;
+          _os_log_error_impl(&dword_1B1064000, v20, OS_LOG_TYPE_ERROR, "unknown table alignment schema within_column_align: %@", &v21, 0xCu);
         }
 
         goto LABEL_24;
@@ -142,9 +142,9 @@ LABEL_24:
   v14 = PARLogHandleForCategory_logHandles_1_365;
   if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_365, OS_LOG_TYPE_ERROR))
   {
-    v22 = 134217984;
-    v23 = a3;
-    _os_log_error_impl(&dword_1B1064000, v14, OS_LOG_TYPE_ERROR, "missing table alignment schema within_column_align[%lu]", &v22, 0xCu);
+    v21 = 134217984;
+    v22 = a3;
+    _os_log_error_impl(&dword_1B1064000, v14, OS_LOG_TYPE_ERROR, "missing table alignment schema within_column_align[%lu]", &v21, 0xCu);
   }
 
 LABEL_25:
@@ -162,9 +162,9 @@ LABEL_25:
       v18 = PARLogHandleForCategory_logHandles_1_365;
       if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1_365, OS_LOG_TYPE_ERROR))
       {
-        v22 = 134217984;
-        v23 = a3;
-        _os_log_error_impl(&dword_1B1064000, v18, OS_LOG_TYPE_ERROR, "missing table alignment schema equal_width[%lu]", &v22, 0xCu);
+        v21 = 134217984;
+        v22 = a3;
+        _os_log_error_impl(&dword_1B1064000, v18, OS_LOG_TYPE_ERROR, "missing table alignment schema equal_width[%lu]", &v21, 0xCu);
       }
     }
 
@@ -174,8 +174,6 @@ LABEL_25:
       [v7 setIsEqualWidth:{objc_msgSend(v17, "BOOLValue")}];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

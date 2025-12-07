@@ -68,6 +68,7 @@
 - (void)periodicSettingsHandler;
 - (void)populateActionButtonDetails:(id)details;
 - (void)populateImpressionObjectId:(id)id;
+- (void)populatePhotoSubmissionDetailsWithEntryPoint:(int)point numberOfPhotos:(unsigned int)photos numberOfARPSuggestedPhotos:(unsigned int)suggestedPhotos originTarget:(id)target;
 - (void)populatePlaceIdsWithSpecifierBlock:(id)block;
 - (void)populateRatingPhotoSubmissionDetailsWithEntryPoint:(int)point originTarget:(id)target;
 - (void)populateRatingSubmissionDetailsWithEntryPoint:(int)point originTarget:(id)target specifierBlock:(id)block;
@@ -142,7 +143,9 @@
 - (void)setMapUiShownActiveNavMode:(int)mode;
 - (void)setMapUiShownAqiShown:(BOOL)shown;
 - (void)setMapUiShownWeatherShown:(BOOL)shown;
+- (void)setMapViewViewMode:(int)mode;
 - (void)setMeCardHomeCountry:(id)country andHomeLocation:(id)location;
+- (void)setNavVoiceGuidanceLevel:(int)level forTransportMode:(int)mode;
 - (void)setSuggestionsAcSequenceNumber:(int)number;
 - (void)setSuggestionsDisplayedResults:(id)results;
 - (void)setSuggestionsSearchFieldType:(int)type;
@@ -168,9 +171,9 @@
 
 - (GEOAPSharedStateData)init
 {
-  v54.receiver = self;
-  v54.super_class = GEOAPSharedStateData;
-  v2 = [(GEOAnalyticsPipelineStateData *)&v54 init];
+  v52.receiver = self;
+  v52.super_class = GEOAPSharedStateData;
+  v2 = [(GEOAnalyticsPipelineStateData *)&v52 init];
   if (v2)
   {
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
@@ -255,8 +258,6 @@
 
     if (*(v2 + 760) == 1)
     {
-      v44 = *MEMORY[0x1E69A1A68];
-      v43 = *(MEMORY[0x1E69A1A68] + 8);
       if (_GEOConfigHasValue())
       {
         GEOConfigGetDouble();
@@ -275,21 +276,21 @@
       }
     }
 
-    v47 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 114));
-    v48 = *(v2 + 115);
-    *(v2 + 115) = v47;
+    v45 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v2 + 114));
+    v46 = *(v2 + 115);
+    *(v2 + 115) = v45;
 
     dispatch_source_set_timer(*(v2 + 115), 0xFFFFFFFFFFFFFFFFLL, 0, 0);
     objc_initWeak(&location, v2);
-    v49 = *(v2 + 115);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __28__GEOAPSharedStateData_init__block_invoke;
-    v51[3] = &unk_1E79593B0;
-    objc_copyWeak(&v52, &location);
-    dispatch_source_set_event_handler(v49, v51);
+    v47 = *(v2 + 115);
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __28__GEOAPSharedStateData_init__block_invoke;
+    v49[3] = &unk_1E79593B0;
+    objc_copyWeak(&v50, &location);
+    dispatch_source_set_event_handler(v47, v49);
     dispatch_activate(*(v2 + 115));
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v50);
     objc_destroyWeak(&location);
   }
 
@@ -345,7 +346,7 @@ uint64_t __34__GEOAPSharedStateData_sharedData__block_invoke()
 
 - (BOOL)mapsInOfflineMode
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A22E8] = [MEMORY[0x1E69A22E8] shared];
   v3 = mEMORY[0x1E69A22E8];
   if (!mEMORY[0x1E69A22E8])
@@ -361,9 +362,9 @@ LABEL_6:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = v5;
-      _os_log_fault_impl(&dword_1AB634000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "no metro lat/lng provided", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = v5;
+      _os_log_fault_impl(&dword_1AB634000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "no metro lat/lng provided", v8, 8u);
     }
 
     goto LABEL_6;
@@ -372,7 +373,6 @@ LABEL_6:
   v6 = 4u >> (state & 7);
 LABEL_7:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -701,63 +701,62 @@ uint64_t __45__GEOAPSharedStateData_stateMapSettingsShort__block_invoke(uint64_t
   blockCopy = block;
   if (blockCopy)
   {
-    v5 = objc_alloc_init(MEMORY[0x1E69A20C8]);
-    v11 = 0;
+    v4 = objc_alloc_init(MEMORY[0x1E69A20C8]);
     v9 = 0;
-    v10 = 0;
-    if (blockCopy[2](blockCopy, &v11 + 4, &v9, &v10, &v11))
+    v7 = 0;
+    v8 = 0;
+    if (blockCopy[2](blockCopy, &v9 + 4, &v7, &v8, &v9))
     {
       do
       {
-        v6 = objc_alloc_init(MEMORY[0x1E69A2380]);
-        [v6 setResultIndex:HIDWORD(v11)];
-        [v6 setBusinessId:v10];
-        [v6 setBasemapId:v9];
-        [v6 setLocalSearchProviderId:v11];
-        [v5 addPlaceIdDetails:v6];
+        v5 = objc_alloc_init(MEMORY[0x1E69A2380]);
+        [v5 setResultIndex:HIDWORD(v9)];
+        [v5 setBusinessId:v8];
+        [v5 setBasemapId:v7];
+        [v5 setLocalSearchProviderId:v9];
+        [v4 addPlaceIdDetails:v5];
 
-        v11 = 0;
         v9 = 0;
-        v10 = 0;
+        v7 = 0;
+        v8 = 0;
       }
 
-      while ((blockCopy[2](blockCopy, &v11 + 4, &v9, &v10, &v11) & 1) != 0);
+      while ((blockCopy[2](blockCopy, &v9 + 4, &v7, &v8, &v9) & 1) != 0);
     }
 
-    placeMapsIdIso = self->_placeMapsIdIso;
-    v8 = v5;
+    v6 = v4;
     geo_isolate_sync();
   }
 }
 
 - (BOOL)_isPunchInAppIdInList:(id)list
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   listCopy = list;
   if ([(GEOAnalyticsPipelineStateData *)self hasMapLaunchSourceAppId])
   {
     mapLaunchSourceAppId = [(GEOAnalyticsPipelineStateData *)self mapLaunchSourceAppId];
     lowercaseString = [mapLaunchSourceAppId lowercaseString];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = listCopy;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          lowercaseString2 = [*(*(&v15 + 1) + 8 * i) lowercaseString];
+          lowercaseString2 = [*(*(&v14 + 1) + 8 * i) lowercaseString];
           v12 = [lowercaseString2 isEqualToString:lowercaseString];
 
           if (v12)
@@ -767,7 +766,7 @@ uint64_t __45__GEOAPSharedStateData_stateMapSettingsShort__block_invoke(uint64_t
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -785,7 +784,6 @@ LABEL_13:
     LOBYTE(v8) = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -827,49 +825,48 @@ void __53__GEOAPSharedStateData_shouldCountAsEnrichmentResult__block_invoke(uint
 
 - (BOOL)hasShowcase
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  placeIso = self->_placeIso;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   geo_reentrant_isolate_sync();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 void __35__GEOAPSharedStateData_hasShowcase__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) placeCardState];
   v3 = [v2 modules];
 
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) type] == 40)
+        if ([*(*(&v8 + 1) + 8 * i) type] == 40)
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v5)
       {
         continue;
@@ -880,8 +877,25 @@ void __35__GEOAPSharedStateData_hasShowcase__block_invoke(uint64_t a1)
   }
 
 LABEL_11:
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)setMapViewViewMode:(int)mode
+{
+  v3 = *&mode;
+  mapViewViewMode = [(GEOAnalyticsPipelineStateData *)self mapViewViewMode];
+  v9.receiver = self;
+  v9.super_class = GEOAPSharedStateData;
+  [(GEOAnalyticsPipelineStateData *)&v9 setMapViewViewMode:v3];
+  if (mapViewViewMode != v3)
+  {
+    v6 = v3 - 1;
+    if (v3 - 1) <= 7 && ((0x8Fu >> v6))
+    {
+      v7 = dword_1AB6C3528[v6];
+      v8 = +[GEOAPServiceManager sharedManager];
+      [v8 reportDailyUsageCountType:v7 usageString:0 usageBool:0 appId:0 completion:0];
+    }
+  }
 }
 
 - (BOOL)isMacHandoff
@@ -932,23 +946,22 @@ LABEL_11:
 
 - (void)setMeCardHomeCountry:(id)country andHomeLocation:(id)location
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   countryCopy = country;
   locationCopy = location;
-  v8 = *MEMORY[0x1E69A15D8];
-  v9 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138478083;
-    v17 = countryCopy;
-    v18 = 2113;
-    v19 = locationCopy;
-    _os_log_impl(&dword_1AB634000, v9, OS_LOG_TYPE_DEBUG, "setting meCard country with %{private}@, %{private}@", &v16, 0x16u);
+    v14 = 138478083;
+    v15 = countryCopy;
+    v16 = 2113;
+    v17 = locationCopy;
+    _os_log_impl(&dword_1AB634000, v8, OS_LOG_TYPE_DEBUG, "setting meCard country with %{private}@, %{private}@", &v14, 0x16u);
   }
 
   if (countryCopy)
   {
-    v10 = [(GEOAPSharedStateData *)self _filteredHomeCountry:countryCopy];
+    v9 = [(GEOAPSharedStateData *)self _filteredHomeCountry:countryCopy];
   }
 
   else
@@ -956,66 +969,63 @@ LABEL_11:
     mEMORY[0x1E69A1CD8] = [MEMORY[0x1E69A1CD8] sharedConfiguration];
     countryCopy = [mEMORY[0x1E69A1CD8] countryCode];
 
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138477827;
-      v17 = countryCopy;
-      _os_log_impl(&dword_1AB634000, v12, OS_LOG_TYPE_DEBUG, "no countryCode provided; using countryCode %{private}@", &v16, 0xCu);
+      v14 = 138477827;
+      v15 = countryCopy;
+      _os_log_impl(&dword_1AB634000, v11, OS_LOG_TYPE_DEBUG, "no countryCode provided; using countryCode %{private}@", &v14, 0xCu);
     }
 
-    v10 = @"UNKNOWN";
+    v9 = @"UNKNOWN";
   }
 
-  v13 = [(GEOAPSharedStateData *)self _metroForLatLng:locationCopy inCountry:countryCopy filterWithAllowList:1];
-  v14 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v12 = [(GEOAPSharedStateData *)self _metroForLatLng:locationCopy inCountry:countryCopy filterWithAllowList:1];
+  v13 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138477827;
-    v17 = v13;
-    _os_log_impl(&dword_1AB634000, v14, OS_LOG_TYPE_DEBUG, "MeMetro is %{private}@", &v16, 0xCu);
+    v14 = 138477827;
+    v15 = v12;
+    _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "MeMetro is %{private}@", &v14, 0xCu);
   }
 
   GEOConfigSetString();
   GEOConfigSetString();
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCurrentMetro:(id)metro
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   metroCopy = metro;
-  v5 = *MEMORY[0x1E69A15D8];
-  v6 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138477827;
-    v19 = metroCopy;
-    _os_log_impl(&dword_1AB634000, v6, OS_LOG_TYPE_DEBUG, "updating current metro at %{private}@", &v18, 0xCu);
+    v14 = 138477827;
+    v15 = metroCopy;
+    _os_log_impl(&dword_1AB634000, v5, OS_LOG_TYPE_DEBUG, "updating current metro at %{private}@", &v14, 0xCu);
   }
 
   mEMORY[0x1E69A1CD8] = [MEMORY[0x1E69A1CD8] sharedConfiguration];
   countryCode = [mEMORY[0x1E69A1CD8] countryCode];
 
-  v9 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138477827;
-    v19 = countryCode;
-    _os_log_impl(&dword_1AB634000, v9, OS_LOG_TYPE_DEBUG, "using countryCode %{private}@", &v18, 0xCu);
+    v14 = 138477827;
+    v15 = countryCode;
+    _os_log_impl(&dword_1AB634000, v8, OS_LOG_TYPE_DEBUG, "using countryCode %{private}@", &v14, 0xCu);
   }
 
-  v10 = [(GEOAPSharedStateData *)self _metroForLatLng:metroCopy inCountry:countryCode filterWithAllowList:0];
-  v11 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v9 = [(GEOAPSharedStateData *)self _metroForLatLng:metroCopy inCountry:countryCode filterWithAllowList:0];
+  v10 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138477827;
-    v19 = v10;
-    _os_log_impl(&dword_1AB634000, v11, OS_LOG_TYPE_DEBUG, "current metro is %{private}@", &v18, 0xCu);
+    v14 = 138477827;
+    v15 = v9;
+    _os_log_impl(&dword_1AB634000, v10, OS_LOG_TYPE_DEBUG, "current metro is %{private}@", &v14, 0xCu);
   }
 
-  if (v10)
+  if (v9)
   {
     GEOConfigSetString();
   }
@@ -1025,22 +1035,20 @@ LABEL_11:
     _GEOConfigRemoveValue();
   }
 
-  v12 = *MEMORY[0x1E69A1A70];
-  v13 = *(MEMORY[0x1E69A1A70] + 8);
   if ((GEOConfigGetBOOL() & 1) == 0 && [(GEOAPSharedStateData *)self _hasActualFallbackData])
   {
-    v14 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1AB634000, v14, OS_LOG_TYPE_DEBUG, "fallback metro is already set", &v18, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_1AB634000, v11, OS_LOG_TYPE_DEBUG, "fallback metro is already set", &v14, 2u);
     }
 
     goto LABEL_22;
   }
 
-  v14 = [(GEOAPSharedStateData *)self _metroForLatLng:metroCopy inCountry:countryCode filterWithAllowList:1];
-  if (!v14)
+  v11 = [(GEOAPSharedStateData *)self _metroForLatLng:metroCopy inCountry:countryCode filterWithAllowList:1];
+  if (!v11)
   {
     _GEOConfigRemoveValue();
     if (countryCode)
@@ -1060,29 +1068,28 @@ LABEL_18:
   }
 
 LABEL_16:
-  v15 = [(GEOAPSharedStateData *)self _filteredHomeCountry:countryCode];
+  v12 = [(GEOAPSharedStateData *)self _filteredHomeCountry:countryCode];
 
   GEOConfigSetString();
-  countryCode = v15;
+  countryCode = v12;
 LABEL_19:
   GEOConfigSetBOOL();
-  v16 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v13 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138478083;
-    v19 = v14;
-    v20 = 2113;
-    v21 = countryCode;
-    _os_log_impl(&dword_1AB634000, v16, OS_LOG_TYPE_DEBUG, "setting fallback metro to %{private}@, country to %{private}@", &v18, 0x16u);
+    v14 = 138478083;
+    v15 = v11;
+    v16 = 2113;
+    v17 = countryCode;
+    _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "setting fallback metro to %{private}@, country to %{private}@", &v14, 0x16u);
   }
 
 LABEL_22:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_filteredHomeCountry:(id)country
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   countryCopy = country;
   v4 = +[GEOMetroRegionAssetProvider sharedProvider];
   homeCountryCodeAcceptList = [v4 homeCountryCodeAcceptList];
@@ -1090,56 +1097,52 @@ LABEL_22:
   if (homeCountryCodeAcceptList)
   {
     v6 = [homeCountryCodeAcceptList containsObject:countryCopy];
-    v7 = *MEMORY[0x1E69A15D8];
-    v8 = GEOFindOrCreateLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+    v7 = GEOFindOrCreateLog();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
     if (v6)
     {
-      if (v9)
+      if (v8)
       {
-        v15 = 138477827;
-        v16 = countryCopy;
-        _os_log_impl(&dword_1AB634000, v8, OS_LOG_TYPE_DEBUG, "MeCountry is %{private}@", &v15, 0xCu);
+        v12 = 138477827;
+        v13 = countryCopy;
+        _os_log_impl(&dword_1AB634000, v7, OS_LOG_TYPE_DEBUG, "MeCountry is %{private}@", &v12, 0xCu);
       }
 
-      v10 = countryCopy;
+      v9 = countryCopy;
     }
 
     else
     {
-      if (v9)
+      if (v8)
       {
-        v15 = 138477827;
-        v16 = countryCopy;
-        _os_log_impl(&dword_1AB634000, v8, OS_LOG_TYPE_DEBUG, "%{private}@ is not on the allow list", &v15, 0xCu);
+        v12 = 138477827;
+        v13 = countryCopy;
+        _os_log_impl(&dword_1AB634000, v7, OS_LOG_TYPE_DEBUG, "%{private}@ is not on the allow list", &v12, 0xCu);
       }
 
-      v10 = @"OTHER";
+      v9 = @"OTHER";
     }
   }
 
   else
   {
-    v11 = *MEMORY[0x1E69A15D8];
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1AB634000, v12, OS_LOG_TYPE_DEBUG, "no home countryCode list is available", &v15, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1AB634000, v10, OS_LOG_TYPE_DEBUG, "no home countryCode list is available", &v12, 2u);
     }
 
-    v10 = @"MISSING_ALLOW_LIST";
+    v9 = @"MISSING_ALLOW_LIST";
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v9;
 }
 
 - (id)_metroForLatLng:(id)lng inCountry:(id)country filterWithAllowList:(BOOL)list
 {
   listCopy = list;
-  v31 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   lngCopy = lng;
   countryCopy = country;
   v9 = +[GEOMetroRegionAssetProvider sharedProvider];
@@ -1154,16 +1157,15 @@ LABEL_22:
       v13 = [(GEOMetroRegionLookup *)v12 lookupRegionWithLocation:lngCopy countryCodeHint:countryCopy];
       if (!v13)
       {
-        v25 = *MEMORY[0x1E69A15D8];
-        v26 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v22 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v29 = 138477827;
-          v30 = lngCopy;
-          _os_log_impl(&dword_1AB634000, v26, OS_LOG_TYPE_DEBUG, "no metro region region at %{private}@", &v29, 0xCu);
+          v24 = 138477827;
+          v25 = lngCopy;
+          _os_log_impl(&dword_1AB634000, v22, OS_LOG_TYPE_DEBUG, "no metro region region at %{private}@", &v24, 0xCu);
         }
 
-        v22 = @"OTHER";
+        v21 = @"OTHER";
         goto LABEL_31;
       }
 
@@ -1172,102 +1174,97 @@ LABEL_22:
         goto LABEL_14;
       }
 
-      v14 = *MEMORY[0x1E69A15D8];
-      v15 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v14 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v29 = 138477827;
-        v30 = v13;
-        _os_log_impl(&dword_1AB634000, v15, OS_LOG_TYPE_DEBUG, "will apply allow list filtering to %{private}@", &v29, 0xCu);
+        v24 = 138477827;
+        v25 = v13;
+        _os_log_impl(&dword_1AB634000, v14, OS_LOG_TYPE_DEBUG, "will apply allow list filtering to %{private}@", &v24, 0xCu);
       }
 
-      v16 = [v10 homeMetroAcceptListForCountryCode:countryCopy];
-      v17 = v16;
-      if (v16)
+      v15 = [v10 homeMetroAcceptListForCountryCode:countryCopy];
+      v16 = v15;
+      if (v15)
       {
-        v18 = [v16 containsObject:v13];
-        v19 = GEOFindOrCreateLog();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
-        if (v18)
+        v17 = [v15 containsObject:v13];
+        v18 = GEOFindOrCreateLog();
+        v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+        if (v17)
         {
-          if (v20)
+          if (v19)
           {
-            v29 = 138477827;
-            v30 = v13;
-            _os_log_impl(&dword_1AB634000, v19, OS_LOG_TYPE_DEBUG, "metros %{private}@ is allowed", &v29, 0xCu);
+            v24 = 138477827;
+            v25 = v13;
+            _os_log_impl(&dword_1AB634000, v18, OS_LOG_TYPE_DEBUG, "metros %{private}@ is allowed", &v24, 0xCu);
           }
 
-          v21 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v20 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            v29 = 138477827;
-            v30 = v13;
-            _os_log_impl(&dword_1AB634000, v21, OS_LOG_TYPE_DEBUG, "using metro %{private}@", &v29, 0xCu);
+            v24 = 138477827;
+            v25 = v13;
+            _os_log_impl(&dword_1AB634000, v20, OS_LOG_TYPE_DEBUG, "using metro %{private}@", &v24, 0xCu);
           }
 
 LABEL_14:
-          v22 = v13;
+          v21 = v13;
 LABEL_31:
 
           goto LABEL_32;
         }
 
-        if (v20)
+        if (v19)
         {
-          v29 = 138477827;
-          v30 = v13;
-          _os_log_impl(&dword_1AB634000, v19, OS_LOG_TYPE_DEBUG, "metros %{private}@ is not allowed", &v29, 0xCu);
+          v24 = 138477827;
+          v25 = v13;
+          _os_log_impl(&dword_1AB634000, v18, OS_LOG_TYPE_DEBUG, "metros %{private}@ is not allowed", &v24, 0xCu);
         }
 
-        v22 = @"OTHER";
+        v21 = @"OTHER";
       }
 
       else
       {
-        v19 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v18 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          v29 = 138477827;
-          v30 = countryCopy;
-          _os_log_impl(&dword_1AB634000, v19, OS_LOG_TYPE_DEBUG, "no metro allow list for %{private}@", &v29, 0xCu);
+          v24 = 138477827;
+          v25 = countryCopy;
+          _os_log_impl(&dword_1AB634000, v18, OS_LOG_TYPE_DEBUG, "no metro allow list for %{private}@", &v24, 0xCu);
         }
 
-        v22 = @"MISSING_ALLOW_LIST";
+        v21 = @"MISSING_ALLOW_LIST";
       }
 
       goto LABEL_31;
     }
 
-    v24 = *MEMORY[0x1E69A15D8];
     v13 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v29 = 138477827;
-      v30 = countryCopy;
-      _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "metro regions for %{private}@ are unavailable", &v29, 0xCu);
+      v24 = 138477827;
+      v25 = countryCopy;
+      _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "metro regions for %{private}@ are unavailable", &v24, 0xCu);
     }
 
-    v22 = @"MISSING_REGIONS";
+    v21 = @"MISSING_REGIONS";
   }
 
   else
   {
-    v23 = *MEMORY[0x1E69A15D8];
     v13 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v29) = 0;
-      _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "no metro lat/lng provided", &v29, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_1AB634000, v13, OS_LOG_TYPE_DEBUG, "no metro lat/lng provided", &v24, 2u);
     }
 
-    v22 = @"MISSING_LOCATION";
+    v21 = @"MISSING_LOCATION";
   }
 
 LABEL_32:
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 - (void)bestUserHomeLocation:(id)location
@@ -1315,18 +1312,17 @@ LABEL_32:
 
 - (id)stateTapEvents
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__3158;
-  v9 = __Block_byref_object_dispose__3159;
-  v10 = 0;
-  tapEventStateIso = self->_tapEventStateIso;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__3158;
+  v8 = __Block_byref_object_dispose__3159;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __38__GEOAPSharedStateData_stateTapEvents__block_invoke(uint64_t a1)
@@ -1340,18 +1336,17 @@ void __38__GEOAPSharedStateData_stateTapEvents__block_invoke(uint64_t a1)
 
 - (id)stateImpressionObject
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__3158;
-  v9 = __Block_byref_object_dispose__3159;
-  v10 = 0;
-  impressionObjectStateIso = self->_impressionObjectStateIso;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__3158;
+  v8 = __Block_byref_object_dispose__3159;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __45__GEOAPSharedStateData_stateImpressionObject__block_invoke(uint64_t a1)
@@ -1365,18 +1360,17 @@ void __45__GEOAPSharedStateData_stateImpressionObject__block_invoke(uint64_t a1)
 
 - (id)stateSearchResults
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__3158;
-  v9 = __Block_byref_object_dispose__3159;
-  v10 = 0;
-  searchResultsStateIso = self->_searchResultsStateIso;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__3158;
+  v8 = __Block_byref_object_dispose__3159;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __42__GEOAPSharedStateData_stateSearchResults__block_invoke(uint64_t a1)
@@ -1455,8 +1449,6 @@ uint64_t __45__GEOAPSharedStateData_stateMapsUserSettings__block_invoke(uint64_t
     [*(a1 + 40) setNotificationsEnabled:{objc_msgSend(*(a1 + 32), "mapSettingsNotificationsEnabled")}];
   }
 
-  v2 = *MEMORY[0x1E69A1A28];
-  v3 = *(MEMORY[0x1E69A1A28] + 8);
   [*(a1 + 40) setIsOptedInToVlCrowdsourcing:GEOConfigGetBOOL()];
   return 0;
 }
@@ -1749,26 +1741,25 @@ uint64_t __40__GEOAPSharedStateData_stateMapSettings__block_invoke(uint64_t a1)
 
 - (void)populateRatingPhotoSubmissionDetailsWithEntryPoint:(int)point originTarget:(id)target
 {
-  v6 = MEMORY[0x1E69A2008];
+  v5 = MEMORY[0x1E69A2008];
   targetCopy = target;
-  v8 = objc_alloc_init(v6);
-  [v8 setOriginTarget:targetCopy];
+  v7 = objc_alloc_init(v5);
+  [v7 setOriginTarget:targetCopy];
 
   switch(point)
   {
     case 2:
-      [v8 setIsPlacecardInlineSubmission:1];
+      [v7 setIsPlacecardInlineSubmission:1];
       break;
     case 1:
-      [v8 setIsFromMapsSuggesions:1];
+      [v7 setIsFromMapsSuggesions:1];
       break;
     case 0:
-      [v8 setIsFromRecommendationCard:1];
+      [v7 setIsFromRecommendationCard:1];
       break;
   }
 
-  ratingPhotoSubmissionStateIso = self->_ratingPhotoSubmissionStateIso;
-  v10 = v8;
+  v8 = v7;
   geo_isolate_sync();
 }
 
@@ -1776,92 +1767,118 @@ uint64_t __40__GEOAPSharedStateData_stateMapSettings__block_invoke(uint64_t a1)
 {
   targetCopy = target;
   blockCopy = block;
-  v10 = objc_alloc_init(MEMORY[0x1E69A2010]);
-  [v10 setOriginTarget:targetCopy];
+  v9 = objc_alloc_init(MEMORY[0x1E69A2010]);
+  [v9 setOriginTarget:targetCopy];
   switch(point)
   {
     case 2:
-      [v10 setIsPlacecardInlineSubmission:1];
+      [v9 setIsPlacecardInlineSubmission:1];
       break;
     case 1:
-      [v10 setIsFromMapsSuggesions:1];
+      [v9 setIsFromMapsSuggesions:1];
       break;
     case 0:
-      [v10 setIsFromRecommendationCard:1];
+      [v9 setIsFromRecommendationCard:1];
       break;
   }
 
-  v11 = blockCopy[2];
-  v18 = 0;
-  v17 = 0;
-  v12 = v11(blockCopy, &v17, &v18);
-  v13 = v17;
-  if (v12)
+  v10 = blockCopy[2];
+  v16 = 0;
+  v15 = 0;
+  v11 = v10(blockCopy, &v15, &v16);
+  v12 = v15;
+  if (v11)
   {
     do
     {
-      v14 = objc_alloc_init(MEMORY[0x1E69A1B18]);
-      [v14 setRating:v18];
-      [v14 setDisplayedText:v13];
-      [v10 addRatings:v14];
+      v13 = objc_alloc_init(MEMORY[0x1E69A1B18]);
+      [v13 setRating:v16];
+      [v13 setDisplayedText:v12];
+      [v9 addRatings:v13];
 
-      v18 = 0;
-      v17 = 0;
-      LOBYTE(v14) = (blockCopy[2])(blockCopy, &v17, &v18);
-      v13 = v17;
+      v16 = 0;
+      v15 = 0;
+      LOBYTE(v13) = (blockCopy[2])(blockCopy, &v15, &v16);
+      v12 = v15;
     }
 
-    while ((v14 & 1) != 0);
+    while ((v13 & 1) != 0);
   }
 
-  ratingSubmissionStateIso = self->_ratingSubmissionStateIso;
-  v16 = v10;
+  v14 = v9;
+  geo_isolate_sync();
+}
+
+- (void)populatePhotoSubmissionDetailsWithEntryPoint:(int)point numberOfPhotos:(unsigned int)photos numberOfARPSuggestedPhotos:(unsigned int)suggestedPhotos originTarget:(id)target
+{
+  v6 = *&suggestedPhotos;
+  v7 = *&photos;
+  v9 = MEMORY[0x1E69A2000];
+  targetCopy = target;
+  v11 = objc_alloc_init(v9);
+  [v11 setOriginTarget:targetCopy];
+
+  switch(point)
+  {
+    case 2:
+      [v11 setIsPlacecardInlineSubmission:1];
+      break;
+    case 1:
+      [v11 setIsFromMapsSuggesions:1];
+      break;
+    case 0:
+      [v11 setIsFromRecommendationCard:1];
+      break;
+  }
+
+  [v11 setNumberOfPhotos:v7];
+  [v11 setNumberOfAprSuggestedPhotos:v6];
+  v12 = v11;
   geo_isolate_sync();
 }
 
 - (void)populateActionButtonDetails:(id)details
 {
   detailsCopy = details;
-  v5 = objc_alloc_init(MEMORY[0x1E69A2020]);
+  v4 = objc_alloc_init(MEMORY[0x1E69A2020]);
   while (1)
   {
-    v19 = 0;
-    v18 = 0;
-    v16 = 0;
     v17 = 0;
-    v6 = detailsCopy[2](detailsCopy, &v17, &v16, &v19, &v18);
-    v7 = v17;
-    v8 = v16;
-    v9 = v8;
-    if (!v6)
+    v16 = 0;
+    v14 = 0;
+    v15 = 0;
+    v5 = detailsCopy[2](detailsCopy, &v15, &v14, &v17, &v16);
+    v6 = v15;
+    v7 = v14;
+    v8 = v7;
+    if (!v5)
     {
       break;
     }
 
-    v10 = objc_alloc_init(MEMORY[0x1E69A1B28]);
-    v11 = [v7 copy];
-    [v10 setCategory:v11];
+    v9 = objc_alloc_init(MEMORY[0x1E69A1B28]);
+    v10 = [v6 copy];
+    [v9 setCategory:v10];
 
-    v12 = [v9 copy];
-    [v10 setProviderId:v12];
+    v11 = [v8 copy];
+    [v9 setProviderId:v11];
 
-    if (v19 == 1)
+    if (v17 == 1)
     {
-      v13 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v13 = 2 * (v19 == 2);
+      v12 = 2 * (v17 == 2);
     }
 
-    [v10 setLinkType:v13];
-    [v10 setDropDown:v18];
-    [v5 addActionButtonDetails:v10];
+    [v9 setLinkType:v12];
+    [v9 setDropDown:v16];
+    [v4 addActionButtonDetails:v9];
   }
 
-  actionButtonDetailsStateIso = self->_actionButtonDetailsStateIso;
-  v15 = v5;
+  v13 = v4;
   geo_isolate_sync();
 }
 
@@ -1896,75 +1913,73 @@ void __114__GEOAPSharedStateData_populateTapEventForResultIndex_resultType_busin
   blockCopy = block;
   if (blockCopy)
   {
-    v7 = objc_alloc_init(MEMORY[0x1E69A2150]);
-    v17 = 0;
-    v16 = 0;
+    v6 = objc_alloc_init(MEMORY[0x1E69A2150]);
     v15 = 0;
     v14 = 0;
-    v8 = blockCopy[2];
     v13 = 0;
-    if (v8(blockCopy, &v17, &v14, &v15, &v16, &v13))
+    v12 = 0;
+    v7 = blockCopy[2];
+    v11 = 0;
+    if (v7(blockCopy, &v15, &v12, &v13, &v14, &v11))
     {
       do
       {
-        v9 = objc_alloc_init(MEMORY[0x1E69A2578]);
-        [v9 setResultIndex:v17];
-        [v9 setBusinessId:v15];
-        [v9 setLocalSearchProviderId:v16];
-        [v9 setIsEnrichedItem:v13];
-        if (v14 - 1 >= 3)
+        v8 = objc_alloc_init(MEMORY[0x1E69A2578]);
+        [v8 setResultIndex:v15];
+        [v8 setBusinessId:v13];
+        [v8 setLocalSearchProviderId:v14];
+        [v8 setIsEnrichedItem:v11];
+        if (v12 - 1 >= 3)
         {
-          v10 = 0;
+          v9 = 0;
         }
 
         else
         {
-          v10 = v14;
+          v9 = v12;
         }
 
-        [v9 setResultType:v10];
-        [v7 addSearchResults:v9];
+        [v8 setResultType:v9];
+        [v6 addSearchResults:v8];
 
-        v17 = 0;
-        v16 = 0;
         v15 = 0;
         v14 = 0;
         v13 = 0;
+        v12 = 0;
+        v11 = 0;
       }
 
-      while (((blockCopy[2])(blockCopy, &v17, &v14, &v15, &v16, &v13) & 1) != 0);
+      while (((blockCopy[2])(blockCopy, &v15, &v12, &v13, &v14, &v11) & 1) != 0);
     }
 
     if ((type - 1) <= 3)
     {
-      [v7 setPinType:?];
+      [v6 setPinType:?];
     }
 
-    tapEventStateIso = self->_tapEventStateIso;
-    v12 = v7;
+    v10 = v6;
     geo_isolate_sync();
   }
 }
 
 - (void)populateImpressionObjectId:(id)id
 {
-  v12 = 0;
-  v13 = 0;
-  [id getUUIDBytes:&v12];
-  v4 = objc_alloc_init(MEMORY[0x1E69A2078]);
-  v5 = objc_alloc_init(MEMORY[0x1E69A1E10]);
-  [v4 setImpressionObjectId:v5];
+  v10 = 0;
+  v11 = 0;
+  [id getUUIDBytes:&v10];
+  v3 = objc_alloc_init(MEMORY[0x1E69A2078]);
+  v4 = objc_alloc_init(MEMORY[0x1E69A1E10]);
+  [v3 setImpressionObjectId:v4];
 
-  v6 = v12;
-  impressionObjectId = [v4 impressionObjectId];
-  [impressionObjectId setHigh:v6];
+  v5 = v10;
+  impressionObjectId = [v3 impressionObjectId];
+  [impressionObjectId setHigh:v5];
 
-  v8 = v13;
-  impressionObjectId2 = [v4 impressionObjectId];
-  [impressionObjectId2 setLow:v8];
+  v7 = v11;
+  impressionObjectId2 = [v3 impressionObjectId];
+  [impressionObjectId2 setLow:v7];
 
-  impressionObjectStateIso = self->_impressionObjectStateIso;
-  v11 = v4;
+  v9 = v3;
   geo_isolate_sync();
 }
 
@@ -1974,64 +1989,63 @@ void __114__GEOAPSharedStateData_populateTapEventForResultIndex_resultType_busin
   blockCopy = block;
   if (blockCopy)
   {
-    v8 = objc_alloc_init(MEMORY[0x1E69A2138]);
-    v9 = [queryCopy copy];
-    [v8 setSearchQuery:v9];
+    v7 = objc_alloc_init(MEMORY[0x1E69A2138]);
+    v8 = [queryCopy copy];
+    [v7 setSearchQuery:v8];
 
-    v19 = 0;
-    v20 = 0;
-    v10 = blockCopy[2];
+    v17 = 0;
     v18 = 0;
-    LOBYTE(v11) = 0;
-    if (v10(blockCopy, &v20 + 4, &v18, &v19, &v20))
+    v9 = blockCopy[2];
+    v16 = 0;
+    LOBYTE(v10) = 0;
+    if (v9(blockCopy, &v18 + 4, &v16, &v17, &v18))
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        v12 = objc_alloc_init(MEMORY[0x1E69A2578]);
-        [v12 setResultIndex:HIDWORD(v20)];
-        [v12 setBusinessId:v19];
-        [v12 setLocalSearchProviderId:v20];
-        v13 = v18 - 2;
-        if (v18 == 1)
+        v11 = objc_alloc_init(MEMORY[0x1E69A2578]);
+        [v11 setResultIndex:HIDWORD(v18)];
+        [v11 setBusinessId:v17];
+        [v11 setLocalSearchProviderId:v18];
+        v12 = v16 - 2;
+        if (v16 == 1)
         {
-          v14 = 1;
+          v13 = 1;
         }
 
         else
         {
-          v14 = v11;
+          v13 = v10;
         }
 
-        if (v13 >= 2)
+        if (v12 >= 2)
         {
-          v15 = v18 == 1;
+          v14 = v16 == 1;
         }
 
         else
         {
-          v15 = v18;
+          v14 = v16;
         }
 
-        if (v13 >= 2)
+        if (v12 >= 2)
         {
-          v11 = v14;
+          v10 = v13;
         }
 
-        [v12 setResultType:v15];
-        [v8 addSearchResults:v12];
+        [v11 setResultType:v14];
+        [v7 addSearchResults:v11];
 
-        v19 = 0;
-        v20 = 0;
+        v17 = 0;
         v18 = 0;
+        v16 = 0;
       }
 
-      while (((blockCopy[2])(blockCopy, &v20 + 4, &v18, &v19, &v20) & 1) != 0);
+      while (((blockCopy[2])(blockCopy, &v18 + 4, &v16, &v17, &v18) & 1) != 0);
     }
 
-    [v8 setIncludesEnrichedResult:v11 & 1];
-    searchResultsStateIso = self->_searchResultsStateIso;
-    v17 = v8;
+    [v7 setIncludesEnrichedResult:v10 & 1];
+    v15 = v7;
     geo_isolate_sync();
   }
 }
@@ -2080,7 +2094,7 @@ void __114__GEOAPSharedStateData_populateTapEventForResultIndex_resultType_busin
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:routingSettingsIso updateBlock:v7];
 }
 
-uint64_t __61__GEOAPSharedStateData_performRoutingSettingsStateOperation___block_invoke(uint64_t a1)
+void *__61__GEOAPSharedStateData_performRoutingSettingsStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2107,7 +2121,7 @@ uint64_t __61__GEOAPSharedStateData_performRoutingSettingsStateOperation___block
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:mapUserSettingsIso updateBlock:v7];
 }
 
-uint64_t __61__GEOAPSharedStateData_performMapUserSettingsStateOperation___block_invoke(uint64_t a1)
+void *__61__GEOAPSharedStateData_performMapUserSettingsStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2134,7 +2148,7 @@ uint64_t __61__GEOAPSharedStateData_performMapUserSettingsStateOperation___block
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:mapFeaturesIso updateBlock:v7];
 }
 
-uint64_t __57__GEOAPSharedStateData_performMapFeaturesStateOperation___block_invoke(uint64_t a1)
+void *__57__GEOAPSharedStateData_performMapFeaturesStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -3606,6 +3620,21 @@ uint64_t __48__GEOAPSharedStateData_setMapSettingsNavVolume___block_invoke(uint6
   return 1;
 }
 
+- (void)setNavVoiceGuidanceLevel:(int)level forTransportMode:(int)mode
+{
+  v4 = *&mode;
+  v6 = [(GEOAPSharedStateData *)self _geoVoiceGuidanceLevelFromAPVoiceGuidanceLevel:*&level];
+  v7 = [(GEOAPSharedStateData *)self _geoTransportModeForAPTransportMode:v4];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __66__GEOAPSharedStateData_setNavVoiceGuidanceLevel_forTransportMode___block_invoke;
+  v8[3] = &unk_1E7959518;
+  v9 = v7;
+  v10 = v6;
+  v8[4] = self;
+  [(GEOAPSharedStateData *)self performMapSettingsStateOperation:v8];
+}
+
 uint64_t __66__GEOAPSharedStateData_setNavVoiceGuidanceLevel_forTransportMode___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 40);
@@ -3698,7 +3727,7 @@ uint64_t __64__GEOAPSharedStateData_setMapSettingsReportingIncidentsEnabled___bl
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:mapSettingsIso updateBlock:v7];
 }
 
-uint64_t __57__GEOAPSharedStateData_performMapSettingsStateOperation___block_invoke(uint64_t a1)
+void *__57__GEOAPSharedStateData_performMapSettingsStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -3902,7 +3931,7 @@ uint64_t __46__GEOAPSharedStateData_setMapUiShownAqiShown___block_invoke(uint64_
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:mapUIShownIso updateBlock:v7];
 }
 
-uint64_t __56__GEOAPSharedStateData_performMapUIShownStateOperation___block_invoke(uint64_t a1)
+void *__56__GEOAPSharedStateData_performMapUIShownStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -3930,7 +3959,7 @@ uint64_t __56__GEOAPSharedStateData_performMapUIShownStateOperation___block_invo
 
 uint64_t __55__GEOAPSharedStateData_setUserProfileAvailableActions___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) hasAccount] & 1) == 0)
   {
     v2 = objc_alloc_init(MEMORY[0x1E69A2018]);
@@ -3940,27 +3969,27 @@ uint64_t __55__GEOAPSharedStateData_setUserProfileAvailableActions___block_invok
   v3 = [*(a1 + 32) account];
   [v3 clearPossibleActions];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = [*(a1 + 32) account];
         [v10 addPossibleAction:{objc_msgSend(v9, "intValue")}];
 
@@ -3968,13 +3997,12 @@ uint64_t __55__GEOAPSharedStateData_setUserProfileAvailableActions___block_invok
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -4037,7 +4065,7 @@ LABEL_7:
   [(GEOAPSharedStateData *)self _performSyncStateUpdateWithIsolator:userProfileIso updateBlock:v7];
 }
 
-uint64_t __58__GEOAPSharedStateData__performUserProfileStateOperation___block_invoke(uint64_t a1)
+void *__58__GEOAPSharedStateData__performUserProfileStateOperation___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -4320,39 +4348,37 @@ uint64_t __58__GEOAPSharedStateData__performUserProfileStateOperation___block_in
 - (void)addPlaceCardModulesForRevealAction:(id)action
 {
   actionCopy = action;
-  placeIso = self->_placeIso;
-  v7 = actionCopy;
-  v6 = actionCopy;
+  v3 = actionCopy;
   geo_reentrant_isolate_sync();
 }
 
 void __59__GEOAPSharedStateData_addPlaceCardModulesForRevealAction___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) placeCardRevealedPlaceCardModules];
   [v2 removeAllObjects];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = [*(a1 + 32) placeCardRevealedPlaceCardModules];
         v10 = [v8 copy];
         [v9 addObject:v10];
@@ -4361,13 +4387,11 @@ void __59__GEOAPSharedStateData_addPlaceCardModulesForRevealAction___block_invok
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearSuggestionsDisplayedResults
@@ -4646,15 +4670,12 @@ uint64_t __44__GEOAPSharedStateData_clearSuggestionsData__block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __40__GEOAPSharedStateData_suggestionsState__block_invoke(uint64_t a1)
+void *__40__GEOAPSharedStateData_suggestionsState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hasSuggestionsData];
   if (result)
   {
-    v3 = [*(*(a1 + 32) + 904) copy];
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 904) copy];
 
     return MEMORY[0x1EEE66BB8]();
   }
@@ -4664,50 +4685,47 @@ uint64_t __40__GEOAPSharedStateData_suggestionsState__block_invoke(uint64_t a1)
 
 - (BOOL)_hasSuggestionsData
 {
-  suggestionsIso = self->_suggestionsIso;
   geo_assert_isolated();
-  v11.receiver = self;
-  v11.super_class = GEOAPSharedStateData;
-  if ([(GEOAnalyticsPipelineStateData *)&v11 hasSuggestionsSearchString])
-  {
-    return 1;
-  }
-
   v10.receiver = self;
   v10.super_class = GEOAPSharedStateData;
-  if ([(GEOAnalyticsPipelineStateData *)&v10 hasSuggestionsSelectedIndex])
+  if ([(GEOAnalyticsPipelineStateData *)&v10 hasSuggestionsSearchString])
   {
     return 1;
   }
 
   v9.receiver = self;
   v9.super_class = GEOAPSharedStateData;
-  if ([(GEOAnalyticsPipelineStateData *)&v9 hasSuggestionsSearchFieldType])
+  if ([(GEOAnalyticsPipelineStateData *)&v9 hasSuggestionsSelectedIndex])
   {
     return 1;
   }
 
   v8.receiver = self;
   v8.super_class = GEOAPSharedStateData;
-  if ([(GEOAnalyticsPipelineStateData *)&v8 hasSuggestionsAcSequenceNumber])
+  if ([(GEOAnalyticsPipelineStateData *)&v8 hasSuggestionsSearchFieldType])
   {
     return 1;
   }
 
   v7.receiver = self;
   v7.super_class = GEOAPSharedStateData;
-  suggestionsDisplayedResults = [(GEOAnalyticsPipelineStateData *)&v7 suggestionsDisplayedResults];
-  v4 = [suggestionsDisplayedResults count] != 0;
+  if ([(GEOAnalyticsPipelineStateData *)&v7 hasSuggestionsAcSequenceNumber])
+  {
+    return 1;
+  }
 
-  return v4;
+  v6.receiver = self;
+  v6.super_class = GEOAPSharedStateData;
+  suggestionsDisplayedResults = [(GEOAnalyticsPipelineStateData *)&v6 suggestionsDisplayedResults];
+  v3 = [suggestionsDisplayedResults count] != 0;
+
+  return v3;
 }
 
 - (void)populateWithChildPlace:(id)place timestamp:(double)timestamp resultIndex:(int)index
 {
   placeCopy = place;
-  placeIso = self->_placeIso;
-  v9 = placeCopy;
-  v8 = placeCopy;
+  v5 = placeCopy;
   geo_reentrant_isolate_sync();
 }
 
@@ -4731,9 +4749,7 @@ void __69__GEOAPSharedStateData_populateWithChildPlace_timestamp_resultIndex___b
 - (void)populateWithPlace:(id)place timestamp:(double)timestamp resultIndex:(int)index
 {
   placeCopy = place;
-  placeIso = self->_placeIso;
-  v9 = placeCopy;
-  v8 = placeCopy;
+  v5 = placeCopy;
   geo_reentrant_isolate_sync();
 }
 
@@ -4757,7 +4773,6 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
 - (void)_populateWithGEOTransitDepartureSequenceUsage:(id)usage
 {
   usageCopy = usage;
-  placeIso = self->_placeIso;
   geo_assert_reentrant_isolated();
   if ([usageCopy hasLineId])
   {
@@ -4767,28 +4782,27 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
   if ([usageCopy hasHeadsign])
   {
     headsign = [usageCopy headsign];
-    v6 = [headsign copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitDepartureSequenceUsageHeadsign:v6];
+    v5 = [headsign copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitDepartureSequenceUsageHeadsign:v5];
   }
 
   if ([usageCopy hasDirection])
   {
     direction = [usageCopy direction];
-    v8 = [direction copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitDepartureSequenceUsageDirection:v8];
+    v7 = [direction copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitDepartureSequenceUsageDirection:v7];
   }
 }
 
 - (void)_populateWithGEOTransitPlaceCard:(id)card
 {
   cardCopy = card;
-  placeIso = self->_placeIso;
   geo_assert_reentrant_isolated();
   if ([cardCopy hasIncidentType])
   {
     incidentType = [cardCopy incidentType];
-    v6 = [incidentType copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardIncidentType:v6];
+    v5 = [incidentType copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardIncidentType:v5];
   }
 
   if ([cardCopy hasTransitCategory])
@@ -4799,8 +4813,8 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
   if ([cardCopy hasTransitSystemName])
   {
     transitSystemName = [cardCopy transitSystemName];
-    v8 = [transitSystemName copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitSystemName:v8];
+    v7 = [transitSystemName copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsTransitPlaceCardTransitSystemName:v7];
   }
 
   if ([cardCopy hasTransitDepartureSequenceUsage])
@@ -4813,7 +4827,6 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
 - (void)populateWithPlaceActionDetails:(id)details
 {
   detailsCopy = details;
-  placeIso = self->_placeIso;
   geo_assert_reentrant_isolated();
   if ([detailsCopy hasPhotoId])
   {
@@ -4834,8 +4847,8 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
   if ([detailsCopy hasActionUrl])
   {
     actionUrl = [detailsCopy actionUrl];
-    v7 = [actionUrl copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsActionUrl:v7];
+    v6 = [actionUrl copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsActionUrl:v6];
   }
 
   if ([detailsCopy hasBusinessID])
@@ -4856,15 +4869,15 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
   if ([detailsCopy hasDestinationApp])
   {
     destinationApp = [detailsCopy destinationApp];
-    v9 = [destinationApp copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsDestinationApp:v9];
+    v8 = [destinationApp copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsDestinationApp:v8];
   }
 
   if ([detailsCopy hasRichProviderId])
   {
     richProviderId = [detailsCopy richProviderId];
-    v11 = [richProviderId copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsRichProviderId:v11];
+    v10 = [richProviderId copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsRichProviderId:v10];
   }
 
   if ([detailsCopy hasSearchResponseRelativeTimestamp])
@@ -4887,8 +4900,8 @@ void __64__GEOAPSharedStateData_populateWithPlace_timestamp_resultIndex___block_
   if ([detailsCopy hasShowcaseId])
   {
     showcaseId = [detailsCopy showcaseId];
-    v14 = [showcaseId copy];
-    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsShowcaseId:v14];
+    v13 = [showcaseId copy];
+    [(GEOAnalyticsPipelineStateData *)self setPlaceCardPlaceActionDetailsShowcaseId:v13];
   }
 }
 
@@ -4932,38 +4945,35 @@ uint64_t __47__GEOAPSharedStateData_clearPlaceCardStateData__block_invoke(uint64
 
 - (void)setCarPlayInfo:(id)info
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v5 = *MEMORY[0x1E69A15D8];
-  v6 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v5 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v14 = infoCopy;
-    _os_log_impl(&dword_1AB634000, v6, OS_LOG_TYPE_DEBUG, "setting carplay info : %@", buf, 0xCu);
+    v12 = infoCopy;
+    _os_log_impl(&dword_1AB634000, v5, OS_LOG_TYPE_DEBUG, "setting carplay info : %@", buf, 0xCu);
   }
 
-  v12.receiver = self;
-  v12.super_class = GEOAPSharedStateData;
-  [(GEOAnalyticsPipelineStateData *)&v12 setCarPlayInfo:infoCopy];
+  v10.receiver = self;
+  v10.super_class = GEOAPSharedStateData;
+  [(GEOAnalyticsPipelineStateData *)&v10 setCarPlayInfo:infoCopy];
   if (self->_isMapsApp)
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v14 = infoCopy;
-      _os_log_impl(&dword_1AB634000, v7, OS_LOG_TYPE_DEBUG, "Maps.app set carplay info : %@", buf, 0xCu);
+      v12 = infoCopy;
+      _os_log_impl(&dword_1AB634000, v6, OS_LOG_TYPE_DEBUG, "Maps.app set carplay info : %@", buf, 0xCu);
     }
 
-    v8 = +[GEOAPStateFactory sharedFactory];
-    v9 = [v8 stateForType:5];
+    v7 = +[GEOAPStateFactory sharedFactory];
+    v8 = [v7 stateForType:5];
 
-    v10 = +[GEOAPServiceManager sharedManager];
-    [v10 updateSharedStateType:404 state:v9];
+    v9 = +[GEOAPServiceManager sharedManager];
+    [v9 updateSharedStateType:404 state:v8];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleTaskTimer

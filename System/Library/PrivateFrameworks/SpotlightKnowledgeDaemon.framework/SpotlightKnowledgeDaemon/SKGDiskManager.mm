@@ -186,7 +186,7 @@
 
 - (void)_clearLegacyResources
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults removePersistentDomainForName:@"com.apple.spotlightknowledged"];
 
@@ -210,9 +210,9 @@
   if (v9)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v39 = 0;
-    [defaultManager2 removeItemAtPath:v7 error:&v39];
-    v11 = v39;
+    v38 = 0;
+    [defaultManager2 removeItemAtPath:v7 error:&v38];
+    v11 = v38;
 
     if (v11)
     {
@@ -229,9 +229,9 @@
   {
     defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
     keyphraseArchivePath2 = [(SKGJobContext *)self->_jobContext keyphraseArchivePath];
-    v38 = 0;
-    [defaultManager4 removeItemAtPath:keyphraseArchivePath2 error:&v38];
-    v18 = v38;
+    v37 = 0;
+    [defaultManager4 removeItemAtPath:keyphraseArchivePath2 error:&v37];
+    v18 = v37;
 
     if (v18)
     {
@@ -248,9 +248,9 @@
   {
     defaultManager6 = [MEMORY[0x277CCAA00] defaultManager];
     eventArchivePath2 = [(SKGJobContext *)self->_jobContext eventArchivePath];
-    v37 = 0;
-    [defaultManager6 removeItemAtPath:eventArchivePath2 error:&v37];
-    v25 = v37;
+    v36 = 0;
+    [defaultManager6 removeItemAtPath:eventArchivePath2 error:&v36];
+    v25 = v36;
 
     if (v25)
     {
@@ -272,9 +272,9 @@
     {
       defaultManager8 = [MEMORY[0x277CCAA00] defaultManager];
       journalArchivePath2 = [(SKGJobContext *)self->_jobContext journalArchivePath];
-      v36 = 0;
-      [defaultManager8 removeItemAtPath:journalArchivePath2 error:&v36];
-      v34 = v36;
+      v35 = 0;
+      [defaultManager8 removeItemAtPath:journalArchivePath2 error:&v35];
+      v34 = v35;
 
       if (v34)
       {
@@ -285,8 +285,6 @@
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SKGDiskManager__clearLegacyResources__block_invoke(uint64_t a1, void *a2)
@@ -397,7 +395,7 @@ void __39__SKGDiskManager__clearLegacyResources__block_invoke(uint64_t a1, void 
 
 - (void)_clearSpotlightIndexWithGroup:(id)group
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   if (![(SKGJobContext *)self->_jobContext debug])
   {
@@ -414,15 +412,13 @@ void __39__SKGDiskManager__clearLegacyResources__block_invoke(uint64_t a1, void 
     }
 
     dispatch_group_enter(groupCopy);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __48__SKGDiskManager__clearSpotlightIndexWithGroup___block_invoke;
-    v10[3] = &unk_27893E840;
-    v11 = groupCopy;
-    [v7 deleteAllSearchableItemsWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __48__SKGDiskManager__clearSpotlightIndexWithGroup___block_invoke;
+    v9[3] = &unk_27893E840;
+    v10 = groupCopy;
+    [v7 deleteAllSearchableItemsWithCompletionHandler:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SKGDiskManager__clearSpotlightIndexWithGroup___block_invoke(uint64_t a1, void *a2)
@@ -438,105 +434,105 @@ void __48__SKGDiskManager__clearSpotlightIndexWithGroup___block_invoke(uint64_t 
 
 - (BOOL)transferJournalsForProtectionClasses:(id)classes
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
   context = objc_autoreleasePoolPush();
   group = dispatch_group_create();
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   obj = classesCopy;
-  v5 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+  v5 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v68;
+    v7 = *v67;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v68 != v7)
+        if (*v67 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v67 + 1) + 8 * i);
+        v9 = *(*(&v66 + 1) + 8 * i);
         v10 = [(SKGJobContext *)self->_jobContext deletesPathWithProtectionClass:v9];
         [(SKGDiskManager *)self createPurgeablePath:v10];
         v11 = [objc_alloc(MEMORY[0x277CC34A8]) initWithName:@"KnowledgeIndex" protectionClass:v9];
         dispatch_group_enter(group);
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __55__SKGDiskManager_transferJournalsForProtectionClasses___block_invoke;
-        v65[3] = &unk_27893E840;
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __55__SKGDiskManager_transferJournalsForProtectionClasses___block_invoke;
+        v64[3] = &unk_27893E840;
         v12 = group;
-        v66 = v12;
-        [v11 transferDeletionJournalsForProtectionClass:v9 toDirectory:v10 completionHandler:v65];
+        v65 = v12;
+        [v11 transferDeletionJournalsForProtectionClass:v9 toDirectory:v10 completionHandler:v64];
         v13 = dispatch_time(0, 1000000000000);
         dispatch_group_wait(v12, v13);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v67 objects:v73 count:16];
+      v6 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
     }
 
     while (v6);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v14 = obj;
-  v45 = [v14 countByEnumeratingWithState:&v61 objects:v72 count:16];
-  if (v45)
+  v44 = [v14 countByEnumeratingWithState:&v60 objects:v71 count:16];
+  if (v44)
   {
     v15 = 0x27893B000uLL;
-    v16 = *v62;
+    v16 = *v61;
     v17 = @"skg_";
-    v44 = *v62;
-    v47 = v14;
+    v43 = *v61;
+    v46 = v14;
     do
     {
       v18 = 0;
       do
       {
-        if (*v62 != v16)
+        if (*v61 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v46 = v18;
-        v19 = *(*(&v61 + 1) + 8 * v18);
-        v52 = [(SKGJobContext *)self->_jobContext journalsPathWithProtectionClass:v19];
+        v45 = v18;
+        v19 = *(*(&v60 + 1) + 8 * v18);
+        v51 = [(SKGJobContext *)self->_jobContext journalsPathWithProtectionClass:v19];
         [(SKGDiskManager *)self createPurgeablePath:?];
         v20 = [(SKGJobContext *)self->_jobContext deletesPathWithProtectionClass:v19];
         [(SKGDiskManager *)self createPath:v20 markPurgeable:0];
-        v50 = v20;
-        v49 = [objc_alloc(*(v15 + 3200)) initWithResourceDirectoryPath:v20];
-        journalPaths = [v49 journalPaths];
+        v49 = v20;
+        v48 = [objc_alloc(*(v15 + 3200)) initWithResourceDirectoryPath:v20];
+        journalPaths = [v48 journalPaths];
+        v56 = 0u;
         v57 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
         obja = journalPaths;
-        v22 = [obja countByEnumeratingWithState:&v57 objects:v71 count:16];
+        v22 = [obja countByEnumeratingWithState:&v56 objects:v70 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v58;
+          v24 = *v57;
           while (2)
           {
             v25 = 0;
-            v51 = v23;
+            v50 = v23;
             do
             {
-              if (*v58 != v24)
+              if (*v57 != v24)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v26 = *(*(&v57 + 1) + 8 * v25);
+              v26 = *(*(&v56 + 1) + 8 * v25);
               lastPathComponent = [v26 lastPathComponent];
               v28 = [lastPathComponent isEqualToString:v17];
 
@@ -547,7 +543,7 @@ void __48__SKGDiskManager__clearSpotlightIndexWithGroup___block_invoke(uint64_t 
 LABEL_33:
 
                 v41 = 0;
-                v14 = v47;
+                v14 = v46;
                 goto LABEL_34;
               }
 
@@ -561,13 +557,13 @@ LABEL_33:
                 v33 = MEMORY[0x277CCACA8];
                 lastPathComponent3 = [v26 lastPathComponent];
                 uUID = [MEMORY[0x277CCAD78] UUID];
-                v36 = [v33 stringWithFormat:@"%@/%@.%@", v52, lastPathComponent3, uUID];
+                v36 = [v33 stringWithFormat:@"%@/%@.%@", v51, lastPathComponent3, uUID];
 
                 defaultManager = [MEMORY[0x277CCAA00] defaultManager];
                 path = [v26 path];
-                v56 = 0;
-                v39 = [defaultManager moveItemAtPath:path toPath:v36 error:&v56];
-                feedback = v56;
+                v55 = 0;
+                v39 = [defaultManager moveItemAtPath:path toPath:v36 error:&v55];
+                feedback = v55;
 
                 if (!v39 || feedback)
                 {
@@ -581,14 +577,14 @@ LABEL_33:
 
                 v17 = v32;
                 v24 = v31;
-                v23 = v51;
+                v23 = v50;
               }
 
               ++v25;
             }
 
             while (v23 != v25);
-            v23 = [obja countByEnumeratingWithState:&v57 objects:v71 count:16];
+            v23 = [obja countByEnumeratingWithState:&v56 objects:v70 count:16];
             if (v23)
             {
               continue;
@@ -598,18 +594,18 @@ LABEL_33:
           }
         }
 
-        v18 = v46 + 1;
+        v18 = v45 + 1;
         v15 = 0x27893B000;
-        v16 = v44;
-        v14 = v47;
+        v16 = v43;
+        v14 = v46;
       }
 
-      while (v46 + 1 != v45);
+      while (v45 + 1 != v44);
       v41 = 1;
-      v45 = [v47 countByEnumeratingWithState:&v61 objects:v72 count:16];
+      v44 = [v46 countByEnumeratingWithState:&v60 objects:v71 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   else
@@ -620,7 +616,6 @@ LABEL_33:
 LABEL_34:
 
   objc_autoreleasePoolPop(context);
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -667,35 +662,26 @@ void __55__SKGDiskManager_transferJournalsForProtectionClasses___block_invoke(ui
 
 void __39__SKGDiskManager__clearLegacyResources__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to remove legacy index: %s", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to remove legacy index: %s", v3, v4, v5, v6);
 }
 
 - (void)transferJournalsForProtectionClasses:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to copy journal file: %s", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to copy journal file: %s", v3, v4, v5, v6);
 }
 
 void __55__SKGDiskManager_transferJournalsForProtectionClasses___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   [v1 UTF8String];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to transfer journal file: %s", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_9(&dword_231B25000, MEMORY[0x277D86220], v2, "SKG: unable to transfer journal file: %s", v3, v4, v5, v6);
 }
 
 @end

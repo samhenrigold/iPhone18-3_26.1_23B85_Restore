@@ -10,7 +10,7 @@
 {
   dictionaryCopy = dictionary;
   v7 = [self documentsDirectoryURLForFileName:file];
-  v8 = SO_LOG_SOKerberosFileManager();
+  v8 = SO_LOG_SOKerberosFileManager(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosFileManager archiveDictionary:v7 toFile:v8];
@@ -23,7 +23,7 @@
   if (v10)
   {
     v11 = v10;
-    v12 = SO_LOG_SOKerberosFileManager();
+    v12 = SO_LOG_SOKerberosFileManager(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       +[SOKerberosFileManager archiveDictionary:toFile:];
@@ -41,7 +41,7 @@ LABEL_10:
   if (v14)
   {
     v11 = v14;
-    v12 = SO_LOG_SOKerberosFileManager();
+    v12 = SO_LOG_SOKerberosFileManager(v14);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       +[SOKerberosFileManager archiveDictionary:toFile:];
@@ -59,7 +59,7 @@ LABEL_11:
 {
   v18[7] = *MEMORY[0x277D85DE8];
   v3 = [self documentsDirectoryURLForFileName:file];
-  v4 = SO_LOG_SOKerberosFileManager();
+  v4 = SO_LOG_SOKerberosFileManager(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(SOKerberosFileManager *)v3 loadDictionaryFromFile:v4];
@@ -71,7 +71,7 @@ LABEL_11:
   if (v6)
   {
     v7 = v6;
-    v8 = SO_LOG_SOKerberosFileManager();
+    v8 = SO_LOG_SOKerberosFileManager(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[SOKerberosFileManager loadDictionaryFromFile:];
@@ -102,7 +102,7 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v8 = SO_LOG_SOKerberosFileManager();
+    v8 = SO_LOG_SOKerberosFileManager(v14);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(SOKerberosFileManager *)v7 loadDictionaryFromFile:v8];
@@ -110,7 +110,6 @@ LABEL_11:
   }
 
 LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -130,53 +129,26 @@ LABEL_11:
 
 + (void)archiveDictionary:(uint64_t)a1 toFile:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "archiving to file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)archiveDictionary:toFile:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_1(&dword_24006C000, v0, v1, "Error archiving file: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)archiveDictionary:toFile:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_1(&dword_24006C000, v0, v1, "Error writing file: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "archiving to file: %@", &v2, 0xCu);
 }
 
 + (void)loadDictionaryFromFile:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "loading from file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)loadDictionaryFromFile:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_1(&dword_24006C000, v0, v1, "Error reading plist file: %{public}@, message: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "loading from file: %@", &v2, 0xCu);
 }
 
 + (void)loadDictionaryFromFile:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "Error deserializing plist: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "Error deserializing plist: %{public}@", &v2, 0xCu);
 }
 
 @end

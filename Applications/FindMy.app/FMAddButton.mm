@@ -38,7 +38,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10022DB0C();
+  sub_10022DB0C(selfCopy);
 }
 
 - (_TtC6FindMy11FMAddButton)initWithFrame:(CGRect)frame

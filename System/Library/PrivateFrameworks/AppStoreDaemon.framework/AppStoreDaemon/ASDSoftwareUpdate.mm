@@ -271,7 +271,7 @@ LABEL_14:
 
 - (NSDictionary)updateDictionary
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSDictionary *)self->_rawUpdateDictionary mutableCopy];
   v4 = [v3 objectForKey:@"offers"];
 
@@ -284,38 +284,36 @@ LABEL_14:
     v9 = v8;
     if (v5 && v6 && v7 && v8)
     {
-      v23[0] = @"assets";
-      v20[0] = @"flavor";
-      v20[1] = @"size";
-      v21[0] = @"iosSoftware";
-      v21[1] = v8;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
-      v22 = v17;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-      v24[0] = v10;
-      v24[1] = v5;
-      v23[1] = @"buyParams";
-      v23[2] = @"price";
+      v22[0] = @"assets";
+      v19[0] = @"flavor";
+      v19[1] = @"size";
+      v20[0] = @"iosSoftware";
+      v20[1] = v8;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v21 = v16;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+      v23[0] = v10;
+      v23[1] = v5;
+      v22[1] = @"buyParams";
+      v22[2] = @"price";
       v11 = [MEMORY[0x1E696AD98] numberWithDouble:0.0];
-      v24[2] = v11;
-      v23[3] = @"version";
-      v18[0] = @"display";
-      v18[1] = @"externalId";
-      v19[0] = v6;
-      v19[1] = v7;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
-      v23[4] = @"type";
-      v24[3] = v12;
-      v24[4] = @"update";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:5];
-      v25[0] = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+      v23[2] = v11;
+      v22[3] = @"version";
+      v17[0] = @"display";
+      v17[1] = @"externalId";
+      v18[0] = v6;
+      v18[1] = v7;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      v22[4] = @"type";
+      v23[3] = v12;
+      v23[4] = @"update";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+      v24[0] = v13;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
 
       [v3 setObject:v14 forKey:@"offers"];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -388,18 +386,18 @@ LABEL_14:
 
 - (ASDSoftwareUpdate)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = ASDSoftwareUpdate;
-  v5 = [(ASDSoftwareUpdate *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = ASDSoftwareUpdate;
+  v5 = [(ASDSoftwareUpdate *)&v23 init];
   if (v5)
   {
     v5->_autoUpdateEnabled = [coderCopy decodeBoolForKey:@"autoUpdateEnabled"];
     v6 = MEMORY[0x1E695DFD8];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"blockedBy"];
     blockedBy = v5->_blockedBy;
@@ -415,12 +413,12 @@ LABEL_14:
     v5->_iOSBinaryMacOSCompatible = [coderCopy decodeBoolForKey:@"iOSBinaryMacOSCompatible"];
     v5->_perDevice = [coderCopy decodeBoolForKey:@"IsPerDevice"];
     v5->_profileValidated = [coderCopy decodeBoolForKey:@"IsProfileValidated"];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v25[3] = objc_opt_class();
-    v25[4] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v24[4] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:5];
     v14 = [MEMORY[0x1E695DFD8] setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"metrics"];
     metrics = v5->_metrics;
@@ -440,7 +438,6 @@ LABEL_14:
     v5->_updateState = [coderCopy decodeIntegerForKey:@"updateState"];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

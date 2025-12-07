@@ -40,18 +40,21 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
-    v6 = sub_243FDC768;
+    v6 = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_243FDC768;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_2440267A8();
-  sub_243F7EE58(v6);
+  sub_243F7EE58(v8, v7);
 }
 
 - (void)handlePanWithSender:(id)sender

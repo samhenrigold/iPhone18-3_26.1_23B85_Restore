@@ -445,7 +445,7 @@ LABEL_10:
   v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
 
   v12 = [self _userFeedbacksMatchingPredicate:v7 sortDescriptors:v11 limit:limit inManagedObjectContext:contextCopy];
-  v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+  v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v12)];
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
@@ -672,7 +672,7 @@ LABEL_32:
   }
 
 LABEL_38:
-  [contextCopy deleteObject:{feedbackCopy, *v36, *&v36[16], v37}];
+  [contextCopy deleteObject:{feedbackCopy, *v36, *&v36[8], v37}];
   v18 = 0;
 LABEL_39:
 
@@ -685,7 +685,7 @@ LABEL_40:
 {
   v9[1] = *MEMORY[0x1E69E9840];
   setCopy = set;
-  if ([setCopy count])
+  if (objc_msgSend_count(setCopy))
   {
     v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"lastModifiedDate" ascending:0];
     v9[0] = v4;

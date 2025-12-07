@@ -31,7 +31,7 @@
 
 + (id)allowedClasses
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
@@ -49,9 +49,8 @@
   v19 = objc_opt_class();
   v20 = objc_opt_class();
   v21 = objc_opt_class();
-  v22 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:17];
-  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21}];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:{v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, objc_opt_class(), v22}];
+  v4 = [v2 setWithArray:?];
 
   return v4;
 }
@@ -59,56 +58,56 @@
 + (id)analyzerWithOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v7 = [optionsCopy objectForKeyedSubscript:@"configuration"];
+  v6 = [optionsCopy objectForKeyedSubscript:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = v7;
+    v7 = v6;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = v8;
+  v8 = v7;
 
-  if (!v9)
+  if (!v8)
   {
     +[HMIVideoAnalyzer analyzerWithOptions:error:];
 LABEL_13:
-    v15 = [HMICamera initWithIdentifier:name:manufacturer:model:firmwareVersion:hasBattery:];
-    return [(HMIVideoAnalyzer *)v15 analyzerWithConfiguration:v16 identifier:v17 error:v18, v19];
+    [HMICamera initWithIdentifier:name:manufacturer:model:firmwareVersion:hasBattery:];
+    return [(HMIVideoAnalyzer *)v14 analyzerWithConfiguration:v15 identifier:v16 error:v17, v18];
   }
 
-  v10 = [optionsCopy objectForKeyedSubscript:@"identifier"];
+  v9 = [optionsCopy objectForKeyedSubscript:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = v10;
+    v10 = v9;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = v11;
+  v11 = v10;
 
-  if (!v12)
+  if (!v11)
   {
     goto LABEL_13;
   }
 
-  v13 = [self analyzerWithConfiguration:v9 identifier:v12 remote:0 error:error];
+  v12 = [self analyzerWithConfiguration:? identifier:? remote:? error:?];
 
-  return v13;
+  return v12;
 }
 
 + (id)analyzerWithConfiguration:(id)configuration identifier:(id)identifier remote:(BOOL)remote error:(id *)error
 {
   remoteCopy = remote;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   identifierCopy = identifier;
   if (remoteCopy)
@@ -120,28 +119,24 @@ LABEL_13:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v22 = v14;
-      v23 = 2112;
-      v24 = identifierCopy;
-      v25 = 2112;
-      v26 = configurationCopy;
+      v21 = v14;
+      v22 = 2112;
+      v23 = identifierCopy;
+      v24 = 2112;
+      v25 = configurationCopy;
       _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_INFO, "%{public}@Creating analyzer with identifier: %@, configuration: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
-    v15 = [[HMIVideoAnalyzerClient alloc] initWithConfiguration:configurationCopy identifier:identifierCopy];
+    v15 = [HMIVideoAnalyzerClient initWithConfiguration:"initWithConfiguration:identifier:" identifier:?];
   }
 
   else
   {
     v16 = +[HMIVideoAnalyzerScheduler sharedInstance];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __70__HMIVideoAnalyzer_analyzerWithConfiguration_identifier_remote_error___block_invoke;
-    v18[3] = &unk_278755CD0;
-    selfCopy2 = self;
+    v18 = MEMORY[0x277D85DD0];
     v19 = identifierCopy;
-    v15 = [v16 analyzerWithConfiguration:configurationCopy block:v18];
+    v15 = [v16 analyzerWithConfiguration:v18 block:{3221225472, __70__HMIVideoAnalyzer_analyzerWithConfiguration_identifier_remote_error___block_invoke, &unk_278755CD0}];
   }
 
   return v15;
@@ -168,7 +163,7 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = [[HMIVideoAnalyzerServer alloc] initWithConfiguration:v3 identifier:*(a1 + 32)];
+  v9 = [HMIVideoAnalyzerServer initWithConfiguration:"initWithConfiguration:identifier:" identifier:?];
 
   return v9;
 }
@@ -188,15 +183,15 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
     if ([configurationCopy saveAnalyzerResultsToDisk])
     {
       v11 = objc_alloc_init(MEMORY[0x277CCA968]);
-      [v11 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+      [v11 setDateFormat:?];
       v12 = [MEMORY[0x277CBEAA8] now];
-      v13 = [v11 stringFromDate:v12];
+      v13 = [v11 stringFromDate:?];
 
       v14 = MEMORY[0x277CCACA8];
       uUIDString = [identifierCopy UUIDString];
-      v16 = [v14 stringWithFormat:@"VideoAnalyzerReport %@ %@", v13, uUIDString];
+      v16 = [v14 stringWithFormat:v13, uUIDString];
 
-      v17 = [[HMIVideoAnalyzerMutableReport alloc] initWithName:v16];
+      v17 = [[HMIVideoAnalyzerMutableReport alloc] initWithName:?];
       report = v10->_report;
       v10->_report = v17;
     }
@@ -215,11 +210,11 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
     v4 = MEMORY[0x277CCACA8];
     report2 = [(HMIVideoAnalyzer *)self report];
     name = [report2 name];
-    v7 = [v4 stringWithFormat:@"/tmp/%@.plist", name];
+    v7 = [v4 stringWithFormat:name];
 
     report3 = [(HMIVideoAnalyzer *)self report];
     data = [report3 data];
-    [data writeToFile:v7 atomically:1];
+    [data writeToFile:? atomically:?];
 
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -248,14 +243,13 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   optionsCopy = options;
   handlerCopy = handler;
   v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = NSStringFromSelector(a2);
-  v15 = [v13 stringWithFormat:@"%@ is unavailable", v14];
-  v16 = [v11 exceptionWithName:v12 reason:v15 userInfo:0];
-  v17 = v16;
+  v12 = MEMORY[0x277CCACA8];
+  v13 = NSStringFromSelector(a2);
+  v14 = [v12 stringWithFormat:v13];
+  v15 = [v11 exceptionWithName:? reason:? userInfo:?];
+  v16 = v15;
 
-  objc_exception_throw(v16);
+  objc_exception_throw(v15);
 }
 
 - (void)handleMessageWithOptions:(id)options completionHandler:(id)handler
@@ -263,27 +257,25 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   optionsCopy = options;
   handlerCopy = handler;
   v8 = MEMORY[0x277CBEAD8];
-  v9 = *MEMORY[0x277CBE658];
-  v10 = MEMORY[0x277CCACA8];
-  v11 = NSStringFromSelector(a2);
-  v12 = [v10 stringWithFormat:@"You must override %@ in a subclass", v11];
-  v13 = [v8 exceptionWithName:v9 reason:v12 userInfo:0];
-  v14 = v13;
+  v9 = MEMORY[0x277CCACA8];
+  v10 = NSStringFromSelector(a2);
+  v11 = [v9 stringWithFormat:v10];
+  v12 = [v8 exceptionWithName:? reason:? userInfo:?];
+  v13 = v12;
 
-  objc_exception_throw(v13);
+  objc_exception_throw(v12);
 }
 
 - (double)delay
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)analyzeFragment:(id)fragment configuration:(id)configuration
@@ -291,197 +283,182 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   fragmentCopy = fragment;
   configurationCopy = configuration;
   v8 = MEMORY[0x277CBEAD8];
-  v9 = *MEMORY[0x277CBE658];
-  v10 = MEMORY[0x277CCACA8];
-  v11 = NSStringFromSelector(a2);
-  v12 = [v10 stringWithFormat:@"You must override %@ in a subclass", v11];
-  v13 = [v8 exceptionWithName:v9 reason:v12 userInfo:0];
-  v14 = v13;
+  v9 = MEMORY[0x277CCACA8];
+  v10 = NSStringFromSelector(a2);
+  v11 = [v9 stringWithFormat:v10];
+  v12 = [v8 exceptionWithName:? reason:? userInfo:?];
+  v13 = v12;
 
-  objc_exception_throw(v13);
+  objc_exception_throw(v12);
 }
 
 - (void)flush
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)flushAsync
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)finishWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
   v5 = MEMORY[0x277CBEAD8];
-  v6 = *MEMORY[0x277CBE658];
-  v7 = MEMORY[0x277CCACA8];
-  v8 = NSStringFromSelector(a2);
-  v9 = [v7 stringWithFormat:@"You must override %@ in a subclass", v8];
-  v10 = [v5 exceptionWithName:v6 reason:v9 userInfo:0];
-  v11 = v10;
+  v6 = MEMORY[0x277CCACA8];
+  v7 = NSStringFromSelector(a2);
+  v8 = [v6 stringWithFormat:v7];
+  v9 = [v5 exceptionWithName:? reason:? userInfo:?];
+  v10 = v9;
 
-  objc_exception_throw(v10);
+  objc_exception_throw(v9);
 }
 
 - (void)cancel
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)setAnalysisFPS:(double)s
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)setMonitored:(BOOL)monitored
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)setEncode:(BOOL)encode
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)setDecodeMode:(int64_t)mode
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)setBoosted:(BOOL)boosted
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (BOOL)encode
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (BOOL)monitored
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (double)analysisFPS
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (int64_t)decodeMode
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (BOOL)boosted
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (id)finalizeFragmentResult:(id)result homePersonManager:(id)manager analysisStateManager:(id)stateManager
@@ -493,29 +470,25 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   {
     v11 = stateManagerCopy;
     v12 = +[HMIPreference sharedInstance];
-    v13 = [v12 BOOLPreferenceForKey:@"uploadVideoAnalysisEvent" defaultValue:1];
+    v13 = [v12 BOOLPreferenceForKey:? defaultValue:?];
 
     if (managerCopy)
     {
       frameResults = [resultCopy frameResults];
-      v15 = [frameResults na_flatMap:&__block_literal_global_40];
+      v15 = [frameResults na_flatMap:?];
 
-      v16 = [MEMORY[0x277CBEB98] setWithArray:v15];
-      [managerCopy handleNewFaceEvents:v16];
+      v16 = [MEMORY[0x277CBEB98] setWithArray:?];
+      [managerCopy handleNewFaceEvents:?];
 
       if (v13)
       {
-        v26 = MEMORY[0x277D85DD0];
-        v27 = 3221225472;
-        v28 = __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisStateManager___block_invoke_3;
-        v29 = &unk_278755CF8;
-        v30 = managerCopy;
-        selfCopy = self;
-        [v15 na_each:&v26];
+        v27 = MEMORY[0x277D85DD0];
+        v28 = managerCopy;
+        [v15 na_each:{v27, 3221225472, __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisStateManager___block_invoke_3, &unk_278755CF8}];
       }
     }
 
-    [HMIAnalytics sendEventsForFragmentResult:resultCopy, v26, v27, v28, v29];
+    [HMIAnalytics sendEventsForFragmentResult:?];
     report = [(HMIVideoAnalyzer *)self report];
 
     if (report)
@@ -523,10 +496,10 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
       report2 = [(HMIVideoAnalyzer *)self report];
       identifier = [(HMIVideoAnalyzer *)self identifier];
       uUIDString = [identifier UUIDString];
-      v21 = [uUIDString substringToIndex:4];
+      v21 = [uUIDString substringToIndex:?];
       identifier2 = [(HMIVideoAnalyzer *)self identifier];
       uUIDString2 = [identifier2 UUIDString];
-      [report2 appendFragmentResult:resultCopy forKey:v21 source:uUIDString2 redactFrames:0];
+      [report2 appendFragmentResult:? forKey:? source:? redactFrames:?];
     }
 
     return resultCopy;
@@ -535,14 +508,14 @@ HMIVideoAnalyzerServer *__70__HMIVideoAnalyzer_analyzerWithConfiguration_identif
   else
   {
     v25 = [HMIVideoAnalyzer finalizeFragmentResult:homePersonManager:analysisStateManager:];
-    return __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisStateManager___block_invoke(v25);
+    return __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisStateManager___block_invoke(v25, v26);
   }
 }
 
 id __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisStateManager___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 events];
-  v3 = [v2 na_map:&__block_literal_global_58_0];
+  v3 = [v2 na_map:?];
   v4 = [v3 allObjects];
 
   return v4;
@@ -589,7 +562,7 @@ void __82__HMIVideoAnalyzer_finalizeFragmentResult_homePersonManager_analysisSta
   v7 = [v3 UUID];
   v5 = [*(a1 + 40) configuration];
   v6 = [v5 camera];
-  [HMIAnalytics videoAnalyzerDidFindFaceEvent:v4 homePersonManagerUUID:v7 camera:v6];
+  [HMIAnalytics videoAnalyzerDidFindFaceEvent:"videoAnalyzerDidFindFaceEvent:homePersonManagerUUID:camera:" homePersonManagerUUID:? camera:?];
 }
 
 - (id)logIdentifier

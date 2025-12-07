@@ -74,81 +74,81 @@
 
   if (keybagCopy)
   {
-    drive3 = sub_100028F5C();
+    drive3 = sub_100028F5C(v21);
     encryptionKey = [fileCopy encryptionKey];
     if (encryptionKey)
     {
-      v39 = @"FileHandleFactory";
-      v40 = [[MBToolsFileHandleFactory alloc] initWithKeyBag:keybagCopy key:encryptionKey];
-      v33 = v40;
-      v34 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v23 = MBGetDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v40 = @"FileHandleFactory";
+      v41 = [[MBToolsFileHandleFactory alloc] initWithKeyBag:keybagCopy key:encryptionKey];
+      v34 = v41;
+      v35 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v24 = MBGetDefaultLog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v36 = v20;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Downloading and decrypting encrypted file from %@", buf, 0xCu);
-        _MBLog();
+        v37 = v20;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Downloading and decrypting encrypted file from %@", buf, 0xCu);
+        _MBLog(@"I ", "Downloading and decrypting encrypted file from %@", v20);
       }
 
       drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
       errorCopy = error;
-      v25 = [drive downloadFileAtPath:v20 toPath:drive3 options:v34 error:error];
+      v26 = [drive downloadFileAtPath:v20 toPath:drive3 options:v35 error:error];
 
-      if (v25)
+      if (v26)
       {
-        v26 = MBGetDefaultLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v27 = MBGetDefaultLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v36 = pathCopy;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Uploading unencrypted file to %@", buf, 0xCu);
-          _MBLog();
+          v37 = pathCopy;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Uploading unencrypted file to %@", buf, 0xCu);
+          _MBLog(@"I ", "Uploading unencrypted file to %@", pathCopy);
         }
 
         drive2 = [(MBDriveSettingsContext *)self->_settingsContext drive];
-        v28 = [drive2 uploadFileAtPath:drive3 toPath:pathCopy options:0 error:errorCopy];
+        v29 = [drive2 uploadFileAtPath:drive3 toPath:pathCopy options:0 error:errorCopy];
 
-        v29 = +[NSFileManager defaultManager];
-        [v29 removeItemAtPath:drive3 error:0];
+        v30 = +[NSFileManager defaultManager];
+        [v30 removeItemAtPath:drive3 error:0];
       }
 
       else
       {
-        v28 = 0;
+        v29 = 0;
       }
     }
 
     else if (error)
     {
       [MBError errorWithCode:205 format:@"Encryption key not found"];
-      *error = v28 = 0;
+      *error = v29 = 0;
     }
 
     else
     {
-      v28 = 0;
+      v29 = 0;
     }
   }
 
   else
   {
-    v30 = MBGetDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v31 = MBGetDefaultLog();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v36 = v20;
-      v37 = 2112;
-      v38 = pathCopy;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Copying %@ to %@", buf, 0x16u);
-      _MBLog();
+      v37 = v20;
+      v38 = 2112;
+      v39 = pathCopy;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Copying %@ to %@", buf, 0x16u);
+      _MBLog(@"I ", "Copying %@ to %@", v20, pathCopy);
     }
 
     drive3 = [(MBDriveSettingsContext *)self->_settingsContext drive];
-    v28 = [drive3 copyItemAtPath:v20 toPath:pathCopy options:0 error:error];
+    v29 = [drive3 copyItemAtPath:v20 toPath:pathCopy options:0 error:error];
   }
 
-  return v28;
+  return v29;
 }
 
 - (BOOL)extractWithDomainName:(id)name relativePath:(id)path error:(id *)error
@@ -163,9 +163,7 @@
     *&buf[12] = 2112;
     *&buf[14] = pathCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Extracting %@-%@", buf, 0x16u);
-    v31 = nameCopy;
-    v32 = pathCopy;
-    _MBLog();
+    _MBLog(@"I ", "Extracting %@-%@", nameCopy, pathCopy);
   }
 
   v11 = [(MBBackupHelper *)self->_backupHelper readBackupManifestWithError:error];
@@ -199,13 +197,13 @@
     }
 
 LABEL_9:
-    v19 = [(MBDomainManager *)self->_domainManager domainForName:nameCopy, v31, v32];
+    v19 = [(MBDomainManager *)self->_domainManager domainForName:nameCopy];
     if (v19)
     {
       if (MBIsValidRelativePath())
       {
-        v34 = [MBFileID fileIDWithDomain:v19 relativePath:pathCopy];
-        v20 = [v12 fetchFileWithID:v34 error:error];
+        v32 = [MBFileID fileIDWithDomain:v19 relativePath:pathCopy];
+        v20 = [v12 fetchFileWithID:v32 error:error];
         v21 = v20;
         if (v20)
         {
@@ -219,19 +217,19 @@ LABEL_9:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v42 = sub_100067650;
-            v43 = sub_100067660;
-            v44 = 0;
-            v35[0] = _NSConcreteStackBlock;
-            v35[1] = 3221225472;
-            v35[2] = sub_100067668;
-            v35[3] = &unk_1000FE2A0;
-            v36 = v21;
+            v40 = sub_100067650;
+            v41 = sub_100067660;
+            v42 = 0;
+            v33[0] = _NSConcreteStackBlock;
+            v33[1] = 3221225472;
+            v33[2] = sub_100067668;
+            v33[3] = &unk_1000FE2A0;
+            v34 = v21;
             selfCopy = self;
-            v40 = buf;
-            v38 = v12;
-            v39 = v18;
-            v24 = [v38 enumerateFiles:v35 includeUninstalled:1];
+            v38 = buf;
+            v36 = v12;
+            v37 = v18;
+            v24 = [v36 enumerateFiles:v33 includeUninstalled:1];
             v25 = *(*&buf[8] + 40);
             v26 = v25 == 0;
             if (error && v25)
@@ -524,7 +522,7 @@ LABEL_34:
       LODWORD(buf) = 138412290;
       *(&buf + 4) = @"_unback_";
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Creating directory: %@", &buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "Creating directory: %@", @"_unback_");
     }
 
     drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -540,7 +538,7 @@ LABEL_34:
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v9;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Creating directory: %@", &buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "Creating directory: %@", v9);
       }
 
       drive2 = [(MBDriveSettingsContext *)self->_settingsContext drive];

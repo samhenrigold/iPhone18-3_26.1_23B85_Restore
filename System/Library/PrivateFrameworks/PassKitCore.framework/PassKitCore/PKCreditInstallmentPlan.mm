@@ -60,7 +60,7 @@
     v24 = 1;
     if (v21 != @"monthly")
     {
-      if (!v21 || (v23 = [(__CFString *)v21 isEqualToString:@"monthly"], v22, !v23))
+      if (!v21 || (isEqualToString = objc_msgSend_isEqualToString_(v21), v22, !isEqualToString))
       {
         v24 = 0;
       }
@@ -372,9 +372,9 @@ LABEL_12:
       goto LABEL_83;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_84;
     }
@@ -435,7 +435,7 @@ LABEL_12:
       goto LABEL_83;
     }
 
-    v17 = [(NSString *)v7 isEqualToString:v16];
+    v17 = objc_msgSend_isEqualToString_(v7);
 
     if (!v17)
     {
@@ -600,7 +600,7 @@ LABEL_83:
     goto LABEL_84;
   }
 
-  v38 = [(NSString *)v7 isEqualToString:v37];
+  v38 = objc_msgSend_isEqualToString_(v7);
 
   if (!v38)
   {
@@ -625,7 +625,7 @@ LABEL_87:
     goto LABEL_83;
   }
 
-  v41 = [(NSString *)v7 isEqualToString:v40];
+  v41 = objc_msgSend_isEqualToString_(v7);
 
   if (v41)
   {

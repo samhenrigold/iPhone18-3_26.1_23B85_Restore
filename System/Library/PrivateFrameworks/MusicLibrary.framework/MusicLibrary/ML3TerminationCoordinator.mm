@@ -26,9 +26,11 @@
 
 uint64_t __46__ML3TerminationCoordinator_sharedCoordinator__block_invoke()
 {
-  sharedCoordinator___sharedCoordinator = objc_alloc_init(ML3TerminationCoordinator);
+  v0 = objc_alloc_init(ML3TerminationCoordinator);
+  v1 = sharedCoordinator___sharedCoordinator;
+  sharedCoordinator___sharedCoordinator = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ML3TerminationCoordinator)init
@@ -82,7 +84,7 @@ uint64_t __46__ML3TerminationCoordinator_sharedCoordinator__block_invoke()
   return v3;
 }
 
-uint64_t __37__ML3TerminationCoordinator_isSigned__block_invoke(uint64_t a1)
+void *__37__ML3TerminationCoordinator_isSigned__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -196,16 +198,20 @@ void __43__ML3TerminationCoordinator_signForReason___block_invoke(uint64_t a1)
 uint64_t __33__ML3TerminationCoordinator_init__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    if ([WeakRetained isSigned])
+    v4 = WeakRetained;
+    WeakRetained = [WeakRetained isSigned];
+    v2 = v4;
+    if (WeakRetained)
     {
-      [v3 _performTermination];
+      WeakRetained = [v4 _performTermination];
+      v2 = v4;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 @end

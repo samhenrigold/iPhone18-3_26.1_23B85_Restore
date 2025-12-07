@@ -10,7 +10,6 @@ uint64_t sub_10FC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -39,15 +38,15 @@ uint64_t (*sub_1184(uint64_t *a1))()
 
 uint64_t sub_1210()
 {
-  v0 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
   sub_10FC(&qword_C000, "Z\t");
   sub_5A40();
-  return v2;
+  return v1;
 }
 
-uint64_t sub_1284()
+uint64_t sub_1284(uint64_t a1, uint64_t a2)
 {
-  v0 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
   sub_10FC(&qword_C000, "Z\t");
   return sub_5A50();
 }
@@ -66,7 +65,7 @@ uint64_t (*sub_12DC(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
   sub_10FC(&qword_C000, "Z\t");
   *(v3 + 32) = sub_5A30();
   return sub_59AC;
@@ -76,16 +75,13 @@ uint64_t sub_1378()
 {
   if (*v0)
   {
-    result = 0x656D614E707061;
+    return 0x656D614E707061;
   }
 
   else
   {
-    result = 0x614C6E6F74747562;
+    return 0x614C6E6F74747562;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_13BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -136,14 +132,14 @@ uint64_t sub_14E4(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_1520()
+uint64_t sub_1520(uint64_t a1, uint64_t a2)
 {
   if ((sub_5A60() & 1) == 0)
   {
     return 0;
   }
 
-  v0 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
 
   return sub_5A60();
 }
@@ -152,25 +148,23 @@ uint64_t sub_15A0(void *a1)
 {
   v3 = sub_10FC(&qword_C008, "\\\t");
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v11[-v6];
-  v8 = a1[4];
+  v6 = &v8[-v5];
   sub_175C(a1, a1[3]);
   sub_17A0();
   sub_5B70();
-  v11[15] = 0;
+  v8[15] = 0;
   sub_10FC(&qword_C000, "Z\t");
-  sub_1C88(&qword_C010);
+  sub_1C88(&qword_C010, &protocol conformance descriptor for <A> Loggable<A>);
   sub_5B10();
   if (!v1)
   {
-    v9 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
-    v11[14] = 1;
+    type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
+    v8[14] = 1;
     sub_5B10();
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
 void *sub_175C(void *result, uint64_t a2)
@@ -200,7 +194,6 @@ uint64_t sub_17F4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -208,33 +201,29 @@ uint64_t sub_17F4(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_183C()
+uint64_t sub_183C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   sub_5A20();
-  v0 = *(type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
   return sub_5A20();
 }
 
 uint64_t sub_18AC@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v27 = a2;
-  v32 = sub_10FC(&qword_C000, "Z\t");
-  v29 = *(v32 - 8);
-  v4 = *(v29 + 64);
-  v5 = (__chkstk_darwin)();
-  v7 = v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v31 = v24 - v8;
-  v30 = sub_10FC(&qword_C018, &qword_5D20);
-  v28 = *(v30 - 8);
-  v9 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v30);
-  v11 = v24 - v10;
-  v12 = type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12);
-  v15 = v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = a1[4];
+  v23 = a2;
+  v28 = sub_10FC(&qword_C000, "Z\t");
+  v25 = *(v28 - 8);
+  v4 = __chkstk_darwin(v28);
+  v6 = v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v27 = v20 - v7;
+  v26 = sub_10FC(&qword_C018, &qword_5D20);
+  v24 = *(v26 - 8);
+  __chkstk_darwin(v26);
+  v9 = v20 - v8;
+  v10 = type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
+  __chkstk_darwin(v10);
+  v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_175C(a1, a1[3]);
   sub_17A0();
   sub_5B60();
@@ -243,26 +232,26 @@ uint64_t sub_18AC@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     return sub_1C3C(a1);
   }
 
-  v25 = v12;
-  v26 = v15;
-  v18 = v28;
-  v17 = v29;
-  v34 = 0;
-  v19 = sub_1C88(&qword_C020);
-  v20 = v30;
+  v21 = v10;
+  v22 = v12;
+  v14 = v24;
+  v13 = v25;
+  v30 = 0;
+  v15 = sub_1C88(&qword_C020, &protocol conformance descriptor for <A> Loggable<A>);
+  v16 = v26;
   sub_5AD0();
-  v24[1] = v19;
-  v21 = v31;
-  v31 = *(v17 + 32);
-  (v31)(v26, v21, v32);
-  v33 = 1;
+  v20[1] = v15;
+  v17 = v27;
+  v27 = *(v13 + 32);
+  (v27)(v22, v17, v28);
+  v29 = 1;
   sub_5AD0();
-  (*(v18 + 8))(v11, v20);
-  v22 = v26;
-  (v31)(&v26[*(v25 + 20)], v7, v32);
-  sub_1DD4(v22, v27, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
+  (*(v14 + 8))(v9, v16);
+  v18 = v22;
+  (v27)(&v22[*(v21 + 20)], v6, v28);
+  sub_1DD4(v18, v23, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
   sub_1C3C(a1);
-  return sub_1E3C(v22, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
+  return sub_1E3C(v18, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
 }
 
 uint64_t sub_1C3C(void *a1)
@@ -279,7 +268,7 @@ uint64_t sub_1C3C(void *a1)
   }
 }
 
-uint64_t sub_1C88(unint64_t *a1)
+uint64_t sub_1C88(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -299,8 +288,6 @@ uint64_t sub_1CF8(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v4 = *(a3 + 20);
-
   return sub_5A60();
 }
 
@@ -318,7 +305,7 @@ uint64_t sub_1E3C(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-uint64_t sub_1E9C()
+void *sub_1E9C()
 {
   sub_10FC(&qword_C028, &qword_5D28);
 
@@ -328,9 +315,8 @@ uint64_t sub_1E9C()
 uint64_t sub_1EE4(uint64_t a1)
 {
   v2 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  sub_1DD4(a1, &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
+  sub_1DD4(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
   sub_10FC(&qword_C028, &qword_5D28);
   sub_5A50();
   return sub_1E3C(a1, type metadata accessor for ExpanseUIModel.ButtonModel);
@@ -358,16 +344,15 @@ uint64_t (*sub_1FB0(uint64_t *a1))()
 uint64_t sub_203C(uint64_t a1)
 {
   v2 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2);
-  sub_1DD4(a1, &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
+  sub_1DD4(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
   sub_5A20();
   return sub_1E3C(a1, type metadata accessor for ExpanseUIModel.ButtonModel);
 }
 
-uint64_t sub_2104()
+void *sub_2104()
 {
-  v0 = *(type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
   sub_10FC(&qword_C028, &qword_5D28);
   return sub_5A40();
 }
@@ -375,10 +360,9 @@ uint64_t sub_2104()
 uint64_t sub_2178(uint64_t a1)
 {
   v2 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  sub_1DD4(a1, &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
-  v5 = *(type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0) + 20);
+  sub_1DD4(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ExpanseUIModel.ButtonModel);
+  type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
   sub_10FC(&qword_C028, &qword_5D28);
   sub_5A50();
   return sub_1E3C(a1, type metadata accessor for ExpanseUIModel.ButtonModel);
@@ -398,7 +382,7 @@ uint64_t (*sub_2254(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
   sub_10FC(&qword_C028, &qword_5D28);
   *(v3 + 32) = sub_5A30();
   return sub_59AC;
@@ -408,16 +392,13 @@ uint64_t sub_22F0()
 {
   if (*v0)
   {
-    result = 0x7261646E6F636573;
+    return 0x7261646E6F636573;
   }
 
   else
   {
-    result = 0x427972616D697270;
+    return 0x427972616D697270;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_2344@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -472,25 +453,23 @@ uint64_t sub_24A8(void *a1)
 {
   v3 = sub_10FC(&qword_C030, &qword_5D30);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v11[-v6];
-  v8 = a1[4];
+  v6 = &v8[-v5];
   sub_175C(a1, a1[3]);
   sub_2664();
   sub_5B70();
-  v11[15] = 0;
+  v8[15] = 0;
   sub_10FC(&qword_C028, &qword_5D28);
-  sub_2A90(&qword_C038);
+  sub_2A90(&qword_C038, &protocol conformance descriptor for <A> Loggable<A>);
   sub_5B10();
   if (!v1)
   {
-    v9 = *(type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0) + 20);
-    v11[14] = 1;
+    type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
+    v8[14] = 1;
     sub_5B10();
   }
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
 unint64_t sub_2664()
@@ -505,7 +484,7 @@ unint64_t sub_2664()
   return result;
 }
 
-uint64_t sub_26B8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_26B8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -520,24 +499,20 @@ uint64_t sub_26B8(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_2700@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v27 = a2;
-  v32 = sub_10FC(&qword_C028, &qword_5D28);
-  v29 = *(v32 - 8);
-  v4 = *(v29 + 64);
-  v5 = __chkstk_darwin(v32);
-  v7 = v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v31 = v24 - v8;
-  v30 = sub_10FC(&qword_C050, &qword_5D38);
-  v28 = *(v30 - 8);
-  v9 = *(v28 + 64);
-  __chkstk_darwin(v30);
-  v11 = v24 - v10;
-  v12 = type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12);
-  v15 = v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = a1[4];
+  v23 = a2;
+  v28 = sub_10FC(&qword_C028, &qword_5D28);
+  v25 = *(v28 - 8);
+  v4 = __chkstk_darwin(v28);
+  v6 = v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v27 = v20 - v7;
+  v26 = sub_10FC(&qword_C050, &qword_5D38);
+  v24 = *(v26 - 8);
+  __chkstk_darwin(v26);
+  v9 = v20 - v8;
+  v10 = type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
+  __chkstk_darwin(v10);
+  v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_175C(a1, a1[3]);
   sub_2664();
   sub_5B60();
@@ -546,36 +521,36 @@ uint64_t sub_2700@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     return sub_1C3C(a1);
   }
 
-  v25 = v12;
-  v26 = v15;
-  v18 = v28;
-  v17 = v29;
-  v34 = 0;
-  v19 = sub_2A90(&qword_C058);
-  v20 = v30;
+  v21 = v10;
+  v22 = v12;
+  v14 = v24;
+  v13 = v25;
+  v30 = 0;
+  v15 = sub_2A90(&qword_C058, &protocol conformance descriptor for <A> Loggable<A>);
+  v16 = v26;
   sub_5AD0();
-  v24[1] = v19;
-  v21 = v31;
-  v31 = *(v17 + 32);
-  (v31)(v26, v21, v32);
-  v33 = 1;
+  v20[1] = v15;
+  v17 = v27;
+  v27 = *(v13 + 32);
+  (v27)(v22, v17, v28);
+  v29 = 1;
   sub_5AD0();
-  (*(v18 + 8))(v11, v20);
-  v22 = v26;
-  (v31)(&v26[*(v25 + 20)], v7, v32);
-  sub_1DD4(v22, v27, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
+  (*(v14 + 8))(v9, v16);
+  v18 = v22;
+  (v27)(&v22[*(v21 + 20)], v6, v28);
+  sub_1DD4(v18, v23, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
   sub_1C3C(a1);
-  return sub_1E3C(v22, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
+  return sub_1E3C(v18, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
 }
 
-uint64_t sub_2A90(unint64_t *a1)
+uint64_t sub_2A90(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     sub_17F4(&qword_C028, &qword_5D28);
-    sub_26B8(&qword_C040, type metadata accessor for ExpanseUIModel.ButtonModel);
-    sub_26B8(&qword_C048, type metadata accessor for ExpanseUIModel.ButtonModel);
+    sub_26B8(&qword_C040, type metadata accessor for ExpanseUIModel.ButtonModel, &unk_5EB8);
+    sub_26B8(&qword_C048, type metadata accessor for ExpanseUIModel.ButtonModel, &unk_5EE0);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -586,14 +561,13 @@ uint64_t sub_2A90(unint64_t *a1)
 uint64_t sub_2B64(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1DD4(a1, v7, type metadata accessor for ExpanseUIModel.ButtonModel);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1DD4(a1, v6, type metadata accessor for ExpanseUIModel.ButtonModel);
   sub_5A20();
   sub_1E3C(a1, type metadata accessor for ExpanseUIModel.ButtonModel);
-  LODWORD(a1) = *(type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0) + 20);
-  sub_1DD4(a2, v7, type metadata accessor for ExpanseUIModel.ButtonModel);
+  type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
+  sub_1DD4(a2, v6, type metadata accessor for ExpanseUIModel.ButtonModel);
   sub_5A20();
   return sub_1E3C(a2, type metadata accessor for ExpanseUIModel.ButtonModel);
 }
@@ -601,12 +575,11 @@ uint64_t sub_2B64(uint64_t a1, uint64_t a2)
 uint64_t sub_2CB0()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
-uint64_t sub_2CE0()
+uint64_t sub_2CE0(uint64_t a1)
 {
   sub_2D28();
 
@@ -628,14 +601,14 @@ unint64_t sub_2D28()
 
 uint64_t sub_2D74()
 {
-  v0 = *(type metadata accessor for ExpanseUIModel.ButtonModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.ButtonModel(0);
   sub_10FC(&qword_C068, &qword_5D40);
   return sub_5A00();
 }
 
-uint64_t sub_2DB8()
+uint64_t sub_2DB8(uint64_t a1)
 {
-  v0 = *(type metadata accessor for ExpanseUIModel.ButtonModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.ButtonModel(0);
   sub_10FC(&qword_C068, &qword_5D40);
   return sub_5A10();
 }
@@ -654,7 +627,7 @@ uint64_t (*sub_2E10(uint64_t *a1))()
 
   v3 = v2;
   *a1 = v2;
-  v4 = *(type metadata accessor for ExpanseUIModel.ButtonModel(0) + 20);
+  type metadata accessor for ExpanseUIModel.ButtonModel(0);
   sub_10FC(&qword_C068, &qword_5D40);
   *(v3 + 32) = sub_59F0();
   return sub_2EAC;
@@ -668,20 +641,17 @@ void sub_2EB0(void *a1)
   free(v1);
 }
 
-unint64_t sub_2EFC()
+uint64_t sub_2EFC()
 {
   if (*v0)
   {
-    result = 0xD000000000000010;
+    return 0xD000000000000010;
   }
 
   else
   {
-    result = 0x6C6562616CLL;
+    return 0x6C6562616CLL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_2F38@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -734,30 +704,25 @@ uint64_t sub_3054(uint64_t a1)
 
 uint64_t sub_3090(void *a1)
 {
-  v3 = v1;
-  v5 = sub_10FC(&qword_C070, &qword_5D48);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v15[-v8];
-  v10 = a1[4];
+  v3 = sub_10FC(&qword_C070, &qword_5D48);
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v8[-v5];
   sub_175C(a1, a1[3]);
   sub_3240();
   sub_5B70();
-  v11 = *v3;
-  v12 = v3[1];
-  v15[15] = 0;
+  v8[15] = 0;
   sub_5B00();
-  if (!v2)
+  if (!v1)
   {
-    v13 = *(type metadata accessor for ExpanseUIModel.ButtonModel(0) + 20);
-    v15[14] = 1;
+    type metadata accessor for ExpanseUIModel.ButtonModel(0);
+    v8[14] = 1;
     sub_10FC(&qword_C068, &qword_5D40);
-    sub_35CC(&qword_C078);
+    sub_35CC(&qword_C078, &protocol conformance descriptor for CodableAceObject<A>);
     sub_5B10();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v4 + 8))(v6, v3);
 }
 
 unint64_t sub_3240()
@@ -774,22 +739,18 @@ unint64_t sub_3240()
 
 uint64_t sub_3294@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v22 = a2;
-  v24 = sub_10FC(&qword_C068, &qword_5D40);
-  v21 = *(v24 - 8);
-  v4 = *(v21 + 64);
-  __chkstk_darwin(v24);
-  v6 = v19 - v5;
-  v25 = sub_10FC(&qword_C080, &qword_5D50);
-  v23 = *(v25 - 8);
-  v7 = *(v23 + 64);
-  __chkstk_darwin(v25);
-  v9 = v19 - v8;
-  v10 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10);
-  v13 = (v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = a1[4];
+  v18 = a2;
+  v20 = sub_10FC(&qword_C068, &qword_5D40);
+  v17 = *(v20 - 8);
+  __chkstk_darwin(v20);
+  v5 = v15 - v4;
+  v21 = sub_10FC(&qword_C080, &qword_5D50);
+  v19 = *(v21 - 8);
+  __chkstk_darwin(v21);
+  v7 = v15 - v6;
+  v8 = type metadata accessor for ExpanseUIModel.ButtonModel(0);
+  __chkstk_darwin(v8);
+  v10 = (v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_175C(a1, a1[3]);
   sub_3240();
   sub_5B60();
@@ -798,24 +759,24 @@ uint64_t sub_3294@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     return sub_1C3C(a1);
   }
 
-  v20 = v10;
-  v16 = v23;
-  v15 = v24;
-  v27 = 0;
-  *v13 = sub_5AC0();
-  v13[1] = v17;
-  v19[1] = v17;
-  v26 = 1;
-  sub_35CC(&qword_C088);
+  v16 = v8;
+  v12 = v19;
+  v11 = v20;
+  v23 = 0;
+  *v10 = sub_5AC0();
+  v10[1] = v13;
+  v15[1] = v13;
+  v22 = 1;
+  sub_35CC(&qword_C088, &protocol conformance descriptor for CodableAceObject<A>);
   sub_5AD0();
-  (*(v16 + 8))(v9, v25);
-  (*(v21 + 32))(v13 + *(v20 + 20), v6, v15);
-  sub_1DD4(v13, v22, type metadata accessor for ExpanseUIModel.ButtonModel);
+  (*(v12 + 8))(v7, v21);
+  (*(v17 + 32))(v10 + *(v16 + 20), v5, v11);
+  sub_1DD4(v10, v18, type metadata accessor for ExpanseUIModel.ButtonModel);
   sub_1C3C(a1);
-  return sub_1E3C(v13, type metadata accessor for ExpanseUIModel.ButtonModel);
+  return sub_1E3C(v10, type metadata accessor for ExpanseUIModel.ButtonModel);
 }
 
-uint64_t sub_35CC(unint64_t *a1)
+uint64_t sub_35CC(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -828,11 +789,11 @@ uint64_t sub_35CC(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_361C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t sub_361C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a4@<X8>)
 {
-  *a3 = a1;
-  a3[1] = a2;
-  v3 = *(type metadata accessor for ExpanseUIModel.ButtonModel(0) + 20);
+  *a4 = a1;
+  a4[1] = a2;
+  type metadata accessor for ExpanseUIModel.ButtonModel(0);
   sub_2D28();
   return sub_59E0();
 }
@@ -858,7 +819,7 @@ Swift::Int sub_3730()
   return sub_5B50();
 }
 
-Swift::Int sub_37A0()
+Swift::Int sub_37A0(uint64_t a1)
 {
   sub_5B30();
   sub_5B40(0);
@@ -906,28 +867,25 @@ Swift::Int sub_3904()
   return sub_5B50();
 }
 
-Swift::Int sub_397C()
+Swift::Int sub_397C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_5B30();
-  sub_5B40(v1);
+  sub_5B40(v2);
   return sub_5B50();
 }
 
-unint64_t sub_39C0()
+uint64_t sub_39C0()
 {
   if (*v0)
   {
-    result = 0x75427972616E6962;
+    return 0x75427972616E6962;
   }
 
   else
   {
-    result = 0xD000000000000010;
+    return 0xD000000000000010;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_3A08@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -980,74 +938,67 @@ uint64_t sub_3B3C(uint64_t a1)
 uint64_t sub_3B78(void *a1)
 {
   v2 = sub_10FC(&qword_C090, &qword_5D58);
-  v38 = *(v2 - 8);
-  v39 = v2;
-  v3 = *(v38 + 64);
+  v31 = *(v2 - 8);
+  v32 = v2;
   __chkstk_darwin(v2);
-  v37 = &v31 - v4;
-  v35 = type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
-  v5 = *(*(v35 - 8) + 64);
-  __chkstk_darwin(v35);
-  v36 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_10FC(&qword_C098, &qword_5D60);
-  v33 = *(v7 - 8);
-  v34 = v7;
-  v8 = *(v33 + 64);
-  __chkstk_darwin(v7);
-  v10 = &v31 - v9;
-  v32 = type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
-  v11 = *(*(v32 - 8) + 64);
-  __chkstk_darwin(v32);
-  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ExpanseUIModel(0);
-  v15 = *(*(v14 - 8) + 64);
-  __chkstk_darwin(v14);
-  v17 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v41 = sub_10FC(&qword_C0A0, &qword_5D68);
-  v18 = *(v41 - 8);
-  v19 = *(v18 + 64);
-  __chkstk_darwin(v41);
-  v21 = &v31 - v20;
-  v22 = a1[4];
+  v30 = &v24 - v3;
+  v28 = type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
+  __chkstk_darwin(v28);
+  v29 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_10FC(&qword_C098, &qword_5D60);
+  v26 = *(v5 - 8);
+  v27 = v5;
+  __chkstk_darwin(v5);
+  v7 = &v24 - v6;
+  v25 = type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(0);
+  __chkstk_darwin(v25);
+  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for ExpanseUIModel(0);
+  __chkstk_darwin(v10);
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = sub_10FC(&qword_C0A0, &qword_5D68);
+  v13 = *(v34 - 8);
+  __chkstk_darwin(v34);
+  v15 = &v24 - v14;
   sub_175C(a1, a1[3]);
   sub_40FC();
   sub_5B70();
-  sub_1DD4(v40, v17, type metadata accessor for ExpanseUIModel);
-  v23 = (v18 + 8);
+  sub_1DD4(v33, v12, type metadata accessor for ExpanseUIModel);
+  v16 = (v13 + 8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v24 = v36;
-    sub_41A4(v17, v36, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
-    v43 = 1;
+    v17 = v29;
+    sub_41A4(v12, v29, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
+    v36 = 1;
     sub_4150();
-    v25 = v37;
-    v26 = v41;
+    v18 = v30;
+    v19 = v34;
     sub_5AF0();
-    sub_26B8(&qword_C0A8, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
-    v27 = v39;
+    sub_26B8(&qword_C0A8, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel, &unk_5E90);
+    v20 = v32;
     sub_5B10();
-    (*(v38 + 8))(v25, v27);
-    sub_1E3C(v24, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
-    return (*v23)(v21, v26);
+    (*(v31 + 8))(v18, v20);
+    sub_1E3C(v17, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
+    return (*v16)(v15, v19);
   }
 
   else
   {
-    sub_41A4(v17, v13, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
-    v42 = 0;
+    sub_41A4(v12, v9, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
+    v35 = 0;
     sub_420C();
-    v29 = v41;
+    v22 = v34;
     sub_5AF0();
-    sub_26B8(&qword_C0B0, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
-    v30 = v34;
+    sub_26B8(&qword_C0B0, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel, &unk_5E10);
+    v23 = v27;
     sub_5B10();
-    (*(v33 + 8))(v10, v30);
-    sub_1E3C(v13, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
-    return (*v23)(v21, v29);
+    (*(v26 + 8))(v7, v23);
+    sub_1E3C(v9, type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel);
+    return (*v16)(v15, v22);
   }
 }
 
-uint64_t sub_40C4(uint64_t a1, uint64_t *a2)
+uint64_t sub_40C4(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1103,96 +1054,91 @@ unint64_t sub_420C()
 
 uint64_t sub_4260@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v43 = a2;
-  v44 = sub_10FC(&qword_C0B8, &qword_5D70);
-  v47 = *(v44 - 8);
-  v3 = *(v47 + 64);
-  __chkstk_darwin(v44);
-  v50 = v40 - v4;
-  v5 = sub_10FC(&qword_C0C0, &qword_5D78);
-  v45 = *(v5 - 8);
-  v46 = v5;
-  v6 = *(v45 + 64);
-  __chkstk_darwin(v5);
-  v49 = v40 - v7;
-  v8 = sub_10FC(&qword_C0C8, &qword_5D80);
-  v48 = *(v8 - 8);
-  v9 = *(v48 + 64);
-  __chkstk_darwin(v8);
-  v11 = v40 - v10;
-  v12 = type metadata accessor for ExpanseUIModel(0);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = __chkstk_darwin(v12);
-  v16 = v40 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __chkstk_darwin(v14);
-  v19 = v40 - v18;
-  __chkstk_darwin(v17);
-  v21 = v40 - v20;
-  v22 = a1[3];
-  v23 = a1[4];
-  v52 = a1;
-  sub_175C(a1, v22);
+  v37 = a2;
+  v38 = sub_10FC(&qword_C0B8, &qword_5D70);
+  v41 = *(v38 - 8);
+  __chkstk_darwin(v38);
+  v44 = v34 - v3;
+  v4 = sub_10FC(&qword_C0C0, &qword_5D78);
+  v39 = *(v4 - 8);
+  v40 = v4;
+  __chkstk_darwin(v4);
+  v43 = v34 - v5;
+  v6 = sub_10FC(&qword_C0C8, &qword_5D80);
+  v42 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v8 = v34 - v7;
+  v9 = type metadata accessor for ExpanseUIModel(0);
+  v10 = __chkstk_darwin(v9);
+  v12 = v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __chkstk_darwin(v10);
+  v15 = v34 - v14;
+  __chkstk_darwin(v13);
+  v17 = v34 - v16;
+  v18 = a1[3];
+  v46 = a1;
+  sub_175C(a1, v18);
   sub_40FC();
-  v24 = v51;
+  v19 = v45;
   sub_5B60();
-  if (!v24)
+  if (!v19)
   {
-    v41 = v21;
-    v42 = v16;
-    v51 = v19;
-    v25 = v50;
-    v26 = v12;
-    v27 = v48;
-    v28 = sub_5AE0();
-    if (*(v28 + 16) == 1)
+    v35 = v17;
+    v36 = v12;
+    v45 = v15;
+    v20 = v44;
+    v21 = v9;
+    v22 = v42;
+    v23 = sub_5AE0();
+    if (*(v23 + 16) == 1)
     {
-      v40[1] = v28;
-      v53 = 1;
+      v34[1] = v23;
+      v47 = 1;
       sub_4150();
-      v29 = v25;
+      v24 = v20;
       sub_5AA0();
       type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(0);
-      sub_26B8(&qword_C0D8, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel);
-      v30 = v42;
-      v31 = v29;
-      v32 = v44;
+      sub_26B8(&qword_C0D8, type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel, &unk_5E68);
+      v25 = v36;
+      v26 = v24;
+      v27 = v38;
       sub_5AD0();
-      (*(v47 + 8))(v31, v32);
-      (*(v27 + 8))(v11, v8);
+      (*(v41 + 8))(v26, v27);
+      (*(v22 + 8))(v8, v6);
       swift_unknownObjectRelease();
       swift_storeEnumTagMultiPayload();
-      v39 = v41;
-      sub_41A4(v30, v41, type metadata accessor for ExpanseUIModel);
-      sub_41A4(v39, v43, type metadata accessor for ExpanseUIModel);
+      v33 = v35;
+      sub_41A4(v25, v35, type metadata accessor for ExpanseUIModel);
+      sub_41A4(v33, v37, type metadata accessor for ExpanseUIModel);
     }
 
     else
     {
-      v33 = v11;
-      v34 = sub_5A90();
+      v28 = v8;
+      v29 = sub_5A90();
       swift_allocError();
-      v36 = v35;
-      v37 = *(sub_10FC(&qword_C0D0, qword_5D88) + 48);
-      *v36 = v26;
+      v31 = v30;
+      sub_10FC(&qword_C0D0, qword_5D88);
+      *v31 = v21;
       sub_5AB0();
       sub_5A80();
-      (*(*(v34 - 8) + 104))(v36, enum case for DecodingError.typeMismatch(_:), v34);
+      (*(*(v29 - 8) + 104))(v31, enum case for DecodingError.typeMismatch(_:), v29);
       swift_willThrow();
-      (*(v27 + 8))(v33, v8);
+      (*(v22 + 8))(v28, v6);
       swift_unknownObjectRelease();
     }
   }
 
-  return sub_1C3C(v52);
+  return sub_1C3C(v46);
 }
 
-uint64_t sub_4AB4()
+uint64_t sub_4AB4(uint64_t a1)
 {
   result = type metadata accessor for ExpanseUIModel.AppStorePunchoutSnippetModel(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ExpanseUIModel.BinaryButtonSnippetModel(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -1202,10 +1148,10 @@ uint64_t sub_4AB4()
   return result;
 }
 
-void sub_4B78()
+void sub_4B78(uint64_t a1)
 {
   sub_4BE4();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -1239,10 +1185,10 @@ uint64_t sub_4CF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *
   return v9(a1, a2, a2, v8);
 }
 
-void sub_4D68()
+void sub_4D68(uint64_t a1)
 {
   sub_5044(319, &unk_C270, type metadata accessor for ExpanseUIModel.ButtonModel, &type metadata accessor for Loggable);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -1291,10 +1237,10 @@ uint64_t sub_4EE8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_4F98()
+void sub_4F98(uint64_t a1)
 {
   sub_5044(319, &unk_C2F8, sub_2D28, &type metadata accessor for CodableAceObject);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }

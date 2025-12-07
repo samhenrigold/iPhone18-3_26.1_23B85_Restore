@@ -231,7 +231,7 @@
 
         [(UIView *)self->_borderView setAutoresizingMask:18];
         v25 = self->_borderView;
-        [(UIView *)v16 bounds];
+        objc_msgSend_bounds(v16);
         [(UIView *)v25 setFrame:?];
         [(UIView *)v16 addSubview:self->_borderView];
       }
@@ -364,20 +364,20 @@ LABEL_29:
 
 - (void)_clearText
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_textImageTuple)
   {
-    v3 = SBLogIcon();
+    v3 = SBLogIcon(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       sbh_countedMapKey = [(SBHIconAccessoryCountedMapImageTuple *)self->_textImageTuple sbh_countedMapKey];
-      v7 = 138412290;
-      v8 = sbh_countedMapKey;
-      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_INFO, "<----\tChecking in badge _textImageTuple w/ mapkey %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = sbh_countedMapKey;
+      _os_log_impl(&dword_1BEB18000, v3, OS_LOG_TYPE_INFO, "<----\tChecking in badge _textImageTuple w/ mapkey %@", &v8, 0xCu);
     }
 
-    v5 = SBIconAccessoryCountedMap();
-    [v5 checkinValue:self->_textImageTuple];
+    v6 = SBIconAccessoryCountedMap(v5);
+    [v6 checkinValue:self->_textImageTuple];
 
     textImageTuple = self->_textImageTuple;
     self->_textImageTuple = 0;
@@ -402,7 +402,7 @@ LABEL_29:
   v13.receiver = self;
   v13.super_class = SBIconBadgeView;
   [(SBIconBadgeView *)&v13 layoutSubviews];
-  [(SBIconBadgeView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   backgroundView = self->_backgroundView;
@@ -453,7 +453,7 @@ LABEL_29:
   if (listLayout)
   {
     listLayout2 = [(SBIconBadgeView *)self listLayout];
-    [listLayout2 iconImageInfo];
+    objc_msgSend_iconImageInfo(listLayout2);
     v6 = v5;
   }
 
@@ -785,7 +785,7 @@ LABEL_16:
   [image size];
   [image alignmentRectInsets];
   v6 = v5;
-  [(UIView *)self->_backgroundView bounds];
+  objc_msgSend_bounds(self->_backgroundView);
   UIRectCenteredRect();
   SBHEdgeInsetsInvert(v6);
   UIRectIntegralWithScale();
@@ -944,7 +944,7 @@ LABEL_6:
   [(SBIconBadgeView *)self layoutOffset];
   v9 = v8;
   v11 = v10;
-  [(SBIconBadgeView *)self bounds];
+  objc_msgSend_bounds(self);
   v13 = v12;
   v15 = v14;
   v16 = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1;
@@ -1203,60 +1203,60 @@ void __50__SBIconBadgeView__crossfadeToTextImage_animator___block_invoke_2(uint6
 + (id)_checkoutImageForText:(id)text font:(id)font imageAppearance:(id)appearance style:(int64_t)style highlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   textCopy = text;
   fontCopy = font;
   appearanceCopy = appearance;
   if (textCopy)
   {
     v15 = [objc_opt_class() badgeTextColorForImageAppearance:appearanceCopy style:style];
+    v37 = 0;
     v35 = 0;
-    v33 = 0;
+    v36 = 0;
     v34 = 0;
-    v32 = 0;
-    [v15 getRed:&v35 green:&v34 blue:&v33 alpha:&v32];
+    [v15 getRed:&v37 green:&v36 blue:&v35 alpha:&v34];
     v16 = MEMORY[0x1E696AEC0];
     fontName = [fontCopy fontName];
     [fontCopy pointSize];
-    v19 = [v16 stringWithFormat:@"%@:%@:%.1f:%u:%.2f/%.2f/%.2f/%.2f", textCopy, fontName, v18, highlightedCopy, v35, v34, v33, v32];
+    v19 = [v16 stringWithFormat:@"%@:%@:%.1f:%u:%.2f/%.2f/%.2f/%.2f", textCopy, fontName, v18, highlightedCopy, v37, v36, v35, v34];
 
-    v20 = SBLogIcon();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = SBLogIcon(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138413314;
-      v37 = v19;
-      v38 = 2112;
-      v39 = textCopy;
-      v40 = 1024;
-      v41 = highlightedCopy;
-      v42 = 2112;
-      v43 = fontCopy;
+      v39 = v19;
+      v40 = 2112;
+      v41 = textCopy;
+      v42 = 1024;
+      v43 = highlightedCopy;
       v44 = 2112;
-      v45 = v15;
-      _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_INFO, "---->\tChecking out text asset w/ mapkey of '%@', text '%@' isHighlighted:%{BOOL}u, font %@, color %@", buf, 0x30u);
+      v45 = fontCopy;
+      v46 = 2112;
+      v47 = v15;
+      _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_INFO, "---->\tChecking out text asset w/ mapkey of '%@', text '%@' isHighlighted:%{BOOL}u, font %@, color %@", buf, 0x30u);
     }
 
-    v21 = SBIconAccessoryCountedMap();
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __80__SBIconBadgeView__checkoutImageForText_font_imageAppearance_style_highlighted___block_invoke;
-    v25[3] = &unk_1E8090D50;
+    v23 = SBIconAccessoryCountedMap(v22);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __80__SBIconBadgeView__checkoutImageForText_font_imageAppearance_style_highlighted___block_invoke;
+    v27[3] = &unk_1E8090D50;
     selfCopy = self;
-    v26 = textCopy;
-    v27 = fontCopy;
-    v28 = v15;
-    v31 = highlightedCopy;
-    v29 = appearanceCopy;
-    v22 = v15;
-    v23 = [v21 checkoutValueForKey:v19 creationBlock:v25];
+    v28 = textCopy;
+    v29 = fontCopy;
+    v30 = v15;
+    v33 = highlightedCopy;
+    v31 = appearanceCopy;
+    v24 = v15;
+    v25 = [v23 checkoutValueForKey:v19 creationBlock:v27];
   }
 
   else
   {
-    v23 = 0;
+    v25 = 0;
   }
 
-  return v23;
+  return v25;
 }
 
 SBHIconAccessoryCountedMapImageTuple *__80__SBIconBadgeView__checkoutImageForText_font_imageAppearance_style_highlighted___block_invoke(uint64_t a1, void *a2)

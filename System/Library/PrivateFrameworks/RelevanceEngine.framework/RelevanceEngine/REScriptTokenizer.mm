@@ -290,7 +290,7 @@ void __25__REScriptTokenizer_next__block_invoke(uint64_t a1)
 {
         if (v6)
         {
-          goto LABEL_23;
+          return;
         }
       }
 
@@ -299,9 +299,9 @@ void __25__REScriptTokenizer_next__block_invoke(uint64_t a1)
       }
 
       v14 = self->_currentToken;
-      v25 = @"REErrorTokenKey";
-      v26[0] = v14;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = @"REErrorTokenKey";
+      v25[0] = v14;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       v9 = 200;
     }
 
@@ -313,9 +313,6 @@ void __25__REScriptTokenizer_next__block_invoke(uint64_t a1)
     delegate = [(REScriptTokenizer *)self delegate];
     [delegate tokenizer:self didEncouterTokenError:v15];
   }
-
-LABEL_23:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_consumeWhitespace

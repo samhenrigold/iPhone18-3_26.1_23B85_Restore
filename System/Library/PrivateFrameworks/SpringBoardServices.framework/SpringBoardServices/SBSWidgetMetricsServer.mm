@@ -189,7 +189,7 @@ void __43__SBSWidgetMetricsServer__createConnection__block_invoke(uint64_t a1, v
 void __43__SBSWidgetMetricsServer__createConnection__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -199,12 +199,12 @@ void __43__SBSWidgetMetricsServer__createConnection__block_invoke_2(uint64_t a1,
   [v2 activate];
 }
 
-void __43__SBSWidgetMetricsServer__createConnection__block_invoke_20()
+void __43__SBSWidgetMetricsServer__createConnection__block_invoke_20(uint64_t a1)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SBLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __43__SBSWidgetMetricsServer__createConnection__block_invoke_20_cold_1(v0);
+    __43__SBSWidgetMetricsServer__createConnection__block_invoke_20_cold_1(v1);
   }
 }
 

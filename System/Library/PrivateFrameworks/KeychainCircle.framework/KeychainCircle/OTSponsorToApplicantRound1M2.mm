@@ -84,7 +84,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    epoch = self->_epoch;
     PBDataWriterWriteUint64Field();
   }
 }

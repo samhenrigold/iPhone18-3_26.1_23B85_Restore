@@ -8,14 +8,14 @@ void xsltParseStylesheetAttributeSet(xsltStylesheetPtr style, xmlNodePtr cur)
   NsProp = xmlGetNsProp(cur, "name", 0);
   if (!NsProp)
   {
-    v11 = xsltGenericError;
-    v12 = xsltGenericErrorContext;
+    v6 = xsltGenericError;
+    v7 = xsltGenericErrorContext;
 
-    v11(v12, "xsl:attribute-set : name is missing\n", v11, v5, v6, v7, v8, v9, v52);
+    v6(v7, "xsl:attribute-set : name is missing\n");
     return;
   }
 
-  v10 = NsProp;
+  v5 = NsProp;
   prefix = 0;
   if (!*NsProp)
   {
@@ -25,27 +25,27 @@ void xsltParseStylesheetAttributeSet(xsltStylesheetPtr style, xmlNodePtr cur)
 
   if (xmlValidateQName(NsProp, 0))
   {
-    xsltTransformError(0, style, cur, "xsl:attribute-set : The name '%s' is not a valid QName.\n", v10);
+    xsltTransformError(0, style, cur, "xsl:attribute-set : The name '%s' is not a valid QName.\n", v5);
     ++style->errors;
 LABEL_12:
 
-    free(v10);
+    free(v5);
     return;
   }
 
-  v13 = xsltSplitQName(style->dict, v10, &prefix);
-  free(v10);
+  v8 = xsltSplitQName(style->dict, v5, &prefix);
+  free(v5);
   if (prefix)
   {
-    v14 = xmlSearchNs(style->doc, cur, prefix);
-    if (!v14)
+    v9 = xmlSearchNs(style->doc, cur, prefix);
+    if (!v9)
     {
-      xsltTransformError(0, style, cur, "xsl:attribute-set : No namespace found for QName '%s:%s'\n", prefix, v13);
+      xsltTransformError(0, style, cur, "xsl:attribute-set : No namespace found for QName '%s:%s'\n", prefix, v8);
       ++style->errors;
       return;
     }
 
-    href = v14->href;
+    href = v9->href;
   }
 
   else
@@ -56,27 +56,27 @@ LABEL_12:
   attributeSets = style->attributeSets;
   if (attributeSets || (xsltGenericDebug(xsltGenericDebugContext, "creating attribute set table\n"), attributeSets = xmlHashCreate(10), (style->attributeSets = attributeSets) != 0))
   {
-    v17 = xmlHashLookup2(attributeSets, v13, href);
-    if (!v17)
+    v12 = xmlHashLookup2(attributeSets, v8, href);
+    if (!v12)
     {
-      v18 = xsltNewAttrSet();
-      if (!v18)
+      v13 = xsltNewAttrSet();
+      if (!v13)
       {
         return;
       }
 
-      v17 = v18;
-      xmlHashAddEntry2(style->attributeSets, v13, href, v18);
+      v12 = v13;
+      xmlHashAddEntry2(style->attributeSets, v8, href, v13);
     }
 
     children = cur->children;
-    v48 = v13;
+    v41 = v8;
     if (children)
     {
-      v20 = "xsl:attribute-set : unexpected child %s\n";
-      v21 = "http://www.w3.org/1999/XSL/Transform";
-      v22 = "attribute";
-      v23 = "add attribute to list %s\n";
+      v15 = "xsl:attribute-set : unexpected child %s\n";
+      v16 = "http://www.w3.org/1999/XSL/Transform";
+      v17 = "attribute";
+      v18 = "add attribute to list %s\n";
       do
       {
         if (children->type != XML_ELEMENT_NODE)
@@ -90,11 +90,11 @@ LABEL_12:
           goto LABEL_37;
         }
 
-        if (xmlStrEqual(ns->href, v21))
+        if (xmlStrEqual(ns->href, v16))
         {
-          if (xmlStrEqual(children->name, v22))
+          if (xmlStrEqual(children->name, v17))
           {
-            xsltGenericDebug(xsltGenericDebugContext, v23, v13);
+            xsltGenericDebug(xsltGenericDebugContext, v18, v8);
             xsltStylePreCompute(style, children);
             if (children->children)
             {
@@ -103,50 +103,48 @@ LABEL_12:
 
             if (children->psvi)
             {
-              v25 = v17;
-              v26 = v21;
-              v27 = v20;
-              v28 = v22;
-              v29 = v23;
-              v30 = v25;
-              v31 = v25[1];
-              v32 = v31;
-              if (v31)
+              v20 = v12;
+              v21 = v16;
+              v22 = v15;
+              v23 = v17;
+              v24 = v18;
+              v25 = v20;
+              v26 = v20[1];
+              v27 = v26;
+              if (v26)
               {
                 do
                 {
-                  v33 = v32;
-                  v32 = *v32;
+                  v28 = v27;
+                  v27 = *v27;
                 }
 
-                while (v32);
-                *v33 = xsltNewAttrElem(children);
+                while (v27);
+                *v28 = xsltNewAttrElem(children);
               }
 
               else
               {
-                v31 = xsltNewAttrElem(children);
+                v26 = xsltNewAttrElem(children);
               }
 
-              v30[1] = v31;
-              v13 = v48;
-              v23 = v29;
-              v22 = v28;
-              v20 = v27;
-              v21 = v26;
-              v17 = v30;
+              v25[1] = v26;
+              v8 = v41;
+              v18 = v24;
+              v17 = v23;
+              v15 = v22;
+              v16 = v21;
+              v12 = v25;
             }
 
             else
             {
-              v35 = children->name;
               xsltTransformError(0, style, children, "xsl:attribute-set : internal error, attribute %s not compiled\n");
             }
           }
 
           else
           {
-            v34 = children->name;
             xsltTransformError(0, style, children, "xsl:attribute-set : unexpected child xsl:%s\n");
           }
 
@@ -156,7 +154,7 @@ LABEL_12:
         if (children->type == XML_ELEMENT_NODE)
         {
 LABEL_37:
-          xsltTransformError(0, style, children, v20, children->name);
+          xsltTransformError(0, style, children, v15, children->name);
         }
 
         else
@@ -172,69 +170,69 @@ LABEL_39:
       while (children);
     }
 
-    v36 = xmlGetNsProp(cur, "use-attribute-sets", 0);
-    if (v36)
+    v29 = xmlGetNsProp(cur, "use-attribute-sets", 0);
+    if (v29)
     {
-      name = v36;
-      v37 = *v36;
-      if (*v36)
+      name = v29;
+      v30 = *v29;
+      if (*v29)
       {
-        v38 = v36;
+        v31 = v29;
         while (1)
         {
-          if (v37 > 0x20)
+          if (v30 > 0x20)
           {
             goto LABEL_52;
           }
 
-          if (((1 << v37) & 0x100002600) != 0)
+          if (((1 << v30) & 0x100002600) != 0)
           {
-            v39 = *++v38;
-            v37 = v39;
+            v32 = *++v31;
+            v30 = v32;
           }
 
           else
           {
-            if (!v37)
+            if (!v30)
             {
               break;
             }
 
 LABEL_52:
-            v40 = 0;
-            while (v37 > 0x20 || ((1 << v37) & 0x100002601) == 0)
+            v33 = 0;
+            while (v30 > 0x20 || ((1 << v30) & 0x100002601) == 0)
             {
-              v37 = v38[++v40];
+              v30 = v31[++v33];
             }
 
-            if (v40 >= 0x7FFFFFFF)
+            if (v33 >= 0x7FFFFFFF)
             {
-              v41 = 0x7FFFFFFF;
+              v34 = 0x7FFFFFFF;
             }
 
             else
             {
-              v41 = v40;
+              v34 = v33;
             }
 
-            v42 = xmlDictLookup(style->dict, v38, v41);
-            if (v42)
+            v35 = xmlDictLookup(style->dict, v31, v34);
+            if (v35)
             {
-              v43 = v42;
+              v36 = v35;
               nameSpace = 0;
-              xsltGenericDebug(xsltGenericDebugContext, "xsl:attribute-set : %s adds use %s\n", v48, v42);
-              if (xmlValidateQName(v43, 0))
+              xsltGenericDebug(xsltGenericDebugContext, "xsl:attribute-set : %s adds use %s\n", v41, v35);
+              if (xmlValidateQName(v36, 0))
               {
                 xsltTransformError(0, style, cur, "xsl:attribute-set : The name '%s' in use-attribute-sets is not a valid QName.\n");
                 goto LABEL_71;
               }
 
-              v44 = xsltSplitQName(style->dict, v43, &nameSpace);
-              v45 = nameSpace;
+              v37 = xsltSplitQName(style->dict, v36, &nameSpace);
+              v38 = nameSpace;
               if (nameSpace)
               {
-                v46 = xmlSearchNs(style->doc, cur, nameSpace);
-                if (!v46)
+                v39 = xmlSearchNs(style->doc, cur, nameSpace);
+                if (!v39)
                 {
                   xsltTransformError(0, style, cur, "xsl:attribute-set : No namespace found for QName '%s:%s' in use-attribute-sets\n");
 LABEL_71:
@@ -243,15 +241,15 @@ LABEL_71:
                   return;
                 }
 
-                v45 = v46->href;
+                v38 = v39->href;
               }
 
-              v17[2] = xsltAddUseAttrSetList(v17[2], v44, v45);
+              v12[2] = xsltAddUseAttrSetList(v12[2], v37, v38);
             }
 
-            v38 += v40;
-            v37 = *v38;
-            if (!*v38)
+            v31 += v33;
+            v30 = *v31;
+            if (!*v31)
             {
               break;
             }
@@ -260,10 +258,10 @@ LABEL_71:
       }
 
       free(name);
-      v13 = v48;
+      v8 = v41;
     }
 
-    xsltGenericDebug(xsltGenericDebugContext, "updated attribute list %s\n", v13);
+    xsltGenericDebug(xsltGenericDebugContext, "updated attribute list %s\n", v8);
   }
 }
 
@@ -354,7 +352,7 @@ void xsltResolveStylesheetAttributeSet(xsltStylesheetPtr style)
   }
 }
 
-void xsltResolveSASCallback(void *a1, xsltStylesheetPtr *a2, const char *a3, const xmlChar *a4)
+void xsltResolveSASCallback(_DWORD *a1, xsltStylesheetPtr *a2, const char *a3, const xmlChar *a4)
 {
   v7 = *a2;
   v8 = a2[1];
@@ -786,7 +784,7 @@ void *xsltNewUseAttrSet(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void xsltResolveAttrSet(void *a1, xsltStylesheetPtr style, xsltStylesheet *a3, const char *a4, const xmlChar *a5, int a6)
+void xsltResolveAttrSet(_DWORD *a1, xsltStylesheetPtr style, xsltStylesheet *a3, const char *a4, const xmlChar *a5, int a6)
 {
   if (*a1 != 2)
   {
@@ -806,32 +804,32 @@ void xsltResolveAttrSet(void *a1, xsltStylesheetPtr style, xsltStylesheet *a3, c
       }
 
       *a1 = 1;
-      xsltResolveUseAttrSets(a1, style);
+      xsltResolveUseAttrSets(a1, style, a6);
       Import = xsltNextImport(a3);
       if (Import)
       {
-        v12 = Import;
+        v13 = Import;
         do
         {
-          attributeSets = v12->attributeSets;
+          attributeSets = v13->attributeSets;
           if (attributeSets)
           {
-            v14 = xmlHashLookup2(attributeSets, a4, a5);
-            if (v14)
+            v15 = xmlHashLookup2(attributeSets, a4, a5);
+            if (v15)
             {
-              v21 = v14;
-              xsltGenericDebug(xsltGenericDebugContext, "xsl:attribute-set : merging import for %s\n", v15, v16, v17, v18, v19, v20, a4);
-              xsltResolveUseAttrSets(v21, style);
-              xsltMergeAttrSets(a1, v21);
-              xmlHashRemoveEntry2(v12->attributeSets, a4, a5, 0);
-              xsltFreeAttrSet(v21);
+              v16 = v15;
+              xsltGenericDebug(xsltGenericDebugContext, "xsl:attribute-set : merging import for %s\n", a4);
+              xsltResolveUseAttrSets(v16, style, a6);
+              xsltMergeAttrSets(a1, v16);
+              xmlHashRemoveEntry2(v13->attributeSets, a4, a5, 0);
+              xsltFreeAttrSet(v16);
             }
           }
 
-          v12 = xsltNextImport(v12);
+          v13 = xsltNextImport(v13);
         }
 
-        while (v12);
+        while (v13);
       }
     }
 
@@ -839,10 +837,10 @@ void xsltResolveAttrSet(void *a1, xsltStylesheetPtr style, xsltStylesheet *a3, c
   }
 }
 
-void xsltResolveUseAttrSets(void *a1, xsltStylesheetPtr style)
+void xsltResolveUseAttrSets(void *a1, xsltStylesheetPtr style, int a3)
 {
-  v3 = a1[2];
-  if (v3)
+  v4 = a1[2];
+  if (v4)
   {
     do
     {
@@ -854,8 +852,8 @@ void xsltResolveUseAttrSets(void *a1, xsltStylesheetPtr style)
           attributeSets = Import->attributeSets;
           if (attributeSets)
           {
-            v7 = xmlHashLookup2(attributeSets, v3[1], v3[2]);
-            if (v7)
+            v9 = xmlHashLookup2(attributeSets, v4[1], v4[2]);
+            if (v9)
             {
               break;
             }
@@ -868,17 +866,15 @@ void xsltResolveUseAttrSets(void *a1, xsltStylesheetPtr style)
           }
         }
 
-        v8 = v7;
-        v9 = v3[1];
-        v10 = v3[2];
-        xsltResolveAttrSet(v7, style);
-        xsltMergeAttrSets(a1, v8);
+        v10 = v9;
+        xsltResolveAttrSet(v9, style, Import, v4[1], v4[2], a3 + 1);
+        xsltMergeAttrSets(a1, v10);
       }
 
 LABEL_9:
-      v11 = *v3;
-      free(v3);
-      v3 = v11;
+      v11 = *v4;
+      free(v4);
+      v4 = v11;
     }
 
     while (v11);
@@ -1899,13 +1895,13 @@ int xsltRegisterExtPrefix(xsltStylesheetPtr style, const xmlChar *prefix, const 
 
 uint64_t xsltExtModuleRegisterDynamic(const xmlChar *a1)
 {
-  v52 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (!xsltModuleHash)
   {
     xsltModuleHash = xmlHashCreate(5);
     if (!xsltModuleHash)
     {
-      goto LABEL_30;
+      return 0xFFFFFFFFLL;
     }
   }
 
@@ -1914,7 +1910,7 @@ uint64_t xsltExtModuleRegisterDynamic(const xmlChar *a1)
   xmlMutexUnlock(xsltExtMutex);
   if (v2)
   {
-    goto LABEL_30;
+    return 0xFFFFFFFFLL;
   }
 
   v3 = xmlStrstr(a1, "://");
@@ -1922,7 +1918,7 @@ uint64_t xsltExtModuleRegisterDynamic(const xmlChar *a1)
   v5 = xmlStrdup(v4);
   if (!v5)
   {
-    goto LABEL_30;
+    return 0xFFFFFFFFLL;
   }
 
   bzero(buf, 0x400uLL);
@@ -1955,69 +1951,63 @@ uint64_t xsltExtModuleRegisterDynamic(const xmlChar *a1)
   v10 = getenv("LIBXSLT_PLUGINS_PATH");
   if (v10)
   {
-    v17 = v10;
-    xsltGenericDebug(xsltGenericDebugContext, "LIBXSLT_PLUGINS_PATH is %s\n", v11, v12, v13, v14, v15, v16, v10);
+    v11 = v10;
+    xsltGenericDebug(xsltGenericDebugContext, "LIBXSLT_PLUGINS_PATH is %s\n", v10);
   }
 
   else
   {
-    v17 = "/usr/lib/libxslt-plugins";
+    v11 = "/usr/lib/libxslt-plugins";
   }
 
-  xmlStrPrintf(buf, 1024, "%s/%s%s", v17, v5, ".so");
-  xsltGenericDebug(xsltGenericDebugContext, "Attempting to load plugin: %s for URI: %s\n", v18, v19, v20, v21, v22, v23, buf);
+  xmlStrPrintf(buf, 1024, "%s/%s%s", v11, v5, ".so");
+  xsltGenericDebug(xsltGenericDebugContext, "Attempting to load plugin: %s for URI: %s\n", buf, a1);
   if (xmlCheckFilename(buf) != 1)
   {
-    xsltGenericDebug(xsltGenericDebugContext, "xmlCheckFilename failed for plugin: %s\n", v24, v25, v26, v27, v28, v29, buf);
+    xsltGenericDebug(xsltGenericDebugContext, "xmlCheckFilename failed for plugin: %s\n");
 LABEL_29:
     free(v5);
-LABEL_30:
-    v48 = 0xFFFFFFFFLL;
-    goto LABEL_31;
+    return 0xFFFFFFFFLL;
   }
 
-  v30 = xmlModuleOpen(buf, 0);
-  if (!v30)
+  v12 = xmlModuleOpen(buf, 0);
+  if (!v12)
   {
-    xsltGenericDebug(xsltGenericDebugContext, "xmlModuleOpen failed for plugin: %s\n", v31, v32, v33, v34, v35, v36, buf);
+    xsltGenericDebug(xsltGenericDebugContext, "xmlModuleOpen failed for plugin: %s\n");
     goto LABEL_29;
   }
 
-  v37 = v30;
-  v38 = xmlStrdup(v5);
-  v39 = xmlStrcat(v38, "_init");
+  v13 = v12;
+  v14 = xmlStrdup(v5);
+  v15 = xmlStrcat(v14, "_init");
   result = 0;
-  v40 = xmlModuleSymbol(v37, v39, &result);
-  v47 = result;
-  if (v40)
+  v16 = xmlModuleSymbol(v13, v15, &result);
+  v17 = result;
+  if (v16)
   {
-    xsltGenericDebug(xsltGenericDebugContext, "xmlModuleSymbol failed for plugin: %s, regfunc: %s\n", v41, v42, v43, v44, v45, v46, buf);
-    xmlModuleClose(v37);
+    xsltGenericDebug(xsltGenericDebugContext, "xmlModuleSymbol failed for plugin: %s, regfunc: %s\n", buf, v15);
+    xmlModuleClose(v13);
   }
 
   else
   {
     (result)();
     xmlMutexLock(xsltExtMutex);
-    xmlHashAddEntry(xsltModuleHash, a1, v37);
+    xmlHashAddEntry(xsltModuleHash, a1, v13);
     xmlMutexUnlock(xsltExtMutex);
   }
 
   free(v5);
-  free(v39);
-  if (v47)
+  free(v15);
+  if (v17)
   {
-    v48 = 0;
+    return 0;
   }
 
   else
   {
-    v48 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-LABEL_31:
-  v49 = *MEMORY[0x29EDCA608];
-  return v48;
 }
 
 void *__cdecl xsltStyleGetExtData(xsltStylesheetPtr style, const xmlChar *URI)
@@ -2292,70 +2282,70 @@ int xsltInitCtxtExts(xsltTransformContextPtr ctxt)
   return -1;
 }
 
-void xsltInitCtxtExt(void **a1, _DWORD *a2, xmlChar *name, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void xsltInitCtxtExt(void **a1, _DWORD *a2, xmlChar *name)
 {
   if (!a1 || !a2 || !name || a2[2] == -1)
   {
-    v12 = xsltGenericDebug;
-    v13 = xsltGenericDebugContext;
-    v14 = "xsltInitCtxtExt: NULL param or error\n";
+    v6 = xsltGenericDebug;
+    v7 = xsltGenericDebugContext;
+    v8 = "xsltInitCtxtExt: NULL param or error\n";
     goto LABEL_11;
   }
 
-  v11 = *a1;
-  if (!*a1 || !*v11)
+  v5 = *a1;
+  if (!*a1 || !*v5)
   {
-    v12 = xsltGenericDebug;
-    v13 = xsltGenericDebugContext;
-    v14 = "xsltInitCtxtExt: no module or no initFunc\n";
+    v6 = xsltGenericDebug;
+    v7 = xsltGenericDebugContext;
+    v8 = "xsltInitCtxtExt: no module or no initFunc\n";
     goto LABEL_11;
   }
 
   if (!xmlHashLookup(*(*a2 + 88), name))
   {
-    v15 = (*v11)(*a2, name);
-    if (!v15)
+    v9 = (*v5)(*a2, name);
+    if (!v9)
     {
       xsltGenericDebug(xsltGenericDebugContext, "xsltInitCtxtExt: no extData\n");
     }
 
-    v16 = xsltNewExtData(v11, v15);
-    if (v16)
+    v10 = xsltNewExtData(v5, v9);
+    if (v10)
     {
-      v17 = v16;
-      v18 = *(*a2 + 88);
-      if (v18 || (v18 = xmlHashCreate(10), (*(*a2 + 88) = v18) != 0))
+      v11 = v10;
+      v12 = *(*a2 + 88);
+      if (v12 || (v12 = xmlHashCreate(10), (*(*a2 + 88) = v12) != 0))
       {
-        if ((xmlHashAddEntry(v18, name, v17) & 0x80000000) == 0)
+        if ((xmlHashAddEntry(v12, name, v11) & 0x80000000) == 0)
         {
           xsltGenericDebug(xsltGenericDebugContext, "Registered module %s\n", name);
-          v19 = a2[2] + 1;
+          v13 = a2[2] + 1;
 LABEL_25:
-          a2[2] = v19;
+          a2[2] = v13;
           return;
         }
 
         xsltGenericError(xsltGenericErrorContext, "Failed to register module data: %s\n", name);
-        v20 = v11[1];
-        if (v20)
+        v14 = v5[1];
+        if (v14)
         {
-          v20(*a2, name, v15);
+          v14(*a2, name, v9);
         }
 
-        free(v17);
+        free(v11);
       }
     }
 
-    v19 = -1;
+    v13 = -1;
     goto LABEL_25;
   }
 
-  v12 = xsltGenericDebug;
-  v13 = xsltGenericDebugContext;
-  v14 = "xsltInitCtxtExt: already initialized\n";
+  v6 = xsltGenericDebug;
+  v7 = xsltGenericDebugContext;
+  v8 = "xsltInitCtxtExt: already initialized\n";
 LABEL_11:
 
-  v12(v13, v14, v12, a4, a5, a6, a7, a8, a9);
+  v6(v7, v8);
 }
 
 void xsltShutdownCtxtExts(xsltTransformContextPtr ctxt)
@@ -2975,7 +2965,7 @@ void xsltRegisterTestModule(void)
   xsltRegisterExtModuleElement("test", "http://xmlsoft.org/XSLT/", xsltExtElementPreCompTest, xsltExtElementTest);
 }
 
-uint64_t xsltExtInitTest(xsltTransformContextPtr ctxt, const char *a2)
+uint64_t xsltExtInitTest(xsltTransformContextPtr ctxt, const xmlChar *a2)
 {
   if (testStyleData || (xsltGenericDebug(xsltGenericErrorContext, "xsltExtInitTest: not initialized, calling xsltStyleGetExtData\n"), (testStyleData = xsltStyleGetExtData(ctxt->style, a2)) != 0))
   {
@@ -3033,7 +3023,7 @@ uint64_t xsltExtStyleInitTest(uint64_t a1, const char *a2)
   }
 }
 
-void xsltExtStyleShutdownTest(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void xsltExtStyleShutdownTest(uint64_t a1, const char *a2, uint64_t a3)
 {
   if (testStyleData)
   {
@@ -3048,10 +3038,10 @@ void xsltExtStyleShutdownTest(uint64_t a1, const char *a2, uint64_t a3, uint64_t
 
   else
   {
-    v10 = xsltGenericError;
-    v11 = xsltGenericErrorContext;
+    v4 = xsltGenericError;
+    v5 = xsltGenericErrorContext;
 
-    v10(v11, "xsltExtShutdownTest: not initialized\n", v10, a4, a5, a6, a7, a8, a9);
+    v4(v5, "xsltExtShutdownTest: not initialized\n");
   }
 }
 
@@ -3272,58 +3262,57 @@ void xsltCleanupGlobals(void)
 
 void xsltDebugDumpExtensions(FILE *output)
 {
-  v1 = *MEMORY[0x29EDCA620];
   if (output)
   {
-    v2 = output;
+    v1 = output;
   }
 
   else
   {
-    v2 = *MEMORY[0x29EDCA620];
+    v1 = *MEMORY[0x29EDCA620];
   }
 
-  fwrite("Registered XSLT Extensions\n--------------------------\n", 0x36uLL, 1uLL, v2);
+  fwrite("Registered XSLT Extensions\n--------------------------\n", 0x36uLL, 1uLL, v1);
   if (xsltFunctionsHash)
   {
-    fwrite("Registered Extension Functions:\n", 0x20uLL, 1uLL, v2);
+    fwrite("Registered Extension Functions:\n", 0x20uLL, 1uLL, v1);
     xmlMutexLock(xsltExtMutex);
-    xmlHashScanFull(xsltFunctionsHash, xsltDebugDumpExtensionsCallback, v2);
+    xmlHashScanFull(xsltFunctionsHash, xsltDebugDumpExtensionsCallback, v1);
     xmlMutexUnlock(xsltExtMutex);
   }
 
   else
   {
-    fwrite("No registered extension functions\n", 0x22uLL, 1uLL, v2);
+    fwrite("No registered extension functions\n", 0x22uLL, 1uLL, v1);
   }
 
   if (xsltElementsHash)
   {
-    fwrite("\nRegistered Extension Elements:\n", 0x20uLL, 1uLL, v2);
+    fwrite("\nRegistered Extension Elements:\n", 0x20uLL, 1uLL, v1);
     xmlMutexLock(xsltExtMutex);
-    xmlHashScanFull(xsltElementsHash, xsltDebugDumpExtensionsCallback, v2);
+    xmlHashScanFull(xsltElementsHash, xsltDebugDumpExtensionsCallback, v1);
     xmlMutexUnlock(xsltExtMutex);
   }
 
   else
   {
-    fwrite("\nNo registered extension elements\n", 0x22uLL, 1uLL, v2);
+    fwrite("\nNo registered extension elements\n", 0x22uLL, 1uLL, v1);
   }
 
   if (xsltExtensionsHash)
   {
-    fwrite("\nRegistered Extension Modules:\n", 0x1FuLL, 1uLL, v2);
+    fwrite("\nRegistered Extension Modules:\n", 0x1FuLL, 1uLL, v1);
     xmlMutexLock(xsltExtMutex);
-    xmlHashScanFull(xsltExtensionsHash, xsltDebugDumpExtModulesCallback, v2);
-    v3 = xsltExtMutex;
+    xmlHashScanFull(xsltExtensionsHash, xsltDebugDumpExtModulesCallback, v1);
+    v2 = xsltExtMutex;
 
-    xmlMutexUnlock(v3);
+    xmlMutexUnlock(v2);
   }
 
   else
   {
 
-    fwrite("\nNo registered extension modules\n", 0x21uLL, 1uLL, v2);
+    fwrite("\nNo registered extension modules\n", 0x21uLL, 1uLL, v1);
   }
 }
 
@@ -3356,79 +3345,79 @@ void xsltDebug(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, x
   templNr = ctxt->templNr;
   if (templNr >= 1)
   {
-    v12 = 0;
-    v13 = templNr - 1;
+    v6 = 0;
+    v7 = templNr - 1;
     if ((templNr - 1) >= 0xE)
     {
-      v13 = 14;
+      v7 = 14;
     }
 
-    v14 = 8 * templNr - 8;
-    v15 = v13 + 1;
+    v8 = 8 * templNr - 8;
+    v9 = v7 + 1;
     do
     {
-      xsltGenericError(xsltGenericErrorContext, "#%d ", v5, v6, v7, v8, v9, v10, v12);
-      v22 = *(ctxt->templTab + v14);
-      v23 = v22[4];
-      if (v23)
+      xsltGenericError(xsltGenericErrorContext, "#%d ", v6);
+      v10 = *(ctxt->templTab + v8);
+      v11 = v10[4];
+      if (v11)
       {
-        xsltGenericError(xsltGenericErrorContext, "name %s ", v16, v17, v18, v19, v20, v21, v23);
-        v22 = *(ctxt->templTab + v14);
+        xsltGenericError(xsltGenericErrorContext, "name %s ", v11);
+        v10 = *(ctxt->templTab + v8);
       }
 
-      v24 = v22[2];
-      if (v24)
+      v12 = v10[2];
+      if (v12)
       {
-        xsltGenericError(xsltGenericErrorContext, "name %s ", v16, v17, v18, v19, v20, v21, v24);
-        v22 = *(ctxt->templTab + v14);
+        xsltGenericError(xsltGenericErrorContext, "name %s ", v12);
+        v10 = *(ctxt->templTab + v8);
       }
 
-      v25 = v22[6];
-      if (v25)
+      v13 = v10[6];
+      if (v13)
       {
-        xsltGenericError(xsltGenericErrorContext, "name %s ", v16, v17, v18, v19, v20, v21, v25);
+        xsltGenericError(xsltGenericErrorContext, "name %s ", v13);
       }
 
       xsltGenericError(xsltGenericErrorContext, "\n");
-      ++v12;
-      v14 -= 8;
+      ++v6;
+      v8 -= 8;
     }
 
-    while (v15 != v12);
+    while (v9 != v6);
   }
 
   xsltGenericError(xsltGenericErrorContext, "Variables:\n");
-  v44 = ctxt;
+  v25 = ctxt;
   varsNr = ctxt->varsNr;
   if (varsNr >= 1)
   {
-    v33 = 0;
-    v34 = varsNr - 1;
+    v15 = 0;
+    v16 = varsNr - 1;
     if ((varsNr - 1) >= 0xE)
     {
-      v34 = 14;
+      v16 = 14;
     }
 
-    v43 = v34;
-    v35 = MEMORY[0x29EDCA620];
-    v36 = MEMORY[0x29EDCA610];
+    v24 = v16;
+    v17 = MEMORY[0x29EDCA620];
+    v18 = MEMORY[0x29EDCA610];
     do
     {
-      if (v44->varsTab[--varsNr])
+      if (v25->varsTab[--varsNr])
       {
-        xsltGenericError(xsltGenericErrorContext, "#%d\n", v26, v27, v28, v29, v30, v31, v33);
-        for (i = &v44->varsTab[varsNr]->next; i; i = *i)
+        xsltGenericError(xsltGenericErrorContext, "#%d\n", v15);
+        for (i = &v25->varsTab[varsNr]->next; i; i = *i)
         {
-          v38 = i[1];
-          if (v38)
+          v20 = i[1];
+          if (v20)
           {
-            v39 = *(v38 + 8);
-            if (v39 == 19)
+            v21 = *(v20 + 8);
+            if (v21 == 19)
             {
               xsltGenericError(xsltGenericErrorContext, "param ");
             }
 
-            else if (v39 == 20)
+            else if (v21 == 20)
             {
               xsltGenericError(xsltGenericErrorContext, "var ");
             }
@@ -3441,21 +3430,21 @@ void xsltDebug(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, x
 
           if (i[3])
           {
-            xsltGenericError(xsltGenericErrorContext, "%s ", v26, v27, v28, v29, v30, v31, i[3]);
+            xsltGenericError(xsltGenericErrorContext, "%s ");
           }
 
           else
           {
-            xsltGenericError(xsltGenericErrorContext, "noname !!!!", v26, v27, v28, v29, v30, v31, v42);
+            xsltGenericError(xsltGenericErrorContext, "noname !!!!");
           }
 
-          v40 = i[7];
-          if (v40)
+          v22 = i[7];
+          if (v22)
           {
-            v41 = xsltGenericDebugContext == *v35 || xsltGenericDebugContext == *v36;
-            if (v41)
+            v23 = xsltGenericDebugContext == *v17 || xsltGenericDebugContext == *v18;
+            if (v23)
             {
-              xmlXPathDebugDumpObject(xsltGenericDebugContext, v40, 1);
+              xmlXPathDebugDumpObject(xsltGenericDebugContext, v22, 1);
             }
           }
 
@@ -3468,10 +3457,10 @@ void xsltDebug(xsltTransformContextPtr ctxt, xmlNodePtr node, xmlNodePtr inst, x
         }
       }
 
-      v41 = v33++ == v43;
+      v23 = v15++ == v24;
     }
 
-    while (!v41);
+    while (!v23);
   }
 }
 
@@ -3533,7 +3522,7 @@ xmlXPathFunction xsltXPathFunctionLookup(void *vctxt, const xmlChar *name, const
     {
       v3 = v7;
 LABEL_7:
-      xsltGenericDebug(xsltGenericDebugContext, "found function %s\n", v8, v9, v10, v11, v12, v13, name);
+      xsltGenericDebug(xsltGenericDebugContext, "found function %s\n", name);
       return v3;
     }
 
@@ -3785,18 +3774,18 @@ LABEL_64:
     goto LABEL_68;
   }
 
-  if (*v27 == 35 || (v46 = v30->style->doc) != 0 && xmlStrEqual(v46->URL, v27))
+  if (*v27 == 35 || (v48 = v30->style->doc) != 0 && xmlStrEqual(v48->URL, v27))
   {
-    v47 = xmlCopyDoc(v30->style->doc, 1);
-    if (v47)
+    v49 = xmlCopyDoc(v30->style->doc, 1);
+    if (v49)
     {
-      v41 = v47;
-      xsltCleanupSourceDoc(v47);
+      v41 = v49;
+      xsltCleanupSourceDoc(v49);
       if (!xsltNewDocument(v30, v41))
       {
         xsltTransformError(v30, 0, 0, "document() : failed to create xsltDocument\n");
-        v48 = xmlXPathNewNodeSet(0);
-        valuePush(ctxt, v48);
+        v50 = xmlXPathNewNodeSet(0);
+        valuePush(ctxt, v50);
         if (fragment)
         {
           free(fragment);
@@ -3813,32 +3802,32 @@ LABEL_68:
         v42 = xmlXPtrNewContext(v41, 0, 0);
         if (v42)
         {
-          v43 = v42;
-          if (linkedOnOrAfterFall2022OSVersions())
+          v44 = v42;
+          if (linkedOnOrAfterFall2022OSVersions(v42, v43))
           {
             context = ctxt->context;
-            *&v43->opLimit = *&context->opLimit;
-            v43->depth = context->depth;
+            *&v44->opLimit = *&context->opLimit;
+            v44->depth = context->depth;
           }
 
-          v45 = xmlXPtrEval(fragment, v43);
-          if (linkedOnOrAfterFall2022OSVersions())
+          v46 = xmlXPtrEval(fragment, v44);
+          if (linkedOnOrAfterFall2022OSVersions(v46, v47))
           {
-            ctxt->context->opCount = v43->opCount;
+            ctxt->context->opCount = v44->opCount;
           }
 
-          xmlXPathFreeContext(v43);
-          if (v45)
+          xmlXPathFreeContext(v44);
+          if (v46)
           {
-            if (v45->type - 2 >= 8 && v45->type)
+            if (v46->type - 2 >= 8 && v46->type)
             {
-              v50 = ctxt;
-              v49 = v45;
+              v52 = ctxt;
+              v51 = v46;
               goto LABEL_87;
             }
 
             xsltTransformError(v30, 0, 0, "document() : XPointer does not select a node set: #%s\n", fragment);
-            xmlXPathFreeObject(v45);
+            xmlXPathFreeObject(v46);
           }
         }
 
@@ -3847,10 +3836,10 @@ LABEL_68:
           xsltTransformError(v30, 0, 0, "document() : internal error xptrctxt == NULL\n");
         }
 
-        v49 = xmlXPathNewNodeSet(0);
-        v50 = ctxt;
+        v51 = xmlXPathNewNodeSet(0);
+        v52 = ctxt;
 LABEL_87:
-        valuePush(v50, v49);
+        valuePush(v52, v51);
 LABEL_90:
         free(fragment);
         goto LABEL_91;
@@ -3862,8 +3851,8 @@ LABEL_90:
     xsltTransformError(v30, 0, 0, "document() : failed to copy style doc\n");
   }
 
-  v51 = xmlXPathNewNodeSet(0);
-  valuePush(ctxt, v51);
+  v53 = xmlXPathNewNodeSet(0);
+  valuePush(ctxt, v53);
   if (fragment)
   {
     goto LABEL_90;
@@ -4216,7 +4205,7 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
 {
   v33 = *MEMORY[0x29EDCA608];
   TransformContext = xsltXPathGetTransformContext(ctxt);
-  v5 = TransformContext;
+  v6 = TransformContext;
   if (nargs == 1)
   {
     value = ctxt->value;
@@ -4224,33 +4213,35 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
     {
       ctxt->error = 11;
       xsltTransformError(TransformContext, 0, 0, "generate-id() : invalid arg expecting a node-set\n");
-      v6 = 0;
+      v7 = 0;
       goto LABEL_55;
     }
 
-    v6 = valuePop(ctxt);
-    p_nodeNr = &v6->nodesetval->nodeNr;
-    if (!p_nodeNr || *p_nodeNr <= 0)
+    TransformContext = valuePop(ctxt);
+    v7 = TransformContext;
+    v13 = *(TransformContext + 8);
+    if (!v13 || *v13 <= 0)
     {
-      v17 = xmlXPathNewCString(&unk_2999B6B5E);
+      v18 = xmlXPathNewCString(&unk_2999B6B5E);
       goto LABEL_54;
     }
 
-    node = **(p_nodeNr + 1);
-    if (*p_nodeNr != 1)
+    node = **(v13 + 1);
+    if (*v13 != 1)
     {
-      v13 = 1;
+      v14 = 1;
       do
       {
-        if (xmlXPathCmpNodes(node, *(*(p_nodeNr + 1) + 8 * v13)) == -1)
+        TransformContext = xmlXPathCmpNodes(node, *(*(v13 + 1) + 8 * v14));
+        if (TransformContext == -1)
         {
-          node = *(*(p_nodeNr + 1) + 8 * v13);
+          node = *(*(v13 + 1) + 8 * v14);
         }
 
-        ++v13;
+        ++v14;
       }
 
-      while (v13 < *p_nodeNr);
+      while (v14 < *v13);
     }
   }
 
@@ -4259,16 +4250,16 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
     if (nargs)
     {
       xsltTransformError(TransformContext, 0, 0, "generate-id() : invalid number of args %d\n", nargs);
-      v6 = 0;
-      v14 = 12;
+      v7 = 0;
+      v15 = 12;
       goto LABEL_21;
     }
 
-    v6 = 0;
+    v7 = 0;
     node = ctxt->context->node;
   }
 
-  if (!linkedOnOrAfterFall2023OSVersions())
+  if (!linkedOnOrAfterFall2023OSVersions(TransformContext, v5))
   {
     *__str = 0;
     v31 = 0;
@@ -4284,7 +4275,7 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
       snprintf(__str, 0x1EuLL, "idp%ld");
     }
 
-    v17 = xmlXPathNewString(__str);
+    v18 = xmlXPathNewString(__str);
     goto LABEL_54;
   }
 
@@ -4300,25 +4291,25 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
       children = &unk_2999B6B5E;
     }
 
-    v9 = xmlStrlen(children);
-    v10 = 2 * v9 + 32;
+    v10 = xmlStrlen(children);
+    v11 = 2 * v10 + 32;
     node = node->_private;
   }
 
   else
   {
     children = 0;
-    v9 = 0;
-    v10 = 30;
+    v10 = 0;
+    v11 = 30;
   }
 
   PSVIPtr = xsltGetPSVIPtr(node);
   if (PSVIPtr)
   {
-    v16 = PSVIPtr;
+    v17 = PSVIPtr;
     if ((xsltGetSourceNodeFlags(node) & 2) != 0)
     {
-      v18 = *v16;
+      v19 = *v17;
     }
 
     else
@@ -4328,94 +4319,93 @@ void xsltGenerateIdFunction(xmlXPathParserContextPtr ctxt, int nargs)
         node->line = 0;
       }
 
-      else if (*v16)
+      else if (*v17)
       {
-        xsltTransformError(v5, 0, 0, "generate-id(): psvi already set\n");
+        xsltTransformError(v6, 0, 0, "generate-id(): psvi already set\n");
 LABEL_57:
-        v14 = 15;
+        v15 = 15;
         goto LABEL_21;
       }
 
-      currentId = v5->currentId;
+      currentId = v6->currentId;
       if (currentId == -1)
       {
-        xsltTransformError(v5, 0, 0, "generate-id(): id overflow\n");
+        xsltTransformError(v6, 0, 0, "generate-id(): id overflow\n");
         goto LABEL_57;
       }
 
-      v18 = currentId + 1;
-      v5->currentId = currentId + 1;
-      *v16 = currentId + 1;
-      xsltSetSourceNodeFlags(v5, node, 2);
+      v19 = currentId + 1;
+      v6->currentId = currentId + 1;
+      *v17 = currentId + 1;
+      xsltSetSourceNodeFlags(v6, node, 2);
     }
 
-    v20 = malloc_type_malloc(v10, 0x950442D3uLL);
-    if (!v20)
+    v21 = malloc_type_malloc(v11, 0x950442D3uLL);
+    if (!v21)
     {
-      xsltTransformError(v5, 0, 0, "generate-id(): out of memory\n");
+      xsltTransformError(v6, 0, 0, "generate-id(): out of memory\n");
       goto LABEL_57;
     }
 
-    v21 = v20;
+    v22 = v21;
     if (children)
     {
-      snprintf(v20, v10, "id%luns", v18);
-      v22 = strlen(v21);
-      if (v9)
+      snprintf(v21, v11, "id%luns", v19);
+      v23 = strlen(v22);
+      if (v10)
       {
-        v23 = &v21[v22 + 1];
-        v22 += 2 * v9;
+        v24 = &v22[v23 + 1];
+        v23 += 2 * v10;
         do
         {
           if (*children >= 0xA0u)
           {
-            v24 = (*children >> 4) + 55;
+            v25 = (*children >> 4) + 55;
           }
 
           else
           {
-            v24 = (*children >> 4) | 0x30;
+            v25 = (*children >> 4) | 0x30;
           }
 
-          *(v23 - 1) = v24;
-          v25 = *children++;
-          v26 = v25 & 0xF;
-          v27 = v25 & 0xF | 0x30;
-          v28 = v26 + 55;
-          if (v26 < 0xA)
+          *(v24 - 1) = v25;
+          v26 = *children++;
+          v27 = v26 & 0xF;
+          v28 = v26 & 0xF | 0x30;
+          v29 = v27 + 55;
+          if (v27 < 0xA)
           {
-            v28 = v27;
+            v29 = v28;
           }
 
-          *v23 = v28;
-          v23 += 2;
-          --v9;
+          *v24 = v29;
+          v24 += 2;
+          --v10;
         }
 
-        while (v9);
+        while (v10);
       }
 
-      v21[v22] = 0;
+      v22[v23] = 0;
     }
 
     else
     {
-      snprintf(v20, v10, "id%lu", v18);
+      snprintf(v21, v11, "id%lu", v19);
     }
 
-    v17 = xmlXPathWrapString(v21);
+    v18 = xmlXPathWrapString(v22);
 LABEL_54:
-    valuePush(ctxt, v17);
+    valuePush(ctxt, v18);
     goto LABEL_55;
   }
 
-  xsltTransformError(v5, 0, 0, "generate-id(): invalid node type %d\n", node->type);
-  v14 = 11;
+  xsltTransformError(v6, 0, 0, "generate-id(): invalid node type %d\n", node->type);
+  v15 = 11;
 LABEL_21:
-  ctxt->error = v14;
+  ctxt->error = v15;
 LABEL_55:
-  xmlXPathFreeObject(v6);
-  v29 = *MEMORY[0x29EDCA608];
+  xmlXPathFreeObject(v7);
 }
 
 uint64_t _initBaseValue()
@@ -5715,8 +5705,8 @@ int xsltInitCtxtKey(xsltTransformContextPtr ctxt, xsltDocumentPtr doc, xsltKeyDe
   xpathCtxt = ctxt->xpathCtxt;
   ++doc->nbKeysComputed;
   inst = ctxt->inst;
-  v51 = *&xpathCtxt->doc;
-  v52 = *&ctxt->document;
+  v53 = *&xpathCtxt->doc;
+  v54 = *&ctxt->document;
   v12 = *&xpathCtxt->contextSize;
   nsNr = xpathCtxt->nsNr;
   namespaces = xpathCtxt->namespaces;
@@ -5730,18 +5720,18 @@ int xsltInitCtxtKey(xsltTransformContextPtr ctxt, xsltDocumentPtr doc, xsltKeyDe
   xpathCtxt->nsNr = keyd->nsNr;
   v16 = xmlXPathCompiledEval(comp, xpathCtxt);
   v17 = v16;
-  v50 = namespaces;
+  v52 = namespaces;
   if (!v16)
   {
-    v43 = ctxt->traceCode;
-    if (!v43)
+    v45 = ctxt->traceCode;
+    if (!v45)
     {
       xsltTransformError(ctxt, 0, keyd->inst, "Failed to evaluate the 'match' expression.\n");
       goto LABEL_83;
     }
 
-    v44 = "Failed to evaluate the 'match' expression.\n";
-    if ((*(v43 + 1) & 0x80) != 0)
+    v46 = "Failed to evaluate the 'match' expression.\n";
+    if ((*(v45 + 1) & 0x80) != 0)
     {
       xsltGenericDebug(xsltGenericDebugContext, "xsltInitCtxtKey: %s evaluation failed\n");
     }
@@ -5751,11 +5741,11 @@ int xsltInitCtxtKey(xsltTransformContextPtr ctxt, xsltDocumentPtr doc, xsltKeyDe
 
   if (v16->type != XPATH_NODESET)
   {
-    v45 = ctxt->traceCode;
-    if (v45)
+    v47 = ctxt->traceCode;
+    if (v47)
     {
-      v44 = "The 'match' expression did not evaluate to a node set.\n";
-      if ((*(v45 + 1) & 0x80) != 0)
+      v46 = "The 'match' expression did not evaluate to a node set.\n";
+      if ((*(v47 + 1) & 0x80) != 0)
       {
         xsltGenericDebug(xsltGenericDebugContext, "xsltInitCtxtKey: %s is not a node set\n");
       }
@@ -5763,11 +5753,11 @@ int xsltInitCtxtKey(xsltTransformContextPtr ctxt, xsltDocumentPtr doc, xsltKeyDe
 
     else
     {
-      v44 = "The 'match' expression did not evaluate to a node set.\n";
+      v46 = "The 'match' expression did not evaluate to a node set.\n";
     }
 
 LABEL_82:
-    xsltTransformError(ctxt, 0, keyd->inst, v44);
+    xsltTransformError(ctxt, 0, keyd->inst, v46);
     goto LABEL_83;
   }
 
@@ -5778,11 +5768,11 @@ LABEL_82:
   }
 
   v19 = ctxt->traceCode;
-  v49 = &v16->nodesetval->nodeNr;
+  v51 = &v16->nodesetval->nodeNr;
   if (v19 && (*(v19 + 1) & 0x80) != 0)
   {
-    xsltGenericDebug(xsltGenericDebugContext, "xsltInitCtxtKey: %s evaluates to %d nodes\n", keyd->match, *v49);
-    p_nodeNr = v49;
+    xsltGenericDebug(xsltGenericDebugContext, "xsltInitCtxtKey: %s evaluates to %d nodes\n", keyd->match, *v51);
+    p_nodeNr = v51;
   }
 
   if (*p_nodeNr < 1)
@@ -5822,8 +5812,8 @@ LABEL_82:
   doc->keys = v23;
 LABEL_26:
   *&xpathCtxt->contextSize = 0x100000001;
-  v24 = v49;
-  if (*v49 < 1)
+  v24 = v51;
+  if (*v51 < 1)
   {
 LABEL_79:
     v26 = 0;
@@ -5833,9 +5823,9 @@ LABEL_79:
 
   v25 = 0;
   v26 = 0;
-  v46 = inst;
-  v47 = v17;
-  v48 = nsNr;
+  v48 = inst;
+  v49 = v17;
+  v50 = nsNr;
   while (1)
   {
     v27 = *(*(v24 + 1) + 8 * v25);
@@ -5906,44 +5896,44 @@ LABEL_48:
       v40 = xmlHashLookup(*(i + 3), stringval);
       if (v40)
       {
-        xmlXPathNodeSetAdd(v40, v27);
+        v41 = xmlXPathNodeSetAdd(v40, v27);
       }
 
       else
       {
-        v41 = xmlXPathNodeSetCreate(v27);
-        if (!v41)
+        v43 = xmlXPathNodeSetCreate(v27);
+        if (!v43)
         {
-          inst = v46;
-          v17 = v47;
-          nsNr = v48;
+          inst = v48;
+          v17 = v49;
+          nsNr = v50;
           goto LABEL_84;
         }
 
-        xmlHashAddEntry(*(i + 3), stringval, v41);
+        v41 = xmlHashAddEntry(*(i + 3), stringval, v43);
       }
 
-      if (linkedOnOrAfterFall2023OSVersions())
+      if (linkedOnOrAfterFall2023OSVersions(v41, v42))
       {
         xsltSetSourceNodeFlags(ctxt, v27, 1);
       }
 
       else
       {
-        v42 = *(v27 + 8);
-        if (v42 <= 0xD)
+        v44 = *(v27 + 8);
+        if (v44 <= 0xD)
         {
-          if (((1 << v42) & 0x19A) != 0)
+          if (((1 << v44) & 0x19A) != 0)
           {
             *(v27 + 104) = keyd;
           }
 
-          else if (((1 << v42) & 0x2200) != 0)
+          else if (((1 << v44) & 0x2200) != 0)
           {
             *(v27 + 160) = keyd;
           }
 
-          else if (v42 == 2)
+          else if (v44 == 2)
           {
             *(v27 + 88) = keyd;
           }
@@ -5963,9 +5953,9 @@ LABEL_65:
         }
       }
 
-      inst = v46;
+      inst = v48;
 LABEL_69:
-      v17 = v47;
+      v17 = v49;
       goto LABEL_70;
     }
 
@@ -5983,18 +5973,18 @@ LABEL_69:
     }
 
 LABEL_70:
-    v24 = v49;
+    v24 = v51;
 LABEL_71:
     stringval = 0;
     ++v25;
-    nsNr = v48;
+    nsNr = v50;
     if (v25 >= *v24)
     {
       goto LABEL_84;
     }
   }
 
-  nsNr = v48;
+  nsNr = v50;
   xsltTransformError(ctxt, 0, keyd->inst, "Failed to evaluate the 'use' expression.\n");
 LABEL_83:
   v26 = 0;
@@ -6002,11 +5992,11 @@ LABEL_83:
   ctxt->state = XSLT_STATE_STOPPED;
 LABEL_84:
   --ctxt->keyInitLevel;
-  *&xpathCtxt->doc = v51;
+  *&xpathCtxt->doc = v53;
   xpathCtxt->nsNr = nsNr;
-  xpathCtxt->namespaces = v50;
+  xpathCtxt->namespaces = v52;
   *&xpathCtxt->contextSize = v12;
-  *&ctxt->document = v52;
+  *&ctxt->document = v54;
   ctxt->inst = inst;
   if (stringval)
   {
@@ -6244,15 +6234,15 @@ LABEL_29:
 xmlNsPtr xsltGetSpecialNamespace(xsltTransformContextPtr ctxt, xmlNodePtr cur, const xmlChar *URI, const xmlChar *prefix, xmlNodePtr out)
 {
   ns = 0;
-  v35 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (!ctxt || !out)
   {
-    goto LABEL_60;
+    return ns;
   }
 
   if (out->type != XML_ELEMENT_NODE)
   {
-    goto LABEL_59;
+    return 0;
   }
 
   if (prefix)
@@ -6260,7 +6250,6 @@ xmlNsPtr xsltGetSpecialNamespace(xsltTransformContextPtr ctxt, xmlNodePtr cur, c
     if (*prefix == 120 && prefix[1] == 109 && prefix[2] == 108 && !prefix[3])
     {
       doc = out->doc;
-      v12 = *MEMORY[0x29EDCA608];
 
       return xmlSearchNs(doc, out, prefix);
     }
@@ -6283,7 +6272,6 @@ xmlNsPtr xsltGetSpecialNamespace(xsltTransformContextPtr ctxt, xmlNodePtr cur, c
       href = nsDef->href;
       if (href && *href)
       {
-        name = out->name;
         xsltTransformError(ctxt, 0, cur, "Namespace normalization error: Cannot undeclare the default namespace, since the default namespace '%s' is already declared on the result element '%s'.\n");
       }
     }
@@ -6298,13 +6286,13 @@ LABEL_48:
         {
           if (parent->ns)
           {
-            v27 = xmlSearchNs(out->doc, parent, 0);
-            if (v27)
+            v25 = xmlSearchNs(out->doc, parent, 0);
+            if (v25)
             {
-              v28 = v27->href;
-              if (v28)
+              v26 = v25->href;
+              if (v26)
               {
-                if (*v28)
+                if (*v26)
                 {
                   xmlNewNs(out, &unk_2999B6B5E, 0);
                 }
@@ -6315,7 +6303,7 @@ LABEL_48:
       }
     }
 
-    goto LABEL_59;
+    return 0;
   }
 
   ns = out->nsDef;
@@ -6323,8 +6311,8 @@ LABEL_48:
   {
     while (1)
     {
-      v14 = ns->prefix;
-      if ((prefix == 0) != (v14 != 0) && (v14 == prefix || xmlStrEqual(v14, prefix)))
+      v13 = ns->prefix;
+      if ((prefix == 0) != (v13 != 0) && (v13 == prefix || xmlStrEqual(v13, prefix)))
       {
         break;
       }
@@ -6338,36 +6326,36 @@ LABEL_48:
 
     if (xmlStrEqual(ns->href, URI))
     {
-      goto LABEL_60;
+      return ns;
     }
 
     goto LABEL_36;
   }
 
 LABEL_19:
-  v15 = out->parent;
-  if (v15 && v15->type == XML_ELEMENT_NODE)
+  v14 = out->parent;
+  if (v14 && v14->type == XML_ELEMENT_NODE)
   {
-    ns = v15->ns;
+    ns = v14->ns;
     if (ns)
     {
-      v16 = ns->prefix;
-      if ((prefix == 0) != (v16 != 0) && (!prefix || xmlStrEqual(v16, prefix)))
+      v15 = ns->prefix;
+      if ((prefix == 0) != (v15 != 0) && (!prefix || xmlStrEqual(v15, prefix)))
       {
         if (xmlStrEqual(ns->href, URI))
         {
-          goto LABEL_60;
+          return ns;
         }
       }
     }
 
-    v17 = xmlSearchNs(out->doc, out->parent, prefix);
-    if (v17)
+    v16 = xmlSearchNs(out->doc, out->parent, prefix);
+    if (v16)
     {
-      ns = v17;
-      if (xmlStrEqual(v17->href, URI))
+      ns = v16;
+      if (xmlStrEqual(v16->href, URI))
       {
-        goto LABEL_60;
+        return ns;
       }
 
       properties = out->properties;
@@ -6375,10 +6363,10 @@ LABEL_19:
       {
         while (1)
         {
-          v19 = properties->ns;
-          if (v19)
+          v18 = properties->ns;
+          if (v18)
           {
-            if (xmlStrEqual(v19->prefix, prefix))
+            if (xmlStrEqual(v18->prefix, prefix))
             {
               break;
             }
@@ -6392,57 +6380,47 @@ LABEL_19:
         }
 
 LABEL_36:
-        v21 = xmlSearchNsByHref(out->doc, out, URI);
-        if (!v21)
+        v19 = xmlSearchNsByHref(out->doc, out, URI);
+        if (!v19)
         {
           *__str = 0;
-          v33 = 0;
-          memset(v34, 0, sizeof(v34));
+          v29 = 0;
+          memset(v30, 0, sizeof(v30));
           if (prefix)
           {
-            v22 = prefix;
+            v20 = prefix;
           }
 
           else
           {
-            v22 = "ns";
+            v20 = "ns";
           }
 
-          v23 = 1;
-          while (1)
+          for (i = 1; ; ++i)
           {
-            snprintf(__str, 0x1EuLL, "%s_%d", v22, v23);
-            v24 = xmlSearchNs(out->doc, out, __str);
-            if (v23 == 1000)
+            snprintf(__str, 0x1EuLL, "%s_%d", v20, i);
+            v22 = xmlSearchNs(out->doc, out, __str);
+            if (i == 1000)
             {
               break;
             }
 
-            ++v23;
-            if (!v24)
+            if (!v22)
             {
-              v21 = xmlNewNs(out, URI, __str);
-              goto LABEL_44;
+              return xmlNewNs(out, URI, __str);
             }
           }
 
           xsltTransformError(ctxt, 0, cur, "Internal error in xsltAcquireResultInScopeNs(): Failed to compute a unique ns-prefix for the generated element");
-LABEL_59:
-          ns = 0;
-          goto LABEL_60;
+          return 0;
         }
 
-LABEL_44:
-        ns = v21;
-LABEL_60:
-        v30 = *MEMORY[0x29EDCA608];
-        return ns;
+        return v19;
       }
     }
   }
 
 LABEL_32:
-  v20 = *MEMORY[0x29EDCA608];
 
   return xmlNewNs(out, URI, prefix);
 }
@@ -6638,29 +6616,29 @@ void xsltNumberFormat(xsltTransformContextPtr ctxt, xsltNumberDataPtr data, xmlN
   v5 = v4;
   v7 = v6;
   v8 = v3;
-  v37[1024] = *MEMORY[0x29EDCA608];
-  bzero(&v32, 0x4018uLL);
+  v36[1024] = *MEMORY[0x29EDCA608];
+  bzero(&v31, 0x4018uLL);
   v9 = *(v7 + 32);
   if (v9)
   {
-    xsltNumberFormatTokenize(v9, &v32);
+    xsltNumberFormatTokenize(v9, &v31);
   }
 
   else
   {
     if (!*(v7 + 40))
     {
-      goto LABEL_37;
+      return;
     }
 
     v19 = xsltEvalAttrValueTemplate(v8, *(v7 + 64), "format", "http://www.w3.org/1999/XSL/Transform");
     if (!v19)
     {
-      goto LABEL_37;
+      return;
     }
 
     v20 = v19;
-    xsltNumberFormatTokenize(v19, &v32);
+    xsltNumberFormatTokenize(v19, &v31);
     free(v20);
   }
 
@@ -6690,7 +6668,7 @@ void xsltNumberFormat(xsltTransformContextPtr ctxt, xsltNumberDataPtr data, xmlN
           xmlXPathFreeObject(v18);
           xmlBufferFree(v15);
           xpathCtxt->node = v16;
-          xsltNumberFormatInsertNumbers(v7, &floatval, 1, &v32, v11);
+          xsltNumberFormatInsertNumbers(v7, &floatval, 1u, &v31, v11);
         }
 
         else
@@ -6725,15 +6703,15 @@ LABEL_27:
 
     if (xmlStrEqual(*v7, "multiple"))
     {
-      bzero(v37, 0x2000uLL);
-      MultipleLevel = xsltNumberFormatGetMultipleLevel(v8, v5, *(v7 + 72), *(v7 + 80), v37, 1024);
+      bzero(v36, 0x2000uLL);
+      MultipleLevel = xsltNumberFormatGetMultipleLevel(v8, v5, *(v7 + 72), *(v7 + 80), v36, 1024);
       if (MultipleLevel >= 1)
       {
         v22 = MultipleLevel;
-        p_floatval = v37;
+        p_floatval = v36;
         v24 = v7;
 LABEL_22:
-        xsltNumberFormatInsertNumbers(v24, p_floatval, v22, &v32, v11);
+        xsltNumberFormatInsertNumbers(v24, p_floatval, v22, &v31, v11);
       }
     }
 
@@ -6764,20 +6742,20 @@ LABEL_23:
   }
 
 LABEL_28:
-  if (v32)
+  if (v31)
   {
-    free(v32);
+    free(v31);
   }
 
-  if (v35)
+  if (v34)
   {
-    free(v35);
+    free(v34);
   }
 
-  v29 = v34;
-  if (v34 >= 1)
+  v29 = v33;
+  if (v33 >= 1)
   {
-    v30 = &v33;
+    v30 = &v32;
     do
     {
       if (*v30)
@@ -6791,9 +6769,6 @@ LABEL_28:
 
     while (v29);
   }
-
-LABEL_37:
-  v31 = *MEMORY[0x29EDCA608];
 }
 
 xmlChar *xsltNumberFormatTokenize(const xmlChar *a1, uint64_t a2)
@@ -7118,9 +7093,9 @@ LABEL_89:
   }
 }
 
-uint64_t xsltNumberFormatInsertNumbers(uint64_t result, uint64_t a2, int a3, uint64_t a4, xmlBufferPtr buf)
+uint64_t xsltNumberFormatInsertNumbers(uint64_t result, uint64_t a2, unsigned int a3, uint64_t a4, xmlBufferPtr buf)
 {
-  v33 = result;
+  *v33 = result;
   if (*a4)
   {
     result = xmlBufferCat(buf, *a4);
@@ -7201,7 +7176,7 @@ LABEL_21:
       {
         if (v22 == 4)
         {
-          v28 = v33;
+          v28 = *v33;
           v29 = buf;
           v30 = v13;
           v31 = 0;
@@ -7214,13 +7189,13 @@ LABEL_32:
           result = xsltIsDigitZero(*(v15 + 2));
           if (result)
           {
-            result = xsltNumberFormatDecimal(buf, v21, *(v15 + 3), v33[11], v33[12], v33[13], v13);
+            result = xsltNumberFormatDecimal(buf, v21, *(v15 + 3), *(*v33 + 44), *(*v33 + 48), *(*v33 + 52), v13);
           }
 
           goto LABEL_22;
         }
 
-        v24 = v33;
+        v24 = *v33;
         v25 = buf;
         v26 = v13;
         v27 = 0;
@@ -7230,7 +7205,7 @@ LABEL_32:
       {
         if (!v22)
         {
-          v28 = v33;
+          v28 = *v33;
           v29 = buf;
           v30 = v13;
           v31 = 1;
@@ -7244,7 +7219,7 @@ LABEL_36:
           goto LABEL_32;
         }
 
-        v24 = v33;
+        v24 = *v33;
         v25 = buf;
         v26 = v13;
         v27 = 1;
@@ -7277,7 +7252,7 @@ LABEL_37:
   return result;
 }
 
-uint64_t xsltNumberFormatGetMultipleLevel(xsltTransformContext *a1, uint64_t a2, xsltCompMatch *a3, xsltCompMatch *a4, uint64_t a5, int a6)
+uint64_t xsltNumberFormatGetMultipleLevel(xsltTransformContext *a1, xmlNode *a2, xsltCompMatch *a3, xsltCompMatch *a4, uint64_t a5, int a6)
 {
   xpathCtxt = a1->xpathCtxt;
   node = xpathCtxt->node;
@@ -8100,7 +8075,7 @@ LABEL_8:
   return v11;
 }
 
-uint64_t xsltFormatNumberPreSuffix(const xmlChar **a1, const xmlChar **a2, uint64_t a3)
+uint64_t xsltFormatNumberPreSuffix(void *a1, const xmlChar **a2, uint64_t a3)
 {
   v6 = 0;
   for (i = *a2; ; *a2 = i)
@@ -8189,21 +8164,21 @@ uint64_t xsltUTF8Charcmp(const xmlChar *a1, const xmlChar *a2)
   }
 }
 
-uint64_t xsltNumberFormatDecimal(xmlBufferPtr buf, int a2, int a3, int a4, int val, int a6, double a7)
+uint64_t xsltNumberFormatDecimal(xmlBufferPtr buf, int a2, int a3, unsigned int a4, int val, int a6, double a7)
 {
   v13 = 0;
-  v25 = *MEMORY[0x29EDCA608];
-  memset(v23, 0, sizeof(v23));
-  v22 = 0;
+  v24 = *MEMORY[0x29EDCA608];
+  memset(v22, 0, sizeof(v22));
+  v21 = 0;
   v14 = -a6;
-  v15 = &v24;
+  v15 = &v23;
   *out = 0;
-  v24 = 0;
+  v23 = 0;
   while (v13 < a3 || fabs(a7) >= 1.0)
   {
     if (a4 >= 1 && val && v13 && !(v13 % a4))
     {
-      if (&v15[v14] < v23)
+      if (&v15[v14] < v22)
       {
         goto LABEL_17;
       }
@@ -8217,11 +8192,11 @@ uint64_t xsltNumberFormatDecimal(xmlBufferPtr buf, int a2, int a3, int a4, int v
     {
       v17 = xmlCopyCharMultiByte(out, v16);
       v18 = &v15[-v17];
-      if (v18 < v23)
+      if (v18 < v22)
       {
 LABEL_17:
         xsltGenericError(xsltGenericErrorContext, "xsltNumberFormatDecimal: Internal buffer size exceeded\n");
-        break;
+        return xmlBufferCat(buf, v15);
       }
 
       memcpy(&v15[-v17], out, v17);
@@ -8230,7 +8205,7 @@ LABEL_17:
 
     else
     {
-      if (v15 <= v23)
+      if (v15 <= v22)
       {
         goto LABEL_17;
       }
@@ -8240,15 +8215,13 @@ LABEL_17:
 
     ++v13;
     a7 = a7 / 10.0;
-    if (v15 <= v23)
+    if (v15 <= v22)
     {
-      break;
+      return xmlBufferCat(buf, v15);
     }
   }
 
-  result = xmlBufferCat(buf, v15);
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  return xmlBufferCat(buf, v15);
 }
 
 uint64_t xsltIsDigitZero(int a1)
@@ -8309,44 +8282,43 @@ uint64_t xsltIsDigitZero(int a1)
 
 uint64_t xsltNumberFormatAlpha(_DWORD *a1, xmlBufferPtr buf, int a3, double a4)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (a4 >= 1.0)
   {
-    v16 = 0u;
-    memset(v15, 0, sizeof(v15));
-    v17 = 0;
+    v14 = 0u;
+    memset(v13, 0, sizeof(v13));
+    v15 = 0;
     if (a3)
     {
-      v10 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      v9 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 
     else
     {
-      v10 = "abcdefghijklmnopqrstuvwxyz";
+      v9 = "abcdefghijklmnopqrstuvwxyz";
     }
 
-    v11 = &v16 + 15;
-    v12 = 64;
+    v10 = &v14 + 15;
+    v11 = 64;
     while (1)
     {
-      v13 = a4 + -1.0;
-      *v11 = v10[fmod(a4 + -1.0, 26.0)];
-      a4 = v13 / 26.0;
-      if (v13 / 26.0 < 1.0)
+      v12 = a4 + -1.0;
+      *v10 = v9[fmod(a4 + -1.0, 26.0)];
+      a4 = v12 / 26.0;
+      if (v12 / 26.0 < 1.0)
       {
         break;
       }
 
-      --v11;
-      if (!--v12)
+      --v10;
+      if (!--v11)
       {
-        v11 = v15;
-        break;
+        v10 = v13;
+        return xmlBufferCCat(buf, v10);
       }
     }
 
-    result = xmlBufferCCat(buf, v11);
-    v14 = *MEMORY[0x29EDCA608];
+    return xmlBufferCCat(buf, v10);
   }
 
   else
@@ -8354,12 +8326,9 @@ uint64_t xsltNumberFormatAlpha(_DWORD *a1, xmlBufferPtr buf, int a3, double a4)
     v5 = a1[11];
     v6 = a1[12];
     v7 = a1[13];
-    v8 = *MEMORY[0x29EDCA608];
 
     return xsltNumberFormatDecimal(buf, 48, 1, v5, v6, v7, a4);
   }
-
-  return result;
 }
 
 uint64_t xsltNumberFormatRoman(uint64_t result, xmlBufferPtr buf, int a3, double a4)
@@ -8810,7 +8779,7 @@ uint64_t xsltTestCompMatch(xsltTransformContext *a1, uint64_t a2, xmlNodePtr nod
   v77 = 0;
   if (!a1 || !node)
   {
-    xsltTransformError(a1, 0, node, "xsltTestCompMatch: null arg\n");
+    xsltTransformError(a1, 0, node, "xsltTestCompMatch: null arg\n", a5);
     return 0xFFFFFFFFLL;
   }
 
@@ -9352,11 +9321,11 @@ void xsltCompMatchClearCache(xsltTransformContextPtr ctxt, xsltCompMatchPtr comp
   }
 }
 
-int *xsltCompilePatternInternal(_BYTE *a1, const xmlDoc *a2, xmlNode *a3, xsltStylesheet *a4, uint64_t a5, int a6)
+int *xsltCompilePatternInternal(_BYTE *a1, const xmlDoc *a2, xmlNode *a3, xsltStylesheet *a4, uint64_t a5, unsigned int a6)
 {
   if (!a1)
   {
-    xsltTransformError(0, 0, a3, "xsltCompilePattern : NULL pattern\n");
+    xsltTransformError(0, 0, a3, "xsltCompilePattern : NULL pattern\n", a5);
     return 0;
   }
 
@@ -9364,7 +9333,7 @@ int *xsltCompilePatternInternal(_BYTE *a1, const xmlDoc *a2, xmlNode *a3, xsltSt
   v11 = malloc_type_malloc(0x40uLL, 0x1070040A9F92CB2uLL);
   if (!v11)
   {
-    xsltTransformError(0, 0, 0, "xsltNewParserContext : malloc failed\n");
+    xsltTransformError(0, 0, 0, "xsltNewParserContext : malloc failed\n", v12);
     return 0;
   }
 
@@ -9375,202 +9344,202 @@ int *xsltCompilePatternInternal(_BYTE *a1, const xmlDoc *a2, xmlNode *a3, xsltSt
   *(v11 + 1) = a5;
   *(v11 + 4) = a2;
   *(v11 + 5) = a3;
-  v92 = v11;
+  v93 = v11;
   if (!*v10)
   {
-    v14 = 0;
+    v15 = 0;
     goto LABEL_149;
   }
 
-  v12 = 0;
   v13 = 0;
   v14 = 0;
-  v15 = v10 + 1;
-  v16 = v10;
+  v15 = 0;
+  v16 = v10 + 1;
+  v17 = v10;
   style = a4;
-  v90 = v10 + 1;
-  v91 = (v11 + 1);
+  v91 = v10 + 1;
+  v92 = (v11 + 1);
   do
   {
-    v17 = 0;
-    v18 = v12 << 32;
-    v19 = &v10[v12];
+    v18 = 0;
+    v19 = v13 << 32;
+    v20 = &v10[v13];
     while (1)
     {
-      v20 = *v19++;
-      v21 = (1 << v20) & 0x100002600;
-      if (v20 > 0x20 || v21 == 0)
+      v21 = *v20++;
+      v22 = (1 << v21) & 0x100002600;
+      if (v21 > 0x20 || v22 == 0)
       {
         break;
       }
 
-      v18 += 0x100000000;
-      --v17;
+      v19 += 0x100000000;
+      --v18;
     }
 
-    v23 = v18 >> 32;
-    v24 = v10[v23];
-    if (!v10[v23])
+    v24 = v19 >> 32;
+    v25 = v10[v24];
+    if (!v10[v24])
     {
 LABEL_151:
       xsltTransformError(0, 0, a3, "xsltCompilePattern : NULL pattern\n");
       goto LABEL_161;
     }
 
-    v25 = 0;
-    v26 = v12 - v17;
-    while (v24 != 124 || v25)
+    v26 = 0;
+    v27 = v13 - v18;
+    while (v25 != 124 || v26)
     {
-      if (v24 > 90)
+      if (v25 > 90)
       {
-        v30 = v25 - 1;
-        if (v24 != 93)
+        v31 = v26 - 1;
+        if (v25 != 93)
         {
-          v30 = v25;
+          v31 = v26;
         }
 
-        if (v24 == 91)
+        if (v25 == 91)
         {
-          ++v25;
+          ++v26;
         }
 
         else
         {
-          v25 = v30;
+          v26 = v31;
         }
       }
 
-      else if (v24 == 34)
+      else if (v25 == 34)
       {
-        v32 = &v15[v26];
+        v33 = &v16[v27];
         do
         {
-          v34 = *v32++;
-          v33 = v34;
-          ++v26;
+          v35 = *v33++;
+          v34 = v35;
+          ++v27;
         }
 
-        while (v34 && v33 != 34);
+        while (v35 && v34 != 34);
       }
 
-      else if (v24 == 39)
+      else if (v25 == 39)
       {
-        v27 = &v15[v26];
+        v28 = &v16[v27];
         do
         {
-          v29 = *v27++;
-          v28 = v29;
-          ++v26;
+          v30 = *v28++;
+          v29 = v30;
+          ++v27;
         }
 
-        while (v29 && v28 != 39);
+        while (v30 && v29 != 39);
       }
 
-      if (!v10[v26])
+      if (!v10[v27])
       {
         break;
       }
 
-      v31 = v26 + 1;
-      v24 = v10[v31];
-      ++v26;
-      if (!v10[v31])
+      v32 = v27 + 1;
+      v25 = v10[v32];
+      ++v27;
+      if (!v10[v32])
       {
         goto LABEL_35;
       }
     }
 
-    LODWORD(v31) = v26;
+    LODWORD(v32) = v27;
 LABEL_35:
-    if (v12 - v31 == v17)
+    if (v13 - v32 == v18)
     {
       goto LABEL_151;
     }
 
-    v94 = v13;
-    v35 = v12;
-    v36 = v10;
-    v37 = v16;
-    v38 = malloc_type_malloc(0x60uLL, 0x10F0040748D62EAuLL);
-    if (!v38)
-    {
-      xsltTransformError(0, 0, 0, "xsltNewCompMatch : out of memory error\n");
-      goto LABEL_161;
-    }
-
-    v13 = v38;
-    v38[4] = 0u;
-    v38[5] = 0u;
-    v38[2] = 0u;
-    v38[3] = 0u;
-    *v38 = 0u;
-    v38[1] = 0u;
-    *(v38 + 16) = 10;
-    v39 = malloc_type_malloc(0x230uLL, 0x1030040C2A3A036uLL);
-    *(v13 + 88) = v39;
+    v95 = v14;
+    v36 = v13;
+    v37 = v10;
+    v38 = v17;
+    v39 = malloc_type_malloc(0x60uLL, 0x10F0040748D62EAuLL);
     if (!v39)
     {
       xsltTransformError(0, 0, 0, "xsltNewCompMatch : out of memory error\n");
-      free(v13);
       goto LABEL_161;
     }
 
-    *(v13 + 80) = 0;
-    *(v13 + 72) = 0;
-    v40 = v13;
-    *(v13 + 56) = 0;
-    v41 = v37;
-    v10 = v36;
-    if (v14)
+    v14 = v39;
+    v39[4] = 0u;
+    v39[5] = 0u;
+    v39[2] = 0u;
+    v39[3] = 0u;
+    *v39 = 0u;
+    v39[1] = 0u;
+    *(v39 + 16) = 10;
+    v40 = malloc_type_malloc(0x230uLL, 0x1030040C2A3A036uLL);
+    *(v14 + 88) = v40;
+    if (!v40)
     {
-      if (v94)
-      {
-        *v94 = v13;
-      }
-
-      v40 = v14;
+      xsltTransformError(0, 0, 0, "xsltNewCompMatch : out of memory error\n");
+      free(v14);
+      goto LABEL_161;
     }
 
-    v95 = v40;
-    v92[7] = v13;
-    v42 = xmlStrndup(v41, v31 - v35);
-    v92[3] = v42;
-    if (!v42)
+    *(v14 + 80) = 0;
+    *(v14 + 72) = 0;
+    v41 = v14;
+    *(v14 + 56) = 0;
+    v42 = v38;
+    v10 = v37;
+    if (v15)
+    {
+      if (v95)
+      {
+        *v95 = v14;
+      }
+
+      v41 = v15;
+    }
+
+    v96 = v41;
+    v93[7] = v14;
+    v43 = xmlStrndup(v42, v32 - v36);
+    v93[3] = v43;
+    if (!v43)
     {
       goto LABEL_160;
     }
 
-    *v91 = &v42[-v17];
-    *(v13 + 16) = v42;
-    *(v13 + 48) = a3;
+    *v92 = &v43[-v18];
+    *(v14 + 16) = v43;
+    *(v14 + 48) = a3;
     NsList = xmlGetNsList(a2, a3);
-    *(v13 + 72) = NsList;
+    *(v14 + 72) = NsList;
     if (NsList)
     {
-      v44 = -1;
+      v45 = -1;
       do
       {
-        v45 = *NsList++;
-        ++v44;
+        v46 = *NsList++;
+        ++v45;
       }
 
-      while (v45);
+      while (v46);
     }
 
     else
     {
-      v44 = 0;
+      v45 = 0;
     }
 
-    *(v13 + 80) = v44;
-    xsltGenericDebug(xsltGenericDebugContext, "xsltCompilePattern : parsing '%s'\n", *(v13 + 16));
-    *(v13 + 8) = 0;
-    for (i = *v91; ; *v91 = i)
+    *(v14 + 80) = v45;
+    xsltGenericDebug(xsltGenericDebugContext, "xsltCompilePattern : parsing '%s'\n", *(v14 + 16));
+    *(v14 + 8) = 0;
+    for (i = *v92; ; *v92 = i)
     {
-      v47 = *i++;
-      if (v47 <= 0xC)
+      v48 = *i++;
+      if (v48 <= 0xC)
       {
-        if (v47 - 9 >= 2)
+        if (v48 - 9 >= 2)
         {
           goto LABEL_61;
         }
@@ -9583,7 +9552,7 @@ LABEL_35:
         break;
       }
 
-      if (v47 != 13)
+      if (v48 != 13)
       {
         goto LABEL_61;
       }
@@ -9594,7 +9563,7 @@ LABEL_57:
 
     if (*(i - 1) <= 0x29u)
     {
-      if (v47 != 32)
+      if (v48 != 32)
       {
         goto LABEL_61;
       }
@@ -9602,33 +9571,33 @@ LABEL_57:
       goto LABEL_57;
     }
 
-    switch(v47)
+    switch(v48)
     {
       case '*':
         goto LABEL_70;
       case '/':
         if (*i == 47)
         {
-          *v91 = i;
+          *v92 = i;
           if (*i)
           {
-            *v91 = i + 1;
+            *v92 = i + 1;
           }
 
-          *(v92[7] + 8) = 1056964608;
+          *(v93[7] + 8) = 1056964608;
         }
 
         else
         {
           do
           {
-            *v91 = i;
-            v54 = *i++;
-            v55 = (1 << v54) & 0x100002600;
+            *v92 = i;
+            v55 = *i++;
+            v56 = (1 << v55) & 0x100002600;
           }
 
-          while (v54 <= 0x20 && v55 != 0);
-          if (xsltCompMatchAdd(v92, v92[7], 1, 0, 0, a6) || !**v91 || **v91 == 124 || xsltCompMatchAdd(v92, v92[7], 4, 0, 0, a6))
+          while (v55 <= 0x20 && v56 != 0);
+          if (xsltCompMatchAdd(v93, v93[7], 1, 0, 0, a6) || !**v92 || **v92 == 124 || xsltCompMatchAdd(v93, v93[7], 4, 0, 0, a6))
           {
             goto LABEL_85;
           }
@@ -9637,123 +9606,123 @@ LABEL_57:
         goto LABEL_70;
       case '@':
 LABEL_70:
-        v52 = v92;
-        v53 = 0;
+        v53 = v93;
+        v54 = 0;
 LABEL_84:
-        xsltCompileRelativePathPattern(v52, v53, a6);
+        xsltCompileRelativePathPattern(v53, v54, a6);
         goto LABEL_85;
     }
 
 LABEL_61:
-    v48 = xsltScanNCName(v92);
-    if (!v48)
+    v49 = xsltScanNCName(v93);
+    if (!v49)
     {
       xsltTransformError(0, 0, 0, "xsltCompileLocationPathPattern : Name expected\n");
-      *(v92 + 12) = 1;
+      *(v93 + 12) = 1;
 LABEL_158:
-      xsltTransformError(0, style, a3, "xsltCompilePattern : failed to compile '%s'\n", *(v13 + 16));
+      xsltTransformError(0, style, a3, "xsltCompilePattern : failed to compile '%s'\n", *(v14 + 16));
       if (style)
       {
         ++style->errors;
       }
 
 LABEL_160:
-      v14 = v95;
+      v15 = v96;
       goto LABEL_161;
     }
 
-    v49 = v48;
-    for (j = *v91; ; *v91 = j)
+    v50 = v49;
+    for (j = *v92; ; *v92 = j)
     {
-      v51 = *j++;
-      if (v51 > 0x28)
+      v52 = *j++;
+      if (v52 > 0x28)
       {
         goto LABEL_83;
       }
 
-      if (((1 << v51) & 0x100002600) == 0)
+      if (((1 << v52) & 0x100002600) == 0)
       {
         break;
       }
     }
 
-    if (v51 != 40 || xmlXPathIsNodeType(v48))
+    if (v52 != 40 || xmlXPathIsNodeType(v49))
     {
 LABEL_83:
-      v52 = v92;
-      v53 = v49;
+      v53 = v93;
+      v54 = v50;
       goto LABEL_84;
     }
 
-    xsltCompileIdKeyPattern(v92, v49, 1, a6, 0);
-    free(v49);
-    if (*(v92 + 12))
+    xsltCompileIdKeyPattern(v93, v50, 1, a6, 0);
+    free(v50);
+    if (*(v93 + 12))
     {
       goto LABEL_158;
     }
 
-    if (**v91 == 47)
+    if (**v92 == 47)
     {
-      v80 = v92[7];
-      if ((*v91)[1] == 47)
+      v81 = v93[7];
+      if ((*v92)[1] == 47)
       {
-        if (xsltCompMatchAdd(v92, v80, 5, 0, 0, a6))
+        if (xsltCompMatchAdd(v93, v81, 5, 0, 0, a6))
         {
           goto LABEL_85;
         }
 
-        v81 = *v91;
-        if (**v91)
+        v82 = *v92;
+        if (**v92)
         {
-          *v91 = v81 + 1;
-          if (v81[1])
+          *v92 = v82 + 1;
+          if (v82[1])
           {
-            v81 += 2;
+            v82 += 2;
             goto LABEL_145;
           }
 
-          ++v81;
+          ++v82;
         }
 
         while (1)
         {
-          v84 = *v81;
-          v69 = v84 > 0x20;
-          v85 = (1 << v84) & 0x100002600;
-          if (v69 || v85 == 0)
+          v85 = *v82;
+          v70 = v85 > 0x20;
+          v86 = (1 << v85) & 0x100002600;
+          if (v70 || v86 == 0)
           {
             break;
           }
 
-          ++v81;
+          ++v82;
 LABEL_145:
-          *v91 = v81;
+          *v92 = v82;
         }
       }
 
       else
       {
-        if (xsltCompMatchAdd(v92, v80, 4, 0, 0, a6))
+        if (xsltCompMatchAdd(v93, v81, 4, 0, 0, a6))
         {
           goto LABEL_85;
         }
 
-        v82 = *v91;
-        if (**v91)
+        v83 = *v92;
+        if (**v92)
         {
           goto LABEL_139;
         }
 
         while (1)
         {
-          v83 = *v82;
-          if (v83 > 0x20 || ((1 << v83) & 0x100002600) == 0)
+          v84 = *v83;
+          if (v84 > 0x20 || ((1 << v84) & 0x100002600) == 0)
           {
             break;
           }
 
 LABEL_139:
-          *v91 = ++v82;
+          *v92 = ++v83;
         }
       }
 
@@ -9761,102 +9730,102 @@ LABEL_139:
     }
 
 LABEL_85:
-    if (*(v92 + 12))
+    if (*(v93 + 12))
     {
       goto LABEL_158;
     }
 
-    v57 = *(v13 + 60);
-    if (v57 >= 2)
+    v58 = *(v14 + 60);
+    if (v58 >= 2)
     {
-      v58 = 0;
       v59 = 0;
-      v60 = *(v13 + 88);
-      v61 = 56 * v57;
-      v62 = v57 - 2;
+      v60 = 0;
+      v61 = *(v14 + 88);
+      v62 = 56 * v58;
+      v63 = v58 - 2;
       do
       {
-        v63 = v60 + v58;
-        v64 = v60 + v61;
-        v65 = *(v60 + v58 + 8);
-        *(v63 + 8) = *(v60 + v61 - 48);
-        *(v64 - 48) = v65;
-        v66 = *(v60 + v58);
-        *v63 = *(v60 + v61 - 56);
-        *(v64 - 56) = v66;
-        v67 = *(v60 + v58 + 24);
-        *(v63 + 24) = *(v60 + v61 - 32);
-        *(v64 - 32) = v67;
-        *&v67 = *(v60 + v58 + 40);
-        *(v63 + 40) = *(v60 + v61 - 16);
-        *(v64 - 16) = v67;
-        v68 = *(v60 + v58 + 48);
-        *(v63 + 48) = *(v60 + v61 - 8);
-        *(v64 - 8) = v68;
-        ++v59;
-        v61 -= 56;
-        v58 += 56;
-        v69 = v62-- <= v59;
+        v64 = v61 + v59;
+        v65 = v61 + v62;
+        v66 = *(v61 + v59 + 8);
+        *(v64 + 8) = *(v61 + v62 - 48);
+        *(v65 - 48) = v66;
+        v67 = *(v61 + v59);
+        *v64 = *(v61 + v62 - 56);
+        *(v65 - 56) = v67;
+        v68 = *(v61 + v59 + 24);
+        *(v64 + 24) = *(v61 + v62 - 32);
+        *(v65 - 32) = v68;
+        *&v68 = *(v61 + v59 + 40);
+        *(v64 + 40) = *(v61 + v62 - 16);
+        *(v65 - 16) = v68;
+        v69 = *(v61 + v59 + 48);
+        *(v64 + 48) = *(v61 + v62 - 8);
+        *(v65 - 8) = v69;
+        ++v60;
+        v62 -= 56;
+        v59 += 56;
+        v70 = v63-- <= v60;
       }
 
-      while (!v69);
+      while (!v70);
     }
 
-    xsltCompMatchAdd(v92, v13, 0, 0, 0, 0);
-    v70 = *(v13 + 60);
-    if (v70 >= 2)
+    xsltCompMatchAdd(v93, v14, 0, 0, 0, 0);
+    v71 = *(v14 + 60);
+    if (v71 >= 2)
     {
-      v71 = (v70 - 1);
-      v72 = *(v13 + 88);
-      while (*v72 != 14 || v72[14] != 14)
+      v72 = (v71 - 1);
+      v73 = *(v14 + 88);
+      while (*v73 != 14 || v73[14] != 14)
       {
-        v72 += 14;
-        if (!--v71)
+        v73 += 14;
+        if (!--v72)
         {
           goto LABEL_98;
         }
       }
 
-      *(v13 + 56) = 1;
-      if (**(v13 + 16) != 47)
+      *(v14 + 56) = 1;
+      if (**(v14 + 16) != 47)
       {
-        v73 = xmlStrdup("//");
-        v74 = xmlStrcat(v73, *(v13 + 16));
-        free(*(v13 + 16));
-        *(v13 + 16) = v74;
+        v74 = xmlStrdup("//");
+        v75 = xmlStrcat(v74, *(v14 + 16));
+        free(*(v14 + 16));
+        *(v14 + 16) = v75;
       }
     }
 
 LABEL_98:
-    v75 = *(v13 + 8);
-    if (v75 != 0.0)
+    v76 = *(v14 + 8);
+    if (v76 != 0.0)
     {
       goto LABEL_120;
     }
 
-    v76 = *(v13 + 88);
-    v77 = *v76;
-    if ((*v76 - 2) < 2 || v77 == 10)
+    v77 = *(v14 + 88);
+    v78 = *v77;
+    if ((*v77 - 2) < 2 || v78 == 10)
     {
-      v79 = *(v76 + 1);
-      if (v79 && !v76[14])
+      v80 = *(v77 + 1);
+      if (v80 && !v77[14])
       {
         goto LABEL_120;
       }
 
-      if (v77 == 8)
+      if (v78 == 8)
       {
         goto LABEL_113;
       }
 
-      if (v77 == 3)
+      if (v78 == 3)
       {
-        if (*(v76 + 2))
+        if (*(v77 + 2))
         {
           goto LABEL_114;
         }
 
-        if (v79)
+        if (v80)
         {
           goto LABEL_118;
         }
@@ -9865,64 +9834,64 @@ LABEL_98:
       else
       {
 LABEL_116:
-        if ((v77 - 9) > 4)
+        if ((v78 - 9) > 4)
         {
           goto LABEL_118;
         }
       }
 
-      if (v76[14])
+      if (v77[14])
       {
         goto LABEL_118;
       }
 
-      v75 = -0.5;
+      v76 = -0.5;
       goto LABEL_119;
     }
 
-    if (v77 != 8)
+    if (v78 != 8)
     {
       goto LABEL_116;
     }
 
-    v79 = *(v76 + 1);
+    v80 = *(v77 + 1);
 LABEL_113:
-    if (v79)
+    if (v80)
     {
 LABEL_114:
-      if (!v76[14])
+      if (!v77[14])
       {
-        v75 = -0.25;
+        v76 = -0.25;
         goto LABEL_119;
       }
     }
 
 LABEL_118:
-    v75 = 0.5;
+    v76 = 0.5;
 LABEL_119:
-    *(v13 + 8) = v75;
+    *(v14 + 8) = v76;
 LABEL_120:
-    xsltGenericDebug(xsltGenericDebugContext, "xsltCompilePattern : parsed %s, default priority %f\n", *(v13 + 16), v75);
-    if (v36[v31] == 124)
+    xsltGenericDebug(xsltGenericDebugContext, "xsltCompilePattern : parsed %s, default priority %f\n", *(v14 + 16), v76);
+    if (v37[v32] == 124)
     {
-      v12 = v31 + 1;
+      v13 = v32 + 1;
     }
 
     else
     {
-      v12 = v31;
+      v13 = v32;
     }
 
-    v16 = &v36[v12];
-    v15 = v90;
-    v14 = v95;
+    v17 = &v37[v13];
+    v16 = v91;
+    v15 = v96;
   }
 
-  while (v36[v12]);
-  if (v12)
+  while (v37[v13]);
+  if (v13)
   {
-    free(v92);
-    return v95;
+    free(v93);
+    return v96;
   }
 
   a4 = style;
@@ -9934,17 +9903,17 @@ LABEL_149:
   }
 
 LABEL_161:
-  free(v92);
-  if (v14)
+  free(v93);
+  if (v15)
   {
     do
     {
-      v88 = *v14;
-      xsltFreeCompMatch(v14);
-      v14 = v88;
+      v89 = *v15;
+      xsltFreeCompMatch(v15);
+      v15 = v89;
     }
 
-    while (v88);
+    while (v89);
   }
 
   return 0;

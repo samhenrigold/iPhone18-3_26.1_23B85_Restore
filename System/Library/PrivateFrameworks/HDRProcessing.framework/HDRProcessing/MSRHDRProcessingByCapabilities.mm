@@ -24,6 +24,7 @@
 - (void)populateMSRColorConfigStageB02HLG:(id *)g hdrControl:(id *)control;
 - (void)populateMSRColorConfigStageDownSampleFilter:(id *)filter Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
 - (void)populateMSRColorConfigStageHwOOTF:(id *)f Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
+- (void)setDegammaBuffer:(int64_t)buffer Buffer:(float *)a4 TableSize:(unint64_t)size LutInput:(float *)input Type:(int)type scalerForSrgbBeyondMax:(float)max InputScale:(float)scale OutputScale:(float)self0;
 - (void)setupHardwareConfigUnit;
 - (void)setupMSRMappingTableWithMetadata:(id *)metadata;
 - (void)setupMSRPolynomialTableForHDR10;
@@ -205,11 +206,11 @@
 
 - (void)setupMSRMappingTableWithMetadata:(id *)metadata
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (byte_280C71972)
   {
     v5 = metadata->var0 + 8;
-    v22 = (1 << (LOBYTE(metadata->var0) + 8));
+    v21 = (1 << (LOBYTE(metadata->var0) + 8));
     v6 = malloc_type_malloc(6 << (LOBYTE(metadata->var0) + 8), 0x1000040BDFB0063uLL);
     v7 = malloc_type_calloc(0x2CuLL, 4uLL, 0x100004052888210uLL);
     v9 = v7;
@@ -240,7 +241,7 @@
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v27 = WORD1(v11);
+          v26 = WORD1(v11);
           _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: polyBuf && mmrCoefBuf warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingByCapabilities.mm at line 289\n", buf, 0xCu);
         }
 
@@ -259,7 +260,7 @@
     v14 = MEMORY[0x277D86220];
     v15 = 276;
     *&v8 = 134217984;
-    v21 = v8;
+    v20 = v8;
     do
     {
       v16 = *(&metadata->var0 + v15);
@@ -279,8 +280,8 @@
 
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v21;
-            v27 = WORD1(v17);
+            *buf = v20;
+            v26 = WORD1(v17);
             _os_log_impl(&dword_250836000, v14, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: metadata->mapping_idc[0][0][cmp][0] == 0 || metadata->mapping_idc[0][0][cmp][0] == 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingByCapabilities.mm at line 292\n", buf, 0xCu);
           }
 
@@ -314,8 +315,8 @@
 
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v21;
-              v27 = WORD1(v18);
+              *buf = v20;
+              v26 = WORD1(v18);
               _os_log_impl(&dword_250836000, v14, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: cmp != 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingByCapabilities.mm at line 307\n", buf, 0xCu);
             }
 
@@ -329,19 +330,19 @@
           }
         }
 
-        createMmrTableForComponent(metadata, v12, v24, v23, &v9[v13 & 0xFFFFFFFE]);
-        [(MSRHDRProcessingByCapabilities *)self updateMmrTableForComponent:v12 mmrClipValMin:v24 mmrClipValMax:v23 mmrCoeff:&v9[v13 & 0xFFFFFFFE]];
+        createMmrTableForComponent(metadata, v12, v23, v22, &v9[v13 & 0xFFFFFFFE]);
+        [(MSRHDRProcessingByCapabilities *)self updateMmrTableForComponent:v12 mmrClipValMin:v23 mmrClipValMax:v22 mmrCoeff:&v9[v13 & 0xFFFFFFFE]];
         v19 = 0;
       }
 
       else
       {
         createPolynomialTableForComponent(metadata, v12, v6 + 2 * (v12 << v5));
-        [(MSRHDRProcessingByCapabilities *)self updatePolynomialTablesForComponent:v6 Component:v12 TableSize:v22];
+        [(MSRHDRProcessingByCapabilities *)self updatePolynomialTablesForComponent:v6 Component:v12 TableSize:v21];
         v19 = 1;
       }
 
-      [(MSRHDRProcessingByCapabilities *)self updateMmrReshapeChromaForComponent:v12++ mmrReshapeChroma:v19, v21];
+      [(MSRHDRProcessingByCapabilities *)self updateMmrReshapeChromaForComponent:v12++ mmrReshapeChroma:v19, v20];
       v13 += 22;
       v15 += 36;
     }
@@ -353,12 +354,10 @@
 
   else
   {
-    v25.receiver = self;
-    v25.super_class = MSRHDRProcessingByCapabilities;
-    [(MSRHDRProcessing *)&v25 setupMSRMappingTableWithMetadata:metadata];
+    v24.receiver = self;
+    v24.super_class = MSRHDRProcessingByCapabilities;
+    [(MSRHDRProcessing *)&v24 setupMSRMappingTableWithMetadata:metadata];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)polynomialTableScale
@@ -1092,6 +1091,29 @@ LABEL_12:
   v5.receiver = self;
   v5.super_class = MSRHDRProcessingByCapabilities;
   return [(MSRHDRProcessing *)&v5 getVerticalScalingTablePhaseNumber];
+}
+
+- (void)setDegammaBuffer:(int64_t)buffer Buffer:(float *)a4 TableSize:(unint64_t)size LutInput:(float *)input Type:(int)type scalerForSrgbBeyondMax:(float)max InputScale:(float)scale OutputScale:(float)self0
+{
+  if (buffer == 2)
+  {
+    v13 = *&type;
+    if (type == 3 && (useCurvatureLUTs & 1) != 0 && GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x42u, 0) == 1))
+    {
+
+      memcpy(a4, &HLGDegammaCoeff, 4 * size);
+    }
+
+    else
+    {
+      v22.receiver = self;
+      v22.super_class = MSRHDRProcessingByCapabilities;
+      *&v19 = max;
+      *&v20 = scale;
+      *&v21 = outputScale;
+      [(MSRHDRProcessing *)&v22 setDegammaBuffer:2 Buffer:a4 TableSize:size LutInput:input Type:v13 scalerForSrgbBeyondMax:v19 InputScale:v20 OutputScale:v21];
+    }
+  }
 }
 
 @end

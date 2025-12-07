@@ -286,9 +286,9 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  geometry = [v7 geometry];
+  v51 = objc_msgSend_geometry(v7);
   [(UIKBRenderFactoryHWR_Portrait *)self handwritingAreaInsets];
-  [geometry applyInsets:?];
+  [v51 applyInsets:?];
 
   renderConfig5 = [(UIKBRenderFactory *)self renderConfig];
   lightKeyboard3 = [renderConfig5 lightKeyboard];
@@ -338,19 +338,19 @@ LABEL_16:
       [v7 setBackgroundGradient:v68];
     }
 
-    geometry2 = [v7 geometry];
-    [geometry2 paddedFrame];
+    v91 = objc_msgSend_geometry(v7);
+    [v91 paddedFrame];
     v93 = v92;
     v95 = v94 + 0.0;
     v97 = v96 + 0.5;
     v99 = v98 + -0.5;
-    geometry3 = [v7 geometry];
-    [geometry3 setPaddedFrame:{v95, v97, v93, v99}];
+    v100 = objc_msgSend_geometry(v7);
+    [v100 setPaddedFrame:{v95, v97, v93, v99}];
 
     renderConfig7 = [(UIKBRenderFactory *)self renderConfig];
-    LOBYTE(geometry2) = [renderConfig7 colorAdaptiveBackground];
+    LOBYTE(v91) = [renderConfig7 colorAdaptiveBackground];
 
-    if (geometry2)
+    if (v91)
     {
       goto LABEL_34;
     }

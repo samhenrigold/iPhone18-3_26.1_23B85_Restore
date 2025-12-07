@@ -1,12 +1,12 @@
 @interface BWNRFProcessorRequest
+- (BOOL)keepFramesUntilReferenceFrameSelected;
 - (const)clientBracketFrame;
 - (id)description;
+- (id)receivedAllFrames;
 - (uint64_t)fusionErrorRecoveryImageType;
 - (uint64_t)imageType;
 - (uint64_t)inferenceInputType;
-- (uint64_t)keepFramesUntilReferenceFrameSelected;
 - (uint64_t)processingType;
-- (uint64_t)receivedAllFrames;
 - (uint64_t)useFrameForMultiFrameProcessing:(uint64_t)result;
 - (void)dealloc;
 - (void)initWithConfiguration:(void *)configuration input:(void *)input output:(void *)output rawNightModeOutputFrame:(void *)frame deepFusionOutput:(char)fusionOutput processErrorRecoveryFrame:(char)recoveryFrame processErrorRecoveryProxy:(char)proxy processOriginalImage:(char)self0 processToneMapping:(char)self1 processInferenceInputImage:(int)self2 clientBracketSequenceNumber:(char)self3 processSemanticRendering:(char)self4 provideInferenceInputImageForProcessing:(char)self5 inferencesAvailable:(char)self6 processSmartStyleRenderingInput:(void *)self7 delegate:;
@@ -435,7 +435,7 @@ LABEL_13:
 {
   if (result)
   {
-    if (([objc_msgSend(OUTLINED_FUNCTION_78_3(result) "captureSettings")] & 0x4000000000) != 0 && (objc_msgSend(*(v1 + 16), "portType"), objc_msgSend(objc_msgSend(*(v1 + 16), "captureSettings"), "masterPortType"), (objc_msgSend(OUTLINED_FUNCTION_4(), "isEqualToString:") & 1) == 0) && -[BWNRFProcessorRequest processingType](v1) == 7)
+    if (([objc_msgSend(OUTLINED_FUNCTION_78_3(result) "captureSettings")] & 0x4000000000) != 0 && (objc_msgSend(*(v1 + 16), "portType"), objc_msgSend(objc_msgSend(*(v1 + 16), "captureSettings"), "masterPortType"), v2 = OUTLINED_FUNCTION_4(), (objc_msgSend_isEqualToString_(v2) & 1) == 0) && -[BWNRFProcessorRequest processingType](v1) == 7)
     {
       return 39;
     }
@@ -449,7 +449,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)receivedAllFrames
+- (id)receivedAllFrames
 {
   if (!result)
   {
@@ -457,18 +457,18 @@ LABEL_13:
   }
 
   v2 = result;
-  if ((*(result + 48) & 1) != 0 || *(result + 49) == 1)
+  if ((result[6] & 1) != 0 || *(result + 49) == 1)
   {
-    if ([objc_msgSend(*(result + 16) "captureStreamSettings")] != 13 || (objc_msgSend(objc_msgSend(*(v2 + 16), "captureSettings"), "deliverDeferredPhotoProxyImage") & 1) != 0)
+    if ([objc_msgSend(result[2] "captureStreamSettings")] != 13 || (objc_msgSend(objc_msgSend(v2[2], "captureSettings"), "deliverDeferredPhotoProxyImage") & 1) != 0)
     {
-      errorRecoveryFrame = [*(v2 + 16) errorRecoveryFrame];
-      return errorRecoveryFrame != 0;
+      errorRecoveryFrame = [v2[2] errorRecoveryFrame];
+      return (errorRecoveryFrame != 0);
     }
 
-    v6 = *(v2 + 16);
+    v6 = v2[2];
     if (v6)
     {
-      v7 = *(v6 + 56);
+      v7 = v6[7];
     }
 
     else
@@ -481,16 +481,16 @@ LABEL_13:
 
   if (*(result + 50) == 1)
   {
-    errorRecoveryFrame = [*(result + 16) originalImage];
-    return errorRecoveryFrame != 0;
+    errorRecoveryFrame = [result[2] originalImage];
+    return (errorRecoveryFrame != 0);
   }
 
   if ((*(result + 52) & 1) != 0 || (*(result + 51) & 1) != 0 || [(BWNRFProcessorRequest *)result processingType]== 7)
   {
-    v4 = *(v2 + 16);
+    v4 = v2[2];
     if (v4)
     {
-      v5 = *(v4 + 56);
+      v5 = v4[7];
     }
 
     else
@@ -499,17 +499,17 @@ LABEL_13:
     }
 
     errorRecoveryFrame = [v5 count];
-    return errorRecoveryFrame != 0;
+    return (errorRecoveryFrame != 0);
   }
 
-  if (*(v2 + 56) >= 1)
+  if (*(v2 + 14) >= 1)
   {
     errorRecoveryFrame = [(BWNRFProcessorRequest *)v2 clientBracketFrame];
-    return errorRecoveryFrame != 0;
+    return (errorRecoveryFrame != 0);
   }
 
-  v10 = [objc_msgSend(objc_msgSend(*(v2 + 16) "captureStreamSettings")];
-  v7 = *(v2 + 16);
+  v10 = [objc_msgSend(objc_msgSend(v2[2] "captureStreamSettings")];
+  v7 = v2[2];
   if (!v10)
   {
     if (v7)
@@ -522,7 +522,7 @@ LABEL_18:
     v8 = OUTLINED_FUNCTION_27_0();
     if ([(BWNRFProcessorRequest *)v8 processingType])
     {
-      expectedFrameCount = [*(v2 + 16) expectedFrameCount];
+      expectedFrameCount = [v2[2] expectedFrameCount];
     }
 
     else
@@ -530,13 +530,13 @@ LABEL_18:
       expectedFrameCount = 1;
     }
 
-    return v1 == expectedFrameCount;
+    return (v1 == expectedFrameCount);
   }
 
   return [v7 receivedAllFrames];
 }
 
-- (uint64_t)keepFramesUntilReferenceFrameSelected
+- (BOOL)keepFramesUntilReferenceFrameSelected
 {
   if (result)
   {

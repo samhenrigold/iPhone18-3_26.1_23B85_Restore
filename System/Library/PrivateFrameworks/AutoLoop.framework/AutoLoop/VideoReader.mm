@@ -85,7 +85,7 @@
 
     memset(v60, 0, sizeof(v60));
     v59 = 0u;
-    [(AVAssetTrack *)v21 timeRange];
+    objc_msgSend_timeRange(v21);
     *&self->trackStartT.value = v59;
     self->trackStartT.epoch = *&v60[0];
     v22 = *(v60 + 8);
@@ -106,14 +106,14 @@
     v27 = self->videoTrack;
     if (v27)
     {
-      [(AVAssetTrack *)v27 minFrameDuration];
+      objc_msgSend_minFrameDuration(v27);
       v28 = self->videoTrack;
       *&self->minFrameDuration.value = *time;
       self->minFrameDuration.epoch = *&time[16];
       p_preferredTransform = &self->preferredTransform;
       if (v28)
       {
-        [(AVAssetTrack *)v28 preferredTransform];
+        objc_msgSend_preferredTransform(v28);
         goto LABEL_15;
       }
     }

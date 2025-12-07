@@ -68,18 +68,22 @@
 
 - (unint64_t)pencilBehaviorOutsideModesAtUnscaledPoint:(CGPoint)point
 {
+  y = point.y;
+  x = point.x;
   selfCopy = self;
-  v4 = CRLiOSPencilMediator.pencilBehaviorOutsideModes(at:)();
+  v6 = CRLiOSPencilMediator.pencilBehaviorOutsideModes(at:)(x, y);
 
-  return v4;
+  return v6;
 }
 
 - (BOOL)shouldAllowPencilKitHoverPreviewAtUnscaledPoint:(CGPoint)point
 {
+  y = point.y;
+  x = point.x;
   selfCopy = self;
-  v4 = CRLiOSPencilMediator.shouldAllowPencilKitHoverPreview(at:)();
+  v6 = CRLiOSPencilMediator.shouldAllowPencilKitHoverPreview(at:)(x, y);
 
-  return v4 & 1;
+  return v6 & 1;
 }
 
 - (BOOL)shouldAllowNativeHoverPreviewAtUnscaledPoint:(CGPoint)point

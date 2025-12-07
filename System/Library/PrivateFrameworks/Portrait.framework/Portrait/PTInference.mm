@@ -12,20 +12,21 @@
   result = validate;
   if (validate == 1)
   {
-    v8 = v3;
-    v9 = v4;
-    if (+[PTEffectUtil currentProcessIsCameracaptured])
+    v9 = v3;
+    v10 = v4;
+    v6 = +[PTEffectUtil currentProcessIsCameracaptured];
+    if (v6)
     {
       return 1;
     }
 
     else
     {
-      v6 = _PTLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_2243FB000, v6, OS_LOG_TYPE_INFO, "Changing espresso plan priority to 1 due to missing entitlements", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_2243FB000, v7, OS_LOG_TYPE_INFO, "Changing espresso plan priority to 1 due to missing entitlements", v8, 2u);
       }
 
       return 0x2000;

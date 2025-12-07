@@ -12,9 +12,9 @@
     +[NSXPCInterface(Extension) MERemoteExtensiontInterface];
   }
 
-  v1 = MERemoteExtensiontInterface_remoteInterface;
+  v2 = MERemoteExtensiontInterface_remoteInterface;
 
-  return v1;
+  return v2;
 }
 
 + (id)MEExtensionRemoteHostInterface
@@ -24,9 +24,9 @@
     +[NSXPCInterface(Extension) MEExtensionRemoteHostInterface];
   }
 
-  v1 = MEExtensionRemoteHostInterface_interface;
+  v2 = MEExtensionRemoteHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

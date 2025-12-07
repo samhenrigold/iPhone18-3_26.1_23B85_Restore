@@ -45,7 +45,7 @@
 
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
-  sub_100016C60(0, &qword_100928438);
+  sub_100016C60(0, &qword_100928438, UICollectionViewUpdateItem_ptr);
   v4 = sub_1007532A4();
   selfCopy = self;
   sub_1000F5200(v4);
@@ -73,7 +73,7 @@
 
   if (v8)
   {
-    sub_100016C60(0, &qword_100923730);
+    sub_100016C60(0, &qword_100923730, UICollectionViewLayoutAttributes_ptr);
     v9.super.isa = sub_100753294().super.isa;
   }
 

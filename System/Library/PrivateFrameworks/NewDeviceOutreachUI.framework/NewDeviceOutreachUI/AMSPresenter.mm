@@ -7,10 +7,9 @@
 
 - (void)amsUIViewFinishedWithCompletion:(unint64_t)completion
 {
-  v5 = *self->onFinish;
-  v4 = *&self->onFinish[8];
+  v4 = *self->onFinish;
 
-  v5(completion, 0);
+  v4(completion, 0);
 }
 
 - (void)amsUIViewFinishedWithCompletion:(unint64_t)completion params:(id)params
@@ -25,10 +24,9 @@
     v6 = 0;
   }
 
-  v8 = *self->onFinish;
-  v7 = *&self->onFinish[8];
+  v7 = *self->onFinish;
 
-  v8(completion, v6);
+  v7(completion, v6);
 }
 
 @end

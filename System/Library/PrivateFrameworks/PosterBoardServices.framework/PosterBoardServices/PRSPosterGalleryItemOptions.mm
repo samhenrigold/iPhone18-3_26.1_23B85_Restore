@@ -134,214 +134,101 @@
 
 + (id)itemOptionsWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v141 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v6 = NSStringFromSelector(sel_modularComplications);
   v7 = [representationCopy objectForKey:v6];
-  v8 = 0x1E695D000uLL;
-  v9 = objc_opt_class();
-  v10 = v7;
-  if (v9)
+  v8 = objc_opt_class();
+  v9 = v7;
+  if (v8)
   {
     if (objc_opt_isKindOfClass())
     {
-      v11 = v10;
+      v10 = v9;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = v11;
+  v11 = v10;
 
-  v13 = 0x1E695D000uLL;
-  v128 = v12;
-  v129 = representationCopy;
-  if (v12)
+  v12 = 0x1E695D000uLL;
+  v125 = v11;
+  v126 = representationCopy;
+  if (v11)
   {
-    v130 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v135 objects:v140 count:16];
-    if (v15)
-    {
-      v16 = v15;
-      v17 = *v136;
-      while (2)
-      {
-        for (i = 0; i != v16; ++i)
-        {
-          if (*v136 != v17)
-          {
-            objc_enumerationMutation(v14);
-          }
-
-          v19 = *(*(&v135 + 1) + 8 * i);
-          v20 = objc_opt_class();
-          v21 = v19;
-          if (v20)
-          {
-            if (objc_opt_isKindOfClass())
-            {
-              v22 = v21;
-            }
-
-            else
-            {
-              v22 = 0;
-            }
-          }
-
-          else
-          {
-            v22 = 0;
-          }
-
-          v23 = v22;
-
-          if (v23)
-          {
-            v24 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v23 error:error];
-            v25 = v24;
-            if (error && *error)
-            {
-              v33 = 0;
-              v34 = v129;
-              v35 = v14;
-              goto LABEL_143;
-            }
-
-            if (v24)
-            {
-              [v130 addObject:v24];
-            }
-          }
-        }
-
-        v16 = [v14 countByEnumeratingWithState:&v135 objects:v140 count:16];
-        if (v16)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    v26 = [v130 copy];
-    v130 = v26;
-    representationCopy = v129;
-    v8 = 0x1E695D000;
-    v13 = 0x1E695D000;
-  }
-
-  else
-  {
-    v130 = 0;
-  }
-
-  v27 = NSStringFromSelector(sel_modularLandscapeComplications);
-  v28 = [representationCopy objectForKey:v27];
-  v29 = *(v8 + 3784);
-  v30 = objc_opt_class();
-  v31 = v28;
-  if (v30)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v32 = v31;
-    }
-
-    else
-    {
-      v32 = 0;
-    }
-  }
-
-  else
-  {
-    v32 = 0;
-  }
-
-  v35 = v32;
-
-  v127 = v35;
-  if (v35)
-  {
-    v23 = objc_alloc_init(*(v13 + 3952));
-    v131 = 0u;
+    v127 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v132 = 0u;
     v133 = 0u;
     v134 = 0u;
-    v25 = v35;
-    v36 = [v25 countByEnumeratingWithState:&v131 objects:v139 count:16];
-    if (v36)
+    v135 = 0u;
+    v13 = v11;
+    v14 = [v13 countByEnumeratingWithState:&v132 objects:v137 count:16];
+    if (v14)
     {
-      v37 = v36;
-      v38 = *v132;
+      v15 = v14;
+      v16 = *v133;
       while (2)
       {
-        for (j = 0; j != v37; ++j)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v132 != v38)
+          if (*v133 != v16)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v13);
           }
 
-          v40 = *(*(&v131 + 1) + 8 * j);
-          v41 = objc_opt_class();
-          v42 = v40;
-          if (v41)
+          v18 = *(*(&v132 + 1) + 8 * i);
+          v19 = objc_opt_class();
+          v20 = v18;
+          if (v19)
           {
             if (objc_opt_isKindOfClass())
             {
-              v43 = v42;
+              v21 = v20;
             }
 
             else
             {
-              v43 = 0;
+              v21 = 0;
             }
           }
 
           else
           {
-            v43 = 0;
+            v21 = 0;
           }
 
-          v44 = v43;
+          v22 = v21;
 
-          if (v44)
+          if (v22)
           {
-            v45 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v44 error:error];
-            v46 = v45;
+            v23 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v22 error:error];
+            v24 = v23;
             if (error && *error)
             {
-              v33 = 0;
-              v34 = v129;
-              v35 = v127;
-              goto LABEL_141;
+              v31 = 0;
+              v32 = v126;
+              v33 = v13;
+              goto LABEL_143;
             }
 
-            if (v45)
+            if (v23)
             {
-              [v23 addObject:v45];
+              [v127 addObject:v23];
             }
           }
         }
 
-        v37 = [v25 countByEnumeratingWithState:&v131 objects:v139 count:16];
-        if (v37)
+        v15 = [v13 countByEnumeratingWithState:&v132 objects:v137 count:16];
+        if (v15)
         {
           continue;
         }
@@ -350,72 +237,182 @@
       }
     }
 
-    v47 = [v23 copy];
-    v23 = v47;
-    v35 = v127;
+    v25 = [v127 copy];
+    v127 = v25;
+    representationCopy = v126;
+    v12 = 0x1E695D000;
   }
 
   else
   {
-    v23 = 0;
+    v127 = 0;
   }
 
-  v48 = NSStringFromSelector(sel_inlineComplication);
-  v34 = v129;
-  v49 = [v129 objectForKey:v48];
-  v50 = objc_opt_class();
-  v51 = v49;
-  if (v50)
+  v26 = NSStringFromSelector(sel_modularLandscapeComplications);
+  v27 = [representationCopy objectForKey:v26];
+  v28 = objc_opt_class();
+  v29 = v27;
+  if (v28)
   {
     if (objc_opt_isKindOfClass())
     {
-      v52 = v51;
+      v30 = v29;
     }
 
     else
     {
-      v52 = 0;
+      v30 = 0;
     }
   }
 
   else
   {
-    v52 = 0;
+    v30 = 0;
   }
 
-  v44 = v52;
+  v33 = v30;
 
-  if (!v44)
+  v124 = v33;
+  if (v33)
   {
-    v25 = 0;
+    v22 = objc_alloc_init(*(v12 + 3952));
+    v128 = 0u;
+    v129 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v24 = v33;
+    v34 = [v24 countByEnumeratingWithState:&v128 objects:v136 count:16];
+    if (v34)
+    {
+      v35 = v34;
+      v36 = *v129;
+      while (2)
+      {
+        for (j = 0; j != v35; ++j)
+        {
+          if (*v129 != v36)
+          {
+            objc_enumerationMutation(v24);
+          }
+
+          v38 = *(*(&v128 + 1) + 8 * j);
+          v39 = objc_opt_class();
+          v40 = v38;
+          if (v39)
+          {
+            if (objc_opt_isKindOfClass())
+            {
+              v41 = v40;
+            }
+
+            else
+            {
+              v41 = 0;
+            }
+          }
+
+          else
+          {
+            v41 = 0;
+          }
+
+          v42 = v41;
+
+          if (v42)
+          {
+            v43 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v42 error:error];
+            v44 = v43;
+            if (error && *error)
+            {
+              v31 = 0;
+              v32 = v126;
+              v33 = v124;
+              goto LABEL_141;
+            }
+
+            if (v43)
+            {
+              [v22 addObject:v43];
+            }
+          }
+        }
+
+        v35 = [v24 countByEnumeratingWithState:&v128 objects:v136 count:16];
+        if (v35)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v45 = [v22 copy];
+    v22 = v45;
+    v33 = v124;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v46 = NSStringFromSelector(sel_inlineComplication);
+  v32 = v126;
+  v47 = [v126 objectForKey:v46];
+  v48 = objc_opt_class();
+  v49 = v47;
+  if (v48)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v50 = v49;
+    }
+
+    else
+    {
+      v50 = 0;
+    }
+  }
+
+  else
+  {
+    v50 = 0;
+  }
+
+  v42 = v50;
+
+  if (!v42)
+  {
+    v24 = 0;
 LABEL_65:
-    v53 = NSStringFromSelector(sel_allowsSystemSuggestedComplications);
-    v54 = [v129 objectForKey:v53];
-    v55 = objc_opt_class();
-    v56 = v54;
-    if (v55)
+    v51 = NSStringFromSelector(sel_allowsSystemSuggestedComplications);
+    v52 = [v126 objectForKey:v51];
+    v53 = objc_opt_class();
+    v54 = v52;
+    if (v53)
     {
       if (objc_opt_isKindOfClass())
       {
-        v57 = v56;
+        v55 = v54;
       }
 
       else
       {
-        v57 = 0;
+        v55 = 0;
       }
     }
 
     else
     {
-      v57 = 0;
+      v55 = 0;
     }
 
-    v46 = v57;
+    v44 = v55;
 
-    if (v46)
+    if (v44)
     {
-      bOOLValue = [v46 BOOLValue];
+      bOOLValue = [v44 BOOLValue];
     }
 
     else
@@ -423,34 +420,34 @@ LABEL_65:
       bOOLValue = 0;
     }
 
-    v58 = NSStringFromSelector(sel_allowsSystemSuggestedComplicationsInLandscape);
-    v59 = [v129 objectForKey:v58];
-    v60 = objc_opt_class();
-    v61 = v59;
-    if (v60)
+    v56 = NSStringFromSelector(sel_allowsSystemSuggestedComplicationsInLandscape);
+    v57 = [v126 objectForKey:v56];
+    v58 = objc_opt_class();
+    v59 = v57;
+    if (v58)
     {
       if (objc_opt_isKindOfClass())
       {
-        v62 = v61;
+        v60 = v59;
       }
 
       else
       {
-        v62 = 0;
+        v60 = 0;
       }
     }
 
     else
     {
-      v62 = 0;
+      v60 = 0;
     }
 
-    v63 = v62;
+    v61 = v60;
 
-    v124 = v63;
-    if (v63)
+    v121 = v61;
+    if (v61)
     {
-      bOOLValue2 = [v63 BOOLValue];
+      bOOLValue2 = [v61 BOOLValue];
     }
 
     else
@@ -458,34 +455,34 @@ LABEL_65:
       bOOLValue2 = 0;
     }
 
-    v64 = NSStringFromSelector(sel_featuredConfidenceLevel);
-    v65 = [v129 objectForKey:v64];
-    v66 = objc_opt_class();
-    v67 = v65;
-    if (v66)
+    v62 = NSStringFromSelector(sel_featuredConfidenceLevel);
+    v63 = [v126 objectForKey:v62];
+    v64 = objc_opt_class();
+    v65 = v63;
+    if (v64)
     {
       if (objc_opt_isKindOfClass())
       {
-        v68 = v67;
+        v66 = v65;
       }
 
       else
       {
-        v68 = 0;
+        v66 = 0;
       }
     }
 
     else
     {
-      v68 = 0;
+      v66 = 0;
     }
 
-    v69 = v68;
+    v67 = v66;
 
-    v122 = v69;
-    if (v69)
+    v119 = v67;
+    if (v67)
     {
-      integerValue = [v69 integerValue];
+      integerValue = [v67 integerValue];
     }
 
     else
@@ -493,116 +490,116 @@ LABEL_65:
       integerValue = 0;
     }
 
-    v70 = NSStringFromSelector(sel_displayNameLocalizationKey);
-    v71 = [v129 objectForKey:v70];
-    v72 = objc_opt_class();
-    v73 = v71;
-    if (v72)
+    v68 = NSStringFromSelector(sel_displayNameLocalizationKey);
+    v69 = [v126 objectForKey:v68];
+    v70 = objc_opt_class();
+    v71 = v69;
+    if (v70)
     {
       if (objc_opt_isKindOfClass())
       {
-        v74 = v73;
+        v72 = v71;
       }
 
       else
       {
-        v74 = 0;
+        v72 = 0;
       }
     }
 
     else
     {
-      v74 = 0;
+      v72 = 0;
     }
 
-    v120 = v74;
+    v117 = v72;
 
-    v75 = [v129 objectForKey:@"hero"];
-    v76 = objc_opt_class();
-    v77 = v75;
-    if (v76)
+    v73 = [v126 objectForKey:@"hero"];
+    v74 = objc_opt_class();
+    v75 = v73;
+    if (v74)
     {
       if (objc_opt_isKindOfClass())
       {
-        v78 = v77;
+        v76 = v75;
       }
 
       else
       {
-        v78 = 0;
+        v76 = 0;
       }
     }
 
     else
     {
-      v78 = 0;
+      v76 = 0;
     }
 
-    v79 = v78;
+    v77 = v76;
 
-    if (v79)
+    if (v77)
     {
-      v80 = v79;
+      v78 = v77;
     }
 
     else
     {
-      v81 = [v129 objectForKey:@"blankTemplate"];
-      v82 = objc_opt_class();
-      v83 = v81;
-      if (v82)
+      v79 = [v126 objectForKey:@"blankTemplate"];
+      v80 = objc_opt_class();
+      v81 = v79;
+      if (v80)
       {
         if (objc_opt_isKindOfClass())
         {
-          v84 = v83;
+          v82 = v81;
         }
 
         else
         {
-          v84 = 0;
+          v82 = 0;
         }
       }
 
       else
       {
-        v84 = 0;
+        v82 = 0;
       }
 
-      v85 = v84;
+      v83 = v82;
 
-      v80 = v85;
-      if (!v80)
+      v78 = v83;
+      if (!v78)
       {
         bOOLValue5 = 0;
 LABEL_108:
-        v86 = NSStringFromSelector(sel_shouldShowAsShuffleStack);
-        v87 = [v129 objectForKey:v86];
-        v88 = objc_opt_class();
-        v89 = v87;
-        if (v88)
+        v84 = NSStringFromSelector(sel_shouldShowAsShuffleStack);
+        v85 = [v126 objectForKey:v84];
+        v86 = objc_opt_class();
+        v87 = v85;
+        if (v86)
         {
           if (objc_opt_isKindOfClass())
           {
-            v90 = v89;
+            v88 = v87;
           }
 
           else
           {
-            v90 = 0;
+            v88 = 0;
           }
         }
 
         else
         {
-          v90 = 0;
+          v88 = 0;
         }
 
-        v91 = v90;
+        v89 = v88;
 
-        v118 = v91;
-        if (v91)
+        v115 = v89;
+        if (v89)
         {
-          bOOLValue3 = [v91 BOOLValue];
+          bOOLValue3 = [v89 BOOLValue];
         }
 
         else
@@ -610,33 +607,33 @@ LABEL_108:
           bOOLValue3 = 0;
         }
 
-        v92 = NSStringFromSelector(sel_photoSubtype);
-        v93 = [v129 objectForKey:v92];
-        v94 = objc_opt_class();
-        v95 = v93;
-        if (v94)
+        v90 = NSStringFromSelector(sel_photoSubtype);
+        v91 = [v126 objectForKey:v90];
+        v92 = objc_opt_class();
+        v93 = v91;
+        if (v92)
         {
           if (objc_opt_isKindOfClass())
           {
-            v96 = v95;
+            v94 = v93;
           }
 
           else
           {
-            v96 = 0;
+            v94 = 0;
           }
         }
 
         else
         {
-          v96 = 0;
+          v94 = 0;
         }
 
-        v97 = v96;
+        v95 = v94;
 
-        if (v97)
+        if (v95)
         {
-          integerValue2 = [v97 integerValue];
+          integerValue2 = [v95 integerValue];
         }
 
         else
@@ -644,34 +641,34 @@ LABEL_108:
           integerValue2 = 0;
         }
 
-        v98 = NSStringFromSelector(sel_focus);
-        v99 = [v129 objectForKey:v98];
-        v100 = objc_opt_class();
-        v101 = v99;
-        if (v100)
+        v96 = NSStringFromSelector(sel_focus);
+        v97 = [v126 objectForKey:v96];
+        v98 = objc_opt_class();
+        v99 = v97;
+        if (v98)
         {
           if (objc_opt_isKindOfClass())
           {
-            v102 = v101;
+            v100 = v99;
           }
 
           else
           {
-            v102 = 0;
+            v100 = 0;
           }
         }
 
         else
         {
-          v102 = 0;
+          v100 = 0;
         }
 
-        v103 = v102;
+        v101 = v100;
 
-        v116 = v97;
-        if (v103)
+        v113 = v95;
+        if (v101)
         {
-          integerValue3 = [v103 integerValue];
+          integerValue3 = [v101 integerValue];
         }
 
         else
@@ -679,33 +676,33 @@ LABEL_108:
           integerValue3 = 0;
         }
 
-        v105 = [v129 objectForKey:@"onlyEligibleForMadeForFocusSection"];
-        v106 = objc_opt_class();
-        v107 = v105;
-        if (v106)
+        v103 = [v126 objectForKey:@"onlyEligibleForMadeForFocusSection"];
+        v104 = objc_opt_class();
+        v105 = v103;
+        if (v104)
         {
           if (objc_opt_isKindOfClass())
           {
-            v108 = v107;
+            v106 = v105;
           }
 
           else
           {
-            v108 = 0;
+            v106 = 0;
           }
         }
 
         else
         {
-          v108 = 0;
+          v106 = 0;
         }
 
-        v35 = v127;
-        v109 = v108;
+        v33 = v124;
+        v107 = v106;
 
-        if (v109)
+        if (v107)
         {
-          bOOLValue4 = [v109 BOOLValue];
+          bOOLValue4 = [v107 BOOLValue];
         }
 
         else
@@ -713,41 +710,40 @@ LABEL_108:
           bOOLValue4 = 0;
         }
 
-        LOBYTE(v114) = bOOLValue4;
-        BYTE1(v113) = bOOLValue3;
-        LOBYTE(v113) = bOOLValue5;
-        v33 = [[self alloc] initWithModularComplications:v130 modularLandscapeComplications:v23 inlineComplication:v25 allowsSystemSuggestedComplications:bOOLValue allowsSystemSuggestedComplicationsInLandscape:bOOLValue2 featuredConfidenceLevel:integerValue displayNameLocalizationKey:v120 spokenNameLocalizationKey:0 descriptiveTextLocalizationKey:0 hero:v113 shouldShowAsShuffleStack:integerValue2 photoSubtype:integerValue3 focus:v114 onlyEligibleForMadeForFocusSection:?];
+        LOBYTE(v111) = bOOLValue4;
+        BYTE1(v110) = bOOLValue3;
+        LOBYTE(v110) = bOOLValue5;
+        v31 = [[self alloc] initWithModularComplications:v127 modularLandscapeComplications:v22 inlineComplication:v24 allowsSystemSuggestedComplications:bOOLValue allowsSystemSuggestedComplicationsInLandscape:bOOLValue2 featuredConfidenceLevel:integerValue displayNameLocalizationKey:v117 spokenNameLocalizationKey:0 descriptiveTextLocalizationKey:0 hero:v110 shouldShowAsShuffleStack:integerValue2 photoSubtype:integerValue3 focus:v111 onlyEligibleForMadeForFocusSection:?];
 
 LABEL_141:
         goto LABEL_142;
       }
     }
 
-    bOOLValue5 = [v80 BOOLValue];
+    bOOLValue5 = [v78 BOOLValue];
 
     goto LABEL_108;
   }
 
-  v25 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v44 error:error];
+  v24 = [PRSPosterGallerySuggestedComplication suggestedComplicationWithDictionaryRepresentation:v42 error:error];
   if (!error || !*error)
   {
     goto LABEL_65;
   }
 
-  v33 = 0;
+  v31 = 0;
 LABEL_142:
 
 LABEL_143:
-  v111 = *MEMORY[0x1E69E9840];
 
-  return v33;
+  return v31;
 }
 
 - (id)dictionaryRepresentation
 {
-  v36[12] = *MEMORY[0x1E69E9840];
-  v34 = NSStringFromSelector(sel_modularComplications);
-  v35[0] = v34;
+  v35[12] = *MEMORY[0x1E69E9840];
+  v33 = NSStringFromSelector(sel_modularComplications);
+  v34[0] = v33;
   null = [(NSArray *)self->_modularComplications bs_map:&__block_literal_global_50];
   v4 = null;
   if (!null)
@@ -755,10 +751,10 @@ LABEL_143:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v36[0] = null;
-  v32 = NSStringFromSelector(sel_modularLandscapeComplications);
-  v35[1] = v32;
+  v21 = null;
+  v35[0] = null;
+  v31 = NSStringFromSelector(sel_modularLandscapeComplications);
+  v34[1] = v31;
   null2 = [(NSArray *)self->_modularLandscapeComplications bs_map:&__block_literal_global_53];
   v6 = null2;
   if (!null2)
@@ -766,69 +762,67 @@ LABEL_143:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = v6;
-  v33 = v4;
-  v21 = null2;
-  v36[1] = null2;
-  v30 = NSStringFromSelector(sel_inlineComplication);
-  v35[2] = v30;
+  v30 = v6;
+  v32 = v4;
+  v20 = null2;
+  v35[1] = null2;
+  v29 = NSStringFromSelector(sel_inlineComplication);
+  v34[2] = v29;
   inlineComplication = self->_inlineComplication;
-  v29 = inlineComplication;
+  v28 = inlineComplication;
   if (!inlineComplication)
   {
     inlineComplication = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = inlineComplication;
-  v36[2] = inlineComplication;
-  v28 = NSStringFromSelector(sel_allowsSystemSuggestedComplications);
-  v35[3] = v28;
-  v27 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsSystemSuggestedComplications];
-  v36[3] = v27;
-  v26 = NSStringFromSelector(sel_allowsSystemSuggestedComplicationsInLandscape);
-  v35[4] = v26;
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsSystemSuggestedComplicationsInLandscape];
-  v36[4] = v25;
-  v24 = NSStringFromSelector(sel_featuredConfidenceLevel);
-  v35[5] = v24;
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:self->_featuredConfidenceLevel];
-  v36[5] = v23;
+  v19 = inlineComplication;
+  v35[2] = inlineComplication;
+  v27 = NSStringFromSelector(sel_allowsSystemSuggestedComplications);
+  v34[3] = v27;
+  v26 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsSystemSuggestedComplications];
+  v35[3] = v26;
+  v25 = NSStringFromSelector(sel_allowsSystemSuggestedComplicationsInLandscape);
+  v34[4] = v25;
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:self->_allowsSystemSuggestedComplicationsInLandscape];
+  v35[4] = v24;
+  v23 = NSStringFromSelector(sel_featuredConfidenceLevel);
+  v34[5] = v23;
+  v22 = [MEMORY[0x1E696AD98] numberWithInteger:self->_featuredConfidenceLevel];
+  v35[5] = v22;
   v8 = NSStringFromSelector(sel_displayNameLocalizationKey);
-  v36[6] = self->_displayNameLocalizationKey;
-  v35[6] = v8;
-  v35[7] = @"hero";
+  v35[6] = self->_displayNameLocalizationKey;
+  v34[6] = v8;
+  v34[7] = @"hero";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_hero];
-  v36[7] = v9;
+  v35[7] = v9;
   v10 = NSStringFromSelector(sel_shouldShowAsShuffleStack);
-  v35[8] = v10;
+  v34[8] = v10;
   v11 = [MEMORY[0x1E696AD98] numberWithBool:self->_shouldShowAsShuffleStack];
-  v36[8] = v11;
+  v35[8] = v11;
   v12 = NSStringFromSelector(sel_photoSubtype);
-  v35[9] = v12;
+  v34[9] = v12;
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_photoSubtype];
-  v36[9] = v13;
+  v35[9] = v13;
   v14 = NSStringFromSelector(sel_focus);
-  v35[10] = v14;
+  v34[10] = v14;
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:self->_focus];
-  v36[10] = v15;
-  v35[11] = @"onlyEligibleForMadeForFocusSection";
+  v35[10] = v15;
+  v34[11] = @"onlyEligibleForMadeForFocusSection";
   v16 = [MEMORY[0x1E696AD98] numberWithBool:self->_onlyEligibleForMadeForFocusSection];
-  v36[11] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:12];
+  v35[11] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:12];
 
-  if (!v29)
+  if (!v28)
   {
   }
 
-  if (!v31)
+  if (!v30)
   {
   }
 
-  if (!v33)
+  if (!v32)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1001,63 +995,63 @@ LABEL_143:
 
 - (unint64_t)hash
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v4 = self->_modularComplications;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v36;
+    v7 = *v35;
     do
     {
       v8 = 0;
       do
       {
-        if (*v36 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [builder appendObject:*(*(&v35 + 1) + 8 * v8++)];
+        v9 = [builder appendObject:*(*(&v34 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v6);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v10 = self->_modularLandscapeComplications;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v32;
+    v13 = *v31;
     do
     {
       v14 = 0;
       do
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [builder appendObject:{*(*(&v31 + 1) + 8 * v14++), v31}];
+        v15 = [builder appendObject:{*(*(&v30 + 1) + 8 * v14++), v30}];
       }
 
       while (v12 != v14);
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v12);
@@ -1077,7 +1071,6 @@ LABEL_143:
   v27 = [builder appendBool:self->_onlyEligibleForMadeForFocusSection];
   v28 = [builder hash];
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

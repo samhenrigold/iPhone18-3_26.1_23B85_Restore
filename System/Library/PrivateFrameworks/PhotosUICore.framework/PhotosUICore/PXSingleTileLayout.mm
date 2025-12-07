@@ -41,7 +41,7 @@
   v12 = *(MEMORY[0x1E695F050] + 8);
   v13 = *(MEMORY[0x1E695F050] + 16);
   v14 = *(MEMORY[0x1E695F050] + 24);
-  [(PXSingleTileLayout *)self tileIdentifier];
+  objc_msgSend_tileIdentifier(self, a2);
   v15 = *&identifier->index[5];
   v27[2] = *&identifier->index[3];
   v27[3] = v15;
@@ -131,7 +131,7 @@
   v13 = blockCopy;
   v17 = v13;
   v14 = _Block_copy(aBlock);
-  [(PXSingleTileLayout *)self tileIdentifier];
+  objc_msgSend_tileIdentifier(self);
   v14[2](v14, &v15);
 
   _Block_object_dispose(v23, 8);

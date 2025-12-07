@@ -32,7 +32,7 @@ void mlir::mps::ConstantOp::downgradeToVersion(mlir::Operation **a1@<X0>, _DWORD
     v44 = &v41;
     v46 = 263;
     v45[0] = &v34;
-    mlir::OpState::emitOpError(a1, v45, v50);
+    mlir::OpState::emitOpError(v50, a1, v45);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v50[0])
@@ -145,7 +145,7 @@ void mlir::mps::ConstantOp::downgradeToVersion(mlir::Operation **a1@<X0>, _DWORD
     v44 = &v41;
     v46 = 263;
     v45[0] = &v34;
-    mlir::OpState::emitOpError(a1, v45, v50);
+    mlir::OpState::emitOpError(v50, a1, v45);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v50[0])
@@ -261,7 +261,7 @@ void mlir::mps::ReadDataFromFileOp::downgradeToVersion(mlir::Operation **a1@<X0>
       v54 = &v51;
       v56 = 263;
       v55[0] = &v44;
-      mlir::OpState::emitOpError(a1, v55, v59);
+      mlir::OpState::emitOpError(v59, a1, v55);
       *a3 = 0;
       *(a3 + 16) = 0;
       if (v59[0])
@@ -357,7 +357,7 @@ void mlir::mps::ReadDataFromFileOp::downgradeToVersion(mlir::Operation **a1@<X0>
         v54 = &v51;
         v56 = 263;
         v55[0] = &v44;
-        mlir::OpState::emitOpError(a1, v55, v59);
+        mlir::OpState::emitOpError(v59, a1, v55);
         *a3 = 0;
         *(a3 + 16) = 0;
         if (v59[0])
@@ -456,7 +456,7 @@ void mlir::mps::ReadDataFromFileOp::downgradeToVersion(mlir::Operation **a1@<X0>
     v54 = &v51;
     v56 = 263;
     v55[0] = &v44;
-    mlir::OpState::emitOpError(a1, v55, v59);
+    mlir::OpState::emitOpError(v59, a1, v55);
     *a3 = 0;
     *(a3 + 16) = 0;
     if (v59[0])
@@ -532,8 +532,9 @@ LABEL_66:
   }
 }
 
-uint64_t mlir::mps::MatMulOp::inferReturnTypes(mlir::Float32Type *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::MatMulOp::inferReturnTypes(mlir::Float32Type *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v106 = *MEMORY[0x277D85DE8];
   v92 = a4;
   v93 = a5;
@@ -563,7 +564,7 @@ uint64_t mlir::mps::MatMulOp::inferReturnTypes(mlir::Float32Type *a1, mlir::MLIR
       v86 = 0;
     }
 
-    mlir::OperationName::OperationName(v85, "mps.matmul", 10, Context);
+    mlir::OperationName::OperationName(v85, "mps.matmul", 0xAuLL, Context);
     v86 = 1;
     v16 = v93;
     a1 = v17;
@@ -628,7 +629,7 @@ LABEL_15:
 
   if (*(*v83[0] + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id || *(*v26 + 136) != &mlir::detail::TypeIDResolver<mlir::RankedTensorType,void>::id)
   {
-    if (!mlir::emitOptionalError<char const(&)[22],mlir::ShapedType &,char const(&)[3],mlir::ShapedType &>(a2, a3, "invalid input types: ", v83, ", ", v82))
+    if (!mlir::emitOptionalError<char const(&)[22],mlir::ShapedType &,char const(&)[3],mlir::ShapedType &>(a2, v13, "invalid input types: ", v83, ", ", v82))
     {
       return 0;
     }
@@ -896,10 +897,10 @@ LABEL_84:
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      *(v94 + v48) = *v49;
+      *(v94 + v48) = v49->i64[0];
       v48 = v95 + 1;
       LODWORD(v95) = v95 + 1;
-      ++v49;
+      v49 = (v49 + 8);
       v50 -= 8;
     }
 
@@ -955,7 +956,7 @@ LABEL_117:
   v65 = 8 * v57 - 24;
   while (1)
   {
-    v66 = *&v53[v63];
+    v66 = *(v53->i64 + v63);
     v67 = *&v56[v65];
     if (v66 == 0x8000000000000000)
     {
@@ -1009,7 +1010,7 @@ LABEL_115:
   }
 
   LODWORD(v95) = 0;
-  v74 = mlir::emitOptionalError<char const(&)[24]>(a2, a3, "incompatible dimensions");
+  v74 = mlir::emitOptionalError<char const(&)[24]>(a2, v13, "incompatible dimensions");
   v56 = v100;
   v71 = !v74;
   if (v100 != v102)
@@ -1026,7 +1027,7 @@ LABEL_122:
 
   if (v71)
   {
-    v72 = mlir::emitOptionalError<char const(&)[24]>(a2, a3, "invalid shape");
+    v72 = mlir::emitOptionalError<char const(&)[24]>(a2, v13, "invalid shape");
     v28 = 0;
   }
 
@@ -1292,7 +1293,7 @@ LABEL_49:
     {
       v63 = "contracting dimensions differ ";
       v64 = 259;
-      mlir::OpState::emitOpError(this, &v63, v69);
+      mlir::OpState::emitOpError(v69, this, &v63);
       if (v69[0])
       {
         LODWORD(v67) = 2;
@@ -1472,7 +1473,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::verifySparseTensorHelper(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, void (*a7)(void *__return_ptr, uint64_t, void *), uint64_t a8)
+BOOL mlir::mps::verifySparseTensorHelper(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, void (*a7)(void *__return_ptr, uint64_t, void *), uint64_t a8)
 {
   v116 = *MEMORY[0x277D85DE8];
   v105 = a6;
@@ -1825,10 +1826,10 @@ LABEL_99:
               v73 = *mlir::ShapedType::getShape(&v85);
               if (v73 != *mlir::ShapedType::getShape(&v83))
               {
-                v74 = *(a2 + 8) & 0xFFFFFFFFFFFFFFF8;
-                v81 = *(a1 + 8) & 0xFFFFFFFFFFFFFFF8;
+                v74 = (*(a2 + 8) & 0xFFFFFFFFFFFFFFF8);
+                v81 = (*(a1 + 8) & 0xFFFFFFFFFFFFFFF8);
                 v82 = v74;
-                llvm::formatv<mlir::Type,mlir::Type>("failed: index_tensor0 and sparse_values shape mismatch, {0} and {1}", &v82, &v81, &v87);
+                llvm::formatv<mlir::Type,mlir::Type>(&v87, "failed: index_tensor0 and sparse_values shape mismatch, {0} and {1}", &v82, &v81);
                 v102 = 263;
                 v101[0] = &v87;
                 a7(v107, a8, v101);
@@ -1947,31 +1948,31 @@ LABEL_74:
   return v28;
 }
 
-const char *llvm::formatv<mlir::Type,mlir::Type>@<X0>(const char *__s@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+const char *llvm::formatv<mlir::Type,mlir::Type>@<X0>(const char **__return_ptr a1@<X8>, const char *__s@<X0>, const char **a3@<X1>, const char **a4@<X2>)
 {
   v4 = __s;
-  v6 = *a2;
-  v7 = *a3;
+  v6 = *a3;
+  v7 = *a4;
   if (__s)
   {
     __s = strlen(__s);
   }
 
-  *a4 = v4;
-  *(a4 + 8) = __s;
-  *(a4 + 72) = a4 + 40;
-  *(a4 + 16) = a4 + 72;
-  *(a4 + 24) = 2;
-  *(a4 + 32) = 1;
-  *(a4 + 40) = &unk_286872008;
-  *(a4 + 48) = v6;
-  *(a4 + 56) = &unk_286872008;
-  *(a4 + 64) = v7;
-  *(a4 + 80) = a4 + 56;
+  *a1 = v4;
+  a1[1] = __s;
+  a1[9] = (a1 + 5);
+  a1[2] = (a1 + 9);
+  a1[3] = 2;
+  *(a1 + 32) = 1;
+  a1[5] = &unk_286872008;
+  a1[6] = v6;
+  a1[7] = &unk_286872008;
+  a1[8] = v7;
+  a1[10] = (a1 + 7);
   return __s;
 }
 
-uint64_t mlir::mps::MaterializeSparseTensorOp::verify(mlir::Operation **this)
+BOOL mlir::mps::MaterializeSparseTensorOp::verify(mlir::Operation **this)
 {
   v45 = *MEMORY[0x277D85DE8];
   if (*(*this + 9))
@@ -2053,7 +2054,7 @@ LABEL_18:
   {
     v34 = "failure: expected at least two operands to represent COO, CSR or CSC sparse formats.";
     v35 = 259;
-    mlir::OpState::emitOpError(this, &v34, v36);
+    mlir::OpState::emitOpError(v36, this, &v34);
     v19 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v36);
     if (v36[0])
     {
@@ -2164,7 +2165,7 @@ uint64_t mlir::mps::HammingDistanceOp::inferReturnTypes(mlir::UnknownLoc *this, 
       v59 = 0;
     }
 
-    mlir::OperationName::OperationName(v58, "mps.hamming_distance", 20, Context);
+    mlir::OperationName::OperationName(v58, "mps.hamming_distance", 0x14uLL, Context);
     v59 = 1;
     v15 = v66;
   }
@@ -2177,7 +2178,7 @@ uint64_t mlir::mps::HammingDistanceOp::inferReturnTypes(mlir::UnknownLoc *this, 
     if (mlir::mps::HammingDistanceOpAdaptor::verify(&v57, v17))
     {
       v54 = v60;
-      Value = mlir::IntegerType::get(this, 32, 2u);
+      Value = mlir::IntegerType::get(this, 0x20u, 2u);
       if (v54)
       {
         Value = mlir::TypeAttr::getValue(&v54);
@@ -2345,7 +2346,7 @@ LABEL_32:
     }
   }
 
-  v35 = mlir::IntegerType::get(this, 32, 2u);
+  v35 = mlir::IntegerType::get(this, 0x20u, 2u);
   if (!v35)
   {
     v35 = mlir::Float32Type::get(this, v36);
@@ -2364,7 +2365,7 @@ LABEL_29:
   return 1;
 }
 
-uint64_t mlir::mps::HammingDistanceOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::HammingDistanceOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -2708,7 +2709,7 @@ LABEL_78:
                 {
                   v74[0] = "Leading n-2 dimensions not broadcast compatible: ";
                   v75 = 259;
-                  mlir::OpState::emitOpError(this, v74, v79);
+                  mlir::OpState::emitOpError(v79, this, v74);
                   if (v79[0])
                   {
                     LODWORD(v77) = 3;
@@ -2869,7 +2870,7 @@ LABEL_65:
             {
               v74[0] = "Incompatible last dimension shapes: LHS = ";
               v75 = 259;
-              mlir::OpState::emitOpError(this, v74, v79);
+              mlir::OpState::emitOpError(v79, this, v74);
               mlir::InFlightDiagnostic::append<mlir::Type const&>(v79, v73);
               mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v47, " RHS = ");
               mlir::InFlightDiagnostic::append<mlir::Type const&>(v48, &v71);
@@ -2893,7 +2894,7 @@ LABEL_33:
   }
 
   v75 = 259;
-  mlir::OpState::emitOpError(this, v74, v79);
+  mlir::OpState::emitOpError(v79, this, v74);
   v15 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v79);
   if (v79[0])
   {
@@ -2987,7 +2988,7 @@ uint64_t mlir::mps::TransposeOp::inferReturnTypes(mlir::Float32Type *a1, mlir::M
       v68 = 0;
     }
 
-    mlir::OperationName::OperationName(v67, "mps.transpose", 13, Context);
+    mlir::OperationName::OperationName(v67, "mps.transpose", 0xDuLL, Context);
     v68 = 1;
   }
 
@@ -3204,10 +3205,10 @@ LABEL_37:
   return 1;
 }
 
-uint64_t llvm::SmallVector<long long,6u>::SmallVector<long long const*,void>(uint64_t a1, _BYTE *a2, _BYTE *a3)
+void *llvm::SmallVector<long long,6u>::SmallVector<long long const*,void>(void *a1, _BYTE *a2, _BYTE *a3)
 {
-  *a1 = a1 + 16;
-  *(a1 + 8) = 0x600000000;
+  *a1 = a1 + 2;
+  a1[1] = 0x600000000;
   v4 = a3 - a2;
   if (((a3 - a2) >> 3) >= 7)
   {
@@ -3218,10 +3219,10 @@ uint64_t llvm::SmallVector<long long,6u>::SmallVector<long long const*,void>(uin
   if (a2 != a3)
   {
     memcpy(*a1, a2, v4);
-    v5 = *(a1 + 8);
+    v5 = *(a1 + 2);
   }
 
-  *(a1 + 8) = v5 + (v4 >> 3);
+  *(a1 + 2) = v5 + (v4 >> 3);
   return a1;
 }
 
@@ -3266,7 +3267,7 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::PermuteOp::inferReturnTypes(mlir::Float32Type *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::mps::PermuteOp::inferReturnTypes(mlir::Float32Type *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v69[4] = *MEMORY[0x277D85DE8];
   v63[0] = a4;
@@ -3610,7 +3611,7 @@ BOOL mlir::mps::PermuteOp::verify(mlir::Operation **this)
   if (!v3)
   {
     v51 = 259;
-    mlir::OpState::emitOpError(this, v49, &v56);
+    mlir::OpState::emitOpError(&v56, this, v49);
     if (v56)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v54, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
@@ -3707,7 +3708,7 @@ LABEL_63:
   if (!v6)
   {
     v51 = 259;
-    mlir::OpState::emitOpError(this, v49, &v56);
+    mlir::OpState::emitOpError(&v56, this, v49);
     if (v56)
     {
       mlir::DiagnosticArgument::DiagnosticArgument(&v54, *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8);
@@ -3849,7 +3850,7 @@ LABEL_64:
 
   v49[0] = "perm tensor length must equal input tensor rank, ";
   v51 = 259;
-  mlir::OpState::emitOpError(this, v49, &v56);
+  mlir::OpState::emitOpError(&v56, this, v49);
   v38 = mlir::TensorType::getShape(&v52);
   NumElements = mlir::ShapedType::getNumElements(v38, v39);
   if (v56)
@@ -3928,7 +3929,7 @@ LABEL_64:
   return v17;
 }
 
-BOOL mlir::mps::anonymous namespace::permuteShapeWithAxes(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, unint64_t a7)
+BOOL mlir::mps::anonymous namespace::permuteShapeWithAxes(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t *a5, uint64_t a6, char *a7)
 {
   v13[1] = 0;
   v14 = a7;
@@ -3983,13 +3984,13 @@ uint64_t mlir::mps::OneHotOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
       v46 = 0;
     }
 
-    mlir::OperationName::OperationName(v45, "mps.one_hot", 11, Context);
+    mlir::OperationName::OperationName(v45, "mps.one_hot", 0xBuLL, Context);
     v46 = 1;
   }
 
   v50 = a4;
   v51 = a5;
-  if (a5 && (v16 = mlir::UnknownLoc::get(this, a2), (mlir::mps::OneHotOpAdaptor::verify(&v44, v16) & 1) != 0))
+  if (a5 && (v16 = mlir::UnknownLoc::get(this, a2), mlir::mps::OneHotOpAdaptor::verify(&v44, v16)))
   {
     v41 = v50;
     v42 = 0;
@@ -4066,7 +4067,7 @@ uint64_t mlir::mps::OneHotOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
   return 1;
 }
 
-uint64_t mlir::mps::OneHotOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::OneHotOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -4214,7 +4215,7 @@ void mlir::mps::anonymous namespace::inferOneHotReturnType(uint64_t a1, uint64_t
       v19 = __dst;
     }
 
-    v20 = &v19[v13];
+    v20 = (v19 + 8 * v13);
     *v20 = a3;
     if (8 * v17 != v18)
     {
@@ -4358,7 +4359,7 @@ LABEL_15:
       if (v17 != 0x8000000000000000 && v17 != 1)
       {
         v41 = 259;
-        mlir::OpState::emitOpError(this, &v40, v47);
+        mlir::OpState::emitOpError(v47, this, &v40);
         if (v47[0])
         {
           LODWORD(v45) = 2;
@@ -4527,7 +4528,7 @@ LABEL_15:
   return v18;
 }
 
-BOOL mlir::mps::anonymous namespace::validateSingleAxis(mlir::mps::_anonymous_namespace_ *this, uint64_t a2, uint64_t a3, void *a4, uint64_t *a5)
+BOOL mlir::mps::anonymous namespace::validateSingleAxis(mlir::mps::_anonymous_namespace_ *this, uint64_t a2, uint64_t a3, const char **a4, uint64_t *a5)
 {
   v44 = *MEMORY[0x277D85DE8];
   v7 = ((a3 & (a2 >> 63)) + a2);
@@ -4694,7 +4695,7 @@ BOOL mlir::mps::anonymous namespace::validateSingleAxis(mlir::mps::_anonymous_na
   return v8;
 }
 
-uint64_t mlir::mps::ScatterNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, mlir::MLIRContext *a11)
+uint64_t mlir::mps::ScatterNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, mlir::MLIRContext *a11)
 {
   v69[2] = *MEMORY[0x277D85DE8];
   v69[0] = a4;
@@ -4710,7 +4711,7 @@ uint64_t mlir::mps::ScatterNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::
   }
 
   v61 = a6;
-  v62[0] = 0;
+  LOBYTE(v62) = 0;
   v63 = 0;
   v64 = v16;
   v65 = a9;
@@ -4723,13 +4724,13 @@ uint64_t mlir::mps::ScatterNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::
       v63 = 0;
     }
 
-    mlir::OperationName::OperationName(v62, "mps.scatter_nd", 14, Context);
+    mlir::OperationName::OperationName(&v62, "mps.scatter_nd", 0xEuLL, Context);
     v63 = 1;
   }
 
   v67 = a4;
   v68 = a5;
-  if (a5 < 3 || (v18 = mlir::UnknownLoc::get(this, a2), (mlir::mps::ScatterNDOpAdaptor::verify(&v61, v18) & 1) == 0))
+  if (a5 < 3 || (v18 = mlir::UnknownLoc::get(this, a2), !mlir::mps::ScatterNDOpAdaptor::verify(&v61, v18)))
   {
     v35 = mlir::Float32Type::get(this, a2);
     v36 = mlir::UnrankedTensorType::get(v35);
@@ -4845,7 +4846,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t mlir::mps::ScatterNDOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::ScatterNDOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v36 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -5114,8 +5115,9 @@ uint64_t *mlir::mps::detail::ScatterNDOpGenericAdaptorBase::getBatchDims(mlir::m
   return v2;
 }
 
-BOOL mlir::mps::anonymous namespace::inferScatterNDShape(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10)
+BOOL mlir::mps::anonymous namespace::inferScatterNDShape(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10)
 {
+  v10 = a2;
   v46 = *MEMORY[0x277D85DE8];
   v42[0] = a3;
   v42[1] = a4;
@@ -5195,29 +5197,29 @@ BOOL mlir::mps::anonymous namespace::inferScatterNDShape(uint64_t a1, char a2, u
       return 1;
     }
 
-    v24 = v14 + ~a9 - v21 + v22;
+    v24 = (v14 + ~a9 - v21 + v22);
     v38 = v24;
   }
 
   if (v24 <= 0)
   {
-    return mlir::emitOptionalError<char const(&)[36],char const(&)[49],long long &,char const(&)[6]>(a1, a2, "invalid input tensor shapes: minor ", "dimension of indices must have positive length, ", &v38, " <= 0");
+    return mlir::emitOptionalError<char const(&)[36],char const(&)[49],long long &,char const(&)[6]>(a1, v10, "invalid input tensor shapes: minor ", "dimension of indices must have positive length, ", &v38, " <= 0");
   }
 
   if (v22 - 1 > v21)
   {
-    v43 = v22 - 1;
-    return mlir::emitOptionalError<char const(&)[35],char const(&)[13],long long &,char const(&)[6],long long const&>(a1, a2, "invalid input tensor shapes: requires ", "|updates| >= |indices| - 1, ", &v39, " < ", &v43);
+    v43 = (v22 - 1);
+    return mlir::emitOptionalError<char const(&)[35],char const(&)[13],long long &,char const(&)[6],long long const&>(a1, v10, "invalid input tensor shapes: requires ", "|updates| >= |indices| - 1, ", &v39, " < ", &v43);
   }
 
-  v26 = v21 + a9 - v22 + v24 + 1;
+  v26 = &v21[a9 - v22 + 1 + v24];
   if (v14 != 0x8000000000000000)
   {
     v27 = v14 == v26;
     v26 = v14;
     if (!v27)
     {
-      return mlir::emitOptionalError<char const(&)[31],char const(&)[45],char const(&)[25]>(a1, a2, "Rank of data array must equal ", "number of outer dimensions in index array + ", "rank of slice to update.");
+      return mlir::emitOptionalError<char const(&)[31],char const(&)[45],char const(&)[25]>(a1, v10, "Rank of data array must equal ", "number of outer dimensions in index array + ", "rank of slice to update.");
     }
   }
 
@@ -5248,7 +5250,7 @@ BOOL mlir::mps::anonymous namespace::inferScatterNDShape(uint64_t a1, char a2, u
   v33 = v19 + 8 * v21;
   if (v33 != v33 - 8 * v26 + 8 * v24 + 8 * a9)
   {
-    v34 = 8 * (v24 + a9) - 8 * v26;
+    v34 = 8 * &v24[a9] - 8 * v26;
     v35 = (v33 - 8);
     v36 = (*a10 + 8 * *(a10 + 8) - 8);
     do
@@ -5628,7 +5630,7 @@ LABEL_93:
         v126[0] = v69;
         v126[1] = v66;
         v67 = mlir::mps::mergeDynamicDims(&v125, 3);
-        v122[v65++] = v67;
+        *&v122[8 * v65++] = v67;
       }
 
       while (v48 != v65);
@@ -5638,7 +5640,7 @@ LABEL_93:
     {
       *&v108 = "invalid updates tensor shape: input tensor shapes ";
       v111 = 259;
-      mlir::OpState::emitOpError(this, &v108, &v125);
+      mlir::OpState::emitOpError(&v125, this, &v108);
       if (v125)
       {
         LODWORD(v112) = 3;
@@ -5744,7 +5746,7 @@ LABEL_159:
         {
           *&v108 = "invalid data tensor shape: input tensor shapes ";
           v111 = 259;
-          mlir::OpState::emitOpError(this, &v108, &v125);
+          mlir::OpState::emitOpError(&v125, this, &v108);
           if (v125)
           {
             LODWORD(v112) = 3;
@@ -5799,7 +5801,7 @@ LABEL_159:
         {
           *&v108 = "invalid input tensor shapes: requires ";
           v111 = 259;
-          mlir::OpState::emitOpError(this, &v108, &v125);
+          mlir::OpState::emitOpError(&v125, this, &v108);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v125, "|updates| >= |indices| - 1, ");
           mlir::InFlightDiagnostic::operator<<<long long &>(v72, &v118);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v73, " < ");
@@ -5820,7 +5822,7 @@ LABEL_159:
             LOBYTE(v111) = 1;
             v114 = 263;
             *&v112 = &v108;
-            mlir::OpState::emitOpError(this, &v112, &v125);
+            mlir::OpState::emitOpError(&v125, this, &v112);
             v75 = &v125;
             goto LABEL_183;
           }
@@ -5836,7 +5838,7 @@ LABEL_159:
         {
           *&v108 = "Rank of data array must equal number of outer ";
           v111 = 259;
-          mlir::OpState::emitOpError(this, &v108, &v125);
+          mlir::OpState::emitOpError(&v125, this, &v108);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v125, "dimensions in indices array + rank of slice to update, ");
           mlir::InFlightDiagnostic::operator<<<long long &>(v101, &v117);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v102, " != ");
@@ -5852,7 +5854,7 @@ LABEL_159:
         {
           *&v108 = "invalid input tensor shapes: minor dimension of ";
           v111 = 259;
-          mlir::OpState::emitOpError(this, &v108, &v125);
+          mlir::OpState::emitOpError(&v125, this, &v108);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v125, "indices must have positive length, ");
           mlir::InFlightDiagnostic::operator<<<long long &>(v98, &v116);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v99, " <= 0");
@@ -5872,7 +5874,7 @@ LABEL_173:
 
             *&v108 = "invalid input tensor shape: updates tensor ";
             v111 = 259;
-            mlir::OpState::emitOpError(this, &v108, &v125);
+            mlir::OpState::emitOpError(&v125, this, &v108);
             mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v125, "shape and data tensor shape must match along inner dimensions");
           }
 
@@ -5880,7 +5882,7 @@ LABEL_173:
           {
             *&v108 = "invalid input tensor shape: updates tensor ";
             v111 = 259;
-            mlir::OpState::emitOpError(this, &v108, &v125);
+            mlir::OpState::emitOpError(&v125, this, &v108);
             mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v125, "shape and indices tensor shape must match along outer ");
             mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v100, "dimensions");
           }
@@ -5900,7 +5902,7 @@ LABEL_183:
 
       *&v108 = "invalid indices tensor shape: input tensor shapes ";
       v111 = 259;
-      mlir::OpState::emitOpError(this, &v108, &v125);
+      mlir::OpState::emitOpError(&v125, this, &v108);
       if (v125)
       {
         LODWORD(v112) = 3;
@@ -6000,7 +6002,7 @@ LABEL_174:
 LABEL_61:
   v122 = "invalid batch dimensions: ";
   v124[8] = 259;
-  mlir::OpState::emitOpError(this, &v122, &v125);
+  mlir::OpState::emitOpError(&v125, this, &v122);
   if (v125)
   {
     LODWORD(v108) = 5;
@@ -6154,8 +6156,9 @@ uint64_t llvm::SmallVectorImpl<long long>::resize(uint64_t result, unint64_t a2)
   return result;
 }
 
-uint64_t mlir::mps::getAxis(uint64_t a1, char a2, uint64_t a3, int64_t a4, uint64_t a5)
+BOOL mlir::mps::getAxis(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
 {
+  v7 = a2;
   v16 = 0;
   v17 = 0;
   v14 = a4;
@@ -6181,20 +6184,20 @@ uint64_t mlir::mps::getAxis(uint64_t a1, char a2, uint64_t a3, int64_t a4, uint6
       *a5 = SingleInt;
       if (SingleInt < 0)
       {
-        return mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(a1, a2, "invalid axis tensor: [", &v16, "], axis must be in range -rank <= axis < rank,", " rank = ", &v14);
+        return mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(a1, v7, "invalid axis tensor: [", &v16, "], axis must be in range -rank <= axis < rank,", " rank = ", &v14);
       }
     }
 
     if (SingleInt >= a4)
     {
-      return mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(a1, a2, "invalid axis tensor: [", &v16, "], axis must be in range -rank <= axis < rank,", " rank = ", &v14);
+      return mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(a1, v7, "invalid axis tensor: [", &v16, "], axis must be in range -rank <= axis < rank,", " rank = ", &v14);
     }
   }
 
   return v12;
 }
 
-BOOL mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(uint64_t a1, char a2, char *a3, uint64_t *a4, char *a5, char *a6, unint64_t *a7)
+BOOL mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],char const(&)[9],long long &>(uint64_t a1, char a2, char *a3, char **a4, char *a5, char *a6, char **a7)
 {
   v32 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
@@ -6276,7 +6279,7 @@ BOOL mlir::emitOptionalError<char const(&)[23],long long &,char const(&)[47],cha
   return v12;
 }
 
-uint64_t mlir::mps::ScatterOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::mps::ScatterOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v50[2] = *MEMORY[0x277D85DE8];
   v50[0] = a4;
@@ -6356,7 +6359,7 @@ LABEL_43:
       LOBYTE(v41) = 0;
       v42 = 0;
       v29 = mlir::ValueRange::dereference_iterator(v50, 3);
-      if ((mlir::mps::getAxis(a2, a3, v29, v28, &v41) & 1) == 0)
+      if (!mlir::mps::getAxis(a2, a3, v29, v28, &v41))
       {
         return 0;
       }
@@ -6458,7 +6461,7 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v8 = v3 + (v7 & 0xFFFFFFFC);
+    v8 = &v3->i64[v7 & 0xFFFFFFFC];
     v9 = v7 & 3;
     v10 = vdupq_n_s64(a3);
     v11 = v3 + 1;
@@ -6488,7 +6491,7 @@ LABEL_14:
   v14 = (v3 + 8 * v5);
   if (v13 < 4)
   {
-    v15 = v3 + v5;
+    v15 = &v3->i64[v5];
     v16 = a2 - v5;
     do
     {
@@ -6501,7 +6504,7 @@ LABEL_20:
     goto LABEL_3;
   }
 
-  v15 = v14 + (v13 & 0xFFFFFFFFFFFFFFFCLL);
+  v15 = &v14->i64[v13 & 0xFFFFFFFFFFFFFFFCLL];
   v16 = v13 & 3;
   v17 = vdupq_n_s64(a3);
   v18 = v14 + 1;
@@ -6769,7 +6772,7 @@ LABEL_45:
   v66 = 0;
   Axis = mlir::mps::getAxis(*(*this + 3), 1, *(*(*this + 9) + 120), v37, &v65);
   result = 0;
-  if ((Axis & 1) == 0)
+  if (!Axis)
   {
     return result;
   }
@@ -6792,7 +6795,7 @@ LABEL_45:
         {
           v63[0] = "invalid updates tensor shape, shape at axis must ";
           v64 = 259;
-          mlir::OpState::emitOpError(this, v63, &v73);
+          mlir::OpState::emitOpError(&v73, this, v63);
           mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v73, "equal length of indices tensor");
           v61 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v62);
           mlir::InFlightDiagnostic::~InFlightDiagnostic(&v73);
@@ -6812,11 +6815,11 @@ LABEL_45:
   {
     v45 = mlir::ShapedType::getShape(v70);
     v46 = v65;
-    if ((mlir::verifyCompatibleShape(Shape, v65, v45, v65) & 1) == 0 || (mlir::verifyCompatibleShape(&Shape[v46 + 1], v38 + ~v46, &v45[v46 + 1], v38 + ~v46) & 1) == 0)
+    if ((mlir::verifyCompatibleShape(Shape, v65, v45, v65) & 1) == 0 || (mlir::verifyCompatibleShape(&Shape[v46 + 1], &v38[~v46], &v45[v46 + 1], &v38[~v46]) & 1) == 0)
     {
       v63[0] = "invalid input tensor shapes, updates shape and ";
       v64 = 259;
-      mlir::OpState::emitOpError(this, v63, &v73);
+      mlir::OpState::emitOpError(&v73, this, v63);
       if (!v73)
       {
         goto LABEL_73;
@@ -6844,7 +6847,7 @@ LABEL_45:
 
   v63[0] = "invalid input tensor shapes, updates rank and result ";
   v64 = 259;
-  mlir::OpState::emitOpError(this, v63, &v73);
+  mlir::OpState::emitOpError(&v73, this, v63);
   if (v73)
   {
     LODWORD(v71) = 3;
@@ -6953,7 +6956,7 @@ LABEL_73:
   return result;
 }
 
-uint64_t mlir::mps::ScatterAlongAxisOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::mps::ScatterAlongAxisOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v61[2] = *MEMORY[0x277D85DE8];
   v61[0] = a4;
@@ -7145,7 +7148,7 @@ LABEL_56:
         free(__dst);
       }
 
-      if ((Axis & 1) == 0)
+      if (!Axis)
       {
         return 0;
       }
@@ -7403,7 +7406,7 @@ LABEL_45:
     {
       v106[0] = "invalid input tensor shapes, indices rank and";
       v107 = 259;
-      mlir::OpState::emitOpError(this, v106, &v113);
+      mlir::OpState::emitOpError(&v113, this, v106);
       if (v113)
       {
         LODWORD(v111) = 3;
@@ -7578,7 +7581,7 @@ LABEL_149:
 
           if (v39 != v126)
           {
-            bzero(&v125[v126], 8 * (v39 - v126));
+            bzero(&v125[v126], 8 * &v39[-v126]);
           }
         }
 
@@ -7605,7 +7608,7 @@ LABEL_149:
     {
       v106[0] = "invalid input tensor shapes, indices shape and ";
       v107 = 259;
-      mlir::OpState::emitOpError(this, v106, &v113);
+      mlir::OpState::emitOpError(&v113, this, v106);
       if (v113)
       {
         LODWORD(v111) = 3;
@@ -7736,7 +7739,7 @@ LABEL_65:
   {
     v106[0] = "invalid input tensor shapes, indices rank and ";
     v107 = 259;
-    mlir::OpState::emitOpError(this, v106, &v113);
+    mlir::OpState::emitOpError(&v113, this, v106);
     if (v113)
     {
       LODWORD(v111) = 3;
@@ -7891,7 +7894,7 @@ LABEL_147:
   LOBYTE(v104) = 0;
   v105 = 0;
   v42 = 0;
-  if ((mlir::mps::getAxis(*(*this + 3), 1, *(*(*this + 9) + 120), v39, &v104) & 1) == 0)
+  if (!mlir::mps::getAxis(*(*this + 3), 1, *(*(*this + 9) + 120), v39, &v104))
   {
     goto LABEL_72;
   }
@@ -7903,14 +7906,14 @@ LABEL_147:
 
   v53 = mlir::ShapedType::getShape(v110);
   v54 = v104;
-  if (mlir::verifyCompatibleShape(Shape, v104, v53, v104) & 1) != 0 && (mlir::verifyCompatibleShape(&Shape[v54 + 1], v39 + ~v54, &v53[v54 + 1], v39 + ~v54))
+  if (mlir::verifyCompatibleShape(Shape, v104, v53, v104) & 1) != 0 && (mlir::verifyCompatibleShape(&Shape[v54 + 1], &v39[~v54], &v53[v54 + 1], &v39[~v54]))
   {
     goto LABEL_71;
   }
 
   v106[0] = "invalid input tensor shapes, updates shape and ";
   v107 = 259;
-  mlir::OpState::emitOpError(this, v106, &v113);
+  mlir::OpState::emitOpError(&v113, this, v106);
   if (v113)
   {
     LODWORD(v111) = 3;
@@ -7973,8 +7976,9 @@ uint64_t mlir::mps::gatherNDRankInferrable(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t mlir::mps::GatherNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, mlir::MLIRContext *a11)
+uint64_t mlir::mps::GatherNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, mlir::MLIRContext *a11)
 {
+  v13 = a3;
   v116 = *MEMORY[0x277D85DE8];
   v112 = a4;
   v113 = a5;
@@ -8003,7 +8007,7 @@ uint64_t mlir::mps::GatherNDOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::M
       v106 = 0;
     }
 
-    mlir::OperationName::OperationName(v105, "mps.gather_nd", 13, Context);
+    mlir::OperationName::OperationName(v105, "mps.gather_nd", 0xDuLL, Context);
     v106 = 1;
     v17 = v113;
   }
@@ -8075,10 +8079,10 @@ LABEL_21:
       v41 = v40;
       v42 = mlir::ShapedType::getShape(v95);
       v100 = v38;
-      v44 = v41 - v38;
+      v44 = (v41 - v38);
       if (v41 <= v38 || (v45 = v43 - v38, v43 <= v38))
       {
-        if (!mlir::emitOptionalError<char const(&)[27],unsigned int &,char const(&)[47]>(a2, a3, "invalid batch dimensions: ", &v100, ", must be less than ranks of all input tensors"))
+        if (!mlir::emitOptionalError<char const(&)[27],unsigned int &,char const(&)[47]>(a2, v13, "invalid batch dimensions: ", &v100, ", must be less than ranks of all input tensors"))
         {
 LABEL_48:
           v62 = mlir::ValueRange::dereference_iterator(&v112, 0);
@@ -8119,20 +8123,20 @@ LABEL_67:
       v98 = v48;
       if (v48 == 0x8000000000000000)
       {
-        v50 = mlir::emitOptionalError<char const(&)[30],char const(&)[27]>(a2, a3, "inner-most dimension of indices array ", "cannot be inferred.");
+        v50 = mlir::emitOptionalError<char const(&)[30],char const(&)[27]>(a2, v13, "inner-most dimension of indices array ", "cannot be inferred.");
         goto LABEL_47;
       }
 
       if (v48 > v44)
       {
-        v50 = mlir::emitOptionalError<char const(&)[38],char const(&)[49],char const(&)[41],unsigned long &,char const(&)[4],long long &>(a2, a3, "invalid input tensor shapes: rank of ", "updates tensor must be greater than or equal to ", "inner-most dimension of indices tensor, ", &v99, " < ", &v98);
+        v50 = mlir::emitOptionalError<char const(&)[38],char const(&)[49],char const(&)[41],unsigned long &,char const(&)[4],long long &>(a2, v13, "invalid input tensor shapes: rank of ", "updates tensor must be greater than or equal to ", "inner-most dimension of indices tensor, ", &v99, " < ", &v98);
         goto LABEL_47;
       }
 
-      v51 = ~v48 + v44 + v45;
+      v51 = &v44[v45 + ~v48];
       if (v51 < 1)
       {
-        v50 = mlir::emitOptionalError<char const(&)[24]>(a2, a3, "Rank of destination array must be greater than 0");
+        v50 = mlir::emitOptionalError<char const(&)[24]>(a2, v13, "Rank of destination array must be greater than 0");
 LABEL_47:
         if (!v50)
         {
@@ -8176,7 +8180,7 @@ LABEL_47:
       {
         v57 = &v39[v41];
         v58 = v41;
-        v59 = 8 * v41 - 8 * (v48 + v38) - 8;
+        v59 = 8 * v41 - 8 * &v48[v38] - 8;
         if (v59 >= 0x58)
         {
           v65 = v101 + 8 * v52;
@@ -8239,7 +8243,7 @@ LABEL_56:
           goto LABEL_62;
         }
 
-        if ((&(&v46[v41])[v77] - &v55[v52 + v48 + v38] - 8) < 0x20)
+        if ((&(&v46[v41])[v77] - &v55[&v48[v52 + v38]] - 8) < 0x20)
         {
           goto LABEL_62;
         }
@@ -8310,7 +8314,7 @@ LABEL_62:
   return 1;
 }
 
-uint64_t mlir::mps::GatherNDOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::GatherNDOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
@@ -8713,7 +8717,7 @@ LABEL_35:
 LABEL_42:
     v54[0] = "invalid batch dimensions: ";
     v55 = 259;
-    mlir::OpState::emitOpError(this, v54, &v62);
+    mlir::OpState::emitOpError(&v62, this, v54);
     if (v62)
     {
       LODWORD(v60) = 5;
@@ -8849,7 +8853,7 @@ LABEL_40:
 
         v54[0] = "Rank of destination array must be greater than 0";
         v55 = 259;
-        mlir::OpState::emitOpError(this, v54, &v62);
+        mlir::OpState::emitOpError(&v62, this, v54);
         v52 = &v62;
       }
 
@@ -8857,7 +8861,7 @@ LABEL_40:
       {
         v54[0] = "invalid input tensor shapes: rank of updates tensor ";
         v55 = 259;
-        mlir::OpState::emitOpError(this, v54, &v62);
+        mlir::OpState::emitOpError(&v62, this, v54);
         mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v62, "must be greater than or equal to inner-most dimension of ");
         mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(v48, "indices tensor, ");
         *&v60 = v25 - v33;
@@ -8871,7 +8875,7 @@ LABEL_40:
     {
       v54[0] = "invalid input tensor shapes: input tensor shapes ";
       v55 = 259;
-      mlir::OpState::emitOpError(this, v54, &v62);
+      mlir::OpState::emitOpError(&v62, this, v54);
       mlir::InFlightDiagnostic::operator<<<char const(&)[29]>(&v62, "must match along batch dimensions");
     }
 
@@ -8896,7 +8900,7 @@ uint64_t *mlir::mps::GatherNDOp::getBatchDims(mlir::mps::GatherNDOp *this)
   return v2;
 }
 
-uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v65[2] = *MEMORY[0x277D85DE8];
   v65[0] = a4;
@@ -8912,7 +8916,7 @@ uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
   }
 
   v57 = a6;
-  v58[0] = 0;
+  LOBYTE(v58) = 0;
   v59 = 0;
   v60 = v16;
   v61 = a9;
@@ -8925,13 +8929,13 @@ uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
       v59 = 0;
     }
 
-    mlir::OperationName::OperationName(v58, "mps.gather", 10, Context);
+    mlir::OperationName::OperationName(&v58, "mps.gather", 0xAuLL, Context);
     v59 = 1;
   }
 
   v63 = a4;
   v64 = a5;
-  if (a5 >= 3 && (v18 = mlir::UnknownLoc::get(this, a2), (mlir::mps::GatherOpAdaptor::verify(&v57, v18) & 1) != 0))
+  if (a5 >= 3 && (v18 = mlir::UnknownLoc::get(this, a2), mlir::mps::GatherOpAdaptor::verify(&v57, v18)))
   {
     v19 = mlir::ValueRange::dereference_iterator(v65, 0);
     v20 = llvm::DefaultDoCastIfPossible<mlir::ShapedType,mlir::Type const,llvm::CastInfo<mlir::ShapedType,mlir::Type const,void>>::doCastIfPossible((*(v19 + 8) & 0xFFFFFFFFFFFFFFF8));
@@ -8952,7 +8956,7 @@ uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
         LOBYTE(v50) = 0;
         v51 = 0;
         v29 = mlir::ValueRange::dereference_iterator(v65, 2);
-        if ((mlir::mps::getAxis(a2, a3, v29, v28, &v50) & 1) == 0)
+        if (!mlir::mps::getAxis(a2, a3, v29, v28, &v50))
         {
           return 0;
         }
@@ -8978,7 +8982,7 @@ uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
             free(v54);
           }
 
-          if ((v36 & 1) == 0)
+          if (!v36)
           {
             return 0;
           }
@@ -9031,7 +9035,7 @@ uint64_t mlir::mps::GatherOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
   return 1;
 }
 
-uint64_t mlir::mps::GatherOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::GatherOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v30 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
@@ -9203,7 +9207,7 @@ uint64_t *mlir::mps::detail::GatherOpGenericAdaptorBase::getBatchDims(mlir::mps:
   return v2;
 }
 
-uint64_t mlir::mps::anonymous namespace::inferGatherShape(uint64_t a1, char a2, unint64_t *a3, unint64_t a4, unint64_t *a5, unint64_t a6, uint64_t a7, unsigned int a8, uint64_t a9)
+BOOL mlir::mps::anonymous namespace::inferGatherShape(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t a4, unint64_t *a5, unint64_t a6, char *a7, unsigned int a8, uint64_t a9)
 {
   v73[2] = *MEMORY[0x277D85DE8];
   v72 = a7;
@@ -9215,21 +9219,21 @@ uint64_t mlir::mps::anonymous namespace::inferGatherShape(uint64_t a1, char a2, 
     return mlir::emitOptionalError<char const(&)[27],unsigned int &,char const(&)[47]>(a1, a2, "invalid batch dimensions: ", &v71, ", must be less than ranks of all input tensors");
   }
 
-  v13 = a7 - a8;
+  v13 = &a7[-a8];
   if (a7 < a8)
   {
     return mlir::emitOptionalError<char const(&)[39],char const(&)[19],long long &,char const(&)[4],unsigned int &>(a1, a2, "Axis must be greater than or equal to ", "batch dimensions, ", &v72, " < ", &v71);
   }
 
   v14 = a6 - a8;
-  v15 = v10 - 1;
-  if ((v10 - 1 + v14) >= 0)
+  v15 = (v10 - 1);
+  if (v10 - 1 + v14 >= 0)
   {
-    v18 = v15 + a6;
+    v18 = &v15[a6];
     v19 = *(a9 + 8);
-    if (v15 + a6 != v19)
+    if (&v15[a6] != v19)
     {
-      if (v15 + a6 >= v19)
+      if (&v15[a6] >= v19)
       {
         v69 = a7;
         v70 = a4;
@@ -9257,7 +9261,7 @@ uint64_t mlir::mps::anonymous namespace::inferGatherShape(uint64_t a1, char a2, 
     v21 = &a3[a4];
     v22 = *a9;
     v23 = *a9 + 8 * v19;
-    v24 = v13 - v15;
+    v24 = (v13 - v15);
     if (v13 != v15)
     {
       v25 = 8 * a4 - 16;
@@ -9270,8 +9274,7 @@ LABEL_26:
         v35 = v28 - 1;
         do
         {
-          v36 = *(v27 - 1);
-          v27 -= 8;
+          v36 = *--v27;
           *v35-- = v36;
         }
 
@@ -9281,7 +9284,7 @@ LABEL_26:
 
       v27 = &a3[a4];
       v28 = &v22[v19];
-      if (v27 - v22 - 8 * v19 < 0x20)
+      if ((v27 - v22 - 8 * v19) < 0x20)
       {
         goto LABEL_26;
       }
@@ -9319,7 +9322,7 @@ LABEL_28:
       v40 = 8 * a6 - 8 * v9 - 8;
       if (v40 >= 0x98)
       {
-        v42 = v19 + a7;
+        v42 = &a7[v19];
         v41 = &a5[a6];
         if (&a5[v39 - 1] + 8 * a4 - &v22[v42] >= 0x20)
         {
@@ -9367,16 +9370,16 @@ LABEL_28:
 LABEL_37:
     if (a7 != v9)
     {
-      v52 = v13 - (v10 + v14);
+      v52 = &v13[-v10 - v14];
       v53 = v23 + 8 * v52 + 8;
-      v54 = &v21[v13 - v10];
+      v54 = &v21[&v13[-v10]];
       v55 = 8 * a7 - 8 * v9 - 8;
       if (v55 < 0x88)
       {
         goto LABEL_43;
       }
 
-      if ((&a3[a6 + a4] - &v22[v19 + v9] - 8) < 0x20)
+      if ((&a3[a6 + a4] - &v22[&v9[v19]] - 8) < 0x20)
       {
         goto LABEL_43;
       }
@@ -9477,7 +9480,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::GatherAlongAxisOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+BOOL mlir::mps::GatherAlongAxisOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v56[2] = *MEMORY[0x277D85DE8];
   v56[0] = a4;
@@ -9639,7 +9642,7 @@ LABEL_31:
         free(__dst);
       }
 
-      if ((Axis & 1) == 0)
+      if (!Axis)
       {
         return 0;
       }
@@ -9842,7 +9845,7 @@ LABEL_30:
     v59 = 0;
     Axis = mlir::mps::getAxis(*(*this + 3), 1, *(*(*this + 9) + 88), v26, &v58);
     result = 0;
-    if ((Axis & 1) == 0)
+    if (!Axis)
     {
       return result;
     }
@@ -9852,11 +9855,11 @@ LABEL_30:
       Shape = mlir::ShapedType::getShape(v64);
       v31 = mlir::ShapedType::getShape(&v62);
       v32 = v58;
-      if ((mlir::verifyCompatibleShape(Shape, v58, v31, v58) & 1) == 0 || (mlir::verifyCompatibleShape(&Shape[v32 + 1], v26 + ~v32, &v31[v32 + 1], v26 + ~v32) & 1) == 0)
+      if ((mlir::verifyCompatibleShape(Shape, v58, v31, v58) & 1) == 0 || (mlir::verifyCompatibleShape(&Shape[v32 + 1], &v26[~v32], &v31[v32 + 1], &v26[~v32]) & 1) == 0)
       {
         v60[0] = "invalid input tensor shapes, updates shape and ";
         v61 = 259;
-        mlir::OpState::emitOpError(this, v60, &v67);
+        mlir::OpState::emitOpError(&v67, this, v60);
         if (v67)
         {
           LODWORD(v65) = 3;
@@ -9903,7 +9906,7 @@ LABEL_30:
 
   v60[0] = "invalid input tensor shapes, updates rank and ";
   v61 = 259;
-  mlir::OpState::emitOpError(this, v60, &v67);
+  mlir::OpState::emitOpError(&v67, this, v60);
   if (v67)
   {
     LODWORD(v65) = 3;

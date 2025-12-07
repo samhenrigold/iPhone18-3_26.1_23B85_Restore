@@ -1,8 +1,18 @@
 @interface FCModifySubscriptionsCommand
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
+- (FCModifySubscriptionsCommand)initWithSubscriptions:(id)subscriptions merge:(BOOL)merge;
 @end
 
 @implementation FCModifySubscriptionsCommand
+
+- (FCModifySubscriptionsCommand)initWithSubscriptions:(id)subscriptions merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  v6 = [subscriptions fc_arrayByTransformingWithBlock:&__block_literal_global_93];
+  v7 = [(FCModifyRecordsCommand *)self initWithLocalRecords:v6 merge:mergeCopy];
+
+  return v7;
+}
 
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord
 {

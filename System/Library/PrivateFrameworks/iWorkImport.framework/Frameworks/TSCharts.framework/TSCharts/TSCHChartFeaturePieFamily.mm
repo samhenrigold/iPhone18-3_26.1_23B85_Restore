@@ -100,74 +100,74 @@
 
 - (id)initialSceneWithChartInfo:(id)info layoutSettings:(id *)settings
 {
-  v48 = *settings;
-  v47.receiver = self;
-  v47.super_class = TSCHChartFeaturePieFamily;
-  v4 = [(TSCHChartFeature *)&v47 initialSceneWithChartInfo:info layoutSettings:&v48];
+  v47 = *settings;
+  v46.receiver = self;
+  v46.super_class = TSCHChartFeaturePieFamily;
+  v4 = [(TSCHChartFeature *)&v46 initialSceneWithChartInfo:info layoutSettings:&v47];
   v9 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v5, v6, v7, v8, v4);
   v14 = v9;
   if (v9)
   {
-    objc_msgSend_initialInfoChartScaleVec3(v9, v10, v11, v12, v13);
-    objc_msgSend_infoChartScaleVec3(v14, v15, v16, v17, v18);
-    LODWORD(v19) = *&v48.var4;
-    LODWORD(v20) = *&v48.var0;
-    LODWORD(v21) = v48.var8;
+    objc_msgSend_initialInfoChartScaleVec3(v9, v11, v12, v13);
+    objc_msgSend_infoChartScaleVec3(v14, v15, v16, v17);
+    LODWORD(v18) = *&v47.var4;
+    LODWORD(v19) = *&v47.var0;
+    LODWORD(v20) = v47.var8;
   }
 
   else
   {
-    LODWORD(v48.var8) = 0;
-    *&v48.var0 = 0;
-    v21 = 0.0;
-    v46 = 0;
-    v19 = 0.0;
+    LODWORD(v47.var8) = 0;
+    *&v47.var0 = 0;
     v20 = 0.0;
     v45 = 0;
+    v18 = 0.0;
+    v19 = 0.0;
+    v44 = 0;
   }
 
-  if (*&v20 > *&v19)
+  if (*&v19 > *&v18)
   {
-    *&v19 = *&v20;
+    *&v18 = *&v19;
   }
 
-  LODWORD(v43) = LODWORD(v19);
-  HIDWORD(v43) = LODWORD(v19);
-  v44 = LODWORD(v21);
-  objc_msgSend_setInitialInfoChartScaleVec3_(v14, v10, v21, v19, v20, &v43);
-  LODWORD(v25) = v45;
-  if (*&v45 <= *(&v45 + 1))
+  LODWORD(v42) = LODWORD(v18);
+  HIDWORD(v42) = LODWORD(v18);
+  v43 = LODWORD(v20);
+  objc_msgSend_setInitialInfoChartScaleVec3_(v14, v10, v20, v18, v19, &v42);
+  LODWORD(v24) = v44;
+  if (*&v44 <= *(&v44 + 1))
   {
-    *&v25 = *(&v45 + 1);
+    *&v24 = *(&v44 + 1);
   }
 
-  LODWORD(v23) = v46;
-  LODWORD(v43) = LODWORD(v25);
-  HIDWORD(v43) = LODWORD(v25);
-  v44 = v46;
-  objc_msgSend_setInfoChartScaleVec3_(v14, v22, v25, v23, v24, &v43);
+  LODWORD(v22) = v45;
+  LODWORD(v42) = LODWORD(v24);
+  HIDWORD(v42) = LODWORD(v24);
+  v43 = v45;
+  objc_msgSend_setInfoChartScaleVec3_(v14, v21, v24, v22, v23, &v42);
   if (v14)
   {
-    objc_msgSend_stageScale(v14, v26, v27, v28, v29);
-    LODWORD(v30) = v42;
+    objc_msgSend_stageScale(v14, v26, v27, v28);
+    LODWORD(v29) = v41;
   }
 
   else
   {
-    v42 = 0;
     v41 = 0;
-    v30 = 0.0;
+    v40 = 0;
+    v29 = 0.0;
   }
 
   __asm { FMOV            V1.2S, #12.0 }
 
-  v43 = _D1;
-  v44 = LODWORD(v30);
-  objc_msgSend_setStageScale_(v14, v26, v30, _D1, v29, &v43, v41, v42);
-  LODWORD(v36) = -1083125078;
-  v43 = 0.0;
-  v44 = -1083125078;
-  objc_msgSend_setStageOffset_(v14, v37, v36, v38, v39, &v43);
+  v42 = _D1;
+  v43 = LODWORD(v29);
+  objc_msgSend_setStageScale_(v14, v25, v29, _D1, v28, &v42, v40, v41);
+  LODWORD(v35) = -1083125078;
+  v42 = 0.0;
+  v43 = -1083125078;
+  objc_msgSend_setStageOffset_(v14, v36, v35, v37, v38, &v42);
 
   return v4;
 }

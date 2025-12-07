@@ -63,7 +63,7 @@
 
   else
   {
-    v5 = __atxlog_handle_app_prediction();
+    v5 = __atxlog_handle_app_prediction(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [ATXGlobalAppScoresUtil initializeTrieAtPath:v5];
@@ -116,30 +116,29 @@ void __42__ATXGlobalAppScoresUtil_normalizeValues___block_invoke_2(uint64_t a1, 
 {
   v5 = MEMORY[0x277CCABB0];
   v6 = a2;
-  [a3 doubleValue];
-  v8 = v7 / *(*(*(a1 + 40) + 8) + 24);
-  if ((*&v8 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+  v7 = [a3 doubleValue];
+  v9 = v8 / *(*(*(a1 + 40) + 8) + 24);
+  if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v9 = __atxlog_handle_app_prediction();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_app_prediction(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __42__ATXGlobalAppScoresUtil_normalizeValues___block_invoke_2_cold_1(v9);
+      __42__ATXGlobalAppScoresUtil_normalizeValues___block_invoke_2_cold_1(v10);
     }
 
-    v8 = 0.0;
+    v9 = 0.0;
   }
 
-  v10 = [v5 numberWithDouble:v8];
-  [*(a1 + 32) setObject:v10 forKeyedSubscript:v6];
+  v11 = [v5 numberWithDouble:v9];
+  [*(a1 + 32) setObject:v11 forKeyedSubscript:v6];
 }
 
 + (void)initializeTrieAtPath:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppSignalsUtil: Could not locate the trie located at %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppSignalsUtil: Could not locate the trie located at %@", &v1, 0xCu);
 }
 
 @end

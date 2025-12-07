@@ -249,65 +249,51 @@ void __94__RMConfigurationSubscriberService_publishStatusKeys_storeIdentifier_sc
 
 - (void)fetchThenApplyConfigurationsWithScope:(uint64_t)a1 completionHandler:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] rms_stringWithScope:a1];
   v4 = [a2 configurationTypes];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __92__RMConfigurationSubscriberService_fetchThenApplyConfigurationsWithScope_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] rms_stringWithScope:*(a1 + 48)];
   v3 = [*(a1 + 32) configurationTypes];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchThenUpdateConfigurationUIsWithScope:(uint64_t)a1 completionHandler:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MEMORY[0x277CCACA8] rms_stringWithScope:a1];
+  v6 = [MEMORY[0x277CCACA8] rms_stringWithScope:a1];
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __95__RMConfigurationSubscriberService_fetchThenUpdateConfigurationUIsWithScope_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MEMORY[0x277CCACA8] rms_stringWithScope:*(a1 + 40)];
+  v6 = [MEMORY[0x277CCACA8] rms_stringWithScope:*(a1 + 40)];
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishStatusKeys:(uint64_t)a1 storeIdentifier:(NSObject *)a2 scope:completionHandler:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Fetch status keys: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Fetch status keys: %{public}@", &v2, 0xCu);
 }
 
 void __94__RMConfigurationSubscriberService_publishStatusKeys_storeIdentifier_scope_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Processed status keys: %{public}@...", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_261E36000, a2, OS_LOG_TYPE_DEBUG, "Processed status keys: %{public}@...", &v3, 0xCu);
 }
 
 @end

@@ -2,7 +2,6 @@
 - (HKMCDaySummaryObserverQuery)initWithUpdateHandler:(id)handler;
 - (void)client_deliverUpdateWithQueryUUID:(id)d;
 - (void)queue_deliverError:(id)error;
-- (void)queue_queryDidDeactivate:(id)deactivate;
 - (void)queue_validate;
 @end
 
@@ -58,22 +57,19 @@ void __65__HKMCDaySummaryObserverQuery_client_deliverUpdateWithQueryUUID___block
 
 uint64_t __65__HKMCDaySummaryObserverQuery_client_deliverUpdateWithQueryUUID___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v5 = v9;
-    _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering update", &v8, 0xCu);
+    v3 = v2;
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_2518FC000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering update", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 32));
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 32));
 }
 
 - (void)queue_deliverError:(id)error
@@ -103,13 +99,6 @@ uint64_t __65__HKMCDaySummaryObserverQuery_client_deliverUpdateWithQueryUUID___b
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCE1C8] format:{@"%@ updateHandler must not be nil", objc_opt_class()}];
   }
-}
-
-- (void)queue_queryDidDeactivate:(id)deactivate
-{
-  updateHandler = self->_updateHandler;
-  self->_updateHandler = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 @end

@@ -8,7 +8,7 @@ void sub_2454AB234(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -22,13 +22,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -384,34 +384,32 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
 
 double GnssHal::ExtensionsFireImpl::getGpsCrossCorrelationMaxThreshold_dBHz(GnssHal::ExtensionsFireImpl *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   GpsdPlatformInfo::instance(0);
   v1 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134349056;
-    v5 = 0x4042000000000000;
-    _os_log_debug_impl(&dword_2454AA000, v1, OS_LOG_TYPE_DEBUG, "HalExtensions,getGpsCrossCorrelationMaxThreshold_dBHz,%{public}f", &v4, 0xCu);
+    v3 = 134349056;
+    v4 = 0x4042000000000000;
+    _os_log_debug_impl(&dword_2454AA000, v1, OS_LOG_TYPE_DEBUG, "HalExtensions,getGpsCrossCorrelationMaxThreshold_dBHz,%{public}f", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 36.0;
 }
 
 double GnssHal::ExtensionsFireImpl::getGpsCrossCorrelationMinThreshold_dBHz(GnssHal::ExtensionsFireImpl *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = GpsdPlatformInfo::instance(0);
   GpsCrossCorrelationMinThreshold_dBHz = GpsdPlatformInfo::getGpsCrossCorrelationMinThreshold_dBHz(v1);
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 134349056;
-    v7 = GpsCrossCorrelationMinThreshold_dBHz;
-    _os_log_debug_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEBUG, "HalExtensions,getGpsCrossCorrelationMinThreshold_dBHz,%{public}f", &v6, 0xCu);
+    v5 = 134349056;
+    v6 = GpsCrossCorrelationMinThreshold_dBHz;
+    _os_log_debug_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEBUG, "HalExtensions,getGpsCrossCorrelationMinThreshold_dBHz,%{public}f", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return GpsCrossCorrelationMinThreshold_dBHz;
 }
 
@@ -426,24 +424,24 @@ uint64_t GnssHal::ExtensionsFireImpl::submitSoftwareRecoveryStatistics(uint64_t 
   return result;
 }
 
-uint64_t GnssHal::ExtensionsFireImpl::factoryTestXml@<X0>(GnssHal::ExtensionsFireImpl *this@<X0>, void *a2@<X8>)
+void GnssHal::ExtensionsFireImpl::factoryTestXml(GnssHal::ExtensionsFireImpl *this@<X0>, std::string **a2@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  result = *(this + 11);
-  if (result)
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = *(this + 11);
+  if (v2)
   {
-    (*(*result + 48))(__p);
+    (*(*v2 + 48))(__p);
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       v4 = __p;
-      if (v7 < 0)
+      if (v6 < 0)
       {
         v4 = __p[0];
       }
 
       *buf = 136446210;
-      v9 = v4;
+      v8 = v4;
       _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "factoryTestXml,%{public}s", buf, 0xCu);
     }
 
@@ -451,13 +449,11 @@ uint64_t GnssHal::ExtensionsFireImpl::factoryTestXml@<X0>(GnssHal::ExtensionsFir
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_2454AD8F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_2454AD8F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x245D6AEE0](v15, 0x1012C40EC159624);
+  MEMORY[0x245D6AEE0](v15, 0x1012C40EC159624, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -466,24 +462,24 @@ void sub_2454AD8F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t GnssHal::ExtensionsFireImpl::factoryTestJob@<X0>(GnssHal::ExtensionsFireImpl *this@<X0>, void *a2@<X8>)
+void GnssHal::ExtensionsFireImpl::factoryTestJob(GnssHal::ExtensionsFireImpl *this@<X0>, std::string **a2@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  result = *(this + 15);
-  if (result)
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = *(this + 15);
+  if (v2)
   {
-    (*(*result + 48))(__p);
+    (*(*v2 + 48))(__p);
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       v4 = __p;
-      if (v7 < 0)
+      if (v6 < 0)
       {
         v4 = __p[0];
       }
 
       *buf = 136446210;
-      v9 = v4;
+      v8 = v4;
       _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "factoryTestJob,%{public}s", buf, 0xCu);
     }
 
@@ -491,13 +487,11 @@ uint64_t GnssHal::ExtensionsFireImpl::factoryTestJob@<X0>(GnssHal::ExtensionsFir
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_2454ADA80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_2454ADA80(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x245D6AEE0](v15, 0x1012C40EC159624);
+  MEMORY[0x245D6AEE0](v15, 0x1012C40EC159624, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -506,7 +500,7 @@ void sub_2454ADA80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void GnssHal::ExtensionsFireImpl::bundleName(GnssHal::ExtensionsFireImpl *this)
+void GnssHal::ExtensionsFireImpl::bundleName()
 {
   v1 = GpsdPreferences::instance(0);
   GpsdPreferences::bundleName(v1, &v2);
@@ -523,10 +517,10 @@ void sub_2454ADB28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GnssHal::ExtensionsFireImpl::nvStorePath(GnssHal::ExtensionsFireImpl *this)
+void GnssHal::ExtensionsFireImpl::nvStorePath()
 {
   v1 = GpsdPreferences::instance(0);
-  GpsdPreferences::nvStorePath(v1, &v2);
+  GpsdPreferences::nvStorePath(&v2, v1);
   operator new();
 }
 
@@ -676,7 +670,7 @@ uint64_t GnssHal::ExtensionsFireImpl::platformSpecificFeaturesBitmask(GnssHal::E
   return GpsdPreferences::platformSpecificFeaturesBitmask(v1);
 }
 
-void GnssHal::ExtensionsFireImpl::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsFireImpl::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
@@ -717,40 +711,38 @@ uint64_t std::__function::__value_func<void ()(GnssHal::ExtensionsFire::Recovery
 
 uint64_t GnssHal::ExtensionsOlafImpl::requestLtlInfo(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(result + 56))
   {
     v4 = result;
-    std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::__value_func[abi:ne200100](v7, a3);
+    std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::__value_func[abi:ne200100](v6, a3);
     v5 = *(v4 + 56);
     if (!v5)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v5 + 48))(v5, a2, v7);
-    result = std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v7);
+    (*(*v5 + 48))(v5, a2, v6);
+    return std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v6);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 double GnssHal::ExtensionsOlafImpl::groupDelayL1InCAChips(GnssHal::ExtensionsOlafImpl *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v1 = GpsdPreferences::instance(0);
   GpsdPreferences::groupDelayL1InCAChips(v1);
   v3 = v2;
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "ExtensionsOlafImpl,groupDelayL1InCAChips,%f", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "ExtensionsOlafImpl,groupDelayL1InCAChips,%f", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -780,7 +772,7 @@ BOOL GnssHal::ExtensionsOlafImpl::platform(GnssHal::ExtensionsOlafImpl *this)
 
 void GnssHal::ExtensionsOlafImpl::requestBasebandReset(uint64_t a1, int a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
@@ -791,41 +783,41 @@ void GnssHal::ExtensionsOlafImpl::requestBasebandReset(uint64_t a1, int a2, uint
     }
 
     *buf = 67240451;
-    *v16 = a2;
-    *&v16[4] = 2081;
-    *&v16[6] = v7;
+    *v15 = a2;
+    *&v15[4] = 2081;
+    *&v15[6] = v7;
     _os_log_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEFAULT, "#bbReset,extensionsOlaf,%{public}d,%{private}s", buf, 0x12u);
   }
 
   v8 = *(a1 + 88);
   if (!v8)
   {
-    v10 = GpsdLogObjectGeneral;
+    v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "requestBasebandReset invoked without a handler", buf, 2u);
-      v10 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "requestBasebandReset invoked without a handler", buf, 2u);
+      v9 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v16 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalExtensionsOlafImpl.cpp";
-      *&v16[8] = 1026;
-      *&v16[10] = 49;
-      v17 = 2082;
-      v18 = "requestBasebandReset";
-      _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      *v15 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalExtensionsOlafImpl.cpp";
+      *&v15[8] = 1026;
+      *&v15[10] = 49;
+      v16 = 2082;
+      v17 = "requestBasebandReset";
+      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v14, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v13, "requestBasebandReset");
-    std::string::basic_string[abi:ne200100]<0>(&v12, "requestBasebandReset invoked without a handler");
-    gpsd::util::triggerDiagnosticReport(&v14, &v13, &v12);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v12, "requestBasebandReset");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "requestBasebandReset invoked without a handler");
+    gpsd::util::triggerDiagnosticReport(&v13, &v12, &v11);
+    std::string::~string(&v11);
     std::string::~string(&v12);
     std::string::~string(&v13);
-    std::string::~string(&v14);
     __assert_rtn("requestBasebandReset", "GnssHalExtensionsOlafImpl.cpp", 49, "false && requestBasebandReset invoked without a handler");
   }
 
@@ -851,8 +843,6 @@ void GnssHal::ExtensionsOlafImpl::requestBasebandReset(uint64_t a1, int a2, uint
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454AE548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -967,20 +957,11 @@ uint64_t GnssHal::ExtensionsOlafImpl::platformSpecificFeaturesBitmask(GnssHal::E
   return GpsdPreferences::platformSpecificFeaturesBitmask(v1);
 }
 
-void GnssHal::ExtensionsOlafImpl::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsOlafImpl::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
   GpsdPreferences::debugSettingsString(a1);
-}
-
-double GnssHal::ExtensionsOlafImpl::crossCorrelationSettings(GnssHal::ExtensionsOlafImpl *this)
-{
-  result = *(this + 12);
-  v2 = *(this + 13);
-  v3 = *(this + 14);
-  v4 = *(this + 15);
-  return result;
 }
 
 uint64_t std::__function::__value_func<void ()(int,std::string)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -1104,7 +1085,7 @@ void GnssHal::PlatformTimer::start(GnssHal::PlatformTimer *this, int a2, char a3
 
 void GnssHal::PlatformTimer::setTimer(GnssHal::PlatformTimer *this, int a2, int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2 || (a3 & 1) != 0)
   {
     v6 = *(this + 5);
@@ -1142,8 +1123,6 @@ void GnssHal::PlatformTimer::setTimer(GnssHal::PlatformTimer *this, int a2, int 
     block[4] = this;
     dispatch_async(v5, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::PlatformTimer::stop(GnssHal::PlatformTimer *this)
@@ -1195,50 +1174,48 @@ void GnssHal::PlatformTimer::handleEvent(GnssHal::PlatformTimer *this)
 
 uint64_t GnssHal::PlatformTimer::setCallback(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 1174405120;
-  v5[2] = ___ZN7GnssHal13PlatformTimer11setCallbackENSt3__18functionIFvvEEE_block_invoke;
-  v5[3] = &__block_descriptor_tmp_11;
-  v5[4] = a1;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a2);
-  dispatch_async(v2, v5);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 1174405120;
+  v4[2] = ___ZN7GnssHal13PlatformTimer11setCallbackENSt3__18functionIFvvEEE_block_invoke;
+  v4[3] = &__block_descriptor_tmp_11;
+  v4[4] = a1;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a2);
+  dispatch_async(v2, v4);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
 }
 
 uint64_t ___ZN7GnssHal13PlatformTimer11setCallbackENSt3__18functionIFvvEEE_block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v7, a1 + 40);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a1 + 40);
   v2 = v1 + 8;
-  if (v7 != (v1 + 8))
+  if (v6 != (v1 + 8))
   {
-    v3 = v8;
+    v3 = v7;
     v4 = *(v1 + 32);
-    if (v8 == v7)
+    if (v7 == v6)
     {
       if (v4 == v2)
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = 0;
-        (*(**(v1 + 32) + 24))(*(v1 + 32), v7);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = 0;
+        (*(**(v1 + 32) + 24))(*(v1 + 32), v6);
         (*(**(v1 + 32) + 32))(*(v1 + 32));
         *(v1 + 32) = 0;
-        v8 = v7;
-        (*(v9[0] + 24))(v9, v1 + 8);
-        (*(v9[0] + 32))(v9);
+        v7 = v6;
+        (*(v8[0] + 24))(v8, v1 + 8);
+        (*(v8[0] + 32))(v8);
       }
 
       else
       {
-        (*(*v8 + 24))();
-        (*(*v8 + 32))(v8);
-        v8 = *(v1 + 32);
+        (*(*v7 + 24))();
+        (*(*v7 + 32))(v7);
+        v7 = *(v1 + 32);
       }
 
       *(v1 + 32) = v2;
@@ -1246,22 +1223,20 @@ uint64_t ___ZN7GnssHal13PlatformTimer11setCallbackENSt3__18functionIFvvEEE_block
 
     else if (v4 == v2)
     {
-      (*(*v4 + 24))(*(v1 + 32), v7);
+      (*(*v4 + 24))(*(v1 + 32), v6);
       (*(**(v1 + 32) + 32))(*(v1 + 32));
-      *(v1 + 32) = v8;
-      v8 = v7;
+      *(v1 + 32) = v7;
+      v7 = v6;
     }
 
     else
     {
-      v8 = *(v1 + 32);
+      v7 = *(v1 + 32);
       *(v1 + 32) = v3;
     }
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
 }
 
 void sub_2454AF4C8(_Unwind_Exception *a1, int a2)
@@ -1334,19 +1309,18 @@ void gpsd::util::GnssTimer::~GnssTimer(gpsd::util::GnssTimer *this)
 
 uint64_t GnssHal::ExtensionsCommon::ExtensionsCommon(uint64_t a1, uint64_t a2, char a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *a1 = &unk_28585BA78;
   *(a1 + 8) = a3;
   *(a1 + 16) = a2;
   v5 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134349056;
-    v9 = a2;
-    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#hal,ExtensionsCommon,extensionsUtil,%{public}p", &v8, 0xCu);
+    v7 = 134349056;
+    v8 = a2;
+    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#hal,ExtensionsCommon,extensionsUtil,%{public}p", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1369,7 +1343,7 @@ char *GnssHal::ExtensionsCommon::getGpsWeekFromBuildDate(GnssHal::ExtensionsComm
 
 void GnssHal::ExtensionsCommon::setGnssChipInfo(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
@@ -1393,14 +1367,12 @@ void GnssHal::ExtensionsCommon::setGnssChipInfo(uint64_t a1, uint64_t *a2, uint6
       v7 = *a3;
     }
 
-    v9 = 136446467;
-    v10 = v6;
-    v11 = 2081;
-    v12 = v7;
-    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#hal,chipVersion,%{public}s,serial,%{private}s", &v9, 0x16u);
+    v8 = 136446467;
+    v9 = v6;
+    v10 = 2081;
+    v11 = v7;
+    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#hal,chipVersion,%{public}s,serial,%{private}s", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GnssHal::ExtensionsCommon::updateReceiverClockAnalyticsData(uint64_t a1)
@@ -1476,7 +1448,7 @@ uint64_t GnssHal::ExtensionsCommon::supportsL5(GnssHal::ExtensionsCommon *this)
 
 uint64_t GnssHal::ExtensionsCommon::isBeiDouConsistencyRequired(GnssHal::ExtensionsCommon *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(this + 2);
   if (v2)
   {
@@ -1492,20 +1464,19 @@ uint64_t GnssHal::ExtensionsCommon::isBeiDouConsistencyRequired(GnssHal::Extensi
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(this + 2);
-    v8 = 134349312;
-    v9 = v5;
-    v10 = 1026;
-    v11 = v3 & 1;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "hal,#bcr,%{public}p,%{public}d", &v8, 0x12u);
+    v7 = 134349312;
+    v8 = v5;
+    v9 = 1026;
+    v10 = v3 & 1;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "hal,#bcr,%{public}p,%{public}d", &v7, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
 uint64_t GnssHal::ExtensionsCommon::isStandaloneBeiDouSupportRequired(GnssHal::ExtensionsCommon *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(this + 2);
   if (v2)
   {
@@ -1521,14 +1492,13 @@ uint64_t GnssHal::ExtensionsCommon::isStandaloneBeiDouSupportRequired(GnssHal::E
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(this + 2);
-    v8 = 134349312;
-    v9 = v5;
-    v10 = 1026;
-    v11 = v3 & 1;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "hal,#sbsr,%{public}p,%{public}d", &v8, 0x12u);
+    v7 = 134349312;
+    v8 = v5;
+    v9 = 1026;
+    v10 = v3 & 1;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "hal,#sbsr,%{public}p,%{public}d", &v7, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
@@ -1546,23 +1516,23 @@ uint64_t GnssHal::ExtensionsCommon::platformSpecificFeaturesBitmask(GnssHal::Ext
   return GpsdPreferences::platformSpecificFeaturesBitmask(v1);
 }
 
-void GnssHal::ExtensionsCommon::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsCommon::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
   GpsdPreferences::debugSettingsString(a1);
 }
 
-uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+void *GnssHal::InterfacesImpl::InterfacesImpl(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
-  *(a1 + 40) = 0u;
-  *(a1 + 24) = 0u;
-  *(a1 + 8) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 1) = 0u;
   v13 = *a2;
   *a2 = 0;
-  v14 = *(a1 + 8);
+  v14 = a1[1];
   *a1 = &unk_28585BB20;
-  *(a1 + 8) = v13;
+  a1[1] = v13;
   if (v14)
   {
     (*(*v14 + 8))(v14);
@@ -1570,8 +1540,8 @@ uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint
 
   v15 = *a3;
   *a3 = 0;
-  v16 = *(a1 + 16);
-  *(a1 + 16) = v15;
+  v16 = a1[2];
+  a1[2] = v15;
   if (v16)
   {
     (*(*v16 + 8))(v16);
@@ -1579,8 +1549,8 @@ uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint
 
   v17 = *a4;
   *a4 = 0;
-  v18 = *(a1 + 24);
-  *(a1 + 24) = v17;
+  v18 = a1[3];
+  a1[3] = v17;
   if (v18)
   {
     (*(*v18 + 8))(v18);
@@ -1588,8 +1558,8 @@ uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint
 
   v19 = *a5;
   *a5 = 0;
-  v20 = *(a1 + 32);
-  *(a1 + 32) = v19;
+  v20 = a1[4];
+  a1[4] = v19;
   if (v20)
   {
     (*(*v20 + 8))(v20);
@@ -1597,8 +1567,8 @@ uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint
 
   v21 = *a6;
   *a6 = 0;
-  v22 = *(a1 + 40);
-  *(a1 + 40) = v21;
+  v22 = a1[5];
+  a1[5] = v21;
   if (v22)
   {
     (*(*v22 + 8))(v22);
@@ -1606,8 +1576,8 @@ uint64_t GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t *a2, uint
 
   v23 = *a7;
   *a7 = 0;
-  v24 = *(a1 + 48);
-  *(a1 + 48) = v23;
+  v24 = a1[6];
+  a1[6] = v23;
   if (v24)
   {
     (*(*v24 + 8))(v24);
@@ -1676,9 +1646,9 @@ void GnssHal::InterfacesImpl::InterfacesImpl(uint64_t a1, uint64_t a2)
   __assert_rtn("InterfacesImpl", "GnssHalImpl.cpp", 42, "false && #hal,InterfacesImpl,halInterfacesUtil,nullptr");
 }
 
-void sub_2454B095C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_2454B095C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
 {
-  MEMORY[0x245D6AEE0](v48, 0x10A1C40751DFAB8);
+  MEMORY[0x245D6AEE0](v48, 0x10A1C40751DFAB8, a3, a4, a5, a6, a7, a8);
   if (v47)
   {
     (*(*v47 + 8))(v47);
@@ -1843,7 +1813,7 @@ void std::__function::__func<GnssHal::InterfacesImpl::InterfacesImpl(GnssHal::In
   *(a2 + 16) = 0;
   *a2 = 0;
   v2 = gnss::Exception::instance(a1);
-  gnss::Exception::set(v2, 5);
+  gnss::Exception::set(v2, 5, 0);
 }
 
 void sub_2454B13F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -1934,35 +1904,33 @@ uint64_t std::__function::__func<GnssHal::InterfacesImpl::InterfacesImpl(GnssHal
 
 uint64_t std::__function::__func<GnssHal::InterfacesImpl::InterfacesImpl(GnssHal::InterfacesUtil *)::$_2,std::allocator<GnssHal::InterfacesImpl::InterfacesImpl(GnssHal::InterfacesUtil *)::$_2>,void ()(GnssHal::ExtensionsOlaf::LtlInfoRequest const&,std::function<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = (a3 + 24);
   v5 = *(a3 + 24);
   if (v5)
   {
     if (v5 == a3)
     {
-      v11 = v10;
-      (*(*v5 + 24))(v5, v10);
+      v10 = v9;
+      (*(*v5 + 24))(v5, v9);
       goto LABEL_7;
     }
 
-    v11 = *(a3 + 24);
+    v10 = *(a3 + 24);
   }
 
   else
   {
-    v6 = &v11;
+    v6 = &v10;
   }
 
   *v6 = 0;
 LABEL_7:
   v7 = *(a1 + 8);
-  std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::__value_func[abi:ne200100](v12, v10);
-  (*(*v7 + 56))(v7, a2, v12);
-  std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v12);
-  result = std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v10);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::__value_func[abi:ne200100](v11, v9);
+  (*(*v7 + 56))(v7, a2, v11);
+  std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v11);
+  return std::__function::__value_func<void ()(GnssHal::ExtensionsOlaf::LtlInfo const&)>::~__value_func[abi:ne200100](v9);
 }
 
 void sub_2454B1760(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -2109,7 +2077,7 @@ void sub_2454B1B28(_Unwind_Exception *a1)
 void *GnssHal::ExtensionsFireImpl::ExtensionsFireImpl(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   *a1 = &unk_28585B6E8;
-  v10 = (a1 + 8);
+  v10 = a1 + 8;
   GnssHal::ExtensionsCommon::ExtensionsCommon((a1 + 1), a2, a6);
   std::__function::__value_func<void ()(GnssHal::ExtensionsFire::RecoveryStatistics const&)>::__value_func[abi:ne200100]((a1 + 4), a3);
   std::__function::__value_func<std::string ()(void)>::__value_func[abi:ne200100](v10, a4);
@@ -2174,23 +2142,23 @@ uint64_t std::__function::__value_func<std::string ()(void)>::__value_func[abi:n
   return a1;
 }
 
-uint64_t GnssHal::ExtensionsIndusImpl::ExtensionsIndusImpl(uint64_t a1, uint64_t a2, char a3)
+double *GnssHal::ExtensionsIndusImpl::ExtensionsIndusImpl(double *a1, uint64_t a2, char a3)
 {
   *a1 = &unk_28585C1E0;
-  GnssHal::ExtensionsCommon::ExtensionsCommon(a1 + 8, a2, a3);
+  GnssHal::ExtensionsCommon::ExtensionsCommon((a1 + 1), a2, a3);
   v4 = GpsdPlatformInfo::instance(0);
-  *(a1 + 32) = GpsdPlatformInfo::indusCrossCorrelationSettings(v4);
-  *(a1 + 40) = v5;
-  *(a1 + 48) = v6;
-  *(a1 + 56) = v7;
+  a1[4] = GpsdPlatformInfo::indusCrossCorrelationSettings(v4);
+  *(a1 + 5) = v5;
+  *(a1 + 6) = v6;
+  *(a1 + 7) = v7;
   return a1;
 }
 
-uint64_t GnssHal::CommUart::CommUart(uint64_t a1, uint64_t a2)
+uint64_t GnssHal::CommUart::CommUart(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t DispatchQueue)
 {
   *a1 = &unk_28585BDC8;
-  v4 = GpsdPreferences::instance(0);
-  *(a1 + 8) = GpsdPreferences::verboseCommDataSniffer(v4);
+  v6 = GpsdPreferences::instance(0);
+  *(a1 + 8) = GpsdPreferences::verboseCommDataSniffer(v6);
   *(a1 + 16) = *a2;
   if (*(a2 + 31) < 0)
   {
@@ -2199,9 +2167,9 @@ uint64_t GnssHal::CommUart::CommUart(uint64_t a1, uint64_t a2)
 
   else
   {
-    v5 = *(a2 + 8);
+    v7 = *(a2 + 8);
     *(a1 + 40) = *(a2 + 24);
-    *(a1 + 24) = v5;
+    *(a1 + 24) = v7;
   }
 
   *(a1 + 48) = *(a2 + 32);
@@ -2235,14 +2203,14 @@ void sub_2454B1EC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void GnssHal::CommUart::~CommUart(GnssHal::CommUart *this)
+void GnssHal::CommUart::~CommUart(GnssHal::CommUart::AsyncReader **this)
 {
   *this = &unk_28585BDC8;
   GnssHal::CommUart::close(this);
   std::unique_ptr<GnssHal::CommUart::AsyncReader>::reset[abi:ne200100](this + 8, 0);
   if (*(this + 47) < 0)
   {
-    operator delete(*(this + 3));
+    operator delete(this[3]);
   }
 }
 
@@ -2254,7 +2222,7 @@ void GnssHal::CommUart::~CommUart(GnssHal::CommUart *this)
 
 uint64_t GnssHal::CommUart::open(GnssHal::CommUart *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     v2 = GpsdLogObjectGeneral;
@@ -2265,7 +2233,7 @@ uint64_t GnssHal::CommUart::open(GnssHal::CommUart *this)
     }
 
     v3 = *(this + 60);
-    goto LABEL_26;
+    return v3 & 1;
   }
 
   if (*(this + 47) < 0)
@@ -2302,16 +2270,16 @@ LABEL_11:
   v7 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
   {
-    v12 = &__p;
+    v11 = &__p;
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v12 = __p.__r_.__value_.__r.__words[0];
+      v11 = __p.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136446466;
-    v16 = v12;
-    v17 = 1026;
-    v18 = 131074;
+    v15 = v11;
+    v16 = 1026;
+    v17 = 131074;
     _os_log_debug_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEBUG, "#comm,open,%{public}s,flag,0x%{public}X", buf, 0x12u);
     v6 = *(this + 14);
   }
@@ -2321,9 +2289,9 @@ LABEL_11:
     v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v13 = *__error();
+      v12 = *__error();
       *buf = 67240192;
-      LODWORD(v16) = v13;
+      LODWORD(v15) = v12;
       _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#comm,open,errno,%{public}d", buf, 8u);
     }
   }
@@ -2347,8 +2315,6 @@ LABEL_24:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-LABEL_26:
-  v10 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
@@ -2364,8 +2330,8 @@ void sub_2454B2268(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t GnssHal::CommUart::configure(GnssHal::CommUart *this)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (tcgetattr(*(this + 14), &v30) == -1)
+  v30 = *MEMORY[0x277D85DE8];
+  if (tcgetattr(*(this + 14), &v29) == -1)
   {
     v9 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
@@ -2373,9 +2339,9 @@ uint64_t GnssHal::CommUart::configure(GnssHal::CommUart *this)
       goto LABEL_8;
     }
 
-    v22 = *__error();
+    v21 = *__error();
     *buf = 67240192;
-    *v28 = v22;
+    *v27 = v21;
     v6 = "#comm,configure,tcgetattr failed,%{public}d";
 LABEL_27:
     v7 = v9;
@@ -2383,25 +2349,25 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  cfmakeraw(&v30);
-  v30.c_cc[16] = 0;
-  v30.c_cc[17] = *(this + 17);
-  if (v30.c_cc[17])
+  cfmakeraw(&v29);
+  v29.c_cc[16] = 0;
+  v29.c_cc[17] = *(this + 17);
+  if (v29.c_cc[17])
   {
+    v24 = 115200;
     v25 = 115200;
-    v26 = 115200;
-    v2 = GnssHal::CommUart::Config::lookupBaudRate((this + 16), &v26, &v25);
-    v3 = v26;
-    if (cfsetspeed(&v30, v26))
+    v2 = GnssHal::CommUart::Config::lookupBaudRate((this + 16), &v25, &v24);
+    v3 = v25;
+    if (cfsetspeed(&v29, v25))
     {
       v4 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         v5 = *__error();
         *buf = 134349312;
-        *v28 = v3;
-        *&v28[8] = 1026;
-        LODWORD(v29[0]) = v5;
+        *v27 = v3;
+        *&v27[8] = 1026;
+        LODWORD(v28[0]) = v5;
         v6 = "#comm,configure,cfsetspeed failed,%{public}lu,%{public}d";
         v7 = v4;
 LABEL_6:
@@ -2413,17 +2379,17 @@ LABEL_28:
 LABEL_8:
       v10 = 0;
       *(this + 60) = 0;
-      goto LABEL_12;
+      return v10;
     }
 
-    v14 = v30.c_cflag | 0x30300;
+    v13 = v29.c_cflag | 0x30300;
     if (!*(this + 16))
     {
-      v14 = v30.c_cflag & 0xFFFFFFFFFFFCFCFFLL | 0x300;
+      v13 = v29.c_cflag & 0xFFFFFFFFFFFCFCFFLL | 0x300;
     }
 
-    v30.c_cflag = v14;
-    if (tcsetattr(*(this + 14), 0, &v30))
+    v29.c_cflag = v13;
+    if (tcsetattr(*(this + 14), 0, &v29))
     {
       v9 = GpsdLogObjectGeneral;
       if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
@@ -2431,64 +2397,64 @@ LABEL_8:
         goto LABEL_8;
       }
 
-      v15 = *__error();
+      v14 = *__error();
       *buf = 67240192;
-      *v28 = v15;
+      *v27 = v14;
       v6 = "#comm,configure,tcsetattr failed,%{public}d";
       goto LABEL_27;
     }
 
     if (v2)
     {
-      v16 = ioctl(*(this + 14), 0x80085402uLL, &v25);
-      v17 = GpsdLogObjectGeneral;
-      if (v16 == -1)
+      v15 = ioctl(*(this + 14), 0x80085402uLL, &v24);
+      v16 = GpsdLogObjectGeneral;
+      if (v15 == -1)
       {
         if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_8;
         }
 
-        v23 = v25;
-        v24 = *__error();
+        v22 = v24;
+        v23 = *__error();
         *buf = 134349312;
-        *v28 = v23;
-        *&v28[8] = 1026;
-        LODWORD(v29[0]) = v24;
+        *v27 = v22;
+        *&v27[8] = 1026;
+        LODWORD(v28[0]) = v23;
         v6 = "#comm,configure,IOSSIOSPEED failed,%{public}lu,%{public}d";
-        v7 = v17;
+        v7 = v16;
         goto LABEL_6;
       }
 
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349312;
-        *v28 = v25;
-        *&v28[8] = 2050;
-        v29[0] = v3;
-        _os_log_debug_impl(&dword_2454AA000, v17, OS_LOG_TYPE_DEBUG, "#comm,configure,IOSSIOSPEED,%{public}lu,standardSpeed,%{public}lu", buf, 0x16u);
+        *v27 = v24;
+        *&v27[8] = 2050;
+        v28[0] = v3;
+        _os_log_debug_impl(&dword_2454AA000, v16, OS_LOG_TYPE_DEBUG, "#comm,configure,IOSSIOSPEED,%{public}lu,standardSpeed,%{public}lu", buf, 0x16u);
       }
     }
 
-    v18 = GpsdLogObjectGeneral;
+    v17 = GpsdLogObjectGeneral;
     v10 = 1;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
-      v19 = *(this + 16);
-      v20 = *(this + 17);
-      v21 = v25;
+      v18 = *(this + 16);
+      v19 = *(this + 17);
+      v20 = v24;
       if (!v2)
       {
-        v21 = v3;
+        v20 = v3;
       }
 
       *buf = 67240704;
-      *v28 = v19;
-      *&v28[4] = 1026;
-      *&v28[6] = v20;
-      LOWORD(v29[0]) = 2050;
-      *(v29 + 2) = v21;
-      _os_log_impl(&dword_2454AA000, v18, OS_LOG_TYPE_INFO, "#comm,configured,flowCtrl,%{public}d,timeoutTenths,%{public}d,baud,%{public}lu", buf, 0x18u);
+      *v27 = v18;
+      *&v27[4] = 1026;
+      *&v27[6] = v19;
+      LOWORD(v28[0]) = 2050;
+      *(v28 + 2) = v20;
+      _os_log_impl(&dword_2454AA000, v17, OS_LOG_TYPE_INFO, "#comm,configured,flowCtrl,%{public}d,timeoutTenths,%{public}d,baud,%{public}lu", buf, 0x18u);
     }
   }
 
@@ -2501,18 +2467,16 @@ LABEL_8:
       _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "#comm,configure,timeoutTenthsOfSeconds is 0", buf, 2u);
     }
 
-    v10 = 0;
+    return 0;
   }
 
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-void GnssHal::CommUart::AsyncReader::open(GnssHal::CommUart::AsyncReader *this)
+void GnssHal::CommUart::AsyncReader::open(dispatch_queue_t *this)
 {
   v7 = *MEMORY[0x277D85DE8];
-  (*(**this + 40))(*this);
+  (*((*this)->isa + 5))(*this);
   std::vector<unsigned char>::reserve(this + 8, 0x1000uLL);
   v2 = MEMORY[0x277D85DD0];
   v3 = 0x40000000;
@@ -2524,7 +2488,7 @@ void GnssHal::CommUart::AsyncReader::open(GnssHal::CommUart::AsyncReader *this)
 
 void GnssHal::CommUart::close(GnssHal::CommUart *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     v2 = *(this + 8);
@@ -2539,8 +2503,8 @@ void GnssHal::CommUart::close(GnssHal::CommUart *this)
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
         v10 = *__error();
-        v12[0] = 67240192;
-        v12[1] = v10;
+        v11[0] = 67240192;
+        v11[1] = v10;
         v4 = "#comm,close,errno,%{public}d";
         v5 = v9;
         v6 = OS_LOG_TYPE_DEFAULT;
@@ -2554,29 +2518,26 @@ void GnssHal::CommUart::close(GnssHal::CommUart *this)
       v3 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v12[0]) = 0;
+        LOWORD(v11[0]) = 0;
         v4 = "#comm,close,completed";
         v5 = v3;
         v6 = OS_LOG_TYPE_INFO;
         v7 = 2;
 LABEL_11:
-        _os_log_impl(&dword_2454AA000, v5, v6, v4, v12, v7);
+        _os_log_impl(&dword_2454AA000, v5, v6, v4, v11, v7);
       }
     }
 
     *(this + 14) = -1;
-    goto LABEL_13;
+    return;
   }
 
   v8 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_INFO, "#comm,close,not open", v12, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_INFO, "#comm,close,not open", v11, 2u);
   }
-
-LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::CommUart::AsyncReader::close(GnssHal::CommUart::AsyncReader *this)
@@ -2612,45 +2573,45 @@ void GnssHal::CommUart::AsyncReader::close(GnssHal::CommUart::AsyncReader *this)
 
 BOOL GnssHal::CommUart::waitForDataAvailable(GnssHal::CommUart *this)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     v2 = *(this + 14);
-    memset(&v17, 0, sizeof(v17));
-    if (__darwin_check_fd_set_overflow(v2, &v17, 0))
+    memset(&v16, 0, sizeof(v16));
+    if (__darwin_check_fd_set_overflow(v2, &v16, 0))
     {
-      *(v17.fds_bits + ((v2 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v2;
+      *(v16.fds_bits + ((v2 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v2;
     }
 
-    v3 = select(v2 + 1, &v17, 0, 0, 0);
+    v3 = select(v2 + 1, &v16, 0, 0, 0);
     v4 = v3 >= 0;
     if (v3 < 0)
     {
-      v12 = *__error();
-      v13 = GpsdLogObjectGeneral;
-      if (v12 == 9)
+      v11 = *__error();
+      v12 = GpsdLogObjectGeneral;
+      if (v11 == 9)
       {
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
         {
           *buf = 67240192;
-          v19 = v2;
-          _os_log_impl(&dword_2454AA000, v13, OS_LOG_TYPE_INFO, "#comm,select,interrupted,fd,%{public}d", buf, 8u);
+          v18 = v2;
+          _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_INFO, "#comm,select,interrupted,fd,%{public}d", buf, 8u);
         }
       }
 
       else if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v14 = *__error();
-        v15 = __error();
-        v16 = strerror(*v15);
+        v13 = *__error();
+        v14 = __error();
+        v15 = strerror(*v14);
         *buf = 67240706;
-        v19 = v14;
-        v20 = 2082;
-        v21 = v16;
-        v22 = 1026;
-        v23 = v2;
+        v18 = v13;
+        v19 = 2082;
+        v20 = v15;
+        v21 = 1026;
+        v22 = v2;
         v6 = "#comm,select,errno,%{public}d,%{public}s,fd,%{public}d";
-        v7 = v13;
+        v7 = v12;
         v8 = 24;
         goto LABEL_17;
       }
@@ -2676,20 +2637,19 @@ LABEL_17:
     v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17.fds_bits[0]) = 0;
-      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#comm,waitForDataAvailable,portNotOpen", &v17, 2u);
+      LOWORD(v16.fds_bits[0]) = 0;
+      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#comm,waitForDataAvailable,portNotOpen", &v16, 2u);
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-ssize_t GnssHal::CommUart::readTimeout(GnssHal::CommUart *this, unsigned __int8 *a2, size_t a3)
+uint64_t GnssHal::CommUart::readTimeout(GnssHal::CommUart *this, unsigned __int8 *a2, size_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(this + 60) != 1 || ((*(*this + 32))(this) & 1) == 0)
   {
     v10 = GpsdLogObjectWarning;
@@ -2697,14 +2657,14 @@ ssize_t GnssHal::CommUart::readTimeout(GnssHal::CommUart *this, unsigned __int8 
     {
       v11 = *(this + 60);
       v12 = (*(*this + 32))(this);
-      v15 = 67240448;
-      v16 = v11;
-      v17 = 1026;
-      LODWORD(v18) = v12;
-      _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEFAULT, "#comm,read,unavailable,good,%{public}d,open,%{public}d", &v15, 0xEu);
+      v14 = 67240448;
+      v15 = v11;
+      v16 = 1026;
+      LODWORD(v17) = v12;
+      _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEFAULT, "#comm,read,unavailable,good,%{public}d,open,%{public}d", &v14, 0xEu);
     }
 
-    goto LABEL_12;
+    return -1;
   }
 
   v7 = read(*(this + 14), a2, a3);
@@ -2719,26 +2679,22 @@ ssize_t GnssHal::CommUart::readTimeout(GnssHal::CommUart *this, unsigned __int8 
     v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 67240450;
-      v16 = v8;
-      v17 = 2082;
-      v18 = strerror(v8);
-      _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "#comm,read,errno,%{public}d,%{public}s", &v15, 0x12u);
+      v14 = 67240450;
+      v15 = v8;
+      v16 = 2082;
+      v17 = strerror(v8);
+      _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "#comm,read,errno,%{public}d,%{public}s", &v14, 0x12u);
     }
 
     if (v8 == 35)
     {
-      v7 = 0;
-      goto LABEL_13;
+      return 0;
     }
 
     *(this + 60) = 0;
-LABEL_12:
-    v7 = -1;
+    return -1;
   }
 
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2751,23 +2707,21 @@ uint64_t GnssHal::CommUart::isReadCallbackSupported(GnssHal::CommUart *this)
 
 BOOL GnssHal::CommUart::setReadCallback(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
   if (v2)
   {
-    std::__function::__value_func<void ()(unsigned char *,unsigned long)>::__value_func[abi:ne200100](v5, a2);
-    GnssHal::CommUart::AsyncReader::setReadCallback(v2, v5);
-    std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](v5);
+    std::__function::__value_func<void ()(unsigned char *,unsigned long)>::__value_func[abi:ne200100](v4, a2);
+    GnssHal::CommUart::AsyncReader::setReadCallback(v2, v4);
+    std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](v4);
   }
 
-  result = v2 != 0;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 != 0;
 }
 
-void sub_2454B31C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2454B31C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2814,9 +2768,9 @@ BOOL GnssHal::CommUart::readComplete(GnssHal::CommUart *this, unsigned __int8 *a
   return a3 == v7;
 }
 
-uint64_t GnssHal::CommUart::write(GnssHal::CommUart *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
+unint64_t GnssHal::CommUart::write(GnssHal::CommUart *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(this + 8) == 1)
   {
     gpsd::util::logBinaryBytes(a2, a3, "#comm,write", a4);
@@ -2827,16 +2781,16 @@ uint64_t GnssHal::CommUart::write(GnssHal::CommUart *this, gpsd::util *a2, unsig
     v10 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(this + 60);
-      v17 = (*(*this + 32))(this);
-      v18 = 67240448;
-      *v19 = v16;
-      *&v19[4] = 1026;
-      *&v19[6] = v17;
-      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#comm,write,unavailable,good,%{public}d,open,%{public}d", &v18, 0xEu);
+      v15 = *(this + 60);
+      v16 = (*(*this + 32))(this);
+      v17 = 67240448;
+      *v18 = v15;
+      *&v18[4] = 1026;
+      *&v18[6] = v16;
+      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#comm,write,unavailable,good,%{public}d,open,%{public}d", &v17, 0xEu);
     }
 
-    goto LABEL_11;
+    return -1;
   }
 
   v7 = write(*(this + 14), a2, a3);
@@ -2848,46 +2802,41 @@ uint64_t GnssHal::CommUart::write(GnssHal::CommUart *this, gpsd::util *a2, unsig
       v9 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
       {
-        v18 = 134349312;
-        *v19 = a3;
-        *&v19[8] = 1026;
-        v20 = v8;
-        _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "#comm,write,overflow,toWrite,%{public}zu,done,%{public}d,retry", &v18, 0x12u);
+        v17 = 134349312;
+        *v18 = a3;
+        *&v18[8] = 1026;
+        v19 = v8;
+        _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "#comm,write,overflow,toWrite,%{public}zu,done,%{public}d,retry", &v17, 0x12u);
       }
     }
 
-    goto LABEL_12;
+    return v8;
   }
 
-  v13 = *__error();
-  if (v13 != 35)
+  v12 = *__error();
+  if (v12 != 35)
   {
     *(this + 60) = 0;
-    v15 = GpsdLogObjectWarning;
+    v14 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 67240192;
-      *v19 = v13;
-      _os_log_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEFAULT, "#comm,write,errno,%{public}d", &v18, 8u);
+      v17 = 67240192;
+      *v18 = v12;
+      _os_log_impl(&dword_2454AA000, v14, OS_LOG_TYPE_DEFAULT, "#comm,write,errno,%{public}d", &v17, 8u);
     }
 
-LABEL_11:
-    v8 = -1;
-    goto LABEL_12;
+    return -1;
   }
 
-  v14 = GpsdLogObjectGeneral;
+  v13 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 67240192;
-    *v19 = 35;
-    _os_log_debug_impl(&dword_2454AA000, v14, OS_LOG_TYPE_DEBUG, "#comm,write,errno,%{public}d", &v18, 8u);
+    v17 = 67240192;
+    *v18 = 35;
+    _os_log_debug_impl(&dword_2454AA000, v13, OS_LOG_TYPE_DEBUG, "#comm,write,errno,%{public}d", &v17, 8u);
   }
 
-  v8 = 0;
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 0;
 }
 
 BOOL GnssHal::CommUart::writeComplete(GnssHal::CommUart *this, const unsigned __int8 *a2, unint64_t a3)
@@ -2935,19 +2884,19 @@ BOOL GnssHal::CommUart::enterLowPowerMode(GnssHal::CommUart *this)
 
 BOOL GnssHal::CommUart::setRtsState(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
     *buf = 67240192;
-    v12 = a2;
+    v11 = a2;
     _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "#comm,setRtsState,%{public}d", buf, 8u);
   }
 
-  v10 = 4;
+  v9 = 4;
   if (a2 != 1)
   {
-    if (!a2 && ioctl(*(a1 + 56), 0x8004746BuLL, &v10) < 0)
+    if (!a2 && ioctl(*(a1 + 56), 0x8004746BuLL, &v9) < 0)
     {
       v5 = GpsdLogObjectGeneral;
       result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
@@ -2955,42 +2904,37 @@ BOOL GnssHal::CommUart::setRtsState(uint64_t a1, int a2)
       {
         v7 = *__error();
         *buf = 67240448;
-        v12 = 0;
-        v13 = 1026;
-        v14 = v7;
+        v11 = 0;
+        v12 = 1026;
+        v13 = v7;
 LABEL_13:
         _os_log_error_impl(&dword_2454AA000, v5, OS_LOG_TYPE_ERROR, "#comm,setRtsState,%{public}d,ioctl error,%{public}d", buf, 0xEu);
-        result = 0;
-        goto LABEL_10;
+        return 0;
       }
 
-      goto LABEL_10;
+      return result;
     }
 
-LABEL_9:
-    result = 1;
-    goto LABEL_10;
+    return 1;
   }
 
-  if ((ioctl(*(a1 + 56), 0x8004746CuLL, &v10) & 0x80000000) == 0)
+  if ((ioctl(*(a1 + 56), 0x8004746CuLL, &v9) & 0x80000000) == 0)
   {
-    goto LABEL_9;
+    return 1;
   }
 
   v5 = GpsdLogObjectGeneral;
   result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    v9 = *__error();
+    v8 = *__error();
     *buf = 67240448;
-    v12 = 1;
-    v13 = 1026;
-    v14 = v9;
+    v11 = 1;
+    v12 = 1026;
+    v13 = v8;
     goto LABEL_13;
   }
 
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3020,7 +2964,7 @@ BOOL GnssHal::CommUart::exitLowPowerMode(GnssHal::CommUart *this)
 
 BOOL GnssHal::CommUart::readWriteFlush(GnssHal::CommUart *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     if (tcflush(*(this + 14), 3))
@@ -3029,9 +2973,9 @@ BOOL GnssHal::CommUart::readWriteFlush(GnssHal::CommUart *this)
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
         v3 = *__error();
-        v8[0] = 67240192;
-        v8[1] = v3;
-        _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#comm,readWriteFlush,TCIOFLUSH error,%{public}d", v8, 8u);
+        v7[0] = 67240192;
+        v7[1] = v3;
+        _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#comm,readWriteFlush,TCIOFLUSH error,%{public}d", v7, 8u);
       }
 
       result = 0;
@@ -3043,11 +2987,11 @@ BOOL GnssHal::CommUart::readWriteFlush(GnssHal::CommUart *this)
       v6 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_debug_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEBUG, "#comm,readWriteFlush,success", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_debug_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEBUG, "#comm,readWriteFlush,success", v7, 2u);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
@@ -3057,19 +3001,18 @@ BOOL GnssHal::CommUart::readWriteFlush(GnssHal::CommUart *this)
     result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
     if (result)
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#comm,readWriteFlush,not open", v8, 2u);
-      result = 0;
+      LOWORD(v7[0]) = 0;
+      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#comm,readWriteFlush,not open", v7, 2u);
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL GnssHal::CommUart::readFlush(GnssHal::CommUart *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     v2 = tcflush(*(this + 14), 1);
@@ -3079,9 +3022,9 @@ BOOL GnssHal::CommUart::readFlush(GnssHal::CommUart *this)
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
       {
         v4 = *__error();
-        v8[0] = 67240192;
-        v8[1] = v4;
-        _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "#comm,readFlush,TCIFLUSH error,%{public}d", v8, 8u);
+        v7[0] = 67240192;
+        v7[1] = v4;
+        _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "#comm,readFlush,TCIFLUSH error,%{public}d", v7, 8u);
       }
 
       result = 0;
@@ -3092,11 +3035,11 @@ BOOL GnssHal::CommUart::readFlush(GnssHal::CommUart *this)
     {
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v8[0]) = 0;
-        _os_log_debug_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEBUG, "#comm,readFlush,success", v8, 2u);
+        LOWORD(v7[0]) = 0;
+        _os_log_debug_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEBUG, "#comm,readFlush,success", v7, 2u);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
@@ -3106,13 +3049,12 @@ BOOL GnssHal::CommUart::readFlush(GnssHal::CommUart *this)
     result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
     if (result)
     {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_2454AA000, v6, OS_LOG_TYPE_INFO, "#comm,readFlush,not open", v8, 2u);
-      result = 0;
+      LOWORD(v7[0]) = 0;
+      _os_log_impl(&dword_2454AA000, v6, OS_LOG_TYPE_INFO, "#comm,readFlush,not open", v7, 2u);
+      return 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3183,24 +3125,24 @@ uint64_t GnssHal::CommUart::Config::lookupBaudRate(GnssHal::CommUart::Config *th
 
 uint64_t GnssHal::CommUart::Config::platformDefaultBaudRate(GnssHal::CommUart::Config *this)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(GpsdPlatformInfo::instance(0) + 8) == 201)
   {
     v1 = GpsdPreferences::instance(0);
     if (GpsdPreferences::baudRate4M8(v1))
     {
-      v2 = 7;
+      return 7;
     }
 
     else
     {
-      v2 = 4;
+      return 4;
     }
   }
 
   else if (*(GpsdPlatformInfo::instance(0) + 8) == 103 || *(GpsdPlatformInfo::instance(0) + 8) == 106)
   {
-    v2 = 6;
+    return 6;
   }
 
   else
@@ -3209,13 +3151,12 @@ uint64_t GnssHal::CommUart::Config::platformDefaultBaudRate(GnssHal::CommUart::C
     v2 = 1;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      v6[0] = 67240192;
-      v6[1] = 1;
-      _os_log_fault_impl(&dword_2454AA000, v3, OS_LOG_TYPE_FAULT, "UnsupportedHardware,defaultRate,%{public}d,used", v6, 8u);
+      v5[0] = 67240192;
+      v5[1] = 1;
+      _os_log_fault_impl(&dword_2454AA000, v3, OS_LOG_TYPE_FAULT, "UnsupportedHardware,defaultRate,%{public}d,used", v5, 8u);
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3234,7 +3175,7 @@ void GnssHal::CommUart::pulseTimeMarkStrobe(GnssHal::CommUart *this@<X0>, uint64
   v5 = *(this + 8);
   if (v5)
   {
-    GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(v5, &v7);
+    GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(&v7, v5);
     *a2 = v7;
     *(a2 + 16) = v8;
   }
@@ -3250,7 +3191,7 @@ void GnssHal::CommUart::pulseTimeMarkStrobe(GnssHal::CommUart *this@<X0>, uint64
   }
 }
 
-void GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(GnssHal::CommUart::AsyncReader *this@<X0>, uint64_t a2@<X8>)
+void GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(uint64_t *__return_ptr a1@<X8>, GnssHal::CommUart::AsyncReader *this@<X0>)
 {
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
@@ -3259,15 +3200,15 @@ void GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(GnssHal::CommUart::Asyn
     _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "#comm,CommUart::AsyncReader::pulseTimeMarkStrobe", &v7, 2u);
   }
 
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  *(a1 + 16) = 0;
   v5 = *(this + 1);
   if (v5)
   {
     (*(*v5 + 48))(&v7);
-    *a2 = v7;
-    *(a2 + 16) = v8;
+    *a1 = v7;
+    *(a1 + 16) = v8;
   }
 
   else
@@ -3283,7 +3224,7 @@ void GnssHal::CommUart::AsyncReader::pulseTimeMarkStrobe(GnssHal::CommUart::Asyn
 
 dispatch_queue_t GnssHal::CommUart::AsyncReader::createDispatchQueue(GnssHal::CommUart::AsyncReader *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = GpsdPreferences::instance(0);
   v2 = GpsdPreferences::maxSchedulerQos(v1);
   v3 = dispatch_queue_attr_make_with_qos_class(0, v2, 0);
@@ -3300,36 +3241,35 @@ dispatch_queue_t GnssHal::CommUart::AsyncReader::createDispatchQueue(GnssHal::Co
   result = dispatch_queue_create("com.apple.gpsd.comm", v3);
   if (!result)
   {
-    v7 = GpsdLogObjectGeneral;
+    v6 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "#comm,async,createQ,nullptr", buf, 2u);
-      v7 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "#comm,async,createQ,nullptr", buf, 2u);
+      v6 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommUart.cpp";
-      v13 = 1026;
-      v14 = 437;
-      v15 = 2082;
-      v16 = "createDispatchQueue";
-      _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v11 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommUart.cpp";
+      v12 = 1026;
+      v13 = 437;
+      v14 = 2082;
+      v15 = "createDispatchQueue";
+      _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v10, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v9, "createDispatchQueue");
-    std::string::basic_string[abi:ne200100]<0>(&v8, "#comm,async,createQ,nullptr");
-    gpsd::util::triggerDiagnosticReport(&v10, &v9, &v8);
+    std::string::basic_string[abi:ne200100]<0>(&v9, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v8, "createDispatchQueue");
+    std::string::basic_string[abi:ne200100]<0>(&v7, "#comm,async,createQ,nullptr");
+    gpsd::util::triggerDiagnosticReport(&v9, &v8, &v7);
+    std::string::~string(&v7);
     std::string::~string(&v8);
     std::string::~string(&v9);
-    std::string::~string(&v10);
     __assert_rtn("createDispatchQueue", "GnssHalCommUart.cpp", 437, "false && #comm,async,createQ,nullptr");
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3355,28 +3295,24 @@ void sub_2454B4290(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *std::function<void ()(unsigned char *,unsigned long)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<void ()(unsigned char *,unsigned long)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t ___ZN7GnssHal8CommUart11AsyncReader4openEv_block_invoke(uint64_t a1)
@@ -3484,7 +3420,7 @@ uint64_t std::__function::__value_func<void ()(unsigned char *,unsigned long)>::
 
 void *std::__function::__value_func<void ()(unsigned char *,unsigned long)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -3494,15 +3430,15 @@ void *std::__function::__value_func<void ()(unsigned char *,unsigned long)>::swa
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -3530,7 +3466,6 @@ void *std::__function::__value_func<void ()(unsigned char *,unsigned long)>::swa
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3570,37 +3505,37 @@ uint64_t getGnssDeviceDylib(void)
 
 uint64_t newGnssDevice(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   GnssDeviceDylib = getGnssDeviceDylib();
   v7 = dlsym(GnssDeviceDylib, "newGnssDevice");
   if (!v7)
   {
-    v16 = GpsdLogObjectGeneral;
+    v15 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v16, OS_LOG_TYPE_ERROR, "#gdd,dlsym failed", buf, 2u);
-      v16 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "#gdd,dlsym failed", buf, 2u);
+      v15 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v25 = 1026;
-      v26 = 30;
-      v27 = 2082;
-      v28 = "newGnssDevice";
-      _os_log_error_impl(&dword_2454AA000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v23 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v24 = 1026;
+      v25 = 30;
+      v26 = 2082;
+      v27 = "newGnssDevice";
+      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v21, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v20, "newGnssDevice");
-    std::string::basic_string[abi:ne200100]<0>(&v19, "#gdd,dlsym failed");
-    gpsd::util::triggerDiagnosticReport(&v21, &v20, &v19);
+    std::string::basic_string[abi:ne200100]<0>(&v20, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v19, "newGnssDevice");
+    std::string::basic_string[abi:ne200100]<0>(&v18, "#gdd,dlsym failed");
+    gpsd::util::triggerDiagnosticReport(&v20, &v19, &v18);
+    std::string::~string(&v18);
     std::string::~string(&v19);
     std::string::~string(&v20);
-    std::string::~string(&v21);
     __assert_rtn("newGnssDevice", "GpsdGnssDeviceDylib.cpp", 30, "false && #gdd,dlsym failed");
   }
 
@@ -3609,26 +3544,25 @@ uint64_t newGnssDevice(uint64_t *a1, uint64_t *a2, uint64_t a3)
   *a1 = 0;
   v10 = *a2;
   *a2 = 0;
-  v17 = v10;
-  v18 = v9;
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v22, a3);
-  v11 = v8(&v18, &v17, v22);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v22);
-  v12 = v17;
-  v17 = 0;
+  v16 = v10;
+  v17 = v9;
+  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v21, a3);
+  v11 = v8(&v17, &v16, v21);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v21);
+  v12 = v16;
+  v16 = 0;
   if (v12)
   {
     (*(*v12 + 48))(v12);
   }
 
-  v13 = v18;
-  v18 = 0;
+  v13 = v17;
+  v17 = 0;
   if (v13)
   {
     (*(*v13 + 8))(v13);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -3650,55 +3584,54 @@ void sub_2454B4CF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t newGnssDeviceTest(uint64_t *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   GnssDeviceDylib = getGnssDeviceDylib();
   v5 = dlsym(GnssDeviceDylib, "newGnssDeviceTest");
   if (!v5)
   {
-    v12 = GpsdLogObjectGeneral;
+    v11 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "#gdd,dlsym failed", buf, 2u);
-      v12 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "#gdd,dlsym failed", buf, 2u);
+      v11 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v20 = 1026;
-      v21 = 37;
-      v22 = 2082;
-      v23 = "newGnssDeviceTest";
-      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v18 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v19 = 1026;
+      v20 = 37;
+      v21 = 2082;
+      v22 = "newGnssDeviceTest";
+      _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v16, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v15, "newGnssDeviceTest");
-    std::string::basic_string[abi:ne200100]<0>(&v14, "#gdd,dlsym failed");
-    gpsd::util::triggerDiagnosticReport(&v16, &v15, &v14);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v14, "newGnssDeviceTest");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "#gdd,dlsym failed");
+    gpsd::util::triggerDiagnosticReport(&v15, &v14, &v13);
+    std::string::~string(&v13);
     std::string::~string(&v14);
     std::string::~string(&v15);
-    std::string::~string(&v16);
     __assert_rtn("newGnssDeviceTest", "GpsdGnssDeviceDylib.cpp", 37, "false && #gdd,dlsym failed");
   }
 
   v6 = v5;
   v7 = *a1;
   *a1 = 0;
-  v13 = v7;
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v17, a2);
-  v8 = v6(&v13, v17);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v17);
-  v9 = v13;
-  v13 = 0;
+  v12 = v7;
+  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v16, a2);
+  v8 = v6(&v12, v16);
+  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v16);
+  v9 = v12;
+  v12 = 0;
   if (v9)
   {
     (*(*v9 + 8))(v9);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -3715,41 +3648,39 @@ void sub_2454B4FDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t getVersionString()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   GnssDeviceDylib = getGnssDeviceDylib();
   v1 = dlsym(GnssDeviceDylib, "getVersionString");
   if (!v1)
   {
-    v4 = GpsdLogObjectGeneral;
+    v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "#gdd,Could not dlsym for version string", buf, 2u);
-      v4 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "#gdd,Could not dlsym for version string", buf, 2u);
+      v3 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v10 = 1026;
-      v11 = 46;
-      v12 = 2082;
-      v13 = "getVersionString";
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v8 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v9 = 1026;
+      v10 = 46;
+      v11 = 2082;
+      v12 = "getVersionString";
+      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v7, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v6, "getVersionString");
-    std::string::basic_string[abi:ne200100]<0>(&v5, "#gdd,Could not dlsym for version string");
-    gpsd::util::triggerDiagnosticReport(&v7, &v6, &v5);
+    std::string::basic_string[abi:ne200100]<0>(&v6, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "getVersionString");
+    std::string::basic_string[abi:ne200100]<0>(&v4, "#gdd,Could not dlsym for version string");
+    gpsd::util::triggerDiagnosticReport(&v6, &v5, &v4);
+    std::string::~string(&v4);
     std::string::~string(&v5);
     std::string::~string(&v6);
-    std::string::~string(&v7);
     __assert_rtn("getVersionString", "GpsdGnssDeviceDylib.cpp", 46, "false && #gdd,Could not dlsym for version string");
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1();
 }
@@ -3776,41 +3707,39 @@ void sub_2454B5228(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t getGnssDeviceVersion()
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   GnssDeviceDylib = getGnssDeviceDylib();
   v1 = dlsym(GnssDeviceDylib, "getGnssDeviceVersion");
   if (!v1)
   {
-    v4 = GpsdLogObjectGeneral;
+    v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "#gdd,Could not dlsym for version number", buf, 2u);
-      v4 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "#gdd,Could not dlsym for version number", buf, 2u);
+      v3 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v10 = 1026;
-      v11 = 55;
-      v12 = 2082;
-      v13 = "getGnssDeviceVersion";
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v8 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v9 = 1026;
+      v10 = 55;
+      v11 = 2082;
+      v12 = "getGnssDeviceVersion";
+      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v7, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v6, "getGnssDeviceVersion");
-    std::string::basic_string[abi:ne200100]<0>(&v5, "#gdd,Could not dlsym for version number");
-    gpsd::util::triggerDiagnosticReport(&v7, &v6, &v5);
+    std::string::basic_string[abi:ne200100]<0>(&v6, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "getGnssDeviceVersion");
+    std::string::basic_string[abi:ne200100]<0>(&v4, "#gdd,Could not dlsym for version number");
+    gpsd::util::triggerDiagnosticReport(&v6, &v5, &v4);
+    std::string::~string(&v4);
     std::string::~string(&v5);
     std::string::~string(&v6);
-    std::string::~string(&v7);
     __assert_rtn("getGnssDeviceVersion", "GpsdGnssDeviceDylib.cpp", 55, "false && #gdd,Could not dlsym for version number");
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1();
 }
@@ -3837,10 +3766,10 @@ void sub_2454B5428(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void GpsdGnssDeviceDylib::GpsdGnssDeviceDylib(GpsdGnssDeviceDylib *this)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   *this = 0;
   v2 = GpsdPlatformInfo::instance(0);
-  GpsdPlatformInfo::vendorDylibFullPathName(v2, &v27);
+  GpsdPlatformInfo::vendorDylibFullPathName(v2, &v28);
   GpsdPreferences::instance(0);
   GpsdPreferences::forceGnssDeviceLibraryName(&__str);
   size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -3851,7 +3780,7 @@ void GpsdGnssDeviceDylib::GpsdGnssDeviceDylib(GpsdGnssDeviceDylib *this)
 
   if (size)
   {
-    std::string::operator=(&v27, &__str);
+    std::string::operator=(&v28, &__str);
     v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
@@ -3860,11 +3789,11 @@ void GpsdGnssDeviceDylib::GpsdGnssDeviceDylib(GpsdGnssDeviceDylib *this)
     }
   }
 
-  v5 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
-  v6 = SHIBYTE(v27.__r_.__value_.__r.__words[2]);
-  if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v5 = HIBYTE(v28.__r_.__value_.__r.__words[2]);
+  v6 = SHIBYTE(v28.__r_.__value_.__r.__words[2]);
+  if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v5 = v27.__r_.__value_.__l.__size_;
+    v5 = v28.__r_.__value_.__l.__size_;
   }
 
   v7 = GpsdLogObjectGeneral;
@@ -3880,11 +3809,11 @@ void GpsdGnssDeviceDylib::GpsdGnssDeviceDylib(GpsdGnssDeviceDylib *this)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v29 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v30 = 1026;
-      v31 = 71;
-      v32 = 2082;
-      v33 = "GpsdGnssDeviceDylib";
+      v30 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v31 = 1026;
+      v32 = 71;
+      v33 = 2082;
+      v34 = "GpsdGnssDeviceDylib";
       _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
@@ -3902,86 +3831,86 @@ void GpsdGnssDeviceDylib::GpsdGnssDeviceDylib(GpsdGnssDeviceDylib *this)
       operator delete(v23[0]);
     }
 
-    v13 = "false && #gdd,createDevice,unsupported platform";
-    v14 = 71;
-    if ((v25[23] & 0x80000000) != 0)
+    v12 = "false && #gdd,createDevice,unsupported platform";
+    v13 = 71;
+    if (v26 < 0)
     {
-      v15 = v25;
+      v14 = v25;
       goto LABEL_32;
     }
 
 LABEL_33:
-    __assert_rtn("GpsdGnssDeviceDylib", "GpsdGnssDeviceDylib.cpp", v14, v13);
+    __assert_rtn("GpsdGnssDeviceDylib", "GpsdGnssDeviceDylib.cpp", v13, v12);
   }
 
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v27.__r_.__value_.__r.__words[0];
+    v8 = v28.__r_.__value_.__r.__words[0];
     if (v6 >= 0)
     {
-      v8 = &v27;
+      v8 = &v28;
     }
 
     *buf = 136380675;
-    v29 = v8;
+    v30 = v8;
     _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEFAULT, "#gdd,createDevice,gnssDevLibName,%{private}s", buf, 0xCu);
-    LOBYTE(v6) = *(&v27.__r_.__value_.__s + 23);
+    LOBYTE(v6) = *(&v28.__r_.__value_.__s + 23);
   }
 
   if ((v6 & 0x80u) == 0)
   {
-    v9 = &v27;
+    v9 = &v28;
   }
 
   else
   {
-    v9 = v27.__r_.__value_.__r.__words[0];
+    v9 = v28.__r_.__value_.__r.__words[0];
   }
 
   v10 = dlopen(v9, 4);
   *this = v10;
   if (!v10)
   {
-    v12 = GpsdLogObjectGeneral;
+    v11 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "#gdd,dlopen failed", buf, 2u);
-      v12 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "#gdd,dlopen failed", buf, 2u);
+      v11 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v29 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
-      v30 = 1026;
-      v31 = 77;
-      v32 = 2082;
-      v33 = "GpsdGnssDeviceDylib";
-      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v30 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Device/GpsdGnssDeviceDylib.cpp";
+      v31 = 1026;
+      v32 = 77;
+      v33 = 2082;
+      v34 = "GpsdGnssDeviceDylib";
+      _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v20, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v18, "GpsdGnssDeviceDylib");
+    std::string::basic_string[abi:ne200100]<0>(v19, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v17, "GpsdGnssDeviceDylib");
     std::string::basic_string[abi:ne200100]<0>(__p, "#gdd,dlopen failed");
-    gpsd::util::triggerDiagnosticReport(v20, v18, __p);
-    if (v17 < 0)
+    gpsd::util::triggerDiagnosticReport(v19, v17, __p);
+    if (v16 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v19 < 0)
+    if (v18 < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v17[0]);
     }
 
-    v13 = "false && #gdd,dlopen failed";
-    v14 = 77;
-    if ((v20[23] & 0x80000000) != 0)
+    v12 = "false && #gdd,dlopen failed";
+    v13 = 77;
+    if (v20 < 0)
     {
-      v15 = v20;
+      v14 = v19;
 LABEL_32:
-      operator delete(*v15);
+      operator delete(*v14);
       goto LABEL_33;
     }
 
@@ -3993,12 +3922,10 @@ LABEL_32:
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v27.__r_.__value_.__l.__data_);
+    operator delete(v28.__r_.__value_.__l.__data_);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454B58A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
@@ -4074,7 +4001,7 @@ uint64_t std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi
 
 uint64_t GnssHal::CommPcie::CommPcie(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   *a1 = &unk_28585BED0;
   *(a1 + 96) = 0;
   std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::__value_func[abi:ne200100](a1 + 104, a3);
@@ -4083,33 +4010,33 @@ uint64_t GnssHal::CommPcie::CommPcie(uint64_t a1, uint64_t a2, uint64_t a3)
     v5 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      *v9 = 0;
-      _os_log_error_impl(&dword_2454AA000, v5, OS_LOG_TYPE_ERROR, "#pcie,sReadCallbackFunction collision", v9, 2u);
+      *v8 = 0;
+      _os_log_error_impl(&dword_2454AA000, v5, OS_LOG_TYPE_ERROR, "#pcie,sReadCallbackFunction collision", v8, 2u);
     }
   }
 
-  std::__function::__value_func<void ()(std::string)>::__value_func[abi:ne200100](v9, a2);
-  v6 = v10;
-  if (v10 == v9)
+  std::__function::__value_func<void ()(std::string)>::__value_func[abi:ne200100](v8, a2);
+  v6 = v9;
+  if (v9 == v8)
   {
     if (qword_27EE14D38 == &qword_27EE14D20)
     {
-      (*(*v10 + 24))();
-      (*(*v10 + 32))(v10);
-      v10 = 0;
-      (*(*qword_27EE14D38 + 24))(qword_27EE14D38, v9);
+      (*(*v9 + 24))();
+      (*(*v9 + 32))(v9);
+      v9 = 0;
+      (*(*qword_27EE14D38 + 24))(qword_27EE14D38, v8);
       (*(*qword_27EE14D38 + 32))(qword_27EE14D38);
       qword_27EE14D38 = 0;
-      v10 = v9;
-      (*(v11[0] + 24))(v11, &qword_27EE14D20);
-      (*(v11[0] + 32))(v11);
+      v9 = v8;
+      (*(v10[0] + 24))(v10, &qword_27EE14D20);
+      (*(v10[0] + 32))(v10);
     }
 
     else
     {
-      (*(*v10 + 24))();
-      (*(*v10 + 32))(v10);
-      v10 = qword_27EE14D38;
+      (*(*v9 + 24))();
+      (*(*v9 + 32))(v9);
+      v9 = qword_27EE14D38;
     }
 
     qword_27EE14D38 = &qword_27EE14D20;
@@ -4117,20 +4044,19 @@ uint64_t GnssHal::CommPcie::CommPcie(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else if (qword_27EE14D38 == &qword_27EE14D20)
   {
-    (*(qword_27EE14D20 + 24))(&qword_27EE14D20, v9);
+    (*(qword_27EE14D20 + 24))(&qword_27EE14D20, v8);
     (*(*qword_27EE14D38 + 32))(qword_27EE14D38);
-    qword_27EE14D38 = v10;
-    v10 = v9;
+    qword_27EE14D38 = v9;
+    v9 = v8;
   }
 
   else
   {
-    v10 = qword_27EE14D38;
+    v9 = qword_27EE14D38;
     qword_27EE14D38 = v6;
   }
 
-  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v9);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(std::string)>::~__value_func[abi:ne200100](v8);
   return a1;
 }
 
@@ -4189,24 +4115,23 @@ void GnssHal::CommPcie::~CommPcie(GnssHal::CommPcie *this)
 
 uint64_t GnssHal::CommPcie::setReadCallback(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   std::function<void ()(unsigned char *,unsigned long)>::operator=(_MergedGlobals, a2);
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a2 + 24) != 0;
-    v7[0] = 67240192;
-    v7[1] = v4;
-    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "#pcie,setReadCallback,%{public}d", v7, 8u);
+    v6[0] = 67240192;
+    v6[1] = v4;
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "#pcie,setReadCallback,%{public}d", v6, 8u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 BOOL GnssHal::CommPcie::openInternal(GnssHal::CommPcie *this, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = GpsdLogObjectGeneral;
   if (*(this + 96) == 1)
   {
@@ -4216,7 +4141,7 @@ BOOL GnssHal::CommPcie::openInternal(GnssHal::CommPcie *this, int a2)
       _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#pcie,open,already open", buf, 2u);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
@@ -4224,32 +4149,32 @@ BOOL GnssHal::CommPcie::openInternal(GnssHal::CommPcie *this, int a2)
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
       *buf = 67240192;
-      v12 = a2;
+      v11 = a2;
       _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "#pcie,open,creating,timeout,%{public}d", buf, 8u);
     }
 
     TelephonyBasebandPCITransportInitParameters();
     *buf = 14;
-    v14 = 1000 * a2;
-    v15 |= 5u;
-    v16 = 0x100000000004;
-    v19 = 25;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 0x40000000;
-    v10[2] = ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke;
-    v10[3] = &__block_descriptor_tmp_1;
-    v10[4] = this;
-    v13 = v10;
-    v17 = &__block_literal_global;
-    v18 = &__block_literal_global_10;
+    v13 = 1000 * a2;
+    v14 |= 5u;
+    v15 = 0x100000000004;
+    v18 = 25;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 0x40000000;
+    v9[2] = ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke;
+    v9[3] = &__block_descriptor_tmp_1;
+    v9[4] = this;
+    v12 = v9;
+    v16 = &__block_literal_global;
+    v17 = &__block_literal_global_10;
     v6 = TelephonyBasebandPCITransportCreate();
     v7 = GpsdLogObjectGeneral;
     if (v6)
     {
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEFAULT, "#pcie,open,success", v9, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEFAULT, "#pcie,open,success", v8, 2u);
       }
 
       result = 1;
@@ -4260,8 +4185,8 @@ BOOL GnssHal::CommPcie::openInternal(GnssHal::CommPcie *this, int a2)
       result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        *v9 = 0;
-        _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "#pcie,open,failure", v9, 2u);
+        *v8 = 0;
+        _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "#pcie,open,failure", v8, 2u);
         result = 0;
       }
     }
@@ -4269,15 +4194,14 @@ BOOL GnssHal::CommPcie::openInternal(GnssHal::CommPcie *this, int a2)
     *(this + 96) = result;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
-  memset(&v15, 0, sizeof(v15));
+  memset(&v14, 0, sizeof(v14));
   v8 = GpsdLogObjectGeneral;
   v9 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
   if (a2)
@@ -4287,9 +4211,9 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, ui
       if (v9)
       {
         *buf = 134283777;
-        *v17 = a3;
-        *&v17[8] = 2049;
-        *&v17[10] = a4;
+        *v16 = a3;
+        *&v16[8] = 2049;
+        *&v16[10] = a4;
         _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#pcie,statusBlock,PCITransportStatusError,%{private}p,%{private}p", buf, 0x16u);
       }
 
@@ -4301,11 +4225,11 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, ui
       if (v9)
       {
         *buf = 67240705;
-        *v17 = a2;
-        *&v17[4] = 2049;
-        *&v17[6] = a3;
-        *&v17[14] = 2049;
-        *&v17[16] = a4;
+        *v16 = a2;
+        *&v16[4] = 2049;
+        *&v16[6] = a3;
+        *&v16[14] = 2049;
+        *&v16[16] = a4;
         _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#pcie,statusBlock,Unrecognized status 0x%{public}08x,%{private}p,%{private}p", buf, 0x1Cu);
       }
 
@@ -4318,16 +4242,16 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, ui
     if (v9)
     {
       *buf = 134283777;
-      *v17 = a3;
-      *&v17[8] = 2049;
-      *&v17[10] = a4;
+      *v16 = a3;
+      *&v16[8] = 2049;
+      *&v16[10] = a4;
       _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#pcie,statusBlock,PCITransportStatusNotReady,%{private}p,%{private}p", buf, 0x16u);
     }
 
     v10 = "#pcie_TransportStatusNotReady";
   }
 
-  MEMORY[0x245D6AB60](&v15, v10);
+  MEMORY[0x245D6AB60](&v14, v10);
   (*(*v7 + 24))(v7);
   if (!qword_27EE14D38)
   {
@@ -4337,25 +4261,25 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, ui
   v11 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = &v15;
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v12 = &v14;
+    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v12 = v15.__r_.__value_.__r.__words[0];
+      v12 = v14.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136446210;
-    *v17 = v12;
+    *v16 = v12;
     _os_log_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEFAULT, "#pcie,invoking exit callback,%{public}s", buf, 0xCu);
   }
 
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v15;
+    __p = v14;
   }
 
   if (!qword_27EE14D38)
@@ -4370,12 +4294,10 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke(uint64_t a1, int a2, ui
   }
 
   std::__function::__value_func<void ()(std::string)>::operator=[abi:ne200100]();
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454B6504(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -4395,50 +4317,48 @@ void sub_2454B6504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke_5(uint64_t a1, int a2, void *a3, unsigned int a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = qword_27EE14D18;
   if (!a2 && a4 && qword_27EE14D18)
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     std::function<void ()(unsigned char *,unsigned long)>::operator()(_MergedGlobals, a3, a4);
   }
 
   else
   {
-    v9 = GpsdLogObjectGeneral;
+    v8 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67241216;
-      v11[1] = a2;
+      v9[0] = 67241216;
+      v9[1] = a2;
+      v10 = 1026;
+      v11 = a2 == -536870165;
       v12 = 1026;
-      v13 = a2 == -536870165;
+      v13 = a2 == -536870168;
       v14 = 1026;
-      v15 = a2 == -536870168;
+      v15 = a4;
       v16 = 1026;
-      v17 = a4;
-      v18 = 1026;
-      v19 = v7 != 0;
-      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "#pcie,async read failure,0x%{public}08x,is_aborted,%{public}d,is_overrun,%{public}d,sz,%{public}u,callback,%{public}d", v11, 0x20u);
+      v17 = v7 != 0;
+      _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "#pcie,async read failure,0x%{public}08x,is_aborted,%{public}d,is_overrun,%{public}d,sz,%{public}u,callback,%{public}d", v9, 0x20u);
     }
 
     free(a3);
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke_2(uint64_t a1, int a2, uint64_t a3, int a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v6 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 67240448;
-      v13 = a2;
-      v14 = 1026;
-      v15 = a4;
+      v12 = a2;
+      v13 = 1026;
+      v14 = a4;
       _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "#pcie,write error,0x%{public}08x,sz,%{public}u", buf, 0xEu);
     }
 
@@ -4454,7 +4374,7 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke_2(uint64_t a1, int a2, 
       *buf = 0;
       _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "#pcie,invoking exit callback,#pcie_writeError", buf, 2u);
       v7 = qword_27EE14D38;
-      v11 = 16;
+      v10 = 16;
       strcpy(__p, "#pcie_writeError");
       if (!qword_27EE14D38)
       {
@@ -4464,20 +4384,18 @@ void ___ZN7GnssHal8CommPcie12openInternalEi_block_invoke_2(uint64_t a1, int a2, 
 
     else
     {
-      v11 = 16;
+      v10 = 16;
       strcpy(__p, "#pcie_writeError");
     }
 
     (*(*v7 + 48))(v7, __p);
-    if (v11 < 0)
+    if (v10 < 0)
     {
       operator delete(*__p);
     }
 
     std::__function::__value_func<void ()(std::string)>::operator=[abi:ne200100]();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *GnssHal::CommPcie::close(GnssHal::CommPcie *this)
@@ -4506,7 +4424,7 @@ uint64_t *GnssHal::CommPcie::close(GnssHal::CommPcie *this)
 
 uint64_t GnssHal::CommPcie::openWithRetries(GnssHal::CommPcie *this, int a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   MachContinuousTimeNs = gpsd::util::getMachContinuousTimeNs(this);
   v5 = MachContinuousTimeNs * 0.000000001;
   v6 = a2;
@@ -4531,9 +4449,9 @@ uint64_t GnssHal::CommPcie::openWithRetries(GnssHal::CommPcie *this, int a2)
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
       {
         *buf = 67240448;
-        v28 = v10;
-        v29 = 2050;
-        v30 = v8;
+        v27 = v10;
+        v28 = 2050;
+        v29 = v8;
         _os_log_impl(&dword_2454AA000, v11, OS_LOG_TYPE_INFO, "#pcie,thisOpen,start,thisTimeoutSec,%{public}d,timeLeftSec,%{public}.3f", buf, 0x12u);
       }
 
@@ -4547,11 +4465,11 @@ uint64_t GnssHal::CommPcie::openWithRetries(GnssHal::CommPcie *this, int a2)
       if (v18)
       {
         *buf = 67240704;
-        v28 = v13;
-        v29 = 2050;
-        v30 = v15;
-        v31 = 2050;
-        v32 = v16;
+        v27 = v13;
+        v28 = 2050;
+        v29 = v15;
+        v30 = 2050;
+        v31 = v16;
         _os_log_impl(&dword_2454AA000, v17, OS_LOG_TYPE_DEFAULT, "#pcie,thisOpen,success,%{public}d,durationSec,%{public}.3f,timeLeftSec,%{public}.3f", buf, 0x1Cu);
       }
 
@@ -4582,13 +4500,12 @@ uint64_t GnssHal::CommPcie::openWithRetries(GnssHal::CommPcie *this, int a2)
   {
     v24 = gpsd::util::getMachContinuousTimeNs(v23);
     *buf = 67240448;
-    v28 = v21;
-    v29 = 2050;
-    v30 = v24 * 0.000000001 - v5;
+    v27 = v21;
+    v28 = 2050;
+    v29 = v24 * 0.000000001 - v5;
     _os_log_impl(&dword_2454AA000, v22, OS_LOG_TYPE_DEFAULT, "#pcie,overallOpen,success,%{public}d,durationSeconds,%{public}.3f", buf, 0x12u);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -4615,31 +4532,29 @@ uint64_t GnssHal::CommPcie::write(GnssHal::CommPcie *this, const unsigned __int8
 
 uint64_t GnssHal::CommPcie::enterLowPowerMode(GnssHal::CommPcie *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "enterLowPowerMode";
-    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "#pcie, %s, interface not available on PCIe platform", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "enterLowPowerMode";
+    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "#pcie, %s, interface not available on PCIe platform", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t GnssHal::CommPcie::exitLowPowerMode(GnssHal::CommPcie *this)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "exitLowPowerMode";
-    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "#pcie, %s, interface not available on PCIe platform", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "exitLowPowerMode";
+    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "#pcie, %s, interface not available on PCIe platform", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -4669,7 +4584,7 @@ uint64_t GnssHal::CommPcie::readFlush(GnssHal::CommPcie *this)
 
 void GnssHal::CommPcie::pulseTimeMarkStrobe(GnssHal::CommPcie *this@<X0>, uint64_t a2@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
@@ -4678,11 +4593,11 @@ void GnssHal::CommPcie::pulseTimeMarkStrobe(GnssHal::CommPcie *this@<X0>, uint64
   {
     if (*(this + 96) == 1)
     {
-      v6[0] = 0;
-      v6[1] = v6;
-      v6[2] = 0x3002000000;
-      v6[3] = __Block_byref_object_copy_;
-      v6[4] = __Block_byref_object_dispose_;
+      v5[0] = 0;
+      v5[1] = v5;
+      v5[2] = 0x3002000000;
+      v5[3] = __Block_byref_object_copy_;
+      v5[4] = __Block_byref_object_dispose_;
       operator new();
     }
   }
@@ -4696,11 +4611,9 @@ void GnssHal::CommPcie::pulseTimeMarkStrobe(GnssHal::CommPcie *this@<X0>, uint64
       _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "#pcie,#tt,pulseTimemarkStrobe not supported", &__lk, 2u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2454B7840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::exception_ptr a26, std::mutex *a27, char a28)
+void sub_2454B7840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::exception_ptr a26, std::mutex *a27, char a28)
 {
   _Block_object_dispose(&a20, 8);
   std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::~promise((v28 + 40));
@@ -4716,30 +4629,30 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void ___ZN7GnssHal8CommPcie19pulseTimeMarkStrobeEv_block_invoke(uint64_t a1, int a2, uint64_t a3, __int128 *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2 || !a4)
   {
     v8 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v12) = 67240192;
-      DWORD1(v12) = a2;
-      _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#pcie,#tt,completion failure,0x%{public}08x", &v12, 8u);
+      LODWORD(v11) = 67240192;
+      DWORD1(v11) = a2;
+      _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#pcie,#tt,completion failure,0x%{public}08x", &v11, 8u);
     }
 
     v9 = *(*(a1 + 32) + 8);
-    LOBYTE(v12) = 0;
-    v14 = 2;
-    std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::set_value(*(v9 + 40), &v12);
+    LOBYTE(v11) = 0;
+    v13 = 2;
+    std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::set_value(*(v9 + 40), &v11);
   }
 
   else if ((*(GpsdPlatformInfo::instance(0) + 8) - 301) > 1)
   {
     v10 = *(*(a1 + 32) + 8);
-    v12 = *a4;
-    v13 = *(a4 + 2);
-    v14 = 0;
-    std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::set_value(*(v10 + 40), &v12);
+    v11 = *a4;
+    v12 = *(a4 + 2);
+    v13 = 0;
+    std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::set_value(*(v10 + 40), &v11);
   }
 
   else
@@ -4747,12 +4660,10 @@ void ___ZN7GnssHal8CommPcie19pulseTimeMarkStrobeEv_block_invoke(uint64_t a1, int
     v7 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#pcie,#tt,completion success", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#pcie,#tt,completion success", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void std::promise<std::variant<PCITransportTimesyncMeasurement,PCITransportTimeEvent,BOOL>>::set_value(uint64_t a1, _OWORD *a2)
@@ -4981,7 +4892,7 @@ LABEL_5:
 
 void GnssHal::PlatformLog::outOfLevelWarning(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  *&v12[5] = *MEMORY[0x277D85DE8];
+  *&v11[5] = *MEMORY[0x277D85DE8];
   if (a2 >= 9)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
@@ -4995,11 +4906,11 @@ void GnssHal::PlatformLog::outOfLevelWarning(uint64_t a1, unsigned int a2, uint6
       v6 = GpsdLogObjectWarning;
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 67240448;
-        v12[0] = v4;
-        LOWORD(v12[1]) = 1026;
-        *(&v12[1] + 2) = a2;
-        _os_log_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEFAULT, "VendorLogger,outOfLevel,count,%{public}d,level,%{public}d", &v11, 0xEu);
+        v10 = 67240448;
+        v11[0] = v4;
+        LOWORD(v11[1]) = 1026;
+        *(&v11[1] + 2) = a2;
+        _os_log_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEFAULT, "VendorLogger,outOfLevel,count,%{public}d,level,%{public}d", &v10, 0xEu);
       }
 
       v7 = *(a3 + 24);
@@ -5009,22 +4920,20 @@ void GnssHal::PlatformLog::outOfLevelWarning(uint64_t a1, unsigned int a2, uint6
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
         {
           v9 = (*(*v7 + 48))(v7);
-          v11 = 136642819;
-          *v12 = v9;
-          _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_INFO, "VendorLogger,outOfLevel,content,%{sensitive}s", &v11, 0xCu);
+          v10 = 136642819;
+          *v11 = v9;
+          _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_INFO, "VendorLogger,outOfLevel,content,%{sensitive}s", &v10, 0xCu);
         }
       }
 
       ++GnssHal::PlatformLog::outOfLevelWarning(GnssHal::LogLevel,std::function<char const* ()(void)>)::levelWarningCount;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, std::string *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 2 * a2 + 48);
   if ((v6 & 0x100) != 0)
   {
@@ -5042,16 +4951,16 @@ uint64_t GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, std::string *a3
       }
 
       *buf = 136642819;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_2454AA000, v7, v6, "%{sensitive}s", buf, 0xCu);
     }
   }
 
-  v14[0] = &unk_28585C0A8;
-  v14[1] = a3;
-  v14[3] = v14;
-  GnssHal::PlatformLog::outOfLevelWarning(a1, a2, v14);
-  result = std::__function::__value_func<char const* ()(void)>::~__value_func[abi:ne200100](v14);
+  v13[0] = &unk_28585C0A8;
+  v13[1] = a3;
+  v13[3] = v13;
+  GnssHal::PlatformLog::outOfLevelWarning(a1, a2, v13);
+  result = std::__function::__value_func<char const* ()(void)>::~__value_func[abi:ne200100](v13);
   size = HIBYTE(a3->__r_.__value_.__r.__words[2]);
   v11 = size;
   if ((size & 0x80u) != 0)
@@ -5080,20 +4989,19 @@ uint64_t GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, std::string *a3
         result = *(a1 + 32);
       }
 
-      result = (*(*result + 16))(result, a3);
+      return (*(*result + 16))(result, a3);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, const void *a3, size_t a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  GnssHal::PlatformLog::outOfLevelWarning(a1, a2, v11);
-  std::__function::__value_func<char const* ()(void)>::~__value_func[abi:ne200100](v11);
+  v12 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  GnssHal::PlatformLog::outOfLevelWarning(a1, a2, v10);
+  std::__function::__value_func<char const* ()(void)>::~__value_func[abi:ne200100](v10);
   if (*(a1 + 32))
   {
     if (a4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5106,7 +5014,7 @@ void GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, const void *a3, siz
       operator new();
     }
 
-    v10 = a4;
+    v9 = a4;
     p_p = &__p;
     if (a4)
     {
@@ -5116,13 +5024,11 @@ void GnssHal::PlatformLog::log(uint64_t a1, unsigned int a2, const void *a3, siz
 
     *p_p = 0;
     (*(**(a1 + 32) + 16))(*(a1 + 32), &__p);
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454B85C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -5135,9 +5041,9 @@ void sub_2454B85C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GnssHal::PlatformLog::logSystemException(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void GnssHal::PlatformLog::logSystemException(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v114[19] = *MEMORY[0x277D85DE8];
+  v111[19] = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 23);
   if (v6 >= 0)
   {
@@ -5274,19 +5180,19 @@ LABEL_14:
 
     if (v8 >= 4)
     {
-      v98 = *(v7 + v8 - 4);
-      v99 = (v8 + (8 * *v7)) ^ v98;
+      v95 = *(v7 + v8 - 4);
+      v96 = (v8 + (8 * *v7)) ^ v95;
       v35 = 0x9DDFEA08EB382D69;
-      v42 = v98 ^ ((0x9DDFEA08EB382D69 * v99) >> 47) ^ (0x9DDFEA08EB382D69 * v99);
+      v42 = v95 ^ ((0x9DDFEA08EB382D69 * v96) >> 47) ^ (0x9DDFEA08EB382D69 * v96);
       goto LABEL_14;
     }
 
     v11 = 0x9AE16A3B2F90404FLL;
     if (v8)
     {
-      v100 = v8 | (4 * *(v7 + v8 - 1));
-      v101 = 0x9AE16A3B2F90404FLL * (*v7 | (*(v7 + (v8 >> 1)) << 8));
-      v11 = 0x9AE16A3B2F90404FLL * ((0xC949D7C7509E6557 * v100) ^ v101 ^ (((0xC949D7C7509E6557 * v100) ^ v101) >> 47));
+      v97 = v8 | (4 * *(v7 + v8 - 1));
+      v98 = 0x9AE16A3B2F90404FLL * (*v7 | (*(v7 + (v8 >> 1)) << 8));
+      v11 = 0x9AE16A3B2F90404FLL * ((0xC949D7C7509E6557 * v97) ^ v98 ^ (((0xC949D7C7509E6557 * v97) ^ v98) >> 47));
     }
   }
 
@@ -5302,7 +5208,7 @@ LABEL_19:
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2050;
       *(&buf.__r_.__value_.__r.__words[1] + 6) = v11;
       HIWORD(buf.__r_.__value_.__r.__words[2]) = 2050;
-      v112 = v82;
+      v109 = v82;
       _os_log_error_impl(&dword_2454AA000, v81, OS_LOG_TYPE_ERROR, "logSystemException,%{private}s,%{public}zu,size,%{public}zu", &buf, 0x20u);
     }
   }
@@ -5321,9 +5227,9 @@ LABEL_19:
       operator delete(buf.__r_.__value_.__l.__data_);
     }
 
-    v114[6] = 0;
+    v111[6] = 0;
     v85 = MEMORY[0x277D82860] + 64;
-    v114[0] = MEMORY[0x277D82860] + 64;
+    v111[0] = MEMORY[0x277D82860] + 64;
     v86 = MEMORY[0x277D82810];
     v87 = *(MEMORY[0x277D82810] + 16);
     buf.__r_.__value_.__r.__words[0] = *(MEMORY[0x277D82810] + 8);
@@ -5334,11 +5240,11 @@ LABEL_19:
     v88[1].__vftable = 0;
     v88[1].__fmtflags_ = -1;
     buf.__r_.__value_.__r.__words[0] = v89;
-    v114[0] = v85;
+    v111[0] = v85;
     MEMORY[0x245D6AC40](&buf.__r_.__value_.__r.__words[1]);
     if (!std::filebuf::open())
     {
-      std::ios_base::clear((&buf + *(buf.__r_.__value_.__r.__words[0] - 24)), *&v113[*(buf.__r_.__value_.__r.__words[0] - 24)] | 4);
+      std::ios_base::clear((&buf + *(buf.__r_.__value_.__r.__words[0] - 24)), *&v110[*(buf.__r_.__value_.__r.__words[0] - 24)] | 4);
     }
 
     v90 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&buf, "logSystemException(", 19);
@@ -5346,35 +5252,33 @@ LABEL_19:
     v92 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v91, ",", 1);
     v93 = MEMORY[0x245D6AD00](v92, a3[1] - *a3);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v93, ")\n", 2);
-    v94 = *a3;
-    v95 = a3[1];
     std::ostream::write();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((&buf + *(buf.__r_.__value_.__r.__words[0] - 24)), *&v113[*(buf.__r_.__value_.__r.__words[0] - 24)] | 4);
+      std::ios_base::clear((&buf + *(buf.__r_.__value_.__r.__words[0] - 24)), *&v110[*(buf.__r_.__value_.__r.__words[0] - 24)] | 4);
     }
 
-    v96 = GpsdLogObjectGeneral;
+    v94 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
       if (*(a2 + 23) >= 0)
       {
-        v102 = a2;
+        v99 = a2;
       }
 
       else
       {
-        v102 = *a2;
+        v99 = *a2;
       }
 
-      v103 = a3[1] - *a3;
-      *v105 = 136381187;
-      v106 = v102;
-      v107 = 2050;
-      v108 = v11;
-      v109 = 2050;
-      v110 = v103;
-      _os_log_fault_impl(&dword_2454AA000, v96, OS_LOG_TYPE_FAULT, "logSystemException,%{private}s,%{public}zu,size,%{public}zu", v105, 0x20u);
+      v100 = a3[1] - *a3;
+      *v102 = 136381187;
+      v103 = v99;
+      v104 = 2050;
+      v105 = v11;
+      v106 = 2050;
+      v107 = v100;
+      _os_log_fault_impl(&dword_2454AA000, v94, OS_LOG_TYPE_FAULT, "logSystemException,%{private}s,%{public}zu,size,%{public}zu", v102, 0x20u);
     }
 
     *(a1 + 24) = 1;
@@ -5382,14 +5286,12 @@ LABEL_19:
     *(buf.__r_.__value_.__r.__words + *(buf.__r_.__value_.__r.__words[0] - 24)) = v86[3];
     MEMORY[0x245D6AC50](&buf.__r_.__value_.__r.__words[1]);
     std::ostream::~ostream();
-    MEMORY[0x245D6AE70](v114);
+    MEMORY[0x245D6AE70](v111);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454B8EAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -5478,16 +5380,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -5510,9 +5412,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2454B9310(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2454B9310(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x245D6ACE0](&a10);
+  MEMORY[0x245D6ACE0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -5602,9 +5504,9 @@ void sub_2454B9544(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void GnssHal::ExtensionsIndusImpl::requestBasebandReset(uint64_t a1, int a2, uint64_t *a3)
+void GnssHal::ExtensionsIndusImpl::requestBasebandReset(uint64_t a1, int a2, uint64_t **a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
@@ -5613,14 +5515,12 @@ void GnssHal::ExtensionsIndusImpl::requestBasebandReset(uint64_t a1, int a2, uin
       a3 = *a3;
     }
 
-    v7[0] = 67240451;
-    v7[1] = a2;
-    v8 = 2081;
-    v9 = a3;
-    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#bbReset,extensionsIndus,%{public}d,%{private}s", v7, 0x12u);
+    v6[0] = 67240451;
+    v6[1] = a2;
+    v7 = 2081;
+    v8 = a3;
+    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#bbReset,extensionsIndus,%{public}d,%{private}s", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 char *GnssHal::ExtensionsIndusImpl::getGpsWeekFromBuildDate(GnssHal::ExtensionsIndusImpl *this)
@@ -5708,27 +5608,18 @@ uint64_t GnssHal::ExtensionsIndusImpl::platformSpecificFeaturesBitmask(GnssHal::
   return GpsdPreferences::platformSpecificFeaturesBitmask(v1);
 }
 
-void GnssHal::ExtensionsIndusImpl::debugSettingsString(_BYTE *a1@<X8>)
+void GnssHal::ExtensionsIndusImpl::debugSettingsString(void *a1@<X8>)
 {
   GpsdPreferences::instance(0);
 
   GpsdPreferences::debugSettingsString(a1);
 }
 
-double GnssHal::ExtensionsIndusImpl::crossCorrelationSettings(GnssHal::ExtensionsIndusImpl *this)
-{
-  result = *(this + 4);
-  v2 = *(this + 5);
-  v3 = *(this + 6);
-  v4 = *(this + 7);
-  return result;
-}
-
-void *GnssHal::GpioEmbedded::GpioEmbedded(void *a1, uint64_t a2)
+GnssHal::GpioEmbedded *GnssHal::GpioEmbedded::GpioEmbedded(GnssHal::GpioEmbedded *a1, uint64_t a2)
 {
   *a1 = &unk_28585C2B8;
-  a1[4] = 0;
-  std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::__value_func[abi:ne200100]((a1 + 5), a2);
+  *(a1 + 4) = 0;
+  std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::__value_func[abi:ne200100](a1 + 40, a2);
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
@@ -5760,7 +5651,7 @@ void sub_2454B997C(_Unwind_Exception *a1)
 
 uint64_t GnssHal::GpioEmbedded::GpioBackend::instance(GnssHal::GpioEmbedded::GpioBackend *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (GnssHal::GpioEmbedded::GpioBackend::instance(void)::pred != -1)
   {
     dispatch_once(&GnssHal::GpioEmbedded::GpioBackend::instance(void)::pred, &__block_literal_global_0);
@@ -5769,36 +5660,35 @@ uint64_t GnssHal::GpioEmbedded::GpioBackend::instance(GnssHal::GpioEmbedded::Gpi
   result = GnssHal::GpioEmbedded::GpioBackend::fInstance;
   if (!GnssHal::GpioEmbedded::GpioBackend::fInstance)
   {
-    v3 = GpsdLogObjectGeneral;
+    v2 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "null GpioBackend", buf, 2u);
-      v3 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "null GpioBackend", buf, 2u);
+      v2 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v8 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalGpioImpl.cpp";
-      v9 = 1026;
-      v10 = 299;
-      v11 = 2082;
-      v12 = "instance";
-      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v7 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalGpioImpl.cpp";
+      v8 = 1026;
+      v9 = 299;
+      v10 = 2082;
+      v11 = "instance";
+      _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v6, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v5, "instance");
-    std::string::basic_string[abi:ne200100]<0>(&v4, "null GpioBackend");
-    gpsd::util::triggerDiagnosticReport(&v6, &v5, &v4);
+    std::string::basic_string[abi:ne200100]<0>(&v5, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v4, "instance");
+    std::string::basic_string[abi:ne200100]<0>(&v3, "null GpioBackend");
+    gpsd::util::triggerDiagnosticReport(&v5, &v4, &v3);
+    std::string::~string(&v3);
     std::string::~string(&v4);
     std::string::~string(&v5);
-    std::string::~string(&v6);
     __assert_rtn("instance", "GnssHalGpioImpl.cpp", 299, "false && null GpioBackend");
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5824,17 +5714,15 @@ void sub_2454B9B6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void GnssHal::GpioEmbedded::GpioBackend::setFrontend(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    v5[0] = 67240192;
-    v5[1] = a2 == 0;
-    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "#gpio,set frontend,isNull,%{public}d", v5, 8u);
+    v4[0] = 67240192;
+    v4[1] = a2 == 0;
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "#gpio,set frontend,isNull,%{public}d", v4, 8u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::GpioEmbedded::~GpioEmbedded(GnssHal::GpioEmbedded *this)
@@ -5899,7 +5787,7 @@ void GnssHal::GpioEmbedded::setResetLow(GnssHal::GpioEmbedded *this)
 void GnssHal::GpioEmbedded::GpioBackend::setGpioState(uint64_t a1, uint32_t a2, uint64_t a3)
 {
   v3 = a3;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   input = a3;
   std::mutex::lock(&GnssHal::sMutex);
   if (*(a1 + 8) == 1)
@@ -5913,15 +5801,14 @@ void GnssHal::GpioEmbedded::GpioBackend::setGpioState(uint64_t a1, uint32_t a2, 
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 67240448;
-      v10 = a2;
-      v11 = 1026;
-      v12 = v3;
+      v9 = a2;
+      v10 = 1026;
+      v11 = v3;
       _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "#gpio,setGpioState failed,selector,%{public}d,input,%{public}d", buf, 0xEu);
     }
   }
 
   std::mutex::unlock(&GnssHal::sMutex);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::GpioEmbedded::setResetHigh(GnssHal::GpioEmbedded *this)
@@ -6010,7 +5897,7 @@ void GnssHal::GpioEmbedded::setDeviceWakeHigh(GnssHal::GpioEmbedded *this)
 
 void GnssHal::GpioEmbedded::pulseTimeMarkStrobe(GnssHal::GpioEmbedded *this@<X0>, uint64_t a2@<X8>)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
@@ -6021,7 +5908,7 @@ void GnssHal::GpioEmbedded::pulseTimeMarkStrobe(GnssHal::GpioEmbedded *this@<X0>
     v20 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_32;
+      return;
     }
 
     *buf = 0;
@@ -6036,14 +5923,14 @@ void GnssHal::GpioEmbedded::pulseTimeMarkStrobe(GnssHal::GpioEmbedded *this@<X0>
     v20 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_32;
+      return;
     }
 
     *buf = 0;
     v21 = "#gpio,#tt,GPSControlConnect failed";
 LABEL_17:
     _os_log_error_impl(&dword_2454AA000, v20, OS_LOG_TYPE_ERROR, v21, buf, 2u);
-    goto LABEL_32;
+    return;
   }
 
   outputCnt = 2;
@@ -6061,16 +5948,16 @@ LABEL_17:
 
   else
   {
-    v25 = 0;
-    CurrentMachContinuousMinusMachAbsoluteNanoseconds = gpsd::util::getCurrentMachContinuousMinusMachAbsoluteNanoseconds(&v25, v7);
+    v24 = 0;
+    CurrentMachContinuousMinusMachAbsoluteNanoseconds = gpsd::util::getCurrentMachContinuousMinusMachAbsoluteNanoseconds(&v24, v7);
     if (CurrentMachContinuousMinusMachAbsoluteNanoseconds)
     {
       MachContinuousTimeNs = gpsd::util::getMachContinuousTimeNs(CurrentMachContinuousMinusMachAbsoluteNanoseconds);
       *(a2 + 16) = 1;
       v11 = gpsd::util::convertMachTimeInTicksToNs(output[0]);
-      v12 = v25;
-      v13 = v25 + v11;
-      *a2 = v25 + v11;
+      v12 = v24;
+      v13 = v24 + v11;
+      *a2 = v24 + v11;
       v14 = gpsd::util::convertMachTimeInTicksToNs(output[1]);
       v15 = v14 + v12;
       *(a2 + 8) = v14 + v12;
@@ -6083,69 +5970,69 @@ LABEL_17:
         *&buf[4] = v13;
         *&buf[12] = 2050;
         *&buf[14] = v15;
-        v32 = 2050;
-        v33 = (v14 - v11);
-        v34 = 2050;
-        v35 = MachContinuousTimeNs;
-        v36 = 2050;
-        v37 = v17;
-        v38 = 2050;
-        v39 = v18;
+        v31 = 2050;
+        v32 = (v14 - v11);
+        v33 = 2050;
+        v34 = MachContinuousTimeNs;
+        v35 = 2050;
+        v36 = v17;
+        v37 = 2050;
+        v38 = v18;
         _os_log_impl(&dword_2454AA000, v16, OS_LOG_TYPE_INFO, "#gpio,#tt,TogglePIN,beforeContNs,%{public}llu,afterContNs,%{public}llu,widthNs,%{public}llu,nowContNs,%{public}llu,beforeMachNs,%{public}llu,afterMachNs,%{public}llu", buf, 0x3Eu);
       }
 
-      v30 = 0;
+      v29 = 0;
       std::mutex::lock(&GnssHal::sMutex);
       std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::__value_func[abi:ne200100](buf, this + 40);
-      v19 = v33;
-      if (v33 == buf)
+      v19 = v32;
+      if (v32 == buf)
       {
-        if (v30 == v29)
+        if (v29 == v28)
         {
-          (*(*v33 + 24))();
-          (*(*v33 + 32))(v33);
-          v33 = 0;
-          (*(*v30 + 24))(v30, buf);
-          (*(*v30 + 32))(v30);
-          v30 = 0;
-          v33 = buf;
-          (*(v40[0] + 24))(v40, v29);
-          (*(v40[0] + 32))(v40);
+          (*(*v32 + 24))();
+          (*(*v32 + 32))(v32);
+          v32 = 0;
+          (*(*v29 + 24))(v29, buf);
+          (*(*v29 + 32))(v29);
+          v29 = 0;
+          v32 = buf;
+          (*(v39[0] + 24))(v39, v28);
+          (*(v39[0] + 32))(v39);
         }
 
         else
         {
-          (*(*v33 + 24))();
-          (*(*v33 + 32))(v33);
-          v33 = v30;
+          (*(*v32 + 24))();
+          (*(*v32 + 32))(v32);
+          v32 = v29;
         }
 
-        v30 = v29;
+        v29 = v28;
       }
 
-      else if (v30 == v29)
+      else if (v29 == v28)
       {
-        (*(*v30 + 24))(v30, buf);
-        (*(*v30 + 32))(v30);
-        v30 = v33;
-        v33 = buf;
+        (*(*v29 + 24))(v29, buf);
+        (*(*v29 + 32))(v29);
+        v29 = v32;
+        v32 = buf;
       }
 
       else
       {
-        v33 = v30;
-        v30 = v19;
+        v32 = v29;
+        v29 = v19;
       }
 
       std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::~__value_func[abi:ne200100](buf);
       std::mutex::unlock(&GnssHal::sMutex);
-      if (v30)
+      if (v29)
       {
         *buf = *output;
-        (*(*v30 + 48))(v30, buf);
+        (*(*v29 + 48))(v29, buf);
       }
 
-      std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::~__value_func[abi:ne200100](v29);
+      std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::~__value_func[abi:ne200100](v28);
     }
 
     else
@@ -6160,20 +6047,18 @@ LABEL_17:
   }
 
   IOServiceClose(connection);
-LABEL_32:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2454BA7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2454BA7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(GnssHal::TimeTransferPulseMark)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 BOOL GnssHal::GpioEmbedded::GpioBackend::controlConnect(GnssHal::GpioEmbedded::GpioBackend *this, unsigned int *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   mainPort = 0;
   v4 = MEMORY[0x245D6A540](0, &mainPort);
   if (v4)
@@ -6183,109 +6068,108 @@ BOOL GnssHal::GpioEmbedded::GpioBackend::controlConnect(GnssHal::GpioEmbedded::G
     result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_3;
+      return result;
     }
 
     *buf = 67240192;
-    LODWORD(v23) = v5;
-    v12 = "#gpio,IOMasterPort failed,%{public}d";
+    LODWORD(v22) = v5;
+    v11 = "#gpio,IOMasterPort failed,%{public}d";
     goto LABEL_15;
   }
 
-  v9 = IOServiceMatching("AppleEmbeddedGPSControl");
-  if (!v9)
+  v8 = IOServiceMatching("AppleEmbeddedGPSControl");
+  if (v8)
   {
-    v13 = GpsdLogObjectGeneral;
-    result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
-    if (!result)
+    existing = 0;
+    MatchingServices = IOServiceGetMatchingServices(mainPort, v8, &existing);
+    if (MatchingServices)
     {
-      goto LABEL_3;
-    }
-
-    *buf = 136315138;
-    v23 = "AppleEmbeddedGPSControl";
-    v12 = "#gpio,IOServiceMatching failed,%s";
-    v14 = v13;
-    v15 = 12;
-LABEL_16:
-    _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, v12, buf, v15);
-    result = 0;
-    goto LABEL_3;
-  }
-
-  existing = 0;
-  MatchingServices = IOServiceGetMatchingServices(mainPort, v9, &existing);
-  if (MatchingServices)
-  {
-    v11 = MatchingServices;
-    v6 = GpsdLogObjectGeneral;
-    result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      goto LABEL_3;
-    }
-
-    *buf = 67240192;
-    LODWORD(v23) = v11;
-    v12 = "#gpio,IOServiceGetMatchingServices failed,%{public}d";
-    goto LABEL_15;
-  }
-
-  *(this + 4) = IOIteratorNext(existing);
-  IOObjectRelease(existing);
-  v16 = *(this + 4);
-  if (!v16)
-  {
-    v19 = GpsdLogObjectGeneral;
-    result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
-    if (!result)
-    {
-      goto LABEL_3;
-    }
-
-    *buf = 0;
-    v12 = "#gpio,No fServiceObject";
-    v14 = v19;
-    v15 = 2;
-    goto LABEL_16;
-  }
-
-  v17 = IOServiceOpen(v16, *MEMORY[0x277D85F48], 0, a2);
-  if (!v17)
-  {
-    result = 1;
-    goto LABEL_3;
-  }
-
-  v18 = v17;
-  v6 = GpsdLogObjectGeneral;
-  result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
-  if (result)
-  {
-    *buf = 67240192;
-    LODWORD(v23) = v18;
-    v12 = "#gpio,IOServiceOpen failed,%{public}d";
+      v10 = MatchingServices;
+      v6 = GpsdLogObjectGeneral;
+      result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+      if (result)
+      {
+        *buf = 67240192;
+        LODWORD(v22) = v10;
+        v11 = "#gpio,IOServiceGetMatchingServices failed,%{public}d";
 LABEL_15:
-    v14 = v6;
-    v15 = 8;
-    goto LABEL_16;
+        v13 = v6;
+        v14 = 8;
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      *(this + 4) = IOIteratorNext(existing);
+      IOObjectRelease(existing);
+      v15 = *(this + 4);
+      if (v15)
+      {
+        v16 = IOServiceOpen(v15, *MEMORY[0x277D85F48], 0, a2);
+        if (!v16)
+        {
+          return 1;
+        }
+
+        v17 = v16;
+        v6 = GpsdLogObjectGeneral;
+        result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+        if (result)
+        {
+          *buf = 67240192;
+          LODWORD(v22) = v17;
+          v11 = "#gpio,IOServiceOpen failed,%{public}d";
+          goto LABEL_15;
+        }
+      }
+
+      else
+      {
+        v18 = GpsdLogObjectGeneral;
+        result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+        if (result)
+        {
+          *buf = 0;
+          v11 = "#gpio,No fServiceObject";
+          v13 = v18;
+          v14 = 2;
+          goto LABEL_16;
+        }
+      }
+    }
   }
 
-LABEL_3:
-  v8 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v12 = GpsdLogObjectGeneral;
+    result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      *buf = 136315138;
+      v22 = "AppleEmbeddedGPSControl";
+      v11 = "#gpio,IOServiceMatching failed,%s";
+      v13 = v12;
+      v14 = 12;
+LABEL_16:
+      _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, v11, buf, v14);
+      return 0;
+    }
+  }
+
   return result;
 }
 
 void GnssHal::GpioEmbedded::GpioBackend::callback(GnssHal::GpioEmbedded::GpioBackend *this, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*this)
   {
     v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "#gpio,callback,locked", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "#gpio,callback,locked", &v7, 2u);
     }
 
     if (a2)
@@ -6301,9 +6185,9 @@ void GnssHal::GpioEmbedded::GpioBackend::callback(GnssHal::GpioEmbedded::GpioBac
         v6 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
         {
-          v8 = 134349056;
-          v9 = a2;
-          _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "#gpio,Unrecognized messageArg,%{public}llu", &v8, 0xCu);
+          v7 = 134349056;
+          v8 = a2;
+          _os_log_error_impl(&dword_2454AA000, v6, OS_LOG_TYPE_ERROR, "#gpio,Unrecognized messageArg,%{public}llu", &v7, 0xCu);
         }
       }
     }
@@ -6320,18 +6204,16 @@ void GnssHal::GpioEmbedded::GpioBackend::callback(GnssHal::GpioEmbedded::GpioBac
     v5 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134349056;
-      v9 = a2;
-      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#gpio,pGpioObject null,%{public}llu", &v8, 0xCu);
+      v7 = 134349056;
+      v8 = a2;
+      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "#gpio,pGpioObject null,%{public}llu", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::GpioEmbedded::notifyDevice(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = GpsdLogObjectGeneral;
   v6 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
@@ -6339,11 +6221,11 @@ void GnssHal::GpioEmbedded::notifyDevice(uint64_t a1, int a2)
   {
     if (v6)
     {
-      v9 = 67240192;
-      v10 = a2;
-      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,int,sending,%{public}d,", &v9, 8u);
-      v4 = *(a1 + 32);
+      v8 = 67240192;
       v9 = a2;
+      _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,int,sending,%{public}d,", &v8, 8u);
+      v4 = *(a1 + 32);
+      v8 = a2;
       if (!v4)
       {
         std::__throw_bad_function_call[abi:ne200100]();
@@ -6352,27 +6234,25 @@ void GnssHal::GpioEmbedded::notifyDevice(uint64_t a1, int a2)
 
     else
     {
-      v9 = a2;
+      v8 = a2;
     }
 
-    (*(*v4 + 48))(v4, &v9);
+    (*(*v4 + 48))(v4, &v8);
   }
 
   else if (v6)
   {
-    v9 = 67240192;
-    v10 = a2;
-    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,int,no callback,%{public}d,", &v9, 8u);
+    v8 = 67240192;
+    v9 = a2;
+    _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,int,no callback,%{public}d,", &v8, 8u);
   }
 
   v7 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,done", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#gpio,notifyDevice,done", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GnssHal::GpioEmbedded::GpioBackend::incrementApGpioTransitionCount(uint64_t this, int a2, int a3)
@@ -6400,7 +6280,7 @@ LABEL_5:
 
 BOOL GnssHal::GpioEmbedded::GpioBackend::registerForNotifications(GnssHal::GpioEmbedded::GpioBackend *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = IONotificationPortCreate(*MEMORY[0x277CD2898]);
   if (v2)
   {
@@ -6417,7 +6297,7 @@ BOOL GnssHal::GpioEmbedded::GpioBackend::registerForNotifications(GnssHal::GpioE
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 67240192;
-        v14 = v7;
+        v13 = v7;
         _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#gpio,failed to register interest in notification,%{public}d", buf, 8u);
       }
     }
@@ -6432,24 +6312,23 @@ BOOL GnssHal::GpioEmbedded::GpioBackend::registerForNotifications(GnssHal::GpioE
       _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#gpio,failed to create notification port", buf, 2u);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void GnssHal::GPSControlInterestCallback(GnssHal *this, void *a2, int a3, uint64_t a4, void *a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v7 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    v12[0] = 67240448;
-    v12[1] = a3;
-    v13 = 2050;
-    v14 = a4;
-    _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#gpio,callback,begin,%{public}u,%{public}llu", v12, 0x12u);
+    v11[0] = 67240448;
+    v11[1] = a3;
+    v12 = 2050;
+    v13 = a4;
+    _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_INFO, "#gpio,callback,begin,%{public}u,%{public}llu", v11, 0x12u);
   }
 
   std::mutex::lock(&GnssHal::sMutex);
@@ -6458,24 +6337,23 @@ void GnssHal::GPSControlInterestCallback(GnssHal *this, void *a2, int a3, uint64
   v10 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12[0]) = 0;
-    _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_INFO, "#gpio,callback,end", v12, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_INFO, "#gpio,callback,end", v11, 2u);
   }
 
   std::mutex::unlock(&GnssHal::sMutex);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::GpioEmbedded::setGpioNotifier(uint64_t a1, uint64_t a2)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
     v5 = *(a2 + 24) == 0;
-    v11[0] = 67240192;
-    v11[1] = v5;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "#gpio,setGpioNotifier,int,isNull,%{public}d", v11, 8u);
+    v10[0] = 67240192;
+    v10[1] = v5;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_INFO, "#gpio,setGpioNotifier,int,isNull,%{public}d", v10, 8u);
   }
 
   std::mutex::lock(&GnssHal::sMutex);
@@ -6489,38 +6367,38 @@ void GnssHal::GpioEmbedded::setGpioNotifier(uint64_t a1, uint64_t a2)
   {
     v6 = (*(*v6 + 16))(v6);
 LABEL_6:
-    v12 = v6;
+    v11 = v6;
     goto LABEL_8;
   }
 
-  v12 = v11;
-  (*(*v6 + 24))(v6, v11);
+  v11 = v10;
+  (*(*v6 + 24))(v6, v10);
 LABEL_8:
   v7 = a1 + 8;
-  if (v11 != (a1 + 8))
+  if (v10 != (a1 + 8))
   {
-    v8 = v12;
+    v8 = v11;
     v9 = *(a1 + 32);
-    if (v12 == v11)
+    if (v11 == v10)
     {
       if (v9 == v7)
       {
-        (*(*v12 + 24))();
-        (*(*v12 + 32))(v12);
-        v12 = 0;
-        (*(**(a1 + 32) + 24))(*(a1 + 32), v11);
+        (*(*v11 + 24))();
+        (*(*v11 + 32))(v11);
+        v11 = 0;
+        (*(**(a1 + 32) + 24))(*(a1 + 32), v10);
         (*(**(a1 + 32) + 32))(*(a1 + 32));
         *(a1 + 32) = 0;
-        v12 = v11;
-        (*(v13[0] + 24))(v13, a1 + 8);
-        (*(v13[0] + 32))(v13);
+        v11 = v10;
+        (*(v12[0] + 24))(v12, a1 + 8);
+        (*(v12[0] + 32))(v12);
       }
 
       else
       {
-        (*(*v12 + 24))();
-        (*(*v12 + 32))(v12);
-        v12 = *(a1 + 32);
+        (*(*v11 + 24))();
+        (*(*v11 + 32))(v11);
+        v11 = *(a1 + 32);
       }
 
       *(a1 + 32) = v7;
@@ -6528,22 +6406,21 @@ LABEL_8:
 
     else if (v9 == v7)
     {
-      (*(*v9 + 24))(*(a1 + 32), v11);
+      (*(*v9 + 24))(*(a1 + 32), v10);
       (*(**(a1 + 32) + 32))(*(a1 + 32));
-      *(a1 + 32) = v12;
-      v12 = v11;
+      *(a1 + 32) = v11;
+      v11 = v10;
     }
 
     else
     {
-      v12 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *(a1 + 32) = v8;
     }
   }
 
-  std::__function::__value_func<void ()(GnssHal::GpioNotification)>::~__value_func[abi:ne200100](v11);
+  std::__function::__value_func<void ()(GnssHal::GpioNotification)>::~__value_func[abi:ne200100](v10);
   std::mutex::unlock(&GnssHal::sMutex);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BB3C0(_Unwind_Exception *exception_object, int a2)
@@ -6687,14 +6564,14 @@ void sub_2454BBBCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void GnssHal::CommSpi::setGnssChipPowerStateOn(GnssHal::CommSpi *this, int a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (GnssHal::CommSpi::isGnssChipPowerStateOn(this) == a2)
   {
     v4 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240192;
-      *v15 = a2;
+      *v14 = a2;
       _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "#spi,setGnssChipPowerStateOn,alreadyInState,%{public}d", buf, 8u);
     }
   }
@@ -6715,11 +6592,11 @@ void GnssHal::CommSpi::setGnssChipPowerStateOn(GnssHal::CommSpi *this, int a2)
   {
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v10 = mach_error_string(v6);
+      v9 = mach_error_string(v6);
       *buf = 67240450;
-      *v15 = v6;
-      *&v15[4] = 2082;
-      *&v15[6] = v10;
+      *v14 = v6;
+      *&v14[4] = 2082;
+      *&v14[6] = v9;
       _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,SetPowerState,errCode,0x%{public}X,%{public}s", buf, 0x12u);
       v7 = GpsdLogObjectGeneral;
     }
@@ -6727,30 +6604,30 @@ void GnssHal::CommSpi::setGnssChipPowerStateOn(GnssHal::CommSpi *this, int a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v15 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      *&v15[8] = 1026;
-      *&v15[10] = 61;
-      v16 = 2082;
-      v17 = "setGnssChipPowerStateOn";
+      *v14 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      *&v14[8] = 1026;
+      *&v14[10] = 61;
+      v15 = 2082;
+      v16 = "setGnssChipPowerStateOn";
       _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v13, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v12, "setGnssChipPowerStateOn");
-    std::string::basic_string[abi:ne200100]<0>(&v11, "#spi,fail,gpti,SetPowerState,errCode,0x%{public}X,%{public}s");
-    gpsd::util::triggerDiagnosticReport(&v13, &v12, &v11);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "setGnssChipPowerStateOn");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "#spi,fail,gpti,SetPowerState,errCode,0x%{public}X,%{public}s");
+    gpsd::util::triggerDiagnosticReport(&v12, &v11, &v10);
+    std::string::~string(&v10);
     std::string::~string(&v11);
     std::string::~string(&v12);
-    std::string::~string(&v13);
     __assert_rtn("setGnssChipPowerStateOn", "GnssHalCommSpi.cpp", 61, "false && #spi,fail, gpti, SetPowerState ,errCode,0x%{public}X,%{public}s");
   }
 
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240448;
-    *v15 = a2;
-    *&v15[4] = 1026;
-    *&v15[6] = v5;
+    *v14 = a2;
+    *&v14[4] = 1026;
+    *&v14[6] = v5;
     _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEFAULT, "#spi,setGnssChipPowerStateOn,enable,%{public}d,set,%{public}d", buf, 0xEu);
   }
 
@@ -6763,8 +6640,6 @@ void GnssHal::CommSpi::setGnssChipPowerStateOn(GnssHal::CommSpi *this, int a2)
       _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#spi,setGnssChipPowerStateOn,failed", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BBFAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -6789,19 +6664,19 @@ void sub_2454BBFAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL GnssHal::CommSpi::isGnssChipPowerStateOn(GnssHal::CommSpi *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v1 = (*(**(this + 14) + 104))(*(this + 14), &v9);
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v1 = (*(**(this + 14) + 104))(*(this + 14), &v8);
   v2 = GpsdLogObjectGeneral;
   if (v1)
   {
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v5 = mach_error_string(v1);
+      v4 = mach_error_string(v1);
       *buf = 67240450;
-      *v11 = v1;
-      *&v11[4] = 2082;
-      *&v11[6] = v5;
+      *v10 = v1;
+      *&v10[4] = 2082;
+      *&v10[6] = v4;
       _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,GetGnssChipPowerState,errCode,0x%{public}X,%{public}s", buf, 0x12u);
       v2 = GpsdLogObjectGeneral;
     }
@@ -6809,34 +6684,32 @@ BOOL GnssHal::CommSpi::isGnssChipPowerStateOn(GnssHal::CommSpi *this)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v11 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      *&v11[8] = 1026;
-      *&v11[10] = 71;
-      v12 = 2082;
-      v13 = "isGnssChipPowerStateOn";
+      *v10 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      *&v10[8] = 1026;
+      *&v10[10] = 71;
+      v11 = 2082;
+      v12 = "isGnssChipPowerStateOn";
       _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v8, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v7, "isGnssChipPowerStateOn");
-    std::string::basic_string[abi:ne200100]<0>(&v6, "#spi,fail,gpti,GetGnssChipPowerState,errCode,0x%{public}X,%{public}s");
-    gpsd::util::triggerDiagnosticReport(&v8, &v7, &v6);
+    std::string::basic_string[abi:ne200100]<0>(&v7, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v6, "isGnssChipPowerStateOn");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "#spi,fail,gpti,GetGnssChipPowerState,errCode,0x%{public}X,%{public}s");
+    gpsd::util::triggerDiagnosticReport(&v7, &v6, &v5);
+    std::string::~string(&v5);
     std::string::~string(&v6);
     std::string::~string(&v7);
-    std::string::~string(&v8);
     __assert_rtn("isGnssChipPowerStateOn", "GnssHalCommSpi.cpp", 71, "false && #spi,fail, gpti, GetGnssChipPowerState ,errCode,0x%{public}X,%{public}s");
   }
 
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    *v11 = v9;
+    *v10 = v8;
     _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#spi,GetGnssChipPowerState,%{public}d", buf, 8u);
   }
 
-  result = v9 == 2;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 == 2;
 }
 
 void sub_2454BC21C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -6907,14 +6780,14 @@ LABEL_9:
 
 uint64_t GnssHal::CommSpi::open(GnssHal::CommSpi *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ((*(*this + 32))(this))
   {
     v2 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#spi,open,alreadyOpen", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#spi,open,alreadyOpen", &v7, 2u);
     }
   }
 
@@ -6926,11 +6799,11 @@ uint64_t GnssHal::CommSpi::open(GnssHal::CommSpi *this)
       v5 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
       {
-        v8 = 134349312;
-        v9 = v3;
-        v10 = 2050;
-        v11 = v4;
-        _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#spi,open,existing,plugin,%{public}p,ifc,%{public}p", &v8, 0x16u);
+        v7 = 134349312;
+        v8 = v3;
+        v9 = 2050;
+        v10 = v4;
+        _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_INFO, "#spi,open,existing,plugin,%{public}p,ifc,%{public}p", &v7, 0x16u);
       }
     }
 
@@ -6944,13 +6817,12 @@ uint64_t GnssHal::CommSpi::open(GnssHal::CommSpi *this)
     *(this + 42) = 1;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v2 = (this + 48);
   if (!*(this + 6))
   {
@@ -6959,32 +6831,32 @@ void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
     MatchingService = IOServiceGetMatchingService(v3, v4);
     if (!MatchingService)
     {
-      v27 = GpsdLogObjectGeneral;
+      v26 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v27, OS_LOG_TYPE_ERROR, "#spi,fail,IOServiceGetMatchingService", buf, 2u);
-        v27 = GpsdLogObjectGeneral;
+        _os_log_error_impl(&dword_2454AA000, v26, OS_LOG_TYPE_ERROR, "#spi,fail,IOServiceGetMatchingService", buf, 2u);
+        v26 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 128;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 128;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v63, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v62, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v61, "#spi,fail,IOServiceGetMatchingService");
-      gpsd::util::triggerDiagnosticReport(&v63, &v62, &v61);
+      std::string::basic_string[abi:ne200100]<0>(&v62, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v61, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v60, "#spi,fail,IOServiceGetMatchingService");
+      gpsd::util::triggerDiagnosticReport(&v62, &v61, &v60);
+      std::string::~string(&v60);
       std::string::~string(&v61);
       std::string::~string(&v62);
-      std::string::~string(&v63);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 128, "false && #spi,fail,IOServiceGetMatchingService");
     }
 
@@ -6992,36 +6864,36 @@ void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
     ChildEntry = IORegistryEntryGetChildEntry(MatchingService, "IOService", &child);
     if (ChildEntry)
     {
-      v28 = GpsdLogObjectGeneral;
+      v27 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v29 = mach_error_string(ChildEntry);
+        v28 = mach_error_string(ChildEntry);
         *buf = 67240450;
-        *v65 = ChildEntry;
-        *&v65[4] = 2082;
-        *&v65[6] = v29;
-        _os_log_error_impl(&dword_2454AA000, v28, OS_LOG_TYPE_ERROR, "#spi,fail,kern,IORegistryEntryGetChildEntry,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-        v28 = GpsdLogObjectGeneral;
+        *v64 = ChildEntry;
+        *&v64[4] = 2082;
+        *&v64[6] = v28;
+        _os_log_error_impl(&dword_2454AA000, v27, OS_LOG_TYPE_ERROR, "#spi,fail,kern,IORegistryEntryGetChildEntry,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+        v27 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 132;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v28, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 132;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v27, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v59, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v58, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v57, "#spi,fail,kern,IORegistryEntryGetChildEntry,errCode,0x%{public}X,%{public}s");
-      gpsd::util::triggerDiagnosticReport(&v59, &v58, &v57);
+      std::string::basic_string[abi:ne200100]<0>(&v58, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v57, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v56, "#spi,fail,kern,IORegistryEntryGetChildEntry,errCode,0x%{public}X,%{public}s");
+      gpsd::util::triggerDiagnosticReport(&v58, &v57, &v56);
+      std::string::~string(&v56);
       std::string::~string(&v57);
       std::string::~string(&v58);
-      std::string::~string(&v59);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 132, "false && #spi,fail, kern, IORegistryEntryGetChildEntry ,errCode,0x%{public}X,%{public}s");
     }
 
@@ -7032,68 +6904,68 @@ void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
     v10 = IOCreatePlugInInterfaceForService(v7, v8, v9, v2, &theScore);
     if (v10)
     {
-      v32 = GpsdLogObjectGeneral;
+      v31 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v33 = mach_error_string(v10);
+        v32 = mach_error_string(v10);
         *buf = 67240450;
-        *v65 = v10;
-        *&v65[4] = 2082;
-        *&v65[6] = v33;
-        _os_log_error_impl(&dword_2454AA000, v32, OS_LOG_TYPE_ERROR, "#spi,fail,kern,IOCreatePlugInInterfaceForService,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-        v32 = GpsdLogObjectGeneral;
+        *v64 = v10;
+        *&v64[4] = 2082;
+        *&v64[6] = v32;
+        _os_log_error_impl(&dword_2454AA000, v31, OS_LOG_TYPE_ERROR, "#spi,fail,kern,IOCreatePlugInInterfaceForService,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+        v31 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 136;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v32, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 136;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v31, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v55, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v54, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v53, "#spi,fail,kern,IOCreatePlugInInterfaceForService,errCode,0x%{public}X,%{public}s");
-      gpsd::util::triggerDiagnosticReport(&v55, &v54, &v53);
+      std::string::basic_string[abi:ne200100]<0>(&v54, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v53, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v52, "#spi,fail,kern,IOCreatePlugInInterfaceForService,errCode,0x%{public}X,%{public}s");
+      gpsd::util::triggerDiagnosticReport(&v54, &v53, &v52);
+      std::string::~string(&v52);
       std::string::~string(&v53);
       std::string::~string(&v54);
-      std::string::~string(&v55);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 136, "false && #spi,fail, kern, IOCreatePlugInInterfaceForService ,errCode,0x%{public}X,%{public}s");
     }
 
     v11 = *v2;
     if (!*v2 || !*v11)
     {
-      v26 = GpsdLogObjectGeneral;
+      v25 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v26, OS_LOG_TYPE_ERROR, "#spi,fIOCFPluginInterface,nullptr", buf, 2u);
-        v26 = GpsdLogObjectGeneral;
+        _os_log_error_impl(&dword_2454AA000, v25, OS_LOG_TYPE_ERROR, "#spi,fIOCFPluginInterface,nullptr", buf, 2u);
+        v25 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 137;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v26, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 137;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v25, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v52, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v51, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v50, "#spi,fIOCFPluginInterface,nullptr");
-      gpsd::util::triggerDiagnosticReport(&v52, &v51, &v50);
+      std::string::basic_string[abi:ne200100]<0>(&v51, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v50, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v49, "#spi,fIOCFPluginInterface,nullptr");
+      gpsd::util::triggerDiagnosticReport(&v51, &v50, &v49);
+      std::string::~string(&v49);
       std::string::~string(&v50);
       std::string::~string(&v51);
-      std::string::~string(&v52);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 137, "false && #spi,fIOCFPluginInterface,nullptr");
     }
 
@@ -7101,9 +6973,9 @@ void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349312;
-      *v65 = v11;
-      *&v65[8] = 1026;
-      *&v65[10] = theScore;
+      *v64 = v11;
+      *&v64[8] = 1026;
+      *&v64[10] = theScore;
       _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEFAULT, "#spi,opened,plugin,%{public}p,score,%{public}d", buf, 0x12u);
     }
   }
@@ -7123,158 +6995,156 @@ void GnssHal::CommSpi::createIoPlugin(GnssHal::CommSpi *this)
     {
       v20 = *v14;
       *buf = 134349056;
-      *v65 = v20;
+      *v64 = v20;
       _os_log_impl(&dword_2454AA000, v19, OS_LOG_TYPE_DEFAULT, "#spi,opened,ifc,%{public}p", buf, 0xCu);
     }
 
     v21 = (*(**(this + 14) + 64))(*(this + 14), *(this + 13));
     if (v21)
     {
-      v30 = GpsdLogObjectGeneral;
+      v29 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v31 = mach_error_string(v21);
+        v30 = mach_error_string(v21);
         *buf = 67240450;
-        *v65 = v21;
-        *&v65[4] = 2082;
-        *&v65[6] = v31;
-        _os_log_error_impl(&dword_2454AA000, v30, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,SetDispatchQueue,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-        v30 = GpsdLogObjectGeneral;
+        *v64 = v21;
+        *&v64[4] = 2082;
+        *&v64[6] = v30;
+        _os_log_error_impl(&dword_2454AA000, v29, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,SetDispatchQueue,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+        v29 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 145;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v30, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 145;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v29, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v49, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v48, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v47, "#spi,fail,gpti,SetDispatchQueue,errCode,0x%{public}X,%{public}s");
-      gpsd::util::triggerDiagnosticReport(&v49, &v48, &v47);
+      std::string::basic_string[abi:ne200100]<0>(&v48, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v47, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v46, "#spi,fail,gpti,SetDispatchQueue,errCode,0x%{public}X,%{public}s");
+      gpsd::util::triggerDiagnosticReport(&v48, &v47, &v46);
+      std::string::~string(&v46);
       std::string::~string(&v47);
       std::string::~string(&v48);
-      std::string::~string(&v49);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 145, "false && #spi,fail, gpti, SetDispatchQueue ,errCode,0x%{public}X,%{public}s");
     }
 
     v22 = (*(**(this + 14) + 72))(*(this + 14), GnssHal::CommSpi::readCallback, this);
     if (v22)
     {
-      v34 = GpsdLogObjectGeneral;
+      v33 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v35 = mach_error_string(v22);
+        v34 = mach_error_string(v22);
         *buf = 67240450;
-        *v65 = v22;
-        *&v65[4] = 2082;
-        *&v65[6] = v35;
-        _os_log_error_impl(&dword_2454AA000, v34, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,RegisterDataHandler,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-        v34 = GpsdLogObjectGeneral;
+        *v64 = v22;
+        *&v64[4] = 2082;
+        *&v64[6] = v34;
+        _os_log_error_impl(&dword_2454AA000, v33, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,RegisterDataHandler,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+        v33 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 146;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v34, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 146;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v33, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v46, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v45, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v44, "#spi,fail,gpti,RegisterDataHandler,errCode,0x%{public}X,%{public}s");
-      gpsd::util::triggerDiagnosticReport(&v46, &v45, &v44);
+      std::string::basic_string[abi:ne200100]<0>(&v45, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v44, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v43, "#spi,fail,gpti,RegisterDataHandler,errCode,0x%{public}X,%{public}s");
+      gpsd::util::triggerDiagnosticReport(&v45, &v44, &v43);
+      std::string::~string(&v43);
       std::string::~string(&v44);
       std::string::~string(&v45);
-      std::string::~string(&v46);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 146, "false && #spi,fail, gpti, RegisterDataHandler ,errCode,0x%{public}X,%{public}s");
     }
 
     v23 = (*(**(this + 14) + 88))(*(this + 14), GnssHal::CommSpi::eventCallback, this);
     if (v23)
     {
-      v36 = GpsdLogObjectGeneral;
+      v35 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v37 = mach_error_string(v23);
+        v36 = mach_error_string(v23);
         *buf = 67240450;
-        *v65 = v23;
-        *&v65[4] = 2082;
-        *&v65[6] = v37;
-        _os_log_error_impl(&dword_2454AA000, v36, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,RegisterEventHandler,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-        v36 = GpsdLogObjectGeneral;
+        *v64 = v23;
+        *&v64[4] = 2082;
+        *&v64[6] = v36;
+        _os_log_error_impl(&dword_2454AA000, v35, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,RegisterEventHandler,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+        v35 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-        *&v65[8] = 1026;
-        *&v65[10] = 147;
-        v66 = 2082;
-        v67 = "createIoPlugin";
-        _os_log_error_impl(&dword_2454AA000, v36, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+        *&v64[8] = 1026;
+        *&v64[10] = 147;
+        v65 = 2082;
+        v66 = "createIoPlugin";
+        _os_log_error_impl(&dword_2454AA000, v35, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v43, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v42, "createIoPlugin");
-      std::string::basic_string[abi:ne200100]<0>(&v41, "#spi,fail,gpti,RegisterEventHandler,errCode,0x%{public}X,%{public}s");
-      gpsd::util::triggerDiagnosticReport(&v43, &v42, &v41);
+      std::string::basic_string[abi:ne200100]<0>(&v42, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v41, "createIoPlugin");
+      std::string::basic_string[abi:ne200100]<0>(&v40, "#spi,fail,gpti,RegisterEventHandler,errCode,0x%{public}X,%{public}s");
+      gpsd::util::triggerDiagnosticReport(&v42, &v41, &v40);
+      std::string::~string(&v40);
       std::string::~string(&v41);
       std::string::~string(&v42);
-      std::string::~string(&v43);
       __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 147, "false && #spi,fail, gpti, RegisterEventHandler ,errCode,0x%{public}X,%{public}s");
     }
 
     v13 = *v14;
     if (!*v14)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
   }
 
   if (!*v13)
   {
-LABEL_18:
-    v25 = GpsdLogObjectGeneral;
+LABEL_17:
+    v24 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v25, OS_LOG_TYPE_ERROR, "#spi,open,failed,fGNSSPassthroughInterface,nullptr", buf, 2u);
-      v25 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v24, OS_LOG_TYPE_ERROR, "#spi,open,failed,fGNSSPassthroughInterface,nullptr", buf, 2u);
+      v24 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v65 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      *&v65[8] = 1026;
-      *&v65[10] = 150;
-      v66 = 2082;
-      v67 = "createIoPlugin";
-      _os_log_error_impl(&dword_2454AA000, v25, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      *v64 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      *&v64[8] = 1026;
+      *&v64[10] = 150;
+      v65 = 2082;
+      v66 = "createIoPlugin";
+      _os_log_error_impl(&dword_2454AA000, v24, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v40, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v39, "createIoPlugin");
-    std::string::basic_string[abi:ne200100]<0>(&v38, "#spi,open,failed,fGNSSPassthroughInterface,nullptr");
-    gpsd::util::triggerDiagnosticReport(&v40, &v39, &v38);
+    std::string::basic_string[abi:ne200100]<0>(&v39, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v38, "createIoPlugin");
+    std::string::basic_string[abi:ne200100]<0>(&v37, "#spi,open,failed,fGNSSPassthroughInterface,nullptr");
+    gpsd::util::triggerDiagnosticReport(&v39, &v38, &v37);
+    std::string::~string(&v37);
     std::string::~string(&v38);
     std::string::~string(&v39);
-    std::string::~string(&v40);
     __assert_rtn("createIoPlugin", "GnssHalCommSpi.cpp", 150, "false && #spi,open,failed,fGNSSPassthroughInterface,nullptr");
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BD288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -7318,20 +7188,20 @@ void GnssHal::CommSpi::close(GnssHal::CommSpi *this)
 
 void GnssHal::CommSpi::readCallback(GnssHal::CommSpi::AsyncBuffering **this, unsigned __int8 *a2, int64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2 && a3)
   {
     if (!this)
     {
-      v10 = GpsdLogObjectGeneral;
+      v9 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *block = 0;
-        _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "#spi,readCallback,commSpiObj,null", block, 2u);
-        v10 = GpsdLogObjectGeneral;
+        _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#spi,readCallback,commSpiObj,null", block, 2u);
+        v9 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *block = 136446722;
         *&block[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
@@ -7339,16 +7209,16 @@ void GnssHal::CommSpi::readCallback(GnssHal::CommSpi::AsyncBuffering **this, uns
         *&block[14] = 166;
         *&block[18] = 2082;
         *&block[20] = "readCallback";
-        _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", block, 0x1Cu);
+        _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", block, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v13, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v12, "readCallback");
-      std::string::basic_string[abi:ne200100]<0>(&v11, "#spi,readCallback,commSpiObj,null");
-      gpsd::util::triggerDiagnosticReport(&v13, &v12, &v11);
+      std::string::basic_string[abi:ne200100]<0>(&v12, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v11, "readCallback");
+      std::string::basic_string[abi:ne200100]<0>(&v10, "#spi,readCallback,commSpiObj,null");
+      gpsd::util::triggerDiagnosticReport(&v12, &v11, &v10);
+      std::string::~string(&v10);
       std::string::~string(&v11);
       std::string::~string(&v12);
-      std::string::~string(&v13);
       __assert_rtn("readCallback", "GnssHalCommSpi.cpp", 166, "false && #spi,readCallback,commSpiObj,null");
     }
 
@@ -7359,7 +7229,7 @@ void GnssHal::CommSpi::readCallback(GnssHal::CommSpi::AsyncBuffering **this, uns
     *&block[8] = 0x40000000;
     *&block[16] = ___ZN7GnssHal7CommSpi14AsyncBuffering5flushEv_block_invoke;
     *&block[24] = &__block_descriptor_tmp_3;
-    v15 = v6;
+    v14 = v6;
     dispatch_async(v7, block);
   }
 
@@ -7375,8 +7245,6 @@ void GnssHal::CommSpi::readCallback(GnssHal::CommSpi::AsyncBuffering **this, uns
       _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "#spi,read,invalid,data,%{public}p,size,%{public}zu", block, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BD7D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -7401,7 +7269,7 @@ void sub_2454BD7D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void GnssHal::CommSpi::eventCallback(GnssHal::CommSpi *this, void *a2, gpsd::util *a3, const unsigned __int8 *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   if (!this)
   {
@@ -7415,28 +7283,28 @@ void GnssHal::CommSpi::eventCallback(GnssHal::CommSpi *this, void *a2, gpsd::uti
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      *v16 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      *&v16[8] = 1026;
-      *&v16[10] = 195;
-      v17 = 2082;
-      v18 = "eventCallback";
+      *v15 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      *&v15[8] = 1026;
+      *&v15[10] = 195;
+      v16 = 2082;
+      v17 = "eventCallback";
       _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v14, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v13, "eventCallback");
-    std::string::basic_string[abi:ne200100]<0>(&v12, "#spi,eventCallback,commSpiObj,null");
-    gpsd::util::triggerDiagnosticReport(&v14, &v13, &v12);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v12, "eventCallback");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "#spi,eventCallback,commSpiObj,null");
+    gpsd::util::triggerDiagnosticReport(&v13, &v12, &v11);
+    std::string::~string(&v11);
     std::string::~string(&v12);
     std::string::~string(&v13);
-    std::string::~string(&v14);
     __assert_rtn("eventCallback", "GnssHalCommSpi.cpp", 195, "false && #spi,eventCallback,commSpiObj,null");
   }
 
   v7 = a2;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
   {
-    gpsd::util::charToHex(a3, a4, 0, &__p);
+    gpsd::util::charToHex(&__p, a3, a4, 0);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -7448,23 +7316,21 @@ void GnssHal::CommSpi::eventCallback(GnssHal::CommSpi *this, void *a2, gpsd::uti
     }
 
     *buf = 67241218;
-    *v16 = v7;
-    *&v16[4] = 2082;
-    *&v16[6] = p_p;
-    v17 = 2050;
-    v18 = this;
-    v19 = 2050;
-    v20 = a3;
-    v21 = 2050;
-    v22 = a4;
+    *v15 = v7;
+    *&v15[4] = 2082;
+    *&v15[6] = p_p;
+    v16 = 2050;
+    v17 = this;
+    v18 = 2050;
+    v19 = a3;
+    v20 = 2050;
+    v21 = a4;
     _os_log_fault_impl(&dword_2454AA000, v4, OS_LOG_TYPE_FAULT, "#spi,eventCallback,type,%{public}d,data,hex,%{public}s,context,%{public}p,eventp,%{public}p,size,%{public}zu", buf, 0x30u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BDA74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -7489,47 +7355,46 @@ void sub_2454BDA74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void GnssHal::CommSpi::destroyIoPlugin(IOCFPlugInInterface ***this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   IODestroyPlugInInterface(this[6]);
   v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v3 = this[6];
     v4 = this[14];
-    v6 = 134349312;
-    v7 = v3;
-    v8 = 2050;
-    v9 = v4;
-    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#spi,closed,plugin,%{public}p,ifc,%{public}p", &v6, 0x16u);
+    v5 = 134349312;
+    v6 = v3;
+    v7 = 2050;
+    v8 = v4;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "#spi,closed,plugin,%{public}p,ifc,%{public}p", &v5, 0x16u);
   }
 
   this[6] = 0;
   this[14] = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::CommSpi::AsyncBuffering::input(GnssHal::CommSpi::AsyncBuffering *this, const unsigned __int8 *a2, int64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     std::mutex::lock((this + 40));
     v6 = *(this + 14);
     v7 = *(this + 13);
-    v8 = (*(this + 15) - v7);
+    v8 = *(this + 15) - v7;
     v9 = (v6 - v7);
     if (v8 < v6 - v7 + a3)
     {
       v10 = GpsdLogObjectWarning;
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
-        *v19 = 134349568;
-        *&v19[4] = v7;
-        *&v19[12] = 2050;
-        *&v19[14] = v6 - v7 + a3;
-        *&v19[22] = 2050;
-        v20 = v8;
-        _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEFAULT, "#spi,ab,overflow,@%{public}p,sz,%{public}zu,cap,%{public}zu", v19, 0x20u);
+        *v18 = 134349568;
+        *&v18[4] = v7;
+        *&v18[12] = 2050;
+        *&v18[14] = v6 - v7 + a3;
+        *&v18[22] = 2050;
+        v19 = v8;
+        _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEFAULT, "#spi,ab,overflow,@%{public}p,sz,%{public}zu,cap,%{public}zu", v18, 0x20u);
         v7 = *(this + 13);
         v6 = *(this + 14);
         v9 = (v6 - v7);
@@ -7597,12 +7462,12 @@ void GnssHal::CommSpi::AsyncBuffering::input(GnssHal::CommSpi::AsyncBuffering *t
     if (((*(this + 14) - *(this + 13)) & 0x7FFFFFFFFFFFF800) != 0)
     {
       v17 = *this;
-      *v19 = MEMORY[0x277D85DD0];
-      *&v19[8] = 0x40000000;
-      *&v19[16] = ___ZN7GnssHal7CommSpi14AsyncBuffering5flushEv_block_invoke;
-      v20 = &__block_descriptor_tmp_3;
-      v21 = this;
-      dispatch_async(v17, v19);
+      *v18 = MEMORY[0x277D85DD0];
+      *&v18[8] = 0x40000000;
+      *&v18[16] = ___ZN7GnssHal7CommSpi14AsyncBuffering5flushEv_block_invoke;
+      v19 = &__block_descriptor_tmp_3;
+      v20 = this;
+      dispatch_async(v17, v18);
     }
 
     std::mutex::unlock((this + 40));
@@ -7613,12 +7478,10 @@ void GnssHal::CommSpi::AsyncBuffering::input(GnssHal::CommSpi::AsyncBuffering *t
     v15 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEFAULT, "#spi,ab,input,zerosize", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEFAULT, "#spi,ab,input,zerosize", v18, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::CommSpi::AsyncBuffering::flush(NSObject **this)
@@ -7634,7 +7497,7 @@ void GnssHal::CommSpi::AsyncBuffering::flush(NSObject **this)
 
 void GnssHal::CommSpi::readCallbackInternal(GnssHal::CommSpi *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(this + 41) == 1)
   {
     gpsd::util::logBinaryBytes(a2, a3, "#spi,read,bin", a4);
@@ -7645,14 +7508,12 @@ void GnssHal::CommSpi::readCallbackInternal(GnssHal::CommSpi *this, gpsd::util *
     v11 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_13;
+      return;
     }
 
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v12 = "#spi,readCallback,null";
-LABEL_15:
-    _os_log_fault_impl(&dword_2454AA000, v11, OS_LOG_TYPE_FAULT, v12, &v14, 2u);
-    goto LABEL_13;
+    goto LABEL_15;
   }
 
   if ((*(this + 42) & 1) == 0)
@@ -7661,12 +7522,14 @@ LABEL_15:
     v11 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_13;
+      return;
     }
 
-    LOWORD(v14) = 0;
+    LOWORD(v13) = 0;
     v12 = "#spi,readcallback,portClosed";
-    goto LABEL_15;
+LABEL_15:
+    _os_log_fault_impl(&dword_2454AA000, v11, OS_LOG_TYPE_FAULT, v12, &v13, 2u);
+    return;
   }
 
   v7 = 0.0;
@@ -7682,22 +7545,19 @@ LABEL_15:
     v10 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 134349312;
-      v15 = a3;
-      v16 = 2050;
-      v17 = (MachContinuousTimeNs * 0.000000001 - v7) * 1000000.0;
-      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#spi,hal,read,size,%{public}zu,duration,us,%{public}.1f", &v14, 0x16u);
+      v13 = 134349312;
+      v14 = a3;
+      v15 = 2050;
+      v16 = (MachContinuousTimeNs * 0.000000001 - v7) * 1000000.0;
+      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#spi,hal,read,size,%{public}zu,duration,us,%{public}.1f", &v13, 0x16u);
     }
   }
-
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-const unsigned __int8 *GnssHal::CommSpi::writeInternal(GnssHal::CommSpi *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
+uint64_t GnssHal::CommSpi::writeInternal(GnssHal::CommSpi *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
 {
   v4 = a3;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (*(this + 41) == 1)
   {
     gpsd::util::logBinaryBytes(a2, a3, "#spi,write,bin", a4);
@@ -7714,7 +7574,7 @@ const unsigned __int8 *GnssHal::CommSpi::writeInternal(GnssHal::CommSpi *this, g
       _os_log_error_impl(&dword_2454AA000, v16, OS_LOG_TYPE_ERROR, "#spi,write,notOpen", buf, 2u);
     }
 
-    goto LABEL_19;
+    return -1;
   }
 
   if (a2 && v4)
@@ -7735,20 +7595,20 @@ const unsigned __int8 *GnssHal::CommSpi::writeInternal(GnssHal::CommSpi *this, g
       v14 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
       {
-        v22 = mach_error_string(v11);
-        v23 = *(this + 11);
+        v21 = mach_error_string(v11);
+        v22 = *(this + 11);
         *buf = 67241474;
-        *v28 = v11;
-        *&v28[4] = 2082;
-        *&v28[6] = v22;
-        *&v28[14] = 1026;
-        *&v28[16] = v23;
-        *&v28[20] = 1026;
-        *&v28[22] = 5;
-        v29 = 2050;
-        v30 = v4;
-        v31 = 2050;
-        v32 = (MachContinuousTimeNs * 0.000000001 - v9) * 1000000.0;
+        *v27 = v11;
+        *&v27[4] = 2082;
+        *&v27[6] = v21;
+        *&v27[14] = 1026;
+        *&v27[16] = v22;
+        *&v27[20] = 1026;
+        *&v27[22] = 5;
+        v28 = 2050;
+        v29 = v4;
+        v30 = 2050;
+        v31 = (MachContinuousTimeNs * 0.000000001 - v9) * 1000000.0;
         _os_log_fault_impl(&dword_2454AA000, v14, OS_LOG_TYPE_FAULT, "#spi,write,failed,%{public}X,%{public}s,count,%{public}d/%{public}d,size,%{public}zu,duration,us,%{public}.1f", buf, 0x32u);
         v13 = *(this + 11);
       }
@@ -7766,51 +7626,49 @@ const unsigned __int8 *GnssHal::CommSpi::writeInternal(GnssHal::CommSpi *this, g
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
-          *v28 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-          *&v28[8] = 1026;
-          *&v28[10] = 224;
-          *&v28[14] = 2082;
-          *&v28[16] = "writeInternal";
+          *v27 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+          *&v27[8] = 1026;
+          *&v27[10] = 224;
+          *&v27[14] = 2082;
+          *&v27[16] = "writeInternal";
           _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v26, "assert");
-        std::string::basic_string[abi:ne200100]<0>(&v25, "writeInternal");
-        std::string::basic_string[abi:ne200100]<0>(&v24, "#spi,continuousWriteError");
-        gpsd::util::triggerDiagnosticReport(&v26, &v25, &v24);
+        std::string::basic_string[abi:ne200100]<0>(&v25, "assert");
+        std::string::basic_string[abi:ne200100]<0>(&v24, "writeInternal");
+        std::string::basic_string[abi:ne200100]<0>(&v23, "#spi,continuousWriteError");
+        gpsd::util::triggerDiagnosticReport(&v25, &v24, &v23);
+        std::string::~string(&v23);
         std::string::~string(&v24);
         std::string::~string(&v25);
-        std::string::~string(&v26);
         __assert_rtn("writeInternal", "GnssHalCommSpi.cpp", 224, "false && #spi,continuousWriteError");
       }
 
-LABEL_19:
-      v4 = -1;
-      goto LABEL_23;
+      return -1;
     }
 
     *(this + 11) = 0;
     if (*(this + 40) == 1)
     {
-      v20 = (gpsd::util::getMachContinuousTimeNs(v10) * 0.000000001 - v9) * 1000000.0;
-      v21 = GpsdLogObjectGeneral;
-      if (v20 > (8 * v4) / 5.0 + 100000.0 && os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
+      v19 = (gpsd::util::getMachContinuousTimeNs(v10) * 0.000000001 - v9) * 1000000.0;
+      v20 = GpsdLogObjectGeneral;
+      if (v19 > (8 * v4) / 5.0 + 100000.0 && os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
       {
         *buf = 134349312;
-        *v28 = v4;
-        *&v28[8] = 2050;
-        *&v28[10] = v20;
-        _os_log_fault_impl(&dword_2454AA000, v21, OS_LOG_TYPE_FAULT, "#spi,write,longDelay,size,%{public}zu,duration,us,%{public}.1f", buf, 0x16u);
-        v21 = GpsdLogObjectGeneral;
+        *v27 = v4;
+        *&v27[8] = 2050;
+        *&v27[10] = v19;
+        _os_log_fault_impl(&dword_2454AA000, v20, OS_LOG_TYPE_FAULT, "#spi,write,longDelay,size,%{public}zu,duration,us,%{public}.1f", buf, 0x16u);
+        v20 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134349312;
-        *v28 = v4;
-        *&v28[8] = 2050;
-        *&v28[10] = v20;
-        _os_log_debug_impl(&dword_2454AA000, v21, OS_LOG_TYPE_DEBUG, "#spi,write,size,%{public}zu,duration,us,%{public}.1f", buf, 0x16u);
+        *v27 = v4;
+        *&v27[8] = 2050;
+        *&v27[10] = v19;
+        _os_log_debug_impl(&dword_2454AA000, v20, OS_LOG_TYPE_DEBUG, "#spi,write,size,%{public}zu,duration,us,%{public}.1f", buf, 0x16u);
       }
     }
   }
@@ -7821,17 +7679,15 @@ LABEL_19:
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349312;
-      *v28 = a2;
-      *&v28[8] = 2050;
-      *&v28[10] = v4;
+      *v27 = a2;
+      *&v27[8] = 2050;
+      *&v27[10] = v4;
       _os_log_impl(&dword_2454AA000, v17, OS_LOG_TYPE_DEFAULT, "$spi,write,invalid,buffer,%{public}p,size,%{public}zu", buf, 0x16u);
     }
 
-    v4 = 0;
+    return 0;
   }
 
-LABEL_23:
-  v18 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -7857,7 +7713,7 @@ void sub_2454BE6AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unsigned __int8 *GnssHal::CommSpi::write(GnssHal::CommSpi *this, gpsd::util *a2, unsigned __int8 *a3, const char *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(this + 41) == 1)
   {
     gpsd::util::logBinaryBytes(a2, a3, "#spi,hal,write,bin", a4);
@@ -7876,15 +7732,14 @@ unsigned __int8 *GnssHal::CommSpi::write(GnssHal::CommSpi *this, gpsd::util *a2,
     v10 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 134349312;
-      v14 = a3;
-      v15 = 2050;
-      v16 = (MachContinuousTimeNs * 0.000000001 - v7) * 1000000.0;
-      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#spi,hal,write,size,%{public}zu,duration,us,%{public}.1f", &v13, 0x16u);
+      v12 = 134349312;
+      v13 = a3;
+      v14 = 2050;
+      v15 = (MachContinuousTimeNs * 0.000000001 - v7) * 1000000.0;
+      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "#spi,hal,write,size,%{public}zu,duration,us,%{public}.1f", &v12, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
@@ -7924,25 +7779,25 @@ uint64_t GnssHal::CommSpi::readWriteFlush(GnssHal::CommSpi *this)
 
 void GnssHal::CommSpi::pulseTimeMarkStrobe(GnssHal::CommSpi *this@<X0>, uint64_t a2@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v21[0] = 0;
-  v21[1] = 0;
-  v5 = (*(**(this + 14) + 112))(*(this + 14), v21, &v21[1]);
+  v24 = *MEMORY[0x277D85DE8];
+  v20[0] = 0;
+  v20[1] = 0;
+  v5 = (*(**(this + 14) + 112))(*(this + 14), v20, &v20[1]);
   if (v5)
   {
-    v15 = GpsdLogObjectGeneral;
+    v14 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v16 = mach_error_string(v5);
+      v15 = mach_error_string(v5);
       *buf = 67240450;
       *&buf[4] = v5;
       *&buf[8] = 2082;
-      *&buf[10] = v16;
-      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,pulseTimeMarkStrobe,errCode,0x%{public}X,%{public}s", buf, 0x12u);
-      v15 = GpsdLogObjectGeneral;
+      *&buf[10] = v15;
+      _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, "#spi,fail,gpti,pulseTimeMarkStrobe,errCode,0x%{public}X,%{public}s", buf, 0x12u);
+      v14 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
@@ -7950,32 +7805,32 @@ void GnssHal::CommSpi::pulseTimeMarkStrobe(GnssHal::CommSpi *this@<X0>, uint64_t
       *&buf[14] = 273;
       *&buf[18] = 2082;
       *&buf[20] = "pulseTimeMarkStrobe";
-      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v20, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v19, "pulseTimeMarkStrobe");
-    std::string::basic_string[abi:ne200100]<0>(&v18, "#spi,fail,gpti,pulseTimeMarkStrobe,errCode,0x%{public}X,%{public}s");
-    gpsd::util::triggerDiagnosticReport(&v20, &v19, &v18);
+    std::string::basic_string[abi:ne200100]<0>(&v19, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v18, "pulseTimeMarkStrobe");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "#spi,fail,gpti,pulseTimeMarkStrobe,errCode,0x%{public}X,%{public}s");
+    gpsd::util::triggerDiagnosticReport(&v19, &v18, &v17);
+    std::string::~string(&v17);
     std::string::~string(&v18);
     std::string::~string(&v19);
-    std::string::~string(&v20);
     __assert_rtn("pulseTimeMarkStrobe", "GnssHalCommSpi.cpp", 273, "false && #spi,fail, gpti, pulseTimeMarkStrobe ,errCode,0x%{public}X,%{public}s");
   }
 
-  v17 = 0;
-  if (gpsd::util::getCurrentMachContinuousMinusMachAbsoluteTicks(&v17, v4))
+  v16 = 0;
+  if (gpsd::util::getCurrentMachContinuousMinusMachAbsoluteTicks(&v16, v4))
   {
     v6 = *(this + 4);
     if (v6)
     {
-      *buf = vsubq_s64(*v21, vdupq_lane_s64(v17, 0));
+      *buf = vsubq_s64(*v20, vdupq_lane_s64(v16, 0));
       (*(*v6 + 48))(v6, buf);
     }
 
-    v7 = gpsd::util::convertMachTimeInTicksToNs(v21[0]);
+    v7 = gpsd::util::convertMachTimeInTicksToNs(v20[0]);
     *a2 = v7;
-    v8 = gpsd::util::convertMachTimeInTicksToNs(v21[1]);
+    v8 = gpsd::util::convertMachTimeInTicksToNs(v20[1]);
     *(a2 + 8) = v8;
     *(a2 + 16) = 1;
     v9 = GpsdLogObjectGeneral;
@@ -7983,15 +7838,15 @@ void GnssHal::CommSpi::pulseTimeMarkStrobe(GnssHal::CommSpi *this@<X0>, uint64_t
     if (v10)
     {
       MachContinuousTimeNs = gpsd::util::getMachContinuousTimeNs(v10);
-      v12 = gpsd::util::convertMachTimeInTicksToNs(v17);
+      v12 = gpsd::util::convertMachTimeInTicksToNs(v16);
       *buf = 134349824;
       *&buf[4] = v7;
       *&buf[12] = 2050;
       *&buf[14] = v8;
       *&buf[22] = 2050;
       *&buf[24] = MachContinuousTimeNs;
-      v23 = 2050;
-      v24 = v12;
+      v22 = 2050;
+      v23 = v12;
       _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_INFO, "#spi,#tt,pulseTimeMarkStrobe,low,ns,%{public}llu,upper,ns,%{public}llu,current,ns,%{public}llu,machContMinusMachAbs,ns,%{public}llu", buf, 0x2Au);
     }
   }
@@ -8009,8 +7864,6 @@ void GnssHal::CommSpi::pulseTimeMarkStrobe(GnssHal::CommSpi *this@<X0>, uint64_t
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454BED20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -8035,7 +7888,7 @@ void sub_2454BED20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t GnssHal::CommSpi::AsyncBuffering::AsyncBuffering(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a1 = a2;
   std::__function::__value_func<void ()(unsigned char *,unsigned long)>::__value_func[abi:ne200100](a1 + 8, a3);
   *(a1 + 40) = 850045863;
@@ -8048,23 +7901,23 @@ uint64_t GnssHal::CommSpi::AsyncBuffering::AsyncBuffering(uint64_t a1, uint64_t 
   *(a1 + 144) = 0;
   if (!*a1)
   {
-    v9 = GpsdLogObjectGeneral;
+    v8 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#spi,ab,queue,null", buf, 2u);
-      v9 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "#spi,ab,queue,null", buf, 2u);
+      v8 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v25 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      v26 = 1026;
-      v27 = 306;
-      v28 = 2082;
-      v29 = "AsyncBuffering";
-      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      v27 = 1026;
+      v28 = 306;
+      v29 = 2082;
+      v30 = "AsyncBuffering";
+      _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
     std::string::basic_string[abi:ne200100]<0>(v23, "assert");
@@ -8081,59 +7934,59 @@ uint64_t GnssHal::CommSpi::AsyncBuffering::AsyncBuffering(uint64_t a1, uint64_t 
       operator delete(v21[0]);
     }
 
-    v10 = "false && #spi,ab,queue,null";
-    v11 = 306;
-    if (v23[23] < 0)
+    v9 = "false && #spi,ab,queue,null";
+    v10 = 306;
+    if (v24 < 0)
     {
-      v12 = v23;
+      v11 = v23;
 LABEL_24:
-      operator delete(*v12);
+      operator delete(*v11);
     }
 
 LABEL_25:
-    __assert_rtn("AsyncBuffering", "GnssHalCommSpi.cpp", v11, v10);
+    __assert_rtn("AsyncBuffering", "GnssHalCommSpi.cpp", v10, v9);
   }
 
   if (!*(a3 + 24))
   {
-    v13 = GpsdLogObjectGeneral;
+    v12 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, "#spi,ab,cb,null", buf, 2u);
-      v13 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "#spi,ab,cb,null", buf, 2u);
+      v12 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v25 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
-      v26 = 1026;
-      v27 = 307;
-      v28 = 2082;
-      v29 = "AsyncBuffering";
-      _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v26 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/HAL/Implementation/GnssHalCommSpi.cpp";
+      v27 = 1026;
+      v28 = 307;
+      v29 = 2082;
+      v30 = "AsyncBuffering";
+      _os_log_error_impl(&dword_2454AA000, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v18, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v16, "AsyncBuffering");
-    std::string::basic_string[abi:ne200100]<0>(v14, "#spi,ab,cb,null");
-    gpsd::util::triggerDiagnosticReport(v18, v16, v14);
-    if (v15 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v17, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v15, "AsyncBuffering");
+    std::string::basic_string[abi:ne200100]<0>(v13, "#spi,ab,cb,null");
+    gpsd::util::triggerDiagnosticReport(v17, v15, v13);
+    if (v14 < 0)
     {
-      operator delete(v14[0]);
+      operator delete(v13[0]);
     }
 
-    if (v17 < 0)
+    if (v16 < 0)
     {
-      operator delete(v16[0]);
+      operator delete(v15[0]);
     }
 
-    v10 = "false && #spi,ab,cb,null";
-    v11 = 307;
-    if ((v18[23] & 0x80000000) != 0)
+    v9 = "false && #spi,ab,cb,null";
+    v10 = 307;
+    if (v18 < 0)
     {
-      v12 = v18;
+      v11 = v17;
       goto LABEL_24;
     }
 
@@ -8142,7 +7995,6 @@ LABEL_25:
 
   std::vector<unsigned char>::reserve((a1 + 104), a4);
   std::vector<unsigned char>::reserve((a1 + 128), a4);
-  v7 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -8374,7 +8226,7 @@ uint64_t GnssHal::PlatformNvStore::configure(void **this)
 
 uint64_t GnssHal::PlatformNvStore::readCacheFromDisk(GnssHal::PlatformNvStore *this, GnssHal::PlatformNvStore::Cache *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 79);
   if ((v2 & 0x80u) != 0)
   {
@@ -8398,7 +8250,7 @@ uint64_t GnssHal::PlatformNvStore::readCacheFromDisk(GnssHal::PlatformNvStore *t
 
       v7 = __p;
       std::string::basic_string[abi:ne200100](__p, v6 + 4);
-      if (v17 < 0)
+      if (v16 < 0)
       {
         v7 = *__p;
       }
@@ -8420,7 +8272,7 @@ uint64_t GnssHal::PlatformNvStore::readCacheFromDisk(GnssHal::PlatformNvStore *t
 
       strcpy(&v7[v6], ".bak");
       CacheFromFile = GnssHal::PlatformNvStore::readCacheFromFile(this, a2, __p);
-      if (v17 < 0)
+      if (v16 < 0)
       {
         operator delete(*__p);
       }
@@ -8472,11 +8324,10 @@ uint64_t GnssHal::PlatformNvStore::readCacheFromDisk(GnssHal::PlatformNvStore *t
         *(a2 + 10) = 1;
       }
 
-      GnssHal::PlatformNvStore::writeCacheToDisk(v11, a2);
+      GnssHal::PlatformNvStore::writeCacheToDisk(v11, a2, 1);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -8568,18 +8419,25 @@ BOOL GnssHal::PlatformNvStore::storeSession(std::mutex *a1, int a2, uint64_t a3)
   return v6;
 }
 
+{
+  std::mutex::lock(a1 + 3);
+  v6 = GnssHal::PlatformNvStore::storeInternal(a1, a2, a3, &a1->__m_.__opaque[8], &a1[1].__m_.__opaque[32]);
+  std::mutex::unlock(a1 + 3);
+  return v6;
+}
+
 BOOL GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *a1, uint64_t a2, uint64_t a3, uint64_t a4, GnssHal::PlatformNvStore::Cache *a5)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (GnssHal::PlatformNvStore::existsInCache(a1, a5, a2))
   {
     v9 = GpsdLogObjectWarning;
     v10 = 0;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "NvStore,Item already in alternate cache", &v20, 2u);
-      v10 = 0;
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "NvStore,Item already in alternate cache", &v19, 2u);
+      return 0;
     }
   }
 
@@ -8592,26 +8450,26 @@ BOOL GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *a1, uint6
     {
       if (a2 <= 0x7FFFFFFF)
       {
-        v16 = a2;
+        v15 = a2;
       }
 
       else
       {
-        v16 = a2 - 0x7FFFFFFF;
+        v15 = a2 - 0x7FFFFFFF;
       }
 
-      v17 = gpsd::util::getMachContinuousTimeNs(v12) * 0.000000001;
-      v18 = (*(a3 + 8) - *a3);
-      v19 = gpsd::util::truncatedSha256(*a3, v18);
-      v20 = 134349824;
-      v21 = v17;
-      v22 = 1026;
-      v23 = v16;
-      v24 = 2050;
-      v25 = v18;
-      v26 = 1026;
-      v27 = v19;
-      _os_log_debug_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEBUG, "NvStore,store,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v20, 0x22u);
+      v16 = gpsd::util::getMachContinuousTimeNs(v12) * 0.000000001;
+      v17 = (*(a3 + 8) - *a3);
+      v18 = gpsd::util::truncatedSha256(*a3, v17);
+      v19 = 134349824;
+      v20 = v16;
+      v21 = 1026;
+      v22 = v15;
+      v23 = 2050;
+      v24 = v17;
+      v25 = 1026;
+      v26 = v18;
+      _os_log_debug_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEBUG, "NvStore,store,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v19, 0x22u);
     }
 
     v10 = GnssHal::PlatformNvStore::storeToCache(v12, a4, a2, a3);
@@ -8620,36 +8478,27 @@ BOOL GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *a1, uint6
       v13 = GpsdLogObjectWarning;
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_2454AA000, v13, OS_LOG_TYPE_DEFAULT, "NvStore,storeToCache failed", &v20, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_2454AA000, v13, OS_LOG_TYPE_DEFAULT, "NvStore,storeToCache failed", &v19, 2u);
       }
     }
 
     GnssHal::PlatformNvStore::printState(a1, "post-store");
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t GnssHal::PlatformNvStore::storeSession(std::mutex *a1, int a2, uint64_t a3)
+BOOL GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *this, int a2, uint64_t a3, uint64_t a4, GnssHal::PlatformNvStore::Cache *a5)
 {
-  std::mutex::lock(a1 + 3);
-  v6 = GnssHal::PlatformNvStore::storeInternal(a1, a2, a3, &a1->__m_.__opaque[8], &a1[1].__m_.__opaque[32]);
-  std::mutex::unlock(a1 + 3);
-  return v6;
-}
-
-uint64_t GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *this, int a2, uint64_t a3, uint64_t a4, GnssHal::PlatformNvStore::Cache *a5)
-{
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v10 = *(this + 33);
   if (!v10)
   {
     goto LABEL_8;
   }
 
-  v11 = (this + 264);
+  v11 = this + 264;
   do
   {
     if (*(v10 + 8) >= a2)
@@ -8657,38 +8506,38 @@ uint64_t GnssHal::PlatformNvStore::storeInternal(GnssHal::PlatformNvStore *this,
       v11 = v10;
     }
 
-    v10 = v10[*(v10 + 8) < a2];
+    v10 = *&v10[8 * (*(v10 + 8) < a2)];
   }
 
   while (v10);
-  if (v11 != (this + 264) && *(v11 + 8) <= a2)
+  if (v11 != this + 264 && *(v11 + 8) <= a2)
   {
     GnssHal::PlatformNvStore::printState(this, "pre-storeNamed");
-    v16 = GpsdLogObjectGeneral;
-    v17 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
-    if (v17)
+    v15 = GpsdLogObjectGeneral;
+    v16 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
+    if (v16)
     {
-      v19 = gpsd::util::getMachContinuousTimeNs(v17) * 0.000000001;
-      v20 = (*(a3 + 8) - *a3);
-      v21 = gpsd::util::truncatedSha256(*a3, v20);
-      v22 = 134349824;
-      *v23 = v19;
-      *&v23[8] = 1026;
-      *&v23[10] = a2;
-      v24 = 2050;
-      v25 = v20;
-      v26 = 1026;
-      v27 = v21;
-      _os_log_debug_impl(&dword_2454AA000, v16, OS_LOG_TYPE_DEBUG, "NvStore,storeNamed,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v22, 0x22u);
+      v18 = gpsd::util::getMachContinuousTimeNs(v16) * 0.000000001;
+      v19 = (*(a3 + 8) - *a3);
+      v20 = gpsd::util::truncatedSha256(*a3, v19);
+      v21 = 134349824;
+      *v22 = v18;
+      *&v22[8] = 1026;
+      *&v22[10] = a2;
+      v23 = 2050;
+      v24 = v19;
+      v25 = 1026;
+      v26 = v20;
+      _os_log_debug_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEBUG, "NvStore,storeNamed,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v21, 0x22u);
     }
 
-    v13 = GnssHal::PlatformNvStore::writeBlobToDedicatedFile(v17, v11 + 5, a3);
-    v18 = GpsdLogObjectGeneral;
+    v13 = GnssHal::PlatformNvStore::writeBlobToDedicatedFile(v16, (v11 + 40), a3);
+    v17 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 67240192;
-      *v23 = v13;
-      _os_log_debug_impl(&dword_2454AA000, v18, OS_LOG_TYPE_DEBUG, "NvStore,storeReturn,%{public}d", &v22, 8u);
+      v21 = 67240192;
+      *v22 = v13;
+      _os_log_debug_impl(&dword_2454AA000, v17, OS_LOG_TYPE_DEBUG, "NvStore,storeReturn,%{public}d", &v21, 8u);
     }
 
     GnssHal::PlatformNvStore::printState(this, "post-storeNamed");
@@ -8700,17 +8549,16 @@ LABEL_8:
     v12 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 67240448;
-      *v23 = a2;
-      *&v23[4] = 2050;
-      *&v23[6] = a2 + 0x80000000;
-      _os_log_debug_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEBUG, "NvStore,Did not find dedicated file for NamedType,%{public}d,Converting to id,%{public}lld", &v22, 0x12u);
+      v21 = 67240448;
+      *v22 = a2;
+      *&v22[4] = 2050;
+      *&v22[6] = a2 + 0x80000000;
+      _os_log_debug_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEBUG, "NvStore,Did not find dedicated file for NamedType,%{public}d,Converting to id,%{public}lld", &v21, 0x12u);
     }
 
-    v13 = GnssHal::PlatformNvStore::storeInternal(this, a2 + 0x80000000, a3, a4, a5);
+    return GnssHal::PlatformNvStore::storeInternal(this, a2 + 0x80000000, a3, a4, a5);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -8722,7 +8570,6 @@ BOOL GnssHal::PlatformNvStore::storePermanent(std::mutex *a1, int a2, uint64_t a
   return v6;
 }
 
-uint64_t GnssHal::PlatformNvStore::storePermanent(std::mutex *a1, int a2, uint64_t a3)
 {
   std::mutex::lock(a1 + 3);
   v6 = GnssHal::PlatformNvStore::storeInternal(a1, a2, a3, &a1[1].__m_.__opaque[32], &a1->__m_.__opaque[8]);
@@ -8746,7 +8593,7 @@ void GnssHal::PlatformNvStore::flushSession(std::mutex *this)
 
 void GnssHal::PlatformNvStore::flushInternal(GnssHal::PlatformNvStore *this, GnssHal::PlatformNvStore::Cache *a2)
 {
-  if ((GnssHal::PlatformNvStore::writeCacheToDisk(this, a2) & 1) == 0)
+  if ((GnssHal::PlatformNvStore::writeCacheToDisk(this, a2, 0) & 1) == 0)
   {
     v2 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
@@ -8771,12 +8618,12 @@ void GnssHal::PlatformNvStore::flushPermanent(std::mutex *this)
   std::mutex::unlock(this + 3);
 }
 
-void GnssHal::PlatformNvStore::recall(std::mutex *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void GnssHal::PlatformNvStore::recall(std::mutex *this@<X0>, int a2@<W1>, gpsd::util **a3@<X8>)
 {
   std::mutex::lock(this + 3);
   *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   GnssHal::PlatformNvStore::recallInternal(this, a2, a3);
 
   std::mutex::unlock(this + 3);
@@ -8798,7 +8645,7 @@ void sub_2454C0584(_Unwind_Exception *a1)
 void GnssHal::PlatformNvStore::recallInternal(uint64_t a1, uint64_t a2, gpsd::util **a3)
 {
   v4 = a2;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 40);
   if (v6 < 1)
   {
@@ -8872,27 +8719,26 @@ LABEL_15:
       LODWORD(v4) = v4 - 0x7FFFFFFF;
     }
 
-    v18 = gpsd::util::getMachContinuousTimeNs(v16) * 0.000000001;
-    v19 = *a3;
-    v20 = (a3[1] - *a3);
-    v21 = 134349824;
-    v22 = v18;
-    v23 = 1026;
-    v24 = v4;
-    v25 = 2050;
-    v26 = v20;
-    v27 = 1026;
-    v28 = gpsd::util::truncatedSha256(v19, v20);
-    _os_log_debug_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEBUG, "NvStore,recall,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v21, 0x22u);
+    v17 = gpsd::util::getMachContinuousTimeNs(v16) * 0.000000001;
+    v18 = *a3;
+    v19 = (a3[1] - *a3);
+    v20 = 134349824;
+    v21 = v17;
+    v22 = 1026;
+    v23 = v4;
+    v24 = 2050;
+    v25 = v19;
+    v26 = 1026;
+    v27 = gpsd::util::truncatedSha256(v18, v19);
+    _os_log_debug_impl(&dword_2454AA000, v15, OS_LOG_TYPE_DEBUG, "NvStore,recall,mach_cont_s,%{public}.3f,id,%{public}d,size,%{public}zu,hash,%{public}x", &v20, 0x22u);
   }
 
   GnssHal::PlatformNvStore::printState(a1, "recalled");
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void GnssHal::PlatformNvStore::recall(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 192));
   *a3 = 0;
   *(a3 + 8) = 0;
@@ -8917,24 +8763,24 @@ void GnssHal::PlatformNvStore::recall(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
   while (v6);
   if (v7 != a1 + 264 && *(v7 + 32) <= a2)
   {
-    v10 = GpsdLogObjectGeneral;
-    v11 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
-    if (v11)
+    v9 = GpsdLogObjectGeneral;
+    v10 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
+    if (v10)
     {
-      v12 = (v7 + 40);
+      v11 = (v7 + 40);
       if (*(v7 + 63) < 0)
       {
-        v12 = *v12;
+        v11 = *v11;
       }
 
-      v13 = 67240450;
-      v14 = a2;
-      v15 = 2082;
-      v16 = v12;
-      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "NvStore: Reading NamedType=%{public}d from dedicated file %{public}s", &v13, 0x12u);
+      v12 = 67240450;
+      v13 = a2;
+      v14 = 2082;
+      v15 = v11;
+      _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "NvStore: Reading NamedType=%{public}d from dedicated file %{public}s", &v12, 0x12u);
     }
 
-    GnssHal::PlatformNvStore::readBlobFromDedicatedFile(v11, v7 + 40, a3);
+    GnssHal::PlatformNvStore::readBlobFromDedicatedFile(v10, v7 + 40, a3);
   }
 
   else
@@ -8943,18 +8789,17 @@ LABEL_8:
     v8 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 67240448;
-      v14 = a2;
-      v15 = 2050;
-      v16 = a2 + 0x80000000;
-      _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "NvStore: Did not find dedicated file for NamedType=%{public}d, converting it to id=%{public}lld", &v13, 0x12u);
+      v12 = 67240448;
+      v13 = a2;
+      v14 = 2050;
+      v15 = (a2 + 0x80000000);
+      _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "NvStore: Did not find dedicated file for NamedType=%{public}d, converting it to id=%{public}lld", &v12, 0x12u);
     }
 
     GnssHal::PlatformNvStore::recallInternal(a1, a2 + 0x80000000, a3);
   }
 
   std::mutex::unlock((a1 + 192));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2454C091C(_Unwind_Exception *a1)
@@ -8970,9 +8815,9 @@ void sub_2454C091C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void GnssHal::PlatformNvStore::readBlobFromDedicatedFile(uint64_t a1, uint64_t a2, uint64_t a3)
+void GnssHal::PlatformNvStore::readBlobFromDedicatedFile(uint64_t a1, uint64_t a2, char **a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) >= 0)
   {
     v4 = a2;
@@ -8989,12 +8834,12 @@ void GnssHal::PlatformNvStore::readBlobFromDedicatedFile(uint64_t a1, uint64_t a
     v10 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_27;
+      return;
     }
 
     v12 = *__error();
     *buf = 67240192;
-    v24 = v12;
+    v23 = v12;
     v11 = "NvStore,Failed to open file for reading,%{public}d";
     goto LABEL_14;
   }
@@ -9009,27 +8854,27 @@ void GnssHal::PlatformNvStore::readBlobFromDedicatedFile(uint64_t a1, uint64_t a
     v10 = GpsdLogObjectGeneral;
     if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_27;
+      return;
     }
 
     *buf = 67240192;
-    v24 = v8;
+    v23 = v8;
     v11 = "NvStore,Failed to read itemId/numBytes or out of range,numBytes,%{public}d";
 LABEL_14:
     v13 = v10;
     v14 = 8;
 LABEL_15:
     _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, v11, buf, v14);
-    goto LABEL_27;
+    return;
   }
 
   v15 = *a3;
-  v16 = *(a3 + 8) - *a3;
+  v16 = a3[1] - *a3;
   if (__ptr <= v16)
   {
     if (__ptr < v16)
     {
-      *(a3 + 8) = &v15[__ptr];
+      a3[1] = &v15[__ptr];
     }
   }
 
@@ -9066,36 +8911,32 @@ LABEL_15:
       _os_log_error_impl(&dword_2454AA000, v20, OS_LOG_TYPE_ERROR, "NvStore,Failed to read payload", buf, 2u);
     }
 
-    *(a3 + 8) = *a3;
+    a3[1] = *a3;
   }
-
-LABEL_27:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GnssHal::PlatformNvStore::clear(std::mutex *this, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   v5 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
-    v10 = 134349312;
-    v11 = gpsd::util::getMachContinuousTimeNs(v5) * 0.000000001;
-    v12 = 1026;
-    v13 = a2;
-    _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,clear,mach_cont_s,%{public}.3f,id,%{public}d", &v10, 0x12u);
+    v9 = 134349312;
+    v10 = gpsd::util::getMachContinuousTimeNs(v5) * 0.000000001;
+    v11 = 1026;
+    v12 = a2;
+    _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,clear,mach_cont_s,%{public}.3f,id,%{public}d", &v9, 0x12u);
   }
 
   std::mutex::lock(this + 3);
   v7 = GnssHal::PlatformNvStore::clearFromCache(v6, &this->__m_.__opaque[8], a2);
   GnssHal::PlatformNvStore::clearFromCache(v7, &this[1].__m_.__opaque[32], a2);
   std::mutex::unlock(this + 3);
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
-uint64_t GnssHal::PlatformNvStore::clearInternal(GnssHal::PlatformNvStore *this, uint64_t a2)
+uint64_t GnssHal::PlatformNvStore::clearInternal(GnssHal::PlatformNvStore *this, unint64_t a2)
 {
   v4 = GnssHal::PlatformNvStore::clearFromCache(this, (this + 16), a2);
   GnssHal::PlatformNvStore::clearFromCache(v4, (this + 104), a2);
@@ -9104,16 +8945,16 @@ uint64_t GnssHal::PlatformNvStore::clearInternal(GnssHal::PlatformNvStore *this,
 
 uint64_t GnssHal::PlatformNvStore::clear(uint64_t a1, int a2)
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   v5 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
-    LODWORD(v17[0]) = 134349312;
-    *(v17 + 4) = gpsd::util::getMachContinuousTimeNs(v5) * 0.000000001;
-    WORD2(v17[1]) = 1026;
-    *(&v17[1] + 6) = a2;
-    _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,clearNamed,mach_cont_s,%{public}.3f,id,%{public}d", v17, 0x12u);
+    LODWORD(v16[0]) = 134349312;
+    *(v16 + 4) = gpsd::util::getMachContinuousTimeNs(v5) * 0.000000001;
+    WORD2(v16[1]) = 1026;
+    *(&v16[1] + 6) = a2;
+    _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,clearNamed,mach_cont_s,%{public}.3f,id,%{public}d", v16, 0x12u);
   }
 
   std::mutex::lock((a1 + 192));
@@ -9137,25 +8978,25 @@ uint64_t GnssHal::PlatformNvStore::clear(uint64_t a1, int a2)
   while (v6);
   if (v7 != a1 + 264 && *(v7 + 32) <= a2)
   {
-    v14 = GpsdLogObjectGeneral;
-    v15 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
-    if (v15)
+    v13 = GpsdLogObjectGeneral;
+    v14 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
+    if (v14)
     {
-      v16 = (v7 + 40);
+      v15 = (v7 + 40);
       if (*(v7 + 63) < 0)
       {
-        v16 = *v16;
+        v15 = *v15;
       }
 
-      LODWORD(v17[0]) = 67240450;
-      HIDWORD(v17[0]) = a2;
-      LOWORD(v17[1]) = 2082;
-      *(&v17[1] + 2) = v16;
-      _os_log_debug_impl(&dword_2454AA000, v14, OS_LOG_TYPE_DEBUG, "NvStore: Clearing NamedType=%{public}d from dedicated file %{public}s", v17, 0x12u);
+      LODWORD(v16[0]) = 67240450;
+      HIDWORD(v16[0]) = a2;
+      LOWORD(v16[1]) = 2082;
+      *(&v16[1] + 2) = v15;
+      _os_log_debug_impl(&dword_2454AA000, v13, OS_LOG_TYPE_DEBUG, "NvStore: Clearing NamedType=%{public}d from dedicated file %{public}s", v16, 0x12u);
     }
 
-    memset(v17, 0, 24);
-    v11 = GnssHal::PlatformNvStore::writeBlobToDedicatedFile(v15, (v7 + 40), v17);
+    memset(v16, 0, 24);
+    v11 = GnssHal::PlatformNvStore::writeBlobToDedicatedFile(v14, (v7 + 40), v16);
   }
 
   else
@@ -9165,11 +9006,11 @@ LABEL_10:
     v9 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
     if (v9)
     {
-      LODWORD(v17[0]) = 67240448;
-      HIDWORD(v17[0]) = a2;
-      LOWORD(v17[1]) = 2050;
-      *(&v17[1] + 2) = a2 + 0x80000000;
-      _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "NvStore: Did not find dedicated file for NamedType=%{public}d, converting it to id=%{public}lld", v17, 0x12u);
+      LODWORD(v16[0]) = 67240448;
+      HIDWORD(v16[0]) = a2;
+      LOWORD(v16[1]) = 2050;
+      *(&v16[1] + 2) = a2 + 0x80000000;
+      _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "NvStore: Did not find dedicated file for NamedType=%{public}d, converting it to id=%{public}lld", v16, 0x12u);
     }
 
     v10 = GnssHal::PlatformNvStore::clearFromCache(v9, (a1 + 16), a2 + 0x80000000);
@@ -9178,26 +9019,24 @@ LABEL_10:
   }
 
   std::mutex::unlock((a1 + 192));
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t GnssHal::PlatformNvStore::clearSessionStorage(std::mutex *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = GpsdLogObjectGeneral;
   v3 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
   if (v3)
   {
-    v7 = 134349056;
-    v8 = gpsd::util::getMachContinuousTimeNs(v3) * 0.000000001;
-    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "NvStore,clearSession,mach_cont_s,%{public}.3f", &v7, 0xCu);
+    v6 = 134349056;
+    v7 = gpsd::util::getMachContinuousTimeNs(v3) * 0.000000001;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "NvStore,clearSession,mach_cont_s,%{public}.3f", &v6, 0xCu);
   }
 
   std::mutex::lock(this + 3);
   GnssHal::PlatformNvStore::clearCache(v4, &this->__m_.__opaque[8]);
   std::mutex::unlock(this + 3);
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -9207,7 +9046,7 @@ void GnssHal::PlatformNvStore::clearCache(GnssHal::PlatformNvStore *this, GnssHa
   v3 = proto::gnsshal::NvStore::Clear(a2);
   *(a2 + 12) |= 1u;
   *(a2 + 10) = 1;
-  if ((GnssHal::PlatformNvStore::writeCacheToDisk(v3, a2) & 1) == 0)
+  if ((GnssHal::PlatformNvStore::writeCacheToDisk(v3, a2, 0) & 1) == 0)
   {
     v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
@@ -9220,30 +9059,29 @@ void GnssHal::PlatformNvStore::clearCache(GnssHal::PlatformNvStore *this, GnssHa
 
 uint64_t GnssHal::PlatformNvStore::clearPermanentStorage(std::mutex *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = GpsdLogObjectGeneral;
   v3 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
   if (v3)
   {
-    v7 = 134349056;
-    v8 = gpsd::util::getMachContinuousTimeNs(v3) * 0.000000001;
-    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "NvStore,clearPermanent,mach_cont_s,%{public}.3f", &v7, 0xCu);
+    v6 = 134349056;
+    v7 = gpsd::util::getMachContinuousTimeNs(v3) * 0.000000001;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "NvStore,clearPermanent,mach_cont_s,%{public}.3f", &v6, 0xCu);
   }
 
   std::mutex::lock(this + 3);
   GnssHal::PlatformNvStore::clearCache(v4, &this[1].__m_.__opaque[32]);
   std::mutex::unlock(this + 3);
-  v5 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const char *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_27EE14D58, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE14D58))
   {
-    v8 = GpsdPreferences::instance(0);
-    _MergedGlobals_0 = GpsdPreferences::verboseNvStore(v8);
+    v7 = GpsdPreferences::instance(0);
+    _MergedGlobals_0 = GpsdPreferences::verboseNvStore(v7);
     __cxa_guard_release(&qword_27EE14D58);
   }
 
@@ -9253,9 +9091,9 @@ void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const 
     v5 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
     if (v5)
     {
-      v9 = 136446210;
-      v10 = a2;
-      _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,printState,begin,%{public}s", &v9, 0xCu);
+      v8 = 136446210;
+      v9 = a2;
+      _os_log_debug_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEBUG, "NvStore,printState,begin,%{public}s", &v8, 0xCu);
     }
 
     if (*(this + 12) >= 1)
@@ -9267,52 +9105,50 @@ void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const 
     v6 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136446210;
-      v10 = a2;
-      _os_log_debug_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEBUG, "NvStore,printState,end,%{public}s", &v9, 0xCu);
+      v8 = 136446210;
+      v9 = a2;
+      _os_log_debug_impl(&dword_2454AA000, v6, OS_LOG_TYPE_DEBUG, "NvStore,printState,end,%{public}s", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t GnssHal::PlatformNvStore::writeBlobToDedicatedFile(uint64_t a1, const void **a2, uint64_t a3)
+uint64_t GnssHal::PlatformNvStore::writeBlobToDedicatedFile(uint64_t a1, std::__fs::filesystem::path *a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  if (*(a2 + 23) >= 0)
+  v39 = *MEMORY[0x277D85DE8];
+  if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = *(a2 + 23);
+    size = HIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v5 = a2[1];
+    size = a2->__pn_.__r_.__value_.__l.__size_;
   }
 
   v6 = __p;
-  std::string::basic_string[abi:ne200100](__p, v5 + 4);
-  if (v35 < 0)
+  std::string::basic_string[abi:ne200100](__p, size + 4);
+  if (v34 < 0)
   {
     v6 = __p[0];
   }
 
-  if (v5)
+  if (size)
   {
-    if (*(a2 + 23) >= 0)
+    if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v7 = a2;
+      p_data = &a2->__pn_.__r_.__value_.__l.__data_;
     }
 
     else
     {
-      v7 = *a2;
+      p_data = a2->__pn_.__r_.__value_.__r.__words[0];
     }
 
-    memmove(v6, v7, v5);
+    memmove(v6, p_data, size);
   }
 
-  strcpy(v6 + v5, ".tmp");
-  if (v35 >= 0)
+  strcpy(v6 + size, ".tmp");
+  if (v34 >= 0)
   {
     v8 = __p;
   }
@@ -9328,18 +9164,18 @@ uint64_t GnssHal::PlatformNvStore::writeBlobToDedicatedFile(uint64_t a1, const v
     v18 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      if (*(a2 + 23) >= 0)
+      if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v19 = a2;
+        v19 = &a2->__pn_.__r_.__value_.__l.__data_;
       }
 
       else
       {
-        v19 = *a2;
+        v19 = a2->__pn_.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136446210;
-      v37 = v19;
+      v36 = v19;
       v15 = "NvStore,Failed to open dedicated tmp file,%{public}s";
       v16 = v18;
       v17 = 12;
@@ -9355,16 +9191,16 @@ uint64_t GnssHal::PlatformNvStore::writeBlobToDedicatedFile(uint64_t a1, const v
     v11 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v32 = __p;
-      if (v35 < 0)
+      v31 = __p;
+      if (v34 < 0)
       {
-        v32 = __p[0];
+        v31 = __p[0];
       }
 
       *buf = 136446466;
-      v37 = v32;
-      v38 = 1026;
-      v39 = __ptr;
+      v36 = v31;
+      v37 = 1026;
+      v38 = __ptr;
       _os_log_error_impl(&dword_2454AA000, v11, OS_LOG_TYPE_ERROR, "NvStore,Failed to write to temp file,%{public}s,localNumByes,%{public}d", buf, 0x12u);
     }
   }
@@ -9376,7 +9212,7 @@ uint64_t GnssHal::PlatformNvStore::writeBlobToDedicatedFile(uint64_t a1, const v
     {
       v14 = *__error();
       *buf = 67240192;
-      LODWORD(v37) = v14;
+      LODWORD(v36) = v14;
       v15 = "NvStore,Failed to close temp file,%{public}d";
       v16 = v13;
       v17 = 8;
@@ -9388,7 +9224,7 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  if (v35 >= 0)
+  if (v34 >= 0)
   {
     v20 = __p;
   }
@@ -9398,14 +9234,14 @@ LABEL_38:
     v20 = __p[0];
   }
 
-  if (*(a2 + 23) >= 0)
+  if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v21 = a2;
   }
 
   else
   {
-    v21 = *a2;
+    v21 = a2->__pn_.__r_.__value_.__r.__words[0];
   }
 
   rename(v20, v21, v12);
@@ -9414,12 +9250,12 @@ LABEL_38:
     v23 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a2 + 23);
-      v25 = *a2;
+      v24 = SHIBYTE(a2->__pn_.__r_.__value_.__r.__words[2]);
+      v25 = a2->__pn_.__r_.__value_.__r.__words[0];
       v26 = __error();
       if (v24 >= 0)
       {
-        v27 = a2;
+        v27 = &a2->__pn_.__r_.__value_.__l.__data_;
       }
 
       else
@@ -9429,9 +9265,9 @@ LABEL_38:
 
       v28 = *v26;
       *buf = 136446466;
-      v37 = v27;
-      v38 = 1026;
-      v39 = v28;
+      v36 = v27;
+      v37 = 1026;
+      v38 = v28;
       v15 = "NvStore,Failed to move temp file to primary dedicated,%{public}s,%{public}d";
       v16 = v23;
       v17 = 18;
@@ -9445,12 +9281,11 @@ LABEL_39:
 
   v29 = 1;
 LABEL_40:
-  if (v35 < 0)
+  if (v34 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -9506,16 +9341,16 @@ BOOL GnssHal::PlatformNvStore::existsInCache(GnssHal::PlatformNvStore *this, con
   return v9 != 0;
 }
 
-void sub_2454C1794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2454C1794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-BOOL GnssHal::PlatformNvStore::storeToCache(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL GnssHal::PlatformNvStore::storeToCache(uint64_t a1, uint64_t a2, unint64_t a3, gpsd::util **a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *(a2 + 24);
   v8 = v7;
   if (v7 >= 1)
@@ -9551,28 +9386,32 @@ BOOL GnssHal::PlatformNvStore::storeToCache(uint64_t a1, uint64_t a2, uint64_t a
       v18 = *(v17 + 8);
     }
 
-    v11 = *(a2 + 80) + *(a4 + 8) - *a4 - v18;
+    v11 = (a4[1] + *(a2 + 80)) - *a4 - v18;
     if (v11 < 8000000)
     {
       *(a2 + 80) = v11;
       GnssHal::PlatformNvStore::storeToProtobuf(a1, v10, a3, a4);
-LABEL_19:
-      result = 1;
-      goto LABEL_21;
+      return 1;
     }
 
     v15 = GpsdLogObjectGeneral;
     result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_21;
+      return result;
     }
 
-    goto LABEL_22;
+LABEL_22:
+    *buf = 134349312;
+    v22 = v11;
+    v23 = 2050;
+    v24 = 8000000;
+    _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "NvStore,NV_LIMIT_TOTAL_SIZE reached,%{public}lld,%{public}lld", buf, 0x16u);
+    return 0;
   }
 
 LABEL_5:
-  v11 = *(a4 + 8) - *a4 + *(a2 + 80);
+  v11 = a4[1] - *a4 + *(a2 + 80);
   if (v11 < 8000000)
   {
     *(a2 + 80) = v11;
@@ -9598,221 +9437,207 @@ LABEL_5:
     *(v14 + 64) |= 0x10u;
     *(v14 + 40) = Current;
     GnssHal::PlatformNvStore::storeToProtobuf(v20, v14, a3, a4);
-    goto LABEL_19;
+    return 1;
   }
 
   v15 = GpsdLogObjectGeneral;
   result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
   if (result)
   {
-LABEL_22:
-    *buf = 134349312;
-    v23 = v11;
-    v24 = 2050;
-    v25 = 8000000;
-    _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "NvStore,NV_LIMIT_TOTAL_SIZE reached,%{public}lld,%{public}lld", buf, 0x16u);
-    result = 0;
+    goto LABEL_22;
   }
 
-LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2454C1A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2454C1A50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t GnssHal::PlatformNvStore::writeCacheToDisk(GnssHal::PlatformNvStore *this, const GnssHal::PlatformNvStore::Cache *a2)
+uint64_t GnssHal::PlatformNvStore::writeCacheToDisk(GnssHal::PlatformNvStore *this, const GnssHal::PlatformNvStore::Cache *a2, char a3)
 {
   v43 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 79);
-  v3 = v2;
-  v4 = *(a2 + 8);
-  if ((v2 & 0x80u) == 0)
+  v3 = *(a2 + 79);
+  v4 = v3;
+  v5 = *(a2 + 8);
+  if ((v3 & 0x80u) == 0)
   {
-    v5 = *(a2 + 79);
+    v6 = *(a2 + 79);
   }
 
   else
   {
-    v5 = *(a2 + 8);
+    v6 = *(a2 + 8);
   }
 
-  if (v5)
+  if (!v6)
   {
-    v7 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEFAULT, "NvStore,writeCacheToDisk", buf, 2u);
-      v2 = *(a2 + 79);
-      v4 = *(a2 + 8);
-      v3 = *(a2 + 79);
-    }
+    return 1;
+  }
 
-    if (v3 >= 0)
-    {
-      v8 = v2;
-    }
+  v8 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "NvStore,writeCacheToDisk", buf, 2u);
+    v3 = *(a2 + 79);
+    v5 = *(a2 + 8);
+    v4 = *(a2 + 79);
+  }
 
-    else
-    {
-      v8 = v4;
-    }
+  if (v4 >= 0)
+  {
+    v9 = v3;
+  }
 
-    v9 = v35;
-    std::string::basic_string[abi:ne200100](v35, v8 + 4);
-    if (v36 < 0)
-    {
-      v9 = v35[0];
-    }
+  else
+  {
+    v9 = v5;
+  }
 
-    if (v8)
-    {
-      if (*(a2 + 79) >= 0)
-      {
-        v10 = a2 + 56;
-      }
+  v10 = v35;
+  std::string::basic_string[abi:ne200100](v35, v9 + 4);
+  if (v36 < 0)
+  {
+    v10 = v35[0];
+  }
 
-      else
-      {
-        v10 = *(a2 + 7);
-      }
-
-      memmove(v9, v10, v8);
-    }
-
-    strcpy(v9 + v8, ".tmp");
+  if (v9)
+  {
     if (*(a2 + 79) >= 0)
     {
-      v11 = *(a2 + 79);
+      v11 = a2 + 56;
     }
 
     else
     {
-      v11 = *(a2 + 8);
+      v11 = *(a2 + 7);
     }
 
-    v12 = __p;
-    std::string::basic_string[abi:ne200100](__p, v11 + 4);
-    if (v34 < 0)
-    {
-      v12 = __p[0];
-    }
+    memmove(v10, v11, v9);
+  }
 
-    if (v11)
-    {
-      if (*(a2 + 79) >= 0)
-      {
-        v13 = a2 + 56;
-      }
-
-      else
-      {
-        v13 = *(a2 + 7);
-      }
-
-      memmove(v12, v13, v11);
-    }
-
-    strcpy(v12 + v11, ".bak");
-    if (v36 >= 0)
-    {
-      v14 = v35;
-    }
-
-    else
-    {
-      v14 = v35[0];
-    }
-
-    unlink(v14);
-    if (v36 >= 0)
-    {
-      v15 = v35;
-    }
-
-    else
-    {
-      v15 = v35[0];
-    }
-
-    v16 = fopen(v15, "wb+");
-    v32 = v16;
-    if (v16)
-    {
-      gpsd::util::changeFileToClassD(v16, v17);
-      wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
-      v20 = GpsdLogObjectGeneral;
-      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        v24 = *(a2 + 10);
-        v25 = *(a2 + 6);
-        v26 = proto::gnsshal::NvStore::ByteSize(a2, v21);
-        *buf = 134349824;
-        v38 = 0;
-        v39 = 1026;
-        *v40 = v24;
-        *&v40[4] = 1026;
-        *&v40[6] = v25;
-        v41 = 1026;
-        v42 = v26;
-        _os_log_error_impl(&dword_2454AA000, v20, OS_LOG_TYPE_ERROR, "NvStore,Could not serialize to string,stringSize,%{public}zu,cacheVer,%{public}d,cacheNum,%{public}d,cacheBytes,%{public}d", buf, 0x1Eu);
-      }
-    }
-
-    else
-    {
-      v18 = __error();
-      v19 = GpsdLogObjectGeneral;
-      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        v27 = *v18;
-        v28 = v36;
-        v29 = v35[0];
-        v30 = strerror(v27);
-        v31 = v35;
-        if (v28 < 0)
-        {
-          v31 = v29;
-        }
-
-        *buf = 136446466;
-        v38 = v31;
-        v39 = 2082;
-        *v40 = v30;
-        _os_log_error_impl(&dword_2454AA000, v19, OS_LOG_TYPE_ERROR, "NvStore,Failed to open temp file,%{public}s,%{public}s", buf, 0x16u);
-      }
-    }
-
-    std::unique_ptr<__sFILE,GnssHal::PlatformNvStore::writeCacheToDisk(GnssHal::PlatformNvStore::Cache const&,BOOL)::$_0>::reset[abi:ne200100](&v32);
-    if (v34 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v36 < 0)
-    {
-      operator delete(v35[0]);
-    }
-
-    result = 0;
+  strcpy(v10 + v9, ".tmp");
+  if (*(a2 + 79) >= 0)
+  {
+    v12 = *(a2 + 79);
   }
 
   else
   {
-    result = 1;
+    v12 = *(a2 + 8);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  v13 = __p;
+  std::string::basic_string[abi:ne200100](__p, v12 + 4);
+  if (v34 < 0)
+  {
+    v13 = __p[0];
+  }
+
+  if (v12)
+  {
+    if (*(a2 + 79) >= 0)
+    {
+      v14 = a2 + 56;
+    }
+
+    else
+    {
+      v14 = *(a2 + 7);
+    }
+
+    memmove(v13, v14, v12);
+  }
+
+  strcpy(v13 + v12, ".bak");
+  if (v36 >= 0)
+  {
+    v15 = v35;
+  }
+
+  else
+  {
+    v15 = v35[0];
+  }
+
+  unlink(v15);
+  if (v36 >= 0)
+  {
+    v16 = v35;
+  }
+
+  else
+  {
+    v16 = v35[0];
+  }
+
+  v17 = fopen(v16, "wb+");
+  v32 = v17;
+  if (v17)
+  {
+    gpsd::util::changeFileToClassD(v17, v18);
+    wireless_diagnostics::google::protobuf::MessageLite::SerializeToString();
+    v21 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      v24 = *(a2 + 10);
+      v25 = *(a2 + 6);
+      v26 = proto::gnsshal::NvStore::ByteSize(a2, v22);
+      *buf = 134349824;
+      v38 = 0;
+      v39 = 1026;
+      *v40 = v24;
+      *&v40[4] = 1026;
+      *&v40[6] = v25;
+      v41 = 1026;
+      v42 = v26;
+      _os_log_error_impl(&dword_2454AA000, v21, OS_LOG_TYPE_ERROR, "NvStore,Could not serialize to string,stringSize,%{public}zu,cacheVer,%{public}d,cacheNum,%{public}d,cacheBytes,%{public}d", buf, 0x1Eu);
+    }
+  }
+
+  else
+  {
+    v19 = __error();
+    v20 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      v27 = *v19;
+      v28 = v36;
+      v29 = v35[0];
+      v30 = strerror(v27);
+      v31 = v35;
+      if (v28 < 0)
+      {
+        v31 = v29;
+      }
+
+      *buf = 136446466;
+      v38 = v31;
+      v39 = 2082;
+      *v40 = v30;
+      _os_log_error_impl(&dword_2454AA000, v20, OS_LOG_TYPE_ERROR, "NvStore,Failed to open temp file,%{public}s,%{public}s", buf, 0x16u);
+    }
+  }
+
+  std::unique_ptr<__sFILE,GnssHal::PlatformNvStore::writeCacheToDisk(GnssHal::PlatformNvStore::Cache const&,BOOL)::$_0>::reset[abi:ne200100](&v32);
+  if (v34 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v36 < 0)
+  {
+    operator delete(v35[0]);
+  }
+
+  return 0;
 }
 
-void sub_2454C211C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, FILE *a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_2454C211C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (a14 < 0)
   {
@@ -9835,21 +9660,21 @@ void sub_2454C211C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const GnssHal::PlatformNvStore::Cache *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
   {
-    v20 = a2 + 56;
-    v21 = *(a2 + 10);
+    v19 = a2 + 56;
+    v20 = *(a2 + 10);
     if (*(a2 + 79) < 0)
     {
-      v20 = *(a2 + 7);
+      v19 = *(a2 + 7);
     }
 
     *buf = 134349314;
-    v23 = v21;
-    v24 = 2082;
-    v25 = v20;
+    v22 = v20;
+    v23 = 2082;
+    v24 = v19;
     _os_log_debug_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEBUG, "NvStore,printState,currentSize,%{public}lld,filePath,%{public}s", buf, 0x16u);
   }
 
@@ -9900,17 +9725,17 @@ void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const 
           v16 = v6 - *(v9 + 48);
           v17 = *(v9 + 32);
           *buf = 134350336;
-          v23 = v11;
-          v24 = 2050;
-          v25 = v13;
-          v26 = 1026;
-          v27 = v14;
-          v28 = 2050;
-          v29 = v15;
-          v30 = 2050;
-          v31 = v16;
-          v32 = 2050;
-          v33 = v17;
+          v22 = v11;
+          v23 = 2050;
+          v24 = v13;
+          v25 = 1026;
+          v26 = v14;
+          v27 = 2050;
+          v28 = v15;
+          v29 = 2050;
+          v30 = v16;
+          v31 = 2050;
+          v32 = v17;
           _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "NvStore,printState,id,%{public}lld,size,%{public}zu,hash,%{public}x,createAgeSeconds,%{public}.1f,modAgeSeconds,%{public}.1f,modCount,%{public}lld", buf, 0x3Au);
           v8 = GpsdLogObjectGeneral;
           v5 = *(a2 + 6);
@@ -9922,6 +9747,67 @@ void GnssHal::PlatformNvStore::printState(GnssHal::PlatformNvStore *this, const 
       while (v7 < v5);
     }
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+uint64_t GnssHal::PlatformNvStore::clearFromCache(GnssHal::PlatformNvStore *this, GnssHal::PlatformNvStore::Cache *a2, unint64_t a3)
+{
+  v3 = *(a2 + 6);
+  if (v3 >= 1)
+  {
+    v6 = 0;
+    v7 = *(a2 + 2);
+    while (1)
+    {
+      v8 = *(v7 + 8 * v6);
+      if (*(v8 + 16) == a3)
+      {
+        break;
+      }
+
+      if (v3 == ++v6)
+      {
+        return 1;
+      }
+    }
+
+    if (v3 <= v6)
+    {
+      wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
+      wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
+      wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
+      wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(buf);
+      v8 = *(*(a2 + 2) + 8 * v6);
+    }
+
+    v9 = *(v8 + 24);
+    v10 = *(v9 + 23);
+    if (v10 < 0)
+    {
+      v10 = *(v9 + 8);
+    }
+
+    *(a2 + 10) -= v10;
+    *buf = 0;
+    v15 = 0;
+    v16 = 0;
+    GnssHal::PlatformNvStore::storeToProtobuf(this, v8, a3, buf);
+    if ((GnssHal::PlatformNvStore::writeCacheToDisk(v11, a2, 0) & 1) == 0)
+    {
+      v12 = GpsdLogObjectWarning;
+      if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEFAULT, "NvStore,clearFromCache,writeCacheToDisk failed", buf, 2u);
+      }
+    }
+  }
+
+  return 1;
+}
+
+void sub_2454C2524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
 }

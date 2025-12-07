@@ -19,22 +19,22 @@
   return v3;
 }
 
-void __32__FMAlertManager_sharedInstance__block_invoke()
+void __32__FMAlertManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = LogCategory_Unspecified(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __32__FMAlertManager_sharedInstance__block_invoke_cold_1(v0);
+    __32__FMAlertManager_sharedInstance__block_invoke_cold_1(v1);
   }
 
-  v1 = [[FMAlertManager alloc] initSingleton];
-  v2 = sharedInstance__instance_0;
-  sharedInstance__instance_0 = v1;
+  v2 = [[FMAlertManager alloc] initSingleton];
+  v3 = sharedInstance__instance_0;
+  sharedInstance__instance_0 = v2;
 }
 
 - (FMAlertManager)init
 {
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(FMAlertManager *)v3 init];
@@ -45,38 +45,39 @@ void __32__FMAlertManager_sharedInstance__block_invoke()
 
 - (id)initSingleton
 {
-  v7.receiver = self;
-  v7.super_class = FMAlertManager;
-  v2 = [(FMAlertManager *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = FMAlertManager;
+  v2 = [(FMAlertManager *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = LogCategory_Unspecified(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(FMAlertManager *)v3 initSingleton];
+      [(FMAlertManager *)v4 initSingleton];
     }
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    [(FMAlertManager *)v2 setActiveAlerts:dictionary];
+    [(FMAlertManager *)v3 setActiveAlerts:dictionary];
 
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    [(FMAlertManager *)v2 setActiveCFNotificationsByCategory:dictionary2];
+    [(FMAlertManager *)v3 setActiveCFNotificationsByCategory:dictionary2];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)activateAlert:(id)alert
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(alertCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     alertId = [alertCopy alertId];
     *buf = 138412546;
-    v49 = alertId;
-    v50 = 2048;
+    v48 = alertId;
+    v49 = 2048;
     category = [alertCopy category];
     _os_log_impl(&dword_24A2EE000, v5, OS_LOG_TYPE_INFO, "Will display %@:%ld", buf, 0x16u);
   }
@@ -180,14 +181,12 @@ void __32__FMAlertManager_sharedInstance__block_invoke()
 
   else
   {
-    v45 = LogCategory_Unspecified();
+    v45 = LogCategory_Unspecified(0);
     if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       [(FMAlertManager *)alertCopy activateAlert:buf, v45];
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __32__FMAlertManager_activateAlert___block_invoke(uint64_t a1)
@@ -205,16 +204,14 @@ void __32__FMAlertManager_activateAlert___block_invoke(uint64_t a1)
 
 - (void)activateAlert:(NSObject *)a3 .cold.1(void *a1, int *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a1 fm_logID];
   v6 = *a2;
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2048;
-  v11 = v6;
-  _os_log_error_impl(&dword_24A2EE000, a3, OS_LOG_TYPE_ERROR, "Error while creating a CFUserNotification %@: %ld", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2048;
+  v10 = v6;
+  _os_log_error_impl(&dword_24A2EE000, a3, OS_LOG_TYPE_ERROR, "Error while creating a CFUserNotification %@: %ld", &v7, 0x16u);
 }
 
 @end

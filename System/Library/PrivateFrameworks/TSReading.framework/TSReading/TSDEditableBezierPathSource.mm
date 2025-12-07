@@ -335,7 +335,7 @@ LABEL_25:
   _Block_object_dispose(&v35, 8);
 }
 
-uint64_t __45__TSDEditableBezierPathSource_setBezierPath___block_invoke(void *a1)
+void *__45__TSDEditableBezierPathSource_setBezierPath___block_invoke(void *a1)
 {
   v2 = *(*(a1[5] + 8) + 40);
   if (!v2)
@@ -1893,8 +1893,8 @@ LABEL_23:
     [v10 nodePoint];
     v45 = v36;
     v46 = v37;
-    TSDCurveBetween(&v40, v47, 0.0, at);
-    TSDCurveBetween(&v40, v52, at, 1.0);
+    TSDCurveBetween(0.0, at, &v40, v47);
+    TSDCurveBetween(at, 1.0, &v40, v52);
     [lastObject setOutControlPoint:{v48, v49}];
     [v10 setInControlPoint:{v52[4], v52[5]}];
     v29 = [TSDBezierNode bezierNodeWithPoint:v52[0] inControlPoint:v52[1] outControlPoint:v50, v51, v52[2], v52[3]];
@@ -2417,14 +2417,14 @@ LABEL_10:
   return TSDMixingTypeWithObject(self, object, v4);
 }
 
-uint64_t __52__TSDEditableBezierPathSource_mixingTypeWithObject___block_invoke()
+uint64_t __52__TSDEditableBezierPathSource_mixingTypeWithObject___block_invoke(uint64_t a1)
 {
   objc_opt_class();
   if (!TSUDynamicCast())
   {
-    v0 = [MEMORY[0x277D6C290] currentHandler];
-    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDEditableBezierPathSource mixingTypeWithObject:]_block_invoke"];
-    [v0 handleFailureInFunction:v1 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDEditableBezierPathSource.m"), 2344, @"nil object after cast"}];
+    v1 = [MEMORY[0x277D6C290] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDEditableBezierPathSource mixingTypeWithObject:]_block_invoke"];
+    [v1 handleFailureInFunction:v2 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDEditableBezierPathSource.m"), 2344, @"nil object after cast"}];
   }
 
   return 1;

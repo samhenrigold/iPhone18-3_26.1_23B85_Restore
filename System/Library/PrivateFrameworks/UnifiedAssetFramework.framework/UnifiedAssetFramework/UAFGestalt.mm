@@ -48,7 +48,7 @@ void __27__UAFGestalt_sharedManager__block_invoke()
 
 + (BOOL)dictionaryIsValid:(id)valid
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = validCopy;
   if (validCopy)
@@ -70,13 +70,13 @@ LABEL_16:
       v10 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315650;
-        v14 = "+[UAFGestalt dictionaryIsValid:]";
-        v15 = 2112;
-        v16 = v8;
-        v17 = 2112;
-        v18 = @"1.0.0";
-        _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Mismatched file version %@ vs %@", &v13, 0x20u);
+        v12 = 136315650;
+        v13 = "+[UAFGestalt dictionaryIsValid:]";
+        v14 = 2112;
+        v15 = v8;
+        v16 = 2112;
+        v17 = @"1.0.0";
+        _os_log_error_impl(&dword_1BCF2C000, v10, OS_LOG_TYPE_ERROR, "%s Mismatched file version %@ vs %@", &v12, 0x20u);
       }
     }
 
@@ -85,13 +85,13 @@ LABEL_16:
       v8 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315650;
-        v14 = "+[UAFGestalt dictionaryIsValid:]";
-        v15 = 2112;
-        v16 = v6;
-        v17 = 2112;
-        v18 = @"GestaltConfiguration";
-        _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Mismatched file type %@ vs %@", &v13, 0x20u);
+        v12 = 136315650;
+        v13 = "+[UAFGestalt dictionaryIsValid:]";
+        v14 = 2112;
+        v15 = v6;
+        v16 = 2112;
+        v17 = @"GestaltConfiguration";
+        _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Mismatched file type %@ vs %@", &v12, 0x20u);
       }
     }
 
@@ -102,45 +102,44 @@ LABEL_16:
   v6 = UAFGetLogCategory(&UAFLogContextClient);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315138;
-    v14 = "+[UAFGestalt dictionaryIsValid:]";
-    _os_log_error_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_ERROR, "%s dictionary is null", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "+[UAFGestalt dictionaryIsValid:]";
+    _os_log_error_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_ERROR, "%s dictionary is null", &v12, 0xCu);
   }
 
   v9 = 0;
 LABEL_17:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)predicateMatch:(id)match
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   v4 = [matchCopy objectForKeyedSubscript:@"TargetingPredicate"];
   if (v4)
   {
     v5 = v4;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v6 = [&unk_1F3B73290 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v6 = [&unk_1F3B73290 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(&unk_1F3B73290);
           }
 
-          v10 = *(*(&v22 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"'%@'", v10];
           if ([v5 containsString:v11])
           {
@@ -151,9 +150,9 @@ LABEL_17:
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v27 = "+[UAFGestalt predicateMatch:]";
-                v28 = 2112;
-                v29 = v10;
+                v26 = "+[UAFGestalt predicateMatch:]";
+                v27 = 2112;
+                v28 = v10;
                 _os_log_error_impl(&dword_1BCF2C000, v19, OS_LOG_TYPE_ERROR, "%s No mobile gestalt answer for %@", buf, 0x16u);
               }
 
@@ -169,7 +168,7 @@ LABEL_17:
           }
         }
 
-        v7 = [&unk_1F3B73290 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v7 = [&unk_1F3B73290 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v7)
         {
           continue;
@@ -183,9 +182,9 @@ LABEL_17:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "+[UAFGestalt predicateMatch:]";
-      v28 = 2114;
-      v29 = v5;
+      v26 = "+[UAFGestalt predicateMatch:]";
+      v27 = 2114;
+      v28 = v5;
       _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s Evaluating predicate string: '%{public}@'", buf, 0x16u);
     }
 
@@ -199,7 +198,7 @@ LABEL_17:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "+[UAFGestalt predicateMatch:]";
+      v26 = "+[UAFGestalt predicateMatch:]";
       _os_log_error_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_ERROR, "%s Missing predicate string", buf, 0xCu);
     }
 
@@ -208,7 +207,6 @@ LABEL_17:
 
 LABEL_21:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -232,7 +230,7 @@ LABEL_21:
 
 + (BOOL)deviceMatch:(id)match onMatch:(id)onMatch
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   onMatchCopy = onMatch;
   v6 = [match objectForKeyedSubscript:@"ValidConfigs"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -241,11 +239,11 @@ LABEL_21:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v26 = "+[UAFGestalt deviceMatch:onMatch:]";
-      v27 = 2112;
-      v28 = @"ValidConfigs";
-      v29 = 2112;
-      v30 = v6;
+      v25 = "+[UAFGestalt deviceMatch:onMatch:]";
+      v26 = 2112;
+      v27 = @"ValidConfigs";
+      v28 = 2112;
+      v29 = v6;
       _os_log_error_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_ERROR, "%s Invalid %@ value: %@", buf, 0x20u);
     }
 
@@ -253,12 +251,12 @@ LABEL_21:
     goto LABEL_27;
   }
 
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v8)
   {
     v15 = 0;
@@ -266,18 +264,18 @@ LABEL_21:
   }
 
   v9 = v8;
-  v19 = v6;
-  v10 = *v21;
+  v18 = v6;
+  v10 = *v20;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * i);
+      v12 = *(*(&v19 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -293,12 +291,12 @@ LABEL_21:
 
           onMatchCopy[2](onMatchCopy, v13);
           v15 = 1;
-          v6 = v19;
+          v6 = v18;
         }
 
         else
         {
-          v6 = v19;
+          v6 = v18;
           if ([(__CFString *)v14 isEqualToString:@"AllDevices"])
           {
             onMatchCopy[2](onMatchCopy, v13);
@@ -311,9 +309,9 @@ LABEL_21:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v26 = "+[UAFGestalt deviceMatch:onMatch:]";
-              v27 = 2112;
-              v28 = v14;
+              v25 = "+[UAFGestalt deviceMatch:onMatch:]";
+              v26 = 2112;
+              v27 = v14;
               _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s Unknown targeting type: %@", buf, 0x16u);
             }
 
@@ -325,7 +323,7 @@ LABEL_21:
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       continue;
@@ -335,11 +333,10 @@ LABEL_21:
   }
 
   v15 = 0;
-  v6 = v19;
+  v6 = v18;
 LABEL_26:
 
 LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -372,14 +369,14 @@ LABEL_27:
 
 + (id)dictionaryForGestalt:(id)gestalt
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   gestaltCopy = gestalt;
   v4 = [UAFGestalt urlForGestalt:gestaltCopy];
   if (v4)
   {
-    v16 = 0;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v4 error:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v4 error:&v15];
+    v6 = v15;
     v7 = v6;
     if (v5)
     {
@@ -405,7 +402,7 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v18 = "+[UAFGestalt dictionaryForGestalt:]";
+        v17 = "+[UAFGestalt dictionaryForGestalt:]";
         v10 = "%s Dictionary is not valid";
         v11 = v9;
         v12 = 12;
@@ -419,11 +416,11 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v18 = "+[UAFGestalt dictionaryForGestalt:]";
-        v19 = 2112;
-        v20 = v4;
-        v21 = 2112;
-        v22 = v7;
+        v17 = "+[UAFGestalt dictionaryForGestalt:]";
+        v18 = 2112;
+        v19 = v4;
+        v20 = 2112;
+        v21 = v7;
         v10 = "%s Error reading %@: %@";
         v11 = v9;
         v12 = 32;
@@ -440,52 +437,50 @@ LABEL_20:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "+[UAFGestalt dictionaryForGestalt:]";
-    v19 = 2112;
-    v20 = gestaltCopy;
+    v17 = "+[UAFGestalt dictionaryForGestalt:]";
+    v18 = 2112;
+    v19 = gestaltCopy;
     _os_log_impl(&dword_1BCF2C000, v7, OS_LOG_TYPE_DEFAULT, "%s Could not find config file for %@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)query:(id)query forKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   keyCopy = key;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v7 = [UAFGestalt dictionaryForGestalt:queryCopy];
   if (v7)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __27__UAFGestalt_query_forKey___block_invoke;
-    v12[3] = &unk_1E7FFE2A0;
-    v14 = &v15;
-    v13 = keyCopy;
-    if (![UAFGestalt deviceMatch:v7 onMatch:v12])
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __27__UAFGestalt_query_forKey___block_invoke;
+    v11[3] = &unk_1E7FFE2A0;
+    v13 = &v14;
+    v12 = keyCopy;
+    if (![UAFGestalt deviceMatch:v7 onMatch:v11])
     {
       v8 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v20 = "[UAFGestalt query:forKey:]";
-        v21 = 2114;
-        v22 = queryCopy;
+        v19 = "[UAFGestalt query:forKey:]";
+        v20 = 2114;
+        v21 = queryCopy;
         _os_log_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_DEFAULT, "%s No matching configs for %{public}@", buf, 0x16u);
       }
     }
 
-    v9 = *(v16 + 24);
+    v9 = *(v15 + 24);
   }
 
   else
@@ -493,8 +488,7 @@ LABEL_16:
     v9 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
   return v9 & 1;
 }
 
@@ -507,44 +501,43 @@ BOOL __27__UAFGestalt_query_forKey___block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)queryAllSupportedKeys:(id)keys
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__7;
-  v15 = __Block_byref_object_dispose__7;
-  v16 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__7;
+  v14 = __Block_byref_object_dispose__7;
+  v15 = 0;
   v4 = [UAFGestalt dictionaryForGestalt:keysCopy];
   v5 = MEMORY[0x1E695E0F0];
   if (v4)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __36__UAFGestalt_queryAllSupportedKeys___block_invoke;
-    v10[3] = &unk_1E7FFE2C8;
-    v10[4] = &v11;
-    if (![UAFGestalt deviceMatch:v4 onMatch:v10])
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __36__UAFGestalt_queryAllSupportedKeys___block_invoke;
+    v9[3] = &unk_1E7FFE2C8;
+    v9[4] = &v10;
+    if (![UAFGestalt deviceMatch:v4 onMatch:v9])
     {
       v6 = UAFGetLogCategory(&UAFLogContextClient);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[UAFGestalt queryAllSupportedKeys:]";
-        v19 = 2114;
-        v20 = keysCopy;
+        v17 = "[UAFGestalt queryAllSupportedKeys:]";
+        v18 = 2114;
+        v19 = keysCopy;
         _os_log_impl(&dword_1BCF2C000, v6, OS_LOG_TYPE_DEFAULT, "%s No matching configs for %{public}@", buf, 0x16u);
       }
 
-      v7 = v12[5];
-      v12[5] = v5;
+      v7 = v11[5];
+      v11[5] = v5;
     }
 
-    v5 = v12[5];
+    v5 = v11[5];
   }
 
-  _Block_object_dispose(&v11, 8);
-  v8 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
 
   return v5;
 }

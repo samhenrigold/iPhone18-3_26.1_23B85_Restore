@@ -51,7 +51,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -115,29 +115,29 @@
   if ([(NSMutableArray *)self->_frameCounterPerInterfaces count])
   {
     v13 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_frameCounterPerInterfaces, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     frameCounterPerInterfaces = self->_frameCounterPerInterfaces;
-    v15 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(frameCounterPerInterfaces);
           }
 
-          [v13 addObject:{objc_msgSend(*(*(&v21 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v13 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v16 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
@@ -146,16 +146,14 @@
     [dictionary setObject:v13 forKey:@"frameCounterPerInterface"];
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -204,39 +202,36 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = 0u;
-  v15 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   frameCounterPerInterfaces = self->_frameCounterPerInterfaces;
-  v6 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v13;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(frameCounterPerInterfaces);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        ++v9;
+        ++v8;
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v6 != v8);
+      v6 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -309,7 +304,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -331,40 +326,39 @@
   *(v6 + 88) = [(AWDWPA2Counters *)self->_ucastWPA2Counters copyWithZone:zone];
 
   *(v6 + 32) = [(AWDWPA2Counters *)self->_mcastWPA2Counters copyWithZone:zone];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   frameCounterPerInterfaces = self->_frameCounterPerInterfaces;
-  v8 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(frameCounterPerInterfaces);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * v11) copyWithZone:zone];
+        v12 = [*(*(&v14 + 1) + 8 * v11) copyWithZone:zone];
         [v6 addFrameCounterPerInterface:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)frameCounterPerInterfaces countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -373,7 +367,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 96);
     if (*&self->_has)
     {
       if ((*(equal + 96) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -467,7 +460,7 @@ LABEL_27:
 
 - (void)mergeFrom:(id)from
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (*(from + 96))
   {
     self->_timestamp = *(from + 1);
@@ -609,35 +602,33 @@ LABEL_27:
     [(AWDWiFiMetricsManagerChipCounters *)self setMcastWPA2Counters:?];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v23 = *(from + 2);
-  v24 = [v23 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v30;
+    v26 = *v29;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v30 != v26)
+        if (*v29 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        [(AWDWiFiMetricsManagerChipCounters *)self addFrameCounterPerInterface:*(*(&v29 + 1) + 8 * i)];
+        [(AWDWiFiMetricsManagerChipCounters *)self addFrameCounterPerInterface:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v25);
   }
-
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 @end

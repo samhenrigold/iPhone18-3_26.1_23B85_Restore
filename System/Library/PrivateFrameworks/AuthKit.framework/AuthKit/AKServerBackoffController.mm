@@ -151,7 +151,6 @@ void __55__AKServerBackoffController_configureFromHeaderFields___block_invoke(id
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldBackoffContext:(id)context
@@ -248,7 +247,6 @@ LABEL_19:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v24 & 1;
 }
 
@@ -360,7 +358,6 @@ id __57__AKServerBackoffController_serverBackoffInfoForContext___block_invoke(ui
 
   objc_storeStrong(&v25, 0);
   objc_storeStrong(v26, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v27;
 
   return v3;
@@ -654,7 +651,6 @@ LABEL_27:
 
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v49 & 1;
 }
 
@@ -738,7 +734,6 @@ LABEL_27:
   [(AKServerBackoffController *)selfCopy _setObject:v20 forKey:@"X-Apple-S-Backoff-Server-Info"];
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__AKServerBackoffController__updateServerBackoffInfoWithDictionary___block_invoke(void *a1, void *a2)
@@ -889,7 +884,6 @@ uint64_t __68__AKServerBackoffController__updateServerBackoffInfoWithDictionary_
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -988,7 +982,6 @@ uint64_t __68__AKServerBackoffController__updateServerBackoffInfoWithDictionary_
   v4 = MEMORY[0x1E69E5928](v24);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1090,34 +1083,8 @@ uint64_t __68__AKServerBackoffController__updateServerBackoffInfoWithDictionary_
       MEMORY[0x1E69E5920](absoluteString2);
       MEMORY[0x1E69E5920](v8);
       MEMORY[0x1E69E5920](absoluteString);
-      if ((v10 & 1) == 0)
+      if ((v10 & 1) == 0 || ((v19 = [v24 objectForKey:v23], (v18 = -[AKServerBackoffController _clientInfoForContext:matchingClients:](selfCopy, "_clientInfoForContext:matchingClients:", location[0], v19)) == 0) ? (v17 = 0) : (v5 = v18, v28 = @"u", v29 = v23, v6 = objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v29, &v28, 1), v27 = objc_msgSend(v5, "aaf_dictionaryByAddingEntriesFromDictionary:"), MEMORY[0x1E69E5920](v6), v17 = 1), objc_storeStrong(&v18, 0), objc_storeStrong(&v19, 0), !v17))
       {
-        goto LABEL_11;
-      }
-
-      v19 = [v24 objectForKey:v23];
-      v18 = [(AKServerBackoffController *)selfCopy _clientInfoForContext:location[0] matchingClients:v19];
-      if (v18)
-      {
-        v5 = v18;
-        v28 = @"u";
-        v29 = v23;
-        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        v27 = [v5 aaf_dictionaryByAddingEntriesFromDictionary:?];
-        MEMORY[0x1E69E5920](v6);
-        v17 = 1;
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      objc_storeStrong(&v18, 0);
-      objc_storeStrong(&v19, 0);
-      if (!v17)
-      {
-LABEL_11:
         v17 = 0;
       }
 
@@ -1161,7 +1128,6 @@ LABEL_17:
 
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v27;
 
   return v3;
@@ -1299,7 +1265,6 @@ LABEL_27:
 
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = v40;
 
   return v4;

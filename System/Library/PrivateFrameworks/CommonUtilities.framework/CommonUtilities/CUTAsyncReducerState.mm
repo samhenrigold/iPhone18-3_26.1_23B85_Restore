@@ -9,43 +9,43 @@
 - (void)continueWithResult:(id)result
 {
   resultCopy = result;
-  continueBlock = [(CUTAsyncReducerState *)self continueBlock];
+  v8 = objc_msgSend_continueBlock(self, v6, v7);
 
-  if (!continueBlock)
+  if (!v8)
   {
-    sub_1B2330D48(a2, self);
+    sub_1B2330D48(a2, self, v10);
   }
 
-  continueBlock2 = [(CUTAsyncReducerState *)self continueBlock];
-  continueBlock2[2](continueBlock2, resultCopy);
+  v11 = objc_msgSend_continueBlock(self, v9, v10);
+  v11[2](v11, resultCopy);
 }
 
 - (void)cancelWithError:(id)error
 {
   errorCopy = error;
-  cancelBlock = [(CUTAsyncReducerState *)self cancelBlock];
+  v8 = objc_msgSend_cancelBlock(self, v6, v7);
 
-  if (!cancelBlock)
+  if (!v8)
   {
-    sub_1B2330DC4(a2, self);
+    sub_1B2330DC4(a2, self, v10);
   }
 
-  cancelBlock2 = [(CUTAsyncReducerState *)self cancelBlock];
-  cancelBlock2[2](cancelBlock2, errorCopy);
+  v11 = objc_msgSend_cancelBlock(self, v9, v10);
+  v11[2](v11, errorCopy);
 }
 
 - (void)stopWithResult:(id)result
 {
   resultCopy = result;
-  stopBlock = [(CUTAsyncReducerState *)self stopBlock];
+  v8 = objc_msgSend_stopBlock(self, v6, v7);
 
-  if (!stopBlock)
+  if (!v8)
   {
-    sub_1B2330E40(a2, self);
+    sub_1B2330E40(a2, self, v10);
   }
 
-  stopBlock2 = [(CUTAsyncReducerState *)self stopBlock];
-  stopBlock2[2](stopBlock2, resultCopy);
+  v11 = objc_msgSend_stopBlock(self, v9, v10);
+  v11[2](v11, resultCopy);
 }
 
 @end

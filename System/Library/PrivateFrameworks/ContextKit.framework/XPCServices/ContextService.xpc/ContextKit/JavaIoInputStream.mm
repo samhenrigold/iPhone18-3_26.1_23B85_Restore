@@ -26,7 +26,7 @@
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if (withInt > 0)
   {
     v10 = 0;

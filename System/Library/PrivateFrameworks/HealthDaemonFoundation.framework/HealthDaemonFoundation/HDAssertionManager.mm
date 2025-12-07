@@ -82,20 +82,20 @@
 
 + (id)_sharedBudgetTimerQueue
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __45__HDAssertionManager__sharedBudgetTimerQueue__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (_sharedBudgetTimerQueue_onceToken != -1)
   {
     dispatch_once(&_sharedBudgetTimerQueue_onceToken, block);
   }
 
-  v1 = _sharedBudgetTimerQueue_queue;
+  v2 = _sharedBudgetTimerQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 - (void)dealloc
@@ -116,7 +116,6 @@
 
 uint64_t __45__HDAssertionManager__sharedBudgetTimerQueue__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   _sharedBudgetTimerQueue_queue = HKCreateSerialDispatchQueue();
 
   return MEMORY[0x2821F96F8]();
@@ -218,7 +217,7 @@ void __61__HDAssertionManager_ownerIdentifiersForAssertionIdentifier___block_inv
 
 - (BOOL)takeAssertion:(id)assertion preNotificationBlock:(id)block
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
@@ -253,9 +252,9 @@ LABEL_24:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v38 = assertionIdentifier;
-        v39 = 2114;
-        v40 = assertionCopy;
+        v37 = assertionIdentifier;
+        v38 = 2114;
+        v39 = assertionCopy;
         _os_log_impl(&dword_25156C000, v24, OS_LOG_TYPE_INFO, "%{public}@: Cannot retake invalidated assertion %{public}@", buf, 0x16u);
       }
     }
@@ -274,9 +273,9 @@ LABEL_24:
         else
         {
           v15 = [[_HDAssertionRecord alloc] initWithAssertionIdentifier:assertionIdentifier];
-          v27 = self->_assertionRecordsByIdentifier;
+          v26 = self->_assertionRecordsByIdentifier;
           assertionIdentifier2 = [assertionCopy assertionIdentifier];
-          [(NSMutableDictionary *)v27 setObject:v15 forKeyedSubscript:assertionIdentifier2];
+          [(NSMutableDictionary *)v26 setObject:v15 forKeyedSubscript:assertionIdentifier2];
 
           if (!v15)
           {
@@ -313,34 +312,34 @@ LABEL_15:
               if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
                 *buf = 138543618;
-                v38 = assertionIdentifier;
-                v39 = 2114;
-                v40 = assertionCopy;
+                v37 = assertionIdentifier;
+                v38 = 2114;
+                v39 = assertionCopy;
                 _os_log_impl(&dword_25156C000, v21, OS_LOG_TYPE_INFO, "%{public}@: Assertion %{public}@ already taken", buf, 0x16u);
               }
             }
 
             else
             {
-              v34[0] = MEMORY[0x277D85DD0];
-              v34[1] = 3221225472;
-              v34[2] = __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke;
-              v34[3] = &unk_2796BDA28;
-              v35 = v15;
-              v29 = assertionCopy;
-              v36 = v29;
-              [(HDAssertionManager *)self _lock_consumeBudgetsThenResetTimerWithIntermediateBlock:v34];
-              v30 = [(NSMutableDictionary *)self->_observerSetsByAssertionIdentifier objectForKeyedSubscript:assertionIdentifier];
-              v31[0] = MEMORY[0x277D85DD0];
-              v31[1] = 3221225472;
-              v31[2] = __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_2;
-              v31[3] = &unk_2796BDC68;
-              v33 = sel_assertionManager_assertionTaken_;
-              v31[4] = self;
-              v32 = v29;
-              [v30 notifyObservers:v31];
+              v33[0] = MEMORY[0x277D85DD0];
+              v33[1] = 3221225472;
+              v33[2] = __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke;
+              v33[3] = &unk_2796BDA28;
+              v34 = v15;
+              v28 = assertionCopy;
+              v35 = v28;
+              [(HDAssertionManager *)self _lock_consumeBudgetsThenResetTimerWithIntermediateBlock:v33];
+              v29 = [(NSMutableDictionary *)self->_observerSetsByAssertionIdentifier objectForKeyedSubscript:assertionIdentifier];
+              v30[0] = MEMORY[0x277D85DD0];
+              v30[1] = 3221225472;
+              v30[2] = __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_2;
+              v30[3] = &unk_2796BDC68;
+              v32 = sel_assertionManager_assertionTaken_;
+              v30[4] = self;
+              v31 = v28;
+              [v29 notifyObservers:v30];
 
-              v21 = v35;
+              v21 = v34;
             }
 
             goto LABEL_15;
@@ -356,11 +355,11 @@ LABEL_15:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v38 = assertionIdentifier;
-        v39 = 2114;
-        v40 = assertionCopy;
-        v41 = 2048;
-        v42 = v13;
+        v37 = assertionIdentifier;
+        v38 = 2114;
+        v39 = assertionCopy;
+        v40 = 2048;
+        v41 = v13;
         _os_log_error_impl(&dword_25156C000, v24, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected state for assertion %{public}@: %ld", buf, 0x20u);
       }
     }
@@ -372,18 +371,15 @@ LABEL_15:
   v8 = 0;
 LABEL_25:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_2(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[6];
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 assertionManager:a1[4] assertionTaken:a1[5]];
+    [v3 assertionManager:a1[4] assertionTaken:a1[5]];
   }
 }
 
@@ -433,79 +429,78 @@ void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_
 
 - (void)removeObserver:(id)observer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_observerSetsByAssertionIdentifier;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(NSMutableDictionary *)self->_observerSetsByAssertionIdentifier objectForKeyedSubscript:*(*(&v12 + 1) + 8 * v9), v12];
+        v10 = [(NSMutableDictionary *)self->_observerSetsByAssertionIdentifier objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v9), v11];
         [v10 unregisterObserver:observerCopy];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&self->_lock);
   if (!self->_invalidated)
   {
     self->_invalidated = 1;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     allValues = [(NSMutableDictionary *)self->_assertionRecordsByIdentifier allValues];
-    v5 = [allValues countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v36;
+      v7 = *v35;
       do
       {
         v8 = 0;
         do
         {
-          if (*v36 != v7)
+          if (*v35 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v9 = *(*(&v35 + 1) + 8 * v8);
+          v9 = *(*(&v34 + 1) + 8 * v8);
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           if (v9)
           {
             v10 = *(v9 + 16);
@@ -517,24 +512,24 @@ void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_
           }
 
           objectEnumerator = [v10 objectEnumerator];
-          v12 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v40 count:16];
+          v12 = [objectEnumerator countByEnumeratingWithState:&v30 objects:v39 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v32;
+            v14 = *v31;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v32 != v14)
+                if (*v31 != v14)
                 {
                   objc_enumerationMutation(objectEnumerator);
                 }
 
-                [v3 addObject:*(*(&v31 + 1) + 8 * i)];
+                [v3 addObject:*(*(&v30 + 1) + 8 * i)];
               }
 
-              v13 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v40 count:16];
+              v13 = [objectEnumerator countByEnumeratingWithState:&v30 objects:v39 count:16];
             }
 
             while (v13);
@@ -544,7 +539,7 @@ void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_
         }
 
         while (v8 != v6);
-        v16 = [allValues countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v16 = [allValues countByEnumeratingWithState:&v34 objects:v40 count:16];
         v6 = v16;
       }
 
@@ -567,35 +562,33 @@ void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v21 = v3;
-  v22 = [v21 countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [*(*(&v27 + 1) + 8 * j) _invalidateAndRelease:{0, v27}];
+        [*(*(&v26 + 1) + 8 * j) _invalidateAndRelease:{0, v26}];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_releaseAssertion:(id)assertion
@@ -609,22 +602,20 @@ void __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke_
 
 void __53__HDAssertionManager__postNotification_forAssertion___block_invoke(void *a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = a1[4];
   v4 = a1[5];
   v5 = a1[6];
-  v8 = @"HDAssertionManagerAssertionKey";
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"HDAssertionManagerAssertionKey";
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v2 postNotificationName:v3 object:v4 userInfo:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_enumerateActiveAssertionsWithIdentifier:(void *)identifier handler:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   identifierCopy = identifier;
   if (self)
@@ -632,36 +623,36 @@ void __53__HDAssertionManager__postNotification_forAssertion___block_invoke(void
     os_unfair_lock_assert_owner((self + 8));
     v7 = [*(self + 24) objectForKeyedSubscript:v5];
     v8 = v7;
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     if (v7)
     {
       v7 = v7[2];
     }
 
     objectEnumerator = [v7 objectEnumerator];
-    v10 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
 LABEL_6:
       v13 = 0;
       while (1)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         if ([v14 state] == 2)
         {
-          v16 = 0;
-          identifierCopy[2](identifierCopy, v14, &v16);
-          if (v16)
+          v15 = 0;
+          identifierCopy[2](identifierCopy, v14, &v15);
+          if (v15)
           {
             break;
           }
@@ -669,7 +660,7 @@ LABEL_6:
 
         if (v11 == ++v13)
         {
-          v11 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v11 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v11)
           {
             goto LABEL_6;
@@ -680,8 +671,6 @@ LABEL_6:
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)activeAssertionsForIdentifier:(id)identifier
@@ -691,12 +680,13 @@ LABEL_6:
   v6 = objc_alloc_init(v4);
   os_unfair_lock_lock(&self->_lock);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_1(v6);
+  v7 = v6;
+  OUTLINED_FUNCTION_2_1(v7, v8);
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = [v6 copy];
+  v9 = [v6 copy];
 
-  return v7;
+  return v9;
 }
 
 - (id)allAssertionsForIdentifier:(id)identifier
@@ -734,12 +724,13 @@ LABEL_6:
   v6 = [v4 set];
   os_unfair_lock_lock(&self->_lock);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2_1(v6);
+  v7 = v6;
+  OUTLINED_FUNCTION_2_1(v7, v8);
 
   os_unfair_lock_unlock(&self->_lock);
-  v7 = [v6 copy];
+  v9 = [v6 copy];
 
-  return v7;
+  return v9;
 }
 
 uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_invoke(uint64_t a1)
@@ -819,7 +810,7 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
 
 - (void)_lock_releaseAssertion:(uint64_t)assertion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (assertion)
   {
@@ -830,62 +821,60 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
       v5 = [*(assertion + 24) objectForKeyedSubscript:assertionIdentifier];
       if (v5)
       {
-        v7 = v5;
-        v8 = *(v5 + 16);
-        v9 = [v8 count];
-        [v8 removeObject:v3];
-        v10 = [v8 count];
-        if (v10 == v9)
+        v6 = v5;
+        v7 = *(v5 + 16);
+        v8 = [v7 count];
+        [v7 removeObject:v3];
+        v9 = [v7 count];
+        if (v9 == v8)
         {
           _HKInitializeLogging();
-          v11 = HKLogAssertions();
-          v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+          v10 = HKLogAssertions();
+          v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-          if (v12)
+          if (v11)
           {
-            v13 = HKLogAssertions();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            v12 = HKLogAssertions();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543618;
-              v19 = assertionIdentifier;
-              v20 = 2114;
-              v21 = v3;
-              _os_log_debug_impl(&dword_25156C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@: Released %{public}@ was not found", buf, 0x16u);
+              v18 = assertionIdentifier;
+              v19 = 2114;
+              v20 = v3;
+              _os_log_debug_impl(&dword_25156C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: Released %{public}@ was not found", buf, 0x16u);
             }
           }
         }
 
-        if (!v10)
+        if (!v9)
         {
           [*(assertion + 24) removeObjectForKey:assertionIdentifier];
           if (![*(assertion + 24) count])
           {
-            v14 = *(assertion + 24);
+            v13 = *(assertion + 24);
             *(assertion + 24) = 0;
           }
         }
 
         [assertion _handleAssertionReleased:*(assertion + 24) != 0];
-        v15 = [*(assertion + 32) objectForKeyedSubscript:assertionIdentifier];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __45__HDAssertionManager__lock_releaseAssertion___block_invoke;
-        v16[3] = &unk_2796BDC90;
-        v16[4] = assertion;
-        v17 = v3;
-        [v15 notifyObservers:v16];
+        v14 = [*(assertion + 32) objectForKeyedSubscript:assertionIdentifier];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __45__HDAssertionManager__lock_releaseAssertion___block_invoke;
+        v15[3] = &unk_2796BDC90;
+        v15[4] = assertion;
+        v16 = v3;
+        [v14 notifyObservers:v15];
 
         [(HDAssertionManager *)assertion _postNotification:assertionIdentifier forAssertion:?];
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_budgetConsumptionTimerDidFire
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = OUTLINED_FUNCTION_5(self);
@@ -899,52 +888,50 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
       v5 = HKLogAssertions();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v7 = 138543362;
-        v8 = v1;
-        _os_log_impl(&dword_25156C000, v5, OS_LOG_TYPE_INFO, "%{public}@: Budget Consumption timer fired.", &v7, 0xCu);
+        v6 = 138543362;
+        v7 = v1;
+        _os_log_impl(&dword_25156C000, v5, OS_LOG_TYPE_INFO, "%{public}@: Budget Consumption timer fired.", &v6, 0xCu);
       }
     }
 
     [(HDAssertionManager *)v1 _lock_consumeBudgetsThenResetTimerWithIntermediateBlock:?];
     os_unfair_lock_unlock(v1 + 2);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_setBudgetConsumptionTimerWithStartTime:(uint64_t)time
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (time)
   {
     v4 = OUTLINED_FUNCTION_5(time);
     os_unfair_lock_assert_owner(v4);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     allValues = [*(v2 + 24) allValues];
-    v6 = [allValues countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v36;
+      v8 = *v35;
       v9 = 1.79769313e308;
       do
       {
         v10 = 0;
         do
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v11 = *(*(&v35 + 1) + 8 * v10);
+          v11 = *(*(&v34 + 1) + 8 * v10);
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           if (v11)
           {
             v12 = *(v11 + 16);
@@ -956,21 +943,21 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
           }
 
           objectEnumerator = [v12 objectEnumerator];
-          v14 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v14 = [objectEnumerator countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v32;
+            v16 = *v31;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v32 != v16)
+                if (*v31 != v16)
                 {
                   objc_enumerationMutation(objectEnumerator);
                 }
 
-                v18 = *(*(&v31 + 1) + 8 * i);
+                v18 = *(*(&v30 + 1) + 8 * i);
                 [v18 remainingBudget];
                 if (v9 >= v19)
                 {
@@ -980,7 +967,7 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
                 [v18 _setBudgetIntervalStartTime:a2];
               }
 
-              v15 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v15 = [objectEnumerator countByEnumeratingWithState:&v30 objects:v38 count:16];
             }
 
             while (v15);
@@ -990,7 +977,7 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
         }
 
         while (v10 != v7);
-        v20 = [allValues countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v20 = [allValues countByEnumeratingWithState:&v34 objects:v39 count:16];
         v7 = v20;
       }
 
@@ -1014,14 +1001,14 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
         dispatch_source_set_timer(*(v2 + 48), v23, 0xFFFFFFFFFFFFFFFFLL, 0);
         objc_initWeak(&location, v2);
         v26 = *(v2 + 48);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __67__HDAssertionManager__lock_setBudgetConsumptionTimerWithStartTime___block_invoke;
-        v28[3] = &unk_2796BDCB8;
-        objc_copyWeak(&v29, &location);
-        dispatch_source_set_event_handler(v26, v28);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __67__HDAssertionManager__lock_setBudgetConsumptionTimerWithStartTime___block_invoke;
+        v27[3] = &unk_2796BDCB8;
+        objc_copyWeak(&v28, &location);
+        dispatch_source_set_event_handler(v26, v27);
         dispatch_activate(*(v2 + 48));
-        objc_destroyWeak(&v29);
+        objc_destroyWeak(&v28);
         objc_destroyWeak(&location);
       }
     }
@@ -1030,44 +1017,42 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
     {
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_consumeBudgetsThroughTime:(uint64_t)time
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (time)
   {
     v4 = OUTLINED_FUNCTION_5(time);
     os_unfair_lock_assert_owner(v4);
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v26 = v2;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v25 = v2;
     obj = [*(v2 + 24) allValues];
-    v5 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v5 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v37;
+      v8 = *v36;
       do
       {
         v9 = 0;
         do
         {
-          if (*v37 != v8)
+          if (*v36 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v36 + 1) + 8 * v9);
+          v10 = *(*(&v35 + 1) + 8 * v9);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           if (v10)
           {
             v11 = *(v10 + 16);
@@ -1079,21 +1064,21 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
           }
 
           objectEnumerator = [v11 objectEnumerator];
-          v13 = [objectEnumerator countByEnumeratingWithState:&v32 objects:v41 count:16];
+          v13 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v40 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v33;
+            v15 = *v32;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v33 != v15)
+                if (*v32 != v15)
                 {
                   objc_enumerationMutation(objectEnumerator);
                 }
 
-                v17 = *(*(&v32 + 1) + 8 * i);
+                v17 = *(*(&v31 + 1) + 8 * i);
                 if ([v17 _consumeFromBudgetThroughTime:a2])
                 {
                   if (!v7)
@@ -1105,7 +1090,7 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
                 }
               }
 
-              v14 = [objectEnumerator countByEnumeratingWithState:&v32 objects:v41 count:16];
+              v14 = [objectEnumerator countByEnumeratingWithState:&v31 objects:v40 count:16];
             }
 
             while (v14);
@@ -1115,7 +1100,7 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
         }
 
         while (v9 != v6);
-        v18 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v18 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
         v6 = v18;
       }
 
@@ -1127,38 +1112,36 @@ uint64_t __57__HDAssertionManager_takeAssertion_preNotificationBlock___block_inv
       v7 = 0;
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v19 = v7;
-    v20 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v29;
+      v22 = *v28;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v29 != v22)
+          if (*v28 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v28 + 1) + 8 * j);
+          v24 = *(*(&v27 + 1) + 8 * j);
           [v24 _invalidateAndRelease:0];
-          [(HDAssertionManager *)v26 _lock_releaseAssertion:v24];
+          [(HDAssertionManager *)v25 _lock_releaseAssertion:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v28 objects:v40 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
       }
 
       while (v21);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDAssertionManager__lock_setBudgetConsumptionTimerWithStartTime___block_invoke(uint64_t a1)

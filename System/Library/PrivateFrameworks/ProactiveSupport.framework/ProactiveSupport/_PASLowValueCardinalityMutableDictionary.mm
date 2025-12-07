@@ -51,7 +51,7 @@ LABEL_9:
 
 - (id)allKeysForObject:(id)object
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v5 = objc_opt_new();
   v6 = [(NSMutableArray *)self->_objectsAndKeys count];
@@ -67,28 +67,28 @@ LABEL_9:
       {
         v10 = objectCopy;
         v11 = [(NSMutableArray *)self->_objectsAndKeys objectAtIndexedSubscript:v8 | 1];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              [v5 addObject:*(*(&v19 + 1) + 8 * i)];
+              [v5 addObject:*(*(&v18 + 1) + 8 * i)];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v13);
@@ -103,8 +103,6 @@ LABEL_9:
 
     while (v8 < v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

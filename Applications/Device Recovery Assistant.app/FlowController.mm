@@ -13,6 +13,7 @@
 - (void)performNextStepWithInfo:(id)info;
 - (void)reboot;
 - (void)rebootToNeRD;
+- (void)setUserApprovedDiagnosticsSubmission:(BOOL)submission;
 @end
 
 @implementation FlowController
@@ -52,7 +53,7 @@
 
 - (void)disableRecoveryAutoBoot
 {
-  v3 = sub_100012608();
+  v3 = sub_100012608(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -73,7 +74,7 @@
 {
   infoCopy = info;
   v5 = [(FlowController *)self _nextStepWithUserInfo:infoCopy];
-  v6 = sub_100012608();
+  v6 = sub_100012608(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [FlowController _descriptionForStep:v5];
@@ -255,6 +256,13 @@ LABEL_28:
   block[3] = &unk_100028938;
   block[4] = self;
   dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)setUserApprovedDiagnosticsSubmission:(BOOL)submission
+{
+  submissionCopy = submission;
+  deviceRecoveryController = [(FlowController *)self deviceRecoveryController];
+  [deviceRecoveryController setUserApprovedDiagnosticsSubmission:submissionCopy];
 }
 
 - (BOOL)userApprovedDiagnosticsSubmission

@@ -1,19 +1,9 @@
 @interface ARCoachingInstanceTransform
 - (ARCoachingInstanceTransform)init:(__n128)init;
-- (__n128)transform;
 - (void)doTransform;
 @end
 
 @implementation ARCoachingInstanceTransform
-
-- (__n128)transform
-{
-  result = *(self + 80);
-  v2 = *(self + 96);
-  v3 = *(self + 112);
-  v4 = *(self + 128);
-  return result;
-}
 
 - (ARCoachingInstanceTransform)init:(__n128)init
 {

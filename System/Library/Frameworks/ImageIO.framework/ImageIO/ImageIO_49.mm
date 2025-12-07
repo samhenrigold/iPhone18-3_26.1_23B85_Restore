@@ -1,3832 +1,6 @@
-void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
+void sub_18615F014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  if (a2 > (result[2] - *result) >> 3)
-  {
-    if (!(a2 >> 61))
-    {
-      std::__allocate_at_least[abi:fe200100]<std::allocator<unsigned long long>>(result, a2);
-    }
-
-    std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-  }
-
-  return result;
-}
-
-uint64_t AdobeXMPCore_Int::ConfigurableImpl::Size(AdobeXMPCore_Int::ConfigurableImpl *this)
-{
-  memset(v6, 0, sizeof(v6));
-  (*(*(this + *(*this - 304)) + 256))(&v4, this + *(*this - 304));
-  AdobeXMPCore_Int::AutoSharedLock::AutoSharedLock(v6, &v4, 0);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v5);
-  }
-
-  v2 = *(this + 3);
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(v6);
-  return v2;
-}
-
-void sub_18614FEE8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
-{
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a11);
-  }
-
-  __cxa_call_unexpected(a1);
-}
-
-uint64_t AdobeXMPCore_Int::ConfigurableImpl::GetDataType(AdobeXMPCore_Int::ConfigurableImpl *this, const unint64_t *a2)
-{
-  v3 = (*(*(this + *(*this - 304)) + 208))(this + *(*this - 304), a2);
-  v4 = v3;
-  if (*(this + 48) == 1)
-  {
-    v5 = v3.i32[0] >> 8;
-    v6 = v3.u8[2];
-    v7 = v3.u8[3];
-    v8 = HIDWORD(*&v3);
-    v9 = *&v3 >> 40;
-    v10 = vcgt_u8(0x1A1A1A1A1A1A1A1ALL, vadd_s8(v3, 0xBFBFBFBFBFBFBFBFLL));
-    v11 = HIWORD(*&v3);
-    if (v10.i8[0])
-    {
-      v12 = v3.i8[0] | 0x20;
-    }
-
-    else
-    {
-      v12 = v3.i8[0];
-    }
-
-    if (v10.i8[1])
-    {
-      LOBYTE(v5) = v3.i8[1] | 0x20;
-    }
-
-    if (v10.i8[2])
-    {
-      v6 = v3.i8[2] | 0x20;
-    }
-
-    if (v10.i8[3])
-    {
-      v7 = v3.i8[3] | 0x20;
-    }
-
-    if (v10.i8[4])
-    {
-      LOBYTE(v8) = v3.i8[4] | 0x20;
-    }
-
-    if (v10.i8[5])
-    {
-      LOBYTE(v9) = v3.i8[5] | 0x20;
-    }
-
-    if (v10.i8[6])
-    {
-      LOBYTE(v11) = v3.i8[6] | 0x20;
-    }
-
-    if (v10.i8[7])
-    {
-      v13 = v3.u8[7] | 0x20u;
-    }
-
-    else
-    {
-      v13 = HIBYTE(*&v3);
-    }
-
-    v4 = (v11 << 48) | (v13 << 56) | (v9 << 40) | (v8 << 32) | (v7 << 24) | (v6 << 16) | (v5 << 8) | v12;
-  }
-
-  memset(v25, 0, sizeof(v25));
-  (*(*(this + *(*this - 304)) + 256))(&v23, this + *(*this - 304));
-  AdobeXMPCore_Int::AutoSharedLock::AutoSharedLock(v25, &v23, 0);
-  if (v24)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v24);
-  }
-
-  v16 = *(this + 2);
-  v15 = this + 16;
-  v14 = v16;
-  if (!v16)
-  {
-    goto LABEL_31;
-  }
-
-  v17 = v15;
-  do
-  {
-    v18 = *(v14 + 4);
-    v19 = v18 >= v4;
-    v20 = v18 < v4;
-    if (v19)
-    {
-      v17 = v14;
-    }
-
-    v14 = *&v14[8 * v20];
-  }
-
-  while (v14);
-  if (v17 != v15 && v4 >= *(v17 + 4))
-  {
-    v21 = *(v17 + 10);
-  }
-
-  else
-  {
-LABEL_31:
-    v21 = 0;
-  }
-
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(v25);
-  return v21;
-}
-
-void sub_186150164(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
-{
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::ConfigurableImpl::SetAllowedKeys(AdobeXMPCore_Int::ConfigurableImpl *this, unint64_t *a2, uint64_t a3)
-{
-  memset(v9, 0, sizeof(v9));
-  (*(*(this + *(*this - 304)) + 256))(&v7, this + *(*this - 304));
-  AdobeXMPCore_Int::AutoSharedLock::AutoSharedLock(v9, &v7, 1);
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v8);
-  }
-
-  v6 = *(this + 4);
-  if (v6)
-  {
-    std::__tree<unsigned long long>::destroy(*(this + 4), *(v6 + 8));
-    MEMORY[0x186602850](v6, 0x1020C4062D53EE8);
-    *(this + 4) = 0;
-  }
-
-  if (a2 && a3)
-  {
-    operator new();
-  }
-
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(v9);
-}
-
-void sub_18615044C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(va);
-  _Unwind_Resume(a1);
-}
-
-void AdobeXMPCore_Int::ConfigurableImpl::SetAllowedValueTypesForKeys(char *a1, uint64_t a2, uint64_t a3)
-{
-  memset(v9, 0, sizeof(v9));
-  (*(*&a1[*(*a1 - 304)] + 256))(&v7, &a1[*(*a1 - 304)]);
-  AdobeXMPCore_Int::AutoSharedLock::AutoSharedLock(v9, &v7, 1);
-  if (v8)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v8);
-  }
-
-  v6 = *(a1 + 5);
-  if (v6)
-  {
-    std::__tree<unsigned long long>::destroy(*(a1 + 5), *(v6 + 8));
-    MEMORY[0x186602850](v6, 0x1020C4062D53EE8);
-    *(a1 + 5) = 0;
-  }
-
-  if (a2 && a3)
-  {
-    operator new();
-  }
-
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(v9);
-}
-
-void sub_186150744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(va);
-  _Unwind_Resume(a1);
-}
-
-void AdobeXMPCore_Int::ConfigurableImpl::~ConfigurableImpl(AdobeXMPCore_Int::ConfigurableImpl *this, uint64_t *a2)
-{
-  v3 = *a2;
-  *this = *a2;
-  *(this + *(v3 - 304)) = a2[1];
-  *(this + *(*this - 216)) = a2[2];
-  v4 = *(this + 4);
-  if (v4)
-  {
-    std::__tree<unsigned long long>::destroy(*(this + 4), *(v4 + 8));
-    MEMORY[0x186602850](v4, 0x1020C4062D53EE8);
-    *(this + 4) = 0;
-  }
-
-  v5 = *(this + 5);
-  if (v5)
-  {
-    std::__tree<unsigned long long>::destroy(*(this + 5), *(v5 + 8));
-    MEMORY[0x186602850](v5, 0x1020C4062D53EE8);
-    *(this + 5) = 0;
-  }
-
-  std::__tree<unsigned long long>::destroy(this + 8, *(this + 2));
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
-{
-  if (a6 > 7)
-  {
-    if (a6 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<BOOL,char const*>();
-    }
-
-    if (a6 == 16)
-    {
-      v9 = *a7;
-
-      AdobeXMPCore_Int::NotifyError<BOOL,double>(v9);
-    }
-  }
-
-  else
-  {
-    switch(a6)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<BOOL,BOOL>();
-      case 2:
-        v8 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<BOOL,unsigned long long>(a1, a2, a3, a4, a5, a6, v8);
-      case 4:
-        v7 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<BOOL,long long>(a1, a2, a3, a4, a5, a6, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<BOOL,void *>();
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
-{
-  if (a6 > 7)
-  {
-    if (a6 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<char const*,char const*>();
-    }
-
-    if (a6 == 16)
-    {
-      v9 = *a7;
-
-      AdobeXMPCore_Int::NotifyError<char const*,double>(v9);
-    }
-  }
-
-  else
-  {
-    switch(a6)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<char const*,BOOL>();
-      case 2:
-        v8 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<char const*,unsigned long long>(a1, a2, a3, a4, a5, a6, v8);
-      case 4:
-        v7 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<char const*,long long>(a1, a2, a3, a4, a5, a6, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<char const*,void *>();
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
-{
-  if (a6 > 7)
-  {
-    if (a6 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<unsigned long long,char const*>(a1, a2, a3, a4, a5);
-    }
-
-    if (a6 == 16)
-    {
-      v9 = *a7;
-
-      AdobeXMPCore_Int::NotifyError<unsigned long long,double>(v9, a1, a2, a3, a4, a5);
-    }
-  }
-
-  else
-  {
-    switch(a6)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<unsigned long long,BOOL>(a1, a2, a3, a4, a5);
-      case 2:
-        v8 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<unsigned long long,unsigned long long>(a1, a2, a3, a4, a5, a6, v8);
-      case 4:
-        v7 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<unsigned long long,long long>(a1, a2, a3, a4, a5, a6, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<unsigned long long,void *>(a1, a2, a3, a4, a5);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
-{
-  if (a6 > 7)
-  {
-    if (a6 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<long long,char const*>(a1, a2, a3, a4, a5);
-    }
-
-    if (a6 == 16)
-    {
-      v9 = *a7;
-
-      AdobeXMPCore_Int::NotifyError<long long,double>(v9, a1, a2, a3, a4, a5);
-    }
-  }
-
-  else
-  {
-    switch(a6)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<long long,BOOL>(a1, a2, a3, a4, a5);
-      case 2:
-        v8 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<long long,unsigned long long>(a1, a2, a3, a4, a5, a6, v8);
-      case 4:
-        v7 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<long long,long long>(a1, a2, a3, a4, a5, a6, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<long long,void *>(a1, a2, a3, a4, a5);
-}
-
-void AdobeXMPCore_Int::NotifyError<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, double a7)
-{
-  if (a5 > 7)
-  {
-    if (a5 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<double,char const*>(a7);
-    }
-
-    if (a5 == 16)
-    {
-      v9 = *a6;
-
-      AdobeXMPCore_Int::NotifyError<double,double>(a7, v9);
-    }
-  }
-
-  else
-  {
-    switch(a5)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<double,BOOL>(a7);
-      case 2:
-        v8 = *a6;
-
-        AdobeXMPCore_Int::NotifyError<double,unsigned long long>(a7, a1, a2, a3, a4, a5, v8);
-      case 4:
-        v7 = *a6;
-
-        AdobeXMPCore_Int::NotifyError<double,long long>(a7, a1, a2, a3, a4, a5, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<double,void *>(a7);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
-{
-  if (a6 > 7)
-  {
-    if (a6 == 8)
-    {
-      AdobeXMPCore_Int::NotifyError<void *,char const*>();
-    }
-
-    if (a6 == 16)
-    {
-      v9 = *a7;
-
-      AdobeXMPCore_Int::NotifyError<void *,double>(v9);
-    }
-  }
-
-  else
-  {
-    switch(a6)
-    {
-      case 1:
-
-        AdobeXMPCore_Int::NotifyError<void *,BOOL>();
-      case 2:
-        v8 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<void *,unsigned long long>(a1, a2, a3, a4, a5, a6, v8);
-      case 4:
-        v7 = *a7;
-
-        AdobeXMPCore_Int::NotifyError<void *,long long>(a1, a2, a3, a4, a5, a6, v7);
-    }
-  }
-
-  AdobeXMPCore_Int::NotifyError<void *,void *>();
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,BOOL>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186151220(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,char const*>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615156C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861518B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186151BFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,double>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186151F44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<BOOL,void *>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615228C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,BOOL>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861525D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,char const*>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186152928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186152C74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186152FC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,double>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615330C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<char const*,void *>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186153658(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861539A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,char const*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186153CEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v9 = a7;
-  v10 = a5;
-  v7 = 0;
-  v8 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615402C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v9 = a7;
-  v10 = a5;
-  v7 = 0;
-  v8 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615436C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,double>(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v9 = a6;
-  v8 = a1;
-  v6 = 0;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861546B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<unsigned long long,void *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861549F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186154D40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,char const*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615508C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v9 = a7;
-  v10 = a5;
-  v7 = 0;
-  v8 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861553CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v9 = a7;
-  v10 = a5;
-  v7 = 0;
-  v8 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615570C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,double>(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v9 = a6;
-  v8 = a1;
-  v6 = 0;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186155A50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<long long,void *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6 = 0;
-  v7 = a5;
-  v5 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186155D98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,BOOL>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861560E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,char const*>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615642C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,unsigned long long>(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v10 = a1;
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186156770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,long long>(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v10 = a1;
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186156AB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,double>(double a1, double a2)
-{
-  v4 = a2;
-  v5 = a1;
-  v2 = 0;
-  v3 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186156DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<double,void *>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615713C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,BOOL>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186157484(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,char const*>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861577D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186157B18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,long long>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v8 = 0;
-  v9 = a7;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_186157E60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,double>(double a1)
-{
-  v3 = a1;
-  v1 = 0;
-  v2 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861581A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::NotifyError<void *,void *>()
-{
-  v0 = 0;
-  v1 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_1861584F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::__tree<std::__value_type<unsigned long long,AdobeXMPCommon::IConfigurable::eDataType>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,AdobeXMPCommon::IConfigurable::eDataType>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,AdobeXMPCommon::IConfigurable::eDataType>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void AdobeXMPCore_Int::RDFDOMParserImpl::RDFDOMParserImpl(AdobeXMPCore_Int::RDFDOMParserImpl *this)
-{
-  v2 = (this + 16);
-  *this = off_1EF4FA850;
-  *(this + 6) = &off_1EF4FA998;
-  *(this + 2) = &off_1EF4FA178;
-  *(this + 13) = &unk_1EF4FA570;
-  *(this + unk_1EF4FA090 + 16) = off_1EF4FA2D0;
-  *(this + *(*(this + 2) - 312) + 16) = &off_1EF4FA418;
-  *(this + *(*(this + 2) - 320) + 16) = &unk_1EF4FA570;
-  AdobeXMPCore_Int::ConfigurableImpl::ConfigurableImpl(this + 48, off_1EF4F9A08);
-  *(this + 14) = 0;
-  *(this + 15) = 0;
-  *(this + 13) = off_1EF4FB0E0;
-  AdobeXMPCore_Int::DOMParserImpl::DOMParserImpl(v2, off_1EF4F9940);
-}
-
-void sub_186158870(_Unwind_Exception *a1)
-{
-  AdobeXMPCore_Int::SharedObjectImpl::~SharedObjectImpl(v2, off_1EF4F9A20);
-  AdobeXMPCore_Int::ConfigurableImpl::~ConfigurableImpl(v1, off_1EF4F9A08);
-  _Unwind_Resume(a1);
-}
-
-void AdobeXMPCore_Int::RDFDOMParserImpl::ParseAsNode(AdobeXMPCore_Int::RDFDOMParserImpl *this, const char *a2)
-{
-  v2 = 0;
-  v3 = 0;
-  operator new();
-}
-
-void sub_186158AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
-{
-  if (a2 == 1)
-  {
-    v17 = __cxa_begin_catch(exception_object);
-    a13 = 0;
-    v18 = *(v15 + 8);
-    if (v18)
-    {
-      if (*(v18 + 24))
-      {
-        *(v18 + 12) = *(a14 + 364);
-      }
-    }
-
-    XMPUtils::MapXMPErrorToIError(*v17, &a13 + 1, &a13);
-    AdobeXMPCore_Int::IError_I::CreateError();
-  }
-
-  if (a15)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl(AdobeXMPCore_Int::RDFDOMParserImpl *this)
-{
-  AdobeXMPCore_Int::DOMParserImpl::~DOMParserImpl((this + 16), off_1EF4F9940);
-  AdobeXMPCore_Int::SharedObjectImpl::~SharedObjectImpl((this + 104), off_1EF4F9A20);
-  AdobeXMPCore_Int::ConfigurableImpl::~ConfigurableImpl((this + 48), off_1EF4F9A08);
-}
-
-{
-  AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl(this);
-
-  JUMPOUT(0x186602850);
-}
-
-void virtual thunk toAdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl(void *a1)
-{
-  AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl((a1 + *(*a1 - 208)));
-}
-
-{
-  AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl((a1 + *(*a1 - 208)));
-
-  JUMPOUT(0x186602850);
-}
-
-void virtual thunk toAdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl(AdobeXMPCore_Int::RDFDOMParserImpl *this)
-{
-  AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl((this + *(*this - 48)));
-}
-
-{
-  AdobeXMPCore_Int::RDFDOMParserImpl::~RDFDOMParserImpl((this + *(*this - 48)));
-
-  JUMPOUT(0x186602850);
-}
-
-void AdobeXMPCore_Int::DOMParserImpl::~DOMParserImpl(AdobeXMPCore_Int::DOMParserImpl *this, uint64_t *a2)
-{
-  v2 = *a2;
-  *this = *a2;
-  *(this + *(v2 - 368)) = a2[1];
-  *(this + *(*this - 304)) = a2[2];
-  *(this + *(*this - 216)) = a2[3];
-  *(this + *(*this - 224)) = a2[4];
-  *(this + *(*this - 232)) = a2[5];
-  *(this + *(*this - 312)) = a2[6];
-  *(this + *(*this - 320)) = a2[7];
-  *(this + *(*this - 376)) = a2[8];
-  *(this + *(*this - 384)) = a2[9];
-  v3 = *(this + 2);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v3);
-  }
-}
-
-void sub_186159218(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::shared_ptr<XMPMeta>::shared_ptr[abi:fe200100]<XMPMeta,0>(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__shared_ptr_pointer<XMPMeta *,std::shared_ptr<XMPMeta>::__shared_ptr_default_delete<XMPMeta,XMPMeta>,std::allocator<XMPMeta>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x186602850);
-}
-
-uint64_t std::__shared_ptr_pointer<XMPMeta *,std::shared_ptr<XMPMeta>::__shared_ptr_default_delete<XMPMeta,XMPMeta>,std::allocator<XMPMeta>>::__on_zero_shared(uint64_t a1)
-{
-  result = *(a1 + 24);
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<XMPMeta *,std::shared_ptr<XMPMeta>::__shared_ptr_default_delete<XMPMeta,XMPMeta>,std::allocator<XMPMeta>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AdobeXMPCore_Int::IError_I::AppendParameter(void *a1, uint64_t a2)
-{
-  v3 = a1 + *(*a1 - 304);
-  v4 = (*(**a2 + 192))();
-  v5 = (*(**a2 + 208))();
-  v6 = *(*v3 + 128);
-
-  return v6(v3, v4, v5);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IError_v1,unsigned int,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
-{
-  *a1 = 0;
-  v5 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v5 + a4);
-  }
-
-  return a4(v5);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IError_v1,unsigned int,AdobeXMPCommon::IError_v1::eErrorDomain>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
-{
-  *a1 = 0;
-  v5 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v5 + a4);
-  }
-
-  return a4(v5);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCommon::IError_v1,unsigned int,AdobeXMPCommon::IError_v1::eErrorSeverity>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
-{
-  *a1 = 0;
-  v5 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v5 + a4);
-  }
-
-  return a4(v5);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IError_v1,AdobeXMPCommon::IUTF8String_v1 const*,AdobeXMPCommon::IUTF8String_v1 const>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
-{
-  *a1 = 0;
-  v8 = 0;
-  v9 = 0;
-  v4 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v4 + a3);
-  }
-
-  a3(&v8, v4);
-  if (v8)
-  {
-    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
-    (*(*v5 + 40))(v5);
-    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x6E55544638537472, 1);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
-  }
-
-  return v6;
-}
-
-void sub_186159AF4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x186159AD8);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IError_v1,AdobeXMPCommon::IUTF8String_v1 const*,AdobeXMPCommon::IUTF8String_v1 const,unsigned long long>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  *a1 = 0;
-  v11 = 0;
-  v12 = 0;
-  v7 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v7 + a3);
-  }
-
-  a3(&v11, v7, a7);
-  if (v11)
-  {
-    v8 = (*(*&v11[*(*v11 - 56)] + 16))(&v11[*(*v11 - 56)]);
-    (*(*v8 + 40))(v8);
-    v9 = (*(*&v11[*(*v11 - 64)] + 16))(&v11[*(*v11 - 64)], 0x6E55544638537472, 1);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
-  }
-
-  return v9;
-}
-
-void sub_186159EFC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x186159EE0);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IError_v1,AdobeXMPCommon::IError_v1*,AdobeXMPCommon::IError_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
-{
-  *a1 = 0;
-  v8 = 0;
-  v9 = 0;
-  v4 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v4 + a3);
-  }
-
-  a3(&v8, v4);
-  if (v8)
-  {
-    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
-    (*(*v5 + 40))(v5);
-    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x6E4572726F722020, 1);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
-  }
-
-  return v6;
-}
-
-void sub_18615A278(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615A25CLL);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::IError_I::setNextError(AdobeXMPCore_Int::IError_I *this, AdobeXMPCommon::IError_v1 *a2, const AdobeXMPCommon::IError_v1 **a3)
-{
-  v5 = *(*this - 304);
-  AdobeXMPCommon::IError_v1::MakeShared(a2, &v8);
-  v6 = AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IError_v1,AdobeXMPCommon::IError_v1*,AdobeXMPCommon::IError_v1,std::shared_ptr<AdobeXMPCommon::IError_v1> const&>(a3, this + v5, AdobeXMPCommon::IError_v1::SetNextError, 0, "/Library/Caches/com.apple.xbs/Sources/ImageIO/XMP-Toolkit-SDK/XMPCommon/source/IError_I.cpp", 60, &v8);
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
-  }
-
-  return v6;
-}
-
-void sub_18615A4CC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  __cxa_call_unexpected(a1);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCommon::IError_v1,AdobeXMPCommon::IError_v1*,AdobeXMPCommon::IError_v1,std::shared_ptr<AdobeXMPCommon::IError_v1> const&>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  *a1 = 0;
-  v11 = 0;
-  v12 = 0;
-  v7 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v7 + a3);
-  }
-
-  a3(&v11, v7, a7);
-  if (v11)
-  {
-    v8 = (*(*&v11[*(*v11 - 56)] + 16))(&v11[*(*v11 - 56)]);
-    (*(*v8 + 40))(v8);
-    v9 = (*(*&v11[*(*v11 - 64)] + 16))(&v11[*(*v11 - 64)], 0x6E4572726F722020, 1);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
-  }
-
-  return v9;
-}
-
-void sub_18615A654(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615A638);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IError_I,void *,void *,unsigned long long,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
-{
-  *a1 = 0;
-  v9 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v9 + a4);
-  }
-
-  return a4(v9, a8, a9);
-}
-
-void *AdobeXMPCore_Int::IError_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
-{
-  if (a2 == 0x6E55544638537472)
-  {
-    if (a3 != -1)
-    {
-      if (a3 != 1)
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x6E55544638537472, a3, exception);
-      }
-
-      return (this + *(*this - 304));
-    }
-  }
-
-  else
-  {
-    if (a4)
-    {
-      v5 = __cxa_allocate_exception(0x10uLL);
-      AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(0x6E4572726F722020, a2, v5);
-    }
-
-    return 0;
-  }
-
-  return this;
-}
-
-void AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(uint64_t a1@<X1>, int a2@<W2>, void *a3@<X8>)
-{
-  v4 = a1;
-  v3 = a2;
-  *a3 = 0;
-  a3[1] = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
-{
-  v3 = a2;
-  v4 = a1;
-  *a3 = 0;
-  a3[1] = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(void *a1@<X8>)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void AdobeXMPCore_Int::IError_I::CreateClientCodeExceptionError(void *a1@<X8>)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void AdobeXMPCore_Int::ReportErrorAndContinueABISafe(AdobeXMPCore_Int *this, unsigned int a2, unsigned int a3, unsigned int a4, const char *a5, const AdobeXMPCommon::IError_v1 **a6)
-{
-  v6 = 0;
-  v7 = 0;
-  AdobeXMPCore_Int::IError_I::CreateError();
-}
-
-void sub_18615B224(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
-{
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v16 = *exception_ptr;
-    v15 = *(exception_ptr + 1);
-    if (v15)
-    {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    *v12 = v16;
-    if (v15)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v15);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615B1D4);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateClientCodeExceptionError(&a11);
-}
-
-void std::vector<unsigned char>::__vallocate[abi:fe200100](uint64_t a1, uint64_t a2)
-{
-  if ((a2 & 0x8000000000000000) == 0)
-  {
-    operator new();
-  }
-
-  std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
-}
-
-unsigned __int16 *TIFF_MemoryReader::SortIFD(unsigned __int16 *result)
-{
-  v1 = result;
-  v2 = *result;
-  if (v2 < 2)
-  {
-    v6 = *result;
-  }
-
-  else
-  {
-    v3 = *(result + 1);
-    v4 = *v3;
-    v5 = 1;
-    v6 = *result;
-    do
-    {
-      v7 = &v3[6 * v5];
-      v8 = *v7;
-      if (v8 <= v4)
-      {
-        if (v8 == v4)
-        {
-          v9 = v7 - 6;
-          v10 = 12 * (v2 - v5);
-LABEL_8:
-          result = memmove(v9, v7, v10);
-          --v6;
-          --v5;
-        }
-
-        else
-        {
-          v11 = &v3[6 * v5];
-          v12 = 12 * v5 - 12 * v5;
-          v13 = &v3[6 * v5];
-          v14 = 1;
-          while (1)
-          {
-            v15 = v11;
-            v16 = v12;
-            if (v5 + --v14 < 1)
-            {
-              break;
-            }
-
-            v11 -= 6;
-            v12 += 12;
-            v17 = v13 - 6;
-            v18 = *(v13 - 6);
-            v13 -= 6;
-            if (v18 <= v8)
-            {
-              if (v18 == v8)
-              {
-                v19 = *v7;
-                *(v17 + 2) = *(v7 + 2);
-                *v17 = v19;
-                v10 = 12 * (v2 - (v5 + 1));
-                v9 = &v3[6 * v5];
-                v7 = &v3[6 * v5 + 6];
-                goto LABEL_8;
-              }
-
-              break;
-            }
-          }
-
-          v20 = *v7;
-          v21 = *(v7 + 2);
-          result = memmove(v15 + 6, v15, v16);
-          *v15 = v20;
-          *(v15 + 2) = v21;
-        }
-      }
-
-      else
-      {
-        v4 = *v7;
-      }
-
-      ++v5;
-      v2 = v6;
-    }
-
-    while (v5 < v6);
-  }
-
-  *v1 = v6;
-  return result;
-}
-
-BOOL TIFF_MemoryReader::GetIFD(uint64_t a1, unsigned int a2, uint64_t a3)
-{
-  if (a2 >= 5)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 9;
-    exception[1] = "Invalid IFD requested";
-    *(exception + 16) = 0;
-  }
-
-  v5 = a1 + 16 * a2;
-  if (!a3)
-  {
-    return *(v5 + 112) != 0;
-  }
-
-  v6 = (a3 + 8);
-  std::__tree<unsigned long long>::destroy(a3, *(a3 + 8));
-  *a3 = v6;
-  *(a3 + 16) = 0;
-  *v6 = 0;
-  v7 = *(v5 + 112);
-  if (!*(v5 + 112))
-  {
-    return 0;
-  }
-
-  v8 = 0;
-  v9 = 0;
-  do
-  {
-    v10 = *(v5 + 120);
-    v11 = v10 + v8;
-    if (*(v10 + v8 + 2) - 14 >= 0xFFFFFFF3)
-    {
-      v20 = 0;
-      v19 = 0uLL;
-      v12 = *(v11 + 2);
-      v13 = *(v11 + 4);
-      LOWORD(v19) = *v11;
-      v14 = kTIFF_TypeSizes[v12];
-      WORD1(v19) = v12;
-      LODWORD(v20) = v13;
-      DWORD1(v19) = v13 / v14;
-      if (*(v11 + 4) > 4u)
-      {
-        v15 = *(a1 + 96) + *(v10 + v8 + 8);
-      }
-
-      else
-      {
-        v15 = v10 + v8 + 8;
-      }
-
-      *(&v19 + 1) = v15;
-      v21 = &v19;
-      v16 = std::__tree<std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_Manager::TagInfo>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a3, &v19);
-      *(v16 + 5) = v19;
-      *(v16 + 14) = v20;
-      v7 = *(v5 + 112);
-    }
-
-    ++v9;
-    v8 += 12;
-  }
-
-  while (v9 < v7);
-  return 1;
-}
-
-unsigned __int16 *TIFF_MemoryReader::FindTagInIFD(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3)
-{
-  if (a2 >= 5)
-  {
-    exception = __cxa_allocate_exception(0x18uLL);
-    *exception = 9;
-    exception[1] = "Invalid IFD requested";
-    *(exception + 16) = 0;
-  }
-
-  v3 = this + 16 * a2;
-  v6 = *(v3 + 56);
-  v4 = v3 + 112;
-  v5 = v6;
-  if (!v6)
-  {
-    return 0;
-  }
-
-  v7 = *(v4 + 1);
-  while (v5 >= 2)
-  {
-    v8 = v5 >> 1;
-    v9 = &v7[6 * (v5 >> 1)];
-    v10 = *v9;
-    v5 -= v5 >> 1;
-    if (v10 > a3)
-    {
-      v5 = v8;
-    }
-
-    else
-    {
-      v7 += 6 * v8;
-    }
-
-    if (v10 == a3)
-    {
-      v7 = v9;
-      break;
-    }
-  }
-
-  if (*v7 == a3)
-  {
-    return v7;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-unsigned __int16 *TIFF_MemoryReader::GetValueOffset(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 1) > 4u)
-    {
-      v6 = *(this + 12);
-      v5 = v6 + *(result + 2);
-    }
-
-    else
-    {
-      v5 = result + 8;
-      v6 = *(this + 12);
-    }
-
-    return (v5 - v6);
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag(TIFF_MemoryReader *a1, unsigned int a2, unsigned int a3, uint64_t a4)
-{
-  TagInIFD = TIFF_MemoryReader::FindTagInIFD(a1, a2, a3);
-  if (!TagInIFD)
-  {
-    return 0;
-  }
-
-  v7 = TagInIFD[1];
-  v8 = (v7 - 1) < 0xD;
-  if (a4 && (v7 - 1) <= 0xC)
-  {
-    v9 = *(TagInIFD + 1);
-    *a4 = *TagInIFD;
-    v10 = kTIFF_TypeSizes[v7];
-    *(a4 + 2) = v7;
-    *(a4 + 4) = v9 / v10;
-    *(a4 + 16) = v9;
-    if (*(TagInIFD + 1) > 4u)
-    {
-      v11 = (*(a1 + 12) + *(TagInIFD + 2));
-    }
-
-    else
-    {
-      v11 = TagInIFD + 4;
-    }
-
-    *(a4 + 8) = v11;
-    return 1;
-  }
-
-  return v8;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Integer(uint64_t (**this)(unsigned __int16 *), unsigned int a2, unsigned int a3, unsigned int *a4)
-{
-  TagInIFD = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (!TagInIFD)
-  {
-    return 0;
-  }
-
-  v7 = TagInIFD[1];
-  if (v7 > 0xD)
-  {
-    return 0;
-  }
-
-  v8 = *(TagInIFD + 1);
-  if (kTIFF_TypeSizes[TagInIFD[1]] != v8)
-  {
-    return 0;
-  }
-
-  v9 = 0;
-  if (TagInIFD[1] > 5u)
-  {
-    switch(v7)
-    {
-      case 6u:
-        if (v8 > 4)
-        {
-          v13 = this[12] + *(TagInIFD + 2);
-        }
-
-        else
-        {
-          v13 = (TagInIFD + 4);
-        }
-
-        v15 = *v13;
-        break;
-      case 8u:
-        if (v8 > 4)
-        {
-          v16 = (this[12] + *(TagInIFD + 2));
-        }
-
-        else
-        {
-          v16 = TagInIFD + 4;
-        }
-
-        v15 = this[1](v16);
-        break;
-      case 9u:
-        goto LABEL_14;
-      default:
-        return v9;
-    }
-  }
-
-  else
-  {
-    if (v7 != 1)
-    {
-      if (v7 == 3)
-      {
-        v11 = this[1];
-        goto LABEL_20;
-      }
-
-      if (v7 != 4)
-      {
-        return v9;
-      }
-
-LABEL_14:
-      v11 = this[2];
-LABEL_20:
-      if (v8 > 4)
-      {
-        v14 = (this[12] + *(TagInIFD + 2));
-      }
-
-      else
-      {
-        v14 = TagInIFD + 4;
-      }
-
-      v15 = v11(v14);
-      goto LABEL_32;
-    }
-
-    if (v8 > 4)
-    {
-      v12 = this[12] + *(TagInIFD + 2);
-    }
-
-    else
-    {
-      v12 = (TagInIFD + 4);
-    }
-
-    v15 = *v12;
-  }
-
-LABEL_32:
-  if (a4)
-  {
-    *a4 = v15;
-  }
-
-  return 1;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Byte(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, unsigned __int8 *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 1 && *(result + 4) == 1)
-    {
-      if (a4)
-      {
-        *a4 = *(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_SByte(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, signed __int8 *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 6 && *(result + 4) == 1)
-    {
-      if (a4)
-      {
-        *a4 = *(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Short(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, unsigned __int16 *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 3 && *(result + 4) == 2)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 1))(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_SShort(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, __int16 *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 8 && *(result + 4) == 2)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 1))(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Long(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, unsigned int *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 4 && *(result + 4) == 4)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 2))(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_SLong(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, int *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 9 && *(result + 4) == 4)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 2))(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-unsigned __int16 *TIFF_MemoryReader::GetTag_Rational(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(a1, a2, a3);
-  if (result)
-  {
-    if (result[1] == 5 && *(result + 1) == 8)
-    {
-      if (a4)
-      {
-        v7 = *(a1 + 96) + *(result + 2);
-        *a4 = (*(a1 + 16))(v7);
-        a4[1] = (*(a1 + 16))(v7 + 4);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-unsigned __int16 *TIFF_MemoryReader::GetTag_SRational(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(a1, a2, a3);
-  if (result)
-  {
-    if (result[1] == 10 && *(result + 1) == 8)
-    {
-      if (a4)
-      {
-        v7 = *(a1 + 96) + *(result + 2);
-        *a4 = (*(a1 + 16))(v7);
-        a4[1] = (*(a1 + 16))(v7 + 4);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Float(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, float *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 11 && *(result + 4) == 4)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 3))(result + 8);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_Double(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, double *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 12 && *(result + 4) == 8)
-    {
-      if (a4)
-      {
-        *a4 = (*(this + 4))(*(this + 12) + *(result + 8));
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_ASCII(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, const char **a4, unsigned int *a5)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(this, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 2)
-    {
-      if (a4)
-      {
-        if (*(result + 4) > 4u)
-        {
-          v9 = (*(this + 12) + *(result + 8));
-        }
-
-        else
-        {
-          v9 = (result + 8);
-        }
-
-        *a4 = v9;
-      }
-
-      if (a5)
-      {
-        *a5 = *(result + 4);
-      }
-
-      return 1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t TIFF_MemoryReader::GetTag_EncodedString(TIFF_MemoryReader *a1, unsigned int a2, unsigned int a3, std::string *a4)
-{
-  result = TIFF_MemoryReader::FindTagInIFD(a1, a2, a3);
-  if (result)
-  {
-    if (*(result + 2) == 7)
-    {
-      if (a4)
-      {
-        v7 = *(result + 4);
-        if (v7 > 4)
-        {
-          v8 = (*(a1 + 12) + *(result + 8));
-        }
-
-        else
-        {
-          v8 = (result + 8);
-        }
-
-        return TIFF_Manager::DecodeString(a1, v8, v7, a4);
-      }
-
-      else
-      {
-        return 1;
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void TIFF_MemoryReader::ParseMemoryStream(void **this, const void *a2, size_t size, char a4, int a5)
-{
-  v7 = size;
-  if (*(this + 88) == 1)
-  {
-    free(this[12]);
-  }
-
-  v10 = 0;
-  *(this + 88) = 0;
-  this[12] = 0;
-  *(this + 26) = 0;
-  do
-  {
-    v11 = &this[v10];
-    *(v11 + 56) = 0;
-    v11[15] = 0;
-    v10 += 2;
-  }
-
-  while (v10 != 10);
-  if (!v7)
-  {
-    return;
-  }
-
-  if (a4)
-  {
-    if (v7 >= 0x6400001)
-    {
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 206;
-      v39 = "Outrageous length for memory-based TIFF";
-    }
-
-    else
-    {
-      v12 = malloc_type_malloc(v7, 0x100004077774924uLL);
-      this[12] = v12;
-      if (v12)
-      {
-        memcpy(v12, a2, v7);
-        *(this + 88) = 1;
-        goto LABEL_11;
-      }
-
-      exception = __cxa_allocate_exception(0x18uLL);
-      *exception = 15;
-      v39 = "Out of memory";
-    }
-
-    exception[1] = v39;
-    *(exception + 16) = 0;
-  }
-
-  this[12] = a2;
-LABEL_11:
-  *(this + 26) = v7;
-  v13 = v7 - 6;
-  if (a5)
-  {
-    *(this + 73) = 1;
-    this[1] = GetUns16LE;
-    this[2] = GetUns32LE;
-    this[3] = GetFloatLE;
-    this[4] = GetDoubleLE;
-    this[5] = PutUns16LE;
-    this[6] = PutUns32LE;
-    this[7] = PutFloatLE;
-    this[8] = PutDoubleLE;
-    v14 = this;
-    v15 = 0;
-    v16 = 1;
-    goto LABEL_15;
-  }
-
-  v17 = TIFF_Manager::CheckTIFFHeader(this, this[12], v7);
-  if (v17)
-  {
-    v15 = v17;
-    v14 = this;
-    v16 = 0;
-LABEL_15:
-    v18 = TIFF_MemoryReader::ProcessOneIFD(v14, v15, 0, v16);
-    v19 = v18;
-    if (v18)
-    {
-      if (IsOffsetValid(v18, 8u, v13))
-      {
-        TIFF_MemoryReader::ProcessOneIFD(this, v19, 1u, 0);
-      }
-
-      else
-      {
-        v40 = 206;
-        v41 = "Bad IFD offset";
-        v42 = 0;
-        (*(*this + 33))(this, 0, &v40);
-      }
-    }
-  }
-
-  v20 = *(this + 56);
-  if (*(this + 56))
-  {
-    v21 = this[15];
-    v22 = *(this + 56);
-    while (v22 >= 2)
-    {
-      v23 = v22 >> 1;
-      v24 = &v21[6 * (v22 >> 1)];
-      v25 = *v24;
-      v22 -= v22 >> 1;
-      if (v25 > 0x8769)
-      {
-        v22 = v23;
-      }
-
-      else
-      {
-        v21 += 6 * v23;
-      }
-
-      if (v25 == 34665)
-      {
-        v21 = v24;
-        goto LABEL_28;
-      }
-    }
-
-    if (*v21 != 34665)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_28:
-    if (v21[1] == 4 && *(v21 + 1) == 4)
-    {
-      v26 = (this[2])(v21 + 4);
-      TIFF_MemoryReader::ProcessOneIFD(this, v26, 2u, 0);
-      v20 = *(this + 56);
-    }
-
-LABEL_31:
-    if (v20)
-    {
-      v27 = this[15];
-      while (v20 >= 2)
-      {
-        v28 = v20 >> 1;
-        v29 = &v27[6 * (v20 >> 1)];
-        v30 = *v29;
-        v20 -= v20 >> 1;
-        if (v30 > 0x8825)
-        {
-          v20 = v28;
-        }
-
-        else
-        {
-          v27 += 6 * v28;
-        }
-
-        if (v30 == 34853)
-        {
-          v27 = v29;
-          goto LABEL_40;
-        }
-      }
-
-      if (*v27 != 34853)
-      {
-        goto LABEL_45;
-      }
-
-LABEL_40:
-      if (v27[1] == 4 && *(v27 + 1) == 4)
-      {
-        v31 = (this[2])(v27 + 4);
-        if (IsOffsetValid(v31, 8u, v13))
-        {
-          TIFF_MemoryReader::ProcessOneIFD(this, v31, 3u, 0);
-        }
-
-        else
-        {
-          v40 = 206;
-          v41 = "Bad IFD offset";
-          v42 = 0;
-          (*(*this + 33))(this, 0, &v40);
-        }
-      }
-    }
-  }
-
-LABEL_45:
-  v32 = *(this + 72);
-  if (*(this + 72))
-  {
-    v33 = this[19];
-    while (v32 >= 2)
-    {
-      v34 = v32 >> 1;
-      v35 = &v33[6 * (v32 >> 1)];
-      v36 = *v35;
-      v32 -= v32 >> 1;
-      if (v36 > 0xA005)
-      {
-        v32 = v34;
-      }
-
-      else
-      {
-        v33 += 6 * v34;
-      }
-
-      if (v36 == 40965)
-      {
-        v33 = v35;
-        goto LABEL_54;
-      }
-    }
-
-    if (*v33 != 40965)
-    {
-      return;
-    }
-
-LABEL_54:
-    if (v33[1] == 4 && *(v33 + 1) == 4)
-    {
-      v37 = (this[2])(v33 + 4);
-      if (IsOffsetValid(v37, 8u, v13))
-      {
-        TIFF_MemoryReader::ProcessOneIFD(this, v37, 4u, 0);
-      }
-
-      else
-      {
-        v40 = 206;
-        v41 = "Bad IFD offset";
-        v42 = 0;
-        (*(*this + 33))(this, 0, &v40);
-      }
-    }
-  }
-}
-
-uint64_t TIFF_MemoryReader::ProcessOneIFD(TIFF_MemoryReader *this, unsigned int a2, unsigned int a3, int a4)
-{
-  if (a4)
-  {
-    if (*(this + 26) >= a2)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_6:
-    v26 = 206;
-    v27 = "Bad IFD offset";
-    v28 = 0;
-    (*(*this + 264))(this, 2, &v26);
-    goto LABEL_7;
-  }
-
-  if (a2 < 8 || *(this + 26) - 6 < a2)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_7:
-  v7 = *(this + 12);
-  v8 = v7 + a2;
-  v9 = (*(this + 1))(v8);
-  v10 = v9;
-  if ((v9 & 0x8000) != 0)
-  {
-    v26 = 206;
-    v27 = "Outrageous IFD count";
-    v28 = 0;
-    (*(*this + 264))(this, 2, &v26);
-  }
-
-  v11 = this + 16 * a3;
-  if (12 * v9 + 6 > *(this + 26) - a2)
-  {
-    v26 = 206;
-    v27 = "Out of bounds IFD";
-    v28 = 0;
-    (*(*this + 264))(this, 2, &v26);
-  }
-
-  v12 = (4 * ((3 * v9) & 0x3FFFF)) | 2;
-  *(v11 + 56) = v10;
-  *(v11 + 15) = v8 + 2;
-  if (!v10)
-  {
-    return (*(this + 2))(v8 + v12);
-  }
-
-  v13 = 0;
-  v14 = v10;
-  v15 = *(this + 73);
-  v16 = (a2 + v7 + 6);
-  v17 = -1;
-  do
-  {
-    v18 = *(v16 - 2);
-    if (v15)
-    {
-      v19 = *(v16 - 1);
-    }
-
-    else
-    {
-      v18 = __rev16(v18);
-      *(v16 - 2) = v18;
-      v19 = bswap32(*(v16 - 1)) >> 16;
-      *(v16 - 1) = v19;
-      *v16 = bswap32(*v16);
-    }
-
-    v20 = v17 >= v18;
-    if ((v19 - 14) >= 0xFFF3u)
-    {
-      v21 = *v16 * kTIFF_TypeSizes[v19];
-      *v16 = v21;
-      if (v21 >= 5)
-      {
-        v22 = v16[1];
-        if ((v15 & 1) == 0)
-        {
-          v22 = bswap32(v22);
-          v16[1] = v22;
-        }
-
-        if (v22 < 8 || (v23 = *(this + 26), v23 <= v22) || v21 > v23 - v22)
-        {
-          *v16 = 0;
-        }
-      }
-    }
-
-    v13 |= v20;
-    v16 += 3;
-    v17 = v18;
-    --v14;
-  }
-
-  while (v14);
-  v24 = (*(this + 2))(v8 + v12);
-  if (v13)
-  {
-    TIFF_MemoryReader::SortIFD(v11 + 56);
-  }
-
-  return v24;
-}
-
-void TIFF_MemoryReader::SetTag(TIFF_MemoryReader *this, unsigned __int8 a2, unsigned __int16 a3, unsigned __int16 a4, unsigned int a5, const void *a6)
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-void TIFF_MemoryReader::DeleteTag(TIFF_MemoryReader *this)
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-void TIFF_MemoryReader::SetTag_EncodedString()
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-void TIFF_MemoryReader::ParseFileStream()
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-void TIFF_MemoryReader::IntegrateFromPShop6(TIFF_MemoryReader *this, const void *a2)
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-uint64_t TIFF_MemoryReader::UpdateMemoryStream(TIFF_MemoryReader *this, void **a2)
-{
-  if (a2)
-  {
-    *a2 = *(this + 12);
-  }
-
-  return *(this + 26);
-}
-
-void TIFF_MemoryReader::UpdateFileStream()
-{
-  exception = __cxa_allocate_exception(0x18uLL);
-  *exception = 9;
-  exception[1] = "Not appropriate for TIFF_Reader";
-  *(exception + 16) = 0;
-}
-
-void TIFF_MemoryReader::~TIFF_MemoryReader(void **this)
-{
-  *this = &unk_1EF4FB250;
-  if (*(this + 88) == 1)
-  {
-    free(this[12]);
-  }
-}
-
-{
-  *this = &unk_1EF4FB250;
-  if (*(this + 88) == 1)
-  {
-    free(this[12]);
-  }
-
-  JUMPOUT(0x186602850);
-}
-
-uint64_t *std::__tree<std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_Manager::TagInfo>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
-}
-
-void *AdobeXMPCore_Int::IDOMSerializer_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
-{
-  if (a2 == 0x63444F4D53726C7ALL)
-  {
-    if (a3 != -1)
-    {
-      if (a3 != 1)
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x63444F4D53726C7ALL, a3, exception);
-      }
-
-      return (this + *(*this - 288));
-    }
-  }
-
-  else
-  {
-    if (a4)
-    {
-      v5 = __cxa_allocate_exception(0x10uLL);
-      AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(0x63444F4D53726C7ALL, a2, v5);
-    }
-
-    return 0;
-  }
-
-  return this;
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IDOMSerializer_I,void *,void *,unsigned long long,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
-{
-  *a1 = 0;
-  v9 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v9 + a4);
-  }
-
-  return a4(v9, a8, a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::IDOMSerializer_v1,AdobeXMPCore::IDOMSerializer_v1*,AdobeXMPCore::IDOMSerializer_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
-{
-  *a1 = 0;
-  v8 = 0;
-  v9 = 0;
-  v4 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v4 + a3);
-  }
-
-  a3(&v8, v4);
-  if (v8)
-  {
-    v5 = (*(*&v8[*(*v8 - 224)] + 16))(&v8[*(*v8 - 224)]);
-    (*(*v5 + 40))(v5);
-    v6 = (*(*&v8[*(*v8 - 232)] + 16))(&v8[*(*v8 - 232)], 0x63444F4D53726C7ALL, 1);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
-  }
-
-  return v6;
-}
-
-void sub_18615CFF8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615CFDCLL);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::IDOMSerializer_I::serialize(AdobeXMPCore_Int::IDOMSerializer_I *this, AdobeXMPCore::INode_v1 *a2, const AdobeXMPCore::INameSpacePrefixMap_v1 *a3, const AdobeXMPCommon::IError_v1 **a4)
-{
-  v7 = *(*this - 288);
-  AdobeXMPCore::INode_v1::MakeShared(a2, a2, &v12);
-  AdobeXMPCore::INameSpacePrefixMap_v1::MakeShared(a3, v8, &v14);
-  v11 = v14;
-  v9 = AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::IDOMSerializer_v1,AdobeXMPCommon::IUTF8String_v1 *,AdobeXMPCommon::IUTF8String_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&,std::shared_ptr<AdobeXMPCore::INameSpacePrefixMap_v1 const> const&>(a4, this + v7, AdobeXMPCore::IDOMSerializer_v1::Serialize, 0, "/Library/Caches/com.apple.xbs/Sources/ImageIO/XMP-Toolkit-SDK/XMPCore/source/IDOMSerializer_I.cpp", 59, &v12, &v11);
-  if (*(&v11 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](*(&v11 + 1));
-  }
-
-  if (v13)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v13);
-  }
-
-  return v9;
-}
-
-void sub_18615D274(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  __cxa_call_unexpected(a1);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::IDOMSerializer_v1,AdobeXMPCommon::IUTF8String_v1 *,AdobeXMPCommon::IUTF8String_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&,std::shared_ptr<AdobeXMPCore::INameSpacePrefixMap_v1 const> const&>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a3;
-  *a1 = 0;
-  v13 = 0;
-  v14 = 0;
-  v9 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    v8 = *(*v9 + a3);
-  }
-
-  v8(&v13, v9, a7, a8);
-  if (v13)
-  {
-    v10 = (*(*&v13[*(*v13 - 56)] + 16))(&v13[*(*v13 - 56)]);
-    (*(*v10 + 40))(v10);
-    v11 = (*(*&v13[*(*v13 - 64)] + 16))(&v13[*(*v13 - 64)], 0x6E55544638537472, 1);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  if (v14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-  }
-
-  return v11;
-}
-
-void sub_18615D418(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615D3FCLL);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-void *AdobeXMPCore_Int::IDOMImplementationRegistry_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
-{
-  if (a2 == 0x63444F4D52677374)
-  {
-    if (a3 != -1)
-    {
-      if (a3 != 1)
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x63444F4D52677374, a3, exception);
-      }
-
-      return (this + *(*this - 152));
-    }
-  }
-
-  else
-  {
-    if (a4)
-    {
-      v5 = __cxa_allocate_exception(0x10uLL);
-      AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(0x63444F4D52677374, a2, v5);
-    }
-
-    return 0;
-  }
-
-  return this;
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IDOMImplementationRegistry_I,void *,void *,unsigned long long,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
-{
-  *a1 = 0;
-  v9 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v9 + a4);
-  }
-
-  return a4(v9, a8, a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::IDOMImplementationRegistry_v1,AdobeXMPCore::IDOMParser_v1 *,AdobeXMPCore::IDOMParser_v1,char const*>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  *a1 = 0;
-  v11 = 0;
-  v12 = 0;
-  v7 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v7 + a3);
-  }
-
-  a3(&v11, v7, a7);
-  if (v11)
-  {
-    v8 = (*(*&v11[*(*v11 - 224)] + 16))(&v11[*(*v11 - 224)]);
-    (*(*v8 + 40))(v8);
-    v9 = (*(*&v11[*(*v11 - 232)] + 16))(&v11[*(*v11 - 232)], 0x63444F4D50727372, 1);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
-  }
-
-  return v9;
-}
-
-void sub_18615DAB8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615DA9CLL);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::IDOMImplementationRegistry_v1,AdobeXMPCore::IDOMSerializer_v1 *,AdobeXMPCore::IDOMSerializer_v1,char const*>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  *a1 = 0;
-  v11 = 0;
-  v12 = 0;
-  v7 = (a2 + (a4 >> 1));
-  if (a4)
-  {
-    a3 = *(*v7 + a3);
-  }
-
-  a3(&v11, v7, a7);
-  if (v11)
-  {
-    v8 = (*(*&v11[*(*v11 - 224)] + 16))(&v11[*(*v11 - 224)]);
-    (*(*v8 + 40))(v8);
-    v9 = (*(*&v11[*(*v11 - 232)] + 16))(&v11[*(*v11 - 232)], 0x63444F4D53726C7ALL, 1);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
-  }
-
-  return v9;
-}
-
-void sub_18615DE34(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
-  }
-
-  if (a2 == 2)
-  {
-    exception_ptr = __cxa_get_exception_ptr(a1);
-    v15 = *exception_ptr;
-    v14 = exception_ptr[1];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    __cxa_begin_catch(a1);
-    v16 = (*(*v15 + 200))(v15);
-    *v10 = v16;
-    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
-    (*(*v17 + 40))(v17);
-    if (v14)
-    {
-      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x18615DE18);
-  }
-
-  __cxa_begin_catch(a1);
-  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
-}
-
-void sub_18615E098(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  __cxa_call_unexpected(a1);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IDOMImplementationRegistry_I,unsigned int,BOOL,char const*,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const> const&>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  *a1 = 0;
-  v9 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v9 + a4);
-  }
-
-  return a4(v9, a8, a9);
-}
-
-void sub_18615E2DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  __cxa_call_unexpected(a1);
-}
-
-uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IDOMImplementationRegistry_I,unsigned int,BOOL,char const*,std::shared_ptr<AdobeXMPCore::IDOMSerializer_v1 const> const&>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  *a1 = 0;
-  v9 = (a2 + (a5 >> 1));
-  if (a5)
-  {
-    a4 = *(*v9 + a4);
-  }
-
-  return a4(v9, a8, a9);
-}
-
-void sub_18615E4F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_18615E590(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::IDOMImplementationRegistry_I,void *,void *,unsigned long long,unsigned int>(void *a1, void *a2)
-{
-  exception_ptr = __cxa_get_exception_ptr(a1);
-  v6 = *exception_ptr;
-  v5 = exception_ptr[1];
-  if (v5)
-  {
-    OUTLINED_FUNCTION_1_20();
-  }
-
-  __cxa_begin_catch(a1);
-  *a2 = (*(*v6 + 200))(v6);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_0();
-  (*(v7 + 16))();
-  OUTLINED_FUNCTION_0_0();
-  (*(v8 + 40))();
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](v5);
-  }
-
-  __cxa_end_catch();
-}
-
-void *virtual thunk toAdobeXMPCore_Int::SharedObjectImpl::Acquire(void *this)
-{
-  v1 = (this + *(*this - 24));
-  if (atomic_load(v1 + 2))
-  {
-    atomic_fetch_add(v1 + 2, 0xFFFFFFFFFFFFFFFFLL);
-  }
-
-  else
-  {
-    atomic_fetch_add(v1 + 1, 1uLL);
-  }
-
-  return this;
-}
-
-unint64_t *virtual thunk toAdobeXMPCore_Int::SharedObjectImpl::Release(AdobeXMPCore_Int::SharedObjectImpl *this)
-{
-  result = (this + *(*this - 32));
-  v2 = atomic_load(result + 1);
-  if (!v2 || atomic_fetch_add(result + 1, 0xFFFFFFFFFFFFFFFFLL) == 1)
-  {
-    return (*(*result + 32))();
-  }
-
-  return result;
-}
-
-void AdobeXMPCore_Int::SharedObjectImpl::~SharedObjectImpl(AdobeXMPCore_Int::SharedObjectImpl *this)
-{
-}
-
-{
-
-  JUMPOUT(0x186602850);
-}
-
-void virtual thunk toAdobeXMPCore_Int::SharedObjectImpl::~SharedObjectImpl(AdobeXMPCore_Int::SharedObjectImpl *this)
-{
-}
-
-{
-
-  JUMPOUT(0x186602850);
-}
-
-uint64_t AdobeXMPCore_Int::SharedObjectImpl::AcquireInternal(uint64_t this)
-{
-  atomic_fetch_add((this + 16), 1uLL);
-  atomic_fetch_add((this + 8), 1uLL);
-  return this;
-}
-
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::RemovePrefix(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, AdobeXMPCore_Int::IUTF8String_I *__s, char *a3)
-{
-  if (AdobeXMPCore_Int::VerifyParameters(1, 0, __s, 0, a3, 0))
-  {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(__s, a3);
-  }
-
-  return 0;
-}
-
-void sub_18615E9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
-{
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a12);
-  if (a16)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::RemoveNameSpace(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, AdobeXMPCore_Int::IUTF8String_I *a2, const char *a3)
-{
-  if (AdobeXMPCore_Int::VerifyParameters(0, 1, 0, a2, 0, a3))
-  {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(a2, a3);
-  }
-
-  return 0;
-}
-
-void sub_18615EB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
-{
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a12);
-  if (a16)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a16);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::IsPrefixPresent(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, AdobeXMPCore_Int::IUTF8String_I *__s, char *a3)
-{
-  if (AdobeXMPCore_Int::VerifyParameters(1, 0, __s, 0, a3, 0))
-  {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(__s, a3);
-  }
-
-  return 0;
-}
-
-void sub_18615ECA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a10);
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::IsNameSpacePresent(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, AdobeXMPCore_Int::IUTF8String_I *a2, const char *a3)
-{
-  if (AdobeXMPCore_Int::VerifyParameters(0, 1, 0, a2, 0, a3))
-  {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(a2, a3);
-  }
-
-  return 0;
-}
-
-void sub_18615EDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a10);
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::GetNameSpace@<X0>(char *__s@<X1>, char *a2@<X2>, void *a3@<X8>)
-{
-  result = AdobeXMPCore_Int::VerifyParameters(1, 0, __s, 0, a2, 0);
-  if (result)
-  {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(__s, a2);
-  }
-
-  *a3 = 0;
-  a3[1] = 0;
-  return result;
-}
-
-void sub_18615EEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
-{
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a10);
-  if (a14)
-  {
-    std::__shared_weak_count::__release_shared[abi:fe200100](a14);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void AdobeXMPCore_Int::NameSpacePrefixMapImpl::GetNameSpace(void *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
-{
-  v8 = 0;
-  v9 = 0;
-  if (!AdobeXMPCore_Int::VerifyParameters(1, 0, a2, &v8))
-  {
-    goto LABEL_7;
-  }
-
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  AdobeXMPCore_Int::AutoSharedLock::AutoSharedLock(&v8, a1 + *(*a1 - 192) + 8, 1);
-  v6 = std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::find<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>((a1 + 4), a2);
-  if (a1 + 5 == v6)
-  {
-    AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&v8);
-LABEL_7:
-    *a3 = 0;
-    a3[1] = 0;
-    return;
-  }
-
-  v7 = *(v6 + 56);
-  *a3 = *(v6 + 48);
-  a3[1] = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&v8);
-}
-
-void sub_18615F014(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(va);
   _Unwind_Resume(a1);
 }
@@ -3879,20 +53,18 @@ void sub_18615F500(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::GetPrefix@<X0>(char *a1@<X1>, const char *a2@<X2>, void *a3@<X8>)
+void AdobeXMPCore_Int::NameSpacePrefixMapImpl::GetPrefix(const char *a2@<X1>, size_t a3@<X2>, void *a4@<X8>)
 {
-  result = AdobeXMPCore_Int::VerifyParameters(0, 1, 0, a1, 0, a2);
-  if (result)
+  if (AdobeXMPCore_Int::VerifyParameters(0, 1, 0, a2, 0, a3))
   {
-    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(a1, a2);
+    AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String();
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  return result;
+  *a4 = 0;
+  a4[1] = 0;
 }
 
-void sub_18615F624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_18615F624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&a10);
   if (a14)
@@ -3926,8 +98,8 @@ LABEL_7:
     return;
   }
 
-  v7 = *(v6 + 56);
-  *a3 = *(v6 + 48);
+  v7 = v6[7];
+  *a3 = v6[6];
   a3[1] = v7;
   if (v7)
   {
@@ -3937,9 +109,9 @@ LABEL_7:
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(&v8);
 }
 
-void sub_18615F738(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18615F738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(va);
   _Unwind_Resume(a1);
 }
@@ -3971,9 +143,9 @@ void AdobeXMPCore_Int::NameSpacePrefixMapImpl::Clear(AdobeXMPCore_Int::NameSpace
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(v3);
 }
 
-void sub_18615FAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_18615FAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(va);
   _Unwind_Resume(a1);
 }
@@ -4028,26 +200,26 @@ void *AdobeXMPCore_Int::NameSpacePrefixMapImpl::Merge(uint64_t a1, void **a2)
   return result;
 }
 
-double AdobeXMPCore::INameSpacePrefixMap_v1::GetDefaultNameSpacePrefixMap@<D0>(_OWORD *a1@<X8>)
+double AdobeXMPCore::INameSpacePrefixMap_v1::GetDefaultNameSpacePrefixMap@<D0>(uint64_t *__return_ptr a1@<X8>)
 {
-  AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(0, &v4);
-  result = *&v4;
-  *a1 = v4;
+  AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(0, &v3);
+  result = *&v3;
+  *a1 = v3;
   return result;
 }
 
-void *AdobeXMPCore::INameSpacePrefixMap_v1::MakeShared@<X0>(void *this@<X0>, AdobeXMPCore::INameSpacePrefixMap_v1 *a2@<X1>, void *a3@<X8>)
+uint64_t *AdobeXMPCore::INameSpacePrefixMap_v1::MakeShared@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, AdobeXMPCore::INameSpacePrefixMap_v1 *a3@<X1>)
 {
   if (this)
   {
     v4 = this;
-    (**(this + *(*this - 56)))(this + *(*this - 56), a2);
+    (**(this + *(*this - 56)))(this + *(*this - 56), a3);
 
-    std::shared_ptr<AdobeXMPCore::INameSpacePrefixMap_v1>::shared_ptr[abi:fe200100]<AdobeXMPCore::INameSpacePrefixMap_v1,std::__mem_fn<void (AdobeXMPCommon::ISharedObject::*)(void)const>,0>(a3, v4);
+    std::shared_ptr<AdobeXMPCore::INameSpacePrefixMap_v1>::shared_ptr[abi:fe200100]<AdobeXMPCore::INameSpacePrefixMap_v1,std::__mem_fn<void (AdobeXMPCommon::ISharedObject::*)(void)const>,0>(a1, v4, AdobeXMPCommon::ISharedObject::Release, 0);
   }
 
-  *a3 = 0;
-  a3[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   return this;
 }
 
@@ -4331,7 +503,7 @@ char *TIFF_FileWriter::FindTagInIFD(TIFF_FileWriter *this, TIFF_FileWriter *a2, 
   }
 }
 
-BOOL TIFF_FileWriter::GetIFD(uint64_t a1, unsigned int a2, uint64_t a3)
+BOOL TIFF_FileWriter::GetIFD(uint64_t a1, unsigned int a2, void *a3)
 {
   if (a2 >= 5)
   {
@@ -4349,10 +521,10 @@ BOOL TIFF_FileWriter::GetIFD(uint64_t a1, unsigned int a2, uint64_t a3)
     return v5 != v6;
   }
 
-  v7 = (a3 + 8);
-  std::__tree<unsigned long long>::destroy(a3, *(a3 + 8));
+  v7 = a3 + 1;
+  std::__tree<unsigned long long>::destroy(a3, a3[1]);
   *a3 = v7;
-  *(a3 + 16) = 0;
+  a3[2] = 0;
   *v7 = 0;
   if (v5 == v6)
   {
@@ -4365,7 +537,8 @@ BOOL TIFF_FileWriter::GetIFD(uint64_t a1, unsigned int a2, uint64_t a3)
     v9 = v5[7];
     v10 = *(v5 + 11);
     v11 = *(v5 + 12);
-    v12 = std::__tree<std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_Manager::TagInfo>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a3, v5 + 20);
+    v18 = v5 + 5;
+    v12 = std::__tree<std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_Manager::TagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_Manager::TagInfo>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a3, v5 + 20, &std::piecewise_construct, &v18);
     *(v12 + 10) = v8;
     *(v12 + 11) = v10;
     v12[6] = v9;
@@ -4490,7 +663,7 @@ LABEL_10:
     *&v30 = 0;
     BYTE8(v30) = 0;
     BYTE9(v30) = v21;
-    v17 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(v15 - 1, v15, &v28);
+    v17 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(v15 - 1, v15, &v28, &v28);
     if (BYTE9(v30))
     {
       if (LODWORD(v29[0]) < 5)
@@ -5247,9 +1420,9 @@ uint64_t TIFF_FileWriter::ProcessMemoryIFD(TIFF_FileWriter *this, unsigned int a
   v26 = a2;
   if (a2 < 8 || *(this + 26) - 6 < a2)
   {
-    v27 = 206;
-    v28 = "Bad IFD offset";
-    v29[0] = 0;
+    *&v27 = 206;
+    *(&v27 + 1) = "Bad IFD offset";
+    v28[0] = 0;
     (*(*this + 264))(this, 2, &v27);
   }
 
@@ -5258,18 +1431,18 @@ uint64_t TIFF_FileWriter::ProcessMemoryIFD(TIFF_FileWriter *this, unsigned int a
   v8 = (*(this + 1))(v7);
   if ((v8 & 0x8000) != 0)
   {
-    v27 = 206;
-    v28 = "Outrageous IFD count";
-    v29[0] = 0;
+    *&v27 = 206;
+    *(&v27 + 1) = "Outrageous IFD count";
+    v28[0] = 0;
     (*(*this + 264))(this, 2, &v27);
   }
 
   v24 = 12 * v8;
   if (12 * v8 + 6 > *(this + 26) - a2)
   {
-    v27 = 206;
-    v28 = "Out of bounds IFD";
-    v29[0] = 0;
+    *&v27 = 206;
+    *(&v27 + 1) = "Out of bounds IFD";
+    v28[0] = 0;
     (*(*this + 264))(this, 2, &v27);
   }
 
@@ -5290,16 +1463,16 @@ uint64_t TIFF_FileWriter::ProcessMemoryIFD(TIFF_FileWriter *this, unsigned int a
         v14 = v13;
         v15 = (*(this + 1))(v12 + 2);
         v16 = (*(this + 2))(v12 + 6);
-        v30 = 0u;
-        v27 = v15;
-        LOWORD(v28) = v15;
-        WORD1(v28) = v14;
-        HIDWORD(v28) = v16;
-        v29[0] = 0;
-        v29[1] = 0;
-        *&v30 = 0;
-        WORD4(v30) = 0;
-        v17 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(v6 + 2, v6 + 3, &v27);
+        v29 = 0u;
+        *&v27 = v15;
+        WORD4(v27) = v15;
+        WORD5(v27) = v14;
+        HIDWORD(v27) = v16;
+        v28[0] = 0;
+        v28[1] = 0;
+        *&v29 = 0;
+        WORD4(v29) = 0;
+        v17 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(v6 + 2, v6 + 3, &v27, &v27);
         v18 = *(v17 + 44) * kTIFF_TypeSizes[*(v17 + 42)];
         *(v17 + 64) = v18;
         *(v17 + 48) = v18;
@@ -5337,20 +1510,20 @@ uint64_t TIFF_FileWriter::ProcessMemoryIFD(TIFF_FileWriter *this, unsigned int a
         }
 
         *(v17 + 56) = *(this + 12) + v19;
-        if (BYTE9(v30))
+        if (BYTE9(v29))
         {
-          if (LODWORD(v29[0]) >= 5)
+          if (LODWORD(v28[0]) >= 5)
           {
             goto LABEL_24;
           }
         }
 
-        else if (BYTE8(v30) == 1 && LODWORD(v29[0]) > 4)
+        else if (BYTE8(v29) == 1 && LODWORD(v28[0]) > 4)
         {
 LABEL_24:
-          if (v29[1])
+          if (v28[1])
           {
-            free(v29[1]);
+            free(v28[1]);
           }
         }
       }
@@ -5391,7 +1564,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t TIFF_FileWriter::ParseFileStream(uint64_t a1, uint64_t a2)
+char *TIFF_FileWriter::ParseFileStream(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   TIFF_FileWriter::DeleteExistingInfo(a1);
@@ -5464,10 +1637,10 @@ uint64_t TIFF_FileWriter::ParseFileStream(uint64_t a1, uint64_t a2)
       result = TIFF_FileWriter::FindTagInIFD(a1, 2, 0xA005u);
       if (result)
       {
-        v15 = *(result + 2);
-        if ((v15 == 13 || v15 == 4) && *(result + 8) == 4)
+        v15 = *(result + 1);
+        if ((v15 == 13 || v15 == 4) && *(result + 2) == 4)
         {
-          v16 = (*(a1 + 16))(*(result + 16));
+          v16 = (*(a1 + 16))(*(result + 2));
           if (IsOffsetValid(v16, 8u, v6))
           {
             return TIFF_FileWriter::ProcessFileIFD(a1, 4u, v16, a2);
@@ -5492,10 +1665,10 @@ uint64_t TIFF_FileWriter::ParseFileStream(uint64_t a1, uint64_t a2)
 uint64_t TIFF_FileWriter::ProcessFileIFD(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
   __p = 0;
-  v46 = 0;
-  v47 = 0;
-  std::vector<unsigned char>::vector[abi:fe200100](&__p, 786432);
+  v43 = 0;
   v44 = 0;
+  std::vector<unsigned char>::vector[abi:fe200100](&__p, 786432);
+  v41 = 0;
   if (a3 < 8 || *(a1 + 104) - 6 < a3)
   {
     exception = __cxa_allocate_exception(0x18uLL);
@@ -5508,15 +1681,15 @@ uint64_t TIFF_FileWriter::ProcessFileIFD(uint64_t a1, unsigned int a2, unsigned 
   v8 = (*(*a4 + 24))(a4);
   if (v8 - (*(*a4 + 16))(a4, 0, 1) >= 2)
   {
-    (**a4)(a4, &v44, 2, 1);
-    v9 = (*(a1 + 8))(&v44);
+    (**a4)(a4, &v41, 2, 1);
+    v9 = (*(a1 + 8))(&v41);
     if ((v9 & 0x80000000) == 0)
     {
       v10 = (*(*a4 + 24))(a4);
       result = (*(*a4 + 16))(a4, 0, 1);
       if (v10 - result >= (12 * v9))
       {
-        if (v46 == __p || (((**a4)(a4), v13 = (*(*a4 + 24))(a4), v13 - (*(*a4 + 16))(a4, 0, 1) < 4) ? (result = 0) : ((**a4)(a4, &v44, 4, 1), result = (*(a1 + 16))(&v44)), v14 = a1 + 40 * a2 + 112, *(v14 + 4) = a3, *(v14 + 8) = result, *(v14 + 2) = v9, v46 == __p))
+        if (v43 == __p || (((**a4)(a4), v13 = (*(*a4 + 24))(a4), v13 - (*(*a4 + 16))(a4, 0, 1) < 4) ? (result = 0) : ((**a4)(a4, &v41, 4, 1), result = (*(a1 + 16))(&v41)), v14 = a1 + 40 * a2 + 112, *(v14 + 4) = a3, *(v14 + 8) = result, *(v14 + 2) = v9, v43 == __p))
         {
           __break(1u);
           return result;
@@ -5603,16 +1776,16 @@ LABEL_33:
           {
             v18 = (*(a1 + 8))(v16 - 2);
             v19 = (*(a1 + 16))(v16 - 1);
-            v43 = 0u;
-            v38 = v18;
-            v39 = v18;
-            v40 = v17;
-            v41 = v19;
-            v42[0] = 0;
-            v42[1] = 0;
-            *&v43 = 0;
-            WORD4(v43) = 256;
-            v20 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>((a1 + 40 * a2 + 128), (a1 + 40 * a2 + 136), &v38);
+            v40 = 0u;
+            *&v38 = v18;
+            WORD4(v38) = v18;
+            WORD5(v38) = v17;
+            HIDWORD(v38) = v19;
+            v39[0] = 0;
+            v39[1] = 0;
+            *&v40 = 0;
+            WORD4(v40) = 256;
+            v20 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>((a1 + 40 * a2 + 128), (a1 + 40 * a2 + 136), &v38, &v38);
             v21 = v20;
             v22 = *(v20 + 44) * kTIFF_TypeSizes[*(v20 + 42)];
             *(v20 + 64) = v22;
@@ -5639,20 +1812,20 @@ LABEL_33:
               *(v20 + 68) = v15;
             }
 
-            if (BYTE9(v43))
+            if (BYTE9(v40))
             {
-              if (LODWORD(v42[0]) >= 5)
+              if (LODWORD(v39[0]) >= 5)
               {
                 goto LABEL_30;
               }
             }
 
-            else if (BYTE8(v43) == 1 && LODWORD(v42[0]) > 4)
+            else if (BYTE8(v40) == 1 && LODWORD(v39[0]) > 4)
             {
 LABEL_30:
-              if (v42[1])
+              if (v39[1])
               {
-                free(v42[1]);
+                free(v39[1]);
               }
             }
           }
@@ -5672,7 +1845,7 @@ LABEL_30:
 LABEL_7:
   if (__p)
   {
-    v46 = __p;
+    v43 = __p;
     operator delete(__p);
   }
 
@@ -5708,7 +1881,7 @@ LABEL_8:
   _Unwind_Resume(exception_object);
 }
 
-void TIFF_FileWriter::IntegrateFromPShop6(uint64_t (**this)(void), const void *a2, size_t a3)
+void TIFF_FileWriter::IntegrateFromPShop6(unsigned __int16 (**this)(const void *), const void *a2, size_t a3)
 {
   v12 = 0u;
   v13 = 0u;
@@ -5740,7 +1913,7 @@ void sub_186162624(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TIFF_FileWriter::ProcessPShop6IFD(uint64_t (**this)(void), const TIFF_MemoryReader *a2, TIFF_FileWriter *a3)
+void TIFF_FileWriter::ProcessPShop6IFD(unsigned __int16 (**this)(const void *), const TIFF_MemoryReader *a2, TIFF_FileWriter *a3)
 {
   v31[0] = 0;
   v31[1] = 0;
@@ -5993,7 +2166,7 @@ LABEL_15:
   std::__tree<unsigned long long>::destroy(&v30, v31[0]);
 }
 
-uint64_t TIFF_FileWriter::CopyTagToMainIFD(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TIFF_FileWriter::CopyTagToMainIFD(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v14 = 0u;
   *v15 = 0u;
@@ -6010,7 +2183,7 @@ uint64_t TIFF_FileWriter::CopyTagToMainIFD(uint64_t a1, uint64_t a2, uint64_t a3
   *&v16 = 0;
   BYTE8(v16) = 0;
   BYTE9(v16) = v7;
-  v8 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>((a3 + 16), (a3 + 24), &v14);
+  v8 = std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(a3 + 2, a3 + 3, &v14, &v14);
   v9 = *(a2 + 16);
   *(v8 + 48) = v9;
   if (v9 > 4)
@@ -6090,7 +2263,7 @@ LABEL_8:
 BOOL FlipOECFSFRTable(_WORD *a1, unsigned int a2, uint64_t (*a3)(void))
 {
   *a1 = bswap32(*a1) >> 16;
-  v6 = (a1 + 1);
+  v6 = a1 + 1;
   a1[1] = bswap32(a1[1]) >> 16;
   v7 = a3();
   v8 = (a3)(v6);
@@ -6112,12 +2285,12 @@ BOOL FlipOECFSFRTable(_WORD *a1, unsigned int a2, uint64_t (*a3)(void))
   return v9 <= a2;
 }
 
-uint64_t TIFF_FileWriter::PreflightIFDLinkage(void (**this)(uint64_t, int *))
+uint64_t TIFF_FileWriter::PreflightIFDLinkage(uint64_t (***this)(void (**)(uint64_t, int *), uint64_t, uint64_t, uint64_t, uint64_t, int *))
 {
   v2 = *this;
   if (this[38])
   {
-    if (((*(v2 + 3))(this, 2, 40965, 0) & 1) == 0)
+    if (((v2[3])(this, 2, 40965, 0) & 1) == 0)
     {
       TIFF_Manager::SetTag_Long(this, 2, 40965, 2880285613);
     }
@@ -6125,13 +2298,13 @@ uint64_t TIFF_FileWriter::PreflightIFDLinkage(void (**this)(uint64_t, int *))
 
   else
   {
-    (*(v2 + 5))(this, 2, 40965);
+    (v2[5])(this, 2, 40965);
   }
 
   v3 = *this;
   if (this[33])
   {
-    if (((*(v3 + 3))(this, 0, 34853, 0) & 1) == 0)
+    if (((v3[3])(this, 0, 34853, 0) & 1) == 0)
     {
       TIFF_Manager::SetTag_Long(this, 0, 34853, 2880285613);
     }
@@ -6139,13 +2312,13 @@ uint64_t TIFF_FileWriter::PreflightIFDLinkage(void (**this)(uint64_t, int *))
 
   else
   {
-    (*(v3 + 5))(this, 0, 34853);
+    (v3[5])(this, 0, 34853);
   }
 
   v4 = *this;
   if (this[28])
   {
-    result = (*(v4 + 3))(this, 0, 34665, 0);
+    result = (v4[3])(this, 0, 34665, 0);
     if ((result & 1) == 0)
     {
       result = TIFF_Manager::SetTag_Long(this, 0, 34665, 2880285613);
@@ -6154,7 +2327,7 @@ uint64_t TIFF_FileWriter::PreflightIFDLinkage(void (**this)(uint64_t, int *))
 
   else
   {
-    result = (*(v4 + 5))(this, 0, 34665);
+    result = (v4[5])(this, 0, 34665);
   }
 
   if (!this[18] && this[23])
@@ -7231,22 +3404,22 @@ void TIFF_MemoryReader::TIFF_MemoryReader(TIFF_MemoryReader *this)
   *(v1 + 74) = 1;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(void *a1, uint64_t *a2, unsigned __int16 *a3)
+uint64_t std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__emplace_hint_unique_key_args<unsigned short,std::pair<unsigned short const,TIFF_FileWriter::InternalTagInfo> const&>(uint64_t **a1, uint64_t *a2, unsigned __int16 *a3, _OWORD *a4)
 {
-  v5 = 0;
   v6 = 0;
-  v3 = *std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__find_equal<unsigned short>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0;
+  v4 = *std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__find_equal<unsigned short>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__find_equal<unsigned short>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
+uint64_t *std::__tree<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,TIFF_FileWriter::InternalTagInfo>>>::__find_equal<unsigned short>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int16 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 16), v6 < v7))
   {
     v8 = *a2;
@@ -7273,7 +3446,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -7334,7 +3507,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -7413,7 +3586,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -7452,17 +3625,17 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<unsigned short,TIFF
   return a1;
 }
 
-void *std::vector<unsigned char>::vector[abi:fe200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:fe200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:fe200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:fe200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1861647D4(_Unwind_Exception *exception_object)
@@ -7811,16 +3984,16 @@ void AdobeXMPCore_Int::DOMImplementationRegistryImpl::~DOMImplementationRegistry
   std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::destroy(this + 8, *(this + 2));
 }
 
-uint64_t std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>>>::__emplace_unique_key_args<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::pair<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>>>::__emplace_unique_key_args<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::pair<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCore::IDOMParser_v1 const>>>(uint64_t **a1, uint64_t a2, __int128 *a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__find_equal<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__find_equal<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t DumpNodeOptions(unsigned int a1, uint64_t (*a2)(void *, const char *, uint64_t), void *a3)
@@ -7875,7 +4048,7 @@ uint64_t DumpNodeOptions(unsigned int a1, uint64_t (*a2)(void *, const char *, u
   return result;
 }
 
-uint64_t XMPMeta::DumpObject(XMPMeta *this, uint64_t (*a2)(void *, const char *, uint64_t), void *a3)
+uint64_t XMPMeta::DumpObject(XMPMeta *this, uint64_t (*a2)(uint64_t, unsigned __int8 *, uint64_t), void *a3)
 {
   if (!a2)
   {
@@ -8108,7 +4281,7 @@ LABEL_52:
   return result;
 }
 
-uint64_t DumpPropertyTree(const XMP_Node *a1, int a2, uint64_t a3, uint64_t (*a4)(void *, const char *, uint64_t), void *a5)
+uint64_t DumpPropertyTree(const XMP_Node *a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t, unsigned __int8 *, uint64_t), void *a5)
 {
   v41 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -8600,15 +4773,15 @@ uint64_t XMPMeta::SetObjectName(XMPMeta *this, char *a2)
   return MEMORY[0x186602520](this + 240, a2);
 }
 
-uint64_t *XMPMeta::Sort(XMPMeta *this)
+int8x16_t *XMPMeta::Sort(XMPMeta *this)
 {
   v2 = *(this + 41);
   v3 = *(this + 40);
   if (v3 != v2)
   {
     v6 = CompareNodeNames;
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(v3, v2, &v6, 126 - 2 * __clz((v2 - v3) >> 3), 1);
-    SortWithinOffspring(this + 40);
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(v3, v2, &v6, 126 - 2 * __clz((v2->i64 - v3) >> 3), 1);
+    SortWithinOffspring(this + 20);
   }
 
   result = *(this + 37);
@@ -8616,8 +4789,8 @@ uint64_t *XMPMeta::Sort(XMPMeta *this)
   if (result != v5)
   {
     v6 = CompareNodeValues;
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(result, v5, &v6, 126 - 2 * __clz(v5 - result), 1);
-    return SortWithinOffspring(this + 37);
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(result, v5, &v6, 126 - 2 * __clz((v5 - result) >> 3), 1);
+    return SortWithinOffspring((this + 296));
   }
 
   return result;
@@ -8780,9 +4953,9 @@ LABEL_26:
   }
 }
 
-uint64_t *SortWithinOffspring(uint64_t *result)
+int8x16_t *SortWithinOffspring(int8x16_t *result)
 {
-  v1 = result[1] - *result;
+  v1 = result->i64[1] - result->i64[0];
   if (v1)
   {
     v2 = result;
@@ -8800,19 +4973,19 @@ uint64_t *SortWithinOffspring(uint64_t *result)
 
     while (1)
     {
-      if (v3 >= (v2[1] - *v2) >> 3)
+      if (v3 >= (v2->i64[1] - v2->i64[0]) >> 3)
       {
         __break(1u);
         return result;
       }
 
-      v6 = *(*v2 + 8 * v3);
+      v6 = *(v2->i64[0] + 8 * v3);
       v7 = *(v6 + 96);
       if (v7 != *(&v7 + 1))
       {
         v11 = CompareNodeNames;
         std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(v7, *(&v7 + 1), &v11, 126 - 2 * __clz((*(&v7 + 1) - v7) >> 3), 1);
-        SortWithinOffspring(v6 + 96);
+        SortWithinOffspring((v6 + 96));
       }
 
       v8 = *(v6 + 80);
@@ -8845,7 +5018,7 @@ LABEL_17:
       if ((v9 & 0x400) == 0)
       {
         v11 = CompareNodeValues;
-        std::__stable_sort_impl[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>,BOOL (*)(XMP_Node *,XMP_Node *)>(result, v8, &v11);
+        std::__stable_sort_impl[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>,BOOL (*)(XMP_Node *,XMP_Node *)>(result->i64, v8->i64, &v11);
         goto LABEL_16;
       }
 
@@ -8858,9 +5031,9 @@ LABEL_17:
     }
 
     v11 = v10;
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(result, v8, &v11, 126 - 2 * __clz(v8 - result), 1);
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(IIOTag *,IIOTag *),IIOTag **,false>(result, v8, &v11, 126 - 2 * __clz((v8 - result) >> 3), 1);
 LABEL_16:
-    result = SortWithinOffspring(v6 + 72);
+    result = SortWithinOffspring((v6 + 72));
     goto LABEL_17;
   }
 
@@ -8940,13 +5113,13 @@ void *XMPMeta::Erase(XMPMeta *this)
   return XMP_Node::ClearNode((this + 224));
 }
 
-void *XMPMeta::Clone(XMPMeta *this, XMPMeta *a2, int a3)
+void XMPMeta::Clone(XMPMeta *this, XMPMeta *a2, int a3)
 {
   if (!a2)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     *exception = 4;
-    v9 = "Null clone pointer";
+    v8 = "Null clone pointer";
     goto LABEL_10;
   }
 
@@ -8954,9 +5127,9 @@ void *XMPMeta::Clone(XMPMeta *this, XMPMeta *a2, int a3)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     *exception = 103;
-    v9 = "No options are defined yet";
+    v8 = "No options are defined yet";
 LABEL_10:
-    exception[1] = v9;
+    exception[1] = v8;
     *(exception + 16) = 0;
   }
 
@@ -8976,7 +5149,7 @@ LABEL_10:
   *(a2 + 376) = *(this + 376);
   *(a2 + 49) = v6;
 
-  return CloneOffspring(this + 28, (a2 + 224), 0);
+  CloneOffspring((this + 224), (a2 + 224), 0);
 }
 
 void XMP_Node::GetFullQualifiedName(XMP_Node *this, const char **a2, unsigned int *a3, const char **a4, unsigned int *a5)
@@ -9120,15 +5293,15 @@ uint64_t XMPMeta::ResetErrorCallbackLimit(uint64_t this, int a2)
   return this;
 }
 
-BOOL XMPMeta::ErrorCallbackInfo::CanNotify(XMPMeta::ErrorCallbackInfo *this)
+BOOL XMPMeta::ErrorCallbackInfo::CanNotify(XMPMeta::ErrorCallbackInfo *this, uint64_t a2)
 {
-  v1 = *(this + 4);
-  if (v1 && !*(this + 3))
+  v2 = *(this + 4);
+  if (v2 && !*(this + 3))
   {
     XMPMeta::ErrorCallbackInfo::CanNotify();
   }
 
-  return v1 != 0;
+  return v2 != 0;
 }
 
 void std::__destroy_at[abi:fe200100]<std::pair<std::string const,std::string>,0>(uint64_t a1)
@@ -9316,7 +5489,7 @@ BOOL std::less<std::string>::operator()[abi:fe200100](uint64_t a1, const void **
   }
 }
 
-uint64_t std::string::compare[abi:fe200100](const void **a1, _BYTE *a2)
+uint64_t std::string::compare[abi:fe200100](const void ***a1, _BYTE *a2)
 {
   v2 = a2[23];
   v3 = *(a1 + 23);
@@ -9469,7 +5642,7 @@ void std::vector<XPathStepInfo>::__vdeallocate(uint64_t a1)
   }
 }
 
-void std::vector<XPathStepInfo>::__vallocate[abi:fe200100](uint64_t a1, unint64_t a2)
+void std::vector<XPathStepInfo>::__vallocate[abi:fe200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -9521,7 +5694,7 @@ std::string *std::__uninitialized_allocator_copy_impl[abi:fe200100]<std::allocat
   return v4;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<XPathStepInfo>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<XPathStepInfo>>,void *>>>>::~unique_ptr[abi:fe200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<XPathStepInfo>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<XPathStepInfo>>,void *>>>>::~unique_ptr[abi:fe200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9573,7 +5746,7 @@ void std::__destroy_at[abi:fe200100]<std::pair<std::string const,std::vector<XPa
   }
 }
 
-std::string *std::pair<std::string const,std::vector<XPathStepInfo>>::pair[abi:fe200100]<std::string&,std::vector<XPathStepInfo>&,0>(std::string *this, __int128 *a2, uint64_t *a3)
+std::string *std::pair<std::string const,std::vector<XPathStepInfo>>::pair[abi:fe200100]<std::string&,std::vector<XPathStepInfo>&,0>(std::string *this, __int128 *a2, __int128 **a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -9590,7 +5763,7 @@ std::string *std::pair<std::string const,std::vector<XPathStepInfo>>::pair[abi:f
   this[1].__r_.__value_.__r.__words[0] = 0;
   this[1].__r_.__value_.__l.__size_ = 0;
   this[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<XPathStepInfo>::__init_with_size[abi:fe200100]<XPathStepInfo*,XPathStepInfo*>(&this[1], *a3, a3[1], (a3[1] - *a3) >> 5);
+  std::vector<XPathStepInfo>::__init_with_size[abi:fe200100]<XPathStepInfo*,XPathStepInfo*>(this + 1, *a3, a3[1], (a3[1] - *a3) >> 5);
   return this;
 }
 
@@ -9604,7 +5777,7 @@ void sub_186167A44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<XPathStepInfo>::__init_with_size[abi:fe200100]<XPathStepInfo*,XPathStepInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<XPathStepInfo>::__init_with_size[abi:fe200100]<XPathStepInfo*,XPathStepInfo*>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9717,7 +5890,7 @@ LABEL_15:
   }
 
   v14 = *v13;
-  v15 = v13[8];
+  v15 = *(v13 + 8);
   if (v14 != 0x6C75616665642D78 || v15 != 116)
   {
 LABEL_25:
@@ -9797,4 +5970,3943 @@ LABEL_8:
 
     operator delete(v12);
   }
+}
+
+void sub_186167D88(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    operator delete(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__stable_sort<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(uint64_t *result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), unint64_t a4, uint64_t *a5, int64_t a6)
+{
+  if (a4 >= 2)
+  {
+    if (a4 == 2)
+    {
+      if ((*a3)(*(a2 - 1), *result, a3, 2, a5, a6))
+      {
+        v9 = *result;
+        *result = *(a2 - 1);
+        *(a2 - 1) = v9;
+      }
+    }
+
+    else if (a4 > 128)
+    {
+      v13 = a4 >> 1;
+      v14 = &result[a4 >> 1];
+      v15 = a4 >> 1;
+      if (a4 <= a6)
+      {
+        std::__stable_sort_move<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, v14, a3, v15, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v13]);
+
+        std::__merge_move_assign[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),XMP_Node **,XMP_Node **,std::__wrap_iter<XMP_Node **>>(a5, &a5[v13], &a5[v13], &a5[a4], result, a3);
+      }
+
+      else
+      {
+        std::__stable_sort<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, v14, a3, v15, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+
+        std::__inplace_merge<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+      }
+    }
+
+    else
+    {
+
+      std::__insertion_sort[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, a2, a3);
+    }
+  }
+}
+
+uint64_t std::__insertion_sort[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t))
+{
+  if (result != a2)
+  {
+    v4 = result;
+    v5 = (result + 8);
+    if ((result + 8) != a2)
+    {
+      v7 = 0;
+      v8 = result;
+      do
+      {
+        v9 = *v8;
+        v8 = v5;
+        result = (*a3)(*v5, v9);
+        if (result)
+        {
+          v10 = *v8;
+          v11 = v7;
+          while (1)
+          {
+            *(v4 + v11 + 8) = *(v4 + v11);
+            if (!v11)
+            {
+              break;
+            }
+
+            result = (*a3)(v10, *(v4 + v11 - 8));
+            v11 -= 8;
+            if ((result & 1) == 0)
+            {
+              v12 = (v4 + v11 + 8);
+              goto LABEL_10;
+            }
+          }
+
+          v12 = v4;
+LABEL_10:
+          *v12 = v10;
+        }
+
+        v5 = v8 + 1;
+        v7 += 8;
+      }
+
+      while (v8 + 1 != a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::__stable_sort_move<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(uint64_t *result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), unint64_t a4, uint64_t *a5)
+{
+  if (a4)
+  {
+    v9 = result;
+    if (a4 == 2)
+    {
+      result = (*a3)(*(a2 - 1), *result);
+      if (result)
+      {
+        *a5 = *(a2 - 1);
+        v10 = *v9;
+      }
+
+      else
+      {
+        *a5 = *v9;
+        v10 = *(a2 - 1);
+      }
+
+      a5[1] = v10;
+    }
+
+    else if (a4 == 1)
+    {
+      *a5 = *result;
+    }
+
+    else if (a4 > 8)
+    {
+      std::__stable_sort<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, &result[a4 >> 1], a3, a4 >> 1, a5, a4 >> 1);
+      std::__stable_sort<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(&v9[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[a4 >> 1], a4 - (a4 >> 1));
+
+      return std::__merge_move_construct[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>,std::__wrap_iter<XMP_Node **>>(v9, &v9[a4 >> 1], &v9[a4 >> 1], a2, a5, a3);
+    }
+
+    else
+    {
+
+      return std::__insertion_sort_move[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, a2, a5, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::__merge_move_assign[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),XMP_Node **,XMP_Node **,std::__wrap_iter<XMP_Node **>>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t (**a6)(uint64_t, uint64_t))
+{
+  if (result == a2)
+  {
+LABEL_16:
+    while (a3 != a4)
+    {
+      v15 = *a3++;
+      *a5++ = v15;
+    }
+  }
+
+  else
+  {
+    v11 = result;
+    while (a3 != a4)
+    {
+      result = (*a6)(*a3, *v11);
+      if (result)
+      {
+        v12 = a3;
+      }
+
+      else
+      {
+        v12 = v11;
+      }
+
+      if (result)
+      {
+        v13 = 0;
+      }
+
+      else
+      {
+        v13 = 8;
+      }
+
+      v11 = (v11 + v13);
+      if (result)
+      {
+        v14 = 8;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      a3 = (a3 + v14);
+      *a5++ = *v12;
+      if (v11 == a2)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    while (v11 != a2)
+    {
+      v16 = *v11++;
+      *a5++ = v16;
+    }
+  }
+
+  return result;
+}
+
+void std::__inplace_merge<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(char *result, char *a2, char *a3, uint64_t (**a4)(uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a6)
+  {
+    v10 = a6;
+    while (v10 > a8 && a5 > a8)
+    {
+      if (!a5)
+      {
+        return;
+      }
+
+      v15 = 0;
+      v16 = -a5;
+      while (((*a4)(*a2, *&v15[result]) & 1) == 0)
+      {
+        v15 += 8;
+        if (__CFADD__(v16++, 1))
+        {
+          return;
+        }
+      }
+
+      v18 = -v16;
+      v43 = a8;
+      v44 = a7;
+      v42 = v10;
+      if (-v16 >= v10)
+      {
+        if (v16 == -1)
+        {
+          v40 = *&v15[result];
+          *&v15[result] = *a2;
+          *a2 = v40;
+          return;
+        }
+
+        v26 = v18 / 2;
+        v27 = &result[8 * (v18 / 2)];
+        v20 = a2;
+        if (a2 != a3)
+        {
+          v41 = v18 / 2;
+          v46 = *a4;
+          v28 = (a3 - a2) >> 3;
+          v20 = a2;
+          do
+          {
+            v29 = &v20[8 * (v28 >> 1)];
+            v31 = *v29;
+            v30 = (v29 + 1);
+            v32 = v46(v31, *&v15[v27]);
+            if (v32)
+            {
+              v28 += ~(v28 >> 1);
+            }
+
+            else
+            {
+              v28 >>= 1;
+            }
+
+            if (v32)
+            {
+              v20 = v30;
+            }
+          }
+
+          while (v28);
+          v26 = v41;
+        }
+
+        v19 = (v20 - a2) >> 3;
+        v21 = &v15[v27];
+      }
+
+      else
+      {
+        v19 = v10 / 2;
+        v20 = &a2[8 * (v10 / 2)];
+        v21 = a2;
+        if ((a2 - result) != v15)
+        {
+          v22 = (a2 - result - v15) >> 3;
+          v21 = &v15[result];
+          do
+          {
+            v23 = &v21[8 * (v22 >> 1)];
+            v25 = *v23;
+            v24 = (v23 + 1);
+            if ((*a4)(*v20, v25))
+            {
+              v22 >>= 1;
+            }
+
+            else
+            {
+              v21 = v24;
+              v22 += ~(v22 >> 1);
+            }
+          }
+
+          while (v22);
+        }
+
+        v26 = (v21 - result - v15) >> 3;
+      }
+
+      a5 = -(v26 + v16);
+      v33 = a2;
+      v34 = v26;
+      v35 = std::__rotate[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>,std::__wrap_iter<XMP_Node **>>(v21, v33, v20);
+      v36 = v34;
+      v37 = v35;
+      if (v36 + v19 >= v42 - (v36 + v19) - v16)
+      {
+        v39 = v36;
+        a7 = v44;
+        std::__inplace_merge<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(v35, v20, a3, a4, a5, v42 - v19, v44, v43);
+        v20 = v21;
+        a8 = v43;
+        a5 = v39;
+        a3 = v37;
+        result = &v15[result];
+      }
+
+      else
+      {
+        v38 = v21;
+        a8 = v43;
+        a7 = v44;
+        std::__inplace_merge<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(&v15[result], v38, v35, a4, v36, v19, v44, v43);
+        result = v37;
+        v19 = v42 - v19;
+      }
+
+      a2 = v20;
+      v10 = v19;
+      if (!v19)
+      {
+        return;
+      }
+    }
+
+    std::__buffered_inplace_merge[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(result, a2, a3, a4, a5, v10, a7);
+  }
+}
+
+uint64_t *std::__insertion_sort_move[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t, uint64_t))
+{
+  if (result != a2)
+  {
+    v6 = result + 1;
+    *a3 = *result;
+    if (result + 1 != a2)
+    {
+      v8 = 0;
+      v9 = a3;
+      do
+      {
+        v10 = v9;
+        v11 = *v9++;
+        result = (*a4)(*v6, v11);
+        v12 = v9;
+        if (result)
+        {
+          v10[1] = *v10;
+          v12 = a3;
+          if (v10 != a3)
+          {
+            v13 = v8;
+            while (1)
+            {
+              v12 = (a3 + v13);
+              result = (*a4)(*v6, *(a3 + v13 - 8));
+              if (!result)
+              {
+                break;
+              }
+
+              *v12 = *(v12 - 1);
+              v13 -= 8;
+              if (!v13)
+              {
+                v12 = a3;
+                break;
+              }
+            }
+          }
+        }
+
+        v14 = *v6++;
+        *v12 = v14;
+        v8 += 8;
+      }
+
+      while (v6 != a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::__merge_move_construct[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>,std::__wrap_iter<XMP_Node **>>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t (**a6)(uint64_t, uint64_t))
+{
+  if (result == a2)
+  {
+LABEL_16:
+    while (a3 != a4)
+    {
+      v15 = *a3++;
+      *a5++ = v15;
+    }
+  }
+
+  else
+  {
+    v11 = result;
+    while (a3 != a4)
+    {
+      result = (*a6)(*a3, *v11);
+      if (result)
+      {
+        v12 = a3;
+      }
+
+      else
+      {
+        v12 = v11;
+      }
+
+      if (result)
+      {
+        v13 = 8;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      a3 = (a3 + v13);
+      if (result)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = 8;
+      }
+
+      v11 = (v11 + v14);
+      *a5++ = *v12;
+      if (v11 == a2)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    while (v11 != a2)
+    {
+      v16 = *v11++;
+      *a5++ = v16;
+    }
+  }
+
+  return result;
+}
+
+void std::__buffered_inplace_merge[abi:fe200100]<std::_ClassicAlgPolicy,BOOL (*&)(XMP_Node *,XMP_Node *),std::__wrap_iter<XMP_Node **>>(uint64_t *__dst, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t __src)
+{
+  v7 = __src;
+  v10 = a2;
+  v11 = __dst;
+  if (a5 <= a6)
+  {
+    if (__dst != a2)
+    {
+      v15 = -__src;
+      v16 = __src;
+      v17 = __dst;
+      do
+      {
+        v18 = *v17++;
+        *v16++ = v18;
+        v15 -= 8;
+      }
+
+      while (v17 != a2);
+      while (v10 != a3)
+      {
+        v19 = (*a4)(*v10, *v7);
+        if (v19)
+        {
+          v20 = v10;
+        }
+
+        else
+        {
+          v20 = v7;
+        }
+
+        if (v19)
+        {
+          v21 = 8;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        v10 = (v10 + v21);
+        if (v19)
+        {
+          v22 = 0;
+        }
+
+        else
+        {
+          v22 = 8;
+        }
+
+        v7 = (v7 + v22);
+        *v11++ = *v20;
+        if (v16 == v7)
+        {
+          return;
+        }
+      }
+
+      memmove(v11, v7, -(v7 + v15));
+    }
+  }
+
+  else
+  {
+    v12 = __src;
+    if (a2 != a3)
+    {
+      v12 = __src;
+      v13 = a2;
+      do
+      {
+        v14 = *v13++;
+        *v12++ = v14;
+      }
+
+      while (v13 != a3);
+    }
+
+    v23 = a4;
+    std::__half_inplace_merge[abi:fe200100]<std::_ClassicAlgPolicy,std::__invert<BOOL (*&)(XMP_Node *,XMP_Node *)>,std::reverse_iterator<XMP_Node **>,std::reverse_iterator<XMP_Node **>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>>(v12, v12, __src, __src, a2, a2, v11, v11, a3, a3, &v23);
+  }
+}
+
+char *std::__rotate[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>,std::__wrap_iter<XMP_Node **>>(char *__src, char *a2, char *a3)
+{
+  v4 = a3;
+  if (__src != a2)
+  {
+    v6 = a3 - a2;
+    if (a3 == a2)
+    {
+      return __src;
+    }
+
+    else if (__src + 8 == a2)
+    {
+      v7 = *__src;
+      memmove(__src, __src + 8, v6);
+      v4 = &__src[v6];
+      *v4 = v7;
+    }
+
+    else if (a2 + 8 == a3)
+    {
+      v8 = *(a3 - 1);
+      v4 = __src + 8;
+      v9 = a3 - 8 - __src;
+      if (a3 - 8 != __src)
+      {
+        memmove(__src + 8, __src, v9);
+      }
+
+      *__src = v8;
+    }
+
+    else
+    {
+      return std::__rotate_gcd[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>>(__src, a2, a3);
+    }
+  }
+
+  return v4;
+}
+
+void std::__half_inplace_merge[abi:fe200100]<std::_ClassicAlgPolicy,std::__invert<BOOL (*&)(XMP_Node *,XMP_Node *)>,std::reverse_iterator<XMP_Node **>,std::reverse_iterator<XMP_Node **>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>,std::reverse_iterator<std::__wrap_iter<XMP_Node **>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t (***a11)(void, void))
+{
+  if (a2 != a4)
+  {
+    v14 = a2;
+    while (a6 != a8)
+    {
+      v16 = (**a11)(*(v14 - 8), *(a6 - 8), a3);
+      if (v16)
+      {
+        v17 = a6;
+      }
+
+      else
+      {
+        v17 = v14;
+      }
+
+      if (v16)
+      {
+        a6 -= 8;
+      }
+
+      else
+      {
+        v14 -= 8;
+      }
+
+      *(a10 - 8) = *(v17 - 8);
+      a10 -= 8;
+      if (v14 == a4)
+      {
+        return;
+      }
+    }
+
+    if (a4 != v14)
+    {
+      v18 = -8;
+      do
+      {
+        v19 = *(v14 - 8);
+        v14 -= 8;
+        *(a10 + v18) = v19;
+        v18 -= 8;
+      }
+
+      while (v14 != a4);
+    }
+  }
+}
+
+char *std::__rotate_gcd[abi:fe200100]<std::_ClassicAlgPolicy,std::__wrap_iter<XMP_Node **>>(char *a1, char *a2, char *a3)
+{
+  v3 = (a2 - a1) >> 3;
+  v4 = a3 - a2;
+  if (v3 == (a3 - a2) >> 3)
+  {
+    if (a2 != a1 && a3 != a2)
+    {
+      v5 = a1 + 8;
+      v6 = a2 + 8;
+      do
+      {
+        v7 = *(v5 - 1);
+        *(v5 - 1) = *(v6 - 1);
+        *(v6 - 1) = v7;
+        if (v5 == a2)
+        {
+          break;
+        }
+
+        v5 += 8;
+        v8 = v6 == a3;
+        v6 += 8;
+      }
+
+      while (!v8);
+    }
+  }
+
+  else
+  {
+    v9 = v4 >> 3;
+    v10 = (a2 - a1) >> 3;
+    do
+    {
+      v11 = v10;
+      v10 = v9;
+      v9 = v11 % v9;
+    }
+
+    while (v9);
+    v12 = &a1[8 * v10];
+    do
+    {
+      v14 = *(v12 - 1);
+      v12 -= 8;
+      v13 = v14;
+      v15 = &v12[a2 - a1];
+      v16 = v12;
+      do
+      {
+        v17 = v15;
+        *v16 = *v15;
+        v18 = &v15[8 * v3];
+        v19 = __OFSUB__(v3, (a3 - v15) >> 3);
+        v21 = v3 - ((a3 - v15) >> 3);
+        v20 = (v21 < 0) ^ v19;
+        v15 = &a1[8 * v21];
+        if (v20)
+        {
+          v15 = v18;
+        }
+
+        v16 = v17;
+      }
+
+      while (v15 != v12);
+      *v17 = v13;
+    }
+
+    while (v12 != a1);
+    return &a1[v4];
+  }
+
+  return a2;
+}
+
+void *AdobeXMPCore_Int::INodeIterator_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
+{
+  if (a2 == 0x634E6F6465497420)
+  {
+    if (a3 != -1)
+    {
+      if (a3 != 1)
+      {
+        exception = __cxa_allocate_exception(0x10uLL);
+        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x634E6F6465497420, a3, exception);
+      }
+
+      return (this + *(*this - 136));
+    }
+  }
+
+  else
+  {
+    if (a4)
+    {
+      v5 = __cxa_allocate_exception(0x10uLL);
+      AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(0x634E6F6465497420, a2, v5);
+    }
+
+    return 0;
+  }
+
+  return this;
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::INodeIterator_I,void *,void *,unsigned long long,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+{
+  *a1 = 0;
+  v9 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v9 + a4);
+  }
+
+  return a4(v9, a8, a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INodeIterator_v1,AdobeXMPCore::INode_v1 *,AdobeXMPCore::INode_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634E6F6465202020, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_186169018(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x186168FFCLL);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCore::INodeIterator_v1,unsigned int,AdobeXMPCore::INode_v1::eNodeType>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
+{
+  *a1 = 0;
+  v5 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v5 + a4);
+  }
+
+  return a4(v5);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INodeIterator_v1,AdobeXMPCore::INodeIterator_v1*,AdobeXMPCore::INodeIterator_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634E6F6465497420, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_186169554(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x186169538);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+void *AdobeXMPCore_Int::INode_I::GetInterfacePointerInternal(void *this, uint64_t a2, int a3, int a4)
+{
+  if (a2 == 0x634E6F6465202020)
+  {
+    if (a3 != -1)
+    {
+      if (a3 != 1)
+      {
+        exception = __cxa_allocate_exception(0x10uLL);
+        AdobeXMPCore_Int::IError_I::CreateInterfaceVersionNotAvailableError(0x634E6F6465202020, a3, exception);
+      }
+
+      return (this + *(*this - 544));
+    }
+  }
+
+  else
+  {
+    if (a4)
+    {
+      v5 = __cxa_allocate_exception(0x10uLL);
+      AdobeXMPCore_Int::IError_I::CreateInterfaceNotAvailableError(0x634E6F6465202020, a2, v5);
+    }
+
+    return 0;
+  }
+
+  return this;
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunction<AdobeXMPCore_Int::INode_I,void *,void *,unsigned long long,unsigned int>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+{
+  *a1 = 0;
+  v9 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v9 + a4);
+  }
+
+  return a4(v9, a8, a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INode_v1*,AdobeXMPCore::INode_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634E6F6465202020, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_186169C00(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x186169BE4);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCore::INode_v1,unsigned int,AdobeXMPCore::INode_v1::eNodeType>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
+{
+  *a1 = 0;
+  v5 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v5 + a4);
+  }
+
+  return a4(v5);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore::INode_v1,char const*,unsigned long long>(void *a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a3;
+  *a1 = 0;
+  v9 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    v8 = *(*v9 + a3);
+  }
+
+  return v8(v9, a7, a8);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCommon::IUTF8String_v1 const*,AdobeXMPCommon::IUTF8String_v1 const>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x6E55544638537472, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616A36C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616A350);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::IPath_v1 *,AdobeXMPCore::IPath_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x6350617468202020, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616A85C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616A840);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INodeIterator_v1 *,AdobeXMPCore::INodeIterator_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634E6F6465497420, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616ABF8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616ABDCLL);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCore::INode_v1,unsigned int,AdobeXMPCore::INode_v1::eNodeType,char const*,unsigned long long,char const*,unsigned long long>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+{
+  v11 = a4;
+  *a1 = 0;
+  v12 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    v11 = *(*v12 + a4);
+  }
+
+  return (v11)(v12, a8, a9, a10, a11, a6, a7);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INode_v1*,AdobeXMPCore::INode_v1,char const*,unsigned long long,char const*,unsigned long long>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v10 = a3;
+  *a1 = 0;
+  v15 = 0;
+  v16 = 0;
+  v11 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    v10 = *(*v11 + a3);
+  }
+
+  (v10)(&v15, v11, a7, a8, a9, a10, a6);
+  if (v15)
+  {
+    v12 = (*(*&v15[*(*v15 - 56)] + 16))(&v15[*(*v15 - 56)]);
+    (*(*v12 + 40))(v12);
+    v13 = (*(*&v15[*(*v15 - 64)] + 16))(&v15[*(*v15 - 64)], 0x634E6F6465202020, 1);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (v16)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v16);
+  }
+
+  return v13;
+}
+
+void sub_18616B1EC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616B1D0);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+void AdobeXMPCore_Int::INode_I::insertQualifier(AdobeXMPCore_Int::INode_I *this, AdobeXMPCore::INode_v1 *a2, const AdobeXMPCommon::IError_v1 **a3)
+{
+  v5 = *(*this - 544);
+  AdobeXMPCore::INode_v1::MakeShared(&v6, a2, a2);
+  AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore::INode_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&>(a3, this + v5, AdobeXMPCore::INode_v1::InsertQualifier, 0, "/Library/Caches/com.apple.xbs/Sources/ImageIO/XMP-Toolkit-SDK/XMPCore/source/INode_I.cpp", 109, &v6);
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v7);
+  }
+}
+
+void sub_18616B434(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  __cxa_call_unexpected(a1);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore::INode_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&>(void *a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  *a1 = 0;
+  v7 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v7 + a3);
+  }
+
+  return a3(v7, a7);
+}
+
+uint64_t AdobeXMPCore_Int::INode_I::replaceQualifier(AdobeXMPCore_Int::INode_I *this, AdobeXMPCore::INode_v1 *a2, const AdobeXMPCommon::IError_v1 **a3)
+{
+  v5 = *(*this - 544);
+  AdobeXMPCore::INode_v1::MakeShared(&v8, a2, a2);
+  v6 = AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INode_v1*,AdobeXMPCore::INode_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&>(a3, this + v5, AdobeXMPCore::INode_v1::ReplaceQualifier, 0, "/Library/Caches/com.apple.xbs/Sources/ImageIO/XMP-Toolkit-SDK/XMPCore/source/INode_I.cpp", 114, &v8);
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616B66C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  __cxa_call_unexpected(a1);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INode_v1*,AdobeXMPCore::INode_v1,std::shared_ptr<AdobeXMPCore::INode_v1> const&>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  *a1 = 0;
+  v11 = 0;
+  v12 = 0;
+  v7 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v7 + a3);
+  }
+
+  a3(&v11, v7, a7);
+  if (v11)
+  {
+    v8 = (*(*&v11[*(*v11 - 56)] + 16))(&v11[*(*v11 - 56)]);
+    (*(*v8 + 40))(v8);
+    v9 = (*(*&v11[*(*v11 - 64)] + 16))(&v11[*(*v11 - 64)], 0x634E6F6465202020, 1);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v12);
+  }
+
+  return v9;
+}
+
+void sub_18616B7F4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616B7D8);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCore::INode_v1,unsigned int,BOOL>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
+{
+  *a1 = 0;
+  v5 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v5 + a4);
+  }
+
+  return a4(v5);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunction<AdobeXMPCore::INode_v1,unsigned long long,unsigned long long>(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *), uint64_t a5)
+{
+  *a1 = 0;
+  v5 = (a2 + (a5 >> 1));
+  if (a5)
+  {
+    a4 = *(*v5 + a4);
+  }
+
+  return a4(v5);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningVoid<AdobeXMPCore::INode_v1,BOOL,BOOL>(void *a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a3;
+  *a1 = 0;
+  v9 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    v8 = *(*v9 + a3);
+  }
+
+  return v8(v9, a7, a8);
+}
+
+uint64_t AdobeXMPCore_Int::CallConstUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::INode_v1*,AdobeXMPCore::INode_v1,BOOL,BOOL>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *, uint64_t, uint64_t), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a3;
+  *a1 = 0;
+  v13 = 0;
+  v14 = 0;
+  v9 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    v8 = *(*v9 + a3);
+  }
+
+  v8(&v13, v9, a7, a8);
+  if (v13)
+  {
+    v10 = (*(*&v13[*(*v13 - 56)] + 16))(&v13[*(*v13 - 56)]);
+    (*(*v10 + 40))(v10);
+    v11 = (*(*&v13[*(*v13 - 64)] + 16))(&v13[*(*v13 - 64)], 0x634E6F6465202020, 1);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+  }
+
+  return v11;
+}
+
+void sub_18616C628(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616C60CLL);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::ISimpleNode_v1 *,AdobeXMPCore::ISimpleNode_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x63536D6C4E6F6465, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616C9CC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616C9B0);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::IStructureNode_v1 *,AdobeXMPCore::IStructureNode_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x635374724E6F6465, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616CD68(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616CD4CLL);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::IArrayNode_v1 *,AdobeXMPCore::IArrayNode_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634172724E6F6465, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616D104(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616D0E8);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+uint64_t AdobeXMPCore_Int::CallUnSafeFunctionReturningSharedPointer<AdobeXMPCore::INode_v1,AdobeXMPCore::IMetadata_v1 *,AdobeXMPCore::IMetadata_v1>(void *a1, uint64_t a2, void (*a3)(char **__return_ptr, void *), uint64_t a4)
+{
+  *a1 = 0;
+  v8 = 0;
+  v9 = 0;
+  v4 = (a2 + (a4 >> 1));
+  if (a4)
+  {
+    a3 = *(*v4 + a3);
+  }
+
+  a3(&v8, v4);
+  if (v8)
+  {
+    v5 = (*(*&v8[*(*v8 - 56)] + 16))(&v8[*(*v8 - 56)]);
+    (*(*v5 + 40))(v5);
+    v6 = (*(*&v8[*(*v8 - 64)] + 16))(&v8[*(*v8 - 64)], 0x634D657461646174, 1);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](v9);
+  }
+
+  return v6;
+}
+
+void sub_18616D4A0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:fe200100](a10);
+  }
+
+  if (a2 == 2)
+  {
+    exception_ptr = __cxa_get_exception_ptr(a1);
+    v15 = *exception_ptr;
+    v14 = exception_ptr[1];
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 200))(v15);
+    *v10 = v16;
+    v17 = (*(*&v16[*(*v16 - 56)] + 16))(&v16[*(*v16 - 56)]);
+    (*(*v17 + 40))(v17);
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:fe200100](v14);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x18616D484);
+  }
+
+  __cxa_begin_catch(a1);
+  AdobeXMPCore_Int::IError_I::CreateUnknownExceptionCaughtError(&a9);
+}
+
+std::string *SplitNameAndValue(uint64_t a1, uint64_t a2, std::string *a3)
+{
+  v3 = *(a1 + 23);
+  if (v3 >= 0)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = *a1;
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(a1 + 23);
+  }
+
+  else
+  {
+    v5 = *(a1 + 8);
+  }
+
+  if (*v4 != 91 || (v6 = &v4[v5], v4[v5 - 1] != 93))
+  {
+    SplitNameAndValue();
+  }
+
+  if (v5 < 6 || (v10 = *(v6 - 2), v8 = (v6 - 2), v9 = v10, v10 != 34) && v9 != 39)
+  {
+    SplitNameAndValue();
+  }
+
+  v11 = 0;
+  if (v4[1] == 63)
+  {
+    v12 = v4 + 2;
+  }
+
+  else
+  {
+    v12 = v4 + 1;
+  }
+
+  do
+  {
+    v13 = v12[++v11];
+  }
+
+  while (v13 != 61);
+  MEMORY[0x186602530](a2, v12, v11);
+  if (v12[v11 + 1] != v9)
+  {
+    SplitNameAndValue();
+  }
+
+  v14 = &v12[v11 + 2];
+  std::string::erase(a3, 0, 0xFFFFFFFFFFFFFFFFLL);
+  std::string::reserve(a3, &v4[v5] - v12 - v11 - 4);
+  for (i = v14; i < v8; ++i)
+  {
+    if (*i == v9 && *(i + 1) == v9)
+    {
+      std::string::append(a3, v14, i + 1 - v14);
+      v14 = i + 2;
+      ++i;
+    }
+  }
+
+  return std::string::append(a3, v14, i - v14);
+}
+
+uint64_t DeleteSubtree(char *__dst)
+{
+  v2 = *__dst;
+  v3 = *(*__dst + 64);
+  if ((*(*__dst + 8) & 0x20) != 0)
+  {
+    v6 = *(v3 + 104);
+    if (v6 == __dst)
+    {
+      goto LABEL_29;
+    }
+
+    v7 = v6 - (__dst + 8);
+    if (v6 != __dst + 8)
+    {
+      memmove(__dst, __dst + 8, v6 - (__dst + 8));
+    }
+
+    *(v3 + 104) = &__dst[v7];
+    v8 = *(v3 + 8);
+    if ((v8 & 0x10) == 0)
+    {
+LABEL_30:
+      DeleteSubtree();
+    }
+
+    if (*(v3 + 96) == &__dst[v7])
+    {
+      v8 &= ~0x10u;
+      *(v3 + 8) = v8;
+    }
+
+    v9 = (v2 + 16);
+    v10 = *(v2 + 39);
+    if (v10 < 0)
+    {
+      if (*(v2 + 24) == 8 && **v9 == 0x676E616C3A6C6D78)
+      {
+LABEL_23:
+        if ((v8 & 0x40) == 0)
+        {
+          DeleteSubtree();
+        }
+
+        v11 = v8 & 0xFFFFFFBF;
+LABEL_25:
+        *(v3 + 8) = v11;
+        goto LABEL_26;
+      }
+
+      if (*(v2 + 24) != 8)
+      {
+        goto LABEL_26;
+      }
+
+      v9 = *v9;
+    }
+
+    else
+    {
+      if (v10 != 8)
+      {
+        goto LABEL_26;
+      }
+
+      if (*v9 == 0x676E616C3A6C6D78)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    if (*v9 != 0x657079743A666472)
+    {
+      goto LABEL_26;
+    }
+
+    if ((v8 & 0x80) == 0)
+    {
+      DeleteSubtree();
+    }
+
+    v11 = v8 & 0xFFFFFF7F;
+    goto LABEL_25;
+  }
+
+  v4 = *(v3 + 80);
+  if (v4 == __dst)
+  {
+LABEL_29:
+    __break(1u);
+    goto LABEL_30;
+  }
+
+  v5 = v4 - (__dst + 8);
+  if (v4 != __dst + 8)
+  {
+    memmove(__dst, __dst + 8, v4 - (__dst + 8));
+  }
+
+  *(v3 + 80) = &__dst[v5];
+LABEL_26:
+  v12 = *(*v2 + 8);
+
+  return v12(v2);
+}
+
+uint64_t FindQualifierNode(uint64_t result, char *__s, int a3, char **a4)
+{
+  v19 = 0;
+  if (*__s == 63)
+  {
+    FindQualifierNode();
+  }
+
+  v5 = result;
+  v7 = *(result + 96);
+  v8 = *(result + 104) - v7;
+  if (v8)
+  {
+    v9 = 0;
+    v10 = v8 >> 3;
+    v11 = *(result + 96);
+    do
+    {
+      if (v10 == v9)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v12 = *(v7 + 8 * v9);
+      if (*(v12 + 64) != v5)
+      {
+        FindQualifierNode();
+      }
+
+      v13 = (v12 + 16);
+      result = strlen(__s);
+      v14 = *(v12 + 39);
+      if (v14 < 0)
+      {
+        if (result != *(v12 + 24))
+        {
+          goto LABEL_13;
+        }
+
+        if (result == -1)
+        {
+          std::string::__throw_out_of_range[abi:fe200100]();
+        }
+
+        v13 = *v13;
+      }
+
+      else if (result != v14)
+      {
+        goto LABEL_13;
+      }
+
+      result = memcmp(v13, __s, result);
+      if (!result)
+      {
+        v19 = v12;
+        if (a4)
+        {
+          *a4 = v11;
+          v15 = a3;
+          goto LABEL_19;
+        }
+
+        v16 = v12 == 0;
+        v15 = a3;
+LABEL_23:
+        if (v16 && v15 != 0)
+        {
+          FindQualifierNode();
+        }
+
+        return v12;
+      }
+
+LABEL_13:
+      ++v9;
+      v11 += 8;
+    }
+
+    while (v10 != v9);
+  }
+
+  v15 = a3;
+  if (a3)
+  {
+    operator new();
+  }
+
+LABEL_19:
+  v12 = v19;
+  v16 = v19 == 0;
+  if (!a4 || !v19)
+  {
+    goto LABEL_23;
+  }
+
+  if (v19 != **a4)
+  {
+    FindQualifierNode();
+  }
+
+  return v12;
+}
+
+uint64_t LookupFieldSelector(const XMP_Node *a1, const char *__s, const char *a3)
+{
+  v3 = *(a1 + 9);
+  v4 = *(a1 + 10) - v3;
+  if (v4)
+  {
+    v8 = 0;
+    v22 = v4 >> 3;
+    while (1)
+    {
+      v9 = *(v3 + 8 * v8);
+      if (*(v9 + 64) != a1)
+      {
+        LookupFieldSelector();
+      }
+
+      if ((*(v9 + 9) & 1) == 0)
+      {
+        exception = __cxa_allocate_exception(0x18uLL);
+        *exception = 102;
+        exception[1] = "Field selector must be used on array of struct";
+        *(exception + 16) = 0;
+      }
+
+      v10 = *(v9 + 72);
+      v11 = *(v9 + 80) - v10;
+      if (v11)
+      {
+        break;
+      }
+
+LABEL_23:
+      if (++v8 == v22)
+      {
+        return 0xFFFFFFFFLL;
+      }
+    }
+
+    v12 = v11 >> 3;
+    while (1)
+    {
+      v13 = *v10;
+      if (*(*v10 + 64) != v9)
+      {
+        LookupFieldSelector();
+      }
+
+      v14 = (v13 + 16);
+      v15 = strlen(__s);
+      v16 = *(v13 + 39);
+      if (v16 < 0)
+      {
+        if (v15 != *(v13 + 24))
+        {
+          goto LABEL_22;
+        }
+
+        if (v15 == -1)
+        {
+          std::string::__throw_out_of_range[abi:fe200100]();
+        }
+
+        v14 = *v14;
+      }
+
+      else if (v15 != v16)
+      {
+        goto LABEL_22;
+      }
+
+      if (!memcmp(v14, __s, v15))
+      {
+        v17 = (v13 + 40);
+        v18 = strlen(a3);
+        v19 = *(v13 + 63);
+        if (v19 < 0)
+        {
+          if (v18 == *(v13 + 48))
+          {
+            if (v18 == -1)
+            {
+              std::string::__throw_out_of_range[abi:fe200100]();
+            }
+
+            v17 = *v17;
+LABEL_21:
+            if (!memcmp(v17, a3, v18))
+            {
+              return v8;
+            }
+          }
+        }
+
+        else if (v18 == v19)
+        {
+          goto LABEL_21;
+        }
+      }
+
+LABEL_22:
+      ++v10;
+      if (!--v12)
+      {
+        goto LABEL_23;
+      }
+    }
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t LookupLangItem(uint64_t a1, const void **a2)
+{
+  if ((*(a1 + 9) & 2) == 0)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 102;
+    exception[1] = "Language item must be used on array";
+    *(exception + 16) = 0;
+  }
+
+  v3 = *(a1 + 72);
+  v4 = *(a1 + 80) - v3;
+  if (v4)
+  {
+    v5 = 0;
+    v6 = v4 >> 3;
+    v7 = *(a2 + 23);
+    if (v7 >= 0)
+    {
+      v8 = *(a2 + 23);
+    }
+
+    else
+    {
+      v8 = a2[1];
+    }
+
+    if (v7 >= 0)
+    {
+      v9 = a2;
+    }
+
+    else
+    {
+      v9 = *a2;
+    }
+
+    do
+    {
+      v10 = *(v3 + 8 * v5);
+      if (v10[8] != a1)
+      {
+        LookupLangItem();
+      }
+
+      v11 = v10[12];
+      if (v11 == v10[13])
+      {
+        goto LABEL_24;
+      }
+
+      v12 = *v11;
+      v13 = (*v11 + 16);
+      v14 = *(v12 + 39);
+      if (v14 < 0)
+      {
+        if (*(v12 + 24) != 8)
+        {
+          goto LABEL_24;
+        }
+
+        v13 = *v13;
+      }
+
+      else if (v14 != 8)
+      {
+        goto LABEL_24;
+      }
+
+      if (*v13 == 0x676E616C3A6C6D78)
+      {
+        v15 = *(v12 + 63);
+        v16 = v15;
+        if ((v15 & 0x80u) != 0)
+        {
+          v15 = *(v12 + 48);
+        }
+
+        if (v15 == v8)
+        {
+          v19 = *(v12 + 40);
+          v17 = v12 + 40;
+          v18 = v19;
+          v20 = (v16 >= 0 ? v17 : v18);
+          if (!memcmp(v20, v9, v8))
+          {
+            return v5;
+          }
+        }
+      }
+
+LABEL_24:
+      ++v5;
+    }
+
+    while (v6 != v5);
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+void CloneOffspring(const XMP_Node *a1, XMP_Node *a2, _BOOL4 a3)
+{
+  v7 = *(a1 + 9);
+  v6 = *(a1 + 10);
+  v8 = *(a1 + 13) - *(a1 + 12);
+  if (v8)
+  {
+    v9 = v8 >> 3;
+    std::vector<_MPEntry *>::reserve(a2 + 12, v8 >> 3);
+    v10 = 0;
+    do
+    {
+      v11 = *(a1 + 12);
+      if (v10 >= (*(a1 + 13) - v11) >> 3)
+      {
+        goto LABEL_24;
+      }
+
+      v12 = *(v11 + 8 * v10);
+      if (!a3)
+      {
+        goto LABEL_10;
+      }
+
+      if ((*(v12 + 63) & 0x8000000000000000) != 0)
+      {
+        if (*(v12 + 48))
+        {
+          goto LABEL_10;
+        }
+      }
+
+      else if (*(v12 + 63))
+      {
+        goto LABEL_10;
+      }
+
+      if (*(v12 + 72) != *(v12 + 80))
+      {
+LABEL_10:
+        operator new();
+      }
+    }
+
+    while (v9 != ++v10);
+  }
+
+  if (v6 != v7)
+  {
+    v13 = (v6 - v7) >> 3;
+    std::vector<_MPEntry *>::reserve(a2 + 9, v13);
+    v14 = 0;
+    while (1)
+    {
+      v15 = *(a1 + 9);
+      if (v14 >= (*(a1 + 10) - v15) >> 3)
+      {
+        break;
+      }
+
+      v16 = *(v15 + 8 * v14);
+      if (!a3)
+      {
+        goto LABEL_21;
+      }
+
+      if ((*(v16 + 63) & 0x8000000000000000) != 0)
+      {
+        if (*(v16 + 48))
+        {
+          goto LABEL_21;
+        }
+      }
+
+      else if (*(v16 + 63))
+      {
+        goto LABEL_21;
+      }
+
+      if (*(v16 + 72) != *(v16 + 80))
+      {
+LABEL_21:
+        operator new();
+      }
+
+      if (v13 == ++v14)
+      {
+        return;
+      }
+    }
+
+LABEL_24:
+    __break(1u);
+  }
+}
+
+void CloneSubtree(const XMP_Node *a1, XMP_Node *a2, _BOOL4 a3)
+{
+  v4 = *(a1 + 2);
+  if (*(a2 + 8))
+  {
+    if (v4 < 0)
+    {
+      CloneSubtree();
+    }
+
+    if (*(a2 + 9))
+    {
+      v5 = a1 + 16;
+      if (*(a1 + 39) < 0)
+      {
+        v5 = *v5;
+      }
+
+      if (FindChildNode(a2, v5, 0, 0))
+      {
+        CloneSubtree();
+      }
+    }
+  }
+
+  else
+  {
+    if ((v4 & 0x80000000) == 0)
+    {
+      CloneSubtree();
+    }
+
+    v6 = a1 + 16;
+    if (*(a1 + 39) < 0)
+    {
+      v6 = *v6;
+    }
+
+    if (FindSchemaNode(a2, v6, 0, 0, 0, 0))
+    {
+      CloneSubtree();
+    }
+  }
+
+  operator new();
+}
+
+void *DeleteEmptySchema(void *result)
+{
+  if ((result[1] & 0x80000000) != 0)
+  {
+    v1 = result;
+    if (result[9] == result[10])
+    {
+      v2 = result[8];
+      v4 = *(v2 + 72);
+      v3 = *(v2 + 80);
+      if (v3 == v4)
+      {
+LABEL_10:
+        DeleteEmptySchema();
+      }
+
+      v5 = (v3 - v4) >> 3;
+      if (v5 <= 1)
+      {
+        v5 = 1;
+      }
+
+      v6 = *(v2 + 72);
+      while (*v6 != result)
+      {
+        ++v6;
+        v4 += 8;
+        if (!--v5)
+        {
+          goto LABEL_10;
+        }
+      }
+
+      if (*v4 != result)
+      {
+        DeleteEmptySchema();
+      }
+
+      v7 = v3 - v4;
+      if (v7)
+      {
+        v8 = v7 - 8;
+        if (v6 + 1 != v3)
+        {
+          result = memmove(v6, v6 + 1, v7 - 8);
+        }
+
+        *(v2 + 80) = v6 + v8;
+        if (v1)
+        {
+          v9 = *(*v1 + 8);
+
+          return v9(v1);
+        }
+      }
+
+      else
+      {
+        __break(1u);
+      }
+    }
+  }
+
+  return result;
+}
+
+unsigned __int8 *NormalizeLangValue(unsigned __int8 *result)
+{
+  if (result[23] < 0)
+  {
+    result = *result;
+  }
+
+  while (1)
+  {
+    v1 = *result;
+    if (!*result || v1 == 45)
+    {
+      break;
+    }
+
+    if ((v1 - 65) <= 0x19)
+    {
+      *result = v1 | 0x20;
+    }
+
+    ++result;
+  }
+
+  v2 = v1 == 45;
+  if (v1 == 45)
+  {
+    v3 = result + 1;
+  }
+
+  else
+  {
+    v3 = result;
+  }
+
+  v4 = 2;
+  for (i = v3; ; ++i)
+  {
+    v6 = *i;
+    if (!*i || v6 == 45)
+    {
+      break;
+    }
+
+    if ((v6 - 65) <= 0x19)
+    {
+      *i = v6 | 0x20;
+    }
+
+    --v4;
+  }
+
+  if (!v4)
+  {
+    v7 = *v3;
+    if ((v7 - 97) <= 0x19)
+    {
+      *v3 = v7 - 32;
+    }
+
+    v8 = &result[v2];
+    v9 = v8[1];
+    if ((v9 - 97) <= 0x19)
+    {
+      v8[1] = v9 - 32;
+    }
+  }
+
+  if (*i == 45)
+  {
+    ++i;
+  }
+
+  while (1)
+  {
+    v10 = *i;
+    if (!*i)
+    {
+      break;
+    }
+
+    do
+    {
+      if (v10 == 45)
+      {
+        break;
+      }
+
+      if ((v10 - 65) <= 0x19)
+      {
+        *i = v10 | 0x20;
+      }
+
+      v11 = *++i;
+      v10 = v11;
+    }
+
+    while (v11);
+    if (v10 == 45)
+    {
+      ++i;
+    }
+  }
+
+  return result;
+}
+
+std::string *NormalizeLangArray(std::string *result)
+{
+  if ((result->__r_.__value_.__s.__data_[9] & 0x10) == 0)
+  {
+    NormalizeLangArray();
+  }
+
+  data = result[3].__r_.__value_.__l.__data_;
+  v2 = result[3].__r_.__value_.__l.__size_ - data;
+  if (!v2)
+  {
+    return result;
+  }
+
+  v3 = 0;
+  v4 = v2 >> 3;
+  if ((v2 >> 3) <= 1)
+  {
+    v4 = 1;
+  }
+
+  while (1)
+  {
+    v5 = *&data[8 * v3];
+    v6 = *(v5 + 96);
+    if (v6 == *(v5 + 104))
+    {
+      goto LABEL_34;
+    }
+
+    v7 = *v6;
+    v8 = (v7 + 16);
+    v9 = *(v7 + 39);
+    if (v9 < 0)
+    {
+      if (*(v7 + 24) != 8)
+      {
+        goto LABEL_34;
+      }
+
+      v8 = *v8;
+    }
+
+    else if (v9 != 8)
+    {
+      goto LABEL_34;
+    }
+
+    if (*v8 != 0x676E616C3A6C6D78)
+    {
+      goto LABEL_34;
+    }
+
+    v10 = (v7 + 40);
+    v11 = *(v7 + 63);
+    if (v11 < 0)
+    {
+      break;
+    }
+
+    if (v11 == 9)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_21:
+    if (v4 == ++v3)
+    {
+      return result;
+    }
+  }
+
+  if (*(v7 + 48) != 9)
+  {
+    goto LABEL_21;
+  }
+
+  v10 = *v10;
+LABEL_17:
+  v12 = *v10;
+  v13 = *(v10 + 8);
+  if (v12 != 0x6C75616665642D78 || v13 != 116)
+  {
+    goto LABEL_21;
+  }
+
+  if (!v3)
+  {
+    goto LABEL_26;
+  }
+
+  v15 = *data;
+  *data = v5;
+  v16 = result[3].__r_.__value_.__l.__data_;
+  if (v3 >= (result[3].__r_.__value_.__l.__size_ - v16) >> 3)
+  {
+    goto LABEL_33;
+  }
+
+  *&v16[8 * v3] = v15;
+LABEL_26:
+  if (v2 == 16)
+  {
+    v17 = result[3].__r_.__value_.__l.__data_;
+    if (result[3].__r_.__value_.__l.__size_ - v17 > 8)
+    {
+      v18 = (*(v17 + 1) + 40);
+      v19 = (*v17 + 40);
+
+      return std::string::operator=(v18, v19);
+    }
+
+LABEL_33:
+    __break(1u);
+LABEL_34:
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 203;
+    exception[1] = "AltText array items must have an xml:lang qualifier";
+    *(exception + 16) = 0;
+  }
+
+  return result;
+}
+
+std::string *DetectAltText(std::string *result)
+{
+  v1 = result->__r_.__value_.__r.__words[1];
+  if ((v1 & 0x800) == 0)
+  {
+    DetectAltText();
+  }
+
+  data = result[3].__r_.__value_.__l.__data_;
+  size = result[3].__r_.__value_.__l.__size_;
+  v4 = (size - data) >> 3;
+  v5 = 0;
+  if (size != data)
+  {
+    if (v4 <= 1)
+    {
+      v6 = 1;
+    }
+
+    else
+    {
+      v6 = (size - data) >> 3;
+    }
+
+    while ((*(*&data[8 * v5] + 8) & 0x1F40) == 0x40)
+    {
+      if (v6 == ++v5)
+      {
+        v5 = v6;
+        break;
+      }
+    }
+  }
+
+  if (size != data && v5 == v4)
+  {
+    LODWORD(result->__r_.__value_.__r.__words[1]) = v1 | 0x1000;
+
+    return NormalizeLangArray(result);
+  }
+
+  return result;
+}
+
+void SplitNameAndValue()
+{
+  __assert_rtn("SplitNameAndValue", "XMPCore_Impl.cpp", 247, "(*partBegin == '[') && (*(valueEnd+1) == ']')");
+}
+
+{
+  __assert_rtn("SplitNameAndValue", "XMPCore_Impl.cpp", 260, "*(partEnd+1) == quote");
+}
+
+{
+  __assert_rtn("SplitNameAndValue", "XMPCore_Impl.cpp", 248, "(selStep.size() >= 6) && ((quote == '') || (quote == '\\''))");
+}
+
+void DeleteSubtree()
+{
+  __assert_rtn("DeleteSubtree", "XMPCore_Impl.cpp", 474, "rootParent->options & kXMP_PropHasType");
+}
+
+{
+  __assert_rtn("DeleteSubtree", "XMPCore_Impl.cpp", 471, "rootParent->options & kXMP_PropHasLang");
+}
+
+{
+  __assert_rtn("DeleteSubtree", "XMPCore_Impl.cpp", 467, "rootParent->options & kXMP_PropHasQualifiers");
+}
+
+void FindSchemaNode()
+{
+  __assert_rtn("FindSchemaNode", "XMPCore_Impl.cpp", 780, "xmpTree->parent == 0");
+}
+
+{
+  __assert_rtn("FindSchemaNode", "XMPCore_Impl.cpp", 784, "currSchema->parent == xmpTree");
+}
+
+{
+  __assert_rtn("FindSchemaNode", "XMPCore_Impl.cpp", 822, "(ptrPos == 0) || (schemaNode == 0) || (schemaNode == **ptrPos)");
+}
+
+{
+  __assert_rtn("FindSchemaNode", "XMPCore_Impl.cpp", 823, "(schemaNode != 0) || (! createNodes)");
+}
+
+void FindChildNode()
+{
+  __assert_rtn("FindChildNode", "XMPCore_Impl.cpp", 859, "currChild->parent == parent");
+}
+
+{
+  __assert_rtn("FindChildNode", "XMPCore_Impl.cpp", 873, "(ptrPos == 0) || (childNode == 0) || (childNode == **ptrPos)");
+}
+
+{
+  __assert_rtn("FindChildNode", "XMPCore_Impl.cpp", 874, "(childNode != 0) || (! createNodes)");
+}
+
+void FindQualifierNode()
+{
+  __assert_rtn("FindQualifierNode", "XMPCore_Impl.cpp", 901, "currQual->parent == parent");
+}
+
+{
+  __assert_rtn("FindQualifierNode", "XMPCore_Impl.cpp", 936, "(ptrPos == 0) || (qualNode == 0) || (qualNode == **ptrPos)");
+}
+
+{
+  __assert_rtn("FindQualifierNode", "XMPCore_Impl.cpp", 937, "(qualNode != 0) || (! createNodes)");
+}
+
+{
+  __assert_rtn("FindQualifierNode", "XMPCore_Impl.cpp", 897, "*qualName != '?'");
+}
+
+void LookupFieldSelector()
+{
+  __assert_rtn("LookupFieldSelector", "XMPCore_Impl.cpp", 958, "currItem->parent == arrayNode");
+}
+
+{
+  __assert_rtn("LookupFieldSelector", "XMPCore_Impl.cpp", 967, "currField->parent == currItem");
+}
+
+void FollowXPathStep()
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 359, "*qualStep == '?'");
+}
+
+{
+  __assert_rtn("FindIndexedItem", "XMPCore_Impl.cpp", 202, "(chLim >= 2) && (indexStep[0] == '[') && (indexStep[chLim] == ']')");
+}
+
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 396, "(stepNum == 2) && (nextStep.step == [?xml:lang=\\x-default\\])");
+}
+
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 423, "(nextNode != 0) || (! createNodes)");
+}
+
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 422, "(ptrPos == 0) || (nextNode == 0) || (nextNode == **ptrPos)");
+}
+
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 395, "parentNode->options & kXMP_PropArrayIsAltText");
+}
+
+{
+  __assert_rtn("FindIndexedItem", "XMPCore_Impl.cpp", 205, "('0' <= indexStep[chNum]) && (indexStep[chNum] <= '9')");
+}
+
+{
+  __assert_rtn("FollowXPathStep", "XMPCore_Impl.cpp", 350, "(kXMP_StructFieldStep <= stepKind) && (stepKind <= kXMP_FieldSelectorStep)");
+}
+
+void CloneSubtree()
+{
+  __assert_rtn("CloneSubtree", "XMPCore_Impl.cpp", 1195, "! (origRoot->options & ((XMP_OptionBits)0x80000000UL))");
+}
+
+{
+  __assert_rtn("CloneSubtree", "XMPCore_Impl.cpp", 1197, "::FindChildNode(const_cast<XMP_Node*>(cloneParent), origRoot->name.c_str(), false, 0) == 0");
+}
+
+{
+  __assert_rtn("CloneSubtree", "XMPCore_Impl.cpp", 1193, "FindSchemaNode(const_cast<XMP_Node*>(cloneParent), origRoot->name.c_str(), false, 0) == 0");
+}
+
+{
+  __assert_rtn("CloneSubtree", "XMPCore_Impl.cpp", 1192, "origRoot->options & ((XMP_OptionBits)0x80000000UL)");
+}
+
+void DeleteEmptySchema()
+{
+  __assert_rtn("DeleteEmptySchema", "XMPCore_Impl.cpp", 1299, "*schemaPos == schemaNode");
+}
+
+{
+  __assert_rtn("DeleteEmptySchema", "XMPCore_Impl.cpp", 1296, "schemaNum < schemaLim");
+}
+
+void MoveExplicitAliases(XMP_Node *a1, char a2, XMPMeta::ErrorCallbackInfo *a3)
+{
+  *(a1 + 2) ^= 0x20000u;
+  v3 = *(a1 + 9);
+  if (*(a1 + 10) == v3)
+  {
+    return;
+  }
+
+  v6 = 0;
+  do
+  {
+    v7 = *(v3 + 8 * v6);
+    v9 = *(v7 + 9);
+    v8 = *(v7 + 10);
+    if (v8 == v9)
+    {
+      goto LABEL_46;
+    }
+
+    v48 = v6;
+    v10 = 0;
+    do
+    {
+      v11 = *(v9 + 8 * v10);
+      v12 = *(v11 + 2);
+      if ((v12 & 0x10000) == 0)
+      {
+        ++v10;
+        continue;
+      }
+
+      *(v11 + 2) = v12 & 0xFFFEFFFF;
+      v13 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, v11 + 16);
+      if (sRegisteredAliasMap + 8 == v13)
+      {
+        goto LABEL_56;
+      }
+
+      v14 = v13;
+      v15 = *(v13 + 56);
+      if ((*(v13 + 64) - v15) <= 0x20)
+      {
+        goto LABEL_55;
+      }
+
+      v16 = *(v13 + 56);
+      if (*(v15 + 23) < 0)
+      {
+        v16 = *v15;
+      }
+
+      v17 = *(v15 + 56);
+      SchemaNode = FindSchemaNode(a1, v16, 1, 0, 0, 0);
+      v19 = SchemaNode;
+      v20 = *(SchemaNode + 8);
+      if ((v20 & 0x8000) != 0)
+      {
+        *(SchemaNode + 8) = v20 & 0xFFFF7FFF;
+      }
+
+      v21 = *(v14 + 56);
+      if ((*(v14 + 64) - v21) <= 0x20)
+      {
+        goto LABEL_55;
+      }
+
+      v22 = (v21 + 32);
+      if (*(v21 + 55) < 0)
+      {
+        v22 = *v22;
+      }
+
+      ChildNode = FindChildNode(SchemaNode, v22, 0, 0);
+      v50 = ChildNode;
+      v24 = *(v14 + 56);
+      v25 = *(v14 + 64) - v24;
+      if (!ChildNode)
+      {
+        if (v25 != 64)
+        {
+          operator new();
+        }
+
+        v30 = *(v7 + 9);
+        v29 = *(v7 + 10);
+        if (v10 >= (v29 - v30) >> 3)
+        {
+          goto LABEL_55;
+        }
+
+        v31 = (v30 + 8 * v10);
+        v32 = *v31;
+        v51 = *v31;
+        if (v29 == v31)
+        {
+          goto LABEL_55;
+        }
+
+        v33 = v30 + 8 * v10;
+        v34 = v29 - v33 - 8;
+        if (v29 != (v33 + 8))
+        {
+          memmove((v30 + 8 * v10), (v33 + 8), v29 - v33 - 8);
+        }
+
+        *(v7 + 10) = &v34[v33];
+        std::string::operator=((v32 + 16), (v24 + 32));
+        *(v32 + 64) = v19;
+        std::vector<IIO_Writer *>::push_back[abi:fe200100](v19 + 72, &v51);
+        goto LABEL_42;
+      }
+
+      v26 = ChildNode;
+      if (v25 == 64)
+      {
+        if ((a2 & 4) != 0)
+        {
+          v27 = v11;
+          v28 = v26;
+          goto LABEL_36;
+        }
+
+        goto LABEL_37;
+      }
+
+      if ((v17 & 0x1000) != 0)
+      {
+        v36 = LookupLangItem(ChildNode, xdefaultName);
+        v26 = v50;
+        if (v36 == -1)
+        {
+          goto LABEL_41;
+        }
+
+        v37 = *(v50 + 9);
+        if (v36 >= ((*(v50 + 10) - v37) >> 3))
+        {
+          goto LABEL_55;
+        }
+
+        v35 = (v37 + 8 * v36);
+      }
+
+      else
+      {
+        v35 = *(ChildNode + 9);
+        if (v35 == *(ChildNode + 10))
+        {
+          goto LABEL_41;
+        }
+      }
+
+      v28 = *v35;
+      if (*v35)
+      {
+        if ((a2 & 4) != 0)
+        {
+          v27 = v11;
+LABEL_36:
+          CompareAliasedSubtrees(v27, v28, a3, 1);
+        }
+
+LABEL_37:
+        v38 = *(v7 + 9);
+        v39 = *(v7 + 10);
+        if (v39 == v38 + 8 * v10)
+        {
+          goto LABEL_55;
+        }
+
+        v40 = v38 + 8 * v10;
+        v41 = v39 - (v40 + 8);
+        if (v39 != v40 + 8)
+        {
+          memmove((v38 + 8 * v10), (v40 + 8), v39 - (v40 + 8));
+        }
+
+        *(v7 + 10) = v40 + v41;
+        (*(*v11 + 8))(v11);
+        goto LABEL_42;
+      }
+
+LABEL_41:
+      TransplantArrayItemAlias(v7, v10, v26, a3);
+LABEL_42:
+      v9 = *(v7 + 9);
+      v8 = *(v7 + 10);
+    }
+
+    while (v10 < (v8 - v9) >> 3);
+    v6 = v48;
+    if (v8 != v9)
+    {
+      v6 = v48 + 1;
+      v42 = *(a1 + 10);
+      goto LABEL_53;
+    }
+
+LABEL_46:
+    v44 = *(a1 + 9);
+    v43 = *(a1 + 10);
+    if (v6 >= (v43 - v44) >> 3)
+    {
+      goto LABEL_55;
+    }
+
+    v45 = *(v44 + 8 * v6);
+    if (v45)
+    {
+      (*(*v45 + 8))(v45);
+      v44 = *(a1 + 9);
+      v43 = *(a1 + 10);
+    }
+
+    if (v43 == v44 + 8 * v6)
+    {
+LABEL_55:
+      __break(1u);
+LABEL_56:
+      MoveExplicitAliases();
+    }
+
+    v46 = v44 + 8 * v6;
+    v47 = v43 - (v46 + 8);
+    if (v43 != v46 + 8)
+    {
+      memmove((v44 + 8 * v6), (v46 + 8), v43 - (v46 + 8));
+    }
+
+    v42 = v46 + v47;
+    *(a1 + 10) = v46 + v47;
+LABEL_53:
+    v3 = *(a1 + 9);
+  }
+
+  while (v6 < (v42 - v3) >> 3);
+}
+
+void TransplantArrayItemAlias(XMP_Node *a1, unint64_t a2, XMP_Node *a3, XMPMeta::ErrorCallbackInfo *a4)
+{
+  v5 = *(a1 + 9);
+  v4 = *(a1 + 10);
+  if (a2 >= (v4 - v5) >> 3)
+  {
+    goto LABEL_13;
+  }
+
+  v8 = *(v5 + 8 * a2);
+  v15 = v8;
+  if ((*(a3 + 9) & 0x10) != 0)
+  {
+    v9 = *(v8 + 8);
+    if ((v9 & 0x40) != 0)
+    {
+      v14[0] = 203;
+      v14[1] = "Alias to x-default already has a language qualifier";
+      v14[2] = 0;
+      GenericErrorCallback::NotifyClient(a4, 1, v14, 0);
+      v9 = *(v8 + 8);
+    }
+
+    *(v8 + 8) = v9 | 0x50;
+    operator new();
+  }
+
+  if (v4 == v5 + 8 * a2)
+  {
+LABEL_13:
+    __break(1u);
+  }
+
+  else
+  {
+    v10 = v5 + 8 * a2;
+    v11 = v4 - (v10 + 8);
+    if (v4 != v10 + 8)
+    {
+      memmove(v10, (v10 + 8), v4 - (v10 + 8));
+    }
+
+    *(a1 + 10) = v10 + v11;
+    MEMORY[0x186602520](v8 + 16, "[]");
+    *(v8 + 64) = a3;
+    v12 = (a3 + 72);
+    v13 = *(a3 + 9);
+    if (v13 == *(a3 + 10))
+    {
+      std::vector<IIO_Writer *>::push_back[abi:fe200100](v12, &v15);
+    }
+
+    else
+    {
+      std::vector<XMP_Node *>::insert(v12, v13, &v15);
+    }
+  }
+}
+
+uint64_t CompareAliasedSubtrees(XMP_Node *a1, XMP_Node *a2, XMPMeta::ErrorCallbackInfo *a3, char a4)
+{
+  v8 = *(a1 + 63);
+  if (v8 >= 0)
+  {
+    v9 = *(a1 + 63);
+  }
+
+  else
+  {
+    v9 = *(a1 + 6);
+  }
+
+  v10 = *(a2 + 63);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
+  {
+    v10 = *(a2 + 6);
+  }
+
+  if (v9 != v10 || (v8 >= 0 ? (v12 = a1 + 40) : (v12 = *(a1 + 5)), v11 >= 0 ? (v13 = a2 + 40) : (v13 = *(a2 + 5)), (result = memcmp(v12, v13, v9), result) || *(a1 + 10) - *(a1 + 9) != *(a2 + 10) - *(a2 + 9)))
+  {
+    v34 = "Mismatch between alias and base nodes";
+    v35 = 0;
+    v33 = 203;
+    result = GenericErrorCallback::NotifyClient(a3, 1, &v33, 0);
+  }
+
+  if ((a4 & 1) == 0)
+  {
+    v15 = *(a1 + 39);
+    if (v15 >= 0)
+    {
+      v16 = *(a1 + 39);
+    }
+
+    else
+    {
+      v16 = *(a1 + 3);
+    }
+
+    v17 = *(a2 + 39);
+    v18 = v17;
+    if ((v17 & 0x80u) != 0)
+    {
+      v17 = *(a2 + 3);
+    }
+
+    if (v16 != v17 || (v15 >= 0 ? (v19 = a1 + 16) : (v19 = *(a1 + 2)), v18 >= 0 ? (v20 = a2 + 16) : (v20 = *(a2 + 2)), (result = memcmp(v19, v20, v16), result) || *(a1 + 2) != *(a2 + 2) || *(a1 + 13) - *(a1 + 12) != *(a2 + 13) - *(a2 + 12)))
+    {
+      v34 = "Mismatch between alias and base nodes";
+      v35 = 0;
+      v33 = 203;
+      result = GenericErrorCallback::NotifyClient(a3, 1, &v33, 0);
+    }
+  }
+
+  v21 = *(a1 + 10) - *(a1 + 9);
+  if (v21)
+  {
+    v22 = 0;
+    v23 = v21 >> 3;
+    if (v23 <= 1)
+    {
+      v24 = 1;
+    }
+
+    else
+    {
+      v24 = v23;
+    }
+
+    do
+    {
+      v25 = *(a1 + 9);
+      if (v22 >= (*(a1 + 10) - v25) >> 3)
+      {
+        goto LABEL_48;
+      }
+
+      v26 = *(a2 + 9);
+      if (v22 >= (*(a2 + 10) - v26) >> 3)
+      {
+        goto LABEL_48;
+      }
+
+      result = CompareAliasedSubtrees(*(v25 + 8 * v22), *(v26 + 8 * v22), a3, 0);
+    }
+
+    while (v24 != ++v22);
+  }
+
+  v27 = *(a1 + 13) - *(a1 + 12);
+  if (v27)
+  {
+    v28 = 0;
+    v29 = v27 >> 3;
+    if (v29 <= 1)
+    {
+      v30 = 1;
+    }
+
+    else
+    {
+      v30 = v29;
+    }
+
+    while (1)
+    {
+      v31 = *(a1 + 12);
+      if (v28 >= (*(a1 + 13) - v31) >> 3)
+      {
+        break;
+      }
+
+      v32 = *(a2 + 12);
+      if (v28 >= (*(a2 + 13) - v32) >> 3)
+      {
+        break;
+      }
+
+      result = CompareAliasedSubtrees(*(v31 + 8 * v28), *(v32 + 8 * v28), a3, 0);
+      if (v30 == ++v28)
+      {
+        return result;
+      }
+    }
+
+LABEL_48:
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t *PickBestRoot(const XML_Node *a1, unsigned int a2)
+{
+  v5 = *(a1 + 16);
+  result = (a1 + 128);
+  v4 = v5;
+  v6 = result + 1;
+  v7 = result[1];
+  v8 = v7 - v5;
+  if (v7 == v5)
+  {
+LABEL_30:
+    if ((a2 & 1) == 0)
+    {
+      v20 = result;
+      v19 = a2;
+      goto LABEL_32;
+    }
+
+    v22 = (v7 - v4) >> 3;
+  }
+
+  else
+  {
+    do
+    {
+      v9 = 0;
+      if ((v8 >> 3) <= 1)
+      {
+        v10 = 1;
+      }
+
+      else
+      {
+        v10 = v8 >> 3;
+      }
+
+      while (1)
+      {
+        if ((v7 - v4) >> 3 == v9)
+        {
+          goto LABEL_62;
+        }
+
+        v11 = *(v4 + 8 * v9);
+        if (*(v11 + 8) == 1)
+        {
+          break;
+        }
+
+LABEL_26:
+        if (v10 == ++v9)
+        {
+          goto LABEL_30;
+        }
+      }
+
+      v12 = (v11 + 40);
+      v13 = *(v11 + 63);
+      if ((v13 & 0x80000000) == 0)
+      {
+        if (v13 != 9)
+        {
+          goto LABEL_26;
+        }
+
+        if (*v12 == 0x74656D706D783A78 && *(v11 + 48) == 97)
+        {
+          goto LABEL_28;
+        }
+
+        goto LABEL_22;
+      }
+
+      if (*(v11 + 48) != 9 || (**v12 == 0x74656D706D783A78 ? (v15 = *(*v12 + 8) == 97) : (v15 = 0), !v15))
+      {
+        if (*(v11 + 48) != 9)
+        {
+          goto LABEL_26;
+        }
+
+        v12 = *v12;
+LABEL_22:
+        v16 = *v12;
+        v17 = v12[8];
+        if (v16 == 0x74656D7061783A78 && v17 == 97)
+        {
+          goto LABEL_28;
+        }
+
+        goto LABEL_26;
+      }
+
+LABEL_28:
+      a2 = 0;
+      v19 = 0;
+      v21 = *(v11 + 128);
+      v20 = (v11 + 128);
+      v4 = v21;
+      v6 = v20 + 1;
+      v7 = v20[1];
+      result = v20;
+      v8 = v7 - v21;
+    }
+
+    while (v7 != v21);
+LABEL_32:
+    v22 = (v7 - v4) >> 3;
+    if (v7 != v4)
+    {
+      v23 = 0;
+      if (v22 <= 1)
+      {
+        v24 = 1;
+      }
+
+      else
+      {
+        v24 = (v7 - v4) >> 3;
+      }
+
+      do
+      {
+        result = *(v4 + 8 * v23);
+        if (*(result + 8) == 1)
+        {
+          v25 = (result + 5);
+          v26 = *(result + 63);
+          if (v26 < 0)
+          {
+            if (result[6] != 7)
+            {
+              goto LABEL_49;
+            }
+
+            v25 = *v25;
+          }
+
+          else if (v26 != 7)
+          {
+            goto LABEL_49;
+          }
+
+          v27 = bswap32(*v25);
+          v28 = 1919182394;
+          if (v27 == 1919182394 && (v27 = bswap32(*(v25 + 3)), v28 = 978469958, v27 == 978469958))
+          {
+            v29 = 0;
+          }
+
+          else if (v27 < v28)
+          {
+            v29 = -1;
+          }
+
+          else
+          {
+            v29 = 1;
+          }
+
+          if (!v29)
+          {
+            return result;
+          }
+        }
+
+LABEL_49:
+        ++v23;
+      }
+
+      while (v24 != v23);
+    }
+
+    result = v20;
+    a2 = v19;
+  }
+
+  if (v7 == v4)
+  {
+    return 0;
+  }
+
+  v30 = 0;
+  if (v22 <= 1)
+  {
+    v31 = 1;
+  }
+
+  else
+  {
+    v31 = v22;
+  }
+
+  v32 = *result;
+  v33 = (*v6 - *result) >> 3;
+  while (v33 > v30)
+  {
+    result = PickBestRoot(*(v32 + 8 * v30), a2);
+    if (result)
+    {
+      return result;
+    }
+
+    if (v31 == ++v30)
+    {
+      return 0;
+    }
+  }
+
+LABEL_62:
+  __break(1u);
+  return result;
+}
+
+void XMPMeta::ProcessXMLBuffer()
+{
+  __assert_rtn("ProcessXMLBuffer", "XMPMeta-Parse.cpp", 1151, "! lastClientCall");
+}
+
+{
+  __assert_rtn("ProcessXMLBuffer", "XMPMeta-Parse.cpp", 1170, "! lastClientCall");
+}
+
+void ProcessUTF8Portion()
+{
+  __assert_rtn("ProcessUTF8Portion", "XMPMeta-Parse.cpp", 1000, "*spanEnd == '&'");
+}
+
+{
+  __assert_rtn("ProcessUTF8Portion", "XMPMeta-Parse.cpp", 1024, "spanEnd == bufEnd");
+}
+
+BOOL PSD_CheckFormat(int a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 != 1347634208)
+  {
+    PSD_CheckFormat();
+  }
+
+  (*(*a3 + 16))(a3, 0, 0);
+  v4 = (*(*a3 + 24))(a3);
+  result = 0;
+  if (v4 >= 34)
+  {
+    v6 = 0;
+    (**a3)(a3, &v6, 4, 1);
+    result = 0;
+    if (v6 == 1397768760)
+    {
+      v7 = 0;
+      (**a3)(a3, &v7, 2, 1);
+      return ((bswap32(v7) >> 16) - 1) < 2u;
+    }
+  }
+
+  return result;
+}
+
+void PSD_MetaHandler::PSD_MetaHandler(PSD_MetaHandler *this, XMPFiles *a2)
+{
+  XMPFileHandler::XMPFileHandler(this);
+  *v3 = &unk_1EF4FD138;
+  *(v3 + 8) = a2;
+  *(v3 + 96) = 0;
+  *(v3 + 104) = &unk_1EF50DFF0;
+  *(v3 + 120) = 0;
+  *(v3 + 152) = 0;
+  *(v3 + 144) = 0;
+  *(v3 + 112) = 0;
+  *(v3 + 116) = 0;
+  *(v3 + 128) = 0;
+  *(v3 + 136) = v3 + 144;
+  *(v3 + 160) = 0u;
+  *(v3 + 176) = 0u;
+  *(v3 + 192) = 0u;
+  *(v3 + 16) = 8831;
+  *(v3 + 20) = 0;
+}
+
+void PSD_MetaHandler::~PSD_MetaHandler(PSD_MetaHandler *this)
+{
+  *this = &unk_1EF4FD138;
+  v2 = *(this + 23);
+  if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  v3 = *(this + 24);
+  if (v3)
+  {
+    (*(*v3 + 248))(v3);
+  }
+
+  PSIR_FileWriter::~PSIR_FileWriter((this + 104));
+
+  XMPFileHandler::~XMPFileHandler(this);
+}
+
+{
+  PSD_MetaHandler::~PSD_MetaHandler(this);
+
+  JUMPOUT(0x186602850);
+}
+
+uint64_t PSD_MetaHandler::CacheFileData(int32x2_t *this)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  if (this[2].i8[5] == 1)
+  {
+    PSD_MetaHandler::CacheFileData();
+  }
+
+  v2 = this[1];
+  v3 = v2[29];
+  v4 = v2[34];
+  if (v4 && v4(v2[35]))
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 12;
+    exception[1] = "PSD_MetaHandler::CacheFileData - User abort";
+    *(exception + 16) = 0;
+  }
+
+  v15 = 0;
+  *v16 = 0;
+  *&v16[14] = 0;
+  *&v16[8] = 0;
+  (*(*v3 + 16))(v3, 0, 0);
+  result = (**v3)(v3, &v15, 30, 0);
+  if (result == 30)
+  {
+    this[25] = vrev64_s32(vrev32_s8(*&v16[6]));
+    v6 = bswap32(*&v16[18]) + 30;
+    if (v6 > (*(*v3 + 24))(v3))
+    {
+      v11 = __cxa_allocate_exception(0x18uLL);
+      *v11 = 208;
+      v11[1] = "Invalid PSD chunk length";
+      *(v11 + 16) = 0;
+    }
+
+    result = (*(*v3 + 16))(v3, v6, 0);
+    if (result == v6)
+    {
+      v7 = (*(*v3 + 24))(v3);
+      result = (*(*v3 + 16))(v3, 0, 1);
+      if (v7 - result >= 4)
+      {
+        LODWORD(v12) = 0;
+        (**v3)(v3, &v12, 4, 1);
+        v8 = bswap32(v12);
+        PSIR_FileWriter::ParseFileResources(&this[13], v3, v8);
+        v12 = 0;
+        v13 = 0;
+        v14 = 0;
+        result = PSIR_FileWriter::GetImgRsrc(&this[13], 0x424u, &v12);
+        v9 = HIDWORD(v12);
+        if (((v8 >= HIDWORD(v12)) & result) == 1)
+        {
+          this[4] = v14;
+          this[5].i32[0] = v9;
+          this[5].i32[1] = 0;
+          this[6].i16[0] = 257;
+          result = MEMORY[0x186602530](&this[7], v13);
+          this[2].i8[5] = 1;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void PSD_MetaHandler::ProcessXMP(PSD_MetaHandler *this)
+{
+  *(this + 22) = 1;
+  v1 = *(this + 1);
+  if (v1)
+  {
+    if ((*(v1 + 240) & 2) == 0)
+    {
+      operator new();
+    }
+  }
+
+  operator new();
+}
+
+void PSD_MetaHandler::UpdateFile(PSD_MetaHandler *this, int a2, __n128 a3)
+{
+  if (a2)
+  {
+    PSD_MetaHandler::UpdateFile();
+  }
+
+  v4 = *(this + 10);
+  if (*(this + 4) == -1)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *(this + 4);
+  }
+
+  if (v4 == -1)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = v4;
+  }
+
+  ExportPhotoData(1347634208, this + 80, *(this + 24), *(this + 23), this + 104, a3);
+  if (v5 != 0 && v6 != 0)
+  {
+    v7 = 576;
+  }
+
+  else
+  {
+    v7 = 64;
+  }
+
+  v8 = this + 56;
+  TXMPMeta<std::string>::SerializeToBuffer(this + 80, this + 56, v7, v6);
+  if (v5 != 0 && v6 != 0)
+  {
+    v9 = *(this + 79);
+    if ((v9 & 0x8000000000000000) != 0)
+    {
+      v9 = *(this + 8);
+    }
+
+    v10 = v9 <= v6;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  IsLegacyChanged = PSIR_FileWriter::IsLegacyChanged((this + 104));
+  v12 = *(this + 1);
+  if (!IsLegacyChanged && v10)
+  {
+    v13 = *(v12 + 288);
+    LODWORD(v14) = *(this + 79);
+    if ((v14 & 0x80000000) != 0)
+    {
+      v16 = *(this + 8);
+      v15 = *(this + 10);
+      if (v16 >= v15)
+      {
+        v19 = *(v12 + 232);
+LABEL_30:
+        v21 = *(this + 8);
+        v20 = 1;
+        goto LABEL_31;
+      }
+    }
+
+    else
+    {
+      v15 = *(this + 10);
+      if (v15 <= v14)
+      {
+        v19 = *(v12 + 232);
+        goto LABEL_28;
+      }
+
+      v16 = *(this + 79);
+    }
+
+    std::string::append((this + 56), v15 - v16, 32);
+    LODWORD(v14) = *(this + 79);
+    v19 = *(*(this + 1) + 232);
+    if ((v14 & 0x80000000) != 0)
+    {
+      goto LABEL_30;
+    }
+
+LABEL_28:
+    v20 = 0;
+    v21 = v14;
+LABEL_31:
+    if (v21 != v6)
+    {
+      PSD_MetaHandler::UpdateFile();
+    }
+
+    if (v13)
+    {
+      if (v20)
+      {
+        v14 = *(this + 8);
+      }
+
+      else
+      {
+        v14 = v14;
+      }
+
+      XMP_ProgressTracker::BeginWork(v13, v14);
+    }
+
+    (*(*v19 + 16))(v19, v5, 0);
+    v22 = *(this + 79);
+    if (v22 < 0)
+    {
+      v8 = *(this + 7);
+      v22 = *(this + 8);
+    }
+
+    (*(*v19 + 8))(v19, v8, v22);
+    if (v13)
+    {
+      XMP_ProgressTracker::WorkComplete(v13, v23, v24, v25);
+    }
+
+    goto LABEL_41;
+  }
+
+  v17 = *(v12 + 232);
+  v18 = (*(*v17 + 40))(v17);
+  if (*(this + 96) == 1)
+  {
+    __assert_rtn("UpdateFile", "PSD_Handler.cpp", 336, "! this->skipReconcile");
+  }
+
+  *(this + 96) = 1;
+  (*(*this + 80))(this, v18);
+  *(this + 96) = 0;
+  (*(*v17 + 48))(v17);
+LABEL_41:
+  *(this + 23) = 0;
 }

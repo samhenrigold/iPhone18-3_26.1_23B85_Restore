@@ -7,7 +7,7 @@
 - (uint64_t)convertFrameInRect:()Frame
 {
   [self bounds];
-  [self frame];
+  objc_msgSend_frame(self);
   return [self interfaceOrientation];
 }
 

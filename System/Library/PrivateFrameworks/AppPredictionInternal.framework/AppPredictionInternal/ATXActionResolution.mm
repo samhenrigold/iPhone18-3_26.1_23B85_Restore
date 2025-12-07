@@ -1,6 +1,8 @@
 @interface ATXActionResolution
 - (ATXActionResolution)init;
 - (ATXActionResolution)initWithSlotResolver:(id)resolver predictionContextBuilder:(id)builder;
+- (id)actionPredictionsForActionKey:(id)key statistics:(id)statistics appActionPredictionItem:(const ATXPredictionItem *)item appActionLogProbability:(double)probability scoreLogger:(id)logger andLimit:(int)limit forMagicalMoments:(BOOL)moments currentDate:(id)self0;
+- (id)actionPredictionsForActionKey:(id)key statistics:(id)statistics appActionPredictionItem:(const ATXPredictionItem *)item appActionLogProbability:(double)probability scoreLogger:(id)logger andLimit:(int)limit forMagicalMoments:(BOOL)moments predictionItemsToKeep:(void *)self0 currentDate:(id)self1;
 - (id)statisticsForActionKey:(id)key;
 - (id)statisticsForActionKey:(id)key context:(id)context;
 @end
@@ -54,7 +56,7 @@
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXActionResolution statisticsForActionKey:v9 context:?];
@@ -64,6 +66,60 @@
   }
 
   return v8;
+}
+
+- (id)actionPredictionsForActionKey:(id)key statistics:(id)statistics appActionPredictionItem:(const ATXPredictionItem *)item appActionLogProbability:(double)probability scoreLogger:(id)logger andLimit:(int)limit forMagicalMoments:(BOOL)moments currentDate:(id)self0
+{
+  v10 = [(ATXActionResolution *)self actionPredictionsForActionKey:key statistics:statistics appActionPredictionItem:item appActionLogProbability:logger scoreLogger:*&limit andLimit:moments forMagicalMoments:probability predictionItemsToKeep:0 currentDate:date];
+
+  return v10;
+}
+
+- (id)actionPredictionsForActionKey:(id)key statistics:(id)statistics appActionPredictionItem:(const ATXPredictionItem *)item appActionLogProbability:(double)probability scoreLogger:(id)logger andLimit:(int)limit forMagicalMoments:(BOOL)moments predictionItemsToKeep:(void *)self0 currentDate:(id)self1
+{
+  v11 = *&limit;
+  v36 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  statisticsCopy = statistics;
+  v19 = [(ATXSlotResolution *)self->_slotResolver actionPredictionsForStatistics:statisticsCopy appActionPredictionItem:item appActionLogProbability:logger scoreLogger:date currentDate:probability];
+  v20 = [ATXActionPredictionsHelpers processCandidateActionPredictions:v19 limit:v11 predictionItemsToKeep:keep];
+
+  v21 = [_ATXActionUtils getBundleIdAndActionTypeFromActionKey:keyCopy];
+  first = [v21 first];
+  second = [v21 second];
+  v24 = second;
+  if (first && second)
+  {
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
+    v27 = [v24 isEqualToString:v26];
+
+    if (v27)
+    {
+      v28 = [MEMORY[0x277CEB3B8] isSystemAppForBundleId:first];
+      v29 = [MEMORY[0x277CEB8F0] getUpcomingMediaForBundle:first isInternalApplication:v28];
+      v30 = [ATXMediaActionPrediction updatePlayMediaActionPredictions:v20 withUpcomingMedia:v29 forActionKey:keyCopy appActionPredictionItem:item appActionLogProbability:statisticsCopy statistics:probability];
+
+      v20 = v30;
+    }
+
+    v31 = [_ATXActionUtils filterContainersWithNilAction:v20];
+  }
+
+  else
+  {
+    v32 = __atxlog_handle_default(second);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = 138412290;
+      v35 = keyCopy;
+      _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "Error parsing '%@'", &v34, 0xCu);
+    }
+
+    v31 = MEMORY[0x277CBEBF8];
+  }
+
+  return v31;
 }
 
 @end

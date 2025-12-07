@@ -1,10 +1,10 @@
 @interface NSDateIntervalFormatter(PhotosUICore)
+- (BOOL)px_customizesAttributedString;
 - (__CFString)px_dateTemplateForGranularity:()PhotosUICore abbreviated:onlyCalendarUnit:;
 - (id)_px_localizedCapitalizedString:()PhotosUICore;
 - (id)_px_substitutions;
 - (id)px_attributedStringFromDateInterval:()PhotosUICore defaultAttributes:emphasizedAttributes:;
 - (uint64_t)_px_isChineseYearTemplate;
-- (uint64_t)px_customizesAttributedString;
 @end
 
 @implementation NSDateIntervalFormatter(PhotosUICore)
@@ -114,7 +114,7 @@
   return v12;
 }
 
-- (uint64_t)px_customizesAttributedString
+- (BOOL)px_customizesAttributedString
 {
   if ([self _px_isChineseYearTemplate])
   {

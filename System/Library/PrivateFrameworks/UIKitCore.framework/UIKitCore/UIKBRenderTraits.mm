@@ -91,12 +91,12 @@
 - (id)description
 {
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"<%@: %p", objc_opt_class(), self];
-  geometry = [(UIKBRenderTraits *)self geometry];
+  v4 = objc_msgSend_geometry(self);
 
-  if (geometry)
+  if (v4)
   {
-    geometry2 = [(UIKBRenderTraits *)self geometry];
-    [v3 appendFormat:@"; geometry = %@", geometry2];
+    v5 = objc_msgSend_geometry(self);
+    [v3 appendFormat:@"; geometry = %@", v5];
   }
 
   backgroundGradient = [(UIKBRenderTraits *)self backgroundGradient];
@@ -217,7 +217,7 @@
   else
   {
     objc_opt_class();
-    v18 = (objc_opt_isKindOfClass() & 1) != 0 && (geometry = self->_geometry, (equalCopy->_geometry != 0) != (geometry == 0)) && (!geometry || [(UIKBRenderGeometry *)geometry isEqual:?]) && (backgroundGradient = self->_backgroundGradient, (backgroundGradient == 0) != (equalCopy->_backgroundGradient != 0)) && (!backgroundGradient || [(UIKBGradient *)backgroundGradient isEqual:?]) && (layeredBackgroundGradient = self->_layeredBackgroundGradient, (layeredBackgroundGradient == 0) != (equalCopy->_layeredBackgroundGradient != 0)) && (!layeredBackgroundGradient || [(UIKBGradient *)layeredBackgroundGradient isEqual:?]) && (layeredForegroundGradient = self->_layeredForegroundGradient, (layeredForegroundGradient == 0) != (equalCopy->_layeredForegroundGradient != 0)) && (!layeredForegroundGradient || [(UIKBGradient *)layeredForegroundGradient isEqual:?]) && (symbolStyle = self->_symbolStyle, (symbolStyle == 0) != (equalCopy->_symbolStyle != 0)) && (!symbolStyle || [(UIKBTextStyle *)symbolStyle isEqual:?]) && (fallbackSymbolStyle = self->_fallbackSymbolStyle, (fallbackSymbolStyle == 0) != (equalCopy->_fallbackSymbolStyle != 0)) && (!fallbackSymbolStyle || [(UIKBTextStyle *)fallbackSymbolStyle isEqual:?]) && (secondarySymbolStyles = self->_secondarySymbolStyles, (secondarySymbolStyles == 0) != (equalCopy->_secondarySymbolStyles != 0)) && (!secondarySymbolStyles || [(NSArray *)secondarySymbolStyles isEqualToArray:?]) && (renderEffects = self->_renderEffects, (renderEffects == 0) != (equalCopy->_renderEffects != 0)) && (!renderEffects || [(NSMutableArray *)renderEffects isEqualToArray:?]) && (foregroundRenderEffects = self->_foregroundRenderEffects, (foregroundRenderEffects == 0) != (equalCopy->_foregroundRenderEffects != 0)) && (!foregroundRenderEffects || [(NSMutableArray *)foregroundRenderEffects isEqualToArray:?]) && (variantGeometries = self->_variantGeometries, (variantGeometries == 0) != (equalCopy->_variantGeometries != 0)) && (!variantGeometries || [(NSArray *)variantGeometries isEqualToArray:?]) && (variantTraits = self->_variantTraits, (variantTraits == 0) != (equalCopy->_variantTraits != 0)) && (!variantTraits || [(UIKBRenderTraits *)variantTraits isEqual:?]) && (highlightedVariantTraits = self->_highlightedVariantTraits, (highlightedVariantTraits == 0) != (equalCopy->_highlightedVariantTraits != 0)) && (!highlightedVariantTraits || [(UIKBRenderTraits *)highlightedVariantTraits isEqual:?]) && self->_controlOpacities == equalCopy->_controlOpacities && self->_blurBlending == equalCopy->_blurBlending && self->_blendForm == equalCopy->_blendForm && ((renderFlags = self->_renderFlags) == 0 || [(NSArray *)renderFlags isEqualToArray:equalCopy->_renderFlags]) && self->_renderSecondarySymbolsSeparately == equalCopy->_renderSecondarySymbolsSeparately && self->_renderFlagsForAboveEffects == equalCopy->_renderFlagsForAboveEffects;
+    v18 = (objc_opt_isKindOfClass() & 1) != 0 && (geometry = self->_geometry, (equalCopy->_geometry != 0) != (geometry == 0)) && (!geometry || objc_msgSend_isEqual_(geometry)) && (backgroundGradient = self->_backgroundGradient, (backgroundGradient == 0) != (equalCopy->_backgroundGradient != 0)) && (!backgroundGradient || objc_msgSend_isEqual_(backgroundGradient)) && (layeredBackgroundGradient = self->_layeredBackgroundGradient, (layeredBackgroundGradient == 0) != (equalCopy->_layeredBackgroundGradient != 0)) && (!layeredBackgroundGradient || objc_msgSend_isEqual_(layeredBackgroundGradient)) && (layeredForegroundGradient = self->_layeredForegroundGradient, (layeredForegroundGradient == 0) != (equalCopy->_layeredForegroundGradient != 0)) && (!layeredForegroundGradient || objc_msgSend_isEqual_(layeredForegroundGradient)) && (symbolStyle = self->_symbolStyle, (symbolStyle == 0) != (equalCopy->_symbolStyle != 0)) && (!symbolStyle || objc_msgSend_isEqual_(symbolStyle)) && (fallbackSymbolStyle = self->_fallbackSymbolStyle, (fallbackSymbolStyle == 0) != (equalCopy->_fallbackSymbolStyle != 0)) && (!fallbackSymbolStyle || objc_msgSend_isEqual_(fallbackSymbolStyle)) && (secondarySymbolStyles = self->_secondarySymbolStyles, (secondarySymbolStyles == 0) != (equalCopy->_secondarySymbolStyles != 0)) && (!secondarySymbolStyles || [(NSArray *)secondarySymbolStyles isEqualToArray:?]) && (renderEffects = self->_renderEffects, (renderEffects == 0) != (equalCopy->_renderEffects != 0)) && (!renderEffects || [(NSMutableArray *)renderEffects isEqualToArray:?]) && (foregroundRenderEffects = self->_foregroundRenderEffects, (foregroundRenderEffects == 0) != (equalCopy->_foregroundRenderEffects != 0)) && (!foregroundRenderEffects || [(NSMutableArray *)foregroundRenderEffects isEqualToArray:?]) && (variantGeometries = self->_variantGeometries, (variantGeometries == 0) != (equalCopy->_variantGeometries != 0)) && (!variantGeometries || [(NSArray *)variantGeometries isEqualToArray:?]) && (variantTraits = self->_variantTraits, (variantTraits == 0) != (equalCopy->_variantTraits != 0)) && (!variantTraits || objc_msgSend_isEqual_(variantTraits)) && (highlightedVariantTraits = self->_highlightedVariantTraits, (highlightedVariantTraits == 0) != (equalCopy->_highlightedVariantTraits != 0)) && (!highlightedVariantTraits || objc_msgSend_isEqual_(highlightedVariantTraits)) && self->_controlOpacities == equalCopy->_controlOpacities && self->_blurBlending == equalCopy->_blurBlending && self->_blendForm == equalCopy->_blendForm && ((renderFlags = self->_renderFlags) == 0 || [(NSArray *)renderFlags isEqualToArray:equalCopy->_renderFlags]) && self->_renderSecondarySymbolsSeparately == equalCopy->_renderSecondarySymbolsSeparately && self->_renderFlagsForAboveEffects == equalCopy->_renderFlagsForAboveEffects;
   }
 
   return v18;
@@ -318,13 +318,13 @@
 - (void)overlayWithTraits:(id)traits
 {
   traitsCopy = traits;
-  geometry = [traitsCopy geometry];
+  v5 = objc_msgSend_geometry(traitsCopy);
 
-  if (geometry)
+  if (v5)
   {
-    geometry2 = [(UIKBRenderTraits *)self geometry];
-    geometry3 = [traitsCopy geometry];
-    [geometry2 overlayWithGeometry:geometry3];
+    v6 = objc_msgSend_geometry(self);
+    v7 = objc_msgSend_geometry(traitsCopy);
+    [v6 overlayWithGeometry:v7];
   }
 
   backgroundGradient = [traitsCopy backgroundGradient];

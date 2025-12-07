@@ -119,7 +119,7 @@
   return v5;
 }
 
-id __63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_invoke(uint64_t a1, uint64_t a2)
+AXSSPunctuationEntry *__63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = [AXSSPunctuationEntry punctuationEntryFromJSONDictionary:a2];
   if (!v2)
@@ -132,11 +132,11 @@ id __63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_inv
 
 - (NSDictionary)jsonDictionary
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v22[0] = @"name";
+  v22[5] = *MEMORY[0x1E69E9840];
+  v21[0] = @"name";
   name = [(AXSSPunctuationGroup *)self name];
-  v23[0] = name;
-  v22[1] = @"basePunctuationUUID";
+  v22[0] = name;
+  v21[1] = @"basePunctuationUUID";
   v3 = +[AXSSPunctuationManager sharedDatabase];
   v4 = [v3 mostBasePunctuationGroupForGroup:self];
   uUIDString = [v4 UUIDString];
@@ -151,8 +151,8 @@ id __63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_inv
     v7 = &stru_1F405A428;
   }
 
-  v23[1] = v7;
-  v22[2] = @"uuid";
+  v22[1] = v7;
+  v21[2] = @"uuid";
   uuid = [(AXSSPunctuationGroup *)self uuid];
   uUIDString2 = [uuid UUIDString];
   v10 = uUIDString2;
@@ -166,11 +166,11 @@ id __63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_inv
     v11 = &stru_1F405A428;
   }
 
-  v23[2] = v11;
-  v22[3] = @"version";
+  v22[2] = v11;
+  v21[3] = @"version";
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[AXSSPunctuationGroup version](self, "version")}];
-  v23[3] = v12;
-  v22[4] = @"entries";
+  v22[3] = v12;
+  v21[4] = @"entries";
   entries = [(AXSSPunctuationGroup *)self entries];
   v14 = [entries ax_mappedArrayUsingBlock:&__block_literal_global_27];
   v15 = v14;
@@ -180,11 +180,9 @@ id __63__AXSSPunctuationGroup_punctuationGroupFromJSONRepresentation___block_inv
     v16 = v14;
   }
 
-  v23[4] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v22[4] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
   v18 = [v17 mutableCopy];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -299,22 +297,20 @@ LABEL_8:
 
 + (void)punctuationGroupFromJSONRepresentation:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_ERROR, "Could not json: %@ %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_ERROR, "Could not json: %@ %@", &v3, 0x16u);
 }
 
 - (void)jsonRepresentation
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Could not json: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Could not json: %@", &v2, 0xCu);
 }
 
 @end

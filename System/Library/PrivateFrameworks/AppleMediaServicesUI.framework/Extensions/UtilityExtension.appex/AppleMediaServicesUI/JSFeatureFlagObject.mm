@@ -7,11 +7,12 @@
 
 - (BOOL)isEnabled:(id)enabled
 {
-  sub_10004494C();
+  v4 = sub_10004494C();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_10001E840();
+  LOBYTE(v4) = sub_10001E840(v4, v6);
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (id)isEnabledBatch:(id)batch

@@ -25,113 +25,113 @@
 
 - (void)setupWithComputeContext:(id)context
 {
-  Mesh = C3DGeometryGetMesh(self->_baseGeometry);
+  Mesh = C3DGeometryGetMesh(self->_baseGeometry, a2);
   if (!Mesh)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = scn_default_log(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLSkinDeformer *)v6 setupWithComputeContext:v7, v8, v9, v10, v11, v12, v13];
+      [(SCNMTLSkinDeformer *)v7 setupWithComputeContext:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
   SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(Mesh, 0, 0, self->_dataKind);
   if (!SourceWithSemanticAtIndex)
   {
-    v15 = scn_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = scn_default_log(0, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLSkinDeformer *)v15 setupWithComputeContext:v16, v17, v18, v19, v20, v21, v22];
+      [(SCNMTLSkinDeformer *)v17 setupWithComputeContext:v15, v18, v19, v20, v21, v22, v23];
     }
   }
 
-  self->_baseVertexCount = C3DMeshSourceGetCount(SourceWithSemanticAtIndex);
+  self->_baseVertexCount = C3DMeshSourceGetCount(SourceWithSemanticAtIndex, v15);
   resourceManager = self->_resourceManager;
   skinner = self->_skinner;
   dataKind = self->_dataKind;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __46__SCNMTLSkinDeformer_setupWithComputeContext___block_invoke;
-  v43[3] = &unk_2782FDC80;
-  v43[4] = context;
-  v43[5] = self;
-  v43[6] = Mesh;
-  v26 = [(SCNMTLResourceManager *)resourceManager renderResourceForSkinner:skinner baseMesh:Mesh dataKind:dataKind provider:v43];
-  v27 = v26;
-  if (v26)
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __46__SCNMTLSkinDeformer_setupWithComputeContext___block_invoke;
+  v44[3] = &unk_2782FDC80;
+  v44[4] = context;
+  v44[5] = self;
+  v44[6] = Mesh;
+  v27 = [(SCNMTLResourceManager *)resourceManager renderResourceForSkinner:skinner baseMesh:Mesh dataKind:dataKind provider:v44];
+  v28 = v27;
+  if (v27)
   {
-    self->_vertexWeightIndicesBuffer = *(v26 + 24);
-    self->_boneIndicesBuffer = *(v27 + 32);
-    v28 = *(v27 + 40);
+    self->_vertexWeightIndicesBuffer = *(v27 + 24);
+    self->_boneIndicesBuffer = *(v28 + 32);
+    v29 = *(v28 + 40);
   }
 
   else
   {
     [SCNMTLSkinDeformer setupWithComputeContext:?];
-    v28 = 0;
+    v29 = 0;
   }
 
-  self->_boneWeightsBuffer = v28;
+  self->_boneWeightsBuffer = v29;
   skinNormals = self->_skinNormals;
-  v29 = objc_alloc_init(MEMORY[0x277CD6D70]);
-  [v29 setConstantValue:&skinNormals type:53 withName:@"needNormal"];
+  v30 = objc_alloc_init(MEMORY[0x277CD6D70]);
+  [v30 setConstantValue:&skinNormals type:53 withName:@"needNormal"];
   skinTangents = self->_skinTangents;
-  [v29 setConstantValue:&skinTangents type:53 withName:@"needTangent"];
-  if (v27)
+  [v30 setConstantValue:&skinTangents type:53 withName:@"needTangent"];
+  if (v28)
   {
-    v30 = *(v27 + 8);
-    v31 = *(v27 + 16);
+    v31 = *(v28 + 8);
+    v32 = *(v28 + 16);
   }
 
   else
   {
-    v30 = 0;
     v31 = 0;
+    v32 = 0;
   }
 
-  v39 = v31;
-  v40 = v30;
-  [v29 setConstantValue:&v40 type:33 withName:@"weight_index_size"];
-  [v29 setConstantValue:&v39 type:33 withName:@"bone_index_size"];
-  v32 = 84;
+  v40 = v32;
+  v41 = v31;
+  [v30 setConstantValue:&v41 type:33 withName:@"weight_index_size"];
+  [v30 setConstantValue:&v40 type:33 withName:@"bone_index_size"];
+  v33 = 84;
   if (!skinTangents)
-  {
-    v32 = 45;
-  }
-
-  v33 = 78;
-  if (!skinNormals)
   {
     v33 = 45;
   }
 
-  v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Int%d_Int%d_%c%c", (8 * v40), (8 * v39), v33, v32];
-  self->_useFallbackCopyKernel = v27 == 0;
-  if (v27)
+  v34 = 78;
+  if (!skinNormals)
   {
-    v35 = v34;
-    v36 = @"skin_var";
+    v34 = 45;
+  }
+
+  v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Int%d_Int%d_%c%c", (8 * v41), (8 * v40), v34, v33];
+  self->_useFallbackCopyKernel = v28 == 0;
+  if (v28)
+  {
+    v36 = v35;
+    v37 = @"skin_var";
   }
 
   else
   {
-    v37 = 84;
+    v38 = 84;
     if (!skinTangents)
-    {
-      v37 = 45;
-    }
-
-    v38 = 78;
-    if (!skinNormals)
     {
       v38 = 45;
     }
 
-    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c%c", v38, v37];
-    v36 = @"skin_copy_as_fallback";
+    v39 = 78;
+    if (!skinNormals)
+    {
+      v39 = 45;
+    }
+
+    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c%c", v39, v38];
+    v37 = @"skin_copy_as_fallback";
   }
 
-  self->_computePipeline = -[SCNMTLResourceManager computePipelineStateForKernel:withStageDescriptor:stageDescriptorUpdateBlock:constants:constantsHash:](self->_resourceManager, "computePipelineStateForKernel:withStageDescriptor:stageDescriptorUpdateBlock:constants:constantsHash:", v36, [context stageInputDescriptor], 0, v29, v35);
+  self->_computePipeline = -[SCNMTLResourceManager computePipelineStateForKernel:withStageDescriptor:stageDescriptorUpdateBlock:constants:constantsHash:](self->_resourceManager, "computePipelineStateForKernel:withStageDescriptor:stageDescriptorUpdateBlock:constants:constantsHash:", v37, [context stageInputDescriptor], 0, v30, v36);
 }
 
 uint64_t __46__SCNMTLSkinDeformer_setupWithComputeContext___block_invoke(uint64_t a1)
@@ -146,57 +146,58 @@ uint64_t __46__SCNMTLSkinDeformer_setupWithComputeContext___block_invoke(uint64_
 
 - (id)makeReadOnlyBuffersWithBaseGeometry:(__C3DGeometry *)geometry baseMesh:(__C3DMesh *)mesh blitEncoder:(id)encoder
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_skinner);
   if (!OverrideMaterial)
   {
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = scn_default_log(0, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLSkinDeformer *)v9 makeReadOnlyBuffersWithBaseGeometry:v10 baseMesh:v11 blitEncoder:v12, v13, v14, v15, v16];
+      [(SCNMTLSkinDeformer *)v10 makeReadOnlyBuffersWithBaseGeometry:v11 baseMesh:v12 blitEncoder:v13, v14, v15, v16, v17];
     }
   }
 
-  v17 = objc_alloc_init(SCNMTLSkinDeformerReadOnlyBuffers);
-  v126 = 0;
-  v127 = 0;
-  v125 = 0;
-  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v127, &v126, &v125);
-  v124 = 0;
-  PositionDeindexedToOriginalTable = C3DMeshGetPositionDeindexedToOriginalTable(mesh, &v124);
+  v18 = objc_alloc_init(SCNMTLSkinDeformerReadOnlyBuffers);
+  v131 = 0;
+  v132 = 0;
+  v130 = 0;
+  C3DSkinGetVertexWeightsPointers(OverrideMaterial, &v132, &v131, &v130);
+  v129 = 0;
+  PositionDeindexedToOriginalTable = C3DMeshGetPositionDeindexedToOriginalTable(mesh, &v129);
   JointsCount = C3DSkinGetJointsCount(OverrideMaterial);
-  v20 = JointsCount;
-  v21 = 1;
+  v22 = JointsCount;
+  v23 = 1;
   if ((JointsCount - 129) < 0xFFFFFF80)
   {
-    v21 = 2;
+    v23 = 2;
   }
 
   if (JointsCount >= 1)
   {
-    v22 = v21;
+    v24 = v23;
   }
 
   else
   {
-    v22 = 8;
+    v24 = 8;
   }
 
-  v23 = 4;
-  if (v22 < 4)
+  v25 = 4;
+  if (v24 < 4)
   {
-    v23 = v22;
+    v25 = v24;
   }
 
-  v123 = v23;
+  v128 = v25;
   if (self->_dataKind != 1 || !PositionDeindexedToOriginalTable)
   {
     MTLVertexFormat = C3DMeshSourceGetMTLVertexFormat(OverrideMaterial);
+    WeightsCount = MTLVertexFormat;
     p_baseVertexCount = &self->_baseVertexCount;
     if (MTLVertexFormat != self->_baseVertexCount)
     {
-      v47 = scn_default_log();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v51 = scn_default_log(MTLVertexFormat, v42);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         [SCNMTLSkinDeformer makeReadOnlyBuffersWithBaseGeometry:baseMesh:blitEncoder:];
       }
@@ -204,266 +205,266 @@ uint64_t __46__SCNMTLSkinDeformer_setupWithComputeContext___block_invoke(uint64_
       goto LABEL_37;
     }
 
-    if (v125)
+    if (v130)
     {
-      MTLVertexFormat = C3DSkinGetWeightsCount(OverrideMaterial);
+      WeightsCount = C3DSkinGetWeightsCount(OverrideMaterial, v42);
     }
 
-    if ((MTLVertexFormat - 1) >> 15)
+    if ((WeightsCount - 1) >> 15)
     {
-      v41 = 4 * (*p_baseVertexCount + 1);
-      v42 = malloc_type_malloc(v41, 0xC7861EACuLL);
-      v43 = v42;
-      v44 = v127;
-      if (v127)
+      v45 = 4 * (*p_baseVertexCount + 1);
+      v46 = malloc_type_malloc(v45, 0xC7861EACuLL);
+      v47 = v46;
+      v48 = v132;
+      if (v132)
       {
-        v45 = 0;
-        v46 = 4;
+        v49 = 0;
+        v50 = 4;
         do
         {
-          *&v42[2 * v45] = *(v44 + 8 * v45);
-          ++v45;
+          *&v46[2 * v49] = *(v48 + 8 * v49);
+          ++v49;
         }
 
-        while (v45 <= *p_baseVertexCount);
+        while (v49 <= *p_baseVertexCount);
       }
 
       else
       {
-        v46 = 4;
+        v50 = 4;
         do
         {
-          *&v42[2 * v44] = v44;
-          LODWORD(v44) = v44 + 1;
+          *&v46[2 * v48] = v48;
+          LODWORD(v48) = v48 + 1;
         }
 
-        while (v44 <= *p_baseVertexCount);
+        while (v48 <= *p_baseVertexCount);
       }
     }
 
     else
     {
-      v41 = *p_baseVertexCount + 1;
-      if ((MTLVertexFormat - 1) <= 0x7F)
+      v45 = *p_baseVertexCount + 1;
+      if ((WeightsCount - 1) <= 0x7F)
       {
-        v88 = malloc_type_malloc(*p_baseVertexCount + 1, 0xC7861EACuLL);
-        v43 = v88;
-        v89 = v127;
-        if (v127)
+        v92 = malloc_type_malloc(*p_baseVertexCount + 1, 0xC7861EACuLL);
+        v47 = v92;
+        v93 = v132;
+        if (v132)
         {
-          v90 = 0;
-          v46 = 1;
+          v94 = 0;
+          v50 = 1;
           do
           {
-            *(v88 + v90) = *(v127 + 8 * v90);
-            ++v90;
+            *(v92 + v94) = *(v132 + 8 * v94);
+            ++v94;
           }
 
-          while (v90 <= *p_baseVertexCount);
+          while (v94 <= *p_baseVertexCount);
         }
 
         else
         {
-          v46 = 1;
+          v50 = 1;
           do
           {
-            *(v88 + v89) = v89;
-            ++v89;
+            *(v92 + v93) = v93;
+            ++v93;
           }
 
-          while (v89 <= *p_baseVertexCount);
+          while (v93 <= *p_baseVertexCount);
         }
       }
 
       else
       {
-        v41 *= 2;
-        v43 = malloc_type_malloc(v41, 0xC7861EACuLL);
-        v50 = v127;
+        v45 *= 2;
+        v47 = malloc_type_malloc(v45, 0xC7861EACuLL);
+        v54 = v132;
         if (*p_baseVertexCount + 1 > 1)
         {
-          v51 = *p_baseVertexCount + 1;
+          v55 = *p_baseVertexCount + 1;
         }
 
         else
         {
-          v51 = 1;
+          v55 = 1;
         }
 
-        if (v127)
+        if (v132)
         {
-          v52 = 0;
-          v46 = 2;
+          v56 = 0;
+          v50 = 2;
           do
           {
-            v43[v52] = *(v50 + 8 * v52);
-            ++v52;
+            v47[v56] = *(v54 + 8 * v56);
+            ++v56;
           }
 
-          while (v51 != v52);
+          while (v55 != v56);
         }
 
         else
         {
-          [SCNMTLSkinDeformer makeReadOnlyBuffersWithBaseGeometry:v51 baseMesh:v43 blitEncoder:?];
-          v46 = 2;
+          [SCNMTLSkinDeformer makeReadOnlyBuffersWithBaseGeometry:v55 baseMesh:v47 blitEncoder:?];
+          v50 = 2;
         }
       }
     }
 
-    v93 = MTLVertexFormat * v123;
-    v94 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v43 length:v41 blitEncoder:encoder];
-    if (v17)
+    v97 = WeightsCount * v128;
+    v98 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v47 length:v45 blitEncoder:encoder];
+    if (v18)
     {
-      objc_setProperty_nonatomic(v17, v95, v94, 24);
+      objc_setProperty_nonatomic(v18, v99, v98, 24);
     }
 
-    free(v43);
-    if (v126 && v125)
+    free(v47);
+    if (v131 && v130)
     {
-      if (MTLVertexFormat >= 1)
+      if (WeightsCount >= 1)
       {
-        v96 = 0;
-        v97 = 1;
-        while (*(v126 + 2 * v96) < v20)
+        v101 = 0;
+        v102 = 1;
+        while (*(v131 + 2 * v101) < v22)
         {
-          v96 = v97;
-          v98 = MTLVertexFormat > v97++;
-          if (!v98)
+          v101 = v102;
+          v103 = WeightsCount > v102++;
+          if (!v103)
           {
             goto LABEL_105;
           }
         }
 
-        v111 = scn_default_log();
-        if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+        v116 = scn_default_log(v100, v131);
+        if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
         {
-          v112 = *(v126 + 2 * v96);
+          v117 = *(v131 + 2 * v101);
           *buf = 67109376;
-          v129 = v112;
-          v130 = 1024;
-          v131 = v20;
-          _os_log_error_impl(&dword_21BEF7000, v111, OS_LOG_TYPE_ERROR, "Error: Skinning internal consistency error - out of range bone index ('%d < %d' assertion failed)", buf, 0xEu);
+          v134 = v117;
+          v135 = 1024;
+          v136 = v22;
+          _os_log_error_impl(&dword_21BEF7000, v116, OS_LOG_TYPE_ERROR, "Error: Skinning internal consistency error - out of range bone index ('%d < %d' assertion failed)", buf, 0xEu);
         }
 
         goto LABEL_37;
       }
 
 LABEL_105:
-      if (v22 == 2)
+      if (v24 == 2)
       {
-        v113 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v126 length:v93 blitEncoder:encoder];
-        if (v17)
+        v118 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v131 length:v97 blitEncoder:encoder];
+        if (v18)
         {
-          objc_setProperty_nonatomic(v17, v114, v113, 32);
+          objc_setProperty_nonatomic(v18, v119, v118, 32);
         }
 
 LABEL_115:
-        if (v125)
+        if (v130)
         {
-          v104 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v125 length:4 * MTLVertexFormat blitEncoder:encoder];
-          if (!v17)
+          v109 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v130 length:4 * WeightsCount blitEncoder:encoder];
+          if (!v18)
           {
-            return v17;
+            return v18;
           }
 
-          objc_setProperty_nonatomic(v17, v105, v104, 40);
+          objc_setProperty_nonatomic(v18, v110, v109, 40);
         }
 
         else
         {
-          v106 = malloc_type_malloc(4 * MTLVertexFormat, 0x100004052888210uLL);
-          v55 = v106;
-          if (MTLVertexFormat >= 1)
+          v111 = malloc_type_malloc(4 * WeightsCount, 0x100004052888210uLL);
+          v59 = v111;
+          if (WeightsCount >= 1)
           {
-            v107 = 1;
-            v108 = v106;
+            v112 = 1;
+            v113 = v111;
             do
             {
-              *v108++ = 1065353216;
-              v98 = MTLVertexFormat > v107++;
+              *v113++ = 1065353216;
+              v103 = WeightsCount > v112++;
             }
 
-            while (v98);
+            while (v103);
           }
 
-          v109 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v106 length:4 * MTLVertexFormat blitEncoder:encoder];
-          if (!v17)
+          v114 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v111 length:4 * WeightsCount blitEncoder:encoder];
+          if (!v18)
           {
             goto LABEL_84;
           }
 
-          objc_setProperty_nonatomic(v17, v110, v109, 40);
-          free(v55);
+          objc_setProperty_nonatomic(v18, v115, v114, 40);
+          free(v59);
         }
 
-        v17->_vertexWeightIndexSize = v46;
-        v17->_boneIndexSize = v123;
-        return v17;
+        v18->_vertexWeightIndexSize = v50;
+        v18->_boneIndexSize = v128;
+        return v18;
       }
 
-      if (v22 == 1)
+      if (v24 == 1)
       {
-        v99 = malloc_type_malloc(v93, 0x100004077774924uLL);
-        v100 = v99;
-        if (MTLVertexFormat >= 1)
+        v104 = malloc_type_malloc(v97, 0x100004077774924uLL);
+        v105 = v104;
+        if (WeightsCount >= 1)
         {
-          v101 = 0;
+          v106 = 0;
           do
           {
-            *(v99 + v101) = *(v126 + 2 * v101);
-            ++v101;
+            *(v104 + v106) = *(v131 + 2 * v106);
+            ++v106;
           }
 
-          while (MTLVertexFormat > v101);
+          while (WeightsCount > v106);
         }
       }
 
       else
       {
-        if (v20 > 0)
+        if (v22 > 0)
         {
           goto LABEL_115;
         }
 
-        v115 = malloc_type_malloc(v93, 0x100004052888210uLL);
-        v100 = v115;
-        if (MTLVertexFormat >= 1)
+        v120 = malloc_type_malloc(v97, 0x100004052888210uLL);
+        v105 = v120;
+        if (WeightsCount >= 1)
         {
-          v116 = 0;
-          v117 = v126;
+          v121 = 0;
+          v122 = v131;
           do
           {
-            *(v115 + v116) = *(v117 + 2 * v116);
-            ++v116;
+            *(v120 + v121) = *(v122 + 2 * v121);
+            ++v121;
           }
 
-          while (MTLVertexFormat > v116);
+          while (WeightsCount > v121);
         }
       }
     }
 
     else
     {
-      v100 = malloc_type_calloc(v93, 1uLL, 0x2A4C9B24uLL);
+      v105 = malloc_type_calloc(v97, 1uLL, 0x2A4C9B24uLL);
     }
 
-    v102 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v100 length:v93 blitEncoder:encoder];
-    if (v17)
+    v107 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v105 length:v97 blitEncoder:encoder];
+    if (v18)
     {
-      objc_setProperty_nonatomic(v17, v103, v102, 32);
+      objc_setProperty_nonatomic(v18, v108, v107, 32);
     }
 
-    free(v100);
+    free(v105);
     goto LABEL_115;
   }
 
-  v25 = &self->_baseVertexCount;
+  v27 = &self->_baseVertexCount;
   baseVertexCount = self->_baseVertexCount;
-  if (baseVertexCount != v124)
+  if (baseVertexCount != v129)
   {
-    v48 = scn_default_log();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    v52 = scn_default_log(JointsCount, v21);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       [SCNMTLSkinDeformer makeReadOnlyBuffersWithBaseGeometry:baseMesh:blitEncoder:];
     }
@@ -473,70 +474,70 @@ LABEL_37:
     return 0;
   }
 
-  v26 = malloc_type_malloc(4 * (baseVertexCount + 1), 0x100004052888210uLL);
-  v27 = v26;
-  *v26 = 0;
+  v28 = malloc_type_malloc(4 * (baseVertexCount + 1), 0x100004052888210uLL);
+  v29 = v28;
+  *v28 = 0;
   encoderCopy = encoder;
-  if (*v25)
+  if (*v27)
   {
-    v28 = 0;
-    v29 = 0;
     v30 = 0;
-    v31 = v127;
+    v31 = 0;
+    v32 = 0;
+    v33 = v132;
     do
     {
-      v32 = *(v31 + 8 * (*(PositionDeindexedToOriginalTable + 4 * v29) + 1)) - *(v31 + 8 * *(PositionDeindexedToOriginalTable + 4 * v29));
-      v30 += v32;
-      v28 += v32;
-      v26[v29 + 1] = v28;
-      v33 = *v25;
-      ++v29;
+      v34 = *(v33 + 8 * (*(PositionDeindexedToOriginalTable + 4 * v31) + 1)) - *(v33 + 8 * *(PositionDeindexedToOriginalTable + 4 * v31));
+      v32 += v34;
+      v30 += v34;
+      v28[v31 + 1] = v30;
+      v35 = *v27;
+      ++v31;
     }
 
-    while (v29 < v33);
-    v34 = (v33 + 1);
-    if (!((v30 - 1) >> 15))
+    while (v31 < v35);
+    v36 = (v35 + 1);
+    if (!((v32 - 1) >> 15))
     {
-      if ((v30 - 1) <= 0x7F)
+      if ((v32 - 1) <= 0x7F)
       {
-        v121 = (v33 + 1);
-        v91 = malloc_type_malloc(v34, 0x947460FAuLL);
-        v36 = v91;
-        v92 = 0;
-        v118 = 1;
+        v126 = (v35 + 1);
+        v95 = malloc_type_malloc(v36, 0x947460FAuLL);
+        v38 = v95;
+        v96 = 0;
+        v123 = 1;
         do
         {
-          *(v91 + v92) = v27[v92];
-          ++v92;
+          *(v95 + v96) = v29[v96];
+          ++v96;
         }
 
-        while (v92 <= *v25);
+        while (v96 <= *v27);
       }
 
       else
       {
-        v121 = 2 * v34;
-        v35 = malloc_type_malloc(2 * v34, 0x1CB4052FuLL);
-        v36 = v35;
-        v37 = 0;
-        if (*v25 + 1 > 1)
+        v126 = 2 * v36;
+        v37 = malloc_type_malloc(2 * v36, 0x1CB4052FuLL);
+        v38 = v37;
+        v39 = 0;
+        if (*v27 + 1 > 1)
         {
-          v38 = *v25 + 1;
+          v40 = *v27 + 1;
         }
 
         else
         {
-          v38 = 1;
+          v40 = 1;
         }
 
-        v118 = 2;
+        v123 = 2;
         do
         {
-          *(v35 + v37) = v27[v37];
-          ++v37;
+          *(v37 + v39) = v29[v39];
+          ++v39;
         }
 
-        while (v38 != v37);
+        while (v40 != v39);
       }
 
       goto LABEL_48;
@@ -545,162 +546,162 @@ LABEL_37:
 
   else
   {
-    v30 = 0;
-    v34 = 1;
+    v32 = 0;
+    v36 = 1;
   }
 
-  v121 = 4 * v34;
-  v118 = 4;
-  v36 = v27;
+  v126 = 4 * v36;
+  v123 = 4;
+  v38 = v29;
 LABEL_48:
-  v119 = v30 * v123;
-  v53 = malloc_type_malloc(v30 * v123, 0x1854F7FEuLL);
-  v120 = 4 * v30;
-  v54 = malloc_type_malloc(4 * v30, 0x100004052888210uLL);
-  v55 = v54;
-  if (v22 == 1)
+  v124 = v32 * v128;
+  v57 = malloc_type_malloc(v32 * v128, 0x1854F7FEuLL);
+  v125 = 4 * v32;
+  v58 = malloc_type_malloc(4 * v32, 0x100004052888210uLL);
+  v59 = v58;
+  if (v24 == 1)
   {
-    v67 = *v25;
-    v57 = v121;
-    if (v67)
+    v71 = *v27;
+    v61 = v126;
+    if (v71)
     {
-      v68 = 0;
+      v72 = 0;
       do
       {
-        v69 = v27[v68];
-        v70 = v68 + 1;
-        v71 = v27[v68 + 1] - v69;
-        if (v71)
+        v73 = v29[v72];
+        v74 = v72 + 1;
+        v75 = v29[v72 + 1] - v73;
+        if (v75)
         {
-          v72 = *(v127 + 8 * *(PositionDeindexedToOriginalTable + 4 * v68));
+          v76 = *(v132 + 8 * *(PositionDeindexedToOriginalTable + 4 * v72));
           do
           {
-            v53[v69] = *(v126 + 2 * v72);
-            *(v54 + v69++) = *(v125 + 4 * v72++);
-            --v71;
+            v57[v73] = *(v131 + 2 * v76);
+            *(v58 + v73++) = *(v130 + 4 * v76++);
+            --v75;
           }
 
-          while (v71);
-          v67 = *v25;
+          while (v75);
+          v71 = *v27;
         }
 
-        ++v68;
+        ++v72;
       }
 
-      while (v70 < v67);
+      while (v74 < v71);
     }
   }
 
-  else if (v22 == 2)
+  else if (v24 == 2)
   {
-    v56 = *v25;
-    v57 = v121;
-    if (v56)
+    v60 = *v27;
+    v61 = v126;
+    if (v60)
     {
-      v58 = 0;
-      v60 = v126;
-      v59 = v127;
-      v61 = v125;
-      v62 = *v27;
+      v62 = 0;
+      v64 = v131;
+      v63 = v132;
+      v65 = v130;
+      v66 = *v29;
       do
       {
-        v63 = v58 + 1;
-        v64 = v27[v58 + 1];
-        v65 = v64 - v62;
-        if (v64 != v62)
+        v67 = v62 + 1;
+        v68 = v29[v62 + 1];
+        v69 = v68 - v66;
+        if (v68 != v66)
         {
-          v66 = *(v59 + 8 * *(PositionDeindexedToOriginalTable + 4 * v58));
+          v70 = *(v63 + 8 * *(PositionDeindexedToOriginalTable + 4 * v62));
           do
           {
-            *&v53[2 * v62] = *(v60 + 2 * v66);
-            *(v54 + v62++) = *(v61 + 4 * v66++);
-            --v65;
+            *&v57[2 * v66] = *(v64 + 2 * v70);
+            *(v58 + v66++) = *(v65 + 4 * v70++);
+            --v69;
           }
 
-          while (v65);
+          while (v69);
         }
 
-        v62 = v64;
-        v58 = v63;
+        v66 = v68;
+        v62 = v67;
       }
 
-      while (v63 != v56);
+      while (v67 != v60);
     }
   }
 
   else
   {
-    v57 = v121;
-    if (v20 <= 0)
+    v61 = v126;
+    if (v22 <= 0)
     {
-      v73 = *v25;
-      if (v73)
+      v77 = *v27;
+      if (v77)
       {
-        v74 = 0;
-        v76 = v126;
-        v75 = v127;
-        v77 = v125;
+        v78 = 0;
+        v80 = v131;
+        v79 = v132;
+        v81 = v130;
         do
         {
-          v78 = v27[v74];
-          v79 = v74 + 1;
-          v80 = v27[v74 + 1] - v78;
-          if (v80)
+          v82 = v29[v78];
+          v83 = v78 + 1;
+          v84 = v29[v78 + 1] - v82;
+          if (v84)
           {
-            v81 = *(v75 + 8 * *(PositionDeindexedToOriginalTable + 4 * v74));
+            v85 = *(v79 + 8 * *(PositionDeindexedToOriginalTable + 4 * v78));
             do
             {
-              *&v53[4 * v78] = *(v76 + 2 * v81);
-              *(v54 + v78++) = *(v77 + 4 * v81++);
-              --v80;
+              *&v57[4 * v82] = *(v80 + 2 * v85);
+              *(v58 + v82++) = *(v81 + 4 * v85++);
+              --v84;
             }
 
-            while (v80);
-            v73 = *v25;
+            while (v84);
+            v77 = *v27;
           }
 
-          ++v74;
+          ++v78;
         }
 
-        while (v79 < v73);
+        while (v83 < v77);
       }
     }
   }
 
-  if (v17)
+  if (v18)
   {
-    v17->_vertexWeightIndexSize = v118;
-    v17->_boneIndexSize = v123;
+    v18->_vertexWeightIndexSize = v123;
+    v18->_boneIndexSize = v128;
   }
 
-  v82 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v36 length:v57 blitEncoder:encoderCopy];
-  if (v17)
+  v86 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v38 length:v61 blitEncoder:encoderCopy];
+  if (v18)
   {
-    objc_setProperty_nonatomic(v17, v83, v82, 24);
+    objc_setProperty_nonatomic(v18, v87, v86, 24);
   }
 
-  v84 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v53 length:v119 blitEncoder:encoderCopy];
-  if (v17)
+  v88 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v57 length:v124 blitEncoder:encoderCopy];
+  if (v18)
   {
-    objc_setProperty_nonatomic(v17, v85, v84, 32);
+    objc_setProperty_nonatomic(v18, v89, v88, 32);
   }
 
-  v86 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v55 length:v120 blitEncoder:encoderCopy];
-  if (v17)
+  v90 = [(SCNMTLResourceManager *)self->_resourceManager newPrivateBufferWithBytes:v59 length:v125 blitEncoder:encoderCopy];
+  if (v18)
   {
-    objc_setProperty_nonatomic(v17, v87, v86, 40);
+    objc_setProperty_nonatomic(v18, v91, v90, 40);
   }
 
-  if (v36 != v27)
+  if (v38 != v29)
   {
-    free(v27);
+    free(v29);
   }
 
-  free(v36);
-  free(v53);
+  free(v38);
+  free(v57);
 LABEL_84:
-  free(v55);
-  return v17;
+  free(v59);
+  return v18;
 }
 
 - (unint64_t)updateWithComputeContext:(id)context buffers:(id *)buffers
@@ -748,9 +749,9 @@ LABEL_11:
       if (!currentComputeEncoder->_offsets[3])
       {
 LABEL_15:
-        v62[0] = 0;
-        JointMatrices = C3DSkinnerGetJointMatrices(self->_skinner, v62);
-        SCNMTLComputeCommandEncoder::setBytes(currentComputeEncoder, JointMatrices, 16 * v62[0], 4uLL);
+        v68[0] = 0;
+        JointMatrices = C3DSkinnerGetJointMatrices(self->_skinner, v68);
+        SCNMTLComputeCommandEncoder::setBytes(currentComputeEncoder, JointMatrices, 16 * v68[0], 4uLL);
         v10 = 5;
         goto LABEL_16;
       }
@@ -771,23 +772,24 @@ LABEL_16:
   var1 = buffers->var1;
   var3 = buffers->var3;
   var5 = buffers->var5;
-  v61 = [(MTLBuffer *)var1 length]/ 0xCuLL;
-  if (self->_baseVertexCount != v61)
+  v18 = [(MTLBuffer *)var1 length];
+  v67 = v18 / 0xC;
+  if (self->_baseVertexCount != v67)
   {
-    v18 = scn_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLSkinDeformer *)v18 updateWithComputeContext:v19 buffers:v20, v21, v22, v23, v24, v25];
+      [(SCNMTLSkinDeformer *)v20 updateWithComputeContext:v21 buffers:v22, v23, v24, v25, v26, v27];
     }
   }
 
-  SCNMTLComputeCommandEncoder::setBytes(currentComputeEncoder, &v61, 4uLL, 0);
+  SCNMTLComputeCommandEncoder::setBytes(currentComputeEncoder, &v67, 4uLL, 0);
   if (currentComputeEncoder->_buffers[v10] == var1)
   {
-    v28 = &currentComputeEncoder->_buffers[v10];
-    v29 = v28[31];
-    v27 = v28 + 31;
-    if (!v29)
+    v30 = &currentComputeEncoder->_buffers[v10];
+    v31 = v30[31];
+    v29 = v30 + 31;
+    if (!v31)
     {
       goto LABEL_23;
     }
@@ -795,12 +797,12 @@ LABEL_16:
 
   else
   {
-    v26 = &currentComputeEncoder->_buffers[v10];
-    *v26 = var1;
-    v27 = v26 + 31;
+    v28 = &currentComputeEncoder->_buffers[v10];
+    *v28 = var1;
+    v29 = v28 + 31;
   }
 
-  *v27 = 0;
+  *v29 = 0;
   currentComputeEncoder->_buffersToBind[0] |= (1 << v10);
 LABEL_23:
   if (!self->_skinNormals)
@@ -808,23 +810,24 @@ LABEL_23:
     goto LABEL_31;
   }
 
-  v30 = v61;
-  if (v30 != [(MTLBuffer *)var3 length]/ 0xCuLL)
+  v32 = v67;
+  v33 = [(MTLBuffer *)var3 length];
+  if (v32 != v33 / 0xC)
   {
-    v31 = scn_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v35 = scn_default_log(v33, v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLSkinDeformer *)v31 updateWithComputeContext:v32 buffers:v33, v34, v35, v36, v37, v38];
+      [(SCNMTLSkinDeformer *)v35 updateWithComputeContext:v36 buffers:v37, v38, v39, v40, v41, v42];
     }
   }
 
-  v39 = v10 + 1;
+  v43 = v10 + 1;
   if (currentComputeEncoder->_buffers[v10 + 1] == var3)
   {
-    v42 = &currentComputeEncoder->_buffers[v39];
-    v43 = v42[31];
-    v41 = v42 + 31;
-    if (!v43)
+    v46 = &currentComputeEncoder->_buffers[v43];
+    v47 = v46[31];
+    v45 = v46 + 31;
+    if (!v47)
     {
       goto LABEL_31;
     }
@@ -832,42 +835,43 @@ LABEL_23:
 
   else
   {
-    v40 = &currentComputeEncoder->_buffers[v39];
-    *v40 = var3;
-    v41 = v40 + 31;
+    v44 = &currentComputeEncoder->_buffers[v43];
+    *v44 = var3;
+    v45 = v44 + 31;
   }
 
-  *v41 = 0;
-  currentComputeEncoder->_buffersToBind[0] |= (1 << v39);
+  *v45 = 0;
+  currentComputeEncoder->_buffersToBind[0] |= (1 << v43);
 LABEL_31:
   if (self->_skinTangents)
   {
-    v44 = v61;
-    if (v44 > [(MTLBuffer *)var5 length]>> 4)
+    v48 = v67;
+    v49 = [(MTLBuffer *)var5 length];
+    if (v48 > v49 >> 4)
     {
-      v45 = scn_default_log();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+      v51 = scn_default_log(v49, v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
       {
-        [(SCNMTLSkinDeformer *)v45 updateWithComputeContext:v46 buffers:v47, v48, v49, v50, v51, v52];
+        [(SCNMTLSkinDeformer *)v51 updateWithComputeContext:v52 buffers:v53, v54, v55, v56, v57, v58];
       }
     }
 
-    v53 = v10 | 2;
+    v59 = v10 | 2;
     if (currentComputeEncoder->_buffers[v10 | 2] != var5)
     {
-      v54 = &currentComputeEncoder->_buffers[v53];
-      *v54 = var5;
-      v55 = v54 + 31;
+      v60 = &currentComputeEncoder->_buffers[v59];
+      *v60 = var5;
+      v61 = v60 + 31;
 LABEL_38:
-      *v55 = 0;
-      currentComputeEncoder->_buffersToBind[0] |= (1 << v53);
+      *v61 = 0;
+      currentComputeEncoder->_buffersToBind[0] |= (1 << v59);
       goto LABEL_39;
     }
 
-    v56 = &currentComputeEncoder->_buffers[v53];
-    v57 = v56[31];
-    v55 = v56 + 31;
-    if (v57)
+    v62 = &currentComputeEncoder->_buffers[v59];
+    v63 = v62[31];
+    v61 = v62 + 31;
+    if (v63)
     {
       goto LABEL_38;
     }
@@ -875,20 +879,20 @@ LABEL_38:
 
 LABEL_39:
   [context setStageInputOutputBuffersToEncoder:currentComputeEncoder];
-  memset(v62, 0, 24);
+  memset(v68, 0, 24);
   encoder = currentComputeEncoder->_encoder;
-  v62[3] = v61;
-  v63 = vdupq_n_s64(1uLL);
-  [(MTLComputeCommandEncoder *)encoder setStageInRegion:v62];
+  v68[3] = v67;
+  v69 = vdupq_n_s64(1uLL);
+  [(MTLComputeCommandEncoder *)encoder setStageInRegion:v68];
   computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)self->_computePipeline computeEvaluator];
-  v60 = v61;
+  v66 = v67;
   if (currentComputeEncoder->_computePipelineState != computeEvaluator)
   {
     currentComputeEncoder->_computePipelineState = computeEvaluator;
     [(MTLComputeCommandEncoder *)currentComputeEncoder->_encoder setComputePipelineState:computeEvaluator];
   }
 
-  SCNMTLComputeCommandEncoder::dispatchOnGrid1D(currentComputeEncoder, v60);
+  SCNMTLComputeCommandEncoder::dispatchOnGrid1D(currentComputeEncoder, v66);
   return 1;
 }
 
@@ -907,25 +911,25 @@ LABEL_39:
     return 0;
   }
 
-  WeightsCount = C3DSkinGetWeightsCount(skin);
-  if (WeightsCount != C3DSkinGetWeightsCount(a2))
+  WeightsCount = C3DSkinGetWeightsCount(skin, v7);
+  if (WeightsCount != C3DSkinGetWeightsCount(a2, v9))
   {
     return 0;
   }
 
-  v8 = C3DSkinGetWeightsCount(skin);
-  v9 = C3DMeshSourceGetMTLVertexFormat(skin);
-  v15 = 0;
+  v11 = C3DSkinGetWeightsCount(skin, v10);
+  v12 = C3DMeshSourceGetMTLVertexFormat(skin);
+  v18 = 0;
+  v19 = 0;
   v16 = 0;
-  v13 = 0;
+  v17 = 0;
   v14 = 0;
-  v11 = 0;
-  v12 = 0;
-  C3DSkinGetVertexWeightsPointers(skin, &v16, &v14, &v12);
-  C3DSkinGetVertexWeightsPointers(a2, &v15, &v13, &v11);
-  if (v16 && v15)
+  v15 = 0;
+  C3DSkinGetVertexWeightsPointers(skin, &v19, &v17, &v15);
+  C3DSkinGetVertexWeightsPointers(a2, &v18, &v16, &v14);
+  if (v19 && v18)
   {
-    if (memcmp(v16, v15, 8 * v9 + 8))
+    if (memcmp(v19, v18, 8 * v12 + 8))
     {
       return 0;
     }
@@ -934,16 +938,16 @@ LABEL_39:
   else
   {
     result = 0;
-    if (!v16 || !v15)
+    if (!v19 || !v18)
     {
       return result;
     }
   }
 
-  if (!v14 || !v13)
+  if (!v17 || !v16)
   {
     result = 0;
-    if (!v14 || !v13)
+    if (!v17 || !v16)
     {
       return result;
     }
@@ -951,19 +955,19 @@ LABEL_39:
     goto LABEL_16;
   }
 
-  if (memcmp(v14, v13, 2 * v8))
+  if (memcmp(v17, v16, 2 * v11))
   {
     return 0;
   }
 
 LABEL_16:
-  if (v12 && v11)
+  if (v15 && v14)
   {
-    return !memcmp(v12, v11, 4 * v8);
+    return !memcmp(v15, v14, 4 * v11);
   }
 
   result = 0;
-  if (v12 && v11)
+  if (v15 && v14)
   {
     return 1;
   }
@@ -1005,12 +1009,33 @@ LABEL_16:
   return v13;
 }
 
+- (void)setupWithComputeContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "baseMesh";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupWithComputeContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "basePositionSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (uint64_t)setupWithComputeContext:(uint64_t)a1 .cold.3(uint64_t a1)
 {
   *(a1 + 56) = 0;
   result = 0;
   *(a1 + 64) = 0;
   return result;
+}
+
+- (void)makeReadOnlyBuffersWithBaseGeometry:(uint64_t)a3 baseMesh:(uint64_t)a4 blitEncoder:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "skin";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)makeReadOnlyBuffersWithBaseGeometry:baseMesh:blitEncoder:.cold.2()
@@ -1083,6 +1108,27 @@ LABEL_16:
   OUTLINED_FUNCTION_1_10();
   HIWORD(v4) = v0;
   OUTLINED_FUNCTION_2_9(&dword_21BEF7000, v1, v2, "Error: Skinning internal consistency error - vertex count mismatch ('%d == %d' assertion failed)", v3, v4);
+}
+
+- (void)updateWithComputeContext:(uint64_t)a3 buffers:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_baseVertexCount == effectiveDstPosCount";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Wrong vertex count for skinned positions", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)updateWithComputeContext:(uint64_t)a3 buffers:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "effectiveDstPosCount == normalBuffer.length / (3 * sizeof(float))";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Wrong vertex count for skinned normals", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)updateWithComputeContext:(uint64_t)a3 buffers:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "effectiveDstPosCount <= tangentBuffer.length / (4 * sizeof(float))";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Wrong vertex count for skinned tangents", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

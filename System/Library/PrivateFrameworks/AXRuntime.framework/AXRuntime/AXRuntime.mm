@@ -9,7 +9,7 @@ void AXSetPipPid(uint64_t a1)
   v4[1] = MEMORY[0x1E695E118];
   v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 
-  AXPushNotificationToSystemForBroadcast();
+  AXPushNotificationToSystemForBroadcast(1021, 0, v2);
 }
 
 uint64_t AXSerializeWrapper(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4, void **a5, _DWORD *a6)
@@ -191,13 +191,13 @@ LABEL_20:
   return v15;
 }
 
-uint64_t AXPushNotificationToSystemForBroadcast()
+uint64_t AXPushNotificationToSystemForBroadcast(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v5 = v0;
-  v30 = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v8 = v3;
+  v33 = *MEMORY[0x1E69E9840];
   if (_AXSApplicationAccessibilityEnabled() || _AXSAutomationEnabled())
   {
     goto LABEL_3;
@@ -205,24 +205,24 @@ uint64_t AXPushNotificationToSystemForBroadcast()
 
   if (!_AXSAccessibilityNeedsMiniServer())
   {
-    if (v5 == 1021 && (gAXAccessibilityTurnedOnOnce & 1) != 0)
+    if (v8 == 1021 && (gAXAccessibilityTurnedOnOnce & 1) != 0)
     {
       goto LABEL_3;
     }
 
 LABEL_25:
-    v15 = AXRuntimeLogNotifications();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v18 = AXRuntimeLogNotifications();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       LODWORD(length_4[0]) = 67109120;
-      DWORD1(length_4[0]) = v5;
-      _os_log_impl(&dword_1BF78E000, v15, OS_LOG_TYPE_INFO, "Not posting notification: (%d) because app ax and automation are off", length_4, 8u);
+      DWORD1(length_4[0]) = v8;
+      _os_log_impl(&dword_1BF78E000, v18, OS_LOG_TYPE_INFO, "Not posting notification: (%d) because app ax and automation are off", length_4, 8u);
     }
 
     return 4294942092;
   }
 
-  if (((v5 - 1021) > 0x3A || ((1 << (v5 + 3)) & 0x400000000000081) == 0) && v5 != 8004)
+  if (((v8 - 1021) > 0x3A || ((1 << (v8 + 3)) & 0x400000000000081) == 0) && v8 != 8004)
   {
     goto LABEL_25;
   }
@@ -230,39 +230,39 @@ LABEL_25:
 LABEL_3:
   memset(length_4, 0, 512);
   length = 0;
-  *&v27[1] = 0;
-  v27[0] = 0;
-  v6 = sSystemWideServerPID;
-  v7 = getpid();
-  if (!v2 || v6 == v7 || (result = AXSerializeWrapper(v2, 1, length_4, &length, &v27[1], v27), !result))
+  *&v30[1] = 0;
+  v30[0] = 0;
+  v9 = sSystemWideServerPID;
+  v10 = getpid();
+  if (!v5 || v9 == v10 || (result = AXSerializeWrapper(v5, 1, length_4, &length, &v30[1], v30), !result))
   {
-    v9 = sSystemWideServerPID;
-    if (v9 == getpid())
+    v12 = sSystemWideServerPID;
+    if (v12 == getpid())
     {
-      v10 = gSystemWideServerBroadcastRelayerCallback;
+      v13 = gSystemWideServerBroadcastRelayerCallback;
       if (gSystemWideServerBroadcastRelayerCallback)
       {
-        v11 = getpid();
-        v10(v5, v11, v4, v2, gSystemWideServerBroadcastRelayerCallbackInfo);
+        v14 = getpid();
+        v13(v8, v14, v7, v5, gSystemWideServerBroadcastRelayerCallbackInfo);
       }
     }
 
     else if (gNotificationBypassCallback)
     {
       cf[0] = 0;
-      AXUnserializeWrapper(length_4, length, *&v27[1], v27[0], cf);
-      v12 = gNotificationBypassCallback;
-      v13 = getpid();
-      v12(v5, v13, v4, cf[0], 0);
+      AXUnserializeWrapper(length_4, length, *&v30[1], v30[0], cf);
+      v15 = gNotificationBypassCallback;
+      v16 = getpid();
+      v15(v8, v16, v7, cf[0], 0);
       if (cf[0])
       {
         CFRelease(cf[0]);
         cf[0] = 0;
       }
 
-      if (v27[0])
+      if (v30[0])
       {
-        munmap(*&v27[1], v27[0]);
+        munmap(*&v30[1], v30[0]);
       }
     }
 
@@ -275,40 +275,40 @@ LABEL_3:
 
       if (length)
       {
-        v14 = CFDataCreate(*MEMORY[0x1E695E480], length_4, length);
+        v17 = CFDataCreate(*MEMORY[0x1E695E480], length_4, length);
       }
 
       else
       {
-        v14 = 0;
+        v17 = 0;
       }
 
       cf[0] = 0;
       cf[1] = 0;
-      v25 = 0;
-      v24 = 0;
-      _AXUIElementValidate(v4, &v25, cf, &v24);
-      v17 = cf[0];
-      v16 = cf[1];
-      v18 = _AXGetPortFromCache(sSystemWideServerPID, "com.apple.iphone.axserver-systemwide");
-      if (!v18)
+      v28 = 0;
+      v27 = 0;
+      _AXUIElementValidate(v7, &v28, cf, &v27);
+      v20 = cf[0];
+      v19 = cf[1];
+      v21 = _AXGetPortFromCache(sSystemWideServerPID, "com.apple.iphone.axserver-systemwide");
+      if (!v21)
       {
         return 4294942081;
       }
 
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __AXPushNotificationToSystemForBroadcast_block_invoke_2;
-      v19[3] = &__block_descriptor_80_e5_v8__0l;
-      v20 = length;
-      v21 = v18;
-      v19[4] = v14;
-      v19[5] = v17;
-      v19[6] = v16;
-      v19[7] = *&v27[1];
-      v22 = v5;
-      v23 = v27[0];
-      dispatch_async(AXPushNotificationToSystemForBroadcast_broadcast_queue, v19);
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __AXPushNotificationToSystemForBroadcast_block_invoke_2;
+      v22[3] = &__block_descriptor_80_e5_v8__0l;
+      v23 = length;
+      v24 = v21;
+      v22[4] = v17;
+      v22[5] = v20;
+      v22[6] = v19;
+      v22[7] = *&v30[1];
+      v25 = v8;
+      v26 = v30[0];
+      dispatch_async(AXPushNotificationToSystemForBroadcast_broadcast_queue, v22);
     }
 
     return 0;
@@ -340,7 +340,7 @@ void AXPidUnsuspend(uint64_t a1, uint64_t a2)
   v10[2] = v7;
   v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
-  AXPushNotificationToSystemForBroadcast();
+  AXPushNotificationToSystemForBroadcast(1021, 0, v8);
 }
 
 uint64_t mshMIGPerform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -370,7 +370,7 @@ uint64_t mshMIGPerform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](a1, a2, a3);
   v14 = (&previous - v13);
   bzero(&previous - v13, v15);
   if (v9 > 0x2000)
@@ -507,7 +507,7 @@ LABEL_42:
   return 0;
 }
 
-uint64_t _AXXMIGBroadcastNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, void *a8, unsigned int a9)
+uint64_t _AXXMIGBroadcastNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, unsigned int a9)
 {
   cf = 0;
   v14 = AXUnserializeWrapper(a6, a7, a8, a9, &cf);
@@ -611,81 +611,81 @@ uint64_t AXUnserializeWrapper(uint64_t a1, unsigned int a2, uint64_t a3, unsigne
   return (v9)(0, 0, a1, v6, a5);
 }
 
-uint64_t __AXPushNotificationToSystemForBroadcast_block_invoke_2()
+uint64_t __AXPushNotificationToSystemForBroadcast_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v42 = *MEMORY[0x1E69E9840];
-  v40 = 0u;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v45 = *MEMORY[0x1E69E9840];
+  v43 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
+  v16 = 0u;
   *buffer = 0u;
-  v11 = 0u;
-  v1 = *(v0 + 32);
-  if (v1)
-  {
-    v43.length = *(v0 + 64);
-    v43.location = 0;
-    CFDataGetBytes(v1, v43, buffer);
-  }
-
-  v2 = *(v0 + 68);
-  v3 = getpid();
-  v4 = _AXMIGBroadcastNotification(v2, v3, *(v0 + 72), *(v0 + 40), *(v0 + 48), buffer, *(v0 + 64), *(v0 + 56), *(v0 + 76));
+  v14 = 0u;
+  v4 = *(v3 + 32);
   if (v4)
   {
-    v5 = v4;
-    v6 = AXLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v46.length = *(v3 + 64);
+    v46.location = 0;
+    CFDataGetBytes(v4, v46, buffer);
+  }
+
+  v5 = *(v3 + 68);
+  v6 = getpid();
+  v7 = _AXMIGBroadcastNotification(v5, v6, *(v3 + 72), *(v3 + 40), *(v3 + 48), buffer, *(v3 + 64), *(v3 + 56), *(v3 + 76));
+  if (v7)
+  {
+    v8 = v7;
+    v9 = AXLogCommon();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __AXPushNotificationToSystemForBroadcast_block_invoke_2_cold_1((v0 + 72), v5, v6);
+      __AXPushNotificationToSystemForBroadcast_block_invoke_2_cold_1((v3 + 72), v8, v9);
     }
   }
 
-  v7 = *(v0 + 32);
-  if (v7)
+  v10 = *(v3 + 32);
+  if (v10)
   {
-    CFRelease(v7);
+    CFRelease(v10);
   }
 
-  v8 = *(v0 + 76);
-  if (v8)
+  v11 = *(v3 + 76);
+  if (v11)
   {
-    munmap(*(v0 + 56), v8);
+    munmap(*(v3 + 56), v11);
   }
 
-  return _AXReleasePortFromCache(*(v0 + 68));
+  return _AXReleasePortFromCache(*(v3 + 68));
 }
 
 uint64_t _AXMIGBroadcastNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
-  v9 = MEMORY[0x1EEE9AC00]();
+  v9 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v55 = *MEMORY[0x1E69E9840];
   v53 = 0u;
   memset(v54, 0, sizeof(v54));
@@ -1122,10 +1122,11 @@ uint64_t _AXGetPortFromCache(uint64_t a1, const char *a2)
   return v4;
 }
 
-void sub_1BF791084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1BF791084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1137,56 +1138,56 @@ uint64_t _AXPidIsSuspended(uint64_t a1)
 
   if (v4)
   {
-    v5 = &unk_1F3E6C330;
+    v6 = &unk_1F3E6C330;
   }
 
   else
   {
-    v5 = _allDisplayTypes();
+    v6 = _allDisplayTypes(v5);
   }
 
-  IsSuspendedInternal = _AXPidIsSuspendedInternal(a1, v5);
+  IsSuspendedInternal = _AXPidIsSuspendedInternal(a1, v6);
 
   return IsSuspendedInternal;
 }
 
-id _allDisplayTypes()
+id _allDisplayTypes(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7 = 0u;
+  v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
   if (_displayMonitor_onceToken != -1)
   {
     _allDisplayTypes_cold_1();
   }
 
-  v0 = [_displayMonitor_DisplayMonitor connectedIdentities];
-  v1 = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
-  if (v1)
+  v1 = [_displayMonitor_DisplayMonitor connectedIdentities];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v8;
+    v3 = v2;
+    v4 = *v9;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v8 != v3)
+        if (*v9 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        if ([*(*(&v7 + 1) + 8 * i) isCarDisplay])
+        if ([*(*(&v8 + 1) + 8 * i) isCarDisplay])
         {
 
-          v5 = [&unk_1F3E6C348 arrayByAddingObjectsFromArray:&unk_1F3E6C360];
+          v6 = [&unk_1F3E6C348 arrayByAddingObjectsFromArray:&unk_1F3E6C360];
           goto LABEL_13;
         }
       }
 
-      v2 = [v0 countByEnumeratingWithState:&v7 objects:v11 count:16];
-      if (v2)
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      if (v3)
       {
         continue;
       }
@@ -1195,10 +1196,10 @@ id _allDisplayTypes()
     }
   }
 
-  v5 = &unk_1F3E6C348;
+  v6 = &unk_1F3E6C348;
 LABEL_13:
 
-  return v5;
+  return v6;
 }
 
 uint64_t _AXPidIsSuspendedInternal(uint64_t a1, void *a2)
@@ -1446,9 +1447,9 @@ LABEL_17:
   return v20;
 }
 
-void AXBroadcastNotificationToAllClients(int a1, int a2, CFTypeRef cf)
+void AXBroadcastNotificationToAllClients(uint64_t a1, uint64_t a2, CFTypeRef cf)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (_AXInitializeObserverAccess_onceToken == -1)
   {
     if (!cf)
@@ -1467,41 +1468,40 @@ LABEL_3:
   }
 
 LABEL_4:
-  v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __AXBroadcastNotificationToAllClients_block_invoke;
-  v18 = &unk_1E80D3FB0;
-  v20 = a1;
-  v19 = v5;
+  v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __AXBroadcastNotificationToAllClients_block_invoke;
+  v19 = &unk_1E80D3FB0;
+  v21 = a1;
+  v20 = v6;
   AX_PERFORM_WITH_LOCK();
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v6 = v19;
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v21 count:16];
-  if (v7)
+  v13 = 0u;
+  v7 = v20;
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v22 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v12;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v12 != v9)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        [*(*(&v11 + 1) + 8 * i) observer];
-        _AXUIElementPostNotification();
+        _AXUIElementPostNotification([*(*(&v12 + 1) + 8 * i) observer], a1, a2);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v11 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v22 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   if (cf)
@@ -1512,7 +1512,7 @@ LABEL_4:
 
 uint64_t _AXMIGPostNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10)
 {
-  v10 = MEMORY[0x1EEE9AC00]();
+  v10 = MEMORY[0x1EEE9AC00](a1, a2, a3);
   v56 = *MEMORY[0x1E69E9840];
   v54 = 0u;
   memset(v55, 0, sizeof(v55));
@@ -1836,30 +1836,30 @@ void __AXBroadcastNotificationToAllClients_block_invoke(uint64_t a1)
   }
 }
 
-uint64_t _AXUIElementPostNotification()
+uint64_t _AXUIElementPostNotification(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v7 = v0;
-  v63 = *MEMORY[0x1E69E9840];
-  v31 = 0uLL;
-  v30 = 0;
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v10 = v3;
+  v68 = *MEMORY[0x1E69E9840];
+  v36 = 0uLL;
+  v35 = 0;
   length_4 = 0;
-  v8 = AXRuntimeLogNotifications();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v11 = AXRuntimeLogNotifications();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 67109379;
-    *&buf[4] = v6;
+    *&buf[4] = v9;
     *&buf[8] = 2117;
-    *&buf[10] = v2;
-    _os_log_impl(&dword_1BF78E000, v8, OS_LOG_TYPE_INFO, "Sending notification to client: %d, %{sensitive}@", buf, 0x12u);
+    *&buf[10] = v5;
+    _os_log_impl(&dword_1BF78E000, v11, OS_LOG_TYPE_INFO, "Sending notification to client: %d, %{sensitive}@", buf, 0x12u);
   }
 
-  if (v4)
+  if (v7)
   {
-    if (!v7)
+    if (!v10)
     {
       return 4294942095;
     }
@@ -1867,115 +1867,115 @@ uint64_t _AXUIElementPostNotification()
 
   else
   {
-    v4 = AXUIElementSharedSystemWide();
-    if (!v7)
+    v7 = AXUIElementSharedSystemWide(v12, v13);
+    if (!v10)
     {
       return 4294942095;
     }
   }
 
-  v9 = _AXUIElementValidate(v4, &v30, &v31, &length_4);
-  if (v9 < 0)
+  v14 = _AXUIElementValidate(v7, &v35, &v36, &length_4);
+  if (v14 < 0)
   {
     return 4294942095;
   }
 
-  v14 = v31;
+  v19 = v36;
   if (_AXUIElementPostNotification_registerOnce != -1)
   {
     _AXUIElementPostNotification_cold_1();
   }
 
-  v61 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v39 = 0u;
   memset(buf, 0, sizeof(buf));
   length = 0;
-  v27 = 0;
-  v26 = 0;
-  if (v2)
+  v32 = 0;
+  v31 = 0;
+  if (v5)
   {
-    result = AXSerializeWrapper(v2, 1, buf, &length, &v27, &v26);
+    result = AXSerializeWrapper(v5, 1, buf, &length, &v32, &v31);
     if (result)
     {
       return result;
     }
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     if (!length)
     {
       goto LABEL_17;
     }
 
-    v11 = CFDataCreate(*MEMORY[0x1E695E480], buf, length);
-    v12 = v23;
+    v16 = CFDataCreate(*MEMORY[0x1E695E480], buf, length);
+    v17 = v28;
   }
 
   else
   {
-    v11 = 0;
-    v12 = &v22;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
+    v16 = 0;
+    v17 = &v27;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
   }
 
-  v12[3] = v11;
+  v17[3] = v16;
 LABEL_17:
   getpid();
-  CFRetain(v7);
+  CFRetain(v10);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = ___AXUIElementPostNotification_block_invoke_2;
   aBlock[3] = &unk_1E80D3798;
-  aBlock[4] = &v22;
-  aBlock[5] = v7;
-  v18 = length;
-  v19 = v9;
-  v16 = v14;
-  v17 = v27;
-  v20 = v6;
-  v21 = v26;
-  v13 = _Block_copy(aBlock);
-  dispatch_async(_AXUIElementPostNotification_DifferentQueue, v13);
+  aBlock[4] = &v27;
+  aBlock[5] = v10;
+  v23 = length;
+  v24 = v14;
+  v21 = v19;
+  v22 = v32;
+  v25 = v9;
+  v26 = v31;
+  v18 = _Block_copy(aBlock);
+  dispatch_async(_AXUIElementPostNotification_DifferentQueue, v18);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v27, 8);
   return 0;
 }
 
-void sub_1BF792978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1BF792978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2072,7 +2072,7 @@ uint64_t __AXCreateAXUIElementWithElement(void *a1, int a2, int a3)
         AppElementWithPid = _AXUIElementCreateWithPIDAndID(v12, v11, 9999);
       }
 
-      else if (ApplicationElementRetrieval && (ApplicationElementRetrieval(), v13 = objc_claimAutoreleasedReturnValue(), v13, v13 == v6))
+      else if (ApplicationElementRetrieval && (ApplicationElementRetrieval(0), v13 = objc_claimAutoreleasedReturnValue(), v13, v13 == v6))
       {
         v18 = getpid();
         AppElementWithPid = _AXUIElementCreateAppElementWithPid(v18);
@@ -2135,7 +2135,7 @@ void AXPidSuspend(uint64_t a1, uint64_t a2)
   v10[2] = v7;
   v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
-  AXPushNotificationToSystemForBroadcast();
+  AXPushNotificationToSystemForBroadcast(1021, 0, v8);
 }
 
 void *serializeBufferDestructor(void *result)
@@ -2245,7 +2245,7 @@ uint64_t _performActionWithValueCallback(uint64_t a1, uint64_t a2, uint64_t a3, 
 uint64_t _copyElementAtPositionCallback(uint64_t a1, uint64_t a2, float a3, float a4, uint64_t a5, uint64_t a6, uint64_t *a7, void *a8)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v15 = MEMORY[0x1BFB5C740](0);
+  v15 = MEMORY[0x1BFB5C740](0, a2, a5);
   v16 = a8;
   v17 = [v16 hitTestCallback];
 
@@ -2430,7 +2430,7 @@ id _AXElementForAXUIElementUniqueId(void *a1, uint64_t a2)
   {
     if (ApplicationElementRetrieval)
     {
-      v2 = ApplicationElementRetrieval();
+      v2 = ApplicationElementRetrieval(a1);
     }
 
     else
@@ -2589,54 +2589,52 @@ void _AXUIElementSetMachPortForNextMessage(mach_port_name_t name)
   }
 }
 
-uint64_t AXUIElementCopyAttributeValueRecursive()
+uint64_t AXUIElementCopyAttributeValueRecursive(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1EEE9AC00]();
-  v42 = *MEMORY[0x1E69E9840];
+  v6 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v43 = *MEMORY[0x1E69E9840];
+  v35 = 0;
   v34 = 0;
   v33 = 0;
-  v32 = 0;
   result = 4294942095;
-  if (!v0)
-  {
-    return result;
-  }
-
   if (!v3)
   {
     return result;
   }
 
-  v5 = v1;
-  if (!v1)
+  if (!v6)
   {
     return result;
   }
 
-  v6 = v2;
-  v7 = v0;
-  v36 = kAXErrorSuccess;
-  v35 = 0;
-  memset(v41, 0, 512);
-  v31 = 0;
-  v29 = 0;
-  v30 = 0;
-  *v1 = 0;
-  v8 = _AXUIElementValidate(v3, &v35, &v29, &v31);
-  v9 = v29;
-  v10 = v30;
-  v11 = v35;
-  v12 = getpid();
-  if (v12 == v8 || !v8 && v11 && v12 == sSystemWideServerPID)
+  v8 = v4;
+  if (!v4)
+  {
+    return result;
+  }
+
+  v9 = v5;
+  v10 = v3;
+  v37 = kAXErrorSuccess;
+  v36 = 0;
+  memset(v42, 0, 512);
+  v32 = 0;
+  v31 = 0uLL;
+  *v4 = 0;
+  v11 = _AXUIElementValidate(v6, &v36, &v31, &v32);
+  v12 = v31;
+  v13 = v36;
+  v14 = getpid();
+  if (v14 == v11 || !v11 && v13 && v14 == sSystemWideServerPID)
   {
     if (_OverrideClientType)
     {
-      v13 = _OverrideClientType;
+      v15 = _OverrideClientType;
     }
 
     else
     {
-      v13 = 7;
+      v15 = 7;
     }
 
     if (getSelfAuditToken_onceToken != -1)
@@ -2645,9 +2643,9 @@ uint64_t AXUIElementCopyAttributeValueRecursive()
     }
 
     *buf = getSelfAuditToken_auditToken;
-    v40 = unk_1ED65513C;
-    v14 = _AXXMIGCopyAttributeValue(0, v8, v9, v10, v7, v13, v41, &v34, &v33, &v32, &v36, buf);
-    if (v14)
+    v41 = unk_1ED65513C;
+    v16 = _AXXMIGCopyAttributeValue(0, v11, v12, *(&v12 + 1), v10, v15, v42, &v35, &v34, &v33, &v37, buf);
+    if (v16)
     {
       goto LABEL_14;
     }
@@ -2655,87 +2653,87 @@ uint64_t AXUIElementCopyAttributeValueRecursive()
     goto LABEL_27;
   }
 
-  v15 = AXUIElementMachPortForNextMessage;
+  v17 = AXUIElementMachPortForNextMessage;
   if (AXUIElementMachPortForNextMessage)
   {
     AXUIElementMachPortForNextMessage = 0;
     goto LABEL_26;
   }
 
-  if (v35)
+  if (v36)
   {
     if (_SystemWideServerPortName_onceToken != -1)
     {
       AXUIElementCopyAttributeValueRecursive_cold_1();
     }
 
-    v16 = _SystemWideServerPortName___portName;
+    v18 = _SystemWideServerPortName___portName;
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v15 = _AXGetPortFromCache(v8, v16);
-  if (v15)
+  v17 = _AXGetPortFromCache(v11, v18);
+  if (v17)
   {
 LABEL_26:
-    v17 = v31;
-    v18 = _AXDetermineRequestingClient();
-    v14 = _AXMIGCopyAttributeValue(v15, v17, v8, v9, v10, v7, v18, v41, &v34, &v33, &v32, &v36);
-    _AXReleasePortFromCache(v15);
-    _AXUIElementSetLastGlobalError(v36);
-    if (v14)
+    v19 = v32;
+    v20 = _AXDetermineRequestingClient();
+    v16 = _AXMIGCopyAttributeValue(v17, v19, v11, v12, *(&v12 + 1), v10, v20, v42, &v35, &v34, &v33, &v37);
+    _AXReleasePortFromCache(v17);
+    _AXUIElementSetLastGlobalError(v37);
+    if (v16)
     {
 LABEL_14:
-      if (v14 != 268451843 && v14 != 268435460)
+      if (v16 != 268451843 && v16 != 268435460)
       {
         return 4294942092;
       }
 
-      _AXIPCToPidTimedOut(v8);
+      _AXIPCToPidTimedOut(v11);
       return 4294942080;
     }
 
 LABEL_27:
-    v19 = v36;
-    if (v36 == kAXErrorSuccess)
+    v21 = v37;
+    if (v37 == kAXErrorSuccess)
     {
-      v19 = AXUnserializeWrapper(v41, v34, v33, v32, v5);
-      v36 = v19;
+      v21 = AXUnserializeWrapper(v42, v35, v34, v33, v8);
+      v37 = v21;
     }
 
-    if (v32 && v33)
+    if (v33 && v34)
     {
-      munmap(v33, v32);
-      v19 = v36;
+      munmap(v34, v33);
+      v21 = v37;
     }
 
-    v20 = *v5;
-    if (*v5 && v19 == kAXErrorSuccess)
+    v22 = *v8;
+    if (*v8 && v21 == kAXErrorSuccess)
     {
-      if (!shouldHandleRemoteElementCallthroughForAttribute(v7))
+      if (!shouldHandleRemoteElementCallthroughForAttribute(v10))
       {
         goto LABEL_53;
       }
 
-      v28 = 0;
-      v21 = _AXHandleRemoteElementCallthrough(v20, v3, v7, 0, 0, &v28, v6);
-      if (v21)
+      v30 = 0;
+      v23 = _AXHandleRemoteElementCallthrough(v22, v6, v10, 0, 0, &v30, v9);
+      if (v23)
       {
-        v22 = v21;
-        CFRelease(*v5);
-        *v5 = v22;
+        v24 = v23;
+        CFRelease(*v8);
+        *v8 = v24;
       }
 
-      else if (v28 == 1 && AXAttributeAllowsRequeryWhenRemoteElementFails(v7))
+      else if (v30 == 1 && AXAttributeAllowsRequeryWhenRemoteElementFails(v10))
       {
-        v37 = @"IgnoreRemoteElement";
-        v38 = *v5;
+        v38 = @"IgnoreRemoteElement";
+        v39 = *v8;
         *buf = 0;
-        v36 = AXUIElementCopyParameterizedAttributeValue(v3, v7, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1], buf);
-        if (v36 || !*buf)
+        v37 = AXUIElementCopyParameterizedAttributeValue(v6, v10, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1], buf);
+        if (v37 || !*buf)
         {
           if (*buf)
           {
@@ -2743,71 +2741,71 @@ LABEL_27:
             *buf = 0;
           }
 
-          if (*v5)
+          if (*v8)
           {
-            CFRelease(*v5);
-            *v5 = 0;
+            CFRelease(*v8);
+            *v8 = 0;
           }
 
-          v36 = kAXErrorFailure;
+          v37 = kAXErrorFailure;
         }
 
         else
         {
-          CFRelease(*v5);
-          *v5 = *buf;
+          CFRelease(*v8);
+          *v8 = *buf;
         }
       }
 
-      v19 = v36;
+      v21 = v37;
     }
 
-    if (v19 && v19 != kAXErrorNoValue)
+    if (v21 && v21 != kAXErrorNoValue)
     {
-      return v36;
+      return v37;
     }
 
 LABEL_53:
-    v25 = v35;
-    v26 = getpid();
-    if (v26 != v8 && (v8 || !v25 || v26 != sSystemWideServerPID) && [AXClientSideValueTransformer canTransformAttribute:v7])
+    v27 = v36;
+    v28 = getpid();
+    if (v28 != v11 && (v11 || !v27 || v28 != sSystemWideServerPID) && [AXClientSideValueTransformer canTransformAttribute:v10])
     {
-      v27 = [AXClientSideValueTransformer transformValue:*v5 forAttribute:v7 withElement:v3];
-      if (v27)
+      v29 = [AXClientSideValueTransformer transformValue:*v8 forAttribute:v10 withElement:v6];
+      if (v29)
       {
-        if (*v5)
+        if (*v8)
         {
-          CFRelease(*v5);
-          *v5 = 0;
+          CFRelease(*v8);
+          *v8 = 0;
         }
 
-        *v5 = v27;
-        v36 = kAXErrorSuccess;
+        *v8 = v29;
+        v37 = kAXErrorSuccess;
       }
     }
 
-    return v36;
+    return v37;
   }
 
-  v23 = AXRuntimeLogPID();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v25 = AXRuntimeLogPID();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v24 = [MEMORY[0x1E696AD98] numberWithInt:v8];
+    v26 = [MEMORY[0x1E696AD98] numberWithInt:v11];
     *buf = 138412290;
-    *&buf[4] = v24;
-    _os_log_impl(&dword_1BF78E000, v23, OS_LOG_TYPE_INFO, "Unable to CopyAttribute, no port for %@", buf, 0xCu);
+    *&buf[4] = v26;
+    _os_log_impl(&dword_1BF78E000, v25, OS_LOG_TYPE_INFO, "Unable to CopyAttribute, no port for %@", buf, 0xCu);
   }
 
   return 4294942081;
 }
 
-void _AXIPCToPidTimedOut(uint64_t a1)
+void _AXIPCToPidTimedOut(uint64_t result)
 {
-  if (a1 >= 1 && getpid() != a1 && !_AXSAutomationEnabled())
+  if (result >= 1 && getpid() != result && !_AXSAutomationEnabled())
   {
-    _AXPutPidOnTimeoutProbation(a1, 1);
+    _AXPutPidOnTimeoutProbation(result, 1);
 
-    _AXPutPidOnTimeoutProbation(a1, 0);
+    _AXPutPidOnTimeoutProbation(result, 0);
   }
 }
 
@@ -2833,8 +2831,9 @@ uint64_t shouldHandleRemoteElementCallthroughForAttribute(uint64_t a1)
   return result;
 }
 
-void *_AXHandleRemoteElementCallthrough(void *cf, const __AXUIElement *a2, unint64_t a3, void *a4, char a5, _BYTE *a6, __CFSet *a7)
+void *_AXHandleRemoteElementCallthrough(void *cf, const __AXUIElement *a2, uint64_t a3, void *a4, uint64_t a5, _BYTE *a6, __CFSet *a7)
 {
+  v9 = a5;
   if (cf)
   {
     v14 = CFGetTypeID(cf);
@@ -2854,9 +2853,8 @@ LABEL_7:
           *a6 = 1;
           v38 = 0;
           pid = 0;
-          v36[0] = 0;
-          v36[1] = 0;
-          v15 = _AXUIElementValidate(cf, &v38, v36, &pid);
+          v36 = 0uLL;
+          v15 = _AXUIElementValidate(cf, &v38, &v36, &pid);
           if (v15 < 0)
           {
             v26 = -v15;
@@ -2880,7 +2878,7 @@ LABEL_7:
               CFRelease(v29);
             }
 
-            if (a5)
+            if (v9)
             {
               v35 = [(AXUIMLElement *)v34 copyAttributeValue:a3 parameter:a4];
             }
@@ -2910,29 +2908,29 @@ LABEL_7:
             else
             {
               _AXUIElementSetMachPortForNextMessage([v16 machPort]);
-              if (a5)
+              if (v9)
               {
-                v36[0] = 0;
-                v18 = AXUIElementCopyParameterizedAttributeValueRecursive();
-                if (v18 != -25212 && v18 && (a3 - 95252 < 3 || a3 - 92501 <= 1))
+                *&v36 = 0;
+                v18 = AXUIElementCopyParameterizedAttributeValueRecursive(cf, a3, a4);
+                if (v18 != -25212 && v18 && ((a3 - 95252) < 3 || (a3 - 92501) <= 1))
                 {
                   pid = 0;
                   AXUIElementGetPid(a2, &pid);
                   v19 = pid;
                   v20 = _AXUIElementIDForElement(cf);
                   v22 = _AXUIElementCreateWithPIDAndID(v19, v20, v21);
-                  AXUIElementCopyParameterizedAttributeValueRecursive();
+                  AXUIElementCopyParameterizedAttributeValueRecursive(v22, a3, a4);
                   CFRelease(v22);
                 }
               }
 
               else
               {
-                v36[0] = 0;
-                AXUIElementCopyAttributeValueRecursive(cf, a3, v36, a7);
+                *&v36 = 0;
+                AXUIElementCopyAttributeValueRecursive();
               }
 
-              v24 = v36[0];
+              v24 = v36;
             }
           }
 
@@ -2954,268 +2952,267 @@ LABEL_7:
   if (objc_opt_isKindOfClass())
   {
     v23 = [a4 objectForKey:@"elementCount"];
-    v24 = _AXHandleRemoteElementCallthroughForArray(cf, a2, a3, v23);
+    v24 = _AXHandleRemoteElementCallthroughForArray(cf, a2, a3, v23, v9, a6, a7);
 
     return v24;
   }
 
-  return _AXHandleRemoteElementCallthroughForArray(cf, a2, a3, a4);
+  return _AXHandleRemoteElementCallthroughForArray(cf, a2, a3, a4, v9, a6, a7);
 }
 
 AXError AXUIElementCopyParameterizedAttributeValue(AXUIElementRef element, CFStringRef parameterizedAttribute, CFTypeRef parameter, CFTypeRef *result)
 {
   Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9F8]);
-  v5 = AXUIElementCopyParameterizedAttributeValueRecursive();
+  v8 = AXUIElementCopyParameterizedAttributeValueRecursive(element, parameterizedAttribute, parameter);
   CFRelease(Mutable);
-  return v5;
+  return v8;
 }
 
 AXError AXUIElementCopyAttributeValue(AXUIElementRef element, CFStringRef attribute, CFTypeRef *value)
 {
   Mutable = CFSetCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9F8]);
-  v4 = AXUIElementCopyAttributeValueRecursive();
+  LODWORD(value) = AXUIElementCopyAttributeValueRecursive(element, attribute, value);
   CFRelease(Mutable);
-  return v4;
+  return value;
 }
 
-uint64_t AXUIElementCopyParameterizedAttributeValueRecursive()
+uint64_t AXUIElementCopyParameterizedAttributeValueRecursive(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1EEE9AC00]();
-  v54 = *MEMORY[0x1E69E9840];
+  v7 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v58 = *MEMORY[0x1E69E9840];
+  v51 = 0;
+  v49 = 0;
+  v50 = 0;
+  v48 = 0;
   v47 = 0;
-  v45 = 0;
-  v46 = 0;
-  v44 = 0;
-  v43 = 0;
   result = 4294942095;
-  if (v1)
+  if (v4)
   {
-    if (v3)
+    if (v7)
     {
-      v5 = v2;
-      if (v2)
+      v9 = v5;
+      if (v5)
       {
-        v6 = v1;
-        v7 = v0;
-        *v2 = 0;
-        if (v0 == 91503 && _AXSMossdeepEnabled())
+        v10 = v6;
+        v11 = v4;
+        v12 = v3;
+        *v5 = 0;
+        if (v3 == 91503 && _AXSMossdeepEnabled())
         {
-          AXUIElementSharedSystemApp();
-          AXUIElementPerformFencedActionWithValue();
+          v13 = AXUIElementSharedSystemApp();
+          AXUIElementPerformFencedActionWithValue(v13, 5020, v11);
         }
 
-        v49 = 0;
-        v48 = 0;
+        v53 = 0;
+        v52 = 0;
         memset(__dst, 0, 512);
-        memset(v52, 0, 512);
-        v42 = 0;
-        v40 = 0;
-        v41 = 0;
-        v8 = _AXUIElementValidate(v3, &v48, &v40, &v42);
-        if ((v8 & 0x80000000) != 0)
+        memset(v56, 0, 512);
+        v46 = 0;
+        v45 = 0uLL;
+        v14 = _AXUIElementValidate(v7, &v52, &v45, &v46);
+        if ((v14 & 0x80000000) != 0)
         {
-          v19 = *v5;
-          if (!*v5)
+          v24 = *v9;
+          if (!*v9)
           {
-            if ((v7 - 92501) < 2 || v7 == 95252)
+            if ((v12 - 92501) < 2 || v12 == 95252)
             {
               Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-              *v5 = Mutable;
-              CFArrayAppendValue(Mutable, v3);
-              v19 = *v5;
+              *v9 = Mutable;
+              CFArrayAppendValue(Mutable, v7);
+              v24 = *v9;
             }
 
             else
             {
-              v19 = 0;
+              v24 = 0;
             }
           }
 
-          v29 = _AXHandleRemoteElementCallthrough(v19);
-          if (v29)
+          v34 = _AXHandleRemoteElementCallthrough(v24, v7, v12, v11, 1, buf, v10);
+          if (v34)
           {
-            CFRelease(*v5);
-            *v5 = v29;
+            CFRelease(*v9);
+            *v9 = v34;
           }
 
-          if (getpid() != v8 && [AXClientSideValueTransformer canTransformAttribute:v7])
+          if (getpid() != v14 && [AXClientSideValueTransformer canTransformAttribute:v12])
           {
-            v29 = [AXClientSideValueTransformer transformValue:*v5 forAttribute:v7 withElement:v3];
+            v34 = [AXClientSideValueTransformer transformValue:*v9 forAttribute:v12 withElement:v7];
           }
 
-          if (v29)
+          if (v34)
           {
-            CFRelease(*v5);
-            *v5 = v29;
+            CFRelease(*v9);
+            *v9 = v34;
           }
 
-          return v49;
+          return v53;
         }
 
-        result = AXSerializeWrapper(v6, 1, v52, &v45, &v44, &v43);
-        v49 = result;
+        result = AXSerializeWrapper(v11, 1, v56, &v49, &v48, &v47);
+        v53 = result;
         if (result)
         {
           return result;
         }
 
-        v9 = v40;
-        v10 = v41;
-        v11 = v48;
-        v12 = getpid();
-        if (v12 == v8 || !v8 && v11 && v12 == sSystemWideServerPID)
+        v15 = v45;
+        v16 = v52;
+        v17 = getpid();
+        if (v17 == v14 || !v14 && v16 && v17 == sSystemWideServerPID)
         {
-          v13 = v45;
-          v14 = v44;
-          v15 = v43;
+          v18 = v49;
+          v19 = v48;
+          v20 = v47;
           if (_OverrideClientType)
           {
-            v16 = _OverrideClientType;
+            v21 = _OverrideClientType;
           }
 
           else
           {
-            v16 = 7;
+            v21 = 7;
           }
 
           if (getSelfAuditToken_onceToken != -1)
           {
-            v39 = v45;
-            v37 = v44;
+            v44 = v49;
+            v42 = v48;
             AXUIElementCopyAttributeValueRecursive_cold_2();
-            v14 = v37;
-            v13 = v39;
+            v19 = v42;
+            v18 = v44;
           }
 
           *buf = getSelfAuditToken_auditToken;
-          v51 = unk_1ED65513C;
-          v17 = _AXXMIGCopyParameterizedAttributeValue(0, v8, v9, v10, v7, v52, v13, v14, v15, v16, __dst, &v47, &v46, &v45 + 1, &v49, buf);
-          if (v17)
+          v55 = unk_1ED65513C;
+          v22 = _AXXMIGCopyParameterizedAttributeValue(0, v14, v15, *(&v15 + 1), v12, v56, v18, v19, v20, v21, __dst, &v51, &v50, &v49 + 1, &v53, buf);
+          if (v22)
           {
 LABEL_19:
-            if (v17 == 268451843 || v17 == 268435460)
+            if (v22 == 268451843 || v22 == 268435460)
             {
-              _AXIPCToPidTimedOut(v8);
-              v18 = -25216;
+              _AXIPCToPidTimedOut(v14);
+              v23 = -25216;
             }
 
             else
             {
-              v18 = -25204;
+              v23 = -25204;
             }
 
-            v49 = v18;
+            v53 = v23;
 LABEL_32:
-            if (v15)
+            if (v20)
             {
-              munmap(v44, v15);
+              munmap(v48, v20);
             }
 
-            if (HIDWORD(v45) && v46)
+            if (HIDWORD(v49) && v50)
             {
-              munmap(v46, HIDWORD(v45));
+              munmap(v50, HIDWORD(v49));
             }
 
-            v22 = v49;
-            if (!v49)
+            v27 = v53;
+            if (!v53)
             {
-              if (!*v5)
+              if (!*v9)
               {
                 goto LABEL_43;
               }
 
-              v23 = _AXHandleRemoteElementCallthrough(*v5);
-              if (v23)
+              v28 = _AXHandleRemoteElementCallthrough(*v9, v7, v12, v11, 1, buf, v10);
+              if (v28)
               {
-                v24 = v23;
-                CFRelease(*v5);
-                *v5 = v24;
+                v29 = v28;
+                CFRelease(*v9);
+                *v9 = v29;
               }
 
-              v22 = v49;
-              if (!v49)
+              v27 = v53;
+              if (!v53)
               {
                 goto LABEL_43;
               }
             }
 
-            if (v22 == -25212)
+            if (v27 == -25212)
             {
 LABEL_43:
-              v25 = v48;
-              v26 = getpid();
-              if (v26 != v8 && (v8 || !v25 || v26 != sSystemWideServerPID))
+              v30 = v52;
+              v31 = getpid();
+              if (v31 != v14 && (v14 || !v30 || v31 != sSystemWideServerPID))
               {
-                if ([AXClientSideValueTransformer canTransformAttribute:v7])
+                if ([AXClientSideValueTransformer canTransformAttribute:v12])
                 {
-                  v27 = [AXClientSideValueTransformer transformValue:*v5 forAttribute:v7 withElement:v3];
-                  if (v27)
+                  v32 = [AXClientSideValueTransformer transformValue:*v9 forAttribute:v12 withElement:v7];
+                  if (v32)
                   {
-                    v28 = v27;
-                    CFRelease(*v5);
-                    *v5 = v28;
+                    v33 = v32;
+                    CFRelease(*v9);
+                    *v9 = v33;
                     return 0;
                   }
                 }
               }
             }
 
-            return v49;
+            return v53;
           }
         }
 
         else
         {
-          if (v48)
+          if (v52)
           {
             if (_SystemWideServerPortName_onceToken != -1)
             {
               AXUIElementCopyAttributeValueRecursive_cold_1();
             }
 
-            v21 = _SystemWideServerPortName___portName;
+            v26 = _SystemWideServerPortName___portName;
           }
 
           else
           {
-            v21 = 0;
+            v26 = 0;
           }
 
-          v30 = _AXGetPortFromCache(v8, v21);
-          if (!v30)
+          v35 = _AXGetPortFromCache(v14, v26);
+          if (!v35)
           {
-            v33 = AXRuntimeLogPID();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+            v38 = AXRuntimeLogPID();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
-              v34 = [MEMORY[0x1E696AD98] numberWithInt:v8];
+              v39 = [MEMORY[0x1E696AD98] numberWithInt:v14];
               *buf = 138412290;
-              *&buf[4] = v34;
-              _os_log_impl(&dword_1BF78E000, v33, OS_LOG_TYPE_INFO, "Unable to CopyParam, no port for %@", buf, 0xCu);
+              *&buf[4] = v39;
+              _os_log_impl(&dword_1BF78E000, v38, OS_LOG_TYPE_INFO, "Unable to CopyParam, no port for %@", buf, 0xCu);
             }
 
-            v49 = -25215;
-            v15 = v43;
+            v53 = -25215;
+            v20 = v47;
             goto LABEL_32;
           }
 
-          v31 = v30;
-          v15 = v43;
-          v36 = v42;
-          v38 = v45;
-          v35 = v44;
-          v32 = _AXDetermineRequestingClient();
-          v17 = _AXMIGCopyParameterizedAttributeValue(v31, v36, v8, v9, v10, v7, v52, v38, v35, v15, v32, __dst, &v47, &v46, &v45 + 1, &v49);
-          _AXReleasePortFromCache(v31);
-          _AXUIElementSetLastGlobalError(v49);
-          if (v17)
+          v36 = v35;
+          v20 = v47;
+          v41 = v46;
+          v43 = v49;
+          v40 = v48;
+          v37 = _AXDetermineRequestingClient();
+          v22 = _AXMIGCopyParameterizedAttributeValue(v36, v41, v14, v15, SDWORD2(v15), v12, v56, v43, v40, v20, v37, __dst, &v51, &v50, &v49 + 1, &v53);
+          _AXReleasePortFromCache(v36);
+          _AXUIElementSetLastGlobalError(v53);
+          if (v22)
           {
             goto LABEL_19;
           }
         }
 
-        if (!v49)
+        if (!v53)
         {
-          v49 = AXUnserializeWrapper(__dst, v47, v46, HIDWORD(v45), v5);
+          v53 = AXUnserializeWrapper(__dst, v51, v50, HIDWORD(v49), v9);
         }
 
         goto LABEL_32;
@@ -3246,7 +3243,7 @@ uint64_t AXUIElementSharedSystemApp()
 
 AXError AXUIElementSetAttributeValue(AXUIElementRef element, CFStringRef attribute, CFTypeRef value)
 {
-  v3 = MEMORY[0x1EEE9AC00](element);
+  v3 = MEMORY[0x1EEE9AC00](element, attribute, value);
   v35 = *MEMORY[0x1E69E9840];
   v31 = 0;
   v30 = 0;
@@ -3379,7 +3376,7 @@ LABEL_16:
 
 AXError AXUIElementCopyMultipleAttributeValues(AXUIElementRef element, CFArrayRef attributes, AXCopyMultipleAttributeOptions options, CFArrayRef *values)
 {
-  v7 = MEMORY[0x1EEE9AC00](element);
+  v7 = MEMORY[0x1EEE9AC00](element, attributes, *&options);
   v62 = *MEMORY[0x1E69E9840];
   v56 = 0;
   v54 = 0;
@@ -3624,73 +3621,71 @@ AXError AXUIElementCopyMultipleAttributeValues(AXUIElementRef element, CFArrayRe
   return -25216;
 }
 
-uint64_t AXUIElementPerformFencedActionWithValue()
+uint64_t AXUIElementPerformFencedActionWithValue(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v39 = *MEMORY[0x1E69E9840];
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v40 = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  v33 = 0;
   v32 = 0;
-  v31 = 0;
-  v30 = 0;
-  v5 = 4294942095;
-  if (v0)
+  v8 = 4294942095;
+  if (v3)
   {
-    v6 = v1;
-    if (v1)
+    v9 = v4;
+    if (v4)
     {
-      v7 = v4;
-      v8 = v3;
+      v10 = v7;
+      v11 = v6;
+      v37 = 0;
       v36 = 0;
-      v35 = 0;
-      v33 = 0;
-      v34 = 0;
-      memset(v38, 0, 480);
-      v9 = v2 ? v2 : *MEMORY[0x1E695E738];
-      memset(&v38[30], 0, 32);
-      v10 = _AXUIElementValidate();
-      v5 = AXSerializeWrapper(v9, 1, v38, &v32, &v31, &v30);
-      v37 = v5;
-      if (!v5)
+      v35 = 0uLL;
+      memset(v39, 0, 480);
+      v12 = v5 ? v5 : *MEMORY[0x1E695E738];
+      memset(&v39[30], 0, 32);
+      v13 = _AXUIElementValidate(v3, &v37, &v35, &v36);
+      v8 = AXSerializeWrapper(v12, 1, v39, &v34, &v33, &v32);
+      v38 = v8;
+      if (!v8)
       {
-        v11 = v33;
-        v12 = v34;
-        v13 = v36;
-        v14 = getpid();
-        if (v14 == v10 || !v10 && v13 && v14 == sSystemWideServerPID)
+        v14 = v35;
+        v15 = v37;
+        v16 = getpid();
+        if (v16 == v13 || !v13 && v15 && v16 == sSystemWideServerPID)
         {
-          if ((v8 - 1) > 0xFFFFFFFD)
+          if ((v11 - 1) > 0xFFFFFFFD)
           {
-            LODWORD(v8) = 0;
+            LODWORD(v11) = 0;
           }
 
-          else if (mach_port_insert_right(*MEMORY[0x1E69E9A60], v8, v8, 0x13u))
+          else if (mach_port_insert_right(*MEMORY[0x1E69E9A60], v11, v11, 0x13u))
           {
-            LODWORD(v8) = 0;
+            LODWORD(v11) = 0;
           }
 
-          v15 = v32;
-          v16 = v31;
-          v17 = v30;
-          v18 = _OverrideClientType;
+          v17 = v34;
+          v18 = v33;
+          v19 = v32;
+          v20 = _OverrideClientType;
           if (!_OverrideClientType)
           {
-            v18 = 7;
+            v20 = 7;
           }
 
           if (getSelfAuditToken_onceToken != -1)
           {
-            v28 = v18;
+            v30 = v20;
             AXUIElementCopyAttributeValueRecursive_cold_2();
-            v18 = v28;
+            v20 = v30;
           }
 
-          v29[0] = getSelfAuditToken_auditToken;
-          v29[1] = unk_1ED65513C;
-          v19 = _AXXMIGPerformActionWithValue(0, v8, v10, v11, v12, v6, v38, v15, v16, v17, v18, &v37, v29);
+          v31[0] = getSelfAuditToken_auditToken;
+          v31[1] = unk_1ED65513C;
+          v21 = _AXXMIGPerformActionWithValue(0, v11, v13, v14, *(&v14 + 1), v9, v39, v17, v18, v19, v20, &v38, v31);
         }
 
         else
         {
-          v20 = AXUIElementMachPortForNextMessage;
+          v22 = AXUIElementMachPortForNextMessage;
           if (AXUIElementMachPortForNextMessage)
           {
             AXUIElementMachPortForNextMessage = 0;
@@ -3698,61 +3693,61 @@ uint64_t AXUIElementPerformFencedActionWithValue()
 
           else
           {
-            if (v36)
+            if (v37)
             {
               if (_SystemWideServerPortName_onceToken != -1)
               {
                 AXUIElementCopyAttributeValueRecursive_cold_1();
               }
 
-              v22 = _SystemWideServerPortName___portName;
+              v24 = _SystemWideServerPortName___portName;
             }
 
             else
             {
-              v22 = 0;
+              v24 = 0;
             }
 
-            v20 = _AXGetPortFromCache(v10, v22);
-            if (!v20)
+            v22 = _AXGetPortFromCache(v13, v24);
+            if (!v22)
             {
               return 4294942081;
             }
           }
 
-          v27 = v35;
-          v23 = v32;
-          v24 = v31;
-          v25 = v30;
-          v26 = _AXDetermineRequestingClient();
-          v19 = _AXMIGPerformActionWithValue(v20, v8, v27, v10, v11, v12, v6, v38, v23, v24, v25, v26, &v37);
-          _AXUIElementSetLastGlobalError(v37);
-          if (!v7)
+          v29 = v36;
+          v25 = v34;
+          v26 = v33;
+          v27 = v32;
+          v28 = _AXDetermineRequestingClient();
+          v21 = _AXMIGPerformActionWithValue(v22, v11, v29, v13, v14, *(&v14 + 1), v9, v39, v25, v26, v27, v28, &v38);
+          _AXUIElementSetLastGlobalError(v38);
+          if (!v10)
           {
-            _AXReleasePortFromCache(v20);
+            _AXReleasePortFromCache(v22);
           }
         }
 
-        if (v19 == 268451843 || v19 == 268435460)
+        if (v21 == 268451843 || v21 == 268435460)
         {
-          _AXIPCToPidTimedOut(v10);
+          _AXIPCToPidTimedOut(v13);
           return 4294942080;
         }
 
-        else if (v19)
+        else if (v21)
         {
           return 4294942092;
         }
 
         else
         {
-          return v37;
+          return v38;
         }
       }
     }
   }
 
-  return v5;
+  return v8;
 }
 
 AXError AXUIElementPerformAction(AXUIElementRef element, CFStringRef action)
@@ -3998,7 +3993,7 @@ double AXConvertRectToHostedCoordinates(uint64_t a1, uint64_t a2, double a3, dou
   return *valuePtr;
 }
 
-uint64_t AXUIElementSharedSystemWide()
+uint64_t AXUIElementSharedSystemWide(uint64_t a1, uint64_t a2)
 {
   if (AXUIElementSharedSystemWide_onceToken != -1)
   {
@@ -4138,7 +4133,7 @@ uint64_t _AXUISetConvertToCAScreenBlock(void *a1)
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t AXUIElementCopyElementWithParameters(uint64_t *a1, void *a2)
+uint64_t AXUIElementCopyElementWithParameters(CFTypeRef *a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"application"];
@@ -4163,13 +4158,13 @@ uint64_t AXUIElementCopyElementWithParameters(uint64_t *a1, void *a2)
   return _AXUIElementCopyElementAtPositionWithParams(v4, a1, v15, 0, v13, v11, 0, v16, v17);
 }
 
-uint64_t _AXUIElementCopyElementAtPositionWithParams(const __AXUIElement *a1, uint64_t *a2, uint64_t a3, int a4, unsigned int a5, uint64_t a6, int a7, float a8, float a9)
+uint64_t _AXUIElementCopyElementAtPositionWithParams(const __AXUIElement *a1, CFTypeRef *a2, uint64_t a3, int a4, unsigned int a5, uint64_t a6, int a7, float a8, float a9)
 {
-  v140 = *MEMORY[0x1E69E9840];
-  v133 = a5;
-  v130 = 0;
-  v129 = 0;
-  v128 = 0uLL;
+  v142 = *MEMORY[0x1E69E9840];
+  v135 = a5;
+  v132 = 0;
+  v131 = 0;
+  v130 = 0uLL;
   v10 = 4294942095;
   if (!a1)
   {
@@ -4182,94 +4177,94 @@ uint64_t _AXUIElementCopyElementAtPositionWithParams(const __AXUIElement *a1, ui
     return v10;
   }
 
-  v132 = 0;
-  v131 = 0;
-  memset(v139, 0, 512);
-  v127 = 0;
-  v126 = 0uLL;
+  v134 = 0;
+  v133 = 0;
+  memset(v141, 0, 512);
+  v129 = 0;
+  v128 = 0uLL;
   v18 = AXRequestingClient();
   *v11 = 0;
-  v19 = _AXUIElementValidate(a1, &v131, &v126, &v127);
-  if (!a4 && v131)
+  v20 = _AXUIElementValidate(a1, &v133, &v128, &v129);
+  if (!a4 && v133)
   {
-    v20 = copyApplicationAtPosition(a1, &v133, a6, a8, a9);
-    if (!v20)
+    v21 = copyApplicationAtPosition(a1, &v135, a6, a8, a9);
+    if (!v21)
     {
       _AXSetRequestingClient(v18);
       return 4294942096;
     }
 
-    v21 = v20;
-    v19 = _AXUIElementValidate(v20, &v131, &v126, &v127);
-    CFRelease(v21);
+    v22 = v21;
+    v20 = _AXUIElementValidate(v21, &v133, &v128, &v129);
+    CFRelease(v22);
     goto LABEL_70;
   }
 
-  v22 = v133;
-  if (v133)
+  v23 = v135;
+  if (v135)
   {
     goto LABEL_71;
   }
 
-  if (!AXProcessCanContactSystemWideServer())
+  if (!AXProcessCanContactSystemWideServer(v135, v19))
   {
 LABEL_70:
-    v22 = v133;
-    if (!v133)
+    v23 = v135;
+    if (!v135)
     {
-      v62 = a8;
-      v64 = a9;
+      v63 = a8;
+      v65 = a9;
 LABEL_73:
-      v65 = v126;
-      v66 = v131;
-      v67 = getpid();
-      if (v67 == v19)
+      v66 = v128;
+      v67 = v133;
+      v68 = getpid();
+      if (v68 == v20)
       {
-        v68 = 1;
+        v69 = 1;
       }
 
       else
       {
-        v68 = 0;
-        if (!v19 && v66)
+        v69 = 0;
+        if (!v20 && v67)
         {
-          v68 = v67 == sSystemWideServerPID;
+          v69 = v68 == sSystemWideServerPID;
         }
       }
 
-      if (v68 | a7)
+      if (v69 | a7)
       {
-        v69 = AXLogHitTest();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+        v70 = AXLogHitTest();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
         {
-          v141.x = v62;
-          v141.y = v64;
-          v97 = NSStringFromPoint(v141);
-          [MEMORY[0x1E696AD98] numberWithUnsignedInt:v133];
-          v99 = v98 = v19;
+          v143.x = v63;
+          v143.y = v65;
+          v99 = NSStringFromPoint(v143);
+          [MEMORY[0x1E696AD98] numberWithUnsignedInt:v135];
+          v101 = v100 = v20;
           *buf = 138412546;
-          *&buf[4] = v97;
+          *&buf[4] = v99;
           *&buf[12] = 2112;
-          *&buf[14] = v99;
-          _os_log_debug_impl(&dword_1BF78E000, v69, OS_LOG_TYPE_DEBUG, "Calling from same app for point: %@ and contextId: %@", buf, 0x16u);
+          *&buf[14] = v101;
+          _os_log_debug_impl(&dword_1BF78E000, v70, OS_LOG_TYPE_DEBUG, "Calling from same app for point: %@ and contextId: %@", buf, 0x16u);
 
-          v19 = v98;
+          v20 = v100;
         }
 
         Current = CFRunLoopGetCurrent();
         if (Current == CFRunLoopGetMain())
         {
-          v71 = v62;
-          v72 = v64;
-          v73 = v133;
+          v72 = v63;
+          v73 = v65;
+          v74 = v135;
           if (_OverrideClientType)
           {
-            v74 = _OverrideClientType;
+            v75 = _OverrideClientType;
           }
 
           else
           {
-            v74 = 7;
+            v75 = 7;
           }
 
           if (getSelfAuditToken_onceToken != -1)
@@ -4279,7 +4274,7 @@ LABEL_73:
 
           *buf = getSelfAuditToken_auditToken;
           *&buf[16] = unk_1ED65513C;
-          if (!_AXXMIGCopyElementAtPosition(v71, v72, 0, v19, v65, *(&v65 + 1), a3, v73, v74, &v130, &v128, v139, &v129, &v132, buf))
+          if (!_AXXMIGCopyElementAtPosition(v72, v73, 0, v20, v66, *(&v66 + 1), a3, v74, v75, &v132, &v130, v141, &v131, &v134, buf))
           {
             goto LABEL_88;
           }
@@ -4288,137 +4283,137 @@ LABEL_73:
 
       else
       {
-        v84 = AXUIElementMachPortForNextMessage;
+        v86 = AXUIElementMachPortForNextMessage;
         if (AXUIElementMachPortForNextMessage)
         {
-          v85 = v19;
+          v87 = v20;
           AXUIElementMachPortForNextMessage = 0;
         }
 
         else
         {
-          if (v131)
+          if (v133)
           {
             if (_SystemWideServerPortName_onceToken != -1)
             {
               AXUIElementCopyAttributeValueRecursive_cold_1();
             }
 
-            v86 = _SystemWideServerPortName___portName;
+            v88 = _SystemWideServerPortName___portName;
           }
 
           else
           {
-            v86 = 0;
+            v88 = 0;
           }
 
-          v85 = v19;
-          v84 = _AXGetPortFromCache(v19, v86);
-          if (!v84)
+          v87 = v20;
+          v86 = _AXGetPortFromCache(v20, v88);
+          if (!v86)
           {
-            v95 = AXRuntimeLogPID();
-            if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+            v97 = AXRuntimeLogPID();
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
             {
-              v96 = [MEMORY[0x1E696AD98] numberWithInt:v19];
+              v98 = [MEMORY[0x1E696AD98] numberWithInt:v20];
               *buf = 138412290;
-              *&buf[4] = v96;
-              _os_log_impl(&dword_1BF78E000, v95, OS_LOG_TYPE_INFO, "Unable to CopyElement, no port for %@", buf, 0xCu);
+              *&buf[4] = v98;
+              _os_log_impl(&dword_1BF78E000, v97, OS_LOG_TYPE_INFO, "Unable to CopyElement, no port for %@", buf, 0xCu);
             }
 
-            v94 = -25215;
+            v96 = -25215;
             goto LABEL_109;
           }
         }
 
-        v87 = v127;
-        v90 = v133;
-        v91 = _AXDetermineRequestingClient();
-        v88 = v62;
-        v89 = v64;
-        v92 = v90;
-        LODWORD(v19) = v85;
-        v93 = _AXMIGCopyElementAtPosition(v84, v87, v85, v65, *(&v65 + 1), a3, v92, v91, v88, v89, &v130, &v128, v139, &v129, &v132);
-        _AXUIElementSetLastGlobalError(v132);
-        _AXReleasePortFromCache(v84);
-        if (!v93)
+        v89 = v129;
+        v92 = v135;
+        v93 = _AXDetermineRequestingClient();
+        v90 = v63;
+        v91 = v65;
+        v94 = v92;
+        LODWORD(v20) = v87;
+        v95 = _AXMIGCopyElementAtPosition(v86, v89, v87, v66, *(&v66 + 1), a3, v94, v93, v90, v91, &v132, &v130, v141, &v131, &v134);
+        _AXUIElementSetLastGlobalError(v134);
+        _AXReleasePortFromCache(v86);
+        if (!v95)
         {
 LABEL_88:
-          if (v132)
+          if (v134)
           {
             goto LABEL_110;
           }
 
-          Internal = _AXUIElementCreateInternal(v130, v128, *(&v128 + 1));
+          Internal = _AXUIElementCreateInternal(v132, v130, *(&v130 + 1));
           *v11 = Internal;
           if (Internal)
           {
             LODWORD(valuePtr.x) = 0;
-            AXUIElementGetPid(Internal, &valuePtr);
+            Pid = AXUIElementGetPid(Internal, &valuePtr);
             x_low = LODWORD(valuePtr.x);
             if ((LODWORD(valuePtr.x) & 0x80000000) != 0)
             {
-              v77 = getpid();
+              Pid = getpid();
               x_low = LODWORD(valuePtr.x);
-              if (v77 + LODWORD(valuePtr.x))
+              if (Pid + LODWORD(valuePtr.x))
               {
-                v100 = -LODWORD(valuePtr.x);
-                v101 = _AXUIElementIDForElement(*v11);
-                v79 = _AXUIElementCreateWithPIDAndID(v100, v101, v102);
-                v103 = [AXUIMLElement cachedElementForParent:v79];
-                v104 = v103;
-                if (v103)
+                v102 = -LODWORD(valuePtr.x);
+                v103 = _AXUIElementIDForElement(*v11);
+                v81 = _AXUIElementCreateWithPIDAndID(v102, v103, v104);
+                v105 = [AXUIMLElement cachedElementForParent:v81];
+                v106 = v105;
+                if (v105)
                 {
-                  v105 = v103;
+                  v107 = v105;
                 }
 
                 else
                 {
-                  v105 = [[AXUIMLElement alloc] initWithParentElement:v79];
+                  v107 = [[AXUIMLElement alloc] initWithParentElement:v81];
                 }
 
-                v81 = v105;
+                v83 = v107;
                 if (*v11)
                 {
                   CFRelease(*v11);
                   *v11 = 0;
                 }
 
-                *v11 = [v81 copyElementAtPosition:{a8, a9}];
+                *v11 = [v83 copyElementAtPosition:{a8, a9}];
                 goto LABEL_132;
               }
             }
 
-            if (x_low != v19 && x_low)
+            if (x_low != v20 && x_low)
             {
-              CanContactSystemWideServer = AXProcessCanContactSystemWideServer();
+              CanContactSystemWideServer = AXProcessCanContactSystemWideServer(Pid, v78);
               if (!a7 && CanContactSystemWideServer)
               {
-                v79 = AXUICreateApplicationElementForElement(*v11);
-                v80 = _UIAXElementForAXUIElementRef(*v11);
-                v81 = AXRemoteElementFromObject(v80);
+                v81 = AXUICreateApplicationElementForElement(*v11);
+                v82 = _UIAXElementForAXUIElementRef(*v11);
+                v83 = AXRemoteElementFromObject(v82);
 
-                if (v81)
+                if (v83)
                 {
-                  _AXUIElementSetMachPortForNextMessage([v81 machPort]);
-                  v82 = a3;
-                  v83 = ([v81 deniesDirectAppConnection] & 1) == 0 && objc_msgSend(v81, "remotePid") != 0;
+                  _AXUIElementSetMachPortForNextMessage([v83 machPort]);
+                  v84 = a3;
+                  v85 = ([v83 deniesDirectAppConnection] & 1) == 0 && objc_msgSend(v83, "remotePid") != 0;
                 }
 
                 else
                 {
-                  v82 = a3;
-                  v83 = 1;
+                  v84 = a3;
+                  v85 = 1;
                 }
 
                 *buf = 0;
-                v104 = [AXUIElement uiElementWithAXElement:*v11];
-                v106 = [v104 numberWithAXAttribute:2021];
-                v107 = [v106 unsignedIntValue];
+                v106 = [AXUIElement uiElementWithAXElement:*v11];
+                v108 = [v106 numberWithAXAttribute:2021];
+                v109 = [v108 unsignedIntValue];
 
-                if (v83)
+                if (v85)
                 {
-                  v132 = _AXUIElementCopyElementAtPositionWithParams(*v11, buf, v82, 0, v107, 0, 0, a8, a9);
-                  if (!v132)
+                  v134 = _AXUIElementCopyElementAtPositionWithParams(*v11, buf, v84, 0, v109, 0, 0, a8, a9);
+                  if (!v134)
                   {
                     CFRelease(*v11);
                     *v11 = *buf;
@@ -4426,19 +4421,19 @@ LABEL_88:
                 }
 
 LABEL_132:
-                if (v79)
+                if (v81)
                 {
-                  CFRelease(v79);
+                  CFRelease(v81);
                 }
 
 LABEL_135:
                 if (*v11)
                 {
-                  if (!v132)
+                  if (!v134)
                   {
 LABEL_112:
                     _AXSetRequestingClient(v18);
-                    return v132;
+                    return v134;
                   }
 
 LABEL_110:
@@ -4470,277 +4465,277 @@ LABEL_110:
           }
 
 LABEL_138:
-          v94 = -25200;
+          v96 = -25200;
           goto LABEL_109;
         }
       }
 
-      v94 = -25204;
+      v96 = -25204;
 LABEL_109:
-      v132 = v94;
+      v134 = v96;
       goto LABEL_110;
     }
 
 LABEL_71:
-    v62 = AXConvertPointToHostedCoordinates(v22, a6, a8, a9);
-    v64 = v63;
+    v63 = AXConvertPointToHostedCoordinates(v23, a6, a8, a9);
+    v65 = v64;
     goto LABEL_73;
   }
 
-  v116 = v19;
+  v118 = v20;
   valuePtr.x = a8;
   valuePtr.y = a9;
-  v23 = AXValueCreate(kAXValueTypeCGPoint, &valuePtr);
-  v138[0] = v23;
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a6];
-  v138[1] = v24;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v138 count:2];
+  v24 = AXValueCreate(kAXValueTypeCGPoint, &valuePtr);
+  v140[0] = v24;
+  v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a6];
+  v140[1] = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:2];
 
   result = 0;
-  v26 = _AXUIElementCreateInternal(0, 0, kAXApplicationUID);
-  v27 = AXUIElementCopyParameterizedAttributeValue(v26, 0x16573, v25, &result);
-  if (v23)
+  v27 = _AXUIElementCreateInternal(0, 0, kAXApplicationUID);
+  v28 = AXUIElementCopyParameterizedAttributeValue(v27, 0x16573, v26, &result);
+  if (v24)
   {
-    CFRelease(v23);
+    CFRelease(v24);
   }
 
-  v28 = result;
-  if (v27 == kAXErrorSuccess && result)
+  v29 = result;
+  if (v28 == kAXErrorSuccess && result)
   {
-    v29 = CFGetTypeID(result);
-    if (v29 == CFNumberGetTypeID())
+    v30 = CFGetTypeID(result);
+    if (v30 == CFNumberGetTypeID())
     {
-      v133 = [result unsignedIntValue];
+      v135 = [result unsignedIntValue];
     }
 
-    v28 = result;
+    v29 = result;
   }
 
-  if (v28)
+  if (v29)
   {
-    CFRelease(v28);
+    CFRelease(v29);
     result = 0;
   }
 
   if (!a7)
   {
 LABEL_67:
-    if (v26)
+    if (v27)
     {
-      CFRelease(v26);
+      CFRelease(v27);
     }
 
-    v19 = v116;
+    v20 = v118;
     goto LABEL_70;
   }
 
-  v115 = a7;
-  v136 = @"contextId";
-  v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v133];
-  v137 = v30;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+  v117 = a7;
+  v138 = @"contextId";
+  v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v135];
+  v139 = v31;
+  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
 
-  v32 = AXUIElementCopyParameterizedAttributeValue(v26, 0x16574, v31, &result);
-  v33 = 0;
-  v34 = result;
-  if (v32 == kAXErrorSuccess && result)
+  v33 = AXUIElementCopyParameterizedAttributeValue(v27, 0x16574, v32, &result);
+  v34 = 0;
+  v35 = result;
+  if (v33 == kAXErrorSuccess && result)
   {
-    v35 = CFGetTypeID(result);
-    if (v35 == CFNumberGetTypeID() && (v36 = [result unsignedIntValue], v36 != getpid()))
+    v36 = CFGetTypeID(result);
+    if (v36 == CFNumberGetTypeID() && (v37 = [result unsignedIntValue], v37 != getpid()))
     {
-      v113 = v11;
-      v114 = v31;
-      v110 = a6;
-      v37 = AXRuntimeLogCommon();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v115 = v11;
+      v116 = v32;
+      v112 = a6;
+      v38 = AXRuntimeLogCommon();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v38 = result;
-        v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v133];
-        v40 = [MEMORY[0x1E696AD98] numberWithInt:getpid()];
+        v39 = result;
+        v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v135];
+        v41 = [MEMORY[0x1E696AD98] numberWithInt:getpid()];
         *buf = 138412802;
-        *&buf[4] = v38;
+        *&buf[4] = v39;
         *&buf[12] = 2112;
-        *&buf[14] = v39;
+        *&buf[14] = v40;
         *&buf[22] = 2112;
-        *&buf[24] = v40;
-        _os_log_impl(&dword_1BF78E000, v37, OS_LOG_TYPE_INFO, "the pid{%@} for this context id{%@} is not the same for the hit testing app{%@}, so we shouldn't use it here. this hit test needs to forward through to the remote view", buf, 0x20u);
+        *&buf[24] = v41;
+        _os_log_impl(&dword_1BF78E000, v38, OS_LOG_TYPE_INFO, "the pid{%@} for this context id{%@} is not the same for the hit testing app{%@}, so we shouldn't use it here. this hit test needs to forward through to the remote view", buf, 0x20u);
       }
 
-      v108 = v26;
-      v109 = v25;
-      v111 = a3;
-      v112 = v18;
+      v110 = v27;
+      v111 = v26;
+      v113 = a3;
+      v114 = v18;
 
-      v41 = +[AXRemoteElement registeredRemoteElements];
-      [v41 enumerateObjectsUsingBlock:&__block_literal_global_0];
+      v42 = +[AXRemoteElement registeredRemoteElements];
+      [v42 enumerateObjectsUsingBlock:&__block_literal_global_0];
 
-      v122[0] = MEMORY[0x1E69E9820];
-      v122[1] = 3221225472;
-      v122[2] = ___AXUIElementCopyElementAtPositionWithParams_block_invoke_22;
-      v122[3] = &__block_descriptor_44_e25_B16__0__AXRemoteElement_8l;
-      v123 = v133;
-      v122[4] = result;
-      [AXRemoteElement remoteElementsForBlock:v122];
-      v118 = 0u;
-      v119 = 0u;
+      v124[0] = MEMORY[0x1E69E9820];
+      v124[1] = 3221225472;
+      v124[2] = ___AXUIElementCopyElementAtPositionWithParams_block_invoke_22;
+      v124[3] = &__block_descriptor_44_e25_B16__0__AXRemoteElement_8l;
+      v125 = v135;
+      v124[4] = result;
+      [AXRemoteElement remoteElementsForBlock:v124];
       v120 = 0u;
-      obj = v121 = 0u;
-      v42 = [obj countByEnumeratingWithState:&v118 objects:v134 count:16];
-      if (v42)
+      v121 = 0u;
+      v122 = 0u;
+      obj = v123 = 0u;
+      v43 = [obj countByEnumeratingWithState:&v120 objects:v136 count:16];
+      if (v43)
       {
-        v43 = v42;
-        v33 = 0;
-        v44 = *v119;
+        v44 = v43;
+        v34 = 0;
+        v45 = *v121;
         do
         {
-          for (i = 0; i != v43; ++i)
+          for (i = 0; i != v44; ++i)
           {
-            if (*v119 != v44)
+            if (*v121 != v45)
             {
               objc_enumerationMutation(obj);
             }
 
-            v46 = *(*(&v118 + 1) + 8 * i);
-            v47 = [v46 accessibilityContainer];
-            v48 = [v47 valueForKey:@"_accessibilityWindow"];
+            v47 = *(*(&v120 + 1) + 8 * i);
+            v48 = [v47 accessibilityContainer];
+            v49 = [v48 valueForKey:@"_accessibilityWindow"];
 
-            v49 = AXRuntimeLogCommon();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+            v50 = AXRuntimeLogCommon();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              *&buf[4] = v46;
+              *&buf[4] = v47;
               *&buf[12] = 2112;
-              *&buf[14] = v48;
-              _os_log_impl(&dword_1BF78E000, v49, OS_LOG_TYPE_INFO, "matched on %@ with window: %@", buf, 0x16u);
+              *&buf[14] = v49;
+              _os_log_impl(&dword_1BF78E000, v50, OS_LOG_TYPE_INFO, "matched on %@ with window: %@", buf, 0x16u);
             }
 
-            if (!v33 && v48)
+            if (!v34 && v49)
             {
-              v33 = v46;
+              v34 = v47;
             }
           }
 
-          v43 = [obj countByEnumeratingWithState:&v118 objects:v134 count:16];
+          v44 = [obj countByEnumeratingWithState:&v120 objects:v136 count:16];
         }
 
-        while (v43);
+        while (v44);
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
       WeakRetained = objc_loadWeakRetained(&_AXElementBeingHitTested);
 
-      v51 = AXRemoteElementFromObject(WeakRetained);
+      v52 = AXRemoteElementFromObject(WeakRetained);
       if ([obj count])
       {
-        v11 = v113;
-        v31 = v114;
-        a3 = v111;
-        v18 = v112;
-        a6 = v110;
+        v11 = v115;
+        v32 = v116;
+        a3 = v113;
+        v18 = v114;
+        a6 = v112;
       }
 
       else
       {
-        v11 = v113;
-        v31 = v114;
-        a3 = v111;
-        v18 = v112;
-        a6 = v110;
-        if (v51)
+        v11 = v115;
+        v32 = v116;
+        a3 = v113;
+        v18 = v114;
+        a6 = v112;
+        if (v52)
         {
-          v52 = [v51 accessibilityContainer];
-          v53 = [v52 valueForKey:@"_accessibilityWindow"];
+          v53 = [v52 accessibilityContainer];
+          v54 = [v53 valueForKey:@"_accessibilityWindow"];
 
-          [v51 containerAccessibilityFrame];
-          v54 = 0;
-          if (CGRectContainsPoint(v142, valuePtr) && v53)
+          [v52 containerAccessibilityFrame];
+          v55 = 0;
+          if (CGRectContainsPoint(v144, valuePtr) && v54)
           {
-            v55 = [v53 valueForKey:@"isHidden"];
-            v54 = [v55 BOOLValue] ^ 1;
+            v56 = [v54 valueForKey:@"isHidden"];
+            v55 = [v56 BOOLValue] ^ 1;
           }
 
-          v56 = v51;
-          v57 = AXRuntimeLogCommon();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+          v57 = v52;
+          v58 = AXRuntimeLogCommon();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
-            v58 = [MEMORY[0x1E696AD98] numberWithBool:v54];
+            v59 = [MEMORY[0x1E696AD98] numberWithBool:v55];
             *buf = 138412546;
-            *&buf[4] = v58;
+            *&buf[4] = v59;
             *&buf[12] = 2112;
-            *&buf[14] = v56;
-            _os_log_impl(&dword_1BF78E000, v57, OS_LOG_TYPE_INFO, "Did not find matching remote element (multi-level remote hosting in play) - checking starting element: %@ %@", buf, 0x16u);
+            *&buf[14] = v57;
+            _os_log_impl(&dword_1BF78E000, v58, OS_LOG_TYPE_INFO, "Did not find matching remote element (multi-level remote hosting in play) - checking starting element: %@ %@", buf, 0x16u);
           }
 
-          if (v54)
+          if (v55)
           {
-            v51 = v56;
-            v59 = v56;
+            v52 = v57;
+            v60 = v57;
 
-            v33 = v59;
-            v31 = v114;
+            v34 = v60;
+            v32 = v116;
           }
 
           else
           {
-            v31 = v114;
-            v51 = v56;
+            v32 = v116;
+            v52 = v57;
           }
         }
       }
 
-      v26 = v108;
-      v25 = v109;
-      if (v33)
+      v27 = v110;
+      v26 = v111;
+      if (v34)
       {
-        v60 = v33;
-        v61 = AXRuntimeLogCommon();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+        v61 = v34;
+        v62 = AXRuntimeLogCommon();
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          *&buf[4] = v60;
+          *&buf[4] = v61;
           *&buf[12] = 1024;
-          *&buf[14] = v133;
-          _os_log_impl(&dword_1BF78E000, v61, OS_LOG_TYPE_INFO, "The mismatched pid was found to be a remote element: %@, so leaving contextId unchanged so let's reset to use contextId of the hosting window: %u", buf, 0x12u);
+          *&buf[14] = v135;
+          _os_log_impl(&dword_1BF78E000, v62, OS_LOG_TYPE_INFO, "The mismatched pid was found to be a remote element: %@, so leaving contextId unchanged so let's reset to use contextId of the hosting window: %u", buf, 0x12u);
         }
 
-        v31 = v114;
+        v32 = v116;
       }
 
       else
       {
-        v133 = 0;
+        v135 = 0;
       }
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
 
-    v34 = result;
+    v35 = result;
   }
 
-  if (v34)
+  if (v35)
   {
-    CFRelease(v34);
+    CFRelease(v35);
     result = 0;
   }
 
-  if (!v33)
+  if (!v34)
   {
 
-    a7 = v115;
+    a7 = v117;
     goto LABEL_67;
   }
 
-  *v11 = _AXCreateAXUIElementWithElement(v33);
-  if (v26)
+  *v11 = _AXCreateAXUIElementWithElement(v34);
+  if (v27)
   {
-    CFRelease(v26);
+    CFRelease(v27);
   }
 
   _AXSetRequestingClient(v18);
@@ -4753,8 +4748,11 @@ AXError AXUIElementGetPid(AXUIElementRef element, pid_t *pid)
   v2 = kAXErrorIllegalArgument;
   if (element && pid)
   {
+    v8 = 0;
+    v7 = 0;
+    v6 = 0uLL;
     *pid = -1;
-    v4 = _AXUIElementValidate();
+    v4 = _AXUIElementValidate(element, &v8, &v6, &v7);
     v2 = kAXErrorSuccess;
     *pid = v4;
   }
@@ -4769,7 +4767,7 @@ uint64_t AXUICreateApplicationElementForElement(const __AXUIElement *a1)
   return _AXUIElementCreateAppElementWithPid(pid);
 }
 
-uint64_t AXUIElementCopyElementUsingDisplayIdAtPosition(const __AXUIElement *a1, uint64_t a2, uint64_t *a3, int a4, float a5, float a6)
+uint64_t AXUIElementCopyElementUsingDisplayIdAtPosition(const __AXUIElement *a1, uint64_t a2, CFTypeRef *a3, int a4, float a5, float a6)
 {
   v21[2] = *MEMORY[0x1E69E9840];
   result = 0;
@@ -4900,23 +4898,24 @@ AXError AXUIElementSetMessagingTimeout(AXUIElementRef element, float timeoutInSe
   return result;
 }
 
-void *AXUIElementRegisterSystemWideServerDeathCallback(void *result, uint64_t a2)
+uint64_t (*AXUIElementRegisterSystemWideServerDeathCallback(uint64_t (*result)(void), uint64_t a2))(void)
 {
   gSystemWideServerCallback = result;
   gSystemWideServerCallbackInfo = a2;
   return result;
 }
 
-uint64_t AXObserverCreateWithPidObserver(int a1, uint64_t a2, uint64_t *a3, void *a4)
+uint64_t AXObserverCreateWithPidObserver(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
+  v4 = a1;
   v14 = 1024;
   result = 4294942095;
-  if (a1 < 0 || !a2 || !a3)
+  if (v4 < 0 || !a2 || !a3)
   {
     return result;
   }
 
-  Internal = _AXObserverCreateInternal(a1, a2);
+  Internal = _AXObserverCreateInternal(v4, a2);
   if (!Internal)
   {
     return 4294942096;
@@ -4978,7 +4977,7 @@ AXError AXObserverAddNotification(AXObserverRef observer, AXUIElementRef element
       {
         v15 = *(observer + 8);
         v16 = MEMORY[0x1E69E9A60];
-        v17 = mach_port_mod_refs(*MEMORY[0x1E69E9A60], v15, 0, 1);
+        v17 = mach_port_mod_refs(*MEMORY[0x1E69E9A60], *(observer + 8), 0, 1);
         if (v17 == 17)
         {
           v17 = mach_port_mod_refs(*v16, v15, 4u, 1);
@@ -5085,16 +5084,16 @@ AXError AXObserverAddNotification(AXObserverRef observer, AXUIElementRef element
   return result;
 }
 
-void _AXObserverRelease(uint64_t a1)
+void _AXObserverRelease(__CFRunLoopSource *result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 24);
+    v2 = *(result + 3);
     if (v2)
     {
       CFRunLoopSourceInvalidate(v2);
-      CFRelease(*(a1 + 24));
-      v3 = *(a1 + 32);
+      CFRelease(*(result + 3));
+      v3 = *(result + 8);
 
       _AXRemoveObserverForPort(v3);
     }
@@ -5300,14 +5299,14 @@ unint64_t AXGetCurrentSerializationStyle()
   return atomic_load(&AXCurrentSerializationStyle);
 }
 
-void AXSetCurrentSerializationStyle(unint64_t a1)
+void AXSetCurrentSerializationStyle(unint64_t result)
 {
   if (AXInitSerializationStyle_onceToken != -1)
   {
     AXUnserializeWrapper_cold_1();
   }
 
-  atomic_store(a1, &AXCurrentSerializationStyle);
+  atomic_store(result, &AXCurrentSerializationStyle);
 }
 
 void _AXUIScreenConvertToCAScreen(int a1)
@@ -5397,116 +5396,130 @@ uint64_t __getSelfAuditToken_block_invoke()
   return result;
 }
 
-void *_AXHandleRemoteElementCallthroughForArray(void *a1, const __AXUIElement *a2, unint64_t a3, void *a4)
+void *_AXHandleRemoteElementCallthroughForArray(void *a1, const __AXUIElement *a2, unint64_t a3, void *a4, unsigned int a5, _BYTE *a6, __CFSet *a7)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
+  v45 = *MEMORY[0x1E69E9840];
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = a1;
-  v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v7)
+  v10 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v10)
   {
-    v8 = v7;
-    v9 = 0;
-    v10 = 0;
-    v11 = 0;
-    v28 = *v30;
-    v14 = a3 >> 1 == 47626 || a3 == 95254 || a3 - 92501 < 2;
-    v27 = v14;
+    v11 = v10;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
+    v36 = *v41;
+    v15 = a3;
+    v18 = a3 >> 1 == 47626 || a3 == 95254 || a3 - 92501 < 2;
+    v35 = v18;
     while (1)
     {
-      v15 = 0;
-      v25 = v10;
+      v19 = 0;
+      v33 = v13;
       do
       {
-        if (*v30 != v28)
+        if (*v41 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * v15);
-        v17 = v27;
-        if (!v16)
+        v20 = *(*(&v40 + 1) + 8 * v19);
+        v21 = v35;
+        if (!v20)
         {
-          v17 = 0;
+          v21 = 0;
         }
 
-        if (v17)
+        v22 = a4;
+        if (v21)
         {
-          v18 = CFGetTypeID(*(*(&v29 + 1) + 8 * v15));
-          if (v18 == AXUIElementGetTypeID() && _AXIsRemoteElement(v16, a2) && v10 == [obj count] - 1)
+          v23 = CFGetTypeID(*(*(&v40 + 1) + 8 * v19));
+          TypeID = AXUIElementGetTypeID();
+          v22 = a4;
+          if (v23 == TypeID)
           {
-            v19 = [obj count];
-            v20 = [a4 unsignedIntegerValue];
-            [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v20 - v19 + 1];
+            v25 = _AXIsRemoteElement(v20, a2);
+            v22 = a4;
+            if (v25)
+            {
+              v26 = [obj count] - 1;
+              v22 = a4;
+              if (v13 == v26)
+              {
+                v27 = [obj count];
+                v28 = [a4 unsignedIntegerValue];
+                v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v28 - v27 + 1];
+              }
+            }
           }
         }
 
-        v21 = _AXHandleRemoteElementCallthrough(v16);
-        if (v21)
+        v29 = _AXHandleRemoteElementCallthrough(v20, a2, v15, v22, a5, a6, a7);
+        if (v29)
         {
-          v22 = v21;
-          if (!v11)
+          v30 = v29;
+          if (!v14)
           {
-            v11 = [obj mutableCopy];
+            v14 = [obj mutableCopy];
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v11 replaceObjectsInRange:v9 withObjectsFromArray:{1, v22}];
-            v9 = v9 + [v22 count] - 1;
+            [v14 replaceObjectsInRange:v12 withObjectsFromArray:{1, v30}];
+            v12 = v12 + [v30 count] - 1;
           }
 
           else
           {
-            [v11 replaceObjectAtIndex:v9 withObject:v22];
+            [v14 replaceObjectAtIndex:v12 withObject:v30];
           }
 
-          CFRelease(v22);
+          CFRelease(v30);
 LABEL_35:
-          ++v9;
+          ++v12;
           goto LABEL_36;
         }
 
-        if (!v16)
+        if (!v20)
         {
           goto LABEL_35;
         }
 
-        v23 = CFGetTypeID(v16);
-        if (v23 != AXUIElementGetTypeID() || !_AXIsRemoteElement(v16, a2))
+        v31 = CFGetTypeID(v20);
+        if (v31 != AXUIElementGetTypeID() || !_AXIsRemoteElement(v20, a2))
         {
           goto LABEL_35;
         }
 
-        if (!v11)
+        if (!v14)
         {
-          v11 = [obj mutableCopy];
+          v14 = [obj mutableCopy];
         }
 
-        [v11 removeObject:v16];
+        [v14 removeObject:v20];
 LABEL_36:
-        ++v10;
-        ++v15;
+        ++v13;
+        ++v19;
       }
 
-      while (v8 != v15);
-      v10 = v25 + v8;
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (!v8)
+      while (v11 != v19);
+      v13 = v33 + v11;
+      v11 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      if (!v11)
       {
         goto LABEL_40;
       }
     }
   }
 
-  v11 = 0;
+  v14 = 0;
 LABEL_40:
 
-  return v11;
+  return v14;
 }
 
 BOOL _AXIsRemoteElement(const __AXUIElement *a1, const __AXUIElement *a2)
@@ -5598,12 +5611,12 @@ uint64_t AXDoesRequestingClientDeserveAutomation()
 
 __n128 _AXRuntimeGetCallbacksForUnitTesting@<Q0>(uint64_t a1@<X8>)
 {
-  v1 = *&off_1ED655358;
-  *(a1 + 32) = xmmword_1ED655348;
+  v1 = off_1ED655358;
+  *(a1 + 32) = *&xmmword_1ED655348;
   *(a1 + 48) = v1;
   *(a1 + 64) = qword_1ED655368;
-  result = xmmword_1ED655338;
-  *a1 = gCallbacks;
+  result = *&xmmword_1ED655338;
+  *a1 = *&gCallbacks;
   *(a1 + 16) = result;
   return result;
 }
@@ -5669,7 +5682,7 @@ LABEL_6:
   return _AXUIElementRegisterServerWithRunLoopInternal(a1, a2, a3, v7);
 }
 
-uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2, __CFRunLoop *a3, int a4)
+uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2, __CFRunLoop *a3, uint64_t a4)
 {
   if ((gRegistered & 1) == 0)
   {
@@ -5678,6 +5691,7 @@ uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2,
       return 4294942095;
     }
 
+    v6 = a4;
     Current = a3;
     if (!a3)
     {
@@ -5698,7 +5712,7 @@ uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2,
     v25 = 0;
     if ((AXRuntimeCheck_SupportsMacAXV2() & 1) != 0 || !_CFMZEnabled())
     {
-      if (a4)
+      if (v6)
       {
         v10 = "com.apple.iphone.axserver-systemwide";
       }
@@ -5708,7 +5722,7 @@ uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2,
         v10 = "com.apple.iphone.axserver";
       }
 
-      MachPort = _AXUIElementCreateMachPort(&v25, special_port, v10);
+      MachPort = _AXUIElementCreateMachPort(&v25, special_port, v10, v6);
       if (MachPort)
       {
         v12 = MachPort;
@@ -5728,7 +5742,7 @@ uint64_t _AXUIElementRegisterServerWithRunLoopInternal(uint64_t a1, uint64_t a2,
       v25 = 0;
     }
 
-    v14 = _AXUIElementCreateMachPort(&gAXServerPortForRemoteBridge, special_port, 0);
+    v14 = _AXUIElementCreateMachPort(&gAXServerPortForRemoteBridge, special_port, 0, 0);
     if (v14)
     {
       v15 = v14;
@@ -6050,11 +6064,11 @@ LABEL_23:
   return 0;
 }
 
-void sub_1BF79A3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1BF79A3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6250,15 +6264,17 @@ LABEL_14:
   return 0;
 }
 
-void sub_1BF79A944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1BF79A944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _AXXMIGCopyParameterizedAttributeValue(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unsigned int a7, void *a8, unsigned int a9, int a10, void *a11, _DWORD *a12, void **a13, _DWORD *a14, int *a15, _OWORD *a16)
+uint64_t _AXXMIGCopyParameterizedAttributeValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unsigned int a7, void *a8, unsigned int a9, int a10, void *a11, _DWORD *a12, void **a13, _DWORD *a14, int *a15, _OWORD *a16)
 {
+  v20 = a1;
   v21 = AXLogUIA();
   if (os_signpost_enabled(v21))
   {
@@ -6287,7 +6303,7 @@ uint64_t _AXXMIGCopyParameterizedAttributeValue(int a1, uint64_t a2, uint64_t a3
     }
   }
 
-  if (gAXServerPortForRemoteBridge == a1)
+  if (gAXServerPortForRemoteBridge == v20)
   {
     v23 = v41;
     v24 = -25217;
@@ -6363,6 +6379,13 @@ LABEL_19:
   return 0;
 }
 
+void sub_1BF79AD00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t _AXXMIGSetAttributeValue(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, unsigned int a7, void *a8, unsigned int a9, int a10, int *a11, __int128 *a12)
 {
   v30 = 0;
@@ -6430,14 +6453,14 @@ LABEL_11:
   return 0;
 }
 
-void sub_1BF79AF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF79AF60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6578,21 +6601,21 @@ LABEL_16:
   return v26;
 }
 
-void sub_1BF79B3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF79B3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _AXXMIGCopyElementAtPosition(float a1, float a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __int16 a7, int a8, int a9, _DWORD *a10, _OWORD *a11, _BYTE *a12, _DWORD *a13, int *a14, __int128 *a15)
+uint64_t _AXXMIGCopyElementAtPosition(float a1, float a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __int16 a7, int a8, int a9, _DWORD *a10, __int128 *a11, _BYTE *a12, _DWORD *a13, int *a14, __int128 *a15)
 {
   v40 = 0;
   v41 = &v40;
@@ -6670,59 +6693,60 @@ LABEL_13:
   return 0;
 }
 
-void sub_1BF79B65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1BF79B65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 128), 8);
+  _Block_object_dispose((v22 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _AXXMIGAddNotification(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, mach_port_name_t a6, int a7, uint64_t a8, int *a9, _OWORD *a10)
+uint64_t _AXXMIGAddNotification(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, int *a9, _OWORD *a10)
 {
-  v14 = a10[1];
+  v12 = a6;
+  v15 = a10[1];
   *name = *a10;
-  v23 = v14;
+  v24 = v15;
   isAXAllowed = _isAXAllowed(name);
-  v16 = MEMORY[0x1E69E9A60];
+  v17 = MEMORY[0x1E69E9A60];
   if (!isAXAllowed)
   {
-    v17 = -25211;
+    v18 = -25211;
     goto LABEL_10;
   }
 
   if (gAXServerPortForRemoteBridge == a1)
   {
-    v17 = -25217;
+    v18 = -25217;
 LABEL_10:
-    *a9 = v17;
+    *a9 = v18;
 LABEL_11:
-    mach_port_mod_refs(*v16, a6, 0, -1);
+    mach_port_mod_refs(*v17, v12, 0, -1);
     return 0;
   }
 
   if (a7)
   {
     name[0] = 0;
-    v18 = mach_port_request_notification(*MEMORY[0x1E69E9A60], a6, 72, 0, sDeadNamePort, 0x15u, name);
+    v19 = mach_port_request_notification(*MEMORY[0x1E69E9A60], v12, 72, 0, sDeadNamePort, 0x15u, name);
     if (name[0])
     {
-      mach_port_deallocate(*v16, name[0]);
+      mach_port_deallocate(*v17, name[0]);
     }
 
-    if (v18)
+    if (v19)
     {
-      v17 = -25200;
+      v18 = -25200;
       goto LABEL_10;
     }
   }
 
-  v20 = _AXPidFromAuditToken(a10);
-  v21 = _AXObserverCookieCreate(a6, a8, v20, 0);
-  _AXAddNotificationObserver();
-  if (v21)
+  v21 = _AXPidFromAuditToken(a10);
+  v22 = _AXObserverCookieCreate(v12, a8, v21, 0);
+  _AXAddNotificationObserver(v22, a5);
+  if (v22)
   {
-    CFRelease(v21);
+    CFRelease(v22);
   }
 
   *a9 = 0;
@@ -6783,36 +6807,36 @@ LABEL_9:
 
 uint64_t _AXXMIGRemoveNotification(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, mach_port_name_t a6, int *a7, __int128 *a8)
 {
-  v12 = a8[1];
-  v17[0] = *a8;
-  v17[1] = v12;
-  if (_isAXAllowed(v17))
+  v13 = a8[1];
+  v18[0] = *a8;
+  v18[1] = v13;
+  if (_isAXAllowed(v18))
   {
     if (gAXServerPortForRemoteBridge == a1)
     {
-      v13 = -25217;
+      v14 = -25217;
     }
 
     else
     {
-      v14 = _AXPidFromAuditToken(a8);
-      v15 = _AXObserverCookieCreate(a6, 0, v14, 0);
-      _AXRemoveNotificationObserver();
-      if (v15)
+      v15 = _AXPidFromAuditToken(a8);
+      v16 = _AXObserverCookieCreate(a6, 0, v15, 0);
+      _AXRemoveNotificationObserver(v16, a5);
+      if (v16)
       {
-        CFRelease(v15);
+        CFRelease(v16);
       }
 
-      v13 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v13 = -25211;
+    v14 = -25211;
   }
 
-  *a7 = v13;
+  *a7 = v14;
   mach_port_mod_refs(*MEMORY[0x1E69E9A60], a6, 0, -1);
   return 0;
 }
@@ -7611,7 +7635,7 @@ void _AXSetObserverForPort(const void *a1, unsigned int a2)
   os_unfair_lock_unlock(&gAXObserverLock);
 }
 
-BOOL AXProcessCanContactSystemWideServer()
+BOOL AXProcessCanContactSystemWideServer(uint64_t a1, uint64_t a2)
 {
   if (AXProcessCanContactSystemWideServer_onceToken != -1)
   {
@@ -7633,16 +7657,16 @@ void __AXProcessCanContactSystemWideServer_block_invoke()
   }
 }
 
-uint64_t _AXUIElementCreateMachPort(mach_port_name_t *a1, uint64_t a2, uint64_t a3)
+uint64_t _AXUIElementCreateMachPort(mach_port_name_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   name = 0;
   if (!a3 || (result = bootstrap_check_in2(), result))
   {
-    v6 = MEMORY[0x1E69E9A60];
+    v7 = MEMORY[0x1E69E9A60];
     result = mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name);
     if (!result)
     {
-      result = mach_port_insert_right(*v6, name, name, 0x14u);
+      result = mach_port_insert_right(*v7, name, name, 0x14u);
       if (a3)
       {
         if (!result)
@@ -7663,15 +7687,15 @@ uint64_t axObserverDeadNameHandler(uint64_t result)
   {
     v2 = *(result + 32);
     v3 = _AXObserverCookieCreate(v2, 0, 0, 1);
-    _AXNotificationObserverClientDied(v3);
+    _AXNotificationObserverClientDied(v3, v4);
     if (v3)
     {
       CFRelease(v3);
     }
 
-    v4 = *MEMORY[0x1E69E9A60];
+    v5 = *MEMORY[0x1E69E9A60];
 
-    return mach_port_mod_refs(v4, v2, 4u, -2);
+    return mach_port_mod_refs(v5, v2, 4u, -2);
   }
 
   return result;
@@ -8178,7 +8202,7 @@ BOOL __AXUIElementEqual(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void _AXInitializeElementCache()
+void _AXInitializeElementCache(uint64_t result, uint64_t a2)
 {
   if (_AXInitializeElementCache_onceToken != -1)
   {
@@ -8216,9 +8240,9 @@ uint64_t _AXAddToElementCache(void *a1)
   return v2;
 }
 
-void sub_1BF7A21A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7A21A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8240,9 +8264,9 @@ uint64_t _AXIsInElementCache(uint64_t a1)
   return v1;
 }
 
-void sub_1BF7A2318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF7A2318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9380,7 +9404,7 @@ LABEL_264:
 
             v58 = *(*(&v110 + 1) + 8 * j);
             v59 = [v54 objectForKey:v58];
-            v60 = AXConvertOutgoingValue(a1);
+            v60 = AXConvertOutgoingValue(a1, v59);
 
             if (v60)
             {
@@ -9568,7 +9592,7 @@ LABEL_213:
 
                 v73 = *(*(&v95 + 1) + 8 * k);
                 v74 = [v69 objectForKey:{v73, v95}];
-                v75 = AXConvertOutgoingValue(94100);
+                v75 = AXConvertOutgoingValue(94100, v74);
 
                 if (v75)
                 {
@@ -9799,7 +9823,7 @@ LABEL_195:
 
                   v86 = *(*(&v103 + 1) + 8 * n);
                   v87 = [v82 objectForKey:v86];
-                  v88 = AXConvertOutgoingValue(95257);
+                  v88 = AXConvertOutgoingValue(95257, v87);
 
                   if (v88)
                   {

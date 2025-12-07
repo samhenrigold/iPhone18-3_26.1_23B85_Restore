@@ -84,7 +84,7 @@
   HGCVBitmap::lock(v28, 1uLL);
   HGCVBitmap::lock(v27, 0);
   HGCVBitmap::lock(v26, 0);
-  HFGrabCutInterface::InitDataModels(self->_module, v28, v27, clusters);
+  HFGrabCutInterface::InitDataModels(self->_module, v28, v27, clusters, 5);
   HFGrabCutInterface::GenerateMask(self->_module, v28, v27, v26, gamma, iterations);
   HGCVBitmap::unlock(v28, 1uLL);
   HGCVBitmap::unlock(v27, 0);

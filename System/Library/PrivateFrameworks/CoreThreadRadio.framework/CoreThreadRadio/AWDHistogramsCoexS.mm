@@ -153,15 +153,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v12 = toCopy;
   if (self->_coexTotalGrantTimeHistograms.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_coexTotalGrantTimeHistograms.list[v5];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
+      toCopy = v12;
       ++v5;
     }
 
@@ -170,73 +169,68 @@
 
   if (self->_coexTxUnsolicitedGrantDutyCycleHistograms.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_coexTxUnsolicitedGrantDutyCycleHistograms.list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v7;
+      toCopy = v12;
+      ++v6;
     }
 
-    while (v7 < self->_coexTxUnsolicitedGrantDutyCycleHistograms.count);
+    while (v6 < self->_coexTxUnsolicitedGrantDutyCycleHistograms.count);
   }
 
   if (self->_coexRxUnsolicitedGrantDutyCycleHistograms.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_coexRxUnsolicitedGrantDutyCycleHistograms.list[v9];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v9;
+      toCopy = v12;
+      ++v7;
     }
 
-    while (v9 < self->_coexRxUnsolicitedGrantDutyCycleHistograms.count);
+    while (v7 < self->_coexRxUnsolicitedGrantDutyCycleHistograms.count);
   }
 
   if (self->_coexTxTotalGrantDutyCycleHistograms.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_coexTxTotalGrantDutyCycleHistograms.list[v11];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v11;
+      toCopy = v12;
+      ++v8;
     }
 
-    while (v11 < self->_coexTxTotalGrantDutyCycleHistograms.count);
+    while (v8 < self->_coexTxTotalGrantDutyCycleHistograms.count);
   }
 
   if (self->_coexRxTotalGrantDutyCycleHistograms.count)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      v14 = self->_coexRxTotalGrantDutyCycleHistograms.list[v13];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v13;
+      toCopy = v12;
+      ++v9;
     }
 
-    while (v13 < self->_coexRxTotalGrantDutyCycleHistograms.count);
+    while (v9 < self->_coexRxTotalGrantDutyCycleHistograms.count);
   }
 
   p_coexAbortsDueToGrantRevokesHistograms = &self->_coexAbortsDueToGrantRevokesHistograms;
   if (p_coexAbortsDueToGrantRevokesHistograms->count)
   {
-    v16 = 0;
+    v11 = 0;
     do
     {
-      v17 = p_coexAbortsDueToGrantRevokesHistograms->list[v16];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v16;
+      toCopy = v12;
+      ++v11;
     }
 
-    while (v16 < p_coexAbortsDueToGrantRevokesHistograms->count);
+    while (v11 < p_coexAbortsDueToGrantRevokesHistograms->count);
   }
 }
 

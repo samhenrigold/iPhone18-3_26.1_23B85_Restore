@@ -32,7 +32,7 @@ uint64_t _mainProc()
   return v2;
 }
 
-void SCRCEnableProcessKeepAlive()
+void SCRCEnableProcessKeepAlive(unsigned int a1)
 {
   if (vproc_swap_integer())
   {
@@ -296,14 +296,14 @@ id SCRCDeepMutableCopyClasses()
   return v0;
 }
 
-void sub_2648DD448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2648DD448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SCRCLogInitializeWithKeys(void *a1)
+void *SCRCLogInitializeWithKeys(void *a1)
 {
   _SCRCSetLogKeyArray(a1);
 
@@ -359,7 +359,7 @@ void SCRCDebugPrintToFile(void *a1, void *a2)
 LABEL_5:
 }
 
-uint64_t SCRCAddInformationToCrashTracerLog(void *a1)
+void *SCRCAddInformationToCrashTracerLog(void *a1)
 {
   result = [a1 UTF8String];
   qword_27FF851D0 = result;
@@ -402,7 +402,7 @@ uint64_t SCRCLogMaskForKey(void *a1)
   return v2;
 }
 
-uint64_t _SCRCLogInitializeCommonMasks()
+void *_SCRCLogInitializeCommonMasks()
 {
   result = [_SCRCLogKeyArray count];
   if (result)
@@ -629,7 +629,7 @@ LABEL_21:
   }
 }
 
-uint64_t SCRCIsConsoleSessionEnabled()
+BOOL SCRCIsConsoleSessionEnabled()
 {
   v9 = 0;
   v10 = &v9;
@@ -691,9 +691,9 @@ uint64_t SCRCIsConsoleSessionEnabled()
   return v7;
 }
 
-void sub_2648ECCC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2648ECCC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -737,7 +737,7 @@ uint64_t CoreGraphicsLibrary()
   return v0;
 }
 
-uint64_t __CoreGraphicsLibraryCore_block_invoke()
+uint64_t __CoreGraphicsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreGraphicsLibraryCore_frameworkLibrary = result;
@@ -911,16 +911,16 @@ LABEL_10:
   return -1;
 }
 
-void sub_2648EF2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2648EF2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2648EF570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2648EF570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1005,9 +1005,9 @@ void _handler_0(void *a1)
   JUMPOUT(0x266744600);
 }
 
-void sub_2648F3278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2648F3278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

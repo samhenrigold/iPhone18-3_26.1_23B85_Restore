@@ -31,26 +31,27 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10001CCA8(v8);
+  sub_10001CCA8(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)setDevicesAreNearby:(BOOL)nearby
 {
+  nearbyCopy = nearby;
   selfCopy = self;
-  sub_10001D22C(nearby);
+  sub_10001D22C(nearbyCopy);
 }
 
 - (void)setRemoteDisplaySessionExists:(BOOL)exists
 {
+  existsCopy = exists;
   selfCopy = self;
-  sub_10001D298(exists);
+  sub_10001D298(existsCopy);
 }
 
 - (BOOL)handleRapportEvent:(id)event
@@ -75,17 +76,16 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_10001DB14(v10, selfCopy, v11);
-  _Block_release(v11);
+  sub_10001DB14(v9, selfCopy, v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)sendDataRequest:(id)request completion:(id)completion
@@ -105,13 +105,13 @@
 
 - (id)overridePresenterLaunchOptions:(id)options
 {
-  static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10001DEA8();
+  sub_10001DEA8(v4);
 
-  v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v6.super.isa;
 }
 
 @end

@@ -189,7 +189,7 @@ void __83__SRHDataCollectionController_isMediaEventsCollectionEnabledFor_complet
   dispatch_async(isMediaEventsCollectionEnabledFor_completionHandler__workQueue, v3);
 }
 
-uint64_t __83__SRHDataCollectionController_isMediaEventsCollectionEnabledFor_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t (**__83__SRHDataCollectionController_isMediaEventsCollectionEnabledFor_completionHandler___block_invoke_2(uint64_t a1))(void *, void)
 {
   v12 = *MEMORY[0x277D85DE8];
   if (+[SRHDataCollectionController isMessagingApp:](SRHDataCollectionController, "isMessagingApp:", *(a1 + 32)) && +[SRHDataCollectionController isSocialMediaApp])
@@ -220,7 +220,7 @@ uint64_t __83__SRHDataCollectionController_isMediaEventsCollectionEnabledFor_com
     result = *(a1 + 40);
     if (result)
     {
-      return (*(result + 16))(result, 0);
+      return result[2](result, 0);
     }
   }
 

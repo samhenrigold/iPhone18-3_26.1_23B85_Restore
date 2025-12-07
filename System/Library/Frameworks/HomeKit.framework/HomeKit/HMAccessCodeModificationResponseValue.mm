@@ -13,30 +13,28 @@
 
 - (NSArray)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x1E69E9840];
+  v20[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMAccessCodeModificationResponseValue *)self accessoryUUID];
   v4 = [v3 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryAccessCodeValue = [(HMAccessCodeModificationResponseValue *)self accessoryAccessCodeValue];
   v7 = [v5 initWithName:@"accessoryAccessCodeValue" value:accessoryAccessCodeValue];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessCodeValue = [(HMAccessCodeModificationResponseValue *)self accessCodeValue];
   v10 = [v8 initWithName:@"accessCodeValue" value:accessCodeValue];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x1E69A29C8]);
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMAccessCodeModificationResponseValue operationType](self, "operationType")}];
   v13 = [v11 initWithName:@"operationType" value:v12];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x1E69A29C8]);
   error = [(HMAccessCodeModificationResponseValue *)self error];
   v16 = [v14 initWithName:@"error" value:error];
-  v21[4] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v20[4] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:5];
 
   return v17;
 }
@@ -50,7 +48,7 @@
 
 - (HMAccessCodeModificationResponseValue)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessCodeModificationResponseValueCodingKeyAccessoryUUID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessCodeModificationResponseValueCodingKeyAccessoryAccessCodeValue"];
@@ -71,20 +69,19 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v8;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessoryUUID: %@, operationType: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessoryUUID: %@, operationType: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -141,31 +138,7 @@
   {
     accessoryUUID = [(HMAccessCodeModificationResponseValue *)self accessoryUUID];
     accessoryUUID2 = [v6 accessoryUUID];
-    if (![accessoryUUID isEqual:accessoryUUID2])
-    {
-      goto LABEL_10;
-    }
-
-    accessoryAccessCodeValue = [(HMAccessCodeModificationResponseValue *)self accessoryAccessCodeValue];
-    accessoryAccessCodeValue2 = [v6 accessoryAccessCodeValue];
-    v11 = HMFEqualObjects();
-
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-
-    accessCodeValue = [(HMAccessCodeModificationResponseValue *)self accessCodeValue];
-    accessCodeValue2 = [v6 accessCodeValue];
-    v14 = HMFEqualObjects();
-
-    if (!v14)
-    {
-      goto LABEL_10;
-    }
-
-    operationType = [(HMAccessCodeModificationResponseValue *)self operationType];
-    if (operationType == [v6 operationType])
+    if ([accessoryUUID isEqual:accessoryUUID2] && (-[HMAccessCodeModificationResponseValue accessoryAccessCodeValue](self, "accessoryAccessCodeValue"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "accessoryAccessCodeValue"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11) && (-[HMAccessCodeModificationResponseValue accessCodeValue](self, "accessCodeValue"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "accessCodeValue"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14) && (v15 = -[HMAccessCodeModificationResponseValue operationType](self, "operationType"), v15 == objc_msgSend(v6, "operationType")))
     {
       error = [(HMAccessCodeModificationResponseValue *)self error];
       error2 = [v6 error];
@@ -174,7 +147,6 @@
 
     else
     {
-LABEL_10:
       v18 = 0;
     }
   }

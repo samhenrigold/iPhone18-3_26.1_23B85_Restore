@@ -29,7 +29,7 @@
 
 + (id)domainRestrictionForDictionary:(id)dictionary withError:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKey:@"Entitlement"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -41,8 +41,8 @@
   {
     v7 = MEMORY[0x277CCA9B8];
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"RBOriginatorEntitlementDomainRestriction doesn't specify entitlement: %@", dictionaryCopy, *MEMORY[0x277CCA470]];
-    v15[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [v7 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:1 userInfo:v9];
 
     v11 = v10;
@@ -51,28 +51,25 @@
     error = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
 - (id)dictionaryRepresentation
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"Class";
-  v6[1] = @"Entitlement";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"Class";
+  v5[1] = @"Entitlement";
   entitlement = self->_entitlement;
-  v7[0] = @"OriginatorEntitlement";
-  v7[1] = entitlement;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = @"OriginatorEntitlement";
+  v6[1] = entitlement;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
 
 - (BOOL)allowsContext:(id)context withError:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   originatorEntitlements = [context originatorEntitlements];
   v7 = [originatorEntitlements rb_hasEntitlement:self->_entitlement];
 
@@ -80,14 +77,12 @@
   {
     v8 = MEMORY[0x277CCA9B8];
     v9 = *MEMORY[0x277D47098];
-    entitlement = self->_entitlement;
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"originator doesn't have entitlement %@", entitlement, *MEMORY[0x277CCA470]];
-    v16[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    *error = [v8 errorWithDomain:v9 code:1 userInfo:v12];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"originator doesn't have entitlement %@", self->_entitlement, *MEMORY[0x277CCA470]];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    *error = [v8 errorWithDomain:v9 code:1 userInfo:v11];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

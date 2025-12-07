@@ -63,7 +63,7 @@ void __85__PLBackgroundJobResourceAvailabilityWorker__performWorkOnItem_inLibrar
     v50 = v7;
     if (v8 && (v10 & 1) == 0 && [v4 localAvailabilityTarget] > 0)
     {
-      if ([v9 count] == 1)
+      if (objc_msgSend_count(v9) == 1)
       {
         v44 = v2;
         v47 = v5;

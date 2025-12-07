@@ -1,10 +1,10 @@
-uint64_t sub_233972F88()
+uint64_t sub_233972F88(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = 0;
   v4 = &v3;
   v5 = 0x2020000000;
-  v0 = qword_2814AA688;
+  v1 = qword_2814AA688;
   v6 = qword_2814AA688;
   if (!qword_2814AA688)
   {
@@ -13,42 +13,44 @@ uint64_t sub_233972F88()
     v9 = 0;
     v4[3] = _sl_dlopen();
     qword_2814AA688 = v4[3];
-    v0 = v4[3];
+    v1 = v4[3];
   }
 
   _Block_object_dispose(&v3, 8);
-  v1 = *MEMORY[0x277D85DE8];
-  return v0;
+  return v1;
 }
 
-void sub_23397309C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23397309C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_2339730B4(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_2814AA688 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t sub_23397314C()
 {
-  v1 = 0;
-  result = sub_233972F88();
-  if (!result)
+  v3 = 0;
+  v0 = sub_233972F88(&v3);
+  if (!v0)
   {
-    sub_23397648C(&v1);
+    sub_23397648C(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 uint64_t sub_2339731A0()
@@ -70,9 +72,9 @@ uint64_t sub_2339731A0()
   return v0;
 }
 
-void sub_233973274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233973274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -86,7 +88,7 @@ void *sub_23397328C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_2339734A4()
+uint64_t sub_2339734A4(uint64_t a1, uint64_t a2)
 {
   if (qword_2814AA6A0 != -1)
   {
@@ -117,18 +119,16 @@ void sub_233973EE4(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t sub_233973FA8(uint64_t a1)
+uint64_t sub_233973FA8(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = sub_2339734A4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_2339734A4(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_233976600(a1, v3, v2);
+      sub_233976600(a1, v4, v3);
     }
-
-    v4 = *v2;
   }
 
   return (*(*(a1 + 48) + 16))();
@@ -149,18 +149,16 @@ void sub_233974158(id *a1, uint64_t a2, void *a3)
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t sub_233974230(uint64_t a1)
+uint64_t sub_233974230(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = sub_2339734A4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_2339734A4(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_2339766BC(a1, v3, v2);
+      sub_2339766BC(a1, v4, v3);
     }
-
-    v4 = *v2;
   }
 
   return (*(*(a1 + 56) + 16))();
@@ -202,29 +200,26 @@ void sub_233974540(uint64_t a1, void *a2)
 
 void sub_2339745B8(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
   v3 = *(a1 + 40);
   if (v2)
   {
     v4 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA578];
+    v10 = *MEMORY[0x277CCA578];
     v5 = [*(a1 + 32) copy];
-    v13[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = [v4 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:2 userInfo:v6];
     (*(v3 + 16))(v3, v7);
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(v3 + 16);
-    v10 = *MEMORY[0x277D85DE8];
-    v11 = *(a1 + 40);
+    v8 = *(v3 + 16);
+    v9 = *(a1 + 40);
 
-    v9(v11, 0);
+    v8(v9, 0);
   }
 }
 
@@ -311,29 +306,26 @@ void sub_233974AA8(uint64_t a1, void *a2)
 
 void sub_233974B20(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
   v3 = *(a1 + 40);
   if (v2)
   {
     v4 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA578];
+    v10 = *MEMORY[0x277CCA578];
     v5 = [*(a1 + 32) copy];
-    v13[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = [v4 errorWithDomain:@"com.apple.SafariShared.PasswordsDigitalSepration.PMSeparationErrorDomain" code:2 userInfo:v6];
     (*(v3 + 16))(v3, v7);
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(v3 + 16);
-    v10 = *MEMORY[0x277D85DE8];
-    v11 = *(a1 + 40);
+    v8 = *(v3 + 16);
+    v9 = *(a1 + 40);
 
-    v9(v11, 0);
+    v8(v9, 0);
   }
 }
 
@@ -343,28 +335,28 @@ void sub_233974D34(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if ([v5 count])
   {
-    v7 = [MEMORY[0x277CBEB18] array];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = sub_233974E90;
-    v15 = &unk_2789F61E8;
-    v16 = *(a1 + 32);
-    v17 = v7;
-    v8 = v7;
-    [v5 enumerateObjectsUsingBlock:&v12];
-    v9 = *(a1 + 40);
-    v10 = [v8 copy];
-    (*(v9 + 16))(v9, v10, 0);
+    v8 = [MEMORY[0x277CBEB18] array];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = sub_233974E90;
+    v16 = &unk_2789F61E8;
+    v17 = *(a1 + 32);
+    v18 = v8;
+    v9 = v8;
+    [v5 enumerateObjectsUsingBlock:&v13];
+    v10 = *(a1 + 40);
+    v11 = [v9 copy];
+    (*(v10 + 16))(v10, v11, 0);
   }
 
   else
   {
     if (v6)
     {
-      v11 = sub_2339734A4();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_2339734A4(0, v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_2339767B0(v11);
+        sub_2339767B0(v12);
       }
     }
 
@@ -413,18 +405,17 @@ void sub_23397529C(id *a1, void *a2)
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-void sub_233975374(void *a1)
+void sub_233975374(void *a1, uint64_t a2)
 {
-  v2 = (a1 + 4);
+  v3 = (a1 + 4);
   if (a1[4])
   {
-    v3 = sub_2339734A4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_2339734A4(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_2339768B0(a1, v3, v2);
+      sub_2339768B0(a1, v4, v3);
     }
 
-    v4 = a1[4];
     (*(a1[7] + 16))();
   }
 
@@ -441,12 +432,12 @@ void sub_233975580(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if ([v5 count])
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_233975698;
-    v9[3] = &unk_2789F6260;
-    v9[4] = *(a1 + 32);
-    v7 = [v5 safari_mapObjectsUsingBlock:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_233975698;
+    v10[3] = &unk_2789F6260;
+    v10[4] = *(a1 + 32);
+    v8 = [v5 safari_mapObjectsUsingBlock:v10];
     (*(*(a1 + 40) + 16))();
   }
 
@@ -454,10 +445,10 @@ void sub_233975580(uint64_t a1, void *a2, void *a3)
   {
     if (v6)
     {
-      v8 = sub_2339734A4();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_2339734A4(0, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_2339767B0(v8);
+        sub_2339767B0(v9);
       }
     }
 
@@ -484,30 +475,29 @@ void sub_23397597C(uint64_t a1, void *a2, void *a3)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void sub_233975A6C(uint64_t a1)
+void sub_233975A6C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = *(a1 + 56);
+    v4 = *(a1 + 56);
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = sub_233975B60;
     v6[3] = &unk_2789F6288;
     v7 = *(a1 + 40);
     v8 = *(a1 + 64);
-    [v3 _stopSharingWithGroup:v2 completionHandler:v6];
+    [v4 _stopSharingWithGroup:v3 completionHandler:v6];
   }
 
   else
   {
-    v4 = sub_2339734A4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_2339734A4(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_2339769D4(a1, v4);
+      sub_2339769D4(a1, v5);
     }
 
-    v5 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -515,12 +505,13 @@ void sub_233975A6C(uint64_t a1)
 void sub_233975B60(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = sub_2339734A4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = sub_2339734A4(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_233976A7C(a1, v4);
+      sub_233976A7C(a1, v6);
     }
   }
 
@@ -530,12 +521,13 @@ void sub_233975B60(uint64_t a1, void *a2)
 void sub_233975E94(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = sub_2339734A4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = sub_2339734A4(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_233976B90(a1, v4);
+      sub_233976B90(a1, v6);
     }
   }
 
@@ -548,23 +540,23 @@ void sub_23397604C(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if ([v5 count])
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_23397614C;
-    v9[3] = &unk_2789F6300;
-    v7 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    [v7 _stopSharingWithGroups:v5 completionHandler:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_23397614C;
+    v10[3] = &unk_2789F6300;
+    v8 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    [v8 _stopSharingWithGroups:v5 completionHandler:v10];
   }
 
   else
   {
     if (v6)
     {
-      v8 = sub_2339734A4();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_2339734A4(0, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_2339767B0(v8);
+        sub_2339767B0(v9);
       }
     }
 
@@ -575,12 +567,13 @@ void sub_23397604C(uint64_t a1, void *a2, void *a3)
 void sub_23397614C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = sub_2339734A4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = sub_2339734A4(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_233976C3C(v4);
+      sub_233976C3C(v6);
     }
   }
 
@@ -606,8 +599,7 @@ void sub_23397628C(uint64_t a1, void *a2, void *a3)
 
 void sub_233976364(uint64_t a1)
 {
-  v3 = [*(a1 + 32) safari_filterObjectsUsingBlock:&unk_28495E350];
-  v2 = *(a1 + 40);
+  v2 = [*(a1 + 32) safari_filterObjectsUsingBlock:&unk_28495E350];
   (*(*(a1 + 48) + 16))();
 }
 
@@ -619,16 +611,18 @@ BOOL sub_2339763CC(uint64_t a1, void *a2)
   return v3;
 }
 
-void sub_233976450(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_233976450(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_23397646C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23397646C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_23397648C(void *a1)
@@ -649,143 +643,88 @@ void sub_23397650C()
   __break(1u);
 }
 
-void sub_233976598()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_233976438();
-  sub_233976450(&dword_233972000, v0, v1, "Falling back to email address for unknown participant handle: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void sub_233976600(uint64_t a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = a2;
   v6 = [v4 groupID];
   v7 = [*a3 safari_privacyPreservingDescription];
+  LODWORD(v14) = 138412546;
+  *(&v14 + 4) = v6;
   sub_233976428();
-  sub_23397646C(&dword_233972000, v8, v9, "Failed to remove participants from group (%@): %@", v10, v11, v12, v13, 2u);
-
-  v14 = *MEMORY[0x277D85DE8];
+  sub_23397646C(&dword_233972000, v8, v9, "Failed to remove participants from group (%@): %@", v10, v11, v12, v13, v14, DWORD2(v14));
 }
 
 void sub_2339766BC(uint64_t a1, void *a2, id *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 40);
   v6 = a2;
   v7 = [v5 handle];
   v8 = [*(a1 + 48) groupID];
   v9 = [*a3 safari_privacyPreservingDescription];
-  v11 = 138412802;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2112;
-  v16 = v9;
-  _os_log_error_impl(&dword_233972000, v6, OS_LOG_TYPE_ERROR, "Failed to remove participant (%@) from group (%@): %@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412802;
+  v11 = v7;
+  v12 = 2112;
+  v13 = v8;
+  v14 = 2112;
+  v15 = v9;
+  _os_log_error_impl(&dword_233972000, v6, OS_LOG_TYPE_ERROR, "Failed to remove participant (%@) from group (%@): %@", &v10, 0x20u);
 }
 
 void sub_2339767B0(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [sub_233976444() safari_privacyPreservingDescription];
   sub_233976438();
   sub_233976418();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void sub_233976848()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_233976438();
-  sub_233976450(&dword_233972000, v0, v1, "Failed to copy contributed items back to My Passwords from group: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2339768B0(uint64_t a1, void *a2, id *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = a2;
   v6 = [v4 groupID];
   v7 = [*a3 safari_privacyPreservingDescription];
+  LODWORD(v14) = 138412546;
+  *(&v14 + 4) = v6;
   sub_233976428();
-  sub_23397646C(&dword_233972000, v8, v9, "Failed to leave group (%@): %@", v10, v11, v12, v13, 2u);
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-void sub_23397696C()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_233976438();
-  sub_233976450(&dword_233972000, v0, v1, "Invalid resource: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  sub_23397646C(&dword_233972000, v8, v9, "Failed to leave group (%@): %@", v10, v11, v12, v13, v14, DWORD2(v14));
 }
 
 void sub_2339769D4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v5 = a2;
-  v6 = [sub_233976444() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_233976444() safari_privacyPreservingDescription];
   sub_233976428();
   sub_233976418();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_233976A7C(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_233976444() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_233976444() safari_privacyPreservingDescription];
   sub_233976428();
   sub_233976418();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void sub_233976B28()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  sub_233976438();
-  sub_233976450(&dword_233972000, v0, v1, "Invalid participant: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_233976B90(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_233976444() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_233976444() safari_privacyPreservingDescription];
   sub_233976428();
   sub_233976418();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_233976C3C(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [sub_233976444() safari_privacyPreservingDescription];
   sub_233976438();
   sub_233976418();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }

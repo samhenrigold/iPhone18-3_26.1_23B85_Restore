@@ -47,7 +47,7 @@
   v10 = __UIAccessibilityCastAsClass();
 
   v11 = [v10 safeSwiftValueForKey:@"layoutMode"];
-  v12 = AXConvertToLayoutMode();
+  v12 = AXConvertToLayoutMode(v11);
 
   if (v12 == 3)
   {

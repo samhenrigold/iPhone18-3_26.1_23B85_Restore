@@ -108,11 +108,9 @@ LABEL_3:
 - (id)copyWithReplacementDeployment:(id)deployment
 {
   deploymentCopy = deployment;
-  v5 = objc_alloc(objc_opt_class());
-  status = self->_status;
-  v7 = [v5 initWithDeployment:deploymentCopy rampId:self->_rampId activeFactorPackSetId:self->_activeFactorPackSetId activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:self->_targetedFactorPackSetId targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:status namespaces:self->_namespaces];
+  v5 = [objc_alloc(objc_opt_class()) initWithDeployment:deploymentCopy rampId:self->_rampId activeFactorPackSetId:self->_activeFactorPackSetId activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:self->_targetedFactorPackSetId targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:self->_status namespaces:self->_namespaces];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementRampId:(id)id
@@ -126,11 +124,9 @@ LABEL_3:
 - (id)copyWithReplacementActiveFactorPackSetId:(id)id
 {
   idCopy = id;
-  v5 = objc_alloc(objc_opt_class());
-  status = self->_status;
-  v7 = [v5 initWithDeployment:self->_deployment rampId:self->_rampId activeFactorPackSetId:idCopy activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:self->_targetedFactorPackSetId targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:status namespaces:self->_namespaces];
+  v5 = [objc_alloc(objc_opt_class()) initWithDeployment:self->_deployment rampId:self->_rampId activeFactorPackSetId:idCopy activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:self->_targetedFactorPackSetId targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:self->_status namespaces:self->_namespaces];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementActiveTargetingRuleIndex:(id)index
@@ -144,11 +140,9 @@ LABEL_3:
 - (id)copyWithReplacementTargetedFactorPackSetId:(id)id
 {
   idCopy = id;
-  v5 = objc_alloc(objc_opt_class());
-  status = self->_status;
-  v7 = [v5 initWithDeployment:self->_deployment rampId:self->_rampId activeFactorPackSetId:self->_activeFactorPackSetId activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:idCopy targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:status namespaces:self->_namespaces];
+  v5 = [objc_alloc(objc_opt_class()) initWithDeployment:self->_deployment rampId:self->_rampId activeFactorPackSetId:self->_activeFactorPackSetId activeTargetingRuleIndex:self->_activeTargetingRuleIndex targetedFactorPackSetId:idCopy targetedTargetingRuleIndex:self->_targetedTargetingRuleIndex status:self->_status namespaces:self->_namespaces];
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithReplacementTargetedTargetingRuleIndex:(id)index
@@ -171,141 +165,8 @@ LABEL_3:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_deployment == 0, [recordCopy deployment], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (deployment = self->_deployment) != 0 && (objc_msgSend(v5, "deployment"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIRolloutDeployment isEqual:](deployment, "isEqual:", v10), v10, !v11) || (v12 = self->_rampId == 0, objc_msgSend(v5, "rampId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (rampId = self->_rampId) != 0 && (objc_msgSend(v5, "rampId"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[TRIRampId isEqual:](rampId, "isEqual:", v16), v16, !v17) || (v18 = self->_activeFactorPackSetId == 0, objc_msgSend(v5, "activeFactorPackSetId"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (activeFactorPackSetId = self->_activeFactorPackSetId) != 0 && (objc_msgSend(v5, "activeFactorPackSetId"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[TRIFactorPackSetId isEqual:](activeFactorPackSetId, "isEqual:", v22), v22, !v23) || (v24 = self->_activeTargetingRuleIndex == 0, objc_msgSend(v5, "activeTargetingRuleIndex"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (activeTargetingRuleIndex = self->_activeTargetingRuleIndex) != 0 && (objc_msgSend(v5, "activeTargetingRuleIndex"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSNumber isEqual:](activeTargetingRuleIndex, "isEqual:", v28), v28, !v29) || (v30 = self->_targetedFactorPackSetId == 0, objc_msgSend(v5, "targetedFactorPackSetId"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (targetedFactorPackSetId = self->_targetedFactorPackSetId) != 0 && (objc_msgSend(v5, "targetedFactorPackSetId"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[TRIFactorPackSetId isEqual:](targetedFactorPackSetId, "isEqual:", v34), v34, !v35) || (v36 = self->_targetedTargetingRuleIndex == 0, objc_msgSend(v5, "targetedTargetingRuleIndex"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38) || (targetedTargetingRuleIndex = self->_targetedTargetingRuleIndex) != 0 && (objc_msgSend(v5, "targetedTargetingRuleIndex"), v40 = objc_claimAutoreleasedReturnValue(), v41 = -[NSNumber isEqual:](targetedTargetingRuleIndex, "isEqual:", v40), v40, !v41) || (status = self->_status, status != objc_msgSend(v5, "status")) || (v43 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 != 0, v44, v43 == v45))
   {
-    goto LABEL_24;
-  }
-
-  v6 = self->_deployment == 0;
-  deployment = [recordCopy deployment];
-  v8 = deployment != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_24;
-  }
-
-  deployment = self->_deployment;
-  if (deployment)
-  {
-    deployment2 = [v5 deployment];
-    v11 = [(TRIRolloutDeployment *)deployment isEqual:deployment2];
-
-    if (!v11)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v12 = self->_rampId == 0;
-  rampId = [v5 rampId];
-  v14 = rampId != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_24;
-  }
-
-  rampId = self->_rampId;
-  if (rampId)
-  {
-    rampId2 = [v5 rampId];
-    v17 = [(TRIRampId *)rampId isEqual:rampId2];
-
-    if (!v17)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v18 = self->_activeFactorPackSetId == 0;
-  activeFactorPackSetId = [v5 activeFactorPackSetId];
-  v20 = activeFactorPackSetId != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_24;
-  }
-
-  activeFactorPackSetId = self->_activeFactorPackSetId;
-  if (activeFactorPackSetId)
-  {
-    activeFactorPackSetId2 = [v5 activeFactorPackSetId];
-    v23 = [(TRIFactorPackSetId *)activeFactorPackSetId isEqual:activeFactorPackSetId2];
-
-    if (!v23)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v24 = self->_activeTargetingRuleIndex == 0;
-  activeTargetingRuleIndex = [v5 activeTargetingRuleIndex];
-  v26 = activeTargetingRuleIndex != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_24;
-  }
-
-  activeTargetingRuleIndex = self->_activeTargetingRuleIndex;
-  if (activeTargetingRuleIndex)
-  {
-    activeTargetingRuleIndex2 = [v5 activeTargetingRuleIndex];
-    v29 = [(NSNumber *)activeTargetingRuleIndex isEqual:activeTargetingRuleIndex2];
-
-    if (!v29)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v30 = self->_targetedFactorPackSetId == 0;
-  targetedFactorPackSetId = [v5 targetedFactorPackSetId];
-  v32 = targetedFactorPackSetId != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_24;
-  }
-
-  targetedFactorPackSetId = self->_targetedFactorPackSetId;
-  if (targetedFactorPackSetId)
-  {
-    targetedFactorPackSetId2 = [v5 targetedFactorPackSetId];
-    v35 = [(TRIFactorPackSetId *)targetedFactorPackSetId isEqual:targetedFactorPackSetId2];
-
-    if (!v35)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  v36 = self->_targetedTargetingRuleIndex == 0;
-  targetedTargetingRuleIndex = [v5 targetedTargetingRuleIndex];
-  v38 = targetedTargetingRuleIndex != 0;
-
-  if (v36 == v38)
-  {
-    goto LABEL_24;
-  }
-
-  targetedTargetingRuleIndex = self->_targetedTargetingRuleIndex;
-  if (targetedTargetingRuleIndex)
-  {
-    targetedTargetingRuleIndex2 = [v5 targetedTargetingRuleIndex];
-    v41 = [(NSNumber *)targetedTargetingRuleIndex isEqual:targetedTargetingRuleIndex2];
-
-    if (!v41)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  status = self->_status;
-  if (status != [v5 status] || (v43 = self->_namespaces == 0, objc_msgSend(v5, "namespaces"), v44 = objc_claimAutoreleasedReturnValue(), v45 = v44 != 0, v44, v43 == v45))
-  {
-LABEL_24:
     v48 = 0;
   }
 
@@ -359,7 +220,7 @@ LABEL_24:
 
 - (TRIPartialRolloutRecord)initWithCoder:(id)coder
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deployment"];
   if (v5)
@@ -375,9 +236,9 @@ LABEL_24:
         v9 = objc_opt_class();
         v10 = NSStringFromClass(v9);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key rampId (expected %@, decoded %@)", v8, v10, 0];
-        v71 = *MEMORY[0x277CCA450];
-        v72 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+        v70 = *MEMORY[0x277CCA450];
+        v71 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
         v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v13];
 LABEL_20:
@@ -417,9 +278,9 @@ LABEL_26:
         v18 = objc_opt_class();
         v11 = NSStringFromClass(v18);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key activeFactorPackSetId (expected %@, decoded %@)", v10, v11, 0];
-        v69 = *MEMORY[0x277CCA450];
-        v70 = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+        v68 = *MEMORY[0x277CCA450];
+        v69 = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
         v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v13];
         [coderCopy failWithError:v19];
 LABEL_19:
@@ -435,17 +296,17 @@ LABEL_16:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v21 = objc_opt_class();
-          v55 = NSStringFromClass(v21);
+          v54 = NSStringFromClass(v21);
           v22 = objc_opt_class();
           v12 = NSStringFromClass(v22);
-          v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key activeTargetingRuleIndex (expected %@, decoded %@)", v55, v12, 0];
-          v67 = *MEMORY[0x277CCA450];
-          v68 = v13;
-          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+          v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key activeTargetingRuleIndex (expected %@, decoded %@)", v54, v12, 0];
+          v66 = *MEMORY[0x277CCA450];
+          v67 = v13;
+          v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
           v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v19];
           [coderCopy failWithError:v23];
 
-          v11 = v55;
+          v11 = v54;
           goto LABEL_19;
         }
       }
@@ -462,24 +323,24 @@ LABEL_16:
         }
       }
 
-      v56 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"targetedFactorPackSetId"];
-      if (v56)
+      v55 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"targetedFactorPackSetId"];
+      if (v55)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
+          v26 = objc_opt_class();
+          v12 = NSStringFromClass(v26);
           v27 = objc_opt_class();
-          v12 = NSStringFromClass(v27);
-          v28 = objc_opt_class();
-          v13 = NSStringFromClass(v28);
-          v52 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key targetedFactorPackSetId (expected %@, decoded %@)", v12, v13, 0];
-          v65 = *MEMORY[0x277CCA450];
-          v66 = v52;
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-          v30 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v29];
-          [coderCopy failWithError:v30];
+          v13 = NSStringFromClass(v27);
+          v51 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key targetedFactorPackSetId (expected %@, decoded %@)", v12, v13, 0];
+          v64 = *MEMORY[0x277CCA450];
+          v65 = v51;
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+          v29 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v28];
+          [coderCopy failWithError:v29];
 
-          v11 = v56;
+          v11 = v55;
           goto LABEL_20;
         }
       }
@@ -502,21 +363,21 @@ LABEL_16:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
+          v31 = objc_opt_class();
+          v13 = NSStringFromClass(v31);
           v32 = objc_opt_class();
-          v13 = NSStringFromClass(v32);
-          v33 = objc_opt_class();
-          v53 = NSStringFromClass(v33);
-          v51 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key targetedTargetingRuleIndex (expected %@, decoded %@)", v13, v53, 0];
-          v63 = *MEMORY[0x277CCA450];
-          v64 = v51;
-          v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-          v35 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v34];
-          [coderCopy failWithError:v35];
+          v52 = NSStringFromClass(v32);
+          v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key targetedTargetingRuleIndex (expected %@, decoded %@)", v13, v52, 0];
+          v62 = *MEMORY[0x277CCA450];
+          v63 = v50;
+          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+          v34 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v33];
+          [coderCopy failWithError:v34];
 
 LABEL_50:
 LABEL_51:
           selfCopy = 0;
-          v11 = v56;
+          v11 = v55;
           goto LABEL_21;
         }
       }
@@ -532,15 +393,15 @@ LABEL_51:
         }
       }
 
-      v37 = [coderCopy decodeInt64ForKey:@"status"];
-      if (v37)
+      v36 = [coderCopy decodeInt64ForKey:@"status"];
+      if (v36)
       {
 LABEL_41:
-        v54 = v37;
-        v38 = objc_alloc(MEMORY[0x277CBEB98]);
-        v39 = objc_opt_class();
-        v40 = [v38 initWithObjects:{v39, objc_opt_class(), 0}];
-        v13 = [coderCopy decodeObjectOfClasses:v40 forKey:@"namespaces"];
+        v53 = v36;
+        v37 = objc_alloc(MEMORY[0x277CBEB98]);
+        v38 = objc_opt_class();
+        v39 = [v37 initWithObjects:{v38, objc_opt_class(), 0}];
+        v13 = [coderCopy decodeObjectOfClasses:v39 forKey:@"namespaces"];
 
         if (!v13)
         {
@@ -548,11 +409,11 @@ LABEL_41:
 
           if (!error5)
           {
-            v59 = *MEMORY[0x277CCA450];
-            v60 = @"Retrieved nil serialized value for nonnull TRIPartialRolloutRecord.namespaces";
-            v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-            v44 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:2 userInfo:v43];
-            [coderCopy failWithError:v44];
+            v58 = *MEMORY[0x277CCA450];
+            v59 = @"Retrieved nil serialized value for nonnull TRIPartialRolloutRecord.namespaces";
+            v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+            v43 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:2 userInfo:v42];
+            [coderCopy failWithError:v43];
           }
 
           v13 = 0;
@@ -562,22 +423,22 @@ LABEL_41:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v56;
-          self = [(TRIPartialRolloutRecord *)self initWithDeployment:v5 rampId:v6 activeFactorPackSetId:v8 activeTargetingRuleIndex:v10 targetedFactorPackSetId:v56 targetedTargetingRuleIndex:v12 status:v54 namespaces:v13];
+          v11 = v55;
+          self = [(TRIPartialRolloutRecord *)self initWithDeployment:v5 rampId:v6 activeFactorPackSetId:v8 activeTargetingRuleIndex:v10 targetedFactorPackSetId:v55 targetedTargetingRuleIndex:v12 status:v53 namespaces:v13];
           selfCopy = self;
           goto LABEL_21;
         }
 
+        v44 = objc_opt_class();
+        v52 = NSStringFromClass(v44);
         v45 = objc_opt_class();
-        v53 = NSStringFromClass(v45);
-        v46 = objc_opt_class();
-        v51 = NSStringFromClass(v46);
-        v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key namespaces (expected %@, decoded %@)", v53, v51, 0];
-        v57 = *MEMORY[0x277CCA450];
-        v58 = v50;
-        v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-        v48 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v47];
-        [coderCopy failWithError:v48];
+        v50 = NSStringFromClass(v45);
+        v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIPartialRolloutRecord key namespaces (expected %@, decoded %@)", v52, v50, 0];
+        v56 = *MEMORY[0x277CCA450];
+        v57 = v49;
+        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v47 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:3 userInfo:v46];
+        [coderCopy failWithError:v47];
 
         goto LABEL_50;
       }
@@ -588,11 +449,11 @@ LABEL_41:
       {
         if (([coderCopy containsValueForKey:@"status"] & 1) == 0)
         {
-          v61 = *MEMORY[0x277CCA450];
-          v62 = @"Missing serialized value for TRIPartialRolloutRecord.status";
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-          v49 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:1 userInfo:v13];
-          [coderCopy failWithError:v49];
+          v60 = *MEMORY[0x277CCA450];
+          v61 = @"Missing serialized value for TRIPartialRolloutRecord.status";
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+          v48 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:1 userInfo:v13];
+          [coderCopy failWithError:v48];
 
           goto LABEL_51;
         }
@@ -602,7 +463,7 @@ LABEL_41:
 
 LABEL_45:
       selfCopy = 0;
-      v11 = v56;
+      v11 = v55;
       goto LABEL_22;
     }
 
@@ -625,9 +486,9 @@ LABEL_25:
 
   if (!error8)
   {
-    v73 = *MEMORY[0x277CCA450];
-    v74[0] = @"Retrieved nil serialized value for nonnull TRIPartialRolloutRecord.deployment";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+    v72 = *MEMORY[0x277CCA450];
+    v73[0] = @"Retrieved nil serialized value for nonnull TRIPartialRolloutRecord.deployment";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
     v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIPartialRolloutRecordOCNTErrorDomain" code:2 userInfo:v6];
     [coderCopy failWithError:v8];
     goto LABEL_15;
@@ -636,7 +497,6 @@ LABEL_25:
   selfCopy = 0;
 LABEL_27:
 
-  v24 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

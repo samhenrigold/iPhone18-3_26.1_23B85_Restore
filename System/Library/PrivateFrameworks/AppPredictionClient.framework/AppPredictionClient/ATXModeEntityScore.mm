@@ -196,23 +196,25 @@ void __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2(uint64_t a1, void
 {
   v7 = a2;
   v8 = a3;
-  if (((*(*(a1 + 32) + 16))() & 1) == 0)
+  v9 = (*(*(a1 + 32) + 16))();
+  if ((v9 & 1) == 0)
   {
-    v9 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_modes(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_1();
+      __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_1(v7);
     }
 
     goto LABEL_7;
   }
 
-  if (((*(*(a1 + 32) + 16))() & 1) == 0)
+  v10 = (*(*(a1 + 32) + 16))();
+  if ((v10 & 1) == 0)
   {
-    v9 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_modes(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_2();
+      __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_2(v8);
     }
 
 LABEL_7:
@@ -227,7 +229,7 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForUUID" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.modeEntityScore" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -246,21 +248,22 @@ LABEL_8:
 
   [coderCopy decodeDoubleForKey:@"codingKeyForScore"];
   v11 = v10;
-  if ([(ATXModeEntityScore *)self checkAndReportDecodingFailureIfNeededFordouble:@"codingKeyForScore" key:coderCopy coder:@"com.apple.proactive.decode.modeEntityScore" errorDomain:-1 errorCode:?])
+  v12 = [(ATXModeEntityScore *)self checkAndReportDecodingFailureIfNeededFordouble:@"codingKeyForScore" key:coderCopy coder:@"com.apple.proactive.decode.modeEntityScore" errorDomain:-1 errorCode:?];
+  if (v12)
   {
-    v12 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_notification_management(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [ATXModeEntityScore initWithCoder:v12];
+      [ATXModeEntityScore initWithCoder:v13];
     }
 
     goto LABEL_8;
   }
 
-  v15 = MEMORY[0x1E69C5D78];
-  v16 = allowedFeatureVectorClasses();
-  v17 = __atxlog_handle_notification_management();
-  v18 = [v15 robustDecodeObjectOfClasses:v16 forKey:@"codingKeyForFeatures" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.modeEntityScore" errorCode:-1 logHandle:v17];
+  v16 = MEMORY[0x1E69C5D78];
+  v17 = allowedFeatureVectorClasses();
+  v18 = __atxlog_handle_notification_management(v17);
+  v19 = [v16 robustDecodeObjectOfClasses:v17 forKey:@"codingKeyForFeatures" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.modeEntityScore" errorCode:-1 logHandle:v18];
 
   error2 = [coderCopy error];
 
@@ -271,7 +274,7 @@ LABEL_8:
 
   else
   {
-    self = [(ATXModeEntityScore *)self initWithScore:v18 featureVector:v8 uuid:v11];
+    self = [(ATXModeEntityScore *)self initWithScore:v19 featureVector:v8 uuid:v11];
     selfCopy = self;
   }
 
@@ -279,16 +282,20 @@ LABEL_9:
   return selfCopy;
 }
 
-void __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_1()
+void __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v1, v2, "ATXModeEntityScore: unexpected key class: %{public}@", v3, v4, v5, v6, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "ATXModeEntityScore: unexpected key class: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_2()
+void __38__ATXModeEntityScore_encodeWithCoder___block_invoke_2_cold_2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v1, v2, "ATXModeEntityScore: unexpected value class: %{public}@", v3, v4, v5, v6, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "ATXModeEntityScore: unexpected value class: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

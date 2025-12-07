@@ -6,6 +6,7 @@
 - (void)_setMessage:(id)message;
 - (void)_setPrice:(id)price;
 - (void)_setSenderName:(id)name;
+- (void)itemImage;
 - (void)layoutSubviews;
 - (void)reloadThemeHeaderImage;
 - (void)setBackgroundColor:(id)color;
@@ -38,24 +39,8 @@
 
 - (void)reloadThemeHeaderImage
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIGiftThemeCollectionViewCell *)v3 reloadThemeHeaderImage:v4];
-      }
-    }
-  }
-
-  theme = self->_theme;
-  if (theme)
-  {
-    headerImage = [(SKUIGiftTheme *)theme headerImage];
-    [(SKUIGiftThemeCollectionViewCell *)self _setHeaderImage:headerImage];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell reloadThemeHeaderImage]";
 }
 
 - (void)setGift:(id)gift
@@ -168,8 +153,8 @@
     [(SKUIGiftItemView *)self->_itemView setTheme:self->_theme];
     [(UILabel *)self->_priceLabel setBackgroundColor:backgroundColor];
     priceLabel = self->_priceLabel;
-    primaryTextColor = [(SKUIGiftTheme *)self->_theme primaryTextColor];
-    [(UILabel *)priceLabel setTextColor:primaryTextColor];
+    v18 = objc_msgSend_primaryTextColor(self->_theme);
+    [(UILabel *)priceLabel setTextColor:v18];
 
     [(UILabel *)self->_messageLabel setBackgroundColor:backgroundColor];
     messageLabel = self->_messageLabel;
@@ -183,8 +168,8 @@
 
     [(UILabel *)self->_senderNameLabelLabel setBackgroundColor:backgroundColor];
     senderNameLabelLabel = self->_senderNameLabelLabel;
-    primaryTextColor2 = [(SKUIGiftTheme *)self->_theme primaryTextColor];
-    [(UILabel *)senderNameLabelLabel setTextColor:primaryTextColor2];
+    v24 = objc_msgSend_primaryTextColor(self->_theme);
+    [(UILabel *)senderNameLabelLabel setTextColor:v24];
 
     themeName = [(SKUIGiftTheme *)themeCopy themeName];
     [(SKUIGiftThemeCollectionViewCell *)self setAccessibilityLabel:themeName];
@@ -196,147 +181,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIGiftThemeCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v61.receiver = self;
-  v61.super_class = SKUIGiftThemeCollectionViewCell;
-  [(SKUIGiftThemeCollectionViewCell *)&v61 layoutSubviews];
-  contentView = [(SKUIGiftThemeCollectionViewCell *)self contentView];
-  [contentView frame];
-  v13 = v12;
-  v15 = v14;
-  currentDevice = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-
-  if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
-  {
-    v18 = 25.0;
-  }
-
-  else
-  {
-    v18 = 5.0;
-  }
-
-  [(SKUIGiftThemeCollectionViewCell *)self bounds];
-  v20 = v19;
-  currentDevice2 = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
-
-  v23 = 50.0;
-  if ((userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL) != 1)
-  {
-    v23 = 10.0;
-  }
-
-  v24 = v20 - v23;
-  [contentView setFrame:{v18, v13, v24, v15}];
-  backgroundView = [(SKUIGiftThemeCollectionViewCell *)self backgroundView];
-  v62.origin.x = v18;
-  v62.origin.y = v13;
-  v62.size.width = v24;
-  v62.size.height = v15;
-  v63 = CGRectInset(v62, -4.0, -4.0);
-  [backgroundView setFrame:{v63.origin.x, v63.origin.y, v63.size.width, v63.size.height}];
-  [contentView bounds];
-  v27 = v26;
-  v29 = v28;
-  contentView2 = [(SKUIGiftThemeCollectionViewCell *)self contentView];
-  [contentView2 bounds];
-  v32 = v31 * 0.5;
-  v33 = (floorf(v32) + -4.0);
-
-  headerImageView = self->_headerImageView;
-  if (headerImageView)
-  {
-    [(UIImageView *)headerImageView frame];
-    [(UIImageView *)self->_headerImageView setFrame:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v27, v33];
-  }
-
-  p_itemView = &self->_itemView;
-  itemView = self->_itemView;
-  if (itemView)
-  {
-    [(SKUIGiftItemView *)itemView frame];
-    [*p_itemView sizeThatFits:{v27 + -25.0 + -25.0, 1.79769313e308}];
-    v38 = v37;
-    v40 = v39;
-    v41 = 25.0;
-    v42 = 20.0;
-  }
-
-  else
-  {
-    p_itemView = &self->_priceLabel;
-    priceLabel = self->_priceLabel;
-    if (!priceLabel)
-    {
-      goto LABEL_17;
-    }
-
-    [(UILabel *)priceLabel frame];
-    v38 = v44;
-    v40 = v45;
-    v46 = (v27 - v44) * 0.5;
-    v41 = floorf(v46);
-    v42 = 21.0;
-  }
-
-  [*p_itemView setFrame:{v41, v33, v38, v40}];
-  v64.origin.x = v41;
-  v64.origin.y = v33;
-  v64.size.width = v38;
-  v64.size.height = v40;
-  v33 = CGRectGetMaxY(v64) + v42;
-LABEL_17:
-  v47 = v29 + -16.0;
-  if (self->_senderNameLabel)
-  {
-    [(UILabel *)self->_senderNameLabelLabel frame];
-    v49 = v48;
-    v51 = v50;
-    [(UILabel *)self->_senderNameLabel frame];
-    [(UILabel *)self->_senderNameLabel sizeThatFits:1.79769313e308, 1.79769313e308];
-    v53 = v52;
-    *&v54 = (v27 - (v49 + 3.0 + v54)) * 0.5;
-    v55 = fmaxf(floorf(*&v54), 25.0);
-    [(UILabel *)self->_senderNameLabelLabel setFrame:v55, v47 - v51, v49, v51];
-    v65.origin.x = v55;
-    v65.origin.y = v47 - v51;
-    v65.size.width = v49;
-    v65.size.height = v51;
-    MaxX = CGRectGetMaxX(v65);
-    [(UILabel *)self->_senderNameLabel setFrame:MaxX + 3.0, v47 - v53, v27 + -25.0 - (MaxX + 3.0), v53];
-    v47 = v47 - v51 + -15.0;
-  }
-
-  messageLabel = self->_messageLabel;
-  if (messageLabel)
-  {
-    [(UILabel *)messageLabel frame];
-    [(UILabel *)self->_messageLabel sizeThatFits:v27 + -50.0, v47 - v33];
-    if (v59 >= v47 - v33)
-    {
-      v60 = v47 - v33;
-    }
-
-    else
-    {
-      v60 = v59;
-    }
-
-    [(UILabel *)self->_messageLabel setFrame:25.0, v33, v58, v60];
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -450,7 +296,7 @@ LABEL_17:
 {
   messageCopy = message;
   text = [(UILabel *)self->_messageLabel text];
-  if (text != messageCopy && ([messageCopy isEqualToString:text] & 1) == 0)
+  if (text != messageCopy && (objc_msgSend_isEqualToString_(messageCopy) & 1) == 0)
   {
     messageLabel = self->_messageLabel;
     if (messageCopy)
@@ -498,7 +344,7 @@ LABEL_17:
 {
   priceCopy = price;
   text = [(UILabel *)self->_priceLabel text];
-  if (text != priceCopy && ([priceCopy isEqualToString:text] & 1) == 0)
+  if (text != priceCopy && (objc_msgSend_isEqualToString_(priceCopy) & 1) == 0)
   {
     priceLabel = self->_priceLabel;
     if (priceCopy)
@@ -518,8 +364,8 @@ LABEL_17:
         [(UILabel *)v10 setFont:v11];
 
         v12 = self->_priceLabel;
-        primaryTextColor = [(SKUIGiftTheme *)self->_theme primaryTextColor];
-        [(UILabel *)v12 setTextColor:primaryTextColor];
+        v13 = objc_msgSend_primaryTextColor(self->_theme);
+        [(UILabel *)v12 setTextColor:v13];
 
         contentView = [(SKUIGiftThemeCollectionViewCell *)self contentView];
         [contentView addSubview:self->_priceLabel];
@@ -546,7 +392,7 @@ LABEL_17:
 {
   nameCopy = name;
   text = [(UILabel *)self->_senderNameLabel text];
-  if (text != nameCopy && ([nameCopy isEqualToString:text] & 1) == 0)
+  if (text != nameCopy && (objc_msgSend_isEqualToString_(nameCopy) & 1) == 0)
   {
     senderNameLabel = self->_senderNameLabel;
     if (nameCopy)
@@ -602,8 +448,8 @@ LABEL_17:
       [(UILabel *)v23 setFont:v24];
 
       v25 = self->_senderNameLabelLabel;
-      primaryTextColor = [(SKUIGiftTheme *)self->_theme primaryTextColor];
-      [(UILabel *)v25 setTextColor:primaryTextColor];
+      v26 = objc_msgSend_primaryTextColor(self->_theme);
+      [(UILabel *)v25 setTextColor:v26];
 
       v27 = self->_senderNameLabelLabel;
       clientContext = [(SKUIGiftConfiguration *)self->_giftConfiguration clientContext];
@@ -639,6 +485,30 @@ LABEL_17:
 LABEL_13:
     [(SKUIGiftThemeCollectionViewCell *)self setNeedsLayout];
   }
+}
+
+- (void)itemImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell itemImage]";
+}
+
+- (void)setGift:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell setGift:]";
+}
+
+- (void)setItemImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell setItemImage:]";
+}
+
+- (void)setTheme:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftThemeCollectionViewCell setTheme:]";
 }
 
 @end

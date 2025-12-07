@@ -8,10 +8,10 @@
 
 - (ThumbnailsBlastDoorInterface)init
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v7.receiver = self;
-  v7.super_class = ThumbnailsBlastDoorInterface;
-  v2 = [(ThumbnailsBlastDoorInterface *)&v7 init];
+  v7 = *MEMORY[0x29EDCA608];
+  v6.receiver = self;
+  v6.super_class = ThumbnailsBlastDoorInterface;
+  v2 = [(ThumbnailsBlastDoorInterface *)&v6 init];
   if (v2)
   {
     v3 = objc_alloc_init(ThumbnailsBlastDoorInterfaceInternal);
@@ -19,7 +19,6 @@
     v2->_interface = v3;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v2;
 }
 

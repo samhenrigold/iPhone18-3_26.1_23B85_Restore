@@ -3,7 +3,6 @@
 - (float)mostSampledAzimuth;
 - (id)_spatialSpectrumLogStr;
 - (id)description;
-- (id)stringForLogging;
 @end
 
 @implementation NviDirectionalitySignalData
@@ -43,40 +42,32 @@
   return v4;
 }
 
-- (id)stringForLogging
-{
-  v3 = MEMORY[0x277CCACA8];
-  sigGenTs = [(NviSignalData *)self sigGenTs];
-  startSample = self->_startSample;
-  return [v3 stringWithFormat:@"%llu, %f, %lu, %lu, %f, %f, %f, ", sigGenTs, *&self->_processedAudioDurMs, startSample, self->_endSample, self->_azimuth, self->_estimatedAzimuth, self->_confidence];
-}
-
 - (float)mostSampledAzimuth
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = self->_azDistribution;
-  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v17;
+    v7 = *v16;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = [(NSDictionary *)self->_azDistribution objectForKeyedSubscript:v10, v16];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v11 = [(NSDictionary *)self->_azDistribution objectForKeyedSubscript:v10, v15];
         unsignedIntegerValue = [v11 unsignedIntegerValue];
 
         if (unsignedIntegerValue > v6)
@@ -87,7 +78,7 @@
         }
       }
 
-      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -98,7 +89,6 @@
     v8 = 0.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

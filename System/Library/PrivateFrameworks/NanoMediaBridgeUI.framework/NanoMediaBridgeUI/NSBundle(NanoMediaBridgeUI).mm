@@ -11,9 +11,9 @@
     +[NSBundle(NanoMediaBridgeUI) nanoMediaBridgeUIBundle];
   }
 
-  v1 = nanoMediaBridgeUIBundle___nanoMediaBridgeUIBundle;
+  v2 = nanoMediaBridgeUIBundle___nanoMediaBridgeUIBundle;
 
-  return v1;
+  return v2;
 }
 
 @end

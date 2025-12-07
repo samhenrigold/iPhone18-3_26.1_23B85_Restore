@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AuthenticationManager)init;
 - (BOOL)canStartAuthenticationWithPolicy:(int64_t)policy options:(id)options;
+- (id)_cancelationErrorWithDescription:(id)description cancelledByHigherPriority:(BOOL)priority;
 - (id)findMechanismForEvent:(int64_t)event mustBeRunning:(BOOL)running plugin:(id)plugin;
 - (void)_clearAuthentication:(id)authentication;
 - (void)_handleCompletionOfAuthentication:(id)authentication result:(id)result error:(id)error;
@@ -143,7 +144,7 @@ LABEL_15:
 {
   v27 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
-  v6 = LA_LOG_AuthenticationManager();
+  v6 = LA_LOG_AuthenticationManager(authenticationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     runningAuthentication = self->_runningAuthentication;
@@ -161,14 +162,14 @@ LABEL_15:
     self->_pendingAuthentication = 0;
 
     objc_initWeak(buf, self);
-    v18 = self->_runningAuthentication;
+    v19 = self->_runningAuthentication;
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
     v20[2] = __44__AuthenticationManager__runAuthentication___block_invoke;
     v20[3] = &unk_278A64670;
     objc_copyWeak(&v22, buf);
     v21 = authenticationCopy;
-    [(AuthenticationInProgress *)v18 runWithCompletionHandler:v20];
+    [(AuthenticationInProgress *)v19 runWithCompletionHandler:v20];
 
     objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
@@ -176,38 +177,36 @@ LABEL_15:
 
   else
   {
-    v8 = LA_LOG_AuthenticationManager();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LA_LOG_AuthenticationManager(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_pendingAuthentication;
+      v10 = self->_pendingAuthentication;
       *buf = 138543618;
       v24 = authenticationCopy;
       v25 = 2114;
-      v26 = v9;
-      _os_log_impl(&dword_238BBF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ was canceled while pending, replaced by %{public}@.", buf, 0x16u);
+      v26 = v10;
+      _os_log_impl(&dword_238BBF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ was canceled while pending, replaced by %{public}@.", buf, 0x16u);
     }
 
     if (self->_pendingAuthentication)
     {
       policy = [(AuthenticationInProgress *)authenticationCopy policy];
       options = [(AuthenticationInProgress *)authenticationCopy options];
-      v12 = AuthenticationPriorityForPolicy(policy, options);
+      v13 = AuthenticationPriorityForPolicy(policy, options);
       policy2 = [(AuthenticationInProgress *)self->_pendingAuthentication policy];
       options2 = [(AuthenticationInProgress *)self->_pendingAuthentication options];
-      v15 = v12 < AuthenticationPriorityForPolicy(policy2, options2);
+      v16 = v13 < AuthenticationPriorityForPolicy(policy2, options2);
 
-      [(AuthenticationManager *)self _cancelationErrorWithDescription:@"Canceled by another authentication." cancelledByHigherPriority:v15];
+      [(AuthenticationManager *)self _cancelationErrorWithDescription:@"Canceled by another authentication." cancelledByHigherPriority:v16];
     }
 
     else
     {
       [(AuthenticationManager *)self _invalidationError];
     }
-    v16 = ;
-    [(AuthenticationInProgress *)authenticationCopy cancelWithError:v16];
+    v17 = ;
+    [(AuthenticationInProgress *)authenticationCopy cancelWithError:v17];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __44__AuthenticationManager__runAuthentication___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -227,7 +226,7 @@ void __44__AuthenticationManager__runAuthentication___block_invoke(uint64_t a1, 
   authenticationCopy = authentication;
   resultCopy = result;
   errorCopy = error;
-  v11 = LA_LOG_AuthenticationManager();
+  v11 = LA_LOG_AuthenticationManager(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [AuthenticationManager _handleCompletionOfAuthentication:v11 result:? error:?];
@@ -287,16 +286,16 @@ void __72__AuthenticationManager__handleCompletionOfAuthentication_result_error_
 
 - (void)_clearAuthentication:(id)authentication
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_runningAuthentication == authentication)
   {
-    v4 = LA_LOG_AuthenticationManager();
+    v4 = LA_LOG_AuthenticationManager(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       runningAuthentication = self->_runningAuthentication;
-      v8 = 138543362;
-      v9 = runningAuthentication;
-      _os_log_impl(&dword_238BBF000, v4, OS_LOG_TYPE_DEFAULT, "clearing authentication: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = runningAuthentication;
+      _os_log_impl(&dword_238BBF000, v4, OS_LOG_TYPE_DEFAULT, "clearing authentication: %{public}@", &v7, 0xCu);
     }
 
     v6 = self->_runningAuthentication;
@@ -304,8 +303,34 @@ void __72__AuthenticationManager__handleCompletionOfAuthentication_result_error_
 
     [(AuthenticationManager *)self _runIdleBlocks];
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (id)_cancelationErrorWithDescription:(id)description cancelledByHigherPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  v19[2] = *MEMORY[0x277D85DE8];
+  descriptionCopy = @"Canceled by another authentication.";
+  if (description)
+  {
+    descriptionCopy = description;
+  }
+
+  v7 = MEMORY[0x277D24060];
+  v8 = *MEMORY[0x277D23E90];
+  v9 = *MEMORY[0x277D23EC0];
+  v10 = *MEMORY[0x277D23E70];
+  v18[0] = *MEMORY[0x277CCA068];
+  v18[1] = v10;
+  v19[0] = descriptionCopy;
+  v11 = MEMORY[0x277CCABB0];
+  v12 = descriptionCopy;
+  descriptionCopy2 = description;
+  v14 = [v11 numberWithBool:priorityCopy];
+  v19[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v16 = [v7 errorWithCode:v8 subcode:v9 userInfo:v15];
+
+  return v16;
 }
 
 - (void)cancelWithError:(id)error originatorId:(unint64_t)id reply:(id)reply
@@ -317,6 +342,7 @@ void __72__AuthenticationManager__handleCompletionOfAuthentication_result_error_
   if (runningAuthentication && [(AuthenticationInProgress *)runningAuthentication originatorId]== id)
   {
     v11 = self->_runningAuthentication;
+    v12 = v11;
     if (!v11)
     {
 LABEL_15:
@@ -325,7 +351,7 @@ LABEL_15:
         replyCopy[2](replyCopy);
       }
 
-      v11 = 0;
+      v12 = 0;
       goto LABEL_18;
     }
   }
@@ -343,51 +369,51 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v11 = self->_pendingAuthentication;
-    v13 = self->_pendingAuthentication;
+    v12 = self->_pendingAuthentication;
+    v14 = self->_pendingAuthentication;
     self->_pendingAuthentication = 0;
 
-    if (!v11)
+    if (!v12)
     {
       goto LABEL_15;
     }
   }
 
-  v14 = LA_LOG_AuthenticationManager();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = LA_LOG_AuthenticationManager(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    if (v11 == self->_runningAuthentication)
+    if (v12 == self->_runningAuthentication)
     {
-      v15 = "running";
+      v16 = "running";
     }
 
     else
     {
-      v15 = "pending";
+      v16 = "pending";
     }
 
-    mechanism = [(AuthenticationInProgress *)v11 mechanism];
+    mechanism = [(AuthenticationInProgress *)v12 mechanism];
     v20 = 136446722;
-    v21 = v15;
+    v21 = v16;
     v22 = 2114;
-    v23 = v11;
+    v23 = v12;
     v24 = 2114;
     v25 = mechanism;
-    _os_log_impl(&dword_238BBF000, v14, OS_LOG_TYPE_DEFAULT, "canceling %{public}s authentication: %{public}@ mechanism: %{public}@", &v20, 0x20u);
+    _os_log_impl(&dword_238BBF000, v15, OS_LOG_TYPE_DEFAULT, "canceling %{public}s authentication: %{public}@ mechanism: %{public}@", &v20, 0x20u);
   }
 
-  if ([(AuthenticationInProgress *)v11 isRunning])
+  if ([(AuthenticationInProgress *)v12 isRunning])
   {
-    v17 = MEMORY[0x23EE740C0](replyCopy);
+    v18 = MEMORY[0x23EE740C0](replyCopy);
     completionHandler = self->_completionHandler;
-    self->_completionHandler = v17;
+    self->_completionHandler = v18;
 
-    [(AuthenticationInProgress *)v11 cancelWithError:errorCopy];
+    [(AuthenticationInProgress *)v12 cancelWithError:errorCopy];
   }
 
   else
   {
-    [(AuthenticationInProgress *)v11 cancelWithError:errorCopy];
+    [(AuthenticationInProgress *)v12 cancelWithError:errorCopy];
     if (replyCopy)
     {
       replyCopy[2](replyCopy);
@@ -395,15 +421,13 @@ LABEL_15:
   }
 
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runWhenIdle:(id)idle
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   idleCopy = idle;
-  v5 = LA_LOG_AuthenticationManager();
+  v5 = LA_LOG_AuthenticationManager(idleCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(NSMutableArray *)self->_idleBlocks count];
@@ -425,14 +449,12 @@ LABEL_18:
     block[1] = 3221225472;
     block[2] = __37__AuthenticationManager_runWhenIdle___block_invoke;
     block[3] = &unk_278A64600;
-    objc_copyWeak(&v13, &buf);
+    objc_copyWeak(&v12, &buf);
     dispatch_async(serverQueue, block);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __37__AuthenticationManager_runWhenIdle___block_invoke(uint64_t a1)
@@ -453,32 +475,32 @@ void __37__AuthenticationManager_runWhenIdle___block_invoke(uint64_t a1)
   v9 = v2;
   do
   {
-    if (![(NSMutableArray *)self->_idleBlocks count])
+    v4 = [(NSMutableArray *)self->_idleBlocks count];
+    if (!v4)
     {
       break;
     }
 
-    v4 = LA_LOG_AuthenticationManager();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = LA_LOG_AuthenticationManager(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMutableArray count](self->_idleBlocks, "count")}];
+      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMutableArray count](self->_idleBlocks, "count")}];
       *buf = v9;
       v11 = "[AuthenticationManager _runIdleBlocksNow]";
       v12 = 2114;
-      v13 = v5;
+      v13 = v6;
       v14 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_238BBF000, v4, OS_LOG_TYPE_DEFAULT, "%s %{public}@ block(s) in queue on %@", buf, 0x20u);
+      _os_log_impl(&dword_238BBF000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ block(s) in queue on %@", buf, 0x20u);
     }
 
-    v6 = [(NSMutableArray *)self->_idleBlocks objectAtIndexedSubscript:0];
+    v7 = [(NSMutableArray *)self->_idleBlocks objectAtIndexedSubscript:0];
     [(NSMutableArray *)self->_idleBlocks removeObjectAtIndex:0];
-    v6[2](v6);
+    v7[2](v7);
     runningAuthentication = self->_runningAuthentication;
   }
 
   while (!runningAuthentication);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findMechanismForEvent:(int64_t)event mustBeRunning:(BOOL)running plugin:(id)plugin
@@ -492,28 +514,32 @@ void __37__AuthenticationManager_runWhenIdle___block_invoke(uint64_t a1)
 
   if (!v11)
   {
-    v14 = LA_LOG_AuthenticationManager();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = LA_LOG_AuthenticationManager(isRunning);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v19 = 67109120;
       LODWORD(v20) = event;
-      _os_log_impl(&dword_238BBF000, v14, OS_LOG_TYPE_DEFAULT, "No mechanism found for event %d", &v19, 8u);
+      _os_log_impl(&dword_238BBF000, v15, OS_LOG_TYPE_DEFAULT, "No mechanism found for event %d", &v19, 8u);
     }
 
     goto LABEL_17;
   }
 
-  if (runningCopy && ([v11 isRunning] & 1) == 0)
+  if (runningCopy)
   {
-    v13 = LA_LOG_AuthenticationManager();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    isRunning = [v11 isRunning];
+    if ((isRunning & 1) == 0)
     {
-      v19 = 138543362;
-      v20 = v11;
-      _os_log_impl(&dword_238BBF000, v13, OS_LOG_TYPE_DEFAULT, "Found %{public}@ but it's not running", &v19, 0xCu);
-    }
+      v14 = LA_LOG_AuthenticationManager(isRunning);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = 138543362;
+        v20 = v11;
+        _os_log_impl(&dword_238BBF000, v14, OS_LOG_TYPE_DEFAULT, "Found %{public}@ but it's not running", &v19, 0xCu);
+      }
 
-    goto LABEL_16;
+      goto LABEL_16;
+    }
   }
 
   if (pluginCopy)
@@ -522,62 +548,57 @@ void __37__AuthenticationManager_runWhenIdle___block_invoke(uint64_t a1)
 
     if (cachedExternalizationDelegate != pluginCopy)
     {
-      v13 = LA_LOG_AuthenticationManager();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = LA_LOG_AuthenticationManager(isRunning);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [AuthenticationManager findMechanismForEvent:v11 mustBeRunning:pluginCopy plugin:v13];
+        [AuthenticationManager findMechanismForEvent:v11 mustBeRunning:pluginCopy plugin:v14];
       }
 
 LABEL_16:
 
 LABEL_17:
-      v16 = 0;
+      v17 = 0;
       goto LABEL_18;
     }
   }
 
-  v15 = LA_LOG_AuthenticationManager();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = LA_LOG_AuthenticationManager(isRunning);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [AuthenticationManager findMechanismForEvent:v11 mustBeRunning:v15 plugin:?];
+    [AuthenticationManager findMechanismForEvent:v11 mustBeRunning:v16 plugin:?];
   }
 
-  v16 = v11;
+  v17 = v11;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 - (void)_handleCompletionOfAuthentication:(uint64_t)a1 result:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_238BBF000, a2, OS_LOG_TYPE_DEBUG, "authentication completed: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_238BBF000, a2, OS_LOG_TYPE_DEBUG, "authentication completed: %{public}@", &v3, 0xCu);
 }
 
 - (void)findMechanismForEvent:(uint64_t)a1 mustBeRunning:(uint64_t)a2 plugin:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_238BBF000, log, OS_LOG_TYPE_ERROR, "Found %{public}@ but it does not belong to %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_238BBF000, log, OS_LOG_TYPE_ERROR, "Found %{public}@ but it does not belong to %{public}@", &v3, 0x16u);
 }
 
 - (void)findMechanismForEvent:(uint64_t)a1 mustBeRunning:(NSObject *)a2 plugin:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_238BBF000, a2, OS_LOG_TYPE_DEBUG, "Found %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_238BBF000, a2, OS_LOG_TYPE_DEBUG, "Found %{public}@", &v2, 0xCu);
 }
 
 @end

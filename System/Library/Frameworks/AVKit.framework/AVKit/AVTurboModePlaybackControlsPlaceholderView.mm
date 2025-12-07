@@ -72,7 +72,7 @@
   [contentView addSubview:v4];
 
   prominentPlayButton = [(AVTurboModePlaybackControlsPlaceholderView *)self prominentPlayButton];
-  [(AVTurboModePlaybackControlsPlaceholderView *)self overrideTransformForProminentPlayButton];
+  objc_msgSend_overrideTransformForProminentPlayButton(self);
   [prominentPlayButton setTransform:&v13];
 
   return v4;
@@ -213,7 +213,7 @@
     styleSheet10 = prominentPlayButton;
     if (prominentPlayButton)
     {
-      [prominentPlayButton transform];
+      objc_msgSend_transform(prominentPlayButton);
     }
 
     else
@@ -467,7 +467,7 @@ LABEL_32:
   v6 = prominentPlayButton;
   if (prominentPlayButton)
   {
-    [prominentPlayButton transform];
+    objc_msgSend_transform(prominentPlayButton);
   }
 
   else

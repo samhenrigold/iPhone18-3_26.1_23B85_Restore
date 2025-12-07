@@ -51,54 +51,50 @@ unint64_t sub_100001294()
 uint64_t sub_1000012E8()
 {
   v0 = sub_100002E40(&qword_10000C168, &qword_1000055B0);
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
-  v3 = &v9 - v2;
-  v4 = sub_100004DFC();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v7 = sub_100004DBC();
-  sub_100002EC0(v7, qword_10000D190);
-  sub_100002E88(v7, qword_10000D190);
+  v2 = &v7 - v1;
+  v3 = sub_100004DFC();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v5 = sub_100004DBC();
+  sub_100002EC0(v5, qword_10000D190);
+  sub_100002E88(v5, qword_10000D190);
   sub_100004DEC();
-  (*(v5 + 56))(v3, 1, 1, v4);
+  (*(v4 + 56))(v2, 1, 1, v3);
   return sub_100004DAC();
 }
 
 uint64_t sub_100001458@<X0>(uint64_t a1@<X8>)
 {
-  v29 = a1;
-  v2 = (*(*(sub_100002E40(&qword_10000C160, &qword_1000055A8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v27 = &v26 - v3;
-  v4 = (*(*(sub_100002E40(&qword_10000C168, &qword_1000055B0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v6 = &v26 - v5;
+  v27 = a1;
+  v2 = sub_100002E40(&qword_10000C160, &qword_1000055A8);
+  __chkstk_darwin(v2 - 8);
+  v25 = &v24 - v3;
+  v4 = sub_100002E40(&qword_10000C168, &qword_1000055B0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v24 - v5;
   v7 = sub_100004DFC();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = (__chkstk_darwin)();
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v10);
-  v15 = &v26 - v14;
-  __chkstk_darwin(v13);
-  v17 = &v26 - v16;
-  v28 = v1;
-  v18 = *v1;
+  v9 = __chkstk_darwin(v7);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __chkstk_darwin(v9);
+  v14 = &v24 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v24 - v15;
+  v26 = v1;
   sub_100004DEC();
-  v19 = *(v8 + 32);
-  v19(v17, v15, v7);
+  v17 = *(v8 + 32);
+  v17(v16, v14, v7);
   sub_100004DEC();
-  v19(v6, v12, v7);
+  v17(v6, v11, v7);
   (*(v8 + 56))(v6, 0, 1, v7);
-  v20 = *(type metadata accessor for CompassSettingsDeepLink() + 20);
-  v21 = sub_100004CDC();
-  v22 = *(v21 - 8);
-  v23 = &v28[v20];
-  v24 = v27;
-  (*(v22 + 16))(v27, v23, v21);
-  (*(v22 + 56))(v24, 0, 1, v21);
+  v18 = *(type metadata accessor for CompassSettingsDeepLink(0) + 20);
+  v19 = sub_100004CDC();
+  v20 = *(v19 - 8);
+  v21 = v26 + v18;
+  v22 = v25;
+  (*(v20 + 16))(v25, v21, v19);
+  (*(v20 + 56))(v22, 0, 1, v19);
   return sub_100004CEC();
 }
 
@@ -115,22 +111,20 @@ uint64_t sub_100001770(uint64_t a1)
 
 uint64_t sub_100001814(uint64_t a1)
 {
-  v3 = *(*v2 + 24);
-  v6 = *v2;
   *(*v2 + 32) = a1;
 
   if (v1)
   {
 
-    v4 = sub_100001A58;
+    v3 = sub_100001A58;
   }
 
   else
   {
-    v4 = sub_100001930;
+    v3 = sub_100001930;
   }
 
-  return _swift_task_switch(v4, 0, 0);
+  return _swift_task_switch(v3, 0, 0);
 }
 
 uint64_t sub_100001930()
@@ -139,7 +133,7 @@ uint64_t sub_100001930()
   if (*(v1 + 16))
   {
     v2 = v0[2];
-    v3 = type metadata accessor for CompassSettingsDeepLink();
+    v3 = type metadata accessor for CompassSettingsDeepLink(0);
     v4 = *(v3 - 8);
     sub_1000033C8(v1 + ((*(v4 + 80) + 32) & ~*(v4 + 80)), v2);
 
@@ -148,22 +142,21 @@ uint64_t sub_100001930()
 
   else
   {
-    v6 = v0[4];
 
-    v3 = type metadata accessor for CompassSettingsDeepLink();
+    v3 = type metadata accessor for CompassSettingsDeepLink(0);
     v4 = *(v3 - 8);
     v5 = 1;
   }
 
   (*(v4 + 56))(v0[2], v5, 1, v3);
-  v7 = v0[1];
+  v6 = v0[1];
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_100001A58()
 {
-  v1 = type metadata accessor for CompassSettingsDeepLink();
+  v1 = type metadata accessor for CompassSettingsDeepLink(0);
   (*(*(v1 - 8) + 56))(*(v0 + 16), 1, 1, v1);
   v2 = *(v0 + 8);
 
@@ -184,17 +177,16 @@ uint64_t sub_100001AF0(uint64_t a1)
 uint64_t sub_100001B94(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 24);
-  v6 = *v2;
+  v5 = *v2;
 
   if (!v1)
   {
     **(v4 + 16) = a1;
   }
 
-  v7 = *(v6 + 8);
+  v6 = *(v5 + 8);
 
-  return v7();
+  return v6();
 }
 
 unint64_t sub_100001CAC()
@@ -221,7 +213,7 @@ unint64_t sub_100001D04()
   return result;
 }
 
-uint64_t type metadata accessor for CompassSettingsDeepLink()
+uint64_t type metadata accessor for CompassSettingsDeepLink(uint64_t a1)
 {
   result = qword_10000C128;
   if (!qword_10000C128)
@@ -255,27 +247,25 @@ uint64_t sub_100001E80(uint64_t a1)
 
 uint64_t sub_100001F24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = async function pointer to EntityQuery.displayRepresentations(for:requestedComponents:)[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = sub_100001FE4;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = sub_100001FE4;
 
   return EntityQuery.displayRepresentations(for:requestedComponents:)(a1, a2, a3, a4);
 }
 
 uint64_t sub_100001FE4(uint64_t a1)
 {
-  v4 = *(*v2 + 16);
-  v8 = *v2;
+  v7 = *v2;
 
-  v6 = *(v8 + 8);
+  v5 = *(v7 + 8);
   if (!v1)
   {
-    v5 = a1;
+    v4 = a1;
   }
 
-  return v6(v5);
+  return v5(v4);
 }
 
 unint64_t sub_1000020E8()
@@ -296,7 +286,7 @@ unint64_t sub_100002174()
   if (!qword_10000C060)
   {
     sub_100002214(&qword_10000C068, qword_1000051E8);
-    sub_100002F24(&qword_10000C058);
+    sub_100002F24(&qword_10000C058, &unk_100005490);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10000C060);
   }
@@ -309,7 +299,6 @@ uint64_t sub_100002214(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -319,24 +308,22 @@ uint64_t sub_100002214(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_10000225C(uint64_t a1, uint64_t a2)
 {
-  v5 = async function pointer to EntityQuery.results()[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  v7 = sub_100001294();
-  *v6 = v2;
-  v6[1] = sub_100002310;
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  v6 = sub_100001294();
+  *v5 = v2;
+  v5[1] = sub_100002310;
 
-  return EntityQuery.results()(a1, a2, v7);
+  return EntityQuery.results()(a1, a2, v6);
 }
 
 uint64_t sub_100002310()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_100002404(uint64_t a1)
@@ -349,27 +336,25 @@ uint64_t sub_100002404(uint64_t a1)
   return sub_100001770(a1);
 }
 
-uint64_t sub_1000024D8()
+uint64_t sub_1000024D8(uint64_t a1)
 {
-  v0 = sub_100002E40(&qword_10000C178, &qword_1000055B8);
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v8 - v3;
+  v1 = sub_100002E40(&qword_10000C178, &qword_1000055B8);
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
+  v4 = &v7 - v3;
   v5 = sub_100002E40(&qword_10000C180, &qword_1000055C0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5);
-  sub_100002F24(&qword_10000C048);
+  sub_100002F24(&qword_10000C048, &unk_10000530C);
   sub_100004D6C();
-  v9._object = 0x8000000100005A10;
-  v9._countAndFlagsBits = 0xD00000000000003FLL;
-  sub_100004D5C(v9);
-  (*(v1 + 104))(v4, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v0);
+  v8._object = 0x8000000100005A10;
+  v8._countAndFlagsBits = 0xD00000000000003FLL;
+  sub_100004D5C(v8);
+  (*(v2 + 104))(v4, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v1);
   sub_100004D4C();
-  (*(v1 + 8))(v4, v0);
-  v10._countAndFlagsBits = 0;
-  v10._object = 0xE000000000000000;
-  sub_100004D5C(v10);
+  (*(v2 + 8))(v4, v1);
+  v9._countAndFlagsBits = 0;
+  v9._object = 0xE000000000000000;
+  sub_100004D5C(v9);
   return sub_100004D7C();
 }
 
@@ -392,13 +377,13 @@ unint64_t sub_100002790()
   return result;
 }
 
-uint64_t sub_1000027E4()
+uint64_t sub_1000027E4(uint64_t a1)
 {
-  sub_100002F24(&qword_10000C170);
-  v1 = sub_100004D1C();
-  v2 = *(v0 + 8);
+  sub_100002F24(&qword_10000C170, &unk_1000052A4);
+  v2 = sub_100004D1C();
+  v3 = *(v1 + 8);
 
-  return v2(v1);
+  return v3(v2);
 }
 
 unint64_t sub_10000290C()
@@ -442,25 +427,24 @@ unint64_t sub_100002A18()
 
 uint64_t sub_100002A7C(uint64_t a1)
 {
-  v2 = sub_100002F24(&qword_10000C048);
+  v2 = sub_100002F24(&qword_10000C048, &unk_10000530C);
 
   return static AppEntity.defaultResolverSpecification.getter(a1, v2);
 }
 
 uint64_t sub_100002B1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = async function pointer to InstanceDisplayRepresentable.displayRepresentation(with:)[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = sub_100003914;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = sub_100003914;
 
   return InstanceDisplayRepresentable.displayRepresentation(with:)(a1, a2, a3, a4);
 }
 
 uint64_t sub_100002BE0(uint64_t a1)
 {
-  v2 = sub_100002F24(&qword_10000C0A8);
+  v2 = sub_100002F24(&qword_10000C0A8, &unk_1000054F0);
 
   return InstanceDisplayRepresentable.localizedStringResource.getter(a1, v2);
 }
@@ -511,10 +495,10 @@ _BYTE *sub_100002D14(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_100002DB4()
+uint64_t sub_100002DB4(uint64_t a1)
 {
   result = sub_100004CDC();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -528,7 +512,6 @@ uint64_t sub_100002E40(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -548,25 +531,22 @@ uint64_t sub_100002E88(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_100002EC0(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t sub_100002F24(unint64_t *a1)
+uint64_t sub_100002F24(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for CompassSettingsDeepLink();
+    type metadata accessor for CompassSettingsDeepLink(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -574,14 +554,14 @@ uint64_t sub_100002F24(unint64_t *a1)
   return result;
 }
 
-size_t sub_100002F68(size_t a1, int64_t a2, char a3)
+void *sub_100002F68(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_100002F88(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_100002F88(size_t result, int64_t a2, char a3, void *a4)
+void *sub_100002F88(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -623,12 +603,12 @@ LABEL_30:
 
   if (!v9)
   {
-    v13 = &_swiftEmptyArrayStorage;
+    v13 = _swiftEmptyArrayStorage;
     goto LABEL_19;
   }
 
   sub_100002E40(&qword_10000C188, &qword_1000055D8);
-  v10 = *(type metadata accessor for CompassSettingsDeepLink() - 8);
+  v10 = *(type metadata accessor for CompassSettingsDeepLink(0) - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   v13 = swift_allocObject();
@@ -641,7 +621,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -649,7 +629,7 @@ LABEL_29:
   v13[2] = v8;
   v13[3] = 2 * ((result - v12) / v11);
 LABEL_19:
-  v15 = *(type metadata accessor for CompassSettingsDeepLink() - 8);
+  v15 = *(type metadata accessor for CompassSettingsDeepLink(0) - 8);
   if (v5)
   {
     if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
@@ -675,11 +655,9 @@ LABEL_19:
 
 uint64_t sub_100003160()
 {
-  v1 = type metadata accessor for CompassSettingsDeepLink();
+  v1 = type metadata accessor for CompassSettingsDeepLink(0);
   v0[2] = v1;
-  v2 = *(v1 - 8);
-  v0[3] = v2;
-  v3 = *(v2 + 64) + 15;
+  v0[3] = *(v1 - 8);
   v0[4] = swift_task_alloc();
 
   return _swift_task_switch(sub_10000321C, 0, 0);
@@ -689,52 +667,49 @@ uint64_t sub_10000321C()
 {
   v2 = v0[3];
   v1 = v0[4];
-  v3 = v0[2];
   sub_100002F68(0, 2, 0);
   *v1 = 0;
-  v4 = &v1[*(v3 + 20)];
   sub_100004CCC();
-  v6 = _swiftEmptyArrayStorage[2];
-  v5 = _swiftEmptyArrayStorage[3];
-  if (v6 >= v5 >> 1)
+  v4 = _swiftEmptyArrayStorage[2];
+  v3 = _swiftEmptyArrayStorage[3];
+  if (v4 >= v3 >> 1)
   {
-    sub_100002F68(v5 > 1, v6 + 1, 1);
+    sub_100002F68((v3 > 1), v4 + 1, 1);
   }
 
-  v7 = v0[4];
-  _swiftEmptyArrayStorage[2] = v6 + 1;
-  v8 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-  v9 = *(v2 + 72);
-  sub_10000342C(v7, _swiftEmptyArrayStorage + v8 + v9 * v6);
-  *v7 = 1;
-  v10 = &v7[*(v3 + 20)];
+  v5 = v0[4];
+  _swiftEmptyArrayStorage[2] = v4 + 1;
+  v6 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+  v7 = *(v2 + 72);
+  sub_10000342C(v5, _swiftEmptyArrayStorage + v6 + v7 * v4);
+  *v5 = 1;
   sub_100004CCC();
-  v12 = _swiftEmptyArrayStorage[2];
-  v11 = _swiftEmptyArrayStorage[3];
-  if (v12 >= v11 >> 1)
+  v9 = _swiftEmptyArrayStorage[2];
+  v8 = _swiftEmptyArrayStorage[3];
+  if (v9 >= v8 >> 1)
   {
-    sub_100002F68(v11 > 1, v12 + 1, 1);
+    sub_100002F68((v8 > 1), v9 + 1, 1);
   }
 
-  v13 = v0[4];
-  _swiftEmptyArrayStorage[2] = v12 + 1;
-  sub_10000342C(v13, _swiftEmptyArrayStorage + v8 + v12 * v9);
+  v10 = v0[4];
+  _swiftEmptyArrayStorage[2] = v9 + 1;
+  sub_10000342C(v10, _swiftEmptyArrayStorage + v6 + v9 * v7);
 
-  v14 = v0[1];
+  v11 = v0[1];
 
-  return v14(_swiftEmptyArrayStorage);
+  return v11(_swiftEmptyArrayStorage);
 }
 
 uint64_t sub_1000033C8(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CompassSettingsDeepLink();
+  v4 = type metadata accessor for CompassSettingsDeepLink(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10000342C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CompassSettingsDeepLink();
+  v4 = type metadata accessor for CompassSettingsDeepLink(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -742,11 +717,9 @@ uint64_t sub_10000342C(uint64_t a1, uint64_t a2)
 uint64_t sub_100003494(uint64_t a1)
 {
   v1[2] = a1;
-  v2 = type metadata accessor for CompassSettingsDeepLink();
+  v2 = type metadata accessor for CompassSettingsDeepLink(0);
   v1[3] = v2;
-  v3 = *(v2 - 8);
-  v1[4] = v3;
-  v4 = *(v3 + 64) + 15;
+  v1[4] = *(v2 - 8);
   v1[5] = swift_task_alloc();
 
   return _swift_task_switch(sub_100003554, 0, 0);
@@ -758,46 +731,40 @@ uint64_t sub_100003554()
   v2 = *(v1 + 16);
   if (v2)
   {
-    v4 = v0[3];
     v3 = v0[4];
     sub_100002F68(0, v2, 0);
-    v5 = (v1 + 32);
+    v4 = (v1 + 32);
     do
     {
-      *v0[5] = *v5;
-      v6 = *(v4 + 20);
+      *v0[5] = *v4;
       sub_100004CCC();
-      v8 = _swiftEmptyArrayStorage[2];
-      v7 = _swiftEmptyArrayStorage[3];
-      if (v8 >= v7 >> 1)
+      v6 = _swiftEmptyArrayStorage[2];
+      v5 = _swiftEmptyArrayStorage[3];
+      if (v6 >= v5 >> 1)
       {
-        sub_100002F68(v7 > 1, v8 + 1, 1);
+        sub_100002F68((v5 > 1), v6 + 1, 1);
       }
 
-      v9 = v0[5];
-      _swiftEmptyArrayStorage[2] = v8 + 1;
-      sub_10000342C(v9, _swiftEmptyArrayStorage + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + *(v3 + 72) * v8);
-      ++v5;
+      v7 = v0[5];
+      _swiftEmptyArrayStorage[2] = v6 + 1;
+      sub_10000342C(v7, _swiftEmptyArrayStorage + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + *(v3 + 72) * v6);
+      ++v4;
       --v2;
     }
 
     while (v2);
   }
 
-  v10 = v0[5];
+  v8 = v0[1];
 
-  v11 = v0[1];
-
-  return v11(_swiftEmptyArrayStorage);
+  return v8(_swiftEmptyArrayStorage);
 }
 
 uint64_t sub_1000036AC()
 {
-  v1 = type metadata accessor for CompassSettingsDeepLink();
+  v1 = type metadata accessor for CompassSettingsDeepLink(0);
   v0[2] = v1;
-  v2 = *(v1 - 8);
-  v0[3] = v2;
-  v3 = *(v2 + 64) + 15;
+  v0[3] = *(v1 - 8);
   v0[4] = swift_task_alloc();
 
   return _swift_task_switch(sub_100003768, 0, 0);
@@ -807,97 +774,93 @@ uint64_t sub_100003768()
 {
   v2 = v0[3];
   v1 = v0[4];
-  v3 = v0[2];
   sub_100002F68(0, 2, 0);
   *v1 = 0;
-  v4 = &v1[*(v3 + 20)];
   sub_100004CCC();
-  v6 = _swiftEmptyArrayStorage[2];
-  v5 = _swiftEmptyArrayStorage[3];
-  if (v6 >= v5 >> 1)
+  v4 = _swiftEmptyArrayStorage[2];
+  v3 = _swiftEmptyArrayStorage[3];
+  if (v4 >= v3 >> 1)
   {
-    sub_100002F68(v5 > 1, v6 + 1, 1);
+    sub_100002F68((v3 > 1), v4 + 1, 1);
   }
 
-  v7 = v0[4];
-  _swiftEmptyArrayStorage[2] = v6 + 1;
-  v8 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-  v9 = *(v2 + 72);
-  sub_10000342C(v7, _swiftEmptyArrayStorage + v8 + v9 * v6);
-  *v7 = 1;
-  v10 = &v7[*(v3 + 20)];
+  v5 = v0[4];
+  _swiftEmptyArrayStorage[2] = v4 + 1;
+  v6 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+  v7 = *(v2 + 72);
+  sub_10000342C(v5, _swiftEmptyArrayStorage + v6 + v7 * v4);
+  *v5 = 1;
   sub_100004CCC();
-  v12 = _swiftEmptyArrayStorage[2];
-  v11 = _swiftEmptyArrayStorage[3];
-  if (v12 >= v11 >> 1)
+  v9 = _swiftEmptyArrayStorage[2];
+  v8 = _swiftEmptyArrayStorage[3];
+  if (v9 >= v8 >> 1)
   {
-    sub_100002F68(v11 > 1, v12 + 1, 1);
+    sub_100002F68((v8 > 1), v9 + 1, 1);
   }
 
-  v13 = v0[4];
-  _swiftEmptyArrayStorage[2] = v12 + 1;
-  sub_10000342C(v13, _swiftEmptyArrayStorage + v8 + v12 * v9);
+  v10 = v0[4];
+  _swiftEmptyArrayStorage[2] = v9 + 1;
+  sub_10000342C(v10, _swiftEmptyArrayStorage + v6 + v9 * v7);
 
-  v14 = v0[1];
+  v11 = v0[1];
 
-  return v14(_swiftEmptyArrayStorage);
+  return v11(_swiftEmptyArrayStorage);
 }
 
 uint64_t sub_100003934(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0x5552545F45535523;
+    v3 = 0x5552545F45535523;
   }
 
   else
   {
-    v4 = 47;
+    v3 = 47;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE100000000000000;
+    v4 = 0xE100000000000000;
   }
 
   else
   {
-    v5 = 0xEF4854524F4E5F45;
+    v4 = 0xEF4854524F4E5F45;
   }
 
   if (*a2)
   {
-    v6 = 0x5552545F45535523;
+    v5 = 0x5552545F45535523;
   }
 
   else
   {
-    v6 = 47;
+    v5 = 47;
   }
 
   if (*a2)
   {
-    v7 = 0xEF4854524F4E5F45;
+    v6 = 0xEF4854524F4E5F45;
   }
 
   else
   {
-    v7 = 0xE100000000000000;
+    v6 = 0xE100000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = sub_100004E3C();
+    v8 = sub_100004E3C();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 unint64_t sub_1000039E0()
@@ -914,22 +877,19 @@ unint64_t sub_1000039E0()
 
 Swift::Int sub_100003A34()
 {
-  v1 = *v0;
   sub_100004E4C();
   sub_100004E1C();
 
   return sub_100004E5C();
 }
 
-uint64_t sub_100003AB8()
+uint64_t sub_100003AB8(uint64_t a1)
 {
-  *v0;
   sub_100004E1C();
 }
 
-Swift::Int sub_100003B28()
+Swift::Int sub_100003B28(uint64_t a1)
 {
-  v1 = *v0;
   sub_100004E4C();
   sub_100004E1C();
 
@@ -998,16 +958,13 @@ uint64_t sub_100003CC0()
 {
   if (*v0)
   {
-    result = 0x5552545F45535523;
+    return 0x5552545F45535523;
   }
 
   else
   {
-    result = 47;
+    return 47;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t sub_100003CFC@<X0>(uint64_t a1@<X0>, void *a2@<X1>, char *a3@<X8>)
@@ -1221,30 +1178,27 @@ uint64_t sub_100003F6C()
 
 uint64_t sub_100003FF4(uint64_t a1)
 {
-  v3 = type metadata accessor for CompassSettingsDeepLink();
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = *v1;
-  sub_1000033C8(a1, &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v2 = type metadata accessor for CompassSettingsDeepLink(0);
+  __chkstk_darwin(v2 - 8);
+  sub_1000033C8(a1, &v5 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_100004CAC();
   return sub_100004B5C(a1);
 }
 
-void (*sub_100004084(uint64_t *a1))(void *a1)
+uint64_t (*sub_100004084(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
-    v3 = swift_coroFrameAlloc();
+    v2 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v3 = malloc(0x28uLL);
+    v2 = malloc(0x28uLL);
   }
 
-  *a1 = v3;
-  v4 = *v1;
-  *(v3 + 32) = sub_100004C8C();
+  *a1 = v2;
+  *(v2 + 32) = sub_100004C8C();
   return sub_1000040F8;
 }
 
@@ -1271,7 +1225,7 @@ unint64_t sub_100004144()
 uint64_t sub_100004198(uint64_t a1, uint64_t a2)
 {
   v4 = sub_100004AB4();
-  v5 = sub_100002F24(&qword_10000C170);
+  v5 = sub_100002F24(&qword_10000C170, &unk_1000052A4);
 
   return static URLRepresentableIntent<>.urlRepresentation.getter(a1, v4, a2, v5);
 }
@@ -1342,28 +1296,26 @@ uint64_t sub_100004460(uint64_t a1)
 
 uint64_t sub_1000044B4(uint64_t a1, uint64_t a2)
 {
-  v4 = async function pointer to URLRepresentableIntent<>.perform()[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  v6 = sub_100004AB4();
-  v7 = sub_100004B08();
-  v8 = sub_100002F24(&qword_10000C170);
-  *v5 = v2;
-  v5[1] = sub_10000459C;
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  v5 = sub_100004AB4();
+  v6 = sub_100004B08();
+  v7 = sub_100002F24(&qword_10000C170, &unk_1000052A4);
+  *v4 = v2;
+  v4[1] = sub_10000459C;
 
-  return URLRepresentableIntent<>.perform()(a2, v6, v7, v8);
+  return URLRepresentableIntent<>.perform()(a2, v5, v6, v7);
 }
 
 uint64_t sub_10000459C()
 {
-  v2 = *(*v1 + 16);
-  v3 = *v1;
+  v2 = *v1;
 
   if (v0)
   {
-    v5 = *(v3 + 8);
+    v4 = *(v2 + 8);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -1385,40 +1337,35 @@ uint64_t sub_1000046CC(uint64_t a1)
 
 uint64_t sub_100004718()
 {
-  v27 = sub_100004D8C();
-  v0 = *(v27 - 8);
-  v1 = *(v0 + 64);
-  __chkstk_darwin(v27);
-  v3 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100002E40(&qword_10000C1E0, &qword_100005990);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v26 - v9;
-  v11 = sub_100002E40(&qword_10000C1E8, &unk_100005998);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v14 = &v26 - v13;
-  v15 = sub_100002E40(&qword_10000C168, &qword_1000055B0);
-  v16 = *(*(v15 - 8) + 64);
-  __chkstk_darwin(v15 - 8);
-  v18 = &v26 - v17;
-  v19 = sub_100004DFC();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  __chkstk_darwin(v19);
-  v26 = sub_100002E40(&qword_10000C1F0, &qword_1000059A8);
+  v22 = sub_100004D8C();
+  v0 = *(v22 - 8);
+  __chkstk_darwin(v22);
+  v2 = &v21 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = sub_100002E40(&qword_10000C1E0, &qword_100005990);
+  v4 = __chkstk_darwin(v3 - 8);
+  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v21 - v7;
+  v9 = sub_100002E40(&qword_10000C1E8, &unk_100005998);
+  __chkstk_darwin(v9 - 8);
+  v11 = &v21 - v10;
+  v12 = sub_100002E40(&qword_10000C168, &qword_1000055B0);
+  __chkstk_darwin(v12 - 8);
+  v14 = &v21 - v13;
+  v15 = sub_100004DFC();
+  v16 = *(v15 - 8);
+  __chkstk_darwin(v15);
+  v21 = sub_100002E40(&qword_10000C1F0, &qword_1000059A8);
   sub_100004DEC();
-  (*(v20 + 56))(v18, 1, 1, v19);
-  v22 = type metadata accessor for CompassSettingsDeepLink();
-  (*(*(v22 - 8) + 56))(v14, 1, 1, v22);
-  v23 = sub_100004C7C();
-  v24 = *(*(v23 - 8) + 56);
-  v24(v10, 1, 1, v23);
-  v24(v8, 1, 1, v23);
-  (*(v0 + 104))(v3, enum case for InputConnectionBehavior.default(_:), v27);
-  sub_100002F24(&qword_10000C048);
+  (*(v16 + 56))(v14, 1, 1, v15);
+  v17 = type metadata accessor for CompassSettingsDeepLink(0);
+  (*(*(v17 - 8) + 56))(v11, 1, 1, v17);
+  v18 = sub_100004C7C();
+  v19 = *(*(v18 - 8) + 56);
+  v19(v8, 1, 1, v18);
+  v19(v6, 1, 1, v18);
+  (*(v0 + 104))(v2, enum case for InputConnectionBehavior.default(_:), v22);
+  sub_100002F24(&qword_10000C048, &unk_10000530C);
   return sub_100004CBC();
 }
 
@@ -1448,7 +1395,7 @@ unint64_t sub_100004B08()
 
 uint64_t sub_100004B5C(uint64_t a1)
 {
-  v2 = type metadata accessor for CompassSettingsDeepLink();
+  v2 = type metadata accessor for CompassSettingsDeepLink(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }

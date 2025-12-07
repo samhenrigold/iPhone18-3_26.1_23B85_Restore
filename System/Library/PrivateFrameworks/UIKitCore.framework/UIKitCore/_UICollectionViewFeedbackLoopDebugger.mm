@@ -51,8 +51,8 @@
     v14 = sub_188E4BDB0((v17 > 1), v18 + 1, 1, v14);
   }
 
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937F10);
-  v22 = sub_188A34360(&qword_1EA937F18, &qword_1EA937F10);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937F10, &qword_18A654F88);
+  v22 = sub_188A34360(&qword_1EA937F18, &qword_1EA937F10, &qword_18A654F88, &unk_18A655170);
   v19 = swift_allocObject();
   *&v20 = v19;
   *(v19 + 2) = v10;

@@ -69,7 +69,7 @@
 
   CARingBuffer::Fetch(self->ringBufRef, &v14, capacity, v13);
   CARingBuffer::Deallocate(self->ringBufRef);
-  CARingBuffer::Allocate(self->ringBufRef, 1, self->bytesPerFrame, capacity);
+  CARingBuffer::Allocate(self->ringBufRef, 1u, self->bytesPerFrame, capacity);
   CARingBuffer::Store(self->ringBufRef, &v14, self->capacity, v13);
   self->capacity = capacity;
 }

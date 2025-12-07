@@ -660,7 +660,6 @@ LABEL_24:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x200) == 0)
@@ -680,7 +679,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numAttempt = self->_numAttempt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -695,7 +693,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  rachResult = self->_rachResult;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -710,7 +707,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  rachContention = self->_rachContention;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -725,7 +721,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  ssbId = self->_ssbId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -740,7 +735,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  csiRsId = self->_csiRsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -755,7 +749,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  carrierId = self->_carrierId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -770,7 +763,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  lastTxPower = self->_lastTxPower;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -785,7 +777,6 @@ LABEL_10:
   }
 
 LABEL_40:
-  tac = self->_tac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -800,7 +791,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -815,12 +805,10 @@ LABEL_12:
   }
 
 LABEL_42:
-  accbState = self->_accbState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_13:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -830,16 +818,15 @@ LABEL_14:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x10000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x2000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x2000) == 0)
     {
 LABEL_18:
-      if ((*&v7 & 0x40000) == 0)
+      if ((*&v6 & 0x40000) == 0)
       {
         goto LABEL_19;
       }
@@ -848,18 +835,17 @@ LABEL_18:
     }
   }
 
-  else if ((*&v7 & 0x2000) == 0)
+  else if ((*&v6 & 0x2000) == 0)
   {
     goto LABEL_18;
   }
 
-  rachReason = self->_rachReason;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x40000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40000) == 0)
   {
 LABEL_19:
-    if ((*&v7 & 0x20) == 0)
+    if ((*&v6 & 0x20) == 0)
     {
       goto LABEL_20;
     }
@@ -868,13 +854,12 @@ LABEL_19:
   }
 
 LABEL_46:
-  txPowerDiff = self->_txPowerDiff;
   PBDataWriterWriteSint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x20) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20) == 0)
   {
 LABEL_20:
-    if ((*&v7 & 0x800) == 0)
+    if ((*&v6 & 0x800) == 0)
     {
       goto LABEL_21;
     }
@@ -883,13 +868,12 @@ LABEL_20:
   }
 
 LABEL_47:
-  dcMode = self->_dcMode;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x800) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_21:
-    if ((*&v7 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_22;
     }
@@ -898,13 +882,12 @@ LABEL_21:
   }
 
 LABEL_48:
-  psPref = self->_psPref;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x80) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_22:
-    if ((*&v7 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_24;
     }
@@ -913,46 +896,43 @@ LABEL_22:
   }
 
 LABEL_49:
-  freqRange = self->_freqRange;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_23:
-    freqBandInd = self->_freqBandInd;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_24:
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v9 = self->_servingCellBeamInfos;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v10)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_servingCellBeamInfos;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v33;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        if (*v33 != v12)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
-        v13 = v13 + 1;
+        ++v11;
       }
 
-      while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v9 != v11);
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
 }
 

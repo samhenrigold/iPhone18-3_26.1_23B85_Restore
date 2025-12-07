@@ -102,18 +102,18 @@
   [(CMDrawingContext *)self->super.super.mDrawingContext addTransform:transform];
   [(CMDiagramShapeMapper *)self setDefaultFonSize];
   mChildCount = self->super.mChildCount;
-  v48 = transform;
+  v47 = transform;
   if (mChildCount == 2)
   {
     v16 = *&dword_27FC698D0;
     [(CMDiagramArrowMapper *)self circumscribedBounds];
-    Width = CGRectGetWidth(v53);
+    Width = CGRectGetWidth(v52);
     v18 = *(&qword_27FC698D8 + 1);
     [(CMDiagramArrowMapper *)self circumscribedBounds];
-    v19 = CGRectGetWidth(v54);
+    v19 = CGRectGetWidth(v53);
     v20 = *(&_MergedGlobals_25 + 1);
     [(CMDiagramArrowMapper *)self circumscribedBounds];
-    Height = CGRectGetHeight(v55);
+    Height = CGRectGetHeight(v54);
     v22 = 0;
     v23 = v16 / Width;
     v24 = v18 / v19;
@@ -167,7 +167,7 @@
   else if (mChildCount)
   {
     v38 = 0;
-    v49 = mChildCount;
+    v48 = mChildCount;
     do
     {
       documentPoint3 = [(ODDDiagram *)self->super.super.mDiagram documentPoint];
@@ -176,25 +176,25 @@
 
       if (mChildCount == 2)
       {
-        v42 = v38 * 360.0 / v49;
+        v42 = v38 * 360.0 / v48;
         v43 = v42 + -90.0;
       }
 
       else
       {
-        v43 = v38 * 360.0 / v49;
+        v43 = v38 * 360.0 / v48;
       }
 
       cos((v43 + -90.0) * 3.14159265 / 180.0);
       [(OADOrientedBounds *)self->super.mDiagramShapeBounds bounds];
-      CGRectGetWidth(v56);
+      CGRectGetWidth(v55);
       sin((v43 + -90.0) * 3.14159265 / 180.0);
       [(OADOrientedBounds *)self->super.mDiagramShapeBounds bounds];
-      CGRectGetHeight(v57);
-      TSURectWithOriginAndSize(v44);
-      v45 = [OADOrientedBounds orientedBoundsWithBounds:"orientedBoundsWithBounds:rotation:flipX:flipY:" rotation:0 flipX:0 flipY:?];
-      v46 = [[CMDiagramPointArrowMapper alloc] initWithPoint:v41 drawingContext:self->super.super.mDrawingContext orientedBounds:v45 parent:self];
-      [(CMDiagramPointArrowMapper *)v46 mapAt:atCopy withState:stateCopy];
+      CGRectGetHeight(v56);
+      TSURectWithOriginAndSize();
+      v44 = [OADOrientedBounds orientedBoundsWithBounds:"orientedBoundsWithBounds:rotation:flipX:flipY:" rotation:0 flipX:0 flipY:?];
+      v45 = [[CMDiagramPointArrowMapper alloc] initWithPoint:v41 drawingContext:self->super.super.mDrawingContext orientedBounds:v44 parent:self];
+      [(CMDiagramPointArrowMapper *)v45 mapAt:atCopy withState:stateCopy];
 
       ++v38;
     }
@@ -202,7 +202,7 @@
     while (mChildCount != v38);
   }
 
-  v47 = v48;
+  v46 = v47;
   [(CMDrawingContext *)self->super.super.mDrawingContext restoreLastTransform];
 }
 

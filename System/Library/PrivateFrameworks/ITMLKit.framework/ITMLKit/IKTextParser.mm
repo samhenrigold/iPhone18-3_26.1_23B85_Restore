@@ -315,15 +315,15 @@ LABEL_15:
 
 - (id)_attributedStringFromDomElement:(id)element usingParseBlock:(id)block
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   blockCopy = block;
   v8 = objc_alloc_init(MEMORY[0x277CCAB48]);
-  v37 = 1;
+  v36 = 1;
   childNodesAsArray = [elementCopy childNodesAsArray];
   if (blockCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v10 = blockCopy[2](blockCopy, self, elementCopy, &v37);
+    v10 = blockCopy[2](blockCopy, self, elementCopy, &v36);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -336,7 +336,7 @@ LABEL_15:
       v11 = 0;
     }
 
-    if ((v37 & 1) == 0)
+    if ((v36 & 1) == 0)
     {
 
       childNodesAsArray = 0;
@@ -350,7 +350,7 @@ LABEL_15:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && v37 == 1)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && v36 == 1)
   {
     textContent = [elementCopy textContent];
 
@@ -358,15 +358,15 @@ LABEL_15:
   }
 
   nodeName = [elementCopy nodeName];
-  v32 = elementCopy;
-  v30 = nodeName;
+  v31 = elementCopy;
+  v29 = nodeName;
   if ([nodeName isEqualToString:@"b"])
   {
-    v45 = @"bold";
-    v46[0] = MEMORY[0x277CBEC38];
+    v44 = @"bold";
+    v45[0] = MEMORY[0x277CBEC38];
     v14 = MEMORY[0x277CBEAC0];
-    v15 = v46;
-    v16 = &v45;
+    v15 = v45;
+    v16 = &v44;
 LABEL_20:
     v17 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
     goto LABEL_21;
@@ -374,42 +374,42 @@ LABEL_20:
 
   if ([nodeName isEqualToString:@"i"])
   {
-    v43 = @"italic";
-    v44 = MEMORY[0x277CBEC38];
+    v42 = @"italic";
+    v43 = MEMORY[0x277CBEC38];
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v44;
-    v16 = &v43;
+    v15 = &v43;
+    v16 = &v42;
     goto LABEL_20;
   }
 
   if ([nodeName isEqualToString:@"span"])
   {
-    v41 = @"span";
-    v42 = MEMORY[0x277CBEC38];
+    v40 = @"span";
+    v41 = MEMORY[0x277CBEC38];
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v42;
-    v16 = &v41;
+    v15 = &v41;
+    v16 = &v40;
     goto LABEL_20;
   }
 
   if ([nodeName isEqualToString:@"strike"])
   {
-    v39 = @"strike";
-    v40 = MEMORY[0x277CBEC38];
+    v38 = @"strike";
+    v39 = MEMORY[0x277CBEC38];
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v40;
-    v16 = &v39;
+    v15 = &v39;
+    v16 = &v38;
     goto LABEL_20;
   }
 
   if ([nodeName isEqualToString:@"date"])
   {
-    v27 = [(IKTextParser *)self _stringFromDateElement:elementCopy unformattedString:v10];
+    v26 = [(IKTextParser *)self _stringFromDateElement:elementCopy unformattedString:v10];
   }
 
   else if ([nodeName isEqualToString:@"duration"])
   {
-    v27 = [(IKTextParser *)self _stringFromDurationElement:elementCopy unformattedString:v10];
+    v26 = [(IKTextParser *)self _stringFromDurationElement:elementCopy unformattedString:v10];
   }
 
   else
@@ -431,21 +431,21 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v27 = [(IKTextParser *)self _stringFromNumberElement:elementCopy unformattedString:v10];
+    v26 = [(IKTextParser *)self _stringFromNumberElement:elementCopy unformattedString:v10];
   }
 
-  v28 = v27;
-  if (v27)
+  v27 = v26;
+  if (v26)
   {
-    v29 = v27;
+    v28 = v26;
 
-    v10 = v29;
+    v10 = v28;
   }
 
   v17 = 0;
   childNodesAsArray = 0;
 LABEL_21:
-  v31 = v10;
+  v30 = v10;
   if ([(__CFString *)v10 length])
   {
     if (!v11)
@@ -462,30 +462,30 @@ LABEL_21:
     v18 = v11;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v19 = childNodesAsArray;
-  v20 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [(IKTextParser *)self _attributedStringFromDomElement:*(*(&v33 + 1) + 8 * i) usingParseBlock:blockCopy];
+        v24 = [(IKTextParser *)self _attributedStringFromDomElement:*(*(&v32 + 1) + 8 * i) usingParseBlock:blockCopy];
         [v8 appendAttributedString:v24];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v21);
@@ -495,8 +495,6 @@ LABEL_21:
   {
     [v8 addAttributes:v17 range:{0, objc_msgSend(v8, "length")}];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

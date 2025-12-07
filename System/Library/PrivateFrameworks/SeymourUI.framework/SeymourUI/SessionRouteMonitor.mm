@@ -6,7 +6,7 @@
 
 - (void)onOutputDeviceChanged
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C762220, &qword_20C151250);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v8 - v4;
   v6 = sub_20C13CDF4();

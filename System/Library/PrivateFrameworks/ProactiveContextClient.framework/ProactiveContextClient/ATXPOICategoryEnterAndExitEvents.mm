@@ -33,7 +33,7 @@ LABEL_11:
 
   if (![(NSArray *)categoryEnterEvents count])
   {
-    v17 = __atxlog_handle_anchor();
+    v17 = __atxlog_handle_anchor(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       __86__ATXPOICategoryEventAggregator_groupVisitsFromPublisher_startTimestamp_endTimestamp___block_invoke_2_cold_1(v17);

@@ -34,7 +34,7 @@
     satelliteAvailabilityTitleLabelAttributedText = IMLogHandleForCategory();
     if (os_log_type_enabled(satelliteAvailabilityTitleLabelAttributedText, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptSatelliteAvailabilityCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptSatelliteAvailabilityCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

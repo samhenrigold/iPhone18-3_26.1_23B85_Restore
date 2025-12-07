@@ -281,7 +281,7 @@ NSObject *__54__JFXVideoMediaItem_loadAVAssetWithCompletionHandler___block_invok
   if (videoMediaItemUtils)
   {
     v6 = videoMediaItemUtils;
-    [videoMediaItemUtils transform];
+    objc_msgSend_transform(videoMediaItemUtils);
     videoMediaItemUtils = v6;
   }
 
@@ -300,7 +300,7 @@ NSObject *__54__JFXVideoMediaItem_loadAVAssetWithCompletionHandler___block_invok
   [(JFXVideoMediaItem *)self naturalSize];
   v7 = v4;
   v8 = v3;
-  [(JFXVideoMediaItem *)self transform];
+  objc_msgSend_transform(self);
   v5 = vabsq_f64(vmlaq_n_f64(vmulq_n_f64(v10, v7), v9, v8));
   v6 = v5.f64[1];
   result.width = v5.f64[0];
@@ -349,7 +349,7 @@ NSObject *__54__JFXVideoMediaItem_loadAVAssetWithCompletionHandler___block_invok
 {
   videoMediaItemUtils = [(JFXVideoMediaItem *)self videoMediaItemUtils];
   asset = [(JTAssetMediaItem *)self asset];
-  [asset duration];
+  objc_msgSend_duration(asset);
   v5 = [videoMediaItemUtils durationAt30fpsWithAssetDuration:?];
 
   return v5;

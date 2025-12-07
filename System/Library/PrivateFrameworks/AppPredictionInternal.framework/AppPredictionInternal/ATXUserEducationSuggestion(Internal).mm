@@ -22,20 +22,18 @@
   userDefaultsKeyForTrackingSuggestionState = [self userDefaultsKeyForTrackingSuggestionState];
   [userDefaults setInteger:a3 forKey:userDefaultsKeyForTrackingSuggestionState];
 
-  v7 = __atxlog_handle_context_user_education_suggestions();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __atxlog_handle_context_user_education_suggestions(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = ATXUserEducationSuggestionStateToString(a3);
+    v9 = ATXUserEducationSuggestionStateToString(a3);
     v10 = 136315650;
     v11 = "[ATXUserEducationSuggestion(Internal) writeSuggestionState:]";
     v12 = 2114;
     selfCopy = self;
     v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s: Recorded suggestion %{public}@ as %{public}@", &v10, 0x20u);
+    v15 = v9;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: Recorded suggestion %{public}@ as %{public}@", &v10, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)readSuggestionState

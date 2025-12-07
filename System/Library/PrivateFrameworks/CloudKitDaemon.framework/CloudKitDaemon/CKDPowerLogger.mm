@@ -29,7 +29,7 @@
 
 - (void)logOperationCombinedMetrics:(id)metrics forOperationID:(id)d operationType:(int64_t)type operationGroupID:(id)iD operationGroupName:(id)name operationGroupQuantity:(unint64_t)quantity operationQualityOfService:(int64_t)service backgroundTaskIdentifier:(id)self0 appContainerTuple:(id)self1
 {
-  v257[38] = *MEMORY[0x277D85DE8];
+  v256[38] = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dCopy = d;
   iDCopy = iD;
@@ -41,10 +41,10 @@
   if (objc_msgSend_isEnabled(v22, v23, v24))
   {
     v27 = identifierCopy;
-    v217 = objc_msgSend_cloudKitMetrics(metricsCopy, v25, v26);
-    v254 = objc_msgSend_MMCSMetrics(metricsCopy, v28, v29);
-    v251 = iDCopy;
-    v252 = dCopy;
+    v216 = objc_msgSend_cloudKitMetrics(metricsCopy, v25, v26);
+    v253 = objc_msgSend_MMCSMetrics(metricsCopy, v28, v29);
+    v250 = iDCopy;
+    v251 = dCopy;
     if (dCopy)
     {
       v31 = dCopy;
@@ -55,8 +55,8 @@
       v31 = &stru_28385ED00;
     }
 
-    v256[0] = @"operationID";
-    v256[1] = @"operationGroupID";
+    v255[0] = @"operationID";
+    v255[1] = @"operationGroupID";
     if (iDCopy)
     {
       v32 = iDCopy;
@@ -67,9 +67,9 @@
       v32 = &stru_28385ED00;
     }
 
-    v257[0] = v31;
-    v257[1] = v32;
-    v250 = nameCopy;
+    v256[0] = v31;
+    v256[1] = v32;
+    v249 = nameCopy;
     if (nameCopy)
     {
       v33 = nameCopy;
@@ -80,21 +80,21 @@
       v33 = &stru_28385ED00;
     }
 
-    v257[2] = v33;
-    v256[2] = @"operationGroupName";
-    v256[3] = @"operationGroupQuantity";
-    v248 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v30, quantity);
-    v257[3] = v248;
-    v256[4] = @"operationQualityOfService";
-    v247 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v34, service);
-    v257[4] = v247;
-    v256[5] = @"operationType";
-    v246 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v35, type);
-    v257[5] = v246;
-    v256[6] = @"containerIdentifier";
-    v245 = objc_msgSend_containerID(tupleCopy, v36, v37);
-    v40 = objc_msgSend_containerIdentifier(v245, v38, v39);
-    v244 = v40;
+    v256[2] = v33;
+    v255[2] = @"operationGroupName";
+    v255[3] = @"operationGroupQuantity";
+    v247 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v30, quantity);
+    v256[3] = v247;
+    v255[4] = @"operationQualityOfService";
+    v246 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v34, service);
+    v256[4] = v246;
+    v255[5] = @"operationType";
+    v245 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v35, type);
+    v256[5] = v245;
+    v255[6] = @"containerIdentifier";
+    v244 = objc_msgSend_containerID(tupleCopy, v36, v37);
+    v40 = objc_msgSend_containerIdentifier(v244, v38, v39);
+    v243 = v40;
     if (v40)
     {
       v43 = v40;
@@ -105,17 +105,17 @@
       v43 = &stru_28385ED00;
     }
 
-    v257[6] = v43;
-    v256[7] = @"containerEnvironment";
+    v256[6] = v43;
+    v255[7] = @"containerEnvironment";
     v44 = MEMORY[0x277CCABB0];
-    v243 = objc_msgSend_containerID(tupleCopy, v41, v42);
-    v47 = objc_msgSend_environment(v243, v45, v46);
-    v242 = objc_msgSend_numberWithInteger_(v44, v48, v47);
-    v257[7] = v242;
-    v256[8] = @"bundleIdentifier";
-    v241 = objc_msgSend_applicationID(tupleCopy, v49, v50);
-    v53 = objc_msgSend_applicationBundleIdentifier(v241, v51, v52);
-    v240 = v53;
+    v242 = objc_msgSend_containerID(tupleCopy, v41, v42);
+    v47 = objc_msgSend_environment(v242, v45, v46);
+    v241 = objc_msgSend_numberWithInteger_(v44, v48, v47);
+    v256[7] = v241;
+    v255[8] = @"bundleIdentifier";
+    v240 = objc_msgSend_applicationID(tupleCopy, v49, v50);
+    v53 = objc_msgSend_applicationBundleIdentifier(v240, v51, v52);
+    v239 = v53;
     if (v53)
     {
       v56 = v53;
@@ -126,12 +126,12 @@
       v56 = &stru_28385ED00;
     }
 
-    v257[8] = v56;
-    v256[9] = @"sourceAppBundleIdentifier";
-    v249 = tupleCopy;
-    v239 = objc_msgSend_applicationID(tupleCopy, v54, v55);
-    v59 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v239, v57, v58);
-    v238 = v59;
+    v256[8] = v56;
+    v255[9] = @"sourceAppBundleIdentifier";
+    v248 = tupleCopy;
+    v238 = objc_msgSend_applicationID(tupleCopy, v54, v55);
+    v59 = objc_msgSend_applicationBundleIdentifierOverrideForNetworkAttribution(v238, v57, v58);
+    v237 = v59;
     if (v59)
     {
       v62 = v59;
@@ -152,92 +152,92 @@
       v63 = &stru_28385ED00;
     }
 
-    v257[9] = v62;
-    v257[10] = v63;
-    v256[10] = @"xpcActivityIdentifier";
-    v256[11] = @"CKStartDate";
-    v66 = objc_msgSend_startDate(v217, v60, v61);
-    v237 = v66;
+    v256[9] = v62;
+    v256[10] = v63;
+    v255[10] = @"xpcActivityIdentifier";
+    v255[11] = @"CKStartDate";
+    v66 = objc_msgSend_startDate(v216, v60, v61);
+    v236 = v66;
     if (!v66)
     {
       v66 = objc_msgSend_distantPast(MEMORY[0x277CBEAA8], v64, v65);
     }
 
-    v216 = v66;
-    v257[11] = v66;
-    v256[12] = @"CKDuration";
+    v215 = v66;
+    v256[11] = v66;
+    v255[12] = @"CKDuration";
     v67 = MEMORY[0x277CCABB0];
-    objc_msgSend_duration(v217, v64, v65);
-    v236 = objc_msgSend_numberWithUnsignedInteger_(v67, v69, v68);
-    v257[12] = v236;
-    v256[13] = @"CKBytesUploaded";
+    objc_msgSend_duration(v216, v64, v65);
+    v235 = objc_msgSend_numberWithUnsignedInteger_(v67, v69, v68);
+    v256[12] = v235;
+    v255[13] = @"CKBytesUploaded";
     v70 = MEMORY[0x277CCABB0];
-    v73 = objc_msgSend_bytesUploaded(v217, v71, v72);
-    v235 = objc_msgSend_numberWithUnsignedInteger_(v70, v74, v73);
-    v257[13] = v235;
-    v256[14] = @"CKBytesDownloaded";
+    v73 = objc_msgSend_bytesUploaded(v216, v71, v72);
+    v234 = objc_msgSend_numberWithUnsignedInteger_(v70, v74, v73);
+    v256[13] = v234;
+    v255[14] = @"CKBytesDownloaded";
     v75 = MEMORY[0x277CCABB0];
-    v78 = objc_msgSend_bytesDownloaded(v217, v76, v77);
-    v234 = objc_msgSend_numberWithUnsignedInteger_(v75, v79, v78);
-    v257[14] = v234;
-    v256[15] = @"CKConnections";
+    v78 = objc_msgSend_bytesDownloaded(v216, v76, v77);
+    v233 = objc_msgSend_numberWithUnsignedInteger_(v75, v79, v78);
+    v256[14] = v233;
+    v255[15] = @"CKConnections";
     v80 = MEMORY[0x277CCABB0];
-    v83 = objc_msgSend_connections(v217, v81, v82);
-    v233 = objc_msgSend_numberWithUnsignedInteger_(v80, v84, v83);
-    v257[15] = v233;
-    v256[16] = @"CKConnectionsCreated";
+    v83 = objc_msgSend_connections(v216, v81, v82);
+    v232 = objc_msgSend_numberWithUnsignedInteger_(v80, v84, v83);
+    v256[15] = v232;
+    v255[16] = @"CKConnectionsCreated";
     v85 = MEMORY[0x277CCABB0];
-    v88 = objc_msgSend_connectionsCreated(v217, v86, v87);
-    v232 = objc_msgSend_numberWithUnsignedInteger_(v85, v89, v88);
-    v257[16] = v232;
-    v256[17] = @"CKRecordsUploaded";
+    v88 = objc_msgSend_connectionsCreated(v216, v86, v87);
+    v231 = objc_msgSend_numberWithUnsignedInteger_(v85, v89, v88);
+    v256[16] = v231;
+    v255[17] = @"CKRecordsUploaded";
     v90 = MEMORY[0x277CCABB0];
-    v93 = objc_msgSend_recordsUploaded(v217, v91, v92);
-    v231 = objc_msgSend_numberWithUnsignedInteger_(v90, v94, v93);
-    v257[17] = v231;
-    v256[18] = @"CKRecordsDownloaded";
+    v93 = objc_msgSend_recordsUploaded(v216, v91, v92);
+    v230 = objc_msgSend_numberWithUnsignedInteger_(v90, v94, v93);
+    v256[17] = v230;
+    v255[18] = @"CKRecordsDownloaded";
     v95 = MEMORY[0x277CCABB0];
-    v98 = objc_msgSend_recordsDownloaded(v217, v96, v97);
-    v230 = objc_msgSend_numberWithUnsignedInteger_(v95, v99, v98);
-    v257[18] = v230;
-    v256[19] = @"CKRecordsDeleted";
+    v98 = objc_msgSend_recordsDownloaded(v216, v96, v97);
+    v229 = objc_msgSend_numberWithUnsignedInteger_(v95, v99, v98);
+    v256[18] = v229;
+    v255[19] = @"CKRecordsDeleted";
     v100 = MEMORY[0x277CCABB0];
-    v103 = objc_msgSend_recordsDeleted(v217, v101, v102);
-    v229 = objc_msgSend_numberWithUnsignedInteger_(v100, v104, v103);
-    v257[19] = v229;
-    v256[20] = @"CKAssetsUploaded";
+    v103 = objc_msgSend_recordsDeleted(v216, v101, v102);
+    v228 = objc_msgSend_numberWithUnsignedInteger_(v100, v104, v103);
+    v256[19] = v228;
+    v255[20] = @"CKAssetsUploaded";
     v105 = MEMORY[0x277CCABB0];
-    v108 = objc_msgSend_assetsUploaded(v217, v106, v107);
-    v228 = objc_msgSend_numberWithUnsignedInteger_(v105, v109, v108);
-    v257[20] = v228;
-    v256[21] = @"CKAssetsUploadedFileSize";
+    v108 = objc_msgSend_assetsUploaded(v216, v106, v107);
+    v227 = objc_msgSend_numberWithUnsignedInteger_(v105, v109, v108);
+    v256[20] = v227;
+    v255[21] = @"CKAssetsUploadedFileSize";
     v110 = MEMORY[0x277CCABB0];
-    v113 = objc_msgSend_assetsUploadedFileSize(v217, v111, v112);
-    v227 = objc_msgSend_numberWithUnsignedInteger_(v110, v114, v113);
-    v257[21] = v227;
-    v256[22] = @"CKAssetsDownloaded";
+    v113 = objc_msgSend_assetsUploadedFileSize(v216, v111, v112);
+    v226 = objc_msgSend_numberWithUnsignedInteger_(v110, v114, v113);
+    v256[21] = v226;
+    v255[22] = @"CKAssetsDownloaded";
     v115 = MEMORY[0x277CCABB0];
-    v118 = objc_msgSend_assetsDownloaded(v217, v116, v117);
-    v226 = objc_msgSend_numberWithUnsignedInteger_(v115, v119, v118);
-    v257[22] = v226;
-    v256[23] = @"CKAssetsDownloadedFileSize";
+    v118 = objc_msgSend_assetsDownloaded(v216, v116, v117);
+    v225 = objc_msgSend_numberWithUnsignedInteger_(v115, v119, v118);
+    v256[22] = v225;
+    v255[23] = @"CKAssetsDownloadedFileSize";
     v120 = MEMORY[0x277CCABB0];
-    v123 = objc_msgSend_assetsDownloadedFileSize(v217, v121, v122);
-    v225 = objc_msgSend_numberWithUnsignedInteger_(v120, v124, v123);
-    v257[23] = v225;
-    v256[24] = @"CKRetries";
+    v123 = objc_msgSend_assetsDownloadedFileSize(v216, v121, v122);
+    v224 = objc_msgSend_numberWithUnsignedInteger_(v120, v124, v123);
+    v256[23] = v224;
+    v255[24] = @"CKRetries";
     v125 = MEMORY[0x277CCABB0];
-    v128 = objc_msgSend_retries(v217, v126, v127);
-    v224 = objc_msgSend_numberWithUnsignedInteger_(v125, v129, v128);
-    v257[24] = v224;
-    v256[25] = @"CKNumberOfRequests";
+    v128 = objc_msgSend_retries(v216, v126, v127);
+    v223 = objc_msgSend_numberWithUnsignedInteger_(v125, v129, v128);
+    v256[24] = v223;
+    v255[25] = @"CKNumberOfRequests";
     v130 = MEMORY[0x277CCABB0];
-    v133 = objc_msgSend_requestCount(v217, v131, v132);
-    v223 = objc_msgSend_numberWithUnsignedInteger_(v130, v134, v133);
-    v257[25] = v223;
-    v256[26] = @"CKProtoRequestOperationsByCount";
-    v137 = objc_msgSend_requestOperationCountsByType(v217, v135, v136);
-    v222 = v137;
+    v133 = objc_msgSend_requestCount(v216, v131, v132);
+    v222 = objc_msgSend_numberWithUnsignedInteger_(v130, v134, v133);
+    v256[25] = v222;
+    v255[26] = @"CKProtoRequestOperationsByCount";
+    v137 = objc_msgSend_requestOperationCountsByType(v216, v135, v136);
+    v221 = v137;
     if (v137)
     {
       v140 = v137;
@@ -249,49 +249,49 @@
     }
 
     v141 = MEMORY[0x277CBEC10];
-    v257[26] = v140;
-    v256[27] = @"MMCSDuration";
+    v256[26] = v140;
+    v255[27] = @"MMCSDuration";
     v142 = MEMORY[0x277CCABB0];
-    objc_msgSend_duration(v254, v138, v139);
-    v221 = objc_msgSend_numberWithUnsignedInteger_(v142, v144, v143);
-    v257[27] = v221;
-    v256[28] = @"MMCSBytesUploaded";
+    objc_msgSend_duration(v253, v138, v139);
+    v220 = objc_msgSend_numberWithUnsignedInteger_(v142, v144, v143);
+    v256[27] = v220;
+    v255[28] = @"MMCSBytesUploaded";
     v145 = MEMORY[0x277CCABB0];
-    v148 = objc_msgSend_bytesUploaded(v254, v146, v147);
-    v220 = objc_msgSend_numberWithUnsignedInteger_(v145, v149, v148);
-    v257[28] = v220;
-    v256[29] = @"MMCSBytesDownloaded";
+    v148 = objc_msgSend_bytesUploaded(v253, v146, v147);
+    v219 = objc_msgSend_numberWithUnsignedInteger_(v145, v149, v148);
+    v256[28] = v219;
+    v255[29] = @"MMCSBytesDownloaded";
     v150 = MEMORY[0x277CCABB0];
-    v153 = objc_msgSend_bytesDownloaded(v254, v151, v152);
-    v219 = objc_msgSend_numberWithUnsignedInteger_(v150, v154, v153);
-    v257[29] = v219;
-    v256[30] = @"MMCSConnections";
+    v153 = objc_msgSend_bytesDownloaded(v253, v151, v152);
+    v218 = objc_msgSend_numberWithUnsignedInteger_(v150, v154, v153);
+    v256[29] = v218;
+    v255[30] = @"MMCSConnections";
     v155 = MEMORY[0x277CCABB0];
-    v158 = objc_msgSend_connections(v254, v156, v157);
-    v218 = objc_msgSend_numberWithUnsignedInteger_(v155, v159, v158);
-    v257[30] = v218;
-    v256[31] = @"MMCSConnectionsCreated";
+    v158 = objc_msgSend_connections(v253, v156, v157);
+    v217 = objc_msgSend_numberWithUnsignedInteger_(v155, v159, v158);
+    v256[30] = v217;
+    v255[31] = @"MMCSConnectionsCreated";
     v160 = MEMORY[0x277CCABB0];
-    v163 = objc_msgSend_connectionsCreated(v254, v161, v162);
+    v163 = objc_msgSend_connectionsCreated(v253, v161, v162);
     v165 = objc_msgSend_numberWithUnsignedInteger_(v160, v164, v163);
-    v257[31] = v165;
-    v256[32] = @"MMCSBytesFulfilledLocally";
+    v256[31] = v165;
+    v255[32] = @"MMCSBytesFulfilledLocally";
     v166 = MEMORY[0x277CCABB0];
-    v169 = objc_msgSend_bytesFulfilledLocally(v254, v167, v168);
+    v169 = objc_msgSend_bytesFulfilledLocally(v253, v167, v168);
     v171 = objc_msgSend_numberWithUnsignedLongLong_(v166, v170, v169);
-    v257[32] = v171;
-    v256[33] = @"MMCSBytesResumed";
+    v256[32] = v171;
+    v255[33] = @"MMCSBytesResumed";
     v172 = MEMORY[0x277CCABB0];
-    v175 = objc_msgSend_bytesResumed(v254, v173, v174);
+    v175 = objc_msgSend_bytesResumed(v253, v173, v174);
     v177 = objc_msgSend_numberWithUnsignedLongLong_(v172, v176, v175);
-    v257[33] = v177;
-    v256[34] = @"MMCSNumberOfRequests";
+    v256[33] = v177;
+    v255[34] = @"MMCSNumberOfRequests";
     v178 = MEMORY[0x277CCABB0];
-    v181 = objc_msgSend_requestCount(v254, v179, v180);
+    v181 = objc_msgSend_requestCount(v253, v179, v180);
     v183 = objc_msgSend_numberWithUnsignedInteger_(v178, v182, v181);
-    v257[34] = v183;
-    v256[35] = @"MMCSTotalBytesByChunkProfile";
-    v186 = objc_msgSend_totalBytesByChunkProfile(v254, v184, v185);
+    v256[34] = v183;
+    v255[35] = @"MMCSTotalBytesByChunkProfile";
+    v186 = objc_msgSend_totalBytesByChunkProfile(v253, v184, v185);
     v189 = v186;
     v190 = v141;
     if (v186)
@@ -304,9 +304,9 @@
       v191 = v141;
     }
 
-    v257[35] = v191;
-    v256[36] = @"MMCSChunkCountByChunkProfile";
-    v192 = objc_msgSend_chunkCountByChunkProfile(v254, v187, v188);
+    v256[35] = v191;
+    v255[36] = @"MMCSChunkCountByChunkProfile";
+    v192 = objc_msgSend_chunkCountByChunkProfile(v253, v187, v188);
     v195 = v192;
     if (v192)
     {
@@ -319,9 +319,9 @@
     }
 
     v197 = v190;
-    v257[36] = v196;
-    v256[37] = @"MMCSFileCountByChunkProfile";
-    v198 = objc_msgSend_fileCountByChunkProfile(v254, v193, v194);
+    v256[36] = v196;
+    v255[37] = @"MMCSFileCountByChunkProfile";
+    v198 = objc_msgSend_fileCountByChunkProfile(v253, v193, v194);
     v200 = v198;
     if (v198)
     {
@@ -333,14 +333,14 @@
       v201 = v197;
     }
 
-    v257[37] = v201;
-    v202 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v199, v257, v256, 38);
+    v256[37] = v201;
+    v202 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v199, v256, v255, 38);
 
-    if (!v237)
+    if (!v236)
     {
     }
 
-    v205 = objc_msgSend_zoneIDs(v217, v203, v204);
+    v205 = objc_msgSend_zoneIDs(v216, v203, v204);
     v207 = objc_msgSend_zoneIDsToZoneNamesString_(selfCopy, v206, v205);
 
     if (v207)
@@ -352,51 +352,49 @@
       v202 = v214;
     }
 
-    dCopy = v252;
-    nameCopy = v250;
-    iDCopy = v251;
+    dCopy = v251;
+    nameCopy = v249;
+    iDCopy = v250;
     identifierCopy = v27;
     PLLogRegisteredEvent();
 
-    tupleCopy = v249;
+    tupleCopy = v248;
   }
-
-  v215 = *MEMORY[0x277D85DE8];
 }
 
 - (id)zoneIDsToZoneNamesString:(id)string
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (CKMainBundleIsAppleExecutable())
   {
     if (objc_msgSend_count(stringCopy, v4, v5))
     {
       v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       v7 = stringCopy;
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v37, v41, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v36, v40, 16);
       if (v9)
       {
         v12 = v9;
-        v13 = *v38;
+        v13 = *v37;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v38 != v13)
+            if (*v37 != v13)
             {
               objc_enumerationMutation(v7);
             }
 
-            v15 = objc_msgSend_zoneName(*(*(&v37 + 1) + 8 * i), v10, v11);
+            v15 = objc_msgSend_zoneName(*(*(&v36 + 1) + 8 * i), v10, v11);
             objc_msgSend_addObject_(v6, v16, v15);
           }
 
-          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v37, v41, 16);
+          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v36, v40, 16);
         }
 
         while (v12);
@@ -408,7 +406,7 @@
       v23 = objc_msgSend_componentsJoinedByString_(v21, v22, @",");
       v24 = MEMORY[0x277CCACA8];
       v27 = objc_msgSend_count(v7, v25, v26);
-      v29 = objc_msgSend_stringWithFormat_(v24, v28, @"zoneNames:%lu:%@", v27, v23, v37);
+      v29 = objc_msgSend_stringWithFormat_(v24, v28, @"zoneNames:%lu:%@", v27, v23, v36);
       if (objc_msgSend_length(v29, v30, v31) < 0x101)
       {
         v33 = v29;
@@ -432,8 +430,6 @@
   {
     v34 = 0;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

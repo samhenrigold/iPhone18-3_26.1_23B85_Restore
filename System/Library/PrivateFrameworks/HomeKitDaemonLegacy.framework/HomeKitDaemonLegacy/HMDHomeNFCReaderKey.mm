@@ -19,7 +19,7 @@
 
 - (id)attributeDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDHomeNFCReaderKey *)self identifier];
   hmf_hexadecimalRepresentation = [identifier hmf_hexadecimalRepresentation];
@@ -28,15 +28,13 @@
   privateKey = [(HMDHomeNFCReaderKey *)self privateKey];
   v9 = HMFBooleanToString();
   v10 = [v7 initWithName:@"Has Private Key" value:v9];
-  v18[1] = v10;
+  v17[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   publicKeyExternalRepresentation = [(HMDHomeNFCReaderKey *)self publicKeyExternalRepresentation];
   hmf_hexadecimalRepresentation2 = [publicKeyExternalRepresentation hmf_hexadecimalRepresentation];
   v14 = [v11 initWithName:@"Public Key External Representation" value:hmf_hexadecimalRepresentation2];
-  v18[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   return v15;
 }
@@ -142,7 +140,7 @@
     v5 = [publicKeyExternalRepresentation mutableCopy];
 
     [v5 appendData:privateKey];
-    v6 = [v5 copy];
+    v6 = objc_msgSend_copy(v5);
   }
 
   else
@@ -173,11 +171,11 @@
   if (v12)
   {
     objc_storeStrong(&v12->_identifier, identifier);
-    v14 = [keyCopy copy];
+    v14 = objc_msgSend_copy(keyCopy);
     privateKey = v13->_privateKey;
     v13->_privateKey = v14;
 
-    v16 = [representationCopy copy];
+    v16 = objc_msgSend_copy(representationCopy);
     publicKeyExternalRepresentation = v13->_publicKeyExternalRepresentation;
     v13->_publicKeyExternalRepresentation = v16;
   }
@@ -187,25 +185,23 @@
 
 + (id)identifierForKey:(id)key
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(&v8, 0, sizeof(v8));
+  v9 = *MEMORY[0x277D85DE8];
+  memset(&v7, 0, sizeof(v7));
   keyCopy = key;
-  CC_SHA256_Init(&v8);
-  v4 = [MEMORY[0x277CBEB28] dataWithBytes:"key-identifier" length:{14, *v8.count, *&v8.hash[2], *&v8.hash[6], *&v8.wbuf[2], *&v8.wbuf[6], *&v8.wbuf[10], *&v8.wbuf[14]}];
+  CC_SHA256_Init(&v7);
+  v4 = [MEMORY[0x277CBEB28] dataWithBytes:"key-identifier" length:{14, *v7.count, *&v7.hash[2], *&v7.hash[6], *&v7.wbuf[2], *&v7.wbuf[6], *&v7.wbuf[10], *&v7.wbuf[14]}];
   [v4 appendData:keyCopy];
 
-  CC_SHA256_Update(&v8, [v4 bytes], objc_msgSend(v4, "length"));
-  CC_SHA256_Final(md, &v8);
+  CC_SHA256_Update(&v7, [v4 bytes], objc_msgSend(v4, "length"));
+  CC_SHA256_Final(md, &v7);
   v5 = [MEMORY[0x277CBEA90] dataWithBytes:md length:8];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)createWithExternalRepresentation:(id)representation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   if ([representationCopy length] == 97)
   {
@@ -222,32 +218,30 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2048;
-      v16 = [representationCopy length];
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected nfc reader key external representation length %lu", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2048;
+      v15 = [representationCopy length];
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unexpected nfc reader key external representation length %lu", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)createRandomKey
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CDC040];
   v3 = *MEMORY[0x277CDC018];
-  v24[0] = *MEMORY[0x277CDC028];
-  v24[1] = v3;
-  v25[0] = v2;
-  v25[1] = &unk_2866282D0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[0] = *MEMORY[0x277CDC028];
+  v23[1] = v3;
+  v24[0] = v2;
+  v24[1] = &unk_2866282D0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   error = 0;
   v5 = SecKeyCreateRandomKey(v4, &error);
   v6 = v5;
@@ -270,9 +264,9 @@
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v9;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v9;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to copy nfc reader key external representation: %@", buf, 0x16u);
       }
 
@@ -291,9 +285,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v7;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to create nfc reader key: %@", buf, 0x16u);
     }
 
@@ -301,14 +295,12 @@
     v10 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createKeychainItemForHome:(id)home
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   externalRepresentation = [(HMDHomeNFCReaderKey *)self externalRepresentation];
   if (externalRepresentation)
@@ -342,27 +334,25 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v17;
-      v22 = 2112;
-      v23 = homeCopy;
-      v24 = 2112;
-      v25 = selfCopy;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to create keychain item for home: %@ from: %@, external representation is nil", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v17;
+      v21 = 2112;
+      v22 = homeCopy;
+      v23 = 2112;
+      v24 = selfCopy;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to create keychain item for home: %@ from: %@, external representation is nil", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v6 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)createWithKeychainItem:(id)item
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   accessGroup = [itemCopy accessGroup];
   v6 = [accessGroup isEqualToString:@"com.apple.hap.pairing"];
@@ -386,12 +376,12 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = itemCopy;
-      v22 = 2112;
-      v23 = &unk_286628CC0;
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2112;
+      v20 = itemCopy;
+      v21 = 2112;
+      v22 = &unk_286628CC0;
       v15 = "%{public}@Failed to create nfc reader key from keychain item: %@ is not equal to: %@";
       goto LABEL_8;
     }
@@ -405,23 +395,21 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = itemCopy;
-      v22 = 2112;
-      v23 = @"com.apple.hap.pairing";
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2112;
+      v20 = itemCopy;
+      v21 = 2112;
+      v22 = @"com.apple.hap.pairing";
       v15 = "%{public}@Failed to create nfc reader key from keychain item: %@ access group is not equal to: %@";
 LABEL_8:
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v15, &v18, 0x20u);
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, v15, &v17, 0x20u);
     }
   }
 
   objc_autoreleasePoolPop(v11);
   v10 = 0;
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

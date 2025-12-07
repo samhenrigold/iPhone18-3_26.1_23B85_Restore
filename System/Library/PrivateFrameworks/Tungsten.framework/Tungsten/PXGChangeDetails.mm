@@ -102,7 +102,7 @@
         while (v10 < self->_numberOfSpritesBeforeChange);
       }
 
-      indexSet = [MEMORY[0x277CCAB58] indexSet];
+      v13 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
       Mutable = CFDictionaryCreateMutable(0, 0, 0, 0);
       numberOfSpritesBeforeChange = self->_numberOfSpritesBeforeChange;
       if (numberOfSpritesBeforeChange)
@@ -116,7 +116,7 @@
           v19 = v20;
           if (v17 != v20)
           {
-            [indexSet addIndex:v17];
+            [v13 addIndex:v17];
             CFDictionarySetValue(Mutable, v17, v19);
           }
 
@@ -126,7 +126,7 @@
         while (numberOfSpritesBeforeChange);
       }
 
-      [indexSet count];
+      [v13 count];
       v21 = PXCreateMutableIntegerArrayRef();
       v23[0] = MEMORY[0x277D85DD0];
       v23[1] = 3221225472;
@@ -134,7 +134,7 @@
       v23[3] = &__block_descriptor_48_e12_v24__0Q8_B16l;
       v23[4] = Mutable;
       v23[5] = v21;
-      [indexSet enumerateIndexesUsingBlock:v23];
+      [v13 enumerateIndexesUsingBlock:v23];
       CFRelease(Mutable);
       free(v7);
     }
@@ -142,10 +142,10 @@
     else
     {
       v21 = 0;
-      indexSet = 0;
+      v13 = 0;
     }
 
-    v4 = [objc_alloc(MEMORY[0x277D3CCC8]) initWithIncrementalChangeDetailsRemovedIndexes:self->_spriteIndexesThatWereRemoved insertedIndexes:self->_spriteIndexesThatWereInserted movesToIndexes:indexSet movesFromIndexes:v21 changedIndexes:self->_spriteIndexesThatWereModified];
+    v4 = [objc_alloc(MEMORY[0x277D3CCC8]) initWithIncrementalChangeDetailsRemovedIndexes:self->_spriteIndexesThatWereRemoved insertedIndexes:self->_spriteIndexesThatWereInserted movesToIndexes:v13 movesFromIndexes:v21 changedIndexes:self->_spriteIndexesThatWereModified];
     if (v21)
     {
       CFRelease(v21);
@@ -431,14 +431,14 @@ uint64_t __51__PXGChangeDetails_applyToSpriteIndexes_atIndexes___block_invoke(ui
     if (self->_hasMoves)
     {
       nextSpriteIndexByPreviousSpriteIndex = self->_nextSpriteIndexByPreviousSpriteIndex;
-      indexSet = [MEMORY[0x277CCAB58] indexSet];
+      v6 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
       v10 = MEMORY[0x277D85DD0];
       v11 = 3221225472;
       v12 = __55__PXGChangeDetails_indexSetAfterApplyingChangeDetails___block_invoke;
       v13 = &unk_2782ABFE0;
-      v14 = indexSet;
+      v14 = v6;
       v15 = nextSpriteIndexByPreviousSpriteIndex;
-      arrayChangeDetails = indexSet;
+      arrayChangeDetails = v6;
       [detailsCopy enumerateRangesUsingBlock:&v10];
       v8 = [arrayChangeDetails copy];
     }
@@ -458,7 +458,7 @@ uint64_t __51__PXGChangeDetails_applyToSpriteIndexes_atIndexes___block_invoke(ui
   return v8;
 }
 
-uint64_t __55__PXGChangeDetails_indexSetAfterApplyingChangeDetails___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__55__PXGChangeDetails_indexSetAfterApplyingChangeDetails___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   v3 = a2 + a3;
   if (a2 + a3 > a2)
@@ -468,9 +468,9 @@ uint64_t __55__PXGChangeDetails_indexSetAfterApplyingChangeDetails___block_invok
     v6 = a2 + 1;
     do
     {
-      if (*(*(v4 + 40) + 4 * v5) != -1)
+      if (*(v4[5] + v5) != -1)
       {
-        result = [*(v4 + 32) addIndex:?];
+        result = [v4[4] addIndex:?];
       }
 
       v5 = v6;
@@ -614,39 +614,39 @@ uint64_t __55__PXGChangeDetails_indexSetAfterApplyingChangeDetails___block_invok
   _Block_object_dispose(v32, 8);
 }
 
-uint64_t __43__PXGChangeDetails_applySpriteTransferMap___block_invoke(uint64_t result, uint64_t a2)
+void *__43__PXGChangeDetails_applySpriteTransferMap___block_invoke(void *result, uint64_t a2)
 {
-  v2 = *(*(result + 64) + 8);
+  v2 = *(*(result + 8) + 8);
   v3 = *(v2 + 24);
-  v4 = *(*(result + 80) + 4 * v3);
+  v4 = *(*(result + 10) + 4 * v3);
   if (v4 != -1)
   {
     v6 = result;
-    v7 = *(*(result + 72) + 8);
+    v7 = *(*(result + 9) + 8);
     if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
-      [*(result + 32) _invalidateLayoutVersions];
-      [*(v6 + 32) _invalidateCachedArrayChangeDetails];
-      v8 = *(v6 + 32);
-      if ((*(v8 + 48) & 1) == 0)
+      [*(result + 4) _invalidateLayoutVersions];
+      [v6[4] _invalidateCachedArrayChangeDetails];
+      v8 = v6[4];
+      if ((v8[48] & 1) == 0)
       {
-        *(v8 + 48) = 1;
-        [*(v6 + 32) _resizeStorageIfNeeded];
+        v8[48] = 1;
+        [v6[4] _resizeStorageIfNeeded];
       }
     }
 
-    [*(v6 + 40) removeIndex:a2];
-    if (([*(v6 + 48) containsIndex:v4] & 1) == 0)
+    [v6[5] removeIndex:a2];
+    if (([v6[6] containsIndex:v4] & 1) == 0)
     {
       v9 = [MEMORY[0x277CCA890] currentHandler];
-      [v9 handleFailureInMethod:*(v6 + 88) object:*(v6 + 32) file:@"PXGChangeDetails.m" lineNumber:293 description:{@"Invalid parameter not satisfying: %@", @"[spriteIndexesThatWereInserted containsIndex:mappedSpriteIndex]"}];
+      [v9 handleFailureInMethod:v6[11] object:v6[4] file:@"PXGChangeDetails.m" lineNumber:293 description:{@"Invalid parameter not satisfying: %@", @"[spriteIndexesThatWereInserted containsIndex:mappedSpriteIndex]"}];
     }
 
-    [*(v6 + 48) removeIndex:v4];
-    result = [*(v6 + 56) addIndex:v4];
-    *(*(*(v6 + 32) + 8) + 4 * a2) = v4;
-    v2 = *(*(v6 + 64) + 8);
+    [v6[6] removeIndex:v4];
+    result = [v6[7] addIndex:v4];
+    *(*(v6[4] + 1) + 4 * a2) = v4;
+    v2 = *(v6[8] + 1);
     v3 = *(v2 + 24);
   }
 
@@ -895,7 +895,7 @@ uint64_t __43__PXGChangeDetails_applySpriteTransferMap___block_invoke(uint64_t r
   }
 }
 
-uint64_t __43__PXGChangeDetails_removeSpritesAtIndexes___block_invoke(uint64_t a1, uint64_t a2)
+void *__43__PXGChangeDetails_removeSpritesAtIndexes___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) addIndex:*(*(*(a1 + 40) + 8) + 4 * a2)];
   *(*(*(a1 + 40) + 8) + 4 * a2) = -1;
@@ -946,7 +946,7 @@ uint64_t __43__PXGChangeDetails_removeSpritesAtIndexes___block_invoke(uint64_t a
   return v10;
 }
 
-uint64_t __60__PXGChangeDetails_replaceRemovalsWithMovesToEndForIndexes___block_invoke(void *a1, uint64_t a2)
+void *__60__PXGChangeDetails_replaceRemovalsWithMovesToEndForIndexes___block_invoke(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 24) containsIndex:a2];
   if (result)
@@ -1035,9 +1035,9 @@ uint64_t __60__PXGChangeDetails_replaceRemovalsWithMovesToEndForIndexes___block_
 
   v20 = selfCopy;
   selfCopy->_numberOfSpritesBeforeChange = v19;
-  indexSet = [MEMORY[0x277CCAB58] indexSet];
-  indexSet2 = [MEMORY[0x277CCAB58] indexSet];
-  indexSet3 = [MEMORY[0x277CCAB58] indexSet];
+  v58 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], selfCopy);
+  v21 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
+  v59 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   if (![v7 count])
   {
     goto LABEL_57;
@@ -1068,7 +1068,7 @@ uint64_t __60__PXGChangeDetails_replaceRemovalsWithMovesToEndForIndexes___block_
           }
 
           changedIndexes = [*(*(&v64 + 1) + 8 * j) changedIndexes];
-          [indexSet2 addIndexes:changedIndexes];
+          [v21 addIndexes:changedIndexes];
         }
 
         v37 = [v35 countByEnumeratingWithState:&v64 objects:v76 count:16];
@@ -1116,7 +1116,7 @@ uint64_t __60__PXGChangeDetails_replaceRemovalsWithMovesToEndForIndexes___block_
     goto LABEL_57;
   }
 
-  [indexSet addIndexesInRange:{0, v20->_numberOfSpritesAfterChange}];
+  [v58 addIndexesInRange:{0, v20->_numberOfSpritesAfterChange}];
   if (!numberOfSpritesBeforeChange)
   {
 LABEL_57:
@@ -1167,7 +1167,7 @@ LABEL_57:
           {
 
             v23 = v63;
-            [indexSet3 addIndex:v63];
+            [v59 addIndex:v63];
             LODWORD(v30) = -1;
             numberOfSpritesBeforeChange = v57;
             goto LABEL_39;
@@ -1195,10 +1195,10 @@ LABEL_57:
         break;
       }
 
-      [indexSet removeIndex:v30];
+      [v58 removeIndex:v30];
       if (v28)
       {
-        [indexSet2 addIndex:v30];
+        [v21 addIndex:v30];
       }
 
       numberOfSpritesBeforeChange = v57;
@@ -1208,7 +1208,7 @@ LABEL_57:
     else
     {
 
-      [indexSet removeIndex:v23];
+      [v58 removeIndex:v23];
       LODWORD(v30) = v23;
     }
 
@@ -1218,15 +1218,15 @@ LABEL_39:
 
   while (v23 != numberOfSpritesBeforeChange);
 LABEL_58:
-  v48 = [indexSet copy];
+  v48 = [v58 copy];
   v49 = *(v56 + 32);
   *(v56 + 32) = v48;
 
-  v50 = [indexSet2 copy];
+  v50 = [v21 copy];
   v51 = *(v56 + 40);
   *(v56 + 40) = v50;
 
-  v52 = [indexSet3 copy];
+  v52 = [v59 copy];
   v53 = *(v56 + 24);
   *(v56 + 24) = v52;
 

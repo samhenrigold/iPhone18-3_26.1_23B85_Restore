@@ -93,7 +93,7 @@
   sub_10000533C(58, (gasGaugeBatteryTemperature * 0.59 + 33.0 + v49 * 0.41));
   sub_10000533C(59, (self->_filteredBacklightCurrentLI2 * 0.437 + 152.3 + v6 * -0.493 + v7 * 1.479 + self->_filteredTempRearCameraDieWithDefault * 0.0223));
   sub_10000533C(63, (gasGaugeBatteryTemperature * -0.132 + 130.0 + v51 * 0.089 + v50 * 1.021));
-  v22 = qword_1000AB904;
+  v22 = dword_1000AB904;
   v23 = [(CommonProduct *)self findComponent:19];
   v24 = v22 / 100.0;
   *&v25 = v24;
@@ -101,7 +101,7 @@
   v26 = [(CommonProduct *)self findComponent:20];
   *&v27 = v24;
   [v26 calculateControlEffort:v27];
-  v28 = dword_1000AB914;
+  v28 = SHIDWORD(xmmword_1000AB908);
   v29 = [(CommonProduct *)self findComponent:21];
   v30 = v28 / 100.0;
   *&v31 = v30;
@@ -109,7 +109,7 @@
   v32 = [(CommonProduct *)self findComponent:26];
   *&v33 = v30;
   [v32 calculateControlEffort:v33];
-  v34 = SHIDWORD(qword_1000AB90C);
+  v34 = SDWORD2(xmmword_1000AB908);
   v35 = [(CommonProduct *)self findComponent:22];
   *&v36 = v34 / 100.0;
   [v35 calculateControlEffort:v36];
@@ -117,7 +117,7 @@
   v38 = [(CommonProduct *)self findComponent:23];
   *&v39 = v37 / 100.0;
   [v38 calculateControlEffort:v39];
-  v40 = SHIDWORD(qword_1000AB904);
+  v40 = xmmword_1000AB908;
   v41 = [(CommonProduct *)self findComponent:24];
   v42 = v40 / 100.0;
   *&v43 = v42;

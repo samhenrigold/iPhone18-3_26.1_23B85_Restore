@@ -20,22 +20,22 @@
 + (void)startAutoLinkingNewPeopleInAddressBook:(void *)book inProcess:(BOOL)process
 {
   processCopy = process;
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = objc_autoreleasePoolPush();
-  v7 = ABOSLogGeneral();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = ABOSLogGeneral(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
+    v10 = 138412546;
     bookCopy = book;
-    v11 = 1024;
-    v12 = processCopy;
-    _os_log_impl(&dword_1B7EFB000, v7, OS_LOG_TYPE_DEFAULT, "[ABPersonLinker] startAutoLinkingNewPeopleInAddressBook:%@ inProcess:%i", &v9, 0x12u);
+    v12 = 1024;
+    v13 = processCopy;
+    _os_log_impl(&dword_1B7EFB000, v8, OS_LOG_TYPE_DEFAULT, "[ABPersonLinker] startAutoLinkingNewPeopleInAddressBook:%@ inProcess:%i", &v10, 0x12u);
   }
 
   if (processCopy)
   {
-    v8 = [[ABPersonLinker alloc] initWithAddressBook:book];
-    [(ABPersonLinker *)v8 linkRecentlyAddedPeople];
+    v9 = [[ABPersonLinker alloc] initWithAddressBook:book];
+    [(ABPersonLinker *)v9 linkRecentlyAddedPeople];
   }
 
   else
@@ -1077,7 +1077,7 @@ sqlite3_stmt *__67__ABPersonLinker_copyArrayOfAllPeopleWithROWIDGreatThan_withLi
 
 - (BOOL)linkRecentlyAddedPeopleWithLimit:(int64_t)limit
 {
-  IntegerProperty = ABAddressBookGetIntegerProperty(self->_addressBook);
+  IntegerProperty = ABAddressBookGetIntegerProperty(self->_addressBook, @"PersonLinkerLastProcessedPerson");
   if (IntegerProperty)
   {
     v6 = IntegerProperty;

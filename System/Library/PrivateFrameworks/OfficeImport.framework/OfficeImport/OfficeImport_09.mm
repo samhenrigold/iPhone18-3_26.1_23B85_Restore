@@ -65,7 +65,7 @@ void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP:
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__emplace_multi<TSU::UUIDData<TSP::UUIDData> const&>();
+    std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__emplace_multi<TSU::UUIDData<TSP::UUIDData> const&>(a1, a2 + 1);
   }
 }
 
@@ -257,7 +257,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -273,7 +273,7 @@ void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP:
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -281,7 +281,7 @@ void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP:
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -305,7 +305,7 @@ void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP:
     {
 LABEL_6:
 
-      std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP::UUIDData>>,std::equal_to<TSU::UUIDData<TSP::UUIDData>>,std::allocator<TSU::UUIDData<TSP::UUIDData>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -332,7 +332,7 @@ void std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP:
   *(a1 + 8) = 0;
 }
 
-uint64_t std::vector<TSU::UUIDData<TSP::UUIDData>>::__init_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TSU::UUIDData<TSP::UUIDData>>::__init_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -354,7 +354,7 @@ void sub_25D3DB358(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TSU::UUIDData<TSP::UUIDData>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TSU::UUIDData<TSP::UUIDData>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -398,11 +398,11 @@ void *std::__hash_table<TSU::UUIDData<TSP::UUIDData>,std::hash<TSU::UUIDData<TSP
   return result;
 }
 
-void sub_25D3DBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3DBD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -413,31 +413,31 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3DC874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25D3DCC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_25D3DDB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_25D3DC874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
   va_start(va, a16);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3E0770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25D3DCC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a12);
+  va_start(va, a17);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25D3DDB44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25D3E0770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -464,17 +464,17 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3E45D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25D3E45D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3E5650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_25D3E5650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -568,16 +568,16 @@ void *F(uint64_t (*a1)(uint64_t, uint64_t, char *, uint64_t, char *), uint64_t a
   return result;
 }
 
-id p_currencyCodeStore()
+id p_currencyCodeStore(uint64_t a1)
 {
   if (p_currencyCodeStore_onceToken != -1)
   {
     p_currencyCodeStore_cold_1();
   }
 
-  v1 = sCurrencyCodeStore;
+  v2 = sCurrencyCodeStore;
 
-  return v1;
+  return v2;
 }
 
 void __p_currencyCodeStore_block_invoke()
@@ -587,10 +587,11 @@ void __p_currencyCodeStore_block_invoke()
   sCurrencyCodeStore = v0;
 }
 
-id TSUCurrencyCodeForIndex(unsigned int a1)
+id TSUCurrencyCodeForIndex(uint64_t a1)
 {
-  v2 = p_currencyCodeStore();
-  v3 = [v2 stringForIndex:a1];
+  v1 = a1;
+  v2 = p_currencyCodeStore(a1);
+  v3 = [v2 stringForIndex:v1];
 
   return v3;
 }
@@ -609,9 +610,9 @@ void sub_25D3E9D98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D3EACD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3EACD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -623,11 +624,11 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3ED01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25D3ED01C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -638,12 +639,12 @@ uint64_t __Block_byref_object_copy__15(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3EDCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25D3EDCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 144), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -654,18 +655,18 @@ uint64_t __Block_byref_object_copy__16(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3EFA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25D3EFA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v12 - 144), 8);
-  _Block_object_dispose((v12 - 112), 8);
+  _Block_object_dispose((v19 - 144), 8);
+  _Block_object_dispose((v19 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -702,9 +703,9 @@ BOOL TSUEncodedBlockInfoAreEqual(void *a1, void *a2)
   return v7;
 }
 
-void sub_25D3F4748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3F4748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -724,7 +725,7 @@ uint64_t TSUIOUtilsCGDataProviderGetBytes(void *a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-uint64_t TSUIOUtilsCGDataProviderSkipForward(void *a1, uint64_t a2)
+char *TSUIOUtilsCGDataProviderSkipForward(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = [v3 offset];
@@ -775,7 +776,7 @@ void __TSUIOUtilsCGDataProviderReleaseInfo_block_invoke()
   TSUDefaultCat_log_t = v0;
 }
 
-void sub_25D3F5D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_25D3F5D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -789,62 +790,62 @@ uint64_t __Block_byref_object_copy__20(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3F6224(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D3F6224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSULocker::~TSULocker(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F62AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D3F62AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSULocker::~TSULocker(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F643C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25D3F643C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F664C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D3F664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSULocker::~TSULocker(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F693C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, ...)
+void sub_25D3F693C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   TSULocker::~TSULocker(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F6A48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D3F6A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   TSULocker::~TSULocker(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F6B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_25D3F6B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   TSULocker::~TSULocker(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3F6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -857,7 +858,7 @@ void TSULocker::TSULocker(TSULocker *this, NSLock *a2)
   [(NSLock *)v3 lock];
 }
 
-void *std::vector<TSU::UUIDData<TSP::UUIDData>>::__assign_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<TSU::UUIDData<TSP::UUIDData>>::__assign_with_size[abi:ne200100]<TSU::UUIDData<TSP::UUIDData>*,TSU::UUIDData<TSP::UUIDData>*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -945,9 +946,9 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void sub_25D3F7B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25D3F7B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -959,16 +960,16 @@ uint64_t __Block_byref_object_copy__21(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25D3F7CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3F7CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F7EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25D3F7EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -987,10 +988,10 @@ void sub_25D3F98DC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D3F9A2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D3F9A2C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TCBundleResourcePackageEntry;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1214,16 +1215,16 @@ void sub_25D402140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id TCInvalidXmlCharacterSet(void)
+id TCInvalidXmlCharacterSet(uint64_t a1)
 {
   if (TCInvalidXmlCharacterSet(void)::onceToken != -1)
   {
     TCInvalidXmlCharacterSet();
   }
 
-  v1 = TCInvalidXmlCharacterSet(void)::invalidXmlCharacterSet;
+  v2 = TCInvalidXmlCharacterSet(void)::invalidXmlCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 void ___Z24TCInvalidXmlCharacterSetv_block_invoke()
@@ -1246,17 +1247,17 @@ void sub_25D402C38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25D402CBC(_Unwind_Exception *exception_object)
@@ -1271,7 +1272,7 @@ void sub_25D402CBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1545,11 +1546,11 @@ id anonymous namespace::TSWPRomanLowerLabelFromNumber(_anonymous_namespace_ *thi
   return v2;
 }
 
-id anonymous namespace::TSWPAlphaLowerLabelFromNumber(_anonymous_namespace_ *this)
-  v1 = {;
-  v2 = [v1 lowercaseString];
+id anonymous namespace::TSWPAlphaLowerLabelFromNumber(_anonymous_namespace_ *this, unsigned int a2, uint64_t a3, unint64_t a4, BOOL a5)
+  v5 = {;
+  v6 = [v5 lowercaseString];
 
-  return v2;
+  return v6;
 }
 
 id anonymous namespace::TSWPFootnoteSymbolFromNumber(_anonymous_namespace_ *this)
@@ -1568,23 +1569,24 @@ id anonymous namespace::TSWPFootnoteSymbolFromNumber(_anonymous_namespace_ *this
   return v2;
 }
 
-id anonymous namespace::ideographicNumberStringForValue(uint64_t a1, unsigned int a2)
+id anonymous namespace::ideographicNumberStringForValue(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = [MEMORY[0x277CCAB68] string];
   v5 = v4;
-  v6 = a2;
+  v6 = v2;
   if (a1)
   {
     v9 = v4;
     v24 = v9;
-    v25 = a2;
+    v25 = v2;
     v26 = 1;
     v11 = v27 = v8;
     [v9 appendString:v11];
 
     v23 = *v12;
     v13 = [MEMORY[0x277CCACA8] stringWithCharacters:&v23 length:1];
-    if (a2 && a2 != 3)
+    if (v2 && v2 != 3)
     {
       v18 = MEMORY[0x277CBEB18];
       v19 = [v9 componentsSeparatedByString:v13];
@@ -1699,7 +1701,7 @@ id anonymous namespace::TSWPArabianAbjadLabelFromNumber(_anonymous_namespace_ *t
       {
         v8 = this / 0x3E8;
         v7 = v9 + 1;
-        *&__b[2 * v9] = 39;
+        __b[v9] = 39;
         v6 = (v6 - 1000 * v8);
       }
 
@@ -1750,7 +1752,7 @@ id anonymous namespace::TSWPHebrewBiblicalLabelFromNumber(_anonymous_namespace_ 
       {
         v8 = this / 0x3E8;
         v7 = v9 + 1;
-        *&__b[2 * v9] = 1523;
+        __b[v9] = 1523;
         v6 = (v6 - 1000 * v8);
       }
 
@@ -1870,7 +1872,7 @@ uint64_t std::accumulate[abi:ne200100]<anonymous namespace::IdeographicNumber co
   return a3;
 }
 
-id anonymous namespace::ideographicNumberStringForSmallValue(uint64_t a1, unsigned int a2)
+id anonymous namespace::ideographicNumberStringForSmallValue(uint64_t a1, int a2)
 {
   if (a1 >> 4 >= 0x271)
   {
@@ -2525,7 +2527,7 @@ NSString *CXRequiredBase64DecodedDataAttribute(_xmlNode *a1, CXNamespace *a2, xm
   return result;
 }
 
-uint64_t decodeBase64(NSString *a1)
+void *decodeBase64(NSString *a1)
 {
   if (([removeCRs(a1) length] & 3) == 0)
   {
@@ -2561,7 +2563,7 @@ NSString *CXDefaultStringContent(_xmlNode *a1, NSString *a2)
   return [v3 tc_initWithContentOfXmlNode:a1];
 }
 
-uint64_t CXDateForISO8601WithString(NSString *a1)
+void *CXDateForISO8601WithString(NSString *a1)
 {
   v1 = a1;
   if ([(NSString *)a1 hasSuffix:@"Z"])
@@ -2725,7 +2727,7 @@ uint64_t CXUnitWithName(NSString *a1)
   return [v11 intValue];
 }
 
-CXNamespace *CXXmlStrEqualToNsUriOrFallbackNsUri(const unsigned __int8 *a1, CXNamespace *a2)
+uint64_t CXXmlStrEqualToNsUriOrFallbackNsUri(const unsigned __int8 *a1, CXNamespace *a2)
 {
   v2 = a2;
   for (i = a2; !xmlStrEqual(a1, [(CXNamespace *)i uri]); v2 = i)
@@ -2742,7 +2744,7 @@ CXNamespace *CXXmlStrEqualToNsUriOrFallbackNsUri(const unsigned __int8 *a1, CXNa
   return 1;
 }
 
-xmlAttrPtr CXXmlHasNsPropWithFallbackNs(_xmlNode *a1, const unsigned __int8 *a2, CXNamespace *a3)
+CXNamespace *CXXmlHasNsPropWithFallbackNs(_xmlNode *a1, const unsigned __int8 *a2, CXNamespace *a3)
 {
   v3 = a3;
   for (i = a3; ; v3 = i)
@@ -2765,7 +2767,7 @@ xmlAttrPtr CXXmlHasNsPropWithFallbackNs(_xmlNode *a1, const unsigned __int8 *a2,
   return result;
 }
 
-xmlNsPtr CXXmlSearchNsByHrefWithFallbackNs(_xmlDoc *a1, _xmlNode *a2, CXNamespace *a3)
+CXNamespace *CXXmlSearchNsByHrefWithFallbackNs(_xmlDoc *a1, _xmlNode *a2, CXNamespace *a3)
 {
   v3 = a3;
   for (i = a3; ; v3 = i)
@@ -3362,37 +3364,37 @@ void __cxx_global_array_dtor_1828()
   }
 }
 
-void sub_25D40F150(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D40F150(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TCXmlPrefixStreamWriter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D40FBE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D40FBE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TCXmlTextWriterProvider;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D410280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D410280(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TCXmlStreamWriter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D411520(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D411520(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TCImportFontCache;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3418,16 +3420,16 @@ uint64_t TCObjectEqual(objc_object *a1, objc_object *a2)
   return v6;
 }
 
-id TCBundle()
+id TCBundle(uint64_t a1)
 {
   if (TCBundle::onceToken != -1)
   {
     TCBundle_cold_1();
   }
 
-  v1 = TCBundle::sTCBundle;
+  v2 = TCBundle::sTCBundle;
 
-  return v1;
+  return v2;
 }
 
 void __TCBundle_block_invoke()
@@ -3624,7 +3626,7 @@ uint64_t sfaxmlDoubleToXmlChar(char *a1, size_t __n, double a3)
 uint64_t xmlIgnoreExternalEntity(const char *a1, const char *a2, _xmlParserCtxt *a3)
 {
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
-  v7 = TCBundle();
+  v7 = TCBundle(v6);
   v8 = [v7 bundlePath];
 
   if ([v6 rangeOfString:v8])
@@ -3793,12 +3795,12 @@ CGContext *TCBitmapContextCreate(double a1)
   v3 = v2;
   v4 = v1;
   v5 = v2;
-  v6 = TSUDeviceRGBColorSpace();
+  v8 = TSUDeviceRGBColorSpace(v6, v7);
   AlignedBytesPerRow = TSUBitmapGetAlignedBytesPerRow(4 * v4);
-  v8 = CGBitmapContextCreate(0, v4, v5, 8uLL, AlignedBytesPerRow, v6, 0x2002u);
-  CGContextTranslateCTM(v8, 0.0, v3);
-  CGContextScaleCTM(v8, 1.0, -1.0);
-  return v8;
+  v10 = CGBitmapContextCreate(0, v4, v5, 8uLL, AlignedBytesPerRow, v8, 0x2002u);
+  CGContextTranslateCTM(v10, 0.0, v3);
+  CGContextScaleCTM(v10, 1.0, -1.0);
+  return v10;
 }
 
 void OAConvertCsException(unsigned int *a1)
@@ -4147,21 +4149,21 @@ void sub_25D427C48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id numberBulletSchemeEnumMap(void)
+id numberBulletSchemeEnumMap(uint64_t a1)
 {
   if (numberBulletSchemeEnumMap(void)::once != -1)
   {
     numberBulletSchemeEnumMap();
   }
 
-  v1 = numberBulletSchemeEnumMap(void)::theEnumMap;
+  v2 = numberBulletSchemeEnumMap(void)::theEnumMap;
 
-  return v1;
+  return v2;
 }
 
 void ___ZL25numberBulletSchemeEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL25numberBulletSchemeEnumMapvEUb_E14theEnumStructs, memory_order_acquire) & 1) == 0)
   {
     ___ZL25numberBulletSchemeEnumMapv_block_invoke_cold_1();
   }
@@ -4173,7 +4175,7 @@ void ___ZL25numberBulletSchemeEnumMapv_block_invoke()
 
 void ___ZL19tabStopAlignEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL19tabStopAlignEnumMapvEUb0_E14theEnumStructs, memory_order_acquire) & 1) == 0)
   {
     ___ZL19tabStopAlignEnumMapv_block_invoke_cold_1();
   }
@@ -4185,7 +4187,7 @@ void ___ZL19tabStopAlignEnumMapv_block_invoke()
 
 void ___ZL16textAlignEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL16textAlignEnumMapvEUb1_E14theEnumStructs, memory_order_acquire) & 1) == 0)
   {
     ___ZL16textAlignEnumMapv_block_invoke_cold_1();
   }
@@ -4197,7 +4199,7 @@ void ___ZL16textAlignEnumMapv_block_invoke()
 
 void ___ZL16fontAlignEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL16fontAlignEnumMapvEUb2_E14theEnumStructs, memory_order_acquire) & 1) == 0)
   {
     ___ZL16fontAlignEnumMapv_block_invoke_cold_1();
   }
@@ -4320,9 +4322,9 @@ void sub_25D433988(void *a1, int a2)
   OCConvertCsException(v4);
 }
 
-void sub_25D4339B0(uint64_t a1, ...)
+void sub_25D4339B0(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
   SsrwOORootStorage::~SsrwOORootStorage(va);
   JUMPOUT(0x25D4339C0);
 }
@@ -4410,14 +4412,12 @@ uint64_t EshBasicTablePropVal<EshComputedValue>::operator=(uint64_t a1, uint64_t
   return a1;
 }
 
-void *std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::reserve(void *result, unsigned int a2)
+void std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 3) < a2)
+  if (((a1[2] - *a1) >> 3) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedValue>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedValue>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D437354(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4472,7 +4472,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedValue>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__assign_with_size[abi:ne200100]<EshComputedValue*,EshComputedValue*>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
+uint64_t *std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__assign_with_size[abi:ne200100]<EshComputedValue*,EshComputedValue*>(uint64_t **a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4547,9 +4547,8 @@ void *std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__assign_with
       do
       {
         v19 = *v14++;
-        *v18 = v19;
-        v18 += 8;
-        v17 += 8;
+        *v18++ = v19;
+        ++v17;
       }
 
       while (v14 != a3);
@@ -4662,14 +4661,12 @@ uint64_t EshBasicTablePropVal<EshComputedPoint>::operator=(uint64_t a1, uint64_t
   return a1;
 }
 
-void *std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::reserve(void *result, unsigned int a2)
+void std::vector<EshComputedPoint,ChAllocator<EshComputedPoint>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 4) < a2)
+  if (((a1[2] - *a1) >> 4) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedPoint>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedPoint>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D4378C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -5010,14 +5007,12 @@ uint64_t EshBasicTablePropVal<EshPathCommand>::operator=(uint64_t a1, uint64_t a
   return a1;
 }
 
-void *std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::reserve(void *result, unsigned int a2)
+void std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 3) < a2)
+  if (((a1[2] - *a1) >> 3) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshPathCommand>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshPathCommand>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D437FFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -5040,7 +5035,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<EshPathCommand>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__assign_with_size[abi:ne200100]<EshPathCommand*,EshPathCommand*>(void *a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
+uint64_t *std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__assign_with_size[abi:ne200100]<EshPathCommand*,EshPathCommand*>(uint64_t **a1, uint64_t *a2, uint64_t *a3, unsigned int a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5115,9 +5110,8 @@ void *std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__assign_with_siz
       do
       {
         v19 = *v14++;
-        *v18 = v19;
-        v18 += 8;
-        v17 += 8;
+        *v18++ = v19;
+        ++v17;
       }
 
       while (v14 != a3);
@@ -5244,25 +5238,23 @@ uint64_t EshBasicTablePropVal<EshFormula>::operator=(uint64_t a1, uint64_t a2)
   std::vector<EshFormula,ChAllocator<EshFormula>>::reserve((a1 + 8), -1227133513 * ((*(a2 + 16) - *(a2 + 8)) >> 2));
   if (a1 != a2)
   {
-    std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:ne200100]<EshFormula*,EshFormula*>((a1 + 8), *(a2 + 8), *(a2 + 16), -1227133513 * ((*(a2 + 16) - *(a2 + 8)) >> 2));
+    std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:ne200100]<EshFormula*,EshFormula*>((a1 + 8), *(a2 + 8), *(a2 + 16), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 16) - *(a2 + 8)) >> 2));
   }
 
   return a1;
 }
 
-void *std::vector<EshFormula,ChAllocator<EshFormula>>::reserve(void *result, unsigned int a2)
+void std::vector<EshFormula,ChAllocator<EshFormula>>::reserve(void *a1, unsigned int a2)
 {
-  if (-1227133513 * ((result[2] - *result) >> 2) < a2)
+  if (-1227133513 * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x24924925)
     {
-      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshFormula>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshFormula>>(a1, a2);
     }
 
     std::vector<std::shared_ptr<TSUStringChunk>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25D438594(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -5326,31 +5318,32 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<EshFormula>>(uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_DWORD *std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:ne200100]<EshFormula*,EshFormula*>(_DWORD *result, _DWORD *a2, _DWORD *a3, unsigned int a4)
+uint64_t *std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:ne200100]<EshFormula*,EshFormula*>(uint64_t *result, _DWORD *a2, _DWORD *a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = a2;
   v7 = result;
-  v8 = *(result + 2);
+  v8 = result[2];
   v9 = *result;
   if (-1227133513 * ((v8 - *result) >> 2) < a4)
   {
     if (v9)
     {
-      *(result + 1) = v9;
+      result[1] = v9;
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      v7[1] = 0;
+      v7[2] = 0;
     }
 
-    if (a4 <= 0x24924924)
+    if (v4 <= 0x24924924)
     {
       v10 = -1227133513 * (v8 >> 2);
       v11 = 2 * v10;
-      if (2 * v10 <= a4)
+      if (2 * v10 <= v4)
       {
-        v11 = a4;
+        v11 = v4;
       }
 
       if (v10 >= 0x12492492)
@@ -5369,7 +5362,7 @@ _DWORD *std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:
     std::vector<std::shared_ptr<TSUStringChunk>>::__throw_length_error[abi:ne200100]();
   }
 
-  v13 = 0x6DB6DB6DB6DB6DB7 * ((*(result + 1) - v9) >> 2);
+  v13 = 0x6DB6DB6DB6DB6DB7 * ((result[1] - v9) >> 2);
   if (v13 >= a4)
   {
     while (v6 != a3)
@@ -5379,7 +5372,7 @@ _DWORD *std::vector<EshFormula,ChAllocator<EshFormula>>::__assign_with_size[abi:
       v9 += 7;
     }
 
-    *(v7 + 8) = v9;
+    v7[1] = v9;
   }
 
   else
@@ -5438,7 +5431,7 @@ _DWORD *std::vector<EshFormula,ChAllocator<EshFormula>>::__construct_at_end<EshF
   return result;
 }
 
-void std::vector<EshFormula,ChAllocator<EshFormula>>::__vallocate[abi:ne200100](uint64_t a1, unsigned int a2)
+void std::vector<EshFormula,ChAllocator<EshFormula>>::__vallocate[abi:ne200100](uint64_t *a1, unsigned int a2)
 {
   if (a2 < 0x24924925)
   {
@@ -5669,14 +5662,12 @@ uint64_t EshBasicTablePropVal<EshComputedRect>::operator=(uint64_t a1, uint64_t 
   return a1;
 }
 
-void *std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::reserve(void *result, unsigned int a2)
+void std::vector<EshComputedRect,ChAllocator<EshComputedRect>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 5) < a2)
+  if (((a1[2] - *a1) >> 5) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedRect>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<EshComputedRect>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D438F64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -6047,28 +6038,28 @@ void sub_25D4438D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id fontCollectionEnumMap(void)
+id fontCollectionEnumMap(uint64_t a1)
 {
   if (fontCollectionEnumMap(void)::once != -1)
   {
     fontCollectionEnumMap();
   }
 
-  v1 = fontCollectionEnumMap(void)::theMap;
+  v2 = fontCollectionEnumMap(void)::theMap;
 
-  return v1;
+  return v2;
 }
 
-id baseFontEnumMap(void)
+id baseFontEnumMap(uint64_t a1)
 {
   if (baseFontEnumMap(void)::once != -1)
   {
     baseFontEnumMap();
   }
 
-  v1 = baseFontEnumMap(void)::theMap;
+  v2 = baseFontEnumMap(void)::theMap;
 
-  return v1;
+  return v2;
 }
 
 unint64_t OADSchemeFontReference::schemeFontReferenceWithString(OADSchemeFontReference *this, NSString *a2)
@@ -6077,11 +6068,11 @@ unint64_t OADSchemeFontReference::schemeFontReferenceWithString(OADSchemeFontRef
   if ([(OADSchemeFontReference *)v2 length]== 6 && [(OADSchemeFontReference *)v2 characterAtIndex:0]== 43 && [(OADSchemeFontReference *)v2 characterAtIndex:3]== 45)
   {
     v3 = [(OADSchemeFontReference *)v2 substringWithRange:1, 2];
-    v4 = fontCollectionEnumMap();
+    v4 = fontCollectionEnumMap(v3);
     v5 = [v4 valueForString:v3];
 
     v6 = [(OADSchemeFontReference *)v2 substringWithRange:4, 2];
-    v7 = baseFontEnumMap();
+    v7 = baseFontEnumMap(v6);
     v8 = [v7 valueForString:v6];
 
     v9 = 0xFFFFFFFF00000000;
@@ -6122,7 +6113,7 @@ NSString *OADAbsoluteFontNameWithPossiblyRelativeFontNameAndFontScheme(NSString 
 
 void ___ZL21fontCollectionEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL21fontCollectionEnumMapvEUb_E14theStructArray, memory_order_acquire) & 1) == 0)
   {
     ___ZL21fontCollectionEnumMapv_block_invoke_cold_1();
   }
@@ -6134,7 +6125,7 @@ void ___ZL21fontCollectionEnumMapv_block_invoke()
 
 void ___ZL15baseFontEnumMapv_block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZL15baseFontEnumMapvEUb0_E14theStructArray, memory_order_acquire) & 1) == 0)
   {
     ___ZL15baseFontEnumMapv_block_invoke_cold_1();
   }
@@ -6326,7 +6317,7 @@ void std::vector<OADTableCell * {__strong}>::__destroy_vector::operator()[abi:ne
   }
 }
 
-_DWORD *OADTMatrixPos::OADTMatrixPos(_DWORD *a1, int a2, int a3, unsigned int a4)
+int *OADTMatrixPos::OADTMatrixPos(int *a1, int a2, int a3, unsigned int a4)
 {
   if (a4)
   {
@@ -6388,9 +6379,9 @@ int *OADTFTemplateMatrix<OADTableCell * {__strong}>::OADTFTemplateMatrix(int *a1
   return a1;
 }
 
-void sub_25D46423C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D46423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OADTableCell * {__strong}>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -6480,9 +6471,9 @@ void std::vector<OADTableCell * {__strong}>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_25D4643CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4643CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<OADTableCell * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6578,9 +6569,9 @@ int *OADTFTemplateMatrix<OADTablePartStyle * {__strong}>::OADTFTemplateMatrix(in
   return a1;
 }
 
-void sub_25D4645E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4645E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OADTableCell * {__strong}>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -6670,9 +6661,9 @@ void std::vector<OADTablePartStyle * {__strong}>::__append(uint64_t a1, unint64_
   }
 }
 
-void sub_25D464770(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D464770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<OADTableCell * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6703,9 +6694,9 @@ int *OADTFTemplateMatrix<OADStroke * {__strong}>::OADTFTemplateMatrix(int *a1, i
   return a1;
 }
 
-void sub_25D464838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D464838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OADTableCell * {__strong}>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -6795,9 +6786,9 @@ void std::vector<OADStroke * {__strong}>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_25D4649C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D4649C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<OADTableCell * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7379,7 +7370,7 @@ char *std::vector<ODIHRange,ChAllocator<ODIHRange>>::insert(void *a1, char *__sr
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -7412,19 +7403,18 @@ void sub_25D4820D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<ODIHRange,ChAllocator<ODIHRange> &>::emplace_back<ODIHRange const&>(void *result, void *a2)
+void std::__split_buffer<ODIHRange,ChAllocator<ODIHRange> &>::emplace_back<ODIHRange const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (((&v4[-*result] >> 2) & 0xFFFFFFFE) != 0)
+      if (((&v4[-*a1] >> 2) & 0xFFFFFFFE) != 0)
       {
-        v11 = (&v4[-*result] >> 2) & 0xFFFFFFFE;
+        v11 = (&v4[-*a1] >> 2) & 0xFFFFFFFE;
       }
 
       else
@@ -7432,7 +7422,7 @@ void *std::__split_buffer<ODIHRange,ChAllocator<ODIHRange> &>::emplace_back<ODIH
         v11 = 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<ChAllocator<ODIHRange>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<ChAllocator<ODIHRange>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7441,18 +7431,17 @@ void *std::__split_buffer<ODIHRange,ChAllocator<ODIHRange> &>::emplace_back<ODIH
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t std::vector<ODIHRange,ChAllocator<ODIHRange>>::__swap_out_circular_buffer(uint64_t a1, void *a2, char *a3)
@@ -7471,7 +7460,8 @@ uint64_t std::vector<ODIHRange,ChAllocator<ODIHRange>>::__swap_out_circular_buff
     v7 = a3;
     do
     {
-      v8 = *v7++;
+      v8 = *v7;
+      v7 += 8;
       *v6++ = v8;
     }
 
@@ -7490,7 +7480,8 @@ uint64_t std::vector<ODIHRange,ChAllocator<ODIHRange>>::__swap_out_circular_buff
     v13 = v12;
     do
     {
-      v14 = *v11++;
+      v14 = *v11;
+      v11 += 8;
       *v13++ = v14;
     }
 
@@ -7696,7 +7687,7 @@ uint64_t EshColorScheme::getSystemSchemeColor(uint64_t a1)
   return v3();
 }
 
-void EshContainer::insertChild(EshContainer *this, EshObject *a2)
+void EshContainer::insertChild(EshContainer *this, EshObject *a2, unsigned int a3)
 {
   if (EshObject::isEscher(a2))
   {
@@ -7708,7 +7699,7 @@ void EshContainer::insertChild(EshContainer *this, EshObject *a2)
 
 EshContainer *EshContainer::operator=(EshContainer *a1, uint64_t a2)
 {
-  EshContainer::removeChildren(a1);
+  EshContainer::removeChildren(a1, a2);
   EshRecord::operator=(a1, a2);
   if ((*(*a2 + 40))(a2))
   {
@@ -7859,7 +7850,7 @@ char *std::vector<EshHeader *,ChAllocator<EshHeader *>>::insert(void *a1, char *
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -7892,19 +7883,18 @@ void sub_25D48ADB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<EshHeader *,ChAllocator<EshHeader *> &>::emplace_back<EshHeader * const&>(void *result, void *a2)
+void std::__split_buffer<EshHeader *,ChAllocator<EshHeader *> &>::emplace_back<EshHeader * const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (((&v4[-*result] >> 2) & 0xFFFFFFFE) != 0)
+      if (((&v4[-*a1] >> 2) & 0xFFFFFFFE) != 0)
       {
-        v11 = (&v4[-*result] >> 2) & 0xFFFFFFFE;
+        v11 = (&v4[-*a1] >> 2) & 0xFFFFFFFE;
       }
 
       else
@@ -7912,7 +7902,7 @@ void *std::__split_buffer<EshHeader *,ChAllocator<EshHeader *> &>::emplace_back<
         v11 = 1;
       }
 
-      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHeader *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHeader *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7921,18 +7911,17 @@ void *std::__split_buffer<EshHeader *,ChAllocator<EshHeader *> &>::emplace_back<
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void EshDeletedPspl::EshDeletedPspl(EshDeletedPspl *this)
@@ -8126,19 +8115,19 @@ uint64_t EshGeometryProperties::setFlag(EshGeometryProperties *this, int a2, cha
   return 1;
 }
 
-void std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::resize(void *a1, unsigned int a2)
+void std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::resize(void *result, unsigned int a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__append(a1, v4);
+    std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 8 * a2;
+    result[1] = *result + 8 * a2;
   }
 }
 
@@ -8322,7 +8311,7 @@ uint64_t *EshOpt::copy(uint64_t *this, const EshOpt *a2)
         {
           v21 = v10;
           v22 = &v21;
-          v14 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21)[6];
+          v14 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21, &std::piecewise_construct, &v22)[6];
 LABEL_21:
           v15 = 0;
           goto LABEL_22;
@@ -8331,7 +8320,7 @@ LABEL_21:
         v18 = *(*v17 + v12);
         v21 = v10;
         v22 = &v21;
-        v19 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21);
+        v19 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21, &std::piecewise_construct, &v22);
         v20 = v19[5];
         v14 = v19[6];
         if (v18 <= 9)
@@ -8385,7 +8374,7 @@ LABEL_28:
       {
         v21 = v10;
         v22 = &v21;
-        v13 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21);
+        v13 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2, &v21, &std::piecewise_construct, &v22);
         v15 = v13[5];
         v14 = v13[6];
       }
@@ -8393,7 +8382,7 @@ LABEL_28:
 LABEL_22:
       v21 = v10;
       v22 = &v21;
-      this = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 4), &v21);
+      this = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 4), &v21, &std::piecewise_construct, &v22);
       this[5] = v15;
       this[6] = v14;
     }
@@ -8404,11 +8393,11 @@ LABEL_22:
   return this;
 }
 
-uint64_t EshOpt::deleteProperty(uint64_t *a1, int a2)
+uint64_t EshOpt::deleteProperty(uint64_t a1, unsigned int a2)
 {
   EshOpt::deleteComplexPropertyValue(a1, a2);
   v5 = a2;
-  return std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__erase_unique<unsigned int>((a1 + 4), &v5);
+  return std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__erase_unique<unsigned int>((a1 + 32), &v5);
 }
 
 void *EshDataTablePropVal<unsigned char>::equals(uint64_t a1, void *lpsrc)
@@ -8464,60 +8453,60 @@ uint64_t EshDataTablePropVal<unsigned char>::operator[](uint64_t a1, unsigned in
   return *(a1 + 8) + a2;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__erase_unique<unsigned int>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (!v2)
   {
     return 0;
   }
 
   v3 = *a2;
-  v4 = a1 + 8;
+  v4 = a1 + 1;
   do
   {
-    v5 = *(v2 + 32);
+    v5 = *(v2 + 8);
     v6 = v5 >= v3;
     v7 = v5 < v3;
     if (v6)
@@ -8525,11 +8514,11 @@ uint64_t std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_va
       v4 = v2;
     }
 
-    v2 = *(v2 + 8 * v7);
+    v2 = v2[v7];
   }
 
   while (v2);
-  if (v4 == a1 + 8 || v3 < *(v4 + 32))
+  if (v4 == a1 + 1 || v3 < *(v4 + 8))
   {
     return 0;
   }
@@ -8590,19 +8579,19 @@ void *EshDataTablePropVal<char>::equals(uint64_t a1, void *lpsrc)
   return result;
 }
 
-uint64_t EshDataTablePropVal<char>::init(uint64_t a1, unsigned int a2)
+uint64_t EshDataTablePropVal<char>::init(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   *(a1 + 16) = a2;
   result = *(a1 + 8);
   if (result)
   {
-    result = MEMORY[0x25F897000](result, 0x1000C4077774924);
+    result = MEMORY[0x25F897000](result, 0x1000C4077774924, a3);
   }
 
   *(a1 + 8) = 0;
   if (a2)
   {
-    operator new[](a2);
+    operator new[](a2, 0x1000C8077774924);
   }
 
   return result;
@@ -8643,14 +8632,12 @@ uint64_t EshBasicTablePropVal<float>::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *std::vector<float,ChAllocator<float>>::reserve(void *result, unsigned int a2)
+void std::vector<float,ChAllocator<float>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 2) < a2)
+  if (((a1[2] - *a1) >> 2) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D48C30C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -8706,7 +8693,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(uint64_t a1, uni
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<float,ChAllocator<float>>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unsigned int a4)
+void **std::vector<float,ChAllocator<float>>::__assign_with_size[abi:ne200100]<float *,float *>(void **result, char *__src, char *a3, unsigned int a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8852,19 +8839,17 @@ uint64_t EshBasicTablePropVal<EshHandle>::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *std::vector<EshHandle,ChAllocator<EshHandle>>::reserve(void *result, unsigned int a2)
+void std::vector<EshHandle,ChAllocator<EshHandle>>::reserve(void *a1, unsigned int a2)
 {
-  if (-252645135 * ((result[2] - *result) >> 2) < a2)
+  if (-252645135 * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0xC3C3C3C4)
     {
-      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHandle>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHandle>>(a1, a2);
     }
 
     std::vector<std::shared_ptr<TSUStringChunk>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25D48C87C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -8932,7 +8917,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<EshHandle>>(uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_DWORD *std::vector<EshHandle,ChAllocator<EshHandle>>::__assign_with_size[abi:ne200100]<EshHandle*,EshHandle*>(void *a1, _DWORD *a2, _DWORD *a3, unsigned int a4)
+_DWORD *std::vector<EshHandle,ChAllocator<EshHandle>>::__assign_with_size[abi:ne200100]<EshHandle*,EshHandle*>(uint64_t *a1, _DWORD *a2, _DWORD *a3, unsigned int a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -9051,7 +9036,7 @@ _DWORD *std::vector<EshHandle,ChAllocator<EshHandle>>::__assign_with_size[abi:ne
   return result;
 }
 
-void std::vector<EshHandle,ChAllocator<EshHandle>>::__vallocate[abi:ne200100](uint64_t a1, unsigned int a2)
+void std::vector<EshHandle,ChAllocator<EshHandle>>::__vallocate[abi:ne200100](uint64_t *a1, unsigned int a2)
 {
   if (a2 < 0xC3C3C3C4)
   {
@@ -9168,19 +9153,17 @@ uint64_t EshBasicTablePropVal<EshGradientStop>::operator=(uint64_t a1, uint64_t 
   return a1;
 }
 
-void *std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::reserve(void *result, unsigned int a2)
+void std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::reserve(void *a1, unsigned int a2)
 {
-  if (-1431655765 * ((result[2] - *result) >> 2) < a2)
+  if (-1431655765 * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x55555556)
     {
-      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshGradientStop>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<ChAllocator<EshGradientStop>>(a1, a2);
     }
 
     std::vector<std::shared_ptr<TSUStringChunk>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25D48D0AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -9238,7 +9221,7 @@ void std::__allocate_at_least[abi:ne200100]<ChAllocator<EshGradientStop>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_DWORD *std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__assign_with_size[abi:ne200100]<EshGradientStop*,EshGradientStop*>(void *a1, uint64_t a2, uint64_t a3, unsigned int a4)
+_DWORD *std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__assign_with_size[abi:ne200100]<EshGradientStop*,EshGradientStop*>(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -9338,7 +9321,7 @@ _DWORD *std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__assign_with
   return result;
 }
 
-void std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__vallocate[abi:ne200100](uint64_t a1, unsigned int a2)
+void std::vector<EshGradientStop,ChAllocator<EshGradientStop>>::__vallocate[abi:ne200100](uint64_t *a1, unsigned int a2)
 {
   if (a2 < 0x55555556)
   {
@@ -9383,14 +9366,12 @@ uint64_t EshBasicTablePropVal<int>::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void *std::vector<int,ChAllocator<int>>::reserve(void *result, unsigned int a2)
+void std::vector<int,ChAllocator<int>>::reserve(void *a1, unsigned int a2)
 {
-  if (((result[2] - *result) >> 2) < a2)
+  if (((a1[2] - *a1) >> 2) < a2)
   {
-    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(result, a2);
+    std::__allocate_at_least[abi:ne200100]<ChAllocator<float>>(a1, a2);
   }
-
-  return result;
 }
 
 void sub_25D48D688(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -9436,7 +9417,7 @@ int **std::vector<int,ChAllocator<int>>::__swap_out_circular_buffer(int **result
   return result;
 }
 
-void *std::vector<int,ChAllocator<int>>::__assign_with_size[abi:ne200100]<int *,int *>(void *result, char *__src, char *a3, unsigned int a4)
+void **std::vector<int,ChAllocator<int>>::__assign_with_size[abi:ne200100]<int *,int *>(void **result, char *__src, char *a3, unsigned int a4)
 {
   v6 = result;
   v7 = result[2];

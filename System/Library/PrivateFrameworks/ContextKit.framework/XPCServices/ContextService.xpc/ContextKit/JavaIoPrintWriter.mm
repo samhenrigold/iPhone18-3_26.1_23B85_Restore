@@ -3,6 +3,7 @@
 - (JavaIoPrintWriter)initWithJavaIoWriter:(id)writer;
 - (JavaIoPrintWriter)initWithJavaIoWriter:(id)writer withBoolean:(BOOL)boolean;
 - (id)appendWithJavaLangCharSequence:(id)sequence;
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt;
 - (id)formatWithJavaUtilLocale:(id)locale withNSString:(id)string withNSObjectArray:(id)array;
 - (id)formatWithNSString:(id)string withNSObjectArray:(id)array;
 - (void)clearError;
@@ -31,6 +32,7 @@
 - (void)setError;
 - (void)writeWithCharArray:(id)array;
 - (void)writeWithNSString:(id)string;
+- (void)writeWithNSString:(id)string withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation JavaIoPrintWriter
@@ -321,6 +323,18 @@
   [(JavaIoPrintWriter *)self writeWithCharArray:toCharArray];
 }
 
+- (void)writeWithNSString:(id)string withInt:(int)int withInt:(int)withInt
+{
+  if (!string || (v6 = [string substring:*&int endIndex:(withInt + int)]) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  toCharArray = [v6 toCharArray];
+
+  [(JavaIoPrintWriter *)self writeWithCharArray:toCharArray];
+}
+
 - (id)appendWithJavaLangCharSequence:(id)sequence
 {
   if (sequence)
@@ -334,6 +348,28 @@
   }
 
   [(JavaIoPrintWriter *)self appendWithJavaLangCharSequence:sequenceCopy withInt:0 withInt:[(__CFString *)sequenceCopy length]];
+  return self;
+}
+
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt
+{
+  if (sequence)
+  {
+    sequenceCopy = sequence;
+  }
+
+  else
+  {
+    sequenceCopy = @"null";
+  }
+
+  v7 = [(__CFString *)sequenceCopy subSequenceFrom:*&int to:*&withInt];
+  if (!v7 || (v8 = [v7 description]) == 0)
+  {
+    JreThrowNullPointerException();
+  }
+
+  -[JavaIoPrintWriter writeWithNSString:withInt:withInt:](self, "writeWithNSString:withInt:withInt:", v8, 0, [v8 length]);
   return self;
 }
 

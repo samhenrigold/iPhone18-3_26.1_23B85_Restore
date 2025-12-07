@@ -820,16 +820,16 @@ LABEL_18:
   {
     if (![(CRLDynamicOperationController *)self isInOperation])
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v8 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10137CF20();
       }
 
-      v8 = off_1019EDA68;
+      v9 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10137CF34(v8);
+        sub_10137CF34(v9, recognizerCopy, v8);
       }
 
       if (qword_101AD5A10 != -1)
@@ -837,17 +837,17 @@ LABEL_18:
         sub_10137D000();
       }
 
-      v9 = off_1019EDA68;
+      v10 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v9);
+        sub_10130F3A8(v10);
       }
 
-      v10 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleGestureRecognizer:]"];
-      v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:340 isFatal:0 description:"tracker is handling GR %@ when not in a transform", v13];
+      v11 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleGestureRecognizer:]"];
+      v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      [CRLAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:340 isFatal:0 description:"tracker is handling GR %@ when not in a transform", v14];
     }
 
     tracker = [recognizerCopy tracker];
@@ -862,10 +862,10 @@ LABEL_18:
         sub_10137D028();
       }
 
-      v17 = off_1019EDA68;
+      v18 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10137D050(v17);
+        sub_10137D050(v18);
       }
 
       if (qword_101AD5A10 != -1)
@@ -873,16 +873,16 @@ LABEL_18:
         sub_10137D11C();
       }
 
-      v18 = off_1019EDA68;
+      v19 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v18);
+        sub_10130F3A8(v19);
       }
 
-      v19 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleGestureRecognizer:]"];
-      v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
+      v20 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleGestureRecognizer:]"];
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
       tracker2 = [recognizerCopy tracker];
-      [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:346 isFatal:0 description:"Controlling TM has different dynamic operation expectations than current operation (%@)", tracker2];
+      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:346 isFatal:0 description:"Controlling TM has different dynamic operation expectations than current operation (%@)", tracker2];
     }
 
     if (self->_resetGuides)
@@ -963,16 +963,16 @@ LABEL_18:
   {
     if (![(CRLDynamicOperationController *)self isInOperation])
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v8 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10137D220();
       }
 
-      v8 = off_1019EDA68;
+      v9 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10137D234(v8);
+        sub_10137D234(v9, manipulatorCopy, v8);
       }
 
       if (qword_101AD5A10 != -1)
@@ -980,17 +980,17 @@ LABEL_18:
         sub_10137D300();
       }
 
-      v9 = off_1019EDA68;
+      v10 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v9);
+        sub_10130F3A8(v10);
       }
 
-      v10 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleTrackerManipulator:]"];
-      v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:393 isFatal:0 description:"tracker is handling TM %@ when not in a transform", v13];
+      v11 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleTrackerManipulator:]"];
+      v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      [CRLAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:393 isFatal:0 description:"tracker is handling TM %@ when not in a transform", v14];
     }
 
     tracker = [manipulatorCopy tracker];
@@ -999,16 +999,16 @@ LABEL_18:
 
     if (operationIsDynamic != operationShouldBeDynamic)
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v18 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10137D328();
       }
 
-      v17 = off_1019EDA68;
+      v19 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10137D350(v17);
+        sub_10137D350(v19, manipulatorCopy, v18);
       }
 
       if (qword_101AD5A10 != -1)
@@ -1016,17 +1016,17 @@ LABEL_18:
         sub_10137D41C();
       }
 
-      v18 = off_1019EDA68;
+      v20 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10130F3A8(v18);
+        sub_10130F3A8(v20);
       }
 
-      v19 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleTrackerManipulator:]"];
-      v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:399 isFatal:0 description:"Controlling TM %@ has different dynamic operation expectations than current operation", v22];
+      v21 = [NSString stringWithUTF8String:"[CRLDynamicOperationController handleTrackerManipulator:]"];
+      v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLDynamicOperationController.m"];
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:399 isFatal:0 description:"Controlling TM %@ has different dynamic operation expectations than current operation", v24];
     }
 
     if (self->_resetGuides)

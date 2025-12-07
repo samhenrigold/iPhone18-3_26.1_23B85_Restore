@@ -38,7 +38,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Loading restore keybag", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Loading restore keybag");
   }
 
   v6 = [NSData dataWithContentsOfFile:@"/var/mobile/Library/Backup/RestoreKeyBag.plist" options:0 error:&v28];
@@ -158,8 +158,7 @@ LABEL_26:
       *buf = 138412290;
       v6 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Error exporting keychain: %@", buf, 0xCu);
-      [MBError descriptionForError:v4];
-      _MBLog();
+      _MBLog(@"Df", "Error exporting keychain: %@", [MBError descriptionForError:v4]);
     }
   }
 }

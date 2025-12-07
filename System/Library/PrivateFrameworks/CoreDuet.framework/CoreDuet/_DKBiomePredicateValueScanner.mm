@@ -9,12 +9,12 @@
 
 + (id)searchForValuesForKey:(id)key inPredicate:(id)predicate
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   keyCopy = key;
   v7 = [_DKBiomePredicateValueScanner alloc];
-  v14[0] = keyCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = keyCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v9 = [(_DKBiomePredicateValueScanner *)v7 _initWithSearchKeys:v8];
 
   [predicateCopy acceptVisitor:v9 flags:15];
@@ -30,7 +30,6 @@
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

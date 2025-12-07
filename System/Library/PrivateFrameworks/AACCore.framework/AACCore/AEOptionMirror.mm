@@ -82,35 +82,35 @@
 
 + (uint64_t)clearMaskWithNumbers:(uint64_t)numbers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 |= [*(*(&v12 + 1) + 8 * v8++) integerValue];
+        v6 |= [*(*(&v11 + 1) + 8 * v8++) integerValue];
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -122,7 +122,6 @@
     v9 = -1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

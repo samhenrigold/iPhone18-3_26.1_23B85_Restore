@@ -31,6 +31,7 @@
 - (unint64_t)currentUserMetadataFeatureUsage;
 - (void)CKSyncEnginesInitOperationWithDelay:(BOOL)delay withCompletion:(id)completion;
 - (void)_onQueueFetchRemoteChangesForZoneIDs:(id)ds completion:(id)completion;
+- (void)accountChangedFromUserID:(id)d toUserID:(id)iD shouldWipeLocalState:(BOOL)state;
 - (void)acquireCloudCoreSessionWithContainerID:(id)d applicationID:(id)iD encryptionService:(id)service completion:(id)completion;
 - (void)cancelExistingSyncEngines;
 - (void)cancelSyncEngineOperationsWithCompletionBlock:(id)block;
@@ -51,6 +52,7 @@
 - (void)processDatabaseModifications;
 - (void)registerProvisioningActivity;
 - (void)removeCKNotificationListenersAfterSessionInvalidationWithPrivateDB:(id)b sharedDB:(id)dB;
+- (void)resetReinitCKSyncEnginesOperationWithDelay:(BOOL)delay withCompletion:(id)completion;
 - (void)resyncFromRPC:(BOOL)c privateRemoteZonesByZoneID:(id)d sharedRemoteZonesByZoneID:(id)iD completion:(id)completion;
 - (void)saveAllOutgoingChangesWithCompletion:(id)completion;
 - (void)saveStagedOutgoingChangesWithCompletion:(id)completion;
@@ -369,6 +371,26 @@ LABEL_10:
   }
 
   return v10;
+}
+
+- (void)accountChangedFromUserID:(id)d toUserID:(id)iD shouldWipeLocalState:(BOOL)state
+{
+  stateCopy = state;
+  dCopy = d;
+  iDCopy = iD;
+  loggingIdentifier = [(KCSharingSyncController *)self loggingIdentifier];
+  v11 = KCSharingLogObject();
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 138412546;
+    v13 = dCopy;
+    v14 = 2112;
+    v15 = iDCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "User ID: Old value: %@, New Value: %@", &v12, 0x16u);
+  }
+
+  [(KCSharingSyncController *)self handleAccountChangeFromUserRecordName:dCopy toUserRecordName:iDCopy shouldWipeLocalState:stateCopy];
 }
 
 - (BOOL)setCurrentUserMetadataFeatureUsage:(unint64_t)usage
@@ -4633,6 +4655,49 @@ LABEL_11:
       LOWORD(buf[0]) = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "No operation queue, let's hope we're testing!", buf, 2u);
     }
+  }
+}
+
+- (void)resetReinitCKSyncEnginesOperationWithDelay:(BOOL)delay withCompletion:(id)completion
+{
+  delayCopy = delay;
+  completionCopy = completion;
+  if (sub_10001078C())
+  {
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10007B6FC;
+    v14[3] = &unk_100344DC8;
+    v14[4] = self;
+    v15 = completionCopy;
+    v7 = [NSBlockOperation blockOperationWithBlock:v14];
+    loggingIdentifier = [(KCSharingSyncController *)self loggingIdentifier];
+    v9 = KCSharingLogObject();
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Setting up session reinit operation to run at unlock time", v13, 2u);
+    }
+
+    lockStateTracker = [(KCSharingSyncController *)self lockStateTracker];
+    unlockDependency = [lockStateTracker unlockDependency];
+    [v7 addNullableDependency:unlockDependency];
+
+    if (delayCopy)
+    {
+      operationDependency = [(CKKSNearFutureScheduler *)self->_nearFutureScheduler operationDependency];
+      [v7 addNullableDependency:operationDependency];
+
+      [(CKKSNearFutureScheduler *)self->_nearFutureScheduler trigger];
+    }
+
+    [(NSOperationQueue *)self->_operationQueue addOperation:v7];
+  }
+
+  else
+  {
+    [(KCSharingSyncController *)self CKSyncEnginesInitOperationWithDelay:delayCopy withCompletion:completionCopy];
   }
 }
 

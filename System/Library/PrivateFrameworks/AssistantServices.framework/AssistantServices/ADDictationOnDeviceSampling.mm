@@ -301,11 +301,11 @@ LABEL_16:
     {
       v8 = v2->_dictationSamplingVaribles;
       v9 = +[AFDictationSamplingUtilities sampledCurrentSamplingDateKey];
-      v10 = [(NSMutableDictionary *)v8 objectForKey:v9];
+      v10 = objc_msgSend_objectForKey_(v8);
       currentSamplingDate = v2->_currentSamplingDate;
       v2->_currentSamplingDate = v10;
 
-      v12 = [(NSMutableDictionary *)v2->_dictationSamplingVaribles objectForKey:@"numberOfRequestsTillNow"];
+      v12 = objc_msgSend_objectForKey_(v2->_dictationSamplingVaribles);
       v2->_numberOfRequestsTillNow = [v12 integerValue];
     }
 

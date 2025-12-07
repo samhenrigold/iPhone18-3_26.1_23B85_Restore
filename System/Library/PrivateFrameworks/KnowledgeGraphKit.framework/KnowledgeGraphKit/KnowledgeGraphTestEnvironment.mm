@@ -210,29 +210,29 @@
 
 + (NSArray)testEnvironmentsForOnDiskExistingStores
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   testEnvironmentsForExistingStores = [self testEnvironmentsForExistingStores];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(testEnvironmentsForExistingStores, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = testEnvironmentsForExistingStores;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         graph = [v9 graph];
         store = [graph store];
         persistentStoreFileExtension = [objc_opt_class() persistentStoreFileExtension];
@@ -243,49 +243,43 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (NSArray)testEnvironmentsForExistingStores
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [KnowledgeGraphTestEnvironment environmentWithTestDBWithStoreType:objc_opt_class() extraOptions:0];
   v3 = [KnowledgeGraphTestEnvironment environmentWithTestDBWithStoreType:objc_opt_class() extraOptions:0, v2];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [KnowledgeGraphTestEnvironment environmentWithTestDBWithStoreType:objc_opt_class() extraOptions:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (NSArray)matisseGraphs
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [MAKGTestGraph alloc];
   v4 = [self temporaryURLWithFileExtension:@"kgdb"];
   v5 = [(MAGraph *)v3 initWithPersistentStoreURL:v4 options:0 error:0];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)environmentWithTestDBWithStoreType:(Class)type extraOptions:(unint64_t)options
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == type)
   {
     v9 = objc_alloc_init(type);
@@ -299,9 +293,9 @@
     v9 = [[type alloc] initWithURL:v8];
   }
 
-  v17 = 0;
-  v10 = [v9 openWithMode:options | 6 error:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [v9 openWithMode:options | 6 error:&v16];
+  v11 = v16;
   if (v10)
   {
     v12 = objc_alloc_init(KGLabelBasedEntityFactory);
@@ -315,14 +309,12 @@
     if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v11;
+      v18 = v11;
       _os_log_error_impl(&dword_255870000, &v12->super, OS_LOG_TYPE_ERROR, "Error opening store %@", buf, 0xCu);
     }
 
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

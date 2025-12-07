@@ -192,36 +192,13 @@ LABEL_6:
     {
       if (self->_cancelled)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
 
       v7 = clientCopy;
       if ([(NSMutableArray *)self->_asNamesForBrowsing containsObject:nameCopy])
       {
-        nrUUID = self->_nrUUID;
-LABEL_6:
-        v9 = _NRCopyLogObjectForNRUUID();
-        IsLevelEnabled = _NRLogIsLevelEnabled();
-
-        clientCopy = v7;
-        if (!IsLevelEnabled)
-        {
-          goto LABEL_13;
-        }
-
-        if (v7)
-        {
-          v11 = self->_nrUUID;
-        }
-
-        else
-        {
-          v7 = 0;
-        }
-
-        WeakRetained = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
-        goto LABEL_12;
+        goto LABEL_5;
       }
 
       [(NSMutableArray *)self->_asNamesForBrowsing addObject:nameCopy];
@@ -233,7 +210,24 @@ LABEL_6:
       v7 = 0;
       if ([0 containsObject:nameCopy])
       {
-        goto LABEL_6;
+LABEL_5:
+        v8 = _NRCopyLogObjectForNRUUID();
+        IsLevelEnabled = _NRLogIsLevelEnabled();
+
+        clientCopy = v7;
+        if (!IsLevelEnabled)
+        {
+          goto LABEL_12;
+        }
+
+        if (!v7)
+        {
+          v7 = 0;
+        }
+
+        WeakRetained = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(WeakRetained, 0, "%s%.30s:%-4d already browsing for %@", ", "[NRApplicationServiceClient didStartBrowseRequestForASName:asClient:]"", 1511, nameCopy);
+        goto LABEL_11;
       }
 
       [0 addObject:nameCopy];
@@ -241,45 +235,40 @@ LABEL_6:
     }
 
     [WeakRetained didStartBrowseRequestForASName:nameCopy asClient:self];
-LABEL_12:
+LABEL_11:
 
     clientCopy = v7;
   }
 
-LABEL_13:
+LABEL_12:
 }
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@ dealloc", ", "[NRApplicationServiceClient dealloc]"", 1362, self);
   }
 
   sub_10011DE24(self);
-  v9.receiver = self;
-  v9.super_class = NRApplicationServiceClient;
-  [(NRApplicationServiceClient *)&v9 dealloc];
+  v8.receiver = self;
+  v8.super_class = NRApplicationServiceClient;
+  [(NRApplicationServiceClient *)&v8 dealloc];
 }
 
 - (NSString)description
@@ -287,40 +276,39 @@ LABEL_13:
   v3 = [NSMutableString alloc];
   if (self)
   {
-    identifier = self->_identifier;
     if (self->_started)
     {
-      v5 = "started";
+      v4 = "started";
     }
 
     else if (self->_cancelled)
     {
-      v5 = "cancelled";
+      v4 = "cancelled";
     }
 
     else
     {
-      v5 = "";
+      v4 = "";
     }
 
-    v6 = [v3 initWithFormat:@"NRASClient[%llu %s ", self->_identifier, v5];
-    [v6 appendFormat:@"browsing: %@ ", self->_asNamesForBrowsing];
-    [v6 appendFormat:@"resolving: %@ ", self->_asNamesForResolving];
+    v5 = [v3 initWithFormat:@"NRASClient[%llu %s ", self->_identifier, v4];
+    [v5 appendFormat:@"browsing: %@ ", self->_asNamesForBrowsing];
+    [v5 appendFormat:@"resolving: %@ ", self->_asNamesForResolving];
     asNamesForIncomingResolveRequests = self->_asNamesForIncomingResolveRequests;
   }
 
   else
   {
-    v6 = [v3 initWithFormat:@"NRASClient[%llu %s ", 0, ""];
-    [v6 appendFormat:@"browsing: %@ ", 0];
-    [v6 appendFormat:@"resolving: %@ ", 0];
+    v5 = [v3 initWithFormat:@"NRASClient[%llu %s ", 0, ""];
+    [v5 appendFormat:@"browsing: %@ ", 0];
+    [v5 appendFormat:@"resolving: %@ ", 0];
     asNamesForIncomingResolveRequests = 0;
   }
 
-  [v6 appendFormat:@"incoming-requests: %@ ", asNamesForIncomingResolveRequests];
-  [v6 appendString:@"]"];
+  [v5 appendFormat:@"incoming-requests: %@ ", asNamesForIncomingResolveRequests];
+  [v5 appendString:@"]"];
 
-  return v6;
+  return v5;
 }
 
 @end

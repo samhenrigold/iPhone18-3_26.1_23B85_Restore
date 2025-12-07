@@ -2189,17 +2189,17 @@ uint64_t __65__ATDeviceSyncSessionAssetTask__handleAssetRequest_onMessagLink___b
   return [*(a1 + 32) _updateTaskDescription];
 }
 
-uint64_t __65__ATDeviceSyncSessionAssetTask__handleAssetRequest_onMessagLink___block_invoke_5(uint64_t result)
+void *__65__ATDeviceSyncSessionAssetTask__handleAssetRequest_onMessagLink___block_invoke_5(void *result)
 {
-  v1 = *(result + 56);
+  v1 = *(result + 7);
   if (v1)
   {
     v2 = result;
-    *(*(*(result + 48) + 8) + 24) += v1;
-    if (*(*(*(result + 48) + 8) + 24) > 0x40000uLL)
+    *(*(*(result + 6) + 8) + 24) += v1;
+    if (*(*(*(result + 6) + 8) + 24) > 0x40000uLL)
     {
-      result = [*(result + 32) _updateProgressWithBytesTransferred:? forAsset:?];
-      *(*(*(v2 + 48) + 8) + 24) = 0;
+      result = [*(result + 4) _updateProgressWithBytesTransferred:? forAsset:?];
+      *(*(v2[6] + 8) + 24) = 0;
     }
   }
 

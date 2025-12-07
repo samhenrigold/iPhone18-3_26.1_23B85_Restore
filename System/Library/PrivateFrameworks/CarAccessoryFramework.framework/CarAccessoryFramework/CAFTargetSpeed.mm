@@ -17,6 +17,7 @@
 - (NSMeasurement)speedKMH;
 - (NSMeasurement)speedMPH;
 - (unsigned)targetSpeedState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -246,6 +247,100 @@
   v3 = speedLimitedCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000045000005"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    targetSpeedStateCharacteristic = [(CAFTargetSpeed *)self targetSpeedStateCharacteristic];
+    uniqueIdentifier2 = [targetSpeedStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers targetSpeedService:self didUpdateTargetSpeedState:{-[CAFTargetSpeed targetSpeedState](self, "targetSpeedState")}];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000046"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    speedKMHCharacteristic = [(CAFTargetSpeed *)self speedKMHCharacteristic];
+    uniqueIdentifier4 = [speedKMHCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      speedKMH = [(CAFTargetSpeed *)self speedKMH];
+      [observers targetSpeedService:self didUpdateSpeedKMH:speedKMH];
+LABEL_12:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000047"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    speedMPHCharacteristic = [(CAFTargetSpeed *)self speedMPHCharacteristic];
+    uniqueIdentifier6 = [speedMPHCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      speedKMH = [(CAFTargetSpeed *)self speedMPH];
+      [observers targetSpeedService:self didUpdateSpeedMPH:speedKMH];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000004500001C"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  speedLimitedCharacteristic = [(CAFTargetSpeed *)self speedLimitedCharacteristic];
+  uniqueIdentifier8 = [speedLimitedCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    [observers targetSpeedService:self didUpdateSpeedLimited:{-[CAFTargetSpeed speedLimited](self, "speedLimited")}];
+    goto LABEL_17;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFTargetSpeed;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTargetSpeedState

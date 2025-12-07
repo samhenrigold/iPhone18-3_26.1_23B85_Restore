@@ -142,7 +142,7 @@ uint64_t __58__SESExpress_processConfigurationChange_newConfiguration___block_in
 
 id __60__SESExpress_getUWBExpressKeyIdentifiers_appletIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"appletIdentifier"];
   if (!v4 || (v5 = v4, [v3 objectForKeyedSubscript:@"appletIdentifier"], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, v5, (isKindOfClass & 1) == 0))
@@ -150,9 +150,9 @@ id __60__SESExpress_getUWBExpressKeyIdentifiers_appletIdentifiers___block_invoke
     v8 = SESDefaultLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412290;
-      v22 = v3;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Missing or invalid appletIdentifier %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v3;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Missing or invalid appletIdentifier %@", &v20, 0xCu);
     }
 
     goto LABEL_12;
@@ -201,26 +201,26 @@ id __60__SESExpress_getUWBExpressKeyIdentifiers_appletIdentifiers___block_invoke
         goto LABEL_12;
       }
 
-      v19 = SESDefaultLogObject();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = SESDefaultLogObject();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v21 = 138412290;
-        v22 = v3;
-        v20 = "Invalid UWBExpressEnabled %@";
+        v20 = 138412290;
+        v21 = v3;
+        v19 = "Invalid UWBExpressEnabled %@";
         goto LABEL_20;
       }
     }
 
     else
     {
-      v19 = SESDefaultLogObject();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = SESDefaultLogObject();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v21 = 138412290;
-        v22 = v3;
-        v20 = "Invalid keyIdentifier %@";
+        v20 = 138412290;
+        v21 = v3;
+        v19 = "Invalid keyIdentifier %@";
 LABEL_20:
-        _os_log_impl(&dword_1C7B9A000, v19, OS_LOG_TYPE_ERROR, v20, &v21, 0xCu);
+        _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_ERROR, v19, &v20, 0xCu);
       }
     }
   }
@@ -228,8 +228,6 @@ LABEL_20:
 LABEL_12:
   v9 = 0;
 LABEL_13:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

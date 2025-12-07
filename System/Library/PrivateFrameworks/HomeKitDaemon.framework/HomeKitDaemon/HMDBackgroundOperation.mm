@@ -52,40 +52,38 @@
 
 - (id)attributeDescriptions
 {
-  v27[7] = *MEMORY[0x277D85DE8];
+  v26[7] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   operationUUID = [(HMDBackgroundOperation *)self operationUUID];
-  v25 = [v3 initWithName:@"UUID" value:operationUUID];
-  v27[0] = v25;
+  v24 = [v3 initWithName:@"UUID" value:operationUUID];
+  v26[0] = v24;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   expirationDate = [(HMDBackgroundOperation *)self expirationDate];
-  v23 = [v4 initWithName:@"expirationDate" value:expirationDate];
-  v27[1] = v23;
+  v22 = [v4 initWithName:@"expirationDate" value:expirationDate];
+  v26[1] = v22;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   deferralDate = [(HMDBackgroundOperation *)self deferralDate];
   v6 = [v5 initWithName:@"deferralDate" value:deferralDate];
-  v27[2] = v6;
+  v26[2] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HMDBackgroundOperation failureCount](self, "failureCount")}];
   v9 = [v7 initWithName:@"failureCount" value:v8];
-  v27[3] = v9;
+  v26[3] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDBackgroundOperation *)self isExpired];
   v11 = HMFBooleanToString();
   v12 = [v10 initWithName:@"expired" value:v11];
-  v27[4] = v12;
+  v26[4] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   dependencies = [(HMDBackgroundOperation *)self dependencies];
   v15 = [v13 initWithName:@"dependencies" value:dependencies];
-  v27[5] = v15;
+  v26[5] = v15;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDBackgroundOperation *)self isAlreadyScheduled];
   v17 = HMFBooleanToString();
   v18 = [v16 initWithName:@"scheduled" value:v17];
-  v27[6] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:7];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v26[6] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:7];
 
   return v19;
 }
@@ -101,7 +99,7 @@
 - (id)AllDependencies
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableSet *)self->_dependencies copy];
+  v3 = objc_msgSend_copy(self->_dependencies);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -234,43 +232,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  operationUUID = [(HMDBackgroundOperation *)self operationUUID];
-  operationUUID2 = [v6 operationUUID];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_10;
-  }
-
-  userData = [(HMDBackgroundOperation *)self userData];
-  userData2 = [v6 userData];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_10;
-  }
-
-  scheduledDate = [(HMDBackgroundOperation *)self scheduledDate];
-  scheduledDate2 = [v6 scheduledDate];
-  v15 = HMFEqualObjects();
-
-  if (!v15)
-  {
-    goto LABEL_10;
-  }
-
-  expirationDate = [(HMDBackgroundOperation *)self expirationDate];
-  expirationDate2 = [v6 expirationDate];
-  v18 = HMFEqualObjects();
-
-  if (v18)
+  if (v6 && (-[HMDBackgroundOperation operationUUID](self, "operationUUID"), v7 = objc_claimAutoreleasedReturnValue(), [v6 operationUUID], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMDBackgroundOperation userData](self, "userData"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "userData"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMDBackgroundOperation scheduledDate](self, "scheduledDate"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "scheduledDate"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && (-[HMDBackgroundOperation expirationDate](self, "expirationDate"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "expirationDate"), v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18))
   {
     allDependencies = [(HMDBackgroundOperation *)self AllDependencies];
     allDependencies2 = [v6 AllDependencies];
@@ -279,7 +241,6 @@
 
   else
   {
-LABEL_10:
     v21 = 0;
   }
 
@@ -288,7 +249,7 @@ LABEL_10:
 
 - (BOOL)runOperation:(id)operation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if ([(HMDBackgroundOperation *)self finished])
   {
@@ -299,7 +260,7 @@ LABEL_10:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v8;
+      v29 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@The operation is already finished running.", buf, 0xCu);
     }
 
@@ -317,9 +278,9 @@ LABEL_10:
       v12 = HMFGetLogIdentifier();
       operationUUID = [(HMDBackgroundOperation *)selfCopy2 operationUUID];
       *buf = 138543618;
-      v30 = v12;
-      v31 = 2112;
-      v32 = operationUUID;
+      v29 = v12;
+      v30 = 2112;
+      v31 = operationUUID;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Operation [%@] is deferred and should not run.", buf, 0x16u);
     }
 
@@ -336,17 +297,17 @@ LABEL_17:
     v17 = HMFGetLogIdentifier();
     operationUUID2 = [(HMDBackgroundOperation *)selfCopy3 operationUUID];
     *buf = 138543618;
-    v30 = v17;
-    v31 = 2112;
-    v32 = operationUUID2;
+    v29 = v17;
+    v30 = 2112;
+    v31 = operationUUID2;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Running Operation : %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
   [(HMDBackgroundOperation *)selfCopy3 setHomeManager:operationCopy];
-  v28 = 0;
-  v19 = [(HMDBackgroundOperation *)selfCopy3 mainWithError:&v28];
-  selfCopy2 = v28;
+  v27 = 0;
+  v19 = [(HMDBackgroundOperation *)selfCopy3 mainWithError:&v27];
+  selfCopy2 = v27;
   if (!v19)
   {
     [(HMDBackgroundOperation *)selfCopy3 setScheduled:0];
@@ -361,13 +322,13 @@ LABEL_17:
       operationUUID3 = [(HMDBackgroundOperation *)v21 operationUUID];
       v25 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HMDBackgroundOperation failureCount](v21, "failureCount")}];
       *buf = 138544130;
-      v30 = v23;
-      v31 = 2112;
-      v32 = operationUUID3;
-      v33 = 2112;
-      v34 = v25;
-      v35 = 2112;
-      v36 = selfCopy2;
+      v29 = v23;
+      v30 = 2112;
+      v31 = operationUUID3;
+      v32 = 2112;
+      v33 = v25;
+      v34 = 2112;
+      v35 = selfCopy2;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Operation [%@] failed [%@] with error : %@", buf, 0x2Au);
     }
 
@@ -381,7 +342,6 @@ LABEL_5:
 LABEL_18:
 
   objc_autoreleasePoolPop(v5);
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -479,10 +439,9 @@ LABEL_18:
 
 void __37__HMDBackgroundOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_144768;
-  logCategory__hmf_once_v13_144768 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_144768;
+  logCategory__hmf_once_v13_144768 = v0;
 }
 
 + (NSPredicate)predicate

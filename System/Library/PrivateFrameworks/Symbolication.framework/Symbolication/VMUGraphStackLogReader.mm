@@ -11,16 +11,20 @@
 - (_VMURange)sourceLineRangeContainingPCaddress:(unint64_t)caddress;
 - (id)binaryImagePathForPCaddress:(unint64_t)caddress;
 - (id)functionNameForPCaddress:(unint64_t)caddress;
+- (id)sourceFileNameAndLineNumberForPCaddress:(unint64_t)caddress fullPath:(BOOL)path;
 - (id)sourceFileNameForPCaddress:(unint64_t)caddress;
 - (id)sourcePathForPCaddress:(unint64_t)caddress;
 - (id)vmuVMRegionForAddress:(unint64_t)address;
 - (int)enumerateMSLRecordsAndPayloads:(id)payloads;
+- (int64_t)getFramesForAddress:(unint64_t)address size:(unint64_t)size inLiteZone:(BOOL)zone stackFramesBuffer:(unint64_t *)buffer;
+- (int64_t)getFramesForNode:(unsigned int)node inLiteZone:(BOOL)zone stackFramesBuffer:(unint64_t *)buffer;
 - (int64_t)getFramesForStackID:(unint64_t)d stackFramesBuffer:(unint64_t *)buffer;
 - (unint64_t)nodesInUniquingTable;
 - (unint64_t)stackIDForNode:(unsigned int)node;
 - (unint64_t)timestampForNode:(unsigned int)node;
 - (unsigned)sourceLineNumberForPCaddress:(unint64_t)caddress;
 - (void)_parseSourceInfoString:(id)string intoComponents:(unsigned int *)components;
+- (void)_setSourcePath:(id)path lineNumber:(unsigned int)number forPCAddressRange:(_VMURange)range;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)enumerateUniquingTable:(id)table;
@@ -807,20 +811,19 @@ LABEL_57:
   }
 
   v5 = tableCopy;
-  task = self->super._task;
-  v7 = msl_uniquing_table_copy_from_task();
-  self->_originalUniquingTable = v7;
-  if (v7)
+  v6 = msl_uniquing_table_copy_from_task();
+  self->_originalUniquingTable = v6;
+  if (v6)
   {
     WeakRetained = objc_loadWeakRetained(&self->_graph);
     self->_nodeNamespaceSize = [WeakRetained nodeNamespaceSize];
 
-    v9 = objc_loadWeakRetained(&self->_graph);
-    self->_nodeToMSLPayloadTable = malloc_type_malloc(8 * [v9 nodeNamespaceSize], 0x100004000313F17uLL);
+    v8 = objc_loadWeakRetained(&self->_graph);
+    self->_nodeToMSLPayloadTable = malloc_type_malloc(8 * [v8 nodeNamespaceSize], 0x100004000313F17uLL);
 
     nodeToMSLPayloadTable = self->_nodeToMSLPayloadTable;
-    v11 = objc_loadWeakRetained(&self->_graph);
-    memset(nodeToMSLPayloadTable, 255, 8 * [v11 nodeNamespaceSize]);
+    v10 = objc_loadWeakRetained(&self->_graph);
+    memset(nodeToMSLPayloadTable, 255, 8 * [v10 nodeNamespaceSize]);
 
     debugTimer = self->_debugTimer;
     if (debugTimer)
@@ -833,11 +836,11 @@ LABEL_57:
         signpostID2 = [(VMUDebugTimer *)self->_debugTimer signpostID];
         if (signpostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v16 = signpostID2;
+          v15 = signpostID2;
           if (os_signpost_enabled(logHandle))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle, OS_SIGNPOST_INTERVAL_END, v16, "VMUGraphStackLogReader", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle, OS_SIGNPOST_INTERVAL_END, v15, "VMUGraphStackLogReader", "", buf, 2u);
           }
         }
 
@@ -847,72 +850,72 @@ LABEL_57:
 
     [(VMUDebugTimer *)debugTimer endEvent:"VMUGraphStackLogReader"];
     [(VMUDebugTimer *)self->_debugTimer startWithCategory:"VMUGraphStackLogReader" message:"copyOriginalUniquingTable build map of node --> payload"];
-    v17 = self->_debugTimer;
-    if (v17)
+    v16 = self->_debugTimer;
+    if (v16)
     {
-      logHandle2 = [(VMUDebugTimer *)v17 logHandle];
+      logHandle2 = [(VMUDebugTimer *)v16 logHandle];
       signpostID3 = [(VMUDebugTimer *)self->_debugTimer signpostID];
       if (signpostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v20 = signpostID3;
+        v19 = signpostID3;
         if (os_signpost_enabled(logHandle2))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle2, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VMUGraphStackLogReader", "copyOriginalUniquingTable build map of node --> payload", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle2, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VMUGraphStackLogReader", "copyOriginalUniquingTable build map of node --> payload", buf, 2u);
         }
       }
     }
 
     if (self->super._usesLiteMode)
     {
-      v21 = objc_loadWeakRetained(&self->_graph);
-      v22 = VMULiteZoneIndex(v21);
+      v20 = objc_loadWeakRetained(&self->_graph);
+      v21 = VMULiteZoneIndex(v20);
 
-      v23 = objc_loadWeakRetained(&self->_graph);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke;
-      v31[3] = &unk_1E8279640;
-      v31[4] = self;
-      v33 = v22;
-      v32 = v5;
-      VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v23, v31);
+      v22 = objc_loadWeakRetained(&self->_graph);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke;
+      v30[3] = &unk_1E8279640;
+      v30[4] = self;
+      v32 = v21;
+      v31 = v5;
+      VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v22, v30);
     }
 
     self->_mslRecordsCount = 0;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_2;
-    v30[3] = &unk_1E8278088;
-    v30[4] = self;
-    [v5 enumerateMSLRecordsAndPayloads:v30];
-    v24 = self->_debugTimer;
-    if (v24)
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_2;
+    v29[3] = &unk_1E8278088;
+    v29[4] = self;
+    [v5 enumerateMSLRecordsAndPayloads:v29];
+    v23 = self->_debugTimer;
+    if (v23)
     {
-      signpostID4 = [(VMUDebugTimer *)v24 signpostID];
-      v24 = self->_debugTimer;
+      signpostID4 = [(VMUDebugTimer *)v23 signpostID];
+      v23 = self->_debugTimer;
       if (signpostID4)
       {
-        logHandle3 = [(VMUDebugTimer *)v24 logHandle];
+        logHandle3 = [(VMUDebugTimer *)v23 logHandle];
         signpostID5 = [(VMUDebugTimer *)self->_debugTimer signpostID];
         if (signpostID5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v28 = signpostID5;
+          v27 = signpostID5;
           if (os_signpost_enabled(logHandle3))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, v28, "VMUGraphStackLogReader", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle3, OS_SIGNPOST_INTERVAL_END, v27, "VMUGraphStackLogReader", "", buf, 2u);
           }
         }
 
-        v24 = self->_debugTimer;
+        v23 = self->_debugTimer;
       }
     }
 
-    [(VMUDebugTimer *)v24 endEvent:"VMUGraphStackLogReader"];
+    [(VMUDebugTimer *)v23 endEvent:"VMUGraphStackLogReader"];
   }
 
-  return v7 != 0;
+  return v6 != 0;
 }
 
 void __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, BOOL *a5)
@@ -967,13 +970,13 @@ LABEL_10:
   *(v15 + 168) = v16;
 }
 
-unint64_t __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_2(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = result;
-  ++*(*(result + 32) + 176);
+  ++*(result[4] + 176);
   if ((a2 & 0x12) != 0)
   {
-    v10 = *(result + 32);
+    v10 = result[4];
     if ((*(v10 + 56) & 1) == 0)
     {
       WeakRetained = objc_loadWeakRetained((v10 + 80));
@@ -981,17 +984,17 @@ unint64_t __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_
 
       if (v12 != -1)
       {
-        v13 = objc_loadWeakRetained((*(v9 + 32) + 80));
+        v13 = objc_loadWeakRetained((v9[4] + 80));
         if (v12 >= [v13 nodeNamespaceSize])
         {
           __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_2_cold_1();
         }
 
-        *(*(*(v9 + 32) + 128) + 8 * v12) = a5;
+        *(*(v9[4] + 128) + 8 * v12) = a5;
       }
 
       result = msl_payload_get_allocation_timestamp();
-      v14 = *(v9 + 32);
+      v14 = v9[4];
       v15 = *(v14 + 168);
       if (result > v15)
       {
@@ -1005,7 +1008,7 @@ unint64_t __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_
   if ((a2 & 0x30) != 0)
   {
     uniquing_table_index = msl_payload_get_uniquing_table_index();
-    v17 = *(*(v9 + 32) + 24);
+    v17 = *(v9[4] + 24);
 
     return [v17 handleStackLogType:a2 address:a3 size:a4 stackID:uniquing_table_index];
   }
@@ -1016,7 +1019,7 @@ unint64_t __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_
 - (BOOL)populateBacktraceUniquingTableWithCore:(id)core zones:(_VMUZoneNode *)zones zonesCount:(unsigned int)count
 {
   LODWORD(v5) = count;
-  v48[15] = *MEMORY[0x1E69E9840];
+  v43[15] = *MEMORY[0x1E69E9840];
   coreCopy = core;
   self->_backtraceUniquingTable = vmu_create_backtrace_uniquing_table(0, 4);
   WeakRetained = objc_loadWeakRetained(&self->_graph);
@@ -1027,148 +1030,143 @@ unint64_t __52__VMUGraphStackLogReader_copyOriginalUniquingTable___block_invoke_
   self->_nodeToStackIndexTable = v11;
   __pattern4 = -1;
   memset_pattern4(v11, &__pattern4, 4 * nodeNamespaceSize);
-  v46 = 0;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = self->super._symbolicator._opaque_2;
+  v41 = 0;
   CSSymbolicatorGetAOutSymbolOwner();
   CSSymbolOwnerGetSymbolWithName();
   Range = CSSymbolGetRange();
-  [coreCopy peekAtAddress:Range size:v15 returnsBuf:&v46];
-  v16 = self->super._symbolicator._opaque_1;
-  v17 = self->super._symbolicator._opaque_2;
+  [coreCopy peekAtAddress:Range size:v13 returnsBuf:&v41];
   CSSymbolicatorGetAOutSymbolOwner();
   BaseAddress = CSSymbolOwnerGetBaseAddress();
   if (v5)
   {
-    v19 = BaseAddress;
-    v20 = 0;
-    v41 = 0;
+    v15 = BaseAddress;
+    v16 = 0;
+    v36 = 0;
     v5 = v5;
-    v39 = v5;
+    v34 = v5;
     zonesCopy = zones;
     while (1)
     {
-      v45 = 0;
-      [coreCopy peekAtAddress:zones[v20].var0 size:256 returnsBuf:&v45];
-      if (!*v45)
+      v40 = 0;
+      [coreCopy peekAtAddress:zones[v16].var0 size:256 returnsBuf:&v40];
+      if (!*v40)
       {
         goto LABEL_25;
       }
 
-      v21 = v45[24];
-      if (!v21)
+      v17 = v40[24];
+      if (!v17)
       {
         goto LABEL_25;
       }
 
-      v44 = 0;
-      [coreCopy peekAtAddress:v21 size:32 returnsBuf:&v44];
-      v22 = *v44;
-      if (v22 == 2)
+      v39 = 0;
+      [coreCopy peekAtAddress:v17 size:32 returnsBuf:&v39];
+      v18 = *v39;
+      if (v18 == 2)
       {
         break;
       }
 
-      if (v22 == 1)
+      if (v18 == 1)
       {
-        v43 = 0;
-        [coreCopy peekAtAddress:v45[24] + 36 size:12 * *(v44 + 1) returnsBuf:&v43];
-        v23 = v44;
-        if (*(v44 + 1))
+        v38 = 0;
+        [coreCopy peekAtAddress:v40[24] + 36 size:12 * *(v39 + 1) returnsBuf:&v38];
+        v19 = v39;
+        if (*(v39 + 1))
         {
-          v24 = 0;
-          v25 = 0;
+          v20 = 0;
+          v21 = 0;
           do
           {
-            if (*(v43 + v24))
+            if (*(v38 + v20))
             {
-              v26 = btref_decode_unslide(coreCopy, *(v43 + v24 + 8) & 0xFFFFFFC0, v48, v46, v19);
-              if (v26)
+              v22 = btref_decode_unslide(coreCopy, *(v38 + v20 + 8) & 0xFFFFFFC0, v43, v41, v15);
+              if (v22)
               {
-                v42 = 0;
-                vmu_enter_stack_in_backtrace_uniquing_table(self->_backtraceUniquingTable, &v42, v48, v26, v27);
-                v28 = objc_loadWeakRetained(&self->_graph);
-                v29 = [v28 nodeForAddress:~*(v43 + v24)];
+                v37 = 0;
+                vmu_enter_stack_in_backtrace_uniquing_table(self->_backtraceUniquingTable, &v37, v43, v22, v23);
+                v24 = objc_loadWeakRetained(&self->_graph);
+                v25 = [v24 nodeForAddress:~*(v38 + v20)];
 
-                if (v29 != -1)
+                if (v25 != -1)
                 {
-                  self->_nodeToStackIndexTable[v29] = v42;
-                  v41 = 1;
+                  self->_nodeToStackIndexTable[v25] = v37;
+                  v36 = 1;
                 }
               }
 
-              v23 = v44;
+              v19 = v39;
             }
 
-            ++v25;
-            v24 += 12;
+            ++v21;
+            v20 += 12;
           }
 
-          while (v25 < *(v23 + 1));
+          while (v21 < *(v19 + 1));
         }
 
 LABEL_24:
-        v5 = v39;
+        v5 = v34;
         zones = zonesCopy;
       }
 
 LABEL_25:
-      if (++v20 == v5)
+      if (++v16 == v5)
       {
         goto LABEL_28;
       }
     }
 
-    v43 = 0;
-    [coreCopy peekAtAddress:v45[24] + 48 size:16 * *(v44 + 1) returnsBuf:&v43];
-    v30 = v44;
-    if (*(v44 + 1))
+    v38 = 0;
+    [coreCopy peekAtAddress:v40[24] + 48 size:16 * *(v39 + 1) returnsBuf:&v38];
+    v26 = v39;
+    if (*(v39 + 1))
     {
-      v31 = 0;
-      v32 = 0;
+      v27 = 0;
+      v28 = 0;
       do
       {
-        if (*(v43 + v31))
+        if (*(v38 + v27))
         {
-          v33 = btref_decode_unslide(coreCopy, *(v43 + v31 + 12) & 0xFFFFFFC0, v48, v46, v19);
-          if (v33)
+          v29 = btref_decode_unslide(coreCopy, *(v38 + v27 + 12) & 0xFFFFFFC0, v43, v41, v15);
+          if (v29)
           {
-            v42 = 0;
-            vmu_enter_stack_in_backtrace_uniquing_table(self->_backtraceUniquingTable, &v42, v48, v33, v34);
-            v35 = objc_loadWeakRetained(&self->_graph);
-            v36 = [v35 nodeForAddress:~*(v43 + v31)];
+            v37 = 0;
+            vmu_enter_stack_in_backtrace_uniquing_table(self->_backtraceUniquingTable, &v37, v43, v29, v30);
+            v31 = objc_loadWeakRetained(&self->_graph);
+            v32 = [v31 nodeForAddress:~*(v38 + v27)];
 
-            if (v36 != -1)
+            if (v32 != -1)
             {
-              self->_nodeToStackIndexTable[v36] = v42;
-              v41 = 1;
+              self->_nodeToStackIndexTable[v32] = v37;
+              v36 = 1;
             }
           }
 
-          v30 = v44;
+          v26 = v39;
         }
 
-        ++v32;
-        v31 += 16;
+        ++v28;
+        v27 += 16;
       }
 
-      while (v32 < *(v30 + 1));
+      while (v28 < *(v26 + 1));
     }
 
     goto LABEL_24;
   }
 
-  v41 = 0;
+  v36 = 0;
 LABEL_28:
 
-  v37 = *MEMORY[0x1E69E9840];
-  return v41 & 1;
+  return v36 & 1;
 }
 
 - (void)populateBacktraceUniquingTableWithStackLogs:(id)logs
 {
   v3 = (MEMORY[0x1EEE9AC00])(self, a2, logs);
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v5 = v4;
   if (!v5)
   {
@@ -1234,18 +1232,18 @@ LABEL_28:
   v23 = VMULiteZoneIndex(v22);
 
   v24 = objc_loadWeakRetained((v3 + 80));
-  v107[0] = MEMORY[0x1E69E9820];
-  v107[1] = 3221225472;
-  v107[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke;
-  v107[3] = &unk_1E8279668;
-  v107[4] = v3;
-  v110 = v23;
+  v106[0] = MEMORY[0x1E69E9820];
+  v106[1] = 3221225472;
+  v106[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke;
+  v106[3] = &unk_1E8279668;
+  v106[4] = v3;
+  v109 = v23;
   v25 = v6;
-  v108 = v25;
+  v107 = v25;
   v26 = v12;
-  v109 = v26;
-  v111 = nodeNamespaceSize;
-  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v24, v107);
+  v108 = v26;
+  v110 = nodeNamespaceSize;
+  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v24, v106);
 
   v27 = *(v3 + 96);
   if (v27)
@@ -1289,14 +1287,14 @@ LABEL_28:
   }
 
   *(v3 + 176) = 0;
-  v105[0] = MEMORY[0x1E69E9820];
-  v105[1] = 3221225472;
-  v105[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_84;
-  v105[3] = &unk_1E8279690;
-  v105[4] = v3;
+  v104[0] = MEMORY[0x1E69E9820];
+  v104[1] = 3221225472;
+  v104[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_84;
+  v104[3] = &unk_1E8279690;
+  v104[4] = v3;
   v36 = v26;
-  v106 = v36;
-  [v25 enumerateMSLRecordsAndPayloads:v105];
+  v105 = v36;
+  [v25 enumerateMSLRecordsAndPayloads:v104];
   v37 = *(v3 + 96);
   if (v37)
   {
@@ -1340,7 +1338,7 @@ LABEL_28:
 
   v46 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:259];
   memset(&enumerator, 0, sizeof(enumerator));
-  v92 = v36;
+  v91 = v36;
   NSEnumerateMapTable(&enumerator, v36);
   value = 0;
   while (NSNextMapEnumeratorPair(&enumerator, 0, &value))
@@ -1428,21 +1426,21 @@ LABEL_28:
   *(v3 + 112) = v65;
   __pattern4 = -1;
   memset_pattern4(v65, &__pattern4, 4 * nodeNamespaceSize);
-  memset(&v101, 0, sizeof(v101));
-  NSEnumerateMapTable(&v101, v46);
-  v99 = 0;
+  memset(&v100, 0, sizeof(v100));
+  NSEnumerateMapTable(&v100, v46);
+  v98 = 0;
   key = 0;
-  while (NSNextMapEnumeratorPair(&v101, &key, &v99))
+  while (NSNextMapEnumeratorPair(&v100, &key, &v98))
   {
     v66 = [v25 getFramesForStackID:key stackFramesBuffer:buf];
     if (v66)
     {
-      v98 = 0;
-      vmu_enter_stack_in_backtrace_uniquing_table(*(v3 + 136), &v98, buf, v66, v67);
-      v68 = v99;
-      if (*v99)
+      v97 = 0;
+      vmu_enter_stack_in_backtrace_uniquing_table(*(v3 + 136), &v97, buf, v66, v67);
+      v68 = v98;
+      if (*v98)
       {
-        v69 = v98;
+        v69 = v97;
         v70 = *(v3 + 112);
         v71 = 2;
         do
@@ -1456,7 +1454,7 @@ LABEL_28:
     }
   }
 
-  NSEndMapTableEnumeration(&v101);
+  NSEndMapTableEnumeration(&v100);
   v73 = *(v3 + 96);
   if (v73)
   {
@@ -1500,16 +1498,16 @@ LABEL_28:
 
   v82 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:1282 valueOptions:1282];
   v83 = *(v3 + 24);
-  v94[0] = MEMORY[0x1E69E9820];
-  v94[1] = 3221225472;
-  v94[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_88;
-  v94[3] = &unk_1E82796B8;
+  v93[0] = MEMORY[0x1E69E9820];
+  v93[1] = 3221225472;
+  v93[2] = __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_88;
+  v93[3] = &unk_1E82796B8;
   v84 = v82;
-  v95 = v84;
+  v94 = v84;
   v85 = v25;
-  v96 = v85;
-  v97 = v3;
-  [v83 convertStackIDs:v94];
+  v95 = v85;
+  v96 = v3;
+  [v83 convertStackIDs:v93];
   v86 = *(v3 + 96);
   if (v86)
   {
@@ -1534,8 +1532,6 @@ LABEL_28:
   }
 
   [v86 endEvent:"VMUGraphStackLogReader"];
-
-  v91 = *MEMORY[0x1E69E9840];
 }
 
 void __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke(uint64_t a1, unsigned int a2, const void **a3, uint64_t a4, BOOL *a5)
@@ -1603,72 +1599,68 @@ LABEL_15:
   }
 }
 
-void __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_84(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4)
+void __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_84(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5)
 {
   ++*(*(a1 + 32) + 176);
   uniquing_table_index = msl_payload_get_uniquing_table_index();
   if ((a2 & 0x12) != 0 && (*(*(a1 + 32) + 56) & 1) == 0)
   {
-    v9 = NSMapGet(*(a1 + 40), a3);
-    if (v9)
+    v10 = NSMapGet(*(a1 + 40), a3);
+    if (v10)
     {
-      v9[1] = uniquing_table_index;
+      v10[1] = uniquing_table_index;
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
-      v11 = [WeakRetained nodeForAddress:a3];
+      v12 = [WeakRetained nodeForAddress:a3];
 
-      if (v11 != -1)
+      if (v12 != -1)
       {
-        v12 = objc_loadWeakRetained((*(a1 + 32) + 80));
-        if (v11 >= [v12 nodeNamespaceSize])
+        v13 = objc_loadWeakRetained((*(a1 + 32) + 80));
+        if (v12 >= [v13 nodeNamespaceSize])
         {
           __70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_84_cold_1();
         }
 
         allocation_timestamp = msl_payload_get_allocation_timestamp();
-        *(*(*(a1 + 32) + 120) + 8 * v11) = allocation_timestamp;
-        v14 = *(a1 + 32);
-        v15 = *(v14 + 168);
-        if (allocation_timestamp > v15)
+        *(*(*(a1 + 32) + 120) + 8 * v12) = allocation_timestamp;
+        v15 = *(a1 + 32);
+        v16 = *(v15 + 168);
+        if (allocation_timestamp > v16)
         {
-          v15 = allocation_timestamp;
+          v16 = allocation_timestamp;
         }
 
-        *(v14 + 168) = v15;
+        *(v15 + 168) = v16;
       }
     }
   }
 
   if ((a2 & 0x30) != 0)
   {
-    v16 = *(*(a1 + 32) + 24);
+    v17 = *(*(a1 + 32) + 24);
 
-    [v16 handleStackLogType:a2 address:a3 size:a4 stackID:uniquing_table_index];
+    [v17 handleStackLogType:a2 address:a3 size:a4 stackID:uniquing_table_index];
   }
 }
 
 char *__70__VMUGraphStackLogReader_populateBacktraceUniquingTableWithStackLogs___block_invoke_88(uint64_t a1, const void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = NSMapGet(*(a1 + 32), a2);
   v5 = v4;
-  v10 = v4;
+  v9 = v4;
   if (v4)
   {
-    v5 = v4 - 1;
+    return v4 - 1;
   }
 
-  else
+  v6 = [*(a1 + 40) getFramesForStackID:a2 stackFramesBuffer:v10];
+  if (v6)
   {
-    v6 = [*(a1 + 40) getFramesForStackID:a2 stackFramesBuffer:v11];
-    if (v6)
-    {
-      vmu_enter_stack_in_backtrace_uniquing_table(*(*(a1 + 48) + 136), &v10, v11, v6, v7);
-      NSMapInsertKnownAbsent(*(a1 + 32), a2, v10 + 1);
-      v5 = v10;
-    }
+    vmu_enter_stack_in_backtrace_uniquing_table(*(*(a1 + 48) + 136), &v9, v10, v6, v7);
+    NSMapInsertKnownAbsent(*(a1 + 32), a2, v9 + 1);
+    return v9;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1786,41 +1778,37 @@ void __59__VMUGraphStackLogReader_symbolicateBacktraceUniquingTable__block_invok
     [v7 addAddress:a2 origin:3];
   }
 
-  v8 = *(*(a1 + 32) + 64);
-  v9 = *(*(a1 + 32) + 72);
   CSSymbolicatorGetSymbolWithAddressAtTime();
   if ((CSIsNull() & 1) == 0)
   {
     Range = CSSymbolGetRange();
-    v12 = v11;
+    v10 = v9;
     if (!NSHashGet(*(a1 + 40), Range))
     {
       NSHashInsert(*(a1 + 40), Range);
       Name = CSSymbolGetName();
       if (Name)
       {
-        v14 = *(a1 + 32);
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
-        [v14 _setFunctionName:v15 forPCAddressRange:{Range, v12}];
+        v12 = *(a1 + 32);
+        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
+        [v12 _setFunctionName:v13 forPCAddressRange:{Range, v10}];
       }
     }
   }
 
-  v16 = *(*(a1 + 32) + 64);
-  v17 = *(*(a1 + 32) + 72);
   CSSymbolicatorGetSourceInfoWithAddressAtTime();
   if ((CSIsNull() & 1) == 0)
   {
-    v18 = CSSourceInfoGetRange();
-    v20 = v19;
-    if (!NSHashGet(*(a1 + 48), v18))
+    v14 = CSSourceInfoGetRange();
+    v16 = v15;
+    if (!NSHashGet(*(a1 + 48), v14))
     {
-      NSHashInsert(*(a1 + 48), v18);
+      NSHashInsert(*(a1 + 48), v14);
       Path = CSSourceInfoGetPath();
       LineNumber = CSSourceInfoGetLineNumber();
-      v23 = *(a1 + 32);
-      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Path];
-      [v23 _setSourcePath:v24 lineNumber:LineNumber forPCAddressRange:{v18, v20}];
+      v19 = *(a1 + 32);
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Path];
+      [v19 _setSourcePath:v20 lineNumber:LineNumber forPCAddressRange:{v14, v16}];
     }
   }
 }
@@ -1867,30 +1855,45 @@ void __59__VMUGraphStackLogReader_symbolicateBacktraceUniquingTable__block_invok
 
 - (id)functionNameForPCaddress:(unint64_t)caddress
 {
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v10.receiver = self, v10.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v10 functionNameForPCaddress:caddress], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  if ((CSIsNull() & 1) != 0 || (v7.receiver = self, v7.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v7 functionNameForPCaddress:caddress], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v8 = [(VMURangeToStringMap *)self->_functionNameRanges stringForAddress:caddress];
+    v5 = [(VMURangeToStringMap *)self->_functionNameRanges stringForAddress:caddress];
   }
 
-  return v8;
+  return v5;
 }
 
 - (_VMURange)functionRangeContainingPCaddress:(unint64_t)caddress
 {
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v10.receiver = self, v10.super_class = VMUGraphStackLogReader, v8 = [(VMUStackLogReaderBase *)&v10 functionRangeContainingPCaddress:caddress], v8 == 0x7FFFFFFFFFFFFFFFLL))
+  if ((CSIsNull() & 1) != 0 || (v7.receiver = self, v7.super_class = VMUGraphStackLogReader, v5 = [(VMUStackLogReaderBase *)&v7 functionRangeContainingPCaddress:caddress], v5 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    v8 = [(VMURangeToStringMap *)self->_functionNameRanges rangeContainingAddress:caddress];
+    v5 = [(VMURangeToStringMap *)self->_functionNameRanges rangeContainingAddress:caddress];
   }
 
-  result.length = v9;
-  result.location = v8;
+  result.length = v6;
+  result.location = v5;
   return result;
+}
+
+- (void)_setSourcePath:(id)path lineNumber:(unsigned int)number forPCAddressRange:(_VMURange)range
+{
+  if (path)
+  {
+    length = range.length;
+    location = range.location;
+    v7 = *&number;
+    sourceInfoRanges = self->_sourceInfoRanges;
+    pathCopy = path;
+    stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
+    v12 = [(VMURangeToStringMap *)sourceInfoRanges indexForString:stringByDeletingLastPathComponent insertIfMissing:1];
+
+    v13 = self->_sourceInfoRanges;
+    lastPathComponent = [pathCopy lastPathComponent];
+
+    v15 = [(VMURangeToStringMap *)v13 indexForString:lastPathComponent insertIfMissing:1];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u:%u:%u", v12, v15, v7];
+    [(VMURangeToStringMap *)self->_sourceInfoRanges setString:v16 forRange:location, length];
+  }
 }
 
 - (void)_parseSourceInfoString:(id)string intoComponents:(unsigned int *)components
@@ -1924,100 +1927,122 @@ void __59__VMUGraphStackLogReader_symbolicateBacktraceUniquingTable__block_invok
 
 - (id)sourcePathForPCaddress:(unint64_t)caddress
 {
-  v17 = *MEMORY[0x1E69E9840];
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v14.receiver = self, v14.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v14 sourcePathForPCaddress:caddress], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  v13 = *MEMORY[0x1E69E9840];
+  if ((CSIsNull() & 1) != 0 || (v10.receiver = self, v10.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v10 sourcePathForPCaddress:caddress], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
-    if (v9)
+    v6 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
+    if (v6)
     {
-      v16 = 0;
-      v15 = 0;
-      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v9 intoComponents:&v15];
-      v10 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:v15];
-      v11 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:HIDWORD(v15)];
-      v8 = [v10 stringByAppendingPathComponent:v11];
+      v12 = 0;
+      v11 = 0;
+      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v6 intoComponents:&v11];
+      v7 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:v11];
+      v8 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:HIDWORD(v11)];
+      v5 = [v7 stringByAppendingPathComponent:v8];
     }
 
     else
     {
-      v8 = 0;
+      v5 = 0;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)sourceFileNameForPCaddress:(unint64_t)caddress
 {
-  v15 = *MEMORY[0x1E69E9840];
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v12.receiver = self, v12.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v12 sourceFileNameForPCaddress:caddress], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  v11 = *MEMORY[0x1E69E9840];
+  if ((CSIsNull() & 1) != 0 || (v8.receiver = self, v8.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v8 sourceFileNameForPCaddress:caddress], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
-    if (v9)
+    v6 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
+    if (v6)
     {
-      v14 = 0;
-      v13 = 0;
-      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v9 intoComponents:&v13];
-      v8 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:HIDWORD(v13)];
+      v10 = 0;
+      v9 = 0;
+      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v6 intoComponents:&v9];
+      v5 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:HIDWORD(v9)];
     }
 
     else
     {
-      v8 = 0;
+      v5 = 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (unsigned)sourceLineNumberForPCaddress:(unint64_t)caddress
 {
-  v15 = *MEMORY[0x1E69E9840];
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v12.receiver = self, v12.super_class = VMUGraphStackLogReader, (v8 = [(VMUStackLogReaderBase *)&v12 sourceLineNumberForPCaddress:caddress]) == 0))
+  v11 = *MEMORY[0x1E69E9840];
+  if ((CSIsNull() & 1) != 0 || (v8.receiver = self, v8.super_class = VMUGraphStackLogReader, (v5 = [(VMUStackLogReaderBase *)&v8 sourceLineNumberForPCaddress:caddress]) == 0))
   {
-    v9 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
-    if (v9)
+    v6 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
+    if (v6)
     {
-      v14 = 0;
-      v13 = 0;
-      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v9 intoComponents:&v13];
-      v8 = v14;
+      v10 = 0;
+      v9 = 0;
+      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v6 intoComponents:&v9];
+      v5 = v10;
     }
 
     else
     {
-      v8 = 0;
+      v5 = 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v5;
+}
+
+- (id)sourceFileNameAndLineNumberForPCaddress:(unint64_t)caddress fullPath:(BOOL)path
+{
+  pathCopy = path;
+  v18 = *MEMORY[0x1E69E9840];
+  if ((CSIsNull() & 1) != 0 || (v15.receiver = self, v15.super_class = VMUGraphStackLogReader, [(VMUStackLogReaderBase *)&v15 sourceFileNameAndLineNumberForPCaddress:caddress fullPath:pathCopy], (v7 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    v8 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForAddress:caddress];
+    if (v8)
+    {
+      v17 = 0;
+      v16 = 0;
+      [(VMUGraphStackLogReader *)self _parseSourceInfoString:v8 intoComponents:&v16];
+      v9 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:HIDWORD(v16)];
+      v10 = v17;
+      if (pathCopy)
+      {
+        v11 = [(VMURangeToStringMap *)self->_sourceInfoRanges stringForIndex:v16];
+        v12 = [v11 stringByAppendingPathComponent:v9];
+
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%u", v12, v10];
+      }
+
+      else
+      {
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%u", v9, v17];
+      }
+
+      v7 = v13;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  return v7;
 }
 
 - (_VMURange)sourceLineRangeContainingPCaddress:(unint64_t)caddress
 {
-  p_symbolicator = &self->super._symbolicator;
-  opaque_1 = self->super._symbolicator._opaque_1;
-  opaque_2 = p_symbolicator->_opaque_2;
-  if ((CSIsNull() & 1) != 0 || (v8 = p_symbolicator->_opaque_1, v9 = p_symbolicator->_opaque_2, CSSymbolicatorGetSymbolWithAddressAtTime(), Range = CSSymbolGetRange(), Range == 0x7FFFFFFFFFFFFFFFLL))
+  if ((CSIsNull() & 1) != 0 || (CSSymbolicatorGetSymbolWithAddressAtTime(), Range = CSSymbolGetRange(), Range == 0x7FFFFFFFFFFFFFFFLL))
   {
     Range = [(VMURangeToStringMap *)self->_sourceInfoRanges rangeContainingAddress:caddress];
   }
 
-  result.length = v11;
+  result.length = v6;
   result.location = Range;
   return result;
 }
@@ -2083,7 +2108,7 @@ LABEL_10:
         v9 = WeakRetained;
         if (WeakRetained)
         {
-          [WeakRetained nodeDetails:i];
+          objc_msgSend_nodeDetails_(WeakRetained);
         }
 
         if (VMUGraphNodeType_IsVMRegion(0))
@@ -2099,64 +2124,84 @@ LABEL_19:
   return 0;
 }
 
-uint64_t __57__VMUGraphStackLogReader_enumerateMSLRecordsAndPayloads___block_invoke(uint64_t a1, void *a2)
+- (int64_t)getFramesForNode:(unsigned int)node inLiteZone:(BOOL)zone stackFramesBuffer:(unint64_t *)buffer
 {
-  v2 = *a2;
-  v4 = a2[2];
-  v3 = a2[3];
-  v5 = a2[1];
-  return (*(*(a1 + 32) + 16))();
+  v7 = [(VMUGraphStackLogReader *)self stackIDForNode:*&node, zone];
+  if (v7 > 0xFFFFFFFE)
+  {
+    return 0;
+  }
+
+  v9 = v7;
+  if (self->_originalUniquingTable)
+  {
+    msl_uniquing_table_get_frames_from_table();
+    return 0;
+  }
+
+  else
+  {
+    result = self->_backtraceUniquingTable;
+    if (result)
+    {
+      return vmu_stack_frames_for_uniqued_stack(result, v9, buffer, 512);
+    }
+  }
+
+  return result;
 }
 
 - (unint64_t)stackIDForNode:(unsigned int)node
 {
   if (self->_originalUniquingTable)
   {
-    v3 = self->_nodeToMSLPayloadTable[node];
     return msl_payload_get_uniquing_table_index();
   }
 
-  else if (self->_backtraceUniquingTable)
-  {
-    if (self->_nodeToStackIndexTable[node] == -1)
-    {
-      return -1;
-    }
-
-    else
-    {
-      return self->_nodeToStackIndexTable[node];
-    }
-  }
-
-  else
+  if (!self->_backtraceUniquingTable)
   {
     return -1;
   }
+
+  if (self->_nodeToStackIndexTable[node] == -1)
+  {
+    return -1;
+  }
+
+  return self->_nodeToStackIndexTable[node];
 }
 
 - (unint64_t)timestampForNode:(unsigned int)node
 {
-  nodeToMSLPayloadTable = self->_nodeToMSLPayloadTable;
-  if (nodeToMSLPayloadTable)
+  if (self->_nodeToMSLPayloadTable)
   {
-    v4 = nodeToMSLPayloadTable[node];
     return msl_payload_get_allocation_timestamp();
+  }
+
+  nodeToTimestampTable = self->_nodeToTimestampTable;
+  if (nodeToTimestampTable)
+  {
+    return nodeToTimestampTable[node];
   }
 
   else
   {
-    nodeToTimestampTable = self->_nodeToTimestampTable;
-    if (nodeToTimestampTable)
-    {
-      return nodeToTimestampTable[node];
-    }
-
-    else
-    {
-      return 0;
-    }
+    return 0;
   }
+}
+
+- (int64_t)getFramesForAddress:(unint64_t)address size:(unint64_t)size inLiteZone:(BOOL)zone stackFramesBuffer:(unint64_t *)buffer
+{
+  zoneCopy = zone;
+  WeakRetained = objc_loadWeakRetained(&self->_graph);
+  v11 = [WeakRetained nodeForAddress:address];
+
+  if (v11 == -1)
+  {
+    return 0;
+  }
+
+  return [(VMUGraphStackLogReader *)self getFramesForNode:v11 inLiteZone:zoneCopy stackFramesBuffer:buffer];
 }
 
 - (int64_t)getFramesForStackID:(unint64_t)d stackFramesBuffer:(unint64_t *)buffer

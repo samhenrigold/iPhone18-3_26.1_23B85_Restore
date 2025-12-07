@@ -44,29 +44,29 @@
 
 + (id)CADObjectChangeIDsFromEKObjectChanges:(id)changes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = changesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         changedObjectID = [v10 changedObjectID];
         databaseID = [changedObjectID databaseID];
         v13 = [MEMORY[0x1E696AD98] numberWithInt:databaseID];
@@ -83,13 +83,11 @@
         [v14 addObject:v16];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -247,7 +245,7 @@ void __72__EKObjectChange_fetchChangesToObjectsOfTypes_inCalendar_resultHandler_
 
 void __38__EKObjectChange_processFetchResults___block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, void *a4, void *a5)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v9 = a4;
   v10 = a5;
   if (a2)
@@ -263,29 +261,29 @@ void __38__EKObjectChange_processFetchResults___block_invoke(uint64_t a1, uint64
 
   else
   {
-    v22 = a3;
+    v21 = a3;
     v12 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         v17 = 0;
         do
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [EKObjectChange objectChangeWithProperties:*(*(&v23 + 1) + 8 * v17)];
+          v18 = [EKObjectChange objectChangeWithProperties:*(*(&v22 + 1) + 8 * v17)];
           if (v18)
           {
             [v12 addObject:v18];
@@ -295,7 +293,7 @@ void __38__EKObjectChange_processFetchResults___block_invoke(uint64_t a1, uint64
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -303,10 +301,8 @@ void __38__EKObjectChange_processFetchResults___block_invoke(uint64_t a1, uint64
 
     v19 = *(a1 + 32);
     v20 = [[EKSequenceToken alloc] initWithCADSequenceToken:v9];
-    (*(v19 + 16))(v19, v22, v20, v12);
+    (*(v19 + 16))(v19, v21, v20, v12);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -467,55 +463,49 @@ LABEL_8:
 
 - (id)serializedPropertiesForConsumingChange
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"consumed_entity_class";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"consumed_entity_class";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{-[EKObjectID entityType](self->_changedObjectID, "entityType")}];
-  v11[0] = v3;
-  v10[1] = @"consumed_entity_id";
+  v10[0] = v3;
+  v9[1] = @"consumed_entity_id";
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[EKObjectID rowID](self->_changedObjectID, "rowID")}];
-  v11[1] = v4;
-  v10[2] = @"consumed_change_id";
+  v10[1] = v4;
+  v9[2] = @"consumed_change_id";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_changeID];
-  v11[2] = v5;
-  v10[3] = @"sequence_number";
+  v10[2] = v5;
+  v9[3] = @"sequence_number";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sequenceNumber];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 void __38__EKObjectChange_processFetchResults___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = a1;
   v5 = [v3 errorWithCADResult:a2];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_1A805E000, v4, OS_LOG_TYPE_ERROR, "Error fetching changed object IDs: %@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_error_impl(&dword_1A805E000, v4, OS_LOG_TYPE_ERROR, "Error fetching changed object IDs: %@", &v6, 0xCu);
 }
 
 + (void)objectChangeWithProperties:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unsupported entity type: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Unsupported entity type: %d", v2, 8u);
 }
 
 + (void)objectChangeWithProperties:(int)a1 .cold.2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Invalid entity type: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Invalid entity type: %d", v2, 8u);
 }
 
 @end

@@ -12,158 +12,157 @@
   styleCopy = style;
   propertiesCopy = properties;
   pathCopy = path;
-  v89.receiver = self;
-  v89.super_class = LPEmailCompatibleHTMLIconComponent;
+  v87.receiver = self;
+  v87.super_class = LPEmailCompatibleHTMLIconComponent;
   generatorCopy = generator;
-  v15 = [(LPHTMLComponent *)&v89 initWithTagName:@"img" themePath:pathCopy generator:?];
-  v17 = v15;
+  v15 = [(LPHTMLComponent *)&v87 initWithTagName:@"img" themePath:pathCopy generator:?];
   if (v15)
   {
-    LPWebLock(v15, v16);
+    LPWebLock();
     _alternateHTMLImageGenerator = [imageCopy _alternateHTMLImageGenerator];
 
-    v84 = pathCopy;
+    v82 = pathCopy;
     if (_alternateHTMLImageGenerator)
     {
       _alternateHTMLImageGenerator2 = [imageCopy _alternateHTMLImageGenerator];
-      v20 = _alternateHTMLImageGenerator2[2]();
+      v18 = _alternateHTMLImageGenerator2[2]();
 
-      imageCopy = v20;
+      imageCopy = v18;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __89__LPEmailCompatibleHTMLIconComponent_initWithImage_style_properties_themePath_generator___block_invoke;
     aBlock[3] = &unk_1E7A357A0;
-    v83 = pathCopy;
-    v88 = v83;
-    v21 = _Block_copy(aBlock);
-    v22 = LPImageViewFilterResolve(imageCopy, propertiesCopy, styleCopy);
+    v81 = pathCopy;
+    v86 = v81;
+    v19 = _Block_copy(aBlock);
+    v20 = LPImageViewFilterResolve(imageCopy, propertiesCopy, styleCopy);
     _remoteURLsForEmailCompatibleOutput = [imageCopy _remoteURLsForEmailCompatibleOutput];
 
     if (_remoteURLsForEmailCompatibleOutput)
     {
       cornerRadius = [styleCopy cornerRadius];
       [cornerRadius value];
-      v26 = v25;
+      v24 = v23;
 
-      if (v26 != 0.0)
+      if (v24 != 0.0)
       {
-        v27 = MEMORY[0x1E696AEC0];
+        v25 = MEMORY[0x1E696AEC0];
         cornerRadius2 = [styleCopy cornerRadius];
         [cornerRadius2 value];
-        v30 = [v27 stringWithFormat:@"%gpx", v29];
+        v28 = [v25 stringWithFormat:@"%gpx", v27];
         cssResolver = [generatorCopy cssResolver];
         localVariables = [cssResolver localVariables];
-        v33 = v21[2](v21, @"local", @"corner-radius");
-        [localVariables setObject:v30 forKeyedSubscript:v33];
+        v31 = v19[2](v19, @"local", @"corner-radius");
+        [localVariables setObject:v28 forKeyedSubscript:v31];
       }
 
-      element = [(LPHTMLComponent *)v17 element];
+      element = [(LPHTMLComponent *)v15 element];
       _remoteURLsForEmailCompatibleOutput2 = [imageCopy _remoteURLsForEmailCompatibleOutput];
       firstObject = [_remoteURLsForEmailCompatibleOutput2 firstObject];
-      v37 = [firstObject URL];
-      absoluteString = [v37 absoluteString];
+      v35 = [firstObject URL];
+      absoluteString = [v35 absoluteString];
       [element setAttribute:@"src" value:absoluteString];
 
-      element2 = [(LPHTMLComponent *)v17 element];
+      element2 = [(LPHTMLComponent *)v15 element];
       _srcsetForRemoteURLs = [imageCopy _srcsetForRemoteURLs];
       [element2 setAttribute:@"srcset" value:_srcsetForRemoteURLs];
       goto LABEL_15;
     }
 
-    v41 = imageCopy;
+    v39 = imageCopy;
     maskColor = [propertiesCopy maskColor];
 
-    element2 = v41;
+    element2 = v39;
     if (maskColor)
     {
       maskColor2 = [propertiesCopy maskColor];
-      element2 = flatImageWithColor(v41, maskColor2);
+      element2 = flatImageWithColor(v39, maskColor2);
     }
 
-    if (v22 <= 0xF)
+    if (v20 <= 0xF)
     {
-      if (((1 << v22) & 0xD008) != 0)
+      if (((1 << v20) & 0xD008) != 0)
       {
         fixedSize = [styleCopy fixedSize];
         [fixedSize asSize];
+        v44 = v43;
         v46 = v45;
-        v48 = v47;
 
         cornerRadius3 = [styleCopy cornerRadius];
         [cornerRadius3 value];
-        v51 = v50;
+        v49 = v48;
 
         backgroundColor = [styleCopy backgroundColor];
         backgroundInset = [styleCopy backgroundInset];
         [backgroundInset value];
-        v55 = squareImageWithCornerRadius(element2, backgroundColor, v46, v48, v51, 2.0, v54);
+        v53 = squareImageWithCornerRadius(element2, backgroundColor, v44, v46, v49, 2.0, v52);
 
         element2 = backgroundColor;
       }
 
       else
       {
-        if (v22 != 1)
+        if (v20 != 1)
         {
           goto LABEL_14;
         }
 
-        [v41 _pixelSize];
-        v76 = v75;
-        [v41 _pixelSize];
-        if (v76 == v77)
+        [v39 _pixelSize];
+        v74 = v73;
+        [v39 _pixelSize];
+        if (v74 == v75)
         {
           goto LABEL_14;
         }
 
         fixedSize2 = [styleCopy fixedSize];
         [fixedSize2 asSize];
+        v78 = v77;
         v80 = v79;
-        v82 = v81;
 
-        v55 = squareBitmapImageWithInlaidImage(element2, v80, v82, 2.0);
+        v53 = squareBitmapImageWithInlaidImage(element2, v78, v80, 2.0);
       }
 
-      element2 = v55;
+      element2 = v53;
     }
 
 LABEL_14:
-    _srcsetForRemoteURLs = [(LPHTMLComponent *)v17 element];
-    v56 = [generatorCopy _URLForImage:element2];
-    [_srcsetForRemoteURLs setAttribute:@"src" value:v56];
+    _srcsetForRemoteURLs = [(LPHTMLComponent *)v15 element];
+    v54 = [generatorCopy _URLForImage:element2];
+    [_srcsetForRemoteURLs setAttribute:@"src" value:v54];
 
 LABEL_15:
-    element3 = [(LPHTMLComponent *)v17 element];
+    element3 = [(LPHTMLComponent *)v15 element];
     [element3 setAttribute:@"draggable" value:@"false"];
 
-    v58 = [LPCSSVariable alloc];
-    v59 = v21[2](v21, 0, @"fixedSize-width");
-    v60 = [(LPCSSVariable *)v58 initWithName:v59];
+    v56 = [LPCSSVariable alloc];
+    v57 = v19[2](v19, 0, @"fixedSize-width");
+    v58 = [(LPCSSVariable *)v56 initWithName:v57];
     cssResolver2 = [generatorCopy cssResolver];
     localVariables2 = [cssResolver2 localVariables];
-    v63 = v21[2](v21, @"local", @"size-width");
-    [localVariables2 setObject:v60 forKeyedSubscript:v63];
+    v61 = v19[2](v19, @"local", @"size-width");
+    [localVariables2 setObject:v58 forKeyedSubscript:v61];
 
-    v64 = [LPCSSVariable alloc];
-    v65 = v21[2](v21, 0, @"fixedSize-height");
-    v66 = [(LPCSSVariable *)v64 initWithName:v65];
+    v62 = [LPCSSVariable alloc];
+    v63 = v19[2](v19, 0, @"fixedSize-height");
+    v64 = [(LPCSSVariable *)v62 initWithName:v63];
     cssResolver3 = [generatorCopy cssResolver];
     localVariables3 = [cssResolver3 localVariables];
-    v69 = v21[2](v21, @"local", @"size-height");
-    [localVariables3 setObject:v66 forKeyedSubscript:v69];
+    v67 = v19[2](v19, @"local", @"size-height");
+    [localVariables3 setObject:v64 forKeyedSubscript:v67];
 
     cssResolver4 = [generatorCopy cssResolver];
-    v71 = [@"lp-rich-link-" stringByAppendingString:v83];
-    pathCopy = v84;
-    element4 = [(LPHTMLComponent *)v17 element];
-    [cssResolver4 addStyle:v71 toElement:element4 inComponent:v17];
+    v69 = [@"lp-rich-link-" stringByAppendingString:v81];
+    pathCopy = v82;
+    element4 = [(LPHTMLComponent *)v15 element];
+    [cssResolver4 addStyle:v69 toElement:element4 inComponent:v15];
 
-    v73 = v17;
+    v71 = v15;
   }
 
-  return v17;
+  return v15;
 }
 
 id __89__LPEmailCompatibleHTMLIconComponent_initWithImage_style_properties_themePath_generator___block_invoke(uint64_t a1, void *a2, void *a3)

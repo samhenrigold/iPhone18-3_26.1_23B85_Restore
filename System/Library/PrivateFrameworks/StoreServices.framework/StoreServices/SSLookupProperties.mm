@@ -149,34 +149,39 @@
       shouldLog = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
+        LODWORD(v8) = shouldLog | 2;
       }
 
       else
       {
-        v8 = shouldLog;
+        LODWORD(v8) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v8 = v8;
+      }
+
+      else
       {
         v8 &= 2u;
       }
 
       if (v8)
       {
-        v9 = objc_opt_class();
+        v10 = objc_opt_class();
         v22 = 138543618;
-        v23 = v9;
+        v23 = v10;
         v24 = 2114;
         v25 = v21;
-        LODWORD(v20) = 22;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive location. Error = %{public}@", &v22, 22);
+        if (v11)
         {
-          v11 = v10;
-          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v22, v20}];
-          free(v11);
-          SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+          v12 = v11;
+          v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+          free(v12);
+          SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
         }
       }
     }
@@ -189,74 +194,79 @@
 
 - (SSLookupProperties)initWithXPCEncoding:(id)encoding
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v26.receiver = self;
-    v26.super_class = SSLookupProperties;
-    v5 = [(SSLookupProperties *)&v26 init];
+    v29.receiver = self;
+    v29.super_class = SSLookupProperties;
+    v5 = [(SSLookupProperties *)&v29 init];
     if (v5)
     {
       v5->_localizationStyle = xpc_dictionary_get_int64(encoding, "0");
-      objc_opt_class();
-      v5->_timeoutInterval = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3");
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-      v5->_requestParameters = [(__CFArray *)v7 mutableCopy];
+      v7 = objc_opt_class();
+      v5->_timeoutInterval = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3", v7);
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v8);
+      v5->_requestParameters = [(__CFDate *)v9 mutableCopy];
 
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
-      if (v8)
+      v10 = objc_opt_class();
+      v11 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v10);
+      if (v11)
       {
-        v9 = v8;
+        v12 = v11;
         if (SSLookupPropertiesLoadCoreLocation_sOnce != -1)
         {
           [SSLookupProperties copyRequestParameters];
         }
 
-        v25 = 0;
-        v10 = MEMORY[0x1E696ACD0];
+        v28 = 0;
+        v13 = MEMORY[0x1E696ACD0];
         getCLLocationClass();
-        v5->_location = [v10 unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v25];
-        if (v25)
+        v5->_location = [v13 unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v28];
+        if (v28)
         {
-          v11 = +[SSLogConfig sharedStoreServicesConfig];
-          if (!v11)
+          v14 = +[SSLogConfig sharedStoreServicesConfig];
+          if (!v14)
           {
-            v11 = +[SSLogConfig sharedConfig];
+            v14 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog = [v11 shouldLog];
-          if ([v11 shouldLogToDisk])
+          shouldLog = [v14 shouldLog];
+          if ([v14 shouldLogToDisk])
           {
-            v13 = shouldLog | 2;
+            LODWORD(v16) = shouldLog | 2;
           }
 
           else
           {
-            v13 = shouldLog;
+            LODWORD(v16) = shouldLog;
           }
 
-          if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_ERROR))
+          oSLogObject = [v14 OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
           {
-            v13 &= 2u;
+            v16 = v16;
           }
 
-          if (v13)
+          else
           {
-            v14 = objc_opt_class();
-            v27 = 138543618;
-            v28 = v14;
-            v29 = 2114;
-            v30 = v25;
-            LODWORD(v24) = 22;
-            v15 = _os_log_send_and_compose_impl();
-            if (v15)
+            v16 &= 2u;
+          }
+
+          if (v16)
+          {
+            v18 = objc_opt_class();
+            v30 = 138543618;
+            v31 = v18;
+            v32 = 2114;
+            v33 = v28;
+            v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive location. Error = %{public}@", &v30, 22);
+            if (v19)
             {
-              v16 = v15;
-              v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v27, v24}];
-              free(v16);
-              SSFileLog(v11, @"%@", v18, v19, v20, v21, v22, v23, v17);
+              v20 = v19;
+              v21 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+              free(v20);
+              SSFileLog(v14, @"%@", v22, v23, v24, v25, v26, v27, v21);
             }
           }
         }

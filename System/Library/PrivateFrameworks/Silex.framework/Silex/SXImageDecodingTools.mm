@@ -26,9 +26,11 @@
 
 uint64_t __38__SXImageDecodingTools_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(SXImageDecodingTools);
+  v0 = objc_alloc_init(SXImageDecodingTools);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)imageFromData:(id)data size:(CGSize)size

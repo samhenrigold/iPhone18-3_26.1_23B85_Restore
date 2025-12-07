@@ -69,7 +69,7 @@
   v6 = *(state + 1);
   if (v6)
   {
-    [v6 transformFromWP];
+    objc_msgSend_transformFromWP(v6);
   }
 
   else
@@ -446,7 +446,7 @@ LABEL_8:
     else
     {
       +[TSWPRenderer invisiblesFont]::sInited = 1;
-      v3 = [TSWPBundle() pathForResource:@"invisible_glyphs" ofType:@"ttf"];
+      v3 = [TSWPBundle(0 a2)];
       v4 = TSWPInvisibleFontSize();
       v5 = CGDataProviderCreateWithFilename([v3 UTF8String]);
       v6 = CGFontCreateWithDataProvider(v5);
@@ -773,7 +773,7 @@ LABEL_34:
   TSWPRangeVector::rangesIntersecting(state + 4, &v9);
   if ([*state hasTrackedChanges] && *state)
   {
-    [*state deletedRangeVectorInRange:{*fragment, *(fragment + 1)}];
+    objc_msgSend_deletedRangeVectorInRange_(*state);
     begin = __p.__begin_;
     if (__p.__end_ != __p.__begin_)
     {
@@ -805,7 +805,7 @@ LABEL_34:
   TSWPRangeVector::subtract(&v11, &v10);
   if ([*state hasTrackedChanges] && *state)
   {
-    [*state deletedRangeVectorInRange:{*fragment, *(fragment + 1)}];
+    objc_msgSend_deletedRangeVectorInRange_(*state);
     begin = __p.__begin_;
     if (__p.__end_ != __p.__begin_)
     {
@@ -1653,53 +1653,56 @@ LABEL_3:
     }
   }
 
-  if (!v14 && (*(state + 93) != 1 || (flagsCopy & 0x100) != 0 || v10 != 1 || (IsParagraphBreakingCharacter([*state characterAtIndex:v9]) & 1) == 0))
+  if (!v14)
   {
-    CGContextSaveGState(self->_context);
-    if ((*(state + 89) & 1) == 0)
+    if (*(state + 93) != 1 || (flagsCopy & 0x100) != 0 || v10 != 1 || (v15 = [*state characterAtIndex:v9], (IsParagraphBreakingCharacter(v15, v16) & 1) == 0))
     {
-      v15 = *(v11 + 32);
-      if (v15)
+      CGContextSaveGState(self->_context);
+      if ((*(state + 89) & 1) == 0)
       {
-        if ([*(v11 + 32) isEnabled])
+        v17 = *(v11 + 32);
+        if (v17)
         {
-          [v15 applyToContext:self->_context viewScale:self->_flipShadows flipped:self->_viewScale];
+          if ([*(v11 + 32) isEnabled])
+          {
+            [v17 applyToContext:self->_context viewScale:self->_flipShadows flipped:self->_viewScale];
+          }
         }
       }
-    }
 
-    v16 = *(v11 + 16);
-    if (v16)
-    {
-      v17 = TSWPLineFragment::labelTextPosition(fragment);
-      CGContextTranslateCTM(self->_context, v17, v18);
-      CGContextSetTextPosition(self->_context, 0.0, 0.0);
-      LOBYTE(v27) = 0;
-      [(TSWPRenderer *)self p_drawTextInRunsForLine:v16 fragment:fragment state:state tateChuYoko:*(v11 + 81) baseRange:v9 isFirstLineRef:0, v27];
-    }
-
-    else
-    {
-      v19 = *(v11 + 24);
-      if (v19)
+      v18 = *(v11 + 16);
+      if (v18)
       {
-        TSWPLineFragment::labelRect(fragment);
-        v21 = v20;
-        v23 = v22;
-        CGContextTranslateCTM(self->_context, v24, v25);
-        if ((*(fragment + 25) & 0x20) != 0)
-        {
-          CGContextTranslateCTM(self->_context, 0.0, v23);
-          CGContextRotateCTM(self->_context, -1.57079633);
-        }
-
-        [v19 drawImageInContext:self->_context rect:{0.0, 0.0, v21, v23}];
+        v19 = TSWPLineFragment::labelTextPosition(fragment);
+        CGContextTranslateCTM(self->_context, v19, v20);
+        CGContextSetTextPosition(self->_context, 0.0, 0.0);
+        LOBYTE(v29) = 0;
+        [(TSWPRenderer *)self p_drawTextInRunsForLine:v18 fragment:fragment state:state tateChuYoko:*(v11 + 81) baseRange:v9 isFirstLineRef:0, v29];
       }
+
+      else
+      {
+        v21 = *(v11 + 24);
+        if (v21)
+        {
+          TSWPLineFragment::labelRect(fragment);
+          v23 = v22;
+          v25 = v24;
+          CGContextTranslateCTM(self->_context, v26, v27);
+          if ((*(fragment + 25) & 0x20) != 0)
+          {
+            CGContextTranslateCTM(self->_context, 0.0, v25);
+            CGContextRotateCTM(self->_context, -1.57079633);
+          }
+
+          [v21 drawImageInContext:self->_context rect:{0.0, 0.0, v23, v25}];
+        }
+      }
+
+      context = self->_context;
+
+      CGContextRestoreGState(context);
     }
-
-    context = self->_context;
-
-    CGContextRestoreGState(context);
   }
 }
 

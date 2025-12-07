@@ -8,7 +8,7 @@
 
 - (void)engine:(id)engine connection:(id)connection didReceiveBookmarks:(id)bookmarks ofUser:(id)user forFolder:(id)folder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   bookmarksCopy = bookmarks;
   identifiers = [(WFInstapaperAction *)self identifiers];
@@ -22,27 +22,27 @@
     [identifiers2 removeObject:v15];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = bookmarksCopy;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       v20 = 0;
       do
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * v20);
+        v21 = *(*(&v25 + 1) + 8 * v20);
         output = [(WFInstapaperGetAction *)self output];
         v23 = [v21 URL];
         title = [v21 title];
@@ -52,13 +52,11 @@
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runAsynchronouslyWithInput:(id)input selectedFolder:(id)folder

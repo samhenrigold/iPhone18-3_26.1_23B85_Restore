@@ -5,6 +5,7 @@
 - (CGRect)boundsForCurrentInterfaceOrientation;
 - (DYiOSPlaybackEngine)initWithCaptureStore:(id)store shouldCreateViewController:(BOOL)controller;
 - (id).cxx_construct;
+- (id)createLayerWithID:(unint64_t)d contentRect:(CGRect)rect contentsScale:(double)scale properties:(id)properties isCoreAnimationSurface:(BOOL)surface;
 - (id)currentTopLayer;
 - (id)layerForID:(unint64_t)d;
 - (void)_setupLayer:(id)layer contentRect:(CGRect)rect contentsScale:(double)scale properties:(id)properties isCoreAnimationSurface:(BOOL)surface;
@@ -43,31 +44,31 @@
 - (DYiOSPlaybackEngine)initWithCaptureStore:(id)store shouldCreateViewController:(BOOL)controller
 {
   controllerCopy = controller;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   if (!pthread_main_np())
   {
     __assert_rtn("[DYiOSPlaybackEngine initWithCaptureStore:shouldCreateViewController:]", &unk_24DC2B171, 0, "pthread_main_np()");
   }
 
-  v34.receiver = self;
-  v34.super_class = DYiOSPlaybackEngine;
-  v7 = [(DYPlaybackEngine *)&v34 initWithCaptureStore:storeCopy];
+  v33.receiver = self;
+  v33.super_class = DYiOSPlaybackEngine;
+  v7 = [(DYPlaybackEngine *)&v33 initWithCaptureStore:storeCopy];
   if (v7)
   {
     if (controllerCopy)
     {
-      v8 = [[DYPlaybackViewController alloc] initWithNibName:0 bundle:0];
+      v8 = [DYPlaybackViewController initWithNibName:"initWithNibName:bundle:" bundle:?];
       viewController = v7->_viewController;
       v7->_viewController = &v8->super;
 
       *components = xmmword_24DC2AD30;
-      v36 = unk_24DC2AD40;
+      v35 = unk_24DC2AD40;
       DeviceRGB = CGColorSpaceCreateDeviceRGB();
       v11 = CGColorCreate(DeviceRGB, components);
       view = [(UIViewController *)v7->_viewController view];
       layer = [view layer];
-      [layer setBackgroundColor:v11];
+      [layer setBackgroundColor:?];
 
       CGColorRelease(v11);
       CGColorSpaceRelease(DeviceRGB);
@@ -75,7 +76,7 @@
       hostLayer = v7->_hostLayer;
       v7->_hostLayer = v14;
 
-      [(CALayer *)v7->_hostLayer setOpaque:1];
+      [(CALayer *)v7->_hostLayer setOpaque:?];
       mainScreen = [MEMORY[0x277D75998] mainScreen];
       [mainScreen bounds];
       [(CALayer *)v7->_hostLayer setFrame:?];
@@ -86,7 +87,7 @@
 
       view2 = [(UIViewController *)v7->_viewController view];
       layer2 = [view2 layer];
-      [layer2 addSublayer:v7->_hostLayer];
+      [layer2 addSublayer:?];
 
       mainScreen3 = [MEMORY[0x277D75998] mainScreen];
       [mainScreen3 bounds];
@@ -95,16 +96,16 @@
       v26 = v25;
       v28 = v27;
 
+      v37.origin.x = v22;
+      v37.origin.y = v24;
+      v37.size.width = v26;
+      v37.size.height = v28;
+      v7->_screenCenter.x = CGRectGetWidth(v37) * 0.5;
       v38.origin.x = v22;
       v38.origin.y = v24;
       v38.size.width = v26;
       v38.size.height = v28;
-      v7->_screenCenter.x = CGRectGetWidth(v38) * 0.5;
-      v39.origin.x = v22;
-      v39.origin.y = v24;
-      v39.size.width = v26;
-      v39.size.height = v28;
-      v7->_screenCenter.y = CGRectGetHeight(v39) * 0.5;
+      v7->_screenCenter.y = CGRectGetHeight(v38) * 0.5;
       v7->_interfaceOrientation = 1;
     }
 
@@ -114,133 +115,206 @@
       v30 = v7->_hostLayer;
       v7->_hostLayer = v29;
 
-      [(CALayer *)v7->_hostLayer setOpaque:1];
+      [(CALayer *)v7->_hostLayer setOpaque:?];
     }
 
     v31 = v7;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_setupLayer:(id)layer contentRect:(CGRect)rect contentsScale:(double)scale properties:(id)properties isCoreAnimationSurface:(BOOL)surface
 {
   surfaceCopy = surface;
-  height = rect.size.height;
-  width = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
   layerCopy = layer;
   propertiesCopy = properties;
   if (surfaceCopy)
   {
-    [layerCopy setFrame:{x, y, width, height}];
+    [layerCopy setFrame:?];
   }
 
   else
   {
-    [layerCopy setPosition:{0.0, 0.0}];
+    [layerCopy setPosition:?];
   }
 
-  [layerCopy setBounds:{x, y, width, height}];
-  [layerCopy setContentsScale:scale];
-  [(DYiOSPlaybackEngine *)self setProperties:propertiesCopy forLayer:layerCopy];
+  [layerCopy setBounds:?];
+  [layerCopy setContentsScale:?];
+  [DYiOSPlaybackEngine setProperties:"setProperties:forLayer:" forLayer:?];
+}
+
+- (id)createLayerWithID:(unint64_t)d contentRect:(CGRect)rect contentsScale:(double)scale properties:(id)properties isCoreAnimationSurface:(BOOL)surface
+{
+  v26 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  propertiesCopy = properties;
+  if (scale == 0.0)
+  {
+    __assert_rtn("[DYiOSPlaybackEngine createLayerWithID:contentRect:contentsScale:properties:isCoreAnimationSurface:]", &unk_24DC2B171, 0, "contentsScale != 0.0");
+  }
+
+  if (d)
+  {
+    goto LABEL_3;
+  }
+
+  left = self->_layerMap.__tree_.__end_node_.__left_;
+  if (!left)
+  {
+    goto LABEL_3;
+  }
+
+  do
+  {
+    v14 = left;
+    left = left->super.super.isa;
+  }
+
+  while (left);
+  if (v14 == &self->_layerMap.__tree_.__end_node_ || v14->super._playbackQueue)
+  {
+LABEL_3:
+    [(DYiOSPlaybackEngine *)self deleteLayer:?];
+    GPUTools::AutoCATransaction::AutoCATransaction(v25, 1, 1);
+    newLayer = [(DYiOSPlaybackEngine *)self newLayer];
+    v23 = newLayer;
+    [newLayer setOpaque:?];
+    if (dCopy)
+    {
+      [DYiOSPlaybackEngine _setupLayer:"_setupLayer:contentRect:contentsScale:properties:isCoreAnimationSurface:" contentRect:? contentsScale:? properties:? isCoreAnimationSurface:?];
+    }
+
+    else
+    {
+      mainScreen = [MEMORY[0x277D75998] mainScreen];
+      [newLayer setPosition:?];
+      [mainScreen scale];
+      [newLayer setContentsScale:?];
+      [v22 _applyInterfaceOrientationToTransform:{*MEMORY[0x277CD9DE8], *(MEMORY[0x277CD9DE8] + 16), *(MEMORY[0x277CD9DE8] + 32), *(MEMORY[0x277CD9DE8] + 48), *(MEMORY[0x277CD9DE8] + 56), *(MEMORY[0x277CD9DE8] + 64), *(MEMORY[0x277CD9DE8] + 80), *(MEMORY[0x277CD9DE8] + 96), *(MEMORY[0x277CD9DE8] + 112)}];
+      [newLayer setTransform:{v22[0], v22[1], v22[2], v22[3], v22[4], v22[5], v22[6], v22[7]}];
+      if ((self->_interfaceOrientation - 3) <= 1)
+      {
+        [mainScreen bounds];
+      }
+
+      [mainScreen bounds];
+      [newLayer setBounds:?];
+    }
+
+    *&v21 = &dCopy;
+    v17 = std::__tree<std::__value_type<unsigned long long,CALayer * {__strong}>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CALayer * {__strong}>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CALayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_layerMap, &dCopy, &std::piecewise_construct, &v21);
+    objc_storeStrong(v17 + 5, newLayer);
+    *&v21 = &v23;
+    *(std::__tree<std::__value_type<CALayer * {__strong},BOOL>,std::__map_value_compare<CALayer * {__strong},std::__value_type<CALayer * {__strong},BOOL>,std::less<CALayer * {__strong}>,true>,std::allocator<std::__value_type<CALayer * {__strong},BOOL>>>::__emplace_unique_key_args<CALayer * {__strong},std::piecewise_construct_t const&,std::tuple<CALayer * const {__strong}&>,std::tuple<>>(&self->_coreAnimationLayerMap, &v23, &std::piecewise_construct, &v21) + 40) = surface;
+    [(CALayer *)self->_hostLayer addSublayer:?];
+    *&v21 = &v23;
+    *(std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, &v23, &std::piecewise_construct, &v21) + 40) = 0;
+    sublayers = [(CALayer *)self->_hostLayer sublayers];
+    v19 = [sublayers count] == 1;
+
+    if (v19)
+    {
+      objc_storeWeak(&self->_topLayer, v23);
+    }
+
+    v15 = v23;
+
+    GPUTools::AutoCATransaction::~AutoCATransaction(v25);
+  }
+
+  else
+  {
+    *&v21 = &dCopy;
+    v15 = std::__tree<std::__value_type<unsigned long long,CALayer * {__strong}>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CALayer * {__strong}>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CALayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_layerMap, &dCopy, &std::piecewise_construct, &v21)[5];
+  }
+
+  return v15;
 }
 
 - (void)resetLayersVisibility
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12[17] = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   sublayers = [(CALayer *)self->_hostLayer sublayers];
-  v4 = [sublayers countByEnumeratingWithState:&v8 objects:v13 count:16];
+  v4 = [sublayers countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        v12[0] = *(*(&v8 + 1) + 8 * v6);
-        v12[2] = v12;
-        *(std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, v12) + 40) = 0;
-        ++v6;
+        v11 = *(*(&v7 + 1) + 8 * v6);
+        v12[0] = &v11;
+        *(std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, &v11, &std::piecewise_construct, v12) + 40) = 0;
+        v6 = (v6 + 1);
       }
 
       while (v4 != v6);
-      v4 = [sublayers countByEnumeratingWithState:&v8 objects:v13 count:16];
+      v4 = [sublayers countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareLayerForPresent:(id)present
 {
-  obj[0] = present;
-  if (!obj[0])
+  obj = present;
+  if (!obj)
   {
     __assert_rtn("[DYiOSPlaybackEngine prepareLayerForPresent:]", &unk_24DC2B171, 0, "layer");
   }
 
-  obj[2] = obj;
-  *(std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, obj) + 40) = 1;
-  objc_storeWeak(&self->_topLayer, obj[0]);
+  p_obj = &obj;
+  *(std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, &obj, &std::piecewise_construct, &p_obj) + 40) = 1;
+  objc_storeWeak(&self->_topLayer, obj);
 }
 
 - (void)applyLayersVisibility
 {
-  v16 = *MEMORY[0x277D85DE8];
-  GPUTools::AutoCATransaction::AutoCATransaction(v15, 0, 1);
-  [MEMORY[0x277CD9FF0] setDisableActions:0];
-  [MEMORY[0x277CD9FF0] setAnimationDuration:0.15];
-  [(CALayer *)self->_hostLayer setHidden:0];
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
+  v10 = *MEMORY[0x277D85DE8];
+  GPUTools::AutoCATransaction::AutoCATransaction(v9, 0, 1);
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
+  [MEMORY[0x277CD9FF0] setAnimationDuration:?];
+  [(CALayer *)self->_hostLayer setHidden:?];
   sublayers = [(CALayer *)self->_hostLayer sublayers];
-  v4 = [sublayers countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [sublayers countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
-    v5 = *v10;
+    v5 = MEMORY[0];
     do
     {
-      v6 = 0;
-      do
+      for (i = 0; i != v4; i = (i + 1))
       {
-        if (*v10 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        v13[0] = *(*(&v9 + 1) + 8 * v6);
-        v13[2] = v13;
-        v7 = std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, v13);
-        [v13[0] setHidden:(v7[5] & 1) == 0];
-        ++v6;
+        v7 = *(8 * i);
+        v8 = &v7;
+        std::__tree<std::__value_type<CALayer *,BOOL>,std::__map_value_compare<std::__value_type<CALayer *,BOOL>,std::__map_value_compare,std::less<std::__value_type<CALayer *,BOOL>>,true>,std::allocator<std::__map_value_compare>>::__emplace_unique_key_args<std::__value_type<CALayer *,BOOL>,std::piecewise_construct_t const&,std::tuple<CALayer * const&>,CALayer * const<>>(&self->_hostLayerSublayersVisibilityMap, &v7, &std::piecewise_construct, &v8);
+        [v7 setHidden:?];
       }
 
-      while (v4 != v6);
-      v4 = [sublayers countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v4 = [sublayers countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v4);
   }
 
-  GPUTools::AutoCATransaction::~AutoCATransaction(v15);
-  v8 = *MEMORY[0x277D85DE8];
+  GPUTools::AutoCATransaction::~AutoCATransaction(v9);
 }
 
 - (void)updateLayer:(id)layer contentRect:(CGRect)rect contentsScale:(double)scale properties:(id)properties
@@ -249,9 +323,9 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
-  v18[0] = layerCopy;
+  v16 = layerCopy;
   propertiesCopy = properties;
   if (!layerCopy)
   {
@@ -259,25 +333,23 @@
   }
 
   [layerCopy bounds];
-  v22.origin.x = x;
-  v22.origin.y = y;
-  v22.size.width = width;
-  v22.size.height = height;
-  if (!CGRectEqualToRect(v21, v22) || ([layerCopy contentsScale], v15 != scale) || !-[DYiOSPlaybackEngine layerHasSameProperties:layer:](self, "layerHasSameProperties:layer:", propertiesCopy, layerCopy))
+  v21.origin.x = x;
+  v21.origin.y = y;
+  v21.size.width = width;
+  v21.size.height = height;
+  if (!CGRectEqualToRect(v20, v21) || ([layerCopy contentsScale], v15 != scale) || !-[DYiOSPlaybackEngine layerHasSameProperties:layer:](self, "layerHasSameProperties:layer:"))
   {
-    GPUTools::AutoCATransaction::AutoCATransaction(v19, 1, 1);
+    GPUTools::AutoCATransaction::AutoCATransaction(v18, 1, 1);
     if (scale == 0.0)
     {
       __assert_rtn("[DYiOSPlaybackEngine updateLayer:contentRect:contentsScale:properties:]", &unk_24DC2B171, 0, "contentsScale != 0.0");
     }
 
-    v18[2] = v18;
-    v16 = std::__tree<std::__value_type<CALayer * {__strong},BOOL>,std::__map_value_compare<CALayer * {__strong},std::__value_type<CALayer * {__strong},BOOL>,std::less<CALayer * {__strong}>,true>,std::allocator<std::__value_type<CALayer * {__strong},BOOL>>>::__emplace_unique_key_args<CALayer * {__strong},std::piecewise_construct_t const&,std::tuple<CALayer * const {__strong}&>,std::tuple<>>(&self->_coreAnimationLayerMap, v18);
-    [(DYiOSPlaybackEngine *)self _setupLayer:v18[0] contentRect:propertiesCopy contentsScale:*(v16 + 40) properties:x isCoreAnimationSurface:y, width, height, scale];
-    GPUTools::AutoCATransaction::~AutoCATransaction(v19);
+    v17 = &v16;
+    std::__tree<std::__value_type<CALayer * {__strong},BOOL>,std::__map_value_compare<CALayer * {__strong},std::__value_type<CALayer * {__strong},BOOL>,std::less<CALayer * {__strong}>,true>,std::allocator<std::__value_type<CALayer * {__strong},BOOL>>>::__emplace_unique_key_args<CALayer * {__strong},std::piecewise_construct_t const&,std::tuple<CALayer * const {__strong}&>,std::tuple<>>(&self->_coreAnimationLayerMap, &v16, &std::piecewise_construct, &v17);
+    [DYiOSPlaybackEngine _setupLayer:"_setupLayer:contentRect:contentsScale:properties:isCoreAnimationSurface:" contentRect:? contentsScale:? properties:? isCoreAnimationSurface:?];
+    GPUTools::AutoCATransaction::~AutoCATransaction(v18);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)layerForID:(unint64_t)d
@@ -354,89 +426,66 @@
 
 - (void)setTransform:(const Argument *)transform forLayerID:(unint64_t)d withScreenToLayerScale:(const void *)scale
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v7 = [(DYiOSPlaybackEngine *)self layerForID:d];
-  if (v7)
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = [(DYiOSPlaybackEngine *)self layerForID:?];
+  if (v5)
   {
-    GPUTools::AutoCATransaction::AutoCATransaction(v34, 1, 1);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v8 = objc_opt_class();
-    if (v8)
+    GPUTools::AutoCATransaction::AutoCATransaction(v15, 1, 1);
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    if (objc_opt_class())
     {
-      [v8 _convertToCATransform3D:transform];
+      [&v7 _convertToCATransform3D:?];
     }
 
     else
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v7 = 0u;
+      v8 = 0u;
     }
 
-    v14 = v30;
-    v15 = v31;
-    v16 = v32;
-    v17 = v33;
-    v10 = v26;
-    v11 = v27;
-    v12 = v28;
-    v13 = v29;
-    [(DYiOSPlaybackEngine *)self _applyInterfaceOrientationToTransform:&v10];
-    v14 = v22;
-    v15 = v23;
-    v16 = v24;
-    v17 = v25;
-    v10 = v18;
-    v11 = v19;
-    v12 = v20;
-    v13 = v21;
-    [v7 setTransform:&v10];
-    GPUTools::AutoCATransaction::~AutoCATransaction(v34);
+    [v6 _applyInterfaceOrientationToTransform:{v7, v8, v9, v10, v11, v12, v13, v14}];
+    [v5 setTransform:{v6[0], v6[1], v6[2], v6[3], v6[4], v6[5], v6[6], v6[7]}];
+    GPUTools::AutoCATransaction::~AutoCATransaction(v15);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPosition:(const Argument *)position forLayerID:(unint64_t)d
 {
-  v7[5] = *MEMORY[0x277D85DE8];
-  v5 = [(DYiOSPlaybackEngine *)self layerForID:d];
-  if (v5)
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4 = [(DYiOSPlaybackEngine *)self layerForID:?];
+  if (v4)
   {
-    GPUTools::AutoCATransaction::AutoCATransaction(v7, 1, 1);
-    [objc_opt_class() _convertToCGPoint:position];
-    [v5 setPosition:?];
-    GPUTools::AutoCATransaction::~AutoCATransaction(v7);
+    GPUTools::AutoCATransaction::AutoCATransaction(v5, 1, 1);
+    [objc_opt_class() _convertToCGPoint:?];
+    [v4 setPosition:?];
+    GPUTools::AutoCATransaction::~AutoCATransaction(v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAnchorPoint:(const Argument *)point forLayerID:(unint64_t)d
 {
-  v7[5] = *MEMORY[0x277D85DE8];
-  v5 = [(DYiOSPlaybackEngine *)self layerForID:d];
-  if (v5)
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4 = [(DYiOSPlaybackEngine *)self layerForID:?];
+  if (v4)
   {
-    GPUTools::AutoCATransaction::AutoCATransaction(v7, 1, 1);
-    [objc_opt_class() _convertToCGPoint:point];
-    [v5 setAnchorPoint:?];
-    GPUTools::AutoCATransaction::~AutoCATransaction(v7);
+    GPUTools::AutoCATransaction::AutoCATransaction(v5, 1, 1);
+    [objc_opt_class() _convertToCGPoint:?];
+    [v4 setAnchorPoint:?];
+    GPUTools::AutoCATransaction::~AutoCATransaction(v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CGRect)boundsForCurrentInterfaceOrientation

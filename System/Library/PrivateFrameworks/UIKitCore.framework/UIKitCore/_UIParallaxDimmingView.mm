@@ -65,7 +65,7 @@
 
     else
     {
-      v12 = +[UIColor blackColor];
+      v12 = objc_msgSend_blackColor(UIColor);
       v13 = [v12 colorWithAlphaComponent:0.1];
       [(_UIParallaxDimmingView *)v11 setDimmingColor:v13];
     }

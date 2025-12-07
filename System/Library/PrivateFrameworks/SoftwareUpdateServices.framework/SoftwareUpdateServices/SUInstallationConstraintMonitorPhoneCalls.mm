@@ -1,5 +1,6 @@
 @interface SUInstallationConstraintMonitorPhoneCalls
 - (id)initOnQueue:(id)queue withDownload:(id)download;
+- (id)initOnQueue:(id)queue withDownload:(id)download callCenter:(id)center inSpringBoard:(BOOL)board onExistingPhoneCall:(BOOL)call;
 - (unint64_t)unsatisfiedConstraints;
 - (void)_callStatusChanged;
 - (void)_queue_noteOnExistingPhoneCallDidChange:(BOOL)change;
@@ -19,6 +20,30 @@
   return v10;
 }
 
+- (id)initOnQueue:(id)queue withDownload:(id)download callCenter:(id)center inSpringBoard:(BOOL)board onExistingPhoneCall:(BOOL)call
+{
+  callCopy = call;
+  centerCopy = center;
+  downloadCopy = download;
+  queueCopy = queue;
+  BSDispatchQueueAssert();
+  v19.receiver = self;
+  v19.super_class = SUInstallationConstraintMonitorPhoneCalls;
+  v16 = [(SUInstallationConstraintMonitorBase *)&v19 initOnQueue:queueCopy withRepresentedInstallationConstraints:256 andDownload:downloadCopy];
+
+  if (v16)
+  {
+    objc_storeStrong(v16 + 6, center);
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:v16 selector:sel__callStatusChanged name:*MEMORY[0x277D6EFF0] object:0];
+    [defaultCenter addObserver:v16 selector:sel__callStatusChanged name:*MEMORY[0x277D6F038] object:0];
+    *(v16 + 57) = board;
+    [v16 _queue_noteOnExistingPhoneCallDidChange:callCopy];
+  }
+
+  return v16;
+}
+
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -31,7 +56,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (self->_queue_satisfied)
   {
@@ -82,13 +106,11 @@ uint64_t __63__SUInstallationConstraintMonitorPhoneCalls__callStatusChanged__blo
 - (void)_queue_noteOnExistingPhoneCallDidChange:(BOOL)change
 {
   changeCopy = change;
-  queue = self->super._queue;
-  BSDispatchQueueAssert();
+  v5 = BSDispatchQueueAssert();
   if (self->_queue_satisfied != !changeCopy)
   {
     self->_queue_satisfied = !changeCopy;
-    v6 = SULogInstallConstraints();
-    self->_queue_satisfied;
+    v6 = SULogInstallConstraints(v5);
     SULogInfoForSubsystem(v6, @"%@ - phone call constraint changed (satisfied? %@)", v7, v8, v9, v10, v11, v12, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];

@@ -121,21 +121,20 @@
 
 - (void)didReceiveDayChangeNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2082;
-    v10 = "[HDAgeGatingManager didReceiveDayChangeNotification:]";
-    v5 = v8;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] received day change notification", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2082;
+    v9 = "[HDAgeGatingManager didReceiveDayChangeNotification:]";
+    v5 = v7;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] received day change notification", &v6, 0x16u);
   }
 
   [(HDAgeGatingManager *)self _updateAgeGatingOnQueue];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAgeGatingOnQueue
@@ -165,85 +164,85 @@
 
 - (void)_queue_updateAgeGating
 {
-  v67[12] = *MEMORY[0x277D85DE8];
+  v66[12] = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 16));
-    v47 = 0;
-    v2 = [self ageInYearsWithError:&v47];
-    v3 = v47;
+    v46 = 0;
+    v2 = [self ageInYearsWithError:&v46];
+    v3 = v46;
     v4 = v3;
-    v46 = v2;
+    v45 = v2;
     if (v2 || !v3)
     {
-      v43 = v3;
+      v42 = v3;
       WeakRetained = objc_loadWeakRetained((self + 8));
       database = [WeakRetained database];
       [database removeProtectedDataObserver:self];
 
-      v45 = v46;
-      v66[0] = *MEMORY[0x277CCE238];
-      v44 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE290]];
-      v67[0] = v44;
-      v66[1] = *MEMORY[0x277CCE248];
-      v42 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE418]];
-      v67[1] = v42;
-      v66[2] = *MEMORY[0x277CCE250];
-      v41 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE4F0]];
-      v67[2] = v41;
-      v66[3] = *MEMORY[0x277CCE240];
-      v40 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE298]];
-      v67[3] = v40;
-      v66[4] = *MEMORY[0x277CCC220];
-      v39 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE348]];
-      v67[4] = v39;
-      v66[5] = *MEMORY[0x277CCC238];
+      v44 = v45;
+      v65[0] = *MEMORY[0x277CCE238];
+      v43 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE290]];
+      v66[0] = v43;
+      v65[1] = *MEMORY[0x277CCE248];
+      v41 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE418]];
+      v66[1] = v41;
+      v65[2] = *MEMORY[0x277CCE250];
+      v40 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE4F0]];
+      v66[2] = v40;
+      v65[3] = *MEMORY[0x277CCE240];
+      v39 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE298]];
+      v66[3] = v39;
+      v65[4] = *MEMORY[0x277CCC220];
+      v38 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE348]];
+      v66[4] = v38;
+      v65[5] = *MEMORY[0x277CCC238];
       v13 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE4F8]];
-      v67[5] = v13;
-      v66[6] = *MEMORY[0x277CCE260];
+      v66[5] = v13;
+      v65[6] = *MEMORY[0x277CCE260];
       v14 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE560]];
-      v67[6] = v14;
-      v66[7] = *MEMORY[0x277CCE268];
+      v66[6] = v14;
+      v65[7] = *MEMORY[0x277CCE268];
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE568]];
-      v67[7] = v15;
-      v66[8] = *MEMORY[0x277CCE230];
+      v66[7] = v15;
+      v65[8] = *MEMORY[0x277CCE230];
       v16 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE208]];
-      v67[8] = v16;
-      v66[9] = *MEMORY[0x277CCE270];
+      v66[8] = v16;
+      v65[9] = *MEMORY[0x277CCE270];
       v17 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE588]];
-      v67[9] = v17;
-      v66[10] = *MEMORY[0x277CCE258];
+      v66[9] = v17;
+      v65[10] = *MEMORY[0x277CCE258];
       v18 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE520]];
-      v67[10] = v18;
-      v66[11] = *MEMORY[0x277CCC258];
+      v66[10] = v18;
+      v65[11] = *MEMORY[0x277CCC258];
       v19 = [MEMORY[0x277CCABB0] numberWithInteger:*MEMORY[0x277CCE5D8]];
-      v67[11] = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:12];
+      v66[11] = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:12];
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v48 objects:buf count:16];
+      v22 = [v21 countByEnumeratingWithState:&v47 objects:buf count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v49;
+        v24 = *v48;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v49 != v24)
+            if (*v48 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v48 + 1) + 8 * i);
+            v26 = *(*(&v47 + 1) + 8 * i);
             v27 = [v21 objectForKeyedSubscript:v26];
-            if (v46)
+            if (v45)
             {
-              integerValue = [v45 integerValue];
+              integerValue = [v44 integerValue];
               v29 = integerValue < [v27 integerValue];
             }
 
@@ -258,20 +257,20 @@
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               v31 = objc_opt_class();
-              *v52 = 138544130;
-              v53 = v31;
-              v54 = 2082;
-              v55 = "[HDAgeGatingManager _updateUserDefaultsWithAge:]";
-              v56 = 2114;
-              v57 = v26;
-              v58 = 1026;
-              v59 = v29;
+              *v51 = 138544130;
+              v52 = v31;
+              v53 = 2082;
+              v54 = "[HDAgeGatingManager _updateUserDefaultsWithAge:]";
+              v55 = 2114;
+              v56 = v26;
+              v57 = 1026;
+              v58 = v29;
               v32 = v31;
-              _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] %{public}@ age gating enabled: %{public}d", v52, 0x26u);
+              _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] %{public}@ age gating enabled: %{public}d", v51, 0x26u);
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v48 objects:buf count:16];
+          v23 = [v21 countByEnumeratingWithState:&v47 objects:buf count:16];
         }
 
         while (v23);
@@ -283,14 +282,14 @@
       {
         v33 = objc_opt_class();
         *buf = 138543618;
-        v61 = v33;
-        v62 = 2082;
-        v63 = "[HDAgeGatingManager _queue_updateAgeGating]";
+        v60 = v33;
+        v61 = 2082;
+        v62 = "[HDAgeGatingManager _queue_updateAgeGating]";
         v34 = v33;
         _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] processed", buf, 0x16u);
       }
 
-      v4 = v43;
+      v4 = v42;
     }
 
     else
@@ -305,9 +304,9 @@
         {
           v8 = objc_opt_class();
           *buf = 138543618;
-          v61 = v8;
-          v62 = 2082;
-          v63 = "[HDAgeGatingManager _queue_updateAgeGating]";
+          v60 = v8;
+          v61 = 2082;
+          v62 = "[HDAgeGatingManager _queue_updateAgeGating]";
           v9 = v8;
           _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] Protected data not accessible. Adding observer.", buf, 0x16u);
         }
@@ -319,21 +318,19 @@
 
       else if (v7)
       {
-        v36 = objc_opt_class();
-        v37 = v36;
+        v35 = objc_opt_class();
+        v36 = v35;
         localizedDescription = [v4 localizedDescription];
         *buf = 138543874;
-        v61 = v36;
-        v62 = 2082;
-        v63 = "[HDAgeGatingManager _queue_updateAgeGating]";
-        v64 = 2114;
-        v65 = localizedDescription;
+        v60 = v35;
+        v61 = 2082;
+        v62 = "[HDAgeGatingManager _queue_updateAgeGating]";
+        v63 = 2114;
+        v64 = localizedDescription;
         _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] While fetching date of birth components, received error: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ageInYearsWithError:(id *)error
@@ -390,40 +387,36 @@
 
 void __47__HDAgeGatingManager__registerForNotifications__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to significant time change.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to significant time change.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [(HDAgeGatingManager *)WeakRetained _updateAgeGatingOnQueue];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HDAgeGatingManager__registerForNotifications__block_invoke_312(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogInfrastructure();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to user characteristics change.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating age gating due to user characteristics change.", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [(HDAgeGatingManager *)WeakRetained _updateAgeGatingOnQueue];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available

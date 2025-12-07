@@ -19,7 +19,7 @@ uint64_t __107___UTDeclaredTypeRecord__enumerateRelatedTypeStructuresWithContext
   return result;
 }
 
-uint64_t __50___UTDeclaredTypeRecord_conformsToTypeIdentifier___block_invoke(uint64_t a1, void **a2, uint64_t a3, int a4)
+uint64_t __50___UTDeclaredTypeRecord_conformsToTypeIdentifier___block_invoke(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
 {
   v8 = 0;
   result = _UTGetActiveTypeForCFStringIdentifier(*a2, *(a1 + 32), &v8);
@@ -49,12 +49,11 @@ void __83___UTDeclaredTypeRecord_parentTypeIdentifiersWithContext_tableID_unitID
 {
   if (a4 == 1)
   {
-    v5 = *(a3 + 12);
     [(_LSDatabase *)**(a1 + 40) store];
-    v6 = _CSStringCopyCFString();
-    if (v6 && [v6 length])
+    v5 = _CSStringCopyCFString();
+    if (v5 && [v5 length])
     {
-      [*(a1 + 32) addObject:v6];
+      [*(a1 + 32) addObject:v5];
     }
   }
 }
@@ -63,17 +62,16 @@ void __82___UTDeclaredTypeRecord_childTypeIdentifiersWithContext_tableID_unitID_
 {
   if (a4 == 1)
   {
-    v5 = *(a3 + 12);
     [(_LSDatabase *)**(a1 + 40) store];
-    v6 = _CSStringCopyCFString();
-    if (v6 && [v6 length])
+    v5 = _CSStringCopyCFString();
+    if (v5 && [v5 length])
     {
-      [*(a1 + 32) addObject:v6];
+      [*(a1 + 32) addObject:v5];
     }
   }
 }
 
-uint64_t __42___UTDeclaredTypeRecord__isOneTapOpenable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__42___UTDeclaredTypeRecord__isOneTapOpenable__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 __isDirectlyOneTapOpenable];
   if (result)

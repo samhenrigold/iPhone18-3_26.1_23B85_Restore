@@ -41,24 +41,17 @@
 
 - (NSDictionary)persistentMenu
 {
-  v3 = self + OBJC_IVAR___BlastDoorRelayReachabilityHandleResult_relayReachabilityHandleResult;
   if (*&self->relayReachabilityHandleResult[OBJC_IVAR___BlastDoorRelayReachabilityHandleResult_relayReachabilityHandleResult + 56] == 1)
   {
-    v4 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v6 = *&self->relayReachabilityHandleResult[OBJC_IVAR___BlastDoorRelayReachabilityHandleResult_relayReachabilityHandleResult + 56];
-    v8 = *(v3 + 88);
-    v9 = *(v3 + 104);
-    v10 = *(v3 + 120);
-    v11 = *(v3 + 17);
-    v7 = *(v3 + 72);
-    v4 = sub_214093A24();
+    v9 = sub_214093A24(self, a2, v2, v3, v4, v5, v6, v7);
   }
 
-  return v4;
+  return v9;
 }
 
 - (NSDictionary)brandInfo

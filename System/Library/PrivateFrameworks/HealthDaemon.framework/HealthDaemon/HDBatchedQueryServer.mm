@@ -1,6 +1,7 @@
 @interface HDBatchedQueryServer
 - (id)_queryCursorWithQueryCursor:(void *)cursor state:;
 - (int64_t)batchObjectsWithEnumerator:(id)enumerator error:(id *)error handler:(id)handler;
+- (int64_t)batchObjectsWithEnumerator:(id)enumerator includeDeletedObjects:(BOOL)objects error:(id *)error batchHandler:(id)handler;
 - (int64_t)batchObjectsWithMultitypeQueryCursor:(id)cursor includeDeletedObjects:(BOOL)objects limit:(unint64_t)limit error:(id *)error batchHandler:(id)handler;
 @end
 
@@ -18,6 +19,211 @@
   v10 = [(HDBatchedQueryServer *)self batchObjectsWithEnumerator:enumerator includeDeletedObjects:0 error:error batchHandler:v12];
 
   return v10;
+}
+
+- (int64_t)batchObjectsWithEnumerator:(id)enumerator includeDeletedObjects:(BOOL)objects error:(id *)error batchHandler:(id)handler
+{
+  objectsCopy = objects;
+  enumeratorCopy = enumerator;
+  handlerCopy = handler;
+  if (self)
+  {
+    client = [(HDQueryServer *)self client];
+    sourceBundleIdentifier = [client sourceBundleIdentifier];
+
+    if ([sourceBundleIdentifier hasPrefix:@"com.appleinternal.health.Lime."])
+    {
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = [sourceBundleIdentifier hasPrefix:@"com.apple.Research."];
+    }
+
+    sampleType = [(HDQueryServer *)self sampleType];
+    electrocardiogramType = [MEMORY[0x277CCD3A8] electrocardiogramType];
+    if ([sampleType isEqual:electrocardiogramType] && (v14 & 1) != 0)
+    {
+      errorCopy = error;
+      v17 = enumeratorCopy;
+      v18 = objectsCopy;
+      client2 = [(HDQueryServer *)self client];
+      configuration = [client2 configuration];
+      [configuration applicationSDKVersionToken];
+      v21 = dyld_version_token_at_least();
+
+      if ((v21 & 1) == 0)
+      {
+        aBlock = MEMORY[0x277D85DD0];
+        p_aBlock = 3221225472;
+        v71 = __68__HDBatchedQueryServer__processBatchHandlerForResearchAppECGAccess___block_invoke;
+        v72 = &unk_278629470;
+        v73 = handlerCopy;
+        handlerCopy = _Block_copy(&aBlock);
+      }
+
+      objectsCopy = v18;
+      enumeratorCopy = v17;
+      error = errorCopy;
+    }
+
+    else
+    {
+    }
+
+    v22 = _Block_copy(handlerCopy);
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  sampleType2 = [(HDQueryServer *)self sampleType];
+  if (sampleType2)
+  {
+    v24 = [(HDQueryServer *)self authorizationStatusRecordForType:sampleType2 error:error];
+    v25 = v24;
+    if (v24)
+    {
+      if ([v24 canRead])
+      {
+        restrictedSourceEntities = [v25 restrictedSourceEntities];
+        [enumeratorCopy setRestrictedSourceEntities:restrictedSourceEntities];
+
+        if (objectsCopy)
+        {
+          restrictedBundleIdentifier = [v25 restrictedBundleIdentifier];
+
+          if (!restrictedBundleIdentifier)
+          {
+            deletedObjectBaselineAnchor = [v25 deletedObjectBaselineAnchor];
+            [enumeratorCopy setDeletedObjectsAnchor:deletedObjectBaselineAnchor];
+          }
+        }
+
+        v29 = _Block_copy(self->_unitTest_queryServerWillSendBatchHandler);
+        v30 = _Block_copy(self->_unitTest_queryServerObjectEnumerationHandler);
+        v79[0] = 0;
+        v79[1] = v79;
+        v79[2] = 0x2020000000;
+        v79[3] = 0;
+        if (v29)
+        {
+          v75[0] = MEMORY[0x277D85DD0];
+          v75[1] = 3221225472;
+          v75[2] = __92__HDBatchedQueryServer_batchObjectsWithEnumerator_includeDeletedObjects_error_batchHandler___block_invoke;
+          v75[3] = &unk_278629498;
+          v31 = v29;
+          v75[4] = self;
+          v76 = v31;
+          v77 = v22;
+          v78 = v79;
+          v22 = _Block_copy(v75);
+        }
+
+        aBlock = 0;
+        p_aBlock = &aBlock;
+        v71 = 0x3032000000;
+        v72 = __Block_byref_object_copy__162;
+        v73 = __Block_byref_object_dispose__162;
+        v32 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
+        v33 = 0;
+        v74 = v32;
+        v63 = 0;
+        v64 = &v63;
+        v65 = 0x3032000000;
+        v66 = __Block_byref_object_copy__162;
+        v67 = __Block_byref_object_dispose__162;
+        if (objectsCopy)
+        {
+          v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
+        }
+
+        v34 = v30;
+        v43 = v29;
+        v68 = v33;
+        v59 = 0;
+        v60 = &v59;
+        v61 = 0x2020000000;
+        v62 = 0;
+        v55 = 0;
+        v56 = &v55;
+        v57 = 0x2020000000;
+        anchor = [enumeratorCopy anchor];
+        longLongValue = [anchor longLongValue];
+
+        v58 = longLongValue;
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __92__HDBatchedQueryServer_batchObjectsWithEnumerator_includeDeletedObjects_error_batchHandler___block_invoke_297;
+        v45[3] = &unk_2786294C0;
+        v45[4] = self;
+        v48 = &aBlock;
+        v49 = &v59;
+        v50 = &v63;
+        v54 = objectsCopy;
+        v53 = a2;
+        v22 = v22;
+        v46 = v22;
+        v51 = &v55;
+        v52 = v79;
+        v37 = v34;
+        v38 = objectsCopy;
+        v39 = v37;
+        v47 = v37;
+        if ([enumeratorCopy enumerateIncludingDeletedObjects:v38 error:error handler:v45])
+        {
+          if ([(HDQueryServer *)self _shouldStopProcessingQuery])
+          {
+            v40 = 4;
+          }
+
+          else if (v60[3])
+          {
+            v40 = 3;
+          }
+
+          else
+          {
+            (*(v22 + 2))(v22, *(p_aBlock + 40), v64[5], v56[3], 1);
+            v40 = 0;
+          }
+        }
+
+        else
+        {
+          v40 = 1;
+        }
+
+        _Block_object_dispose(&v55, 8);
+        _Block_object_dispose(&v59, 8);
+        _Block_object_dispose(&v63, 8);
+
+        _Block_object_dispose(&aBlock, 8);
+        _Block_object_dispose(v79, 8);
+      }
+
+      else
+      {
+        v40 = 2;
+      }
+    }
+
+    else
+    {
+      v40 = 1;
+    }
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:3 description:@"Missing sample type for query"];
+    v40 = 1;
+  }
+
+  return v40;
 }
 
 void __92__HDBatchedQueryServer_batchObjectsWithEnumerator_includeDeletedObjects_error_batchHandler___block_invoke(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
@@ -64,68 +270,65 @@ LABEL_3:
       v17 = [*(*(*(a1 + 56) + 8) + 40) count];
       if (([*(*(*(a1 + 72) + 8) + 40) count] + v17) >= 0xC8)
       {
-        v18 = *(*(*(a1 + 56) + 8) + 40);
-        v19 = *(*(*(a1 + 72) + 8) + 40);
-        v20 = *(*(*(a1 + 80) + 8) + 24);
         (*(*(a1 + 40) + 16))();
-        v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
-        v22 = *(*(a1 + 56) + 8);
-        v23 = *(v22 + 40);
-        *(v22 + 40) = v21;
+        v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
+        v19 = *(*(a1 + 56) + 8);
+        v20 = *(v19 + 40);
+        *(v19 + 40) = v18;
 
-        v24 = *(a1 + 104);
-        if (v24 == 1)
+        v21 = *(a1 + 104);
+        if (v21 == 1)
         {
-          v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
+          v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:200];
         }
 
         else
         {
-          v25 = 0;
+          v22 = 0;
         }
 
-        objc_storeStrong((*(*(a1 + 72) + 8) + 40), v25);
-        if (v24)
+        objc_storeStrong((*(*(a1 + 72) + 8) + 40), v22);
+        if (v21)
         {
         }
 
         *(*(*(a1 + 80) + 8) + 24) = 0;
       }
 
-      v26 = v7;
-      if (v7 || v8 && (v16 = a1 + 72, v26 = v8, (*(a1 + 104) & 1) != 0))
+      v23 = v7;
+      if (v7 || v8 && (v16 = a1 + 72, v23 = v8, (*(a1 + 104) & 1) != 0))
       {
-        [*(*(*v16 + 8) + 40) addObject:v26];
+        [*(*(*v16 + 8) + 40) addObject:v23];
       }
 
       ++*(*(*(a1 + 88) + 8) + 24);
-      v27 = *(*(a1 + 80) + 8);
-      if (*(v27 + 24) < a4)
+      v24 = *(*(a1 + 80) + 8);
+      if (*(v24 + 24) < a4)
       {
-        *(v27 + 24) = a4;
+        *(v24 + 24) = a4;
       }
 
-      v28 = *(a1 + 48);
-      if (v28)
+      v25 = *(a1 + 48);
+      if (v25)
       {
         if (v7)
         {
-          v29 = v7;
+          v26 = v7;
         }
 
         else
         {
-          v29 = v8;
+          v26 = v8;
         }
 
-        (*(v28 + 16))(v28, *(a1 + 32), v29, *(*(*(a1 + 88) + 8) + 24));
+        (*(v25 + 16))(v25, *(a1 + 32), v26, *(*(*(a1 + 88) + 8) + 24));
       }
     }
 
     else
     {
-      v31 = [MEMORY[0x277CCA890] currentHandler];
-      [v31 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"HDBatchedQueryServer.m" lineNumber:111 description:{@"Invalid parameter not satisfying: %@", @"sample != nil || deletedObject != nil"}];
+      v28 = [MEMORY[0x277CCA890] currentHandler];
+      [v28 handleFailureInMethod:*(a1 + 96) object:*(a1 + 32) file:@"HDBatchedQueryServer.m" lineNumber:111 description:{@"Invalid parameter not satisfying: %@", @"sample != nil || deletedObject != nil"}];
     }
 
     v11 = 1;
@@ -194,44 +397,44 @@ id __68__HDBatchedQueryServer__processBatchHandlerForResearchAppECGAccess___bloc
 - (int64_t)batchObjectsWithMultitypeQueryCursor:(id)cursor includeDeletedObjects:(BOOL)objects limit:(unint64_t)limit error:(id *)error batchHandler:(id)handler
 {
   objectsCopy = objects;
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   cursorCopy = cursor;
   handlerCopy = handler;
-  v133 = cursorCopy;
+  v132 = cursorCopy;
   queryDescriptors = [cursorCopy queryDescriptors];
   v12 = objc_alloc(MEMORY[0x277CBEB18]);
   v13 = [queryDescriptors count];
   v14 = v12;
   errorCopy = error;
-  v131 = [v14 initWithCapacity:v13];
+  v130 = [v14 initWithCapacity:v13];
+  v138 = 0u;
   v139 = 0u;
   v140 = 0u;
   v141 = 0u;
-  v142 = 0u;
   v16 = queryDescriptors;
-  v17 = [v16 countByEnumeratingWithState:&v139 objects:v144 count:16];
-  v130 = v16;
+  v17 = [v16 countByEnumeratingWithState:&v138 objects:v143 count:16];
+  v129 = v16;
   errorCopy2 = error;
   selfCopy = self;
   if (v17)
   {
     v18 = v17;
-    v19 = *v140;
+    v19 = *v139;
     v20 = &selRef__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler_;
-    v126 = *v140;
+    v125 = *v139;
     do
     {
       v21 = 0;
-      v124 = v20[43];
-      v128 = v18;
+      v123 = v20[43];
+      v127 = v18;
       do
       {
-        if (*v140 != v19)
+        if (*v139 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v139 + 1) + 8 * v21);
+        v22 = *(*(&v138 + 1) + 8 * v21);
         sampleType = [v22 sampleType];
         v24 = [(HDQueryServer *)self authorizationStatusRecordForType:sampleType error:errorCopy];
 
@@ -251,7 +454,7 @@ id __68__HDBatchedQueryServer__processBatchHandlerForResearchAppECGAccess___bloc
           [HDDataEntity disambiguatedSQLForProperty:@"data_id"];
           v52 = v51 = errorCopy;
           deletedObjectBaselineAnchor = [v24 deletedObjectBaselineAnchor];
-          v137 = [v50 predicateWithProperty:v52 greaterThanValue:deletedObjectBaselineAnchor];
+          v136 = [v50 predicateWithProperty:v52 greaterThanValue:deletedObjectBaselineAnchor];
 
           errorCopy = v51;
           self = selfCopy;
@@ -259,11 +462,11 @@ id __68__HDBatchedQueryServer__processBatchHandlerForResearchAppECGAccess___bloc
 
         else
         {
-          v137 = 0;
+          v136 = 0;
         }
 
         sampleType2 = [v22 sampleType];
-        v27 = v133;
+        v27 = v132;
         if (self)
         {
           v28 = sampleType2;
@@ -308,7 +511,7 @@ id __68__HDBatchedQueryServer__processBatchHandlerForResearchAppECGAccess___bloc
 
           else
           {
-            v48 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:v124 format:@"Unable to determine authorization status."];
+            v48 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:v123 format:@"Unable to determine authorization status."];
             v45 = v48;
             if (v48)
             {
@@ -346,11 +549,11 @@ LABEL_25:
         if (!v31)
         {
 
-          v16 = v130;
+          v16 = v129;
 LABEL_49:
 
           v92 = 1;
-          v63 = v131;
+          v63 = v130;
           goto LABEL_99;
         }
 
@@ -361,21 +564,21 @@ LABEL_49:
         restrictedSourceEntities = [v24 restrictedSourceEntities];
         sampleAuthorizationFilter = [(HDQueryServer *)selfCopy sampleAuthorizationFilter];
         _filter = [v22 _filter];
-        v61 = [(HDQueryDescriptor *)v54 initWithSampleTypes:v57 encodingOptions:0 restrictedSourceEntities:restrictedSourceEntities authorizationFilter:sampleAuthorizationFilter filter:_filter samplePredicate:v31 deletedObjectsPredicate:v137];
-        [v131 addObject:v61];
+        v61 = [(HDQueryDescriptor *)v54 initWithSampleTypes:v57 encodingOptions:0 restrictedSourceEntities:restrictedSourceEntities authorizationFilter:sampleAuthorizationFilter filter:_filter samplePredicate:v31 deletedObjectsPredicate:v136];
+        [v130 addObject:v61];
 
         self = selfCopy;
         errorCopy = errorCopy2;
-        v18 = v128;
-        v16 = v130;
-        v19 = v126;
+        v18 = v127;
+        v16 = v129;
+        v19 = v125;
 LABEL_27:
 
         ++v21;
       }
 
       while (v18 != v21);
-      v62 = [v16 countByEnumeratingWithState:&v139 objects:v144 count:16];
+      v62 = [v16 countByEnumeratingWithState:&v138 objects:v143 count:16];
       v18 = v62;
       v20 = &selRef__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler_;
     }
@@ -383,21 +586,21 @@ LABEL_27:
     while (v62);
   }
 
-  v63 = v131;
-  if (![v131 count])
+  v63 = v130;
+  if (![v130 count])
   {
     v92 = 2;
     goto LABEL_99;
   }
 
   selfCopy2 = self;
-  v65 = v131;
-  v66 = v133;
-  v138 = handlerCopy;
+  v65 = v130;
+  v66 = v132;
+  v137 = handlerCopy;
   if (!selfCopy2)
   {
     v92 = 0;
-    v16 = v130;
+    v16 = v129;
     goto LABEL_98;
   }
 
@@ -440,7 +643,7 @@ LABEL_27:
   v75 = [HDMultiTypeSortedSampleIterator alloc];
   sortDescriptors2 = [v66 sortDescriptors];
   profile = [(HDQueryServer *)selfCopy2 profile];
-  v127 = v74;
+  v126 = v74;
   v78 = [(HDMultiTypeSortedSampleIterator *)v75 initWithQueryDescriptors:v65 includeDeletedObjects:objectsCopy anchor:v74 sortDescriptors:sortDescriptors2 bufferSize:v68 profile:profile];
 
   distinctByKeyPaths = [v66 distinctByKeyPaths];
@@ -465,18 +668,18 @@ LABEL_27:
     if (!v86)
     {
       v92 = 1;
-      v16 = v130;
+      v16 = v129;
       goto LABEL_97;
     }
   }
 
   v87 = _Block_copy(selfCopy->_unitTest_queryServerObjectEnumerationHandler);
-  v129 = v66;
+  v128 = v66;
   followingAnchor4 = [v66 followingAnchor];
   _rowid = [followingAnchor4 _rowid];
 
   v90 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v125 = v65;
+  v124 = v65;
   if (objectsCopy)
   {
     v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -487,18 +690,18 @@ LABEL_27:
     v91 = 0;
   }
 
-  v143 = 0;
-  v93 = [(HDMultiTypeSortedSampleIterator *)v78 advanceWithError:&v143];
-  v94 = v143;
+  v142 = 0;
+  v93 = [(HDMultiTypeSortedSampleIterator *)v78 advanceWithError:&v142];
+  v94 = v142;
   if (!v93)
   {
 LABEL_74:
-    v136 = _rowid;
+    v135 = _rowid;
     v111 = v87;
     v112 = 0;
 LABEL_75:
-    v16 = v130;
-    v74 = v127;
+    v16 = v129;
+    v74 = v126;
     goto LABEL_82;
   }
 
@@ -508,7 +711,7 @@ LABEL_75:
     _shouldStopProcessingQuery = [(HDQueryServer *)selfCopy _shouldStopProcessingQuery];
     if (_shouldStopProcessingQuery)
     {
-      v136 = _rowid;
+      v135 = _rowid;
       v111 = v87;
       v113 = 0;
       goto LABEL_81;
@@ -523,9 +726,9 @@ LABEL_75:
     if (([v91 count] + v97) >= 0xC8)
     {
       iteratorStateData = [(HDMultiTypeSortedSampleIterator *)v78 iteratorStateData];
-      v99 = [(HDBatchedQueryServer *)selfCopy _queryCursorWithQueryCursor:v129 state:iteratorStateData];
+      v99 = [(HDBatchedQueryServer *)selfCopy _queryCursorWithQueryCursor:v128 state:iteratorStateData];
 
-      v138[2](v138, v90, v91, _rowid, v99, 0);
+      v137[2](v137, v90, v91, _rowid, v99, 0);
       v100 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
       if (objectsCopy)
@@ -592,15 +795,15 @@ LABEL_67:
       (*(v87 + 2))(v87, selfCopy, object3, v95);
     }
 
-    v143 = v94;
-    v109 = [(HDMultiTypeSortedSampleIterator *)v78 advanceWithError:&v143];
-    v110 = v143;
+    v142 = v94;
+    v109 = [(HDMultiTypeSortedSampleIterator *)v78 advanceWithError:&v142];
+    v110 = v142;
 
     ++v95;
     v94 = v110;
     if (!v109)
     {
-      v136 = _rowid;
+      v135 = _rowid;
       v111 = v87;
       v112 = 0;
       v94 = v110;
@@ -608,7 +811,7 @@ LABEL_67:
     }
   }
 
-  v136 = _rowid;
+  v135 = _rowid;
   v111 = v87;
   v113 = objc_alloc_init(MEMORY[0x277CBEB18]);
 
@@ -624,8 +827,8 @@ LABEL_67:
   }
 
 LABEL_81:
-  v16 = v130;
-  v74 = v127;
+  v16 = v129;
+  v74 = v126;
   v112 = !_shouldStopProcessingQuery;
 
   v90 = v113;
@@ -655,7 +858,7 @@ LABEL_82:
       else
       {
         iteratorStateData2 = [(HDMultiTypeSortedSampleIterator *)v78 iteratorStateData];
-        v118 = [(HDBatchedQueryServer *)selfCopy _queryCursorWithQueryCursor:v129 state:iteratorStateData2];
+        v118 = [(HDBatchedQueryServer *)selfCopy _queryCursorWithQueryCursor:v128 state:iteratorStateData2];
 
         if (!v118)
         {
@@ -663,7 +866,7 @@ LABEL_82:
         }
       }
 
-      v138[2](v138, v90, v91, v136, v118, 1);
+      v137[2](v137, v90, v91, v135, v118, 1);
 
       v92 = 0;
     }
@@ -686,15 +889,14 @@ LABEL_93:
     v92 = 1;
   }
 
-  v63 = v131;
-  v65 = v125;
-  v66 = v129;
+  v63 = v130;
+  v65 = v124;
+  v66 = v128;
 LABEL_97:
 
 LABEL_98:
 LABEL_99:
 
-  v120 = *MEMORY[0x277D85DE8];
   return v92;
 }
 

@@ -13,10 +13,10 @@
 - (id)_description:(BOOL)_description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (simd_float4x4)transform;
-- (uint64_t)updateTransformToCoordinateSpace:(float32x4_t)space withTimestamp:(float32x4_t)timestamp;
 - (unint64_t)hash;
 - (void)_commonInit:(__n128)init transform:(__n128)transform name:(__n128)name;
 - (void)encodeWithCoder:(id)coder;
+- (void)updateTransformToCoordinateSpace:(void *)space@<X8> withTimestamp:(float32x4_t)timestamp@<Q0>;
 @end
 
 @implementation ARAnchor
@@ -228,7 +228,7 @@
     sessionIdentifier = v5->_sessionIdentifier;
     v5->_sessionIdentifier = sessionIdentifier;
 
-    [anchorCopy transform];
+    objc_msgSend_transform(anchorCopy);
     *v5->_anon_30 = v14;
     *&v5->_anon_30[16] = v15;
     *&v5->_anon_30[32] = v16;
@@ -330,7 +330,7 @@
     [v8 appendFormat:@" tracked=%@", v16];
   }
 
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v21 = ARMatrix4x4Description(_descriptionCopy, v17, v18, v19, v20);
   [v8 appendFormat:@" transform=%@", v21];
 
@@ -339,30 +339,30 @@
   return v8;
 }
 
-- (uint64_t)updateTransformToCoordinateSpace:(float32x4_t)space withTimestamp:(float32x4_t)timestamp
+- (void)updateTransformToCoordinateSpace:(void *)space@<X8> withTimestamp:(float32x4_t)timestamp@<Q0>
 {
-  [self transform];
-  v8 = 0;
-  v18[0] = v9;
-  v18[1] = v10;
-  v18[2] = v11;
-  v18[3] = v12;
-  v19 = 0u;
-  v20 = 0u;
+  objc_msgSend_transform(self, a2);
+  v10 = 0;
+  v20[0] = v11;
+  v20[1] = v12;
+  v20[2] = v13;
+  v20[3] = v14;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   do
   {
-    *(&v19 + v8 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(v18[v8])), space, *&v18[v8], 1), timestamp, v18[v8], 2), a5, v18[v8], 3);
-    ++v8;
+    *(&v21 + v10 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(timestamp, COERCE_FLOAT(v20[v10])), a5, *&v20[v10], 1), a6, v20[v10], 2), a7, v20[v10], 3);
+    ++v10;
   }
 
-  while (v8 != 4);
-  result = [self setTransform:{*&v19, *&v20, *&v21, *&v22}];
-  if (a6 != 0.0)
+  while (v10 != 4);
+  result = [self setTransform:{*&v21, *&v22, *&v23, *&v24}];
+  if (a8 != 0.0)
   {
 
-    return [self setLastUpdateTimestamp:a6];
+    return [self setLastUpdateTimestamp:a8];
   }
 
   return result;

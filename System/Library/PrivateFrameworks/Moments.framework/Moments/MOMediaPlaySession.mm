@@ -102,186 +102,8 @@ LABEL_10:
 {
   sessionCopy = session;
   v5 = sessionCopy;
-  if (!sessionCopy)
+  if (!sessionCopy || (v6 = self->_title == 0, [sessionCopy title], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (title = self->_title) != 0 && (objc_msgSend(v5, "title"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](title, "isEqual:", v10), v10, !v11) || (v12 = self->_album == 0, objc_msgSend(v5, "album"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (album = self->_album) != 0 && (objc_msgSend(v5, "album"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](album, "isEqual:", v16), v16, !v17) || (v18 = self->_bundleId == 0, objc_msgSend(v5, "bundleId"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (bundleId = self->_bundleId) != 0 && (objc_msgSend(v5, "bundleId"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](bundleId, "isEqual:", v22), v22, !v23) || (v24 = self->_productId == 0, objc_msgSend(v5, "productId"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (productId = self->_productId) != 0 && (objc_msgSend(v5, "productId"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSString isEqual:](productId, "isEqual:", v28), v28, !v29) || (v30 = self->_genre == 0, objc_msgSend(v5, "genre"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (genre = self->_genre) != 0 && (objc_msgSend(v5, "genre"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[NSString isEqual:](genre, "isEqual:", v34), v34, !v35) || (v36 = self->_mediaType == 0, objc_msgSend(v5, "mediaType"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38) || (mediaType = self->_mediaType) != 0 && (objc_msgSend(v5, "mediaType"), v40 = objc_claimAutoreleasedReturnValue(), v41 = -[NSString isEqual:](mediaType, "isEqual:", v40), v40, !v41) || (v42 = self->_artist == 0, objc_msgSend(v5, "artist"), v43 = objc_claimAutoreleasedReturnValue(), v44 = v43 != 0, v43, v42 == v44) || (artist = self->_artist) != 0 && (objc_msgSend(v5, "artist"), v46 = objc_claimAutoreleasedReturnValue(), v47 = -[NSString isEqual:](artist, "isEqual:", v46), v46, !v47) || (v48 = self->_startDate == 0, objc_msgSend(v5, "startDate"), v49 = objc_claimAutoreleasedReturnValue(), v50 = v49 != 0, v49, v48 == v50) || (startDate = self->_startDate) != 0 && (objc_msgSend(v5, "startDate"), v52 = objc_claimAutoreleasedReturnValue(), v53 = -[NSDate isEqual:](startDate, "isEqual:", v52), v52, !v53) || (v54 = self->_endDate == 0, objc_msgSend(v5, "endDate"), v55 = objc_claimAutoreleasedReturnValue(), v56 = v55 != 0, v55, v54 == v56))
   {
-    goto LABEL_29;
-  }
-
-  v6 = self->_title == 0;
-  title = [sessionCopy title];
-  v8 = title != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_29;
-  }
-
-  title = self->_title;
-  if (title)
-  {
-    title2 = [v5 title];
-    v11 = [(NSString *)title isEqual:title2];
-
-    if (!v11)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v12 = self->_album == 0;
-  album = [v5 album];
-  v14 = album != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_29;
-  }
-
-  album = self->_album;
-  if (album)
-  {
-    album2 = [v5 album];
-    v17 = [(NSString *)album isEqual:album2];
-
-    if (!v17)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v18 = self->_bundleId == 0;
-  bundleId = [v5 bundleId];
-  v20 = bundleId != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_29;
-  }
-
-  bundleId = self->_bundleId;
-  if (bundleId)
-  {
-    bundleId2 = [v5 bundleId];
-    v23 = [(NSString *)bundleId isEqual:bundleId2];
-
-    if (!v23)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v24 = self->_productId == 0;
-  productId = [v5 productId];
-  v26 = productId != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_29;
-  }
-
-  productId = self->_productId;
-  if (productId)
-  {
-    productId2 = [v5 productId];
-    v29 = [(NSString *)productId isEqual:productId2];
-
-    if (!v29)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v30 = self->_genre == 0;
-  genre = [v5 genre];
-  v32 = genre != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_29;
-  }
-
-  genre = self->_genre;
-  if (genre)
-  {
-    genre2 = [v5 genre];
-    v35 = [(NSString *)genre isEqual:genre2];
-
-    if (!v35)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v36 = self->_mediaType == 0;
-  mediaType = [v5 mediaType];
-  v38 = mediaType != 0;
-
-  if (v36 == v38)
-  {
-    goto LABEL_29;
-  }
-
-  mediaType = self->_mediaType;
-  if (mediaType)
-  {
-    mediaType2 = [v5 mediaType];
-    v41 = [(NSString *)mediaType isEqual:mediaType2];
-
-    if (!v41)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v42 = self->_artist == 0;
-  artist = [v5 artist];
-  v44 = artist != 0;
-
-  if (v42 == v44)
-  {
-    goto LABEL_29;
-  }
-
-  artist = self->_artist;
-  if (artist)
-  {
-    artist2 = [v5 artist];
-    v47 = [(NSString *)artist isEqual:artist2];
-
-    if (!v47)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v48 = self->_startDate == 0;
-  startDate = [v5 startDate];
-  v50 = startDate != 0;
-
-  if (v48 == v50)
-  {
-    goto LABEL_29;
-  }
-
-  startDate = self->_startDate;
-  if (startDate)
-  {
-    startDate2 = [v5 startDate];
-    v53 = [(NSDate *)startDate isEqual:startDate2];
-
-    if (!v53)
-    {
-      goto LABEL_29;
-    }
-  }
-
-  v54 = self->_endDate == 0;
-  endDate = [v5 endDate];
-  v56 = endDate != 0;
-
-  if (v54 == v56)
-  {
-LABEL_29:
     v59 = 0;
   }
 
@@ -290,8 +112,8 @@ LABEL_29:
     endDate = self->_endDate;
     if (endDate)
     {
-      endDate2 = [v5 endDate];
-      v59 = [(NSDate *)endDate isEqual:endDate2];
+      endDate = [v5 endDate];
+      v59 = [(NSDate *)endDate isEqual:endDate];
     }
 
     else
@@ -335,7 +157,7 @@ LABEL_29:
 
 - (MOMediaPlaySession)initWithCoder:(id)coder
 {
-  v107[1] = *MEMORY[0x277D85DE8];
+  v106[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   if (v5)
@@ -348,9 +170,9 @@ LABEL_29:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key title (expected %@, decoded %@)", v7, v9, 0];
-      v106 = *MEMORY[0x277CCA450];
-      v107[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v107 forKeys:&v106 count:1];
+      v105 = *MEMORY[0x277CCA450];
+      v106[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:&v105 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_4:
@@ -372,9 +194,9 @@ LABEL_7:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key album (expected %@, decoded %@)", v9, v10, 0];
-        v104 = *MEMORY[0x277CCA450];
-        v105 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+        v103 = *MEMORY[0x277CCA450];
+        v104 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
         v13 = 0;
@@ -408,9 +230,9 @@ LABEL_47:
         v20 = objc_opt_class();
         v11 = NSStringFromClass(v20);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key bundleId (expected %@, decoded %@)", v10, v11, 0];
-        v102 = *MEMORY[0x277CCA450];
-        v103 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+        v101 = *MEMORY[0x277CCA450];
+        v102 = v12;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
         v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v17];
         [coderCopy failWithError:v21];
         v22 = v21;
@@ -445,17 +267,17 @@ LABEL_46:
         v25 = objc_opt_class();
         v12 = NSStringFromClass(v25);
         v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key productId (expected %@, decoded %@)", v11, v12, 0];
-        v100 = *MEMORY[0x277CCA450];
-        v101 = v17;
-        v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
-        v26 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v83];
+        v99 = *MEMORY[0x277CCA450];
+        v100 = v17;
+        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+        v26 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v82];
         [coderCopy failWithError:v26];
         v27 = v26;
         v13 = 0;
 LABEL_39:
 
 LABEL_40:
-        v22 = v83;
+        v22 = v82;
         goto LABEL_41;
       }
     }
@@ -485,18 +307,18 @@ LABEL_45:
         v30 = objc_opt_class();
         v17 = NSStringFromClass(v30);
         v31 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key genre (expected %@, decoded %@)", v12, v17, 0];
-        v98 = *MEMORY[0x277CCA450];
-        v99 = v31;
-        v83 = v31;
-        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-        v32 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v82];
+        v97 = *MEMORY[0x277CCA450];
+        v98 = v31;
+        v82 = v31;
+        v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+        v32 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v81];
         [coderCopy failWithError:v32];
         v13 = 0;
 LABEL_37:
 
 LABEL_38:
         self = selfCopy5;
-        v27 = v82;
+        v27 = v81;
         goto LABEL_39;
       }
     }
@@ -525,20 +347,20 @@ LABEL_44:
         v35 = NSStringFromClass(v34);
         v36 = objc_opt_class();
         NSStringFromClass(v36);
-        v83 = v17 = v35;
-        v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key mediaType (expected %@, decoded %@)", v35, v83, 0];
-        v96 = *MEMORY[0x277CCA450];
-        v97 = v37;
-        v82 = v37;
-        v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-        v38 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v80];
+        v82 = v17 = v35;
+        v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key mediaType (expected %@, decoded %@)", v35, v82, 0];
+        v95 = *MEMORY[0x277CCA450];
+        v96 = v37;
+        v81 = v37;
+        v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+        v38 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v79];
         [coderCopy failWithError:v38];
 LABEL_34:
         v13 = 0;
 LABEL_35:
 
 LABEL_36:
-        v32 = v80;
+        v32 = v79;
         goto LABEL_37;
       }
     }
@@ -553,8 +375,8 @@ LABEL_36:
       }
     }
 
-    v79 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"artist"];
-    if (v79)
+    v78 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"artist"];
+    if (v78)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -563,14 +385,14 @@ LABEL_36:
         v40 = objc_opt_class();
         v41 = NSStringFromClass(v40);
         v42 = objc_opt_class();
-        v82 = NSStringFromClass(v42);
-        v17 = v79;
-        v83 = v41;
-        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key artist (expected %@, decoded %@)", v41, v82, 0];
-        v94 = *MEMORY[0x277CCA450];
-        v95 = v43;
-        v80 = v43;
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        v81 = NSStringFromClass(v42);
+        v17 = v78;
+        v82 = v41;
+        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key artist (expected %@, decoded %@)", v41, v81, 0];
+        v93 = *MEMORY[0x277CCA450];
+        v94 = v43;
+        v79 = v43;
+        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
         v44 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v38];
         [coderCopy failWithError:v44];
 
@@ -594,59 +416,59 @@ LABEL_36:
     if (!v22)
     {
       v13 = 0;
-      v17 = v79;
+      v17 = v78;
       goto LABEL_41;
     }
 
-    v83 = v22;
+    v82 = v22;
     error7 = [coderCopy error];
 
     if (error7)
     {
       v13 = 0;
-      v17 = v79;
+      v17 = v78;
       goto LABEL_40;
     }
 
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v50 = objc_opt_class();
+    v49 = objc_opt_class();
     if ((isKindOfClass & 1) == 0)
     {
       selfCopy5 = self;
-      v52 = NSStringFromClass(v50);
-      v53 = objc_opt_class();
-      v80 = NSStringFromClass(v53);
-      v82 = v52;
-      v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key startDate (expected %@, decoded %@)", v52, v80, 0];
-      v92 = *MEMORY[0x277CCA450];
-      v93 = v38;
-      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-      v55 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v54];
-      [coderCopy failWithError:v55];
+      v51 = NSStringFromClass(v49);
+      v52 = objc_opt_class();
+      v79 = NSStringFromClass(v52);
+      v81 = v51;
+      v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key startDate (expected %@, decoded %@)", v51, v79, 0];
+      v91 = *MEMORY[0x277CCA450];
+      v92 = v38;
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+      v54 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v53];
+      [coderCopy failWithError:v54];
 
 LABEL_60:
       v13 = 0;
-      v17 = v79;
+      v17 = v78;
       goto LABEL_35;
     }
 
-    v27 = [coderCopy decodeObjectOfClass:v50 forKey:@"endDate"];
+    v27 = [coderCopy decodeObjectOfClass:v49 forKey:@"endDate"];
     if (!v27)
     {
       v13 = 0;
-      v17 = v79;
+      v17 = v78;
       goto LABEL_39;
     }
 
-    v82 = v27;
+    v81 = v27;
     error8 = [coderCopy error];
 
     if (error8)
     {
       v13 = 0;
-      v17 = v79;
-      v27 = v82;
+      v17 = v78;
+      v27 = v81;
       goto LABEL_39;
     }
 
@@ -654,46 +476,46 @@ LABEL_60:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v77 = [coderCopy decodeInt32ForKey:@"duration"];
-      v74 = [coderCopy decodeBoolForKey:@"isRemote"];
-      if ((v74 & 1) == 0)
+      v76 = [coderCopy decodeInt32ForKey:@"duration"];
+      v73 = [coderCopy decodeBoolForKey:@"isRemote"];
+      if ((v73 & 1) == 0)
       {
         error9 = [coderCopy error];
 
         if (error9)
         {
           v13 = 0;
-          v17 = v79;
+          v17 = v78;
           goto LABEL_38;
         }
 
         if (([coderCopy containsValueForKey:@"isRemote"] & 1) == 0)
         {
-          v88 = *MEMORY[0x277CCA450];
-          v89 = @"Missing serialized value for MOMediaPlay.isRemote";
-          v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-          v38 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:1 userInfo:v80];
+          v87 = *MEMORY[0x277CCA450];
+          v88 = @"Missing serialized value for MOMediaPlay.isRemote";
+          v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v38 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:1 userInfo:v79];
           [coderCopy failWithError:v38];
           goto LABEL_60;
         }
       }
 
-      v80 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deviceSource"];
-      if (v80)
+      v79 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deviceSource"];
+      if (v79)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
+          v55 = objc_opt_class();
+          v38 = NSStringFromClass(v55);
           v56 = objc_opt_class();
-          v38 = NSStringFromClass(v56);
-          v57 = objc_opt_class();
-          v78 = NSStringFromClass(v57);
-          v75 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlay key deviceSource (expected %@, decoded %@)", v38, v78, 0];
-          v86 = *MEMORY[0x277CCA450];
-          v87 = v75;
-          v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-          v59 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:3 userInfo:v58];
-          [coderCopy failWithError:v59];
+          v77 = NSStringFromClass(v56);
+          v74 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlay key deviceSource (expected %@, decoded %@)", v38, v77, 0];
+          v85 = *MEMORY[0x277CCA450];
+          v86 = v74;
+          v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+          v58 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:3 userInfo:v57];
+          [coderCopy failWithError:v58];
 
 LABEL_76:
           goto LABEL_60;
@@ -707,7 +529,7 @@ LABEL_76:
         if (error10)
         {
           v13 = 0;
-          v17 = v79;
+          v17 = v78;
           goto LABEL_36;
         }
       }
@@ -718,16 +540,16 @@ LABEL_76:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
+          v66 = objc_opt_class();
+          v77 = NSStringFromClass(v66);
           v67 = objc_opt_class();
-          v78 = NSStringFromClass(v67);
-          v68 = objc_opt_class();
-          v76 = NSStringFromClass(v68);
-          v73 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlay key bkColor (expected %@, decoded %@)", v78, v76, 0];
-          v84 = *MEMORY[0x277CCA450];
-          v85 = v73;
-          v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-          v70 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:3 userInfo:v69];
-          [coderCopy failWithError:v70];
+          v75 = NSStringFromClass(v67);
+          v72 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlay key bkColor (expected %@, decoded %@)", v77, v75, 0];
+          v83 = *MEMORY[0x277CCA450];
+          v84 = v72;
+          v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v69 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlayOCNTErrorDomain" code:3 userInfo:v68];
+          [coderCopy failWithError:v69];
 
           goto LABEL_76;
         }
@@ -743,25 +565,25 @@ LABEL_76:
         }
       }
 
-      v17 = v79;
-      BYTE4(v72) = v74;
-      LODWORD(v72) = v77;
-      v13 = [(MOMediaPlaySession *)selfCopy5 initWithTitle:v5 album:v7 bundleId:v9 productId:v10 genre:v11 mediaType:v12 artist:v79 startDate:v83 endDate:v82 duration:v72 isRemote:v80 deviceSource:v38 bgColor:?];
+      v17 = v78;
+      BYTE4(v71) = v73;
+      LODWORD(v71) = v76;
+      v13 = [(MOMediaPlaySession *)selfCopy5 initWithTitle:v5 album:v7 bundleId:v9 productId:v10 genre:v11 mediaType:v12 artist:v78 startDate:v82 endDate:v81 duration:v71 isRemote:v79 deviceSource:v38 bgColor:?];
       selfCopy5 = v13;
       goto LABEL_35;
     }
 
-    v60 = objc_opt_class();
-    v61 = NSStringFromClass(v60);
-    v62 = objc_opt_class();
-    v38 = NSStringFromClass(v62);
-    v80 = v61;
-    v78 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key endDate (expected %@, decoded %@)", v61, v38, 0];
-    v90 = *MEMORY[0x277CCA450];
-    v91 = v78;
-    v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-    v64 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v63];
-    [coderCopy failWithError:v64];
+    v59 = objc_opt_class();
+    v60 = NSStringFromClass(v59);
+    v61 = objc_opt_class();
+    v38 = NSStringFromClass(v61);
+    v79 = v60;
+    v77 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for MOMediaPlaySession key endDate (expected %@, decoded %@)", v60, v38, 0];
+    v89 = *MEMORY[0x277CCA450];
+    v90 = v77;
+    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+    v63 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"MOMediaPlaySessionOCNTErrorDomain" code:3 userInfo:v62];
+    [coderCopy failWithError:v63];
 
     goto LABEL_76;
   }
@@ -776,7 +598,6 @@ LABEL_76:
   v13 = 0;
 LABEL_48:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1008,10 +829,9 @@ LABEL_4:
   v7 = objc_alloc(MEMORY[0x277CCACA8]);
   redactedTitle = [(MOMediaPlaySession *)self redactedTitle];
   redactedAlbum = [(MOMediaPlaySession *)self redactedAlbum];
-  mediaType = self->_mediaType;
-  v11 = [v7 initWithFormat:@"<MOMediaPlaySession | title:%@ album:%@ mediaType:%@ bundleId:%@ startDate:%@ endDate:%@ isRemote:%d deviceSource:%@>", redactedTitle, redactedAlbum, mediaType, self->_bundleId, v5, v6, self->_isRemote, self->_deviceSource];
+  v10 = [v7 initWithFormat:@"<MOMediaPlaySession | title:%@ album:%@ mediaType:%@ bundleId:%@ startDate:%@ endDate:%@ isRemote:%d deviceSource:%@>", redactedTitle, redactedAlbum, self->_mediaType, self->_bundleId, v5, v6, self->_isRemote, self->_deviceSource];
 
-  return v11;
+  return v10;
 }
 
 + (id)getMOPlaySessionMediaType:(id)type bundleId:(id)id
@@ -1083,20 +903,18 @@ LABEL_4:
 
 - (void)initWithTitle:album:bundleId:productId:genre:mediaType:artist:startDate:endDate:duration:isRemote:deviceSource:bgColor:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 33;
-  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: startDate != nil (in %s:%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 33;
+  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: startDate != nil (in %s:%d)", v1, 0x12u);
 }
 
 - (void)initWithTitle:album:bundleId:productId:genre:mediaType:artist:startDate:endDate:duration:isRemote:deviceSource:bgColor:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 34;
-  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: endDate != nil (in %s:%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 34;
+  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: endDate != nil (in %s:%d)", v1, 0x12u);
 }
 
 @end

@@ -502,40 +502,40 @@ LABEL_8:
     [webView be_scale];
     v9 = v8;
 
-    if (v9 >= BEWebViewMinimumZoomScale || (v10 = *self[1].super.super.IMViewController_opaque, v9 >= v10) || v10 <= 0.0)
+    if (v9 >= BEWebViewMinimumZoomScale || (v11 = *self[1].super.super.IMViewController_opaque, v9 >= v11) || v11 <= 0.0)
     {
       view = [v5 view];
-      v14 = view;
-      v16 = *&CGAffineTransformIdentity.c;
+      v15 = view;
+      v17 = *&CGAffineTransformIdentity.c;
       *&buf.a = *&CGAffineTransformIdentity.a;
-      *&buf.c = v16;
+      *&buf.c = v17;
       *&buf.tx = *&CGAffineTransformIdentity.tx;
       p_buf = &buf;
     }
 
     else
     {
-      v11 = v9 / v10;
-      v12 = _AEWKPictureBookLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v12 = v9 / v11;
+      v13 = _AEWKPictureBookLog(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf.a) = 134218240;
-        *(&buf.a + 4) = v11;
+        *(&buf.a + 4) = v12;
         WORD2(buf.b) = 2048;
         *(&buf.b + 6) = [v5 ordinal];
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "{WebViewLifeCycle} applying additional scale:%f for ordinal:%lu", &buf, 0x16u);
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "{WebViewLifeCycle} applying additional scale:%f for ordinal:%lu", &buf, 0x16u);
       }
 
       memset(&buf, 0, sizeof(buf));
-      CGAffineTransformMakeScale(&buf, v11, v11);
-      v18 = buf;
+      CGAffineTransformMakeScale(&buf, v12, v12);
+      v19 = buf;
       view = [v5 view];
-      v14 = view;
-      v17 = v18;
-      p_buf = &v17;
+      v15 = view;
+      v18 = v19;
+      p_buf = &v18;
     }
 
-    [view setTransform:{p_buf, *&v17.a, *&v17.c, *&v17.tx}];
+    [view setTransform:{p_buf, *&v18.a, *&v18.c, *&v18.tx}];
   }
 }
 
@@ -892,21 +892,21 @@ LABEL_8:
   [superview insertSubview:v5 belowSubview:self->_manualCurl];
 
   delegate = [(BKPageNavigationViewController *)self delegate];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_62DC;
-  v18[3] = &unk_1E2C48;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_62DC;
+  v19[3] = &unk_1E2C48;
   v9 = v5;
-  v19 = v9;
-  [delegate pageNavigationSnapshotForPageNumber:curl + 1 completion:v18];
+  v20 = v9;
+  [delegate pageNavigationSnapshotForPageNumber:curl + 1 completion:v19];
 
   if (*&self->_desiredScale)
   {
-    v10 = _AEWKPictureBookLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AEWKPictureBookLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "We only track one lastCurlUnderPageView. removing previous", &buf, 2u);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "We only track one lastCurlUnderPageView. removing previous", &buf, 2u);
     }
 
     BUAssertionFailed();
@@ -915,20 +915,20 @@ LABEL_8:
 
   objc_storeStrong(&self->_desiredScale, v5);
   [(BKPictureBookNavigationController *)self performSelector:"_timeOutWaitingForPaint" withObject:0 afterDelay:1.0];
-  v11 = [(BKPictureBookNavigationController *)self _singlePageVisibleContentViewControllerForPageOffset:curl];
+  v12 = [(BKPictureBookNavigationController *)self _singlePageVisibleContentViewControllerForPageOffset:curl];
   objc_initWeak(&buf, self);
   objc_opt_class();
-  v12 = BUDynamicCast();
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_62E8;
-  v14[3] = &unk_1E2C70;
-  objc_copyWeak(&v16, &buf);
-  v13 = v9;
-  v15 = v13;
-  [v12 afterEnsuringFirstPaintPerform:v14];
+  v13 = BUDynamicCast();
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_62E8;
+  v15[3] = &unk_1E2C70;
+  objc_copyWeak(&v17, &buf);
+  v14 = v9;
+  v16 = v14;
+  [v13 afterEnsuringFirstPaintPerform:v15];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&buf);
 }
 
@@ -1193,38 +1193,46 @@ LABEL_8:
 - (void)addPendingContent:(id)content
 {
   contentCopy = content;
+  v5 = contentCopy;
   if (contentCopy)
   {
-    v7 = contentCopy;
-    if ([contentCopy isLoading])
+    v8 = contentCopy;
+    contentCopy = [contentCopy isLoading];
+    v5 = v8;
+    if (contentCopy)
     {
-      v5 = +[NSNotificationCenter defaultCenter];
-      [v5 addObserver:self selector:"_contentIsReadyOrFailed:" name:BKContentReadyNotification object:v7];
-      [v5 addObserver:self selector:"_contentIsReadyOrFailed:" name:BKContentFAILNotification object:v7];
+      v6 = +[NSNotificationCenter defaultCenter];
+      [v6 addObserver:self selector:"_contentIsReadyOrFailed:" name:BKContentReadyNotification object:v8];
+      [v6 addObserver:self selector:"_contentIsReadyOrFailed:" name:BKContentFAILNotification object:v8];
       [(BKPictureBookNavigationController *)self willChangeValueForKey:@"isContentRenderComplete"];
-      [self->_needsTurnToPageNumber addObject:v7];
+      [self->_needsTurnToPageNumber addObject:v8];
       [(BKPictureBookNavigationController *)self didChangeValueForKey:@"isContentRenderComplete"];
-      view = [v7 view];
+      view = [v8 view];
       [view setHidden:1];
+
+      v5 = v8;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(contentCopy, v5);
 }
 
 - (void)removePendingContent:(id)content
 {
   contentCopy = content;
+  v5 = contentCopy;
   if (contentCopy)
   {
-    v7 = contentCopy;
-    if ([self->_needsTurnToPageNumber containsObject:contentCopy])
+    v8 = contentCopy;
+    contentCopy = [self->_needsTurnToPageNumber containsObject:contentCopy];
+    v5 = v8;
+    if (contentCopy)
     {
-      v5 = +[NSNotificationCenter defaultCenter];
-      [v5 removeObserver:self name:BKContentReadyNotification object:v7];
-      [v5 removeObserver:self name:BKContentFAILNotification object:v7];
+      v6 = +[NSNotificationCenter defaultCenter];
+      [v6 removeObserver:self name:BKContentReadyNotification object:v8];
+      [v6 removeObserver:self name:BKContentFAILNotification object:v8];
       [(BKPictureBookNavigationController *)self willChangeValueForKey:@"isContentRenderComplete"];
-      [self->_needsTurnToPageNumber removeObject:v7];
+      [self->_needsTurnToPageNumber removeObject:v8];
       [(BKPictureBookNavigationController *)self didChangeValueForKey:@"isContentRenderComplete"];
       if (![self->_needsTurnToPageNumber count])
       {
@@ -1232,12 +1240,14 @@ LABEL_8:
         [(BKPictureBookNavigationController *)self _resetSinglePageCurlContainer];
       }
 
-      view = [v7 view];
+      view = [v8 view];
       [view setHidden:0];
+
+      v5 = v8;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(contentCopy, v5);
 }
 
 - (void)_contentIsReadyOrFailed:(id)failed
@@ -2466,26 +2476,27 @@ LABEL_6:
     }
 
     BYTE2(self->_lastCompletedTransition) = 0;
-    *&self->_canFitToWidth = [(BKPageNavigationViewController *)self pageOffset];
-    v5 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    pageOffset = [(BKPageNavigationViewController *)self pageOffset];
+    *&self->_canFitToWidth = pageOffset;
+    v6 = _AECaptureLocationLog(pageOffset);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [NSNumber numberWithInteger:*&self->_canFitToWidth];
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "#PictureBook 5 capture offset : %@", &v10, 0xCu);
+      v7 = [NSNumber numberWithInteger:*&self->_canFitToWidth];
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "#PictureBook 5 capture offset : %@", &v11, 0xCu);
     }
 
     layoutDirection = [(BKViewController *)self layoutDirection];
-    pageOffset = [(BKPageNavigationViewController *)self pageOffset];
+    pageOffset2 = [(BKPageNavigationViewController *)self pageOffset];
     if (layoutDirection == 1)
     {
-      [(BKPageNavigationViewController *)self rightPageNumberForSinglePageOffset:pageOffset];
+      [(BKPageNavigationViewController *)self rightPageNumberForSinglePageOffset:pageOffset2];
     }
 
     else
     {
-      [(BKPageNavigationViewController *)self leftPageNumberForSinglePageOffset:pageOffset];
+      [(BKPageNavigationViewController *)self leftPageNumberForSinglePageOffset:pageOffset2];
     }
 
     [(BKPictureBookNavigationController *)self _resetSinglePageCurlContainer];
@@ -3206,7 +3217,7 @@ LABEL_6:
 
 - (void)_timeOutWaitingForPaint
 {
-  v3 = _AEWKPictureBookLog();
+  v3 = _AEWKPictureBookLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *v6 = 0;

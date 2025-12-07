@@ -18,7 +18,7 @@
 - (UIResponder)nextResponder
 {
   selfCopy = self;
-  v3 = sub_243B24();
+  v3 = sub_243B24(selfCopy);
 
   return v3;
 }
@@ -42,7 +42,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_243FE8();
+  sub_243FE8(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -148,7 +148,7 @@
 
   if (v5)
   {
-    sub_124C4(0, &qword_3FBE30);
+    sub_124C4(0, &qword_3FBE30, UIViewController_ptr);
     v6.super.isa = sub_30C358().super.isa;
   }
 

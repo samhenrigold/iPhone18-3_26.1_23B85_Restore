@@ -56,9 +56,9 @@
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     v10 = self->_signingServer;
-    v16 = 138543362;
-    v17 = v10;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "UARP: TSS request to signing server %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v10;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "UARP: TSS request to signing server %{public}@", &v15, 0xCu);
   }
 
   AMAuthInstallLogSetHandler();
@@ -72,10 +72,9 @@
   self->_amai = v12;
   if (v12)
   {
-    v13 = self->_signingServer;
     if (!AMAuthInstallSetSigningServerURL())
     {
-      v14 = 1;
+      v13 = 1;
       goto LABEL_15;
     }
 
@@ -90,10 +89,10 @@
     sub_1000825B0();
   }
 
-  v14 = 0;
+  v13 = 0;
 LABEL_15:
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)prepareAsAppleConnectSSO:(id)o error:(id *)error
@@ -114,7 +113,6 @@ LABEL_8:
 
     else
     {
-      amai = self->_amai;
       if (!AMAuthInstallSsoEnable())
       {
         LOBYTE(v5) = 1;
@@ -212,45 +210,44 @@ LABEL_14:
     }
 
     *buf = 138543874;
-    v16 = signingServer;
-    v17 = 2114;
-    v18 = v7;
-    v19 = 2114;
-    v20 = requestCopy;
+    v15 = signingServer;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2114;
+    v19 = requestCopy;
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "UARP: TSS Request to %{public}@%{public}@ is %{public}@", buf, 0x20u);
   }
 
-  amai = self->_amai;
   PersonalizedResponse = AMAuthInstallApCreatePersonalizedResponse();
-  v10 = self->_log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = self->_log;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = self->_signingServer;
+    v10 = self->_signingServer;
     if (self->_useSSO)
     {
-      v12 = @" <AppleConnect>";
+      v11 = @" <AppleConnect>";
     }
 
     else
     {
-      v12 = &stru_1000BBB30;
+      v11 = &stru_1000BBB30;
     }
 
     *buf = 138543874;
-    v16 = v11;
-    v17 = 2114;
-    v18 = v12;
-    v19 = 2114;
-    v20 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "UARP: TSS Response from %{public}@%{public}@ is %{public}@", buf, 0x20u);
+    v15 = v10;
+    v16 = 2114;
+    v17 = v11;
+    v18 = 2114;
+    v19 = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "UARP: TSS Response from %{public}@%{public}@ is %{public}@", buf, 0x20u);
   }
 
   if (PersonalizedResponse)
   {
-    v13 = self->_log;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = self->_log;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100082694(PersonalizedResponse, v13);
+      sub_100082694(PersonalizedResponse, v12);
     }
   }
 

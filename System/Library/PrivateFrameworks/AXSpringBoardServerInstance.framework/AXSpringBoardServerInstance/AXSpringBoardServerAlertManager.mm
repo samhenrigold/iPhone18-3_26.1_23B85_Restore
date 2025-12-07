@@ -14,34 +14,34 @@
 - (void)showAXUIViewService:(id)service withData:(id)data withPreviousViewDismissal:(BOOL)dismissal
 {
   dismissalCopy = dismissal;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   dataCopy = data;
   if (dismissalCopy && ([(AXSpringBoardServerAlertManager *)self handlesByService], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     handlesByService = [(AXSpringBoardServerAlertManager *)self handlesByService];
     allKeys = [handlesByService allKeys];
 
-    v13 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         v16 = 0;
         do
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * v16);
+          v17 = *(*(&v20 + 1) + 8 * v16);
           handlesByService2 = [(AXSpringBoardServerAlertManager *)self handlesByService];
           v19 = [handlesByService2 objectForKeyedSubscript:v17];
 
@@ -50,7 +50,7 @@
         }
 
         while (v14 != v16);
-        v14 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
@@ -63,8 +63,6 @@
   {
     [(AXSpringBoardServerAlertManager *)self showAXUIViewService:serviceCopy withData:dataCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleShowAXUIViewService:(id)service withData:(id)data
@@ -90,31 +88,31 @@
 
 void __72__AXSpringBoardServerAlertManager_scheduleShowAXUIViewService_withData___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained handlesByService];
   v4 = [v3 allKeys];
 
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = objc_loadWeakRetained((a1 + 48));
         v11 = [v10 handlesByService];
         v12 = [v11 objectForKeyedSubscript:v9];
@@ -131,7 +129,7 @@ void __72__AXSpringBoardServerAlertManager_scheduleShowAXUIViewService_withData_
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -144,13 +142,11 @@ void __72__AXSpringBoardServerAlertManager_scheduleShowAXUIViewService_withData_
   v4 = objc_loadWeakRetained((a1 + 48));
   [v4 scheduleShowAXUIViewService:*(a1 + 32) withData:*(a1 + 40)];
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showAXUIViewService:(id)service withData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   serviceCopy = service;
   sb_alertDefinition = [serviceCopy sb_alertDefinition];
@@ -161,11 +157,11 @@ LABEL_11:
   {
     serviceName = [sb_alertDefinition serviceName];
     viewControllerClassName = [sb_alertDefinition viewControllerClassName];
-    v20 = 138412546;
-    v21 = serviceName;
-    v22 = 2112;
-    v23 = viewControllerClassName;
-    _os_log_impl(&dword_21FE6B000, v10, OS_LOG_TYPE_INFO, "Activating remote alert service: %@, class: %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = serviceName;
+    v21 = 2112;
+    v22 = viewControllerClassName;
+    _os_log_impl(&dword_21FE6B000, v10, OS_LOG_TYPE_INFO, "Activating remote alert service: %@, class: %@", &v19, 0x16u);
   }
 
   v13 = AXLogUIViewService();
@@ -189,27 +185,24 @@ LABEL_11:
   v18 = [MEMORY[0x277CCAE60] valueWithPointer:serviceCopy];
 
   [handlesByService2 setObject:v14 forKeyedSubscript:v18];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideAXUIViewService:(id)service
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v5 = AXLogUIViewService();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = serviceCopy;
-    _os_log_impl(&dword_21FE6B000, v5, OS_LOG_TYPE_INFO, "Hiding remote alert service: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = serviceCopy;
+    _os_log_impl(&dword_21FE6B000, v5, OS_LOG_TYPE_INFO, "Hiding remote alert service: %@", &v9, 0xCu);
   }
 
   handlesByService = [(AXSpringBoardServerAlertManager *)self handlesByService];
   v7 = [MEMORY[0x277CCAE60] valueWithPointer:serviceCopy];
   v8 = [handlesByService objectForKeyedSubscript:v7];
   [v8 invalidate];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isShowingAXUIViewService:(id)service
@@ -226,45 +219,41 @@ LABEL_11:
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   v4 = AXLogUIViewService();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = activateCopy;
-    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_INFO, "Remote alert handle did activate: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = activateCopy;
+    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_INFO, "Remote alert handle did activate: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   v4 = AXLogUIViewService();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = deactivateCopy;
-    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_INFO, "Remote alert handle did deactivate: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = deactivateCopy;
+    _os_log_impl(&dword_21FE6B000, v4, OS_LOG_TYPE_INFO, "Remote alert handle did deactivate: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   errorCopy = error;
   v7 = AXLogUIViewService();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = handleCopy;
-    _os_log_impl(&dword_21FE6B000, v7, OS_LOG_TYPE_INFO, "Remote alert handle did invalidate: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = handleCopy;
+    _os_log_impl(&dword_21FE6B000, v7, OS_LOG_TYPE_INFO, "Remote alert handle did invalidate: %@", &v9, 0xCu);
   }
 
   if (errorCopy)
@@ -275,26 +264,22 @@ LABEL_11:
       [AXSpringBoardServerAlertManager remoteAlertHandle:errorCopy didInvalidateWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showAXUIViewService:(uint64_t)a1 withData:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_DEBUG, "withData: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_DEBUG, "withData: %@", &v2, 0xCu);
 }
 
 - (void)remoteAlertHandle:(uint64_t)a1 didInvalidateWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_ERROR, "Remote alert handle did invalidate with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21FE6B000, a2, OS_LOG_TYPE_ERROR, "Remote alert handle did invalidate with error: %@", &v2, 0xCu);
 }
 
 @end

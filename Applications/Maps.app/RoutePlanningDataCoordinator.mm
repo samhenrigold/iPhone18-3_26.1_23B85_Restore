@@ -1087,8 +1087,8 @@ LABEL_9:
 - (NSArray)automaticSharingContacts
 {
   routePlanningSession = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-  configuration = [routePlanningSession configuration];
-  automaticSharingContacts = [configuration automaticSharingContacts];
+  v3 = objc_msgSend_configuration(routePlanningSession);
+  automaticSharingContacts = [v3 automaticSharingContacts];
   v5 = automaticSharingContacts;
   if (automaticSharingContacts)
   {
@@ -1112,8 +1112,8 @@ LABEL_9:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    originalHistoryEntryIdentifier = [configuration originalHistoryEntryIdentifier];
+    v5 = objc_msgSend_configuration(routePlanningSession2);
+    originalHistoryEntryIdentifier = [v5 originalHistoryEntryIdentifier];
   }
 
   else
@@ -1132,8 +1132,8 @@ LABEL_9:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+    v6 = objc_msgSend_configuration(routePlanningSession2);
+    routeLoadingTaskFactory = [v6 routeLoadingTaskFactory];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1142,9 +1142,9 @@ LABEL_9:
       {
         routePlanningSession4 = [routeLoadingTaskFactory factoryByModifyingTransitPreferences:preferencesCopy timing:self->_timing];
         routePlanningSession3 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-        configuration2 = [routePlanningSession3 configuration];
+        v10 = objc_msgSend_configuration(routePlanningSession3);
         waypointRequestResults = [routePlanningSession3 waypointRequestResults];
-        v12 = [configuration2 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
+        v12 = [v10 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
 
         [v12 setInitialTransportType:{-[RoutePlanningDataCoordinator transportType](self, "transportType")}];
         [v12 setInitialRoutesBeingFetchedExternally:0];
@@ -1202,8 +1202,8 @@ LABEL_9:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+    v7 = objc_msgSend_configuration(routePlanningSession2);
+    routeLoadingTaskFactory = [v7 routeLoadingTaskFactory];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1212,9 +1212,9 @@ LABEL_9:
       {
         routePlanningSession4 = [routeLoadingTaskFactory factoryByModifyingCyclePreferences:preferencesCopy timing:self->_timing];
         routePlanningSession3 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-        configuration2 = [routePlanningSession3 configuration];
+        v11 = objc_msgSend_configuration(routePlanningSession3);
         waypointRequestResults = [routePlanningSession3 waypointRequestResults];
-        v13 = [configuration2 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
+        v13 = [v11 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
 
         [v13 setInitialTransportType:{-[RoutePlanningDataCoordinator transportType](self, "transportType")}];
         [v13 setInitialRoutesBeingFetchedExternally:0];
@@ -1400,8 +1400,8 @@ LABEL_9:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+    v7 = objc_msgSend_configuration(routePlanningSession2);
+    routeLoadingTaskFactory = [v7 routeLoadingTaskFactory];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1410,9 +1410,9 @@ LABEL_9:
       {
         routePlanningSession4 = [routeLoadingTaskFactory factoryByModifyingWalkPreferences:preferencesCopy timing:self->_timing];
         routePlanningSession3 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-        configuration2 = [routePlanningSession3 configuration];
+        v11 = objc_msgSend_configuration(routePlanningSession3);
         waypointRequestResults = [routePlanningSession3 waypointRequestResults];
-        v13 = [configuration2 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
+        v13 = [v11 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
 
         [v13 setInitialTransportType:{-[RoutePlanningDataCoordinator transportType](self, "transportType")}];
         [v13 setInitialRoutesBeingFetchedExternally:0];
@@ -1470,8 +1470,8 @@ LABEL_9:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+    v7 = objc_msgSend_configuration(routePlanningSession2);
+    routeLoadingTaskFactory = [v7 routeLoadingTaskFactory];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1480,9 +1480,9 @@ LABEL_9:
       {
         routePlanningSession4 = [routeLoadingTaskFactory factoryByModifyingDrivePreferences:preferencesCopy timing:self->_timing];
         routePlanningSession3 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-        configuration2 = [routePlanningSession3 configuration];
+        v11 = objc_msgSend_configuration(routePlanningSession3);
         waypointRequestResults = [routePlanningSession3 waypointRequestResults];
-        v13 = [configuration2 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
+        v13 = [v11 configurationByModifyingRouteLoadingTaskFactory:routePlanningSession4 andDedupingWaypointRequests:waypointRequestResults];
 
         [v13 setInitialTransportType:{-[RoutePlanningDataCoordinator transportType](self, "transportType")}];
         [v13 setInitialRoutesBeingFetchedExternally:0];
@@ -1690,14 +1690,14 @@ LABEL_9:
       v16 = sub_1000282CC(sessionStack, &stru_101655110);
       lastObject = [v16 lastObject];
 
-      configuration = [lastObject configuration];
-      isResumingMultipointRoute = [configuration isResumingMultipointRoute];
+      v18 = objc_msgSend_configuration(lastObject);
+      isResumingMultipointRoute = [v18 isResumingMultipointRoute];
 
-      configuration2 = [lastObject configuration];
-      resumeRouteHandle = [configuration2 resumeRouteHandle];
+      v20 = objc_msgSend_configuration(lastObject);
+      resumeRouteHandle = [v20 resumeRouteHandle];
 
-      configuration3 = [lastObject configuration];
-      persistentData = [configuration3 persistentData];
+      v22 = objc_msgSend_configuration(lastObject);
+      persistentData = [v22 persistentData];
 
       v55 = waypointRequests;
       v24 = [[RoutePlanningSessionConfiguration alloc] initWithWaypointRequests:waypointRequests traits:copyByIncrementingSessionCounters existingTiming:self->_timing isResumingMultipointRoute:isResumingMultipointRoute resumeRouteHandle:resumeRouteHandle persistentData:persistentData];
@@ -1770,8 +1770,8 @@ LABEL_9:
       if (routePlanningSession)
       {
         routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-        configuration4 = [routePlanningSession2 configuration];
-        v28 = configuration4;
+        v27 = objc_msgSend_configuration(routePlanningSession2);
+        v28 = v27;
         if (typeCopy == 4)
         {
 
@@ -1788,7 +1788,7 @@ LABEL_9:
 
         else
         {
-          v49 = [configuration4 hasTransportType:typeCopy];
+          v49 = [v27 hasTransportType:typeCopy];
 
           routePlanningSession3 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
           v28 = routePlanningSession3;
@@ -1799,8 +1799,8 @@ LABEL_9:
 
           else
           {
-            configuration5 = [routePlanningSession3 configuration];
-            isNavigationTracePlayback = [configuration5 isNavigationTracePlayback];
+            v51 = objc_msgSend_configuration(routePlanningSession3);
+            isNavigationTracePlayback = [v51 isNavigationTracePlayback];
 
             if (isNavigationTracePlayback)
             {
@@ -2071,8 +2071,8 @@ LABEL_6:
   if (routePlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self routePlanningSession];
-    configuration = [routePlanningSession2 configuration];
-    waypointRequests = [configuration waypointRequests];
+    originRequest = objc_msgSend_configuration(routePlanningSession2);
+    waypointRequests = [originRequest waypointRequests];
 LABEL_5:
 
     goto LABEL_6;
@@ -2083,8 +2083,8 @@ LABEL_5:
   if (rideBookingPlanningSession)
   {
     routePlanningSession2 = [(RoutePlanningDataCoordinator *)self rideBookingPlanningSession];
-    configuration = [routePlanningSession2 originRequest];
-    v11[0] = configuration;
+    originRequest = [routePlanningSession2 originRequest];
+    v11[0] = originRequest;
     rideBookingPlanningSession2 = [(RoutePlanningDataCoordinator *)self rideBookingPlanningSession];
     destinationRequest = [rideBookingPlanningSession2 destinationRequest];
     v11[1] = destinationRequest;

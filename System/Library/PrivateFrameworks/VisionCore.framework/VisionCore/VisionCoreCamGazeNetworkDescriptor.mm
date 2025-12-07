@@ -1,5 +1,5 @@
 @interface VisionCoreCamGazeNetworkDescriptor
-+ (id)_descriptorWithModelFileName:(void *)name version:(void *)version inputImageBlobName:pixelFormatType:probabilitiesOutputName:error:;
++ (VisionCoreCamGazeNetworkDescriptor)_descriptorWithModelFileName:(void *)name version:(void *)version inputImageBlobName:pixelFormatType:probabilitiesOutputName:error:;
 + (id)camGazeV1AndReturnError:(id *)error;
 + (id)camGazeV2AndReturnError:(id *)error;
 - (BOOL)isEqual:(id)equal;
@@ -98,7 +98,7 @@ LABEL_8:
   return v6;
 }
 
-+ (id)_descriptorWithModelFileName:(void *)name version:(void *)version inputImageBlobName:pixelFormatType:probabilitiesOutputName:error:
++ (VisionCoreCamGazeNetworkDescriptor)_descriptorWithModelFileName:(void *)name version:(void *)version inputImageBlobName:pixelFormatType:probabilitiesOutputName:error:
 {
   v28[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;

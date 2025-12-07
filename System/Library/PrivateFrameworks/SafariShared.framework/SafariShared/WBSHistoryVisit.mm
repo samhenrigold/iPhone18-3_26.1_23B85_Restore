@@ -41,9 +41,9 @@
 
 - (WBSHistoryVisit)initWithHistoryItem:(id)item sqliteRow:(id)row baseColumnIndex:(unint64_t)index
 {
-  v17.receiver = self;
-  v17.super_class = WBSHistoryVisit;
-  v8 = [(WBSHistoryVisit *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = WBSHistoryVisit;
+  v8 = [(WBSHistoryVisit *)&v19 init];
   v9 = v8;
   if (v8)
   {
@@ -60,19 +60,20 @@
     v9->_synthesized = [row intAtIndex:index + 6] != 0;
     v9->_attributes = [row int64AtIndex:index + 11];
     v13 = [row int64AtIndex:index + 9];
+    v15 = v13;
     if (v13 >= 4)
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXHistory(v13, v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [WBSHistoryVisit initWithHistoryItem:v13 sqliteRow:v14 baseColumnIndex:?];
+        [WBSHistoryVisit initWithHistoryItem:v15 sqliteRow:v16 baseColumnIndex:?];
       }
 
-      v13 = 0;
+      v15 = 0;
     }
 
-    v9->_origin = v13;
-    v15 = v9;
+    v9->_origin = v15;
+    v17 = v9;
   }
 
   return v9;
@@ -143,9 +144,9 @@
 - (WBSHistoryVisit)initWithHistoryItem:(id)item streamedVisit:(const _HistoryStreamedVisit *)visit
 {
   itemCopy = item;
-  v15.receiver = self;
-  v15.super_class = WBSHistoryVisit;
-  v7 = [(WBSHistoryVisit *)&v15 init];
+  v17.receiver = self;
+  v17.super_class = WBSHistoryVisit;
+  v7 = [(WBSHistoryVisit *)&v17 init];
   v8 = v7;
   if (v7)
   {
@@ -172,17 +173,17 @@
     var10 = visit->var10;
     if (var10 >= 4)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXHistory(v11, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [WBSHistoryVisit initWithHistoryItem:v12 sqliteRow:? baseColumnIndex:?];
+        [WBSHistoryVisit initWithHistoryItem:v14 sqliteRow:? baseColumnIndex:?];
       }
 
       var10 = 0;
     }
 
     v8->_origin = var10;
-    v13 = v8;
+    v15 = v8;
   }
 
   return v8;

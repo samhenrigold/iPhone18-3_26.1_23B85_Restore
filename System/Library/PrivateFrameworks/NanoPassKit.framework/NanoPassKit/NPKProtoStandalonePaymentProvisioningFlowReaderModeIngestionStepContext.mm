@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ingestionStateAsString:(int)string;
 - (int)StringAsIngestionState:(id)state;
 - (int)ingestionState;
 - (unint64_t)hash;
@@ -40,6 +41,56 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)ingestionStateAsString:(int)string
+{
+  if (string > 129)
+  {
+    switch(string)
+    {
+      case 130:
+        v4 = @"ReaderModeIngestionStateTransferring";
+
+        break;
+      case 140:
+        v4 = @"ReaderModeIngestionStateCardAdded";
+
+        break;
+      case 150:
+        v4 = @"ReaderModeIngestionStateCommuteCardAdded";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 'd':
+        v4 = @"ReaderModeIngestionStateDefault";
+
+        break;
+      case 'n':
+        v4 = @"ReaderModeIngestionStateCardNotFound";
+
+        break;
+      case 'x':
+        v4 = @"ReaderModeIngestionStateTransferValue";
+
+        return v4;
+      default:
+        goto LABEL_20;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsIngestionState:(id)state
@@ -175,39 +226,37 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_physicalCardImageURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_subtitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    ingestionState = self->_ingestionState;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    ingestionProgress = self->_ingestionProgress;
     PBDataWriterWriteFloatField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

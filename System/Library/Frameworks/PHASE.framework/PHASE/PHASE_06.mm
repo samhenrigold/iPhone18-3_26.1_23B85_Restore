@@ -1,126 +1,20 @@
-void std::__function::__func<Phase::Controller::SpatialModelerInstance::StopSustainGraph(BOOL)::$_1,std::allocator<Phase::Controller::SpatialModelerInstance::StopSustainGraph(BOOL)::$_1>,void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::operator()(Phase::Logger *a1, unsigned __int8 *a2, uint64_t *a3)
+void std::__split_buffer<double *>::emplace_back<double *&>(unint64_t *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v21[0] = v21;
-  v21[1] = v21;
-  v22 = 0;
-  v5 = a3[2];
-  if (v5)
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v7 = *a3;
-    v6 = a3[1];
-    v8 = *(*a3 + 8);
-    v9 = *v6;
-    *(v9 + 8) = v8;
-    *v8 = v9;
-    v10 = v21[0];
-    *(v21[0] + 8) = v6;
-    *v6 = v10;
-    *(v7 + 8) = v21;
-    v21[0] = v7;
-    v22 = v5;
-    a3[2] = 0;
-  }
-
-  v11 = *(a1 + 1);
-  v12 = **(Phase::Logger::GetInstance(a1) + 240);
-  v13 = v12;
-  if (v4)
-  {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      goto LABEL_16;
-    }
-
-    Phase::Controller::SpatialModelerInstance::GetDescription(__p, v11);
-    if (v24 >= 0)
-    {
-      v14 = __p;
-    }
-
-    else
-    {
-      v14 = __p[0];
-    }
-
-    v15 = *(a1 + 2);
-    *buf = 136315906;
-    v26 = "CvmSpatialModelerInstance.mm";
-    v27 = 1024;
-    v28 = 3103;
-    v29 = 2080;
-    v30 = v14;
-    v31 = 2048;
-    v32 = v15;
-    v16 = "%25s:%-5d %s: succesfully stopped all (%lu) sustain graphs";
-    v17 = v13;
-    v18 = OS_LOG_TYPE_DEFAULT;
-  }
-
-  else
-  {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_16;
-    }
-
-    Phase::Controller::SpatialModelerInstance::GetDescription(__p, v11);
-    if (v24 >= 0)
-    {
-      v19 = __p;
-    }
-
-    else
-    {
-      v19 = __p[0];
-    }
-
-    v20 = *(a1 + 2);
-    *buf = 136315906;
-    v26 = "CvmSpatialModelerInstance.mm";
-    v27 = 1024;
-    v28 = 3108;
-    v29 = 2080;
-    v30 = v19;
-    v31 = 2048;
-    v32 = v20;
-    v16 = "%25s:%-5d %s: failed to stop (%lu) sustain graphs";
-    v17 = v13;
-    v18 = OS_LOG_TYPE_ERROR;
-  }
-
-  _os_log_impl(&dword_23A302000, v17, v18, v16, buf, 0x26u);
-  if (v24 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-LABEL_16:
-
-  atomic_store(0, (v11 + 5643));
-  std::mutex::unlock((v11 + 5648));
-  std::__list_imp<std::shared_ptr<Phase::Job>>::clear(v21);
-}
-
-void *std::__split_buffer<double *>::emplace_back<double *&>(void *result, void *a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
-  {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
-    {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(v11);
@@ -132,18 +26,17 @@ void *std::__split_buffer<double *>::emplace_back<double *&>(void *result, void 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<double *>>(unint64_t a1)
@@ -463,19 +356,19 @@ LABEL_64:
   ++*(a1 + 24);
 }
 
-void _ZN5Phase7details13SharedSlotMapINS_10Controller22SpatialModelerInstance10SubmixInfoENS_8Handle64EE12DeepCopyFromIZNS_13SharedSlotMapIS4_S5_DnE12DeepCopyFromERKS9_EUlRT_E_EEvRKS6_OSC_(uint64_t a1, uint64_t a2)
+void _ZN5Phase7details13SharedSlotMapINS_10Controller22SpatialModelerInstance10SubmixInfoENS_8Handle64EE12DeepCopyFromIZNS_13SharedSlotMapIS4_S5_DnE12DeepCopyFromERKS9_EUlRT_E_EEvRKS6_OSC_(uint64_t *a1, unsigned int *a2)
 {
-  v4 = *(a2 + 16);
-  *(a1 + 16) = v4;
+  v4 = a2[4];
+  *(a1 + 4) = v4;
   Phase::details::SharedSlotMap<Phase::Controller::SpatialModelerInstance::SubmixInfo,Phase::Handle64>::AllocSlots(&v11, v4);
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   *a1 = v11;
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  v6 = *(a1 + 16);
+  v6 = *(a1 + 4);
   if (v6)
   {
     v7 = 0;
@@ -491,10 +384,10 @@ void _ZN5Phase7details13SharedSlotMapINS_10Controller22SpatialModelerInstance10S
     }
   }
 
-  v9 = atomic_load((a2 + 20));
-  atomic_store(v9, (a1 + 20));
-  v10 = atomic_load((a2 + 24));
-  atomic_store(v10, (a1 + 24));
+  v9 = atomic_load(a2 + 5);
+  atomic_store(v9, a1 + 5);
+  v10 = atomic_load(a2 + 6);
+  atomic_store(v10, a1 + 6);
 }
 
 void Phase::Controller::SpatialModelerSystem::~SpatialModelerSystem(Phase::Controller::SpatialModelerSystem *this)
@@ -538,10 +431,10 @@ void Phase::Controller::SpatialModelerSystem::Initialize(Phase::Controller::Spat
   }
 
   v7 = Phase::Controller::TaskManager::GetService<Phase::Controller::SpatialModelerRegistry>(a3, 5);
-  SpatialCategories = Phase::Controller::SpatialModelerRegistry::GetSpatialCategories(v7, v23);
+  Phase::Controller::SpatialModelerRegistry::GetSpatialCategories(&v23, v7);
   if (!v24)
   {
-    Phase::SpatialModeler::GetOptionalPropertyDescriptions(SpatialCategories);
+    Phase::SpatialModeler::GetOptionalPropertyDescriptions();
   }
 
   v10 = (v24 + 16);
@@ -603,7 +496,7 @@ void Phase::Controller::SpatialModelerSystem::Initialize(Phase::Controller::Spat
     }
   }
 
-  v17 = **(Phase::Logger::GetInstance(SpatialCategories) + 240);
+  v17 = **(Phase::Logger::GetInstance(v8) + 240);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     v18 = *v10;
@@ -636,16 +529,16 @@ void Phase::Controller::SpatialModelerSystem::Initialize(Phase::Controller::Spat
   exception->__vftable = (MEMORY[0x277D828F8] + 16);
 }
 
-void sub_23A36EBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A36EBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(va);
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(va1);
   _Unwind_Resume(a1);
@@ -720,7 +613,7 @@ void Phase::Controller::SpatialModelerSystem::SetModelers(Phase::Logger *a1, uin
       v8 = atomic_load((v7 + 5641));
       if (v8)
       {
-        std::__tree<Phase::SpatialCategory>::__emplace_unique_key_args<Phase::SpatialCategory,Phase::SpatialCategory const&>(&v17, i + 4);
+        std::__tree<Phase::SpatialCategory>::__emplace_unique_key_args<Phase::SpatialCategory,Phase::SpatialCategory const&>(&v17, i + 4, i + 4);
       }
     }
   }
@@ -772,7 +665,7 @@ void Phase::Controller::SpatialModelerSystem::SetModelers(Phase::Logger *a1, uin
   std::__tree<Phase::SpatialCategory>::destroy(&v17, v18[0]);
 }
 
-void sub_23A36EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, void *a15)
+void sub_23A36EF70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15)
 {
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(&a9);
   std::__tree<Phase::SpatialCategory>::destroy(&a14, a15);
@@ -821,7 +714,7 @@ LABEL_17:
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "Invalid SpatialCategory %d!");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "Invalid SpatialCategory %d!", v12);
   }
 
   while (1)
@@ -973,7 +866,7 @@ uint64_t Phase::Controller::SpatialModelerSystem::IsStopped(uint64_t a1, uint64_
   return result;
 }
 
-void std::vector<Phase::Geometry::EntityType>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<Phase::Geometry::EntityType>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1022,7 +915,7 @@ void std::vector<Phase::Geometry::EntityType>::push_back[abi:ne200100](const voi
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -1066,7 +959,7 @@ uint64_t std::__destroy_at[abi:ne200100]<Phase::Controller::GeometryPermutation,
   return std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(a1 + 8);
 }
 
-uint64_t std::vector<Phase::Controller::GeometryPermutation>::__init_with_size[abi:ne200100]<Phase::Controller::GeometryPermutation*,Phase::Controller::GeometryPermutation*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::Controller::GeometryPermutation>::__init_with_size[abi:ne200100]<Phase::Controller::GeometryPermutation*,Phase::Controller::GeometryPermutation*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1083,7 +976,7 @@ void sub_23A36F630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<Phase::Controller::GeometryPermutation>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::Controller::GeometryPermutation>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -1116,8 +1009,8 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<P
       std::unordered_map<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,std::allocator<std::pair<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey const,Phase::OptionsValue>>>::unordered_map(a4 + v7 + 8, a2 + v7 + 8);
       *(v9 + 48) = 0;
       *(v9 + 56) = 0;
-      v10 = a4 + v7 + 48;
-      *(v10 + 16) = 0;
+      v10 = (a4 + v7 + 48);
+      v10[2] = 0;
       std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(v10, *(v8 + 48), *(v8 + 56), (*(v8 + 56) - *(v8 + 48)) >> 2);
       *(a4 + v7 + 72) = *(a2 + v7 + 72);
       v7 += 80;
@@ -1149,7 +1042,7 @@ void sub_23A36F7AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1171,7 +1064,7 @@ void sub_23A36F850(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Phase::Geometry::EntityType>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::Geometry::EntityType>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1315,9 +1208,9 @@ void Phase::Controller::GeometryPermutation::~GeometryPermutation(Phase::Control
   std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(this + 8);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1371,33 +1264,33 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1405,44 +1298,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,std::unique_ptr<Phase::Controller::SpatialModelerCategory>>>>::clear(uint64_t a1)
@@ -1475,48 +1368,48 @@ void std::__tree<Phase::SpatialCategory>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *std::__tree<Phase::SpatialCategory>::__emplace_unique_key_args<Phase::SpatialCategory,Phase::SpatialCategory const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<Phase::SpatialCategory>::__emplace_unique_key_args<Phase::SpatialCategory,Phase::SpatialCategory const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<Phase::SpatialCategory>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<Phase::SpatialCategory>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1585,7 +1478,7 @@ void sub_23A3700E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t **std::unordered_map<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,std::allocator<std::pair<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey const,Phase::OptionsValue>>>::insert_or_assign[abi:ne200100]<Phase::OptionsValue const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::__emplace_unique_key_args<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue const&>(a1, a2);
+  v4 = std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::__emplace_unique_key_args<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue const&>(a1, a2, a2, a3);
   v5 = v4;
   if ((v6 & 1) == 0)
   {
@@ -1595,88 +1488,88 @@ uint64_t **std::unordered_map<Phase::UnorderedStringMap<Phase::OptionsValue>::In
   return v5;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::__emplace_unique_key_args<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue const&>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::__emplace_unique_key_args<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue const&>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](v17, *(a2 + 24), *(a2 + 32));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_view_hash<char>::operator()[abi:ne200100](v19, *(a2 + 24), *(a2 + 32));
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_20:
     std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::__construct_node_hash<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue const&>();
   }
 
-  v14 = a2 + 24;
-  v12 = *(a2 + 24);
-  v13 = *(v14 + 8);
+  v16 = a2 + 24;
+  v14 = *(a2 + 24);
+  v15 = *(v16 + 8);
   while (1)
   {
-    v15 = v11[1];
-    if (v15 == v5)
+    v17 = v13[1];
+    if (v17 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v15 >= *&v6)
+      if (v17 >= *&v8)
       {
-        v15 %= *&v6;
+        v17 %= *&v8;
       }
     }
 
     else
     {
-      v15 &= *&v6 - 1;
+      v17 &= *&v8 - 1;
     }
 
-    if (v15 != v9)
+    if (v17 != v11)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_20;
     }
   }
 
-  if (v11[6] != v13 || memcmp(v11[5], v12, v13))
+  if (v13[6] != v15 || memcmp(v13[5], v14, v15))
   {
     goto LABEL_19;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_23A3703E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3703E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2200,14 +2093,14 @@ void sub_23A371378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23A371398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23A371398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v13 - 120);
+  va_start(va, a18);
+  std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v20 - 120);
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v11 + 416);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v12);
-  Phase::Controller::Submix::~Submix(v11);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v18 + 416);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v19);
+  Phase::Controller::Submix::~Submix(v18);
   _Unwind_Resume(a1);
 }
 
@@ -2230,14 +2123,14 @@ void sub_23A3713F4(void *a1, int a2)
   JUMPOUT(0x23A371478);
 }
 
-void sub_23A371420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23A371420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   __cxa_end_catch();
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v11 + 416);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v12);
-  Phase::Controller::Submix::~Submix(v11);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v18 + 416);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v19);
+  Phase::Controller::Submix::~Submix(v18);
   _Unwind_Resume(a1);
 }
 
@@ -2251,14 +2144,14 @@ void sub_23A37142C(void *a1, int a2)
   JUMPOUT(0x23A371478);
 }
 
-void sub_23A371440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23A371440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  operator delete(v13);
+  va_start(va, a18);
+  operator delete(v20);
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v11 + 416);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v12);
-  Phase::Controller::Submix::~Submix(v11);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v18 + 416);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v19);
+  Phase::Controller::Submix::~Submix(v18);
   _Unwind_Resume(a1);
 }
 
@@ -2312,8 +2205,10 @@ void Phase::Controller::SpatialSubmix::InternalPrepare(Phase::Logger **this)
 
     v7 = this[2];
     v8 = this[3];
-    v9 = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(this[77], *(v2 + 4));
-    Phase::Controller::SpatialModelerCategory::RegisterSubmix(v9, v7, v8);
+    v9 = this[45];
+    v10 = this[46];
+    v11 = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(this[77], *(v2 + 4));
+    Phase::Controller::SpatialModelerCategory::RegisterSubmix(v11, v7, v8, v9, v10);
   }
 
   if (*(this + 72) != 2)
@@ -2506,7 +2401,7 @@ void Phase::Controller::SpatialSubmix::Update(Phase::Controller::SpatialSubmix *
         v20 = *(v17 + 3);
         *buf = v17 + 2;
         v21 = v18 * v20;
-        if (*(std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(this + 52, v17 + 4) + 3) != v18 * v20)
+        if (*(std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(this + 52, v17 + 4, &std::piecewise_construct, buf) + 3) != v18 * v20)
         {
           v22 = *(this + 2);
           v23 = *(this + 77);
@@ -2522,7 +2417,7 @@ void Phase::Controller::SpatialSubmix::Update(Phase::Controller::SpatialSubmix *
           SpatialModelerCategory = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(v23, v24);
           Phase::Controller::SpatialModelerCategory::SetSimulationGainInDecibels(SpatialModelerCategory, v22, v25, v27 * 8.68588964 / 10.0 * 10.0);
           *buf = v17 + 2;
-          *(std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(this + 52, v17 + 4) + 3) = v21;
+          *(std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,double>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,double>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,double>>>::__emplace_unique_key_args<Phase::SpatialCategory,std::piecewise_construct_t const&,std::tuple<Phase::SpatialCategory const&>,std::tuple<>>(this + 52, v17 + 4, &std::piecewise_construct, buf) + 3) = v21;
           v29 = *v19;
           v30 = *(this + 2);
           v31 = *(this + 3);
@@ -2552,7 +2447,7 @@ BOOL Phase::Controller::SpatialSubmix::HasInputs(Phase::Controller::SpatialSubmi
 void Phase::Controller::SpatialSubmix::UpdateDistance(Phase::Controller::SpatialSubmix *this)
 {
   v16 = *MEMORY[0x277D85DE8];
-  Phase::Geometry::System::GetCurrentState(*(this + 30), &v10);
+  Phase::Geometry::System::GetCurrentState(&v10, *(this + 30));
   v3 = Phase::DistanceBetweenListenerAndSource<double>(v10, *(this + 45), *(this + 46));
   if (v3 >= 0.0 && v3 != *(this + 60))
   {
@@ -2611,9 +2506,9 @@ void sub_23A37209C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double Phase::Controller::SpatialSubmix::GetGain(Phase::Logger ***this)
+double Phase::Controller::SpatialSubmix::GetGain(Phase::Geometry::System **this)
 {
-  Phase::Geometry::System::GetCurrentState(this[30], &v13);
+  Phase::Geometry::System::GetCurrentState(&v13, this[30]);
   v2 = this[45];
   v3 = *(v13 + 184);
   v4 = 0.0;
@@ -2722,8 +2617,9 @@ uint64_t Phase::Controller::SpatialSubmix::AllInputsPaused(Phase::Controller::Sp
   return result;
 }
 
-Phase::Logger *Phase::Controller::SpatialSubmix::SetSpatialCategoryIsActive(uint64_t a1, int a2, int a3)
+Phase::Logger *Phase::Controller::SpatialSubmix::SetSpatialCategoryIsActive(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   SpatialCategoryParameters = Phase::Controller::SpatialSubmix::GetSpatialCategoryParameters(a1, a2);
   if (*(SpatialCategoryParameters + 8) != a3)
   {
@@ -2733,13 +2629,13 @@ Phase::Logger *Phase::Controller::SpatialSubmix::SetSpatialCategoryIsActive(uint
     if (a3)
     {
       v9 = *SpatialCategoryParameters;
-      SpatialModelerCategory = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(*(a1 + 616), a2);
+      SpatialModelerCategory = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(*(a1 + 616), v4);
       Phase::Controller::SpatialModelerCategory::AddInput(SpatialModelerCategory, v7, v8, v9);
     }
 
     else
     {
-      v11 = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(*(a1 + 616), a2);
+      v11 = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(*(a1 + 616), v4);
       Phase::Controller::SpatialModelerCategory::RemoveInput(v11, v7, v8);
     }
   }
@@ -2747,9 +2643,10 @@ Phase::Logger *Phase::Controller::SpatialSubmix::SetSpatialCategoryIsActive(uint
   return Phase::Controller::SpatialSubmix::CheckSpatialCategoriesActiveState(a1);
 }
 
-uint64_t *Phase::Controller::SpatialSubmix::GetSpatialCategoryParameters(Phase::Logger *a1, int a2)
+uint64_t *Phase::Controller::SpatialSubmix::GetSpatialCategoryParameters(Phase::Logger *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
   if (!v3)
   {
@@ -2779,18 +2676,18 @@ LABEL_17:
     v9 = **(Phase::Logger::GetInstance(a1) + 400);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = GetSpatialCategoryString(a2);
-      v13 = 136315650;
-      v14 = "CvmSpatialSubmix.mm";
-      v15 = 1024;
-      v16 = 654;
-      v17 = 2080;
-      v18 = [v10 UTF8String];
-      _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [it == mSpatialCategoryParameters.end() is true]: Invalid SpatialCategory %s", &v13, 0x1Cu);
+      v10 = GetSpatialCategoryString(v2);
+      *v13 = 136315650;
+      *&v13[4] = "CvmSpatialSubmix.mm";
+      v14 = 1024;
+      v15 = 654;
+      v16 = 2080;
+      v17 = [v10 UTF8String];
+      _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [it == mSpatialCategoryParameters.end() is true]: Invalid SpatialCategory %s", v13, 0x1Cu);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "Invalid SpatialCategory %s");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "Invalid SpatialCategory %s", *v13);
   }
 
   while (1)
@@ -2835,8 +2732,9 @@ LABEL_16:
   return v7 + 3;
 }
 
-void Phase::Controller::SpatialSubmix::SetSpatialCategorySendLevel(Phase::Logger *a1, int a2, double a3)
+void Phase::Controller::SpatialSubmix::SetSpatialCategorySendLevel(Phase::Logger *a1, uint64_t a2, double a3)
 {
+  v4 = a2;
   v33 = *MEMORY[0x277D85DE8];
   SpatialCategoryParameters = Phase::Controller::SpatialSubmix::GetSpatialCategoryParameters(a1, a2);
   if (*(SpatialCategoryParameters + 8) == 1)
@@ -2849,7 +2747,7 @@ void Phase::Controller::SpatialSubmix::SetSpatialCategorySendLevel(Phase::Logger
       {
         v10 = *(a1 + 4);
         v11 = *(a1 + 2);
-        v12 = GetSpatialCategoryString(a2);
+        v12 = GetSpatialCategoryString(v4);
         v17 = 136316930;
         v18 = "CvmSpatialSubmix.mm";
         v19 = 1024;
@@ -2878,7 +2776,7 @@ void Phase::Controller::SpatialSubmix::SetSpatialCategorySendLevel(Phase::Logger
       v13 = *(a1 + 77);
       v15 = *(a1 + 2);
       v14 = *(a1 + 3);
-      SpatialModelerCategory = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(v13, a2);
+      SpatialModelerCategory = Phase::Controller::SpatialModelerSystem::GetSpatialModelerCategory(v13, v4);
       Phase::Controller::SpatialModelerCategory::SetInputSendLevel(SpatialModelerCategory, v15, v14, a3);
     }
   }
@@ -2893,40 +2791,41 @@ uint64_t Phase::Controller::SpatialSubmix::SetSpatialCategoryProperty(uint64_t a
   return Phase::Controller::SpatialModelerCategory::SetProperty(SpatialModelerCategory, v8, v9, a3, a4, a5);
 }
 
-double Phase::Controller::SpatialSubmix::GetInputChannelLayout@<D0>(void *a1@<X8>)
+double Phase::Controller::SpatialSubmix::GetInputChannelLayout@<D0>(uint64_t *a1@<X8>)
 {
-  v2 = *std::vector<char>::vector[abi:ne200100](a1, 32);
+  v3 = 0;
+  v1 = *std::vector<char>::vector[abi:ne200100](a1, 32, &v3);
   *&result = 6553601;
-  *v2 = 6553601;
-  *(v2 + 8) = 0;
+  *v1 = 6553601;
+  *(v1 + 8) = 0;
   return result;
 }
 
-void Phase::Controller::SpatialSubmix::InternalSleep(Phase::Controller::SpatialSubmix *this)
+void Phase::Controller::SpatialSubmix::InternalSleep(_BYTE *this)
 {
-  if (*(this + 72) != 7)
+  if (this[72] != 7)
   {
-    if (Phase::Controller::SpatialSubmix::HasActiveInputs(this) && *(this + 72) != 6)
+    if (Phase::Controller::SpatialSubmix::HasActiveInputs(this) && this[72] != 6)
     {
 LABEL_27:
       std::terminate();
     }
 
-    Phase::Controller::Submix::SetState(this, 6u);
-    if (!*(this + 624))
+    Phase::Controller::Submix::SetState(this, 6);
+    if (!this[624])
     {
-      *(this + 624) = 3;
+      this[624] = 3;
     }
 
-    while (*(this + 72) != 7)
+    while (this[72] != 7)
     {
-      v2 = *(this + 624);
+      v2 = this[624];
       if ((v2 - 1) <= 1)
       {
         goto LABEL_27;
       }
 
-      if (*(this + 624) > 3u)
+      if (this[624] > 3u)
       {
         if (v2 == 4)
         {
@@ -2937,27 +2836,27 @@ LABEL_27:
 
           Phase::Controller::SpatialModelerSystem::RemoveAllInputs(*(this + 77), *(this + 2), *(this + 3));
           Phase::Controller::DVM23::DvmAdapter::RemoveSubmix(*(this + 28), *(this + 2), *(this + 3));
-          *(this + 624) = 5;
+          this[624] = 5;
           continue;
         }
 
         if (v2 == 5)
         {
-          if (*(this + 288) != 1)
+          if (this[288] != 1)
           {
             return;
           }
 
-          *(this + 624) = 6;
+          this[624] = 6;
           continue;
         }
       }
 
       else
       {
-        if (!*(this + 624))
+        if (!this[624])
         {
-          *(this + 624) = 3;
+          this[624] = 3;
           continue;
         }
 
@@ -2985,24 +2884,24 @@ LABEL_27:
             while (v7);
           }
 
-          *(this + 624) = 4;
+          this[624] = 4;
           continue;
         }
       }
 
-      *(this + 624) = 0;
-      Phase::Controller::Submix::SetState(this, 7u);
+      this[624] = 0;
+      Phase::Controller::Submix::SetState(this, 7);
       Phase::Controller::Submix::SetSessionPlayState(this, 0, 0, 0);
     }
   }
 }
 
-void Phase::Controller::SpatialSubmix::InternalStop(Phase::Controller::SpatialSubmix *this)
+void Phase::Controller::SpatialSubmix::InternalStop(uint64_t this)
 {
-  *(this + 7) &= 0xFFFFFFFFFFFFFFF9;
+  *(this + 56) &= 0xFFFFFFFFFFFFFFF9;
   if (*(this + 72))
   {
-    Phase::Controller::Submix::SetState(this, 1u);
+    Phase::Controller::Submix::SetState(this, 1);
     if (!*(this + 625))
     {
       *(this + 625) = 1;
@@ -3060,7 +2959,7 @@ LABEL_16:
           *(this + 625) = 0;
           Phase::Controller::Submix::SetState(this, 0);
           Phase::Controller::Submix::SetSessionPlayState(this, 0, 0, 0);
-          *(this + 7) &= ~8uLL;
+          *(this + 56) &= ~8uLL;
           continue;
         }
 
@@ -3070,8 +2969,9 @@ LABEL_16:
   }
 }
 
-void Phase::Controller::SpatialSubmix::SetPlayState(void *a1, unsigned int a2)
+void Phase::Controller::SpatialSubmix::SetPlayState(void *a1, uint64_t a2)
 {
+  v2 = a2;
   Phase::Controller::Submix::SetPlayState(a1, a2);
   v4 = *(a1[77] + 16);
   if (v4)
@@ -3080,7 +2980,7 @@ void Phase::Controller::SpatialSubmix::SetPlayState(void *a1, unsigned int a2)
     v6 = a1[3];
     do
     {
-      Phase::Controller::SpatialModelerCategory::SetPlayState(v4[3], v5, v6, a2);
+      Phase::Controller::SpatialModelerCategory::SetPlayState(v4[3], v5, v6, v2);
       v4 = *v4;
     }
 
@@ -3088,7 +2988,7 @@ void Phase::Controller::SpatialSubmix::SetPlayState(void *a1, unsigned int a2)
   }
 }
 
-uint64_t Phase::Controller::SpatialSubmix::GetChannelMask(uint64_t a1, Phase::Logger *a2)
+uint64_t Phase::Controller::SpatialSubmix::GetChannelMask(uint64_t a1, int **a2)
 {
   v3 = 0;
   for (i = 0; ; ++i)
@@ -3141,7 +3041,7 @@ unint64_t Phase::Controller::CreateDistanceModelHandle(double *a1, uint64_t a2)
       goto LABEL_40;
     }
 
-    v8 = Phase::Geometry::DistanceModelFactory::Create(a2 + 888, 2u, 0, &v26);
+    v8 = Phase::Geometry::DistanceModelFactory::Create((a2 + 888), 2u, &v26, 0);
     if (!v26)
     {
       v13 = **(Phase::Logger::GetInstance(v8) + 400);
@@ -3252,7 +3152,7 @@ LABEL_40:
     std::terminate();
   }
 
-  v5 = Phase::Geometry::DistanceModelFactory::Create(a2 + 888, 1u, 0, v32);
+  v5 = Phase::Geometry::DistanceModelFactory::Create((a2 + 888), 1u, v32, 0);
   if (*v32)
   {
     v6 = a1[1];
@@ -3375,7 +3275,7 @@ LABEL_67:
         goto LABEL_148;
       }
 
-      v47 = Phase::Geometry::DirectivityFactory::Create(a2 + 640, 3u, 0, &v132);
+      v47 = Phase::Geometry::DirectivityFactory::Create((a2 + 640), 3u, &v132, 0);
       if (v132)
       {
         v48 = **(v132 + 5);
@@ -3405,7 +3305,7 @@ LABEL_147:
       goto LABEL_148;
     }
 
-    v51 = Phase::Geometry::DirectivityFactory::Create(a2 + 640, 2u, v119, &v117);
+    v51 = Phase::Geometry::DirectivityFactory::Create((a2 + 640), 2u, &v117, v119);
     if (!v117)
     {
       v107 = **(Phase::Logger::GetInstance(v51) + 400);
@@ -3847,7 +3747,7 @@ LABEL_123:
     goto LABEL_67;
   }
 
-  v8 = Phase::Geometry::DirectivityFactory::Create(a2 + 640, 1u, v119, &v122);
+  v8 = Phase::Geometry::DirectivityFactory::Create((a2 + 640), 1u, &v122, v119);
   if (!v122)
   {
     v100 = **(Phase::Logger::GetInstance(v8) + 400);
@@ -4180,13 +4080,13 @@ LABEL_148:
   return v7;
 }
 
-void sub_23A3745C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A3745C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  v7 = *(v5 - 192);
-  if (v7)
+  va_start(va, a9);
+  v11 = *(v9 - 192);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(va);
@@ -4258,7 +4158,7 @@ void std::vector<Phase::Envelope<float>::Segment,std::allocator<Phase::Envelope<
   }
 }
 
-void std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__vdeallocate(void **a1)
+void std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -4313,11 +4213,11 @@ void std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::E
   }
 }
 
-double sGetFrequencies(void *a1, unint64_t a2)
+double sGetFrequencies(double *a1, unint64_t a2)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
+  *a1 = 0.0;
+  a1[1] = 0.0;
+  a1[2] = 0.0;
   switch(a2)
   {
     case 0x1FuLL:
@@ -4325,94 +4225,16 @@ double sGetFrequencies(void *a1, unint64_t a2)
       v5 = "St18bad_variant_access";
       goto LABEL_7;
     case 0xAuLL:
-      v4 = &Phase::sOctaveBandFrequencies;
+      v4 = Phase::sOctaveBandFrequencies;
       v5 = Phase::sThirdOctaveBandFrequencies;
       goto LABEL_7;
     case 3uLL:
-      v4 = &Phase::sThreeBandFrequencies;
-      v5 = &Phase::sOctaveBandFrequencies;
+      v4 = Phase::sThreeBandFrequencies;
+      v5 = Phase::sOctaveBandFrequencies;
 LABEL_7:
       std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(a1, v4, v5, a2);
       v7 = *a1;
-      v8 = *(a1 + 1);
-      goto LABEL_9;
-  }
-
-  Phase::GenerateLogarithmicSeries<float>(a2, &v9, 20.0, 20000.0);
-  v7 = v9;
-  *a1 = v9;
-  result = *&v10;
-  *(a1 + 1) = v10;
-  v8 = result;
-LABEL_9:
-  if (v7 == *&v8)
-  {
-    std::terminate();
-  }
-
-  return result;
-}
-
-{
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  switch(a2)
-  {
-    case 0x1FuLL:
-      v4 = &Phase::sThirdOctaveBandFrequencies;
-      v5 = &std::__any_imp::__unique_typeinfo<Phase::Controller::ListenerManager *>::__id;
-      goto LABEL_7;
-    case 0xAuLL:
-      v4 = &Phase::sOctaveBandFrequencies;
-      v5 = &Phase::sThirdOctaveBandFrequencies;
-      goto LABEL_7;
-    case 3uLL:
-      v4 = &Phase::sThreeBandFrequencies;
-      v5 = &Phase::sOctaveBandFrequencies;
-LABEL_7:
-      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(a1, v4, v5, a2);
-      v7 = *a1;
-      v8 = *(a1 + 1);
-      goto LABEL_9;
-  }
-
-  Phase::GenerateLogarithmicSeries<float>(a2, &v9, 20.0, 20000.0);
-  v7 = v9;
-  *a1 = v9;
-  result = *&v10;
-  *(a1 + 1) = v10;
-  v8 = result;
-LABEL_9:
-  if (v7 == *&v8)
-  {
-    std::terminate();
-  }
-
-  return result;
-}
-
-{
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  switch(a2)
-  {
-    case 0x1FuLL:
-      v4 = &Phase::sThirdOctaveBandFrequencies;
-      v5 = &qword_23A597510;
-      goto LABEL_7;
-    case 0xAuLL:
-      v4 = &Phase::sOctaveBandFrequencies;
-      v5 = &Phase::sThirdOctaveBandFrequencies;
-      goto LABEL_7;
-    case 3uLL:
-      v4 = &Phase::sThreeBandFrequencies;
-      v5 = &Phase::sOctaveBandFrequencies;
-LABEL_7:
-      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(a1, v4, v5, a2);
-      v7 = *a1;
-      v8 = *(a1 + 1);
+      v8 = a1[1];
       goto LABEL_9;
   }
 
@@ -4641,7 +4463,7 @@ void sub_23A3753D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *Phase::GenerateLogarithmicSeries<float>@<X0>(unint64_t a1@<X0>, float **a2@<X8>, float a3@<S0>, float a4@<S1>)
+uint64_t *Phase::GenerateLogarithmicSeries<float>@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X8>, float a3@<S0>, float a4@<S1>)
 {
   v4 = a1;
   v5 = a3;
@@ -4665,7 +4487,7 @@ void *Phase::GenerateLogarithmicSeries<float>@<X0>(unint64_t a1@<X0>, float **a2
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4737,8 +4559,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float co
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -4758,7 +4579,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<float *>,fl
   v44 = *MEMORY[0x277D85DE8];
   v8 = a2 - a1;
   *v37 = 0;
-  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8);
+  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8, v37);
   v10 = *a3;
   **a3 = 10.0;
   if (v8 == 31)
@@ -4771,7 +4592,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<float *>,fl
     }
 
     v17 = v6 + 1;
-    v18 = &Phase::sThirdOctaveBandFrequencies;
+    v18 = Phase::sThirdOctaveBandFrequencies;
     do
     {
       v19 = *v18++;
@@ -4945,7 +4766,7 @@ LABEL_56:
   }
 
   v13 = v6 + 1;
-  v14 = &Phase::sOctaveBandFrequencies;
+  v14 = Phase::sOctaveBandFrequencies;
   do
   {
     v15 = *v14++;
@@ -4984,7 +4805,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<float const
   v44 = *MEMORY[0x277D85DE8];
   v8 = a2 - a1;
   *v37 = 0;
-  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8);
+  result = std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](a3, v8, v37);
   v10 = *a3;
   **a3 = 10.0;
   if (v8 == 31)
@@ -4997,7 +4818,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<float const
     }
 
     v17 = v6 + 1;
-    v18 = &Phase::sThirdOctaveBandFrequencies;
+    v18 = Phase::sThirdOctaveBandFrequencies;
     do
     {
       v19 = *v18++;
@@ -5171,7 +4992,7 @@ LABEL_56:
   }
 
   v13 = v6 + 1;
-  v14 = &Phase::sOctaveBandFrequencies;
+  v14 = Phase::sOctaveBandFrequencies;
   do
   {
     v15 = *v14++;
@@ -5204,7 +5025,7 @@ void sub_23A376054(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5253,13 +5074,13 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5308,23 +5129,23 @@ void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void *std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<Phase::FrequencyBand<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, void *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A3762CC(_Unwind_Exception *exception_object)
@@ -5679,7 +5500,7 @@ uint64_t std::__function::__value_func<float ()(float)>::operator=[abi:ne200100]
 
 float Phase::Envelope<float>::InitializeFromSingleSegment(Phase::Logger *a1, float *a2, float *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *a3;
   if (*a2 > *a3)
   {
@@ -5690,26 +5511,26 @@ float Phase::Envelope<float>::InitializeFromSingleSegment(Phase::Logger *a1, flo
       v12 = *a3;
       *v14 = 136315906;
       *&v14[4] = "Envelope.hpp";
-      *v15 = 1024;
-      *&v15[2] = 243;
-      v16 = 2048;
-      v17 = v11;
-      v18 = 2048;
-      v19 = v12;
+      *&v14[12] = 1024;
+      *&v14[14] = 243;
+      v15 = 2048;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v12;
       _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (EnvelopeException::InvalidStartPoint) [!(inStartPoint.x <= inSegment.mEndPoint.x) is true]: Invalid start point x value: %f. Must be <= end point x value: %f", v14, 0x26u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase17EnvelopeException17InvalidStartPointCI1St11logic_errorEPKc(exception, "Invalid start point x value: %f. Must be <= end point x value: %f");
+    _ZN5Phase17EnvelopeException17InvalidStartPointCI1St11logic_errorEPKc(exception, "Invalid start point x value: %f. Must be <= end point x value: %f", *v14, *&v14[8]);
   }
 
   *v14 = 0;
   v6 = *(a3 + 1);
   *&v14[8] = v4;
-  *v15 = v6;
-  std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](&v15[4], (a3 + 2));
+  *&v14[12] = v6;
+  std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](&v14[16], (a3 + 2));
   std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::assign(a1, 1uLL, v14);
-  std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](&v15[4]);
+  std::__function::__value_func<float ()(float)>::~__value_func[abi:ne200100](&v14[16]);
   v7 = *a1;
   *v7 = *a2;
   result = a2[1];
@@ -5717,11 +5538,11 @@ float Phase::Envelope<float>::InitializeFromSingleSegment(Phase::Logger *a1, flo
   return result;
 }
 
-uint64_t std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::assign(uint64_t result, unint64_t a2, _DWORD *a3)
+uint64_t *std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::assign(uint64_t *result, unint64_t a2, _DWORD *a3)
 {
   v5 = result;
   v6 = *result;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(result + 16) - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
     std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__vdeallocate(result);
     if (a2 <= 0x555555555555555)
@@ -5748,7 +5569,7 @@ uint64_t std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phas
     std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = (*(result + 8) - v6) >> 4;
+  v9 = (result[1] - v6) >> 4;
   v10 = 0xAAAAAAAAAAAAAAABLL * v9;
   if (0xAAAAAAAAAAAAAAABLL * v9 >= a2)
   {
@@ -5763,11 +5584,11 @@ uint64_t std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phas
   for (; v11; --v11)
   {
     *v6 = *a3;
-    v6[1] = a3[1];
-    v6[2] = a3[2];
-    v6[3] = a3[3];
+    *(v6 + 1) = a3[1];
+    *(v6 + 2) = a3[2];
+    *(v6 + 3) = a3[3];
     result = std::function<float ()(float)>::operator=(v6 + 2, (a3 + 4));
-    v6 += 12;
+    v6 += 48;
   }
 
   if (a2 <= v10)
@@ -5812,7 +5633,7 @@ uint64_t std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phas
   return result;
 }
 
-void std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::Envelope<float>::SegmentInternal,std::allocator<Phase::Envelope<float>::SegmentInternal>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -5941,7 +5762,7 @@ void sub_23A377314(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,false>(uint64_t result, unint64_t a2, uint64_t a3, char a4)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,false>(unint64_t result, char *a2, uint64_t a3, char a4)
 {
   v7 = result;
   v111[5] = *MEMORY[0x277D85DE8];
@@ -5949,8 +5770,8 @@ LABEL_2:
   v8 = v7;
   while (1)
   {
-    v9 = a2 - v8;
-    v10 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v8) >> 4);
+    v9 = &a2[-v8];
+    v10 = 0xAAAAAAAAAAAAAAABLL * (&a2[-v8] >> 4);
     v11 = v10 - 2;
     if (v10 <= 2)
     {
@@ -5961,12 +5782,12 @@ LABEL_2:
 
       if (v10 == 2)
       {
-        if (*(a2 - 40) >= *(v8 + 8))
+        if (*(a2 - 10) >= *(v8 + 8))
         {
           return result;
         }
 
-        v61 = (a2 - 48);
+        v61 = a2 - 48;
         goto LABEL_168;
       }
 
@@ -5976,13 +5797,13 @@ LABEL_2:
     if (v10 == 3)
     {
       v62 = *(v8 + 56);
-      v63 = *(a2 - 40);
+      v63 = *(a2 - 10);
       if (v62 < *(v8 + 8))
       {
         if (v63 >= v62)
         {
           result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v8, (v8 + 48));
-          if (*(a2 - 40) >= *(v8 + 56))
+          if (*(a2 - 10) >= *(v8 + 56))
           {
             return result;
           }
@@ -5995,7 +5816,7 @@ LABEL_2:
           v64 = v8;
         }
 
-        v61 = (a2 - 48);
+        v61 = a2 - 48;
         return std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v64, v61);
       }
 
@@ -6005,7 +5826,7 @@ LABEL_2:
       }
 
       v59 = (v8 + 48);
-      v60 = (a2 - 48);
+      v60 = a2 - 48;
 LABEL_166:
       result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v59, v60);
       if (*(v8 + 56) >= *(v8 + 8))
@@ -6021,7 +5842,7 @@ LABEL_168:
 
     if (v10 == 4)
     {
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,0>(v8, v8 + 48, v8 + 96, a2 - 48);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,0>(v8, v8 + 48, v8 + 96, (a2 - 48));
     }
 
     if (v10 == 5)
@@ -6037,7 +5858,7 @@ LABEL_10:
         if (v8 != a2)
         {
           v65 = (v8 + 48);
-          if (v8 + 48 != a2)
+          if ((v8 + 48) != a2)
           {
             v66 = 0;
             v67 = v8;
@@ -6092,7 +5913,7 @@ LABEL_124:
       else if (v8 != a2)
       {
         v99 = (v8 + 48);
-        if (v8 + 48 != a2)
+        if ((v8 + 48) != a2)
         {
           v100 = v8 + 64;
           do
@@ -6253,13 +6074,13 @@ LABEL_124:
 
             else
             {
-              *v88 = *(a2 - 48);
-              v88[1] = *(a2 - 44);
-              v88[2] = *(a2 - 40);
-              v88[3] = *(a2 - 36);
-              std::__function::__value_func<float ()(float)>::operator=[abi:ne200100]((v88 + 4), a2 - 32);
-              *(a2 - 48) = v108;
-              std::__function::__value_func<float ()(float)>::operator=[abi:ne200100](a2 - 32, v109);
+              *v88 = *(a2 - 12);
+              v88[1] = *(a2 - 11);
+              v88[2] = *(a2 - 10);
+              v88[3] = *(a2 - 9);
+              std::__function::__value_func<float ()(float)>::operator=[abi:ne200100]((v88 + 4), (a2 - 32));
+              *(a2 - 3) = v108;
+              std::__function::__value_func<float ()(float)>::operator=[abi:ne200100]((a2 - 32), v109);
               v92 = v88 - v8 + 48;
               if (v92 >= 49)
               {
@@ -6319,31 +6140,31 @@ LABEL_160:
 
     v12 = v10 >> 1;
     v13 = v8 + 48 * (v10 >> 1);
-    v14 = *(a2 - 40);
+    v14 = *(a2 - 10);
     if (v9 >= 0x1801)
     {
       v15 = *(v13 + 8);
       if (v15 >= *(v8 + 8))
       {
-        if (v14 >= v15 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v13, (a2 - 48)), *(v13 + 8) >= *(v8 + 8)))
+        if (v14 >= v15 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v13, a2 - 12), *(v13 + 8) >= *(v8 + 8)))
         {
 LABEL_27:
           v21 = v8 + 48 * v12;
           v22 = v21 - 48;
           v23 = *(v21 - 40);
-          v24 = *(a2 - 88);
+          v24 = *(a2 - 22);
           if (v23 >= *(v8 + 56))
           {
-            if (v24 >= v23 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v21 - 48), (a2 - 96)), *(v22 + 8) >= *(v8 + 56)))
+            if (v24 >= v23 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v21 - 48), a2 - 24), *(v22 + 8) >= *(v8 + 56)))
             {
 LABEL_40:
               v27 = v8 + 48 * v12;
               v28 = v27 + 48;
               v29 = *(v27 + 56);
-              v30 = *(a2 - 136);
+              v30 = *(a2 - 34);
               if (v29 >= *(v8 + 104))
               {
-                if (v30 >= v29 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v27 + 48), (a2 - 144)), *(v28 + 8) >= *(v8 + 104)))
+                if (v30 >= v29 || (std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v27 + 48), a2 - 36), *(v28 + 8) >= *(v8 + 104)))
                 {
 LABEL_49:
                   v33 = *(v13 + 8);
@@ -6404,7 +6225,7 @@ LABEL_58:
                 if (v30 >= v29)
                 {
                   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v31, (v27 + 48));
-                  if (*(a2 - 136) >= *(v28 + 8))
+                  if (*(a2 - 34) >= *(v28 + 8))
                   {
                     goto LABEL_49;
                   }
@@ -6412,7 +6233,7 @@ LABEL_58:
                   v31 = v28;
                 }
 
-                v32 = (a2 - 144);
+                v32 = a2 - 144;
               }
 
               std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v31, v32);
@@ -6429,7 +6250,7 @@ LABEL_58:
             if (v24 >= v23)
             {
               std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v25, (v21 - 48));
-              if (*(a2 - 88) >= *(v22 + 8))
+              if (*(a2 - 22) >= *(v22 + 8))
               {
                 goto LABEL_40;
               }
@@ -6437,7 +6258,7 @@ LABEL_58:
               v25 = v22;
             }
 
-            v26 = (a2 - 96);
+            v26 = a2 - 96;
           }
 
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v25, v26);
@@ -6454,7 +6275,7 @@ LABEL_58:
         if (v14 >= v15)
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v8, v13);
-          if (*(a2 - 40) >= *(v13 + 8))
+          if (*(a2 - 10) >= *(v13 + 8))
           {
             goto LABEL_27;
           }
@@ -6462,7 +6283,7 @@ LABEL_58:
           v16 = v13;
         }
 
-        v17 = (a2 - 48);
+        v17 = a2 - 48;
       }
 
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v16, v17);
@@ -6476,7 +6297,7 @@ LABEL_58:
       if (v14 >= v18)
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v13, v8);
-        if (*(a2 - 40) >= *(v8 + 8))
+        if (*(a2 - 10) >= *(v8 + 8))
         {
           goto LABEL_59;
         }
@@ -6484,13 +6305,13 @@ LABEL_58:
         v19 = v8;
       }
 
-      v20 = (a2 - 48);
+      v20 = a2 - 48;
       goto LABEL_35;
     }
 
     if (v14 < v18)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v8, (a2 - 48));
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>(v8, a2 - 12);
       if (*(v8 + 8) < *(v13 + 8))
       {
         v19 = v13;
@@ -6515,7 +6336,7 @@ LABEL_59:
         *&v110 = *v8;
         *(&v110 + 1) = __PAIR64__(*(v8 + 12), LODWORD(v37));
         std::__function::__value_func<float ()(float)>::__value_func[abi:ne200100](v111, v8 + 16);
-        if (*(&v110 + 2) >= *(a2 - 40))
+        if (*(&v110 + 2) >= *(a2 - 10))
         {
           v52 = v8 + 48;
           do
@@ -6552,8 +6373,8 @@ LABEL_59:
           v55 = a2;
           do
           {
-            v54 = (v55 - 48);
-            v56 = *(v55 - 40);
+            v54 = v55 - 48;
+            v56 = *(v55 - 10);
             v55 -= 48;
           }
 
@@ -6573,7 +6394,7 @@ LABEL_59:
           do
           {
             v58 = *(v54 - 10);
-            v54 -= 12;
+            v54 -= 48;
           }
 
           while (*(&v110 + 2) < v58);
@@ -6614,8 +6435,8 @@ LABEL_59:
       v44 = a2;
       while (v40 < v44)
       {
-        v42 = (v44 - 48);
-        v45 = *(v44 - 40);
+        v42 = v44 - 48;
+        v45 = *(v44 - 10);
         v44 -= 48;
         if (v45 < *(&v110 + 2))
         {
@@ -6630,8 +6451,8 @@ LABEL_59:
     {
       do
       {
-        v42 = (v41 - 48);
-        v43 = *(v41 - 40);
+        v42 = v41 - 48;
+        v43 = *(v41 - 10);
         v41 -= 48;
       }
 
@@ -6692,12 +6513,12 @@ LABEL_72:
       }
 
 LABEL_85:
-      result = std::__introsort<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,false>(v8, v7 - 48, a3, a4 & 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,false>(v8, (v7 - 48), a3, a4 & 1);
       a4 = 0;
       goto LABEL_2;
     }
 
-    a2 = v7 - 48;
+    a2 = (v7 - 48);
     if (v49)
     {
       return result;
@@ -6705,9 +6526,9 @@ LABEL_85:
   }
 
   result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*,0>(v8, v8 + 48, v8 + 96, v8 + 144);
-  if (*(a2 - 40) < *(v8 + 152))
+  if (*(a2 - 10) < *(v8 + 152))
   {
-    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v8 + 144), (a2 - 48));
+    result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v8 + 144), a2 - 12);
     if (*(v8 + 152) < *(v8 + 104))
     {
       result = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<Phase::Envelope<float>::SegmentInternal *&,Phase::Envelope<float>::SegmentInternal *&>((v8 + 96), (v8 + 144));
@@ -6814,7 +6635,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,Phase::Envelope<float>::Envelope<std::__wrap_iter<Phase::Envelope<float>::Segment *>>(Phase::Vector<float,2ul> const&,std::__wrap_iter<Phase::Envelope<float>::Segment *>,std::__wrap_iter<Phase::Envelope<float>::Segment *>)::{lambda(Phase::Envelope<float>::SegmentInternal const&,Phase::Envelope<float>::SegmentInternal const&)#1} &,Phase::Envelope<float>::SegmentInternal*>(uint64_t a1, uint64_t a2)
 {
   v3 = a1;
   v25[4] = *MEMORY[0x277D85DE8];
@@ -7189,7 +7010,7 @@ void Phase::Controller::SpatialSubmixRouter::SpatialSubmixRouter(Phase::Controll
     v14 = **(Phase::Logger::GetInstance(v9) + 240);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(this + 6));
       v15 = v17 >= 0 ? __p : __p[0];
       buf[0] = 136315650;
       *&buf[1] = "CvmSpatialSubmixRouter.mm";
@@ -7213,7 +7034,7 @@ void Phase::Controller::SpatialSubmixRouter::SpatialSubmixRouter(Phase::Controll
     v11 = **(Phase::Logger::GetInstance(v9) + 240);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(this + 6));
       v12 = v17 >= 0 ? __p : __p[0];
       buf[0] = 136315650;
       *&buf[1] = "CvmSpatialSubmixRouter.mm";
@@ -7238,32 +7059,32 @@ void Phase::Controller::SpatialSubmixRouter::SpatialSubmixRouter(Phase::Controll
 void sub_23A378E18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
 {
   __cxa_free_exception(v17);
-  v19 = v13[58];
+  v19 = *(v13 + 464);
   if (v19)
   {
-    v13[59] = v19;
+    *(v13 + 472) = v19;
     operator delete(v19);
   }
 
-  v20 = v13[55];
+  v20 = *(v13 + 440);
   if (v20)
   {
-    v13[56] = v20;
+    *(v13 + 448) = v20;
     operator delete(v20);
   }
 
-  v21 = v13[52];
+  v21 = *(v13 + 416);
   if (v21)
   {
-    v13[53] = v21;
+    *(v13 + 424) = v21;
     operator delete(v21);
   }
 
   Phase::Controller::SubmixSlotMap<Phase::Controller::SpatialModelerInstance::SubmixInfo>::~SubmixSlotMap(v16);
   std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table(v15);
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table((v13 + 10));
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table((v13 + 80));
   std::__list_imp<Phase::Controller::SpatialSubmixRouter::StoppingRenderer>::clear(v14);
-  Phase::Controller::RouterCommandBatch::Clear(v13 + 5);
+  Phase::Controller::RouterCommandBatch::Clear((v13 + 40));
   Phase::Controller::RouterCommandList::Clear(v13);
   _Unwind_Resume(a1);
 }
@@ -7449,19 +7270,17 @@ uint64_t Phase::Controller::SpatialSubmixRouter::ExecuteNotifyCulled(uint64_t th
   return this;
 }
 
-void *std::vector<Phase::UniqueObjectId>::reserve(void *result, unint64_t a2)
+void std::vector<Phase::UniqueObjectId>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::UniqueObjectId>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<Phase::UniqueObjectId>>(a1, a2);
     }
 
     std::vector<Phase::MetaParamValue>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 std::__shared_weak_count *Phase::Controller::SpatialSubmixRouter::OnRendererChanged(atomic_ullong *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
@@ -7512,8 +7331,8 @@ void Phase::Controller::SpatialSubmixRouter::~SpatialSubmixRouter(Phase::Control
   }
 
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(this + 160);
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table(this + 120);
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table(this + 80);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table(this + 15);
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::~__hash_table(this + 10);
   std::__list_imp<Phase::Controller::SpatialSubmixRouter::StoppingRenderer>::clear(this + 7);
   Phase::Controller::RouterCommandBatch::Clear(this + 5);
   Phase::Controller::RouterCommandList::Clear(this);
@@ -7633,7 +7452,7 @@ Phase::Logger *Phase::Controller::SubmixSlotMap<Phase::Controller::SpatialSubmix
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "SubmixSlotMap::At couldn't find SubmixHandle %llu for SubmixId %llu");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "SubmixSlotMap::At couldn't find SubmixHandle %llu for SubmixId %llu", *v10, *&v10[8]);
   }
 
   return result;
@@ -7641,7 +7460,7 @@ Phase::Logger *Phase::Controller::SubmixSlotMap<Phase::Controller::SpatialSubmix
 
 uint64_t Phase::Controller::SpatialSubmixRouter::AddInput(uint64_t a1, unint64_t a2, unint64_t a3, double a4)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   *buf = a2;
   *&buf[8] = a3;
   v8 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>((a1 + 160), buf);
@@ -7650,36 +7469,36 @@ uint64_t Phase::Controller::SpatialSubmixRouter::AddInput(uint64_t a1, unint64_t
     v40 = **(Phase::Logger::GetInstance(v8) + 240);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-      v41 = v67 >= 0 ? __p : __p[0];
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+      v41 = v69 >= 0 ? __p : __p[0];
       *buf = 136315906;
       *&buf[4] = "CvmSpatialSubmixRouter.mm";
       *&buf[12] = 1024;
       *&buf[14] = 337;
-      v71 = 2080;
-      *v72 = v41;
-      *&v72[8] = 2048;
-      *&v72[10] = a2;
+      v73 = 2080;
+      *v74 = v41;
+      *&v74[8] = 2048;
+      *&v74[10] = a2;
       _os_log_impl(&dword_23A302000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (IdAlreadyExists) [HasSubmix(inSubmixId) is true]: %s [SpatialSubmixRouter]: inSubmixId %llu already exists!", buf, 0x26u);
-      if (v67 < 0)
+      if (v69 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller15IdAlreadyExistsCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: inSubmixId %llu already exists!");
+    _ZN5Phase10Controller15IdAlreadyExistsCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: inSubmixId %llu already exists!", v55, v57);
   }
 
-  *&v56 = a2;
-  *(&v56 + 1) = a3;
-  *&v57 = 0;
-  DWORD2(v57) = 2;
-  *&v58 = a4;
-  v59 = 0uLL;
-  *(&v58 + 1) = 0x7FEFFFFFFFFFFFFFLL;
-  v9 = Phase::Fader<double>::Fader(&v61, 0.0);
-  v65 = 0;
+  *&v58 = a2;
+  *(&v58 + 1) = a3;
+  *&v59 = 0;
+  DWORD2(v59) = 2;
+  *&v60 = a4;
+  v61 = 0uLL;
+  *(&v60 + 1) = 0x7FEFFFFFFFFFFFFFLL;
+  v9 = Phase::Fader<double>::Fader(&v63, 0.0);
+  v67 = 0;
   __p[0] = a2;
   __p[1] = a3;
   if (!(a2 | a3))
@@ -7713,8 +7532,8 @@ uint64_t Phase::Controller::SpatialSubmixRouter::AddInput(uint64_t a1, unint64_t
       *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
       *&buf[12] = 1024;
       *&buf[14] = 63;
-      v71 = 2048;
-      *v72 = a2;
+      v73 = 2048;
+      *v74 = a2;
       _os_log_impl(&dword_23A302000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [true == Contains(inSubmixId) is true]: SubmixId %llu already exists in SubmixSlotMap::Insert", buf, 0x1Cu);
     }
 
@@ -7741,14 +7560,14 @@ LABEL_67:
     atomic_compare_exchange_strong((a1 + 220), &i, *(v13 + 16));
     if (i == v11)
     {
-      v14 = Phase::Handle64::Set(&v69, v11, *(v13 + 20));
+      v14 = Phase::Handle64::Set(&v71, v11, *(v13 + 20));
       if (buf[8] == 1)
       {
         std::__shared_mutex_base::unlock_shared(*buf);
       }
 
-      v68 = v69;
-      if (v69)
+      v70 = v71;
+      if (v71)
       {
         goto LABEL_14;
       }
@@ -7761,8 +7580,8 @@ LABEL_67:
         *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
         *&buf[12] = 1024;
         *&buf[14] = 68;
-        v71 = 2048;
-        *v72 = a2;
+        v73 = 2048;
+        *v74 = a2;
         _os_log_impl(&dword_23A302000, v53, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [SubmixHandle::kInvalidHandle == submixHandle is true]: SubmixSlotMap::Insert unable to allocate new handle SubmixId %llu", buf, 0x1Cu);
       }
 
@@ -7778,7 +7597,7 @@ LABEL_67:
   }
 
 LABEL_10:
-  v68 = atomic_fetch_add((a1 + 224), 1u) | 0x100000000;
+  v70 = atomic_fetch_add((a1 + 224), 1u) | 0x100000000;
 LABEL_14:
   v15 = atomic_load((a1 + 224));
   v16 = *(a1 + 216);
@@ -7791,7 +7610,7 @@ LABEL_14:
       v18 = *buf;
       if (v16)
       {
-        v55 = *buf;
+        v56 = *buf;
         v19 = 0;
         v20 = *buf + 8;
         v21 = v16;
@@ -7821,7 +7640,7 @@ LABEL_14:
 
         while (v21);
         v26 = v16;
-        v18 = v55;
+        v18 = v56;
       }
 
       else
@@ -7861,8 +7680,8 @@ LABEL_14:
     }
   }
 
-  v32 = v68;
-  if (Phase::details::SharedSlotMap<Phase::Controller::SpatialSubmixRouter::SubmixParams,Phase::Handle64>::GetUniqueSlot((a1 + 200), v68))
+  v32 = v70;
+  if (Phase::details::SharedSlotMap<Phase::Controller::SpatialSubmixRouter::SubmixParams,Phase::Handle64>::GetUniqueSlot((a1 + 200), v70))
   {
     operator new();
   }
@@ -7877,10 +7696,10 @@ LABEL_14:
       *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
       *&buf[12] = 1024;
       *&buf[14] = 76;
-      v71 = 2048;
-      *v72 = 0;
-      *&v72[8] = 2048;
-      *&v72[10] = __p[0];
+      v73 = 2048;
+      *v74 = 0;
+      *&v74[8] = 2048;
+      *&v74[10] = __p[0];
       _os_log_impl(&dword_23A302000, v51, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [SubmixHandle::kInvalidHandle == submixHandle is true]: SubmixSlotMap::Insert couldn't find SubmixHandle %llu for SubmixId %llu", buf, 0x26u);
     }
 
@@ -7894,28 +7713,28 @@ LABEL_75:
     __cxa_throw(v45, v49, v48);
   }
 
-  MEMORY[0x10] = v57;
-  MEMORY[0x20] = v58;
-  MEMORY[0] = v56;
-  MEMORY[0x30] = v59;
-  MEMORY[0x40] = v60;
-  if (&v56)
+  MEMORY[0x10] = v59;
+  MEMORY[0x20] = v60;
+  MEMORY[0] = v58;
+  MEMORY[0x30] = v61;
+  MEMORY[0x40] = v62;
+  if (&v58)
   {
-    std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__assign_with_size[abi:ne200100]<Phase::Envelope<double>::SegmentInternal*,Phase::Envelope<double>::SegmentInternal*>(72, v61, v62, (v62 - v61) >> 6);
+    std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__assign_with_size[abi:ne200100]<Phase::Envelope<double>::SegmentInternal*,Phase::Envelope<double>::SegmentInternal*>(0x48, v63, v64, (v64 - v63) >> 6);
   }
 
-  MEMORY[0x70] = v64;
-  MEMORY[0x60] = v63;
-  MEMORY[0x78] = v65;
-  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>>>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId&,Phase::Handle64&>((a1 + 160), __p);
-  v33 = v68;
-  *buf = &v61;
+  MEMORY[0x70] = v66;
+  MEMORY[0x60] = v65;
+  MEMORY[0x78] = v67;
+  std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,Phase::Handle64>>>::__emplace_unique_key_args<Phase::UniqueObjectId,Phase::UniqueObjectId&,Phase::Handle64&>((a1 + 160), __p, __p, &v70);
+  v33 = v70;
+  *buf = &v63;
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](buf);
   MEMORY[0x10] = v33;
   MEMORY[0x40] = 0x3FF0000000000000;
   *buf = &unk_284D2F458;
   *&buf[8] = Phase::CurveFunction::Linear<double>;
-  *&v72[4] = buf;
+  *&v74[4] = buf;
   Phase::Fader<double>::SetInternal(72, buf, 1.0, 0.0);
   v34 = std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](buf);
   if (*(a1 + 216) <= v33 || (v35 = *(a1 + 200) + 24 * v33, *(v35 + 20) != HIDWORD(v33)) || (v36 = *v35) == 0 || a2 != *v36 || a3 != *(v36 + 8) || *(v36 + 24) != 2 || *(v36 + 32) != a4)
@@ -7926,8 +7745,8 @@ LABEL_75:
   v37 = **(Phase::Logger::GetInstance(v34) + 240);
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-    if (v67 >= 0)
+    Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+    if (v69 >= 0)
     {
       v38 = __p;
     }
@@ -7941,14 +7760,14 @@ LABEL_75:
     *&buf[4] = "CvmSpatialSubmixRouter.mm";
     *&buf[12] = 1024;
     *&buf[14] = 354;
-    v71 = 2080;
-    *v72 = v38;
-    *&v72[8] = 2048;
-    *&v72[10] = a2;
-    v73 = 2048;
-    v74 = a4;
+    v73 = 2080;
+    *v74 = v38;
+    *&v74[8] = 2048;
+    *&v74[10] = a2;
+    v75 = 2048;
+    v76 = a4;
     _os_log_impl(&dword_23A302000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s [SpatialSubmixRouter]: Added submixId %llu, send level %f", buf, 0x30u);
-    if (v67 < 0)
+    if (v69 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7966,7 +7785,7 @@ void sub_23A37A100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   *buf = a2;
   *&buf[8] = a3;
   if (!std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>((a1 + 160), buf))
@@ -7974,25 +7793,25 @@ void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, 
     v19 = **(Phase::Logger::GetInstance(0) + 240);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-      v20 = v26 >= 0 ? __p : __p[0];
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+      v20 = v27 >= 0 ? __p : __p[0];
       *buf = 136315906;
       *&buf[4] = "CvmSpatialSubmixRouter.mm";
       *&buf[12] = 1024;
       *&buf[14] = 381;
-      v28 = 2080;
-      v29 = v20;
-      v30 = 2048;
-      v31 = a2;
+      v29 = 2080;
+      v30 = v20;
+      v31 = 2048;
+      v32 = a2;
       _os_log_impl(&dword_23A302000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [not HasSubmix(inSubmixId) is true]: %s [SpatialSubmixRouter]: Non-existent submixId %llu", buf, 0x26u);
-      if (v26 < 0)
+      if (v27 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: Non-existent submixId %llu");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: Non-existent submixId %llu", v25, __p[0]);
   }
 
   Phase::Controller::SpatialSubmixRouter::SetPlayState(a1, a2, a3, 0);
@@ -8010,13 +7829,13 @@ void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, 
       *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
       *&buf[12] = 1024;
       *&buf[14] = 91;
-      v28 = 2048;
-      v29 = __p[0];
+      v29 = 2048;
+      v30 = __p[0];
       _os_log_impl(&dword_23A302000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [iter == mSubmixHandleMap.end() is true]: SubmixSlotMap::Erase couldn't find SubmixId %llu", buf, 0x1Cu);
     }
 
     v24 = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v24, "SubmixSlotMap::Erase couldn't find SubmixId %llu");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v24, "SubmixSlotMap::Erase couldn't find SubmixId %llu", v25);
   }
 
   v8 = v6[4];
@@ -8056,8 +7875,8 @@ void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, 
   v17 = **(Phase::Logger::GetInstance(v16) + 240);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-    if (v26 >= 0)
+    Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+    if (v27 >= 0)
     {
       v18 = __p;
     }
@@ -8071,12 +7890,12 @@ void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, 
     *&buf[4] = "CvmSpatialSubmixRouter.mm";
     *&buf[12] = 1024;
     *&buf[14] = 390;
-    v28 = 2080;
-    v29 = v18;
-    v30 = 2048;
-    v31 = a2;
+    v29 = 2080;
+    v30 = v18;
+    v31 = 2048;
+    v32 = a2;
     _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s [SpatialSubmixRouter]: Removed submixId %llu", buf, 0x26u);
-    if (v26 < 0)
+    if (v27 < 0)
     {
       operator delete(__p[0]);
     }
@@ -8085,7 +7904,7 @@ void Phase::Controller::SpatialSubmixRouter::RemoveInput(uint64_t a1, void *a2, 
 
 void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *buf = a2;
   *&buf[8] = a3;
   v7 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>((a1 + 160), buf);
@@ -8094,25 +7913,25 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
     v23 = **(Phase::Logger::GetInstance(v7) + 240);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-      v24 = v30 >= 0 ? __p : __p[0];
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+      v24 = v31 >= 0 ? __p : __p[0];
       *buf = 136315906;
       *&buf[4] = "CvmSpatialSubmixRouter.mm";
       *&buf[12] = 1024;
       *&buf[14] = 534;
-      v34 = 2080;
-      v35 = v24;
-      v36 = 2048;
-      v37 = a2;
+      v35 = 2080;
+      v36 = v24;
+      v37 = 2048;
+      v38 = a2;
       _os_log_impl(&dword_23A302000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [SubmixHandle::kInvalidHandle == submixHandle is true]: %s [SpatialSubmixRouter]: Non-existent submixId %llu!", buf, 0x26u);
-      if (v30 < 0)
+      if (v31 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: Non-existent submixId %llu!");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "%s [SpatialSubmixRouter]: Non-existent submixId %llu!", v29, __p[0]);
   }
 
   if (a4 || !Phase::Controller::SpatialSubmixRouter::IsStopped(a1, v8))
@@ -8128,13 +7947,13 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
         *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
         *&buf[12] = 1024;
         *&buf[14] = 145;
-        v34 = 2048;
-        v35 = v8;
+        v35 = 2048;
+        v36 = v8;
         _os_log_impl(&dword_23A302000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [nullptr == pObject is true]: SubmixSlotMap::At couldn't find SubmixHandle %llu", buf, 0x1Cu);
       }
 
       v22 = __cxa_allocate_exception(0x10uLL);
-      _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v22, "SubmixSlotMap::At couldn't find SubmixHandle %llu");
+      _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v22, "SubmixSlotMap::At couldn't find SubmixHandle %llu", v29);
     }
 
     if (*(v11 + 6) != a4)
@@ -8150,13 +7969,13 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
           *&buf[4] = "CvmSubmixSlotMapImpl.hpp";
           *&buf[12] = 1024;
           *&buf[14] = 182;
-          v34 = 2048;
-          v35 = v8;
+          v35 = 2048;
+          v36 = v8;
           _os_log_impl(&dword_23A302000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (InvalidId) [nullptr == pObject is true]: SubmixSlotMap::MutableAt couldn't find SubmixHandle %llu", buf, 0x1Cu);
         }
 
         v28 = __cxa_allocate_exception(0x10uLL);
-        _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v28, "SubmixSlotMap::MutableAt couldn't find SubmixHandle %llu");
+        _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(v28, "SubmixSlotMap::MutableAt couldn't find SubmixHandle %llu", v29);
       }
 
       if (!a4)
@@ -8177,10 +7996,10 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
 
         if (v16.mStorage[0] | v16.mStorage[1])
         {
-          Phase::Controller::RenderGroupMgr::GetRenderer(*(a1 + 408), v16, &v31);
-          if (v31)
+          Phase::Controller::RenderGroupMgr::GetRenderer(&v32, *(a1 + 408), v16);
+          if (v32)
           {
-            (*(*v31 + 40))(v31, *v11, v11[1]);
+            (*(*v32 + 40))(v32, *v11, v11[1]);
           }
 
           else
@@ -8188,8 +8007,8 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
             v17 = **(Phase::Logger::GetInstance(0) + 240);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
-              if (v30 >= 0)
+              Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
+              if (v31 >= 0)
               {
                 v18 = __p;
               }
@@ -8204,21 +8023,21 @@ void Phase::Controller::SpatialSubmixRouter::SetPlayState(uint64_t a1, uint64_t 
               *&buf[4] = "CvmSpatialSubmixRouter.mm";
               *&buf[12] = 1024;
               *&buf[14] = 573;
-              v34 = 2080;
-              v35 = v18;
-              v36 = 2048;
-              v37 = v19;
+              v35 = 2080;
+              v36 = v18;
+              v37 = 2048;
+              v38 = v19;
               _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s [SpatialSubmixRouter]: submixId %llu: renderer was not available when requested for SetPlayState.", buf, 0x26u);
-              if (v30 < 0)
+              if (v31 < 0)
               {
                 operator delete(__p[0]);
               }
             }
           }
 
-          if (v32)
+          if (v33)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v33);
           }
         }
       }
@@ -8286,7 +8105,7 @@ Phase::Logger *Phase::Controller::SubmixSlotMap<Phase::Controller::SpatialSubmix
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "SubmixSlotMap::MutableAt couldn't find SubmixHandle %llu for SubmixId %llu");
+    _ZN5Phase10Controller9InvalidIdCI1St11logic_errorEPKc(exception, "SubmixSlotMap::MutableAt couldn't find SubmixHandle %llu for SubmixId %llu", *v10, *&v10[8]);
   }
 
   return result;
@@ -8336,7 +8155,7 @@ uint64_t Phase::Controller::SpatialSubmixRouter::IsPrepared(uint64_t a1, uint64_
 
     if (v14.mStorage[0] | v14.mStorage[1])
     {
-      Phase::Controller::RenderGroupMgr::GetRenderer(*(a1 + 408), v14, &v20);
+      Phase::Controller::RenderGroupMgr::GetRenderer(&v20, *(a1 + 408), v14);
       if (v20)
       {
         v11 = (*(*v20 + 88))(v20);
@@ -8347,7 +8166,7 @@ uint64_t Phase::Controller::SpatialSubmixRouter::IsPrepared(uint64_t a1, uint64_
         v15 = **(Phase::Logger::GetInstance(0) + 240);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
+          Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
           v16 = v19 >= 0 ? __p : __p[0];
           *buf = 136315906;
           *&buf[4] = "CvmSpatialSubmixRouter.mm";
@@ -8453,7 +8272,7 @@ BOOL Phase::Controller::SpatialSubmixRouter::IsStopped(uint64_t a1, uint64_t a2)
     return *(v4 + 6) == 0;
   }
 
-  Phase::Controller::RenderGroupMgr::GetRenderer(*(a1 + 408), v7, &v15);
+  Phase::Controller::RenderGroupMgr::GetRenderer(&v15, *(a1 + 408), v7);
   if (v15)
   {
     v8 = (*(*v15 + 96))(v15);
@@ -8464,7 +8283,7 @@ BOOL Phase::Controller::SpatialSubmixRouter::IsStopped(uint64_t a1, uint64_t a2)
     v10 = **(Phase::Logger::GetInstance(0) + 240);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(a1 + 48), __p);
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, *(a1 + 48));
       v11 = v14 >= 0 ? __p : __p[0];
       v12 = *v4;
       *buf = 136315906;
@@ -8528,12 +8347,12 @@ uint64_t Phase::Controller::SpatialSubmixRouter::GetPlayState(Phase::Controller:
   }
 }
 
-void Phase::Controller::SpatialSubmixRouter::Update(Phase::Controller::SpatialSubmixRouter *this, double a2)
+void Phase::Controller::SpatialSubmixRouter::Update(atomic_ullong *this, double a2)
 {
   v145 = *MEMORY[0x277D85DE8];
-  Phase::Controller::RenderGroupMgr::LoadFreshData(*(this + 51));
+  Phase::Controller::RenderGroupMgr::LoadFreshData(this[51]);
   Phase::Controller::RouterCommandList::ExecuteCommands(this, this);
-  for (i = *(this + 17); i; i = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::erase(this + 15, i))
+  for (i = this[17]; i; i = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::erase(this + 15, i))
   {
     v5 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(this + 10, i + 2);
     if (v5)
@@ -8542,7 +8361,7 @@ void Phase::Controller::SpatialSubmixRouter::Update(Phase::Controller::SpatialSu
       v7 = **(Phase::Logger::GetInstance(v5) + 240);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+        Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
         v8 = v139 >= 0 ? __p : __p[0];
         v9 = i[2];
         *buf = 136315906;
@@ -8563,7 +8382,7 @@ void Phase::Controller::SpatialSubmixRouter::Update(Phase::Controller::SpatialSu
       std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::erase(this + 10, v6);
     }
 
-    v10 = *(this + 51);
+    v10 = this[51];
     v11 = i[2];
     v12 = i[3];
     v13 = i[5];
@@ -8593,7 +8412,7 @@ void Phase::Controller::SpatialSubmixRouter::Update(Phase::Controller::SpatialSu
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+        Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
         if (v139 >= 0)
         {
           v19 = __p;
@@ -8622,7 +8441,7 @@ void Phase::Controller::SpatialSubmixRouter::Update(Phase::Controller::SpatialSu
 
     else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+      Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
       if (v139 >= 0)
       {
         v24 = __p;
@@ -8654,7 +8473,7 @@ LABEL_26:
     }
   }
 
-  v26 = *(*(this + 51) + 152);
+  v26 = *(this[51] + 152);
   if (!v26)
   {
     v132 = 0;
@@ -8668,15 +8487,15 @@ LABEL_26:
   {
     v130 = v26;
     v127 = v26 + 2;
-    Phase::Controller::RenderGroupMgr::GetRenderer(*(this + 51), v26[2], &v135);
+    Phase::Controller::RenderGroupMgr::GetRenderer(&v135, this[51], v26[2]);
     v27 = v135;
     if (!v135)
     {
-      v32 = *(this + 53);
-      v33 = *(this + 54);
+      v32 = this[53];
+      v33 = this[54];
       if (v32 >= v33)
       {
-        v90 = *(this + 52);
+        v90 = this[52];
         v91 = (v32 - v90) >> 5;
         v92 = v91 + 1;
         if ((v91 + 1) >> 59)
@@ -8707,16 +8526,16 @@ LABEL_26:
 
         v108 = (32 * v91);
         *v108 = v130[3];
-        v108[1] = *v127;
-        v34 = 32 * v91 + 32;
-        v109 = *(this + 52);
-        v110 = *(this + 53) - v109;
-        v111 = v108 - v110;
-        memcpy(v108 - v110, v109, v110);
-        v112 = *(this + 52);
-        *(this + 52) = v111;
-        *(this + 53) = v34;
-        *(this + 54) = 0;
+        *(v108 + 1) = *v127;
+        v34 = (32 * v91 + 32);
+        v109 = this[52];
+        v110 = (this[53] - v109);
+        v111 = (v108 - v110);
+        memcpy((v108 - v110), v109, v110);
+        v112 = this[52];
+        this[52] = v111;
+        this[53] = v34;
+        this[54] = 0;
         if (v112)
         {
           operator delete(v112);
@@ -8726,11 +8545,11 @@ LABEL_26:
       else
       {
         *v32 = v130[3];
-        v32[1] = *v127;
-        v34 = (v32 + 2);
+        *(v32 + 1) = *v127;
+        v34 = (v32 + 32);
       }
 
-      *(this + 53) = v34;
+      this[53] = v34;
       v126 = 1;
       goto LABEL_169;
     }
@@ -8741,14 +8560,14 @@ LABEL_26:
       v29 = **(Phase::Logger::GetInstance(v28) + 240);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+        Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
         v30 = __p;
         if (v139 < 0)
         {
           v30 = __p[0];
         }
 
-        v31 = v27[5];
+        v31 = *(v27 + 40);
         *buf = 136315906;
         *&buf[4] = "CvmSpatialSubmixRouter.mm";
         *&buf[12] = 1024;
@@ -8767,7 +8586,7 @@ LABEL_26:
       goto LABEL_169;
     }
 
-    for (j = *(*(this + 51) + 232); j; j = *j)
+    for (j = *(this[51] + 232); j; j = *j)
     {
       *buf = *(j + 1);
       v36 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>(this + 20, buf);
@@ -8781,17 +8600,17 @@ LABEL_26:
         v37 = 0;
       }
 
-      if (*(this + 54) > v37 && (v38 = *(this + 25) + 24 * v37, *(v38 + 20) == HIDWORD(v37)) && (v39 = *v38) != 0)
+      if (*(this + 54) > v37 && (v38 = (this[25] + 24 * v37), *(v38 + 5) == HIDWORD(v37)) && (v39 = *v38) != 0)
       {
         if (*(v39 + 120) != 1)
         {
           if (v127->mStorage[0] == j[4] && v130[2].mStorage[1] == j[5] || v127->mStorage[0] == *(v39 + 48) && v130[2].mStorage[1] == *(v39 + 56))
           {
-            v41 = *(this + 59);
-            v40 = *(this + 60);
+            v41 = this[59];
+            v40 = this[60];
             if (v41 >= v40)
             {
-              v43 = *(this + 58);
+              v43 = this[58];
               v44 = v41 - v43;
               v45 = (v41 - v43) >> 3;
               v46 = v45 + 1;
@@ -8830,11 +8649,11 @@ LABEL_26:
               v53 = (8 * v45);
               v54 = &v53[-v52];
               *v53 = v39;
-              v42 = v53 + 1;
+              v42 = (v53 + 1);
               memcpy(v54, v43, v44);
-              *(this + 58) = v54;
-              *(this + 59) = v42;
-              *(this + 60) = 0;
+              this[58] = v54;
+              this[59] = v42;
+              this[60] = 0;
               if (v43)
               {
                 operator delete(v43);
@@ -8844,19 +8663,19 @@ LABEL_26:
             else
             {
               *v41 = v39;
-              v42 = v41 + 8;
+              v42 = (v41 + 8);
             }
 
-            *(this + 59) = v42;
+            this[59] = v42;
           }
 
           continue;
         }
 
-        std::vector<Phase::UniqueObjectId>::push_back[abi:ne200100](this + 440, j + 1);
+        std::vector<Phase::UniqueObjectId>::push_back[abi:ne200100]((this + 55), j + 1);
         if (*(v39 + 48) != 0)
         {
-          Phase::Controller::RenderGroupMgr::GetRenderer(*(this + 51), *(v39 + 48), &v133);
+          Phase::Controller::RenderGroupMgr::GetRenderer(&v133, this[51], *(v39 + 48));
           if (v133)
           {
             (*(*v133 + 40))(v133, *v39, *(v39 + 8));
@@ -8867,7 +8686,7 @@ LABEL_26:
             v49 = **(Phase::Logger::GetInstance(0) + 240);
             if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
             {
-              Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+              Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
               v50 = __p;
               if (v139 < 0)
               {
@@ -8900,14 +8719,14 @@ LABEL_26:
 
       else
       {
-        std::vector<Phase::UniqueObjectId>::push_back[abi:ne200100](this + 440, j + 1);
+        std::vector<Phase::UniqueObjectId>::push_back[abi:ne200100]((this + 55), j + 1);
       }
 
       v132 = 1;
     }
 
-    v55 = *(this + 58);
-    v56 = *(this + 59);
+    v55 = this[58];
+    v56 = this[59];
     v57 = v56 - v55;
     v125 = v56 - v55;
     v124 = v55;
@@ -8925,9 +8744,9 @@ LABEL_26:
     do
     {
       v58 = *v55;
-      v59 = *(this + 51);
+      v59 = this[51];
       *buf = **v55;
-      v60 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>((v59 + 216), buf);
+      v60 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>(v59 + 27, buf);
       if (v60)
       {
         v61 = v60[6];
@@ -8938,9 +8757,9 @@ LABEL_26:
         v61 = 1.0;
       }
 
-      v62 = *(this + 51);
+      v62 = this[51];
       *buf = *v58;
-      v63 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>((v62 + 216), buf);
+      v63 = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::unique_ptr<Phase::ActionTreeIOManager::BufferInfo>>>>::find<Phase::UniqueObjectId>(v62 + 27, buf);
       if (v63)
       {
         v64 = *(v63 + 2) == 0;
@@ -8998,7 +8817,7 @@ LABEL_100:
         v74 = **(Phase::Logger::GetInstance(v67) + 240);
         if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
         {
-          Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+          Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
           v75 = __p;
           if (v139 < 0)
           {
@@ -9030,14 +8849,14 @@ LABEL_100:
         {
           v146.mStorage[0] = v69;
           v146.mStorage[1] = v68;
-          Phase::Controller::RenderGroupMgr::GetRenderer(*(this + 51), v146, &v133);
+          Phase::Controller::RenderGroupMgr::GetRenderer(&v133, this[51], v146);
           if (v133)
           {
             v79 = (*(*v133 + 40))(v133, *v58, *(v58 + 1));
             v80 = **(Phase::Logger::GetInstance(v79) + 240);
             if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
             {
-              Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+              Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
               v81 = __p;
               if (v139 < 0)
               {
@@ -9068,7 +8887,7 @@ LABEL_100:
             v80 = **(Phase::Logger::GetInstance(0) + 240);
             if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
             {
-              Phase::Controller::SpatialModelerInfo::GetDescription(*(this + 6), __p);
+              Phase::Controller::SpatialModelerInfo::GetDescription(__p, this[6]);
               v87 = __p;
               if (v139 < 0)
               {
@@ -9134,7 +8953,7 @@ LABEL_123:
       }
 
 LABEL_128:
-      v55 += 8;
+      v55 = (v55 + 8);
     }
 
     while (v55 != v56);
@@ -9184,11 +9003,11 @@ LABEL_139:
     else
     {
       (*(v97 + 112))(v66, 0, 0);
-      v98 = *(this + 53);
-      v99 = *(this + 54);
+      v98 = this[53];
+      v99 = this[54];
       if (v98 >= v99)
       {
-        v103 = *(this + 52);
+        v103 = this[52];
         v104 = (v98 - v103) >> 5;
         v105 = v104 + 1;
         if ((v104 + 1) >> 59)
@@ -9219,16 +9038,16 @@ LABEL_139:
 
         v113 = (32 * v104);
         *v113 = v130[3];
-        v113[1] = *v127;
-        v100 = 32 * v104 + 32;
-        v114 = *(this + 52);
-        v115 = *(this + 53) - v114;
-        v116 = v113 - v115;
-        memcpy(v113 - v115, v114, v115);
-        v117 = *(this + 52);
-        *(this + 52) = v116;
-        *(this + 53) = v100;
-        *(this + 54) = 0;
+        *(v113 + 1) = *v127;
+        v100 = (32 * v104 + 32);
+        v114 = this[52];
+        v115 = (this[53] - v114);
+        v116 = (v113 - v115);
+        memcpy((v113 - v115), v114, v115);
+        v117 = this[52];
+        this[52] = v116;
+        this[53] = v100;
+        this[54] = 0;
         if (v117)
         {
           operator delete(v117);
@@ -9238,15 +9057,15 @@ LABEL_139:
       else
       {
         *v98 = v130[3];
-        v98[1] = *v127;
-        v100 = (v98 + 2);
+        *(v98 + 1) = *v127;
+        v100 = (v98 + 32);
       }
 
-      *(this + 53) = v100;
+      this[53] = v100;
       v126 = 1;
     }
 
-    *(this + 59) = *(this + 58);
+    this[59] = this[58];
 LABEL_169:
     if (v136)
     {
@@ -9258,50 +9077,50 @@ LABEL_169:
 
   while (v130->mStorage[0]);
 LABEL_174:
-  v118 = *(this + 52);
-  if (*(this + 53) != v118)
+  v118 = this[52];
+  if (this[53] != v118)
   {
     v119 = 0;
     v120 = 0;
     do
     {
       std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>>>::__erase_unique<Phase::UniqueObjectId>(this + 10, (v118 + v119 + 16));
-      Phase::Controller::RenderGroupMgr::RemoveRenderGroup(*(this + 51), *(*(this + 52) + v119), *(*(this + 52) + v119 + 8));
+      Phase::Controller::RenderGroupMgr::RemoveRenderGroup(this[51], *(this[52] + v119), *(this[52] + v119 + 8));
       ++v120;
-      v118 = *(this + 52);
+      v118 = this[52];
       v119 += 32;
     }
 
-    while (v120 < (*(this + 53) - v118) >> 5);
+    while (v120 < (this[53] - v118) >> 5);
   }
 
-  v121 = *(this + 55);
-  if (*(this + 56) != v121)
+  v121 = this[55];
+  if (this[56] != v121)
   {
     v122 = 0;
     v123 = 0;
     do
     {
-      Phase::Controller::RenderGroupMgr::RemoveSubmix(*(this + 51), *(v121 + v122), *(v121 + v122 + 8));
+      Phase::Controller::RenderGroupMgr::RemoveSubmix(this[51], *(v121 + v122), *(v121 + v122 + 8));
       ++v123;
-      v121 = *(this + 55);
+      v121 = this[55];
       v122 += 16;
     }
 
-    while (v123 < (*(this + 56) - v121) >> 4);
+    while (v123 < (this[56] - v121) >> 4);
   }
 
   if (v126)
   {
-    *(this + 53) = *(this + 52);
+    this[53] = this[52];
   }
 
   if (v132)
   {
-    *(this + 56) = v121;
+    this[56] = v121;
   }
 
-  Phase::Controller::RenderGroupMgr::SendChanges(*(this + 51));
+  Phase::Controller::RenderGroupMgr::SendChanges(this[51]);
 }
 
 void sub_23A37C2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, std::__shared_weak_count *a29)
@@ -9475,20 +9294,20 @@ void std::vector<Phase::UniqueObjectId>::push_back[abi:ne200100](uint64_t a1, _O
   *(a1 + 8) = v6;
 }
 
-void Phase::Fader<double>::Update(uint64_t a1, double a2)
+void Phase::Fader<double>::Update(uint64_t result, double a2)
 {
   if (a2 > 0.0)
   {
-    v2 = *(a1 + 24) + a2;
-    *(a1 + 24) = v2;
-    v3 = *(*(a1 + 8) - 48);
+    v2 = *(result + 24) + a2;
+    *(result + 24) = v2;
+    v3 = *(*(result + 8) - 48);
     if (v2 > v3)
     {
-      *(a1 + 24) = v3;
+      *(result + 24) = v3;
       v2 = v3;
     }
 
-    *(a1 + 40) = Phase::Envelope<double>::operator()(a1, v2);
+    *(result + 40) = Phase::Envelope<double>::operator()(result, v2);
   }
 }
 
@@ -9598,7 +9417,7 @@ void std::__destroy_at[abi:ne200100]<Phase::Controller::SpatialSubmixRouter::Sto
   }
 }
 
-uint64_t std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__init_with_size[abi:ne200100]<Phase::Envelope<double>::SegmentInternal*,Phase::Envelope<double>::SegmentInternal*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__init_with_size[abi:ne200100]<Phase::Envelope<double>::SegmentInternal*,Phase::Envelope<double>::SegmentInternal*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9637,8 +9456,7 @@ void std::__function::__func<std::__bind<void (Phase::Controller::SpatialSubmixR
   v6 = *a2;
   v7 = a2[1];
   v8 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   v4(v5, v6, v7, &v8);
   if (*(&v8 + 1))
   {
@@ -9789,4 +9607,270 @@ uint64_t Phase::details::SharedSlotMap<Phase::Controller::SpatialSubmixRouter::S
   }
 
   return result;
+}
+
+void sub_23A37CEBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__shared_ptr_emplace<Phase::Controller::SpatialSubmixRouter::SubmixParams>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_284D31778;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x23EE864A0);
+}
+
+void *_ZN5Phase7details13SharedSlotMapINS_10Controller19SpatialSubmixRouter12SubmixParamsENS_8Handle64EE13GetSlotToEditIRZNS_13SharedSlotMapIS4_S5_DnE9GetUniqueES5_EUlRT_E_EEPNS_18SharedSlotMapStateIS4_S5_E4SlotES5_OSA_(uint64_t *a1, uint64_t a2)
+{
+  result = Phase::details::SharedSlotMap<Phase::Controller::SpatialSubmixRouter::SubmixParams,Phase::Handle64>::GetUniqueSlot(a1, a2);
+  if (result)
+  {
+    v3 = result[1];
+    if (v3)
+    {
+      if (*(v3 + 8) >= 1)
+      {
+        operator new();
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_23A37D064(_Unwind_Exception *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(v1);
+  operator delete(v3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::Controller::Renderer>>>>::__erase_unique<Phase::UniqueObjectId>(void *a1, void *a2)
+{
+  result = std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::find<Phase::UniqueObjectId>(a1, a2);
+  if (result)
+  {
+
+    return std::__hash_table<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::__unordered_map_hasher<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::hash<Phase::UniqueObjectId>,std::equal_to<Phase::UniqueObjectId>,true>,std::__unordered_map_equal<Phase::UniqueObjectId,std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>,std::equal_to<Phase::UniqueObjectId>,std::hash<Phase::UniqueObjectId>,true>,std::allocator<std::__hash_value_type<Phase::UniqueObjectId,std::shared_ptr<Phase::ActionTreeObject>>>>::erase(a1, result);
+  }
+
+  return result;
+}
+
+void sub_23A37D4E0(_Unwind_Exception *a1)
+{
+  __cxa_free_exception(v2);
+  std::unique_ptr<Phase::Controller::SamplerCallBackDoubleBuffer>::reset[abi:ne200100]((v1 + 656), 0);
+  std::unique_ptr<std::unordered_map<long long,std::pair<void *,BOOL>>>::reset[abi:ne200100]((v1 + 648), 0);
+
+  Phase::Controller::SamplerBase::~SamplerBase(v1);
+  _Unwind_Resume(a1);
+}
+
+void Phase::Controller::StreamSamplerBase::~StreamSamplerBase(id *this)
+{
+  *this = &unk_284D317C8;
+  std::unique_ptr<Phase::Controller::SamplerCallBackDoubleBuffer>::reset[abi:ne200100](this + 82, 0);
+  std::unique_ptr<std::unordered_map<long long,std::pair<void *,BOOL>>>::reset[abi:ne200100](this + 81, 0);
+
+  Phase::Controller::SamplerBase::~SamplerBase(this);
+}
+
+void Phase::Controller::StreamSamplerBase::InternalPrepare(Phase::Controller::StreamSamplerBase *this, double a2)
+{
+  v3 = Phase::Controller::TaskManager::GetService<Phase::Controller::VoiceManager>(*(this + 3), 8);
+  (*(**(*v3 + 688) + 112))(*(*v3 + 688));
+  [*(this + 79) channelCount];
+  operator new();
+}
+
+uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::VoiceManager>(Phase::Logger *a1, int a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 6);
+  if (a2 >= ((*(a1 + 7) - v3) >> 5))
+  {
+    v7 = **(Phase::Logger::GetInstance(a1) + 464);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
+      _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::domain_error::domain_error[abi:ne200100](exception, "PRECONDITION: pId < mServiceRegistry.size() is false.");
+  }
+
+  v4 = (v3 + 32 * a2);
+  if (!*v4)
+  {
+    v9 = **(Phase::Logger::GetInstance(v4) + 464);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      Phase::GetBacktraceFrame<1ul>(&__p);
+      v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+      *buf = 136315906;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
+      _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+    }
+
+    v11 = __cxa_allocate_exception(0x10uLL);
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
+  }
+
+  v5 = std::any_cast[abi:ne200100]<Phase::Controller::VoiceManager * const>(v4);
+  if (!v5)
+  {
+    std::__throw_bad_any_cast[abi:ne200100]();
+  }
+
+  return *v5;
+}
+
+void sub_23A37DADC(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    __clang_call_terminate(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_23A37E00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+{
+  va_start(va, a19);
+  std::vector<Phase::Controller::DspNode>::__destroy_vector::operator()[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t Phase::Controller::StreamSamplerBase::IORenderOutput(Phase::Controller::StreamSamplerBase *this, uint64_t *a2, const AudioTimeStamp *a3, unsigned int *a4, AudioBufferList *a5)
+{
+  v35 = *MEMORY[0x277D85DE8];
+  if (!this || !a4)
+  {
+LABEL_19:
+    std::terminate();
+  }
+
+  if (*a4 != 1)
+  {
+    if (!*a4)
+    {
+      goto LABEL_19;
+    }
+
+    v8 = *(a4 + 2);
+    v9 = (*(**(this + 5) + 64))(*(this + 5), *(this + 37), *(this + 38), a2, a3, a4);
+    if (v9)
+    {
+      if (*(a4 + 2) != v8)
+      {
+        v10 = **(Phase::Logger::GetInstance(v9) + 400);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          v11 = *a2;
+          v12 = *(a4 + 2);
+          *v24 = 136316418;
+          *&v24[4] = "CvmStreamSamplerBase.mm";
+          v25 = 1024;
+          v26 = 177;
+          v27 = 2048;
+          v28 = this;
+          v29 = 2048;
+          v30 = v11;
+          v31 = 2048;
+          v32 = v8;
+          v33 = 2048;
+          v34 = v12;
+          _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d impl@%p: [IO] st@%f: internal buffer pointer changed [from %p to %p]!", v24, 0x3Au);
+          std::terminate();
+        }
+
+        goto LABEL_19;
+      }
+
+      goto LABEL_10;
+    }
+
+    return 0;
+  }
+
+  if (!(*(**(this + 5) + 64))(*(this + 5), *(this + 37), *(this + 38), a2, a3, a4))
+  {
+    return 0;
+  }
+
+LABEL_10:
+  v13 = *a4;
+  v14 = 1;
+  if (v13)
+  {
+    v15 = 0;
+    v16 = 0;
+    v17 = 4;
+    do
+    {
+      if ((*(this + 9) & (1 << v15)) != 0)
+      {
+        v18 = *(this + 81);
+        *v24 = *(*(this + 20) + 88 * v16 + 8);
+        v19 = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>(v18, v24);
+        v19[3] = *&a4[v17];
+        *(v19 + 32) = 1;
+        ++v16;
+        v13 = *a4;
+      }
+
+      ++v15;
+      v17 += 4;
+    }
+
+    while (v15 < v13);
+    if (v13 > 1)
+    {
+      v20 = *(this + 82);
+      if (*(v20 + 40) != 1)
+      {
+        v22 = *(v20 + 16);
+        v21 = *(v20 + 24);
+        if (v22 == v21)
+        {
+          v21 = *(v20 + 32);
+        }
+
+        else if (v22 != *(v20 + 32))
+        {
+          goto LABEL_19;
+        }
+
+        *(v20 + 16) = v21;
+        Phase::Controller::SamplerCallBackDoubleBuffer::PrepareRenderingBuffer(v20);
+      }
+    }
+
+    return 1;
+  }
+
+  return v14;
 }

@@ -7,7 +7,7 @@
 
 - (void)isFeatureEnabledFromCache:(BOOL)cache completionHandler:(id)handler
 {
-  v7 = sub_100006410(&qword_1003A0110);
+  v7 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

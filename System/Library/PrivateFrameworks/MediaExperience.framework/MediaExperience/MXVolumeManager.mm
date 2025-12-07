@@ -41,7 +41,7 @@ MXVolumeManager *__33__MXVolumeManager_sharedInstance__block_invoke()
 
 + (void)applyVolumeReductionToHeadphoneRoutes:(float)routes
 {
-  v4 = MXGetSerialQueue();
+  v4 = MXGetSerialQueue(self, a2);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __57__MXVolumeManager_applyVolumeReductionToHeadphoneRoutes___block_invoke;
@@ -52,7 +52,7 @@ MXVolumeManager *__33__MXVolumeManager_sharedInstance__block_invoke()
 
 void __57__MXVolumeManager_applyVolumeReductionToHeadphoneRoutes___block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -61,56 +61,55 @@ void __57__MXVolumeManager_applyVolumeReductionToHeadphoneRoutes___block_invoke(
   }
 
   PVMApplyVolumeReductionToHeadphoneRoutes(*(a1 + 32));
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateMediaVolumeForPersonalDevice:(id *)device oldRoute:(id *)route
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E695DF00] now];
   v7 = *&route->var2;
-  v22 = *&route->var0;
-  v23 = v7;
+  v21 = *&route->var0;
+  v22 = v7;
   var4 = route->var4;
   v8 = *&device->var2;
-  v20[0] = *&device->var0;
-  v20[1] = v8;
-  v21 = device->var4;
-  if ((PVMAreTwoRoutesIdentical(&v22, v20) & 1) == 0)
+  v19[0] = *&device->var0;
+  v19[1] = v8;
+  *v20 = device->var4;
+  if ((PVMAreTwoRoutesIdentical(&v21, v19) & 1) == 0)
   {
     v9 = *&route->var2;
-    v22 = *&route->var0;
-    v23 = v9;
+    v21 = *&route->var0;
+    v22 = v9;
     var4 = route->var4;
-    if (PVMIsRoutedToAPersonalAudioDevice(&v22))
+    if (PVMIsRoutedToAPersonalAudioDevice(&v21))
     {
       v10 = *&route->var2;
-      v22 = *&route->var0;
-      v23 = v10;
+      v21 = *&route->var0;
+      v22 = v10;
       var4 = route->var4;
-      PVMSaveEndpointDisconnectionTimeInfo(&v22, v6);
+      PVMSaveEndpointDisconnectionTimeInfo(&v21, v6);
     }
 
     CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
     if (!vaeIsBTPortAdaptiveVolumeEnabled(CurrentOutputPortAtIndex))
     {
       v12 = *&device->var2;
-      v22 = *&device->var0;
-      v23 = v12;
+      v21 = *&device->var0;
+      v22 = v12;
       var4 = device->var4;
-      if (PVMIsRoutedToAPersonalAudioDevice(&v22))
+      if (PVMIsRoutedToAPersonalAudioDevice(&v21))
       {
         v13 = *&device->var2;
-        v22 = *&device->var0;
-        v23 = v13;
+        v21 = *&device->var0;
+        v22 = v13;
         var4 = device->var4;
-        if (PVMGetVolumePreference(@"Audio/Video", @"Default", &v22) < 0.1)
+        if (PVMGetVolumePreference(@"Audio/Video", @"Default", &v21) < 0.1)
         {
           v14 = *&device->var2;
-          v22 = *&device->var0;
-          v23 = v14;
+          v21 = *&device->var0;
+          v22 = v14;
           var4 = device->var4;
-          v15 = PVMCopyEndpointDisconnectionTimeInfo(&v22);
+          v15 = PVMCopyEndpointDisconnectionTimeInfo(&v21);
           if (v15)
           {
             [v6 timeIntervalSinceDate:v15];
@@ -124,18 +123,16 @@ void __57__MXVolumeManager_applyVolumeReductionToHeadphoneRoutes___block_invoke(
               }
 
               v18 = *&device->var2;
-              v22 = *&device->var0;
-              v23 = v18;
+              v21 = *&device->var0;
+              v22 = v18;
               var4 = device->var4;
-              PVMSetVolumePreference(@"Audio/Video", 0, 1, &v22, 0, 0, 0.1, 0.0, 0.0);
+              PVMSetVolumePreference(@"Audio/Video", 0, 1, &v21, 0, 0, 0.1, 0.0, 0.0);
             }
           }
         }
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

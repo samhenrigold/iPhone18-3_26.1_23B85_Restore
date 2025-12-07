@@ -6,13 +6,14 @@
 
 - (void)createInputManager:(id)manager
 {
-  v8.receiver = self;
-  v8.super_class = TIKeyboardFeatureSpecialization_es;
-  [(TIKeyboardQuickTypeSpecialization *)&v8 createInputManager:manager];
+  v6.receiver = self;
+  v6.super_class = TIKeyboardFeatureSpecialization_es;
+  [(TIKeyboardQuickTypeSpecialization *)&v6 createInputManager:manager];
   inputMode = [(TIKeyboardFeatureSpecialization *)self inputMode];
-  locale = [inputMode locale];
+  [inputMode locale];
+  objc_claimAutoreleasedReturnValue();
 
-  KB::InputManagerSpecialization_es::create(locale, v6);
+  KB::InputManagerSpecialization_es::create();
 }
 
 @end

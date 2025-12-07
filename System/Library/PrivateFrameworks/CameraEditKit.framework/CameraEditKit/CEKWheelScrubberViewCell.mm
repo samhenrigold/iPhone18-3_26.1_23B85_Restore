@@ -37,7 +37,7 @@
 
 + (CGSize)defaultContentSize
 {
-  v2 = CEKIsSmallPhone();
+  v2 = CEKIsSmallPhone(self, a2);
   v3 = 52.0;
   if (v2)
   {

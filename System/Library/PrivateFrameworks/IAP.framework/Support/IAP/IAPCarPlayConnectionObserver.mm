@@ -8,9 +8,9 @@
 
 - (IAPCarPlayConnectionObserver)initWithPort:(CIapPortIOKit *)port
 {
-  v13.receiver = self;
-  v13.super_class = IAPCarPlayConnectionObserver;
-  v4 = [(IAPCarPlayConnectionObserver *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = IAPCarPlayConnectionObserver;
+  v4 = [(IAPCarPlayConnectionObserver *)&v12 init];
   v5 = v4;
   if (v4)
   {
@@ -32,7 +32,6 @@
 
       NSLog(@"_isStarkPossibleByCarPlaySettings = %d, _parentUSBPort = %hhx", isCarPlayAllowed, parentUSBPort);
       v10 = v5->_parentUSBPort;
-      isStarkPossibleByCarPlaySettings = v5->_isStarkPossibleByCarPlaySettings;
       goto LABEL_7;
     }
 
@@ -73,7 +72,6 @@ LABEL_7:
     {
       NSLog(@"_isStarkPossibleByCarPlaySettings = %d, _parentUSBPort = %hhx", isCarPlayAllowed, parentUSBPort);
       v5 = self->_parentUSBPort;
-      isStarkPossibleByCarPlaySettings = self->_isStarkPossibleByCarPlaySettings;
 
       sub_10000DCC0(v5);
     }

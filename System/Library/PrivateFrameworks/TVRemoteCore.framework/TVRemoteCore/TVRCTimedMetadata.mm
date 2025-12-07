@@ -1,4 +1,5 @@
 @interface TVRCTimedMetadata
++ (TVRCTimedMetadata)timedMetadataWithIdentifier:(id)identifier rawData:(id)data expectsTimedMetadata:(BOOL)metadata;
 + (id)_timedMetadataWithIdentifier:(id)identifier rawData:(id)data expectsTimedMetadata:(id)metadata;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToTimedMetadata:(id)metadata;
@@ -9,6 +10,18 @@
 @end
 
 @implementation TVRCTimedMetadata
+
++ (TVRCTimedMetadata)timedMetadataWithIdentifier:(id)identifier rawData:(id)data expectsTimedMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  v8 = MEMORY[0x277CCABB0];
+  dataCopy = data;
+  identifierCopy = identifier;
+  v11 = [v8 numberWithBool:metadataCopy];
+  v12 = [self _timedMetadataWithIdentifier:identifierCopy rawData:dataCopy expectsTimedMetadata:v11];
+
+  return v12;
+}
 
 + (id)_timedMetadataWithIdentifier:(id)identifier rawData:(id)data expectsTimedMetadata:(id)metadata
 {
@@ -63,34 +76,7 @@
 - (BOOL)isEqualToTimedMetadata:(id)metadata
 {
   metadataCopy = metadata;
-  if (!metadataCopy)
-  {
-    goto LABEL_7;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  hasExpectsTimedMetadata = [(TVRCTimedMetadata *)self hasExpectsTimedMetadata];
-  if (hasExpectsTimedMetadata != [metadataCopy hasExpectsTimedMetadata])
-  {
-    goto LABEL_7;
-  }
-
-  expectsTimedMetadata = [(TVRCTimedMetadata *)self expectsTimedMetadata];
-  if (expectsTimedMetadata != [metadataCopy expectsTimedMetadata])
-  {
-    goto LABEL_7;
-  }
-
-  identifier = [(TVRCTimedMetadata *)self identifier];
-  identifier2 = [metadataCopy identifier];
-  v9 = [identifier isEqualToString:identifier2];
-
-  if (v9)
+  if (metadataCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v5 = -[TVRCTimedMetadata hasExpectsTimedMetadata](self, "hasExpectsTimedMetadata"), v5 == [metadataCopy hasExpectsTimedMetadata]) && (v6 = -[TVRCTimedMetadata expectsTimedMetadata](self, "expectsTimedMetadata"), v6 == objc_msgSend(metadataCopy, "expectsTimedMetadata")) && (-[TVRCTimedMetadata identifier](self, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(metadataCopy, "identifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, v9))
   {
     rawData = [(TVRCTimedMetadata *)self rawData];
     rawData2 = [metadataCopy rawData];
@@ -99,7 +85,6 @@
 
   else
   {
-LABEL_7:
     v12 = 0;
   }
 

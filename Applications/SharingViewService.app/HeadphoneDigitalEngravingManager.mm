@@ -46,10 +46,11 @@
 
   v7 = (self + OBJC_IVAR____TtC18SharingViewService32HeadphoneDigitalEngravingManager_fetchEngravingDataHandler);
   v8 = *(self + OBJC_IVAR____TtC18SharingViewService32HeadphoneDigitalEngravingManager_fetchEngravingDataHandler);
+  v9 = *(self + OBJC_IVAR____TtC18SharingViewService32HeadphoneDigitalEngravingManager_fetchEngravingDataHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_100012050(v8);
+  sub_100012050(v8, v9);
 }
 
 - (void)deviceDidConnect:(id)connect

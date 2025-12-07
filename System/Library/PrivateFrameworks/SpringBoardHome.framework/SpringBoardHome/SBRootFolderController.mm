@@ -370,8 +370,8 @@
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  iconListViews = [(SBFolderController *)self iconListViews];
-  v9 = [iconListViews countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = objc_msgSend_iconListViews(self, 0);
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
@@ -382,14 +382,14 @@
       {
         if (*v16 != v11)
         {
-          objc_enumerationMutation(iconListViews);
+          objc_enumerationMutation(v8);
         }
 
         iconLocation3 = [*(*(&v15 + 1) + 8 * i) iconLocation];
         [v5 addObject:iconLocation3];
       }
 
-      v10 = [iconListViews countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -1400,7 +1400,7 @@ LABEL_26:
 
   else
   {
-    v6 = [leadingCustomViewControllers objectAtIndex:index];
+    v6 = objc_msgSend_objectAtIndex_(leadingCustomViewControllers);
   }
 
   if (objc_opt_respondsToSelector())
@@ -1427,7 +1427,7 @@ LABEL_26:
 
   else
   {
-    v6 = [trailingCustomViewControllers objectAtIndex:index];
+    v6 = objc_msgSend_objectAtIndex_(trailingCustomViewControllers);
   }
 
   if (objc_opt_respondsToSelector())
@@ -1714,7 +1714,7 @@ LABEL_5:
 
     else
     {
-      v10 = [v9 objectAtIndex:v7];
+      v10 = objc_msgSend_objectAtIndex_(v9);
     }
 
     goto LABEL_10;
@@ -2019,7 +2019,7 @@ LABEL_12:
 - (void)presentWidgetEditingViewControllerFromViewController:(id)controller withAllowedSizeClasses:(id)classes allowingNonStackableItems:(BOOL)items
 {
   itemsCopy = items;
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   classesCopy2 = classes;
   controllerCopy = controller;
@@ -2028,13 +2028,13 @@ LABEL_12:
 
   listLayoutProvider = [(SBFolderController *)self listLayoutProvider];
   [(SBFolderController *)self gridSizeClassDomain];
-  v51 = v53 = v11;
+  v52 = v54 = v11;
   v13 = [v11 chsWidgetFamilyMaskInDomain:?];
   v14 = itemsCopy;
   iconViewProvider = [(SBFolderController *)self iconViewProvider];
   folderDelegate = [(SBFolderController *)self folderDelegate];
   _addWidgetSheetStyle = [(SBRootFolderController *)self _addWidgetSheetStyle];
-  v52 = listLayoutProvider;
+  v53 = listLayoutProvider;
   if (_addWidgetSheetStyle == 1)
   {
     v18 = [(SBHAddWidgetSheetViewControllerBase *)[SBHPadAddSheetViewController alloc] initWithListLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider allowedWidgets:v13 addWidgetSheetStyle:v14, 1];
@@ -2069,12 +2069,11 @@ LABEL_12:
   [(SBHPadAddSheetViewController *)v18 setGalleryLayoutSize:_stackConfigurationGridSize];
   [(SBHPadAddSheetViewController *)v18 setSuggestedItems:v22 forGalleryLayoutSize:_stackConfigurationGridSize];
   -[SBHPadAddSheetViewController setAddWidgetSheetLocation:](v18, "setAddWidgetSheetLocation:", [_addWidgetSheetConfigurationManager addWidgetSheetLocation]);
-  [(SBRootFolderController *)self setAddSheetViewController:v18];
-  v23 = SBLogWidgets();
+  v23 = SBLogWidgets([(SBRootFolderController *)self setAddSheetViewController:v18]);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v61 = v10;
+    v62 = v10;
     _os_log_impl(&dword_1BEB18000, v23, OS_LOG_TYPE_DEFAULT, "Presenting add widget sheet with applicationWidgetCollections: %@", buf, 0xCu);
   }
 
@@ -2082,7 +2081,7 @@ LABEL_12:
   [(SBHAddWidgetSheetViewControllerBase *)v18 setDelegate:self];
   [(SBHPadAddSheetViewController *)v18 setModalPresentationStyle:2];
   view = [(SBRootFolderController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v26 = v25;
   v28 = v27;
 
@@ -2095,8 +2094,8 @@ LABEL_12:
   v33 = folderDelegate;
   sheetPresentationController = [(SBHPadAddSheetViewController *)v18 sheetPresentationController];
   [sheetPresentationController _setShouldDismissWhenTappedOutside:1];
-  v54 = v10;
-  v50 = _addWidgetSheetConfigurationManager;
+  v55 = v10;
+  v51 = _addWidgetSheetConfigurationManager;
   v35 = iconViewProvider;
   if (_addWidgetSheetStyle == 1)
   {
@@ -2146,13 +2145,13 @@ LABEL_12:
     [sheetPresentationController _setWantsBottomAttached:1];
   }
 
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewController_withAllowedSizeClasses_allowingNonStackableItems___block_invoke;
-  v57[3] = &unk_1E8089338;
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewController_withAllowedSizeClasses_allowingNonStackableItems___block_invoke;
+  v58[3] = &unk_1E8089338;
   v45 = v18;
-  v58 = v45;
-  [(SBRootFolderController *)self enumerateWidgetAddSheetObserversUsingBlock:v57];
+  v59 = v45;
+  [(SBRootFolderController *)self enumerateWidgetAddSheetObserversUsingBlock:v58];
   if (objc_opt_respondsToSelector())
   {
     [v33 rootFolderController:self willPresentAddSheetViewController:v45];
@@ -2161,21 +2160,21 @@ LABEL_12:
   v46 = _os_activity_create(&dword_1BEB18000, "Add Widget Sheet", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v46, &self->_widgetAddSheetActivityState);
 
-  v47 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v47))
+  v48 = SBLogTelemetrySignposts(v47);
+  if (os_signpost_enabled(v48))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v47, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_PRESENT", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v48, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_PRESENT", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
   }
 
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewController_withAllowedSizeClasses_allowingNonStackableItems___block_invoke_115;
-  v55[3] = &unk_1E8088F18;
-  v55[4] = self;
-  v56 = v45;
-  v48 = v45;
-  [(SBRootFolderController *)self presentViewController:v48 animated:1 completion:v55];
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewController_withAllowedSizeClasses_allowingNonStackableItems___block_invoke_115;
+  v56[3] = &unk_1E8088F18;
+  v56[4] = self;
+  v57 = v45;
+  v49 = v45;
+  [(SBRootFolderController *)self presentViewController:v49 animated:1 completion:v56];
 }
 
 void __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewController_withAllowedSizeClasses_allowingNonStackableItems___block_invoke_115(uint64_t a1)
@@ -2186,8 +2185,7 @@ void __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewCon
   v4[3] = &unk_1E8089338;
   v1 = *(a1 + 32);
   v5 = *(a1 + 40);
-  [v1 enumerateWidgetAddSheetObserversUsingBlock:v4];
-  v2 = SBLogWidgets();
+  v2 = SBLogWidgets([v1 enumerateWidgetAddSheetObserversUsingBlock:v4]);
   if (os_signpost_enabled(v2))
   {
     *v3 = 0;
@@ -2204,7 +2202,7 @@ void __128__SBRootFolderController_presentWidgetEditingViewControllerFromViewCon
   if (!v9)
   {
 LABEL_5:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_11;
   }
 
@@ -2222,35 +2220,35 @@ LABEL_5:
 
   if (observersCopy)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke;
-    v19[3] = &unk_1E8089338;
-    v20 = v9;
-    [(SBRootFolderController *)self enumerateWidgetAddSheetObserversUsingBlock:v19];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke;
+    v20[3] = &unk_1E8089338;
+    v21 = v9;
+    [(SBRootFolderController *)self enumerateWidgetAddSheetObserversUsingBlock:v20];
   }
 
-  v12 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v12))
+  v13 = SBLogTelemetrySignposts(v11);
+  if (os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_DISMISS", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_DISMISS", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke_116;
-  v14[3] = &unk_1E8089360;
-  v16 = controllerCopy;
-  v14[4] = self;
-  v17 = observersCopy;
-  v15 = v9;
-  [(SBNestingViewController *)self dismissViewControllerAnimated:sheetCopy completion:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke_116;
+  v15[3] = &unk_1E8089360;
+  v17 = controllerCopy;
+  v15[4] = self;
+  v18 = observersCopy;
+  v16 = v9;
+  [(SBNestingViewController *)self dismissViewControllerAnimated:sheetCopy completion:v15];
 
-  v11 = 1;
+  v12 = 1;
 LABEL_11:
 
-  return v11;
+  return v12;
 }
 
 void __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke_116(uint64_t a1)
@@ -2262,21 +2260,21 @@ void __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetV
 
   if (*(a1 + 49) == 1)
   {
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke_2;
-    v5[3] = &unk_1E8089338;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __101__SBRootFolderController__internalDismissWidgetAddSheet_clearAddSheetViewController_notifyObservers___block_invoke_2;
+    v6[3] = &unk_1E8089338;
     v2 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    [v2 enumerateWidgetAddSheetObserversUsingBlock:v5];
+    v7 = *(a1 + 40);
+    [v2 enumerateWidgetAddSheetObserversUsingBlock:v6];
   }
 
   os_activity_scope_leave((*(a1 + 32) + 1432));
-  v3 = SBLogWidgets();
-  if (os_signpost_enabled(v3))
+  v4 = SBLogWidgets(v3);
+  if (os_signpost_enabled(v4))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_DISMISS", " isAnimation=YES ", v4, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_WIDGET_ADD_SHEET_DISMISS", " isAnimation=YES ", v5, 2u);
   }
 }
 
@@ -3005,21 +3003,22 @@ void __72__SBRootFolderController__handleWidgetSheetViewControllerWillDisappear_
 
 - (BOOL)canShowWidgetIntroduction
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   currentPageIndex = [(SBFolderController *)self currentPageIndex];
   firstIconPageIndex = [(SBFolderController *)self firstIconPageIndex];
   v5 = [(SBRootFolderController *)self isDisplayingWidgetIntroductionOnPage:currentPageIndex];
-  v6 = SBLogWidgetDiscoverabilityMigration();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = v5;
+  v7 = SBLogWidgetDiscoverabilityMigration(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218240;
-    v9 = currentPageIndex == firstIconPageIndex;
-    v10 = 2048;
-    v11 = v5;
-    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "Root folder can show widget discoverability= %ld, is showing = %ld", &v8, 0x16u);
+    v9 = 134218240;
+    v10 = currentPageIndex == firstIconPageIndex;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Root folder can show widget discoverability= %ld, is showing = %ld", &v9, 0x16u);
   }
 
-  return currentPageIndex == firstIconPageIndex && !v5;
+  return (currentPageIndex == firstIconPageIndex) & (v6 ^ 1);
 }
 
 - (BOOL)iconListViewsContainWidget
@@ -3029,8 +3028,8 @@ void __72__SBRootFolderController__handleWidgetSheetViewControllerWillDisappear_
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  iconListViews = [(SBFolderController *)self iconListViews];
-  v3 = [iconListViews countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = objc_msgSend_iconListViews(self, a2, 0);
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = *v8;
@@ -3040,7 +3039,7 @@ void __72__SBRootFolderController__handleWidgetSheetViewControllerWillDisappear_
       {
         if (*v8 != v4)
         {
-          objc_enumerationMutation(iconListViews);
+          objc_enumerationMutation(v2);
         }
 
         if ([*(*(&v7 + 1) + 8 * i) containsWidget])
@@ -3050,7 +3049,7 @@ void __72__SBRootFolderController__handleWidgetSheetViewControllerWillDisappear_
         }
       }
 
-      v3 = [iconListViews countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -3111,7 +3110,7 @@ LABEL_11:
 LABEL_8:
       firstIconPageIndex = [(SBFolderController *)self firstIconPageIndex];
       v10 = [(SBFolderController *)self iconListViewAtIndex:[(SBFolderController *)self iconListViewIndexForPageIndex:firstIconPageIndex]];
-      v12 = SBLogWidgetDiscoverabilityMigration();
+      v12 = SBLogWidgetDiscoverabilityMigration(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = 134218496;
@@ -3143,7 +3142,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v10 = SBLogWidgetDiscoverabilityMigration();
+  v10 = SBLogWidgetDiscoverabilityMigration(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v13) = 0;
@@ -3364,8 +3363,8 @@ LABEL_2:
     v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    iconListViews = [(SBFolderController *)self iconListViews];
-    v7 = [iconListViews countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = objc_msgSend_iconListViews(self, 0);
+    v7 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v12 = *v18;
@@ -3375,7 +3374,7 @@ LABEL_2:
         {
           if (*v18 != v12)
           {
-            objc_enumerationMutation(iconListViews);
+            objc_enumerationMutation(v11);
           }
 
           iconLocation2 = [*(*(&v17 + 1) + 8 * i) iconLocation];
@@ -3388,7 +3387,7 @@ LABEL_2:
           }
         }
 
-        v7 = [iconListViews countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v7)
         {
           continue;
@@ -3663,7 +3662,7 @@ void __77__SBRootFolderController_viewWillTransitionToSize_withTransitionCoordin
   if ([(SBRootFolderController *)self isTransitioningHorizontally])
   {
     [scrollingCopy currentScrollOffset];
-    [(SBRootFolderController *)self pageStateTransitionSnapshotForScrollOffset:?];
+    objc_msgSend_pageStateTransitionSnapshotForScrollOffset_(self);
     v5 = [(SBRootFolderController *)self destinationPageState]== 0;
     implicitScrollTransition = [(SBRootFolderController *)self implicitScrollTransition];
     [implicitScrollTransition endTransitionSuccessfully:v5];
@@ -3985,24 +3984,24 @@ void __77__SBRootFolderController_viewWillTransitionToSize_withTransitionCoordin
     hiddenListCount = [folder hiddenListCount];
     if (hiddenListCount > [(SBRootFolderController *)self hiddenListCountWhenPageManagementPresented])
     {
-      [homeScreenDefaults setPagesHaveEverBeenHidden:1];
-      v25 = MEMORY[0x1E69DC650];
-      v15 = SBHBundle();
-      v16 = [v15 localizedStringForKey:@"PAGE_HIDING_ALERT_TITLE" value:&stru_1F3D472A8 table:?];
-      v17 = SBHBundle();
-      [v17 localizedStringForKey:@"PAGE_HIDING_ALERT_BODY" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      v18 = v26 = managerCopy;
-      v19 = [v25 alertControllerWithTitle:v16 message:v18 preferredStyle:1];
+      v15 = [homeScreenDefaults setPagesHaveEverBeenHidden:1];
+      v27 = MEMORY[0x1E69DC650];
+      v16 = SBHBundle(v15);
+      v17 = [v16 localizedStringForKey:@"PAGE_HIDING_ALERT_TITLE" value:&stru_1F3D472A8 table:?];
+      v18 = SBHBundle(v17);
+      [v18 localizedStringForKey:@"PAGE_HIDING_ALERT_BODY" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v19 = v28 = managerCopy;
+      v20 = [v27 alertControllerWithTitle:v17 message:v19 preferredStyle:1];
 
-      v20 = MEMORY[0x1E69DC648];
-      v21 = SBHBundle();
-      v22 = [v21 localizedStringForKey:@"OK" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-      v23 = [v20 actionWithTitle:v22 style:0 handler:0];
+      v21 = MEMORY[0x1E69DC648];
+      v23 = SBHBundle(v22);
+      v24 = [v23 localizedStringForKey:@"OK" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v25 = [v21 actionWithTitle:v24 style:0 handler:0];
 
-      [v19 addAction:v23];
-      [(SBRootFolderController *)self presentViewController:v19 animated:1 completion:0];
+      [v20 addAction:v25];
+      [(SBRootFolderController *)self presentViewController:v20 animated:1 completion:0];
 
-      managerCopy = v26;
+      managerCopy = v28;
     }
   }
 
@@ -4316,7 +4315,7 @@ LABEL_13:
   v40 = 0.0;
   v38 = 0u;
   v39 = 0u;
-  [(SBRootFolderController *)self pageStateTransitionSnapshotForScrollOffset:v7];
+  objc_msgSend_pageStateTransitionSnapshotForScrollOffset_(self, v7);
   implicitScrollTransition = [(SBRootFolderController *)self implicitScrollTransition];
   v10 = objc_opt_self();
   if (objc_opt_isKindOfClass())
@@ -4792,7 +4791,7 @@ LABEL_23:
   if ([(SBRootFolderController *)self isLeadingCustomViewPageHiddenAtIndex:index]!= hidden)
   {
     leadingCustomViewControllers = [(SBRootFolderController *)self leadingCustomViewControllers];
-    v9 = [leadingCustomViewControllers objectAtIndex:index];
+    v9 = objc_msgSend_objectAtIndex_(leadingCustomViewControllers);
 
     if (hiddenCopy)
     {

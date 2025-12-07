@@ -1,13 +1,13 @@
-void KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(uint64_t *a1, CFTypeRef *a2)
+void KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(uint64_t a1, CFTypeRef *a2)
 {
   v4 = 0;
-  v5 = a1[11];
+  v5 = *(a1 + 88);
   while (1)
   {
     v6 = v4;
     v7 = v5 + v4;
-    v8 = a1[3];
-    if (v7 >= (a1[4] - v8) >> 3)
+    v8 = *(a1 + 24);
+    if (v7 >= (*(a1 + 32) - v8) >> 3)
     {
       break;
     }
@@ -30,23 +30,23 @@ void KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definitio
     }
 
     v4 = v6 + 1;
-    if (v12 > v6 + 1 + ((a1[1] - *a1) >> 3))
+    if (v12 > v6 + 1 + ((*(a1 + 8) - *a1) >> 3))
     {
       v7 = v5 + v6;
       break;
     }
   }
 
-  for (i = a1[11]; i < v7; a1[11] = i)
+  for (i = *(a1 + 88); i < v7; *(a1 + 88) = i)
   {
-    v14 = a1[3];
-    if (i >= (a1[4] - v14) >> 3)
+    v14 = *(a1 + 24);
+    if (i >= (*(a1 + 32) - v14) >> 3)
     {
       break;
     }
 
     std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100](a1, (v14 + 8 * i));
-    i = a1[11] + 1;
+    i = *(a1 + 88) + 1;
   }
 
   v15 = *a2;
@@ -83,7 +83,7 @@ void KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definitio
   }
 
   v18 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v16, v17);
-  v19 = a1[7];
+  v19 = *(a1 + 56);
   if (!*&v19)
   {
     goto LABEL_38;
@@ -107,7 +107,7 @@ void KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definitio
     v23 = (*&v19 - 1) & v18;
   }
 
-  v24 = *(a1[6] + 8 * v23);
+  v24 = *(*(a1 + 48) + 8 * v23);
   if (!v24 || (v25 = *v24) == 0)
   {
 LABEL_38:
@@ -157,7 +157,7 @@ LABEL_37:
   }
 
   __p.__r_.__value_.__r.__words[0] = v48;
-  v41 = std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 6, v48);
+  v41 = std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 48), v48, &__p);
   v27 = v41[5];
   if (!v27)
   {
@@ -324,33 +324,33 @@ LABEL_8:
 
 uint64_t areDictionariesEqualWithPrecision(NSDictionary *a1, NSDictionary *a2, float a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a2;
   v6 = [(NSDictionary *)v4 count];
   if (v6 == [(NSDictionary *)v5 count])
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v7 = v4;
-    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
-          v13 = [(NSDictionary *)v7 objectForKeyedSubscript:v12, v22];
+          v12 = *(*(&v21 + 1) + 8 * i);
+          v13 = [(NSDictionary *)v7 objectForKeyedSubscript:v12, v21];
           v14 = [(NSDictionary *)v5 objectForKeyedSubscript:v12];
           if (!v14)
           {
@@ -394,7 +394,7 @@ LABEL_22:
           }
         }
 
-        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         v19 = 1;
         if (v9)
         {
@@ -418,26 +418,25 @@ LABEL_24:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
-void KB::CandidateFilterFactory::FilterStackDefinition::convert_filter_stack_definition_to_filters(uint64_t a1, uint64_t *a2, uint64_t a3)
+void KB::CandidateFilterFactory::FilterStackDefinition::convert_filter_stack_definition_to_filters(void *a1, uint64_t a2, uint64_t a3)
 {
   v65 = *MEMORY[0x277D85DE8];
-  v5 = a2[11];
-  v6 = a2[3];
-  for (i = a2[4]; v5 < (i - v6) >> 3; i = a2[4])
+  v5 = *(a2 + 88);
+  v6 = *(a2 + 24);
+  for (i = *(a2 + 32); v5 < (i - v6) >> 3; i = *(a2 + 32))
   {
-    a2[11] = v5 + 1;
+    *(a2 + 88) = v5 + 1;
     std::vector<applesauce::CF::DictionaryRef>::push_back[abi:nn200100](a2, (v6 + 8 * v5));
-    v5 = a2[11];
-    v6 = a2[3];
+    v5 = *(a2 + 88);
+    v6 = *(a2 + 24);
   }
 
   v51 = 0u;
   v9 = *a2;
-  v8 = a2[1];
+  v8 = *(a2 + 8);
   if (*a2 == v8)
   {
     goto LABEL_113;
@@ -545,7 +544,7 @@ LABEL_20:
     std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(buf, *(KB::CandidateFilterFactory::filter_factory_lookup_table(void)::lookup_table_ptr + 8));
     for (j = *(v19 + 16); j; j = *j)
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>> const&>(buf, (j + 2));
+      std::__hash_table<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>> const&>(buf, (j + 2), (j + 2));
     }
 
     if ((v55 & 0x80u) == 0)
@@ -1077,56 +1076,56 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::function<std:
   return a1;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>> const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::function<std::shared_ptr<KB::CandidateFilter> ()(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)>> const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -1134,45 +1133,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 void ___ZN2KB22CandidateFilterFactory27filter_factory_lookup_tableEv_block_invoke()
@@ -1361,14 +1357,14 @@ uint64_t std::unique_ptr<std::unordered_map<std::string,std::function<std::share
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCaseVariantsOfStaticWords>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -1376,10 +1372,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCaseVar
       }
 
       *buf = 136315394;
-      v7 = "FilterCaseVariantsOfStaticWords";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterCaseVariantsOfStaticWords";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -1407,14 +1403,14 @@ void std::__shared_ptr_emplace<KB::FilterCaseVariantsOfStaticWords>::~__shared_p
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDuplicates>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -1422,10 +1418,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDuplica
       }
 
       *buf = 136315394;
-      v7 = "FilterDuplicates";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterDuplicates";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -1442,14 +1438,14 @@ void std::__shared_ptr_emplace<KB::FilterDuplicates>::~__shared_ptr_emplace(std:
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::AddAlternativesForRetrocorrection>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -1457,10 +1453,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::AddAlternativ
       }
 
       *buf = 136315394;
-      v7 = "AddAlternativesForRetrocorrection";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "AddAlternativesForRetrocorrection";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -1477,23 +1473,23 @@ void std::__shared_ptr_emplace<KB::AddAlternativesForRetrocorrection>::~__shared
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNonVulgarIfTopCandidateVulgar>(const __CFDictionary **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v6 = 134217984;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "FilterNonVulgarIfTopCandidateVulgar factory expects 0 parameters, but specification includes %ld", &v6, 0xCu);
+      v7 = 134217984;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "FilterNonVulgarIfTopCandidateVulgar factory expects 0 parameters, but specification includes %ld", &v7, 0xCu);
     }
   }
 
@@ -1510,14 +1506,14 @@ void std::__shared_ptr_emplace<KB::FilterNonVulgarIfTopCandidateVulgar>::~__shar
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCommonLearnedTypos>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -1525,10 +1521,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCommonL
       }
 
       *buf = 136315394;
-      v7 = "FilterCommonLearnedTypos";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterCommonLearnedTypos";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
       std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::string>>>>::__deallocate_node(0);
     }
   }
@@ -1546,23 +1542,23 @@ void std::__shared_ptr_emplace<KB::FilterCommonLearnedTypos>::~__shared_ptr_empl
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::RemoveAlternatesIfNoLinguisticCandidate>(const __CFDictionary **a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v6 = 134217984;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "RemoveAlternatesIfNoLinguisticCandidate factory expects 0 parameters, but specification includes %ld", &v6, 0xCu);
+      v7 = 134217984;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "RemoveAlternatesIfNoLinguisticCandidate factory expects 0 parameters, but specification includes %ld", &v7, 0xCu);
     }
   }
 
@@ -1579,7 +1575,7 @@ void std::__shared_ptr_emplace<KB::RemoveAlternatesIfNoLinguisticCandidate>::~__
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::ChooseTopQualityAutocorrection>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 5)
   {
@@ -1593,9 +1589,9 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::ChooseTopQual
         applesauce::CF::construct_error(exception);
       }
 
-      v19 = 134217984;
+      v18 = 134217984;
       Count = CFDictionaryGetCount(v16);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "ChooseTopQualityAutocorrection factory expects 5 parameter, but specification includes %ld", &v19, 0xCu);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "ChooseTopQualityAutocorrection factory expects 5 parameter, but specification includes %ld", &v18, 0xCu);
     }
   }
 
@@ -1683,12 +1679,11 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::ChooseTopQual
 
   *a2 = 0;
   a2[1] = 0;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t bounded_float_for_key(const __CFDictionary *a1, const __CFString *key, float a3, float a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1845,21 +1840,21 @@ LABEL_44:
       a3 = 0.0;
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        KB::std_string(key, valuePtr);
-        if (v45 >= 0)
+        KB::std_string(valuePtr, key);
+        if (v44 >= 0)
         {
-          v36 = valuePtr;
+          v35 = valuePtr;
         }
 
         else
         {
-          v36 = *valuePtr;
+          v35 = *valuePtr;
         }
 
         *__p = 136315138;
-        *&__p[4] = v36;
+        *&__p[4] = v35;
         _os_log_error_impl(&dword_22CA55000, v16, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or its value is not float", __p, 0xCu);
-        if (SHIBYTE(v45) < 0)
+        if (SHIBYTE(v44) < 0)
         {
           operator delete(*valuePtr);
         }
@@ -1869,7 +1864,7 @@ LABEL_44:
 LABEL_46:
 
       *&v13 = a3;
-      goto LABEL_47;
+      return v15 | v13;
     }
 
     *&v13 = CFBooleanGetValue(v8);
@@ -1884,16 +1879,16 @@ LABEL_46:
     {
       if (v17)
       {
-        KB::std_string(key, __p);
-        v38 = v41 >= 0 ? __p : *__p;
+        KB::std_string(__p, key);
+        v37 = v40 >= 0 ? __p : *__p;
         *valuePtr = 136315650;
-        *&valuePtr[4] = v38;
-        v43 = 2048;
-        v44 = v14;
-        v45 = 2048;
-        v46 = a4;
+        *&valuePtr[4] = v37;
+        v42 = 2048;
+        v43 = v14;
+        v44 = 2048;
+        v45 = a4;
         _os_log_error_impl(&dword_22CA55000, v16, OS_LOG_TYPE_ERROR, "Key '%s' has value %f, which is greater than upper bound %f", valuePtr, 0x20u);
-        if (v41 < 0)
+        if (v40 < 0)
         {
           operator delete(*__p);
         }
@@ -1907,16 +1902,16 @@ LABEL_46:
     {
       if (v17)
       {
-        KB::std_string(key, __p);
-        v37 = v41 >= 0 ? __p : *__p;
+        KB::std_string(__p, key);
+        v36 = v40 >= 0 ? __p : *__p;
         *valuePtr = 136315650;
-        *&valuePtr[4] = v37;
-        v43 = 2048;
-        v44 = v14;
-        v45 = 2048;
-        v46 = a3;
+        *&valuePtr[4] = v36;
+        v42 = 2048;
+        v43 = v14;
+        v44 = 2048;
+        v45 = a3;
         _os_log_error_impl(&dword_22CA55000, v16, OS_LOG_TYPE_ERROR, "Key '%s' has value %f, which is less than lower bound %f", valuePtr, 0x20u);
-        if (v41 < 0)
+        if (v40 < 0)
         {
           operator delete(*__p);
         }
@@ -1929,14 +1924,12 @@ LABEL_46:
   }
 
   v15 = 0x100000000;
-LABEL_47:
-  v34 = *MEMORY[0x277D85DE8];
   return v15 | v13;
 }
 
 uint64_t bounded_integer_for_key(const __CFDictionary *a1, const __CFString *key, int a3, int a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2117,21 +2110,21 @@ LABEL_52:
       v6 = filter_factory_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        KB::std_string(key, valuePtr);
-        if (v48 >= 0)
+        KB::std_string(valuePtr, key);
+        if (v47 >= 0)
         {
-          v38 = valuePtr;
+          v37 = valuePtr;
         }
 
         else
         {
-          v38 = *valuePtr;
+          v37 = *valuePtr;
         }
 
         *__p = 136315138;
-        *&__p[4] = v38;
+        *&__p[4] = v37;
         _os_log_error_impl(&dword_22CA55000, v6, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or its value is not int32_t", __p, 0xCu);
-        if (SHIBYTE(v48) < 0)
+        if (SHIBYTE(v47) < 0)
         {
           operator delete(*valuePtr);
         }
@@ -2140,7 +2133,7 @@ LABEL_52:
       v20 = 0;
       LOBYTE(v6) = 0;
       v19 = 0;
-      goto LABEL_54;
+      return v20 | v19 | v6;
     }
   }
 
@@ -2159,16 +2152,16 @@ LABEL_52:
     {
       if (v18)
       {
-        KB::std_string(key, __p);
-        v40 = v43 >= 0 ? __p : *__p;
+        KB::std_string(__p, key);
+        v39 = v42 >= 0 ? __p : *__p;
         *valuePtr = 136315650;
-        *&valuePtr[4] = v40;
-        v45 = 1024;
-        v46 = v15;
-        v47 = 1024;
-        v48 = a4;
+        *&valuePtr[4] = v39;
+        v44 = 1024;
+        v45 = v15;
+        v46 = 1024;
+        v47 = a4;
         _os_log_error_impl(&dword_22CA55000, v17, OS_LOG_TYPE_ERROR, "Key '%s' has value %d, which is greater than upper bound %d", valuePtr, 0x18u);
-        if (v43 < 0)
+        if (v42 < 0)
         {
           operator delete(*__p);
         }
@@ -2183,16 +2176,16 @@ LABEL_52:
     {
       if (v18)
       {
-        KB::std_string(key, __p);
-        v39 = v43 >= 0 ? __p : *__p;
+        KB::std_string(__p, key);
+        v38 = v42 >= 0 ? __p : *__p;
         *valuePtr = 136315650;
-        *&valuePtr[4] = v39;
-        v45 = 1024;
-        v46 = v15;
-        v47 = 1024;
-        v48 = v6;
+        *&valuePtr[4] = v38;
+        v44 = 1024;
+        v45 = v15;
+        v46 = 1024;
+        v47 = v6;
         _os_log_error_impl(&dword_22CA55000, v17, OS_LOG_TYPE_ERROR, "Key '%s' has value %d, which is less than lower bound %d", valuePtr, 0x18u);
-        if (v43 < 0)
+        if (v42 < 0)
         {
           operator delete(*__p);
         }
@@ -2203,8 +2196,6 @@ LABEL_52:
     }
   }
 
-LABEL_54:
-  v36 = *MEMORY[0x277D85DE8];
   return v20 | v19 | v6;
 }
 
@@ -2218,23 +2209,23 @@ void std::__shared_ptr_emplace<KB::ChooseTopQualityAutocorrection>::~__shared_pt
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDifferentLanguageThanContext>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterDifferentLanguageThanContext factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterDifferentLanguageThanContext factory expects 1 parameter, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -2258,7 +2249,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDiffere
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterDifferentLanguageThanContext>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2271,23 +2261,23 @@ void std::__shared_ptr_emplace<KB::FilterDifferentLanguageThanContext>::~__share
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterSortkeyMatchFromDifferentLanguage>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 2)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a1;
+      v10 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v13 = 134217984;
-      Count = CFDictionaryGetCount(v11);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterSortkeyMatchFromDifferentLanguage factory expects 2 parameters, but specification includes %ld", &v13, 0xCu);
+      v12 = 134217984;
+      Count = CFDictionaryGetCount(v10);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterSortkeyMatchFromDifferentLanguage factory expects 2 parameters, but specification includes %ld", &v12, 0xCu);
     }
   }
 
@@ -2327,7 +2317,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterSortkey
 
   *a2 = 0;
   a2[1] = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterSortkeyMatchFromDifferentLanguage>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2340,23 +2329,23 @@ void std::__shared_ptr_emplace<KB::FilterSortkeyMatchFromDifferentLanguage>::~__
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterContinuousPathAlternatesFromOtherLanguage>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterContinuousPathAlternatesFromOtherLanguage factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterContinuousPathAlternatesFromOtherLanguage factory expects 1 parameter, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -2380,7 +2369,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterContinu
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterContinuousPathAlternatesFromOtherLanguage>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2391,56 +2379,28 @@ void std::__shared_ptr_emplace<KB::FilterContinuousPathAlternatesFromOtherLangua
   JUMPOUT(0x2318BE270);
 }
 
-void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNoPredictContinuousPathAlternates>(const __CFDictionary **a1, unsigned int *a2)
+void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNoPredictContinuousPathAlternates>(const __CFDictionary **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (v4 && CFDictionaryGetCount(v4))
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = *a1;
+      v6 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v15 = 134217984;
-      Count = CFDictionaryGetCount(v13);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterNoPredictContinuousPathAlternates factory expects 0 parameters, but specification includes %ld", &v15, 0xCu);
+      v8 = 134217984;
+      Count = CFDictionaryGetCount(v6);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterNoPredictContinuousPathAlternates factory expects 0 parameters, but specification includes %ld", &v8, 0xCu);
     }
   }
 
-  v6 = *a2;
-  if (a2[46])
-  {
-    if (v6 >= 7)
-    {
-      goto LABEL_11;
-    }
-
-    v7 = &unk_22CC89F78 + 4 * v6;
-    v8 = dword_22CC89F94[v6];
-    v9 = &unk_22CC89FD0;
-  }
-
-  else
-  {
-    if (v6 >= 7)
-    {
-      goto LABEL_11;
-    }
-
-    v7 = &unk_22CC89F20 + 4 * v6;
-    v9 = &unk_22CC89F40;
-  }
-
-  v10 = *v7;
-  v11 = dword_22CC89FB0[v6];
-  v12 = v9[v6];
-LABEL_11:
   operator new();
 }
 
@@ -2454,23 +2414,23 @@ void std::__shared_ptr_emplace<KB::FilterNoPredictContinuousPathAlternates>::~__
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterLowQualityContinuousPathRetrocorrections>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterLowQualityContinuousPathRetrocorrections factory expects 2 parameters, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterLowQualityContinuousPathRetrocorrections factory expects 2 parameters, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -2494,7 +2454,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterLowQual
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterLowQualityContinuousPathRetrocorrections>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2507,23 +2466,23 @@ void std::__shared_ptr_emplace<KB::FilterLowQualityContinuousPathRetrocorrection
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterPartOfHyphenatedWord>(const __CFDictionary **a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   if (v6 && CFDictionaryGetCount(v6))
   {
     v7 = filter_factory_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "FilterPartOfHyphenatedWord> factory expects 0 parameters, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "FilterPartOfHyphenatedWord> factory expects 0 parameters, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -2534,7 +2493,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterPartOfH
 
   *a3 = 0;
   a3[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterPartOfHyphenatedWord>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2547,23 +2505,23 @@ void std::__shared_ptr_emplace<KB::FilterPartOfHyphenatedWord>::~__shared_ptr_em
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWithoutSupplementalWords>(const __CFDictionary **a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = *a1;
   if (v6 && CFDictionaryGetCount(v6))
   {
     v7 = filter_factory_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "FilterWithoutSupplementalWords factory expects 0 parameters, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "FilterWithoutSupplementalWords factory expects 0 parameters, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -2574,7 +2532,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWithout
 
   *a3 = 0;
   a3[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterWithoutSupplementalWords>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2587,14 +2544,14 @@ void std::__shared_ptr_emplace<KB::FilterWithoutSupplementalWords>::~__shared_pt
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterContactWordsConflictingWithValidInput>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2602,10 +2559,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterContact
       }
 
       *buf = 136315394;
-      v7 = "CandidateFilterContactWordsConflictingWithValidInput";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "CandidateFilterContactWordsConflictingWithValidInput";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -2622,14 +2579,14 @@ void std::__shared_ptr_emplace<KB::FilterContactWordsConflictingWithValidInput>:
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterInvalidTextReplacement>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2637,10 +2594,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterInvalid
       }
 
       *buf = 136315394;
-      v7 = "FilterInvalidTextReplacement";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterInvalidTextReplacement";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -2657,23 +2614,23 @@ void std::__shared_ptr_emplace<KB::FilterInvalidTextReplacement>::~__shared_ptr_
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterTopDynamicWordsWithStaticVariant>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 2)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a1;
+      v10 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v13 = 134217984;
-      Count = CFDictionaryGetCount(v11);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterTopDynamicWordsWithStaticVariant factory expects 2 parameters, but specification includes %ld", &v13, 0xCu);
+      v12 = 134217984;
+      Count = CFDictionaryGetCount(v10);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterTopDynamicWordsWithStaticVariant factory expects 2 parameters, but specification includes %ld", &v12, 0xCu);
     }
   }
 
@@ -2713,7 +2670,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterTopDyna
 
   *a2 = 0;
   a2[1] = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterTopDynamicWordsWithStaticVariant>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2726,14 +2682,14 @@ void std::__shared_ptr_emplace<KB::FilterTopDynamicWordsWithStaticVariant>::~__s
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterLearnedTypo>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2741,10 +2697,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterLearned
       }
 
       *buf = 136315394;
-      v7 = "FilterLearnedTypo";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterLearnedTypo";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -2761,15 +2717,15 @@ void std::__shared_ptr_emplace<KB::FilterLearnedTypo>::~__shared_ptr_emplace(std
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::RescoreShortWords>(const __CFDictionary **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      memset(v6, 0, sizeof(v6));
-      v4 = *a1;
+      memset(v7, 0, sizeof(v7));
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2777,11 +2733,11 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::RescoreShortW
       }
 
       *buf = 136315394;
-      v8 = "RescoreShortWords";
-      v9 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
-      std::__function::__value_func<BOOL ()(KB::Candidate &,KB::Candidate &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)>::~__value_func[abi:nn200100](v6);
+      v9 = "RescoreShortWords";
+      v10 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      std::__function::__value_func<BOOL ()(KB::Candidate &,KB::Candidate &,KB::CandidateFilterLookupContext const&,KB::CandidateFilterResources const&)>::~__value_func[abi:nn200100](v7);
     }
   }
 
@@ -2814,14 +2770,14 @@ void std::__shared_ptr_emplace<KB::RescoreShortWords>::~__shared_ptr_emplace(std
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::ExemptHighFrequencyWordsFromNoSuggest>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2829,10 +2785,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::ExemptHighFre
       }
 
       *buf = 136315394;
-      v7 = "ExemptHighFrequencyWordsFromNoSuggest";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "ExemptHighFrequencyWordsFromNoSuggest";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -2849,14 +2805,14 @@ void std::__shared_ptr_emplace<KB::ExemptHighFrequencyWordsFromNoSuggest>::~__sh
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostCaseVariantsOfTopCandidate>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -2864,10 +2820,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostCaseVari
       }
 
       *buf = 136315394;
-      v7 = "BoostCaseVariantsOfTopCandidate";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "BoostCaseVariantsOfTopCandidate";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -2882,77 +2838,48 @@ void std::__shared_ptr_emplace<KB::BoostCaseVariantsOfTopCandidate>::~__shared_p
   JUMPOUT(0x2318BE270);
 }
 
-void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostMinimumVariation>(CFTypeRef *a1@<X0>, unsigned int *a2@<X1>, void *a3@<X8>)
+void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostMinimumVariation>(CFTypeRef *a1@<X0>, void *a3@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  if (!v6 || CFDictionaryGetCount(v6) != 1)
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  if (!v5 || CFDictionaryGetCount(v5) != 1)
   {
-    v7 = filter_factory_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = filter_factory_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v18 = *a1;
+      v9 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v20 = 134217984;
-      Count = CFDictionaryGetCount(v18);
-      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "BoostMinimumVariation factory expects 1 parameter, but specification includes %ld", &v20, 0xCu);
+      v11 = 134217984;
+      Count = CFDictionaryGetCount(v9);
+      _os_log_error_impl(&dword_22CA55000, v6, OS_LOG_TYPE_ERROR, "BoostMinimumVariation factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
     }
   }
 
-  v8 = *a1;
+  v7 = *a1;
   if (*a1)
   {
     CFRetain(*a1);
-    v9 = bounded_float_for_key(v8, @"MinCandidateDominanceRatio", 1.0, INFINITY);
-    CFRelease(v8);
+    v8 = bounded_float_for_key(v7, @"MinCandidateDominanceRatio", 1.0, INFINITY);
+    CFRelease(v7);
   }
 
   else
   {
-    v9 = bounded_float_for_key(0, @"MinCandidateDominanceRatio", 1.0, INFINITY);
+    v8 = bounded_float_for_key(0, @"MinCandidateDominanceRatio", 1.0, INFINITY);
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v8))
   {
-    v10 = *a2;
-    if (a2[46])
-    {
-      if (v10 >= 7)
-      {
-        goto LABEL_16;
-      }
-
-      v11 = &unk_22CC89F78 + 4 * v10;
-      v12 = dword_22CC89F94[v10];
-      v13 = &unk_22CC89FD0;
-    }
-
-    else
-    {
-      if (v10 >= 7)
-      {
-        goto LABEL_16;
-      }
-
-      v11 = &unk_22CC89F20 + 4 * v10;
-      v13 = &unk_22CC89F40;
-    }
-
-    v14 = *v11;
-    v15 = dword_22CC89FB0[v10];
-    v16 = v13[v10];
-LABEL_16:
     operator new();
   }
 
   *a3 = 0;
   a3[1] = 0;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::BoostMinimumVariation>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2965,23 +2892,23 @@ void std::__shared_ptr_emplace<KB::BoostMinimumVariation>::~__shared_ptr_emplace
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostPreferedFormForSortkey>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "BoostPreferedFormForSortkey factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "BoostPreferedFormForSortkey factory expects 1 parameter, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -3005,7 +2932,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::BoostPrefered
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::BoostPreferedFormForSortkey>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3018,23 +2944,23 @@ void std::__shared_ptr_emplace<KB::BoostPreferedFormForSortkey>::~__shared_ptr_e
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterInputPrefixMismatch>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 2)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a1;
+      v10 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v13 = 134217984;
-      Count = CFDictionaryGetCount(v11);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterInputPrefixMismatch factory expects 2 parameters, but specification includes %ld", &v13, 0xCu);
+      v12 = 134217984;
+      Count = CFDictionaryGetCount(v10);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterInputPrefixMismatch factory expects 2 parameters, but specification includes %ld", &v12, 0xCu);
     }
   }
 
@@ -3074,7 +3000,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterInputPr
 
   *a2 = 0;
   a2[1] = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterInputPrefixMismatch>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3087,23 +3012,23 @@ void std::__shared_ptr_emplace<KB::FilterInputPrefixMismatch>::~__shared_ptr_emp
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNondominantCorrectionOfMoreWords>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 2)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a1;
+      v10 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v13 = 134217984;
-      Count = CFDictionaryGetCount(v11);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterNondominantCorrectionOfMoreWords factory expects 2 parameters, but specification includes %ld", &v13, 0xCu);
+      v12 = 134217984;
+      Count = CFDictionaryGetCount(v10);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterNondominantCorrectionOfMoreWords factory expects 2 parameters, but specification includes %ld", &v12, 0xCu);
     }
   }
 
@@ -3143,7 +3068,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNondomi
 
   *a2 = 0;
   a2[1] = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterNondominantCorrectionOfMoreWords>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3156,23 +3080,23 @@ void std::__shared_ptr_emplace<KB::FilterNondominantCorrectionOfMoreWords>::~__s
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCorrectionsIfAnyCandidateMatchesInput>(const __CFDictionary **a1)
 {
-  v2 = *a1;
-  if (!v2)
+  v3 = *a1;
+  if (!v3)
   {
     goto LABEL_5;
   }
 
-  if (CFDictionaryGetCount(v2) != 1)
+  if (CFDictionaryGetCount(v3) != 1)
   {
     goto LABEL_6;
   }
 
-  v3 = *a1;
-  if (v3)
+  v4 = *a1;
+  if (v4)
   {
-    CFRetain(v3);
-    bounded_integer_for_key(v3, @"WithinTopXAutocorrectionCandidates", 1, 0x7FFFFFFF);
-    CFRelease(v3);
+    CFRetain(v4);
+    bounded_integer_for_key(v4, @"WithinTopXAutocorrectionCandidates", 1, 0x7FFFFFFF);
+    CFRelease(v4);
   }
 
   else
@@ -3195,14 +3119,14 @@ void std::__shared_ptr_emplace<KB::FilterCorrectionsIfAnyCandidateMatchesInput>:
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterMissingOneLetterWordFromInput>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3210,10 +3134,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterMissing
       }
 
       *buf = 136315394;
-      v7 = "FilterMissingOneLetterWordFromInput";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterMissingOneLetterWordFromInput";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3230,23 +3154,23 @@ void std::__shared_ptr_emplace<KB::FilterMissingOneLetterWordFromInput>::~__shar
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAllCapsNoSuggestWordsOfLength>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterAllCapsNoSuggestWordsOfLength factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterAllCapsNoSuggestWordsOfLength factory expects 1 parameter, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -3270,7 +3194,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAllCaps
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterAllCapsNoSuggestWordsOfLength>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3283,14 +3206,14 @@ void std::__shared_ptr_emplace<KB::FilterAllCapsNoSuggestWordsOfLength>::~__shar
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterPopupVariantMismatch>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3298,10 +3221,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterPopupVa
       }
 
       *buf = 136315394;
-      v7 = "FilterPopupVariantMismatch";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterPopupVariantMismatch";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3318,14 +3241,14 @@ void std::__shared_ptr_emplace<KB::FilterPopupVariantMismatch>::~__shared_ptr_em
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWordEndingApostropheBetweenNonseparators>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3333,10 +3256,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWordEnd
       }
 
       *buf = 136315394;
-      v7 = "FilterWordEndingApostropheBetweenNonseparators";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterWordEndingApostropheBetweenNonseparators";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3353,14 +3276,14 @@ void std::__shared_ptr_emplace<KB::FilterWordEndingApostropheBetweenNonseparator
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDoubleApostrophe>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3368,10 +3291,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterDoubleA
       }
 
       *buf = 136315394;
-      v7 = "FilterDoubleApostrophe";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterDoubleApostrophe";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3388,14 +3311,14 @@ void std::__shared_ptr_emplace<KB::FilterDoubleApostrophe>::~__shared_ptr_emplac
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAlteredURLFragments>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3403,10 +3326,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAltered
       }
 
       *buf = 136315394;
-      v7 = "FilterAlteredURLFragments";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterAlteredURLFragments";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3423,21 +3346,21 @@ void std::__shared_ptr_emplace<KB::FilterAlteredURLFragments>::~__shared_ptr_emp
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(CFDictionaryRef *a1@<X0>, void *a2@<X8>)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 2)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v40 = *a1;
+      v39 = *a1;
       if (!*a1)
       {
         goto LABEL_102;
       }
 
       LODWORD(__s1.__r_.__value_.__l.__data_) = 134217984;
-      *(__s1.__r_.__value_.__r.__words + 4) = CFDictionaryGetCount(v40);
+      *(__s1.__r_.__value_.__r.__words + 4) = CFDictionaryGetCount(v39);
       _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterCharacterCount factory expects 2 parameters, but specification includes %ld", &__s1, 0xCu);
     }
   }
@@ -3485,15 +3408,15 @@ LABEL_12:
         v10 = filter_factory_log();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::character_key, buf);
-          if (v55 >= 0)
+          KB::std_string(buf, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::character_key);
+          if (v54 >= 0)
           {
-            v42 = buf;
+            v41 = buf;
           }
 
           else
           {
-            v42 = *buf;
+            v41 = *buf;
           }
 
           p_p = &__p;
@@ -3502,12 +3425,12 @@ LABEL_12:
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          *v48 = 136315394;
-          v49 = v42;
-          v50 = 2080;
-          v51 = p_p;
-          _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "String for key '%s' has more than one code point (string='%s')", v48, 0x16u);
-          if (v55 < 0)
+          *v47 = 136315394;
+          v48 = v41;
+          v49 = 2080;
+          v50 = p_p;
+          _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "String for key '%s' has more than one code point (string='%s')", v47, 0x16u);
+          if (v54 < 0)
           {
             operator delete(*buf);
           }
@@ -3715,29 +3638,29 @@ LABEL_73:
           v38 = filter_factory_log();
           if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::count_relation_key, buf);
-            if (v55 >= 0)
+            KB::std_string(buf, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::count_relation_key);
+            if (v54 >= 0)
             {
-              v44 = buf;
+              v43 = buf;
             }
 
             else
             {
-              v44 = *buf;
+              v43 = *buf;
             }
 
-            v45 = &__s1;
+            v44 = &__s1;
             if ((__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v45 = __s1.__r_.__value_.__r.__words[0];
+              v44 = __s1.__r_.__value_.__r.__words[0];
             }
 
-            *v48 = 136315394;
-            v49 = v44;
-            v50 = 2080;
-            v51 = v45;
-            _os_log_error_impl(&dword_22CA55000, v38, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v48, 0x16u);
-            if (v55 < 0)
+            *v47 = 136315394;
+            v48 = v43;
+            v49 = 2080;
+            v50 = v44;
+            _os_log_error_impl(&dword_22CA55000, v38, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v47, 0x16u);
+            if (v54 < 0)
             {
               operator delete(*buf);
             }
@@ -3788,10 +3711,10 @@ LABEL_107:
   v17 = filter_factory_log();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::character_key, &__s1);
-    v41 = (__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__s1 : __s1.__r_.__value_.__r.__words[0];
+    KB::std_string(&__s1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterCharacterCount>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::character_key);
+    v40 = (__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__s1 : __s1.__r_.__value_.__r.__words[0];
     *buf = 136315138;
-    *&buf[4] = v41;
+    *&buf[4] = v40;
     _os_log_error_impl(&dword_22CA55000, v17, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or is not a UTF-8 string", buf, 0xCu);
     if (SHIBYTE(__s1.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3806,8 +3729,6 @@ LABEL_78:
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterCharacterCount>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3820,14 +3741,14 @@ void std::__shared_ptr_emplace<KB::FilterCharacterCount>::~__shared_ptr_emplace(
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNumberlikeTokenMismatch>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3835,10 +3756,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNumberl
       }
 
       *buf = 136315394;
-      v7 = "FilterNumberlikeTokenMismatch";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterNumberlikeTokenMismatch";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3855,14 +3776,14 @@ void std::__shared_ptr_emplace<KB::FilterNumberlikeTokenMismatch>::~__shared_ptr
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNumberMismatch>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -3870,10 +3791,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNumberM
       }
 
       *buf = 136315394;
-      v7 = "FilterNumberMismatch";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterNumberMismatch";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -3888,24 +3809,24 @@ void std::__shared_ptr_emplace<KB::FilterNumberMismatch>::~__shared_ptr_emplace(
   JUMPOUT(0x2318BE270);
 }
 
-void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(CFDictionaryRef *a1@<X0>, unsigned int *a2@<X1>, void *a3@<X8>)
+void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(CFDictionaryRef *a1@<X0>, void *a3@<X8>)
 {
-  v66 = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  if (!v6 || CFDictionaryGetCount(v6) != 3)
+  v57 = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  if (!v5 || CFDictionaryGetCount(v5) != 3)
   {
-    v7 = filter_factory_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = filter_factory_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v39 = *a1;
+      v38 = *a1;
       if (!*a1)
       {
-        goto LABEL_103;
+        goto LABEL_97;
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
-      *(buf.__r_.__value_.__r.__words + 4) = CFDictionaryGetCount(v39);
-      _os_log_error_impl(&dword_22CA55000, v7, OS_LOG_TYPE_ERROR, "FilterNotSuggestibleForInput factory expects 3 parameters, but specification includes %ld", &buf, 0xCu);
+      *(buf.__r_.__value_.__r.__words + 4) = CFDictionaryGetCount(v38);
+      _os_log_error_impl(&dword_22CA55000, v6, OS_LOG_TYPE_ERROR, "FilterNotSuggestibleForInput factory expects 3 parameters, but specification includes %ld", &buf, 0xCu);
     }
   }
 
@@ -3915,25 +3836,25 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSugg
 
   if (!*a1)
   {
-LABEL_103:
+LABEL_97:
     exception = __cxa_allocate_exception(0x10uLL);
     applesauce::CF::construct_error(exception);
   }
 
   applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(&buf, *a1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::should_remove_vulgar);
-  v8 = [@"RemoveVulgar" UTF8String];
-  v9 = strlen(v8);
-  v10 = v9;
+  v7 = [@"RemoveVulgar" UTF8String];
+  v8 = strlen(v7);
+  v9 = v8;
   if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (v9 != buf.__r_.__value_.__l.__size_)
+    if (v8 != buf.__r_.__value_.__l.__size_)
     {
       goto LABEL_14;
     }
 
-    if (v9 == -1)
+    if (v8 == -1)
     {
-      goto LABEL_106;
+      goto LABEL_100;
     }
 
     p_buf = buf.__r_.__value_.__r.__words[0];
@@ -3941,7 +3862,7 @@ LABEL_103:
 
   else
   {
-    if (v9 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
+    if (v8 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
     {
       goto LABEL_14;
     }
@@ -3949,67 +3870,67 @@ LABEL_103:
     p_buf = &buf;
   }
 
-  if (!memcmp(p_buf, v8, v10))
+  if (!memcmp(p_buf, v7, v9))
   {
     goto LABEL_30;
   }
 
 LABEL_14:
-  v12 = [@"RemoveVulgarOnlyIfNotAllowlisted" UTF8String];
-  v13 = strlen(v12);
-  v14 = v13;
+  v11 = [@"RemoveVulgarOnlyIfNotAllowlisted" UTF8String];
+  v12 = strlen(v11);
+  v13 = v12;
   if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (v13 != buf.__r_.__value_.__l.__size_)
+    if (v12 != buf.__r_.__value_.__l.__size_)
     {
       goto LABEL_21;
     }
 
-    if (v13 == -1)
+    if (v12 == -1)
     {
-      goto LABEL_106;
+      goto LABEL_100;
     }
 
-    v15 = buf.__r_.__value_.__r.__words[0];
+    v14 = buf.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (v13 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
+    if (v12 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
     {
       goto LABEL_21;
     }
 
-    v15 = &buf;
+    v14 = &buf;
   }
 
-  if (!memcmp(v15, v12, v14))
+  if (!memcmp(v14, v11, v13))
   {
     goto LABEL_30;
   }
 
 LABEL_21:
-  v16 = [@"DoNotRemoveVulgar" UTF8String];
-  v17 = strlen(v16);
-  v18 = v17;
+  v15 = [@"DoNotRemoveVulgar" UTF8String];
+  v16 = strlen(v15);
+  v17 = v16;
   if ((SHIBYTE(buf.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (v17 == buf.__r_.__value_.__l.__size_)
+    if (v16 == buf.__r_.__value_.__l.__size_)
     {
-      if (v17 == -1)
+      if (v16 == -1)
       {
-        goto LABEL_106;
+        goto LABEL_100;
       }
 
-      v19 = buf.__r_.__value_.__r.__words[0];
+      v18 = buf.__r_.__value_.__r.__words[0];
       goto LABEL_27;
     }
 
 LABEL_28:
-    v20 = filter_factory_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = filter_factory_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::should_remove_vulgar, &__s1);
+      KB::std_string(&__s1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::should_remove_vulgar);
       if ((__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_s1 = &__s1;
@@ -4020,17 +3941,17 @@ LABEL_28:
         p_s1 = __s1.__r_.__value_.__r.__words[0];
       }
 
-      v41 = &buf;
+      v40 = &buf;
       if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v41 = buf.__r_.__value_.__r.__words[0];
+        v40 = buf.__r_.__value_.__r.__words[0];
       }
 
-      LODWORD(v64.__r_.__value_.__l.__data_) = 136315394;
-      *(v64.__r_.__value_.__r.__words + 4) = p_s1;
-      WORD2(v64.__r_.__value_.__r.__words[1]) = 2080;
-      *(&v64.__r_.__value_.__r.__words[1] + 6) = v41;
-      _os_log_error_impl(&dword_22CA55000, v20, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", &v64, 0x16u);
+      LODWORD(v55.__r_.__value_.__l.__data_) = 136315394;
+      *(v55.__r_.__value_.__r.__words + 4) = p_s1;
+      WORD2(v55.__r_.__value_.__r.__words[1]) = 2080;
+      *(&v55.__r_.__value_.__r.__words[1] + 6) = v40;
+      _os_log_error_impl(&dword_22CA55000, v19, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", &v55, 0x16u);
       if (SHIBYTE(__s1.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__s1.__r_.__value_.__l.__data_);
@@ -4039,17 +3960,17 @@ LABEL_28:
 
     *a3 = 0;
     a3[1] = 0;
-    goto LABEL_86;
+    goto LABEL_80;
   }
 
-  if (v17 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
+  if (v16 != SHIBYTE(buf.__r_.__value_.__r.__words[2]))
   {
     goto LABEL_28;
   }
 
-  v19 = &buf;
+  v18 = &buf;
 LABEL_27:
-  if (memcmp(v19, v16, v18))
+  if (memcmp(v18, v15, v17))
   {
     goto LABEL_28;
   }
@@ -4061,66 +3982,66 @@ LABEL_30:
 
   if (!*a1)
   {
-    goto LABEL_103;
+    goto LABEL_97;
   }
 
   applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(&__s1, *a1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::word_equivalence_type_key);
-  v21 = [@"SortkeyEquivalence" UTF8String];
-  v22 = strlen(v21);
-  v23 = v22;
+  v20 = [@"SortkeyEquivalence" UTF8String];
+  v21 = strlen(v20);
+  v22 = v21;
   if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (v22 != __s1.__r_.__value_.__l.__size_)
+    if (v21 != __s1.__r_.__value_.__l.__size_)
     {
       goto LABEL_39;
     }
 
-    if (v22 == -1)
+    if (v21 == -1)
     {
-      goto LABEL_106;
+      goto LABEL_100;
     }
 
-    v24 = __s1.__r_.__value_.__r.__words[0];
+    v23 = __s1.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (v22 != SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+    if (v21 != SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
     {
       goto LABEL_39;
     }
 
-    v24 = &__s1;
+    v23 = &__s1;
   }
 
-  if (!memcmp(v24, v21, v23))
+  if (!memcmp(v23, v20, v22))
   {
     goto LABEL_48;
   }
 
 LABEL_39:
-  v25 = [@"SurfaceFormEquivalence" UTF8String];
-  v26 = strlen(v25);
-  v27 = v26;
+  v24 = [@"SurfaceFormEquivalence" UTF8String];
+  v25 = strlen(v24);
+  v26 = v25;
   if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    if (v26 == __s1.__r_.__value_.__l.__size_)
+    if (v25 == __s1.__r_.__value_.__l.__size_)
     {
-      if (v26 == -1)
+      if (v25 == -1)
       {
-        goto LABEL_106;
+        goto LABEL_100;
       }
 
-      v28 = __s1.__r_.__value_.__r.__words[0];
+      v27 = __s1.__r_.__value_.__r.__words[0];
       goto LABEL_45;
     }
   }
 
-  else if (v26 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+  else if (v25 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
   {
-    v28 = &__s1;
+    v27 = &__s1;
 LABEL_45:
-    if (memcmp(v28, v25, v27))
+    if (memcmp(v27, v24, v26))
     {
       goto LABEL_46;
     }
@@ -4132,187 +4053,157 @@ LABEL_48:
 
     if (*a1)
     {
-      applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(&v64, *a1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::apply_filter_condition_key);
-      v30 = [@"ApplyAlways" UTF8String];
-      v31 = strlen(v30);
-      v32 = v31;
-      if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+      applesauce::CF::at_or<char const(&)[1],__CFString const* const&>(&v55, *a1, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::apply_filter_condition_key);
+      v29 = [@"ApplyAlways" UTF8String];
+      v30 = strlen(v29);
+      v31 = v30;
+      if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
       {
-        if (v31 == v64.__r_.__value_.__l.__size_)
+        if (v30 == v55.__r_.__value_.__l.__size_)
         {
-          if (v31 == -1)
+          if (v30 == -1)
           {
-            goto LABEL_106;
+            goto LABEL_100;
           }
 
-          v33 = v64.__r_.__value_.__r.__words[0];
+          v32 = v55.__r_.__value_.__r.__words[0];
           goto LABEL_56;
         }
       }
 
-      else if (v31 == SHIBYTE(v64.__r_.__value_.__r.__words[2]))
+      else if (v30 == SHIBYTE(v55.__r_.__value_.__r.__words[2]))
       {
-        v33 = &v64;
+        v32 = &v55;
 LABEL_56:
-        if (!memcmp(v33, v30, v32))
+        if (!memcmp(v32, v29, v31))
         {
           goto LABEL_75;
         }
       }
 
-      v34 = [@"ApplyIfCandidatesContainInputMatch" UTF8String];
-      v35 = strlen(v34);
-      v36 = v35;
-      if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
+      v33 = [@"ApplyIfCandidatesContainInputMatch" UTF8String];
+      v34 = strlen(v33);
+      v35 = v34;
+      if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x8000000000000000) == 0)
       {
-        if (v35 == SHIBYTE(v64.__r_.__value_.__r.__words[2]))
+        if (v34 == SHIBYTE(v55.__r_.__value_.__r.__words[2]))
         {
-          v37 = &v64;
+          v36 = &v55;
           goto LABEL_63;
         }
 
 LABEL_64:
-        v38 = filter_factory_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v37 = filter_factory_log();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::apply_filter_condition_key, v56);
-          if (v59 >= 0)
+          KB::std_string(v47, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::apply_filter_condition_key);
+          if (v50 >= 0)
           {
-            v52 = v56;
+            v43 = v47;
           }
 
           else
           {
-            v52 = *v56;
+            v43 = *v47;
           }
 
-          v53 = &v64;
-          if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v44 = &v55;
+          if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v53 = v64.__r_.__value_.__r.__words[0];
+            v44 = v55.__r_.__value_.__r.__words[0];
           }
 
-          *v60 = 136315394;
-          v61 = v52;
-          v62 = 2080;
-          v63 = v53;
-          _os_log_error_impl(&dword_22CA55000, v38, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v60, 0x16u);
-          if (v59 < 0)
+          *v51 = 136315394;
+          v52 = v43;
+          v53 = 2080;
+          v54 = v44;
+          _os_log_error_impl(&dword_22CA55000, v37, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v51, 0x16u);
+          if (v50 < 0)
           {
-            operator delete(*v56);
+            operator delete(*v47);
           }
         }
 
         *a3 = 0;
         a3[1] = 0;
-        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v64.__r_.__value_.__l.__data_);
+          operator delete(v55.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_84;
+        goto LABEL_78;
       }
 
-      if (v35 != v64.__r_.__value_.__l.__size_)
+      if (v34 != v55.__r_.__value_.__l.__size_)
       {
         goto LABEL_64;
       }
 
-      if (v35 != -1)
+      if (v34 != -1)
       {
-        v37 = v64.__r_.__value_.__r.__words[0];
+        v36 = v55.__r_.__value_.__r.__words[0];
 LABEL_63:
-        if (memcmp(v37, v34, v36))
+        if (memcmp(v36, v33, v35))
         {
           goto LABEL_64;
         }
 
 LABEL_75:
-        v42 = *a2;
-        if (a2[46])
-        {
-          if (v42 >= 7)
-          {
-            goto LABEL_81;
-          }
-
-          v43 = &unk_22CC89F78 + 4 * v42;
-          v44 = dword_22CC89F94[v42];
-          v45 = &unk_22CC89FD0;
-        }
-
-        else
-        {
-          if (v42 >= 7)
-          {
-            goto LABEL_81;
-          }
-
-          v43 = &unk_22CC89F20 + 4 * v42;
-          v45 = &unk_22CC89F40;
-        }
-
-        v46 = *v43;
-        v47 = dword_22CC89FB0[v42];
-        v48 = v45[v42];
-LABEL_81:
         operator new();
       }
 
-LABEL_106:
+LABEL_100:
       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
     }
 
-    goto LABEL_103;
+    goto LABEL_97;
   }
 
 LABEL_46:
-  v29 = filter_factory_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = filter_factory_log();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    KB::std_string(KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::word_equivalence_type_key, &v64);
-    if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    KB::std_string(&v55, KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterNotSuggestibleForInput>(applesauce::CF::DictionaryRef,KB::CandidateFilterConfiguration const&)::word_equivalence_type_key);
+    if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v50 = &v64;
+      v41 = &v55;
     }
 
     else
     {
-      v50 = v64.__r_.__value_.__r.__words[0];
+      v41 = v55.__r_.__value_.__r.__words[0];
     }
 
-    v51 = &__s1;
+    v42 = &__s1;
     if ((__s1.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v51 = __s1.__r_.__value_.__r.__words[0];
+      v42 = __s1.__r_.__value_.__r.__words[0];
     }
 
-    *v56 = 136315394;
-    *&v56[4] = v50;
-    v57 = 2080;
-    v58 = v51;
-    _os_log_error_impl(&dword_22CA55000, v29, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v56, 0x16u);
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    *v47 = 136315394;
+    *&v47[4] = v41;
+    v48 = 2080;
+    v49 = v42;
+    _os_log_error_impl(&dword_22CA55000, v28, OS_LOG_TYPE_ERROR, "Key '%s' is missing from specification or has unrecognized value '%s'", v47, 0x16u);
+    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v55.__r_.__value_.__l.__data_);
     }
   }
 
   *a3 = 0;
   a3[1] = 0;
-LABEL_84:
+LABEL_78:
   if (SHIBYTE(__s1.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s1.__r_.__value_.__l.__data_);
   }
 
-LABEL_86:
+LABEL_80:
   if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(buf.__r_.__value_.__l.__data_);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterNotSuggestibleForInput>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -4325,14 +4216,14 @@ void std::__shared_ptr_emplace<KB::FilterNotSuggestibleForInput>::~__shared_ptr_
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterControlCharacters>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -4340,10 +4231,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterControl
       }
 
       *buf = 136315394;
-      v7 = "FilterControlCharacters";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterControlCharacters";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -4360,14 +4251,14 @@ void std::__shared_ptr_emplace<KB::FilterControlCharacters>::~__shared_ptr_empla
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterIncomplete>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -4375,10 +4266,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterIncompl
       }
 
       *buf = 136315394;
-      v7 = "FilterIncomplete";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterIncomplete";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -4395,14 +4286,14 @@ void std::__shared_ptr_emplace<KB::FilterIncomplete>::~__shared_ptr_emplace(std:
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAppNames>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -4410,10 +4301,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterAppName
       }
 
       *buf = 136315394;
-      v7 = "FilterAppNames";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterAppNames";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -4430,23 +4321,23 @@ void std::__shared_ptr_emplace<KB::FilterAppNames>::~__shared_ptr_emplace(std::_
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWordsConflictingWithValidContactNames>(CFTypeRef *a1@<X0>, void *a2@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   if (!v4 || CFDictionaryGetCount(v4) != 1)
   {
     v5 = filter_factory_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *a1;
+      v8 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         applesauce::CF::construct_error(exception);
       }
 
-      v11 = 134217984;
-      Count = CFDictionaryGetCount(v9);
-      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterWordsConflictingWithValidContactNames factory expects 1 parameter, but specification includes %ld", &v11, 0xCu);
+      v10 = 134217984;
+      Count = CFDictionaryGetCount(v8);
+      _os_log_error_impl(&dword_22CA55000, v5, OS_LOG_TYPE_ERROR, "FilterWordsConflictingWithValidContactNames factory expects 1 parameter, but specification includes %ld", &v10, 0xCu);
     }
   }
 
@@ -4470,7 +4361,6 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterWordsCo
 
   *a2 = 0;
   a2[1] = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::FilterWordsConflictingWithValidContactNames>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -4503,14 +4393,14 @@ uint64_t std::__function::__func<std::shared_ptr<KB::CandidateFilter> (*)(apples
 
 void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterZeroProbability>(const __CFDictionary **a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  if (v2 && CFDictionaryGetCount(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
+  if (v3 && CFDictionaryGetCount(v3))
   {
-    v3 = filter_factory_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = filter_factory_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *a1;
+      v5 = *a1;
       if (!*a1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -4518,10 +4408,10 @@ void KB::CandidateFilterFactory::create_filter_with_parameters<KB::FilterZeroPro
       }
 
       *buf = 136315394;
-      v7 = "FilterZeroProbability";
-      v8 = 2048;
-      Count = CFDictionaryGetCount(v4);
-      _os_log_error_impl(&dword_22CA55000, v3, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
+      v8 = "FilterZeroProbability";
+      v9 = 2048;
+      Count = CFDictionaryGetCount(v5);
+      _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%s factory expects 0 parameters, but specification includes %ld", buf, 0x16u);
     }
   }
 
@@ -4544,12 +4434,12 @@ void std::__shared_ptr_emplace<KB::CompositeCandidateFilter>::~__shared_ptr_empl
   JUMPOUT(0x2318BE270);
 }
 
-void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, uint64_t *a2)
+void KB::CandidateFilterFactory::create_standard_filter_definition(KB::CandidateFilterFlags **a1, uint64_t a2)
 {
-  v347[1] = *MEMORY[0x277D85DE8];
-  if (KB::CandidateFilterFlags::candidate_filter_flag_type(*(a1 + 144), *(a1 + 152)) - 1 > 1)
+  v346[1] = *MEMORY[0x277D85DE8];
+  if (KB::CandidateFilterFlags::candidate_filter_flag_type(a1[18], a1[19]) - 1 > 1)
   {
-    goto LABEL_331;
+    return;
   }
 
   v4 = *a1;
@@ -4559,10 +4449,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     {
       if (v4)
       {
-        goto LABEL_331;
+        return;
       }
 
-      v23 = *(a1 + 136);
+      v23 = *(a1 + 34);
       if (!v23)
       {
         v112 = filter_factory_log();
@@ -4573,7 +4463,7 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
         }
 
         KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(a1, a2);
-        goto LABEL_331;
+        return;
       }
 
       if (v23 == 1)
@@ -4586,7 +4476,7 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
         }
 
         KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_definition(a1, a2);
-        goto LABEL_331;
+        return;
       }
     }
 
@@ -4597,17 +4487,17 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       _os_log_impl(&dword_22CA55000, v15, OS_LOG_TYPE_INFO, "Create standard continuous path candidate filter.", buf, 2u);
     }
 
-    v16 = *(a1 + 40);
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 96);
-    v294 = @"FilterName";
-    v302 = @"FilterZeroProbability";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v302 forKeys:&v294 count:1];
+    v16 = *(a1 + 10);
+    v17 = *(a1 + 14);
+    v18 = *(a1 + 24);
+    v293 = @"FilterName";
+    v301 = @"FilterZeroProbability";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v301 forKeys:&v293 count:1];
     v20 = v19;
     if (v19)
     {
       CFRetain(v19);
-      v304 = v20;
+      v303 = v20;
       v21 = CFGetTypeID(v20);
       v22 = v20;
       if (v21 != CFDictionaryGetTypeID())
@@ -4619,23 +4509,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v22 = 0;
-      v304 = 0;
+      v303 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v304);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v303);
     if (v22)
     {
       CFRelease(v22);
     }
 
-    v282 = @"FilterName";
-    v284 = @"FilterIncomplete";
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v284 forKeys:&v282 count:1];
+    v281 = @"FilterName";
+    v283 = @"FilterIncomplete";
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v283 forKeys:&v281 count:1];
     v35 = v34;
     if (v34)
     {
       CFRetain(v34);
-      v292 = v35;
+      v291 = v35;
       v36 = CFGetTypeID(v35);
       v37 = v35;
       if (v36 != CFDictionaryGetTypeID())
@@ -4647,10 +4537,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v37 = 0;
-      v292 = 0;
+      v291 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v292);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v291);
     if (v37)
     {
       CFRelease(v37);
@@ -4658,14 +4548,14 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (*(a1 + 185) == 1)
     {
-      v273 = @"FilterName";
-      v275 = @"FilterWithoutSupplementalWords";
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v275 forKeys:&v273 count:1];
+      v272 = @"FilterName";
+      v274 = @"FilterWithoutSupplementalWords";
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v274 forKeys:&v272 count:1];
       v39 = v38;
       if (v38)
       {
         CFRetain(v38);
-        v277 = v39;
+        v276 = v39;
         v40 = CFGetTypeID(v39);
         v41 = v39;
         if (v40 != CFDictionaryGetTypeID())
@@ -4677,23 +4567,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v41 = 0;
-        v277 = 0;
+        v276 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v277);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v276);
       if (v41)
       {
         CFRelease(v41);
       }
 
-      v265[0] = @"FilterName";
-      v266[0] = @"FilterPartOfHyphenatedWord";
-      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v266 forKeys:v265 count:1];
+      v264[0] = @"FilterName";
+      v265[0] = @"FilterPartOfHyphenatedWord";
+      v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v265 forKeys:v264 count:1];
       v67 = v66;
       if (v66)
       {
         CFRetain(v66);
-        v271 = v67;
+        v270 = v67;
         v68 = CFGetTypeID(v67);
         v69 = v67;
         if (v68 != CFDictionaryGetTypeID())
@@ -4705,24 +4595,24 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v69 = 0;
-        v271 = 0;
+        v270 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v271);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v270);
       if (v69)
       {
         CFRelease(v69);
       }
     }
 
-    v345 = @"FilterName";
-    v346 = @"FilterInvalidTextReplacement";
-    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v346 forKeys:&v345 count:1];
+    v344 = @"FilterName";
+    v345 = @"FilterInvalidTextReplacement";
+    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v345 forKeys:&v344 count:1];
     v71 = v70;
     if (v70)
     {
       CFRetain(v70);
-      v347[0] = v71;
+      v346[0] = v71;
       v72 = CFGetTypeID(v71);
       v73 = v71;
       if (v72 != CFDictionaryGetTypeID())
@@ -4734,23 +4624,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v73 = 0;
-      v347[0] = 0;
+      v346[0] = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v347);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v346);
     if (v73)
     {
       CFRelease(v73);
     }
 
-    v342 = @"FilterName";
-    v343 = @"ExemptHighFrequencyWordsFromNoSuggest";
-    v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v343 forKeys:&v342 count:1];
+    v341 = @"FilterName";
+    v342 = @"ExemptHighFrequencyWordsFromNoSuggest";
+    v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v342 forKeys:&v341 count:1];
     v75 = v74;
     if (v74)
     {
       CFRetain(v74);
-      v344 = v75;
+      v343 = v75;
       v76 = CFGetTypeID(v75);
       v77 = v75;
       if (v76 != CFDictionaryGetTypeID())
@@ -4762,32 +4652,32 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v77 = 0;
-      v344 = 0;
+      v343 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v344);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v343);
     if (v77)
     {
       CFRelease(v77);
     }
 
-    v289 = @"FilterNotSuggestibleForInput";
-    v321 = @"WordEquivalenceType";
-    v322 = @"ApplyFilterCondition";
+    v288 = @"FilterNotSuggestibleForInput";
+    v320 = @"WordEquivalenceType";
+    v321 = @"ApplyFilterCondition";
     *buf = @"SurfaceFormEquivalence";
-    v325 = @"ApplyAlways";
-    v286 = @"FilterName";
-    v287 = @"Parameters";
-    v323 = @"ShouldRemoveVulgar";
-    v326 = @"RemoveVulgarOnlyIfNotAllowlisted";
-    v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v321 count:3];
-    v290 = v78;
-    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v286 count:2];
+    v324 = @"ApplyAlways";
+    v285 = @"FilterName";
+    v286 = @"Parameters";
+    v322 = @"ShouldRemoveVulgar";
+    v325 = @"RemoveVulgarOnlyIfNotAllowlisted";
+    v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v320 count:3];
+    v289 = v78;
+    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v288 forKeys:&v285 count:2];
     v80 = v79;
     if (v79)
     {
       CFRetain(v79);
-      v341 = v80;
+      v340 = v80;
       v81 = CFGetTypeID(v80);
       v82 = v80;
       if (v81 != CFDictionaryGetTypeID())
@@ -4799,30 +4689,30 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v82 = 0;
-      v341 = 0;
+      v340 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v341);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v340);
     if (v82)
     {
       CFRelease(v82);
     }
 
-    v329 = @"FilterLowQualityContinuousPathRetrocorrections";
-    v327 = @"FilterName";
-    v328 = @"Parameters";
-    v338 = @"MinOmegaRatioForContinuousPathRetrocorrections";
+    v328 = @"FilterLowQualityContinuousPathRetrocorrections";
+    v326 = @"FilterName";
+    v327 = @"Parameters";
+    v337 = @"MinOmegaRatioForContinuousPathRetrocorrections";
     LODWORD(v83) = v17;
     v84 = [MEMORY[0x277CCABB0] numberWithFloat:v83];
-    v339 = v84;
-    v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v339 forKeys:&v338 count:1];
-    v330 = v85;
-    v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v329 forKeys:&v327 count:2];
+    v338 = v84;
+    v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v338 forKeys:&v337 count:1];
+    v329 = v85;
+    v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v328 forKeys:&v326 count:2];
     v87 = v86;
     if (v86)
     {
       CFRetain(v86);
-      v340 = v87;
+      v339 = v87;
       v88 = CFGetTypeID(v87);
       v89 = v87;
       if (v88 != CFDictionaryGetTypeID())
@@ -4834,30 +4724,30 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v89 = 0;
-      v340 = 0;
+      v339 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v340);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v339);
     if (v89)
     {
       CFRelease(v89);
     }
 
-    v318 = @"BoostPreferedFormForSortkey";
-    v316 = @"FilterName";
-    v317 = @"Parameters";
-    v335 = @"MinSuggestionDominanceRatio";
+    v317 = @"BoostPreferedFormForSortkey";
+    v315 = @"FilterName";
+    v316 = @"Parameters";
+    v334 = @"MinSuggestionDominanceRatio";
     LODWORD(v90) = v16;
     v91 = [MEMORY[0x277CCABB0] numberWithFloat:v90];
-    v336 = v91;
-    v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v336 forKeys:&v335 count:1];
-    v319 = v92;
-    v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v318 forKeys:&v316 count:2];
+    v335 = v91;
+    v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v335 forKeys:&v334 count:1];
+    v318 = v92;
+    v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v317 forKeys:&v315 count:2];
     v94 = v93;
     if (v93)
     {
       CFRetain(v93);
-      v337 = v94;
+      v336 = v94;
       v95 = CFGetTypeID(v94);
       v96 = v94;
       if (v95 != CFDictionaryGetTypeID())
@@ -4869,23 +4759,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v96 = 0;
-      v337 = 0;
+      v336 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v337);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v336);
     if (v96)
     {
       CFRelease(v96);
     }
 
-    v332 = @"FilterName";
-    v333 = @"FilterNoPredictContinuousPathAlternates";
-    v97 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v333 forKeys:&v332 count:1];
+    v331 = @"FilterName";
+    v332 = @"FilterNoPredictContinuousPathAlternates";
+    v97 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v332 forKeys:&v331 count:1];
     v98 = v97;
     if (v97)
     {
       CFRetain(v97);
-      v334 = v98;
+      v333 = v98;
       v99 = CFGetTypeID(v98);
       v100 = v98;
       if (v99 != CFDictionaryGetTypeID())
@@ -4897,10 +4787,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v100 = 0;
-      v334 = 0;
+      v333 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v334);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v333);
     if (v100)
     {
       CFRelease(v100);
@@ -4908,14 +4798,14 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (*(a1 + 187) == 1)
     {
-      v315 = @"FilterName";
-      v320 = @"BoostCaseVariantsOfTopCandidate";
-      v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v320 forKeys:&v315 count:1];
+      v314 = @"FilterName";
+      v319 = @"BoostCaseVariantsOfTopCandidate";
+      v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v319 forKeys:&v314 count:1];
       v103 = v102;
       if (v102)
       {
         CFRetain(v102);
-        v331 = v103;
+        v330 = v103;
         v104 = CFGetTypeID(v103);
         v105 = v103;
         if (v104 != CFDictionaryGetTypeID())
@@ -4927,31 +4817,31 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v105 = 0;
-        v331 = 0;
+        v330 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v331);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v330);
       if (v105)
       {
         CFRelease(v105);
       }
     }
 
-    v307 = @"Parameters";
-    v308 = @"FilterContinuousPathAlternatesFromOtherLanguage";
-    v306 = @"FilterName";
-    v312 = @"MinConfidenceToEstablishContinuousPathLanguage";
+    v306 = @"Parameters";
+    v307 = @"FilterContinuousPathAlternatesFromOtherLanguage";
+    v305 = @"FilterName";
+    v311 = @"MinConfidenceToEstablishContinuousPathLanguage";
     LODWORD(v101) = v18;
     v106 = [MEMORY[0x277CCABB0] numberWithFloat:v101];
-    v313 = v106;
-    v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v313 forKeys:&v312 count:1];
-    v309 = v107;
-    v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v308 forKeys:&v306 count:2];
+    v312 = v106;
+    v107 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v312 forKeys:&v311 count:1];
+    v308 = v107;
+    v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v307 forKeys:&v305 count:2];
     v109 = v108;
     if (v108)
     {
       CFRetain(v108);
-      v314 = v109;
+      v313 = v109;
       v110 = CFGetTypeID(v109);
       v111 = v109;
       if (v110 != CFDictionaryGetTypeID())
@@ -4963,10 +4853,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v111 = 0;
-      v314 = 0;
+      v313 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v314);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v313);
     if (v111)
     {
       CFRelease(v111);
@@ -4975,7 +4865,7 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     goto LABEL_330;
   }
 
-  v5 = *(a1 + 136);
+  v5 = *(a1 + 34);
   if (!v5)
   {
     v25 = filter_factory_log();
@@ -4985,18 +4875,18 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       _os_log_impl(&dword_22CA55000, v25, OS_LOG_TYPE_INFO, "Create standard prediction, completion, or replacement candidate filter (TICandQualityFilter).", buf, 2u);
     }
 
-    v26 = *(a1 + 44);
-    v27 = *(a1 + 64);
-    v28 = *(a1 + 72);
-    v29 = *(a1 + 92);
-    v347[0] = @"FilterName";
-    v265[0] = @"FilterZeroProbability";
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v265 forKeys:v347 count:1];
+    v26 = *(a1 + 11);
+    v27 = *(a1 + 16);
+    v28 = a1[9];
+    v29 = *(a1 + 23);
+    v346[0] = @"FilterName";
+    v264[0] = @"FilterZeroProbability";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v264 forKeys:v346 count:1];
     v31 = v30;
     if (v30)
     {
       CFRetain(v30);
-      v266[0] = v31;
+      v265[0] = v31;
       v32 = CFGetTypeID(v31);
       v33 = v31;
       if (v32 != CFDictionaryGetTypeID())
@@ -5008,23 +4898,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v33 = 0;
-      v266[0] = 0;
+      v265[0] = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v266);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v265);
     if (v33)
     {
       CFRelease(v33);
     }
 
-    v344 = @"FilterName";
-    v345 = @"FilterAppNames";
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v345 forKeys:&v344 count:1];
+    v343 = @"FilterName";
+    v344 = @"FilterAppNames";
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v344 forKeys:&v343 count:1];
     v47 = v46;
     if (v46)
     {
       CFRetain(v46);
-      v346 = v47;
+      v345 = v47;
       v48 = CFGetTypeID(v47);
       v49 = v47;
       if (v48 != CFDictionaryGetTypeID())
@@ -5036,23 +4926,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v49 = 0;
-      v346 = 0;
+      v345 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v346);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v345);
     if (v49)
     {
       CFRelease(v49);
     }
 
-    v341 = @"FilterName";
-    v342 = @"FilterIncomplete";
-    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v342 forKeys:&v341 count:1];
+    v340 = @"FilterName";
+    v341 = @"FilterIncomplete";
+    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v341 forKeys:&v340 count:1];
     v55 = v54;
     if (v54)
     {
       CFRetain(v54);
-      v343 = v55;
+      v342 = v55;
       v56 = CFGetTypeID(v55);
       v57 = v55;
       if (v56 != CFDictionaryGetTypeID())
@@ -5064,10 +4954,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v57 = 0;
-      v343 = 0;
+      v342 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v343);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v342);
     if (v57)
     {
       CFRelease(v57);
@@ -5075,14 +4965,14 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (*(a1 + 185) == 1)
     {
-      v338 = @"FilterName";
-      v339 = @"FilterWithoutSupplementalWords";
-      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v339 forKeys:&v338 count:1];
+      v337 = @"FilterName";
+      v338 = @"FilterWithoutSupplementalWords";
+      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v338 forKeys:&v337 count:1];
       v63 = v62;
       if (v62)
       {
         CFRetain(v62);
-        v340 = v63;
+        v339 = v63;
         v64 = CFGetTypeID(v63);
         v65 = v63;
         if (v64 != CFDictionaryGetTypeID())
@@ -5094,23 +4984,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v65 = 0;
-        v340 = 0;
+        v339 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v340);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v339);
       if (v65)
       {
         CFRelease(v65);
       }
 
-      v335 = @"FilterName";
-      v336 = @"FilterPartOfHyphenatedWord";
-      v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v336 forKeys:&v335 count:1];
+      v334 = @"FilterName";
+      v335 = @"FilterPartOfHyphenatedWord";
+      v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v335 forKeys:&v334 count:1];
       v118 = v117;
       if (v117)
       {
         CFRetain(v117);
-        v337 = v118;
+        v336 = v118;
         v119 = CFGetTypeID(v118);
         v120 = v118;
         if (v119 != CFDictionaryGetTypeID())
@@ -5122,24 +5012,24 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v120 = 0;
-        v337 = 0;
+        v336 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v337);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v336);
       if (v120)
       {
         CFRelease(v120);
       }
     }
 
-    v332 = @"FilterName";
-    v333 = @"FilterControlCharacters";
-    v187 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v333 forKeys:&v332 count:1];
+    v331 = @"FilterName";
+    v332 = @"FilterControlCharacters";
+    v187 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v332 forKeys:&v331 count:1];
     v188 = v187;
     if (v187)
     {
       CFRetain(v187);
-      v334 = v188;
+      v333 = v188;
       v189 = CFGetTypeID(v188);
       v190 = v188;
       if (v189 != CFDictionaryGetTypeID())
@@ -5151,32 +5041,32 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v190 = 0;
-      v334 = 0;
+      v333 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v334);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v333);
     if (v190)
     {
       CFRelease(v190);
     }
 
-    v329 = @"FilterNotSuggestibleForInput";
-    v327 = @"FilterName";
-    v328 = @"Parameters";
-    v321 = @"WordEquivalenceType";
-    v322 = @"ApplyFilterCondition";
+    v328 = @"FilterNotSuggestibleForInput";
+    v326 = @"FilterName";
+    v327 = @"Parameters";
+    v320 = @"WordEquivalenceType";
+    v321 = @"ApplyFilterCondition";
     *buf = @"SortkeyEquivalence";
-    v325 = @"ApplyIfCandidatesContainInputMatch";
-    v323 = @"ShouldRemoveVulgar";
-    v326 = @"RemoveVulgar";
-    v191 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v321 count:3];
-    v330 = v191;
-    v192 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v329 forKeys:&v327 count:2];
+    v324 = @"ApplyIfCandidatesContainInputMatch";
+    v322 = @"ShouldRemoveVulgar";
+    v325 = @"RemoveVulgar";
+    v191 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v320 count:3];
+    v329 = v191;
+    v192 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v328 forKeys:&v326 count:2];
     v193 = v192;
     if (v192)
     {
       CFRetain(v192);
-      v331 = v193;
+      v330 = v193;
       v194 = CFGetTypeID(v193);
       v195 = v193;
       if (v194 != CFDictionaryGetTypeID())
@@ -5188,30 +5078,30 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v195 = 0;
-      v331 = 0;
+      v330 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v331);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v330);
     if (v195)
     {
       CFRelease(v195);
     }
 
-    v318 = @"BoostMinimumVariation";
-    v316 = @"FilterName";
-    v317 = @"Parameters";
-    v314 = @"MinCandidateDominanceRatio";
+    v317 = @"BoostMinimumVariation";
+    v315 = @"FilterName";
+    v316 = @"Parameters";
+    v313 = @"MinCandidateDominanceRatio";
     LODWORD(v196) = v26;
     v197 = [MEMORY[0x277CCABB0] numberWithFloat:v196];
-    v315 = v197;
-    v198 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v315 forKeys:&v314 count:1];
-    v319 = v198;
-    v199 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v318 forKeys:&v316 count:2];
+    v314 = v197;
+    v198 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v314 forKeys:&v313 count:1];
+    v318 = v198;
+    v199 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v317 forKeys:&v315 count:2];
     v200 = v199;
     if (v199)
     {
       CFRetain(v199);
-      v320 = v200;
+      v319 = v200;
       v201 = CFGetTypeID(v200);
       v202 = v200;
       if (v201 != CFDictionaryGetTypeID())
@@ -5223,10 +5113,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v202 = 0;
-      v320 = 0;
+      v319 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v320);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v319);
     if (v202)
     {
       CFRelease(v202);
@@ -5234,23 +5124,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (_os_feature_enabled_impl())
     {
-      v311 = @"FilterName";
+      v310 = @"FilterName";
       v203 = @"FilterNumberlikeTokenMismatch";
     }
 
     else
     {
-      v311 = @"FilterName";
+      v310 = @"FilterName";
       v203 = @"FilterNumberMismatch";
     }
 
-    v312 = v203;
-    v204 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v312 forKeys:&v311 count:1];
+    v311 = v203;
+    v204 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v311 forKeys:&v310 count:1];
     v205 = v204;
     if (v204)
     {
       CFRetain(v204);
-      v313 = v205;
+      v312 = v205;
       v206 = CFGetTypeID(v205);
       v207 = v205;
       if (v206 != CFDictionaryGetTypeID())
@@ -5262,30 +5152,30 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v207 = 0;
-      v313 = 0;
+      v312 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v313);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v312);
     if (v207)
     {
       CFRelease(v207);
     }
 
-    v307 = @"Parameters";
-    v308 = @"FilterCharacterCount";
-    v302 = @"Character";
-    v303 = @"CharacterCountRelation";
-    v304 = @"&";
-    v305 = @"LessThanOrEqualToInputCount";
-    v306 = @"FilterName";
-    v208 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v304 forKeys:&v302 count:2];
-    v309 = v208;
-    v209 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v308 forKeys:&v306 count:2];
+    v306 = @"Parameters";
+    v307 = @"FilterCharacterCount";
+    v301 = @"Character";
+    v302 = @"CharacterCountRelation";
+    v303 = @"&";
+    v304 = @"LessThanOrEqualToInputCount";
+    v305 = @"FilterName";
+    v208 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v303 forKeys:&v301 count:2];
+    v308 = v208;
+    v209 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v307 forKeys:&v305 count:2];
     v210 = v209;
     if (v209)
     {
       CFRetain(v209);
-      v310 = v210;
+      v309 = v210;
       v211 = CFGetTypeID(v210);
       v212 = v210;
       if (v211 != CFDictionaryGetTypeID())
@@ -5297,23 +5187,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v212 = 0;
-      v310 = 0;
+      v309 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v310);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v309);
     if (v212)
     {
       CFRelease(v212);
     }
 
-    v300 = @"FilterName";
-    v301 = @"FilterDoubleApostrophe";
-    v213 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v301 forKeys:&v300 count:1];
+    v299 = @"FilterName";
+    v300 = @"FilterDoubleApostrophe";
+    v213 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v300 forKeys:&v299 count:1];
     v214 = v213;
     if (v213)
     {
       CFRetain(v213);
-      v262 = v214;
+      v261 = v214;
       v215 = CFGetTypeID(v214);
       v216 = v214;
       if (v215 != CFDictionaryGetTypeID())
@@ -5325,23 +5215,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v216 = 0;
-      v262 = 0;
+      v261 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v262);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v261);
     if (v216)
     {
       CFRelease(v216);
     }
 
-    v298 = @"FilterName";
-    v299 = @"FilterWordEndingApostropheBetweenNonseparators";
-    v217 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v299 forKeys:&v298 count:1];
+    v297 = @"FilterName";
+    v298 = @"FilterWordEndingApostropheBetweenNonseparators";
+    v217 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v298 forKeys:&v297 count:1];
     v218 = v217;
     if (v217)
     {
       CFRetain(v217);
-      v261 = v218;
+      v260 = v218;
       v219 = CFGetTypeID(v218);
       v220 = v218;
       if (v219 != CFDictionaryGetTypeID())
@@ -5353,23 +5243,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v220 = 0;
-      v261 = 0;
+      v260 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v261);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v260);
     if (v220)
     {
       CFRelease(v220);
     }
 
-    v296 = @"FilterName";
-    v297 = @"FilterInvalidTextReplacement";
-    v221 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v297 forKeys:&v296 count:1];
+    v295 = @"FilterName";
+    v296 = @"FilterInvalidTextReplacement";
+    v221 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
     v222 = v221;
     if (v221)
     {
       CFRetain(v221);
-      v260 = v222;
+      v259 = v222;
       v223 = CFGetTypeID(v222);
       v224 = v222;
       if (v223 != CFDictionaryGetTypeID())
@@ -5381,32 +5271,32 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v224 = 0;
-      v260 = 0;
+      v259 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v260);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v259);
     if (v224)
     {
       CFRelease(v224);
     }
 
-    v293 = @"Parameters";
-    v294 = @"FilterNotSuggestibleForInput";
-    v291 = @"RemoveVulgar";
-    v292 = @"FilterName";
-    v286 = @"WordEquivalenceType";
-    v287 = @"ApplyFilterCondition";
-    v289 = @"SurfaceFormEquivalence";
-    v290 = @"ApplyAlways";
-    v288 = @"ShouldRemoveVulgar";
-    v225 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v286 count:3];
-    v295 = v225;
-    v226 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v294 forKeys:&v292 count:2];
+    v292 = @"Parameters";
+    v293 = @"FilterNotSuggestibleForInput";
+    v290 = @"RemoveVulgar";
+    v291 = @"FilterName";
+    v285 = @"WordEquivalenceType";
+    v286 = @"ApplyFilterCondition";
+    v288 = @"SurfaceFormEquivalence";
+    v289 = @"ApplyAlways";
+    v287 = @"ShouldRemoveVulgar";
+    v225 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v288 forKeys:&v285 count:3];
+    v294 = v225;
+    v226 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v293 forKeys:&v291 count:2];
     v227 = v226;
     if (v226)
     {
       CFRetain(v226);
-      v259 = v227;
+      v258 = v227;
       v228 = CFGetTypeID(v227);
       v229 = v227;
       if (v228 != CFDictionaryGetTypeID())
@@ -5418,30 +5308,30 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v229 = 0;
-      v259 = 0;
+      v258 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v259);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v258);
     if (v229)
     {
       CFRelease(v229);
     }
 
-    v283 = @"Parameters";
-    v284 = @"FilterDifferentLanguageThanContext";
-    v282 = @"FilterName";
-    v280 = @"MinConfidenceToEstablishLanguage";
+    v282 = @"Parameters";
+    v283 = @"FilterDifferentLanguageThanContext";
+    v281 = @"FilterName";
+    v279 = @"MinConfidenceToEstablishLanguage";
     LODWORD(v230) = v29;
     v231 = [MEMORY[0x277CCABB0] numberWithFloat:v230];
-    v281 = v231;
-    v232 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v281 forKeys:&v280 count:1];
-    v285 = v232;
-    v233 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v284 forKeys:&v282 count:2];
+    v280 = v231;
+    v232 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v280 forKeys:&v279 count:1];
+    v284 = v232;
+    v233 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v283 forKeys:&v281 count:2];
     v234 = v233;
     if (v233)
     {
       CFRetain(v233);
-      v258 = v234;
+      v257 = v234;
       v235 = CFGetTypeID(v234);
       v236 = v234;
       if (v235 != CFDictionaryGetTypeID())
@@ -5453,10 +5343,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
     else
     {
       v236 = 0;
-      v258 = 0;
+      v257 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v258);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v257);
     if (v236)
     {
       CFRelease(v236);
@@ -5464,23 +5354,23 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (*(a1 + 186) == 1)
     {
-      v276 = @"Parameters";
-      v277 = @"FilterInputPrefixMismatch";
-      v275 = @"FilterName";
-      v271 = @"MinPrefixMatchLen";
+      v275 = @"Parameters";
+      v276 = @"FilterInputPrefixMismatch";
+      v274 = @"FilterName";
+      v270 = @"MinPrefixMatchLen";
       v237 = [MEMORY[0x277CCABB0] numberWithInt:v27];
-      v272 = @"MinTargetCandidates";
-      v273 = v237;
+      v271 = @"MinTargetCandidates";
+      v272 = v237;
       v238 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v28];
-      v274 = v238;
-      v239 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v273 forKeys:&v271 count:2];
-      v278 = v239;
-      v240 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v277 forKeys:&v275 count:2];
+      v273 = v238;
+      v239 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v272 forKeys:&v270 count:2];
+      v277 = v239;
+      v240 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v276 forKeys:&v274 count:2];
       v241 = v240;
       if (v240)
       {
         CFRetain(v240);
-        v279 = v241;
+        v278 = v241;
         v242 = CFGetTypeID(v241);
         v243 = v241;
         if (v242 != CFDictionaryGetTypeID())
@@ -5492,10 +5382,10 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
       else
       {
         v243 = 0;
-        v279 = 0;
+        v278 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v279);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v278);
       if (v243)
       {
         CFRelease(v243);
@@ -5504,17 +5394,17 @@ void KB::CandidateFilterFactory::create_standard_filter_definition(uint64_t a1, 
 
     if (*(a1 + 187) != 1)
     {
-      goto LABEL_331;
+      return;
     }
 
-    v269 = @"FilterName";
-    v270 = @"BoostCaseVariantsOfTopCandidate";
-    v244 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
+    v268 = @"FilterName";
+    v269 = @"BoostCaseVariantsOfTopCandidate";
+    v244 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
     v106 = v244;
     if (v244)
     {
       CFRetain(v244);
-      v257 = v106;
+      v256 = v106;
       v245 = CFGetTypeID(v106);
       v246 = v106;
       if (v245 != CFDictionaryGetTypeID())
@@ -5528,10 +5418,10 @@ LABEL_325:
     else
     {
       v246 = 0;
-      v257 = 0;
+      v256 = 0;
     }
 
-    v247 = &v257;
+    v247 = &v256;
 LABEL_328:
     KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v247);
     if (v246)
@@ -5541,7 +5431,7 @@ LABEL_328:
 
 LABEL_330:
 
-    goto LABEL_331;
+    return;
   }
 
   if (v5 == 1)
@@ -5553,18 +5443,18 @@ LABEL_330:
       _os_log_impl(&dword_22CA55000, v6, OS_LOG_TYPE_INFO, "Create standard prediction, completion, or replacement candidate filter (TIFavoniusCandQualityFilter).", buf, 2u);
     }
 
-    v7 = *(a1 + 44);
-    v8 = *(a1 + 64);
-    v9 = *(a1 + 72);
-    v10 = *(a1 + 92);
-    v345 = @"FilterName";
-    v346 = @"FilterZeroProbability";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v346 forKeys:&v345 count:1];
+    v7 = *(a1 + 11);
+    v8 = *(a1 + 16);
+    v9 = a1[9];
+    v10 = *(a1 + 23);
+    v344 = @"FilterName";
+    v345 = @"FilterZeroProbability";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v345 forKeys:&v344 count:1];
     v12 = v11;
     if (v11)
     {
       CFRetain(v11);
-      v347[0] = v12;
+      v346[0] = v12;
       v13 = CFGetTypeID(v12);
       v14 = v12;
       if (v13 != CFDictionaryGetTypeID())
@@ -5576,23 +5466,23 @@ LABEL_330:
     else
     {
       v14 = 0;
-      v347[0] = 0;
+      v346[0] = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v347);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v346);
     if (v14)
     {
       CFRelease(v14);
     }
 
-    v342 = @"FilterName";
-    v343 = @"FilterAppNames";
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v343 forKeys:&v342 count:1];
+    v341 = @"FilterName";
+    v342 = @"FilterAppNames";
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v342 forKeys:&v341 count:1];
     v43 = v42;
     if (v42)
     {
       CFRetain(v42);
-      v344 = v43;
+      v343 = v43;
       v44 = CFGetTypeID(v43);
       v45 = v43;
       if (v44 != CFDictionaryGetTypeID())
@@ -5604,23 +5494,23 @@ LABEL_330:
     else
     {
       v45 = 0;
-      v344 = 0;
+      v343 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v344);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v343);
     if (v45)
     {
       CFRelease(v45);
     }
 
-    v339 = @"FilterName";
-    v340 = @"FilterIncomplete";
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v340 forKeys:&v339 count:1];
+    v338 = @"FilterName";
+    v339 = @"FilterIncomplete";
+    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v339 forKeys:&v338 count:1];
     v51 = v50;
     if (v50)
     {
       CFRetain(v50);
-      v341 = v51;
+      v340 = v51;
       v52 = CFGetTypeID(v51);
       v53 = v51;
       if (v52 != CFDictionaryGetTypeID())
@@ -5632,10 +5522,10 @@ LABEL_330:
     else
     {
       v53 = 0;
-      v341 = 0;
+      v340 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v341);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v340);
     if (v53)
     {
       CFRelease(v53);
@@ -5643,14 +5533,14 @@ LABEL_330:
 
     if (*(a1 + 185) == 1)
     {
-      v336 = @"FilterName";
-      v337 = @"FilterWithoutSupplementalWords";
-      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v337 forKeys:&v336 count:1];
+      v335 = @"FilterName";
+      v336 = @"FilterWithoutSupplementalWords";
+      v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v336 forKeys:&v335 count:1];
       v59 = v58;
       if (v58)
       {
         CFRetain(v58);
-        v338 = v59;
+        v337 = v59;
         v60 = CFGetTypeID(v59);
         v61 = v59;
         if (v60 != CFDictionaryGetTypeID())
@@ -5662,23 +5552,23 @@ LABEL_330:
       else
       {
         v61 = 0;
-        v338 = 0;
+        v337 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v338);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v337);
       if (v61)
       {
         CFRelease(v61);
       }
 
-      v333 = @"FilterName";
-      v334 = @"FilterPartOfHyphenatedWord";
-      v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v334 forKeys:&v333 count:1];
+      v332 = @"FilterName";
+      v333 = @"FilterPartOfHyphenatedWord";
+      v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v333 forKeys:&v332 count:1];
       v114 = v113;
       if (v113)
       {
         CFRetain(v113);
-        v335 = v114;
+        v334 = v114;
         v115 = CFGetTypeID(v114);
         v116 = v114;
         if (v115 != CFDictionaryGetTypeID())
@@ -5690,17 +5580,17 @@ LABEL_330:
       else
       {
         v116 = 0;
-        v335 = 0;
+        v334 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v335);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v334);
       if (v116)
       {
         CFRelease(v116);
       }
     }
 
-    v320 = @"FilterName";
+    v319 = @"FilterName";
     if (_os_feature_enabled_impl())
     {
       v121 = @"FilterNumberlikeTokenMismatch";
@@ -5711,13 +5601,13 @@ LABEL_330:
       v121 = @"FilterNumberMismatch";
     }
 
-    v331 = v121;
-    v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v331 forKeys:&v320 count:1];
+    v330 = v121;
+    v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v330 forKeys:&v319 count:1];
     v123 = v122;
     if (v122)
     {
       CFRetain(v122);
-      v332 = v123;
+      v331 = v123;
       v124 = CFGetTypeID(v123);
       v125 = v123;
       if (v124 != CFDictionaryGetTypeID())
@@ -5729,23 +5619,23 @@ LABEL_330:
     else
     {
       v125 = 0;
-      v332 = 0;
+      v331 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v332);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v331);
     if (v125)
     {
       CFRelease(v125);
     }
 
-    v313 = @"FilterName";
-    v314 = @"FilterControlCharacters";
-    v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v314 forKeys:&v313 count:1];
+    v312 = @"FilterName";
+    v313 = @"FilterControlCharacters";
+    v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v313 forKeys:&v312 count:1];
     v127 = v126;
     if (v126)
     {
       CFRetain(v126);
-      v315 = v127;
+      v314 = v127;
       v128 = CFGetTypeID(v127);
       v129 = v127;
       if (v128 != CFDictionaryGetTypeID())
@@ -5757,23 +5647,23 @@ LABEL_330:
     else
     {
       v129 = 0;
-      v315 = 0;
+      v314 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v315);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v314);
     if (v129)
     {
       CFRelease(v129);
     }
 
-    v310 = @"FilterName";
-    v311 = @"FilterDoubleApostrophe";
-    v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v311 forKeys:&v310 count:1];
+    v309 = @"FilterName";
+    v310 = @"FilterDoubleApostrophe";
+    v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v310 forKeys:&v309 count:1];
     v131 = v130;
     if (v130)
     {
       CFRetain(v130);
-      v312 = v131;
+      v311 = v131;
       v132 = CFGetTypeID(v131);
       v133 = v131;
       if (v132 != CFDictionaryGetTypeID())
@@ -5785,23 +5675,23 @@ LABEL_330:
     else
     {
       v133 = 0;
-      v312 = 0;
+      v311 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v312);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v311);
     if (v133)
     {
       CFRelease(v133);
     }
 
-    v300 = @"FilterName";
-    v301 = @"FilterWordEndingApostropheBetweenNonseparators";
-    v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v301 forKeys:&v300 count:1];
+    v299 = @"FilterName";
+    v300 = @"FilterWordEndingApostropheBetweenNonseparators";
+    v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v300 forKeys:&v299 count:1];
     v135 = v134;
     if (v134)
     {
       CFRetain(v134);
-      v262 = v135;
+      v261 = v135;
       v136 = CFGetTypeID(v135);
       v137 = v135;
       if (v136 != CFDictionaryGetTypeID())
@@ -5813,28 +5703,28 @@ LABEL_330:
     else
     {
       v137 = 0;
-      v262 = 0;
+      v261 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v262);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v261);
     if (v137)
     {
       CFRelease(v137);
     }
 
-    v329 = @"FilterAllCapsNoSuggestWordsOfLength";
-    v327 = @"FilterName";
-    v328 = @"Parameters";
-    v298 = @"Length";
-    v299 = &unk_28400BD00;
-    v138 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v299 forKeys:&v298 count:1];
-    v330 = v138;
-    v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v329 forKeys:&v327 count:2];
+    v328 = @"FilterAllCapsNoSuggestWordsOfLength";
+    v326 = @"FilterName";
+    v327 = @"Parameters";
+    v297 = @"Length";
+    v298 = &unk_28400BD00;
+    v138 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v298 forKeys:&v297 count:1];
+    v329 = v138;
+    v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v328 forKeys:&v326 count:2];
     v140 = v139;
     if (v139)
     {
       CFRetain(v139);
-      v261 = v140;
+      v260 = v140;
       v141 = CFGetTypeID(v140);
       v142 = v140;
       if (v141 != CFDictionaryGetTypeID())
@@ -5846,23 +5736,23 @@ LABEL_330:
     else
     {
       v142 = 0;
-      v261 = 0;
+      v260 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v261);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v260);
     if (v142)
     {
       CFRelease(v142);
     }
 
-    v296 = @"FilterName";
-    v297 = @"FilterPopupVariantMismatch";
-    v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v297 forKeys:&v296 count:1];
+    v295 = @"FilterName";
+    v296 = @"FilterPopupVariantMismatch";
+    v143 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
     v144 = v143;
     if (v143)
     {
       CFRetain(v143);
-      v260 = v144;
+      v259 = v144;
       v145 = CFGetTypeID(v144);
       v146 = v144;
       if (v145 != CFDictionaryGetTypeID())
@@ -5874,30 +5764,30 @@ LABEL_330:
     else
     {
       v146 = 0;
-      v260 = 0;
+      v259 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v260);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v259);
     if (v146)
     {
       CFRelease(v146);
     }
 
-    v318 = @"FilterCharacterCount";
-    v316 = @"FilterName";
-    v317 = @"Parameters";
-    v306 = @"Character";
-    v307 = @"CharacterCountRelation";
-    v308 = @"&";
-    v309 = @"GreaterThanOrEqualToInputCount";
-    v147 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v308 forKeys:&v306 count:2];
-    v319 = v147;
-    v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v318 forKeys:&v316 count:2];
+    v317 = @"FilterCharacterCount";
+    v315 = @"FilterName";
+    v316 = @"Parameters";
+    v305 = @"Character";
+    v306 = @"CharacterCountRelation";
+    v307 = @"&";
+    v308 = @"GreaterThanOrEqualToInputCount";
+    v147 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v307 forKeys:&v305 count:2];
+    v318 = v147;
+    v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v317 forKeys:&v315 count:2];
     v149 = v148;
     if (v148)
     {
       CFRetain(v148);
-      v259 = v149;
+      v258 = v149;
       v150 = CFGetTypeID(v149);
       v151 = v149;
       if (v150 != CFDictionaryGetTypeID())
@@ -5909,32 +5799,32 @@ LABEL_330:
     else
     {
       v151 = 0;
-      v259 = 0;
+      v258 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v259);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v258);
     if (v151)
     {
       CFRelease(v151);
     }
 
-    v302 = @"FilterName";
-    v303 = @"Parameters";
-    v304 = @"FilterNotSuggestibleForInput";
-    v321 = @"WordEquivalenceType";
-    v322 = @"ApplyFilterCondition";
+    v301 = @"FilterName";
+    v302 = @"Parameters";
+    v303 = @"FilterNotSuggestibleForInput";
+    v320 = @"WordEquivalenceType";
+    v321 = @"ApplyFilterCondition";
     *buf = @"SortkeyEquivalence";
-    v325 = @"ApplyAlways";
-    v323 = @"ShouldRemoveVulgar";
-    v326 = @"RemoveVulgar";
-    v152 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v321 count:3];
-    v305 = v152;
-    v153 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v304 forKeys:&v302 count:2];
+    v324 = @"ApplyAlways";
+    v322 = @"ShouldRemoveVulgar";
+    v325 = @"RemoveVulgar";
+    v152 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v320 count:3];
+    v304 = v152;
+    v153 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v303 forKeys:&v301 count:2];
     v154 = v153;
     if (v153)
     {
       CFRetain(v153);
-      v258 = v154;
+      v257 = v154;
       v155 = CFGetTypeID(v154);
       v156 = v154;
       if (v155 != CFDictionaryGetTypeID())
@@ -5946,32 +5836,32 @@ LABEL_330:
     else
     {
       v156 = 0;
-      v258 = 0;
+      v257 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v258);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v257);
     if (v156)
     {
       CFRelease(v156);
     }
 
-    v252 = v9;
+    v251 = v9;
 
-    v292 = @"FilterName";
-    v293 = @"Parameters";
-    v294 = @"BoostMinimumVariation";
-    v279 = @"MinCandidateDominanceRatio";
+    v291 = @"FilterName";
+    v292 = @"Parameters";
+    v293 = @"BoostMinimumVariation";
+    v278 = @"MinCandidateDominanceRatio";
     LODWORD(v157) = v7;
     v158 = [MEMORY[0x277CCABB0] numberWithFloat:v157];
-    v280 = v158;
-    v159 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v280 forKeys:&v279 count:1];
-    v295 = v159;
-    v160 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v294 forKeys:&v292 count:2];
+    v279 = v158;
+    v159 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v279 forKeys:&v278 count:1];
+    v294 = v159;
+    v160 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v293 forKeys:&v291 count:2];
     v161 = v160;
     if (v160)
     {
       CFRetain(v160);
-      v281 = v161;
+      v280 = v161;
       v162 = CFGetTypeID(v161);
       v163 = v161;
       if (v162 != CFDictionaryGetTypeID())
@@ -5983,23 +5873,23 @@ LABEL_330:
     else
     {
       v163 = 0;
-      v281 = 0;
+      v280 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v281);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v280);
     if (v163)
     {
       CFRelease(v163);
     }
 
-    v269 = @"FilterName";
-    v270 = @"FilterInvalidTextReplacement";
-    v164 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
+    v268 = @"FilterName";
+    v269 = @"FilterInvalidTextReplacement";
+    v164 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
     v165 = v164;
     if (v164)
     {
       CFRetain(v164);
-      v257 = v165;
+      v256 = v165;
       v166 = CFGetTypeID(v165);
       v167 = v165;
       if (v166 != CFDictionaryGetTypeID())
@@ -6011,32 +5901,32 @@ LABEL_330:
     else
     {
       v167 = 0;
-      v257 = 0;
+      v256 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v257);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v256);
     if (v167)
     {
       CFRelease(v167);
     }
 
-    v282 = @"FilterName";
-    v283 = @"Parameters";
-    v284 = @"FilterNotSuggestibleForInput";
-    v286 = @"WordEquivalenceType";
-    v287 = @"ApplyFilterCondition";
-    v289 = @"SurfaceFormEquivalence";
-    v290 = @"ApplyAlways";
-    v288 = @"ShouldRemoveVulgar";
-    v291 = @"RemoveVulgar";
-    v168 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v286 count:3];
-    v285 = v168;
-    v169 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v284 forKeys:&v282 count:2];
+    v281 = @"FilterName";
+    v282 = @"Parameters";
+    v283 = @"FilterNotSuggestibleForInput";
+    v285 = @"WordEquivalenceType";
+    v286 = @"ApplyFilterCondition";
+    v288 = @"SurfaceFormEquivalence";
+    v289 = @"ApplyAlways";
+    v287 = @"ShouldRemoveVulgar";
+    v290 = @"RemoveVulgar";
+    v168 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v288 forKeys:&v285 count:3];
+    v284 = v168;
+    v169 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v283 forKeys:&v281 count:2];
     v170 = v169;
     if (v169)
     {
       CFRetain(v169);
-      v256 = v170;
+      v255 = v170;
       v171 = CFGetTypeID(v170);
       v172 = v170;
       if (v171 != CFDictionaryGetTypeID())
@@ -6048,30 +5938,30 @@ LABEL_330:
     else
     {
       v172 = 0;
-      v256 = 0;
+      v255 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v256);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v255);
     if (v172)
     {
       CFRelease(v172);
     }
 
-    v275 = @"FilterName";
-    v276 = @"Parameters";
-    v277 = @"FilterDifferentLanguageThanContext";
-    v267 = @"MinConfidenceToEstablishLanguage";
+    v274 = @"FilterName";
+    v275 = @"Parameters";
+    v276 = @"FilterDifferentLanguageThanContext";
+    v266 = @"MinConfidenceToEstablishLanguage";
     LODWORD(v173) = v10;
     v174 = [MEMORY[0x277CCABB0] numberWithFloat:v173];
-    v268 = v174;
-    v175 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v268 forKeys:&v267 count:1];
-    v278 = v175;
-    v176 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v277 forKeys:&v275 count:2];
+    v267 = v174;
+    v175 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
+    v277 = v175;
+    v176 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v276 forKeys:&v274 count:2];
     v177 = v176;
     if (v176)
     {
       CFRetain(v176);
-      v255 = v177;
+      v254 = v177;
       v178 = CFGetTypeID(v177);
       v179 = v177;
       if (v178 != CFDictionaryGetTypeID())
@@ -6083,10 +5973,10 @@ LABEL_330:
     else
     {
       v179 = 0;
-      v255 = 0;
+      v254 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v255);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v254);
     if (v179)
     {
       CFRelease(v179);
@@ -6094,23 +5984,23 @@ LABEL_330:
 
     if (*(a1 + 186) == 1)
     {
-      v271 = @"FilterName";
-      v272 = @"Parameters";
-      v273 = @"FilterInputPrefixMismatch";
-      v265[0] = @"MinPrefixMatchLen";
+      v270 = @"FilterName";
+      v271 = @"Parameters";
+      v272 = @"FilterInputPrefixMismatch";
+      v264[0] = @"MinPrefixMatchLen";
       v180 = [MEMORY[0x277CCABB0] numberWithInt:v8];
-      v265[1] = @"MinTargetCandidates";
-      v266[0] = v180;
-      v181 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v252];
-      v266[1] = v181;
-      v182 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v266 forKeys:v265 count:2];
-      v274 = v182;
-      v183 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v273 forKeys:&v271 count:2];
+      v264[1] = @"MinTargetCandidates";
+      v265[0] = v180;
+      v181 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v251];
+      v265[1] = v181;
+      v182 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v265 forKeys:v264 count:2];
+      v273 = v182;
+      v183 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v272 forKeys:&v270 count:2];
       v184 = v183;
       if (v183)
       {
         CFRetain(v183);
-        v254 = v184;
+        v253 = v184;
         v185 = CFGetTypeID(v184);
         v186 = v184;
         if (v185 != CFDictionaryGetTypeID())
@@ -6122,10 +6012,10 @@ LABEL_330:
       else
       {
         v186 = 0;
-        v254 = 0;
+        v253 = 0;
       }
 
-      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v254);
+      KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v253);
       if (v186)
       {
         CFRelease(v186);
@@ -6134,14 +6024,14 @@ LABEL_330:
 
     if (*(a1 + 187) == 1)
     {
-      v263 = @"FilterName";
-      v264 = @"BoostCaseVariantsOfTopCandidate";
-      v248 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v264 forKeys:&v263 count:1];
+      v262 = @"FilterName";
+      v263 = @"BoostCaseVariantsOfTopCandidate";
+      v248 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v263 forKeys:&v262 count:1];
       v106 = v248;
       if (v248)
       {
         CFRetain(v248);
-        v253 = v106;
+        v252 = v106;
         v249 = CFGetTypeID(v106);
         v246 = v106;
         if (v249 != CFDictionaryGetTypeID())
@@ -6153,42 +6043,39 @@ LABEL_330:
       else
       {
         v246 = 0;
-        v253 = 0;
+        v252 = 0;
       }
 
-      v247 = &v253;
+      v247 = &v252;
       goto LABEL_328;
     }
   }
-
-LABEL_331:
-  v251 = *MEMORY[0x277D85DE8];
 }
 
-void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_definition(uint64_t a1, uint64_t *a2)
+void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_definition(uint64_t a1, uint64_t a2)
 {
-  v309[1] = *MEMORY[0x277D85DE8];
+  v308[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = *(a1 + 44);
   v7 = *(a1 + 48);
   v6 = *(a1 + 52);
-  v187 = *(a1 + 60);
+  v186 = *(a1 + 60);
   v9 = *(a1 + 80);
   v8 = *(a1 + 84);
-  v188 = *(a1 + 88);
+  v187 = *(a1 + 88);
   v10 = *(a1 + 92);
   v12 = *(a1 + 100);
   v11 = *(a1 + 104);
   v13 = *(a1 + 108);
   v14 = *(a1 + 120);
-  v308 = @"FilterName";
-  v309[0] = @"FilterZeroProbability";
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v309 forKeys:&v308 count:1];
+  v307 = @"FilterName";
+  v308[0] = @"FilterZeroProbability";
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v308 forKeys:&v307 count:1];
   v16 = v15;
   if (v15)
   {
     CFRetain(v15);
-    v221 = v16;
+    v220 = v16;
     v17 = CFGetTypeID(v16);
     v18 = v16;
     if (v17 != CFDictionaryGetTypeID())
@@ -6200,23 +6087,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v18 = 0;
-    v221 = 0;
+    v220 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v221);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v220);
   if (v18)
   {
     CFRelease(v18);
   }
 
-  v306 = @"FilterName";
-  v307 = @"FilterIncomplete";
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v307 forKeys:&v306 count:1];
+  v305 = @"FilterName";
+  v306 = @"FilterIncomplete";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v306 forKeys:&v305 count:1];
   v20 = v19;
   if (v19)
   {
     CFRetain(v19);
-    v220 = v20;
+    v219 = v20;
     v21 = CFGetTypeID(v20);
     v22 = v20;
     if (v21 != CFDictionaryGetTypeID())
@@ -6228,10 +6115,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v22 = 0;
-    v220 = 0;
+    v219 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v220);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v219);
   if (v22)
   {
     CFRelease(v22);
@@ -6240,14 +6127,14 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   v23 = 0x277CBE000uLL;
   if (*(a1 + 185) == 1)
   {
-    v304 = @"FilterName";
-    v305 = @"FilterWithoutSupplementalWords";
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v305 forKeys:&v304 count:1];
+    v303 = @"FilterName";
+    v304 = @"FilterWithoutSupplementalWords";
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v304 forKeys:&v303 count:1];
     v25 = v24;
     if (v24)
     {
       CFRetain(v24);
-      v219 = v25;
+      v218 = v25;
       v26 = CFGetTypeID(v25);
       v27 = v25;
       v28 = v26 == CFDictionaryGetTypeID();
@@ -6261,23 +6148,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
     else
     {
       v27 = 0;
-      v219 = 0;
+      v218 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v219);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v218);
     if (v27)
     {
       CFRelease(v27);
     }
 
-    v302 = @"FilterName";
-    v303 = @"FilterPartOfHyphenatedWord";
-    v29 = [*(v23 + 2752) dictionaryWithObjects:&v303 forKeys:&v302 count:1];
+    v301 = @"FilterName";
+    v302 = @"FilterPartOfHyphenatedWord";
+    v29 = [*(v23 + 2752) dictionaryWithObjects:&v302 forKeys:&v301 count:1];
     v30 = v29;
     if (v29)
     {
       CFRetain(v29);
-      v218 = v30;
+      v217 = v30;
       v31 = CFGetTypeID(v30);
       v32 = v30;
       if (v31 != CFDictionaryGetTypeID())
@@ -6289,10 +6176,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
     else
     {
       v32 = 0;
-      v218 = 0;
+      v217 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v218);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v217);
     if (v32)
     {
       CFRelease(v32);
@@ -6311,14 +6198,14 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
 
   if (v34)
   {
-    v300 = @"FilterName";
-    v301 = @"CustomFilter";
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v301 forKeys:&v300 count:1];
+    v299 = @"FilterName";
+    v300 = @"CustomFilter";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v300 forKeys:&v299 count:1];
     v36 = v35;
     if (v35)
     {
       CFRetain(v35);
-      v217 = v36;
+      v216 = v36;
       v37 = CFGetTypeID(v36);
       v38 = v36;
       if (v37 != CFDictionaryGetTypeID())
@@ -6330,10 +6217,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
     else
     {
       v38 = 0;
-      v217 = 0;
+      v216 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v217);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v216);
     if (v38)
     {
       CFRelease(v38);
@@ -6342,44 +6229,17 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
 
   if (_os_feature_enabled_impl())
   {
-    v298 = @"FilterName";
-    v299 = @"FilterNumberlikeTokenMismatch";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v299 forKeys:&v298 count:1];
+    v297 = @"FilterName";
+    v298 = @"FilterNumberlikeTokenMismatch";
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v298 forKeys:&v297 count:1];
     v40 = v39;
     if (v39)
     {
       CFRetain(v39);
-      v216 = v40;
+      v215 = v40;
       v41 = CFGetTypeID(v40);
       v42 = v40;
       if (v41 != CFDictionaryGetTypeID())
-      {
-        goto LABEL_202;
-      }
-    }
-
-    else
-    {
-      v42 = 0;
-      v216 = 0;
-    }
-
-    v45 = &v216;
-  }
-
-  else
-  {
-    v296 = @"FilterName";
-    v297 = @"FilterNumberMismatch";
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v297 forKeys:&v296 count:1];
-    v40 = v43;
-    if (v43)
-    {
-      CFRetain(v43);
-      v215 = v40;
-      v44 = CFGetTypeID(v40);
-      v42 = v40;
-      if (v44 != CFDictionaryGetTypeID())
       {
         goto LABEL_202;
       }
@@ -6394,20 +6254,47 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
     v45 = &v215;
   }
 
+  else
+  {
+    v295 = @"FilterName";
+    v296 = @"FilterNumberMismatch";
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
+    v40 = v43;
+    if (v43)
+    {
+      CFRetain(v43);
+      v214 = v40;
+      v44 = CFGetTypeID(v40);
+      v42 = v40;
+      if (v44 != CFDictionaryGetTypeID())
+      {
+        goto LABEL_202;
+      }
+    }
+
+    else
+    {
+      v42 = 0;
+      v214 = 0;
+    }
+
+    v45 = &v214;
+  }
+
   KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v45);
   if (v42)
   {
     CFRelease(v42);
   }
 
-  v294 = @"FilterName";
-  v295 = @"FilterControlCharacters";
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v295 forKeys:&v294 count:1];
+  v293 = @"FilterName";
+  v294 = @"FilterControlCharacters";
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v294 forKeys:&v293 count:1];
   v47 = v46;
   if (v46)
   {
     CFRetain(v46);
-    v214 = v47;
+    v213 = v47;
     v48 = CFGetTypeID(v47);
     v49 = v47;
     if (v48 != CFDictionaryGetTypeID())
@@ -6419,23 +6306,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v49 = 0;
-    v214 = 0;
+    v213 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v214);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v213);
   if (v49)
   {
     CFRelease(v49);
   }
 
-  v292 = @"FilterName";
-  v293 = @"FilterAlteredURLFragments";
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v293 forKeys:&v292 count:1];
+  v291 = @"FilterName";
+  v292 = @"FilterAlteredURLFragments";
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v292 forKeys:&v291 count:1];
   v51 = v50;
   if (v50)
   {
     CFRetain(v50);
-    v213 = v51;
+    v212 = v51;
     v52 = CFGetTypeID(v51);
     v53 = v51;
     if (v52 != CFDictionaryGetTypeID())
@@ -6447,23 +6334,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v53 = 0;
-    v213 = 0;
+    v212 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v213);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v212);
   if (v53)
   {
     CFRelease(v53);
   }
 
-  v290 = @"FilterName";
-  v291 = @"FilterDoubleApostrophe";
-  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v291 forKeys:&v290 count:1];
+  v289 = @"FilterName";
+  v290 = @"FilterDoubleApostrophe";
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v290 forKeys:&v289 count:1];
   v55 = v54;
   if (v54)
   {
     CFRetain(v54);
-    v212 = v55;
+    v211 = v55;
     v56 = CFGetTypeID(v55);
     v57 = v55;
     if (v56 != CFDictionaryGetTypeID())
@@ -6475,23 +6362,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v57 = 0;
-    v212 = 0;
+    v211 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v212);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v211);
   if (v57)
   {
     CFRelease(v57);
   }
 
-  v288 = @"FilterName";
-  v289 = @"FilterWordEndingApostropheBetweenNonseparators";
-  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v289 forKeys:&v288 count:1];
+  v287 = @"FilterName";
+  v288 = @"FilterWordEndingApostropheBetweenNonseparators";
+  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v288 forKeys:&v287 count:1];
   v59 = v58;
   if (v58)
   {
     CFRetain(v58);
-    v211 = v59;
+    v210 = v59;
     v60 = CFGetTypeID(v59);
     v61 = v59;
     if (v60 != CFDictionaryGetTypeID())
@@ -6503,28 +6390,28 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v61 = 0;
-    v211 = 0;
+    v210 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v211);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v210);
   if (v61)
   {
     CFRelease(v61);
   }
 
-  v287[0] = @"FilterAllCapsNoSuggestWordsOfLength";
-  v286[0] = @"FilterName";
-  v286[1] = @"Parameters";
-  v284 = @"Length";
-  v285 = &unk_28400BD00;
-  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v285 forKeys:&v284 count:1];
-  v287[1] = v62;
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v287 forKeys:v286 count:2];
+  v286[0] = @"FilterAllCapsNoSuggestWordsOfLength";
+  v285[0] = @"FilterName";
+  v285[1] = @"Parameters";
+  v283 = @"Length";
+  v284 = &unk_28400BD00;
+  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v284 forKeys:&v283 count:1];
+  v286[1] = v62;
+  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v286 forKeys:v285 count:2];
   v64 = v63;
   if (v63)
   {
     CFRetain(v63);
-    v210 = v64;
+    v209 = v64;
     v65 = CFGetTypeID(v64);
     v66 = v64;
     v28 = v65 == CFDictionaryGetTypeID();
@@ -6538,23 +6425,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v66 = 0;
-    v210 = 0;
+    v209 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v210);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v209);
   if (v66)
   {
     CFRelease(v66);
   }
 
-  v282 = @"FilterName";
-  v283 = @"FilterPopupVariantMismatch";
-  v67 = [*(v23 + 2752) dictionaryWithObjects:&v283 forKeys:&v282 count:1];
+  v281 = @"FilterName";
+  v282 = @"FilterPopupVariantMismatch";
+  v67 = [*(v23 + 2752) dictionaryWithObjects:&v282 forKeys:&v281 count:1];
   v68 = v67;
   if (v67)
   {
     CFRetain(v67);
-    v209 = v68;
+    v208 = v68;
     v69 = CFGetTypeID(v68);
     v70 = v68;
     if (v69 != CFDictionaryGetTypeID())
@@ -6566,30 +6453,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v70 = 0;
-    v209 = 0;
+    v208 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v209);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v208);
   if (v70)
   {
     CFRelease(v70);
   }
 
-  v281[0] = @"FilterCharacterCount";
-  v280[0] = @"FilterName";
-  v280[1] = @"Parameters";
-  v278[0] = @"Character";
-  v278[1] = @"CharacterCountRelation";
-  v279[0] = @"&";
-  v279[1] = @"GreaterThanOrEqualToInputCount";
-  v71 = [*(v23 + 2752) dictionaryWithObjects:v279 forKeys:v278 count:2];
-  v281[1] = v71;
-  v72 = [*(v23 + 2752) dictionaryWithObjects:v281 forKeys:v280 count:2];
+  v280[0] = @"FilterCharacterCount";
+  v279[0] = @"FilterName";
+  v279[1] = @"Parameters";
+  v277[0] = @"Character";
+  v277[1] = @"CharacterCountRelation";
+  v278[0] = @"&";
+  v278[1] = @"GreaterThanOrEqualToInputCount";
+  v71 = [*(v23 + 2752) dictionaryWithObjects:v278 forKeys:v277 count:2];
+  v280[1] = v71;
+  v72 = [*(v23 + 2752) dictionaryWithObjects:v280 forKeys:v279 count:2];
   v73 = v72;
   if (v72)
   {
     CFRetain(v72);
-    v208 = v73;
+    v207 = v73;
     v74 = CFGetTypeID(v73);
     v75 = v73;
     v28 = v74 == CFDictionaryGetTypeID();
@@ -6603,23 +6490,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v75 = 0;
-    v208 = 0;
+    v207 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v208);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v207);
   if (v75)
   {
     CFRelease(v75);
   }
 
-  v276 = @"FilterName";
-  v277 = @"FilterContactWordsConflictingWithValidInput";
-  v76 = [*(v23 + 2752) dictionaryWithObjects:&v277 forKeys:&v276 count:1];
+  v275 = @"FilterName";
+  v276 = @"FilterContactWordsConflictingWithValidInput";
+  v76 = [*(v23 + 2752) dictionaryWithObjects:&v276 forKeys:&v275 count:1];
   v77 = v76;
   if (v76)
   {
     CFRetain(v76);
-    v207 = v77;
+    v206 = v77;
     v78 = CFGetTypeID(v77);
     v79 = v77;
     if (v78 != CFDictionaryGetTypeID())
@@ -6631,30 +6518,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v79 = 0;
-    v207 = 0;
+    v206 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v207);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v206);
   if (v79)
   {
     CFRelease(v79);
   }
 
-  v275[0] = @"FilterWordsConflictingWithValidContactNames";
-  v274[0] = @"FilterName";
-  v274[1] = @"Parameters";
-  v272 = @"LanguagePowerRatio";
+  v274[0] = @"FilterWordsConflictingWithValidContactNames";
+  v273[0] = @"FilterName";
+  v273[1] = @"Parameters";
+  v271 = @"LanguagePowerRatio";
   LODWORD(v80) = v14;
   v81 = [MEMORY[0x277CCABB0] numberWithFloat:v80];
-  v273 = v81;
-  v82 = [*(v23 + 2752) dictionaryWithObjects:&v273 forKeys:&v272 count:1];
-  v275[1] = v82;
-  v83 = [*(v23 + 2752) dictionaryWithObjects:v275 forKeys:v274 count:2];
+  v272 = v81;
+  v82 = [*(v23 + 2752) dictionaryWithObjects:&v272 forKeys:&v271 count:1];
+  v274[1] = v82;
+  v83 = [*(v23 + 2752) dictionaryWithObjects:v274 forKeys:v273 count:2];
   v84 = v83;
   if (v83)
   {
     CFRetain(v83);
-    v206 = v84;
+    v205 = v84;
     v85 = CFGetTypeID(v84);
     v86 = v84;
     if (v85 != CFDictionaryGetTypeID())
@@ -6666,23 +6553,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v86 = 0;
-    v206 = 0;
+    v205 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v206);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v205);
   if (v86)
   {
     CFRelease(v86);
   }
 
-  v270 = @"FilterName";
-  v271 = @"RescoreShortWords";
-  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v271 forKeys:&v270 count:1];
+  v269 = @"FilterName";
+  v270 = @"RescoreShortWords";
+  v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
   v88 = v87;
   if (v87)
   {
     CFRetain(v87);
-    v205 = v88;
+    v204 = v88;
     v89 = CFGetTypeID(v88);
     v90 = v88;
     if (v89 != CFDictionaryGetTypeID())
@@ -6694,23 +6581,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v90 = 0;
-    v205 = 0;
+    v204 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v205);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v204);
   if (v90)
   {
     CFRelease(v90);
   }
 
-  v268 = @"FilterName";
-  v269 = @"FilterMissingOneLetterWordFromInput";
-  v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
+  v267 = @"FilterName";
+  v268 = @"FilterMissingOneLetterWordFromInput";
+  v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v268 forKeys:&v267 count:1];
   v92 = v91;
   if (v91)
   {
     CFRetain(v91);
-    v204 = v92;
+    v203 = v92;
     v93 = CFGetTypeID(v92);
     v94 = v92;
     if (v93 != CFDictionaryGetTypeID())
@@ -6722,23 +6609,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v94 = 0;
-    v204 = 0;
+    v203 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v204);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v203);
   if (v94)
   {
     CFRelease(v94);
   }
 
-  v266 = @"FilterName";
-  v267 = @"FilterCommonLearnedTypos";
-  v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
+  v265 = @"FilterName";
+  v266 = @"FilterCommonLearnedTypos";
+  v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v266 forKeys:&v265 count:1];
   v96 = v95;
   if (v95)
   {
     CFRetain(v95);
-    v203 = v96;
+    v202 = v96;
     v97 = CFGetTypeID(v96);
     v98 = v96;
     if (v97 != CFDictionaryGetTypeID())
@@ -6750,34 +6637,34 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v98 = 0;
-    v203 = 0;
+    v202 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v203);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v202);
   if (v98)
   {
     CFRelease(v98);
   }
 
-  v265[0] = @"FilterSortkeyMatchFromDifferentLanguage";
-  v264[0] = @"FilterName";
-  v264[1] = @"Parameters";
-  v262[0] = @"MinConfidenceToEstablishCurrentLanguage";
+  v264[0] = @"FilterSortkeyMatchFromDifferentLanguage";
+  v263[0] = @"FilterName";
+  v263[1] = @"Parameters";
+  v261[0] = @"MinConfidenceToEstablishCurrentLanguage";
   LODWORD(v99) = v10;
   v100 = [MEMORY[0x277CCABB0] numberWithFloat:v99];
-  v263[0] = v100;
-  v262[1] = @"SameLanguageSortkeyMatchDominanceRatio";
+  v262[0] = v100;
+  v261[1] = @"SameLanguageSortkeyMatchDominanceRatio";
   LODWORD(v101) = v12;
   v102 = [MEMORY[0x277CCABB0] numberWithFloat:v101];
-  v263[1] = v102;
-  v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v263 forKeys:v262 count:2];
-  v265[1] = v103;
-  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v265 forKeys:v264 count:2];
+  v262[1] = v102;
+  v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v262 forKeys:v261 count:2];
+  v264[1] = v103;
+  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v264 forKeys:v263 count:2];
   v105 = v104;
   if (v104)
   {
     CFRetain(v104);
-    v202 = v105;
+    v201 = v105;
     v106 = CFGetTypeID(v105);
     v107 = v105;
     if (v106 != CFDictionaryGetTypeID())
@@ -6789,34 +6676,34 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v107 = 0;
-    v202 = 0;
+    v201 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v202);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v201);
   if (v107)
   {
     CFRelease(v107);
   }
 
-  v261[0] = @"FilterNondominantCorrectionOfMoreWords";
-  v260[0] = @"FilterName";
-  v260[1] = @"Parameters";
-  v258[0] = @"SortKeyMatchBoostRatio";
+  v260[0] = @"FilterNondominantCorrectionOfMoreWords";
+  v259[0] = @"FilterName";
+  v259[1] = @"Parameters";
+  v257[0] = @"SortKeyMatchBoostRatio";
   LODWORD(v108) = v7;
   v109 = [MEMORY[0x277CCABB0] numberWithFloat:v108];
-  v259[0] = v109;
-  v258[1] = @"NonRetrocorrectionBoostRatio";
+  v258[0] = v109;
+  v257[1] = @"NonRetrocorrectionBoostRatio";
   LODWORD(v110) = v6;
   v111 = [MEMORY[0x277CCABB0] numberWithFloat:v110];
-  v259[1] = v111;
-  v112 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v259 forKeys:v258 count:2];
-  v261[1] = v112;
-  v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v261 forKeys:v260 count:2];
+  v258[1] = v111;
+  v112 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v258 forKeys:v257 count:2];
+  v260[1] = v112;
+  v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v260 forKeys:v259 count:2];
   v114 = v113;
   if (v113)
   {
     CFRetain(v113);
-    v201 = v114;
+    v200 = v114;
     v115 = CFGetTypeID(v114);
     v116 = v114;
     if (v115 != CFDictionaryGetTypeID())
@@ -6828,32 +6715,32 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v116 = 0;
-    v201 = 0;
+    v200 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v201);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v200);
   if (v116)
   {
     CFRelease(v116);
   }
 
-  v257[0] = @"FilterNotSuggestibleForInput";
-  v256[0] = @"FilterName";
-  v256[1] = @"Parameters";
-  v254[0] = @"WordEquivalenceType";
-  v254[1] = @"ApplyFilterCondition";
-  v255[0] = @"SortkeyEquivalence";
-  v255[1] = @"ApplyAlways";
-  v254[2] = @"ShouldRemoveVulgar";
-  v255[2] = @"DoNotRemoveVulgar";
-  v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v255 forKeys:v254 count:3];
-  v257[1] = v117;
-  v118 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v257 forKeys:v256 count:2];
+  v256[0] = @"FilterNotSuggestibleForInput";
+  v255[0] = @"FilterName";
+  v255[1] = @"Parameters";
+  v253[0] = @"WordEquivalenceType";
+  v253[1] = @"ApplyFilterCondition";
+  v254[0] = @"SortkeyEquivalence";
+  v254[1] = @"ApplyAlways";
+  v253[2] = @"ShouldRemoveVulgar";
+  v254[2] = @"DoNotRemoveVulgar";
+  v117 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:v253 count:3];
+  v256[1] = v117;
+  v118 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v256 forKeys:v255 count:2];
   v119 = v118;
   if (v118)
   {
     CFRetain(v118);
-    v200 = v119;
+    v199 = v119;
     v120 = CFGetTypeID(v119);
     v121 = v119;
     if (v120 != CFDictionaryGetTypeID())
@@ -6865,23 +6752,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v121 = 0;
-    v200 = 0;
+    v199 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v200);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v199);
   if (v121)
   {
     CFRelease(v121);
   }
 
-  v252 = @"FilterName";
-  v253 = @"FilterNonVulgarIfTopCandidateVulgar";
-  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v253 forKeys:&v252 count:1];
+  v251 = @"FilterName";
+  v252 = @"FilterNonVulgarIfTopCandidateVulgar";
+  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v252 forKeys:&v251 count:1];
   v123 = v122;
   if (v122)
   {
     CFRetain(v122);
-    v199 = v123;
+    v198 = v123;
     v124 = CFGetTypeID(v123);
     v125 = v123;
     if (v124 != CFDictionaryGetTypeID())
@@ -6893,30 +6780,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v125 = 0;
-    v199 = 0;
+    v198 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v199);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v198);
   if (v125)
   {
     CFRelease(v125);
   }
 
-  v251[0] = @"BoostMinimumVariation";
-  v250[0] = @"FilterName";
-  v250[1] = @"Parameters";
-  v248 = @"MinCandidateDominanceRatio";
+  v250[0] = @"BoostMinimumVariation";
+  v249[0] = @"FilterName";
+  v249[1] = @"Parameters";
+  v247 = @"MinCandidateDominanceRatio";
   LODWORD(v126) = v5;
   v127 = [MEMORY[0x277CCABB0] numberWithFloat:v126];
-  v249 = v127;
-  v128 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v249 forKeys:&v248 count:1];
-  v251[1] = v128;
-  v129 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v251 forKeys:v250 count:2];
+  v248 = v127;
+  v128 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v248 forKeys:&v247 count:1];
+  v250[1] = v128;
+  v129 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v250 forKeys:v249 count:2];
   v130 = v129;
   if (v129)
   {
     CFRetain(v129);
-    v198 = v130;
+    v197 = v130;
     v131 = CFGetTypeID(v130);
     v132 = v130;
     if (v131 != CFDictionaryGetTypeID())
@@ -6928,23 +6815,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v132 = 0;
-    v198 = 0;
+    v197 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v198);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v197);
   if (v132)
   {
     CFRelease(v132);
   }
 
-  v246 = @"FilterName";
-  v247 = @"FilterInvalidTextReplacement";
-  v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
+  v245 = @"FilterName";
+  v246 = @"FilterInvalidTextReplacement";
+  v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v246 forKeys:&v245 count:1];
   v134 = v133;
   if (v133)
   {
     CFRetain(v133);
-    v197 = v134;
+    v196 = v134;
     v135 = CFGetTypeID(v134);
     v136 = v134;
     if (v135 != CFDictionaryGetTypeID())
@@ -6956,23 +6843,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v136 = 0;
-    v197 = 0;
+    v196 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v197);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v196);
   if (v136)
   {
     CFRelease(v136);
   }
 
-  v244 = @"FilterName";
-  v245 = @"FilterLearnedTypo";
-  v137 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
+  v243 = @"FilterName";
+  v244 = @"FilterLearnedTypo";
+  v137 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v244 forKeys:&v243 count:1];
   v138 = v137;
   if (v137)
   {
     CFRetain(v137);
-    v196 = v138;
+    v195 = v138;
     v139 = CFGetTypeID(v138);
     v140 = v138;
     if (v139 != CFDictionaryGetTypeID())
@@ -6984,23 +6871,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v140 = 0;
-    v196 = 0;
+    v195 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v196);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v195);
   if (v140)
   {
     CFRelease(v140);
   }
 
-  v242 = @"FilterName";
-  v243 = @"FilterCaseVariantsOfStaticWords";
-  v141 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
+  v241 = @"FilterName";
+  v242 = @"FilterCaseVariantsOfStaticWords";
+  v141 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v242 forKeys:&v241 count:1];
   v142 = v141;
   if (v141)
   {
     CFRetain(v141);
-    v195 = v142;
+    v194 = v142;
     v143 = CFGetTypeID(v142);
     v144 = v142;
     if (v143 != CFDictionaryGetTypeID())
@@ -7012,33 +6899,33 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v144 = 0;
-    v195 = 0;
+    v194 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v195);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v194);
   if (v144)
   {
     CFRelease(v144);
   }
 
-  v241[0] = @"FilterTopDynamicWordsWithStaticVariant";
-  v240[0] = @"FilterName";
-  v240[1] = @"Parameters";
-  v238[0] = @"MinUsageCountForDynamicCaseVariant";
+  v240[0] = @"FilterTopDynamicWordsWithStaticVariant";
+  v239[0] = @"FilterName";
+  v239[1] = @"Parameters";
+  v237[0] = @"MinUsageCountForDynamicCaseVariant";
   v145 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
-  v239[0] = v145;
-  v238[1] = @"MinOmegaRatioForDynamicCaseVariant";
+  v238[0] = v145;
+  v237[1] = @"MinOmegaRatioForDynamicCaseVariant";
   LODWORD(v146) = v11;
   v147 = [MEMORY[0x277CCABB0] numberWithFloat:v146];
-  v239[1] = v147;
-  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v239 forKeys:v238 count:2];
-  v241[1] = v148;
-  v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v241 forKeys:v240 count:2];
+  v238[1] = v147;
+  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v238 forKeys:v237 count:2];
+  v240[1] = v148;
+  v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v240 forKeys:v239 count:2];
   v150 = v149;
   if (v149)
   {
     CFRetain(v149);
-    v194 = v150;
+    v193 = v150;
     v151 = CFGetTypeID(v150);
     v152 = v150;
     if (v151 != CFDictionaryGetTypeID())
@@ -7050,30 +6937,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v152 = 0;
-    v194 = 0;
+    v193 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v194);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v193);
   if (v152)
   {
     CFRelease(v152);
   }
 
-  v237[0] = @"BoostPreferedFormForSortkey";
-  v236[0] = @"FilterName";
-  v236[1] = @"Parameters";
-  v234 = @"MinSuggestionDominanceRatio";
+  v236[0] = @"BoostPreferedFormForSortkey";
+  v235[0] = @"FilterName";
+  v235[1] = @"Parameters";
+  v233 = @"MinSuggestionDominanceRatio";
   LODWORD(v153) = v4;
   v154 = [MEMORY[0x277CCABB0] numberWithFloat:v153];
-  v235 = v154;
-  v155 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v235 forKeys:&v234 count:1];
-  v237[1] = v155;
-  v156 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v237 forKeys:v236 count:2];
+  v234 = v154;
+  v155 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v234 forKeys:&v233 count:1];
+  v236[1] = v155;
+  v156 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v236 forKeys:v235 count:2];
   v157 = v156;
   if (v156)
   {
     CFRetain(v156);
-    v193 = v157;
+    v192 = v157;
     v158 = CFGetTypeID(v157);
     v159 = v157;
     if (v158 != CFDictionaryGetTypeID())
@@ -7085,43 +6972,43 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v159 = 0;
-    v193 = 0;
+    v192 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v193);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v192);
   if (v159)
   {
     CFRelease(v159);
   }
 
-  v232[0] = @"FilterName";
-  v232[1] = @"Parameters";
-  v233[0] = @"ChooseTopQualityAutocorrection";
-  v230[0] = @"MinLinguisticSynergyForComplexCorrection";
-  LODWORD(v160) = v187;
+  v231[0] = @"FilterName";
+  v231[1] = @"Parameters";
+  v232[0] = @"ChooseTopQualityAutocorrection";
+  v229[0] = @"MinLinguisticSynergyForComplexCorrection";
+  LODWORD(v160) = v186;
   v161 = [MEMORY[0x277CCABB0] numberWithFloat:v160];
-  v231[0] = v161;
-  v230[1] = @"MinSuggestionDominanceRatio";
+  v230[0] = v161;
+  v229[1] = @"MinSuggestionDominanceRatio";
   LODWORD(v162) = v4;
   v163 = [MEMORY[0x277CCABB0] numberWithFloat:v162];
-  v231[1] = v163;
-  v230[2] = @"MinStemLengthForPredictingOneLetter";
+  v230[1] = v163;
+  v229[2] = @"MinStemLengthForPredictingOneLetter";
   v164 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
-  v231[2] = v164;
-  v230[3] = @"MinStemLengthForPredictingTwoLetters";
+  v230[2] = v164;
+  v229[3] = @"MinStemLengthForPredictingTwoLetters";
   v165 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v8];
-  v231[3] = v165;
-  v230[4] = @"MinStemLengthForPredictingThreeLetters";
-  v166 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v188];
-  v231[4] = v166;
-  v167 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v231 forKeys:v230 count:5];
-  v233[1] = v167;
-  v168 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v233 forKeys:v232 count:2];
+  v230[3] = v165;
+  v229[4] = @"MinStemLengthForPredictingThreeLetters";
+  v166 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v187];
+  v230[4] = v166;
+  v167 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v230 forKeys:v229 count:5];
+  v232[1] = v167;
+  v168 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v232 forKeys:v231 count:2];
   v169 = v168;
   if (v168)
   {
     CFRetain(v168);
-    v192 = v169;
+    v191 = v169;
     v170 = CFGetTypeID(v169);
     v171 = v169;
     if (v170 != CFDictionaryGetTypeID())
@@ -7133,32 +7020,32 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v171 = 0;
-    v192 = 0;
+    v191 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v192);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v191);
   if (v171)
   {
     CFRelease(v171);
   }
 
-  v228[0] = @"FilterName";
-  v228[1] = @"Parameters";
-  v229[0] = @"FilterNotSuggestibleForInput";
-  v226[0] = @"WordEquivalenceType";
-  v226[1] = @"ApplyFilterCondition";
-  v227[0] = @"SurfaceFormEquivalence";
-  v227[1] = @"ApplyAlways";
-  v226[2] = @"ShouldRemoveVulgar";
-  v227[2] = @"RemoveVulgarOnlyIfNotAllowlisted";
-  v172 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v227 forKeys:v226 count:3];
-  v229[1] = v172;
-  v173 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v228 count:2];
+  v227[0] = @"FilterName";
+  v227[1] = @"Parameters";
+  v228[0] = @"FilterNotSuggestibleForInput";
+  v225[0] = @"WordEquivalenceType";
+  v225[1] = @"ApplyFilterCondition";
+  v226[0] = @"SurfaceFormEquivalence";
+  v226[1] = @"ApplyAlways";
+  v225[2] = @"ShouldRemoveVulgar";
+  v226[2] = @"RemoveVulgarOnlyIfNotAllowlisted";
+  v172 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v226 forKeys:v225 count:3];
+  v228[1] = v172;
+  v173 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v228 forKeys:v227 count:2];
   v174 = v173;
   if (v173)
   {
     CFRetain(v173);
-    v191 = v174;
+    v190 = v174;
     v175 = CFGetTypeID(v174);
     v176 = v174;
     if (v175 != CFDictionaryGetTypeID())
@@ -7170,23 +7057,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_favonius_def
   else
   {
     v176 = 0;
-    v191 = 0;
+    v190 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v191);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v190);
   if (v176)
   {
     CFRelease(v176);
   }
 
-  v224 = @"FilterName";
-  v225 = @"RemoveAlternatesIfNoLinguisticCandidate";
-  v177 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v225 forKeys:&v224 count:1];
+  v223 = @"FilterName";
+  v224 = @"RemoveAlternatesIfNoLinguisticCandidate";
+  v177 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v224 forKeys:&v223 count:1];
   v178 = v177;
   if (v177)
   {
     CFRetain(v177);
-    v190 = v178;
+    v189 = v178;
     v179 = CFGetTypeID(v178);
     v180 = v178;
     if (v179 != CFDictionaryGetTypeID())
@@ -7200,23 +7087,23 @@ LABEL_202:
   else
   {
     v180 = 0;
-    v190 = 0;
+    v189 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v190);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v189);
   if (v180)
   {
     CFRelease(v180);
   }
 
-  v222 = @"FilterName";
-  v223 = @"FilterDuplicates";
-  v181 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v223 forKeys:&v222 count:1];
+  v221 = @"FilterName";
+  v222 = @"FilterDuplicates";
+  v181 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v222 forKeys:&v221 count:1];
   v182 = v181;
   if (v181)
   {
     CFRetain(v181);
-    v189 = v182;
+    v188 = v182;
     v183 = CFGetTypeID(v182);
     v184 = v182;
     if (v183 != CFDictionaryGetTypeID())
@@ -7228,40 +7115,38 @@ LABEL_202:
   else
   {
     v184 = 0;
-    v189 = 0;
+    v188 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v189);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v188);
   if (v184)
   {
     CFRelease(v184);
   }
-
-  v186 = *MEMORY[0x277D85DE8];
 }
 
-void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(uint64_t a1, uint64_t *a2)
+void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(uint64_t a1, uint64_t a2)
 {
-  v254[1] = *MEMORY[0x277D85DE8];
+  v253[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = *(a1 + 44);
   v6 = *(a1 + 60);
   v7 = *(a1 + 80);
-  v155 = *(a1 + 84);
+  v154 = *(a1 + 84);
   v8 = *(a1 + 88);
   v9 = *(a1 + 104);
   v10 = *(a1 + 108);
   v11 = *(a1 + 120);
   v12 = *(a1 + 124);
-  v253 = @"FilterName";
-  v254[0] = @"FilterZeroProbability";
+  v252 = @"FilterName";
+  v253[0] = @"FilterZeroProbability";
   v13 = 0x277CBE000uLL;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:&v253 count:1];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v253 forKeys:&v252 count:1];
   v15 = v14;
   if (v14)
   {
     CFRetain(v14);
-    v182 = v15;
+    v181 = v15;
     v16 = CFGetTypeID(v15);
     v17 = v15;
     v18 = v16 == CFDictionaryGetTypeID();
@@ -7275,34 +7160,34 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v17 = 0;
-    v182 = 0;
+    v181 = 0;
   }
 
-  v154 = v8;
+  v153 = v8;
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v182);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v181);
   if (v17)
   {
     CFRelease(v17);
   }
 
-  v251[0] = @"FilterName";
-  v251[1] = @"Parameters";
-  v252[0] = @"FilterWordsConflictingWithValidContactNames";
-  v249 = @"LanguagePowerRatio";
+  v250[0] = @"FilterName";
+  v250[1] = @"Parameters";
+  v251[0] = @"FilterWordsConflictingWithValidContactNames";
+  v248 = @"LanguagePowerRatio";
   LODWORD(v19) = v11;
   v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v250 = v20;
-  v21 = [*(v13 + 2752) dictionaryWithObjects:&v250 forKeys:&v249 count:1];
+  v249 = v20;
+  v21 = [*(v13 + 2752) dictionaryWithObjects:&v249 forKeys:&v248 count:1];
   v22 = v13;
   v23 = v21;
-  v252[1] = v21;
-  v24 = [*(v22 + 2752) dictionaryWithObjects:v252 forKeys:v251 count:2];
+  v251[1] = v21;
+  v24 = [*(v22 + 2752) dictionaryWithObjects:v251 forKeys:v250 count:2];
   v25 = v24;
   if (v24)
   {
     CFRetain(v24);
-    v181 = v25;
+    v180 = v25;
     v26 = CFGetTypeID(v25);
     v27 = v25;
     if (v26 != CFDictionaryGetTypeID())
@@ -7314,23 +7199,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v27 = 0;
-    v181 = 0;
+    v180 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v181);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v180);
   if (v27)
   {
     CFRelease(v27);
   }
 
-  v247 = @"FilterName";
-  v248 = @"RescoreShortWords";
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v248 forKeys:&v247 count:1];
+  v246 = @"FilterName";
+  v247 = @"RescoreShortWords";
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v247 forKeys:&v246 count:1];
   v29 = v28;
   if (v28)
   {
     CFRetain(v28);
-    v180 = v29;
+    v179 = v29;
     v30 = CFGetTypeID(v29);
     v31 = v29;
     if (v30 != CFDictionaryGetTypeID())
@@ -7342,23 +7227,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v31 = 0;
-    v180 = 0;
+    v179 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v180);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v179);
   if (v31)
   {
     CFRelease(v31);
   }
 
-  v245 = @"FilterName";
-  v246 = @"FilterIncomplete";
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v246 forKeys:&v245 count:1];
+  v244 = @"FilterName";
+  v245 = @"FilterIncomplete";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
   v33 = v32;
   if (v32)
   {
     CFRetain(v32);
-    v179 = v33;
+    v178 = v33;
     v34 = CFGetTypeID(v33);
     v35 = v33;
     if (v34 != CFDictionaryGetTypeID())
@@ -7370,10 +7255,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v35 = 0;
-    v179 = 0;
+    v178 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v179);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v178);
   if (v35)
   {
     CFRelease(v35);
@@ -7381,14 +7266,14 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
 
   if (*(a1 + 185) == 1)
   {
-    v243 = @"FilterName";
-    v244 = @"FilterWithoutSupplementalWords";
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v244 forKeys:&v243 count:1];
+    v242 = @"FilterName";
+    v243 = @"FilterWithoutSupplementalWords";
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v243 forKeys:&v242 count:1];
     v37 = v36;
     if (v36)
     {
       CFRetain(v36);
-      v178 = v37;
+      v177 = v37;
       v38 = CFGetTypeID(v37);
       v39 = v37;
       if (v38 != CFDictionaryGetTypeID())
@@ -7400,23 +7285,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
     else
     {
       v39 = 0;
-      v178 = 0;
+      v177 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v178);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v177);
     if (v39)
     {
       CFRelease(v39);
     }
 
-    v241 = @"FilterName";
-    v242 = @"FilterPartOfHyphenatedWord";
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v242 forKeys:&v241 count:1];
+    v240 = @"FilterName";
+    v241 = @"FilterPartOfHyphenatedWord";
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v241 forKeys:&v240 count:1];
     v41 = v40;
     if (v40)
     {
       CFRetain(v40);
-      v177 = v41;
+      v176 = v41;
       v42 = CFGetTypeID(v41);
       v43 = v41;
       if (v42 != CFDictionaryGetTypeID())
@@ -7428,10 +7313,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
     else
     {
       v43 = 0;
-      v177 = 0;
+      v176 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v177);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v176);
     if (v43)
     {
       CFRelease(v43);
@@ -7448,14 +7333,14 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
 
   if (v45)
   {
-    v239 = @"FilterName";
-    v240 = @"CustomFilter";
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v240 forKeys:&v239 count:1];
+    v238 = @"FilterName";
+    v239 = @"CustomFilter";
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v239 forKeys:&v238 count:1];
     v47 = v46;
     if (v46)
     {
       CFRetain(v46);
-      v176 = v47;
+      v175 = v47;
       v48 = CFGetTypeID(v47);
       v49 = v47;
       if (v48 != CFDictionaryGetTypeID())
@@ -7467,24 +7352,24 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
     else
     {
       v49 = 0;
-      v176 = 0;
+      v175 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v176);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v175);
     if (v49)
     {
       CFRelease(v49);
     }
   }
 
-  v237 = @"FilterName";
-  v238 = @"FilterControlCharacters";
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v238 forKeys:&v237 count:1];
+  v236 = @"FilterName";
+  v237 = @"FilterControlCharacters";
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v237 forKeys:&v236 count:1];
   v51 = v50;
   if (v50)
   {
     CFRetain(v50);
-    v175 = v51;
+    v174 = v51;
     v52 = CFGetTypeID(v51);
     v53 = v51;
     if (v52 != CFDictionaryGetTypeID())
@@ -7496,10 +7381,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v53 = 0;
-    v175 = 0;
+    v174 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v175);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v174);
   if (v53)
   {
     CFRelease(v53);
@@ -7507,20 +7392,20 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
 
   if ((*(a1 + 188) & 1) == 0)
   {
-    v236[0] = @"FilterCorrectionsIfAnyCandidateMatchesInput";
-    v235[0] = @"FilterName";
-    v235[1] = @"Parameters";
-    v233 = @"WithinTopXAutocorrectionCandidates";
+    v235[0] = @"FilterCorrectionsIfAnyCandidateMatchesInput";
+    v234[0] = @"FilterName";
+    v234[1] = @"Parameters";
+    v232 = @"WithinTopXAutocorrectionCandidates";
     v54 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-    v234 = v54;
-    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v234 forKeys:&v233 count:1];
-    v236[1] = v55;
-    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v236 forKeys:v235 count:2];
+    v233 = v54;
+    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v233 forKeys:&v232 count:1];
+    v235[1] = v55;
+    v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v235 forKeys:v234 count:2];
     v57 = v56;
     if (v56)
     {
       CFRetain(v56);
-      v174 = v57;
+      v173 = v57;
       v58 = CFGetTypeID(v57);
       v59 = v57;
       if (v58 != CFDictionaryGetTypeID())
@@ -7532,33 +7417,33 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
     else
     {
       v59 = 0;
-      v174 = 0;
+      v173 = 0;
     }
 
-    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v174);
+    KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v173);
     if (v59)
     {
       CFRelease(v59);
     }
   }
 
-  v232[0] = @"FilterNotSuggestibleForInput";
-  v231[0] = @"FilterName";
-  v231[1] = @"Parameters";
-  v229[0] = @"WordEquivalenceType";
-  v229[1] = @"ApplyFilterCondition";
-  v230[0] = @"SortkeyEquivalence";
-  v230[1] = @"ApplyIfCandidatesContainInputMatch";
-  v229[2] = @"ShouldRemoveVulgar";
-  v230[2] = @"DoNotRemoveVulgar";
-  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v230 forKeys:v229 count:3];
-  v232[1] = v60;
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v232 forKeys:v231 count:2];
+  v231[0] = @"FilterNotSuggestibleForInput";
+  v230[0] = @"FilterName";
+  v230[1] = @"Parameters";
+  v228[0] = @"WordEquivalenceType";
+  v228[1] = @"ApplyFilterCondition";
+  v229[0] = @"SortkeyEquivalence";
+  v229[1] = @"ApplyIfCandidatesContainInputMatch";
+  v228[2] = @"ShouldRemoveVulgar";
+  v229[2] = @"DoNotRemoveVulgar";
+  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:v228 count:3];
+  v231[1] = v60;
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v231 forKeys:v230 count:2];
   v62 = v61;
   if (v61)
   {
     CFRetain(v61);
-    v173 = v62;
+    v172 = v62;
     v63 = CFGetTypeID(v62);
     v64 = v62;
     if (v63 != CFDictionaryGetTypeID())
@@ -7570,23 +7455,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v64 = 0;
-    v173 = 0;
+    v172 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v173);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v172);
   if (v64)
   {
     CFRelease(v64);
   }
 
-  v227 = @"FilterName";
-  v228 = @"FilterNonVulgarIfTopCandidateVulgar";
-  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v228 forKeys:&v227 count:1];
+  v226 = @"FilterName";
+  v227 = @"FilterNonVulgarIfTopCandidateVulgar";
+  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v227 forKeys:&v226 count:1];
   v66 = v65;
   if (v65)
   {
     CFRetain(v65);
-    v172 = v66;
+    v171 = v66;
     v67 = CFGetTypeID(v66);
     v68 = v66;
     if (v67 != CFDictionaryGetTypeID())
@@ -7598,30 +7483,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v68 = 0;
-    v172 = 0;
+    v171 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v172);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v171);
   if (v68)
   {
     CFRelease(v68);
   }
 
-  v226[0] = @"BoostMinimumVariation";
-  v225[0] = @"FilterName";
-  v225[1] = @"Parameters";
-  v223 = @"MinCandidateDominanceRatio";
+  v225[0] = @"BoostMinimumVariation";
+  v224[0] = @"FilterName";
+  v224[1] = @"Parameters";
+  v222 = @"MinCandidateDominanceRatio";
   LODWORD(v69) = v5;
   v70 = [MEMORY[0x277CCABB0] numberWithFloat:v69];
-  v224 = v70;
-  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v224 forKeys:&v223 count:1];
-  v226[1] = v71;
-  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v226 forKeys:v225 count:2];
+  v223 = v70;
+  v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v223 forKeys:&v222 count:1];
+  v225[1] = v71;
+  v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v225 forKeys:v224 count:2];
   v73 = v72;
   if (v72)
   {
     CFRetain(v72);
-    v171 = v73;
+    v170 = v73;
     v74 = CFGetTypeID(v73);
     v75 = v73;
     if (v74 != CFDictionaryGetTypeID())
@@ -7633,10 +7518,10 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v75 = 0;
-    v171 = 0;
+    v170 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v171);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v170);
   if (v75)
   {
     CFRelease(v75);
@@ -7644,44 +7529,17 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
 
   if (_os_feature_enabled_impl())
   {
-    v221 = @"FilterName";
-    v222 = @"FilterNumberlikeTokenMismatch";
-    v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v222 forKeys:&v221 count:1];
+    v220 = @"FilterName";
+    v221 = @"FilterNumberlikeTokenMismatch";
+    v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v221 forKeys:&v220 count:1];
     v77 = v76;
     if (v76)
     {
       CFRetain(v76);
-      v170 = v77;
+      v169 = v77;
       v78 = CFGetTypeID(v77);
       v79 = v77;
       if (v78 != CFDictionaryGetTypeID())
-      {
-        goto LABEL_168;
-      }
-    }
-
-    else
-    {
-      v79 = 0;
-      v170 = 0;
-    }
-
-    v82 = &v170;
-  }
-
-  else
-  {
-    v219 = @"FilterName";
-    v220 = @"FilterNumberMismatch";
-    v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v220 forKeys:&v219 count:1];
-    v77 = v80;
-    if (v80)
-    {
-      CFRetain(v80);
-      v169 = v77;
-      v81 = CFGetTypeID(v77);
-      v79 = v77;
-      if (v81 != CFDictionaryGetTypeID())
       {
         goto LABEL_168;
       }
@@ -7696,27 +7554,54 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
     v82 = &v169;
   }
 
+  else
+  {
+    v218 = @"FilterName";
+    v219 = @"FilterNumberMismatch";
+    v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v219 forKeys:&v218 count:1];
+    v77 = v80;
+    if (v80)
+    {
+      CFRetain(v80);
+      v168 = v77;
+      v81 = CFGetTypeID(v77);
+      v79 = v77;
+      if (v81 != CFDictionaryGetTypeID())
+      {
+        goto LABEL_168;
+      }
+    }
+
+    else
+    {
+      v79 = 0;
+      v168 = 0;
+    }
+
+    v82 = &v168;
+  }
+
   KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, v82);
   if (v79)
   {
     CFRelease(v79);
   }
 
-  v218[0] = @"FilterCharacterCount";
-  v217[0] = @"FilterName";
-  v217[1] = @"Parameters";
-  v215[0] = @"Character";
-  v215[1] = @"CharacterCountRelation";
-  v216[0] = @"&";
-  v216[1] = @"LessThanOrEqualToInputCount";
-  v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v216 forKeys:v215 count:2];
-  v218[1] = v83;
-  v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v218 forKeys:v217 count:2];
+  v217[0] = @"FilterCharacterCount";
+  v216[0] = @"FilterName";
+  v216[1] = @"Parameters";
+  v214[0] = @"Character";
+  v214[1] = @"CharacterCountRelation";
+  v215[0] = @"&";
+  v215[1] = @"LessThanOrEqualToInputCount";
+  v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v215 forKeys:v214 count:2];
+  v217[1] = v83;
+  v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v217 forKeys:v216 count:2];
   v85 = v84;
   if (v84)
   {
     CFRetain(v84);
-    v168 = v85;
+    v167 = v85;
     v86 = CFGetTypeID(v85);
     v87 = v85;
     if (v86 != CFDictionaryGetTypeID())
@@ -7728,23 +7613,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v87 = 0;
-    v168 = 0;
+    v167 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v168);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v167);
   if (v87)
   {
     CFRelease(v87);
   }
 
-  v213 = @"FilterName";
-  v214 = @"FilterAlteredURLFragments";
-  v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v214 forKeys:&v213 count:1];
+  v212 = @"FilterName";
+  v213 = @"FilterAlteredURLFragments";
+  v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v213 forKeys:&v212 count:1];
   v89 = v88;
   if (v88)
   {
     CFRetain(v88);
-    v167 = v89;
+    v166 = v89;
     v90 = CFGetTypeID(v89);
     v91 = v89;
     if (v90 != CFDictionaryGetTypeID())
@@ -7756,23 +7641,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v91 = 0;
-    v167 = 0;
+    v166 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v167);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v166);
   if (v91)
   {
     CFRelease(v91);
   }
 
-  v211 = @"FilterName";
-  v212 = @"FilterDoubleApostrophe";
-  v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v212 forKeys:&v211 count:1];
+  v210 = @"FilterName";
+  v211 = @"FilterDoubleApostrophe";
+  v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v211 forKeys:&v210 count:1];
   v93 = v92;
   if (v92)
   {
     CFRetain(v92);
-    v166 = v93;
+    v165 = v93;
     v94 = CFGetTypeID(v93);
     v95 = v93;
     if (v94 != CFDictionaryGetTypeID())
@@ -7784,23 +7669,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v95 = 0;
-    v166 = 0;
+    v165 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v166);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v165);
   if (v95)
   {
     CFRelease(v95);
   }
 
-  v209 = @"FilterName";
-  v210 = @"FilterWordEndingApostropheBetweenNonseparators";
-  v96 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v210 forKeys:&v209 count:1];
+  v208 = @"FilterName";
+  v209 = @"FilterWordEndingApostropheBetweenNonseparators";
+  v96 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v209 forKeys:&v208 count:1];
   v97 = v96;
   if (v96)
   {
     CFRetain(v96);
-    v165 = v97;
+    v164 = v97;
     v98 = CFGetTypeID(v97);
     v99 = v97;
     if (v98 != CFDictionaryGetTypeID())
@@ -7812,23 +7697,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v99 = 0;
-    v165 = 0;
+    v164 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v165);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v164);
   if (v99)
   {
     CFRelease(v99);
   }
 
-  v207 = @"FilterName";
-  v208 = @"FilterInvalidTextReplacement";
-  v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
+  v206 = @"FilterName";
+  v207 = @"FilterInvalidTextReplacement";
+  v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v207 forKeys:&v206 count:1];
   v101 = v100;
   if (v100)
   {
     CFRetain(v100);
-    v164 = v101;
+    v163 = v101;
     v102 = CFGetTypeID(v101);
     v103 = v101;
     if (v102 != CFDictionaryGetTypeID())
@@ -7840,23 +7725,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v103 = 0;
-    v164 = 0;
+    v163 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v164);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v163);
   if (v103)
   {
     CFRelease(v103);
   }
 
-  v205 = @"FilterName";
-  v206 = @"FilterLearnedTypo";
-  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v206 forKeys:&v205 count:1];
+  v204 = @"FilterName";
+  v205 = @"FilterLearnedTypo";
+  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v205 forKeys:&v204 count:1];
   v105 = v104;
   if (v104)
   {
     CFRetain(v104);
-    v163 = v105;
+    v162 = v105;
     v106 = CFGetTypeID(v105);
     v107 = v105;
     if (v106 != CFDictionaryGetTypeID())
@@ -7868,23 +7753,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v107 = 0;
-    v163 = 0;
+    v162 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v163);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v162);
   if (v107)
   {
     CFRelease(v107);
   }
 
-  v203 = @"FilterName";
-  v204 = @"FilterCaseVariantsOfStaticWords";
-  v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v204 forKeys:&v203 count:1];
+  v202 = @"FilterName";
+  v203 = @"FilterCaseVariantsOfStaticWords";
+  v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v203 forKeys:&v202 count:1];
   v109 = v108;
   if (v108)
   {
     CFRetain(v108);
-    v162 = v109;
+    v161 = v109;
     v110 = CFGetTypeID(v109);
     v111 = v109;
     if (v110 != CFDictionaryGetTypeID())
@@ -7896,33 +7781,33 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v111 = 0;
-    v162 = 0;
+    v161 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v162);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v161);
   if (v111)
   {
     CFRelease(v111);
   }
 
-  v202[0] = @"FilterTopDynamicWordsWithStaticVariant";
-  v201[0] = @"FilterName";
-  v201[1] = @"Parameters";
-  v199[0] = @"MinUsageCountForDynamicCaseVariant";
+  v201[0] = @"FilterTopDynamicWordsWithStaticVariant";
+  v200[0] = @"FilterName";
+  v200[1] = @"Parameters";
+  v198[0] = @"MinUsageCountForDynamicCaseVariant";
   v112 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v10];
-  v200[0] = v112;
-  v199[1] = @"MinOmegaRatioForDynamicCaseVariant";
+  v199[0] = v112;
+  v198[1] = @"MinOmegaRatioForDynamicCaseVariant";
   LODWORD(v113) = v9;
   v114 = [MEMORY[0x277CCABB0] numberWithFloat:v113];
-  v200[1] = v114;
-  v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v200 forKeys:v199 count:2];
-  v202[1] = v115;
-  v116 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v202 forKeys:v201 count:2];
+  v199[1] = v114;
+  v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v199 forKeys:v198 count:2];
+  v201[1] = v115;
+  v116 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v201 forKeys:v200 count:2];
   v117 = v116;
   if (v116)
   {
     CFRetain(v116);
-    v161 = v117;
+    v160 = v117;
     v118 = CFGetTypeID(v117);
     v119 = v117;
     if (v118 != CFDictionaryGetTypeID())
@@ -7934,30 +7819,30 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v119 = 0;
-    v161 = 0;
+    v160 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v161);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v160);
   if (v119)
   {
     CFRelease(v119);
   }
 
-  v197[0] = @"FilterName";
-  v197[1] = @"Parameters";
-  v198[0] = @"BoostPreferedFormForSortkey";
-  v195 = @"MinSuggestionDominanceRatio";
+  v196[0] = @"FilterName";
+  v196[1] = @"Parameters";
+  v197[0] = @"BoostPreferedFormForSortkey";
+  v194 = @"MinSuggestionDominanceRatio";
   LODWORD(v120) = v4;
   v121 = [MEMORY[0x277CCABB0] numberWithFloat:v120];
-  v196 = v121;
-  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
-  v198[1] = v122;
-  v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v198 forKeys:v197 count:2];
+  v195 = v121;
+  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v195 forKeys:&v194 count:1];
+  v197[1] = v122;
+  v123 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v197 forKeys:v196 count:2];
   v124 = v123;
   if (v123)
   {
     CFRetain(v123);
-    v160 = v124;
+    v159 = v124;
     v125 = CFGetTypeID(v124);
     v126 = v124;
     if (v125 != CFDictionaryGetTypeID())
@@ -7969,43 +7854,43 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v126 = 0;
-    v160 = 0;
+    v159 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v160);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v159);
   if (v126)
   {
     CFRelease(v126);
   }
 
-  v193[0] = @"FilterName";
-  v193[1] = @"Parameters";
-  v194[0] = @"ChooseTopQualityAutocorrection";
-  v191[0] = @"MinLinguisticSynergyForComplexCorrection";
+  v192[0] = @"FilterName";
+  v192[1] = @"Parameters";
+  v193[0] = @"ChooseTopQualityAutocorrection";
+  v190[0] = @"MinLinguisticSynergyForComplexCorrection";
   LODWORD(v127) = v6;
   v128 = [MEMORY[0x277CCABB0] numberWithFloat:v127];
-  v192[0] = v128;
-  v191[1] = @"MinSuggestionDominanceRatio";
+  v191[0] = v128;
+  v190[1] = @"MinSuggestionDominanceRatio";
   LODWORD(v129) = v4;
   v130 = [MEMORY[0x277CCABB0] numberWithFloat:v129];
-  v192[1] = v130;
-  v191[2] = @"MinStemLengthForPredictingOneLetter";
+  v191[1] = v130;
+  v190[2] = @"MinStemLengthForPredictingOneLetter";
   v131 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v7];
-  v192[2] = v131;
-  v191[3] = @"MinStemLengthForPredictingTwoLetters";
-  v132 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v155];
-  v192[3] = v132;
-  v191[4] = @"MinStemLengthForPredictingThreeLetters";
-  v133 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v154];
-  v192[4] = v133;
-  v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v192 forKeys:v191 count:5];
-  v194[1] = v134;
-  v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:v193 count:2];
+  v191[2] = v131;
+  v190[3] = @"MinStemLengthForPredictingTwoLetters";
+  v132 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v154];
+  v191[3] = v132;
+  v190[4] = @"MinStemLengthForPredictingThreeLetters";
+  v133 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v153];
+  v191[4] = v133;
+  v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:v190 count:5];
+  v193[1] = v134;
+  v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v193 forKeys:v192 count:2];
   v136 = v135;
   if (v135)
   {
     CFRetain(v135);
-    v159 = v136;
+    v158 = v136;
     v137 = CFGetTypeID(v136);
     v138 = v136;
     if (v137 != CFDictionaryGetTypeID())
@@ -8017,32 +7902,32 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v138 = 0;
-    v159 = 0;
+    v158 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v159);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v158);
   if (v138)
   {
     CFRelease(v138);
   }
 
-  v189[1] = @"Parameters";
-  v190[0] = @"FilterNotSuggestibleForInput";
-  v187[0] = @"WordEquivalenceType";
-  v187[1] = @"ApplyFilterCondition";
-  v188[0] = @"SurfaceFormEquivalence";
-  v188[1] = @"ApplyAlways";
-  v187[2] = @"ShouldRemoveVulgar";
-  v188[2] = @"RemoveVulgarOnlyIfNotAllowlisted";
-  v189[0] = @"FilterName";
-  v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v188 forKeys:v187 count:3];
-  v190[1] = v139;
-  v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:v189 count:2];
+  v188[1] = @"Parameters";
+  v189[0] = @"FilterNotSuggestibleForInput";
+  v186[0] = @"WordEquivalenceType";
+  v186[1] = @"ApplyFilterCondition";
+  v187[0] = @"SurfaceFormEquivalence";
+  v187[1] = @"ApplyAlways";
+  v186[2] = @"ShouldRemoveVulgar";
+  v187[2] = @"RemoveVulgarOnlyIfNotAllowlisted";
+  v188[0] = @"FilterName";
+  v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:v186 count:3];
+  v189[1] = v139;
+  v140 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v189 forKeys:v188 count:2];
   v141 = v140;
   if (v140)
   {
     CFRetain(v140);
-    v158 = v141;
+    v157 = v141;
     v142 = CFGetTypeID(v141);
     v143 = v141;
     if (v142 != CFDictionaryGetTypeID())
@@ -8054,23 +7939,23 @@ void KB::CandidateFilterFactory::create_standard_autocorrect_filter_definition(u
   else
   {
     v143 = 0;
-    v158 = 0;
+    v157 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v158);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v157);
   if (v143)
   {
     CFRelease(v143);
   }
 
-  v185 = @"FilterName";
-  v186 = @"RemoveAlternatesIfNoLinguisticCandidate";
-  v144 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
+  v184 = @"FilterName";
+  v185 = @"RemoveAlternatesIfNoLinguisticCandidate";
+  v144 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v185 forKeys:&v184 count:1];
   v145 = v144;
   if (v144)
   {
     CFRetain(v144);
-    v157 = v145;
+    v156 = v145;
     v146 = CFGetTypeID(v145);
     v147 = v145;
     if (v146 != CFDictionaryGetTypeID())
@@ -8084,23 +7969,23 @@ LABEL_168:
   else
   {
     v147 = 0;
-    v157 = 0;
+    v156 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v157);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v156);
   if (v147)
   {
     CFRelease(v147);
   }
 
-  v183 = @"FilterName";
-  v184 = @"FilterDuplicates";
-  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
+  v182 = @"FilterName";
+  v183 = @"FilterDuplicates";
+  v148 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
   v149 = v148;
   if (v148)
   {
     CFRetain(v148);
-    v156 = v149;
+    v155 = v149;
     v150 = CFGetTypeID(v149);
     v151 = v149;
     if (v150 != CFDictionaryGetTypeID())
@@ -8112,16 +7997,14 @@ LABEL_168:
   else
   {
     v151 = 0;
-    v156 = 0;
+    v155 = 0;
   }
 
-  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v156);
+  KB::CandidateFilterFactory::FilterStackDefinition::emplace_filter_definition(a2, &v155);
   if (v151)
   {
     CFRelease(v151);
   }
-
-  v153 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,applesauce::CF::DictionaryRef>>>::~__hash_table(uint64_t a1)
@@ -8283,18 +8166,18 @@ BOOL vector_contains_string(uint64_t a1, uint64_t a2, const void **a3)
   return v4 != a2;
 }
 
-void *std::vector<KB::FilterFlag>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<KB::FilterFlag>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
 __n128 applesauce::CF::convert_or<std::vector<std::string>,0>(__n128 *a1, const __CFArray *a2, __n128 *a3)
@@ -8335,13 +8218,13 @@ void *applesauce::CF::ArrayRef_proxy::ArrayRef_proxy(void *result, void *a2)
   return result;
 }
 
-void std::vector<applesauce::CF::ArrayRef>::emplace_back<applesauce::CF::ArrayRef const&>(uint64_t *a1, CFTypeRef *a2)
+void std::vector<applesauce::CF::ArrayRef>::emplace_back<applesauce::CF::ArrayRef const&>(CFTypeRef **a1, CFTypeRef *a2)
 {
   v4 = a1[1];
   v3 = a1[2];
   if (v4 >= v3)
   {
-    v7 = (v4 - *a1) >> 3;
+    v7 = v4 - *a1;
     if ((v7 + 1) >> 61)
     {
       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
@@ -8379,9 +8262,9 @@ void std::vector<applesauce::CF::ArrayRef>::emplace_back<applesauce::CF::ArrayRe
     v13 = *a1;
     v14 = a1[1];
     v15 = *a1 == v14;
-    v16 = 8 * v7 + *a1 - v14;
+    v16 = (8 * v7 + *a1 - v14);
     *v12 = v11;
-    v6 = v12 + 1;
+    v6 = (v12 + 1);
     if (!v15)
     {
       v17 = v13;
@@ -8559,7 +8442,7 @@ LABEL_21:
   }
 }
 
-void std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<KB::FilterFlag>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8623,28 +8506,32 @@ LABEL_9:
 uint64_t KB::LanguageModelContainer::set_string_converter(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 24);
-  if (v4 != *(a1 + 32))
+  v4 = v3;
+  v5 = *(a1 + 24);
+  if (v5 != *(a1 + 32))
   {
-    v5 = *v4;
-    v6 = v4[1];
+    v3 = *v5;
+    v6 = *(v5 + 8);
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v5)
+    v8 = v4;
+    if (v3)
     {
-      (*(*v5 + 560))(v5, v3);
+      v3 = (*(*v3 + 560))(v3, v4);
+      v4 = v8;
     }
 
     if (v6)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+      v4 = v8;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 uint64_t KB::LanguageModelContainer::tokenize_text(uint64_t a1, uint64_t a2, void *a3)
@@ -8703,9 +8590,9 @@ void KB::LanguageModelContainer::register_inline_completion_acceptance_rejection
 
 void KB::LanguageModelContainer::inline_completions_with_stems(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v21 = 0.0;
-  v12 = (*(*a1 + 448))(a1, a3, &v21);
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0.0;
+  v12 = (*(*a1 + 448))(a1, a3, &v20);
   v13 = a1[3];
   v14 = a1[4];
   while (v13 != v14)
@@ -8713,10 +8600,10 @@ void KB::LanguageModelContainer::inline_completions_with_stems(void *a1@<X0>, vo
     if ((*(**v13 + 160))() && KB::LanguageModelLexiconGroup::model_contains_lexicon_id(v13, v12))
     {
       v16 = *v13;
-      std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__value_func[abi:nn200100](v25, a5);
-      (*(*v16 + 536))(v16, a2, a3, a4, v25);
-      std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v25);
-      goto LABEL_11;
+      std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__value_func[abi:nn200100](v24, a5);
+      (*(*v16 + 536))(v16, a2, a3, a4, v24);
+      std::__function::__value_func<void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v24);
+      return;
     }
 
     v13 = (v13 + 56);
@@ -8724,13 +8611,13 @@ void KB::LanguageModelContainer::inline_completions_with_stems(void *a1@<X0>, vo
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v18 = TILocaleIdentifierForLexiconID(v12);
+    v17 = TILocaleIdentifierForLexiconID(v12);
     *buf = 136315650;
     *&buf[4] = "inline_completions_with_stems";
     *&buf[12] = 2080;
-    *&buf[14] = v18;
+    *&buf[14] = v17;
     *&buf[22] = 2048;
-    v24 = v21;
+    v23 = v20;
     _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  Inline completion not supported on detected language  (language : %s confidence = %f)", buf, 0x20u);
   }
 
@@ -8741,15 +8628,15 @@ void KB::LanguageModelContainer::inline_completions_with_stems(void *a1@<X0>, vo
     (*(*v15 + 48))(v15, buf, *a2, a3);
     *a6 = 0;
     a6[24] = 0;
-    v22 = buf;
-    std::vector<KB::LanguageModel::PredictionInfo>::__destroy_vector::operator()[abi:nn200100](&v22);
-LABEL_11:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
+    v21 = buf;
+    std::vector<KB::LanguageModel::PredictionInfo>::__destroy_vector::operator()[abi:nn200100](&v21);
   }
 
-  v19 = std::__throw_bad_function_call[abi:nn200100]();
-  KB::LanguageModelLexiconGroup::model_contains_lexicon_id(v19, v20);
+  else
+  {
+    v18 = std::__throw_bad_function_call[abi:nn200100]();
+    KB::LanguageModelLexiconGroup::model_contains_lexicon_id(v18, v19);
+  }
 }
 
 BOOL KB::LanguageModelLexiconGroup::model_contains_lexicon_id(KB::LanguageModelLexiconGroup *this, int a2)
@@ -8789,7 +8676,7 @@ BOOL KB::LanguageModelLexiconGroup::model_contains_lexicon_id(KB::LanguageModelL
   return v5 != v4;
 }
 
-void KB::LanguageModelContainer::completions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+void KB::LanguageModelContainer::completions(uint64_t a1, int a2, KB::LanguageModelContext *a3, uint64_t a4, uint64_t a5, int a6)
 {
   v8 = *MEMORY[0x277D85DE8];
   v6 = a6;
@@ -8797,126 +8684,128 @@ void KB::LanguageModelContainer::completions(uint64_t a1, uint64_t a2, uint64_t 
   operator new();
 }
 
-uint64_t KB::LanguageModelContainer::unified_predictions(KB::LanguageModelContainer *a1, const KB::Candidate **a2, KB::LanguageModelContext *a3, uint64_t a4, uint64_t a5)
+uint64_t KB::LanguageModelContainer::unified_predictions(KB::LanguageModelContainer *a1, void ***a2, KB::LanguageModelContext *a3, uint64_t a4, uint64_t a5)
 {
-  v59[4] = *MEMORY[0x277D85DE8];
-  KB::LanguageModelContext::LanguageModelContext(v46, a3);
-  KB::LanguageModelContainer::update_context_with_predominant_locale(a1, v46);
+  v62[4] = *MEMORY[0x277D85DE8];
+  KB::LanguageModelContext::LanguageModelContext(v49, a3);
+  KB::LanguageModelContainer::update_context_with_predominant_locale(a1, v49);
   if ((*(*a1 + 144))(a1))
   {
     v8 = *(a1 + 3);
     v9 = *(a1 + 4);
     if ((0x6DB6DB6DB6DB6DB7 * ((v9 - v8) >> 3)) >= 2)
     {
-      v10 = KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems(a1, v46, a2);
+      v10 = KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems(a1, v49, a2);
       v11 = KB::LanguageModelContainer::index_for_lexicon_id(a1, v10);
-      v43 = 0;
-      v44 = 0;
-      v45 = 0;
+      v46 = 0;
+      v47 = 0;
+      v48 = 0;
       v12 = *(*(a1 + 3) + 56 * v11);
       if (v12)
       {
-        v12 = (*(*v12 + 48))(&v40);
+        v12 = (*(*v12 + 48))(&v43);
       }
 
       else
       {
-        v40 = 0;
-        v41 = 0;
-        v42 = 0;
+        v43 = 0;
+        v44 = 0;
+        v45 = 0;
       }
 
-      KB::LanguageModelContainer::remove_differing_lex_stems(v12, &v40, a2, &v43);
-      if (v40)
+      KB::LanguageModelContainer::remove_differing_lex_stems(v12, &v43, a2, &v46);
+      if (v43)
       {
-        v41 = v40;
-        operator delete(v40);
+        v44 = v43;
+        operator delete(v43);
       }
 
-      if (v44 == v43)
+      if (v47 == v46)
       {
-        v18 = v58;
-        v58[0] = &unk_283FD8F58;
-        v58[1] = a1;
-        v58[2] = a4;
-        v58[3] = v58;
-        v19 = *(a5 + 24);
-        v21 = v58;
-        v20 = a2;
+        v20 = v61;
+        v61[0] = &unk_283FD8F58;
+        v61[1] = a1;
+        v61[2] = a4;
+        v61[3] = v61;
+        v21 = *(a5 + 24);
+        v23 = v61;
+        v22 = a2;
       }
 
       else
       {
-        v18 = v59;
-        v59[0] = &unk_283FD8F58;
-        v59[1] = a1;
-        v59[2] = a4;
-        v59[3] = v59;
-        v19 = *(a5 + 24);
-        v20 = &v43;
-        v21 = v59;
+        v20 = v62;
+        v62[0] = &unk_283FD8F58;
+        v62[1] = a1;
+        v62[2] = a4;
+        v62[3] = v62;
+        v21 = *(a5 + 24);
+        v22 = &v46;
+        v23 = v62;
       }
 
-      v14 = std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(v19, v20, v46, v21, v11);
-      std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v18);
-      if (v44 == v43 || (v14 & 1) == 0)
+      std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(v21, v22, v49, v23, v11);
+      v14 = v24;
+      std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v20);
+      if (v47 == v46 || (v14 & 1) == 0)
       {
-        v22 = *(a1 + 3);
-        if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v22) >> 3)) >= 2)
+        v25 = *(a1 + 3);
+        if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 4) - v25) >> 3)) >= 2)
         {
-          v23 = v11 == 0;
-          v37 = 0;
-          v38 = 0;
-          v39 = 0;
-          v24 = *(v22 + 56 * v23);
-          if (v24)
+          v26 = v11 == 0;
+          v40 = 0;
+          v41 = 0;
+          v42 = 0;
+          v27 = *(v25 + 56 * v26);
+          if (v27)
           {
-            v24 = (*(*v24 + 48))(&v34);
+            v27 = (*(*v27 + 48))(&v37);
           }
 
           else
           {
-            v34 = 0;
-            v35 = 0;
-            v36 = 0;
+            v37 = 0;
+            v38 = 0;
+            v39 = 0;
           }
 
-          KB::LanguageModelContainer::remove_differing_lex_stems(v24, &v34, a2, &v37);
-          if (v34)
+          KB::LanguageModelContainer::remove_differing_lex_stems(v27, &v37, a2, &v40);
+          if (v37)
           {
-            v35 = v34;
-            operator delete(v34);
+            v38 = v37;
+            operator delete(v37);
           }
 
-          if (v38 == v37)
+          if (v41 == v40)
           {
-            v25 = v56;
-            v56[0] = &unk_283FD8F58;
-            v56[1] = a1;
-            v56[2] = a4;
-            v56[3] = v56;
-            v26 = *(a5 + 24);
-            v28 = v56;
-            v27 = a2;
+            v28 = v59;
+            v59[0] = &unk_283FD8F58;
+            v59[1] = a1;
+            v59[2] = a4;
+            v59[3] = v59;
+            v29 = *(a5 + 24);
+            v31 = v59;
+            v30 = a2;
           }
 
           else
           {
-            v25 = v57;
-            v57[0] = &unk_283FD8F58;
-            v57[1] = a1;
-            v57[2] = a4;
-            v57[3] = v57;
-            v26 = *(a5 + 24);
-            v27 = &v37;
-            v28 = v57;
+            v28 = v60;
+            v60[0] = &unk_283FD8F58;
+            v60[1] = a1;
+            v60[2] = a4;
+            v60[3] = v60;
+            v29 = *(a5 + 24);
+            v30 = &v40;
+            v31 = v60;
           }
 
-          v29 = std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(v26, v27, v46, v28, v23);
-          std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v25);
-          v14 |= v29;
-          v53 = &v37;
-          std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v53);
+          std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(v29, v30, v49, v31, v26);
+          v33 = v32;
+          std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v28);
+          v14 |= v33;
+          v56 = &v40;
+          std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v56);
         }
       }
 
@@ -8925,8 +8814,8 @@ uint64_t KB::LanguageModelContainer::unified_predictions(KB::LanguageModelContai
         v14 = 1;
       }
 
-      v37 = &v43;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
+      v40 = &v46;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v40);
       goto LABEL_36;
     }
   }
@@ -8951,38 +8840,40 @@ uint64_t KB::LanguageModelContainer::unified_predictions(KB::LanguageModelContai
     {
       if ((*(**(v8 + v13) + 144))(*(v8 + v13)))
       {
-        v43 = 0;
-        v44 = 0;
-        v45 = 0;
+        v46 = 0;
+        v47 = 0;
+        v48 = 0;
         v16 = (*(**(*(a1 + 3) + v13) + 48))(__p);
-        KB::LanguageModelContainer::remove_differing_lex_stems(v16, __p, a2, &v43);
+        KB::LanguageModelContainer::remove_differing_lex_stems(v16, __p, a2, &v46);
         if (__p[0])
         {
           __p[1] = __p[0];
           operator delete(__p[0]);
         }
 
-        v55[0] = &unk_283FD8F58;
-        v55[1] = a1;
-        v55[2] = a4;
-        v55[3] = v55;
-        v17 = std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(*(a5 + 24), &v43, v46, v55, v15);
-        std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v55);
-        v37 = &v43;
-        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v37);
+        v58[0] = &unk_283FD8F58;
+        v58[1] = a1;
+        v58[2] = a4;
+        v58[3] = v58;
+        std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(*(a5 + 24), &v46, v49, v58, v15);
+        v18 = v17;
+        std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v58);
+        v40 = &v46;
+        std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v40);
       }
 
       else
       {
-        v54[0] = &unk_283FD8F58;
-        v54[1] = a1;
-        v54[2] = a4;
-        v54[3] = v54;
-        v17 = std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(*(a5 + 24), a2, v46, v54, v15);
-        std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v54);
+        v57[0] = &unk_283FD8F58;
+        v57[1] = a1;
+        v57[2] = a4;
+        v57[3] = v57;
+        std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(*(a5 + 24), a2, v49, v57, v15);
+        v18 = v19;
+        std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v57);
       }
 
-      v14 |= v17;
+      v14 |= v18;
       ++v15;
       v8 = *(a1 + 3);
       v13 += 56;
@@ -8992,22 +8883,21 @@ uint64_t KB::LanguageModelContainer::unified_predictions(KB::LanguageModelContai
   }
 
 LABEL_36:
-  v43 = &v52;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v43);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v51);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v50);
-  if (v48)
+  v46 = &v55;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v46);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v54);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v53);
+  if (v51)
   {
-    v49 = v48;
-    operator delete(v48);
+    v52 = v51;
+    operator delete(v51);
   }
 
-  if (v47)
+  if (v50)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v47);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v50);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -9086,35 +8976,36 @@ LABEL_15:
 
 uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems(void *a1, KB::LanguageModelContext *a2, const KB::Candidate **a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
+  v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v51 = 1065353216;
+  v50 = 1065353216;
   v6 = a1[3];
   v7 = a1[4];
   while (v6 != v7)
   {
     if (*v6)
     {
-      (*(**v6 + 48))(&v54);
-      v8 = v54;
-      v9 = v55;
-      if (v54 != v55)
+      (*(**v6 + 48))(&v53);
+      v8 = v53;
+      v9 = v54;
+      if (v53 != v54)
       {
         do
         {
-          v42 = v8;
-          v10 = *v8++;
-          *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v49, v10) + 5) = 0;
+          v41 = v8;
+          v10 = *v8;
+          v8 = (v8 + 4);
+          *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v48, v10, &v41) + 5) = 0;
         }
 
         while (v8 != v9);
-        v8 = v54;
+        v8 = v53;
       }
 
       if (v8)
       {
-        v55 = v8;
+        v54 = v8;
         operator delete(v8);
       }
     }
@@ -9155,21 +9046,21 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
         v16 = 1.0;
       }
 
-      KB::LanguageModelContext::LanguageModelContext(&v42, a2);
-      KB::Candidate::Candidate(&v54, v11);
-      if (v54 >= 2)
+      KB::LanguageModelContext::LanguageModelContext(&v41, a2);
+      KB::Candidate::Candidate(&v53, v11);
+      if (v53 >= 2)
       {
         v18 = 0;
         v19 = 0;
         do
         {
-          v20 = v55[v18 + 17];
-          KB::Word::capitalized_string(&v55[v18], &v52);
+          v20 = v54[v18 + 17];
+          KB::Word::capitalized_string(&v51, &v54[v18]);
           v21 = v20;
-          KB::LanguageModelContext::append(&v42, v21, &v52, 0);
-          if (v53)
+          KB::LanguageModelContext::append(&v41, v21, &v51, 0);
+          if (v52)
           {
-            v22 = BYTE6(v52) == 1;
+            v22 = BYTE6(v51) == 1;
           }
 
           else
@@ -9179,37 +9070,37 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
 
           if (v22)
           {
-            free(v53);
+            free(v52);
           }
 
           ++v19;
           v18 += 30;
         }
 
-        while (v19 < v54 - 1);
+        while (v19 < v53 - 1);
       }
 
-      v23 = (*(*a1 + 440))(a1, &v42);
-      v41 = v23;
-      if (*(&v49 + 1))
+      v23 = (*(*a1 + 440))(a1, &v41);
+      v40 = v23;
+      if (*(&v48 + 1))
       {
-        v24 = vcnt_s8(*(&v49 + 8));
+        v24 = vcnt_s8(*(&v48 + 8));
         v24.i16[0] = vaddlv_u8(v24);
         if (v24.u32[0] > 1uLL)
         {
           v25 = v23;
-          if (*(&v49 + 1) <= v23)
+          if (*(&v48 + 1) <= v23)
           {
-            v25 = v23 % DWORD2(v49);
+            v25 = v23 % DWORD2(v48);
           }
         }
 
         else
         {
-          v25 = (DWORD2(v49) - 1) & v23;
+          v25 = (DWORD2(v48) - 1) & v23;
         }
 
-        v26 = *(v49 + 8 * v25);
+        v26 = *(v48 + 8 * v25);
         if (v26)
         {
           for (i = *v26; i; i = *i)
@@ -9240,8 +9131,8 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
                   v31 = 1.0;
                 }
 
-                v52 = &v41;
-                v33 = std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v49, v23);
+                v51 = &v40;
+                v33 = std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v48, v23, &v51);
                 *(v33 + 5) = v31 + *(v33 + 5);
                 break;
               }
@@ -9251,15 +9142,15 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
             {
               if (v24.u32[0] > 1uLL)
               {
-                if (v28 >= *(&v49 + 1))
+                if (v28 >= *(&v48 + 1))
                 {
-                  v28 %= *(&v49 + 1);
+                  v28 %= *(&v48 + 1);
                 }
               }
 
               else
               {
-                v28 &= *(&v49 + 1) - 1;
+                v28 &= *(&v48 + 1) - 1;
               }
 
               if (v28 != v25)
@@ -9271,20 +9162,20 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
         }
       }
 
-      KB::Candidate::~Candidate(&v54);
-      v54 = &v48;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v54);
-      language_modeling::v1::LinguisticContext::~LinguisticContext(&v47);
+      KB::Candidate::~Candidate(&v53);
+      v53 = &v47;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v53);
       language_modeling::v1::LinguisticContext::~LinguisticContext(&v46);
+      language_modeling::v1::LinguisticContext::~LinguisticContext(&v45);
       if (__p)
       {
-        v45 = __p;
+        v44 = __p;
         operator delete(__p);
       }
 
-      if (v43)
+      if (v42)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v43);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v42);
       }
 
       v13 = v13 + v16;
@@ -9294,10 +9185,10 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
     while (v11 != v12);
   }
 
-  v34 = v50;
-  if (v50)
+  v34 = v49;
+  if (v49)
   {
-    v35 = v50;
+    v35 = v49;
     do
     {
       v35[5] = v35[5] / v13;
@@ -9336,8 +9227,7 @@ uint64_t KB::LanguageModelContainer::most_probable_lexicon_for_context_and_stems
     v36 = 0;
   }
 
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v49);
-  v39 = *MEMORY[0x277D85DE8];
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v48);
   return v36;
 }
 
@@ -9378,7 +9268,7 @@ uint64_t KB::LanguageModelContainer::index_for_lexicon_id(KB::LanguageModelConta
   return -1;
 }
 
-uint64_t KB::LanguageModelContainer::remove_differing_lex_stems(uint64_t a1, uint64_t a2, const KB::Candidate **a3, uint64_t a4)
+uint64_t KB::LanguageModelContainer::remove_differing_lex_stems(uint64_t a1, uint64_t a2, const KB::Candidate **a3, KB::Candidate **a4)
 {
   v4 = *a3;
   v5 = a3[1];
@@ -9464,16 +9354,19 @@ LABEL_20:
   return result;
 }
 
-uint64_t std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = a5;
+  v9 = a5;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, a2, a3, a4, &v7);
+    (*(*a1 + 48))(a1, a2, a3, a4, &v9);
   }
 
-  v6 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__func<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0,std::allocator<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::operator()(v6);
+  else
+  {
+    v5 = std::__throw_bad_function_call[abi:nn200100]();
+    std::__function::__func<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0,std::allocator<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::operator()(v5, v6, v7, v8);
+  }
 }
 
 void std::__function::__func<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0,std::allocator<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9539,4 +9432,85 @@ void std::__function::__func<KB::LanguageModelContainer::unified_predictions(std
     v11 = std::__throw_bad_function_call[abi:nn200100]();
     std::__function::__func<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0,std::allocator<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::destroy_deallocate(v11);
   }
+}
+
+__n128 std::__function::__func<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0,std::allocator<KB::LanguageModelContainer::unified_predictions(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,std::function<BOOL ()(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,std::function<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>,unsigned long)>)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_283FD8F58;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (v3 <= a2)
+    {
+      v5 = a2 % v3;
+    }
+  }
+
+  else
+  {
+    v5 = (v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v8 = v7[1];
+    if (v8 == a2)
+    {
+      break;
+    }
+
+    if (v4.u32[0] > 1uLL)
+    {
+      if (v8 >= v3)
+      {
+        v8 %= v3;
+      }
+    }
+
+    else
+    {
+      v8 &= v3 - 1;
+    }
+
+    if (v8 != v5)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v7 = *v7;
+    if (!v7)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v7 + 4) != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v7;
 }

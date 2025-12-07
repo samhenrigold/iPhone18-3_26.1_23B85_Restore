@@ -18,6 +18,7 @@
 - (void)clientProxy:(id)proxy removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler;
 - (void)clientProxy:(id)proxy removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler;
 - (void)clientProxy:(id)proxy retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler;
+- (void)clientProxy:(id)proxy updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 - (void)showRestrictedCharacteristicsAccessWarningAlertWithClientProxy:(id)proxy;
 - (void)start;
 @end
@@ -61,7 +62,7 @@
 
 - (void)showRestrictedCharacteristicsAccessWarningAlertWithClientProxy:(id)proxy
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   if ([proxyCopy hasPrivateHomeKitEntitlement])
   {
@@ -83,22 +84,20 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = @"com.apple.private.homekit";
-      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Not showing restricted characteristics access warning because process is missing entitlement: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = @"com.apple.private.homekit";
+      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Not showing restricted characteristics access warning because process is missing entitlement: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy checkRestrictedCharacteristicsAccessAllowedWithCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   handlerCopy = handler;
   if ([proxyCopy hasPrivateHomeKitEntitlement])
@@ -121,23 +120,21 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = @"com.apple.private.homekit";
-      _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Returning NO to check restricted characteristics access allowed because process is missing entitlement: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = @"com.apple.private.homekit";
+      _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Returning NO to check restricted characteristics access allowed because process is missing entitlement: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   datasetCopy = dataset;
   handlerCopy = handler;
@@ -151,9 +148,9 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v12;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v12;
       _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Disallowing retrieve preferred Thread credentials because %@", buf, 0x16u);
     }
 
@@ -176,13 +173,56 @@ LABEL_8:
 
   [networkCredentialServer retrievePreferredThreadCredentialsOrCreateWithDataset:datasetCopy completionHandler:handlerCopy];
 LABEL_9:
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)clientProxy:(id)proxy updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  v26 = *MEMORY[0x277D85DE8];
+  proxyCopy = proxy;
+  dCopy = d;
+  handlerCopy = handler;
+  if ([proxyCopy hasPrivateHomeKitEntitlement])
+  {
+    networkCredentialServer = [(MTSXPCServer *)self networkCredentialServer];
+    v14 = networkCredentialServer;
+    if (networkCredentialServer)
+    {
+      [networkCredentialServer updateThreadCredentialManagementEnabled:enabledCopy forSystemCommissionerPairingUUID:dCopy completionHandler:handlerCopy];
+    }
+
+    else
+    {
+      v21 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
+      handlerCopy[2](handlerCopy, v21);
+    }
+  }
+
+  else
+  {
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Process is missing entitlement: %@", @"com.apple.private.homekit"];
+    v16 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v15;
+      _os_log_impl(&dword_239824000, v18, OS_LOG_TYPE_ERROR, "%{public}@Disallowing update Thread credential management status request because %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v15];
+    handlerCopy[2](handlerCopy, v20);
+  }
 }
 
 - (void)clientProxy:(id)proxy removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   handlerCopy = handler;
@@ -208,9 +248,9 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Disallowing remove system commissioner pairing request because %@", buf, 0x16u);
     }
 
@@ -218,13 +258,11 @@ LABEL_9:
     v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v12];
     handlerCopy[2](handlerCopy, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy fetchSystemCommissionerPairingsWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   handlerCopy = handler;
   if ([proxyCopy hasDevicePairingEntitlement])
@@ -249,9 +287,9 @@ LABEL_9:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v9;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v9;
       _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Disallowing fetch system commissioner pairings request because %@", buf, 0x16u);
     }
 
@@ -259,8 +297,6 @@ LABEL_9:
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v9];
     handlerCopy[2](handlerCopy, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy performDeviceSetupUsingRequest:(id)request completionHandler:(id)handler
@@ -284,7 +320,7 @@ LABEL_9:
 
 - (void)clientProxy:(id)proxy readCommissioningWindowStatusForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   handlerCopy = handler;
@@ -310,9 +346,9 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Disallowing reading commissioning window status because %@", buf, 0x16u);
     }
 
@@ -320,13 +356,11 @@ LABEL_9:
     v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v12];
     handlerCopy[2](handlerCopy, 0, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy openCommissioningWindowForSystemCommissionerPairingUUID:(id)d duration:(double)duration completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   handlerCopy = handler;
@@ -352,9 +386,9 @@ LABEL_9:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v14;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v14;
       _os_log_impl(&dword_239824000, v17, OS_LOG_TYPE_ERROR, "%{public}@Disallowing opening commissioning window because %@", buf, 0x16u);
     }
 
@@ -362,13 +396,11 @@ LABEL_9:
     v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v14];
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy removeAllDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   handlerCopy = handler;
@@ -394,9 +426,9 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Disallowing remove all device pairings because %@", buf, 0x16u);
     }
 
@@ -404,13 +436,11 @@ LABEL_9:
     v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v12];
     handlerCopy[2](handlerCopy, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   iDCopy = iD;
@@ -437,9 +467,9 @@ LABEL_9:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v15;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v15;
       _os_log_impl(&dword_239824000, v18, OS_LOG_TYPE_ERROR, "%{public}@Disallowing remove device pairing request because %@", buf, 0x16u);
     }
 
@@ -447,13 +477,11 @@ LABEL_9:
     v20 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v15];
     handlerCopy[2](handlerCopy, v20);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientProxy:(id)proxy fetchDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   dCopy = d;
   handlerCopy = handler;
@@ -479,9 +507,9 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Disallowing fetch device pairings request because %@", buf, 0x16u);
     }
 
@@ -489,13 +517,11 @@ LABEL_9:
     v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:v12];
     handlerCopy[2](handlerCopy, 0, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   clientProxyFactory = [(MTSXPCServer *)self clientProxyFactory];
@@ -509,9 +535,9 @@ LABEL_9:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v13;
-    v27 = 2112;
-    v28 = v9;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v9;
     _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_INFO, "%{public}@Accepting new client proxy: %@", buf, 0x16u);
   }
 
@@ -524,29 +550,28 @@ LABEL_9:
 
   [connectionCopy setExportedObject:v9];
   objc_initWeak(buf, v9);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __51__MTSXPCServer_listener_shouldAcceptNewConnection___block_invoke;
-  v22 = &unk_278AA1A40;
-  objc_copyWeak(&v24, buf);
-  v23 = selfCopy;
-  [connectionCopy setInvalidationHandler:&v19];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __51__MTSXPCServer_listener_shouldAcceptNewConnection___block_invoke;
+  v21 = &unk_278AA1A40;
+  objc_copyWeak(&v23, buf);
+  v22 = selfCopy;
+  [connectionCopy setInvalidationHandler:&v18];
   os_unfair_lock_lock_with_options();
-  v16 = [(MTSXPCServer *)selfCopy clientProxies:v19];
+  v16 = [(MTSXPCServer *)selfCopy clientProxies:v18];
   [v16 addObject:v9];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
   [connectionCopy resume];
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __51__MTSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -556,11 +581,11 @@ void __51__MTSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v6;
-      v12 = 2112;
-      v13 = WeakRetained;
-      _os_log_impl(&dword_239824000, v5, OS_LOG_TYPE_INFO, "%{public}@Client proxy invalidated: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v6;
+      v11 = 2112;
+      v12 = WeakRetained;
+      _os_log_impl(&dword_239824000, v5, OS_LOG_TYPE_INFO, "%{public}@Client proxy invalidated: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -571,8 +596,6 @@ void __51__MTSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64
 
     os_unfair_lock_unlock(v7 + 2);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -654,7 +677,6 @@ MTSXPCClientProxy *__20__MTSXPCServer_init__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __27__MTSXPCServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v16_2410 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

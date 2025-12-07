@@ -4,10 +4,11 @@ id sub_100002854(id a1)
   return a1;
 }
 
-void sub_100002878(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002878(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_100003018(id a1)
@@ -55,9 +56,9 @@ id sub_10000367C(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_10000771C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000771C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -85,9 +86,9 @@ void sub_10000AAAC(uint64_t a1)
   v3 = v2;
   if (!v2)
   {
-    v22 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot load class bundle"];
-    v23 = qword_100039560;
-    qword_100039560 = v22;
+    v19 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot load class bundle"];
+    v20 = qword_100039560;
+    qword_100039560 = v19;
 
     goto LABEL_30;
   }
@@ -95,9 +96,9 @@ void sub_10000AAAC(uint64_t a1)
   v4 = [v2 URLForResource:@"DPMLRecipeIDAssociations" withExtension:@"plist"];
   if (!v4)
   {
-    v24 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot find associations file from class bundle"];
-    v25 = qword_100039560;
-    qword_100039560 = v24;
+    v21 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot find associations file from class bundle"];
+    v22 = qword_100039560;
+    qword_100039560 = v21;
 
     goto LABEL_29;
   }
@@ -106,97 +107,94 @@ void sub_10000AAAC(uint64_t a1)
   v6 = v5;
   if (!v5)
   {
-    v26 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot load association file from class bundle file"];
-    v21 = qword_100039560;
-    qword_100039560 = v26;
+    v23 = [_DPMLRuntimeError errorWithCode:300 description:@"Cannot load association file from class bundle file"];
+    v18 = qword_100039560;
+    qword_100039560 = v23;
     goto LABEL_25;
   }
 
-  v42 = 0u;
-  v43 = 0u;
+  v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (!v8)
   {
     goto LABEL_21;
   }
 
-  v9 = *v41;
-  v10 = &INSupportedMediaCategories_ptr;
-  v35 = v7;
-  v32 = a1;
-  v33 = *v41;
+  v9 = *v38;
+  v32 = v7;
+  v29 = a1;
+  v30 = *v38;
   while (2)
   {
-    v11 = 0;
-    v34 = v8;
+    v10 = 0;
+    v31 = v8;
     do
     {
-      if (*v41 != v9)
+      if (*v38 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v40 + 1) + 8 * v11);
+      v11 = *(*(&v37 + 1) + 8 * v10);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v29 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have strings as keys"];
-        v13 = qword_100039560;
-        qword_100039560 = v29;
+        v26 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have strings as keys"];
+        v12 = qword_100039560;
+        qword_100039560 = v26;
 LABEL_27:
 
         goto LABEL_28;
       }
 
-      v13 = [v7 objectForKey:v12];
-      v14 = v10[144];
+      v12 = [v7 objectForKey:v11];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v30 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have arrays of strings as values"];
-        v31 = qword_100039560;
-        qword_100039560 = v30;
+        v27 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have arrays of strings as values"];
+        v28 = qword_100039560;
+        qword_100039560 = v27;
 
         goto LABEL_27;
       }
 
-      v38 = 0u;
-      v39 = 0u;
+      v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
-      v13 = v13;
-      v15 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
-      if (v15)
+      v33 = 0u;
+      v34 = 0u;
+      v12 = v12;
+      v13 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      if (v13)
       {
-        v16 = v15;
-        v17 = *v37;
+        v14 = v13;
+        v15 = *v34;
         while (2)
         {
-          for (i = 0; i != v16; i = i + 1)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v37 != v17)
+            if (*v34 != v15)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v19 = *(*(&v36 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v27 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have arrays of strings as values"];
-              v28 = qword_100039560;
-              qword_100039560 = v27;
+              v24 = [_DPMLRuntimeError errorWithCode:300 description:@"Associations must have arrays of strings as values"];
+              v25 = qword_100039560;
+              qword_100039560 = v24;
 
-              v7 = v35;
+              v7 = v32;
               goto LABEL_27;
             }
           }
 
-          v16 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
-          if (v16)
+          v14 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          if (v14)
           {
             continue;
           }
@@ -205,15 +203,14 @@ LABEL_27:
         }
       }
 
-      v11 = v11 + 1;
-      v7 = v35;
-      v9 = v33;
-      v10 = &INSupportedMediaCategories_ptr;
+      v10 = v10 + 1;
+      v7 = v32;
+      v9 = v30;
     }
 
-    while (v11 != v34);
-    v8 = [v35 countByEnumeratingWithState:&v40 objects:v45 count:16];
-    a1 = v32;
+    while (v10 != v31);
+    v8 = [v32 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    a1 = v29;
     if (v8)
     {
       continue;
@@ -224,15 +221,22 @@ LABEL_27:
 
 LABEL_21:
 
-  v20 = [objc_alloc(*(a1 + 32)) initWithAssociation:v7];
-  v21 = qword_100039558;
-  qword_100039558 = v20;
+  v17 = [objc_alloc(*(a1 + 32)) initWithAssociation:v7];
+  v18 = qword_100039558;
+  qword_100039558 = v17;
 LABEL_25:
 
 LABEL_28:
 LABEL_29:
 
 LABEL_30:
+}
+
+void sub_10000B968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10000B988(uint64_t a1, void *a2, void *a3)
@@ -343,9 +347,9 @@ LABEL_24:
   }
 }
 
-void sub_10000D128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000D128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -397,9 +401,9 @@ void sub_10000D744(id a1)
   _objc_release_x1();
 }
 
-void sub_10000DD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10000DD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -420,21 +424,23 @@ void sub_10000DD70(uint64_t a1, void *a2)
   }
 }
 
-void sub_10000F530(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F530(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_10000F54C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F54C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_10000F81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000F81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -692,10 +698,11 @@ LABEL_43:
   return v17;
 }
 
-void sub_100016EA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100016EA0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100016EDC(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -782,12 +789,12 @@ void sub_1000187A0(uint64_t a1)
   }
 }
 
-void sub_10001A034(uint64_t a1)
+void sub_10001A034(uint64_t a1, uint64_t a2)
 {
   v2 = +[_PFLLog extension];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001D650(a1);
+    sub_10001D650();
   }
 }
 
@@ -799,7 +806,7 @@ void sub_10001A098(uint64_t a1, char a2, void *a3)
     v6 = +[_PFLLog extension];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10001D6D8(a1);
+      sub_10001D6D8();
     }
   }
 
@@ -815,7 +822,7 @@ void sub_10001A280(uint64_t a1, char a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10001D7F8(a1);
+      sub_10001D7F8();
     }
   }
 
@@ -925,7 +932,7 @@ void sub_10001C0C4(void *a1)
   v1 = [a1 firstObject];
   v2 = objc_opt_class();
   v3 = sub_100002854(v2);
-  sub_100002878(&_mh_execute_header, v4, v5, "Recording data of type: %@ for key: %@", v6, v7, v8, v9, v10);
+  sub_100002878(&_mh_execute_header, v4, v5, "Recording data of type: %@ for key: %@", v6, v7, v8, v9);
 }
 
 void sub_10001C160(void *a1)
@@ -933,7 +940,7 @@ void sub_10001C160(void *a1)
   v1 = [a1 firstObject];
   v2 = objc_opt_class();
   v3 = sub_100002854(v2);
-  sub_100002878(&_mh_execute_header, v4, v5, "Recording data of type array, with first object class: %@ for key: %@", v6, v7, v8, v9, v10);
+  sub_100002878(&_mh_execute_header, v4, v5, "Recording data of type array, with first object class: %@ for key: %@", v6, v7, v8, v9);
 }
 
 void sub_10001C1FC(uint64_t a1, NSObject *a2)
@@ -999,11 +1006,30 @@ void sub_10001C74C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void sub_10001C84C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  sub_10000F530(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001C8C4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  sub_10000F530(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001C93C(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
   v3 = a1;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Start with task=%@", &v2, 0xCu);
+}
+
+void sub_10001CA5C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000F530(&_mh_execute_header, a2, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10001CAC8(uint64_t a1, void *a2, NSObject *a3)
@@ -1014,6 +1040,20 @@ void sub_10001CAC8(uint64_t a1, void *a2, NSObject *a3)
   v8 = 2112;
   v9 = v5;
   _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "End task with record events count: %@ error: %@", &v6, 0x16u);
+}
+
+void sub_10001CB7C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000F530(&_mh_execute_header, a2, a3, "Could not load recipe %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001CBE8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Could not fetch recipeAttachment from Trial Client for registered namespaces";
+  sub_10000F530(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10001CD18(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -1148,13 +1188,11 @@ void sub_10001D488(char a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "recordStatus %d for key: %@", v3, 0x12u);
 }
 
-void sub_10001D514(uint64_t *a1, uint64_t *a2)
+void sub_10001D514()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_10001A7C0();
   sub_10001A7D4();
-  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
 void sub_10001D5D8(uint64_t a1, NSObject *a2)
@@ -1164,40 +1202,39 @@ void sub_10001D5D8(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%@ does not exist, metadata is not changed, will use Dedisco V1.", &v2, 0xCu);
 }
 
-void sub_10001D650(uint64_t a1)
+void sub_10001D6D8()
 {
-  v5 = *(a1 + 32);
-  sub_10001A7D4();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-}
-
-void sub_10001D6D8(uint64_t a1)
-{
-  v1 = *(a1 + 32);
   sub_10001A7C0();
   sub_10001A7D4();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 void sub_10001D754(uint64_t a1, void *a2)
 {
-  v8 = [a2 namespaceIdentifier];
-  sub_100002878(&_mh_execute_header, v2, v3, "Removing factor %@ for namespace %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 namespaceIdentifier];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_100002878(&_mh_execute_header, v4, v5, "Removing factor %@ for namespace %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
-void sub_10001D7F8(uint64_t a1)
+void sub_10001D7F8()
 {
-  v1 = *(a1 + 32);
   sub_10001A7C0();
   sub_10001A7D4();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
 void sub_10001D874(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v8 = [*(a1 + 40) namespaceIdentifier];
-  sub_100002878(&_mh_execute_header, v2, v3, "Removing factor %@ for namespace %@ succeed.", v4, v5, v6, v7, 2u);
+  v2 = [*(a1 + 40) namespaceIdentifier];
+  *v9 = 138412546;
+  *&v9[4] = v1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  sub_100002878(&_mh_execute_header, v3, v4, "Removing factor %@ for namespace %@ succeed.", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void sub_10001D914(uint64_t a1, void *a2, NSObject *a3)

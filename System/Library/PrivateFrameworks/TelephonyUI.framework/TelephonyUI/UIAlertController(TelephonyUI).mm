@@ -9,69 +9,71 @@
 
 + (id)enableWiFiCallingAlertControllerWithPreferredStyle:()TelephonyUI
 {
-  if ([MEMORY[0x1E69D8A48] supportsWiFiCalling])
+  supportsWiFiCalling = [MEMORY[0x1E69D8A48] supportsWiFiCalling];
+  if (supportsWiFiCalling)
   {
-    v4 = TelephonyUIBundle();
-    v5 = TUStringKeyForNetwork();
-    v6 = [v4 localizedStringForKey:v5 value:&stru_1F2CA8008 table:@"General"];
+    v6 = TelephonyUIBundle(supportsWiFiCalling, v5);
+    v7 = TUStringKeyForNetwork();
+    v8 = [v6 localizedStringForKey:v7 value:&stru_1F2CA8008 table:@"General"];
 
-    v7 = TelephonyUIBundle();
-    v8 = TUStringKeyForNetwork();
-    v9 = [v7 localizedStringForKey:v8 value:&stru_1F2CA8008 table:@"General"];
+    v11 = TelephonyUIBundle(v9, v10);
+    v12 = TUStringKeyForNetwork();
+    v13 = [v11 localizedStringForKey:v12 value:&stru_1F2CA8008 table:@"General"];
 
     mEMORY[0x1E699BE90] = [MEMORY[0x1E699BE90] sharedInstance];
     wiFiActiveAndReachable = [mEMORY[0x1E699BE90] wiFiActiveAndReachable];
 
-    v12 = 0;
+    v16 = 0;
     if (([MEMORY[0x1E69D8A48] isWiFiCallingEnabled] & 1) == 0 && wiFiActiveAndReachable)
     {
-      v12 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v9 message:v6 preferredStyle:a3];
-      v13 = [TPAlertAction actionWithType:5];
-      [v12 addAction:v13];
+      v16 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v13 message:v8 preferredStyle:a3];
+      v17 = [TPAlertAction actionWithType:5];
+      [v16 addAction:v17];
 
-      v14 = [TPAlertAction actionWithType:1];
-      [v12 addAction:v14];
+      v18 = [TPAlertAction actionWithType:1];
+      [v16 addAction:v18];
     }
   }
 
   else
   {
-    v12 = 0;
+    v16 = 0;
   }
 
-  return v12;
+  return v16;
 }
 
 + (id)networkUnavailableAlertControllerWithCallProvider:()TelephonyUI dialType:senderIdentityUUID:
 {
   v7 = a3;
   v8 = a5;
-  v9 = TelephonyUIBundle();
-  v10 = [v9 localizedStringForKey:@"ALERT_TITLE_NETWORK_UNAVAILABLE" value:&stru_1F2CA8008 table:@"General"];
+  v10 = TelephonyUIBundle(v8, v9);
+  v11 = [v10 localizedStringForKey:@"ALERT_TITLE_NETWORK_UNAVAILABLE" value:&stru_1F2CA8008 table:@"General"];
 
-  v11 = 0x1E699B000uLL;
-  if ([v7 isTelephonyProvider])
+  isTelephonyProvider = [v7 isTelephonyProvider];
+  v14 = 0x1E699B000uLL;
+  if (isTelephonyProvider)
   {
-    v12 = TelephonyUIBundle();
-    v13 = [v12 localizedStringForKey:@"ALERT_MESSAGE_TELEPHONY_NO_LOCAL_CELLULAR" value:&stru_1F2CA8008 table:@"General"];
+    v15 = TelephonyUIBundle(isTelephonyProvider, v13);
+    v16 = [v15 localizedStringForKey:@"ALERT_MESSAGE_TELEPHONY_NO_LOCAL_CELLULAR" value:&stru_1F2CA8008 table:@"General"];
 
     if (v8)
     {
-      v14 = [MEMORY[0x1E69D8A48] senderIdentityCapabilitiesWithUUID:v8];
-      v15 = v14;
+      v17 = [MEMORY[0x1E69D8A48] senderIdentityCapabilitiesWithUUID:v8];
+      v18 = v17;
       if (a4 == 1)
       {
-        canAttemptEmergencyCallsWithoutCellularConnection = [v14 canAttemptEmergencyCallsWithoutCellularConnection];
+        canAttemptEmergencyCallsWithoutCellularConnection = [v17 canAttemptEmergencyCallsWithoutCellularConnection];
       }
 
       else
       {
-        canAttemptEmergencyCallsWithoutCellularConnection = [v14 canAttemptTelephonyCallsWithoutCellularConnection];
+        canAttemptEmergencyCallsWithoutCellularConnection = [v17 canAttemptTelephonyCallsWithoutCellularConnection];
       }
 
-      v34 = canAttemptEmergencyCallsWithoutCellularConnection;
+      v43 = canAttemptEmergencyCallsWithoutCellularConnection;
 
-      if (v34)
+      if (v43)
       {
         goto LABEL_16;
       }
@@ -81,14 +83,16 @@
 
     if (a4 == 1)
     {
-      if (([MEMORY[0x1E69D8A48] canAttemptEmergencyCallsWithoutCellularConnection] & 1) == 0)
+      canAttemptEmergencyCallsWithoutCellularConnection2 = [MEMORY[0x1E69D8A48] canAttemptEmergencyCallsWithoutCellularConnection];
+      if ((canAttemptEmergencyCallsWithoutCellularConnection2 & 1) == 0)
       {
 LABEL_18:
-        if ([MEMORY[0x1E69D8A48] supportsWiFiCalling])
+        supportsWiFiCalling = [MEMORY[0x1E69D8A48] supportsWiFiCalling];
+        if (supportsWiFiCalling)
         {
-          v38 = TelephonyUIBundle();
-          v39 = TUStringKeyForNetwork();
-          v40 = [v38 localizedStringForKey:v39 value:&stru_1F2CA8008 table:@"General"];
+          v49 = TelephonyUIBundle(supportsWiFiCalling, v48);
+          v50 = TUStringKeyForNetwork();
+          v51 = [v49 localizedStringForKey:v50 value:&stru_1F2CA8008 table:@"General"];
 
           if ([MEMORY[0x1E69D8A48] isWiFiCallingEnabled])
           {
@@ -97,116 +101,120 @@ LABEL_18:
 
             if (networkReachable)
             {
-              v33 = 0;
+              v40 = 0;
             }
 
             else
             {
-              v33 = 8;
+              v40 = 8;
             }
           }
 
           else
           {
-            v33 = 16;
+            v40 = 16;
           }
 
-          v13 = v40;
+          v16 = v51;
         }
 
         else
         {
-          v33 = 0;
+          v40 = 0;
         }
 
         goto LABEL_26;
       }
     }
 
-    else if (![MEMORY[0x1E69D8A48] canAttemptTelephonyCallsWithoutCellularConnection])
+    else
     {
-      goto LABEL_18;
+      canAttemptEmergencyCallsWithoutCellularConnection2 = [MEMORY[0x1E69D8A48] canAttemptTelephonyCallsWithoutCellularConnection];
+      if (!canAttemptEmergencyCallsWithoutCellularConnection2)
+      {
+        goto LABEL_18;
+      }
     }
 
 LABEL_16:
-    v35 = TelephonyUIBundle();
-    v36 = TUStringKeyForNetwork();
-    v37 = [v35 localizedStringForKey:v36 value:&stru_1F2CA8008 table:@"General"];
+    v44 = TelephonyUIBundle(canAttemptEmergencyCallsWithoutCellularConnection2, v42);
+    v45 = TUStringKeyForNetwork();
+    v46 = [v44 localizedStringForKey:v45 value:&stru_1F2CA8008 table:@"General"];
 
-    v33 = 8;
-    v13 = v37;
+    v40 = 8;
+    v16 = v46;
     goto LABEL_26;
   }
 
   mEMORY[0x1E699BE70] = [MEMORY[0x1E699BE70] sharedInstance];
   displayAppBundleIdentifier = [v7 displayAppBundleIdentifier];
-  v19 = [mEMORY[0x1E699BE70] wifiAllowedForBundleId:displayAppBundleIdentifier];
+  v22 = [mEMORY[0x1E699BE70] wifiAllowedForBundleId:displayAppBundleIdentifier];
 
-  v20 = MEMORY[0x1E696AEC0];
-  v21 = TelephonyUIBundle();
-  v22 = TUStringKeyForNetwork();
-  v23 = [v21 localizedStringForKey:v22 value:&stru_1F2CA8008 table:@"General"];
+  v23 = MEMORY[0x1E696AEC0];
+  v26 = TelephonyUIBundle(v24, v25);
+  v27 = TUStringKeyForNetwork();
+  v28 = [v26 localizedStringForKey:v27 value:&stru_1F2CA8008 table:@"General"];
   localizedName = [v7 localizedName];
-  v13 = [v20 stringWithFormat:v23, localizedName];
+  v16 = [v23 stringWithFormat:v28, localizedName];
 
   mEMORY[0x1E699BE70]2 = [MEMORY[0x1E699BE70] sharedInstance];
   displayAppBundleIdentifier2 = [v7 displayAppBundleIdentifier];
-  LODWORD(v23) = [mEMORY[0x1E699BE70]2 nonWifiAvailableForBundleId:displayAppBundleIdentifier2];
+  LODWORD(v28) = [mEMORY[0x1E699BE70]2 nonWifiAvailableForBundleId:displayAppBundleIdentifier2];
 
-  if (v23)
+  if (v28)
   {
-    v27 = MEMORY[0x1E696AEC0];
-    v28 = TelephonyUIBundle();
-    v29 = TUStringKeyForNetwork();
-    v30 = [v28 localizedStringForKey:v29 value:&stru_1F2CA8008 table:@"General"];
+    v34 = MEMORY[0x1E696AEC0];
+    v35 = TelephonyUIBundle(v32, v33);
+    v36 = TUStringKeyForNetwork();
+    v37 = [v35 localizedStringForKey:v36 value:&stru_1F2CA8008 table:@"General"];
     localizedName2 = [v7 localizedName];
-    v32 = [v27 stringWithFormat:v30, localizedName2];
+    v39 = [v34 stringWithFormat:v37, localizedName2];
 
-    v13 = v32;
+    v16 = v39;
   }
 
-  if (v19)
+  if (v22)
   {
-    v33 = 8;
+    v40 = 8;
   }
 
   else
   {
-    v33 = 32;
+    v40 = 32;
   }
 
-  v11 = 0x1E699B000;
+  v14 = 0x1E699B000;
 LABEL_26:
-  v43 = objc_alloc_init(MEMORY[0x1E698B6B0]);
-  if ([v43 airplaneMode])
+  v54 = objc_alloc_init(MEMORY[0x1E698B6B0]);
+  if ([v54 airplaneMode])
   {
-    LOBYTE(v33) = v33 | 2;
+    LOBYTE(v40) = v40 | 2;
     goto LABEL_31;
   }
 
-  sharedInstance = [*(v11 + 3696) sharedInstance];
+  sharedInstance = [*(v14 + 3696) sharedInstance];
   displayAppBundleIdentifier3 = [v7 displayAppBundleIdentifier];
-  v46 = [sharedInstance nonWifiAvailableForBundleId:displayAppBundleIdentifier3];
+  v57 = [sharedInstance nonWifiAvailableForBundleId:displayAppBundleIdentifier3];
 
-  if (v46)
+  if (v57)
   {
-    LOBYTE(v33) = v33 | 4;
+    LOBYTE(v40) = v40 | 4;
     goto LABEL_31;
   }
 
-  if (v33)
+  if (v40)
   {
 LABEL_31:
-    v47 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v10 message:v13 preferredStyle:1];
-    if ((v33 & 8) != 0)
+    v58 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v11 message:v16 preferredStyle:1];
+    if ((v40 & 8) != 0)
     {
-      v51 = [TPAlertAction actionWithType:4];
-      [v47 addAction:v51];
+      v62 = [TPAlertAction actionWithType:4];
+      [v58 addAction:v62];
 
-      if ((v33 & 0x10) == 0)
+      if ((v40 & 0x10) == 0)
       {
 LABEL_33:
-        if ((v33 & 2) == 0)
+        if ((v40 & 2) == 0)
         {
           goto LABEL_34;
         }
@@ -215,18 +223,18 @@ LABEL_33:
       }
     }
 
-    else if ((v33 & 0x10) == 0)
+    else if ((v40 & 0x10) == 0)
     {
       goto LABEL_33;
     }
 
-    v52 = [TPAlertAction actionWithType:5];
-    [v47 addAction:v52];
+    v63 = [TPAlertAction actionWithType:5];
+    [v58 addAction:v63];
 
-    if ((v33 & 2) == 0)
+    if ((v40 & 2) == 0)
     {
 LABEL_34:
-      if ((v33 & 4) == 0)
+      if ((v40 & 4) == 0)
       {
         goto LABEL_35;
       }
@@ -235,33 +243,33 @@ LABEL_34:
     }
 
 LABEL_43:
-    v53 = [TPAlertAction actionWithType:2];
-    [v47 addAction:v53];
+    v64 = [TPAlertAction actionWithType:2];
+    [v58 addAction:v64];
 
-    if ((v33 & 4) == 0)
+    if ((v40 & 4) == 0)
     {
 LABEL_35:
-      if ((v33 & 0x20) == 0)
+      if ((v40 & 0x20) == 0)
       {
 LABEL_37:
-        v49 = [TPAlertAction actionWithType:1];
-        [v47 addAction:v49];
+        v60 = [TPAlertAction actionWithType:1];
+        [v58 addAction:v60];
 
         goto LABEL_38;
       }
 
 LABEL_36:
-      v48 = [TPAlertAction actionWithType:6];
-      [v47 addAction:v48];
+      v59 = [TPAlertAction actionWithType:6];
+      [v58 addAction:v59];
 
       goto LABEL_37;
     }
 
 LABEL_44:
-    v54 = [TPAlertAction actionWithType:3];
-    [v47 addAction:v54];
+    v65 = [TPAlertAction actionWithType:3];
+    [v58 addAction:v65];
 
-    if ((v33 & 0x20) == 0)
+    if ((v40 & 0x20) == 0)
     {
       goto LABEL_37;
     }
@@ -269,127 +277,128 @@ LABEL_44:
     goto LABEL_36;
   }
 
-  v47 = 0;
+  v58 = 0;
 LABEL_38:
 
-  return v47;
+  return v58;
 }
 
 + (id)telephonyAccountUnavailableAlertControllerWithSenderIdentities:()TelephonyUI preferredStyle:completion:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v7 = a3;
-  v46 = a5;
-  v8 = TelephonyUIBundle();
-  v9 = [v8 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_TITLE" value:&stru_1F2CA8008 table:@"General"];
+  v52 = a5;
+  v9 = TelephonyUIBundle(v52, v8);
+  v10 = [v9 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_TITLE" value:&stru_1F2CA8008 table:@"General"];
 
-  v10 = &off_1B48EB000;
-  if ([v7 count] >= 2)
+  v11 = [v7 count];
+  v13 = &off_1B48EB000;
+  if (v11 >= 2)
   {
-    v11 = MEMORY[0x1E69DC650];
-    v12 = TelephonyUIBundle();
-    v13 = [v12 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_MESSAGE" value:&stru_1F2CA8008 table:@"General"];
-    v44 = v9;
-    v14 = [v11 alertControllerWithTitle:v9 message:v13 preferredStyle:a4];
+    v14 = MEMORY[0x1E69DC650];
+    v15 = TelephonyUIBundle(v11, v12);
+    v16 = [v15 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_MESSAGE" value:&stru_1F2CA8008 table:@"General"];
+    v50 = v10;
+    v17 = [v14 alertControllerWithTitle:v10 message:v16 preferredStyle:a4];
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     obj = v7;
-    v15 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-    if (v15)
+    v18 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+    if (v18)
     {
-      v16 = v15;
-      v17 = *v55;
+      v19 = v18;
+      v20 = *v61;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          v19 = v14;
-          if (*v55 != v17)
+          v22 = v17;
+          if (*v61 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v54 + 1) + 8 * i);
-          v21 = MEMORY[0x1E69DC648];
-          localizedName = [v20 localizedName];
-          v52[0] = MEMORY[0x1E69E9820];
-          v52[1] = 3221225472;
-          v52[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke;
-          v52[3] = &unk_1E7C0C1C0;
-          v23 = v46;
-          v52[4] = v20;
-          v53 = v23;
-          v24 = [v21 actionWithTitle:localizedName style:0 handler:v52];
+          v23 = *(*(&v60 + 1) + 8 * i);
+          v24 = MEMORY[0x1E69DC648];
+          localizedName = [v23 localizedName];
+          v58[0] = MEMORY[0x1E69E9820];
+          v58[1] = 3221225472;
+          v58[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke;
+          v58[3] = &unk_1E7C0C1C0;
+          v26 = v52;
+          v58[4] = v23;
+          v59 = v26;
+          v27 = [v24 actionWithTitle:localizedName style:0 handler:v58];
 
-          v14 = v19;
-          [v19 addAction:v24];
+          v17 = v22;
+          [v22 addAction:v27];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v19 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
       }
 
-      while (v16);
+      while (v19);
     }
 
-    actions = [v14 actions];
+    actions = [v17 actions];
     firstObject = [actions firstObject];
-    [v14 setPreferredAction:firstObject];
+    [v17 setPreferredAction:firstObject];
 
-    v9 = v44;
-    v10 = &off_1B48EB000;
+    v10 = v50;
+    v13 = &off_1B48EB000;
     goto LABEL_12;
   }
 
-  if ([v7 count] == 1)
+  v30 = [v7 count];
+  if (v30 == 1)
   {
-    v27 = MEMORY[0x1E69DC650];
-    v28 = TelephonyUIBundle();
-    v29 = [v28 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_MESSAGE_SINGLE" value:&stru_1F2CA8008 table:@"General"];
-    v30 = [v27 alertControllerWithTitle:v9 message:v29 preferredStyle:a4];
+    v32 = MEMORY[0x1E69DC650];
+    v33 = TelephonyUIBundle(1, v31);
+    v34 = [v33 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_MESSAGE_SINGLE" value:&stru_1F2CA8008 table:@"General"];
+    v35 = [v32 alertControllerWithTitle:v10 message:v34 preferredStyle:a4];
 
-    v31 = MEMORY[0x1E69DC648];
-    v32 = TelephonyUIBundle();
-    v14 = v30;
-    v33 = [v32 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_ACTION_TITLE_CALL" value:&stru_1F2CA8008 table:@"General"];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke_2;
-    v49[3] = &unk_1E7C0C1C0;
-    v51 = v46;
-    v50 = v7;
-    v34 = [v31 actionWithTitle:v33 style:0 handler:v49];
+    v36 = MEMORY[0x1E69DC648];
+    v39 = TelephonyUIBundle(v37, v38);
+    v17 = v35;
+    v40 = [v39 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_ACTION_TITLE_CALL" value:&stru_1F2CA8008 table:@"General"];
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke_2;
+    v55[3] = &unk_1E7C0C1C0;
+    v57 = v52;
+    v56 = v7;
+    v41 = [v36 actionWithTitle:v40 style:0 handler:v55];
 
-    [v30 addAction:v34];
-    actions2 = [v30 actions];
+    [v35 addAction:v41];
+    actions2 = [v35 actions];
     firstObject2 = [actions2 firstObject];
-    [v30 setPreferredAction:firstObject2];
+    [v35 setPreferredAction:firstObject2];
 
-    actions = v51;
+    actions = v57;
 LABEL_12:
 
     goto LABEL_14;
   }
 
-  v14 = 0;
+  v17 = 0;
 LABEL_14:
-  v37 = MEMORY[0x1E69DC648];
-  v38 = TelephonyUIBundle();
-  v39 = [v38 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_ACTION_TITLE_CANCEL" value:&stru_1F2CA8008 table:@"General"];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = *(v10 + 233);
-  v47[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke_3;
-  v47[3] = &unk_1E7C0C1E8;
-  v48 = v46;
-  v40 = v46;
-  v41 = [v37 actionWithTitle:v39 style:1 handler:v47];
+  v44 = MEMORY[0x1E69DC648];
+  v45 = TelephonyUIBundle(v30, v31);
+  v46 = [v45 localizedStringForKey:@"TELEPHONY_ACCOUNT_UNAVAILABLE_ALERT_ACTION_TITLE_CANCEL" value:&stru_1F2CA8008 table:@"General"];
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = *(v13 + 233);
+  v53[2] = __123__UIAlertController_TelephonyUI__telephonyAccountUnavailableAlertControllerWithSenderIdentities_preferredStyle_completion___block_invoke_3;
+  v53[3] = &unk_1E7C0C1E8;
+  v54 = v52;
+  v47 = v52;
+  v48 = [v44 actionWithTitle:v46 style:1 handler:v53];
 
-  [v14 addAction:v41];
-  v42 = *MEMORY[0x1E69E9840];
+  [v17 addAction:v48];
 
-  return v14;
+  return v17;
 }
 
 + (id)callEndStewieControllerWithDialRequest:()TelephonyUI dialAction:title:buttonTitle:
@@ -399,20 +408,20 @@ LABEL_14:
   v10 = a6;
   v11 = [v9 alertControllerWithTitle:a5 message:0 preferredStyle:0];
   v12 = MEMORY[0x1E69DC648];
-  v13 = TelephonyUIBundle();
-  v14 = [v13 localizedStringForKey:@"CANCEL" value:&stru_1F2CA8008 table:@"General"];
-  v15 = [v12 actionWithTitle:v14 style:1 handler:&__block_literal_global_0];
+  v14 = TelephonyUIBundle(v11, v13);
+  v15 = [v14 localizedStringForKey:@"CANCEL" value:&stru_1F2CA8008 table:@"General"];
+  v16 = [v12 actionWithTitle:v15 style:1 handler:&__block_literal_global_0];
 
-  [v11 addAction:v15];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __102__UIAlertController_TelephonyUI__callEndStewieControllerWithDialRequest_dialAction_title_buttonTitle___block_invoke_2;
-  v19[3] = &unk_1E7C0C1E8;
-  v20 = v8;
-  v16 = v8;
-  v17 = [TPAlertAction actionWithTitle:v10 style:0 handler:v19];
+  [v11 addAction:v16];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __102__UIAlertController_TelephonyUI__callEndStewieControllerWithDialRequest_dialAction_title_buttonTitle___block_invoke_2;
+  v20[3] = &unk_1E7C0C1E8;
+  v21 = v8;
+  v17 = v8;
+  v18 = [TPAlertAction actionWithTitle:v10 style:0 handler:v20];
 
-  [v11 addAction:v17];
+  [v11 addAction:v18];
 
   return v11;
 }

@@ -8,7 +8,6 @@
 - (NTKVivaldiTimeView)initWithDevice:(id)device color:(id)color;
 - (NTKVivaldiTimeViewDelegate)delegate;
 - (id)_shadowImage;
-- (void)_updateAnimating;
 - (void)_updateLabels;
 - (void)applyColorPalette:(id)palette;
 - (void)dealloc;
@@ -197,17 +196,6 @@
   dateCopy = date;
   [(NTKVivaldiTimeView *)self _updateLabels];
   [(NTKVivaldiGlobeView *)self->_globeView setDate:dateCopy];
-}
-
-- (void)_updateAnimating
-{
-  globeView = self->_globeView;
-  if (!self->_frozen)
-  {
-    faceDataMode = self->_faceDataMode;
-  }
-
-  MEMORY[0x2821F9670](globeView, sel_setAnimating_);
 }
 
 - (id)_shadowImage

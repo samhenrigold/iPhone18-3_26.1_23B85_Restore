@@ -15,39 +15,39 @@
 
 - (BOOL)isOtherNonEligibleAppRecording
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69AED08] = [MEMORY[0x1E69AED08] sharedAVSystemController];
   v3 = [mEMORY[0x1E69AED08] attributeForKey:*MEMORY[0x1E69AEB58]];
   if ([v3 count])
   {
-    v25 = v3;
-    v26 = mEMORY[0x1E69AED08];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v24 = v3;
+    v25 = mEMORY[0x1E69AED08];
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = v3;
-    v4 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v4 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v4)
     {
       v5 = v4;
-      v29 = 0;
-      v6 = *v32;
+      v28 = 0;
+      v6 = *v31;
       v7 = MEMORY[0x1E69AEB60];
       v8 = MEMORY[0x1E69AEB40];
       while (2)
       {
         v9 = 0;
-        v28 = v5;
+        v27 = v5;
         do
         {
-          if (*v32 != v6)
+          if (*v31 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * v9);
-          v11 = [v10 objectForKey:{*v7, v25, v26}];
+          v10 = *(*(&v30 + 1) + 8 * v9);
+          v11 = [v10 objectForKey:{*v7, v24, v25}];
           v12 = [v10 objectForKey:*v8];
           v13 = CSLogContextFacilityCoreSpeech;
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
@@ -64,7 +64,7 @@
           if (v12)
           {
             memset(&buf, 0, sizeof(buf));
-            [CSUtils getTokenFromDictionary:v10 withTokenKey:*v8];
+            objc_msgSend_getTokenFromDictionary_withTokenKey_(CSUtils);
             atoken = buf;
             v14 = audit_token_to_pid(&atoken);
             if (+[CSUtils processIdentifier]== v14)
@@ -97,7 +97,7 @@
                   _os_log_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_DEFAULT, "%s Process %ld is not entitled!", &atoken, 0x16u);
                 }
 
-                v29 = 1;
+                v28 = 1;
                 goto LABEL_28;
               }
 
@@ -111,7 +111,7 @@
               }
 
               v8 = v17;
-              v5 = v28;
+              v5 = v27;
             }
           }
 
@@ -125,14 +125,14 @@
               _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s There was no audit token", &buf, 0xCu);
             }
 
-            v29 = 1;
+            v28 = 1;
           }
 
           ++v9;
         }
 
         while (v5 != v9);
-        v5 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v5)
         {
           continue;
@@ -144,14 +144,14 @@
 
     else
     {
-      v29 = 0;
+      v28 = 0;
     }
 
 LABEL_28:
 
-    v3 = v25;
-    mEMORY[0x1E69AED08] = v26;
-    v22 = v29;
+    v3 = v24;
+    mEMORY[0x1E69AED08] = v25;
+    v22 = v28;
   }
 
   else
@@ -159,7 +159,6 @@ LABEL_28:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22 & 1;
 }
 
@@ -177,15 +176,15 @@ LABEL_28:
 
 - (BOOL)_isEntitledWithDecodedAuditToken:(id *)token
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *&token->var0[4];
-  *v13 = *token->var0;
-  *&v13[16] = v4;
-  v5 = [CSUtils checkEntitlementForToken:v13 withEntitlement:@"com.apple.corespeech.supportheysiriwhenrecord"];
+  *v12 = *token->var0;
+  *&v12[16] = v4;
+  v5 = [CSUtils checkEntitlementForToken:v12 withEntitlement:@"com.apple.corespeech.supportheysiriwhenrecord"];
   v6 = *&token->var0[4];
-  *v13 = *token->var0;
-  *&v13[16] = v6;
-  if ([CSUtils checkEntitlementForToken:v13 withEntitlement:@"com.apple.corespeech.supportheysiriwhenrecord.sae"])
+  *v12 = *token->var0;
+  *&v12[16] = v6;
+  if ([CSUtils checkEntitlementForToken:v12 withEntitlement:@"com.apple.corespeech.supportheysiriwhenrecord.sae"])
   {
     v7 = AFDeviceSupportsSystemAssistantExperience();
   }
@@ -199,7 +198,7 @@ LABEL_28:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v9 = @"NO";
-    *&v13[4] = "[CSOtherAppRecordingStateMonitor _isEntitledWithDecodedAuditToken:]";
+    *&v12[4] = "[CSOtherAppRecordingStateMonitor _isEntitledWithDecodedAuditToken:]";
     if (v5)
     {
       v10 = @"YES";
@@ -210,20 +209,19 @@ LABEL_28:
       v10 = @"NO";
     }
 
-    *v13 = 136315650;
-    *&v13[14] = v10;
-    *&v13[12] = 2112;
+    *v12 = 136315650;
+    *&v12[14] = v10;
+    *&v12[12] = 2112;
     if (v7)
     {
       v9 = @"YES";
     }
 
-    *&v13[22] = 2112;
-    *&v13[24] = v9;
-    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s isGeneralEntilementEntiled: %@, isSAEEntitlementEntiledOnSAEDevice: %@", v13, 0x20u);
+    *&v12[22] = 2112;
+    *&v12[24] = v9;
+    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s isGeneralEntilementEntiled: %@, isSAEEntitlementEntiledOnSAEDevice: %@", v12, 0x20u);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return (v5 | v7) & 1;
 }
 
@@ -245,23 +243,21 @@ LABEL_28:
 
 - (void)_systemControllerDied:(id)died
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   diedCopy = died;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSOtherAppRecordingStateMonitor _systemControllerDied:]";
-    v9 = 2114;
-    v10 = diedCopy;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSOtherAppRecordingStateMonitor _systemControllerDied:]";
+    v8 = 2114;
+    v9 = diedCopy;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v6, 0x16u);
   }
 
   [(CSOtherAppRecordingStateMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSOtherAppRecordingStateMonitor *)self _startObservingOtherAppRecordingState];
   [(CSOtherAppRecordingStateMonitor *)self handleOtherAppRecordingStateChange:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingOtherAppRecordingState
@@ -282,25 +278,24 @@ LABEL_28:
 
 - (void)handleOtherAppRecordingStateChange:(id)change
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([(CSOtherAppRecordingStateMonitor *)self isOtherNonEligibleAppRecording])
   {
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v8 = "[CSOtherAppRecordingStateMonitor handleOtherAppRecordingStateChange:]";
+      v7 = "[CSOtherAppRecordingStateMonitor handleOtherAppRecordingStateChange:]";
       _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Another non eligible app is recording", buf, 0xCu);
     }
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __70__CSOtherAppRecordingStateMonitor_handleOtherAppRecordingStateChange___block_invoke;
-  v6[3] = &unk_1E865CB20;
-  v6[4] = self;
-  [(CSEventMonitor *)self enumerateObserversInQueue:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __70__CSOtherAppRecordingStateMonitor_handleOtherAppRecordingStateChange___block_invoke;
+  v5[3] = &unk_1E865CB20;
+  v5[4] = self;
+  [(CSEventMonitor *)self enumerateObserversInQueue:v5];
 }
 
 - (void)_stopMonitoring

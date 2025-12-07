@@ -1,5 +1,6 @@
 @interface RPStreamServer
 - (RPStreamServer)init;
+- (id)descriptionWithLevel:(int)level;
 - (void)_activateWithCompletion:(id)completion;
 - (void)_handleStartRequest:(id)request options:(id)options responseHandler:(id)handler;
 - (void)_handleStopRequest:(id)request options:(id)options responseHandler:(id)handler;
@@ -58,13 +59,13 @@
   }
 
   v5 = self->_messenger;
-  v6 = v5;
+  v12 = v5;
   if (!v5)
   {
-    v7 = RPErrorF();
+    v13 = RPErrorF(4294960591, "No messenger", v6, v7, v8, v9, v10, v11, v14[0]);
     if (gLogCategory_RPStreamServer <= 90 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
     {
-      [RPStreamServer _activateWithCompletion:];
+      [RPStreamServer _activateWithCompletion:v13];
       if (!completionCopy)
       {
         goto LABEL_12;
@@ -78,23 +79,23 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    completionCopy[2](completionCopy, v7);
+    completionCopy[2](completionCopy, v13);
     goto LABEL_12;
   }
 
   [(RPMessageable *)v5 setServiceType:self->_serviceType];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __42__RPStreamServer__activateWithCompletion___block_invoke;
-  v9[3] = &unk_1E7C94EE8;
-  v9[4] = self;
-  [(RPMessageable *)v6 registerRequestID:@"_streamStart" options:0 handler:v9];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __42__RPStreamServer__activateWithCompletion___block_invoke_2;
-  v8[3] = &unk_1E7C94EE8;
-  v8[4] = self;
-  [(RPMessageable *)v6 registerRequestID:@"_streamStop" options:0 handler:v8];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __42__RPStreamServer__activateWithCompletion___block_invoke;
+  v15[3] = &unk_1E7C94EE8;
+  v15[4] = self;
+  [(RPMessageable *)v12 registerRequestID:@"_streamStart" options:0 handler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __42__RPStreamServer__activateWithCompletion___block_invoke_2;
+  v14[3] = &unk_1E7C94EE8;
+  v14[4] = self;
+  [(RPMessageable *)v12 registerRequestID:@"_streamStop" options:0 handler:v14];
   objc_storeStrong(&self->_selfRef, self);
   if (completionCopy)
   {
@@ -102,6 +103,87 @@ LABEL_12:
   }
 
 LABEL_13:
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v15 = 0;
+  NSAppendPrintF(&v15, "Stream Server, CT %lu", [(NSMutableDictionary *)self->_streamSessions count]);
+  v4 = v15;
+  v5 = v4;
+  serviceType = self->_serviceType;
+  if (serviceType)
+  {
+    v14 = v4;
+    v7 = serviceType;
+    NSAppendPrintF(&v14, ", ST %@ ", v7);
+    v8 = v14;
+
+    v5 = v8;
+  }
+
+  streamQoS = self->_streamQoS;
+  if (streamQoS)
+  {
+    v13 = v5;
+    if (streamQoS <= 9)
+    {
+      switch(streamQoS)
+      {
+        case 1:
+          v10 = "Background";
+          goto LABEL_20;
+        case 2:
+          v10 = "Video";
+          goto LABEL_20;
+        case 3:
+          v10 = "Voice";
+LABEL_20:
+          NSAppendPrintF(&v13, ", QoS %s", v10);
+          v11 = v13;
+
+          v5 = v11;
+          goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      if (streamQoS <= 11)
+      {
+        if (streamQoS == 10)
+        {
+          v10 = "AirPlayAudio";
+        }
+
+        else
+        {
+          v10 = "AirPlayScreenAudio";
+        }
+
+        goto LABEL_20;
+      }
+
+      if (streamQoS == 12)
+      {
+        v10 = "AirPlayScreenVideo";
+        goto LABEL_20;
+      }
+
+      if (streamQoS == 20)
+      {
+        v10 = "NTP";
+        goto LABEL_20;
+      }
+    }
+
+    v10 = "?";
+    goto LABEL_20;
+  }
+
+LABEL_21:
+
+  return v5;
 }
 
 - (void)invalidate
@@ -119,19 +201,23 @@ LABEL_13:
 {
   if (!self->_invalidateCalled)
   {
-    v7 = v2;
+    v8 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (gLogCategory_RPStreamServer <= 30 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPStreamServer <= 30)
     {
-      [RPStreamServer _invalidate];
+      if (gLogCategory_RPStreamServer != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(RPStreamServer *)self _invalidate];
+      }
     }
 
-    [(RPMessageable *)self->_messenger deregisterRequestID:@"_streamStart", v3, v7, v4];
-    [(RPMessageable *)self->_messenger deregisterRequestID:@"_streamStop"];
-    [(NSMutableDictionary *)self->_streamSessions enumerateKeysAndObjectsUsingBlock:&__block_literal_global_17];
-    [(NSMutableDictionary *)self->_streamSessions removeAllObjects];
+    [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_streamStart", v4, v8, v5];
+    [(RPMessageable *)selfCopy->_messenger deregisterRequestID:@"_streamStop"];
+    [(NSMutableDictionary *)selfCopy->_streamSessions enumerateKeysAndObjectsUsingBlock:&__block_literal_global_17];
+    [(NSMutableDictionary *)selfCopy->_streamSessions removeAllObjects];
 
-    [(RPStreamServer *)self _invalidated];
+    [(RPStreamServer *)selfCopy _invalidated];
   }
 }
 
@@ -166,9 +252,12 @@ LABEL_13:
     selfRef = self->_selfRef;
     self->_selfRef = 0;
 
-    if (gLogCategory_RPStreamServer <= 30 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPStreamServer <= 30)
     {
-      [RPStreamServer _invalidated];
+      if (gLogCategory_RPStreamServer != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        [(RPStreamServer *)v11 _invalidated];
+      }
     }
   }
 }
@@ -178,38 +267,46 @@ LABEL_13:
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__6;
-  v50 = __Block_byref_object_dispose__6;
-  v51 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__6;
+  v71 = __Block_byref_object_dispose__6;
+  v72 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v45 = &v46;
+  v66 = &v67;
   v11 = handlerCopy;
-  v44 = v11;
+  v65 = v11;
   v12 = _Block_copy(aBlock);
-  v33 = v12;
+  v54 = v12;
   CFStringGetTypeID();
-  v13 = CFDictionaryGetTypedValue();
-  if (!v13 || (Int64Ranged = CFDictionaryGetInt64Ranged(), !Int64Ranged))
+  v19 = CFDictionaryGetTypedValue();
+  if (!v19)
   {
-    v29 = RPErrorF();
-    v35 = v47[5];
-    v47[5] = v29;
+    v51 = RPErrorF(4294960591, "No streamID", v13, v14, v15, v16, v17, v18, v53);
+LABEL_28:
+    v56 = v68[5];
+    v68[5] = v51;
 
     goto LABEL_25;
   }
 
-  v34 = _Block_copy(self->_streamAcceptHandler);
-  if (!v34)
+  Int64Ranged = CFDictionaryGetInt64Ranged();
+  if (!Int64Ranged)
   {
-    v30 = RPErrorF();
-    v16 = v47[5];
-    v47[5] = v30;
+    v51 = RPErrorF(4294960591, "No streamType", v20, v21, v22, v23, v24, v25, v53);
+    goto LABEL_28;
+  }
+
+  v55 = _Block_copy(self->_streamAcceptHandler);
+  if (!v55)
+  {
+    v52 = RPErrorF(4294960551, "No streamAcceptHandler", v27, v28, v29, v30, v31, v32, v53);
+    v34 = v68[5];
+    v68[5] = v52;
     goto LABEL_24;
   }
 
@@ -217,106 +314,103 @@ LABEL_13:
   {
     if (Int64Ranged > 3)
     {
-      v15 = "?";
+      v33 = "?";
     }
 
     else
     {
-      v15 = *(off_1E7C950B8 + (((Int64Ranged << 32) - 0x100000000) >> 29));
+      v33 = *(off_1E7C950B8 + (((Int64Ranged << 32) - 0x100000000) >> 29));
     }
 
-    v31 = v13;
-    v32 = v15;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamServer, "[RPStreamServer _handleStartRequest:options:responseHandler:]", 30, "Stream session start: ID '%@', Type %s\n", v19, v33);
   }
 
-  v16 = objc_alloc_init(RPStreamSession);
-  [(RPStreamSession *)v16 setDispatchQueue:self->_dispatchQueue];
-  [(RPStreamSession *)v16 setMessenger:self->_messenger];
-  [(RPStreamSession *)v16 setStreamID:v13];
-  [(RPStreamSession *)v16 setStreamType:Int64Ranged];
-  [(RPStreamSession *)v16 setServiceType:self->_serviceType];
-  [(RPStreamSession *)v16 setStreamQoS:self->_streamQoS];
-  v17 = requestCopy;
-  [(RPStreamSession *)v16 setStreamFlags:[(RPStreamSession *)v16 streamFlags]| CFDictionaryGetInt64Ranged() & 2];
-  v18 = v11;
-  v19 = _Block_copy(self->_streamPrepareHandlerEx);
-  v20 = v19;
-  v21 = optionsCopy;
-  if (!v19)
+  v34 = objc_alloc_init(RPStreamSession);
+  [(RPStreamSession *)v34 setDispatchQueue:self->_dispatchQueue];
+  [(RPStreamSession *)v34 setMessenger:self->_messenger];
+  [(RPStreamSession *)v34 setStreamID:v19];
+  [(RPStreamSession *)v34 setStreamType:Int64Ranged];
+  [(RPStreamSession *)v34 setServiceType:self->_serviceType];
+  [(RPStreamSession *)v34 setStreamQoS:self->_streamQoS];
+  v35 = requestCopy;
+  [(RPStreamSession *)v34 setStreamFlags:[(RPStreamSession *)v34 streamFlags]| CFDictionaryGetInt64Ranged() & 2];
+  v36 = v11;
+  v37 = _Block_copy(self->_streamPrepareHandlerEx);
+  v38 = v37;
+  v39 = optionsCopy;
+  if (!v37)
   {
-    v27 = _Block_copy(self->_streamPrepareHandler);
-    v28 = v27;
-    if (v27)
+    v49 = _Block_copy(self->_streamPrepareHandler);
+    v50 = v49;
+    if (v49)
     {
-      (*(v27 + 2))(v27, v16);
+      (*(v49 + 2))(v49, v34);
     }
 
     goto LABEL_18;
   }
 
-  v22 = v47;
-  obj = v47[5];
-  v23 = (*(v19 + 2))(v19, v16, &obj);
-  objc_storeStrong(v22 + 5, obj);
-  if (v23)
+  v40 = v68;
+  obj = v68[5];
+  v41 = (*(v37 + 2))(v37, v34, &obj);
+  objc_storeStrong(v40 + 5, obj);
+  if (v41)
   {
 LABEL_18:
-    optionsCopy = v21;
-    v11 = v18;
-    requestCopy = v17;
-    if ((self->_streamFlags & 1) != 0 || Int64Ranged == 2 && ([(RPStreamSession *)v16 streamFlags]& 4) != 0)
+    optionsCopy = v39;
+    v11 = v36;
+    requestCopy = v35;
+    if ((self->_streamFlags & 1) != 0 || Int64Ranged == 2 && ([(RPStreamSession *)v34 streamFlags]& 4) != 0)
     {
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_2;
-      v40[3] = &unk_1E7C95048;
-      v40[4] = v16;
-      v40[5] = self;
-      v41 = Int64Ranged;
-      v40[6] = v13;
-      v40[7] = v34;
-      [(RPStreamSession *)v16 setStreamAcceptHandler:v40, v31, v32];
+      v61[0] = MEMORY[0x1E69E9820];
+      v61[1] = 3221225472;
+      v61[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_2;
+      v61[3] = &unk_1E7C95048;
+      v61[4] = v34;
+      v61[5] = self;
+      v62 = Int64Ranged;
+      v61[6] = v19;
+      v61[7] = v55;
+      [(RPStreamSession *)v34 setStreamAcceptHandler:v61];
     }
 
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_6;
-    v36[3] = &unk_1E7C95098;
-    v36[4] = v16;
-    v39 = Int64Ranged;
-    v37 = v11;
-    v38 = v34;
-    v36[5] = self;
-    v36[6] = v13;
-    [(RPStreamSession *)v16 activateForServerRequest:v17 options:optionsCopy responseHandler:v36];
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_6;
+    v57[3] = &unk_1E7C95098;
+    v57[4] = v34;
+    v60 = Int64Ranged;
+    v58 = v11;
+    v59 = v55;
+    v57[5] = self;
+    v57[6] = v19;
+    [(RPStreamSession *)v34 activateForServerRequest:v35 options:optionsCopy responseHandler:v57];
 
     goto LABEL_23;
   }
 
-  v24 = v47[5];
-  v25 = RPNestedErrorF();
-  v26 = v47[5];
-  v47[5] = v25;
+  v47 = RPNestedErrorF(v68[5], 4294960539, "Stream prepare rejected", v42, v43, v44, v45, v46, v53);
+  v48 = v68[5];
+  v68[5] = v47;
 
-  optionsCopy = v21;
-  v11 = v18;
-  requestCopy = v17;
+  optionsCopy = v39;
+  v11 = v36;
+  requestCopy = v35;
 LABEL_23:
 
-  v12 = v33;
+  v12 = v54;
 LABEL_24:
 
 LABEL_25:
   v12[2](v12);
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v67, 8);
 }
 
 uint64_t __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -326,25 +420,21 @@ uint64_t __62__RPStreamServer__handleStartRequest_options_responseHandler___bloc
   {
     if (gLogCategory_RPStreamServer == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamServer, "[RPStreamServer _handleStartRequest:options:responseHandler:]_block_invoke", 90, "### Start request failed: %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 uint64_t __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_2(int8x16_t *a1)
@@ -377,9 +467,10 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
   dispatch_async(v4, block);
 }
 
-uint64_t __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_4(uint64_t a1)
+void *__62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_4(uint64_t a1)
 {
-  if (*(a1 + 32))
+  v2 = *(a1 + 32);
+  if (v2)
   {
     if (gLogCategory_RPStreamServer <= 90)
     {
@@ -390,16 +481,16 @@ uint64_t __62__RPStreamServer__handleStartRequest_options_responseHandler___bloc
           goto LABEL_11;
         }
 
-        v4 = *(a1 + 32);
+        v2 = *(a1 + 32);
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamServer, "[RPStreamServer _handleStartRequest:options:responseHandler:]_block_invoke_4", 90, "### Stream accept failed: %{error}\n", v2);
     }
 
 LABEL_11:
-    v3 = *(a1 + 40);
+    v4 = *(a1 + 40);
 
-    return [v3 invalidate];
+    return [v4 invalidate];
   }
 
   result = [*(a1 + 40) streamFlags];
@@ -427,7 +518,7 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
   {
     if (gLogCategory_RPStreamServer <= 90 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
     {
-      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_5_cold_1();
+      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_5_cold_1(v7);
     }
 
     [*(a1 + 32) invalidate];
@@ -461,19 +552,19 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
     [*(a1 + 32) invalidate];
     if (gLogCategory_RPStreamServer <= 90 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
     {
-      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_6_cold_1();
+      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_6_cold_1(v10);
     }
 
-    v13 = *(a1 + 56);
+    v19 = *(a1 + 56);
     if (v10)
     {
-      (*(v13 + 16))(v13, 0, 0, v10);
+      (*(v19 + 16))(v19, 0, 0, v10);
     }
 
     else
     {
-      v14 = RPErrorF();
-      (*(v13 + 16))(v13, 0, 0, v14);
+      v20 = RPErrorF(4294960584, "No response, but no error", v13, v14, v15, v16, v17, v18, v21);
+      (*(v19 + 16))(v19, 0, 0, v20);
     }
   }
 
@@ -485,28 +576,28 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
   else
   {
     v11 = *(a1 + 32);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_7;
-    v15[3] = &unk_1E7C95070;
-    v15[4] = v11;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_7;
+    v22[3] = &unk_1E7C95070;
+    v22[4] = v11;
     v12 = *(a1 + 64);
-    v18 = *(a1 + 56);
-    v16 = *(a1 + 40);
-    v17 = v7;
-    (*(v12 + 16))(v12, v11, v15);
+    v25 = *(a1 + 56);
+    v23 = *(a1 + 40);
+    v24 = v7;
+    (*(v12 + 16))(v12, v11, v22);
   }
 }
 
 void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_7(uint64_t a1, void *a2)
 {
-  v9 = a2;
-  if (v9)
+  v8 = a2;
+  if (v8)
   {
     [*(a1 + 32) invalidate];
     if (gLogCategory_RPStreamServer <= 90 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
     {
-      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_7_cold_1();
+      __62__RPStreamServer__handleStartRequest_options_responseHandler___block_invoke_7_cold_1(v8);
     }
 
     v3 = *(*(a1 + 64) + 16);
@@ -527,7 +618,6 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
 
     [v4 setObject:*(a1 + 32) forKeyedSubscript:*(a1 + 48)];
     [*(a1 + 32) acceptedByServer];
-    v8 = *(a1 + 56);
     v3 = *(*(a1 + 64) + 16);
   }
 
@@ -543,44 +633,44 @@ void __62__RPStreamServer__handleStartRequest_options_responseHandler___block_in
 
   if (v8)
   {
-    v9 = [(NSMutableDictionary *)self->_streamSessions objectForKeyedSubscript:v8];
-    if (v9)
+    v15 = [(NSMutableDictionary *)self->_streamSessions objectForKeyedSubscript:v8];
+    if (v15)
     {
       [(NSMutableDictionary *)self->_streamSessions setObject:0 forKeyedSubscript:v8];
-      [v9 invalidate];
+      [v15 invalidate];
       if (gLogCategory_RPStreamServer > 30 || gLogCategory_RPStreamServer == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_14;
       }
+
+      v16 = "Stream session stop: ID '%@'\n";
     }
 
-    else if (gLogCategory_RPStreamServer > 30 || gLogCategory_RPStreamServer == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_14;
+      if (gLogCategory_RPStreamServer > 30 || gLogCategory_RPStreamServer == -1 && !_LogCategory_Initialize())
+      {
+        goto LABEL_14;
+      }
+
+      v16 = "Ignoring stop without session: SteamID '%@'\n";
     }
 
-    [RPStreamServer _handleStopRequest:options:responseHandler:];
+    [RPStreamServer _handleStopRequest:v16 options:v8 responseHandler:?];
 LABEL_14:
-    v10 = handlerCopy[2];
+    v17 = handlerCopy[2];
     goto LABEL_15;
   }
 
-  v9 = RPErrorF();
+  v15 = RPErrorF(4294960591, "No streamID", v9, v10, v11, v12, v13, v14, v18);
   if (gLogCategory_RPStreamServer <= 90 && (gLogCategory_RPStreamServer != -1 || _LogCategory_Initialize()))
   {
-    [RPStreamServer _handleStopRequest:options:responseHandler:];
+    [RPStreamServer _handleStopRequest:v15 options:? responseHandler:?];
   }
 
-  v10 = handlerCopy[2];
+  v17 = handlerCopy[2];
 LABEL_15:
-  v10();
-}
-
-- (uint64_t)_activateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v3 = *(a1 + 64);
-  v2 = *(a1 + 40);
-  return LogPrintF();
+  v17();
 }
 
 @end

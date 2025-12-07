@@ -327,7 +327,7 @@ LABEL_6:
     v6 = *(API::HitTestResult::HitTestResult(v5, &self->_anon_40[1152], v4) + 1);
     if (!v6)
     {
-      v9 = 0;
+      var1 = 0;
       goto LABEL_10;
     }
 
@@ -336,9 +336,9 @@ LABEL_6:
     {
       v7 = v6;
       v8 = v6;
-      v9 = *(v5 + 1);
+      var1 = v5->var1;
 LABEL_10:
-      CFRelease(v9);
+      CFRelease(var1);
       CFRelease(v4[1]);
 LABEL_11:
       CFRelease(*(v3 + 8));

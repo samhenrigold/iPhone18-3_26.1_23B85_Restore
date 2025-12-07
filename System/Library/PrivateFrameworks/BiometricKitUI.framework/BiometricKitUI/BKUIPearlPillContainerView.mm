@@ -1,6 +1,7 @@
 @interface BKUIPearlPillContainerView
 - (BKUIPearlPillContainerView)init;
 - (BOOL)fillPillsAroundAngle:(double)angle forTutorial:(BOOL)tutorial;
+- (BOOL)unstashPillStatesIfNeededAnimated:(BOOL)animated;
 - (CGPoint)enrollViewCenter;
 - (double)percentOfPillsCompleted;
 - (id)unfilledDirections;
@@ -10,18 +11,20 @@
 - (void)animateToState:(int)state completion:(id)completion;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)setAllPillState:(unint64_t)state animated:(BOOL)animated completion:(id)completion;
 - (void)setRadius:(double)radius center:(CGPoint)center animated:(BOOL)animated completion:(id)completion;
 - (void)stashPillStates;
+- (void)unstashPillStatesAnimated:(BOOL)animated;
 @end
 
 @implementation BKUIPearlPillContainerView
 
 - (BKUIPearlPillContainerView)init
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = BKUIPearlPillContainerView;
-  v2 = [(BKUIPearlPillContainerView *)&v14 init];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = BKUIPearlPillContainerView;
+  v2 = [(BKUIPearlPillContainerView *)&v13 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:120];
@@ -50,22 +53,21 @@
     v2->_lastAngle = 0;
     [(BKUIPearlPillContainerView *)v2 resetPillsAnimated:0];
     objc_initWeak(&location, v2);
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __34__BKUIPearlPillContainerView_init__block_invoke;
-    v11[3] = &unk_278D09928;
-    objc_copyWeak(&v12, &location);
-    v8 = [(BKUIPearlPillContainerView *)v2 registerForTraitChanges:v7 withHandler:v11];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __34__BKUIPearlPillContainerView_init__block_invoke;
+    v10[3] = &unk_278D09928;
+    objc_copyWeak(&v11, &location);
+    v8 = [(BKUIPearlPillContainerView *)v2 registerForTraitChanges:v7 withHandler:v10];
     [(BKUIPearlPillContainerView *)v2 setTraitChangeRegistration:v8];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -149,7 +151,7 @@ LABEL_9:
 
 - (void)_animateToFinishedCompletion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (![(BKUIPearlPillContainerView *)self squareNeedsPositionLayout])
   {
@@ -185,15 +187,15 @@ LABEL_9:
     v22 = dispatch_group_create();
     dispatch_group_enter(v22);
     objc_initWeak(&location, self);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invoke;
-    v42[3] = &unk_278D0A1E8;
-    objc_copyWeak(&v44, &location);
-    v45 = v11;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invoke;
+    v41[3] = &unk_278D0A1E8;
+    objc_copyWeak(&v43, &location);
+    v44 = v11;
     v23 = v22;
-    v43 = v23;
-    [(BKUIPearlPillContainerView *)self setAllPillState:5 animated:v11 ^ 1 completion:v42];
+    v42 = v23;
+    [(BKUIPearlPillContainerView *)self setAllPillState:5 animated:v11 ^ 1 completion:v41];
     if (v11)
     {
       v24 = 0.0;
@@ -204,43 +206,43 @@ LABEL_9:
       v24 = 0.5;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v25 = self->_pillViews;
-    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v26)
     {
-      v27 = *v39;
+      v27 = *v38;
       v28 = MEMORY[0x277D85DD0];
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v39 != v27)
+          if (*v38 != v27)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v38 + 1) + 8 * i);
+          v30 = *(*(&v37 + 1) + 8 * i);
           dispatch_group_enter(v23);
           objc_initWeak(&from, v30);
-          v34[0] = v28;
-          v34[1] = 3221225472;
-          v34[2] = __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invoke_4;
-          v34[3] = &unk_278D0A210;
-          objc_copyWeak(v36, &from);
-          v36[1] = *&v13;
-          v36[2] = *&v24;
-          v35 = v23;
-          [v30 setRadius:v34 animationDuration:v13 * 0.899999976 completion:v24 * 0.7];
+          v33[0] = v28;
+          v33[1] = 3221225472;
+          v33[2] = __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invoke_4;
+          v33[3] = &unk_278D0A210;
+          objc_copyWeak(v35, &from);
+          v35[1] = *&v13;
+          v35[2] = *&v24;
+          v34 = v23;
+          [v30 setRadius:v33 animationDuration:v13 * 0.899999976 completion:v24 * 0.7];
 
-          objc_destroyWeak(v36);
+          objc_destroyWeak(v35);
           objc_destroyWeak(&from);
         }
 
-        v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v37 objects:v46 count:16];
       }
 
       while (v26);
@@ -251,13 +253,11 @@ LABEL_9:
       dispatch_group_notify(v23, MEMORY[0x277D85CD0], block);
     }
 
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v43);
     objc_destroyWeak(&location);
 
     completionCopy = block;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invoke(uint64_t a1)
@@ -342,6 +342,58 @@ void __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invok
   return v8 / _numberOfVisiblePillViews;
 }
 
+- (void)setAllPillState:(unint64_t)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v25 = *MEMORY[0x277D85DE8];
+  block = completion;
+  v8 = dispatch_group_create();
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = self->_pillViews;
+  v9 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v21;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v21 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = *(*(&v20 + 1) + 8 * i);
+        dispatch_group_enter(v8);
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __66__BKUIPearlPillContainerView_setAllPillState_animated_completion___block_invoke;
+        v18[3] = &unk_278D09978;
+        v19 = v8;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __66__BKUIPearlPillContainerView_setAllPillState_animated_completion___block_invoke_2;
+        v16[3] = &unk_278D09978;
+        v17 = v19;
+        [v13 setState:state animated:animatedCopy animationDelay:v18 completion:v16 failure:0.0];
+      }
+
+      v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v10);
+  }
+
+  if (block)
+  {
+    dispatch_group_notify(v8, MEMORY[0x277D85CD0], block);
+  }
+}
+
 - (void)stashPillStates
 {
   if ([(NSMutableArray *)self->_pillViews count])
@@ -365,6 +417,43 @@ void __59__BKUIPearlPillContainerView__animateToFinishedCompletion___block_invok
   }
 
   self->_hasPillStateStash = 1;
+}
+
+- (void)unstashPillStatesAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = 0;
+  stashedPillStates = self->_stashedPillStates;
+  do
+  {
+    if (!stashedPillStates[v5])
+    {
+      [BKUIPearlPillContainerView unstashPillStatesAnimated:];
+    }
+
+    if (v5 < [(NSMutableArray *)self->_pillViews count])
+    {
+      v7 = stashedPillStates[v5];
+      v8 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:v5];
+      [v8 setState:v7 animated:animatedCopy animationDelay:0 completion:0 failure:0.0];
+    }
+
+    stashedPillStates[v5++] = 0;
+  }
+
+  while (v5 != 120);
+  self->_hasPillStateStash = 0;
+}
+
+- (BOOL)unstashPillStatesIfNeededAnimated:(BOOL)animated
+{
+  hasPillStateStash = self->_hasPillStateStash;
+  if (hasPillStateStash)
+  {
+    [(BKUIPearlPillContainerView *)self unstashPillStatesAnimated:animated];
+  }
+
+  return hasPillStateStash;
 }
 
 - (int64_t)_indexForPillAtAngle:(double)angle
@@ -511,28 +600,28 @@ LABEL_24:
 
 - (id)unfilledDirections
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = objc_opt_new();
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = objc_opt_new();
   v3 = [&unk_2853CC898 count];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [&unk_2853CC898 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [&unk_2853CC898 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(&unk_2853CC898);
         }
 
-        integerValue = [*(*(&v16 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v15 + 1) + 8 * i) integerValue];
         v9 = [(BKUIPearlPillContainerView *)self _indexForPillAtAngle:6.28318531 / v3 * integerValue];
         if (v9 != 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -542,20 +631,18 @@ LABEL_24:
           if (state == 2)
           {
             v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
-            [v15 addObject:v12];
+            [v14 addObject:v12];
           }
         }
       }
 
-      v5 = [&unk_2853CC898 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [&unk_2853CC898 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 - (void)setRadius:(double)radius center:(CGPoint)center animated:(BOOL)animated completion:(id)completion
@@ -563,7 +650,7 @@ LABEL_24:
   animatedCopy = animated;
   y = center.y;
   x = center.x;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(BKUIPearlPillContainerView *)self setEnrollViewCenter:x, y];
   [(BKUIPearlPillContainerView *)self setNeedsLayout];
@@ -578,40 +665,40 @@ LABEL_24:
   }
 
   v13 = dispatch_group_create();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v14 = self->_pillViews;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       v18 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * v18);
+        v19 = *(*(&v22 + 1) + 8 * v18);
         dispatch_group_enter(v13);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __67__BKUIPearlPillContainerView_setRadius_center_animated_completion___block_invoke;
-        v21[3] = &unk_278D09978;
-        v22 = v13;
-        [v19 setRadius:v21 animationDuration:radius completion:v12];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __67__BKUIPearlPillContainerView_setRadius_center_animated_completion___block_invoke;
+        v20[3] = &unk_278D09978;
+        v21 = v13;
+        [v19 setRadius:v20 animationDuration:radius completion:v12];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
@@ -621,8 +708,6 @@ LABEL_24:
   {
     dispatch_group_notify(v13, MEMORY[0x277D85CD0], completionCopy);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)animateToState:(int)state completion:(id)completion

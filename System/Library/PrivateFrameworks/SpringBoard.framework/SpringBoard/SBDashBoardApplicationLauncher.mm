@@ -1190,13 +1190,13 @@ uint64_t __119__SBDashBoardApplicationLauncher__activateCameraEntity_animated_as
   return v3();
 }
 
-void __119__SBDashBoardApplicationLauncher__activateCameraEntity_animated_asOverlay_viaSwitcherModal_request_actions_completion___block_invoke_56()
+void __119__SBDashBoardApplicationLauncher__activateCameraEntity_animated_asOverlay_viaSwitcherModal_request_actions_completion___block_invoke_56(uint64_t a1)
 {
-  v0 = SBLogDashBoard();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = SBLogDashBoard();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_DEFAULT, "Completed main page activation for switcher modal presentation", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_21ED4E000, v1, OS_LOG_TYPE_DEFAULT, "Completed main page activation for switcher modal presentation", v2, 2u);
   }
 }
 

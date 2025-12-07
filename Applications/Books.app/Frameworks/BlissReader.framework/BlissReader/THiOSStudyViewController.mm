@@ -47,7 +47,7 @@
 
 - (THiOSStudyViewController)initWithDocumentRoot:(id)root
 {
-  v4 = [(THiOSStudyViewController *)self initWithNibName:0 bundle:THBundle()];
+  v4 = [(THiOSStudyViewController *)self initWithNibName:0 bundle:THBundle(self, a2)];
   if (v4)
   {
     v5 = [[THNoteCardsController alloc] initWithDocumentRoot:root];
@@ -178,9 +178,9 @@ LABEL_12:
 
 - (void)viewDidLoad
 {
-  v4.receiver = self;
-  v4.super_class = THiOSStudyViewController;
-  [(THiOSStudyViewController *)&v4 viewDidLoad];
+  v8.receiver = self;
+  v8.super_class = THiOSStudyViewController;
+  [(THiOSStudyViewController *)&v8 viewDidLoad];
   [-[NSLayoutXAxisAnchor constraintEqualToAnchor:](-[UIView leftAnchor](-[THiOSStudyViewController contentView](self "contentView")];
   [-[NSLayoutXAxisAnchor constraintEqualToAnchor:](-[UIView rightAnchor](-[THiOSStudyViewController contentView](self "contentView")];
   [-[NSLayoutYAxisAnchor constraintEqualToAnchor:](-[UIView topAnchor](-[THiOSStudyViewController contentView](self "contentView")];
@@ -190,11 +190,13 @@ LABEL_12:
   -[THiOSStudyViewController setBackdrop:](self, "setBackdrop:", [v3 initWithFrame:?]);
   [(UIView *)[(THiOSStudyViewController *)self backdrop] setBackgroundColor:+[UIColor bc_booksBackground]];
   [-[THiOSStudyViewController view](self "view")];
-  -[UIButton setTitle:forState:](-[THiOSStudyViewController doneButton](self, "doneButton"), "setTitle:forState:", [THBundle() localizedStringForKey:@"Done" value:&stru_471858 table:0], 0);
+  doneButton = [(THiOSStudyViewController *)self doneButton];
+  -[UIButton setTitle:forState:](doneButton, "setTitle:forState:", [THBundle(doneButton v5)], 0);
   [(UIButton *)[(THiOSStudyViewController *)self doneButton] sizeToFit];
   [(UIButton *)[(THiOSStudyViewController *)self doneButton] setTitleColor:+[UIColor forState:"bc_booksLabelColor"], 0];
   [(UIButton *)[(THiOSStudyViewController *)self doneButton] setPointerInteractionEnabled:1];
-  -[UIButton setTitle:forState:](-[THiOSStudyViewController optionsButton](self, "optionsButton"), "setTitle:forState:", [THBundle() localizedStringForKey:@"Options" value:&stru_471858 table:0], 0);
+  optionsButton = [(THiOSStudyViewController *)self optionsButton];
+  -[UIButton setTitle:forState:](optionsButton, "setTitle:forState:", [THBundle(optionsButton v7)], 0);
   [(UIButton *)[(THiOSStudyViewController *)self optionsButton] setTitleColor:+[UIColor forState:"bc_booksLabelColor"], 0];
   [(UIButton *)[(THiOSStudyViewController *)self optionsButton] sizeToFit];
   [(UIButton *)[(THiOSStudyViewController *)self optionsButton] setPointerInteractionEnabled:1];
@@ -314,7 +316,7 @@ LABEL_12:
   [(THiOSStudyViewController *)&v13 viewWillTransitionToSize:size.width withTransitionCoordinator:size.height];
   if (coordinator)
   {
-    [coordinator targetTransform];
+    objc_msgSend_targetTransform(coordinator);
     IsIdentity = CGAffineTransformIsIdentity(&v12);
     v12.a = 0.0;
     *&v12.b = &v12;

@@ -61,7 +61,7 @@
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v220[1] = *MEMORY[0x277D85DE8];
+  v219[1] = *MEMORY[0x277D85DE8];
   if (!self->_prepared)
   {
     v6 = [ANSTISPAlgorithmConfiguration alloc];
@@ -80,7 +80,7 @@ LABEL_8:
       v3 = 0;
 LABEL_9:
 
-      goto LABEL_10;
+      return v3;
     }
 
     if (VTPixelRotationSessionCreate(*MEMORY[0x277CBECE8], &self->_pixelRotationSession) || VTSessionSetProperty(self->_pixelRotationSession, *MEMORY[0x277CE2850], *MEMORY[0x277CE2A30]))
@@ -88,9 +88,9 @@ LABEL_9:
       if (error)
       {
         v18 = MEMORY[0x277CCA9B8];
-        v219 = *MEMORY[0x277CCA068];
-        v220[0] = @"Failed to prepare pixel rotation session";
-        v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v220, &v219, 1);
+        v218 = *MEMORY[0x277CCA068];
+        v219[0] = @"Failed to prepare pixel rotation session";
+        v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v219, &v218, 1);
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v18, v20, @"ANSTErrorDomain", 3, v19);
       }
 
@@ -101,240 +101,240 @@ LABEL_9:
     {
       if (error)
       {
-        v25 = MEMORY[0x277CCA9B8];
-        v217 = *MEMORY[0x277CCA068];
-        v218 = @"Failed to prepare VTPixelTransferSession.";
-        v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, &v218, &v217, 1);
-        *error = objc_msgSend_errorWithDomain_code_userInfo_(v25, v27, @"ANSTErrorDomain", 3, v26);
+        v24 = MEMORY[0x277CCA9B8];
+        v216 = *MEMORY[0x277CCA068];
+        v217 = @"Failed to prepare VTPixelTransferSession.";
+        v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, &v217, &v216, 1);
+        *error = objc_msgSend_errorWithDomain_code_userInfo_(v24, v26, @"ANSTErrorDomain", 3, v25);
       }
 
-      objc_msgSend__releaseResourceSafely(self, v23, v24);
+      objc_msgSend__releaseResourceSafely(self, v22, v23);
       v3 = 1;
       goto LABEL_9;
     }
 
-    v28 = objc_msgSend_defaultConfigurationForVersion_withError_(ANSTISPInferenceConfiguration, v23, 0x10000, error);
-    v31 = v28;
-    if (!v28)
+    v27 = objc_msgSend_defaultConfigurationForVersion_withError_(ANSTISPInferenceConfiguration, v22, 0x10000, error);
+    v30 = v27;
+    if (!v27)
     {
-      objc_msgSend__releaseResourceSafely(self, v29, v30);
+      objc_msgSend__releaseResourceSafely(self, v28, v29);
       v3 = 0;
 LABEL_29:
 
       goto LABEL_9;
     }
 
-    objc_msgSend_setObjectTrackingEnabled_(v28, v29, 1);
-    objc_msgSend_setSegmentationEnabled_(v31, v32, 0);
-    v34 = objc_msgSend_descriptorWithConfiguration_error_(ANSTISPInferenceDescriptor, v33, v31, error);
-    v37 = v34;
-    if (!v34)
+    objc_msgSend_setObjectTrackingEnabled_(v27, v28, 1);
+    objc_msgSend_setSegmentationEnabled_(v30, v31, 0);
+    v33 = objc_msgSend_descriptorWithConfiguration_error_(ANSTISPInferenceDescriptor, v32, v30, error);
+    v36 = v33;
+    if (!v33)
     {
-      objc_msgSend__releaseResourceSafely(self, v35, v36);
+      objc_msgSend__releaseResourceSafely(self, v34, v35);
       v3 = 0;
 LABEL_28:
 
       goto LABEL_29;
     }
 
-    v38 = objc_msgSend_inputImageDescriptor(v34, v35, v36);
+    v37 = objc_msgSend_inputImageDescriptor(v33, v34, v35);
     anstInputBufferDescriptor = self->_anstInputBufferDescriptor;
-    self->_anstInputBufferDescriptor = v38;
+    self->_anstInputBufferDescriptor = v37;
 
-    v207 = v37;
-    v42 = objc_msgSend_inputImageDescriptor(v37, v40, v41);
-    v45 = objc_msgSend_pixelFormatType(v42, v43, v44);
-    v48 = objc_msgSend_width(self->_anstInputBufferDescriptor, v46, v47);
-    v51 = objc_msgSend_height(self->_anstInputBufferDescriptor, v49, v50);
-    if (objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v52, v45, v48, v51, &self->_anstInputBuffer_landscape))
+    v206 = v36;
+    v41 = objc_msgSend_inputImageDescriptor(v36, v39, v40);
+    v44 = objc_msgSend_pixelFormatType(v41, v42, v43);
+    v47 = objc_msgSend_width(self->_anstInputBufferDescriptor, v45, v46);
+    v50 = objc_msgSend_height(self->_anstInputBufferDescriptor, v48, v49);
+    if (objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v51, v44, v47, v50, &self->_anstInputBuffer_landscape))
     {
 
 LABEL_24:
       if (error)
       {
-        v70 = MEMORY[0x277CCA9B8];
-        v215 = *MEMORY[0x277CCA068];
-        v216 = @"Failed to allocate input buffer for ANST algorithm";
-        v71 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v55, &v216, &v215, 1);
-        *error = objc_msgSend_errorWithDomain_code_userInfo_(v70, v72, @"ANSTErrorDomain", 3, v71);
+        v69 = MEMORY[0x277CCA9B8];
+        v214 = *MEMORY[0x277CCA068];
+        v215 = @"Failed to allocate input buffer for ANST algorithm";
+        v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v54, &v215, &v214, 1);
+        *error = objc_msgSend_errorWithDomain_code_userInfo_(v69, v71, @"ANSTErrorDomain", 3, v70);
       }
 
-      objc_msgSend__releaseResourceSafely(self, v55, v56);
+      objc_msgSend__releaseResourceSafely(self, v54, v55);
       v3 = 0;
       goto LABEL_27;
     }
 
-    v57 = objc_msgSend_inputImageDescriptor(v207, v53, v54);
-    v60 = objc_msgSend_pixelFormatType(v57, v58, v59);
-    v206 = v31;
-    v63 = objc_msgSend_height(self->_anstInputBufferDescriptor, v61, v62);
-    v66 = objc_msgSend_width(self->_anstInputBufferDescriptor, v64, v65);
-    v67 = v63;
-    v31 = v206;
-    PixelBufferWithPixelFormat_width_height_handle = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v68, v60, v67, v66, &self->_anstInputBuffer_portrait);
+    v56 = objc_msgSend_inputImageDescriptor(v206, v52, v53);
+    v59 = objc_msgSend_pixelFormatType(v56, v57, v58);
+    v205 = v30;
+    v62 = objc_msgSend_height(self->_anstInputBufferDescriptor, v60, v61);
+    v65 = objc_msgSend_width(self->_anstInputBufferDescriptor, v63, v64);
+    v66 = v62;
+    v30 = v205;
+    PixelBufferWithPixelFormat_width_height_handle = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v67, v59, v66, v65, &self->_anstInputBuffer_portrait);
 
     if (PixelBufferWithPixelFormat_width_height_handle)
     {
       goto LABEL_24;
     }
 
-    if (objc_msgSend_version(self->_configuration, v55, v56) == 0x40000)
+    if (objc_msgSend_version(self->_configuration, v54, v55) == 0x40000)
     {
-      v73 = [ANSTActionHighlightModel alloc];
-      v76 = objc_msgSend_version(self->_configuration, v74, v75);
-      v78 = objc_msgSend_initForVersion_(v73, v77, v76);
+      v72 = [ANSTActionHighlightModel alloc];
+      v75 = objc_msgSend_version(self->_configuration, v73, v74);
+      v77 = objc_msgSend_initForVersion_(v72, v76, v75);
       gruModel = self->_gruModel;
-      self->_gruModel = v78;
+      self->_gruModel = v77;
 
-      v204 = objc_msgSend_inputImageDescriptor(self->_gruModel, v80, v81);
-      v84 = objc_msgSend_pixelFormatType(v204, v82, v83);
-      v87 = objc_msgSend_inputImageDescriptor(self->_gruModel, v85, v86);
-      v90 = objc_msgSend_width(v87, v88, v89);
-      v93 = objc_msgSend_inputImageDescriptor(self->_gruModel, v91, v92);
-      v96 = objc_msgSend_height(v93, v94, v95);
-      LODWORD(v84) = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v97, v84, v90, v96, &self->_gruModelInputBuffer);
+      v203 = objc_msgSend_inputImageDescriptor(self->_gruModel, v79, v80);
+      v83 = objc_msgSend_pixelFormatType(v203, v81, v82);
+      v86 = objc_msgSend_inputImageDescriptor(self->_gruModel, v84, v85);
+      v89 = objc_msgSend_width(v86, v87, v88);
+      v92 = objc_msgSend_inputImageDescriptor(self->_gruModel, v90, v91);
+      v95 = objc_msgSend_height(v92, v93, v94);
+      LODWORD(v83) = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v96, v83, v89, v95, &self->_gruModelInputBuffer);
 
-      if (v84)
+      if (v83)
       {
         if (error)
         {
-          v100 = MEMORY[0x277CCA9B8];
-          v213 = *MEMORY[0x277CCA068];
-          v214 = @"Failed to allocate buffer for GRU action model";
-          v101 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v98, &v214, &v213, 1);
-          *error = objc_msgSend_errorWithDomain_code_userInfo_(v100, v102, @"ANSTErrorDomain", 3, v101);
+          v99 = MEMORY[0x277CCA9B8];
+          v212 = *MEMORY[0x277CCA068];
+          v213 = @"Failed to allocate buffer for GRU action model";
+          v100 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v97, &v213, &v212, 1);
+          *error = objc_msgSend_errorWithDomain_code_userInfo_(v99, v101, @"ANSTErrorDomain", 3, v100);
         }
       }
 
-      else if (objc_msgSend_prepareWithError_(self->_gruModel, v98, error) && (objc_msgSend_bindInputFrameBuffer_error_(self->_gruModel, v98, self->_gruModelInputBuffer, error) & 1) != 0)
+      else if (objc_msgSend_prepareWithError_(self->_gruModel, v97, error) && (objc_msgSend_bindInputFrameBuffer_error_(self->_gruModel, v97, self->_gruModelInputBuffer, error) & 1) != 0)
       {
-        v110 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v98, v99);
-        v113 = objc_msgSend_sizeInBytes(v110, v111, v112);
-        v114 = malloc_type_malloc(v113, 0xAD08D776uLL);
+        v109 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v97, v98);
+        v112 = objc_msgSend_sizeInBytes(v109, v110, v111);
+        v113 = malloc_type_malloc(v112, 0xAD08D776uLL);
 
-        v117 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v115, v116);
-        v120 = objc_msgSend_sizeInBytes(v117, v118, v119);
-        bzero(v114, v120);
+        v116 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v114, v115);
+        v119 = objc_msgSend_sizeInBytes(v116, v117, v118);
+        bzero(v113, v119);
 
-        v121 = [ANSTTensorData alloc];
-        v124 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v122, v123);
-        v127 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v125, v126);
-        v130 = objc_msgSend_sizeInBytes(v127, v128, v129);
-        v132 = objc_msgSend_initWithDescriptor_dataPointer_length_deallocator_error_(v121, v131, v124, v114, v130, &unk_28431E208, error);
+        v120 = [ANSTTensorData alloc];
+        v123 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v121, v122);
+        v126 = objc_msgSend_stateTensorDescriptor(self->_gruModel, v124, v125);
+        v129 = objc_msgSend_sizeInBytes(v126, v127, v128);
+        v131 = objc_msgSend_initWithDescriptor_dataPointer_length_deallocator_error_(v120, v130, v123, v113, v129, &unk_28431E208, error);
         gruModelStateTensorData = self->_gruModelStateTensorData;
-        self->_gruModelStateTensorData = v132;
+        self->_gruModelStateTensorData = v131;
 
         v3 = 1;
         self->_prepared = 1;
 LABEL_56:
-        v31 = v206;
+        v30 = v205;
 LABEL_27:
-        v37 = v207;
+        v36 = v206;
         goto LABEL_28;
       }
 
-      objc_msgSend__releaseResourceSafely(self, v98, v99);
+      objc_msgSend__releaseResourceSafely(self, v97, v98);
       v3 = 0;
       goto LABEL_56;
     }
 
-    v103 = [ANSTVideoFeatureExtractorConfiguration alloc];
-    v205 = objc_msgSend_initWithVersion_(v103, v104, 0x10000);
-    v107 = objc_msgSend_version(self->_configuration, v105, v106);
-    v109 = v107;
-    if (v107 != 0x10000)
+    v102 = [ANSTVideoFeatureExtractorConfiguration alloc];
+    v204 = objc_msgSend_initWithVersion_(v102, v103, 0x10000);
+    v106 = objc_msgSend_version(self->_configuration, v104, v105);
+    v108 = v106;
+    if (v106 != 0x10000)
     {
-      if (v107 == 196608)
+      if (v106 == 196608)
       {
-        v109 = 196609;
+        v108 = 196609;
       }
 
       else
       {
-        if (v107 != 0x20000)
+        if (v106 != 0x20000)
         {
           goto LABEL_54;
         }
 
-        v109 = 131073;
+        v108 = 131073;
       }
     }
 
-    objc_msgSend_setFoundationModelVersion_(v205, v108, v109);
-    v134 = [ANSTVideoFeatureExtractor alloc];
-    v136 = objc_msgSend_initWithConfig_error_(v134, v135, v205, error);
+    objc_msgSend_setFoundationModelVersion_(v204, v107, v108);
+    v133 = [ANSTVideoFeatureExtractor alloc];
+    v135 = objc_msgSend_initWithConfig_error_(v133, v134, v204, error);
     featureExtractor = self->_featureExtractor;
-    self->_featureExtractor = v136;
+    self->_featureExtractor = v135;
 
-    v138 = self->_featureExtractor;
-    if (v138)
+    v137 = self->_featureExtractor;
+    if (v137)
     {
-      v139 = objc_msgSend_inputImageDescriptor(v138, v108, v109);
-      v203 = objc_msgSend_pixelFormatType(v139, v140, v141);
-      v144 = objc_msgSend_inputImageDescriptor(self->_featureExtractor, v142, v143);
-      v147 = objc_msgSend_width(v144, v145, v146);
-      v150 = objc_msgSend_inputImageDescriptor(self->_featureExtractor, v148, v149);
-      v153 = objc_msgSend_height(v150, v151, v152);
-      LODWORD(v147) = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v154, v203, v147, v153, &self->_featureExtractorInputBuffer);
+      v138 = objc_msgSend_inputImageDescriptor(v137, v107, v108);
+      v202 = objc_msgSend_pixelFormatType(v138, v139, v140);
+      v143 = objc_msgSend_inputImageDescriptor(self->_featureExtractor, v141, v142);
+      v146 = objc_msgSend_width(v143, v144, v145);
+      v149 = objc_msgSend_inputImageDescriptor(self->_featureExtractor, v147, v148);
+      v152 = objc_msgSend_height(v149, v150, v151);
+      LODWORD(v146) = objc_msgSend_createPixelBufferWithPixelFormat_width_height_handle_(ANSTUtility, v153, v202, v146, v152, &self->_featureExtractorInputBuffer);
 
-      if (v147)
+      if (v146)
       {
         if (error)
         {
-          v155 = MEMORY[0x277CCA9B8];
-          v211 = *MEMORY[0x277CCA068];
-          v212 = @"Failed to allocate buffer for feature extraction";
-          v156 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v108, &v212, &v211, 1);
-          *error = objc_msgSend_errorWithDomain_code_userInfo_(v155, v157, @"ANSTErrorDomain", 3, v156);
+          v154 = MEMORY[0x277CCA9B8];
+          v210 = *MEMORY[0x277CCA068];
+          v211 = @"Failed to allocate buffer for feature extraction";
+          v155 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v107, &v211, &v210, 1);
+          *error = objc_msgSend_errorWithDomain_code_userInfo_(v154, v156, @"ANSTErrorDomain", 3, v155);
         }
 
         goto LABEL_54;
       }
 
-      if (objc_msgSend_bindVideoInput_error_(self->_featureExtractor, v108, self->_featureExtractorInputBuffer, error) && (objc_msgSend_commitInputBindingWithError_(self->_featureExtractor, v108, error) & 1) != 0)
+      if (objc_msgSend_bindVideoInput_error_(self->_featureExtractor, v107, self->_featureExtractorInputBuffer, error) && (objc_msgSend_commitInputBindingWithError_(self->_featureExtractor, v107, error) & 1) != 0)
       {
-        v158 = objc_msgSend_supportedActionTypes(self, v108, v109);
-        self->_actionCount = objc_msgSend_count(v158, v159, v160);
+        v157 = objc_msgSend_supportedActionTypes(self, v107, v108);
+        self->_actionCount = objc_msgSend_count(v157, v158, v159);
 
-        v163 = objc_msgSend_outputFeatureDescriptor(self->_featureExtractor, v161, v162);
-        v166 = objc_msgSend_lengths(v163, v164, v165);
-        v168 = objc_msgSend_objectAtIndexedSubscript_(v166, v167, 1);
-        self->_featureLength = objc_msgSend_unsignedIntValue(v168, v169, v170);
+        v162 = objc_msgSend_outputFeatureDescriptor(self->_featureExtractor, v160, v161);
+        v165 = objc_msgSend_lengths(v162, v163, v164);
+        v167 = objc_msgSend_objectAtIndexedSubscript_(v165, v166, 1);
+        self->_featureLength = objc_msgSend_unsignedIntValue(v167, v168, v169);
 
         self->_rawScores = malloc_type_malloc(4 * self->_actionCount, 0x100004052888210uLL);
         self->_probabilities = malloc_type_malloc(4 * self->_actionCount, 0x100004052888210uLL);
         featureLength = self->_featureLength;
-        v210[0] = self->_actionCount;
-        v210[1] = featureLength;
-        v172 = [ANSTTensorDescriptor alloc];
-        v176 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v172, v173, @"decodingMatrix", 102, 2, v210, 1, error);
-        if (v176)
+        v209[0] = self->_actionCount;
+        v209[1] = featureLength;
+        v171 = [ANSTTensorDescriptor alloc];
+        v175 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v171, v172, @"decodingMatrix", 102, 2, v209, 1, error);
+        if (v175)
         {
-          v177 = objc_msgSend_version(self->_configuration, v174, v175);
-          switch(v177)
+          v176 = objc_msgSend_version(self->_configuration, v173, v174);
+          switch(v176)
           {
             case 65536:
-              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v174, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/action_decoding_matrix.bin");
+              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v173, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/action_decoding_matrix.bin");
               goto LABEL_59;
             case 196608:
-              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v174, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/decoding_matrix_gestureV1.bin");
+              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v173, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/decoding_matrix_gestureV1.bin");
               goto LABEL_59;
             case 131072:
-              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v174, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/decoding_matrix_fitnessV1.bin");
-              v179 = LABEL_59:;
-              v178 = 1;
-              v181 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x277CBEA90], v180, v179, 1, error);
+              objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v173, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/decoding_matrix_fitnessV1.bin");
+              v178 = LABEL_59:;
+              v177 = 1;
+              v180 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x277CBEA90], v179, v178, 1, error);
               decodingMatrixData = self->_decodingMatrixData;
-              self->_decodingMatrixData = v181;
+              self->_decodingMatrixData = v180;
 
               if (self->_decodingMatrixData)
               {
-                v185 = [ANSTTensorData alloc];
-                v188 = objc_msgSend_bytes(self->_decodingMatrixData, v186, v187);
-                v191 = objc_msgSend_sizeInBytes(v176, v189, v190);
-                v193 = objc_msgSend_initWithDescriptor_dataPointer_length_deallocator_error_(v185, v192, v176, v188, v191, 0, error);
+                v184 = [ANSTTensorData alloc];
+                v187 = objc_msgSend_bytes(self->_decodingMatrixData, v185, v186);
+                v190 = objc_msgSend_sizeInBytes(v175, v188, v189);
+                v192 = objc_msgSend_initWithDescriptor_dataPointer_length_deallocator_error_(v184, v191, v175, v187, v190, 0, error);
                 decodingMatrix = self->_decodingMatrix;
-                self->_decodingMatrix = v193;
+                self->_decodingMatrix = v192;
 
                 self->_prepared = 1;
 LABEL_66:
@@ -342,44 +342,41 @@ LABEL_66:
                 goto LABEL_55;
               }
 
-              objc_msgSend__releaseResourceSafely(self, v183, v184);
+              objc_msgSend__releaseResourceSafely(self, v182, v183);
 
 LABEL_65:
-              v178 = 0;
+              v177 = 0;
               goto LABEL_66;
           }
 
           if (error)
           {
-            v195 = MEMORY[0x277CCACA8];
-            v196 = objc_msgSend_version(self->_configuration, v174, v175);
-            v198 = objc_msgSend_stringWithFormat_(v195, v197, @"Unexpected version %lu", v196);
-            v199 = MEMORY[0x277CCA9B8];
-            v208 = *MEMORY[0x277CCA068];
-            v209 = v198;
-            v201 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v200, &v209, &v208, 1);
-            *error = objc_msgSend_errorWithDomain_code_userInfo_(v199, v202, @"ANSTErrorDomain", 14, v201);
+            v194 = MEMORY[0x277CCACA8];
+            v195 = objc_msgSend_version(self->_configuration, v173, v174);
+            v197 = objc_msgSend_stringWithFormat_(v194, v196, @"Unexpected version %lu", v195);
+            v198 = MEMORY[0x277CCA9B8];
+            v207 = *MEMORY[0x277CCA068];
+            v208 = v197;
+            v200 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v199, &v208, &v207, 1);
+            *error = objc_msgSend_errorWithDomain_code_userInfo_(v198, v201, @"ANSTErrorDomain", 14, v200);
           }
         }
 
-        objc_msgSend__releaseResourceSafely(self, v174, v175);
+        objc_msgSend__releaseResourceSafely(self, v173, v174);
         goto LABEL_65;
       }
     }
 
 LABEL_54:
-    objc_msgSend__releaseResourceSafely(self, v108, v109);
-    v178 = 0;
+    objc_msgSend__releaseResourceSafely(self, v107, v108);
+    v177 = 0;
 LABEL_55:
 
-    v3 = v178;
+    v3 = v177;
     goto LABEL_56;
   }
 
-  v3 = 1;
-LABEL_10:
-  v21 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 1;
 }
 
 - (void)_releaseResourceSafely
@@ -434,7 +431,7 @@ LABEL_10:
 
 - (id)resultForFrameBuffer:(__CVBuffer *)buffer orientation:(int64_t)orientation error:(id *)error
 {
-  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v9 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   v10 = os_signpost_id_make_with_pointer(v9, self);
 
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
@@ -458,7 +455,7 @@ LABEL_10:
 - (id)_resultForFrameBuffer:(__CVBuffer *)buffer orientation:(int64_t)orientation signpostIDPointer:(const void *)pointer error:(id *)error
 {
   errorCopy = error;
-  v370[1] = *MEMORY[0x277D85DE8];
+  v369[1] = *MEMORY[0x277D85DE8];
   if (!self->_prepared)
   {
     if (!error)
@@ -468,8 +465,8 @@ LABEL_10:
 
     errorCopy3 = error;
     v24 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v369 = *MEMORY[0x277CCA450];
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v370, &v369, 1);
+    v368 = *MEMORY[0x277CCA450];
+    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v369, &v368, 1);
     v28 = objc_msgSend_initWithDomain_code_userInfo_(v24, v27, @"ANSTErrorDomain", 3, v26);
 LABEL_14:
     errorCopy = 0;
@@ -480,7 +477,7 @@ LABEL_14:
   if (!buffer)
   {
     errorCopy3 = error;
-    v29 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v29 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       sub_22E658248(v29, v30, v31, v32, v33, v34, v35, v36);
@@ -493,9 +490,9 @@ LABEL_14:
     }
 
     v38 = MEMORY[0x277CCA9B8];
-    v367 = *MEMORY[0x277CCA450];
-    v368 = @"Nil input buffer.";
-    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v368, &v367, 1);
+    v366 = *MEMORY[0x277CCA450];
+    v367 = @"Nil input buffer.";
+    v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, &v367, &v366, 1);
     v28 = objc_msgSend_errorWithDomain_code_userInfo_(v38, v39, @"ANSTErrorDomain", 2, v26);
     goto LABEL_14;
   }
@@ -508,7 +505,7 @@ LABEL_14:
   Width = CVPixelBufferGetWidth(buffer);
   Height = CVPixelBufferGetHeight(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
-  v335 = Width;
+  v334 = Width;
   if (Width != objc_msgSend_width(self->_anstInputBufferDescriptor, v12, v13) || Height != objc_msgSend_height(self->_anstInputBufferDescriptor, v14, v15) || (v18 = objc_msgSend_pixelFormatType(self->_anstInputBufferDescriptor, v16, v17), v20 = buffer, PixelFormatType != v18))
   {
     pixelTransferSession = self->_pixelTransferSession;
@@ -528,75 +525,75 @@ LABEL_14:
     v20 = *v22;
   }
 
-  v325 = errorCopy;
-  v334 = Height;
+  v324 = errorCopy;
+  v333 = Height;
   selfCopy = self;
-  v328 = objc_msgSend_resultForPixelBuffer_orientation_error_(self->_anstModel, v19, v20, 1, errorCopy);
+  v327 = objc_msgSend_resultForPixelBuffer_orientation_error_(self->_anstModel, v19, v20, 1, errorCopy);
   CVPixelBufferUnlockBaseAddress(buffer, 1uLL);
   CVPixelBufferUnlockBaseAddress(*p_anstInputBuffer_landscape, 0);
   CVPixelBufferUnlockBaseAddress(*p_anstInputBuffer_portrait, 0);
-  v26 = v328;
-  if (v328)
+  v26 = v327;
+  if (v327)
   {
-    v327 = objc_msgSend_detectedObjectsForCategory_(v328, v40, @"FullBody");
+    v326 = objc_msgSend_detectedObjectsForCategory_(v327, v40, @"FullBody");
     v41 = MEMORY[0x277CBEB38];
-    v44 = objc_msgSend_count(v327, v42, v43);
-    v333 = objc_msgSend_dictionaryWithCapacity_(v41, v45, v44);
+    v44 = objc_msgSend_count(v326, v42, v43);
+    v332 = objc_msgSend_dictionaryWithCapacity_(v41, v45, v44);
     if (objc_msgSend_version(self->_configuration, v46, v47) == 196608)
     {
       v50 = MEMORY[0x277CBEB38];
-      v51 = objc_msgSend_count(v327, v48, v49);
+      v51 = objc_msgSend_count(v326, v48, v49);
       v53 = objc_msgSend_dictionaryWithCapacity_(v50, v52, v51);
-      v362 = 0u;
-      v363 = 0u;
-      v360 = 0u;
       v361 = 0u;
-      v55 = objc_msgSend_detectedObjectsForCategory_(v328, v54, @"Body");
-      v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, &v360, v366, 16);
+      v362 = 0u;
+      v359 = 0u;
+      v360 = 0u;
+      v55 = objc_msgSend_detectedObjectsForCategory_(v327, v54, @"Body");
+      v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, &v359, v365, 16);
       if (v59)
       {
-        v60 = *v361;
+        v60 = *v360;
         do
         {
           for (i = 0; i != v59; ++i)
           {
-            if (*v361 != v60)
+            if (*v360 != v60)
             {
               objc_enumerationMutation(v55);
             }
 
-            v62 = *(*(&v360 + 1) + 8 * i);
+            v62 = *(*(&v359 + 1) + 8 * i);
             v63 = MEMORY[0x277CCABB0];
             v64 = objc_msgSend_groupID(v62, v57, v58);
             v66 = objc_msgSend_numberWithUnsignedInteger_(v63, v65, v64);
             objc_msgSend_setObject_forKeyedSubscript_(v53, v67, v62, v66);
           }
 
-          v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v57, &v360, v366, 16);
+          v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v57, &v359, v365, 16);
         }
 
         while (v59);
       }
 
-      v358 = 0u;
-      v359 = 0u;
-      v356 = 0u;
       v357 = 0u;
-      obj = v327;
-      v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v68, &v356, v365, 16);
+      v358 = 0u;
+      v355 = 0u;
+      v356 = 0u;
+      obj = v326;
+      v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v68, &v355, v364, 16);
       if (v69)
       {
-        v70 = *v357;
+        v70 = *v356;
         do
         {
           for (j = 0; j != v69; ++j)
           {
-            if (*v357 != v70)
+            if (*v356 != v70)
             {
               objc_enumerationMutation(obj);
             }
 
-            v72 = *(*(&v356 + 1) + 8 * j);
+            v72 = *(*(&v355 + 1) + 8 * j);
             v73 = MEMORY[0x277CCABB0];
             v76 = objc_msgSend_groupID(v72, v74, v75);
             v78 = objc_msgSend_numberWithUnsignedInteger_(v73, v77, v76);
@@ -608,7 +605,7 @@ LABEL_14:
               v84 = v83;
               objc_msgSend_boundingBox(v72, v85, v86);
               v90 = v89;
-              if (v335 >= v334)
+              if (v334 >= v333)
               {
                 objc_msgSend_boundingBox(v72, v87, v88);
                 v92 = v96;
@@ -622,7 +619,7 @@ LABEL_14:
                 objc_msgSend_boundingBox(v72, v93, v94);
               }
 
-              objc_msgSend__postProcessedBoundingBox_maxWidth_maxHeight_contentIsRotated90CCW_(selfCopy, v95, v335 < v334, v84, v90, v92);
+              objc_msgSend__postProcessedBoundingBox_maxWidth_maxHeight_contentIsRotated90CCW_(selfCopy, v95, v334 < v333, v84, v90, v92);
               v100 = v99;
               v102 = v101;
               v104 = v103;
@@ -641,10 +638,10 @@ LABEL_14:
             v123 = MEMORY[0x277CCABB0];
             v124 = objc_msgSend_objectID(v72, v81, v82);
             v126 = objc_msgSend_numberWithUnsignedInteger_(v123, v125, v124);
-            objc_msgSend_setObject_forKeyedSubscript_(v333, v127, v72, v126);
+            objc_msgSend_setObject_forKeyedSubscript_(v332, v127, v72, v126);
           }
 
-          v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v128, &v356, v365, 16);
+          v69 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v128, &v355, v364, 16);
         }
 
         while (v69);
@@ -653,27 +650,27 @@ LABEL_14:
 
     else
     {
-      v354 = 0u;
-      v355 = 0u;
-      v352 = 0u;
       v353 = 0u;
-      v53 = v327;
-      v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v129, &v352, v364, 16);
+      v354 = 0u;
+      v351 = 0u;
+      v352 = 0u;
+      v53 = v326;
+      v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v129, &v351, v363, 16);
       if (v132)
       {
-        v133 = *v353;
+        v133 = *v352;
         do
         {
           for (k = 0; k != v132; ++k)
           {
-            if (*v353 != v133)
+            if (*v352 != v133)
             {
               objc_enumerationMutation(v53);
             }
 
-            v135 = *(*(&v352 + 1) + 8 * k);
+            v135 = *(*(&v351 + 1) + 8 * k);
             objc_msgSend_boundingBox(v135, v130, v131);
-            objc_msgSend__postProcessedBoundingBox_maxWidth_maxHeight_contentIsRotated90CCW_(selfCopy, v136, v335 < v334);
+            objc_msgSend__postProcessedBoundingBox_maxWidth_maxHeight_contentIsRotated90CCW_(selfCopy, v136, v334 < v333);
             v138 = v137;
             v140 = v139;
             v142 = v141;
@@ -688,10 +685,10 @@ LABEL_14:
             v161 = MEMORY[0x277CCABB0];
             v164 = objc_msgSend_objectID(v135, v162, v163);
             v166 = objc_msgSend_numberWithUnsignedInteger_(v161, v165, v164);
-            objc_msgSend_setObject_forKeyedSubscript_(v333, v167, v160, v166);
+            objc_msgSend_setObject_forKeyedSubscript_(v332, v167, v160, v166);
           }
 
-          v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v130, &v352, v364, 16);
+          v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v130, &v351, v363, 16);
         }
 
         while (v132);
@@ -713,40 +710,40 @@ LABEL_14:
       objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v174, selfCopy->_trackingObjectID);
     }
     v178 = ;
-    v180 = objc_msgSend_objectForKeyedSubscript_(v333, v179, v178);
+    v180 = objc_msgSend_objectForKeyedSubscript_(v332, v179, v178);
     v181 = v180 == 0;
 
     if (v181)
     {
-      if (objc_msgSend_count(v333, v182, v183))
+      if (objc_msgSend_count(v332, v182, v183))
       {
         *buf = 0;
-        v347 = buf;
-        v348 = 0x3032000000;
-        v349 = sub_22E5E8E3C;
-        v350 = sub_22E5E8E4C;
-        v351 = 0;
-        v345[0] = 0;
-        v345[1] = v345;
-        v345[2] = 0x2020000000;
-        v345[3] = 0;
-        v344[0] = MEMORY[0x277D85DD0];
-        v344[1] = 3221225472;
-        v344[2] = sub_22E5E8E54;
-        v344[3] = &unk_27884FA30;
-        v344[4] = v345;
-        v344[5] = buf;
-        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v333, v204, v344);
-        selfCopy->_trackingObjectID = objc_msgSend_objectID(*(v347 + 5), v206, v207);
-        objc_msgSend_boundingBox(*(v347 + 5), v208, v209);
+        v346 = buf;
+        v347 = 0x3032000000;
+        v348 = sub_22E5E8E3C;
+        v349 = sub_22E5E8E4C;
+        v350 = 0;
+        v344[0] = 0;
+        v344[1] = v344;
+        v344[2] = 0x2020000000;
+        v344[3] = 0;
+        v343[0] = MEMORY[0x277D85DD0];
+        v343[1] = 3221225472;
+        v343[2] = sub_22E5E8E54;
+        v343[3] = &unk_27884FA30;
+        v343[4] = v344;
+        v343[5] = buf;
+        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v332, v204, v343);
+        selfCopy->_trackingObjectID = objc_msgSend_objectID(*(v346 + 5), v206, v207);
+        objc_msgSend_boundingBox(*(v346 + 5), v208, v209);
         v190 = v210;
         v192 = v211;
         v194 = v212;
         v196 = v213;
-        v199 = objc_msgSend_confidence(*(v347 + 5), v214, v215);
-        objc_msgSend_distance(*(v347 + 5), v216, v217);
+        v199 = objc_msgSend_confidence(*(v346 + 5), v214, v215);
+        objc_msgSend_distance(*(v346 + 5), v216, v217);
         v203 = v218;
-        _Block_object_dispose(v345, 8);
+        _Block_object_dispose(v344, 8);
         _Block_object_dispose(buf, 8);
 
         v219 = selfCopy;
@@ -775,7 +772,7 @@ LABEL_14:
     else
     {
       v184 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v182, selfCopy->_trackingObjectID);
-      v186 = objc_msgSend_objectForKeyedSubscript_(v333, v185, v184);
+      v186 = objc_msgSend_objectForKeyedSubscript_(v332, v185, v184);
 
       objc_msgSend_boundingBox(v186, v187, v188);
       v190 = v189;
@@ -787,17 +784,17 @@ LABEL_14:
       v203 = v202;
     }
 
-    v372.origin.x = v190;
-    v372.origin.y = v192;
-    v372.size.width = v194;
-    v372.size.height = v196;
-    if (!CGRectIsNull(v372))
+    v371.origin.x = v190;
+    v371.origin.y = v192;
+    v371.size.width = v194;
+    v371.size.height = v196;
+    if (!CGRectIsNull(v371))
     {
-      if (v335 >= v334)
+      if (v334 >= v333)
       {
         v235 = objc_msgSend_width(selfCopy->_anstInputBufferDescriptor, v221, v222);
         v229 = objc_msgSend_height(selfCopy->_anstInputBufferDescriptor, v236, v237);
-        v231 = v335 / v235;
+        v231 = v334 / v235;
         v232 = v196;
         v233 = v194;
         v234 = v192;
@@ -810,13 +807,13 @@ LABEL_14:
         v226 = objc_msgSend_height(selfCopy->_anstInputBufferDescriptor, v224, v225);
         v229 = objc_msgSend_width(selfCopy->_anstInputBufferDescriptor, v227, v228);
         v230 = v223 - (v196 + v192);
-        v231 = v335 / v226;
+        v231 = v334 / v226;
         v232 = v194;
         v233 = v196;
         v234 = v190;
       }
 
-      v238 = v334 / v229;
+      v238 = v333 / v229;
       v239 = v230 * v231;
       v240 = v234 * v238;
       v241 = selfCopy;
@@ -859,8 +856,8 @@ LABEL_14:
         goto LABEL_69;
       }
 
-      v331 = v233 * v231;
-      if (v335 < v334)
+      v330 = v233 * v231;
+      if (v334 < v333)
       {
         v190 = v239 / v231;
         v192 = v240 / v238;
@@ -869,75 +866,75 @@ LABEL_14:
         v196 = v243 / v238;
       }
 
-      v264 = *v246;
-      v373.origin.x = v190;
-      v373.origin.y = v192;
-      v373.size.width = v194;
-      v373.size.height = v196;
-      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v373);
-      v266 = *MEMORY[0x277CE28B8];
-      v267 = VTSessionSetProperty(selfCopy->_pixelTransferSession, *MEMORY[0x277CE28B8], DictionaryRepresentation) == 0;
+      v263 = *v246;
+      v372.origin.x = v190;
+      v372.origin.y = v192;
+      v372.size.width = v194;
+      v372.size.height = v196;
+      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v372);
+      v265 = *MEMORY[0x277CE28B8];
+      v266 = VTSessionSetProperty(selfCopy->_pixelTransferSession, *MEMORY[0x277CE28B8], DictionaryRepresentation) == 0;
       CFRelease(DictionaryRepresentation);
-      if (v267)
+      if (v266)
       {
-        v270 = objc_msgSend_version(selfCopy->_configuration, v268, v269);
-        v271 = &OBJC_IVAR___ANSTActionDetector__featureExtractorInputBuffer;
-        if (v270 == 0x40000)
+        v269 = objc_msgSend_version(selfCopy->_configuration, v267, v268);
+        v270 = &OBJC_IVAR___ANSTActionDetector__featureExtractorInputBuffer;
+        if (v269 == 0x40000)
         {
-          v271 = &OBJC_IVAR___ANSTActionDetector__gruModelInputBuffer;
+          v270 = &OBJC_IVAR___ANSTActionDetector__gruModelInputBuffer;
         }
 
-        v272 = *(&selfCopy->super.super.isa + *v271);
-        CVPixelBufferLockBaseAddress(v264, 1uLL);
-        CVPixelBufferLockBaseAddress(v272, 0);
-        if (!VTPixelTransferSessionTransferImage(selfCopy->_pixelTransferSession, v264, v272))
+        v271 = *(&selfCopy->super.super.isa + *v270);
+        CVPixelBufferLockBaseAddress(v263, 1uLL);
+        CVPixelBufferLockBaseAddress(v271, 0);
+        if (!VTPixelTransferSessionTransferImage(selfCopy->_pixelTransferSession, v263, v271))
         {
-          CVPixelBufferUnlockBaseAddress(v264, 1uLL);
-          CVPixelBufferUnlockBaseAddress(v272, 0);
-          if (!VTSessionSetProperty(selfCopy->_pixelTransferSession, v266, 0))
+          CVPixelBufferUnlockBaseAddress(v263, 1uLL);
+          CVPixelBufferUnlockBaseAddress(v271, 0);
+          if (!VTSessionSetProperty(selfCopy->_pixelTransferSession, v265, 0))
           {
-            if (objc_msgSend_version(selfCopy->_configuration, v273, v274) == 0x40000)
+            if (objc_msgSend_version(selfCopy->_configuration, v272, v273) == 0x40000)
             {
-              v276 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-              v277 = os_signpost_id_make_with_pointer(v276, pointer);
+              v275 = _ANSTLoggingGetOSLogForCategoryANSTKit(0x40000);
+              v276 = os_signpost_id_make_with_pointer(v275, pointer);
 
-              if (v277 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v276))
+              if (v276 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v275))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&dword_22E5D5000, v276, OS_SIGNPOST_INTERVAL_BEGIN, v277, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_22E5D5000, v275, OS_SIGNPOST_INTERVAL_BEGIN, v276, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
               }
 
-              v278 = objc_opt_new();
-              if (objc_msgSend_executeAndUpdateStateTensorData_outputDictionary_outError_(selfCopy->_gruModel, v279, selfCopy->_gruModelStateTensorData, v278, v325))
+              v277 = objc_opt_new();
+              if (objc_msgSend_executeAndUpdateStateTensorData_outputDictionary_outError_(selfCopy->_gruModel, v278, selfCopy->_gruModelStateTensorData, v277, v324))
               {
-                v280 = [ANSTActionDistribution alloc];
-                LODWORD(v281) = v203;
-                v283 = objc_msgSend_initWithObjectID_boundingBox_confidence_distance_distribution_(v280, v282, selfCopy->_trackingObjectID, v199, v278, v239, v240, v331, v243, v281);
-                v284 = [ANSTActionDetectorResult alloc];
-                v286 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v285, v283);
-                v288 = objc_msgSend_initWithActions_(v284, v287, v286);
-                v289 = selfCopy->_currentDetection;
-                selfCopy->_currentDetection = v288;
+                v279 = [ANSTActionDistribution alloc];
+                LODWORD(v280) = v203;
+                v282 = objc_msgSend_initWithObjectID_boundingBox_confidence_distance_distribution_(v279, v281, selfCopy->_trackingObjectID, v199, v277, v239, v240, v330, v243, v280);
+                v283 = [ANSTActionDetectorResult alloc];
+                v285 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v284, v282);
+                v287 = objc_msgSend_initWithActions_(v283, v286, v285);
+                v288 = selfCopy->_currentDetection;
+                selfCopy->_currentDetection = v287;
 
-                v290 = os_signpost_id_make_with_pointer(v276, pointer);
-                if (v290 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v276))
+                v289 = os_signpost_id_make_with_pointer(v275, pointer);
+                if (v289 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v275))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_22E5D5000, v276, OS_SIGNPOST_INTERVAL_END, v290, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_22E5D5000, v275, OS_SIGNPOST_INTERVAL_END, v289, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
                 }
 
                 errorCopy = selfCopy->_currentDetection;
-                v276 = v283;
+                v275 = v282;
               }
 
               else
               {
-                v318 = os_signpost_id_make_with_pointer(v276, pointer);
+                v317 = os_signpost_id_make_with_pointer(v275, pointer);
 
-                if (v318 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v276))
+                if (v317 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v275))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_22E5D5000, v276, OS_SIGNPOST_INTERVAL_END, v318, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_22E5D5000, v275, OS_SIGNPOST_INTERVAL_END, v317, "ANSTActionDetector_HomeBusy", &unk_22E663F87, buf, 2u);
                 }
 
                 errorCopy = 0;
@@ -946,50 +943,50 @@ LABEL_14:
 
             else
             {
-              objc_msgSend_executeInferenceWithError_(selfCopy->_featureExtractor, v275, v325);
+              objc_msgSend_executeInferenceWithError_(selfCopy->_featureExtractor, v274, v324);
               featureExtractor = selfCopy->_featureExtractor;
-              v343 = 0;
-              v293 = objc_msgSend_getCurrentVideoFeatureWithOutError_(featureExtractor, v292, &v343);
-              v294 = v343;
-              v336 = v294;
-              if (v293)
+              v342 = 0;
+              v292 = objc_msgSend_getCurrentVideoFeatureWithOutError_(featureExtractor, v291, &v342);
+              v293 = v342;
+              v335 = v293;
+              if (v292)
               {
-                v297 = objc_msgSend_supportedActionTypes(selfCopy, v295, v296);
-                v298 = MEMORY[0x277CBEB38];
-                v301 = objc_msgSend_count(v297, v299, v300);
-                v303 = objc_msgSend_dictionaryWithCapacity_(v298, v302, v301);
+                v296 = objc_msgSend_supportedActionTypes(selfCopy, v294, v295);
+                v297 = MEMORY[0x277CBEB38];
+                v300 = objc_msgSend_count(v296, v298, v299);
+                v302 = objc_msgSend_dictionaryWithCapacity_(v297, v301, v300);
                 decodingMatrix = selfCopy->_decodingMatrix;
-                v337[0] = MEMORY[0x277D85DD0];
-                v337[1] = 3221225472;
-                v337[2] = sub_22E5E8EE4;
-                v337[3] = &unk_27884FAA8;
-                v338 = v293;
-                v339 = selfCopy;
-                v340 = v297;
-                v341 = v303;
-                v342 = v325;
-                v305 = v303;
-                v306 = v297;
-                objc_msgSend_performDataAccessWithOptions_usingBlock_error_(decodingMatrix, v307, 0, v337, v325);
-                v308 = [ANSTActionDistribution alloc];
-                LODWORD(v309) = v203;
-                v311 = objc_msgSend_initWithObjectID_boundingBox_confidence_distance_distribution_(v308, v310, selfCopy->_trackingObjectID, v199, v305, v239, v240, v331, v243, v309);
-                v312 = [ANSTActionDetectorResult alloc];
-                v314 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v313, v311);
-                v316 = objc_msgSend_initWithActions_(v312, v315, v314);
-                v317 = selfCopy->_currentDetection;
-                selfCopy->_currentDetection = v316;
+                v336[0] = MEMORY[0x277D85DD0];
+                v336[1] = 3221225472;
+                v336[2] = sub_22E5E8EE4;
+                v336[3] = &unk_27884FAA8;
+                v337 = v292;
+                v338 = selfCopy;
+                v339 = v296;
+                v340 = v302;
+                v341 = v324;
+                v304 = v302;
+                v305 = v296;
+                objc_msgSend_performDataAccessWithOptions_usingBlock_error_(decodingMatrix, v306, 0, v336, v324);
+                v307 = [ANSTActionDistribution alloc];
+                LODWORD(v308) = v203;
+                v310 = objc_msgSend_initWithObjectID_boundingBox_confidence_distance_distribution_(v307, v309, selfCopy->_trackingObjectID, v199, v304, v239, v240, v330, v243, v308);
+                v311 = [ANSTActionDetectorResult alloc];
+                v313 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v312, v310);
+                v315 = objc_msgSend_initWithActions_(v311, v314, v313);
+                v316 = selfCopy->_currentDetection;
+                selfCopy->_currentDetection = v315;
 
                 errorCopy = selfCopy->_currentDetection;
               }
 
-              else if (v294)
+              else if (v293)
               {
-                if (v325)
+                if (v324)
                 {
-                  v319 = v294;
+                  v318 = v293;
                   errorCopy = 0;
-                  *v325 = v336;
+                  *v324 = v335;
                 }
 
                 else
@@ -1000,10 +997,10 @@ LABEL_14:
 
               else
               {
-                v320 = [ANSTActionDetectorResult alloc];
-                v322 = objc_msgSend_initWithActions_(v320, v321, MEMORY[0x277CBEBF8]);
-                v323 = selfCopy->_currentDetection;
-                selfCopy->_currentDetection = v322;
+                v319 = [ANSTActionDetectorResult alloc];
+                v321 = objc_msgSend_initWithActions_(v319, v320, MEMORY[0x277CBEBF8]);
+                v322 = selfCopy->_currentDetection;
+                selfCopy->_currentDetection = v321;
 
                 errorCopy = selfCopy->_currentDetection;
               }
@@ -1018,7 +1015,7 @@ LABEL_14:
     errorCopy = 0;
 LABEL_69:
 
-    v26 = v328;
+    v26 = v327;
     goto LABEL_70;
   }
 
@@ -1026,7 +1023,6 @@ LABEL_69:
 LABEL_70:
 
 LABEL_71:
-  v262 = *MEMORY[0x277D85DE8];
 
   return errorCopy;
 }
@@ -1116,50 +1112,50 @@ LABEL_71:
 
 + (id)supportedActionTypesOfDetectorVersion:(unint64_t)version
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   switch(version)
   {
     case 0x40000uLL:
-      objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v10, 5, @"NoAction", @"TextOnPhone", @"ReadBook", @"TalkOnPhone", @"UseLaptop", v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35);
+      objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v9, 5, @"NoAction", @"TextOnPhone", @"ReadBook", @"TalkOnPhone", @"UseLaptop", v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
       goto LABEL_8;
     case 0x30000uLL:
-      v11 = @"HeartOneHand";
-      v12 = @"HeartTwoHands";
-      v13 = @"ThumbsDown";
-      v14 = @"ThumbsUp";
-      v15 = @"Victory";
-      v16 = @"Clap";
-      v17 = @"Rock";
-      v18 = @"Shaka";
-      v19 = @"Shrug";
-      v20 = @"Thanks";
-      v21 = @"NoGesture";
-      v22 = @"Unknown";
+      v10 = @"HeartOneHand";
+      v11 = @"HeartTwoHands";
+      v12 = @"ThumbsDown";
+      v13 = @"ThumbsUp";
+      v14 = @"Victory";
+      v15 = @"Clap";
+      v16 = @"Rock";
+      v17 = @"Shaka";
+      v18 = @"Shrug";
+      v19 = @"Thanks";
+      v20 = @"NoGesture";
+      v21 = @"Unknown";
       v4 = MEMORY[0x277CBEA60];
-      v5 = &v11;
+      v5 = &v10;
       goto LABEL_6;
     case 0x20000uLL:
-      v23 = @"Squat";
-      v24 = @"HighKnee";
-      v25 = @"JumpingJack";
-      v26 = @"Lunge";
-      v27 = @"PushUp";
-      v28 = @"SitUp";
-      v29 = @"Standing";
-      v30 = @"Walking";
-      v31 = @"Sitting";
-      v32 = @"Jogging";
-      v33 = @"Running";
-      v34 = @"Jumping";
+      v22 = @"Squat";
+      v23 = @"HighKnee";
+      v24 = @"JumpingJack";
+      v25 = @"Lunge";
+      v26 = @"PushUp";
+      v27 = @"SitUp";
+      v28 = @"Standing";
+      v29 = @"Walking";
+      v30 = @"Sitting";
+      v31 = @"Jogging";
+      v32 = @"Running";
+      v33 = @"Jumping";
       v4 = MEMORY[0x277CBEA60];
-      v5 = &v23;
+      v5 = &v22;
 LABEL_6:
-      objc_msgSend_arrayWithObjects_count_(v4, a2, v5, 12, v10[0], v10[1], v10[2], v10[3], v10[4], v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35);
+      objc_msgSend_arrayWithObjects_count_(v4, a2, v5, 12, v9[0], v9[1], v9[2], v9[3], v9[4], v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
       v6 = LABEL_8:;
       goto LABEL_12;
   }
 
-  v7 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v7 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_22E6583B0(version, v7);
@@ -1167,19 +1163,18 @@ LABEL_6:
 
   v6 = MEMORY[0x277CBEBF8];
 LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (float)normalizationThresholdForActionType:(id)type detectorVersion:(unint64_t)version
 {
-  typeCopy = type;
-  v7 = typeCopy;
+  isEqualToString = type;
+  v7 = isEqualToString;
   if (version != 0x40000)
   {
 LABEL_13:
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(isEqualToString);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       sub_22E65843C(v7, version, v13);
@@ -1190,7 +1185,7 @@ LABEL_13:
   }
 
   v8 = 0.5;
-  if (@"NoAction" != typeCopy && (objc_msgSend_isEqualToString_(typeCopy, v6, @"NoAction") & 1) == 0)
+  if (@"NoAction" != isEqualToString && (objc_msgSend_isEqualToString_(isEqualToString, v6, @"NoAction") & 1) == 0)
   {
     if (@"TextOnPhone" == v7 || (objc_msgSend_isEqualToString_(v7, v9, @"TextOnPhone") & 1) != 0 || @"ReadBook" == v7 || (objc_msgSend_isEqualToString_(v7, v10, @"ReadBook") & 1) != 0)
     {
@@ -1207,8 +1202,9 @@ LABEL_8:
         goto LABEL_16;
       }
 
+      isEqualToString = objc_msgSend_isEqualToString_(v7, v12, @"UseLaptop");
       v8 = 0.3;
-      if (objc_msgSend_isEqualToString_(v7, v12, @"UseLaptop"))
+      if (isEqualToString)
       {
         goto LABEL_16;
       }
@@ -1224,12 +1220,10 @@ LABEL_16:
 
 + (id)supportedFrameRatesOfDetectorVersion:(unint64_t)version
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, 1);
-  v8[0] = v3;
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v8, 1);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v7, 1);
 
   return v5;
 }

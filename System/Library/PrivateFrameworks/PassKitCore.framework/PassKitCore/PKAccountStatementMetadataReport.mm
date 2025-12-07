@@ -137,9 +137,9 @@
     goto LABEL_27;
   }
 
-  v21.receiver = self;
-  v21.super_class = PKAccountStatementMetadataReport;
-  if (![(PKAccountReport *)&v21 isEqual:equalCopy])
+  v20.receiver = self;
+  v20.super_class = PKAccountStatementMetadataReport;
+  if (![(PKAccountReport *)&v20 isEqual:equalCopy])
   {
     goto LABEL_27;
   }
@@ -170,9 +170,9 @@
       goto LABEL_27;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_27;
     }
@@ -198,26 +198,22 @@
     }
   }
 
-  else
+  else if (([(NSArray *)items isEqual:?]& 1) == 0)
   {
-    v14 = [(NSArray *)items isEqual:?];
-    if ((v14 & 1) == 0)
-    {
-      goto LABEL_27;
-    }
+    goto LABEL_27;
   }
 
   openingDate = self->_openingDate;
-  v16 = equalCopy[4];
-  if (!openingDate || !v16)
+  v15 = equalCopy[4];
+  if (!openingDate || !v15)
   {
-    if (openingDate == v16)
+    if (openingDate == v15)
     {
       goto LABEL_23;
     }
 
 LABEL_27:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_28;
   }
 
@@ -228,20 +224,20 @@ LABEL_27:
 
 LABEL_23:
   closingDate = self->_closingDate;
-  v18 = equalCopy[5];
-  if (closingDate && v18)
+  v17 = equalCopy[5];
+  if (closingDate && v17)
   {
-    v19 = [(NSDate *)closingDate isEqual:?];
+    v18 = [(NSDate *)closingDate isEqual:?];
   }
 
   else
   {
-    v19 = closingDate == v18;
+    v18 = closingDate == v17;
   }
 
 LABEL_28:
 
-  return v19;
+  return v18;
 }
 
 - (unint64_t)hash

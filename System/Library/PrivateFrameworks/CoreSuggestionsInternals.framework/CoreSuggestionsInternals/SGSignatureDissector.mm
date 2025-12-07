@@ -53,14 +53,14 @@ void __62__SGSignatureDissector_singleLineSignatureLeadingCharacterSet__block_in
 
 - (BOOL)shouldIgnoreSignature:(id)signature signatureRange:(_NSRange *)range isInhuman:(BOOL *)inhuman
 {
-  v245 = *MEMORY[0x277D85DE8];
+  v244 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   context = objc_autoreleasePoolPush();
   rangeCopy = range;
   length = range->length;
   location = range->location;
   *inhuman = 0;
-  v198 = signatureCopy;
+  v197 = signatureCopy;
   if (location != 0x7FFFFFFFFFFFFFFFLL)
   {
     inhumanCopy = inhuman;
@@ -94,67 +94,67 @@ void __62__SGSignatureDissector_singleLineSignatureLeadingCharacterSet__block_in
       goto LABEL_12;
     }
 
-    v16 = objc_opt_new();
+    v15 = objc_opt_new();
     *buf = 0;
-    v237 = buf;
-    v238 = 0x2020000000;
-    v239 = 0;
+    v236 = buf;
+    v237 = 0x2020000000;
+    v238 = 0;
     quotedRegions = [signatureCopy quotedRegions];
-    v232[0] = MEMORY[0x277D85DD0];
-    v232[1] = 3221225472;
-    v232[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke;
-    v232[3] = &unk_27894F658;
-    v235 = buf;
-    v18 = v16;
-    v233 = v18;
-    v192 = signatureCopy;
-    v234 = v192;
-    [quotedRegions enumerateRangesUsingBlock:v232];
+    v231[0] = MEMORY[0x277D85DD0];
+    v231[1] = 3221225472;
+    v231[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke;
+    v231[3] = &unk_27894F658;
+    v234 = buf;
+    v17 = v15;
+    v232 = v17;
+    v191 = signatureCopy;
+    v233 = v191;
+    [quotedRegions enumerateRangesUsingBlock:v231];
 
-    v19 = *(v237 + 3);
-    textContent3 = [v192 textContent];
-    LODWORD(v19) = v19 < [textContent3 length];
+    v18 = *(v236 + 3);
+    textContent3 = [v191 textContent];
+    LODWORD(v18) = v18 < [textContent3 length];
 
-    if (v19)
+    if (v18)
     {
-      textContent4 = [v192 textContent];
-      v22 = [textContent4 substringFromIndex:*(v237 + 3)];
-      [v18 addObject:v22];
+      textContent4 = [v191 textContent];
+      v21 = [textContent4 substringFromIndex:*(v236 + 3)];
+      [v17 addObject:v21];
 
-      textContent5 = [v192 textContent];
-      v24 = [textContent5 length];
-      *(v237 + 3) = v24;
+      textContent5 = [v191 textContent];
+      v23 = [textContent5 length];
+      *(v236 + 3) = v23;
     }
 
-    v184 = [MEMORY[0x277CCACA8] _pas_proxyStringByConcatenatingStrings:v18];
+    v183 = [MEMORY[0x277CCACA8] _pas_proxyStringByConcatenatingStrings:v17];
 
-    v25 = objc_autoreleasePoolPush();
-    v26 = [v184 substringWithRange:{rangeCopy->location, rangeCopy->length}];
-    v27 = patterns_23118();
-    v28 = [v27 regex2ForKey:@"InhumanSig"];
-    v29 = [v28 existsInString:v26];
+    v24 = objc_autoreleasePoolPush();
+    v25 = [v183 substringWithRange:{rangeCopy->location, rangeCopy->length}];
+    v26 = patterns_23118();
+    v27 = [v26 regex2ForKey:@"InhumanSig"];
+    v28 = [v27 existsInString:v25];
 
-    if (v29)
+    if (v28)
     {
+      v29 = sgLogHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      {
+        *v204 = 0;
+        _os_log_debug_impl(&dword_231E60000, v29, OS_LOG_TYPE_DEBUG, "Tagging as inhuman: Signature pattern", v204, 2u);
+      }
+
       v30 = sgLogHandle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        *v205 = 0;
-        _os_log_debug_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEBUG, "Tagging as inhuman: Signature pattern", v205, 2u);
-      }
-
-      v31 = sgLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
-      {
-        *v205 = 0;
-        _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "Ignoring signature: Inhuman pattern.", v205, 2u);
+        *v204 = 0;
+        _os_log_debug_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEBUG, "Ignoring signature: Inhuman pattern.", v204, 2u);
       }
 
       *inhumanCopy = 1;
     }
 
-    objc_autoreleasePoolPop(v25);
-    if (v29)
+    objc_autoreleasePoolPop(v24);
+    if (v28)
     {
       v13 = 1;
 LABEL_200:
@@ -163,128 +163,128 @@ LABEL_200:
       goto LABEL_13;
     }
 
-    v32 = [(SGSignatureDissector *)self findSignaturePrefix:v192];
-    if (v33)
+    v31 = [(SGSignatureDissector *)self findSignaturePrefix:v191];
+    if (v32)
     {
-      v34 = rangeCopy->location - v32;
-      if (rangeCopy->location < v32)
+      v33 = rangeCopy->location - v31;
+      if (rangeCopy->location < v31)
       {
-        v35 = rangeCopy->length;
-        if (v32 + v33 < v35 + rangeCopy->location)
+        v34 = rangeCopy->length;
+        if (v31 + v32 < v34 + rangeCopy->location)
         {
-          rangeCopy->location = v32;
-          rangeCopy->length = v34 + v35;
+          rangeCopy->location = v31;
+          rangeCopy->length = v33 + v34;
         }
       }
     }
 
-    v36 = [(SGSignatureDissector *)self findValediction:v192];
-    if (v37 && rangeCopy->length + rangeCopy->location <= v36)
+    v35 = [(SGSignatureDissector *)self findValediction:v191];
+    if (v36 && rangeCopy->length + rangeCopy->location <= v35)
     {
-      v60 = sgLogHandle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+      v59 = sgLogHandle();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
-        *v205 = 0;
-        _os_log_debug_impl(&dword_231E60000, v60, OS_LOG_TYPE_DEBUG, "Ignoring signature: Valediction after signature.", v205, 2u);
+        *v204 = 0;
+        _os_log_debug_impl(&dword_231E60000, v59, OS_LOG_TYPE_DEBUG, "Ignoring signature: Valediction after signature.", v204, 2u);
       }
 
       v13 = 1;
       goto LABEL_199;
     }
 
-    v38 = +[SGContactStoreFactory contactStore];
-    v186 = [SGCuratedContactMatcher fetchMeContactFromContactStore:v38];
+    v37 = +[SGContactStoreFactory contactStore];
+    v185 = [SGCuratedContactMatcher fetchMeContactFromContactStore:v37];
 
-    v40 = rangeCopy->location;
-    v39 = rangeCopy->length;
-    obj = [v186 givenName];
+    v39 = rangeCopy->location;
+    v38 = rangeCopy->length;
+    obj = [v185 givenName];
     if (!obj)
     {
 LABEL_44:
-      phoneNumbers = [v186 phoneNumbers];
-      if ([phoneNumbers count])
+      phoneNumbers = [v185 phoneNumbers];
+      if (objc_msgSend_count(phoneNumbers))
       {
 
 LABEL_50:
-        v230 = 0u;
-        v231 = 0u;
-        v228 = 0u;
         v229 = 0u;
-        plainTextDetectedData = [v192 plainTextDetectedData];
-        v64 = [plainTextDetectedData countByEnumeratingWithState:&v228 objects:v244 count:16];
+        v230 = 0u;
+        v227 = 0u;
+        v228 = 0u;
+        plainTextDetectedData = [v191 plainTextDetectedData];
+        v63 = [plainTextDetectedData countByEnumeratingWithState:&v227 objects:v243 count:16];
         obj = plainTextDetectedData;
-        if (!v64)
+        if (!v63)
         {
           goto LABEL_90;
         }
 
-        v188 = *v229;
+        v187 = *v228;
         while (1)
         {
-          v65 = 0;
-          v190 = v64;
+          v64 = 0;
+          v189 = v63;
           do
           {
-            if (*v229 != v188)
+            if (*v228 != v187)
             {
               objc_enumerationMutation(obj);
             }
 
-            v66 = *(*(&v228 + 1) + 8 * v65);
-            v67 = objc_autoreleasePoolPush();
-            v246.location = [v66 range];
-            if (NSIntersectionRange(v246, *rangeCopy).length)
+            v65 = *(*(&v227 + 1) + 8 * v64);
+            v66 = objc_autoreleasePoolPush();
+            v245.location = [v65 range];
+            if (NSIntersectionRange(v245, *rangeCopy).length)
             {
-              if ([v66 matchType])
+              if ([v65 matchType])
               {
-                if ([v66 matchType] == 1)
+                if ([v65 matchType] == 1)
                 {
-                  textContent6 = [v192 textContent];
-                  valueRange = [v66 valueRange];
-                  v71 = [textContent6 substringWithRange:{valueRange, v70}];
+                  textContent6 = [v191 textContent];
+                  valueRange = [v65 valueRange];
+                  v70 = [textContent6 substringWithRange:{valueRange, v69}];
 
-                  v226 = 0u;
-                  v227 = 0u;
-                  v224 = 0u;
                   v225 = 0u;
-                  postalAddresses = [v186 postalAddresses];
-                  v73 = [postalAddresses countByEnumeratingWithState:&v224 objects:v243 count:16];
-                  if (v73)
+                  v226 = 0u;
+                  v223 = 0u;
+                  v224 = 0u;
+                  postalAddresses = [v185 postalAddresses];
+                  v72 = [postalAddresses countByEnumeratingWithState:&v223 objects:v242 count:16];
+                  if (v72)
                   {
-                    v74 = *v225;
+                    v73 = *v224;
 LABEL_60:
-                    v75 = 0;
+                    v74 = 0;
                     while (1)
                     {
-                      if (*v225 != v74)
+                      if (*v224 != v73)
                       {
                         objc_enumerationMutation(postalAddresses);
                       }
 
-                      v76 = *(*(&v224 + 1) + 8 * v75);
-                      v77 = objc_autoreleasePoolPush();
-                      v78 = SGPostalAddressesMatchWithParsed(v76, v71, 0, 0, 0, 0, 1);
-                      v79 = v78;
-                      if (v78)
+                      v75 = *(*(&v223 + 1) + 8 * v74);
+                      v76 = objc_autoreleasePoolPush();
+                      v77 = SGPostalAddressesMatchWithParsed(v75, v70, 0, 0, 0, 0, 1);
+                      v78 = v77;
+                      if (v77)
                       {
-                        v80 = sgLogHandle();
-                        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+                        v79 = sgLogHandle();
+                        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
                         {
-                          *v205 = 0;
-                          _os_log_debug_impl(&dword_231E60000, v80, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's postal.", v205, 2u);
+                          *v204 = 0;
+                          _os_log_debug_impl(&dword_231E60000, v79, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's postal.", v204, 2u);
                         }
                       }
 
-                      objc_autoreleasePoolPop(v77);
-                      if (v79)
+                      objc_autoreleasePoolPop(v76);
+                      if (v78)
                       {
                         break;
                       }
 
-                      if (v73 == ++v75)
+                      if (v72 == ++v74)
                       {
-                        v73 = [postalAddresses countByEnumeratingWithState:&v224 objects:v243 count:16];
-                        if (v73)
+                        v72 = [postalAddresses countByEnumeratingWithState:&v223 objects:v242 count:16];
+                        if (v72)
                         {
                           goto LABEL_60;
                         }
@@ -294,34 +294,34 @@ LABEL_60:
                     }
 
 LABEL_78:
-                    v81 = 1;
+                    v80 = 1;
                   }
 
                   else
                   {
 LABEL_70:
-                    v81 = 0;
+                    v80 = 0;
                   }
 
 LABEL_81:
                   goto LABEL_82;
                 }
 
-                if ([v66 matchType] != 2)
+                if ([v65 matchType] != 2)
                 {
-                  v81 = 0;
+                  v80 = 0;
                   goto LABEL_82;
                 }
 
-                textContent7 = [v192 textContent];
-                valueRange2 = [v66 valueRange];
-                v71 = [textContent7 substringWithRange:{valueRange2, v92}];
+                textContent7 = [v191 textContent];
+                valueRange2 = [v65 valueRange];
+                v70 = [textContent7 substringWithRange:{valueRange2, v91}];
 
-                emailAddresses = [v186 emailAddresses];
-                v94 = SGNormalizeEmailAddress();
-                v95 = [emailAddresses containsObject:v94];
+                emailAddresses = [v185 emailAddresses];
+                v93 = SGNormalizeEmailAddress();
+                v94 = [emailAddresses containsObject:v93];
 
-                if (v95)
+                if (v94)
                 {
                   postalAddresses = sgLogHandle();
                   if (!os_log_type_enabled(postalAddresses, OS_LOG_TYPE_DEBUG))
@@ -329,24 +329,24 @@ LABEL_81:
                     goto LABEL_78;
                   }
 
-                  *v205 = 0;
-                  v88 = postalAddresses;
-                  v89 = "Ignoring signature: Recipient's email.";
+                  *v204 = 0;
+                  v87 = postalAddresses;
+                  v88 = "Ignoring signature: Recipient's email.";
                   goto LABEL_88;
                 }
               }
 
               else
               {
-                textContent8 = [v192 textContent];
-                valueRange3 = [v66 valueRange];
-                v71 = [textContent8 substringWithRange:{valueRange3, v84}];
+                textContent8 = [v191 textContent];
+                valueRange3 = [v65 valueRange];
+                v70 = [textContent8 substringWithRange:{valueRange3, v83}];
 
-                phoneNumbers2 = [v186 phoneNumbers];
-                v86 = SGNormalizePhoneNumber();
-                v87 = [phoneNumbers2 containsObject:v86];
+                phoneNumbers2 = [v185 phoneNumbers];
+                v85 = SGNormalizePhoneNumber();
+                v86 = [phoneNumbers2 containsObject:v85];
 
-                if (v87)
+                if (v86)
                 {
                   postalAddresses = sgLogHandle();
                   if (!os_log_type_enabled(postalAddresses, OS_LOG_TYPE_DEBUG))
@@ -354,33 +354,33 @@ LABEL_81:
                     goto LABEL_78;
                   }
 
-                  *v205 = 0;
-                  v88 = postalAddresses;
-                  v89 = "Ignoring signature: Recipient's phone.";
+                  *v204 = 0;
+                  v87 = postalAddresses;
+                  v88 = "Ignoring signature: Recipient's phone.";
 LABEL_88:
-                  _os_log_debug_impl(&dword_231E60000, v88, OS_LOG_TYPE_DEBUG, v89, v205, 2u);
+                  _os_log_debug_impl(&dword_231E60000, v87, OS_LOG_TYPE_DEBUG, v88, v204, 2u);
                   goto LABEL_78;
                 }
               }
 
-              v81 = 0;
+              v80 = 0;
               goto LABEL_81;
             }
 
-            v81 = 3;
+            v80 = 3;
 LABEL_82:
-            objc_autoreleasePoolPop(v67);
-            if (v81 != 3 && v81)
+            objc_autoreleasePoolPop(v66);
+            if (v80 != 3 && v80)
             {
               goto LABEL_150;
             }
 
-            ++v65;
+            ++v64;
           }
 
-          while (v65 != v190);
-          v64 = [obj countByEnumeratingWithState:&v228 objects:v244 count:16];
-          if (!v64)
+          while (v64 != v189);
+          v63 = [obj countByEnumeratingWithState:&v227 objects:v243 count:16];
+          if (!v63)
           {
 LABEL_90:
 
@@ -389,139 +389,128 @@ LABEL_90:
         }
       }
 
-      postalAddresses2 = [v186 postalAddresses];
-      v62 = [postalAddresses2 count] == 0;
+      postalAddresses2 = [v185 postalAddresses];
+      v61 = objc_msgSend_count(postalAddresses2) == 0;
 
-      if (!v62)
+      if (!v61)
       {
         goto LABEL_50;
       }
 
 LABEL_91:
-      obj = [(SGSignatureDissector *)self authorName:v192];
-      if (!obj || (nontokenCharset(), v96 = objc_claimAutoreleasedReturnValue(), -[NSObject stringByTrimmingCharactersInSet:](obj, "stringByTrimmingCharactersInSet:", v96), v97 = objc_claimAutoreleasedReturnValue(), v98 = [v97 length] == 0, v97, v96, v98))
+      obj = [(SGSignatureDissector *)self authorName:v191];
+      if (!obj || (nontokenCharset(), v95 = objc_claimAutoreleasedReturnValue(), -[NSObject stringByTrimmingCharactersInSet:](obj, "stringByTrimmingCharactersInSet:", v95), v96 = objc_claimAutoreleasedReturnValue(), v97 = [v96 length] == 0, v96, v95, v97))
       {
-        v100 = sgLogHandle();
-        if (os_log_type_enabled(&v100->super, OS_LOG_TYPE_DEBUG))
+        v99 = sgLogHandle();
+        if (os_log_type_enabled(&v99->super, OS_LOG_TYPE_DEBUG))
         {
-          *v205 = 0;
-          _os_log_debug_impl(&dword_231E60000, &v100->super, OS_LOG_TYPE_DEBUG, "Ignoring signature: Sender's name unavailable.", v205, 2u);
+          *v204 = 0;
+          _os_log_debug_impl(&dword_231E60000, &v99->super, OS_LOG_TYPE_DEBUG, "Ignoring signature: Sender's name unavailable.", v204, 2u);
         }
       }
 
       else
       {
-        v99 = rangeCopy->location;
-        v100 = [[SGPlainTextContentCursor alloc] initWithMailMessage:v192];
-        [(SGPlainTextContentCursor *)v100 setPos:rangeCopy->location];
-        if ([(SGPlainTextContentCursor *)v100 pos])
+        v98 = rangeCopy->location;
+        v99 = [[SGPlainTextContentCursor alloc] initWithMailMessage:v191];
+        [(SGPlainTextContentCursor *)v99 setPos:rangeCopy->location];
+        if ([(SGPlainTextContentCursor *)v99 pos])
         {
-          textContent9 = [v192 textContent];
-          v102 = [textContent9 characterAtIndex:{-[SGPlainTextContentCursor pos](v100, "pos")}] == 10;
+          textContent9 = [v191 textContent];
+          v101 = [textContent9 characterAtIndex:{-[SGPlainTextContentCursor pos](v99, "pos")}] == 10;
 
-          if (!v102)
+          if (!v101)
           {
-            [(SGPlainTextContentCursor *)v100 backwardWhile:&__block_literal_global_105];
-            v99 = [(SGPlainTextContentCursor *)v100 pos];
+            [(SGPlainTextContentCursor *)v99 backwardWhile:&__block_literal_global_105];
+            v98 = [(SGPlainTextContentCursor *)v99 pos];
           }
         }
 
-        v103 = [(SGPlainTextContentCursor *)v100 pos];
-        [(SGPlainTextContentCursor *)v100 backwardWhile:&__block_literal_global_107_23134];
-        if ([(SGPlainTextContentCursor *)v100 pos])
+        v102 = [(SGPlainTextContentCursor *)v99 pos];
+        [(SGPlainTextContentCursor *)v99 backwardWhile:&__block_literal_global_107_23134];
+        if ([(SGPlainTextContentCursor *)v99 pos])
         {
-          v104 = [(SGPlainTextContentCursor *)v100 pos]+ 1;
+          v103 = [(SGPlainTextContentCursor *)v99 pos]+ 1;
         }
 
         else
         {
-          v104 = 1;
+          v103 = 1;
         }
 
-        textContent10 = [v192 textContent];
-        v107 = [textContent10 length];
+        textContent10 = [v191 textContent];
+        v106 = [textContent10 length];
 
-        if (v104 >= v107)
+        if (v103 >= v106)
         {
-          v104 = v107;
+          v103 = v106;
         }
 
-        [(SGPlainTextContentCursor *)v100 setPos:v103];
-        [(SGPlainTextContentCursor *)v100 backwardToString:@"\n\n" consume:1];
-        textContent11 = [v192 textContent];
-        v109 = [(SGSignatureDissector *)self _paragraphWithContent:textContent11 range:[(SGPlainTextContentCursor *)v100 pos] exceedsLineLimit:v103 - [(SGPlainTextContentCursor *)v100 pos] orCharacterLimit:4, 125];
+        [(SGPlainTextContentCursor *)v99 setPos:v102];
+        [(SGPlainTextContentCursor *)v99 backwardToString:@"\n\n" consume:1];
+        textContent11 = [v191 textContent];
+        v108 = [(SGSignatureDissector *)self _paragraphWithContent:textContent11 range:[(SGPlainTextContentCursor *)v99 pos] exceedsLineLimit:v102 - [(SGPlainTextContentCursor *)v99 pos] orCharacterLimit:4, 125];
 
-        if (v109)
+        if (v108)
         {
-          [(SGPlainTextContentCursor *)v100 setPos:v103];
+          [(SGPlainTextContentCursor *)v99 setPos:v102];
         }
 
-        if ([(SGPlainTextContentCursor *)v100 pos]== v99)
+        if ([(SGPlainTextContentCursor *)v99 pos]== v98)
         {
-          if (!v109)
+          if (!v108)
           {
-            v99 = 0;
+            v98 = 0;
           }
         }
 
         else
         {
-          [(SGPlainTextContentCursor *)v100 backwardWhile:&__block_literal_global_109];
-          v99 = [(SGPlainTextContentCursor *)v100 pos];
-          [(SGPlainTextContentCursor *)v100 backwardToString:@"\n\n" consume:0];
-          textContent12 = [v192 textContent];
-          v111 = [(SGSignatureDissector *)self _paragraphWithContent:textContent12 range:[(SGPlainTextContentCursor *)v100 pos] exceedsLineLimit:v99 - [(SGPlainTextContentCursor *)v100 pos] orCharacterLimit:2, 75];
+          [(SGPlainTextContentCursor *)v99 backwardWhile:&__block_literal_global_109];
+          v98 = [(SGPlainTextContentCursor *)v99 pos];
+          [(SGPlainTextContentCursor *)v99 backwardToString:@"\n\n" consume:0];
+          textContent12 = [v191 textContent];
+          v110 = [(SGSignatureDissector *)self _paragraphWithContent:textContent12 range:[(SGPlainTextContentCursor *)v99 pos] exceedsLineLimit:v98 - [(SGPlainTextContentCursor *)v99 pos] orCharacterLimit:2, 75];
 
-          if (!v111)
+          if (!v110)
           {
-            v99 = [(SGPlainTextContentCursor *)v100 pos];
+            v98 = [(SGPlainTextContentCursor *)v99 pos];
           }
         }
 
-        if (v99 <= v104)
+        if (v98 <= v103)
         {
-          v99 = v104;
+          v98 = v103;
         }
 
-        [(SGPlainTextContentCursor *)v100 setPos:v99];
-        [(SGPlainTextContentCursor *)v100 forwardWhile:&__block_literal_global_111];
-        v112 = [(SGPlainTextContentCursor *)v100 pos];
-        v113 = rangeCopy->length;
-        if (v112 - v99 >= rangeCopy->location - v99 + v113)
+        [(SGPlainTextContentCursor *)v99 setPos:v98];
+        [(SGPlainTextContentCursor *)v99 forwardWhile:&__block_literal_global_111];
+        v111 = [(SGPlainTextContentCursor *)v99 pos];
+        v112 = rangeCopy->length;
+        if (v111 - v98 >= rangeCopy->location - v98 + v112)
         {
-          v114 = rangeCopy->location - v99 + v113;
+          v113 = rangeCopy->location - v98 + v112;
         }
 
         else
         {
-          v114 = v112 - v99;
+          v113 = v111 - v98;
         }
 
-        v192 = [(SGSignatureDissector *)self rangeOfSenderName:obj inRange:v99 restrictLength:v114 forMessage:0, v192];
-        if (v192 == 0x7FFFFFFFFFFFFFFFLL)
+        v191 = [(SGSignatureDissector *)self rangeOfSenderName:obj inRange:v98 restrictLength:v113 forMessage:0, v191];
+        if (v191 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          author = [v192 author];
+          author = [v191 author];
           sg_emailAddress = [author sg_emailAddress];
-          v119 = sg_emailAddress == 0;
+          v118 = sg_emailAddress == 0;
 
-          if (v119)
+          if (v118 || ([v191 textContent], v119 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v191, "author"), v120 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v120, "sg_emailAddress"), v121 = objc_claimAutoreleasedReturnValue(), v122 = objc_msgSend(v119, "rangeOfString:options:range:", v121, 1, v98, v113) == 0x7FFFFFFFFFFFFFFFLL, v121, v120, v119, v122))
           {
-            goto LABEL_125;
-          }
-
-          textContent13 = [v192 textContent];
-          author2 = [v192 author];
-          sg_emailAddress2 = [author2 sg_emailAddress];
-          v123 = [textContent13 rangeOfString:sg_emailAddress2 options:1 range:{v99, v114}] == 0x7FFFFFFFFFFFFFFFLL;
-
-          if (v123)
-          {
-LABEL_125:
             plainTextDetectedData3 = sgLogHandle();
             if (os_log_type_enabled(plainTextDetectedData3, OS_LOG_TYPE_DEBUG))
             {
-              *v205 = 0;
-              _os_log_debug_impl(&dword_231E60000, plainTextDetectedData3, OS_LOG_TYPE_DEBUG, "Ignoring signature: No sender's name or email.", v205, 2u);
+              *v204 = 0;
+              _os_log_debug_impl(&dword_231E60000, plainTextDetectedData3, OS_LOG_TYPE_DEBUG, "Ignoring signature: No sender's name or email.", v204, 2u);
             }
 
             goto LABEL_127;
@@ -530,104 +519,104 @@ LABEL_125:
 
         else
         {
-          v125 = v115;
-          v189 = objc_autoreleasePoolPush();
-          v191 = v192 + v99;
-          [(SGPlainTextContentCursor *)v100 setPos:?];
-          v222 = 0u;
-          v223 = 0u;
-          v220 = 0u;
+          v124 = v114;
+          v188 = objc_autoreleasePoolPush();
+          v190 = v191 + v98;
+          [(SGPlainTextContentCursor *)v99 setPos:?];
           v221 = 0u;
-          plainTextDetectedData2 = [v192 plainTextDetectedData];
-          v127 = [plainTextDetectedData2 countByEnumeratingWithState:&v220 objects:v242 count:16];
-          if (v127)
+          v222 = 0u;
+          v219 = 0u;
+          v220 = 0u;
+          plainTextDetectedData2 = [v191 plainTextDetectedData];
+          v126 = [plainTextDetectedData2 countByEnumeratingWithState:&v219 objects:v241 count:16];
+          if (v126)
           {
-            v128 = *v221;
+            v127 = *v220;
             do
             {
-              for (i = 0; i != v127; ++i)
+              for (i = 0; i != v126; ++i)
               {
-                if (*v221 != v128)
+                if (*v220 != v127)
                 {
                   objc_enumerationMutation(plainTextDetectedData2);
                 }
 
-                v130 = *(*(&v220 + 1) + 8 * i);
-                range = [v130 range];
-                if (range > [(SGPlainTextContentCursor *)v100 pos])
+                v129 = *(*(&v219 + 1) + 8 * i);
+                range = [v129 range];
+                if (range > [(SGPlainTextContentCursor *)v99 pos])
                 {
-                  range2 = [v130 range];
+                  range2 = [v129 range];
                   if (range2 >= rangeCopy->location && range2 - rangeCopy->location < rangeCopy->length)
                   {
-                    v134 = 1;
+                    v133 = 1;
                     goto LABEL_142;
                   }
                 }
               }
 
-              v127 = [plainTextDetectedData2 countByEnumeratingWithState:&v220 objects:v242 count:16];
+              v126 = [plainTextDetectedData2 countByEnumeratingWithState:&v219 objects:v241 count:16];
             }
 
-            while (v127);
+            while (v126);
           }
 
-          v134 = 0;
+          v133 = 0;
 LABEL_142:
 
-          textContent14 = [v192 textContent];
-          v136 = v191 + v125;
-          if (v191 + v125 == [textContent14 length])
+          textContent13 = [v191 textContent];
+          v135 = v190 + v124;
+          if (v190 + v124 == [textContent13 length])
           {
-            v137 = 1;
+            v136 = 1;
           }
 
           else
           {
-            v138 = [obj length];
-            textContent15 = [v192 textContent];
-            if (v138 + v191 >= [textContent15 length])
+            v137 = [obj length];
+            textContent14 = [v191 textContent];
+            if (v137 + v190 >= [textContent14 length])
             {
-              v137 = 1;
+              v136 = 1;
             }
 
             else
             {
-              textContent16 = [v192 textContent];
-              if ([textContent16 characterAtIndex:v136] == 10)
+              textContent15 = [v191 textContent];
+              if ([textContent15 characterAtIndex:v135] == 10)
               {
-                v137 = 1;
+                v136 = 1;
               }
 
               else
               {
-                textContent17 = [v192 textContent];
-                v143 = [obj stringByAppendingString:@"\n"];
-                textContent18 = [v192 textContent];
-                v183 = textContent16;
-                v145 = textContent17;
-                v137 = [textContent17 rangeOfString:v143 options:1 range:{v191, objc_msgSend(textContent18, "length") - v191}] == v191;
+                textContent16 = [v191 textContent];
+                v142 = [obj stringByAppendingString:@"\n"];
+                textContent17 = [v191 textContent];
+                v182 = textContent15;
+                v144 = textContent16;
+                v136 = [textContent16 rangeOfString:v142 options:1 range:{v190, objc_msgSend(textContent17, "length") - v190}] == v190;
 
-                textContent16 = v183;
+                textContent15 = v182;
               }
             }
           }
 
-          v146 = [(SGPlainTextContentCursor *)v100 pos];
-          [(SGPlainTextContentCursor *)v100 forwardWhile:&__block_literal_global_114];
-          if (((v134 | v137) & 1) != 0 && [(SGPlainTextContentCursor *)v100 pos]> v99)
+          v145 = [(SGPlainTextContentCursor *)v99 pos];
+          [(SGPlainTextContentCursor *)v99 forwardWhile:&__block_literal_global_114];
+          if (((v133 | v136) & 1) != 0 && [(SGPlainTextContentCursor *)v99 pos]> v98)
           {
-            v147 = [(SGPlainTextContentCursor *)v100 pos];
-            v148 = v114 + v99 - v146;
-            if (v148 >= v147 - v146)
+            v146 = [(SGPlainTextContentCursor *)v99 pos];
+            v147 = v113 + v98 - v145;
+            if (v147 >= v146 - v145)
             {
-              v148 = v147 - v146;
+              v147 = v146 - v145;
             }
 
-            rangeCopy->location = v146;
-            rangeCopy->length = v148;
+            rangeCopy->location = v145;
+            rangeCopy->length = v147;
           }
 
-          objc_autoreleasePoolPop(v189);
+          objc_autoreleasePoolPop(v188);
         }
 
         if (rangeCopy->location == location && rangeCopy->length == length)
@@ -635,88 +624,88 @@ LABEL_142:
           goto LABEL_170;
         }
 
-        v149 = objc_autoreleasePoolPush();
-        v150 = rangeCopy->location;
-        v151 = rangeCopy->length;
-        v152 = objc_autoreleasePoolPush();
-        v153 = patterns_23118();
-        v154 = [v153 regex2ForKey:@"InhumanSig"];
-        v155 = [v184 substringWithRange:{v150, v151}];
-        v156 = [v154 existsInString:v155];
+        v148 = objc_autoreleasePoolPush();
+        v149 = rangeCopy->location;
+        v150 = rangeCopy->length;
+        v151 = objc_autoreleasePoolPush();
+        v152 = patterns_23118();
+        v153 = [v152 regex2ForKey:@"InhumanSig"];
+        v154 = [v183 substringWithRange:{v149, v150}];
+        v155 = [v153 existsInString:v154];
 
-        objc_autoreleasePoolPop(v152);
-        v157 = v156;
+        objc_autoreleasePoolPop(v151);
+        v156 = v155;
 
-        if (v157)
+        if (v156)
         {
+          v157 = sgLogHandle();
+          if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
+          {
+            *v204 = 0;
+            _os_log_debug_impl(&dword_231E60000, v157, OS_LOG_TYPE_DEBUG, "Tagging as inhuman after adjusting range: Signature pattern", v204, 2u);
+          }
+
           v158 = sgLogHandle();
           if (os_log_type_enabled(v158, OS_LOG_TYPE_DEBUG))
           {
-            *v205 = 0;
-            _os_log_debug_impl(&dword_231E60000, v158, OS_LOG_TYPE_DEBUG, "Tagging as inhuman after adjusting range: Signature pattern", v205, 2u);
-          }
-
-          v159 = sgLogHandle();
-          if (os_log_type_enabled(v159, OS_LOG_TYPE_DEBUG))
-          {
-            *v205 = 0;
-            _os_log_debug_impl(&dword_231E60000, v159, OS_LOG_TYPE_DEBUG, "Ignoring signature after adjusting range: Inhuman pattern.", v205, 2u);
+            *v204 = 0;
+            _os_log_debug_impl(&dword_231E60000, v158, OS_LOG_TYPE_DEBUG, "Ignoring signature after adjusting range: Inhuman pattern.", v204, 2u);
           }
 
           *inhumanCopy = 1;
         }
 
-        objc_autoreleasePoolPop(v149);
-        if (!v157)
+        objc_autoreleasePoolPop(v148);
+        if (!v156)
         {
 LABEL_170:
-          v218 = 0u;
-          v219 = 0u;
-          v216 = 0u;
           v217 = 0u;
-          plainTextDetectedData3 = [v192 plainTextDetectedData];
-          v160 = [plainTextDetectedData3 countByEnumeratingWithState:&v216 objects:v241 count:16];
-          if (!v160)
+          v218 = 0u;
+          v215 = 0u;
+          v216 = 0u;
+          plainTextDetectedData3 = [v191 plainTextDetectedData];
+          v159 = [plainTextDetectedData3 countByEnumeratingWithState:&v215 objects:v240 count:16];
+          if (!v159)
           {
 LABEL_179:
 
-            v164 = [(SGSignatureDissector *)self findRejectSig:v192];
-            v214 = 0u;
-            v215 = 0u;
-            v212 = 0u;
+            v163 = [(SGSignatureDissector *)self findRejectSig:v191];
             v213 = 0u;
-            plainTextDetectedData3 = v164;
-            v165 = [plainTextDetectedData3 countByEnumeratingWithState:&v212 objects:v240 count:16];
-            if (v165)
+            v214 = 0u;
+            v211 = 0u;
+            v212 = 0u;
+            plainTextDetectedData3 = v163;
+            v164 = [plainTextDetectedData3 countByEnumeratingWithState:&v211 objects:v239 count:16];
+            if (v164)
             {
-              v166 = *v213;
+              v165 = *v212;
               while (2)
               {
-                for (j = 0; j != v165; ++j)
+                for (j = 0; j != v164; ++j)
                 {
-                  if (*v213 != v166)
+                  if (*v212 != v165)
                   {
                     objc_enumerationMutation(plainTextDetectedData3);
                   }
 
-                  v247.location = [*(*(&v212 + 1) + 8 * j) rangeValue];
-                  if (NSIntersectionRange(v247, *rangeCopy).length)
+                  v246.location = [*(*(&v211 + 1) + 8 * j) rangeValue];
+                  if (NSIntersectionRange(v246, *rangeCopy).length)
                   {
-                    v176 = sgLogHandle();
-                    if (os_log_type_enabled(v176, OS_LOG_TYPE_DEBUG))
+                    v175 = sgLogHandle();
+                    if (os_log_type_enabled(v175, OS_LOG_TYPE_DEBUG))
                     {
-                      *v205 = 0;
-                      _os_log_debug_impl(&dword_231E60000, v176, OS_LOG_TYPE_DEBUG, "Ignoring signature: Anti pattern.", v205, 2u);
+                      *v204 = 0;
+                      _os_log_debug_impl(&dword_231E60000, v175, OS_LOG_TYPE_DEBUG, "Ignoring signature: Anti pattern.", v204, 2u);
                     }
 
                     v13 = 1;
-                    v181 = plainTextDetectedData3;
+                    v180 = plainTextDetectedData3;
                     goto LABEL_195;
                   }
                 }
 
-                v165 = [plainTextDetectedData3 countByEnumeratingWithState:&v212 objects:v240 count:16];
-                if (v165)
+                v164 = [plainTextDetectedData3 countByEnumeratingWithState:&v211 objects:v239 count:16];
+                if (v164)
                 {
                   continue;
                 }
@@ -725,81 +714,81 @@ LABEL_179:
               }
             }
 
-            v168 = [SGIdentityName nameWithString:obj];
-            v169 = objc_opt_new();
-            v170 = rangeCopy->location;
-            v171 = rangeCopy->length;
-            textContent19 = [v192 textContent];
-            v173 = [textContent19 length];
-            v174 = rangeCopy->location;
-            v175 = rangeCopy->length;
+            v167 = [SGIdentityName nameWithString:obj];
+            v168 = objc_opt_new();
+            v169 = rangeCopy->location;
+            v170 = rangeCopy->length;
+            textContent18 = [v191 textContent];
+            v172 = [textContent18 length];
+            v173 = rangeCopy->location;
+            v174 = rangeCopy->length;
 
-            v176 = [objc_alloc(MEMORY[0x277CCAB58]) initWithIndexesInRange:{v171 + v170, v173 - (v174 + v175)}];
-            quotedRegions2 = [v192 quotedRegions];
-            [v176 removeIndexes:quotedRegions2];
+            v175 = [objc_alloc(MEMORY[0x277CCAB58]) initWithIndexesInRange:{v170 + v169, v172 - (v173 + v174)}];
+            quotedRegions2 = [v191 quotedRegions];
+            [v175 removeIndexes:quotedRegions2];
 
-            v209[0] = MEMORY[0x277D85DD0];
-            v209[1] = 3221225472;
-            v209[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke_115;
-            v209[3] = &unk_278955CB0;
-            v178 = v169;
-            v210 = v178;
-            v211 = v192;
-            [v176 enumerateRangesUsingBlock:v209];
-            v179 = [MEMORY[0x277CCACA8] _pas_proxyStringByConcatenatingStrings:v178];
+            v208[0] = MEMORY[0x277D85DD0];
+            v208[1] = 3221225472;
+            v208[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke_115;
+            v208[3] = &unk_278955CB0;
+            v177 = v168;
+            v209 = v177;
+            v210 = v191;
+            [v175 enumerateRangesUsingBlock:v208];
+            v178 = [MEMORY[0x277CCACA8] _pas_proxyStringByConcatenatingStrings:v177];
 
-            *v205 = 0;
-            v206 = v205;
-            v207 = 0x2020000000;
-            v208 = 0;
-            v180 = [v179 length];
-            v200[0] = MEMORY[0x277D85DD0];
-            v200[1] = 3221225472;
-            v200[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke_2_116;
-            v200[3] = &unk_27894F680;
-            v201 = obj;
+            *v204 = 0;
+            v205 = v204;
+            v206 = 0x2020000000;
+            v207 = 0;
+            v179 = [v178 length];
+            v199[0] = MEMORY[0x277D85DD0];
+            v199[1] = 3221225472;
+            v199[2] = __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman___block_invoke_2_116;
+            v199[3] = &unk_27894F680;
+            v200 = obj;
             selfCopy = self;
-            v181 = v168;
-            v203 = v181;
-            v204 = v205;
-            [v179 enumerateSubstringsInRange:0 options:v180 usingBlock:{256, v200}];
-            v13 = v206[24];
+            v180 = v167;
+            v202 = v180;
+            v203 = v204;
+            [v178 enumerateSubstringsInRange:0 options:v179 usingBlock:{256, v199}];
+            v13 = v205[24];
             if ((v13 & 1) == 0)
             {
-              v182 = sgLogHandle();
-              if (os_log_type_enabled(v182, OS_LOG_TYPE_DEBUG))
+              v181 = sgLogHandle();
+              if (os_log_type_enabled(v181, OS_LOG_TYPE_DEBUG))
               {
-                *v199 = 0;
-                _os_log_debug_impl(&dword_231E60000, v182, OS_LOG_TYPE_DEBUG, "Not ignoring signature.", v199, 2u);
+                *v198 = 0;
+                _os_log_debug_impl(&dword_231E60000, v181, OS_LOG_TYPE_DEBUG, "Not ignoring signature.", v198, 2u);
               }
             }
 
-            _Block_object_dispose(v205, 8);
+            _Block_object_dispose(v204, 8);
 LABEL_195:
 
             goto LABEL_196;
           }
 
-          v161 = 0;
-          v162 = *v217;
+          v160 = 0;
+          v161 = *v216;
 LABEL_172:
-          v163 = 0;
+          v162 = 0;
           while (1)
           {
-            if (*v217 != v162)
+            if (*v216 != v161)
             {
               objc_enumerationMutation(plainTextDetectedData3);
             }
 
-            if ([*(*(&v216 + 1) + 8 * v163) matchType] == 2 && ++v161 > 3)
+            if ([*(*(&v215 + 1) + 8 * v162) matchType] == 2 && ++v160 > 3)
             {
               break;
             }
 
-            if (v160 == ++v163)
+            if (v159 == ++v162)
             {
-              v160 = [plainTextDetectedData3 countByEnumeratingWithState:&v216 objects:v241 count:16];
-              if (v160)
+              v159 = [plainTextDetectedData3 countByEnumeratingWithState:&v215 objects:v240 count:16];
+              if (v159)
               {
                 goto LABEL_172;
               }
@@ -822,82 +811,82 @@ LABEL_197:
       goto LABEL_198;
     }
 
-    familyName = [v186 familyName];
+    familyName = [v185 familyName];
     if (familyName)
     {
-      formattedName = [v186 formattedName];
-      v43 = formattedName == 0;
+      formattedName = [v185 formattedName];
+      v42 = formattedName == 0;
 
-      if (v43)
+      if (v42)
       {
         goto LABEL_44;
       }
 
-      if (v40 >= 0x14)
+      if (v39 >= 0x14)
       {
-        v44 = 20;
+        v43 = 20;
       }
 
       else
       {
-        v44 = v40;
+        v43 = v39;
       }
 
-      if (v40 >= 0x14)
+      if (v39 >= 0x14)
       {
-        v45 = v40 - 20;
+        v44 = v39 - 20;
       }
 
       else
       {
-        v45 = 0;
+        v44 = 0;
       }
 
-      textContent20 = [v192 textContent];
-      formattedName2 = [v186 formattedName];
-      v48 = [textContent20 rangeOfString:formattedName2 options:0 range:{v45, v39 + v44}] == 0x7FFFFFFFFFFFFFFFLL;
+      textContent19 = [v191 textContent];
+      formattedName2 = [v185 formattedName];
+      v47 = [textContent19 rangeOfString:formattedName2 options:0 range:{v44, v38 + v43}] == 0x7FFFFFFFFFFFFFFFLL;
 
-      if (v48)
+      if (v47)
       {
-        v49 = objc_alloc(MEMORY[0x277CCACA8]);
-        givenName = [v186 givenName];
-        familyName2 = [v186 familyName];
-        obj = [v49 initWithFormat:@"%@ %@", givenName, familyName2];
+        v48 = objc_alloc(MEMORY[0x277CCACA8]);
+        givenName = [v185 givenName];
+        familyName2 = [v185 familyName];
+        obj = [v48 initWithFormat:@"%@ %@", givenName, familyName2];
 
-        textContent21 = [v192 textContent];
-        LOBYTE(v49) = [textContent21 rangeOfString:obj options:0 range:{v45, v39 + v44}] == 0x7FFFFFFFFFFFFFFFLL;
+        textContent20 = [v191 textContent];
+        LOBYTE(v48) = [textContent20 rangeOfString:obj options:0 range:{v44, v38 + v43}] == 0x7FFFFFFFFFFFFFFFLL;
 
-        if (v49)
+        if (v48)
         {
-          v53 = objc_alloc(MEMORY[0x277CCACA8]);
-          familyName3 = [v186 familyName];
-          givenName2 = [v186 givenName];
-          v56 = [v53 initWithFormat:@"%@ %@", familyName3, givenName2];
+          v52 = objc_alloc(MEMORY[0x277CCACA8]);
+          familyName3 = [v185 familyName];
+          givenName2 = [v185 givenName];
+          v55 = [v52 initWithFormat:@"%@ %@", familyName3, givenName2];
 
-          textContent22 = [v192 textContent];
-          v58 = [textContent22 rangeOfString:v56 options:0 range:{v45, v39 + v44}] == 0x7FFFFFFFFFFFFFFFLL;
+          textContent21 = [v191 textContent];
+          v57 = [textContent21 rangeOfString:v55 options:0 range:{v44, v38 + v43}] == 0x7FFFFFFFFFFFFFFFLL;
 
-          if (v58)
+          if (v57)
           {
 
             goto LABEL_43;
           }
 
-          v141 = sgLogHandle();
-          if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
+          v140 = sgLogHandle();
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
           {
-            *v205 = 0;
-            _os_log_debug_impl(&dword_231E60000, v141, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (last first).", v205, 2u);
+            *v204 = 0;
+            _os_log_debug_impl(&dword_231E60000, v140, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (last first).", v204, 2u);
           }
         }
 
         else
         {
-          v105 = sgLogHandle();
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+          v104 = sgLogHandle();
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
           {
-            *v205 = 0;
-            _os_log_debug_impl(&dword_231E60000, v105, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (first last).", v205, 2u);
+            *v204 = 0;
+            _os_log_debug_impl(&dword_231E60000, v104, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (first last).", v204, 2u);
           }
         }
       }
@@ -907,8 +896,8 @@ LABEL_197:
         obj = sgLogHandle();
         if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
         {
-          *v205 = 0;
-          _os_log_debug_impl(&dword_231E60000, obj, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (composite).", v205, 2u);
+          *v204 = 0;
+          _os_log_debug_impl(&dword_231E60000, obj, OS_LOG_TYPE_DEBUG, "Ignoring signature: Recipient's name (composite).", v204, 2u);
         }
       }
 
@@ -916,7 +905,7 @@ LABEL_150:
       v13 = 1;
 LABEL_198:
 
-      v60 = v186;
+      v59 = v185;
 LABEL_199:
 
       goto LABEL_200;
@@ -940,7 +929,6 @@ LABEL_12:
 LABEL_13:
   objc_autoreleasePoolPop(context);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -993,19 +981,18 @@ void __71__SGSignatureDissector_shouldIgnoreSignature_signatureRange_isInhuman__
   if (a4 && a4 <= 2 * [*(a1 + 32) length])
   {
     v11 = objc_autoreleasePoolPush();
-    v12 = *(a1 + 40);
-    v13 = [objc_opt_class() singleLineSignatureLeadingCharacterSet];
-    v14 = [v10 stringByTrimmingCharactersInSet:v13];
+    v12 = [objc_opt_class() singleLineSignatureLeadingCharacterSet];
+    v13 = [v10 stringByTrimmingCharactersInSet:v12];
 
-    v15 = [*(a1 + 48) firstname];
-    if ([v14 caseInsensitiveCompare:v15])
+    v14 = [*(a1 + 48) firstname];
+    if ([v13 caseInsensitiveCompare:v14])
     {
-      v16 = [*(a1 + 48) surname];
-      if ([v14 caseInsensitiveCompare:v16])
+      v15 = [*(a1 + 48) surname];
+      if ([v13 caseInsensitiveCompare:v15])
       {
-        v17 = [SGNames unnormalizedNamesApproximatelyMatch:*(a1 + 32) and:v14];
+        v16 = [SGNames unnormalizedNamesApproximatelyMatch:*(a1 + 32) and:v13];
 
-        if (!v17)
+        if (!v16)
         {
 LABEL_12:
 
@@ -1014,11 +1001,11 @@ LABEL_12:
         }
 
 LABEL_9:
-        v18 = sgLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v17 = sgLogHandle();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          *v19 = 0;
-          _os_log_debug_impl(&dword_231E60000, v18, OS_LOG_TYPE_DEBUG, "Ignoring signature: Sender's name after sig.", v19, 2u);
+          *v18 = 0;
+          _os_log_debug_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEBUG, "Ignoring signature: Sender's name after sig.", v18, 2u);
         }
 
         *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -1092,7 +1079,7 @@ LABEL_9:
 
 - (void)dissectMailMessage:(id)message entity:(id)entity context:(id)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
   contextCopy = context;
@@ -1122,13 +1109,13 @@ LABEL_29:
     goto LABEL_26;
   }
 
-  v34 = 0uLL;
+  v33 = 0uLL;
   [entityCopy releaseDissectorLock];
   if (-[NSNumber BOOLValue](self->_ignoreDataDetectorsForTesting, "BOOLValue") || [messageCopy detectedDataSignatureRange] == 0x7FFFFFFFFFFFFFFFLL)
   {
     v14 = [(SGSignatureDissector *)self signatureRange:messageCopy];
-    *&v34 = v14;
-    *(&v34 + 1) = v15;
+    *&v33 = v14;
+    *(&v33 + 1) = v15;
     if (v14 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v16 = v14;
@@ -1154,8 +1141,8 @@ LABEL_29:
     }
 
     detectedDataSignatureRange = [messageCopy detectedDataSignatureRange];
-    *&v34 = detectedDataSignatureRange;
-    *(&v34 + 1) = v23;
+    *&v33 = detectedDataSignatureRange;
+    *(&v33 + 1) = v23;
     if (detectedDataSignatureRange != 0x7FFFFFFFFFFFFFFFLL)
     {
       v16 = detectedDataSignatureRange;
@@ -1165,23 +1152,23 @@ LABEL_18:
       v26 = sgLogHandle();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v32 = v17 + v16;
+        v31 = v17 + v16;
         textContent2 = [messageCopy textContent];
-        v31 = [textContent2 substringWithRange:{v16, v17}];
+        v30 = [textContent2 substringWithRange:{v16, v17}];
         *buf = 134218498;
-        v36 = v16;
-        v37 = 2048;
-        v38 = v32;
-        v39 = 2112;
-        v40 = v31;
+        v35 = v16;
+        v36 = 2048;
+        v37 = v31;
+        v38 = 2112;
+        v39 = v30;
         _os_log_debug_impl(&dword_231E60000, v26, OS_LOG_TYPE_DEBUG, "Sig range %lu-%lu (%@)", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v25);
-      v33 = 0;
-      if ([(SGSignatureDissector *)self shouldIgnoreSignature:messageCopy signatureRange:&v34 isInhuman:&v33])
+      v32 = 0;
+      if ([(SGSignatureDissector *)self shouldIgnoreSignature:messageCopy signatureRange:&v33 isInhuman:&v32])
       {
-        v34 = xmmword_232106CE0;
+        v33 = xmmword_232106CE0;
       }
 
       goto LABEL_22;
@@ -1195,11 +1182,11 @@ LABEL_18:
     _os_log_debug_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEBUG, "No signature found", buf, 2u);
   }
 
-  v33 = 0;
+  v32 = 0;
 LABEL_22:
   [entityCopy acquireDissectorLock];
-  [entityCopy setPlainTextSigRange:v34];
-  if (v33 == 1)
+  [entityCopy setPlainTextSigRange:v33];
+  if (v32 == 1)
   {
     v27 = sgLogHandle();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
@@ -1224,17 +1211,15 @@ LABEL_22:
 
 LABEL_27:
   objc_autoreleasePoolPop(v11);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (_NSRange)rangeOfSenderNameComponents:(id)components withFullname:(id)fullname inSubstring:(id)substring
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   substringCopy = substring;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   if ([SGNames isProbablyShortCJKName:fullname])
   {
     v9 = 1;
@@ -1245,25 +1230,25 @@ LABEL_27:
     v9 = 3;
   }
 
+  v27 = 0uLL;
   v28 = 0uLL;
-  v29 = 0uLL;
   v10 = componentsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v27;
-    v25 = v9;
+    v13 = *v26;
+    v24 = v9;
 LABEL_6:
     v14 = 0;
     while (1)
     {
-      if (*v27 != v13)
+      if (*v26 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v26 + 1) + 8 * v14);
+      v15 = *(*(&v25 + 1) + 8 * v14);
       if ([v15 length] >= v9)
       {
         v16 = [substringCopy rangeOfString:v15 options:1];
@@ -1295,7 +1280,7 @@ LABEL_6:
           }
 
           while (v20 < 3);
-          v9 = v25;
+          v9 = v24;
           if ([substringCopy characterAtIndex:v18 - 1] == 32)
           {
             break;
@@ -1305,7 +1290,7 @@ LABEL_6:
 
       if (++v14 == v12)
       {
-        v12 = [v10 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
         v19 = 0;
         v18 = 0x7FFFFFFFFFFFFFFFLL;
         if (v12)
@@ -1326,11 +1311,10 @@ LABEL_6:
 
 LABEL_21:
 
-  v22 = *MEMORY[0x277D85DE8];
-  v23 = v18;
-  v24 = v19;
-  result.length = v24;
-  result.location = v23;
+  v22 = v18;
+  v23 = v19;
+  result.length = v23;
+  result.location = v22;
   return result;
 }
 
@@ -1346,19 +1330,7 @@ LABEL_21:
   v15 = [textContent substringWithRange:{location, length}];
 
   objc_autoreleasePoolPop(v13);
-  if (!lengthCopy)
-  {
-    goto LABEL_4;
-  }
-
-  v16 = objc_autoreleasePoolPush();
-  v17 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"-_ "];
-  v18 = [v15 stringByTrimmingCharactersInSet:v17];
-
-  objc_autoreleasePoolPop(v16);
-  v19 = [v18 length];
-
-  if (v19 > 0x96)
+  if (lengthCopy && (v16 = objc_autoreleasePoolPush(), [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"-_ "], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "stringByTrimmingCharactersInSet:", v17), v18 = objc_claimAutoreleasedReturnValue(), v17, objc_autoreleasePoolPop(v16), v19 = objc_msgSend(v18, "length"), v18, v19 > 0x96))
   {
     v20 = 0;
     v21 = 0x7FFFFFFFFFFFFFFFLL;
@@ -1366,7 +1338,6 @@ LABEL_21:
 
   else
   {
-LABEL_4:
     v22 = [SGNames stripHonorifics:nameCopy];
     v23 = [SGIdentityName nameWithString:v22];
     v24 = objc_opt_new();
@@ -1481,11 +1452,11 @@ LABEL_4:
 
 - (_NSRange)trailingSenderNameLineRange:(id)range
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   selfCopy = self;
-  v41 = [(SGSignatureDissector *)self authorName:rangeCopy];
-  if (![v41 length])
+  v40 = [(SGSignatureDissector *)self authorName:rangeCopy];
+  if (![v40 length])
   {
     goto LABEL_10;
   }
@@ -1533,11 +1504,11 @@ LABEL_10:
 
   [(SGPlainTextContentCursor *)v6 backward];
   [(SGPlainTextContentCursor *)v6 backwardWhile:&__block_literal_global_82];
-  v17 = [(SGPlainTextContentCursor *)v6 pos];
+  v16 = [(SGPlainTextContentCursor *)v6 pos];
   [(SGPlainTextContentCursor *)v6 backwardToString:@"\n" consume:0];
-  v18 = [(SGPlainTextContentCursor *)v6 pos];
+  v17 = [(SGPlainTextContentCursor *)v6 pos];
   context = v5;
-  v39 = rangeCopy;
+  v38 = rangeCopy;
   if ([(SGPlainTextContentCursor *)v6 pos]< 2)
   {
     goto LABEL_17;
@@ -1551,57 +1522,57 @@ LABEL_10:
   }
 
   textContent3 = [rangeCopy textContent];
-  v21 = [textContent3 characterAtIndex:{-[SGPlainTextContentCursor pos](v6, "pos") - 2}];
+  v20 = [textContent3 characterAtIndex:{-[SGPlainTextContentCursor pos](v6, "pos") - 2}];
 
-  if (v21 != 10)
+  if (v20 != 10)
   {
 LABEL_17:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_18;
   }
 
-  v22 = v17 - v18 + 1;
+  v21 = v16 - v17 + 1;
 LABEL_18:
-  v23 = [MEMORY[0x277CCAE60] valueWithRange:{v8, v11 + 1, context}];
-  v47[0] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
-  v25 = [v24 mutableCopy];
+  v22 = [MEMORY[0x277CCAE60] valueWithRange:{v8, v11 + 1, context}];
+  v46[0] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+  v24 = [v23 mutableCopy];
 
-  if (v22)
+  if (v21)
   {
-    v26 = objc_autoreleasePoolPush();
-    v27 = [MEMORY[0x277CCAE60] valueWithRange:{v18, v22}];
-    [v25 addObject:v27];
+    v25 = objc_autoreleasePoolPush();
+    v26 = [MEMORY[0x277CCAE60] valueWithRange:{v17, v21}];
+    [v24 addObject:v26];
 
-    objc_autoreleasePoolPop(v26);
+    objc_autoreleasePoolPop(v25);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
-  v28 = v25;
-  v29 = [v28 countByEnumeratingWithState:&v42 objects:v46 count:16];
-  if (v29)
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v27 = v24;
+  v28 = [v27 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (v28)
   {
-    v30 = v29;
-    v31 = *v43;
+    v29 = v28;
+    v30 = *v42;
     while (2)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v43 != v31)
+        if (*v42 != v30)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v27);
         }
 
-        v33 = *(*(&v42 + 1) + 8 * i);
-        v34 = objc_autoreleasePoolPush();
-        rangeValue = [v33 rangeValue];
-        v12 = v35;
-        v36 = [(SGSignatureDissector *)selfCopy rangeOfSenderName:v41 inRange:rangeValue restrictLength:v35 forMessage:1, v39];
-        objc_autoreleasePoolPop(v34);
-        if (v36 != 0x7FFFFFFFFFFFFFFFLL)
+        v32 = *(*(&v41 + 1) + 8 * i);
+        v33 = objc_autoreleasePoolPush();
+        rangeValue = [v32 rangeValue];
+        v12 = v34;
+        v35 = [(SGSignatureDissector *)selfCopy rangeOfSenderName:v40 inRange:rangeValue restrictLength:v34 forMessage:1, v38];
+        objc_autoreleasePoolPop(v33);
+        if (v35 != 0x7FFFFFFFFFFFFFFFLL)
         {
 
           objc_autoreleasePoolPop(contexta);
@@ -1609,8 +1580,8 @@ LABEL_18:
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v42 objects:v46 count:16];
-      if (v30)
+      v29 = [v27 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      if (v29)
       {
         continue;
       }
@@ -1623,14 +1594,13 @@ LABEL_18:
   v12 = 0;
   rangeValue = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_30:
-  rangeCopy = v39;
+  rangeCopy = v38;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
-  v15 = rangeValue;
-  v16 = v12;
-  result.length = v16;
-  result.location = v15;
+  v14 = rangeValue;
+  v15 = v12;
+  result.length = v15;
+  result.location = v14;
   return result;
 }
 
@@ -1649,33 +1619,33 @@ uint64_t __52__SGSignatureDissector_trailingSenderNameLineRange___block_invoke(u
 
 - (_NSRange)miniSignatureRange:(id)range
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   v5 = [(SGSignatureDissector *)self trailingSenderNameLineRange:rangeCopy];
   if (v6)
   {
     v7 = v5;
     v8 = v6;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     plainTextDetectedData = [rangeCopy plainTextDetectedData];
-    v10 = [plainTextDetectedData countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [plainTextDetectedData countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(plainTextDetectedData);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
+          v14 = *(*(&v23 + 1) + 8 * i);
           range = [v14 range];
           if (range >= v7 && range - v7 < v8)
           {
@@ -1689,7 +1659,7 @@ uint64_t __52__SGSignatureDissector_trailingSenderNameLineRange___block_invoke(u
           }
         }
 
-        v11 = [plainTextDetectedData countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [plainTextDetectedData countByEnumeratingWithState:&v23 objects:v27 count:16];
         v20 = 0;
         v19 = 0x7FFFFFFFFFFFFFFFLL;
       }
@@ -1712,17 +1682,16 @@ LABEL_21:
     v19 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  v22 = v19;
-  v23 = v20;
-  result.length = v23;
-  result.location = v22;
+  v21 = v19;
+  v22 = v20;
+  result.length = v22;
+  result.location = v21;
   return result;
 }
 
 - (_NSRange)hmmSignatureRangeWithContent:(id)content detectedData:(id)data quotedRegions:(id)regions authorName:(id)name
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   dataCopy = data;
   regionsCopy = regions;
@@ -1734,32 +1703,32 @@ LABEL_21:
     goto LABEL_107;
   }
 
-  v107 = contentCopy;
-  v108 = regionsCopy;
-  v110 = _PASTrimTrailingWhitespace();
+  v106 = contentCopy;
+  v107 = regionsCopy;
+  v109 = _PASTrimTrailingWhitespace();
   v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:16];
+  v125 = 0u;
   v126 = 0u;
   v127 = 0u;
   v128 = 0u;
-  v129 = 0u;
-  v106 = dataCopy;
+  v105 = dataCopy;
   v14 = dataCopy;
-  v15 = [v14 countByEnumeratingWithState:&v126 objects:v132 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v125 objects:v131 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v127;
+    v17 = *v126;
     do
     {
       v18 = 0;
       do
       {
-        if (*v127 != v17)
+        if (*v126 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v126 + 1) + 8 * v18);
+        v19 = *(*(&v125 + 1) + 8 * v18);
         matchType = [v19 matchType];
         if (matchType <= 3)
         {
@@ -1810,48 +1779,48 @@ LABEL_15:
       }
 
       while (v16 != v18);
-      v27 = [v14 countByEnumeratingWithState:&v126 objects:v132 count:16];
+      v27 = [v14 countByEnumeratingWithState:&v125 objects:v131 count:16];
       v16 = v27;
     }
 
     while (v27);
   }
 
-  v124[0] = MEMORY[0x277D85DD0];
-  v124[1] = 3221225472;
-  v124[2] = __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quotedRegions_authorName___block_invoke;
-  v124[3] = &unk_278954840;
+  v123[0] = MEMORY[0x277D85DD0];
+  v123[1] = 3221225472;
+  v123[2] = __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quotedRegions_authorName___block_invoke;
+  v123[3] = &unk_278954840;
   v28 = v13;
-  v125 = v28;
-  [v108 enumerateRangesUsingBlock:v124];
+  v124 = v28;
+  [v107 enumerateRangesUsingBlock:v123];
   v29 = objc_opt_new();
-  v111 = v28;
-  v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v28, "count")}];
+  v110 = v28;
+  v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v28)];
   v31 = 0;
   do
   {
-    v112 = v31;
+    v111 = v31;
     v32 = slicePrecedence[v31];
-    v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
     v121 = 0u;
-    v33 = v111;
-    v34 = [v33 countByEnumeratingWithState:&v120 objects:v131 count:16];
+    v122 = 0u;
+    v119 = 0u;
+    v120 = 0u;
+    v33 = v110;
+    v34 = [v33 countByEnumeratingWithState:&v119 objects:v130 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v121;
+      v36 = *v120;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v121 != v36)
+          if (*v120 != v36)
           {
             objc_enumerationMutation(v33);
           }
 
-          v38 = *(*(&v120 + 1) + 8 * i);
+          v38 = *(*(&v119 + 1) + 8 * i);
           if (v32 == [v38 type])
           {
             range2 = [v38 range];
@@ -1864,66 +1833,66 @@ LABEL_15:
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v120 objects:v131 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v119 objects:v130 count:16];
       }
 
       while (v35);
     }
 
-    v31 = v112 + 1;
+    v31 = v111 + 1;
   }
 
-  while (v112 != 5);
+  while (v111 != 5);
   v42 = v30;
 
   [v42 sortUsingSelector:sel_compare_];
-  v118[0] = 0;
-  *v119 = 0u;
-  v118[1] = 256;
+  v117[0] = 0;
+  *v118 = 0u;
+  v117[1] = 256;
   v43 = malloc_type_malloc(0x100uLL, 0x100004077774924uLL);
   if (!v43)
   {
     goto LABEL_112;
   }
 
-  v119[0] = v43;
+  v118[0] = v43;
   v44 = malloc_type_malloc(0x800uLL, 0x100004000313F17uLL);
   if (!v44)
   {
     goto LABEL_112;
   }
 
-  v119[1] = v44;
+  v118[1] = v44;
+  v113 = 0u;
   v114 = 0u;
   v115 = 0u;
   v116 = 0u;
-  v117 = 0u;
   v45 = v42;
-  v46 = [v45 countByEnumeratingWithState:&v114 objects:v130 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v113 objects:v129 count:16];
   if (v46)
   {
     v47 = v46;
     v48 = 0;
-    v49 = *v115;
+    v49 = *v114;
 LABEL_43:
     v50 = 0;
     while (1)
     {
-      if (*v115 != v49)
+      if (*v114 != v49)
       {
         objc_enumerationMutation(v45);
       }
 
-      v51 = *(*(&v114 + 1) + 8 * v50);
+      v51 = *(*(&v113 + 1) + 8 * v50);
       start = [v51 start];
-      if (start >= [v110 length])
+      if (start >= [v109 length])
       {
         break;
       }
 
       if ([v51 start] > v48)
       {
-        tokenize(v110, v118, v48, [v51 start] - v48, nameCopy);
+        tokenize(v109, v117, v48, [v51 start] - v48, nameCopy);
       }
 
       type = [v51 type];
@@ -1937,11 +1906,11 @@ LABEL_43:
         v54 = type + 12;
       }
 
-      emitToken(v118, v54, [v51 start]);
+      emitToken(v117, v54, [v51 start]);
       v48 = [v51 end];
       if (v47 == ++v50)
       {
-        v47 = [v45 countByEnumeratingWithState:&v114 objects:v130 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v113 objects:v129 count:16];
         if (v47)
         {
           goto LABEL_43;
@@ -1957,14 +1926,14 @@ LABEL_43:
     v48 = 0;
   }
 
-  v57 = v110;
-  if (v48 < [v110 length])
+  v57 = v109;
+  if (v48 < [v109 length])
   {
-    tokenize(v110, v118, v48, [v110 length] - v48, nameCopy);
+    tokenize(v109, v117, v48, [v109 length] - v48, nameCopy);
   }
 
-  v58 = v119[0];
-  v59 = v118[0];
+  v58 = v118[0];
+  v59 = v117[0];
   if (viterbi_hmmOnceToken != -1)
   {
     dispatch_once(&viterbi_hmmOnceToken, &__block_literal_global_246_23195);
@@ -1983,8 +1952,8 @@ LABEL_43:
   if (!v64)
   {
 LABEL_112:
-    v105 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
-    objc_exception_throw(v105);
+    v104 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE728] reason:@"malloc failed" userInfo:0];
+    objc_exception_throw(v104);
   }
 
   v65 = v64;
@@ -2065,23 +2034,23 @@ LABEL_112:
   free(v62);
   free(v63);
   free(v65);
-  v57 = v110;
+  v57 = v109;
 LABEL_79:
-  v88 = v118[0];
-  if (!v118[0])
+  v88 = v117[0];
+  if (!v117[0])
   {
     v55 = 0;
     v56 = 0x7FFFFFFFFFFFFFFFLL;
-    dataCopy = v106;
-    contentCopy = v107;
-    regionsCopy = v108;
+    dataCopy = v105;
+    contentCopy = v106;
+    regionsCopy = v107;
     goto LABEL_106;
   }
 
   v89 = 0;
-  dataCopy = v106;
-  contentCopy = v107;
-  regionsCopy = v108;
+  dataCopy = v105;
+  contentCopy = v106;
+  regionsCopy = v107;
   while (1)
   {
     v90 = (v89 + 1);
@@ -2091,13 +2060,13 @@ LABEL_79:
     }
 
     ++v89;
-    if (v118[0] == v90)
+    if (v117[0] == v90)
     {
       goto LABEL_105;
     }
   }
 
-  if (LODWORD(v118[0]) - v89 > 39)
+  if (LODWORD(v117[0]) - v89 > 39)
   {
     v91 = sgLogHandle();
     if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
@@ -2109,24 +2078,24 @@ LABEL_79:
     goto LABEL_105;
   }
 
-  if (v118[0] <= (v89 + 1))
+  if (v117[0] <= (v89 + 1))
   {
 LABEL_98:
-    v56 = *(v119[1] + v89);
-    v57 = v110;
-    v96 = [v110 rangeOfString:@"\n" options:6 range:{0, v56}];
+    v56 = *(v118[1] + v89);
+    v57 = v109;
+    v96 = [v109 rangeOfString:@"\n" options:6 range:{0, v56}];
     if (v97)
     {
       if ((v56 - v96) >= 5)
       {
-        v98 = [v110 rangeOfString:@"\n" options:2 range:{v56, objc_msgSend(v110, "length") - v56}];
+        v98 = [v109 rangeOfString:@"\n" options:2 range:{v56, objc_msgSend(v109, "length") - v56}];
         if (v99)
         {
           v56 = v98 + 1;
         }
       }
 
-      v100 = [v110 length];
+      v100 = [v109 length];
       v55 = v100 - v56;
       if (v100 == v56)
       {
@@ -2143,7 +2112,7 @@ LABEL_105:
   }
 
   v92 = 0;
-  while (*(v119[0] + v90) != 17)
+  while (*(v118[0] + v90) != 17)
   {
 LABEL_97:
     if (v88 <= ++v90)
@@ -2152,46 +2121,45 @@ LABEL_97:
     }
   }
 
-  v93 = *(v119[1] + v90);
+  v93 = *(v118[1] + v90);
   v94 = (v90 + 1);
   if (v88 <= v94)
   {
-    v95 = [v110 length];
+    v95 = [v109 length];
   }
 
   else
   {
-    v95 = *(v119[1] + v94);
+    v95 = *(v118[1] + v94);
   }
 
   v92 += v95 - v93;
   if (v92 <= 0x100)
   {
-    v88 = v118[0];
+    v88 = v117[0];
     goto LABEL_97;
   }
 
-  v104 = sgLogHandle();
-  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
+  v103 = sgLogHandle();
+  if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_debug_impl(&dword_231E60000, v104, OS_LOG_TYPE_DEBUG, "HMM confused, too much quoting in signature", buf, 2u);
+    _os_log_debug_impl(&dword_231E60000, v103, OS_LOG_TYPE_DEBUG, "HMM confused, too much quoting in signature", buf, 2u);
   }
 
   v55 = 0;
   v56 = 0x7FFFFFFFFFFFFFFFLL;
-  v57 = v110;
+  v57 = v109;
 LABEL_106:
   free(v60);
-  free(v119[0]);
-  free(v119[1]);
+  free(v118[0]);
+  free(v118[1]);
 
 LABEL_107:
-  v101 = *MEMORY[0x277D85DE8];
-  v102 = v56;
-  v103 = v55;
-  result.length = v103;
-  result.location = v102;
+  v101 = v56;
+  v102 = v55;
+  result.length = v102;
+  result.location = v101;
   return result;
 }
 
@@ -2222,7 +2190,7 @@ void __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quoted
 
 - (_NSRange)hmmPlausibleSignatureRange:(id)range
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   v5 = [(SGSignatureDissector *)self findValedictionCommencedSignatureRanges:rangeCopy];
   firstObject = [v5 firstObject];
@@ -2236,32 +2204,32 @@ void __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quoted
     v11 = [textContent substringToIndex:rangeValue + v9];
 
     quotedRegions = [rangeCopy quotedRegions];
-    v31 = [quotedRegions indexesInRange:0 options:objc_msgSend(v11 passingTest:{"length"), 0, &__block_literal_global_23237}];
+    v30 = [quotedRegions indexesInRange:0 options:objc_msgSend(v11 passingTest:{"length"), 0, &__block_literal_global_23237}];
 
     v13 = objc_alloc(MEMORY[0x277CBEB18]);
     plainTextDetectedData = [rangeCopy plainTextDetectedData];
-    v15 = [v13 initWithCapacity:{objc_msgSend(plainTextDetectedData, "count")}];
+    v15 = [v13 initWithCapacity:objc_msgSend_count(plainTextDetectedData)];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     plainTextDetectedData2 = [rangeCopy plainTextDetectedData];
-    v17 = [plainTextDetectedData2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [plainTextDetectedData2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(plainTextDetectedData2);
           }
 
-          v21 = *(*(&v33 + 1) + 8 * i);
+          v21 = *(*(&v32 + 1) + 8 * i);
           range = [v21 range];
           [v21 range];
           if (v23 + range <= [v11 length])
@@ -2270,14 +2238,14 @@ void __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quoted
           }
         }
 
-        v18 = [plainTextDetectedData2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [plainTextDetectedData2 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
     }
 
     v24 = [(SGSignatureDissector *)self authorFirstname:rangeCopy];
-    v25 = [(SGSignatureDissector *)self hmmSignatureRangeWithContent:v11 detectedData:v15 quotedRegions:v31 authorName:v24];
+    v25 = [(SGSignatureDissector *)self hmmSignatureRangeWithContent:v11 detectedData:v15 quotedRegions:v30 authorName:v24];
     v27 = v26;
 
     objc_autoreleasePoolPop(context);
@@ -2289,11 +2257,10 @@ void __91__SGSignatureDissector_hmmSignatureRangeWithContent_detectedData_quoted
     v25 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-  v29 = v25;
-  v30 = v27;
-  result.length = v30;
-  result.location = v29;
+  v28 = v25;
+  v29 = v27;
+  result.length = v29;
+  result.location = v28;
   return result;
 }
 
@@ -2462,6 +2429,42 @@ uint64_t __77__SGSignatureDissector_findSignaturePrefixesInMessage_withSignature
   }
 
   return v8;
+}
+
+uint64_t __64__SGSignatureDissector_findValedictionCommencedSignatureRanges___block_invoke(id *a1, NSRange range1)
+{
+  length = v2;
+  if (v5)
+  {
+    v20.location = v6 - 1;
+    v19.location = v6;
+    v19.length = length;
+    v20.length = 1;
+    v7 = NSUnionRange(v19, v20);
+    location = v7.location;
+    length = v7.length;
+  }
+
+  else
+  {
+    location = 0;
+  }
+
+  v9 = [a1[4] substringWithRange:{location, length}];
+  v10 = patterns_23118();
+  v11 = [v10 regex2ForKey:@"RelaxedSig/F"];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __64__SGSignatureDissector_findValedictionCommencedSignatureRanges___block_invoke_2;
+  v13[3] = &unk_27894F550;
+  v17 = location;
+  v18 = length;
+  v14 = a1[5];
+  v15 = a1[4];
+  v16 = a1[6];
+  [v11 enumerateMatchesInString:v9 ngroups:0 block:v13];
+
+  return 1;
 }
 
 uint64_t __64__SGSignatureDissector_findValedictionCommencedSignatureRanges___block_invoke_2(uint64_t a1, void *a2)
@@ -2693,7 +2696,7 @@ LABEL_53:
   rangeCopy = range;
   htmlParser = [rangeCopy htmlParser];
   signatureRegions = [htmlParser signatureRegions];
-  if ([signatureRegions count])
+  if (objc_msgSend_count(signatureRegions))
   {
     firstIndex = [signatureRegions firstIndex];
     lastIndex = [signatureRegions lastIndex];

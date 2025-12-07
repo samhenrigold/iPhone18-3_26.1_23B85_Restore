@@ -1,13 +1,13 @@
 @interface _PSFeatureDictionaryEnumerator
 - (id)_allKeys;
 - (id)_nextKey;
+- (id)initWithCollection:(id *)collection;
 - (uint64_t)_loadNextKeyEnumerator;
-- (uint64_t)initWithCollection:(uint64_t)collection;
 @end
 
 @implementation _PSFeatureDictionaryEnumerator
 
-- (uint64_t)initWithCollection:(uint64_t)collection
+- (id)initWithCollection:(id *)collection
 {
   v3 = a2;
   if (collection)
@@ -19,12 +19,12 @@
     if (v4)
     {
       objc_storeStrong(v4 + 2, v3[1]);
-      objc_storeStrong((collection + 24), v3[2]);
-      allKeys = [*(collection + 16) allKeys];
-      v7 = *(collection + 8);
-      *(collection + 8) = allKeys;
+      objc_storeStrong(collection + 3, v3[2]);
+      allKeys = [collection[2] allKeys];
+      v7 = collection[1];
+      collection[1] = allKeys;
 
-      *(collection + 32) = [*(collection + 16) count];
+      collection[4] = [collection[2] count];
       [(_PSFeatureDictionaryEnumerator *)collection _loadNextKeyEnumerator];
     }
   }
@@ -96,7 +96,7 @@
 
 - (id)_allKeys
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_opt_new();
@@ -121,29 +121,29 @@
       v8 = [*(self + 8) objectAtIndexedSubscript:i - 1];
       v9 = [v7 objectForKeyedSubscript:v8];
 
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v11)
       {
         v12 = v11;
         v13 = 0;
-        v14 = *v32;
+        v14 = *v31;
         do
         {
           v15 = 0;
           v16 = v13;
           do
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v13 = *(*(&v31 + 1) + 8 * v15);
+            v13 = *(*(&v30 + 1) + 8 * v15);
 
             [v2 addObject:v13];
             ++v15;
@@ -151,7 +151,7 @@
           }
 
           while (v12 != v15);
-          v12 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v30 objects:v35 count:16];
         }
 
         while (v12);
@@ -163,37 +163,37 @@
     v17 = *(self + 24);
     if (v17 && (*(self + 48) & 1) == 0)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v19)
       {
         v20 = v19;
         v21 = 0;
-        v22 = *v28;
+        v22 = *v27;
         do
         {
           v23 = 0;
           v24 = v21;
           do
           {
-            if (*v28 != v22)
+            if (*v27 != v22)
             {
               objc_enumerationMutation(v18);
             }
 
-            v21 = *(*(&v27 + 1) + 8 * v23);
+            v21 = *(*(&v26 + 1) + 8 * v23);
 
-            [v2 addObject:{v21, v27}];
+            [v2 addObject:{v21, v26}];
             ++v23;
             v24 = v21;
           }
 
           while (v20 != v23);
-          v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v20);
@@ -207,8 +207,6 @@
   {
     v2 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

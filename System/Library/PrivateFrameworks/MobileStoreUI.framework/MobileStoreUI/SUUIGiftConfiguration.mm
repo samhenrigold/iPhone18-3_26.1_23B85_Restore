@@ -76,9 +76,9 @@
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;
@@ -335,7 +335,7 @@ void __44__SUUIGiftConfiguration_loadLogoForCharity___block_invoke_2(uint64_t a1
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v21 = [v67 isEqualToString:@"LEFT"] ^ 1;
+        v21 = objc_msgSend_isEqualToString_(v67) ^ 1;
       }
 
       else

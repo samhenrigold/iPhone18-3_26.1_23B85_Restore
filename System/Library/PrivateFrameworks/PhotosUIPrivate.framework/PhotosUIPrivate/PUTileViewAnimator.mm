@@ -106,7 +106,7 @@
   }
 
   kind = [optionsCopy kind];
-  [optionsCopy duration];
+  objc_msgSend_duration(optionsCopy);
   v17 = v16;
   [optionsCopy delay];
   v19 = v18;
@@ -381,7 +381,7 @@ uint64_t __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions
   v25[0] = *a2;
   v25[1] = v23;
   v25[2] = a2[2];
-  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v25 bounds:v22 transform:a3 withDuration:a4 delay:a5 usingSpringWithDamping:a6 initialVelocity:a7 options:a8 completion:{a9, v19, v20, v21, a15, a16, a17}];
+  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v25 bounds:v22 transform:a3 withDuration:a13 delay:a14 usingSpringWithDamping:a4 initialVelocity:a5 options:a6 completion:{a7, a8, a9, v19, v20, v21, a15, a16, a17}];
 }
 
 void __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions_completionHandler___block_invoke_10(uint64_t a1, void *a2)
@@ -404,7 +404,7 @@ uint64_t __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions
   v23[0] = *a2;
   v23[1] = v21;
   v23[2] = a2[2];
-  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v23 bounds:v20 transform:a3 usingDefaultDampedSpringWithDelay:a4 initialVelocity:a5 options:a6 completion:{a7, a8, a9, v19, a15, a16, a17}];
+  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v23 bounds:v20 transform:a3 usingDefaultDampedSpringWithDelay:a13 initialVelocity:a14 options:a4 completion:{a5, a6, a7, a8, a9, v19, a15, a16, a17}];
 }
 
 void __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions_completionHandler___block_invoke_12(uint64_t a1, void *a2)
@@ -430,7 +430,7 @@ uint64_t __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions
   v26[0] = *a2;
   v26[1] = v24;
   v26[2] = a2[2];
-  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v26 bounds:v21 transform:a3 usingSpringWithDuration:a4 delay:a5 options:a6 mass:a7 stiffness:a8 damping:a9 initialVelocity:v19 completion:{v20, v22, v23, a15, a16, a17}];
+  return [MEMORY[0x1E69DD250] pu_animateView:v18 toCenter:v26 bounds:v21 transform:a3 usingSpringWithDuration:a13 delay:a14 options:a4 mass:a5 stiffness:a6 damping:a7 initialVelocity:a8 completion:{a9, v19, v20, v22, v23, a15, a16, a17}];
 }
 
 void __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions_completionHandler___block_invoke_14(uint64_t a1, void *a2)
@@ -494,7 +494,7 @@ void __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions_com
       v25 = *(a1 + 48);
       if (v25)
       {
-        [v25 transform];
+        objc_msgSend_transform(v25);
       }
 
       v26 = *MEMORY[0x1E695EFF8];
@@ -587,7 +587,7 @@ void __87__PUTileViewAnimator_animateTileController_toLayoutInfo_withOptions_com
     [v2 setFrame:?];
     if (v5)
     {
-      [v5 transform];
+      objc_msgSend_transform(v5);
     }
 
     else

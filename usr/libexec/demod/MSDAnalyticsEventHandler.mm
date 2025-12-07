@@ -10,6 +10,8 @@
 - (void)sendAutoEnrollmentAbortEvent:(id)event languageCode:(id)code countryCode:(id)countryCode networkInformation:(id)information wifiSSID:(id)d;
 - (void)sendAutoEnrollmentResults:(id)results;
 - (void)sendBgDownloadPausedEvent:(int64_t)event forReason:(id)reason;
+- (void)sendContentUpdateCompletedEvent:(int64_t)event withTimeTaken:(double)taken cachingHubAvailable:(BOOL)available isCriticalUpdate:(BOOL)update contentUpdateType:(id)type andComponentSuccess:(int64_t)success;
+- (void)sendContentUpdateFailureEvent:(id)event isFatal:(BOOL)fatal;
 - (void)sendContinuityLinkingFailureEvent:(id)event;
 - (void)sendEnrollmentFailureEvent:(id)event;
 - (void)sendFMHFailureEvent:(id)event;
@@ -53,6 +55,31 @@
   }
 
   return v3;
+}
+
+- (void)sendContentUpdateFailureEvent:(id)event isFatal:(BOOL)fatal
+{
+  fatalCopy = fatal;
+  eventCopy = event;
+  v15 = [(MSDAnalyticsEventHandler *)self prepareCAData:0];
+  v7 = +[MSDProgressUpdater sharedInstance];
+  bundleInProgress = [v7 bundleInProgress];
+
+  bundleInfo = [bundleInProgress bundleInfo];
+  v10 = [(MSDAnalyticsEventHandler *)self getDemoBundleInfo:bundleInfo];
+
+  [v15 setObject:v10 forKey:@"demoBundleInProgressInfo"];
+  v11 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [eventCopy code]);
+  [v15 setObject:v11 forKey:@"errorCode"];
+
+  localizedDescription = [eventCopy localizedDescription];
+
+  [v15 setObject:localizedDescription forKey:@"errorMessage"];
+  v13 = [NSNumber numberWithBool:fatalCopy];
+  [v15 setObject:v13 forKey:@"isFatal"];
+
+  v14 = +[MSDAnalytics sharedInstance];
+  [v14 sendEvent:@"com.apple.MobileStoreDemo.contentUpdateFailure" withPayload:v15];
 }
 
 - (void)sendiCloudSigninFailureEvent:(id)event
@@ -139,6 +166,42 @@
   [v11 setObject:localizedDescription forKey:@"errorMessage"];
   v10 = +[MSDAnalytics sharedInstance];
   [v10 sendEvent:@"com.apple.MobileStoreDemo.networkFailure" withPayload:v11];
+}
+
+- (void)sendContentUpdateCompletedEvent:(int64_t)event withTimeTaken:(double)taken cachingHubAvailable:(BOOL)available isCriticalUpdate:(BOOL)update contentUpdateType:(id)type andComponentSuccess:(int64_t)success
+{
+  updateCopy = update;
+  availableCopy = available;
+  typeCopy = type;
+  v26 = [(MSDAnalyticsEventHandler *)self prepareCAData:0];
+  v15 = +[MSDProgressUpdater sharedInstance];
+  bundleInProgress = [v15 bundleInProgress];
+
+  bundleInfo = [bundleInProgress bundleInfo];
+  v18 = [(MSDAnalyticsEventHandler *)self getDemoBundleInfo:bundleInfo];
+
+  [v26 setObject:v18 forKey:@"demoBundleInProgressInfo"];
+  v19 = [NSNumber numberWithLongLong:event];
+  [v26 setObject:v19 forKey:@"downloadSize"];
+
+  v20 = [(MSDAnalyticsEventHandler *)self getDownloadSizeBucket:event];
+  [v26 setObject:v20 forKey:@"downloadSizeBucket"];
+
+  v21 = [NSNumber numberWithBool:availableCopy];
+  [v26 setObject:v21 forKey:@"isCachingHubAvailable"];
+
+  v22 = [NSNumber numberWithBool:updateCopy];
+  [v26 setObject:v22 forKey:@"isCriticalUpdate"];
+
+  [v26 setObject:typeCopy forKey:@"contentUpdateType"];
+  v23 = [NSNumber numberWithDouble:taken];
+  [v26 setObject:v23 forKey:@"timeTaken"];
+
+  v24 = [NSNumber numberWithInt:success];
+  [v26 setObject:v24 forKey:@"componentSuccessPercent"];
+
+  v25 = +[MSDAnalytics sharedInstance];
+  [v25 sendEvent:@"com.apple.MobileStoreDemo.contentUpdateCompleted" withPayload:v26];
 }
 
 - (void)sendBgDownloadPausedEvent:(int64_t)event forReason:(id)reason
@@ -476,7 +539,7 @@
 
     v14 = [getDeviceOptions3 objectForKey:@"store_type"];
 
-    v35 = getDeviceOptions3;
+    v37 = getDeviceOptions3;
     if (v14)
     {
       v15 = [getDeviceOptions3 objectForKey:@"store_type"];
@@ -487,7 +550,7 @@
       v15 = @"<unknown>";
     }
 
-    v34 = v15;
+    v36 = v15;
     [v5 setObject:v15 forKey:@"storeType"];
     v16 = +[MSDProgressUpdater sharedInstance];
     installedBundle = [v16 installedBundle];
@@ -508,7 +571,7 @@
     v24 = getLastBundleUpdateDate;
     if (getLastBundleUpdateDate && ([getLastBundleUpdateDate isEqualToString:@"<unknown>"] & 1) == 0)
     {
-      v33 = v19;
+      v35 = v19;
       v26 = objc_alloc_init(NSDateFormatter);
       [v26 setDateFormat:@"yyyy-MM-dd"];
       v27 = [v26 dateFromString:v24];
@@ -516,16 +579,16 @@
 
       if (!v25)
       {
-        v28 = sub_100063A54();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v29 = sub_100063A54(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000D9CD0(v28);
+          sub_1000D9CD0(v29);
         }
 
         v25 = @"<unknown>";
       }
 
-      v19 = v33;
+      v19 = v35;
     }
 
     else
@@ -535,21 +598,21 @@
     }
 
     [v5 setObject:v25 forKey:@"lastBundleUpdateDate"];
-    v29 = +[NSDate date];
-    v30 = [v20 stringFromDate:v29];
+    v30 = +[NSDate date];
+    v31 = [v20 stringFromDate:v30];
 
-    if (!v30)
+    if (!v31)
     {
-      v31 = sub_100063A54();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v33 = sub_100063A54(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        sub_1000D9D14(v31);
+        sub_1000D9D14(v33);
       }
 
-      v30 = @"<unknown>";
+      v31 = @"<unknown>";
     }
 
-    [v5 setObject:v30 forKey:@"localDate"];
+    [v5 setObject:v31 forKey:@"localDate"];
   }
 
   return v5;
@@ -558,7 +621,7 @@
 - (id)getDownloadSizeBucket:(int64_t)bucket
 {
   v4 = [NSString stringWithFormat:@"%ld-%ld GB", bucket / 1000000000, bucket / 1000000000 + 1];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D9D58(v4, bucket, v5);

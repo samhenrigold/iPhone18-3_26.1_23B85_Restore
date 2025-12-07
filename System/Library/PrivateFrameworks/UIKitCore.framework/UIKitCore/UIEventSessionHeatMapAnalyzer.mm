@@ -465,7 +465,7 @@ LABEL_13:
   {
     v18 = 0uLL;
     v19 = 0;
-    [UIEventSessionHeatMapAnalyzer determineGridCoordinateWithLocationInWindow:v16 withWindowFrame:v15, x, y, width, height];
+    objc_msgSend_determineGridCoordinateWithLocationInWindow_withWindowFrame_(UIEventSessionHeatMapAnalyzer, v16, v15, x, y, width, height);
   }
 }
 

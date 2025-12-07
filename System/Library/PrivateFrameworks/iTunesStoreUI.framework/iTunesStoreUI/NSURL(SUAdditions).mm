@@ -1,11 +1,11 @@
 @interface NSURL(SUAdditions)
-+ (uint64_t)termsAndConditionsURL;
++ (void)termsAndConditionsURL;
 - (uint64_t)storeURLType;
 @end
 
 @implementation NSURL(SUAdditions)
 
-+ (uint64_t)termsAndConditionsURL
++ (void)termsAndConditionsURL
 {
   mEMORY[0x1E69E47F8] = [MEMORY[0x1E69E47F8] sharedCache];
   v1 = [mEMORY[0x1E69E47F8] URLBagForContext:{objc_msgSend(MEMORY[0x1E69D49F8], "contextWithBagType:", 0)}];

@@ -12,6 +12,7 @@
 - (id)dictionaryRepresentation;
 - (int)getFrameIndexOfLastRefine;
 - (void)addBoxesDict:(const box3d *)dict forDictKey:(id)key;
+- (void)addGroupId:(int)id forGroupType:(id)type;
 - (void)addObjectPartAttribute:(id)attribute;
 - (void)clearGroupInfo:(id)info;
 - (void)encodeWithCoder:(id)coder;
@@ -383,7 +384,7 @@ LABEL_5:
 
 - (id)dictionaryRepresentation
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:self->type forKeyedSubscript:@"type"];
   [dictionary setObject:self->detection_source forKeyedSubscript:@"detectionsource"];
@@ -418,18 +419,18 @@ LABEL_5:
   v9 = [MEMORY[0x277CCABB0] numberWithBool:self->status];
   [dictionary setObject:v9 forKeyedSubscript:@"status"];
 
-  v19 = *self->color;
+  v18 = *self->color;
   v10 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-  v20[0] = v10;
-  HIDWORD(v11) = DWORD1(v19);
-  LODWORD(v11) = DWORD1(v19);
+  v19[0] = v10;
+  HIDWORD(v11) = DWORD1(v18);
+  LODWORD(v11) = DWORD1(v18);
   v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v20[1] = v12;
-  v13 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v19), DWORD2(v19)))}];
-  v20[2] = v13;
-  v14 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v19), HIDWORD(v19)))}];
-  v20[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+  v19[1] = v12;
+  v13 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v18), DWORD2(v18)))}];
+  v19[2] = v13;
+  v14 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v18), HIDWORD(v18)))}];
+  v19[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
 
   [dictionary setObject:v15 forKeyedSubscript:@"color"];
   [dictionary setObject:self->_groups forKeyedSubscript:@"groups"];
@@ -441,8 +442,6 @@ LABEL_5:
 
   [dictionary setObject:self->cadModelName forKeyedSubscript:@"cadmodelname"];
   v16 = [dictionary copy];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -510,70 +509,7 @@ LABEL_5:
     v8 = 0;
   }
 
-  if (!v8)
-  {
-    goto LABEL_39;
-  }
-
-  type = v5->type;
-  v5->type = v8;
-  v10 = v8;
-
-  valid = isValidType(v5->type);
-  if ((valid & 1) == 0)
-  {
-    goto LABEL_39;
-  }
-
-  v12 = [representationCopy objectForKeyedSubscript:@"detectionsource"];
-  objc_opt_class();
-  v13 = (objc_opt_isKindOfClass() & 1) != 0 ? v12 : 0;
-
-  if (!v13)
-  {
-    goto LABEL_39;
-  }
-
-  detection_source = v5->detection_source;
-  v5->detection_source = v13;
-  v15 = v13;
-
-  v16 = isValidODSourceType(v5->detection_source);
-  if ((v16 & 1) == 0)
-  {
-    goto LABEL_39;
-  }
-
-  v17 = [representationCopy objectForKeyedSubscript:@"identifier"];
-  if (!v17)
-  {
-    goto LABEL_39;
-  }
-
-  v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v17];
-  identifier = v5->identifier;
-  v5->identifier = v18;
-
-  v20 = [representationCopy objectForKeyedSubscript:@"parent_id"];
-  v21 = v20 ? [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v20] : 0;
-  parent_id = v5->parent_id;
-  v5->parent_id = v21;
-
-  v23 = [representationCopy objectForKeyedSubscript:@"status"];
-  objc_opt_class();
-  v24 = (objc_opt_isKindOfClass() & 1) != 0 ? v23 : 0;
-
-  if (!v24)
-  {
-    goto LABEL_39;
-  }
-
-  v5->status = [v24 BOOLValue];
-
-  v25 = [representationCopy objectForKeyedSubscript:@"confidence"];
-  v26 = objc_cast<NSNumber>(v25);
-
-  if (v26)
+  if (v8 && (type = v5->type, v5->type = v8, v10 = v8, type, valid = isValidType(v5->type), v10, (valid & 1) != 0) && (([representationCopy objectForKeyedSubscript:@"detectionsource"], v12 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v13 = 0) : (v13 = v12), (v12, v12, v13) && (detection_source = v5->detection_source, v5->detection_source = v13, v15 = v13, detection_source, v16 = isValidODSourceType(v5->detection_source), v15, (v16 & 1) != 0) && (objc_msgSend(representationCopy, "objectForKeyedSubscript:", @"identifier"), (v17 = objc_claimAutoreleasedReturnValue()) != 0) && ((v18 = objc_msgSend(objc_alloc(MEMORY[0x277CCAD78]), "initWithUUIDString:", v17), identifier = v5->identifier, v5->identifier = v18, identifier, v17, objc_msgSend(representationCopy, "objectForKeyedSubscript:", @"parent_id"), (v20 = objc_claimAutoreleasedReturnValue()) == 0) ? (v21 = 0) : (v21 = objc_msgSend(objc_alloc(MEMORY[0x277CCAD78]), "initWithUUIDString:", v20)), (parent_id = v5->parent_id, v5->parent_id = v21, parent_id, v20, objc_msgSend(representationCopy, "objectForKeyedSubscript:", @"status"), v23 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v24 = 0) : (v24 = v23), (v23, v23, v24) && (v5->status = objc_msgSend(v24, "BOOLValue"), v24, objc_msgSend(representationCopy, "objectForKeyedSubscript:", @"confidence"), v25 = objc_claimAutoreleasedReturnValue(), objc_cast<NSNumber>(v25), v26 = objc_claimAutoreleasedReturnValue(), v25, v26))))
   {
     [v26 floatValue];
     v5->confidence = v27;
@@ -692,7 +628,6 @@ LABEL_5:
 
   else
   {
-LABEL_39:
     v73 = 0;
   }
 
@@ -722,30 +657,40 @@ LABEL_39:
   return v7;
 }
 
+- (void)addGroupId:(int)id forGroupType:(id)type
+{
+  v4 = *&id;
+  typeCopy = type;
+  if (isValidGroupType(typeCopy))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    [(NSMutableDictionary *)self->_groups setObject:v6 forKeyedSubscript:typeCopy];
+  }
+}
+
 - (void)addBoxesDict:(const box3d *)dict forDictKey:(id)key
 {
-  v17[8] = *MEMORY[0x277D85DE8];
+  v16[8] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v6 = float3ToNSArray(*dict);
-  v17[0] = v6;
+  v16[0] = v6;
   v7 = float3ToNSArray(*(dict + 1));
-  v17[1] = v7;
+  v16[1] = v7;
   v8 = float3ToNSArray(*(dict + 2));
-  v17[2] = v8;
+  v16[2] = v8;
   v9 = float3ToNSArray(*(dict + 3));
-  v17[3] = v9;
+  v16[3] = v9;
   v10 = float3ToNSArray(*(dict + 4));
-  v17[4] = v10;
+  v16[4] = v10;
   v11 = float3ToNSArray(*(dict + 5));
-  v17[5] = v11;
+  v16[5] = v11;
   v12 = float3ToNSArray(*(dict + 6));
-  v17[6] = v12;
+  v16[6] = v12;
   v13 = float3ToNSArray(*(dict + 7));
-  v17[7] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:8];
+  v16[7] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:8];
 
   [(NSMutableDictionary *)self->_boxesDict setObject:v14 forKeyedSubscript:keyCopy];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObjectPartAttribute:(id)attribute
@@ -760,14 +705,14 @@ LABEL_39:
   embedding2dCopy = embedding2d;
   if (![(NSArray *)self->embedding2d count])
   {
-    v8 = objc_opt_new();
-    v20 = [embedding2dCopy mutableCopy];
-    [v8 addObject:v20];
+    v10 = objc_opt_new();
+    v22 = [embedding2dCopy mutableCopy];
+    [v10 addObject:v22];
 
-    v21 = [v8 copy];
+    v23 = [v10 copy];
 LABEL_14:
     embedding2d = self->embedding2d;
-    self->embedding2d = v21;
+    self->embedding2d = v23;
 
     goto LABEL_15;
   }
@@ -778,41 +723,41 @@ LABEL_14:
 
   if (v6 == v7)
   {
-    v8 = [(NSArray *)self->embedding2d mutableCopy];
+    v10 = [(NSArray *)self->embedding2d mutableCopy];
     for (i = 0; [embedding2dCopy count] > i; ++i)
     {
-      v10 = [v8 objectAtIndexedSubscript:0];
-      v11 = [v10 objectAtIndex:i];
-      [v11 floatValue];
-      v13 = v12;
+      v12 = [v10 objectAtIndexedSubscript:0];
+      v13 = [v12 objectAtIndex:i];
+      [v13 floatValue];
+      v15 = v14;
 
-      v14 = [embedding2dCopy objectAtIndex:i];
-      [v14 floatValue];
-      v16 = v15;
+      v16 = [embedding2dCopy objectAtIndex:i];
+      [v16 floatValue];
+      v18 = v17;
 
-      v17 = [v8 objectAtIndexedSubscript:0];
-      if (v13 >= v16)
+      v19 = [v10 objectAtIndexedSubscript:0];
+      if (v15 >= v18)
       {
-        *&v18 = v13;
+        *&v20 = v15;
       }
 
       else
       {
-        *&v18 = v16;
+        *&v20 = v18;
       }
 
-      v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-      [v17 replaceObjectAtIndex:i withObject:v19];
+      v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+      [v19 replaceObjectAtIndex:i withObject:v21];
     }
 
-    v21 = [v8 copy];
+    v23 = [v10 copy];
     goto LABEL_14;
   }
 
-  v22 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v24 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v8, v9);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    [OU3DObject updateObjectEmbedding2d:v22];
+    [OU3DObject updateObjectEmbedding2d:v24];
   }
 
 LABEL_15:
@@ -821,81 +766,77 @@ LABEL_15:
 - (void)updateObjectEmbedding3d:(id)embedding3d
 {
   embedding3dCopy = embedding3d;
-  if (-[NSArray count](self->embedding3d, "count") && (v5 = -[NSArray count](self->embedding3d, "count"), v5 != [embedding3dCopy count]))
+  if (-[NSArray count](self->embedding3d, "count") && (v5 = -[NSArray count](self->embedding3d, "count"), v6 = [embedding3dCopy count], v5 != v6))
   {
-    v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [OU3DObject updateObjectEmbedding3d:v8];
+      [OU3DObject updateObjectEmbedding3d:v10];
     }
   }
 
   else
   {
-    v6 = [embedding3dCopy mutableCopy];
+    v8 = [embedding3dCopy mutableCopy];
     embedding3d = self->embedding3d;
-    self->embedding3d = v6;
+    self->embedding3d = v8;
   }
 }
 
 - (int)getFrameIndexOfLastRefine
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(NSMutableArray *)self->_refined_box_history count])
+  v18 = *MEMORY[0x277D85DE8];
+  if (![(NSMutableArray *)self->_refined_box_history count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    reverseObjectEnumerator = [(NSMutableArray *)self->_refined_box_history reverseObjectEnumerator];
-    v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v4)
+    return -1;
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  reverseObjectEnumerator = [(NSMutableArray *)self->_refined_box_history reverseObjectEnumerator];
+  v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v4)
+  {
+    v5 = *v14;
+    while (2)
     {
-      v5 = *v15;
-      while (2)
+      for (i = 0; i != v4; ++i)
       {
-        for (i = 0; i != v4; ++i)
+        if (*v14 != v5)
         {
-          if (*v15 != v5)
-          {
-            objc_enumerationMutation(reverseObjectEnumerator);
-          }
-
-          v7 = *(*(&v14 + 1) + 8 * i);
-          refinedBox = [v7 refinedBox];
-          if (refinedBox)
-          {
-            refinedBox2 = [v7 refinedBox];
-            v10 = [refinedBox2 count] == 8;
-
-            if (v10)
-            {
-              frameIndex = [v7 frameIndex];
-              goto LABEL_14;
-            }
-          }
+          objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v4)
+        v7 = *(*(&v13 + 1) + 8 * i);
+        refinedBox = [v7 refinedBox];
+        if (refinedBox)
         {
-          continue;
-        }
+          refinedBox2 = [v7 refinedBox];
+          v10 = [refinedBox2 count] == 8;
 
-        break;
+          if (v10)
+          {
+            frameIndex = [v7 frameIndex];
+            goto LABEL_14;
+          }
+        }
       }
+
+      v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    frameIndex = -1;
+  frameIndex = -1;
 LABEL_14:
-  }
 
-  else
-  {
-    frameIndex = -1;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return frameIndex;
 }
 

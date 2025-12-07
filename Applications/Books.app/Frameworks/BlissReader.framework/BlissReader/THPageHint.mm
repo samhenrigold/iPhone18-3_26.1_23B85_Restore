@@ -208,7 +208,7 @@
   if (result)
   {
 
-    return unk_56C980(result, "hints");
+    return unk_575D30(result, "hints");
   }
 
   else

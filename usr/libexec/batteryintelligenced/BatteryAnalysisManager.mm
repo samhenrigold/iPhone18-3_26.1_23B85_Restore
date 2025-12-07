@@ -2049,80 +2049,82 @@ LABEL_85:
 
 - (void)postInternalTT80Notification:(double)notification
 {
-  if (sub_10001E444())
+  if (sub_10001E444(self, a2))
   {
     v5 = qword_1000578F0;
-    if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
+    v6 = os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Posting internal TT80 notification.", buf, 2u);
     }
 
-    v6 = sub_10001F960();
-    v7 = [v6 stringFromTimeInterval:notification];
+    v7 = sub_10001F960(v6);
+    v8 = [v7 stringFromTimeInterval:notification];
 
-    v8 = [NSString stringWithFormat:@"It will take %@ to charge to 80%%.", v7];
-    v9 = objc_alloc_init(UNMutableNotificationContent);
-    [v9 setTitle:@"Charge Time"];
-    [v9 setBody:v8];
-    [v9 setCategoryIdentifier:@"TimeTo80"];
-    [v9 setShouldIgnoreDowntime:1];
-    [v9 setShouldIgnoreDoNotDisturb:1];
-    [v9 setShouldHideDate:0];
-    [v9 setShouldSuppressScreenLightUp:0];
-    v10 = [UNNotificationIcon iconForSystemImageNamed:@"bolt.fill"];
-    [v9 setIcon:v10];
+    v9 = [NSString stringWithFormat:@"It will take %@ to charge to 80%%.", v8];
+    v10 = objc_alloc_init(UNMutableNotificationContent);
+    [v10 setTitle:@"Charge Time"];
+    [v10 setBody:v9];
+    [v10 setCategoryIdentifier:@"TimeTo80"];
+    [v10 setShouldIgnoreDowntime:1];
+    [v10 setShouldIgnoreDoNotDisturb:1];
+    [v10 setShouldHideDate:0];
+    [v10 setShouldSuppressScreenLightUp:0];
+    v11 = [UNNotificationIcon iconForSystemImageNamed:@"bolt.fill"];
+    [v10 setIcon:v11];
 
-    v11 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery"];
-    if (v11)
+    v12 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery"];
+    if (v12)
     {
-      [v9 setDefaultActionURL:v11];
+      [v10 setDefaultActionURL:v12];
     }
 
-    v12 = [NSDate dateWithTimeIntervalSinceNow:43200.0];
-    [v9 setExpirationDate:v12];
+    v13 = [NSDate dateWithTimeIntervalSinceNow:43200.0];
+    [v10 setExpirationDate:v13];
 
-    [(BatteryIntelligenceNotificationManager *)self->_notifyObj postNotificationWith:@"TimeTo80" content:v9];
+    [(BatteryIntelligenceNotificationManager *)self->_notifyObj postNotificationWith:@"TimeTo80" content:v10];
   }
 }
 
 - (void)postNotificationForComparision:(double)comparision against:(double)against
 {
-  if (sub_10001E444())
+  v7 = sub_10001E444(self, a2);
+  if (v7)
   {
-    v7 = sub_10001F960();
-    v8 = [v7 stringFromTimeInterval:comparision];
+    v8 = sub_10001F960(v7);
+    v9 = [v8 stringFromTimeInterval:comparision];
 
-    v9 = sub_10001F960();
-    v10 = [v9 stringFromTimeInterval:against];
+    v11 = sub_10001F960(v10);
+    v12 = [v11 stringFromTimeInterval:against];
 
-    v11 = [NSString stringWithFormat:@"Device reached %d in %@, First estimate for the latest charging session was %@.", sub_10001E8F4(), v10, v8];
-    v12 = objc_alloc_init(UNMutableNotificationContent);
-    [v12 setTitle:@"Charge Time"];
-    [v12 setBody:v11];
-    [v12 setCategoryIdentifier:@"TimeTo80"];
-    [v12 setShouldIgnoreDowntime:1];
-    [v12 setShouldIgnoreDoNotDisturb:1];
-    [v12 setShouldHideDate:0];
-    [v12 setShouldSuppressScreenLightUp:0];
-    v13 = [UNNotificationIcon iconForSystemImageNamed:@"bolt.fill"];
-    [v12 setIcon:v13];
+    v13 = [NSString stringWithFormat:@"Device reached %d in %@, First estimate for the latest charging session was %@.", sub_10001E8F4(), v12, v9];
+    v14 = objc_alloc_init(UNMutableNotificationContent);
+    [v14 setTitle:@"Charge Time"];
+    [v14 setBody:v13];
+    [v14 setCategoryIdentifier:@"TimeTo80"];
+    [v14 setShouldIgnoreDowntime:1];
+    [v14 setShouldIgnoreDoNotDisturb:1];
+    [v14 setShouldHideDate:0];
+    [v14 setShouldSuppressScreenLightUp:0];
+    v15 = [UNNotificationIcon iconForSystemImageNamed:@"bolt.fill"];
+    [v14 setIcon:v15];
 
-    v14 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery"];
-    if (v14)
+    v16 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery"];
+    if (v16)
     {
-      [v12 setDefaultActionURL:v14];
+      [v14 setDefaultActionURL:v16];
     }
 
-    v15 = [NSDate dateWithTimeIntervalSinceNow:43200.0];
-    [v12 setExpirationDate:v15];
+    v17 = [NSDate dateWithTimeIntervalSinceNow:43200.0];
+    [v14 setExpirationDate:v17];
 
-    [(BatteryIntelligenceNotificationManager *)self->_notifyObj postNotificationWith:@"TimeTo80" content:v12];
-    v16 = qword_1000578F0;
+    [(BatteryIntelligenceNotificationManager *)self->_notifyObj postNotificationWith:@"TimeTo80" content:v14];
+    v18 = qword_1000578F0;
     if (os_log_type_enabled(qword_1000578F0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Successfully posted internal comparison notification.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Successfully posted internal comparison notification.", buf, 2u);
     }
   }
 }

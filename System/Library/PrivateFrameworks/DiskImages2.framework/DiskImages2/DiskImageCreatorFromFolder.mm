@@ -88,54 +88,35 @@
   numBlocks2 = [(BaseDiskImageCreator *)self numBlocks];
   dataPartition2 = [(BaseDiskImageCreator *)self dataPartition];
   v11 = [dataPartition2 resizeFileSystemToMinimumWithError:error];
-
-  if (!v11)
-  {
-    goto LABEL_7;
-  }
-
-  dataPartition3 = [(BaseDiskImageCreator *)self dataPartition];
-  numBlocks3 = [dataPartition3 numBlocks];
-
-  if (numBlocks == numBlocks3 || -[DiskImageCreatorFromFolder resizeDataPartitionWithError:](self, "resizeDataPartitionWithError:", error) && (v15 = numBlocks2 - numBlocks, -[BaseDiskImageCreator dataPartition](self, "dataPartition"), v16 = objc_claimAutoreleasedReturnValue(), -[BaseDiskImageCreator setNumBlocks:](self, "setNumBlocks:", v15 + [v16 numBlocks]), v16, objc_msgSend(paramsCopy, "resizeWithNumBlocks:error:", -[BaseDiskImageCreator numBlocks](self, "numBlocks"), error)) && (-[BaseDiskImageCreator setNumBlocks:](self, "setNumBlocks:", objc_msgSend(paramsCopy, "numBlocks")), -[DiskImageCreatorFromFolder updatePartitionMapWithError:](self, "updatePartitionMapWithError:", error)))
-  {
-    v14 = [(BaseDiskImageCreator *)self ejectWithError:error];
-  }
-
-  else
-  {
-LABEL_7:
-    v14 = 0;
-  }
-
+  v14 = v11 && ((-[BaseDiskImageCreator dataPartition](self, "dataPartition"), v12 = ;
   return v14;
 }
 
 + (BOOL)allowParallelModeWithURL:(id)l outMode:(BOOL *)mode error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   lCopy = l;
   LOBYTE(v8) = 1;
   *mode = 1;
   if ([lCopy isFileURL])
   {
-    memset(&v33, 0, 512);
-    if (statfs([lCopy fileSystemRepresentation], &v33) < 0)
+    memset(&v37, 0, 512);
+    if (statfs([lCopy fileSystemRepresentation], &v37) < 0)
     {
       v8 = *__error();
-      v18 = MEMORY[0x277CCACA8];
+      v22 = MEMORY[0x277CCACA8];
       path = [lCopy path];
-      v12 = [v18 stringWithFormat:@"Failed to access folder: %@", path];
+      v12 = [v22 stringWithFormat:@"Failed to access folder: %@", path];
       LOBYTE(v8) = [DIError failWithPOSIXCode:v8 verboseInfo:v12 error:error];
     }
 
     else
     {
-      v9 = [DIHelpers copyDevicePathWithStatfs:&v33];
+      v9 = [DIHelpers copyDevicePathWithStatfs:&v37];
       path = v9;
-      if ((v33.f_flags & 0x1000) == 0 || ![v9 hasPrefix:@"/dev/disk"])
+      if ((v37.f_flags & 0x1000) == 0 || ![v9 hasPrefix:@"/dev/disk"])
       {
-        goto LABEL_25;
+        goto LABEL_28;
       }
 
       v11 = [[DIIOMedia alloc] initWithDevName:path error:error];
@@ -151,42 +132,54 @@ LABEL_7:
           if (v14)
           {
             v15 = *__error();
-            if (DIForwardLogs())
+            v16 = DIForwardLogs();
+            if (v16)
             {
-              v16 = getDIOSLog();
-              os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-              [lCopy path];
-              *buf = 68158466;
-              v26 = 69;
-              v27 = 2080;
-              v28 = "+[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:]";
-              v30 = v29 = 2112;
-              v31 = 2112;
-              v32 = v14;
-              v17 = _os_log_send_and_compose_impl();
-
-              if (v17)
+              v28 = 0;
+              v18 = getDIOSLog(v16, v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
-                fprintf(*MEMORY[0x277D85DF8], "%s\n", v17);
-                free(v17);
+                v19 = 3;
+              }
+
+              else
+              {
+                v19 = 2;
+              }
+
+              path2 = [lCopy path];
+              *buf = 68158466;
+              v30 = 69;
+              v31 = 2080;
+              v32 = "+[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:]";
+              v33 = 2112;
+              v34 = path2;
+              v35 = 2112;
+              v36 = v14;
+              v21 = _os_log_send_and_compose_impl(v19, &v28, 0, 0, &dword_248DE0000, v18, 0, "%.*s: Block device class for %@: %@", buf, 38);
+
+              if (v21)
+              {
+                fprintf(*MEMORY[0x277D85DF8], "%s\n", v21);
+                free(v21);
               }
             }
 
             else
             {
-              v19 = getDIOSLog();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v23 = getDIOSLog(v16, v17);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
-                path2 = [lCopy path];
+                path3 = [lCopy path];
                 *buf = 68158466;
-                v26 = 69;
-                v27 = 2080;
-                v28 = "+[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:]";
-                v29 = 2112;
-                v30 = path2;
-                v31 = 2112;
-                v32 = v14;
-                _os_log_impl(&dword_248DE0000, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Block device class for %@: %@", buf, 0x26u);
+                v30 = 69;
+                v31 = 2080;
+                v32 = "+[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:]";
+                v33 = 2112;
+                v34 = path3;
+                v35 = 2112;
+                v36 = v14;
+                _os_log_impl(&dword_248DE0000, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Block device class for %@: %@", buf, 0x26u);
               }
             }
 
@@ -194,7 +187,7 @@ LABEL_7:
             if (([v14 diskImageDevice] & 1) == 0)
             {
               mediumType = [v14 mediumType];
-              v22 = mediumType;
+              v26 = mediumType;
               if (mediumType)
               {
                 LOBYTE(mediumType) = [mediumType isEqual:@"Solid State"];
@@ -224,10 +217,9 @@ LABEL_7:
       }
     }
 
-LABEL_25:
+LABEL_28:
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -276,16 +268,16 @@ LABEL_25:
 
 void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock___block_invoke(uint64_t a1)
 {
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3032000000;
+  v12[3] = __Block_byref_object_copy__6;
+  v12[4] = __Block_byref_object_dispose__6;
   v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__6;
-  v17 = __Block_byref_object_dispose__6;
-  v18 = 0;
   v2 = *(a1 + 32);
   obj = 0;
   v3 = [v2 createEmptyImageWithError:&obj];
-  objc_storeStrong(&v18, obj);
+  objc_storeStrong(&v13, obj);
   if (v3)
   {
     block[0] = MEMORY[0x277D85DD0];
@@ -294,21 +286,20 @@ void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock__
     block[3] = &unk_278F812B8;
     v4 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9 = v3;
-    v11 = &v13;
-    v10 = *(a1 + 64);
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 56);
+    v8 = v3;
+    v10 = v12;
+    v9 = *(a1 + 64);
     dispatch_async(v4, block);
   }
 
   else
   {
-    v5 = v14[5];
     (*(*(a1 + 64) + 16))();
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(v12, 8);
 }
 
 void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock___block_invoke_13(uint64_t a1)
@@ -318,147 +309,166 @@ void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock__
   v4 = *(a1 + 48);
   v5 = *(a1 + 56);
   v6 = *(*(a1 + 72) + 8);
-  v14 = *(v6 + 40);
-  v15 = 0;
-  v7 = [v2 createImageWithSrcFolder:v3 progress:v4 createParams:v5 convertParams:&v15 error:&v14];
-  v8 = v15;
-  objc_storeStrong((v6 + 40), v14);
+  v13 = *(v6 + 40);
+  v14 = 0;
+  v7 = [v2 createImageWithSrcFolder:v3 progress:v4 createParams:v5 convertParams:&v14 error:&v13];
+  v8 = v14;
+  objc_storeStrong((v6 + 40), v13);
   if (v7 && v8)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock___block_invoke_2;
-    v11[3] = &unk_278F81290;
-    v11[4] = *(a1 + 32);
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 64);
-    v9 = [DiskImages2 convertWithParams:v8 completionBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock___block_invoke_2;
+    v10[3] = &unk_278F81290;
+    v10[4] = *(a1 + 32);
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 64);
+    v9 = [DiskImages2 convertWithParams:v8 completionBlock:v10];
     [*(a1 + 48) addChild:v9 withPendingUnitCount:20];
   }
 
   else
   {
     [*(a1 + 48) setCompletedUnitCount:100];
-    v10 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 64) + 16))();
   }
 }
 
 void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = a2;
     v5 = *__error();
-    if (DIForwardLogs())
+    v6 = DIForwardLogs();
+    if (v6)
     {
-      v6 = getDIOSLog();
-      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-      v7 = [*(a1 + 32) URL];
-      [v7 path];
-      *buf = 68158211;
-      v18 = 84;
-      v19 = 2080;
-      v20 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:completionBlock:]_block_invoke_2";
-      v22 = v21 = 2113;
-      v8 = _os_log_send_and_compose_impl();
-
-      if (v8)
+      v20 = 0;
+      v8 = getDIOSLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
-        free(v8);
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v10 = [*(a1 + 32) URL];
+      v11 = [v10 path];
+      *buf = 68158211;
+      v22 = 84;
+      v23 = 2080;
+      v24 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:completionBlock:]_block_invoke_2";
+      v25 = 2113;
+      v26 = v11;
+      v12 = _os_log_send_and_compose_impl(v9, &v20, 0, 0, &dword_248DE0000, v8, 0, "%.*s: Convert in place failed, erasing %{private}@", buf, 28);
+
+      if (v12)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+        free(v12);
       }
     }
 
     else
     {
-      v11 = getDIOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v15 = getDIOSLog(v6, v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [*(a1 + 32) URL];
-        v13 = [v12 path];
+        v16 = [*(a1 + 32) URL];
+        v17 = [v16 path];
         *buf = 68158211;
-        v18 = 84;
-        v19 = 2080;
-        v20 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:completionBlock:]_block_invoke";
-        v21 = 2113;
-        v22 = v13;
-        _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Convert in place failed, erasing %{private}@", buf, 0x1Cu);
+        v22 = 84;
+        v23 = 2080;
+        v24 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:completionBlock:]_block_invoke";
+        v25 = 2113;
+        v26 = v17;
+        _os_log_impl(&dword_248DE0000, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Convert in place failed, erasing %{private}@", buf, 0x1Cu);
       }
     }
 
     *__error() = v5;
-    v14 = [MEMORY[0x277CCAA00] defaultManager];
-    v15 = [*(a1 + 32) URL];
-    [v14 removeItemAtURL:v15 error:0];
+    v18 = [MEMORY[0x277CCAA00] defaultManager];
+    v19 = [*(a1 + 32) URL];
+    [v18 removeItemAtURL:v19 error:0];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = 0;
-    [v9 setCompletedUnitCount:100];
+    v13 = *(a1 + 40);
+    v14 = 0;
+    [v13 setCompletedUnitCount:100];
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), a2);
-
-  v16 = *MEMORY[0x277D85DE8];
+  (*(*(a1 + 48) + 16))();
 }
 
 - (BOOL)createImageWithSrcFolder:(id)folder progress:(id)progress createParams:(id)params convertParams:(id *)convertParams error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   folderCopy = folder;
   progressCopy = progress;
   paramsCopy = params;
-  v46 = 1;
-  v45 = 1;
-  if ([DiskImageCreatorFromFolder allowParallelModeWithURL:folderCopy outMode:&v46 error:error])
+  v50 = 1;
+  v49 = 1;
+  if ([DiskImageCreatorFromFolder allowParallelModeWithURL:folderCopy outMode:&v50 error:error])
   {
     v15 = [(BaseDiskImageCreator *)self URL];
     isFileURL = [v15 isFileURL];
 
-    if (!isFileURL || (-[BaseDiskImageCreator URL](self, "URL"), v17 = objc_claimAutoreleasedReturnValue(), [v17 URLByDeletingLastPathComponent], v18 = objc_claimAutoreleasedReturnValue(), v19 = +[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:](DiskImageCreatorFromFolder, "allowParallelModeWithURL:outMode:error:", v18, &v45, error), v18, v17, v19))
+    if (!isFileURL || (-[BaseDiskImageCreator URL](self, "URL"), v17 = objc_claimAutoreleasedReturnValue(), [v17 URLByDeletingLastPathComponent], v18 = objc_claimAutoreleasedReturnValue(), v19 = +[DiskImageCreatorFromFolder allowParallelModeWithURL:outMode:error:](DiskImageCreatorFromFolder, "allowParallelModeWithURL:outMode:error:", v18, &v49, error), v18, v17, v19))
     {
       v20 = *__error();
-      if (DIForwardLogs())
+      v21 = DIForwardLogs();
+      if (v21)
       {
-        v21 = getDIOSLog();
-        os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-        *buf = 68158466;
-        v48 = 97;
-        v49 = 2080;
-        v50 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:progress:createParams:convertParams:error:]";
-        v51 = 1024;
-        v52 = v46;
-        v53 = 1024;
-        v54 = v45;
-        LODWORD(v41) = 30;
-        v40 = buf;
-        v22 = _os_log_send_and_compose_impl();
-
-        if (v22)
+        v48 = 0;
+        v23 = getDIOSLog(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v22);
-          free(v22);
+          v24 = 3;
+        }
+
+        else
+        {
+          v24 = 2;
+        }
+
+        *buf = 68158466;
+        v52 = 97;
+        v53 = 2080;
+        v54 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:progress:createParams:convertParams:error:]";
+        v55 = 1024;
+        v56 = v50;
+        v57 = 1024;
+        v58 = v49;
+        LODWORD(v42) = 30;
+        v25 = _os_log_send_and_compose_impl(v24, &v48, 0, 0, &dword_248DE0000, v23, 0, "%.*s: Allow parallel copy: Source=%d, Target=%d", buf, v42, v43, v45);
+
+        if (v25)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v25);
+          free(v25);
         }
       }
 
       else
       {
-        v24 = getDIOSLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v27 = getDIOSLog(v21, v22);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68158466;
-          v48 = 97;
-          v49 = 2080;
-          v50 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:progress:createParams:convertParams:error:]";
-          v51 = 1024;
-          v52 = v46;
-          v53 = 1024;
-          v54 = v45;
-          _os_log_impl(&dword_248DE0000, v24, OS_LOG_TYPE_DEFAULT, "%.*s: Allow parallel copy: Source=%d, Target=%d", buf, 0x1Eu);
+          v52 = 97;
+          v53 = 2080;
+          v54 = "[DiskImageCreatorFromFolder createImageWithSrcFolder:progress:createParams:convertParams:error:]";
+          v55 = 1024;
+          v56 = v50;
+          v57 = 1024;
+          v58 = v49;
+          _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEFAULT, "%.*s: Allow parallel copy: Source=%d, Target=%d", buf, 0x1Eu);
         }
       }
 
@@ -466,131 +476,130 @@ void __71__DiskImageCreatorFromFolder_createImageWithSrcFolder_completionBlock__
       imageFormat = [(BaseDiskImageCreator *)self imageFormat];
       if ((imageFormat - 3) > 5)
       {
-        v26 = 100;
+        v29 = 100;
       }
 
       else
       {
-        v26 = qword_248FA7570[imageFormat - 3];
+        v29 = qword_248FA7570[imageFormat - 3];
       }
 
-      v27 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:100 parent:progressCopy pendingUnitCount:{v26, v40, v41}];
-      v28 = [FastFolderCopierWrapper alloc];
-      v29 = [(FastFolderCopierWrapper *)v28 initWithSrcFolder:folderCopy parallelMode:v46 & v45 & 1 progress:v27];
-      v30 = v29;
-      if (v29)
+      v30 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:100 parent:progressCopy pendingUnitCount:v29];
+      v31 = [FastFolderCopierWrapper alloc];
+      v32 = [(FastFolderCopierWrapper *)v31 initWithSrcFolder:folderCopy parallelMode:v50 & v49 & 1 progress:v30];
+      v33 = v32;
+      if (v32)
       {
-        if ([(FastFolderCopierWrapper *)v29 traverseSrcFolderWithError:error])
+        if ([(FastFolderCopierWrapper *)v32 traverseSrcFolderWithError:error])
         {
-          [(DiskImageCreatorFromFolder *)self updateNumBlocksWithCopier:v30];
+          [(DiskImageCreatorFromFolder *)self updateNumBlocksWithCopier:v33];
           if ([paramsCopy resizeWithNumBlocks:-[BaseDiskImageCreator numBlocks](self error:{"numBlocks"), error}])
           {
-            v43 = [(BaseDiskImageCreator *)self formatImageWithCreateParams:paramsCopy error:error];
-            if (v43)
+            v46 = [(BaseDiskImageCreator *)self formatImageWithCreateParams:paramsCopy error:error];
+            if (v46)
             {
-              v31 = [DIDiskArb diskArbWithError:error];
-              v44 = v31;
-              if (!v31)
+              v34 = [DIDiskArb diskArbWithError:error];
+              v47 = v34;
+              if (!v34)
               {
-                v33 = 0;
-                goto LABEL_33;
+                v36 = 0;
+                goto LABEL_36;
               }
 
-              if ([v31 waitForDAIdleWithError:error])
+              if ([v34 waitForDAIdleWithError:error])
               {
                 dataPartition = [(BaseDiskImageCreator *)self dataPartition];
-                v42 = [dataPartition newMountVolumeWithDiskArb:v44 error:error];
+                v44 = [dataPartition newMountVolumeWithDiskArb:v47 error:error];
 
-                v33 = v42;
-                if (v42)
+                v36 = v44;
+                if (v44)
                 {
-                  if (![v30 copyWithDstFolder:v42 error:error])
+                  if (![v33 copyWithDstFolder:v44 error:error])
                   {
 
-                    [v44 unmountWithMountPoint:v42 error:0];
-                    goto LABEL_34;
+                    [v47 unmountWithMountPoint:v44 error:0];
+                    goto LABEL_37;
                   }
 
-                  if ([v44 unmountWithMountPoint:v42 error:error] && -[DiskImageCreatorFromFolder compactAndEjectWithCreateParams:error:](self, "compactAndEjectWithCreateParams:error:", paramsCopy, error))
+                  if ([v47 unmountWithMountPoint:v44 error:error] && -[DiskImageCreatorFromFolder compactAndEjectWithCreateParams:error:](self, "compactAndEjectWithCreateParams:error:", paramsCopy, error))
                   {
                     imageFormat2 = [(BaseDiskImageCreator *)self imageFormat];
                     if ((imageFormat2 - 3) >= 4 && imageFormat2 != 8)
                     {
-                      v36 = 0;
-LABEL_44:
-                      v23 = 1;
-                      goto LABEL_37;
+                      v39 = 0;
+LABEL_47:
+                      v26 = 1;
+                      goto LABEL_40;
                     }
 
-                    v35 = [[DIConvertParams alloc] initForInplaceWithExistingParams:paramsCopy error:error];
-                    if (v35)
+                    v38 = [[DIConvertParams alloc] initForInplaceWithExistingParams:paramsCopy error:error];
+                    if (v38)
                     {
-                      v36 = v35;
-                      [v35 setOutputFormat:-[BaseDiskImageCreator imageFormat](self, "imageFormat")];
+                      v39 = v38;
+                      [v38 setOutputFormat:-[BaseDiskImageCreator imageFormat](self, "imageFormat")];
                       if (convertParams)
                       {
-                        v37 = v36;
-                        *convertParams = v36;
+                        v40 = v39;
+                        *convertParams = v39;
                       }
 
-                      goto LABEL_44;
+                      goto LABEL_47;
                     }
                   }
 
-                  v33 = v42;
+                  v36 = v44;
                 }
 
-LABEL_33:
+LABEL_36:
 
-LABEL_34:
+LABEL_37:
                 [paramsCopy onErrorCleanup];
-                v23 = 0;
-                v36 = v44;
-LABEL_38:
+                v26 = 0;
+                v39 = v47;
+LABEL_41:
 
-                v27 = v33;
                 v30 = v36;
-                goto LABEL_39;
+                v33 = v39;
+                goto LABEL_42;
               }
 
-              v42 = 0;
+              v44 = 0;
             }
 
             else
             {
-              v42 = 0;
               v44 = 0;
+              v47 = 0;
             }
 
-            v36 = 0;
-            v23 = 0;
-LABEL_37:
+            v39 = 0;
+            v26 = 0;
+LABEL_40:
 
+            v36 = v47;
             v33 = v44;
-            v30 = v42;
-            goto LABEL_38;
+            goto LABEL_41;
           }
         }
 
-        v23 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v23 = [DIError failWithEnumValue:154 verboseInfo:@"Failed to initialize folder copier" error:error];
+        v26 = [DIError failWithEnumValue:154 verboseInfo:@"Failed to initialize folder copier" error:error];
       }
 
-LABEL_39:
+LABEL_42:
 
-      goto LABEL_40;
+      goto LABEL_43;
     }
   }
 
-  v23 = 0;
-LABEL_40:
+  v26 = 0;
+LABEL_43:
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v26;
 }
 
 @end

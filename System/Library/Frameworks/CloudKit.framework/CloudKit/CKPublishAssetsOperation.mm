@@ -41,7 +41,7 @@
 - (void)setAssetPublishedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -72,7 +72,7 @@ LABEL_9:
 
 - (id)assetPublishedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -109,7 +109,7 @@ LABEL_9:
 - (void)setPublishAssetCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -140,7 +140,7 @@ LABEL_9:
 
 - (id)publishAssetCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -237,45 +237,47 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_recordIDs(self, a2, run);
   if (!objc_msgSend_count(v5, v6, v7))
   {
 LABEL_12:
 
-    goto LABEL_13;
+    return 0;
   }
 
   v10 = objc_msgSend_fileNamesByAssetFieldNames(self, v8, v9);
   v13 = objc_msgSend_count(v10, v11, v12);
 
-  if (!v13)
+  if (v13)
   {
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
-  }
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v5 = objc_msgSend_recordIDs(self, v14, v15);
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v16, &v28, v32, 16);
+    if (!v17)
+    {
+LABEL_11:
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v5 = objc_msgSend_recordIDs(self, v14, v15);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v16, &v29, v33, 16);
-  if (v17)
-  {
+      v27.receiver = self;
+      v27.super_class = CKPublishAssetsOperation;
+      return [(CKDatabaseOperation *)&v27 CKOperationShouldRun:run];
+    }
+
     v20 = v17;
-    v21 = *v30;
+    v21 = *v29;
 LABEL_5:
     v22 = 0;
     while (1)
     {
-      if (*v30 != v21)
+      if (*v29 != v21)
       {
         objc_enumerationMutation(v5);
       }
 
-      v23 = objc_msgSend_zoneID(*(*(&v29 + 1) + 8 * v22), v18, v19);
+      v23 = objc_msgSend_zoneID(*(*(&v28 + 1) + 8 * v22), v18, v19);
       v25 = objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v24, v23, run);
 
       if (!v25)
@@ -285,28 +287,23 @@ LABEL_5:
 
       if (v20 == ++v22)
       {
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v18, &v29, v33, 16);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v18, &v28, v32, 16);
         if (v20)
         {
           goto LABEL_5;
         }
 
-        break;
+        goto LABEL_11;
       }
     }
   }
 
-  v28.receiver = self;
-  v28.super_class = CKPublishAssetsOperation;
-  result = [(CKDatabaseOperation *)&v28 CKOperationShouldRun:run];
-LABEL_14:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)handleAssetPublishCompletionForRecordID:(id)d publishedAsset:(id)asset recordKey:(id)key error:(id)error
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   dCopy = d;
   assetCopy = asset;
   keyCopy = key;
@@ -362,11 +359,11 @@ LABEL_14:
     }
 
     *buf = 138412802;
-    v104 = dCopy;
-    v105 = 2112;
-    v106 = keyCopy;
-    v107 = 2112;
-    v108 = v15;
+    v103 = dCopy;
+    v104 = 2112;
+    v105 = keyCopy;
+    v106 = 2112;
+    v107 = v15;
     v28 = "Record %@ published asset for %@ with error: %@";
     v29 = v22;
     v30 = v27;
@@ -408,9 +405,9 @@ LABEL_14:
   if ((v40 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 138412546;
-    v104 = dCopy;
-    v105 = 2112;
-    v106 = keyCopy;
+    v103 = dCopy;
+    v104 = 2112;
+    v105 = keyCopy;
     v28 = "Record %@ published asset for %@";
     v29 = v22;
     v30 = v40;
@@ -430,19 +427,19 @@ LABEL_22:
   v41 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v88 = v41;
-    v91 = objc_msgSend_operationID(self, v89, v90);
+    v87 = v41;
+    v90 = objc_msgSend_operationID(self, v88, v89);
     *buf = 138544386;
-    v104 = v91;
-    v105 = 2112;
-    v106 = dCopy;
-    v107 = 2112;
-    v108 = assetCopy;
-    v109 = 2114;
-    v110 = keyCopy;
-    v111 = 2112;
-    v112 = v15;
-    _os_log_debug_impl(&dword_1883EA000, v88, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received callback: %@ %@ %{public}@ %@", buf, 0x34u);
+    v103 = v90;
+    v104 = 2112;
+    v105 = dCopy;
+    v106 = 2112;
+    v107 = assetCopy;
+    v108 = 2114;
+    v109 = keyCopy;
+    v110 = 2112;
+    v111 = v15;
+    _os_log_debug_impl(&dword_1883EA000, v87, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received callback: %@ %@ %{public}@ %@", buf, 0x34u);
   }
 
   if (v15)
@@ -462,26 +459,26 @@ LABEL_22:
     v48 = objc_msgSend_fileNamesByAssetFieldNames(self, v46, v47);
     v44 = objc_msgSend_objectForKeyedSubscript_(v48, v49, keyCopy);
 
-    v97 = objc_msgSend_contentBaseURL(assetCopy, v50, v51);
-    v101 = objc_msgSend_owner(assetCopy, v52, v53);
-    v100 = objc_msgSend_authToken(assetCopy, v54, v55);
-    v96 = objc_msgSend_requestor(assetCopy, v56, v57);
-    v95 = objc_msgSend_signature(assetCopy, v58, v59);
-    v94 = objc_msgSend_referenceSignature(assetCopy, v60, v61);
+    v96 = objc_msgSend_contentBaseURL(assetCopy, v50, v51);
+    v100 = objc_msgSend_owner(assetCopy, v52, v53);
+    v99 = objc_msgSend_authToken(assetCopy, v54, v55);
+    v95 = objc_msgSend_requestor(assetCopy, v56, v57);
+    v94 = objc_msgSend_signature(assetCopy, v58, v59);
+    v93 = objc_msgSend_referenceSignature(assetCopy, v60, v61);
     v64 = objc_msgSend_size(assetCopy, v62, v63);
-    v93 = objc_msgSend_assetKey(assetCopy, v65, v66);
-    v92 = objc_msgSend_pathExtension(v44, v67, v68);
+    v92 = objc_msgSend_assetKey(assetCopy, v65, v66);
+    v91 = objc_msgSend_pathExtension(v44, v67, v68);
     v71 = objc_msgSend_configuration(self, v69, v70);
     objc_msgSend_container(v71, v72, v73);
-    v74 = v99 = dCopy;
+    v74 = v98 = dCopy;
     v77 = objc_msgSend_containerIdentifier(v74, v75, v76);
-    v102 = 0;
-    v98 = objc_msgSend_makeAssetStreamHandleWithPartition_owner_accessToken_requestorID_signature_referenceSignature_size_assetKey_filenameExtension_applicationID_error_(_TtC8CloudKit28CloudAssetsAssetStreamHandle, v78, v97, v101, v100, v96, v95, v94, v64, v93, v92, v77, &v102);
-    v15 = v102;
+    v101 = 0;
+    v97 = objc_msgSend_makeAssetStreamHandleWithPartition_owner_accessToken_requestorID_signature_referenceSignature_size_assetKey_filenameExtension_applicationID_error_(_TtC8CloudKit28CloudAssetsAssetStreamHandle, v78, v96, v100, v99, v95, v94, v93, v64, v92, v91, v77, &v101);
+    v15 = v101;
 
-    dCopy = v99;
+    dCopy = v98;
     v79 = [CKMediaItemMaker alloc];
-    v81 = objc_msgSend_initWithCloudAssetsAssetStreamHandle_(v79, v80, v98);
+    v81 = objc_msgSend_initWithCloudAssetsAssetStreamHandle_(v79, v80, v97);
     objc_msgSend_setMediaItemMaker_(assetCopy, v82, v81);
   }
 
@@ -493,13 +490,11 @@ LABEL_32:
     v86 = objc_msgSend_assetPublishedBlock(self, v84, v85);
     (v86)[2](v86, dCopy, keyCopy, assetCopy, v15);
   }
-
-  v87 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -580,19 +575,19 @@ LABEL_32:
     v31 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v40 = v31;
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v45 = objc_msgSend_ckShortDescription(self, v43, v44);
+      v39 = v31;
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
+      v44 = objc_msgSend_ckShortDescription(self, v42, v43);
       *buf = 138544130;
-      v48 = v42;
-      v49 = 2048;
+      v47 = v41;
+      v48 = 2048;
       selfCopy = self;
-      v51 = 2114;
-      v52 = v45;
-      v53 = 2112;
-      v54 = errorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Calling publishAssetCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v50 = 2114;
+      v51 = v44;
+      v52 = 2112;
+      v53 = errorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v39, OS_LOG_TYPE_DEBUG, "Calling publishAssetCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v34 = objc_msgSend_publishAssetCompletionBlock(self, v32, v33);
@@ -603,16 +598,14 @@ LABEL_32:
   }
 
   objc_msgSend_setAssetPublishedBlock_(self, v30, 0);
-  v46.receiver = self;
-  v46.super_class = CKPublishAssetsOperation;
-  [(CKOperation *)&v46 _finishOnCallbackQueueWithError:errorCopy];
-
-  v39 = *MEMORY[0x1E69E9840];
+  v45.receiver = self;
+  v45.super_class = CKPublishAssetsOperation;
+  [(CKOperation *)&v45 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -665,28 +658,26 @@ LABEL_32:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKPublishAssetsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKPublishAssetsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -730,13 +721,11 @@ LABEL_32:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKPublishAssetsOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKPublishAssetsOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

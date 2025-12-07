@@ -8,13 +8,12 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = *(&self->super.isa + OBJC_IVAR___MNCommuteRouteSetInternalInfo_displayedBannerInfo);
   _s16NotificationInfoCMa();
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_1D3277190();
-  v8 = sub_1D32770B0();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v6 = sub_1D3277190();
+  v7 = sub_1D32770B0();
+  [coderCopy encodeObject:v6 forKey:v7];
 }
 
 - (MNCommuteRouteSetInternalInfo)initWithCoder:(id)coder

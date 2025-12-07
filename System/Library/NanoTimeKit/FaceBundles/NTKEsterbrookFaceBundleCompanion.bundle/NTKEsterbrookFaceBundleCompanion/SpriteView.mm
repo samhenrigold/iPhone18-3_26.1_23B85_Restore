@@ -16,7 +16,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SpriteView();
+  v5.super_class = type metadata accessor for SpriteView(0);
   v2 = v5.receiver;
   [(SpriteView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC32NTKEsterbrookFaceBundleCompanion10SpriteView_spriteLayer];

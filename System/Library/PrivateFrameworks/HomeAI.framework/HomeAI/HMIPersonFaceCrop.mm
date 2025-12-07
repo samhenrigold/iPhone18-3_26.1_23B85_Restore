@@ -63,20 +63,20 @@ LABEL_11:
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v13.receiver = self;
   v13.super_class = HMIPersonFaceCrop;
   attributeDescriptions = [(HMIFaceCrop *)&v13 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   personUUID = [(HMIPersonFaceCrop *)self personUUID];
-  v6 = [v4 initWithName:@"Person UUID" value:personUUID];
-  v14[0] = v6;
+  v6 = [v4 initWithName:? value:?];
+  v14 = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = HMIPersonFaceCropSourceAsString([(HMIPersonFaceCrop *)self source]);
-  v9 = [v7 initWithName:@"Source" value:v8];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v11 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
+  v9 = [v7 initWithName:? value:?];
+  v15 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v11 = [attributeDescriptions arrayByAddingObjectsFromArray:?];
 
   return v11;
 }
@@ -100,7 +100,7 @@ LABEL_11:
   {
     personUUID = [(HMIPersonFaceCrop *)self personUUID];
     personUUID2 = [v6 personUUID];
-    if ([personUUID isEqual:personUUID2])
+    if ([personUUID isEqual:?])
     {
       source = [(HMIPersonFaceCrop *)self source];
       v10 = source == [v6 source];
@@ -127,56 +127,53 @@ LABEL_11:
   coderCopy = coder;
   [(HMIFaceCrop *)&v6 encodeWithCoder:coderCopy];
   v5 = [(HMIPersonFaceCrop *)self personUUID:v6.receiver];
-  [coderCopy encodeObject:v5 forKey:@"HMIFC.ck.pu"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeInteger:-[HMIPersonFaceCrop source](self forKey:{"source"), @"HMIFC.ck.so"}];
+  [(HMIPersonFaceCrop *)self source];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (HMIPersonFaceCrop)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [[HMIFaceCrop alloc] initWithCoder:coderCopy];
+  v5 = [[HMIFaceCrop alloc] initWithCoder:?];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.ck.pu"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     if (v6)
     {
-      if ([coderCopy containsValueForKey:@"HMIFC.ck.so"])
+      if ([coderCopy containsValueForKey:?])
       {
-        v7 = [coderCopy decodeIntegerForKey:@"HMIFC.ck.so"];
-      }
-
-      else
-      {
-        v7 = 0;
+        [coderCopy decodeIntegerForKey:?];
       }
 
       uUID = [(HMIFaceCrop *)v5 UUID];
       dataRepresentation = [(HMIFaceCrop *)v5 dataRepresentation];
       dateCreated = [(HMIFaceCrop *)v5 dateCreated];
       [(HMIFaceCrop *)v5 faceBoundingBox];
-      self = [(HMIPersonFaceCrop *)self initWithUUID:uUID dataRepresentation:dataRepresentation dateCreated:dateCreated faceBoundingBox:v6 personUUID:v7 source:?];
+      self = [HMIPersonFaceCrop initWithUUID:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:personUUID:source:" dataRepresentation:? dateCreated:? faceBoundingBox:? personUUID:? source:?];
 
       selfCopy = self;
     }
 
     else
     {
-      v9 = objc_autoreleasePoolPush();
+      v8 = objc_autoreleasePoolPush();
       self = self;
-      v10 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v11;
-        v18 = 2112;
-        v19 = 0;
-        _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personUUID: %@", &v16, 0x16u);
+        v10 = HMFGetLogIdentifier();
+        v15 = 138543618;
+        v16 = v10;
+        v17 = 2112;
+        v18 = 0;
+        _os_log_impl(&dword_22D12F000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personUUID: %@", &v15, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v9);
+      objc_autoreleasePoolPop(v8);
       selfCopy = 0;
     }
   }

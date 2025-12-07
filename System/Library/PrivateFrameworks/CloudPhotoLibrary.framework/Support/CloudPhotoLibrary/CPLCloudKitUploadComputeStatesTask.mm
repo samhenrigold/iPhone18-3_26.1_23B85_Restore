@@ -82,28 +82,29 @@
 {
   lCopy = l;
   v4 = [[NSMutableDictionary alloc] initWithCapacity:{-[NSArray count](self->_computeStates, "count")}];
-  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
   selfCopy = self;
   v5 = self->_computeStates;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v44;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v43 != v8)
+        if (*v44 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v43 + 1) + 8 * i);
         itemScopedIdentifier = [v10 itemScopedIdentifier];
+        v12 = itemScopedIdentifier;
         if (itemScopedIdentifier)
         {
           [v4 setObject:v10 forKeyedSubscript:itemScopedIdentifier];
@@ -111,26 +112,26 @@
 
         else if ((_CPLSilentLogging & 1) == 0)
         {
-          v12 = sub_1000039EC();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v13 = sub_1000039EC(0);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v47 = v10;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "[CCSS] Missing identifier to upload for compute state %@", buf, 0xCu);
+            v48 = v10;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "[CCSS] Missing identifier to upload for compute state %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v7);
   }
 
   scopeIdentifier = [(CPLEngineScope *)selfCopy->_scope scopeIdentifier];
-  v14 = [(CPLCloudKitTransportTask *)selfCopy cloudKitScopeForScopeIdentifier:scopeIdentifier];
+  v15 = [(CPLCloudKitTransportTask *)selfCopy cloudKitScopeForScopeIdentifier:scopeIdentifier];
 
-  zoneID = [v14 zoneID];
+  zoneID = [v15 zoneID];
 
   if (zoneID)
   {
@@ -138,15 +139,15 @@
     if (sharedScope)
     {
       scopeIdentifier2 = [(CPLEngineScope *)sharedScope scopeIdentifier];
-      v18 = [(CPLCloudKitTransportTask *)selfCopy cloudKitScopeForScopeIdentifier:scopeIdentifier2];
+      v19 = [(CPLCloudKitTransportTask *)selfCopy cloudKitScopeForScopeIdentifier:scopeIdentifier2];
 
-      zoneID2 = [v18 zoneID];
+      zoneID2 = [v19 zoneID];
 
       if (!zoneID2)
       {
         completionHandler = selfCopy->_completionHandler;
-        v21 = [CPLErrors cplErrorWithCode:80 description:@"Missing required shared zone"];
-        completionHandler[2](completionHandler, 0, v21);
+        v22 = [CPLErrors cplErrorWithCode:80 description:@"Missing required shared zone"];
+        completionHandler[2](completionHandler, 0, v22);
 LABEL_25:
 
         goto LABEL_26;
@@ -155,56 +156,56 @@ LABEL_25:
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     controller = [(CPLCloudKitTransportTask *)selfCopy controller];
-    v21 = [controller zoneIdentificationForCloudKitScope:v14 engineScope:selfCopy->_scope];
+    v22 = [controller zoneIdentificationForCloudKitScope:v15 engineScope:selfCopy->_scope];
 
-    if (v18 && selfCopy->_sharedScope)
+    if (v19 && selfCopy->_sharedScope)
     {
       controller2 = [(CPLCloudKitTransportTask *)selfCopy controller];
-      v30 = [controller2 zoneIdentificationForCloudKitScope:v18 engineScope:selfCopy->_sharedScope];
+      v31 = [controller2 zoneIdentificationForCloudKitScope:v19 engineScope:selfCopy->_sharedScope];
     }
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
-    v25 = objc_alloc_init(NSMutableArray);
+    v26 = objc_alloc_init(NSMutableArray);
     allKeys = [v4 allKeys];
     targetMapping = selfCopy->_targetMapping;
     knownRecords = selfCopy->_knownRecords;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1000881D8;
-    v40[3] = &unk_1002761D0;
-    v40[4] = selfCopy;
-    v41 = v4;
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_100088508;
-    v35[3] = &unk_1002761F8;
-    v36 = v41;
-    v37 = lCopy;
-    v38 = selfCopy;
-    v39 = v25;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_1000888A4;
-    v33[3] = &unk_100272268;
-    v33[4] = selfCopy;
-    v34 = v39;
-    v28 = v39;
-    [(CPLCloudKitTransportTask *)selfCopy updatePrivatePropertiesOnAssetsWithScopedIdentifiers:allKeys desiredKeys:&off_1002913E0 destinationZoneIdentification:v21 sharedZoneIdentification:v30 targetMapping:targetMapping knownRecords:knownRecords shouldUpdateRecord:v40 updateBlock:v35 completionHandler:v33];
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1000881D8;
+    v41[3] = &unk_1002761D0;
+    v41[4] = selfCopy;
+    v42 = v4;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100088508;
+    v36[3] = &unk_1002761F8;
+    v37 = v42;
+    v38 = lCopy;
+    v39 = selfCopy;
+    v40 = v26;
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_1000888A4;
+    v34[3] = &unk_100272268;
+    v34[4] = selfCopy;
+    v35 = v40;
+    v29 = v40;
+    [(CPLCloudKitTransportTask *)selfCopy updatePrivatePropertiesOnAssetsWithScopedIdentifiers:allKeys desiredKeys:&off_1002913E0 destinationZoneIdentification:v22 sharedZoneIdentification:v31 targetMapping:targetMapping knownRecords:knownRecords shouldUpdateRecord:v41 updateBlock:v36 completionHandler:v34];
 
     goto LABEL_25;
   }
 
-  v22 = selfCopy->_completionHandler;
-  v18 = [CPLErrors cplErrorWithCode:80 description:@"Missing required zone"];
-  v22[2](v22, 0, v18);
+  v23 = selfCopy->_completionHandler;
+  v19 = [CPLErrors cplErrorWithCode:80 description:@"Missing required zone"];
+  v23[2](v23, 0, v19);
 LABEL_26:
 }
 

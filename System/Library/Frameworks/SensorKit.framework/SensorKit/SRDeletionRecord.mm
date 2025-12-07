@@ -129,59 +129,56 @@
 
 - (SRDeletionRecord)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = SRDeletionRecord;
-  result = [(SRDeletionRecord *)&v14 init:representation];
+  v16 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = SRDeletionRecord;
+  result = [(SRDeletionRecord *)&v13 init:representation];
   if (result)
   {
     v7 = result;
-    v13 = 0;
-    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v13];
-    v9 = v13;
-    if (v13)
+    v12 = 0;
+    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v12];
+    v9 = v12;
+    if (v12)
     {
       v10 = SRLogDeletionRecord;
       if (os_log_type_enabled(SRLogDeletionRecord, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v16 = v9;
+        v15 = v9;
         _os_log_impl(&dword_1C914D000, v10, OS_LOG_TYPE_DEFAULT, "Failed to unarchive data because %{public}@", buf, 0xCu);
       }
 
-      result = 0;
+      return 0;
     }
 
     else
     {
       v11 = v8;
 
-      result = v11;
+      return v11;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)sr_dictionaryRepresentation
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v7[0] = @"SRDeletionRecordStartKey";
+  v7[4] = *MEMORY[0x1E69E9840];
+  v6[0] = @"SRDeletionRecordStartKey";
   v3 = MEMORY[0x1E696AD98];
   [(SRDeletionRecord *)self startTime];
-  v8[0] = [v3 numberWithDouble:?];
-  v7[1] = @"SRDeletionRecordEndKey";
+  v7[0] = [v3 numberWithDouble:?];
+  v6[1] = @"SRDeletionRecordEndKey";
   v4 = MEMORY[0x1E696AD98];
   [(SRDeletionRecord *)self endTime];
-  v8[1] = [v4 numberWithDouble:?];
-  v7[2] = @"SRDeletionRecordReasonKey";
-  v8[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRDeletionRecord reason](self, "reason")}];
-  v7[3] = @"SRDeletionRecordExtendedReasonKey";
-  v8[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRDeletionRecord extendedReason](self, "extendedReason")}];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:4];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[1] = [v4 numberWithDouble:?];
+  v6[2] = @"SRDeletionRecordReasonKey";
+  v7[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRDeletionRecord reason](self, "reason")}];
+  v6[3] = @"SRDeletionRecordExtendedReasonKey";
+  v7[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRDeletionRecord extendedReason](self, "extendedReason")}];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:4];
 }
 
 - (NSString)description

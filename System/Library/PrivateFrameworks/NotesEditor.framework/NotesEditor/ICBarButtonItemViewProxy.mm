@@ -24,7 +24,7 @@
   }
 
   v7 = *(&self->super.isa + OBJC_IVAR____TtC11NotesEditorP33_96838561D3E26AF679A44B1B79DAFE7124ICBarButtonItemViewProxy_originalBarButtonItem);
-  v5 = sub_2151A6C9C(0, &qword_281199620);
+  v5 = sub_2151A6C9C(0, &qword_281199620, 0x277D751E0);
   v11 = v5;
   selfCopy = v7;
 

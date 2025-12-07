@@ -48,7 +48,7 @@ void AppleH15IO::~AppleH15IO(AppleH15IO *this)
 
 AppleARMIO *AppleH15IO::MetaClass::alloc(AppleH15IO::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleH15IO_ktv, &stru_108.segname[8]);
   AppleARMIO::AppleARMIO(v1, &AppleH15IO::gMetaClass);
   *v2 = off_202E8;
   OSMetaClass::instanceConstructed(&AppleH15IO::gMetaClass);
@@ -271,8 +271,9 @@ OSMetaClass *_GLOBAL__sub_I_AppleH15IO_cpp()
   return result;
 }
 
-void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeACTT(uint64_t a1, uint64_t a2, int a3, unsigned int *a4, uint64_t a5)
+void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeACTT(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5)
 {
+  v7 = a3;
   v9 = *a4;
   v21 = off_227E0;
   v22 = *algn_227F0;
@@ -286,17 +287,17 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeACTT(uint64_t a1, uint64_t
       v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, 0x100448u);
+    Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, 0x100448);
     HIDWORD(v21) = Register32;
-    v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, 0x10044Cu);
+    v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, 0x10044C);
     LODWORD(v22) = v12;
-    v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, 0x100450u);
+    v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, 0x100450);
     DWORD1(v22) = v13;
-    v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, 0x100454u);
+    v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, 0x100454);
     DWORD2(v22) = v14;
-    v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, 0x100458u);
+    v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, 0x100458);
     HIDWORD(v22) = v15;
-    v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, 0x10045Cu);
+    v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, 0x10045C);
     LODWORD(v23) = v16;
   }
 
@@ -319,21 +320,22 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeACTT(uint64_t a1, uint64_t
       v17 = v17 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    v18 = AppleH15PlatformErrorHandler::_readRegister32(a1, v17, a2, 0x100438u);
+    v18 = AppleH15PlatformErrorHandler::_readRegister32(a1, v17, a2, 0x100438);
     HIDWORD(v21) = v18;
-    v19 = AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, 0x10043Cu);
+    v19 = AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, 0x10043C);
     LODWORD(v22) = v19;
-    v20 = AppleH15PlatformErrorHandler::_readRegister32(v19, v17, a2, 0x100440u);
+    v20 = AppleH15PlatformErrorHandler::_readRegister32(v19, v17, a2, 0x100440);
     DWORD1(v22) = v20;
-    v16 = AppleH15PlatformErrorHandler::_readRegister32(v20, v17, a2, 0x100444u);
+    v16 = AppleH15PlatformErrorHandler::_readRegister32(v20, v17, a2, 0x100444);
     DWORD2(v22) = v16;
   }
 
-  AppleH15PlatformErrorHandler::_amccNonPlaneDecodeXCTT(v16, a2, a3, a4, a5, &v21);
+  AppleH15PlatformErrorHandler::_amccNonPlaneDecodeXCTT(v16, a2, v7, a4, a5, &v21);
 }
 
-void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeSCTT(uint64_t a1, uint64_t a2, int a3, unsigned int *a4, uint64_t a5)
+void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeSCTT(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5)
 {
+  v7 = a3;
   v9 = *a4;
   v21 = off_22858;
   v22 = unk_22868;
@@ -347,17 +349,17 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeSCTT(uint64_t a1, uint64_t
       v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, 0x100C78u);
+    Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, 0x100C78);
     HIDWORD(v21) = Register32;
-    v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, 0x100C7Cu);
+    v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, 0x100C7C);
     LODWORD(v22) = v12;
-    v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, 0x100C80u);
+    v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, 0x100C80);
     DWORD1(v22) = v13;
-    v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, 0x100C84u);
+    v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, 0x100C84);
     DWORD2(v22) = v14;
-    v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, 0x100C88u);
+    v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, 0x100C88);
     HIDWORD(v22) = v15;
-    v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, 0x100C8Cu);
+    v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, 0x100C8C);
     LODWORD(v23) = v16;
   }
 
@@ -380,17 +382,17 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeSCTT(uint64_t a1, uint64_t
       v17 = v17 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    v18 = AppleH15PlatformErrorHandler::_readRegister32(a1, v17, a2, 0x100C68u);
+    v18 = AppleH15PlatformErrorHandler::_readRegister32(a1, v17, a2, 0x100C68);
     HIDWORD(v21) = v18;
-    v19 = AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, 0x100C6Cu);
+    v19 = AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, 0x100C6C);
     LODWORD(v22) = v19;
-    v20 = AppleH15PlatformErrorHandler::_readRegister32(v19, v17, a2, 0x100C70u);
+    v20 = AppleH15PlatformErrorHandler::_readRegister32(v19, v17, a2, 0x100C70);
     DWORD1(v22) = v20;
-    v16 = AppleH15PlatformErrorHandler::_readRegister32(v20, v17, a2, 0x100C74u);
+    v16 = AppleH15PlatformErrorHandler::_readRegister32(v20, v17, a2, 0x100C74);
     DWORD2(v22) = v16;
   }
 
-  AppleH15PlatformErrorHandler::_amccNonPlaneDecodeXCTT(v16, a2, a3, a4, a5, &v21);
+  AppleH15PlatformErrorHandler::_amccNonPlaneDecodeXCTT(v16, a2, v7, a4, a5, &v21);
 }
 
 void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeGCTT0(uint64_t a1, uint64_t a2, int a3, unsigned int *a4, uint64_t a5)
@@ -409,17 +411,17 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeGCTT0(uint64_t a1, uint64_
         v8 = v8 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
       }
 
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, 0x140848u);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, 0x140848);
       HIDWORD(v19) = Register32;
-      v10 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, 0x14084Cu);
+      v10 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, 0x14084C);
       LODWORD(v20) = v10;
-      v11 = AppleH15PlatformErrorHandler::_readRegister32(v10, v8, a2, 0x140850u);
+      v11 = AppleH15PlatformErrorHandler::_readRegister32(v10, v8, a2, 0x140850);
       DWORD1(v20) = v11;
-      v12 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, 0x140854u);
+      v12 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, 0x140854);
       DWORD2(v20) = v12;
-      v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, 0x140858u);
+      v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, 0x140858);
       HIDWORD(v20) = v13;
-      v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, 0x14085Cu);
+      v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, 0x14085C);
       LODWORD(v21) = v14;
     }
 
@@ -437,13 +439,13 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeGCTT0(uint64_t a1, uint64_
         v15 = v15 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
       }
 
-      v16 = AppleH15PlatformErrorHandler::_readRegister32(a1, v15, a2, 0x140838u);
+      v16 = AppleH15PlatformErrorHandler::_readRegister32(a1, v15, a2, 0x140838);
       HIDWORD(v19) = v16;
-      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v15, a2, 0x14083Cu);
+      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v15, a2, 0x14083C);
       LODWORD(v20) = v17;
-      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v15, a2, 0x140840u);
+      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v15, a2, 0x140840);
       DWORD1(v20) = v18;
-      v14 = AppleH15PlatformErrorHandler::_readRegister32(v18, v15, a2, 0x140844u);
+      v14 = AppleH15PlatformErrorHandler::_readRegister32(v18, v15, a2, 0x140844);
       DWORD2(v20) = v14;
     }
 
@@ -470,17 +472,17 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeGCTT1(uint64_t a1, uint64_
         v8 = v8 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
       }
 
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, 0x140C48u);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, 0x140C48);
       HIDWORD(v19) = Register32;
-      v10 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, 0x140C4Cu);
+      v10 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, 0x140C4C);
       LODWORD(v20) = v10;
-      v11 = AppleH15PlatformErrorHandler::_readRegister32(v10, v8, a2, 0x140C50u);
+      v11 = AppleH15PlatformErrorHandler::_readRegister32(v10, v8, a2, 0x140C50);
       DWORD1(v20) = v11;
-      v12 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, 0x140C54u);
+      v12 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, 0x140C54);
       DWORD2(v20) = v12;
-      v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, 0x140C58u);
+      v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, 0x140C58);
       HIDWORD(v20) = v13;
-      v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, 0x140C5Cu);
+      v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, 0x140C5C);
       LODWORD(v21) = v14;
     }
 
@@ -498,13 +500,13 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeGCTT1(uint64_t a1, uint64_
         v15 = v15 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
       }
 
-      v16 = AppleH15PlatformErrorHandler::_readRegister32(a1, v15, a2, 0x140C38u);
+      v16 = AppleH15PlatformErrorHandler::_readRegister32(a1, v15, a2, 0x140C38);
       HIDWORD(v19) = v16;
-      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v15, a2, 0x140C3Cu);
+      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v15, a2, 0x140C3C);
       LODWORD(v20) = v17;
-      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v15, a2, 0x140C40u);
+      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v15, a2, 0x140C40);
       DWORD1(v20) = v18;
-      v14 = AppleH15PlatformErrorHandler::_readRegister32(v18, v15, a2, 0x140C44u);
+      v14 = AppleH15PlatformErrorHandler::_readRegister32(v18, v15, a2, 0x140C44);
       DWORD2(v20) = v14;
     }
 
@@ -569,7 +571,7 @@ void AppleH15PlatformErrorHandler::~AppleH15PlatformErrorHandler(IOService *this
 
 IOService *AppleH15PlatformErrorHandler::MetaClass::alloc(AppleH15PlatformErrorHandler::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleH15PlatformErrorHandler_ktv, "L_CTRL_BLK_EVENT_LOG");
   v2 = IOService::IOService(v1, &AppleH15PlatformErrorHandler::gMetaClass);
   v2->__vftable = off_21E00;
   LODWORD(v2[1].__vftable) = 0;
@@ -1513,9 +1515,19 @@ uint64_t AppleH15PlatformErrorHandler::_dcsGenerateEnableMask(uint64_t this)
         }
 
         v13 = v12;
-        v14 = *(v8 - 11);
-        v15 = (v10 & v13) == 0;
+        v14 = (v10 & v13) == 0;
         if ((v10 & v13) != 0)
+        {
+          v15 = 0;
+        }
+
+        else
+        {
+          v15 = *(v8 - 11);
+        }
+
+        v6 |= v15;
+        if (v14)
         {
           v16 = 0;
         }
@@ -1525,18 +1537,7 @@ uint64_t AppleH15PlatformErrorHandler::_dcsGenerateEnableMask(uint64_t this)
           v16 = *(v8 - 11);
         }
 
-        v6 |= v16;
-        if (v15)
-        {
-          v17 = 0;
-        }
-
-        else
-        {
-          v17 = *(v8 - 11);
-        }
-
-        v5 |= v17;
+        v5 |= v16;
         v8 += 7;
         --v4;
       }
@@ -1544,9 +1545,9 @@ uint64_t AppleH15PlatformErrorHandler::_dcsGenerateEnableMask(uint64_t this)
       while (v4);
       if (*(v1 + 145))
       {
-        v18 = *(v7 + 24);
-        v19 = strlen("spll");
-        this = strncmp(v18, "spll", v19);
+        v17 = *(v7 + 24);
+        v18 = strlen("spll");
+        this = strncmp(v17, "spll", v18);
         if (!this)
         {
           v6 = 0;
@@ -1606,10 +1607,11 @@ uint64_t AppleH15PlatformErrorHandler::_afxNiGenerateEnableMask(uint64_t this)
   return this;
 }
 
-void AppleH15PlatformErrorHandler::_amccEnableErrors(uint64_t this, int a2)
+void AppleH15PlatformErrorHandler::_amccEnableErrors(uint64_t this, uint64_t a2)
 {
   if (*(this + 540))
   {
+    v2 = a2;
     v4 = 0;
     v5 = this + 8232;
     if (((this ^ (this + 8232)) & 0xFFC0000000000000) != 0)
@@ -1623,7 +1625,7 @@ void AppleH15PlatformErrorHandler::_amccEnableErrors(uint64_t this, int a2)
       v7 = &AppleH15PlatformErrorHandler::_amccNonPlaneDecoders;
       do
       {
-        AppleH15PlatformErrorHandler::_amccEnableErrorsForInputTable(this, v7, v4, a2);
+        AppleH15PlatformErrorHandler::_amccEnableErrorsForInputTable(this, v7, v4, v2);
         v7 += 8;
         --v6;
       }
@@ -1638,11 +1640,11 @@ void AppleH15PlatformErrorHandler::_amccEnableErrors(uint64_t this, int a2)
         v13 = &dword_18494;
         do
         {
-          Register32 = AppleH15PlatformErrorHandler::_readRegister32(v8, v5, v4, v9 | 0x21000u);
+          Register32 = AppleH15PlatformErrorHandler::_readRegister32(v8, v5, v4, (v9 | 0x21000u));
           v15 = *(v13 - 1);
           v16 = v15 | Register32;
           v17 = Register32 & ~v15;
-          if (a2)
+          if (v2)
           {
             v17 = v16;
           }
@@ -1692,7 +1694,7 @@ void AppleH15PlatformErrorHandler::_dcsEnableErrors(uint64_t this, int a2)
             v8 = *(v7 + 1);
             v9 = *(v8 + 12);
             v10 = *(v8 + 8) + (i << 21);
-            Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v4, v3, v10 + v9);
+            Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v4, v3, (v10 + v9));
             v12 = *(v7 - 2);
             v13 = v12 | Register32;
             v14 = Register32 & ~v12;
@@ -1747,17 +1749,17 @@ void AppleH15PlatformErrorHandler::_ioaEnableErrors(uint64_t this, int a2)
         v7 = 3;
       }
 
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v5, v7, 0x80Cu);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v5, v7, "irt addr: %#lx, phys addr: %#lx\n", v14, v16);
       if (Register32 >> 28)
       {
-        v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v5, v7, 0x810u);
-        AppleH15PlatformErrorHandler::_readRegister32(v13, v5, v7, 0x814u);
+        v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v5, v7, "addr: %#lx, phys addr: %#lx\n", v14, v16);
+        AppleH15PlatformErrorHandler::_readRegister32(v13, v5, v7, ": %#lx, phys addr: %#lx\n", v15, v17);
         kprintf("%s::%s: IOA%d does not exist\n", "AppleH15PlatformErrorHandler", "_ioaEnableErrors", v4 & 7);
       }
 
       else
       {
-        v9 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v6, v4, 0xA00u);
+        v9 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v6, v4, "LVCTRAFFICEVENTIRQ_DATA64B");
         v10 = *(this + 14256);
         v11 = v10 | v9;
         v12 = v9 & ~v10;
@@ -1847,9 +1849,9 @@ void AppleH15PlatformErrorHandler::_afxNiEnableErrors(uint64_t this, int a2)
   while (v3 != 11);
 }
 
-void AppleH15PlatformErrorHandler::_afcNsDisableErrors(AppleH15PlatformErrorHandler *this, int a2)
+void AppleH15PlatformErrorHandler::_afcNsDisableErrors(uint64_t this, int a2)
 {
-  if (*(this + 51))
+  if (*(this + 204))
   {
     v4 = 0;
     v5 = this + 13776;
@@ -1858,7 +1860,7 @@ void AppleH15PlatformErrorHandler::_afcNsDisableErrors(AppleH15PlatformErrorHand
     {
       if (a2)
       {
-        v7 = *&v5[4 * v4];
+        v7 = *(v5 + 4 * v4);
       }
 
       else
@@ -1869,13 +1871,13 @@ void AppleH15PlatformErrorHandler::_afcNsDisableErrors(AppleH15PlatformErrorHand
       AppleH15PlatformErrorHandler::_writeRegister32(this, v6, v4++, 0x104u, v7);
     }
 
-    while (v4 < *(this + 51));
+    while (v4 < *(this + 204));
   }
 }
 
-void AppleH15PlatformErrorHandler::_afiNsDisableErrors(AppleH15PlatformErrorHandler *this, int a2)
+void AppleH15PlatformErrorHandler::_afiNsDisableErrors(uint64_t this, int a2)
 {
-  if (*(this + 57))
+  if (*(this + 228))
   {
     v4 = 0;
     v5 = this + 13824;
@@ -1884,7 +1886,7 @@ void AppleH15PlatformErrorHandler::_afiNsDisableErrors(AppleH15PlatformErrorHand
     {
       if (a2)
       {
-        v7 = *&v5[4 * v4];
+        v7 = *(v5 + 4 * v4);
       }
 
       else
@@ -1895,19 +1897,20 @@ void AppleH15PlatformErrorHandler::_afiNsDisableErrors(AppleH15PlatformErrorHand
       AppleH15PlatformErrorHandler::_writeRegister32(this, v6, v4++, 0x104u, v7);
     }
 
-    while (v4 < *(this + 57));
+    while (v4 < *(this + 228));
   }
 }
 
-uint64_t AppleH15PlatformErrorHandler::_enableInterrupts(uint64_t this, char a2)
+uint64_t AppleH15PlatformErrorHandler::_enableInterrupts(uint64_t this, uint64_t a2)
 {
   if (*(this + 192))
   {
+    v2 = a2;
     v3 = this;
     v4 = 103;
     do
     {
-      this = AppleH15PlatformErrorHandler::_enableInterrupts(v3, *(v3 + 8 * v4), a2);
+      this = AppleH15PlatformErrorHandler::_enableInterrupts(v3, *(v3 + 8 * v4), v2);
       v5 = v4 - 102;
       ++v4;
     }
@@ -2057,7 +2060,7 @@ uint64_t AppleH15PlatformErrorHandler::_enableInterrupts(uint64_t result, uint64
   return result;
 }
 
-uint64_t AppleH15PlatformErrorHandler::_readRegister32(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
+uint64_t AppleH15PlatformErrorHandler::_readRegister32(uint64_t a1, uint64_t a2, unsigned int a3, const char *a4, ...)
 {
   if (*(*a2 + 8) <= a3)
   {
@@ -2080,7 +2083,7 @@ LABEL_6:
   return *(*(v5 + 16) + a4);
 }
 
-void AppleH15PlatformErrorHandler::_writeRegister32(uint64_t a1, unint64_t a2, unsigned int a3, unsigned int a4, int a5)
+void AppleH15PlatformErrorHandler::_writeRegister32(uint64_t result, unint64_t a2, unsigned int a3, unsigned int a4, int a5)
 {
   if (*(*a2 + 8) <= a3 || *(a2 + 32) <= a4)
   {
@@ -2127,7 +2130,7 @@ void AppleH15PlatformErrorHandler::amccNoPlaneFetchCeflLog(uint64_t this, unsign
     v8 = v8 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v8, a2, 0x156304u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v8, a2, 0x156304);
   v24 = this;
   v10 = *(this + 14264);
   enable = ml_set_interrupts_enabled(0);
@@ -2141,9 +2144,9 @@ void AppleH15PlatformErrorHandler::amccNoPlaneFetchCeflLog(uint64_t this, unsign
     {
       if (v12)
       {
-        v15 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, 12 * v14 + 1401608);
+        v15 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, (12 * v14 + 1401608));
         v16 = v15;
-        v11 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, 12 * v14 + 1401612);
+        v11 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, (12 * v14 + 1401612));
         v17 = BYTE1(v11);
         if (BYTE1(v11))
         {
@@ -2285,11 +2288,11 @@ uint64_t AppleH15PlatformErrorHandler::_afxNiDecodeInterrupts(uint64_t this, int
 LABEL_23:
       Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v7, v10, v15[2]);
       v21 = Register32;
-      v22 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v7, v10, v15[2] + 4);
+      v22 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v7, v10, (v15[2] + 4));
       v23 = v22;
-      v24 = AppleH15PlatformErrorHandler::_readRegister32(v22, v7, v10, v15[2] + 8);
+      v24 = AppleH15PlatformErrorHandler::_readRegister32(v22, v7, v10, (v15[2] + 8));
       v25 = v24;
-      AppleH15PlatformErrorHandler::_readRegister32(v24, v7, v10, v15[2] + 12);
+      AppleH15PlatformErrorHandler::_readRegister32(v24, v7, v10, (v15[2] + 12));
       v26 = AppleH15PlatformErrorHandler::_fabricCommands[(v23 >> 11) & 0x3F];
       if (!v26)
       {
@@ -2330,8 +2333,8 @@ void AppleH15PlatformErrorHandler::_afxNsDecodeStatus(uint64_t Register32, unsig
         v28 = v20;
         v29 = *v14;
         v21 = AppleH15PlatformErrorHandler::_readRegister32(Register32, a5, a2, *(v14 + 12));
-        v22 = AppleH15PlatformErrorHandler::_readRegister32(v21, a5, a2, *(v14 + 12) + 4);
-        v23 = AppleH15PlatformErrorHandler::_readRegister32(v22, a5, a2, *(v14 + 12) + 8);
+        v22 = AppleH15PlatformErrorHandler::_readRegister32(v21, a5, a2, (*(v14 + 12) + 4));
+        v23 = AppleH15PlatformErrorHandler::_readRegister32(v22, a5, a2, (*(v14 + 12) + 8));
         v24 = 4 * a2;
         v25 = v24 == 4 * a2;
         v26 = (a6 + (4 * a2));
@@ -2380,21 +2383,20 @@ uint64_t AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts(AppleH15PlatformEr
     panic("Invalid AFx NS decoder %p aperture index: %u @%s:%d", a3, a3[10], "AppleH15PlatformErrorHandler.cpp", 1467);
   }
 
-  v4 = 8 * v3;
-  v5 = (&unk_64C0 + 8 * v3);
+  v4 = (&unk_64C0 + 8 * v3);
   if (8 * v3 != 8 * v3)
   {
-    v5 = ((&unk_64C0 + 8 * v3) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+    v4 = ((&unk_64C0 + 8 * v3) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
   }
 
-  v6 = (this + *v5);
-  if (*v5 != *v5)
+  v5 = (this + *v4);
+  if (*v4 != *v4)
   {
-    v6 = ((this + *v5) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+    v5 = ((this + *v4) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
   }
 
-  v7 = *v6;
-  if (!*v6)
+  v6 = *v5;
+  if (!*v5)
   {
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
@@ -2404,79 +2406,72 @@ uint64_t AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts(AppleH15PlatformEr
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
 
-  v8 = v7[4];
-  v9 = (a2 - v7[3]);
-  if (v9 >= v8)
+  v7 = v6[4];
+  v8 = (a2 - v6[3]);
+  if (v8 >= v7)
   {
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
 
-  v10 = v7[2];
-  if (v9 >= v10)
+  v9 = v6[2];
+  if (v8 >= v9)
   {
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
 
-  if (v8 != v10)
+  if (v7 != v9)
   {
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
 
-  v11 = *(a3 + 3);
-  v12 = *(a3 + 4);
-  if (v12)
+  v10 = *(a3 + 3);
+  v11 = *(a3 + 4);
+  if (v11)
   {
-    v13 = (*(a3 + 4) & 1 | v11) == 0;
+    v12 = (*(a3 + 4) & 1 | v10) == 0;
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
-  v14 = v13;
-  if (v11 != AppleH15PlatformErrorHandler::_afxNsDecodeStatus || (v14 & 1) == 0)
+  v13 = v12;
+  if (v10 != AppleH15PlatformErrorHandler::_afxNsDecodeStatus || (v13 & 1) == 0)
   {
     AppleH15PlatformErrorHandler::_afxNsDecodeInterrupts();
   }
 
-  v15 = (&off_64D8 + v4);
-  if (v4 != v4)
+  v14 = 4 * v3;
+  v15 = (&unk_64F0 + v14);
+  if (v14 != v14)
   {
-    v15 = ((&off_64D8 + v4) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+    v15 = ((&unk_64F0 + v14) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
   }
 
   v16 = *v15;
-  v17 = 4 * v3;
-  v18 = (&unk_64F0 + v17);
-  if (v17 != v17)
+  v17 = (this + (v11 >> 1));
+  if (v11 >> 1 != (v11 >> 1))
   {
-    v18 = ((&unk_64F0 + v17) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+    v17 = ((this + (v11 >> 1)) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
   }
 
-  v19 = *v18;
-  v20 = (this + (v12 >> 1));
-  if (v12 >> 1 != (v12 >> 1))
+  if (v11)
   {
-    v20 = ((this + (v12 >> 1)) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
-  }
-
-  if (v12)
-  {
-    v21 = *(*v20 + AppleH15PlatformErrorHandler::_afxNsDecodeStatus);
+    v18 = *(*v17 + AppleH15PlatformErrorHandler::_afxNsDecodeStatus);
   }
 
   else
   {
-    v21 = AppleH15PlatformErrorHandler::_afxNsDecodeStatus;
+    v18 = AppleH15PlatformErrorHandler::_afxNsDecodeStatus;
   }
 
-  return (v21)(v20, v9, v9 / v19, a3);
+  return (v18)(v17, v8, v8 / v16, a3);
 }
 
-void AppleH15PlatformErrorHandler::_afrNsDisableErrors(AppleH15PlatformErrorHandler *this, int a2)
+void AppleH15PlatformErrorHandler::_afrNsDisableErrors(uint64_t this, int a2)
 {
-  if (*(this + 63))
+  if (*(this + 252))
   {
     v4 = 0;
     v5 = this + 13968;
@@ -2485,7 +2480,7 @@ void AppleH15PlatformErrorHandler::_afrNsDisableErrors(AppleH15PlatformErrorHand
     {
       if (a2)
       {
-        v7 = *&v5[4 * v4];
+        v7 = *(v5 + 4 * v4);
       }
 
       else
@@ -2496,7 +2491,7 @@ void AppleH15PlatformErrorHandler::_afrNsDisableErrors(AppleH15PlatformErrorHand
       AppleH15PlatformErrorHandler::_writeRegister32(this, v6, v4++, 0x104u, v7);
     }
 
-    while (v4 < *(this + 63));
+    while (v4 < *(this + 252));
   }
 }
 
@@ -2507,29 +2502,19 @@ void AppleH15PlatformErrorHandler::_amccNonPlaneDecodeXCTT(uint64_t a1, uint64_t
     v6 = *(a6 + 2);
     if (v6 == 1)
     {
-      v10 = *(a6 + 5) | ((a6[3] & 0x3FF) << 32);
-      v11 = *(a6 + 4);
-      AppleH15PlatformErrorHandler::_fabricCommands[*(a6 + 3) & 0x3FLL];
       panic("AMCC%u Non-Plane %s %s error TYPE %#x: INTSTS%u 0x%08x ADDR %#llx CMD/SRC/TID/SIZ %#x(%s)/%#x/%#x/%#x @%s:%d", a2, *(a5 + 8), *a6, 0, *(a6 + 7), *a4);
     }
 
     if (!v6)
     {
       v7 = *(a6 + 3) & 0x3FLL;
-      v8 = *(a6 + 9) >> 5;
-      v9 = AppleH15PlatformErrorHandler::_fabricCommands[v7];
-      if (!v9)
+      v8 = AppleH15PlatformErrorHandler::_fabricCommands[v7];
+      if (!v8)
       {
-        v9 = "???";
+        v8 = "???";
       }
 
-      v17 = *(a6 + 8);
-      v15 = *(a6 + 6);
-      v16 = *(a6 + 7);
-      v13 = *(a6 + 4);
-      v14 = *(a6 + 5);
-      v12 = *(a6 + 3);
-      panic("AMCC%u Non-Plane %s %s error: INTSTS%u 0x%08x ADDR %#llx CMD/SRC/TID/SIZ %#x(%s)/%#x/%#x/%#x INFO 0x%08x/0x%08x/0x%08x/0x%08x/0x%08x/0x%08x @%s:%d", a2, *(a5 + 8), *a6, 0, *a4, (v13 >> 9) & 0xFFFFFC00007FFFFFLL | ((*(a6 + 5) & 0x7FFFF) << 23), v7, v9);
+      panic("AMCC%u Non-Plane %s %s error: INTSTS%u 0x%08x ADDR %#llx CMD/SRC/TID/SIZ %#x(%s)/%#x/%#x/%#x INFO 0x%08x/0x%08x/0x%08x/0x%08x/0x%08x/0x%08x @%s:%d", a2, *(a5 + 8), *a6, 0, *a4, (*(a6 + 4) >> 9) & 0xFFFFFC00007FFFFFLL | ((*(a6 + 5) & 0x7FFFF) << 23), v7, v8);
     }
   }
 
@@ -2544,9 +2529,9 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeTagPipeParity(uint64_t a1, un
     v11 = v11 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, (a3 << 18) | 0x740u);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v11, a2, (a3 << 18) | 0x744u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v11, a2, (a3 << 18) | 0x748u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, ((a3 << 18) | 0x740u));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v11, a2, ((a3 << 18) | 0x744u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v11, a2, ((a3 << 18) | 0x748u));
   panic("AMCC%u PLANE%u %s error: INTSTS%u 0x%08x TAG_PAR_ERR_LOG0/1/2=%#x/%#x/%#x @%s:%d", a2, a3, *(a6 + 8), a4, *a5, Register32, v13, v14, "AppleH15PlatformErrorHandler.cpp", 2489);
 }
 
@@ -2558,9 +2543,8 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDataPipeSBE(uint64_t a1, unsi
     v12 = v12 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v12, a2, (a3 << 18) | 0xC14u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v12, a2, (a3 << 18) | 0xC1Cu);
-  v17 = *a5;
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v12, a2, ((a3 << 18) | 0xC14u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v12, a2, ((a3 << 18) | 0xC1Cu));
   v16 = vandq_s8(vshlq_u32(vdupq_n_s32(v14), xmmword_6480), xmmword_6490);
   v15 = mcc_log_memory_error();
   if (*(a1 + 152) && (*(a1 + 142) & 1) != 0)
@@ -2579,7 +2563,7 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDataPipeMBE(uint64_t a1, unsi
     v11 = v11 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, (a3 << 18) | 0xC20u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, ((a3 << 18) | 0xC20u));
   panic("AMCC%u PLANE%u %s error: INTSTS%u 0x%08x ECCMULTIBITSERRLOG(Bank/Way/Entry) %#x(%#x/%#x/%#x) @%s:%d", a2, a3, *(a6 + 8), a4, *a5, Register32, 0, 0, Register32, "AppleH15PlatformErrorHandler.cpp", 2217);
 }
 
@@ -2591,12 +2575,12 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDirectoryParity(uint64_t a1, 
     v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, (a3 << 18) | 0xA00u);
-  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, (a3 << 18) | 0xA04u);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, (a3 << 18) | 0xA08u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, (a3 << 18) | 0xA0Cu);
-  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, (a3 << 18) | 0xA14u);
-  v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, (a3 << 18) | 0xA18u) & 0x3FF | v15;
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, ((a3 << 18) | 0xA00u));
+  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, ((a3 << 18) | 0xA04u));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, ((a3 << 18) | 0xA08u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, ((a3 << 18) | 0xA0Cu));
+  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, ((a3 << 18) | 0xA14u));
+  v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, ((a3 << 18) | 0xA18u)) & 0x3FF | v15;
   v17 = AppleH15PlatformErrorHandler::_fabricCommands[v14 & 0x3F];
   if (!v17)
   {
@@ -2614,13 +2598,13 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDirectoryMultiHit(uint64_t a1
     v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, (a3 << 18) | 0xA1Cu);
-  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, (a3 << 18) | 0xA20u);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, (a3 << 18) | 0xA24u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, (a3 << 18) | 0xA28u);
-  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, (a3 << 18) | 0xA30u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, ((a3 << 18) | 0xA1Cu));
+  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, ((a3 << 18) | 0xA20u));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, ((a3 << 18) | 0xA24u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, ((a3 << 18) | 0xA28u));
+  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, ((a3 << 18) | 0xA30u));
   v16 = v15;
-  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, (a3 << 18) | 0xA34u);
+  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, ((a3 << 18) | 0xA34u));
   v18 = AppleH15PlatformErrorHandler::_fabricCommands[v14 & 0x3F];
   if (!v18)
   {
@@ -2638,13 +2622,13 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeTagPipeAFError(uint64_t a1, u
     v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, (a3 << 18) | 0x74Cu);
-  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, (a3 << 18) | 0x750u);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, (a3 << 18) | 0x754u);
-  v22 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, (a3 << 18) | 0x758u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v22, v10, a2, (a3 << 18) | 0x75Cu);
-  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, (a3 << 18) | 0x760u);
-  v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, (a3 << 18) | 0x774u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, ((a3 << 18) | 0x74Cu));
+  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, ((a3 << 18) | 0x750u));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, ((a3 << 18) | 0x754u));
+  v22 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, ((a3 << 18) | 0x758u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v22, v10, a2, ((a3 << 18) | 0x75Cu));
+  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, ((a3 << 18) | 0x760u));
+  v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, ((a3 << 18) | 0x774u));
   v17 = AppleH15PlatformErrorHandler::_fabricCommands[(v12 >> 11) & 0x3F];
   if (!v17)
   {
@@ -2676,13 +2660,13 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDirectoryInconsistent(uint64_
     v10 = v10 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, (a3 << 18) | 0xA38u);
-  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, (a3 << 18) | 0xA3Cu);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, (a3 << 18) | 0xA40u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, (a3 << 18) | 0xA44u);
-  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, (a3 << 18) | 0xA48u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v10, a2, ((a3 << 18) | 0xA38u));
+  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, ((a3 << 18) | 0xA3Cu));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v12, v10, a2, ((a3 << 18) | 0xA40u));
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v10, a2, ((a3 << 18) | 0xA44u));
+  v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v10, a2, ((a3 << 18) | 0xA48u));
   v16 = v15;
-  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, (a3 << 18) | 0xA4Cu);
+  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v10, a2, ((a3 << 18) | 0xA4Cu));
   v18 = AppleH15PlatformErrorHandler::_fabricCommands[v13 & 0x3F];
   if (!v18)
   {
@@ -2705,7 +2689,7 @@ uint64_t AppleH15PlatformErrorHandler::_amccPlaneDsidAgeOut(uint64_t a1, unsigne
   v9 = 10;
   while (1)
   {
-    result = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, v7 + 135172);
+    result = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, (v7 + 135172));
     if ((result & 0x4000000) == 0)
     {
       break;
@@ -2715,20 +2699,20 @@ uint64_t AppleH15PlatformErrorHandler::_amccPlaneDsidAgeOut(uint64_t a1, unsigne
     AppleH15PlatformErrorHandler::_writeRegister32(result, v8, a2, v7 + 135172, 0x4000000);
     if (!--v9)
     {
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, v6 | 0x74Cu);
-      v24 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, v6 | 0x750u);
-      v23 = AppleH15PlatformErrorHandler::_readRegister32(v24, v8, a2, v6 | 0x754u);
-      v22 = AppleH15PlatformErrorHandler::_readRegister32(v23, v8, a2, v6 | 0x758u);
-      v21 = AppleH15PlatformErrorHandler::_readRegister32(v22, v8, a2, v6 | 0x75Cu);
-      v20 = AppleH15PlatformErrorHandler::_readRegister32(v21, v8, a2, v6 | 0x760u);
-      v19 = AppleH15PlatformErrorHandler::_readRegister32(v20, v8, a2, v6 | 0x774u);
-      v12 = AppleH15PlatformErrorHandler::_readRegister32(v19, v8, a2, v6 | 0x15000u);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, (v6 | 0x74Cu));
+      v24 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, (v6 | 0x750u));
+      v23 = AppleH15PlatformErrorHandler::_readRegister32(v24, v8, a2, (v6 | 0x754u));
+      v22 = AppleH15PlatformErrorHandler::_readRegister32(v23, v8, a2, (v6 | 0x758u));
+      v21 = AppleH15PlatformErrorHandler::_readRegister32(v22, v8, a2, (v6 | 0x75Cu));
+      v20 = AppleH15PlatformErrorHandler::_readRegister32(v21, v8, a2, (v6 | 0x760u));
+      v19 = AppleH15PlatformErrorHandler::_readRegister32(v20, v8, a2, (v6 | 0x774u));
+      v12 = AppleH15PlatformErrorHandler::_readRegister32(v19, v8, a2, (v6 | 0x15000u));
       v13 = v6 + 86016;
-      v14 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, v6 + 86020);
-      v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v8, a2, v13 + 8);
-      v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, v13 + 12);
-      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v8, a2, v13 + 16);
-      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v8, a2, v13 + 20);
+      v14 = AppleH15PlatformErrorHandler::_readRegister32(v12, v8, a2, (v6 + 86020));
+      v15 = AppleH15PlatformErrorHandler::_readRegister32(v14, v8, a2, (v13 + 8));
+      v16 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, (v13 + 12));
+      v17 = AppleH15PlatformErrorHandler::_readRegister32(v16, v8, a2, (v13 + 16));
+      v18 = AppleH15PlatformErrorHandler::_readRegister32(v17, v8, a2, (v13 + 20));
       panic("AMCC%u PLANE%u error: Too many vDSID Ageout interrupts. INTSTS 0x%08x AFERRLOG0/1/2/3/4/5 %#x/%#x/%#x/%#x/%#x/%#x ErrDsid:%#x TimeoutSts0/1/2/3/4/5  %#x/%#x/%#x/%#x/%#x/%#x @%s:%d", a2, a3, v11, Register32, v24, v23, v22, v21, v20, v19, v12, v14, v15, v16, v17, v18, "AppleH15PlatformErrorHandler.cpp", 2406);
     }
   }
@@ -2744,8 +2728,8 @@ void AppleH15PlatformErrorHandler::_amccPlaneDecodeDirectoryUnexpectedVictim(uin
     v11 = v11 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, (a3 << 18) | 0xA50u);
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v11, a2, (a3 << 18) | 0xA54u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v11, a2, ((a3 << 18) | 0xA50u));
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v11, a2, ((a3 << 18) | 0xA54u));
   panic("AMCC%u PLANE%u %s error: INTSTS%u 0x%08x FLAG %#x INFO %#x @%s:%d", a2, a3, *(a6 + 8), a4, *a5, Register32, v13, "AppleH15PlatformErrorHandler.cpp", 2368);
 }
 
@@ -2773,9 +2757,19 @@ void AppleH15PlatformErrorHandler::_amccGenerateEnableMaskforInputTable(uint64_t
       }
 
       v10 = v9;
-      v11 = *(v5 - 5);
-      v12 = (v7 & v10) == 0;
+      v11 = (v7 & v10) == 0;
       if ((v7 & v10) != 0)
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v12 = *(v5 - 5);
+      }
+
+      v4 |= v12;
+      if (v11)
       {
         v13 = 0;
       }
@@ -2785,18 +2779,7 @@ void AppleH15PlatformErrorHandler::_amccGenerateEnableMaskforInputTable(uint64_t
         v13 = *(v5 - 5);
       }
 
-      v4 |= v13;
-      if (v12)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        v14 = *(v5 - 5);
-      }
-
-      v3 |= v14;
+      v3 |= v13;
       v5 += 4;
       --v2;
     }
@@ -2824,7 +2807,7 @@ void AppleH15PlatformErrorHandler::_amccEnableErrorsForInputTable(uint64_t a1, _
     v9 = v9 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, v7 + 1376256);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, (v7 + 1376256));
   v11 = Register32 & ~*a2;
   if (a4)
   {
@@ -2844,9 +2827,9 @@ uint64_t AppleH15PlatformErrorHandler::_amccDumpRegsForInputTable(uint64_t a1, _
     v9 = v9 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, a2[2] + 1376256);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, (a2[2] + 1376256));
   v11 = Register32;
-  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v9, a3, a2[4] + 1376256);
+  v12 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v9, a3, (a2[4] + 1376256));
   return snprintf(a4, a5 - a4, "intsts: %x\tinten: %x\tblock enable: %x\n", v12, v11, *a2);
 }
 
@@ -2883,8 +2866,8 @@ void AppleH15PlatformErrorHandler::_amccDumpRegs(uint64_t this, unsigned int a2)
     v16 = v11;
     do
     {
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(v8, v10, a2, v9 | 0x21000u);
-      v15 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, v9 | 0x21004u);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(v8, v10, a2, (v9 | 0x21000u));
+      v15 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v10, a2, (v9 | 0x21004u));
       v8 = snprintf(v12, &v18 - v12, "intsts: %x\tinten: %x\tblock enable: %x\n", v15, Register32, *(&AppleH15PlatformErrorHandler::_amccPlaneDecoders + v13));
       v12 += v8;
       v13 += 24;
@@ -2940,7 +2923,7 @@ void AppleH15PlatformErrorHandler::_amccDecodeInterrupts(uint64_t this, int a2, 
     v27 = v9;
     do
     {
-      Register32 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, v3, (v6 << 18) + 8 * v11 + 135172);
+      Register32 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, v3, ((v6 << 18) + 8 * v11 + 135172));
       v28 = Register32;
       v12 = &AppleH15PlatformErrorHandler::_amccPlaneDecoders + 24 * v11;
       v13 = *v12;
@@ -3028,7 +3011,7 @@ uint64_t AppleH15PlatformErrorHandler::_amccDecodeInterruptsForInputTable(uint64
     v9 = v9 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  result = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, v8 + 1376256);
+  result = AppleH15PlatformErrorHandler::_readRegister32(a1, v9, a3, (v8 + 1376256));
   v23 = result;
   v11 = *a2;
   if ((*a2 & result) != 0)
@@ -3093,38 +3076,38 @@ uint64_t AppleH15PlatformErrorHandler::_amccDecodeInterruptsForInputTable(uint64
 
 void AppleH15PlatformErrorHandler::_dcsDecodeMCUError(uint64_t a1, unsigned int a2, int a3, int a4, _DWORD *a5, uint64_t a6)
 {
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  *__str = 0u;
+  v34 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  *__str = 0u;
+  v28 = 0u;
   v11 = snprintf(__str, 0x200uLL, "AMCC%u DCS GROUP %u CHANNEL %u %s error: INTSTS 0x%08x", a2, a3, a4, *(a6 + 32), *a5);
   v12 = *(a6 + 24);
   v13 = strcmp(v12, "mcu");
@@ -3133,64 +3116,56 @@ void AppleH15PlatformErrorHandler::_dcsDecodeMCUError(uint64_t a1, unsigned int 
     v15 = strcmp(v12, "evt");
     if (v15 && (v15 = strcmp(v12, "spll_evt"), v15))
     {
-      v23 = strcmp(*(a6 + 32), "M3_AIC_IRQ_EN_FLD");
-      if (!v23)
+      v20 = strcmp(*(a6 + 32), "M3_AIC_IRQ_EN_FLD");
+      if (!v20)
       {
-        v24 = a1 + 12872;
+        v21 = a1 + 12872;
         if (((a1 ^ (a1 + 12872)) & 0xFFC0000000000000) != 0)
         {
-          v24 = v24 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
+          v21 = v21 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
         }
 
-        v25 = &dword_181E8;
-        v26 = 11;
+        v22 = &dword_181E8;
+        v23 = 11;
         do
         {
-          v27 = *(v25 - 1);
-          v28 = *v25;
-          v25 += 4;
-          Register32 = AppleH15PlatformErrorHandler::_readRegister32(v23, v24, 1u, v28);
-          v23 = snprintf(&__str[v11], 512 - v11, " %s:0x%x", v27, Register32);
-          v11 += v23;
-          --v26;
+          v24 = *(v22 - 1);
+          v25 = *v22;
+          v22 += 4;
+          Register32 = AppleH15PlatformErrorHandler::_readRegister32(v20, v21, 1u, v25);
+          v20 = snprintf(&__str[v11], 512 - v11, " %s:0x%x", v24, Register32);
+          v11 += v20;
+          --v23;
         }
 
-        while (v26);
+        while (v23);
       }
     }
 
     else
     {
-      v16 = (*(a6 + 8) + (a3 << 21));
+      v16 = *(a6 + 8) + (a3 << 21);
       v17 = a1 + 8232;
       if (((a1 ^ (a1 + 8232)) & 0xFFC0000000000000) != 0)
       {
         v17 = v17 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
       }
 
-      v18 = AppleH15PlatformErrorHandler::_readRegister32(v15, v17, a2, *(a6 + 16) + v16 + 4);
-      AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, v16 + *(a6 + 16) + 8);
-      v19 = 40 * a2 + 24;
-      v20 = (v17 + v19);
-      if (v19 != v19)
-      {
-        v20 = ((v17 + v19) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
-      }
-
-      v21 = *v20 + v16 + *(a6 + 16);
+      v18 = AppleH15PlatformErrorHandler::_readRegister32(v15, v17, a2, (*(a6 + 16) + v16 + 4));
+      AppleH15PlatformErrorHandler::_readRegister32(v18, v17, a2, (v16 + *(a6 + 16) + 8));
       snprintf(&__str[v11], 512 - v11, " DATA0 @ 0x%012lx 0x%08x, DATA1 @ 0x%012lx 0x%08x");
     }
   }
 
   else if ((*a5 & 0x400000) != 0)
   {
-    v22 = a1 + 8232;
+    v19 = a1 + 8232;
     if (((a1 ^ (a1 + 8232)) & 0xFFC0000000000000) != 0)
     {
-      v22 = v22 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
+      v19 = v19 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    AppleH15PlatformErrorHandler::_readRegister32(v13, v22, a2, *(a6 + 8) + (a3 << 21) + 2032);
+    AppleH15PlatformErrorHandler::_readRegister32(v13, v19, a2, (*(a6 + 8) + (a3 << 21) + 2032));
     snprintf(&__str[v11], 512 - v11, " UFDI_ERR_STS: 0x%08x");
   }
 
@@ -3202,7 +3177,7 @@ void AppleH15PlatformErrorHandler::_dcsDecodeMCUError(uint64_t a1, unsigned int 
       v14 = v14 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
     }
 
-    AppleH15PlatformErrorHandler::_readRegister32(v13, v14, a2, *(a6 + 8) + (a3 << 21) + 1052);
+    AppleH15PlatformErrorHandler::_readRegister32(v13, v14, a2, (*(a6 + 8) + (a3 << 21) + 1052));
     snprintf(&__str[v11], 512 - v11, " CS0Odts: 0x%x CS1Odts: 0x%x");
   }
 
@@ -3248,7 +3223,7 @@ uint64_t AppleH15PlatformErrorHandler::_dcsDecodeInterrupts(uint64_t this, int a
     v13 = &AppleH15PlatformErrorHandler::_dcsDecoders[6 * v8];
     if (v13[2])
     {
-      this = AppleH15PlatformErrorHandler::_readRegister32(this, v12, v7, *(*(v13 + 2) + 8) + v11 + *(*(v13 + 2) + 16));
+      this = AppleH15PlatformErrorHandler::_readRegister32(this, v12, v7, (*(*(v13 + 2) + 8) + v11 + *(*(v13 + 2) + 16)));
       *v32 = this;
       v14 = *v13 & this;
       if (v14)
@@ -3318,7 +3293,7 @@ uint64_t AppleH15PlatformErrorHandler::_dcsDecodeInterrupts(uint64_t this, int a
     {
       if (*(v29 - 2))
       {
-        Register32 = AppleH15PlatformErrorHandler::_readRegister32(v25, v12, v7, *(*v29 + 2) + v11 + *(*v29 + 4));
+        Register32 = AppleH15PlatformErrorHandler::_readRegister32(v25, v12, v7, (*(*v29 + 2) + v11 + *(*v29 + 4)));
         v25 = snprintf(&v32[v27], 2000 - v27, "%d:%08x/%08x ", v26, Register32, *(v33 + v26));
         v28 += v25;
       }
@@ -3465,15 +3440,15 @@ void AppleH15PlatformErrorHandler::_ioaPanic(uint64_t a1, unsigned int a2, _DWOR
     v8 = v8 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, v7 + 4);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(a1, v8, a2, (v7 + 4));
   v10 = Register32;
-  v11 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, v7 + 8);
+  v11 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v8, a2, (v7 + 8));
   v12 = v11;
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, v7 + 12);
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v11, v8, a2, (v7 + 12));
   v14 = v13;
-  v15 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, v7 + 16);
+  v15 = AppleH15PlatformErrorHandler::_readRegister32(v13, v8, a2, (v7 + 16));
   v16 = v15;
-  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, v7 + 20);
+  v17 = AppleH15PlatformErrorHandler::_readRegister32(v15, v8, a2, (v7 + 20));
   v18 = AppleH15PlatformErrorHandler::_fabricCommands[v10 & 0x3F];
   v39 = 0u;
   v40 = 0u;
@@ -3530,7 +3505,7 @@ uint64_t AppleH15PlatformErrorHandler::_ioaDecodeInterrupts(uint64_t this, int a
     v5 = v5 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  result = AppleH15PlatformErrorHandler::_readRegister32(this, v5, v3, 0xA0Cu);
+  result = AppleH15PlatformErrorHandler::_readRegister32(this, v5, v3, "ENTIRQ_DATA64B");
   v10 = result;
   if (result)
   {
@@ -3598,12 +3573,12 @@ void AppleH15PlatformErrorHandler::_sepDecodeMonInterrupts(uint64_t this, int a2
     v4 = v4 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v4, 0, 0x14000u);
-  v6 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v4, 0, 0x14008u);
-  v7 = AppleH15PlatformErrorHandler::_readRegister32(v6, v4, 0, 0x14400u);
-  v8 = AppleH15PlatformErrorHandler::_readRegister32(v7, v4, 0, 0x14408u);
-  v9 = AppleH15PlatformErrorHandler::_readRegister32(v8, v4, 0, 0x15400u);
-  v10 = AppleH15PlatformErrorHandler::_readRegister32(v9, v4, 0, 0x14C00u);
+  Register32 = AppleH15PlatformErrorHandler::_readRegister32(this, v4, 0, &loc_14000);
+  v6 = AppleH15PlatformErrorHandler::_readRegister32(Register32, v4, 0, &loc_14008);
+  v7 = AppleH15PlatformErrorHandler::_readRegister32(v6, v4, 0, &loc_14400);
+  v8 = AppleH15PlatformErrorHandler::_readRegister32(v7, v4, 0, &loc_14408);
+  v9 = AppleH15PlatformErrorHandler::_readRegister32(v8, v4, 0, &loc_15400);
+  v10 = AppleH15PlatformErrorHandler::_readRegister32(v9, v4, 0, &loc_14C00);
   v11 = v10;
   v12 = this + 12872;
   if (((this ^ (this + 12872)) & 0xFFC0000000000000) != 0)
@@ -3611,8 +3586,8 @@ void AppleH15PlatformErrorHandler::_sepDecodeMonInterrupts(uint64_t this, int a2
     v12 = v12 & 0xFFFFFFFFFFFFLL | 0xC8A2000000000000;
   }
 
-  v13 = AppleH15PlatformErrorHandler::_readRegister32(v10, v12, 0, 0x58000u);
-  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v12, 1u, 0x30u);
+  v13 = AppleH15PlatformErrorHandler::_readRegister32(v10, v12, 0, 0x58000);
+  v14 = AppleH15PlatformErrorHandler::_readRegister32(v13, v12, 1u, &stru_20.segname[8]);
   if (!Register32)
   {
     v15 = &unk_3FD9;
@@ -3724,7 +3699,7 @@ void AppleH15MemCacheController::~AppleH15MemCacheController(AppleH15MemCacheCon
 
 AppleMemCacheController *AppleH15MemCacheController::MetaClass::alloc(AppleH15MemCacheController::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleH15MemCacheController_ktv, "ce Tree @%s:%d", v4, v5);
   AppleMemCacheController::AppleMemCacheController(v1, &AppleH15MemCacheController::gMetaClass);
   *v2 = off_238D0;
   OSMetaClass::instanceConstructed(&AppleH15MemCacheController::gMetaClass);
@@ -4102,28 +4077,27 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     }
   }
 
-  v44 = *(this + 514);
-  v45 = IOMallocData();
-  *(this + 178) = v45;
-  if (!v45)
+  v44 = IOMallocData();
+  *(this + 178) = v44;
+  if (!v44)
   {
     AppleH15MemCacheController::start(this + 514);
   }
 
   if (*v27)
   {
-    v46 = 0;
+    v45 = 0;
     do
     {
-      *(*(this + 178) + 4 * v46) = AppleH15MemCacheController::_mccReadReg32(this, this + 1016, v46 / *(this + 516), ((v46 % *(this + 516)) << 21) + 4199368);
-      ++v46;
+      *(*(this + 178) + 4 * v45) = AppleH15MemCacheController::_mccReadReg32(this, this + 1016, v45 / *(this + 516), ((v45 % *(this + 516)) << 21) + 4199368);
+      ++v45;
     }
 
-    while (v46 < *(this + 514));
+    while (v45 < *(this + 514));
   }
 
-  v47 = (a2->removeObject_1)(a2, "dcs-true-mr4-read-support");
-  if (OSMetaClassBase::safeMetaCast(v47, v14))
+  v46 = (a2->removeObject_1)(a2, "dcs-true-mr4-read-support");
+  if (OSMetaClassBase::safeMetaCast(v46, v14))
   {
     *(this + 2213) = 1;
     *(this + 2212) = 13;
@@ -4149,9 +4123,9 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     AppleH15MemCacheController::start();
   }
 
-  v49 = IOCommandGate::commandGate(this, 0);
-  *(this + 260) = v49;
-  if (!v49)
+  v48 = IOCommandGate::commandGate(this, 0);
+  *(this + 260) = v48;
+  if (!v48)
   {
     if (gMccDebug)
     {
@@ -4165,8 +4139,8 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     return 0;
   }
 
-  v50 = (*(*this + 888))(this);
-  if ((*(*v50 + 160))(v50, *(this + 260)))
+  v49 = (*(*this + 888))(this);
+  if ((*(*v49 + 160))(v49, *(this + 260)))
   {
     if (gMccDebug)
     {
@@ -4180,48 +4154,48 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     return 0;
   }
 
-  v52 = IOService::nameMatching("pram", 0);
-  if (v52)
+  v51 = IOService::nameMatching("pram", 0);
+  if (v51)
   {
-    v53 = v52;
-    v54 = IOService::waitForMatchingService(v52, 0xFFFFFFFFFFFFFFFFLL);
-    if (!v54)
+    v52 = v51;
+    v53 = IOService::waitForMatchingService(v51, 0xFFFFFFFFFFFFFFFFLL);
+    if (!v53)
     {
       AppleH15MemCacheController::start();
     }
 
-    v55 = v54;
-    v56 = (v54->getProperty_1)(v54, "reg");
-    v57 = OSMetaClassBase::safeMetaCast(v56, v14);
-    if (!v57)
+    v54 = v53;
+    v55 = (v53->getProperty_1)(v53, "reg");
+    v56 = OSMetaClassBase::safeMetaCast(v55, v14);
+    if (!v56)
     {
       AppleH15MemCacheController::start();
     }
 
-    v58 = v57;
-    if ((v57->__vftable[1].getMetaClass)(v57) != 16)
+    v57 = v56;
+    if ((v56->__vftable[1].getMetaClass)(v56) != 16)
     {
-      AppleH15MemCacheController::start(v58);
+      AppleH15MemCacheController::start(v57);
     }
 
-    v59 = (*(*v58 + 216))(v58);
-    v60 = *v59;
-    *(this + 265) = v59[1];
-    (v55->release_0)(v55);
-    (v53->release_0)(v53);
-    v61 = gMccDebug;
+    v58 = (*(*v57 + 216))(v57);
+    v59 = *v58;
+    *(this + 265) = v58[1];
+    (v54->release_0)(v54);
+    (v52->release_0)(v52);
+    v60 = gMccDebug;
     if ((gMccDebug & 0xFC) != 0)
     {
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "panicPhys=0x%llx", v60);
-      v61 = gMccDebug;
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "panicPhys=0x%llx", v59);
+      v60 = gMccDebug;
       if ((gMccDebug & 0xFF00) != 0)
       {
-        kprintf("%s:%d: panicPhys=0x%llx\n", "start", 640, v60);
-        v61 = gMccDebug;
+        kprintf("%s:%d: panicPhys=0x%llx\n", "start", 640, v59);
+        v60 = gMccDebug;
       }
     }
 
-    if ((v61 & 0xFC) != 0)
+    if ((v60 & 0xFC) != 0)
     {
       _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "_mccPanicSize=0x%llx", *(this + 265));
       if (*(&gMccDebug + 1))
@@ -4230,70 +4204,70 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
       }
     }
 
-    v62 = (a2->removeObject_1)(a2, "panic-max-size");
-    v63 = OSMetaClassBase::safeMetaCast(v62, v14);
-    if (!v63)
+    v61 = (a2->removeObject_1)(a2, "panic-max-size");
+    v62 = OSMetaClassBase::safeMetaCast(v61, v14);
+    if (!v62)
     {
       AppleH15MemCacheController::start();
     }
 
-    v64 = (v63->__vftable[2].~OSMetaClassBase_0)(v63);
-    v65 = *v64;
+    v63 = (v62->__vftable[2].~OSMetaClassBase_0)(v62);
+    v64 = *v63;
     if ((gMccDebug & 0xFC) != 0)
     {
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "panicMaxSize=0x%llx", *v64);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "panicMaxSize=0x%llx", *v63);
       if (*(&gMccDebug + 1))
       {
-        kprintf("%s:%d: panicMaxSize=0x%llx\n", "start", 648, v65);
+        kprintf("%s:%d: panicMaxSize=0x%llx\n", "start", 648, v64);
       }
     }
 
-    v66 = (a2->removeObject_1)(a2, "dram-base");
-    v67 = OSMetaClassBase::safeMetaCast(v66, v14);
-    if (!v67)
+    v65 = (a2->removeObject_1)(a2, "dram-base");
+    v66 = OSMetaClassBase::safeMetaCast(v65, v14);
+    if (!v66)
     {
       AppleH15MemCacheController::start();
     }
 
-    v68 = (v67->__vftable[2].~OSMetaClassBase_0)(v67);
-    v69 = *v68;
+    v67 = (v66->__vftable[2].~OSMetaClassBase_0)(v66);
+    v68 = *v67;
     if ((gMccDebug & 0xFC) != 0)
     {
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "dramBasePhy=0x%llx", *v68);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "dramBasePhy=0x%llx", *v67);
       if (*(&gMccDebug + 1))
       {
-        kprintf("%s:%d: dramBasePhy=0x%llx\n", "start", 655, v69);
+        kprintf("%s:%d: dramBasePhy=0x%llx\n", "start", 655, v68);
       }
     }
 
-    v70 = (a2->removeObject_1)(a2, "dram-limit");
-    v71 = OSMetaClassBase::safeMetaCast(v70, v14);
-    if (!v71)
+    v69 = (a2->removeObject_1)(a2, "dram-limit");
+    v70 = OSMetaClassBase::safeMetaCast(v69, v14);
+    if (!v70)
     {
       AppleH15MemCacheController::start();
     }
 
-    v72 = (v71->__vftable[2].~OSMetaClassBase_0)(v71);
-    v73 = *v72;
+    v71 = (v70->__vftable[2].~OSMetaClassBase_0)(v70);
+    v72 = *v71;
     if ((gMccDebug & 0xFC) != 0)
     {
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "dramLimit=0x%llx", *v72);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "dramLimit=0x%llx", *v71);
       if (*(&gMccDebug + 1))
       {
-        kprintf("%s:%d: dramLimit=0x%llx\n", "start", 662, v73);
+        kprintf("%s:%d: dramLimit=0x%llx\n", "start", 662, v72);
       }
     }
 
-    v74 = *(this + 265);
-    if (((v74 | v60) & 0x3F) != 0 || v74 > v65 || v60 >= v73 - v74)
+    v73 = *(this + 265);
+    if (((v73 | v59) & 0x3F) != 0 || v73 > v64 || v59 >= v72 - v73)
     {
-      panic("STR_CLASS ::%s:%d:  start:illegal pram range: base=%llx bytes=%llx @%s:%d", "start", 669, v60, *(this + 265), "AppleH15MemCacheController.cpp", 669);
+      panic("STR_CLASS ::%s:%d:  start:illegal pram range: base=%llx bytes=%llx @%s:%d", "start", 669, v59, *(this + 265), "AppleH15MemCacheController.cpp", 669);
     }
 
-    *(this + 264) = v60 - v69;
+    *(this + 264) = v59 - v68;
     if ((gMccDebug & 0xFC) != 0)
     {
-      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "_mccPanicOffset=0x%llx", v60 - v69);
+      _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "_mccPanicOffset=0x%llx", v59 - v68);
       if (*(&gMccDebug + 1))
       {
         kprintf("%s:%d: _mccPanicOffset=0x%llx\n", "start", 674, *(this + 264));
@@ -4315,16 +4289,16 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     *(this + 265) = 0;
   }
 
-  v75 = 1776;
-  *&v76 = -1;
-  *(&v76 + 1) = -1;
+  v74 = 1776;
+  *&v75 = -1;
+  *(&v75 + 1) = -1;
   do
   {
-    *(this + v75) = v76;
-    v75 += 16;
+    *(this + v74) = v75;
+    v74 += 16;
   }
 
-  while (v75 != 2032);
+  while (v74 != 2032);
   AppleH15MemCacheController::_mccInitPerfCounters(this);
   AppleH15MemCacheController::_enableDsidProfileCounters(this);
   *(this + 526) = 0;
@@ -4333,7 +4307,7 @@ uint64_t AppleH15MemCacheController::start(AppleH15MemCacheController *this, OSD
     (*(*this + 1376))(this, 1);
   }
 
-  AppleARMFunction::registerFunctionParent(a2, this, v77);
+  AppleARMFunction::registerFunctionParent(a2, this, v76);
   (*(*this + 672))(this, 2);
   AppleH15MemCacheController::_getRankCfgByteMode(this);
   ml_mcache_flush_callback_register();
@@ -4496,16 +4470,13 @@ LABEL_26:
         {
           AppleH15MemCacheController::_mccRestoreAMCPerfCounterConfig(this);
           IOReportLegend::addReporterLegend(this, *(this + 267), "AMC Stats", "Perf Counters", v17);
-          v18 = *(this + 267);
           (*(**(this + 270) + 240))();
-          IOReportLegend::addReporterLegend(this, *(this + 268), "AMC Stats", "Perf Counters", v19);
-          v20 = *(this + 268);
+          IOReportLegend::addReporterLegend(this, *(this + 268), "AMC Stats", "Perf Counters", v18);
           (*(**(this + 270) + 240))();
-          IOReportLegend::addReporterLegend(this, *(this + 269), "AMC Stats", "DSID Group Stats", v21);
-          v22 = *(this + 269);
-          v23 = *(**(this + 270) + 240);
+          IOReportLegend::addReporterLegend(this, *(this + 269), "AMC Stats", "DSID Group Stats", v19);
+          v20 = *(**(this + 270) + 240);
 
-          v23();
+          v20();
           return;
         }
       }
@@ -4739,19 +4710,19 @@ uint64_t AppleH15MemCacheController::callPlatformFunction(AppleH15MemCacheContro
       switch(v16)
       {
         case 1298492705:
-          v17 = OSObject_typed_operator_new();
+          v17 = OSObject_typed_operator_new(&AppleMemCachePanicFunction_ktv, &stru_20.segname[8]);
           v18 = &AppleMemCachePanicFunction::gMetaClass;
           AppleARMFunction::AppleARMFunction(v17, &AppleMemCachePanicFunction::gMetaClass);
           v19 = off_24130;
           break;
         case 1298492736:
-          v17 = OSObject_typed_operator_new();
+          v17 = OSObject_typed_operator_new(&AppleMemCacheFlushFunction_ktv, &stru_20.segname[8]);
           v18 = &AppleMemCacheFlushFunction::gMetaClass;
           AppleARMFunction::AppleARMFunction(v17, &AppleMemCacheFlushFunction::gMetaClass);
           v19 = off_24268;
           break;
         case 1298492708:
-          v17 = OSObject_typed_operator_new();
+          v17 = OSObject_typed_operator_new(&AppleMemCacheModeFunction_ktv, &stru_20.segname[8]);
           v18 = &AppleMemCacheModeFunction::gMetaClass;
           AppleARMFunction::AppleARMFunction(v17, &AppleMemCacheModeFunction::gMetaClass);
           v19 = off_23FF8;
@@ -4884,7 +4855,7 @@ void AppleMemCacheFlushFunction::AppleMemCacheFlushFunction(AppleMemCacheFlushFu
   OSMetaClass::instanceConstructed(&AppleMemCacheFlushFunction::gMetaClass);
 }
 
-void AppleH15MemCacheController::_mccRestoreAMCPerfCounterConfig(AppleH15MemCacheController *this)
+void AppleH15MemCacheController::_mccRestoreAMCPerfCounterConfig(uint64_t this)
 {
   for (i = 0; i != 4; ++i)
   {
@@ -4944,7 +4915,7 @@ uint64_t ___ZN26AppleH15MemCacheController20callPlatformFunctionEPK8OSSymbolbPvS
   return 0;
 }
 
-void AppleH15MemCacheController::_mccSampleAllPerfCounters(AppleH15MemCacheController *this, int a2)
+void AppleH15MemCacheController::_mccSampleAllPerfCounters(uint64_t this, int a2)
 {
   for (i = 0; i != 4; ++i)
   {
@@ -6291,8 +6262,9 @@ LABEL_31:
   }
 }
 
-void AppleH15MemCacheController::_enablePerfCtrl(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+void AppleH15MemCacheController::_enablePerfCtrl(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   v8 = 160 * a3;
   v9 = a2 + v8;
   if (v8 != v8)
@@ -6305,14 +6277,14 @@ void AppleH15MemCacheController::_enablePerfCtrl(uint64_t a1, uint64_t a2, unsig
     _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "_enablePerfCtrl counter:%d enable:%d\n", a3, a4);
     if (*(&gMccDebug + 1))
     {
-      kprintf("%s:%d: _enablePerfCtrl counter:%d enable:%d\n\n", "_enablePerfCtrl", 2286, a3, a4);
+      kprintf("%s:%d: _enablePerfCtrl counter:%d enable:%d\n\n", "_enablePerfCtrl", 2286, v5, a4);
     }
   }
 
   if (a4)
   {
     v10 = *(v9 + 144);
-    if (v10 > AppleH15MemCacheController::_readPerfValue(a1, a2, a3))
+    if (v10 > AppleH15MemCacheController::_readPerfValue(a1, a2, v5))
     {
       *(v9 + 136) = *(v9 + 144);
     }
@@ -6471,20 +6443,20 @@ LABEL_52:
       break;
     }
 
-    if (v34 >= a3)
+    if (v34 >= v5)
     {
-      panic("Unexpected perfcntrctl value at index %d for counter %d\\n @%s:%d", i, a3, "AppleH15MemCacheController.cpp", 2384);
+      panic("Unexpected perfcntrctl value at index %d for counter %d\\n @%s:%d", i, v5, "AppleH15MemCacheController.cpp", 2384);
     }
   }
 
 LABEL_53:
   if ((a4 & 1) == 0)
   {
-    *(v9 + 144) = AppleH15MemCacheController::_readPerfValue(a1, a2, a3);
+    *(v9 + 144) = AppleH15MemCacheController::_readPerfValue(a1, a2, v5);
   }
 }
 
-unint64_t AppleH15MemCacheController::_mccSamplePerfCounter(uint64_t a1, uint64_t a2, unsigned int a3, unint64_t *a4)
+unint64_t AppleH15MemCacheController::_mccSamplePerfCounter(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
   v6 = 160 * a3;
   v7 = a2 + v6;
@@ -7105,7 +7077,7 @@ uint64_t AppleH15MemCacheController::updateQuota(AppleH15MemCacheController *thi
 
 uint64_t AppleH15MemCacheController::getDataStreamCacheUsage(AppleH15MemCacheController *this, MCDataStream *a2, unint64_t *a3)
 {
-  v25 = 0;
+  v20 = 0;
   if (a2 && a3)
   {
     v6 = (*(**(this + 271) + 144))(*(this + 271));
@@ -7124,22 +7096,19 @@ uint64_t AppleH15MemCacheController::getDataStreamCacheUsage(AppleH15MemCacheCon
             break;
           }
 
-          v25 = 0;
-          (*(*this + 1432))(this, i, &v25);
-          *a3 += v25;
+          v20 = 0;
+          (*(*this + 1432))(this, i, &v20);
+          *a3 += v20;
         }
 
         if (gMccDebug > 4u)
         {
-          v18 = v7[4];
+          v17 = v7[4];
           StreamName = MCDataStream::getStreamName(a2);
-          _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Cache usage by DSIDs in range %d-%d(stream: %s) is 0x%llx\n", v18, v10, StreamName, *a3);
+          _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Cache usage by DSIDs in range %d-%d(stream: %s) is 0x%llx\n", v17, v10, StreamName, *a3);
           if (*(&gMccDebug + 1))
           {
-            v21 = v7[4];
-            v20 = v7[5];
             MCDataStream::getStreamName(a2);
-            v24 = *a3;
             kprintf("%s:%d: Cache usage by DSIDs in range %d-%d(stream: %s) is 0x%llx\n\n");
           }
         }
@@ -7161,9 +7130,7 @@ uint64_t AppleH15MemCacheController::getDataStreamCacheUsage(AppleH15MemCacheCon
           _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Quota Group usage for DSID group %d(stream: %s) at offset:0x%x is 0x%llx\n", v15, v16, v14, *a3);
           if (*(&gMccDebug + 1))
           {
-            v17 = v7[3];
             MCDataStream::getStreamName(a2);
-            v23 = *a3;
             kprintf("%s:%d: Quota Group usage for DSID group %d(stream: %s) at offset:0x%x is 0x%llx\n\n");
           }
         }
@@ -7255,7 +7222,7 @@ void AppleMemCacheModeFunction::~AppleMemCacheModeFunction(AppleMemCacheModeFunc
 
 AppleARMFunction *AppleMemCacheModeFunction::MetaClass::alloc(AppleMemCacheModeFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCacheModeFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCacheModeFunction::gMetaClass);
   *v2 = off_23FF8;
   OSMetaClass::instanceConstructed(&AppleMemCacheModeFunction::gMetaClass);
@@ -7366,7 +7333,7 @@ void AppleMemCachePanicFunction::~AppleMemCachePanicFunction(AppleMemCachePanicF
 
 AppleARMFunction *AppleMemCachePanicFunction::MetaClass::alloc(AppleMemCachePanicFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCachePanicFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCachePanicFunction::gMetaClass);
   *v2 = off_24130;
   OSMetaClass::instanceConstructed(&AppleMemCachePanicFunction::gMetaClass);
@@ -7433,7 +7400,7 @@ void AppleMemCacheFlushFunction::~AppleMemCacheFlushFunction(AppleMemCacheFlushF
 
 AppleARMFunction *AppleMemCacheFlushFunction::MetaClass::alloc(AppleMemCacheFlushFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCacheFlushFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCacheFlushFunction::gMetaClass);
   *v2 = off_24268;
   OSMetaClass::instanceConstructed(&AppleMemCacheFlushFunction::gMetaClass);

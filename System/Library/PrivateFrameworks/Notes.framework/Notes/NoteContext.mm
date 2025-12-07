@@ -5,6 +5,7 @@
 + (BOOL)shouldLogIndexing;
 + (NSFetchRequest)newFetchRequestForNotes;
 + (NSManagedObjectModel)managedObjectModel;
++ (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted context:(id)context;
 + (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted context:(id)context fetchLimit:(unint64_t)limit;
 + (id)backupsDirectoryURL;
 + (id)generateGUID;
@@ -42,13 +43,17 @@
 - (NoteContext)init;
 - (NoteContext)initWithAccountUtilities:(id)utilities inMigrator:(BOOL)migrator isMainContext:(BOOL)context usePrivateQueue:(BOOL)queue;
 - (NoteContext)initWithPrivateQueue;
+- (NoteContext)initWithPrivateQueue:(BOOL)queue;
 - (id)_notePropertyObjectForKey:(id)key;
 - (id)accountForAccountId:(id)id;
+- (id)allAccountsAsFaults:(BOOL)faults prefechedRelationshipKeyPaths:(id)paths;
 - (id)allNotes;
 - (id)allNotesInCollection:(id)collection;
 - (id)allNotesMatchingPredicate:(id)predicate;
 - (id)allNotesWithoutBodiesInCollection:(id)collection;
 - (id)allStores;
+- (id)allVisibleNotesInCollection:(id)collection sorted:(BOOL)sorted;
+- (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted;
 - (id)collectionForInfo:(id)info;
 - (id)collectionForObjectID:(id)d;
 - (id)defaultStoreForNewNote;
@@ -61,6 +66,7 @@
 - (id)localStore;
 - (id)mostRecentlyModifiedNoteInCollection:(id)collection;
 - (id)newFRCForAccountsWithDelegate:(id)delegate;
+- (id)newFRCForCollection:(id)collection delegate:(id)delegate performFetch:(BOOL)fetch;
 - (id)newFRCForFetchRequest:(id)request delegate:(id)delegate performFetch:(BOOL)fetch;
 - (id)newFRCForStoresWithDelegate:(id)delegate;
 - (id)newFetchRequestForNotes;
@@ -71,6 +77,7 @@
 - (id)newlyAddedStore;
 - (id)newlyCreatedNoteFromDefaultStore;
 - (id)nextIndex;
+- (id)noteChangeWithType:(int)type store:(id)store;
 - (id)noteForGUID:(id)d;
 - (id)noteForObjectID:(id)d;
 - (id)notesForIntegerIds:(id)ids;
@@ -105,6 +112,7 @@
 - (void)managedObjectContextWillSaveNotification:(id)notification;
 - (void)nextIndex;
 - (void)postNotesChangedExternally;
+- (void)receiveDarwinNotificationWithChangeLogging:(BOOL)logging;
 - (void)setHasPriorityInSaveConflicts:(BOOL)conflicts;
 - (void)setPropertyValue:(id)value forKey:(id)key;
 - (void)setUpLastIndexTid;
@@ -147,7 +155,7 @@ uint64_t __43__NoteContext_SharedContext__sharedContext__block_invoke()
 
 + (void)removeConflictingSqliteAndIdxFiles
 {
-  v5 = NoteStoreCopyPath(self, a2);
+  v5 = NoteStoreCopyPath();
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [defaultManager fileExistsAtPath:v5];
 
@@ -274,21 +282,19 @@ void __33__NoteContext_managedObjectModel__block_invoke()
 
 + (id)storeOptions
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEC38];
   v3 = *MEMORY[0x277CBE178];
-  v8[0] = *MEMORY[0x277CBE1D8];
-  v8[1] = v3;
-  v9[0] = MEMORY[0x277CBEC38];
-  v9[1] = MEMORY[0x277CBEC38];
-  v8[2] = *MEMORY[0x277CBE240];
+  v7[0] = *MEMORY[0x277CBE1D8];
+  v7[1] = v3;
+  v8[0] = MEMORY[0x277CBEC38];
+  v8[1] = MEMORY[0x277CBEC38];
+  v7[2] = *MEMORY[0x277CBE240];
   fileProtectionOption = [objc_opt_class() fileProtectionOption];
-  v8[3] = *MEMORY[0x277CBE210];
-  v9[2] = fileProtectionOption;
-  v9[3] = v2;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277CBE210];
+  v8[2] = fileProtectionOption;
+  v8[3] = v2;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
   return v5;
 }
@@ -312,46 +318,46 @@ void __33__NoteContext_managedObjectModel__block_invoke()
 
 void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) urlForPersistentStore];
-  v37 = [*v2 managedObjectModel];
-  obj = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v37];
+  v36 = [*v2 managedObjectModel];
+  obj = [objc_alloc(MEMORY[0x277CBE4D8]) initWithManagedObjectModel:v36];
   v4 = [*v2 storeOptions];
   v5 = [v4 mutableCopy];
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
   if (ICUseCoreDataCoreSpotlightIntegration())
   {
     v6 = [MEMORY[0x277CBE4E0] persistentStoreDescriptionWithURL:v3];
     [v6 setType:*MEMORY[0x277CBE2E8]];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v7 = [v5 allKeys];
-    v8 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
     if (v8)
     {
-      v9 = *v47;
+      v9 = *v46;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v47 != v9)
+          if (*v46 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v46 + 1) + 8 * i);
-          v12 = [v5 objectForKeyedSubscript:{v11, v37}];
+          v11 = *(*(&v45 + 1) + 8 * i);
+          v12 = [v5 objectForKeyedSubscript:{v11, v36}];
           [v6 setOption:v12 forKey:v11];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
       }
 
       while (v8);
@@ -370,38 +376,38 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
   v16 = *MEMORY[0x277CBE2E8];
   if (v15)
   {
-    v45 = 0;
-    v17 = [(NotesMigrationManager *)v14 migrateNotesStoreAtURL:v3 storeType:v16 managedObjectModel:v37 options:v5 error:&v45];
-    v18 = v45;
-    *(v51 + 24) = v17;
+    v44 = 0;
+    v17 = [(NotesMigrationManager *)v14 migrateNotesStoreAtURL:v3 storeType:v16 managedObjectModel:v36 options:v5 error:&v44];
+    v18 = v44;
+    *(v50 + 24) = v17;
     if (v6)
     {
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __41__NoteContext_persistentStoreCoordinator__block_invoke_2;
-      v44[3] = &unk_2799AC898;
-      v44[4] = &v50;
-      [obj addPersistentStoreWithDescription:v6 completionHandler:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __41__NoteContext_persistentStoreCoordinator__block_invoke_2;
+      v43[3] = &unk_2799AC898;
+      v43[4] = &v49;
+      [obj addPersistentStoreWithDescription:v6 completionHandler:v43];
     }
   }
 
   else
   {
     v19 = [*(a1 + 32) managedObjectModel];
-    v43 = 0;
-    v20 = [(NotesMigrationManager *)v14 migrateNotesStoreAtURL:v3 storeType:v16 managedObjectModel:v19 options:v5 error:&v43];
-    v21 = v43;
-    *(v51 + 24) = v20;
+    v42 = 0;
+    v20 = [(NotesMigrationManager *)v14 migrateNotesStoreAtURL:v3 storeType:v16 managedObjectModel:v19 options:v5 error:&v42];
+    v21 = v42;
+    *(v50 + 24) = v20;
 
-    v42 = v21;
-    v22 = [obj addPersistentStoreWithType:v16 configuration:0 URL:v3 options:v5 error:&v42];
-    v23 = v42;
+    v41 = v21;
+    v22 = [obj addPersistentStoreWithType:v16 configuration:0 URL:v3 options:v5 error:&v41];
+    v23 = v41;
 
-    *(v51 + 24) = v22 != 0;
+    *(v50 + 24) = v22 != 0;
     v18 = v23;
   }
 
-  if ((v51[3] & 1) == 0)
+  if ((v50[3] & 1) == 0)
   {
     if ([*(a1 + 32) isTooLowOnDiskSpace])
     {
@@ -440,8 +446,8 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
         v28 = os_log_create("com.apple.notes", "HTML");
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
-          *v41 = 0;
-          _os_log_impl(&dword_25C69C000, v28, OS_LOG_TYPE_INFO, "Destroying old persistent store and creating a new one", v41, 2u);
+          *v40 = 0;
+          _os_log_impl(&dword_25C69C000, v28, OS_LOG_TYPE_INFO, "Destroying old persistent store and creating a new one", v40, 2u);
         }
 
         [*(a1 + 32) backupPersistentStore:obj];
@@ -455,23 +461,23 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
         {
           if (v6)
           {
-            v40[0] = MEMORY[0x277D85DD0];
-            v40[1] = 3221225472;
-            v40[2] = __41__NoteContext_persistentStoreCoordinator__block_invoke_236;
-            v40[3] = &unk_2799AC898;
-            v40[4] = &v50;
-            [obj addPersistentStoreWithDescription:v6 completionHandler:v40];
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = __41__NoteContext_persistentStoreCoordinator__block_invoke_236;
+            v39[3] = &unk_2799AC898;
+            v39[4] = &v49;
+            [obj addPersistentStoreWithDescription:v6 completionHandler:v39];
           }
         }
 
         else
         {
           v30 = *MEMORY[0x277CBE2E8];
-          v39 = v18;
-          v31 = [obj addPersistentStoreWithType:v30 configuration:0 URL:v3 options:v5 error:&v39];
-          v32 = v39;
+          v38 = v18;
+          v31 = [obj addPersistentStoreWithType:v30 configuration:0 URL:v3 options:v5 error:&v38];
+          v32 = v38;
 
-          *(v51 + 24) = v31 != 0;
+          *(v50 + 24) = v31 != 0;
           v18 = v32;
         }
 
@@ -500,7 +506,7 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
 
   objc_sync_exit(v13);
 
-  if (*(v51 + 24) == 1)
+  if (*(v50 + 24) == 1)
   {
     objc_storeStrong(&persistentStoreCoordinator__persistentStoreCoordinator, obj);
     if (ICUseCoreDataCoreSpotlightIntegration())
@@ -516,8 +522,7 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke(uint64_t a1)
     }
   }
 
-  _Block_object_dispose(&v50, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
 }
 
 - (NSManagedObjectContext)managedObjectContext
@@ -645,27 +650,25 @@ uint64_t __33__NoteContext_setUpCoreDataStack__block_invoke(uint64_t a1)
 
 + (id)newFetchRequestForAccounts
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBE428]) initWithEntityName:@"Account"];
   v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v2 setSortDescriptors:v4];
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (id)newFetchRequestForStores
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBE428]) initWithEntityName:@"Store"];
   v3 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"name" ascending:1];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [v2 setSortDescriptors:v4];
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -776,7 +779,7 @@ uint64_t __33__NoteContext_setUpCoreDataStack__block_invoke(uint64_t a1)
 
 - (BOOL)setUpLocalAccountAndStore
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBE428]);
   v4 = MEMORY[0x277CBE408];
   managedObjectContext = [(NoteContext *)self managedObjectContext];
@@ -786,9 +789,9 @@ uint64_t __33__NoteContext_setUpCoreDataStack__block_invoke(uint64_t a1)
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"accountIdentifier == %@", @"local://local/account"];
   [v3 setPredicate:v7];
   managedObjectContext2 = [(NoteContext *)self managedObjectContext];
-  v35 = 0;
-  v9 = [managedObjectContext2 executeFetchRequest:v3 error:&v35];
-  v10 = v35;
+  v34 = 0;
+  v9 = [managedObjectContext2 executeFetchRequest:v3 error:&v34];
+  v10 = v34;
 
   v11 = v10 == 0;
   if (v10)
@@ -813,44 +816,44 @@ LABEL_18:
       [(NoteContext *)v9 setUpLocalAccountAndStore];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v12 = v9;
-    v15 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v15 = [v12 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v32;
+      v18 = *v31;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v32 != v18)
+          if (*v31 != v18)
           {
             objc_enumerationMutation(v12);
           }
 
           if (v17)
           {
-            [(NoteContext *)self forceDeleteAccount:*(*(&v31 + 1) + 8 * i)];
+            [(NoteContext *)self forceDeleteAccount:*(*(&v30 + 1) + 8 * i)];
           }
 
           v17 = 1;
         }
 
-        v16 = [v12 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v16 = [v12 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v16);
     }
 
     managedObjectContext3 = [(NoteContext *)self managedObjectContext];
-    v30 = 0;
-    v9 = [managedObjectContext3 executeFetchRequest:v3 error:&v30];
-    v10 = v30;
+    v29 = 0;
+    v9 = [managedObjectContext3 executeFetchRequest:v3 error:&v29];
+    v10 = v29;
     goto LABEL_18;
   }
 
@@ -882,13 +885,12 @@ LABEL_19:
     v11 = 1;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)setUpLastIndexTid
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBE428]);
   v4 = MEMORY[0x277CBE408];
   managedObjectContext = [(NoteContext *)self managedObjectContext];
@@ -898,9 +900,9 @@ LABEL_19:
   v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"propertyKey == %@", @"LastTransactionID"];
   [v3 setPredicate:v7];
   managedObjectContext2 = [(NoteContext *)self managedObjectContext];
-  v36 = 0;
-  v9 = [managedObjectContext2 executeFetchRequest:v3 error:&v36];
-  v10 = v36;
+  v35 = 0;
+  v9 = [managedObjectContext2 executeFetchRequest:v3 error:&v35];
+  v10 = v35;
 
   v11 = v10 == 0;
   if (v10)
@@ -914,58 +916,58 @@ LABEL_19:
 
   else
   {
-    v15 = [v9 count];
-    v16 = v15 > 1;
-    if (v15 >= 2)
+    v14 = [v9 count];
+    v15 = v14 > 1;
+    if (v14 >= 2)
     {
-      v29 = v15 > 1;
-      v30 = v10 == 0;
-      v17 = os_log_create("com.apple.notes", "HTML");
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v28 = v14 > 1;
+      v29 = v10 == 0;
+      v16 = os_log_create("com.apple.notes", "HTML");
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         [(NoteContext *)v9 setUpLastIndexTid];
       }
 
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
-      v18 = v9;
-      v19 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
-      if (v19)
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v17 = v9;
+      v18 = [v17 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      if (v18)
       {
-        v20 = v19;
-        v21 = 0;
-        v22 = *v33;
+        v19 = v18;
+        v20 = 0;
+        v21 = *v32;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v33 != v22)
+            if (*v32 != v21)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v17);
             }
 
-            if (v21)
+            if (v20)
             {
-              v24 = *(*(&v32 + 1) + 8 * i);
+              v23 = *(*(&v31 + 1) + 8 * i);
               managedObjectContext3 = [(NoteContext *)self managedObjectContext];
-              [managedObjectContext3 deleteObject:v24];
+              [managedObjectContext3 deleteObject:v23];
             }
 
-            v21 = 1;
+            v20 = 1;
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v31 objects:v36 count:16];
         }
 
-        while (v20);
+        while (v19);
       }
 
       managedObjectContext4 = [(NoteContext *)self managedObjectContext];
-      v31 = 0;
-      v9 = [managedObjectContext4 executeFetchRequest:v3 error:&v31];
-      v10 = v31;
+      v30 = 0;
+      v9 = [managedObjectContext4 executeFetchRequest:v3 error:&v30];
+      v10 = v30;
 
       if (v10)
       {
@@ -973,27 +975,26 @@ LABEL_19:
         goto LABEL_6;
       }
 
-      v16 = v29;
-      v11 = v30;
+      v15 = v28;
+      v11 = v29;
     }
 
     if ([v9 count])
     {
       v10 = 0;
-      v11 = v16;
+      v11 = v15;
       goto LABEL_6;
     }
 
-    v27 = MEMORY[0x277CBE408];
+    v26 = MEMORY[0x277CBE408];
     managedObjectContext5 = [(NoteContext *)self managedObjectContext];
-    v12 = [v27 insertNewObjectForEntityForName:@"Property" inManagedObjectContext:managedObjectContext5];
+    v12 = [v26 insertNewObjectForEntityForName:@"Property" inManagedObjectContext:managedObjectContext5];
 
     [v12 setPropertyKey:@"LastTransactionID"];
     v10 = 0;
   }
 
 LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1014,11 +1015,9 @@ LABEL_6:
 
 + (void)removeSqliteAndIdxFiles
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NoteContext)init
@@ -1035,6 +1034,15 @@ LABEL_6:
   v4 = [(NoteContext *)self initWithAccountUtilities:v3 inMigrator:1];
 
   return v4;
+}
+
+- (NoteContext)initWithPrivateQueue:(BOOL)queue
+{
+  queueCopy = queue;
+  v5 = +[AccountUtilities sharedAccountUtilities];
+  v6 = [(NoteContext *)self initWithAccountUtilities:v5 inMigrator:0 isMainContext:0 usePrivateQueue:queueCopy];
+
+  return v6;
 }
 
 - (NoteContext)initWithAccountUtilities:(id)utilities inMigrator:(BOOL)migrator isMainContext:(BOOL)context usePrivateQueue:(BOOL)queue
@@ -1126,6 +1134,45 @@ LABEL_6:
   v6 = [(NoteContext *)self newFRCForFetchRequest:v5 delegate:delegateCopy performFetch:1];
 
   return v6;
+}
+
+- (id)newFRCForCollection:(id)collection delegate:(id)delegate performFetch:(BOOL)fetch
+{
+  fetchCopy = fetch;
+  collectionCopy = collection;
+  delegateCopy = delegate;
+  newFetchRequestForNotes = [(NoteContext *)self newFetchRequestForNotes];
+  v11 = MEMORY[0x277CCA920];
+  v12 = MEMORY[0x277CBEA60];
+  if (collectionCopy)
+  {
+    predicateForNotes = [collectionCopy predicateForNotes];
+    visibleNotesPredicate = [(NoteContext *)self visibleNotesPredicate];
+    v15 = [v12 arrayWithObjects:{predicateForNotes, visibleNotesPredicate, 0}];
+    v16 = [v11 andPredicateWithSubpredicates:v15];
+  }
+
+  else
+  {
+    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"store != nil"];
+    visibleNotesPredicate2 = [(NoteContext *)self visibleNotesPredicate];
+    v19 = [v12 arrayWithObjects:{v17, visibleNotesPredicate2, 0}];
+    v16 = [v11 andPredicateWithSubpredicates:v19];
+
+    sortDescriptors = [newFetchRequestForNotes sortDescriptors];
+    predicateForNotes = [sortDescriptors mutableCopy];
+
+    v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"store.name" ascending:1];
+    [predicateForNotes ic_addNonNilObject:v21];
+
+    [newFetchRequestForNotes setSortDescriptors:predicateForNotes];
+  }
+
+  [newFetchRequestForNotes setPredicate:v16];
+  [newFetchRequestForNotes setFetchBatchSize:100];
+  v22 = [(NoteContext *)self newFRCForFetchRequest:newFetchRequestForNotes delegate:delegateCopy performFetch:fetchCopy];
+
+  return v22;
 }
 
 - (id)newFRCForFetchRequest:(id)request delegate:(id)delegate performFetch:(BOOL)fetch
@@ -1371,28 +1418,28 @@ LABEL_14:
 
 - (void)deleteChanges:(id)changes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [changesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [changesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         managedObjectContext = [(NoteContext *)self managedObjectContext];
         [managedObjectContext deleteObject:v9];
 
@@ -1400,13 +1447,11 @@ LABEL_14:
       }
 
       while (v6 != v8);
-      v6 = [changesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [changesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1497,6 +1542,15 @@ LABEL_14:
   return v7;
 }
 
+- (id)allVisibleNotesInCollection:(id)collection sorted:(BOOL)sorted
+{
+  sortedCopy = sorted;
+  predicateForNotes = [collection predicateForNotes];
+  v7 = [(NoteContext *)self allVisibleNotesMatchingPredicate:predicateForNotes sorted:sortedCopy];
+
+  return v7;
+}
+
 - (unint64_t)countOfVisibleNotesInCollection:(id)collection
 {
   predicateForNotes = [collection predicateForNotes];
@@ -1523,6 +1577,27 @@ LABEL_14:
 
   v7 = [self countOfVisibleNotesMatchingPredicate:predicateForNotes context:managedObjectContext];
   return v7;
+}
+
+- (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted
+{
+  sortedCopy = sorted;
+  predicateCopy = predicate;
+  v7 = objc_opt_class();
+  managedObjectContext = [(NoteContext *)self managedObjectContext];
+  v9 = [v7 allVisibleNotesMatchingPredicate:predicateCopy sorted:sortedCopy context:managedObjectContext];
+
+  return v9;
+}
+
++ (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted context:(id)context
+{
+  sortedCopy = sorted;
+  contextCopy = context;
+  predicateCopy = predicate;
+  v9 = [objc_opt_class() allVisibleNotesMatchingPredicate:predicateCopy sorted:sortedCopy context:contextCopy fetchLimit:0];
+
+  return v9;
 }
 
 + (id)allVisibleNotesMatchingPredicate:(id)predicate sorted:(BOOL)sorted context:(id)context fetchLimit:(unint64_t)limit
@@ -2022,25 +2097,24 @@ LABEL_7:
 
 BOOL __34__NoteContext_storesInCollection___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v6 = [v4 parentStore];
+  v5 = [v3 parentStore];
 
   if (isKindOfClass)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
   }
 
-  v8 = v6 == v7;
+  v7 = v5 == v6;
 
-  return v8;
+  return v7;
 }
 
 - (id)faultedInStoresForAccounts:(id)accounts
@@ -2129,6 +2203,59 @@ LABEL_7:
   return v11;
 }
 
+- (id)allAccountsAsFaults:(BOOL)faults prefechedRelationshipKeyPaths:(id)paths
+{
+  faultsCopy = faults;
+  pathsCopy = paths;
+  v7 = +[NoteContext newFetchRequestForAccounts];
+  [v7 setReturnsObjectsAsFaults:faultsCopy];
+  if (pathsCopy)
+  {
+    [v7 setRelationshipKeyPathsForPrefetching:pathsCopy];
+  }
+
+  managedObjectContext = [(NoteContext *)self managedObjectContext];
+  v17 = 0;
+  v9 = [managedObjectContext executeFetchRequest:v7 error:&v17];
+  v10 = v17;
+
+  if (v10)
+  {
+    v11 = os_log_create("com.apple.notes", "HTML");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      [NoteContext allAccountsAsFaults:prefechedRelationshipKeyPaths:];
+    }
+
+    managedObjectContext2 = v11;
+LABEL_7:
+
+    goto LABEL_9;
+  }
+
+  if (![v9 count])
+  {
+    v14 = os_log_create("com.apple.notes", "HTML");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      [NoteContext allAccountsAsFaults:prefechedRelationshipKeyPaths:];
+    }
+
+    [(NoteContext *)self forceSetUpUniqueObjects];
+    managedObjectContext2 = [(NoteContext *)self managedObjectContext];
+    v16 = 0;
+    v15 = [managedObjectContext2 executeFetchRequest:v7 error:&v16];
+    v10 = v16;
+    v11 = v9;
+    v9 = v15;
+    goto LABEL_7;
+  }
+
+LABEL_9:
+
+  return v9;
+}
+
 - (id)newlyAddedAccount
 {
   v2 = MEMORY[0x277CBE408];
@@ -2171,7 +2298,7 @@ LABEL_7:
 
 - (id)defaultStoreForNewNote
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   CFPreferencesAppSynchronize(@"com.apple.mobilenotes");
   v3 = CFPreferencesCopyAppValue(@"DefaultNotesAccount", @"com.apple.mobilenotes");
   accountUtilities = [(NoteContext *)self accountUtilities];
@@ -2188,25 +2315,25 @@ LABEL_13:
   }
 
   [(NoteContext *)self allAccounts];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = v20 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = v19 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
 LABEL_5:
     v12 = 0;
     while (1)
     {
-      if (*v18 != v11)
+      if (*v17 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v17 + 1) + 8 * v12);
+      v13 = *(*(&v16 + 1) + 8 * v12);
       if (![v13 didChooseToMigrate])
       {
         break;
@@ -2214,7 +2341,7 @@ LABEL_5:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           goto LABEL_5;
@@ -2239,8 +2366,6 @@ LABEL_11:
 LABEL_14:
   defaultStore = [(NoteContext *)self localStore];
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return defaultStore;
 }
@@ -2314,49 +2439,49 @@ LABEL_15:
 
 - (BOOL)forceDeleteAccount:(id)account
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [objc_alloc(MEMORY[0x277CBE428]) initWithEntityName:@"NoteAttachment"];
-  v35 = accountCopy;
+  v34 = accountCopy;
   accountCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"note.store.account == %@", accountCopy];
   [v5 setPredicate:accountCopy];
 
-  v34 = v5;
+  v33 = v5;
   v7 = [objc_alloc(MEMORY[0x277CBE360]) initWithFetchRequest:v5];
   [v7 setResultType:1];
   selfCopy = self;
   managedObjectContext = [(NoteContext *)self managedObjectContext];
-  v45 = 0;
-  v32 = v7;
-  v9 = [managedObjectContext executeRequest:v7 error:&v45];
-  v10 = v45;
+  v44 = 0;
+  v31 = v7;
+  v9 = [managedObjectContext executeRequest:v7 error:&v44];
+  v10 = v44;
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v31 = v9;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v30 = v9;
   obj = [v9 result];
-  v11 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v11 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     do
     {
       v14 = 0;
       do
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * v14);
-        v40 = v10;
-        v16 = [NoteAttachmentObject attachmentDirectoryURLForAttachmentObjectID:v15 error:&v40];
-        v17 = v40;
+        v15 = *(*(&v40 + 1) + 8 * v14);
+        v39 = v10;
+        v16 = [NoteAttachmentObject attachmentDirectoryURLForAttachmentObjectID:v15 error:&v39];
+        v17 = v39;
 
         if (v17)
         {
@@ -2364,16 +2489,16 @@ LABEL_15:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v47 = v17;
+            v46 = v17;
             _os_log_fault_impl(&dword_25C69C000, v18, OS_LOG_TYPE_FAULT, "Error getting file directory URL for attachment: %@", buf, 0xCu);
           }
         }
 
         if (v16)
         {
-          v39 = v17;
-          v19 = [defaultManager removeItemAtURL:v16 error:&v39];
-          v10 = v39;
+          v38 = v17;
+          v19 = [defaultManager removeItemAtURL:v16 error:&v38];
+          v10 = v38;
 
           if (v19)
           {
@@ -2384,7 +2509,7 @@ LABEL_15:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v47 = v10;
+            v46 = v10;
             _os_log_fault_impl(&dword_25C69C000, v20, OS_LOG_TYPE_FAULT, "Error removing attachment file: %@", buf, 0xCu);
           }
         }
@@ -2395,7 +2520,7 @@ LABEL_15:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v47 = v15;
+            v46 = v15;
             _os_log_fault_impl(&dword_25C69C000, v20, OS_LOG_TYPE_FAULT, "Failed to get attachment folder URL for object ID: %@", buf, 0xCu);
           }
 
@@ -2407,21 +2532,21 @@ LABEL_18:
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v12 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v12);
   }
 
   newFetchRequestForNotes = [(NoteContext *)selfCopy newFetchRequestForNotes];
-  predicateForNotes = [v35 predicateForNotes];
+  predicateForNotes = [v34 predicateForNotes];
   [newFetchRequestForNotes setPredicate:predicateForNotes];
 
   v23 = [objc_alloc(MEMORY[0x277CBE360]) initWithFetchRequest:newFetchRequestForNotes];
   managedObjectContext2 = [(NoteContext *)selfCopy managedObjectContext];
-  v38 = v10;
-  v25 = [managedObjectContext2 executeRequest:v23 error:&v38];
-  v26 = v38;
+  v37 = v10;
+  v25 = [managedObjectContext2 executeRequest:v23 error:&v37];
+  v26 = v37;
 
   if (v26)
   {
@@ -2433,9 +2558,8 @@ LABEL_18:
   }
 
   managedObjectContext3 = [(NoteContext *)selfCopy managedObjectContext];
-  [managedObjectContext3 deleteObject:v35];
+  [managedObjectContext3 deleteObject:v34];
 
-  v29 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2450,37 +2574,37 @@ LABEL_18:
 
 - (BOOL)deleteStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   localStore = [(NoteContext *)self localStore];
 
   if (localStore != storeCopy)
   {
     v6 = [(NoteContext *)self allNotesInCollection:storeCopy];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [(NoteContext *)self deleteNoteRegardlessOfConstraints:*(*(&v14 + 1) + 8 * v10++)];
+          [(NoteContext *)self deleteNoteRegardlessOfConstraints:*(*(&v13 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -2490,7 +2614,6 @@ LABEL_18:
     [managedObjectContext deleteObject:storeCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return localStore != storeCopy;
 }
 
@@ -2714,7 +2837,7 @@ LABEL_18:
 
 - (id)nextIndex
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   nextId = self->_nextId;
   if (!nextId || (HIDWORD(v4) = -858993459 * [(NSNumber *)nextId unsignedIntValue], LODWORD(v4) = HIDWORD(v4), (v4 >> 1) <= 0x19999999))
   {
@@ -2730,9 +2853,9 @@ LABEL_18:
     [getNextIdObject setValue:v9 forKey:@"counter"];
 
     nextIdContext = self->_nextIdContext;
-    v21[0] = 0;
-    v11 = [(NSManagedObjectContext *)nextIdContext save:v21];
-    v12 = v21[0];
+    v20[0] = 0;
+    v11 = [(NSManagedObjectContext *)nextIdContext save:v20];
+    v12 = v20[0];
     if (!v11)
     {
       v13 = os_log_create("com.apple.notes", "HTML");
@@ -2757,8 +2880,6 @@ LABEL_18:
   v18 = *p_nextId;
   *p_nextId = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
@@ -2773,7 +2894,7 @@ LABEL_18:
 
 + (void)backupPersistentStore:(id)store
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v5 = os_log_create("com.apple.notes", "HTML");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -2790,20 +2911,20 @@ LABEL_18:
   v10 = MEMORY[0x277CCACA8];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  v49 = v9;
+  v48 = v9;
   v13 = [v10 stringWithFormat:@"Backup-%@-%@", v9, uUIDString];
 
   backupsDirectoryURL = [self backupsDirectoryURL];
-  v48 = v13;
+  v47 = v13;
   v15 = [backupsDirectoryURL URLByAppendingPathComponent:v13 isDirectory:1];
 
   lastPathComponent = [urlForPersistentStore lastPathComponent];
-  v51 = [v15 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
+  v50 = [v15 URLByAppendingPathComponent:lastPathComponent isDirectory:0];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v55 = 0;
-  LOBYTE(uUID) = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v55];
-  v18 = v55;
+  v54 = 0;
+  LOBYTE(uUID) = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v54];
+  v18 = v54;
 
   if ((uUID & 1) == 0)
   {
@@ -2819,10 +2940,10 @@ LABEL_18:
   storeOptions = [self storeOptions];
   storeOptions2 = [self storeOptions];
   v22 = *MEMORY[0x277CBE2E8];
-  v54 = v18;
-  v50 = storeCopy;
-  v23 = [storeCopy replacePersistentStoreAtURL:v51 destinationOptions:storeOptions withPersistentStoreFromURL:urlForPersistentStore sourceOptions:storeOptions2 storeType:v22 error:&v54];
-  v24 = v54;
+  v53 = v18;
+  v49 = storeCopy;
+  v23 = [storeCopy replacePersistentStoreAtURL:v50 destinationOptions:storeOptions withPersistentStoreFromURL:urlForPersistentStore sourceOptions:storeOptions2 storeType:v22 error:&v53];
+  v24 = v53;
 
   v25 = os_log_create("com.apple.notes", "HTML");
   v26 = v25;
@@ -2839,19 +2960,19 @@ LABEL_18:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v57 = urlForPersistentStore;
-    v58 = 2112;
-    v59 = v51;
+    v56 = urlForPersistentStore;
+    v57 = 2112;
+    v58 = v50;
     _os_log_impl(&dword_25C69C000, v26, OS_LOG_TYPE_INFO, "Backed up old persistent store from %@ to %@", buf, 0x16u);
   }
 
-  v53 = v24;
-  v27 = [urlForPersistentStore checkResourceIsReachableAndReturnError:&v53];
-  v28 = v53;
+  v52 = v24;
+  v27 = [urlForPersistentStore checkResourceIsReachableAndReturnError:&v52];
+  v28 = v52;
 
   v26 = os_log_create("com.apple.notes", "HTML");
   v29 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
-  v30 = v50;
+  v30 = v49;
   if (v27)
   {
     if (v29)
@@ -2860,9 +2981,9 @@ LABEL_18:
     }
 
     storeOptions3 = [self storeOptions];
-    v52 = v28;
-    v32 = [v50 destroyPersistentStoreAtURL:urlForPersistentStore withType:v22 options:storeOptions3 error:&v52];
-    v24 = v52;
+    v51 = v28;
+    v32 = [v49 destroyPersistentStoreAtURL:urlForPersistentStore withType:v22 options:storeOptions3 error:&v51];
+    v24 = v51;
 
     v33 = os_log_create("com.apple.notes", "HTML");
     v26 = v33;
@@ -2911,7 +3032,7 @@ LABEL_18:
     [defaultManager4 removeItemAtURL:v45 error:0];
 
 LABEL_26:
-    v30 = v50;
+    v30 = v49;
     goto LABEL_27;
   }
 
@@ -2922,13 +3043,11 @@ LABEL_26:
 
   v24 = v28;
 LABEL_27:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isTooLowOnDiskSpace
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   urlForPersistentStore = [self urlForPersistentStore];
   uRLByDeletingPathExtension = [urlForPersistentStore URLByDeletingPathExtension];
   v4 = [uRLByDeletingPathExtension URLByAppendingPathExtension:@"sqlite-wal"];
@@ -2936,9 +3055,9 @@ LABEL_27:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByDeletingLastPathComponent = [urlForPersistentStore URLByDeletingLastPathComponent];
   path = [uRLByDeletingLastPathComponent path];
-  v30 = 0;
-  v8 = [defaultManager attributesOfFileSystemForPath:path error:&v30];
-  v9 = v30;
+  v29 = 0;
+  v8 = [defaultManager attributesOfFileSystemForPath:path error:&v29];
+  v9 = v29;
 
   if (v9)
   {
@@ -2957,12 +3076,12 @@ LABEL_27:
     unsignedIntegerValue = [v10 unsignedIntegerValue];
   }
 
-  v29 = 0;
-  v12 = *MEMORY[0x277CBE838];
   v28 = 0;
-  v13 = [urlForPersistentStore getResourceValue:&v29 forKey:v12 error:&v28];
-  v14 = v29;
-  v15 = v28;
+  v12 = *MEMORY[0x277CBE838];
+  v27 = 0;
+  v13 = [urlForPersistentStore getResourceValue:&v28 forKey:v12 error:&v27];
+  v14 = v28;
+  v15 = v27;
 
   if (v13)
   {
@@ -2980,12 +3099,12 @@ LABEL_27:
     unsignedIntegerValue2 = 0;
   }
 
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v18 = [v4 getResourceValue:&v27 forKey:v12 error:&v26];
-  v19 = v27;
+  v18 = [v4 getResourceValue:&v26 forKey:v12 error:&v25];
+  v19 = v26;
 
-  v20 = v26;
+  v20 = v25;
   if (v18)
   {
     unsignedIntegerValue2 += [v19 unsignedIntegerValue];
@@ -3005,13 +3124,12 @@ LABEL_27:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v32 = v22;
-    v33 = 2048;
-    v34 = unsignedIntegerValue;
+    v31 = v22;
+    v32 = 2048;
+    v33 = unsignedIntegerValue;
     _os_log_impl(&dword_25C69C000, v23, OS_LOG_TYPE_INFO, "Minimum free space to open database: %lu, current free space: %lu", buf, 0x16u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue < v22;
 }
 
@@ -3084,6 +3202,45 @@ LABEL_27:
   return v3;
 }
 
+- (void)receiveDarwinNotificationWithChangeLogging:(BOOL)logging
+{
+  notificationCount = self->_notificationCount;
+  if (notificationCount)
+  {
+    self->_notificationCount = notificationCount - 1;
+  }
+
+  else
+  {
+    mocUpdater = [(NoteContext *)self mocUpdater];
+    [mocUpdater requestUpdate];
+  }
+}
+
+- (id)noteChangeWithType:(int)type store:(id)store
+{
+  v4 = *&type;
+  v6 = MEMORY[0x277CBE408];
+  storeCopy = store;
+  managedObjectContext = [(NoteContext *)self managedObjectContext];
+  v9 = [v6 insertNewObjectForEntityForName:@"NoteChange" inManagedObjectContext:managedObjectContext];
+
+  [v9 setStore:storeCopy];
+  v10 = [MEMORY[0x277CBEB58] set];
+  [v9 setNoteIntegerIds:v10];
+
+  v11 = [MEMORY[0x277CBEB58] set];
+  [v9 setNoteServerIds:v11];
+
+  v12 = [MEMORY[0x277CBEB58] set];
+  [v9 setNoteServerIntIds:v12];
+
+  v13 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  [v9 setChangeType:v13];
+
+  return v9;
+}
+
 - (void)managedObjectContextWillSaveNotification:(id)notification
 {
   notificationCopy = notification;
@@ -3099,10 +3256,10 @@ LABEL_27:
 
 - (void)trackChanges:(id)changes
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   managedObjectContext = [(NoteContext *)self managedObjectContext];
   deletedObjects = [managedObjectContext deletedObjects];
-  v95 = [deletedObjects mutableCopy];
+  v94 = [deletedObjects mutableCopy];
 
   managedObjectContext2 = [(NoteContext *)self managedObjectContext];
   updatedObjects = [managedObjectContext2 updatedObjects];
@@ -3110,35 +3267,35 @@ LABEL_27:
 
   managedObjectContext3 = [(NoteContext *)self managedObjectContext];
   insertedObjects = [managedObjectContext3 insertedObjects];
-  v93 = [insertedObjects mutableCopy];
+  v92 = [insertedObjects mutableCopy];
 
   v11 = MEMORY[0x277CBE408];
   selfCopy = self;
   managedObjectContext4 = [(NoteContext *)self managedObjectContext];
   v13 = [v11 entityForName:@"Note" inManagedObjectContext:managedObjectContext4];
 
-  v102 = [MEMORY[0x277CBEB58] set];
-  v99 = [MEMORY[0x277CBEB58] set];
+  v101 = [MEMORY[0x277CBEB58] set];
+  v98 = [MEMORY[0x277CBEB58] set];
+  v114 = 0u;
   v115 = 0u;
   v116 = 0u;
   v117 = 0u;
-  v118 = 0u;
   v14 = v8;
-  v15 = [v14 countByEnumeratingWithState:&v115 objects:v122 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v114 objects:v121 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v116;
+    v17 = *v115;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v116 != v17)
+        if (*v115 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v115 + 1) + 8 * i);
+        v19 = *(*(&v114 + 1) + 8 * i);
         entity = [v19 entity];
         v21 = [entity isEqual:v13];
 
@@ -3147,7 +3304,7 @@ LABEL_27:
           v22 = v19;
           if ([v22 isMarkedForDeletion])
           {
-            [v99 addObject:v22];
+            [v98 addObject:v22];
           }
 
           v23 = [MEMORY[0x277CBEA60] arrayWithObject:@"store"];
@@ -3158,47 +3315,47 @@ LABEL_27:
 
           if (v25 != store)
           {
-            [v102 addObject:v22];
+            [v101 addObject:v22];
           }
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v115 objects:v122 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v114 objects:v121 count:16];
     }
 
     while (v16);
   }
 
-  [v14 minusSet:v99];
-  v27 = v95;
-  [v95 unionSet:v99];
-  [v14 minusSet:v102];
-  [v95 unionSet:v102];
-  [v93 unionSet:v102];
-  v97 = v14;
-  if ([v93 count])
+  [v14 minusSet:v98];
+  v27 = v94;
+  [v94 unionSet:v98];
+  [v14 minusSet:v101];
+  [v94 unionSet:v101];
+  [v92 unionSet:v101];
+  v96 = v14;
+  if ([v92 count])
   {
-    v100 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v99 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v110 = 0u;
     v111 = 0u;
     v112 = 0u;
     v113 = 0u;
-    v114 = 0u;
-    v28 = v93;
-    v29 = [v28 countByEnumeratingWithState:&v111 objects:v121 count:16];
+    v28 = v92;
+    v29 = [v28 countByEnumeratingWithState:&v110 objects:v120 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v112;
+      v31 = *v111;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v112 != v31)
+          if (*v111 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          v33 = *(*(&v111 + 1) + 8 * j);
+          v33 = *(*(&v110 + 1) + 8 * j);
           entity2 = [v33 entity];
           v35 = [entity2 isEqual:v13];
 
@@ -3210,56 +3367,56 @@ LABEL_27:
             if (store2)
             {
               objectID = [store2 objectID];
-              v40 = [v100 objectForKey:objectID];
+              v40 = [v99 objectForKey:objectID];
 
               if (!v40)
               {
                 v40 = [(NoteContext *)selfCopy noteChangeWithType:0 store:v38];
                 objectID2 = [v38 objectID];
-                [v100 setObject:v40 forKey:objectID2];
+                [v99 setObject:v40 forKey:objectID2];
               }
 
               noteIntegerIds = [v40 noteIntegerIds];
               integerId = [v36 integerId];
               [noteIntegerIds addObject:integerId];
 
-              v14 = v97;
+              v14 = v96;
             }
           }
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v111 objects:v121 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v110 objects:v120 count:16];
       }
 
       while (v30);
     }
 
-    v27 = v95;
+    v27 = v94;
   }
 
   if ([v14 count])
   {
     v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v106 = 0u;
     v107 = 0u;
     v108 = 0u;
     v109 = 0u;
-    v110 = 0u;
     v45 = v14;
-    v46 = [v45 countByEnumeratingWithState:&v107 objects:v120 count:16];
+    v46 = [v45 countByEnumeratingWithState:&v106 objects:v119 count:16];
     if (v46)
     {
       v47 = v46;
-      v48 = *v108;
+      v48 = *v107;
       do
       {
         for (k = 0; k != v47; ++k)
         {
-          if (*v108 != v48)
+          if (*v107 != v48)
           {
             objc_enumerationMutation(v45);
           }
 
-          v50 = *(*(&v107 + 1) + 8 * k);
+          v50 = *(*(&v106 + 1) + 8 * k);
           entity3 = [v50 entity];
           v52 = [entity3 isEqual:v13];
 
@@ -3302,46 +3459,46 @@ LABEL_27:
           }
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v107 objects:v120 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v106 objects:v119 count:16];
       }
 
       while (v47);
     }
 
-    v27 = v95;
-    v14 = v97;
+    v27 = v94;
+    v14 = v96;
   }
 
   if ([v27 count])
   {
-    v101 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v100 = objc_alloc_init(MEMORY[0x277CBEB38]);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"NoteContextDeletedNotesNotification" object:v27];
 
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
     v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
     v68 = v27;
-    v69 = [v68 countByEnumeratingWithState:&v103 objects:v119 count:16];
+    v69 = [v68 countByEnumeratingWithState:&v102 objects:v118 count:16];
     if (!v69)
     {
       goto LABEL_67;
     }
 
     v70 = v69;
-    v71 = *v104;
-    v96 = v68;
+    v71 = *v103;
+    v95 = v68;
     while (1)
     {
       for (m = 0; m != v70; ++m)
       {
-        if (*v104 != v71)
+        if (*v103 != v71)
         {
           objc_enumerationMutation(v68);
         }
 
-        v73 = *(*(&v103 + 1) + 8 * m);
+        v73 = *(*(&v102 + 1) + 8 * m);
         entity4 = [v73 entity];
         v75 = [entity4 isEqual:v13];
 
@@ -3365,14 +3522,14 @@ LABEL_27:
             if ((v81 & 1) == 0)
             {
               objectID5 = [v79 objectID];
-              null = [v101 objectForKey:objectID5];
+              null = [v100 objectForKey:objectID5];
 
               if (!null)
               {
                 null = [(NoteContext *)selfCopy noteChangeWithType:2 store:v79];
                 store6 = [null store];
                 objectID6 = [store6 objectID];
-                [v101 setObject:null forKey:objectID6];
+                [v100 setObject:null forKey:objectID6];
               }
 
               noteIntegerIds3 = [null noteIntegerIds];
@@ -3395,7 +3552,7 @@ LABEL_27:
                 [noteServerIntIds2 addObject:v91];
               }
 
-              v68 = v96;
+              v68 = v95;
 LABEL_63:
             }
           }
@@ -3404,19 +3561,17 @@ LABEL_63:
         }
       }
 
-      v70 = [v68 countByEnumeratingWithState:&v103 objects:v119 count:16];
+      v70 = [v68 countByEnumeratingWithState:&v102 objects:v118 count:16];
       if (!v70)
       {
 LABEL_67:
 
-        v27 = v95;
-        v14 = v97;
+        v27 = v94;
+        v14 = v96;
         break;
       }
     }
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpLocks
@@ -3480,52 +3635,36 @@ LABEL_67:
 
 - (void)setUpLocalAccountAndStore
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpLastIndexTid
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self count];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)batchFaultNotes:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_25C69C000, v1, OS_LOG_TYPE_FAULT, "Can't batch fault objects: %@, with error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteNote:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Trying to delete an object from an HTML account, but the object has a nil object ID: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_25C69C000, v1, OS_LOG_TYPE_FAULT, "Can't batch fault objects: %@, with error: %@", v2, 0x16u);
 }
 
 - (void)saveSilently:.cold.1()
@@ -3537,11 +3676,9 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 
 - (void)saveSilently:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveSilently:.cold.3()
@@ -3554,37 +3691,28 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 - (void)visibleNotesForIntegerIds:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteForGUID:.cold.1()
 {
   OUTLINED_FUNCTION_12();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeForExternalIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_12();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allStores
@@ -3596,11 +3724,9 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 
 - (void)faultedInStoresForAccounts:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)countOfStores
@@ -3613,13 +3739,10 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 - (void)allAccountsAsFaults:prefechedRelationshipKeyPaths:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allAccountsAsFaults:prefechedRelationshipKeyPaths:.cold.2()
@@ -3632,55 +3755,43 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 - (void)accountForAccountId:.cold.1()
 {
   OUTLINED_FUNCTION_12();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localAccount
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [self count];
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_25C69C000, a2, OS_LOG_TYPE_ERROR, "Serious error: should have exactly one default notes account but have %lu instead.  Recovering.", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25C69C000, a2, OS_LOG_TYPE_ERROR, "Serious error: should have exactly one default notes account but have %lu instead.  Recovering.", v3, 0xCu);
 }
 
 - (void)forceDeleteAccount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notePropertyObjectForKey:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 userInfo];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNextIdObject
 {
   OUTLINED_FUNCTION_7();
-  v8 = *MEMORY[0x277D85DE8];
   userInfo = [v0 userInfo];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextIndex
@@ -3697,22 +3808,6 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)backupPersistentStore:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Failed to create database backup directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)backupPersistentStore:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error backing up old persistent store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)backupPersistentStore:.cold.4()
 {
   OUTLINED_FUNCTION_6();
@@ -3722,19 +3817,9 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 
 + (void)backupPersistentStore:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)backupPersistentStore:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error destroying persistent store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)backupPersistentStore:.cold.7()
@@ -3746,19 +3831,19 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 
 + (void)backupPersistentStore:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isTooLowOnDiskSpace
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  path = [self path];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error getting file size for write-ahead log: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_25C69C000, a3, OS_LOG_TYPE_ERROR, "Error getting free space for filesystem at path: %@, error: %@", v6, 0x16u);
 }
 
 - (void)managedObjectContext
@@ -3770,11 +3855,9 @@ void __59__NoteContext_newFRCForFetchRequest_delegate_performFetch___block_invok
 
 void __33__NoteContext_managedObjectModel__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_8();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__NoteContext_persistentStoreCoordinator__block_invoke_cold_1()
@@ -3789,14 +3872,6 @@ void __41__NoteContext_persistentStoreCoordinator__block_invoke_cold_2()
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_11();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __41__NoteContext_persistentStoreCoordinator__block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error trying to load persistent store again: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __41__NoteContext_persistentStoreCoordinator__block_invoke_cold_4()

@@ -199,8 +199,6 @@ LABEL_8:
     [v3 save:&v13];
     objc_storeStrong(v4, v13);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)deleteAllModelUrls:(id *)urls
@@ -350,63 +348,62 @@ void __31__AMDModel_deleteAllModelUrls___block_invoke(void *a1)
 
 void __29__AMDModel_saveModels_error___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v31 = a1;
+  v32 = *MEMORY[0x277D85DE8];
   v30 = a1;
+  v29 = a1;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](*(a1 + 32));
-  v24 = [obj countByEnumeratingWithState:__b objects:v32 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
+  if (v23)
   {
-    v19 = *__b[2];
-    v20 = 0;
-    v21 = v24;
+    v18 = *__b[2];
+    v19 = 0;
+    v20 = v23;
     while (1)
     {
-      v18 = v20;
-      if (*__b[2] != v19)
+      v17 = v19;
+      if (*__b[2] != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v29 = *(__b[1] + 8 * v20);
-      v27 = [*(a1 + 32) objectForKey:v29];
-      v5 = MEMORY[0x277CBE408];
-      v7 = +[AMDModel entity];
-      v6 = [v7 name];
-      v1 = *(a1 + 40);
-      v26 = [v5 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      v28 = *(__b[1] + 8 * v19);
+      v26 = [*(a1 + 32) objectForKey:v28];
+      v4 = MEMORY[0x277CBE408];
+      v6 = +[AMDModel entity];
+      v5 = [v6 name];
+      v25 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      MEMORY[0x277D82BD8](v5);
       MEMORY[0x277D82BD8](v6);
-      MEMORY[0x277D82BD8](v7);
-      v8 = v26;
-      v9 = [v27 objectForKey:@"modelId"];
-      [v8 setModelId:?];
-      MEMORY[0x277D82BD8](v9);
-      v10 = v26;
-      v11 = [v27 objectForKey:@"url"];
-      [v10 setUrl:?];
-      MEMORY[0x277D82BD8](v11);
-      v12 = v26;
-      v13 = [v27 objectForKey:@"compiledModelDir"];
-      [v12 setCompiledModelDir:?];
-      MEMORY[0x277D82BD8](v13);
-      v14 = v26;
-      v15 = [v27 objectForKey:@"version"];
-      [v14 setVersion:?];
-      MEMORY[0x277D82BD8](v15);
-      v16 = v26;
-      v17 = [MEMORY[0x277CBEAA8] date];
-      [v17 timeIntervalSince1970];
-      [v16 setCreationTimeSeconds:v2];
-      MEMORY[0x277D82BD8](v17);
+      v7 = v25;
+      v8 = [v26 objectForKey:@"modelId"];
+      [v7 setModelId:?];
+      MEMORY[0x277D82BD8](v8);
+      v9 = v25;
+      v10 = [v26 objectForKey:@"url"];
+      [v9 setUrl:?];
+      MEMORY[0x277D82BD8](v10);
+      v11 = v25;
+      v12 = [v26 objectForKey:@"compiledModelDir"];
+      [v11 setCompiledModelDir:?];
+      MEMORY[0x277D82BD8](v12);
+      v13 = v25;
+      v14 = [v26 objectForKey:@"version"];
+      [v13 setVersion:?];
+      MEMORY[0x277D82BD8](v14);
+      v15 = v25;
+      v16 = [MEMORY[0x277CBEAA8] date];
+      [v16 timeIntervalSince1970];
+      [v15 setCreationTimeSeconds:v1];
+      MEMORY[0x277D82BD8](v16);
+      objc_storeStrong(&v25, 0);
       objc_storeStrong(&v26, 0);
-      objc_storeStrong(&v27, 0);
-      ++v20;
-      if (v18 + 1 >= v21)
+      ++v19;
+      if (v17 + 1 >= v20)
       {
-        v20 = 0;
-        v21 = [obj countByEnumeratingWithState:__b objects:v32 count:16];
-        if (!v21)
+        v19 = 0;
+        v20 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
+        if (!v20)
         {
           break;
         }
@@ -415,12 +412,11 @@ void __29__AMDModel_saveModels_error___block_invoke(uint64_t a1)
   }
 
   MEMORY[0x277D82BD8](obj);
-  v3 = *(a1 + 48);
-  v4 = (*(*(a1 + 56) + 8) + 40);
-  v25 = *v4;
-  [v3 save:&v25];
-  objc_storeStrong(v4, v25);
-  *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 48);
+  v3 = (*(*(a1 + 56) + 8) + 40);
+  v24 = *v3;
+  [v2 save:&v24];
+  objc_storeStrong(v3, v24);
 }
 
 + (id)getModelInfo:(id)info error:(id *)error
@@ -587,7 +583,6 @@ void __31__AMDModel_getModelInfo_error___block_invoke(void *a1)
 
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v29;
 
   return v6;
@@ -748,7 +743,6 @@ void __31__AMDModel_getModelInfo_error___block_invoke(void *a1)
   objc_storeStrong(&v50, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v54;
 
   return v9;
@@ -943,7 +937,6 @@ void __38__AMDModel_deleteWithPredicate_error___block_invoke(void *a1)
 
   objc_storeStrong(&v26, 0);
   objc_storeStrong(v27, 0);
-  *MEMORY[0x277D85DE8];
   v2 = v28;
 
   return v2;

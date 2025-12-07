@@ -221,7 +221,7 @@
 
 - (void)handleTopLevelErrorStatus:(id)status
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if ([statusCopy intValue] == 150 && !-[ASSmartMailTask shouldNotRetry](self, "shouldNotRetry"))
   {
@@ -247,17 +247,15 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = ASSmartMailTask;
-    [(ASTask *)&v10 handleTopLevelErrorStatus:statusCopy];
+    v9.receiver = self;
+    v9.super_class = ASSmartMailTask;
+    [(ASTask *)&v9 handleTopLevelErrorStatus:statusCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processContext:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!self->_retryWithoutReferences)
   {
@@ -414,12 +412,11 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v24.receiver = self;
-  v24.super_class = ASSmartMailTask;
-  v5 = [(ASSendMailTask *)&v24 processContext:contextCopy];
+  v23.receiver = self;
+  v23.super_class = ASSmartMailTask;
+  v5 = [(ASSendMailTask *)&v23 processContext:contextCopy];
 LABEL_39:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

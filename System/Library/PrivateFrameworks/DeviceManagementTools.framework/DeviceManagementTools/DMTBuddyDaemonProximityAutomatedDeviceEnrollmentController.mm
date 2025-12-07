@@ -32,21 +32,20 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _DMTLogGeneral_6();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _DMTLogGeneral_6(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138543362;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_INFO, "%{public}@ dealloc'd", buf, 0xCu);
   }
 
-  v7.receiver = self;
-  v7.super_class = DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController;
-  [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController;
+  [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)&v6 dealloc];
 }
 
 - (DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController)initWithBroadcastingProvider:(id)provider enrollmentPrimitives:(id)primitives deviceInformationPrimitives:(id)informationPrimitives enrollmentInformationPrimitives:(id)enrollmentInformationPrimitives reachabilityPrimitives:(id)reachabilityPrimitives wifiActivationPrimitives:(id)activationPrimitives wifiPrimitives:(id)wifiPrimitives profileInstallationPrimitives:(id)self0 destructiveErasePrimitives:(id)self1 powerOffPrimitives:(id)self2 delegate:(id)self3
@@ -102,31 +101,31 @@
 
 - (void)beginBroadcasting
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
-    if ([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive])
+    isActive = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive];
+    if (isActive)
     {
-      v4 = _DMTLogGeneral_6();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = _DMTLogGeneral_6(isActive);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = NSStringFromSelector(a2);
-        v14 = 138543362;
-        v15 = v5;
-        _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_INFO, "Ignoring %{public}@, already active", &v14, 0xCu);
+        v6 = NSStringFromSelector(a2);
+        v13 = 138543362;
+        v14 = v6;
+        _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "Ignoring %{public}@, already active", &v13, 0xCu);
       }
     }
 
     else
     {
-      [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setActive:1];
-      v7 = _DMTLogGeneral_6();
+      v7 = _DMTLogGeneral_6([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setActive:1]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = NSStringFromSelector(a2);
-        v14 = 138543362;
-        v15 = v8;
-        _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_INFO, "%{public}@", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v8;
+        _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_INFO, "%{public}@", &v13, 0xCu);
       }
 
       broadcastingProvider = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self broadcastingProvider];
@@ -140,13 +139,10 @@
       broadcaster3 = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self broadcaster];
       [broadcaster3 startBroadcasting];
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self performSelectorOnMainThread:a2 withObject:0 waitUntilDone:0];
   }
@@ -154,19 +150,19 @@
 
 - (void)endBroadcasting
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
-    if ([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive])
+    isActive = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive];
+    if (isActive)
     {
-      [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setActive:0];
-      v4 = _DMTLogGeneral_6();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = _DMTLogGeneral_6([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setActive:0]);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v5 = NSStringFromSelector(a2);
+        v6 = NSStringFromSelector(a2);
         *buf = 138543362;
-        v15 = v5;
-        _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_INFO, "%{public}@", buf, 0xCu);
+        v14 = v6;
+        _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "%{public}@", buf, 0xCu);
       }
 
       broadcaster = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self broadcaster];
@@ -188,22 +184,19 @@
 
     else
     {
-      v10 = _DMTLogGeneral_6();
+      v10 = _DMTLogGeneral_6(isActive);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = NSStringFromSelector(a2);
         *buf = 138543362;
-        v15 = v11;
+        v14 = v11;
         _os_log_impl(&dword_24891B000, v10, OS_LOG_TYPE_INFO, "Ignoring %{public}@, not active", buf, 0xCu);
       }
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self performSelectorOnMainThread:a2 withObject:0 waitUntilDone:0];
   }
@@ -211,27 +204,25 @@
 
 - (void)beginEraseAndShutdown
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ([MEMORY[0x277CCACC8] isMainThread])
+  v10 = *MEMORY[0x277D85DE8];
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if (isMainThread)
   {
-    v4 = _DMTLogGeneral_6();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _DMTLogGeneral_6(isMainThread);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = NSStringFromSelector(a2);
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_INFO, "%{public}@", &v9, 0xCu);
+      v6 = NSStringFromSelector(a2);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_INFO, "%{public}@", &v8, 0xCu);
     }
 
     enroller = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self enroller];
     [enroller eraseAndShutDownWithExternalError:0];
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self performSelectorOnMainThread:a2 withObject:0 waitUntilDone:0];
   }
@@ -296,39 +287,33 @@ void __87__DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController_addHandler
 
 - (void)beginObservingEnroller
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(self);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Already observing enroller, ignoring %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Already observing enroller, ignoring %{public}@", v4, v5, v6, v7);
 }
 
 - (void)endObservingEnrollerIfNeeded
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isObservingEnroller])
+  v10 = *MEMORY[0x277D85DE8];
+  isObservingEnroller = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isObservingEnroller];
+  if (isObservingEnroller)
   {
     enroller = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self enroller];
     [enroller removeObserver:self forKeyPath:@"enrollmentState" context:@"EnrollmentControllerContext"];
-
-    v5 = *MEMORY[0x277D85DE8];
 
     [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setObservingEnroller:0];
   }
 
   else
   {
-    v6 = _DMTLogGeneral_6();
+    v6 = _DMTLogGeneral_6(isObservingEnroller);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = NSStringFromSelector(a2);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Not observing enroller, ignoring %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Not observing enroller, ignoring %{public}@", &v8, 0xCu);
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -337,7 +322,8 @@ void __87__DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController_addHandler
   pinCopy = pin;
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
-    if ([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive])
+    isActive = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isActive];
+    if (isActive)
     {
       if (pinCopy)
       {
@@ -347,21 +333,21 @@ void __87__DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController_addHandler
 
       else
       {
-        delegate = _DMTLogGeneral_6();
+        delegate = _DMTLogGeneral_6(isActive);
         if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEBUG))
         {
-          [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController broadcasterUpdatedDisplayedPin:];
+          [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController broadcasterUpdatedDisplayedPin:?];
         }
       }
     }
 
     else
     {
-      v7 = _DMTLogGeneral_6();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = _DMTLogGeneral_6(isActive);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_INFO, "Ignoring updated Pin, no longer active", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_INFO, "Ignoring updated Pin, no longer active", v9, 2u);
       }
     }
   }
@@ -393,7 +379,7 @@ void __87__DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController_addHandler
 
         if (code == 702)
         {
-          delegate = _DMTLogGeneral_6();
+          delegate = _DMTLogGeneral_6(v11);
           if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEBUG))
           {
             [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController broadcasterEncounteredError:delegate];
@@ -410,8 +396,8 @@ LABEL_12:
       }
     }
 
-    v14 = _DMTLogGeneral_6();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _DMTLogGeneral_6(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController broadcasterEncounteredError:errorCopy];
     }
@@ -448,8 +434,7 @@ LABEL_13:
 
 - (void)delegateSuccessfullEnrollment
 {
-  [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setComplete:1];
-  v3 = _DMTLogGeneral_6();
+  v3 = _DMTLogGeneral_6([(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self setComplete:1]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -465,10 +450,11 @@ LABEL_13:
 - (void)handleServerFailureWithError:(id)error
 {
   errorCopy = error;
-  if (![(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isComplete])
+  isComplete = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self isComplete];
+  if ((isComplete & 1) == 0)
   {
-    v5 = _DMTLogGeneral_6();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _DMTLogGeneral_6(isComplete);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController handleServerFailureWithError:];
     }
@@ -476,11 +462,11 @@ LABEL_13:
     enroller = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self enroller];
     enrollmentState = [enroller enrollmentState];
 
-    v8 = _DMTLogGeneral_6();
-    v9 = v8;
+    v10 = _DMTLogGeneral_6(v9);
+    v11 = v10;
     if (enrollmentState >= 5)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController handleServerFailureWithError:enrollmentState];
       }
@@ -488,15 +474,15 @@ LABEL_13:
       goto LABEL_12;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController handleServerFailureWithError:enrollmentState];
     }
 
     if (!errorCopy)
     {
-      v9 = DMTErrorWithCodeAndUserInfo(90, 0);
-      [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self delegateEnrollmentError:v9];
+      v11 = DMTErrorWithCodeAndUserInfo(90, 0);
+      [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self delegateEnrollmentError:v11];
 LABEL_12:
 
       goto LABEL_13;
@@ -521,23 +507,21 @@ LABEL_13:
 
 - (void)delegateStatusUpdate
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = _DMTLogGeneral_6();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = _DMTLogGeneral_6(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = MEMORY[0x277CCABB0];
     enroller = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self enroller];
     v6 = [v4 numberWithInteger:{objc_msgSend(enroller, "enrollmentState")}];
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_DEFAULT, "Enroller changed status to: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_DEFAULT, "Enroller changed status to: %{public}@", &v9, 0xCu);
   }
 
   makeStatusViewModelForCurrentEnrollerState = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self makeStatusViewModelForCurrentEnrollerState];
   delegate = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self delegate];
   [delegate enrollmentController:self hasUpdatedWithViewModel:makeStatusViewModelForCurrentEnrollerState];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetNetworking
@@ -596,7 +580,7 @@ LABEL_13:
 - (void)server:(id)server clientSession:(id)session didInterruptWithError:(id)error
 {
   errorCopy = error;
-  v7 = _DMTLogGeneral_6();
+  v7 = _DMTLogGeneral_6(errorCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController server:clientSession:didInterruptWithError:];
@@ -607,25 +591,23 @@ LABEL_13:
 
 - (void)server:(id)server clientSessionDidDisconnect:(id)disconnect
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  v6 = _DMTLogGeneral_6();
+  v6 = _DMTLogGeneral_6(disconnectCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = disconnectCopy;
-    _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Client Session did disconnect: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = disconnectCopy;
+    _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_INFO, "Client Session did disconnect: %{public}@", &v8, 0xCu);
   }
 
   v7 = DMTErrorWithCodeAndUserInfo(91, 0);
   [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self handleServerFailureWithError:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverDidInvalidate:(id)invalidate
 {
-  v4 = _DMTLogGeneral_6();
+  v4 = _DMTLogGeneral_6(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -645,28 +627,26 @@ LABEL_13:
 
   if (error)
   {
-    v10 = _DMTLogGeneral_6();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = _DMTLogGeneral_6(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       v17 = 138543362;
-      v18 = v12;
-      _os_log_impl(&dword_24891B000, v10, OS_LOG_TYPE_INFO, "Creating operation for request: %{public}@", &v17, 0xCu);
+      v18 = v13;
+      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_INFO, "Creating operation for request: %{public}@", &v17, 0xCu);
     }
 
     operationBuilder2 = [(DMTBuddyDaemonProximityAutomatedDeviceEnrollmentController *)self operationBuilder];
-    v14 = [operationBuilder2 taskOperationForRequest:requestCopy];
+    v15 = [operationBuilder2 taskOperationForRequest:requestCopy];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -695,37 +675,38 @@ LABEL_13:
 
     broadcaster = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
     v15 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    if (([broadcaster isEqualToNumber:v15] & 1) == 0)
+    v16 = [broadcaster isEqualToNumber:v15];
+    if ((v16 & 1) == 0)
     {
-      v16 = _DMTLogGeneral_6();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = _DMTLogGeneral_6(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         if ([broadcaster BOOLValue])
         {
-          v19 = @"YES";
+          v20 = @"YES";
         }
 
         else
         {
-          v19 = @"NO";
+          v20 = @"NO";
         }
 
         bOOLValue = [v15 BOOLValue];
         *buf = 138543874;
-        v21 = @"NO";
+        v22 = @"NO";
         if (bOOLValue)
         {
-          v21 = @"YES";
+          v22 = @"YES";
         }
 
-        v30 = v18;
+        v30 = v19;
         v31 = 2114;
-        v32 = v19;
+        v32 = v20;
         v33 = 2114;
-        v34 = v21;
-        _os_log_impl(&dword_24891B000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: isBroadcasting changed from %{public}@ to %{public}@", buf, 0x20u);
+        v34 = v22;
+        _os_log_impl(&dword_24891B000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: isBroadcasting changed from %{public}@ to %{public}@", buf, 0x20u);
       }
     }
   }
@@ -739,9 +720,9 @@ LABEL_17:
     goto LABEL_24;
   }
 
-  v23 = [pathCopy isEqualToString:@"enrollmentState"];
+  v24 = [pathCopy isEqualToString:@"enrollmentState"];
 
-  if (!v23)
+  if (!v24)
   {
     goto LABEL_24;
   }
@@ -769,8 +750,6 @@ LABEL_17:
   }
 
 LABEL_24:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (DMTBuddyDaemonProximityAutomatedDeviceEnrollmentControllerDelegate)delegate
@@ -780,61 +759,47 @@ LABEL_24:
   return WeakRetained;
 }
 
-- (void)broadcasterUpdatedDisplayedPin:.cold.1()
+- (void)broadcasterUpdatedDisplayedPin:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_24891B000, v2, v3, "%{public}@ was asked to dismiss the Pin, since we can't tell this apart from successful pairings, we'll ignore it", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24891B000, v3, v4, "%{public}@ was asked to dismiss the Pin, since we can't tell this apart from successful pairings, we'll ignore it", v5, v6, v7, v8);
 }
 
 - (void)broadcasterEncounteredError:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Broadcaster has encountered error, forwarding to delegate: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Broadcaster has encountered error, forwarding to delegate: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)handleServerFailureWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Handling server failure: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Handling server failure: %{public}@", v1, 0xCu);
 }
 
 - (void)handleServerFailureWithError:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Tearing down due to enrollment state: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_2(&dword_24891B000, v2, v3, "Tearing down due to enrollment state: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)handleServerFailureWithError:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_24891B000, v2, v3, "Current enrollment state is: %{public}@, ignoring failure, we're already independent", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24891B000, v2, v3, "Current enrollment state is: %{public}@, ignoring failure, we're already independent", v4, v5, v6, v7);
 }
 
 - (void)server:clientSession:didInterruptWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Client Session interrupted: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "Client Session interrupted: %{public}@", v1, 0xCu);
 }
 
 @end

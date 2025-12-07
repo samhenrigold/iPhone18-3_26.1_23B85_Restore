@@ -2,6 +2,7 @@
 - (BOOL)send;
 - (SDAirDropSession)initWithPerson:(__SFNode *)person items:(id)items sandboxExtensions:(id)extensions;
 - (SDAirDropSessionDelegate)delegate;
+- (void)addClientForNode:(__SFNode *)node shouldPublishProgress:(BOOL)progress;
 - (void)airDropClient:(id)client event:(int64_t)event withResults:(id)results;
 - (void)consumeSandboxExtensions;
 - (void)dealloc;
@@ -319,41 +320,38 @@
   v4 = +[SDServerBrowser sharedBrowser];
   v5 = [v4 airDropNodesForDomain:@"local"];
 
-  person = self->_person;
-  v19 = SFNodeCopyComputerName();
-  v7 = self->_person;
-  v8 = SFNodeCopyContactIdentifiers();
-  if (!v8)
+  v17 = SFNodeCopyComputerName();
+  v6 = SFNodeCopyContactIdentifiers();
+  if (!v6)
   {
-    v9 = [(NSMutableArray *)self->_siblingNodes objectAtIndexedSubscript:0];
-    v8 = sub_100090478();
+    v7 = [(NSMutableArray *)self->_siblingNodes objectAtIndexedSubscript:0];
+    v6 = sub_100090478(v7);
   }
 
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v11)
+  v18 = 0u;
+  v19 = 0u;
+  v8 = v5;
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v9)
   {
-    v12 = v11;
-    v13 = *v21;
+    v10 = v9;
+    v11 = *v19;
     do
     {
-      v14 = 0;
-      do
+      for (i = 0; i != v10; i = i + 1)
       {
-        if (*v21 != v13)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * v14);
-        if (sub_100090360())
+        v13 = *(*(&v18 + 1) + 8 * i);
+        if (sub_100090360(v13))
         {
-          v16 = SFNodeCopyComputerName();
-          if (![v16 isEqualToString:v19])
+          v14 = SFNodeCopyComputerName();
+          if (![v14 isEqualToString:v17])
           {
             goto LABEL_14;
           }
@@ -361,33 +359,98 @@
 
         else
         {
-          v16 = sub_100090478();
-          if (![v16 intersectsSet:v8])
+          v14 = sub_100090478(v13);
+          if (![v14 intersectsSet:v6])
           {
             goto LABEL_14;
           }
         }
 
         currentNames = self->_currentNames;
-        v18 = SFNodeCopyRealName();
-        LOBYTE(currentNames) = [(NSMutableArray *)currentNames containsObject:v18];
+        v16 = SFNodeCopyRealName();
+        LOBYTE(currentNames) = [(NSMutableArray *)currentNames containsObject:v16];
 
         if ((currentNames & 1) == 0)
         {
-          [(NSMutableArray *)self->_siblingNodes addObject:v15];
-          [(SDAirDropSession *)self addClientForNode:v15 shouldPublishProgress:0];
+          [(NSMutableArray *)self->_siblingNodes addObject:v13];
+          [(SDAirDropSession *)self addClientForNode:v13 shouldPublishProgress:0];
         }
 
 LABEL_14:
-
-        v14 = v14 + 1;
       }
 
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v12);
+    while (v10);
+  }
+}
+
+- (void)addClientForNode:(__SFNode *)node shouldPublishProgress:(BOOL)progress
+{
+  progressCopy = progress;
+  v7 = SFNodeCopyKinds();
+  v8 = [v7 containsObject:kSFNodeKindRapport];
+  v9 = airdrop_log();
+  v10 = os_log_type_enabled(&v9->super, OS_LOG_TYPE_DEFAULT);
+  if (v8)
+  {
+    if (v10)
+    {
+      LODWORD(v24[0]) = 138412290;
+      *(v24 + 4) = node;
+      _os_log_impl(&_mh_execute_header, &v9->super, OS_LOG_TYPE_DEFAULT, "SDAirDropSession: skip Rapport node %@", v24, 0xCu);
+    }
+  }
+
+  else
+  {
+    if (v10)
+    {
+      LODWORD(v24[0]) = 138412290;
+      *(v24 + 4) = node;
+      _os_log_impl(&_mh_execute_header, &v9->super, OS_LOG_TYPE_DEFAULT, "Start session client for %@", v24, 0xCu);
+    }
+
+    v9 = [[SDAirDropClient alloc] initWithPerson:node items:self->_items forDiscovery:0];
+    v11 = kSFOperationFileIconKey;
+    v12 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationFileIconKey];
+    [(SDAirDropClient *)v9 setProperty:v12 forKey:v11];
+
+    v13 = kSFOperationSessionIDKey;
+    v14 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationSessionIDKey];
+    [(SDAirDropClient *)v9 setProperty:v14 forKey:v13];
+
+    v15 = kSFOperationSmallFileIconKey;
+    v16 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationSmallFileIconKey];
+    [(SDAirDropClient *)v9 setProperty:v16 forKey:v15];
+
+    v17 = kSFOperationItemsDescriptionKey;
+    v18 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationItemsDescriptionKey];
+    [(SDAirDropClient *)v9 setProperty:v18 forKey:v17];
+
+    v19 = kSFOperationFromShareSheet;
+    v20 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationFromShareSheet];
+    [(SDAirDropClient *)v9 setProperty:v20 forKey:v19];
+
+    v21 = *&self->_auditToken.val[4];
+    v24[0] = *self->_auditToken.val;
+    v24[1] = v21;
+    [(SDAirDropClient *)v9 setAuditToken:v24];
+    [(SDAirDropClient *)v9 setClientBundleID:self->_clientBundleID];
+    [(SDAirDropClient *)v9 setDiscoveryMetrics:self->_discoveryMetrics];
+    [(SDAirDropClient *)v9 setShouldPublishProgress:progressCopy];
+    if (self->_clientPid)
+    {
+      [(SDAirDropClient *)v9 setClientPid:?];
+    }
+
+    [(SDAirDropClient *)v9 setDelegate:self];
+    [(SDAirDropClient *)v9 activate];
+    [(NSMutableArray *)self->_airDropClients addObject:v9];
+    currentNames = self->_currentNames;
+    v23 = SFNodeCopyRealName();
+    [(NSMutableArray *)currentNames addObject:v23];
   }
 }
 

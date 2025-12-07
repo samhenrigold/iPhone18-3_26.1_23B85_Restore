@@ -45,7 +45,7 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
 
 - (Offset<siri::speech::schema_fb::PronGuessResponse>)addObjectToBuffer:(void *)buffer
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   speech_id = [(QSSPronGuessResponse *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -66,7 +66,7 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v47 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v46 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   error_code = [(QSSPronGuessResponse *)self error_code];
   error_str = [(QSSPronGuessResponse *)self error_str];
@@ -78,7 +78,7 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
 
   uTF8String3 = [(__CFString *)error_str UTF8String];
   v16 = strlen(uTF8String3);
-  v45 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  v44 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   apg_id = [(QSSPronGuessResponse *)self apg_id];
   v18 = apg_id;
@@ -89,7 +89,7 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
 
   uTF8String4 = [(__CFString *)apg_id UTF8String];
   v20 = strlen(uTF8String4);
-  v44 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
+  v43 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
 
   voc_token = [(QSSPronGuessResponse *)self voc_token];
   v22 = [voc_token addObjectToBuffer:buffer];
@@ -106,81 +106,76 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
     std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::__throw_length_error[abi:ne200100]();
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
+  memset(v56, 0, sizeof(v56));
   obj = [(QSSPronGuessResponse *)self tts_pronunciations];
-  v49 = v22;
-  if ([obj countByEnumeratingWithState:&v57 objects:v62 count:16])
+  v48 = v22;
+  if ([obj countByEnumeratingWithState:v56 objects:v58 count:16])
   {
-    *v58;
-    *v58;
-    [**(&v57 + 1) addObjectToBuffer:buffer];
+    [**(&v56[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>>(1uLL);
   }
 
   flatbuffers::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
   v25 = flatbuffers::FlatBufferBuilder::EndVector(buffer, 0);
-  memset(&v56, 0, sizeof(v56));
+  memset(&v55, 0, sizeof(v55));
   human_readable_prons = [(QSSPronGuessResponse *)self human_readable_prons];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v56, [human_readable_prons count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v55, [human_readable_prons count]);
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   human_readable_prons2 = [(QSSPronGuessResponse *)self human_readable_prons];
-  v28 = [human_readable_prons2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v28 = [human_readable_prons2 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v28)
   {
-    v29 = *v53;
+    v29 = *v52;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v53 != v29)
+        if (*v52 != v29)
         {
           objc_enumerationMutation(human_readable_prons2);
         }
 
-        uTF8String5 = [*(*(&v52 + 1) + 8 * i) UTF8String];
+        uTF8String5 = [*(*(&v51 + 1) + 8 * i) UTF8String];
         v32 = strlen(uTF8String5);
-        v51 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String5, v32);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v56, &v51);
+        v50 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String5, v32);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v55, &v50);
       }
 
-      v28 = [human_readable_prons2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v28 = [human_readable_prons2 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v28);
   }
 
-  begin = v56.__begin_;
-  if (v56.__end_ == v56.__begin_)
+  begin = v55.__begin_;
+  if (v55.__end_ == v55.__begin_)
   {
     v34 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v34 = v56.__begin_;
+    v34 = v55.__begin_;
   }
 
-  v35 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v34, v56.__end_ - v56.__begin_);
+  v35 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v34, v55.__end_ - v55.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v36 = *(buffer + 8);
   v37 = *(buffer + 12);
   v38 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v47);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v46);
   flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, error_code);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v45);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v44);
-  if (v49)
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 10, v44);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v43);
+  if (v48)
   {
-    v39 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v49);
+    v39 = flatbuffers::FlatBufferBuilder::ReferTo(buffer, v48);
     flatbuffers::FlatBufferBuilder::AddElement<unsigned int>(buffer, 14, v39);
   }
 
@@ -197,7 +192,6 @@ flatbuffers::DetachedBuffer *__36__QSSPronGuessResponse_flatbuffData__block_invo
     operator delete(begin);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

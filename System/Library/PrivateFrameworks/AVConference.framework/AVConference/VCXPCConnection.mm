@@ -101,7 +101,7 @@
   v6 = MEMORY[0x1E696AEC0];
   v7 = objc_opt_class();
   v8 = [v6 stringWithFormat:@"%s: Terminating %s [%d] due to timeout (client %s [%d]) (API NAME: %@)", class_getName(v7), v9, v5, buffer, v4, objc_msgSend(timeout, "lastCalledApiName")];
-  VCTerminateProcess(v8, @"AVConferenceXPCServer", 0);
+  VCTerminateProcess(v8, @"AVConferenceXPCServer", 0, 1);
 }
 
 - (void)setPid:(int)pid

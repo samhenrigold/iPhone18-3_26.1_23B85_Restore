@@ -11,12 +11,11 @@
 
 - (void)updateState
 {
+  v3 = (*(self->_nextState + 2))();
   state = self->_state;
-  v4 = (*(self->_nextState + 2))();
-  v5 = self->_state;
-  self->_state = v4;
+  self->_state = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, state);
 }
 
 - (_CNGeneratorObservable)initWithInitialState:(id)state condition:(id)condition nextState:(id)nextState resultSelector:(id)selector delay:(id)delay scheduler:(id)scheduler

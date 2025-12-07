@@ -33,10 +33,9 @@ void __55___DKObject_MOConversion__fetchObjectWithUUID_context___block_invoke(ui
 
 void __55___DKObject_MOConversion__fetchObjectWithUUID_context___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "Fetched object not found:%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_191750000, v0, OS_LOG_TYPE_FAULT, "Fetched object not found:%@", v1, 0xCu);
 }
 
 @end

@@ -19,13 +19,11 @@
 
 - (NSDictionary)payload
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"bundleIdentifier";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"bundleIdentifier";
   bundleIdentifier = [(STWebBrowserRateLimitedCoreAnalyticsEvent *)self bundleIdentifier];
-  v7[0] = bundleIdentifier;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = bundleIdentifier;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

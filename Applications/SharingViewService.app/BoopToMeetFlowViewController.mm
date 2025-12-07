@@ -54,8 +54,8 @@
 {
   if (actions)
   {
-    sub_1000122EC(0, &qword_1001BC220);
-    sub_1000A1F20(&qword_1001BBC40, &qword_1001BC220);
+    sub_1000122EC(0, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
+    sub_1000A1F20(&qword_1001BBC40, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

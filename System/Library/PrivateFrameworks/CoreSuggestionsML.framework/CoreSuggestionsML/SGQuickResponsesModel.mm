@@ -1,4 +1,5 @@
 @interface SGQuickResponsesModel
++ (BOOL)shouldSampleForLabel:(id)label inLanguage:(id)language isDynamicLabel:(BOOL)dynamicLabel;
 + (id)_sharedInvalidKeysCache;
 + (id)_sharedTransformerCache;
 + (id)_transformerCacheKeyForLanguage:(id)language mode:(unint64_t)mode plistPath:(id)path;
@@ -12,6 +13,7 @@
 + (id)newTransformerInstanceForLanguage:(id)language mode:(unint64_t)mode plistPath:(id)path vocabPath:(id)vocabPath;
 + (id)transformerInstanceForLanguage:(id)language mode:(unint64_t)mode plistPath:(id)path vocabPath:(id)vocabPath;
 + (void)_addModelAssetUpdateHandler;
+- (BOOL)shouldSampleForLabel:(id)label isDynamicLabel:(BOOL)dynamicLabel;
 - (SGQuickResponsesModel)initWithEntity:(id)entity type:(id)type mode:(unint64_t)mode language:(id)language class:(Class)class modelPath:(id)path plistPath:(id)plistPath vocabPath:(id)self0;
 - (id)featuresOf:(id)of;
 - (id)labelOf:(id)of;
@@ -22,7 +24,7 @@
 
 - (SGQuickResponsesModel)initWithEntity:(id)entity type:(id)type mode:(unint64_t)mode language:(id)language class:(Class)class modelPath:(id)path plistPath:(id)plistPath vocabPath:(id)self0
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   typeCopy = type;
   languageCopy = language;
@@ -32,7 +34,7 @@
   v21 = objc_opt_class();
   if (pathCopy && v21 == class)
   {
-    v47 = entityCopy;
+    v46 = entityCopy;
     v22 = [SGMultiLabelEspressoClassifierCached classifierWithEspressoModelFile:pathCopy];
   }
 
@@ -70,27 +72,27 @@
       plistPathCopy = v23;
     }
 
-    v47 = entityCopy;
+    v46 = entityCopy;
     v22 = PMLReadChunkFile();
   }
 
   v28 = v22;
   if (!v22)
   {
-    entityCopy = v47;
+    entityCopy = v46;
 LABEL_16:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
       *buf = 136316162;
       uTF8String = [pathCopy UTF8String];
-      v52 = 2112;
-      v53 = typeCopy;
-      v54 = 2112;
-      v55 = entityCopy;
-      v56 = 2048;
+      v51 = 2112;
+      v52 = typeCopy;
+      v53 = 2112;
+      v54 = entityCopy;
+      v55 = 2048;
       modeCopy = mode;
-      v58 = 2112;
-      v59 = languageCopy;
+      v57 = 2112;
+      v58 = languageCopy;
       _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Failed to load model file resource %s, with type:%@, modelEntity:%@, mode:%lu, language:%@", buf, 0x34u);
     }
 
@@ -109,7 +111,7 @@ LABEL_18:
   v30 = v29;
   if (v29)
   {
-    v45 = plistPathCopy;
+    v44 = plistPathCopy;
     config = [v29 config];
     mode = [config mode];
     config2 = [v30 config];
@@ -134,11 +136,11 @@ LABEL_18:
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGQuickResponsesModel.m" lineNumber:250 description:{@"Invalid parameter not satisfying: %@", @"model.outputDimension == configCount"}];
     }
 
-    v49.receiver = self;
-    v49.super_class = SGQuickResponsesModel;
-    v39 = [(SGQuickResponsesModel *)&v49 init];
+    v48.receiver = self;
+    v48.super_class = SGQuickResponsesModel;
+    v39 = [(SGQuickResponsesModel *)&v48 init];
     p_isa = &v39->super.isa;
-    plistPathCopy = v45;
+    plistPathCopy = v44;
     if (v39)
     {
       objc_storeStrong(&v39->_model, v28);
@@ -154,11 +156,21 @@ LABEL_18:
     selfCopy = 0;
   }
 
-  entityCopy = v47;
+  entityCopy = v46;
 LABEL_27:
 
-  v41 = *MEMORY[0x277D85DE8];
   return selfCopy;
+}
+
+- (BOOL)shouldSampleForLabel:(id)label isDynamicLabel:(BOOL)dynamicLabel
+{
+  dynamicLabelCopy = dynamicLabel;
+  transformer = self->_transformer;
+  labelCopy = label;
+  sampler = [(SGQuickResponsesTransformerInstance *)transformer sampler];
+  LOBYTE(dynamicLabelCopy) = [sampler shouldSampleForLabel:labelCopy isDynamicLabel:dynamicLabelCopy];
+
+  return dynamicLabelCopy;
 }
 
 - (id)labelOf:(id)of
@@ -192,24 +204,23 @@ LABEL_27:
     __assert_rtn("[SGQuickResponsesModel predict:]", "SGQuickResponsesModel.m", 67, "[[self class] isEqual:features.source.modelClass]");
   }
 
-  model = self->_model;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v9 = self->_model;
+  model = self->_model;
   vector = [predictCopy vector];
-  v11 = vector;
+  v10 = vector;
   if (isKindOfClass)
   {
     vectorWithConstantColumn = [vector vectorWithConstantColumn];
-    v13 = [(PMLMultiLabelClassifierProtocol *)v9 predict:vectorWithConstantColumn];
+    v12 = [(PMLMultiLabelClassifierProtocol *)model predict:vectorWithConstantColumn];
   }
 
   else
   {
-    v13 = [(PMLMultiLabelClassifierProtocol *)v9 predict:vector];
+    v12 = [(PMLMultiLabelClassifierProtocol *)model predict:vector];
   }
 
-  return v13;
+  return v12;
 }
 
 + (id)newTransformerInstanceForLanguage:(id)language mode:(unint64_t)mode plistPath:(id)path vocabPath:(id)vocabPath
@@ -347,7 +358,7 @@ id __48__SGQuickResponsesModel__sharedTransformerCache__block_invoke_2()
 
 + (id)transformerInstanceForLanguage:(id)language mode:(unint64_t)mode plistPath:(id)path vocabPath:(id)vocabPath
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   pathCopy = path;
   vocabPathCopy = vocabPath;
@@ -386,60 +397,58 @@ id __48__SGQuickResponsesModel__sharedTransformerCache__block_invoke_2()
     [self _addModelAssetUpdateHandler];
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__510;
-  v46 = __Block_byref_object_dispose__511;
-  v47 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__510;
+  v45 = __Block_byref_object_dispose__511;
+  v46 = 0;
   _sharedInvalidKeysCache = [self _sharedInvalidKeysCache];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __81__SGQuickResponsesModel_transformerInstanceForLanguage_mode_plistPath_vocabPath___block_invoke;
-  v34[3] = &unk_278EB7980;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __81__SGQuickResponsesModel_transformerInstanceForLanguage_mode_plistPath_vocabPath___block_invoke;
+  v33[3] = &unk_278EB7980;
   v23 = v21;
-  v35 = v23;
-  v39 = &v42;
+  v34 = v23;
+  v38 = &v41;
   selfCopy = self;
   v24 = languageCopy;
-  v36 = v24;
+  v35 = v24;
   modeCopy = mode;
   v25 = pathCopy;
-  v37 = v25;
-  v38 = vocabPathCopy;
-  [_sharedInvalidKeysCache runWithLockAcquired:v34];
+  v36 = v25;
+  v37 = vocabPathCopy;
+  [_sharedInvalidKeysCache runWithLockAcquired:v33];
 
-  v26 = v43[5];
+  v26 = v42[5];
   if (!v26)
   {
     v27 = MEMORY[0x277D86220];
     v28 = MEMORY[0x277D86220];
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = modelModeName(mode);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
+      v32 = modelModeName(mode);
       *buf = 138413058;
-      v49 = v32;
-      v50 = 2112;
-      v51 = v24;
-      v52 = 2112;
-      v53 = v33;
-      v54 = 2112;
-      v55 = v25;
+      v48 = v31;
+      v49 = 2112;
+      v50 = v24;
+      v51 = 2112;
+      v52 = v32;
+      v53 = 2112;
+      v54 = v25;
       _os_log_debug_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "No transformer instance for model %@ in language %@ and mode %@ at path %@", buf, 0x2Au);
     }
 
-    v26 = v43[5];
+    v26 = v42[5];
   }
 
   v19 = v26;
 
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v41, 8);
   objc_autoreleasePoolPop(v20);
 LABEL_16:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -478,7 +487,7 @@ void __81__SGQuickResponsesModel_transformerInstanceForLanguage_mode_plistPath_v
 
 + (id)modelForLanguage:(id)language mode:(unint64_t)mode chunkPath:(id)path plistPath:(id)plistPath vocabPath:(id)vocabPath modelTypeAndSubModelKey:(id)key
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   pathCopy = path;
   plistPathCopy = plistPath;
@@ -522,14 +531,12 @@ void __81__SGQuickResponsesModel_transformerInstanceForLanguage_mode_plistPath_v
   v26 = v18;
 LABEL_9:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 + (id)modelForLanguage:(id)language mode:(unint64_t)mode chunkPath:(id)path plistPath:(id)plistPath vocabPath:(id)vocabPath
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   pathCopy = path;
   plistPathCopy = plistPath;
@@ -552,19 +559,28 @@ LABEL_9:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v26 = 138412546;
-      v27 = languageCopy;
-      v28 = 2112;
-      v29 = plistPathCopy;
-      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "config not found for language %@ and plist path %@", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = languageCopy;
+      v27 = 2112;
+      v28 = plistPathCopy;
+      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "config not found for language %@ and plist path %@", &v25, 0x16u);
     }
 
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
+}
+
++ (BOOL)shouldSampleForLabel:(id)label inLanguage:(id)language isDynamicLabel:(BOOL)dynamicLabel
+{
+  dynamicLabelCopy = dynamicLabel;
+  labelCopy = label;
+  v9 = [self transformerInstanceForLanguage:language mode:0];
+  sampler = [v9 sampler];
+  LOBYTE(dynamicLabelCopy) = [sampler shouldSampleForLabel:labelCopy isDynamicLabel:dynamicLabelCopy];
+
+  return dynamicLabelCopy;
 }
 
 + (id)labelOf:(id)of inLanguage:(id)language

@@ -1,816 +1,3 @@
-uint64_t sub_100197918(void *a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v1 = a1;
-  objc_sync_enter(v1);
-  v2 = *(v1 + 169);
-  objc_sync_exit(v1);
-
-  if (v2)
-  {
-    return 0;
-  }
-
-  v4 = *(v1 + 1);
-
-  return NFDriverRemoteDevSend();
-}
-
-void sub_1001979AC(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
-{
-  if (a1)
-  {
-    v8 = objc_opt_new();
-    [*(a1 + 24) removeAllObjects];
-    sub_10021E0D0(a1);
-    v9 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v9))
-    {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TAGS_DETECTED", &unk_1002E8B7A, buf, 2u);
-    }
-
-    v72 = v8;
-
-    v71 = a4;
-    if (a4)
-    {
-      if (!a3)
-      {
-LABEL_48:
-        [*(a1 + 56) tagDetected];
-        sub_1001E6EFC(*(a1 + 48), 1);
-        if (*(*(a1 + 8) + 62) & 1) == 0 || (*(a1 + 32))
-        {
-          v42 = *(a1 + 208);
-          v43 = v72;
-          [v42 handleRemoteTagsDetected:v72 dropAndRestartDiscovery:v71];
-
-LABEL_72:
-          return;
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        Logger = NFLogGetLogger();
-        if (Logger)
-        {
-          v58 = Logger;
-          Class = object_getClass(a1);
-          isMetaClass = class_isMetaClass(Class);
-          ClassName = object_getClassName(a1);
-          Name = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-          v62 = 45;
-          if (isMetaClass)
-          {
-            v62 = 43;
-          }
-
-          v58(3, "%c[%{public}s %{public}s]:%i Error ! Applet hasn't started reader mode, yet the field is on.", v62, ClassName, Name, 812);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v63 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
-        {
-          v64 = object_getClass(a1);
-          if (class_isMetaClass(v64))
-          {
-            v65 = 43;
-          }
-
-          else
-          {
-            v65 = 45;
-          }
-
-          v66 = object_getClassName(a1);
-          v67 = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-          *buf = 67109890;
-          v76 = v65;
-          v77 = 2082;
-          v78 = v66;
-          v79 = 2082;
-          v80 = v67;
-          v81 = 1024;
-          v82 = 812;
-          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error ! Applet hasn't started reader mode, yet the field is on.", buf, 0x22u);
-        }
-
-        v55 = @"tag found during SERM, Applet did not request SERM.";
-        sub_100199974(NFBugCapture, @"Applet hasn't started reader mode, yet we found a tag", @"tag found during SERM, Applet did not request SERM.", 0);
-        v56 = 6;
-LABEL_71:
-        [NFExceptionsCALogger postAnalyticsSEFailureEvent:v56 context:v55 error:0];
-        v43 = v72;
-        goto LABEL_72;
-      }
-    }
-
-    else if (!a2 || !a3)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v44 = NFLogGetLogger();
-      if (v44)
-      {
-        v45 = v44;
-        v46 = object_getClass(a1);
-        v47 = class_isMetaClass(v46);
-        v48 = object_getClassName(a1);
-        v69 = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-        v49 = 45;
-        if (v47)
-        {
-          v49 = 43;
-        }
-
-        v45(3, "%c[%{public}s %{public}s]:%i Invalid tag data", v49, v48, v69, 715);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v50 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-      {
-        v51 = object_getClass(a1);
-        if (class_isMetaClass(v51))
-        {
-          v52 = 43;
-        }
-
-        else
-        {
-          v52 = 45;
-        }
-
-        v53 = object_getClassName(a1);
-        v54 = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-        *buf = 67109890;
-        v76 = v52;
-        v77 = 2082;
-        v78 = v53;
-        v79 = 2082;
-        v80 = v54;
-        v81 = 1024;
-        v82 = 715;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid tag data", buf, 0x22u);
-      }
-
-      v55 = @"NFC Invalid tag data";
-      sub_100199974(NFBugCapture, @"NFC Invalid tag data", @"NFC Invalid tag data", 0);
-      v56 = 5;
-      goto LABEL_71;
-    }
-
-    v10 = a3;
-    while (1)
-    {
-      v11 = objc_alloc_init(NFTagInternal);
-      v12 = [[NSData alloc] initWithBytes:a2 + 72 length:*(a2 + 88)];
-      [v11 _setIdentifier:v12];
-      v13 = *(a2 + 8);
-      if (v13 > 5)
-      {
-        if (v13 <= 8)
-        {
-          if (v13 == 6)
-          {
-            [v11 _setTechnology:1];
-            v16 = v11;
-            v17 = 11;
-          }
-
-          else if (v13 == 7)
-          {
-            [v11 _setTechnology:1];
-            v16 = v11;
-            v17 = 12;
-          }
-
-          else
-          {
-            [v11 _setTechnology:0];
-            v16 = v11;
-            v17 = 10;
-          }
-
-          goto LABEL_43;
-        }
-
-        if ((v13 - 9) < 3)
-        {
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v18 = NFLogGetLogger();
-          if (v18)
-          {
-            v19 = v18;
-            v20 = object_getClass(a1);
-            v21 = class_isMetaClass(v20);
-            v22 = object_getClassName(a1);
-            v68 = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-            v23 = 45;
-            if (v21)
-            {
-              v23 = 43;
-            }
-
-            v19(4, "%c[%{public}s %{public}s]:%i unexpected silent tag found", v23, v22, v68, 790);
-          }
-
-          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v24 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            v25 = object_getClass(a1);
-            if (class_isMetaClass(v25))
-            {
-              v26 = 43;
-            }
-
-            else
-            {
-              v26 = 45;
-            }
-
-            v27 = object_getClassName(a1);
-            v28 = sel_getName("driverDidDetectRemoteTags:count:dropAndRestartDiscovery:");
-            *buf = 67109890;
-            v76 = v26;
-            v77 = 2082;
-            v78 = v27;
-            v79 = 2082;
-            v80 = v28;
-            v81 = 1024;
-            v82 = 790;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i unexpected silent tag found", buf, 0x22u);
-          }
-
-          goto LABEL_47;
-        }
-      }
-
-      else
-      {
-        if (v13 > 2)
-        {
-          if (v13 == 3)
-          {
-            [v11 _setTechnology:4];
-            [v11 _setType:7];
-            v29 = [[NSData alloc] initWithBytes:a2 + 13 length:*(a2 + 12)];
-            [v11 _setIdentifier:v29];
-
-            v30 = [[NSData alloc] initWithBytes:a2 + 13 length:*(a2 + 12)];
-            [v11 _setIDm:v30];
-
-            v31 = [[NSData alloc] initWithBytes:a2 + 23 length:8];
-            [v11 _setPMm:v31];
-LABEL_45:
-
-            goto LABEL_46;
-          }
-
-          if (v13 == 4)
-          {
-            [v11 _setTechnology:1];
-            [v11 _setType:9];
-            v36 = [[NSData alloc] initWithBytes:a2 + 19 length:*(a2 + 67)];
-            [v11 _setHistoricalBytes:v36];
-
-            v37 = [[NSData alloc] initWithBytes:a2 + 17 length:2];
-            [v11 _setAtqa:v37];
-
-            v31 = [[NSData alloc] initWithBytes:a2 + 16 length:1];
-            [v11 _setSak:v31];
-            goto LABEL_45;
-          }
-
-          [v11 _setTechnology:16];
-          v16 = v11;
-          v17 = 8;
-          goto LABEL_43;
-        }
-
-        switch(v13)
-        {
-          case 0:
-            [v11 _setTechnology:0];
-            v16 = v11;
-            v17 = 0;
-LABEL_43:
-            [v16 _setType:v17];
-            break;
-          case 1:
-            [v11 _setTechnology:1];
-            v32 = *(a2 + 12);
-            if (v32 <= 2)
-            {
-              [v11 _setType:v32 + 1];
-            }
-
-            v33 = [[NSData alloc] initWithBytes:a2 + 19 length:*(a2 + 67)];
-            [v11 _setHistoricalBytes:v33];
-
-            v34 = [[NSData alloc] initWithBytes:a2 + 17 length:2];
-            [v11 _setAtqa:v34];
-
-            v35 = [[NSData alloc] initWithBytes:a2 + 16 length:1];
-            [v11 _setSak:v35];
-
-            v15 = *(a2 + 68);
-            goto LABEL_41;
-          case 2:
-            [v11 _setTechnology:2];
-            v14 = *(a2 + 12);
-            if (v14 <= 2)
-            {
-              [v11 _setType:v14 | 4];
-            }
-
-            v15 = *(a2 + 16);
-LABEL_41:
-            [v11 _setSFGI:v15];
-            break;
-        }
-      }
-
-LABEL_46:
-      v24 = [a1 _getExtendedIdentifier:v11];
-      v38 = *(a1 + 24);
-      v73[0] = @"tagHandle";
-      v39 = [NSValue valueWithPointer:*a2];
-      v73[1] = @"type";
-      v74[0] = v39;
-      v40 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v11 type]);
-      v74[1] = v40;
-      v41 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:2];
-      [v38 setObject:v41 forKey:v24];
-
-      [v11 _setUID:v24];
-      [v72 addObject:v11];
-LABEL_47:
-
-      a2 += 96;
-      if (!--v10)
-      {
-        goto LABEL_48;
-      }
-    }
-  }
-}
-
-void sub_1001982E8(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 208);
-    [v1 handleHceTargetLost];
-  }
-}
-
-void sub_1001985F8(id a1)
-{
-  v1 = objc_alloc_init(NFBugCapture);
-  v2 = qword_10035DA80;
-  qword_10035DA80 = v1;
-
-  _objc_release_x1(v1, v2);
-}
-
-void sub_100199548(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
-{
-  v15 = a2;
-  v10 = a3;
-  v11 = a4;
-  v12 = a5;
-  v13 = a6;
-  objc_opt_self();
-  if (os_variant_has_internal_diagnostics())
-  {
-    v14 = +[NFBugCapture _getInstance];
-    [v14 requestAutoBugCapture:v15 subType:v10 subTypeContext:v11 attachments:v12 completion:v13];
-  }
-
-  else if (v13)
-  {
-    v13[2](v13, 0, 0.0);
-  }
-}
-
-void sub_100199700(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
-{
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-  v16 = a6;
-  v17 = a7;
-  objc_opt_self();
-  v18 = objc_autoreleasePoolPush();
-  if (os_variant_has_internal_diagnostics())
-  {
-    v19 = +[NFBugCapture _getInstance];
-    v20 = v19;
-    if (v19)
-    {
-      v21 = v19[1];
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1001998AC;
-      block[3] = &unk_10031ADC8;
-      v23 = v19;
-      v24 = v12;
-      v25 = v13;
-      v26 = v14;
-      v27 = v15;
-      v28 = v16;
-      v29 = v17;
-      dispatch_async(v21, block);
-    }
-  }
-
-  objc_autoreleasePoolPop(v18);
-}
-
-void sub_1001998C4(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  if (v6)
-  {
-    v9 = v6;
-  }
-
-  else
-  {
-    v9 = &off_100339AA8;
-  }
-
-  v10 = v9;
-  sub_100199700(NFBugCapture, v8, @"NFC-SE", 0, @"Transaction Failure", v7, v9);
-}
-
-void sub_100199974(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  if (v6)
-  {
-    v9 = v6;
-  }
-
-  else
-  {
-    v9 = &off_100339AD0;
-  }
-
-  v10 = v9;
-  sub_100199700(NFBugCapture, v8, @"Purple Stockholm", 0, @"Unexpected crash", v7, v9);
-}
-
-void sub_100199A24(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  if (v6)
-  {
-    v9 = v6;
-  }
-
-  else
-  {
-    v9 = &off_100339AF8;
-  }
-
-  v10 = v9;
-  sub_100199700(NFBugCapture, v8, @"NFC-SE", 0, @"Contactless Failure", v7, v9);
-}
-
-void sub_100199AD4(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  sub_100199700(NFBugCapture, v8, @"NFC-SE", 0, @"Provisioning Failure", v7, v6);
-}
-
-void sub_100199B74(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  sub_100199700(NFBugCapture, v8, @"NFC-SE", 0, @"ATL Failure", v7, v6);
-}
-
-void sub_100199C14(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  if (v6)
-  {
-    v9 = v6;
-  }
-
-  else
-  {
-    v9 = &off_100339B20;
-  }
-
-  v10 = v9;
-  sub_100199700(NFBugCapture, v8, @"NFC-SE", 0, @"Express Mode Failure", v7, v9);
-}
-
-void sub_100199CC4(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v6 = a4;
-  v7 = a3;
-  v8 = a2;
-  objc_opt_self();
-  if (v6)
-  {
-    v9 = v6;
-  }
-
-  else
-  {
-    v9 = &off_100339B48;
-  }
-
-  v10 = v9;
-  sub_100199700(NFBugCapture, v8, @"Purple Stockholm", 0, @"NFAccessory Failure", v7, v9);
-}
-
-void sub_10019AFB0(uint64_t a1, void *a2, void *a3)
-{
-  v6 = a2;
-  v5 = a3;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || [v5 compare:*(a1 + 40)] == -1)
-  {
-    [*(a1 + 32) addObject:v6];
-  }
-}
-
-void sub_10019B848(uint64_t a1)
-{
-  v2 = [NSError alloc];
-  v5 = NSLocalizedDescriptionKey;
-  v6 = @"Invalid type";
-  v3 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
-  v4 = [v2 initWithDomain:@"nfcd.abc" code:20 userInfo:v3];
-
-  (*(*(a1 + 32) + 16))(0.0);
-}
-
-void sub_10019B928(uint64_t a1)
-{
-  v2 = [NSError alloc];
-  v5 = NSLocalizedDescriptionKey;
-  v6 = @"Invalid subType";
-  v3 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
-  v4 = [v2 initWithDomain:@"nfcd.abc" code:20 userInfo:v3];
-
-  (*(*(a1 + 32) + 16))(0.0);
-}
-
-void sub_10019BA08(uint64_t a1)
-{
-  v2 = [NSError alloc];
-  v5 = NSLocalizedDescriptionKey;
-  v6 = @"Invalid subTypeContext";
-  v3 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
-  v4 = [v2 initWithDomain:@"nfcd.abc" code:20 userInfo:v3];
-
-  (*(*(a1 + 32) + 16))(0.0);
-}
-
-void sub_10019BAE8(uint64_t a1)
-{
-  v2 = [NSError alloc];
-  v5 = NSLocalizedDescriptionKey;
-  v6 = @"Time limited";
-  v3 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
-  v4 = [v2 initWithDomain:@"nfcd.abc" code:20 userInfo:v3];
-
-  (*(*(a1 + 32) + 16))(0.0);
-}
-
-void sub_10019BBC8(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v5 = sub_10027EC7C(v4);
-  v7 = *(v6 + 3928);
-  if (v7)
-  {
-    v8 = [v3 objectForKeyedSubscript:{*v7, v5}];
-    [v8 doubleValue];
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = 0.0;
-  }
-
-  v11 = sub_10027ECE8(v5);
-  if (*(v12 + 3952))
-  {
-    v13 = sub_10027ECE8(v11);
-    v15 = [v3 objectForKeyedSubscript:{**(v14 + 3952), v13}];
-    v16 = [v15 BOOLValue];
-
-    if (v16)
-    {
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      Logger = NFLogGetLogger();
-      if (Logger)
-      {
-        v19 = Logger;
-        Class = object_getClass(*(a1 + 32));
-        isMetaClass = class_isMetaClass(Class);
-        ClassName = object_getClassName(*(a1 + 32));
-        Name = sel_getName(*(a1 + 48));
-        v23 = 45;
-        if (isMetaClass)
-        {
-          v23 = 43;
-        }
-
-        v19(6, "%c[%{public}s %{public}s]:%i ABC Request submitted successfully", v23, ClassName, Name, 607);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v24 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        v25 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v25))
-        {
-          v26 = 43;
-        }
-
-        else
-        {
-          v26 = 45;
-        }
-
-        v27 = object_getClassName(*(a1 + 32));
-        v28 = sel_getName(*(a1 + 48));
-        *buf = 67109890;
-        v58 = v26;
-        v59 = 2082;
-        v60 = v27;
-        v61 = 2082;
-        v62 = v28;
-        v63 = 1024;
-        v64 = 607;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ABC Request submitted successfully", buf, 0x22u);
-      }
-
-      v29 = 0;
-    }
-
-    else
-    {
-      v30 = sub_10027ECA0(v17);
-      if (*(v31 + 3936))
-      {
-        v32 = sub_10027ECA0(v30);
-        v34 = [v3 objectForKeyedSubscript:{**(v33 + 3936), v32}];
-        v35 = [v34 integerValue];
-      }
-
-      else
-      {
-        v35 = -1;
-      }
-
-      v36 = sub_10027ECC4(v30);
-      if (*(v37 + 3944))
-      {
-        v38 = sub_10027ECC4(v36);
-        v40 = [v3 objectForKeyedSubscript:{**(v39 + 3944), v38}];
-      }
-
-      else
-      {
-        v40 = @"Unknown reason";
-      }
-
-      v41 = [NSError alloc];
-      v67 = NSLocalizedDescriptionKey;
-      v68 = v40;
-      v42 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-      v29 = [v41 initWithDomain:@"nfcd.abc" code:v35 userInfo:v42];
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v43 = NFLogGetLogger();
-      if (v43)
-      {
-        v44 = v43;
-        v45 = object_getClass(*(a1 + 32));
-        v46 = class_isMetaClass(v45);
-        v54 = object_getClassName(*(a1 + 32));
-        v56 = sel_getName(*(a1 + 48));
-        v47 = 45;
-        if (v46)
-        {
-          v47 = 43;
-        }
-
-        v44(3, "%c[%{public}s %{public}s]:%i ABC Request was rejected. Reason Code: %ld", v47, v54, v56, 618, v35);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v48 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-      {
-        v49 = object_getClass(*(a1 + 32));
-        if (class_isMetaClass(v49))
-        {
-          v50 = 43;
-        }
-
-        else
-        {
-          v50 = 45;
-        }
-
-        v51 = object_getClassName(*(a1 + 32));
-        v52 = sel_getName(*(a1 + 48));
-        *buf = 67110146;
-        v58 = v50;
-        v59 = 2082;
-        v60 = v51;
-        v61 = 2082;
-        v62 = v52;
-        v63 = 1024;
-        v64 = 618;
-        v65 = 2048;
-        v66 = v35;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i ABC Request was rejected. Reason Code: %ld", buf, 0x2Cu);
-      }
-    }
-  }
-
-  else
-  {
-    v29 = [[NSError alloc] initWithDomain:@"nfcd.abc" code:7 userInfo:0];
-  }
-
-  v53 = *(a1 + 40);
-  if (v53)
-  {
-    (*(v53 + 16))(v53, v29, v10);
-  }
-}
-
-void sub_10019C0A0(void *a1)
-{
-  if (a1)
-  {
-    v2 = [a1 driverWrapper];
-    v3 = sub_1001A9F5C(v2);
-
-    v4 = v3 & 0x1E;
-    if (v4)
-    {
-      if (byte_10035DA90)
-      {
-        return;
-      }
-
-      v5 = [a1 driverWrapper];
-      v6 = sub_10021A4A0(v5, @"LPEM features", 1uLL);
-    }
-
-    else
-    {
-      if (!byte_10035DA90)
-      {
-        return;
-      }
-
-      v5 = [a1 driverWrapper];
-      sub_10021CC94(v5, @"LPEM features");
-    }
-
-    byte_10035DA90 = v4 != 0;
-  }
-}
-
 void sub_10019C158(void *a1)
 {
   if (a1)
@@ -1949,7 +1136,7 @@ LABEL_19:
   }
 
   v29 = [v2 driverWrapper];
-  v30 = sub_1001AB834(v29);
+  v30 = sub_1001AB834(v29, v1);
 
   if (v30)
   {
@@ -3488,11 +2675,11 @@ LABEL_34:
   }
 }
 
-void sub_1001A38F4(void *a1, void *a2)
+void sub_1001A38F4(void *result, void *a2)
 {
-  if (a1)
+  if (result)
   {
-    v3 = a1;
+    v3 = result;
     v4 = a2;
     objc_sync_enter(v3);
     objc_storeWeak(v3 + 1, v4);
@@ -3503,67 +2690,66 @@ void sub_1001A38F4(void *a1, void *a2)
     {
       if (&_TelephonyBasebandRegisterForReset)
       {
-        v5 = v3[3];
         CFRunLoopGetMain();
-        v6 = TelephonyBasebandRegisterForReset();
+        v5 = TelephonyBasebandRegisterForReset();
       }
 
       else
       {
-        v6 = 0;
+        v5 = 0;
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v8 = Logger;
+        v7 = Logger;
         Class = object_getClass(v3);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(v3);
         Name = sel_getName("setDelegate:");
-        v11 = 45;
+        v10 = 45;
         if (isMetaClass)
         {
-          v11 = 43;
+          v10 = 43;
         }
 
-        v8(6, "%c[%{public}s %{public}s]:%i didRegister = %d", v11, ClassName, Name, 69, v6);
+        v7(6, "%c[%{public}s %{public}s]:%i didRegister = %d", v10, ClassName, Name, 69, v5);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v12 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = object_getClass(v3);
-        if (class_isMetaClass(v13))
+        v12 = object_getClass(v3);
+        if (class_isMetaClass(v12))
         {
-          v14 = 43;
+          v13 = 43;
         }
 
         else
         {
-          v14 = 45;
+          v13 = 45;
         }
 
         *buf = 67110146;
-        v19 = v14;
-        v20 = 2082;
-        v21 = object_getClassName(v3);
-        v22 = 2082;
-        v23 = sel_getName("setDelegate:");
-        v24 = 1024;
-        v25 = 69;
-        v26 = 1024;
-        v27 = v6;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i didRegister = %d", buf, 0x28u);
+        v18 = v13;
+        v19 = 2082;
+        v20 = object_getClassName(v3);
+        v21 = 2082;
+        v22 = sel_getName("setDelegate:");
+        v23 = 1024;
+        v24 = 69;
+        v25 = 1024;
+        v26 = v5;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i didRegister = %d", buf, 0x28u);
       }
 
-      *(v3 + 17) = v6;
+      *(v3 + 17) = v5;
     }
 
-    v15 = sub_10000976C(v3);
-    sub_1001A3B94(v3, v15);
+    v14 = sub_10000976C(v3);
+    sub_1001A3B94(v3, v14);
   }
 }
 
@@ -3571,14 +2757,13 @@ void sub_1001A3B2C(void *a1)
 {
   if (&_TelephonyBasebandGetReset)
   {
-    v2 = a1[3];
     TelephonyBasebandGetReset();
   }
 
-  v3 = a1;
-  objc_sync_enter(v3);
-  v3[16] = 1;
-  objc_sync_exit(v3);
+  v2 = a1;
+  objc_sync_enter(v2);
+  *(v2 + 16) = 1;
+  objc_sync_exit(v2);
 }
 
 void sub_1001A3B94(void *a1, uint64_t a2)
@@ -3743,25 +2928,25 @@ void sub_1001A4BB0(uint64_t a1)
       v14 = sel_getName(*(a1 + 56));
       v15 = [*(a1 + 32) sessionUID];
       *buf = 67110146;
-      v33 = v12;
+      v31 = v12;
+      v32 = 2082;
+      v33 = v13;
       v34 = 2082;
-      v35 = v13;
-      v36 = 2082;
-      v37 = v14;
-      v38 = 1024;
-      v39 = 193;
-      v40 = 2114;
-      v41 = v15;
+      v35 = v14;
+      v36 = 1024;
+      v37 = 193;
+      v38 = 2114;
+      v39 = v15;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
     }
 
     v16 = *(a1 + 48);
     v17 = [NSError alloc];
     v18 = [NSString stringWithUTF8String:"nfcd"];
-    v30 = NSLocalizedDescriptionKey;
+    v28 = NSLocalizedDescriptionKey;
     v19 = [NSString stringWithUTF8String:"Session not active"];
-    v31 = v19;
-    v20 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v29 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
     (*(v16 + 16))(v16, v21);
   }
@@ -3776,30 +2961,28 @@ void sub_1001A4BB0(uint64_t a1)
         [*(a1 + 32) setCardState:1];
       }
 
-      v23 = [v22 status];
-      v24 = *(a1 + 32);
-      if (v23 == 36864)
+      if ([v22 status] == 36864)
       {
-        v25 = 3;
+        v23 = 3;
       }
 
       else
       {
-        v25 = 1;
+        v23 = 1;
       }
 
-      [*(a1 + 32) setCardState:v25];
+      [*(a1 + 32) setCardState:v23];
     }
 
-    v26 = *(a1 + 32);
-    v27 = *(a1 + 40);
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_1001A4F24;
-    v28[3] = &unk_10031B198;
-    v28[4] = v26;
-    v29 = *(a1 + 48);
-    [v26 sendAPDU:v27 startReadOnCompletion:1 completion:v28];
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 40);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1001A4F24;
+    v26[3] = &unk_10031B198;
+    v26[4] = v24;
+    v27 = *(a1 + 48);
+    [v24 sendAPDU:v25 startReadOnCompletion:1 completion:v26];
   }
 }
 
@@ -3979,7 +3162,6 @@ void sub_1001A53B8(uint64_t a1, void *a2)
 
 uint64_t sub_1001A585C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -3987,46 +3169,46 @@ uint64_t sub_1001A585C(uint64_t a1)
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v18 = Logger;
+      v17 = Logger;
       Class = object_getClass(*(a1 + 40));
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(*(a1 + 40));
       Name = sel_getName(*(a1 + 56));
-      v22 = 45;
+      v21 = 45;
       if (isMetaClass)
       {
-        v22 = 43;
+        v21 = 43;
       }
 
-      v18(4, "%c[%{public}s %{public}s]:%i Invalid string; dropping request", v22, ClassName, Name, 249);
+      v17(4, "%c[%{public}s %{public}s]:%i Invalid string; dropping request", v21, ClassName, Name, 249);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v11 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v23 = object_getClass(*(a1 + 40));
-      if (class_isMetaClass(v23))
+      v22 = object_getClass(*(a1 + 40));
+      if (class_isMetaClass(v22))
       {
-        v24 = 43;
+        v23 = 43;
       }
 
       else
       {
-        v24 = 45;
+        v23 = 45;
       }
 
-      v25 = object_getClassName(*(a1 + 40));
-      v26 = sel_getName(*(a1 + 56));
+      v24 = object_getClassName(*(a1 + 40));
+      v25 = sel_getName(*(a1 + 56));
       *buf = 67109890;
-      v43 = v24;
-      v44 = 2082;
-      v45 = v25;
-      v46 = 2082;
-      v47 = v26;
-      v48 = 1024;
-      v49 = 249;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid string; dropping request", buf, 0x22u);
+      v42 = v23;
+      v43 = 2082;
+      v44 = v24;
+      v45 = 2082;
+      v46 = v25;
+      v47 = 1024;
+      v48 = 249;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid string; dropping request", buf, 0x22u);
     }
 
     goto LABEL_23;
@@ -4035,53 +3217,53 @@ uint64_t sub_1001A585C(uint64_t a1)
   if (![*(a1 + 40) didStart] || (objc_msgSend(*(a1 + 40), "isSuspended") & 1) != 0 || objc_msgSend(*(a1 + 40), "didEnd"))
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v3 = NFLogGetLogger();
-    if (v3)
+    v2 = NFLogGetLogger();
+    if (v2)
     {
-      v4 = v3;
-      v5 = object_getClass(*(a1 + 40));
-      v6 = class_isMetaClass(v5);
-      v7 = object_getClassName(*(a1 + 40));
-      v8 = sel_getName(*(a1 + 56));
-      v9 = [*(a1 + 40) sessionUID];
-      v10 = 45;
-      if (v6)
+      v3 = v2;
+      v4 = object_getClass(*(a1 + 40));
+      v5 = class_isMetaClass(v4);
+      v6 = object_getClassName(*(a1 + 40));
+      v7 = sel_getName(*(a1 + 56));
+      v8 = [*(a1 + 40) sessionUID];
+      v9 = 45;
+      if (v5)
       {
-        v10 = 43;
+        v9 = 43;
       }
 
-      v4(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v10, v7, v8, 254, v9);
+      v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, v6, v7, 254, v8);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v11 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = object_getClass(*(a1 + 40));
-      if (class_isMetaClass(v12))
+      v11 = object_getClass(*(a1 + 40));
+      if (class_isMetaClass(v11))
       {
-        v13 = 43;
+        v12 = 43;
       }
 
       else
       {
-        v13 = 45;
+        v12 = 45;
       }
 
-      v14 = object_getClassName(*(a1 + 40));
-      v15 = sel_getName(*(a1 + 56));
-      v16 = [*(a1 + 40) sessionUID];
+      v13 = object_getClassName(*(a1 + 40));
+      v14 = sel_getName(*(a1 + 56));
+      v15 = [*(a1 + 40) sessionUID];
       *buf = 67110146;
-      v43 = v13;
-      v44 = 2082;
-      v45 = v14;
-      v46 = 2082;
-      v47 = v15;
-      v48 = 1024;
-      v49 = 254;
-      v50 = 2114;
-      v51 = v16;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+      v42 = v12;
+      v43 = 2082;
+      v44 = v13;
+      v45 = 2082;
+      v46 = v14;
+      v47 = 1024;
+      v48 = 254;
+      v49 = 2114;
+      v50 = v15;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
     }
 
 LABEL_23:
@@ -4090,52 +3272,52 @@ LABEL_23:
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v28 = NFLogGetLogger();
-  if (v28)
+  v27 = NFLogGetLogger();
+  if (v27)
   {
-    v29 = v28;
-    v30 = object_getClass(*(a1 + 40));
-    v31 = class_isMetaClass(v30);
-    v32 = object_getClassName(*(a1 + 40));
-    v33 = sel_getName(*(a1 + 56));
-    v34 = 45;
-    if (v31)
+    v28 = v27;
+    v29 = object_getClass(*(a1 + 40));
+    v30 = class_isMetaClass(v29);
+    v31 = object_getClassName(*(a1 + 40));
+    v32 = sel_getName(*(a1 + 56));
+    v33 = 45;
+    if (v30)
     {
-      v34 = 43;
+      v33 = 43;
     }
 
-    v29(5, "%c[%{public}s %{public}s]:%i String updated=%{public}@", v34, v32, v33, 256, *(a1 + 32));
+    v28(5, "%c[%{public}s %{public}s]:%i String updated=%{public}@", v33, v31, v32, 256, *(a1 + 32));
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v35 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v34 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = object_getClass(*(a1 + 40));
-    if (class_isMetaClass(v36))
+    v35 = object_getClass(*(a1 + 40));
+    if (class_isMetaClass(v35))
     {
-      v37 = 43;
+      v36 = 43;
     }
 
     else
     {
-      v37 = 45;
+      v36 = 45;
     }
 
-    v38 = object_getClassName(*(a1 + 40));
-    v39 = sel_getName(*(a1 + 56));
-    v40 = *(a1 + 32);
+    v37 = object_getClassName(*(a1 + 40));
+    v38 = sel_getName(*(a1 + 56));
+    v39 = *(a1 + 32);
     *buf = 67110146;
-    v43 = v37;
-    v44 = 2082;
-    v45 = v38;
-    v46 = 2082;
-    v47 = v39;
-    v48 = 1024;
-    v49 = 256;
-    v50 = 2114;
-    v51 = v40;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i String updated=%{public}@", buf, 0x2Cu);
+    v42 = v36;
+    v43 = 2082;
+    v44 = v37;
+    v45 = 2082;
+    v46 = v38;
+    v47 = 1024;
+    v48 = 256;
+    v49 = 2114;
+    v50 = v39;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i String updated=%{public}@", buf, 0x2Cu);
   }
 
   [*(*(a1 + 40) + 240) coreNFCUISetScanText:*(a1 + 32)];
@@ -4269,230 +3451,229 @@ void sub_1001A8038(uint64_t a1, void *a2)
 void sub_1001A8708(uint64_t a1, uint64_t a2, double a3)
 {
   sub_10027E8F8(a3);
-  v6 = *(v3 + 224);
   if (objc_opt_class())
   {
     if (a2)
     {
-      v7 = 13;
+      v6 = 13;
     }
 
     else
     {
-      v7 = 12;
+      v6 = 12;
     }
 
-    v8 = *(a1 + 96);
-    v9 = objc_alloc(*(v3 + 224));
-    if (v8 == 1)
-    {
-      v85 = 0;
-      v10 = [v9 initWithDomain:v7 error:&v85];
-      v11 = v85;
-    }
-
-    else
+    v7 = *(a1 + 96);
+    v8 = objc_alloc(*(v3 + 224));
+    if (v7 == 1)
     {
       v84 = 0;
-      v23 = *(a1 + 80);
-      *buf = *(a1 + 64);
-      *&buf[16] = v23;
-      v10 = [v9 initWithDomain:v7 auditToken:buf error:&v84];
-      v11 = v84;
-    }
-
-    v24 = v11;
-    v25 = v24;
-    if (v10)
-    {
-      v26 = v24 == 0;
+      v9 = [v8 initWithDomain:v6 error:&v84];
+      v10 = v84;
     }
 
     else
     {
-      v26 = 0;
+      v83 = 0;
+      v22 = *(a1 + 80);
+      *buf = *(a1 + 64);
+      *&buf[16] = v22;
+      v9 = [v8 initWithDomain:v6 auditToken:buf error:&v83];
+      v10 = v83;
     }
 
-    if (!v26)
+    v23 = v10;
+    v24 = v23;
+    if (v9)
+    {
+      v25 = v23 == 0;
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    if (!v25)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v28 = Logger;
+        v27 = Logger;
         Class = object_getClass(*(a1 + 48));
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(*(a1 + 48));
         Name = sel_getName(*(a1 + 56));
-        v31 = 45;
+        v30 = 45;
         if (isMetaClass)
         {
-          v31 = 43;
+          v30 = 43;
         }
 
-        v28(3, "%c[%{public}s %{public}s]:%i error=%{public}@", v31, ClassName, Name, 505, v25);
+        v27(3, "%c[%{public}s %{public}s]:%i error=%{public}@", v30, ClassName, Name, 505, v24);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v32 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = NFSharedLogGetLogger();
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_70;
       }
 
-      v33 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v33))
+      v32 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v32))
       {
-        v34 = 43;
+        v33 = 43;
       }
 
       else
       {
-        v34 = 45;
+        v33 = 45;
       }
 
-      v35 = object_getClassName(*(a1 + 48));
-      v36 = sel_getName(*(a1 + 56));
+      v34 = object_getClassName(*(a1 + 48));
+      v35 = sel_getName(*(a1 + 56));
       *buf = 67110146;
-      *&buf[4] = v34;
+      *&buf[4] = v33;
       *&buf[8] = 2082;
-      *&buf[10] = v35;
+      *&buf[10] = v34;
       *&buf[18] = 2082;
-      *&buf[20] = v36;
+      *&buf[20] = v35;
       *&buf[28] = 1024;
       *&buf[30] = 505;
-      v87 = 2114;
-      v88 = v25;
-      v37 = "%c[%{public}s %{public}s]:%i error=%{public}@";
-      v38 = v32;
-      v39 = OS_LOG_TYPE_ERROR;
-      v40 = 44;
+      v86 = 2114;
+      v87 = v24;
+      v36 = "%c[%{public}s %{public}s]:%i error=%{public}@";
+      v37 = v31;
+      v38 = OS_LOG_TYPE_ERROR;
+      v39 = 44;
 LABEL_69:
-      _os_log_impl(&_mh_execute_header, v38, v39, v37, buf, v40);
+      _os_log_impl(&_mh_execute_header, v37, v38, v36, buf, v39);
 LABEL_70:
 
       goto LABEL_71;
     }
 
-    v41 = [v10 answer];
-    if (v41 > 1)
+    v40 = [v9 answer];
+    if (v40 > 1)
     {
-      if (v41 == 2)
+      if (v40 == 2)
       {
 LABEL_71:
-        v62 = *(*(a1 + 40) + 16);
+        v61 = *(*(a1 + 40) + 16);
         goto LABEL_72;
       }
 
-      if (v41 != 3)
+      if (v40 != 3)
       {
         goto LABEL_54;
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v52 = NFLogGetLogger();
-      if (v52)
+      v51 = NFLogGetLogger();
+      if (v51)
       {
-        v53 = v52;
-        v54 = object_getClass(*(a1 + 48));
-        v55 = class_isMetaClass(v54);
-        v56 = object_getClassName(*(a1 + 48));
-        v79 = sel_getName(*(a1 + 56));
-        v57 = 45;
-        if (v55)
+        v52 = v51;
+        v53 = object_getClass(*(a1 + 48));
+        v54 = class_isMetaClass(v53);
+        v55 = object_getClassName(*(a1 + 48));
+        v78 = sel_getName(*(a1 + 56));
+        v56 = 45;
+        if (v54)
         {
-          v57 = 43;
+          v56 = 43;
         }
 
-        v53(4, "%c[%{public}s %{public}s]:%i Forcing uncertainity to ineligible", v57, v56, v79, 519);
+        v52(4, "%c[%{public}s %{public}s]:%i Forcing uncertainity to ineligible", v56, v55, v78, 519);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v32 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = NFSharedLogGetLogger();
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_70;
       }
 
-      v58 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v58))
+      v57 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v57))
       {
-        v59 = 43;
+        v58 = 43;
       }
 
       else
       {
-        v59 = 45;
+        v58 = 45;
       }
 
-      v60 = object_getClassName(*(a1 + 48));
-      v61 = sel_getName(*(a1 + 56));
+      v59 = object_getClassName(*(a1 + 48));
+      v60 = sel_getName(*(a1 + 56));
       *buf = 67109890;
-      *&buf[4] = v59;
+      *&buf[4] = v58;
       *&buf[8] = 2082;
-      *&buf[10] = v60;
+      *&buf[10] = v59;
       *&buf[18] = 2082;
-      *&buf[20] = v61;
+      *&buf[20] = v60;
       *&buf[28] = 1024;
       *&buf[30] = 519;
-      v37 = "%c[%{public}s %{public}s]:%i Forcing uncertainity to ineligible";
+      v36 = "%c[%{public}s %{public}s]:%i Forcing uncertainity to ineligible";
     }
 
     else
     {
-      if (v41)
+      if (v40)
       {
-        if (v41 == 1)
+        if (v40 == 1)
         {
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v42 = NFLogGetLogger();
-          if (v42)
+          v41 = NFLogGetLogger();
+          if (v41)
           {
-            v43 = v42;
-            v44 = object_getClass(*(a1 + 48));
-            v45 = class_isMetaClass(v44);
-            v46 = object_getClassName(*(a1 + 48));
-            v78 = sel_getName(*(a1 + 56));
-            v47 = 45;
-            if (v45)
+            v42 = v41;
+            v43 = object_getClass(*(a1 + 48));
+            v44 = class_isMetaClass(v43);
+            v45 = object_getClassName(*(a1 + 48));
+            v77 = sel_getName(*(a1 + 56));
+            v46 = 45;
+            if (v44)
             {
-              v47 = 43;
+              v46 = 43;
             }
 
-            v43(6, "%c[%{public}s %{public}s]:%i Unknown answer", v47, v46, v78, 524);
+            v42(6, "%c[%{public}s %{public}s]:%i Unknown answer", v46, v45, v77, 524);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v32 = NFSharedLogGetLogger();
-          if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v31 = NFSharedLogGetLogger();
+          if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_70;
           }
 
-          v48 = object_getClass(*(a1 + 48));
-          if (class_isMetaClass(v48))
+          v47 = object_getClass(*(a1 + 48));
+          if (class_isMetaClass(v47))
           {
-            v49 = 43;
+            v48 = 43;
           }
 
           else
           {
-            v49 = 45;
+            v48 = 45;
           }
 
-          v50 = object_getClassName(*(a1 + 48));
-          v51 = sel_getName(*(a1 + 56));
+          v49 = object_getClassName(*(a1 + 48));
+          v50 = sel_getName(*(a1 + 56));
           *buf = 67109890;
-          *&buf[4] = v49;
+          *&buf[4] = v48;
           *&buf[8] = 2082;
-          *&buf[10] = v50;
+          *&buf[10] = v49;
           *&buf[18] = 2082;
-          *&buf[20] = v51;
+          *&buf[20] = v50;
           *&buf[28] = 1024;
           *&buf[30] = 524;
-          v37 = "%c[%{public}s %{public}s]:%i Unknown answer";
-          v38 = v32;
-          v39 = OS_LOG_TYPE_DEFAULT;
+          v36 = "%c[%{public}s %{public}s]:%i Unknown answer";
+          v37 = v31;
+          v38 = OS_LOG_TYPE_DEFAULT;
           goto LABEL_68;
         }
 
@@ -4501,15 +3682,15 @@ LABEL_54:
         {
           if (a2 == 2)
           {
-            v62 = *(*(a1 + 40) + 16);
+            v61 = *(*(a1 + 40) + 16);
             goto LABEL_72;
           }
 
           if (a2 == 1)
           {
-            v62 = *(*(a1 + 40) + 16);
+            v61 = *(*(a1 + 40) + 16);
 LABEL_72:
-            v62();
+            v61();
 LABEL_73:
 
             return;
@@ -4518,125 +3699,125 @@ LABEL_73:
 
         else if ((*(a1 + 97) & 1) == 0)
         {
-          v62 = *(*(a1 + 40) + 16);
+          v61 = *(*(a1 + 40) + 16);
           goto LABEL_72;
         }
 
-        v81[0] = _NSConcreteStackBlock;
-        v81[1] = 3221225472;
-        v81[2] = sub_1001A8EA4;
-        v81[3] = &unk_10031B1E0;
-        v83 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
-        v73 = *(a1 + 32);
-        v82 = *(a1 + 40);
-        v74 = *(a1 + 80);
+        v80[0] = _NSConcreteStackBlock;
+        v80[1] = 3221225472;
+        v80[2] = sub_1001A8EA4;
+        v80[3] = &unk_10031B1E0;
+        v82 = vextq_s8(*(a1 + 48), *(a1 + 48), 8uLL);
+        v72 = *(a1 + 32);
+        v81 = *(a1 + 40);
+        v73 = *(a1 + 80);
         *buf = *(a1 + 64);
-        *&buf[16] = v74;
-        sub_1000A87F8(v73, 0, 1, buf, v81);
+        *&buf[16] = v73;
+        sub_1000A87F8(v72, 0, 1, buf, v80);
 
         goto LABEL_73;
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v63 = NFLogGetLogger();
-      if (v63)
+      v62 = NFLogGetLogger();
+      if (v62)
       {
-        v64 = v63;
-        v65 = object_getClass(*(a1 + 48));
-        v66 = class_isMetaClass(v65);
-        v67 = object_getClassName(*(a1 + 48));
-        v80 = sel_getName(*(a1 + 56));
-        v68 = 45;
-        if (v66)
+        v63 = v62;
+        v64 = object_getClass(*(a1 + 48));
+        v65 = class_isMetaClass(v64);
+        v66 = object_getClassName(*(a1 + 48));
+        v79 = sel_getName(*(a1 + 56));
+        v67 = 45;
+        if (v65)
         {
-          v68 = 43;
+          v67 = 43;
         }
 
-        v64(3, "%c[%{public}s %{public}s]:%i Invalid", v68, v67, v80, 514);
+        v63(3, "%c[%{public}s %{public}s]:%i Invalid", v67, v66, v79, 514);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v32 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = NFSharedLogGetLogger();
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_70;
       }
 
-      v69 = object_getClass(*(a1 + 48));
-      if (class_isMetaClass(v69))
+      v68 = object_getClass(*(a1 + 48));
+      if (class_isMetaClass(v68))
       {
-        v70 = 43;
+        v69 = 43;
       }
 
       else
       {
-        v70 = 45;
+        v69 = 45;
       }
 
-      v71 = object_getClassName(*(a1 + 48));
-      v72 = sel_getName(*(a1 + 56));
+      v70 = object_getClassName(*(a1 + 48));
+      v71 = sel_getName(*(a1 + 56));
       *buf = 67109890;
-      *&buf[4] = v70;
+      *&buf[4] = v69;
       *&buf[8] = 2082;
-      *&buf[10] = v71;
+      *&buf[10] = v70;
       *&buf[18] = 2082;
-      *&buf[20] = v72;
+      *&buf[20] = v71;
       *&buf[28] = 1024;
       *&buf[30] = 514;
-      v37 = "%c[%{public}s %{public}s]:%i Invalid";
+      v36 = "%c[%{public}s %{public}s]:%i Invalid";
     }
 
-    v38 = v32;
-    v39 = OS_LOG_TYPE_ERROR;
+    v37 = v31;
+    v38 = OS_LOG_TYPE_ERROR;
 LABEL_68:
-    v40 = 34;
+    v39 = 34;
     goto LABEL_69;
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v12 = NFLogGetLogger();
-  if (v12)
+  v11 = NFLogGetLogger();
+  if (v11)
   {
-    v13 = v12;
-    v14 = object_getClass(*(a1 + 48));
-    v15 = class_isMetaClass(v14);
-    v16 = object_getClassName(*(a1 + 48));
-    v76 = sel_getName(*(a1 + 56));
-    v17 = 45;
-    if (v15)
+    v12 = v11;
+    v13 = object_getClass(*(a1 + 48));
+    v14 = class_isMetaClass(v13);
+    v15 = object_getClassName(*(a1 + 48));
+    v75 = sel_getName(*(a1 + 56));
+    v16 = 45;
+    if (v14)
     {
-      v17 = 43;
+      v16 = 43;
     }
 
-    v13(3, "%c[%{public}s %{public}s]:%i eligibility framework unavailable", v17, v16, v76, 487);
+    v12(3, "%c[%{public}s %{public}s]:%i eligibility framework unavailable", v16, v15, v75, 487);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v18 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v19 = object_getClass(*(a1 + 48));
-    if (class_isMetaClass(v19))
+    v18 = object_getClass(*(a1 + 48));
+    if (class_isMetaClass(v18))
     {
-      v20 = 43;
+      v19 = 43;
     }
 
     else
     {
-      v20 = 45;
+      v19 = 45;
     }
 
-    v21 = object_getClassName(*(a1 + 48));
-    v22 = sel_getName(*(a1 + 56));
+    v20 = object_getClassName(*(a1 + 48));
+    v21 = sel_getName(*(a1 + 56));
     *buf = 67109890;
-    *&buf[4] = v20;
+    *&buf[4] = v19;
     *&buf[8] = 2082;
-    *&buf[10] = v21;
+    *&buf[10] = v20;
     *&buf[18] = 2082;
-    *&buf[20] = v22;
+    *&buf[20] = v21;
     *&buf[28] = 1024;
     *&buf[30] = 487;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i eligibility framework unavailable", buf, 0x22u);
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i eligibility framework unavailable", buf, 0x22u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -4852,12 +4033,11 @@ uint64_t sub_1001A9C94(uint64_t result)
     else
     {
       v1 = result;
-      v21 = 0u;
-      memset(v22, 0, sizeof(v22));
-      v2 = *(result + 8);
+      v20 = 0u;
+      memset(v21, 0, sizeof(v21));
       if (NFDriverGetControllerInfo())
       {
-        if (DWORD1(v21) > 7)
+        if (DWORD1(v20) > 7)
         {
           if (v1[173])
           {
@@ -4895,44 +4075,44 @@ uint64_t sub_1001A9C94(uint64_t result)
         Logger = NFLogGetLogger();
         if (Logger)
         {
-          v4 = Logger;
+          v3 = Logger;
           Class = object_getClass(v1);
           isMetaClass = class_isMetaClass(Class);
           ClassName = object_getClassName(v1);
           Name = sel_getName("supportsLPEM");
-          v8 = 45;
+          v7 = 45;
           if (isMetaClass)
           {
-            v8 = 43;
+            v7 = 43;
           }
 
-          v4(3, "%c[%{public}s %{public}s]:%i Failed to get info", v8, ClassName, Name, 27);
+          v3(3, "%c[%{public}s %{public}s]:%i Failed to get info", v7, ClassName, Name, 27);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v9 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v8 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v10 = object_getClass(v1);
-          if (class_isMetaClass(v10))
+          v9 = object_getClass(v1);
+          if (class_isMetaClass(v9))
           {
-            v11 = 43;
+            v10 = 43;
           }
 
           else
           {
-            v11 = 45;
+            v10 = 45;
           }
 
           *buf = 67109890;
-          v14 = v11;
-          v15 = 2082;
-          v16 = object_getClassName(v1);
-          v17 = 2082;
-          v18 = sel_getName("supportsLPEM");
-          v19 = 1024;
-          v20 = 27;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get info", buf, 0x22u);
+          v13 = v10;
+          v14 = 2082;
+          v15 = object_getClassName(v1);
+          v16 = 2082;
+          v17 = sel_getName("supportsLPEM");
+          v18 = 1024;
+          v19 = 27;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get info", buf, 0x22u);
         }
 
         return 0;
@@ -4984,7 +4164,7 @@ uint64_t sub_1001A9F5C(uint64_t a1)
     return 0;
   }
 
-  v1 = sub_1002261A0();
+  v1 = sub_1002261A0(NFHeadlessModeController);
   if (v1)
   {
     v2 = v1[4];
@@ -5185,7 +4365,7 @@ uint64_t sub_1001AA264(void *a1, uint64_t a2)
     goto LABEL_35;
   }
 
-  v4 = sub_1002261A0();
+  v4 = sub_1002261A0(NFHeadlessModeController);
   v5 = sub_100228E60(v4, v2);
 
   if (!v5)
@@ -5286,7 +4466,7 @@ uint64_t sub_1001AA264(void *a1, uint64_t a2)
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to enable LPEM, reverting", buf, 0x22u);
     }
 
-    v27 = sub_1002261A0();
+    v27 = sub_1002261A0(NFHeadlessModeController);
     sub_100229170(v27, v2);
 LABEL_35:
 
@@ -5307,7 +4487,7 @@ uint64_t sub_1001AA6BC(uint64_t result, uint64_t a2)
       v2 = sub_1001A9EC4(result);
     }
 
-    if (sub_1001A9FAC(v3, v2) && (sub_1002261A0(), v4 = objc_claimAutoreleasedReturnValue(), v5 = sub_100229170(v4, v2), v4, v5) && ([v3 enableHeadlessMode:sub_1001A9F5C(v3) != 0 shutdown:0] & 1) == 0)
+    if (sub_1001A9FAC(v3, v2) && (sub_1002261A0(NFHeadlessModeController), v4 = objc_claimAutoreleasedReturnValue(), v5 = sub_100229170(v4, v2), v4, v5) && ([v3 enableHeadlessMode:sub_1001A9F5C(v3) != 0 shutdown:0] & 1) == 0)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       Logger = NFLogGetLogger();
@@ -5353,7 +4533,7 @@ uint64_t sub_1001AA6BC(uint64_t result, uint64_t a2)
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to change LPEM, reverting", buf, 0x22u);
       }
 
-      v15 = sub_1002261A0();
+      v15 = sub_1002261A0(NFHeadlessModeController);
       sub_100228E60(v15, v2);
 
       return 0;
@@ -5373,7 +4553,7 @@ id sub_1001AA8E4(id result)
   if (result)
   {
     v1 = result;
-    v2 = sub_1002261A0();
+    v2 = sub_1002261A0(NFHeadlessModeController);
     sub_100228DE4(v2, 0);
 
     return [v1 enableHeadlessMode:0 shutdown:1];
@@ -5388,22 +4568,22 @@ id sub_1001AAEF8(void *a1)
   {
     v1 = a1;
     objc_sync_enter(v1);
-    if (*(v1 + 169) == 1)
+    if (v1[169] == 1)
     {
       v2 = [NSError alloc];
       v3 = [NSString stringWithUTF8String:"nfcd"];
-      v23[0] = NSLocalizedDescriptionKey;
+      v21[0] = NSLocalizedDescriptionKey;
       v4 = [NSString stringWithUTF8String:"Aborted"];
-      v24[0] = v4;
-      v24[1] = &off_100333678;
-      v23[1] = @"Line";
-      v23[2] = @"Method";
+      v22[0] = v4;
+      v22[1] = &off_100333678;
+      v21[1] = @"Line";
+      v21[2] = @"Method";
       v5 = [[NSString alloc] initWithFormat:@"%s", sel_getName("disableHeadlessMiniNV")];
-      v24[2] = v5;
-      v23[3] = NSDebugDescriptionErrorKey;
+      v22[2] = v5;
+      v21[3] = NSDebugDescriptionErrorKey;
       v6 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("disableHeadlessMiniNV"), 274];
-      v24[3] = v6;
-      v7 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:4];
+      v22[3] = v6;
+      v7 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:4];
       v8 = v2;
       v9 = v3;
       v10 = 3;
@@ -5411,53 +4591,51 @@ id sub_1001AAEF8(void *a1)
 
     else
     {
-      v11 = *(v1 + 1);
-      v12 = NFDriverSetHeadlessMode();
-      v13 = *(v1 + 1);
-      v14 = NFDriverDisableHeadlessModeMiniNV();
-      v15 = sub_1002261A0();
-      sub_100229630(v15);
+      v11 = NFDriverSetHeadlessMode();
+      v12 = NFDriverDisableHeadlessModeMiniNV();
+      v13 = sub_1002261A0(NFHeadlessModeController);
+      sub_100229630(v13);
 
-      v16 = sub_1002261A0();
-      v17 = sub_100226978(v16);
+      v14 = sub_1002261A0(NFHeadlessModeController);
+      v15 = sub_100226978(v14);
 
-      if (v12 && (v14 & 1) != 0)
+      if (v11 && (v12 & 1) != 0)
       {
-        v18 = 0;
+        v16 = 0;
 LABEL_9:
         objc_sync_exit(v1);
 
         goto LABEL_10;
       }
 
-      v19 = [NSError alloc];
+      v17 = [NSError alloc];
       v3 = [NSString stringWithUTF8String:"nfcd"];
-      v21[0] = NSLocalizedDescriptionKey;
+      v19[0] = NSLocalizedDescriptionKey;
       v4 = [NSString stringWithUTF8String:"Unknown Error"];
-      v22[0] = v4;
-      v22[1] = &off_100333690;
-      v21[1] = @"Line";
-      v21[2] = @"Method";
+      v20[0] = v4;
+      v20[1] = &off_100333690;
+      v19[1] = @"Line";
+      v19[2] = @"Method";
       v5 = [[NSString alloc] initWithFormat:@"%s", sel_getName("disableHeadlessMiniNV")];
-      v22[2] = v5;
-      v21[3] = NSDebugDescriptionErrorKey;
+      v20[2] = v5;
+      v19[3] = NSDebugDescriptionErrorKey;
       v6 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("disableHeadlessMiniNV"), 283];
-      v22[3] = v6;
-      v7 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:4];
-      v8 = v19;
+      v20[3] = v6;
+      v7 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:4];
+      v8 = v17;
       v9 = v3;
       v10 = 6;
     }
 
-    v18 = [v8 initWithDomain:v9 code:v10 userInfo:v7];
+    v16 = [v8 initWithDomain:v9 code:v10 userInfo:v7];
 
     goto LABEL_9;
   }
 
-  v18 = 0;
+  v16 = 0;
 LABEL_10:
 
-  return v18;
+  return v16;
 }
 
 id sub_1001AB260(void *a1)
@@ -5466,22 +4644,22 @@ id sub_1001AB260(void *a1)
   {
     v1 = a1;
     objc_sync_enter(v1);
-    if (*(v1 + 169) == 1)
+    if (v1[169] == 1)
     {
       v2 = [NSError alloc];
       v3 = [NSString stringWithUTF8String:"nfcd"];
-      v17[0] = NSLocalizedDescriptionKey;
+      v16[0] = NSLocalizedDescriptionKey;
       v4 = [NSString stringWithUTF8String:"Aborted"];
-      v18[0] = v4;
-      v18[1] = &off_1003336A8;
-      v17[1] = @"Line";
-      v17[2] = @"Method";
+      v17[0] = v4;
+      v17[1] = &off_1003336A8;
+      v16[1] = @"Line";
+      v16[2] = @"Method";
       v5 = [[NSString alloc] initWithFormat:@"%s", sel_getName("enableHeadlessMiniNV")];
-      v18[2] = v5;
-      v17[3] = NSDebugDescriptionErrorKey;
+      v17[2] = v5;
+      v16[3] = NSDebugDescriptionErrorKey;
       v6 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("enableHeadlessMiniNV"), 295];
-      v18[3] = v6;
-      v7 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
+      v17[3] = v6;
+      v7 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:4];
       v8 = v2;
       v9 = v3;
       v10 = 3;
@@ -5489,44 +4667,43 @@ id sub_1001AB260(void *a1)
 
     else
     {
-      v11 = *(v1 + 1);
       if (NFDriverEnableHeadlessModeMiniNV())
       {
-        v12 = 0;
+        v11 = 0;
 LABEL_8:
         objc_sync_exit(v1);
 
         goto LABEL_9;
       }
 
-      v13 = [NSError alloc];
+      v12 = [NSError alloc];
       v3 = [NSString stringWithUTF8String:"nfcd"];
-      v15[0] = NSLocalizedDescriptionKey;
+      v14[0] = NSLocalizedDescriptionKey;
       v4 = [NSString stringWithUTF8String:"Unknown Error"];
-      v16[0] = v4;
-      v16[1] = &off_1003336C0;
-      v15[1] = @"Line";
-      v15[2] = @"Method";
+      v15[0] = v4;
+      v15[1] = &off_1003336C0;
+      v14[1] = @"Line";
+      v14[2] = @"Method";
       v5 = [[NSString alloc] initWithFormat:@"%s", sel_getName("enableHeadlessMiniNV")];
-      v16[2] = v5;
-      v15[3] = NSDebugDescriptionErrorKey;
+      v15[2] = v5;
+      v14[3] = NSDebugDescriptionErrorKey;
       v6 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("enableHeadlessMiniNV"), 298];
-      v16[3] = v6;
-      v7 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:4];
-      v8 = v13;
+      v15[3] = v6;
+      v7 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:4];
+      v8 = v12;
       v9 = v3;
       v10 = 6;
     }
 
-    v12 = [v8 initWithDomain:v9 code:v10 userInfo:v7];
+    v11 = [v8 initWithDomain:v9 code:v10 userInfo:v7];
 
     goto LABEL_8;
   }
 
-  v12 = 0;
+  v11 = 0;
 LABEL_9:
 
-  return v12;
+  return v11;
 }
 
 uint64_t sub_1001AB574(void *a1, void *a2)
@@ -5538,24 +4715,24 @@ uint64_t sub_1001AB574(void *a1, void *a2)
 
   v3 = a1;
   objc_sync_enter(v3);
-  if (*(v3 + 169) == 1)
+  if (v3[169] == 1)
   {
     if (a2)
     {
       v4 = [NSError alloc];
       v5 = [NSString stringWithUTF8String:"nfcd"];
-      v13[0] = NSLocalizedDescriptionKey;
+      v12[0] = NSLocalizedDescriptionKey;
       v6 = [NSString stringWithUTF8String:"Aborted"];
-      v14[0] = v6;
-      v14[1] = &off_1003336D8;
-      v13[1] = @"Line";
-      v13[2] = @"Method";
+      v13[0] = v6;
+      v13[1] = &off_1003336D8;
+      v12[1] = @"Line";
+      v12[2] = @"Method";
       v7 = [[NSString alloc] initWithFormat:@"%s", sel_getName("getHeadlessFlags:")];
-      v14[2] = v7;
-      v13[3] = NSDebugDescriptionErrorKey;
+      v13[2] = v7;
+      v12[3] = NSDebugDescriptionErrorKey;
       v8 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName("getHeadlessFlags:"), 312];
-      v14[3] = v8;
-      v9 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:4];
+      v13[3] = v8;
+      v9 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:4];
       *a2 = [v4 initWithDomain:v5 code:3 userInfo:v9];
 
       HeadlessModeFlags = 0;
@@ -5569,7 +4746,6 @@ uint64_t sub_1001AB574(void *a1, void *a2)
 
   else
   {
-    v11 = *(v3 + 1);
     HeadlessModeFlags = NFDriverGetHeadlessModeFlags();
   }
 
@@ -5578,29 +4754,28 @@ uint64_t sub_1001AB574(void *a1, void *a2)
   return HeadlessModeFlags;
 }
 
-uint64_t sub_1001AB834(void *a1)
+uint64_t sub_1001AB834(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v1 = a1;
-  objc_sync_enter(v1);
-  if (*(v1 + 169))
+  v2 = a1;
+  objc_sync_enter(v2);
+  if (v2[169])
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v3 = *(v1 + 1);
-    v2 = NFDriverEnableHeadlessTestMode();
+    v3 = NFDriverEnableHeadlessTestMode();
   }
 
-  objc_sync_exit(v1);
+  objc_sync_exit(v2);
 
-  return v2;
+  return v3;
 }
 
 void sub_1001AB8A4(void *a1)
@@ -5609,9 +4784,8 @@ void sub_1001AB8A4(void *a1)
   {
     obj = a1;
     objc_sync_enter(obj);
-    if ((*(obj + 169) & 1) == 0)
+    if ((obj[169] & 1) == 0)
     {
-      v1 = *(obj + 1);
       NFDriverDumpLPMDebugLog();
     }
 
@@ -5619,7 +4793,7 @@ void sub_1001AB8A4(void *a1)
   }
 }
 
-void *sub_1001AB908(uint64_t a1, uint64_t a2)
+NFPowerTrackingConsumer *sub_1001AB908(uint64_t a1, unint64_t a2)
 {
   objc_opt_self();
   v3 = objc_opt_new();
@@ -5636,18 +4810,17 @@ id sub_1001AB950(void *a1, double a2)
   if (a1)
   {
     v2 = sub_10027EC10(a2);
-    v4 = **(v3 + 64);
-    v5 = sub_10027EBA4(v2);
-    v7 = **(v6 + 48);
-    v14[0] = v8;
-    v14[1] = v7;
-    v9 = sub_10027EBEC(v5);
-    v11 = *(v10 + 56);
-    v15[0] = v12;
-    v15[1] = v12;
-    v14[2] = *v11;
-    v15[2] = v12;
-    a1 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:3, v9];
+    v3 = sub_10027EBA4(v2);
+    v5 = **(v4 + 48);
+    v12[0] = v6;
+    v12[1] = v5;
+    v7 = sub_10027EBEC(v3);
+    v9 = *(v8 + 56);
+    v13[0] = v10;
+    v13[1] = v10;
+    v12[2] = *v9;
+    v13[2] = v10;
+    a1 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3, v7];
   }
 
   return a1;
@@ -5667,39 +4840,37 @@ void *sub_1001ABA04(void *a1, double a2)
     if (((1 << v3) & 0x63C000) != 0)
     {
       v4 = sub_10027EC10(a2);
-      v6 = **(v5 + 64);
-      v7 = sub_10027EBA4(v4);
-      v9 = **(v8 + 48);
-      v54[0] = v10;
-      v54[1] = v9;
-      v11 = sub_10027EBEC(v7);
-      v13 = *(v12 + 56);
-      v55[0] = v14;
-      v55[1] = v14;
-      v54[2] = *v13;
-      v55[2] = v14;
-      v15 = v55;
-      v16 = v54;
+      v5 = sub_10027EBA4(v4);
+      v7 = **(v6 + 48);
+      v48[0] = v8;
+      v48[1] = v7;
+      v9 = sub_10027EBEC(v5);
+      v11 = *(v10 + 56);
+      v49[0] = v12;
+      v49[1] = v12;
+      v48[2] = *v11;
+      v49[2] = v12;
+      v13 = v49;
+      v14 = v48;
 LABEL_20:
-      a1 = [NSDictionary dictionaryWithObjects:v15 forKeys:v16 count:3, v11];
+      a1 = [NSDictionary dictionaryWithObjects:v13 forKeys:v14 count:3, v9];
       goto LABEL_21;
     }
 
     if (((1 << v3) & 0x101C00) != 0)
     {
-      v17 = sub_10027EC10(a2);
-      v19 = **(v18 + 64);
-      v20 = sub_10027EBA4(v17);
-      v22 = **(v21 + 48);
-      v56[0] = v23;
-      v56[1] = v22;
-      v57[0] = v24;
-      v57[1] = &off_100333720;
-      v11 = sub_10027EBEC(v20);
-      v56[2] = **(v25 + 56);
-      v57[2] = &off_100333738;
-      v15 = v57;
-      v16 = v56;
+      v15 = sub_10027EC10(a2);
+      v16 = sub_10027EBA4(v15);
+      v18 = **(v17 + 48);
+      v50[0] = v19;
+      v50[1] = v18;
+      v51[0] = v20;
+      v51[1] = &off_100333720;
+      v9 = sub_10027EBEC(v16);
+      v50[2] = **(v21 + 56);
+      v51[2] = &off_100333738;
+      v13 = v51;
+      v14 = v50;
       goto LABEL_20;
     }
 
@@ -5709,44 +4880,44 @@ LABEL_20:
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v27 = Logger;
+        v23 = Logger;
         Class = object_getClass(v2);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(v2);
         Name = sel_getName("powerLevelReader");
-        v31 = 45;
+        v27 = 45;
         if (isMetaClass)
         {
-          v31 = 43;
+          v27 = 43;
         }
 
-        v27(3, "%c[%{public}s %{public}s]:%i This hardware does not support reader", v31, ClassName, Name, 166);
+        v23(3, "%c[%{public}s %{public}s]:%i This hardware does not support reader", v27, ClassName, Name, 166);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v32 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v28 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v33 = object_getClass(v2);
-        if (class_isMetaClass(v33))
+        v29 = object_getClass(v2);
+        if (class_isMetaClass(v29))
         {
-          v34 = 43;
+          v30 = 43;
         }
 
         else
         {
-          v34 = 45;
+          v30 = 45;
         }
 
         *buf = 67109890;
-        v47 = v34;
-        v48 = 2082;
-        v49 = object_getClassName(v2);
-        v50 = 2082;
-        v51 = sel_getName("powerLevelReader");
-        v52 = 1024;
-        v53 = 166;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support reader", buf, 0x22u);
+        v41 = v30;
+        v42 = 2082;
+        v43 = object_getClassName(v2);
+        v44 = 2082;
+        v45 = sel_getName("powerLevelReader");
+        v46 = 1024;
+        v47 = 166;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support reader", buf, 0x22u);
       }
     }
 
@@ -5755,19 +4926,18 @@ LABEL_20:
 LABEL_18:
       if (v3 - 7 < 2)
       {
-        v35 = sub_10027EC10(a2);
-        v37 = **(v36 + 64);
-        v38 = sub_10027EBA4(v35);
-        v40 = **(v39 + 48);
-        v58[0] = v41;
-        v58[1] = v40;
-        v59[0] = v42;
-        v59[1] = &off_100333720;
-        v11 = sub_10027EBEC(v38);
-        v58[2] = **(v43 + 56);
-        v59[2] = &off_100333738;
-        v15 = v59;
-        v16 = v58;
+        v31 = sub_10027EC10(a2);
+        v32 = sub_10027EBA4(v31);
+        v34 = **(v33 + 48);
+        v52[0] = v35;
+        v52[1] = v34;
+        v53[0] = v36;
+        v53[1] = &off_100333720;
+        v9 = sub_10027EBEC(v32);
+        v52[2] = **(v37 + 56);
+        v53[2] = &off_100333738;
+        v13 = v53;
+        v14 = v52;
         goto LABEL_20;
       }
     }
@@ -5794,38 +4964,36 @@ void *sub_1001ABD18(void *a1, double a2)
     if (((1 << v3) & 0x63C000) != 0)
     {
       v4 = sub_10027EC10(a2);
-      v6 = **(v5 + 64);
-      v7 = sub_10027EBA4(v4);
-      v9 = **(v8 + 48);
-      v45[0] = v10;
-      v45[1] = v9;
-      v46[0] = v11;
-      v46[1] = &off_100333810;
-      v12 = sub_10027EBEC(v7);
-      v45[2] = **(v13 + 56);
-      v46[2] = &off_100333828;
-      v14 = v46;
-      v15 = v45;
+      v5 = sub_10027EBA4(v4);
+      v7 = **(v6 + 48);
+      v39[0] = v8;
+      v39[1] = v7;
+      v40[0] = v9;
+      v40[1] = &off_100333810;
+      v10 = sub_10027EBEC(v5);
+      v39[2] = **(v11 + 56);
+      v40[2] = &off_100333828;
+      v12 = v40;
+      v13 = v39;
 LABEL_20:
-      a1 = [NSDictionary dictionaryWithObjects:v14 forKeys:v15 count:3, v12];
+      a1 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:3, v10];
       goto LABEL_21;
     }
 
     if (((1 << v3) & 0x101C00) != 0)
     {
-      v16 = sub_10027EC10(a2);
-      v18 = **(v17 + 64);
-      v19 = sub_10027EBA4(v16);
-      v21 = **(v20 + 48);
-      v55[0] = v22;
-      v55[1] = v21;
-      v56[0] = v23;
-      v56[1] = &off_1003337C8;
-      v12 = sub_10027EBEC(v19);
-      v55[2] = **(v24 + 56);
-      v56[2] = &off_1003337E0;
-      v14 = v56;
-      v15 = v55;
+      v14 = sub_10027EC10(a2);
+      v15 = sub_10027EBA4(v14);
+      v17 = **(v16 + 48);
+      v49[0] = v18;
+      v49[1] = v17;
+      v50[0] = v19;
+      v50[1] = &off_1003337C8;
+      v10 = sub_10027EBEC(v15);
+      v49[2] = **(v20 + 56);
+      v50[2] = &off_1003337E0;
+      v12 = v50;
+      v13 = v49;
       goto LABEL_20;
     }
 
@@ -5835,44 +5003,44 @@ LABEL_20:
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v26 = Logger;
+        v22 = Logger;
         Class = object_getClass(v2);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(v2);
         Name = sel_getName("powerLevelSECardEmulation");
-        v30 = 45;
+        v26 = 45;
         if (isMetaClass)
         {
-          v30 = 43;
+          v26 = 43;
         }
 
-        v26(3, "%c[%{public}s %{public}s]:%i This hardware does not support CE", v30, ClassName, Name, 201);
+        v22(3, "%c[%{public}s %{public}s]:%i This hardware does not support CE", v26, ClassName, Name, 201);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v31 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v27 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v32 = object_getClass(v2);
-        if (class_isMetaClass(v32))
+        v28 = object_getClass(v2);
+        if (class_isMetaClass(v28))
         {
-          v33 = 43;
+          v29 = 43;
         }
 
         else
         {
-          v33 = 45;
+          v29 = 45;
         }
 
         *buf = 67109890;
-        v48 = v33;
-        v49 = 2082;
-        v50 = object_getClassName(v2);
-        v51 = 2082;
-        v52 = sel_getName("powerLevelSECardEmulation");
-        v53 = 1024;
-        v54 = 201;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support CE", buf, 0x22u);
+        v42 = v29;
+        v43 = 2082;
+        v44 = object_getClassName(v2);
+        v45 = 2082;
+        v46 = sel_getName("powerLevelSECardEmulation");
+        v47 = 1024;
+        v48 = 201;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support CE", buf, 0x22u);
       }
     }
 
@@ -5881,19 +5049,18 @@ LABEL_20:
 LABEL_18:
       if (v3 - 7 < 2)
       {
-        v34 = sub_10027EC10(a2);
-        v36 = **(v35 + 64);
-        v37 = sub_10027EBA4(v34);
-        v39 = **(v38 + 48);
-        v57[0] = v40;
-        v57[1] = v39;
-        v58[0] = v41;
-        v58[1] = &off_100333780;
-        v12 = sub_10027EBEC(v37);
-        v57[2] = **(v42 + 56);
-        v58[2] = &off_100333798;
-        v14 = v58;
-        v15 = v57;
+        v30 = sub_10027EC10(a2);
+        v31 = sub_10027EBA4(v30);
+        v33 = **(v32 + 48);
+        v51[0] = v34;
+        v51[1] = v33;
+        v52[0] = v35;
+        v52[1] = &off_100333780;
+        v10 = sub_10027EBEC(v31);
+        v51[2] = **(v36 + 56);
+        v52[2] = &off_100333798;
+        v12 = v52;
+        v13 = v51;
         goto LABEL_20;
       }
     }
@@ -5920,38 +5087,36 @@ void *sub_1001AC03C(void *a1, double a2)
     if (((1 << v3) & 0x63C000) != 0)
     {
       v4 = sub_10027EC10(a2);
-      v6 = **(v5 + 64);
-      v7 = sub_10027EBA4(v4);
-      v9 = **(v8 + 48);
-      v45[0] = v10;
-      v45[1] = v9;
-      v46[0] = v11;
-      v46[1] = &off_1003338E8;
-      v12 = sub_10027EBEC(v7);
-      v45[2] = **(v13 + 56);
-      v46[2] = &off_100333900;
-      v14 = v46;
-      v15 = v45;
+      v5 = sub_10027EBA4(v4);
+      v7 = **(v6 + 48);
+      v39[0] = v8;
+      v39[1] = v7;
+      v40[0] = v9;
+      v40[1] = &off_1003338E8;
+      v10 = sub_10027EBEC(v5);
+      v39[2] = **(v11 + 56);
+      v40[2] = &off_100333900;
+      v12 = v40;
+      v13 = v39;
 LABEL_20:
-      a1 = [NSDictionary dictionaryWithObjects:v14 forKeys:v15 count:3, v12];
+      a1 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:3, v10];
       goto LABEL_21;
     }
 
     if (((1 << v3) & 0x101C00) != 0)
     {
-      v16 = sub_10027EC10(a2);
-      v18 = **(v17 + 64);
-      v19 = sub_10027EBA4(v16);
-      v21 = **(v20 + 48);
-      v55[0] = v22;
-      v55[1] = v21;
-      v56[0] = v23;
-      v56[1] = &off_1003338A0;
-      v12 = sub_10027EBEC(v19);
-      v55[2] = **(v24 + 56);
-      v56[2] = &off_1003338B8;
-      v14 = v56;
-      v15 = v55;
+      v14 = sub_10027EC10(a2);
+      v15 = sub_10027EBA4(v14);
+      v17 = **(v16 + 48);
+      v49[0] = v18;
+      v49[1] = v17;
+      v50[0] = v19;
+      v50[1] = &off_1003338A0;
+      v10 = sub_10027EBEC(v15);
+      v49[2] = **(v20 + 56);
+      v50[2] = &off_1003338B8;
+      v12 = v50;
+      v13 = v49;
       goto LABEL_20;
     }
 
@@ -5961,44 +5126,44 @@ LABEL_20:
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v26 = Logger;
+        v22 = Logger;
         Class = object_getClass(v2);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(v2);
         Name = sel_getName("powerLevelCombined");
-        v30 = 45;
+        v26 = 45;
         if (isMetaClass)
         {
-          v30 = 43;
+          v26 = 43;
         }
 
-        v26(3, "%c[%{public}s %{public}s]:%i This hardware does not support CE", v30, ClassName, Name, 252);
+        v22(3, "%c[%{public}s %{public}s]:%i This hardware does not support CE", v26, ClassName, Name, 252);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v31 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v27 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v32 = object_getClass(v2);
-        if (class_isMetaClass(v32))
+        v28 = object_getClass(v2);
+        if (class_isMetaClass(v28))
         {
-          v33 = 43;
+          v29 = 43;
         }
 
         else
         {
-          v33 = 45;
+          v29 = 45;
         }
 
         *buf = 67109890;
-        v48 = v33;
-        v49 = 2082;
-        v50 = object_getClassName(v2);
-        v51 = 2082;
-        v52 = sel_getName("powerLevelCombined");
-        v53 = 1024;
-        v54 = 252;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support CE", buf, 0x22u);
+        v42 = v29;
+        v43 = 2082;
+        v44 = object_getClassName(v2);
+        v45 = 2082;
+        v46 = sel_getName("powerLevelCombined");
+        v47 = 1024;
+        v48 = 252;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i This hardware does not support CE", buf, 0x22u);
       }
     }
 
@@ -6007,19 +5172,18 @@ LABEL_20:
 LABEL_18:
       if (v3 - 7 < 2)
       {
-        v34 = sub_10027EC10(a2);
-        v36 = **(v35 + 64);
-        v37 = sub_10027EBA4(v34);
-        v39 = **(v38 + 48);
-        v57[0] = v40;
-        v57[1] = v39;
-        v58[0] = v41;
-        v58[1] = &off_100333858;
-        v12 = sub_10027EBEC(v37);
-        v57[2] = **(v42 + 56);
-        v58[2] = &off_100333870;
-        v14 = v58;
-        v15 = v57;
+        v30 = sub_10027EC10(a2);
+        v31 = sub_10027EBA4(v30);
+        v33 = **(v32 + 48);
+        v51[0] = v34;
+        v51[1] = v33;
+        v52[0] = v35;
+        v52[1] = &off_100333858;
+        v10 = sub_10027EBEC(v31);
+        v51[2] = **(v36 + 56);
+        v52[2] = &off_100333870;
+        v12 = v52;
+        v13 = v51;
         goto LABEL_20;
       }
     }
@@ -6220,72 +5384,70 @@ id sub_1001AC86C(void *a1, double a2)
   }
 
   sub_10027E790(a2);
-  v4 = *(v2 + 32);
   if (!objc_opt_class())
   {
     return 0;
   }
 
-  sub_10027E820(v5);
-  v7 = *(v6 + 40);
+  sub_10027E820(v4);
   if (!objc_opt_class())
   {
     return 0;
   }
 
-  v9 = sub_10027EC34(v8);
-  if (!*(v10 + 72) || (v11 = sub_10027EBEC(v9), !*(v12 + 56)) || (v13 = sub_10027EC10(v11), !*(v14 + 64)) || (v15 = sub_10027EBC8(v13), !*(v16 + 48)))
+  v6 = sub_10027EC34(v5);
+  if (!*(v7 + 72) || (v8 = sub_10027EBEC(v6), !*(v9 + 56)) || (v10 = sub_10027EC10(v8), !*(v11 + 64)) || (v12 = sub_10027EBC8(v10), !*(v13 + 48)))
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v19 = Logger;
+      v16 = Logger;
       Class = object_getClass(a1);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(a1);
       Name = sel_getName("supportsCPMS");
-      v23 = 45;
+      v20 = 45;
       if (isMetaClass)
+      {
+        v20 = 43;
+      }
+
+      v16(3, "%c[%{public}s %{public}s]:%i Error !!! missing timescale", v20, ClassName, Name, 435);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v21 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = object_getClass(a1);
+      if (class_isMetaClass(v22))
       {
         v23 = 43;
       }
 
-      v19(3, "%c[%{public}s %{public}s]:%i Error !!! missing timescale", v23, ClassName, Name, 435);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v24 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      v25 = object_getClass(a1);
-      if (class_isMetaClass(v25))
-      {
-        v26 = 43;
-      }
-
       else
       {
-        v26 = 45;
+        v23 = 45;
       }
 
       *buf = 67109890;
-      v30 = v26;
-      v31 = 2082;
-      v32 = object_getClassName(a1);
-      v33 = 2082;
-      v34 = sel_getName("supportsCPMS");
-      v35 = 1024;
-      v36 = 435;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error !!! missing timescale", buf, 0x22u);
+      v27 = v23;
+      v28 = 2082;
+      v29 = object_getClassName(a1);
+      v30 = 2082;
+      v31 = sel_getName("supportsCPMS");
+      v32 = 1024;
+      v33 = 435;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error !!! missing timescale", buf, 0x22u);
     }
 
     return 0;
   }
 
-  v17 = *(v2 + 32);
+  v14 = *(v2 + 32);
 
-  return [v17 isCPMSSupported];
+  return [v14 isCPMSSupported];
 }
 
 void sub_1001ACD28(uint64_t a1)
@@ -6641,16 +5803,16 @@ uint64_t sub_1001AD4BC(uint64_t val)
     v14 = sel_getName("createCPMSDescription:");
     *buf = 67110402;
     *&buf[4] = v12;
-    *v171 = 2082;
-    *&v171[2] = v13;
-    *&v171[10] = 2082;
-    *&v171[12] = v14;
-    *&v171[20] = 1024;
-    *&v171[22] = 504;
-    *&v171[26] = 2048;
-    *&v171[28] = v3;
-    v172 = 2112;
-    *v173 = v1;
+    *v163 = 2082;
+    *&v163[2] = v13;
+    *&v163[10] = 2082;
+    *&v163[12] = v14;
+    *&v163[20] = 1024;
+    *&v163[22] = 504;
+    *&v163[26] = 2048;
+    *&v163[28] = v3;
+    v164 = 2112;
+    *v165 = v1;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Using CPMS for client ID 0x%lx (%@)", buf, 0x36u);
   }
 
@@ -6663,52 +5825,52 @@ uint64_t sub_1001AD4BC(uint64_t val)
   if (!v18)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v34 = NFLogGetLogger();
-    if (v34)
+    v32 = NFLogGetLogger();
+    if (v32)
     {
-      v35 = v34;
-      v36 = object_getClass(v1);
-      v37 = class_isMetaClass(v36);
-      v38 = object_getClassName(v1);
-      v152 = sel_getName("createCPMSDescription:");
-      v39 = 45;
-      if (v37)
+      v33 = v32;
+      v34 = object_getClass(v1);
+      v35 = class_isMetaClass(v34);
+      v36 = object_getClassName(v1);
+      v144 = sel_getName("createCPMSDescription:");
+      v37 = 45;
+      if (v35)
       {
-        v39 = 43;
+        v37 = 43;
       }
 
-      v35(3, "%c[%{public}s %{public}s]:%i Failed to create description", v39, v38, v152, 511);
+      v33(3, "%c[%{public}s %{public}s]:%i Failed to create description", v37, v36, v144, 511);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v40 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v38 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v41 = object_getClass(v1);
-      if (class_isMetaClass(v41))
+      v39 = object_getClass(v1);
+      if (class_isMetaClass(v39))
       {
-        v42 = 43;
+        v40 = 43;
       }
 
       else
       {
-        v42 = 45;
+        v40 = 45;
       }
 
-      v43 = object_getClassName(v1);
-      v44 = sel_getName("createCPMSDescription:");
+      v41 = object_getClassName(v1);
+      v42 = sel_getName("createCPMSDescription:");
       *buf = 67109890;
-      *&buf[4] = v42;
-      *v171 = 2082;
-      *&v171[2] = v43;
-      *&v171[10] = 2082;
-      *&v171[12] = v44;
-      *&v171[20] = 1024;
-      *&v171[22] = 511;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create description", buf, 0x22u);
+      *&buf[4] = v40;
+      *v163 = 2082;
+      *&v163[2] = v41;
+      *&v163[10] = 2082;
+      *&v163[12] = v42;
+      *&v163[20] = 1024;
+      *&v163[22] = 511;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create description", buf, 0x22u);
     }
 
-    v45 = 0;
+    v43 = 0;
     goto LABEL_81;
   }
 
@@ -6724,345 +5886,341 @@ uint64_t sub_1001AD4BC(uint64_t val)
       if (((1 << v22) & 0x63C000) != 0)
       {
         v23 = sub_10027EC10(v20);
-        v25 = **(v24 + 64);
-        v26 = sub_10027EBA4(v23);
-        v28 = **(v27 + 48);
-        *v164 = v29;
-        *v165 = v28;
-        *buf = v30;
-        *v171 = &off_100339120;
-        v31 = sub_10027EBEC(v26);
-        *&v165[8] = **(v32 + 56);
-        v33 = &off_100339138;
+        v24 = sub_10027EBA4(v23);
+        v26 = **(v25 + 48);
+        *v156 = v27;
+        *v157 = v26;
+        *buf = v28;
+        *v163 = &off_100339120;
+        v29 = sub_10027EBEC(v24);
+        *&v157[8] = **(v30 + 56);
+        v31 = &off_100339138;
 LABEL_36:
-        *&v171[8] = v33;
-        v73 = [NSDictionary dictionaryWithObjects:buf forKeys:v164 count:3, v31];
+        *&v163[8] = v31;
+        v65 = [NSDictionary dictionaryWithObjects:buf forKeys:v156 count:3, v29];
         goto LABEL_37;
       }
 
       if (((1 << v22) & 0x101C00) != 0)
       {
-        v46 = sub_10027EC10(v20);
-        v48 = **(v47 + 64);
-        v49 = sub_10027EBA4(v46);
-        v51 = **(v50 + 48);
-        *v164 = v52;
-        *v165 = v51;
-        *buf = v53;
-        *v171 = &off_1003390D8;
-        v31 = sub_10027EBEC(v49);
-        *&v165[8] = **(v54 + 56);
-        v33 = &off_1003390F0;
+        v44 = sub_10027EC10(v20);
+        v45 = sub_10027EBA4(v44);
+        v47 = **(v46 + 48);
+        *v156 = v48;
+        *v157 = v47;
+        *buf = v49;
+        *v163 = &off_1003390D8;
+        v29 = sub_10027EBEC(v45);
+        *&v157[8] = **(v50 + 56);
+        v31 = &off_1003390F0;
         goto LABEL_36;
       }
 
       if (v22 == 18)
       {
-        v55 = sub_10027EC10(v20);
-        v57 = **(v56 + 64);
-        v58 = sub_10027EBA4(v55);
-        v60 = **(v59 + 48);
-        *v164 = v61;
-        *v165 = v60;
-        *buf = v62;
-        *v171 = &off_100339168;
-        v31 = sub_10027EBEC(v58);
-        *&v165[8] = **(v63 + 56);
-        v33 = &off_100339180;
+        v51 = sub_10027EC10(v20);
+        v52 = sub_10027EBA4(v51);
+        v54 = **(v53 + 48);
+        *v156 = v55;
+        *v157 = v54;
+        *buf = v56;
+        *v163 = &off_100339168;
+        v29 = sub_10027EBEC(v52);
+        *&v157[8] = **(v57 + 56);
+        v31 = &off_100339180;
         goto LABEL_36;
       }
     }
 
     if (v22 - 7 < 2)
     {
-      v64 = sub_10027EC10(v20);
-      v66 = **(v65 + 64);
-      v67 = sub_10027EBA4(v64);
-      v69 = **(v68 + 48);
-      *v164 = v70;
-      *v165 = v69;
-      *buf = v71;
-      *v171 = &off_100339090;
-      v31 = sub_10027EBEC(v67);
-      *&v165[8] = **(v72 + 56);
-      v33 = &off_1003390A8;
+      v58 = sub_10027EC10(v20);
+      v59 = sub_10027EBA4(v58);
+      v61 = **(v60 + 48);
+      *v156 = v62;
+      *v157 = v61;
+      *buf = v63;
+      *v163 = &off_100339090;
+      v29 = sub_10027EBEC(v59);
+      *&v157[8] = **(v64 + 56);
+      v31 = &off_1003390A8;
       goto LABEL_36;
     }
   }
 
-  v73 = 0;
+  v65 = 0;
 LABEL_37:
-  [v19 setPowerLevels:v73];
+  [v19 setPowerLevels:v65];
 
-  v161[0] = _NSConcreteStackBlock;
-  v161[1] = 3221225472;
-  v161[2] = sub_1001ACDA8;
-  v161[3] = &unk_10031B258;
-  objc_copyWeak(&v162, &location);
-  [v19 setGetCurrentPower:v161];
+  v153[0] = _NSConcreteStackBlock;
+  v153[1] = 3221225472;
+  v153[2] = sub_1001ACDA8;
+  v153[3] = &unk_10031B258;
+  objc_copyWeak(&v154, &location);
+  [v19 setGetCurrentPower:v153];
   *buf = _NSConcreteStackBlock;
-  *v171 = 3221225472;
-  *&v171[8] = sub_1001ACEDC;
-  *&v171[16] = &unk_10031B280;
-  objc_copyWeak(&v171[32], &location);
-  *&v173[2] = "createCPMSDescription:";
-  v74 = v19;
-  *&v171[24] = v74;
-  v174 = v3;
-  [v74 setNotificationCallback:buf];
-  sub_10027E7B4(v75);
-  v76 = [*"eAtPath:contents:attributes:" sharedCPMSAgent];
-  v160 = 0;
-  v157 = v74;
-  v77 = [v76 registerClientWithDescription:v74 error:&v160];
-  v40 = v160;
+  *v163 = 3221225472;
+  *&v163[8] = sub_1001ACEDC;
+  *&v163[16] = &unk_10031B280;
+  objc_copyWeak(&v163[32], &location);
+  *&v165[2] = "createCPMSDescription:";
+  v66 = v19;
+  *&v163[24] = v66;
+  v166 = v3;
+  [v66 setNotificationCallback:buf];
+  sub_10027E7B4(v67);
+  v68 = [*"eAtPath:contents:attributes:" sharedCPMSAgent];
+  v152 = 0;
+  v149 = v66;
+  v69 = [v68 registerClientWithDescription:v66 error:&v152];
+  v38 = v152;
 
-  if ((v77 & 1) == 0)
+  if ((v69 & 1) == 0)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v103 = NFLogGetLogger();
-    if (v103)
+    v95 = NFLogGetLogger();
+    if (v95)
     {
-      v104 = v103;
+      v96 = v95;
+      v97 = object_getClass(v1);
+      v98 = class_isMetaClass(v97);
+      v140 = object_getClassName(v1);
+      v145 = sel_getName("createCPMSDescription:");
+      v99 = 45;
+      if (v98)
+      {
+        v99 = 43;
+      }
+
+      v96(3, "%c[%{public}s %{public}s]:%i Failed to register CPMS : %{public}@", v99, v140, v145, 567, v38);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v100 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
+    {
+      v101 = object_getClass(v1);
+      if (class_isMetaClass(v101))
+      {
+        v102 = 43;
+      }
+
+      else
+      {
+        v102 = 45;
+      }
+
+      v103 = object_getClassName(v1);
+      v104 = sel_getName("createCPMSDescription:");
+      *v156 = 67110146;
+      *&v156[4] = v102;
+      *v157 = 2082;
+      *&v157[2] = v103;
+      *&v157[10] = 2082;
+      *&v157[12] = v104;
+      v158 = 1024;
+      v159 = 567;
+      v160 = 2114;
+      v161 = v38;
+      _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to register CPMS : %{public}@", v156, 0x2Cu);
+    }
+
+    v43 = 0;
+    goto LABEL_80;
+  }
+
+  v70 = [*"eAtPath:contents:attributes:" sharedCPMSAgent];
+  v72 = sub_1001AC03C(*(v1 + 24), v71);
+  v151 = v38;
+  v73 = [v70 copyPowerBudgetForRequest:v72 forClient:v3 error:&v151];
+  v74 = v151;
+
+  v75 = *(v1 + 56);
+  *(v1 + 56) = v73;
+
+  v76 = *(v1 + 56);
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v77 = NFLogGetLogger();
+  v78 = v77;
+  if (v76)
+  {
+    if (v77)
+    {
+      v79 = object_getClass(v1);
+      v80 = class_isMetaClass(v79);
+      v81 = object_getClassName(v1);
+      v82 = sel_getName("createCPMSDescription:");
+      v83 = 45;
+      if (v80)
+      {
+        v83 = 43;
+      }
+
+      v78(6, "%c[%{public}s %{public}s]:%i Max Power budget is %{public}@", v83, v81, v82, 576, *(v1 + 56));
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v84 = NFSharedLogGetLogger();
+    os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT);
+    sub_10027E7D8(v85);
+    if (!v86)
+    {
+      goto LABEL_68;
+    }
+
+    v87 = object_getClass(v1);
+    if (class_isMetaClass(v87))
+    {
+      v88 = 43;
+    }
+
+    else
+    {
+      v88 = 45;
+    }
+
+    v89 = object_getClassName(v1);
+    v90 = sel_getName("createCPMSDescription:");
+    v91 = *(v1 + 56);
+    *v156 = 67110146;
+    *&v156[4] = v88;
+    *v157 = 2082;
+    *&v157[2] = v89;
+    *&v157[10] = 2082;
+    *&v157[12] = v90;
+    v158 = 1024;
+    v159 = 576;
+    v160 = 2114;
+    v161 = v91;
+    v92 = "%c[%{public}s %{public}s]:%i Max Power budget is %{public}@";
+    v93 = v84;
+    v94 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  else
+  {
+    if (v77)
+    {
       v105 = object_getClass(v1);
       v106 = class_isMetaClass(v105);
-      v148 = object_getClassName(v1);
-      v153 = sel_getName("createCPMSDescription:");
+      v141 = object_getClassName(v1);
+      v146 = sel_getName("createCPMSDescription:");
       v107 = 45;
       if (v106)
       {
         v107 = 43;
       }
 
-      v104(3, "%c[%{public}s %{public}s]:%i Failed to register CPMS : %{public}@", v107, v148, v153, 567, v40);
+      v78(3, "%c[%{public}s %{public}s]:%i Error query power budget CPMS : %{public}@", v107, v141, v146, 574, v74);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v108 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
-    {
-      v109 = object_getClass(v1);
-      if (class_isMetaClass(v109))
-      {
-        v110 = 43;
-      }
-
-      else
-      {
-        v110 = 45;
-      }
-
-      v111 = object_getClassName(v1);
-      v112 = sel_getName("createCPMSDescription:");
-      *v164 = 67110146;
-      *&v164[4] = v110;
-      *v165 = 2082;
-      *&v165[2] = v111;
-      *&v165[10] = 2082;
-      *&v165[12] = v112;
-      v166 = 1024;
-      v167 = 567;
-      v168 = 2114;
-      v169 = v40;
-      _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to register CPMS : %{public}@", v164, 0x2Cu);
-    }
-
-    v45 = 0;
-    goto LABEL_80;
-  }
-
-  v78 = [*"eAtPath:contents:attributes:" sharedCPMSAgent];
-  v80 = sub_1001AC03C(*(v1 + 24), v79);
-  v159 = v40;
-  v81 = [v78 copyPowerBudgetForRequest:v80 forClient:v3 error:&v159];
-  v82 = v159;
-
-  v83 = *(v1 + 56);
-  *(v1 + 56) = v81;
-
-  v84 = *(v1 + 56);
-  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v85 = NFLogGetLogger();
-  v86 = v85;
-  if (v84)
-  {
-    if (v85)
-    {
-      v87 = object_getClass(v1);
-      v88 = class_isMetaClass(v87);
-      v89 = object_getClassName(v1);
-      v90 = sel_getName("createCPMSDescription:");
-      v91 = 45;
-      if (v88)
-      {
-        v91 = 43;
-      }
-
-      v86(6, "%c[%{public}s %{public}s]:%i Max Power budget is %{public}@", v91, v89, v90, 576, *(v1 + 56));
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v92 = NFSharedLogGetLogger();
-    os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT);
-    sub_10027E7D8(v93);
-    if (!v94)
+    v84 = NFSharedLogGetLogger();
+    os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+    sub_10027E7D8(v108);
+    if (!v109)
     {
       goto LABEL_68;
     }
 
-    v95 = object_getClass(v1);
-    if (class_isMetaClass(v95))
+    v110 = object_getClass(v1);
+    if (class_isMetaClass(v110))
     {
-      v96 = 43;
+      v111 = 43;
     }
 
     else
     {
-      v96 = 45;
+      v111 = 45;
     }
 
-    v97 = object_getClassName(v1);
-    v98 = sel_getName("createCPMSDescription:");
-    v99 = *(v1 + 56);
-    *v164 = 67110146;
-    *&v164[4] = v96;
-    *v165 = 2082;
-    *&v165[2] = v97;
-    *&v165[10] = 2082;
-    *&v165[12] = v98;
-    v166 = 1024;
-    v167 = 576;
-    v168 = 2114;
-    v169 = v99;
-    v100 = "%c[%{public}s %{public}s]:%i Max Power budget is %{public}@";
-    v101 = v92;
-    v102 = OS_LOG_TYPE_DEFAULT;
+    v112 = object_getClassName(v1);
+    v113 = sel_getName("createCPMSDescription:");
+    *v156 = 67110146;
+    *&v156[4] = v111;
+    *v157 = 2082;
+    *&v157[2] = v112;
+    *&v157[10] = 2082;
+    *&v157[12] = v113;
+    v158 = 1024;
+    v159 = 574;
+    v160 = 2114;
+    v161 = v74;
+    v92 = "%c[%{public}s %{public}s]:%i Error query power budget CPMS : %{public}@";
+    v93 = v84;
+    v94 = OS_LOG_TYPE_ERROR;
   }
 
-  else
-  {
-    if (v85)
-    {
-      v113 = object_getClass(v1);
-      v114 = class_isMetaClass(v113);
-      v149 = object_getClassName(v1);
-      v154 = sel_getName("createCPMSDescription:");
-      v115 = 45;
-      if (v114)
-      {
-        v115 = 43;
-      }
-
-      v86(3, "%c[%{public}s %{public}s]:%i Error query power budget CPMS : %{public}@", v115, v149, v154, 574, v82);
-    }
-
-    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v92 = NFSharedLogGetLogger();
-    os_log_type_enabled(v92, OS_LOG_TYPE_ERROR);
-    sub_10027E7D8(v116);
-    if (!v117)
-    {
-      goto LABEL_68;
-    }
-
-    v118 = object_getClass(v1);
-    if (class_isMetaClass(v118))
-    {
-      v119 = 43;
-    }
-
-    else
-    {
-      v119 = 45;
-    }
-
-    v120 = object_getClassName(v1);
-    v121 = sel_getName("createCPMSDescription:");
-    *v164 = 67110146;
-    *&v164[4] = v119;
-    *v165 = 2082;
-    *&v165[2] = v120;
-    *&v165[10] = 2082;
-    *&v165[12] = v121;
-    v166 = 1024;
-    v167 = 574;
-    v168 = 2114;
-    v169 = v82;
-    v100 = "%c[%{public}s %{public}s]:%i Error query power budget CPMS : %{public}@";
-    v101 = v92;
-    v102 = OS_LOG_TYPE_ERROR;
-  }
-
-  _os_log_impl(&_mh_execute_header, v101, v102, v100, v164, 0x2Cu);
+  _os_log_impl(&_mh_execute_header, v93, v94, v92, v156, 0x2Cu);
 LABEL_68:
 
-  v122 = [*(&kNFLOG_DISPATCH_SPECIFIC_KEY + 4) sharedCPMSAgent];
-  v124 = sub_1001AB950(*(v1 + 24), v123);
-  v158 = v82;
-  v125 = [v122 copyPowerBudgetForRequest:v124 forClient:v3 error:&v158];
-  v40 = v158;
+  v114 = [*(&kNFLOG_DISPATCH_SPECIFIC_KEY + 4) sharedCPMSAgent];
+  v116 = sub_1001AB950(*(v1 + 24), v115);
+  v150 = v74;
+  v117 = [v114 copyPowerBudgetForRequest:v116 forClient:v3 error:&v150];
+  v38 = v150;
 
-  if (!v125)
+  if (!v117)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v126 = NFLogGetLogger();
-    if (v126)
+    v118 = NFLogGetLogger();
+    if (v118)
     {
-      v127 = v126;
-      v128 = object_getClass(v1);
-      v129 = class_isMetaClass(v128);
-      v150 = object_getClassName(v1);
-      v155 = sel_getName("createCPMSDescription:");
-      v130 = 45;
-      if (v129)
+      v119 = v118;
+      v120 = object_getClass(v1);
+      v121 = class_isMetaClass(v120);
+      v142 = object_getClassName(v1);
+      v147 = sel_getName("createCPMSDescription:");
+      v122 = 45;
+      if (v121)
       {
-        v130 = 43;
+        v122 = 43;
       }
 
-      v127(3, "%c[%{public}s %{public}s]:%i Error resetting power budget CPMS : %{public}@", v130, v150, v155, 581, v40);
+      v119(3, "%c[%{public}s %{public}s]:%i Error resetting power budget CPMS : %{public}@", v122, v142, v147, 581, v38);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v131 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+    v123 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
     {
-      v132 = object_getClass(v1);
-      if (class_isMetaClass(v132))
+      v124 = object_getClass(v1);
+      if (class_isMetaClass(v124))
       {
-        v133 = 43;
+        v125 = 43;
       }
 
       else
       {
-        v133 = 45;
+        v125 = 45;
       }
 
-      v134 = object_getClassName(v1);
-      v135 = sel_getName("createCPMSDescription:");
-      *v164 = 67110146;
-      *&v164[4] = v133;
-      *v165 = 2082;
-      *&v165[2] = v134;
-      *&v165[10] = 2082;
-      *&v165[12] = v135;
-      v166 = 1024;
-      v167 = 581;
-      v168 = 2114;
-      v169 = v40;
-      _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error resetting power budget CPMS : %{public}@", v164, 0x2Cu);
+      v126 = object_getClassName(v1);
+      v127 = sel_getName("createCPMSDescription:");
+      *v156 = 67110146;
+      *&v156[4] = v125;
+      *v157 = 2082;
+      *&v157[2] = v126;
+      *&v157[10] = 2082;
+      *&v157[12] = v127;
+      v158 = 1024;
+      v159 = 581;
+      v160 = 2114;
+      v161 = v38;
+      _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error resetting power budget CPMS : %{public}@", v156, 0x2Cu);
     }
   }
 
-  v45 = v157;
+  v43 = v149;
 LABEL_80:
 
-  objc_destroyWeak(&v171[32]);
-  objc_destroyWeak(&v162);
+  objc_destroyWeak(&v163[32]);
+  objc_destroyWeak(&v154);
 LABEL_81:
 
   objc_destroyWeak(&location);
-  v136 = *(v1 + 16);
-  *(v1 + 16) = v45;
+  v128 = *(v1 + 16);
+  *(v1 + 16) = v43;
 
   if (*(v1 + 16))
   {
@@ -7070,49 +6228,49 @@ LABEL_81:
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v137 = NFLogGetLogger();
-  if (v137)
+  v129 = NFLogGetLogger();
+  if (v129)
   {
-    v138 = v137;
-    v139 = object_getClass(v1);
-    v140 = class_isMetaClass(v139);
-    v141 = object_getClassName(v1);
-    v156 = sel_getName("setupCPMS");
-    v142 = 45;
-    if (v140)
+    v130 = v129;
+    v131 = object_getClass(v1);
+    v132 = class_isMetaClass(v131);
+    v133 = object_getClassName(v1);
+    v148 = sel_getName("setupCPMS");
+    v134 = 45;
+    if (v132)
     {
-      v142 = 43;
+      v134 = 43;
     }
 
-    v138(3, "%c[%{public}s %{public}s]:%i Failed to create description", v142, v141, v156, 593);
+    v130(3, "%c[%{public}s %{public}s]:%i Failed to create description", v134, v133, v148, 593);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v143 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
+  v135 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
   {
-    v144 = object_getClass(v1);
-    if (class_isMetaClass(v144))
+    v136 = object_getClass(v1);
+    if (class_isMetaClass(v136))
     {
-      v145 = 43;
+      v137 = 43;
     }
 
     else
     {
-      v145 = 45;
+      v137 = 45;
     }
 
-    v146 = object_getClassName(v1);
-    v147 = sel_getName("setupCPMS");
+    v138 = object_getClassName(v1);
+    v139 = sel_getName("setupCPMS");
     *buf = 67109890;
-    *&buf[4] = v145;
-    *v171 = 2082;
-    *&v171[2] = v146;
-    *&v171[10] = 2082;
-    *&v171[12] = v147;
-    *&v171[20] = 1024;
-    *&v171[22] = 593;
-    _os_log_impl(&_mh_execute_header, v143, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create description", buf, 0x22u);
+    *&buf[4] = v137;
+    *v163 = 2082;
+    *&v163[2] = v138;
+    *&v163[10] = 2082;
+    *&v163[12] = v139;
+    *&v163[20] = 1024;
+    *&v163[22] = 593;
+    _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create description", buf, 0x22u);
   }
 
   return 0;
@@ -7134,22 +6292,22 @@ void sub_1001AE198(uint64_t a1, void *a2)
   }
 }
 
-id sub_1001AE20C()
+id sub_1001AE20C(uint64_t a1)
 {
-  v2[0] = _NSConcreteStackBlock;
-  v2[1] = 3221225472;
-  v2[2] = sub_1001AE2B8;
-  v2[3] = &unk_10031B2A0;
-  v2[4] = objc_opt_self();
-  v2[5] = "stockholmSystemPowerConsumptionMonitor";
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_1001AE2B8;
+  v3[3] = &unk_10031B2A0;
+  v3[4] = objc_opt_self();
+  v3[5] = "stockholmSystemPowerConsumptionMonitor";
   if (qword_10035DAA0 != -1)
   {
-    dispatch_once(&qword_10035DAA0, v2);
+    dispatch_once(&qword_10035DAA0, v3);
   }
 
-  v0 = qword_10035DA98;
+  v1 = qword_10035DA98;
 
-  return v0;
+  return v1;
 }
 
 void sub_1001AE2B8(uint64_t a1)
@@ -7207,22 +6365,22 @@ void sub_1001AE2B8(uint64_t a1)
   }
 }
 
-id sub_1001AE468()
+id sub_1001AE468(uint64_t a1)
 {
-  v2[0] = _NSConcreteStackBlock;
-  v2[1] = 3221225472;
-  v2[2] = sub_1001AE514;
-  v2[3] = &unk_10031B2A0;
-  v2[4] = objc_opt_self();
-  v2[5] = "furySystemPowerConsumptionMonitor";
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_1001AE514;
+  v3[3] = &unk_10031B2A0;
+  v3[4] = objc_opt_self();
+  v3[5] = "furySystemPowerConsumptionMonitor";
   if (qword_10035DAB0 != -1)
   {
-    dispatch_once(&qword_10035DAB0, v2);
+    dispatch_once(&qword_10035DAB0, v3);
   }
 
-  v0 = qword_10035DAA8;
+  v1 = qword_10035DAA8;
 
-  return v0;
+  return v1;
 }
 
 void sub_1001AE514(uint64_t a1)
@@ -9029,24 +8187,23 @@ id sub_1001B19AC(uint64_t a1)
     v16 = [*(a1 + 40) code];
     v17 = [*(a1 + 32) sessionUID];
     *buf = 67110402;
-    v22 = v13;
-    v23 = 2082;
-    v24 = v14;
-    v25 = 2082;
-    v26 = v15;
-    v27 = 1024;
-    v28 = 245;
-    v29 = 2048;
-    v30 = v16;
-    v31 = 2112;
-    v32 = v17;
+    v21 = v13;
+    v22 = 2082;
+    v23 = v14;
+    v24 = 2082;
+    v25 = v15;
+    v26 = 1024;
+    v27 = 245;
+    v28 = 2048;
+    v29 = v16;
+    v30 = 2112;
+    v31 = v17;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Activating invalidation handler: error=0x%lx for session %@", buf, 0x36u);
   }
 
   v18 = *(*(a1 + 32) + 248);
   if (v18)
   {
-    v19 = *(a1 + 40);
     (*(v18 + 16))();
   }
 
@@ -9428,5 +8585,984 @@ void sub_1001B3788(uint64_t a1)
         _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Polling", &unk_1002E8B7A, buf, 2u);
       }
     }
+  }
+}
+
+id sub_1001B4810(id result, uint64_t a2)
+{
+  if (a2 == 1)
+  {
+    v3 = *(result + 4);
+    if (*(v3 + 256) == 1)
+    {
+      v4 = *(v3 + 232);
+      v5 = [*(result + 5) count];
+
+      return [v4 coreNFCUITagScannedCount:v5];
+    }
+  }
+
+  return result;
+}
+
+void sub_1001B6F54(uint64_t a1)
+{
+  if (![*(a1 + 32) didStart] || (objc_msgSend(*(a1 + 32), "isSuspended") & 1) != 0 || objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v3 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 56));
+      v8 = [*(a1 + 32) sessionUID];
+      v9 = 45;
+      if (isMetaClass)
+      {
+        v9 = 43;
+      }
+
+      v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, ClassName, Name, 875, v8);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v11))
+      {
+        v12 = 43;
+      }
+
+      else
+      {
+        v12 = 45;
+      }
+
+      v13 = object_getClassName(*(a1 + 32));
+      v14 = sel_getName(*(a1 + 56));
+      v15 = [*(a1 + 32) sessionUID];
+      *buf = 67110146;
+      v28 = v12;
+      v29 = 2082;
+      v30 = v13;
+      v31 = 2082;
+      v32 = v14;
+      v33 = 1024;
+      v34 = 875;
+      v35 = 2114;
+      v36 = v15;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+    }
+
+    v16 = *(a1 + 48);
+    if (v16)
+    {
+      v17 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      v25 = NSLocalizedDescriptionKey;
+      v19 = [NSString stringWithUTF8String:"Session not active"];
+      v26 = v19;
+      v20 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
+      (*(v16 + 16))(v16, 0, v21);
+    }
+  }
+
+  else
+  {
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 40);
+    v24 = *(a1 + 48);
+
+    [v22 _sync_connect:v23 completion:v24];
+  }
+}
+
+void sub_1001B76B4(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 48));
+    v8 = [*(a1 + 32) clientName];
+    v9 = [*(a1 + 32) connection];
+    v10 = [v9 processIdentifier];
+    v11 = [*(a1 + 32) sessionUID];
+    v12 = 43;
+    if (!isMetaClass)
+    {
+      v12 = 45;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i %{public}@ (%d) %{public}@", v12, ClassName, Name, 907, v8, v10, v11);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v14))
+    {
+      v15 = 43;
+    }
+
+    else
+    {
+      v15 = 45;
+    }
+
+    v16 = object_getClassName(*(a1 + 32));
+    v17 = sel_getName(*(a1 + 48));
+    v18 = [*(a1 + 32) clientName];
+    v19 = [*(a1 + 32) connection];
+    v20 = [v19 processIdentifier];
+    v21 = [*(a1 + 32) sessionUID];
+    *buf = 67110658;
+    v45 = v15;
+    v46 = 2082;
+    v47 = v16;
+    v48 = 2082;
+    v49 = v17;
+    v50 = 1024;
+    v51 = 907;
+    v52 = 2114;
+    v53 = v18;
+    v54 = 1024;
+    v55 = v20;
+    v56 = 2114;
+    v57 = v21;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i %{public}@ (%d) %{public}@", buf, 0x3Cu);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v38 = [*(a1 + 32) _disconnectWithCardRemoval:*(a1 + 56)];
+    (*(*(a1 + 40) + 16))();
+    if (v38)
+    {
+      +[NFExceptionsCALogger postAnalyticsReaderModeExceptionForType:tagType:rfFrameInterface:withErrorCode:](NFExceptionsCALogger, "postAnalyticsReaderModeExceptionForType:tagType:rfFrameInterface:withErrorCode:", 2, [*(a1 + 32) _getTagTypeFromTag:*(*(a1 + 32) + 376)], (*(*(a1 + 32) + 304) >> 12) & 1, objc_msgSend(v38, "code"));
+      sub_10022F438(NFDailyStatisticsCALogger, @"readerModeDisconnectErrorCount");
+    }
+
+    goto LABEL_24;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v22 = NFLogGetLogger();
+  if (v22)
+  {
+    v23 = v22;
+    v24 = object_getClass(*(a1 + 32));
+    v25 = class_isMetaClass(v24);
+    v26 = object_getClassName(*(a1 + 32));
+    v27 = sel_getName(*(a1 + 48));
+    v28 = [*(a1 + 32) sessionUID];
+    v29 = 45;
+    if (v25)
+    {
+      v29 = 43;
+    }
+
+    v23(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v29, v26, v27, 909, v28);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v30 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  {
+    v31 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v31))
+    {
+      v32 = 43;
+    }
+
+    else
+    {
+      v32 = 45;
+    }
+
+    v33 = object_getClassName(*(a1 + 32));
+    v34 = sel_getName(*(a1 + 48));
+    v35 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v45 = v32;
+    v46 = 2082;
+    v47 = v33;
+    v48 = 2082;
+    v49 = v34;
+    v50 = 1024;
+    v51 = 909;
+    v52 = 2114;
+    v53 = v35;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v36 = *(a1 + 40);
+  if (v36)
+  {
+    v37 = [NSError alloc];
+    v38 = [NSString stringWithUTF8String:"nfcd"];
+    v42 = NSLocalizedDescriptionKey;
+    v39 = [NSString stringWithUTF8String:"Session not active"];
+    v43 = v39;
+    v40 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v41 = [v37 initWithDomain:v38 code:54 userInfo:v40];
+    (*(v36 + 16))(v36, v41);
+
+LABEL_24:
+  }
+}
+
+void sub_1001B8768(uint64_t a1, unsigned int a2)
+{
+  v4 = *(a1 + 40);
+  v5 = *(*(a1 + 32) + 376);
+  v6 = [NSError alloc];
+  v7 = [NSString stringWithUTF8String:"nfcd"];
+  v21 = NSLocalizedDescriptionKey;
+  if (a2 >= 0x4C)
+  {
+    v8 = 76;
+  }
+
+  else
+  {
+    v8 = a2;
+  }
+
+  v9 = [NSString stringWithUTF8String:off_10031B2E8[v8], NSLocalizedDescriptionKey];
+  v22 = v9;
+  v10 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v11 = [v6 initWithDomain:v7 code:a2 userInfo:v10];
+  (*(v4 + 16))(v4, v5, 0, v11);
+
+  +[NFExceptionsCALogger postAnalyticsReaderModeExceptionForType:tagType:rfFrameInterface:withErrorCode:](NFExceptionsCALogger, "postAnalyticsReaderModeExceptionForType:tagType:rfFrameInterface:withErrorCode:", 3, [*(a1 + 32) _getTagTypeFromTag:*(*(a1 + 32) + 376)], (*(*(a1 + 32) + 304) >> 12) & 1, 8);
+  sub_10022F438(NFDailyStatisticsCALogger, @"readerModeTransceiveErrorCount");
+  if (a2 == 32)
+  {
+    *(*(a1 + 32) + 240) = 0;
+    [*(a1 + 32) endSession:0];
+    v12 = [*(a1 + 32) remoteObject];
+    v13 = [NSError alloc];
+    v14 = [NSString stringWithUTF8String:"nfcd"];
+    v19 = v18;
+    v15 = [NSString stringWithUTF8String:"Not entitled"];
+    v20 = v15;
+    v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v17 = [v13 initWithDomain:v14 code:32 userInfo:v16];
+    [v12 didTerminate:v17];
+  }
+}
+
+void sub_1001B8AF0(uint64_t a1)
+{
+  if (![*(a1 + 32) didStart] || (objc_msgSend(*(a1 + 32), "isSuspended") & 1) != 0 || objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v3 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 56));
+      v8 = [*(a1 + 32) sessionUID];
+      v9 = 45;
+      if (isMetaClass)
+      {
+        v9 = 43;
+      }
+
+      v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, ClassName, Name, 1065, v8);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v10 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v11))
+      {
+        v12 = 43;
+      }
+
+      else
+      {
+        v12 = 45;
+      }
+
+      v13 = object_getClassName(*(a1 + 32));
+      v14 = sel_getName(*(a1 + 56));
+      v15 = [*(a1 + 32) sessionUID];
+      *buf = 67110146;
+      v28 = v12;
+      v29 = 2082;
+      v30 = v13;
+      v31 = 2082;
+      v32 = v14;
+      v33 = 1024;
+      v34 = 1065;
+      v35 = 2114;
+      v36 = v15;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+    }
+
+    v16 = *(a1 + 48);
+    if (v16)
+    {
+      v17 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      v25 = NSLocalizedDescriptionKey;
+      v19 = [NSString stringWithUTF8String:"Session not active"];
+      v26 = v19;
+      v20 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v21 = [v17 initWithDomain:v18 code:54 userInfo:v20];
+      (*(v16 + 16))(v16, 0, 0, v21);
+    }
+  }
+
+  else
+  {
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 40);
+    v24 = *(a1 + 48);
+
+    [v22 _sync_transceive:v23 completion:v24];
+  }
+}
+
+void sub_1001B8EB8(uint64_t a1)
+{
+  memset(v56, 0, sizeof(v56));
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v25 = *(a1 + 32);
+    if (v25[47])
+    {
+      v26 = [v25 _refreshNdefTagConnection];
+      if (!v26)
+      {
+        v48 = *(a1 + 32);
+        v49 = *(v48 + 344);
+        v50 = *(v48 + 376);
+        v55 = 0;
+        v51 = sub_1001916A4(v49, v50, v56, &v55);
+        v52 = v55;
+        v18 = v52;
+        if (v51)
+        {
+          v53 = *(*(a1 + 40) + 16);
+        }
+
+        else
+        {
+          if ([v52 code] == 37)
+          {
+
+            v18 = 0;
+          }
+
+          v53 = *(*(a1 + 40) + 16);
+        }
+
+        v53();
+        goto LABEL_17;
+      }
+
+      v27 = v26;
+      v28 = *(a1 + 40);
+      v29 = [NSError alloc];
+      v18 = [NSString stringWithUTF8String:"nfcd"];
+      v30 = v27;
+      v57[0] = NSLocalizedDescriptionKey;
+      if (v27 >= 0x4C)
+      {
+        v31 = 76;
+      }
+
+      else
+      {
+        v31 = v27;
+      }
+
+      v19 = [NSString stringWithUTF8String:off_10031B2E8[v31]];
+      v58[0] = v19;
+      v58[1] = &off_100333A20;
+      v57[1] = @"Line";
+      v57[2] = @"Method";
+      v32 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 48))];
+      v58[2] = v32;
+      v57[3] = NSDebugDescriptionErrorKey;
+      v33 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 48)), 1088];
+      v58[3] = v33;
+      v34 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:4];
+      v35 = [v29 initWithDomain:v18 code:v30 userInfo:v34];
+      (*(v28 + 16))(v28, 0, 0, v35);
+
+LABEL_16:
+LABEL_17:
+
+      return;
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v37 = Logger;
+      Class = object_getClass(*(a1 + 32));
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(*(a1 + 32));
+      Name = sel_getName(*(a1 + 48));
+      v41 = 45;
+      if (isMetaClass)
+      {
+        v41 = 43;
+      }
+
+      v37(3, "%c[%{public}s %{public}s]:%i Tag not connected", v41, ClassName, Name, 1081);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v42 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      v43 = object_getClass(*(a1 + 32));
+      if (class_isMetaClass(v43))
+      {
+        v44 = 43;
+      }
+
+      else
+      {
+        v44 = 45;
+      }
+
+      v45 = object_getClassName(*(a1 + 32));
+      v46 = sel_getName(*(a1 + 48));
+      *buf = 67109890;
+      v64 = v44;
+      v65 = 2082;
+      v66 = v45;
+      v67 = 2082;
+      v68 = v46;
+      v69 = 1024;
+      v70 = 1081;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag not connected", buf, 0x22u);
+    }
+
+    v16 = *(a1 + 40);
+    v47 = [NSError alloc];
+    v18 = [NSString stringWithUTF8String:"nfcd"];
+    v59 = NSLocalizedDescriptionKey;
+    v19 = [NSString stringWithUTF8String:"Tag Not Found"];
+    v60 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v21 = v47;
+    v22 = v18;
+    v23 = 28;
+LABEL_15:
+    v24 = [v21 initWithDomain:v22 code:v23 userInfo:v20];
+    (*(v16 + 16))(v16, 0, 0, v24);
+
+    goto LABEL_16;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v2 = NFLogGetLogger();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = object_getClass(*(a1 + 32));
+    v5 = class_isMetaClass(v4);
+    v6 = object_getClassName(*(a1 + 32));
+    v7 = sel_getName(*(a1 + 48));
+    v8 = [*(a1 + 32) sessionUID];
+    v9 = 45;
+    if (v5)
+    {
+      v9 = 43;
+    }
+
+    v3(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v9, v6, v7, 1078, v8);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v10 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v11 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v11))
+    {
+      v12 = 43;
+    }
+
+    else
+    {
+      v12 = 45;
+    }
+
+    v13 = object_getClassName(*(a1 + 32));
+    v14 = sel_getName(*(a1 + 48));
+    v15 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v64 = v12;
+    v65 = 2082;
+    v66 = v13;
+    v67 = 2082;
+    v68 = v14;
+    v69 = 1024;
+    v70 = 1078;
+    v71 = 2114;
+    v72 = v15;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v16 = *(a1 + 40);
+  if (v16)
+  {
+    v17 = [NSError alloc];
+    v18 = [NSString stringWithUTF8String:"nfcd"];
+    v61 = NSLocalizedDescriptionKey;
+    v19 = [NSString stringWithUTF8String:"Session not active"];
+    v62 = v19;
+    v20 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+    v21 = v17;
+    v22 = v18;
+    v23 = 54;
+    goto LABEL_15;
+  }
+}
+
+void sub_1001B9648(uint64_t a1)
+{
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v3 = Logger;
+    Class = object_getClass(*(a1 + 32));
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(*(a1 + 32));
+    Name = sel_getName(*(a1 + 48));
+    v8 = [*(a1 + 32) clientName];
+    v9 = [*(a1 + 32) connection];
+    v10 = [v9 processIdentifier];
+    v11 = [*(a1 + 32) sessionUID];
+    v12 = 43;
+    if (!isMetaClass)
+    {
+      v12 = 45;
+    }
+
+    v3(6, "%c[%{public}s %{public}s]:%i %{public}@ (%d) %{public}@", v12, ClassName, Name, 1116, v8, v10, v11);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v13 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v14))
+    {
+      v15 = 43;
+    }
+
+    else
+    {
+      v15 = 45;
+    }
+
+    v16 = object_getClassName(*(a1 + 32));
+    v17 = sel_getName(*(a1 + 48));
+    v18 = [*(a1 + 32) clientName];
+    v19 = [*(a1 + 32) connection];
+    v20 = [v19 processIdentifier];
+    v21 = [*(a1 + 32) sessionUID];
+    *buf = 67110658;
+    v130 = v15;
+    v131 = 2082;
+    v132 = v16;
+    v133 = 2082;
+    v134 = v17;
+    v135 = 1024;
+    v136 = 1116;
+    v137 = 2114;
+    v138 = v18;
+    v139 = 1024;
+    v140 = v20;
+    v141 = 2114;
+    v142 = v21;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i %{public}@ (%d) %{public}@", buf, 0x3Cu);
+  }
+
+  if ([*(a1 + 32) didStart] && (objc_msgSend(*(a1 + 32), "isSuspended") & 1) == 0 && !objc_msgSend(*(a1 + 32), "didEnd"))
+  {
+    v45 = *(a1 + 32);
+    v46 = *(v45 + 376);
+    if (!v46)
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v57 = NFLogGetLogger();
+      if (v57)
+      {
+        v58 = v57;
+        v59 = object_getClass(*(a1 + 32));
+        v60 = class_isMetaClass(v59);
+        v61 = object_getClassName(*(a1 + 32));
+        v113 = sel_getName(*(a1 + 48));
+        v62 = 45;
+        if (v60)
+        {
+          v62 = 43;
+        }
+
+        v58(3, "%c[%{public}s %{public}s]:%i Tag not connected", v62, v61, v113, 1121);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v63 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      {
+        v64 = object_getClass(*(a1 + 32));
+        if (class_isMetaClass(v64))
+        {
+          v65 = 43;
+        }
+
+        else
+        {
+          v65 = 45;
+        }
+
+        v66 = object_getClassName(*(a1 + 32));
+        v67 = sel_getName(*(a1 + 48));
+        *buf = 67109890;
+        v130 = v65;
+        v131 = 2082;
+        v132 = v66;
+        v133 = 2082;
+        v134 = v67;
+        v135 = 1024;
+        v136 = 1121;
+        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag not connected", buf, 0x22u);
+      }
+
+      v36 = *(a1 + 40);
+      v68 = [NSError alloc];
+      v38 = [NSString stringWithUTF8String:"nfcd"];
+      v125 = NSLocalizedDescriptionKey;
+      v39 = [NSString stringWithUTF8String:"Tag Not Found"];
+      v126 = v39;
+      v40 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+      v41 = v68;
+      v42 = v38;
+      v43 = 28;
+      goto LABEL_24;
+    }
+
+    if ((*(v45 + 385) & 2) == 0)
+    {
+      v47 = [v45 _refreshNdefTagConnection];
+      if (v47)
+      {
+        v48 = v47;
+        v49 = *(a1 + 40);
+        v50 = [NSError alloc];
+        v38 = [NSString stringWithUTF8String:"nfcd"];
+        v51 = v48;
+        v123[0] = NSLocalizedDescriptionKey;
+        if (v48 >= 0x4C)
+        {
+          v52 = 76;
+        }
+
+        else
+        {
+          v52 = v48;
+        }
+
+        v39 = [NSString stringWithUTF8String:off_10031B2E8[v52]];
+        v124[0] = v39;
+        v124[1] = &off_100333A38;
+        v123[1] = @"Line";
+        v123[2] = @"Method";
+        v53 = [[NSString alloc] initWithFormat:@"%s", sel_getName(*(a1 + 48))];
+        v124[2] = v53;
+        v123[3] = NSDebugDescriptionErrorKey;
+        v54 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(*(a1 + 48)), 1142];
+        v124[3] = v54;
+        v55 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:4];
+        v56 = [v50 initWithDomain:v38 code:v51 userInfo:v55];
+        (*(v49 + 16))(v49, v56, 0);
+
+        goto LABEL_25;
+      }
+
+      v118[0] = 0;
+      v118[1] = 0;
+      v119 = 0;
+      v74 = *(a1 + 32);
+      v75 = *(v74 + 344);
+      v76 = *(v74 + 376);
+      v117 = 0;
+      v77 = sub_1001916A4(v75, v76, v118, &v117);
+      v38 = v117;
+      if ((v77 & 1) == 0)
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v85 = NFLogGetLogger();
+        if (v85)
+        {
+          v86 = v85;
+          v87 = object_getClass(*(a1 + 32));
+          v88 = class_isMetaClass(v87);
+          v112 = object_getClassName(*(a1 + 32));
+          v114 = sel_getName(*(a1 + 48));
+          v89 = 45;
+          if (v88)
+          {
+            v89 = 43;
+          }
+
+          v86(3, "%c[%{public}s %{public}s]:%i Failed to query NDEF capability, %{public}@", v89, v112, v114, 1148, v38);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v90 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+        {
+          v91 = object_getClass(*(a1 + 32));
+          if (class_isMetaClass(v91))
+          {
+            v92 = 43;
+          }
+
+          else
+          {
+            v92 = 45;
+          }
+
+          v93 = object_getClassName(*(a1 + 32));
+          v94 = sel_getName(*(a1 + 48));
+          *buf = 67110146;
+          v130 = v92;
+          v131 = 2082;
+          v132 = v93;
+          v133 = 2082;
+          v134 = v94;
+          v135 = 1024;
+          v136 = 1148;
+          v137 = 2114;
+          v138 = v38;
+          _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to query NDEF capability, %{public}@", buf, 0x2Cu);
+        }
+
+        (*(*(a1 + 40) + 16))();
+        goto LABEL_26;
+      }
+
+      if ((v119 & 1) == 0)
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v95 = NFLogGetLogger();
+        if (v95)
+        {
+          v96 = v95;
+          v97 = object_getClass(*(a1 + 32));
+          v98 = class_isMetaClass(v97);
+          v99 = object_getClassName(*(a1 + 32));
+          v115 = sel_getName(*(a1 + 48));
+          v100 = 45;
+          if (v98)
+          {
+            v100 = 43;
+          }
+
+          v96(3, "%c[%{public}s %{public}s]:%i Tag is not NDEF readable", v100, v99, v115, 1154);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v101 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+        {
+          v102 = object_getClass(*(a1 + 32));
+          if (class_isMetaClass(v102))
+          {
+            v103 = 43;
+          }
+
+          else
+          {
+            v103 = 45;
+          }
+
+          v104 = object_getClassName(*(a1 + 32));
+          v105 = sel_getName(*(a1 + 48));
+          *buf = 67109890;
+          v130 = v103;
+          v131 = 2082;
+          v132 = v104;
+          v133 = 2082;
+          v134 = v105;
+          v135 = 1024;
+          v136 = 1154;
+          _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Tag is not NDEF readable", buf, 0x22u);
+        }
+
+        v106 = *(a1 + 40);
+        v107 = [NSError alloc];
+        v108 = [NSString stringWithUTF8String:"nfcd"];
+        v121 = NSLocalizedDescriptionKey;
+        v109 = [NSString stringWithUTF8String:"Tag Not NDEF formatted"];
+        v122 = v109;
+        v110 = [NSDictionary dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+        v111 = [v107 initWithDomain:v108 code:37 userInfo:v110];
+        (*(v106 + 16))(v106, v111, 0);
+
+        goto LABEL_26;
+      }
+
+      v78 = *(a1 + 32);
+      v79 = *(v78 + 344);
+      v80 = *(v78 + 376);
+      v116 = v38;
+      v81 = sub_100193E90(v79, v80, &v116);
+      v82 = v116;
+
+      if (v81)
+      {
+        v83 = sub_10024DC10(NFTagReadCALogger);
+        v84 = [v81 asData];
+        sub_10024E250(v83, [v84 length]);
+      }
+
+      else
+      {
+        if (!v82)
+        {
+LABEL_78:
+          (*(*(a1 + 40) + 16))();
+
+          v38 = v82;
+          goto LABEL_26;
+        }
+
+        v83 = sub_10024DC10(NFTagReadCALogger);
+        sub_10024E3FC(v83, v82);
+      }
+
+      goto LABEL_78;
+    }
+
+    v69 = *(v45 + 344);
+    v120 = 0;
+    v70 = sub_100193E90(v69, v46, &v120);
+    v71 = v120;
+    v38 = v71;
+    if (v70)
+    {
+      v72 = sub_10024DC10(NFTagReadCALogger);
+      v73 = [v70 asData];
+      sub_10024E250(v72, [v73 length]);
+    }
+
+    else
+    {
+      if (!v71)
+      {
+LABEL_54:
+        (*(*(a1 + 40) + 16))();
+
+        goto LABEL_26;
+      }
+
+      v72 = sub_10024DC10(NFTagReadCALogger);
+      sub_10024E3FC(v72, v38);
+    }
+
+    goto LABEL_54;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v22 = NFLogGetLogger();
+  if (v22)
+  {
+    v23 = v22;
+    v24 = object_getClass(*(a1 + 32));
+    v25 = class_isMetaClass(v24);
+    v26 = object_getClassName(*(a1 + 32));
+    v27 = sel_getName(*(a1 + 48));
+    v28 = [*(a1 + 32) sessionUID];
+    v29 = 45;
+    if (v25)
+    {
+      v29 = 43;
+    }
+
+    v23(3, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", v29, v26, v27, 1119, v28);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v30 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  {
+    v31 = object_getClass(*(a1 + 32));
+    if (class_isMetaClass(v31))
+    {
+      v32 = 43;
+    }
+
+    else
+    {
+      v32 = 45;
+    }
+
+    v33 = object_getClassName(*(a1 + 32));
+    v34 = sel_getName(*(a1 + 48));
+    v35 = [*(a1 + 32) sessionUID];
+    *buf = 67110146;
+    v130 = v32;
+    v131 = 2082;
+    v132 = v33;
+    v133 = 2082;
+    v134 = v34;
+    v135 = 1024;
+    v136 = 1119;
+    v137 = 2114;
+    v138 = v35;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Session %{public}@ is not active", buf, 0x2Cu);
+  }
+
+  v36 = *(a1 + 40);
+  if (v36)
+  {
+    v37 = [NSError alloc];
+    v38 = [NSString stringWithUTF8String:"nfcd"];
+    v127 = NSLocalizedDescriptionKey;
+    v39 = [NSString stringWithUTF8String:"Session not active"];
+    v128 = v39;
+    v40 = [NSDictionary dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+    v41 = v37;
+    v42 = v38;
+    v43 = 54;
+LABEL_24:
+    v44 = [v41 initWithDomain:v42 code:v43 userInfo:v40];
+    (*(v36 + 16))(v36, v44, 0);
+
+LABEL_25:
+LABEL_26:
   }
 }

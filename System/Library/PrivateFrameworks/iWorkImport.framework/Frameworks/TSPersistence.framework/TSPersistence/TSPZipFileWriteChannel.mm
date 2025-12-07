@@ -54,9 +54,9 @@
   v8 = atomic_load(&self->_isClosed);
   if (v8)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", "[TSPZipFileWriteChannel writeData:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPZipFileWriteChannel.mm", 40);
     v14 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPZipFileWriteChannel writeData:handler:]", "[TSPZipFileWriteChannel writeData:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPZipFileWriteChannel.mm", 40);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPZipFileWriteChannel writeData:handler:]");
     v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPZipFileWriteChannel.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v16, v18, 40, 1, "Channel is closed");
 

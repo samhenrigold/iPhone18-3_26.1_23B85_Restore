@@ -156,7 +156,7 @@ LABEL_9:
 
     if (v9 != bOOLValue)
     {
-      v11 = sub_1002BB3F0();
+      v11 = sub_1002BB3F0(AppUpdatesDatabaseStore);
       v14[0] = _NSConcreteStackBlock;
       v14[1] = 3221225472;
       v14[2] = sub_1003210F4;

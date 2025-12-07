@@ -10,11 +10,11 @@
   deviceCopy = device;
   compilerCopy = compiler;
   descriptorCopy = descriptor;
-  v119.receiver = self;
-  v119.super_class = _MTL4FXSpatialScalingEffectEFFECT_NAME_V1;
-  v11 = [(_MTL4FXEffect *)&v119 init];
+  v117.receiver = self;
+  v117.super_class = _MTL4FXSpatialScalingEffectEFFECT_NAME_V1;
+  v11 = [(_MTL4FXEffect *)&v117 init];
   objc_storeStrong(&v11->_device, device);
-  v104 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v102 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   newFence = [(MTLDeviceSPI *)v11->_device newFence];
   internalFence = v11->_internalFence;
   v11->_internalFence = newFence;
@@ -26,11 +26,11 @@
   v11->_framesInFlight = 16;
   v11->_colorTextureBarrierStages = 2;
   v11->_outputTextureBarrierStages = 0;
-  v103 = [v104 pathForResource:@"default" ofType:@"metallib"];
-  v15 = [MEMORY[0x277CBEBC0] URLWithString:v103];
-  v118 = 0;
-  v105 = [deviceCopy newLibraryWithURL:v15 error:&v118];
-  v16 = v118;
+  v101 = [v102 pathForResource:@"default" ofType:@"metallib"];
+  v15 = [MEMORY[0x277CBEBC0] URLWithString:v101];
+  v116 = 0;
+  v103 = [deviceCopy newLibraryWithURL:v15 error:&v116];
+  v16 = v116;
 
   if (!v16)
   {
@@ -69,19 +69,13 @@
     [v28 setStoreAction:1];
 
     [descriptorCopy colorTextureFormat];
-    device = v11->_device;
-    *&v112 = 0;
-    v110 = 0u;
-    v111 = 0u;
-    v109 = 0u;
     MTLPixelFormatGetInfoForDevice();
     v11->_inputSRGB = 0;
     [descriptorCopy outputTextureFormat];
-    v30 = v11->_device;
-    *&v112 = 0;
-    v110 = 0u;
-    v111 = 0u;
+    *&v110 = 0;
+    v108 = 0u;
     v109 = 0u;
+    v107 = 0u;
     MTLPixelFormatGetInfoForDevice();
     v11->_outputSRGB = 0;
     if (v11->_inputSRGB)
@@ -166,216 +160,216 @@ LABEL_43:
 
 LABEL_27:
     v11->_intermediatePixelFormat = outputTextureFormat2;
-    v37 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:outputTextureFormat2 width:objc_msgSend(descriptorCopy height:"outputWidth") mipmapped:objc_msgSend(descriptorCopy, "outputHeight"), 0];
+    v35 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:outputTextureFormat2 width:objc_msgSend(descriptorCopy height:"outputWidth") mipmapped:objc_msgSend(descriptorCopy, "outputHeight"), 0];
     texDesc = v11->_texDesc;
-    v11->_texDesc = v37;
+    v11->_texDesc = v35;
 
     [(MTLTextureDescriptor *)v11->_texDesc setStorageMode:2];
     [(MTLTextureDescriptor *)v11->_texDesc setUsage:5];
-    v39 = [(MTLDeviceSPI *)v11->_device newTextureWithDescriptor:v11->_texDesc];
+    v37 = [(MTLDeviceSPI *)v11->_device newTextureWithDescriptor:v11->_texDesc];
     mfxUpscaledTex = v11->_mfxUpscaledTex;
-    v11->_mfxUpscaledTex = v39;
+    v11->_mfxUpscaledTex = v37;
 
     [(MTLTexture *)v11->_mfxUpscaledTex setLabel:@"MetalFX_Upscaled"];
-    v96 = objc_opt_new();
-    v117 = 0;
+    v94 = objc_opt_new();
+    v115 = 0;
+    v93 = objc_opt_new();
+    [v93 setLibrary:v103];
+    [v93 setName:@"FSQuadVertexShader"];
     v95 = objc_opt_new();
-    [v95 setLibrary:v105];
-    [v95 setName:@"FSQuadVertexShader"];
-    v97 = objc_opt_new();
-    [v97 setLibrary:v105];
+    [v95 setLibrary:v103];
     colorProcessingMode = v11->_colorProcessingMode;
     v11->_needNormPercept = colorProcessingMode > 0;
     if (colorProcessingMode < 1)
     {
-      v100 = 0;
+      v98 = 0;
     }
 
     else
     {
-      v42 = [(MTLDeviceSPI *)v11->_device newResidencySetWithDescriptor:v17 error:0];
+      v40 = [(MTLDeviceSPI *)v11->_device newResidencySetWithDescriptor:v17 error:0];
       residencySetPercept = v11->_residencySetPercept;
-      v11->_residencySetPercept = v42;
+      v11->_residencySetPercept = v40;
 
       [(MTLTextureDescriptor *)v11->_texDesc setWidth:v11->_inputWidth];
       [(MTLTextureDescriptor *)v11->_texDesc setHeight:v11->_inputHeight];
-      v44 = [(MTLDeviceSPI *)v11->_device newTextureWithDescriptor:v11->_texDesc];
+      v42 = [(MTLDeviceSPI *)v11->_device newTextureWithDescriptor:v11->_texDesc];
       mfxNormPerceptTex = v11->_mfxNormPerceptTex;
-      v11->_mfxNormPerceptTex = v44;
+      v11->_mfxNormPerceptTex = v42;
 
       [(MTLTexture *)v11->_mfxNormPerceptTex setLabel:@"MetalFX_NormalizePerceptual"];
-      [v97 setName:@"MFX_NORMALIZE_SHADER_V1_FRAG"];
-      v94 = v17;
-      v98 = objc_alloc_init(MEMORY[0x277CD6BB8]);
-      [v98 setLabel:@"MFX_NPRenderPipelineState"];
-      [v98 setRasterSampleCount:1];
-      [v98 setVertexFunctionDescriptor:v95];
-      [v98 setFragmentFunctionDescriptor:v97];
+      [v95 setName:@"MFX_NORMALIZE_SHADER_V1_FRAG"];
+      v92 = v17;
+      v96 = objc_alloc_init(MEMORY[0x277CD6BB8]);
+      [v96 setLabel:@"MFX_NPRenderPipelineState"];
+      [v96 setRasterSampleCount:1];
+      [v96 setVertexFunctionDescriptor:v93];
+      [v96 setFragmentFunctionDescriptor:v95];
       intermediatePixelFormat = v11->_intermediatePixelFormat;
-      colorAttachments4 = [v98 colorAttachments];
-      v48 = [colorAttachments4 objectAtIndexedSubscript:0];
-      [v48 setPixelFormat:intermediatePixelFormat];
+      colorAttachments4 = [v96 colorAttachments];
+      v46 = [colorAttachments4 objectAtIndexedSubscript:0];
+      [v46 setPixelFormat:intermediatePixelFormat];
 
-      v116 = 0;
-      v49 = [compilerCopy newRenderPipelineStateWithDescriptor:v98 compilerTaskOptions:0 error:&v116];
-      v50 = v116;
+      v114 = 0;
+      v47 = [compilerCopy newRenderPipelineStateWithDescriptor:v96 compilerTaskOptions:0 error:&v114];
+      v48 = v114;
       mfxNormPerceptPSO = v11->_mfxNormPerceptPSO;
-      v11->_mfxNormPerceptPSO = v49;
+      v11->_mfxNormPerceptPSO = v47;
 
-      [v96 setMaxTextureBindCount:1];
-      [v96 setMaxBufferBindCount:1];
-      v115 = v50;
-      v52 = [deviceCopy newArgumentTableWithDescriptor:v96 error:&v115];
-      v53 = v115;
+      [v94 setMaxTextureBindCount:1];
+      [v94 setMaxBufferBindCount:1];
+      v113 = v48;
+      v50 = [deviceCopy newArgumentTableWithDescriptor:v94 error:&v113];
+      v51 = v113;
 
       normPerceptFragInputs = v11->_normPerceptFragInputs;
-      v11->_normPerceptFragInputs = v52;
+      v11->_normPerceptFragInputs = v50;
 
-      v55 = v11->_colorProcessingMode;
-      LOBYTE(v117) = v55 == 2;
-      BYTE1(v117) = v55 > 0;
-      HIWORD(v117) = 0;
-      v56 = [deviceCopy newBufferWithBytes:&v117 length:4 options:0];
+      v53 = v11->_colorProcessingMode;
+      LOBYTE(v115) = v53 == 2;
+      BYTE1(v115) = v53 > 0;
+      HIWORD(v115) = 0;
+      v54 = [deviceCopy newBufferWithBytes:&v115 length:4 options:0];
       normalizeBuffer = v11->_normalizeBuffer;
-      v11->_normalizeBuffer = v56;
+      v11->_normalizeBuffer = v54;
 
       [(MTL4ArgumentTable *)v11->_normPerceptFragInputs setAddress:[(MTLBuffer *)v11->_normalizeBuffer gpuAddress] atIndex:0];
       [(MTLResidencySet *)v11->_residencySetPercept addAllocation:v11->_normalizeBuffer];
       [(MTLResidencySet *)v11->_residencySetPercept addAllocation:v11->_mfxNormPerceptTex];
       [(MTLResidencySet *)v11->_residencySetPercept commit];
-      v100 = v53;
+      v98 = v51;
 
-      v17 = v94;
+      v17 = v92;
     }
 
-    [v97 setName:@"MFX_SCALE_SHADER_V1_FRAG"];
-    v99 = objc_alloc_init(MEMORY[0x277CD6BB8]);
-    [v99 setLabel:@"MFX_ScaleRenderPipelineStateV1"];
-    [v99 setRasterSampleCount:1];
-    [v99 setVertexFunctionDescriptor:v95];
-    [v99 setFragmentFunctionDescriptor:v97];
-    v58 = v11->_intermediatePixelFormat;
-    colorAttachments5 = [v99 colorAttachments];
-    v60 = [colorAttachments5 objectAtIndexedSubscript:0];
-    [v60 setPixelFormat:v58];
+    [v95 setName:@"MFX_SCALE_SHADER_V1_FRAG"];
+    v97 = objc_alloc_init(MEMORY[0x277CD6BB8]);
+    [v97 setLabel:@"MFX_ScaleRenderPipelineStateV1"];
+    [v97 setRasterSampleCount:1];
+    [v97 setVertexFunctionDescriptor:v93];
+    [v97 setFragmentFunctionDescriptor:v95];
+    v56 = v11->_intermediatePixelFormat;
+    colorAttachments5 = [v97 colorAttachments];
+    v58 = [colorAttachments5 objectAtIndexedSubscript:0];
+    [v58 setPixelFormat:v56];
 
-    v114 = v100;
-    v61 = [compilerCopy newRenderPipelineStateWithDescriptor:v99 compilerTaskOptions:0 error:&v114];
-    v16 = v114;
+    v112 = v98;
+    v59 = [compilerCopy newRenderPipelineStateWithDescriptor:v97 compilerTaskOptions:0 error:&v112];
+    v16 = v112;
 
     mfxUpscalePSO = v11->_mfxUpscalePSO;
-    v11->_mfxUpscalePSO = v61;
+    v11->_mfxUpscalePSO = v59;
 
     if (v16)
     {
-      v63 = [v16 description];
-      NSLog(&cfstr_Error.isa, v63);
+      v61 = [v16 description];
+      NSLog(&cfstr_Error.isa, v61);
     }
 
     else
     {
-      [v96 setMaxTextureBindCount:1];
-      [v96 setMaxBufferBindCount:2];
-      v113 = 0;
-      v64 = [deviceCopy newArgumentTableWithDescriptor:v96 error:&v113];
-      v101 = v113;
+      [v94 setMaxTextureBindCount:1];
+      [v94 setMaxBufferBindCount:2];
+      v111 = 0;
+      v62 = [deviceCopy newArgumentTableWithDescriptor:v94 error:&v111];
+      v99 = v111;
       scaleFragInputs = v11->_scaleFragInputs;
-      v11->_scaleFragInputs = v64;
+      v11->_scaleFragInputs = v62;
 
-      v117 = 0;
-      v66 = [deviceCopy newBufferWithBytes:&v117 length:4 options:0];
+      v115 = 0;
+      v64 = [deviceCopy newBufferWithBytes:&v115 length:4 options:0];
       scaleBuffer = v11->_scaleBuffer;
-      v11->_scaleBuffer = v66;
+      v11->_scaleBuffer = v64;
 
       [(MTL4ArgumentTable *)v11->_scaleFragInputs setAddress:[(MTLBuffer *)v11->_scaleBuffer gpuAddress] atIndex:1];
       inputContentWidth = v11->_inputContentWidth;
       inputContentHeight = v11->_inputContentHeight;
       inputWidth = v11->_inputWidth;
       inputHeight = v11->_inputHeight;
-      v72 = 1.0 / v11->_outputWidth;
-      v73 = 1.0 / v11->_outputHeight;
-      *&v109 = v72 * inputContentWidth;
-      *(&v109 + 1) = v73 * inputContentHeight;
-      *(&v109 + 2) = (vcvts_n_f32_u64(inputContentWidth, 1uLL) * v72) + -0.5;
-      *(&v109 + 3) = (vcvts_n_f32_u64(inputContentHeight, 1uLL) * v73) + -0.5;
-      *&v110 = 1.0 / inputWidth;
-      *(&v110 + 1) = 1.0 / inputHeight;
-      *(&v110 + 2) = 1.0 / inputWidth;
-      *(&v110 + 3) = -(1.0 / inputHeight);
-      *&v111 = -(1.0 / inputWidth);
-      *(&v111 + 1) = *(&v110 + 1) + *(&v110 + 1);
-      *(&v111 + 2) = 1.0 / inputWidth;
-      *(&v111 + 3) = *(&v110 + 1) + *(&v110 + 1);
-      *&v112 = (1.0 / inputWidth) * 0.0;
-      *(&v112 + 1) = (1.0 / inputHeight) * 4.0;
-      *(&v112 + 1) = 0;
-      v74 = [MEMORY[0x277CBEB18] arrayWithCapacity:v11->_framesInFlight];
+      v70 = 1.0 / v11->_outputWidth;
+      v71 = 1.0 / v11->_outputHeight;
+      *&v107 = v70 * inputContentWidth;
+      *(&v107 + 1) = v71 * inputContentHeight;
+      *(&v107 + 2) = (vcvts_n_f32_u64(inputContentWidth, 1uLL) * v70) + -0.5;
+      *(&v107 + 3) = (vcvts_n_f32_u64(inputContentHeight, 1uLL) * v71) + -0.5;
+      *&v108 = 1.0 / inputWidth;
+      *(&v108 + 1) = 1.0 / inputHeight;
+      *(&v108 + 2) = 1.0 / inputWidth;
+      *(&v108 + 3) = -(1.0 / inputHeight);
+      *&v109 = -(1.0 / inputWidth);
+      *(&v109 + 1) = *(&v108 + 1) + *(&v108 + 1);
+      *(&v109 + 2) = 1.0 / inputWidth;
+      *(&v109 + 3) = *(&v108 + 1) + *(&v108 + 1);
+      *&v110 = (1.0 / inputWidth) * 0.0;
+      *(&v110 + 1) = (1.0 / inputHeight) * 4.0;
+      *(&v110 + 1) = 0;
+      v72 = [MEMORY[0x277CBEB18] arrayWithCapacity:v11->_framesInFlight];
       fxrUpscaleBuffer = v11->_fxrUpscaleBuffer;
-      v11->_fxrUpscaleBuffer = v74;
+      v11->_fxrUpscaleBuffer = v72;
 
       if (v11->_framesInFlight)
       {
-        v76 = 0;
+        v74 = 0;
         do
         {
-          v77 = [deviceCopy newBufferWithBytes:&v109 length:64 options:0];
-          [(NSMutableArray *)v11->_fxrUpscaleBuffer setObject:v77 atIndexedSubscript:v76];
+          v75 = [deviceCopy newBufferWithBytes:&v107 length:64 options:0];
+          [(NSMutableArray *)v11->_fxrUpscaleBuffer setObject:v75 atIndexedSubscript:v74];
 
-          v78 = v11->_residencySetGlobal;
-          v79 = [(NSMutableArray *)v11->_fxrUpscaleBuffer objectAtIndexedSubscript:v76];
-          [(MTLResidencySet *)v78 addAllocation:v79];
+          v76 = v11->_residencySetGlobal;
+          v77 = [(NSMutableArray *)v11->_fxrUpscaleBuffer objectAtIndexedSubscript:v74];
+          [(MTLResidencySet *)v76 addAllocation:v77];
 
-          ++v76;
+          ++v74;
         }
 
-        while (v76 < v11->_framesInFlight);
+        while (v74 < v11->_framesInFlight);
       }
 
-      [v97 setName:@"MFX_SHARPEN_SHADER_V1_FRAG"];
-      v80 = objc_alloc_init(MEMORY[0x277CD6BB8]);
-      [v80 setLabel:@"MFX_SharpenRenderPipelineStateV1"];
-      [v80 setRasterSampleCount:1];
-      [v80 setVertexFunctionDescriptor:v95];
-      [v80 setFragmentFunctionDescriptor:v97];
-      v81 = v11->_intermediatePixelFormat;
-      colorAttachments6 = [v80 colorAttachments];
-      v83 = [colorAttachments6 objectAtIndexedSubscript:0];
-      [v83 setPixelFormat:v81];
+      [v95 setName:@"MFX_SHARPEN_SHADER_V1_FRAG"];
+      v78 = objc_alloc_init(MEMORY[0x277CD6BB8]);
+      [v78 setLabel:@"MFX_SharpenRenderPipelineStateV1"];
+      [v78 setRasterSampleCount:1];
+      [v78 setVertexFunctionDescriptor:v93];
+      [v78 setFragmentFunctionDescriptor:v95];
+      v79 = v11->_intermediatePixelFormat;
+      colorAttachments6 = [v78 colorAttachments];
+      v81 = [colorAttachments6 objectAtIndexedSubscript:0];
+      [v81 setPixelFormat:v79];
 
-      v108 = v101;
-      v84 = [compilerCopy newRenderPipelineStateWithDescriptor:v80 compilerTaskOptions:0 error:&v108];
-      v16 = v108;
+      v106 = v99;
+      v82 = [compilerCopy newRenderPipelineStateWithDescriptor:v78 compilerTaskOptions:0 error:&v106];
+      v16 = v106;
 
       mfxSharpenPSO = v11->_mfxSharpenPSO;
-      v11->_mfxSharpenPSO = v84;
+      v11->_mfxSharpenPSO = v82;
 
       if (!v16)
       {
-        [v96 setMaxTextureBindCount:1];
-        [v96 setMaxBufferBindCount:2];
-        v107 = 0;
-        v87 = [deviceCopy newArgumentTableWithDescriptor:v96 error:&v107];
-        v102 = v107;
+        [v94 setMaxTextureBindCount:1];
+        [v94 setMaxBufferBindCount:2];
+        v105 = 0;
+        v85 = [deviceCopy newArgumentTableWithDescriptor:v94 error:&v105];
+        v100 = v105;
         sharpenFragInputs = v11->_sharpenFragInputs;
-        v11->_sharpenFragInputs = v87;
+        v11->_sharpenFragInputs = v85;
 
         [(MTL4ArgumentTable *)v11->_sharpenFragInputs setTexture:[(MTLTexture *)v11->_mfxUpscaledTex gpuResourceID] atIndex:0];
-        LOWORD(v117) = 0;
-        v89 = v11->_colorProcessingMode;
-        BYTE2(v117) = v89 > 0;
-        HIBYTE(v117) = v89 == 2;
-        v90 = [deviceCopy newBufferWithBytes:&v117 length:4 options:0];
+        LOWORD(v115) = 0;
+        v87 = v11->_colorProcessingMode;
+        BYTE2(v115) = v87 > 0;
+        HIBYTE(v115) = v87 == 2;
+        v88 = [deviceCopy newBufferWithBytes:&v115 length:4 options:0];
         sharpenBuffer = v11->_sharpenBuffer;
-        v11->_sharpenBuffer = v90;
+        v11->_sharpenBuffer = v88;
 
         [(MTL4ArgumentTable *)v11->_sharpenFragInputs setAddress:[(MTLBuffer *)v11->_sharpenBuffer gpuAddress] atIndex:1];
-        v111 = 0u;
-        v112 = 0u;
-        v109 = xmmword_2398F28B0;
+        v109 = 0u;
         v110 = 0u;
-        v92 = [deviceCopy newBufferWithBytes:&v109 length:64 options:0];
+        v107 = xmmword_2398F28B0;
+        v108 = 0u;
+        v90 = [deviceCopy newBufferWithBytes:&v107 length:64 options:0];
         fxrSharpenBuffer = v11->_fxrSharpenBuffer;
-        v11->_fxrSharpenBuffer = v92;
+        v11->_fxrSharpenBuffer = v90;
 
         [(MTL4ArgumentTable *)v11->_sharpenFragInputs setAddress:[(MTLBuffer *)v11->_fxrSharpenBuffer gpuAddress] atIndex:0];
         [(MTLResidencySet *)v11->_residencySetGlobal addAllocation:v11->_fxrSharpenBuffer];
@@ -384,16 +378,16 @@ LABEL_27:
 
         [(MTLResidencySet *)v11->_residencySetGlobal commit];
         [(_MTL4FXSpatialScaler *)v11 _emitTelemetry:descriptorCopy forDevice:v11->_device];
-        v35 = v11;
-        v16 = v102;
+        v33 = v11;
+        v16 = v100;
         goto LABEL_38;
       }
 
-      v86 = [v16 description];
-      NSLog(&cfstr_Error.isa, v86);
+      v84 = [v16 description];
+      NSLog(&cfstr_Error.isa, v84);
     }
 
-    v35 = 0;
+    v33 = 0;
 LABEL_38:
 
     goto LABEL_25;
@@ -402,10 +396,10 @@ LABEL_38:
   v17 = [v16 description];
   MTLReportFailure();
 LABEL_24:
-  v35 = 0;
+  v33 = 0;
 LABEL_25:
 
-  return v35;
+  return v33;
 }
 
 - (void)encodeToCommandBuffer:(id)buffer

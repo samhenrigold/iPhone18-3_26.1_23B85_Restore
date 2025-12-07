@@ -305,25 +305,24 @@ LABEL_11:
 
 - (void)updateProfile:(unsigned int)profile description:(id)description
 {
-  v4 = *&profile;
   descriptionCopy = description;
-  LOBYTE(v11) = 0;
-  v13 = 0;
+  LOBYTE(v10) = 0;
+  v12 = 0;
   os_unfair_lock_lock(&self->mMutex.m_lock);
-  [(MIDICIDeviceManager *)self findProfileAndDevice:v4];
-  std::__optional_storage_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>>(&v11, v9);
-  if (v10 == 1)
+  objc_msgSend_findProfileAndDevice_(self);
+  std::__optional_storage_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>>(&v10, &v8);
+  if (v9 == 1)
   {
   }
 
-  if (v13 == 1)
+  if (v12 == 1)
   {
-    v7 = v12;
-    v8 = [v12 deserialize:descriptionCopy];
+    v6 = v11;
+    v7 = [v11 deserialize:descriptionCopy];
     os_unfair_lock_unlock(&self->mMutex.m_lock);
-    if (v8)
+    if (v7)
     {
-      [(MIDICIDeviceManager *)self postNotificationName:@"MIDICIProfileWasUpdatedNotification" device:v11 profile:v7];
+      [(MIDICIDeviceManager *)self postNotificationName:@"MIDICIProfileWasUpdatedNotification" device:v10 profile:v6];
     }
   }
 
@@ -335,26 +334,25 @@ LABEL_11:
 
 - (BOOL)removeProfile:(unsigned int)profile
 {
-  v3 = *&profile;
-  LOBYTE(v12) = 0;
-  v14 = 0;
+  LOBYTE(v11) = 0;
+  v13 = 0;
   os_unfair_lock_lock(&self->mMutex.m_lock);
-  [(MIDICIDeviceManager *)self findProfileAndDevice:v3];
-  std::__optional_storage_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>>(&v12, v10);
-  if (v11 == 1)
+  objc_msgSend_findProfileAndDevice_(self);
+  std::__optional_storage_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::pair<MIDICIDevice * {__strong},MIDIUMPCIProfile * {__strong}>,false>>(&v11, &v9);
+  if (v10 == 1)
   {
   }
 
-  v5 = v14;
-  if (v14)
+  v4 = v13;
+  if (v13)
   {
-    v6 = v13;
-    v7 = v12;
-    [v7 removeProfile:v6];
+    v5 = v12;
+    v6 = v11;
+    [v6 removeProfile:v5];
 
     os_unfair_lock_unlock(&self->mMutex.m_lock);
-    v8 = v7;
-    [(MIDICIDeviceManager *)self postNotificationName:@"MIDICIProfileWasRemovedNotification" device:v8 profile:v6];
+    v7 = v6;
+    [(MIDICIDeviceManager *)self postNotificationName:@"MIDICIProfileWasRemovedNotification" device:v7 profile:v5];
   }
 
   else
@@ -362,7 +360,7 @@ LABEL_11:
     os_unfair_lock_unlock(&self->mMutex.m_lock);
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)addProfile:(id)profile

@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AppleHPMUserClientManager)init;
 - (id)userClientForRouterID:(unsigned __int8)d andRoute:(unint64_t)route;
+- (int)createUserClientForService:(unsigned int)service;
 - (int)findUserClients;
 - (void)dealloc;
 @end
@@ -134,6 +135,20 @@ LABEL_12:
   }
 
   return MatchingServices;
+}
+
+- (int)createUserClientForService:(unsigned int)service
+{
+  v3 = *&service;
+  v5 = objc_alloc_init(AppleHPMUserClient);
+  v6 = [(AppleHPMUserClient *)v5 createUserClientForService:v3];
+  if (!v6)
+  {
+    userClientSet = [(AppleHPMUserClientManager *)self userClientSet];
+    [userClientSet addObject:v5];
+  }
+
+  return v6;
 }
 
 @end

@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    sessionDuration = self->_sessionDuration;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  channel = self->_channel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  rxBytes = self->_rxBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  peerRssi = self->_peerRssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  txFailureCount = self->_txFailureCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    migrationRole = self->_migrationRole;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  txBytes = self->_txBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  avgCCA = self->_avgCCA;
 
   PBDataWriterWriteUint32Field();
 }

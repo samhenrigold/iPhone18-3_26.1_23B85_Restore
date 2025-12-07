@@ -492,7 +492,7 @@ LABEL_8:
     v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
     v16 = [self faceCropsWithUUIDs:v15 inPhotoLibrary:libraryCopy];
 
-    if ([v16 count])
+    if (objc_msgSend_count(v16))
     {
       firstObject = [v16 firstObject];
       resourceData = [cropCopy resourceData];

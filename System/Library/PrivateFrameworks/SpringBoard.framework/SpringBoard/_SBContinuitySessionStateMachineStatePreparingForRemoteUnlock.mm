@@ -104,8 +104,8 @@
 {
   if (self->_isCurrentState)
   {
-    v22 = v2;
-    v23 = v3;
+    v23 = v2;
+    v24 = v3;
     isUIBlocked = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUIBlocked];
     isUILocked = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUILocked];
     isInCall = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isInCall];
@@ -114,13 +114,14 @@
     isUsingSecureApp = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUsingSecureApp];
     isAirplayMirroring = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isAirplayMirroring];
     isUserInitiatedRemoteTransientOverlayPresented = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUserInitiatedRemoteTransientOverlayPresented];
+    v13 = isUserInitiatedRemoteTransientOverlayPresented;
     if (isUIBlocked)
     {
-      v13 = SBLogContinuitySession();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because UI blocked", v21, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because UI blocked", v22, 2u);
       }
 
       if (isUILocked)
@@ -140,11 +141,11 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v14 = SBLogContinuitySession();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because UI unlocked", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because UI unlocked", v22, 2u);
     }
 
     if (!isInCall)
@@ -159,11 +160,11 @@ LABEL_5:
     }
 
 LABEL_17:
-    v15 = SBLogContinuitySession();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because in call", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because in call", v22, 2u);
     }
 
     if (!isSOSActive)
@@ -178,11 +179,11 @@ LABEL_6:
     }
 
 LABEL_20:
-    v16 = SBLogContinuitySession();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because sos active", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because sos active", v22, 2u);
     }
 
     if (!isLockScreenSearchPresented)
@@ -197,11 +198,11 @@ LABEL_7:
     }
 
 LABEL_23:
-    v17 = SBLogContinuitySession();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because lock screen search presented", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because lock screen search presented", v22, 2u);
     }
 
     if (!isUsingSecureApp)
@@ -216,20 +217,20 @@ LABEL_8:
     }
 
 LABEL_26:
-    v18 = SBLogContinuitySession();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because using secure app", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because using secure app", v22, 2u);
     }
 
     if (!isAirplayMirroring)
     {
 LABEL_9:
-      if (!isUserInitiatedRemoteTransientOverlayPresented)
+      if (!v13)
       {
 LABEL_35:
-        if (isUIBlocked || isInCall || !isUILocked || isSOSActive || isLockScreenSearchPresented || isUsingSecureApp || isAirplayMirroring || isUserInitiatedRemoteTransientOverlayPresented)
+        if (((isUIBlocked || isInCall || !isUILocked || isSOSActive || isLockScreenSearchPresented || isUsingSecureApp) | isAirplayMirroring | v13))
         {
           (*(self->_stateTransitionHandler + 2))();
         }
@@ -238,25 +239,25 @@ LABEL_35:
       }
 
 LABEL_32:
-      v20 = SBLogContinuitySession();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because user-initiated remote alert is presented", v21, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because user-initiated remote alert is presented", v22, 2u);
       }
 
       goto LABEL_35;
     }
 
 LABEL_29:
-    v19 = SBLogContinuitySession();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because AirPlay mirroring", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .blocked because AirPlay mirroring", v22, 2u);
     }
 
-    if (!isUserInitiatedRemoteTransientOverlayPresented)
+    if (!v13)
     {
       goto LABEL_35;
     }
@@ -278,7 +279,7 @@ LABEL_29:
         self->_keybagLocked = 0;
         break;
       case 1uLL:
-        v6 = SBLogContinuitySession();
+        v6 = SBLogContinuitySession(1);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *v9 = 0;
@@ -299,58 +300,59 @@ LABEL_29:
 
 - (void)_reevaluateStateForReason:(id)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_isCurrentState)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuitySession(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] Re-evaluating state for reason: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] Re-evaluating state for reason: %{public}@", &v14, 0xCu);
     }
 
-    v6 = [MEMORY[0x277CBEB58] set];
-    v7 = v6;
+    v7 = [MEMORY[0x277CBEB58] set];
+    v8 = v7;
     if (!self->_keybagLocked)
     {
-      [v6 addObject:@"checkpoint.waiting-for-keybag-locked"];
+      [v7 addObject:@"checkpoint.waiting-for-keybag-locked"];
     }
 
     if (!self->_automaticBiometricsDisabled)
     {
-      [v7 addObject:@"checkpoint.waiting-for-automatic-biometrics-to-be-disabled"];
+      [v8 addObject:@"checkpoint.waiting-for-automatic-biometrics-to-be-disabled"];
     }
 
-    v8 = [v7 count];
-    v9 = SBLogContinuitySession();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [v8 count];
+    v10 = SBLogContinuitySession(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        bs_array = [v7 bs_array];
-        v13 = 138543362;
-        v14 = bs_array;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] still blocked by %{public}@", &v13, 0xCu);
+        bs_array = [v8 bs_array];
+        v14 = 138543362;
+        v15 = bs_array;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] still blocked by %{public}@", &v14, 0xCu);
       }
 
-      v12 = *(self->_stateUpdateHandler + 2);
+      v13 = *(self->_stateUpdateHandler + 2);
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .ready", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.PreparingForRemoteUnlock] --> moving to .ready", &v14, 2u);
       }
 
-      v12 = *(self->_stateTransitionHandler + 2);
+      v13 = *(self->_stateTransitionHandler + 2);
     }
 
-    v12();
+    v13();
   }
 }
 

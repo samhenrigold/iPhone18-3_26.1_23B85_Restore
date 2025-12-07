@@ -2,6 +2,7 @@
 + (BOOL)deliverMessage:(id)message;
 + (id)log;
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other;
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 + (id)newWithMessage:(id)message;
 - (MFMailDelivery)init;
 - (MFMailDelivery)initWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other;
@@ -68,6 +69,17 @@ void __21__MFMailDelivery_log__block_invoke(uint64_t a1)
   return v6;
 }
 
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  lCopy = l;
+  headersCopy = headers;
+  contentCopy = content;
+  v9 = accountForHeaders(headersCopy);
+  v10 = [v9 newDeliveryWithHeaders:headersCopy mixedContent:contentCopy textPartsAreHTML:lCopy];
+
+  return v10;
+}
+
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other
 {
   headersCopy = headers;
@@ -127,7 +139,7 @@ void __21__MFMailDelivery_log__block_invoke(uint64_t a1)
 
 MFFollowUpWarningResult *__22__MFMailDelivery_init__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -144,26 +156,26 @@ MFFollowUpWarningResult *__22__MFMailDelivery_init__block_invoke(uint64_t a1, vo
 
     v10 = v9;
 
-    v22 = [v4 _htmlBodyForMessage:v5];
+    v21 = [v4 _htmlBodyForMessage:v5];
     v11 = [MEMORY[0x1E699B2F8] snippetFromHTMLBody:? options:? maxLength:? preservingQuotedForwardedContent:?];
-    v23 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForSubjectOrSummary:v10];
+    v22 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForSubjectOrSummary:v10];
     v12 = [MEMORY[0x1E699B858] ec_partiallyRedactedStringForSubjectOrSummary:v11];
     v13 = +[MFMailDelivery log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v26 = v23;
-      v27 = 2114;
-      v28 = v12;
+      v25 = v22;
+      v26 = 2114;
+      v27 = v12;
       _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "_followUpFuture calling suggestionService with Subject: %{public}@ Body: %{public}@", buf, 0x16u);
     }
 
     v14 = [MEMORY[0x1E69992A0] serviceForMail];
     [v14 setSyncTimeout:1.0];
     v15 = [v5 dateSent];
-    v24 = 0;
-    v16 = [v14 identifyFollowUpWarningFromSubject:v10 body:v11 date:v15 error:&v24];
-    v17 = v24;
+    v23 = 0;
+    v16 = [v14 identifyFollowUpWarningFromSubject:v10 body:v11 date:v15 error:&v23];
+    v17 = v23;
 
     v18 = v17;
     *a2 = v17;
@@ -174,8 +186,6 @@ MFFollowUpWarningResult *__22__MFMailDelivery_init__block_invoke(uint64_t a1, vo
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -239,16 +249,15 @@ MFFollowUpWarningResult *__22__MFMailDelivery_init__block_invoke(uint64_t a1, vo
 
 - (void)dealloc
 {
-  message = self->_message;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [(MFMailMessage *)self->_message setMessageBody:0];
   }
 
-  v4.receiver = self;
-  v4.super_class = MFMailDelivery;
-  [(MFMailDelivery *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MFMailDelivery;
+  [(MFMailDelivery *)&v3 dealloc];
 }
 
 - (id)newMessageWriter
@@ -494,7 +503,7 @@ LABEL_11:
 
 - (void)archive
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = +[MFActivityMonitor currentMonitor];
   archiveAccount = self->_archiveAccount;
   if (archiveAccount)
@@ -506,12 +515,12 @@ LABEL_11:
 
     if (allowsAppend)
     {
-      v16 = +[MFMailMessageLibrary defaultInstance];
-      persistence = [v16 persistence];
+      v15 = +[MFMailMessageLibrary defaultInstance];
+      persistence = [v15 persistence];
       messageChangeManager = [persistence messageChangeManager];
       message = [(MFMailDelivery *)self message];
-      v17[0] = message;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+      v16[0] = message;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
       v12 = [v5 URL];
       v13 = [messageChangeManager addNewMessages:v11 mailboxURL:v12 userInitiated:0];
       firstObject = [v13 firstObject];
@@ -519,8 +528,6 @@ LABEL_11:
       [(MFMailDelivery *)self _checkAndApplyFollowUpToDeliveredMessage:firstObject];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateOriginalMessageFromHeaders:(id)headers
@@ -560,7 +567,7 @@ LABEL_6:
 
 - (void)_checkAndApplyFollowUpToDeliveredMessage:(id)message
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   followUpWarning = [(MFMailDelivery *)self followUpWarning];
   if (!followUpWarning)
@@ -622,47 +629,46 @@ LABEL_10:
   {
     score = [followUpWarning score];
     *buf = 138543874;
-    v26 = score;
-    v27 = 2114;
-    v28 = v19;
-    v29 = 2114;
-    v30 = v17;
+    v25 = score;
+    v26 = 2114;
+    v27 = v19;
+    v28 = 2114;
+    v29 = v17;
     _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_DEFAULT, "suggestionService warning.score:%{public}@ followUp:%{public}@ %{public}@", buf, 0x20u);
   }
 
-  v24 = messageCopy;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = messageCopy;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   [messageChangeManager applyFollowUp:v19 toMessages:v22];
 
 LABEL_16:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_htmlBodyForMessage:(id)message
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   messageBodyIfAvailable = [message messageBodyIfAvailable];
   htmlContent = [messageBodyIfAvailable htmlContent];
   v4 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = htmlContent;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -675,13 +681,11 @@ LABEL_16:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

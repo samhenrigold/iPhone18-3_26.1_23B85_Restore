@@ -152,7 +152,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_18E63FEC4(coder);
+  sub_18E63FEC4();
   swift_unknownObjectRelease();
 }
 
@@ -168,7 +168,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_18E63FEC4(coderCopy);
+  sub_18E63FEC4();
 }
 
 - (_TtC18ActivityUIServices18ActivityEdgeInsets)initWithCoder:(id)coder

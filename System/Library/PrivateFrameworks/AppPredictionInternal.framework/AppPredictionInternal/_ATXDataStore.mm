@@ -115,7 +115,6 @@
 - (void)_markBundleIdAsExtension:(id)extension;
 - (void)_markBundleIdsAsExtension:(id)extension;
 - (void)_removeFeedbackForBundleId:(id)id;
-- (void)_reset;
 - (void)_testMigrate;
 - (void)_testMigrateToSchema:(unint64_t)schema;
 - (void)addAppActionLaunchForAppAction:(id)action date:(id)date;
@@ -145,13 +144,6 @@
 - (void)migrate;
 - (void)migrateWithMigrationPlan:(id)plan;
 - (void)migrationPre44WriteActionType:(id)type bundleId:(id)id date:(id)date action:(id)action slotSets:(id)sets timeZone:(id)zone prevLocationUUID:(id)d locationUUID:(id)self0 weight:(double)self1 actionUUID:(id)self2 motionType:(int64_t)self3;
-- (void)migration_DeprecateGenericAppIntentModels;
-- (void)migration_InstallDateToAppTable;
-- (void)migration_RemoveLinkActions;
-- (void)migration_removeAnchorModelDirectory;
-- (void)migration_removeBrokenBlendingStream;
-- (void)migration_removeHomeScreenWidgetBlacklistFile;
-- (void)migration_removeOldStackStateTrackerFile;
 - (void)pruneMessageRecipientsAddedBefore:(id)before;
 - (void)recordConfirms:(double)confirms rejects:(double)rejects forFeedbackType:(unint64_t)type forActionType:(id)actionType bundleId:(id)id action:(id)action slotSet:(id)set actionUUID:(id)self0 date:(id)self1 consumerSubType:(unsigned __int8)self2 geohash:(int64_t)self3 coarseGeohash:(int64_t)self4;
 - (void)recordParamererizedSuggestionWithUniqueIdentifier:(id)identifier encodedTool:(id)tool encodedSummary:(id)summary;
@@ -173,7 +165,6 @@
 - (void)removeFeedbackForBundleId:(id)id;
 - (void)resetAllRecordedParameterizedSuggestions;
 - (void)setInstallDateToDistantOldTimeForRemoteApps:(id)apps;
-- (void)skipFromZeroSchema;
 - (void)swapInAppInFocusStream:(id)stream;
 - (void)trimActionHistoryWithAppWhitelist:(id)whitelist;
 - (void)updateInstallDateForBundleID:(id)d timestamp:(double)timestamp;
@@ -251,24 +242,24 @@
   schemaCopy = schema;
   keyCopy = key;
   v8 = objc_autoreleasePoolPush();
-  v16 = 0;
-  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:schemaCopy requiringSecureCoding:1 error:&v16];
-  v10 = v16;
+  v17 = 0;
+  v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:schemaCopy requiringSecureCoding:1 error:&v17];
+  v10 = v17;
   objc_autoreleasePoolPop(v8);
   if (v10)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = v9 == 0;
+    v12 = v9 == 0;
   }
 
-  if (v11)
+  if (v12)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore(IntentCache) writeValidParameterCombinationsWithSchema:cacheKey:];
     }
@@ -276,71 +267,72 @@
 
   else
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_cacheKey___block_invoke;
-    v13[3] = &unk_278597828;
-    v13[4] = self;
-    v14 = keyCopy;
-    v15 = v9;
-    [(_ATXDataStore *)self _doSync:v13];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __81___ATXDataStore_IntentCache__writeValidParameterCombinationsWithSchema_cacheKey___block_invoke;
+    v14[3] = &unk_278597828;
+    v14[4] = self;
+    v15 = keyCopy;
+    v16 = v9;
+    [(_ATXDataStore *)self _doSync:v14];
   }
 }
 
 - (id)validParameterCombinationsWithSchemaForCacheKey:(id)key
 {
   keyCopy = key;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__13;
-  v25 = __Block_byref_object_dispose__13;
-  v26 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaForCacheKey___block_invoke;
-  v18[3] = &unk_2785987E0;
-  v18[4] = self;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__13;
+  v26 = __Block_byref_object_dispose__13;
+  v27 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __78___ATXDataStore_IntentCache__validParameterCombinationsWithSchemaForCacheKey___block_invoke;
+  v19[3] = &unk_2785987E0;
+  v19[4] = self;
   v5 = keyCopy;
-  v19 = v5;
-  v20 = &v21;
-  [(_ATXDataStore *)self _doSync:v18];
-  if (v22[5])
+  v20 = v5;
+  v21 = &v22;
+  [(_ATXDataStore *)self _doSync:v19];
+  if (v23[5])
   {
     v6 = objc_alloc(MEMORY[0x277CBEB98]);
     v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
     v10 = [v6 initWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
-    v11 = v22[5];
-    v17 = 0;
-    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v11 error:&v17];
-    v13 = v17;
+    v11 = v23[5];
+    v18 = 0;
+    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v11 error:&v18];
+    v13 = v18;
+    v14 = v13;
     if (v13)
     {
-      v14 = __atxlog_handle_default();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_default(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(_ATXDataStore(IntentCache) *)v13 validParameterCombinationsWithSchemaForCacheKey:v14];
+        [(_ATXDataStore(IntentCache) *)v14 validParameterCombinationsWithSchemaForCacheKey:v15];
       }
 
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v15 = v12;
+      v16 = v12;
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v15;
+  return v16;
 }
 
 - (void)writeSupportsBackgroundExecution:(BOOL)execution cacheKey:(id)key
@@ -586,7 +578,7 @@
 
 - (_ATXDataStore)initWithPath:(id)path andAppInFocusStream:(id)stream
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v47[3] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   streamCopy = stream;
   if (!pathCopy)
@@ -594,10 +586,11 @@
     [_ATXDataStore initWithPath:andAppInFocusStream:];
   }
 
-  if ([MEMORY[0x277D42598] isClassCLocked])
+  isClassCLocked = [MEMORY[0x277D42598] isClassCLocked];
+  if (isClassCLocked)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(isClassCLocked);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore initWithPath:andAppInFocusStream:];
     }
@@ -609,110 +602,115 @@
   if (([MEMORY[0x277D42630] isInMemoryPath:pathCopy] & 1) == 0)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = [defaultManager attributesOfFileSystemForPath:pathCopy error:0];
+    v11 = [defaultManager attributesOfFileSystemForPath:pathCopy error:0];
 
-    v11 = [v10 objectForKeyedSubscript:*MEMORY[0x277CCA1D0]];
-    v12 = v11;
-    if (v11 && [v11 longLongValue] < 0x8000)
+    v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCA1D0]];
+    v13 = v12;
+    if (v12)
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      longLongValue = [v12 longLongValue];
+      if (longLongValue < 0x8000)
       {
-        [_ATXDataStore initWithPath:andAppInFocusStream:];
-      }
+        v15 = __atxlog_handle_default(longLongValue);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        {
+          [_ATXDataStore initWithPath:andAppInFocusStream:];
+        }
 
-      pathCopy = @":memory:";
+        pathCopy = @":memory:";
+      }
     }
   }
 
-  v43.receiver = self;
-  v43.super_class = _ATXDataStore;
-  v14 = [(_ATXDataStore *)&v43 init];
-  v15 = v14;
-  if (v14)
+  v46.receiver = self;
+  v46.super_class = _ATXDataStore;
+  v16 = [(_ATXDataStore *)&v46 init];
+  v17 = v16;
+  if (v16)
   {
-    objc_storeStrong(&v14->_path, pathCopy);
-    v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v17 = dispatch_queue_create("com.apple.duetexpertd._ATXDataStore", v16);
-    queue = v15->_queue;
-    v15->_queue = v17;
+    objc_storeStrong(&v16->_path, pathCopy);
+    v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v19 = dispatch_queue_create("com.apple.duetexpertd._ATXDataStore", v18);
+    queue = v17->_queue;
+    v17->_queue = v19;
 
-    v15->_actionHistoryLengthPerAppAction = 200;
-    objc_storeStrong(&v15->_appInFocusStream, stream);
+    v17->_actionHistoryLengthPerAppAction = 200;
+    objc_storeStrong(&v17->_appInFocusStream, stream);
     featureIdentifier = [MEMORY[0x277CEB338] featureIdentifier];
-    v20 = featureIdentifier;
-    v21 = @"DEC";
+    v22 = featureIdentifier;
+    v23 = @"DEC";
     if (featureIdentifier)
     {
-      v21 = featureIdentifier;
+      v23 = featureIdentifier;
     }
 
-    v22 = v21;
+    v24 = v23;
 
-    v23 = +[_ATXDataStoreMigrations migrations];
-    v24 = [v23 count];
+    v25 = +[_ATXDataStoreMigrations migrations];
+    v26 = [v25 count];
 
-    v25 = objc_alloc(MEMORY[0x277D41DB8]);
-    v26 = [MEMORY[0x277D41DA0] propertyWithName:@"from_version" range:{0, v24 + 1}];
-    v44[0] = v26;
-    v27 = [MEMORY[0x277D41DA0] propertyWithName:@"to_version" range:{0, v24 + 1}];
-    v44[1] = v27;
-    v28 = [MEMORY[0x277D41DA0] propertyWithName:@"result" possibleValues:&unk_283A57EC0 autoSanitizeValues:0];
-    v44[2] = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
-    v30 = [v25 initWithFeatureId:v22 event:@"db_migrate" registerProperties:v29];
+    v27 = objc_alloc(MEMORY[0x277D41DB8]);
+    v28 = [MEMORY[0x277D41DA0] propertyWithName:@"from_version" range:{0, v26 + 1}];
+    v47[0] = v28;
+    v29 = [MEMORY[0x277D41DA0] propertyWithName:@"to_version" range:{0, v26 + 1}];
+    v47[1] = v29;
+    v30 = [MEMORY[0x277D41DA0] propertyWithName:@"result" possibleValues:&unk_283A57EC0 autoSanitizeValues:0];
+    v47[2] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+    v32 = [v27 initWithFeatureId:v24 event:@"db_migrate" registerProperties:v31];
 
-    dbMigrationTracker = v15->_dbMigrationTracker;
-    v15->_dbMigrationTracker = v30;
+    dbMigrationTracker = v17->_dbMigrationTracker;
+    v17->_dbMigrationTracker = v32;
 
-    v32 = [MEMORY[0x277D42630] corruptionMarkerPathForPath:v15->_path];
-    if (([MEMORY[0x277D42630] isInMemoryPath:v15->_path] & 1) == 0)
+    v34 = [MEMORY[0x277D42630] corruptionMarkerPathForPath:v17->_path];
+    v35 = [MEMORY[0x277D42630] isInMemoryPath:v17->_path];
+    if ((v35 & 1) == 0)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v34 = [defaultManager2 fileExistsAtPath:v32];
+      v37 = [defaultManager2 fileExistsAtPath:v34];
 
-      if (v34)
+      if (v37)
       {
-        v35 = __atxlog_handle_default();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v38 = __atxlog_handle_default(v35);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          *v42 = 0;
-          _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Corruption marker detected; flushing data store.", v42, 2u);
+          *v45 = 0;
+          _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "Corruption marker detected; flushing data store.", v45, 2u);
         }
 
-        [MEMORY[0x277D42630] truncateDatabaseAtPath:v15->_path];
+        [MEMORY[0x277D42630] truncateDatabaseAtPath:v17->_path];
         defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-        [defaultManager3 removeItemAtPath:v32 error:0];
+        [defaultManager3 removeItemAtPath:v34 error:0];
       }
     }
 
-    v37 = __atxlog_handle_default();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v40 = __atxlog_handle_default(v35);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      *v42 = 0;
-      _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Initializing the data store.", v42, 2u);
+      *v45 = 0;
+      _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Initializing the data store.", v45, 2u);
     }
 
-    if (![(_ATXDataStore *)v15 _reset])
+    _reset = [(_ATXDataStore *)v17 _reset];
+    if (!_reset)
     {
 
-      v39 = 0;
+      v43 = 0;
       goto LABEL_30;
     }
 
-    v38 = __atxlog_handle_default();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v42 = __atxlog_handle_default(_reset);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      *v42 = 0;
-      _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Done initializing the data store.", v42, 2u);
+      *v45 = 0;
+      _os_log_impl(&dword_2263AA000, v42, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Done initializing the data store.", v45, 2u);
     }
   }
 
-  v39 = v15;
+  v43 = v17;
 LABEL_30:
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v43;
 }
 
 - (void)_disconnectFromDb
@@ -734,9 +732,9 @@ LABEL_30:
   }
 
   path = self->_path;
-  v10 = 0;
-  v4 = [MEMORY[0x277D42630] sqliteDatabaseWithFilename:path contentProtection:3 errorHandler:0 error:&v10];
-  v5 = v10;
+  v11 = 0;
+  v4 = [MEMORY[0x277D42630] sqliteDatabaseWithFilename:path contentProtection:3 errorHandler:0 error:&v11];
+  v5 = v11;
   db = self->_db;
   self->_db = v4;
 
@@ -748,18 +746,18 @@ LABEL_30:
 
   else
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(_ATXDataStore *)&self->_path _reset];
+      [_ATXDataStore _reset];
     }
 
     [(_ATXDataStore *)self _disconnectFromDb];
   }
 
-  v8 = self->_db != 0;
+  v9 = self->_db != 0;
 
-  return v8;
+  return v9;
 }
 
 - (void)_doAsync:(id)async
@@ -890,28 +888,25 @@ LABEL_30:
     v13 = 0;
     v7 = [(_PASSqliteDatabase *)db vacuumWithShouldContinueBlock:v14 error:&v13];
     v8 = v13;
-    [v6 setProgressUnits:95];
+    v9 = [v6 setProgressUnits:95];
     if (v8)
     {
-      v9 = __atxlog_handle_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_default(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [_ATXDataStore vacuumDatabaseWithActivity:];
       }
     }
 
-    [v6 setDone];
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_default([v6 setDone]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithBool:v7];
+      v12 = [MEMORY[0x277CCABB0] numberWithBool:v7];
       *buf = 138412290;
-      v17 = v11;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "ATXDataStore: vacuum completed: %@", buf, 0xCu);
+      v17 = v12;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXDataStore: vacuum completed: %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAppInstallForBundleId:(id)id date:(id)date genreId:(id)genreId subGenreIds:(id)ids app2VecCluster:(id)cluster
@@ -955,21 +950,20 @@ LABEL_30:
   genreIdCopy = genreId;
   v17 = [ATXLaunchServicesHelper bundleIsExtension:idCopy];
   v18 = [MEMORY[0x277CEB3B8] isEnterpriseAppForBundle:idCopy];
-  v19 = __atxlog_handle_app_install();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v19 = v18;
+  v20 = __atxlog_handle_app_install(v18);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v24 = idCopy;
     v25 = 2114;
     v26 = dateCopy;
-    _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Writing install date for %@ with date: %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Writing install date for %@ with date: %{public}@", buf, 0x16u);
   }
 
   [dateCopy timeIntervalSinceReferenceDate];
-  LOBYTE(v22) = v18;
-  [(_ATXDataStore *)self updateOrInsertInstallTimestamp:v20 genreId:genreIdCopy subGenreIds:idsCopy app2VecCluster:clusterCopy forBundleId:idCopy isExtension:v17 isEnterpriseApp:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  LOBYTE(v22) = v19;
+  [(_ATXDataStore *)self updateOrInsertInstallTimestamp:v21 genreId:genreIdCopy subGenreIds:idsCopy app2VecCluster:clusterCopy forBundleId:idCopy isExtension:v17 isEnterpriseApp:v22];
 }
 
 - (void)addAppLaunchForBundleId:(id)id date:(id)date withLaunchType:(int64_t)type
@@ -1233,7 +1227,7 @@ LABEL_30:
 
   else
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore removeAppInfoForBundleIdsNotInSet:];
@@ -1243,26 +1237,24 @@ LABEL_30:
 
 - (void)removeAppInfoForBundleId:(id)id
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v5 = __atxlog_handle_deletions();
+  v5 = __atxlog_handle_deletions(idCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = idCopy;
+    v11 = idCopy;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Removing appInfo for bundleId: %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke;
-  v8[3] = &unk_278596C10;
-  v9 = idCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __42___ATXDataStore_removeAppInfoForBundleId___block_invoke;
+  v7[3] = &unk_278596C10;
+  v8 = idCopy;
   selfCopy = self;
   v6 = idCopy;
-  [(_ATXDataStore *)self _doAsync:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(_ATXDataStore *)self _doAsync:v7];
 }
 
 - (void)removeAppLaunchesForBundleId:(id)id
@@ -1291,7 +1283,7 @@ LABEL_30:
 
 - (void)clearAppInstallInfo
 {
-  v3 = __atxlog_handle_app_install();
+  v3 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1967,33 +1959,33 @@ LABEL_3:
 
 - (id)filenamesAndDataForBackupShouldPareDown:(BOOL)down transport:(unint64_t)transport
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__50;
-  v49 = __Block_byref_object_dispose__50;
-  v50 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__50;
-  v43 = __Block_byref_object_dispose__50;
-  v44 = 0;
+  v58 = *MEMORY[0x277D85DE8];
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__50;
+  v51 = __Block_byref_object_dispose__50;
+  v52 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__50;
+  v45 = __Block_byref_object_dispose__50;
+  v46 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __67___ATXDataStore_filenamesAndDataForBackupShouldPareDown_transport___block_invoke;
   block[3] = &unk_27859C548;
   block[4] = self;
-  block[5] = &v45;
-  v38 = 1;
-  block[6] = &v39;
+  block[5] = &v47;
+  v40 = 1;
+  block[6] = &v41;
   dispatch_sync(queue, block);
-  v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  if (v46[5] && v40[5])
+  v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  if (v48[5] && v42[5])
   {
-    [v27 setObject:? forKeyedSubscript:?];
+    [v29 setObject:? forKeyedSubscript:?];
   }
 
   if (down)
@@ -2003,14 +1995,14 @@ LABEL_3:
 
   modeCachesRootDirectory = [MEMORY[0x277CEBCB0] modeCachesRootDirectory];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v36 = 0;
-  onboardingStackWidgetCacheFilePath = [defaultManager contentsOfDirectoryAtPath:modeCachesRootDirectory error:&v36];
-  obj = v36;
+  v38 = 0;
+  onboardingStackWidgetCacheFilePath = [defaultManager contentsOfDirectoryAtPath:modeCachesRootDirectory error:&v38];
+  obj = v38;
 
   if (obj)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore filenamesAndDataForBackupShouldPareDown:transport:];
     }
@@ -2018,109 +2010,110 @@ LABEL_3:
     goto LABEL_32;
   }
 
-  v28 = +[ATXCloudStorageSettingsListener isBackupForContactsEnabled];
+  v30 = +[ATXCloudStorageSettingsListener isBackupForContactsEnabled];
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
   obj = onboardingStackWidgetCacheFilePath;
-  v11 = [obj countByEnumeratingWithState:&v32 objects:v55 count:16];
-  if (!v11)
+  v12 = [obj countByEnumeratingWithState:&v34 objects:v57 count:16];
+  if (!v12)
   {
     goto LABEL_22;
   }
 
-  v12 = *v33;
+  v13 = *v35;
   do
   {
-    for (i = 0; i != v11; ++i)
+    for (i = 0; i != v12; ++i)
     {
-      if (*v33 != v12)
+      if (*v35 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v32 + 1) + 8 * i);
-      v15 = [modeCachesRootDirectory stringByAppendingPathComponent:v14];
-      v16 = objc_alloc(MEMORY[0x277CBEA90]);
-      v31 = 0;
-      v17 = [v16 initWithContentsOfFile:v15 options:1 error:&v31];
-      v18 = v31;
-      if (v18)
+      v15 = *(*(&v34 + 1) + 8 * i);
+      v16 = [modeCachesRootDirectory stringByAppendingPathComponent:v15];
+      v17 = objc_alloc(MEMORY[0x277CBEA90]);
+      v33 = 0;
+      v18 = [v17 initWithContentsOfFile:v16 options:1 error:&v33];
+      v19 = v33;
+      v20 = v19;
+      if (v19)
       {
-        v19 = __atxlog_handle_default();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = __atxlog_handle_default(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v52 = v14;
-          v53 = 2112;
-          v54 = v18;
-          _os_log_error_impl(&dword_2263AA000, v19, OS_LOG_TYPE_ERROR, "Error while converting mode entity score file: %@ into NSData. Error: %@", buf, 0x16u);
+          v54 = v15;
+          v55 = 2112;
+          v56 = v20;
+          _os_log_error_impl(&dword_2263AA000, v21, OS_LOG_TYPE_ERROR, "Error while converting mode entity score file: %@ into NSData. Error: %@", buf, 0x16u);
         }
 
-        v20 = v17;
+        v22 = v18;
       }
 
       else
       {
-        v20 = [objc_opt_class() removeSensitiveInformationFromModeEntityScoresFile:v17 shouldBackupContacts:v28];
+        v22 = [objc_opt_class() removeSensitiveInformationFromModeEntityScoresFile:v18 shouldBackupContacts:v30];
 
-        if (!v20)
+        if (!v22)
         {
           goto LABEL_20;
         }
 
-        v19 = [@"mode_" stringByAppendingString:v14];
-        [v27 setObject:v20 forKeyedSubscript:v19];
+        v21 = [@"mode_" stringByAppendingString:v15];
+        [v29 setObject:v22 forKeyedSubscript:v21];
       }
 
 LABEL_20:
     }
 
-    v11 = [obj countByEnumeratingWithState:&v32 objects:v55 count:16];
+    v12 = [obj countByEnumeratingWithState:&v34 objects:v57 count:16];
   }
 
-  while (v11);
+  while (v12);
 LABEL_22:
 
   if (transport == 1)
   {
     onboardingStackWidgetCacheFilePath = [MEMORY[0x277CEBCB0] onboardingStackWidgetCacheFilePath];
-    v21 = __atxlog_handle_backup();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = __atxlog_handle_backup(onboardingStackWidgetCacheFilePath);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = onboardingStackWidgetCacheFilePath;
-      _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "onboarding stacks cache file being backed up: %@", buf, 0xCu);
+      v54 = onboardingStackWidgetCacheFilePath;
+      _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "onboarding stacks cache file being backed up: %@", buf, 0xCu);
     }
 
-    v30 = 0;
-    v22 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:onboardingStackWidgetCacheFilePath options:1 error:&v30];
-    v10 = v30;
-    if (v10)
+    v32 = 0;
+    v24 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:onboardingStackWidgetCacheFilePath options:1 error:&v32];
+    v25 = v32;
+    v11 = v25;
+    if (v25)
     {
-      v23 = __atxlog_handle_backup();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = __atxlog_handle_backup(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [_ATXDataStore filenamesAndDataForBackupShouldPareDown:transport:];
       }
     }
 
-    else if (v22)
+    else if (v24)
     {
-      [v27 setObject:v22 forKeyedSubscript:@"onboardingStacks"];
+      [v29 setObject:v24 forKeyedSubscript:@"onboardingStacks"];
     }
 
 LABEL_32:
   }
 
 LABEL_34:
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v41, 8);
 
-  _Block_object_dispose(&v45, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
 
-  return v27;
+  return v29;
 }
 
 + (id)removeSensitiveInformationFromModeEntityScoresFile:(id)file shouldBackupContacts:(BOOL)contacts
@@ -2128,14 +2121,14 @@ LABEL_34:
   fileCopy = file;
   if (!fileCopy)
   {
-    v28 = 0;
+    v30 = 0;
     goto LABEL_21;
   }
 
   contactsCopy = contacts;
-  v37 = objc_autoreleasePoolPush();
+  v39 = objc_autoreleasePoolPush();
   v6 = objc_autoreleasePoolPush();
-  v38 = MEMORY[0x277CCAAC8];
+  v40 = MEMORY[0x277CCAAC8];
   context = v6;
   v7 = objc_autoreleasePoolPush();
   v8 = objc_alloc(MEMORY[0x277CBEB98]);
@@ -2147,34 +2140,34 @@ LABEL_34:
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
-  v35 = v13;
+  v37 = v13;
   fileCopy = v12;
-  v17 = [v8 initWithObjects:{v9, v10, v11, v35, v14, v15, v16, objc_opt_class(), 0}];
+  v17 = [v8 initWithObjects:{v9, v10, v11, v37, v14, v15, v16, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v7);
-  v48[0] = 0;
-  v18 = [v38 unarchivedObjectOfClasses:v17 fromData:v12 error:v48];
-  v19 = v48[0];
+  v50[0] = 0;
+  v18 = [v40 unarchivedObjectOfClasses:v17 fromData:v12 error:v50];
+  v19 = v50[0];
 
   objc_autoreleasePoolPop(context);
   if (!v18)
   {
-    v29 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = __atxlog_handle_notification_management(v20);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       +[_ATXDataStore removeSensitiveInformationFromModeEntityScoresFile:shouldBackupContacts:];
     }
 
-    v28 = 0;
-    v30 = v37;
+    v30 = 0;
+    v32 = v39;
     goto LABEL_20;
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__50;
-  v46 = __Block_byref_object_dispose__50;
-  v47 = objc_opt_new();
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__50;
+  v48 = __Block_byref_object_dispose__50;
+  v49 = objc_opt_new();
   allValues = [v18 allValues];
   firstObject = [allValues firstObject];
   objc_opt_class();
@@ -2184,32 +2177,32 @@ LABEL_34:
   {
     if (contactsCopy)
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __89___ATXDataStore_removeSensitiveInformationFromModeEntityScoresFile_shouldBackupContacts___block_invoke;
-      v41[3] = &unk_27859C570;
-      v41[4] = &v42;
-      [v18 enumerateKeysAndObjectsUsingBlock:v41];
-      v23 = objc_autoreleasePoolPush();
-      v24 = v43[5];
-      v40 = 0;
-      v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v24 requiringSecureCoding:1 error:&v40];
-      v26 = v40;
-      objc_autoreleasePoolPop(v23);
-      if (v25 || !v26)
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __89___ATXDataStore_removeSensitiveInformationFromModeEntityScoresFile_shouldBackupContacts___block_invoke;
+      v43[3] = &unk_27859C570;
+      v43[4] = &v44;
+      [v18 enumerateKeysAndObjectsUsingBlock:v43];
+      v24 = objc_autoreleasePoolPush();
+      v25 = v45[5];
+      v42 = 0;
+      v26 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v25 requiringSecureCoding:1 error:&v42];
+      v27 = v42;
+      objc_autoreleasePoolPop(v24);
+      if (v26 || !v27)
       {
-        v28 = v25;
+        v30 = v26;
       }
 
       else
       {
-        v27 = __atxlog_handle_notification_management();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v29 = __atxlog_handle_notification_management(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
         {
           +[_ATXDataStore removeSensitiveInformationFromModeEntityScoresFile:shouldBackupContacts:];
         }
 
-        v28 = 0;
+        v30 = 0;
       }
 
       goto LABEL_19;
@@ -2221,25 +2214,25 @@ LABEL_34:
     allValues2 = [v18 allValues];
     firstObject2 = [allValues2 firstObject];
     objc_opt_class();
-    v33 = objc_opt_isKindOfClass();
+    v35 = objc_opt_isKindOfClass();
 
-    if ((v33 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
-      v28 = fileCopy;
+      v30 = fileCopy;
       goto LABEL_19;
     }
   }
 
-  v28 = 0;
+  v30 = 0;
 LABEL_19:
-  v30 = v37;
-  _Block_object_dispose(&v42, 8);
+  v32 = v39;
+  _Block_object_dispose(&v44, 8);
 
 LABEL_20:
-  objc_autoreleasePoolPop(v30);
+  objc_autoreleasePoolPop(v32);
 LABEL_21:
 
-  return v28;
+  return v30;
 }
 
 + (BOOL)pareDownForBackup:(sqlite3 *)backup
@@ -2249,10 +2242,10 @@ LABEL_21:
   while (1)
   {
     v6 = objc_autoreleasePoolPush();
-    v7 = off_27859C590[v4];
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %s", v7];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %s", off_27859C590[v4]];
     errmsg = 0;
-    if (sqlite3_exec(backup, [v8 UTF8String], 0, 0, &errmsg))
+    v8 = sqlite3_exec(backup, [v7 UTF8String], 0, 0, &errmsg);
+    if (v8)
     {
       break;
     }
@@ -2265,10 +2258,10 @@ LABEL_21:
     }
   }
 
-  v9 = __atxlog_handle_default();
+  v9 = __atxlog_handle_default(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(_ATXDataStore *)v7 pareDownForBackup:?];
+    +[_ATXDataStore pareDownForBackup:];
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2294,12 +2287,12 @@ LABEL_21:
 
 - (BOOL)restoreFromBackup:(id)backup
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   backupCopy = backup;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -2307,84 +2300,86 @@ LABEL_21:
   block[3] = &unk_27859B1C0;
   v6 = backupCopy;
   selfCopy = self;
-  v49 = &v50;
-  v47 = v6;
+  v50 = &v51;
+  v48 = v6;
   dispatch_sync(queue, block);
   modeCachesRootDirectory = [MEMORY[0x277CEBCB0] modeCachesRootDirectory];
-  v38 = [@"mode_" length];
-  v44 = 0u;
+  v39 = [@"mode_" length];
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v42 objects:v58 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v43 objects:v59 count:16];
   if (v8)
   {
-    v10 = *v43;
+    v10 = *v44;
     *&v9 = 138412546;
-    v37 = v9;
+    v38 = v9;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v43 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v42 + 1) + 8 * i);
-        if ([v12 hasPrefix:{@"mode_", v37}])
+        v12 = *(*(&v43 + 1) + 8 * i);
+        if ([v12 hasPrefix:{@"mode_", v38}])
         {
-          v13 = [v12 substringFromIndex:v38];
+          v13 = [v12 substringFromIndex:v39];
           v14 = [modeCachesRootDirectory stringByAppendingPathComponent:v13];
 
           v15 = [v7 objectForKeyedSubscript:v12];
-          v41 = 0;
-          v16 = [v15 writeToFile:v14 options:1073741825 error:&v41];
-          v17 = v41;
+          v42 = 0;
+          v16 = [v15 writeToFile:v14 options:1073741825 error:&v42];
+          v17 = v42;
+          v18 = v17;
           if ((v16 & 1) == 0)
           {
-            v18 = __atxlog_handle_backup();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v19 = __atxlog_handle_backup(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              *buf = v37;
-              v55 = v12;
-              v56 = 2112;
-              v57 = v17;
-              _os_log_error_impl(&dword_2263AA000, v18, OS_LOG_TYPE_ERROR, "Error restoring to mode file %@: %@", buf, 0x16u);
+              *buf = v38;
+              v56 = v12;
+              v57 = 2112;
+              v58 = v18;
+              _os_log_error_impl(&dword_2263AA000, v19, OS_LOG_TYPE_ERROR, "Error restoring to mode file %@: %@", buf, 0x16u);
             }
           }
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v42 objects:v58 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v43 objects:v59 count:16];
     }
 
     while (v8);
   }
 
   onboardingStackWidgetCacheFilePath = [MEMORY[0x277CEBCB0] onboardingStackWidgetCacheFilePath];
-  v20 = [v7 objectForKeyedSubscript:@"onboardingStacks"];
-  v21 = v20;
-  if (v20)
+  v21 = [v7 objectForKeyedSubscript:@"onboardingStacks"];
+  v22 = v21;
+  if (v21)
   {
-    v40 = 0;
-    v22 = [v20 writeToFile:onboardingStackWidgetCacheFilePath options:1073741825 error:&v40];
-    v23 = v40;
-    if (v22)
+    v41 = 0;
+    v23 = [v21 writeToFile:onboardingStackWidgetCacheFilePath options:1073741825 error:&v41];
+    v24 = v41;
+    v25 = v24;
+    if (v23)
     {
-      v24 = __atxlog_handle_backup();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v26 = __atxlog_handle_backup(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Successfully restored onboarding stacks cache.", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "Successfully restored onboarding stacks cache.", buf, 2u);
       }
     }
 
     else
     {
-      v24 = __atxlog_handle_backup();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = __atxlog_handle_backup(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [_ATXDataStore restoreFromBackup:];
       }
@@ -2393,24 +2388,23 @@ LABEL_21:
 
   else
   {
-    v24 = __atxlog_handle_backup();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = __atxlog_handle_backup(0);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [(_ATXDataStore *)v24 restoreFromBackup:v25, v26, v27, v28, v29, v30, v31];
+      [(_ATXDataStore *)v26 restoreFromBackup:v27, v28, v29, v30, v31, v32, v33];
     }
 
-    v23 = 0;
+    v25 = 0;
   }
 
-  v32 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v33 = [v32 initWithSuiteName:*MEMORY[0x277D41CF0]];
+  v34 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v35 = [v34 initWithSuiteName:*MEMORY[0x277D41CF0]];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  [v33 setDouble:*MEMORY[0x277D41CC8] forKey:?];
-  v34 = *(v51 + 24);
+  [v35 setDouble:*MEMORY[0x277D41CC8] forKey:?];
+  v36 = *(v52 + 24);
 
-  _Block_object_dispose(&v50, 8);
-  v35 = *MEMORY[0x277D85DE8];
-  return v34 & 1;
+  _Block_object_dispose(&v51, 8);
+  return v36 & 1;
 }
 
 - (void)addAppLaunchForAppLaunchSequence:(id)sequence date:(id)date
@@ -2600,6 +2594,7 @@ LABEL_21:
   uIDCopy = uID;
   startDateCopy = startDate;
   endDateCopy = endDate;
+  v62 = endDateCopy;
   if (typeCopy)
   {
     if (idCopy)
@@ -2655,8 +2650,8 @@ LABEL_5:
   }
 
   v66 = dCopy;
-  v29 = __atxlog_handle_default();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v30 = __atxlog_handle_default(endDateCopy);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
     weightCopy = weight;
@@ -2666,7 +2661,7 @@ LABEL_5:
     v101 = idCopy;
     v102 = 2112;
     v103 = actionCopy;
-    _os_log_debug_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEBUG, "Recording action (* %0.2f) of type %@ for %@: %@", buf, 0x2Au);
+    _os_log_debug_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEBUG, "Recording action (* %0.2f) of type %@ for %@: %@", buf, 0x2Au);
   }
 
   v68 = idCopy;
@@ -2678,12 +2673,12 @@ LABEL_5:
   }
 
   v67 = dateCopy;
-  v30 = [_ATXActionUtils timeOfDayAndDayOfWeekForDate:dateCopy timeZone:zoneCopy];
-  first = [v30 first];
+  v31 = [_ATXActionUtils timeOfDayAndDayOfWeekForDate:dateCopy timeZone:zoneCopy];
+  first = [v31 first];
   integerValue = [first integerValue];
 
-  v61 = v30;
-  second = [v30 second];
+  v61 = v31;
+  second = [v31 second];
   integerValue2 = [second integerValue];
 
   v72 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(setsCopy, "count")}];
@@ -2692,40 +2687,40 @@ LABEL_5:
   v93 = 0u;
   v94 = 0u;
   obj = setsCopy;
-  v33 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
-  if (v33)
+  v34 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
+  if (v34)
   {
-    v34 = v33;
-    v35 = *v92;
+    v35 = v34;
+    v36 = *v92;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v35; ++i)
       {
-        if (*v92 != v35)
+        if (*v92 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v91 + 1) + 8 * i);
-        v38 = objc_opt_new();
-        [v37 setUuid:v38];
-        v39 = [objc_alloc(MEMORY[0x277CEB840]) initWithAction:actionCopy slots:v37];
-        v40 = [ATXMinimalSlotResolutionParameters alloc];
-        v41 = [v39 hash];
-        v42 = [v37 hash];
-        parameters = [v37 parameters];
-        v44 = -[ATXMinimalSlotResolutionParameters initWithParameterHash:slotHash:uuid:paramCount:](v40, "initWithParameterHash:slotHash:uuid:paramCount:", v41, v42, v38, [parameters count]);
-        [v72 setObject:v44 forKeyedSubscript:v38];
+        v38 = *(*(&v91 + 1) + 8 * i);
+        v39 = objc_opt_new();
+        [v38 setUuid:v39];
+        v40 = [objc_alloc(MEMORY[0x277CEB840]) initWithAction:actionCopy slots:v38];
+        v41 = [ATXMinimalSlotResolutionParameters alloc];
+        v42 = [v40 hash];
+        v43 = [v38 hash];
+        parameters = [v38 parameters];
+        v45 = -[ATXMinimalSlotResolutionParameters initWithParameterHash:slotHash:uuid:paramCount:](v41, "initWithParameterHash:slotHash:uuid:paramCount:", v42, v43, v39, [parameters count]);
+        [v72 setObject:v45 forKeyedSubscript:v39];
       }
 
-      v34 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
+      v35 = [obj countByEnumeratingWithState:&v91 objects:v95 count:16];
     }
 
-    while (v34);
+    while (v35);
   }
 
-  v45 = ATXSlotSetsSerialize();
-  if (v45)
+  v46 = ATXSlotSetsSerialize();
+  if (v46)
   {
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -2733,54 +2728,52 @@ LABEL_5:
     block[2] = __191___ATXDataStore_writeActionType_bundleId_date_action_slotSets_timeZone_prevLocationUUID_locationUUID_weight_actionUUID_motionType_appSessionStartDate_appSessionEndDate_geohash_coarseGeohash___block_invoke;
     block[3] = &unk_27859C690;
     block[4] = self;
-    v46 = v68;
+    v47 = v68;
     v75 = v68;
-    v47 = v69;
+    v48 = v69;
     v76 = v69;
-    v77 = v45;
-    v48 = v67;
+    v77 = v46;
+    v49 = v67;
     v78 = v67;
     v85 = integerValue;
     v86 = integerValue2;
-    v49 = v66;
+    v50 = v66;
     v79 = v66;
-    v50 = iDCopy;
+    v51 = iDCopy;
     v80 = iDCopy;
     weightCopy2 = weight;
-    v51 = v64;
+    v52 = v64;
     v81 = v64;
     motionTypeCopy = motionType;
-    v52 = startDateCopy;
+    v53 = startDateCopy;
     v82 = startDateCopy;
-    v53 = endDateCopy;
-    v83 = endDateCopy;
+    v54 = v62;
+    v83 = v62;
     geohashCopy = geohash;
     coarseGeohashCopy = coarseGeohash;
-    v54 = v72;
+    v55 = v72;
     v84 = v72;
     dispatch_sync(queue, block);
   }
 
   else
   {
-    v55 = __atxlog_handle_default();
-    v47 = v69;
-    v49 = v66;
-    v48 = v67;
-    v50 = iDCopy;
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v56 = __atxlog_handle_default(0);
+    v48 = v69;
+    v50 = v66;
+    v49 = v67;
+    v51 = iDCopy;
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore writeActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:appSessionStartDate:appSessionEndDate:geohash:coarseGeohash:];
     }
 
-    v46 = v68;
-    v52 = startDateCopy;
-    v51 = v64;
-    v53 = endDateCopy;
-    v54 = v72;
+    v47 = v68;
+    v53 = startDateCopy;
+    v52 = v64;
+    v54 = v62;
+    v55 = v72;
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (_PASDBIterAction_)_deserializeActionLogRowWithStmt:(id)stmt invokingBlock:(id)block
@@ -3447,29 +3440,29 @@ LABEL_4:
 
 - (id)actionForSlotUUID:(id)d
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__50;
-    v37 = __Block_byref_object_dispose__50;
-    v38 = 0;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__50;
-    v31 = __Block_byref_object_dispose__50;
-    v32 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x3032000000;
+    v39 = __Block_byref_object_copy__50;
+    v40 = __Block_byref_object_dispose__50;
+    v41 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__50;
+    v34 = __Block_byref_object_dispose__50;
+    v35 = 0;
     v24 = 0;
-    v25[0] = &v24;
-    v25[1] = 0x3032000000;
-    v25[2] = __Block_byref_object_copy__50;
-    v25[3] = __Block_byref_object_dispose__50;
-    v26 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__50;
+    v28 = __Block_byref_object_dispose__50;
+    v29 = 0;
     db = self->_db;
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
@@ -3480,71 +3473,70 @@ LABEL_4:
     v21[1] = 3221225472;
     v21[2] = __35___ATXDataStore_actionForSlotUUID___block_invoke_2;
     v21[3] = &unk_27859A588;
-    v21[4] = &v27;
-    v21[5] = &v33;
+    v21[4] = &v30;
+    v21[5] = &v36;
     v21[6] = &v24;
     v16 = MEMORY[0x277D85DD0];
     v17 = 3221225472;
     v18 = __35___ATXDataStore_actionForSlotUUID___block_invoke_3;
     v19 = &unk_2785987B8;
     v20 = v23;
-    [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT l.slots FROM alog AS l onPrep:slotSetKey AS s WHERE l.id = s.alogId AND s.uuid = ?" onRow:v22 onError:v21, &v16];
-    v7 = v34[5];
-    if (!v7)
+    v7 = [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT l.slots FROM alog AS l onPrep:slotSetKey AS s WHERE l.id = s.alogId AND s.uuid = ?" onRow:v22 onError:v21, &v16];
+    v8 = v37[5];
+    if (!v8)
     {
-      if (!v28[5])
+      if (!v31[5])
       {
-        v8 = MEMORY[0x277CCA9B8];
-        v39 = *MEMORY[0x277CCA450];
-        v40[0] = @"Database has no action data for given slot UUID";
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:{1, v16, v17, v18, v19}];
-        v10 = [v8 errorWithDomain:@"ATXSlotResolutionSerialization" code:0 userInfo:v9];
-        v11 = *(v25[0] + 40);
-        *(v25[0] + 40) = v10;
+        v9 = MEMORY[0x277CCA9B8];
+        v42 = *MEMORY[0x277CCA450];
+        v43[0] = @"Database has no action data for given slot UUID";
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:{1, v16, v17, v18, v19}];
+        v11 = [v9 errorWithDomain:@"ATXSlotResolutionSerialization" code:0 userInfo:v10];
+        v12 = v25[5];
+        v25[5] = v11;
       }
 
-      v12 = __atxlog_handle_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v13 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        [_ATXDataStore actionForSlotUUID:v25];
+        [_ATXDataStore actionForSlotUUID:];
       }
 
-      v7 = v34[5];
+      v8 = v37[5];
     }
 
-    v13 = v7;
+    v14 = v8;
 
     _Block_object_dispose(&v24, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v30, 8);
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v36, 8);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (void)removeActionDataForActionUUIDs:(id)ds
 {
   v14 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
+  v5 = dsCopy;
   if (!dsCopy)
   {
     [_ATXDataStore removeActionDataForActionUUIDs:];
   }
 
-  v5 = __atxlog_handle_deletions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_deletions(dsCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = dsCopy;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Deleting actions with actionUUIDs: %@", buf, 0xCu);
+    v13 = v5;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Deleting actions with actionUUIDs: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
@@ -3552,29 +3544,28 @@ LABEL_4:
   v9[1] = 3221225472;
   v9[2] = __48___ATXDataStore_removeActionDataForActionUUIDs___block_invoke;
   v9[3] = &unk_278596C10;
-  v10 = dsCopy;
+  v10 = v5;
   selfCopy = self;
-  v7 = dsCopy;
+  v8 = v5;
   dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeActionDataForActionUUID:(id)d
 {
   v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v5 = dCopy;
   if (!dCopy)
   {
     [_ATXDataStore removeActionDataForActionUUID:];
   }
 
-  v5 = __atxlog_handle_deletions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_deletions(dCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dCopy;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Deleting actions with actionUUID: %@", buf, 0xCu);
+    v12 = v5;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Deleting actions with actionUUID: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
@@ -3583,11 +3574,9 @@ LABEL_4:
   v9[2] = __47___ATXDataStore_removeActionDataForActionUUID___block_invoke;
   v9[3] = &unk_278596C10;
   v9[4] = self;
-  v10 = dCopy;
-  v7 = dCopy;
+  v10 = v5;
+  v8 = v5;
   dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasOrphanSlotSetKeys
@@ -3613,17 +3602,18 @@ LABEL_4:
 {
   v13 = *MEMORY[0x277D85DE8];
   idCopy = id;
+  v5 = idCopy;
   if (!idCopy)
   {
     [_ATXDataStore removeActionDataForBundleId:];
   }
 
-  v5 = __atxlog_handle_deletions();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_deletions(idCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = idCopy;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Deleting actions with bundleId: %@", buf, 0xCu);
+    v12 = v5;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Deleting actions with bundleId: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
@@ -3632,11 +3622,9 @@ LABEL_4:
   v9[2] = __45___ATXDataStore_removeActionDataForBundleId___block_invoke;
   v9[3] = &unk_278596C10;
   v9[4] = self;
-  v10 = idCopy;
-  v7 = idCopy;
+  v10 = v5;
+  v8 = v5;
   dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionAndSlotsForRowId:(id)id
@@ -3747,41 +3735,42 @@ LABEL_4:
         context = objc_autoreleasePoolPush();
         v34 = [(_ATXDataStore *)self actionAndSlotsForRowId:v11];
         first = [v34 first];
-        if (first && [_ATXActionUtils shouldAcceptAudioOrVideoCallIntent:first])
+        v13 = first;
+        if (first && (first = [_ATXActionUtils shouldAcceptAudioOrVideoCallIntent:first], (first & 1) != 0))
         {
-          v13 = [_ATXActionUtils slotSetsForAction:first intentCache:0];
-          v14 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:first second:v13];
-          [v31 setObject:v14 forKeyedSubscript:v11];
+          v14 = [_ATXActionUtils slotSetsForAction:v13 intentCache:0];
+          v15 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:v13 second:v14];
+          [v31 setObject:v15 forKeyedSubscript:v11];
 
           v39 = 0u;
           v40 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v15 = v13;
-          v16 = [v15 countByEnumeratingWithState:&v37 objects:v61 count:16];
-          if (v16)
+          v16 = v14;
+          v17 = [v16 countByEnumeratingWithState:&v37 objects:v61 count:16];
+          if (v17)
           {
-            v17 = *v38;
+            v18 = *v38;
             do
             {
-              for (i = 0; i != v16; ++i)
+              for (i = 0; i != v17; ++i)
               {
-                if (*v38 != v17)
+                if (*v38 != v18)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v16);
                 }
 
-                v19 = *(*(&v37 + 1) + 8 * i);
-                v20 = objc_opt_new();
-                [v19 setUuid:v20];
-                v21 = [[ATXMinimalSlotResolutionParameters alloc] initWithAction:first slots:v19];
-                [(_ATXDataStore *)self writeSlotSetKeyParameters:v21 rowId:v11 slotSet:v19 success:&v47];
+                v20 = *(*(&v37 + 1) + 8 * i);
+                v21 = objc_opt_new();
+                [v20 setUuid:v21];
+                v22 = [[ATXMinimalSlotResolutionParameters alloc] initWithAction:v13 slots:v20];
+                [(_ATXDataStore *)self writeSlotSetKeyParameters:v22 rowId:v11 slotSet:v20 success:&v47];
               }
 
-              v16 = [v15 countByEnumeratingWithState:&v37 objects:v61 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v37 objects:v61 count:16];
             }
 
-            while (v16);
+            while (v17);
           }
 
           if (v47)
@@ -3790,39 +3779,39 @@ LABEL_4:
           }
 
           [v31 removeAllObjects];
-          v22 = v47 != 3;
-          v23 = v30;
+          v23 = v47 != 3;
+          v24 = v30;
           if (v47 != 3)
           {
-            v23 = v47;
+            v24 = v47;
           }
 
-          v30 = v23;
+          v30 = v24;
         }
 
         else
         {
-          v24 = __atxlog_handle_deletions();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v25 = __atxlog_handle_deletions(first);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Deleting INStartAudioCallIntent or INStartVideoCallIntent", buf, 2u);
+            _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Deleting INStartAudioCallIntent or INStartVideoCallIntent", buf, 2u);
           }
 
-          v25 = self->_db;
+          v26 = self->_db;
           v41[0] = MEMORY[0x277D85DD0];
           v41[1] = 3221225472;
           v41[2] = __50___ATXDataStore__regenerateSlotSetKeyForBundleId___block_invoke_628;
           v41[3] = &unk_278598768;
           v41[4] = v11;
-          [(_PASSqliteDatabase *)v25 prepAndRunQuery:@"DELETE FROM alog WHERE id=?" onPrep:v41 onRow:&__block_literal_global_631 onError:0];
-          v22 = 3;
+          [(_PASSqliteDatabase *)v26 prepAndRunQuery:@"DELETE FROM alog WHERE id=?" onPrep:v41 onRow:&__block_literal_global_631 onError:0];
+          v23 = 3;
         }
 
         objc_autoreleasePoolPop(context);
-        if (v22 != 3)
+        if (v23 != 3)
         {
-          if (v22)
+          if (v23)
           {
             break;
           }
@@ -3849,7 +3838,6 @@ LABEL_28:
   }
 
   _Block_object_dispose(&v57, 8);
-  v26 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -3874,32 +3862,32 @@ LABEL_28:
 - (void)trimActionHistoryWithAppWhitelist:(id)whitelist
 {
   whitelistCopy = whitelist;
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(whitelistCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = __atxlog_handle_default();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = __atxlog_handle_default(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "trimActionHistoryWithAppWhitelist", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "trimActionHistoryWithAppWhitelist", " enableTelemetry=YES ", buf, 2u);
   }
 
   queue = self->_queue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke;
-  v13[3] = &unk_278596C10;
-  v13[4] = self;
-  v14 = whitelistCopy;
-  v10 = whitelistCopy;
-  dispatch_sync(queue, v13);
-  v11 = __atxlog_handle_default();
-  v12 = v11;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __51___ATXDataStore_trimActionHistoryWithAppWhitelist___block_invoke;
+  v15[3] = &unk_278596C10;
+  v15[4] = self;
+  v16 = whitelistCopy;
+  v11 = whitelistCopy;
+  dispatch_sync(queue, v15);
+  v13 = __atxlog_handle_default(v12);
+  v14 = v13;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v12, OS_SIGNPOST_INTERVAL_END, v6, "trimActionHistoryWithAppWhitelist", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v14, OS_SIGNPOST_INTERVAL_END, v6, "trimActionHistoryWithAppWhitelist", " enableTelemetry=YES ", buf, 2u);
   }
 }
 
@@ -3957,15 +3945,15 @@ LABEL_28:
     block[2] = __148___ATXDataStore_recordConfirms_rejects_forFeedbackType_forActionType_bundleId_action_slotSet_actionUUID_date_consumerSubType_geohash_coarseGeohash___block_invoke;
     block[3] = &unk_27859C8E8;
     block[4] = self;
-    v34 = idCopy;
-    v29 = actionTypeCopy;
-    v35 = actionTypeCopy;
-    v36 = v28;
+    v35 = idCopy;
+    v30 = actionTypeCopy;
+    v36 = actionTypeCopy;
+    v37 = v28;
     confirmsCopy = confirms;
     rejectsCopy = rejects;
-    v37 = dCopy;
+    v38 = dCopy;
     subTypeCopy = subType;
-    v38 = dateCopy;
+    v39 = dateCopy;
     typeCopy = type;
     geohashCopy = geohash;
     coarseGeohashCopy = coarseGeohash;
@@ -3974,13 +3962,13 @@ LABEL_28:
 
   else
   {
-    v30 = __atxlog_handle_default();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = __atxlog_handle_default(v29);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      [_ATXDataStore recordConfirms:setCopy rejects:actionCopy forFeedbackType:v30 forActionType:? bundleId:? action:? slotSet:? actionUUID:? date:? consumerSubType:? geohash:? coarseGeohash:?];
+      [_ATXDataStore recordConfirms:setCopy rejects:actionCopy forFeedbackType:v31 forActionType:? bundleId:? action:? slotSet:? actionUUID:? date:? consumerSubType:? geohash:? coarseGeohash:?];
     }
 
-    v29 = actionTypeCopy;
+    v30 = actionTypeCopy;
   }
 }
 
@@ -4126,57 +4114,63 @@ LABEL_4:
 
 - (void)migrateWithMigrationPlan:(id)plan
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   planCopy = plan;
-  v32 = [planCopy count];
+  v33 = [planCopy count];
   selfCopy = self;
   currentSchemaVersion = [(_ATXDataStore *)self currentSchemaVersion];
   self->_schemaVersion = currentSchemaVersion;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(currentSchemaVersion);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v46 = v32;
-    v47 = 2048;
-    v48 = currentSchemaVersion;
+    v47 = v33;
+    v48 = 2048;
+    v49 = currentSchemaVersion;
     _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "ATXDataStore: Migrating with maxDBVersion in migration plan: %ld. Current schema version: %lu.", buf, 0x16u);
   }
 
   schemaVersion = self->_schemaVersion;
   if (schemaVersion - 35 <= 3)
   {
-    v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v6 = [&unk_283A57F20 countByEnumeratingWithState:&v37 objects:v44 count:16];
-    if (v6)
+    v39 = 0u;
+    v5 = [&unk_283A57F20 countByEnumeratingWithState:&v38 objects:v45 count:16];
+    v7 = v5;
+    if (v5)
     {
-      v7 = *v38;
-      v8 = MEMORY[0x277D85DD0];
+      v8 = *v39;
+      v9 = MEMORY[0x277D85DD0];
       do
       {
-        for (i = 0; i != v6; ++i)
+        v10 = 0;
+        do
         {
-          if (*v38 != v7)
+          if (*v39 != v8)
           {
             objc_enumerationMutation(&unk_283A57F20);
           }
 
-          v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE histogramType>5", *(*(&v37 + 1) + 8 * i)];
+          v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE histogramType>5", *(*(&v38 + 1) + 8 * v10)];
           db = self->_db;
-          v36[0] = v8;
-          v36[1] = 3221225472;
-          v36[2] = __42___ATXDataStore_migrateWithMigrationPlan___block_invoke;
-          v36[3] = &unk_2785987B8;
-          v36[4] = self;
-          [(_PASSqliteDatabase *)db prepAndRunQuery:v10 onPrep:0 onRow:0 onError:v36];
+          v37[0] = v9;
+          v37[1] = 3221225472;
+          v37[2] = __42___ATXDataStore_migrateWithMigrationPlan___block_invoke;
+          v37[3] = &unk_2785987B8;
+          v37[4] = self;
+          [(_PASSqliteDatabase *)db prepAndRunQuery:v11 onPrep:0 onRow:0 onError:v37];
+
+          ++v10;
         }
 
-        v6 = [&unk_283A57F20 countByEnumeratingWithState:&v37 objects:v44 count:16];
+        while (v7 != v10);
+        v5 = [&unk_283A57F20 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v7 = v5;
       }
 
-      while (v6);
+      while (v5);
     }
 
     schemaVersion = self->_schemaVersion;
@@ -4184,56 +4178,57 @@ LABEL_4:
 
   if (schemaVersion <= 2)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Migrating _ATXDataStore schema. Since previous _schemaVersion is from before migrations started, reset to current schema", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "Migrating _ATXDataStore schema. Since previous _schemaVersion is from before migrations started, reset to current schema", buf, 2u);
     }
 
     [(_ATXDataStore *)self clearDatabase];
     skipFromZeroSchema = [(_ATXDataStore *)self skipFromZeroSchema];
+    v15 = skipFromZeroSchema;
 LABEL_22:
-    switch(skipFromZeroSchema)
+    switch(v15)
     {
       case 2:
         dbMigrationTracker = selfCopy->_dbMigrationTracker;
-        v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
-        v41[0] = v28;
-        v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
-        v41[1] = v29;
-        v41[2] = @"unsupported";
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
-        [(PETScalarEventTracker *)dbMigrationTracker trackEventWithPropertyValues:v30];
+        v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
+        v42[0] = v30;
+        v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
+        v42[1] = v31;
+        v42[2] = @"unsupported";
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+        [(PETScalarEventTracker *)dbMigrationTracker trackEventWithPropertyValues:v32];
 
         break;
       case 1:
-        v23 = selfCopy->_dbMigrationTracker;
-        v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
-        v42[0] = v24;
-        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
-        v42[1] = v25;
-        v42[2] = @"success";
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
-        [(PETScalarEventTracker *)v23 trackEventWithPropertyValues:v26];
+        v25 = selfCopy->_dbMigrationTracker;
+        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
+        v43[0] = v26;
+        v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
+        v43[1] = v27;
+        v43[2] = @"success";
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+        [(PETScalarEventTracker *)v25 trackEventWithPropertyValues:v28];
 
         break;
       case 0:
-        v18 = __atxlog_handle_default();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v20 = __atxlog_handle_default(skipFromZeroSchema);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_INFO, "_ATXDataStore migration failed!", buf, 2u);
+          _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "_ATXDataStore migration failed!", buf, 2u);
         }
 
-        v19 = selfCopy->_dbMigrationTracker;
-        v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
-        v43[0] = v20;
-        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
-        v43[1] = v21;
-        v43[2] = @"failed";
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
-        [(PETScalarEventTracker *)v19 trackEventWithPropertyValues:v22];
+        v21 = selfCopy->_dbMigrationTracker;
+        v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:currentSchemaVersion];
+        v44[0] = v22;
+        v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_schemaVersion];
+        v44[1] = v23;
+        v44[2] = @"failed";
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+        [(PETScalarEventTracker *)v21 trackEventWithPropertyValues:v24];
 
         [(_PASSqliteDatabase *)selfCopy->_db placeCorruptionMarker];
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277D42688] format:@"_ATXDataStore migration failed. Marking as corrupt."];
@@ -4243,36 +4238,35 @@ LABEL_22:
     goto LABEL_33;
   }
 
-  v14 = schemaVersion < v32;
-  v15 = __atxlog_handle_default();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
-  if (v14)
+  v16 = schemaVersion < v33;
+  v17 = __atxlog_handle_default(v5);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+  if (v16)
   {
-    if (v16)
+    if (v18)
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "ATXDataStore: Migrating _ATXDataStore schema since current schema version is smaller than maxDbVersion in migration plan.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "ATXDataStore: Migrating _ATXDataStore schema since current schema version is smaller than maxDbVersion in migration plan.", buf, 2u);
     }
 
-    v17 = os_transaction_create();
+    v19 = os_transaction_create();
     do
     {
-      skipFromZeroSchema = [(_ATXDataStore *)selfCopy migrateToVersion:selfCopy->_schemaVersion + 1 withMigrationPlan:planCopy];
+      v15 = [(_ATXDataStore *)selfCopy migrateToVersion:selfCopy->_schemaVersion + 1 withMigrationPlan:planCopy];
     }
 
-    while (skipFromZeroSchema == 3);
+    while (v15 == 3);
 
     goto LABEL_22;
   }
 
-  if (v16)
+  if (v18)
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "ATXDataStore: Not migrating _ATXDataStore since the current schema version is greater than or equal to the maxDBVersion in the migration plan.", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "ATXDataStore: Not migrating _ATXDataStore since the current schema version is greater than or equal to the maxDBVersion in the migration plan.", buf, 2u);
   }
 
 LABEL_33:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)skipFromZeroSchema
@@ -4285,10 +4279,10 @@ LABEL_33:
     return 1;
   }
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = __atxlog_handle_default(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [(_ATXDataStore *)&self->_schemaVersion skipFromZeroSchema];
+    [_ATXDataStore skipFromZeroSchema];
   }
 
   return 0;
@@ -4296,50 +4290,49 @@ LABEL_33:
 
 - (int64_t)configureDatabase
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v3 = [&unk_283A57F38 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [&unk_283A57F38 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
-    v4 = *v17;
+    v4 = *v16;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(&unk_283A57F38);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
-        v12 = 0;
-        v13 = &v12;
-        v14 = 0x2020000000;
-        v15 = 0;
+        v6 = *(*(&v15 + 1) + 8 * v5);
+        v11 = 0;
+        v12 = &v11;
+        v13 = 0x2020000000;
+        v14 = 0;
         db = self->_db;
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __34___ATXDataStore_configureDatabase__block_invoke;
-        v11[3] = &unk_27859A1A0;
-        v11[4] = &v12;
-        [(_PASSqliteDatabase *)db prepAndRunQuery:v6 onPrep:0 onRow:0 onError:v11];
-        v8 = *(v13 + 24);
-        _Block_object_dispose(&v12, 8);
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __34___ATXDataStore_configureDatabase__block_invoke;
+        v10[3] = &unk_27859A1A0;
+        v10[4] = &v11;
+        [(_PASSqliteDatabase *)db prepAndRunQuery:v6 onPrep:0 onRow:0 onError:v10];
+        v8 = *(v12 + 24);
+        _Block_object_dispose(&v11, 8);
         if (v8)
         {
-          result = 0;
-          goto LABEL_11;
+          return 0;
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [&unk_283A57F38 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [&unk_283A57F38 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v3)
       {
         continue;
@@ -4349,69 +4342,66 @@ LABEL_33:
     }
   }
 
-  result = 1;
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (int64_t)migrateToVersion:(unint64_t)version withMigrationPlan:(id)plan
 {
   v17 = *MEMORY[0x277D85DE8];
   planCopy = plan;
+  v7 = planCopy;
   if (self->_schemaVersion == version - 1)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
-    v8 = [planCopy objectForKeyedSubscript:v7];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
+    v9 = [v7 objectForKeyedSubscript:v8];
 
-    if (v8)
+    if (v9)
     {
       ++self->_schemaVersion;
-      v9 = [(_ATXDataStore *)self runMigrationPlan:v8];
-      v10 = __atxlog_handle_default();
-      v11 = v10;
-      if (v9 == 3)
+      v10 = [(_ATXDataStore *)self runMigrationPlan:v9];
+      v11 = __atxlog_handle_default(v10);
+      v12 = v11;
+      if (v10 == 3)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v15 = 134217984;
           versionCopy = version;
-          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "ATXDataStore: Migration to version %lu completed.", &v15, 0xCu);
+          _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "ATXDataStore: Migration to version %lu completed.", &v15, 0xCu);
         }
 
-        v12 = 3;
+        v13 = 3;
       }
 
       else
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [_ATXDataStore migrateToVersion:withMigrationPlan:];
         }
 
-        v12 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v12 = 1;
+      v13 = 1;
     }
   }
 
   else
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(planCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migrateToVersion:withMigrationPlan:];
     }
 
-    v12 = 2;
+    v13 = 2;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (int64_t)runMigrationPlan:(id)plan
@@ -4450,61 +4440,59 @@ LABEL_11:
 
 - (void)clearDatabase
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   db = self->_db;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __30___ATXDataStore_clearDatabase__block_invoke;
-  v20[3] = &unk_278599FC8;
-  v5 = v3;
-  v21 = v5;
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
-  v19[2] = __30___ATXDataStore_clearDatabase__block_invoke_2;
-  v19[3] = &unk_2785987B8;
-  v19[4] = self;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT name FROM sqlite_master WHERE type='table' AND NOT name LIKE 'sqlite_%'" onPrep:0 onRow:v20 onError:v19];
+  v19[2] = __30___ATXDataStore_clearDatabase__block_invoke;
+  v19[3] = &unk_278599FC8;
+  v5 = v3;
+  v20 = v5;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __30___ATXDataStore_clearDatabase__block_invoke_2;
+  v18[3] = &unk_2785987B8;
+  v18[4] = self;
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT name FROM sqlite_master WHERE type='table' AND NOT name LIKE 'sqlite_%'" onPrep:0 onRow:v19 onError:v18];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", *(*(&v15 + 1) + 8 * v10)];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", *(*(&v14 + 1) + 8 * v10)];
         v12 = self->_db;
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __30___ATXDataStore_clearDatabase__block_invoke_3;
-        v14[3] = &unk_2785987B8;
-        v14[4] = self;
-        [(_PASSqliteDatabase *)v12 prepAndRunQuery:v11 onPrep:0 onRow:0 onError:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __30___ATXDataStore_clearDatabase__block_invoke_3;
+        v13[3] = &unk_2785987B8;
+        v13[4] = self;
+        [(_PASSqliteDatabase *)v12 prepAndRunQuery:v11 onPrep:0 onRow:0 onError:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)migration_LaunchHistoriesToAppTable
@@ -4528,128 +4516,128 @@ LABEL_11:
 
 - (int64_t)migration_InstallDateToAppTable
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"_ATXAppInstallDate.plist"];
-  v39 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v3 options:2 error:&v39];
-  v5 = v39;
+  v42 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v3 options:2 error:&v42];
+  v5 = v42;
+  v6 = v5;
   if (v4)
   {
-    v6 = objc_autoreleasePoolPush();
-    v7 = MEMORY[0x277CBEB98];
-    v8 = objc_opt_class();
+    v7 = objc_autoreleasePoolPush();
+    v8 = MEMORY[0x277CBEB98];
     v9 = objc_opt_class();
-    v10 = [v7 setWithObjects:{v8, v9, objc_opt_class(), 0}];
-    v38 = v5;
-    v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v10 fromData:v4 error:&v38];
-    v12 = v38;
+    v10 = objc_opt_class();
+    v11 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
+    v41 = v6;
+    v12 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v11 fromData:v4 error:&v41];
+    v13 = v41;
 
-    if (v11)
+    if (v12)
     {
-      v31 = v12;
-      v32 = v4;
+      v34 = v13;
+      v35 = v4;
 
-      objc_autoreleasePoolPop(v6);
-      v13 = __atxlog_handle_app_install();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      objc_autoreleasePoolPop(v7);
+      v16 = __atxlog_handle_app_install(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Converting install date plist to app table", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Converting install date plist to app table", buf, 2u);
       }
 
-      v36 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v34 objects:v44 count:16];
-      if (v15)
+      v38 = 0u;
+      v17 = v12;
+      v18 = [v17 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      if (v18)
       {
-        v16 = v15;
-        v17 = *v35;
+        v19 = v18;
+        v20 = *v38;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v19; ++i)
           {
-            if (*v35 != v17)
+            if (*v38 != v20)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v17);
             }
 
-            v19 = *(*(&v34 + 1) + 8 * i);
-            v20 = [v14 objectForKeyedSubscript:v19];
-            v21 = __atxlog_handle_app_install();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            v22 = *(*(&v37 + 1) + 8 * i);
+            v23 = [v17 objectForKeyedSubscript:v22];
+            v24 = __atxlog_handle_app_install(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v41 = v20;
-              v42 = 2112;
-              v43 = v19;
-              _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Setting date: %{public}@ for bundle id: %@", buf, 0x16u);
+              v44 = v23;
+              v45 = 2112;
+              v46 = v22;
+              _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Setting date: %{public}@ for bundle id: %@", buf, 0x16u);
             }
 
-            [v20 timeIntervalSinceReferenceDate];
-            [(_ATXDataStore *)self migrationUpdateOrInsertTimestamp:v22 intoColumn:@"installDate" forBundleId:v19];
+            [v23 timeIntervalSinceReferenceDate];
+            [(_ATXDataStore *)self migrationUpdateOrInsertTimestamp:v25 intoColumn:@"installDate" forBundleId:v22];
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v37 objects:v47 count:16];
         }
 
-        while (v16);
+        while (v19);
       }
 
-      v4 = v32;
-      v12 = v31;
+      v4 = v35;
+      v13 = v34;
     }
 
     else
     {
-      v24 = __atxlog_handle_default();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [_ATXDataStore migration_InstallDateToAppTable];
       }
 
-      objc_autoreleasePoolPop(v6);
+      objc_autoreleasePoolPop(v7);
     }
   }
 
   else
   {
-    v23 = __atxlog_handle_default();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_InstallDateToAppTable];
     }
 
-    v12 = v5;
+    v13 = v6;
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v33 = v12;
-  v26 = [defaultManager removeItemAtPath:v3 error:&v33];
-  v27 = v33;
+  v36 = v13;
+  v29 = [defaultManager removeItemAtPath:v3 error:&v36];
+  v30 = v36;
 
-  if ((v26 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
-    v28 = __atxlog_handle_default();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v32 = __atxlog_handle_default(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v41 = v3;
-      v42 = 2112;
-      v43 = v27;
-      _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
+      v44 = v3;
+      v45 = 2112;
+      v46 = v30;
+      _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 - (int64_t)migration_AppLaunchHistogramToTable
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v3 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"_ATXAppLaunchHistogram.v2.dat"];
   v4 = [_ATXDataStore loadDataFromFile:v3];
@@ -4659,174 +4647,172 @@ LABEL_11:
   v6 = [_ATXDataStore loadDataFromFile:v5];
 
   selfCopy = self;
-  v36 = v6;
+  v37 = v6;
   [(_ATXDataStore *)self updateOrInsertHistogramData:v6 forHistogram:1];
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v7 = [&unk_283A57F50 countByEnumeratingWithState:&v47 objects:v56 count:16];
+  v49 = 0u;
+  v7 = [&unk_283A57F50 countByEnumeratingWithState:&v48 objects:v57 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v48;
+    v9 = *v49;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v9)
+        if (*v49 != v9)
         {
           objc_enumerationMutation(&unk_283A57F50);
         }
 
-        v11 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:*(*(&v47 + 1) + 8 * i)];
+        v11 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:*(*(&v48 + 1) + 8 * i)];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        v46 = 0;
-        v13 = [defaultManager removeItemAtPath:v11 error:&v46];
-        v14 = v46;
+        v47 = 0;
+        v13 = [defaultManager removeItemAtPath:v11 error:&v47];
+        v14 = v47;
 
         if ((v13 & 1) == 0)
         {
-          v15 = __atxlog_handle_default();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = __atxlog_handle_default(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v53 = v11;
-            v54 = 2112;
-            v55 = v14;
-            _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
+            v54 = v11;
+            v55 = 2112;
+            v56 = v14;
+            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [&unk_283A57F50 countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v8 = [&unk_283A57F50 countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
     while (v8);
   }
 
-  v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v16 = [&unk_283A57F68 countByEnumeratingWithState:&v42 objects:v51 count:16];
-  if (v16)
+  v44 = 0u;
+  v17 = [&unk_283A57F68 countByEnumeratingWithState:&v43 objects:v52 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = 0;
-    v19 = *v43;
+    v18 = v17;
+    v19 = 0;
+    v20 = *v44;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v18; ++j)
       {
-        if (*v43 != v19)
+        if (*v44 != v20)
         {
           objc_enumerationMutation(&unk_283A57F68);
         }
 
-        v21 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:*(*(&v42 + 1) + 8 * j)];
+        v22 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:*(*(&v43 + 1) + 8 * j)];
         defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-        v41 = 0;
-        v23 = [defaultManager2 removeItemAtPath:v21 error:&v41];
-        v24 = v41;
+        v42 = 0;
+        v24 = [defaultManager2 removeItemAtPath:v22 error:&v42];
+        v25 = v42;
 
-        if (v23)
+        if (v24)
         {
-          v18 = 1;
+          v19 = 1;
         }
 
         else
         {
-          v25 = __atxlog_handle_default();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v27 = __atxlog_handle_default(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v53 = v21;
-            v54 = 2112;
-            v55 = v24;
-            _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
+            v54 = v22;
+            v55 = 2112;
+            v56 = v25;
+            _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Unable to remove %@: %@", buf, 0x16u);
           }
         }
       }
 
-      v17 = [&unk_283A57F68 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v18 = [&unk_283A57F68 countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
-    while (v17);
-    if (v18)
+    while (v18);
+    if (v19)
     {
-      v26 = [[_ATXAppLaunchHistogramWithPersistentBackup alloc] initWithDataStore:self histogramType:0 loadFromDataStore:0 saveOnBackgroundQueue:0];
-      v27 = [[_ATXAppLaunchHistogramWithPersistentBackup alloc] initWithDataStore:selfCopy histogramType:1 loadFromDataStore:0 saveOnBackgroundQueue:0];
+      v28 = [[_ATXAppLaunchHistogramWithPersistentBackup alloc] initWithDataStore:self histogramType:0 loadFromDataStore:0 saveOnBackgroundQueue:0];
+      v29 = [[_ATXAppLaunchHistogramWithPersistentBackup alloc] initWithDataStore:selfCopy histogramType:1 loadFromDataStore:0 saveOnBackgroundQueue:0];
       date = [MEMORY[0x277CBEAA8] date];
-      v29 = [date dateByAddingTimeInterval:-1209600.0];
+      v31 = [date dateByAddingTimeInterval:-1209600.0];
       appInFocusStream = selfCopy->_appInFocusStream;
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __52___ATXDataStore_migration_AppLaunchHistogramToTable__block_invoke;
-      v38[3] = &unk_27859C960;
-      v39 = v26;
-      v40 = v27;
-      v31 = v27;
-      v32 = v26;
-      [(ATXAppInFocusStream *)appInFocusStream enumerateAppLaunchSessionsBetweenStartDate:v29 endDate:date limit:1000000 shouldReverse:0 type:15 displayType:7 bundleIDsFilter:0 block:v38];
-      [(_ATXAppLaunchHistogramWithPersistentBackup *)v32 flush];
-      [(_ATXAppLaunchHistogramWithPersistentBackup *)v31 flush];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __52___ATXDataStore_migration_AppLaunchHistogramToTable__block_invoke;
+      v39[3] = &unk_27859C960;
+      v40 = v28;
+      v41 = v29;
+      v33 = v29;
+      v34 = v28;
+      [(ATXAppInFocusStream *)appInFocusStream enumerateAppLaunchSessionsBetweenStartDate:v31 endDate:date limit:1000000 shouldReverse:0 type:15 displayType:7 bundleIDsFilter:0 block:v39];
+      [(_ATXAppLaunchHistogramWithPersistentBackup *)v34 flush];
+      [(_ATXAppLaunchHistogramWithPersistentBackup *)v33 flush];
     }
   }
 
   objc_autoreleasePoolPop(context);
-  v33 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 - (int64_t)migration_RemoveFeedbackForUninstalledApps
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        bundleIdentifier = [*(*(&v17 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v16 + 1) + 8 * v8) bundleIdentifier];
         [v3 addObject:bundleIdentifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
   db = self->_db;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_invoke;
-  v14[3] = &unk_27859C820;
-  v15 = v3;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59___ATXDataStore_migration_RemoveFeedbackForUninstalledApps__block_invoke;
+  v13[3] = &unk_27859C820;
+  v14 = v3;
   selfCopy = self;
   v11 = v3;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT bundleId FROM app" onPrep:0 onRow:v14 onError:&__block_literal_global_798];
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT bundleId FROM app" onPrep:0 onRow:v13 onError:&__block_literal_global_798];
 
-  v12 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
@@ -4917,14 +4903,14 @@ LABEL_11:
 {
   v3 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"_APRParzenModel"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = 0;
-  [defaultManager removeItemAtPath:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  [defaultManager removeItemAtPath:v3 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_DeprecateGenericAppIntentModels];
     }
@@ -4937,33 +4923,33 @@ LABEL_11:
 
 - (int64_t)migration_moveCacheFiles
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (([(_PASSqliteDatabase *)self->_db isInMemory]& 1) == 0)
   {
     appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v4 = [defaultManager contentsOfDirectoryAtPath:appPredictionDirectory error:0];
 
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ([v10 hasPrefix:@"ATXCacheFile-"])
           {
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
@@ -4974,7 +4960,7 @@ LABEL_11:
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -4990,7 +4976,6 @@ LABEL_11:
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
@@ -5037,36 +5022,36 @@ LABEL_11:
   if (uuid)
   {
     db = self->_db;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke;
-    v22[3] = &unk_278599DB8;
-    v23 = idCopy;
-    v24 = setCopy;
-    v25 = parametersCopy;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke_2;
-    v18[3] = &unk_27859C9B0;
-    v19 = v24;
-    v20 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke;
+    v23[3] = &unk_278599DB8;
+    v24 = idCopy;
+    v25 = setCopy;
+    v26 = parametersCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __65___ATXDataStore_writeSlotSetKeyParameters_rowId_slotSet_success___block_invoke_2;
+    v19[3] = &unk_27859C9B0;
+    v20 = v25;
+    v21 = v24;
     successCopy = success;
-    v15 = [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT OR IGNORE INTO slotSetKey (alogId onPrep:uuid onRow:paramHash onError:slotHash, paramCount) VALUES (?, ?, ?, ?, ?)", v22, 0, v18];
+    v16 = [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT OR IGNORE INTO slotSetKey (alogId onPrep:uuid onRow:paramHash onError:slotHash, paramCount) VALUES (?, ?, ?, ?, ?)", v23, 0, v19];
   }
 
   else
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_default(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore writeSlotSetKeyParameters:rowId:slotSet:success:];
     }
 
-    v15 = 0;
+    v16 = 0;
     *success = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (int64_t)updateAlog:(id)alog slotsToMigrate:(id)migrate
@@ -5111,7 +5096,7 @@ LABEL_11:
 
   else
   {
-    v16 = __atxlog_handle_default();
+    v16 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore updateAlog:slotsToMigrate:];
@@ -5125,87 +5110,87 @@ LABEL_11:
 
 - (int64_t)migration_SlotSetKeyCreation
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   allActionsAndSlots = [(_ATXDataStore *)self allActionsAndSlots];
   v4 = allActionsAndSlots;
   if (allActionsAndSlots)
   {
-    v33 = 3;
+    v32 = 3;
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v23 = [allActionsAndSlots countByEnumeratingWithState:&v29 objects:v35 count:16];
-    if (v23)
+    v22 = [allActionsAndSlots countByEnumeratingWithState:&v28 objects:v34 count:16];
+    if (v22)
     {
-      v21 = *v30;
-      v22 = v4;
+      v20 = *v29;
+      v21 = v4;
       do
       {
         v5 = 0;
         do
         {
-          if (*v30 != v21)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v4);
           }
 
-          v24 = v5;
-          v6 = *(*(&v29 + 1) + 8 * v5);
-          v7 = [v4 objectForKeyedSubscript:{v6, v21}];
+          v23 = v5;
+          v6 = *(*(&v28 + 1) + 8 * v5);
+          v7 = [v4 objectForKeyedSubscript:{v6, v20}];
           first = [v7 first];
 
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           v9 = [v4 objectForKeyedSubscript:v6];
           second = [v9 second];
 
-          v11 = [second countByEnumeratingWithState:&v25 objects:v34 count:16];
+          v11 = [second countByEnumeratingWithState:&v24 objects:v33 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v26;
+            v13 = *v25;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v26 != v13)
+                if (*v25 != v13)
                 {
                   objc_enumerationMutation(second);
                 }
 
-                v15 = *(*(&v25 + 1) + 8 * i);
+                v15 = *(*(&v24 + 1) + 8 * i);
                 v16 = objc_opt_new();
                 [v15 setUuid:v16];
                 v17 = [[ATXMinimalSlotResolutionParameters alloc] initWithAction:first slots:v15];
-                [(_ATXDataStore *)self writeSlotSetKeyParameters:v17 rowId:v6 slotSet:v15 success:&v33];
+                [(_ATXDataStore *)self writeSlotSetKeyParameters:v17 rowId:v6 slotSet:v15 success:&v32];
               }
 
-              v12 = [second countByEnumeratingWithState:&v25 objects:v34 count:16];
+              v12 = [second countByEnumeratingWithState:&v24 objects:v33 count:16];
             }
 
             while (v12);
           }
 
-          v4 = v22;
-          if (v33 == 3)
+          v4 = v21;
+          if (v32 == 3)
           {
-            v33 = [(_ATXDataStore *)self updateAlog:v6 slotsToMigrate:v22];
+            v32 = [(_ATXDataStore *)self updateAlog:v6 slotsToMigrate:v21];
           }
 
-          v5 = v24 + 1;
+          v5 = v23 + 1;
         }
 
-        while (v24 + 1 != v23);
-        v23 = [v22 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        while (v23 + 1 != v22);
+        v22 = [v21 countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    v18 = v33;
+    v18 = v32;
   }
 
   else
@@ -5213,7 +5198,6 @@ LABEL_11:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -5240,24 +5224,24 @@ LABEL_11:
 
 - (int64_t)migration_AddFeedbackColumns
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   db = self->_db;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke;
-  v23[3] = &unk_278598790;
-  v23[4] = &v24;
   v22[0] = MEMORY[0x277D85DD0];
   v22[1] = 3221225472;
-  v22[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke_2;
-  v22[3] = &unk_27859A1A0;
-  v22[4] = &v24;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT name FROM pragma_table_info('afeedback') WHERE name IN ('consumerSubType' onPrep:'feedbackType')" onRow:0 onError:v23, v22];
-  v4 = *(v25 + 6);
+  v22[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke;
+  v22[3] = &unk_278598790;
+  v22[4] = &v23;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke_2;
+  v21[3] = &unk_27859A1A0;
+  v21[4] = &v23;
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT name FROM pragma_table_info('afeedback') WHERE name IN ('consumerSubType' onPrep:'feedbackType')" onRow:0 onError:v22, v21];
+  v4 = *(v24 + 6);
   if (v4)
   {
     if (v4 == 2)
@@ -5273,37 +5257,37 @@ LABEL_11:
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 3;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 3;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v6 = [&unk_283A57F98 countByEnumeratingWithState:&v14 objects:v28 count:16];
+    v6 = [&unk_283A57F98 countByEnumeratingWithState:&v13 objects:v27 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(&unk_283A57F98);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * v8);
+          v9 = *(*(&v13 + 1) + 8 * v8);
           v10 = self->_db;
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke_3;
-          v13[3] = &unk_27859A1A0;
-          v13[4] = &v18;
-          [(_PASSqliteDatabase *)v10 prepAndRunQuery:v9 onPrep:0 onRow:0 onError:v13];
-          if (!v19[3])
+          v12[0] = MEMORY[0x277D85DD0];
+          v12[1] = 3221225472;
+          v12[2] = __45___ATXDataStore_migration_AddFeedbackColumns__block_invoke_3;
+          v12[3] = &unk_27859A1A0;
+          v12[4] = &v17;
+          [(_PASSqliteDatabase *)v10 prepAndRunQuery:v9 onPrep:0 onRow:0 onError:v12];
+          if (!v18[3])
           {
             v5 = 0;
             goto LABEL_15;
@@ -5313,7 +5297,7 @@ LABEL_11:
         }
 
         while (v6 != v8);
-        v6 = [&unk_283A57F98 countByEnumeratingWithState:&v14 objects:v28 count:16];
+        v6 = [&unk_283A57F98 countByEnumeratingWithState:&v13 objects:v27 count:16];
         if (v6)
         {
           continue;
@@ -5323,62 +5307,61 @@ LABEL_11:
       }
     }
 
-    v5 = v19[3];
+    v5 = v18[3];
 LABEL_15:
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
-  _Block_object_dispose(&v24, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
   return v5;
 }
 
 - (int64_t)migration_RecreatePredictionFeedbackInfo
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__50;
-  v53 = __Block_byref_object_dispose__50;
-  v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v56 = *MEMORY[0x277D85DE8];
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__50;
+  v52 = __Block_byref_object_dispose__50;
+  v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
   db = self->_db;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke;
-  v48[3] = &unk_278598790;
-  v48[4] = &v49;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType FROM predictionFeedbackInfo WHERE uiType IS NOT NULL", 0, v48, &__block_literal_global_886];
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 3;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke;
+  v47[3] = &unk_278598790;
+  v47[4] = &v48;
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"SELECT appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType FROM predictionFeedbackInfo WHERE uiType IS NOT NULL", 0, v47, &__block_literal_global_886];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 3;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v4 = [&unk_283A57FB0 countByEnumeratingWithState:&v40 objects:v56 count:16];
+  v4 = [&unk_283A57FB0 countByEnumeratingWithState:&v39 objects:v55 count:16];
   if (v4)
   {
-    v5 = *v41;
+    v5 = *v40;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v41 != v5)
+        if (*v40 != v5)
         {
           objc_enumerationMutation(&unk_283A57FB0);
         }
 
-        v7 = *(*(&v40 + 1) + 8 * i);
+        v7 = *(*(&v39 + 1) + 8 * i);
         v8 = self->_db;
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_3;
-        v39[3] = &unk_27859A1A0;
-        v39[4] = &v44;
-        [(_PASSqliteDatabase *)v8 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v39];
-        if (!v45[3])
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_3;
+        v38[3] = &unk_27859A1A0;
+        v38[4] = &v43;
+        [(_PASSqliteDatabase *)v8 prepAndRunQuery:v7 onPrep:0 onRow:0 onError:v38];
+        if (!v44[3])
         {
 LABEL_19:
           v24 = 0;
@@ -5386,7 +5369,7 @@ LABEL_19:
         }
       }
 
-      v4 = [&unk_283A57FB0 countByEnumeratingWithState:&v40 objects:v56 count:16];
+      v4 = [&unk_283A57FB0 countByEnumeratingWithState:&v39 objects:v55 count:16];
       if (v4)
       {
         continue;
@@ -5396,54 +5379,54 @@ LABEL_19:
     }
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  obj = v50[5];
-  v9 = [obj countByEnumeratingWithState:&v35 objects:v55 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  obj = v49[5];
+  v9 = [obj countByEnumeratingWithState:&v34 objects:v54 count:16];
   if (v9)
   {
-    v28 = *v36;
+    v27 = *v35;
     while (2)
     {
       for (j = 0; j != v9; ++j)
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * j);
+        v11 = *(*(&v34 + 1) + 8 * j);
         first = [v11 first];
         second = [v11 second];
-        v14 = [v50[5] objectForKeyedSubscript:v11];
+        v14 = [v49[5] objectForKeyedSubscript:v11];
         first2 = [v14 first];
 
-        v16 = [v50[5] objectForKeyedSubscript:v11];
+        v16 = [v49[5] objectForKeyedSubscript:v11];
         second2 = [v16 second];
 
         v18 = MEMORY[0x277D85DD0];
         v19 = self->_db;
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_4;
-        v30[3] = &unk_27859C758;
-        v20 = first;
-        v31 = v20;
-        v21 = first2;
-        v32 = v21;
-        v22 = second2;
-        v33 = v22;
-        v23 = second;
-        v34 = v23;
-        v29[0] = v18;
+        v29[0] = MEMORY[0x277D85DD0];
         v29[1] = 3221225472;
-        v29[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_5;
-        v29[3] = &unk_27859A1A0;
-        v29[4] = &v44;
-        [(_PASSqliteDatabase *)v19 prepAndRunQuery:@"INSERT INTO predictionFeedbackInfo (appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType) VALUES (:appAction, :predictionsCount, :feedbackCount, :uiType)", v30, 0, v29];
-        LOBYTE(v19) = v45[3] == 0;
+        v29[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_4;
+        v29[3] = &unk_27859C758;
+        v20 = first;
+        v30 = v20;
+        v21 = first2;
+        v31 = v21;
+        v22 = second2;
+        v32 = v22;
+        v23 = second;
+        v33 = v23;
+        v28[0] = v18;
+        v28[1] = 3221225472;
+        v28[2] = __57___ATXDataStore_migration_RecreatePredictionFeedbackInfo__block_invoke_5;
+        v28[3] = &unk_27859A1A0;
+        v28[4] = &v43;
+        [(_PASSqliteDatabase *)v19 prepAndRunQuery:@"INSERT INTO predictionFeedbackInfo (appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType) VALUES (:appAction, :predictionsCount, :feedbackCount, :uiType)", v29, 0, v28];
+        LOBYTE(v19) = v44[3] == 0;
 
         if (v19)
         {
@@ -5452,7 +5435,7 @@ LABEL_19:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v35 objects:v55 count:16];
+      v9 = [obj countByEnumeratingWithState:&v34 objects:v54 count:16];
       if (v9)
       {
         continue;
@@ -5462,39 +5445,38 @@ LABEL_19:
     }
   }
 
-  v24 = v45[3];
+  v24 = v44[3];
 LABEL_20:
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v48, 8);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (int64_t)migration_RemoveDeprecatedStartCallIntents
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEA60] arrayWithObjects:{@"com.apple.mobilephone", @"com.apple.facetime", 0}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(_ATXDataStore *)self _regenerateSlotSetKeyForBundleId:*(*(&v12 + 1) + 8 * v7)];
+        v8 = [(_ATXDataStore *)self _regenerateSlotSetKeyForBundleId:*(*(&v11 + 1) + 8 * v7)];
         if (v8 != 3)
         {
           v9 = v8;
@@ -5505,7 +5487,7 @@ LABEL_20:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -5518,13 +5500,12 @@ LABEL_20:
   v9 = 3;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (int64_t)migration_removeBrokenBlendingStream
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [_ATXDataStore migration_removeBrokenBlendingStream];
@@ -5535,14 +5516,14 @@ LABEL_11:
   v5 = [v4 stringByAppendingPathComponent:@"blending"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v10 = 0;
-  [defaultManager removeItemAtPath:v5 error:&v10];
-  v7 = v10;
+  v11 = 0;
+  [defaultManager removeItemAtPath:v5 error:&v11];
+  v7 = v11;
 
   if (v7)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_default(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_removeBrokenBlendingStream];
     }
@@ -5572,7 +5553,7 @@ LABEL_11:
 
   else
   {
-    v10 = __atxlog_handle_default();
+    v10 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertSubsequentLaunchCountData:forBundleId:];
@@ -5582,7 +5563,7 @@ LABEL_11:
 
 - (int64_t)migration_removeAnchorModelDirectory
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5593,14 +5574,14 @@ LABEL_11:
   v4 = [appPredictionDirectory stringByAppendingPathComponent:@"AnchorModel"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  [defaultManager removeItemAtPath:v4 error:&v9];
-  v6 = v9;
+  v10 = 0;
+  [defaultManager removeItemAtPath:v4 error:&v10];
+  v6 = v10;
 
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_removeAnchorModelDirectory];
     }
@@ -5611,7 +5592,7 @@ LABEL_11:
 
 - (int64_t)migration_updateNewAzulSystemAppsInstallDate
 {
-  v2 = __atxlog_handle_app_install();
+  v2 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -5627,7 +5608,7 @@ LABEL_11:
 
 - (int64_t)migration_forceUpdateNewAzulSystemAppsInstallDate
 {
-  v3 = __atxlog_handle_app_install();
+  v3 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5652,7 +5633,7 @@ LABEL_11:
 
 - (int64_t)migration_updateNewCrystalSystemAppsInstallDate
 {
-  v2 = __atxlog_handle_app_install();
+  v2 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -5668,7 +5649,7 @@ LABEL_11:
 
 - (int64_t)migration_forceUpdateNewCrystalSystemAppsInstallDate
 {
-  v3 = __atxlog_handle_app_install();
+  v3 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5709,7 +5690,7 @@ LABEL_11:
   v10 = 0;
   v4 = [(_PASSqliteDatabase *)db vacuumWithShouldContinueBlock:&__block_literal_global_977 error:&v10];
   v5 = v10;
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default(v5);
   v7 = v6;
   if (v4)
   {
@@ -5732,14 +5713,15 @@ LABEL_11:
 {
   v42 = *MEMORY[0x277D85DE8];
   mappingsCopy = mappings;
-  if ([mappingsCopy count])
+  v5 = [mappingsCopy count];
+  if (v5)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v41 = mappingsCopy;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Updating database with remote apps dictionary: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Updating database with remote apps dictionary: %@", buf, 0xCu);
     }
 
     array = [MEMORY[0x277CBEB18] array];
@@ -5752,18 +5734,18 @@ LABEL_11:
     v33[1] = 3221225472;
     v33[2] = __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_invoke;
     v33[3] = &unk_27859C9F8;
-    v12 = array;
-    v34 = v12;
-    v13 = array2;
-    v35 = v13;
-    v14 = array3;
-    v36 = v14;
-    v15 = array4;
-    v37 = v15;
-    v16 = array5;
-    v38 = v16;
-    v17 = array6;
-    v39 = v17;
+    v13 = array;
+    v34 = v13;
+    v14 = array2;
+    v35 = v14;
+    v15 = array3;
+    v36 = v15;
+    v16 = array4;
+    v37 = v16;
+    v17 = array5;
+    v38 = v17;
+    v18 = array6;
+    v39 = v18;
     [mappingsCopy enumerateKeysAndObjectsUsingBlock:v33];
     db = self->_db;
     v26[0] = MEMORY[0x277D85DD0];
@@ -5771,36 +5753,35 @@ LABEL_11:
     v26[2] = __61___ATXDataStore_updateOrInsertDataForRemoteAppsWithMappings___block_invoke_2;
     v26[3] = &unk_27859CA48;
     v26[4] = self;
-    v27 = v12;
-    v28 = v13;
-    v29 = v14;
-    v30 = v15;
-    v31 = v16;
-    v32 = v17;
-    v19 = v17;
-    v20 = v16;
-    v21 = v15;
-    v22 = v14;
-    v23 = v13;
-    v24 = v12;
+    v27 = v13;
+    v28 = v14;
+    v29 = v15;
+    v30 = v16;
+    v31 = v17;
+    v32 = v18;
+    v20 = v18;
+    v21 = v17;
+    v22 = v16;
+    v23 = v15;
+    v24 = v14;
+    v25 = v13;
     [(_PASSqliteDatabase *)db writeTransaction:v26];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInstallDateToDistantOldTimeForRemoteApps:(id)apps
 {
   v12 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
-  if ([appsCopy count])
+  v5 = [appsCopy count];
+  if (v5)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v11 = appsCopy;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Setting install date to 1 for these existing remote apps: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "_ATXDataStore: Setting install date to 1 for these existing remote apps: %@", buf, 0xCu);
     }
 
     db = self->_db;
@@ -5812,8 +5793,6 @@ LABEL_11:
     v9 = appsCopy;
     [(_PASSqliteDatabase *)db writeTransaction:v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bundleIDForRemoteAppWithUUID:(id)d
@@ -5874,7 +5853,7 @@ LABEL_11:
 
 - (int64_t)migration_overrideNilInstallDateToDistantOldTime
 {
-  v3 = __atxlog_handle_app_install();
+  v3 = __atxlog_handle_app_install(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5899,7 +5878,7 @@ LABEL_11:
 
 - (int64_t)migration_removeOldStackStateTrackerFile
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5910,14 +5889,14 @@ LABEL_11:
   v4 = [appPredictionCacheDirectory stringByAppendingPathComponent:@"ATXStackStates"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  [defaultManager removeItemAtPath:v4 error:&v9];
-  v6 = v9;
+  v10 = 0;
+  [defaultManager removeItemAtPath:v4 error:&v10];
+  v6 = v10;
 
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_removeOldStackStateTrackerFile];
     }
@@ -5928,7 +5907,7 @@ LABEL_11:
 
 - (int64_t)migration_removeHomeScreenWidgetBlacklistFile
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -5937,14 +5916,14 @@ LABEL_11:
 
   v3 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"ATXHomeScreenWidgetBlacklist"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = 0;
-  [defaultManager removeItemAtPath:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  [defaultManager removeItemAtPath:v3 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migration_removeHomeScreenWidgetBlacklistFile];
     }
@@ -5963,19 +5942,19 @@ LABEL_11:
 
 - (int64_t)migration_deleteFocusSpaceCaches
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
+  v52 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "Removing focus space layout cache files", buf, 2u);
   }
 
+  v47 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v44 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v41 = 0u;
-  v3 = [&unk_283A57FC8 countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v3 = [&unk_283A57FC8 countByEnumeratingWithState:&v44 objects:v51 count:16];
   if (!v3)
   {
     v6 = 0;
@@ -5984,38 +5963,38 @@ LABEL_11:
 
   v5 = v3;
   v6 = 0;
-  v7 = *v42;
+  v7 = *v45;
   *&v4 = 138412290;
-  v33 = v4;
+  v36 = v4;
   do
   {
     v8 = 0;
     v9 = v6;
     do
     {
-      if (*v42 != v7)
+      if (*v45 != v7)
       {
         objc_enumerationMutation(&unk_283A57FC8);
       }
 
-      v10 = *(*(&v41 + 1) + 8 * v8);
+      v10 = *(*(&v44 + 1) + 8 * v8);
       uiCachesRootDirectory = [MEMORY[0x277CEBCB0] uiCachesRootDirectory];
       v12 = [uiCachesRootDirectory stringByAppendingPathComponent:v10];
 
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = __atxlog_handle_default(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v33;
-        v47 = v12;
-        _os_log_debug_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEBUG, "Deleting deprecated UI cache file: %@", buf, 0xCu);
+        *buf = v36;
+        v50 = v12;
+        _os_log_debug_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEBUG, "Deleting deprecated UI cache file: %@", buf, 0xCu);
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v40 = v9;
-      v15 = [defaultManager removeItemAtPath:v12 error:&v40];
-      v6 = v40;
+      v43 = v9;
+      v16 = [defaultManager removeItemAtPath:v12 error:&v43];
+      v6 = v43;
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         code = [v6 code];
 
@@ -6024,11 +6003,11 @@ LABEL_11:
           goto LABEL_15;
         }
 
-        defaultManager = __atxlog_handle_default();
+        defaultManager = __atxlog_handle_default(v18);
         if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
         {
-          *buf = v33;
-          v47 = v6;
+          *buf = v36;
+          v50 = v6;
           _os_log_error_impl(&dword_2263AA000, defaultManager, OS_LOG_TYPE_ERROR, "Failed to delete deprecated UI cache file: %@", buf, 0xCu);
         }
       }
@@ -6039,54 +6018,54 @@ LABEL_15:
     }
 
     while (v5 != v8);
-    v5 = [&unk_283A57FC8 countByEnumeratingWithState:&v41 objects:v48 count:16];
+    v5 = [&unk_283A57FC8 countByEnumeratingWithState:&v44 objects:v51 count:16];
   }
 
   while (v5);
 LABEL_19:
-  v38 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v17 = [&unk_283A57FE0 countByEnumeratingWithState:&v36 objects:v45 count:16];
-  if (!v17)
+  v40 = 0u;
+  v19 = [&unk_283A57FE0 countByEnumeratingWithState:&v39 objects:v48 count:16];
+  if (!v19)
   {
     goto LABEL_33;
   }
 
-  v19 = v17;
-  v20 = *v37;
-  *&v18 = 138412290;
-  v34 = v18;
+  v21 = v19;
+  v22 = *v40;
+  *&v20 = 138412290;
+  v37 = v20;
   while (2)
   {
-    v21 = 0;
-    v22 = v6;
+    v23 = 0;
+    v24 = v6;
     while (2)
     {
-      if (*v37 != v20)
+      if (*v40 != v22)
       {
         objc_enumerationMutation(&unk_283A57FE0);
       }
 
-      v23 = *(*(&v36 + 1) + 8 * v21);
+      v25 = *(*(&v39 + 1) + 8 * v23);
       clientModelCachesRootDirectory = [MEMORY[0x277CEBCB0] clientModelCachesRootDirectory];
-      v25 = [clientModelCachesRootDirectory stringByAppendingPathComponent:v23];
+      v27 = [clientModelCachesRootDirectory stringByAppendingPathComponent:v25];
 
-      v26 = __atxlog_handle_default();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v29 = __atxlog_handle_default(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v34;
-        v47 = v25;
-        _os_log_debug_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEBUG, "Deleting deprecated client model file: %@", buf, 0xCu);
+        *buf = v37;
+        v50 = v27;
+        _os_log_debug_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEBUG, "Deleting deprecated client model file: %@", buf, 0xCu);
       }
 
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v35 = v22;
-      v28 = [defaultManager2 removeItemAtPath:v25 error:&v35];
-      v6 = v35;
+      v38 = v24;
+      v31 = [defaultManager2 removeItemAtPath:v27 error:&v38];
+      v6 = v38;
 
-      if (v28)
+      if (v31)
       {
 LABEL_30:
       }
@@ -6097,11 +6076,11 @@ LABEL_30:
 
         if (code2 != 4)
         {
-          defaultManager2 = __atxlog_handle_default();
+          defaultManager2 = __atxlog_handle_default(v33);
           if (os_log_type_enabled(defaultManager2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v34;
-            v47 = v6;
+            *buf = v37;
+            v50 = v6;
             _os_log_error_impl(&dword_2263AA000, defaultManager2, OS_LOG_TYPE_ERROR, "Failed to delete deprecated client model file: %@", buf, 0xCu);
           }
 
@@ -6109,9 +6088,9 @@ LABEL_30:
         }
       }
 
-      ++v21;
-      v22 = v6;
-      if (v19 != v21)
+      ++v23;
+      v24 = v6;
+      if (v21 != v23)
       {
         continue;
       }
@@ -6119,7 +6098,8 @@ LABEL_30:
       break;
     }
 
-    v19 = [&unk_283A57FE0 countByEnumeratingWithState:&v36 objects:v45 count:16];
+    v19 = [&unk_283A57FE0 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v21 = v19;
     if (v19)
     {
       continue;
@@ -6129,28 +6109,26 @@ LABEL_30:
   }
 
 LABEL_33:
-  v30 = __atxlog_handle_default();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v34 = __atxlog_handle_default(v19);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "Done removing focus space layout cache files", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v34, OS_LOG_TYPE_DEFAULT, "Done removing focus space layout cache files", buf, 2u);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 - (int64_t)migration_deleteAllTrainedRelevanceModels
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Deleting all trained relevance models for migration", buf, 2u);
   }
 
-  [(_PASSqliteDatabase *)self->_db prepAndRunNonDataQueries:&unk_283A57FF8 onError:0];
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default([(_PASSqliteDatabase *)self->_db prepAndRunNonDataQueries:&unk_283A57FF8 onError:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -6162,7 +6140,7 @@ LABEL_33:
 
 - (int64_t)migration_purgeExpensiveCachesFromUserDefaults
 {
-  v2 = __atxlog_handle_default();
+  v2 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -6209,7 +6187,7 @@ LABEL_33:
 
   else
   {
-    v11 = __atxlog_handle_default();
+    v11 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertSubsequentAppActionLaunchCountData:forAppAction:];
@@ -6221,25 +6199,26 @@ LABEL_33:
 {
   actionCopy = action;
   typeCopy = type;
+  v10 = typeCopy;
   if (actionCopy)
   {
     db = self->_db;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __93___ATXDataStore_updateOrInsertPredictionsAndFeedbackForAppAction_feedbackReceived_forUIType___block_invoke;
-    v12[3] = &unk_27859CA70;
-    v13 = actionCopy;
-    v14 = typeCopy;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __93___ATXDataStore_updateOrInsertPredictionsAndFeedbackForAppAction_feedbackReceived_forUIType___block_invoke;
+    v13[3] = &unk_27859CA70;
+    v14 = actionCopy;
+    v15 = v10;
     receivedCopy = received;
-    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO predictionFeedbackInfo (appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType) VALUES (:app_action, 1, :feedback_count, :ui_type) ON CONFLICT(appAction, uiType) DO UPDATE SET predictionsCount = predictionsCount + 1, feedbackCount = feedbackCount + :feedback_count", v12, 0, 0];
+    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO predictionFeedbackInfo (appAction onPrep:predictionsCount onRow:feedbackCount onError:uiType) VALUES (:app_action, 1, :feedback_count, :ui_type) ON CONFLICT(appAction, uiType) DO UPDATE SET predictionsCount = predictionsCount + 1, feedbackCount = feedbackCount + :feedback_count", v13, 0, 0];
 
-    v11 = v13;
+    v12 = v14;
   }
 
   else
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_default(typeCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertPredictionsAndFeedbackForAppAction:feedbackReceived:forUIType:];
     }
@@ -6248,51 +6227,50 @@ LABEL_33:
 
 - (void)updateInstallDateForBundleID:(id)d timestamp:(double)timestamp
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v7 = __atxlog_handle_app_install();
+  v7 = __atxlog_handle_app_install(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = dCopy;
+    v14 = dCopy;
     _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Force updating install date for bundle ID: %@", buf, 0xCu);
   }
 
   db = self->_db;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56___ATXDataStore_updateInstallDateForBundleID_timestamp___block_invoke;
-  v11[3] = &unk_278599E00;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56___ATXDataStore_updateInstallDateForBundleID_timestamp___block_invoke;
+  v10[3] = &unk_278599E00;
   timestampCopy = timestamp;
-  v12 = dCopy;
+  v11 = dCopy;
   v9 = dCopy;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"UPDATE appInfo SET installDate = :new_timestamp WHERE bundleId = :bundle_id" onPrep:v11 onRow:0 onError:0];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"UPDATE appInfo SET installDate = :new_timestamp WHERE bundleId = :bundle_id" onPrep:v10 onRow:0 onError:0];
 }
 
 - (void)updateOrInsertMessageRecipient:(id)recipient dateMessaged:(id)messaged
 {
   recipientCopy = recipient;
   messagedCopy = messaged;
+  v8 = messagedCopy;
   if (recipientCopy)
   {
     db = self->_db;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __61___ATXDataStore_updateOrInsertMessageRecipient_dateMessaged___block_invoke;
-    v10[3] = &unk_278598718;
-    v11 = recipientCopy;
-    v12 = messagedCopy;
-    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO messageRecipients (recipientName onPrep:lastDateMessaged) VALUES (:recipient onRow::date_messaged) ON CONFLICT(recipientName) DO UPDATE SET lastDateMessaged=excluded.lastDateMessaged" onError:v10, 0, 0];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __61___ATXDataStore_updateOrInsertMessageRecipient_dateMessaged___block_invoke;
+    v11[3] = &unk_278598718;
+    v12 = recipientCopy;
+    v13 = v8;
+    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO messageRecipients (recipientName onPrep:lastDateMessaged) VALUES (:recipient onRow::date_messaged) ON CONFLICT(recipientName) DO UPDATE SET lastDateMessaged=excluded.lastDateMessaged" onError:v11, 0, 0];
 
-    v9 = v11;
+    v10 = v12;
   }
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_default(messagedCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertMessageRecipient:dateMessaged:];
     }
@@ -6447,7 +6425,7 @@ LABEL_33:
 
   else
   {
-    column = __atxlog_handle_default();
+    column = __atxlog_handle_default(0);
     if (os_log_type_enabled(column, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertSubsequentLaunchCountData:forBundleId:];
@@ -6474,7 +6452,7 @@ LABEL_33:
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertTimestamp:forAppAction:];
@@ -6513,46 +6491,47 @@ LABEL_33:
       v35 = 0;
     }
 
+    isInternalBuild = [MEMORY[0x277D42590] isInternalBuild];
     extensionCopy = extension;
-    if ([MEMORY[0x277D42590] isInternalBuild])
+    if (isInternalBuild)
     {
       timestampCopy2 = timestamp;
-      v23 = objc_autoreleasePoolPush();
-      v24 = [(_ATXDataStore *)self _appInfoForBundleIdNoSync:bundleIdCopy];
-      v25 = __atxlog_handle_app_install();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v24 = objc_autoreleasePoolPush();
+      v25 = [(_ATXDataStore *)self _appInfoForBundleIdNoSync:bundleIdCopy];
+      v26 = __atxlog_handle_app_install(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = v23;
-        v26 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:timestampCopy2];
-        [v24 installDate];
-        v27 = v34 = v21;
+        v33 = v24;
+        v27 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:timestampCopy2];
+        [v25 installDate];
+        v28 = v34 = v21;
         *buf = 138543874;
-        v49 = v26;
+        v49 = v27;
         v50 = 2114;
-        v51 = v27;
+        v51 = v28;
         v52 = 2112;
         v53 = bundleIdCopy;
-        _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Updating install date: %{public}@ from %{public}@ for bundle id: %@", buf, 0x20u);
+        _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Updating install date: %{public}@ from %{public}@ for bundle id: %@", buf, 0x20u);
 
         v21 = v34;
-        v23 = v33;
+        v24 = v33;
       }
 
-      objc_autoreleasePoolPop(v23);
+      objc_autoreleasePoolPop(v24);
       timestamp = timestampCopy2;
     }
 
     else
     {
-      v28 = __atxlog_handle_app_install();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = __atxlog_handle_app_install(isInternalBuild);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:timestamp];
+        v30 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:timestamp];
         *buf = 138543618;
-        v49 = v29;
+        v49 = v30;
         v50 = 2112;
         v51 = bundleIdCopy;
-        _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Updating install date: %{public}@ for bundle id: %@", buf, 0x16u);
+        _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "ATXDataStore: Updating install date: %{public}@ for bundle id: %@", buf, 0x16u);
       }
     }
 
@@ -6573,47 +6552,43 @@ LABEL_33:
     v37[2] = __123___ATXDataStore_updateOrInsertInstallTimestamp_genreId_subGenreIds_app2VecCluster_forBundleId_isExtension_isEnterpriseApp___block_invoke_2;
     v37[3] = &unk_2785987B8;
     v38 = v40;
-    v31 = v35;
+    v32 = v35;
     [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO appInfo (bundleId onPrep:installDate onRow:genreId onError:subGenreIds, isExtension, isEnterpriseApp, app2VecCluster) VALUES (:bundle_id, :new_timestamp, :genreId_data, :subGenreIds_data, :is_extension, :is_enterprise_app, :app2vec_cluster) ON CONFLICT(bundleId) DO UPDATE SET installDate = CASE WHEN installDate IS NULL THEN :new_timestamp ELSE installDate END, genreId=:genreId_data, subGenreIds=:subGenreIds_data, isExtension=:is_extension, isEnterpriseApp=:is_enterprise_app, app2VecCluster=:app2vec_cluster", v39, 0, v37];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markBundleIdsAsExtension:(id)extension
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [extensionCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [extensionCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(extensionCopy);
         }
 
-        [(_ATXDataStore *)self _markBundleIdAsExtension:*(*(&v10 + 1) + 8 * v8++)];
+        [(_ATXDataStore *)self _markBundleIdAsExtension:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [extensionCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [extensionCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markBundleIdAsExtension:(id)extension
@@ -6632,29 +6607,27 @@ LABEL_33:
 - (void)_markBundleId:(id)id asEnterpriseApp:(BOOL)app
 {
   appCopy = app;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(idCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = idCopy;
-    v16 = 1024;
-    v17 = appCopy;
+    v14 = idCopy;
+    v15 = 1024;
+    v16 = appCopy;
     _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Mark app: %@ as enterprise: %{BOOL}u", buf, 0x12u);
   }
 
   db = self->_db;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __47___ATXDataStore__markBundleId_asEnterpriseApp___block_invoke;
-  v11[3] = &unk_2785989D8;
-  v12 = idCopy;
-  v13 = appCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47___ATXDataStore__markBundleId_asEnterpriseApp___block_invoke;
+  v10[3] = &unk_2785989D8;
+  v11 = idCopy;
+  v12 = appCopy;
   v9 = idCopy;
-  [(_PASSqliteDatabase *)db prepAndRunQuery:@"UPDATE appInfo SET isEnterpriseApp=:is_enterprise_app WHERE bundleId=:bundle_id;" onPrep:v11 onRow:0 onError:&__block_literal_global_1127];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(_PASSqliteDatabase *)db prepAndRunQuery:@"UPDATE appInfo SET isEnterpriseApp=:is_enterprise_app WHERE bundleId=:bundle_id;" onPrep:v10 onRow:0 onError:&__block_literal_global_1127];
 }
 
 + (void)_simulateCrashForMigrationFailure:(id)failure
@@ -6672,13 +6645,14 @@ LABEL_33:
 
   if (v5)
   {
-    v10 = 0;
-    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fileCopy options:1 error:&v10];
-    v7 = v10;
+    v11 = 0;
+    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fileCopy options:1 error:&v11];
+    v7 = v11;
+    v8 = v7;
     if (!v6)
     {
-      v8 = __atxlog_handle_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         +[_ATXDataStore loadDataFromFile:];
       }
@@ -6724,7 +6698,7 @@ LABEL_33:
 
   else
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [_ATXDataStore updateOrInsertSubsequentLaunchCountData:forBundleId:];
@@ -6846,7 +6820,7 @@ LABEL_9:
 
   else
   {
-    v40 = __atxlog_handle_default();
+    v40 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       [_ATXDataStore migrationPre44WriteActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:];
@@ -6860,7 +6834,7 @@ LABEL_9:
 
 - (void)deleteSamplesThatAreMoreThan28DaysOldFromActionDatabases
 {
-  v3 = __atxlog_handle_default();
+  v3 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -7166,23 +7140,6 @@ LABEL_4:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_reset
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_0_21();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v2, v3, "Could not open sqlite database at %@: %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)vacuumDatabaseWithActivity:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXDataStore: unable to vacuum database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)removeAppInfoForBundleIdsNotInSet:.cold.1()
 {
   OUTLINED_FUNCTION_3();
@@ -7242,62 +7199,26 @@ LABEL_4:
   [v1 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)filenamesAndDataForBackupShouldPareDown:transport:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error while reading mode entity files for backup. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)filenamesAndDataForBackupShouldPareDown:transport:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error while serializing onboarding stack widget cache file into NSData: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)removeSensitiveInformationFromModeEntityScoresFile:shouldBackupContacts:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "FAILURE: Unable to archive mode entity scores. Error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)removeSensitiveInformationFromModeEntityScoresFile:shouldBackupContacts:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Couldn't deserialize mode entity scores file data. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)pareDownForBackup:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  WORD2(v8) = 2080;
-  HIWORD(v8) = v3;
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v4, v5, "Error deleting %s: %s", v7, v8);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)restoreFromBackup:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Error restoring onboarding stacks cache file to path %@: %@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "FAILURE: Unable to archive mode entity scores. Error: %@", v1, 0xCu);
+}
+
++ (void)pareDownForBackup:.cold.1()
+{
+  OUTLINED_FUNCTION_2();
+  WORD2(v4) = 2080;
+  HIWORD(v4) = v0;
+  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v1, v2, "Error deleting %s: %s", v3, v4);
 }
 
 - (void)restoreFromBackup:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "Chunk for key %@ not found while restoring data.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"onboardingStacks";
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "Chunk for key %@ not found while restoring data.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)writeActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:appSessionStartDate:appSessionEndDate:geohash:coarseGeohash:.cold.1()
@@ -7354,14 +7275,6 @@ LABEL_4:
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_0_18();
   [v0 handleFailureInMethod:@"actionUUID" object:? file:? lineNumber:? description:?];
-}
-
-- (void)writeActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:appSessionStartDate:appSessionEndDate:geohash:coarseGeohash:.cold.8()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Could not serialize slotSets: %@ and action: %@, not writing action type");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateActionOfType:bundleId:block:.cold.1()
@@ -7548,13 +7461,11 @@ LABEL_4:
   [v0 handleFailureInMethod:@"endDate" object:? file:? lineNumber:? description:?];
 }
 
-- (void)actionForSlotUUID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)actionForSlotUUID:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
-  _os_log_fault_impl(&dword_2263AA000, v2, OS_LOG_TYPE_FAULT, "Unable to get action for slot UUID (<rdar://problem/48254976>): %@", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "Unable to get action for slot UUID (<rdar://problem/48254976>): %@", v1, 0xCu);
 }
 
 - (void)removeActionDataForActionUUIDs:.cold.1()
@@ -7591,14 +7502,12 @@ LABEL_4:
 
 - (void)recordConfirms:(NSObject *)a3 rejects:forFeedbackType:forActionType:bundleId:action:slotSet:actionUUID:date:consumerSubType:geohash:coarseGeohash:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEB98] setWithObject:a1];
   OUTLINED_FUNCTION_2();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Could not serialize slotSets: %@ and action: %@, not recording feedback", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Could not serialize slotSets: %@ and action: %@, not recording feedback", v6, 0x16u);
 }
 
 - (void)enumerateFeedbackForActionOfType:bundleId:block:.cold.1()
@@ -7625,108 +7534,11 @@ LABEL_4:
   [v0 handleFailureInMethod:@"block" object:? file:? lineNumber:? description:?];
 }
 
-- (void)migrateWithMigrationPlan:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Exception getting schema version. Marking as corrupt: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)skipFromZeroSchema
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v2, v3, "failed to migrate database from zero to %ld", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
 - (void)migrateToVersion:withMigrationPlan:.cold.1()
 {
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)migrateToVersion:withMigrationPlan:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXDataStore: failed to migrate entity db to %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_InstallDateToAppTable
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error reading install dates: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_DeprecateGenericAppIntentModels
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error deleting data associated with old generic app intent parzen model: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeSlotSetKeyParameters:rowId:slotSet:success:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Missing slotSet UUID for slotSet: %@ alog rowId: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateAlog:slotsToMigrate:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Could not serialize slotSets: %@ and action: %@, not updating alog during migration");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_removeBrokenBlendingStream
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Cannot remove blending streams. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_removeAnchorModelDirectory
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Cannot remove Anchor Model Directory. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_RemoveLinkActions
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Failed to vacuum database: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_removeOldStackStateTrackerFile
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Cannot remove old Stack State Tracker file. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)migration_removeHomeScreenWidgetBlacklistFile
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Cannot remove home screen widget blacklist file. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateOrInsertGenreId:subGenreIds:forBundleId:.cold.1()
@@ -7751,10 +7563,9 @@ LABEL_4:
 
 + (void)loadDataFromFile:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_9();
-  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Unable to open %@: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEBUG, "Unable to open %@: %@", v1, 0x16u);
 }
 
 - (void)migrationPre44WriteActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:.cold.1()
@@ -7803,14 +7614,6 @@ LABEL_4:
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_0_18();
   [v0 handleFailureInMethod:@"actionUUID" object:? file:? lineNumber:? description:?];
-}
-
-- (void)migrationPre44WriteActionType:bundleId:date:action:slotSets:timeZone:prevLocationUUID:locationUUID:weight:actionUUID:motionType:.cold.7()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Could not serialize slotSets: %@ and action: %@, not writing action type for migration");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordParamererizedSuggestionWithUniqueIdentifier:encodedTool:encodedSummary:.cold.1()

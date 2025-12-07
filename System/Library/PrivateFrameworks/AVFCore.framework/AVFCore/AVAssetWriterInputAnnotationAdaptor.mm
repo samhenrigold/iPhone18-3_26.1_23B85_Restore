@@ -152,7 +152,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  [annotation timeRange];
+  objc_msgSend_timeRange(annotation);
   if ((v56 & 0x1D) != 1)
   {
     v30 = MEMORY[0x1E695DF30];
@@ -161,10 +161,10 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  [annotation timeRange];
+  objc_msgSend_timeRange(annotation);
   if (v55)
   {
-    [annotation timeRange];
+    objc_msgSend_timeRange(annotation);
     if ((v54 & 8) != 0)
     {
       v30 = MEMORY[0x1E695DF30];
@@ -199,7 +199,7 @@ LABEL_34:
   v50 = 0u;
   v51 = 0u;
   v49 = 0u;
-  [annotation timeRange];
+  objc_msgSend_timeRange(annotation);
   array = [MEMORY[0x1E695DF70] array];
   [annotation getJSONData:&v53 representationBinaryDataBindings:&v52];
   v13 = objc_alloc_init(AVMutableMetadataItem);

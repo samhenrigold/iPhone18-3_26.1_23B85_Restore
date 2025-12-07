@@ -23,10 +23,16 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_2(&dword_25E3EF000, v0, v1, "%{public}@ dealloced", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = +[PCLog timer];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [PCDispatchTimer dealloc];
+  }
+
+  [(PCDispatchTimer *)self _cleanupTimer];
+  v4.receiver = self;
+  v4.super_class = PCDispatchTimer;
+  [(PCDispatchTimer *)&v4 dealloc];
 }
 
 - (void)_cleanupTimer
@@ -47,7 +53,7 @@
 
 - (void)start
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   selfCopy->_isValid = 1;
@@ -69,21 +75,20 @@
     Name = sel_getName(selector);
     fireTime = selfCopy->_fireTime;
     timerSource = selfCopy->_timerSource;
-    v10 = 138544386;
-    v11 = selfCopy;
-    v12 = 2114;
-    v13 = target;
-    v14 = 2082;
-    v15 = Name;
-    v16 = 2048;
-    v17 = fireTime;
-    v18 = 2114;
-    v19 = timerSource;
-    _os_log_debug_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ start with target %{public}@ selector %{public}s firetime %llu timerSource %{public}@", &v10, 0x34u);
+    v9 = 138544386;
+    v10 = selfCopy;
+    v11 = 2114;
+    v12 = target;
+    v13 = 2082;
+    v14 = Name;
+    v15 = 2048;
+    v16 = fireTime;
+    v17 = 2114;
+    v18 = timerSource;
+    _os_log_debug_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ start with target %{public}@ selector %{public}s firetime %llu timerSource %{public}@", &v9, 0x34u);
   }
 
   objc_sync_exit(selfCopy);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isValid
@@ -98,20 +103,50 @@
 
 - (void)_callTarget
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_2(&dword_25E3EF000, v0, v1, "%{public}@ performing call back", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = +[PCLog timer];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [PCDispatchTimer _callTarget];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  object = [(CUTWeakReference *)selfCopy->_target object];
+  if (selfCopy->_selector)
+  {
+    selector = selfCopy->_selector;
+  }
+
+  else
+  {
+    selector = 0;
+  }
+
+  objc_sync_exit(selfCopy);
+
+  [object performSelector:selector];
+  v7 = +[PCLog timer];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = 138543874;
+    v9 = selfCopy;
+    v10 = 2112;
+    v11 = object;
+    v12 = 2080;
+    Name = sel_getName(selector);
+    _os_log_debug_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ performed call back on target %@ selector %s", &v8, 0x20u);
+  }
 }
 
 - (PCDispatchTimer)initWithQueue:(id)queue target:(id)target selector:(SEL)selector fireTime:(unint64_t)time
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   targetCopy = target;
-  v32.receiver = self;
-  v32.super_class = PCDispatchTimer;
-  v13 = [(PCDispatchTimer *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = PCDispatchTimer;
+  v13 = [(PCDispatchTimer *)&v31 init];
   v14 = v13;
   if (queueCopy && v13)
   {
@@ -153,15 +188,15 @@
       }
 
       Name = sel_getName(selector);
-      v29 = v14->_timerSource;
+      v28 = v14->_timerSource;
       *buf = 138544130;
-      v34 = v14;
-      v35 = 2114;
-      v36 = object;
-      v37 = 2082;
-      v38 = Name;
-      v39 = 2114;
-      v40 = v29;
+      v33 = v14;
+      v34 = 2114;
+      v35 = object;
+      v36 = 2082;
+      v37 = Name;
+      v38 = 2114;
+      v39 = v28;
       _os_log_debug_impl(&dword_25E3EF000, v20, OS_LOG_TYPE_DEBUG, "%{public}@ initialized with target %{public}@ selector %{public}s timerSource %{public}@", buf, 0x2Au);
     }
 
@@ -171,13 +206,12 @@
     handler[1] = 3221225472;
     handler[2] = __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke;
     handler[3] = &unk_279A19E50;
-    v31 = v21;
+    v30 = v21;
     v23 = v21;
     dispatch_source_set_event_handler(v22, handler);
     dispatch_resume(v14->_timerSource);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -196,7 +230,7 @@ void __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke
 
 - (void)setFireDate:(id)date
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -233,24 +267,24 @@ void __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke
 
       Name = sel_getName(selector);
       fireTime = selfCopy->_fireTime;
-      v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v9 / 1000000000.0];
-      v18 = PCStringFromDate(v17);
+      v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v9 / 1000000000.0];
+      v17 = PCStringFromDate(v16);
       timerSource = selfCopy->_timerSource;
-      v20 = 138544898;
-      v21 = selfCopy;
-      v22 = 2114;
-      v23 = dateCopy;
-      v24 = 2114;
-      v25 = object;
-      v26 = 2082;
-      v27 = Name;
-      v28 = 2048;
-      v29 = fireTime;
-      v30 = 2114;
-      v31 = v18;
-      v32 = 2114;
-      v33 = timerSource;
-      _os_log_debug_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ setFireDate %{public}@ and start with target %{public}@ selector %{public}s fireTime %llu deltaNanosec %{public}@ timerSource %{public}@", &v20, 0x48u);
+      v19 = 138544898;
+      v20 = selfCopy;
+      v21 = 2114;
+      v22 = dateCopy;
+      v23 = 2114;
+      v24 = object;
+      v25 = 2082;
+      v26 = Name;
+      v27 = 2048;
+      v28 = fireTime;
+      v29 = 2114;
+      v30 = v17;
+      v31 = 2114;
+      v32 = timerSource;
+      _os_log_debug_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ setFireDate %{public}@ and start with target %{public}@ selector %{public}s fireTime %llu deltaNanosec %{public}@ timerSource %{public}@", &v19, 0x48u);
     }
   }
 
@@ -269,8 +303,6 @@ void __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke
   }
 
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)fireDate
@@ -283,22 +315,13 @@ void __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke
   return v3;
 }
 
-void __58__PCDispatchTimer_initWithQueue_target_selector_fireTime___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_2(&dword_25E3EF000, v0, v1, "%{public}@ in call back event handler", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)setFireDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_25E3EF000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ tried to setFireDate %{public}@ but the timer is not valid", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_25E3EF000, v1, OS_LOG_TYPE_DEBUG, "%{public}@ tried to setFireDate %{public}@ but the timer is not valid", v2, 0x16u);
 }
 
 @end

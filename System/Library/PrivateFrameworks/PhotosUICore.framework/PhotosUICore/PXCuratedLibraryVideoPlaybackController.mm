@@ -529,98 +529,98 @@ LABEL_24:
   return v39;
 }
 
-void __69__PXCuratedLibraryVideoPlaybackController_filterSortedRecordsToPlay___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __69__PXCuratedLibraryVideoPlaybackController_filterSortedRecordsToPlay___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, void *a7)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v4 = a3;
-  v5 = [v4 assetCollection];
-  v6 = PXCuratedLibraryAssetsCollectionRepresentsChapterHeader(v5, 2);
+  v36 = *MEMORY[0x1E69E9840];
+  v8 = a7;
+  v9 = [v8 assetCollection];
+  v10 = PXCuratedLibraryAssetsCollectionRepresentsChapterHeader(v9, 2);
 
-  if (v6)
+  if (v10)
   {
     ++*(*(*(a1 + 48) + 8) + 24);
   }
 
   else
   {
-    v7 = [v4 bodyContentLayout];
+    v11 = [v8 bodyContentLayout];
 
-    if (v7)
+    if (v11)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v8 = *(a1 + 32);
-      v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v9)
+      v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v12 = *(a1 + 32);
+      v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v13)
       {
-        v10 = v9;
-        v26 = a1;
-        v11 = *v28;
+        v14 = v13;
+        v30 = a1;
+        v15 = *v32;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v14; ++i)
           {
-            if (*v28 != v11)
+            if (*v32 != v15)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v12);
             }
 
-            v13 = [*(*(&v27 + 1) + 8 * i) displayAsset];
-            v14 = [v4 keyAssetsFetchResult];
-            v15 = [v14 firstObject];
-            v16 = v13;
-            v17 = v15;
-            v18 = v17;
-            if (v16 == v17)
+            v17 = [*(*(&v31 + 1) + 8 * i) displayAsset];
+            v18 = [v8 keyAssetsFetchResult];
+            v19 = [v18 firstObject];
+            v20 = v17;
+            v21 = v19;
+            v22 = v21;
+            if (v20 == v21)
             {
 
 LABEL_23:
-              v22 = *(v26 + 40);
-              v23 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(v26 + 48) + 8) + 24)];
-              v24 = [v22 objectForKeyedSubscript:v23];
-              v25 = [v24 second];
-              [v25 CGRectValue];
+              v26 = *(v30 + 40);
+              v27 = [MEMORY[0x1E696AD98] numberWithInteger:*(*(*(v30 + 48) + 8) + 24)];
+              v28 = [v26 objectForKeyedSubscript:v27];
+              v29 = [v28 second];
+              [v29 CGRectValue];
 
               PXRectArea();
             }
 
-            if (v16)
+            if (v20)
             {
-              v19 = v17 == 0;
+              v23 = v21 == 0;
             }
 
             else
             {
-              v19 = 1;
+              v23 = 1;
             }
 
-            if (v19)
+            if (v23)
             {
             }
 
             else
             {
-              v20 = [v16 isContentEqualTo:v17];
-              v21 = v20;
-              if (!v20)
+              v24 = [v20 isContentEqualTo:v21];
+              v25 = v24;
+              if (!v24)
               {
-                v21 = [v18 isContentEqualTo:v16];
+                v25 = [v22 isContentEqualTo:v20];
               }
 
-              if (v21 == 2)
+              if (v25 == 2)
               {
                 goto LABEL_23;
               }
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
-        while (v10);
-        a1 = v26;
+        while (v14);
+        a1 = v30;
       }
 
       [*(a1 + 32) removeObject:0];
@@ -637,7 +637,7 @@ LABEL_23:
   v5 = selectionSnapshot;
   if (selectionSnapshot)
   {
-    [selectionSnapshot pendingIndexPath];
+    objc_msgSend_pendingIndexPath(selectionSnapshot);
   }
 
   else

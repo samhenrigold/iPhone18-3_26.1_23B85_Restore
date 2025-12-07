@@ -51,7 +51,7 @@
 
   sub_100066AD8();
 
-  sub_100028E34(0, &qword_1000E5DF0);
+  sub_100028E34(0, &qword_1000E5DF0, NTSection_ptr);
   v2.super.isa = sub_1000A2F00().super.isa;
 
   return v2.super.isa;
@@ -72,7 +72,7 @@
 
   sub_100065C78();
 
-  sub_100017A54(&unk_1000E6020);
+  sub_100017A54(&unk_1000E6020, &qword_1000AB270);
   v2.super.isa = sub_1000A2F00().super.isa;
 
   return v2.super.isa;
@@ -83,7 +83,7 @@
 
   sub_100067410(type);
 
-  sub_100017A54(&unk_1000E6020);
+  sub_100017A54(&unk_1000E6020, &qword_1000AB270);
   v4.super.isa = sub_1000A2F00().super.isa;
 
   return v4.super.isa;
@@ -91,13 +91,13 @@
 
 - (id)extentsOfSections:(id)sections
 {
-  sub_100028E34(0, &qword_1000E5DF0);
+  sub_100028E34(0, &qword_1000E5DF0, NTSection_ptr);
   sub_1000A2F10();
 
   v3 = objc_autoreleasePoolPush();
   sub_100068B9C();
   objc_autoreleasePoolPop(v3);
-  sub_100028E34(0, &qword_1000E7EB0);
+  sub_100028E34(0, &qword_1000E7EB0, NSNumber_ptr);
   sub_10006C818();
   sub_1000A2F30();
 

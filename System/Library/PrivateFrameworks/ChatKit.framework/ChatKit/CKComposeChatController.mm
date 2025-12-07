@@ -2220,10 +2220,11 @@ LABEL_11:
     subject = [composition subject];
     string = [subject string];
 
-    if (![expandedRecipients count] || (-[CKCoreChatController conversation](self, "conversation"), v12 = objc_claimAutoreleasedReturnValue(), -[CKCoreChatController conversation](self, "conversation"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "sendingService"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "_headerTitleForPendingMediaObjects:subject:onService:", mediaObjects, string, v14), v3 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, !v3))
+    v12 = [expandedRecipients count];
+    if (!v12 || (-[CKCoreChatController conversation](self, "conversation"), v13 = objc_claimAutoreleasedReturnValue(), -[CKCoreChatController conversation](self, "conversation"), v14 = objc_claimAutoreleasedReturnValue(), [v14 sendingService], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "_headerTitleForPendingMediaObjects:subject:onService:", mediaObjects, string, v15), v3 = objc_claimAutoreleasedReturnValue(), v15, v14, v13, !v3))
     {
-      v15 = CKFrameworkBundle();
-      v3 = [v15 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v16 = CKFrameworkBundle(v12);
+      v3 = [v16 localizedStringForKey:@"NEW_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     }
   }
 
@@ -2436,7 +2437,7 @@ LABEL_10:
 
 - (id)inputAccessoryViewController
 {
-  if (CKInputAccessoryViewControllerEnabled() && [(CKComposeChatController *)self shouldShowEntryView])
+  if (CKInputAccessoryViewControllerEnabled(self, a2) && [(CKComposeChatController *)self shouldShowEntryView])
   {
     v5.receiver = self;
     v5.super_class = CKComposeChatController;
@@ -2453,7 +2454,7 @@ LABEL_10:
 
 - (id)inputAccessoryView
 {
-  if (CKInputAccessoryViewControllerEnabled() || ![(CKComposeChatController *)self shouldShowEntryView])
+  if (CKInputAccessoryViewControllerEnabled(self, a2) || ![(CKComposeChatController *)self shouldShowEntryView])
   {
     inputAccessoryView = 0;
   }
@@ -3047,15 +3048,15 @@ void __57__CKComposeChatController_messageEntryViewSendButtonHit___block_invoke_
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __57__CKComposeChatController_messageEntryViewSendButtonHit___block_invoke_420(uint64_t a1)
+uint64_t __57__CKComposeChatController_messageEntryViewSendButtonHit___block_invoke_420(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Send block invoked", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Send block invoked", v5, 2u);
     }
   }
 
@@ -3280,7 +3281,7 @@ void __74__CKComposeChatController_sendAnimationManagerWillStartAnimation_contex
 - (void)recipientSelectionController:(id)controller didSelectConversation:(id)conversation isiMessagable:(BOOL)messagable
 {
   messagableCopy = messagable;
-  v76 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   conversationCopy = conversation;
   if (IMOSLoggingEnabled())
@@ -3289,7 +3290,7 @@ void __74__CKComposeChatController_sendAnimationManagerWillStartAnimation_contex
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v75 = conversationCopy;
+      v77 = conversationCopy;
       _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "recipientSelectionController didSelectConversation: %@", buf, 0xCu);
     }
   }
@@ -3307,14 +3308,14 @@ void __74__CKComposeChatController_sendAnimationManagerWillStartAnimation_contex
     collectionViewController = [(CKCoreChatController *)self collectionViewController];
     if (collectionViewController)
     {
-      v69[0] = MEMORY[0x1E69E9820];
-      v69[1] = 3221225472;
-      v69[2] = __92__CKComposeChatController_recipientSelectionController_didSelectConversation_isiMessagable___block_invoke;
-      v69[3] = &unk_1E72EB880;
-      v70 = delegate;
+      v71[0] = MEMORY[0x1E69E9820];
+      v71[1] = 3221225472;
+      v71[2] = __92__CKComposeChatController_recipientSelectionController_didSelectConversation_isiMessagable___block_invoke;
+      v71[3] = &unk_1E72EB880;
+      v72 = delegate;
       selfCopy = self;
-      v72 = conversationCopy;
-      [collectionViewController updateTranscript:v69 animated:0 completion:0];
+      v74 = conversationCopy;
+      [collectionViewController updateTranscript:v71 animated:0 completion:0];
     }
 
     else
@@ -3349,64 +3350,64 @@ void __74__CKComposeChatController_sendAnimationManagerWillStartAnimation_contex
     hasUnreachableEmergencyRecipient = [(CKComposeChatController *)self hasUnreachableEmergencyRecipient];
     if (hasUnreachableEmergencyRecipient)
     {
+      v69 = 0u;
+      v70 = 0u;
       v67 = 0u;
       v68 = 0u;
-      v65 = 0u;
-      v66 = 0u;
       v20 = expandedRecipients;
-      v21 = [v20 countByEnumeratingWithState:&v65 objects:v73 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v67 objects:v75 count:16];
       if (v21)
       {
-        v22 = *v66;
+        v22 = *v68;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v66 != v22)
+            if (*v68 != v22)
             {
               objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v65 + 1) + 8 * i);
+            v24 = *(*(&v67 + 1) + 8 * i);
             rawAddress = [v24 rawAddress];
             IsEmergencyPhoneNumber = IMStringIsEmergencyPhoneNumber();
 
             if (IsEmergencyPhoneNumber)
             {
-              v27 = CKFrameworkBundle();
-              v28 = [v27 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+              v28 = CKFrameworkBundle(v27);
+              v29 = [v28 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
               rawAddress2 = [v24 rawAddress];
-              v30 = IMNormalizedPhoneNumberForPhoneNumber();
-              v31 = [rawAddress2 isEqualToIgnoringCase:v30];
+              v31 = IMNormalizedPhoneNumberForPhoneNumber();
+              v32 = [rawAddress2 isEqualToIgnoringCase:v31];
 
-              v32 = CKFrameworkBundle();
-              v33 = v32;
-              if (v31)
+              v34 = CKFrameworkBundle(v33);
+              v35 = v34;
+              if (v32)
               {
-                v34 = @"ERR_911_EMERGENCY_UNAVAILABLE_WITHOUT_SMS";
+                v36 = @"ERR_911_EMERGENCY_UNAVAILABLE_WITHOUT_SMS";
               }
 
               else
               {
-                v34 = @"ERR_EMERGENCY_UNAVAILABLE_WITHOUT_SMS";
+                v36 = @"ERR_EMERGENCY_UNAVAILABLE_WITHOUT_SMS";
               }
 
-              v35 = [v32 localizedStringForKey:v34 value:&stru_1F04268F8 table:@"ChatKit"];
+              v37 = [v34 localizedStringForKey:v36 value:&stru_1F04268F8 table:@"ChatKit"];
 
-              v36 = [CKAlertController alertControllerWithTitle:v28 message:v35 preferredStyle:1];
-              v37 = CKFrameworkBundle();
-              v38 = [v37 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-              v39 = [CKAlertAction actionWithTitle:v38 style:1 handler:0];
+              v38 = [CKAlertController alertControllerWithTitle:v29 message:v37 preferredStyle:1];
+              v39 = CKFrameworkBundle(v38);
+              v40 = [v39 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+              v41 = [CKAlertAction actionWithTitle:v40 style:1 handler:0];
 
-              [v36 addAction:v39];
-              [v36 presentFromViewController:self animated:1 completion:0];
+              [v38 addAction:v41];
+              [v38 presentFromViewController:self animated:1 completion:0];
 
               goto LABEL_25;
             }
           }
 
-          v21 = [v20 countByEnumeratingWithState:&v65 objects:v73 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v67 objects:v75 count:16];
           if (v21)
           {
             continue;
@@ -3421,36 +3422,36 @@ LABEL_25:
 
     conversation2 = [(CKCoreChatController *)self conversation];
     chat2 = [conversation2 chat];
-    v42 = [chat2 chatStyle] == 45;
+    v44 = [chat2 chatStyle] == 45;
 
-    if (v42 && [expandedRecipients count] == 1)
+    if (v44 && [expandedRecipients count] == 1)
     {
-      v43 = [expandedRecipients objectAtIndex:0];
-      rawAddress3 = [v43 rawAddress];
+      v45 = [expandedRecipients objectAtIndex:0];
+      rawAddress3 = [v45 rawAddress];
 
       mEMORY[0x1E69A5A80] = [MEMORY[0x1E69A5A80] sharedInstance];
       activeIMessageAccount = [mEMORY[0x1E69A5A80] activeIMessageAccount];
 
       conversation3 = [(CKCoreChatController *)self conversation];
-      v59 = [expandedRecipients objectAtIndex:0];
-      v47 = [(CKComposeChatController *)self shouldForceToSMSForConversation:conversation3 forRecipient:v59];
-      if (v47 && !messagableCopy)
+      v61 = [expandedRecipients objectAtIndex:0];
+      v49 = [(CKComposeChatController *)self shouldForceToSMSForConversation:conversation3 forRecipient:v61];
+      if (v49 && !messagableCopy)
       {
         mEMORY[0x1E69A5A80]2 = [MEMORY[0x1E69A5A80] sharedInstance];
         smsService = [MEMORY[0x1E69A5C90] smsService];
-        v50 = [mEMORY[0x1E69A5A80]2 accountsForService:smsService];
-        firstObject = [v50 firstObject];
+        v52 = [mEMORY[0x1E69A5A80]2 accountsForService:smsService];
+        firstObject = [v52 firstObject];
 
         activeIMessageAccount = firstObject;
       }
 
-      if (v47 || messagableCopy)
+      if (v49 || messagableCopy)
       {
-        v52 = [activeIMessageAccount imHandleWithID:rawAddress3];
+        v54 = [activeIMessageAccount imHandleWithID:rawAddress3];
         conversation4 = [(CKCoreChatController *)self conversation];
 
         chat3 = [conversation4 chat];
-        [chat3 setRecipient:v52];
+        [chat3 setRecipient:v54];
       }
 
       else
@@ -3465,8 +3466,8 @@ LABEL_25:
     entryView2 = [(CKChatController *)self entryView];
     [entryView2 setUnreachableEmergencyRecipient:hasUnreachableEmergencyRecipient];
 
-    v57 = [MEMORY[0x1E69A6170] globalTimingCollectionForKey:@"CKBackfillTimingKey"];
-    [v57 stopTimingForKey:@"didSelectConversation"];
+    v59 = [MEMORY[0x1E69A6170] globalTimingCollectionForKey:@"CKBackfillTimingKey"];
+    [v59 stopTimingForKey:@"didSelectConversation"];
 
     [(CKComposeChatController *)self _invalidateBlackholeAlertView];
   }
@@ -4158,9 +4159,9 @@ LABEL_32:
               descriptionText = [businessInfoView6 descriptionText];
               brand2 = [defaultIMHandle brand];
               localizedResponseTime = [brand2 localizedResponseTime];
-              v62 = [descriptionText isEqualToString:localizedResponseTime];
+              v63 = [descriptionText isEqualToString:localizedResponseTime];
 
-              if ((v62 & 1) == 0)
+              if ((v63 & 1) == 0)
               {
                 brand3 = [defaultIMHandle brand];
                 localizedResponseTime2 = [brand3 localizedResponseTime];
@@ -4180,16 +4181,16 @@ LABEL_35:
               {
                 businessInfoView8 = [(CKComposeChatController *)self businessInfoView];
                 greetingText2 = [businessInfoView8 greetingText];
-                v70 = CKFrameworkBundle();
-                v71 = [v70 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_NO_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
-                v72 = [greetingText2 isEqualToString:v71];
+                v71 = CKFrameworkBundle(greetingText2);
+                v72 = [v71 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_NO_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
+                v73 = [greetingText2 isEqualToString:v72];
 
-                if ((v72 & 1) == 0)
+                if ((v73 & 1) == 0)
                 {
-                  v73 = CKFrameworkBundle();
-                  v74 = [v73 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_NO_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
+                  v75 = CKFrameworkBundle(v74);
+                  v76 = [v75 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_NO_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
                   businessInfoView9 = [(CKComposeChatController *)self businessInfoView];
-                  [businessInfoView9 setGreetingText:v74];
+                  [businessInfoView9 setGreetingText:v76];
 
                   [(CKComposeChatController *)self layoutBusinessInfoViewIfNecessary];
                 }
@@ -4224,7 +4225,7 @@ LABEL_31:
         businessInfoView11 = [(CKComposeChatController *)self businessInfoView];
         greetingText3 = [businessInfoView11 greetingText];
         v38 = MEMORY[0x1E696AEC0];
-        v39 = CKFrameworkBundle();
+        v39 = CKFrameworkBundle(greetingText3);
         v40 = [v39 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
         brand5 = [defaultIMHandle brand];
         name3 = [brand5 name];
@@ -4251,27 +4252,27 @@ LABEL_31:
           goto LABEL_32;
         }
 
-        v49 = MEMORY[0x1E696AEC0];
-        v50 = CKFrameworkBundle();
-        v51 = [v50 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
+        v50 = MEMORY[0x1E696AEC0];
+        v51 = CKFrameworkBundle(v49);
+        v52 = [v51 localizedStringForKey:@"BUSINESS_GREETING_DEFAULT_BRAND" value:&stru_1F04268F8 table:@"ChatKit"];
         brand6 = [defaultIMHandle brand];
         name4 = [brand6 name];
-        v54 = [v49 stringWithFormat:v51, name4];
+        v55 = [v50 stringWithFormat:v52, name4];
 
         mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection2 == 1)
         {
-          v57 = @"\u200F";
+          v58 = @"\u200F";
         }
 
         else
         {
-          v57 = @"\u200E";
+          v58 = @"\u200E";
         }
 
-        bizIntent3 = [(__CFString *)v57 stringByAppendingString:v54];
+        bizIntent3 = [(__CFString *)v58 stringByAppendingString:v55];
 
         businessInfoView12 = [(CKComposeChatController *)self businessInfoView];
         [businessInfoView12 setGreetingText:bizIntent3];

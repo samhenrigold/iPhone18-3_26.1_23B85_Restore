@@ -19,11 +19,11 @@
 
 - (SUCoreActivityScheduler)initWithPersistedStatePath:(id)path
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v35.receiver = self;
-  v35.super_class = SUCoreActivityScheduler;
-  v5 = [(SUCoreActivityScheduler *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = SUCoreActivityScheduler;
+  v5 = [(SUCoreActivityScheduler *)&v34 init];
   if (!v5)
   {
     goto LABEL_19;
@@ -71,9 +71,9 @@
     if ((v17 & 1) == 0)
     {
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v34 = 0;
-      [defaultManager2 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v34];
-      v19 = v34;
+      v33 = 0;
+      [defaultManager2 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v33];
+      v19 = v33;
 
       if (v19)
       {
@@ -84,9 +84,9 @@
         {
           path2 = [pathCopy path];
           *buf = 138543618;
-          v37 = path2;
-          v38 = 2114;
-          v39 = v19;
+          v36 = path2;
+          v37 = 2114;
+          v38 = v19;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "Error creating persisted state file %{public}@: %{public}@", buf, 0x16u);
         }
       }
@@ -109,12 +109,11 @@ LABEL_15:
   if (os_log_type_enabled(oslog3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = pathCopy;
+    v36 = pathCopy;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "Created SUCoreActivityScheduler with persisted state path: %{public}@", buf, 0xCu);
   }
 
 LABEL_19:
-  v32 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -307,28 +306,28 @@ void __62__SUCoreActivityScheduler__unregisterRegistrationForActivity___block_in
 
 void __60__SUCoreActivityScheduler__unregisterAllActivitiesWithName___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v3 = *(*(a1 + 32) + 16);
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 activityName];
         v10 = [v9 isEqualToString:*(a1 + 40)];
 
@@ -338,33 +337,33 @@ void __60__SUCoreActivityScheduler__unregisterAllActivitiesWithName___block_invo
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v5);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = v2;
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * j);
-        v17 = [*(a1 + 32) _queue_registrationForActivity:{v16, v19}];
+        v16 = *(*(&v18 + 1) + 8 * j);
+        v17 = [*(a1 + 32) _queue_registrationForActivity:{v16, v18}];
         if (v17)
         {
           [*(*(a1 + 32) + 8) deregisterCallback:v17];
@@ -373,14 +372,13 @@ void __60__SUCoreActivityScheduler__unregisterAllActivitiesWithName___block_invo
         [*(a1 + 32) _queue_removeRegistrationForActivity:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v13);
   }
 
   [*(a1 + 32) _queue_persistRegistrationMap];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyRegisteredActivities
@@ -408,10 +406,7 @@ void __60__SUCoreActivityScheduler__unregisterAllActivitiesWithName___block_invo
 
 uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 16) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -419,41 +414,41 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
 - (void)_queue_persistRegistrationMap
 {
   selfCopy = self;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateQueue);
-  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = selfCopy->_activityArray;
-  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v33;
+    v6 = *v32;
     v7 = 0x277CCA000uLL;
     *&v4 = 138543618;
-    v25 = v4;
+    v24 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * i);
-        v10 = [(SUCoreActivityScheduler *)selfCopy _queue_registrationForActivity:v9, v25];
+        v9 = *(*(&v31 + 1) + 8 * i);
+        v10 = [(SUCoreActivityScheduler *)selfCopy _queue_registrationForActivity:v9, v24];
         if (v10)
         {
           v11 = *(v7 + 2736);
-          v31 = 0;
-          v12 = [v11 archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v31];
-          v13 = v31;
-          v29 = v12;
+          v30 = 0;
+          v12 = [v11 archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v30];
+          v13 = v30;
+          v28 = v12;
           if (v13)
           {
             mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -461,23 +456,23 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
 
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
             {
-              *buf = v25;
-              v37 = v10;
-              v38 = 2114;
-              v39 = v13;
+              *buf = v24;
+              v36 = v10;
+              v37 = 2114;
+              v38 = v13;
               _os_log_error_impl(&dword_23193C000, oslog, OS_LOG_TYPE_ERROR, "Error archiving registration:%{public}@ error:%{public}@", buf, 0x16u);
             }
           }
 
           else
           {
-            [v27 addObject:v12];
+            [v26 addObject:v12];
           }
 
           v17 = *(v7 + 2736);
-          v30 = v13;
-          v18 = [v17 archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v30];
-          v16 = v30;
+          v29 = v13;
+          v18 = [v17 archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v29];
+          v16 = v29;
 
           if (v16)
           {
@@ -489,10 +484,10 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
 
             if (os_log_type_enabled(oslog2, OS_LOG_TYPE_ERROR))
             {
-              *buf = v25;
-              v37 = v9;
-              v38 = 2114;
-              v39 = v16;
+              *buf = v24;
+              v36 = v9;
+              v37 = 2114;
+              v38 = v16;
               _os_log_error_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_ERROR, "Error archiving activity:%{public}@ error:%{public}@", buf, 0x16u);
             }
 
@@ -504,7 +499,7 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
 
           else
           {
-            [v26 addObject:v18];
+            [v25 addObject:v18];
           }
         }
 
@@ -514,16 +509,14 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
         }
       }
 
-      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v5);
   }
 
-  [(SUCorePersistedState *)selfCopy->_persistedState persistObject:v27 forKey:@"RegistrationKey"];
-  [(SUCorePersistedState *)selfCopy->_persistedState persistObject:v26 forKey:@"ActivityKey"];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(SUCorePersistedState *)selfCopy->_persistedState persistObject:v26 forKey:@"RegistrationKey"];
+  [(SUCorePersistedState *)selfCopy->_persistedState persistObject:v25 forKey:@"ActivityKey"];
 }
 
 - (void)_loadPersistedRegistrationMap
@@ -540,7 +533,7 @@ uint64_t __52__SUCoreActivityScheduler__copyRegisteredActivities__block_invoke(u
 
 void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke(uint64_t a1)
 {
-  v55[4] = *MEMORY[0x277D85DE8];
+  v54[4] = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 40) loadPersistedState])
   {
     v2 = [*(*(a1 + 32) + 40) objectForKey:@"RegistrationKey" ofClass:objc_opt_class()];
@@ -563,19 +556,19 @@ void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke(u
         v7 = [v2 count];
         if (v7 == [v4 count])
         {
-          v48 = [*(a1 + 32) _contextStoreRegisteredActivities];
+          v47 = [*(a1 + 32) _contextStoreRegisteredActivities];
           if ([v4 count])
           {
-            v45 = a1;
+            v44 = a1;
             v9 = 0;
             v10 = 0x277CCA000uLL;
             *&v8 = 134217984;
-            v44 = v8;
-            v46 = v4;
-            v47 = v2;
+            v43 = v8;
+            v45 = v4;
+            v46 = v2;
             while (1)
             {
-              v11 = [v4 objectAtIndex:{v9, v44}];
+              v11 = [v4 objectAtIndex:{v9, v43}];
               v12 = [v2 objectAtIndex:v9];
               v13 = v12;
               if (v12)
@@ -593,8 +586,8 @@ void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke(u
 
                 if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v44;
-                  v52 = v9;
+                  *buf = v43;
+                  v51 = v9;
                   _os_log_error_impl(&dword_23193C000, v32, OS_LOG_TYPE_ERROR, "No registrationData found at index: %lu", buf, 0xCu);
                 }
 
@@ -609,8 +602,8 @@ LABEL_37:
 
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v44;
-                  v52 = v9;
+                  *buf = v43;
+                  v51 = v9;
                   _os_log_error_impl(&dword_23193C000, v26, OS_LOG_TYPE_ERROR, "No activityData found at index: %lu", buf, 0xCu);
                 }
 
@@ -635,9 +628,9 @@ LABEL_40:
 
             v14 = *(v10 + 2760);
             v15 = objc_opt_class();
-            v50 = 0;
-            v16 = [v14 unarchivedObjectOfClass:v15 fromData:v13 error:&v50];
-            v17 = v50;
+            v49 = 0;
+            v16 = [v14 unarchivedObjectOfClass:v15 fromData:v13 error:&v49];
+            v17 = v49;
             if (v17)
             {
               v18 = [MEMORY[0x277D64460] sharedLogger];
@@ -646,7 +639,7 @@ LABEL_40:
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v52 = v17;
+                v51 = v17;
                 _os_log_error_impl(&dword_23193C000, v19, OS_LOG_TYPE_ERROR, "Error unarchiving registration: %{public}@", buf, 0xCu);
               }
             }
@@ -654,15 +647,15 @@ LABEL_40:
             v20 = v10;
             v21 = *(v10 + 2760);
             v22 = MEMORY[0x277CBEB98];
-            v55[0] = objc_opt_class();
-            v55[1] = objc_opt_class();
-            v55[2] = objc_opt_class();
-            v55[3] = objc_opt_class();
-            v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:4];
+            v54[0] = objc_opt_class();
+            v54[1] = objc_opt_class();
+            v54[2] = objc_opt_class();
+            v54[3] = objc_opt_class();
+            v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:4];
             v24 = [v22 setWithArray:v23];
-            v49 = v17;
-            v25 = [v21 unarchivedObjectOfClasses:v24 fromData:v11 error:&v49];
-            v26 = v49;
+            v48 = v17;
+            v25 = [v21 unarchivedObjectOfClasses:v24 fromData:v11 error:&v48];
+            v26 = v48;
 
             if (v26)
             {
@@ -672,14 +665,14 @@ LABEL_40:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v52 = v26;
+                v51 = v26;
                 _os_log_error_impl(&dword_23193C000, v28, OS_LOG_TYPE_ERROR, "Error unarchiving activity: %{public}@", buf, 0xCu);
               }
             }
 
             v10 = v20;
-            v4 = v46;
-            if ([v48 containsObject:v16])
+            v4 = v45;
+            if ([v47 containsObject:v16])
             {
               v29 = [MEMORY[0x277D64460] sharedLogger];
               v30 = [v29 oslog];
@@ -687,16 +680,16 @@ LABEL_40:
               if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v52 = v25;
-                v53 = 2114;
-                v54 = v16;
+                v51 = v25;
+                v52 = 2114;
+                v53 = v16;
                 _os_log_impl(&dword_23193C000, v30, OS_LOG_TYPE_DEFAULT, "Found matching activity:%{public}@ registration: %{public}@", buf, 0x16u);
               }
 
-              [*(v45 + 32) _queue_addRegistration:v16 forActivity:v25];
+              [*(v44 + 32) _queue_addRegistration:v16 forActivity:v25];
             }
 
-            v2 = v47;
+            v2 = v46;
             goto LABEL_39;
           }
 
@@ -718,7 +711,7 @@ LABEL_55:
         v39 = [MEMORY[0x277D64460] sharedLogger];
         v40 = [v39 oslog];
 
-        v48 = v40;
+        v47 = v40;
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_5();
@@ -730,7 +723,7 @@ LABEL_55:
         v41 = [MEMORY[0x277D64460] sharedLogger];
         v42 = [v41 oslog];
 
-        v48 = v42;
+        v47 = v42;
         if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_4(v2, v4, v42);
@@ -786,8 +779,6 @@ LABEL_54:
   }
 
 LABEL_56:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sharedMemoryStore
@@ -825,7 +816,7 @@ uint64_t __44__SUCoreActivityScheduler_sharedMemoryStore__block_invoke()
 
 - (void)scheduleActivity:(id)activity withHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   handlerCopy = handler;
   context = self->_context;
@@ -843,7 +834,7 @@ uint64_t __44__SUCoreActivityScheduler_sharedMemoryStore__block_invoke()
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v22 = activityCopy;
+        v21 = activityCopy;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Scheduling activity = %{public}@", buf, 0xCu);
       }
 
@@ -867,7 +858,7 @@ uint64_t __44__SUCoreActivityScheduler_sharedMemoryStore__block_invoke()
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = activityCopy;
+    v21 = activityCopy;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "Conditions met for activity: %{public}@", buf, 0xCu);
   }
 
@@ -875,17 +866,15 @@ uint64_t __44__SUCoreActivityScheduler_sharedMemoryStore__block_invoke()
   {
     activityName = [activityCopy activityName];
     uUID = [activityCopy UUID];
-    v19[1] = @"WasScheduled";
-    v20[0] = uUID;
+    v18[1] = @"WasScheduled";
+    v19[0] = uUID;
     v14 = [MEMORY[0x277CCABB0] numberWithBool:0];
-    v20[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v19[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     handlerCopy[2](handlerCopy, activityName, v15);
 
 LABEL_13:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithPersistedStatePath:.cold.1()
@@ -909,31 +898,14 @@ void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_c
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_4(void *a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218240;
-  v7 = [a1 count];
-  v8 = 2048;
-  v9 = [a2 count];
-  _os_log_error_impl(&dword_23193C000, a3, OS_LOG_TYPE_ERROR, "persistedRegistrationArray(%lu) and persistedActivitiesArray(%lu) have differing counts", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = [a1 count];
+  v7 = 2048;
+  v8 = [a2 count];
+  _os_log_error_impl(&dword_23193C000, a3, OS_LOG_TYPE_ERROR, "persistedRegistrationArray(%lu) and persistedActivitiesArray(%lu) have differing counts", &v5, 0x16u);
 }
 
 void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_cold_5()
@@ -941,14 +913,6 @@ void __56__SUCoreActivityScheduler__loadPersistedRegistrationMap__block_invoke_c
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)scheduleActivity:withHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

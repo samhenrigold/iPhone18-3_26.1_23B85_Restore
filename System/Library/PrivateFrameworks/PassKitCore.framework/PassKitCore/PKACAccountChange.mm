@@ -50,9 +50,9 @@ LABEL_18:
 
   if (v18 && v17)
   {
-    v20 = [v18 isEqualToString:v17];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-    if (v20)
+    if (isEqualToString)
     {
       v21 = 0;
 LABEL_19:
@@ -85,7 +85,7 @@ LABEL_19:
         v37 = 1;
         if (v34 && v35)
         {
-          v37 = [v34 isEqualToString:v35] ^ 1;
+          v37 = objc_msgSend_isEqualToString_(v34) ^ 1;
         }
       }
 
@@ -111,7 +111,7 @@ LABEL_19:
 
   if (v24 && v23)
   {
-    v25 = [v24 isEqualToString:v23];
+    v25 = objc_msgSend_isEqualToString_(v24);
 
     if (v25)
     {

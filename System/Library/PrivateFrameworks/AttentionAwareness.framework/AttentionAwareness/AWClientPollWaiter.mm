@@ -152,11 +152,11 @@ LABEL_12:
   return v14;
 }
 
-uint64_t __57__AWClientPollWaiter_initWithClient_timeout_queue_block___block_invoke(uint64_t result)
+id *__57__AWClientPollWaiter_initWithClient_timeout_queue_block___block_invoke(id *result)
 {
-  if (*(*(result + 32) + 48) != 3)
+  if (*(result[4] + 12) != 3)
   {
-    return [*(result + 40) notifyPollEventType:3 event:0];
+    return [result[5] notifyPollEventType:3 event:0];
   }
 
   return result;

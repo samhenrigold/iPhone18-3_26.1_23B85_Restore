@@ -13,11 +13,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider24DetailCollectionViewCell_selectionHandler);
   if (v2)
   {
+    v3 = *&self->previousTitleTextColor[OBJC_IVAR____TtC18ASMessagesProvider24DetailCollectionViewCell_selectionHandler];
     selfCopy = self;
-    v4 = sub_F714(v2);
-    v2(v4);
+    v5 = sub_F714(v2, v3);
+    v2(v5);
 
-    sub_F704(v2);
+    sub_F704(v2, v3);
   }
 }
 
@@ -29,15 +30,16 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v5 = sub_340C1C(width);
-  v7 = v6;
+  v6 = sub_340C1C(width, height);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -46,14 +48,15 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider24DetailCollectionViewCell_accessoryAction);
   if (v3)
   {
-    v8[3] = sub_BE70(0, &unk_948000);
-    v8[0] = view;
+    v6 = *&self->previousTitleTextColor[OBJC_IVAR____TtC18ASMessagesProvider24DetailCollectionViewCell_accessoryAction];
+    v10[3] = sub_BE70(0, &unk_948000, UIControl_ptr);
+    v10[0] = view;
     viewCopy = view;
     selfCopy = self;
-    sub_F714(v3);
-    v3(v8);
-    sub_F704(v3);
-    sub_10A2C(v8, &unk_93FBD0);
+    v9 = sub_F714(v3, v6);
+    v3(v10, v9);
+    sub_F704(v3, v6);
+    sub_10A2C(v10, &unk_93FBD0, &qword_77DFA0);
   }
 }
 

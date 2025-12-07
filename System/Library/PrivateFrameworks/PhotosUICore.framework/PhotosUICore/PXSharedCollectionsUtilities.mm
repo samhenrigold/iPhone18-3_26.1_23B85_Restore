@@ -18,7 +18,7 @@
 
 + (id)sharedAlbumTitleForAssets:(id)assets inAssetCollection:(id)collection
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v5 = sub_1A524CA34();
   collectionCopy = collection;
   SharedCollectionsTitle(for:in:)(v5, collection);
@@ -38,11 +38,11 @@
 
 + (id)createDefaultAssetCreationOptionsForAssets:(id)assets
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v3 = sub_1A524CA34();
   sub_1A4976C7C(v3);
 
-  sub_1A3C52C70(0, &qword_1EB12B618);
+  sub_1A3C52C70(0, &qword_1EB12B618, 0x1E6978690);
   v4 = sub_1A524C3D4();
 
   return v4;
@@ -53,17 +53,17 @@
   v7 = _Block_copy(handler);
   v8 = sub_1A524C674();
   v10 = v9;
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v11 = sub_1A524CA34();
   v12 = swift_allocObject();
-  *(v12 + 16) = v7;
+  v12[2] = v7;
   SharedCollectionsCreateAlbum(albumName:assets:photoLibrary:completionHandler:)(v8, v10, v11, library, sub_1A4981364, v12);
 }
 
 + (void)deleteAlbums:(id)albums completionHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  sub_1A3C52C70(0, &qword_1EB126AC0);
+  sub_1A3C52C70(0, &qword_1EB126AC0, 0x1E6978650);
   v5 = sub_1A524CA34();
   v6 = swift_allocObject();
   *(v6 + 16) = v4;
@@ -73,7 +73,7 @@
 + (void)addAssetsTo:(id)to assets:(id)assets comment:(id)comment completionHandler:(id)handler
 {
   v8 = _Block_copy(handler);
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v9 = sub_1A524CA34();
   if (comment)
   {

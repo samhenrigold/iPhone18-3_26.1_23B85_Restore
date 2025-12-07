@@ -1703,7 +1703,7 @@ LABEL_37:
     infoCopy = v54;
     [(IDSAccountSync *)selfCopy _registerAccountsWithRemoteInfo:v54];
     serviceCopy = v56;
-    if (![v56 isEqualToIgnoringCase:@"com.apple.madrid"] || (v18 & 1) == 0)
+    if (!objc_msgSend_isEqualToIgnoringCase_(v56) || (v18 & 1) == 0)
     {
       goto LABEL_55;
     }
@@ -1733,7 +1733,7 @@ LABEL_37:
           if (([v48 useiMessageCallerID] & 1) == 0)
           {
             pushTopic = [v48 pushTopic];
-            v50 = [pushTopic isEqualToIgnoringCase:@"com.apple.madrid"];
+            v50 = objc_msgSend_isEqualToIgnoringCase_(pushTopic);
 
             if (!v50)
             {
@@ -2412,7 +2412,7 @@ LABEL_53:
           }
 
           v19 = *(*(&v68 + 1) + 8 * v18);
-          if (([v19 useiMessageCallerID] & 1) != 0 || (objc_msgSend(v19, "pushTopic"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToIgnoringCase:", @"com.apple.madrid"), v20, v21))
+          if (([v19 useiMessageCallerID] & 1) != 0 || (objc_msgSend(v19, "pushTopic"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend_isEqualToIgnoringCase_(v20), v20, v21))
           {
             accountSync2 = [v9[504] accountSync];
             if (os_log_type_enabled(accountSync2, OS_LOG_TYPE_DEFAULT))

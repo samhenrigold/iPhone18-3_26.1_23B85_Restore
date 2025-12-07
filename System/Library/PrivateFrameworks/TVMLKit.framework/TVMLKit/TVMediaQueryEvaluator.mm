@@ -47,14 +47,14 @@
   return v15;
 }
 
-void __79__TVMediaQueryEvaluator_evaluatorForTemplateElement_inWindow_traitEnvironment___block_invoke()
+void __79__TVMediaQueryEvaluator_evaluatorForTemplateElement_inWindow_traitEnvironment___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v2 = @"stackTemplate";
-  v3[0] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
-  v1 = evaluatorForTemplateElement_inWindow_traitEnvironment__evaluatorClassByTemplate;
-  evaluatorForTemplateElement_inWindow_traitEnvironment__evaluatorClassByTemplate = v0;
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"stackTemplate";
+  v5[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = evaluatorForTemplateElement_inWindow_traitEnvironment__evaluatorClassByTemplate;
+  evaluatorForTemplateElement_inWindow_traitEnvironment__evaluatorClassByTemplate = v2;
 }
 
 - (TVMediaQueryEvaluator)initWithTemplateElement:(id)element inWindow:(id)window traitEnvironment:(id)environment
@@ -220,17 +220,17 @@ void __44__TVMediaQueryEvaluator_evaluateMediaQuery___block_invoke_4(uint64_t a1
   return v2;
 }
 
-uint64_t __37__TVMediaQueryEvaluator__productType__block_invoke()
+uint64_t __37__TVMediaQueryEvaluator__productType__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_opt_class() _mobileGestaltStringForKey:@"ProductType"];
-  v1 = _productType_productType;
-  _productType_productType = v0;
-
-  v2 = [_productType_productType stringByReplacingOccurrencesOfString:@" withString:{", @"-"}];
+  v2 = [objc_opt_class() _mobileGestaltStringForKey:@"ProductType"];
   v3 = _productType_productType;
   _productType_productType = v2;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  v4 = [_productType_productType stringByReplacingOccurrencesOfString:@" withString:{", @"-"}];
+  v5 = _productType_productType;
+  _productType_productType = v4;
+
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (BOOL)_evaluateDeviceFeatureType:(id)type withValue:(id)value

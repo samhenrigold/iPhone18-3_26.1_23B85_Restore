@@ -2996,7 +2996,7 @@ void __77__UIPresentationController_runTransitionForCurrentStateAnimated_handoff
   [v3 endEditing:1];
 }
 
-uint64_t __77__UIPresentationController_runTransitionForCurrentStateAnimated_handoffData___block_invoke_2(uint64_t a1)
+void *__77__UIPresentationController_runTransitionForCurrentStateAnimated_handoffData___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) transitionWasCancelled];
   if ((result & 1) == 0)
@@ -3249,7 +3249,7 @@ void __77__UIPresentationController_runTransitionForCurrentStateAnimated_handoff
   v69 = *(a1 + 40);
   if (v68)
   {
-    [v68 transformOfPresentedViewInContainerView];
+    objc_msgSend_transformOfPresentedViewInContainerView(v68);
   }
 
   else
@@ -3629,7 +3629,7 @@ LABEL_7:
   }
 }
 
-uint64_t __55__UIPresentationController__beginOcclusionIfNecessary___block_invoke_2(uint64_t a1, void *a2)
+void *__55__UIPresentationController__beginOcclusionIfNecessary___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -4579,7 +4579,7 @@ LABEL_10:
 
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -5016,22 +5016,22 @@ LABEL_20:
 
 - (void)_recordTraitUsage:(__int128 *)usage trackedStateDiff:(unint64_t)diff insideMethod:(const char *)method withInvalidationAction:
 {
-  if (self)
+  if (result)
   {
-    if (!self[4])
+    if (!result[4])
     {
       if (_UITraitTokenSetCount(a2))
       {
         v10 = objc_alloc_init(_UITraitChangeRegistry);
-        v11 = self[4];
-        self[4] = v10;
+        v11 = result[4];
+        result[4] = v10;
       }
     }
 
-    [(_UITraitChangeRegistry *)self[4] recordTraitUsage:a2 forTraitEnvironment:self insideMethod:diff withInvalidationAction:method];
+    [(_UITraitChangeRegistry *)result[4] recordTraitUsage:a2 forTraitEnvironment:result insideMethod:diff withInvalidationAction:method];
     v12 = *usage;
     v13 = *(usage + 2);
-    _UILogStateTracking(a2, self, &v12, diff, method);
+    _UILogStateTracking(a2, result, &v12, diff, method);
   }
 }
 
@@ -5144,7 +5144,7 @@ LABEL_20:
   v6 = self->_lastNotifiedTraitCollection;
   traitCollection = [(UIPresentationController *)self traitCollection];
   v8 = traitCollection;
-  if (v6 != traitCollection && ![(UITraitCollection *)traitCollection isEqual:v6])
+  if (v6 != traitCollection && (objc_msgSend_isEqual_(traitCollection) & 1) == 0)
   {
     objc_storeStrong(p_lastNotifiedTraitCollection, v8);
     v9 = _UISetCurrentFallbackEnvironment(self);
@@ -5310,7 +5310,7 @@ LABEL_20:
     v15 = [(_UITraitOverrides *)p_isa _traitCollectionByApplyingOverridesToTraitCollection:v13];
   }
 
-  if (v15 != traitCollection && ([traitCollection isEqual:v15] & 1) == 0)
+  if (v15 != traitCollection && (objc_msgSend_isEqual_(traitCollection) & 1) == 0)
   {
     v18 = MEMORY[0x1E69E9820];
     v19 = 3221225472;
@@ -5549,7 +5549,7 @@ LABEL_7:
   [_definiteTransitionCoordinator animateAlongsideTransition:0 completion:v4];
 }
 
-uint64_t __51__UIPresentationController__sendDismissalsAsNeeded__block_invoke(uint64_t a1, void *a2)
+void *__51__UIPresentationController__sendDismissalsAsNeeded__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -5747,7 +5747,7 @@ uint64_t __51__UIPresentationController__sendDismissalsAsNeeded__block_invoke(ui
   }
 }
 
-uint64_t __54__UIPresentationController__beginSubduingIfNecessary___block_invoke_2(uint64_t a1, void *a2)
+void *__54__UIPresentationController__beginSubduingIfNecessary___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

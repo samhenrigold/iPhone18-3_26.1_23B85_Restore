@@ -179,24 +179,24 @@ LABEL_6:
 
 - (id)authScopeWithError:(id *)error
 {
-  v4 = [(HDClinicalGateway *)self authorizeSchemaWithError:?];
-  v5 = v4;
-  if (v4)
+  v5 = [(HDClinicalGateway *)self authorizeSchemaWithError:?];
+  v6 = v5;
+  if (v5)
   {
-    v6 = [v4 currentScopeStringWithError:error];
-    v7 = v6;
-    if (v6)
+    v7 = [v5 currentScopeStringWithError:error];
+    v8 = v7;
+    if (v7)
     {
-      v8 = v6;
+      v9 = v7;
     }
 
     else
     {
       _HKInitializeLogging();
-      v10 = HKLogHealthRecords;
+      v11 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        sub_A625C(v10);
+        sub_A625C(v11, self);
       }
     }
   }
@@ -204,16 +204,16 @@ LABEL_6:
   else
   {
     _HKInitializeLogging();
-    v9 = HKLogHealthRecords;
+    v10 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_A62F0(v9);
+      sub_A62F0(v10, self);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (NSString)externalID

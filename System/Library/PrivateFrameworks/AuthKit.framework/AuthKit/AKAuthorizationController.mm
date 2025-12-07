@@ -99,7 +99,6 @@
   v2.receiver = selfCopy;
   v2.super_class = AKAuthorizationController;
   [(AKAuthorizationController *)&v2 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setUiProvider:(id)provider
@@ -210,7 +209,6 @@ void __72__AKAuthorizationController_performAuthorizationWithContext_completion_
   (*(a1[4] + 16))();
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAuthorizationController_performAuthorizationWithContext_completion___block_invoke_4(void *a1, void *a2)
@@ -299,7 +297,6 @@ void __72__AKAuthorizationController_performAuthorizationWithContext_completion_
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKAuthorizationController_beginAuthorizationWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -360,7 +357,6 @@ void __70__AKAuthorizationController_beginAuthorizationWithContext_completion___
   (*(a1[4] + 16))();
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKAuthorizationController_beginAuthorizationWithContext_completion___block_invoke_7(void *a1, void *a2)
@@ -449,7 +445,6 @@ void __70__AKAuthorizationController_beginAuthorizationWithContext_completion___
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAuthorizationController_continueAuthorizationWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -510,7 +505,6 @@ void __73__AKAuthorizationController_continueAuthorizationWithContext_completion
   (*(a1[4] + 16))();
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAuthorizationController_continueAuthorizationWithContext_completion___block_invoke_8(void *a1, void *a2)
@@ -599,7 +593,6 @@ void __73__AKAuthorizationController_continueAuthorizationWithContext_completion
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAuthorizationController_cancelAuthorizationWithContext_completion___block_invoke(void *a1, void *a2)
@@ -660,7 +653,6 @@ void __71__AKAuthorizationController_cancelAuthorizationWithContext_completion__
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAuthorizationController_cancelAuthorizationWithContext_completion___block_invoke_9(void *a1, void *a2)
@@ -759,7 +751,6 @@ void __71__AKAuthorizationController_revokeAuthorizationWithContext_completion__
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAuthorizationController_revokeAuthorizationWithContext_completion___block_invoke_11(void *a1, void *a2)
@@ -854,7 +845,6 @@ void __69__AKAuthorizationController_getCredentialStateForRequest_completion___b
   objc_storeStrong(&oslog, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKAuthorizationController_getCredentialStateForRequest_completion___block_invoke_14(void *a1, void *a2)
@@ -949,7 +939,6 @@ void __70__AKAuthorizationController_getCredentialStateForClientID_completion___
   objc_storeStrong(&oslog, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKAuthorizationController_getCredentialStateForClientID_completion___block_invoke_15(void *a1, void *a2)
@@ -1048,7 +1037,6 @@ void __80__AKAuthorizationController_getPresentationContextForRequestContext_com
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAuthorizationController_getPresentationContextForRequestContext_completion___block_invoke_17(void *a1, void *a2)
@@ -1140,7 +1128,6 @@ void __80__AKAuthorizationController_getPresentationContextForRequestContext_com
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __100__AKAuthorizationController_performAuthorizationWithContext_withUserProvidedInformation_completion___block_invoke(uint64_t *a1, void *a2, void *a3)
@@ -1181,7 +1168,6 @@ void __100__AKAuthorizationController_performAuthorizationWithContext_withUserPr
   objc_storeStrong((*(a1[6] + 8) + 40), 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __100__AKAuthorizationController_performAuthorizationWithContext_withUserProvidedInformation_completion___block_invoke_19(void *a1, void *a2)
@@ -1236,7 +1222,6 @@ void __100__AKAuthorizationController_performAuthorizationWithContext_withUserPr
   objc_storeStrong(&v12, 0);
   _Block_object_dispose(&v13, 8);
   objc_storeStrong(&v19, 0);
-  *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1257,7 +1242,6 @@ void __48__AKAuthorizationController__nativeTakeoverURLs__block_invoke(NSObject 
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __48__AKAuthorizationController__nativeTakeoverURLs__block_invoke_20(void *a1, void *a2, void *a3)
@@ -1299,7 +1283,6 @@ void __48__AKAuthorizationController__nativeTakeoverURLs__block_invoke_20(void *
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_nativeTakeoverEndpointsWithCompletionHandler:(id)handler
@@ -1362,7 +1345,6 @@ void __75__AKAuthorizationController__nativeTakeoverEndpointsWithCompletionHandl
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKAuthorizationController__nativeTakeoverEndpointsWithCompletionHandler___block_invoke_22(void *a1, void *a2, void *a3)
@@ -1406,7 +1388,6 @@ void __75__AKAuthorizationController__nativeTakeoverEndpointsWithCompletionHandl
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_appleOwnedDomains
@@ -1452,7 +1433,6 @@ void __75__AKAuthorizationController__nativeTakeoverEndpointsWithCompletionHandl
   objc_storeStrong(&v12, 0);
   _Block_object_dispose(&v13, 8);
   objc_storeStrong(&v19, 0);
-  *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1473,7 +1453,6 @@ void __47__AKAuthorizationController__appleOwnedDomains__block_invoke(NSObject *
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __47__AKAuthorizationController__appleOwnedDomains__block_invoke_25(void *a1, void *a2, void *a3)
@@ -1515,7 +1494,6 @@ void __47__AKAuthorizationController__appleOwnedDomains__block_invoke_25(void *a
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_allowListDomainsForSharingKey
@@ -1561,7 +1539,6 @@ void __47__AKAuthorizationController__appleOwnedDomains__block_invoke_25(void *a
   objc_storeStrong(&v12, 0);
   _Block_object_dispose(&v13, 8);
   objc_storeStrong(&v19, 0);
-  *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1582,7 +1559,6 @@ void __59__AKAuthorizationController__allowListDomainsForSharingKey__block_invok
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __59__AKAuthorizationController__allowListDomainsForSharingKey__block_invoke_28(void *a1, void *a2, void *a3)
@@ -1624,7 +1600,6 @@ void __59__AKAuthorizationController__allowListDomainsForSharingKey__block_invok
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAppleIDAuthorizeHTMLResponseTemplateWithCompletion:(id)completion
@@ -1706,7 +1681,6 @@ void __85__AKAuthorizationController_fetchAppleIDAuthorizeHTMLResponseTemplateWi
   (*(a1[4] + 16))();
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKAuthorizationController_fetchAppleIDAuthorizeHTMLResponseTemplateWithCompletion___block_invoke_30(void *a1, void *a2)
@@ -1800,7 +1774,6 @@ void __78__AKAuthorizationController_continueFetchingIconForRequestContext_compl
   (*(a1[4] + 16))();
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAuthorizationController_continueFetchingIconForRequestContext_completion___block_invoke_32(void *a1, void *a2)
@@ -1874,7 +1847,6 @@ void __78__AKAuthorizationController_continueFetchingIconForRequestContext_compl
   os_activity_scope_leave(&state);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1896,7 +1868,6 @@ void __86__AKAuthorizationController_primaryApplicationInformationForWebServiceW
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __86__AKAuthorizationController_primaryApplicationInformationForWebServiceWithInfo_error___block_invoke_34(NSObject *a1, void *a2, void *a3)
@@ -1920,7 +1891,6 @@ void __86__AKAuthorizationController_primaryApplicationInformationForWebServiceW
   objc_storeStrong((*(a1[5].isa + 1) + 40), v6);
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)storeAuthorization:(id)authorization forProxiedRequest:(id)request completion:(id)completion
@@ -2013,7 +1983,6 @@ void __77__AKAuthorizationController_storeAuthorization_forProxiedRequest_comple
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAuthorizationController_storeAuthorization_forProxiedRequest_completion___block_invoke_36(void *a1, void *a2)
@@ -2269,7 +2238,6 @@ LABEL_40:
 
   objc_storeStrong(&v60, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v62 & 1;
 }
 
@@ -2580,7 +2548,6 @@ LABEL_14:
   objc_storeStrong(&host, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
@@ -2605,34 +2572,8 @@ LABEL_14:
   v9 = +[AKFeatureManager sharedManager];
   isForgotPasswordNativeTakeoverEnabled = [v9 isForgotPasswordNativeTakeoverEnabled];
   MEMORY[0x1E69E5920](v9);
-  if ((isForgotPasswordNativeTakeoverEnabled & 1) == 0)
+  if ((isForgotPasswordNativeTakeoverEnabled & 1) == 0 || ((v5 = +[AKURLBag sharedBag](AKURLBag, "sharedBag"), v16 = [v5 iForgotWebURLToIntercept], MEMORY[0x1E69E5920](v5), v7 = objc_msgSend(v16, "host"), v6 = objc_msgSend(location[0], "host"), v8 = objc_msgSend(v7, "isEqualToString:"), MEMORY[0x1E69E5920](v6), MEMORY[0x1E69E5920](v7), (v8 & 1) == 0) ? (v15 = 0) : (v22 = 2, v15 = 1), objc_storeStrong(&v16, 0), !v15))
   {
-    goto LABEL_8;
-  }
-
-  v5 = +[AKURLBag sharedBag];
-  iForgotWebURLToIntercept = [v5 iForgotWebURLToIntercept];
-  MEMORY[0x1E69E5920](v5);
-  host = [iForgotWebURLToIntercept host];
-  host2 = [location[0] host];
-  v8 = [host isEqualToString:?];
-  MEMORY[0x1E69E5920](host2);
-  MEMORY[0x1E69E5920](host);
-  if (v8)
-  {
-    v22 = 2;
-    v15 = 1;
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  objc_storeStrong(&iForgotWebURLToIntercept, 0);
-  if (!v15)
-  {
-LABEL_8:
     v14 = [selfCopy isURLFromAppleOwnedDomain:location[0]];
     v13 = _AKLogSiwa();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -2657,7 +2598,6 @@ LABEL_8:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -2704,7 +2644,6 @@ LABEL_8:
   objc_storeStrong(&v12, 0);
   _Block_object_dispose(&v13, 8);
   objc_storeStrong(&v19, 0);
-  *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -2725,7 +2664,6 @@ void __43__AKAuthorizationController__sharedKeyInfo__block_invoke(NSObject *a1, 
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __43__AKAuthorizationController__sharedKeyInfo__block_invoke_53(void *a1, void *a2, void *a3)
@@ -2767,7 +2705,6 @@ void __43__AKAuthorizationController__sharedKeyInfo__block_invoke_53(void *a1, v
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)establishConnectionWithNotificationHandlerEndpoint:(id)endpoint completion:(id)completion
@@ -2854,7 +2791,6 @@ void __91__AKAuthorizationController_establishConnectionWithNotificationHandlerE
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __91__AKAuthorizationController_establishConnectionWithNotificationHandlerEndpoint_completion___block_invoke_54(void *a1, void *a2)
@@ -2950,7 +2886,6 @@ void __93__AKAuthorizationController_establishConnectionWithStateBroadcastHandle
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __93__AKAuthorizationController_establishConnectionWithStateBroadcastHandlerEndpoint_completion___block_invoke_55(void *a1, void *a2)

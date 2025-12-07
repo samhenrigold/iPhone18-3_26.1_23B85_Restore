@@ -11,78 +11,75 @@
 
 - (void)service:(id)service willOpenMessageLink:(id)link
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   linkCopy = link;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   observers = [(ATService *)self observers];
-  v7 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) service:self willOpenMessageLink:linkCopy];
+        [*(*(&v11 + 1) + 8 * v10++) service:self willOpenMessageLink:linkCopy];
       }
 
       while (v8 != v10);
-      v8 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service willOpenMessageLink:(id)link completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   completionCopy = completion;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   observers = [(ATService *)self observers];
-  v10 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) service:self willOpenMessageLink:linkCopy];
+        [*(*(&v14 + 1) + 8 * v13++) service:self willOpenMessageLink:linkCopy];
       }
 
       while (v11 != v13);
-      v11 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
 
   completionCopy[2](completionCopy, 0);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageLinks
@@ -128,23 +125,22 @@
 
 void __30__ATServiceProxy_messageLinks__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_log_create("com.apple.amp.AirTraffic", "XPC");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "get message links - failed to obtain remote proxy. err=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_ERROR, "get message links - failed to obtain remote proxy. err=%{public}@", &v5, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __30__ATServiceProxy_messageLinks__block_invoke_65(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (!a2 || v5)
@@ -152,9 +148,9 @@ void __30__ATServiceProxy_messageLinks__block_invoke_65(uint64_t a1, uint64_t a2
     v10 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_23EC61000, v10, OS_LOG_TYPE_ERROR, "failed to get message links from service. err=%{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_23EC61000, v10, OS_LOG_TYPE_ERROR, "failed to get message links from service. err=%{public}@", &v11, 0xCu);
     }
   }
 
@@ -167,8 +163,6 @@ void __30__ATServiceProxy_messageLinks__block_invoke_65(uint64_t a1, uint64_t a2
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -190,20 +184,18 @@ void __30__ATServiceProxy_messageLinks__block_invoke_65(uint64_t a1, uint64_t a2
 
 void __30__ATServiceProxy_addObserver___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = os_log_create("com.apple.amp.AirTraffic", "XPC");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 32);
-      v6 = 138543362;
-      v7 = v4;
-      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "%{public}@ failed to connect to remote service", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v4;
+      _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_ERROR, "%{public}@ failed to connect to remote service", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

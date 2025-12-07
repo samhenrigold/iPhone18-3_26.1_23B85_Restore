@@ -20,8 +20,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_19A70FCB8(selected);
+  sub_19A70FCB8(selectedCopy, selfCopy);
 }
 
 - (void)dealloc
@@ -75,7 +76,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_19A5F5028(0, &qword_1EAFCCC08);
+  sub_19A5F5028(0, &qword_1EAFCCC08, 0x1E69DD190);
   sub_19A63D890();
   sub_19A7AB494();
   eventCopy = event;
@@ -96,7 +97,7 @@
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  sub_19A5F5028(0, &qword_1EAFCCC08);
+  sub_19A5F5028(0, &qword_1EAFCCC08, 0x1E69DD190);
   sub_19A63D890();
   sub_19A7AB494();
   eventCopy = event;

@@ -1,8 +1,8 @@
-void sub_296E4AB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296E4AB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__state<char>::~__state(va);
-  std::deque<std::__state<char>>::~deque[abi:ne200100]((v9 - 144));
+  std::deque<std::__state<char>>::~deque[abi:ne200100]((v16 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -460,20 +460,20 @@ void std::deque<std::__state<char>>::clear(void *a1)
   a1[4] = v13;
 }
 
-void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_back_capacity(char **a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   v3 = v2 >= 0x2A;
   v4 = v2 - 42;
   if (v3)
   {
-    *(a1 + 32) = v4;
+    a1[4] = v4;
     goto LABEL_4;
   }
 
-  v7 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v8 = *(a1 + 8);
+  v7 = a1[2];
+  v6 = a1[3];
+  v8 = a1[1];
   v9 = v7 - v8;
   v10 = v6 - *a1;
   if (v7 - v8 < v10)
@@ -488,9 +488,9 @@ void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
     v44 = operator new(0xFC0uLL);
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, &v44);
 LABEL_4:
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     v44 = *v5;
-    *(a1 + 8) = v5 + 1;
+    a1[1] = v5 + 8;
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v44);
     return;
   }
@@ -542,8 +542,8 @@ LABEL_4:
     v17 = operator new(8 * v22);
     v18 = &v17[8 * v22];
     operator delete(v14);
-    v23 = *(a1 + 8);
-    v7 = *(a1 + 16);
+    v23 = a1[1];
+    v7 = a1[2];
     v14 = v17;
     *v17 = v16;
     v19 = v17 + 8;
@@ -557,12 +557,12 @@ LABEL_31:
     {
       v24 = v17;
 LABEL_30:
-      v25 = *(v7 - 8);
+      v25 = *(v7 - 1);
       v7 -= 8;
       *(v24 - 1) = v25;
       v20 = v24 - 8;
       v17 = v20;
-      if (v7 == *(a1 + 8))
+      if (v7 == a1[1])
       {
         goto LABEL_17;
       }
@@ -672,9 +672,9 @@ LABEL_16:
 LABEL_17:
   v21 = *a1;
   *a1 = v14;
-  *(a1 + 8) = v20;
-  *(a1 + 16) = v19;
-  *(a1 + 24) = v18;
+  a1[1] = v20;
+  a1[2] = v19;
+  a1[3] = v18;
   if (v21)
   {
 
@@ -1338,7 +1338,7 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
         v52 = 16 * (v51 & 0x1FFFFFFFFFFFFFFCLL);
         v15 = &result[v52];
         v25 = &a2[v52];
-        v53 = (a2 + 32);
+        v53 = a2 + 32;
         v54 = result + 32;
         v55 = v51 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -1346,13 +1346,13 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
           v57 = *(v53 - 2);
           v56 = *(v53 - 1);
           v59 = *v53;
-          v58 = v53[1];
-          v53 += 4;
+          v58 = *(v53 + 1);
+          v53 += 64;
           *(v54 - 2) = v57;
           *(v54 - 1) = v56;
           *v54 = v59;
-          v54[1] = v58;
-          v54 += 4;
+          *(v54 + 1) = v58;
+          v54 += 64;
           v55 -= 4;
         }
 
@@ -1395,7 +1395,7 @@ LABEL_26:
         v36 = 16 * (v35 & 0x1FFFFFFFFFFFFFFCLL);
         v18 = &result[v36];
         v19 = &a2[v36];
-        v37 = (a2 + 32);
+        v37 = a2 + 32;
         v38 = result + 32;
         v39 = v35 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -1403,13 +1403,13 @@ LABEL_26:
           v41 = *(v37 - 2);
           v40 = *(v37 - 1);
           v43 = *v37;
-          v42 = v37[1];
-          v37 += 4;
+          v42 = *(v37 + 1);
+          v37 += 64;
           *(v38 - 2) = v41;
           *(v38 - 1) = v40;
           *v38 = v43;
-          v38[1] = v42;
-          v38 += 4;
+          *(v38 + 1) = v42;
+          v38 += 64;
           v39 -= 4;
         }
 
@@ -1621,7 +1621,7 @@ void std::vector<std::sub_match<std::__wrap_iter<char const*>>>::__append(std::v
   }
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(uint64_t a1, uint64_t a2, int a3)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(uint64_t a1, std::basic_regex<char> *a2, int a3)
 {
   v6 = MEMORY[0x29C267870]();
   *(a1 + 8) = std::locale::use_facet(v6, MEMORY[0x29EDC93D0]);
@@ -1630,23 +1630,23 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne20010
   *(a1 + 28) = 0u;
   *(a1 + 44) = 0u;
   *(a1 + 60) = 0;
-  v7 = *(a2 + 23);
-  if ((v7 & 0x80u) == 0)
+  col_high = HIBYTE(a2->__traits_.__col_);
+  if ((col_high & 0x80u) == 0)
   {
-    v8 = a2;
+    locale = a2;
   }
 
   else
   {
-    v8 = *a2;
+    locale = a2->__traits_.__loc_.__locale_;
   }
 
-  if ((v7 & 0x80u) != 0)
+  if ((col_high & 0x80u) != 0)
   {
-    v7 = *(a2 + 8);
+    col_high = a2->__traits_.__ct_;
   }
 
-  if (std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(a1, v8, &v8[v7]) != &v8[v7])
+  if (std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(a1, locale, (locale + col_high)) != (locale + col_high))
   {
     std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17>();
   }
@@ -1661,7 +1661,7 @@ void sub_296E4C49C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   v6 = operator new(8uLL);
   *v6 = &unk_2A1E11200;
@@ -1845,12 +1845,12 @@ LABEL_8:
   return a3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   result = a2;
   if (a2 != a3)
   {
-    if (*a2 == 94)
+    if (LOBYTE(a2->__traits_.__loc_.__locale_) == 94)
     {
       v7 = operator new(0x18uLL);
       v8 = (*(a1 + 24) & 0x5F0) == 1024;
@@ -1861,7 +1861,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
       *(v7 + 16) = v8;
       *(v9 + 8) = v7;
       *(a1 + 56) = v7;
-      result = a2 + 1;
+      result = (&a2->__traits_.__loc_.__locale_ + 1);
     }
 
     if (result != a3)
@@ -1887,7 +1887,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
       }
 
       while (v11 != result);
-      if (v11 + 1 == a3 && *v11 == 36)
+      if ((&v11->__traits_.__loc_.__locale_ + 1) == a3 && LOBYTE(v11->__traits_.__loc_.__locale_) == 36)
       {
         v15 = operator new(0x18uLL);
         v16 = (*(a1 + 24) & 0x5F0) == 1024;
@@ -1898,7 +1898,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
         *(v15 + 16) = v16;
         *(v17 + 8) = v15;
         *(a1 + 56) = v15;
-        ++v11;
+        v11 = (v11 + 1);
       }
 
 LABEL_13:
@@ -1991,7 +1991,7 @@ LABEL_12:
   return v8;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<std::__wrap_iter<char const*>>(uint64_t a1, void *__s, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
 {
   v6 = *(a1 + 56);
   v7 = memchr(__s, 10, a3 - __s);
@@ -2020,7 +2020,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<st
 
     else
     {
-      v10 = v9 + 1;
+      v10 = (&v9->__traits_.__loc_.__locale_ + 1);
     }
 
     if (v10 == a3)
@@ -2039,7 +2039,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<st
 
     else
     {
-      v10 = v9 + 1;
+      v10 = (&v9->__traits_.__loc_.__locale_ + 1);
     }
 
     if (v10 == a3)
@@ -2103,7 +2103,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<st
 
     else
     {
-      v10 = v24 + 1;
+      v10 = (&v24->__traits_.__loc_.__locale_ + 1);
     }
   }
 
@@ -2331,7 +2331,7 @@ LABEL_17:
     v26 = a1;
     std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&v31);
     v28 = v26;
-    v31.__flags_ = v26->__flags_;
+    v31.__flags_ = *(v26 + 24);
     v29 = v4 + 2;
     v30 = a3;
     v12 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v31, v29, a3);
@@ -2360,7 +2360,7 @@ LABEL_17:
   v7 = a1;
   std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](&v31);
   v9 = v7;
-  v31.__flags_ = v7->__flags_;
+  v31.__flags_ = *(v7 + 24);
   v10 = v4 + 2;
   v11 = a3;
   v12 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v31, v10, a3);
@@ -2440,22 +2440,23 @@ LABEL_32:
     goto LABEL_32;
   }
 
+  v10 = &a2->__traits_.__loc_.__locale_ + 1;
   if ((&a2->__traits_.__loc_.__locale_ + 1) == a3)
   {
 LABEL_33:
     std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
   }
 
-  v10 = a1;
-  if ((&a2->__traits_.__loc_.__locale_ + 2) != a3 && BYTE1(a2->__traits_.__loc_.__locale_) == 63 && BYTE2(a2->__traits_.__loc_.__locale_) == 58)
+  v11 = a1;
+  if ((&a2->__traits_.__loc_.__locale_ + 2) != a3 && *v10 == 63 && BYTE2(a2->__traits_.__loc_.__locale_) == 58)
   {
     ++*(a1 + 36);
-    v11 = a3;
-    v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-    if (v12 != v11 && LOBYTE(v12->__traits_.__loc_.__locale_) == 41)
+    v12 = a3;
+    v13 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, &a2->__traits_.__loc_.__locale_ + 3, a3);
+    if (v13 != v12 && LOBYTE(v13->__traits_.__loc_.__locale_) == 41)
     {
-      --*(v10 + 36);
-      return (&v12->__traits_.__loc_.__locale_ + 1);
+      --*(v11 + 36);
+      return (&v13->__traits_.__loc_.__locale_ + 1);
     }
 
     goto LABEL_33;
@@ -2463,57 +2464,57 @@ LABEL_33:
 
   if ((*(a1 + 24) & 2) != 0)
   {
-    v16 = *(a1 + 28);
+    v17 = *(a1 + 28);
   }
 
   else
   {
-    v13 = a3;
-    v14 = operator new(0x18uLL);
-    a3 = v13;
-    v15 = v14;
-    a1 = v10;
-    v16 = *(v10 + 28) + 1;
-    *(v10 + 28) = v16;
-    v17 = *(v10 + 56);
-    v18 = *(v17 + 8);
-    *v15 = &unk_2A1E116B0;
-    v15[1] = v18;
-    *(v15 + 4) = v16;
-    *(v17 + 8) = v15;
-    *(v10 + 56) = v15;
+    v14 = a3;
+    v15 = operator new(0x18uLL);
+    a3 = v14;
+    v16 = v15;
+    a1 = v11;
+    v17 = *(v11 + 28) + 1;
+    *(v11 + 28) = v17;
+    v18 = *(v11 + 56);
+    v19 = *(v18 + 8);
+    *v16 = &unk_2A1E116B0;
+    v16[1] = v19;
+    *(v16 + 4) = v17;
+    *(v18 + 8) = v16;
+    *(v11 + 56) = v16;
   }
 
   ++*(a1 + 36);
-  v19 = a3;
-  v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>();
-  if (v20 == v19)
+  v20 = a3;
+  v21 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, v10, a3);
+  if (v21 == v20)
   {
     goto LABEL_33;
   }
 
-  v21 = v20;
-  if (LOBYTE(v20->__traits_.__loc_.__locale_) != 41)
+  v22 = v21;
+  if (LOBYTE(v21->__traits_.__loc_.__locale_) != 41)
   {
     goto LABEL_33;
   }
 
-  v22 = v10;
-  if ((*(v10 + 24) & 2) == 0)
+  v23 = v11;
+  if ((*(v11 + 24) & 2) == 0)
   {
-    v23 = operator new(0x18uLL);
-    v22 = v10;
-    v24 = *(v10 + 56);
-    v25 = *(v24 + 8);
-    *v23 = &unk_2A1E116F8;
-    v23[1] = v25;
-    *(v23 + 4) = v16;
-    *(v24 + 8) = v23;
-    *(v10 + 56) = v23;
+    v24 = operator new(0x18uLL);
+    v23 = v11;
+    v25 = *(v11 + 56);
+    v26 = *(v25 + 8);
+    *v24 = &unk_2A1E116F8;
+    v24[1] = v26;
+    *(v24 + 4) = v17;
+    *(v25 + 8) = v24;
+    *(v11 + 56) = v24;
   }
 
-  --*(v22 + 36);
-  return (&v21->__traits_.__loc_.__locale_ + 1);
+  --*(v23 + 36);
+  return (&v22->__traits_.__loc_.__locale_ + 1);
 }
 
 unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_dupl_symbol<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, std::__owns_one_state<char> *a4, size_t __mexp_begin, size_t __mexp_end)
@@ -4711,7 +4712,7 @@ void sub_296E4F804(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   v4 = a2;
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_one_char_or_coll_elem_RE<std::__wrap_iter<char const*>>(a1, a2, a3);
@@ -4720,15 +4721,15 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     return v6;
   }
 
-  if (v4 == a3 || v4 + 1 == a3 || *v6 != 92)
+  if (v4 == a3 || (&v4->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v6->__traits_.__loc_.__locale_) != 92)
   {
     return v4;
   }
 
-  v7 = v4[1];
+  v7 = BYTE1(v4->__traits_.__loc_.__locale_);
   if (v7 == 40)
   {
-    v6 = v4 + 2;
+    v6 = (&v4->__traits_.__loc_.__locale_ + 2);
   }
 
   if (v6 != v4)
@@ -4781,14 +4782,14 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
 
     else
     {
-      if (v14 + 1 == a3 || *v14 != 92)
+      if ((&v14->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v14->__traits_.__loc_.__locale_) != 92)
       {
         goto LABEL_31;
       }
 
-      if (v14[1] == 41)
+      if (BYTE1(v14->__traits_.__loc_.__locale_) == 41)
       {
-        v4 = v14 + 2;
+        v4 = (&v14->__traits_.__loc_.__locale_ + 2);
       }
 
       else
@@ -4830,7 +4831,7 @@ LABEL_31:
   }
 
   std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v7 - 48);
-  return v4 + 2;
+  return (&v4->__traits_.__loc_.__locale_ + 2);
 }
 
 std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_RE_dupl_symbol<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, std::basic_regex<char> *this, std::basic_regex<char> *a3, std::__owns_one_state<char> *a4, size_t __mexp_begin, size_t __mexp_end)
@@ -4867,22 +4868,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = LOBYTE(v9->__traits_.__loc_.__locale_);
+  v11 = *v9;
   if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
   {
     goto LABEL_54;
   }
 
   v10 = v11 - 48;
-  v12 = &v9->__traits_.__loc_.__locale_ + 1;
-  if ((&v9->__traits_.__loc_.__locale_ + 1) == a3)
+  v12 = (v9 + 1);
+  if ((v9 + 1) == a3)
   {
     goto LABEL_20;
   }
 
   while (1)
   {
-    v13 = *v12;
+    v13 = LOBYTE(v12->__traits_.__loc_.__locale_);
     if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
     {
       break;
@@ -4894,7 +4895,8 @@ LABEL_20:
     }
 
     v10 = v13 + 10 * v10 - 48;
-    if (++v12 == a3)
+    v12 = (v12 + 1);
+    if (v12 == a3)
     {
       goto LABEL_20;
     }
@@ -4911,8 +4913,8 @@ LABEL_21:
     goto LABEL_55;
   }
 
-  v14 = *v12;
-  v15 = (v12 + 1);
+  v14 = LOBYTE(v12->__traits_.__loc_.__locale_);
+  v15 = (&v12->__traits_.__loc_.__locale_ + 1);
   if (v14 == 44)
   {
     if (v15 == a3)
@@ -4923,8 +4925,8 @@ LABEL_21:
     v16 = LOBYTE(v15->__traits_.__loc_.__locale_);
     if ((v16 & 0xF8) == 0x30 || (v16 & 0xFE) == 0x38)
     {
-      v15 = (v12 + 2);
-      if (v12 + 2 == a3)
+      v15 = (&v12->__traits_.__loc_.__locale_ + 2);
+      if ((&v12->__traits_.__loc_.__locale_ + 2) == a3)
       {
         goto LABEL_55;
       }
@@ -5011,7 +5013,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v18 = (v12[1] == 125 ? v12 + 2 : v12);
+  v18 = BYTE1(v12->__traits_.__loc_.__locale_) == 125 ? &v12->__traits_.__loc_.__locale_ + 2 : v12;
   if (v12 == v18)
   {
     goto LABEL_55;
@@ -5411,26 +5413,26 @@ void abm::trace::getCoreDumpDirSuffix(std::string *a1@<X8>)
 {
   if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
-    v4 = __cxa_guard_acquire(&_MergedGlobals_0);
-    if (v4)
+    v3 = __cxa_guard_acquire(&_MergedGlobals_0);
+    if (v3)
     {
-      v5 = capabilities::radio::maverick(v4);
-      v6 = abm::trace::kEURCoreDumpSnapshotDirectorySuffix;
-      if (!v5)
+      v4 = capabilities::radio::maverick(v3);
+      v5 = abm::trace::kEURCoreDumpSnapshotDirectorySuffix;
+      if (!v4)
       {
-        v6 = abm::trace::kCoreDumpSnapshotDirectorySuffix;
+        v5 = abm::trace::kCoreDumpSnapshotDirectorySuffix;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(*v6);
+      std::string::basic_string[abi:ne200100]<0>(*v5);
       __cxa_guard_release(&_MergedGlobals_0);
     }
   }
 
   if (byte_2A18B7D67 < 0)
   {
-    v3 = xmmword_2A18B7D50;
+    v2 = xmmword_2A18B7D50;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -5778,7 +5780,7 @@ uint64_t awd::MipcCommandDriver::create@<X0>(uint64_t *a1@<X0>, atomic_ullong *a
   v10 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
   awd::MipcCommandDriver::MipcCommandDriver(v4, &v9);
@@ -5902,31 +5904,32 @@ LABEL_12:
   }
 }
 
-void awd::MipcCommandDriver::sendAddConfiguration(void *a1, uint64_t *a2, char a3, uint64_t a4, const void **a5)
+void awd::MipcCommandDriver::sendAddConfiguration(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, const void **a5, uint64_t a6)
 {
-  v6 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v9 = a2[1];
-    v26 = *a2;
-    v27 = v9;
-    if (v9)
+    v9 = a3;
+    v10 = a2[1];
+    v27 = *a2;
+    v28 = v10;
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v28 = a3;
-    v30 = 0;
+    v29 = a3;
     v31 = 0;
+    v32 = 0;
     __p = 0;
-    v11 = *a4;
-    v10 = *(a4 + 8);
-    v12 = v10 - *a4;
-    if (v10 == *a4)
+    v12 = *a4;
+    v11 = *(a4 + 8);
+    v13 = v11 - *a4;
+    if (v11 == *a4)
     {
+      v15 = 0;
       v14 = 0;
-      v13 = 0;
-      v15 = *a5;
+      v16 = *a5;
       if (*a5)
       {
         goto LABEL_7;
@@ -5935,61 +5938,61 @@ void awd::MipcCommandDriver::sendAddConfiguration(void *a1, uint64_t *a2, char a
 
     else
     {
-      if ((v12 & 0x8000000000000000) != 0)
+      if ((v13 & 0x8000000000000000) != 0)
       {
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v13 = operator new(v10 - *a4);
-      v14 = &v13[v12];
-      memcpy(v13, v11, v12);
-      v15 = *a5;
+      v14 = operator new(v11 - *a4);
+      v15 = &v14[v13];
+      memcpy(v14, v12, v13);
+      v16 = *a5;
       if (*a5)
       {
 LABEL_7:
-        v16 = _Block_copy(v15);
-        v33 = a1;
-        v17 = a1[2];
-        if (!v17)
+        v17 = _Block_copy(v16);
+        v34 = a1;
+        v18 = a1[2];
+        if (!v18)
         {
 LABEL_25:
           std::__throw_bad_weak_ptr[abi:ne200100]();
         }
 
 LABEL_13:
-        v19 = a1[1];
-        v20 = std::__shared_weak_count::lock(v17);
-        if (!v20)
+        v20 = a1[1];
+        v21 = std::__shared_weak_count::lock(v18);
+        if (!v21)
         {
           goto LABEL_25;
         }
 
-        v21 = v20;
-        v22 = operator new(0x40uLL);
-        *v22 = v6;
-        v22[1] = v9;
-        v26 = 0;
+        v22 = v21;
+        v23 = operator new(0x40uLL);
+        *v23 = v7;
+        v23[1] = v10;
         v27 = 0;
-        *(v22 + 16) = a3;
-        v22[3] = v13;
-        v22[4] = v14;
-        v30 = 0;
+        v28 = 0;
+        *(v23 + 16) = v9;
+        v23[3] = v14;
+        v23[4] = v15;
         v31 = 0;
+        v32 = 0;
         __p = 0;
-        v22[5] = v14;
-        v22[6] = v16;
+        v23[5] = v15;
+        v23[6] = v17;
         aBlock = 0;
-        v22[7] = a1;
-        v23 = a1[3];
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-        v24 = operator new(0x18uLL);
-        *v24 = v22;
-        v24[1] = v19;
-        v24[2] = v21;
-        dispatch_async_f(v23, v24, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-        if (atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v23[7] = a1;
+        v24 = a1[3];
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+        v25 = operator new(0x18uLL);
+        *v25 = v23;
+        v25[1] = v20;
+        v25[2] = v22;
+        dispatch_async_f(v24, v25, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+        if (atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          v25 = aBlock;
+          v26 = aBlock;
           if (!aBlock)
           {
             goto LABEL_19;
@@ -5998,24 +6001,24 @@ LABEL_13:
 
         else
         {
-          (v21->__on_zero_shared)(v21);
-          std::__shared_weak_count::__release_weak(v21);
-          v25 = aBlock;
+          (v22->__on_zero_shared)(v22);
+          std::__shared_weak_count::__release_weak(v22);
+          v26 = aBlock;
           if (!aBlock)
           {
 LABEL_19:
             if (__p)
             {
-              v30 = __p;
+              v31 = __p;
               operator delete(__p);
             }
 
-            if (v27)
+            if (v28)
             {
-              if (!atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+              if (!atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
               {
-                (v27->__on_zero_shared)(v27);
-                std::__shared_weak_count::__release_weak(v27);
+                (v28->__on_zero_shared)(v28);
+                std::__shared_weak_count::__release_weak(v28);
               }
             }
 
@@ -6023,15 +6026,15 @@ LABEL_19:
           }
         }
 
-        _Block_release(v25);
+        _Block_release(v26);
         goto LABEL_19;
       }
     }
 
-    v16 = 0;
-    v33 = a1;
-    v17 = a1[2];
-    if (!v17)
+    v17 = 0;
+    v34 = a1;
+    v18 = a1[2];
+    if (!v18)
     {
       goto LABEL_25;
     }
@@ -6039,166 +6042,32 @@ LABEL_19:
     goto LABEL_13;
   }
 
-  v18 = a1[5];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = a1[5];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v26) = 0;
-    _os_log_error_impl(&dword_296E3E000, v18, OS_LOG_TYPE_ERROR, "AppContext is NULL", &v26, 2u);
+    LOWORD(v27) = 0;
+    _os_log_error_impl(&dword_296E3E000, v19, OS_LOG_TYPE_ERROR, "AppContext is NULL", &v27, 2u);
   }
 }
 
-void awd::MipcCommandDriver::sendClearConfiguration(void *a1, uint64_t *a2, const void **a3)
+void awd::MipcCommandDriver::sendClearConfiguration(void *a1, uint64_t *a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v5 = a2[1];
-    if (v5)
+    v8 = a2[1];
+    if (v8)
     {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
 
     if (*a3)
     {
-      v6 = _Block_copy(*a3);
-      v7 = a1[2];
-      if (!v7)
-      {
-LABEL_16:
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = a1[2];
-      if (!v7)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v9 = a1[1];
-    v10 = std::__shared_weak_count::lock(v7);
-    if (!v10)
-    {
-      goto LABEL_16;
-    }
-
-    v11 = v10;
-    v12 = operator new(0x20uLL);
-    *v12 = v4;
-    v12[1] = v5;
-    v12[2] = v6;
-    v12[3] = a1;
-    v13 = a1[3];
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-    v14 = operator new(0x18uLL);
-    *v14 = v12;
-    v14[1] = v9;
-    v14[2] = v11;
-    dispatch_async_f(v13, v14, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-    if (!atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v11->__on_zero_shared)(v11);
-
-      std::__shared_weak_count::__release_weak(v11);
-    }
-  }
-
-  else
-  {
-    v8 = a1[5];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *v15 = 0;
-      _os_log_error_impl(&dword_296E3E000, v8, OS_LOG_TYPE_ERROR, "AppContext is NULL", v15, 2u);
-    }
-  }
-}
-
-void awd::MipcCommandDriver::sendUpdateProperties(void *a1, uint64_t *a2, const void **a3)
-{
-  v4 = *a2;
-  v5 = a2[1];
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  if (*a3)
-  {
-    v6 = _Block_copy(*a3);
-    v7 = a1[2];
-    if (!v7)
-    {
-LABEL_12:
-      std::__throw_bad_weak_ptr[abi:ne200100]();
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-    v7 = a1[2];
-    if (!v7)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v8 = a1[1];
-  v9 = std::__shared_weak_count::lock(v7);
-  if (!v9)
-  {
-    goto LABEL_12;
-  }
-
-  v10 = v9;
-  v11 = operator new(0x20uLL);
-  *v11 = v4;
-  v11[1] = v5;
-  v11[2] = v6;
-  v11[3] = a1;
-  v12 = a1[3];
-  atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-  v13 = operator new(0x18uLL);
-  *v13 = v11;
-  v13[1] = v8;
-  v13[2] = v10;
-  dispatch_async_f(v12, v13, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v10->__on_zero_shared)(v10);
-
-    std::__shared_weak_count::__release_weak(v10);
-  }
-}
-
-void awd::MipcCommandDriver::sendQueriableMetric(void *a1, uint64_t *a2, __int128 *a3, __int128 *a4, const void **a5)
-{
-  v6 = *a2;
-  if (*a2)
-  {
-    v7 = a2[1];
-    if (v7)
-    {
-      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v8 = a3[1];
-    v19 = *a3;
-    v20 = v8;
-    v21 = *a4;
-    v22 = *(a4 + 2);
-    if (*a5)
-    {
-      v9 = _Block_copy(*a5);
+      v9 = _Block_copy(*a3);
       v10 = a1[2];
       if (!v10)
       {
-LABEL_14:
+LABEL_16:
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
     }
@@ -6209,7 +6078,7 @@ LABEL_14:
       v10 = a1[2];
       if (!v10)
       {
-        goto LABEL_14;
+        goto LABEL_16;
       }
     }
 
@@ -6217,30 +6086,26 @@ LABEL_14:
     v13 = std::__shared_weak_count::lock(v10);
     if (!v13)
     {
-      goto LABEL_14;
+      goto LABEL_16;
     }
 
     v14 = v13;
-    v15 = operator new(0x58uLL);
-    *v15 = v6;
-    v15[1] = v7;
-    v16 = v20;
-    *(v15 + 1) = v19;
-    *(v15 + 2) = v16;
-    *(v15 + 3) = v21;
-    v15[8] = v22;
-    v15[9] = v9;
-    v15[10] = a1;
-    v17 = a1[3];
+    v15 = operator new(0x20uLL);
+    *v15 = v7;
+    v15[1] = v8;
+    v15[2] = v9;
+    v15[3] = a1;
+    v16 = a1[3];
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-    v18 = operator new(0x18uLL);
-    *v18 = v15;
-    v18[1] = v12;
-    v18[2] = v14;
-    dispatch_async_f(v17, v18, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+    v17 = operator new(0x18uLL);
+    *v17 = v15;
+    v17[1] = v12;
+    v17[2] = v14;
+    dispatch_async_f(v16, v17, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
     if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v14->__on_zero_shared)(v14);
+
       std::__shared_weak_count::__release_weak(v14);
     }
   }
@@ -6250,8 +6115,146 @@ LABEL_14:
     v11 = a1[5];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v19) = 0;
-      _os_log_error_impl(&dword_296E3E000, v11, OS_LOG_TYPE_ERROR, "AppContext is NULL", &v19, 2u);
+      *v18 = 0;
+      _os_log_error_impl(&dword_296E3E000, v11, OS_LOG_TYPE_ERROR, "AppContext is NULL", v18, 2u);
+    }
+  }
+}
+
+void awd::MipcCommandDriver::sendUpdateProperties(void *a1, uint64_t *a2, const void **a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v7 = *a2;
+  v8 = a2[1];
+  if (v8)
+  {
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  if (*a3)
+  {
+    v9 = _Block_copy(*a3);
+    v10 = a1[2];
+    if (!v10)
+    {
+LABEL_12:
+      std::__throw_bad_weak_ptr[abi:ne200100]();
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+    v10 = a1[2];
+    if (!v10)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v11 = a1[1];
+  v12 = std::__shared_weak_count::lock(v10);
+  if (!v12)
+  {
+    goto LABEL_12;
+  }
+
+  v13 = v12;
+  v14 = operator new(0x20uLL);
+  *v14 = v7;
+  v14[1] = v8;
+  v14[2] = v9;
+  v14[3] = a1;
+  v15 = a1[3];
+  atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  v16 = operator new(0x18uLL);
+  *v16 = v14;
+  v16[1] = v11;
+  v16[2] = v13;
+  dispatch_async_f(v15, v16, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendUpdateProperties(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v13->__on_zero_shared)(v13);
+
+    std::__shared_weak_count::__release_weak(v13);
+  }
+}
+
+void awd::MipcCommandDriver::sendQueriableMetric(void *a1, uint64_t *a2, __int128 *a3, __int128 *a4, const void **a5, uint64_t a6)
+{
+  v7 = *a2;
+  if (*a2)
+  {
+    v8 = a2[1];
+    if (v8)
+    {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v9 = a3[1];
+    v20 = *a3;
+    v21 = v9;
+    v22 = *a4;
+    v23 = *(a4 + 2);
+    if (*a5)
+    {
+      v10 = _Block_copy(*a5);
+      v11 = a1[2];
+      if (!v11)
+      {
+LABEL_14:
+        std::__throw_bad_weak_ptr[abi:ne200100]();
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+      v11 = a1[2];
+      if (!v11)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    v13 = a1[1];
+    v14 = std::__shared_weak_count::lock(v11);
+    if (!v14)
+    {
+      goto LABEL_14;
+    }
+
+    v15 = v14;
+    v16 = operator new(0x58uLL);
+    *v16 = v7;
+    v16[1] = v8;
+    v17 = v21;
+    *(v16 + 1) = v20;
+    *(v16 + 2) = v17;
+    *(v16 + 3) = v22;
+    v16[8] = v23;
+    v16[9] = v10;
+    v16[10] = a1;
+    v18 = a1[3];
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    v19 = operator new(0x18uLL);
+    *v19 = v16;
+    v19[1] = v13;
+    v19[2] = v15;
+    dispatch_async_f(v18, v19, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendQueriableMetric(std::shared_ptr<awd::AppContext>,awd::MetricInfo const&,awd::TriggerInfo const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+    if (!atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
+    }
+  }
+
+  else
+  {
+    v12 = a1[5];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v20) = 0;
+      _os_log_error_impl(&dword_296E3E000, v12, OS_LOG_TYPE_ERROR, "AppContext is NULL", &v20, 2u);
     }
   }
 }
@@ -6268,7 +6271,7 @@ void awd::MipcCommandDriver::sendQueriableMetric(void *a1, uint64_t *a2, uint64_
     *buf = 0;
     if (v7)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
     }
 
     v8 = *a4;
@@ -6306,44 +6309,45 @@ void awd::MipcCommandDriver::sendQueriableMetric(void *a1, uint64_t *a2, uint64_
   }
 }
 
-void sub_296E516BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, char a11)
+void sub_296E516BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *aBlock, ...)
 {
+  va_start(va, aBlock);
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void awd::MipcCommandDriver::init(awd::MipcCommandDriver *this)
+void awd::MipcCommandDriver::init(awd::MipcCommandDriver *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = *(this + 2);
-  if (!v2 || (v3 = *(this + 1), (v4 = std::__shared_weak_count::lock(v2)) == 0))
+  v7 = *(this + 2);
+  if (!v7 || (v8 = *(this + 1), (v9 = std::__shared_weak_count::lock(v7)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v5 = v4;
-  v6 = operator new(8uLL);
-  *v6 = this;
-  v7 = *(this + 3);
-  atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  v8 = operator new(0x18uLL);
-  *v8 = v6;
-  v8[1] = v3;
-  v8[2] = v5;
-  dispatch_async_f(v7, v8, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::init(void)::$_0>(awd::MipcCommandDriver::init(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::init(void)::$_0,dispatch_queue_s *::default_delete<awd::MipcCommandDriver::init(void)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v10 = v9;
+  v11 = operator new(8uLL);
+  *v11 = this;
+  v12 = *(this + 3);
+  atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  v13 = operator new(0x18uLL);
+  *v13 = v11;
+  v13[1] = v8;
+  v13[2] = v10;
+  dispatch_async_f(v12, v13, dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::init(void)::$_0>(awd::MipcCommandDriver::init(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::init(void)::$_0,dispatch_queue_s *::default_delete<awd::MipcCommandDriver::init(void)::$_0>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v5->__on_zero_shared)(v5);
+    (v10->__on_zero_shared)(v10);
 
-    std::__shared_weak_count::__release_weak(v5);
+    std::__shared_weak_count::__release_weak(v10);
   }
 }
 
-awd::AwdCommandDriver *awd::MipcCommandDriver::MipcCommandDriver(awd::AwdCommandDriver *a1, uint64_t a2)
+NSObject **awd::MipcCommandDriver::MipcCommandDriver(NSObject **a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   object[1] = *a2;
@@ -6362,7 +6366,7 @@ awd::AwdCommandDriver *awd::MipcCommandDriver::MipcCommandDriver(awd::AwdCommand
 
   *a1 = &unk_2A1E118F0;
   Name = awd::AwdCommandDriver::getName(a1);
-  v6 = *(a1 + 3);
+  v6 = a1[3];
   object[0] = v6;
   if (v6)
   {
@@ -6383,7 +6387,7 @@ awd::AwdCommandDriver *awd::MipcCommandDriver::MipcCommandDriver(awd::AwdCommand
     v15 = 0;
   }
 
-  MEMORY[0x29C266EF0](a1 + 88, Name, object, &v14);
+  MEMORY[0x29C266EF0](a1 + 11, Name, object, &v14);
   v8 = v15;
   if (v7)
   {
@@ -6417,7 +6421,7 @@ awd::AwdCommandDriver *awd::MipcCommandDriver::MipcCommandDriver(awd::AwdCommand
   return a1;
 }
 
-void sub_296E519FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, char a14, uint64_t a15, dispatch_object_t object)
+void sub_296E519FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, dispatch_object_t object)
 {
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a10);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a12);
@@ -6432,16 +6436,16 @@ void sub_296E519FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_296E51A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296E51A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void awd::MipcCommandDriver::handleAddConfigResultInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Add_Config_Result_Ind *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = mipc::operator==();
   v5 = *(this + 5);
   if (v4)
@@ -6499,15 +6503,16 @@ void awd::MipcCommandDriver::handleAddConfigResultInd_sync(awd::MipcCommandDrive
 
         if (v17)
         {
-          v19 = **(a2 + 11);
-          v20 = **(a2 + 13) == 0;
           awd::AppContext::operator()();
         }
 
-        if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v18)
         {
-          (v18->__on_zero_shared)(v18);
-          std::__shared_weak_count::__release_weak(v18);
+          if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v18->__on_zero_shared)(v18);
+            std::__shared_weak_count::__release_weak(v18);
+          }
         }
       }
     }
@@ -6532,20 +6537,18 @@ void awd::MipcCommandDriver::handleAddConfigResultInd_sync(awd::MipcCommandDrive
     }
 
     *buf = 136315138;
-    v25 = p_p;
+    v22 = p_p;
     _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on add configuration result indication (%s)", buf, 0xCu);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void awd::MipcCommandDriver::handleDeleteConfigResultInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Delete_Config_Result_Ind *a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = mipc::operator==();
   v5 = *(this + 5);
   if (v4)
@@ -6603,15 +6606,16 @@ void awd::MipcCommandDriver::handleDeleteConfigResultInd_sync(awd::MipcCommandDr
 
         if (v17)
         {
-          v19 = **(a2 + 11);
-          v20 = **(a2 + 13) == 0;
           awd::AppContext::operator()();
         }
 
-        if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v18)
         {
-          (v18->__on_zero_shared)(v18);
-          std::__shared_weak_count::__release_weak(v18);
+          if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v18->__on_zero_shared)(v18);
+            std::__shared_weak_count::__release_weak(v18);
+          }
         }
       }
     }
@@ -6636,20 +6640,18 @@ void awd::MipcCommandDriver::handleDeleteConfigResultInd_sync(awd::MipcCommandDr
     }
 
     *buf = 136315138;
-    v25 = p_p;
+    v22 = p_p;
     _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on clear configuration result indication (%s)", buf, 0xCu);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void awd::MipcCommandDriver::handleSubmitTriggerInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Submit_Trigger_Ind *a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v4 = mipc::operator==();
   v5 = *(this + 5);
   if (v4)
@@ -6667,13 +6669,13 @@ void awd::MipcCommandDriver::handleSubmitTriggerInd_sync(awd::MipcCommandDriver 
       *&buf[8] = 1024;
       *&buf[10] = v7;
       *&buf[14] = 1024;
-      *v32 = v8;
-      *&v32[4] = 1024;
-      *&v32[6] = v9;
-      *&v32[10] = 1024;
-      v33 = v10;
-      v34 = 2048;
-      v35 = v11;
+      *v31 = v8;
+      *&v31[4] = 1024;
+      *&v31[6] = v9;
+      *&v31[10] = 1024;
+      v32 = v10;
+      v33 = 2048;
+      v34 = v11;
       _os_log_impl(&dword_296E3E000, v5, OS_LOG_TYPE_DEFAULT, "#I Got trigger submission from BB (appId: %d, component: 0x%x, submissionId: 0x%x, triggerId: 0x%x, profileId: 0x%x, time: %lld)", buf, 0x2Au);
     }
 
@@ -6716,21 +6718,24 @@ void awd::MipcCommandDriver::handleSubmitTriggerInd_sync(awd::MipcCommandDriver 
           *&buf[4] = 0;
           *&buf[8] = v23;
           *&buf[12] = v22;
-          *v32 = v24;
-          *&v32[4] = -1431699456;
-          *&v32[8] = -1431655936;
-          v33 = -1431655936;
-          *v27 = v24;
-          v28 = 0;
-          v29 = -1431655766;
-          v30 = 0;
+          *v31 = v24;
+          *&v31[4] = -1431699456;
+          *&v31[8] = -1431655936;
+          v32 = -1431655936;
+          *v26 = v24;
+          v27 = 0;
+          v28 = -1431655766;
+          v29 = 0;
           awd::AppContext::operator()();
         }
 
-        if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v21)
         {
-          (v21->__on_zero_shared)(v21);
-          std::__shared_weak_count::__release_weak(v21);
+          if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v21->__on_zero_shared)(v21);
+            std::__shared_weak_count::__release_weak(v21);
+          }
         }
       }
     }
@@ -6746,30 +6751,28 @@ void awd::MipcCommandDriver::handleSubmitTriggerInd_sync(awd::MipcCommandDriver 
     else
     {
       *buf = *(a2 + 40);
-      *v32 = *(a2 + 7);
+      *v31 = *(a2 + 7);
     }
 
-    v26 = buf;
-    if (v32[7] < 0)
+    v25 = buf;
+    if (v31[7] < 0)
     {
-      v26 = *buf;
+      v25 = *buf;
     }
 
-    *v27 = 136315138;
-    v28 = v26;
-    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on trigger submission indication (%s)", v27, 0xCu);
-    if ((v32[7] & 0x80000000) != 0)
+    *v26 = 136315138;
+    v27 = v25;
+    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on trigger submission indication (%s)", v26, 0xCu);
+    if ((v31[7] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Metric_Submission_Ind *a2)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   v4 = mipc::operator==();
   v5 = *(this + 5);
   if (v4)
@@ -6789,17 +6792,17 @@ void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriv
       *&buf[8] = 1024;
       *&buf[10] = v7;
       *&buf[14] = 1024;
-      *v39 = v8;
-      *&v39[4] = 1024;
-      *&v39[6] = v9;
-      *&v39[10] = 1024;
-      v40 = v10;
-      v41 = 1024;
-      v42 = v11;
-      v43 = 1024;
-      v44 = v12;
-      v45 = 1024;
-      v46 = v13;
+      *v36 = v8;
+      *&v36[4] = 1024;
+      *&v36[6] = v9;
+      *&v36[10] = 1024;
+      v37 = v10;
+      v38 = 1024;
+      v39 = v11;
+      v40 = 1024;
+      v41 = v12;
+      v42 = 1024;
+      v43 = v13;
       _os_log_impl(&dword_296E3E000, v5, OS_LOG_TYPE_DEFAULT, "#I Got metric submission from BB (appId: %d, metricId:0x%x, component: 0x%x, submissionId: 0x%x, triggerId: 0x%x, profileId: 0x%x, current segment: %u, total length: %u)", buf, 0x32u);
     }
 
@@ -6828,8 +6831,8 @@ void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriv
       {
         v23 = *(v18 + 5);
         v22 = *(v18 + 6);
-        *&v37 = v23;
-        *(&v37 + 1) = v22;
+        *&v34 = v23;
+        *(&v34 + 1) = v22;
         if (v22)
         {
           atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6838,33 +6841,31 @@ void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriv
         if (v23)
         {
           v24 = **(a2 + 12);
-          v25 = *(a2 + 17);
-          v26 = **(a2 + 16);
-          v27 = **(a2 + 15);
-          v28 = **(a2 + 14);
+          v25 = **(a2 + 16);
+          v26 = **(a2 + 15);
+          v27 = **(a2 + 14);
           *buf = **(a2 + 13);
-          *&buf[4] = v27;
-          *&buf[8] = v26;
+          *&buf[4] = v26;
+          *&buf[8] = v25;
           *&buf[12] = v24;
-          *v39 = v28;
-          *&v39[4] = -1431699456;
-          *&v39[8] = -1431655936;
-          v40 = -1431655936;
-          v29 = *v25;
-          v30 = *(a2 + 19);
+          *v36 = v27;
+          *&v36[4] = -1431699456;
+          *&v36[8] = -1431655936;
+          v37 = -1431655936;
+          v28 = *(a2 + 19);
           __p = 0;
-          v32 = *v30;
-          v31 = *(v30 + 8);
-          v33 = v31 - v32;
-          if (v31 != v32)
+          v30 = *v28;
+          v29 = *(v28 + 8);
+          v31 = v29 - v30;
+          if (v29 != v30)
           {
-            if ((v33 & 0x8000000000000000) != 0)
+            if ((v31 & 0x8000000000000000) != 0)
             {
               std::vector<std::string>::__throw_length_error[abi:ne200100]();
             }
 
-            __p = operator new(v31 - v32);
-            memcpy(__p, v32, v33);
+            __p = operator new(v29 - v30);
+            memcpy(__p, v30, v31);
           }
 
           awd::AppContext::operator()();
@@ -6874,10 +6875,13 @@ void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriv
           }
         }
 
-        if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v22)
         {
-          (v22->__on_zero_shared)(v22);
-          std::__shared_weak_count::__release_weak(v22);
+          if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v22->__on_zero_shared)(v22);
+            std::__shared_weak_count::__release_weak(v22);
+          }
         }
       }
     }
@@ -6893,43 +6897,42 @@ void awd::MipcCommandDriver::handleMetricSubmissionInd_sync(awd::MipcCommandDriv
     else
     {
       *buf = *(a2 + 40);
-      *v39 = *(a2 + 7);
+      *v36 = *(a2 + 7);
     }
 
-    v35 = buf;
-    if (v39[7] < 0)
+    v32 = buf;
+    if (v36[7] < 0)
     {
-      v35 = *buf;
+      v32 = *buf;
     }
 
-    LODWORD(v37) = 136315138;
-    *(&v37 + 4) = v35;
-    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on metric submission indication (%s)", &v37, 0xCu);
-    if ((v39[7] & 0x80000000) != 0)
+    LODWORD(v34) = 136315138;
+    *(&v34 + 4) = v32;
+    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on metric submission indication (%s)", &v34, 0xCu);
+    if ((v36[7] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296E5252C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+void sub_296E5252C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (__p)
   {
     operator delete(__p);
-    std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a13);
+    std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
     _Unwind_Resume(a1);
   }
 
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void awd::MipcCommandDriver::handleMetricSubmissionEndInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Metric_Submission_End_Ind *a2)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v4 = mipc::operator==();
   v5 = *(this + 5);
   if (v4)
@@ -6947,13 +6950,13 @@ void awd::MipcCommandDriver::handleMetricSubmissionEndInd_sync(awd::MipcCommandD
       *&buf[8] = 1024;
       *&buf[10] = v7;
       *&buf[14] = 1024;
-      *v30 = v8;
-      *&v30[4] = 1024;
-      *&v30[6] = v9;
-      *&v30[10] = 1024;
-      v31 = v10;
-      v32 = 1024;
-      v33 = v11;
+      *v28 = v8;
+      *&v28[4] = 1024;
+      *&v28[6] = v9;
+      *&v28[10] = 1024;
+      v29 = v10;
+      v30 = 1024;
+      v31 = v11;
       _os_log_impl(&dword_296E3E000, v5, OS_LOG_TYPE_DEFAULT, "#I Got metric submission end from BB (appId: %d, component: 0x%x, submissionId: 0x%x, triggerId=0x%x, profileId=0x%x, num packets: %d)", buf, 0x26u);
     }
 
@@ -6982,8 +6985,8 @@ void awd::MipcCommandDriver::handleMetricSubmissionEndInd_sync(awd::MipcCommandD
       {
         v20 = *(v16 + 5);
         v21 = *(v16 + 6);
-        *&v28 = v20;
-        *(&v28 + 1) = v21;
+        *&v26 = v20;
+        *(&v26 + 1) = v21;
         if (v21)
         {
           atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6998,18 +7001,20 @@ void awd::MipcCommandDriver::handleMetricSubmissionEndInd_sync(awd::MipcCommandD
           *&buf[4] = 0;
           *&buf[8] = v23;
           *&buf[12] = v22;
-          *v30 = v24;
-          *&v30[4] = -1431699456;
-          *&v30[8] = -1431655936;
-          v31 = -1431655936;
-          v25 = **(a2 + 16);
+          *v28 = v24;
+          *&v28[4] = -1431699456;
+          *&v28[8] = -1431655936;
+          v29 = -1431655936;
           awd::AppContext::operator()();
         }
 
-        if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v21)
         {
-          (v21->__on_zero_shared)(v21);
-          std::__shared_weak_count::__release_weak(v21);
+          if (!atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v21->__on_zero_shared)(v21);
+            std::__shared_weak_count::__release_weak(v21);
+          }
         }
       }
     }
@@ -7025,30 +7030,28 @@ void awd::MipcCommandDriver::handleMetricSubmissionEndInd_sync(awd::MipcCommandD
     else
     {
       *buf = *(a2 + 40);
-      *v30 = *(a2 + 7);
+      *v28 = *(a2 + 7);
     }
 
-    v27 = buf;
-    if (v30[7] < 0)
+    v25 = buf;
+    if (v28[7] < 0)
     {
-      v27 = *buf;
+      v25 = *buf;
     }
 
-    LODWORD(v28) = 136315138;
-    *(&v28 + 4) = v27;
-    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on metric submission end indication (%s)", &v28, 0xCu);
-    if ((v30[7] & 0x80000000) != 0)
+    LODWORD(v26) = 136315138;
+    *(&v26 + 4) = v25;
+    _os_log_error_impl(&dword_296E3E000, v5, OS_LOG_TYPE_ERROR, "Error on metric submission end indication (%s)", &v26, 0xCu);
+    if ((v28[7] & 0x80000000) != 0)
     {
       operator delete(*buf);
     }
   }
-
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcCommandDriver *this, const mipc::dale_awd::Batch_Metric_Submission_Ind *a2)
 {
-  v65 = *MEMORY[0x29EDCA608];
+  v64 = *MEMORY[0x29EDCA608];
   if (mipc::operator==())
   {
     v4 = *(a2 + 11);
@@ -7061,8 +7064,8 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
       {
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v62.__r_.__value_.__l.__data_) = 0;
-          _os_log_debug_impl(&dword_296E3E000, v7, OS_LOG_TYPE_DEBUG, "#D Received batch metric indication", &v62, 2u);
+          LOWORD(v61.__r_.__value_.__l.__data_) = 0;
+          _os_log_debug_impl(&dword_296E3E000, v7, OS_LOG_TYPE_DEBUG, "#D Received batch metric indication", &v61, 2u);
           v50 = *(a2 + 11);
           v5 = *v50;
           v8 = v50[1] - *v50;
@@ -7104,12 +7107,12 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
         v10 = *(v5 + 13);
         if (*(v5 + 13))
         {
-          v56 = *(v5 + 12);
+          v55 = *(v5 + 12);
           v11 = v5[5];
           v13 = v5[1];
           v12 = v5[2];
           v14 = *v5;
-          v58 = *(v5 + 3);
+          v57 = *(v5 + 3);
           v15 = operator new(0x40uLL);
           v16 = v15;
           *v15 = v5;
@@ -7117,20 +7120,20 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
           v17 = (v15 + 64);
           *(v15 + 4) = v14;
           *(v15 + 5) = v13;
-          v60 = v13;
-          v61 = v12;
+          v59 = v13;
+          v60 = v12;
           *(v15 + 6) = v12;
-          *(v15 + 28) = v58;
+          *(v15 + 28) = v57;
           *(v15 + 9) = v11;
-          *(v15 + 20) = v56;
+          *(v15 + 20) = v55;
           *(v15 + 21) = v10;
           *(v15 + 11) = -1431655766;
           *(v15 + 6) = v5 + 7;
           *(v15 + 7) = v10;
-          v62.__r_.__value_.__r.__words[0] = v15;
+          v61.__r_.__value_.__r.__words[0] = v15;
           v18 = v10 + 28;
-          v62.__r_.__value_.__l.__size_ = (v15 + 64);
-          v62.__r_.__value_.__r.__words[2] = (v15 + 64);
+          v61.__r_.__value_.__l.__size_ = (v15 + 64);
+          v61.__r_.__value_.__r.__words[2] = (v15 + 64);
           v19 = v8 - (v10 + 28);
           if (v8 != v10 + 28 && v19 >= 0x1C)
           {
@@ -7139,28 +7142,28 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
             if (*(v5 + v18 + 26))
             {
               v22 = v14;
-              v23 = v58;
+              v23 = v57;
               v24 = (v15 + 64);
               do
               {
                 v25 = v22;
-                v26 = v60;
-                v27 = v61;
+                v26 = v59;
+                v27 = v60;
                 v28 = v23;
                 v29 = v11;
                 v11 = v20[5];
-                v57 = v20[4];
-                v59 = *(v20 + 12);
+                v56 = v20[4];
+                v58 = *(v20 + 12);
                 v23 = v20[3];
                 v22 = *v20;
-                v60 = v20[1];
-                v61 = v20[2];
+                v59 = v20[1];
+                v60 = v20[2];
                 if (v25 != *v20 || v26 != v20[1] || v27 != v20[2] || v28 != v23 || v29 != v11)
                 {
                   v34 = v20[3];
                   v35 = *v20;
-                  awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd::Batch_Metric_Submission_Ind const&)::$_0::operator()(this, &v62);
-                  v62.__r_.__value_.__l.__size_ = v16;
+                  awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd::Batch_Metric_Submission_Ind const&)::$_0::operator()(this, &v61);
+                  v61.__r_.__value_.__l.__size_ = v16;
                   v17 = v16;
                   v22 = v35;
                   v23 = v34;
@@ -7170,9 +7173,9 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
                 v37 = v21;
                 if (v17 >= v24)
                 {
-                  v54 = v23;
-                  v55 = v22;
-                  v53 = v11;
+                  v53 = v23;
+                  v54 = v22;
+                  v52 = v11;
                   v38 = v17 - v16;
                   v39 = (v17 - v16) >> 6;
                   v40 = v39 + 1;
@@ -7215,32 +7218,32 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
                   v43 = &v42[64 * v39];
                   *v43 = v20;
                   *(v43 + 1) = v19;
-                  *(v43 + 4) = v55;
-                  *(v43 + 5) = v60;
+                  *(v43 + 4) = v54;
+                  *(v43 + 5) = v59;
                   v24 = &v42[64 * v41];
-                  v11 = v53;
-                  *(v43 + 6) = v61;
-                  *(v43 + 7) = v54;
-                  *(v43 + 8) = v57;
-                  *(v43 + 9) = v53;
-                  *(v43 + 20) = v59;
+                  v11 = v52;
+                  *(v43 + 6) = v60;
+                  *(v43 + 7) = v53;
+                  *(v43 + 8) = v56;
+                  *(v43 + 9) = v52;
+                  *(v43 + 20) = v58;
                   *(v43 + 21) = v37;
                   *(v43 + 11) = -1431655766;
                   v17 = (v43 + 64);
                   *(v43 + 6) = v36;
                   *(v43 + 7) = v37;
                   memcpy(v42, v16, v38);
-                  v62.__r_.__value_.__r.__words[0] = v42;
-                  v62.__r_.__value_.__l.__size_ = v17;
-                  v62.__r_.__value_.__r.__words[2] = v24;
+                  v61.__r_.__value_.__r.__words[0] = v42;
+                  v61.__r_.__value_.__l.__size_ = v17;
+                  v61.__r_.__value_.__r.__words[2] = v24;
                   if (v16)
                   {
                     operator delete(v16);
                   }
 
                   v16 = v42;
-                  v23 = v54;
-                  v22 = v55;
+                  v23 = v53;
+                  v22 = v54;
                 }
 
                 else
@@ -7248,12 +7251,12 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
                   *v17 = v20;
                   *(v17 + 8) = v19;
                   *(v17 + 16) = v22;
-                  *(v17 + 20) = v60;
-                  *(v17 + 24) = v61;
+                  *(v17 + 20) = v59;
+                  *(v17 + 24) = v60;
                   *(v17 + 28) = v23;
-                  *(v17 + 32) = v57;
+                  *(v17 + 32) = v56;
                   *(v17 + 36) = v11;
-                  *(v17 + 40) = v59;
+                  *(v17 + 40) = v58;
                   *(v17 + 42) = v21;
                   *(v17 + 44) = -1431655766;
                   *(v17 + 48) = v36;
@@ -7261,7 +7264,7 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
                   v17 += 64;
                 }
 
-                v62.__r_.__value_.__l.__size_ = v17;
+                v61.__r_.__value_.__l.__size_ = v17;
                 v19 -= v37 + 28;
                 if (v19 < 0x1C)
                 {
@@ -7277,28 +7280,28 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(awd::MipcComman
           }
 
 LABEL_65:
-          awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd::Batch_Metric_Submission_Ind const&)::$_0::operator()(this, &v62);
-          v49 = v62.__r_.__value_.__r.__words[0];
-          v62.__r_.__value_.__l.__size_ = v62.__r_.__value_.__r.__words[0];
-          if (v62.__r_.__value_.__r.__words[0])
+          awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd::Batch_Metric_Submission_Ind const&)::$_0::operator()(this, &v61);
+          v49 = v61.__r_.__value_.__r.__words[0];
+          v61.__r_.__value_.__l.__size_ = v61.__r_.__value_.__r.__words[0];
+          if (!v61.__r_.__value_.__r.__words[0])
           {
-            goto LABEL_66;
+            return;
           }
 
-          goto LABEL_67;
+          goto LABEL_66;
         }
 
 LABEL_64:
-        memset(&v62, 0, sizeof(v62));
+        memset(&v61, 0, sizeof(v61));
         goto LABEL_65;
       }
 
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_67;
+        return;
       }
 
-      LOWORD(v62.__r_.__value_.__l.__data_) = 0;
+      LOWORD(v61.__r_.__value_.__l.__data_) = 0;
       v46 = "Empty payload in batch metric submission";
       v47 = v7;
     }
@@ -7308,16 +7311,16 @@ LABEL_64:
       v45 = *(this + 5);
       if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_67;
+        return;
       }
 
-      LOWORD(v62.__r_.__value_.__l.__data_) = 0;
+      LOWORD(v61.__r_.__value_.__l.__data_) = 0;
       v46 = "Invalid payload TLV in batch metric submission";
       v47 = v45;
     }
 
-    _os_log_error_impl(&dword_296E3E000, v47, OS_LOG_TYPE_ERROR, v46, &v62, 2u);
-    goto LABEL_67;
+    _os_log_error_impl(&dword_296E3E000, v47, OS_LOG_TYPE_ERROR, v46, &v61, 2u);
+    return;
   }
 
   v44 = *(this + 5);
@@ -7325,33 +7328,30 @@ LABEL_64:
   {
     if (*(a2 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v62, *(a2 + 5), *(a2 + 6));
+      std::string::__init_copy_ctor_external(&v61, *(a2 + 5), *(a2 + 6));
     }
 
     else
     {
-      v62 = *(a2 + 40);
+      v61 = *(a2 + 40);
     }
 
-    v48 = &v62;
-    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v48 = &v61;
+    if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v48 = v62.__r_.__value_.__r.__words[0];
+      v48 = v61.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315138;
-    v64 = v48;
+    v63 = v48;
     _os_log_error_impl(&dword_296E3E000, v44, OS_LOG_TYPE_ERROR, "Error in batch metric submission (%s)", buf, 0xCu);
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      v49 = v62.__r_.__value_.__r.__words[0];
+      v49 = v61.__r_.__value_.__r.__words[0];
 LABEL_66:
       operator delete(v49);
     }
   }
-
-LABEL_67:
-  v52 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296E52C94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16)
@@ -7367,7 +7367,7 @@ void sub_296E52C94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd::Batch_Metric_Submission_Ind const&)::$_0::operator()(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   if (*a2 != a2[1])
   {
     v3 = *(a1 + 72);
@@ -7392,13 +7392,13 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd:
       if (v6 != a1 + 72 && *(v6 + 32) <= v5)
       {
         v10 = *(v6 + 48);
-        v46 = *(v6 + 40);
+        v42 = *(v6 + 40);
         if (v10)
         {
           atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        if (v46)
+        if (v42)
         {
           v11 = *(*a2 + 36);
           v12 = *(*a2 + 20);
@@ -7408,33 +7408,33 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67110144;
-            v49 = v5;
-            LOWORD(v50) = 1024;
-            *(&v50 + 2) = v11;
-            HIWORD(v50) = 1024;
-            v51 = v12;
-            LOWORD(v52) = 1024;
-            *(&v52 + 2) = v14;
-            HIWORD(v52) = 1024;
-            v53 = v13;
+            v45 = v5;
+            LOWORD(v46) = 1024;
+            *(&v46 + 2) = v11;
+            HIWORD(v46) = 1024;
+            v47 = v12;
+            LOWORD(v48) = 1024;
+            *(&v48 + 2) = v14;
+            HIWORD(v48) = 1024;
+            v49 = v13;
             _os_log_debug_impl(&dword_296E3E000, v15, OS_LOG_TYPE_DEBUG, "#D >>>> Start  (AppId: %d, Component: 0x%x, SubmissionId: 0x%x, TriggerId: 0x%x, ProfileId: 0x%x)", buf, 0x20u);
           }
 
-          v44 = v11;
-          v45 = v5;
-          v41 = v13;
+          v40 = v11;
+          v41 = v5;
+          v37 = v13;
           *buf = v13;
-          v49 = 0;
-          v50 = __PAIR64__(v12, v11);
-          v43 = v12;
-          v51 = v14;
-          v52 = 0xAAAAAA00AAAA0000;
-          v53 = -1431655936;
-          v42 = v14;
+          v45 = 0;
+          v46 = __PAIR64__(v12, v11);
+          v39 = v12;
+          v47 = v14;
+          v48 = 0xAAAAAA00AAAA0000;
+          v49 = -1431655936;
+          v38 = v14;
           awd::AppContext::operator()();
           v16 = *a2;
           v17 = a2[1];
-          v40 = v10;
+          v36 = v10;
           if (*a2 != v17)
           {
             while (1)
@@ -7448,83 +7448,82 @@ void awd::MipcCommandDriver::handleBatchMetricSubmissionInd_sync(mipc::dale_awd:
               if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 67110400;
-                v49 = v45;
-                LOWORD(v50) = 1024;
-                *(&v50 + 2) = v18;
-                HIWORD(v50) = 1024;
-                v51 = v21;
-                LOWORD(v52) = 1024;
-                *(&v52 + 2) = v22;
-                HIWORD(v52) = 1024;
-                v53 = v20;
-                v54 = 1024;
-                LODWORD(v55) = v19;
+                v45 = v41;
+                LOWORD(v46) = 1024;
+                *(&v46 + 2) = v18;
+                HIWORD(v46) = 1024;
+                v47 = v21;
+                LOWORD(v48) = 1024;
+                *(&v48 + 2) = v22;
+                HIWORD(v48) = 1024;
+                v49 = v20;
+                v50 = 1024;
+                LODWORD(v51) = v19;
                 _os_log_debug_impl(&dword_296E3E000, v23, OS_LOG_TYPE_DEBUG, "#D    * Metric (AppId: %d, Component: 0x%x, SubmissionId: 0x%x, TriggerId: 0x%x, ProfileId: 0x%x, MetricId: 0x%x)", buf, 0x26u);
               }
 
               *buf = v20;
-              v49 = v19;
-              v50 = __PAIR64__(v21, v18);
-              v51 = v22;
-              v52 = 0xAAAAAA00AAAA0000;
-              v53 = -1431655936;
-              v24 = *(v16 + 40);
-              v25 = *(v16 + 48);
-              v26 = *(v16 + 56);
+              v45 = v19;
+              v46 = __PAIR64__(v21, v18);
+              v47 = v22;
+              v48 = 0xAAAAAA00AAAA0000;
+              v49 = -1431655936;
+              v24 = *(v16 + 48);
+              v25 = *(v16 + 56);
               __p = 0;
-              if (!v26)
+              if (!v25)
               {
                 goto LABEL_31;
               }
 
-              if ((v26 & 0x8000000000000000) != 0)
+              if ((v25 & 0x8000000000000000) != 0)
               {
                 std::vector<std::string>::__throw_length_error[abi:ne200100]();
               }
 
-              v27 = operator new(v26);
-              __p = v27;
-              if (v26 < 0x20)
+              v26 = operator new(v25);
+              __p = v26;
+              if (v25 < 0x20)
               {
-                v28 = v25;
+                v27 = v24;
               }
 
               else
               {
-                v28 = v25;
-                if (&v27[-v25] >= 0x20)
+                v27 = v24;
+                if (&v26[-v24] >= 0x20)
                 {
-                  v28 = (v25 + (v26 & 0x7FFFFFFFFFFFFFE0));
-                  v29 = v27 + 16;
-                  v30 = (v25 + 16);
-                  v31 = v26 & 0x7FFFFFFFFFFFFFE0;
+                  v27 = (v24 + (v25 & 0x7FFFFFFFFFFFFFE0));
+                  v28 = v26 + 16;
+                  v29 = (v24 + 16);
+                  v30 = v25 & 0x7FFFFFFFFFFFFFE0;
                   do
                   {
-                    v32 = *v30;
-                    *(v29 - 1) = *(v30 - 1);
-                    *v29 = v32;
+                    v31 = *v29;
+                    *(v28 - 1) = *(v29 - 1);
+                    *v28 = v31;
+                    v28 += 2;
                     v29 += 2;
-                    v30 += 2;
-                    v31 -= 32;
+                    v30 -= 32;
                   }
 
-                  while (v31);
-                  v27 += v26 & 0x7FFFFFFFFFFFFFE0;
-                  if (v26 == (v26 & 0x7FFFFFFFFFFFFFE0))
+                  while (v30);
+                  v26 += v25 & 0x7FFFFFFFFFFFFFE0;
+                  if (v25 == (v25 & 0x7FFFFFFFFFFFFFE0))
                   {
                     goto LABEL_31;
                   }
                 }
               }
 
-              v33 = v27;
+              v32 = v26;
               do
               {
-                v34 = *v28++;
-                *v33++ = v34;
+                v33 = *v27++;
+                *v32++ = v33;
               }
 
-              while (v28 != (v25 + v26));
+              while (v27 != (v24 + v25));
 LABEL_31:
               awd::AppContext::operator()();
               if (__p)
@@ -7536,64 +7535,71 @@ LABEL_31:
               if (v16 == v17)
               {
                 v16 = *a2;
-                v35 = a2[1];
+                v34 = a2[1];
                 goto LABEL_35;
               }
             }
           }
 
-          v35 = *a2;
+          v34 = *a2;
 LABEL_35:
-          v36 = *(a1 + 40);
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+          v35 = *(a1 + 40);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67110400;
-            v49 = v45;
-            LOWORD(v50) = 1024;
-            *(&v50 + 2) = v44;
-            HIWORD(v50) = 1024;
-            v51 = v43;
-            LOWORD(v52) = 1024;
-            *(&v52 + 2) = v42;
-            HIWORD(v52) = 1024;
-            v53 = v41;
-            v54 = 2048;
-            v55 = (v35 - v16) >> 6;
-            _os_log_debug_impl(&dword_296E3E000, v36, OS_LOG_TYPE_DEBUG, "#D    > Done   (AppId: %d, Component: 0x%x, SubmissionId: 0x%x, TriggerId: 0x%x, ProfileId: 0x%x, Count: %lu)", buf, 0x2Au);
-            v39 = *a2;
-            v38 = a2[1];
+            v45 = v41;
+            LOWORD(v46) = 1024;
+            *(&v46 + 2) = v40;
+            HIWORD(v46) = 1024;
+            v47 = v39;
+            LOWORD(v48) = 1024;
+            *(&v48 + 2) = v38;
+            HIWORD(v48) = 1024;
+            v49 = v37;
+            v50 = 2048;
+            v51 = (v34 - v16) >> 6;
+            _os_log_debug_impl(&dword_296E3E000, v35, OS_LOG_TYPE_DEBUG, "#D    > Done   (AppId: %d, Component: 0x%x, SubmissionId: 0x%x, TriggerId: 0x%x, ProfileId: 0x%x, Count: %lu)", buf, 0x2Au);
           }
 
-          *buf = v41;
-          v49 = 0;
-          v50 = __PAIR64__(v43, v44);
-          v51 = v42;
-          v52 = 0xAAAAAA00AAAA0000;
-          v53 = -1431655936;
+          *buf = v37;
+          v45 = 0;
+          v46 = __PAIR64__(v39, v40);
+          v47 = v38;
+          v48 = 0xAAAAAA00AAAA0000;
+          v49 = -1431655936;
           awd::AppContext::operator()();
-          v10 = v40;
+          v10 = v36;
         }
 
-        if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (v10)
         {
-          (v10->__on_zero_shared)(v10);
-          std::__shared_weak_count::__release_weak(v10);
+          if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v10->__on_zero_shared)(v10);
+            std::__shared_weak_count::__release_weak(v10);
+          }
         }
       }
     }
   }
-
-  v37 = *MEMORY[0x29EDCA608];
 }
 
-void sub_296E53178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_296E53160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_296E53178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a27);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -7799,53 +7805,52 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
     _os_log_impl(&dword_296E3E000, v2, OS_LOG_TYPE_DEFAULT, "#I Send enable metric submission not supported on this device", buf, 2u);
   }
 
-  v3 = *v1;
-  v4 = v1[2];
-  if (v4)
+  v3 = v1[2];
+  if (v3)
   {
-    v4 = _Block_copy(v4);
+    v3 = _Block_copy(v3);
   }
 
-  *buf = v4;
+  *buf = v3;
   awd::AppContext::operator()();
   if (*buf)
   {
     _Block_release(*buf);
   }
 
-  v5 = v1[2];
-  if (v5)
+  v4 = v1[2];
+  if (v4)
   {
-    _Block_release(v5);
+    _Block_release(v4);
   }
 
-  v6 = v1[1];
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v5 = v1[1];
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
   }
 
   operator delete(v1);
-  v7 = a1;
+  v6 = a1;
   if (a1)
   {
-    v8 = a1[2];
-    if (v8)
+    v7 = a1[2];
+    if (v7)
     {
-      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v8->__on_zero_shared)(v8);
-        std::__shared_weak_count::__release_weak(v8);
-        v7 = a1;
+        (v7->__on_zero_shared)(v7);
+        std::__shared_weak_count::__release_weak(v7);
+        v6 = a1;
       }
     }
 
-    operator delete(v7);
+    operator delete(v6);
   }
 }
 
-void sub_296E53914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *aBlock)
+void sub_296E53914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *aBlock)
 {
   if (aBlock)
   {
@@ -7885,9 +7890,9 @@ void **std::unique_ptr<awd::MipcCommandDriver::sendEnableMetricSubmission(std::s
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
   v1 = a1;
-  v131 = *MEMORY[0x29EDCA608];
+  v125 = *MEMORY[0x29EDCA608];
   v2 = *a1;
-  v90 = v2;
+  v84 = v2;
   v3 = v2[7];
   v5 = v2[3];
   v4 = v2[4];
@@ -7911,7 +7916,7 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
     v7 = 0;
   }
 
-  v84 = v4 - v5;
+  v78 = v4 - v5;
   if (v4 == v5)
   {
     isa = v3[5].isa;
@@ -7921,46 +7926,47 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
       *buf = 67109120;
       *&buf[4] = AppID;
       _os_log_error_impl(&dword_296E3E000, isa, OS_LOG_TYPE_ERROR, "Empty payload (appId: %d)", buf, 8u);
-      v77 = *v2;
-      v14 = v2[6];
-      if (!v14)
+      v12 = v2[6];
+      if (!v12)
       {
 LABEL_17:
-        v106 = v14;
+        v100 = v12;
         awd::AppContext::operator()();
-        v11 = v106;
-        if (v106)
+        v10 = v100;
+        if (v100)
         {
 LABEL_18:
-          _Block_release(v11);
+          _Block_release(v10);
         }
 
 LABEL_19:
-        std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v90);
+        std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v84);
 LABEL_34:
-        v27 = v1[2];
-        if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v24 = v1[2];
+        if (v24)
         {
-          (v27->__on_zero_shared)(v27);
-          std::__shared_weak_count::__release_weak(v27);
+          if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v24->__on_zero_shared)(v24);
+            std::__shared_weak_count::__release_weak(v24);
+          }
         }
 
         operator delete(v1);
-        goto LABEL_38;
+        return;
       }
     }
 
     else
     {
-      v13 = *v2;
-      v14 = v2[6];
-      if (!v14)
+      v12 = v2[6];
+      if (!v12)
       {
         goto LABEL_17;
       }
     }
 
-    v14 = _Block_copy(v14);
+    v12 = _Block_copy(v12);
     goto LABEL_17;
   }
 
@@ -7969,21 +7975,20 @@ LABEL_34:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v78 = awd::AppContext::getAppID(*v2);
-      v79 = *(v2 + 16);
+      v73 = awd::AppContext::getAppID(*v2);
+      v74 = *(v2 + 16);
       *buf = 67109376;
-      *&buf[4] = v78;
-      *v126 = 1024;
-      *&v126[2] = v79;
+      *&buf[4] = v73;
+      *v120 = 1024;
+      *&v120[2] = v74;
       _os_log_error_impl(&dword_296E3E000, v8, OS_LOG_TYPE_ERROR, "Illegal payload type (appId: %d, type: %d)", buf, 0xEu);
-      v80 = *v2;
-      v10 = v2[6];
-      if (!v10)
+      v9 = v2[6];
+      if (!v9)
       {
 LABEL_12:
-        aBlock = v10;
+        aBlock = v9;
         awd::AppContext::operator()();
-        v11 = aBlock;
+        v10 = aBlock;
         if (aBlock)
         {
           goto LABEL_18;
@@ -7995,186 +8000,184 @@ LABEL_12:
 
     else
     {
-      v9 = *v2;
-      v10 = v2[6];
-      if (!v10)
+      v9 = v2[6];
+      if (!v9)
       {
         goto LABEL_12;
       }
     }
 
-    v10 = _Block_copy(v10);
+    v9 = _Block_copy(v9);
     goto LABEL_12;
   }
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = awd::AppContext::getAppID(*v2);
-    v16 = *(v2 + 16);
+    v13 = awd::AppContext::getAppID(*v2);
     *buf = 67109634;
-    *&buf[4] = v15;
-    *v126 = 2080;
-    *&v126[2] = awd::asString();
-    *&v126[10] = 2048;
-    *&v126[12] = v84;
+    *&buf[4] = v13;
+    *v120 = 2080;
+    *&v120[2] = awd::asString();
+    *&v120[10] = 2048;
+    *&v120[12] = v78;
     _os_log_impl(&dword_296E3E000, v8, OS_LOG_TYPE_DEFAULT, "#I Requesting to add configuration (appId: %d, type: %s, payload size: %zu)", buf, 0x1Cu);
   }
 
-  v17 = operator new(0x20uLL);
-  v82 = v7;
-  v17[1] = 0;
-  v17[2] = 0;
-  *v17 = &unk_2A1E119F0;
-  *(v17 + 24) = 1;
-  *&v104 = v17 + 3;
-  *(&v104 + 1) = v17;
-  v18 = dispatch_group_create();
-  v83 = v18;
-  if ((v84 + 58999) >= 0xE678)
+  v14 = operator new(0x20uLL);
+  v76 = v7;
+  v14[1] = 0;
+  v14[2] = 0;
+  *v14 = &unk_2A1E119F0;
+  *(v14 + 24) = 1;
+  *&v98 = v14 + 3;
+  *(&v98 + 1) = v14;
+  v15 = dispatch_group_create();
+  v77 = v15;
+  if ((v78 + 58999) >= 0xE678)
   {
-    v29 = 0;
-    v87 = v3;
-    v88 = (v84 + 58999) / 0xE678uLL;
-    v30 = 1;
+    v25 = 0;
+    v81 = v3;
+    v82 = (v78 + 58999) / 0xE678uLL;
+    v26 = 1;
     while (1)
     {
-      *&v32 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *v102 = v32;
-      *v103 = v32;
-      *__p = v32;
-      *v101 = v32;
-      v99[3] = v32;
-      v99[4] = v32;
-      v99[1] = v32;
-      v99[2] = v32;
-      v99[0] = v32;
+      *&v28 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *v96 = v28;
+      *v97 = v28;
+      *__p = v28;
+      *v95 = v28;
+      v93[3] = v28;
+      v93[4] = v28;
+      v93[1] = v28;
+      v93[2] = v28;
+      v93[0] = v28;
       mipc::dale_awd::Add_Config_Req::Add_Config_Req();
-      v33 = v2[3];
-      v34 = (v33 + v29);
-      v35 = v33 + v84;
-      if (v35 >= v34 + 59000)
+      v29 = v2[3];
+      v30 = (v29 + v25);
+      v31 = v29 + v78;
+      if (v31 >= v30 + 59000)
       {
-        v35 = v34 + 59000;
+        v31 = v30 + 59000;
       }
 
-      v36 = v35 - v34;
-      if (v35 == v34)
+      v32 = v31 - v30;
+      if (v31 == v30)
       {
-        v37 = 0;
-        v38 = 0;
+        v33 = 0;
+        v34 = 0;
       }
 
       else
       {
-        if ((v36 & 0x8000000000000000) != 0)
+        if ((v32 & 0x8000000000000000) != 0)
         {
           std::vector<std::string>::__throw_length_error[abi:ne200100]();
         }
 
-        v37 = operator new(v35 - v34);
-        v38 = &v37[v36];
-        memcpy(v37, v34, v36);
+        v33 = operator new(v31 - v30);
+        v34 = &v33[v32];
+        memcpy(v33, v30, v32);
       }
 
-      v39 = awd::AppContext::getAppID(*v2);
+      v35 = awd::AppContext::getAppID(*v2);
+      v36 = operator new(4uLL);
+      *v36 = v35;
+      v37 = __p[1];
+      __p[1] = v36;
+      if (v37)
+      {
+        operator delete(v37);
+      }
+
+      v38 = operator new(4uLL);
+      *v38 = 0;
+      v39 = v95[0];
+      v95[0] = v38;
+      if (v39)
+      {
+        operator delete(v39);
+      }
+
       v40 = operator new(4uLL);
-      *v40 = v39;
-      v41 = __p[1];
-      __p[1] = v40;
+      *v40 = v76;
+      v41 = v95[1];
+      v95[1] = v40;
       if (v41)
       {
         operator delete(v41);
       }
 
-      v42 = operator new(4uLL);
-      *v42 = 0;
-      v43 = v101[0];
-      v101[0] = v42;
+      v42 = operator new(1uLL);
+      *v42 = v82;
+      v43 = v96[0];
+      v96[0] = v42;
       if (v43)
       {
         operator delete(v43);
       }
 
-      v44 = operator new(4uLL);
-      *v44 = v82;
-      v45 = v101[1];
-      v101[1] = v44;
+      v44 = operator new(1uLL);
+      *v44 = v26 - 1;
+      v45 = v96[1];
+      v96[1] = v44;
       if (v45)
       {
         operator delete(v45);
       }
 
-      v46 = operator new(1uLL);
-      *v46 = v88;
-      v47 = v102[0];
-      v102[0] = v46;
-      if (v47)
+      v46 = operator new(2uLL);
+      v47 = v34 - v33;
+      *v46 = v34 - v33;
+      v48 = v97[0];
+      v97[0] = v46;
+      if (v48)
       {
-        operator delete(v47);
+        operator delete(v48);
       }
 
-      v48 = operator new(1uLL);
-      *v48 = v30 - 1;
-      v49 = v102[1];
-      v102[1] = v48;
-      if (v49)
+      v49 = operator new(0x18uLL);
+      *v49 = 0;
+      v49[1] = 0;
+      v49[2] = 0;
+      if (v34 != v33)
       {
-        operator delete(v49);
-      }
-
-      v50 = operator new(2uLL);
-      v51 = v38 - v37;
-      *v50 = v38 - v37;
-      v52 = v103[0];
-      v103[0] = v50;
-      if (v52)
-      {
-        operator delete(v52);
-      }
-
-      v53 = operator new(0x18uLL);
-      *v53 = 0;
-      v53[1] = 0;
-      v53[2] = 0;
-      if (v38 != v37)
-      {
-        if ((v51 & 0x8000000000000000) != 0)
+        if ((v47 & 0x8000000000000000) != 0)
         {
           std::vector<std::string>::__throw_length_error[abi:ne200100]();
         }
 
-        v54 = operator new(v38 - v37);
-        *v53 = v54;
-        v55 = &v54[v51];
-        v53[2] = &v54[v51];
-        memcpy(v54, v37, v51);
-        v53[1] = v55;
+        v50 = operator new(v34 - v33);
+        *v49 = v50;
+        v51 = &v50[v47];
+        v49[2] = &v50[v47];
+        memcpy(v50, v33, v47);
+        v49[1] = v51;
       }
 
-      v56 = v103[1];
-      v103[1] = v53;
-      v18 = v83;
-      if (v56)
+      v52 = v97[1];
+      v97[1] = v49;
+      v15 = v77;
+      if (v52)
       {
-        v57 = *v56;
-        if (*v56)
+        v53 = *v52;
+        if (*v52)
         {
-          v56[1] = v57;
-          operator delete(v57);
+          v52[1] = v53;
+          operator delete(v53);
         }
 
-        operator delete(v56);
+        operator delete(v52);
       }
 
-      v110 = 0xAAAAAAAAAAAAAAAALL;
-      *&v58 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v58 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v108 = v58;
-      v109 = v58;
-      v107 = v58;
-      mipc::dale_awd::Add_Config_Req::serialize(&v107, v99);
-      if (v110)
+      v104 = 0xAAAAAAAAAAAAAAAALL;
+      *&v54 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v102 = v54;
+      v103 = v54;
+      v101 = v54;
+      mipc::dale_awd::Add_Config_Req::serialize(&v101, v93);
+      if (v104)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         std::logic_error::logic_error(exception, "Serialization error");
@@ -8182,129 +8185,129 @@ LABEL_12:
         __cxa_throw(exception, off_29EE5C750, MEMORY[0x29EDC9360]);
       }
 
-      v124 = 0xAAAAAAAAAAAAAAAALL;
-      *&v59 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v59 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v122 = v59;
-      v123 = v59;
-      v120 = v59;
-      v121 = v59;
-      v118 = v59;
-      v119 = v59;
-      v116 = v59;
-      v117 = v59;
-      MEMORY[0x29C266720](&v116, &v107);
-      abb::router::SendProxy::SendProxy(buf, &v87[11], &v116);
-      MEMORY[0x29C266730](&v116);
-      if (v110 != -1)
+      v118 = 0xAAAAAAAAAAAAAAAALL;
+      *&v55 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v116 = v55;
+      v117 = v55;
+      v114 = v55;
+      v115 = v55;
+      v112 = v55;
+      v113 = v55;
+      v110 = v55;
+      v111 = v55;
+      MEMORY[0x29C266720](&v110, &v101);
+      abb::router::SendProxy::SendProxy(buf, &v81[11], &v110);
+      MEMORY[0x29C266730](&v110);
+      if (v104 != -1)
       {
-        *&v116 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-        *(&v116 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-        (*(&v116 + v110))(&v91, &v107);
+        *&v110 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+        *(&v110 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+        (*(&v110 + v104))(&v85, &v101);
       }
 
-      v60 = v2[1];
-      v91 = *v2;
-      v92 = v60;
-      if (v60)
+      v56 = v2[1];
+      v85 = *v2;
+      v86 = v56;
+      if (v56)
       {
-        atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      LOBYTE(v93) = *(v2 + 16);
-      *(&v93 + 1) = (v84 + 58999) / 0xE678uLL;
-      LODWORD(v94) = v30 - 1;
-      *(&v94 + 1) = v36;
-      v95 = v104;
-      if (*(&v104 + 1))
+      LOBYTE(v87) = *(v2 + 16);
+      *(&v87 + 1) = (v78 + 58999) / 0xE678uLL;
+      LODWORD(v88) = v26 - 1;
+      *(&v88 + 1) = v32;
+      v89 = v98;
+      if (*(&v98 + 1))
       {
-        atomic_fetch_add_explicit((*(&v104 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v98 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      group[0] = v83;
-      if (v83)
+      group[0] = v77;
+      if (v77)
       {
-        dispatch_retain(v83);
+        dispatch_retain(v77);
         if (group[0])
         {
           dispatch_group_enter(group[0]);
         }
       }
 
-      group[1] = v87;
-      v61 = v87[2].isa;
-      if (!v61 || (v62 = v87[1].isa, (v63 = std::__shared_weak_count::lock(v61)) == 0))
+      group[1] = v81;
+      v57 = v81[2].isa;
+      if (!v57 || (v58 = v81[1].isa, (v59 = std::__shared_weak_count::lock(v57)) == 0))
       {
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
 
-      v97 = v62;
-      v98 = v63;
-      atomic_fetch_add_explicit(&v63->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      if (!atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v91 = v58;
+      v92 = v59;
+      atomic_fetch_add_explicit(&v59->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      if (!atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v64 = v63;
-        (v63->__on_zero_shared)();
-        std::__shared_weak_count::__release_weak(v64);
+        v60 = v59;
+        (v59->__on_zero_shared)();
+        std::__shared_weak_count::__release_weak(v60);
       }
 
+      v61 = v85;
+      v62 = v86;
+      v85 = 0;
+      v86 = 0;
+      v102 = v87;
+      v103 = v88;
+      v63 = v89;
+      v64 = *group;
+      v89 = 0uLL;
+      group[0] = 0;
+      v107 = *(&v64 + 1);
       v65 = v91;
       v66 = v92;
       v91 = 0;
       v92 = 0;
-      v108 = v93;
-      v109 = v94;
-      v67 = v95;
-      v68 = *group;
-      v95 = 0uLL;
-      group[0] = 0;
-      v113 = *(&v68 + 1);
-      v69 = v97;
-      v70 = v98;
-      v97 = 0;
-      v98 = 0;
-      *&v116 = v65;
-      *(&v116 + 1) = v66;
-      v107 = 0uLL;
-      v117 = v93;
-      v118 = v94;
-      v110 = 0;
-      v111 = 0;
-      v112 = 0;
-      v85 = v68;
-      v86 = v67;
-      v119 = v67;
-      v120 = v68;
-      *&v121 = v69;
-      *(&v121 + 1) = v70;
-      v114 = 0;
-      v115 = 0;
-      v71 = operator new(0x68uLL);
-      *v71 = &unk_2A1E11A40;
-      *(v71 + 1) = v65;
-      *(v71 + 2) = v66;
-      v72 = v94;
-      *(v71 + 24) = v93;
-      *(v71 + 40) = v72;
-      *(v71 + 72) = v85;
-      *(v71 + 56) = v86;
-      *(v71 + 11) = v69;
-      *(v71 + 12) = v70;
-      v130 = v71;
-      std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v129, v128);
-      if (v130 == v129)
+      *&v110 = v61;
+      *(&v110 + 1) = v62;
+      v101 = 0uLL;
+      v111 = v87;
+      v112 = v88;
+      v104 = 0;
+      v105 = 0;
+      v106 = 0;
+      v79 = v64;
+      v80 = v63;
+      v113 = v63;
+      v114 = v64;
+      *&v115 = v65;
+      *(&v115 + 1) = v66;
+      v108 = 0;
+      v109 = 0;
+      v67 = operator new(0x68uLL);
+      *v67 = &unk_2A1E11A40;
+      *(v67 + 1) = v61;
+      *(v67 + 2) = v62;
+      v68 = v88;
+      *(v67 + 24) = v87;
+      *(v67 + 40) = v68;
+      *(v67 + 72) = v79;
+      *(v67 + 56) = v80;
+      *(v67 + 11) = v65;
+      *(v67 + 12) = v66;
+      v124 = v67;
+      std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v123, v122);
+      if (v124 == v123)
       {
         break;
       }
 
-      v3 = v87;
-      if (v130)
+      v3 = v81;
+      if (v124)
       {
-        (*(*v130 + 40))();
+        (*(*v124 + 40))();
       }
 
-      v73 = v98;
-      if (v98)
+      v69 = v92;
+      if (v92)
       {
         goto LABEL_85;
       }
@@ -8319,79 +8322,79 @@ LABEL_86:
         }
       }
 
-      v74 = *(&v95 + 1);
-      if (*(&v95 + 1) && !atomic_fetch_add((*(&v95 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v70 = *(&v89 + 1);
+      if (*(&v89 + 1) && !atomic_fetch_add((*(&v89 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v74->__on_zero_shared)(v74);
-        std::__shared_weak_count::__release_weak(v74);
-        v75 = v92;
-        if (v92)
+        (v70->__on_zero_shared)(v70);
+        std::__shared_weak_count::__release_weak(v70);
+        v71 = v86;
+        if (v86)
         {
 LABEL_92:
-          if (!atomic_fetch_add(&v75->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          if (!atomic_fetch_add(&v71->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v75->__on_zero_shared)(v75);
-            std::__shared_weak_count::__release_weak(v75);
+            (v71->__on_zero_shared)(v71);
+            std::__shared_weak_count::__release_weak(v71);
           }
         }
       }
 
       else
       {
-        v75 = v92;
-        if (v92)
+        v71 = v86;
+        if (v86)
         {
           goto LABEL_92;
         }
       }
 
       MEMORY[0x29C266750](buf);
-      if (v37)
+      if (v33)
       {
-        operator delete(v37);
+        operator delete(v33);
       }
 
-      MEMORY[0x29C266F50](v99);
-      v31 = v88 > v30++;
-      v29 += 59000;
-      if (!v31)
+      MEMORY[0x29C266F50](v93);
+      v27 = v82 > v26++;
+      v25 += 59000;
+      if (!v27)
       {
         goto LABEL_23;
       }
     }
 
-    (*(*v130 + 32))(v130);
-    v3 = v87;
-    v73 = v98;
-    if (!v98)
+    (*(*v124 + 32))(v124);
+    v3 = v81;
+    v69 = v92;
+    if (!v92)
     {
       goto LABEL_86;
     }
 
 LABEL_85:
-    std::__shared_weak_count::__release_weak(v73);
+    std::__shared_weak_count::__release_weak(v69);
     goto LABEL_86;
   }
 
 LABEL_23:
-  v19 = *v2;
-  v20 = v2[1];
+  v16 = *v2;
+  v17 = v2[1];
   *buf = *v2;
-  *v126 = v20;
-  if (v20)
+  *v120 = v17;
+  if (v17)
   {
-    atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v21 = v2[6];
-  if (v21)
+  v18 = v2[6];
+  if (v18)
   {
-    v22 = _Block_copy(v21);
-    v23 = *(&v104 + 1);
-    v24 = v104;
-    *&v126[8] = v22;
-    *&v126[16] = v104;
-    if (!*(&v104 + 1))
+    v19 = _Block_copy(v18);
+    v20 = *(&v98 + 1);
+    v21 = v98;
+    *&v120[8] = v19;
+    *&v120[16] = v98;
+    if (!*(&v98 + 1))
     {
       goto LABEL_28;
     }
@@ -8399,50 +8402,47 @@ LABEL_23:
     goto LABEL_27;
   }
 
-  v22 = 0;
-  v23 = *(&v104 + 1);
-  v24 = v104;
-  *&v126[8] = 0;
-  *&v126[16] = v104;
-  if (*(&v104 + 1))
+  v19 = 0;
+  v20 = *(&v98 + 1);
+  v21 = v98;
+  *&v120[8] = 0;
+  *&v120[16] = v98;
+  if (*(&v98 + 1))
   {
 LABEL_27:
-    atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
 LABEL_28:
-  v127 = v3;
-  v25 = v3[3].isa;
-  v26 = operator new(0x30uLL);
-  *v26 = v19;
-  v26[1] = v20;
-  v26[2] = v22;
-  v26[3] = v24;
-  v26[4] = v23;
-  v26[5] = v3;
-  *&v99[0] = 0;
-  dispatch_group_notify_f(v18, v25, v26, dispatch::detail::group_notify<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
-  std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](v99);
-  if (v18)
+  v121 = v3;
+  v22 = v3[3].isa;
+  v23 = operator new(0x30uLL);
+  *v23 = v16;
+  v23[1] = v17;
+  v23[2] = v19;
+  v23[3] = v21;
+  v23[4] = v20;
+  v23[5] = v3;
+  *&v93[0] = 0;
+  dispatch_group_notify_f(v15, v22, v23, dispatch::detail::group_notify<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
+  std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](v93);
+  if (v15)
   {
-    dispatch_release(v18);
+    dispatch_release(v15);
   }
 
-  if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v23->__on_zero_shared)(v23);
-    std::__shared_weak_count::__release_weak(v23);
+    (v20->__on_zero_shared)(v20);
+    std::__shared_weak_count::__release_weak(v20);
   }
 
   v1 = a1;
-  std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v90);
+  std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>::~unique_ptr[abi:ne200100](&v84);
   if (a1)
   {
     goto LABEL_34;
   }
-
-LABEL_38:
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296E54404(_Unwind_Exception *a1, int a2)
@@ -8810,7 +8810,7 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
   }
 }
 
-void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1}>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::destroy_deallocate(void *a1)
+void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1}>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::destroy_deallocate(char *a1)
 {
   std::__function::__alloc_func<abb::router::SendProxy&& abb::router::SendProxy::callback<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1}>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::destroy[abi:ne200100](a1 + 1);
 
@@ -8819,21 +8819,21 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
 void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1}>(awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Add_Config_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(uint64_t a1, abb::router::Message *this)
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v37 = v4;
-  v38 = v4;
-  *v36 = v4;
-  *&v36[16] = v4;
-  v35[0] = v4;
-  v35[1] = v4;
+  v35 = v4;
+  v36 = v4;
+  *v34 = v4;
+  *&v34[16] = v4;
+  v33[0] = v4;
+  v33[1] = v4;
   if (!abb::router::Message::isError(this))
   {
     abb::router::Message::getRawMsg(buf, this);
     v8 = **buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266F20](v35, v8, *(__p[0] + 1) - *__p[0]);
+    MEMORY[0x29C266F20](v33, v8, *(__p[0] + 1) - *__p[0]);
     v9 = __p[1];
     if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -8852,22 +8852,22 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
   }
 
   abb::router::Message::getError(__p, this);
-  if ((v42 & 1) == 0)
+  if ((v40 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  *&v40.__r_.__value_.__l.__data_ = *__p;
+  *&v38.__r_.__value_.__l.__data_ = *__p;
   v6 = mipc::toErrorCode(LODWORD(__p[0]), v5);
-  std::error_code::message(&buf[8], &v40);
-  *&v47[2] = 0;
-  *v48 = 0;
+  std::error_code::message(&buf[8], &v38);
+  *&v45[2] = 0;
+  *v46 = 0;
   *buf = v6;
-  MEMORY[0x29C266F10](v35, buf, 1);
-  v7 = *v48;
-  if (!*v48 || atomic_fetch_add((*v48 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  MEMORY[0x29C266F10](v33, buf, 1);
+  v7 = *v46;
+  if (!*v46 || atomic_fetch_add((*v46 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    if ((v47[1] & 0x80000000) == 0)
+    if ((v45[1] & 0x80000000) == 0)
     {
       goto LABEL_14;
     }
@@ -8877,7 +8877,7 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   (v7->__on_zero_shared)(v7);
   std::__shared_weak_count::__release_weak(v7);
-  if ((v47[1] & 0x80000000) != 0)
+  if ((v45[1] & 0x80000000) != 0)
   {
 LABEL_6:
     operator delete(*&buf[8]);
@@ -8921,101 +8921,100 @@ LABEL_14:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         AppID = awd::AppContext::getAppID(*(a1 + 8));
-        v24 = *(a1 + 24);
-        v25 = awd::asString();
-        v26 = v25;
-        v27 = *(a1 + 32);
-        v28 = *(a1 + 40);
-        v29 = *(a1 + 48);
+        v23 = awd::asString();
+        v24 = v23;
+        v25 = *(a1 + 32);
+        v26 = *(a1 + 40);
+        v27 = *(a1 + 48);
         if (v20)
         {
           *buf = 136316674;
           *&buf[4] = "success";
           *&buf[12] = 1024;
           *&buf[14] = AppID;
-          v44 = 2080;
-          v45 = v25;
-          v46 = 2048;
-          *v47 = v27;
-          *&v47[8] = 1024;
-          *v48 = v28;
-          *&v48[4] = 2048;
-          *&v48[6] = v29;
-          v49 = 2080;
-          v50 = &unk_296EC917B;
+          v42 = 2080;
+          v43 = v23;
+          v44 = 2048;
+          *v45 = v25;
+          *&v45[8] = 1024;
+          *v46 = v26;
+          *&v46[4] = 2048;
+          *&v46[6] = v27;
+          v47 = 2080;
+          v48 = &unk_296EC917B;
           _os_log_debug_impl(&dword_296E3E000, v21, OS_LOG_TYPE_DEBUG, "#D Send add configuration (single segment) confirmation %s (appId: %d, type: %s, total segments: %zu, current segment: %u, segment length: %zu)%s", buf, 0x40u);
           goto LABEL_23;
         }
 
-        if ((v36[31] & 0x80000000) != 0)
+        if ((v34[31] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&v39, *&v36[8], *&v36[16]);
+          std::string::__init_copy_ctor_external(&v37, *&v34[8], *&v34[16]);
         }
 
         else
         {
-          v39 = *&v36[8];
+          v37 = *&v34[8];
         }
 
-        v30 = std::string::insert(&v39, 0, ", (", 3uLL);
+        v28 = std::string::insert(&v37, 0, ", (", 3uLL);
+        v29 = *&v28->__r_.__value_.__l.__data_;
+        v38.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+        *&v38.__r_.__value_.__l.__data_ = v29;
+        v28->__r_.__value_.__l.__size_ = 0;
+        v28->__r_.__value_.__r.__words[2] = 0;
+        v28->__r_.__value_.__r.__words[0] = 0;
+        v30 = std::string::append(&v38, ")", 1uLL);
         v31 = *&v30->__r_.__value_.__l.__data_;
-        v40.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
-        *&v40.__r_.__value_.__l.__data_ = v31;
+        v40 = v30->__r_.__value_.__r.__words[2];
+        *__p = v31;
         v30->__r_.__value_.__l.__size_ = 0;
         v30->__r_.__value_.__r.__words[2] = 0;
         v30->__r_.__value_.__r.__words[0] = 0;
-        v32 = std::string::append(&v40, ")", 1uLL);
-        v33 = *&v32->__r_.__value_.__l.__data_;
-        v42 = v32->__r_.__value_.__r.__words[2];
-        *__p = v33;
-        v32->__r_.__value_.__l.__size_ = 0;
-        v32->__r_.__value_.__r.__words[2] = 0;
-        v32->__r_.__value_.__r.__words[0] = 0;
-        v34 = __p;
-        if (v42 < 0)
+        v32 = __p;
+        if (v40 < 0)
         {
-          v34 = __p[0];
+          v32 = __p[0];
         }
 
         *buf = 136316674;
         *&buf[4] = "error";
         *&buf[12] = 1024;
         *&buf[14] = AppID;
-        v44 = 2080;
-        v45 = v26;
-        v46 = 2048;
-        *v47 = v27;
-        *&v47[8] = 1024;
-        *v48 = v28;
-        *&v48[4] = 2048;
-        *&v48[6] = v29;
-        v49 = 2080;
-        v50 = v34;
+        v42 = 2080;
+        v43 = v24;
+        v44 = 2048;
+        *v45 = v25;
+        *&v45[8] = 1024;
+        *v46 = v26;
+        *&v46[4] = 2048;
+        *&v46[6] = v27;
+        v47 = 2080;
+        v48 = v32;
         _os_log_debug_impl(&dword_296E3E000, v21, OS_LOG_TYPE_DEBUG, "#D Send add configuration (single segment) confirmation %s (appId: %d, type: %s, total segments: %zu, current segment: %u, segment length: %zu)%s", buf, 0x40u);
-        if (SHIBYTE(v42) < 0)
+        if (SHIBYTE(v40) < 0)
         {
           operator delete(__p[0]);
-          if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v38.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
 LABEL_33:
-            if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((SHIBYTE(v37.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
             {
               goto LABEL_23;
             }
 
 LABEL_37:
-            operator delete(v39.__r_.__value_.__l.__data_);
+            operator delete(v37.__r_.__value_.__l.__data_);
             goto LABEL_23;
           }
         }
 
-        else if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        else if ((SHIBYTE(v38.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_33;
         }
 
-        operator delete(v40.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        operator delete(v38.__r_.__value_.__l.__data_);
+        if ((SHIBYTE(v37.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -9026,8 +9025,7 @@ LABEL_37:
   }
 
 LABEL_23:
-  mipc::dale_awd::Add_Config_Cnf::~Add_Config_Cnf(v35);
-  v22 = *MEMORY[0x29EDCA608];
+  mipc::dale_awd::Add_Config_Cnf::~Add_Config_Cnf(v33);
 }
 
 void sub_296E55288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -9053,10 +9051,11 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-void sub_296E552F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_296E552F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](&a29);
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v29 - 160);
+  va_start(va, a28);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v28 - 160);
   _Unwind_Resume(a1);
 }
 
@@ -9141,57 +9140,53 @@ void std::__throw_bad_optional_access[abi:ne200100]()
 
 void *std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x29EDCA608];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x29EDCA608];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x29EDCA608];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        memset(v5, 170, 24);
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x29EDCA608];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    memset(v8, 170, 24);
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -9249,8 +9244,8 @@ LABEL_6:
 
 void **dispatch::detail::group_notify<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v11 = a1;
+  v12 = *MEMORY[0x29EDCA608];
+  v8 = a1;
   v2 = *(a1[5] + 40);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -9264,46 +9259,42 @@ void **dispatch::detail::group_notify<awd::MipcCommandDriver::sendAddConfigurati
 
     *buf = 136315394;
     *&buf[4] = v5;
-    v13 = 1024;
-    v14 = AppID;
+    v10 = 1024;
+    v11 = AppID;
     _os_log_impl(&dword_296E3E000, v2, OS_LOG_TYPE_DEFAULT, "#I Add configuration %s (appId: %d)", buf, 0x12u);
   }
 
-  v6 = *a1;
-  v7 = a1[2];
-  if (v7)
+  v6 = a1[2];
+  if (v6)
   {
-    v7 = _Block_copy(v7);
+    v6 = _Block_copy(v6);
   }
 
-  *buf = v7;
-  v8 = *a1[3];
+  *buf = v6;
   awd::AppContext::operator()();
   if (*buf)
   {
     _Block_release(*buf);
   }
 
-  result = std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v11);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::unique_ptr<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<awd::MipcCommandDriver::sendAddConfiguration(std::shared_ptr<awd::AppContext>,awd::PayloadType,std::vector<unsigned char> const&,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v8);
 }
 
 void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::execute_wrapped<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>(awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0,std::default_delete<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0>>)::{lambda(void *)#1}::__invoke(awd::AppContext ***a1)
 {
-  v60 = *MEMORY[0x29EDCA608];
+  v59 = *MEMORY[0x29EDCA608];
   v1 = *a1;
-  v34 = *a1;
+  v33 = *a1;
   v2 = (*a1)[3];
-  v41 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = 0xAAAAAAAAAAAAAAAALL;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39[4] = v3;
+  v38[4] = v3;
   *__p = v3;
-  v39[2] = v3;
-  v39[3] = v3;
-  v39[0] = v3;
-  v39[1] = v3;
+  v38[2] = v3;
+  v38[3] = v3;
+  v38[0] = v3;
+  v38[1] = v3;
   mipc::dale_awd::Delete_Config_Req::Delete_Config_Req();
   AppID = awd::AppContext::getAppID(*v1);
   v5 = operator new(4uLL);
@@ -9317,8 +9308,8 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
 
   v7 = operator new(4uLL);
   *v7 = 0;
-  v8 = v41;
-  v41 = v7;
+  v8 = v40;
+  v40 = v7;
   if (v8)
   {
     operator delete(v8);
@@ -9329,18 +9320,18 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
   {
     v10 = awd::AppContext::getAppID(*v1);
     *buf = 67109120;
-    v56 = v10;
+    v55 = v10;
     _os_log_impl(&dword_296E3E000, v9, OS_LOG_TYPE_DEFAULT, "#I Requesting to clear configuration (appId: %d)", buf, 8u);
   }
 
-  v54 = 0xAAAAAAAAAAAAAAAALL;
+  v53 = 0xAAAAAAAAAAAAAAAALL;
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v52 = v11;
-  v53 = v11;
   v51 = v11;
-  mipc::dale_awd::Delete_Config_Req::serialize(&v51, v39);
-  if (v54)
+  v52 = v11;
+  v50 = v11;
+  mipc::dale_awd::Delete_Config_Req::serialize(&v50, v38);
+  if (v53)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "Serialization error");
@@ -9348,30 +9339,30 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
     __cxa_throw(exception, off_29EE5C750, MEMORY[0x29EDC9360]);
   }
 
-  v50 = 0xAAAAAAAAAAAAAAAALL;
+  v49 = 0xAAAAAAAAAAAAAAAALL;
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v48 = v12;
-  v49 = v12;
-  v46 = v12;
   v47 = v12;
-  v44 = v12;
+  v48 = v12;
   v45 = v12;
-  v42 = v12;
+  v46 = v12;
   v43 = v12;
-  MEMORY[0x29C266720](&v42, &v51);
-  abb::router::SendProxy::SendProxy(buf, (v2 + 88), &v42);
-  MEMORY[0x29C266730](&v42);
-  if (v54 != -1)
+  v44 = v12;
+  v41 = v12;
+  v42 = v12;
+  MEMORY[0x29C266720](&v41, &v50);
+  abb::router::SendProxy::SendProxy(buf, (v2 + 88), &v41);
+  MEMORY[0x29C266730](&v41);
+  if (v53 != -1)
   {
-    *&v42 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    *(&v42 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
-    (*(&v42 + v54))(&v35, &v51);
+    *&v41 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    *(&v41 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8ne200100IOZNS0_6__dtorINS0_8__traitsIJNS_6vectorIhNS_9allocatorIhEEEEN4mipc5ErrorEEEELNS0_6_TraitE1EE9__destroyB8ne200100EvEUlRT_E_JRNS0_6__baseILSF_1EJSB_SD_EEEEEEDcSH_DpT0_;
+    (*(&v41 + v53))(&v34, &v50);
   }
 
   v13 = v1[1];
-  *&v35 = *v1;
-  *(&v35 + 1) = v13;
+  *&v34 = *v1;
+  *(&v34 + 1) = v13;
   if (v13)
   {
     atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
@@ -9391,7 +9382,7 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
   }
 
   aBlock[1] = v16;
-  v37 = v17;
+  v36 = v17;
   atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   if (!atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -9400,37 +9391,37 @@ void dispatch::async<void ctu::SharedSynchronizable<awd::AwdCommandDriver>::exec
     std::__shared_weak_count::__release_weak(v18);
   }
 
-  v19 = v35;
+  v19 = v34;
   v20 = *aBlock;
-  v35 = 0uLL;
-  v38 = v2;
+  v34 = 0uLL;
+  v37 = v2;
   aBlock[0] = 0;
-  v21 = v37;
+  v21 = v36;
   aBlock[1] = 0;
-  v37 = 0;
+  v36 = 0;
+  v50 = 0uLL;
+  v30 = v20;
+  v31 = v19;
+  v41 = v19;
+  v42 = v20;
+  *&v52 = 0;
+  *(&v52 + 1) = v2;
   v51 = 0uLL;
-  v31 = v20;
-  v32 = v19;
-  v42 = v19;
-  v43 = v20;
-  *&v53 = 0;
-  *(&v53 + 1) = v2;
-  v52 = 0uLL;
-  *&v44 = v21;
-  *(&v44 + 1) = v2;
+  *&v43 = v21;
+  *(&v43 + 1) = v2;
   v22 = operator new(0x38uLL);
   *v22 = &unk_2A1E11AD0;
-  *(v22 + 24) = v31;
-  *(v22 + 8) = v32;
+  *(v22 + 24) = v30;
+  *(v22 + 8) = v31;
   *(v22 + 5) = v21;
   *(v22 + 6) = v2;
-  v59 = v22;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v58, v57);
-  if (v59 == v58)
+  v58 = v22;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v57, v56);
+  if (v58 == v57)
   {
-    (*(*v59 + 32))(v59);
-    v23 = v37;
-    if (v37)
+    (*(*v58 + 32))(v58);
+    v23 = v36;
+    if (v36)
     {
 LABEL_22:
       std::__shared_weak_count::__release_weak(v23);
@@ -9439,13 +9430,13 @@ LABEL_22:
 
   else
   {
-    if (v59)
+    if (v58)
     {
-      (*(*v59 + 40))(v59);
+      (*(*v58 + 40))(v58);
     }
 
-    v23 = v37;
-    if (v37)
+    v23 = v36;
+    if (v36)
     {
       goto LABEL_22;
     }
@@ -9456,48 +9447,49 @@ LABEL_22:
     _Block_release(aBlock[0]);
   }
 
-  v24 = *(&v35 + 1);
-  if (*(&v35 + 1) && !atomic_fetch_add((*(&v35 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v24 = *(&v34 + 1);
+  if (*(&v34 + 1) && !atomic_fetch_add((*(&v34 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v24->__on_zero_shared)(v24);
     std::__shared_weak_count::__release_weak(v24);
   }
 
   MEMORY[0x29C266750](buf);
-  mipc::dale_awd::Delete_Config_Req::~Delete_Config_Req(v39);
-  if (v34)
+  mipc::dale_awd::Delete_Config_Req::~Delete_Config_Req(v38);
+  if (v33)
   {
-    v25 = v34[2];
+    v25 = v33[2];
     if (v25)
     {
       _Block_release(v25);
     }
 
-    v26 = v34[1];
+    v26 = v33[1];
     if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v26->__on_zero_shared)(v26);
       std::__shared_weak_count::__release_weak(v26);
     }
 
-    operator delete(v34);
+    operator delete(v33);
   }
 
   v27 = a1;
   if (a1)
   {
     v28 = a1[2];
-    if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v28)
     {
-      (v28->__on_zero_shared)(v28);
-      std::__shared_weak_count::__release_weak(v28);
-      v27 = a1;
+      if (!atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v28->__on_zero_shared)(v28);
+        std::__shared_weak_count::__release_weak(v28);
+        v27 = a1;
+      }
     }
 
     operator delete(v27);
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296E55EBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, int a14, __int16 a15, char a16, char a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *aBlock, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
@@ -9762,34 +9754,34 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
 void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::callback<awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Delete_Config_Cnf const&)#1}>(awd::MipcCommandDriver::sendClearConfiguration(std::shared_ptr<awd::AppContext>,dispatch::block<void({block_pointer})(BOOL)>)::$_0::operator() const(void)::{lambda(mipc::dale_awd::Delete_Config_Cnf const&)#1} &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const>,void ()(abb::router::Message)>::operator()(uint64_t a1, abb::router::Message *this)
 {
-  v58 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v44 = v4;
-  v45 = v4;
-  *v43 = v4;
-  *&v43[16] = v4;
-  v42[0] = v4;
-  v42[1] = v4;
+  v39 = v4;
+  v40 = v4;
+  *v38 = v4;
+  *&v38[16] = v4;
+  v37[0] = v4;
+  v37[1] = v4;
   if (abb::router::Message::isError(this))
   {
     abb::router::Message::getError(__p, this);
-    if ((v50 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v47 = *__p;
+    v42 = *__p;
     v6 = mipc::toErrorCode(LODWORD(__p[0]), v5);
-    std::error_code::message(&buf[8], &v47);
-    v56 = 0;
-    v57 = 0;
+    std::error_code::message(&buf[8], &v42);
+    v51 = 0;
+    v52 = 0;
     *buf = v6;
-    MEMORY[0x29C266F60](v42, buf, 1);
-    v7 = v57;
-    if (!v57 || atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    MEMORY[0x29C266F60](v37, buf, 1);
+    v7 = v52;
+    if (!v52 || atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      if ((v55 & 0x80000000) == 0)
+      if ((v50 & 0x80000000) == 0)
       {
         goto LABEL_14;
       }
@@ -9799,7 +9791,7 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
     (v7->__on_zero_shared)(v7);
     std::__shared_weak_count::__release_weak(v7);
-    if (v55 < 0)
+    if (v50 < 0)
     {
 LABEL_6:
       operator delete(*&buf[8]);
@@ -9811,7 +9803,7 @@ LABEL_6:
     abb::router::Message::getRawMsg(buf, this);
     v8 = **buf;
     abb::router::Message::getRawMsg(__p, this);
-    MEMORY[0x29C266F70](v42, v8, *(__p[0] + 1) - *__p[0]);
+    MEMORY[0x29C266F70](v37, v8, *(__p[0] + 1) - *__p[0]);
     v9 = __p[1];
     if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
@@ -9857,27 +9849,26 @@ LABEL_27:
         }
 
 LABEL_28:
-        v18 = mipc::operator==();
-        v19 = *(v12 + 40);
-        if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v17 = mipc::operator==();
+        v18 = *(v12 + 40);
+        if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_65;
         }
 
         AppID = awd::AppContext::getAppID(*(a1 + 8));
-        v21 = AppID;
-        if (v18)
+        v20 = AppID;
+        if (v17)
         {
           *buf = 136315650;
           *&buf[4] = "success";
           *&buf[12] = 1024;
           *&buf[14] = AppID;
-          v53 = 2080;
-          v54 = &unk_296EC917B;
-          _os_log_impl(&dword_296E3E000, v19, OS_LOG_TYPE_DEFAULT, "#I Clear configuration %s (appId: %d)%s", buf, 0x1Cu);
-          v22 = *(a1 + 8);
-          v23 = *(a1 + 24);
-          if (!v23)
+          v48 = 2080;
+          v49 = &unk_296EC917B;
+          _os_log_impl(&dword_296E3E000, v18, OS_LOG_TYPE_DEFAULT, "#I Clear configuration %s (appId: %d)%s", buf, 0x1Cu);
+          v21 = *(a1 + 24);
+          if (!v21)
           {
             goto LABEL_67;
           }
@@ -9885,86 +9876,86 @@ LABEL_28:
           goto LABEL_66;
         }
 
-        if ((v43[31] & 0x80000000) != 0)
+        if ((v38[31] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&v46, *&v43[8], *&v43[16]);
+          std::string::__init_copy_ctor_external(&v41, *&v38[8], *&v38[16]);
         }
 
         else
         {
-          v46 = *&v43[8];
+          v41 = *&v38[8];
         }
 
-        v24 = std::string::insert(&v46, 0, ", (", 3uLL);
-        v25 = *&v24->__r_.__value_.__l.__data_;
-        v48 = v24->__r_.__value_.__r.__words[2];
-        v47 = v25;
-        v24->__r_.__value_.__l.__size_ = 0;
-        v24->__r_.__value_.__r.__words[2] = 0;
-        v24->__r_.__value_.__r.__words[0] = 0;
-        cat = SHIBYTE(v48);
-        if ((SHIBYTE(v48) & 0x8000000000000000) != 0)
+        v22 = std::string::insert(&v41, 0, ", (", 3uLL);
+        v23 = *&v22->__r_.__value_.__l.__data_;
+        v43 = v22->__r_.__value_.__r.__words[2];
+        v42 = v23;
+        v22->__r_.__value_.__l.__size_ = 0;
+        v22->__r_.__value_.__r.__words[2] = 0;
+        v22->__r_.__value_.__r.__words[0] = 0;
+        cat = SHIBYTE(v43);
+        if ((SHIBYTE(v43) & 0x8000000000000000) != 0)
         {
-          cat = v47.__cat_;
-          v29 = v48 & 0x7FFFFFFFFFFFFFFFLL;
-          v28 = (v48 & 0x7FFFFFFFFFFFFFFFLL) - 1;
-          if (v28 == v47.__cat_)
+          cat = v42.__cat_;
+          v27 = v43 & 0x7FFFFFFFFFFFFFFFLL;
+          v26 = (v43 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+          if (v26 == v42.__cat_)
           {
-            v30 = 0x7FFFFFFFFFFFFFF7;
-            if (v29 == 0x7FFFFFFFFFFFFFF7)
+            v28 = 0x7FFFFFFFFFFFFFF7;
+            if (v27 == 0x7FFFFFFFFFFFFFF7)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            v27 = *&v47.__val_;
-            if (v28 > 0x3FFFFFFFFFFFFFF2)
+            v25 = *&v42.__val_;
+            if (v26 > 0x3FFFFFFFFFFFFFF2)
             {
-              v33 = 0;
+              v31 = 0;
 LABEL_50:
-              v34 = operator new(v30);
-              v35 = v34;
-              if (v28)
+              v32 = operator new(v28);
+              v33 = v32;
+              if (v26)
               {
-                memmove(v34, v27, v28);
+                memmove(v32, v25, v26);
               }
 
-              v35[v28] = 41;
-              if (!v33)
+              v33[v26] = 41;
+              if (!v31)
               {
-                operator delete(v27);
+                operator delete(v25);
               }
 
-              v47.__cat_ = v29;
-              v48 = v30 | 0x8000000000000000;
-              *&v47.__val_ = v35;
-              v36 = &v35[v29];
+              v42.__cat_ = v27;
+              v43 = v28 | 0x8000000000000000;
+              *&v42.__val_ = v33;
+              v34 = &v33[v27];
 LABEL_60:
-              *v36 = 0;
-              v50 = v48;
-              *__p = v47;
-              v47.__cat_ = 0;
-              v48 = 0;
-              *&v47.__val_ = 0;
-              v38 = __p;
-              if (v50 < 0)
+              *v34 = 0;
+              v45 = v43;
+              *__p = v42;
+              v42.__cat_ = 0;
+              v43 = 0;
+              *&v42.__val_ = 0;
+              v36 = __p;
+              if (v45 < 0)
               {
-                v38 = __p[0];
+                v36 = __p[0];
               }
 
               *buf = 136315650;
               *&buf[4] = "error";
               *&buf[12] = 1024;
-              *&buf[14] = v21;
-              v53 = 2080;
-              v54 = v38;
-              _os_log_impl(&dword_296E3E000, v19, OS_LOG_TYPE_DEFAULT, "#I Clear configuration %s (appId: %d)%s", buf, 0x1Cu);
-              if (SHIBYTE(v50) < 0)
+              *&buf[14] = v20;
+              v48 = 2080;
+              v49 = v36;
+              _os_log_impl(&dword_296E3E000, v18, OS_LOG_TYPE_DEFAULT, "#I Clear configuration %s (appId: %d)%s", buf, 0x1Cu);
+              if (SHIBYTE(v45) < 0)
               {
                 operator delete(__p[0]);
-                if ((SHIBYTE(v48) & 0x80000000) == 0)
+                if ((SHIBYTE(v43) & 0x80000000) == 0)
                 {
 LABEL_64:
-                  if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+                  if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
                   {
                     goto LABEL_65;
                   }
@@ -9973,18 +9964,17 @@ LABEL_64:
                 }
               }
 
-              else if ((SHIBYTE(v48) & 0x80000000) == 0)
+              else if ((SHIBYTE(v43) & 0x80000000) == 0)
               {
                 goto LABEL_64;
               }
 
-              operator delete(*&v47.__val_);
-              if ((SHIBYTE(v46.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+              operator delete(*&v42.__val_);
+              if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
               {
 LABEL_65:
-                v39 = *(a1 + 8);
-                v23 = *(a1 + 24);
-                if (!v23)
+                v21 = *(a1 + 24);
+                if (!v21)
                 {
                   goto LABEL_67;
                 }
@@ -9993,13 +9983,12 @@ LABEL_65:
               }
 
 LABEL_72:
-              operator delete(v46.__r_.__value_.__l.__data_);
-              v41 = *(a1 + 8);
-              v23 = *(a1 + 24);
-              if (!v23)
+              operator delete(v41.__r_.__value_.__l.__data_);
+              v21 = *(a1 + 24);
+              if (!v21)
               {
 LABEL_67:
-                *buf = v23;
+                *buf = v21;
                 awd::AppContext::operator()();
                 if (*buf)
                 {
@@ -10010,68 +9999,68 @@ LABEL_67:
               }
 
 LABEL_66:
-              v23 = _Block_copy(v23);
+              v21 = _Block_copy(v21);
               goto LABEL_67;
             }
 
 LABEL_41:
-            v31 = 2 * v28;
-            if (v29 > 2 * v28)
+            v29 = 2 * v26;
+            if (v27 > 2 * v26)
             {
-              v31 = v29;
+              v29 = v27;
             }
 
-            if ((v31 | 7) == 0x17)
+            if ((v29 | 7) == 0x17)
             {
-              v32 = 25;
-            }
-
-            else
-            {
-              v32 = (v31 | 7) + 1;
-            }
-
-            if (v31 >= 0x17)
-            {
-              v30 = v32;
+              v30 = 25;
             }
 
             else
             {
-              v30 = 23;
+              v30 = (v29 | 7) + 1;
             }
 
-            v33 = v28 == 22;
+            if (v29 >= 0x17)
+            {
+              v28 = v30;
+            }
+
+            else
+            {
+              v28 = 23;
+            }
+
+            v31 = v26 == 22;
             goto LABEL_50;
           }
 
-          v27 = *&v47.__val_;
+          v25 = *&v42.__val_;
         }
 
         else
         {
-          v27 = &v47;
-          if (SHIBYTE(v48) == 22)
+          v25 = &v42;
+          if (SHIBYTE(v43) == 22)
           {
-            v28 = 22;
-            v29 = 23;
+            v26 = 22;
+            v27 = 23;
             goto LABEL_41;
           }
         }
 
-        *(&cat->__vftable + v27) = 41;
-        v37 = (&cat->__vftable + 1);
-        if (SHIBYTE(v48) < 0)
+        *(&cat->__vftable + v25) = 41;
+        v35 = (&cat->__vftable + 1);
+        if (SHIBYTE(v43) < 0)
         {
-          v47.__cat_ = v37;
+          v42.__cat_ = v35;
         }
 
         else
         {
-          HIBYTE(v48) = v37 & 0x7F;
+          HIBYTE(v43) = v35 & 0x7F;
         }
 
-        v36 = v37 + v27;
+        v34 = v35 + v25;
         goto LABEL_60;
       }
     }
@@ -10082,18 +10071,17 @@ LABEL_41:
     v14 = 0;
   }
 
-  v16 = *(a1 + 8);
-  v17 = *(a1 + 24);
-  if (v17)
+  v16 = *(a1 + 24);
+  if (v16)
   {
-    v17 = _Block_copy(v17);
+    v16 = _Block_copy(v16);
   }
 
-  v51 = v17;
+  v46 = v16;
   awd::AppContext::operator()();
-  if (v51)
+  if (v46)
   {
-    _Block_release(v51);
+    _Block_release(v46);
   }
 
   if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -10103,6 +10091,5 @@ LABEL_41:
   }
 
 LABEL_69:
-  mipc::dale_awd::Delete_Config_Cnf::~Delete_Config_Cnf(v42);
-  v40 = *MEMORY[0x29EDCA608];
+  mipc::dale_awd::Delete_Config_Cnf::~Delete_Config_Cnf(v37);
 }

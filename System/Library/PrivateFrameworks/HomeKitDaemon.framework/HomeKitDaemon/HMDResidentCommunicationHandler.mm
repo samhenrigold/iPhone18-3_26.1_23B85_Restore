@@ -40,35 +40,35 @@
 
 - (void)_processResponse:(id)response overallError:(id)error messageIdentifier:(id)identifier
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
   identifierCopy = identifier;
   workQueue = [(HMDResidentCommunicationHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   dispatchedReadRequests = [(HMDResidentCommunicationHandler *)self dispatchedReadRequests];
-  v12 = [dispatchedReadRequests copy];
+  v12 = objc_msgSend_copy(dispatchedReadRequests);
 
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v38;
+    v15 = *v37;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v38 != v15)
+      if (*v37 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v37 + 1) + 8 * v16);
+      v17 = *(*(&v36 + 1) + 8 * v16);
       identifier = [v17 identifier];
       v19 = [identifier isEqual:identifierCopy];
 
@@ -79,7 +79,7 @@ LABEL_3:
 
       if (v14 == ++v16)
       {
-        v14 = [v12 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v14)
         {
           goto LABEL_3;
@@ -127,7 +127,7 @@ LABEL_3:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v28;
+        v41 = v28;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@*** invalid reference counter for resident communication read coalese handler", buf, 0xCu);
       }
 
@@ -149,22 +149,20 @@ LABEL_16:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v32;
-      v43 = 2112;
-      v44 = identifierCopy;
+      v41 = v32;
+      v42 = 2112;
+      v43 = identifierCopy;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Cannot find the message with identifier %@ in the dispatched multi-read requests", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v29);
     v21 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMultipleCharacteristicRead
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDResidentCommunicationHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -174,33 +172,33 @@ LABEL_16:
   if (v4)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     pendingReadRequests2 = [(HMDResidentCommunicationHandler *)self pendingReadRequests];
-    v6 = [pendingReadRequests2 copy];
+    v6 = objc_msgSend_copy(pendingReadRequests2);
 
     obj = v6;
-    v74 = [v6 countByEnumeratingWithState:&v79 objects:v89 count:16];
-    if (v74)
+    v73 = [v6 countByEnumeratingWithState:&v78 objects:v88 count:16];
+    if (v73)
     {
-      v73 = *v80;
-      v70 = *MEMORY[0x277CD25F8];
-      v69 = *MEMORY[0x277CD2140];
+      v72 = *v79;
+      v69 = *MEMORY[0x277CD25F8];
+      v68 = *MEMORY[0x277CD2140];
       qualityOfService = 9;
       *&v7 = 138543362;
-      v66 = v7;
+      v65 = v7;
       do
       {
-        for (i = 0; i != v74; ++i)
+        for (i = 0; i != v73; ++i)
         {
-          if (*v80 != v73)
+          if (*v79 != v72)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v79 + 1) + 8 * i);
+          v9 = *(*(&v78 + 1) + 8 * i);
           accessoryUUID = [v9 accessoryUUID];
           uUIDString = [accessoryUUID UUIDString];
 
@@ -215,7 +213,7 @@ LABEL_16:
 
             readMessage = [v9 readMessage];
             messagePayload = [readMessage messagePayload];
-            v15 = [messagePayload hmf_numberForKey:v70];
+            v15 = [messagePayload hmf_numberForKey:v69];
             v16 = HAPInstanceIDFromValue();
 
             stringValue = [v16 stringValue];
@@ -230,7 +228,7 @@ LABEL_16:
 
             readMessage2 = [v9 readMessage];
             messagePayload2 = [readMessage2 messagePayload];
-            v22 = [messagePayload2 hmf_numberForKey:v69];
+            v22 = [messagePayload2 hmf_numberForKey:v68];
             v23 = HAPInstanceIDFromValue();
 
             if (([array containsObject:v23] & 1) == 0)
@@ -258,9 +256,9 @@ LABEL_16:
             {
               v30 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v86 = v30;
-              v87 = 2112;
-              v88 = v9;
+              v85 = v30;
+              v86 = 2112;
+              v87 = v9;
               _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Ignoring bad request with nil accessory: %@", buf, 0x16u);
             }
 
@@ -271,8 +269,8 @@ LABEL_16:
             if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
             {
               v34 = HMFGetLogIdentifier();
-              *buf = v66;
-              v86 = v34;
+              *buf = v65;
+              v85 = v34;
               _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Accessory UUID cannot be nil", buf, 0xCu);
             }
 
@@ -283,10 +281,10 @@ LABEL_16:
           }
         }
 
-        v74 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
+        v73 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
       }
 
-      while (v74);
+      while (v73);
     }
 
     else
@@ -294,14 +292,14 @@ LABEL_16:
       qualityOfService = 9;
     }
 
-    v83[0] = *MEMORY[0x277CCE7A8];
-    v39 = [dictionary copy];
-    v84[0] = v39;
-    v83[1] = *MEMORY[0x277CD0640];
+    v82[0] = *MEMORY[0x277CCE7A8];
+    v39 = objc_msgSend_copy(dictionary);
+    v83[0] = v39;
+    v82[1] = *MEMORY[0x277CD0640];
     homeUUID = [(HMDResidentCommunicationHandler *)self homeUUID];
     uUIDString2 = [homeUUID UUIDString];
-    v84[1] = uUIDString2;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
+    v83[1] = uUIDString2;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     v44 = [HMDRemoteHomeMessageDestination alloc];
@@ -312,17 +310,17 @@ LABEL_16:
     v48 = [MEMORY[0x277D0F848] messageWithName:@"kMultipleCharacteristicReadRequestKey" qualityOfService:qualityOfService destination:v47 payload:v42];
     [v48 setIdentifier:uUID];
     objc_initWeak(&location, self);
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __66__HMDResidentCommunicationHandler__sendMultipleCharacteristicRead__block_invoke;
-    v75[3] = &unk_278687F40;
-    objc_copyWeak(&v77, &location);
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __66__HMDResidentCommunicationHandler__sendMultipleCharacteristicRead__block_invoke;
+    v74[3] = &unk_278687F40;
+    objc_copyWeak(&v76, &location);
     v49 = uUID;
-    v76 = v49;
-    [v48 setResponseHandler:v75];
+    v75 = v49;
+    [v48 setResponseHandler:v74];
     dispatchedReadRequests = [(HMDResidentCommunicationHandler *)self dispatchedReadRequests];
     pendingReadRequests3 = [(HMDResidentCommunicationHandler *)self pendingReadRequests];
-    v52 = [pendingReadRequests3 copy];
+    v52 = objc_msgSend_copy(pendingReadRequests3);
     [dispatchedReadRequests setObject:v52 forKey:v48];
 
     pendingReadRequests4 = [(HMDResidentCommunicationHandler *)self pendingReadRequests];
@@ -341,9 +339,9 @@ LABEL_16:
       {
         v59 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v86 = v59;
-        v87 = 2112;
-        v88 = v49;
+        v85 = v59;
+        v86 = 2112;
+        v87 = v49;
         _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_INFO, "%{public}@Sent off the multi-read request with identifier: %@ and adding it to tracking list", buf, 0x16u);
       }
 
@@ -359,7 +357,7 @@ LABEL_16:
       {
         v63 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v86 = v63;
+        v85 = v63;
         _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_ERROR, "%{public}@IDS dispatcher is invalid, reporting error", buf, 0xCu);
       }
 
@@ -368,7 +366,7 @@ LABEL_16:
       [(HMDResidentCommunicationHandler *)selfCopy3 _processResponse:0 overallError:v64 messageIdentifier:v49];
     }
 
-    objc_destroyWeak(&v77);
+    objc_destroyWeak(&v76);
     objc_destroyWeak(&location);
   }
 
@@ -381,14 +379,12 @@ LABEL_16:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v86 = v38;
+      v85 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@No pending read requests to combine?", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDResidentCommunicationHandler__sendMultipleCharacteristicRead__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -426,17 +422,16 @@ void __66__HMDResidentCommunicationHandler__sendMultipleCharacteristicRead__bloc
 
 void __48__HMDResidentCommunicationHandler_timerDidFire___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) multiReadCoalesceTimer];
 
   if (v2 == v3)
   {
     [*(a1 + 40) setMultiReadCoalesceTimer:0];
-    v9 = *(a1 + 40);
-    v10 = *MEMORY[0x277D85DE8];
+    v8 = *(a1 + 40);
 
-    [v9 _sendMultipleCharacteristicRead];
+    [v8 _sendMultipleCharacteristicRead];
   }
 
   else
@@ -447,13 +442,12 @@ void __48__HMDResidentCommunicationHandler_timerDidFire___block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Read request timer is not matching", &v11, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Read request timer is not matching", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -479,12 +473,12 @@ void __48__HMDResidentCommunicationHandler_timerDidFire___block_invoke(uint64_t 
 
 void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueue___block_invoke(uint64_t a1)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) messagePayload];
   v3 = [v2 mutableCopy];
 
-  v54[0] = @"kIDSMessageSourceIDKey";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+  v53[0] = @"kIDSMessageSourceIDKey";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
   [v3 removeObjectsForKeys:v4];
 
   v5 = *(a1 + 32);
@@ -541,7 +535,7 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
             HMFGetLogIdentifier();
             v42 = contextb = v39;
             *buf = 138543362;
-            v49 = v42;
+            v48 = v42;
             _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Sending read request immediately.  Will collect further incoming read packets", buf, 0xCu);
 
             v39 = contextb;
@@ -564,9 +558,9 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
             v23 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v44 = HMFGetLogIdentifier();
+              v43 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v49 = v44;
+              v48 = v43;
               _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@*** resident communication handler read coalesce timeout missing from preferences", buf, 0xCu);
             }
 
@@ -592,7 +586,7 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
             HMFGetLogIdentifier();
             v32 = contexta = v21;
             *buf = 138543362;
-            v49 = v32;
+            v48 = v32;
             _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Kicked off the multi-read request timer", buf, 0xCu);
 
             v21 = contexta;
@@ -613,11 +607,11 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
         v36 = HMFGetLogIdentifier();
         v37 = [*(a1 + 32) shortDescription];
         *buf = 138543874;
-        v49 = v36;
-        v50 = 2112;
-        v51 = v37;
-        v52 = 2112;
-        v53 = v3;
+        v48 = v36;
+        v49 = 2112;
+        v50 = v37;
+        v51 = 2112;
+        v52 = v3;
         _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Request message: %@ cannot be redispatched due to invalid payload: %@", buf, 0x20u);
       }
 
@@ -635,8 +629,6 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
     v13 = [*(a1 + 48) remoteDispatcher];
     [v13 sendMessage:v5];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)preferredDeviceType
@@ -681,30 +673,30 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
 
 - (BOOL)containsDevice:(id)device
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   deviceMapping = [(HMDResidentCommunicationHandler *)self deviceMapping];
-  v6 = [deviceMapping copy];
+  v6 = objc_msgSend_copy(deviceMapping);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [v7 objectForKey:{*(*(&v15 + 1) + 8 * i), v15}];
+        v11 = [v7 objectForKey:{*(*(&v14 + 1) + 8 * i), v14}];
         v12 = [v11 isEqual:deviceCopy];
 
         if (v12)
@@ -714,7 +706,7 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -726,7 +718,6 @@ void __74__HMDResidentCommunicationHandler_redispatchMessage_target_responseQueu
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -741,7 +732,7 @@ LABEL_11:
     if ([(HMDResidentCommunicationHandler *)self preferredDeviceType]== type)
     {
       dispatchedReadRequests = [(HMDResidentCommunicationHandler *)self dispatchedReadRequests];
-      v9 = [dispatchedReadRequests copy];
+      v9 = objc_msgSend_copy(dispatchedReadRequests);
 
       dispatchedReadRequests2 = [(HMDResidentCommunicationHandler *)self dispatchedReadRequests];
       [dispatchedReadRequests2 removeAllObjects];
@@ -788,7 +779,7 @@ LABEL_11:
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -796,25 +787,24 @@ LABEL_11:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating resident communication handler", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   pendingReadRequests = [(HMDResidentCommunicationHandler *)selfCopy pendingReadRequests];
-  v8 = [pendingReadRequests copy];
+  v8 = objc_msgSend_copy(pendingReadRequests);
 
   dispatchedReadRequests = [(HMDResidentCommunicationHandler *)selfCopy dispatchedReadRequests];
-  v10 = [dispatchedReadRequests copy];
+  v10 = objc_msgSend_copy(dispatchedReadRequests);
 
   v11 = [MEMORY[0x277CCA9B8] hmErrorWithCode:54];
   [HMDResidentCommunicationHandler _clearAllGeneratedRequests:v10 error:v11];
   [HMDResidentCommunicationHandler _clearAllPendingRequests:v8 error:v11];
 
-  v13.receiver = selfCopy;
-  v13.super_class = HMDResidentCommunicationHandler;
-  [(HMDResidentCommunicationHandler *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = selfCopy;
+  v12.super_class = HMDResidentCommunicationHandler;
+  [(HMDResidentCommunicationHandler *)&v12 dealloc];
 }
 
 - (HMDResidentCommunicationHandler)initWithHome:(id)home remoteDispatcher:(id)dispatcher
@@ -868,15 +858,14 @@ LABEL_11:
 
 void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v24;
-  logCategory__hmf_once_v24 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v24;
+  logCategory__hmf_once_v24 = v0;
 }
 
 + (void)_clearAllPendingRequests:(id)requests error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -885,22 +874,20 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Clearing off all pending read requests with error: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Clearing off all pending read requests with error: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [HMDResidentCommunicationHandler _processResponseForMultireadRequest:requestsCopy overallError:errorCopy response:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_clearAllGeneratedRequests:(id)requests error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -910,52 +897,50 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v11;
-    v26 = 2112;
-    v27 = errorCopy;
+    v24 = v11;
+    v25 = 2112;
+    v26 = errorCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Clearing off all pending dispatched multi-read requests with error: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = requestsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [v12 objectForKey:{*(*(&v19 + 1) + 8 * v16), v19}];
+        v17 = [v12 objectForKey:{*(*(&v18 + 1) + 8 * v16), v18}];
         [HMDResidentCommunicationHandler _processResponseForMultireadRequest:v17 overallError:errorCopy response:0];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createResponseSubset:(id)subset overallError:(id)error readRequest:(id)request error:(id *)a6
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   subsetCopy = subset;
   errorCopy = error;
   requestCopy = request;
@@ -975,42 +960,42 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
     readMessage = [requestCopy readMessage];
     messagePayload = [readMessage messagePayload];
 
-    v77 = requestCopy;
+    v76 = requestCopy;
     accessoryUUID = [requestCopy accessoryUUID];
     v18 = *MEMORY[0x277CD25F8];
     v19 = [messagePayload hmf_numberForKey:*MEMORY[0x277CD25F8]];
     v20 = HAPInstanceIDFromValue();
 
     v21 = *MEMORY[0x277CD2140];
-    v78 = messagePayload;
+    v77 = messagePayload;
     v22 = [messagePayload hmf_numberForKey:*MEMORY[0x277CD2140]];
-    v79 = HAPInstanceIDFromValue();
+    v78 = HAPInstanceIDFromValue();
 
     v23 = [subsetCopy hmf_dictionaryForKey:@"kModifiedCharacteristicsForAccessoryKey"];
-    v76 = v23;
+    v75 = v23;
     if (v23)
     {
       v24 = v23;
-      v74 = a6;
+      v73 = a6;
       uUIDString = [accessoryUUID UUIDString];
       v26 = [v24 hmf_dictionaryForKey:uUIDString];
 
-      v75 = accessoryUUID;
+      v74 = accessoryUUID;
       if (v26)
       {
         v27 = v20;
         stringValue = [v20 stringValue];
-        v73 = v26;
+        v72 = v26;
         v29 = [v26 hmf_dictionaryForKey:stringValue];
 
-        v72 = v29;
+        v71 = v29;
         if (v29)
         {
-          stringValue2 = [v79 stringValue];
+          stringValue2 = [v78 stringValue];
           v31 = [v29 hmf_dictionaryForKey:stringValue2];
 
-          requestCopy = v77;
-          v71 = v31;
+          requestCopy = v76;
+          v70 = v31;
           if (v31)
           {
             v32 = [v31 errorFromDataForKey:*MEMORY[0x277CD2128]];
@@ -1021,24 +1006,24 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
 
               v35 = 0;
               v14 = v34;
-              v26 = v73;
-              a6 = v74;
-              v36 = v75;
+              v26 = v72;
+              a6 = v73;
+              v36 = v74;
             }
 
             else
             {
-              v68 = *MEMORY[0x277CD21B8];
-              v70 = [v31 objectForKeyedSubscript:?];
-              v67 = *MEMORY[0x277CD21D0];
+              v67 = *MEMORY[0x277CD21B8];
+              v69 = [v31 objectForKeyedSubscript:?];
+              v66 = *MEMORY[0x277CD21D0];
               null = [v31 objectForKeyedSubscript:?];
               if (!null)
               {
                 null = [MEMORY[0x277CBEB68] null];
               }
 
-              a6 = v74;
-              if (v70)
+              a6 = v73;
+              if (v69)
               {
                 v56 = [subsetCopy objectForKeyedSubscript:@"kRemoteMessageTransportAttributionKey"];
                 if (!v56)
@@ -1046,25 +1031,25 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
                   v56 = [MEMORY[0x277CCABB0] numberWithInt:0];
                 }
 
-                v80[0] = *MEMORY[0x277CCF0B0];
-                uUIDString2 = [v75 UUIDString];
-                v81[0] = uUIDString2;
-                v81[1] = v27;
-                v80[1] = v18;
-                v80[2] = v21;
+                v79[0] = *MEMORY[0x277CCF0B0];
+                uUIDString2 = [v74 UUIDString];
+                v80[0] = uUIDString2;
+                v80[1] = v27;
+                v79[1] = v18;
+                v79[2] = v21;
                 v59 = null;
-                v58 = v70;
-                v81[2] = v79;
-                v81[3] = v70;
-                v80[3] = v68;
-                v80[4] = v67;
-                v80[5] = @"kRemoteMessageTransportAttributionKey";
-                v81[4] = null;
-                v81[5] = v56;
-                v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:6];
+                v58 = v69;
+                v80[2] = v78;
+                v80[3] = v69;
+                v79[3] = v67;
+                v79[4] = v66;
+                v79[5] = @"kRemoteMessageTransportAttributionKey";
+                v80[4] = null;
+                v80[5] = v56;
+                v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:6];
 
                 v14 = 0;
-                a6 = v74;
+                a6 = v73;
               }
 
               else
@@ -1076,10 +1061,10 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
                 {
                   v63 = HMFGetLogIdentifier();
                   *buf = 138543362;
-                  v83 = v63;
+                  v82 = v63;
                   _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_ERROR, "%{public}@Value key is missing in the response dictionary", buf, 0xCu);
 
-                  a6 = v74;
+                  a6 = v73;
                 }
 
                 objc_autoreleasePoolPop(v60);
@@ -1088,8 +1073,8 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
                 v58 = 0;
               }
 
-              v26 = v73;
-              v36 = v75;
+              v26 = v72;
+              v36 = v74;
               v33 = 0;
             }
           }
@@ -1103,17 +1088,17 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
             {
               v55 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v83 = v55;
-              v84 = 2112;
-              v85 = v79;
+              v82 = v55;
+              v83 = 2112;
+              v84 = v78;
               _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@Could not find the characteristic instance ID %@ in the service changes", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v52);
             v35 = 0;
-            v26 = v73;
-            a6 = v74;
-            v36 = v75;
+            v26 = v72;
+            a6 = v73;
+            v36 = v74;
           }
         }
 
@@ -1122,21 +1107,21 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
           v48 = objc_autoreleasePoolPush();
           selfCopy3 = self;
           v50 = HMFGetOSLogHandle();
-          requestCopy = v77;
+          requestCopy = v76;
           if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
             v51 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v83 = v51;
-            v84 = 2112;
-            v85 = v27;
+            v82 = v51;
+            v83 = 2112;
+            v84 = v27;
             _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_ERROR, "%{public}@Could not find the service instance ID %@ in the accessory changes", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v48);
           v35 = 0;
-          a6 = v74;
-          v36 = v75;
+          a6 = v73;
+          v36 = v74;
         }
       }
 
@@ -1150,11 +1135,11 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
         {
           HMFGetLogIdentifier();
           v46 = v45 = v42;
-          uUIDString3 = [v75 UUIDString];
+          uUIDString3 = [v74 UUIDString];
           *buf = 138543618;
-          v83 = v46;
-          v84 = 2112;
-          v85 = uUIDString3;
+          v82 = v46;
+          v83 = 2112;
+          v84 = uUIDString3;
           _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Could not find the accessory %@ in the accessory list", buf, 0x16u);
 
           v42 = v45;
@@ -1162,9 +1147,9 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
 
         objc_autoreleasePoolPop(v42);
         v35 = 0;
-        a6 = v74;
-        v36 = v75;
-        requestCopy = v77;
+        a6 = v73;
+        v36 = v74;
+        requestCopy = v76;
       }
     }
 
@@ -1178,7 +1163,7 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
         HMFGetLogIdentifier();
         v41 = v40 = a6;
         *buf = 138543362;
-        v83 = v41;
+        v82 = v41;
         _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Could not find the modified accessory characteristics key", buf, 0xCu);
 
         a6 = v40;
@@ -1188,7 +1173,7 @@ void __46__HMDResidentCommunicationHandler_logCategory__block_invoke()
       v35 = 0;
       v36 = accessoryUUID;
       v27 = v20;
-      requestCopy = v77;
+      requestCopy = v76;
     }
 
     if (a6)
@@ -1208,48 +1193,46 @@ LABEL_40:
     }
   }
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 + (void)_processResponseForMultireadRequest:(id)request overallError:(id)error response:(id)response
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   responseCopy = response;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = requestCopy;
-  v8 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v8 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v8)
   {
     v10 = v8;
-    v37 = *v45;
+    v36 = *v44;
     *&v9 = 138543618;
-    v33 = v9;
+    v32 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v45 != v37)
+        if (*v44 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v44 + 1) + 8 * i);
+        v12 = *(*(&v43 + 1) + 8 * i);
         readMessage = [v12 readMessage];
         responseHandler = [readMessage responseHandler];
 
         if (responseHandler)
         {
-          v43 = errorCopy;
+          v42 = errorCopy;
           v15 = errorCopy;
-          v16 = [HMDResidentCommunicationHandler createResponseSubset:responseCopy overallError:v15 readRequest:v12 error:&v43];
-          v17 = v43;
+          v16 = [HMDResidentCommunicationHandler createResponseSubset:responseCopy overallError:v15 readRequest:v12 error:&v42];
+          v17 = v42;
 
           v18 = objc_autoreleasePoolPush();
           selfCopy = self;
@@ -1258,13 +1241,13 @@ LABEL_40:
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v49 = v21;
-            v50 = 2112;
-            v51 = v12;
-            v52 = 2112;
-            v53 = v16;
-            v54 = 2112;
-            v55 = v17;
+            v48 = v21;
+            v49 = 2112;
+            v50 = v12;
+            v51 = 2112;
+            v52 = v16;
+            v53 = 2112;
+            v54 = v17;
             _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@%@ is getting a response %@ with error %@", buf, 0x2Au);
           }
 
@@ -1275,9 +1258,9 @@ LABEL_40:
           block[2] = __93__HMDResidentCommunicationHandler__processResponseForMultireadRequest_overallError_response___block_invoke;
           block[3] = &unk_278689F98;
           v23 = responseHandler;
-          v41 = v16;
-          v42 = v23;
-          v40 = v17;
+          v40 = v16;
+          v41 = v23;
+          v39 = v17;
           v24 = v17;
           v25 = v16;
           dispatch_async(responseQueue, block);
@@ -1293,10 +1276,10 @@ LABEL_40:
             v29 = HMFGetLogIdentifier();
             readMessage2 = [v12 readMessage];
             identifier = [readMessage2 identifier];
-            *buf = v33;
-            v49 = v29;
-            v50 = 2112;
-            v51 = identifier;
+            *buf = v32;
+            v48 = v29;
+            v49 = 2112;
+            v50 = identifier;
             _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Response handler is not set for the request %@, skipping", buf, 0x16u);
           }
 
@@ -1304,13 +1287,11 @@ LABEL_40:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v10 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v10);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

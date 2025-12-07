@@ -58,29 +58,29 @@ void __79__WBSPerformImageOperationUsingWebViewFetchOperation__getImageInfoUsing
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v11 = WeakRetained;
+  v12 = WeakRetained;
   if (v9)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(WeakRetained, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSPerformImageOperationUsingWebViewFetchOperation__getImageInfoUsingWebView__block_invoke_cold_1(v12, v9);
+      __79__WBSPerformImageOperationUsingWebViewFetchOperation__getImageInfoUsingWebView__block_invoke_cold_1(v13, v9);
     }
 
-    v13 = *(a1 + 32);
-    v14 = [WBSPerformImageOperationUsingWebViewResponse alloc];
-    v15 = &stru_1F4646D10;
-    v16 = MEMORY[0x1E695E0F0];
+    v14 = *(a1 + 32);
+    v15 = [WBSPerformImageOperationUsingWebViewResponse alloc];
+    v16 = &stru_1F4646D10;
+    v17 = MEMORY[0x1E695E0F0];
   }
 
   else
   {
     if (!WeakRetained)
     {
-      v18 = *(a1 + 32);
-      v19 = [WBSPerformImageOperationUsingWebViewResponse alloc];
-      v20 = [(WBSPerformImageOperationUsingWebViewResponse *)v19 initWithImageType:&stru_1F4646D10 availableImageSizes:MEMORY[0x1E695E0F0]];
-      (*(v18 + 16))(v18, v20);
+      v19 = *(a1 + 32);
+      v20 = [WBSPerformImageOperationUsingWebViewResponse alloc];
+      v21 = [(WBSPerformImageOperationUsingWebViewResponse *)v20 initWithImageType:&stru_1F4646D10 availableImageSizes:MEMORY[0x1E695E0F0]];
+      (*(v19 + 16))(v19, v21);
 
       goto LABEL_12;
     }
@@ -95,16 +95,16 @@ void __79__WBSPerformImageOperationUsingWebViewFetchOperation__getImageInfoUsing
       v8 = MEMORY[0x1E695E0F0];
     }
 
-    v13 = *(a1 + 32);
-    v14 = [WBSPerformImageOperationUsingWebViewResponse alloc];
-    v15 = v7;
-    v16 = v8;
+    v14 = *(a1 + 32);
+    v15 = [WBSPerformImageOperationUsingWebViewResponse alloc];
+    v16 = v7;
+    v17 = v8;
   }
 
-  v17 = [(WBSPerformImageOperationUsingWebViewResponse *)v14 initWithImageType:v15 availableImageSizes:v16];
-  (*(v13 + 16))(v13, v17);
+  v18 = [(WBSPerformImageOperationUsingWebViewResponse *)v15 initWithImageType:v16 availableImageSizes:v17];
+  (*(v14 + 16))(v14, v18);
 
-  [v11 _fetchOperationFinished];
+  [v12 _fetchOperationFinished];
 LABEL_12:
 }
 
@@ -137,13 +137,13 @@ void __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutio
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v11 = WeakRetained;
+  v12 = WeakRetained;
   if (v9)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(WeakRetained, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_cold_1(v12, v9);
+      __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_cold_1(v13, v9);
     }
 
     goto LABEL_4;
@@ -151,37 +151,37 @@ void __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutio
 
   if (!WeakRetained)
   {
-    v17 = *(a1 + 40);
-    v16 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
-    (*(v17 + 16))(v17, v16);
+    v18 = *(a1 + 40);
+    v17 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
+    (*(v18 + 16))(v18, v17);
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  v15 = [v8 count];
-  if (v15 == 1)
+  v16 = [v8 count];
+  if (v16 == 1)
   {
     goto LABEL_9;
   }
 
-  if (v15)
+  if (v16)
   {
-    v16 = [v8 safari_mapObjectsUsingBlock:&__block_literal_global_12];
-    v18 = 0;
+    v17 = [v8 safari_mapObjectsUsingBlock:&__block_literal_global_12];
+    v19 = 0;
 LABEL_15:
-    v24 = [v11 webView];
-    v25 = *(a1 + 32);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_2;
-    v26[3] = &unk_1E8284CF8;
-    objc_copyWeak(&v28, (a1 + 48));
-    v27 = *(a1 + 40);
-    v29 = v18;
-    [v24 _createIconDataFromImageData:v25 withLengths:v16 completionHandler:v26];
+    v25 = [v12 webView];
+    v26 = *(a1 + 32);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_2;
+    v27[3] = &unk_1E8284CF8;
+    objc_copyWeak(&v29, (a1 + 48));
+    v28 = *(a1 + 40);
+    v30 = v19;
+    [v25 _createIconDataFromImageData:v26 withLengths:v17 completionHandler:v27];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
     goto LABEL_16;
   }
 
@@ -190,56 +190,56 @@ LABEL_15:
 LABEL_9:
     if ([v7 isEqualToString:@"public.svg-image"])
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v19 = [v11 request];
-      [v19 preferredSize];
-      v21 = v20;
+      v20 = [v12 request];
+      [v20 preferredSize];
+      v22 = v21;
 
-      v22 = [v11 request];
-      v23 = [v22 scales];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_8;
-      v30[3] = &__block_descriptor_40_e28___NSNumber_16__0__NSNumber_8l;
-      v30[4] = v21;
-      v16 = [v23 safari_mapObjectsUsingBlock:v30];
+      v23 = [v12 request];
+      v24 = [v23 scales];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_8;
+      v31[3] = &__block_descriptor_40_e28___NSNumber_16__0__NSNumber_8l;
+      v31[4] = v22;
+      v17 = [v24 safari_mapObjectsUsingBlock:v31];
     }
 
-    v18 = 1;
+    v19 = 1;
     goto LABEL_15;
   }
 
 LABEL_4:
-  v13 = *(a1 + 40);
-  v14 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
-  (*(v13 + 16))(v13, v14);
+  v14 = *(a1 + 40);
+  v15 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
+  (*(v14 + 16))(v14, v15);
 
-  [v11 _fetchOperationFinished];
+  [v12 _fetchOperationFinished];
 LABEL_17:
 }
 
 id __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_5(uint64_t a1, void *a2)
 {
-  [a2 CGSizeValue];
-  v3 = v2;
+  v2 = [a2 CGSizeValue];
   v5 = v4;
-  if (v2 != v4)
+  v7 = v6;
+  if (v4 != v6)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v2, v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1C6968000, v6, OS_LOG_TYPE_INFO, "Creating an image from a non-square multiresolution image", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1C6968000, v8, OS_LOG_TYPE_INFO, "Creating an image from a non-square multiresolution image", v11, 2u);
     }
   }
 
-  v7 = [MEMORY[0x1E696AD98] numberWithDouble:{fmax(v3, v5)}];
+  v9 = [MEMORY[0x1E696AD98] numberWithDouble:{fmax(v5, v7)}];
 
-  return v7;
+  return v9;
 }
 
 uint64_t __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_8(uint64_t a1, void *a2)
@@ -256,27 +256,28 @@ void __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutio
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v9 = WeakRetained;
   if (v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(WeakRetained, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_2_cold_1(v8, v6);
+      __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_2_cold_1(v10, v6);
     }
 
-    v9 = *(a1 + 32);
-    v10 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
-    (*(v9 + 16))(v9, v10);
+    v11 = *(a1 + 32);
+    v12 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:0 didGenerateResolutions:0];
+    (*(v11 + 16))(v11, v12);
   }
 
   else
   {
-    v11 = *(a1 + 32);
-    v12 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:v5 didGenerateResolutions:*(a1 + 48)];
-    (*(v11 + 16))(v11, v12);
+    v13 = *(a1 + 32);
+    v14 = [[WBSPerformImageOperationUsingWebViewResponse alloc] initWithMultiResolutionImageData:v5 didGenerateResolutions:*(a1 + 48)];
+    (*(v13 + 16))(v13, v14);
   }
 
-  [WeakRetained _fetchOperationFinished];
+  [v9 _fetchOperationFinished];
 }
 
 - (void)_fetchOperationFinished
@@ -308,21 +309,27 @@ void __79__WBSPerformImageOperationUsingWebViewFetchOperation__getImageInfoUsing
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to get image information from icon data with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to get image information from icon data with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to get image information from icon data with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to get image information from icon data with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __94__WBSPerformImageOperationUsingWebViewFetchOperation__getMultiResolutionImageDataUsingWebView__block_invoke_2_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to create multiresolution image from icon data with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Failed to create multiresolution image from icon data with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

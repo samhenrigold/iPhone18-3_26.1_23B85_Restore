@@ -51,9 +51,11 @@ uint64_t __25__AXIPCClient_initialize__block_invoke()
   v1 = AllClientLock;
   AllClientLock = v0;
 
-  AllClients = [MEMORY[0x1E696AE08] weakObjectsPointerArray];
+  v2 = [MEMORY[0x1E696AE08] weakObjectsPointerArray];
+  v3 = AllClients;
+  AllClients = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)allClients
@@ -269,9 +271,12 @@ uint64_t __22__AXIPCClient_dealloc__block_invoke_2(uint64_t result)
 
 uint64_t __26__AXIPCClient_description__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
+  v2 = [*(*(a1 + 32) + 40) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (unsigned)serviceMachPort
@@ -302,9 +307,12 @@ uint64_t __26__AXIPCClient_description__block_invoke(uint64_t a1)
 
 uint64_t __31__AXIPCClient_clientIdentifier__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) copy];
+  v2 = [*(*(a1 + 32) + 40) copy];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)setClientIdentifier:(id)identifier
@@ -326,28 +334,28 @@ uint64_t __31__AXIPCClient_clientIdentifier__block_invoke(uint64_t a1)
   [(AXIPCClient *)self _registerWithServer:v7];
 }
 
-void __35__AXIPCClient_setClientIdentifier___block_invoke(uint64_t a1)
+void __35__AXIPCClient_setClientIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v1 = *(a1 + 32);
-  v3 = v2 + 1;
-  v4 = *(v2[1] + 5);
-  if (v1 != v4)
+  v3 = (a1 + 32);
+  v2 = *(a1 + 32);
+  v4 = v3 + 1;
+  v5 = *(v3[1] + 5);
+  if (v2 != v5)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = AXLogIPC();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = AXLogIPC();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __35__AXIPCClient_setClientIdentifier___block_invoke_cold_1((v2 + 1), v2, v5);
+        __35__AXIPCClient_setClientIdentifier___block_invoke_cold_1((v3 + 1), v3, v6);
       }
 
-      v1 = *v2;
+      v2 = *v3;
     }
 
-    v6 = [v1 copy];
-    v7 = *(*v3 + 40);
-    *(*v3 + 40) = v6;
+    v7 = [v2 copy];
+    v8 = *(*v4 + 40);
+    *(*v4 + 40) = v7;
   }
 }
 
@@ -404,7 +412,7 @@ CFTypeRef __35__AXIPCClient_clientCallbackSource__block_invoke(uint64_t a1)
   return v2;
 }
 
-void __33__AXIPCClient_clientCallbackPort__block_invoke(uint64_t a1)
+void __33__AXIPCClient_clientCallbackPort__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 48))
   {
@@ -413,11 +421,11 @@ void __33__AXIPCClient_clientCallbackPort__block_invoke(uint64_t a1)
 
   else
   {
-    v1 = AXLogIPC();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    v2 = AXLogIPC();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v2 = 0;
-      _os_log_impl(&dword_18B15E000, v1, OS_LOG_TYPE_INFO, "AX Asked for client callback port but we had not yet registered", v2, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_18B15E000, v2, OS_LOG_TYPE_INFO, "AX Asked for client callback port but we had not yet registered", v3, 2u);
     }
   }
 }
@@ -936,8 +944,9 @@ BOOL __59__AXIPCClient_sendSimpleMessage_synchronizationPort_error___block_invok
   return v10;
 }
 
-uint64_t __37__AXIPCClient_sendMessage_withError___block_invoke(uint64_t a1, uint64_t a2, int a3, id a4)
+uint64_t __37__AXIPCClient_sendMessage_withError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, id a4)
 {
+  v5 = a3;
   v23 = 0;
   v22 = 0;
   v8 = (*(*(a1 + 32) + 32) * 1000.0);
@@ -946,7 +955,7 @@ uint64_t __37__AXIPCClient_sendMessage_withError___block_invoke(uint64_t a1, uin
   v11 = [v10 bytes];
   v12 = [v10 length];
 
-  v13 = _AXIPCSendData(a2, a3, v8, v11, v12, &v23, &v22);
+  v13 = _AXIPCSendData(a2, v5, v8, v11, v12, &v23, &v22);
   if (v13)
   {
     v14 = MEMORY[0x1E696AEC0];

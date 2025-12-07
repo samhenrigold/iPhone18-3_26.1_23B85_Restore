@@ -9,12 +9,13 @@
 
 - (void)setDefaultValues
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIFlexInteractionSettings();
-  v2 = v3.receiver;
-  [(PTSettings *)&v3 setDefaultValues];
-  v2[OBJC_IVAR____TtC5UIKit26_UIFlexInteractionSettings_liftEnabled] = 1;
-  v2[OBJC_IVAR____TtC5UIKit26_UIFlexInteractionSettings_flexEnabled] = 1;
+  type metadata accessor for _UIFlexInteractionSettings();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(PTSettings *)&v5 setDefaultValues];
+  *(&selfCopy->super.super.isa + OBJC_IVAR____TtC5UIKit26_UIFlexInteractionSettings_liftEnabled) = 1;
+  *(&selfCopy->super.super.isa + OBJC_IVAR____TtC5UIKit26_UIFlexInteractionSettings_flexEnabled) = 1;
 }
 
 - (void)setInteractionSpec:(id)spec

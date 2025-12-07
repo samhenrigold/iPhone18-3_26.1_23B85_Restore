@@ -188,15 +188,15 @@ LABEL_16:
   return v16;
 }
 
-void __88__PXPeopleDetailSettingsSuggestionViewController_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1, void *a2)
+void __88__PXPeopleDetailSettingsSuggestionViewController_collectionView_cellForItemAtIndexPath___block_invoke(uint64_t a1, void *a2, double a3, double a4, double a5, double a6)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = v3;
+  v7 = a2;
+  v8 = *(a1 + 32);
+  v9 = v7;
   px_dispatch_on_main_queue();
 }
 
-uint64_t __88__PXPeopleDetailSettingsSuggestionViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void *__88__PXPeopleDetailSettingsSuggestionViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 48))

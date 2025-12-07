@@ -15,10 +15,10 @@ void __41___ICInputSuggesterPredictionSource_init__block_invoke(uint64_t a1)
     v2[5] = v3;
 
     [v2[1] broadcast];
-    [v2[1] unlock];
+    WeakRetained = [v2[1] unlock];
   }
 
-  v5 = _ICProactiveQuickTypeOSLogFacility();
+  v5 = _ICProactiveQuickTypeOSLogFacility(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __41___ICInputSuggesterPredictionSource_init__block_invoke_cold_1();

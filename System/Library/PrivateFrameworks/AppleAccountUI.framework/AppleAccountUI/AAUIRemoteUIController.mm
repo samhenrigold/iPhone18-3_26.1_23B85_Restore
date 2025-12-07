@@ -123,21 +123,22 @@
 
   if (!serverTrust)
   {
-    v20 = _AAUILogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = _AAUILogSystem(v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [AAUIRemoteUIController loader:v20 didReceiveChallenge:? completionHandler:?];
+      [AAUIRemoteUIController loader:v22 didReceiveChallenge:? completionHandler:?];
     }
 
     goto LABEL_12;
   }
 
-  if (([MEMORY[0x1E698B830] isValidCertificateTrust:serverTrust] & 1) == 0)
+  v20 = [MEMORY[0x1E698B830] isValidCertificateTrust:serverTrust];
+  if ((v20 & 1) == 0)
   {
-    v20 = _AAUILogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = _AAUILogSystem(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [AAUIRemoteUIController loader:v20 didReceiveChallenge:? completionHandler:?];
+      [AAUIRemoteUIController loader:v22 didReceiveChallenge:? completionHandler:?];
     }
 
 LABEL_12:
@@ -146,8 +147,8 @@ LABEL_12:
     goto LABEL_7;
   }
 
-  v19 = [MEMORY[0x1E696AF30] credentialForTrust:serverTrust];
-  (handlerCopy)[2](handlerCopy, 0, v19);
+  v21 = [MEMORY[0x1E696AF30] credentialForTrust:serverTrust];
+  (handlerCopy)[2](handlerCopy, 0, v21);
 
 LABEL_7:
 }

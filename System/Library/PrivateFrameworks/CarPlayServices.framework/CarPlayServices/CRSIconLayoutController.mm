@@ -2,6 +2,7 @@
 - (CRSIconLayoutController)init;
 - (void)dealloc;
 - (void)exportIconStateForCertificateSerial:(id)serial categories:(unint64_t)categories completion:(id)completion;
+- (void)fetchApplicationIconInformationForBundleIdentifier:(id)identifier vehicleID:(id)d showBorder:(BOOL)border completion:(id)completion;
 - (void)fetchIconStateForVehicleID:(id)d completion:(id)completion;
 - (void)fetchWidgetStateForVehicleID:(id)d completion:(id)completion;
 - (void)invalidate;
@@ -16,10 +17,10 @@
 
 - (CRSIconLayoutController)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = CRSIconLayoutController;
-  v2 = [(CRSIconLayoutController *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = CRSIconLayoutController;
+  v2 = [(CRSIconLayoutController *)&v17 init];
   if (v2)
   {
     v3 = MEMORY[0x277CF3288];
@@ -31,13 +32,13 @@
     v2->_connection = v6;
 
     v8 = v2->_connection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __31__CRSIconLayoutController_init__block_invoke;
-    v16[3] = &unk_278D8E1A8;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __31__CRSIconLayoutController_init__block_invoke;
+    v15[3] = &unk_278D8E1A8;
     v9 = v2;
-    v17 = v9;
-    [(BSServiceConnection *)v8 configureConnection:v16];
+    v16 = v9;
+    [(BSServiceConnection *)v8 configureConnection:v15];
     Serial = BSDispatchQueueCreateSerial();
     callbackQueue = v9->_callbackQueue;
     v9->_callbackQueue = Serial;
@@ -47,14 +48,13 @@
     {
       v13 = v2->_connection;
       *buf = 138412290;
-      v20 = v13;
+      v19 = v13;
       _os_log_impl(&dword_242FB5000, v12, OS_LOG_TYPE_INFO, "Activating connection! %@", buf, 0xCu);
     }
 
     [(BSServiceConnection *)v2->_connection activate];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -75,48 +75,43 @@ void __31__CRSIconLayoutController_init__block_invoke(uint64_t a1, void *a2)
 
 void __31__CRSIconLayoutController_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Connection activated! %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Connection activated! %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __31__CRSIconLayoutController_init__block_invoke_67(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CRSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "[CRSIconLayoutController] connection interrupted! Reactivating... %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "[CRSIconLayoutController] connection interrupted! Reactivating... %@", &v4, 0xCu);
   }
 
   [v2 activate];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __31__CRSIconLayoutController_init__block_invoke_70(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Connection invalidated! %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Connection invalidated! %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -131,7 +126,7 @@ void __31__CRSIconLayoutController_init__block_invoke_70(uint64_t a1, void *a2)
 
 - (void)fetchIconStateForVehicleID:(id)d completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (completionCopy)
@@ -140,22 +135,20 @@ void __31__CRSIconLayoutController_init__block_invoke_70(uint64_t a1, void *a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v15 = dCopy;
+      v14 = dCopy;
       _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Fetching icon state for vehicle: %{public}@", buf, 0xCu);
     }
 
     connection = [(CRSIconLayoutController *)self connection];
     remoteTarget = [connection remoteTarget];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __65__CRSIconLayoutController_fetchIconStateForVehicleID_completion___block_invoke;
-    v12[3] = &unk_278D8E220;
-    v12[4] = self;
-    v13 = completionCopy;
-    [remoteTarget fetchIconStateForVehicleID:dCopy completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __65__CRSIconLayoutController_fetchIconStateForVehicleID_completion___block_invoke;
+    v11[3] = &unk_278D8E220;
+    v11[4] = self;
+    v12 = completionCopy;
+    [remoteTarget fetchIconStateForVehicleID:dCopy completion:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CRSIconLayoutController_fetchIconStateForVehicleID_completion___block_invoke(uint64_t a1, void *a2)
@@ -283,7 +276,7 @@ void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categorie
 
 void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categories_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 isEqualToString:@"com.apple.cardisplay.OEM"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.cardisplay.nowplaying") & 1) == 0)
   {
@@ -393,26 +386,24 @@ LABEL_38:
     }
 
     v19 = *(a1 + 40);
-    v22[0] = @"CARApplicationLocalizedNameKey";
-    v22[1] = @"CARApplicationBundleIdentifierKey";
+    v21[0] = @"CARApplicationLocalizedNameKey";
+    v21[1] = @"CARApplicationBundleIdentifierKey";
     v20 = &stru_28559CEB8;
     if (v16)
     {
       v20 = v16;
     }
 
-    v23[0] = v20;
-    v23[1] = v3;
-    v22[2] = @"CARApplicationCategoryKey";
-    v23[2] = v18;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v22[0] = v20;
+    v22[1] = v3;
+    v21[2] = @"CARApplicationCategoryKey";
+    v22[2] = v18;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
     [v19 addObject:v17];
     goto LABEL_37;
   }
 
 LABEL_39:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categories_completion___block_invoke_132(uint64_t a1)
@@ -424,7 +415,7 @@ void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categorie
 
 - (void)setIconOrder:(id)order hiddenIcons:(id)icons forVehicleID:(id)d
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iconsCopy = icons;
   v10 = [order bs_map:&__block_literal_global_138];
@@ -432,23 +423,21 @@ void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categorie
 
   v12 = [[CRSIconLayoutPage alloc] initWithIcons:v10];
   v13 = [CRSIconLayoutState alloc];
-  v22[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v15 = [(CRSIconLayoutState *)v13 initWithPages:v14 hiddenIcons:v11];
 
   v16 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v20 = 138543362;
-    v21 = dCopy;
-    _os_log_impl(&dword_242FB5000, v16, OS_LOG_TYPE_INFO, "Setting icon state for vehicle: %{public}@", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = dCopy;
+    _os_log_impl(&dword_242FB5000, v16, OS_LOG_TYPE_INFO, "Setting icon state for vehicle: %{public}@", &v19, 0xCu);
   }
 
   connection = [(CRSIconLayoutController *)self connection];
   remoteTarget = [connection remoteTarget];
   [remoteTarget setIconState:v15 forVehicleID:dCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 CRSApplicationIcon *__65__CRSIconLayoutController_setIconOrder_hiddenIcons_forVehicleID___block_invoke(uint64_t a1, void *a2)
@@ -469,21 +458,55 @@ CRSApplicationIcon *__65__CRSIconLayoutController_setIconOrder_hiddenIcons_forVe
 
 - (void)resetIconStateForVehicleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = dCopy;
-    _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_INFO, "Resetting icon state for vehicle: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = dCopy;
+    _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_INFO, "Resetting icon state for vehicle: %{public}@", &v8, 0xCu);
   }
 
   connection = [(CRSIconLayoutController *)self connection];
   remoteTarget = [connection remoteTarget];
   [remoteTarget resetIconStateForVehicleID:dCopy];
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)fetchApplicationIconInformationForBundleIdentifier:(id)identifier vehicleID:(id)d showBorder:(BOOL)border completion:(id)completion
+{
+  borderCopy = border;
+  v24 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dCopy = d;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    v13 = CRSLogForCategory(1uLL);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v21 = identifierCopy;
+      v22 = 2114;
+      v23 = dCopy;
+      _os_log_impl(&dword_242FB5000, v13, OS_LOG_TYPE_INFO, "Fetching icon information for bundle ID: %@, vehicle: %{public}@", buf, 0x16u);
+    }
+
+    objc_initWeak(buf, self);
+    connection = [(CRSIconLayoutController *)self connection];
+    remoteTarget = [connection remoteTarget];
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:borderCopy];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __110__CRSIconLayoutController_fetchApplicationIconInformationForBundleIdentifier_vehicleID_showBorder_completion___block_invoke;
+    v17[3] = &unk_278D8E308;
+    objc_copyWeak(&v19, buf);
+    v18 = completionCopy;
+    [remoteTarget fetchApplicationIconInformationForBundleIdentifier:identifierCopy vehicleID:dCopy drawBorder:v16 completion:v17];
+
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(buf);
+  }
 }
 
 void __110__CRSIconLayoutController_fetchApplicationIconInformationForBundleIdentifier_vehicleID_showBorder_completion___block_invoke(uint64_t a1, void *a2)
@@ -506,7 +529,7 @@ void __110__CRSIconLayoutController_fetchApplicationIconInformationForBundleIden
 
 - (void)fetchWidgetStateForVehicleID:(id)d completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (completionCopy)
@@ -515,26 +538,24 @@ void __110__CRSIconLayoutController_fetchApplicationIconInformationForBundleIden
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v16 = dCopy;
+      v15 = dCopy;
       _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Fetching widget state for vehicle: %{public}@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     connection = [(CRSIconLayoutController *)self connection];
     remoteTarget = [connection remoteTarget];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __67__CRSIconLayoutController_fetchWidgetStateForVehicleID_completion___block_invoke;
-    v12[3] = &unk_278D8E358;
-    objc_copyWeak(&v14, buf);
-    v13 = completionCopy;
-    [remoteTarget fetchWidgetStateForVehicleID:dCopy completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __67__CRSIconLayoutController_fetchWidgetStateForVehicleID_completion___block_invoke;
+    v11[3] = &unk_278D8E358;
+    objc_copyWeak(&v13, buf);
+    v12 = completionCopy;
+    [remoteTarget fetchWidgetStateForVehicleID:dCopy completion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__CRSIconLayoutController_fetchWidgetStateForVehicleID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -559,70 +580,64 @@ void __67__CRSIconLayoutController_fetchWidgetStateForVehicleID_completion___blo
 
 - (void)setWidgetState:(id)state forVehicleID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   stateCopy = state;
   v8 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
-    v13 = dCopy;
-    _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Setting widget state for vehicle: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = dCopy;
+    _os_log_impl(&dword_242FB5000, v8, OS_LOG_TYPE_INFO, "Setting widget state for vehicle: %{public}@", &v11, 0xCu);
   }
 
   connection = [(CRSIconLayoutController *)self connection];
   remoteTarget = [connection remoteTarget];
   [remoteTarget setWidgetState:stateCopy forVehicleID:dCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetWidgetStateForVehicleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = dCopy;
-    _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_INFO, "Resetting widget state for vehicle: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = dCopy;
+    _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_INFO, "Resetting widget state for vehicle: %{public}@", &v8, 0xCu);
   }
 
   connection = [(CRSIconLayoutController *)self connection];
   remoteTarget = [connection remoteTarget];
   [remoteTarget resetWidgetStateForVehicleID:dCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = [(CRSIconLayoutController *)self connection];
-    v7 = 138412290;
-    v8 = connection;
-    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Invalidating connection! %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = connection;
+    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_INFO, "Invalidating connection! %@", &v6, 0xCu);
   }
 
   connection2 = [(CRSIconLayoutController *)self connection];
   [connection2 invalidate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshWidgetStateForVehicleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = CRSLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v10 = dCopy;
+    v9 = dCopy;
     _os_log_impl(&dword_242FB5000, v4, OS_LOG_TYPE_INFO, "Requesting to refresh widget state for vehicle: %{public}@", buf, 0xCu);
   }
 
@@ -630,46 +645,39 @@ void __67__CRSIconLayoutController_fetchWidgetStateForVehicleID_completion___blo
   block[1] = 3221225472;
   block[2] = __58__CRSIconLayoutController_refreshWidgetStateForVehicleID___block_invoke;
   block[3] = &unk_278D8E380;
-  v8 = dCopy;
+  v7 = dCopy;
   v5 = dCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CRSIconLayoutController_refreshWidgetStateForVehicleID___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   v3 = *(a1 + 32);
-  v6 = @"vehicleID";
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"vehicleID";
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 postNotificationName:@"CRSWidgetLayoutStateChangedNotification" object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categories_completion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_242FB5000, a2, OS_LOG_TYPE_DEBUG, "Unable to determine a category for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_242FB5000, a2, OS_LOG_TYPE_DEBUG, "Unable to determine a category for %@", &v2, 0xCu);
 }
 
 void __85__CRSIconLayoutController_exportIconStateForCertificateSerial_categories_completion___block_invoke_4_cold_2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a2, "applicationCategory")}];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_242FB5000, a3, OS_LOG_TYPE_DEBUG, "Ignoring app %@ with categories %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_242FB5000, a3, OS_LOG_TYPE_DEBUG, "Ignoring app %@ with categories %@", &v6, 0x16u);
 }
 
 @end

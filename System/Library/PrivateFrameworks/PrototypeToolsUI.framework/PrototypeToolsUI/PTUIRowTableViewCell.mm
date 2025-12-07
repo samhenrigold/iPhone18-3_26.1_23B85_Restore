@@ -2,6 +2,7 @@
 - (void)dealloc;
 - (void)prepareForReuse;
 - (void)rowDidReload:(id)reload;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setRow:(id)row;
 - (void)updateCellCharacteristics;
 - (void)updateDisplayedContent;
@@ -38,6 +39,14 @@
   [(PTUIRowTableViewCell *)self updateDisplayedContent];
 
   [(PTUIRowTableViewCell *)self updateDisplayedValue];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = PTUIRowTableViewCell;
+  [(PTUIRowTableViewCell *)&v5 setEditing:editing animated:animated];
+  [(PTUIRowTableViewCell *)self updateCellCharacteristics];
 }
 
 - (void)updateDisplayedContent

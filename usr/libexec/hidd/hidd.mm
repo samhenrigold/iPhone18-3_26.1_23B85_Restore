@@ -58,10 +58,11 @@ LABEL_18:
   return 0;
 }
 
-void sub_1000008E4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000008E4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100000904(os_log_t log)
@@ -76,7 +77,8 @@ void sub_100000980()
   v0 = _IOHIDLogCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to set HIDEventSystem QOS\n", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to set HIDEventSystem QOS\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -85,7 +87,8 @@ void sub_1000009D8()
   v0 = _IOHIDLogCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to open HIDEventSystem\n", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to open HIDEventSystem\n", v3, v4, v5, v6, v7);
   }
 }
 
@@ -94,6 +97,7 @@ void sub_100000A30()
   v0 = _IOHIDLogCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to create HIDEventSystem\n", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_1000008E4(&_mh_execute_header, v1, v2, "Failed to create HIDEventSystem\n", v3, v4, v5, v6, v7);
   }
 }

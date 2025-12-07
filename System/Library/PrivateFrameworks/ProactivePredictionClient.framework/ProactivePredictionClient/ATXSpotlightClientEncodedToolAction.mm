@@ -96,7 +96,7 @@
     titleCopy = title;
     stringCopy = string;
     toolCopy = tool;
-    v24 = sub_260DF53B4();
+    v36 = sub_260DF53B4();
     v18 = v17;
   }
 
@@ -106,17 +106,23 @@
     iDCopy2 = iD;
     titleCopy2 = title;
     stringCopy2 = string;
-    v24 = 0;
+    v36 = 0;
     v18 = 0xF000000000000000;
   }
 
-  sub_260DF59C4();
+  v23 = sub_260DF59C4();
+  v25 = v24;
 
-  sub_260DF59C4();
-  sub_260DF59C4();
+  v26 = sub_260DF59C4();
+  v28 = v27;
 
-  sub_260DF59C4();
-  return SpotlightClientEncodedToolAction.init(encodedTool:toolID:bundleID:title:uuidString:)(v24, v18);
+  v29 = sub_260DF59C4();
+  v31 = v30;
+
+  v32 = sub_260DF59C4();
+  v34 = v33;
+
+  return SpotlightClientEncodedToolAction.init(encodedTool:toolID:bundleID:title:uuidString:)(v36, v18, v23, v25, v26, v28, v29, v31, v32, v34);
 }
 
 - (ATXSpotlightClientEncodedToolAction)initWithEncodedTool:(id)tool toolID:(id)d bundleID:(id)iD title:(id)title uuidString:(id)string encodedSummary:(id)summary

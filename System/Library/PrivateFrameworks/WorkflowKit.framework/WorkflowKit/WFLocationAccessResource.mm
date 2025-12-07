@@ -2,6 +2,7 @@
 - (id)localizedProtectedResourceDescriptionWithContext:(id)context;
 - (id)workflow;
 - (unint64_t)status;
+- (void)finishMakingAvailableWithSuccess:(BOOL)success error:(id)error;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
 - (void)makeAvailableWithUserInterface:(id)interface completionHandler:(id)handler;
 - (void)setWorkflow:(id)workflow;
@@ -25,6 +26,25 @@
 
     [(WFLocationAccessResource *)self finishMakingAvailableWithSuccess:v4 error:0];
   }
+}
+
+- (void)finishMakingAvailableWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  locationManager = [(WFLocationAccessResource *)self locationManager];
+  [locationManager stopUpdatingLocation];
+
+  [(WFResource *)self refreshAvailabilityWithForcedNotification];
+  makeAvailableCompletionHandler = [(WFLocationAccessResource *)self makeAvailableCompletionHandler];
+
+  if (makeAvailableCompletionHandler)
+  {
+    makeAvailableCompletionHandler2 = [(WFLocationAccessResource *)self makeAvailableCompletionHandler];
+    (makeAvailableCompletionHandler2)[2](makeAvailableCompletionHandler2, successCopy, errorCopy);
+  }
+
+  [(WFLocationAccessResource *)self setMakeAvailableCompletionHandler:0];
 }
 
 - (void)makeAvailableWithUserInterface:(id)interface completionHandler:(id)handler

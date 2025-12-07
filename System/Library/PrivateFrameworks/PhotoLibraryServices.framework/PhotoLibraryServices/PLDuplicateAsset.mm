@@ -162,7 +162,7 @@ LABEL_10:
   {
     title = [additionalAttributes title];
     originalFilename = [additionalAttributes originalFilename];
-    if ([title isEqualToString:originalFilename])
+    if (objc_msgSend_isEqualToString_(title))
     {
       v7 = 5;
     }
@@ -210,7 +210,7 @@ LABEL_10:
   }
 
   keywords = [additionalAttributes keywords];
-  v19 = [keywords count];
+  v19 = objc_msgSend_count(keywords);
 
   if (v19 >= 1)
   {
@@ -552,7 +552,7 @@ LABEL_34:
     additionalAttributes4 = [asset additionalAttributes];
     originalStableHash2 = [additionalAttributes4 originalStableHash];
 
-    if (([originatingAssetIdentifier isEqualToString:originalStableHash2] & 1) == 0 && !objc_msgSend(originatingAssetIdentifier2, "isEqualToString:", originalStableHash))
+    if ((objc_msgSend_isEqualToString_(originatingAssetIdentifier) & 1) == 0 && !objc_msgSend_isEqualToString_(originatingAssetIdentifier2))
     {
       goto LABEL_20;
     }
@@ -985,9 +985,9 @@ LABEL_19:
     originalStableHash = [additionalAttributes originalStableHash];
     additionalAttributes2 = [asset2 additionalAttributes];
     originatingAssetIdentifier = [additionalAttributes2 originatingAssetIdentifier];
-    v36 = [originalStableHash isEqualToString:originatingAssetIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(originalStableHash);
 
-    if (v36)
+    if (isEqualToString)
     {
       HIWORD(v119) = 5;
       v37 = PLDuplicateDetectionGetLog();
@@ -2380,7 +2380,7 @@ void __46__PLDuplicateAsset__validCPLAssetsWithAssets___block_invoke(uint64_t a1
 {
   v6 = [a2 asset];
   v7 = [v6 objectIDsForRelationshipNamed:@"master"];
-  *(*(*(a1 + 32) + 8) + 24) = [v7 count] != 0;
+  *(*(*(a1 + 32) + 8) + 24) = objc_msgSend_count(v7) != 0;
 
   if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
   {
@@ -2504,9 +2504,9 @@ LABEL_52:
           v25 = [v24 sortedArrayUsingComparator:&__block_literal_global_141];
 
           v26 = [v25 objectAtIndexedSubscript:0];
-          v27 = [v26 isEqualToString:assetCloudScopedIdentifier];
+          isEqualToString = objc_msgSend_isEqualToString_(v26);
 
-          if (v27)
+          if (isEqualToString)
           {
             *score = *otherScore + 1;
             shortDescription = PLDuplicateDetectionGetLog();
@@ -3601,7 +3601,7 @@ LABEL_2:
   v26 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   changedValues = [objectCopy changedValues];
-  if ([changedValues count])
+  if (objc_msgSend_count(changedValues))
   {
     v22 = 0u;
     v23 = 0u;

@@ -3,6 +3,7 @@
 - (void)appDidEnterBackground;
 - (void)dealloc;
 - (void)loadView;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PMPasswordAutoFillPocketViewController
@@ -69,9 +70,18 @@
   [(PMPasswordAutoFillPocketViewController *)&v4 dealloc];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PMPasswordAutoFillPocketViewController;
+  [(PMPasswordAutoFillPocketViewController *)&v5 viewWillDisappear:disappear];
+  iconController = [(_PMPasswordAutoFillPocketViewController *)self->_controller iconController];
+  [iconController performMaintenanceWork];
+}
+
 - (void)loadView
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D75D18]);
   [(PMPasswordAutoFillPocketViewController *)self setView:v3];
 
@@ -83,36 +93,35 @@
   view3 = [(UIViewController *)v4 view];
   [view3 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v21 = MEMORY[0x277CCAAD0];
+  v20 = MEMORY[0x277CCAAD0];
   view4 = [(UIViewController *)v4 view];
   leadingAnchor = [view4 leadingAnchor];
   view5 = [(PMPasswordAutoFillPocketViewController *)self view];
   leadingAnchor2 = [view5 leadingAnchor];
-  v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v31[0] = v26;
+  v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v30[0] = v25;
   view6 = [(UIViewController *)v4 view];
   trailingAnchor = [view6 trailingAnchor];
   view7 = [(PMPasswordAutoFillPocketViewController *)self view];
   trailingAnchor2 = [view7 trailingAnchor];
-  v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v31[1] = v20;
+  v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v30[1] = v19;
   view8 = [(UIViewController *)v4 view];
   topAnchor = [view8 topAnchor];
   view9 = [(PMPasswordAutoFillPocketViewController *)self view];
   topAnchor2 = [view9 topAnchor];
   v9 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v31[2] = v9;
+  v30[2] = v9;
   view10 = [(UIViewController *)v4 view];
   bottomAnchor = [view10 bottomAnchor];
   view11 = [(PMPasswordAutoFillPocketViewController *)self view];
   bottomAnchor2 = [view11 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v31[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
-  [v21 activateConstraints:v15];
+  v30[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+  [v20 activateConstraints:v15];
 
   [(PMPasswordAutoFillPocketViewController *)self addChildViewController:v4];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appDidEnterBackground

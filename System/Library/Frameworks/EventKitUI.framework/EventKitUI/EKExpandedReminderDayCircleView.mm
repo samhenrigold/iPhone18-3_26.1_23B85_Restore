@@ -7,17 +7,17 @@
 
 - (EKExpandedReminderDayCircleView)initWithFrame:(CGRect)frame
 {
-  v8.receiver = self;
-  v8.super_class = EKExpandedReminderDayCircleView;
-  v3 = [(EKExpandedReminderDayCircleView *)&v8 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v9.receiver = self;
+  v9.super_class = EKExpandedReminderDayCircleView;
+  v3 = [(EKExpandedReminderDayCircleView *)&v9 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
     [(EKExpandedReminderDayCircleView *)v3 setBackgroundColor:systemBackgroundColor];
 
-    v5 = CalendarAppCircleNonTodayBGColor();
+    v6 = CalendarAppCircleNonTodayBGColor(v5);
     circleColor = v3->_circleColor;
-    v3->_circleColor = v5;
+    v3->_circleColor = v6;
   }
 
   return v3;

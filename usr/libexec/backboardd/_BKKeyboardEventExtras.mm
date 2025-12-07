@@ -10,12 +10,11 @@
 {
   formatterCopy = formatter;
   v4 = [formatterCopy appendObject:self->_authenticationSpecification withName:@"authSpec" skipIfNil:1];
-  eventSource = self->_eventSource;
-  v6 = NSStringFromBKSHIDEventSource();
-  [formatterCopy appendString:v6 withName:@"eventSource"];
+  v5 = NSStringFromBKSHIDEventSource();
+  [formatterCopy appendString:v5 withName:@"eventSource"];
 
-  v7 = [formatterCopy appendBool:self->_modifiersOnly withName:@"modifiersOnly"];
-  v8 = [formatterCopy appendUnsignedInteger:self->_GSModifierState withName:@"GSModifierState" format:1];
+  v6 = [formatterCopy appendBool:self->_modifiersOnly withName:@"modifiersOnly"];
+  v7 = [formatterCopy appendUnsignedInteger:self->_GSModifierState withName:@"GSModifierState" format:1];
 }
 
 - (id)copy
@@ -33,16 +32,16 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
     objc_opt_class();
-    v7 = (objc_opt_isKindOfClass() & 1) != 0 && (authenticationSpecification = self->_authenticationSpecification, v6 = equalCopy->_authenticationSpecification, BSEqualObjects()) && self->_eventSource == equalCopy->_eventSource && self->_modifiersOnly == equalCopy->_modifiersOnly && self->_GSModifierState == equalCopy->_GSModifierState;
+    v5 = (objc_opt_isKindOfClass() & 1) != 0 && BSEqualObjects() && self->_eventSource == equalCopy->_eventSource && self->_modifiersOnly == equalCopy->_modifiersOnly && self->_GSModifierState == equalCopy->_GSModifierState;
   }
 
-  return v7;
+  return v5;
 }
 
 @end

@@ -73,31 +73,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    category = self->_category;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -174,7 +172,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_score != *(equalCopy + 1))
@@ -194,14 +191,14 @@
     if (![(NSString *)language isEqual:?])
     {
 LABEL_16:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_17;
     }
 
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 40) & 2) == 0;
+  v8 = (*(equalCopy + 40) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_category != *(equalCopy + 4))
@@ -209,12 +206,12 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_17:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

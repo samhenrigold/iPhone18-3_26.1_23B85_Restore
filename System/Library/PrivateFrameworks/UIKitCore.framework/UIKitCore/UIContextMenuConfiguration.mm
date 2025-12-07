@@ -23,9 +23,9 @@
   }
 
   _internalIdentifier2 = [(UIContextMenuConfiguration *)self _internalIdentifier];
-  v6 = [_internalIdentifier2 isEqualToString:@"com.apple.UIKit.UICollectionView.backgroundMenu"];
+  isEqualToString = objc_msgSend_isEqualToString_(_internalIdentifier2);
 
-  return v6;
+  return isEqualToString;
 }
 
 + (UIContextMenuConfiguration)configurationWithIdentifier:(id)identifier previewProvider:(UIContextMenuContentPreviewProvider)previewProvider actionProvider:(UIContextMenuActionProvider)actionProvider

@@ -50,10 +50,11 @@
     objc_sync_exit(selfCopy);
 
     domain_answer = os_eligibility_get_domain_answer();
-    v6 = _OBLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = domain_answer;
+    v7 = _OBLoggingFacility(domain_answer);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(OBCapabilities *)domain_answer eligibleForChlorine];
+      [(OBCapabilities *)v6 eligibleForChlorine];
     }
 
     return 0;
@@ -165,10 +166,11 @@ uint64_t __24__OBCapabilities_isWAPI__block_invoke()
     objc_sync_exit(selfCopy);
 
     domain_answer = os_eligibility_get_domain_answer();
-    v6 = _OBLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = domain_answer;
+    v7 = _OBLoggingFacility(domain_answer);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(OBCapabilities *)domain_answer eligibilityForGreymatterHasCountryPolicyChina];
+      [(OBCapabilities *)v6 eligibilityForGreymatterHasCountryPolicyChina];
     }
 
     bOOLValue = [(OBCapabilities *)selfCopy _eligibilityContextHasCountryPolicyChina:0, 0];
@@ -273,30 +275,30 @@ LABEL_14:
 
 - (id)additionalDisplayLanguageForDisplayLanguage:(id)language
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  v5 = _OBLoggingFacility();
+  v5 = _OBLoggingFacility(languageCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = languageCopy;
-    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage displayLanguage %@", &v18, 0xCu);
+    v20 = 138412290;
+    v21 = languageCopy;
+    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage displayLanguage %@", &v20, 0xCu);
   }
 
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v7 = objc_sync_enter(selfCopy);
   if (selfCopy->_overrideAdditionalDisplayLanguage)
   {
-    v7 = _OBLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _OBLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       overrideAdditionalDisplayLanguage = selfCopy->_overrideAdditionalDisplayLanguage;
-      v18 = 138412290;
-      v19 = overrideAdditionalDisplayLanguage;
-      _os_log_impl(&dword_1B4FB6000, v7, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage returning _overrideAdditionalDisplayLanguage %@", &v18, 0xCu);
+      v20 = 138412290;
+      v21 = overrideAdditionalDisplayLanguage;
+      _os_log_impl(&dword_1B4FB6000, v8, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage returning _overrideAdditionalDisplayLanguage %@", &v20, 0xCu);
     }
 
-    _potentialAdditionalDisplayLanguage = selfCopy->_overrideAdditionalDisplayLanguage;
+    v10 = selfCopy->_overrideAdditionalDisplayLanguage;
     objc_sync_exit(selfCopy);
   }
 
@@ -305,60 +307,60 @@ LABEL_14:
     objc_sync_exit(selfCopy);
 
     _potentialAdditionalDisplayLanguage = [(OBCapabilities *)selfCopy _potentialAdditionalDisplayLanguage];
+    v10 = _potentialAdditionalDisplayLanguage;
     if (_potentialAdditionalDisplayLanguage)
     {
-      languageCode2 = languageCopy;
-      if (!languageCode2)
+      v12 = languageCopy;
+      languageCode2 = v12;
+      if (!v12)
       {
-        v11 = _OBLoggingFacility();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = _OBLoggingFacility(0);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           currentLocale = [MEMORY[0x1E695DF58] currentLocale];
           languageCode = [currentLocale languageCode];
-          v18 = 138412290;
-          v19 = languageCode;
-          _os_log_impl(&dword_1B4FB6000, v11, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage languageCode %@", &v18, 0xCu);
+          v20 = 138412290;
+          v21 = languageCode;
+          _os_log_impl(&dword_1B4FB6000, v14, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage languageCode %@", &v20, 0xCu);
         }
 
         currentLocale2 = [MEMORY[0x1E695DF58] currentLocale];
         languageCode2 = [currentLocale2 languageCode];
       }
 
-      v15 = _OBLoggingFacility();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = _OBLoggingFacility(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
-        v19 = _potentialAdditionalDisplayLanguage;
-        v20 = 2112;
-        v21 = languageCode2;
-        _os_log_impl(&dword_1B4FB6000, v15, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage additionalDisplayLanguage %@ resolvedDisplayLanguage %@", &v18, 0x16u);
+        v20 = 138412546;
+        v21 = v10;
+        v22 = 2112;
+        v23 = languageCode2;
+        _os_log_impl(&dword_1B4FB6000, v18, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage additionalDisplayLanguage %@ resolvedDisplayLanguage %@", &v20, 0x16u);
       }
 
-      if ([(NSString *)_potentialAdditionalDisplayLanguage isEqualToString:languageCode2])
+      if ([(NSString *)v10 isEqualToString:languageCode2])
       {
 
-        _potentialAdditionalDisplayLanguage = 0;
+        v10 = 0;
       }
     }
 
-    selfCopy = _OBLoggingFacility();
+    selfCopy = _OBLoggingFacility(_potentialAdditionalDisplayLanguage);
     if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = _potentialAdditionalDisplayLanguage;
-      _os_log_impl(&dword_1B4FB6000, &selfCopy->super, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage returning %@", &v18, 0xCu);
+      v20 = 138412290;
+      v21 = v10;
+      _os_log_impl(&dword_1B4FB6000, &selfCopy->super, OS_LOG_TYPE_DEFAULT, "additionalDisplayLanguageForDisplayLanguage returning %@", &v20, 0xCu);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return _potentialAdditionalDisplayLanguage;
+  return v10;
 }
 
 - (id)_potentialAdditionalDisplayLanguage
 {
   v10 = *MEMORY[0x1E69E9840];
-  v2 = _OBLoggingFacility();
+  v2 = _OBLoggingFacility(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     currentLocale = [MEMORY[0x1E695DF58] currentLocale];
@@ -368,15 +370,14 @@ LABEL_14:
     _os_log_impl(&dword_1B4FB6000, v2, OS_LOG_TYPE_DEFAULT, "_potentialAdditionalDisplayLanguage languageIdentifier %@", &v8, 0xCu);
   }
 
-  v5 = _OBLoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _OBLoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = 0;
-    _os_log_impl(&dword_1B4FB6000, v5, OS_LOG_TYPE_DEFAULT, "_potentialAdditionalDisplayLanguage returning %@", &v8, 0xCu);
+    _os_log_impl(&dword_1B4FB6000, v6, OS_LOG_TYPE_DEFAULT, "_potentialAdditionalDisplayLanguage returning %@", &v8, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -403,20 +404,18 @@ LABEL_14:
 
 - (void)eligibleForChlorine
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "Failed to get eligibility for chlorine with error %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "Failed to get eligibility for chlorine with error %d", v2, 8u);
 }
 
 - (void)eligibilityForGreymatterHasCountryPolicyChina
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "Failed to get eligibility for greymatter with error %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "Failed to get eligibility for greymatter with error %d", v2, 8u);
 }
 
 @end

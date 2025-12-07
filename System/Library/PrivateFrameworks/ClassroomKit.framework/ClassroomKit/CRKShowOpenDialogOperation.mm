@@ -130,7 +130,7 @@ void __43__CRKShowOpenDialogOperation_startTransfer__block_invoke(uint64_t a1, v
 - (void)transferDidStartWithSuccess:(BOOL)success destinationPath:(id)path error:(id)error
 {
   successCopy = success;
-  v57 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   errorCopy = error;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -138,101 +138,102 @@ void __43__CRKShowOpenDialogOperation_startTransfer__block_invoke(uint64_t a1, v
     [CRKShowOpenDialogOperation transferDidStartWithSuccess:destinationPath:error:];
   }
 
-  if ([(CRKShowOpenDialogOperation *)self isExecuting])
+  isExecuting = [(CRKShowOpenDialogOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v10 = _CRKLogOperation();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CRKLogOperation(isExecuting);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
       selfCopy = self;
-      v51 = 1024;
-      v52 = successCopy;
-      v53 = 2114;
-      v54 = pathCopy;
-      v55 = 2114;
-      v56 = errorCopy;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did start. success: %d, destination: %{public}@, error: %{public}@", buf, 0x26u);
+      v52 = 1024;
+      v53 = successCopy;
+      v54 = 2114;
+      v55 = pathCopy;
+      v56 = 2114;
+      v57 = errorCopy;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did start. success: %d, destination: %{public}@, error: %{public}@", buf, 0x26u);
     }
 
     if (successCopy)
     {
       objc_storeStrong(&self->mTransferDirectoryURL, path);
-      v36 = objc_opt_new();
-      v44 = 0u;
+      v37 = objc_opt_new();
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
       transfer = [(CRKShowOpenDialogOperation *)self transfer];
       fileURLs = [transfer fileURLs];
 
       obj = fileURLs;
-      v13 = [fileURLs countByEnumeratingWithState:&v44 objects:v48 count:16];
-      if (v13)
+      v14 = [fileURLs countByEnumeratingWithState:&v45 objects:v49 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v38 = *v45;
+        v15 = v14;
+        v39 = *v46;
         while (2)
         {
-          v15 = 0;
+          v16 = 0;
           do
           {
-            if (*v45 != v38)
+            if (*v46 != v39)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v44 + 1) + 8 * v15);
-            v17 = pathCopy;
+            v17 = *(*(&v45 + 1) + 8 * v16);
+            v18 = pathCopy;
             if (CRKIsiOS())
             {
               uUID = [MEMORY[0x277CCAD78] UUID];
               uUIDString = [uUID UUIDString];
-              v20 = [v17 URLByAppendingPathComponent:uUIDString];
+              v21 = [v18 URLByAppendingPathComponent:uUIDString];
 
-              v17 = v20;
+              v18 = v21;
             }
 
             fileSystemPrimitives = [(CRKShowOpenDialogOperation *)self fileSystemPrimitives];
-            v43 = errorCopy;
-            v22 = [fileSystemPrimitives makeDirectoryAtURL:v17 error:&v43];
-            v23 = v43;
+            v44 = errorCopy;
+            v23 = [fileSystemPrimitives makeDirectoryAtURL:v18 error:&v44];
+            v24 = v44;
 
-            if (!v22)
+            if (!v23)
             {
-              [(CRKShowOpenDialogOperation *)self failWithError:v23];
+              [(CRKShowOpenDialogOperation *)self failWithError:v24];
 
-              errorCopy = v23;
-              v32 = v36;
+              errorCopy = v24;
+              v33 = v37;
               goto LABEL_26;
             }
 
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            lastPathComponent = [v16 lastPathComponent];
-            v26 = [v17 URLByAppendingPathComponent:lastPathComponent];
-            v27 = [defaultManager crk_collisionAvoidingURLForURL:v26];
+            lastPathComponent = [v17 lastPathComponent];
+            v27 = [v18 URLByAppendingPathComponent:lastPathComponent];
+            v28 = [defaultManager crk_collisionAvoidingURLForURL:v27];
 
             LODWORD(defaultManager) = self->mKeepOriginalFiles;
             fileSystemPrimitives2 = [(CRKShowOpenDialogOperation *)self fileSystemPrimitives];
-            v29 = fileSystemPrimitives2;
+            v30 = fileSystemPrimitives2;
             if (defaultManager == 1)
             {
-              v42 = v23;
-              v30 = [fileSystemPrimitives2 copyItemAtURL:v16 toURL:v27 error:&v42];
-              v31 = v42;
+              v43 = v24;
+              v31 = [fileSystemPrimitives2 copyItemAtURL:v17 toURL:v28 error:&v43];
+              v32 = v43;
             }
 
             else
             {
-              v41 = v23;
-              v30 = [fileSystemPrimitives2 moveItemAtURL:v16 toURL:v27 error:&v41];
-              v31 = v41;
+              v42 = v24;
+              v31 = [fileSystemPrimitives2 moveItemAtURL:v17 toURL:v28 error:&v42];
+              v32 = v42;
             }
 
-            errorCopy = v31;
+            errorCopy = v32;
 
-            if (v30)
+            if (v31)
             {
-              [v36 addObject:v27];
+              [v37 addObject:v28];
             }
 
             else
@@ -240,12 +241,12 @@ void __43__CRKShowOpenDialogOperation_startTransfer__block_invoke(uint64_t a1, v
               [(CRKShowOpenDialogOperation *)self failWithError:errorCopy];
             }
 
-            ++v15;
+            ++v16;
           }
 
-          while (v14 != v15);
-          v14 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
-          if (v14)
+          while (v15 != v16);
+          v15 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+          if (v15)
           {
             continue;
           }
@@ -254,18 +255,18 @@ void __43__CRKShowOpenDialogOperation_startTransfer__block_invoke(uint64_t a1, v
         }
       }
 
-      v32 = v36;
-      v33 = [v36 copy];
+      v33 = v37;
+      v34 = [v37 copy];
       transfer2 = [(CRKShowOpenDialogOperation *)self transfer];
-      [transfer2 setDestFileURLs:v33];
+      [transfer2 setDestFileURLs:v34];
 
       transfer3 = [(CRKShowOpenDialogOperation *)self transfer];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __80__CRKShowOpenDialogOperation_transferDidStartWithSuccess_destinationPath_error___block_invoke;
-      v40[3] = &unk_278DC2600;
-      v40[4] = self;
-      [transfer3 updateWithState:2 completion:v40];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __80__CRKShowOpenDialogOperation_transferDidStartWithSuccess_destinationPath_error___block_invoke;
+      v41[3] = &unk_278DC2600;
+      v41[4] = self;
+      [transfer3 updateWithState:2 completion:v41];
 
 LABEL_26:
     }
@@ -280,7 +281,7 @@ LABEL_26:
 - (void)transferDidProgressWithSuccess:(BOOL)success destinationPath:(id)path error:(id)error
 {
   successCopy = success;
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   errorCopy = error;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -288,47 +289,48 @@ LABEL_26:
     [CRKShowOpenDialogOperation transferDidProgressWithSuccess:destinationPath:error:];
   }
 
-  if ([(CRKShowOpenDialogOperation *)self isExecuting])
+  isExecuting = [(CRKShowOpenDialogOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v10 = _CRKLogOperation();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CRKLogOperation(isExecuting);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
       selfCopy2 = self;
-      v20 = 1024;
-      *v21 = successCopy;
-      *&v21[4] = 2114;
-      *&v21[6] = pathCopy;
-      *&v21[14] = 2114;
-      *&v21[16] = errorCopy;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did progress: success: %d, destination: %{public}@, error: %{public}@", buf, 0x26u);
+      v22 = 1024;
+      *v23 = successCopy;
+      *&v23[4] = 2114;
+      *&v23[6] = pathCopy;
+      *&v23[14] = 2114;
+      *&v23[16] = errorCopy;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did progress: success: %d, destination: %{public}@, error: %{public}@", buf, 0x26u);
     }
 
     if (successCopy)
     {
-      v11 = _CRKLogOperation();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = _CRKLogOperation(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         transfer = [(CRKShowOpenDialogOperation *)self transfer];
         identifier = [transfer identifier];
         transfer2 = [(CRKShowOpenDialogOperation *)self transfer];
         *buf = 138543874;
         selfCopy2 = self;
-        v20 = 2114;
-        *v21 = identifier;
-        *&v21[8] = 2114;
-        *&v21[10] = transfer2;
-        _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Finishing transfer. Identifier: %{public}@. Info: %{public}@", buf, 0x20u);
+        v22 = 2114;
+        *v23 = identifier;
+        *&v23[8] = 2114;
+        *&v23[10] = transfer2;
+        _os_log_impl(&dword_243550000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Finishing transfer. Identifier: %{public}@. Info: %{public}@", buf, 0x20u);
       }
 
       transfer3 = [(CRKShowOpenDialogOperation *)self transfer];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __83__CRKShowOpenDialogOperation_transferDidProgressWithSuccess_destinationPath_error___block_invoke;
-      v16[3] = &unk_278DC2628;
-      v16[4] = self;
-      v17 = pathCopy;
-      [transfer3 updateWithState:5 completion:v16];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __83__CRKShowOpenDialogOperation_transferDidProgressWithSuccess_destinationPath_error___block_invoke;
+      v18[3] = &unk_278DC2628;
+      v18[4] = self;
+      v19 = pathCopy;
+      [transfer3 updateWithState:5 completion:v18];
     }
 
     else
@@ -341,7 +343,7 @@ LABEL_26:
 - (void)transferDidFinishWithSuccess:(BOOL)success destinationPath:(id)path error:(id)error
 {
   successCopy = success;
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   errorCopy = error;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -349,20 +351,21 @@ LABEL_26:
     [CRKShowOpenDialogOperation transferDidFinishWithSuccess:destinationPath:error:];
   }
 
-  if ([(CRKShowOpenDialogOperation *)self isExecuting])
+  isExecuting = [(CRKShowOpenDialogOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v10 = _CRKLogOperation();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CRKLogOperation(isExecuting);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138544130;
+      v12 = 138544130;
       selfCopy = self;
-      v13 = 1024;
-      v14 = successCopy;
-      v15 = 2114;
-      v16 = pathCopy;
-      v17 = 2114;
-      v18 = errorCopy;
-      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did finish. success: %d, destination: %{public}@, error: %{public}@", &v11, 0x26u);
+      v14 = 1024;
+      v15 = successCopy;
+      v16 = 2114;
+      v17 = pathCopy;
+      v18 = 2114;
+      v19 = errorCopy;
+      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer did finish. success: %d, destination: %{public}@, error: %{public}@", &v12, 0x26u);
     }
 
     if (successCopy)
@@ -380,81 +383,82 @@ LABEL_26:
 
 - (void)transferWithIdentifierWasAccepted:(id)accepted
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   acceptedCopy = accepted;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
     [CRKShowOpenDialogOperation transferWithIdentifierWasAccepted:];
   }
 
-  if ([(CRKShowOpenDialogOperation *)self isExecuting])
+  isExecuting = [(CRKShowOpenDialogOperation *)self isExecuting];
+  if (isExecuting)
   {
-    v5 = _CRKLogOperation();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CRKLogOperation(isExecuting);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy = self;
-      v39 = 2114;
-      v40 = acceptedCopy;
-      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer with identifier %{public}@ ACCEPTED", buf, 0x16u);
+      v40 = 2114;
+      v41 = acceptedCopy;
+      _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer with identifier %{public}@ ACCEPTED", buf, 0x16u);
     }
 
     if (CRKIsOSX())
     {
-      v26 = acceptedCopy;
-      v6 = MEMORY[0x277CBEB58];
+      v27 = acceptedCopy;
+      v7 = MEMORY[0x277CBEB58];
       transfer = [(CRKShowOpenDialogOperation *)self transfer];
       destFileURLs = [transfer destFileURLs];
-      v28 = [v6 setWithCapacity:{objc_msgSend(destFileURLs, "count")}];
+      v29 = [v7 setWithCapacity:{objc_msgSend(destFileURLs, "count")}];
 
-      v34 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
+      v34 = 0u;
       selfCopy2 = self;
       transfer2 = [(CRKShowOpenDialogOperation *)self transfer];
       destFileURLs2 = [transfer2 destFileURLs];
 
       obj = destFileURLs2;
-      v11 = [destFileURLs2 countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v11)
+      v12 = [destFileURLs2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v13 = *v33;
+        v13 = v12;
+        v14 = *v34;
         while (2)
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v33 != v13)
+            if (*v34 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v32 + 1) + 8 * i);
-            uRLByDeletingLastPathComponent = [v15 URLByDeletingLastPathComponent];
-            [v28 addObject:uRLByDeletingLastPathComponent];
-            lastPathComponent = [v15 lastPathComponent];
-            v16URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
+            v16 = *(*(&v33 + 1) + 8 * i);
+            uRLByDeletingLastPathComponent = [v16 URLByDeletingLastPathComponent];
+            [v29 addObject:uRLByDeletingLastPathComponent];
+            lastPathComponent = [v16 lastPathComponent];
+            v17URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-            v20 = [v16URLByDeletingLastPathComponent URLByAppendingPathComponent:lastPathComponent];
-            v21 = [defaultManager crk_collisionAvoidingURLForURL:v20];
+            v21 = [v17URLByDeletingLastPathComponent URLByAppendingPathComponent:lastPathComponent];
+            v22 = [defaultManager crk_collisionAvoidingURLForURL:v21];
 
             fileSystemPrimitives = [(CRKShowOpenDialogOperation *)selfCopy2 fileSystemPrimitives];
-            v31 = 0;
-            LOBYTE(v20) = [fileSystemPrimitives copyItemAtURL:v15 toURL:v21 error:&v31];
-            v23 = v31;
+            v32 = 0;
+            LOBYTE(v21) = [fileSystemPrimitives copyItemAtURL:v16 toURL:v22 error:&v32];
+            v24 = v32;
 
-            if ((v20 & 1) == 0)
+            if ((v21 & 1) == 0)
             {
-              [(CRKShowOpenDialogOperation *)selfCopy2 failWithError:v23];
+              [(CRKShowOpenDialogOperation *)selfCopy2 failWithError:v24];
 
-              acceptedCopy = v26;
+              acceptedCopy = v27;
               goto LABEL_18;
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-          if (v12)
+          v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          if (v13)
           {
             continue;
           }
@@ -465,15 +469,15 @@ LABEL_26:
 
       self = selfCopy2;
       [(CRKShowOpenDialogOperation *)selfCopy2 cleanupDelay];
-      v25 = dispatch_time(0, (v24 * 1000000000.0));
+      v26 = dispatch_time(0, (v25 * 1000000000.0));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __64__CRKShowOpenDialogOperation_transferWithIdentifierWasAccepted___block_invoke;
       block[3] = &unk_278DC10F0;
       block[4] = selfCopy2;
-      dispatch_after(v25, MEMORY[0x277D85CD0], block);
+      dispatch_after(v26, MEMORY[0x277D85CD0], block);
 
-      acceptedCopy = v26;
+      acceptedCopy = v27;
     }
 
     self->mTransferAccepted = 1;
@@ -485,7 +489,7 @@ LABEL_18:
 
 - (void)transferWithIdentifierWasDeclined:(id)declined error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   declinedCopy = declined;
   errorCopy = error;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -504,16 +508,16 @@ LABEL_18:
 
     v10 = v9;
 
-    v11 = _CRKLogOperation();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _CRKLogOperation(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543874;
+      v13 = 138543874;
       selfCopy = self;
-      v14 = 2114;
-      v15 = declinedCopy;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer with identifier %{public}@ %{public}@", &v12, 0x20u);
+      v15 = 2114;
+      v16 = declinedCopy;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer with identifier %{public}@ %{public}@", &v13, 0x20u);
     }
 
     [(CRKShowOpenDialogOperation *)self failWithError:errorCopy];
@@ -554,8 +558,7 @@ LABEL_18:
     [CRKShowOpenDialogOperation failWithError:];
   }
 
-  [(CRKShowOpenDialogOperation *)self cleanupHiddenTransferItemsIfNeeded];
-  v6 = _CRKLogOperation();
+  v6 = _CRKLogOperation([(CRKShowOpenDialogOperation *)self cleanupHiddenTransferItemsIfNeeded]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(CRKShowOpenDialogOperation *)self failWithError:errorCopy, v6];
@@ -584,7 +587,7 @@ LABEL_18:
 
 void __44__CRKShowOpenDialogOperation_failWithError___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
@@ -592,25 +595,26 @@ void __44__CRKShowOpenDialogOperation_failWithError___block_invoke(uint64_t a1, 
     __44__CRKShowOpenDialogOperation_failWithError___block_invoke_cold_1(a1);
   }
 
-  if ([*(a1 + 32) isExecuting])
+  v9 = [*(a1 + 32) isExecuting];
+  if (v9)
   {
-    v9 = _CRKLogOperation();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _CRKLogOperation(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v12 = 138544130;
-      v13 = v10;
-      v14 = 1024;
-      v15 = a2;
-      v16 = 2114;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer canceled: success: %d, destination: %{public}@, error: %{public}@", &v12, 0x26u);
+      v11 = *(a1 + 32);
+      v13 = 138544130;
+      v14 = v11;
+      v15 = 1024;
+      v16 = a2;
+      v17 = 2114;
+      v18 = v7;
+      v19 = 2114;
+      v20 = v8;
+      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Transfer canceled: success: %d, destination: %{public}@, error: %{public}@", &v13, 0x26u);
     }
 
-    v11 = [*(a1 + 32) transfer];
-    [v11 invalidate];
+    v12 = [*(a1 + 32) transfer];
+    [v12 invalidate];
 
     [*(a1 + 32) endOperationWithError:*(a1 + 40)];
   }

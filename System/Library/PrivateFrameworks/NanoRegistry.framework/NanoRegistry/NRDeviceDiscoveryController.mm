@@ -62,32 +62,32 @@ uint64_t __45__NRDeviceDiscoveryController_sharedInstance__block_invoke(uint64_t
 
 - (NSArray)devices
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v3 = +[NRPairedDeviceRegistry sharedInstance];
   getAllDevices = [v3 getAllDevices];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = getAllDevices;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [v10 valueForProperty:{@"isPaired", v15}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [v10 valueForProperty:{@"isPaired", v14}];
         v12 = [v10 valueForProperty:@"isActive"];
         if (([v11 BOOLValue] & 1) == 0 && (objc_msgSend(v12, "BOOLValue") & 1) == 0)
         {
@@ -95,13 +95,11 @@ uint64_t __45__NRDeviceDiscoveryController_sharedInstance__block_invoke(uint64_t
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }

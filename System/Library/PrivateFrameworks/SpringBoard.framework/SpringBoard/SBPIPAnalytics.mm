@@ -57,10 +57,10 @@
   [(NSMutableDictionary *)self->_analyticsSourceAssistants setObject:v23 forKeyedSubscript:dCopy];
 }
 
-void __96__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSourceWithUUID_bundleIdentifier_contentType___block_invoke(uint64_t a1, void *a2)
+void __96__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSourceWithUUID_bundleIdentifier_contentType___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v2 = v3;
+  v4 = a2;
+  v3 = v4;
   AnalyticsSendEventLazy();
 }
 
@@ -132,10 +132,10 @@ void __96__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSourceWithUUID_bundl
   [(NSMutableDictionary *)self->_analyticsSessionAssistants setObject:v23 forKeyedSubscript:dCopy];
 }
 
-void __97__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSessionWithUUID_bundleIdentifier_contentType___block_invoke(uint64_t a1, void *a2)
+void __97__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSessionWithUUID_bundleIdentifier_contentType___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v2 = v3;
+  v4 = a2;
+  v3 = v4;
   AnalyticsSendEventLazy();
 }
 
@@ -233,6 +233,62 @@ void __97__SBPIPAnalytics_pictureInPictureDidCreateAnalyticsSessionWithUUID_bund
   {
     [v15 noteBecameUnstashedAtTime:Current];
   }
+}
+
+- (void)pictureInPictureDidCreateAnalyticsSourceWithUUID:(uint64_t)a3 bundleIdentifier:(uint64_t)a4 contentType:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidCreateAnalyticsSourceWithUUID:bundleIdentifier:contentType:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidDestroyAnalyticsSourceWithUUID:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidDestroyAnalyticsSourceWithUUID:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureAnalyticsSourceWithUUID:(uint64_t)a3 didBecomePossible:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureAnalyticsSourceWithUUID:didBecomePossible:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidCreateAnalyticsSessionWithUUID:(uint64_t)a3 bundleIdentifier:(uint64_t)a4 contentType:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidCreateAnalyticsSessionWithUUID:bundleIdentifier:contentType:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidDestroyAnalyticsSessionWithUUID:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidDestroyAnalyticsSessionWithUUID:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidActivateAnalyticsSessionWithUUID:(uint64_t)a3 analyticsSourceUUID:(uint64_t)a4 automatically:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidActivateAnalyticsSessionWithUUID:analyticsSourceUUID:automatically:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidDeactivateAnalyticsSessionWithUUID:(uint64_t)a3 analyticsSourceUUID:(uint64_t)a4 appStoppedSession:(uint64_t)a5 restoredFullScreen:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidDeactivateAnalyticsSessionWithUUID:analyticsSourceUUID:appStoppedSession:restoredFullScreen:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)pictureInPictureDidChangeStashStateForAnalyticsSessionWithUUID:(uint64_t)a3 stashed:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBPIPAnalytics pictureInPictureDidChangeStashStateForAnalyticsSessionWithUUID:stashed:]";
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "[Analytics] %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

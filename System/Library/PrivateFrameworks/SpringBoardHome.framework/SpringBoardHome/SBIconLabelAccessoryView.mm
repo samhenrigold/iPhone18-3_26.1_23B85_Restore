@@ -24,7 +24,7 @@
   v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:labelAccessorySystemImageName withConfiguration:v9];
   if (!v10)
   {
-    v11 = SBLogIcon();
+    v11 = SBLogIcon(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SBIconLabelAccessoryView updateWithLegibilitySettings:labelAccessorySystemImageName labelFont:v11];

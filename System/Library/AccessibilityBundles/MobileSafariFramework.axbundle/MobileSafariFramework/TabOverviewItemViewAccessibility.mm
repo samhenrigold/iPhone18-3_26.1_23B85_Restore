@@ -193,7 +193,7 @@ uint64_t __62__TabOverviewItemViewAccessibility_accessibilityCustomActions__bloc
   return result;
 }
 
-uint64_t __58__TabOverviewItemViewAccessibility__accessibilityRowRange__block_invoke(uint64_t a1)
+void *__58__TabOverviewItemViewAccessibility__accessibilityRowRange__block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) indexInAllItemsForItemView:*(a1 + 40)];
   result = [*(a1 + 32) totalItemCount];

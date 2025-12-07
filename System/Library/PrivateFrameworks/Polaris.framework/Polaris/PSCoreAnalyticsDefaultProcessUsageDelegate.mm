@@ -100,10 +100,10 @@
   else
   {
     [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setMachAbsoluteTime:mach_absolute_time()];
-    [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
+    objc_msgSend_usage(self);
     [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setPhysicalFootprint:v8];
     [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setPhysicalFootprintMB:[(PSCoreAnalyticsDefaultProcessUsageDelegate *)self physicalFootprint]>> 20];
-    [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
+    objc_msgSend_usage(self);
     [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setLifetimeMaxPhysicalFootprintMB:v7 >> 20];
   }
 
@@ -154,21 +154,21 @@
 
 - (void)reportUsageToCA
 {
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
+  objc_msgSend_usage(self, a2);
   v3 = v10;
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usageAsOfLastCAReport];
+  objc_msgSend_usageAsOfLastCAReport(self);
   sub_10000AC10(v3 - v9);
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
+  objc_msgSend_usage(self);
   v4 = v8;
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usageAsOfLastCAReport];
+  objc_msgSend_usageAsOfLastCAReport(self);
   sub_10000AC10(v4 - v7);
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usageAsOfLastCAReport];
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usageAsOfLastCAReport];
+  objc_msgSend_usage(self);
+  objc_msgSend_usageAsOfLastCAReport(self);
+  objc_msgSend_usage(self);
+  objc_msgSend_usageAsOfLastCAReport(self);
   sub_10000AC10([(PSCoreAnalyticsDefaultProcessUsageDelegate *)self machAbsoluteTime]- [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self machAbsoluteTimeAsOfLastCAReport]);
   AnalyticsSendEventLazy();
-  [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self usage];
+  objc_msgSend_usage(self);
   memcpy(__dst, __src, sizeof(__dst));
   [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setUsageAsOfLastCAReport:__dst];
   [(PSCoreAnalyticsDefaultProcessUsageDelegate *)self setMachAbsoluteTimeAsOfLastCAReport:[(PSCoreAnalyticsDefaultProcessUsageDelegate *)self machAbsoluteTime]];

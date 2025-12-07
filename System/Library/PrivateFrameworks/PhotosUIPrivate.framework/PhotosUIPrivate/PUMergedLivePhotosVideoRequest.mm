@@ -63,31 +63,31 @@ uint64_t __63__PUMergedLivePhotosVideoRequest__stateQueue_signalStateChange__blo
   dispatch_barrier_async(stateQueue, block);
 }
 
-uint64_t __73__PUMergedLivePhotosVideoRequest__workQueue_finishWithMergedVideo_error___block_invoke(uint64_t result)
+void *__73__PUMergedLivePhotosVideoRequest__workQueue_finishWithMergedVideo_error___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 128) == 1)
   {
     v2 = result;
-    objc_storeStrong((v1 + 136), *(result + 40));
-    objc_storeStrong((*(v2 + 32) + 144), *(v2 + 48));
+    objc_storeStrong((v1 + 136), *(result + 5));
+    objc_storeStrong((*(v2 + 4) + 144), *(v2 + 6));
     v3 = 3;
-    if (*(v2 + 48))
+    if (*(v2 + 6))
     {
       v3 = 4;
     }
 
-    *(*(v2 + 32) + 128) = v3;
+    *(*(v2 + 4) + 128) = v3;
     v4 = PLLivePhotoPlaybackGetLog();
     v5 = v4;
-    v6 = *(*(v2 + 32) + 96);
+    v6 = *(*(v2 + 4) + 96);
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
       *v7 = 0;
       _os_signpost_emit_with_name_impl(&dword_1B36F3000, v5, OS_SIGNPOST_INTERVAL_END, v6, "LivePhotoRequestProcessing", "", v7, 2u);
     }
 
-    return [*(v2 + 32) _stateQueue_signalStateChange];
+    return [*(v2 + 4) _stateQueue_signalStateChange];
   }
 
   return result;
@@ -151,7 +151,7 @@ uint64_t __73__PUMergedLivePhotosVideoRequest__workQueue_finishWithMergedVideo_e
     v20 = __Block_byref_object_copy_;
     v21 = __Block_byref_object_dispose_;
     v22 = 0;
-    indexPath = [assetReference indexPath];
+    v10 = objc_msgSend_indexPath(assetReference);
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __65__PUMergedLivePhotosVideoRequest__workQueue_fetchMergeableAssets__block_invoke;
@@ -160,7 +160,7 @@ uint64_t __73__PUMergedLivePhotosVideoRequest__workQueue_finishWithMergedVideo_e
     p_buf = &buf;
     v11 = v9;
     v16 = v11;
-    [v15 enumerateIndexPathsStartingAtIndexPath:indexPath reverseDirection:0 usingBlock:v14];
+    [v15 enumerateIndexPathsStartingAtIndexPath:v10 reverseDirection:0 usingBlock:v14];
 
     v12 = [v11 copy];
     _Block_object_dispose(&buf, 8);
@@ -331,9 +331,9 @@ void __63__PUMergedLivePhotosVideoRequest_observable_didChange_context___block_i
   dispatch_barrier_async(stateQueue, block);
 }
 
-uint64_t __40__PUMergedLivePhotosVideoRequest_cancel__block_invoke(uint64_t result)
+void *__40__PUMergedLivePhotosVideoRequest_cancel__block_invoke(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   if (*(v3 + 128) == 1)
   {
     v9 = v1;
@@ -342,14 +342,14 @@ uint64_t __40__PUMergedLivePhotosVideoRequest_cancel__block_invoke(uint64_t resu
     *(v3 + 128) = 2;
     v5 = PLLivePhotoPlaybackGetLog();
     v6 = v5;
-    v7 = *(*(v4 + 32) + 96);
+    v7 = *(v4[4] + 96);
     if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
       *v8 = 0;
       _os_signpost_emit_with_name_impl(&dword_1B36F3000, v6, OS_SIGNPOST_INTERVAL_END, v7, "LivePhotoRequestProcessing", "", v8, 2u);
     }
 
-    return [*(v4 + 32) _stateQueue_signalStateChange];
+    return [v4[4] _stateQueue_signalStateChange];
   }
 
   return result;

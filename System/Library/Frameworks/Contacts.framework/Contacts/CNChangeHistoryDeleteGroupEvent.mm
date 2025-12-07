@@ -142,7 +142,7 @@
   v2 = a1;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘groupIdentifier’ must be nonnull and of type %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘groupIdentifier’ must be nonnull and of type %{public}@", v5, v6, v7, v8);
 }
 
 @end

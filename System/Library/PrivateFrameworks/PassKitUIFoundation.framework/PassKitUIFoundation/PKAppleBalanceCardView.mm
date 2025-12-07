@@ -90,7 +90,7 @@ LABEL_27:
   return selfCopy;
 }
 
-id *__30__PKAppleBalanceCardView_init__block_invoke(uint64_t *a1, void *a2)
+id *__30__PKAppleBalanceCardView_init__block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   [v3 setColorSpace:PKColorSpaceStandardRGB()];

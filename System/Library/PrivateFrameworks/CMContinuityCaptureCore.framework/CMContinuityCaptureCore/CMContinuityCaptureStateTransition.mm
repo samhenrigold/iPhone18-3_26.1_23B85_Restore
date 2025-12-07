@@ -12,7 +12,7 @@
   name = [v7 name];
   event = [(CMContinuityCaptureStateTransition *)self event];
   name2 = [event name];
-  if ([name isEqualToString:name2])
+  if ([name isEqualToString:?])
   {
     srcState = [(CMContinuityCaptureStateTransition *)self srcState];
 
@@ -20,20 +20,9 @@
     {
       guard = [(CMContinuityCaptureStateTransition *)self guard];
 
-      if (!guard)
+      if (!guard || ([(CMContinuityCaptureStateTransition *)self guard], v13 = objc_claimAutoreleasedReturnValue(), [(CMContinuityCaptureStateTransition *)self srcState], v14 = objc_claimAutoreleasedReturnValue(), [(CMContinuityCaptureStateTransition *)self dstState], v15 = objc_claimAutoreleasedReturnValue(), v16 = (v13)[2](v13, v14, v15, v7), v15, v14, v13, v16))
       {
-        goto LABEL_5;
-      }
-
-      guard2 = [(CMContinuityCaptureStateTransition *)self guard];
-      srcState2 = [(CMContinuityCaptureStateTransition *)self srcState];
-      dstState = [(CMContinuityCaptureStateTransition *)self dstState];
-      v16 = (guard2)[2](guard2, srcState2, dstState, v7);
-
-      if (v16)
-      {
-LABEL_5:
-        dstState2 = [(CMContinuityCaptureStateTransition *)self dstState];
+        dstState = [(CMContinuityCaptureStateTransition *)self dstState];
         goto LABEL_8;
       }
     }
@@ -43,10 +32,10 @@ LABEL_5:
   {
   }
 
-  dstState2 = 0;
+  dstState = 0;
 LABEL_8:
 
-  return dstState2;
+  return dstState;
 }
 
 - (CMContinuityCaptureStateTransition)initWithAttributes:(id)attributes dstState:(id)state event:(id)event guard:(id)guard action:(id)action
@@ -62,11 +51,11 @@ LABEL_8:
   v18 = v17;
   if (v17)
   {
-    [(CMContinuityCaptureStateTransition *)v17 setSrcState:attributesCopy];
-    [(CMContinuityCaptureStateTransition *)v18 setDstState:stateCopy];
-    [(CMContinuityCaptureStateTransition *)v18 setEvent:eventCopy];
-    [(CMContinuityCaptureStateTransition *)v18 setGuard:guardCopy];
-    [(CMContinuityCaptureStateTransition *)v18 setAction:actionCopy];
+    [(CMContinuityCaptureStateTransition *)v17 setSrcState:?];
+    [(CMContinuityCaptureStateTransition *)v18 setDstState:?];
+    [(CMContinuityCaptureStateTransition *)v18 setEvent:?];
+    [(CMContinuityCaptureStateTransition *)v18 setGuard:?];
+    [(CMContinuityCaptureStateTransition *)v18 setAction:?];
     v19 = v18;
   }
 

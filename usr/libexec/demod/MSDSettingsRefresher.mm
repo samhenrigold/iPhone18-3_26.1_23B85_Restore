@@ -55,44 +55,45 @@
 {
   overwriteCopy = overwrite;
   v5 = +[NSFileManager defaultManager];
+  v6 = v5;
   if (self->_initialized)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315138;
-      v16 = "[MSDSettingsRefresher initializeWithOverwrite:]";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s - MSDSettingsRefresher object already initialized", &v15, 0xCu);
+      v17 = 136315138;
+      v18 = "[MSDSettingsRefresher initializeWithOverwrite:]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s - MSDSettingsRefresher object already initialized", &v17, 0xCu);
     }
   }
 
   else
   {
     settingsFilePath = [(MSDSettingsRefresher *)self settingsFilePath];
-    v8 = [v5 fileExistsAtPath:settingsFilePath];
+    v9 = [v6 fileExistsAtPath:settingsFilePath];
 
-    v9 = sub_100063A54();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v11 = sub_100063A54(v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      v11 = !overwriteCopy;
+      v13 = !overwriteCopy;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    if (v11)
+    if (v13)
     {
-      if (v10)
+      if (v12)
       {
         settingsFilePath2 = [(MSDSettingsRefresher *)self settingsFilePath];
-        v15 = 136315394;
-        v16 = "[MSDSettingsRefresher initializeWithOverwrite:]";
-        v17 = 2114;
-        v18 = settingsFilePath2;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - Settings file already exists at %{public}@", &v15, 0x16u);
+        v17 = 136315394;
+        v18 = "[MSDSettingsRefresher initializeWithOverwrite:]";
+        v19 = 2114;
+        v20 = settingsFilePath2;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - Settings file already exists at %{public}@", &v17, 0x16u);
       }
 
       getSavedValues = [(MSDSettingsRefresher *)self getSavedValues];
@@ -103,14 +104,14 @@
 
     else
     {
-      if (v10)
+      if (v12)
       {
         settingsFilePath3 = [(MSDSettingsRefresher *)self settingsFilePath];
-        v15 = 136315394;
-        v16 = "[MSDSettingsRefresher initializeWithOverwrite:]";
-        v17 = 2114;
-        v18 = settingsFilePath3;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - Settings file doesn't exist at %{public}@: creating a new file...", &v15, 0x16u);
+        v17 = 136315394;
+        v18 = "[MSDSettingsRefresher initializeWithOverwrite:]";
+        v19 = 2114;
+        v20 = settingsFilePath3;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - Settings file doesn't exist at %{public}@: creating a new file...", &v17, 0x16u);
       }
 
       self->_initialized = [(MSDSettingsRefresher *)self initializeSettingsFileWithDeviceValues];
@@ -130,7 +131,7 @@
 
   else
   {
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000E2F54();
@@ -146,8 +147,8 @@
 
   else
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000E2F88();
     }
@@ -162,8 +163,8 @@
 
   else
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000E2FBC();
     }
@@ -178,8 +179,8 @@
 
   else
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = sub_100063A54(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_1000E2FF0();
     }
@@ -188,82 +189,83 @@
   settingsFilePath = [(MSDSettingsRefresher *)self settingsFilePath];
   stringByDeletingLastPathComponent = [settingsFilePath stringByDeletingLastPathComponent];
 
-  if ([v4 fileExistsAtPath:stringByDeletingLastPathComponent])
+  v18 = [v4 fileExistsAtPath:stringByDeletingLastPathComponent];
+  if (v18)
   {
-    v15 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v16 = sub_100063A54();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100063A54(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
-      v32 = 2114;
-      v33 = stringByDeletingLastPathComponent;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s - creating directory at %{public}@", buf, 0x16u);
+      v37 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
+      v38 = 2114;
+      v39 = stringByDeletingLastPathComponent;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s - creating directory at %{public}@", buf, 0x16u);
     }
 
-    v17 = [NSURL fileURLWithPath:stringByDeletingLastPathComponent];
-    v29 = 0;
-    v18 = [v4 createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v29];
-    v15 = v29;
+    v21 = [NSURL fileURLWithPath:stringByDeletingLastPathComponent];
+    v35 = 0;
+    v22 = [v4 createDirectoryAtURL:v21 withIntermediateDirectories:1 attributes:0 error:&v35];
+    v19 = v35;
 
-    if ((v18 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      sub_1000E3024(stringByDeletingLastPathComponent, v15);
+      sub_1000E3024(stringByDeletingLastPathComponent, v19);
 LABEL_30:
-      v24 = 0;
+      v29 = 0;
       goto LABEL_36;
     }
   }
 
-  v19 = v15;
+  v23 = v19;
   settingsFilePath2 = [(MSDSettingsRefresher *)self settingsFilePath];
-  v21 = [NSURL fileURLWithPath:settingsFilePath2];
-  v28 = v15;
-  [v3 writeToURL:v21 error:&v28];
-  v15 = v28;
+  v25 = [NSURL fileURLWithPath:settingsFilePath2];
+  v34 = v19;
+  [v3 writeToURL:v25 error:&v34];
+  v19 = v34;
 
-  v22 = sub_100063A54();
-  v23 = v22;
-  if (v15)
+  v27 = sub_100063A54(v26);
+  v28 = v27;
+  if (v19)
   {
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E30F0(self, v15);
+      sub_1000E30F0(self, v19);
     }
 
     goto LABEL_30;
   }
 
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     settingsFilePath3 = [(MSDSettingsRefresher *)self settingsFilePath];
     *buf = 136315394;
-    v31 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
-    v32 = 2114;
-    v33 = settingsFilePath3;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s - Initialized the default system settings file '%{public}@' and cache with values", buf, 0x16u);
+    v37 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
+    v38 = 2114;
+    v39 = settingsFilePath3;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s - Initialized the default system settings file '%{public}@' and cache with values", buf, 0x16u);
   }
 
-  v26 = sub_100063A54();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v32 = sub_100063A54(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
-    v32 = 2114;
-    v33 = v3;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s - System Settings Values: %{public}@", buf, 0x16u);
+    v37 = "[MSDSettingsRefresher initializeSettingsFileWithDeviceValues]";
+    v38 = 2114;
+    v39 = v3;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s - System Settings Values: %{public}@", buf, 0x16u);
   }
 
   [(MSDSettingsRefresher *)self initializeCacheWithValues:v3];
-  v15 = 0;
-  v24 = 1;
+  v19 = 0;
+  v29 = 1;
 LABEL_36:
 
-  return v24;
+  return v29;
 }
 
 - (void)initializeCacheWithValues:(id)values
@@ -286,36 +288,36 @@ LABEL_36:
   airplaneMode = self->_airplaneMode;
   self->_airplaneMode = v11;
 
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_100063A54(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000E31AC(v13);
+    sub_1000E31AC(v14);
   }
 }
 
 - (void)restoreSavedDeviceSettings
 {
   initialized = self->_initialized;
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   v5 = v4;
   if (initialized)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[MSDSettingsRefresher restoreSavedDeviceSettings]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - Reverting system settings to defaults", &v10, 0xCu);
+      v14 = 136315138;
+      v15 = "[MSDSettingsRefresher restoreSavedDeviceSettings]";
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s - Reverting system settings to defaults", &v14, 0xCu);
     }
 
     if (self->_trueTone)
     {
-      [(MSDSettingsRefresher *)self setTrueTone:?];
+      v7 = [(MSDSettingsRefresher *)self setTrueTone:?];
     }
 
     else
     {
-      v6 = sub_100063A54();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = sub_100063A54(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1000E32B4();
       }
@@ -323,13 +325,13 @@ LABEL_36:
 
     if (self->_airDrop)
     {
-      [(MSDSettingsRefresher *)self setAirDropMode:?];
+      v9 = [(MSDSettingsRefresher *)self setAirDropMode:?];
     }
 
     else
     {
-      v7 = sub_100063A54();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = sub_100063A54(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1000E32E8();
       }
@@ -337,13 +339,13 @@ LABEL_36:
 
     if (self->_volume)
     {
-      [(MSDSettingsRefresher *)self setVolume:?];
+      v11 = [(MSDSettingsRefresher *)self setVolume:?];
     }
 
     else
     {
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = sub_100063A54(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000E331C();
       }
@@ -356,8 +358,8 @@ LABEL_36:
 
     else
     {
-      v9 = sub_100063A54();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = sub_100063A54(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1000E3350();
       }
@@ -378,18 +380,18 @@ LABEL_36:
 - (NSNumber)volume
 {
   v2 = +[MSDAudioController sharedInstance];
-  [v2 getVolumeForCategory:3];
-  v4 = v3;
-  v5 = sub_100063A54();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v3 = [v2 getVolumeForCategory:3];
+  v5 = v4;
+  v6 = sub_100063A54(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000E3384(v5, v6, v7, v8, v9, v10, v11, v12);
+    sub_1000E3384(v6, v7, v8, v9, v10, v11, v12, v13, v5);
   }
 
-  LODWORD(v13) = v4;
-  v14 = [NSNumber numberWithFloat:v13];
+  *&v14 = v5;
+  v15 = [NSNumber numberWithFloat:v14];
 
-  return v14;
+  return v15;
 }
 
 - (void)setVolume:(id)volume
@@ -402,8 +404,7 @@ LABEL_36:
   {
     v7 = +[MSDAudioController sharedInstance];
     [volumeCopy floatValue];
-    [v7 setVolumeTo:3 forCategory:?];
-    v8 = sub_100063A54();
+    v8 = sub_100063A54([v7 setVolumeTo:3 forCategory:?]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       [volumeCopy floatValue];
@@ -429,7 +430,7 @@ LABEL_36:
   }
 
   v6 = v5;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000E340C();
@@ -451,14 +452,14 @@ LABEL_36:
     v9 = [NSNumber numberWithBool:v7];
     [brightnessClient setProperty:v9 forKey:@"ColorAdaptationEnabled"];
 
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[MSDSettingsRefresher setTrueTone:]";
-      v13 = 2114;
-      v14 = toneCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s - Set system true tone setting to %{public}@", &v11, 0x16u);
+      v12 = 136315394;
+      v13 = "[MSDSettingsRefresher setTrueTone:]";
+      v14 = 2114;
+      v15 = toneCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - Set system true tone setting to %{public}@", &v12, 0x16u);
     }
   }
 }
@@ -496,7 +497,7 @@ LABEL_36:
   }
 
   v4 = [NSString stringWithFormat:@"%@", v3];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000E3484(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -541,27 +542,27 @@ LABEL_36:
 
   if (discoverableMode >= 3)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100063A54(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000E3504();
     }
 
-    v4 = @"Off";
+    v5 = @"Off";
   }
 
   else
   {
-    v4 = off_10016BCA0[discoverableMode];
+    v5 = off_10016BCA0[discoverableMode];
   }
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100063A54(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000E3594();
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)setAirDropMode:(id)mode
@@ -595,14 +596,14 @@ LABEL_36:
     sfAirDropController = [(MSDSettingsRefresher *)self sfAirDropController];
     [sfAirDropController setDiscoverableMode:v7];
 
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "[MSDSettingsRefresher setAirDropMode:]";
-      v12 = 2114;
-      v13 = modeCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s - Set system AirDrop mode setting to %{public}@", &v10, 0x16u);
+      v11 = 136315394;
+      v12 = "[MSDSettingsRefresher setAirDropMode:]";
+      v13 = 2114;
+      v14 = modeCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s - Set system AirDrop mode setting to %{public}@", &v11, 0x16u);
     }
   }
 }

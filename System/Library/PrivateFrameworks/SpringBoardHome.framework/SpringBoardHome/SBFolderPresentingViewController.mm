@@ -238,7 +238,7 @@ LABEL_6:
 
         v18 = [SBFolderControllerBackgroundView alloc];
         view2 = [(SBFolderPresentingViewController *)self view];
-        [view2 bounds];
+        objc_msgSend_bounds(view2);
         v20 = [(SBFolderControllerBackgroundView *)v18 initWithFrame:?];
 
         [(SBFolderControllerBackgroundView *)v20 setDelegate:self];

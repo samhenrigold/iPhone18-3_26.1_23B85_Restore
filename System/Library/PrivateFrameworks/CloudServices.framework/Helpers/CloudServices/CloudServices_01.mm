@@ -199,32 +199,32 @@ uint64_t sub_100042C00()
 uint64_t sub_100043BDC(void *a1, uint64_t a2)
 {
   Nanoseconds = _CloudServicesSignpostGetNanoseconds(a1[6], a1[7]);
-  v5 = _CloudServicesSignpostLogSystem();
-  v6 = v5;
-  v7 = a1[6];
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = _CloudServicesSignpostLogSystem(v5);
+  v7 = v6;
+  v8 = a1[6];
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    v8 = a1[4];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 1026;
-    LODWORD(v15) = a2 == 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_INTERVAL_END, v7, "BackupRestore", " CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupRestore}@  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupRestore}d ", &v12, 0x12u);
+    v9 = a1[4];
+    v14 = 138543618;
+    v15 = v9;
+    v16 = 1026;
+    LODWORD(v17) = a2 == 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, v8, "BackupRestore", " CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupRestore}@  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupRestore}d ", &v14, 0x12u);
   }
 
-  v9 = _CloudServicesSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = _CloudServicesSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134218754;
-    v10 = a1[4];
-    v13 = a1[6];
-    v14 = 2048;
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = 2114;
-    v17 = v10;
-    v18 = 1026;
-    v19 = a2 == 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupRestore  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupRestore}@  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupRestore}d ", &v12, 0x26u);
+    v14 = 134218754;
+    v12 = a1[4];
+    v15 = a1[6];
+    v16 = 2048;
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 1026;
+    v21 = a2 == 0;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BackupRestore  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:string1,name=CloudServicesSignpostNameSecItemBackupRestore}@  CloudServicesSignpostNameSecItemBackupRestore=%{public,signpost.telemetry:number1,name=CloudServicesSignpostNameSecItemBackupRestore}d ", &v14, 0x26u);
   }
 
   return (*(a1[5] + 16))();
@@ -345,12 +345,13 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_100047700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_100047700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -460,9 +461,9 @@ uint64_t sub_100047FB8(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint64_t
   return IOConnectCallMethod(a1, a2, a3, 1u, 0, 0, 0, 0, a9, a10);
 }
 
-void sub_100047FF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100047FF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a15);
+  va_start(va, a23);
 
   bzero(va, 0x8000uLL);
 }
@@ -470,13 +471,17 @@ void sub_100047FF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 void sub_100048060(void *a1)
 {
   v1 = [a1 responseDictionary];
-  sub_1000029AC(&_mh_execute_header, v2, v3, "Error returned from iCloud: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000029AC(&_mh_execute_header, v2, v3, "Error returned from iCloud: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1000480E8(void *a1)
 {
   v1 = [a1 httpResponse];
-  sub_1000029AC(&_mh_execute_header, v2, v3, "HTTP Error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_1000029AC(&_mh_execute_header, v2, v3, "HTTP Error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100048198(int a1, NSObject *a2)
@@ -510,7 +515,7 @@ void sub_1000482D0(uint64_t a1, NSObject *a2)
 
 void sub_10004835C()
 {
-  v5 = *__error();
+  __error();
   sub_100003E04();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
@@ -561,7 +566,9 @@ void sub_1000485DC()
 void sub_10004865C(void **a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = *a1;
-  sub_100009068(&_mh_execute_header, a2, a3, "SOSBackupSliceKeyBagCreateFromData() failed: %@", a5, a6, a7, a8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = *a1;
+  sub_100009068(&_mh_execute_header, a2, a3, "SOSBackupSliceKeyBagCreateFromData() failed: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 void sub_1000486D8(void *a1, uint8_t *buf, os_log_t log)
@@ -586,13 +593,12 @@ void sub_100048820()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10004889C(uint64_t a1, uint64_t *a2)
+void sub_10004889C()
 {
-  v2 = *a2;
   sub_10000905C();
   sub_1000090CC();
   sub_100009084();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100048914()
@@ -693,23 +699,21 @@ void sub_100048DD8()
 void sub_100048E78()
 {
   sub_100003E14();
-  v2 = [v1 url];
-  v3 = *v0;
+  v1 = [v0 url];
   sub_10000905C();
   sub_1000090CC();
   sub_100003E04();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_100048F14()
 {
   sub_100003E14();
-  v2 = [v1 url];
-  v3 = *v0;
+  v1 = [v0 url];
   sub_10000905C();
   sub_1000090CC();
   sub_100003E04();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_100048FB0(void *a1)
@@ -727,11 +731,11 @@ void sub_100049054()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000493B0(uint64_t *a1)
+void sub_1000491A0(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *a1;
-  sub_100009084();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100009068(&_mh_execute_header, a2, a3, "CFPropertyListCreateDERData failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100049504()
@@ -823,7 +827,7 @@ void sub_100049BD4(void *a1)
   v2 = [a1 command];
   v3 = [a1 recordLabel];
   sub_10000EDB4();
-  sub_10000EDF4(&_mh_execute_header, v4, v5, "Disallowing %@ operation for label %@ (due to com.apple.cloudservices/PCS-UpdateDisabled)", v6, v7, v8, v9, v10);
+  sub_10000EDF4(&_mh_execute_header, v4, v5, "Disallowing %@ operation for label %@ (due to com.apple.cloudservices/PCS-UpdateDisabled)", v6, v7, v8, v9);
 }
 
 void sub_100049C78(void *a1)
@@ -831,7 +835,7 @@ void sub_100049C78(void *a1)
   v2 = [a1 command];
   v3 = [a1 recordLabel];
   sub_10000EDB4();
-  sub_10000EDF4(&_mh_execute_header, v4, v5, "Disallowing %@ operation for label %@ (due to com.apple.cloudservices/PCS-NoRecord)", v6, v7, v8, v9, v10);
+  sub_10000EDF4(&_mh_execute_header, v4, v5, "Disallowing %@ operation for label %@ (due to com.apple.cloudservices/PCS-NoRecord)", v6, v7, v8, v9);
 }
 
 void sub_100049DF0()
@@ -848,13 +852,12 @@ void sub_100049E2C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_100049EC8(uint64_t *a1)
+void sub_100049EC8()
 {
-  sub_100032A14(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100049F3C()
@@ -913,22 +916,22 @@ void sub_10004A2E4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10004A360(uint64_t a1, uint64_t *a2)
+void sub_10004A360()
 {
-  sub_100032A30(*a2);
+  sub_100032A30();
   sub_10000905C();
   sub_100032A20();
   sub_100009084();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10004A3DC(uint64_t a1, uint64_t *a2)
+void sub_10004A3DC()
 {
-  sub_100032A30(*a2);
+  sub_100032A30();
   sub_10000905C();
   sub_100032A20();
   sub_100009084();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004A458()
@@ -938,12 +941,11 @@ void sub_10004A458()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10004A4C8(uint64_t a1, unsigned int *a2)
+void sub_10004A4C8()
 {
-  v2 = *a2;
   sub_10000905C();
   sub_100009084();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10004A548()
@@ -1088,12 +1090,12 @@ void sub_10004ACAC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004ACE8(uint64_t *a1)
+void sub_10004ACE8()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10004AD58()
@@ -1110,13 +1112,12 @@ void sub_10004ADC8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004AE04(uint64_t *a1)
+void sub_10004AE04()
 {
-  sub_100032A14(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10004AE78()
@@ -1255,12 +1256,12 @@ void sub_10004B468()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004B4D8(uint64_t *a1)
+void sub_10004B4D8()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_100009084();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004B568()
@@ -1291,31 +1292,30 @@ void sub_10004B650()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004B68C(uint64_t *a1)
+void sub_10004B68C()
 {
-  sub_100032A14(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004B700(uint64_t *a1)
+void sub_10004B700()
 {
-  sub_100032A14(a1, __stack_chk_guard);
-  sub_100032A30(v1);
+  sub_100032A14(__stack_chk_guard);
+  sub_100032A30();
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004B774(uint64_t *a1)
+void sub_10004B774()
 {
-  sub_100032A14(a1, __stack_chk_guard);
-  sub_100032A30(v1);
+  sub_100032A14(__stack_chk_guard);
+  sub_100032A30();
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10004B7E8()
@@ -1456,12 +1456,12 @@ void sub_10004BD98()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004BDD4(uint64_t *a1)
+void sub_10004BDD4()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10004BE44(void **a1)
@@ -1515,27 +1515,13 @@ void sub_10004C0F8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004C134(uint64_t a1)
+void sub_10004C22C()
 {
-  v6 = *(*a1 + 24);
-  sub_1000329E0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_10004C1B0(uint64_t a1)
-{
-  v6 = *(*a1 + 24);
-  sub_1000329E0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_10004C22C(uint64_t *a1)
-{
-  sub_100032A14(a1, __stack_chk_guard);
-  sub_100032A30(v1);
+  sub_100032A14(__stack_chk_guard);
+  sub_100032A30();
   sub_100032A08();
   sub_1000329E0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10004C2A0()
@@ -1720,11 +1706,11 @@ void sub_10004CAB4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004CB24(uint64_t *a1)
+void sub_10004CB24()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100009084();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10004CBA4()
@@ -1994,13 +1980,6 @@ void sub_10004DD0C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10004DD48(uint64_t a1)
-{
-  v6 = *(*(*(a1 + 64) + 8) + 40);
-  sub_1000329E0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_10004DDC8()
 {
   sub_10000905C();
@@ -2139,69 +2118,69 @@ void sub_10004E580(const __CFString **a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "createPrerecordFromCandidate: Could not generate escrow record blob: %@", &v3, 0xCu);
 }
 
-void sub_10004E830(uint64_t *a1)
+void sub_10004E830()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "SOSBSKBLoadAndUnlockWithWrappingSecret failed: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "SOSBSKBLoadAndUnlockWithWrappingSecret failed: %@", v2, v3, v4, v5);
 }
 
-void sub_10004E898(uint64_t *a1)
+void sub_10004E898()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "failed to create backupslicekeybag: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "failed to create backupslicekeybag: %@", v2, v3, v4, v5);
 }
 
-void sub_10004E900(uint64_t *a1)
+void sub_10004E900()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "failed to encode backupslicekeybag: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "failed to encode backupslicekeybag: %@", v2, v3, v4, v5);
 }
 
-void sub_10004E9D4(uint64_t *a1)
+void sub_10004E968(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  sub_100032A08();
-  sub_100009068(&_mh_execute_header, v2, v3, "SOSCCCopyMyPeerInfo() failed: %@", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100009068(&_mh_execute_header, a2, a3, "SOSCCCopyMyPeerInfo() failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_10004EA50(uint64_t *a1)
+void sub_10004EA50()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "SOSBSKBCopyEncoded() failed: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "SOSBSKBCopyEncoded() failed: %@", v2, v3, v4, v5);
 }
 
-void sub_10004EAB8(uint64_t *a1)
+void sub_10004EAB8()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "SOSBackupSliceKeyBagCreateDirect() failed: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "SOSBackupSliceKeyBagCreateDirect() failed: %@", v2, v3, v4, v5);
 }
 
 void sub_10004EB20(void **a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = *a1;
-  sub_100009068(&_mh_execute_header, a2, a3, "CFPropertyListCreateDERData failed: %@", a5, a6, a7, a8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = *a1;
+  sub_100009068(&_mh_execute_header, a2, a3, "CFPropertyListCreateDERData failed: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 void sub_10004EB9C(void **a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = *a1;
-  sub_100009068(&_mh_execute_header, a2, a3, "CFPropertyListCreateWithDERData failed: %@", a5, a6, a7, a8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = *a1;
+  sub_100009068(&_mh_execute_header, a2, a3, "CFPropertyListCreateWithDERData failed: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
-void sub_10004EC18(uint64_t *a1)
+void sub_10004EC18()
 {
-  sub_100032A14(a1, __stack_chk_guard);
+  sub_100032A14(__stack_chk_guard);
   sub_100032A08();
-  sub_100009068(&_mh_execute_header, v1, v2, "SecPasswordGenerate() failed: %@", v3, v4, v5, v6, v7);
+  sub_100009068(&_mh_execute_header, v0, v1, "SecPasswordGenerate() failed: %@", v2, v3, v4, v5);
 }
 
 void sub_10004EC80()
@@ -2347,10 +2326,10 @@ void sub_10004F640()
     {
       if (v0)
       {
-        sub_100047FF4((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v26, v27, v28, v29, v30, v31, v32);
+        sub_100047FF4((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, __count, v39);
         __count = v3;
-        v35 = v7;
-        if (!sub_100047FB8(v16, 3u, &v35, v17, v18, v19, v20, v21, v4, &__count))
+        v39 = v7;
+        if (!sub_100047FB8(v16, 3u, &v39, v17, v18, v19, v20, v21, v4, &__count))
         {
           v22 = calloc(__count, 1uLL);
           *v1 = v22;
@@ -2367,11 +2346,10 @@ void sub_10004F640()
   else
   {
     sub_100047FA4();
-    fprintf(v24, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v25, v28, v29, v30, v31, v32, v33, ":", 679, "", "");
+    fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v27, v28, v29, v30, v31, v32, ":", 679, "", "");
     sub_100047FDC();
   }
 
-  v23 = *(v5 - 72);
   sub_10004802C();
   sub_100048038();
 }

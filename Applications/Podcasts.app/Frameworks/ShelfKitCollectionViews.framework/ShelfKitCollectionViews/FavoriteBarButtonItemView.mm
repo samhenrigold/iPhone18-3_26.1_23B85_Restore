@@ -59,7 +59,7 @@
   v3.super.isa = mainBundle;
   v10._countAndFlagsBits = 0;
   v10._object = 0xE000000000000000;
-  sub_301AB8(v8, v9, v3, v10, v6);
+  sub_301AB8(v8, v9, v3, v10, 0, v6);
 
   v4 = sub_30C098();
 

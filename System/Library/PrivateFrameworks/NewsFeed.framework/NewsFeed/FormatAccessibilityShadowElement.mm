@@ -19,7 +19,7 @@
 - (NSArray)accessibilityCustomActions
 {
   selfCopy = self;
-  v3 = sub_1D6A5E96C();
+  sub_1D6A5E96C();
   if ((v4 & 0x100) != 0 || (v4 & 1) != 0 && !v3)
   {
 
@@ -28,17 +28,17 @@
 
   else
   {
-    v6 = sub_1D6A5E790();
+    sub_1D6A5E790();
     sub_1D7046E0C(v6);
 
-    sub_1D6A61428(0, &qword_1EC8909A8, &unk_1EDF04400);
-    sub_1D6A61084();
+    sub_1D6A61428(0, &qword_1EC8909A8, &unk_1EDF04400, 0x1E69DC5E8);
+    sub_1D6A61084(v7);
     sub_1D72623CC();
 
-    sub_1D5B5A498(0, &unk_1EDF04400);
-    v7 = sub_1D726265C();
+    sub_1D5B5A498(0, &unk_1EDF04400, 0x1E69DC5E8);
+    v8 = sub_1D726265C();
 
-    v5 = v7;
+    v5 = v8;
   }
 
   return v5;

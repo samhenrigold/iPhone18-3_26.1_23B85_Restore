@@ -101,7 +101,7 @@ uint64_t __65__MTLTelemetryCommandQueue_commandBufferWithUnretainedReferences__b
   return result;
 }
 
-uint64_t __56__MTLTelemetryCommandQueue_commandBufferWithDescriptor___block_invoke(uint64_t a1)
+void *__56__MTLTelemetryCommandQueue_commandBufferWithDescriptor___block_invoke(uint64_t a1)
 {
   ++**(*(a1 + 32) + 112);
   result = [*(a1 + 40) retainedReferences];

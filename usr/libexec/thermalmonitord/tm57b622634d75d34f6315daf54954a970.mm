@@ -69,7 +69,7 @@
   [v26 calculateControlEffort:v27];
   sub_10000533C(58, (v4 * 0.4 + -38.0 + v14 * 0.46 + v6 * 0.15));
   sub_10000533C(56, (v14 * 1.1 + -75.0 + v15 * -0.25 + v6 * 0.15));
-  v28 = unk_1000AB904;
+  v28 = dword_1000AB904;
   v29 = [(CommonProduct *)self findComponent:22];
 
   *&v30 = v28 / 100.0;

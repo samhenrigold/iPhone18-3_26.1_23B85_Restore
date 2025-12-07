@@ -13,9 +13,25 @@
 - (void)setChinaToChinaEnabled:(id)enabled specifier:(id)specifier;
 - (void)setHandleAsChina:(id)china specifier:(id)specifier;
 - (void)setHawkingEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation MadridInternalHawkingListController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = MadridInternalHawkingListController;
+  [(MadridInternalHawkingListController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = MadridInternalHawkingListController;
+  [(MadridInternalHawkingListController *)&v3 viewDidDisappear:disappear];
+}
 
 - (id)specifiers
 {

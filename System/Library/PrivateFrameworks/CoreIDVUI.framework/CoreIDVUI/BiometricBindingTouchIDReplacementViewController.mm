@@ -28,13 +28,19 @@
 
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = sub_2457AF5F8;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   selfCopy = self;
   sub_2457AECFC(event, params, v8);
-  sub_245771C34(v8);
+  sub_245771C34(v8, v9);
 }
 
 @end

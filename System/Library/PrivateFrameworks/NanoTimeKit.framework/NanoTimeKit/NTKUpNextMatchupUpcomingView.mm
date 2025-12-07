@@ -247,7 +247,7 @@ LABEL_11:
   if (fabs(fraction) >= 0.00000011920929)
   {
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    whiteColor2 = NTKInterpolateBetweenColors();
+    whiteColor2 = NTKInterpolateBetweenColors(fraction);
 
     [(CLKUIColoringLabel *)self->_versusLabel setTextColor:whiteColor2];
     filterProvider = [(NTKUpNextMatchupUpcomingView *)self filterProvider];

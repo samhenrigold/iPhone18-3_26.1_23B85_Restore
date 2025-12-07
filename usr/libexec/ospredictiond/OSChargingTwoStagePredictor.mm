@@ -797,56 +797,56 @@ LABEL_9:
 {
   statusCopy = status;
   forDateCopy = forDate;
-  v13 = 88;
+  v11 = 88;
   if (statusCopy)
   {
-    v13 = 96;
+    v11 = 96;
   }
 
-  v14 = *(&self->super.isa + v13);
-  [(OSChargingTwoStagePredictor *)self chargingDecision:decision withPluginDate:date withPluginBatteryLevel:forDateCopy forDate:v14 withLog:level];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v12 = *(&self->super.isa + v11);
+  objc_msgSend_chargingDecision_withPluginDate_withPluginBatteryLevel_forDate_withLog_(self, level);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v22 = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "MLTwoStageModel output %f hours", buf, 0xCu);
+    v20 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "MLTwoStageModel output %f hours", buf, 0xCu);
   }
 
-  v15 = 0.0 - self->_adjustedDuration;
-  v16 = v14;
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v13 = 0.0 - self->_adjustedDuration;
+  v14 = v12;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    if (v15 < 0.0)
+    if (v13 < 0.0)
     {
-      v17 = @"Distant Past";
+      v15 = @"Distant Past";
     }
 
     else
     {
-      v17 = [forDateCopy dateByAddingTimeInterval:v15 * 3600.0];
+      v15 = [forDateCopy dateByAddingTimeInterval:v13 * 3600.0];
     }
 
     adjustedDuration = self->_adjustedDuration;
     *buf = 138412802;
-    v22 = v17;
+    v20 = v15;
+    v21 = 2048;
+    v22 = adjustedDuration;
     v23 = 2048;
-    v24 = adjustedDuration;
-    v25 = 2048;
-    v26 = v15;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SmartCharge: %@ duration post adjustment of %f hours, is %f hours", buf, 0x20u);
-    if (v15 >= 0.0)
+    v24 = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SmartCharge: %@ duration post adjustment of %f hours, is %f hours", buf, 0x20u);
+    if (v13 >= 0.0)
     {
     }
   }
 
   if (!statusCopy)
   {
-    self->_lastDurationResult = v15;
-    v19 = [NSNumber numberWithDouble:v15];
-    [OSIntelligenceUtilities setNumber:v19 forPreferenceKey:@"twoStageModelDurationResult" inDomain:self->_defaultsDomain];
+    self->_lastDurationResult = v13;
+    v17 = [NSNumber numberWithDouble:v13];
+    [OSIntelligenceUtilities setNumber:v17 forPreferenceKey:@"twoStageModelDurationResult" inDomain:self->_defaultsDomain];
   }
 
-  return v15 * 3600.0;
+  return v13 * 3600.0;
 }
 
 - (id)getInputFeaturesWithPluginDate:(id)date withPluginBatteryLevel:(double)level forDate:(id)forDate withLog:(id)log
@@ -1352,7 +1352,7 @@ LABEL_5:
     v16 = self->_log;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_10005E248(v16);
+      sub_10005E248(v16, self);
     }
 
     goto LABEL_5;

@@ -168,15 +168,21 @@
         shouldLog = [mEMORY[0x1E69D4938] shouldLog];
         if ([mEMORY[0x1E69D4938] shouldLogToDisk])
         {
-          v14 = shouldLog | 2;
+          LODWORD(v14) = shouldLog | 2;
         }
 
         else
         {
-          v14 = shouldLog;
+          LODWORD(v14) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+        oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+        {
+          v14 = v14;
+        }
+
+        else
         {
           v14 &= 2u;
         }
@@ -185,20 +191,18 @@
         {
           v20 = 138412290;
           v21 = objc_opt_class();
-          LODWORD(v19) = 12;
-          v18 = &v20;
-          v15 = _os_log_send_and_compose_impl();
-          if (v15)
+          v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Using script debug delegate", &v20, 12);
+          if (v16)
           {
-            v16 = v15;
-            v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v20, v19}];
-            free(v16);
-            v18 = v17;
+            v17 = v16;
+            v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+            free(v17);
+            v19 = v18;
             SSFileLog();
           }
         }
 
-        [webView setScriptDebugDelegate:{self, v18}];
+        [webView setScriptDebugDelegate:{self, v19}];
       }
 
       [webView setPreferences:v10];
@@ -356,15 +360,21 @@ LABEL_9:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -375,13 +385,12 @@ LABEL_9:
     v14 = objc_opt_class();
     v15 = 2112;
     v16 = NSStringFromSelector(selector);
-    LODWORD(v12) = 22;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Dropping %@ as original delegate disappeared", &v13, 22);
+    if (v11)
     {
-      v11 = v10;
-      [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v12}];
-      free(v11);
+      v12 = v11;
+      [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
       SSFileLog();
     }
   }
@@ -503,15 +512,21 @@ LABEL_9:
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v14 = shouldLog | 2;
+        LODWORD(v14) = shouldLog | 2;
       }
 
       else
       {
-        v14 = shouldLog;
+        LODWORD(v14) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
@@ -524,15 +539,13 @@ LABEL_9:
         typeCopy = type;
         v25 = 2112;
         v26 = [request URL];
-        LODWORD(v20) = 32;
-        v19 = &v21;
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
+        v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: MIME-Type reload: %@ for URL: %@", &v21, 32);
+        if (v16)
         {
-          v16 = v15;
-          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v21, v20}];
-          free(v16);
-          v19 = v17;
+          v17 = v16;
+          v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+          free(v17);
+          v20 = v18;
           SSFileLog();
         }
       }
@@ -583,15 +596,21 @@ LABEL_9:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -604,15 +623,13 @@ LABEL_9:
     resourceCopy = resource;
     v21 = 2112;
     errorCopy = error;
-    LODWORD(v16) = 32;
-    v15 = &v17;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Webview failed to load resource. Resource: %@ Error %@", &v17, 32);
+    if (v13)
     {
-      v13 = v12;
-      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v17, v16}];
-      free(v13);
-      v15 = v14;
+      v14 = v13;
+      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v14);
+      v16 = v15;
       SSFileLog();
     }
   }
@@ -622,7 +639,7 @@ LABEL_9:
 
 - (id)webThreadWebView:(id)view resource:(id)resource willSendRequest:(id)request redirectResponse:(id)response fromDataSource:(id)source
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   if (!response)
   {
     [(SUWebViewManager *)self _beginUsingNetwork];
@@ -633,34 +650,38 @@ LABEL_9:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (v15)
   {
-    v85 = 138543618;
-    v86 = objc_opt_class();
-    v87 = 2112;
+    v91 = 138543618;
+    v92 = objc_opt_class();
+    v93 = 2112;
     requestCopy = request;
-    LODWORD(v77) = 22;
-    v74 = &v85;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, oSLogObject, 1, "%{public}@: Loading resource: %@", &v91, 22);
+    if (v17)
     {
-      v17 = v16;
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v85, v77}];
-      free(v17);
-      v74 = v18;
+      v18 = v17;
+      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+      free(v18);
+      v80 = v19;
       SSFileLog();
     }
   }
@@ -668,19 +689,19 @@ LABEL_9:
   if (resource == @"1")
   {
     [(NSLock *)self->_lock lock];
-    v19 = self->_pendingWebScriptReloadContext;
+    v20 = self->_pendingWebScriptReloadContext;
 
     self->_pendingWebScriptReloadContext = 0;
     [(NSLock *)self->_lock unlock];
-    if (v19 && [objc_msgSend(objc_msgSend(source "initialRequest")])
+    if (v20 && [objc_msgSend(objc_msgSend(source "initialRequest")])
     {
-      referringUserAgent = [(SUWebScriptReloadContext *)v19 referringUserAgent];
+      referringUserAgent = [(SUWebScriptReloadContext *)v20 referringUserAgent];
       if (referringUserAgent)
       {
         [v12 setValue:referringUserAgent forHTTPHeaderField:@"ref-user-agent"];
       }
 
-      absoluteString = [(NSURL *)[(SUWebScriptReloadContext *)v19 referrerURL] absoluteString];
+      absoluteString = [(NSURL *)[(SUWebScriptReloadContext *)v20 referrerURL] absoluteString];
       if (absoluteString)
       {
         [v12 setValue:absoluteString forHTTPHeaderField:@"referer"];
@@ -690,14 +711,14 @@ LABEL_9:
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   [v12 setHTTPShouldHandleCookies:0];
-  v20 = [v12 URL];
-  v21 = v20;
+  v21 = [v12 URL];
+  v22 = v21;
   suppressCookiesHosts = self->_suppressCookiesHosts;
-  if (!suppressCookiesHosts || !-[NSSet containsObject:](suppressCookiesHosts, "containsObject:", [v20 host]))
+  if (!suppressCookiesHosts || !-[NSSet containsObject:](suppressCookiesHosts, "containsObject:", [v21 host]))
   {
     requiredUniqueIdentifier = [(SSAuthenticationContext *)[(SUWebViewManager *)self authenticationContext] requiredUniqueIdentifier];
     [MEMORY[0x1E69E47E0] addITunesStoreHeadersToRequest:v12 withAccountIdentifier:requiredUniqueIdentifier];
@@ -709,276 +730,304 @@ LABEL_9:
 
     _userIdentifier = [(SUWebViewManager *)self _userIdentifier];
     mEMORY[0x1E69D4A10] = [MEMORY[0x1E69D4A10] sharedStorage];
-    v27 = mEMORY[0x1E69D4A10];
+    v28 = mEMORY[0x1E69D4A10];
     if (response)
     {
       [mEMORY[0x1E69D4A10] setCookiesForHTTPResponse:response userIdentifier:_userIdentifier];
     }
 
-    v28 = [v27 cookieHeadersForURL:v21 userIdentifier:_userIdentifier];
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v29 = [v28 countByEnumeratingWithState:&v80 objects:v84 count:16];
-    if (v29)
+    v29 = [v28 cookieHeadersForURL:v22 userIdentifier:_userIdentifier];
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v30 = [v29 countByEnumeratingWithState:&v86 objects:v90 count:16];
+    if (v30)
     {
-      v30 = v29;
-      v31 = *v81;
+      v31 = v30;
+      v32 = *v87;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v31; ++i)
         {
-          if (*v81 != v31)
+          if (*v87 != v32)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v29);
           }
 
-          [v12 setValue:objc_msgSend(v28 forHTTPHeaderField:{"objectForKey:", *(*(&v80 + 1) + 8 * i)), *(*(&v80 + 1) + 8 * i)}];
+          [v12 setValue:objc_msgSend(v29 forHTTPHeaderField:{"objectForKey:", *(*(&v86 + 1) + 8 * i)), *(*(&v86 + 1) + 8 * i)}];
         }
 
-        v30 = [v28 countByEnumeratingWithState:&v80 objects:v84 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v86 objects:v90 count:16];
       }
 
-      while (v30);
+      while (v31);
     }
 
     if ([(SUWebViewManager *)self shouldSignRequests])
     {
-      v33 = objc_alloc_init(getAKAppleIDServerResourceLoadDelegateClass());
-      [v33 setShouldSendAbsintheHeader:1];
-      [v33 signRequest:v12];
+      v34 = objc_alloc_init(getAKAppleIDServerResourceLoadDelegateClass());
+      [v34 setShouldSendAbsintheHeader:1];
+      [v34 signRequest:v12];
     }
   }
 
   account = [(SUWebViewManager *)self account];
-  if (account)
+  if (!account)
   {
-    v35 = account;
-    v79 = 0;
-    v36 = objc_alloc_init(MEMORY[0x1E6959A48]);
-    v37 = [v36 credentialForAccount:v35 serviceID:*MEMORY[0x1E698C240] error:&v79];
-
-    if (v37)
+    mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
+    if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      token = [v37 token];
-      if (token)
-      {
-        [v12 setValue:token forHTTPHeaderField:*MEMORY[0x1E69D4C58]];
-        goto LABEL_62;
-      }
-
-      mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-      if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
-      {
-        v51 = shouldLog2 | 2;
-      }
-
-      else
-      {
-        v51 = shouldLog2;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v51 &= 2u;
-      }
-
-      if (v51)
-      {
-        v52 = objc_opt_class();
-        v85 = 138543362;
-        v86 = v52;
-        LODWORD(v77) = 12;
-        v75 = &v85;
-LABEL_60:
-        v53 = _os_log_send_and_compose_impl();
-        if (v53)
-        {
-          v54 = v53;
-          v55 = [MEMORY[0x1E696AEC0] stringWithCString:v53 encoding:{4, &v85, v77}];
-          free(v54);
-          v75 = v55;
-          SSFileLog();
-        }
-      }
+      LODWORD(v44) = shouldLog2 | 2;
     }
 
     else
     {
-      mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
-      if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
-      {
-        v47 = shouldLog3 | 2;
-      }
-
-      else
-      {
-        v47 = shouldLog3;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v47 &= 2u;
-      }
-
-      if (v47)
-      {
-        v48 = objc_opt_class();
-        v85 = 138543618;
-        v86 = v48;
-        v87 = 2114;
-        requestCopy = v79;
-        LODWORD(v77) = 22;
-        v75 = &v85;
-        goto LABEL_60;
-      }
+      LODWORD(v44) = shouldLog2;
     }
 
-LABEL_62:
-    clientInfoHeader = [MEMORY[0x1E698B890] clientInfoHeader];
-    if (clientInfoHeader)
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      [v12 setValue:clientInfoHeader forHTTPHeaderField:*MEMORY[0x1E69D4C60]];
+      v44 = v44;
     }
 
     else
     {
-      mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
-      if ([mEMORY[0x1E69D4938]4 shouldLogToDisk])
-      {
-        v60 = shouldLog4 | 2;
-      }
-
-      else
-      {
-        v60 = shouldLog4;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]4 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v60 &= 2u;
-      }
-
-      if (v60)
-      {
-        v61 = objc_opt_class();
-        v85 = 138543362;
-        v86 = v61;
-        LODWORD(v77) = 12;
-        v76 = &v85;
-        v62 = _os_log_send_and_compose_impl();
-        if (v62)
-        {
-          v63 = v62;
-          v64 = [MEMORY[0x1E696AEC0] stringWithCString:v62 encoding:{4, &v85, v77}];
-          free(v63);
-          v76 = v64;
-          SSFileLog();
-        }
-      }
+      v44 &= 2u;
     }
 
-    aa_altDSID = [(ACAccount *)v35 aa_altDSID];
-    if (aa_altDSID)
+    if (!v44)
     {
-      [v12 setValue:aa_altDSID forHTTPHeaderField:*MEMORY[0x1E69D4C48]];
-      goto LABEL_83;
+      goto LABEL_89;
     }
 
+    v46 = objc_opt_class();
+    v91 = 138543362;
+    v92 = v46;
+    LODWORD(v83) = 12;
+    v47 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Did not modify headers for no account", &v91, v83);
+    goto LABEL_87;
+  }
+
+  v36 = account;
+  v85 = 0;
+  v37 = objc_alloc_init(MEMORY[0x1E6959A48]);
+  v38 = [v37 credentialForAccount:v36 serviceID:*MEMORY[0x1E698C240] error:&v85];
+
+  if (!v38)
+  {
+    mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
+    if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
+    {
+      LODWORD(v50) = shouldLog3 | 2;
+    }
+
+    else
+    {
+      LODWORD(v50) = shouldLog3;
+    }
+
+    oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+    {
+      v50 = v50;
+    }
+
+    else
+    {
+      v50 &= 2u;
+    }
+
+    if (!v50)
+    {
+      goto LABEL_66;
+    }
+
+    v52 = objc_opt_class();
+    v91 = 138543618;
+    v92 = v52;
+    v93 = 2114;
+    requestCopy = v85;
+    LODWORD(v83) = 22;
+    v53 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 0, "%{public}@: Failed to obtain account credential with error: %{public}@", &v91, v83);
+    goto LABEL_64;
+  }
+
+  token = [v38 token];
+  if (!token)
+  {
+    mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
+    if ([mEMORY[0x1E69D4938]4 shouldLogToDisk])
+    {
+      LODWORD(v56) = shouldLog4 | 2;
+    }
+
+    else
+    {
+      LODWORD(v56) = shouldLog4;
+    }
+
+    oSLogObject4 = [mEMORY[0x1E69D4938]4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+    {
+      v56 = v56;
+    }
+
+    else
+    {
+      v56 &= 2u;
+    }
+
+    if (!v56)
+    {
+      goto LABEL_66;
+    }
+
+    v58 = objc_opt_class();
+    v91 = 138543362;
+    v92 = v58;
+    LODWORD(v83) = 12;
+    v53 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &dword_1C21AF000, oSLogObject4, 0, "%{public}@: Failed to obtain gsToken", &v91, v83);
+LABEL_64:
+    if (v53)
+    {
+      v59 = v53;
+      v60 = [MEMORY[0x1E696AEC0] stringWithCString:v53 encoding:4];
+      free(v59);
+      v81 = v60;
+      SSFileLog();
+    }
+
+    goto LABEL_66;
+  }
+
+  [v12 setValue:token forHTTPHeaderField:*MEMORY[0x1E69D4C58]];
+LABEL_66:
+  clientInfoHeader = [MEMORY[0x1E698B890] clientInfoHeader];
+  if (clientInfoHeader)
+  {
+    [v12 setValue:clientInfoHeader forHTTPHeaderField:*MEMORY[0x1E69D4C60]];
+  }
+
+  else
+  {
     mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog5 = [mEMORY[0x1E69D4938]5 shouldLog];
     if ([mEMORY[0x1E69D4938]5 shouldLogToDisk])
     {
-      v67 = shouldLog5 | 2;
+      LODWORD(v65) = shouldLog5 | 2;
     }
 
     else
     {
-      v67 = shouldLog5;
+      LODWORD(v65) = shouldLog5;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject5 = [mEMORY[0x1E69D4938]5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      v67 &= 2u;
+      v65 = v65;
     }
 
-    if (v67)
+    else
     {
-      v68 = objc_opt_class();
-      v85 = 138543362;
-      v86 = v68;
-      LODWORD(v77) = 12;
-      v75 = &v85;
-LABEL_81:
-      v69 = _os_log_send_and_compose_impl();
-      if (v69)
+      v65 &= 2u;
+    }
+
+    if (v65)
+    {
+      v67 = objc_opt_class();
+      v91 = 138543362;
+      v92 = v67;
+      LODWORD(v83) = 12;
+      v68 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &dword_1C21AF000, oSLogObject5, 0, "%{public}@: Failed to obtain clientInfo header", &v91, v83);
+      if (v68)
       {
-        v70 = v69;
-        v71 = [MEMORY[0x1E696AEC0] stringWithCString:v69 encoding:{4, &v85, v77}];
-        free(v70);
-        v75 = v71;
+        v69 = v68;
+        v70 = [MEMORY[0x1E696AEC0] stringWithCString:v68 encoding:4];
+        free(v69);
+        v82 = v70;
         SSFileLog();
       }
-
-      goto LABEL_83;
     }
+  }
 
-    goto LABEL_83;
+  aa_altDSID = [(ACAccount *)v36 aa_altDSID];
+  if (aa_altDSID)
+  {
+    [v12 setValue:aa_altDSID forHTTPHeaderField:*MEMORY[0x1E69D4C48]];
+    goto LABEL_89;
   }
 
   mEMORY[0x1E69D4938]6 = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog6 = [mEMORY[0x1E69D4938]6 shouldLog];
   if ([mEMORY[0x1E69D4938]6 shouldLogToDisk])
   {
-    v43 = shouldLog6 | 2;
+    LODWORD(v73) = shouldLog6 | 2;
   }
 
   else
   {
-    v43 = shouldLog6;
+    LODWORD(v73) = shouldLog6;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject6 = [mEMORY[0x1E69D4938]6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
   {
-    v43 &= 2u;
+    v73 = v73;
   }
 
-  if (v43)
+  else
   {
-    v44 = objc_opt_class();
-    v85 = 138543362;
-    v86 = v44;
-    LODWORD(v77) = 12;
-    v75 = &v85;
-    goto LABEL_81;
+    v73 &= 2u;
   }
 
-LABEL_83:
+  if (!v73)
+  {
+    goto LABEL_89;
+  }
+
+  v75 = objc_opt_class();
+  v91 = 138543362;
+  v92 = v75;
+  LODWORD(v83) = 12;
+  v47 = _os_log_send_and_compose_impl(v73, 0, 0, 0, &dword_1C21AF000, oSLogObject6, 0, "%{public}@: Failed to obtain altDSID", &v91, v83);
+LABEL_87:
+  if (v47)
+  {
+    v76 = v47;
+    v77 = [MEMORY[0x1E696AEC0] stringWithCString:v47 encoding:4];
+    free(v76);
+    v81 = v77;
+    SSFileLog();
+  }
+
+LABEL_89:
   if ([(SUWebViewManager *)self tidHeaders])
   {
     tidHeaders = [(SUWebViewManager *)self tidHeaders];
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redirectResponse_fromDataSource___block_invoke;
-    v78[3] = &unk_1E81661E0;
-    v78[4] = v12;
-    [(NSDictionary *)tidHeaders enumerateKeysAndObjectsUsingBlock:v78];
+    v84[0] = MEMORY[0x1E69E9820];
+    v84[1] = 3221225472;
+    v84[2] = __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redirectResponse_fromDataSource___block_invoke;
+    v84[3] = &unk_1E81661E0;
+    v84[4] = v12;
+    [(NSDictionary *)tidHeaders enumerateKeysAndObjectsUsingBlock:v84];
   }
 
   return v12;
 }
 
-uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redirectResponse_fromDataSource___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redirectResponse_fromDataSource___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(result + 32) setValue:a3 forHTTPHeaderField:a2];
+      return [result[4] setValue:a3 forHTTPHeaderField:a2];
     }
   }
 
@@ -992,15 +1041,21 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -1011,15 +1066,13 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
     v17 = objc_opt_class();
     v18 = 2112;
     errorCopy = error;
-    LODWORD(v15) = 22;
-    v14 = &v16;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Webview failed to load. Error: %@", &v16, 22);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v16, v15}];
-      free(v10);
-      v14 = v11;
+      v11 = v10;
+      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+      free(v11);
+      v15 = v12;
       SSFileLog();
     }
   }
@@ -1041,15 +1094,21 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -1058,15 +1117,13 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   {
     v15 = 138543362;
     v16 = objc_opt_class();
-    LODWORD(v14) = 12;
-    v13 = &v15;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Webview finished loading", &v15, 12);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v15, v14}];
-      free(v9);
-      v13 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v14 = v11;
       SSFileLog();
     }
   }
@@ -1098,15 +1155,21 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -1115,15 +1178,13 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   {
     v14 = 138543362;
     v15 = objc_opt_class();
-    LODWORD(v13) = 12;
-    v12 = &v14;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Webview started loading", &v14, 12);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v14, v13}];
-      free(v8);
-      v12 = v9;
+      v9 = v8;
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
+      v13 = v10;
       SSFileLog();
     }
   }
@@ -1214,15 +1275,21 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -1235,13 +1302,12 @@ uint64_t __94__SUWebViewManager_webThreadWebView_resource_willSendRequest_redire
     Current = CFAbsoluteTimeGetCurrent();
     v17 = 2112;
     v18 = [objc_msgSend(objc_msgSend(frame "dataSource")];
-    LODWORD(v12) = 32;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Did first layout: [%.2f], for URL: %@", &v13, 32);
+    if (v11)
     {
-      v11 = v10;
-      [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v12}];
-      free(v11);
+      v12 = v11;
+      [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
       SSFileLog();
     }
   }
@@ -1303,21 +1369,9 @@ uint64_t __60__SUWebViewManager_webView_didStartProvisionalLoadForFrame___block_
     {
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-      if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-      {
-        v14 = shouldLog | 2;
-      }
-
-      else
-      {
-        v14 = shouldLog;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
-      {
-        v14 &= 2u;
-      }
-
+      LODWORD(v14) = [mEMORY[0x1E69D4938] shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      v14 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG) ? v14 : v14 & 2u;
       if (v14)
       {
         v21 = 138412802;
@@ -1326,13 +1380,12 @@ uint64_t __60__SUWebViewManager_webView_didStartProvisionalLoadForFrame___block_
         statusCode = [response statusCode];
         v25 = 2112;
         v26 = v11;
-        LODWORD(v20) = 32;
-        v15 = _os_log_send_and_compose_impl();
-        if (v15)
+        v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: WebView received %ld response: %@", &v21, 32);
+        if (v16)
         {
-          v16 = v15;
-          [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v21, v20}];
-          free(v16);
+          v17 = v16;
+          [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+          free(v17);
           SSFileLog();
         }
       }

@@ -190,10 +190,10 @@ LABEL_15:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v4 = shouldPrintSensitiveData();
-  v53 = 0;
-  NSAppendPrintF();
-  v5 = 0;
+  v4 = shouldPrintSensitiveData(self, a2);
+  v64 = 0;
+  NSAppendPrintF(&v64, "RPRemoteDisplayDevice");
+  v5 = v64;
   v6 = self->super._accountAltDSID;
   v7 = self->super._identifier;
   v8 = self->super._idsDeviceIdentifier;
@@ -205,159 +205,166 @@ LABEL_15:
 
   if (v6)
   {
-    v52 = v5;
-    formatSensitiveData(", AltDSID ", v4);
-    v35 = v6;
-    NSAppendPrintF();
-    v9 = v5;
-
-    v5 = v9;
-  }
-
-  if (v8)
-  {
-    v51 = v5;
-    formatSensitiveData(", IDS ", v4);
-    v35 = v8;
-    NSAppendPrintF();
-    v10 = v5;
+    v63 = v5;
+    v9 = formatSensitiveData(", AltDSID ", v4);
+    NSAppendPrintF(&v63, v9, v6);
+    v10 = v63;
 
     v5 = v10;
   }
 
+  if (v8)
+  {
+    v62 = v5;
+    v11 = formatSensitiveData(", IDS ", v4);
+    NSAppendPrintF(&v62, v11, v8);
+    v12 = v62;
+
+    v5 = v12;
+  }
+
   if (v7)
   {
-    v50 = v5;
-    formatSensitiveData(", ID ", v4);
-    v35 = v7;
-    NSAppendPrintF();
-    v11 = v5;
+    v61 = v5;
+    v13 = formatSensitiveData(", ID ", v4);
+    NSAppendPrintF(&v61, v13, v7);
+    v14 = v61;
 
-    v5 = v11;
+    v5 = v14;
   }
 
   persistentIdentifier = self->_persistentIdentifier;
   if (persistentIdentifier)
   {
-    v49 = v5;
-    v13 = persistentIdentifier;
-    formatSensitiveData(", PI ", v4);
-    v35 = v13;
-    NSAppendPrintF();
-    v14 = v5;
+    v60 = v5;
+    v16 = persistentIdentifier;
+    v17 = formatSensitiveData(", PI ", v4);
+    NSAppendPrintF(&v60, v17, v16);
+    v18 = v60;
 
-    v5 = v14;
+    v5 = v18;
   }
 
   name = self->super._name;
   if (name)
   {
-    v48 = v5;
-    v16 = name;
-    formatSensitiveData(", Nm ", v4);
-    v35 = v16;
-    NSAppendPrintF();
-    v17 = v5;
+    v59 = v5;
+    v20 = name;
+    v21 = formatSensitiveData(", Nm ", v4);
+    NSAppendPrintF(&v59, v21, v20);
+    v22 = v59;
 
-    v5 = v17;
+    v5 = v22;
   }
 
   model = self->super._model;
   if (model)
   {
-    v47 = v5;
-    v19 = model;
-    formatSensitiveData(", Md ", v4);
-    v35 = v19;
-    NSAppendPrintF();
-    v20 = v5;
+    v58 = v5;
+    v24 = model;
+    v25 = formatSensitiveData(", Md ", v4);
+    NSAppendPrintF(&v58, v25, v24);
+    v26 = v58;
 
-    v5 = v20;
+    v5 = v26;
   }
 
   sessionPairingIdentifier = self->super._sessionPairingIdentifier;
   if (sessionPairingIdentifier)
   {
-    v46 = v5;
-    v22 = sessionPairingIdentifier;
-    formatSensitiveData(", spID ", v4);
-    v35 = v22;
-    NSAppendPrintF();
-    v23 = v5;
+    v57 = v5;
+    v28 = sessionPairingIdentifier;
+    v29 = formatSensitiveData(", spID ", v4);
+    NSAppendPrintF(&v57, v29, v28);
+    v30 = v57;
 
-    v5 = v23;
+    v5 = v30;
   }
 
   if (v4)
   {
-    v45.receiver = self;
-    v45.super_class = RPRemoteDisplayDevice;
-    [(RPEndpoint *)&v45 operatingSystemVersion];
-    if (v44)
+    v56.receiver = self;
+    v56.super_class = RPRemoteDisplayDevice;
+    [(RPEndpoint *)&v56 operatingSystemVersion];
+    if (v55[1])
     {
-      v43 = v5;
-      v41.receiver = self;
-      v41.super_class = RPRemoteDisplayDevice;
-      [(RPEndpoint *)&v41 operatingSystemVersion];
-      v35 = RPNSOperatingSystemVersionToString(v42);
-      NSAppendPrintF();
-      v24 = v43;
+      v55[0] = v5;
+      v53.receiver = self;
+      v53.super_class = RPRemoteDisplayDevice;
+      [(RPEndpoint *)&v53 operatingSystemVersion];
+      v31 = RPNSOperatingSystemVersionToString(v54);
+      NSAppendPrintF(v55, ", OSV %@", v31);
+      v32 = v55[0];
 
-      v5 = v24;
+      v5 = v32;
     }
 
     sourceVersion = self->super._sourceVersion;
     if (sourceVersion)
     {
-      v40 = v5;
-      v35 = sourceVersion;
-      NSAppendPrintF();
-      v26 = v5;
+      v52 = v5;
+      v34 = sourceVersion;
+      NSAppendPrintF(&v52, ", SV %@", v34);
+      v35 = v52;
 
-      v5 = v26;
+      v5 = v35;
     }
   }
 
   cameraCapabilities = self->_cameraCapabilities;
   if (cameraCapabilities)
   {
-    v39 = v5;
-    v35 = [(NSDictionary *)cameraCapabilities count];
-    NSAppendPrintF();
-    v28 = v5;
+    v51 = v5;
+    NSAppendPrintF(&v51, ", CC %d", [(NSDictionary *)cameraCapabilities count]);
+    v37 = v51;
 
-    v5 = v28;
+    v5 = v37;
   }
 
-  v38.receiver = self;
-  v38.super_class = RPRemoteDisplayDevice;
-  if ([(RPEndpoint *)&v38 cameraState])
+  v50.receiver = self;
+  v50.super_class = RPRemoteDisplayDevice;
+  cameraState = [(RPEndpoint *)&v50 cameraState];
+  if (cameraState)
   {
-    NSAppendPrintF();
-    v30 = v5;
+    v39 = "?";
+    if (cameraState == 1)
+    {
+      v39 = "Usable";
+    }
 
-    v5 = v30;
+    if (cameraState == 2)
+    {
+      v39 = "Magic";
+    }
+
+    v49 = v5;
+    NSAppendPrintF(&v49, ", CS '%s'", v39);
+    v40 = v49;
+
+    v5 = v40;
   }
 
-  if (self->_flags)
+  flags = self->_flags;
+  if (flags)
   {
-    flags = self->_flags;
-    NSAppendPrintF();
-    v31 = v5;
+    v48 = v5;
+    NSAppendPrintF(&v48, ", %#{flags}", flags, &unk_1B6F2E7A0);
+    v42 = v48;
 
-    v5 = v31;
+    v5 = v42;
   }
 
-  if (self->super._statusFlags)
+  statusFlags = self->super._statusFlags;
+  if (statusFlags)
   {
-    statusFlags = self->super._statusFlags;
-    NSAppendPrintF();
-    v32 = v5;
+    v47 = v5;
+    NSAppendPrintF(&v47, ", SF %#ll{flags}", statusFlags, &unk_1B6F2E7C2);
+    v44 = v47;
 
-    v5 = v32;
+    v5 = v44;
   }
 
-  v33 = v5;
+  v45 = v5;
 
   return v5;
 }

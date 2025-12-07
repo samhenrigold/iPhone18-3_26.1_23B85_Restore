@@ -34,40 +34,40 @@
 {
   resultsCopy = results;
   v5 = +[NSMutableArray array];
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v51 = [resultsCopy count];
+    v53 = [resultsCopy count];
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[ContactsSearchResultsRanker] Received request to rank %lu contacts", buf, 0xCu);
   }
 
   v7 = objc_alloc_init(NSMutableDictionary);
-  v46 = 0u;
-  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v8 = resultsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v48 objects:v57 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v47;
-    v36 = v8;
-    v37 = v7;
-    v35 = *v47;
+    v11 = *v49;
+    v38 = v8;
+    v39 = v7;
+    v37 = *v49;
     do
     {
       v12 = 0;
-      v38 = v10;
+      v40 = v10;
       do
       {
-        if (*v47 != v11)
+        if (*v49 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * v12);
+        v13 = *(*(&v48 + 1) + 8 * v12);
         contact = [v13 contact];
         identifier = [contact identifier];
         [v7 setObject:v13 forKeyedSubscript:identifier];
@@ -84,27 +84,27 @@
 
         else
         {
+          v46 = 0u;
+          v47 = 0u;
           v44 = 0u;
           v45 = 0u;
-          v42 = 0u;
-          v43 = 0u;
           phoneNumbers = [contact phoneNumbers];
-          v19 = [phoneNumbers countByEnumeratingWithState:&v42 objects:v54 count:16];
+          v19 = [phoneNumbers countByEnumeratingWithState:&v44 objects:v56 count:16];
           if (v19)
           {
             v20 = v19;
             v21 = 0;
-            v22 = *v43;
+            v22 = *v45;
 LABEL_12:
             v23 = 0;
             while (1)
             {
-              if (*v43 != v22)
+              if (*v45 != v22)
               {
                 objc_enumerationMutation(phoneNumbers);
               }
 
-              v24 = [(PHContactsSearchResultsRanker *)self autocompleteSuggestionForContact:contact phoneNumber:*(*(&v42 + 1) + 8 * v23)];
+              v24 = [(PHContactsSearchResultsRanker *)self autocompleteSuggestionForContact:contact phoneNumber:*(*(&v44 + 1) + 8 * v23)];
               [v5 addObject:v24];
 
               if (v21 == 4)
@@ -116,7 +116,7 @@ LABEL_12:
               ++v21;
               if (v20 == v23)
               {
-                v20 = [phoneNumbers countByEnumeratingWithState:&v42 objects:v54 count:16];
+                v20 = [phoneNumbers countByEnumeratingWithState:&v44 objects:v56 count:16];
                 if (v20)
                 {
                   goto LABEL_12;
@@ -126,10 +126,10 @@ LABEL_12:
               }
             }
 
-            v8 = v36;
-            v7 = v37;
-            v11 = v35;
-            v10 = v38;
+            v8 = v38;
+            v7 = v39;
+            v11 = v37;
+            v10 = v40;
           }
         }
 
@@ -137,50 +137,51 @@ LABEL_12:
       }
 
       while (v12 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
     while (v10);
   }
 
-  v25 = sub_100004F84();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100004F84(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [v5 count];
-    v27 = [v8 count];
+    v27 = [v5 count];
+    v28 = [v8 count];
     *buf = 134218240;
-    v51 = v26;
-    v52 = 2048;
     v53 = v27;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[ContactsSearchResultsRanker] Created %lu candidates from %lu contacts", buf, 0x16u);
+    v54 = 2048;
+    v55 = v28;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[ContactsSearchResultsRanker] Created %lu candidates from %lu contacts", buf, 0x16u);
   }
 
   model = [(PHContactsSearchResultsRanker *)self model];
   context = [(PHContactsSearchResultsRanker *)self context];
-  v30 = [model rankedAutocompleteSuggestionsFromContext:context candidates:v5];
+  v31 = [model rankedAutocompleteSuggestionsFromContext:context candidates:v5];
 
-  v31 = objc_alloc_init(NSMutableArray);
-  if ([v30 count])
+  v32 = objc_alloc_init(NSMutableArray);
+  v33 = [v31 count];
+  if (v33)
   {
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_1000B39B4;
-    v39[3] = &unk_100358BD8;
-    v40 = v7;
-    v41 = v31;
-    [v30 enumerateObjectsUsingBlock:v39];
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1000B39B4;
+    v41[3] = &unk_100358BD8;
+    v42 = v7;
+    v43 = v32;
+    [v31 enumerateObjectsUsingBlock:v41];
   }
 
-  v32 = sub_100004F84();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v34 = sub_100004F84(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = [v31 count];
+    v35 = [v32 count];
     *buf = 134217984;
-    v51 = v33;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[ContactsSearchResultsRanker] After ranking, rankedContactSearchResults = %lu", buf, 0xCu);
+    v53 = v35;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[ContactsSearchResultsRanker] After ranking, rankedContactSearchResults = %lu", buf, 0xCu);
   }
 
-  return v31;
+  return v32;
 }
 
 - (id)autocompleteSuggestionForContact:(id)contact phoneNumber:(id)number

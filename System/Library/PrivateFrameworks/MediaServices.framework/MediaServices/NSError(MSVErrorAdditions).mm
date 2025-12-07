@@ -23,30 +23,30 @@
 
 - (id)msv_signature
 {
-  v155 = *MEMORY[0x1E69E9840];
-  v146 = 0;
-  memset(v145, 0, sizeof(v145));
-  v141 = xmmword_1AC881C10;
-  v142.i64[0] = 0x85EBCA7724234428;
-  v142.i64[1] = 0x61C8864F00000000;
-  v4 = &v143;
+  v154 = *MEMORY[0x1E69E9840];
+  v145 = 0;
+  memset(v144, 0, sizeof(v144));
+  v140 = xmmword_1AC881C10;
+  v141.i64[0] = 0x85EBCA7724234428;
+  v141.i64[1] = 0x61C8864F00000000;
+  v4 = &v142;
+  v142 = 0;
   v143 = 0;
-  v144 = 0;
-  LODWORD(v145[0]) = 0;
+  LODWORD(v144[0]) = 0;
   domain = [self domain];
   uTF8String = [domain UTF8String];
   v7 = [domain length];
   if (uTF8String)
   {
     v8 = v7;
-    DWORD2(v141) = v7;
-    HIDWORD(v141) = v7 > 0xF;
+    DWORD2(v140) = v7;
+    HIDWORD(v140) = v7 > 0xF;
     if (v7 <= 0xF)
     {
-      memcpy(&v143, uTF8String, v7);
-      v9 = LODWORD(v145[0]) + v8;
+      memcpy(&v142, uTF8String, v7);
+      v9 = LODWORD(v144[0]) + v8;
 LABEL_10:
-      LODWORD(v145[0]) = v9;
+      LODWORD(v144[0]) = v9;
       goto LABEL_11;
     }
 
@@ -76,8 +76,8 @@ LABEL_10:
       }
 
       while (uTF8String <= v11);
-      v142.i64[0] = __PAIR64__(v15, v14);
-      v142.i64[1] = __PAIR64__(v13, v12);
+      v141.i64[0] = __PAIR64__(v15, v14);
+      v141.i64[1] = __PAIR64__(v13, v12);
     }
 
     if (uTF8String < v10)
@@ -90,13 +90,13 @@ LABEL_10:
 
 LABEL_11:
 
-  memset(&v150[8], 0, 64);
-  *v150 = v141;
-  if (v141 <= 3000)
+  memset(&v149[8], 0, 64);
+  *v149 = v140;
+  if (v140 <= 3000)
   {
-    if (v141 <= 1999)
+    if (v140 <= 1999)
     {
-      if (!v141)
+      if (!v140)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"MSVHash _MSVHasherFinalize(MSVHasher * _Nonnull)"];
@@ -105,19 +105,19 @@ LABEL_11:
         goto LABEL_58;
       }
 
-      if (v141 != 1000)
+      if (v140 != 1000)
       {
         goto LABEL_58;
       }
 
-      v17 = (*(&v141 + 1) + v142.i64[0]) ^ __ROR8__(v142.i64[0], 51);
-      v18 = v142.i64[1] + (v143 ^ v144);
-      v19 = __ROR8__(v143 ^ v144, 48);
-      v20 = (v18 ^ v19) + __ROR8__(*(&v141 + 1) + v142.i64[0], 32);
+      v17 = (*(&v140 + 1) + v141.i64[0]) ^ __ROR8__(v141.i64[0], 51);
+      v18 = v141.i64[1] + (v142 ^ v143);
+      v19 = __ROR8__(v142 ^ v143, 48);
+      v20 = (v18 ^ v19) + __ROR8__(*(&v140 + 1) + v141.i64[0], 32);
       v21 = v20 ^ __ROR8__(v18 ^ v19, 43);
       v22 = v18 + v17;
       v23 = v22 ^ __ROR8__(v17, 47);
-      v24 = (v20 ^ v144) + v23;
+      v24 = (v20 ^ v143) + v23;
       v25 = v24 ^ __ROR8__(v23, 51);
       v26 = (__ROR8__(v22, 32) ^ 0xFFLL) + v21;
       v27 = __ROR8__(v21, 48);
@@ -140,33 +140,33 @@ LABEL_11:
       v44 = __ROR8__(v40, 32) + (v42 ^ v43);
       v45 = v44 ^ __ROR8__(v42 ^ v43, 43);
       v46 = v41 + v42;
-      *(&v141 + 1) = v44;
-      v142.i64[0] = v46 ^ __ROR8__(v41, 47);
-      v142.i64[1] = __ROR8__(v46, 32);
-      v143 = v45;
-      v47 = v142.i64[0] ^ v44 ^ v142.i64[1] ^ v45;
+      *(&v140 + 1) = v44;
+      v141.i64[0] = v46 ^ __ROR8__(v41, 47);
+      v141.i64[1] = __ROR8__(v46, 32);
+      v142 = v45;
+      v47 = v141.i64[0] ^ v44 ^ v141.i64[1] ^ v45;
       goto LABEL_45;
     }
 
-    if (v141 != 2000)
+    if (v140 != 2000)
     {
-      if (v141 != 3000)
+      if (v140 != 3000)
       {
         goto LABEL_58;
       }
 
-      if (HIDWORD(v141))
+      if (HIDWORD(v140))
       {
-        v48 = vaddvq_s32(vorrq_s8(vshlq_u32(v142, xmmword_1AC881C30), vshlq_u32(v142, xmmword_1AC881C20)));
+        v48 = vaddvq_s32(vorrq_s8(vshlq_u32(v141, xmmword_1AC881C30), vshlq_u32(v141, xmmword_1AC881C20)));
       }
 
       else
       {
-        v48 = v142.i32[2] + 374761393;
+        v48 = v141.i32[2] + 374761393;
       }
 
-      v60 = DWORD2(v141) + v48;
-      v61 = v145[0] & 0xF;
+      v60 = DWORD2(v140) + v48;
+      v61 = v144[0] & 0xF;
       if (v61 >= 4)
       {
         do
@@ -195,65 +195,65 @@ LABEL_11:
       goto LABEL_57;
     }
 
-    switch(v142.u8[3])
+    switch(v141.u8[3])
     {
       case 1u:
-        v51 = v142.u8[0];
+        v51 = v141.u8[0];
         break;
       case 2u:
-        v51 = v142.u16[0];
+        v51 = v141.u16[0];
         break;
       case 3u:
-        v51 = v142.u16[0] | (v142.u8[2] << 16);
+        v51 = v141.u16[0] | (v141.u8[2] << 16);
         break;
       default:
-        v68 = DWORD2(v141);
+        v68 = DWORD2(v140);
         goto LABEL_56;
     }
 
-    v68 = (461845907 * ((380141568 * v51) | ((-862048943 * v51) >> 17))) ^ DWORD2(v141);
+    v68 = (461845907 * ((380141568 * v51) | ((-862048943 * v51) >> 17))) ^ DWORD2(v140);
 LABEL_56:
-    v69 = -2048144789 * (v68 ^ HIDWORD(v141) ^ ((v68 ^ HIDWORD(v141)) >> 16));
+    v69 = -2048144789 * (v68 ^ HIDWORD(v140) ^ ((v68 ^ HIDWORD(v140)) >> 16));
     v67 = (-1028477387 * (v69 ^ (v69 >> 13))) ^ ((-1028477387 * (v69 ^ (v69 >> 13))) >> 16);
-    DWORD2(v141) = v67;
+    DWORD2(v140) = v67;
 LABEL_57:
-    *&v150[8] = v67;
+    *&v149[8] = v67;
     goto LABEL_58;
   }
 
-  if (v141 > 4000)
+  if (v140 > 4000)
   {
-    switch(v141)
+    switch(v140)
     {
       case 0xFA1:
-        CC_SHA1_Final(&v150[8], (&v141 + 8));
+        CC_SHA1_Final(&v149[8], (&v140 + 8));
         break;
       case 0x10A0:
-        CC_SHA256_Final(&v150[8], (&v141 + 8));
+        CC_SHA256_Final(&v149[8], (&v140 + 8));
         break;
       case 0x11A0:
-        CC_SHA512_Final(&v150[8], (&v141 + 8));
+        CC_SHA512_Final(&v149[8], (&v140 + 8));
         break;
     }
 
     goto LABEL_58;
   }
 
-  if (v141 == 3001)
+  if (v140 == 3001)
   {
-    v52 = v145;
-    if (*(&v141 + 1) < 0x20uLL)
+    v52 = v144;
+    if (*(&v140 + 1) < 0x20uLL)
     {
-      v53 = v143 + 0x27D4EB2F165667C5;
+      v53 = v142 + 0x27D4EB2F165667C5;
     }
 
     else
     {
-      v53 = 0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((__ROR8__(v142.i64[1], 57) + __ROR8__(v142.i64[0], 63) + __ROR8__(v143, 52) + __ROR8__(v144, 46)) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v142.i64[0], 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v142.i64[1], 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v143, 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v144, 33))) - 0x7A1435883D4D519DLL;
+      v53 = 0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((0x9E3779B185EBCA87 * ((__ROR8__(v141.i64[1], 57) + __ROR8__(v141.i64[0], 63) + __ROR8__(v142, 52) + __ROR8__(v143, 46)) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v141.i64[0], 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v141.i64[1], 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v142, 33))) - 0x7A1435883D4D519DLL) ^ (0x9E3779B185EBCA87 * __ROR8__(0xC2B2AE3D27D4EB4FLL * v143, 33))) - 0x7A1435883D4D519DLL;
     }
 
-    v54 = v53 + *(&v141 + 1);
-    v55 = BYTE8(v141) & 0x1F;
+    v54 = v53 + *(&v140 + 1);
+    v55 = BYTE8(v140) & 0x1F;
     if (v55 >= 8)
     {
       do
@@ -284,28 +284,28 @@ LABEL_57:
     v59 = 0x165667B19E3779F9 * ((0xC2B2AE3D27D4EB4FLL * (v54 ^ (v54 >> 33))) ^ ((0xC2B2AE3D27D4EB4FLL * (v54 ^ (v54 >> 33))) >> 29));
     v47 = v59 ^ HIDWORD(v59);
 LABEL_45:
-    *&v150[8] = v47;
+    *&v149[8] = v47;
     goto LABEL_58;
   }
 
-  if (v141 == 4000)
+  if (v140 == 4000)
   {
-    CC_MD5_Final(&v150[8], (&v141 + 8));
+    CC_MD5_Final(&v149[8], (&v140 + 8));
   }
 
 LABEL_58:
-  v151 = *v150;
-  v152[0] = *&v150[16];
-  v152[1] = *&v150[32];
-  v152[2] = *&v150[48];
-  v153 = *&v150[64];
-  if (*v150 > 3999)
+  v150 = *v149;
+  v151[0] = *&v149[16];
+  v151[1] = *&v149[32];
+  v151[2] = *&v149[48];
+  v152 = *&v149[64];
+  if (*v149 > 3999)
   {
-    if (*v150 > 4255)
+    if (*v149 > 4255)
     {
-      if (*v150 == 4256)
+      if (*v149 == 4256)
       {
-        v111 = &v151 + 8;
+        v111 = &v150 + 8;
         v112 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
         v113 = v112;
         for (i = 0; i != 64; i += 2)
@@ -323,12 +323,12 @@ LABEL_58:
 
       else
       {
-        if (*v150 != 4512)
+        if (*v149 != 4512)
         {
           goto LABEL_124;
         }
 
-        v89 = &v151 + 8;
+        v89 = &v150 + 8;
         v90 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
         v91 = v90;
         for (j = 0; j != 128; j += 2)
@@ -345,9 +345,9 @@ LABEL_58:
       }
     }
 
-    else if (*v150 == 4000)
+    else if (*v149 == 4000)
     {
-      v101 = &v151 + 8;
+      v101 = &v150 + 8;
       v102 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
       v103 = v102;
       for (k = 0; k != 32; k += 2)
@@ -365,12 +365,12 @@ LABEL_58:
 
     else
     {
-      if (*v150 != 4001)
+      if (*v149 != 4001)
       {
         goto LABEL_124;
       }
 
-      v76 = &v151 + 8;
+      v76 = &v150 + 8;
       v77 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
       v78 = v77;
       for (m = 0; m != 40; m += 2)
@@ -391,17 +391,17 @@ LABEL_104:
     goto LABEL_105;
   }
 
-  if (*v150 > 2999)
+  if (*v149 > 2999)
   {
-    if (*v150 == 3000)
+    if (*v149 == 3000)
     {
-      LODWORD(v154[0]) = bswap32(DWORD2(v151));
+      LODWORD(v153[0]) = bswap32(DWORD2(v150));
       v107 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
       v108 = 0;
       v109 = v107 + 1;
       do
       {
-        v110 = *(v154 + v108);
+        v110 = *(v153 + v108);
         *(v109 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v110 >> 4];
         *v109 = MSVFastHexStringFromBytes_hexCharacters_4916[v110 & 0xF];
         v109 += 2;
@@ -416,18 +416,18 @@ LABEL_104:
 
     else
     {
-      if (*v150 != 3001)
+      if (*v149 != 3001)
       {
         goto LABEL_124;
       }
 
-      v154[0] = bswap64(*(&v151 + 1));
+      v153[0] = bswap64(*(&v150 + 1));
       v85 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
       v86 = 0;
       v87 = v85 + 1;
       do
       {
-        v88 = *(v154 + v86);
+        v88 = *(v153 + v86);
         *(v87 - 1) = MSVFastHexStringFromBytes_hexCharacters_4916[v88 >> 4];
         *v87 = MSVFastHexStringFromBytes_hexCharacters_4916[v88 & 0xF];
         v87 += 2;
@@ -443,13 +443,13 @@ LABEL_104:
     goto LABEL_104;
   }
 
-  if (*v150 == 1000)
+  if (*v149 == 1000)
   {
-    v95 = *(&v151 + 1);
-    if (*(&v151 + 1))
+    v95 = *(&v150 + 1);
+    if (*(&v150 + 1))
     {
-      v96 = &v155 + 1;
-      quot = *(&v151 + 1);
+      v96 = &v154 + 1;
+      quot = *(&v150 + 1);
       do
       {
         v98 = lldiv(quot, 10);
@@ -476,28 +476,28 @@ LABEL_104:
         v75 = (v96 - 2);
       }
 
-      v74 = (&v155 - v75);
+      v74 = (&v154 - v75);
       goto LABEL_94;
     }
 
     goto LABEL_125;
   }
 
-  if (*v150 != 2000)
+  if (*v149 != 2000)
   {
 LABEL_124:
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v139 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-    [currentHandler2 handleFailureInFunction:v139 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+    v138 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+    [currentHandler2 handleFailureInFunction:v138 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
     v117 = &stru_1F214F018;
     goto LABEL_106;
   }
 
-  v70 = DWORD2(v151);
-  if (DWORD2(v151))
+  v70 = DWORD2(v150);
+  if (DWORD2(v150))
   {
-    v71 = &v155;
+    v71 = &v154;
     do
     {
       v72 = ldiv(v70, 10);
@@ -517,7 +517,7 @@ LABEL_124:
     }
 
     while (v72.quot);
-    v74 = (&v155 - v71);
+    v74 = (&v154 - v71);
     v75 = v71;
 LABEL_94:
     v100 = CFStringCreateWithBytes(0, v75, v74, 0x8000100u, 0);
@@ -529,12 +529,12 @@ LABEL_105:
 LABEL_125:
   v117 = @"0";
 LABEL_106:
-  v149[0] = v117;
+  v148[0] = v117;
   code = [self code];
   if (code)
   {
     v119 = code;
-    v120 = v152 + 9;
+    v120 = v151 + 9;
     do
     {
       v121 = ldiv(code, 10);
@@ -561,7 +561,7 @@ LABEL_106:
       v123 = (v120 - 2);
     }
 
-    v124 = CFStringCreateWithBytes(0, v123, v152 + 8 - v123, 0x8000100u, 0);
+    v124 = CFStringCreateWithBytes(0, v123, v151 + 8 - v123, 0x8000100u, 0);
   }
 
   else
@@ -569,25 +569,25 @@ LABEL_106:
     v124 = @"0";
   }
 
-  v149[1] = v124;
-  v125 = [MEMORY[0x1E695DEC8] arrayWithObjects:v149 count:2];
+  v148[1] = v124;
+  v125 = [MEMORY[0x1E695DEC8] arrayWithObjects:v148 count:2];
   v126 = [v125 componentsJoinedByString:@":"];
 
   underlyingErrors = [self underlyingErrors];
-  v140[0] = MEMORY[0x1E69E9820];
-  v140[1] = 3221225472;
-  v140[2] = __43__NSError_MSVErrorAdditions__msv_signature__block_invoke;
-  v140[3] = &unk_1E7981DD0;
-  v140[4] = self;
-  v140[5] = a2;
-  v128 = [underlyingErrors msv_map:v140];
+  v139[0] = MEMORY[0x1E69E9820];
+  v139[1] = 3221225472;
+  v139[2] = __43__NSError_MSVErrorAdditions__msv_signature__block_invoke;
+  v139[3] = &unk_1E7981DD0;
+  v139[4] = self;
+  v139[5] = a2;
+  v128 = [underlyingErrors msv_map:v139];
 
   if ([v128 count] == 1)
   {
-    v148[0] = v126;
+    v147[0] = v126;
     firstObject = [v128 firstObject];
-    v148[1] = firstObject;
-    v130 = v148;
+    v147[1] = firstObject;
+    v130 = v147;
   }
 
   else
@@ -601,9 +601,9 @@ LABEL_106:
     v132 = [v128 componentsJoinedByString:{@", "}];
     firstObject = [v131 stringWithFormat:@"[%@]", v132];
 
-    v147[0] = v126;
-    v147[1] = firstObject;
-    v130 = v147;
+    v146[0] = v126;
+    v146[1] = firstObject;
+    v130 = v146;
   }
 
   v133 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
@@ -612,8 +612,6 @@ LABEL_106:
   v126 = v134;
 LABEL_121:
   v135 = v126;
-
-  v136 = *MEMORY[0x1E69E9840];
 
   return v135;
 }
@@ -708,7 +706,7 @@ LABEL_14:
 
 - (id)msv_description
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   userInfo = [self userInfo];
   v4 = *MEMORY[0x1E696A278];
@@ -749,54 +747,54 @@ LABEL_14:
 
   if (v16)
   {
-    v30 = v16;
-    v31 = v13;
-    v32 = v12;
-    v33 = v8;
+    v29 = v16;
+    v30 = v13;
+    v31 = v12;
+    v32 = v8;
     [string appendString:@"    underlyingErrors: ["];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = [self underlyingErrors];
-    v17 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v17 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          msv_description = [*(*(&v39 + 1) + 8 * i) msv_description];
+          msv_description = [*(*(&v38 + 1) + 8 * i) msv_description];
           v22 = [msv_description componentsSeparatedByString:@"\n"];
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
-          v23 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v36;
+            v25 = *v35;
             do
             {
               for (j = 0; j != v24; ++j)
               {
-                if (*v36 != v25)
+                if (*v35 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                [string appendFormat:@"\n        %@", *(*(&v35 + 1) + 8 * j)];
+                [string appendFormat:@"\n        %@", *(*(&v34 + 1) + 8 * j)];
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
             }
 
             while (v24);
@@ -805,17 +803,17 @@ LABEL_14:
           [string appendString:{@", "}];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v18 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v18);
     }
 
     [string appendString:@"\n    ];\n"];
-    v12 = v32;
-    v8 = v33;
-    v16 = v30;
-    v13 = v31;
+    v12 = v31;
+    v8 = v32;
+    v16 = v29;
+    v13 = v30;
   }
 
   [string appendString:@"}>"];
@@ -826,19 +824,17 @@ LABEL_14:
 
   v27 = [string copy];
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 - (__CFString)msv_codeDescription
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   quot = [self code];
   if (quot)
   {
     v3 = quot;
-    v4 = &v18 + 1;
+    v4 = &v17 + 1;
     do
     {
       v5 = ldiv(quot, 10);
@@ -865,7 +861,7 @@ LABEL_14:
       v7 = (v4 - 2);
     }
 
-    v8 = CFStringCreateWithBytes(0, v7, &v18 - v7, 0x8000100u, 0);
+    v8 = CFStringCreateWithBytes(0, v7, &v17 - v7, 0x8000100u, 0);
   }
 
   else
@@ -886,8 +882,6 @@ LABEL_14:
 
     v8 = v15;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -949,7 +943,7 @@ LABEL_10:
 
 - (id)msv_errorByUnwrappingDomain:()MSVErrorAdditions code:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if ([self code] != a4)
   {
@@ -974,26 +968,26 @@ LABEL_15:
   }
 
 LABEL_4:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v11 = [underlyingErrors countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [underlyingErrors countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v15 = [*(*(&v19 + 1) + 8 * i) msv_errorByUnwrappingDomain:v6 code:a4];
+        v15 = [*(*(&v18 + 1) + 8 * i) msv_errorByUnwrappingDomain:v6 code:a4];
         if (v15)
         {
           selfCopy = v15;
@@ -1002,7 +996,7 @@ LABEL_4:
         }
       }
 
-      v12 = [underlyingErrors countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [underlyingErrors countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
         continue;
@@ -1015,14 +1009,12 @@ LABEL_4:
   selfCopy = 0;
 LABEL_16:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
 - (id)msv_errorByUnwrappingDomain:()MSVErrorAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
   domain = [self domain];
   v6 = domain;
@@ -1041,26 +1033,26 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   underlyingErrors = [self underlyingErrors];
-  v9 = [underlyingErrors countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [underlyingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) msv_errorByUnwrappingDomain:v4];
+        v13 = [*(*(&v16 + 1) + 8 * i) msv_errorByUnwrappingDomain:v4];
         if (v13)
         {
           selfCopy = v13;
@@ -1069,7 +1061,7 @@ LABEL_13:
         }
       }
 
-      v10 = [underlyingErrors countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [underlyingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -1081,8 +1073,6 @@ LABEL_13:
 
   selfCopy = 0;
 LABEL_15:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

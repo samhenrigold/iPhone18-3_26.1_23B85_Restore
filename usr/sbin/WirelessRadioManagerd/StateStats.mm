@@ -1,6 +1,7 @@
 @interface StateStats
 - (StateStats)initWithCoder:(id)coder;
 - (StateStats)initWithNumActions:(int)actions;
+- (StateStats)initWithNumActionsAndValues:(int)values count:(int)count rewardMean:(double)mean;
 - (double)getIndex:(int)index;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -35,6 +36,35 @@
   }
 
   return v5;
+}
+
+- (StateStats)initWithNumActionsAndValues:(int)values count:(int)count rewardMean:(double)mean
+{
+  v6 = *&count;
+  v11.receiver = self;
+  v11.super_class = StateStats;
+  v8 = [(StateStats *)&v11 init];
+  v9 = v8;
+  if (v8)
+  {
+    [(StateStats *)v8 setTotalCount:(v6 * values)];
+    [(StateStats *)v9 setActions:+[NSMutableArray array]];
+    if (values >= 1)
+    {
+      do
+      {
+        [(NSMutableArray *)[(StateStats *)v9 actions] addObject:[[ActionStats alloc] initWithValues:v6 rewardMean:mean]];
+        --values;
+      }
+
+      while (values);
+    }
+
+    +[NSDate timeIntervalSinceReferenceDate];
+    [(StateStats *)v9 setLastSeen:?];
+  }
+
+  return v9;
 }
 
 - (void)update:(int)update reward:(double)reward

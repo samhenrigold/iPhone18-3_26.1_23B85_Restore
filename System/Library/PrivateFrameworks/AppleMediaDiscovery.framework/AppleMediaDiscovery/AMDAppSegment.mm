@@ -312,7 +312,6 @@ LABEL_36:
 
   objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v9 = v50;
 
   return v9;
@@ -427,7 +426,6 @@ LABEL_15:
 
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v33;
 
   return v5;
@@ -489,62 +487,61 @@ LABEL_15:
 
 void __62__AMDAppSegment_saveSegments_withTreatmentId_andAlgoId_error___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28 = a1;
+  v30 = *MEMORY[0x277D85DE8];
   v27 = a1;
+  v26 = a1;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](*(a1 + 32));
-  v19 = [obj countByEnumeratingWithState:__b objects:v30 count:16];
-  if (v19)
+  v18 = [obj countByEnumeratingWithState:__b objects:v29 count:16];
+  if (v18)
   {
-    v14 = *__b[2];
-    v15 = 0;
-    v16 = v19;
+    v13 = *__b[2];
+    v14 = 0;
+    v15 = v18;
     while (1)
     {
-      v13 = v15;
-      if (*__b[2] != v14)
+      v12 = v14;
+      if (*__b[2] != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v26 = *(__b[1] + 8 * v15);
-      v24 = [*(a1 + 32) objectForKey:v26];
-      memset(v22, 0, sizeof(v22));
-      v11 = MEMORY[0x277D82BE0](v24);
-      v12 = [v11 countByEnumeratingWithState:v22 objects:v29 count:16];
-      if (v12)
+      v25 = *(__b[1] + 8 * v14);
+      v23 = [*(a1 + 32) objectForKey:v25];
+      memset(v21, 0, sizeof(v21));
+      v10 = MEMORY[0x277D82BE0](v23);
+      v11 = [v10 countByEnumeratingWithState:v21 objects:v28 count:16];
+      if (v11)
       {
-        v8 = *v22[2];
-        v9 = 0;
-        v10 = v12;
+        v7 = *v21[2];
+        v8 = 0;
+        v9 = v11;
         while (1)
         {
-          v7 = v9;
-          if (*v22[2] != v8)
+          v6 = v8;
+          if (*v21[2] != v7)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v23 = *(v22[1] + 8 * v9);
-          v4 = MEMORY[0x277CBE408];
-          v6 = +[AMDAppSegment entity];
-          v5 = [v6 name];
-          v1 = *(a1 + 40);
-          v21 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+          v22 = *(v21[1] + 8 * v8);
+          v3 = MEMORY[0x277CBE408];
+          v5 = +[AMDAppSegment entity];
+          v4 = [v5 name];
+          v20 = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+          MEMORY[0x277D82BD8](v4);
           MEMORY[0x277D82BD8](v5);
-          MEMORY[0x277D82BD8](v6);
-          [v21 setAdamId:{objc_msgSend(v26, "longLongValue")}];
-          [v21 setSegment:v23];
-          [v21 setTreatmentId:*(a1 + 48)];
-          [v21 setAlgoId:*(a1 + 56)];
-          objc_storeStrong(&v21, 0);
-          ++v9;
-          if (v7 + 1 >= v10)
+          [v20 setAdamId:{objc_msgSend(v25, "longLongValue")}];
+          [v20 setSegment:v22];
+          [v20 setTreatmentId:*(a1 + 48)];
+          [v20 setAlgoId:*(a1 + 56)];
+          objc_storeStrong(&v20, 0);
+          ++v8;
+          if (v6 + 1 >= v9)
           {
-            v9 = 0;
-            v10 = [v11 countByEnumeratingWithState:v22 objects:v29 count:16];
-            if (!v10)
+            v8 = 0;
+            v9 = [v10 countByEnumeratingWithState:v21 objects:v28 count:16];
+            if (!v9)
             {
               break;
             }
@@ -552,14 +549,14 @@ void __62__AMDAppSegment_saveSegments_withTreatmentId_andAlgoId_error___block_in
         }
       }
 
-      MEMORY[0x277D82BD8](v11);
-      objc_storeStrong(&v24, 0);
-      ++v15;
-      if (v13 + 1 >= v16)
+      MEMORY[0x277D82BD8](v10);
+      objc_storeStrong(&v23, 0);
+      ++v14;
+      if (v12 + 1 >= v15)
       {
-        v15 = 0;
-        v16 = [obj countByEnumeratingWithState:__b objects:v30 count:16];
-        if (!v16)
+        v14 = 0;
+        v15 = [obj countByEnumeratingWithState:__b objects:v29 count:16];
+        if (!v15)
         {
           break;
         }
@@ -568,12 +565,11 @@ void __62__AMDAppSegment_saveSegments_withTreatmentId_andAlgoId_error___block_in
   }
 
   MEMORY[0x277D82BD8](obj);
-  v2 = *(a1 + 64);
-  v3 = (*(*(a1 + 72) + 8) + 40);
-  v20 = *v3;
-  [v2 save:&v20];
-  objc_storeStrong(v3, v20);
-  *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 64);
+  v2 = (*(*(a1 + 72) + 8) + 40);
+  v19 = *v2;
+  [v1 save:&v19];
+  objc_storeStrong(v2, v19);
 }
 
 + (id)getSegmentsForTreatmentId:(id)id error:(id *)error
@@ -757,7 +753,6 @@ void __49__AMDAppSegment_getSegmentsForTreatmentId_error___block_invoke(void *a1
 
   objc_storeStrong(v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v31;
 
   return v7;
@@ -858,7 +853,6 @@ void __49__AMDAppSegment_getSegmentsForTreatmentId_error___block_invoke(void *a1
   }
 
   objc_storeStrong(&v30, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v34;
 
   return v6;
@@ -915,7 +909,6 @@ void __49__AMDAppSegment_getSegmentsForTreatmentId_error___block_invoke(void *a1
   objc_storeStrong(v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)evaluatePredicate:(id)predicate withOperands:(id)operands
@@ -1053,7 +1046,6 @@ void __49__AMDAppSegment_getSegmentsForTreatmentId_error___block_invoke(void *a1
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1205,7 +1197,6 @@ LABEL_21:
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v37;
 
   return v7;
@@ -1375,7 +1366,6 @@ LABEL_21:
 
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v49;
 
   return v6;

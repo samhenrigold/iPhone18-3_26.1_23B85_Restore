@@ -9,10 +9,10 @@
 
 - (MFLoadFailedProxyContentBannerView)initWithFrame:(CGRect)frame failureReason:(int64_t)reason
 {
-  v31[1] = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = MFLoadFailedProxyContentBannerView;
-  v5 = [(MFSuggestionBannerView *)&v30 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v30[1] = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = MFLoadFailedProxyContentBannerView;
+  v5 = [(MFSuggestionBannerView *)&v29 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v5)
   {
     v6 = @"FAILED_TO_PROXY_REMOTE_CONTENT_NETWORK_INCOMPATIBLE";
@@ -62,37 +62,36 @@
     [v12 setAccessoryType:v13];
     mailInteractiveColor = [MEMORY[0x277D75348] mailInteractiveColor];
     v17 = [MFSuggestionBannerView bannerIconViewForSymbol:*MEMORY[0x277D259C8] tintColor:mailInteractiveColor];
-    v31[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v30[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     [v12 setImageSGViews:v18];
 
     objc_initWeak(&location, v5);
     v19 = MEMORY[0x277D025D8];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __66__MFLoadFailedProxyContentBannerView_initWithFrame_failureReason___block_invoke;
-    v27[3] = &unk_2781819F8;
-    objc_copyWeak(&v28, &location);
-    v20 = [v19 actionWithTitle:&stru_2826D1AD8 handler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __66__MFLoadFailedProxyContentBannerView_initWithFrame_failureReason___block_invoke;
+    v26[3] = &unk_2781819F8;
+    objc_copyWeak(&v27, &location);
+    v20 = [v19 actionWithTitle:&stru_2826D1AD8 handler:v26];
     [v12 setPrimaryAction:v20];
 
     v21 = MEMORY[0x277D025D8];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __66__MFLoadFailedProxyContentBannerView_initWithFrame_failureReason___block_invoke_2;
-    v25[3] = &unk_2781819F8;
-    objc_copyWeak(&v26, &location);
-    v22 = [v21 actionWithTitle:&stru_2826D1AD8 handler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __66__MFLoadFailedProxyContentBannerView_initWithFrame_failureReason___block_invoke_2;
+    v24[3] = &unk_2781819F8;
+    objc_copyWeak(&v25, &location);
+    v22 = [v21 actionWithTitle:&stru_2826D1AD8 handler:v24];
     [v12 setDismissAction:v22];
 
     [(MFSuggestionBannerView *)v5 setBanner:v12];
     [v12 reload];
-    objc_destroyWeak(&v26);
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

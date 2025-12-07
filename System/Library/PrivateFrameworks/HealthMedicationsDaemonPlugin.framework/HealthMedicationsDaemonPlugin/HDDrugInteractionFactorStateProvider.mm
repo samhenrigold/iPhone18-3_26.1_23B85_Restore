@@ -3,11 +3,11 @@
 - (HDDrugInteractionFactorStateProvider)init;
 - (HDDrugInteractionFactorStateProvider)initWithDaemon:(id)daemon;
 - (int64_t)hasDrugInteractionFactorInProfile:(id)profile;
-- (uint64_t)_lock_initalizeDrugInteractionFactorStates;
-- (uint64_t)_lock_startMonitoringKeyValueDomain;
 - (uint64_t)_lock_updateDrugInteractionFactorForKey:(char)key newValue:;
-- (uint64_t)_notifyObserversWithHasDrugInteractionFactor:(uint64_t)result;
+- (void)_lock_initalizeDrugInteractionFactorStates;
+- (void)_lock_startMonitoringKeyValueDomain;
 - (void)_lock_updateChangeForKey:(uint64_t)key;
+- (void)_notifyObserversWithHasDrugInteractionFactor:(void *)result;
 - (void)dealloc;
 - (void)didUpdateKeyValueDomain:(id)domain;
 - (void)monitorDrugInteractionFactorsInProfile:(id)profile;
@@ -95,7 +95,7 @@ void __85__HDDrugInteractionFactorStateProvider__notifyObserversWithHasDrugInter
   [(HDDrugInteractionFactorStateProvider *)&v4 dealloc];
 }
 
-- (uint64_t)_lock_startMonitoringKeyValueDomain
+- (void)_lock_startMonitoringKeyValueDomain
 {
   if (result)
   {
@@ -146,7 +146,7 @@ void __85__HDDrugInteractionFactorStateProvider__notifyObserversWithHasDrugInter
   }
 }
 
-- (uint64_t)_lock_initalizeDrugInteractionFactorStates
+- (void)_lock_initalizeDrugInteractionFactorStates
 {
   if (result)
   {
@@ -237,11 +237,11 @@ void __85__HDDrugInteractionFactorStateProvider__notifyObserversWithHasDrugInter
   }
 }
 
-- (uint64_t)_notifyObserversWithHasDrugInteractionFactor:(uint64_t)result
+- (void)_notifyObserversWithHasDrugInteractionFactor:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 8);
+    v2 = result[1];
     v3[0] = MEMORY[0x277D85DD0];
     v3[1] = 3221225472;
     v3[2] = __85__HDDrugInteractionFactorStateProvider__notifyObserversWithHasDrugInteractionFactor___block_invoke;

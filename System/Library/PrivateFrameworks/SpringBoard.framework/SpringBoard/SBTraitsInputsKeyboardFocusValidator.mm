@@ -87,7 +87,7 @@ uint64_t __67__SBTraitsInputsKeyboardFocusValidator_validateInputs_withContext__
   {
     v5 = [v4 participantAssociatedSceneIdentityTokens:v3];
     v6 = [*(a1 + 32) sceneIdentity];
-    v7 = [v5 containsObject:v6];
+    v7 = objc_msgSend_containsObject_(v5);
   }
 
   else

@@ -57,13 +57,12 @@ void ___GetCertForApplication_block_invoke(uint64_t a1, void *a2)
 
 void ___GetCertForApplication_block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  if (v3)
+  v2 = *(*(*(a1 + 40) + 8) + 24);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 

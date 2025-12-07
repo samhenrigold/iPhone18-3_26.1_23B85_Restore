@@ -10,6 +10,7 @@
 - (void)_enableTouchAccommodations;
 - (void)_handleUsageConfirmation;
 - (void)_hideContentViewController;
+- (void)_sendTouchAccommodationsEnabledTipSignal:(BOOL)signal;
 - (void)_showBannerWithText:(id)text andSubtitleText:(id)subtitleText;
 - (void)_showContentViewController;
 - (void)_suspendOrResumeTouchAccommodationsAsNeeded;
@@ -360,6 +361,21 @@ LABEL_41:
     [(AXTouchAccommodationsUIServer *)self setPreventBackgroundViewController:0];
     preventBackgroundViewController = v5;
   }
+}
+
+- (void)_sendTouchAccommodationsEnabledTipSignal:(BOOL)signal
+{
+  signalCopy = signal;
+  v4 = +[BMStreams discoverabilitySignal];
+  source = [v4 source];
+  v6 = [BMDiscoverabilitySignalEvent alloc];
+  v10 = @"enabled";
+  v7 = [NSNumber numberWithBool:signalCopy];
+  v11 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v9 = [v6 initWithIdentifier:@"com.apple.accessibility.AccessibilityUIServer.touchaccommodations-ios-enabled" bundleID:@"com.apple.accessibility.AccessibilityUIServer" context:@"AccessibilityUIServer" userInfo:v8];
+
+  [source sendEvent:v9];
 }
 
 - (void)_handleUsageConfirmation

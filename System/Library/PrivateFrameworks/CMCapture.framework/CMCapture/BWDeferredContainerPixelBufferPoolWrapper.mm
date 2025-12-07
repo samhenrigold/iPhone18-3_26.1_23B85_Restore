@@ -1,7 +1,6 @@
 @interface BWDeferredContainerPixelBufferPoolWrapper
 - (BWDeferredContainerPixelBufferPoolWrapper)initWithVideoFormat:(id)format capacity:(unint64_t)capacity name:(id)name;
 - (void)dealloc;
-- (void)newPixelBuffer;
 - (void)signal;
 @end
 
@@ -44,42 +43,6 @@
   v3.receiver = self;
   v3.super_class = BWDeferredContainerPixelBufferPoolWrapper;
   [(BWDeferredContainerPixelBufferPoolWrapper *)&v3 dealloc];
-}
-
-- (void)newPixelBuffer
-{
-  OUTLINED_FUNCTION_25_10();
-  if (v0)
-  {
-    v1 = v0;
-    OUTLINED_FUNCTION_10_27();
-    if (v2)
-    {
-      OUTLINED_FUNCTION_17_14();
-      kdebug_trace();
-    }
-
-    v3 = *(v1 + 16);
-    v4 = dispatch_time(0, 10000000000);
-    if (dispatch_semaphore_wait(v3, v4) || (v5 = [*(v1 + 8) newPixelBuffer]) == 0)
-    {
-      OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
-    }
-
-    else
-    {
-    }
-
-    OUTLINED_FUNCTION_10_27();
-    if (v2)
-    {
-      OUTLINED_FUNCTION_17_14();
-      kdebug_trace();
-    }
-  }
-
-  OUTLINED_FUNCTION_24_12();
 }
 
 @end

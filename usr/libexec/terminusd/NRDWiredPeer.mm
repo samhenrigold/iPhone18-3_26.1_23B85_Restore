@@ -6,9 +6,9 @@
 
 - (NRDWiredPeer)init
 {
-  v12.receiver = self;
-  v12.super_class = NRDWiredPeer;
-  v2 = [(NRDWiredPeer *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = NRDWiredPeer;
+  v2 = [(NRDWiredPeer *)&v14 init];
   if (!v2)
   {
     v7 = sub_1000E2538();
@@ -17,14 +17,14 @@
     if (IsLevelEnabled)
     {
       v9 = sub_1000E2538();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDWiredPeer init]"", 29);
     }
 
-    _os_log_pack_size();
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    *v11 = 136446210;
-    *(v11 + 4) = "[NRDWiredPeer init]";
+    v10 = _os_log_pack_size();
+    v11 = __error();
+    v12 = _os_log_pack_fill(&v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10, *v11, &_mh_execute_header, "%{public}s [super init] failed");
+    *v12 = 136446210;
+    *(v12 + 4) = "[NRDWiredPeer init]";
     sub_1000E2538();
     _NRLogAbortWithPack();
   }

@@ -27,67 +27,65 @@
 
 + (id)metadataDestinationIDsForCHRecentCall:(id)call
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   callCopy = call;
   v4 = MEMORY[0x1E695DEC8];
   callCopy2 = call;
   v6 = [v4 arrayWithObjects:&callCopy count:1];
 
-  v7 = [self metadataDestinationIDsForCHRecentCalls:{v6, callCopy, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [self metadataDestinationIDsForCHRecentCalls:{v6, callCopy, v10}];
 
   return v7;
 }
 
 + (id)metadataDestinationIDsForCHRecentCalls:(id)calls
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   callsCopy = calls;
-  v34 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = callsCopy;
-  v31 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  if (v30)
   {
-    v30 = *v40;
+    v29 = *v39;
     do
     {
       v4 = 0;
       do
       {
-        if (*v40 != v30)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v39 + 1) + 8 * v4);
+        v5 = *(*(&v38 + 1) + 8 * v4);
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
-        v32 = v4;
-        v33 = v5;
+        v31 = v4;
+        v32 = v5;
         remoteParticipantHandles = [v5 remoteParticipantHandles];
-        v7 = [remoteParticipantHandles countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v7 = [remoteParticipantHandles countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v36;
+          v9 = *v35;
           do
           {
             v10 = 0;
             do
             {
-              if (*v36 != v9)
+              if (*v35 != v9)
               {
                 objc_enumerationMutation(remoteParticipantHandles);
               }
 
-              v11 = *(*(&v35 + 1) + 8 * v10);
+              v11 = *(*(&v34 + 1) + 8 * v10);
               normalizedValue = [v11 normalizedValue];
               v13 = [normalizedValue length];
 
@@ -119,7 +117,7 @@
                   break;
                 case 2:
                   value = [v11 value];
-                  isoCountryCode = [v33 isoCountryCode];
+                  isoCountryCode = [v32 isoCountryCode];
                   v18 = [TUHandle normalizedPhoneNumberHandleForValue:value isoCountryCode:isoCountryCode];
 
                   goto LABEL_13;
@@ -139,7 +137,7 @@ LABEL_13:
                 v19 = [[TUMetadataDestinationID alloc] initWithHandle:v18];
                 if (v19)
                 {
-                  [v34 addObject:v19];
+                  [v33 addObject:v19];
                 }
               }
 
@@ -148,26 +146,24 @@ LABEL_22:
             }
 
             while (v8 != v10);
-            v25 = [remoteParticipantHandles countByEnumeratingWithState:&v35 objects:v43 count:16];
+            v25 = [remoteParticipantHandles countByEnumeratingWithState:&v34 objects:v42 count:16];
             v8 = v25;
           }
 
           while (v25);
         }
 
-        v4 = v32 + 1;
+        v4 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  allObjects = [v34 allObjects];
-
-  v27 = *MEMORY[0x1E69E9840];
+  allObjects = [v33 allObjects];
 
   return allObjects;
 }

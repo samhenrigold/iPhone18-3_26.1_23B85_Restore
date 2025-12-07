@@ -12,6 +12,7 @@
 - (void)_presentErrorAlert;
 - (void)_presentPrivacySheet;
 - (void)_startIndicatorViewSpinning;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AssistantHistoryViewController
@@ -33,6 +34,50 @@
   }
 
   return v2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v24[2] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = AssistantHistoryViewController;
+  [(AssistantHistoryViewController *)&v23 viewDidAppear:appear];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/HISTORY"];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"Siri & Dictation History" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v9 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  LODWORD(v6) = [v9 deviceSupported];
+
+  if (v6)
+  {
+    v10 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v10 = @"Siri";
+  }
+
+  v11 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:v10 table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v18 bundleURL];
+  v20 = [v16 initWithKey:@"Siri & Dictation History" table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v24[0] = v15;
+  v24[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  [(AssistantHistoryViewController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v8 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (id)specifiers
@@ -241,41 +286,39 @@ LABEL_33:
 
 - (int64_t)_getDataSharingOptInStatus
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v3 = dispatch_semaphore_create(0);
   settingsConnection = self->_settingsConnection;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__AssistantHistoryViewController__getDataSharingOptInStatus__block_invoke;
-  v14[3] = &unk_278CD14A8;
-  v16 = &v17;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__AssistantHistoryViewController__getDataSharingOptInStatus__block_invoke;
+  v12[3] = &unk_278CD14A8;
+  v14 = &v15;
   v5 = v3;
-  v15 = v5;
-  [(AFSettingsConnection *)settingsConnection getSiriDataSharingOptInStatusWithCompletion:v14];
+  v13 = v5;
+  [(AFSettingsConnection *)settingsConnection getSiriDataSharingOptInStatusWithCompletion:v12];
   v6 = dispatch_time(0, 50000000);
   v7 = dispatch_semaphore_wait(v5, v6);
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v18[3];
-    v10 = AFSiriDataSharingOptInStatusGetName();
+    v9 = AFSiriDataSharingOptInStatusGetName();
     *buf = 136315650;
-    v22 = "[AssistantHistoryViewController _getDataSharingOptInStatus]";
-    v23 = 2048;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v10;
+    v20 = "[AssistantHistoryViewController _getDataSharingOptInStatus]";
+    v21 = 2048;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v9;
     _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_DEFAULT, "%s #siriDataSharingOptInStatus dataSharingOptInFechCompletedIn:%lu optInStatus:%@", buf, 0x20u);
   }
 
-  v11 = v18[3];
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  v10 = v16[3];
+  _Block_object_dispose(&v15, 8);
+  return v10;
 }
 
 void __60__AssistantHistoryViewController__getDataSharingOptInStatus__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -415,7 +458,7 @@ void __69__AssistantHistoryViewController__handleDeleteSiriHistoryButtonPress__b
 
 void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -450,9 +493,9 @@ void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke(uint6
       v9 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315138;
-        v13 = "[AssistantHistoryViewController _deleteSiriHistory]_block_invoke";
-        _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s #siriDataSharingOptIn: Siri History Deletion Request successful", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "[AssistantHistoryViewController _deleteSiriHistory]_block_invoke";
+        _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s #siriDataSharingOptIn: Siri History Deletion Request successful", &v11, 0xCu);
       }
 
       v10 = [v5 delegate];
@@ -468,13 +511,11 @@ void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke(uint6
       __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke_cold_3(v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startIndicatorViewSpinning
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   allValues = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC30]) allValues];
   v4 = allValues;
   if (self->_deleteButtonCell)
@@ -511,16 +552,14 @@ void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke(uint6
       v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
 
       v17 = self->_deleteButtonCell;
-      v20[0] = v13;
-      v20[1] = v16;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[0] = v13;
+      v19[1] = v16;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
       [(PSDeleteButtonCell *)v17 addConstraints:v18];
 
       [(AssistantHistoryViewController *)self _animateSpinnerIn];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_animateSpinnerIn
@@ -667,35 +706,31 @@ void __52__AssistantHistoryViewController__presentErrorAlert__block_invoke(uint6
 
 void __60__AssistantHistoryViewController__getDataSharingOptInStatus__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #siriDataSharingOptInStatus: Status fetch failed with error:%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #siriDataSharingOptInStatus: Status fetch failed with error:%@", v2, v3, v4, v5, v6);
 }
 
 void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #siriDataSharingOptIn: Siri History Deletion Request failed with error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #siriDataSharingOptIn: Siri History Deletion Request failed with error: %@", v2, v3, v4, v5, v6);
 }
 
 void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #RPI on-device Siri History Deletion Request failed. Skipping showing alert. error: %@.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2413B9000, v0, v1, "%s #RPI on-device Siri History Deletion Request failed. Skipping showing alert. error: %@.", v2, v3, v4, v5, v6);
 }
 
 void __52__AssistantHistoryViewController__deleteSiriHistory__block_invoke_cold_3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[AssistantHistoryViewController _deleteSiriHistory]_block_invoke";
-  _os_log_error_impl(&dword_2413B9000, log, OS_LOG_TYPE_ERROR, "%s #siriDataSharingOptIn: weakSelf nil'd out while waiting for deletion completion", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[AssistantHistoryViewController _deleteSiriHistory]_block_invoke";
+  _os_log_error_impl(&dword_2413B9000, log, OS_LOG_TYPE_ERROR, "%s #siriDataSharingOptIn: weakSelf nil'd out while waiting for deletion completion", &v1, 0xCu);
 }
 
 @end

@@ -3,10 +3,14 @@
 - (WPMagicSwitch)initWithDelegate:(id)delegate queue:(id)queue;
 - (WPMagicSwitchDelegate)delegate;
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
 - (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)deviceDiscovered:(id)discovered;
 - (void)invalidate;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)startAdvertisingWithData:(id)data;
 - (void)startScanningWithData:(id)data;
 - (void)stateDidChange:(int64_t)change;
@@ -67,7 +71,7 @@ LABEL_5:
 
 - (void)startScanningWithData:(id)data
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = [dataCopy objectForKeyedSubscript:@"WPMagicSwitchScanBlobData"];
   v6 = [dataCopy objectForKeyedSubscript:@"WPMagicSwitchScanMaskData"];
@@ -77,51 +81,52 @@ LABEL_5:
   if ([v5 length] <= 0x16 && objc_msgSend(v6, "length") <= 0x16 && (objc_msgSend(v7, "integerValue") & 0x8000000000000000) == 0 && objc_msgSend(v7, "integerValue") < 3)
   {
     v12 = objc_opt_new();
-    -[WPMagicSwitch dutyCycleToScanningRates:](self, "dutyCycleToScanningRates:", [v7 integerValue]);
+    [v7 integerValue];
+    objc_msgSend_dutyCycleToScanningRates_(self);
+    v26 = v28;
     v27 = v29;
-    v28 = v30;
-    [v12 setScanningRates:&v27];
+    [v12 setScanningRates:&v26];
     [v12 setClientType:11];
     [v12 setPeers:v8];
     if (v5 || !v6)
     {
-      if (!v5 || !v6 || (v25 = [v6 length], v25 <= objc_msgSend(v5, "length")))
+      if (!v5 || !v6 || (v24 = [v6 length], v24 <= objc_msgSend(v5, "length")))
       {
         [v12 setBlobValue:v5];
         [v12 setMaskValue:v6];
-        v26.receiver = self;
-        v26.super_class = WPMagicSwitch;
-        [(WPClient *)&v26 startScanning:v12];
+        v25.receiver = self;
+        v25.super_class = WPMagicSwitch;
+        [(WPClient *)&v25 startScanning:v12];
         goto LABEL_8;
       }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v31 = *MEMORY[0x277CCA450];
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Mask data length: %lu > Blob data length: %lu", objc_msgSend(v6, "length"), objc_msgSend(v5, "length")];
-      v32 = v17;
-      v18 = MEMORY[0x277CBEAC0];
-      v19 = &v32;
-      v20 = &v31;
+      v15 = MEMORY[0x277CCA9B8];
+      v30 = *MEMORY[0x277CCA450];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Mask data length: %lu > Blob data length: %lu", objc_msgSend(v6, "length"), objc_msgSend(v5, "length")];
+      v31 = v16;
+      v17 = MEMORY[0x277CBEAC0];
+      v18 = &v31;
+      v19 = &v30;
     }
 
     else
     {
-      v16 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277CCA450];
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Blob Data: %@ is null but Mask data: %@ is not null", 0, v6];
-      v34 = v17;
-      v18 = MEMORY[0x277CBEAC0];
-      v19 = &v34;
-      v20 = &v33;
+      v15 = MEMORY[0x277CCA9B8];
+      v32 = *MEMORY[0x277CCA450];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Blob Data: %@ is null but Mask data: %@ is not null", 0, v6];
+      v33 = v16;
+      v17 = MEMORY[0x277CBEAC0];
+      v18 = &v33;
+      v19 = &v32;
     }
 
-    v21 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
-    delegate4 = [v16 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v21];
+    v20 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
+    delegate4 = [v15 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v20];
 
     delegate = [(WPMagicSwitch *)self delegate];
-    v23 = objc_opt_respondsToSelector();
+    v22 = objc_opt_respondsToSelector();
 
-    if (v23)
+    if (v22)
     {
       delegate2 = [(WPMagicSwitch *)self delegate];
       [delegate2 magicSwitch:self failedToStartScanningWithError:delegate4];
@@ -131,10 +136,10 @@ LABEL_5:
   }
 
   v9 = MEMORY[0x277CCA9B8];
-  v35 = *MEMORY[0x277CCA450];
+  v34 = *MEMORY[0x277CCA450];
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Blob data: %@, Mask data: %@, Duty Cycle: %@", v5, v6, v7];
-  v36[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v35[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
   v12 = [v9 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v11];
 
   delegate3 = [(WPMagicSwitch *)self delegate];
@@ -148,8 +153,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning
@@ -163,7 +166,7 @@ LABEL_8:
 
 - (void)startAdvertisingWithData:(id)data
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy count])
   {
@@ -172,10 +175,10 @@ LABEL_8:
     if (!v5 || [v5 length] > 0x16 || objc_msgSend(delegate4, "integerValue") < 0 || objc_msgSend(delegate4, "integerValue") >= 3)
     {
       v7 = MEMORY[0x277CCA9B8];
-      v23 = *MEMORY[0x277CCA450];
+      v22 = *MEMORY[0x277CCA450];
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, adv data: %@, adv Interval: %@", v5, delegate4];
-      v24 = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v23 = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       v10 = [v7 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v9];
 
       delegate = [(WPMagicSwitch *)self delegate];
@@ -192,21 +195,21 @@ LABEL_8:
 
     v10 = [WPAdvertisingRequest requestForClientType:11];
     [v10 setAdvertisingData:v5];
-    v18 = [dataCopy objectForKeyedSubscript:@"WPMagicSwitchAdvertiseTypeInterval"];
-    integerValue = [v18 integerValue];
+    v17 = [dataCopy objectForKeyedSubscript:@"WPMagicSwitchAdvertiseTypeInterval"];
+    integerValue = [v17 integerValue];
 
     [v10 setConnectable:1];
     [v10 setStopOnAdvertisingAddressChange:1];
     if (integerValue == 2)
     {
-      v20 = v10;
-      v21 = 1636;
+      v19 = v10;
+      v20 = 1636;
     }
 
     else if (integerValue == 1)
     {
-      v20 = v10;
-      v21 = 48;
+      v19 = v10;
+      v20 = 48;
     }
 
     else
@@ -217,15 +220,15 @@ LABEL_8:
         goto LABEL_21;
       }
 
-      v20 = v10;
-      v21 = 290;
+      v19 = v10;
+      v20 = 290;
     }
 
-    [v20 setAdvertisingRate:v21];
+    [v19 setAdvertisingRate:v20];
 LABEL_21:
-    v22.receiver = self;
-    v22.super_class = WPMagicSwitch;
-    [(WPClient *)&v22 startAdvertising:v10];
+    v21.receiver = self;
+    v21.super_class = WPMagicSwitch;
+    [(WPClient *)&v21 startAdvertising:v10];
 LABEL_8:
 
 LABEL_11:
@@ -233,10 +236,10 @@ LABEL_11:
   }
 
   v13 = MEMORY[0x277CCA9B8];
-  v25 = *MEMORY[0x277CCA450];
+  v24 = *MEMORY[0x277CCA450];
   dataCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data provided, Dictionary: %@", dataCopy];
-  v26[0] = dataCopy;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = dataCopy;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v5 = [v13 errorWithDomain:@"WPErrorDomain" code:5 userInfo:v15];
 
   delegate3 = [(WPMagicSwitch *)self delegate];
@@ -250,8 +253,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising
@@ -277,9 +278,21 @@ LABEL_12:
   }
 }
 
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPMagicSwitch *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPMagicSwitch *)self delegate];
+    [delegate2 magicSwitchStartedAdvertising:self];
+  }
+}
+
 - (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (WPLogInitOnce != -1)
   {
@@ -289,9 +302,9 @@ LABEL_12:
   v6 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = errorCopy;
-    _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "MagicSwitch advertising stopped with error: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = errorCopy;
+    _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "MagicSwitch advertising stopped with error: %@", &v15, 0xCu);
   }
 
   if (errorCopy)
@@ -313,9 +326,9 @@ LABEL_12:
         {
           v10 = v9;
           localizedDescription = [errorCopy localizedDescription];
-          v16 = 138412290;
-          v17 = localizedDescription;
-          _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "[Privacy] MagicSwitch advertising stopped with error: %@", &v16, 0xCu);
+          v15 = 138412290;
+          v16 = localizedDescription;
+          _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "[Privacy] MagicSwitch advertising stopped with error: %@", &v15, 0xCu);
         }
 
         delegate2 = [(WPMagicSwitch *)self delegate];
@@ -337,8 +350,6 @@ LABEL_12:
 LABEL_15:
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
@@ -354,9 +365,21 @@ LABEL_15:
   }
 }
 
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  delegate = [(WPMagicSwitch *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPMagicSwitch *)self delegate];
+    [delegate2 magicSwitchPendingAdvertising:self];
+  }
+}
+
 - (void)deviceDiscovered:(id)discovered
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   delegate = [(WPMagicSwitch *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -368,13 +391,35 @@ LABEL_15:
     v9 = [v8 subdataWithRange:{4, objc_msgSend(v8, "length") - 4}];
 
     delegate2 = [(WPMagicSwitch *)self delegate];
-    v13 = @"WPMagicSwitchAdvertisingData";
-    v14[0] = v9;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"WPMagicSwitchAdvertisingData";
+    v13[0] = v9;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     [delegate2 magicSwitch:self foundDevice:v7 withData:v11];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPMagicSwitch *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPMagicSwitch *)self delegate];
+    [delegate2 magicSwitchStartedScanning:self];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  delegate = [(WPMagicSwitch *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPMagicSwitch *)self delegate];
+    [delegate2 magicSwitchStoppedScanning:self];
+  }
 }
 
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type

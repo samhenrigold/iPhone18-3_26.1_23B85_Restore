@@ -2,6 +2,7 @@
 + (id)highlightedString:(id)string type:(int64_t)type context:(id)context;
 + (id)nowDateFromContext:(id)context;
 + (id)stringFromCount:(int64_t)count showActualCount:(BOOL)actualCount suffix:(id)suffix isByteCount:(BOOL)byteCount context:(id)context;
++ (id)stringFromDueDate:(id)date allowsPast:(BOOL)past context:(id)context;
 + (id)stringFromDueStamp:(int64_t)stamp allowsPast:(BOOL)past context:(id)context;
 + (id)stringFromError:(id)error context:(id)context;
 + (id)stringFromErrorString:(id)string context:(id)context;
@@ -140,7 +141,7 @@
 
 + (id)stringFromOperationUUID:(unsigned __int8)d[16] context:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   memset(out, 0, 37);
   uuid_unparse(d, out);
@@ -155,8 +156,6 @@
   {
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:out];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -192,6 +191,16 @@
   }
 
   return v6;
+}
+
++ (id)stringFromDueDate:(id)date allowsPast:(BOOL)past context:(id)context
+{
+  pastCopy = past;
+  contextCopy = context;
+  [date timeIntervalSince1970];
+  v9 = [self stringFromDueStamp:brc_interval_to_nsec() allowsPast:pastCopy context:contextCopy];
+
+  return v9;
 }
 
 + (id)stringFromDueStamp:(int64_t)stamp allowsPast:(BOOL)past context:(id)context
@@ -549,33 +558,33 @@ LABEL_34:
 
 - (void)writeLineWithFormat:(id)format
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   formatCopy = format;
-  v19 = 0;
+  v18 = 0;
   uTF8String = [(NSString *)self->_indentationBaseString UTF8String];
-  v19 = &v22;
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:formatCopy arguments:&v22];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v18 = &v21;
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:formatCopy arguments:&v21];
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = [v6 componentsSeparatedByString:{@"\n", 0}];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         if (self->_indentation >= 1)
         {
           v13 = 0;
@@ -598,13 +607,11 @@ LABEL_34:
       }
 
       while (v11 != v9);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldKeepDumpingWithItemCount:(unsigned int)count includeAllItems:(BOOL)items
@@ -661,18 +668,17 @@ LABEL_7:
 
 - (void)popIndentation
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _indentation > 0%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _indentation > 0%@", &v6, 0xCu);
   }
 
   *a2 = *self;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

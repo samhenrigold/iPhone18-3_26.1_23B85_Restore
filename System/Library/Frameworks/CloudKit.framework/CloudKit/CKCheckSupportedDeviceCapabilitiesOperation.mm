@@ -43,7 +43,7 @@
 
 - (CKCheckSupportedDeviceCapabilitiesOperation)initWithDesiredCapabilities:(id)capabilities zoneIDs:(id)ds options:(id)options
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   dsCopy = ds;
   optionsCopy = options;
@@ -55,8 +55,8 @@
     v15->_zoneIDs = v16;
 
     v20 = objc_msgSend_copy(capabilitiesCopy, v18, v19);
-    v30[0] = v20;
-    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v30, 1);
+    v29[0] = v20;
+    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v29, 1);
     desiredCapabilitySets = v15->_desiredCapabilitySets;
     v15->_desiredCapabilitySets = v22;
 
@@ -65,7 +65,6 @@
     v15->_options = v26;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -96,7 +95,7 @@
 - (void)setPerResultBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -127,7 +126,7 @@ LABEL_9:
 
 - (id)perResultBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -164,7 +163,7 @@ LABEL_9:
 - (void)setCheckSupportedDeviceCapabilitiesCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -195,7 +194,7 @@ LABEL_9:
 
 - (id)checkSupportedDeviceCapabilitiesCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -300,141 +299,145 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_database(self, a2, run);
   v8 = objc_msgSend_scope(v5, v6, v7);
 
-  if (v8 != 2)
+  if (v8 == 2)
   {
-    if (run)
+    v11 = objc_msgSend_zoneIDs(self, v9, v10);
+    v14 = objc_msgSend_count(v11, v12, v13);
+
+    if (v14)
     {
-      v44 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v9, @"CKInternalErrorDomain", 1019, @"This operation should only be called on the private database");
-      v45 = v44;
-      result = 0;
-      *run = v44;
-      goto LABEL_34;
-    }
-
-    goto LABEL_33;
-  }
-
-  v11 = objc_msgSend_zoneIDs(self, v9, v10);
-  v14 = objc_msgSend_count(v11, v12, v13);
-
-  if (!v14)
-  {
-    if (run)
-    {
-      v46 = objc_opt_class();
-      v47 = NSStringFromClass(v46);
-      objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v48, @"CKErrorDomain", 12, @"At least one zone ID must be passed to %@", v47);
-      *run = LABEL_27:;
-    }
-
-LABEL_33:
-    result = 0;
-    goto LABEL_34;
-  }
-
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v17 = objc_msgSend_zoneIDs(self, v15, v16);
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v66, v71, 16);
-  if (v19)
-  {
-    v20 = v19;
-    v21 = *v67;
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      v17 = objc_msgSend_zoneIDs(self, v15, v16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v65, v70, 16);
+      if (v19)
+      {
+        v20 = v19;
+        v21 = *v66;
 LABEL_5:
-    v22 = 0;
-    while (1)
-    {
-      if (*v67 != v21)
-      {
-        objc_enumerationMutation(v17);
-      }
-
-      v23 = *(*(&v66 + 1) + 8 * v22);
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        break;
-      }
-
-      if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v24, v23, run))
-      {
-        goto LABEL_32;
-      }
-
-      if (v20 == ++v22)
-      {
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v25, &v66, v71, 16);
-        if (v20)
+        v22 = 0;
+        while (1)
         {
-          goto LABEL_5;
+          if (*v66 != v21)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v23 = *(*(&v65 + 1) + 8 * v22);
+          objc_opt_class();
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            break;
+          }
+
+          if (!objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v24, v23, run))
+          {
+            goto LABEL_32;
+          }
+
+          if (v20 == ++v22)
+          {
+            v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v25, &v65, v70, 16);
+            if (v20)
+            {
+              goto LABEL_5;
+            }
+
+            goto LABEL_12;
+          }
         }
 
-        goto LABEL_12;
-      }
-    }
+        if (!run)
+        {
+          goto LABEL_32;
+        }
 
-    if (!run)
-    {
-      goto LABEL_32;
-    }
-
-    v49 = objc_opt_class();
-    v51 = NSStringFromClass(v49);
-    v59 = v51;
-    v60 = v23;
-    v52 = @"Unexpected zoneID passed to %@: %@";
+        v49 = objc_opt_class();
+        v51 = NSStringFromClass(v49);
+        v58 = v51;
+        v59 = v23;
+        v52 = @"Unexpected zoneID passed to %@: %@";
 LABEL_30:
-    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v50, @"CKErrorDomain", 12, v52, v59, v60);
-    goto LABEL_31;
-  }
+        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v50, @"CKErrorDomain", 12, v52, v58, v59);
+        *run = LABEL_31:;
+
+LABEL_32:
+        return 0;
+      }
 
 LABEL_12:
 
-  v28 = objc_msgSend_desiredCapabilitySets(self, v26, v27);
-  v31 = objc_msgSend_count(v28, v29, v30);
+      v28 = objc_msgSend_desiredCapabilitySets(self, v26, v27);
+      v31 = objc_msgSend_count(v28, v29, v30);
 
-  if (!v31)
-  {
-    if (!run)
-    {
-      goto LABEL_33;
-    }
+      if (v31)
+      {
+        v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v17 = objc_msgSend_desiredCapabilitySets(self, v32, v33);
+        v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v34, &v61, v69, 16);
+        if (!v35)
+        {
+LABEL_22:
 
-    v54 = objc_opt_class();
-    v47 = NSStringFromClass(v54);
-    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v55, @"CKErrorDomain", 12, @"desiredCapabilitySets must not be empty for %@", v47);
-    goto LABEL_27;
-  }
+          v60.receiver = self;
+          v60.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
+          return [(CKDatabaseOperation *)&v60 CKOperationShouldRun:run];
+        }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v17 = objc_msgSend_desiredCapabilitySets(self, v32, v33);
-  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v34, &v62, v70, 16);
-  if (v35)
-  {
-    v36 = v35;
-    v37 = *v63;
+        v36 = v35;
+        v37 = *v62;
 LABEL_15:
-    v38 = 0;
-    while (1)
-    {
-      if (*v63 != v37)
-      {
-        objc_enumerationMutation(v17);
-      }
+        v38 = 0;
+        while (1)
+        {
+          if (*v62 != v37)
+          {
+            objc_enumerationMutation(v17);
+          }
 
-      v39 = *(*(&v62 + 1) + 8 * v38);
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
+          v39 = *(*(&v61 + 1) + 8 * v38);
+          objc_opt_class();
+          if ((objc_opt_isKindOfClass() & 1) == 0)
+          {
+            if (!run)
+            {
+              goto LABEL_32;
+            }
+
+            v55 = objc_opt_class();
+            v51 = NSStringFromClass(v55);
+            v58 = v51;
+            v59 = v39;
+            v52 = @"Unexpected capability set passed to %@: %@";
+            goto LABEL_30;
+          }
+
+          if (!objc_msgSend_count(v39, v40, v41))
+          {
+            break;
+          }
+
+          if (v36 == ++v38)
+          {
+            v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v42, &v61, v69, 16);
+            if (v36)
+            {
+              goto LABEL_15;
+            }
+
+            goto LABEL_22;
+          }
+        }
+
         if (!run)
         {
           goto LABEL_32;
@@ -442,56 +445,43 @@ LABEL_15:
 
         v56 = objc_opt_class();
         v51 = NSStringFromClass(v56);
-        v59 = v51;
-        v60 = v39;
-        v52 = @"Unexpected capability set passed to %@: %@";
-        goto LABEL_30;
+        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v57, @"CKErrorDomain", 12, @"At least one capability is required in each capability set passed to %@.", v51);
+        goto LABEL_31;
       }
 
-      if (!objc_msgSend_count(v39, v40, v41))
+      if (run)
       {
-        break;
-      }
-
-      if (v36 == ++v38)
-      {
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v42, &v62, v70, 16);
-        if (v36)
-        {
-          goto LABEL_15;
-        }
-
-        goto LABEL_22;
+        v53 = objc_opt_class();
+        v47 = NSStringFromClass(v53);
+        objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v54, @"CKErrorDomain", 12, @"desiredCapabilitySets must not be empty for %@", v47);
+        goto LABEL_27;
       }
     }
 
-    if (!run)
+    else if (run)
     {
-      goto LABEL_32;
+      v46 = objc_opt_class();
+      v47 = NSStringFromClass(v46);
+      objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v48, @"CKErrorDomain", 12, @"At least one zone ID must be passed to %@", v47);
+      *run = LABEL_27:;
     }
-
-    v57 = objc_opt_class();
-    v51 = NSStringFromClass(v57);
-    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v58, @"CKErrorDomain", 12, @"At least one capability is required in each capability set passed to %@.", v51);
-    *run = LABEL_31:;
-
-LABEL_32:
-    goto LABEL_33;
   }
 
-LABEL_22:
+  else if (run)
+  {
+    v44 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v9, @"CKInternalErrorDomain", 1019, @"This operation should only be called on the private database");
+    v45 = v44;
+    result = 0;
+    *run = v44;
+    return result;
+  }
 
-  v61.receiver = self;
-  v61.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
-  result = [(CKDatabaseOperation *)&v61 CKOperationShouldRun:run];
-LABEL_34:
-  v53 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)performCKOperation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -500,28 +490,27 @@ LABEL_34:
   v3 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v5 = v3;
-    v8 = objc_msgSend_operationID(self, v6, v7);
-    v11 = objc_msgSend_zoneIDs(self, v9, v10);
-    v14 = objc_msgSend_desiredCapabilitySets(self, v12, v13);
+    v4 = v3;
+    v7 = objc_msgSend_operationID(self, v5, v6);
+    v10 = objc_msgSend_zoneIDs(self, v8, v9);
+    v13 = objc_msgSend_desiredCapabilitySets(self, v11, v12);
     *buf = 138543874;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v14;
-    _os_log_debug_impl(&dword_1883EA000, v5, OS_LOG_TYPE_DEBUG, "Checking supported device capabilities in zones with operation %{public}@ zoneIDs=%@ capabilitySets=%@", buf, 0x20u);
+    v16 = v7;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_debug_impl(&dword_1883EA000, v4, OS_LOG_TYPE_DEBUG, "Checking supported device capabilities in zones with operation %{public}@ zoneIDs=%@ capabilitySets=%@", buf, 0x20u);
   }
 
-  v15.receiver = self;
-  v15.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
-  [(CKOperation *)&v15 performCKOperation];
-  v4 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
+  [(CKOperation *)&v14 performCKOperation];
 }
 
 - (void)handleSupportedDeviceCapabilityCheckResultForRecordZoneID:(id)d capabilitySet:(id)set result:(id)result error:(id)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   dCopy = d;
   setCopy = set;
   resultCopy = result;
@@ -550,12 +539,12 @@ LABEL_34:
 LABEL_25:
       if (self)
       {
-        objc_msgSend_setObject_forKeyedSubscript_(self->_recordZoneErrors, v45, v15, dCopy, *v62, *&v62[16], v63);
+        objc_msgSend_setObject_forKeyedSubscript_(self->_recordZoneErrors, v45, v15, dCopy, *v61, *&v61[8], v62);
       }
 
       else
       {
-        objc_msgSend_setObject_forKeyedSubscript_(0, v45, v15, dCopy, *v62, *&v62[16], v63);
+        objc_msgSend_setObject_forKeyedSubscript_(0, v45, v15, dCopy, *v61, *&v61[8], v62);
       }
 
       goto LABEL_37;
@@ -589,18 +578,18 @@ LABEL_25:
 
     if ((v29 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
-      *v62 = 138412802;
-      *&v62[4] = dCopy;
-      *&v62[12] = 2112;
-      *&v62[14] = setCopy;
-      *&v62[22] = 2112;
-      v63 = v15;
+      *v61 = 138412802;
+      *&v61[4] = dCopy;
+      *&v61[12] = 2112;
+      *&v61[14] = setCopy;
+      *&v61[22] = 2112;
+      v62 = v15;
       v30 = "Record zone %@ supported device capabilities check failed for capability set %@ with error: %@";
       v31 = v24;
       v32 = v29;
       v33 = 32;
 LABEL_20:
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v31, OS_SIGNPOST_EVENT, v32, "CKCheckSupportedDeviceCapabilitiesOperation", v30, v62, v33);
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v31, OS_SIGNPOST_EVENT, v32, "CKCheckSupportedDeviceCapabilitiesOperation", v30, v61, v33);
     }
   }
 
@@ -644,10 +633,10 @@ LABEL_20:
 
     if ((v42 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
-      *v62 = 138412546;
-      *&v62[4] = dCopy;
-      *&v62[12] = 2112;
-      *&v62[14] = setCopy;
+      *v61 = 138412546;
+      *&v61[4] = dCopy;
+      *&v61[12] = 2112;
+      *&v61[14] = setCopy;
       v30 = "Record zone %@ supported device capabilities %@ checked";
       v31 = v24;
       v32 = v42;
@@ -669,12 +658,12 @@ LABEL_20:
 LABEL_28:
   if (self)
   {
-    objc_msgSend_objectForKeyedSubscript_(self->_resultsByRecordZoneID, v45, dCopy, *v62, *&v62[8], v63);
+    objc_msgSend_objectForKeyedSubscript_(self->_resultsByRecordZoneID, v45, dCopy, *v61, *&v61[8], v62);
   }
 
   else
   {
-    objc_msgSend_objectForKeyedSubscript_(0, v45, dCopy, *v62, *&v62[8], v63);
+    objc_msgSend_objectForKeyedSubscript_(0, v45, dCopy, *v61, *&v61[8], v62);
   }
   v47 = ;
 
@@ -707,7 +696,7 @@ LABEL_28:
   objc_msgSend_setObject_forKey_(v53, v54, resultCopy, setCopy);
 
 LABEL_37:
-  v55 = objc_msgSend_perResultBlock_wrapper(self, v45, v46, *v62, *&v62[8]);
+  v55 = objc_msgSend_perResultBlock_wrapper(self, v45, v46, *v61, *&v61[8]);
   v58 = v55;
   if (v55)
   {
@@ -724,13 +713,11 @@ LABEL_37:
   {
     v59[2](v59, dCopy, setCopy, resultCopy, v15);
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -826,29 +813,29 @@ LABEL_37:
     v25 = ck_log_facility_ck;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v44 = objc_msgSend_operationID(self, v26, v27);
-      v45 = &stru_1EFA32970;
+      v43 = objc_msgSend_operationID(self, v26, v27);
+      v44 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v46 = @" Error was: ";
+        v45 = @" Error was: ";
       }
 
       else
       {
-        v46 = &stru_1EFA32970;
+        v45 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v45 = objc_msgSend_CKClientSuitableError(errorCopy, v42, v43);
+        v44 = objc_msgSend_CKClientSuitableError(errorCopy, v41, v42);
       }
 
       *buf = 138543874;
-      v54 = v44;
-      v55 = 2112;
-      v56 = v46;
-      v57 = 2112;
-      v58 = v45;
+      v53 = v43;
+      v54 = 2112;
+      v55 = v45;
+      v56 = 2112;
+      v57 = v44;
       _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed.%@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -896,29 +883,29 @@ LABEL_37:
     v34 = ck_log_facility_ck;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v49 = objc_msgSend_operationID(self, v35, v36);
-      v50 = &stru_1EFA32970;
+      v48 = objc_msgSend_operationID(self, v35, v36);
+      v49 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v51 = @" Error was: ";
+        v50 = @" Error was: ";
       }
 
       else
       {
-        v51 = &stru_1EFA32970;
+        v50 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v50 = objc_msgSend_CKClientSuitableError(errorCopy, v47, v48);
+        v49 = objc_msgSend_CKClientSuitableError(errorCopy, v46, v47);
       }
 
       *buf = 138543874;
-      v54 = v49;
-      v55 = 2114;
-      v56 = v51;
-      v57 = 2112;
-      v58 = v50;
+      v53 = v48;
+      v54 = 2114;
+      v55 = v50;
+      v56 = 2112;
+      v57 = v49;
       _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no checkSupportedDeviceCapabilitiesCompletionBlock was set.%{public}@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -927,16 +914,14 @@ LABEL_37:
   }
 
   objc_msgSend_setPerResultBlock_(self, v37, 0);
-  v52.receiver = self;
-  v52.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
-  [(CKOperation *)&v52 _finishOnCallbackQueueWithError:errorCopy];
-
-  v41 = *MEMORY[0x1E69E9840];
+  v51.receiver = self;
+  v51.super_class = CKCheckSupportedDeviceCapabilitiesOperation;
+  [(CKOperation *)&v51 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -989,28 +974,26 @@ LABEL_37:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCheckSupportedDeviceCapabilitiesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCheckSupportedDeviceCapabilitiesOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1054,13 +1037,11 @@ LABEL_37:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCheckSupportedDeviceCapabilitiesOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCheckSupportedDeviceCapabilitiesOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

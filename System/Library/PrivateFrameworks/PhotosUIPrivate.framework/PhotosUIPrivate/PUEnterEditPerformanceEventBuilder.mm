@@ -67,7 +67,7 @@
   v56[1] = @"assetDuration";
   v16 = MEMORY[0x1E696AD98];
   asset2 = [(PUEnterEditPerformanceEventBuilder *)self asset];
-  [asset2 duration];
+  objc_msgSend_duration(asset2);
   v51 = [v16 numberWithDouble:?];
   v57[1] = v51;
   v56[2] = @"assetPixelCount";

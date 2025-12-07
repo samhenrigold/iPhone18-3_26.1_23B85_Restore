@@ -60,30 +60,31 @@ LABEL_6:
 
 - (void)_deleteRandomTabFromTabGroup:(id)group withContext:(id)context completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   contextCopy = context;
   handlerCopy = handler;
   randomTabDescendant = [groupCopy randomTabDescendant];
+  v13 = randomTabDescendant;
   if (randomTabDescendant)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = WBS_LOG_CHANNEL_PREFIXCycler(randomTabDescendant, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v13 = v12;
-      title = [randomTabDescendant title];
-      v15 = [randomTabDescendant url];
-      uniqueIdentifier = [randomTabDescendant uniqueIdentifier];
-      v20 = 138543874;
-      v21 = title;
-      v22 = 2114;
-      v23 = v15;
-      v24 = 2112;
-      v25 = uniqueIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Deleting tab with title %{public}@ and URL %{public}@ (%@)", &v20, 0x20u);
+      v15 = v14;
+      title = [v13 title];
+      v17 = [v13 url];
+      uniqueIdentifier = [v13 uniqueIdentifier];
+      v22 = 138543874;
+      v23 = title;
+      v24 = 2114;
+      v25 = v17;
+      v26 = 2112;
+      v27 = uniqueIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_INFO, "Deleting tab with title %{public}@ and URL %{public}@ (%@)", &v22, 0x20u);
     }
 
-    uniqueIdentifier2 = [randomTabDescendant uniqueIdentifier];
+    uniqueIdentifier2 = [v13 uniqueIdentifier];
     uniqueIdentifier3 = [groupCopy uniqueIdentifier];
     [(WBSCyclerDeleteTabOperation *)self _deleteItemWithIdentifier:uniqueIdentifier2 fromParentWithIdentifier:uniqueIdentifier3 isTab:1 inContext:contextCopy completionHandler:handlerCopy];
   }
@@ -97,27 +98,28 @@ LABEL_6:
 
 - (void)_deleteRandomTabGroupWithContext:(id)context completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   tabGroupsParent = [contextCopy tabGroupsParent];
   randomTabGroupDescendant = [tabGroupsParent randomTabGroupDescendant];
+  v11 = randomTabGroupDescendant;
   if (randomTabGroupDescendant)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = WBS_LOG_CHANNEL_PREFIXCycler(randomTabGroupDescendant, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v11 = v10;
-      title = [randomTabGroupDescendant title];
-      uniqueIdentifier = [randomTabGroupDescendant uniqueIdentifier];
-      v17 = 138543618;
-      v18 = title;
-      v19 = 2112;
-      v20 = uniqueIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Deleting tab group with title %{public}@ (%@)", &v17, 0x16u);
+      v13 = v12;
+      title = [v11 title];
+      uniqueIdentifier = [v11 uniqueIdentifier];
+      v19 = 138543618;
+      v20 = title;
+      v21 = 2112;
+      v22 = uniqueIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Deleting tab group with title %{public}@ (%@)", &v19, 0x16u);
     }
 
-    uniqueIdentifier2 = [randomTabGroupDescendant uniqueIdentifier];
+    uniqueIdentifier2 = [v11 uniqueIdentifier];
     uniqueIdentifier3 = [tabGroupsParent uniqueIdentifier];
     [(WBSCyclerDeleteTabOperation *)self _deleteItemWithIdentifier:uniqueIdentifier2 fromParentWithIdentifier:uniqueIdentifier3 isTab:0 inContext:contextCopy completionHandler:handlerCopy];
   }

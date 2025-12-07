@@ -503,7 +503,6 @@ LABEL_44:
 
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    lastSequenceNumber = self->_lastSequenceNumber;
     MOLogWrite();
   }
 
@@ -531,7 +530,6 @@ LABEL_44:
   currentDBUUID = self->_currentDBUUID;
   if (((dCopy != 0) == (currentDBUUID == 0) || ([(NSUUID *)currentDBUUID isEqual:dCopy]& 1) == 0) && (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5))
   {
-    v8 = self->_currentDBUUID;
     MOLogWrite();
   }
 

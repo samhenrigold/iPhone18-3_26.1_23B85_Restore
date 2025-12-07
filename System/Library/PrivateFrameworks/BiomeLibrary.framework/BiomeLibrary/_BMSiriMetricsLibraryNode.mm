@@ -62,22 +62,20 @@ LABEL_8:
 
 + (id)configurationForOnDeviceDigestUsageMetrics
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   storeConfigurationForOnDeviceDigestUsageMetrics = [self storeConfigurationForOnDeviceDigestUsageMetrics];
   syncPolicyForOnDeviceDigestUsageMetrics = [self syncPolicyForOnDeviceDigestUsageMetrics];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"TRUEPREDICATE" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"delete-siri-dictation-history" predicate:v6];
-  v15[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
 
   v9 = MEMORY[0x1E698F338];
   v10 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"3620FF69-C102-4450-A9D2-9747F208ED9C"];
-  BYTE2(v14) = 1;
-  LOWORD(v14) = 1;
-  v11 = [v9 _libraryStreamConfigurationWithUUID:v10 streamIdentifier:@"Siri.Metrics.OnDeviceDigestUsageMetrics" eventClass:objc_opt_class() storeConfig:storeConfigurationForOnDeviceDigestUsageMetrics syncPolicy:syncPolicyForOnDeviceDigestUsageMetrics legacyNames:0 internalMetadata:0 enableSubscriptions:v14 enableSubscriptionSubstream:0 enableTombstoneSubstream:v8 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
-
-  v12 = *MEMORY[0x1E69E9840];
+  BYTE2(v13) = 1;
+  LOWORD(v13) = 1;
+  v11 = [v9 _libraryStreamConfigurationWithUUID:v10 streamIdentifier:@"Siri.Metrics.OnDeviceDigestUsageMetrics" eventClass:objc_opt_class() storeConfig:storeConfigurationForOnDeviceDigestUsageMetrics syncPolicy:syncPolicyForOnDeviceDigestUsageMetrics legacyNames:0 internalMetadata:0 enableSubscriptions:v13 enableSubscriptionSubstream:0 enableTombstoneSubstream:v8 allowedClients:0 pruningTriggers:? spaceAttributionOwner:?];
 
   return v11;
 }
@@ -134,66 +132,60 @@ LABEL_8:
 
 + (id)OnDeviceDigestUsageMetrics
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForOnDeviceDigestUsageMetrics = [self configurationForOnDeviceDigestUsageMetrics];
   v3 = +[BMSiriOnDeviceDigestUsageMetrics columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.Metrics.OnDeviceDigestUsageMetrics" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.Metrics.OnDeviceDigestUsageMetrics" schema:v9 configuration:configurationForOnDeviceDigestUsageMetrics];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)OnDeviceDigestSegmentsCohorts
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForOnDeviceDigestSegmentsCohorts = [self configurationForOnDeviceDigestSegmentsCohorts];
   v3 = +[BMSiriOnDeviceDigestSegmentsCohorts columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.Metrics.OnDeviceDigestSegmentsCohorts" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.Metrics.OnDeviceDigestSegmentsCohorts" schema:v9 configuration:configurationForOnDeviceDigestSegmentsCohorts];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)OnDeviceDigestExperimentMetrics
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForOnDeviceDigestExperimentMetrics = [self configurationForOnDeviceDigestExperimentMetrics];
   v3 = +[BMSiriOnDeviceDigestExperimentMetrics columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.Metrics.OnDeviceDigestExperimentMetrics" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.Metrics.OnDeviceDigestExperimentMetrics" schema:v9 configuration:configurationForOnDeviceDigestExperimentMetrics];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

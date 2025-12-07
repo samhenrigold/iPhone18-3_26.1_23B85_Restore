@@ -1,6 +1,7 @@
 @interface TVPPlaybackUtilities
 + (double)playedThresholdTimeForDuration:(double)duration;
 + (double)suggestedBookmarkTimeForElapsedTime:(double)time duration:(double)duration playedThreshold:(id)threshold;
++ (int64_t)blueDotStateForDuration:(double)duration elapsedTime:(double)time hasBeenPlayed:(BOOL)played playCount:(unint64_t)count respectPlayCount:(BOOL)playCount;
 @end
 
 @implementation TVPPlaybackUtilities
@@ -85,6 +86,37 @@
   }
 
   return timeCopy;
+}
+
++ (int64_t)blueDotStateForDuration:(double)duration elapsedTime:(double)time hasBeenPlayed:(BOOL)played playCount:(unint64_t)count respectPlayCount:(BOOL)playCount
+{
+  if (!count || playCount)
+  {
+    v8 = 2 * (count != 0);
+    if (count || !played)
+    {
+      return v8;
+    }
+
+    if (time < 15.0)
+    {
+      return 0;
+    }
+  }
+
+  else if (time < 15.0)
+  {
+    return 2;
+  }
+
+  [self playedThresholdTimeForDuration:{played, duration}];
+  v8 = 2;
+  if (v9 > time)
+  {
+    return 1;
+  }
+
+  return v8;
 }
 
 @end

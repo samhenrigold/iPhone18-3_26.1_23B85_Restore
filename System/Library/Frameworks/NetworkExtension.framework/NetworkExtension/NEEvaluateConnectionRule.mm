@@ -5,6 +5,7 @@
 - (NEEvaluateConnectionRule)initWithMatchDomains:(NSArray *)domains andAction:(NEEvaluateConnectionRuleAction)action;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -25,7 +26,7 @@
   v6 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69827F0]];
   if (isa_nsstring(v6))
   {
-    if ([v6 isEqualToString:*MEMORY[0x1E6982990]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 1;
 LABEL_7:
@@ -33,7 +34,7 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    if ([v6 isEqualToString:*MEMORY[0x1E6982998]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 2;
       goto LABEL_7;
@@ -131,9 +132,44 @@ LABEL_6:
   return v3;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  action = [(NEEvaluateConnectionRule *)self action];
+  if (action == NEEvaluateConnectionRuleActionConnectIfNeeded)
+  {
+    v9 = @"connect-if-needed";
+  }
+
+  else
+  {
+    if (action != NEEvaluateConnectionRuleActionNeverConnect)
+    {
+      goto LABEL_6;
+    }
+
+    v9 = @"never-connect";
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"action" andIndent:v5 options:options];
+LABEL_6:
+  matchDomains = [(NEEvaluateConnectionRule *)self matchDomains];
+  [v7 appendPrettyObject:matchDomains withName:@"matchDomains" andIndent:v5 options:options | 1];
+
+  useDNSServers = [(NEEvaluateConnectionRule *)self useDNSServers];
+  [v7 appendPrettyObject:useDNSServers withName:@"useDNSServers" andIndent:v5 options:options | 1];
+
+  probeURL = [(NEEvaluateConnectionRule *)self probeURL];
+  absoluteString = [probeURL absoluteString];
+  [v7 appendPrettyObject:absoluteString withName:@"probeURL" andIndent:v5 options:options | 1];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([(NEEvaluateConnectionRule *)self action]>= NEEvaluateConnectionRuleActionConnectIfNeeded && [(NEEvaluateConnectionRule *)self action]< (NEEvaluateConnectionRuleActionNeverConnect|NEEvaluateConnectionRuleActionConnectIfNeeded))
   {
@@ -149,27 +185,27 @@ LABEL_6:
   matchDomains = [(NEEvaluateConnectionRule *)self matchDomains];
   if (matchDomains && (v7 = matchDomains, -[NEEvaluateConnectionRule matchDomains](self, "matchDomains"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 count], v8, v7, v9))
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     matchDomains2 = [(NEEvaluateConnectionRule *)self matchDomains];
-    v11 = [matchDomains2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v11 = [matchDomains2 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v27;
       do
       {
         v14 = 0;
         do
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(matchDomains2);
           }
 
-          if ((isa_nsstring(*(*(&v27 + 1) + 8 * v14)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v26 + 1) + 8 * v14)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v5 = 0;
@@ -179,7 +215,7 @@ LABEL_6:
         }
 
         while (v12 != v14);
-        v12 = [matchDomains2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v12 = [matchDomains2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v12);
@@ -196,27 +232,27 @@ LABEL_6:
 
   if (useDNSServers)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     useDNSServers2 = [(NEEvaluateConnectionRule *)self useDNSServers];
-    v17 = [useDNSServers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v17 = [useDNSServers2 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v24;
+      v19 = *v23;
       do
       {
         v20 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(useDNSServers2);
           }
 
-          if ((isa_nsstring(*(*(&v23 + 1) + 8 * v20)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v22 + 1) + 8 * v20)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v5 = 0;
@@ -226,14 +262,13 @@ LABEL_6:
         }
 
         while (v18 != v20);
-        v18 = [useDNSServers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v18 = [useDNSServers2 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v18);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 

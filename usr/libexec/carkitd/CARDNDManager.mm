@@ -14,17 +14,21 @@
 - (void)_disableDNDUntilEndOfDrive;
 - (void)_drivingModeChanged:(id)changed;
 - (void)_drivingModeEnded;
+- (void)_drivingModeStartedWithStartingGeofence:(BOOL)geofence;
 - (void)_endIdleExitTransaction;
 - (void)_migrateToDrivingActivityModeIfNeeded;
 - (void)_processVehicleState:(id)state;
 - (void)_scheduleUserDisabledTimerWithInterval:(double)interval;
 - (void)_scheduleVehicleQuery;
+- (void)_setDNDActive:(BOOL)active trigger:(int)trigger completion:(id)completion;
+- (void)_setDNDActive:(BOOL)active trigger:(int)trigger withStartingGeofence:(BOOL)geofence completion:(id)completion;
 - (void)_transitionToState:(unint64_t)state vehicularHints:(unint64_t)hints operatorState:(unint64_t)operatorState;
 - (void)_userDisabledTimerFired:(id)fired;
 - (void)assertionTrap:(id)trap didBecomeActive:(BOOL)active;
 - (void)dealloc;
 - (void)geofencingObserver:(id)observer didUpdateRegionState:(int64_t)state;
 - (void)modeAssertionService:(id)service didReceiveModeAssertionInvalidation:(id)invalidation;
+- (void)sendDrivingModeEventWithReason:(int)reason isStart:(BOOL)start;
 - (void)sessionDidConnect:(id)connect;
 - (void)sessionDidDisconnect:(id)disconnect;
 - (void)stateMachine:(id)machine receivedAirplaneMode:(BOOL)mode;
@@ -437,6 +441,118 @@ LABEL_10:
   dispatch_async(cARDNDQueue, block);
 }
 
+- (void)_setDNDActive:(BOOL)active trigger:(int)trigger completion:(id)completion
+{
+  v5 = *&trigger;
+  activeCopy = active;
+  completionCopy = completion;
+  v9 = ([(CARDNDManager *)self lastKnownVehicularHints]>> 4) & 1;
+  objc_initWeak(&location, self);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100064A94;
+  v11[3] = &unk_1000DFBF8;
+  v15 = activeCopy;
+  objc_copyWeak(&v13, &location);
+  v14 = v5;
+  v10 = completionCopy;
+  v12 = v10;
+  [(CARDNDManager *)self _setDNDActive:activeCopy trigger:v5 withStartingGeofence:v9 completion:v11];
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
+- (void)_setDNDActive:(BOOL)active trigger:(int)trigger withStartingGeofence:(BOOL)geofence completion:(id)completion
+{
+  v6 = *&trigger;
+  activeCopy = active;
+  completionCopy = completion;
+  isDNDValid = [(CARDNDManager *)self isDNDValid];
+  v11 = isDNDValid;
+  if (activeCopy)
+  {
+    v12 = CarDNDWDLogging();
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v11)
+    {
+      if (v13)
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Requested to enable Driving, but it's already active.", buf, 2u);
+      }
+
+      if (completionCopy)
+      {
+        completionCopy[2](completionCopy, 1);
+      }
+
+      goto LABEL_18;
+    }
+
+    if (v13)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Engaging Driving.", buf, 2u);
+    }
+
+    self->_expectedDNDTermination = 0;
+    self->_lastKnownVehicularState = 2;
+    assertionTrap = [(CARDNDManager *)self assertionTrap];
+    [assertionTrap releaseAllTemporaryAssertions];
+
+    [(CARDNDManager *)self setLastKnownReportTime:0.0];
+    v18 = +[CARAnalytics sharedInstance];
+    [v18 DNDStartedWithTrigger:v6 vehicleHints:{-[CARDNDManager lastKnownVehicularHints](self, "lastKnownVehicularHints")}];
+
+    [(CARDNDManager *)self sendDrivingModeEventWithReason:v6 isStart:1];
+    if (completionCopy)
+    {
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100064E20;
+      block[3] = &unk_1000DD960;
+      v22 = completionCopy;
+      dispatch_async(&_dispatch_main_q, block);
+      v16 = v22;
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    if ((isDNDValid & 1) == 0)
+    {
+      v14 = CarDNDWDLogging();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Requested to disable Driving, but it wasn't active.", buf, 2u);
+      }
+    }
+
+    self->_expectedDNDTermination = 1;
+    self->_activatedByUserAction = 0;
+    v15 = +[CARAnalytics sharedInstance];
+    [v15 DNDEndedWithTrigger:v6 vehicleHints:-[CARDNDManager lastKnownVehicularHints](self context:{"lastKnownVehicularHints"), 0}];
+
+    [(CARDNDManager *)self sendDrivingModeEventWithReason:v6 isStart:0];
+    if (completionCopy)
+    {
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100064E34;
+      v19[3] = &unk_1000DD960;
+      v20 = completionCopy;
+      dispatch_async(&_dispatch_main_q, v19);
+      v16 = v20;
+LABEL_17:
+    }
+  }
+
+LABEL_18:
+}
+
 - (void)_checkVehicleState
 {
   stateMachine = [(CARDNDManager *)self stateMachine];
@@ -797,6 +913,29 @@ LABEL_24:
   self->_vehicleQueryInitiatedTimestamp = v3;
   stateMachine = [(CARDNDManager *)self stateMachine];
   [stateMachine scheduleVehicleStateCheckWithDelay:30.0];
+}
+
+- (void)_drivingModeStartedWithStartingGeofence:(BOOL)geofence
+{
+  geofenceCopy = geofence;
+  v5 = CarDNDWDLogging();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Driving mode started.", v10, 2u);
+  }
+
+  [(CARDNDManager *)self _beginIdleExitTransaction];
+  geofencingObserver = [(CARDNDManager *)self geofencingObserver];
+  [geofencingObserver setDNDActive:1];
+
+  geofencingObserver2 = [(CARDNDManager *)self geofencingObserver];
+  [geofencingObserver2 beginMonitoringLOIsWithStartingLocationGeofence:geofenceCopy];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, CARAutomaticDNDStatusChangedNotification, 0, 0, 1u);
+  v9 = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(v9, CARAutomaticDNDEnabledNotification, 0, 0, 1u);
 }
 
 - (void)_drivingModeEnded
@@ -1169,6 +1308,31 @@ LABEL_12:
   }
 
 LABEL_23:
+}
+
+- (void)sendDrivingModeEventWithReason:(int)reason isStart:(BOOL)start
+{
+  startCopy = start;
+  v5 = *&reason;
+  v7 = CarDNDWDLogging();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [NSNumber numberWithBool:startCopy];
+    v9 = [NSNumber numberWithInt:v5];
+    v15 = 138412546;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Sending Driving event with start %@ reason %@", &v15, 0x16u);
+  }
+
+  drivingStream = [(CARDNDManager *)self drivingStream];
+  source = [drivingStream source];
+  v12 = [BMUserFocusDoNotDisturbWhileDriving alloc];
+  v13 = [NSNumber numberWithBool:startCopy];
+  v14 = [v12 initWithStarting:v13 reason:v5];
+
+  [source sendEvent:v14];
 }
 
 - (void)_processVehicleState:(id)state

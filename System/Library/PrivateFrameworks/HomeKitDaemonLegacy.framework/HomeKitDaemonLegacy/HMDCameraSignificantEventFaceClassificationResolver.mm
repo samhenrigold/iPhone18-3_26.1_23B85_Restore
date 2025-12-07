@@ -28,7 +28,7 @@
 
 - (id)personManagerWithUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   home = [(HMDCameraSignificantEventFaceClassificationResolver *)self home];
   v6 = home;
@@ -46,12 +46,12 @@
     else
     {
       users = [v6 users];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __77__HMDCameraSignificantEventFaceClassificationResolver_personManagerWithUUID___block_invoke;
-      v19[3] = &unk_27972E540;
-      v20 = dCopy;
-      v16 = [users na_firstObjectPassingTest:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __77__HMDCameraSignificantEventFaceClassificationResolver_personManagerWithUUID___block_invoke;
+      v18[3] = &unk_27972E540;
+      v19 = dCopy;
+      v16 = [users na_firstObjectPassingTest:v18];
       photosPersonManager = [v16 photosPersonManager];
     }
   }
@@ -65,15 +65,13 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v14;
+      v21 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Returning nil because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     photosPersonManager = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return photosPersonManager;
 }
@@ -89,35 +87,35 @@ uint64_t __77__HMDCameraSignificantEventFaceClassificationResolver_personManager
 
 - (id)_faceClassificationForSignificantEventFaceClassifications:(id)classifications user:(id)user
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   classificationsCopy = classifications;
   userCopy = user;
   home = [(HMDCameraSignificantEventFaceClassificationResolver *)self home];
   if (home)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v59 = classificationsCopy;
+    v58 = classificationsCopy;
     obj = classificationsCopy;
-    v65 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
-    if (v65)
+    v64 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+    if (v64)
     {
       selfCopy = self;
-      v63 = 0;
-      v64 = *v69;
+      v62 = 0;
+      v63 = *v68;
 LABEL_4:
       v7 = 0;
       while (1)
       {
-        if (*v69 != v64)
+        if (*v68 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v68 + 1) + 8 * v7);
+        v8 = *(*(&v67 + 1) + 8 * v7);
         photosPersonManager = [userCopy photosPersonManager];
         personManagerUUID = [v8 personManagerUUID];
         uUID = [photosPersonManager UUID];
@@ -143,7 +141,7 @@ LABEL_4:
 
               v53 = v52;
               firstObject = v53;
-              classificationsCopy = v59;
+              classificationsCopy = v58;
               v54 = array;
               goto LABEL_47;
             }
@@ -184,7 +182,7 @@ LABEL_4:
             v27 = objc_alloc(MEMORY[0x277CD1A28]);
             personManagerUUID5 = [v8 personManagerUUID];
             v24 = [v27 initWithPersonManagerUUID:personManagerUUID5 person:0 faceCrop:v26];
-            v29 = v63;
+            v29 = v62;
           }
 
           else
@@ -229,9 +227,9 @@ LABEL_27:
                 {
                   v43 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v73 = v43;
-                  v74 = 2112;
-                  v75 = v8;
+                  v72 = v43;
+                  v73 = 2112;
+                  v74 = v8;
                   _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Could not determine face classification for significant event face classification: %@", buf, 0x16u);
                 }
 
@@ -247,13 +245,13 @@ LABEL_27:
           }
         }
 
-        v63 = v24;
+        v62 = v24;
 LABEL_33:
 
-        if (v65 == ++v7)
+        if (v64 == ++v7)
         {
-          v65 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
-          if (v65)
+          v64 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+          if (v64)
           {
             goto LABEL_4;
           }
@@ -263,12 +261,12 @@ LABEL_33:
       }
     }
 
-    v63 = 0;
+    v62 = 0;
 LABEL_42:
 
 LABEL_43:
     v54 = array;
-    if (v63)
+    if (v62)
     {
       [MEMORY[0x277CBEB18] arrayWithObject:?];
     }
@@ -278,7 +276,7 @@ LABEL_43:
       [MEMORY[0x277CBEB18] array];
     }
     v55 = ;
-    classificationsCopy = v59;
+    classificationsCopy = v58;
     v56 = [array sortedArrayUsingComparator:&__block_literal_global_87749];
     [v55 addObjectsFromArray:v56];
     [v55 sortWithOptions:16 usingComparator:&__block_literal_global_4];
@@ -297,15 +295,13 @@ LABEL_47:
     {
       v47 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v73 = v47;
+      v72 = v47;
       _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@Not returning a face classification because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v44);
     firstObject = 0;
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -406,12 +402,11 @@ uint64_t __118__HMDCameraSignificantEventFaceClassificationResolver__faceClassif
 
 uint64_t __66__HMDCameraSignificantEventFaceClassificationResolver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_87760;
-  logCategory__hmf_once_v4_87760 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_87760;
+  logCategory__hmf_once_v4_87760 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

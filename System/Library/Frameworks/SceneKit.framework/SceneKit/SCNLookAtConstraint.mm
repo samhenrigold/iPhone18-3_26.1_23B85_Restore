@@ -21,9 +21,9 @@
 
 - (SCNLookAtConstraint)initWithTarget:(id)target
 {
-  v7.receiver = self;
-  v7.super_class = SCNLookAtConstraint;
-  v4 = [(SCNConstraint *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = SCNLookAtConstraint;
+  v4 = [(SCNConstraint *)&v8 init];
   if (v4)
   {
     targetCopy = target;
@@ -40,7 +40,7 @@
     *(v4 + 25) = -1082130432;
     *(v4 + 10) = 0x3F80000000000000;
     *(v4 + 22) = 0;
-    *(v4 + 1) = C3DConstraintCreateLookAt(targetCopy);
+    *(v4 + 1) = C3DConstraintCreateLookAt(targetCopy, v6);
   }
 
   return v4;
@@ -126,11 +126,11 @@
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"targetOffset" applyBlock:v8];
 }
 
-double __39__SCNLookAtConstraint_setTargetOffset___block_invoke(uint64_t a1, __n128 a2)
+double __39__SCNLookAtConstraint_setTargetOffset___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  *&result = C3DConstraintLookAtSetTargetOffset(*(*(a1 + 32) + 8), a2).n128_u64[0];
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  *&result = C3DConstraintLookAtSetTargetOffset(*(*(a1 + 32) + 8), a2, a3).n128_u64[0];
   return result;
 }
 
@@ -163,11 +163,11 @@ double __39__SCNLookAtConstraint_setTargetOffset___block_invoke(uint64_t a1, __n
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"worldUp" applyBlock:v8];
 }
 
-double __34__SCNLookAtConstraint_setWorldUp___block_invoke(uint64_t a1, __n128 a2)
+double __34__SCNLookAtConstraint_setWorldUp___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  *&result = C3DConstraintLookAtSetUpVector(*(*(a1 + 32) + 8), a2).n128_u64[0];
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  *&result = C3DConstraintLookAtSetUpVector(*(*(a1 + 32) + 8), a2, a3).n128_u64[0];
   return result;
 }
 
@@ -200,11 +200,11 @@ double __34__SCNLookAtConstraint_setWorldUp___block_invoke(uint64_t a1, __n128 a
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"localFront" applyBlock:v8];
 }
 
-void __37__SCNLookAtConstraint_setLocalFront___block_invoke(uint64_t a1, __n128 a2)
+void __37__SCNLookAtConstraint_setLocalFront___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  C3DConstraintLookAtSetLocalFront(*(*(a1 + 32) + 8), a2);
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  C3DConstraintLookAtSetLocalFront(*(*(a1 + 32) + 8), a2, a3);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -234,7 +234,8 @@ void __37__SCNLookAtConstraint_setLocalFront___block_invoke(uint64_t a1, __n128 
 {
   v5 = [constraint decodeObjectOfClass:objc_opt_class() forKey:@"target"];
   self->_target = v5;
-  self->super._constraintRef = C3DConstraintCreateLookAt([(SCNNode *)v5 nodeRef]);
+  nodeRef = [(SCNNode *)v5 nodeRef];
+  self->super._constraintRef = C3DConstraintCreateLookAt(nodeRef, v7);
 
   [(SCNConstraint *)self finalizeDecodeConstraint:constraint];
 }

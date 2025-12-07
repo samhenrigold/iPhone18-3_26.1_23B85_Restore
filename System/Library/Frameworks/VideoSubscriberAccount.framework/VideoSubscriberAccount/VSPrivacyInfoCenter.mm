@@ -31,9 +31,9 @@ uint64_t __46__VSPrivacyInfoCenter_sharedPrivacyInfoCenter__block_invoke()
 
 - (VSPrivacyInfoCenter)init
 {
-  v16.receiver = self;
-  v16.super_class = VSPrivacyInfoCenter;
-  v2 = [(VSPrivacyInfoCenter *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = VSPrivacyInfoCenter;
+  v2 = [(VSPrivacyInfoCenter *)&v17 init];
   if (v2)
   {
     objc_initWeak(&location, v2);
@@ -43,32 +43,32 @@ uint64_t __46__VSPrivacyInfoCenter_sharedPrivacyInfoCenter__block_invoke()
     handler[1] = 3221225472;
     handler[2] = __27__VSPrivacyInfoCenter_init__block_invoke;
     handler[3] = &unk_278B752E0;
-    objc_copyWeak(&v14, &location);
+    objc_copyWeak(&v15, &location);
     LODWORD(v3) = notify_register_dispatch("com.apple.tcc.access.changed", &v2->_registrationToken, v3, handler);
 
     if (v3)
     {
-      v5 = VSErrorLogObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = VSErrorLogObject(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(VSPrivacyInfoCenter *)v5 init];
+        [(VSPrivacyInfoCenter *)v6 init];
       }
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __27__VSPrivacyInfoCenter_init__block_invoke_6;
-    v11[3] = &unk_278B73400;
-    objc_copyWeak(&v12, &location);
-    v8 = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:mainQueue usingBlock:v11];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __27__VSPrivacyInfoCenter_init__block_invoke_6;
+    v12[3] = &unk_278B73400;
+    objc_copyWeak(&v13, &location);
+    v9 = [defaultCenter addObserverForName:@"UIApplicationDidEnterBackgroundNotification" object:0 queue:mainQueue usingBlock:v12];
 
-    v9 = +[VSManagedProfileConnection sharedConnection];
-    [v9 registerObserver:v2];
+    v10 = +[VSManagedProfileConnection sharedConnection];
+    [v10 registerObserver:v2];
 
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 
@@ -77,7 +77,7 @@ uint64_t __46__VSPrivacyInfoCenter_sharedPrivacyInfoCenter__block_invoke()
 
 void __27__VSPrivacyInfoCenter_init__block_invoke(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -90,7 +90,7 @@ void __27__VSPrivacyInfoCenter_init__block_invoke(uint64_t a1)
 
 void __27__VSPrivacyInfoCenter_init__block_invoke_6(uint64_t a1)
 {
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

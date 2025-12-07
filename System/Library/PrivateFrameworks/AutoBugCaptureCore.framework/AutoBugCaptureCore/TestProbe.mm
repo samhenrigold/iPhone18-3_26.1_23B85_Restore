@@ -183,73 +183,73 @@
 
 void __35__TestProbe_removeProbeOutputFiles__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) probeOutputFilePaths];
   if ([v1 count])
   {
     v2 = [MEMORY[0x277CCAA00] defaultManager];
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v13 = v1;
+    v19 = 0u;
+    v14 = v1;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v17;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
-          if ([v2 fileExistsAtPath:v8])
+          v8 = *(*(&v16 + 1) + 8 * i);
+          v9 = [v2 fileExistsAtPath:v8];
+          if (v9)
           {
-            v14 = 0;
-            v9 = [v2 removeItemAtPath:v8 error:&v14];
-            v10 = v14;
-            if ((v9 & 1) == 0)
+            v15 = 0;
+            v10 = [v2 removeItemAtPath:v8 error:&v15];
+            v11 = v15;
+            v12 = v11;
+            if ((v10 & 1) == 0)
             {
-              v11 = symptomsLogHandle();
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+              v13 = symptomsLogHandle(v11);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v20 = v8;
-                v21 = 2112;
-                v22 = v10;
-                _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Couldn't delete canceled file: %@ because %@", buf, 0x16u);
+                v21 = v8;
+                v22 = 2112;
+                v23 = v12;
+                _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "Couldn't delete canceled file: %@ because %@", buf, 0x16u);
               }
             }
           }
 
           else
           {
-            v10 = symptomsLogHandle();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v12 = symptomsLogHandle(v9);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v20 = v8;
-              _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Couldn't locate file at %@", buf, 0xCu);
+              v21 = v8;
+              _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Couldn't locate file at %@", buf, 0xCu);
             }
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v5);
     }
 
-    v1 = v13;
+    v1 = v14;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -381,29 +381,29 @@ BOOL __45__VoiceOverActivitiesController_canEditTable__block_invoke(id a1, PSSpe
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v3;
+    v20 = v3;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Removed activity: %@", buf, 0xCu);
   }
 
   if (v3)
   {
-    v16 = @"delete";
+    v17 = @"delete";
     uuid = [v3 uuid];
     uUIDString = [uuid UUIDString];
-    v15 = uUIDString;
-    v11 = [NSArray arrayWithObjects:&v15 count:1];
-    v17 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v16 = uUIDString;
+    v12 = [NSArray arrayWithObjects:&v16 count:1];
+    v18 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   }
 
   else
   {
-    v12 = &__NSDictionary0__struct;
+    v13 = &__NSDictionary0__struct;
   }
 
-  v13 = AXAssetAndDataClient();
-  v14 = +[AXAccessQueue mainAccessQueue];
-  [v13 sendAsynchronousMessage:v12 withIdentifier:2 targetAccessQueue:v14 completion:0];
+  v14 = AXAssetAndDataClient(v9);
+  v15 = +[AXAccessQueue mainAccessQueue];
+  [v14 sendAsynchronousMessage:v13 withIdentifier:2 targetAccessQueue:v15 completion:0];
 }
 
 @end

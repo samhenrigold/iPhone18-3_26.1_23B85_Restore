@@ -13,32 +13,32 @@
 {
   queueCopy = queue;
   delegateCopy = delegate;
-  if (!LSSHasInternalUI())
+  if (!LSSHasInternalUI(delegateCopy, v9))
   {
     selfCopy = 0;
     goto LABEL_9;
   }
 
-  v17.receiver = self;
-  v17.super_class = LSSTestProvider;
-  v9 = [(LSSTestProvider *)&v17 init];
-  if (v9)
+  v18.receiver = self;
+  v18.super_class = LSSTestProvider;
+  v10 = [(LSSTestProvider *)&v18 init];
+  if (v10)
   {
     if (qword_280D2F630 == -1)
     {
-      v10 = _MergedGlobals_17;
+      v11 = _MergedGlobals_17;
       if (!os_log_type_enabled(_MergedGlobals_17, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_6:
-        objc_storeStrong(&v9->_queue, queue);
-        objc_storeWeak(&v9->_delegate, delegateCopy);
-        v11 = +[LSSSettings currentSettings];
-        v9->_expectRealtimeUpdates = [(LSSSettings *)v11 BOOLForKey:?];
-        defaults = [(LSSSettings *)v11 defaults];
-        [defaults addObserver:v9 forKeyPath:@"test_realtime" options:1 context:0];
+        objc_storeStrong(&v10->_queue, queue);
+        objc_storeWeak(&v10->_delegate, delegateCopy);
+        v12 = +[LSSSettings currentSettings];
+        v10->_expectRealtimeUpdates = [(LSSSettings *)v12 BOOLForKey:?];
+        defaults = [(LSSSettings *)v12 defaults];
+        [defaults addObserver:v10 forKeyPath:@"test_realtime" options:1 context:0];
 
-        defaults2 = [(LSSSettings *)v11 defaults];
-        [defaults2 addObserver:v9 forKeyPath:@"test_lightAngle" options:5 context:0];
+        defaults2 = [(LSSSettings *)v12 defaults];
+        [defaults2 addObserver:v10 forKeyPath:@"test_lightAngle" options:5 context:0];
 
         goto LABEL_7;
       }
@@ -47,20 +47,20 @@ LABEL_6:
     else
     {
       [LSSTestProvider initWithQueue:delegate:];
-      v10 = _MergedGlobals_17;
+      v11 = _MergedGlobals_17;
       if (!os_log_type_enabled(_MergedGlobals_17, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
     }
 
-    *v16 = 0;
-    _os_log_impl(&dword_255E8B000, v10, OS_LOG_TYPE_DEFAULT, "starting", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_255E8B000, v11, OS_LOG_TYPE_DEFAULT, "starting", v17, 2u);
     goto LABEL_6;
   }
 
 LABEL_7:
-  self = v9;
+  self = v10;
   selfCopy = self;
 LABEL_9:
 
@@ -184,7 +184,7 @@ LABEL_16:
 
 - (void)_updateAngle:(double)angle forTime:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (qword_280D2F630 != -1)
@@ -230,18 +230,16 @@ LABEL_16:
     *(self + 116) = v9;
     memcpy(__dst, (self + 32), 0x60uLL);
     WeakRetained = objc_loadWeakRetained((self + 136));
-    OUTLINED_FUNCTION_0_8(WeakRetained, v11, v12, v13, v14, v15, v16, v17, v19[0], v19[1], v19[2], v19[3], v19[4], v19[5], v19[6], v19[7], v19[8], v19[9], v19[10], v19[11], __dst[0]);
-    [v6 provider:self updatedLight:v19];
+    OUTLINED_FUNCTION_0_8(WeakRetained, v11, v12, v13, v14, v15, v16, v17, v18[0], v18[1], v18[2], v18[3], v18[4], v18[5], v18[6], v18[7], v18[8], v18[9], v18[10], v18[11]);
+    [v6 provider:self updatedLight:v18];
 
     *(self + 16) = 1;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRealtime:(double)realtime forTime:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (qword_280D2F630 != -1)
@@ -278,13 +276,11 @@ LABEL_16:
         *(self + 116) = 0;
         memcpy(buf, (self + 32), 0x60uLL);
         WeakRetained = objc_loadWeakRetained((self + 136));
-        OUTLINED_FUNCTION_0_8(WeakRetained, v9, v10, v11, v12, v13, v14, v15, v17[0], v17[1], v17[2], v17[3], v17[4], v17[5], v17[6], v17[7], v17[8], v17[9], v17[10], v17[11], buf[0]);
-        [v7 provider:self updatedLight:v17];
+        OUTLINED_FUNCTION_0_8(WeakRetained, v9, v10, v11, v12, v13, v14, v15, v16[0], v16[1], v16[2], v16[3], v16[4], v16[5], v16[6], v16[7], v16[8], v16[9], v16[10], v16[11]);
+        [v7 provider:self updatedLight:v16];
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __66__LSSTestProvider_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)

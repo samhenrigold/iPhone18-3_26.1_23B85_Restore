@@ -7,13 +7,13 @@
 
 - (id)cmsCoded
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   mediaDestinationType = [self mediaDestinationType];
   if (mediaDestinationType == 2)
   {
-    v15[0] = @"mediaDestinationType";
-    v15[1] = @"playlistName";
-    v16[0] = @"playlist";
+    v14[0] = @"mediaDestinationType";
+    v14[1] = @"playlistName";
+    v15[0] = @"playlist";
     playlistName = [self playlistName];
     v4 = playlistName;
     v5 = &stru_2856A7BB0;
@@ -22,27 +22,25 @@
       v5 = playlistName;
     }
 
-    v16[1] = v5;
+    v15[1] = v5;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = v16;
-    v8 = v15;
+    v7 = v15;
+    v8 = v14;
     v9 = 2;
   }
 
   else
   {
-    v13 = @"mediaDestinationType";
+    v12 = @"mediaDestinationType";
     v4 = INMediaDestinationTypeToString(mediaDestinationType);
-    v14 = v4;
+    v13 = v4;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = &v14;
-    v8 = &v13;
+    v7 = &v13;
+    v8 = &v12;
     v9 = 1;
   }
 
   v10 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

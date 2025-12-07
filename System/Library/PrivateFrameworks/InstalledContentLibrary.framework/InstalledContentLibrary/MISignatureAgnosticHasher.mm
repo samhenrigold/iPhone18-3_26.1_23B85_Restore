@@ -600,7 +600,7 @@ LABEL_8:
   return v11;
 }
 
-uint64_t __50__MISignatureAgnosticHasher_performHashWithError___block_invoke(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __50__MISignatureAgnosticHasher_performHashWithError___block_invoke(uint64_t a1, _DWORD *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a3[3];
   if (v9 != 2)

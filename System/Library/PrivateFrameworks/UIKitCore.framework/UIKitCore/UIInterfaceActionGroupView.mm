@@ -256,7 +256,7 @@
 - (void)setActionGroup:(id)group
 {
   groupCopy = group;
-  if (([groupCopy isEqual:self->_actionGroup] & 1) == 0)
+  if ((objc_msgSend_isEqual_(groupCopy) & 1) == 0)
   {
     [(UIInterfaceActionGroupView *)self _removeUsAsThePresentingViewControllerForAllActions];
     _visualStyle = [groupCopy _visualStyle];
@@ -338,7 +338,7 @@
 - (void)setAllowedActionLayoutAxisByPriority:(id)priority
 {
   priorityCopy = priority;
-  if (([priorityCopy isEqual:self->_allowedActionLayoutAxisByPriority] & 1) == 0)
+  if ((objc_msgSend_isEqual_(priorityCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_allowedActionLayoutAxisByPriority, priority);
     [(UIInterfaceActionGroupView *)self setActionLayoutAxis:-1];
@@ -806,9 +806,9 @@ void __59__UIInterfaceActionGroupView_preferredActionRepresentation__block_invok
     self->_isSettingVisualStyle = 1;
     v7 = styleCopy;
     _visualStyle = [(UIInterfaceActionGroup *)self->_actionGroup _visualStyle];
-    v6 = [_visualStyle isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(_visualStyle);
 
-    if ((v6 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [(UIInterfaceActionGroup *)self->_actionGroup _setVisualStyle:v7];
       [(UIInterfaceActionGroupView *)self _applyVisualStyle];
@@ -825,9 +825,9 @@ void __59__UIInterfaceActionGroupView_preferredActionRepresentation__block_invok
   v6 = [(UIInterfaceActionGroupView *)self _loadVisualStyleForTraitCollection:traitCollection];
 
   _visualStyle = [(UIInterfaceActionGroup *)self->_actionGroup _visualStyle];
-  v5 = [_visualStyle isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(_visualStyle);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UIInterfaceActionGroupView *)self _setAndApplyVisualStyle:v6];
   }
@@ -936,7 +936,7 @@ void __59__UIInterfaceActionGroupView_preferredActionRepresentation__block_invok
   return v4;
 }
 
-uint64_t __80__UIInterfaceActionGroupView__shouldAllowPassthroughToLayersBehindUsForTouches___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__80__UIInterfaceActionGroupView__shouldAllowPassthroughToLayersBehindUsForTouches___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   [a2 locationInView:*(a1 + 32)];
   result = [*(a1 + 32) pointInside:0 withEvent:?];
@@ -1098,7 +1098,7 @@ uint64_t __80__UIInterfaceActionGroupView__shouldAllowPassthroughToLayersBehindU
   bidirectionalCopy = bidirectional;
   viewsCopy = views;
   [viewsCopy compact];
-  if (([(NSPointerArray *)self->_weakSimultaneouslyPresentedGroupViews isEqual:viewsCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_weakSimultaneouslyPresentedGroupViews) & 1) == 0)
   {
     objc_storeStrong(&self->_weakSimultaneouslyPresentedGroupViews, views);
     v8 = viewsCopy;
@@ -1402,7 +1402,7 @@ LABEL_11:
   traitCollection = [(UIView *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
-  if (![v4 isEqual:v6] || preferredContentSizeCategory != self->_cachedSizeCategory)
+  if (!objc_msgSend_isEqual_(v4) || preferredContentSizeCategory != self->_cachedSizeCategory)
   {
     objc_storeStrong(&self->_cachedSizeCategory, preferredContentSizeCategory);
     v68 = 0u;
@@ -1761,9 +1761,9 @@ LABEL_11:
 
   v25 = [(UIInterfaceActionGroupView *)selfCopy _defaultOrderingForActionRepresentationViews:array];
   arrangedActionRepresentationViews2 = [(_UIInterfaceActionRepresentationsSequenceView *)selfCopy->_actionSequenceView arrangedActionRepresentationViews];
-  v27 = [arrangedActionRepresentationViews2 isEqual:v25];
+  isEqual = objc_msgSend_isEqual_(arrangedActionRepresentationViews2);
 
-  if ((v27 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(_UIInterfaceActionRepresentationsSequenceView *)selfCopy->_actionSequenceView setArrangedActionRepresentationViews:v25];
     actionSelectionController = selfCopy->_actionSelectionController;
@@ -1981,7 +1981,7 @@ id __91__UIInterfaceActionGroupView__visualStyleByApplyingOurTraitsToVisualStyle
 - (void)_applyVisualStyle
 {
   obj = [(UIInterfaceActionGroupView *)self visualStyle];
-  if (![(UIInterfaceActionVisualStyle *)self->_appliedVisualStyle isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_appliedVisualStyle) & 1) == 0)
   {
     [obj maximumActionGroupContentSize];
     [(_UIContentConstraintsLayoutGuide *)self->_contentGuide setMaximumSize:?];
@@ -2229,9 +2229,9 @@ BOOL __75__UIInterfaceActionGroupView__defaultOrderingForActionRepresentationVie
 
         v9 = *(*(&v13 + 1) + 8 * i);
         action = [v9 action];
-        v11 = [action isEqual:actionCopy];
+        isEqual = objc_msgSend_isEqual_(action);
 
-        if (v11)
+        if (isEqual)
         {
           v6 = v9;
           goto LABEL_11;
@@ -2501,7 +2501,7 @@ LABEL_11:
 - (void)_setVisualStyleOverrideSeparatorAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (![(UIInterfaceActionSeparatorAttributes *)self->_visualStyleOverrideSeparatorAttributes isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_visualStyleOverrideSeparatorAttributes) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyleOverrideSeparatorAttributes, attributes);
     [(UIInterfaceActionGroupView *)self reloadVisualStyle];
@@ -2511,7 +2511,7 @@ LABEL_11:
 - (void)_setVisualStyleOverrideActionHighlightAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (![(UIInterfaceActionHighlightAttributes *)self->_visualStyleOverrideActionHighlightAttributes isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_visualStyleOverrideActionHighlightAttributes) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyleOverrideActionHighlightAttributes, attributes);
     [(UIInterfaceActionGroupView *)self reloadVisualStyle];
@@ -2521,7 +2521,7 @@ LABEL_11:
 - (void)_setVisualStyleOverrideTitleLabelFont:(id)font
 {
   fontCopy = font;
-  if (([(UIFont *)self->_visualStyleOverrideTitleLabelFont isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_visualStyleOverrideTitleLabelFont) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyleOverrideTitleLabelFont, font);
     [(UIInterfaceActionGroupView *)self reloadVisualStyle];

@@ -47,7 +47,7 @@
 
 - (void)readPasteboardObjectWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

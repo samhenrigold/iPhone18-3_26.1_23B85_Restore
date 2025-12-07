@@ -5,39 +5,39 @@
 
 void ___MRServiceHandleBrowsableContentMessage_block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   if (v2 <= 0x500000000000003)
   {
     switch(v2)
     {
       case 0x500000000000001:
-        v24 = *(a1 + 48);
-        v25 = *(a1 + 32);
-        v5 = v25;
-        if (v24 && v24[1])
+        v23 = *(a1 + 48);
+        v24 = *(a1 + 32);
+        v5 = v24;
+        if (v23 && v23[1])
         {
-          *&v46 = 0;
-          data = xpc_dictionary_get_data(v25, "MRXPC_INDEXPATH_DATA_KEY", &v46);
+          *&v42 = 0;
+          data = xpc_dictionary_get_data(v24, "MRXPC_INDEXPATH_DATA_KEY", &v42);
           if (data)
           {
-            v27 = v46 >> 3;
+            v26 = v42 >> 3;
           }
 
           else
           {
-            v27 = 0;
+            v26 = 0;
           }
 
-          v30 = v24;
-          v28 = *v24;
-          v29 = v30[1];
-          *&v46 = MEMORY[0x1E69E9820];
-          *(&v46 + 1) = 3221225472;
-          v47 = ___MRServiceHandleBeginLoadingContentMessage_block_invoke;
-          v48 = &unk_1E769C758;
-          v49 = v5;
-          v29(data, v27, v28, &v46);
+          v29 = v23;
+          v27 = *v23;
+          v28 = v29[1];
+          *&v42 = MEMORY[0x1E69E9820];
+          *(&v42 + 1) = 3221225472;
+          v43 = ___MRServiceHandleBeginLoadingContentMessage_block_invoke;
+          v44 = &unk_1E769C758;
+          v45 = v5;
+          v28(data, v26, v27, &v42);
 
           goto LABEL_60;
         }
@@ -46,27 +46,27 @@ void ___MRServiceHandleBrowsableContentMessage_block_invoke(uint64_t a1)
         _MRServiceSendReplyWithClientError(v5, Error);
         goto LABEL_59;
       case 0x500000000000002:
-        v41 = *(a1 + 48);
+        v38 = *(a1 + 48);
         v5 = *(a1 + 32);
-        if (!v41)
+        if (!v38)
         {
           goto LABEL_60;
         }
 
-        v42 = v41[2];
-        if (!v42)
+        v39 = v38[2];
+        if (!v39)
         {
           goto LABEL_60;
         }
 
-        Error = v42(*v41);
+        Error = v39(*v38);
         if (!Error)
         {
-          v43 = _MRLogForCategory(0);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v40 = _MRLogForCategory(0);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v46) = 0;
-            _os_log_impl(&dword_1A2860000, v43, OS_LOG_TYPE_DEFAULT, "WARNING: Client endpoint returned nil when requesting now playing identifiers", &v46, 2u);
+            LOWORD(v42) = 0;
+            _os_log_impl(&dword_1A2860000, v40, OS_LOG_TYPE_DEFAULT, "WARNING: Client endpoint returned nil when requesting now playing identifiers", &v42, 2u);
           }
         }
 
@@ -84,8 +84,8 @@ void ___MRServiceHandleBrowsableContentMessage_block_invoke(uint64_t a1)
 
         if (Error)
         {
-          v44 = [MEMORY[0x1E696AE40] dataWithPropertyList:Error format:200 options:0 error:0];
-          xpc_dictionary_set_data(reply, "MRXPC_CONTENT_NOW_PLAYING_IDENTIFIERS_KEY", [v44 bytes], objc_msgSend(v44, "length"));
+          v41 = [MEMORY[0x1E696AE40] dataWithPropertyList:Error format:200 options:0 error:0];
+          xpc_dictionary_set_data(reply, "MRXPC_CONTENT_NOW_PLAYING_IDENTIFIERS_KEY", [v41 bytes], objc_msgSend(v41, "length"));
         }
 
         goto LABEL_55;
@@ -93,31 +93,30 @@ void ___MRServiceHandleBrowsableContentMessage_block_invoke(uint64_t a1)
         v14 = *(a1 + 48);
         v15 = *(a1 + 32);
         v5 = v15;
-        if (!v14 || !v14[3])
+        if (!v14 || !*(v14 + 24))
         {
           goto LABEL_60;
         }
 
-        *&v46 = 0;
-        xpc_dictionary_get_data(v15, "MRXPC_INDEXPATH_DATA_KEY", &v46);
-        v16 = *v14;
-        v17 = (v14[3])();
+        *&v42 = 0;
+        xpc_dictionary_get_data(v15, "MRXPC_INDEXPATH_DATA_KEY", &v42);
+        v16 = (*(v14 + 24))();
         Error = xpc_dictionary_get_remote_connection(v5);
         if (!Error)
         {
           goto LABEL_59;
         }
 
-        v18 = xpc_dictionary_create_reply(v5);
-        v19 = v18;
-        if (!v18)
+        v17 = xpc_dictionary_create_reply(v5);
+        v18 = v17;
+        if (!v17)
         {
           goto LABEL_41;
         }
 
-        xpc_dictionary_set_BOOL(v18, "MRXPC_CONTENT_SUPPORTS_PLAYBACK_PROGRESS_KEY", v17);
+        xpc_dictionary_set_BOOL(v17, "MRXPC_CONTENT_SUPPORTS_PLAYBACK_PROGRESS_KEY", v16);
 LABEL_40:
-        xpc_connection_send_message(Error, v19);
+        xpc_connection_send_message(Error, v18);
 LABEL_41:
 
         goto LABEL_59;
@@ -138,11 +137,11 @@ LABEL_41:
           goto LABEL_60;
         }
 
-        *&v46 = 0;
-        v6 = xpc_dictionary_get_data(v4, "MRXPC_INDEXPATH_DATA_KEY", &v46);
+        *&v42 = 0;
+        v6 = xpc_dictionary_get_data(v4, "MRXPC_INDEXPATH_DATA_KEY", &v42);
         if (v6)
         {
-          v7 = v46 >> 3;
+          v7 = v42 >> 3;
         }
 
         else
@@ -158,8 +157,8 @@ LABEL_41:
           v11 = _MRLogForCategory(0);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v46) = 0;
-            _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "Client endpoint returned nil when requesting child content items.", &v46, 2u);
+            LOWORD(v42) = 0;
+            _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "Client endpoint returned nil when requesting child content items.", &v42, 2u);
           }
 
           goto LABEL_57;
@@ -188,46 +187,44 @@ LABEL_55:
         goto LABEL_56;
       }
 
-      v33 = *(a1 + 48);
-      v34 = *(a1 + 32);
-      v5 = v34;
-      if (!v33 || !v33[4])
+      v32 = *(a1 + 48);
+      v33 = *(a1 + 32);
+      v5 = v33;
+      if (!v32 || !*(v32 + 32))
       {
         goto LABEL_60;
       }
 
-      *&v46 = 0;
-      xpc_dictionary_get_data(v34, "MRXPC_INDEXPATH_DATA_KEY", &v46);
-      v35 = *v33;
-      v36 = (v33[4])();
+      *&v42 = 0;
+      xpc_dictionary_get_data(v33, "MRXPC_INDEXPATH_DATA_KEY", &v42);
+      v34 = (*(v32 + 32))();
       Error = xpc_dictionary_get_remote_connection(v5);
       if (!Error)
       {
         goto LABEL_59;
       }
 
-      v37 = xpc_dictionary_create_reply(v5);
-      v19 = v37;
-      if (!v37)
+      v35 = xpc_dictionary_create_reply(v5);
+      v18 = v35;
+      if (!v35)
       {
         goto LABEL_41;
       }
 
-      xpc_dictionary_set_uint64(v37, "MRXPC_CONTENT_CHILD_ITEMS_COUNT_KEY", v36);
+      xpc_dictionary_set_uint64(v35, "MRXPC_CONTENT_CHILD_ITEMS_COUNT_KEY", v34);
       goto LABEL_40;
     }
 
     if (v2 == 0x500000000000006)
     {
-      v38 = *(a1 + 48);
-      v39 = *(a1 + 32);
-      v5 = v39;
-      if (v38 && v38[6])
+      v36 = *(a1 + 48);
+      v37 = *(a1 + 32);
+      v5 = v37;
+      if (v36 && *(v36 + 48))
       {
-        *&v46 = 0;
-        xpc_dictionary_get_data(v39, "MRXPC_INDEXPATH_DATA_KEY", &v46);
-        v40 = *v38;
-        (v38[6])();
+        *&v42 = 0;
+        xpc_dictionary_get_data(v37, "MRXPC_INDEXPATH_DATA_KEY", &v42);
+        (*(v36 + 48))();
       }
 
       goto LABEL_60;
@@ -235,43 +232,40 @@ LABEL_55:
 
     if (v2 == 0x50000000000000ALL)
     {
-      v20 = *(a1 + 48);
-      v21 = *(a1 + 32);
-      v5 = v21;
-      if (!v20 || !v20[7])
+      v19 = *(a1 + 48);
+      v20 = *(a1 + 32);
+      v5 = v20;
+      if (!v19 || !v19[7])
       {
-        _MRServiceSendReply(v21, 6uLL);
+        _MRServiceSendReply(v20, 6uLL);
         goto LABEL_60;
       }
 
-      Error = MRCreatePropertyListFromXPCMessage(v21, "MRXPC_CONTENT_IDENTIFIERS");
-      v22 = v20[7];
-      v23 = *v20;
-      *&v46 = MEMORY[0x1E69E9820];
-      *(&v46 + 1) = 3221225472;
-      v47 = ___MRServiceHandleGetContentItemsForIdentifiers_block_invoke;
-      v48 = &unk_1E769C690;
-      v49 = v5;
-      v22(Error, v23, &v46);
+      Error = MRCreatePropertyListFromXPCMessage(v20, "MRXPC_CONTENT_IDENTIFIERS");
+      v21 = v19[7];
+      v22 = *v19;
+      *&v42 = MEMORY[0x1E69E9820];
+      *(&v42 + 1) = 3221225472;
+      v43 = ___MRServiceHandleGetContentItemsForIdentifiers_block_invoke;
+      v44 = &unk_1E769C690;
+      v45 = v5;
+      v21(Error, v22, &v42);
 
 LABEL_59:
 LABEL_60:
 
-      goto LABEL_61;
+      return;
     }
   }
 
-  v31 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v30 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = *(a1 + 40);
-    LODWORD(v46) = 134217984;
-    *(&v46 + 4) = v32;
-    _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_DEFAULT, "Client-side browsable content message with ID %lu not handled.", &v46, 0xCu);
+    v31 = *(a1 + 40);
+    LODWORD(v42) = 134217984;
+    *(&v42 + 4) = v31;
+    _os_log_impl(&dword_1A2860000, v30, OS_LOG_TYPE_DEFAULT, "Client-side browsable content message with ID %lu not handled.", &v42, 0xCu);
   }
-
-LABEL_61:
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 @end

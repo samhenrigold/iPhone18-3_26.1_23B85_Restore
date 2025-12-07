@@ -41,38 +41,36 @@
 
 + (id)createPuppetRecords
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   animojiNames = [MEMORY[0x277CF04A8] animojiNames];
-  v4 = [animojiNames countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [animojiNames countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(animojiNames);
         }
 
-        v8 = [[AVTAvatarPuppetRecord alloc] initWithPuppetName:*(*(&v11 + 1) + 8 * i)];
+        v8 = [[AVTAvatarPuppetRecord alloc] initWithPuppetName:*(*(&v10 + 1) + 8 * i)];
         [array addObject:v8];
       }
 
-      v5 = [animojiNames countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [animojiNames countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -132,56 +130,56 @@ LABEL_14:
 - (id)avatarsWithIdentifiers:(id)identifiers error:(id *)error
 {
   errorCopy = error;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = identifiersCopy;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         puppetRecords = [(AVTPuppetStore *)self puppetRecords];
         v12 = [AVTAvatarPuppetRecord matchingIdentifierTest:v10];
         v13 = [puppetRecords indexOfObjectPassingTest:v12];
 
         if (v13 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v20 addObject:v10];
+          [v19 addObject:v10];
         }
 
         else
         {
           puppetRecords2 = [(AVTPuppetStore *)self puppetRecords];
           v15 = [puppetRecords2 objectAtIndexedSubscript:v13];
-          [v21 addObject:v15];
+          [v20 addObject:v15];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  if ([v21 count])
+  if ([v20 count])
   {
-    v16 = [v21 copy];
+    v16 = [v20 copy];
   }
 
   else if (errorCopy)
@@ -194,8 +192,6 @@ LABEL_14:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -253,7 +249,7 @@ BOOL __50__AVTPuppetStore_allAvatarPuppetsExcluding_error___block_invoke(uint64_
 
 - (id)primaryAvatarPuppet
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   puppetRecords = [(AVTPuppetStore *)self puppetRecords];
   v4 = [puppetRecords count];
 
@@ -262,16 +258,14 @@ BOOL __50__AVTPuppetStore_allAvatarPuppetsExcluding_error___block_invoke(uint64_
     puppetRecords2 = [(AVTPuppetStore *)self puppetRecords];
     firstObject = [puppetRecords2 firstObject];
     v7 = [firstObject copy];
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

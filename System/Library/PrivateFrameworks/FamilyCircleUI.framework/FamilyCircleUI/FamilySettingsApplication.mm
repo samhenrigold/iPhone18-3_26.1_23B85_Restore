@@ -17,7 +17,7 @@
 
   type metadata accessor for AIDAServiceType(0);
   sub_21BB3A2A4(0, &qword_280BD68E0, 0x277CB8F30);
-  sub_21BB3E240(&unk_280BD6960, type metadata accessor for AIDAServiceType);
+  sub_21BB3E240(&unk_280BD6960, type metadata accessor for AIDAServiceType, byte_21BE322E4);
   v9 = sub_21BE288EC();
 
   return v9;

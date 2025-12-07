@@ -31,7 +31,7 @@
 
 - (BOOL)boostFileProvider
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   fpReady = selfCopy->_fpReady;
@@ -53,18 +53,18 @@
         v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5 isDirectory:1];
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v13 = 0x3032000000;
-        v14 = __Block_byref_object_copy__56;
-        v15 = __Block_byref_object_dispose__56;
-        v16 = 0;
+        v12 = 0x3032000000;
+        v13 = __Block_byref_object_copy__56;
+        v14 = __Block_byref_object_dispose__56;
+        v15 = 0;
         synchronousSharedConnectionProxy = [MEMORY[0x277CC63A8] synchronousSharedConnectionProxy];
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __47__BRCFileProviderDaemonUtils_boostFileProvider__block_invoke;
-        v11[3] = &unk_278508260;
-        v11[4] = selfCopy;
-        v11[5] = &buf;
-        [synchronousSharedConnectionProxy wakeUpForURL:v6 completionHandler:v11];
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __47__BRCFileProviderDaemonUtils_boostFileProvider__block_invoke;
+        v10[3] = &unk_278508260;
+        v10[4] = selfCopy;
+        v10[5] = &buf;
+        [synchronousSharedConnectionProxy wakeUpForURL:v6 completionHandler:v10];
 
         fpReady = *(*(&buf + 1) + 40) == 0;
         _Block_object_dispose(&buf, 8);
@@ -73,12 +73,12 @@
       else
       {
         v6 = brc_bread_crumbs();
-        v10 = brc_default_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v9 = brc_default_log();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138412290;
           *(&buf + 4) = v6;
-          _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't find Mobile Documents path for current persona%@", &buf, 0xCu);
+          _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't find Mobile Documents path for current persona%@", &buf, 0xCu);
         }
 
         fpReady = 0;
@@ -87,11 +87,10 @@
 
     else
     {
-      fpReady = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return fpReady;
 }
 
@@ -143,28 +142,26 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
 
 - (void)interrupt
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] got interrupted%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] got interrupted%@", &v5, 0xCu);
   }
 
   selfCopy->_interrupted = 1;
   dispatch_semaphore_signal(selfCopy->_waitForFPSemaphore);
   objc_sync_exit(selfCopy);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signalFPReady
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_fpReady)
@@ -173,9 +170,9 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] FP is now ready to accept xpc connections%@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] FP is now ready to accept xpc connections%@", &v5, 0xCu);
     }
 
     selfCopy->_fpReady = 1;
@@ -183,8 +180,6 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
   }
 
   objc_sync_exit(selfCopy);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_waitIsOver
@@ -224,7 +219,7 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
 
 - (BOOL)waitForFPToBeReadyToAcceptXPCWithError:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (!self->_isFPFS && self->_inSyncBubble)
   {
     v4 = brc_bread_crumbs();
@@ -232,7 +227,7 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = v4;
+      v44 = v4;
       _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] Device is in sync bubble%@", buf, 0xCu);
     }
 
@@ -244,20 +239,20 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
       v9 = brc_default_log();
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v40 = "(passed to caller)";
+        v39 = "(passed to caller)";
         *buf = 136315906;
-        v45 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
-        v46 = 2080;
+        v44 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
+        v45 = 2080;
         if (!error)
         {
-          v40 = "(ignored by caller)";
+          v39 = "(ignored by caller)";
         }
 
-        v47 = v40;
-        v48 = 2112;
-        v49 = brc_errorCantCallFPInSyncBubble;
-        v50 = 2112;
-        v51 = v8;
+        v46 = v39;
+        v47 = 2112;
+        v48 = brc_errorCantCallFPInSyncBubble;
+        v49 = 2112;
+        v50 = v8;
         _os_log_error_impl(&dword_223E7A000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -298,12 +293,12 @@ uint64_t __44__BRCFileProviderDaemonUtils_sharedInstance__block_invoke(uint64_t 
 
     else
     {
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __69__BRCFileProviderDaemonUtils_waitForFPToBeReadyToAcceptXPCWithError___block_invoke;
-      v43[3] = &unk_278500DC8;
-      v43[4] = selfCopy;
-      v17 = [MEMORY[0x277CC6420] beginMonitoringProviderDomainChangesWithHandler:v43];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __69__BRCFileProviderDaemonUtils_waitForFPToBeReadyToAcceptXPCWithError___block_invoke;
+      v42[3] = &unk_278500DC8;
+      v42[4] = selfCopy;
+      v17 = [MEMORY[0x277CC6420] beginMonitoringProviderDomainChangesWithHandler:v42];
       v18 = [BRCUserDefaults defaultsForMangledID:0];
       fpReadyForXpcCheckMaxWaitTimeInSec = [v18 fpReadyForXpcCheckMaxWaitTimeInSec];
 
@@ -334,20 +329,20 @@ LABEL_26:
     v25 = brc_default_log();
     if (os_log_type_enabled(v25, 0x90u))
     {
-      v39 = "(passed to caller)";
+      v38 = "(passed to caller)";
       *buf = 136315906;
-      v45 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
-      v46 = 2080;
+      v44 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
+      v45 = 2080;
       if (!error)
       {
-        v39 = "(ignored by caller)";
+        v38 = "(ignored by caller)";
       }
 
-      v47 = v39;
-      v48 = 2112;
-      v49 = v23;
-      v50 = 2112;
-      v51 = v24;
+      v46 = v38;
+      v47 = 2112;
+      v48 = v23;
+      v49 = 2112;
+      v50 = v24;
       _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
 
@@ -363,8 +358,8 @@ LABEL_26:
   objc_sync_exit(brc_errorCantCallFPInSyncBubble);
 
   dispatch_sync(brc_errorCantCallFPInSyncBubble->_fileProviderReadyQueue, &__block_literal_global_76);
-  v29 = brc_errorCantCallFPInSyncBubble;
-  objc_sync_enter(v29);
+  v28 = brc_errorCantCallFPInSyncBubble;
+  objc_sync_enter(v28);
   if (brc_errorCantCallFPInSyncBubble->_fpReady)
   {
     fpReady = 1;
@@ -372,29 +367,29 @@ LABEL_26:
 
   else
   {
-    v30 = brc_errorCantCallFPInSyncBubble->_fpReadyError;
-    if (v30)
+    v29 = brc_errorCantCallFPInSyncBubble->_fpReadyError;
+    if (v29)
     {
-      v31 = v30;
-      v32 = brc_bread_crumbs();
-      v33 = brc_default_log();
-      if (os_log_type_enabled(v33, 0x90u))
+      v30 = v29;
+      v31 = brc_bread_crumbs();
+      v32 = brc_default_log();
+      if (os_log_type_enabled(v32, 0x90u))
       {
-        v41 = "(passed to caller)";
+        v40 = "(passed to caller)";
         *buf = 136315906;
-        v45 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
-        v46 = 2080;
+        v44 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
+        v45 = 2080;
         if (!error)
         {
-          v41 = "(ignored by caller)";
+          v40 = "(ignored by caller)";
         }
 
-        v47 = v41;
-        v48 = 2112;
-        v49 = v31;
-        v50 = 2112;
-        v51 = v32;
-        _os_log_error_impl(&dword_223E7A000, v33, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+        v46 = v40;
+        v47 = 2112;
+        v48 = v30;
+        v49 = 2112;
+        v50 = v31;
+        _os_log_error_impl(&dword_223E7A000, v32, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
 
       fpReady = 0;
@@ -402,58 +397,57 @@ LABEL_26:
 
     else
     {
-      v34 = brc_bread_crumbs();
-      v35 = brc_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      v33 = brc_bread_crumbs();
+      v34 = brc_default_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
       {
-        [(BRCFileProviderDaemonUtils *)v34 waitForFPToBeReadyToAcceptXPCWithError:v35];
+        [(BRCFileProviderDaemonUtils *)v33 waitForFPToBeReadyToAcceptXPCWithError:v34];
       }
 
-      v31 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: FP is not ready but we don't have an error"];
-      fpReady = v31 == 0;
-      if (v31)
+      v30 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: FP is not ready but we don't have an error"];
+      fpReady = v30 == 0;
+      if (v30)
       {
-        v36 = brc_bread_crumbs();
-        v37 = brc_default_log();
-        if (os_log_type_enabled(v37, 0x90u))
+        v35 = brc_bread_crumbs();
+        v36 = brc_default_log();
+        if (os_log_type_enabled(v36, 0x90u))
         {
-          v42 = "(passed to caller)";
+          v41 = "(passed to caller)";
           *buf = 136315906;
-          v45 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
-          v46 = 2080;
+          v44 = "[BRCFileProviderDaemonUtils waitForFPToBeReadyToAcceptXPCWithError:]";
+          v45 = 2080;
           if (!error)
           {
-            v42 = "(ignored by caller)";
+            v41 = "(ignored by caller)";
           }
 
-          v47 = v42;
-          v48 = 2112;
-          v49 = v31;
-          v50 = 2112;
-          v51 = v36;
-          _os_log_error_impl(&dword_223E7A000, v37, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+          v46 = v41;
+          v47 = 2112;
+          v48 = v30;
+          v49 = 2112;
+          v50 = v35;
+          _os_log_error_impl(&dword_223E7A000, v36, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
       }
     }
 
     if (error)
     {
-      v38 = v31;
-      *error = v31;
+      v37 = v30;
+      *error = v30;
     }
   }
 
-  objc_sync_exit(v29);
-  brc_errorCantCallFPInSyncBubble = v29;
+  objc_sync_exit(v28);
+  brc_errorCantCallFPInSyncBubble = v28;
 LABEL_27:
 
-  v27 = *MEMORY[0x277D85DE8];
   return fpReady;
 }
 
-uint64_t __69__BRCFileProviderDaemonUtils_waitForFPToBeReadyToAcceptXPCWithError___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__69__BRCFileProviderDaemonUtils_waitForFPToBeReadyToAcceptXPCWithError___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     v3 = result;
@@ -461,15 +455,14 @@ uint64_t __69__BRCFileProviderDaemonUtils_waitForFPToBeReadyToAcceptXPCWithError
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] Got com.apple.fileprovider.providers-changed notification. FP is ready to accept XPC calls%@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] Got com.apple.fileprovider.providers-changed notification. FP is ready to accept XPC calls%@", &v6, 0xCu);
     }
 
-    result = [*(v3 + 32) _signalFPReady];
+    return [v3[4] _signalFPReady];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

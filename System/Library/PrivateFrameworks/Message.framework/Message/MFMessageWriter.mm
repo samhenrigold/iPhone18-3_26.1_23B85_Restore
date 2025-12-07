@@ -69,7 +69,6 @@ void ___ef_log_MFMessageWriter_block_invoke()
 
 - (id)createMessageWithString:(id)string headers:(id)headers
 {
-  v13 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   headersCopy = headers;
   Mutable = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x1E695E9E8]);
@@ -77,24 +76,23 @@ void ___ef_log_MFMessageWriter_block_invoke()
   v10 = _createOutgoingMessageFromTopLevelMimePart(self, v9, headersCopy, Mutable);
 
   CFRelease(Mutable);
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)createMessageWithPlainTextDocumentsAndAttachments:(id)attachments headers:(id)headers
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   attachmentsCopy = attachments;
   headersCopy = headers;
-  v25 = attachmentsCopy;
+  v24 = attachmentsCopy;
   cf = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x1E695E9E8]);
-  v27 = [attachmentsCopy count];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
+  v26 = [attachmentsCopy count];
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = attachmentsCopy;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (!v7)
   {
 
@@ -103,19 +101,19 @@ void ___ef_log_MFMessageWriter_block_invoke()
   }
 
   v8 = 0;
-  v9 = *v31;
+  v9 = *v30;
   do
   {
     v10 = 0;
     v11 = v8;
     do
     {
-      if (*v31 != v9)
+      if (*v30 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v30 + 1) + 8 * v10);
+      v12 = *(*(&v29 + 1) + 8 * v10);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -140,25 +138,8 @@ LABEL_8:
 
       selfCopy = self;
       v16 = v12;
-      if ([v16 isPlaceholder])
+      if ([v16 isPlaceholder] && (objc_msgSend(v16, "mimePart"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "fileWrapperForcingDownload:", 1), v18 = objc_claimAutoreleasedReturnValue(), v17, objc_msgSend(v16, "fileWrapperForcingDownload:", 0), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "contentID"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "setContentID:", v20), v20, v19, v18) || (objc_msgSend(v16, "fileWrapperForcingDownload:", 1), (v18 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        mimePart = [v16 mimePart];
-        v18 = [mimePart fileWrapperForcingDownload:1];
-
-        v19 = [v16 fileWrapperForcingDownload:0];
-        contentID = [v19 contentID];
-        [v18 setContentID:contentID];
-
-        if (v18)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      v18 = [v16 fileWrapperForcingDownload:1];
-      if (v18)
-      {
-LABEL_13:
         v14 = _createPartForFileWrapper(selfCopy, v18, cf);
       }
 
@@ -183,7 +164,7 @@ LABEL_21:
         v8 = v11;
       }
 
-      else if (v27 < 2)
+      else if (v26 < 2)
       {
         v14 = v14;
         v8 = v14;
@@ -204,7 +185,7 @@ LABEL_22:
     }
 
     while (v7 != v10);
-    v21 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v21 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     v7 = v21;
   }
 
@@ -221,20 +202,19 @@ LABEL_31:
 LABEL_32:
   CFRelease(cf);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (id)createMessageWithHTMLStringAndMIMECharset:(id)charset plainTextAlternative:(id)alternative otherHtmlStringsAndAttachments:(id)attachments headers:(id)headers
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   charsetCopy = charset;
   alternativeCopy = alternative;
   v11 = charsetCopy;
-  v66 = alternativeCopy;
+  v67 = alternativeCopy;
   attachmentsCopy = attachments;
   headersCopy = headers;
-  v68 = charsetCopy;
+  v69 = charsetCopy;
   Mutable = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x1E695E9E8]);
   if (v11)
   {
@@ -248,25 +228,25 @@ LABEL_32:
     v15 = 0;
   }
 
-  v67 = [attachmentsCopy count];
-  v74 = 0u;
+  v68 = [attachmentsCopy count];
   v75 = 0u;
-  v72 = 0u;
+  v76 = 0u;
   v73 = 0u;
+  v74 = 0u;
   obj = attachmentsCopy;
-  v16 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
+  v16 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
   cf = Mutable;
-  v63 = v16 != 0;
+  v64 = v16 != 0;
   if (v16)
   {
     v17 = 0;
     v18 = 0;
-    v19 = *v73;
+    v19 = *v74;
 LABEL_6:
     v20 = 0;
     while (1)
     {
-      if (*v73 != v19)
+      if (*v74 != v19)
       {
         objc_enumerationMutation(obj);
       }
@@ -276,7 +256,7 @@ LABEL_6:
         goto LABEL_58;
       }
 
-      v21 = *(*(&v72 + 1) + 8 * v20);
+      v21 = *(*(&v73 + 1) + 8 * v20);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -289,20 +269,21 @@ LABEL_6:
       else
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v26 = _ef_log_MFMessageWriter();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = _ef_log_MFMessageWriter(isKindOfClass);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
             callStackReturnAddresses = [MEMORY[0x1E696AF00] callStackReturnAddresses];
             *buf = 138412802;
-            v77 = v21;
-            v78 = 2112;
-            v79 = callStackSymbols;
-            v80 = 2112;
-            v81 = callStackReturnAddresses;
-            _os_log_impl(&dword_1B0389000, v26, OS_LOG_TYPE_DEFAULT, "*** BAD!!! Used old attachments for %@\n\n%@\n\n%@", buf, 0x20u);
+            v78 = v21;
+            v79 = 2112;
+            v80 = callStackSymbols;
+            v81 = 2112;
+            v82 = callStackReturnAddresses;
+            _os_log_impl(&dword_1B0389000, v27, OS_LOG_TYPE_DEFAULT, "*** BAD!!! Used old attachments for %@\n\n%@\n\n%@", buf, 0x20u);
           }
 
 LABEL_15:
@@ -314,55 +295,56 @@ LABEL_15:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v29 = v21;
-          if (v68)
+          v30 = v21;
+          if (v69)
           {
-            v30 = v15 == 0;
+            v31 = v15 == 0;
           }
 
           else
           {
-            v30 = 1;
+            v31 = 1;
           }
 
-          v31 = !v30;
+          v32 = !v31;
           if (v18)
           {
-            v32 = 1;
+            v33 = 1;
           }
 
           else
           {
-            v32 = v31;
+            v33 = v32;
           }
 
-          v33 = _createPartForMFAttachment(self, v29, v32, cf);
+          v34 = _createPartForMFAttachment(self, v30, v33, cf);
         }
 
         else
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          v35 = objc_opt_isKindOfClass();
+          if ((v35 & 1) == 0)
           {
-            v26 = _ef_log_MFMessageWriter();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = _ef_log_MFMessageWriter(v35);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              v36 = objc_opt_class();
+              v38 = objc_opt_class();
               *buf = 138412546;
-              v77 = v36;
-              v78 = 2048;
-              v79 = v21;
-              v37 = v36;
-              _os_log_impl(&dword_1B0389000, v26, OS_LOG_TYPE_DEFAULT, "*** Unexpected object <%@:%p>", buf, 0x16u);
+              v78 = v38;
+              v79 = 2048;
+              v80 = v21;
+              v39 = v38;
+              _os_log_impl(&dword_1B0389000, v27, OS_LOG_TYPE_DEFAULT, "*** Unexpected object <%@:%p>", buf, 0x16u);
             }
 
             goto LABEL_15;
           }
 
-          v33 = _createPartForFileWrapper(self, v21, cf);
+          v34 = _createPartForFileWrapper(self, v21, cf);
         }
 
-        v25 = v33;
+        v25 = v34;
       }
 
       if (v25)
@@ -379,15 +361,15 @@ LABEL_15:
       {
         if (v15)
         {
-          if (v68)
+          if (v69)
           {
             if (!v18)
             {
-              v34 = objc_alloc_init(MEMORY[0x1E69AD720]);
-              [v34 setType:@"multipart"];
-              [v34 setSubtype:@"related"];
-              v18 = v34;
-              [v34 addSubpart:v15];
+              v36 = objc_alloc_init(MEMORY[0x1E69AD720]);
+              [v36 setType:@"multipart"];
+              [v36 setSubtype:@"related"];
+              v18 = v36;
+              [v36 addSubpart:v15];
             }
 
             [v18 addSubpart:v25];
@@ -399,7 +381,7 @@ LABEL_15:
           }
         }
 
-        else if (v67 < 2)
+        else if (v68 < 2)
         {
           v25 = v25;
           v15 = v25;
@@ -407,11 +389,11 @@ LABEL_15:
 
         else
         {
-          v35 = objc_alloc_init(MEMORY[0x1E69AD720]);
-          [v35 setType:@"multipart"];
-          [v35 setSubtype:@"mixed"];
-          v15 = v35;
-          [v35 addSubpart:v25];
+          v37 = objc_alloc_init(MEMORY[0x1E69AD720]);
+          [v37 setType:@"multipart"];
+          [v37 setSubtype:@"mixed"];
+          v15 = v37;
+          [v37 addSubpart:v25];
         }
 
         goto LABEL_40;
@@ -423,40 +405,40 @@ LABEL_40:
 
       if (v16 == ++v20)
       {
-        v38 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
-        v16 = v38;
-        if (v38)
+        v40 = [obj countByEnumeratingWithState:&v73 objects:v83 count:16];
+        v16 = v40;
+        if (v40)
         {
           goto LABEL_6;
         }
 
-        v39 = v18 == 0;
+        v41 = v18 == 0;
         if (v18)
         {
-          v40 = v18;
+          v42 = v18;
         }
 
         else
         {
-          v40 = v15;
+          v42 = v15;
         }
 
         if (v18 != 0 && !v17)
         {
           firstChildPart = [v18 firstChildPart];
-          v42 = firstChildPart;
+          v44 = firstChildPart;
           if (firstChildPart)
           {
-            v43 = MEMORY[0x1E696AEC0];
+            v45 = MEMORY[0x1E696AEC0];
             type = [firstChildPart type];
-            subtype = [v42 subtype];
-            v46 = [v43 stringWithFormat:@"%@/%@", type, subtype];
-            [v18 setBodyParameter:v46 forKey:@"type"];
+            subtype = [v44 subtype];
+            v48 = [v45 stringWithFormat:@"%@/%@", type, subtype];
+            [v18 setBodyParameter:v48 forKey:@"type"];
           }
 
-          v39 = 0;
+          v41 = 0;
           v17 = 0;
-          v40 = v18;
+          v42 = v18;
         }
 
         goto LABEL_62;
@@ -467,74 +449,74 @@ LABEL_40:
   v18 = 0;
 LABEL_58:
 
-  v39 = v18 == 0;
+  v41 = v18 == 0;
   if (v18)
   {
-    v40 = v18;
+    v42 = v18;
   }
 
   else
   {
-    v40 = v15;
+    v42 = v15;
   }
 
-  v17 = v63;
+  v17 = v64;
 LABEL_62:
-  v47 = v40;
-  if (v66)
+  v49 = v42;
+  if (v67)
   {
-    v48 = _createPlainTextPart(self, v66, cf);
-    v49 = v48;
-    if (v48 != 0 && !v17)
+    v50 = _createPlainTextPart(self, v67, cf);
+    v51 = v50;
+    if (v50 != 0 && !v17)
     {
-      if (v47)
+      if (v49)
       {
-        v50 = objc_alloc_init(MEMORY[0x1E69AD720]);
-        [v50 setType:@"multipart"];
-        [v50 setSubtype:@"alternative"];
-        [v50 addSubpart:v49];
-        [v50 addSubpart:v47];
+        v52 = objc_alloc_init(MEMORY[0x1E69AD720]);
+        [v52 setType:@"multipart"];
+        [v52 setSubtype:@"alternative"];
+        [v52 addSubpart:v51];
+        [v52 addSubpart:v49];
 
-        v47 = v50;
+        v49 = v52;
       }
 
       else
       {
-        v47 = v48;
-        v49 = v47;
+        v49 = v50;
+        v51 = v49;
       }
     }
   }
 
   else
   {
-    v49 = 0;
+    v51 = 0;
   }
 
-  if (v47 == 0 || v17)
+  if (v49 == 0 || v17)
   {
-    v51 = 0;
+    v53 = 0;
     goto LABEL_82;
   }
 
-  if (!v39)
+  if (!v41)
   {
     goto LABEL_81;
   }
 
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  [v52 addObject:v47];
-  while ([v52 count])
+  v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  [v54 addObject:v49];
+  while ([v54 count])
   {
-    lastObject = [v52 lastObject];
-    [v52 removeLastObject];
+    lastObject = [v54 lastObject];
+    [v54 removeLastObject];
     type2 = [lastObject type];
-    v55 = [type2 isEqualToString:@"multipart"];
+    v57 = [type2 isEqualToString:@"multipart"];
 
-    if (v55)
+    if (v57)
     {
       subparts = [lastObject subparts];
-      [v52 addObjectsFromArray:subparts];
+      [v54 addObjectsFromArray:subparts];
 
       goto LABEL_79;
     }
@@ -547,9 +529,9 @@ LABEL_62:
     else
     {
       disposition2 = [lastObject disposition];
-      v59 = [disposition2 isEqualToString:@"inline"];
+      v61 = [disposition2 isEqualToString:@"inline"];
 
-      if (!v59)
+      if (!v61)
       {
         goto LABEL_79;
       }
@@ -560,17 +542,16 @@ LABEL_79:
   }
 
 LABEL_81:
-  v51 = _createOutgoingMessageFromTopLevelMimePart(self, v47, headersCopy, cf);
+  v53 = _createOutgoingMessageFromTopLevelMimePart(self, v49, headersCopy, cf);
 LABEL_82:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v60 = v51;
+  v62 = v53;
 
-  v61 = *MEMORY[0x1E69E9840];
-  return v60;
+  return v62;
 }
 
 - (id)_mimePartWithType:(id)type subtype:(id)subtype bodyData:(id)data partMap:(__CFDictionary *)map subparts:(id)subparts
@@ -698,7 +679,7 @@ LABEL_82:
 - (void)setMessageClassToInstantiate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = _ef_log_MFMessageWriter();
+  v2 = _ef_log_MFMessageWriter(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;

@@ -96,10 +96,9 @@
     if (pcs)
     {
       v6 = objc_autoreleasePoolPush();
-      v7 = obj->_pcs;
-      v8 = PCSFPCreateUniqueID();
-      v11 = objc_msgSend_CKBase64URLSafeString(v8, v9, v10);
-      objc_msgSend_setPcsKeyID_(obj, v12, v11);
+      v7 = PCSFPCreateUniqueID();
+      v10 = objc_msgSend_CKBase64URLSafeString(v7, v8, v9);
+      objc_msgSend_setPcsKeyID_(obj, v11, v10);
 
       objc_autoreleasePoolPop(v6);
     }

@@ -36,7 +36,7 @@
 
 - (BOOL)hsDecode:(void *)decode
 {
-  HSUtil::Decoder::decodeArray(decode, v10);
+  HSUtil::Decoder::decodeArray(v10, decode);
   if (*decode)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSPlaybackStage.mm", v13);
@@ -52,7 +52,7 @@
     {
       v5 = HSUtil::Decoder::decodeObject(v10);
       v9 = v5;
-      if (v10[0])
+      if (LODWORD(v10[0]))
       {
         break;
       }
@@ -60,7 +60,7 @@
       std::vector<objc_object * {__strong}>::push_back[abi:ne200100](&self->datas.__begin_, &v9);
     }
 
-    if (v10[0] == 3)
+    if (LODWORD(v10[0]) == 3)
     {
 
       v6 = 1;
@@ -102,16 +102,18 @@ LABEL_12:
 
 - (void)hsDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

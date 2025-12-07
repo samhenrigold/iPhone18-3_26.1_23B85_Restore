@@ -1,6 +1,7 @@
 @interface _EDSenderAttributes
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
+- (_EDSenderAttributes)initWithisVIP:(BOOL)p isContact:(BOOL)contact isCoreRecent:(BOOL)recent isPrimarySender:(BOOL)sender;
 - (id)cachedSelf;
 - (unint64_t)hash;
 @end
@@ -19,6 +20,29 @@
   os_unfair_lock_unlock(&cachedSelf_sTableLock);
 
   return v3;
+}
+
+- (_EDSenderAttributes)initWithisVIP:(BOOL)p isContact:(BOOL)contact isCoreRecent:(BOOL)recent isPrimarySender:(BOOL)sender
+{
+  senderCopy = sender;
+  recentCopy = recent;
+  contactCopy = contact;
+  pCopy = p;
+  v14.receiver = self;
+  v14.super_class = _EDSenderAttributes;
+  v10 = [(_EDSenderAttributes *)&v14 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(_EDSenderAttributes *)v10 setIsVIP:pCopy];
+    [(_EDSenderAttributes *)v11 setIsContact:contactCopy];
+    [(_EDSenderAttributes *)v11 setIsCoreRecent:recentCopy];
+    [(_EDSenderAttributes *)v11 setIsPrimarySender:senderCopy];
+  }
+
+  cachedSelf = [(_EDSenderAttributes *)v11 cachedSelf];
+
+  return cachedSelf;
 }
 
 - (NSString)description

@@ -525,30 +525,30 @@ LABEL_45:
   v15[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self length];
   v15[0] = v3;
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  v6 = (v15 - v5);
-  v8 = 2 * v7;
-  if (v4 > 0x100)
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = (v15 - v4);
+  v7 = 2 * v6;
+  if (v8 > 0x100)
   {
-    v6 = malloc_type_malloc(v8, 0x1000040BDFB0063uLL);
+    v5 = malloc_type_malloc(v7, 0x1000040BDFB0063uLL);
   }
 
   else
   {
-    bzero(v15 - v5, v8);
+    bzero(v15 - v4, v7);
   }
 
-  [(NSString *)self getCharacters:v6 range:0, v3, v15[0]];
-  _NSTransmutePathSlashes(v6, v15);
+  [(NSString *)self getCharacters:v5 range:0, v3, v15[0]];
+  _NSTransmutePathSlashes(v5, v15);
   v9 = v15[0];
   if (v15[0] > 1)
   {
-    if (v6[v15[0] - 1] == 47)
+    if (v5[v15[0] - 1] == 47)
     {
       while (v9 > 2)
       {
         v10 = v9 - 1;
-        v11 = v6[v9-- - 2];
+        v11 = v5[v9-- - 2];
         if (v11 != 47)
         {
           goto LABEL_11;
@@ -568,7 +568,7 @@ LABEL_11:
     v9 = v10;
   }
 
-  v12 = _NSStartOfPathExtension(v6, v9);
+  v12 = _NSStartOfPathExtension(v5, v9);
   if (v12 < 1)
   {
     v13 = &stru_1EEEFDF90;
@@ -576,12 +576,12 @@ LABEL_11:
 
   else
   {
-    v13 = [NSPathStore2 pathStoreWithCharacters:&v6[v12 + 1] length:v9 + ~v12];
+    v13 = [NSPathStore2 pathStoreWithCharacters:&v5[v12 + 1] length:v9 + ~v12];
   }
 
   if (v3 >= 0x101)
   {
-    free(v6);
+    free(v5);
   }
 
   return v13;
@@ -656,33 +656,33 @@ LABEL_13:
   v17[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self length];
   v17[0] = v3;
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  v6 = (v17 - v5);
-  v8 = 2 * v7;
-  if (v4 > 0x100)
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = (v17 - v4);
+  v7 = 2 * v6;
+  if (v8 > 0x100)
   {
-    v6 = malloc_type_malloc(v8, 0x1000040BDFB0063uLL);
+    v5 = malloc_type_malloc(v7, 0x1000040BDFB0063uLL);
   }
 
   else
   {
-    bzero(v17 - v5, v8);
+    bzero(v17 - v4, v7);
   }
 
-  [(NSString *)self getCharacters:v6 range:0, v3, v17[0]];
-  _NSTransmutePathSlashes(v6, v17);
+  [(NSString *)self getCharacters:v5 range:0, v3, v17[0]];
+  _NSTransmutePathSlashes(v5, v17);
   v9 = v17[0];
   if (v17[0] < 2)
   {
     v12 = 0;
   }
 
-  else if (v6[v17[0] - 1] == 47)
+  else if (v5[v17[0] - 1] == 47)
   {
     while (v9 > 2)
     {
       v10 = v9 - 1;
-      v11 = v6[v9-- - 2];
+      v11 = v5[v9-- - 2];
       if (v11 != 47)
       {
         goto LABEL_11;
@@ -708,17 +708,17 @@ LABEL_11:
         break;
       }
 
-      v14 = v6[v13-- - 2];
+      v14 = v5[v13-- - 2];
     }
 
     while (v14 != 47);
     v9 = v10;
   }
 
-  v15 = [NSPathStore2 pathStoreWithCharacters:&v6[v12] length:v9 - v12, v17[0]];
+  v15 = [NSPathStore2 pathStoreWithCharacters:&v5[v12] length:v9 - v12, v17[0]];
   if (v3 >= 0x101)
   {
-    free(v6);
+    free(v5);
   }
 
   return v15;
@@ -769,40 +769,40 @@ LABEL_11:
   v18[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self length];
   v18[0] = v3;
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  v6 = (v18 - v5);
-  v8 = 2 * v7;
-  if (v4 > 0x100)
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = (v18 - v4);
+  v7 = 2 * v6;
+  if (v8 > 0x100)
   {
-    v6 = malloc_type_malloc(v8, 0x1000040BDFB0063uLL);
+    v5 = malloc_type_malloc(v7, 0x1000040BDFB0063uLL);
   }
 
   else
   {
-    bzero(v18 - v5, v8);
+    bzero(v18 - v4, v7);
   }
 
-  [(NSString *)self getCharacters:v6 range:0, v3, v18[0]];
-  _NSTransmutePathSlashes(v6, v18);
+  [(NSString *)self getCharacters:v5 range:0, v3, v18[0]];
+  _NSTransmutePathSlashes(v5, v18);
   v9 = v18[0];
   if (v18[0] < 2)
   {
     if (v18[0] == 1)
     {
 LABEL_10:
-      v12 = *v6 == 47;
+      v12 = *v5 == 47;
       goto LABEL_19;
     }
   }
 
   else
   {
-    if (v6[v18[0] - 1] == 47)
+    if (v5[v18[0] - 1] == 47)
     {
       while (v9 > 2)
       {
         v10 = v9 - 1;
-        v11 = v6[v9-- - 2];
+        v11 = v5[v9-- - 2];
         if (v11 != 47)
         {
           goto LABEL_12;
@@ -815,7 +815,7 @@ LABEL_10:
     v10 = v18[0];
 LABEL_12:
     v13 = v10 - 1;
-    v14 = &v6[v10 - 2];
+    v14 = &v5[v10 - 2];
     while (v13)
     {
       v15 = *v14--;
@@ -839,10 +839,10 @@ LABEL_12:
 
   v12 = 0;
 LABEL_19:
-  v16 = [NSPathStore2 pathStoreWithCharacters:v6 length:v12];
+  v16 = [NSPathStore2 pathStoreWithCharacters:v5 length:v12];
   if (v3 >= 0x101)
   {
-    free(v6);
+    free(v5);
   }
 
   return v16;
@@ -1314,7 +1314,7 @@ LABEL_10:
     return 0;
   }
 
-  if ([(NSString *)self isEqualToString:@"."])
+  if (objc_msgSend_isEqualToString_(self))
   {
     return 0;
   }
@@ -1341,11 +1341,11 @@ LABEL_10:
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
   v3[5] = *MEMORY[0x1E69E9840];
-  v3[0] = _MergedGlobals_88[0]();
-  v3[1] = off_1ED439878[0]();
-  v3[2] = off_1ED439880[0]();
+  v3[0] = _MergedGlobals_88(self, a2);
+  v3[1] = (off_1ED439878)();
+  v3[2] = off_1ED439880();
   v3[3] = off_1ED439888[0]();
-  v3[4] = off_1ED439890[0]();
+  v3[4] = off_1ED439890();
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:5];
 }
 
@@ -1465,7 +1465,7 @@ LABEL_10:
     v6 = +[NSDecimalNumber notANumber];
     if (v6)
     {
-      [(NSDecimalNumber *)v6 decimalValue];
+      objc_msgSend_decimalValue(v6);
     }
 
     else
@@ -1935,7 +1935,7 @@ LABEL_14:
     return [(NSArray *)allObjects count];
   }
 
-  if ([(NSString *)self hasSuffix:@"/"]|| [(NSString *)self hasSuffix:@"\\""])
+  if ([(NSString *)self hasSuffix:@"/"]|| [(NSString *)self hasSuffix:@"\"])
   {
     lastPathComponent = &stru_1EEEFDF90;
   }
@@ -4059,101 +4059,102 @@ LABEL_195:
 
 + (id)objectWithItemProviderData:(id)data typeIdentifier:(id)identifier error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
-  v26[0] = 0;
-  v9 = _MergedGlobals_88[0]();
-  if ((off_1ED4398A0[0])(identifier, v9))
+  v27[1] = *MEMORY[0x1E69E9840];
+  v27[0] = 0;
+  v9 = _MergedGlobals_88(self, a2);
+  v10 = off_1ED4398A0(identifier, v9);
+  if (v10)
   {
     goto LABEL_2;
   }
 
-  v12 = off_1ED439878[0]();
-  if ((off_1ED4398A0[0])(identifier, v12))
+  v13 = off_1ED439878(v10);
+  if (off_1ED4398A0(identifier, v13))
   {
-    v10 = [self alloc];
-    v11 = 10;
+    v11 = [self alloc];
+    v12 = 10;
     goto LABEL_5;
   }
 
-  v21 = off_1ED439880[0]();
-  if ((off_1ED4398A0[0])(identifier, v21))
+  v22 = off_1ED439880();
+  if (off_1ED4398A0(identifier, v22))
   {
-    v13 = [self _newStringFromUTF16InternalData:data typeIdentifier:identifier error:v26];
+    v14 = [self _newStringFromUTF16InternalData:data typeIdentifier:identifier error:v27];
     goto LABEL_6;
   }
 
-  v22 = off_1ED439888[0]();
-  if ((off_1ED4398A0[0])(identifier, v22))
+  v23 = off_1ED439888[0]();
+  if (off_1ED4398A0(identifier, v23))
   {
 LABEL_2:
-    v10 = [self alloc];
-    v11 = 4;
+    v11 = [self alloc];
+    v12 = 4;
 LABEL_5:
-    v13 = [v10 initWithData:data encoding:v11];
+    v14 = [v11 initWithData:data encoding:v12];
 LABEL_6:
-    v18 = v13;
+    v19 = v14;
     goto LABEL_7;
   }
 
-  v23 = off_1ED439890[0]();
-  if ((off_1ED4398A0[0])(identifier, v23))
+  v24 = off_1ED439890();
+  if (off_1ED4398A0(identifier, v24))
   {
-    v24 = [MEMORY[0x1E695DFF8] objectWithItemProviderData:data typeIdentifier:identifier error:v26];
-    if (v26[0])
+    v25 = [MEMORY[0x1E695DFF8] objectWithItemProviderData:data typeIdentifier:identifier error:v27];
+    if (v27[0])
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = [[self alloc] initWithString:{objc_msgSend(v24, "absoluteString")}];
+      v19 = [[self alloc] initWithString:{objc_msgSend(v25, "absoluteString")}];
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
 LABEL_7:
-  v19 = v26[0];
-  if (!(v18 | v26[0]))
+  v20 = v27[0];
+  if (!(v19 | v27[0]))
   {
-    v19 = _NSIPCocoaErrorWithCode(4864, 0, 0, @"A string could not be instantiated because of an unknown error.", v14, v15, v16, v17, v25);
-    v26[0] = v19;
+    v20 = _NSIPCocoaErrorWithCode(4864, 0, 0, @"A string could not be instantiated because of an unknown error.", v15, v16, v17, v18, v26);
+    v27[0] = v20;
   }
 
-  if (error && v19)
+  if (error && v20)
   {
-    *error = v19;
+    *error = v20;
   }
 
-  return v18;
+  return v19;
 }
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
   v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = _MergedGlobals_88[0]();
+  v3[0] = _MergedGlobals_88(self, a2);
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
 }
 
 - (NSArray)writableTypeIdentifiersForItemProvider
 {
   v8[1] = *MEMORY[0x1E69E9840];
-  v8[0] = _MergedGlobals_88[0]();
+  v8[0] = _MergedGlobals_88(self, a2);
   v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v4 = [MEMORY[0x1E695DFF8] URLWithString:self];
   if ([objc_msgSend(v4 "scheme")])
   {
     isFileURL = [v4 isFileURL];
-    v6 = 4;
+    v6 = 32;
     if (isFileURL)
     {
-      v6 = 5;
+      v6 = 40;
     }
 
-    return [(NSArray *)v3 arrayByAddingObject:_MergedGlobals_88[v6]()];
+    return [(NSArray *)v3 arrayByAddingObject:(*(&_MergedGlobals_88 + v6))()];
   }
 
   return v3;
@@ -4161,16 +4162,22 @@ LABEL_7:
 
 - (id)loadDataWithTypeIdentifier:(id)identifier forItemProviderCompletionHandler:(id)handler
 {
-  if ([identifier isEqualToString:_MergedGlobals_88[0]()])
+  _MergedGlobals_88(self, a2);
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     (*(handler + 2))(handler, [(NSString *)self dataUsingEncoding:4], 0);
     return 0;
   }
 
-  if (([identifier isEqualToString:off_1ED439890[0]()] & 1) == 0 && !objc_msgSend(identifier, "isEqualToString:", off_1ED439898[0]()))
+  off_1ED439890();
+  if ((objc_msgSend_isEqualToString_(identifier) & 1) == 0)
   {
-    (*(handler + 2))(handler, 0, 0);
-    return 0;
+    off_1ED439898();
+    if (!objc_msgSend_isEqualToString_(identifier))
+    {
+      (*(handler + 2))(handler, 0, 0);
+      return 0;
+    }
   }
 
   v8 = [MEMORY[0x1E695DFF8] URLWithString:self];
@@ -4360,20 +4367,20 @@ LABEL_7:
 {
   if (self == equal)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(v4) = 1;
   }
 
   else
   {
-    v5 = _NSIsNSString();
-    if (v5)
+    v4 = _NSIsNSString();
+    if (v4)
     {
 
-      LOBYTE(v5) = [(NSString *)self isEqualToString:equal];
+      LOBYTE(v4) = objc_msgSend_isEqualToString_(self);
     }
   }
 
-  return v5;
+  return v4;
 }
 
 - (NSComparisonResult)compare:(NSString *)string options:(NSStringCompareOptions)mask range:(NSRange)rangeOfReceiverToCompare
@@ -6345,7 +6352,7 @@ LABEL_125:
     }
   }
 
-  v67 = v72[v59];
+  v67 = *(v72 + v59);
   v45 = &v71[2 * v59];
   v27 = *v45;
   v31 = v45[1];
@@ -8201,7 +8208,7 @@ LABEL_10:
   {
     v4 = [(NSArray *)[(NSString *)self pathComponents] mutableCopy];
     v5 = [v4 objectAtIndex:1];
-    if ([v5 isEqualToString:@"Volumes"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v5 = [v4 objectAtIndex:2];
       [v4 removeObjectAtIndex:1];
@@ -8209,7 +8216,7 @@ LABEL_10:
 
     if (v5)
     {
-      if ([-[NSFileManager _web_startupVolumeName_nowarn](v3 "_web_startupVolumeName_nowarn")])
+      if (objc_msgSend_isEqualToString_([(NSFileManager *)v3 _web_startupVolumeName_nowarn]))
       {
         [v4 removeObjectAtIndex:1];
       }
@@ -8336,7 +8343,7 @@ LABEL_9:
   {
     if (bytesCopy == 1.0)
     {
-      result = NSURLLocalizedString("1 byte");
+      result = NSURLLocalizedString("1 byte", a2);
     }
 
     else if (bytesCopy >= 100.0)
@@ -8362,68 +8369,68 @@ LABEL_9:
                     {
                       if (v6 >= 99.95)
                       {
-                        v7 = "%.0f GB";
+                        v7 = NSURLLocalizedString("%.0f GB", a2);
                       }
 
                       else
                       {
-                        v7 = "%.1f GB (10.0)";
+                        v7 = NSURLLocalizedString("%.1f GB (10.0)", a2);
                       }
                     }
 
                     else
                     {
-                      v7 = "%.1f GB (1.0)";
+                      v7 = NSURLLocalizedString("%.1f GB (1.0)", a2);
                     }
                   }
 
                   else
                   {
-                    v7 = "%.0f MB";
+                    v7 = NSURLLocalizedString("%.0f MB", a2);
                   }
                 }
 
                 else
                 {
-                  v7 = "%.1f MB (10.0)";
+                  v7 = NSURLLocalizedString("%.1f MB (10.0)", a2);
                 }
               }
 
               else
               {
-                v7 = "%.1f MB (1.0)";
+                v7 = NSURLLocalizedString("%.1f MB (1.0)", a2);
               }
             }
 
             else
             {
-              v7 = "%.0f KB";
+              v7 = NSURLLocalizedString("%.0f KB", a2);
             }
           }
 
           else
           {
-            v7 = "%.1f KB (10.0)";
+            v7 = NSURLLocalizedString("%.1f KB (10.0)", a2);
           }
         }
 
         else
         {
-          v7 = "%.1f KB (1.0)";
+          v7 = NSURLLocalizedString("%.1f KB (1.0)", a2);
         }
       }
 
       else
       {
-        v7 = "%.1f KB (0.1)";
+        v7 = NSURLLocalizedString("%.1f KB (0.1)", a2);
       }
 
-      result = [NSString localizedStringWithFormat:NSURLLocalizedString(v7), *&v6];
+      result = [NSString localizedStringWithFormat:v7, *&v6];
     }
 
     else
     {
-      result = [NSString localizedStringWithFormat:NSURLLocalizedString("%.0f bytes"), *&bytesCopy];
+      result = [NSString localizedStringWithFormat:NSURLLocalizedString("%.0f bytes", v8), *&bytesCopy];
     }
 
     if (bytes < 0)
@@ -8436,7 +8443,7 @@ LABEL_9:
   else
   {
 
-    return NSURLLocalizedString("0 bytes");
+    return NSURLLocalizedString("0 bytes", a2);
   }
 
   return result;
@@ -9007,10 +9014,10 @@ LABEL_27:
     return &stru_1EEEFDF90;
   }
 
-  if (-[NSArray count](pathComponents, "count") != 1 || (selfCopy = @"/", ([-[NSArray objectAtIndex:](pathComponents objectAtIndex:{0), "isEqualToString:", @"/"}] & 1) == 0))
+  if ([(NSArray *)pathComponents count]!= 1 || (selfCopy = @"/", (objc_msgSend_isEqualToString_([(NSArray *)pathComponents objectAtIndex:0]) & 1) == 0))
   {
     v5 = [(NSArray *)pathComponents objectAtIndex:0];
-    if (([v5 isEqual:@"/"] & 1) != 0 || objc_msgSend(v5, "isEqual:", @"\\""))
+    if (([v5 isEqual:@"/"] & 1) != 0 || objc_msgSend(v5, "isEqual:", @"\"))
     {
       v6 = [objc_allocWithZone(MEMORY[0x1E695DF70]) initWithArray:pathComponents];
       [v6 replaceObjectAtIndex:0 withObject:&stru_1EEEFDF90];

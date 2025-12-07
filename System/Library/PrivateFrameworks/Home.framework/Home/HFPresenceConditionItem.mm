@@ -60,8 +60,8 @@
   unsignedIntegerValue2 = [v10 unsignedIntegerValue];
 
   v12 = [HFPresenceConditionNaturalLanguageOptions alloc];
-  home = [(HFPresenceConditionItem *)self home];
-  v14 = [(HFPresenceConditionNaturalLanguageOptions *)v12 initWithHome:home formattingContext:unsignedIntegerValue formattingStyle:unsignedIntegerValue2];
+  v13 = objc_msgSend_home(self);
+  v14 = [(HFPresenceConditionNaturalLanguageOptions *)v12 initWithHome:v13 formattingContext:unsignedIntegerValue formattingStyle:unsignedIntegerValue2];
 
   condition = [(HFPresenceConditionItem *)self condition];
   v16 = [condition hf_naturalLanguageSummaryWithOptions:v14];

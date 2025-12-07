@@ -61,19 +61,21 @@
   itemCopy = item;
   v8 = a4;
   v9 = a5;
-  if (([itemCopy isString] & 1) == 0)
+  isString = [itemCopy isString];
+  if ((isString & 1) == 0)
   {
-    v10 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BSUICloudAssetRatingsManagerLog(isString);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_2BD878();
     }
   }
 
-  if (([v8 isBoolean] & 1) == 0)
+  isBoolean = [v8 isBoolean];
+  if ((isBoolean & 1) == 0)
   {
-    v11 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = BSUICloudAssetRatingsManagerLog(isBoolean);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_2BD8AC();
     }
@@ -81,13 +83,13 @@
 
   toString = [itemCopy toString];
   toBool = [v8 toBool];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_2B3A4;
-  v15[3] = &unk_387CE8;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_2B3A4;
+  v17[3] = &unk_387CE8;
+  v18 = v9;
   v16 = v9;
-  v14 = v9;
-  [BSUICloudAssetRatingsManager getRatingForItem:toString forceFetch:toBool shouldSuppressMetrics:0 completion:v15];
+  [BSUICloudAssetRatingsManager getRatingForItem:toString forceFetch:toBool shouldSuppressMetrics:0 completion:v17];
 }
 
 + (void)updateRatingValue:(double)value title:(id)title body:(id)body itemId:(id)id shouldSuppressMetrics:(BOOL)metrics completion:(id)completion
@@ -157,43 +159,47 @@
   v13 = a5;
   v14 = a6;
   v15 = a7;
-  if (([ratingCopy isNumber] & 1) == 0)
+  isNumber = [ratingCopy isNumber];
+  if ((isNumber & 1) == 0)
   {
-    v16 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = BSUICloudAssetRatingsManagerLog(isNumber);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_2BD8E0();
     }
   }
 
-  if (([v12 isString] & 1) == 0)
+  isString = [v12 isString];
+  if ((isString & 1) == 0)
   {
-    v17 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = BSUICloudAssetRatingsManagerLog(isString);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_2BD914();
     }
   }
 
-  if (([v13 isString] & 1) == 0)
+  isString2 = [v13 isString];
+  if ((isString2 & 1) == 0)
   {
-    v18 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = BSUICloudAssetRatingsManagerLog(isString2);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_2BD948();
     }
   }
 
-  if (([v14 isString] & 1) == 0)
+  isString3 = [v14 isString];
+  if ((isString3 & 1) == 0)
   {
-    v19 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = BSUICloudAssetRatingsManagerLog(isString3);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_2BD878();
     }
   }
 
-  v29 = ratingCopy;
+  v33 = ratingCopy;
   toNumber = [ratingCopy toNumber];
   isUndefined = [v12 isUndefined];
   if (isUndefined)
@@ -207,7 +213,7 @@
   }
 
   isUndefined2 = [v13 isUndefined];
-  v28 = v12;
+  v32 = v12;
   if (isUndefined2)
   {
     toString2 = 0;
@@ -218,15 +224,15 @@
     toString2 = [v13 toString];
   }
 
-  v25 = v14;
+  v29 = v14;
   toString3 = [v14 toString];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_2C038;
-  v30[3] = &unk_387D60;
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_2C038;
+  v34[3] = &unk_387D60;
+  v35 = v15;
   v31 = v15;
-  v27 = v15;
-  [BSUICloudAssetRatingsManager updateRating:toNumber title:toString body:toString2 itemId:toString3 shouldSuppressMetrics:0 completion:v30];
+  [BSUICloudAssetRatingsManager updateRating:toNumber title:toString body:toString2 itemId:toString3 shouldSuppressMetrics:0 completion:v34];
 
   if ((isUndefined2 & 1) == 0)
   {
@@ -273,23 +279,24 @@
 {
   itemCopy = item;
   v6 = a4;
-  if (([itemCopy isString] & 1) == 0)
+  isString = [itemCopy isString];
+  if ((isString & 1) == 0)
   {
-    v7 = BSUICloudAssetRatingsManagerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUICloudAssetRatingsManagerLog(isString);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BD878();
     }
   }
 
   toString = [itemCopy toString];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_2C684;
-  v10[3] = &unk_387D60;
-  v11 = v6;
-  v9 = v6;
-  [BSUICloudAssetRatingsManager deleteRatingForItem:toString shouldSuppressMetrics:0 completion:v10];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_2C684;
+  v11[3] = &unk_387D60;
+  v12 = v6;
+  v10 = v6;
+  [BSUICloudAssetRatingsManager deleteRatingForItem:toString shouldSuppressMetrics:0 completion:v11];
 }
 
 + (void)_fetchRatingsDataForItem:(id)item shouldSuppressMetrics:(BOOL)metrics shouldSuppressResponseDialogs:(BOOL)dialogs completionHandler:(id)handler

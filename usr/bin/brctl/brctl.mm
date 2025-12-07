@@ -75,7 +75,7 @@ uint64_t sub_1000044EC()
   return putchar(10);
 }
 
-id sub_100004EF4(int a1, char *const *a2)
+id sub_100004EF4(int a1, uint64_t a2)
 {
   v8 = a1;
   v7 = a2;
@@ -352,7 +352,7 @@ uint64_t sub_10000574C()
   return putchar(10);
 }
 
-uint64_t sub_1000057D0(unsigned int a1, char *const *a2)
+uint64_t sub_1000057D0(unsigned int a1, const char **a2)
 {
   v15 = a1;
   v14 = a2;
@@ -402,14 +402,14 @@ uint64_t sub_1000057D0(unsigned int a1, char *const *a2)
   return v7;
 }
 
-void sub_100005958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100005978(int a1, char *const *a2)
+uint64_t sub_100005978(int a1, uint64_t a2)
 {
   v10 = a1;
   v9 = a2;
@@ -1007,7 +1007,7 @@ uint64_t sub_100007B00()
   return putchar(10);
 }
 
-uint64_t sub_100007BD8(int a1, char *const *a2)
+uint64_t sub_100007BD8(int a1, void *a2)
 {
   v38 = a1;
   v37 = a2;

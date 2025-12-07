@@ -1,6 +1,7 @@
 @interface CLSSurvey
 + (BOOL)migrateFromVersion:(unint64_t)version finalVersion:(unint64_t *)finalVersion inDatabase:(id)database;
 + (id)hashableColumnNames;
++ (id)payloadForObject:(id)object action:(int)action database:(id)database;
 + (id)payloadsForDeletedSurvey:(id)survey classIDs:(id)ds database:(id)database;
 + (id)payloadsForObject:(id)object withSyncItem:(id)item database:(id)database;
 - (BOOL)canCopyToDatabase:(id)database;
@@ -259,6 +260,27 @@ LABEL_8:
   }
 
   return v8;
+}
+
++ (id)payloadForObject:(id)object action:(int)action database:(id)database
+{
+  v5 = *&action;
+  databaseCopy = database;
+  objectCopy = object;
+  objectID = [objectCopy objectID];
+  v10 = objc_alloc_init(PDDPPayload);
+  [(PDDPPayload *)v10 setType:25];
+  [(PDDPPayload *)v10 setAction:v5];
+  v11 = sub_10001ABBC(objectCopy);
+
+  [(PDDPPayload *)v10 setSurvey:v11];
+  v12 = sub_1000C8950(databaseCopy, objectID);
+
+  v13 = [v12 mutableCopy];
+  survey = [(PDDPPayload *)v10 survey];
+  [survey setClassIds:v13];
+
+  return v10;
 }
 
 + (id)payloadsForDeletedSurvey:(id)survey classIDs:(id)ds database:(id)database

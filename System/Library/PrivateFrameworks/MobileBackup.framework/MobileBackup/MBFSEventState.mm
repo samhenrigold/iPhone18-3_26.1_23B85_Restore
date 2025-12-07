@@ -215,7 +215,7 @@ LABEL_11:
     v31.st_dev = 138412290;
     *&v31.st_mode = v20;
     _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Loaded FSEvent state %@", &v31, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Loaded FSEvent state %@", v20);
   }
 
 LABEL_20:

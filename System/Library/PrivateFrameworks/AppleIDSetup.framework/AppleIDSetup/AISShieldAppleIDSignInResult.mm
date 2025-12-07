@@ -8,12 +8,11 @@
 
 - (NSDictionary)authResults
 {
-  v2 = *(self + OBJC_IVAR___AISShieldAppleIDSignInResult_authResults);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E4B8A30, &unk_240767EF0);
-  v3 = sub_240759F54();
+  v2 = sub_240759F54();
 
-  return v3;
+  return v2;
 }
 
 - (AISShieldAppleIDSignInResult)initWithAuthResults:(id)results

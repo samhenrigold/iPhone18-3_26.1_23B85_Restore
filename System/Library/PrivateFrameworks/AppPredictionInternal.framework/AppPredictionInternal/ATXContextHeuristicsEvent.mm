@@ -44,8 +44,8 @@
 
 - (id)jsonDictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"contextName";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"contextName";
   contextName = [(ATXContextHeuristicsEvent *)self contextName];
   null = contextName;
   if (!contextName)
@@ -53,8 +53,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"contextType";
+  v12[0] = null;
+  v11[1] = @"contextType";
   contextType = [(ATXContextHeuristicsEvent *)self contextType];
   null2 = contextType;
   if (!contextType)
@@ -62,8 +62,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"isStart";
+  v12[1] = null2;
+  v11[2] = @"isStart";
   isStart = [(ATXContextHeuristicsEvent *)self isStart];
   v8 = &unk_283A55E38;
   if (isStart)
@@ -71,8 +71,8 @@
     v8 = &unk_283A55E20;
   }
 
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!contextType)
   {
   }
@@ -80,8 +80,6 @@
   if (!contextName)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

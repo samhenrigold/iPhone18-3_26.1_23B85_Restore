@@ -122,7 +122,7 @@ LABEL_5:
           objc_enumerationMutation(obj);
         }
 
-        v8 = [(NSMutableDictionary *)self->_sharedZoneUpdaters objectForKey:*(*(&v15 + 1) + 8 * v7)];
+        v8 = objc_msgSend_objectForKey_(self->_sharedZoneUpdaters);
         v9 = dispatch_time(0, 20000000000);
         queue = self->_queue;
         block[0] = _NSConcreteStackBlock;
@@ -133,7 +133,7 @@ LABEL_5:
         v11 = v8;
         dispatch_after(v9, queue, block);
 
-        v7 = v7 + 1;
+        ++v7;
       }
 
       while (v5 != v7);
@@ -230,7 +230,7 @@ LABEL_5:
         v12 = *(*(&v37 + 1) + 8 * v11);
         v13 = [objc_alloc(v10[48]) initWithZoneID:v12];
         sharedZoneUpdaters = self->_sharedZoneUpdaters;
-        if (sharedZoneUpdaters && ([v12 ownerName], v15 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKey:](sharedZoneUpdaters, "objectForKey:", v15), v16 = objc_claimAutoreleasedReturnValue(), v15, v16))
+        if (sharedZoneUpdaters && ([v12 ownerName], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(sharedZoneUpdaters), v16 = objc_claimAutoreleasedReturnValue(), v15, v16))
         {
           v17 = dispatch_time(0, v6);
           queue = self->_queue;

@@ -30,8 +30,7 @@
 - (void)sceneDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  selfCopy = self;
-  sub_100005A8C(disconnectCopy, "SessionSceneDelegate: sceneDidDisconnect with role: %s, activity identifier: %s");
+  sub_100005A8C(disconnectCopy, "SessionSceneDelegate: sceneDidDisconnect with role: %s, activity identifier: %s", v5, self);
 }
 
 - (void)sceneDidBecomeActive:(id)active
@@ -44,22 +43,19 @@
 - (void)sceneWillResignActive:(id)active
 {
   activeCopy = active;
-  selfCopy = self;
-  sub_100005A8C(activeCopy, "SessionSceneDelegate: sceneWillResignActive with role: %s, activity identifier: %s");
+  sub_100005A8C(activeCopy, "SessionSceneDelegate: sceneWillResignActive with role: %s, activity identifier: %s", v5, self);
 }
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
   foregroundCopy = foreground;
-  selfCopy = self;
-  sub_100005A8C(foregroundCopy, "SessionSceneDelegate: sceneWillEnterForeground with role: %s, activity identifier: %s");
+  sub_100005A8C(foregroundCopy, "SessionSceneDelegate: sceneWillEnterForeground with role: %s, activity identifier: %s", v5, self);
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
   backgroundCopy = background;
-  selfCopy = self;
-  sub_100005A8C(backgroundCopy, "SessionSceneDelegate: sceneDidEnterBackground with role: %s, activity identifier: %s");
+  sub_100005A8C(backgroundCopy, "SessionSceneDelegate: sceneDidEnterBackground with role: %s, activity identifier: %s", v5, self);
 }
 
 - (_TtC18ActivityProgressUI20SessionSceneDelegate)init

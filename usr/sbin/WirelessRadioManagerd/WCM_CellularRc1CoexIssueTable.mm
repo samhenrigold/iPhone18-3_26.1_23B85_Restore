@@ -1,9 +1,12 @@
 @interface WCM_CellularRc1CoexIssueTable
+- (BOOL)isCellularInRc1CoexBand:(int)band CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1ChannelBitmask:(unsigned int)bitmask;
+- (id)createDynamicRc1NbCoexPolicyByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel;
 - (id)findAllCellRc1CoexIssueByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel;
 - (id)findCellRc1CoexIssueByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel;
 - (id)initFromPlist:(id)plist;
 - (id)initFromPlistV2:(id)v2;
 - (unsigned)getTableSize;
+- (void)findRc1NbCoexIssueChannelByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel uwbNbIssueChannelBegin:(int *)begin uwbNbIssueChannelEnd:(int *)self0;
 @end
 
 @implementation WCM_CellularRc1CoexIssueTable
@@ -420,6 +423,94 @@ LABEL_17:
     {
       v16 = 0;
     }
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (BOOL)isCellularInRc1CoexBand:(int)band CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1ChannelBitmask:(unsigned int)bitmask
+{
+  v13 = *&band;
+  v15 = 0;
+  v16 = 1;
+  v17 = 1;
+  while ((v17 & bitmask) == 0)
+  {
+LABEL_6:
+    v17 = 2 << v15;
+    v16 = v15++ < 9;
+    if (v15 == 10)
+    {
+      return 0;
+    }
+  }
+
+  v18 = [(WCM_CellularRc1CoexIssueTable *)self findCellRc1CoexIssueByCellBandInfoType:v13 CellDlLowFreq:freq cellDlHighFreq:highFreq cellUlLowFreq:lowFreq cellUlHighFreq:ulHighFreq RC1Channel:?];
+  v19 = v18;
+  if (!v18 || ([v18 uwbCoexIssueFreqRangeForCellDlLowFreq:0 cellDlHighFreq:freq cellUlLowFreq:highFreq cellUlHighFreq:lowFreq uwbIssueFreqRange:ulHighFreq] & 1) == 0)
+  {
+
+    goto LABEL_6;
+  }
+
+  return v16;
+}
+
+- (void)findRc1NbCoexIssueChannelByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel uwbNbIssueChannelBegin:(int *)begin uwbNbIssueChannelEnd:(int *)self0
+{
+  if (begin && end)
+  {
+    *begin = -1;
+    *end = -1;
+    v16 = [WCM_CellularRc1CoexIssueTable findCellRc1CoexIssueByCellBandInfoType:"findCellRc1CoexIssueByCellBandInfoType:CellDlLowFreq:cellDlHighFreq:cellUlLowFreq:cellUlHighFreq:RC1Channel:" CellDlLowFreq:*&type cellDlHighFreq:*&channel cellUlLowFreq:? cellUlHighFreq:? RC1Channel:?];
+    if (v16)
+    {
+      v17 = v16;
+      [v16 uwbNbCoexIssueChannelForCellDlLowFreq:begin cellDlHighFreq:end cellUlLowFreq:freq cellUlHighFreq:highFreq uwbNbIssueChannelBegin:lowFreq uwbNbIssueChannelEnd:ulHighFreq];
+      v16 = v17;
+    }
+  }
+}
+
+- (id)createDynamicRc1NbCoexPolicyByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq RC1Channel:(int)channel
+{
+  v12 = [WCM_CellularRc1CoexIssueTable findAllCellRc1CoexIssueByCellBandInfoType:"findAllCellRc1CoexIssueByCellBandInfoType:CellDlLowFreq:cellDlHighFreq:cellUlLowFreq:cellUlHighFreq:RC1Channel:" CellDlLowFreq:*&type cellDlHighFreq:*&channel cellUlLowFreq:? cellUlHighFreq:? RC1Channel:?];
+  v13 = v12;
+  if (v12 && (v23 = 0u, v24 = 0u, v21 = 0u, v22 = 0u, (v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16]) != 0))
+  {
+    v15 = v14;
+    v16 = 0;
+    v17 = *v22;
+    do
+    {
+      for (i = 0; i != v15; i = i + 1)
+      {
+        if (*v22 != v17)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v19 = [*(*(&v21 + 1) + 8 * i) uwbNbDynamicCoexPolicyForCellDlLowFreq:freq cellDlHighFreq:highFreq cellUlLowFreq:lowFreq cellUlHighFreq:ulHighFreq];
+        if (v19)
+        {
+          if (!v16)
+          {
+            v16 = objc_alloc_init(NSMutableArray);
+          }
+
+          [v16 addObject:v19];
+        }
+      }
+
+      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v15);
   }
 
   else

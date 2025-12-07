@@ -27,19 +27,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"suggestion";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"suggestion";
   dictionaryRepresentation = [(ATXInfoSuggestion *)self->_suggestion dictionaryRepresentation];
-  v10[0] = dictionaryRepresentation;
-  v9[1] = @"featureSet";
+  v9[0] = dictionaryRepresentation;
+  v8[1] = @"featureSet";
   dictionaryRepresentation2 = [(ATXInformationFeatureSet *)self->_featureSet dictionaryRepresentation];
-  v10[1] = dictionaryRepresentation2;
-  v9[2] = @"score";
+  v9[1] = dictionaryRepresentation2;
+  v8[2] = @"score";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_score];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

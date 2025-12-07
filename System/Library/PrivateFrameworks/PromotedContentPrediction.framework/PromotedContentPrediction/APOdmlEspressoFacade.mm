@@ -29,37 +29,36 @@
 {
   lCopy = l;
   recipeCopy = recipe;
-  v26.receiver = self;
-  v26.super_class = APOdmlEspressoFacade;
-  v10 = [(APOdmlEspressoFacade *)&v26 init];
+  v18.receiver = self;
+  v18.super_class = APOdmlEspressoFacade;
+  v10 = [(APOdmlEspressoFacade *)&v18 init];
   v11 = v10;
   if (v10)
   {
     objc_storeStrong(&v10->_recipe, recipe);
-    v14 = objc_msgSend_relativePath(lCopy, v12, v13);
-    v15 = v14;
-    v18 = objc_msgSend_UTF8String(v15, v16, v17);
+    relativePath = [lCopy relativePath];
+    uTF8String = [relativePath UTF8String];
 
-    if ((objc_msgSend__loadEspressoNet_recipe_error_(v11, v19, v18, recipeCopy, error) & 1) == 0)
+    if (![(APOdmlEspressoFacade *)v11 _loadEspressoNet:uTF8String recipe:recipeCopy error:error])
     {
-      v24 = 0;
+      v16 = 0;
       goto LABEL_6;
     }
 
-    v22 = objc_msgSend__extractRequiredFeatures(v11, v20, v21);
+    _extractRequiredFeatures = [(APOdmlEspressoFacade *)v11 _extractRequiredFeatures];
     requiredFeatures = v11->_requiredFeatures;
-    v11->_requiredFeatures = v22;
+    v11->_requiredFeatures = _extractRequiredFeatures;
   }
 
-  v24 = v11;
+  v16 = v11;
 LABEL_6:
 
-  return v24;
+  return v16;
 }
 
 - (BOOL)_loadEspressoNet:(const char *)net recipe:(id)recipe error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recipeCopy = recipe;
   espresso_create_context();
   plan = espresso_create_plan();
@@ -70,225 +69,210 @@ LABEL_6:
     v11 = OdmlLogForCategory(0xBuLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v32 = 67109120;
-      LODWORD(v33) = v10;
-      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "Failed to add network to plan with status: %d", &v32, 8u);
+      v20 = 67109120;
+      LODWORD(v21) = v10;
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "Failed to add network to plan with status: %d", &v20, 8u);
     }
 
     v12 = &kAPODMLDESPluginFailedToAddNetworkToPlan;
 LABEL_9:
 
-    objc_msgSend_setError_errorCode_(self, v18, error, *v12);
+    [(APOdmlEspressoFacade *)self setError:error errorCode:*v12];
     goto LABEL_10;
   }
 
-  var0 = v9->var0;
-  v14 = *&v9->var1;
-  v17 = espresso_network_declare_output();
-  if (v17)
+  v13 = espresso_network_declare_output();
+  if (v13)
   {
     v11 = OdmlLogForCategory(0xBuLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v32 = 136315394;
-      v33 = "pTTR";
-      v34 = 1024;
-      v35 = v17;
-      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "Failed to declare output %s with status: %d", &v32, 0x12u);
+      v20 = 136315394;
+      v21 = "pTTR";
+      v22 = 1024;
+      v23 = v13;
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "Failed to declare output %s with status: %d", &v20, 0x12u);
     }
 
     v12 = &kAPODMLDESPluginFailedToDeclarePTTROutput;
     goto LABEL_9;
   }
 
-  v22 = objc_msgSend_lossName(recipeCopy, v15, v16);
-  v23 = v22;
-  v26 = objc_msgSend_UTF8String(v23, v24, v25);
+  lossName = [recipeCopy lossName];
+  uTF8String = [lossName UTF8String];
 
-  v27 = v9->var0;
-  v28 = *&v9->var1;
-  v29 = espresso_network_declare_output();
-  if (!v29)
+  v18 = espresso_network_declare_output();
+  if (!v18)
   {
     self->_espressoNet = v9;
     self->_espressoPlan = plan;
-    v19 = 1;
+    v14 = 1;
     goto LABEL_11;
   }
 
-  v30 = OdmlLogForCategory(0xBuLL);
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v19 = OdmlLogForCategory(0xBuLL);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v32 = 136315394;
-    v33 = v26;
-    v34 = 1024;
-    v35 = v29;
-    _os_log_impl(&dword_260ECB000, v30, OS_LOG_TYPE_ERROR, "Failed to declare output %s with status: %d", &v32, 0x12u);
+    v20 = 136315394;
+    v21 = uTF8String;
+    v22 = 1024;
+    v23 = v18;
+    _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "Failed to declare output %s with status: %d", &v20, 0x12u);
   }
 
-  objc_msgSend_setError_errorCode_(self, v31, error, 8015);
+  [(APOdmlEspressoFacade *)self setError:error errorCode:8015];
 LABEL_10:
-  v19 = 0;
+  v14 = 0;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v14;
 }
 
 - (id)_extractRequiredFeatures
 {
-  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
+  array = [MEMORY[0x277CBEB18] array];
   for (i = 0; ; ++i)
   {
-    v8 = objc_msgSend_espressoNet(self, v4, v5);
-    v10 = *v8;
-    v9 = v8[1];
+    [(APOdmlEspressoFacade *)self espressoNet];
     input_blob_name = espresso_get_input_blob_name();
     if (!input_blob_name)
     {
       break;
     }
 
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, input_blob_name);
-    objc_msgSend_addObject_(v6, v14, v13);
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:input_blob_name];
+    [array addObject:v6];
   }
 
-  v15 = objc_msgSend_copy(v6, v11, 0);
+  v7 = [array copy];
 
-  return v15;
+  return v7;
 }
 
 - (BOOL)changeEspressoBatchSize:(unint64_t)size error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
-  objc_msgSend_setFinalBatchSize_(self, a2, size);
-  v9 = objc_msgSend_requiredFeatures(self, v7, v8);
-  v12 = objc_msgSend_count(v9, v10, v11);
-  sub_260EDCE2C(v44, v12);
-  sub_260EDCE2C(v43, v12);
-  sub_260EDCE2C(v42, v12);
-  sub_260EDCE2C(v41, v12);
-  sub_260EDCE2C(v40, v12);
-  sub_260EDCE2C(v39, v12);
-  v15 = malloc_type_malloc(8 * v12, 0x10040436913F5uLL);
-  if (v12)
+  v33 = *MEMORY[0x277D85DE8];
+  [(APOdmlEspressoFacade *)self setFinalBatchSize:?];
+  requiredFeatures = [(APOdmlEspressoFacade *)self requiredFeatures];
+  v8 = [requiredFeatures count];
+  sub_260EDCE2C(v30, v8);
+  sub_260EDCE2C(v29, v8);
+  sub_260EDCE2C(v28, v8);
+  sub_260EDCE2C(v27, v8);
+  sub_260EDCE2C(v26, v8);
+  sub_260EDCE2C(v25, v8);
+  v9 = malloc_type_malloc(8 * v8, 0x10040436913F5uLL);
+  if (v8)
   {
-    for (i = 0; i != v12; ++i)
+    for (i = 0; i != v8; ++i)
     {
-      v17 = objc_msgSend_objectAtIndexedSubscript_(v9, v13, i);
-      v18 = v17;
-      v15[i] = objc_msgSend_UTF8String(v17, v19, v20);
-      objc_msgSend__getEspressoBlobShape_(self, v21, v17);
-      v22 = *buf;
+      v11 = [requiredFeatures objectAtIndexedSubscript:i];
+      v12 = v11;
+      v9[i] = [v11 UTF8String];
+      objc_msgSend__getEspressoBlobShape_(self);
+      v13 = *buf;
       **buf = size;
-      v36 = 0;
-      v37 = 0;
-      v38 = 0;
-      v34 = 0;
-      v35 = 0;
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v20 = 0;
+      v21 = 0;
       __p = 0;
-      sub_260EDCF28(&__p, v22, v46, (v46 - v22) >> 3);
-      nd_shape_to_5d_shape(&__p, &v36);
+      sub_260EDCF28(&__p, v13, v32, (v32 - v13) >> 3);
+      nd_shape_to_5d_shape(&__p, &v22);
       if (__p)
       {
-        v34 = __p;
+        v20 = __p;
         operator delete(__p);
       }
 
-      *(v44[0] + i) = v36;
-      *(v43[0] + i) = HIDWORD(v36);
-      *(v42[0] + i) = v37;
-      *(v41[0] + i) = HIDWORD(v37);
-      *(v40[0] + i) = v38;
-      *(v39[0] + i) = HIDWORD(v38);
+      *(v30[0] + i) = v22;
+      *(v29[0] + i) = HIDWORD(v22);
+      *(v28[0] + i) = v23;
+      *(v27[0] + i) = HIDWORD(v23);
+      *(v26[0] + i) = v24;
+      *(v25[0] + i) = HIDWORD(v24);
       if (*buf)
       {
-        v46 = *buf;
+        v32 = *buf;
         operator delete(*buf);
       }
     }
   }
 
-  v23 = objc_msgSend_espressoNet(self, v13, v14);
-  v25 = *v23;
-  v24 = v23[1];
-  v31 = v40[0];
-  v32 = v39[0];
-  v26 = espresso_network_change_input_blob_shapes_seq_rank();
-  free(v15);
-  if (v26)
+  [(APOdmlEspressoFacade *)self espressoNet];
+  v17 = v26[0];
+  v18 = v25[0];
+  v14 = espresso_network_change_input_blob_shapes_seq_rank();
+  free(v9);
+  if (v14)
   {
-    v27 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v15 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *&buf[4] = v26;
-      _os_log_impl(&dword_260ECB000, v27, OS_LOG_TYPE_ERROR, "Failed to change input shape with status: %d", buf, 8u);
+      *&buf[4] = v14;
+      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "Failed to change input shape with status: %d", buf, 8u);
     }
 
-    objc_msgSend_setError_errorCode_(self, v28, error, 8016, v31, v32);
+    [(APOdmlEspressoFacade *)self setError:error errorCode:8016, v17, v18];
   }
 
-  if (v39[0])
+  if (v25[0])
   {
-    v39[1] = v39[0];
-    operator delete(v39[0]);
+    v25[1] = v25[0];
+    operator delete(v25[0]);
   }
 
-  if (v40[0])
+  if (v26[0])
   {
-    v40[1] = v40[0];
-    operator delete(v40[0]);
+    v26[1] = v26[0];
+    operator delete(v26[0]);
   }
 
-  if (v41[0])
+  if (v27[0])
   {
-    v41[1] = v41[0];
-    operator delete(v41[0]);
+    v27[1] = v27[0];
+    operator delete(v27[0]);
   }
 
-  if (v42[0])
+  if (v28[0])
   {
-    v42[1] = v42[0];
-    operator delete(v42[0]);
+    v28[1] = v28[0];
+    operator delete(v28[0]);
   }
 
-  if (v43[0])
+  if (v29[0])
   {
-    v43[1] = v43[0];
-    operator delete(v43[0]);
+    v29[1] = v29[0];
+    operator delete(v29[0]);
   }
 
-  if (v44[0])
+  if (v30[0])
   {
-    v44[1] = v44[0];
-    operator delete(v44[0]);
+    v30[1] = v30[0];
+    operator delete(v30[0]);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v26 == 0;
+  return v14 == 0;
 }
 
 - (vector<unsigned)_getEspressoBlobShape:(APOdmlEspressoFacade *)self
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v6 = a4;
-  v9 = objc_msgSend_espressoNet(self, v7, v8);
-  v10 = *v9;
-  v11 = v9[1];
-  v12 = v6;
-  objc_msgSend_UTF8String(v12, v13, v14);
+  [(APOdmlEspressoFacade *)self espressoNet];
+  [v6 UTF8String];
   espresso_network_query_blob_shape();
   sub_260ECFE10(retstr, 0);
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)finalizeEspressoPipeline:(id *)pipeline
 {
-  v13 = *MEMORY[0x277D85DE8];
-  objc_msgSend_espressoPlan(self, a2, pipeline);
+  v10 = *MEMORY[0x277D85DE8];
+  [(APOdmlEspressoFacade *)self espressoPlan];
   v5 = espresso_plan_build();
   if (v5)
   {
@@ -296,164 +280,154 @@ LABEL_11:
     v7 = OdmlLogForCategory(0xBuLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12[0] = 67109120;
-      v12[1] = v6;
-      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "Build plan failed with status: %d", v12, 8u);
+      v9[0] = 67109120;
+      v9[1] = v6;
+      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "Build plan failed with status: %d", v9, 8u);
     }
 
-    objc_msgSend_setError_errorCode_(self, v8, pipeline, 8016);
-    v9 = *MEMORY[0x277D85DE8];
+    [(APOdmlEspressoFacade *)self setError:pipeline errorCode:8016];
     return 0;
   }
 
   else
   {
-    v11 = *MEMORY[0x277D85DE8];
 
-    return MEMORY[0x2821F9670](self, sel__prepareForTraining_, pipeline);
+    return MEMORY[0x2821F9670](self, sel__prepareForTraining_);
   }
 }
 
 - (BOOL)_prepareForTraining:(id *)training
 {
-  v5 = [APOdmlEspressoIOBufferController alloc];
-  v7 = objc_msgSend_initWithRequiredFeatures_recipe_(v5, v6, self->_requiredFeatures, self->_recipe);
+  v5 = [[APOdmlEspressoIOBufferController alloc] initWithRequiredFeatures:self->_requiredFeatures recipe:self->_recipe];
   bufferController = self->_bufferController;
-  self->_bufferController = v7;
+  self->_bufferController = v5;
 
-  v10 = objc_msgSend_bindBuffersTo_error_(self->_bufferController, v9, self->_espressoNet, training);
-  v13 = objc_msgSend_setEspressoNetworkFunction(self, v11, v12);
-  objc_msgSend__setErrorPtr_toError_(self, v14, training, v13);
-  if (v13)
+  v7 = [(APOdmlEspressoIOBufferController *)self->_bufferController bindBuffersTo:self->_espressoNet error:training];
+  setEspressoNetworkFunction = [(APOdmlEspressoFacade *)self setEspressoNetworkFunction];
+  [(APOdmlEspressoFacade *)self _setErrorPtr:training toError:setEspressoNetworkFunction];
+  if (setEspressoNetworkFunction)
   {
-    v10 = 0;
+    v7 = 0;
   }
 
-  return v10;
+  return v7;
 }
 
 - (id)setEspressoNetworkFunction
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_espressoNet(self, a2, v2);
-  v5 = *v4;
-  v6 = v4[1];
-  v9 = objc_msgSend_recipe(self, v7, v8);
-  v12 = objc_msgSend_functionInitName(v9, v10, v11);
-  v13 = v12;
-  objc_msgSend_UTF8String(v13, v14, v15);
-  v16 = espresso_network_set_function_name();
+  v16 = *MEMORY[0x277D85DE8];
+  [(APOdmlEspressoFacade *)self espressoNet];
+  recipe = [(APOdmlEspressoFacade *)self recipe];
+  functionInitName = [recipe functionInitName];
+  [functionInitName UTF8String];
+  v5 = espresso_network_set_function_name();
 
-  if (v16)
+  if (v5)
   {
-    v19 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v6 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v34 = 67109120;
-      v35 = v16;
-      _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "Failed to set subnetwork function name with status: %d", &v34, 8u);
+      v14 = 67109120;
+      v15 = v5;
+      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "Failed to set subnetwork function name with status: %d", &v14, 8u);
     }
 
-    v20 = &kAPODMLDESPluginSubnetworkNameFail;
+    v7 = &kAPODMLDESPluginSubnetworkNameFail;
 LABEL_13:
 
-    v31 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v30, @"APODMLDESPluginErrorDomain", *v20, 0);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:*v7 userInfo:0];
     goto LABEL_14;
   }
 
-  objc_msgSend_espressoPlan(self, v17, v18);
-  v21 = espresso_plan_execute_sync();
-  if (v21)
+  [(APOdmlEspressoFacade *)self espressoPlan];
+  v8 = espresso_plan_execute_sync();
+  if (v8)
   {
-    v24 = v21;
-    v19 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v9 = v8;
+    v6 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v34 = 67109120;
-      v35 = v24;
-      _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "Failed to execute sync with status: %d", &v34, 8u);
+      v14 = 67109120;
+      v15 = v9;
+      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "Failed to execute sync with status: %d", &v14, 8u);
     }
 
-    v20 = &kAPODMLDESPluginExecuteSyncFail;
+    v7 = &kAPODMLDESPluginExecuteSyncFail;
     goto LABEL_13;
   }
 
-  v25 = objc_msgSend_espressoNet(self, v22, v23);
-  v26 = *v25;
-  v27 = v25[1];
+  [(APOdmlEspressoFacade *)self espressoNet];
   get_main_function_name();
-  v28 = espresso_network_set_function_name();
-  if (v28)
+  v10 = espresso_network_set_function_name();
+  if (v10)
   {
-    v29 = v28;
-    v19 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v11 = v10;
+    v6 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v34 = 67109120;
-      v35 = v29;
-      _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "Failed to set main function name with status: %d", &v34, 8u);
+      v14 = 67109120;
+      v15 = v11;
+      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "Failed to set main function name with status: %d", &v14, 8u);
     }
 
-    v20 = &kAPODMLDESPluginMainFunctionNameFail;
+    v7 = &kAPODMLDESPluginMainFunctionNameFail;
     goto LABEL_13;
   }
 
-  v31 = 0;
+  v12 = 0;
 LABEL_14:
-  v32 = *MEMORY[0x277D85DE8];
 
-  return v31;
+  return v12;
 }
 
 - (id)retrieveWeights:(id *)weights
 {
   v4 = 0;
   v5 = 0;
-  v102 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   while (1)
   {
-    v6 = objc_msgSend_recipe(self, a2, weights);
-    v9 = objc_msgSend_weightNames(v6, v7, v8);
-    v12 = v4 < objc_msgSend_count(v9, v10, v11);
+    recipe = [(APOdmlEspressoFacade *)self recipe];
+    weightNames = [recipe weightNames];
+    v8 = v4 < [weightNames count];
 
-    if (!v12)
+    if (!v8)
     {
       break;
     }
 
-    v15 = objc_msgSend_recipe(self, v13, v14);
-    v18 = objc_msgSend_weightNames(v15, v16, v17);
-    v20 = objc_msgSend_objectAtIndexedSubscript_(v18, v19, v4);
-    v21 = v20;
-    v24 = objc_msgSend_UTF8String(v20, v22, v23);
-    v25 = strlen(v24);
-    if (v25 >= 0x7FFFFFFFFFFFFFF8)
+    recipe2 = [(APOdmlEspressoFacade *)self recipe];
+    weightNames2 = [recipe2 weightNames];
+    v11 = [weightNames2 objectAtIndexedSubscript:v4];
+    v12 = v11;
+    uTF8String = [v11 UTF8String];
+    v14 = strlen(uTF8String);
+    if (v14 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_260EDCE14();
     }
 
-    v26 = v25;
-    if (v25 >= 0x17)
+    v15 = v14;
+    if (v14 >= 0x17)
     {
       operator new();
     }
 
-    v99 = v25;
-    if (v25)
+    v46 = v14;
+    if (v14)
     {
-      memmove(__dst, v24, v25);
+      memmove(__dst, uTF8String, v14);
     }
 
-    *(__dst + v26) = 0;
+    *(__dst + v15) = 0;
 
-    v27 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v16 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = objc_msgSend_bufferController(self, v28, v29);
-      v33 = objc_msgSend_weightBuffers(v30, v31, v32);
-      v35 = objc_msgSend_objectAtIndexedSubscript_(v33, v34, v4);
-      v38 = objc_msgSend_bufferPointer(v35, v36, v37);
-      print_espresso_buffer(__dst, v38, &__p);
+      bufferController = [(APOdmlEspressoFacade *)self bufferController];
+      weightBuffers = [bufferController weightBuffers];
+      v19 = [weightBuffers objectAtIndexedSubscript:v4];
+      print_espresso_buffer(__dst, [v19 bufferPointer], &__p);
       p_p = &__p;
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -461,62 +435,60 @@ LABEL_14:
       }
 
       *buf = 136315138;
-      v101 = p_p;
-      _os_log_impl(&dword_260ECB000, v27, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      v48 = p_p;
+      _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
     }
 
-    v42 = objc_msgSend_bufferController(self, v40, v41);
-    v45 = objc_msgSend_weightBuffers(v42, v43, v44);
-    v47 = objc_msgSend_objectAtIndexedSubscript_(v45, v46, v4);
-    v50 = objc_msgSend_bufferPointer(v47, v48, v49);
-    v52 = objc_msgSend_numWeightsInBuffer_(self, v51, v50);
+    bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+    weightBuffers2 = [bufferController2 weightBuffers];
+    v23 = [weightBuffers2 objectAtIndexedSubscript:v4];
+    v24 = -[APOdmlEspressoFacade numWeightsInBuffer:](self, "numWeightsInBuffer:", [v23 bufferPointer]);
 
-    if (v99 < 0)
+    if (v46 < 0)
     {
       operator delete(__dst[0]);
     }
 
-    v5 += v52;
+    v5 += v24;
     ++v4;
   }
 
   if (v5)
   {
-    v53 = objc_msgSend_array(MEMORY[0x277CBEB18], v13, v14);
+    array = [MEMORY[0x277CBEB18] array];
     LODWORD(__p.__r_.__value_.__l.__data_) = 0;
-    sub_260EDCFA4(__dst, v5);
+    sub_260EDCFA4(__dst, v5, &__p);
     for (i = 0; ; ++i)
     {
-      v57 = objc_msgSend_recipe(self, v54, v55);
-      v60 = objc_msgSend_weightNames(v57, v58, v59);
-      v63 = i < objc_msgSend_count(v60, v61, v62);
+      recipe3 = [(APOdmlEspressoFacade *)self recipe];
+      weightNames3 = [recipe3 weightNames];
+      v29 = i < [weightNames3 count];
 
-      if (!v63)
+      if (!v29)
       {
         break;
       }
 
-      v66 = objc_msgSend_bufferController(self, v64, v65);
-      v69 = objc_msgSend_weightBuffers(v66, v67, v68);
-      v71 = objc_msgSend_objectAtIndexedSubscript_(v69, v70, i);
-      v74 = objc_msgSend_bufferPointer(v71, v72, v73);
-      v76 = objc_msgSend_numWeightsInBuffer_(self, v75, v74);
+      bufferController3 = [(APOdmlEspressoFacade *)self bufferController];
+      weightBuffers3 = [bufferController3 weightBuffers];
+      v32 = [weightBuffers3 objectAtIndexedSubscript:i];
+      v33 = -[APOdmlEspressoFacade numWeightsInBuffer:](self, "numWeightsInBuffer:", [v32 bufferPointer]);
 
-      if (v76)
+      if (v33)
       {
-        for (j = 0; j != v76; ++j)
+        for (j = 0; j != v33; ++j)
         {
-          v78 = MEMORY[0x277CCABB0];
-          v79 = objc_msgSend_bufferController(self, v54, v55);
-          v82 = objc_msgSend_weightBuffers(v79, v80, v81);
-          v84 = objc_msgSend_objectAtIndexedSubscript_(v82, v83, i);
-          LODWORD(v87) = *(*objc_msgSend_bufferPointer(v84, v85, v86) + 4 * j);
-          v90 = objc_msgSend_numberWithFloat_(v78, v88, v89, v87);
-          objc_msgSend_addObject_(v53, v91, v90);
+          v35 = MEMORY[0x277CCABB0];
+          bufferController4 = [(APOdmlEspressoFacade *)self bufferController];
+          weightBuffers4 = [bufferController4 weightBuffers];
+          v38 = [weightBuffers4 objectAtIndexedSubscript:i];
+          LODWORD(v39) = *(*[v38 bufferPointer] + 4 * j);
+          v40 = [v35 numberWithFloat:v39];
+          [array addObject:v40];
         }
       }
     }
@@ -530,307 +502,300 @@ LABEL_14:
 
   else
   {
-    v92 = OdmlLogForCategory(0xBuLL);
-    if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+    v41 = OdmlLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       LOWORD(__dst[0]) = 0;
-      _os_log_impl(&dword_260ECB000, v92, OS_LOG_TYPE_ERROR, "Failed to find any weight.", __dst, 2u);
+      _os_log_impl(&dword_260ECB000, v41, OS_LOG_TYPE_ERROR, "Failed to find any weight.", __dst, 2u);
     }
 
-    objc_msgSend_setError_errorCode_(self, v93, weights, 8029);
-    v53 = 0;
+    [(APOdmlEspressoFacade *)self setError:weights errorCode:8029];
+    array = 0;
   }
 
-  v94 = *MEMORY[0x277D85DE8];
-
-  return v53;
+  return array;
 }
 
 - (id)retrieveWeights2D:(id *)d
 {
-  v48 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, d);
+  array = [MEMORY[0x277CBEB18] array];
   for (i = 0; ; ++i)
   {
-    v7 = objc_msgSend_recipe(self, v4, v5);
-    v10 = objc_msgSend_weightNames(v7, v8, v9);
-    v13 = objc_msgSend_count(v10, v11, v12);
+    recipe = [(APOdmlEspressoFacade *)self recipe];
+    weightNames = [recipe weightNames];
+    v7 = [weightNames count];
 
-    if (i >= v13)
+    if (i >= v7)
     {
       break;
     }
 
-    v16 = objc_msgSend_bufferController(self, v14, v15);
-    v19 = objc_msgSend_weightBuffers(v16, v17, v18);
-    v21 = objc_msgSend_objectAtIndexedSubscript_(v19, v20, i);
-    v24 = objc_msgSend_bufferPointer(v21, v22, v23);
-    v26 = objc_msgSend_numWeightsInBuffer_(self, v25, v24);
+    bufferController = [(APOdmlEspressoFacade *)self bufferController];
+    weightBuffers = [bufferController weightBuffers];
+    v10 = [weightBuffers objectAtIndexedSubscript:i];
+    v11 = -[APOdmlEspressoFacade numWeightsInBuffer:](self, "numWeightsInBuffer:", [v10 bufferPointer]);
 
-    v31 = objc_msgSend_array(MEMORY[0x277CBEB18], v27, v28);
-    if (v26)
+    array2 = [MEMORY[0x277CBEB18] array];
+    if (v11)
     {
-      for (j = 0; j != v26; ++j)
+      for (j = 0; j != v11; ++j)
       {
-        v33 = MEMORY[0x277CCABB0];
-        v34 = objc_msgSend_bufferController(self, v29, v30);
-        v37 = objc_msgSend_weightBuffers(v34, v35, v36);
-        v39 = objc_msgSend_objectAtIndexedSubscript_(v37, v38, i);
-        LODWORD(v42) = *(*objc_msgSend_bufferPointer(v39, v40, v41) + 4 * j);
-        v45 = objc_msgSend_numberWithFloat_(v33, v43, v44, v42);
-        objc_msgSend_addObject_(v31, v46, v45);
+        v14 = MEMORY[0x277CCABB0];
+        bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+        weightBuffers2 = [bufferController2 weightBuffers];
+        v17 = [weightBuffers2 objectAtIndexedSubscript:i];
+        LODWORD(v18) = *(*[v17 bufferPointer] + 4 * j);
+        v19 = [v14 numberWithFloat:v18];
+        [array2 addObject:v19];
       }
     }
 
-    objc_msgSend_addObject_(v48, v29, v31);
+    [array addObject:array2];
   }
 
-  return v48;
+  return array;
 }
 
 - (unint64_t)numWeightsInBuffer:(id *)buffer
 {
-  v4 = objc_msgSend_bufferController(self, a2, buffer);
-  v6 = v4;
-  if (v4)
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  v4 = bufferController;
+  if (bufferController)
   {
-    objc_msgSend_getEspressoBufferShape_(v4, v5, buffer);
+    objc_msgSend_getEspressoBufferShape_(bufferController);
   }
 
   else
   {
-    v14 = 0;
-    v15 = 0;
+    v12 = 0;
+    v13 = 0;
   }
 
-  v7 = v15 - v14;
-  if (v15 != v14)
+  v5 = v13 - v12;
+  if (v13 != v12)
   {
-    v8 = *v14;
-    if ((v7 >> 3) >= 2 && *(v15 - 1) >= 2)
+    v6 = *v12;
+    if ((v5 >> 3) >= 2 && *(v13 - 1) >= 2)
     {
-      v9 = (v7 >> 3) - 1;
-      v10 = v14 + 1;
+      v7 = (v5 >> 3) - 1;
+      v8 = v12 + 1;
       do
       {
-        v12 = *v10++;
-        v11 = v12;
-        if (v12 <= 1)
+        v10 = *v8++;
+        v9 = v10;
+        if (v10 <= 1)
         {
-          v11 = 1;
+          v9 = 1;
         }
 
-        v8 *= v11;
-        --v9;
+        v6 *= v9;
+        --v7;
       }
 
-      while (v9);
+      while (v7);
     }
 
     goto LABEL_13;
   }
 
-  v8 = 0;
-  if (v15)
+  v6 = 0;
+  if (v13)
   {
 LABEL_13:
-    operator delete(v14);
+    operator delete(v12);
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)computeClientPttr:(id)pttr error:(id *)error
 {
   pttrCopy = pttr;
-  v9 = objc_msgSend_bufferController(self, v7, v8);
-  **objc_msgSend_isTraining(v9, v10, v11) = 0;
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  **[bufferController isTraining] = 0;
 
-  v14 = objc_msgSend_bufferController(self, v12, v13);
-  v17 = objc_msgSend_copy(pttrCopy, v15, v16);
-  v20 = objc_msgSend_espressoNet(self, v18, v19);
-  LOBYTE(error) = objc_msgSend_setInputData_batchSize_network_reportMissingFeature_error_(v14, v21, v17, 1, v20, 0, error);
+  bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+  v9 = [pttrCopy copy];
+  LOBYTE(error) = [bufferController2 setInputData:v9 batchSize:1 network:-[APOdmlEspressoFacade espressoNet](self reportMissingFeature:"espressoNet") error:{0, error}];
 
   if (error)
   {
-    objc_msgSend_espressoPlan(self, v22, v23);
+    [(APOdmlEspressoFacade *)self espressoPlan];
     espresso_plan_execute_sync();
-    v26 = objc_msgSend_bufferController(self, v24, v25);
-    v29 = *objc_msgSend_pTTR(v26, v27, v28);
+    bufferController3 = [(APOdmlEspressoFacade *)self bufferController];
+    v11 = *[bufferController3 pTTR];
 
-    LODWORD(v30) = *v29;
-    v33 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v31, v32, v30);
-    objc_msgSend__checkModelOutput_(self, v34, v33);
+    LODWORD(v12) = *v11;
+    v13 = [MEMORY[0x277CCABB0] numberWithFloat:v12];
+    [(APOdmlEspressoFacade *)self _checkModelOutput:v13];
   }
 
   else
   {
-    v33 = 0;
+    v13 = 0;
   }
 
-  return v33;
+  return v13;
 }
 
 - (void)_checkModelOutput:(id)output
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   outputCopy = output;
-  v72 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v4, v5);
-  objc_msgSend_setValue_forKey_(v72, v6, @"modelOutput", @"featureName");
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary setValue:@"modelOutput" forKey:@"featureName"];
   if (outputCopy)
   {
-    v9 = objc_msgSend_stringValue(outputCopy, v7, v8);
-    objc_msgSend_setValue_forKey_(v72, v10, v9, @"featureValue");
+    stringValue = [outputCopy stringValue];
+    [dictionary setValue:stringValue forKey:@"featureValue"];
 
-    v13 = objc_msgSend_recipe(self, v11, v12);
-    v69 = objc_msgSend_rangeBoundaryForOutput_(v13, v14, 0);
+    recipe = [(APOdmlEspressoFacade *)self recipe];
+    v31 = [recipe rangeBoundaryForOutput:0];
 
-    v17 = objc_msgSend_recipe(self, v15, v16);
-    v71 = objc_msgSend_rangeBoundaryForOutput_(v17, v18, 1);
+    recipe2 = [(APOdmlEspressoFacade *)self recipe];
+    v33 = [recipe2 rangeBoundaryForOutput:1];
 
-    if (v69)
+    if (v31)
     {
-      objc_msgSend_floatValue(outputCopy, v19, v20);
-      v22 = v21;
-      objc_msgSend_floatValue(v69, v23, v24);
-      if (v22 < v25)
+      [outputCopy floatValue];
+      v8 = v7;
+      [v31 floatValue];
+      if (v8 < v9)
       {
-        v26 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v19, @"APODMLDESPluginErrorDomain", 8040, 0);
-        v29 = objc_msgSend_copy(v72, v27, v28);
-        objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v30, v26, v29);
+        v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8040 userInfo:0];
+        v11 = [dictionary copy];
+        [APOdmlAnalyticsModelTraining sendEvent:v10 additionalDetails:v11];
       }
     }
 
-    if (v71)
+    if (v33)
     {
-      objc_msgSend_floatValue(outputCopy, v19, v20);
-      v32 = v31;
-      objc_msgSend_floatValue(v71, v33, v34);
-      if (v32 > v35)
+      [outputCopy floatValue];
+      v13 = v12;
+      [v33 floatValue];
+      if (v13 > v14)
       {
-        v36 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v19, @"APODMLDESPluginErrorDomain", 8039, 0);
-        v39 = objc_msgSend_copy(v72, v37, v38);
-        objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v40, v36, v39);
+        v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8039 userInfo:0];
+        v16 = [dictionary copy];
+        [APOdmlAnalyticsModelTraining sendEvent:v15 additionalDetails:v16];
       }
     }
 
-    v41 = objc_msgSend_recipe(self, v19, v20, v69);
-    v44 = objc_msgSend_sentinelValuesForOutput(v41, v42, v43);
+    recipe3 = [(APOdmlEspressoFacade *)self recipe];
+    sentinelValuesForOutput = [recipe3 sentinelValuesForOutput];
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v45 = v44;
-    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v74, v78, 16);
-    if (v49)
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v19 = sentinelValuesForOutput;
+    v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v20)
     {
-      v50 = *v75;
+      v21 = *v37;
       do
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v75 != v50)
+          if (*v37 != v21)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v19);
           }
 
-          v52 = *(*(&v74 + 1) + 8 * i);
-          objc_msgSend_floatValue(outputCopy, v47, v48);
-          v54 = v53;
-          objc_msgSend_floatValue(v52, v55, v56);
-          if (v54 == v57)
+          v23 = *(*(&v36 + 1) + 8 * i);
+          [outputCopy floatValue];
+          v25 = v24;
+          [v23 floatValue];
+          if (v25 == v26)
           {
-            v58 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v47, @"APODMLDESPluginErrorDomain", 8041, 0);
-            v61 = objc_msgSend_copy(v72, v59, v60);
-            objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v62, v58, v61);
+            v27 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8041 userInfo:0];
+            v28 = [dictionary copy];
+            [APOdmlAnalyticsModelTraining sendEvent:v27 additionalDetails:v28];
           }
         }
 
-        v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v74, v78, 16);
+        v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
-      while (v49);
+      while (v20);
     }
   }
 
   else
   {
-    v63 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v7, @"APODMLDESPluginErrorDomain", 8041, 0);
-    v66 = objc_msgSend_copy(v72, v64, v65);
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsModelTraining, v67, v63, v66);
+    v29 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:8041 userInfo:0];
+    v30 = [dictionary copy];
+    [APOdmlAnalyticsModelTraining sendEvent:v29 additionalDetails:v30];
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (id)computeAccuracyAndLoss:(id)loss error:(id *)error
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   lossCopy = loss;
-  v9 = objc_msgSend_bufferController(self, v7, v8);
-  **objc_msgSend_isTraining(v9, v10, v11) = 0;
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  **[bufferController isTraining] = 0;
 
-  v14 = objc_msgSend_finalBatchSize(self, v12, v13);
-  v17 = objc_msgSend_count(lossCopy, v15, v16);
-  v21 = 0.0;
-  v22 = 0.0;
-  v62 = v17 / v14;
-  if (v14 > v17)
+  finalBatchSize = [(APOdmlEspressoFacade *)self finalBatchSize];
+  v9 = [lossCopy count];
+  v11 = 0.0;
+  v12 = 0.0;
+  v32 = v9 / finalBatchSize;
+  if (finalBatchSize > v9)
   {
 LABEL_12:
-    *&v20 = v22 / v62;
-    v52 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v18, v19, v20);
-    v63[0] = v52;
-    *&v53 = v21 / v62;
-    v56 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v54, v55, v53);
-    v63[1] = v56;
-    v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v57, v63, 2);
+    *&v10 = v12 / v32;
+    v26 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
+    v33[0] = v26;
+    *&v27 = v11 / v32;
+    v28 = [MEMORY[0x277CCABB0] numberWithFloat:v27];
+    v33[1] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   }
 
   else
   {
-    v23 = 0;
-    v24 = 0;
-    if (v14 <= 1)
+    v13 = 0;
+    v14 = 0;
+    if (finalBatchSize <= 1)
     {
-      v25 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v25 = v14;
+      v15 = finalBatchSize;
     }
 
-    v61 = v25;
+    v31 = v15;
     while (1)
     {
-      v27 = objc_msgSend_array(MEMORY[0x277CBEB18], v18, v19);
-      v28 = v23;
-      v29 = v61;
+      array = [MEMORY[0x277CBEB18] array];
+      v17 = v13;
+      v18 = v31;
       do
       {
-        v30 = objc_msgSend_objectAtIndexedSubscript_(lossCopy, v26, v28);
-        objc_msgSend_addObject_(v27, v31, v30);
+        v19 = [lossCopy objectAtIndexedSubscript:v17];
+        [array addObject:v19];
 
-        ++v28;
-        --v29;
+        ++v17;
+        --v18;
       }
 
-      while (v29);
-      v33 = objc_msgSend_bufferController(self, v26, v32);
-      v36 = objc_msgSend_copy(v27, v34, v35);
-      v39 = objc_msgSend_espressoNet(self, v37, v38);
-      v41 = objc_msgSend_setInputData_batchSize_network_reportMissingFeature_error_(v33, v40, v36, v14, v39, 0, error);
+      while (v18);
+      bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+      v21 = [array copy];
+      v22 = [bufferController2 setInputData:v21 batchSize:finalBatchSize network:-[APOdmlEspressoFacade espressoNet](self reportMissingFeature:"espressoNet") error:{0, error}];
 
-      if ((v41 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
         break;
       }
 
-      objc_msgSend_espressoPlan(self, v42, v43);
+      [(APOdmlEspressoFacade *)self espressoPlan];
       espresso_plan_execute_sync();
-      objc_msgSend_accuracyInBatchWithError_(self, v44, error);
-      v48 = v47;
+      [(APOdmlEspressoFacade *)self accuracyInBatchWithError:error];
+      v24 = v23;
       if (error)
       {
         if (*error)
@@ -839,126 +804,124 @@ LABEL_12:
         }
       }
 
-      v49 = objc_msgSend_bufferController(self, v45, v46);
-      v22 = v22 + v48;
-      v21 = v21 + **objc_msgSend_loss(v49, v50, v51);
+      bufferController3 = [(APOdmlEspressoFacade *)self bufferController];
+      v12 = v12 + v24;
+      v11 = v11 + **[bufferController3 loss];
 
-      ++v24;
-      v23 += v14;
-      if (v24 >= v62)
+      ++v14;
+      v13 += finalBatchSize;
+      if (v14 >= v32)
       {
         goto LABEL_12;
       }
     }
 
-    v58 = 0;
+    v29 = 0;
   }
 
-  v59 = *MEMORY[0x277D85DE8];
-
-  return v58;
+  return v29;
 }
 
 - (float)accuracyInBatchWithError:(id *)error
 {
-  v5 = objc_msgSend_bufferController(self, a2, error);
-  v8 = objc_msgSend_bufferController(self, v6, v7);
-  v11 = objc_msgSend_pTTR(v8, v9, v10);
-  if (v5)
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+  [bufferController2 pTTR];
+  if (bufferController)
   {
-    objc_msgSend_getEspressoBufferShape_(v5, v12, v11);
+    objc_msgSend_getEspressoBufferShape_(bufferController);
   }
 
   else
   {
     __p = 0;
-    v52 = 0;
+    v31 = 0;
   }
 
-  v15 = objc_msgSend_bufferController(self, v13, v14);
-  v18 = objc_msgSend_inputBuffers(v15, v16, v17);
-  v20 = objc_msgSend_objectForKeyedSubscript_(v18, v19, @"Tapped");
+  bufferController3 = [(APOdmlEspressoFacade *)self bufferController];
+  inputBuffers = [bufferController3 inputBuffers];
+  v9 = [inputBuffers objectForKeyedSubscript:@"Tapped"];
 
-  if (!v20)
+  if (!v9)
   {
-    v23 = objc_msgSend_bufferController(self, v21, v22);
-    v26 = objc_msgSend_inputBuffers(v23, v24, v25);
-    v20 = objc_msgSend_objectForKeyedSubscript_(v26, v27, @"Tap");
+    bufferController4 = [(APOdmlEspressoFacade *)self bufferController];
+    inputBuffers2 = [bufferController4 inputBuffers];
+    v9 = [inputBuffers2 objectForKeyedSubscript:@"Tap"];
   }
 
-  v30 = objc_msgSend_bufferPointer(v20, v21, v22);
-  if (v30)
+  bufferPointer = [v9 bufferPointer];
+  if (bufferPointer)
   {
-    v31 = 0.0;
-    if ((v52 - __p) >= 9)
+    v13 = 0.0;
+    if ((v31 - __p) >= 9)
     {
-      v32 = *__p;
+      v14 = *__p;
       if (*__p)
       {
-        v33 = 0;
-        v34 = 0;
-        v35 = __p[1];
+        v15 = 0;
+        v16 = 0;
+        v17 = __p[1];
         do
         {
-          v36 = objc_msgSend_bufferController(self, v28, v29);
-          v39 = (*objc_msgSend_pTTR(v36, v37, v38) + 4 * v33 * v35);
+          bufferController5 = [(APOdmlEspressoFacade *)self bufferController];
+          v19 = (*[bufferController5 pTTR] + 4 * v15 * v17);
 
-          if (v35 >= 2)
+          if (v17 >= 2)
           {
-            v41 = v39 + 1;
-            v42 = *v39;
-            v43 = 4 * v35 - 4;
-            v40 = v39;
-            v44 = v39 + 1;
+            v21 = v19 + 1;
+            v22 = *v19;
+            v23 = 4 * v17 - 4;
+            v20 = v19;
+            v24 = v19 + 1;
             do
             {
-              v45 = *v44++;
-              v46 = v45;
-              if (v42 < v45)
+              v25 = *v24++;
+              v26 = v25;
+              if (v22 < v25)
               {
-                v42 = v46;
-                v40 = v41;
+                v22 = v26;
+                v20 = v21;
               }
 
-              v41 = v44;
-              v43 -= 4;
+              v21 = v24;
+              v23 -= 4;
             }
 
-            while (v43);
+            while (v23);
           }
 
           else
           {
-            v40 = v39;
+            v20 = v19;
           }
 
-          if (((v40 - v39) >> 2) == llroundf(*(*v30 + 4 * v33)))
+          if (((v20 - v19) >> 2) == llroundf(*(*bufferPointer + 4 * v15)))
           {
-            ++v34;
+            ++v16;
           }
 
-          ++v33;
+          ++v15;
         }
 
-        while (v33 != v32);
-        v47 = v34;
+        while (v15 != v14);
+        v27 = v16;
       }
 
       else
       {
-        v47 = 0.0;
+        v27 = 0.0;
       }
 
-      v31 = v47 / v32;
+      v13 = v27 / v14;
     }
   }
 
   else
   {
-    v48 = objc_msgSend_errorForFeatureNotBinded_(MEMORY[0x277CCA9B8], v28, @"Tapped");
-    objc_msgSend__setErrorPtr_toError_(self, v49, error, v48);
+    v28 = [MEMORY[0x277CCA9B8] errorForFeatureNotBinded:@"Tapped"];
+    [(APOdmlEspressoFacade *)self _setErrorPtr:error toError:v28];
 
-    v31 = 0.0;
+    v13 = 0.0;
   }
 
   if (__p)
@@ -966,161 +929,160 @@ LABEL_12:
     operator delete(__p);
   }
 
-  return v31;
+  return v13;
 }
 
 - (BOOL)trainWithTrainingSet:(id)set error:(id *)error
 {
-  v96 = *MEMORY[0x277D85DE8];
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
+  v56 = *MEMORY[0x277D85DE8];
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   setCopy = set;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(setCopy, v5, &v85, v95, 16);
-  if (v7)
+  v5 = [setCopy countByEnumeratingWithState:&v45 objects:v55 count:16];
+  if (v5)
   {
-    v8 = *v86;
+    v6 = *v46;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v86 != v8)
+        if (*v46 != v6)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        objc_msgSend_logTrainingRowFeatures_(APOdmlLogUtility, v6, *(*(&v85 + 1) + 8 * i));
+        [APOdmlLogUtility logTrainingRowFeatures:*(*(&v45 + 1) + 8 * i)];
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(setCopy, v6, &v85, v95, 16);
+      v5 = [setCopy countByEnumeratingWithState:&v45 objects:v55 count:16];
     }
 
-    while (v7);
+    while (v5);
   }
 
-  objc_msgSend__preTrainingSetup(self, v10, v11);
-  v83 = objc_msgSend_finalBatchSize(self, v12, v13);
-  v78 = objc_msgSend_count(setCopy, v14, v15);
-  v18 = objc_msgSend_recipe(self, v16, v17);
-  v21 = objc_msgSend_localIterationsCount(v18, v19, v20);
-  v76 = objc_msgSend_unsignedIntegerValue(v21, v22, v23);
+  [(APOdmlEspressoFacade *)self _preTrainingSetup];
+  finalBatchSize = [(APOdmlEspressoFacade *)self finalBatchSize];
+  v38 = [setCopy count];
+  recipe = [(APOdmlEspressoFacade *)self recipe];
+  localIterationsCount = [recipe localIterationsCount];
+  unsignedIntegerValue = [localIterationsCount unsignedIntegerValue];
 
-  v26 = objc_msgSend_mutableCopy(setCopy, v24, v25);
-  objc_msgSend_printDESRecordRowOrder_iterationNumber_(APOdmlLogUtility, v27, v26, &unk_28736F200);
-  if (v76)
+  v10 = [setCopy mutableCopy];
+  [APOdmlLogUtility printDESRecordRowOrder:v10 iterationNumber:&unk_28736F200];
+  if (unsignedIntegerValue)
   {
-    v77 = 0;
-    v79 = 0;
-    v75 = 8027;
-    if (v83 <= 1)
+    v37 = 0;
+    v39 = 0;
+    v35 = 8027;
+    if (finalBatchSize <= 1)
     {
-      v30 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v30 = v83;
+      v11 = finalBatchSize;
     }
 
-    v81 = v30;
-    v31 = 1;
+    v41 = v11;
+    v12 = 1;
     while (1)
     {
-      v32 = objc_msgSend_recipe(self, v28, v29, v75);
-      v35 = objc_msgSend_shouldShuffle(v32, v33, v34);
-      v38 = objc_msgSend_BOOLValue(v35, v36, v37);
+      recipe2 = [(APOdmlEspressoFacade *)self recipe];
+      shouldShuffle = [recipe2 shouldShuffle];
+      bOOLValue = [shouldShuffle BOOLValue];
 
-      if (v38)
+      if (bOOLValue)
       {
-        objc_msgSend_shuffle(v26, v28, v29);
-        v40 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v39, v79);
-        objc_msgSend_printDESRecordRowOrder_iterationNumber_(APOdmlLogUtility, v41, v26, v40);
+        [v10 shuffle];
+        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v39];
+        [APOdmlLogUtility printDESRecordRowOrder:v10 iterationNumber:v16];
       }
 
-      if (v83 <= v78)
+      if (finalBatchSize <= v38)
       {
         break;
       }
 
-      v42 = v31;
+      v17 = v12;
 LABEL_33:
-      v31 = v42;
-      v77 = ++v79 >= v76;
-      if (v79 == v76)
+      v12 = v17;
+      v37 = ++v39 >= unsignedIntegerValue;
+      if (v39 == unsignedIntegerValue)
       {
         goto LABEL_34;
       }
     }
 
-    v43 = 0;
-    v44 = 0;
-    v46 = __ROR8__(0xCCCCCCCCCCCCCCCDLL * v79, 1) < 0x199999999999999AuLL || v79 == v76 - 1;
-    v80 = v46;
+    v18 = 0;
+    v19 = 0;
+    v21 = __ROR8__(0xCCCCCCCCCCCCCCCDLL * v39, 1) < 0x199999999999999AuLL || v39 == unsignedIntegerValue - 1;
+    v40 = v21;
     while (1)
     {
-      v48 = objc_msgSend_array(MEMORY[0x277CBEB18], v28, v29);
-      v49 = v43;
-      v50 = v81;
+      array = [MEMORY[0x277CBEB18] array];
+      v23 = v18;
+      v24 = v41;
       do
       {
-        v51 = objc_msgSend_objectAtIndexedSubscript_(v26, v47, v49);
-        objc_msgSend_addObject_(v48, v52, v51);
+        v25 = [v10 objectAtIndexedSubscript:v23];
+        [array addObject:v25];
 
-        ++v49;
-        --v50;
+        ++v23;
+        --v24;
       }
 
-      while (v50);
-      v54 = objc_msgSend_bufferController(self, v47, v53);
-      v57 = objc_msgSend_copy(v48, v55, v56);
-      v60 = objc_msgSend_espressoNet(self, v58, v59);
-      v62 = objc_msgSend_setInputData_batchSize_network_reportMissingFeature_error_(v54, v61, v57, v83, v60, v31 & 1, error);
+      while (v24);
+      bufferController = [(APOdmlEspressoFacade *)self bufferController];
+      v27 = [array copy];
+      v28 = [bufferController setInputData:v27 batchSize:finalBatchSize network:-[APOdmlEspressoFacade espressoNet](self reportMissingFeature:"espressoNet") error:{v12 & 1, error}];
 
-      if ((v62 & 1) == 0)
+      if ((v28 & 1) == 0)
       {
         break;
       }
 
-      v67 = objc_msgSend__executeEspressoPlan(self, v63, v64);
-      if (v67)
+      _executeEspressoPlan = [(APOdmlEspressoFacade *)self _executeEspressoPlan];
+      if (_executeEspressoPlan)
       {
-        v71 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        v33 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v90 = v79;
-          v91 = 1024;
-          LODWORD(v92) = v67;
-          _os_log_impl(&dword_260ECB000, v71, OS_LOG_TYPE_ERROR, "Failed to execute espresso plan for iter %zu due to %d.", buf, 0x12u);
+          v50 = v39;
+          v51 = 1024;
+          LODWORD(v52) = _executeEspressoPlan;
+          _os_log_impl(&dword_260ECB000, v33, OS_LOG_TYPE_ERROR, "Failed to execute espresso plan for iter %zu due to %d.", buf, 0x12u);
         }
 
-        objc_msgSend_setError_errorCode_(self, v72, error, v75);
+        [(APOdmlEspressoFacade *)self setError:error errorCode:v35];
         break;
       }
 
-      objc_msgSend__retrieveLossValue(self, v65, v66);
-      if (v80)
+      [(APOdmlEspressoFacade *)self _retrieveLossValue];
+      if (v40)
       {
-        v69 = v68;
-        v70 = OdmlLogForCategory(0xBuLL);
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v31 = v30;
+        v32 = OdmlLogForCategory(0xBuLL);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218496;
-          v90 = v79;
-          v91 = 2048;
-          v92 = v44;
-          v93 = 2048;
-          v94 = v69;
-          _os_log_impl(&dword_260ECB000, v70, OS_LOG_TYPE_DEFAULT, "iter %04lu batch_num %04lu:\t loss = %f\n", buf, 0x20u);
+          v50 = v39;
+          v51 = 2048;
+          v52 = v19;
+          v53 = 2048;
+          v54 = v31;
+          _os_log_impl(&dword_260ECB000, v32, OS_LOG_TYPE_DEFAULT, "iter %04lu batch_num %04lu:\t loss = %f\n", buf, 0x20u);
         }
       }
 
-      LOBYTE(v31) = 0;
-      v42 = 0;
-      ++v44;
-      v43 += v83;
-      if (v44 >= v78 / v83)
+      LOBYTE(v12) = 0;
+      v17 = 0;
+      ++v19;
+      v18 += finalBatchSize;
+      if (v19 >= v38 / finalBatchSize)
       {
         goto LABEL_33;
       }
@@ -1130,37 +1092,36 @@ LABEL_33:
   else
   {
 LABEL_34:
-    v77 = 1;
+    v37 = 1;
   }
 
-  v73 = *MEMORY[0x277D85DE8];
-  return v77;
+  return v37;
 }
 
 - (float)_retrieveLossValue
 {
-  v3 = objc_msgSend_bufferController(self, a2, v2);
-  v6 = **objc_msgSend_loss(v3, v4, v5);
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  v3 = **[bufferController loss];
 
-  return v6;
+  return v3;
 }
 
 - (void)_preTrainingSetup
 {
-  v20 = objc_msgSend_recipe(self, a2, v2);
-  v6 = objc_msgSend_learningRate(v20, v4, v5);
-  objc_msgSend_floatValue(v6, v7, v8);
-  v10 = v9;
-  v13 = objc_msgSend_bufferController(self, v11, v12);
-  **objc_msgSend_learningRate(v13, v14, v15) = v10;
+  recipe = [(APOdmlEspressoFacade *)self recipe];
+  learningRate = [recipe learningRate];
+  [learningRate floatValue];
+  v5 = v4;
+  bufferController = [(APOdmlEspressoFacade *)self bufferController];
+  **[bufferController learningRate] = v5;
 
-  v21 = objc_msgSend_bufferController(self, v16, v17);
-  **objc_msgSend_isTraining(v21, v18, v19) = 1065353216;
+  bufferController2 = [(APOdmlEspressoFacade *)self bufferController];
+  **[bufferController2 isTraining] = 1065353216;
 }
 
 - (int)_executeEspressoPlan
 {
-  objc_msgSend_espressoPlan(self, a2, v2);
+  [(APOdmlEspressoFacade *)self espressoPlan];
 
   return espresso_plan_execute_sync();
 }
@@ -1169,7 +1130,7 @@ LABEL_34:
 {
   if (error)
   {
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], a2, @"APODMLDESPluginErrorDomain", code, 0);
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"APODMLDESPluginErrorDomain" code:code userInfo:0];
   }
 
   return error != 0;
@@ -1187,13 +1148,12 @@ LABEL_34:
 
 - (void)dealloc
 {
-  objc_msgSend_espressoPlan(self, a2, v2);
+  [(APOdmlEspressoFacade *)self espressoPlan];
   espresso_plan_destroy();
-  v6 = objc_msgSend_espressoNet(self, v4, v5);
-  free(v6);
-  v7.receiver = self;
-  v7.super_class = APOdmlEspressoFacade;
-  [(APOdmlEspressoFacade *)&v7 dealloc];
+  free([(APOdmlEspressoFacade *)self espressoNet]);
+  v3.receiver = self;
+  v3.super_class = APOdmlEspressoFacade;
+  [(APOdmlEspressoFacade *)&v3 dealloc];
 }
 
 @end

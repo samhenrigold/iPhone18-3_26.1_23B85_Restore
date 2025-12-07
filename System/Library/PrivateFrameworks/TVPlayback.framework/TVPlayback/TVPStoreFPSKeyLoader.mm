@@ -15,8 +15,12 @@
 - (void)secureKeyLoader:(id)loader didFailWithError:(id)error forRequest:(id)request;
 - (void)secureKeyLoader:(id)loader didLoadCertificateData:(id)data forRequest:(id)request;
 - (void)sendStopRequest;
+- (void)setDidSkipRentalCheckout:(BOOL)checkout;
 - (void)setEventCollection:(id)collection;
+- (void)setHoldKeyResponses:(BOOL)responses;
+- (void)setIncludeGUID:(BOOL)d;
 - (void)setRentalID:(id)d;
+- (void)setRequiresExternalEntitlementCheck:(BOOL)check;
 - (void)setServiceProviderID:(id)d;
 @end
 
@@ -74,7 +78,7 @@ uint64_t __34__TVPStoreFPSKeyLoader_initialize__block_invoke()
 
 - (void)loadSecureKeyRequest:(id)request
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
@@ -110,19 +114,17 @@ uint64_t __34__TVPStoreFPSKeyLoader_initialize__block_invoke()
 
       objc_initWeak(buf, self);
       mEMORY[0x277D7FD58] = [MEMORY[0x277D7FD58] sharedBagLoadingController];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke;
-      v14[3] = &unk_279D7BCE0;
-      objc_copyWeak(&v15, buf);
-      [mEMORY[0x277D7FD58] requestAccessToBagUsingBlock:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke;
+      v13[3] = &unk_279D7BCE0;
+      objc_copyWeak(&v14, buf);
+      [mEMORY[0x277D7FD58] requestAccessToBagUsingBlock:v13];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -143,7 +145,7 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke(uint64_t a1,
 
 void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a1)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -188,7 +190,7 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
 
       if (v7 && v9)
       {
-        v61 = v6;
+        v60 = v6;
         v12 = sLogObject_1;
         if (os_log_type_enabled(sLogObject_1, OS_LOG_TYPE_DEFAULT))
         {
@@ -196,11 +198,11 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
           _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Certificate and key server URLs available; creating loader objects", buf, 2u);
         }
 
-        v60 = v7;
+        v59 = v7;
         v13 = [[TVPSecureKeyStandardLoader alloc] initWithCertificateDataURL:v7 keyDataURL:v9];
         v14 = objc_alloc_init(TVPSecureKeyStandardConnector);
         [(TVPSecureKeyStandardLoader *)v13 setRequestGenerator:v14];
-        v58 = v14;
+        v57 = v14;
         [(TVPSecureKeyStandardLoader *)v13 setConnectionHandler:v14];
         -[TVPSecureKeyStandardLoader setHoldKeyResponses:](v13, "setHoldKeyResponses:", [v3 holdKeyResponses]);
         -[TVPSecureKeyStandardLoader setDidSkipRentalCheckout:](v13, "setDidSkipRentalCheckout:", [v3 didSkipRentalCheckout]);
@@ -213,7 +215,7 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
         [(TVPSecureKeyStandardLoader *)v13 setRentalID:v16];
 
         [v3 setSecureKeyStandardLoader:v13];
-        v59 = v13;
+        v58 = v13;
         v17 = [[TVPSecureKeyDeliveryCoordinator alloc] initWithSecureKeyLoader:v13];
         [(TVPSecureKeyDeliveryCoordinator *)v17 setDelegate:v3];
         v18 = [v3 eventCollection];
@@ -223,30 +225,30 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
         v19 = [v3 pendingKeyRequests];
         v20 = [v19 copy];
 
-        v62 = v3;
+        v61 = v3;
         v21 = [v3 pendingKeyRequests];
         [v21 removeAllObjects];
 
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
         v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
         v22 = v20;
-        v23 = [v22 countByEnumeratingWithState:&v63 objects:v69 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v62 objects:v68 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v64;
+          v25 = *v63;
           do
           {
             for (i = 0; i != v24; ++i)
             {
-              if (*v64 != v25)
+              if (*v63 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v63 + 1) + 8 * i);
+              v27 = *(*(&v62 + 1) + 8 * i);
               if ([v27 isCancelled])
               {
                 v28 = sLogObject_1;
@@ -255,7 +257,7 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
                   v29 = v28;
                   v30 = [v27 requestID];
                   *buf = 134217984;
-                  v68 = v30;
+                  v67 = v30;
                   _os_log_impl(&dword_26CEDD000, v29, OS_LOG_TYPE_DEFAULT, "Not loading request %lu since it has been cancelled", buf, 0xCu);
                 }
               }
@@ -266,16 +268,16 @@ void __45__TVPStoreFPSKeyLoader_loadSecureKeyRequest___block_invoke_2(uint64_t a
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v63 objects:v69 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v62 objects:v68 count:16];
           }
 
           while (v24);
         }
 
-        v6 = v61;
-        v3 = v62;
-        v7 = v60;
-        v31 = v59;
+        v6 = v60;
+        v3 = v61;
+        v7 = v59;
+        v31 = v58;
       }
 
       else
@@ -311,8 +313,6 @@ LABEL_37:
 LABEL_38:
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setEventCollection:(id)collection
@@ -326,6 +326,38 @@ LABEL_38:
     secureKeyDeliveryCoordinator2 = [(TVPStoreFPSKeyLoader *)self secureKeyDeliveryCoordinator];
     [secureKeyDeliveryCoordinator2 setEventCollection:collectionCopy];
   }
+}
+
+- (void)setHoldKeyResponses:(BOOL)responses
+{
+  responsesCopy = responses;
+  self->_holdKeyResponses = responses;
+  secureKeyStandardLoader = [(TVPStoreFPSKeyLoader *)self secureKeyStandardLoader];
+  [secureKeyStandardLoader setHoldKeyResponses:responsesCopy];
+}
+
+- (void)setDidSkipRentalCheckout:(BOOL)checkout
+{
+  checkoutCopy = checkout;
+  self->_didSkipRentalCheckout = checkout;
+  secureKeyStandardLoader = [(TVPStoreFPSKeyLoader *)self secureKeyStandardLoader];
+  [secureKeyStandardLoader setDidSkipRentalCheckout:checkoutCopy];
+}
+
+- (void)setIncludeGUID:(BOOL)d
+{
+  dCopy = d;
+  self->_includeGUID = d;
+  secureKeyStandardLoader = [(TVPStoreFPSKeyLoader *)self secureKeyStandardLoader];
+  [secureKeyStandardLoader setIncludeGUID:dCopy];
+}
+
+- (void)setRequiresExternalEntitlementCheck:(BOOL)check
+{
+  checkCopy = check;
+  self->_requiresExternalEntitlementCheck = check;
+  secureKeyStandardLoader = [(TVPStoreFPSKeyLoader *)self secureKeyStandardLoader];
+  [secureKeyStandardLoader setRequiresExternalEntitlementCheck:checkCopy];
 }
 
 - (void)setServiceProviderID:(id)d
@@ -519,7 +551,7 @@ void __47__TVPStoreFPSKeyLoader__preFetchFPSCertificate__block_invoke_2(uint64_t
 
 - (void)_failPendingKeyRequestsWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   pendingKeyRequests = [(TVPStoreFPSKeyLoader *)self pendingKeyRequests];
   v6 = [pendingKeyRequests copy];
@@ -527,28 +559,28 @@ void __47__TVPStoreFPSKeyLoader__preFetchFPSCertificate__block_invoke_2(uint64_t
   pendingKeyRequests2 = [(TVPStoreFPSKeyLoader *)self pendingKeyRequests];
   [pendingKeyRequests2 removeAllObjects];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v21;
+    v12 = *v20;
     *&v10 = 134217984;
-    v19 = v10;
+    v18 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if ([v14 isCancelled])
         {
           v15 = sLogObject_1;
@@ -556,8 +588,8 @@ void __47__TVPStoreFPSKeyLoader__preFetchFPSCertificate__block_invoke_2(uint64_t
           {
             v16 = v15;
             requestID = [v14 requestID];
-            *buf = v19;
-            v25 = requestID;
+            *buf = v18;
+            v24 = requestID;
             _os_log_impl(&dword_26CEDD000, v16, OS_LOG_TYPE_DEFAULT, "Not failing request %lu since it has been cancelled", buf, 0xCu);
           }
         }
@@ -568,13 +600,11 @@ void __47__TVPStoreFPSKeyLoader__preFetchFPSCertificate__block_invoke_2(uint64_t
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (TVPStoreFPSKeyLoaderDelegate)delegate

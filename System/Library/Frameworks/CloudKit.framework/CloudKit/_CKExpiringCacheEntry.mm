@@ -18,13 +18,13 @@
 
 + (id)keyPathsForValuesAffectingValueForKey:(id)key
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
-  v22[0] = key;
-  v22[1] = @"expired";
+  v21[0] = key;
+  v21[1] = @"expired";
   v5 = MEMORY[0x1E695DEC8];
   keyCopy = key;
-  v8 = objc_msgSend_arrayWithObjects_count_(v5, v7, v22, 2);
+  v8 = objc_msgSend_arrayWithObjects_count_(v5, v7, v21, 2);
   v10 = objc_msgSend_setWithArray_(v4, v9, v8);
   v13 = objc_msgSend_mutableCopy(v10, v11, v12);
 
@@ -38,12 +38,10 @@
 
   else
   {
-    v21.receiver = self;
-    v21.super_class = &OBJC_METACLASS____CKExpiringCacheEntry;
-    v18 = objc_msgSendSuper2(&v21, sel_keyPathsForValuesAffectingValueForKey_, keyCopy);
+    v20.receiver = self;
+    v20.super_class = &OBJC_METACLASS____CKExpiringCacheEntry;
+    v18 = objc_msgSendSuper2(&v20, sel_keyPathsForValuesAffectingValueForKey_, keyCopy);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -72,14 +70,13 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_object(self, a2, v2);
   objc_msgSend_stopObserving_(self, v5, v4);
 
-  v7.receiver = self;
-  v7.super_class = _CKExpiringCacheEntry;
-  [(_CKExpiringCacheEntry *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = _CKExpiringCacheEntry;
+  [(_CKExpiringCacheEntry *)&v6 dealloc];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

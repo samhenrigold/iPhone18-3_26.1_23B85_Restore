@@ -65,7 +65,7 @@
   }
 }
 
-uint64_t __62__SBAveragePixelLuminanceLimitController_setAplLimitsEnabled___block_invoke(uint64_t a1)
+void *__62__SBAveragePixelLuminanceLimitController_setAplLimitsEnabled___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) areAplLimitsEnabled];
   if ((result & 1) == 0)

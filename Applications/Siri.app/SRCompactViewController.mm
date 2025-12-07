@@ -312,43 +312,44 @@
 
 - (void)viewDidLoad
 {
-  v22.receiver = self;
-  v22.super_class = SRCompactViewController;
-  [(SRCompactViewController *)&v22 viewDidLoad];
+  v25.receiver = self;
+  v25.super_class = SRCompactViewController;
+  [(SRCompactViewController *)&v25 viewDidLoad];
   view = [(SRCompactViewController *)self view];
   [view recursive_setSemanticContentAttribute:SiriLanguageSemanticContentAttribute()];
 
-  IsPad = SiriUIDeviceIsPad();
-  if (IsPad)
+  SiriUIDeviceIsPad(v4, v5);
+  v7 = v6;
+  if (v6)
   {
-    v5 = [SRCardStackNavigationTransitionController alloc];
+    v8 = [SRCardStackNavigationTransitionController alloc];
     _resultViewController = [(SRCompactViewController *)self _resultViewController];
-    v7 = [(SRCardStackNavigationTransitionController *)v5 initWithCompactResultViewController:_resultViewController];
+    v10 = [(SRCardStackNavigationTransitionController *)v8 initWithCompactResultViewController:_resultViewController];
 
-    [(SRCompactViewController *)self _setNavigationStackLayoutController:v7];
-    v8 = 2;
+    [(SRCompactViewController *)self _setNavigationStackLayoutController:v10];
+    v11 = 2;
   }
 
   else
   {
-    v9 = [SiriUIMultiNavigationTransitionController alloc];
-    v10 = objc_alloc_init(SRBarSlideNavigationTransitionController);
-    v7 = [v9 initWithPrimaryTransitionController:v10];
+    v12 = [SiriUIMultiNavigationTransitionController alloc];
+    v13 = objc_alloc_init(SRBarSlideNavigationTransitionController);
+    v10 = [v12 initWithPrimaryTransitionController:v13];
 
-    v11 = [[SRBlurFromRootNavigationTransitionController alloc] initWithDelegate:self];
-    [(SRCardStackNavigationTransitionController *)v7 addAdditionalCoordinationController:v11];
+    v14 = [[SRBlurFromRootNavigationTransitionController alloc] initWithDelegate:self];
+    [(SRCardStackNavigationTransitionController *)v10 addAdditionalCoordinationController:v14];
 
-    v8 = 1;
+    v11 = 1;
   }
 
   _navigationController = [(SRCompactViewController *)self _navigationController];
-  [_navigationController setTransitionController:v7];
+  [_navigationController setTransitionController:v10];
 
-  v13 = [[SiriSharedUIPanDismissalGestureRecognizer alloc] initWithDismissalDelegate:self dismissalStyle:v8];
+  v16 = [[SiriSharedUIPanDismissalGestureRecognizer alloc] initWithDismissalDelegate:self dismissalStyle:v11];
   dismissalPanGestureRecognizer = self->_dismissalPanGestureRecognizer;
-  self->_dismissalPanGestureRecognizer = v13;
+  self->_dismissalPanGestureRecognizer = v16;
 
-  if (IsPad)
+  if (v7)
   {
     view2 = [(SRCompactViewController *)self view];
     layer = [view2 layer];
@@ -536,24 +537,25 @@
   view = [(SRCompactViewController *)self view];
   window = [view window];
 
-  if (SiriSharedUIDeviceIsPad())
+  IsPad = SiriSharedUIDeviceIsPad();
+  if (IsPad)
   {
-    v4 = window;
+    v5 = window;
   }
 
   else
   {
-    IsMac = SiriSharedUIDeviceIsMac();
-    v4 = window;
-    if (!IsMac)
+    IsPad = SiriSharedUIDeviceIsMac();
+    v5 = window;
+    if (!IsPad)
     {
       goto LABEL_9;
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    [v4 bounds];
+    [v5 bounds];
     v7 = v6;
     v9 = v8;
     v11 = v10;
@@ -588,11 +590,13 @@
     }
 
     [view2 setFrame:{v26, 0.0, v19, Height}];
+
+    v5 = window;
   }
 
 LABEL_9:
 
-  _objc_release_x1();
+  _objc_release_x1(IsPad, v5);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -1247,7 +1251,8 @@ LABEL_8:
   v6 = objc_alloc_init(SRCompactViewControllerContentTester);
   _compactView = [(SRCompactViewController *)self _compactView];
   v8 = objc_alloc_init(SRCompactViewControllerMutableContentTesterState);
-  [(SRCompactViewControllerMutableContentTesterState *)v8 setDeviceIsPad:SiriUIDeviceIsPad()];
+  SiriUIDeviceIsPad(v8, v9);
+  [(SRCompactViewControllerMutableContentTesterState *)v8 setDeviceIsPad:v10];
   transitionController = [(SiriUINavigationController *)self->_navigationController transitionController];
   -[SRCompactViewControllerMutableContentTesterState setNavigationStackIsPopping:](v8, "setNavigationStackIsPopping:", [transitionController operation] == 2);
 
@@ -1272,8 +1277,8 @@ LABEL_8:
   visibleViewController = [(SiriUINavigationController *)self->_navigationController visibleViewController];
   view = [visibleViewController view];
   [_compactView convertPoint:view toView:{x, y}];
-  v16 = v15;
   v18 = v17;
+  v20 = v19;
 
   [(SRCompactViewControllerMutableContentTesterState *)v8 setNavigationBarHasContent:[(SRCompactViewController *)self _navigationBarHasContentAtPoint:x, y]];
   visibleViewController2 = [(SiriUINavigationController *)self->_navigationController visibleViewController];
@@ -1283,7 +1288,7 @@ LABEL_8:
   if (view)
   {
     visibleViewController3 = [(SiriUINavigationController *)self->_navigationController visibleViewController];
-    -[SRCompactViewControllerMutableContentTesterState setMultiLevelViewHasContent:](v8, "setMultiLevelViewHasContent:", [visibleViewController3 hasContentAtPoint:{v16, v18}]);
+    -[SRCompactViewControllerMutableContentTesterState setMultiLevelViewHasContent:](v8, "setMultiLevelViewHasContent:", [visibleViewController3 hasContentAtPoint:{v18, v20}]);
   }
 
   else
@@ -1309,9 +1314,9 @@ LABEL_7:
     -[SRCompactViewControllerMutableContentTesterState setContextMenuIsPresented:](v8, "setContextMenuIsPresented:", [window contextMenuIsPresented]);
   }
 
-  v23 = [(SRCompactViewControllerContentTester *)v6 hasContentForState:v8];
+  v25 = [(SRCompactViewControllerContentTester *)v6 hasContentForState:v8];
 
-  return v23;
+  return v25;
 }
 
 - (void)_setBottomContentInsetComponents:(id)components animatedWithDuration:(double)duration animationOptions:(unint64_t)options
@@ -2146,29 +2151,29 @@ LABEL_11:
 
 - (void)siriSnippetViewController:(id)controller pushSirilandSnippets:(id)snippets
 {
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   snippetsCopy = snippets;
-  v5 = [snippetsCopy countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v5 = [snippetsCopy countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (!v5)
   {
     goto LABEL_32;
   }
 
   v6 = v5;
-  v7 = *v45;
+  v7 = *v50;
   while (2)
   {
     for (i = 0; i != v6; i = i + 1)
     {
-      if (*v45 != v7)
+      if (*v50 != v7)
       {
         objc_enumerationMutation(snippetsCopy);
       }
 
-      v9 = *(*(&v44 + 1) + 8 * i);
+      v9 = *(*(&v49 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -2196,9 +2201,10 @@ LABEL_11:
         view = [viewController3 view];
         [view layoutIfNeeded];
         v17 = viewController3;
-        if (SiriUIDeviceIsPad())
+        SiriUIDeviceIsPad(v17, v18);
+        if (v19)
         {
-          [v17 setNavigating:1];
+          [(SRSystemAssistantExperienceViewController *)v17 setNavigating:1];
         }
 
         if (objc_opt_respondsToSelector())
@@ -2211,75 +2217,80 @@ LABEL_11:
           shouldAutomaticallyScaleContentInAmbient = 1;
         }
 
-        [v17 setIsInAmbient:self->_isInAmbient];
-        [v17 setDelegate:self];
+        [(SRSystemAssistantExperienceViewController *)v17 setIsInAmbient:self->_isInAmbient];
+        [(SRSystemAssistantExperienceViewController *)v17 setDelegate:self];
         [(SiriSharedUICompactHostingInstrumentationSupplement *)self->_instrumentationSupplement configureSiriViewControllerWithCurrentTurn:v17];
-        v19 = objc_alloc_init(SiriSharedUIContentPlatterViewController);
-        v48 = v17;
-        v20 = [NSArray arrayWithObjects:&v48 count:1];
-        [v19 setContentViewControllers:v20];
+        v21 = objc_alloc_init(SiriSharedUIContentPlatterViewController);
+        v53 = v17;
+        v22 = [NSArray arrayWithObjects:&v53 count:1];
+        [v21 setContentViewControllers:v22];
 
-        v21 = objc_alloc_init(SiriUINavigationContentViewController);
-        [v21 setContentViewController:v19];
-        v42 = v19;
+        v23 = objc_alloc_init(SiriUINavigationContentViewController);
+        [v23 setContentViewController:v21];
+        v47 = v21;
         if (self->_isInAmbient)
         {
-          [v19 contentPlatterView];
-          v41 = v21;
-          v23 = v22 = shouldAutomaticallyScaleContentInAmbient;
+          [v21 contentPlatterView];
+          v46 = v23;
+          v25 = v24 = shouldAutomaticallyScaleContentInAmbient;
           _resultViewController = [(SRCompactViewController *)self _resultViewController];
           compactResultView = [_resultViewController compactResultView];
-          [v23 setDelegate:compactResultView];
+          [v25 setDelegate:compactResultView];
 
-          shouldAutomaticallyScaleContentInAmbient = v22;
-          v21 = v41;
-          v19 = v42;
+          shouldAutomaticallyScaleContentInAmbient = v24;
+          v23 = v46;
+          v21 = v47;
         }
 
-        contentPlatterView = [v19 contentPlatterView];
+        contentPlatterView = [v21 contentPlatterView];
         [contentPlatterView setIsNextLevelCard:1];
 
-        contentPlatterView2 = [v19 contentPlatterView];
+        contentPlatterView2 = [v21 contentPlatterView];
         [contentPlatterView2 setIsInAmbient:self->_isInAmbient];
 
-        contentPlatterView3 = [v19 contentPlatterView];
+        contentPlatterView3 = [v21 contentPlatterView];
         [contentPlatterView3 setAllowAutomaticContentViewsScaling:shouldAutomaticallyScaleContentInAmbient];
 
-        aceObject = [v17 aceObject];
+        aceObject = [(SRSystemAssistantExperienceViewController *)v17 aceObject];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
-        if ((isKindOfClass & 1) != 0 && SiriUIDeviceIsPad())
+        if (isKindOfClass)
         {
-          contentViewController = [v21 contentViewController];
-          view2 = [contentViewController view];
-          view3 = [(SRCompactViewController *)self view];
-          [view3 frame];
-          [view2 setFrame:{0.0, 0.0, CGRectGetWidth(v50), 0.0}];
+          SiriUIDeviceIsPad(v33, v34);
+          if (v33)
+          {
+            contentViewController = [v23 contentViewController];
+            view2 = [contentViewController view];
+            view3 = [(SRCompactViewController *)self view];
+            [view3 frame];
+            [view2 setFrame:{0.0, 0.0, CGRectGetWidth(v55), 0.0}];
 
-          contentViewController2 = [v21 contentViewController];
-          view4 = [contentViewController2 view];
-          [view4 setNeedsLayout];
+            contentViewController2 = [v23 contentViewController];
+            view4 = [contentViewController2 view];
+            [view4 setNeedsLayout];
 
-          contentViewController3 = [v21 contentViewController];
-          view5 = [contentViewController3 view];
-          [view5 layoutIfNeeded];
+            contentViewController3 = [v23 contentViewController];
+            view5 = [contentViewController3 view];
+            [view5 layoutIfNeeded];
+          }
         }
 
-        if (SiriUIDeviceIsPad())
+        SiriUIDeviceIsPad(v33, v34);
+        if (v42)
         {
-          [v21 setContentLayoutEnabled:0];
+          [v23 setContentLayoutEnabled:0];
         }
 
         else
         {
-          [(SRCompactViewController *)self _updateAdditionalSafeAreaInsetsForNavigationContentViewController:v21];
+          [(SRCompactViewController *)self _updateAdditionalSafeAreaInsetsForNavigationContentViewController:v23];
         }
 
-        [(SRCompactViewController *)self _setQueuedNavigationContentViewController:v21];
-        if ([v17 isLoading])
+        [(SRCompactViewController *)self _setQueuedNavigationContentViewController:v23];
+        if ([(SRSystemAssistantExperienceViewController *)v17 isLoading])
         {
-          aceObject2 = [v17 aceObject];
+          aceObject2 = [(SRSystemAssistantExperienceViewController *)v17 aceObject];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -2287,11 +2298,11 @@ LABEL_11:
 
           else
           {
-            aceObject3 = [v17 aceObject];
+            aceObject3 = [(SRSystemAssistantExperienceViewController *)v17 aceObject];
             objc_opt_class();
-            v40 = objc_opt_isKindOfClass();
+            v45 = objc_opt_isKindOfClass();
 
-            if ((v40 & 1) == 0)
+            if ((v45 & 1) == 0)
             {
 LABEL_31:
               [(SiriSharedUICompactHostingInstrumentationSupplement *)self->_instrumentationSupplement logDrillInInteractionForSnippetViewControllerIfNecessary:v17];
@@ -2306,7 +2317,7 @@ LABEL_31:
       }
     }
 
-    v6 = [snippetsCopy countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v6 = [snippetsCopy countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v6)
     {
       continue;
@@ -2321,13 +2332,14 @@ LABEL_32:
 - (void)_updateAdditionalSafeAreaInsetsForNavigationContentViewController:(id)controller
 {
   controllerCopy = controller;
-  if ((SiriUIDeviceIsPad() & 1) == 0)
+  SiriUIDeviceIsPad(controllerCopy, v4);
+  if ((v5 & 1) == 0)
   {
     _compactView = [(SRCompactViewController *)self _compactView];
     [_compactView safeAreaInsets];
-    v6 = 0.0 - v5;
+    v8 = 0.0 - v7;
     [_compactView effectiveBottomContentInset];
-    [controllerCopy setAdditionalSafeAreaInsets:{0.0, 8.0, v6 + v7 + 14.0, 8.0}];
+    [(SRSystemAssistantExperienceViewController *)controllerCopy setAdditionalSafeAreaInsets:0.0, 8.0, v8 + v9 + 14.0, 8.0];
   }
 }
 
@@ -2345,18 +2357,22 @@ LABEL_32:
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((isKindOfClass & 1) != 0 && SiriUIDeviceIsPad())
+    if (isKindOfClass)
     {
-      view2 = [loadCopy view];
-      view3 = [(SRCompactViewController *)self view];
-      [view3 frame];
-      [view2 setFrame:{0.0, 0.0, CGRectGetWidth(v14), 0.0}];
+      SiriUIDeviceIsPad(v8, v9);
+      if (v10)
+      {
+        view2 = [loadCopy view];
+        view3 = [(SRCompactViewController *)self view];
+        [view3 frame];
+        [view2 setFrame:{0.0, 0.0, CGRectGetWidth(v17), 0.0}];
 
-      view4 = [loadCopy view];
-      [view4 setNeedsLayout];
+        view4 = [loadCopy view];
+        [view4 setNeedsLayout];
 
-      view5 = [loadCopy view];
-      [view5 layoutIfNeeded];
+        view5 = [loadCopy view];
+        [view5 layoutIfNeeded];
+      }
     }
 
     [(SRCompactViewController *)self _pushQueuedNavigationContentViewController];
@@ -2660,10 +2676,8 @@ LABEL_32:
     return 0;
   }
 
-  else
-  {
-    return SiriUIDeviceIsPad() ^ 1;
-  }
+  SiriUIDeviceIsPad(v6, v7);
+  return v9 ^ 1;
 }
 
 - (void)compactView:(id)view viewDidAppearForAceObject:(id)object
@@ -2962,7 +2976,8 @@ LABEL_32:
   delegate = [(SRCompactViewController *)self delegate];
   [delegate viewController:self siriRequestEnteredWithText:textCopy];
 
-  [controllerCopy setAllowsCancellation:SiriUIDeviceIsPad() ^ 1];
+  SiriUIDeviceIsPad(v8, v9);
+  [controllerCopy setAllowsCancellation:v10 ^ 1u];
 }
 
 - (BOOL)_alwaysObscureBackgroundContentWhenActive

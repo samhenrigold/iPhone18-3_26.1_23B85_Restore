@@ -9,7 +9,7 @@
 {
   changeCopy = change;
 
-  MessageStoreService.messageStoreAccountInfoDidChange(_:)();
+  MessageStoreService.messageStoreAccountInfoDidChange(_:)(changeCopy);
 }
 
 - (void)messageStoreRequiresRefetch

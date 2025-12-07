@@ -126,7 +126,7 @@ LABEL_19:
 
 id __84__WFTimeTriggerLogic_nextWeekdayFromDaysOfWeek_timeComponents_currentDate_calendar___block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = [a2 integerValue];
   v4 = v3;
   v5 = *(a1 + 56);
@@ -138,15 +138,15 @@ id __84__WFTimeTriggerLogic_nextWeekdayFromDaysOfWeek_timeComponents_currentDate
       if ([*(a1 + 32) isDate:v6 inSameDayAsDate:*(a1 + 40)])
       {
         v9 = [MEMORY[0x1E696AD98] numberWithInteger:v4];
-        v15 = v9;
-        v10 = &v15;
+        v14 = v9;
+        v10 = &v14;
       }
 
       else
       {
         v9 = [MEMORY[0x1E696AD98] numberWithInteger:v4 + 7];
-        v16 = v9;
-        v10 = &v16;
+        v15 = v9;
+        v10 = &v15;
       }
 
       v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
@@ -155,30 +155,28 @@ id __84__WFTimeTriggerLogic_nextWeekdayFromDaysOfWeek_timeComponents_currentDate
     }
 
     v6 = [MEMORY[0x1E696AD98] numberWithInteger:v3];
-    v14 = v6;
+    v13 = v6;
     v7 = MEMORY[0x1E695DEC8];
-    v8 = &v14;
+    v8 = &v13;
   }
 
   else
   {
     v6 = [MEMORY[0x1E696AD98] numberWithInteger:v3 + 7];
-    v17[0] = v6;
+    v16[0] = v6;
     v7 = MEMORY[0x1E695DEC8];
-    v8 = v17;
+    v8 = v16;
   }
 
   v11 = [v7 arrayWithObjects:v8 count:1];
 LABEL_10:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)nextFireDateForTrigger:(id)trigger currentDate:(id)date currentSunriseTime:(id)time currentSunsetTime:(id)sunsetTime
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   triggerCopy = trigger;
   dateCopy = date;
   timeCopy = time;
@@ -199,9 +197,9 @@ LABEL_10:
     v17 = getWFTriggersLogObject();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v36 = 136315394;
-      v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
-      v38 = 2112;
+      v35 = 136315394;
+      v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+      v37 = 2112;
       event = triggerCopy;
       v21 = "%s Can't calculate nextFireDate; No time set for %@";
 LABEL_23:
@@ -209,7 +207,7 @@ LABEL_23:
       v30 = OS_LOG_TYPE_FAULT;
       v31 = 22;
 LABEL_35:
-      _os_log_impl(&dword_1CA256000, v29, v30, v21, &v36, v31);
+      _os_log_impl(&dword_1CA256000, v29, v30, v21, &v35, v31);
       goto LABEL_36;
     }
 
@@ -232,8 +230,8 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    v36 = 136315138;
-    v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+    v35 = 136315138;
+    v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
     v21 = "%s Can't calculate nextFireDate without sunrise time";
 LABEL_34:
     v29 = v17;
@@ -247,9 +245,9 @@ LABEL_34:
     v17 = getWFTriggersLogObject();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v36 = 136315394;
-      v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
-      v38 = 2048;
+      v35 = 136315394;
+      v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+      v37 = 2048;
       event = [triggerCopy event];
       v21 = "%s Unhandled time trigger event: %ld; can't calculate nextFireDate";
       goto LABEL_23;
@@ -268,8 +266,8 @@ LABEL_36:
       goto LABEL_36;
     }
 
-    v36 = 136315138;
-    v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+    v35 = 136315138;
+    v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
     v21 = "%s Can't calculate nextFireDate without sunset time";
     goto LABEL_34;
   }
@@ -300,9 +298,9 @@ LABEL_13:
       goto LABEL_29;
     }
 
-    v36 = 136315394;
-    v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
-    v38 = 2112;
+    v35 = 136315394;
+    v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+    v37 = 2112;
     event = triggerCopy;
     v33 = "%s Can't calculate nextFireDate; No days of week set for %@";
     goto LABEL_28;
@@ -320,13 +318,13 @@ LABEL_29:
       goto LABEL_36;
     }
 
-    v36 = 136315394;
-    v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
-    v38 = 2112;
+    v35 = 136315394;
+    v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+    v37 = 2112;
     event = triggerCopy;
     v33 = "%s Can't calculate nextFireDate; No days of month set for %@";
 LABEL_28:
-    _os_log_impl(&dword_1CA256000, v32, OS_LOG_TYPE_FAULT, v33, &v36, 0x16u);
+    _os_log_impl(&dword_1CA256000, v32, OS_LOG_TYPE_FAULT, v33, &v35, 0x16u);
     goto LABEL_29;
   }
 
@@ -338,17 +336,16 @@ LABEL_18:
   v28 = getWFTriggersLogObject();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
-    v36 = 136315650;
-    v37 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
-    v38 = 2112;
+    v35 = 136315650;
+    v36 = "+[WFTimeTriggerLogic nextFireDateForTrigger:currentDate:currentSunriseTime:currentSunsetTime:]";
+    v37 = 2112;
     event = triggerCopy;
-    v40 = 2112;
-    v41 = v27;
-    _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_INFO, "%s nextFireDate for trigger (%@): %@", &v36, 0x20u);
+    v39 = 2112;
+    v40 = v27;
+    _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_INFO, "%s nextFireDate for trigger (%@): %@", &v35, 0x20u);
   }
 
 LABEL_37:
-  v34 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

@@ -19,8 +19,10 @@
 - (int64_t)_polygonIndexForAccuracy:(unint64_t)accuracy;
 - (unint64_t)_keylineLabelAlignmentForCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_applyBreathingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
+- (void)_applyCurrentDataModelByFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated;
 - (void)_applyCurrentRingLayout;
 - (void)_applyDataMode;
+- (void)_applyDataModel:(id)model byFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated;
 - (void)_applyFrozen;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
 - (void)_applyRubberBandingFraction:(double)fraction forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -43,6 +45,7 @@
 - (void)_prepareForEditing;
 - (void)_prepareWristRaiseAnimation;
 - (void)_removeActivityRelatedUIs;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setActivityViewsAlpha:(double)alpha animated:(BOOL)animated;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateActivityLabelColors:(BOOL)colors;
@@ -51,6 +54,8 @@
 - (void)_updateTimeViewSecondsDisplayState;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setDataMode:(int64_t)mode;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 - (void)setRightTimeViewInset:(double)inset;
@@ -143,6 +148,32 @@
   [(NTKActivityDigitalFaceView *)self _updatePausedState];
 }
 
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKActivityDigitalFaceView;
+  [(NTKActivityDigitalFaceView *)&v4 screenDidTurnOffAnimated:animated];
+  [(NTKActivityDigitalFaceView *)self _updatePausedState];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKActivityDigitalFaceView;
+  [(NTKActivityDigitalFaceView *)&v4 screenWillTurnOnAnimated:animated];
+  [(NTKActivityDigitalFaceView *)self _updatePausedState];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKActivityDigitalFaceView;
+  groupCopy = group;
+  [(NTKActivityDigitalFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKRingsMetalQuadView *)self->_ringsView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)_applyDataMode
 {
   v3.receiver = self;
@@ -187,7 +218,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   v9 = [(NTKActivityDigitalFaceView *)self _labelFontMonospaced:0];
-  [(NTKActivityDigitalFaceView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   device = [(NTKActivityDigitalFaceView *)self device];
   v11 = [NTKDigitalTimeLabelStyle defaultStyleForBounds:0 withRightSideMargin:v9 applyAdvanceFudge:device withBaselineY:x withFont:y forDevice:width, height, 0.0, v13];
 
@@ -254,7 +285,7 @@
   v30 = 0u;
   v31 = 0u;
   v29 = 0u;
-  [(NTKActivityDigitalFaceView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   v28[0] = 0;
   v28[1] = v28;
   v28[2] = 0x2020000000;
@@ -283,47 +314,45 @@
 
 - (void)_updateCurrentRingLayoutIfNecessary
 {
-  v21 = 0;
-  v19 = 0u;
-  v20 = 0u;
+  v19 = 0;
   v17 = 0u;
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v3 = &v20;
-  v4 = &v19;
-  [(NTKActivityDigitalFaceView *)self _layoutConstants];
+  v12 = 0u;
+  v3 = &v18;
+  v4 = &v17;
+  objc_msgSend__layoutConstants(self, a2);
   timeScrubbing = [(NTKActivityDigitalFaceView *)self timeScrubbing];
   v6 = +[NTKActivityFaceViewFactory userActiveEnergyIsCalories];
-  v7 = (&v20 + 8);
+  v7 = (&v18 + 8);
   if (!timeScrubbing || v6)
   {
     moveStringMetricWidth = self->_moveStringMetricWidth;
     if (moveStringMetricWidth <= 4)
     {
-      v7 = &v18;
-      v3 = &v17 + 1;
-      v4 = (&v16 + 8);
+      v7 = &v16;
+      v3 = &v15 + 1;
+      v4 = (&v14 + 8);
       v9 = moveStringMetricWidth == 4 ? 1 : timeScrubbing;
       if ((v9 & 1) == 0 && self->_exerciseStringMetricWidth <= 2)
       {
-        v4 = &v14;
-        v3 = &v15;
-        v7 = (&v15 + 8);
+        v4 = &v12;
+        v3 = &v13;
+        v7 = (&v13 + 8);
       }
     }
   }
 
-  v10 = *v4;
-  v11 = *v3;
-  v12 = *v7;
-  v13 = *v7;
+  v10 = *v3;
+  v11 = *v7;
   if (*v3 != self->_currentRingLayout.diameter)
   {
     *&self->_currentRingLayout.bottomEdgeInset = *v4;
-    self->_currentRingLayout.diameter = v11;
-    *&self->_currentRingLayout.thickness = v13;
+    self->_currentRingLayout.diameter = v10;
+    *&self->_currentRingLayout.thickness = v11;
     [(NTKActivityDigitalFaceView *)self _applyCurrentRingLayout];
   }
 }
@@ -343,19 +372,19 @@
     [(NTKActivityDigitalFaceView *)self _ringCenterForLayout:&v24];
     [(NTKRingsMetalQuadView *)ringsView setCenter:?];
     v7 = p_currentRingLayout->diameter;
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     [(NTKFaceViewTapControl *)self->_tapToLaunchButton setBounds:0.0, 0.0, v7 + v23 * 2.0, v7 + v23 * 2.0];
     tapToLaunchButton = self->_tapToLaunchButton;
     [(NTKRingsMetalQuadView *)self->_ringsView center];
     [(NTKFaceViewTapControl *)tapToLaunchButton setCenter:?];
     highlightImageView = [(NTKFaceViewTapControl *)self->_tapToLaunchButton highlightImageView];
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     device = [(NTKActivityDigitalFaceView *)self device];
     v11 = *&p_currentRingLayout->diameter;
     v24 = *&p_currentRingLayout->bottomEdgeInset;
     v25 = v11;
     interspacing = p_currentRingLayout->interspacing;
-    v12 = sub_C8FC(&v24, device, v22);
+    v12 = sub_C8FC(&v24, v22, device);
     [highlightImageView setImage:v12];
 
     *&v7 = p_currentRingLayout->diameter;
@@ -472,7 +501,7 @@
     [timeView frame];
     v12 = v11;
 
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v13 = v19 + 0.0;
     v14 = v7 + v18;
     v15 = v9 - (v19 + v21);
@@ -503,7 +532,7 @@
   v11 = v10;
   if (self->_showSeconds)
   {
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v12 = *&v27[32];
     v13 = *&v27[33];
     v14 = &v28;
@@ -512,7 +541,7 @@
 
   else
   {
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v12 = v24;
     v13 = v25;
     v14 = v27;
@@ -556,15 +585,14 @@
 
 - (void)setRightTimeViewInset:(double)inset
 {
-  rightTimeViewInset = self->_rightTimeViewInset;
   if ((CLKFloatEqualsFloat() & 1) == 0)
   {
-    memset(&v9, 0, sizeof(v9));
-    CGAffineTransformMakeTranslation(&v9, -inset, 0.0);
-    v8 = v9;
-    timeView = [(NTKActivityDigitalFaceView *)self timeView];
+    memset(&v8, 0, sizeof(v8));
+    CGAffineTransformMakeTranslation(&v8, -inset, 0.0);
     v7 = v8;
-    [timeView setTransform:&v7];
+    timeView = [(NTKActivityDigitalFaceView *)self timeView];
+    v6 = v7;
+    [timeView setTransform:&v6];
 
     self->_rightTimeViewInset = inset;
   }
@@ -605,14 +633,14 @@
     v9 = v8;
     [(NTKActivityDigitalFaceView *)self bounds];
     v11 = v10;
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v12 = v11 - v29;
     timeView2 = [(NTKActivityDigitalFaceView *)self timeView];
     [timeView2 frame];
     v15 = v14;
 
     v16 = self->_densityEditingPolygonView;
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     [(NTKPolygonCylinderView *)v16 setFrame:v26 + 0.0, v9 + v25, v12 - (v26 + v28), v15 - (v25 + v27)];
     v24[0] = _NSConcreteStackBlock;
     v24[1] = 3221225472;
@@ -674,7 +702,7 @@
   result = 0.0;
   if ((mode & 0xFFFFFFFFFFFFFFFELL) == 0xA)
   {
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self, a2, 0.0);
     return v4;
   }
 
@@ -759,7 +787,7 @@ LABEL_6:
 
   else if (mode == 10)
   {
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     CLKInterpolateBetweenFloatsClipped();
     v16 = v15;
     device = [(NTKActivityDigitalFaceView *)self device];
@@ -974,6 +1002,231 @@ LABEL_6:
   [(NTKActivityFaceViewFactory *)self->_faceViewFactory performWristRaiseAnimation];
 }
 
+- (void)_applyCurrentDataModelByFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  labelsCopy = labels;
+  currentDataModel = [(NTKActivityFaceViewFactory *)self->_faceViewFactory currentDataModel];
+  [(NTKActivityDigitalFaceView *)self _applyDataModel:currentDataModel byFraction:labelsCopy updateLabels:animatedCopy animated:fraction];
+}
+
+- (void)_applyDataModel:(id)model byFraction:(double)fraction updateLabels:(BOOL)labels animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  labelsCopy = labels;
+  modelCopy = model;
+  if ([modelCopy activityMoveMode] == &dword_0 + 2)
+  {
+    [modelCopy appleMoveTimeCompletionPercentage];
+  }
+
+  else
+  {
+    [modelCopy activeEnergyCompletionPercentage];
+  }
+
+  v12 = v11;
+  v13 = ARUIRingPercentageValueNoRing;
+  v63 = v11 == ARUIRingPercentageValueNoRing;
+  [modelCopy appleExerciseTimeCompletionPercentage];
+  v15 = v14;
+  v16 = ARUIRingPercentageValueNoRing;
+  v62 = v14 == ARUIRingPercentageValueNoRing;
+  [modelCopy appleStandHourCompletionPercentage];
+  v18 = v17;
+  v19 = ARUIRingPercentageValueNoRing;
+  v61 = v17 == ARUIRingPercentageValueNoRing;
+  paused = [modelCopy paused];
+  v21 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    v24 = [(NTKActivityFaceViewFactory *)self->_faceViewFactory debugStringForDataModel:modelCopy];
+    *buf = 138413314;
+    selfCopy = v23;
+    v72 = 2112;
+    v73 = *&modelCopy;
+    v74 = 2112;
+    v75 = v24;
+    v76 = 2048;
+    fractionCopy = fraction;
+    v78 = 1024;
+    v79 = labelsCopy;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "%@ rings updated with data model %@ of kind %@ fraction: %f update labels: %i", buf, 0x30u);
+  }
+
+  if (v12 == v13)
+  {
+    v25 = ARUIRingPercentageValueNoRing;
+  }
+
+  else
+  {
+    v25 = v12 * fraction;
+  }
+
+  if (self->_ringsView && vabdd_f64(self->_lastMovePercentage, v25) > 2.22044605e-16)
+  {
+    ringGroups = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
+    v27 = [ringGroups objectAtIndexedSubscript:0];
+    *&v28 = v25;
+    [v27 setActiveEnergyPercentage:animatedCopy animated:v28];
+
+    self->_lastMovePercentage = v25;
+    v29 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      selfCopy = self;
+      v72 = 2048;
+      v73 = v25;
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Digital Face %@ rings move percentage changed to: %1.3f", buf, 0x16u);
+    }
+  }
+
+  if (v15 == v16)
+  {
+    v30 = ARUIRingPercentageValueNoRing;
+  }
+
+  else
+  {
+    [modelCopy appleExerciseTimeCompletionPercentage];
+    v30 = v31 * fraction;
+  }
+
+  if (self->_ringsView && vabdd_f64(self->_lastExercisePercentage, v30) > 2.22044605e-16)
+  {
+    ringGroups2 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
+    v33 = [ringGroups2 objectAtIndexedSubscript:0];
+    *&v34 = v30;
+    [v33 setExerciseMinutesPercentage:animatedCopy animated:v34];
+
+    self->_lastExercisePercentage = v30;
+    v35 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    {
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
+      *buf = 138412546;
+      selfCopy = v37;
+      v72 = 2048;
+      v73 = v30;
+      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "%@ rings exercise percentage changed to: %1.3f", buf, 0x16u);
+    }
+  }
+
+  if (v18 == v19)
+  {
+    v38 = ARUIRingPercentageValueNoRing;
+  }
+
+  else
+  {
+    [modelCopy appleStandHourCompletionPercentage];
+    v38 = v39 * fraction;
+  }
+
+  if (self->_ringsView)
+  {
+    if (vabdd_f64(self->_lastStandPercentage, v38) <= 2.22044605e-16)
+    {
+      goto LABEL_30;
+    }
+
+    ringGroups3 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
+    v41 = [ringGroups3 objectAtIndexedSubscript:0];
+    *&v42 = v38;
+    [v41 setStandHoursPercentage:animatedCopy animated:v42];
+
+    self->_lastStandPercentage = v38;
+    v43 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
+      *buf = 138412546;
+      selfCopy = v45;
+      v72 = 2048;
+      v73 = v38;
+      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "%@ rings stand percentage changed to: %1.3f", buf, 0x16u);
+    }
+
+    if (self->_ringsView)
+    {
+LABEL_30:
+      if (self->_lastPausedState != paused)
+      {
+        self->_lastPausedState = paused;
+        ringGroups4 = [(NTKRingsQuad *)self->_ringsQuad ringGroups];
+        v47 = [ringGroups4 objectAtIndexedSubscript:0];
+        rings = [v47 rings];
+        sub_EB48(rings, paused);
+
+        [(NTKActivityDigitalFaceView *)self _updateActivityLabelColors:paused];
+        v49 = _NTKLoggingObjectForDomain();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        {
+          v50 = objc_opt_class();
+          v51 = NSStringFromClass(v50);
+          *buf = 138412546;
+          selfCopy = v51;
+          v72 = 1024;
+          LODWORD(v73) = paused;
+          _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "%@ rings paused state changed to: %u", buf, 0x12u);
+        }
+      }
+    }
+  }
+
+  if (labelsCopy)
+  {
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_ED94;
+    v64[3] = &unk_20738;
+    v64[4] = self;
+    fractionCopy2 = fraction;
+    v65 = modelCopy;
+    v67 = v63;
+    v68 = v62;
+    v69 = v61;
+    v52 = objc_retainBlock(v64);
+    v53 = v52;
+    if (animatedCopy)
+    {
+      foregroundContainerView = [(NTKActivityDigitalFaceView *)self foregroundContainerView];
+      [UIView transitionWithView:foregroundContainerView duration:5242880 options:v53 animations:0 completion:0.2];
+    }
+
+    else
+    {
+      (v52[2])(v52);
+    }
+
+    v55 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    {
+      v56 = objc_opt_class();
+      v57 = NSStringFromClass(v56);
+      text = [(UILabel *)self->_moveLabel text];
+      text2 = [(UILabel *)self->_exerciseLabel text];
+      [(UILabel *)self->_standLabel text];
+      v60 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      *buf = 138413058;
+      selfCopy = v57;
+      v72 = 2112;
+      v73 = *&text;
+      v74 = 2112;
+      v75 = text2;
+      v76 = 2112;
+      fractionCopy = v60;
+      _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, "%@ rings labels updated with new move %@, exercise %@, stand %@", buf, 0x2Au);
+    }
+  }
+}
+
 - (void)timeTravelDateEnteredOrExitedTimelineBounds:(BOOL)bounds
 {
   v3 = NTKEditModeDimmedAlpha;
@@ -1019,13 +1272,12 @@ LABEL_6:
 
 - (void)_enumerateActivityLabels:(id)labels
 {
-  moveLabel = self->_moveLabel;
-  v5 = (labels + 16);
-  v6 = *(labels + 2);
+  v4 = (labels + 16);
+  v5 = *(labels + 2);
   labelsCopy = labels;
-  v6();
-  (*v5)(labelsCopy, self->_exerciseLabel, 1);
-  (*v5)(labelsCopy, self->_standLabel, 2);
+  v5();
+  (*v4)(labelsCopy, self->_exerciseLabel, 1);
+  (*v4)(labelsCopy, self->_standLabel, 2);
 }
 
 - (id)_newActivityLabelSubview
@@ -1109,14 +1361,14 @@ LABEL_6:
 
     [(NTKFaceViewTapControl *)self->_tapToLaunchButton addTarget:self action:"_launchButtonPressed:" forControlEvents:64];
     highlightImageView = [(NTKFaceViewTapControl *)self->_tapToLaunchButton highlightImageView];
-    [(NTKActivityDigitalFaceView *)self _layoutConstants];
+    objc_msgSend__layoutConstants(self);
     v22 = v29;
     device2 = [(NTKActivityDigitalFaceView *)self device];
     v24 = *&self->_currentRingLayout.diameter;
     v27[0] = *&self->_currentRingLayout.bottomEdgeInset;
     v27[1] = v24;
     interspacing = self->_currentRingLayout.interspacing;
-    v25 = sub_C8FC(v27, device2, v22);
+    v25 = sub_C8FC(v27, v22, device2);
     [highlightImageView setImage:v25];
 
     foregroundContainerView2 = [(NTKActivityDigitalFaceView *)self foregroundContainerView];
@@ -1232,7 +1484,7 @@ LABEL_6:
 
 - (id)_labelFontMonospaced:(BOOL)monospaced
 {
-  [(NTKActivityDigitalFaceView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self, a2);
   v4 = [CLKFont systemFontOfSize:CLKRoundedFontDesignName weight:v9 design:UIFontWeightMedium];
   v5 = v4;
   if (monospaced)

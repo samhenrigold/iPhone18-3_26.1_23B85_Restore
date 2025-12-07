@@ -7,6 +7,7 @@
 - (id)_createUnknownSpecifierFor:(id)for detailView:(Class)view moduleName:(id)name;
 - (id)constructSpecifiersWithPrivacySpecifier:(BOOL)specifier rchlHistory:(id)history caaHistory:(id)caaHistory srvp:(id)srvp;
 - (id)findSpecifierToInsertAfter:(id)after;
+- (id)getCurrentDetailsWithPrivacySpecifier:(BOOL)specifier;
 - (id)getNetworkAlert;
 - (id)getOSUpdateAlert;
 - (id)getPreFlightFailedAlert;
@@ -19,6 +20,7 @@
 - (id)valueForSpecifierUnknown;
 - (id)valueForSpecifierUsed;
 - (void)_updateSpecifiers:(id)specifiers specifierToInsertAfter:(id)after withUpdates:(id)updates;
+- (void)configureSpin:(BOOL)spin ofCellForSpecifier:(id)specifier setEnabled:(BOOL)enabled;
 - (void)extractAudioSpecifiers;
 - (void)extractBackGlassSpecifiers:(id)specifiers configurationSpecifiers:(id)configurationSpecifiers caaRepairHistory:(id)history rchlHistory:(id)rchlHistory;
 - (void)extractBasebandSpecifiers:(id)specifiers;
@@ -151,6 +153,31 @@ uint64_t __32__SystemHealthUI_sharedInstance__block_invoke()
   ++self->failedComponentsCount;
 
   return v10;
+}
+
+- (void)configureSpin:(BOOL)spin ofCellForSpecifier:(id)specifier setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  spinCopy = spin;
+  v7 = [specifier propertyForKey:*MEMORY[0x277D40148]];
+  if (v7)
+  {
+    v9 = v7;
+    if (spinCopy)
+    {
+      v8 = [objc_alloc(MEMORY[0x277D750E0]) initWithActivityIndicatorStyle:100];
+      [v8 startAnimating];
+      [v9 setAccessoryView:v8];
+    }
+
+    else
+    {
+      [v7 setAccessoryView:0];
+    }
+
+    [v9 setCellEnabled:enabledCopy];
+    v7 = v9;
+  }
 }
 
 - (id)getNetworkAlert
@@ -1429,29 +1456,156 @@ LABEL_10:
 LABEL_11:
 }
 
+- (id)getCurrentDetailsWithPrivacySpecifier:(BOOL)specifier
+{
+  specifierCopy = specifier;
+  v43 = *MEMORY[0x277D85DE8];
+  self->failedComponentsCount = 0;
+  v5 = objc_opt_new();
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke;
+  v38[3] = &unk_278EB1D50;
+  v38[4] = self;
+  [v5 getCurrentSystemHealthStatusForComponents:-1 WithReply:v38];
+
+  localRepairHistory = self->localRepairHistory;
+  v37 = 0;
+  v7 = [(CRRepairHistory *)localRepairHistory extractRCHLRepairHistoryAndClaimCount:&v37];
+  v8 = v37;
+  v9 = handleForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    *&buf[4] = v8;
+    _os_log_impl(&dword_247875000, v9, OS_LOG_TYPE_DEFAULT, "claimcount:%@", buf, 0xCu);
+  }
+
+  if ([(CRRepairHistory *)self->localRepairHistory isSupportedIPad])
+  {
+    v10 = handleForCategory(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_247875000, v10, OS_LOG_TYPE_DEFAULT, "Enabling Parts and Service History for supported iPads", buf, 2u);
+    }
+  }
+
+  else if (self->deviceClass != 1)
+  {
+    v17 = 0;
+    v22 = 0;
+    goto LABEL_20;
+  }
+
+  v11 = [(CRRepairHistory *)self->localRepairHistory getUseCountExceptionsWith:v8];
+  v12 = dispatch_get_global_queue(21, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke_304;
+  block[3] = &unk_278EB1D78;
+  v13 = v11;
+  v34 = v13;
+  selfCopy = self;
+  v36 = v8;
+  dispatch_async(v12, block);
+
+  v32 = 0;
+  v14 = [MEMORY[0x277D01038] isServicePartWithError:&v32];
+  v15 = v32;
+  v16 = handleForCategory(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    *&buf[4] = v14;
+    *&buf[12] = 2112;
+    *&buf[14] = v15;
+    _os_log_impl(&dword_247875000, v16, OS_LOG_TYPE_DEFAULT, "SrvP: %@ error: %@", buf, 0x16u);
+  }
+
+  if (specifierCopy && !self->isRCHLDevice)
+  {
+    utils = self->utils;
+    v31 = 0;
+    [(CoreRepairUIUtils *)utils setupCAARetry:&v31];
+    v17 = v31;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = [(CRRepairHistory *)self->localRepairHistory getRepairHistoryItemswithCAAHistory:v17];
+  repairHistoryItems = self->repairHistoryItems;
+  self->repairHistoryItems = v18;
+
+  v20 = handleForCategory(0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = self->repairHistoryItems;
+    *buf = 138412290;
+    *&buf[4] = v21;
+    _os_log_impl(&dword_247875000, v20, OS_LOG_TYPE_DEFAULT, "repairHistoryItems:%@", buf, 0xCu);
+  }
+
+  if ([MEMORY[0x277CCACC8] isMainThread])
+  {
+    v22 = [(SystemHealthUI *)self constructSpecifiersWithPrivacySpecifier:specifierCopy rchlHistory:v7 caaHistory:v17 srvp:v14];
+  }
+
+  else
+  {
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3032000000;
+    v40 = __Block_byref_object_copy_;
+    v41 = __Block_byref_object_dispose_;
+    v42 = 0;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke_310;
+    v25[3] = &unk_278EB1DA0;
+    v29 = buf;
+    v25[4] = self;
+    v30 = specifierCopy;
+    v26 = v7;
+    v27 = v17;
+    v28 = v14;
+    dispatch_sync(MEMORY[0x277D85CD0], v25);
+    v22 = *(*&buf[8] + 40);
+
+    _Block_object_dispose(buf, 8);
+  }
+
+LABEL_20:
+
+  return v22;
+}
+
 void __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke_304(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v26;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * i);
+        v6 = *(*(&v25 + 1) + 8 * i);
         v7 = *(*(a1 + 40) + 24);
         v8 = [*(a1 + 32) objectForKeyedSubscript:v6];
         v9 = [v8 stringValue];
@@ -1459,53 +1613,48 @@ void __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke_3
         [v7 sendAsyncAnalyticsForEventIfNeeded:v10 moduleName:v6];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v3 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v3);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = *(a1 + 48);
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * j);
+        v16 = *(*(&v21 + 1) + 8 * j);
         v17 = *(*(a1 + 40) + 24);
         v18 = [*(a1 + 48) objectForKeyedSubscript:v16];
         v19 = [v18 stringValue];
         [v17 sendAsyncAnalyticsForEventIfNeeded:v19 moduleName:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__SystemHealthUI_getCurrentDetailsWithPrivacySpecifier___block_invoke_310(uint64_t a1)
 {
-  v2 = [*(a1 + 32) constructSpecifiersWithPrivacySpecifier:*(a1 + 72) rchlHistory:*(a1 + 40) caaHistory:*(a1 + 48) srvp:*(a1 + 56)];
-  v3 = *(*(a1 + 64) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) constructSpecifiersWithPrivacySpecifier:*(a1 + 72) rchlHistory:*(a1 + 40) caaHistory:*(a1 + 48) srvp:*(a1 + 56)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1687,14 +1836,14 @@ LABEL_27:
 
 void __56__SystemHealthUI_updateSpecifiersWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained reloadCurrentSystemHealthInfoSpecifiers];
   v4 = handleForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_247875000, v4, OS_LOG_TYPE_DEFAULT, "Got new specifiers: %@", buf, 0xCu);
   }
 
@@ -1702,14 +1851,13 @@ void __56__SystemHealthUI_updateSpecifiersWithCompletionHandler___block_invoke(u
   block[1] = 3221225472;
   block[2] = __56__SystemHealthUI_updateSpecifiersWithCompletionHandler___block_invoke_354;
   block[3] = &unk_278EB1DF0;
-  objc_copyWeak(&v10, (a1 + 40));
-  v8 = v3;
-  v9 = *(a1 + 32);
+  objc_copyWeak(&v9, (a1 + 40));
+  v7 = v3;
+  v8 = *(a1 + 32);
   v5 = v3;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v10);
-  v6 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v9);
 }
 
 void __56__SystemHealthUI_updateSpecifiersWithCompletionHandler___block_invoke_354(id *a1)
@@ -1793,7 +1941,7 @@ uint64_t __56__SystemHealthUI_updateSpecifiersWithCompletionHandler___block_invo
 
 - (id)findSpecifierToInsertAfter:(id)after
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   afterCopy = after;
   v5 = afterCopy;
   if (!afterCopy)
@@ -1867,9 +2015,9 @@ LABEL_15:
   v14 = handleForCategory(0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v8;
-    _os_log_impl(&dword_247875000, v14, OS_LOG_TYPE_DEFAULT, "Anchor specifier %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v8;
+    _os_log_impl(&dword_247875000, v14, OS_LOG_TYPE_DEFAULT, "Anchor specifier %@", &v19, 0xCu);
   }
 
   if (!v7)
@@ -1893,21 +2041,19 @@ LABEL_21:
   v13 = handleForCategory(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v7;
-    _os_log_impl(&dword_247875000, v13, OS_LOG_TYPE_DEFAULT, "Insert after %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v7;
+    _os_log_impl(&dword_247875000, v13, OS_LOG_TYPE_DEFAULT, "Insert after %@", &v19, 0xCu);
   }
 
 LABEL_23:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)_updateSpecifiers:(id)specifiers specifierToInsertAfter:(id)after withUpdates:(id)updates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   updatesCopy = updates;
   afterCopy = after;
@@ -1915,11 +2061,11 @@ LABEL_23:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     cachedSpecifiers = self->cachedSpecifiers;
-    v16 = 138412546;
-    v17 = cachedSpecifiers;
-    v18 = 2112;
-    v19 = specifiersCopy;
-    _os_log_impl(&dword_247875000, v11, OS_LOG_TYPE_DEFAULT, "Updating specifiers: %@ -> %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = cachedSpecifiers;
+    v17 = 2112;
+    v18 = specifiersCopy;
+    _os_log_impl(&dword_247875000, v11, OS_LOG_TYPE_DEFAULT, "Updating specifiers: %@ -> %@", &v15, 0x16u);
   }
 
   [updatesCopy removeSpecifierWithID:@"PARTS_AND_SERVICE_GROUP"];
@@ -1938,8 +2084,6 @@ LABEL_23:
 
   v14 = self->cachedSpecifiers;
   self->cachedSpecifiers = array;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (PSListController)parentViewController

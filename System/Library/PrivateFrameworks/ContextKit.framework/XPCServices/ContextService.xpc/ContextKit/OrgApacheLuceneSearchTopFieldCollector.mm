@@ -119,10 +119,11 @@ LABEL_16:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = [IOSObjectArray newArrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_()];
-    JreStrongAssignAndConsume(&qword_100554230, v2);
+    v5 = [IOSObjectArray newArrayWithLength:0 type:OrgApacheLuceneSearchScoreDoc_class_(v3, v4)];
+    JreStrongAssignAndConsume(&qword_100554230, v5);
     atomic_store(1u, &OrgApacheLuceneSearchTopFieldCollector__initialized);
   }
 }

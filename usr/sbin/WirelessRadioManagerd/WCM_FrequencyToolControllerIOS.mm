@@ -4,6 +4,7 @@
 - (void)handleFrequencyToolOperation:(id)operation;
 - (void)handleFrequencyToolQuery:(id)query;
 - (void)handleMessage:(id)message;
+- (void)handlePowerState:(BOOL)state;
 @end
 
 @implementation WCM_FrequencyToolControllerIOS
@@ -26,6 +27,13 @@
   v2.receiver = self;
   v2.super_class = WCM_FrequencyToolControllerIOS;
   [(WCM_FrequencyToolController *)&v2 dealloc];
+}
+
+- (void)handlePowerState:(BOOL)state
+{
+  v3.receiver = self;
+  v3.super_class = WCM_FrequencyToolControllerIOS;
+  [(WCM_FrequencyToolController *)&v3 handlePowerState:state];
 }
 
 - (void)handleMessage:(id)message

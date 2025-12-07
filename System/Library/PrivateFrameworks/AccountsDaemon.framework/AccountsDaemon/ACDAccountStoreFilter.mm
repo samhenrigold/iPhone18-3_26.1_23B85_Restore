@@ -52,6 +52,8 @@
 - (void)migrateCredentialForAccount:(id)account completion:(id)completion;
 - (void)notifyRemoteDevicesOfModifiedAccount:(id)account withChangeType:(id)type;
 - (void)notifyRemoteDevicesOfModifiedAccount:(id)account withChangeType:(id)type options:(id)options completion:(id)completion;
+- (void)openAuthenticationURL:(id)l forAccount:(id)account shouldConfirm:(BOOL)confirm completion:(id)completion;
+- (void)openAuthenticationURLForAccount:(id)account withDelegateClassName:(id)name fromBundleAtPath:(id)path shouldConfirm:(BOOL)confirm completion:(id)completion;
 - (void)parentAccountForAccountWithIdentifier:(id)identifier handler:(id)handler;
 - (void)permissionForAccountType:(id)type withHandler:(id)handler;
 - (void)preloadDataclassOwnersWithCompletion:(id)completion;
@@ -67,11 +69,13 @@
 - (void)resetDatabaseToVersion:(id)version withCompletion:(id)completion;
 - (void)runAccountMigrationPlugins:(id)plugins;
 - (void)saveAccount:(id)account toPairedDeviceWithOptions:(id)options completion:(id)completion;
+- (void)saveAccount:(id)account verify:(BOOL)verify dataclassActions:(id)actions completion:(id)completion;
 - (void)saveAccount:(id)account withHandler:(id)handler;
 - (void)saveCredentialItem:(id)item completion:(id)completion;
 - (void)scheduleBackupIfNonexistent:(id)nonexistent;
 - (void)setClientBundleID:(id)d withHandler:(id)handler;
 - (void)setCredential:(id)credential forAccount:(id)account serviceID:(id)d completion:(id)completion;
+- (void)setNotificationsEnabled:(BOOL)enabled;
 - (void)setPermissionGranted:(id)granted forBundleID:(id)d onAccountType:(id)type withHandler:(id)handler;
 - (void)shutdownAccountsD:(id)d;
 - (void)supportedDataclassesForAccountType:(id)type handler:(id)handler;
@@ -332,29 +336,29 @@ LABEL_46:
 
 - (BOOL)_wildCardAuthorizationMatchingForAccountTypeIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = [(ACDAccountStoreFilter *)self _appPermissionsForAccountTypeIdentifier:identifier];
   [v4 allKeys];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = v22 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v18 = v4;
-    v8 = *v20;
+    v17 = v4;
+    v8 = *v19;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self like %@", *(*(&v19 + 1) + 8 * i)];
+        v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self like %@", *(*(&v18 + 1) + 8 * i)];
         backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
         client = [backingAccountStore client];
         bundleID = [client bundleID];
@@ -367,7 +371,7 @@ LABEL_46:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v7)
       {
         continue;
@@ -378,7 +382,7 @@ LABEL_46:
 
     v15 = 0;
 LABEL_11:
-    v4 = v18;
+    v4 = v17;
   }
 
   else
@@ -386,40 +390,39 @@ LABEL_11:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)_appPermissionsForAccountTypeIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   authorizationManager = [backingAccountStore authorizationManager];
   v7 = [authorizationManager allAuthorizationsForAccountTypeWithIdentifier:identifierCopy];
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
-        v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "isGranted", v20)}];
+        v14 = *(*(&v19 + 1) + 8 * i);
+        v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "isGranted", v19)}];
         client = [v14 client];
         bundleID = [client bundleID];
 
@@ -429,13 +432,11 @@ LABEL_11:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -749,9 +750,9 @@ LABEL_3:
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB9010]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB9010]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 setClientBundleID:dCopy withHandler:handlerCopy];
@@ -759,15 +760,22 @@ LABEL_3:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
     handlerCopy[2](handlerCopy, 0, backingAccountStore2);
   }
+}
+
+- (void)setNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
+  [backingAccountStore setNotificationsEnabled:enabledCopy];
 }
 
 - (void)accountsWithHandler:(id)handler
@@ -786,44 +794,43 @@ LABEL_3:
 
 void __45__ACDAccountStoreFilter_accountsWithHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}])
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}])
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountTypesWithHandler:(id)handler
@@ -871,84 +878,83 @@ void __55__ACDAccountStoreFilter_accountWithIdentifier_handler___block_invoke(ui
   typeCopy = type;
   handlerCopy = handler;
   identifier = [typeCopy identifier];
-  v10 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
+  v9 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
 
-  if (v10)
+  if (v9)
   {
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
     client = [backingAccountStore client];
     v13 = [client hasEntitlement:*MEMORY[0x277CB9030]];
 
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __57__ACDAccountStoreFilter_accountsWithAccountType_handler___block_invoke;
-    v18[3] = &unk_27848D088;
-    v18[4] = self;
-    v20 = v13;
-    v19 = handlerCopy;
-    [backingAccountStore2 accountsWithAccountType:typeCopy handler:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __57__ACDAccountStoreFilter_accountsWithAccountType_handler___block_invoke;
+    v19[3] = &unk_27848D088;
+    v19[4] = self;
+    v21 = v13;
+    v20 = handlerCopy;
+    [backingAccountStore2 accountsWithAccountType:typeCopy handler:v19];
   }
 
   else
   {
-    v15 = _ACDLogSystem();
+    v15 = _ACDLogSystem(v10);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter accountsWithAccountType:handler:];
     }
 
-    v16 = _ACDEntitlementLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _ACDEntitlementLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v16];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
-    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v17);
+    v18 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v18);
   }
 }
 
 void __57__ACDAccountStoreFilter_accountsWithAccountType_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}] && ((*(a1 + 48) & 1) != 0 || objc_msgSend(v13, "isActive")))
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}] && ((*(a1 + 48) & 1) != 0 || objc_msgSend(v13, "isActive")))
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountsWithAccountType:(id)type options:(unint64_t)options completion:(id)completion
@@ -956,146 +962,146 @@ void __57__ACDAccountStoreFilter_accountsWithAccountType_handler___block_invoke(
   typeCopy = type;
   completionCopy = completion;
   identifier = [typeCopy identifier];
-  v12 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
+  v11 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
 
-  if (v12)
+  if (v11)
   {
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__ACDAccountStoreFilter_accountsWithAccountType_options_completion___block_invoke;
-    v17[3] = &unk_27848C1F0;
-    v17[4] = self;
-    v18 = completionCopy;
-    [backingAccountStore accountsWithAccountType:typeCopy options:options completion:v17];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __68__ACDAccountStoreFilter_accountsWithAccountType_options_completion___block_invoke;
+    v18[3] = &unk_27848C1F0;
+    v18[4] = self;
+    v19 = completionCopy;
+    [backingAccountStore accountsWithAccountType:typeCopy options:options completion:v18];
   }
 
   else
   {
-    v14 = _ACDLogSystem();
+    v14 = _ACDLogSystem(v12);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter accountsWithAccountType:handler:];
     }
 
-    v15 = _ACDEntitlementLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _ACDEntitlementLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v15];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v16);
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v17);
   }
 }
 
 void __68__ACDAccountStoreFilter_accountsWithAccountType_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}])
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}])
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountsOnPairedDeviceWithAccountTypes:(id)types withOptions:(id)options handler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   optionsCopy = options;
   handlerCopy = handler;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v11 = [typesCopy countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v11 = [typesCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (!v11)
   {
     goto LABEL_13;
   }
 
   v12 = v11;
-  v28 = handlerCopy;
-  v29 = optionsCopy;
-  v13 = *v34;
+  v27 = handlerCopy;
+  v28 = optionsCopy;
+  v13 = *v33;
   v14 = 1;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v34 != v13)
+      if (*v33 != v13)
       {
         objc_enumerationMutation(typesCopy);
       }
 
-      v16 = *(*(&v33 + 1) + 8 * i);
-      if (![(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:v16])
+      v16 = *(*(&v32 + 1) + 8 * i);
+      v17 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:v16];
+      if ((v17 & 1) == 0)
       {
-        v17 = _ACDLogSystem();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _ACDLogSystem(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
           client = [backingAccountStore client];
           *buf = 138412546;
-          v38 = client;
-          v39 = 2112;
-          v40 = v16;
-          _os_log_error_impl(&dword_221D2F000, v17, OS_LOG_TYPE_ERROR, "Client %@ is not allowed to access accounts of type %@.", buf, 0x16u);
+          v37 = client;
+          v38 = 2112;
+          v39 = v16;
+          _os_log_error_impl(&dword_221D2F000, v18, OS_LOG_TYPE_ERROR, "Client %@ is not allowed to access accounts of type %@.", buf, 0x16u);
         }
 
         v14 = 0;
       }
     }
 
-    v12 = [typesCopy countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v12 = [typesCopy countByEnumeratingWithState:&v32 objects:v40 count:16];
   }
 
   while (v12);
-  handlerCopy = v28;
-  optionsCopy = v29;
+  handlerCopy = v27;
+  optionsCopy = v28;
   if ((v14 & 1) == 0)
   {
-    v24 = _ACDEntitlementLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = _ACDEntitlementLogSystem(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v24];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
-    v25 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
-    (*(v28 + 2))(v28, 0, v25);
+    v26 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
+    (*(v27 + 2))(v27, 0, v26);
   }
 
   else
@@ -1103,62 +1109,59 @@ void __68__ACDAccountStoreFilter_accountsWithAccountType_options_completion___bl
 LABEL_13:
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     client2 = [backingAccountStore2 client];
-    v22 = [client2 hasEntitlement:*MEMORY[0x277CB9030]];
+    v23 = [client2 hasEntitlement:*MEMORY[0x277CB9030]];
 
     backingAccountStore3 = [(ACDAccountStoreFilter *)self backingAccountStore];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __84__ACDAccountStoreFilter_accountsOnPairedDeviceWithAccountTypes_withOptions_handler___block_invoke;
-    v30[3] = &unk_27848D088;
-    v30[4] = self;
-    v32 = v22;
-    v31 = handlerCopy;
-    [backingAccountStore3 accountsOnPairedDeviceWithAccountTypes:typesCopy withOptions:optionsCopy handler:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __84__ACDAccountStoreFilter_accountsOnPairedDeviceWithAccountTypes_withOptions_handler___block_invoke;
+    v29[3] = &unk_27848D088;
+    v29[4] = self;
+    v31 = v23;
+    v30 = handlerCopy;
+    [backingAccountStore3 accountsOnPairedDeviceWithAccountTypes:typesCopy withOptions:optionsCopy handler:v29];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ACDAccountStoreFilter_accountsOnPairedDeviceWithAccountTypes_withOptions_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}] && ((*(a1 + 48) & 1) != 0 || objc_msgSend(v13, "isActive")))
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}] && ((*(a1 + 48) & 1) != 0 || objc_msgSend(v13, "isActive")))
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parentAccountForAccountWithIdentifier:(id)identifier handler:(id)handler
@@ -1211,44 +1214,43 @@ void __71__ACDAccountStoreFilter_parentAccountForAccountWithIdentifier_handler__
 
 void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}])
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}])
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountIdentifiersEnabledToSyncDataclass:(id)dataclass handler:(id)handler
@@ -1257,9 +1259,9 @@ void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler__
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 accountIdentifiersEnabledToSyncDataclass:dataclassCopy handler:handlerCopy];
@@ -1267,10 +1269,10 @@ void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler__
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
@@ -1284,9 +1286,9 @@ void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler__
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 accountIdentifiersEnabledForDataclass:dataclassCopy handler:handlerCopy];
@@ -1294,10 +1296,10 @@ void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler__
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:9 userInfo:0];
@@ -1330,44 +1332,43 @@ void __71__ACDAccountStoreFilter_childAccountsForAccountWithIdentifier_handler__
 
 void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v15}])
+        v13 = *(*(&v14 + 1) + 8 * i);
+        if ([*(a1 + 32) _isClientPermittedToAccessAccount:{v13, v14}])
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)childAccountsWithAccountTypeIdentifier:(id)identifier parentAccountIdentifier:(id)accountIdentifier handler:(id)handler
@@ -1375,7 +1376,8 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
   identifierCopy = identifier;
   accountIdentifierCopy = accountIdentifier;
   handlerCopy = handler;
-  if ([(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifierCopy])
+  v11 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifierCopy];
+  if (v11)
   {
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore childAccountsWithAccountTypeIdentifier:identifierCopy parentAccountIdentifier:accountIdentifierCopy handler:handlerCopy];
@@ -1383,10 +1385,10 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1423,7 +1425,8 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
   accountCopy = account;
   dCopy = d;
   handlerCopy = handler;
-  if ([(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccount:accountCopy])
+  v11 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccount:accountCopy];
+  if (v11)
   {
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore credentialForAccount:accountCopy serviceID:dCopy handler:handlerCopy];
@@ -1431,10 +1434,10 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1448,7 +1451,8 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
   accountCopy = account;
   dCopy = d;
   completionCopy = completion;
-  if ([(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccount:accountCopy])
+  v14 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccount:accountCopy];
+  if (v14)
   {
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore setCredential:credentialCopy forAccount:accountCopy serviceID:dCopy completion:completionCopy];
@@ -1456,10 +1460,10 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
   else
   {
-    v16 = _ACDEntitlementLogSystem();
+    v16 = _ACDEntitlementLogSystem(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v16];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1593,7 +1597,8 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   [accountCopy _setAccountStore:backingAccountStore];
 
-  if ([(ACDAccountStoreFilter *)self _isClientPermittedToRemoveAccount:accountCopy])
+  v12 = [(ACDAccountStoreFilter *)self _isClientPermittedToRemoveAccount:accountCopy];
+  if (v12)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 removeAccount:accountCopy withDataclassActions:actionsCopy completion:completionCopy];
@@ -1601,10 +1606,10 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
   else
   {
-    v14 = _ACDEntitlementLogSystem();
+    v14 = _ACDEntitlementLogSystem(v12);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v14];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v15 = MEMORY[0x277CCACA8];
@@ -1630,7 +1635,7 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
 - (void)saveAccount:(id)account withHandler:(id)handler
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   accountCopy = account;
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
@@ -1638,11 +1643,12 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
 
   accountType = [accountCopy accountType];
   identifier = [accountType identifier];
-  v12 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
+  v11 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
 
-  if (v12)
+  if (v11)
   {
-    if ([(ACDAccountStoreFilter *)self _clientHasPermissionToAddAccount:accountCopy])
+    v13 = [(ACDAccountStoreFilter *)self _clientHasPermissionToAddAccount:accountCopy];
+    if (v13)
     {
       backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
       [backingAccountStore2 saveAccount:accountCopy withHandler:handlerCopy];
@@ -1650,56 +1656,128 @@ void __69__ACDAccountStoreFilter_kerberosAccountsForDomainFromURL_completion___b
       goto LABEL_13;
     }
 
-    v22 = _ACDEntitlementLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _ACDEntitlementLogSystem(v13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v22];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
-    v23 = MEMORY[0x277CCACA8];
+    v24 = MEMORY[0x277CCACA8];
     backingAccountStore3 = [(ACDAccountStoreFilter *)self backingAccountStore];
     client = [backingAccountStore3 client];
-    v26 = [client pid];
-    v18 = [v23 stringWithFormat:@"PID %@ does not have permission to add an account", v26];
+    v27 = [client pid];
+    v19 = [v24 stringWithFormat:@"PID %@ does not have permission to add an account", v27];
 
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CB8DC0];
-    v37 = *MEMORY[0x277CCA450];
-    v38[0] = v18;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v20 = MEMORY[0x277CCA9B8];
+    v21 = *MEMORY[0x277CB8DC0];
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = v19;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
   }
 
   else
   {
-    v14 = _ACDEntitlementLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ACDEntitlementLogSystem(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v14];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
-    v15 = MEMORY[0x277CCACA8];
+    v16 = MEMORY[0x277CCACA8];
     accountType2 = [accountCopy accountType];
     accountTypeDescription = [accountType2 accountTypeDescription];
-    v18 = [v15 stringWithFormat:@"The application is not permitted to access %@ accounts", accountTypeDescription];
+    v19 = [v16 stringWithFormat:@"The application is not permitted to access %@ accounts", accountTypeDescription];
 
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CB8DC0];
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v18 forKey:*MEMORY[0x277CCA450]];
+    v20 = MEMORY[0x277CCA9B8];
+    v21 = *MEMORY[0x277CB8DC0];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v19 forKey:*MEMORY[0x277CCA450]];
   }
 
-  v27 = v21;
-  v28 = [v19 errorWithDomain:v20 code:7 userInfo:v21];
+  v28 = v22;
+  v29 = [v20 errorWithDomain:v21 code:7 userInfo:v22];
 
-  v29 = _ACDLogSystem();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v31 = _ACDLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
-    [(ACDAccountStoreFilter *)v28 saveAccount:v29 withHandler:v30, v31, v32, v33, v34, v35];
+    [(ACDAccountStoreFilter *)v29 saveAccount:v31 withHandler:v32, v33, v34, v35, v36, v37];
   }
 
-  handlerCopy[2](handlerCopy, 0, v28);
+  handlerCopy[2](handlerCopy, 0, v29);
 LABEL_13:
+}
 
-  v36 = *MEMORY[0x277D85DE8];
+- (void)saveAccount:(id)account verify:(BOOL)verify dataclassActions:(id)actions completion:(id)completion
+{
+  verifyCopy = verify;
+  v43[1] = *MEMORY[0x277D85DE8];
+  accountCopy = account;
+  actionsCopy = actions;
+  completionCopy = completion;
+  backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
+  [accountCopy _setAccountStore:backingAccountStore];
+
+  accountType = [accountCopy accountType];
+  identifier = [accountType identifier];
+  v16 = [(ACDAccountStoreFilter *)self _isClientPermittedToAccessAccountTypeWithIdentifier:identifier];
+
+  if (v16)
+  {
+    v18 = [(ACDAccountStoreFilter *)self _clientHasPermissionToAddAccount:accountCopy];
+    if (v18)
+    {
+      backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
+      [backingAccountStore2 saveAccount:accountCopy verify:verifyCopy dataclassActions:actionsCopy completion:completionCopy];
+
+      goto LABEL_13;
+    }
+
+    v28 = _ACDEntitlementLogSystem(v18);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
+    }
+
+    v29 = MEMORY[0x277CCACA8];
+    backingAccountStore3 = [(ACDAccountStoreFilter *)self backingAccountStore];
+    client = [backingAccountStore3 client];
+    v24 = [v29 stringWithFormat:@"%@ does not have permission to add an account", client];
+
+    v25 = MEMORY[0x277CCA9B8];
+    v26 = *MEMORY[0x277CB8DC0];
+    v42 = *MEMORY[0x277CCA450];
+    v43[0] = v24;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+  }
+
+  else
+  {
+    v20 = _ACDEntitlementLogSystem(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
+    }
+
+    v21 = MEMORY[0x277CCACA8];
+    accountType2 = [accountCopy accountType];
+    accountTypeDescription = [accountType2 accountTypeDescription];
+    v24 = [v21 stringWithFormat:@"The application is not permitted to access %@ accounts", accountTypeDescription];
+
+    v25 = MEMORY[0x277CCA9B8];
+    v26 = *MEMORY[0x277CB8DC0];
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v24 forKey:*MEMORY[0x277CCA450]];
+  }
+
+  v32 = v27;
+  v33 = [v25 errorWithDomain:v26 code:7 userInfo:v27];
+
+  v35 = _ACDLogSystem(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  {
+    [(ACDAccountStoreFilter *)v33 saveAccount:v35 withHandler:v36, v37, v38, v39, v40, v41];
+  }
+
+  completionCopy[2](completionCopy, 0, v33);
+LABEL_13:
 }
 
 - (void)insertAccountType:(id)type withHandler:(id)handler
@@ -1737,16 +1815,16 @@ LABEL_13:
 
 - (void)setPermissionGranted:(id)granted forBundleID:(id)d onAccountType:(id)type withHandler:(id)handler
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   grantedCopy = granted;
   dCopy = d;
   typeCopy = type;
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v17 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v16 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v17)
+  if (v16)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 setPermissionGranted:grantedCopy forBundleID:dCopy onAccountType:typeCopy withHandler:handlerCopy];
@@ -1754,22 +1832,20 @@ LABEL_13:
 
   else
   {
-    v19 = _ACDEntitlementLogSystem();
+    v19 = _ACDEntitlementLogSystem(v17);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v19];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v20 = MEMORY[0x277CCA9B8];
     v21 = *MEMORY[0x277CB8DC0];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"You are not allowed to modify the authorization model.";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"You are not allowed to modify the authorization model.";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v23 = [v20 errorWithDomain:v21 code:7 userInfo:v22];
     (*(handlerCopy + 2))(handlerCopy, 0, v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)permissionForAccountType:(id)type withHandler:(id)handler
@@ -1798,14 +1874,14 @@ LABEL_13:
 
 - (void)clearAllPermissionsGrantedForAccountType:(id)type withHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   handlerCopy = handler;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 clearAllPermissionsGrantedForAccountType:typeCopy withHandler:handlerCopy];
@@ -1813,22 +1889,20 @@ LABEL_13:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277CB8DC0];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"You are not allowed to modify the authorization model.";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"You are not allowed to modify the authorization model.";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v17 = [v14 errorWithDomain:v15 code:7 userInfo:v16];
     (*(handlerCopy + 2))(handlerCopy, 0, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyCredentialsForAccount:(id)account options:(id)options completion:(id)completion
@@ -1858,9 +1932,9 @@ LABEL_13:
 
   backingAccountStore3 = [(ACDAccountStoreFilter *)self backingAccountStore];
   client2 = [backingAccountStore3 client];
-  v17 = [client2 hasEntitlement:*MEMORY[0x277CB8FE8]];
+  v16 = [client2 hasEntitlement:*MEMORY[0x277CB8FE8]];
 
-  if (v17)
+  if (v16)
   {
     goto LABEL_5;
   }
@@ -1870,9 +1944,9 @@ LABEL_13:
 
   backingAccountStore4 = [(ACDAccountStoreFilter *)self backingAccountStore];
   client3 = [backingAccountStore4 client];
-  v22 = [(ACDAccountStoreFilter *)self _accessGrantedForClient:client3 onAccountTypeID:backingAccountStore2];
+  v21 = [(ACDAccountStoreFilter *)self _accessGrantedForClient:client3 onAccountTypeID:backingAccountStore2];
 
-  if (v22)
+  if (v21)
   {
 LABEL_3:
 
@@ -1884,13 +1958,13 @@ LABEL_5:
 
   accountType2 = [accountCopy accountType];
   identifier = [accountType2 identifier];
-  v25 = [identifier hasPrefix:*MEMORY[0x277CB8C88]];
+  v24 = [identifier hasPrefix:*MEMORY[0x277CB8C88]];
 
-  if (v25)
+  if (v24)
   {
-    v26 = [(ACDAccountStoreFilter *)self _wildCardAuthorizationMatchingForAccountTypeIdentifier:backingAccountStore2];
+    v25 = [(ACDAccountStoreFilter *)self _wildCardAuthorizationMatchingForAccountTypeIdentifier:backingAccountStore2];
 
-    if (v26)
+    if (v25)
     {
       goto LABEL_5;
     }
@@ -1900,16 +1974,16 @@ LABEL_5:
   {
   }
 
-  v27 = _ACDLogSystem();
+  v27 = _ACDLogSystem(v26);
   if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     [ACDAccountStoreFilter renewCredentialsForAccount:options:completion:];
   }
 
-  v28 = _ACDEntitlementLogSystem();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v29 = _ACDEntitlementLogSystem(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v28];
+    [ACDAccountStoreFilter setClientBundleID:withHandler:];
   }
 
   backingAccountStore5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1937,23 +2011,23 @@ LABEL_4:
 
   backingAccountStore4 = [(ACDAccountStoreFilter *)self backingAccountStore];
   client2 = [backingAccountStore4 client];
-  v14 = [client2 hasEntitlement:*MEMORY[0x277CB8FE8]];
+  v13 = [client2 hasEntitlement:*MEMORY[0x277CB8FE8]];
 
-  if (v14)
+  if (v13)
   {
     goto LABEL_4;
   }
 
-  v16 = _ACDLogSystem();
+  v16 = _ACDLogSystem(v14);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [ACDAccountStoreFilter migrateCredentialForAccount:completion:];
   }
 
-  v17 = _ACDEntitlementLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = _ACDEntitlementLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v17];
+    [ACDAccountStoreFilter setClientBundleID:withHandler:];
   }
 
   backingAccountStore3 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1967,9 +2041,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 isTetheredSyncingEnabledForDataclass:dataclassCopy completion:completionCopy];
@@ -1977,10 +2051,10 @@ LABEL_10:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -1994,9 +2068,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 tetheredSyncSourceTypeForDataclass:dataclassCopy completion:completionCopy];
@@ -2004,10 +2078,10 @@ LABEL_10:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2021,9 +2095,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 isPushSupportedForAccount:accountCopy completion:completionCopy];
@@ -2031,10 +2105,10 @@ LABEL_10:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2049,9 +2123,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 accountIdentifiersEnabledForDataclasses:dataclassesCopy withAccountTypeIdentifiers:identifiersCopy completion:completionCopy];
@@ -2059,10 +2133,10 @@ LABEL_10:
 
   else
   {
-    v16 = _ACDEntitlementLogSystem();
+    v16 = _ACDEntitlementLogSystem(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v16];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2091,9 +2165,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 addClientToken:tokenCopy forAccountIdentifier:identifierCopy completion:completionCopy];
@@ -2101,10 +2175,10 @@ LABEL_10:
 
   else
   {
-    v16 = _ACDEntitlementLogSystem();
+    v16 = _ACDEntitlementLogSystem(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v16];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2119,9 +2193,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 discoverPropertiesForAccount:accountCopy options:optionsCopy completion:completionCopy];
@@ -2129,10 +2203,10 @@ LABEL_10:
 
   else
   {
-    v16 = _ACDEntitlementLogSystem();
+    v16 = _ACDEntitlementLogSystem(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v16];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2146,9 +2220,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 clientTokenForAccountIdentifier:identifierCopy completion:completionCopy];
@@ -2156,14 +2230,73 @@ LABEL_10:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
     completionCopy[2](completionCopy, 0, backingAccountStore2);
+  }
+}
+
+- (void)openAuthenticationURL:(id)l forAccount:(id)account shouldConfirm:(BOOL)confirm completion:(id)completion
+{
+  confirmCopy = confirm;
+  lCopy = l;
+  accountCopy = account;
+  completionCopy = completion;
+  backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
+  client = [backingAccountStore client];
+  v15 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+
+  if (v15)
+  {
+    backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
+    [backingAccountStore2 openAuthenticationURL:lCopy forAccount:accountCopy shouldConfirm:confirmCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v18 = _ACDEntitlementLogSystem(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
+    }
+
+    backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
+    completionCopy[2](completionCopy, 0, backingAccountStore2);
+  }
+}
+
+- (void)openAuthenticationURLForAccount:(id)account withDelegateClassName:(id)name fromBundleAtPath:(id)path shouldConfirm:(BOOL)confirm completion:(id)completion
+{
+  confirmCopy = confirm;
+  accountCopy = account;
+  nameCopy = name;
+  pathCopy = path;
+  completionCopy = completion;
+  backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
+  client = [backingAccountStore client];
+  v18 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+
+  if (v18)
+  {
+    backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
+    [backingAccountStore2 openAuthenticationURLForAccount:accountCopy withDelegateClassName:nameCopy fromBundleAtPath:pathCopy shouldConfirm:confirmCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v21 = _ACDEntitlementLogSystem(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
+    }
+
+    backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, 0, backingAccountStore2);
   }
 }
 
@@ -2173,9 +2306,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 visibleTopLevelAccountsWithAccountTypeIdentifiers:identifiersCopy completion:completionCopy];
@@ -2183,10 +2316,10 @@ LABEL_10:
 
   else
   {
-    v13 = _ACDEntitlementLogSystem();
+    v13 = _ACDEntitlementLogSystem(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v13];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2201,9 +2334,9 @@ LABEL_10:
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 accountsWithAccountTypeIdentifiers:identifiersCopy preloadedProperties:propertiesCopy completion:completionCopy];
@@ -2211,24 +2344,24 @@ LABEL_10:
 
   else
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke;
-    v19[3] = &unk_27848D0B0;
-    v19[4] = self;
-    v16 = [identifiersCopy ac_filter:v19];
-    if ([v16 count])
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke;
+    v18[3] = &unk_27848D0B0;
+    v18[4] = self;
+    v15 = [identifiersCopy ac_filter:v18];
+    if ([v15 count])
     {
       backingAccountStore3 = [(ACDAccountStoreFilter *)self backingAccountStore];
-      [backingAccountStore3 accountsWithAccountTypeIdentifiers:v16 preloadedProperties:propertiesCopy completion:completionCopy];
+      [backingAccountStore3 accountsWithAccountTypeIdentifiers:v15 preloadedProperties:propertiesCopy completion:completionCopy];
     }
 
     else
     {
-      v18 = _ACDEntitlementLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = _ACDEntitlementLogSystem(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v18];
+        [ACDAccountStoreFilter setClientBundleID:withHandler:];
       }
 
       backingAccountStore3 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2241,16 +2374,17 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 {
   v3 = a2;
   v4 = [*(a1 + 32) _isClientPermittedToAccessAccountTypeWithIdentifier:v3];
+  v5 = v4;
   if ((v4 & 1) == 0)
   {
-    v5 = _ACDLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ACDLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_cold_1();
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)notifyRemoteDevicesOfModifiedAccount:(id)account withChangeType:(id)type
@@ -2259,9 +2393,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   typeCopy = type;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 notifyRemoteDevicesOfModifiedAccount:accountCopy withChangeType:typeCopy];
@@ -2269,16 +2403,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v13 = _ACLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = _ACLogSystem();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter notifyRemoteDevicesOfModifiedAccount:withChangeType:];
     }
 
-    v14 = _ACDEntitlementLogSystem();
+    v14 = _ACDEntitlementLogSystem(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v14];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
   }
 }
@@ -2291,9 +2425,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v17 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v16 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v17)
+  if (v16)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 notifyRemoteDevicesOfModifiedAccount:accountCopy withChangeType:typeCopy options:optionsCopy completion:completionCopy];
@@ -2301,16 +2435,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v19 = _ACLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = _ACLogSystem();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter notifyRemoteDevicesOfModifiedAccount:withChangeType:];
     }
 
-    v20 = _ACDEntitlementLogSystem();
+    v20 = _ACDEntitlementLogSystem(v19);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v20];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2325,9 +2459,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 saveAccount:accountCopy toPairedDeviceWithOptions:optionsCopy completion:completionCopy];
@@ -2335,16 +2469,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v16 = _ACLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = _ACLogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter saveAccount:toPairedDeviceWithOptions:completion:];
     }
 
-    v17 = _ACDEntitlementLogSystem();
+    v17 = _ACDEntitlementLogSystem(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v17];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2358,9 +2492,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 removeAccountsFromPairedDeviceWithOptions:optionsCopy completion:completionCopy];
@@ -2368,16 +2502,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v13 = _ACLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = _ACLogSystem();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter removeAccountsFromPairedDeviceWithOptions:completion:];
     }
 
-    v14 = _ACDEntitlementLogSystem();
+    v14 = _ACDEntitlementLogSystem(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v14];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2392,9 +2526,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v14 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v13 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v14)
+  if (v13)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 removeAccountFromPairedDevice:deviceCopy withOptions:optionsCopy completion:completionCopy];
@@ -2402,16 +2536,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v16 = _ACLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = _ACLogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)deviceCopy removeAccountFromPairedDevice:v16 withOptions:v17 completion:v18, v19, v20, v21, v22];
+      [(ACDAccountStoreFilter *)deviceCopy removeAccountFromPairedDevice:v15 withOptions:v16 completion:v17, v18, v19, v20, v21];
     }
 
-    v23 = _ACDEntitlementLogSystem();
+    v23 = _ACDEntitlementLogSystem(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v23];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2424,9 +2558,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   necessaryCopy = necessary;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v8 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v7 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v8)
+  if (v7)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 triggerKeychainMigrationIfNecessary:necessaryCopy];
@@ -2434,16 +2568,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v9 = _ACLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter triggerKeychainMigrationIfNecessary:];
     }
 
-    v10 = _ACDEntitlementLogSystem();
+    v10 = _ACDEntitlementLogSystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v10];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2456,9 +2590,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   pluginsCopy = plugins;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v8 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v7 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v8)
+  if (v7)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 runAccountMigrationPlugins:pluginsCopy];
@@ -2466,16 +2600,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v9 = _ACLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter runAccountMigrationPlugins:];
     }
 
-    v10 = _ACDEntitlementLogSystem();
+    v10 = _ACDEntitlementLogSystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v10];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2488,9 +2622,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   nonexistentCopy = nonexistent;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v8 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v7 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v8)
+  if (v7)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 scheduleBackupIfNonexistent:nonexistentCopy];
@@ -2498,16 +2632,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v9 = _ACLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter scheduleBackupIfNonexistent:];
     }
 
-    v10 = _ACDEntitlementLogSystem();
+    v10 = _ACDEntitlementLogSystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v10];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2521,9 +2655,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   completionCopy = completion;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v11 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
+  v10 = [client hasEntitlement:*MEMORY[0x277CB8FE0]];
 
-  if (v11)
+  if (v10)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 resetDatabaseToVersion:versionCopy withCompletion:completionCopy];
@@ -2531,16 +2665,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v13 = _ACLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = _ACLogSystem();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter resetDatabaseToVersion:withCompletion:];
     }
 
-    v14 = _ACDEntitlementLogSystem();
+    v14 = _ACDEntitlementLogSystem(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v14];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     backingAccountStore2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2553,9 +2687,9 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
   dCopy = d;
   backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
   client = [backingAccountStore client];
-  v8 = [client hasEntitlement:*MEMORY[0x277CB9058]];
+  v7 = [client hasEntitlement:*MEMORY[0x277CB9058]];
 
-  if (v8)
+  if (v7)
   {
     backingAccountStore2 = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore2 shutdownAccountsD:dCopy];
@@ -2563,16 +2697,16 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
   else
   {
-    v9 = _ACLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACDAccountStoreFilter shutdownAccountsD:];
     }
 
-    v10 = _ACDEntitlementLogSystem();
+    v10 = _ACDEntitlementLogSystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ACDAccountStoreFilter *)self setClientBundleID:a2 withHandler:v10];
+      [ACDAccountStoreFilter setClientBundleID:withHandler:];
     }
 
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2582,41 +2716,41 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
 
 - (void)registerMonitorForAccountsOfTypes:(id)types propertiesToPrefetch:(id)prefetch completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   prefetchCopy = prefetch;
   completionCopy = completion;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v11 = [typesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v11 = [typesCopy countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (!v11)
   {
     goto LABEL_13;
   }
 
   v12 = v11;
-  v20 = prefetchCopy;
-  v13 = *v22;
+  v19 = prefetchCopy;
+  v13 = *v21;
   v14 = 1;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v22 != v13)
+      if (*v21 != v13)
       {
         objc_enumerationMutation(typesCopy);
       }
 
-      v16 = *(*(&v21 + 1) + 8 * i);
+      v16 = *(*(&v20 + 1) + 8 * i);
       if (![(ACDAccountStoreFilter *)self isClientEntitledToAccessAccountTypeWithIdentifier:v16])
       {
         v17 = _ACLogSystem();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v26 = v16;
+          v25 = v16;
           _os_log_error_impl(&dword_221D2F000, v17, OS_LOG_TYPE_ERROR, "Client is not entitled account type %@", buf, 0xCu);
         }
 
@@ -2624,11 +2758,11 @@ uint64_t __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloade
       }
     }
 
-    v12 = [typesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v12 = [typesCopy countByEnumeratingWithState:&v20 objects:v26 count:16];
   }
 
   while (v12);
-  prefetchCopy = v20;
+  prefetchCopy = v19;
   if ((v14 & 1) == 0)
   {
     backingAccountStore = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CB8DC0] code:7 userInfo:0];
@@ -2641,8 +2775,6 @@ LABEL_13:
     backingAccountStore = [(ACDAccountStoreFilter *)self backingAccountStore];
     [backingAccountStore registerMonitorForAccountsOfTypes:typesCopy propertiesToPrefetch:prefetchCopy completion:completionCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uidOfAccountsd:(id)accountsd
@@ -2652,67 +2784,70 @@ LABEL_13:
   (*(accountsd + 2))(accountsdCopy, v4);
 }
 
+- (void)setClientBundleID:withHandler:.cold.1()
+{
+  OUTLINED_FUNCTION_8_1();
+  OUTLINED_FUNCTION_22();
+  v2 = [v1 backingAccountStore];
+  v3 = [v2 client];
+  [v3 name];
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_6_5();
+  OUTLINED_FUNCTION_0_5();
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v4, v5, "Unentitled access by client '%{public}@' (selector: %s)", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_7_2();
+}
+
 - (void)accountsWithAccountType:handler:.cold.1()
 {
   OUTLINED_FUNCTION_22();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = [v1 backingAccountStore];
   v3 = [v2 client];
   v4 = [v0 identifier];
   OUTLINED_FUNCTION_9_2();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v5, v6, "Client %@ is not allowed to access accounts of type %@.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v5, v6, "Client %@ is not allowed to access accounts of type %@.", v7, v8, v9, v10);
 }
 
 - (void)saveAccount:(uint64_t)a3 withHandler:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_15(&dword_221D2F000, a2, a3, "Could not save account: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_15(&dword_221D2F000, a2, a3, "Could not save account: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)renewCredentialsForAccount:options:completion:.cold.1()
 {
   OUTLINED_FUNCTION_22();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [v0 backingAccountStore];
   v2 = [v1 client];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Cannot renew credentials because %@ is not entitled or permitted to access to account %@.", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Cannot renew credentials because %@ is not entitled or permitted to access to account %@.", v5, v6, v7, v8);
 }
 
 - (void)migrateCredentialForAccount:completion:.cold.1()
 {
   OUTLINED_FUNCTION_22();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [v0 backingAccountStore];
   v2 = [v1 client];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Cannot migrate credentials because %@ is not entitled or permitted to access to account %@.", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Cannot migrate credentials because %@ is not entitled or permitted to access to account %@.", v5, v6, v7, v8);
 }
 
 void __91__ACDAccountStoreFilter_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_22();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [*v0 backingAccountStore];
   v2 = [v1 client];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Client (%@) attempted to access restricted account type: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_221D2F000, v3, v4, "Client (%@) attempted to access restricted account type: %@", v5, v6, v7, v8);
 }
 
 - (void)removeAccountFromPairedDevice:(uint64_t)a3 withOptions:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_15(&dword_221D2F000, a2, a3, "Client not entitled to remove account %@ from paired devices.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_15(&dword_221D2F000, a2, a3, "Client not entitled to remove account %@ from paired devices.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

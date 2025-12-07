@@ -188,46 +188,46 @@ LABEL_10:
 
 - (void)_faultCachedProperties
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *MEMORY[0x277CBE838];
     v3 = *MEMORY[0x277CBE7B0];
-    v33[0] = *MEMORY[0x277CBE838];
-    v33[1] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = *MEMORY[0x277CBE838];
+    v32[1] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     selfCopy = self;
-    v32[0] = *(self + 8);
-    uRLByDeletingPathExtension = [v32[0] URLByDeletingPathExtension];
+    v31[0] = *(self + 8);
+    uRLByDeletingPathExtension = [v31[0] URLByDeletingPathExtension];
     v6 = [uRLByDeletingPathExtension URLByAppendingPathExtension:@"sqlite-wal"];
-    v32[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
 
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
     [distantPast timeIntervalSinceReferenceDate];
     v10 = v9;
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = v7;
-    v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = [*(*(&v27 + 1) + 8 * i) resourceValuesForKeys:v4 error:0];
+          v16 = [*(*(&v26 + 1) + 8 * i) resourceValuesForKeys:v4 error:0];
           v17 = [v16 objectForKeyedSubscript:v2];
           v18 = [v16 objectForKeyedSubscript:v3];
           if (v17)
@@ -245,7 +245,7 @@ LABEL_10:
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v12);
@@ -264,8 +264,6 @@ LABEL_10:
     v23 = *(selfCopy + 32);
     *(selfCopy + 32) = v22;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (double)modificationTime
@@ -453,16 +451,16 @@ LABEL_11:
 
 - (unsigned)enumerateEntriesWithProfile:(id)profile transaction:(id)transaction error:(id *)error handler:(id)handler
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   handlerCopy = handler;
   if ([(HDDatabaseJournalDatabase *)self isOpen])
   {
-    v54 = handlerCopy;
-    v57 = 0;
-    v55 = [(HDDatabaseJournalDatabase *)self _getIdentifierAndCreationDate:&v57 error:?];
-    v53 = v57;
-    if (v55)
+    v53 = handlerCopy;
+    v56 = 0;
+    v54 = [(HDDatabaseJournalDatabase *)self _getIdentifierAndCreationDate:&v56 error:?];
+    v52 = v56;
+    if (v54)
     {
       v11 = profileCopy;
       if (self)
@@ -494,9 +492,9 @@ LABEL_11:
         v19 = 0;
       }
 
-      v75[0] = @"IDENTIFIER";
-      v75[1] = @"anchor";
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+      v74[0] = @"IDENTIFIER";
+      v74[1] = @"anchor";
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
       v21 = [(HDKeyValueDomain *)v19 valuesForKeys:v20 error:error];
       v22 = v21;
       if (!v21)
@@ -510,8 +508,8 @@ LABEL_51:
       v23 = [v21 objectForKeyedSubscript:@"anchor"];
       longLongValue = [v23 longLongValue];
 
-      v52 = [v22 objectForKeyedSubscript:@"IDENTIFIER"];
-      if ([v55 isEqualToString:v52])
+      v51 = [v22 objectForKeyedSubscript:@"IDENTIFIER"];
+      if ([v54 isEqualToString:v51])
       {
         v25 = longLongValue;
       }
@@ -534,22 +532,22 @@ LABEL_51:
 
       enumeratedBytesThreshold = self->_enumeratedBytesThreshold;
       v28 = self->_database;
-      v51 = v54;
+      v50 = v53;
       objc_opt_self();
       v29 = v28;
       objc_opt_self();
-      v69 = 0;
-      v70 = &v69;
-      v71 = 0x2020000000;
-      v72 = 0;
-      v64 = MEMORY[0x277D85DD0];
-      v65 = 3221225472;
-      v66 = __61__HDDatabaseJournalDatabase__maxEntryAnchorInDatabase_error___block_invoke;
-      v67 = &unk_278614620;
-      v68 = &v69;
-      if ([(HDSQLiteDatabase *)v29 executeSQL:@"SELECT MAX(ROWID) FROM entries" error:error bindingHandler:0 enumerationHandler:&v64])
+      v68 = 0;
+      v69 = &v68;
+      v70 = 0x2020000000;
+      v71 = 0;
+      v63 = MEMORY[0x277D85DD0];
+      v64 = 3221225472;
+      v65 = __61__HDDatabaseJournalDatabase__maxEntryAnchorInDatabase_error___block_invoke;
+      v66 = &unk_278614620;
+      v67 = &v68;
+      if ([(HDSQLiteDatabase *)v29 executeSQL:@"SELECT MAX(ROWID) FROM entries" error:error bindingHandler:0 enumerationHandler:&v63])
       {
-        v30 = v70[3];
+        v30 = v69[3];
       }
 
       else
@@ -557,7 +555,7 @@ LABEL_51:
         v30 = -1;
       }
 
-      _Block_object_dispose(&v69, 8);
+      _Block_object_dispose(&v68, 8);
 
       if (v30 < 0)
       {
@@ -570,44 +568,44 @@ LABEL_50:
       }
 
       v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v64 = 0;
-      v65 = &v64;
-      v66 = 0x2020000000;
-      v67 = 0;
-      v69 = 0;
-      v70 = &v69;
-      v71 = 0x2020000000;
-      v72 = v25;
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2020000000;
-      v63 = 3;
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __103__HDDatabaseJournalDatabase__enumerateEntriesInDatabase_anchor_enumeratedBytesThreshold_error_handler___block_invoke;
-      v59[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-      v59[4] = v25;
+      v63 = 0;
+      v64 = &v63;
+      v65 = 0x2020000000;
+      v66 = 0;
+      v68 = 0;
+      v69 = &v68;
+      v70 = 0x2020000000;
+      v71 = v25;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2020000000;
+      v62 = 3;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __103__HDDatabaseJournalDatabase__enumerateEntriesInDatabase_anchor_enumeratedBytesThreshold_error_handler___block_invoke;
+      v58[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+      v58[4] = v25;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __103__HDDatabaseJournalDatabase__enumerateEntriesInDatabase_anchor_enumeratedBytesThreshold_error_handler___block_invoke_2;
-      v77 = &unk_278622E88;
-      v79 = &v69;
-      v80 = &v64;
+      v76 = &unk_278622E88;
+      v78 = &v68;
+      v79 = &v63;
       v37 = v36;
-      v81 = &v60;
-      v82 = enumeratedBytesThreshold;
+      v80 = &v59;
+      v81 = enumeratedBytesThreshold;
       v38 = v37;
-      v78 = v37;
-      if (([(HDSQLiteDatabase *)v29 executeSQL:@"SELECT entries.ROWID AS anchor error:string bindingHandler:size enumerationHandler:data FROM entries INNER JOIN unique_strings ON unique_strings.ROWID = entries.class_name WHERE anchor > ? ORDER BY anchor ASC", error, v59, buf]& 1) != 0)
+      v77 = v37;
+      if (([(HDSQLiteDatabase *)v29 executeSQL:@"SELECT entries.ROWID AS anchor error:string bindingHandler:size enumerationHandler:data FROM entries INNER JOIN unique_strings ON unique_strings.ROWID = entries.class_name WHERE anchor > ? ORDER BY anchor ASC", error, v58, buf]& 1) != 0)
       {
         v39 = [v38 count];
-        v25 = v70[3];
+        v25 = v69[3];
         if (v39)
         {
-          v40 = *(v65 + 24);
-          v58 = 0;
-          v31 = (*(v51 + 2))(v51, v38, v40, v25 >= v30, &v58);
-          v41 = v58;
+          v40 = *(v64 + 24);
+          v57 = 0;
+          v31 = (*(v50 + 2))(v50, v38, v40, v25 >= v30, &v57);
+          v41 = v57;
           if (v31 - 3 >= 2)
           {
             v44 = v41;
@@ -626,24 +624,24 @@ LABEL_50:
               }
             }
 
-            v25 = v70[3];
+            v25 = v69[3];
 LABEL_47:
 
-            _Block_object_dispose(&v60, 8);
-            _Block_object_dispose(&v69, 8);
-            _Block_object_dispose(&v64, 8);
+            _Block_object_dispose(&v59, 8);
+            _Block_object_dispose(&v68, 8);
+            _Block_object_dispose(&v63, 8);
 
             if (v31 - 3 > 1)
             {
               goto LABEL_50;
             }
 
-            v74[0] = v55;
-            v73[0] = @"IDENTIFIER";
-            v73[1] = @"anchor";
+            v73[0] = v54;
+            v72[0] = @"IDENTIFIER";
+            v72[1] = @"anchor";
             v47 = [MEMORY[0x277CCABB0] numberWithLongLong:v25];
-            v74[1] = v47;
-            v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+            v73[1] = v47;
+            v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
 
             LODWORD(v47) = [(HDKeyValueDomain *)v19 setValuesWithDictionary:v48 error:error];
             if (v47)
@@ -654,7 +652,7 @@ LABEL_47:
             goto LABEL_49;
           }
 
-          v25 = v70[3];
+          v25 = v69[3];
           if (v31 != 3)
           {
             v31 = 4;
@@ -663,44 +661,44 @@ LABEL_47:
         }
       }
 
-      else if ((*(v61 + 6) - 3) < 2)
+      else if ((*(v60 + 6) - 3) < 2)
       {
         v31 = 0;
         goto LABEL_47;
       }
 
-      v31 = *(v61 + 6);
+      v31 = *(v60 + 6);
       goto LABEL_47;
     }
 
-    v56 = 0;
+    v55 = 0;
     if (self)
     {
-      v64 = 0;
-      v65 = &v64;
-      v66 = 0x2020000000;
-      v67 = 0;
+      v63 = 0;
+      v64 = &v63;
+      v65 = 0x2020000000;
+      v66 = 0;
       database = self->_database;
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __54__HDDatabaseJournalDatabase__hasEmptySchemaWithError___block_invoke;
-      v77 = &unk_278614620;
-      v78 = &v64;
-      if (([(HDSQLiteDatabase *)database executeSQL:@"SELECT COUNT(*) FROM sqlite_master" error:&v56 bindingHandler:0 enumerationHandler:buf]& 1) != 0)
+      v76 = &unk_278614620;
+      v77 = &v63;
+      if (([(HDSQLiteDatabase *)database executeSQL:@"SELECT COUNT(*) FROM sqlite_master" error:&v55 bindingHandler:0 enumerationHandler:buf]& 1) != 0)
       {
-        v33 = *(v65 + 24);
-        _Block_object_dispose(&v64, 8);
-        v19 = v56;
+        v33 = *(v64 + 24);
+        _Block_object_dispose(&v63, 8);
+        v19 = v55;
         if (v33 < 1)
         {
           v31 = 3;
 LABEL_53:
 
-          handlerCopy = v54;
+          handlerCopy = v53;
           goto LABEL_54;
         }
 
-        v34 = v53;
+        v34 = v52;
         v20 = v34;
         if (v34)
         {
@@ -722,8 +720,8 @@ LABEL_58:
         goto LABEL_52;
       }
 
-      _Block_object_dispose(&v64, 8);
-      v42 = v56;
+      _Block_object_dispose(&v63, 8);
+      v42 = v55;
       v20 = v42;
       if (v42)
       {
@@ -758,7 +756,6 @@ LABEL_58:
   v31 = 0;
 LABEL_54:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -836,27 +833,26 @@ uint64_t __67__HDDatabaseJournalDatabase__appendData_entryClass_database_error__
 
   if (v9 < 1 || (v10 = *(a1 + 40), NSStringFromClass(*(a1 + 48)), v11 = objc_claimAutoreleasedReturnValue(), v12 = [(HDDatabaseJournalDatabase *)v10 _getIDForString:v11 database:v5 error:a3], v11, v12 < 1))
   {
-    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 32);
-    v15 = v5;
+    v13 = *(a1 + 32);
+    v14 = v5;
     objc_opt_self();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __90__HDDatabaseJournalDatabase__insertData_osBuildStringID_classNameStringID_database_error___block_invoke;
-    v19[3] = &unk_278619A20;
-    v21 = v9;
-    v22 = v12;
-    v20 = v14;
-    v16 = v14;
-    v17 = [v15 executeSQL:@"INSERT INTO entries (os_build error:class_name bindingHandler:size enumerationHandler:{data) VALUES (?, ?, ?, ?)", a3, v19, 0}];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __90__HDDatabaseJournalDatabase__insertData_osBuildStringID_classNameStringID_database_error___block_invoke;
+    v18[3] = &unk_278619A20;
+    v20 = v9;
+    v21 = v12;
+    v19 = v13;
+    v15 = v13;
+    v16 = [v14 executeSQL:@"INSERT INTO entries (os_build error:class_name bindingHandler:size enumerationHandler:{data) VALUES (?, ?, ?, ?)", a3, v18, 0}];
   }
 
-  return v17;
+  return v16;
 }
 
 + (uint64_t)_getIDForString:(void *)string database:(uint64_t)database error:
@@ -916,7 +912,6 @@ uint64_t __90__HDDatabaseJournalDatabase__insertData_osBuildStringID_classNameSt
   sqlite3_bind_int64(a2, 1, *(a1 + 40));
   sqlite3_bind_int64(a2, 2, *(a1 + 48));
   sqlite3_bind_int64(a2, 3, [*(a1 + 32) length]);
-  v4 = *(a1 + 32);
 
   return HDSQLiteBindFoundationValueToStatement();
 }

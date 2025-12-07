@@ -912,7 +912,7 @@ LABEL_10:
       [(PXStoryChromeButton *)self setConfiguration:plainButtonConfiguration];
       if (userData)
       {
-        [userData transform];
+        objc_msgSend_transform(userData);
       }
 
       else
@@ -1012,7 +1012,7 @@ LABEL_10:
       [layer setShadowOffset:{v23, v24}];
       if (userData)
       {
-        [userData transform];
+        objc_msgSend_transform(userData);
       }
 
       else
@@ -1152,7 +1152,7 @@ void __40__PXStoryChromeButton__updateAssetImage__block_invoke(uint64_t a1, void
     userData = [(PXStoryChromeButton *)self userData];
     [userData spec];
     objc_claimAutoreleasedReturnValue();
-    [userData contentEdgeInsets];
+    objc_msgSend_contentEdgeInsets(userData);
     PXEdgeInsetsInsetRect();
   }
 }
@@ -1395,7 +1395,7 @@ void __47__PXStoryChromeButton__sizeForAttributedLabel___block_invoke()
     }
   }
 
-  [configurationCopy contentEdgeInsets];
+  objc_msgSend_contentEdgeInsets(configurationCopy);
   v27 = v7 + v25 + v26;
   v30 = v6 + v28 + v29;
 

@@ -8,31 +8,31 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = entriesCopy;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
-    v27 = *v31;
+    v9 = *v30;
+    v26 = *v30;
     do
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
+        v11 = *(*(&v29 + 1) + 8 * v10);
         if (v11)
         {
           v12 = *(v11 + 16);
@@ -45,10 +45,10 @@
           v13 = 0;
         }
 
-        v29 = 0;
+        v28 = 0;
         v14 = v13;
-        v15 = [HDDeletedSampleEntity insertCodableDeletedSamples:v12 provenance:v14 profile:profileCopy error:&v29];
-        v16 = v29;
+        v15 = [HDDeletedSampleEntity insertCodableDeletedSamples:v12 provenance:v14 profile:profileCopy error:&v28];
+        v16 = v28;
 
         if (!v15)
         {
@@ -57,7 +57,7 @@
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v35 = v16;
+            v34 = v16;
             _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Failed to insert codable deleted samples: %{public}@", buf, 0xCu);
           }
 
@@ -85,14 +85,14 @@
           v24 = [v22 numberWithLongLong:{objc_msgSend(v23, "syncProvenance")}];
           [autoBugCaptureReporter reportJournalFailureWithErrorDescription:v18 provenance:v24 error:v16];
 
-          v9 = v27;
+          v9 = v26;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v25 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v25 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
       v8 = v25;
     }
 
@@ -100,8 +100,6 @@
   }
 
 LABEL_22:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -119,11 +117,11 @@ LABEL_22:
 
 - (_HDDeletedSampleInsertionJournalEntry)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = _HDDeletedSampleInsertionJournalEntry;
-  v5 = [(HDJournalEntry *)&v17 initWithCoder:coderCopy];
+  v16.receiver = self;
+  v16.super_class = _HDDeletedSampleInsertionJournalEntry;
+  v5 = [(HDJournalEntry *)&v16 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"codable_objects"];
@@ -138,9 +136,9 @@ LABEL_22:
     else
     {
       v10 = MEMORY[0x277CBEB98];
-      v18[0] = objc_opt_class();
-      v18[1] = objc_opt_class();
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+      v17[0] = objc_opt_class();
+      v17[1] = objc_opt_class();
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
       samples = [v10 setWithArray:v7];
       v11 = [coderCopy decodeObjectOfClasses:samples forKey:@"deleted_samples"];
       v12 = v5->_samples;
@@ -152,7 +150,6 @@ LABEL_22:
     v5->_provenance = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

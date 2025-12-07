@@ -8,12 +8,14 @@
 - (void)eventIndicator:(id)indicator;
 - (void)handleInputData:(id)data targetDevice:(id)device;
 - (void)notifyDidStartIfEverythingReady;
+- (void)parseTLVCodecList:(char *)list dataLength:(unsigned __int8)length streamID:(unsigned __int16)d;
 - (void)parseTLVCodecValue:(char *)value dataLength:(unsigned __int8)length codecStruct:(id *)struct;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverDescriptorsForCharacteristic:(id)characteristic error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)selectCodec:(id)codec;
+- (void)setHighPriorityLink:(BOOL)link burstTime:(id)time;
 - (void)setNotificationEnabled:(id)enabled;
 - (void)start;
 - (void)startStreaming:(id)streaming;
@@ -428,6 +430,66 @@ LABEL_48:
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
   {
     sub_1000773A4();
+  }
+}
+
+- (void)parseTLVCodecList:(char *)list dataLength:(unsigned __int8)length streamID:(unsigned __int16)d
+{
+  if (length)
+  {
+    dCopy = d;
+    lengthCopy = length;
+    v9 = 0;
+    while (1)
+    {
+      v16 = 0uLL;
+      v17 = 0;
+      LOBYTE(v16) = list[v9];
+      v10 = qword_1000DDBC8;
+      if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 67109120;
+        *&buf[4] = v16;
+        _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "DoAPCodecType %u", buf, 8u);
+      }
+
+      v11 = v9 + 1;
+      if (lengthCopy == (v9 + 1))
+      {
+        break;
+      }
+
+      v12 = v9 + 2;
+      if (lengthCopy == (v9 + 2))
+      {
+        if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+        {
+          sub_10007768C();
+        }
+
+        return;
+      }
+
+      v13 = list[v11];
+      [(DoAPClientService *)self parseTLVCodecValue:&list[v12] dataLength:list[v11] codecStruct:&v16];
+      v14 = [[DoAPCodec alloc] initWithID:dCopy];
+      *buf = v16;
+      v19 = v17;
+      [(DoAPCodec *)v14 addCodec:buf];
+      codecList = [(DoAPClientService *)self codecList];
+      [codecList addObject:v14];
+
+      v9 = v13 + v12;
+      if (lengthCopy <= (v13 + v12))
+      {
+        return;
+      }
+    }
+
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+    {
+      sub_100077704();
+    }
   }
 }
 
@@ -1405,6 +1467,22 @@ LABEL_3:
 LABEL_4:
 }
 
+- (void)setHighPriorityLink:(BOOL)link burstTime:(id)time
+{
+  linkCopy = link;
+  timeCopy = time;
+  v7 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = linkCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DoAPService setHighPriorityLink %d", v9, 8u);
+  }
+
+  peripheral = [(ClientService *)self peripheral];
+  [peripheral setHighPriorityStream:linkCopy duration:timeCopy];
+}
+
 - (void)handleInputData:(id)data targetDevice:(id)device
 {
   dataCopy = data;
@@ -1461,7 +1539,7 @@ LABEL_4:
           {
             if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
             {
-              sub_100077D28(bytes);
+              sub_100077D28();
             }
 
             [deviceCopy handleAudioData:bytes + 5 dataLength:v24];

@@ -73,8 +73,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"dateCreated";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"dateCreated";
   dateCreated = [(INSearchCallHistoryIntent *)self dateCreated];
   v4 = dateCreated;
   if (!dateCreated)
@@ -82,8 +82,8 @@
     dateCreated = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = dateCreated;
-  v17[1] = @"recipient";
+  v17[0] = dateCreated;
+  v16[1] = @"recipient";
   recipient = [(INSearchCallHistoryIntent *)self recipient];
   null = recipient;
   if (!recipient)
@@ -91,8 +91,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null;
-  v17[2] = @"callCapabilities";
+  v17[1] = null;
+  v16[2] = @"callCapabilities";
   v7 = INCallCapabilityOptionsGetNames([(INSearchCallHistoryIntent *)self callCapabilities]);
   null2 = v7;
   if (!v7)
@@ -100,8 +100,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"callTypes";
+  v17[2] = null2;
+  v16[3] = @"callTypes";
   v9 = INCallRecordTypeOptionsGetNames([(INSearchCallHistoryIntent *)self callTypes]);
   null3 = v9;
   if (!v9)
@@ -109,8 +109,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"unseen";
+  v17[3] = null3;
+  v16[4] = @"unseen";
   unseen = [(INSearchCallHistoryIntent *)self unseen];
   null4 = unseen;
   if (!unseen)
@@ -118,8 +118,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!unseen)
   {
   }
@@ -139,8 +139,6 @@
   if (!v4)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

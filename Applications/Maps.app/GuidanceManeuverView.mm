@@ -67,7 +67,7 @@ LABEL_6:
     {
 
 LABEL_20:
-      [(GuidanceManeuverView *)self arrowMetrics];
+      objc_msgSend_arrowMetrics(self);
       v7 = v45;
       v8 = v46;
       goto LABEL_21;
@@ -144,7 +144,7 @@ LABEL_21:
 
   if (!artworkDataSource)
   {
-    [(GuidanceManeuverView *)self arrowMetrics];
+    objc_msgSend_arrowMetrics(self);
     y = CGPointZero.y;
     maneuverArtwork = [(GuidanceManeuverView *)self maneuverArtwork];
     v7 = -[GuidanceManeuverView _imageWithManeuverType:inRect:](self, "_imageWithManeuverType:inRect:", [maneuverArtwork maneuver], CGPointZero.x, y, v9, v10);
@@ -335,7 +335,7 @@ LABEL_21:
 
     if (!imageSource)
     {
-      [(GuidanceManeuverView *)self arrowMetrics];
+      objc_msgSend_arrowMetrics(self);
       displayManeuver = [(GuidanceManeuverView *)self displayManeuver];
       if ([(GuidanceManeuverView *)self _maneuverTypeRequiresDrawingPaths:displayManeuver])
       {
@@ -376,7 +376,7 @@ LABEL_8:
 LABEL_21:
                 maneuverArtwork4 = [(GuidanceManeuverView *)self maneuverArtwork];
                 [maneuverArtwork4 drivingSide];
-                [(GuidanceManeuverView *)self arrowMetrics];
+                objc_msgSend_arrowMetrics(self);
                 MKArrowAppendUTurnToPathInRect();
               }
 
@@ -394,13 +394,13 @@ LABEL_20:
                 case 1:
                 case 27:
                 case 60:
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendLeftTurnToPathInRect();
                   goto LABEL_30;
                 case 2:
                 case 28:
                 case 61:
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendRightTurnToPathInRect();
                   goto LABEL_30;
                 case 3:
@@ -410,7 +410,7 @@ LABEL_20:
                 case 12:
                 case 23:
                 case 64:
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendStraightArrowToPathInRect();
                   goto LABEL_30;
                 case 4:
@@ -441,14 +441,14 @@ LABEL_20:
                 case 62:
                 case 65:
 LABEL_22:
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendMergeLeftToPathInRect();
                   break;
                 case 21:
                 case 63:
                 case 66:
 LABEL_24:
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendMergeRightToPathInRect();
                   break;
                 case 29:
@@ -456,7 +456,7 @@ LABEL_24:
                   v26 = self->_intersectionFillPath;
                   self->_intersectionFillPath = v25;
 
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendExitRoadLeftToPathInRect();
                   break;
                 case 30:
@@ -464,7 +464,7 @@ LABEL_24:
                   v22 = self->_intersectionFillPath;
                   self->_intersectionFillPath = v21;
 
-                  [(GuidanceManeuverView *)self arrowMetrics];
+                  objc_msgSend_arrowMetrics(self);
                   MKArrowAppendExitRoadRightToPathInRect();
                   break;
                 default:
@@ -493,8 +493,8 @@ LABEL_30:
 {
   v21 = 0;
   v22 = 0;
-  [(GuidanceManeuverView *)self arrowMetrics];
-  [(GuidanceManeuverView *)self arrowMetrics];
+  objc_msgSend_arrowMetrics(self, a2);
+  objc_msgSend_arrowMetrics(self);
   MKArrowCreateBezierPathsForProceedToRouteWithSize();
   v3 = v22;
   v4 = v21;
@@ -649,7 +649,7 @@ LABEL_30:
   {
     v6 = [(GuidanceManeuverView *)self maneuverArtwork:rect.origin.x];
     [v6 drivingSide];
-    [(GuidanceManeuverView *)self arrowMetrics];
+    objc_msgSend_arrowMetrics(self);
     _screen = [(GuidanceManeuverView *)self _screen];
     [_screen scale];
     arrowColor = [(GuidanceManeuverView *)self arrowColor];
@@ -732,8 +732,8 @@ LABEL_30:
   v38 = 0u;
   v39 = 0u;
   v37 = 0u;
-  [(GuidanceManeuverView *)self arrowMetrics];
-  [(GuidanceManeuverView *)self transformForDrawingPathsWithFrame:v22 relativeToReferenceSize:v23, v24, v25, v35, v36];
+  objc_msgSend_arrowMetrics(self);
+  objc_msgSend_transformForDrawingPathsWithFrame_relativeToReferenceSize_(self, v22, v23, v24, v25, v35, v36);
   v28[0] = _NSConcreteStackBlock;
   v28[1] = 3221225472;
   v32 = v37;
@@ -814,8 +814,8 @@ LABEL_30:
   v38 = 0u;
   v39 = 0u;
   v37 = 0u;
-  [(GuidanceManeuverView *)self arrowMetrics];
-  [(GuidanceManeuverView *)self transformForDrawingPathsWithFrame:v22 relativeToReferenceSize:v23, v24, v25, v35, v36];
+  objc_msgSend_arrowMetrics(self);
+  objc_msgSend_transformForDrawingPathsWithFrame_relativeToReferenceSize_(self, v22, v23, v24, v25, v35, v36);
   v28[0] = _NSConcreteStackBlock;
   v28[1] = 3221225472;
   v32 = v37;
@@ -840,7 +840,7 @@ LABEL_30:
     visibleWidth = self->_visibleWidth;
     intersectionFillPath = self->_intersectionFillPath;
     intersectionStrokePath = self->_intersectionStrokePath;
-    [(GuidanceManeuverView *)self arrowMetrics];
+    objc_msgSend_arrowMetrics(self, a2);
     [(GuidanceManeuverView *)self drawArrow:arrowPath stroke:arrowStrokePath withVisibleWidth:intersectionFillPath intersectionFillPath:intersectionStrokePath intersectionStrokePath:visibleWidth referenceSize:v8, v9];
   }
 }
@@ -906,7 +906,7 @@ LABEL_14:
 - (void)_updateDrawingPathsFromJunction
 {
   memset(__src, 0, sizeof(__src));
-  [(GuidanceManeuverView *)self junctionArrowMetrics];
+  objc_msgSend_junctionArrowMetrics(self, a2);
   maneuverArtwork = [(GuidanceManeuverView *)self maneuverArtwork];
   junction = [maneuverArtwork junction];
   v20 = 0;
@@ -943,8 +943,8 @@ LABEL_14:
 
   v31 = 0;
   v32 = 0;
-  [(GuidanceManeuverView *)self arrowMetrics];
-  [(GuidanceManeuverView *)self arrowMetrics];
+  objc_msgSend_arrowMetrics(self);
+  objc_msgSend_arrowMetrics(self);
   MKArrowCreateBezierPathsForArrivalWithSize();
   v5 = 0;
   v6 = 0;
@@ -1084,7 +1084,7 @@ LABEL_6:
   v53 = 0u;
   v54 = 0u;
   v52 = 0u;
-  [(GuidanceManeuverView *)self transformForDrawingPathsWithFrame:x relativeToReferenceSize:y, width, v21, width, height];
+  objc_msgSend_transformForDrawingPathsWithFrame_relativeToReferenceSize_(self, x, y, width, v21, width, height);
   if (pathCopy)
   {
     v26 = [UIBezierPath bezierPathWithRect:x, y, width, v21];
@@ -1211,7 +1211,7 @@ LABEL_6:
   arrowColor = [(GuidanceManeuverView *)self arrowColor];
   [arrowColor setStroke];
 
-  [(GuidanceManeuverView *)self arrowMetrics];
+  objc_msgSend_arrowMetrics(self);
   [strokeCopy setLineWidth:v9];
   [strokeCopy setLineCapStyle:0];
   [strokeCopy setLineJoinStyle:1];

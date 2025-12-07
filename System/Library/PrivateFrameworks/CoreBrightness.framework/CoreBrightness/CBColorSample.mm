@@ -272,24 +272,20 @@
 
 - ($1AB5FA073B851C12C2339EC22442E995)Lab
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v10 = a2;
-  v15 = 0;
-  v16 = 0.0;
+  v12 = 0;
+  v13 = 0.0;
   X = self->_XYZ.X;
-  *&v15 = X;
+  *&v12 = X;
   Y = self->_XYZ.Y;
-  *(&v15 + 1) = Y;
+  *(&v12 + 1) = Y;
   Z = self->_XYZ.Z;
-  v16 = Z;
+  v13 = Z;
   v8 = 0;
   v9 = 0.0;
-  CFXTristimulus2Lab(&v15, &v8);
-  v12 = *&v8;
-  v13 = *(&v8 + 1);
-  v14 = v9;
-  *MEMORY[0x1E69E9840];
+  CFXTristimulus2Lab(&v12, &v8);
   v5 = v9;
   v6 = *(&v8 + 1);
   v7 = *&v8;

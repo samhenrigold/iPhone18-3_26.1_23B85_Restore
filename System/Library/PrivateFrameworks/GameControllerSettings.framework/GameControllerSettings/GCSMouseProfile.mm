@@ -101,24 +101,7 @@
 {
   objectCopy = object;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  v12.receiver = self;
-  v12.super_class = GCSMouseProfile;
-  self = [(GCSMouseProfile *)&v12 init];
-  if (!self)
-  {
-    goto LABEL_7;
-  }
-
-  v5 = [objectCopy _gcs_stringForJSONKey:@"_bundleIdentifier"];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v5;
-
-  if (self->_bundleIdentifier)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v12.receiver = self, v12.super_class = GCSMouseProfile, (self = -[GCSMouseProfile init](&v12, sel_init)) != 0) && ([objectCopy _gcs_stringForJSONKey:@"_bundleIdentifier"], v5 = objc_claimAutoreleasedReturnValue(), bundleIdentifier = self->_bundleIdentifier, self->_bundleIdentifier = v5, bundleIdentifier, self->_bundleIdentifier))
   {
     v7 = [objectCopy _gcs_numberForJSONKey:@"_trackingSpeed"];
     [v7 doubleValue];
@@ -138,7 +121,6 @@
 
   else
   {
-LABEL_7:
     selfCopy = 0;
   }
 

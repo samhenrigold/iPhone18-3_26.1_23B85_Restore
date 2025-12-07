@@ -122,7 +122,7 @@ void __72__CALNNotificationSourceRefresher_handleNotificationsLoadedNotification
 
 - (void)_refreshNotifications:(id)notifications
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   dispatch_assert_queue_V2(self->_refreshQueue);
   eventNotificationReferences = [(CALNInboxNotificationMonitor *)self->_inboxNotificationMonitor eventNotificationReferences];
@@ -137,7 +137,7 @@ void __72__CALNNotificationSourceRefresher_handleNotificationsLoadedNotification
       if (v7)
       {
         *buf = 138412290;
-        v27 = notificationsCopy;
+        v26 = notificationsCopy;
         v8 = "Refreshing notifications affected by changes to objects %@.";
         v9 = v6;
         v10 = 12;
@@ -156,32 +156,32 @@ LABEL_10:
     }
 
     [(CALNNotificationSourceRefresher *)self sources];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v12 = v24 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = v23 = 0u;
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
-          [(CALNNotificationSourceRefresher *)self _withdrawExpiredNotificationsForSource:v17, v21];
+          [(CALNNotificationSourceRefresher *)self _withdrawExpiredNotificationsForSource:v17, v20];
           [v17 refreshNotifications:notificationsCopy];
           objc_autoreleasePoolPop(v18);
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
@@ -206,39 +206,37 @@ LABEL_10:
 
   self->_needsRefreshOnNotificationsLoaded = 1;
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withdrawExpiredNotificationsForSource:(id)source
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sourceIdentifier = [source sourceIdentifier];
   notificationManager = [(CALNNotificationSourceRefresher *)self notificationManager];
   v6 = [notificationManager fetchRecordsWithSourceIdentifier:sourceIdentifier];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v23;
+    v11 = *v22;
     *&v9 = 138543618;
-    v21 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         content = [v13 content];
         expirationDate = [content expirationDate];
 
@@ -251,10 +249,10 @@ LABEL_21:
             v18 = +[CALNLogSubsystem defaultCategory];
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v21;
-              v27 = sourceIdentifier;
-              v28 = 2114;
-              v29 = sourceClientIdentifier;
+              *buf = v20;
+              v26 = sourceIdentifier;
+              v27 = 2114;
+              v28 = sourceClientIdentifier;
               _os_log_impl(&dword_242909000, v18, OS_LOG_TYPE_DEFAULT, "Withdrawing expired notification with sourceIdentifier %{public}@ and sourceClientIdentifier %{public}@", buf, 0x16u);
             }
 
@@ -264,13 +262,11 @@ LABEL_21:
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

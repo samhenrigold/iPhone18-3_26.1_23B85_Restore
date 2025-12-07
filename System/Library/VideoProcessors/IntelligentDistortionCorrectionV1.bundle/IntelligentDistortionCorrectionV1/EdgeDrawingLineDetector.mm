@@ -3,6 +3,7 @@
 - (BOOL)linesAreCollinearWithSortedPoints:(EdgeDrawingLineDetector *)self;
 - (EdgeDrawingLineDetector)initWithFigMetalContext:(id)context idcUtilities:(id)utilities;
 - (int)compileShaders:(BOOL)shaders;
+- (int)computeSortedPointsWithLine:(int)line andLine:axis:intoPointArray:;
 - (int)detectLinesPart1:(id *)part1 inputImageTexture:(id)texture inputSegmentationMaskTexture:(id)maskTexture;
 - (int)detectLinesPart2:(id *)part2 results:(id *)results;
 - (int)determineWorkingBufferRequirements:(id *)requirements bundleConfiguration:(id *)configuration maximumInputImageWidth:(unsigned int)width maximumInputImageHeight:(unsigned int)height maximumSegmentationMaskWidth:(unsigned int)maskWidth maximumSegmentationMaskHeight:(unsigned int)maskHeight;
@@ -220,49 +221,50 @@ LABEL_6:
 {
   if (!requirements)
   {
-    sub_2957C1658();
+    sub_2957C1658(self, a2, 0, configuration, *&width, *&height, *&maskWidth, *&maskHeight);
     return -12780;
   }
 
   if (!configuration)
   {
-    sub_2957C15E0();
+    sub_2957C15E0(self, a2);
     return -12780;
   }
 
-  v8 = configuration->var21[0].var0[5];
-  if (LODWORD(v8) > 4 || ((1 << SLOBYTE(v8)) & 0x16) == 0)
+  v9 = configuration->var21[0].var0[5];
+  if (LODWORD(v9) > 4 || ((1 << SLOBYTE(v9)) & 0x16) == 0)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v8, v20, v21, v22, v23, v24, v25);
     return -12780;
   }
 
   requirements->var0 = 0;
   *&self->_maximumMemoryAllocationParameters.segmentationMaskHeight = 0u;
   *&self->_maximumMemoryAllocationParameters.downscaledImageWidth = 0u;
-  v13 = (LODWORD(v8) - 1 + width) / LODWORD(v8);
-  v14 = (LODWORD(v8) - 1 + height) / LODWORD(v8);
-  v15 = LODWORD(configuration->var21[1].var0[1]);
-  v16 = [EdgeDrawingLineDetector memoryAllocationHandler:"memoryAllocationHandler:memoryAllocationParameters:sharedMemoryBuffer:sharedMetalBufferOffset:sharedMetalBufferSize:" memoryAllocationParameters:? sharedMemoryBuffer:? sharedMetalBufferOffset:? sharedMetalBufferSize:?];
-  if (v16)
+  v14 = (LODWORD(v9) - 1 + width) / LODWORD(v9);
+  v15 = (LODWORD(v9) - 1 + height) / LODWORD(v9);
+  v16 = LODWORD(configuration->var21[1].var0[1]);
+  v17 = [EdgeDrawingLineDetector memoryAllocationHandler:"memoryAllocationHandler:memoryAllocationParameters:sharedMemoryBuffer:sharedMetalBufferOffset:sharedMetalBufferSize:" memoryAllocationParameters:? sharedMemoryBuffer:? sharedMetalBufferOffset:? sharedMetalBufferSize:?];
+  v18 = v17;
+  if (v17)
   {
-    sub_2957C1564();
+    sub_2957C1564(v17);
   }
 
   else
   {
-    self->_maximumMemoryAllocationParameters.downscaledImageWidth = v13;
-    self->_maximumMemoryAllocationParameters.downscaledImageHeight = v14;
-    self->_maximumMemoryAllocationParameters.anchorScanInterval = v15;
+    self->_maximumMemoryAllocationParameters.downscaledImageWidth = v14;
+    self->_maximumMemoryAllocationParameters.downscaledImageHeight = v15;
+    self->_maximumMemoryAllocationParameters.anchorScanInterval = v16;
     self->_maximumMemoryAllocationParameters.segmentationMaskWidth = maskWidth;
     self->_maximumMemoryAllocationParameters.segmentationMaskHeight = maskHeight;
-    self->_maximumMemoryAllocationParameters.anchorGridWidth = v13 / v15;
-    self->_maximumMemoryAllocationParameters.anchorGridHeight = v14 / v15;
-    self->_maximumMemoryAllocationParameters.anchorMaxCount = v13 / v15 * v15 * (v14 / v15);
+    self->_maximumMemoryAllocationParameters.anchorGridWidth = v14 / v16;
+    self->_maximumMemoryAllocationParameters.anchorGridHeight = v15 / v16;
+    self->_maximumMemoryAllocationParameters.anchorMaxCount = v14 / v16 * v16 * (v15 / v16);
   }
 
-  return v16;
+  return v18;
 }
 
 - (int)setSharedMetalBuffer:(id)buffer offset:(unint64_t)offset size:(unint64_t)size
@@ -292,7 +294,7 @@ LABEL_6:
 {
   textureCopy = texture;
   maskTextureCopy = maskTexture;
-  v10 = maskTextureCopy;
+  v11 = maskTextureCopy;
   self->_detectLinesPart1CompletedSuccessfully = 0;
   if (!textureCopy)
   {
@@ -306,13 +308,13 @@ LABEL_6:
     goto LABEL_29;
   }
 
-  v11 = part1->var21[0].var0[5];
-  if (LODWORD(v11) > 4 || ((1 << SLOBYTE(v11)) & 0x16) == 0)
+  v12 = part1->var21[0].var0[5];
+  if (LODWORD(v12) > 4 || ((1 << SLOBYTE(v12)) & 0x16) == 0)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v32, v33, v35, v37, v39, v40);
 LABEL_29:
-    v28 = -12780;
+    v30 = -12780;
     goto LABEL_30;
   }
 
@@ -322,7 +324,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (maskTextureCopy && [maskTextureCopy pixelFormat] != 25 && objc_msgSend(v10, "pixelFormat") != 10)
+  if (maskTextureCopy && [maskTextureCopy pixelFormat] != 25 && objc_msgSend(v11, "pixelFormat") != 10)
   {
     sub_2957C1748();
     goto LABEL_29;
@@ -331,66 +333,66 @@ LABEL_29:
   width = [textureCopy width];
   height = [textureCopy height];
   part1Copy = part1;
-  v15 = LODWORD(part1->var21[1].var0[1]);
-  v16 = (LODWORD(v11) - 1 + width) / LODWORD(v11);
-  width2 = [v10 width];
-  v32 = v10;
-  height2 = [v10 height];
-  if (v16 <= 0xF)
+  v16 = LODWORD(part1->var21[1].var0[1]);
+  v17 = (LODWORD(v12) - 1 + width) / LODWORD(v12);
+  width2 = [v11 width];
+  v38 = v11;
+  height2 = [v11 height];
+  if (v17 <= 0xF)
   {
-    sub_2957C1B88();
-    v28 = -12780;
+    sub_2957C1B88(height2);
+    v30 = -12780;
     goto LABEL_30;
   }
 
-  v31 = textureCopy;
-  v19 = (LODWORD(v11) - 1 + height) / LODWORD(v11);
-  if (v19 <= 0xF)
+  v36 = textureCopy;
+  v20 = (LODWORD(v12) - 1 + height) / LODWORD(v12);
+  if (v20 <= 0xF)
   {
-    sub_2957C1B10();
+    sub_2957C1B10(height2);
 LABEL_41:
-    v28 = -12780;
+    v30 = -12780;
 LABEL_42:
-    textureCopy = v31;
-    v10 = v32;
+    textureCopy = v36;
+    v11 = v38;
     goto LABEL_30;
   }
 
-  if (v16 > self->_maximumMemoryAllocationParameters.downscaledImageWidth)
+  if (v17 > self->_maximumMemoryAllocationParameters.downscaledImageWidth)
   {
-    sub_2957C1A98();
+    sub_2957C1A98(height2);
     goto LABEL_41;
   }
 
-  if (v19 > self->_maximumMemoryAllocationParameters.downscaledImageHeight)
+  if (v20 > self->_maximumMemoryAllocationParameters.downscaledImageHeight)
   {
-    sub_2957C1A20();
+    sub_2957C1A20(height2);
     goto LABEL_41;
   }
 
-  v20 = v16 / v15;
-  if (v16 / v15 > self->_maximumMemoryAllocationParameters.anchorGridWidth)
+  v21 = v17 / v16;
+  if (v17 / v16 > self->_maximumMemoryAllocationParameters.anchorGridWidth)
   {
-    sub_2957C19A8();
+    sub_2957C19A8(height2);
     goto LABEL_41;
   }
 
-  v21 = v19 / v15;
-  if (v19 / v15 > self->_maximumMemoryAllocationParameters.anchorGridHeight)
+  v22 = v20 / v16;
+  if (v20 / v16 > self->_maximumMemoryAllocationParameters.anchorGridHeight)
   {
-    sub_2957C1930();
+    sub_2957C1930(height2);
     goto LABEL_41;
   }
 
-  v22 = v20 * v15 * v21;
-  if (v22 > self->_maximumMemoryAllocationParameters.anchorMaxCount)
+  v23 = v21 * v16 * v22;
+  if (v23 > self->_maximumMemoryAllocationParameters.anchorMaxCount)
   {
-    sub_2957C18B8();
+    sub_2957C18B8(height2);
     goto LABEL_41;
   }
 
-  v23 = height2;
-  if (self->_sharedMetalBuffer.resourcesAssigned && v16 == self->_currentMemoryAllocationParameters.downscaledImageWidth && v19 == self->_currentMemoryAllocationParameters.downscaledImageHeight && v15 == self->_currentMemoryAllocationParameters.anchorScanInterval && self->_currentMemoryAllocationParameters.segmentationMaskWidth == width2 && self->_currentMemoryAllocationParameters.segmentationMaskHeight == height2)
+  v24 = height2;
+  if (self->_sharedMetalBuffer.resourcesAssigned && v17 == self->_currentMemoryAllocationParameters.downscaledImageWidth && v20 == self->_currentMemoryAllocationParameters.downscaledImageHeight && v16 == self->_currentMemoryAllocationParameters.anchorScanInterval && self->_currentMemoryAllocationParameters.segmentationMaskWidth == width2 && self->_currentMemoryAllocationParameters.segmentationMaskHeight == height2)
   {
     goto LABEL_26;
   }
@@ -399,38 +401,38 @@ LABEL_42:
   buffer = self->_sharedMetalBuffer.buffer;
   offset = self->_sharedMetalBuffer.offset;
   size = self->_sharedMetalBuffer.size;
-  v33[0] = v16;
-  v33[1] = v19;
-  v33[2] = v15;
-  v33[3] = width2;
-  v33[4] = height2;
-  v33[5] = v16 / v15;
-  v33[6] = v19 / v15;
-  v33[7] = v20 * v15 * v21;
-  v27 = [(EdgeDrawingLineDetector *)self memoryAllocationHandler:0 memoryAllocationParameters:v33 sharedMemoryBuffer:buffer sharedMetalBufferOffset:offset sharedMetalBufferSize:size];
-  if (v27)
+  v39 = __PAIR64__(v20, v17);
+  v40 = v16;
+  v41 = width2;
+  v42 = height2;
+  v43 = v17 / v16;
+  v44 = v20 / v16;
+  v45 = v21 * v16 * v22;
+  v28 = [(EdgeDrawingLineDetector *)self memoryAllocationHandler:0 memoryAllocationParameters:&v39 sharedMemoryBuffer:buffer sharedMetalBufferOffset:offset sharedMetalBufferSize:size];
+  if (v28)
   {
-    v28 = v27;
+    v30 = v28;
     sub_2957C17C0();
     goto LABEL_42;
   }
 
   self->_sharedMetalBuffer.resourcesAssigned = 1;
-  self->_currentMemoryAllocationParameters.downscaledImageWidth = v16;
-  self->_currentMemoryAllocationParameters.downscaledImageHeight = v19;
-  self->_currentMemoryAllocationParameters.anchorScanInterval = v15;
+  self->_currentMemoryAllocationParameters.downscaledImageWidth = v17;
+  self->_currentMemoryAllocationParameters.downscaledImageHeight = v20;
+  self->_currentMemoryAllocationParameters.anchorScanInterval = v16;
   self->_currentMemoryAllocationParameters.segmentationMaskWidth = width2;
-  self->_currentMemoryAllocationParameters.segmentationMaskHeight = v23;
-  self->_currentMemoryAllocationParameters.anchorGridWidth = v20;
-  self->_currentMemoryAllocationParameters.anchorGridHeight = v21;
-  self->_currentMemoryAllocationParameters.anchorMaxCount = v22;
+  self->_currentMemoryAllocationParameters.segmentationMaskHeight = v24;
+  self->_currentMemoryAllocationParameters.anchorGridWidth = v21;
+  self->_currentMemoryAllocationParameters.anchorGridHeight = v22;
+  self->_currentMemoryAllocationParameters.anchorMaxCount = v23;
 LABEL_26:
-  textureCopy = v31;
-  v10 = v32;
-  v28 = [(EdgeDrawingLineDetector *)self processImage:part1Copy inputImageTexture:v31 inputSegmentationMaskTexture:v32];
-  if (v28)
+  textureCopy = v36;
+  v11 = v38;
+  v29 = [(EdgeDrawingLineDetector *)self processImage:part1Copy inputImageTexture:v36 inputSegmentationMaskTexture:v38];
+  v30 = v29;
+  if (v29)
   {
-    sub_2957C183C();
+    sub_2957C183C(v29);
   }
 
   else
@@ -440,14 +442,14 @@ LABEL_26:
 
 LABEL_30:
 
-  return v28;
+  return v30;
 }
 
 - (int)detectLinesPart2:(id *)part2 results:(id *)results
 {
   if (!results)
   {
-    sub_2957C1FC4();
+    sub_2957C1FC4(self, a2, part2);
     return -12780;
   }
 
@@ -471,7 +473,7 @@ LABEL_30:
   contents2 = [(MTLBuffer *)self->_sharedMetalBuffer.buffer contents];
   if (!contents)
   {
-    sub_2957C1ED4();
+    sub_2957C1ED4(contents2);
     return -12786;
   }
 
@@ -483,9 +485,10 @@ LABEL_30:
 
   offset = self->_output.offset;
   v10 = [(EdgeDrawingLineDetector *)self doEdgeDrawing:part2 outputLineData:contents + offset sharedMemoryPtr:contents2];
+  v11 = v10;
   if (v10)
   {
-    sub_2957C1DE0();
+    sub_2957C1DE0(v10);
   }
 
   else
@@ -494,7 +497,7 @@ LABEL_30:
     results->var1 = self->_output.curNum;
   }
 
-  return v10;
+  return v11;
 }
 
 - (int)memoryAllocationHandler:(id *)handler memoryAllocationParameters:(id *)parameters sharedMemoryBuffer:(id)buffer sharedMetalBufferOffset:(unint64_t)offset sharedMetalBufferSize:(unint64_t)size
@@ -510,11 +513,11 @@ LABEL_30:
     v13 = handler == 0;
   }
 
-  v52 = 0;
-  v53 = 0;
-  v48 = 0u;
-  v49 = 0u;
-  v47 = 0u;
+  v57 = 0;
+  v58 = 0;
+  v53 = 0u;
+  v54 = 0u;
+  v52 = 0u;
   if (handler)
   {
     v14 = (bufferCopy | size | offset) == 0;
@@ -532,53 +535,53 @@ LABEL_30:
 
   *&v15 = *&parameters->var0;
   *(&v15 + 1) = HIDWORD(*&parameters->var0);
-  v50 = v15;
-  v51 = xmmword_2957C7D60;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v50];
-  v16 = v53;
+  v55 = v15;
+  v56 = xmmword_2957C7D60;
+  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v55];
+  v16 = v58;
   *&v15 = *&parameters->var0;
   *(&v15 + 1) = HIDWORD(*&parameters->var0);
-  v47 = v15;
-  v48 = xmmword_2957C7D70;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v47];
-  v17 = *(&v49 + 1);
-  if (v16 > *(&v49 + 1))
+  v52 = v15;
+  v53 = xmmword_2957C7D70;
+  v17 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v52];
+  v18 = *(&v54 + 1);
+  if (v16 > *(&v54 + 1))
   {
-    v17 = v16;
+    v18 = v16;
   }
 
-  if (v17 <= ((4 * parameters->var7 + 255) & 0x7FFFFFF00uLL))
+  if (v18 <= ((4 * parameters->var7 + 255) & 0x7FFFFFF00uLL))
   {
-    v18 = (4 * parameters->var7 + 255) & 0x7FFFFFF00;
+    v19 = (4 * parameters->var7 + 255) & 0x7FFFFFF00;
   }
 
   else
   {
-    v18 = v17;
+    v19 = v18;
   }
 
   if (v13)
   {
-    v19 = size >= v18;
-    size -= v18;
-    if (!v19)
+    v20 = size >= v19;
+    size -= v19;
+    if (!v20)
     {
-      sub_2957C24EC();
+      sub_2957C24EC(v17);
 LABEL_44:
-      v45 = -12780;
+      v50 = -12780;
       goto LABEL_45;
     }
 
     self->_offsets.anchors = offset;
-    v20 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v50];
+    v21 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v55];
     scaledImage = self->_textures.scaledImage;
-    self->_textures.scaledImage = v20;
+    self->_textures.scaledImage = v21;
 
     if (self->_textures.scaledImage)
     {
-      v22 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v47];
+      v23 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:offset textureDescriptor:&v52];
       localMaxPass1 = self->_textures.localMaxPass1;
-      self->_textures.localMaxPass1 = v22;
+      self->_textures.localMaxPass1 = v23;
 
       if (self->_textures.localMaxPass1)
       {
@@ -594,31 +597,31 @@ LABEL_44:
     }
 
 LABEL_48:
-    v45 = -12786;
+    v50 = -12786;
     goto LABEL_45;
   }
 
 LABEL_18:
-  *&v24 = *&parameters->var0;
-  *(&v24 + 1) = HIDWORD(*&parameters->var0);
-  v50 = v24;
-  v51 = xmmword_2957C7D80;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v50];
-  v25 = v53;
+  *&v25 = *&parameters->var0;
+  *(&v25 + 1) = HIDWORD(*&parameters->var0);
+  v55 = v25;
+  v56 = xmmword_2957C7D80;
+  v26 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v55];
+  v27 = v58;
   if (!v13)
   {
     goto LABEL_22;
   }
 
-  if (v53 > size)
+  if (v58 > size)
   {
-    sub_2957C2384();
+    sub_2957C2384(v26);
     goto LABEL_44;
   }
 
-  v26 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v18 + offset textureDescriptor:&v50];
+  v28 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v19 + offset textureDescriptor:&v55];
   gradientFlags = self->_textures.gradientFlags;
-  self->_textures.gradientFlags = v26;
+  self->_textures.gradientFlags = v28;
 
   if (!self->_textures.gradientFlags)
   {
@@ -626,33 +629,33 @@ LABEL_18:
     goto LABEL_48;
   }
 
-  v28 = v52;
-  v25 = v53;
-  size -= v53;
-  self->_offsets.gradientFlags = v18 + offset;
-  self->_elemStride.gradientFlags = v28;
+  v30 = v57;
+  v27 = v58;
+  size -= v58;
+  self->_offsets.gradientFlags = v19 + offset;
+  self->_elemStride.gradientFlags = v30;
 LABEL_22:
-  v29 = v25 + v18;
-  *&v30 = *&parameters->var0;
-  *(&v30 + 1) = HIDWORD(*&parameters->var0);
-  v50 = v30;
-  v51 = xmmword_2957C7D70;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v50];
-  v31 = v53;
+  v31 = v27 + v19;
+  *&v32 = *&parameters->var0;
+  *(&v32 + 1) = HIDWORD(*&parameters->var0);
+  v55 = v32;
+  v56 = xmmword_2957C7D70;
+  v33 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v55];
+  v34 = v58;
   if (!v13)
   {
     goto LABEL_26;
   }
 
-  if (v53 > size)
+  if (v58 > size)
   {
-    sub_2957C2294();
+    sub_2957C2294(v33);
     goto LABEL_44;
   }
 
-  v32 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v29 + offset textureDescriptor:&v50];
+  v35 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v31 + offset textureDescriptor:&v55];
   gradientMagnitude = self->_textures.gradientMagnitude;
-  self->_textures.gradientMagnitude = v32;
+  self->_textures.gradientMagnitude = v35;
 
   if (!self->_textures.gradientMagnitude)
   {
@@ -660,34 +663,34 @@ LABEL_22:
     goto LABEL_48;
   }
 
-  v34 = v52;
-  v31 = v53;
-  size -= v53;
-  self->_offsets.gradientMagnitude = v29 + offset;
-  self->_elemStride.gradientMagnitude = v34 >> 1;
+  v37 = v57;
+  v34 = v58;
+  size -= v58;
+  self->_offsets.gradientMagnitude = v31 + offset;
+  self->_elemStride.gradientMagnitude = v37 >> 1;
 LABEL_26:
-  v35 = v31 + v29;
-  v36 = *&parameters->var3;
-  *&v37 = v36;
-  *(&v37 + 1) = HIDWORD(v36);
-  v50 = v37;
-  v51 = xmmword_2957C7D90;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v50];
-  v38 = v53;
+  v38 = v34 + v31;
+  v39 = *&parameters->var3;
+  *&v40 = v39;
+  *(&v40 + 1) = HIDWORD(v39);
+  v55 = v40;
+  v56 = xmmword_2957C7D90;
+  v41 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v55];
+  v42 = v58;
   if (!v13)
   {
     goto LABEL_30;
   }
 
-  if (v53 > size)
+  if (v58 > size)
   {
-    sub_2957C21A4();
+    sub_2957C21A4(v41);
     goto LABEL_44;
   }
 
-  v39 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v35 + offset textureDescriptor:&v50];
+  v43 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v38 + offset textureDescriptor:&v55];
   dilatedSegmentationMask = self->_textures.dilatedSegmentationMask;
-  self->_textures.dilatedSegmentationMask = v39;
+  self->_textures.dilatedSegmentationMask = v43;
 
   if (!self->_textures.dilatedSegmentationMask)
   {
@@ -695,29 +698,29 @@ LABEL_26:
     goto LABEL_48;
   }
 
-  v38 = v53;
-  size -= v53;
+  v42 = v58;
+  size -= v58;
 LABEL_30:
-  v41 = v38 + v35;
-  *&v42 = *&parameters->var0;
-  *(&v42 + 1) = HIDWORD(*&parameters->var0);
-  v50 = v42;
-  v51 = xmmword_2957C7D60;
-  [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v50];
+  v45 = v42 + v38;
+  *&v46 = *&parameters->var0;
+  *(&v46 + 1) = HIDWORD(*&parameters->var0);
+  v55 = v46;
+  v56 = xmmword_2957C7D60;
+  v47 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities computeTextureStrideForBufferAllocation:&v55];
   if (!v13)
   {
     goto LABEL_34;
   }
 
-  if (v53 > size)
+  if (v58 > size)
   {
-    sub_2957C20B4();
+    sub_2957C20B4(v47);
     goto LABEL_44;
   }
 
-  v43 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v41 + offset textureDescriptor:&v50];
+  v48 = [(IntelligentDistortionCorrection_Utilities *)self->_idcUtilities textureFromBuffer:bufferCopy bufferOffset:v45 + offset textureDescriptor:&v55];
   scaledUndistortedImage = self->_textures.scaledUndistortedImage;
-  self->_textures.scaledUndistortedImage = v43;
+  self->_textures.scaledUndistortedImage = v48;
 
   if (!self->_textures.scaledUndistortedImage)
   {
@@ -727,16 +730,16 @@ LABEL_30:
 
   if (!handler)
   {
-    v45 = 0;
+    v50 = 0;
     goto LABEL_45;
   }
 
 LABEL_34:
-  v45 = 0;
-  handler->var0 = v53 + v41;
+  v50 = 0;
+  handler->var0 = v58 + v45;
 LABEL_45:
 
-  return v45;
+  return v50;
 }
 
 - (int)processImage:(id *)image inputImageTexture:(id)texture inputSegmentationMaskTexture:(id)maskTexture
@@ -1247,8 +1250,7 @@ LABEL_18:
         break;
       }
 
-      v14 = (v8 + 2 * pointCopy + 2 * self->_elemStride.gradientMagnitude * v9);
-      v15 = *v14;
+      v14 = v8 + 2 * pointCopy + 2 * self->_elemStride.gradientMagnitude * v9;
       __asm { FCMP            H1, #0 }
 
       if (_ZF)
@@ -1258,17 +1260,16 @@ LABEL_18:
 
       if (forward)
       {
-        v22 = v14[-downscaledImageWidth];
         __asm { FCMP            H1, #0 }
 
         if (_NF ^ _VF | _ZF)
         {
-          v18 = 0;
+          v17 = 0;
         }
 
         else
         {
-          v18 = 12;
+          v17 = 12;
         }
 
         if (_NF ^ _VF | _ZF)
@@ -1276,21 +1277,21 @@ LABEL_18:
           _H1 = COERCE_SHORT_FLOAT(0);
         }
 
-        v20 = _NF ^ _VF | _ZF ? 0 : -1;
-        if (_H1 >= *&v14[v12])
+        v19 = _NF ^ _VF | _ZF ? 0 : -1;
+        if (_H1 >= *(v14 + 2 * v12))
         {
-          v19 = 0;
+          v18 = 0;
         }
 
         else
         {
+          v18 = -1;
+          v17 = 4;
+          _H1 = *(v14 + 2 * v12);
           v19 = -1;
-          v18 = 4;
-          _H1 = *&v14[v12];
-          v20 = -1;
         }
 
-        _H2 = *&v14[v13];
+        _H2 = *(v14 + 2 * v13);
         if (_H1 >= _H2)
         {
           __asm { FCVT            S1, H1 }
@@ -1300,89 +1301,89 @@ LABEL_18:
         {
           __asm { FCVT            S1, H2 }
 
-          v20 = -1;
-          v19 = 1;
-          v18 = 8;
+          v19 = -1;
+          v18 = 1;
+          v17 = 8;
         }
       }
 
       else
       {
+        v17 = 0;
         v18 = 0;
         v19 = 0;
-        v20 = 0;
         _S1 = 0.0;
       }
 
-      v28 = &v14[downscaledImageWidth];
+      v26 = (v14 + 2 * downscaledImageWidth);
       if ((forward & 2) != 0)
       {
-        _H2 = *v28;
+        _H2 = *v26;
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v19 = 0;
-          v20 = 1;
-          v18 = 12;
+          v18 = 0;
+          v19 = 1;
+          v17 = 12;
           _S1 = _S2;
         }
 
-        _H2 = *(v28 - 1);
-        __asm { FCVT            S2, H2 }
-
-        if (_S1 < _S2)
-        {
-          v20 = 1;
-          v19 = -1;
-          v18 = 4;
-          _S1 = _S2;
-        }
-
-        _H2 = v28[1];
+        _H2 = *(v26 - 1);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
           v19 = 1;
-          v18 = 8;
+          v18 = -1;
+          v17 = 4;
           _S1 = _S2;
-          v20 = 1;
+        }
+
+        _H2 = v26[1];
+        __asm { FCVT            S2, H2 }
+
+        if (_S1 < _S2)
+        {
+          v18 = 1;
+          v17 = 8;
+          _S1 = _S2;
+          v19 = 1;
         }
       }
 
       if ((forward & 4) != 0)
       {
-        _H2 = *(v14 - 1);
+        _H2 = *(v14 - 2);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v20 = 0;
-          v19 = -1;
-          v18 = 3;
+          v19 = 0;
+          v18 = -1;
+          v17 = 3;
           _S1 = _S2;
         }
 
-        _H2 = v14[v12];
+        _H2 = *(v14 + 2 * v12);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v19 = -1;
-          v18 = 1;
+          v18 = -1;
+          v17 = 1;
           _S1 = _S2;
-          v20 = -1;
+          v19 = -1;
         }
 
-        _H2 = *(v28 - 1);
+        _H2 = *(v26 - 1);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v20 = 1;
-          v19 = -1;
-          v18 = 2;
+          v19 = 1;
+          v18 = -1;
+          v17 = 2;
           _S1 = _S2;
         }
       }
@@ -1392,34 +1393,34 @@ LABEL_18:
         goto LABEL_46;
       }
 
-      _H2 = v14[1];
+      _H2 = *(v14 + 2);
       __asm { FCVT            S2, H2 }
 
       if (_S1 < _S2)
       {
-        v18 = 3;
+        v17 = 3;
         _S1 = _S2;
-        v19 = 1;
-        v20 = 0;
-      }
-
-      _H2 = v14[v13];
-      __asm { FCVT            S2, H2 }
-
-      if (_S1 < _S2)
-      {
         v18 = 1;
-        _S1 = _S2;
-        v19 = 1;
-        v20 = -1;
+        v19 = 0;
       }
 
-      _H2 = v28[1];
+      _H2 = *(v14 + 2 * v13);
       __asm { FCVT            S2, H2 }
 
       if (_S1 < _S2)
       {
-        v18 = 2;
+        v17 = 1;
+        _S1 = _S2;
+        v18 = 1;
+        v19 = -1;
+      }
+
+      _H2 = v26[1];
+      __asm { FCVT            S2, H2 }
+
+      if (_S1 < _S2)
+      {
+        v17 = 2;
         ++v9;
         ++pointCopy;
       }
@@ -1427,39 +1428,39 @@ LABEL_18:
       else
       {
 LABEL_46:
-        if (!v18)
+        if (!v17)
         {
           return;
         }
 
-        pointCopy += v19;
-        v9 += v20;
+        pointCopy += v18;
+        v9 += v19;
       }
 
-      v47 = pointCopy + self->_elemStride.gradientFlags * v9;
-      v48 = *(v7 + v47);
-      if (v48 > 1)
+      v45 = pointCopy + self->_elemStride.gradientFlags * v9;
+      v46 = *(v7 + v45);
+      if (v46 > 1)
       {
         break;
       }
 
-      *(v7 + v47) = v48 | 2;
+      *(v7 + v45) = v46 | 2;
       backwardIndex = self->_anchorArray.backwardIndex;
       if (backwardIndex >> 7 > 0x3E)
       {
         break;
       }
 
-      if (dir != v48)
+      if (dir != v46)
       {
-        forward = v18;
+        forward = v17;
       }
 
       dir = &self->_anon_1f928[4 * backwardIndex + 4];
       *(dir + 1) = v9;
       *dir = pointCopy;
       self->_anchorArray.backwardIndex = backwardIndex + 1;
-      LODWORD(dir) = v48;
+      LODWORD(dir) = v46;
     }
 
     while (pointCopy > 0);
@@ -1500,8 +1501,7 @@ LABEL_46:
         break;
       }
 
-      v14 = (v8 + 2 * pointCopy + 2 * self->_elemStride.gradientMagnitude * v9);
-      v15 = *v14;
+      v14 = v8 + 2 * pointCopy + 2 * self->_elemStride.gradientMagnitude * v9;
       __asm { FCMP            H1, #0 }
 
       if (_ZF)
@@ -1511,17 +1511,16 @@ LABEL_46:
 
       if (backward)
       {
-        v22 = v14[-downscaledImageWidth];
         __asm { FCMP            H1, #0 }
 
         if (_NF ^ _VF | _ZF)
         {
-          v18 = 0;
+          v17 = 0;
         }
 
         else
         {
-          v18 = 12;
+          v17 = 12;
         }
 
         if (_NF ^ _VF | _ZF)
@@ -1529,21 +1528,21 @@ LABEL_46:
           _H1 = COERCE_SHORT_FLOAT(0);
         }
 
-        v20 = _NF ^ _VF | _ZF ? 0 : -1;
-        if (_H1 >= *&v14[v12])
+        v19 = _NF ^ _VF | _ZF ? 0 : -1;
+        if (_H1 >= *(v14 + 2 * v12))
         {
-          v19 = 0;
+          v18 = 0;
         }
 
         else
         {
+          v18 = -1;
+          v17 = 4;
+          _H1 = *(v14 + 2 * v12);
           v19 = -1;
-          v18 = 4;
-          _H1 = *&v14[v12];
-          v20 = -1;
         }
 
-        _H2 = *&v14[v13];
+        _H2 = *(v14 + 2 * v13);
         if (_H1 >= _H2)
         {
           __asm { FCVT            S1, H1 }
@@ -1553,89 +1552,89 @@ LABEL_46:
         {
           __asm { FCVT            S1, H2 }
 
-          v20 = -1;
-          v19 = 1;
-          v18 = 8;
+          v19 = -1;
+          v18 = 1;
+          v17 = 8;
         }
       }
 
       else
       {
+        v17 = 0;
         v18 = 0;
         v19 = 0;
-        v20 = 0;
         _S1 = 0.0;
       }
 
-      v28 = &v14[downscaledImageWidth];
+      v26 = (v14 + 2 * downscaledImageWidth);
       if ((backward & 2) != 0)
       {
-        _H2 = *v28;
+        _H2 = *v26;
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v19 = 0;
-          v20 = 1;
-          v18 = 12;
+          v18 = 0;
+          v19 = 1;
+          v17 = 12;
           _S1 = _S2;
         }
 
-        _H2 = *(v28 - 1);
-        __asm { FCVT            S2, H2 }
-
-        if (_S1 < _S2)
-        {
-          v20 = 1;
-          v19 = -1;
-          v18 = 4;
-          _S1 = _S2;
-        }
-
-        _H2 = v28[1];
+        _H2 = *(v26 - 1);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
           v19 = 1;
-          v18 = 8;
+          v18 = -1;
+          v17 = 4;
           _S1 = _S2;
-          v20 = 1;
+        }
+
+        _H2 = v26[1];
+        __asm { FCVT            S2, H2 }
+
+        if (_S1 < _S2)
+        {
+          v18 = 1;
+          v17 = 8;
+          _S1 = _S2;
+          v19 = 1;
         }
       }
 
       if ((backward & 4) != 0)
       {
-        _H2 = *(v14 - 1);
+        _H2 = *(v14 - 2);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v20 = 0;
-          v19 = -1;
-          v18 = 3;
+          v19 = 0;
+          v18 = -1;
+          v17 = 3;
           _S1 = _S2;
         }
 
-        _H2 = v14[v12];
+        _H2 = *(v14 + 2 * v12);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v19 = -1;
-          v18 = 1;
+          v18 = -1;
+          v17 = 1;
           _S1 = _S2;
-          v20 = -1;
+          v19 = -1;
         }
 
-        _H2 = *(v28 - 1);
+        _H2 = *(v26 - 1);
         __asm { FCVT            S2, H2 }
 
         if (_S1 < _S2)
         {
-          v20 = 1;
-          v19 = -1;
-          v18 = 2;
+          v19 = 1;
+          v18 = -1;
+          v17 = 2;
           _S1 = _S2;
         }
       }
@@ -1645,34 +1644,34 @@ LABEL_46:
         goto LABEL_46;
       }
 
-      _H2 = v14[1];
+      _H2 = *(v14 + 2);
       __asm { FCVT            S2, H2 }
 
       if (_S1 < _S2)
       {
-        v18 = 3;
+        v17 = 3;
         _S1 = _S2;
-        v19 = 1;
-        v20 = 0;
-      }
-
-      _H2 = v14[v13];
-      __asm { FCVT            S2, H2 }
-
-      if (_S1 < _S2)
-      {
         v18 = 1;
-        _S1 = _S2;
-        v19 = 1;
-        v20 = -1;
+        v19 = 0;
       }
 
-      _H2 = v28[1];
+      _H2 = *(v14 + 2 * v13);
       __asm { FCVT            S2, H2 }
 
       if (_S1 < _S2)
       {
-        v18 = 2;
+        v17 = 1;
+        _S1 = _S2;
+        v18 = 1;
+        v19 = -1;
+      }
+
+      _H2 = v26[1];
+      __asm { FCVT            S2, H2 }
+
+      if (_S1 < _S2)
+      {
+        v17 = 2;
         ++v9;
         ++pointCopy;
       }
@@ -1680,39 +1679,39 @@ LABEL_46:
       else
       {
 LABEL_46:
-        if (!v18)
+        if (!v17)
         {
           return;
         }
 
-        pointCopy += v19;
-        v9 += v20;
+        pointCopy += v18;
+        v9 += v19;
       }
 
-      v47 = pointCopy + self->_elemStride.gradientFlags * v9;
-      v48 = *(v7 + v47);
-      if (v48 > 1)
+      v45 = pointCopy + self->_elemStride.gradientFlags * v9;
+      v46 = *(v7 + v45);
+      if (v46 > 1)
       {
         break;
       }
 
-      *(v7 + v47) = v48 | 2;
-      v49 = *self->_anon_1f928;
-      if (!v49)
+      *(v7 + v45) = v46 | 2;
+      v47 = *self->_anon_1f928;
+      if (!v47)
       {
         break;
       }
 
-      *self->_anon_1f928 = v49 - 1;
-      if (dir != v48)
+      *self->_anon_1f928 = v47 - 1;
+      if (dir != v46)
       {
-        backward = v18;
+        backward = v17;
       }
 
-      dir = &self->_anon_1f928[4 * (v49 - 1) + 4];
+      dir = &self->_anon_1f928[4 * (v47 - 1) + 4];
       *(dir + 1) = v9;
       *dir = pointCopy;
-      LODWORD(dir) = v48;
+      LODWORD(dir) = v46;
     }
 
     while (pointCopy > 0);
@@ -2164,6 +2163,23 @@ LABEL_31:
       v2[2] = v5;
     }
   }
+}
+
+- (int)computeSortedPointsWithLine:(int)line andLine:axis:intoPointArray:
+{
+  v6 = *&line;
+  *v3 = v4;
+  v3[1] = v5;
+  if (line == -1)
+  {
+    v7 = vextq_s8(v4, v4, 8uLL).u64[0];
+    v8 = vextq_s8(v5, v5, 8uLL).u64[0];
+    v9 = vsub_f32(vmaxnm_f32(vmaxnm_f32(vmaxnm_f32(*v4.i8, v7), *v5.i8), v8), vminnm_f32(vminnm_f32(vminnm_f32(*v4.i8, v7), *v5.i8), v8));
+    v6 = *&vmvn_s8(vcgt_f32(v9, vdup_lane_s32(v9, 1))) & 1;
+  }
+
+  [(EdgeDrawingLineDetector *)self sort4Points:v3 onAxis:v6];
+  return v6;
 }
 
 - (BOOL)linesAreCollinearWithSortedPoints:(EdgeDrawingLineDetector *)self

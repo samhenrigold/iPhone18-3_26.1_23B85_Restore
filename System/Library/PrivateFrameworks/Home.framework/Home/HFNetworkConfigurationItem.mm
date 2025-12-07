@@ -112,7 +112,7 @@ id __58__HFNetworkConfigurationItem__subclass_updateWithOptions___block_invoke(u
 
   v6 = [*(a1 + 32) profile];
   v7 = [v6 accessory];
-  v8 = [v7 home];
+  v8 = objc_msgSend_home(v7);
   [v5 addObject:v8];
 
   [v3 setObject:v5 forKeyedSubscript:@"dependentHomeKitObjects"];
@@ -140,14 +140,14 @@ id __58__HFNetworkConfigurationItem__subclass_updateWithOptions___block_invoke(u
   v21 = MEMORY[0x277CCABB0];
   v22 = [*(a1 + 32) profile];
   v23 = [v22 accessory];
-  v24 = [v23 home];
+  v24 = objc_msgSend_home(v23);
   v25 = [v21 numberWithInt:{objc_msgSend(v24, "hf_isNetworkProtectionSupportedForAccessories") ^ 1}];
   [v3 setObject:v25 forKeyedSubscript:@"HFResultNetworkConfigurationUnsupported"];
 
   v26 = MEMORY[0x277CCABB0];
   v27 = [*(a1 + 32) profile];
   v28 = [v27 accessory];
-  v29 = [v28 home];
+  v29 = objc_msgSend_home(v28);
   v30 = [v26 numberWithInt:{objc_msgSend(v29, "hf_isNetworkProtectionEnabled") ^ 1}];
   [v3 setObject:v30 forKeyedSubscript:@"HFResultNetworkConfigurationDisabled"];
 

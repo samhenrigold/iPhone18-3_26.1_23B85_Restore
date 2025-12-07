@@ -7,29 +7,29 @@
 
 - (id)mainReturningError
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__16828;
-  v68 = __Block_byref_object_dispose__16829;
-  v69 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__16828;
+  v67 = __Block_byref_object_dispose__16829;
+  v68 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __61__HMDBackingStoreCacheDeleteZoneOperation_mainReturningError__block_invoke;
   aBlock[3] = &unk_2797236C8;
-  v63 = &v64;
-  v51 = array;
-  v62 = v51;
-  v50 = _Block_copy(aBlock);
+  v62 = &v63;
+  v50 = array;
+  v61 = v50;
+  v49 = _Block_copy(aBlock);
   store = [(HMDBackingStoreOperation *)self store];
   local = [store local];
   _begin = [local _begin];
-  v7 = v65[5];
-  v65[5] = _begin;
+  v7 = v64[5];
+  v64[5] = _begin;
 
-  if (v65[5])
+  if (v64[5])
   {
     store2 = [(HMDBackingStoreOperation *)self store];
     local2 = [store2 local];
@@ -38,70 +38,70 @@
 
   else
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v11 = [(HMDBackingStoreCacheDeleteZoneOperation *)self zone];
     obj = [v11 groups];
 
-    v48 = [obj countByEnumeratingWithState:&v57 objects:v71 count:16];
-    if (v48)
+    v47 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
+    if (v47)
     {
-      v49 = *v58;
+      v48 = *v57;
       while (2)
       {
-        for (i = 0; i != v48; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v58 != v49)
+          if (*v57 != v48)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v57 + 1) + 8 * i);
-          [v51 removeAllObjects];
+          v12 = *(*(&v56 + 1) + 8 * i);
+          [v50 removeAllObjects];
           store3 = [(HMDBackingStoreOperation *)self store];
           local3 = [store3 local];
-          [local3 _fetchRecordsWithGroupID:objc_msgSend(v12 callback:{"groupID"), v50}];
+          [local3 _fetchRecordsWithGroupID:objc_msgSend(v12 callback:{"groupID"), v49}];
 
-          if (v65[5])
+          if (v64[5])
           {
             goto LABEL_24;
           }
 
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
           v54 = 0u;
-          v15 = v51;
-          v16 = [v15 countByEnumeratingWithState:&v53 objects:v70 count:16];
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v15 = v50;
+          v16 = [v15 countByEnumeratingWithState:&v52 objects:v69 count:16];
           if (v16)
           {
-            v17 = *v54;
+            v17 = *v53;
 LABEL_12:
             v18 = 0;
             while (1)
             {
-              if (*v54 != v17)
+              if (*v53 != v17)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v19 = *(*(&v53 + 1) + 8 * v18);
+              v19 = *(*(&v52 + 1) + 8 * v18);
               store4 = [(HMDBackingStoreOperation *)self store];
               local4 = [store4 local];
               v22 = [local4 _deleteRecordWithGroupID:objc_msgSend(v12 recordName:{"groupID"), v19}];
-              v23 = v65[5];
-              v65[5] = v22;
+              v23 = v64[5];
+              v64[5] = v22;
 
-              if (v65[5])
+              if (v64[5])
               {
                 break;
               }
 
               if (v16 == ++v18)
               {
-                v16 = [v15 countByEnumeratingWithState:&v53 objects:v70 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v52 objects:v69 count:16];
                 if (v16)
                 {
                   goto LABEL_12;
@@ -112,31 +112,31 @@ LABEL_12:
             }
           }
 
-          if (v65[5])
+          if (!v64[5])
           {
-            goto LABEL_24;
+            store5 = [(HMDBackingStoreOperation *)self store];
+            local5 = [store5 local];
+            v26 = [local5 _deleteGroupWithID:{objc_msgSend(v12, "groupID")}];
+            v27 = v64[5];
+            v64[5] = v26;
+
+            if (!v64[5])
+            {
+              continue;
+            }
           }
 
-          store5 = [(HMDBackingStoreOperation *)self store];
-          local5 = [store5 local];
-          v26 = [local5 _deleteGroupWithID:{objc_msgSend(v12, "groupID")}];
-          v27 = v65[5];
-          v65[5] = v26;
-
-          if (v65[5])
-          {
 LABEL_24:
-            store6 = [(HMDBackingStoreOperation *)self store];
-            local6 = [store6 local];
-            [local6 _rollback];
+          store6 = [(HMDBackingStoreOperation *)self store];
+          local6 = [store6 local];
+          [local6 _rollback];
 
-            v10 = v65[5];
-            goto LABEL_25;
-          }
+          v10 = v64[5];
+          goto LABEL_25;
         }
 
-        v48 = [obj countByEnumeratingWithState:&v57 objects:v71 count:16];
-        if (v48)
+        v47 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
+        if (v47)
         {
           continue;
         }
@@ -149,10 +149,10 @@ LABEL_24:
     local7 = [store7 local];
     v30 = [(HMDBackingStoreCacheDeleteZoneOperation *)self zone];
     v31 = [local7 _deleteZoneWithID:{objc_msgSend(v30, "zoneID")}];
-    v32 = v65[5];
-    v65[5] = v31;
+    v32 = v64[5];
+    v64[5] = v31;
 
-    if (v65[5])
+    if (v64[5])
     {
       store8 = [(HMDBackingStoreOperation *)self store];
       local8 = [store8 local];
@@ -164,10 +164,10 @@ LABEL_24:
       store9 = [(HMDBackingStoreOperation *)self store];
       local9 = [store9 local];
       _commit = [local9 _commit];
-      v42 = v65[5];
-      v65[5] = _commit;
+      v41 = v64[5];
+      v64[5] = _commit;
 
-      if (v65[5])
+      if (v64[5])
       {
         store10 = [(HMDBackingStoreOperation *)self store];
         local10 = [store10 local];
@@ -179,17 +179,16 @@ LABEL_24:
         store10 = [(HMDBackingStoreOperation *)self store];
         local10 = [store10 local];
         zoneCache = [local10 zoneCache];
-        v46 = [(HMDBackingStoreCacheDeleteZoneOperation *)self zone];
-        [zoneCache removeObject:v46];
+        v45 = [(HMDBackingStoreCacheDeleteZoneOperation *)self zone];
+        [zoneCache removeObject:v45];
       }
     }
   }
 
-  v10 = v65[5];
+  v10 = v64[5];
 LABEL_25:
 
-  _Block_object_dispose(&v64, 8);
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v63, 8);
 
   return v10;
 }

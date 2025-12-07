@@ -28,45 +28,37 @@
       v8 = dbUUID;
       v9 = dbUUID2;
       v10 = v9;
-      if ((v8 != 0) != (v9 != 0) || v8 && v9 && ![v8 isEqual:v9])
+      v20 = 0;
+      if ((v8 != 0) == (v9 != 0) && (!v8 || !v9 || [v8 isEqual:v9]))
       {
-        goto LABEL_16;
-      }
 
-      dbSequenceNumber = [(IXRemoteInstallResult *)self dbSequenceNumber];
-      dbSequenceNumber2 = [(IXRemoteInstallResult *)v5 dbSequenceNumber];
-      v8 = dbSequenceNumber;
-      v13 = dbSequenceNumber2;
-      v10 = v13;
-      if ((v8 != 0) != (v13 != 0) || v8 && v13 && ![v8 isEqual:v13])
-      {
-        goto LABEL_16;
-      }
+        dbSequenceNumber = [(IXRemoteInstallResult *)self dbSequenceNumber];
+        dbSequenceNumber2 = [(IXRemoteInstallResult *)v5 dbSequenceNumber];
+        v8 = dbSequenceNumber;
+        v13 = dbSequenceNumber2;
+        v10 = v13;
+        if ((v8 != 0) == (v13 != 0) && (!v8 || !v13 || [v8 isEqual:v13]))
+        {
 
-      uRLOfInstalledApp = [(IXRemoteInstallResult *)self URLOfInstalledApp];
-      uRLOfInstalledApp2 = [(IXRemoteInstallResult *)v5 URLOfInstalledApp];
-      v8 = uRLOfInstalledApp;
-      v16 = uRLOfInstalledApp2;
-      v10 = v16;
-      if ((v8 != 0) != (v16 != 0) || v8 && v16 && ![v8 isEqual:v16])
-      {
-        goto LABEL_16;
-      }
+          uRLOfInstalledApp = [(IXRemoteInstallResult *)self URLOfInstalledApp];
+          uRLOfInstalledApp2 = [(IXRemoteInstallResult *)v5 URLOfInstalledApp];
+          v8 = uRLOfInstalledApp;
+          v16 = uRLOfInstalledApp2;
+          v10 = v16;
+          if ((v8 != 0) == (v16 != 0) && (!v8 || !v16 || [v8 isEqual:v16]))
+          {
 
-      persistentIdentifier = [(IXRemoteInstallResult *)self persistentIdentifier];
-      persistentIdentifier2 = [(IXRemoteInstallResult *)v5 persistentIdentifier];
-      v8 = persistentIdentifier;
-      v19 = persistentIdentifier2;
-      v10 = v19;
-      if ((v8 != 0) != (v19 != 0) || v8 && v19 && ![v8 isEqual:v19])
-      {
-LABEL_16:
-        v20 = 0;
-      }
-
-      else
-      {
-        v20 = 1;
+            persistentIdentifier = [(IXRemoteInstallResult *)self persistentIdentifier];
+            persistentIdentifier2 = [(IXRemoteInstallResult *)v5 persistentIdentifier];
+            v8 = persistentIdentifier;
+            v19 = persistentIdentifier2;
+            v10 = v19;
+            if ((v8 != 0) == (v19 != 0) && (!v8 || !v19 || [v8 isEqual:v19]))
+            {
+              v20 = 1;
+            }
+          }
+        }
       }
     }
 

@@ -50,7 +50,7 @@
   v4 = sub_1007417F4();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ComponentViewOverflowTransitioning();
+  v6.super_class = type metadata accessor for ComponentViewOverflowTransitioning(0);
   return [(ComponentViewOverflowTransitioning *)&v6 init];
 }
 

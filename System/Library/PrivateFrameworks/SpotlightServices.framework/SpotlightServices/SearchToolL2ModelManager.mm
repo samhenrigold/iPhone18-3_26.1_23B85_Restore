@@ -31,7 +31,7 @@
 - (BOOL)loadModel
 {
   selfCopy = self;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   [(NSCondition *)self->_condition lock];
   if (selfCopy->_loaded)
   {
@@ -43,7 +43,7 @@
     }
 
     [(NSCondition *)selfCopy->_condition unlock];
-    v4 = 1;
+    return 1;
   }
 
   else
@@ -51,34 +51,34 @@
     selfCopy->_loaded = 0;
     if ([(SearchToolL2ModelManager *)selfCopy loadDictionary])
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       obj = selfCopy->_modelConfigs;
-      v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (v27)
+      v26 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v26)
       {
-        v25 = *v30;
-        v26 = selfCopy;
+        v24 = *v29;
+        v25 = selfCopy;
         while (2)
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v26; ++i)
           {
-            if (*v30 != v25)
+            if (*v29 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v6 = *(*(&v29 + 1) + 8 * i);
+            v6 = *(*(&v28 + 1) + 8 * i);
             v7 = [(NSMutableDictionary *)selfCopy->_modelConfigs objectForKeyedSubscript:v6];
             v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"searchToolL2_%@.mlmodelc", v6];
             v9 = SSDefaultsGetAssetPath(v8);
             v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v9];
             v11 = objc_opt_new();
-            v28 = 0;
-            v12 = [MEMORY[0x1E695FE90] modelWithContentsOfURL:v10 configuration:v11 error:&v28];
-            v13 = v28;
+            v27 = 0;
+            v12 = [MEMORY[0x1E695FE90] modelWithContentsOfURL:v10 configuration:v11 error:&v27];
+            v13 = v27;
             [v7 setModel:v12];
 
             model = [v7 model];
@@ -91,13 +91,13 @@
               {
                 [v7 threshold];
                 *buf = 138412546;
-                v34 = v6;
-                v35 = 2048;
-                v36 = v17;
+                v33 = v6;
+                v34 = 2048;
+                v35 = v17;
                 _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] [SearchTool] [L2] loaded model %@. threshold=%f", buf, 0x16u);
               }
 
-              selfCopy = v26;
+              selfCopy = v25;
             }
 
             else
@@ -105,26 +105,26 @@
               if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v34 = v8;
+                v33 = v8;
                 _os_log_error_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_ERROR, "[SpotlightRanking] [SearchTool] [L2] failed to load model %@", buf, 0xCu);
               }
 
-              selfCopy = v26;
-              modelConfigs = v26->_modelConfigs;
-              v26->_modelConfigs = 0;
+              selfCopy = v25;
+              modelConfigs = v25->_modelConfigs;
+              v25->_modelConfigs = 0;
 
-              [(NSCondition *)v26->_condition unlock];
+              [(NSCondition *)v25->_condition unlock];
             }
 
             if (!model)
             {
 
-              goto LABEL_28;
+              return 0;
             }
           }
 
-          v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-          if (v27)
+          v26 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+          if (v26)
           {
             continue;
           }
@@ -136,9 +136,9 @@
       v19 = SSGeneralLog();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [(NSMutableDictionary *)selfCopy->_modelConfigs count];
+        v20 = objc_msgSend_count(selfCopy->_modelConfigs);
         *buf = 134217984;
-        v34 = v20;
+        v33 = v20;
         _os_log_impl(&dword_1D9F69000, v19, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] [SearchTool] [L2] successfully loaded %lu l2 model", buf, 0xCu);
       }
 
@@ -156,12 +156,10 @@
       }
 
       [(NSCondition *)selfCopy->_condition unlock];
-LABEL_28:
-      v4 = 0;
+      return 0;
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -197,7 +195,7 @@ LABEL_28:
   self->_modelConfigs = v5;
 
   _MDPlistDictionaryIterate();
-  v7 = [(NSMutableDictionary *)self->_modelConfigs count:0]!= 0;
+  v7 = objc_msgSend_count(self->_modelConfigs, 0, 0, 0) != 0;
   CFRelease(v4);
   return v7;
 }
@@ -249,34 +247,34 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
 
 - (void)extractFeatures:(id)features providersPerBundle:(id)bundle indicesPerBundle:(id)perBundle
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   bundleCopy = bundle;
   perBundleCopy = perBundle;
-  if ([(NSMutableDictionary *)self->_modelConfigs count])
+  if (objc_msgSend_count(self->_modelConfigs))
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
     selfCopy = self;
     v11 = self->_modelConfigs;
-    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v72 objects:v78 count:16];
+    v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v71 objects:v77 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v73;
+      v14 = *v72;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v73 != v14)
+          if (*v72 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v72 + 1) + 8 * i);
+          v16 = *(*(&v71 + 1) + 8 * i);
           array = [MEMORY[0x1E695DF70] array];
           [v10 setObject:array forKeyedSubscript:v16];
 
@@ -284,17 +282,17 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
           [perBundleCopy setObject:array2 forKeyedSubscript:v16];
         }
 
-        v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v72 objects:v78 count:16];
+        v13 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v71 objects:v77 count:16];
       }
 
       while (v13);
     }
 
-    if ([featuresCopy count])
+    if (objc_msgSend_count(featuresCopy))
     {
       v19 = 0;
-      v54 = bundleCopy;
-      v55 = featuresCopy;
+      v53 = bundleCopy;
+      v54 = featuresCopy;
       do
       {
         v20 = [featuresCopy objectAtIndexedSubscript:v19];
@@ -320,33 +318,33 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
 
           if (!v28 && v27 != 0)
           {
-            v57 = v26;
-            v58 = v25;
-            v59 = v23;
-            v60 = v19;
+            v56 = v26;
+            v57 = v25;
+            v58 = v23;
+            v59 = v19;
             v30 = v27;
             dictionary = [MEMORY[0x1E695DF90] dictionary];
+            v67 = 0u;
             v68 = 0u;
             v69 = 0u;
             v70 = 0u;
-            v71 = 0u;
-            v56 = v30;
+            v55 = v30;
             featureNames = [v30 featureNames];
-            v33 = [featureNames countByEnumeratingWithState:&v68 objects:v77 count:16];
+            v33 = [featureNames countByEnumeratingWithState:&v67 objects:v76 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v69;
+              v35 = *v68;
               do
               {
                 for (j = 0; j != v34; ++j)
                 {
-                  if (*v69 != v35)
+                  if (*v68 != v35)
                   {
                     objc_enumerationMutation(featureNames);
                   }
 
-                  v37 = *(*(&v68 + 1) + 8 * j);
+                  v37 = *(*(&v67 + 1) + 8 * j);
                   v38 = [v20 objectForKeyedSubscript:v37];
                   [v38 doubleValue];
                   v40 = v39;
@@ -355,26 +353,26 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
                   [dictionary setObject:v41 forKeyedSubscript:v37];
                 }
 
-                v34 = [featureNames countByEnumeratingWithState:&v68 objects:v77 count:16];
+                v34 = [featureNames countByEnumeratingWithState:&v67 objects:v76 count:16];
               }
 
               while (v34);
             }
 
             v42 = objc_alloc(MEMORY[0x1E695FE48]);
-            v67 = 0;
-            v43 = [v42 initWithDictionary:dictionary error:&v67];
-            [v58 addObject:v43];
-            v19 = v60;
-            v44 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v60];
-            v26 = v57;
-            [v57 addObject:v44];
+            v66 = 0;
+            v43 = [v42 initWithDictionary:dictionary error:&v66];
+            [v57 addObject:v43];
+            v19 = v59;
+            v44 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v59];
+            v26 = v56;
+            [v56 addObject:v44];
 
-            v25 = v58;
-            bundleCopy = v54;
-            v24 = v55;
-            v23 = v59;
-            v27 = v56;
+            v25 = v57;
+            bundleCopy = v53;
+            v24 = v54;
+            v23 = v58;
+            v27 = v55;
           }
 
           featuresCopy = v24;
@@ -383,54 +381,52 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
         ++v19;
       }
 
-      while (v19 < [featuresCopy count]);
+      while (v19 < objc_msgSend_count(featuresCopy));
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v45 = v10;
-    v46 = [v45 countByEnumeratingWithState:&v63 objects:v76 count:16];
+    v46 = [v45 countByEnumeratingWithState:&v62 objects:v75 count:16];
     if (v46)
     {
       v47 = v46;
-      v48 = *v64;
+      v48 = *v63;
       do
       {
         for (k = 0; k != v47; ++k)
         {
-          if (*v64 != v48)
+          if (*v63 != v48)
           {
             objc_enumerationMutation(v45);
           }
 
-          v50 = *(*(&v63 + 1) + 8 * k);
+          v50 = *(*(&v62 + 1) + 8 * k);
           v51 = [v45 objectForKeyedSubscript:v50];
-          if ([v51 count])
+          if (objc_msgSend_count(v51))
           {
             v52 = [objc_alloc(MEMORY[0x1E695FE30]) initWithFeatureProviderArray:v51];
             [bundleCopy setObject:v52 forKeyedSubscript:v50];
           }
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v63 objects:v76 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v62 objects:v75 count:16];
       }
 
       while (v47);
     }
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (id)predict:(id)predict
 {
   predictCopy = predict;
-  if ([(NSMutableDictionary *)self->_modelConfigs count])
+  if (objc_msgSend_count(self->_modelConfigs))
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(predictCopy, "count")}];
-    if ([predictCopy count])
+    v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(predictCopy)];
+    if (objc_msgSend_count(predictCopy))
     {
       v6 = 0;
       do
@@ -439,13 +435,13 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
         ++v6;
       }
 
-      while (v6 < [predictCopy count]);
+      while (v6 < objc_msgSend_count(predictCopy));
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
     [(SearchToolL2ModelManager *)self extractFeatures:predictCopy providersPerBundle:dictionary indicesPerBundle:dictionary2];
-    if ([dictionary count])
+    if (objc_msgSend_count(dictionary))
     {
       [(SearchToolL2ModelManager *)self predictProcessedFeatures:dictionary indicesPerBundle:dictionary2 allResults:v5];
     }
@@ -461,46 +457,46 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
 
 - (void)predictProcessedFeatures:(id)features indicesPerBundle:(id)bundle allResults:(id)results
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   bundleCopy = bundle;
   resultsCopy = results;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = featuresCopy;
-  v47 = [featuresCopy countByEnumeratingWithState:&v54 objects:v62 count:16];
-  if (v47)
+  v46 = [featuresCopy countByEnumeratingWithState:&v53 objects:v61 count:16];
+  if (v46)
   {
-    v44 = *v55;
+    v43 = *v54;
     v10 = @"prob";
     v11 = 0x1E696A000uLL;
     *&v9 = 134218240;
-    v43 = v9;
+    v42 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v55 != v44)
+        if (*v54 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v54 + 1) + 8 * v12);
-        v14 = [(NSMutableDictionary *)self->_modelConfigs objectForKeyedSubscript:v13, v43];
+        v13 = *(*(&v53 + 1) + 8 * v12);
+        v14 = [(NSMutableDictionary *)self->_modelConfigs objectForKeyedSubscript:v13, v42];
         model = [v14 model];
 
         v16 = [obj objectForKeyedSubscript:v13];
         v17 = [bundleCopy objectForKeyedSubscript:v13];
-        v53 = 0;
-        v18 = [model predictionsFromBatch:v16 error:&v53];
-        v19 = v53;
-        v51 = v16;
-        v52 = model;
-        v49 = v19;
-        v50 = v12;
+        v52 = 0;
+        v18 = [model predictionsFromBatch:v16 error:&v52];
+        v19 = v52;
+        v50 = v16;
+        v51 = model;
+        v48 = v19;
+        v49 = v12;
         if (v19)
         {
           v20 = v19;
@@ -508,7 +504,7 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v59 = v20;
+            v58 = v20;
             v22 = v21;
             v23 = "[SpotlightRanking] [SearchTool] [L2] prediction error %@";
             v24 = 12;
@@ -518,18 +514,18 @@ void __42__SearchToolL2ModelManager_loadDictionary__block_invoke(uint64_t a1, ui
           goto LABEL_17;
         }
 
-        v25 = [v18 count];
-        if (v25 != [v17 count])
+        v25 = objc_msgSend_count(v18);
+        if (v25 != objc_msgSend_count(v17))
         {
           v21 = SSGeneralLog();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v40 = [v18 count];
-            v41 = [v17 count];
-            *buf = v43;
-            v59 = v40;
-            v60 = 2048;
-            v61 = v41;
+            v40 = objc_msgSend_count(v18);
+            v41 = objc_msgSend_count(v17);
+            *buf = v42;
+            v58 = v40;
+            v59 = 2048;
+            v60 = v41;
             v22 = v21;
             v23 = "[SpotlightRanking] [SearchTool] [L2] batch prediction results returns a different count %lu from features count %lu";
             v24 = 22;
@@ -542,7 +538,7 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        if ([v18 count] >= 1)
+        if (objc_msgSend_count(v18) >= 1)
         {
           v26 = 0;
           do
@@ -573,22 +569,20 @@ LABEL_17:
             ++v26;
           }
 
-          while (v26 < [v18 count]);
+          while (v26 < objc_msgSend_count(v18));
         }
 
 LABEL_18:
 
-        v12 = v50 + 1;
+        v12 = v49 + 1;
       }
 
-      while (v50 + 1 != v47);
-      v47 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+      while (v49 + 1 != v46);
+      v46 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
-    while (v47);
+    while (v46);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (double)getThreshold:(unint64_t)threshold

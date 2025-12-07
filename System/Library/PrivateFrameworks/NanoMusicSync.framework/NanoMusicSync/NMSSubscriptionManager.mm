@@ -33,12 +33,11 @@
 
 uint64_t __39__NMSSubscriptionManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_new();
-  v3 = sharedManager_instance;
-  sharedManager_instance = v2;
+  v1 = objc_opt_new();
+  v2 = sharedManager_instance;
+  sharedManager_instance = v1;
 
-  return MEMORY[0x2821F96F8](v2, v3);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (NMSSubscriptionManager)init
@@ -187,10 +186,10 @@ void __30__NMSSubscriptionManager_init__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __73__NMSSubscriptionManager_environmentMonitorDidChangeNetworkReachability___block_invoke(uint64_t result)
+void *__73__NMSSubscriptionManager_environmentMonitorDidChangeNetworkReachability___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!*(v2 + 24) || *(v2 + 40))
   {
     v3 = NMLogForCategory(5);
@@ -200,7 +199,7 @@ uint64_t __73__NMSSubscriptionManager_environmentMonitorDidChangeNetworkReachabi
       _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "[Subscription] Retrying get subscription status after remote server likely becoming reachable.", v4, 2u);
     }
 
-    return [*(v1 + 32) _updateSubscriptionStatus];
+    return [v1[4] _updateSubscriptionStatus];
   }
 
   return result;
@@ -277,9 +276,9 @@ uint64_t __73__NMSSubscriptionManager__handleActiveUserIdentityDidChangeNotifica
 
 - (void)_updateActiveAccount
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to fetch new active store account with error: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to fetch new active store account with error: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __46__NMSSubscriptionManager__updateActiveAccount__block_invoke(uint64_t a1)
@@ -309,7 +308,7 @@ void __46__NMSSubscriptionManager__updateActiveAccount__block_invoke(uint64_t a1
 
 void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -322,12 +321,12 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke(uint64
 
     v14 = *(a1 + 32);
     v15 = *(v14 + 8);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_21;
-    v23[3] = &unk_27993DD20;
-    v23[4] = v14;
-    v16 = v23;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_21;
+    v22[3] = &unk_27993DD20;
+    v22[4] = v14;
+    v16 = v22;
   }
 
   else
@@ -338,32 +337,30 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke(uint64
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v25 = v17;
-      v26 = 2048;
-      v27 = v18;
+      v24 = v17;
+      v25 = 2048;
+      v26 = v18;
       _os_log_impl(&dword_25B27B000, v19, OS_LOG_TYPE_DEFAULT, "[Subscription] Got subscription status with type: %ld, capabilities: %ld", buf, 0x16u);
     }
 
     v20 = *(a1 + 32);
     v15 = *(v20 + 8);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22;
-    v22[3] = &unk_27993EC68;
-    v22[4] = v20;
-    v22[5] = v17;
-    v22[6] = v18;
-    v16 = v22;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22;
+    v21[3] = &unk_27993EC68;
+    v21[4] = v20;
+    v21[5] = v17;
+    v21[6] = v18;
+    v16 = v21;
   }
 
   dispatch_async(v15, v16);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (*(v2 + 40))
   {
@@ -375,15 +372,7 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22(voi
 
   *(v2 + 40) = 0;
   v4 = a1[4];
-  if (a1[5] == *(v4 + 24))
-  {
-    if (a1[6] == *(v4 + 32))
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
+  if (a1[5] != *(v4 + 24))
   {
     v5 = NMLogForCategory(5);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -391,9 +380,9 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22(voi
       v6 = a1[5];
       v7 = *(a1[4] + 24);
       *buf = 134218240;
-      v20 = v7;
-      v21 = 2048;
-      v22 = v6;
+      v19 = v7;
+      v20 = 2048;
+      v21 = v6;
       _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[Subscription] Subscription status is updated from %ld to %ld", buf, 0x16u);
     }
 
@@ -407,37 +396,40 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_22(voi
     {
       goto LABEL_12;
     }
+
+    goto LABEL_9;
   }
 
-  v11 = NMLogForCategory(5);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (a1[6] != *(v4 + 32))
   {
-    v12 = *(a1[4] + 32);
-    v13 = a1[6];
-    *buf = 134218240;
-    v20 = v12;
-    v21 = 2048;
-    v22 = v13;
-    _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[Subscription] Subscription capabilities is updated from %ld to %ld", buf, 0x16u);
-  }
+LABEL_9:
+    v11 = NMLogForCategory(5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = *(a1[4] + 32);
+      v13 = a1[6];
+      *buf = 134218240;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v13;
+      _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[Subscription] Subscription capabilities is updated from %ld to %ld", buf, 0x16u);
+    }
 
-  *(a1[4] + 32) = a1[6];
-  v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
-  [v14 setValue:v15 forKey:@"CachedSubscriptionCapabilitiesKey"];
+    *(a1[4] + 32) = a1[6];
+    v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[6]];
+    [v14 setValue:v15 forKey:@"CachedSubscriptionCapabilitiesKey"];
 
-  v10 = a1[4];
+    v10 = a1[4];
 LABEL_12:
-  v16 = dispatch_get_global_queue(21, 0);
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_25;
-  block[3] = &unk_27993DD20;
-  block[4] = v10;
-  dispatch_async(v16, block);
-
-LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
+    v16 = dispatch_get_global_queue(21, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_25;
+    block[3] = &unk_27993DD20;
+    block[4] = v10;
+    dispatch_async(v16, block);
+  }
 }
 
 void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_25(uint64_t a1)
@@ -448,7 +440,7 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_25(uin
 
 - (void)_retrySubscriptionStatusRequest
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   failedGetSubscriptionStatusAttempts = self->_failedGetSubscriptionStatusAttempts;
   if (!failedGetSubscriptionStatusAttempts)
   {
@@ -475,28 +467,27 @@ void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_25(uin
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Subscription] Will retry get subscription status after %f seconds", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v9 = dispatch_time(0, (v7 * 1000000000.0));
   queue = self->_queue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __57__NMSSubscriptionManager__retrySubscriptionStatusRequest__block_invoke;
-  v12[3] = &unk_27993ECB8;
-  objc_copyWeak(v13, buf);
-  v13[1] = v5;
-  dispatch_after(v9, queue, v12);
-  objc_destroyWeak(v13);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __57__NMSSubscriptionManager__retrySubscriptionStatusRequest__block_invoke;
+  v11[3] = &unk_27993ECB8;
+  objc_copyWeak(v12, buf);
+  v12[1] = v5;
+  dispatch_after(v9, queue, v11);
+  objc_destroyWeak(v12);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NMSSubscriptionManager__retrySubscriptionStatusRequest__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 5))
@@ -505,29 +496,27 @@ void __57__NMSSubscriptionManager__retrySubscriptionStatusRequest__block_invoke(
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Subscription] Retrying get subscription status (attempt #%lu).", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Subscription] Retrying get subscription status (attempt #%lu).", &v6, 0xCu);
     }
 
     [v3 _updateSubscriptionStatus];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __30__NMSSubscriptionManager_init__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to fetch active store account with error: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to fetch active store account with error: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __51__NMSSubscriptionManager__updateSubscriptionStatus__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to get IC subscription status with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Subscription] Failed to get IC subscription status with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

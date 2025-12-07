@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CAGradientLayer);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for CAGradientLayer, 0x277CD9EB0);
 
   return swift_getObjCClassFromMetadata();
 }

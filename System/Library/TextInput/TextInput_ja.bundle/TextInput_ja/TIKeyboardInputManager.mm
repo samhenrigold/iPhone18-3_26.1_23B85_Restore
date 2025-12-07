@@ -60,7 +60,7 @@ void __52__TIKeyboardInputManager_ja_Romaji_deleteFromInput___block_invoke(uint6
 void __70__TIKeyboardInputManager_ja_Romaji_validCharacterSetForAutocorrection__block_invoke()
 {
   v2 = [MEMORY[0x29EDBA040] characterSetWithRange:{97, 26}];
-  [v2 addCharactersInString:{@"ー、。？！「」()-/:@$&[]{}#%^*+=_;|<>”’€£., ？！・\\""}];
+  [v2 addCharactersInString:{@"ー、。？！「」()-/:@$&[]{}#%^*+=_;|<>”’€£., ？！・\"}];
   v0 = [v2 copy];
   v1 = [TIKeyboardInputManager_ja_Romaji validCharacterSetForAutocorrection]::__validCharSet;
   [TIKeyboardInputManager_ja_Romaji validCharacterSetForAutocorrection]::__validCharSet = v0;
@@ -213,17 +213,17 @@ void __91__TIKeyboardInputManager_ja_groupedCandidatesFromCandidates_usingSortin
   [v3 addOperationWithBlock:v6];
 }
 
-uint64_t __73__TIKeyboardInputManager_ja_addRecentlyCommittedCandidatesForReanalysis___block_invoke(uint64_t a1)
+uint64_t __73__TIKeyboardInputManager_ja_addRecentlyCommittedCandidatesForReanalysis___block_invoke(uint64_t a1, uint64_t a2)
 {
   Surface = MecabraCandidateGetSurface();
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  return [Surface _containsSubstring:v3];
+  return [Surface _containsSubstring:v4];
 }
 
 void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if (v5)
   {
@@ -240,21 +240,19 @@ void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke(uin
       __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke_cold_2();
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
     TIDispatchAsync();
   }
 
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v10 = "[TIKeyboardInputManager_ja mecabraLearningValidator:]_block_invoke";
-    v11 = 2080;
-    v12 = "[TIKeyboardInputManager_ja mecabraLearningValidator:]_block_invoke";
+    v9 = "[TIKeyboardInputManager_ja mecabraLearningValidator:]_block_invoke";
+    v10 = 2080;
+    v11 = "[TIKeyboardInputManager_ja mecabraLearningValidator:]_block_invoke";
     _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "%s  [%s]Notifications are disabled.", buf, 0x16u);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke_189(uint64_t a1)
@@ -293,24 +291,20 @@ void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke_2(u
 
 void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke_cold_1(void *a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   v1 = [a1 localizedDescription];
-  v3[0] = 136315650;
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s  [%s]Error requesting notification authorization: %@", v3, 0x20u);
-
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s  [%s]Error requesting notification authorization: %@", v2, 0x20u);
 }
 
 void __54__TIKeyboardInputManager_ja_mecabraLearningValidator___block_invoke_2_cold_1(void *a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   v1 = [a1 localizedDescription];
-  v3[0] = 136315650;
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s  [%s]Notification posted with error: %@", v3, 0x20u);
-
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%s  [%s]Notification posted with error: %@", v2, 0x20u);
 }
 
 @end

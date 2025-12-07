@@ -988,11 +988,11 @@ uint64_t __87__MOTemplateBasedContextBuilder__generateContextStringsFromBundleCo
   {
     v3 = [*(*(a1[5] + 8) + 40) count];
     v4 = *(*(a1[6] + 8) + 40);
-    v16 = 134218242;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "context result count, %ld, error, %@", &v16, 0x16u);
+    v13 = 134218242;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "context result count, %ld, error, %@", &v13, 0x16u);
   }
 
   if (!*(*(a1[5] + 8) + 40))
@@ -1012,10 +1012,8 @@ uint64_t __87__MOTemplateBasedContextBuilder__generateContextStringsFromBundleCo
   {
 
 LABEL_11:
-    v13 = *(*(a1[5] + 8) + 40);
-    v14 = *(*(a1[6] + 8) + 40);
-    v12 = *(a1[4] + 16);
-    return v12();
+    v11 = *(a1[4] + 16);
+    return v11();
   }
 
   v8 = [*(*(a1[6] + 8) + 40) code];
@@ -1029,14 +1027,13 @@ LABEL_11:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = *(*(a1[6] + 8) + 40);
-    v16 = 138412290;
-    v17 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "suppress the template error as the context is not empty so the error is only for part of the bundles, error, %@", &v16, 0xCu);
+    v13 = 138412290;
+    v14 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "suppress the template error as the context is not empty so the error is only for part of the bundles, error, %@", &v13, 0xCu);
   }
 
-  v11 = *(*(a1[5] + 8) + 40);
-  v12 = *(a1[4] + 16);
-  return v12();
+  v11 = *(a1[4] + 16);
+  return v11();
 }
 
 - (double)_getMostRecentTemplateVersion

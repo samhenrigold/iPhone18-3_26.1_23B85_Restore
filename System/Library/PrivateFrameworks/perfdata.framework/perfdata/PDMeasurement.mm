@@ -18,12 +18,12 @@
 
 - (PDMeasurement)initWithContainer:(id)container dictionary:(id)dictionary group:(unint64_t)group error:(id *)error
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   dictionaryCopy = dictionary;
-  v98.receiver = self;
-  v98.super_class = PDMeasurement;
-  v12 = [(PDMeasurement *)&v98 init];
+  v95.receiver = self;
+  v95.super_class = PDMeasurement;
+  v12 = [(PDMeasurement *)&v95 init];
   v13 = v12;
   if (v12)
   {
@@ -52,7 +52,7 @@ LABEL_53:
     errorCopy = error;
     [(PDMeasurement *)v13 setUnitString:v16];
     v17 = [dictionaryCopy objectForKeyedSubscript:@"variables"];
-    v81 = v17;
+    v78 = v17;
     if (v17)
     {
       v18 = v17;
@@ -73,8 +73,8 @@ LABEL_52:
         [(PDMeasurement *)v13 setVariables:v18];
 LABEL_15:
         [dictionaryCopy objectForKeyedSubscript:@"labels"];
-        v83 = v89 = dictionaryCopy;
-        if (v83)
+        v80 = v86 = dictionaryCopy;
+        if (v80)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -88,7 +88,7 @@ LABEL_51:
           labels = [containerCopy labels];
           v26 = [labels count];
 
-          v79 = containerCopy;
+          v76 = containerCopy;
           if (v26)
           {
             labels2 = [containerCopy labels];
@@ -102,29 +102,28 @@ LABEL_51:
             [(PDMeasurement *)v13 setLabels:labels2];
           }
 
-          v96 = 0u;
-          v97 = 0u;
+          v93 = 0u;
           v94 = 0u;
-          v95 = 0u;
-          v30 = v83;
-          allKeys = [v83 allKeys];
-          v87 = [allKeys countByEnumeratingWithState:&v94 objects:v100 count:16];
-          if (v87)
+          v91 = 0u;
+          v92 = 0u;
+          v30 = v80;
+          allKeys = [v80 allKeys];
+          v84 = [allKeys countByEnumeratingWithState:&v91 objects:v97 count:16];
+          if (v84)
           {
-            v84 = allKeys;
-            v85 = *v95;
+            v81 = allKeys;
+            v82 = *v92;
             while (2)
             {
               v31 = 0;
               do
               {
-                if (*v95 != v85)
+                if (*v92 != v82)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v32 = *(*(&v94 + 1) + 8 * v31);
-                v33 = *(v15 + 3240);
+                v32 = *(*(&v91 + 1) + 8 * v31);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -132,42 +131,42 @@ LABEL_51:
                   objc_claimAutoreleasedReturnValue();
 
                   v24 = 0;
-                  containerCopy = v79;
+                  containerCopy = v76;
                   goto LABEL_51;
                 }
 
-                v34 = v15;
-                v35 = [v30 objectForKeyedSubscript:v32];
+                v33 = v15;
+                v34 = [v30 objectForKeyedSubscript:v32];
                 labels3 = [(PDMeasurement *)v13 labels];
-                v37 = [labels3 objectForKeyedSubscript:v32];
+                v36 = [labels3 objectForKeyedSubscript:v32];
 
-                if (v37)
+                if (v36)
                 {
-                  [v37 addObject:v35];
+                  [v36 addObject:v34];
                 }
 
                 else
                 {
                   labels4 = [(PDMeasurement *)v13 labels];
-                  [MEMORY[0x277CBEB58] setWithObject:v35];
-                  v39 = v14;
-                  v41 = v40 = v16;
-                  [labels4 setValue:v41 forKey:v32];
+                  [MEMORY[0x277CBEB58] setWithObject:v34];
+                  v38 = v14;
+                  v40 = v39 = v16;
+                  [labels4 setValue:v40 forKey:v32];
 
-                  v16 = v40;
-                  v14 = v39;
-                  v30 = v83;
+                  v16 = v39;
+                  v14 = v38;
+                  v30 = v80;
                 }
 
                 ++v31;
-                v15 = v34;
-                dictionaryCopy = v89;
-                allKeys = v84;
+                v15 = v33;
+                dictionaryCopy = v86;
+                allKeys = v81;
               }
 
-              while (v87 != v31);
-              v87 = [v84 countByEnumeratingWithState:&v94 objects:v100 count:16];
-              if (v87)
+              while (v84 != v31);
+              v84 = [v81 countByEnumeratingWithState:&v91 objects:v97 count:16];
+              if (v84)
               {
                 continue;
               }
@@ -176,7 +175,7 @@ LABEL_51:
             }
           }
 
-          containerCopy = v79;
+          containerCopy = v76;
         }
 
         else
@@ -185,19 +184,19 @@ LABEL_51:
           [(PDMeasurement *)v13 setLabels:allKeys];
         }
 
-        v42 = [dictionaryCopy objectForKeyedSubscript:@"larger_better"];
-        if (not_a_number(v42, errorCopy, @"measurement larger_better"))
+        v41 = [dictionaryCopy objectForKeyedSubscript:@"larger_better"];
+        if (not_a_number(v41, errorCopy, @"measurement larger_better"))
         {
           v24 = 0;
         }
 
         else
         {
-          v88 = v42;
-          v43 = v15;
-          if (v42)
+          v85 = v41;
+          v42 = v15;
+          if (v41)
           {
-            bOOLValue = [v42 BOOLValue];
+            bOOLValue = [v41 BOOLValue];
           }
 
           else
@@ -205,123 +204,66 @@ LABEL_51:
             bOOLValue = 0;
           }
 
-          [(PDMeasurement *)v13 setLargerBetter:bOOLValue, containerCopy, v81];
-          v45 = [dictionaryCopy objectForKeyedSubscript:@"value"];
-          [(PDMeasurement *)v13 setValue:v45];
+          [(PDMeasurement *)v13 setLargerBetter:bOOLValue, containerCopy, v78];
+          v44 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+          [(PDMeasurement *)v13 setValue:v44];
 
           value = [(PDMeasurement *)v13 value];
-          v47 = not_a_number(value, errorCopy, @"measurement value");
+          v46 = not_a_number(value, errorCopy, @"measurement value");
 
-          if (v47)
+          if (v46 & 1) != 0 || ([dictionaryCopy objectForKeyedSubscript:@"samples"], v47 = objc_claimAutoreleasedReturnValue(), -[PDMeasurement setSampleCount:](v13, "setSampleCount:", v47), v47, -[PDMeasurement sampleCount](v13, "sampleCount"), v48 = objc_claimAutoreleasedReturnValue(), v49 = not_a_number(v48, errorCopy, @"measurement samples"), v48, (v49) || (objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"mean"), v50 = objc_claimAutoreleasedReturnValue(), -[PDMeasurement setMean:](v13, "setMean:", v50), v50, -[PDMeasurement mean](v13, "mean"), v51 = objc_claimAutoreleasedReturnValue(), v52 = not_a_number(v51, errorCopy, @"measurement mean"), v51, (v52) || (objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"std_dev"), v53 = objc_claimAutoreleasedReturnValue(), -[PDMeasurement setStandardDeviation:](v13, "setStandardDeviation:", v53), v53, -[PDMeasurement standardDeviation](v13, "standardDeviation"), v54 = objc_claimAutoreleasedReturnValue(), v55 = not_a_number(v54, errorCopy, @"measurement std_dev"), v54, (v55) || (objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"minimum"), v56 = objc_claimAutoreleasedReturnValue(), -[PDMeasurement setMinimum:](v13, "setMinimum:", v56), v56, -[PDMeasurement minimum](v13, "minimum"), v57 = objc_claimAutoreleasedReturnValue(), v58 = not_a_number(v57, errorCopy, @"measurement minimum"), v57, (v58) || (objc_msgSend(dictionaryCopy, "objectForKeyedSubscript:", @"maximum"), v59 = objc_claimAutoreleasedReturnValue(), -[PDMeasurement setMaximum:](v13, "setMaximum:", v59), v59, -[PDMeasurement maximum](v13, "maximum"), v60 = objc_claimAutoreleasedReturnValue(), v61 = not_a_number(v60, errorCopy, @"measurement maximum"), v60, (v61))
           {
-            goto LABEL_48;
-          }
-
-          v48 = [dictionaryCopy objectForKeyedSubscript:@"samples"];
-          [(PDMeasurement *)v13 setSampleCount:v48];
-
-          sampleCount = [(PDMeasurement *)v13 sampleCount];
-          v50 = not_a_number(sampleCount, errorCopy, @"measurement samples");
-
-          if (v50)
-          {
-            goto LABEL_48;
-          }
-
-          v51 = [dictionaryCopy objectForKeyedSubscript:@"mean"];
-          [(PDMeasurement *)v13 setMean:v51];
-
-          mean = [(PDMeasurement *)v13 mean];
-          v53 = not_a_number(mean, errorCopy, @"measurement mean");
-
-          if (v53)
-          {
-            goto LABEL_48;
-          }
-
-          v54 = [dictionaryCopy objectForKeyedSubscript:@"std_dev"];
-          [(PDMeasurement *)v13 setStandardDeviation:v54];
-
-          standardDeviation = [(PDMeasurement *)v13 standardDeviation];
-          v56 = not_a_number(standardDeviation, errorCopy, @"measurement std_dev");
-
-          if (v56)
-          {
-            goto LABEL_48;
-          }
-
-          v57 = [dictionaryCopy objectForKeyedSubscript:@"minimum"];
-          [(PDMeasurement *)v13 setMinimum:v57];
-
-          minimum = [(PDMeasurement *)v13 minimum];
-          v59 = not_a_number(minimum, errorCopy, @"measurement minimum");
-
-          if (v59)
-          {
-            goto LABEL_48;
-          }
-
-          v60 = [dictionaryCopy objectForKeyedSubscript:@"maximum"];
-          [(PDMeasurement *)v13 setMaximum:v60];
-
-          maximum = [(PDMeasurement *)v13 maximum];
-          v62 = not_a_number(maximum, errorCopy, @"measurement maximum");
-
-          if (v62)
-          {
-LABEL_48:
             v24 = 0;
           }
 
           else
           {
-            v86 = v16;
-            v92 = 0u;
-            v93 = 0u;
+            v83 = v16;
+            v89 = 0u;
             v90 = 0u;
-            v91 = 0u;
+            v87 = 0u;
+            v88 = 0u;
             measurement = [(PDMeasurement *)v13 measurement];
-            v66 = [measurement objectForKeyedSubscript:@"tags"];
+            v64 = [measurement objectForKeyedSubscript:@"tags"];
 
-            v67 = v66;
-            v68 = [v66 countByEnumeratingWithState:&v90 objects:v99 count:16];
-            if (v68)
+            v65 = v64;
+            v66 = [v64 countByEnumeratingWithState:&v87 objects:v96 count:16];
+            if (v66)
             {
-              v69 = v68;
-              v70 = *v91;
+              v67 = v66;
+              v68 = *v88;
               do
               {
-                for (i = 0; i != v69; ++i)
+                for (i = 0; i != v67; ++i)
                 {
-                  if (*v91 != v70)
+                  if (*v88 != v68)
                   {
-                    objc_enumerationMutation(v67);
+                    objc_enumerationMutation(v65);
                   }
 
-                  v72 = *(*(&v90 + 1) + 8 * i);
-                  v73 = *(v43 + 3240);
+                  v70 = *(*(&v87 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [*(v43 + 3240) stringWithUTF8String:pdtag_summary];
-                    v75 = v74 = v43;
-                    v76 = [v72 isEqualToString:v75];
+                    [*(v42 + 3240) stringWithUTF8String:pdtag_summary];
+                    v72 = v71 = v42;
+                    v73 = [v70 isEqualToString:v72];
 
-                    if (v76)
+                    if (v73)
                     {
                       [(PDMeasurement *)v13 setSummary:1];
-                      v43 = v74;
-                      dictionaryCopy = v89;
+                      v42 = v71;
+                      dictionaryCopy = v86;
                     }
 
                     else
                     {
-                      v77 = [*(v74 + 3240) stringWithUTF8String:pdtag_context];
-                      v78 = [v72 isEqualToString:v77];
+                      v74 = [*(v71 + 3240) stringWithUTF8String:pdtag_context];
+                      v75 = [v70 isEqualToString:v74];
 
-                      v43 = v74;
-                      dictionaryCopy = v89;
-                      if (v78)
+                      v42 = v71;
+                      dictionaryCopy = v86;
+                      if (v75)
                       {
                         [(PDMeasurement *)v13 setContext:1];
                       }
@@ -329,18 +271,18 @@ LABEL_48:
                   }
                 }
 
-                v69 = [v67 countByEnumeratingWithState:&v90 objects:v99 count:16];
+                v67 = [v65 countByEnumeratingWithState:&v87 objects:v96 count:16];
               }
 
-              while (v69);
+              while (v67);
             }
 
             v24 = v13;
-            v16 = v86;
+            v16 = v83;
           }
 
-          containerCopy = v80;
-          v42 = v88;
+          containerCopy = v77;
+          v41 = v85;
         }
 
         goto LABEL_51;
@@ -366,7 +308,6 @@ LABEL_48:
   v24 = 0;
 LABEL_55:
 
-  v63 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -414,27 +355,27 @@ LABEL_55:
 
 - (BOOL)matchesVariables:(id)variables ignoringMissing:(BOOL)missing
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   variablesCopy = variables;
-  v7 = [variablesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [variablesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(variablesCopy);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         variables = [(PDMeasurement *)self variables];
         v13 = [variables objectForKeyedSubscript:v11];
 
@@ -446,7 +387,7 @@ LABEL_55:
         }
       }
 
-      v8 = [variablesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [variablesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       v16 = 1;
       if (v8)
       {
@@ -464,7 +405,6 @@ LABEL_55:
 
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -483,7 +423,7 @@ LABEL_15:
 
 - (id)metricFilterIgnoringNullableVariables:(id)variables
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   variablesCopy = variables;
   container = [(PDMeasurement *)self container];
   name = [container name];
@@ -492,30 +432,30 @@ LABEL_15:
   metric = [(PDMeasurement *)self metric];
   [v7 appendFormat:@".%@", metric];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   variables = [(PDMeasurement *)self variables];
   allKeys = [variables allKeys];
   v11 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
-        if (!variablesCopy || ([variablesCopy containsObject:*(*(&v21 + 1) + 8 * i)] & 1) == 0)
+        v16 = *(*(&v20 + 1) + 8 * i);
+        if (!variablesCopy || ([variablesCopy containsObject:*(*(&v20 + 1) + 8 * i)] & 1) == 0)
         {
           variables2 = [(PDMeasurement *)self variables];
           v18 = [variables2 objectForKeyedSubscript:v16];
@@ -523,13 +463,11 @@ LABEL_15:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -632,7 +570,7 @@ LABEL_11:
 
 - (BOOL)enumerateHistogramBucketsWithError:(id *)error usingBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   measurement = [(PDMeasurement *)self measurement];
   v8 = [measurement objectForKeyedSubscript:@"histogram"];
@@ -643,37 +581,37 @@ LABEL_11:
     if (objc_opt_isKindOfClass())
     {
       v9 = [v8 count];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v10 = v8;
-      v11 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v11)
       {
         v12 = v11;
         v13 = 0;
         v14 = 0;
-        v15 = *v36;
+        v15 = *v35;
         v16 = v9 - 1;
-        v32 = 1;
+        v31 = 1;
         obj = v10;
         selfCopy = self;
-        v30 = v9 - 1;
+        v29 = v9 - 1;
         while (2)
         {
           v17 = 0;
           v18 = v16 - v13;
-          v31 = v13 + v12;
+          v30 = v13 + v12;
           v19 = v14;
           do
           {
-            if (*v36 != v15)
+            if (*v35 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v35 + 1) + 8 * v17);
+            v20 = *(*(&v34 + 1) + 8 * v17);
             if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               v26 = handle_malformed_data(error, @"histogram bucket");
@@ -695,15 +633,15 @@ LABEL_25:
             {
               if (v18 == v17)
               {
-                v32 &= [(PDBucket *)v21 count]!= 0;
+                v31 &= [(PDBucket *)v21 count]!= 0;
               }
 
               [(PDBucket *)v14 lowerInclusiveBound];
               [(PDBucket *)v19 setUpperBound:?];
               [(PDBucket *)v19 setHasInclusiveUpperBound:0];
-              v34 = 0;
-              blockCopy[2](blockCopy, v19, &v34);
-              if (v34 == 1)
+              v33 = 0;
+              blockCopy[2](blockCopy, v19, &v33);
+              if (v33 == 1)
               {
 LABEL_24:
 
@@ -716,9 +654,9 @@ LABEL_24:
           }
 
           while (v12 != v17);
-          v12 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-          v16 = v30;
-          v13 = v31;
+          v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v16 = v29;
+          v13 = v30;
           if (v12)
           {
             continue;
@@ -727,7 +665,7 @@ LABEL_24:
           break;
         }
 
-        if (v32)
+        if (v31)
         {
           maximum = [(PDMeasurement *)selfCopy maximum];
           if (maximum)
@@ -744,8 +682,8 @@ LABEL_24:
 
           v22 = 1;
           [(PDBucket *)v14 setHasInclusiveUpperBound:1];
-          v34 = 0;
-          blockCopy[2](blockCopy, v14, &v34);
+          v33 = 0;
+          blockCopy[2](blockCopy, v14, &v33);
         }
 
         else
@@ -778,7 +716,6 @@ LABEL_26:
     v22 = 1;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -802,7 +739,7 @@ LABEL_26:
 
 - (BOOL)enumeratePercentilesWithError:(id *)error usingBlock:(id)block
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   measurement = [(PDMeasurement *)self measurement];
   v8 = [measurement objectForKeyedSubscript:@"percentiles"];
@@ -821,12 +758,12 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v10)
   {
 LABEL_20:
@@ -835,17 +772,17 @@ LABEL_20:
   }
 
   v11 = v10;
-  v12 = *v30;
+  v12 = *v29;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v30 != v12)
+      if (*v29 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v29 + 1) + 8 * i);
+      v14 = *(*(&v28 + 1) + 8 * i);
       if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         v23 = handle_malformed_data(error, @"measurement percentile");
@@ -871,12 +808,12 @@ LABEL_24:
         goto LABEL_24;
       }
 
-      v28 = 0;
+      v27 = 0;
       [v15 doubleValue];
       v18 = v17;
       [v16 doubleValue];
-      blockCopy[2](blockCopy, &v28, v18, v19);
-      v20 = v28;
+      blockCopy[2](blockCopy, &v27, v18, v19);
+      v20 = v27;
 
       if (v20)
       {
@@ -884,7 +821,7 @@ LABEL_24:
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     v21 = 1;
     if (v11)
     {
@@ -897,7 +834,6 @@ LABEL_24:
 LABEL_26:
 
 LABEL_27:
-  v26 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

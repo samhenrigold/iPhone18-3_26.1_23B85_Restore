@@ -52,7 +52,7 @@
   {
     v7 = equalCopy;
     type = self->_type;
-    if ((type == v7[1] || [(NSString *)type isEqualToString:?]) && ((identifier = self->_identifier, identifier == v7[2]) || [(NSString *)identifier isEqualToString:?]) && ((parameters = self->_parameters, parameters == v7[4]) || [parameters isEqual:?]))
+    if ((type == v7[1] || objc_msgSend_isEqualToString_(type)) && ((identifier = self->_identifier, identifier == v7[2]) || objc_msgSend_isEqualToString_(identifier)) && ((parameters = self->_parameters, parameters == v7[4]) || [parameters isEqual:?]))
     {
       modelIdentifier = self->_modelIdentifier;
       if (modelIdentifier == v7[3])
@@ -87,7 +87,7 @@
   parametersCopy = parameters;
   modelIdentifierCopy = modelIdentifier;
   type = self->_type;
-  if ((type == typeCopy || [(NSString *)type isEqualToString:typeCopy]) && ((identifier = self->_identifier, identifier == identifierCopy) || [(NSString *)identifier isEqualToString:identifierCopy]) && ((parameters = self->_parameters, parameters == parametersCopy) || [parameters isEqual:parametersCopy]))
+  if ((type == typeCopy || objc_msgSend_isEqualToString_(type)) && ((identifier = self->_identifier, identifier == identifierCopy) || objc_msgSend_isEqualToString_(identifier)) && ((parameters = self->_parameters, parameters == parametersCopy) || [parameters isEqual:parametersCopy]))
   {
     modelIdentifier = self->_modelIdentifier;
     if (modelIdentifier == modelIdentifierCopy)

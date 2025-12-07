@@ -132,19 +132,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBModifyNickname *)self hasIsRemoval])
   {
-    isRemoval = self->_isRemoval;
     PBDataWriterWriteBOOLField();
   }
 
   targetNickname = [(_INPBModifyNickname *)self targetNickname];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (targetNickname)
   {
     targetNickname2 = [(_INPBModifyNickname *)self targetNickname];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 

@@ -12,10 +12,7 @@ uint64_t __44__NSProxy_AXSideStorage___axDictionaryQueue__block_invoke()
 
 uint64_t __52__NSProxy_AXSideStorage___accessibilityValueForKey___block_invoke(uint64_t a1)
 {
-  v2 = objc_getAssociatedObject(*(a1 + 32), &AXPropertiesKey);
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = objc_getAssociatedObject(*(a1 + 32), &AXPropertiesKey);
 
   return MEMORY[0x1EEE66BB8]();
 }

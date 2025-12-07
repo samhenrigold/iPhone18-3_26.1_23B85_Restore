@@ -8,7 +8,7 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -16,7 +16,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting the SnapshotIDSRelay", buf, 0xCu);
   }
 
@@ -24,10 +24,9 @@
   idsStreamService = [(HMDCameraSnapshotIDSRelay *)selfCopy idsStreamService];
   [idsStreamService removeDelegate:selfCopy];
 
-  v9.receiver = selfCopy;
-  v9.super_class = HMDCameraSnapshotIDSRelay;
-  [(HMDCameraSnapshotIDSRelay *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = selfCopy;
+  v8.super_class = HMDCameraSnapshotIDSRelay;
+  [(HMDCameraSnapshotIDSRelay *)&v8 dealloc];
 }
 
 - (HMDCameraSnapshotIDSRelay)initWithSessionID:(id)d logIdentifier:(id)identifier workQueue:(id)queue idsStreamService:(id)service
@@ -72,12 +71,11 @@
 
 uint64_t __40__HMDCameraSnapshotIDSRelay_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_114238;
-  logCategory__hmf_once_v1_114238 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_114238;
+  logCategory__hmf_once_v1_114238 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

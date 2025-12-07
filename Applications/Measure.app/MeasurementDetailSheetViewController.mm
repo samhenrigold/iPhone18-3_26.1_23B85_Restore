@@ -41,7 +41,7 @@
 
   v8 = sub_10009EDA4(action, v10);
 
-  sub_100018F04(v10, &unk_1004A6970);
+  sub_100018F04(v10, &unk_1004A6970, &unk_1003D5710);
   return v8 & 1;
 }
 

@@ -10,6 +10,7 @@
 - (NSString)preferredConfiguration;
 - (void)_checkDismissalCompletion;
 - (void)_dispatchElementUpdateAfterMinDisplayTime;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)presentOnParentViewController:(id)controller animated:(BOOL)animated completionHandler:(id)handler;
 - (void)presentableDidAppearAsBanner:(id)banner;
 - (void)presentableDidDisappearAsBanner:(id)banner withReason:(id)reason;
@@ -104,6 +105,23 @@
 
     objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
+  }
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  if ([(PresentationViewController *)self isDynamicIslandAvailable])
+  {
+    [(PresentationViewController *)self revokePresentableWithCompletionHandler:completionCopy];
+  }
+
+  else
+  {
+    v7.receiver = self;
+    v7.super_class = PresentationViewController;
+    [(PresentationViewController *)&v7 dismissViewControllerAnimated:animatedCopy completion:completionCopy];
   }
 }
 

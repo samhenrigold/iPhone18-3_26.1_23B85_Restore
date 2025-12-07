@@ -809,28 +809,31 @@ void __97__GKDashboardMultiplayerPickerViewController_viewWillTransitionToSize_w
 - (void)removeRecipientWithName:(id)name
 {
   nameCopy = name;
+  v5 = nameCopy;
   if (nameCopy)
   {
-    v10 = nameCopy;
+    v11 = nameCopy;
     recipientMap = [(GKDashboardMultiplayerPickerViewController *)self recipientMap];
-    v6 = [recipientMap objectForKeyedSubscript:v10];
+    v7 = [recipientMap objectForKeyedSubscript:v11];
 
     [(GKDashboardMultiplayerPickerViewController *)self setRecipientRemovedImplicitly:1];
     composeTextView = [(GKDashboardMultiplayerPickerViewController *)self composeTextView];
-    [composeTextView removeRecipient:v6];
+    [composeTextView removeRecipient:v7];
 
     [(GKDashboardMultiplayerPickerViewController *)self setRecipientRemovedImplicitly:0];
-    if (v6)
+    if (v7)
     {
       recipientPlayerMap = [(GKDashboardMultiplayerPickerViewController *)self recipientPlayerMap];
-      [recipientPlayerMap removeObjectForKey:v6];
+      [recipientPlayerMap removeObjectForKey:v7];
     }
 
     recipientMap2 = [(GKDashboardMultiplayerPickerViewController *)self recipientMap];
-    [recipientMap2 removeObjectForKey:v10];
+    [recipientMap2 removeObjectForKey:v11];
+
+    v5 = v11;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](nameCopy, v5);
 }
 
 - (void)highlightRecipients:(id)recipients
@@ -2600,11 +2603,11 @@ void __87__GKDashboardMultiplayerPickerViewController_composeRecipientView_didSe
 
 uint64_t __87__GKDashboardMultiplayerPickerViewController_composeRecipientView_didSelectRecipients___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = a2;
+  v15 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v13;
+    v3 = v15;
     v4 = [*(a1 + 32) removedRecipientPlayerMap];
     v5 = [v3 address];
     v6 = [v4 objectForKeyedSubscript:v5];
@@ -2618,29 +2621,32 @@ uint64_t __87__GKDashboardMultiplayerPickerViewController_composeRecipientView_d
 
     else
     {
-      v11 = *(a1 + 40);
+      v13 = *(a1 + 40);
       v8 = [v3 address];
-      [v7 composeRecipientView:v11 didFinishEnteringAddress:v8];
+      [v7 composeRecipientView:v13 didFinishEnteringAddress:v8];
     }
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    v10 = v15;
+    if ((isKindOfClass & 1) == 0)
     {
       goto LABEL_9;
     }
 
-    v10 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v3 = [v13 address];
-    [v10 composeRecipientView:v9 didFinishEnteringAddress:v3];
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v3 = [v15 address];
+    [v12 composeRecipientView:v11 didFinishEnteringAddress:v3];
   }
 
+  v10 = v15;
 LABEL_9:
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](isKindOfClass, v10);
 }
 
 - (void)composeHeaderView:(id)view didChangeSize:(CGSize)size

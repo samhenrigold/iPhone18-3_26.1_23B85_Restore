@@ -242,8 +242,8 @@
 
   [rectCopy width];
   [rectCopy height];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:rect];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:image];
+  objc_msgSend_getInversePixelTransformForImage_(self);
+  objc_msgSend_getPixelTransformForImage_(self);
   v13 = HGObject::operator new(0x1C0uLL);
   HgcPolarToRect::HgcPolarToRect(v13);
 }
@@ -251,8 +251,8 @@
 - (void)rectToPolar:(id)polar withInputImage:(id)image withInputNode:(HGRef<HGNode>)node centerX:(double)x centerY:(double)y upscaleFactor:(double)factor andOutputNode:(void *)outputNode
 {
   v12 = [-[PROAPIAccessing apiForProtocol:](self->super.super._apiManager apiForProtocol:{&unk_28735F2C8), "versionAtCreation"}];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:polar];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:image];
+  objc_msgSend_getInversePixelTransformForImage_(self);
+  objc_msgSend_getPixelTransformForImage_(self);
   if (!v12)
   {
     image = polar;
@@ -291,7 +291,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v63);
     }
 
     else
@@ -357,7 +357,7 @@
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
@@ -372,7 +372,7 @@
 
       else if (v58 == 1)
       {
-        [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output, v63];
+        objc_msgSend_getInversePixelTransformForImage_(self, v63);
         HGTransform::HGTransform(v55);
         HGTransform::Scale(v55, v9, v9, 1.0);
         v25 = HGObject::operator new(0x210uLL);
@@ -468,15 +468,18 @@
 
       else
       {
-        [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input, v63];
+        objc_msgSend_getInversePixelTransformForImage_(self, v63);
         v37 = v61;
         v61 = (v37 + -0.5) * [input width];
         v38 = v60;
-        v60 = (v38 + -0.5) * [input height];
-        v39 = v63;
-        v40 = v61;
-        v41 = v60;
-        HZoomBlur::makeZoom(&v57, v56, v39, v40, v41);
+        v39.n128_f64[0] = (v38 + -0.5) * [input height];
+        v60 = v39.n128_f64[0];
+        v40.n128_u32[1] = HIDWORD(v63);
+        v40.n128_f32[0] = v63;
+        v41.n128_u32[1] = HIDWORD(v61);
+        v41.n128_f32[0] = v61;
+        v39.n128_f32[0] = v39.n128_f64[0];
+        HZoomBlur::makeZoom(v40, v41, v39, &v57, v56);
         width2 = [output width];
         height2 = [output height];
         v52 = height2;
@@ -488,7 +491,7 @@
 
         if (input)
         {
-          [input imageInfo];
+          objc_msgSend_imageInfo(input);
         }
 
         else

@@ -53,38 +53,36 @@
 
 - (void)_fetchAndUpdatePlaybackVolumeStatus
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = 0.0;
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = 0.0;
   mEMORY[0x1E69AED08] = [MEMORY[0x1E69AED08] sharedAVSystemController];
-  v10 = 0;
-  v4 = [mEMORY[0x1E69AED08] getActiveCategoryVolume:&v11 andName:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [mEMORY[0x1E69AED08] getActiveCategoryVolume:&v10 andName:&v9];
+  v5 = v9;
 
   if (v4)
   {
-    *&v6 = v11;
+    *&v6 = v10;
     self->_volumeStatus = [(CSPlaybackVolumeStatusMonitor *)self _volumeStatusFromLevel:v6];
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v13 = "[CSPlaybackVolumeStatusMonitor _fetchAndUpdatePlaybackVolumeStatus]";
-      v14 = 2048;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v12 = "[CSPlaybackVolumeStatusMonitor _fetchAndUpdatePlaybackVolumeStatus]";
+      v13 = 2048;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s activeVolumeLevel = %f, activeAudioCategory = %{public}@", buf, 0x20u);
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __68__CSPlaybackVolumeStatusMonitor__fetchAndUpdatePlaybackVolumeStatus__block_invoke;
-    v9[3] = &unk_1E865CB20;
-    v9[4] = self;
-    [(CSEventMonitor *)self enumerateObserversInQueue:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __68__CSPlaybackVolumeStatusMonitor__fetchAndUpdatePlaybackVolumeStatus__block_invoke;
+    v8[3] = &unk_1E865CB20;
+    v8[4] = self;
+    [(CSEventMonitor *)self enumerateObserversInQueue:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_volumeStatusFromLevel:(float)level
@@ -111,7 +109,7 @@
 
 - (void)_updatePlaybackVolumeStatusWithNotification:(id)notification
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v8 = MEMORY[0x1E69AEA20];
@@ -160,23 +158,21 @@ LABEL_6:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v28 = "[CSPlaybackVolumeStatusMonitor _updatePlaybackVolumeStatusWithNotification:]";
-      v29 = 2048;
-      v30 = v12;
-      v31 = 2048;
-      v32 = v23;
+      v27 = "[CSPlaybackVolumeStatusMonitor _updatePlaybackVolumeStatusWithNotification:]";
+      v28 = 2048;
+      v29 = v12;
+      v30 = 2048;
+      v31 = v23;
       _os_log_impl(&dword_1DDA4B000, v24, OS_LOG_TYPE_DEFAULT, "%s Updated audio volume = %f, volumeStatus = %lu", buf, 0x20u);
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __77__CSPlaybackVolumeStatusMonitor__updatePlaybackVolumeStatusWithNotification___block_invoke;
-    v26[3] = &unk_1E865CB20;
-    v26[4] = self;
-    [(CSEventMonitor *)self enumerateObserversInQueue:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __77__CSPlaybackVolumeStatusMonitor__updatePlaybackVolumeStatusWithNotification___block_invoke;
+    v25[3] = &unk_1E865CB20;
+    v25[4] = self;
+    [(CSEventMonitor *)self enumerateObserversInQueue:v25];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)CSVolumeMonitor:(id)monitor systemVolumeDidChange:(id)change
@@ -200,24 +196,22 @@ LABEL_6:
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[CSVolumeMonitor sharedInstance];
   [v3 removeObserver:self];
 
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSPlaybackVolumeStatusMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitor: playback volume status", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSPlaybackVolumeStatusMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitor: playback volume status", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -232,11 +226,9 @@ LABEL_6:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[CSPlaybackVolumeStatusMonitor _startMonitoringWithQueue:]";
+    v9 = "[CSPlaybackVolumeStatusMonitor _startMonitoringWithQueue:]";
     _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start monitor: playback volume status", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (CSPlaybackVolumeStatusMonitor)init

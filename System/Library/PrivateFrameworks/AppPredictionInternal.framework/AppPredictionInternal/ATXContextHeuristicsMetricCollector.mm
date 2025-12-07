@@ -24,7 +24,7 @@
 
 - (void)postWeeklyMetrics
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = CFPreferencesCopyAppValue(@"SuggestionsSpotlightZKWRecentsEnabled", @"com.apple.suggestions");
   v5 = v4;
@@ -90,34 +90,33 @@
   trialExperimentId = [mEMORY[0x277CEB898] trialExperimentId];
   [v3 setTrialExperimentId:trialExperimentId];
 
-  v21 = getTrialAssets();
-  trialTreatmentId2 = [v21 trialTreatmentId];
+  v22 = getTrialAssets(v21);
+  trialTreatmentId2 = [v22 trialTreatmentId];
   [v3 setAtxTrialTreatmentId:trialTreatmentId2];
 
-  trialExperimentId2 = [v21 trialExperimentId];
+  trialExperimentId2 = [v22 trialExperimentId];
   [v3 setAtxTrialExperimentId:trialExperimentId2];
 
-  trialDeploymentId = [v21 trialDeploymentId];
+  trialDeploymentId = [v22 trialDeploymentId];
   [v3 setAtxTrialDeploymentId:trialDeploymentId];
 
-  v25 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = __atxlog_handle_metrics(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     coreAnalyticsDictionary = [v3 coreAnalyticsDictionary];
-    v28 = 138412290;
-    v29 = coreAnalyticsDictionary;
-    _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "ZKW: Weekly metrics dict - %@", &v28, 0xCu);
+    v29 = 138412290;
+    v30 = coreAnalyticsDictionary;
+    _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "ZKW: Weekly metrics dict - %@", &v29, 0xCu);
   }
 
   [v3 logToCoreAnalytics];
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postLifetimeEngagementMetrics
 {
   v30 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEB898] = [MEMORY[0x277CEB898] sharedInstance];
-  v4 = getTrialAssets();
+  v4 = getTrialAssets(mEMORY[0x277CEB898]);
   v5 = [(ATXContextHeuristicsMetricCollector *)self lifetimeEngagementMetricsWithBiomeConfig:0];
   v23 = 0u;
   v24 = 0u;
@@ -160,13 +159,13 @@
         trialDeploymentId = [v4 trialDeploymentId];
         [v11 setAtxTrialDeploymentId:trialDeploymentId];
 
-        v19 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_metrics(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           coreAnalyticsDictionary = [v11 coreAnalyticsDictionary];
           *buf = v22;
           v28 = coreAnalyticsDictionary;
-          _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "ZKW: Lifetime engagement metric dict - %@", buf, 0xCu);
+          _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "ZKW: Lifetime engagement metric dict - %@", buf, 0xCu);
         }
 
         [v11 logToCoreAnalytics];
@@ -179,15 +178,13 @@
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postRecentsMetrics
 {
   v30 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEB898] = [MEMORY[0x277CEB898] sharedInstance];
-  v4 = getTrialAssets();
+  v4 = getTrialAssets(mEMORY[0x277CEB898]);
   v5 = [(ATXContextHeuristicsMetricCollector *)self recentsMetricsWithBiomeConfig:0];
   v23 = 0u;
   v24 = 0u;
@@ -230,13 +227,13 @@
         trialDeploymentId = [v4 trialDeploymentId];
         [v11 setAtxTrialDeploymentId:trialDeploymentId];
 
-        v19 = __atxlog_handle_metrics();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = __atxlog_handle_metrics(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           coreAnalyticsDictionary = [v11 coreAnalyticsDictionary];
           *buf = v22;
           v28 = coreAnalyticsDictionary;
-          _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "ZKW: Recents metric dict - %@", buf, 0xCu);
+          _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "ZKW: Recents metric dict - %@", buf, 0xCu);
         }
 
         [v11 logToCoreAnalytics];
@@ -249,8 +246,6 @@
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fillWeeklyStatisticsMetricWithSpotlightUIStream:(id)stream biomeConfig:(id)config
@@ -279,7 +274,7 @@ void __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpo
   v3 = [a2 eventBody];
   if (!v3)
   {
-    v4 = __atxlog_handle_metrics();
+    v4 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpotlightUIStream_biomeConfig___block_invoke_2_cold_1();
@@ -330,7 +325,7 @@ void __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpo
 
   else
   {
-    v7 = __atxlog_handle_metrics();
+    v7 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpotlightUIStream_biomeConfig___block_invoke_2_cold_2();
@@ -353,63 +348,64 @@ void __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpo
 - (id)lifetimeEngagementMetricsWithPublisher:(id)publisher
 {
   publisherCopy = publisher;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__66;
-  v28 = __Block_byref_object_dispose__66;
-  v29 = objc_opt_new();
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__66;
-  v22 = __Block_byref_object_dispose__66;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__66;
+  v29 = __Block_byref_object_dispose__66;
+  v30 = objc_opt_new();
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__66;
+  v23 = __Block_byref_object_dispose__66;
   spotlightUIBookmark = [(ATXContextHeuristicsMetricCollector *)self spotlightUIBookmark];
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3032000000;
-  v16[3] = __Block_byref_object_copy__66;
-  v16[4] = __Block_byref_object_dispose__66;
-  metadata = [v19[5] metadata];
-  v17 = [(ATXContextHeuristicsMetricCollector *)self trackerFromBookmarkDictionary:metadata];
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x3032000000;
+  v17[3] = __Block_byref_object_copy__66;
+  v17[4] = __Block_byref_object_dispose__66;
+  metadata = [v20[5] metadata];
+  v18 = [(ATXContextHeuristicsMetricCollector *)self trackerFromBookmarkDictionary:metadata];
 
-  bookmark = [v19[5] bookmark];
+  bookmark = [v20[5] bookmark];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke;
+  v16[3] = &unk_27859EE58;
+  v16[4] = self;
+  v16[5] = &v19;
+  v16[6] = v17;
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke;
-  v15[3] = &unk_27859EE58;
-  v15[4] = self;
-  v15[5] = &v18;
-  v15[6] = v16;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2;
-  v14[3] = &unk_278599858;
-  v14[4] = v16;
-  v14[5] = &v24;
-  v7 = [publisherCopy sinkWithBookmark:bookmark completion:v15 receiveInput:v14];
+  v15[2] = __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2;
+  v15[3] = &unk_278599858;
+  v15[4] = v17;
+  v15[5] = &v25;
+  v7 = [publisherCopy sinkWithBookmark:bookmark completion:v16 receiveInput:v15];
 
-  v8 = v19[5];
-  v13 = 0;
-  [v8 saveBookmarkWithError:&v13];
-  v9 = v13;
+  v8 = v20[5];
+  v14 = 0;
+  [v8 saveBookmarkWithError:&v14];
+  v9 = v14;
+  v10 = v9;
   if (v9)
   {
-    v10 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_metrics(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXContextHeuristicsMetricCollector lifetimeEngagementMetricsWithPublisher:];
     }
   }
 
-  v11 = v25[5];
+  v12 = v26[5];
 
-  _Block_object_dispose(v16, 8);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(v17, 8);
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
 
-  return v11;
+  return v12;
 }
 
 void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke(uint64_t a1)
@@ -424,7 +420,7 @@ void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPubl
   v3 = [a2 eventBody];
   if (!v3)
   {
-    v4 = __atxlog_handle_metrics();
+    v4 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpotlightUIStream_biomeConfig___block_invoke_2_cold_1();
@@ -439,8 +435,8 @@ void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPubl
     v7 = [v3 suggestionUniqueId];
     if (!v7)
     {
-      v12 = __atxlog_handle_metrics();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_metrics(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_7();
       }
@@ -455,18 +451,18 @@ void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPubl
       {
         if (v8 == 3)
         {
-          v19 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+          v22 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
 
-          if (v19)
+          if (v22)
           {
-            v12 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
-            [v12 setNumShown:[v12 numShown]+ 1];
+            v13 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+            [v13 setNumShown:[v13 numShown]+ 1];
           }
 
           else
           {
-            v12 = __atxlog_handle_metrics();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = __atxlog_handle_metrics(v23);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_4();
             }
@@ -482,18 +478,18 @@ LABEL_23:
             goto LABEL_24;
           }
 
-          v13 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+          v14 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
 
-          if (v13)
+          if (v14)
           {
-            v12 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
-            [v12 setNumEngaged:[v12 numEngaged]+ 1];
+            v13 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+            [v13 setNumEngaged:[v13 numEngaged]+ 1];
           }
 
           else
           {
-            v12 = __atxlog_handle_metrics();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v13 = __atxlog_handle_metrics(v15);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
               __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_3();
             }
@@ -510,25 +506,25 @@ LABEL_22:
     {
       if (v8 == 1)
       {
-        v14 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+        v16 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
 
-        if (v14)
+        if (v16)
         {
-          v15 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+          v18 = __atxlog_handle_metrics(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
-            __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_6(v3, v15);
+            __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_6(v3, v18);
           }
         }
 
-        v16 = objc_opt_new();
-        v17 = [v3 suggestionSubtype];
-        [v16 setActionId:v17];
+        v19 = objc_opt_new();
+        v20 = [v3 suggestionSubtype];
+        [v19 setActionId:v20];
 
-        v18 = [v3 suggestionContext];
-        [v16 setContextType:v18];
+        v21 = [v3 suggestionContext];
+        [v19 setContextType:v21];
 
-        [*(*(*(a1 + 32) + 8) + 40) setObject:v16 forKeyedSubscript:v7];
+        [*(*(*(a1 + 32) + 8) + 40) setObject:v19 forKeyedSubscript:v7];
       }
 
       else if (v8 == 2)
@@ -537,15 +533,15 @@ LABEL_22:
 
         if (v9)
         {
-          v10 = *(*(*(a1 + 40) + 8) + 40);
-          v11 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
-          [v10 addObject:v11];
+          v11 = *(*(*(a1 + 40) + 8) + 40);
+          v12 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v7];
+          [v11 addObject:v12];
         }
 
         else
         {
-          v11 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = __atxlog_handle_metrics(v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_5();
           }
@@ -557,8 +553,8 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v12 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_metrics(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_2(v3);
     }
@@ -591,29 +587,29 @@ LABEL_24:
 
 - (id)saveableBookmarkDictionaryFromTracker:(id)tracker
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
-  v19 = objc_opt_new();
+  v18 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = trackerCopy;
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v18 = *v21;
+    v17 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v18)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [v4 objectForKeyedSubscript:v8];
         v10 = MEMORY[0x277CCACA8];
         actionId = [v9 actionId];
@@ -621,18 +617,16 @@ LABEL_24:
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "numShown")}];
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "numEngaged")}];
         v15 = [v10 stringWithFormat:@"%@:%@:%@:%@", actionId, contextType, v13, v14];
-        [v19 setObject:v15 forKeyedSubscript:v8];
+        [v18 setObject:v15 forKeyedSubscript:v8];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (id)trackerFromBookmarkDictionary:(id)dictionary
@@ -663,10 +657,11 @@ LABEL_24:
         v11 = [v5 objectForKeyedSubscript:{v10, v21}];
         v12 = [v11 componentsSeparatedByString:@":"];
 
-        if ([v12 count] != 4)
+        v13 = [v12 count];
+        if (v13 != 4)
         {
-          v18 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = __atxlog_handle_metrics(v13);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             [ATXContextHeuristicsMetricCollector trackerFromBookmarkDictionary:v12];
           }
@@ -674,20 +669,20 @@ LABEL_24:
           goto LABEL_13;
         }
 
-        v13 = objc_opt_new();
-        v14 = [v12 objectAtIndexedSubscript:0];
-        [v13 setActionId:v14];
+        v14 = objc_opt_new();
+        v15 = [v12 objectAtIndexedSubscript:0];
+        [v14 setActionId:v15];
 
-        v15 = [v12 objectAtIndexedSubscript:1];
-        [v13 setContextType:v15];
+        v16 = [v12 objectAtIndexedSubscript:1];
+        [v14 setContextType:v16];
 
-        v16 = [v12 objectAtIndexedSubscript:2];
-        [v13 setNumShown:{objc_msgSend(v16, "integerValue")}];
+        v17 = [v12 objectAtIndexedSubscript:2];
+        [v14 setNumShown:{objc_msgSend(v17, "integerValue")}];
 
-        v17 = [v12 objectAtIndexedSubscript:3];
-        [v13 setNumEngaged:{objc_msgSend(v17, "integerValue")}];
+        v18 = [v12 objectAtIndexedSubscript:3];
+        [v14 setNumEngaged:{objc_msgSend(v18, "integerValue")}];
 
-        [v4 setObject:v13 forKeyedSubscript:v10];
+        [v4 setObject:v14 forKeyedSubscript:v10];
       }
 
       v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
@@ -702,65 +697,62 @@ LABEL_24:
 
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)recentsMetricsWithBiomeConfig:(id)config
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v4 = [objc_alloc(MEMORY[0x277D420C8]) initWithStoreConfig:configCopy];
   v5 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-2419200.0];
   [v5 timeIntervalSinceReferenceDate];
   v7 = v6;
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__66;
-  v27 = __Block_byref_object_dispose__66;
-  v28 = objc_opt_new();
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__66;
+  v26 = __Block_byref_object_dispose__66;
+  v27 = objc_opt_new();
   v8 = [v4 publisherFromStartTime:v7];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __69__ATXContextHeuristicsMetricCollector_recentsMetricsWithBiomeConfig___block_invoke_2;
-  v22[3] = &unk_278597BA8;
-  v22[4] = &v23;
-  v9 = [v8 sinkWithCompletion:&__block_literal_global_57_0 receiveInput:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __69__ATXContextHeuristicsMetricCollector_recentsMetricsWithBiomeConfig___block_invoke_2;
+  v21[3] = &unk_278597BA8;
+  v21[4] = &v22;
+  v9 = [v8 sinkWithCompletion:&__block_literal_global_57_0 receiveInput:v21];
 
   v10 = objc_opt_new();
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v11 = v24[5];
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = v23[5];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v28 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = [v24[5] objectForKeyedSubscript:{*(*(&v18 + 1) + 8 * i), v18}];
+        v15 = [v23[5] objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * i), v17}];
         [v10 addObject:v15];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v28 count:16];
     }
 
     while (v12);
   }
 
-  _Block_object_dispose(&v23, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 
   return v10;
 }
@@ -771,7 +763,7 @@ void __69__ATXContextHeuristicsMetricCollector_recentsMetricsWithBiomeConfig___b
   v4 = [v3 eventBody];
   if (!v4)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpotlightUIStream_biomeConfig___block_invoke_2_cold_1();
@@ -837,7 +829,7 @@ LABEL_17:
 LABEL_18:
       break;
     case 0:
-      v9 = __atxlog_handle_metrics();
+      v9 = __atxlog_handle_metrics(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __99__ATXContextHeuristicsMetricCollector_fillWeeklyStatisticsMetricWithSpotlightUIStream_biomeConfig___block_invoke_2_cold_2();
@@ -851,38 +843,31 @@ LABEL_19:
 
 - (void)lifetimeEngagementMetricsWithPublisher:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ZKW: Unable to save Spotlight UI bookmark due to : %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "ZKW: Unable to save Spotlight UI bookmark due to : %@", v1, 0xCu);
 }
 
 void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 eventType];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v1, v2, "ZKW: Incorrect UI event type for actions: %lu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v1, v2, "ZKW: Incorrect UI event type for actions: %lu", v3, v4, v5, v6);
 }
 
 void __78__ATXContextHeuristicsMetricCollector_lifetimeEngagementMetricsWithPublisher___block_invoke_2_cold_6(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 suggestionSubtype];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ZKW: Event with same identifier added to cache again. Action id: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ZKW: Event with same identifier added to cache again. Action id: %@", v4, 0xCu);
 }
 
 - (void)trackerFromBookmarkDictionary:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v1, v2, "Incorrect size from bookmark dictionary: %lu", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v1, v2, "Incorrect size from bookmark dictionary: %lu", v3, v4, v5, v6);
 }
 
 @end

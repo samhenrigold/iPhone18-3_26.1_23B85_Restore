@@ -383,7 +383,7 @@ LABEL_14:
       [(UITextDragRequest *)v38 setSuggestedItems:v21];
       v39 = objc_loadWeakRetained(&self->_view);
       selectedTextRange = [v39 selectedTextRange];
-      -[UITextDragRequest setSelected:](v38, "setSelected:", [selectedTextRange isEqual:v25]);
+      [(UITextDragRequest *)v38 setSelected:objc_msgSend_isEqual_(selectedTextRange)];
 
       v41 = objc_loadWeakRetained(&self->_view);
       v42 = [textDragDelegate textDraggableView:v41 itemsForDrag:v38];
@@ -461,7 +461,7 @@ LABEL_10:
       [(UITextDragRequest *)v16 setSuggestedItems:v9];
       v17 = objc_loadWeakRetained(&self->_view);
       selectedTextRange = [v17 selectedTextRange];
-      -[UITextDragRequest setSelected:](v16, "setSelected:", [selectedTextRange isEqual:v13]);
+      [(UITextDragRequest *)v16 setSelected:objc_msgSend_isEqual_(selectedTextRange)];
 
       v19 = objc_loadWeakRetained(&self->_view);
       v20 = [textDragDelegate textDraggableView:v19 itemsForDrag:v16];
@@ -1143,8 +1143,8 @@ LABEL_7:
     }
   }
 
-  geometry = [(UITextDragAssistant *)self geometry];
-  v16 = [geometry textRangesForAttachmentsInTextRange:v7];
+  v15 = objc_msgSend_geometry(self);
+  v16 = [v15 textRangesForAttachmentsInTextRange:v7];
   [v8 addObjectsFromArray:v16];
 
   v17 = [v8 copy];
@@ -1206,8 +1206,8 @@ LABEL_7:
 
   if (v14 && ([v14 isEmpty] & 1) == 0)
   {
-    geometry = [(UITextDragAssistant *)self geometry];
-    selectedTextRange = [geometry textRangeForAttachmentInTextRange:v14 atPoint:{x, y}];
+    v15 = objc_msgSend_geometry(self);
+    selectedTextRange = [v15 textRangeForAttachmentInTextRange:v14 atPoint:{x, y}];
   }
 
   else
@@ -1298,8 +1298,8 @@ LABEL_11:
 {
   v34 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
-  geometry = [(UITextDragAssistant *)self geometry];
-  v6 = [geometry draggableObjectsForTextRange:rangeCopy];
+  v5 = objc_msgSend_geometry(self);
+  v6 = [v5 draggableObjectsForTextRange:rangeCopy];
 
   if ([v6 count])
   {
@@ -1856,9 +1856,9 @@ LABEL_49:
       if (v13 == dropRange)
       {
         dropRange2 = [v11 dropRange];
-        v21 = [v13 isEqual:dropRange2];
+        isEqual = objc_msgSend_isEqual_(v13);
 
-        if (v21)
+        if (isEqual)
         {
           goto LABEL_15;
         }
@@ -1901,7 +1901,7 @@ LABEL_14:
       {
         dropRange4 = [v11 dropRange];
         start2 = [dropRange4 start];
-        v32 = [v13 isEqual:start2];
+        v32 = objc_msgSend_isEqual_(v13);
 
         if (v32)
         {
@@ -2774,9 +2774,9 @@ void __52__UITextDragAssistant__suggestedProposalForRequest___block_invoke(uint6
       v5 = selectedTextRange;
       v6 = objc_loadWeakRetained(&self->_view);
       selectedTextRange2 = [v6 selectedTextRange];
-      v8 = [selectedTextRange2 isEqual:self->_preDropSelectionRange];
+      isEqual = objc_msgSend_isEqual_(selectedTextRange2);
 
-      if (v8)
+      if (isEqual)
       {
         goto LABEL_7;
       }
@@ -3165,9 +3165,9 @@ LABEL_6:
       v35 = objc_loadWeakRetained(&self->_view);
       v36 = [v35 _textRangeFromNSRange:{v16, v34}];
 
-      geometry = [(UITextDragAssistant *)self geometry];
+      v37 = objc_msgSend_geometry(self);
       _containerViewForDropPreviews = [(UITextDragAssistant *)self _containerViewForDropPreviews];
-      v17 = [geometry previewForDroppingTextInRange:v36 toPosition:position inContainerView:_containerViewForDropPreviews];
+      v17 = [v37 previewForDroppingTextInRange:v36 toPosition:position inContainerView:_containerViewForDropPreviews];
     }
   }
 

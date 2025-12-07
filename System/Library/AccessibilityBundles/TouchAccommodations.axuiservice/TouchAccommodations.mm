@@ -526,6 +526,13 @@ id sub_5B08(uint64_t a1)
   return [v2 setFinalTouchEvent:0];
 }
 
+void sub_69EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_6A18(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -535,10 +542,7 @@ uint64_t sub_6A18(uint64_t result, uint64_t a2)
 
 uint64_t sub_6A30(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) copy];
 
   return _objc_release_x1();
 }
@@ -614,7 +618,7 @@ void sub_7374(uint64_t a1)
     {
       if (v4)
       {
-        sub_7CB8((a1 + 40));
+        sub_7CB8();
       }
     }
 
@@ -622,7 +626,7 @@ void sub_7374(uint64_t a1)
     {
       if (v4)
       {
-        sub_7C40(a1);
+        sub_7C40();
       }
 
       v6 = *(a1 + 32);
@@ -694,18 +698,4 @@ void sub_7B88(void *a1, uint64_t a2, NSObject *a3)
   v10 = 2114;
   v11 = v7;
   _os_log_error_impl(&dword_0, a3, OS_LOG_TYPE_ERROR, "HID has been quiesced for 30 seconds but there are still %lu generations anticipating update! This is a bug somewhere in the system! generations: %{public}@", &v8, 0x16u);
-}
-
-void sub_7C40(uint64_t a1)
-{
-  v6 = *(a1 + 48);
-  sub_78CC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_7CB8(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_78CC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }

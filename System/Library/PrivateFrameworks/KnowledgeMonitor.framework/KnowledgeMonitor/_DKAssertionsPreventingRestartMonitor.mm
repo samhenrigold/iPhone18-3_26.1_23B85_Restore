@@ -26,7 +26,7 @@
 
 - (BOOL)areAssertionsPreventingRestart
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(self->_systemAssertionsToken, &state64);
   if (!state64)
@@ -39,14 +39,14 @@
       if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v26 = cf;
+        v25 = cf;
         _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_DEFAULT, "Idle Sleep Preventers Count: %llu", buf, 0xCu);
       }
 
       IOPMCopySleepPreventersList();
     }
 
-    v21 = 0;
+    v20 = 0;
     restarted = IOPMCopyDeviceRestartPreventers();
     if (restarted)
     {
@@ -55,49 +55,49 @@
       if (os_log_type_enabled(contextChannel2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v26) = v7;
+        LODWORD(v25) = v7;
         _os_log_impl(&dword_22595A000, contextChannel2, OS_LOG_TYPE_DEFAULT, "Unable to determine restart preventers (Ret=%d)", buf, 8u);
       }
     }
 
     else
     {
-      if (![v21 count])
+      if (![v20 count])
       {
         v5 = 0;
         goto LABEL_23;
       }
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       contextChannel2 = 0;
-      v9 = [contextChannel2 countByEnumeratingWithState:&v17 objects:v24 count:16];
+      v9 = [contextChannel2 countByEnumeratingWithState:&v16 objects:v23 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v18;
+        v11 = *v17;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v18 != v11)
+            if (*v17 != v11)
             {
               objc_enumerationMutation(contextChannel2);
             }
 
-            v13 = [*(*(&v17 + 1) + 8 * i) objectForKeyedSubscript:@"AssertName"];
+            v13 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:@"AssertName"];
             contextChannel3 = [MEMORY[0x277CFE0C8] contextChannel];
             if (os_log_type_enabled(contextChannel3, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v26 = v13;
+              v25 = v13;
               _os_log_impl(&dword_22595A000, contextChannel3, OS_LOG_TYPE_DEFAULT, "Restart preventer: %@", buf, 0xCu);
             }
           }
 
-          v10 = [contextChannel2 countByEnumeratingWithState:&v17 objects:v24 count:16];
+          v10 = [contextChannel2 countByEnumeratingWithState:&v16 objects:v23 count:16];
         }
 
         while (v10);
@@ -107,23 +107,19 @@
     v5 = 1;
 LABEL_23:
 
-    goto LABEL_24;
+    return v5;
   }
 
   contextChannel4 = [MEMORY[0x277CFE0C8] contextChannel];
   if (os_log_type_enabled(contextChannel4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = state64;
+    v25 = state64;
     _os_log_impl(&dword_22595A000, contextChannel4, OS_LOG_TYPE_DEFAULT, "System Sleep Preventers Count: %llu", buf, 0xCu);
   }
 
-  cf = 0;
   IOPMCopySleepPreventersList();
-  v5 = 1;
-LABEL_24:
-  v15 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 1;
 }
 
 - (void)dealloc

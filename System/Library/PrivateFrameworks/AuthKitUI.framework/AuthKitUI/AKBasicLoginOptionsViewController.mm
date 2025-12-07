@@ -296,7 +296,6 @@ void __53__AKBasicLoginOptionsViewController_initWithContext___block_invoke_3(ui
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)forgotPressed:(id)pressed
@@ -425,7 +424,6 @@ void __53__AKBasicLoginOptionsViewController_initWithContext___block_invoke_3(ui
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&titleLabel, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshCreateAppleIDButton
@@ -488,8 +486,6 @@ void __53__AKBasicLoginOptionsViewController_initWithContext___block_invoke_3(ui
     [(UIStackView *)stackView setCustomSpacing:20.0 afterView:?];
     MEMORY[0x277D82BD8](forgotButton2);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldHideCreateButton

@@ -11,9 +11,9 @@
 - (BOOL)subscribeProcessStateMonitor:(id)monitor configuration:(id)configuration error:(id *)error;
 - (RBSConnection)init;
 - (id)_connection;
-- (id)_initWithConnection:(id)connection;
 - (id)_lock_connect;
 - (id)acquireAssertion:(id)assertion error:(id *)error;
+- (id)assertionDescriptorsByPidWithFlattenedAttributes:(BOOL)attributes error:(id *)error;
 - (id)busyExtensionInstancesFromSet:(id)set error:(id *)error;
 - (id)captureStateForSubsystem:(id)subsystem error:(id *)error;
 - (id)executeLaunchRequest:(id)request;
@@ -31,7 +31,7 @@
 - (id)preventLaunchPredicatesWithError:(id *)error;
 - (id)processName:(id)name;
 - (id)statesForPredicate:(id)predicate withDescriptor:(id)descriptor error:(id *)error;
-- (uint64_t)cleanOutStateIfNeeded;
+- (os_unfair_lock_s)_initWithConnection:(os_unfair_lock_s *)connection;
 - (void)_disconnect;
 - (void)_handleDaemonDidStart;
 - (void)_handleMessage:(uint64_t)message;
@@ -47,6 +47,7 @@
 - (void)async_observedProcessStatesDidChange:(id)change completion:(id)completion;
 - (void)async_processDidExit:(id)exit withContext:(id)context;
 - (void)async_willExpireAssertionsSoon;
+- (void)cleanOutStateIfNeeded;
 - (void)dealloc;
 - (void)intendToExit:(id)exit withStatus:(id)status;
 - (void)observeProcessAssertionsExpirationWarningWithBlock:(uint64_t)block;
@@ -99,9 +100,10 @@ LABEL_5:
     }
 
     CanAccessMachService = RBSSandboxCanAccessMachService();
-    v7 = rbs_connection_log();
+    v6 = CanAccessMachService;
+    v7 = rbs_connection_log(CanAccessMachService);
     v8 = v7;
-    if (CanAccessMachService)
+    if (v6)
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
@@ -128,7 +130,6 @@ LABEL_5:
   }
 
 LABEL_6:
-  v4 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -155,7 +156,7 @@ LABEL_6:
   {
     v10 = 0;
     v11 = &v10;
-    v1 = OUTLINED_FUNCTION_4(self);
+    OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_21(v1, v2, v5, 3221225472, v6, v7, v8, v9);
     v3 = v11[5];
     _Block_object_dispose(&v10, 8);
@@ -197,7 +198,7 @@ void __23__RBSConnection_handle__block_invoke(uint64_t a1)
   return v3;
 }
 
-- (uint64_t)cleanOutStateIfNeeded
+- (void)cleanOutStateIfNeeded
 {
   if (result)
   {
@@ -214,30 +215,30 @@ void __23__RBSConnection_handle__block_invoke(uint64_t a1)
 
 void __38__RBSConnection_cleanOutStateIfNeeded__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(a1 + 32) + 40));
   v2 = [MEMORY[0x1E695DFA8] set];
   v3 = [*(*(a1 + 32) + 80) allObjects];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v18 + 1) + 8 * v7) configuration];
+        v8 = [*(*(&v17 + 1) + 8 * v7) configuration];
         v9 = v8;
         if (v8)
         {
@@ -249,53 +250,52 @@ void __38__RBSConnection_cleanOutStateIfNeeded__block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
   v11 = [*(*(a1 + 32) + 88) copy];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __38__RBSConnection_cleanOutStateIfNeeded__block_invoke_2;
-  v15[3] = &unk_1E7276590;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __38__RBSConnection_cleanOutStateIfNeeded__block_invoke_2;
+  v14[3] = &unk_1E7276590;
   v12 = *(a1 + 32);
-  v16 = v2;
-  v17 = v12;
+  v15 = v2;
+  v16 = v12;
   v13 = v2;
-  [v11 enumerateKeysAndObjectsUsingBlock:v15];
+  [v11 enumerateKeysAndObjectsUsingBlock:v14];
 
   os_unfair_lock_unlock((*(a1 + 32) + 40));
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __38__RBSConnection_cleanOutStateIfNeeded__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = [v6 process];
         LOBYTE(v12) = [v12 matchesProcess:v13];
 
@@ -309,7 +309,7 @@ void __38__RBSConnection_cleanOutStateIfNeeded__block_invoke_2(uint64_t a1, void
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -321,8 +321,6 @@ void __38__RBSConnection_cleanOutStateIfNeeded__block_invoke_2(uint64_t a1, void
 
   [*(*(a1 + 40) + 88) removeObjectForKey:v5];
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__RBSConnection_sharedInstance__block_invoke()
@@ -374,33 +372,33 @@ void __32__RBSConnection_connectionQueue__block_invoke()
 
 - (void)_handshake
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_14;
+    return;
   }
 
   dispatch_assert_queue_V2(*(self + 56));
   if (inRunningBoardDaemon == 1)
   {
-    v3 = rbs_connection_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = rbs_connection_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_18E8AD000, v3, OS_LOG_TYPE_FAULT, "Handshake called in runningboardd", buf, 2u);
+      _os_log_fault_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_FAULT, "Handshake called in runningboardd", buf, 2u);
     }
 
     *(self + 144) = 3;
-    goto LABEL_14;
+    return;
   }
 
   os_unfair_lock_lock((self + 52));
   os_unfair_lock_lock((self + 40));
-  v4 = *(self + 144);
-  if (v4 == 3)
+  v6 = *(self + 144);
+  if (v6 == 3)
   {
-    v6 = rbs_connection_log();
-    if (OUTLINED_FUNCTION_22(v6))
+    v8 = rbs_connection_log(v5);
+    if (OUTLINED_FUNCTION_22(v8))
     {
       *buf = 0;
       goto LABEL_12;
@@ -410,18 +408,18 @@ LABEL_13:
 
     os_unfair_lock_unlock((self + 40));
     os_unfair_lock_unlock((self + 52));
-    goto LABEL_14;
+    return;
   }
 
-  if (v4 == 1)
+  if (v6 == 1)
   {
-    v5 = rbs_connection_log();
-    if (OUTLINED_FUNCTION_22(v5))
+    v7 = rbs_connection_log(v5);
+    if (OUTLINED_FUNCTION_22(v7))
     {
       *buf = 0;
 LABEL_12:
       OUTLINED_FUNCTION_16();
-      _os_log_impl(v7, v8, v9, v10, v11, 2u);
+      _os_log_impl(v9, v10, v11, v12, v13, 2u);
       goto LABEL_13;
     }
 
@@ -433,91 +431,88 @@ LABEL_12:
   [*(self + 104) removeAllObjects];
   allObjects = [*(self + 80) allObjects];
   [*(self + 80) removeAllObjects];
-  v32 = [*(self + 120) copy];
+  v35 = [*(self + 120) copy];
   [*(self + 120) removeAllObjects];
   +[RBSProcessHandle clearAllHandles];
-  v34 = [MEMORY[0x1E695DFA8] set];
+  v37 = [MEMORY[0x1E695DFA8] set];
   os_unfair_lock_lock((self + 44));
-  v42 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v13 = *(self + 72);
-  v14 = [v13 countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (v14)
+  v44 = 0u;
+  v15 = *(self + 72);
+  v16 = [v15 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  if (v16)
   {
-    v15 = v14;
-    v16 = *v41;
+    v17 = v16;
+    v18 = *v44;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v41 != v16)
+        if (*v44 != v18)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v40 + 1) + 8 * i);
-        v19 = [*(self + 72) objectForKey:v18];
-        v20 = v19;
-        if (v19)
+        v20 = *(*(&v43 + 1) + 8 * i);
+        v21 = [*(self + 72) objectForKey:v20];
+        v22 = v21;
+        if (v21)
         {
-          descriptor = [v19 descriptor];
+          descriptor = [v21 descriptor];
           identifier = [descriptor identifier];
-          v23 = [identifier isEqual:v18];
+          v25 = [identifier isEqual:v20];
 
-          if (v23)
+          if (v25)
           {
-            [v34 addObject:descriptor];
+            v26 = [v37 addObject:descriptor];
           }
 
           else
           {
-            v24 = [descriptor copyWithIdentifier:v18];
-            [v34 addObject:v24];
+            v27 = [descriptor copyWithIdentifier:v20];
+            [v37 addObject:v27];
           }
 
-          v25 = rbs_connection_log();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          v28 = rbs_connection_log(v26);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v45 = descriptor;
-            _os_log_impl(&dword_18E8AD000, v25, OS_LOG_TYPE_INFO, "Preparing to send handshake assertion descriptor to server %{public}@", buf, 0xCu);
+            v48 = descriptor;
+            _os_log_impl(&dword_18E8AD000, v28, OS_LOG_TYPE_INFO, "Preparing to send handshake assertion descriptor to server %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
-    while (v15);
+    while (v17);
   }
 
   os_unfair_lock_unlock((self + 44));
-  v26 = objc_alloc_init(RBSHandshakeRequest);
-  [(RBSHandshakeRequest *)v26 setAssertionDescriptors:v34];
-  v27 = [*(self + 128) copy];
-  [(RBSHandshakeRequest *)v26 setSavedEndowments:v27];
+  v29 = objc_alloc_init(RBSHandshakeRequest);
+  [(RBSHandshakeRequest *)v29 setAssertionDescriptors:v37];
+  v30 = [*(self + 128) copy];
+  [(RBSHandshakeRequest *)v29 setSavedEndowments:v30];
 
-  v28 = *(self + 64);
+  v31 = *(self + 64);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __27__RBSConnection__handshake__block_invoke;
   block[3] = &unk_1E72766C8;
   block[4] = self;
-  v36 = v26;
-  v37 = allObjects;
-  v38 = v32;
-  v39 = sel__handshake;
-  v29 = v32;
-  v30 = allObjects;
-  v31 = v26;
-  dispatch_async(v28, block);
+  v39 = v29;
+  v40 = allObjects;
+  v41 = v35;
+  v42 = sel__handshake;
+  v32 = v35;
+  v33 = allObjects;
+  v34 = v29;
+  dispatch_async(v31, block);
   os_unfair_lock_unlock((self + 40));
   os_unfair_lock_unlock((self + 52));
-
-LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_announceLostInheritances
@@ -537,263 +532,267 @@ LABEL_14:
 
 void __27__RBSConnection__handshake__block_invoke(uint64_t a1)
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 40));
   v2 = *&(*v1)[36]._os_unfair_lock_opaque;
   os_unfair_lock_unlock(*v1 + 10);
   if (v2 == 3)
   {
-    v3 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v30 = 0;
+    v34 = 0;
     while (1)
     {
-      v31 = rbs_connection_log();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v35 = rbs_connection_log(v3);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v30 + 1;
-        _os_log_impl(&dword_18E8AD000, v31, OS_LOG_TYPE_DEFAULT, "Sending handshake request attempt #%lu to server", buf, 0xCu);
+        *&buf[4] = v34 + 1;
+        _os_log_impl(&dword_18E8AD000, v35, OS_LOG_TYPE_DEFAULT, "Sending handshake request attempt #%lu to server", buf, 0xCu);
       }
 
       os_unfair_lock_lock(*v1 + 10);
-      v32 = [(RBSConnection *)*v1 _lock_connect];
+      v36 = [(RBSConnection *)*v1 _lock_connect];
       v2 = *&(*v1)[36]._os_unfair_lock_opaque;
       os_unfair_lock_unlock(*v1 + 10);
-      if (v2 == 3 || v32 == 0)
+      if (v2 == 3 || v36 == 0)
       {
         break;
       }
 
-      v34 = [RBSXPCMessage messageForMethod:sel_handshakeWithRequest_ varguments:*(a1 + 40), 0];
-      v35 = objc_opt_class();
-      v86 = 0;
-      v3 = [(RBSXPCMessage *)v34 invokeOnConnection:v32 withReturnClass:v35 error:&v86];
-      v36 = v86;
-      if (v3)
+      v39 = [RBSXPCMessage messageForMethod:sel_handshakeWithRequest_ varguments:*(a1 + 40), 0];
+      v40 = objc_opt_class();
+      v97 = 0;
+      v4 = [(RBSXPCMessage *)v39 invokeOnConnection:v36 withReturnClass:v40 error:&v97];
+      v41 = v97;
+      v42 = v41;
+      if (v4)
       {
-        v37 = rbs_connection_log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v43 = rbs_connection_log(v41);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_18E8AD000, v37, OS_LOG_TYPE_DEFAULT, "Handshake succeeded", buf, 2u);
+          _os_log_impl(&dword_18E8AD000, v43, OS_LOG_TYPE_DEFAULT, "Handshake succeeded", buf, 2u);
         }
 
-        v38 = v30;
+        v44 = v34;
         v2 = 2;
       }
 
       else
       {
-        if (v30 >= 0x3E8)
+        if (v34 >= 0x3E8)
         {
           __27__RBSConnection__handshake__block_invoke_cold_2();
         }
 
-        v39 = rbs_connection_log();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v45 = rbs_connection_log(v41);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          *&buf[4] = v36;
-          _os_log_error_impl(&dword_18E8AD000, v39, OS_LOG_TYPE_ERROR, "Handshake failed with error: <%{public}@>", buf, 0xCu);
+          *&buf[4] = v42;
+          _os_log_error_impl(&dword_18E8AD000, v45, OS_LOG_TYPE_ERROR, "Handshake failed with error: <%{public}@>", buf, 0xCu);
         }
 
         os_unfair_lock_lock(*v1 + 10);
         [(RBSConnection *)*v1 _lock_announceLostInheritances];
         os_unfair_lock_unlock(*v1 + 10);
-        v38 = v30 + 1;
-        v40 = (v30 + 1) / 0xAu;
-        if (v40 >= 0xA)
+        v44 = v34 + 1;
+        v47 = (v34 + 1) / 0xAu;
+        if (v47 >= 0xA)
         {
-          v41 = 10;
+          v48 = 10;
         }
 
         else
         {
-          v41 = v40;
+          v48 = v47;
         }
 
-        if (v30 >= 9)
+        if (v34 >= 9)
         {
-          v42 = rbs_connection_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v49 = rbs_connection_log(v46);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            *&buf[4] = v41;
-            _os_log_impl(&dword_18E8AD000, v42, OS_LOG_TYPE_DEFAULT, "Sleeping for %lus before trying to reconnect", buf, 0xCu);
+            *&buf[4] = v48;
+            _os_log_impl(&dword_18E8AD000, v49, OS_LOG_TYPE_DEFAULT, "Sleeping for %lus before trying to reconnect", buf, 0xCu);
           }
 
-          sleep(v41);
+          sleep(v48);
         }
       }
 
-      v30 = v38;
-      if (v3)
+      v34 = v44;
+      if (v4)
       {
         goto LABEL_3;
       }
     }
 
-    v60 = rbs_connection_log();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v67 = rbs_connection_log(v37);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      __27__RBSConnection__handshake__block_invoke_cold_1(&v84, v85);
+      __27__RBSConnection__handshake__block_invoke_cold_1(&v95, v96);
     }
 
     [(RBSConnection *)*v1 _disconnect];
-    v3 = 0;
+    v4 = 0;
     v2 = 3;
   }
 
 LABEL_3:
   os_unfair_lock_lock(*v1 + 10);
   *&(*v1)[36]._os_unfair_lock_opaque = v2;
-  v4 = *v1;
+  v5 = *v1;
   if (*&(*v1)[36]._os_unfair_lock_opaque != 2)
   {
     goto LABEL_63;
   }
 
-  v5 = [v3 handle];
-  v6 = [v5 identity];
-  if (!v6)
+  v6 = [v4 handle];
+  v7 = [v6 identity];
+  v8 = v7;
+  if (!v7)
   {
     __27__RBSConnection__handshake__block_invoke_cold_3(a1, v1);
   }
 
-  v7 = rbs_connection_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = rbs_connection_log(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *&buf[4] = v6;
-    _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_DEFAULT, "Identity resolved as %{public}@", buf, 0xCu);
+    *&buf[4] = v8;
+    _os_log_impl(&dword_18E8AD000, v9, OS_LOG_TYPE_DEFAULT, "Identity resolved as %{public}@", buf, 0xCu);
   }
 
-  v8 = [*&(*v1)[6]._os_unfair_lock_opaque identity];
-  v9 = v8;
-  v10 = *v1;
+  v10 = [*&(*v1)[6]._os_unfair_lock_opaque identity];
+  v11 = v10;
+  v12 = *v1;
   if (!*&(*v1)[6]._os_unfair_lock_opaque)
   {
 LABEL_11:
-    objc_storeStrong(v10 + 3, v5);
-    v11 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
-    v12 = [v3 assertionIdentifiersByOldIdentifier];
-    v13 = [MEMORY[0x1E695DFA8] set];
+    objc_storeStrong(v12 + 3, v6);
+    v13 = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
+    v14 = [v4 assertionIdentifiersByOldIdentifier];
+    v15 = [MEMORY[0x1E695DFA8] set];
     os_unfair_lock_lock(*v1 + 11);
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v81[2] = __27__RBSConnection__handshake__block_invoke_245;
-    v81[3] = &unk_1E7276628;
-    v81[4] = *v1;
-    v71 = v11;
-    v82 = v71;
-    v14 = v13;
-    v83 = v14;
-    [v12 enumerateKeysAndObjectsUsingBlock:v81];
-    v15 = [v3 assertionErrorsByOldIdentifier];
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __27__RBSConnection__handshake__block_invoke_247;
-    v80[3] = &unk_1E7276650;
-    v80[4] = *v1;
-    [v15 enumerateKeysAndObjectsUsingBlock:v80];
+    v91[0] = MEMORY[0x1E69E9820];
+    v91[1] = 3221225472;
+    v91[2] = __27__RBSConnection__handshake__block_invoke_245;
+    v91[3] = &unk_1E7276628;
+    v91[4] = *v1;
+    v81 = v13;
+    v92 = v81;
+    v16 = v15;
+    v93 = v16;
+    [v14 enumerateKeysAndObjectsUsingBlock:v91];
+    v17 = [v4 assertionErrorsByOldIdentifier];
+    v90[0] = MEMORY[0x1E69E9820];
+    v90[1] = 3221225472;
+    v90[2] = __27__RBSConnection__handshake__block_invoke_247;
+    v90[3] = &unk_1E7276650;
+    v90[4] = *v1;
+    [v17 enumerateKeysAndObjectsUsingBlock:v90];
 
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __27__RBSConnection__handshake__block_invoke_249;
-    v77[3] = &unk_1E7276418;
-    v16 = v14;
-    v17 = *v1;
-    v70 = v16;
-    v78 = v16;
-    v79 = v17;
-    [RBSWorkloop performBackgroundWork:v77];
-    if ([*&(*v1)[18]._os_unfair_lock_opaque count])
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = __27__RBSConnection__handshake__block_invoke_249;
+    v87[3] = &unk_1E7276418;
+    v18 = v16;
+    v19 = *v1;
+    v80 = v18;
+    v88 = v18;
+    v89 = v19;
+    [RBSWorkloop performBackgroundWork:v87];
+    v20 = [*&(*v1)[18]._os_unfair_lock_opaque count];
+    if (v20)
     {
-      v18 = rbs_assertion_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v21 = rbs_assertion_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        __27__RBSConnection__handshake__block_invoke_cold_5(v1, v18, v19, v20, v21, v22, v23, v24);
+        __27__RBSConnection__handshake__block_invoke_cold_5(v1, v21, v22, v23, v24, v25, v26, v27);
       }
     }
 
-    objc_storeStrong(&(*v1)[18], v11);
-    if ([*&(*v1)[18]._os_unfair_lock_opaque count])
+    objc_storeStrong(&(*v1)[18], v13);
+    v28 = [*&(*v1)[18]._os_unfair_lock_opaque count];
+    if (v28)
     {
-      v25 = rbs_connection_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v29 = rbs_connection_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        v26 = *&(*v1)[18]._os_unfair_lock_opaque;
+        v30 = *&(*v1)[18]._os_unfair_lock_opaque;
         *buf = 138543362;
-        *&buf[4] = v26;
-        _os_log_impl(&dword_18E8AD000, v25, OS_LOG_TYPE_INFO, "Reacquired assertions: %{public}@", buf, 0xCu);
+        *&buf[4] = v30;
+        _os_log_impl(&dword_18E8AD000, v29, OS_LOG_TYPE_INFO, "Reacquired assertions: %{public}@", buf, 0xCu);
       }
     }
 
     os_unfair_lock_unlock(*v1 + 11);
-    v27 = [v3 managedEndpointByLaunchIdentifier];
-    v28 = v27;
-    if (v27)
+    v31 = [v4 managedEndpointByLaunchIdentifier];
+    v32 = v31;
+    if (v31)
     {
-      v29 = v27;
+      v33 = v31;
     }
 
     else
     {
-      v29 = [MEMORY[0x1E695DF20] dictionary];
+      v33 = [MEMORY[0x1E695DF20] dictionary];
     }
 
-    v43 = v29;
+    v50 = v33;
 
-    v44 = *&(*v1)[34]._os_unfair_lock_opaque;
-    if (v44 && v44 != v43)
+    v52 = *&(*v1)[34]._os_unfair_lock_opaque;
+    if (v52 && v52 != v50)
     {
-      if (v43 && (Count = CFDictionaryGetCount(*&(*v1)[34]._os_unfair_lock_opaque), Count == CFDictionaryGetCount(v43)))
+      if (v50 && (Count = CFDictionaryGetCount(*&(*v1)[34]._os_unfair_lock_opaque), v51 = CFDictionaryGetCount(v50), Count == v51))
       {
-        v65 = v12;
-        v66 = v9;
-        v67 = v5;
-        v68 = v6;
-        v69 = v3;
-        memset(v92, 0, sizeof(v92));
-        v46 = v44;
-        v47 = [v46 countByEnumeratingWithState:v92 objects:buf count:16];
-        if (v47)
+        v75 = v14;
+        v76 = v11;
+        v77 = v6;
+        v78 = v8;
+        v79 = v4;
+        memset(v103, 0, sizeof(v103));
+        v54 = v52;
+        v55 = [v54 countByEnumeratingWithState:v103 objects:buf count:16];
+        if (v55)
         {
-          v48 = v47;
-          v49 = **&v92[1];
+          v56 = v55;
+          v57 = **&v103[1];
           while (2)
           {
-            for (i = 0; i != v48; ++i)
+            for (i = 0; i != v56; ++i)
             {
-              if (**&v92[1] != v49)
+              if (**&v103[1] != v57)
               {
-                objc_enumerationMutation(v46);
+                objc_enumerationMutation(v54);
               }
 
-              v51 = *(*(&v92[0] + 1) + 8 * i);
-              v52 = [v46 objectForKey:v51];
-              v53 = [v43 objectForKey:v51];
-              v54 = [v52 _isEquivalentToEndpoint:v53];
+              v59 = *(*(&v103[0] + 1) + 8 * i);
+              v60 = [v54 objectForKey:v59];
+              v61 = [v50 objectForKey:v59];
+              v62 = [v60 _isEquivalentToEndpoint:v61];
 
-              if (!v54)
+              if (!v62)
               {
 
-                v6 = v68;
-                v3 = v69;
-                v9 = v66;
-                v5 = v67;
-                v12 = v65;
+                v8 = v78;
+                v4 = v79;
+                v11 = v76;
+                v6 = v77;
+                v14 = v75;
                 goto LABEL_59;
               }
             }
 
-            v48 = [v46 countByEnumeratingWithState:v92 objects:buf count:16];
-            if (v48)
+            v56 = [v54 countByEnumeratingWithState:v103 objects:buf count:16];
+            if (v56)
             {
               continue;
             }
@@ -802,64 +801,63 @@ LABEL_11:
           }
         }
 
-        v6 = v68;
-        v3 = v69;
-        v9 = v66;
-        v5 = v67;
-        v12 = v65;
+        v8 = v78;
+        v4 = v79;
+        v11 = v76;
+        v6 = v77;
+        v14 = v75;
       }
 
       else
       {
 LABEL_59:
-        v55 = rbs_connection_log();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+        v63 = rbs_connection_log(v51);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
         {
-          __27__RBSConnection__handshake__block_invoke_cold_6(v1, v43, v55);
+          __27__RBSConnection__handshake__block_invoke_cold_6(v1, v50, v63);
         }
       }
     }
 
-    v56 = *&(*v1)[34]._os_unfair_lock_opaque;
-    *&(*v1)[34]._os_unfair_lock_opaque = v43;
+    v64 = *&(*v1)[34]._os_unfair_lock_opaque;
+    *&(*v1)[34]._os_unfair_lock_opaque = v50;
 
-    v4 = *v1;
+    v5 = *v1;
 LABEL_63:
-    os_unfair_lock_unlock(v4 + 10);
+    os_unfair_lock_unlock(v5 + 10);
     if (v2 == 2)
     {
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v73[2] = __27__RBSConnection__handshake__block_invoke_250;
-      v73[3] = &unk_1E72766A0;
-      v74 = *(a1 + 48);
-      v57 = *(a1 + 56);
-      v58 = *(a1 + 32);
-      v75 = v57;
-      v76 = v58;
-      [RBSWorkloop performBackgroundWorkWithServiceClass:33 block:v73];
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __27__RBSConnection__handshake__block_invoke_250;
+      v83[3] = &unk_1E72766A0;
+      v84 = *(a1 + 48);
+      v65 = *(a1 + 56);
+      v66 = *(a1 + 32);
+      v85 = v65;
+      v86 = v66;
+      [RBSWorkloop performBackgroundWorkWithServiceClass:33 block:v83];
     }
 
-    v59 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  if ([v8 isEqual:v6])
+  if ([v10 isEqual:v8])
   {
-    v10 = *v1;
+    v12 = *v1;
     goto LABEL_11;
   }
 
-  v61 = [v9 hostIdentity];
-  if (v61)
+  v68 = [v11 hostIdentity];
+  if (v68)
   {
-    v62 = v61;
-    v63 = [v6 hostIdentity];
+    v69 = v68;
+    v70 = [v8 hostIdentity];
 
-    if (!v63)
+    if (!v70)
     {
-      v64 = rbs_connection_log();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v72 = rbs_connection_log(v71);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
       {
         __27__RBSConnection__handshake__block_invoke_cold_4();
       }
@@ -868,99 +866,106 @@ LABEL_63:
     }
   }
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
+  v94 = 0;
+  v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   *buf = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  LODWORD(v92[0]) = 138412546;
-  *(v92 + 4) = v6;
-  WORD6(v92[0]) = 2112;
-  *(v92 + 14) = v9;
-  _os_log_send_and_compose_impl();
+  v73 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v74 = 3;
+  }
+
+  else
+  {
+    v74 = 2;
+  }
+
+  LODWORD(v103[0]) = 138412546;
+  *(v103 + 4) = v8;
+  WORD6(v103[0]) = 2112;
+  *(v103 + 14) = v11;
+  _os_log_send_and_compose_impl(v74, &v94, buf, 80, &dword_18E8AD000, v73, 16, "handshake identity doesn't match previously fetched identity : new=%@ old=%@", v103, 22);
   _os_crash_msg();
   __break(1u);
 }
 
 uint64_t __27__RBSConnection__handshake__block_invoke_250(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        [(RBSProcessMonitor *)*(*(&v12 + 1) + 8 * v7++) _reconnect];
+        [(RBSProcessMonitor *)*(*(&v11 + 1) + 8 * v7++) _reconnect];
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __27__RBSConnection__handshake__block_invoke_2_251;
-  v11[3] = &unk_1E7276678;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __27__RBSConnection__handshake__block_invoke_2_251;
+  v10[3] = &unk_1E7276678;
   v8 = *(a1 + 40);
-  v11[4] = *(a1 + 48);
-  result = [v8 enumerateKeysAndObjectsUsingBlock:v11];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v10[4] = *(a1 + 48);
+  return [v8 enumerateKeysAndObjectsUsingBlock:v10];
 }
 
 void __27__RBSConnection__handshake__block_invoke_249(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) invalidateAssertionWithIdentifier:*(*(&v8 + 1) + 8 * v6++) error:{0, v8}];
+        [*(a1 + 40) invalidateAssertionWithIdentifier:*(*(&v7 + 1) + 8 * v6++) error:{0, v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)managedEndpointByLaunchIdentifier
@@ -969,7 +974,7 @@ void __27__RBSConnection__handshake__block_invoke_249(uint64_t a1)
   {
     v10 = 0;
     v11 = &v10;
-    v1 = OUTLINED_FUNCTION_4(self);
+    OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_21(v1, v2, v5, 3221225472, v6, v7, v8, v9);
     v3 = v11[5];
     _Block_object_dispose(&v10, 8);
@@ -985,7 +990,7 @@ void __27__RBSConnection__handshake__block_invoke_249(uint64_t a1)
 
 - (void)async_willExpireAssertionsSoon
 {
-  v3 = rbs_general_log();
+  v3 = rbs_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -995,20 +1000,20 @@ void __27__RBSConnection__handshake__block_invoke_249(uint64_t a1)
   os_unfair_lock_lock(&self->_processExpirationLock);
   v4 = [(NSHashTable *)self->_expirationWarningClients copy];
   os_unfair_lock_unlock(&self->_processExpirationLock);
-  v5 = rbs_general_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = rbs_general_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Notifying client of imminent expiration of assertion", buf, 2u);
+    _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Notifying client of imminent expiration of assertion", buf, 2u);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke;
-  v7[3] = &unk_1E7276440;
-  v8 = v4;
-  v6 = v4;
-  [RBSWorkloop performCalloutWithServiceClass:v7 block:?];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke;
+  v8[3] = &unk_1E7276440;
+  v9 = v4;
+  v7 = v4;
+  [RBSWorkloop performCalloutWithServiceClass:v8 block:?];
 }
 
 void __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke(uint64_t a1)
@@ -1022,17 +1027,15 @@ void __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke(uint64_t a
     __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke_cold_1(v6, v1, v2, v7);
   }
 
-  v3 = rbs_general_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = rbs_general_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
-    _os_log_impl(&dword_18E8AD000, v3, OS_LOG_TYPE_DEFAULT, "Expiration notification complete", v5, 2u);
+    _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Expiration notification complete", v5, 2u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke_cold_1(uint64_t a1, id obj, uint64_t a3, uint64_t a4)
+void *__47__RBSConnection_async_willExpireAssertionsSoon__block_invoke_cold_1(uint64_t a1, id obj, void *a3, uint64_t a4)
 {
   v8 = **(a1 + 16);
   do
@@ -1057,7 +1060,7 @@ uint64_t __47__RBSConnection_async_willExpireAssertionsSoon__block_invoke_cold_1
       }
 
       (*(v11 + 16))();
-      ++v9;
+      v9 = v9 + 1;
     }
 
     while (a3 != v9);
@@ -1110,30 +1113,28 @@ void __68__RBSConnection_observeProcessAssertionsExpirationWarningWithBlock___bl
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   os_unfair_lock_lock((*(a1 + 32) + 48));
-  v4 = rbs_general_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = rbs_general_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
     v7 = v3;
-    _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Removed observer for process assertions expiration warning: %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Removed observer for process assertions expiration warning: %{public}@", &v6, 0xCu);
   }
 
   [*(*(a1 + 32) + 112) removeObject:v3];
   os_unfair_lock_unlock((*(a1 + 32) + 48));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)acquireAssertion:(id)assertion error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   descriptor = [assertionCopy descriptor];
-  v6 = rbs_assertion_log();
+  v6 = rbs_assertion_log(descriptor);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v24 = descriptor;
+    v25 = descriptor;
     _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_INFO, "Acquiring assertion: %{public}@", buf, 0xCu);
   }
 
@@ -1143,9 +1144,9 @@ void __68__RBSConnection_observeProcessAssertionsExpirationWarningWithBlock___bl
   {
     _connection = [(RBSConnection *)self _connection];
     v10 = objc_opt_class();
-    v22 = 0;
-    v11 = [(RBSXPCMessage *)v7 invokeOnConnection:_connection withReturnClass:v10 error:&v22];
-    v12 = v22;
+    v23 = 0;
+    v11 = [(RBSXPCMessage *)v7 invokeOnConnection:_connection withReturnClass:v10 error:&v23];
+    v12 = v23;
 
     if (v11)
     {
@@ -1158,15 +1159,15 @@ void __68__RBSConnection_observeProcessAssertionsExpirationWarningWithBlock___bl
     }
 
     domain = [v12 domain];
-    v14 = [domain isEqualToString:v8];
+    v15 = [domain isEqualToString:v8];
 
-    if (!v14)
+    if (!v15)
     {
       goto LABEL_13;
     }
 
-    v15 = rbs_assertion_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = rbs_assertion_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [RBSConnection acquireAssertion:buf error:&buf[1]];
     }
@@ -1174,8 +1175,8 @@ void __68__RBSConnection_observeProcessAssertionsExpirationWarningWithBlock___bl
     [MEMORY[0x1E696AF00] sleepForTimeInterval:0.1];
   }
 
-  v16 = rbs_assertion_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v18 = rbs_assertion_log(v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [RBSConnection acquireAssertion:error:];
   }
@@ -1186,11 +1187,9 @@ void __68__RBSConnection_observeProcessAssertionsExpirationWarningWithBlock___bl
 LABEL_13:
   if (error)
   {
-    v17 = v12;
+    v19 = v12;
     *error = v12;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1211,6 +1210,97 @@ LABEL_13:
   return v7;
 }
 
+- (id)assertionDescriptorsByPidWithFlattenedAttributes:(BOOL)attributes error:(id *)error
+{
+  v34 = *MEMORY[0x1E69E9840];
+  if (assertionDescriptorsByPidWithFlattenedAttributes_error__permanentError)
+  {
+    dictionary = 0;
+    if (error)
+    {
+      *error = assertionDescriptorsByPidWithFlattenedAttributes_error__permanentError;
+    }
+  }
+
+  else
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:attributes];
+    v9 = [RBSXPCMessage messageForMethod:sel_assertionDescriptorsWithFlattenedAttributes_error_ varguments:v8, 0];
+
+    _connection = [(RBSConnection *)self _connection];
+    v11 = objc_opt_class();
+    v12 = objc_opt_class();
+    v32 = 0;
+    v27 = v9;
+    v13 = [(RBSXPCMessage *)v9 invokeOnConnection:_connection withReturnCollectionClass:v11 entryClass:v12 error:&v32];
+    v14 = v32;
+
+    if (v14)
+    {
+      if (error)
+      {
+        v15 = v14;
+        *error = v14;
+      }
+
+      if ([v14 rbs_isPermanentFailure])
+      {
+        v16 = v14;
+      }
+
+      else
+      {
+        v16 = assertionDescriptorsByPidWithFlattenedAttributes_error__permanentError;
+      }
+
+      objc_storeStrong(&assertionDescriptorsByPidWithFlattenedAttributes_error__permanentError, v16);
+    }
+
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v17 = v13;
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v18)
+    {
+      v19 = v18;
+      v20 = *v29;
+      do
+      {
+        for (i = 0; i != v19; ++i)
+        {
+          if (*v29 != v20)
+          {
+            objc_enumerationMutation(v17);
+          }
+
+          v22 = *(*(&v28 + 1) + 8 * i);
+          v23 = MEMORY[0x1E696AD98];
+          identifier = [v22 identifier];
+          v25 = [v23 numberWithInt:{objc_msgSend(identifier, "clientPid")}];
+
+          v26 = [dictionary objectForKey:v25];
+          if (!v26)
+          {
+            v26 = [MEMORY[0x1E695DFA8] set];
+            [dictionary setObject:v26 forKey:v25];
+          }
+
+          [v26 addObject:v22];
+        }
+
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      }
+
+      while (v19);
+    }
+  }
+
+  return dictionary;
+}
+
 - (id)executeLaunchRequest:(id)request
 {
   v37 = *MEMORY[0x1E69E9840];
@@ -1223,15 +1313,16 @@ LABEL_13:
     goto LABEL_3;
   }
 
-  v9 = rbs_general_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v8 = rbs_general_log(_init);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     v36 = requestCopy;
-    _os_log_impl(&dword_18E8AD000, v9, OS_LOG_TYPE_INFO, "Sending launch request: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_18E8AD000, v8, OS_LOG_TYPE_INFO, "Sending launch request: %{public}@", buf, 0xCu);
   }
 
-  if (shared_cache_page_prewarmingLibraryCore() && getprewarm_for_launchSymbolLoc())
+  v9 = shared_cache_page_prewarmingLibraryCore(0);
+  if (v9 && (v9 = getprewarm_for_launchSymbolLoc()) != 0)
   {
     if (!requestCopy)
     {
@@ -1257,7 +1348,7 @@ LABEL_13:
 
   else
   {
-    context2 = rbs_general_log();
+    context2 = rbs_general_log(v9);
     if (os_log_type_enabled(context2, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1280,8 +1371,7 @@ LABEL_13:
   }
 
   v16 = [v13 decodeObjectOfClass:objc_opt_class() forKey:@"return-value"];
-  [v6 setProcess:v16];
-  v17 = rbs_general_log();
+  v17 = rbs_general_log([v6 setProcess:v16]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = @"No Error";
@@ -1310,7 +1400,7 @@ LABEL_13:
     v25 = [RBSAssertionDescriptor descriptorWithIdentifier:v19 target:v22 explanation:explanation attributes:attributes];
 
     v26 = [[RBSAssertion alloc] _initWithServerValidatedDescriptor:v25];
-    v27 = rbs_assertion_log();
+    v27 = rbs_assertion_log(v26);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       [RBSConnection acquireAssertion:error:];
@@ -1333,14 +1423,13 @@ LABEL_13:
   }
 
 LABEL_3:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (BOOL)executeTerminateRequest:(id)request assertion:(id *)assertion error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if (executeTerminateRequest_assertion_error__permanentError)
   {
@@ -1353,107 +1442,106 @@ LABEL_3:
 
   else
   {
-    v13 = rbs_general_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = rbs_general_log(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v39 = requestCopy;
-      _os_log_impl(&dword_18E8AD000, v13, OS_LOG_TYPE_INFO, "Sending terminate request: %{public}@", buf, 0xCu);
+      v38 = requestCopy;
+      _os_log_impl(&dword_18E8AD000, v12, OS_LOG_TYPE_INFO, "Sending terminate request: %{public}@", buf, 0xCu);
     }
 
     context = [(__CFString *)requestCopy context];
     attributes = [context attributes];
-    v15 = [attributes count];
+    v14 = [attributes count];
 
-    if (!assertion && v15)
+    if (!assertion && v14)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"RBSConnection.m" lineNumber:429 description:@"Cannot attempt to create a prevent launch assertion if the client will not retain the assertion"];
     }
 
-    v17 = [RBSXPCMessage messageForMethod:sel_executeTerminateRequest_identifier_error_ varguments:requestCopy, 0];
+    v16 = [RBSXPCMessage messageForMethod:sel_executeTerminateRequest_identifier_error_ varguments:requestCopy, 0];
     _connection = [(RBSConnection *)self _connection];
-    v37 = 0;
-    v19 = [v17 sendToConnection:_connection error:&v37];
-    obj = v37;
-    v20 = v37;
+    v36 = 0;
+    v18 = [v16 sendToConnection:_connection error:&v36];
+    obj = v36;
+    v19 = v36;
 
-    v10 = [v19 decodeBoolForKey:@"return-value"];
-    v21 = rbs_general_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v10 = [v18 decodeBoolForKey:@"return-value"];
+    v20 = rbs_general_log(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v22 = @"Success";
+      v21 = @"Success";
       if (!v10)
       {
-        v22 = v20;
+        v21 = v19;
       }
 
       *buf = 138543362;
-      v39 = v22;
-      _os_log_impl(&dword_18E8AD000, v21, OS_LOG_TYPE_INFO, "Received terminate request response: <%{public}@>", buf, 0xCu);
+      v38 = v21;
+      _os_log_impl(&dword_18E8AD000, v20, OS_LOG_TYPE_INFO, "Received terminate request response: <%{public}@>", buf, 0xCu);
     }
 
-    v35 = v19;
-    v23 = [v19 decodeObjectOfClass:objc_opt_class() forKey:@"assertion-identifier"];
-    if (v23)
+    v34 = v18;
+    v22 = [v18 decodeObjectOfClass:objc_opt_class() forKey:@"assertion-identifier"];
+    if (v22)
     {
-      v32 = v20;
-      v33 = v17;
-      v24 = +[RBSTarget systemTarget];
+      v31 = v19;
+      v32 = v16;
+      v23 = +[RBSTarget systemTarget];
       explanation = [context explanation];
       attributes2 = [context attributes];
-      v27 = [RBSAssertionDescriptor descriptorWithIdentifier:v23 target:v24 explanation:explanation attributes:attributes2];
+      v26 = [RBSAssertionDescriptor descriptorWithIdentifier:v22 target:v23 explanation:explanation attributes:attributes2];
 
-      v28 = [[RBSAssertion alloc] _initWithServerValidatedDescriptor:v27];
-      v29 = rbs_assertion_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v27 = [[RBSAssertion alloc] _initWithServerValidatedDescriptor:v26];
+      v28 = rbs_assertion_log(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         [RBSConnection acquireAssertion:error:];
       }
 
       os_unfair_lock_lock(&self->_assertionLock);
-      [(NSMapTable *)self->_acquiredAssertionsByIdentifier setObject:v28 forKey:v23];
+      [(NSMapTable *)self->_acquiredAssertionsByIdentifier setObject:v27 forKey:v22];
       os_unfair_lock_unlock(&self->_assertionLock);
       if (assertion)
       {
-        v30 = v28;
-        *assertion = v28;
+        v29 = v27;
+        *assertion = v27;
       }
 
-      v17 = v33;
-      v20 = v32;
+      v16 = v32;
+      v19 = v31;
     }
 
-    if ([(__CFString *)v20 rbs_isPermanentFailure])
+    if ([(__CFString *)v19 rbs_isPermanentFailure])
     {
       objc_storeStrong(&executeTerminateRequest_assertion_error__permanentError, obj);
     }
 
     if (error)
     {
-      v31 = v20;
-      *error = v20;
+      v30 = v19;
+      *error = v19;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)handleForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
   _lock_connect = [(RBSConnection *)self _lock_connect];
   v6 = self->_handleConnection;
   if (!v6)
   {
-    v7 = rbs_connection_log();
+    v7 = rbs_connection_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = @"com.apple.runningboard";
+      v18 = @"com.apple.runningboard";
       _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_DEFAULT, "Creating side-channel connection to %{public}@", buf, 0xCu);
     }
 
@@ -1467,7 +1555,7 @@ LABEL_3:
     handler[2] = __30__RBSConnection_handleForKey___block_invoke;
     handler[3] = &unk_1E7276540;
     v6 = v10;
-    v17 = v6;
+    v16 = v6;
     xpc_connection_set_event_handler(v6, handler);
     xpc_connection_activate(v6);
   }
@@ -1477,8 +1565,6 @@ LABEL_3:
 
   v12 = objc_opt_class();
   v13 = [(RBSXPCMessage *)v11 invokeOnConnection:v6 withReturnClass:v12 error:0];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1496,7 +1582,7 @@ void __30__RBSConnection_handleForKey___block_invoke(uint64_t a1, void *a2)
     v4 = MEMORY[0x193AD5A20](v3);
     if (v4 == MEMORY[0x1E69E9E80])
     {
-      v9 = rbs_connection_log();
+      v9 = rbs_connection_log(v4);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         __30__RBSConnection_handleForKey___block_invoke_cold_3();
@@ -1509,7 +1595,7 @@ void __30__RBSConnection_handleForKey___block_invoke(uint64_t a1, void *a2)
     {
       v5 = v4;
       v6 = MEMORY[0x1E69E9E68];
-      v7 = rbs_connection_log();
+      v7 = rbs_connection_log(v4);
       v8 = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
       if (v5 == v6)
       {
@@ -1529,45 +1615,42 @@ void __30__RBSConnection_handleForKey___block_invoke(uint64_t a1, void *a2)
 
 uint64_t __30__RBSConnection_handleForKey___block_invoke_113(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = rbs_connection_log();
+  v5 = rbs_connection_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = a2;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "errant message dictionary key:'%s' value:%@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = a2;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "errant message dictionary key:'%s' value:%@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)handleForPredicate:(id)predicate error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v7 = predicateCopy;
   if (predicateCopy)
   {
-    [(RBSConnection *)predicateCopy handleForPredicate:error error:&v12];
-    error = v12;
+    [(RBSConnection *)predicateCopy handleForPredicate:error error:&v11];
+    error = v11;
   }
 
   else if (error)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A588];
-    v14[0] = @"No predicate specified";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A588];
+    v13[0] = @"No predicate specified";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v8 errorWithDomain:@"RBSRequestErrorDomain" code:1 userInfo:v9];
 
     error = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return error;
 }
@@ -1642,40 +1725,41 @@ void __49__RBSConnection_subscribeToProcessDeath_handler___block_invoke_2(uint64
     [(NSHashTable *)self->_processMonitors addObject:monitorCopy];
   }
 
-  v13 = [(NSMutableDictionary *)self->_stateByIdentity copy];
+  v12 = [(NSMutableDictionary *)self->_stateByIdentity copy];
   calloutQueue = [monitorCopy calloutQueue];
   serviceClass = [configurationCopy serviceClass];
   v37[0] = MEMORY[0x1E69E9820];
   v37[1] = 3221225472;
   v37[2] = __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___block_invoke;
   v37[3] = &unk_1E7276418;
-  v16 = v13;
-  v38 = v16;
-  v17 = monitorCopy;
-  v39 = v17;
+  v15 = v12;
+  v38 = v15;
+  v16 = monitorCopy;
+  v39 = v16;
   RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v37);
 
   preventLaunchPredicates = self->_preventLaunchPredicates;
   if (preventLaunchPredicates)
   {
-    v19 = [(NSSet *)preventLaunchPredicates copy];
-    calloutQueue2 = [v17 calloutQueue];
+    v18 = [(NSSet *)preventLaunchPredicates copy];
+    calloutQueue2 = [v16 calloutQueue];
     serviceClass2 = [configurationCopy serviceClass];
     v34[0] = MEMORY[0x1E69E9820];
     v34[1] = 3221225472;
     v34[2] = __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___block_invoke_2;
     v34[3] = &unk_1E7276418;
-    v35 = v17;
-    v36 = v19;
-    v22 = v19;
+    v35 = v16;
+    v36 = v18;
+    v21 = v18;
     RBSDispatchAsyncWithQoS(calloutQueue2, serviceClass2, v34);
   }
 
   os_unfair_lock_unlock(&self->_lock);
   has_internal_content = os_variant_has_internal_content();
-  v24 = rbs_monitor_log();
+  v23 = has_internal_content;
+  v24 = rbs_monitor_log(has_internal_content);
   v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  if (has_internal_content)
+  if (v23)
   {
     if (v25)
     {
@@ -1717,44 +1801,41 @@ LABEL_14:
   v10 = v31 == 0;
 
 LABEL_4:
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _handleProcessStateChange:*(*(&v8 + 1) + 8 * v6++)];
+        [*(a1 + 40) _handleProcessStateChange:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)statesForPredicate:(id)predicate withDescriptor:(id)descriptor error:(id *)error
@@ -2147,11 +2228,10 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
 
 - (void)reset
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[RBSConnection reset]";
-  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "%s no longer does anything", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[RBSConnection reset]";
+  _os_log_error_impl(&dword_18E8AD000, log, OS_LOG_TYPE_ERROR, "%s no longer does anything", &v1, 0xCu);
 }
 
 - (BOOL)saveEndowment:(id)endowment withError:(id *)error
@@ -2209,7 +2289,7 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
 {
   inheritancesCopy = inheritances;
   completionCopy = completion;
-  v8 = rbs_connection_log();
+  v8 = rbs_connection_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [RBSConnection async_didChangeInheritances:completion:];
@@ -2250,51 +2330,51 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
 
 - (void)async_assertionsDidInvalidate:(id)invalidate withError:(id)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
   errorCopy = error;
   v8 = [MEMORY[0x1E695DFA8] set];
   os_unfair_lock_lock(&self->_assertionLock);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = invalidateCopy;
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v32;
+    v13 = *v31;
     *&v11 = 138543362;
-    v26 = v11;
+    v25 = v11;
     do
     {
       v14 = 0;
       do
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * v14);
-        v16 = rbs_assertion_log();
+        v15 = *(*(&v30 + 1) + 8 * v14);
+        v16 = rbs_assertion_log(v10);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v26;
-          v37 = v15;
+          *buf = v25;
+          v36 = v15;
           _os_log_debug_impl(&dword_18E8AD000, v16, OS_LOG_TYPE_DEBUG, "Assertion %{public}@ did invalidate", buf, 0xCu);
         }
 
         v17 = [(NSMapTable *)self->_acquiredAssertionsByIdentifier objectForKey:v15];
-        v18 = rbs_assertion_log();
+        v18 = rbs_assertion_log(v17);
         v19 = v18;
         if (v17)
         {
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v26;
-            v37 = v15;
+            *buf = v25;
+            v36 = v15;
             _os_log_debug_impl(&dword_18E8AD000, v19, OS_LOG_TYPE_DEBUG, "Removing assertion %{public}@ from dictionary", buf, 0xCu);
           }
 
@@ -2306,8 +2386,8 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
         {
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            *buf = v26;
-            v37 = v15;
+            *buf = v25;
+            v36 = v15;
             _os_log_impl(&dword_18E8AD000, v19, OS_LOG_TYPE_INFO, "Client is not tracking assertion %{public}@", buf, 0xCu);
           }
         }
@@ -2316,48 +2396,47 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
       }
 
       while (v12 != v14);
-      v12 = [v9 countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v30 objects:v37 count:16];
+      v12 = v10;
     }
 
-    while (v12);
+    while (v10);
   }
 
   os_unfair_lock_unlock(&self->_assertionLock);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v20 = v8;
-  v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v28;
+    v23 = *v27;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v28 != v23)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v27 + 1) + 8 * i) _serverInvalidateWithError:{errorCopy, v26, v27}];
+        [*(*(&v26 + 1) + 8 * i) _serverInvalidateWithError:{errorCopy, v25, v26}];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v22);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)async_assertionWillInvalidate:(id)invalidate
 {
   invalidateCopy = invalidate;
-  v5 = rbs_assertion_log();
+  v5 = rbs_assertion_log(invalidateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [RBSConnection async_assertionWillInvalidate:];
@@ -2371,35 +2450,35 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
 
 - (void)async_observedProcessStatesDidChange:(id)change completion:(id)completion
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_processMonitors allObjects];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   obj = changeCopy;
-  v7 = [obj countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v7 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v48;
+    v9 = *v47;
     selfCopy = self;
     do
     {
       v10 = 0;
-      v38 = v8;
+      v37 = v8;
       do
       {
-        if (*v48 != v9)
+        if (*v47 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * v10);
-        v12 = rbs_monitor_log();
+        v11 = *(*(&v46 + 1) + 8 * v10);
+        v12 = rbs_monitor_log(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           process = [v11 process];
@@ -2417,18 +2496,18 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
             v21 = @"-Visible";
           }
 
-          v53 = rbs_pid;
-          v54 = 2114;
-          v55 = identity;
-          v56 = 2114;
-          v57 = v18;
-          v58 = 2114;
-          v59 = v21;
+          v52 = rbs_pid;
+          v53 = 2114;
+          v54 = identity;
+          v55 = 2114;
+          v56 = v18;
+          v57 = 2114;
+          v58 = v21;
           _os_log_impl(&dword_18E8AD000, v12, OS_LOG_TYPE_DEFAULT, "Received state update for %d (%{public}@, %{public}@%{public}@", buf, 0x26u);
 
           self = selfCopy;
           v9 = v17;
-          v8 = v38;
+          v8 = v37;
         }
 
         process3 = [v11 process];
@@ -2455,178 +2534,173 @@ void __66__RBSConnection_subscribeProcessStateMonitor_configuration_error___bloc
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v7 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v26 = allObjects;
-  v27 = [v26 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v44;
+    v29 = *v43;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v44 != v29)
+        if (*v43 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v43 + 1) + 8 * i);
+        v31 = *(*(&v42 + 1) + 8 * i);
         calloutQueue = [v31 calloutQueue];
         serviceClass = [v31 serviceClass];
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __65__RBSConnection_async_observedProcessStatesDidChange_completion___block_invoke;
-        v40[3] = &unk_1E7276418;
-        v41 = obj;
-        v42 = v31;
-        RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v40);
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __65__RBSConnection_async_observedProcessStatesDidChange_completion___block_invoke;
+        v39[3] = &unk_1E7276418;
+        v40 = obj;
+        v41 = v31;
+        RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v39);
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v28);
   }
 
   completionCopy[2](completionCopy);
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __65__RBSConnection_async_observedProcessStatesDidChange_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _handleProcessStateChange:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _handleProcessStateChange:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)async_observedProcessExitEvents:(id)events completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_processMonitors allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = allObjects;
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         calloutQueue = [v12 calloutQueue];
         serviceClass = [v12 serviceClass];
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __60__RBSConnection_async_observedProcessExitEvents_completion___block_invoke;
-        v18[3] = &unk_1E7276418;
-        v19 = eventsCopy;
-        v20 = v12;
-        RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v18);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __60__RBSConnection_async_observedProcessExitEvents_completion___block_invoke;
+        v17[3] = &unk_1E7276418;
+        v18 = eventsCopy;
+        v19 = v12;
+        RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v17);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
   completionCopy[2](completionCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) _handleExitEvent:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(a1 + 40) _handleExitEvent:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)async_observedPreventLaunchPredicatesUpdate:(id)update completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   completionCopy = completion;
   if (!updateCopy)
@@ -2644,66 +2718,64 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
 
   else
   {
-    v18 = completionCopy;
+    v17 = completionCopy;
     objc_storeStrong(&self->_preventLaunchPredicates, updateCopy);
     allObjects = [(NSHashTable *)self->_processMonitors allObjects];
     os_unfair_lock_unlock(&self->_lock);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     obj = allObjects;
-    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           calloutQueue = [v14 calloutQueue];
           serviceClass = [v14 serviceClass];
-          v20[0] = MEMORY[0x1E69E9820];
-          v20[1] = 3221225472;
-          v20[2] = __72__RBSConnection_async_observedPreventLaunchPredicatesUpdate_completion___block_invoke;
-          v20[3] = &unk_1E7276418;
-          v20[4] = v14;
-          v21 = updateCopy;
-          RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v20);
+          v19[0] = MEMORY[0x1E69E9820];
+          v19[1] = 3221225472;
+          v19[2] = __72__RBSConnection_async_observedPreventLaunchPredicatesUpdate_completion___block_invoke;
+          v19[3] = &unk_1E7276418;
+          v19[4] = v14;
+          v20 = updateCopy;
+          RBSDispatchAsyncWithQoS(calloutQueue, serviceClass, v19);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
     }
 
-    completionCopy = v18;
-    v18[2](v18);
+    completionCopy = v17;
+    v17[2](v17);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)async_processDidExit:(id)exit withContext:(id)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   exitCopy = exit;
   contextCopy = context;
-  v8 = rbs_process_log();
+  v8 = rbs_process_log(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v23 = exitCopy;
-    v24 = 2114;
-    v25 = contextCopy;
+    v22 = exitCopy;
+    v23 = 2114;
+    v24 = contextCopy;
     _os_log_impl(&dword_18E8AD000, v8, OS_LOG_TYPE_DEFAULT, "Firing exit handlers for %{public}@ with context %{public}@", buf, 0x16u);
   }
 
@@ -2713,38 +2785,36 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
 
   [(NSMutableDictionary *)self->_deathHandlers removeObjectForKey:exitCopy];
   os_unfair_lock_unlock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v17 + 1) + 8 * v15) + 16))(*(*(&v17 + 1) + 8 * v15));
+        (*(*(*(&v16 + 1) + 8 * v15) + 16))(*(*(&v16 + 1) + 8 * v15));
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleMessage:(uint64_t)message
@@ -2768,7 +2838,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
 
     if (v6)
     {
-      v7 = rbs_connection_log();
+      v7 = rbs_connection_log(method);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [RBSConnection _handleMessage:];
@@ -2781,7 +2851,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
       v9 = objc_opt_respondsToSelector();
       if (v9)
       {
-        v10 = rbs_message_log();
+        v10 = rbs_message_log(v9);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           [(RBSConnection *)message _handleMessage:v8, v10];
@@ -2795,6 +2865,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
         v7 = reply;
         v59 = v7;
         v12 = MEMORY[0x193AD5470](v58);
+        v13 = v12;
         v56[0] = 0;
         v56[1] = v56;
         v56[2] = 0x3032000000;
@@ -2810,7 +2881,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
           v54 = v56;
           v51 = v4;
           messageCopy = message;
-          v53 = v12;
+          v53 = v13;
           v55 = v8;
           _os_activity_initiate(&dword_18E8AD000, "didChangeInheritances", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
         }
@@ -2855,7 +2926,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
           v37 = v56;
           v34 = v4;
           messageCopy4 = message;
-          v36 = v12;
+          v36 = v13;
           v38 = v8;
           _os_activity_initiate(&dword_18E8AD000, "observedProcessStatesDidChange", OS_ACTIVITY_FLAG_DEFAULT, v33);
         }
@@ -2869,7 +2940,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
           v31 = v56;
           v28 = v4;
           messageCopy5 = message;
-          v30 = v12;
+          v30 = v13;
           v32 = v8;
           _os_activity_initiate(&dword_18E8AD000, "observedProcessExitEvents", OS_ACTIVITY_FLAG_DEFAULT, v27);
         }
@@ -2883,7 +2954,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
           v25 = v56;
           v22 = v4;
           messageCopy6 = message;
-          v24 = v12;
+          v24 = v13;
           v26 = v8;
           _os_activity_initiate(&dword_18E8AD000, "observedPreventLaunchPredicatesUpdate", OS_ACTIVITY_FLAG_DEFAULT, v21);
         }
@@ -2903,11 +2974,11 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
 
         else
         {
-          v13 = rbs_connection_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v14 = rbs_connection_log(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v14 = NSStringFromSelector(v8);
-            [(RBSConnection *)v14 _handleMessage:v60];
+            v15 = NSStringFromSelector(v8);
+            [(RBSConnection *)v15 _handleMessage:v60];
           }
         }
 
@@ -2916,7 +2987,7 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
 
       else
       {
-        v7 = rbs_connection_log();
+        v7 = rbs_connection_log(v9);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [RBSConnection _handleMessage:v8];
@@ -2924,8 +2995,6 @@ void __60__RBSConnection_async_observedProcessExitEvents_completion___block_invo
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __32__RBSConnection__handleMessage___block_invoke_2(uint64_t a1)
@@ -2938,8 +3007,8 @@ void __32__RBSConnection__handleMessage___block_invoke_2(uint64_t a1)
   objc_storeStrong((v4 + 40), obj);
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v6 = rbs_connection_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = rbs_connection_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_cold_1();
     }
@@ -2961,8 +3030,8 @@ void __32__RBSConnection__handleMessage___block_invoke_2_209(uint64_t a1)
   objc_storeStrong((v4 + 40), obj);
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v6 = rbs_connection_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = rbs_connection_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_209_cold_1();
     }
@@ -2986,13 +3055,13 @@ void __32__RBSConnection__handleMessage___block_invoke_212(uint64_t a1)
   v7 = *(a1 + 32);
   v8 = objc_opt_class();
   v9 = *(*(a1 + 48) + 8);
-  v12 = 0;
-  v10 = [v7 decodeArgumentWithClass:v8 atIndex:1 allowNil:0 error:&v12];
-  objc_storeStrong((v9 + 40), v12);
+  v13 = 0;
+  v10 = [v7 decodeArgumentWithClass:v8 atIndex:1 allowNil:0 error:&v13];
+  objc_storeStrong((v9 + 40), v13);
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v11 = rbs_connection_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = rbs_connection_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_209_cold_1();
     }
@@ -3015,8 +3084,8 @@ void __32__RBSConnection__handleMessage___block_invoke_215(uint64_t a1)
   objc_storeStrong((v5 + 40), obj);
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v7 = rbs_connection_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = rbs_connection_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_cold_1();
     }
@@ -3039,8 +3108,8 @@ void __32__RBSConnection__handleMessage___block_invoke_218(uint64_t a1)
   objc_storeStrong((v5 + 40), obj);
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v7 = rbs_connection_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = rbs_connection_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_cold_1();
     }
@@ -3063,8 +3132,8 @@ void __32__RBSConnection__handleMessage___block_invoke_222(uint64_t a1)
   objc_storeStrong((v5 + 40), obj);
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v7 = rbs_connection_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = rbs_connection_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_cold_1();
     }
@@ -3087,13 +3156,13 @@ void __32__RBSConnection__handleMessage___block_invoke_225(uint64_t a1)
   v6 = *(a1 + 32);
   v7 = objc_opt_class();
   v8 = *(*(a1 + 48) + 8);
-  v11 = 0;
-  v9 = [v6 decodeArgumentWithClass:v7 atIndex:1 allowNil:0 error:&v11];
-  objc_storeStrong((v8 + 40), v11);
+  v12 = 0;
+  v9 = [v6 decodeArgumentWithClass:v7 atIndex:1 allowNil:0 error:&v12];
+  objc_storeStrong((v8 + 40), v12);
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    v10 = rbs_connection_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = rbs_connection_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __32__RBSConnection__handleMessage___block_invoke_2_209_cold_1();
     }
@@ -3112,7 +3181,7 @@ void __37__RBSConnection__lock_setConnection___block_invoke(uint64_t a1, void *a
   if (v4 == MEMORY[0x1E69E9E98])
   {
     v5 = MEMORY[0x1E69E9E18];
-    v6 = rbs_connection_log();
+    v6 = rbs_connection_log(v4);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (v3 == v5)
     {
@@ -3177,8 +3246,7 @@ void __27__RBSConnection__handshake__block_invoke_245(uint64_t a1, void *a2, voi
 
   else
   {
-    [*(a1 + 48) addObject:v6];
-    v11 = rbs_connection_log();
+    v11 = rbs_connection_log([*(a1 + 48) addObject:v6]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __27__RBSConnection__handshake__block_invoke_245_cold_1();
@@ -3188,60 +3256,56 @@ void __27__RBSConnection__handshake__block_invoke_245(uint64_t a1, void *a2, voi
 
 void __27__RBSConnection__handshake__block_invoke_247(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = rbs_connection_log();
+  v7 = rbs_connection_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_DEFAULT, "Failed to reconnect assertion %{public}@ with error <%{public}@>", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_18E8AD000, v7, OS_LOG_TYPE_DEFAULT, "Failed to reconnect assertion %{public}@ with error <%{public}@>", &v9, 0x16u);
   }
 
   v8 = [*(*(a1 + 32) + 72) objectForKey:v5];
   [v8 _serverInvalidateWithError:v6];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(RBSConnection *)*(a1 + 32) _subscribeToProcessDeath:v5 handler:*(*(&v12 + 1) + 8 * v10++)];
+        [(RBSConnection *)*(a1 + 32) _subscribeToProcessDeath:v5 handler:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isIdentityAnAngel:(id)angel withError:(id *)error
@@ -3283,67 +3347,68 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
   return bOOLValue;
 }
 
-- (id)_initWithConnection:(id)connection
+- (os_unfair_lock_s)_initWithConnection:(os_unfair_lock_s *)connection
 {
   v3 = a2;
   if (connection)
   {
-    v32.receiver = connection;
-    v32.super_class = RBSConnection;
-    connection = objc_msgSendSuper2(&v32, sel_init);
-    if (connection)
+    v33.receiver = connection;
+    v33.super_class = RBSConnection;
+    v4 = [(os_unfair_lock_s *)&v33 init];
+    connection = v4;
+    if (v4)
     {
-      v4 = rbs_connection_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = rbs_connection_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Initializing connection", buf, 2u);
+        _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Initializing connection", buf, 2u);
       }
 
-      *(connection + 10) = 0;
-      *(connection + 12) = 0;
-      *(connection + 18) = 0;
-      v5 = +[RBSConnection handshakeQueue];
-      v6 = *(connection + 8);
-      *(connection + 8) = v5;
+      connection[10]._os_unfair_lock_opaque = 0;
+      connection[12]._os_unfair_lock_opaque = 0;
+      *&connection[36]._os_unfair_lock_opaque = 0;
+      v6 = +[RBSConnection handshakeQueue];
+      v7 = *&connection[16]._os_unfair_lock_opaque;
+      *&connection[16]._os_unfair_lock_opaque = v6;
 
-      v7 = +[RBSConnection connectionQueue];
-      v8 = *(connection + 7);
-      *(connection + 7) = v7;
+      v8 = +[RBSConnection connectionQueue];
+      v9 = *&connection[14]._os_unfair_lock_opaque;
+      *&connection[14]._os_unfair_lock_opaque = v8;
 
       strongToWeakObjectsMapTable = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
-      v10 = *(connection + 9);
-      *(connection + 9) = strongToWeakObjectsMapTable;
+      v11 = *&connection[18]._os_unfair_lock_opaque;
+      *&connection[18]._os_unfair_lock_opaque = strongToWeakObjectsMapTable;
 
-      v11 = [MEMORY[0x1E695DFA8] set];
-      v12 = *(connection + 13);
-      *(connection + 13) = v11;
+      v12 = [MEMORY[0x1E695DFA8] set];
+      v13 = *&connection[26]._os_unfair_lock_opaque;
+      *&connection[26]._os_unfair_lock_opaque = v12;
 
       weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-      v14 = *(connection + 10);
-      *(connection + 10) = weakObjectsHashTable;
+      v15 = *&connection[20]._os_unfair_lock_opaque;
+      *&connection[20]._os_unfair_lock_opaque = weakObjectsHashTable;
 
       weakObjectsHashTable2 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-      v16 = *(connection + 14);
-      *(connection + 14) = weakObjectsHashTable2;
+      v17 = *&connection[28]._os_unfair_lock_opaque;
+      *&connection[28]._os_unfair_lock_opaque = weakObjectsHashTable2;
 
-      v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v18 = *(connection + 15);
-      *(connection + 15) = v17;
+      v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v19 = *&connection[30]._os_unfair_lock_opaque;
+      *&connection[30]._os_unfair_lock_opaque = v18;
 
-      v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v20 = *(connection + 11);
-      *(connection + 11) = v19;
+      v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v21 = *&connection[22]._os_unfair_lock_opaque;
+      *&connection[22]._os_unfair_lock_opaque = v20;
 
-      v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v22 = *(connection + 16);
-      *(connection + 16) = v21;
+      v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v23 = *&connection[32]._os_unfair_lock_opaque;
+      *&connection[32]._os_unfair_lock_opaque = v22;
 
       if (v3)
       {
         os_unfair_lock_lock(connection + 10);
         [(RBSConnection *)connection _lock_setConnection:v3];
-        *(connection + 18) = 2;
+        *&connection[36]._os_unfair_lock_opaque = 2;
         os_unfair_lock_unlock(connection + 10);
       }
 
@@ -3351,14 +3416,14 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
       {
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterAddObserver(DarwinNotifyCenter, connection, __RBSDaemonDidStart, @"com.apple.runningboard.daemonstartup", 0, CFNotificationSuspensionBehaviorCoalesce);
-        v24 = *(connection + 7);
+        v25 = *&connection[14]._os_unfair_lock_opaque;
         OUTLINED_FUNCTION_2_0();
-        v27 = 3221225472;
-        v28 = __37__RBSConnection__initWithConnection___block_invoke;
-        v29 = &unk_1E7276440;
+        v28 = 3221225472;
+        v29 = __37__RBSConnection__initWithConnection___block_invoke;
+        v30 = &unk_1E7276440;
         connection = connection;
         connectionCopy = connection;
-        dispatch_sync(v24, block);
+        dispatch_sync(v25, block);
       }
     }
   }
@@ -3408,13 +3473,13 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
 
     [*(block + 112) addObject:v6];
     os_unfair_lock_unlock((block + 48));
-    v7 = rbs_general_log();
-    if (OUTLINED_FUNCTION_22(v7))
+    v8 = rbs_general_log(v7);
+    if (OUTLINED_FUNCTION_22(v8))
     {
       v20 = 138543362;
       v21 = v6;
       OUTLINED_FUNCTION_16();
-      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
+      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
     }
   }
 
@@ -3422,8 +3487,6 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
   {
     v6 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -3440,25 +3503,23 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
 
   if (v9)
   {
-    v10 = rbs_process_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = rbs_process_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       v15 = v9;
-      _os_log_error_impl(&dword_18E8AD000, v10, OS_LOG_TYPE_ERROR, "Could not get process name: <%{public}@>", buf, 0xCu);
+      _os_log_error_impl(&dword_18E8AD000, v11, OS_LOG_TYPE_ERROR, "Could not get process name: <%{public}@>", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)portForIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = rbs_general_log();
+  v5 = rbs_general_log(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_19();
@@ -3469,19 +3530,19 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
   _connection = [(RBSConnection *)self _connection];
   OUTLINED_FUNCTION_13();
   v9 = [v7 sendToConnection:_connection error:?];
-  v10 = v17;
+  v10 = v16;
 
   v11 = [v9 decodeObjectOfClass:objc_opt_class() forKey:@"return-value"];
-  v12 = rbs_general_log();
+  v12 = rbs_general_log(v11);
   v13 = v12;
   if (v10)
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543618;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v10;
+      v18 = v11;
+      v19 = 2114;
+      v20 = v10;
       _os_log_fault_impl(&dword_18E8AD000, v13, OS_LOG_TYPE_FAULT, "Received port for identifier response: <%{public}@> with error:%{public}@", buf, 0x16u);
     }
   }
@@ -3489,11 +3550,9 @@ void __27__RBSConnection__handshake__block_invoke_2_251(uint64_t a1, void *a2, v
   else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v19 = v11;
+    v18 = v11;
     OUTLINED_FUNCTION_23(&dword_18E8AD000, v13, v14, "Received port for identifier response: <%{public}@>", buf);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -3537,8 +3596,7 @@ LABEL_4:
   if (!array)
   {
     array = [MEMORY[0x1E695DF70] array];
-    [*(self + 120) setObject:array forKey:v5];
-    v9 = rbs_process_log();
+    v9 = rbs_process_log([*(self + 120) setObject:array forKey:v5]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       OUTLINED_FUNCTION_19();
@@ -3557,35 +3615,35 @@ LABEL_4:
   v16 = [(RBSXPCMessage *)v12 invokeOnConnection:_connection withReturnClass:v14 error:v15];
   v17 = v29;
 
-  if (v16 || ([v17 domain], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", @"RBSRequestErrorDomain"), v18, v19))
+  if (v16 || ([v17 domain], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "isEqualToString:", @"RBSRequestErrorDomain"), v19, v20))
   {
-    v20 = rbs_process_log();
-    v21 = v20;
+    v21 = rbs_process_log(v18);
+    v22 = v21;
     if (v17)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_19();
         v31 = 2114;
         v32 = v17;
-        _os_log_error_impl(&dword_18E8AD000, v21, OS_LOG_TYPE_ERROR, "Error subscribing to death of process %{public}@: <%{public}@>", buf, 0x16u);
+        _os_log_error_impl(&dword_18E8AD000, v22, OS_LOG_TYPE_ERROR, "Error subscribing to death of process %{public}@: <%{public}@>", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       OUTLINED_FUNCTION_19();
-      OUTLINED_FUNCTION_23(&dword_18E8AD000, v21, v22, "Process %{public}@ is already exited, no need to subscribe", buf);
+      OUTLINED_FUNCTION_23(&dword_18E8AD000, v22, v23, "Process %{public}@ is already exited, no need to subscribe", buf);
     }
 
     os_unfair_lock_lock((self + 40));
-    v23 = MEMORY[0x193AD5470](v7);
-    v24 = [array indexOfObjectIdenticalTo:v23];
+    v24 = MEMORY[0x193AD5470](v7);
+    v25 = [array indexOfObjectIdenticalTo:v24];
 
-    if (v24 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v25 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v25 = MEMORY[0x193AD5470](v7);
-      [array removeObjectIdenticalTo:v25];
+      v26 = MEMORY[0x193AD5470](v7);
+      [array removeObjectIdenticalTo:v26];
 
       if (![array count])
       {
@@ -3599,7 +3657,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeProcessStateMonitor:(id)monitor configuration:(id)configuration
@@ -3614,22 +3671,20 @@ LABEL_21:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v8 = rbs_monitor_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = rbs_monitor_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v15 = configurationCopy;
-    _os_log_impl(&dword_18E8AD000, v8, OS_LOG_TYPE_DEFAULT, "unsubscribing configuration of monitor %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_18E8AD000, v9, OS_LOG_TYPE_DEFAULT, "unsubscribing configuration of monitor %{public}@", buf, 0xCu);
   }
 
   [(RBSConnection *)self cleanOutStateIfNeeded];
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(configurationCopy, "identifier")}];
-  v10 = [RBSXPCMessage messageForMethod:sel_async_unsubscribeFromProcessStateChangesWithIdentifier_ varguments:v9, 0];
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(configurationCopy, "identifier")}];
+  v11 = [RBSXPCMessage messageForMethod:sel_async_unsubscribeFromProcessStateChangesWithIdentifier_ varguments:v10, 0];
 
   _connection = [(RBSConnection *)self _connection];
-  v12 = [v10 sendToConnection:_connection error:0];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v13 = [v11 sendToConnection:_connection error:0];
 }
 
 - (void)intendToExit:(id)exit withStatus:(id)status
@@ -3644,18 +3699,16 @@ LABEL_21:
 
   if (v10)
   {
-    v11 = rbs_process_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = rbs_process_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
       v15 = exitCopy;
       v16 = 2114;
       v17 = v10;
-      _os_log_error_impl(&dword_18E8AD000, v11, OS_LOG_TYPE_ERROR, "Could not set intended exit for %{public}@ because %{public}@", buf, 0x16u);
+      _os_log_error_impl(&dword_18E8AD000, v12, OS_LOG_TYPE_ERROR, "Could not set intended exit for %{public}@ because %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_setConnection:(uint64_t)connection
@@ -3666,17 +3719,16 @@ LABEL_21:
     os_unfair_lock_assert_owner((connection + 40));
     objc_storeStrong((connection + 8), a2);
     xpc_connection_set_target_queue(*(connection + 8), *(connection + 56));
-    v5 = *(connection + 8);
     OUTLINED_FUNCTION_2_0();
-    v10 = 3221225472;
-    v11 = __37__RBSConnection__lock_setConnection___block_invoke;
-    v12 = &unk_1E7276540;
+    v9 = 3221225472;
+    v10 = __37__RBSConnection__lock_setConnection___block_invoke;
+    v11 = &unk_1E7276540;
     connectionCopy = connection;
-    xpc_connection_set_event_handler(v6, handler);
+    xpc_connection_set_event_handler(v5, handler);
     xpc_connection_activate(*(connection + 8));
-    v7 = *(connection + 8);
-    v8 = xpc_dictionary_create(0, 0, 0);
-    xpc_connection_send_message(v7, v8);
+    v6 = *(connection + 8);
+    v7 = xpc_dictionary_create(0, 0, 0);
+    xpc_connection_send_message(v6, v7);
   }
 }
 
@@ -3740,11 +3792,11 @@ LABEL_21:
     os_unfair_lock_lock(v3);
     if (*(v1 + 144) == 3)
     {
-      v4 = rbs_connection_log();
-      if (OUTLINED_FUNCTION_22(v4))
+      v5 = rbs_connection_log(v4);
+      if (OUTLINED_FUNCTION_22(v5))
       {
         OUTLINED_FUNCTION_16();
-        _os_log_impl(v5, v6, v7, v8, v9, 2u);
+        _os_log_impl(v6, v7, v8, v9, v10, 2u);
       }
 
       *(v1 + 144) = 0;
@@ -3759,18 +3811,9 @@ void __41__RBSConnection_registerServiceDelegate___block_invoke_cold_1()
   OUTLINED_FUNCTION_10();
   v3 = v2;
   v4 = [MEMORY[0x1E696AAA8] currentHandler];
-  v5 = *(*v1 + 32);
-  [v4 handleFailureInMethod:*(v3 + 48) object:v5 file:*(v3 + 40) lineNumber:? description:?];
+  [v4 handleFailureInMethod:*(v3 + 48) object:*(*v1 + 32) file:*(v3 + 40) lineNumber:? description:?];
 
   *v0 = *v1;
-}
-
-- (void)acquireAssertion:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7_0(&dword_18E8AD000, v0, v1, "Adding assertion %{public}@ to dictionary", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireAssertion:(_BYTE *)a1 error:(_BYTE *)a2 .cold.2(_BYTE *a1, _BYTE *a2)
@@ -3788,30 +3831,6 @@ void __41__RBSConnection_registerServiceDelegate___block_invoke_cold_1()
   [v0 handleFailureInFunction:v1 file:@"RBSConnection.m" lineNumber:353 description:{@"%s", dlerror()}];
 
   __break(1u);
-}
-
-void __30__RBSConnection_handleForKey___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, v0, v1, "This connection is not supposed to receive any messages got unknown: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __30__RBSConnection_handleForKey___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, v0, v1, "This connection is not supposed to receive any messages, got connection: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __30__RBSConnection_handleForKey___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_11(&dword_18E8AD000, v0, v1, "This connection is not supposed to receive any messages, got dictionary: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleForPredicate:(void *)a3 error:(uint64_t *)a4 .cold.1(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
@@ -3874,45 +3893,24 @@ void __30__RBSConnection_handleForKey___block_invoke_cold_3()
   [v4 handleFailureInMethod:a1 object:a2 file:@"RBSConnection.m" lineNumber:916 description:{@"Invalid parameter not satisfying: %@", @"savedEndowment"}];
 }
 
-- (void)async_didChangeInheritances:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7_0(&dword_18E8AD000, v0, v1, "didChangeInheritances: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)async_assertionWillInvalidate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7_0(&dword_18E8AD000, v0, v1, "Assertion %{public}@ will invalidate", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_handleMessage:(const char *)a1 .cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleMessage:(NSObject *)a3 .cold.3(uint64_t a1, SEL aSelector, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 24);
   v5 = NSStringFromSelector(aSelector);
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_DEBUG, "PERF: %{public}@ Received message from runningboardd: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_DEBUG, "PERF: %{public}@ Received message from runningboardd: %{public}@", &v6, 0x16u);
 }
 
 - (void)_handleMessage:(void *)a1 .cold.4(void *a1, uint64_t a2)
@@ -3936,30 +3934,24 @@ void __30__RBSConnection_handleForKey___block_invoke_cold_3()
 void __32__RBSConnection__handleMessage___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_10();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = OUTLINED_FUNCTION_18(v2);
-  NSStringFromSelector(v3);
+  v2 = OUTLINED_FUNCTION_18(v1);
+  NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __32__RBSConnection__handleMessage___block_invoke_2_209_cold_1()
 {
   OUTLINED_FUNCTION_10();
-  v8 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(*(v1 + 56));
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __27__RBSConnection__handshake__block_invoke_cold_1(_BYTE *a1, _BYTE *a2)
@@ -3988,31 +3980,27 @@ void __27__RBSConnection__handshake__block_invoke_cold_3(uint64_t a1, void *a2)
 
 void __27__RBSConnection__handshake__block_invoke_cold_5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*a1 + 72));
-  OUTLINED_FUNCTION_7_0(&dword_18E8AD000, a2, a3, "Replacing old assertions %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 72);
+  OUTLINED_FUNCTION_7_0(&dword_18E8AD000, a2, a3, "Replacing old assertions %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __27__RBSConnection__handshake__block_invoke_cold_6(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(*a1 + 136);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_fault_impl(&dword_18E8AD000, log, OS_LOG_TYPE_FAULT, "managedEndpointByLaunchIdentifier mismatch : previous=%{public}@ new=%{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_fault_impl(&dword_18E8AD000, log, OS_LOG_TYPE_FAULT, "managedEndpointByLaunchIdentifier mismatch : previous=%{public}@ new=%{public}@", &v4, 0x16u);
 }
 
 void __27__RBSConnection__handshake__block_invoke_245_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_14();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

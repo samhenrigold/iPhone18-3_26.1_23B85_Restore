@@ -27,13 +27,13 @@
 
 - (WPTransfer)initWithDelegate:(id)delegate queue:(id)queue machName:(id)name options:(id)options
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   nameCopy = name;
   optionsCopy = options;
-  v26.receiver = self;
-  v26.super_class = WPTransfer;
-  v13 = [(WPClient *)&v26 initWithQueue:queue machName:nameCopy];
+  v25.receiver = self;
+  v25.super_class = WPTransfer;
+  v13 = [(WPClient *)&v25 initWithQueue:queue machName:nameCopy];
   v14 = v13;
   if (v13)
   {
@@ -72,15 +72,14 @@
     v22 = v21;
     delegate = [(WPTransfer *)v14 delegate];
     *buf = 134218498;
-    v28 = v14;
-    v29 = 2114;
-    v30 = nameCopy;
-    v31 = 2048;
-    v32 = delegate;
+    v27 = v14;
+    v28 = 2114;
+    v29 = nameCopy;
+    v30 = 2048;
+    v31 = delegate;
     _os_log_impl(&dword_274327000, v22, OS_LOG_TYPE_DEFAULT, "ATVSetup initWithDelegate self: %p with machName: %{public}@, delegate: %p", buf, 0x20u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -126,11 +125,10 @@
 
 - (void)startScan
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"ATVSetup can't start scanning for ATVSetup because it's already advertising";
-  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"ATVSetup can't start scanning for ATVSetup because it's already advertising";
+  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "%@", &v1, 0xCu);
 }
 
 - (void)stopScan
@@ -157,11 +155,10 @@
 
 - (void)startAdvertising
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"ATVSetup advertising is not supported on this platform";
-  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"ATVSetup advertising is not supported on this platform";
+  _os_log_error_impl(&dword_274327000, log, OS_LOG_TYPE_ERROR, "%@", &v1, 0xCu);
 }
 
 - (void)stopAdvertising
@@ -187,7 +184,7 @@
 
 - (void)ignoreDevice
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   currentPeripheralUUID = [(WPTransfer *)self currentPeripheralUUID];
 
   if (currentPeripheralUUID)
@@ -206,13 +203,11 @@
     {
       v7 = v6;
       currentPeripheralUUID3 = [(WPTransfer *)self currentPeripheralUUID];
-      v10 = 138543362;
-      v11 = currentPeripheralUUID3;
-      _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "ATVSetup Ignoring device %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = currentPeripheralUUID3;
+      _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "ATVSetup Ignoring device %{public}@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
@@ -267,7 +262,7 @@
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v4 = [discoveredCopy objectForKeyedSubscript:@"kDeviceRSSI"];
   v5 = [discoveredCopy objectForKeyedSubscript:@"kDevicePeripheralUUID"];
@@ -306,23 +301,23 @@
       [WPTransfer deviceDiscovered:];
     }
 
-    v16 = WiProxLog;
+    v15 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
     {
-      v25 = v16;
+      v24 = v15;
       clientAsString = [(WPTransfer *)self clientAsString];
       *buf = 138412802;
-      v33 = clientAsString;
-      v34 = 2112;
-      v35 = v6;
-      v36 = 2112;
-      v37 = v7;
-      _os_log_debug_impl(&dword_274327000, v25, OS_LOG_TYPE_DEBUG, "ATVSetup %@ evaluating %@ (data: %@)", buf, 0x20u);
+      v32 = clientAsString;
+      v33 = 2112;
+      v34 = v6;
+      v35 = 2112;
+      v36 = v7;
+      _os_log_debug_impl(&dword_274327000, v24, OS_LOG_TYPE_DEBUG, "ATVSetup %@ evaluating %@ (data: %@)", buf, 0x20u);
     }
 
     if ([v7 length])
     {
-      v17 = v7;
+      v16 = v7;
       if (*([v7 bytes] + 4))
       {
         if (WPLogInitOnce != -1)
@@ -330,16 +325,16 @@
           [WPTransfer deviceDiscovered:];
         }
 
-        v18 = WiProxLog;
+        v17 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v33 = v6;
-          v34 = 2112;
-          v35 = v4;
-          v36 = 2112;
-          v37 = v7;
-          _os_log_debug_impl(&dword_274327000, v18, OS_LOG_TYPE_DEBUG, "ATVSetup Discovered %@ (%@), but advertising packet (%@) indicates it will use nearby info. Discontinuing legacy setup.", buf, 0x20u);
+          v32 = v6;
+          v33 = 2112;
+          v34 = v4;
+          v35 = 2112;
+          v36 = v7;
+          _os_log_debug_impl(&dword_274327000, v17, OS_LOG_TYPE_DEBUG, "ATVSetup Discovered %@ (%@), but advertising packet (%@) indicates it will use nearby info. Discontinuing legacy setup.", buf, 0x20u);
         }
 
         goto LABEL_9;
@@ -347,9 +342,9 @@
     }
 
     ignoredDevices = [(WPTransfer *)self ignoredDevices];
-    v20 = [ignoredDevices containsObject:v5];
+    v19 = [ignoredDevices containsObject:v5];
 
-    if (v20)
+    if (v19)
     {
       if (WPLogInitOnce != -1)
       {
@@ -367,14 +362,14 @@
     obj = [(WPTransfer *)self currentPeripheralUUID];
     objc_sync_enter(obj);
     currentPeripheralUUID = [(WPTransfer *)self currentPeripheralUUID];
-    v22 = currentPeripheralUUID == 0;
+    v21 = currentPeripheralUUID == 0;
 
-    if (v22)
+    if (v21)
     {
       currentPeripheralUUID2 = [(WPTransfer *)self currentPeripheralUUID];
-      v24 = [currentPeripheralUUID2 isEqual:v5];
+      v23 = [currentPeripheralUUID2 isEqual:v5];
 
-      if (!v24)
+      if (!v23)
       {
         if (WPLogInitOnce != -1)
         {
@@ -394,19 +389,19 @@
           [WPTransfer deviceDiscovered:];
         }
 
-        v27 = WiProxLog;
+        v26 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v33 = v6;
-          v34 = 2114;
-          v35 = v4;
-          _os_log_impl(&dword_274327000, v27, OS_LOG_TYPE_DEFAULT, "ATVSetup trying to connect to %{public}@ (%{public}@)", buf, 0x16u);
+          v32 = v6;
+          v33 = 2114;
+          v34 = v4;
+          _os_log_impl(&dword_274327000, v26, OS_LOG_TYPE_DEFAULT, "ATVSetup trying to connect to %{public}@ (%{public}@)", buf, 0x16u);
         }
 
-        v31.receiver = self;
-        v31.super_class = WPTransfer;
-        [(WPClient *)&v31 connectToPeer:v5];
+        v30.receiver = self;
+        v30.super_class = WPTransfer;
+        [(WPClient *)&v30 connectToPeer:v5];
         goto LABEL_9;
       }
 
@@ -438,14 +433,12 @@
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDevice:(id)device withError:(id)error shouldDiscover:(BOOL)discover
 {
   discoverCopy = discover;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   currentPeripheralUUID = [(WPTransfer *)self currentPeripheralUUID];
@@ -464,18 +457,18 @@ LABEL_9:
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = deviceCopy;
+        v20 = deviceCopy;
         _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "ATVSetup connected to device: %{public}@", buf, 0xCu);
       }
 
-      v24 = @"2AE5F669-81BB-435F-961C-EADD8A30AF07";
+      v23 = @"2AE5F669-81BB-435F-961C-EADD8A30AF07";
       v13 = [MEMORY[0x277CBEB98] setWithObjects:{@"6C251515-F290-4F91-808C-5123A0CD02E9", 0}];
-      v25[0] = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v24[0] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
-      v19.receiver = self;
-      v19.super_class = WPTransfer;
-      [(WPClient *)&v19 discoverCharacteristicsAndServices:v14 forPeripheral:deviceCopy];
+      v18.receiver = self;
+      v18.super_class = WPTransfer;
+      [(WPClient *)&v18 discoverCharacteristicsAndServices:v14 forPeripheral:deviceCopy];
     }
 
     else
@@ -491,9 +484,9 @@ LABEL_9:
         v16 = v15;
         localizedDescription = [errorCopy localizedDescription];
         *buf = 138543618;
-        v21 = deviceCopy;
-        v22 = 2114;
-        v23 = localizedDescription;
+        v20 = deviceCopy;
+        v21 = 2114;
+        v22 = localizedDescription;
         _os_log_impl(&dword_274327000, v16, OS_LOG_TYPE_DEFAULT, "ATVSetup connected to device: %{public}@ with error %{public}@", buf, 0x16u);
       }
     }
@@ -511,13 +504,11 @@ LABEL_9:
       [WPTransfer connectedDevice:withError:shouldDiscover:];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDevice:(id)device withError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -530,11 +521,11 @@ LABEL_9:
   {
     v9 = v8;
     localizedDescription = [errorCopy localizedDescription];
-    v16 = 138543618;
-    v17 = deviceCopy;
-    v18 = 2114;
-    v19 = localizedDescription;
-    _os_log_impl(&dword_274327000, v9, OS_LOG_TYPE_DEFAULT, "ATVSetup disconnected from device: %{public}@ with error: %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = deviceCopy;
+    v17 = 2114;
+    v18 = localizedDescription;
+    _os_log_impl(&dword_274327000, v9, OS_LOG_TYPE_DEFAULT, "ATVSetup disconnected from device: %{public}@ with error: %{public}@", &v15, 0x16u);
   }
 
   if (errorCopy)
@@ -553,13 +544,11 @@ LABEL_9:
   [(WPTransfer *)self setConnectedToPeripheral:0];
   notificationData = [(WPTransfer *)self notificationData];
   [notificationData setLength:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   currentPeripheralUUID = [(WPTransfer *)self currentPeripheralUUID];
@@ -589,13 +578,13 @@ LABEL_9:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v21 = 0;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_240;
-      v18[3] = &unk_279ED7548;
-      v18[4] = buf;
-      [v10 enumerateObjectsUsingBlock:v18];
+      v20 = 0;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_240;
+      v17[3] = &unk_279ED7548;
+      v17[4] = buf;
+      [v10 enumerateObjectsUsingBlock:v17];
       if (*(*&buf[8] + 24) == 1)
       {
         if (WPLogInitOnce != -1)
@@ -606,13 +595,13 @@ LABEL_9:
         v12 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          *v17 = 0;
-          _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "ATVSetup subscribing to ATV setup characteristic", v17, 2u);
+          *v16 = 0;
+          _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "ATVSetup subscribing to ATV setup characteristic", v16, 2u);
         }
 
-        v16.receiver = self;
-        v16.super_class = WPTransfer;
-        [(WPClient *)&v16 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"6C251515-F290-4F91-808C-5123A0CD02E9" inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07"];
+        v15.receiver = self;
+        v15.super_class = WPTransfer;
+        [(WPClient *)&v15 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"6C251515-F290-4F91-808C-5123A0CD02E9" inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07"];
       }
 
       else
@@ -627,9 +616,9 @@ LABEL_9:
           [WPTransfer discoveredCharacteristicsAndServices:forPeripheral:];
         }
 
-        v15.receiver = self;
-        v15.super_class = WPTransfer;
-        [(WPClient *)&v15 disconnectFromPeer:peripheralCopy];
+        v14.receiver = self;
+        v14.super_class = WPTransfer;
+        [(WPClient *)&v14 disconnectFromPeer:peripheralCopy];
       }
 
       _Block_object_dispose(buf, 8);
@@ -647,9 +636,9 @@ LABEL_9:
         [WPTransfer discoveredCharacteristicsAndServices:forPeripheral:];
       }
 
-      v19.receiver = self;
-      v19.super_class = WPTransfer;
-      [(WPClient *)&v19 disconnectFromPeer:peripheralCopy];
+      v18.receiver = self;
+      v18.super_class = WPTransfer;
+      [(WPClient *)&v18 disconnectFromPeer:peripheralCopy];
     }
   }
 
@@ -666,8 +655,6 @@ LABEL_9:
       [(WPTransfer *)v13 discoveredCharacteristicsAndServices:peripheralCopy forPeripheral:self];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_240(uint64_t a1, void *a2, _BYTE *a3)
@@ -693,7 +680,7 @@ void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block
 
 - (void)receivedData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -742,11 +729,11 @@ void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block
         v21 = v20;
         notificationData = [(WPTransfer *)self notificationData];
         *buf = 138543874;
-        v41 = dataCopy;
-        v42 = 2114;
-        v43 = peripheralCopy;
-        v44 = 2114;
-        v45 = notificationData;
+        v40 = dataCopy;
+        v41 = 2114;
+        v42 = peripheralCopy;
+        v43 = 2114;
+        v44 = notificationData;
         _os_log_impl(&dword_274327000, v21, OS_LOG_TYPE_DEFAULT, "ATVSetup received data: %{public}@ from device: %{public}@, existing data: %{public}@", buf, 0x20u);
       }
 
@@ -784,9 +771,9 @@ void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block
 
         if ([(WPTransfer *)self scanning])
         {
-          v37.receiver = self;
-          v37.super_class = WPTransfer;
-          [(WPClient *)&v37 disconnectFromPeer:peripheralCopy];
+          v36.receiver = self;
+          v36.super_class = WPTransfer;
+          [(WPClient *)&v36 disconnectFromPeer:peripheralCopy];
         }
 
         else
@@ -811,9 +798,9 @@ void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block
       {
         if ([v19 isEqualToString:@"FAIL"])
         {
-          v38 = *MEMORY[0x277CCA450];
-          v39 = @"Received transfer fail message from the other side";
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v37 = *MEMORY[0x277CCA450];
+          v38 = @"Received transfer fail message from the other side";
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WPErrorDomain" code:23 userInfo:v29];
           [(WPTransfer *)self transferFailed:v30];
           notificationData6 = [(WPTransfer *)self notificationData];
@@ -839,9 +826,9 @@ void __65__WPTransfer_discoveredCharacteristicsAndServices_forPeripheral___block
           v29 = v34;
           notificationData8 = [(WPTransfer *)self notificationData];
           *buf = 138543618;
-          v41 = dataCopy;
-          v42 = 2114;
-          v43 = notificationData8;
+          v40 = dataCopy;
+          v41 = 2114;
+          v42 = notificationData8;
           _os_log_impl(&dword_274327000, v29, OS_LOG_TYPE_DEFAULT, "ATVSetup got new data %{public}@, data is now %{public}@", buf, 0x16u);
         }
       }
@@ -876,13 +863,11 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   delegate = [(WPTransfer *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -910,11 +895,11 @@ LABEL_46:
           }
 
           v12 = MEMORY[0x277CCA9B8];
-          v44 = *MEMORY[0x277CCA450];
-          v45 = @"Data too short to send";
+          v43 = *MEMORY[0x277CCA450];
+          v44 = @"Data too short to send";
           v13 = MEMORY[0x277CBEAC0];
-          v14 = &v45;
-          v15 = &v44;
+          v14 = &v44;
+          v15 = &v43;
           goto LABEL_51;
         }
       }
@@ -938,11 +923,11 @@ LABEL_46:
         if (v11)
         {
           v12 = MEMORY[0x277CCA9B8];
-          v46 = *MEMORY[0x277CCA450];
-          v47[0] = @"Data too long to send";
+          v45 = *MEMORY[0x277CCA450];
+          v46[0] = @"Data too long to send";
           v13 = MEMORY[0x277CBEAC0];
-          v14 = v47;
-          v15 = &v46;
+          v14 = v46;
+          v15 = &v45;
 LABEL_51:
           v34 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
           v35 = [v12 errorWithDomain:@"WPErrorDomain" code:23 userInfo:v34];
@@ -975,13 +960,13 @@ LABEL_51:
       if (currentPeripheralUUID)
       {
         currentPeripheralUUID2 = [(WPTransfer *)self currentPeripheralUUID];
-        [(WPClient *)&v41 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v38.receiver, v38.super_class, v39.receiver, v39.super_class, v40.receiver, v40.super_class, self, WPTransfer];
+        [(WPClient *)&v40 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v37.receiver, v37.super_class, v38.receiver, v38.super_class, v39.receiver, v39.super_class, self, WPTransfer];
       }
 
       else
       {
         currentPeripheralUUID2 = [(WPTransfer *)self currentlySubscribedCentral];
-        [(WPClient *)&v40 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v38.receiver, v38.super_class, v39.receiver, v39.super_class, self, WPTransfer, v41.receiver, v41.super_class];
+        [(WPClient *)&v39 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v37.receiver, v37.super_class, v38.receiver, v38.super_class, self, WPTransfer, v40.receiver, v40.super_class];
       }
     }
 
@@ -1017,13 +1002,13 @@ LABEL_51:
           v22 = v21;
           currentlySubscribedCentral = [(WPTransfer *)self currentlySubscribedCentral];
           *buf = 138543362;
-          v43 = currentlySubscribedCentral;
+          v42 = currentlySubscribedCentral;
           _os_log_impl(&dword_274327000, v22, OS_LOG_TYPE_DEFAULT, "ATVSetup Peripheral sending transfer complete to Central: %{public}@", buf, 0xCu);
         }
 
         [v17 setProperties:1];
         currentPeripheralUUID2 = [(WPTransfer *)self currentlySubscribedCentral];
-        [(WPClient *)&v39 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v38.receiver, v38.super_class, self, WPTransfer, v40.receiver, v40.super_class, v41.receiver, v41.super_class];
+        [(WPClient *)&v38 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, v37.receiver, v37.super_class, self, WPTransfer, v39.receiver, v39.super_class, v40.receiver, v40.super_class];
       }
 
       else
@@ -1056,14 +1041,14 @@ LABEL_51:
           currentPeripheralUUID3 = [(WPTransfer *)self currentPeripheralUUID];
           uUIDString = [currentPeripheralUUID3 UUIDString];
           *buf = 138543362;
-          v43 = uUIDString;
+          v42 = uUIDString;
           _os_log_impl(&dword_274327000, v29, OS_LOG_TYPE_DEFAULT, "ATVSetup Central sending transfer complete to Peripheral: %{public}@", buf, 0xCu);
         }
 
         [v17 setProperties:0];
         [(WPTransfer *)self setSendingTransferComplete:1];
         currentPeripheralUUID2 = [(WPTransfer *)self currentPeripheralUUID];
-        [(WPClient *)&v38 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, self, WPTransfer, v39.receiver, v39.super_class, v40.receiver, v40.super_class, v41.receiver, v41.super_class];
+        [(WPClient *)&v37 sendDataToCharacteristic:v17 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID2, self, WPTransfer, v38.receiver, v38.super_class, v39.receiver, v39.super_class, v40.receiver, v40.super_class];
       }
     }
 
@@ -1085,13 +1070,11 @@ LABEL_52:
   }
 
 LABEL_53:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   peripheralCopy = peripheral;
   if ([characteristic isEqualToString:@"6C251515-F290-4F91-808C-5123A0CD02E9"])
@@ -1113,12 +1096,12 @@ LABEL_53:
         }
 
         [(WPTransfer *)self setSendingTransferComplete:0];
-        v29.receiver = self;
-        v29.super_class = WPTransfer;
-        [(WPClient *)&v29 shouldSubscribe:0 toPeer:peripheralCopy withCharacteristic:@"6C251515-F290-4F91-808C-5123A0CD02E9" inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07"];
         v28.receiver = self;
         v28.super_class = WPTransfer;
-        [(WPClient *)&v28 disconnectFromPeer:peripheralCopy];
+        [(WPClient *)&v28 shouldSubscribe:0 toPeer:peripheralCopy withCharacteristic:@"6C251515-F290-4F91-808C-5123A0CD02E9" inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07"];
+        v27.receiver = self;
+        v27.super_class = WPTransfer;
+        [(WPClient *)&v27 disconnectFromPeer:peripheralCopy];
       }
 
       else if ([(WPTransfer *)self sentEOM])
@@ -1160,12 +1143,12 @@ LABEL_53:
           uUIDString = [currentPeripheralUUID UUIDString];
           currentlySubscribedCentral = [(WPTransfer *)self currentlySubscribedCentral];
           *buf = 138544130;
-          v31 = data;
-          v32 = 2114;
-          v33 = uUIDString;
-          v34 = 2114;
-          v35 = currentlySubscribedCentral;
-          v36 = 2048;
+          v30 = data;
+          v31 = 2114;
+          v32 = uUIDString;
+          v33 = 2114;
+          v34 = currentlySubscribedCentral;
+          v35 = 2048;
           selfCopy = self;
           _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "ATVSetup send data: %{public}@, peripheral: %{public}@, central: %{public}@, self: %p", buf, 0x2Au);
         }
@@ -1175,13 +1158,13 @@ LABEL_53:
         if (currentPeripheralUUID2)
         {
           currentPeripheralUUID3 = [(WPTransfer *)self currentPeripheralUUID];
-          [(WPClient *)&v27 sendDataToCharacteristic:v14 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID3, v26.receiver, v26.super_class, self, WPTransfer];
+          [(WPClient *)&v26 sendDataToCharacteristic:v14 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID3, v25.receiver, v25.super_class, self, WPTransfer];
         }
 
         else
         {
           currentPeripheralUUID3 = [(WPTransfer *)self currentlySubscribedCentral];
-          [(WPClient *)&v26 sendDataToCharacteristic:v14 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID3, self, WPTransfer, v27.receiver, v27.super_class];
+          [(WPClient *)&v25 sendDataToCharacteristic:v14 inService:@"2AE5F669-81BB-435F-961C-EADD8A30AF07" forPeer:currentPeripheralUUID3, self, WPTransfer, v26.receiver, v26.super_class];
         }
       }
     }
@@ -1212,14 +1195,12 @@ LABEL_53:
       [WPTransfer receivedData:forCharacteristic:inService:forPeripheral:];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral
 {
   stateCopy = state;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peripheralCopy = peripheral;
@@ -1233,17 +1214,15 @@ LABEL_53:
     v13 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
-      v16 = characteristicCopy;
-      v17 = 2114;
-      v18 = serviceCopy;
-      _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "ATVSetup subscribed to characteristic %{public}@ for service %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = characteristicCopy;
+      v16 = 2114;
+      v17 = serviceCopy;
+      _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "ATVSetup subscribed to characteristic %{public}@ for service %{public}@", &v14, 0x16u);
     }
 
     [(WPTransfer *)self receivedData:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transferFailed:(id)failed
@@ -1278,7 +1257,7 @@ LABEL_53:
 - (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service
 {
   subscribedCopy = subscribed;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   centralCopy = central;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1307,9 +1286,9 @@ LABEL_53:
           v17 = v16;
           currentlySubscribedCentral3 = [(WPTransfer *)self currentlySubscribedCentral];
           *buf = 138543618;
-          v44 = centralCopy;
-          v45 = 2114;
-          v46 = currentlySubscribedCentral3;
+          v43 = centralCopy;
+          v44 = 2114;
+          v45 = currentlySubscribedCentral3;
           _os_log_impl(&dword_274327000, v17, OS_LOG_TYPE_DEFAULT, "ATVSetup central %{public}@ has subscribed, but %{public}@ is already subscribed.  Sending back invalid connection message", buf, 0x16u);
         }
 
@@ -1336,7 +1315,7 @@ LABEL_53:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v44 = centralCopy;
+      v43 = centralCopy;
       _os_log_impl(&dword_274327000, v32, OS_LOG_TYPE_DEFAULT, "ATVSetup Central %{public}@ subscribed to ATVSetup characteristic", buf, 0xCu);
     }
 
@@ -1369,7 +1348,7 @@ LABEL_44:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = centralCopy;
+    v43 = centralCopy;
     _os_log_impl(&dword_274327000, v23, OS_LOG_TYPE_DEFAULT, "ATVSetup Central %{public}@ unsubscribed from ATVSetup characteristic", buf, 0xCu);
   }
 
@@ -1426,9 +1405,9 @@ LABEL_44:
     else
     {
       v36 = MEMORY[0x277CCA9B8];
-      v41 = *MEMORY[0x277CCA450];
-      v42 = @"Client unsubscribed before the transfer was complete";
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v40 = *MEMORY[0x277CCA450];
+      v41 = @"Client unsubscribed before the transfer was complete";
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v38 = [v36 errorWithDomain:@"WPErrorDomain" code:23 userInfo:v37];
 
       delegate3 = [(WPTransfer *)self delegate];
@@ -1452,8 +1431,6 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateDidChange:(int64_t)change
@@ -1493,26 +1470,20 @@ LABEL_45:
 
 - (void)advertisingFailedToStart:(void *)a1 ofType:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanningFailedToStart:(void *)a1 ofType:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceDiscovered:.cold.6()
@@ -1524,142 +1495,116 @@ LABEL_45:
 
 - (void)deviceDiscovered:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceDiscovered:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "ATVSetup redundant code hit. Discovered %@ (%@) but already trying to connect to it", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "ATVSetup redundant code hit. Discovered %@ (%@) but already trying to connect to it", v2, 0x16u);
 }
 
 - (void)deviceDiscovered:.cold.13()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "ATVSetup Discovered %@ (%@) but it's in the list of ignored devices", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_274327000, v1, OS_LOG_TYPE_DEBUG, "ATVSetup Discovered %@ (%@) but it's in the list of ignored devices", v2, 0x16u);
 }
 
 - (void)discoveredCharacteristicsAndServices:(void *)a3 forPeripheral:.cold.2(void *a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 UUIDString];
   v7 = [a3 currentPeripheralUUID];
   v8 = [v7 UUIDString];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "ATVSetup being told we've connected to a device %@ that we didn't request to connect to, ignoring - current peripheral %@", v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "ATVSetup being told we've connected to a device %@ that we didn't request to connect to, ignoring - current peripheral %@", v9, 0x16u);
 }
 
 - (void)receivedData:(void *)a3 forCharacteristic:inService:forPeripheral:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 currentPeripheralUUID];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_274327000, v4, OS_LOG_TYPE_ERROR, "ATVSetup data updated for a peripheral %@ we're not interested in %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_274327000, v4, OS_LOG_TYPE_ERROR, "ATVSetup data updated for a peripheral %@ we're not interested in %@", v6, 0x16u);
 }
 
 - (void)receivedData:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() delegate];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(void *)a1 .cold.4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_6_0() length];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(void *)a1 .cold.6(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_6_0() length];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(void *)a1 .cold.14(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 currentlySubscribedCentral];
   v5 = [a2 currentPeripheralUUID];
-  v7 = 138413058;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  v11 = 1024;
-  v12 = [a2 connectedToPeripheral];
-  v13 = 1024;
-  v14 = [a2 advertiserConnected];
-  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "ATVSetup Error: Trying to close a transfer on a WPTransfer object that is neither advertising:%@ or scanning:%@ or connected:%d, advconnected: %d", &v7, 0x22u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138413058;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  v10 = 1024;
+  v11 = [a2 connectedToPeripheral];
+  v12 = 1024;
+  v13 = [a2 advertiserConnected];
+  _os_log_error_impl(&dword_274327000, v3, OS_LOG_TYPE_ERROR, "ATVSetup Error: Trying to close a transfer on a WPTransfer object that is neither advertising:%@ or scanning:%@ or connected:%d, advconnected: %d", &v6, 0x22u);
 }
 
 - (void)transferFailed:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6_0() localizedDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)central:(void *)a3 subscribed:toCharacteristic:inService:.cold.3(uint64_t a1, void *a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 currentlySubscribedCentral];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(&dword_274327000, v4, OS_LOG_TYPE_DEBUG, "ATVSetup Warning: Central %@ did unsubscribe.  currentlySubscribedCentral is %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_274327000, v4, OS_LOG_TYPE_DEBUG, "ATVSetup Warning: Central %@ did unsubscribe.  currentlySubscribedCentral is %@", v6, 0x16u);
 }
 
 - (void)central:subscribed:toCharacteristic:inService:.cold.5()

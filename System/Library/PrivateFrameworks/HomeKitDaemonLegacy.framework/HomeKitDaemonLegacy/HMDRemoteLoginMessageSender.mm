@@ -17,7 +17,7 @@
 
 - (void)sendRemoteMessageWithName:(id)name payload:(id)payload responseHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   payloadCopy = payload;
   handlerCopy = handler;
@@ -31,11 +31,11 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v34 = v16;
-      v35 = 2112;
-      v36 = nameCopy;
-      v37 = 2112;
-      v38 = device;
+      v33 = v16;
+      v34 = 2112;
+      v35 = nameCopy;
+      v36 = 2112;
+      v37 = device;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ to %@", buf, 0x20u);
     }
 
@@ -46,42 +46,40 @@
 
     v20 = [HMDRemoteMessage secureMessageWithName:nameCopy destination:v19 messagePayload:payloadCopy];
     objc_initWeak(buf, selfCopy);
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __81__HMDRemoteLoginMessageSender_sendRemoteMessageWithName_payload_responseHandler___block_invoke;
-    v30 = &unk_2797355F8;
-    objc_copyWeak(&v32, buf);
-    v31 = handlerCopy;
-    [v20 setResponseHandler:&v27];
-    v21 = [(HMDRemoteLoginMessageSender *)selfCopy messageDispatcher:v27];
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __81__HMDRemoteLoginMessageSender_sendRemoteMessageWithName_payload_responseHandler___block_invoke;
+    v29 = &unk_2797355F8;
+    objc_copyWeak(&v31, buf);
+    v30 = handlerCopy;
+    [v20 setResponseHandler:&v26];
+    v21 = [(HMDRemoteLoginMessageSender *)selfCopy messageDispatcher:v26];
     [v21 sendMessage:v20 completionHandler:0];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(buf);
 
     goto LABEL_6;
   }
 
-  v23 = objc_autoreleasePoolPush();
+  v22 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v25 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v24 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    v26 = HMFGetLogIdentifier();
+    v25 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v34 = v26;
-    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Remote device to send the message is nil", buf, 0xCu);
+    v33 = v25;
+    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Remote device to send the message is nil", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v23);
+  objc_autoreleasePoolPop(v22);
   if (handlerCopy)
   {
     device = [MEMORY[0x277CCA9B8] hmErrorWithCode:54];
     (*(handlerCopy + 2))(handlerCopy, device, 0);
 LABEL_6:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDRemoteLoginMessageSender_sendRemoteMessageWithName_payload_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -160,12 +158,11 @@ uint64_t __81__HMDRemoteLoginMessageSender_sendRemoteMessageWithName_payload_res
 
 uint64_t __42__HMDRemoteLoginMessageSender_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_101637;
-  logCategory__hmf_once_v1_101637 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_101637;
+  logCategory__hmf_once_v1_101637 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

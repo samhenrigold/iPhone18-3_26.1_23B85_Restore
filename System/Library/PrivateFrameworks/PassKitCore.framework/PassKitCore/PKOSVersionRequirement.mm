@@ -157,37 +157,37 @@
 {
   compareCopy = compare;
   classCopy = class;
-  if ([classCopy isEqualToString:@"Mac"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_mac;
     iphone = [compareCopy mac];
   }
 
-  else if ([classCopy isEqualToString:@"iPhone"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_iphone;
     iphone = [compareCopy iphone];
   }
 
-  else if ([classCopy isEqualToString:@"Watch"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_watch;
     iphone = [compareCopy watch];
   }
 
-  else if ([classCopy isEqualToString:@"iPod"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_ipod;
     iphone = [compareCopy ipod];
   }
 
-  else if ([classCopy isEqualToString:@"iPad"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_ipad;
     iphone = [compareCopy ipad];
   }
 
-  else if ([classCopy isEqualToString:@"AppleTV"])
+  else if (objc_msgSend_isEqualToString_(classCopy))
   {
     mac = self->_appletv;
     iphone = [compareCopy appletv];
@@ -195,7 +195,7 @@
 
   else
   {
-    if (![classCopy isEqualToString:@"RealityDevice"])
+    if (!objc_msgSend_isEqualToString_(classCopy))
     {
       v11 = 0;
       goto LABEL_16;
@@ -215,7 +215,7 @@ LABEL_16:
 - (id)versionForDeviceClass:(id)class
 {
   classCopy = class;
-  if ([classCopy isEqualToString:@"Mac"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 40;
 LABEL_15:
@@ -223,37 +223,37 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if ([classCopy isEqualToString:@"iPhone"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 8;
     goto LABEL_15;
   }
 
-  if ([classCopy isEqualToString:@"Watch"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 48;
     goto LABEL_15;
   }
 
-  if ([classCopy isEqualToString:@"iPod"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 24;
     goto LABEL_15;
   }
 
-  if ([classCopy isEqualToString:@"iPad"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 16;
     goto LABEL_15;
   }
 
-  if ([classCopy isEqualToString:@"AppleTV"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 32;
     goto LABEL_15;
   }
 
-  if ([classCopy isEqualToString:@"RealityDevice"])
+  if (objc_msgSend_isEqualToString_(classCopy))
   {
     v5 = 56;
     goto LABEL_15;

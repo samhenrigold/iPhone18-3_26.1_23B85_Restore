@@ -22,7 +22,7 @@
 {
   if (self->fact.type == 1)
   {
-    SecCEReleaseContext(&self->fact.value);
+    SecCEReleaseContext(&self->fact.value.integer);
   }
 
   v3.receiver = self;

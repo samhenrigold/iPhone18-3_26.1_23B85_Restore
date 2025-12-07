@@ -24,7 +24,7 @@
   v14 = pointCopy;
   if (pointCopy)
   {
-    objc_msgSend_element(pointCopy, v10, v11, v12, v13);
+    objc_msgSend_element(pointCopy, v11, v12, v13);
     v19 = v78;
   }
 

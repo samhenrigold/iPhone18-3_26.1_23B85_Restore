@@ -12,20 +12,20 @@
 
 - (void)_handleActionSetForExecution:(id)execution message:(id)message
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = actionSetFromObject(execution);
-  v18[0] = &unk_283E737A8;
+  v17[0] = &unk_283E737A8;
   v7 = *MEMORY[0x277CD2060];
-  v17[0] = @"sourceType";
-  v17[1] = v7;
+  v16[0] = @"sourceType";
+  v16[1] = v7;
   uuid = [v6 uuid];
   uUIDString = [uuid UUIDString];
-  v18[1] = uUIDString;
-  v17[2] = @"kApplyDeviceUnlockKey";
+  v17[1] = uUIDString;
+  v16[2] = @"kApplyDeviceUnlockKey";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:!isPasscodeEnabledOnThisDevice()];
-  v18[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v17[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   v12 = MEMORY[0x277D0F818];
   v13 = *MEMORY[0x277CD2348];
@@ -34,33 +34,30 @@
   v15 = [v12 internalMessageWithName:v13 messagePayload:v11 responseHandler:responseHandler];
 
   [v6 execute:v15];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActionSetForConfirmation:(id)confirmation message:(id)message
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = actionSetFromObject(confirmation);
   v7 = isPasscodeEnabledOnThisDevice();
-  v16[0] = @"sourceType";
-  v16[1] = @"kApplyDeviceUnlockKey";
-  v17[0] = &unk_283E737A8;
+  v15[0] = @"sourceType";
+  v15[1] = @"kApplyDeviceUnlockKey";
+  v16[0] = &unk_283E737A8;
   v8 = [MEMORY[0x277CCABB0] numberWithInt:!v7];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   v10 = [MEMORY[0x277D0F818] messageWithMessage:messageCopy messagePayload:v9];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__HMDAssistantIntent__handleActionSetForConfirmation_message___block_invoke;
-  v13[3] = &unk_27867C768;
-  v15 = v7;
-  v14 = messageCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__HMDAssistantIntent__handleActionSetForConfirmation_message___block_invoke;
+  v12[3] = &unk_27867C768;
+  v14 = v7;
+  v13 = messageCopy;
   v11 = messageCopy;
-  [v6 isAccessValidForExecutionWithMessage:v10 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v6 isAccessValidForExecutionWithMessage:v10 completion:v12];
 }
 
 void __62__HMDAssistantIntent__handleActionSetForConfirmation_message___block_invoke(uint64_t a1, char a2, void *a3)
@@ -123,7 +120,7 @@ LABEL_8:
 
 - (void)_handleIntentRequestMessage:(id)message
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   intent = [(HMDAssistantIntent *)self intent];
   contents = [intent contents];
@@ -212,11 +209,11 @@ LABEL_32:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v35 = 138543618;
-        v36 = v25;
-        v37 = 2112;
-        v38 = v13;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Intent execution with entityType %@ is not yet supported.", &v35, 0x16u);
+        v34 = 138543618;
+        v35 = v25;
+        v36 = 2112;
+        v37 = v13;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Intent execution with entityType %@ is not yet supported.", &v34, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -247,30 +244,30 @@ LABEL_32:
         goto LABEL_43;
       }
 
-      v32 = MEMORY[0x277CCA9B8];
-      v33 = 3;
+      v31 = MEMORY[0x277CCA9B8];
+      v32 = 3;
     }
 
     else
     {
-      v28 = objc_autoreleasePoolPush();
+      v27 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v30 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v31 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v31;
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@The actionSet provided by the intent does not exist.", &v35, 0xCu);
+        v30 = HMFGetLogIdentifier();
+        v34 = 138543362;
+        v35 = v30;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@The actionSet provided by the intent does not exist.", &v34, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v28);
-      v32 = MEMORY[0x277CCA9B8];
-      v33 = 2;
+      objc_autoreleasePoolPop(v27);
+      v31 = MEMORY[0x277CCA9B8];
+      v32 = 2;
     }
 
-    v34 = [v32 hmErrorWithCode:v33];
-    [messageCopy respondWithError:v34];
+    v33 = [v31 hmErrorWithCode:v32];
+    [messageCopy respondWithError:v33];
 
 LABEL_43:
     goto LABEL_35;
@@ -282,17 +279,15 @@ LABEL_43:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = HMFGetLogIdentifier();
-    v35 = 138543362;
-    v36 = v17;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error - There is no content in intent to handle.", &v35, 0xCu);
+    v34 = 138543362;
+    v35 = v17;
+    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error - There is no content in intent to handle.", &v34, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
   firstObject = [MEMORY[0x277CCA9B8] hmErrorWithCode:58];
   [messageCopy respondWithError:firstObject];
 LABEL_35:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performWithGather:(id)gather message:(id)message
@@ -333,10 +328,9 @@ LABEL_35:
 
 void __33__HMDAssistantIntent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_166367;
-  logCategory__hmf_once_v4_166367 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_166367;
+  logCategory__hmf_once_v4_166367 = v0;
 }
 
 @end

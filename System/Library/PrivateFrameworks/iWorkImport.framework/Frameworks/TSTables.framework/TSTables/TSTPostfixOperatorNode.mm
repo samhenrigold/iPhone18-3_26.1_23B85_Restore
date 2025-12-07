@@ -15,42 +15,42 @@
 {
   v4 = *&options;
   textCopy = text;
-  v10 = objc_msgSend_children(self, v6, v7, v8, v9);
-  if (objc_msgSend_count(v10, v11, v12, v13, v14) != 1)
+  v9 = objc_msgSend_children(self, v6, v7, v8);
+  if (objc_msgSend_count(v9, v10, v11, v12) != 1)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTPostfixOperatorNode insertFormulaText:printingOptions:]", v17, v18);
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v22, v23);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v24, 38, 0, "PostfixOperatorNode doesn't have one argument");
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTPostfixOperatorNode insertFormulaText:printingOptions:]", v15);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v19);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v17, v20, 38, 0, "PostfixOperatorNode doesn't have one argument");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24);
   }
 
   if (v4)
   {
-    v30 = objc_msgSend_whitespaceBefore(self, v15, v16, v17, v18);
+    v25 = objc_msgSend_whitespaceBefore(self, v13, v14, v15);
 
-    if (v30)
+    if (v25)
     {
-      v32 = objc_msgSend_whitespaceBefore(self, v15, v31, v17, v18);
-      objc_msgSend_takeText_(textCopy, v33, v32, v34, v35);
+      v27 = objc_msgSend_whitespaceBefore(self, v13, v26, v15);
+      objc_msgSend_takeText_(textCopy, v28, v27, v29);
     }
   }
 
-  v36 = objc_msgSend_objectAtIndex_(v10, v15, 0, v17, v18);
-  objc_msgSend_insertFormulaText_printingOptions_(v36, v37, textCopy, v4, v38);
+  v30 = objc_msgSend_objectAtIndex_(v9, v13, 0, v15);
+  objc_msgSend_insertFormulaText_printingOptions_(v30, v31, textCopy, v4);
 
-  v43 = objc_msgSend_string(self, v39, v40, v41, v42);
-  objc_msgSend_takeText_withLanguage_(textCopy, v44, v43, *MEMORY[0x277D81448], v45);
+  v35 = objc_msgSend_string(self, v32, v33, v34);
+  objc_msgSend_takeText_withLanguage_(textCopy, v36, v35, *MEMORY[0x277D81448]);
 
   if (v4)
   {
-    v50 = objc_msgSend_whitespaceAfter(self, v46, v47, v48, v49);
+    v40 = objc_msgSend_whitespaceAfter(self, v37, v38, v39);
 
-    if (v50)
+    if (v40)
     {
-      v55 = objc_msgSend_whitespaceAfter(self, v51, v52, v53, v54);
-      objc_msgSend_takeText_(textCopy, v56, v55, v57, v58);
+      v44 = objc_msgSend_whitespaceAfter(self, v41, v42, v43);
+      objc_msgSend_takeText_(textCopy, v45, v44, v46);
     }
   }
 }
@@ -59,55 +59,55 @@
 {
   recursiveCopy = recursive;
   stackCopy = stack;
-  v14 = objc_msgSend_children(self, v10, v11, v12, v13);
-  if (objc_msgSend_count(v14, v15, v16, v17, v18) != 1)
+  v13 = objc_msgSend_children(self, v10, v11, v12);
+  if (objc_msgSend_count(v13, v14, v15, v16) != 1)
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTPostfixOperatorNode insertFormulaTextNonRecursive:phase:deferredWorkStack:]", v21, v22);
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v26, v27);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v29, v24, v28, 58, 0, "PostfixOperatorNode doesn't have one argument");
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTPostfixOperatorNode insertFormulaTextNonRecursive:phase:deferredWorkStack:]", v19);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 58, 0, "PostfixOperatorNode doesn't have one argument");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31, v32, v33);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
   }
 
-  v38 = objc_msgSend_printingOptions(stackCopy, v19, v20, v21, v22);
+  v32 = objc_msgSend_printingOptions(stackCopy, v17, v18, v19);
   if (!phase)
   {
     selfCopy = self;
-    v72 = selfCopy;
-    v73 = 1;
-    objc_msgSend_push_(stackCopy, v56, &v72, v57, v58);
+    v58 = selfCopy;
+    v59 = 1;
+    objc_msgSend_push_(stackCopy, v46, &v58, v47);
 
-    if (v38)
+    if (v32)
     {
-      v63 = objc_msgSend_whitespaceBefore(selfCopy, v59, v60, v61, v62);
+      v51 = objc_msgSend_whitespaceBefore(selfCopy, v48, v49, v50);
 
-      if (v63)
+      if (v51)
       {
-        v65 = objc_msgSend_whitespaceBefore(selfCopy, v59, v64, v61, v62);
-        objc_msgSend_takeText_(recursiveCopy, v66, v65, v67, v68);
+        v53 = objc_msgSend_whitespaceBefore(selfCopy, v48, v52, v50);
+        objc_msgSend_takeText_(recursiveCopy, v54, v53, v55);
       }
     }
 
-    v72 = objc_msgSend_objectAtIndex_(v14, v59, 0, v61, v62);
-    v73 = 0;
-    v51 = v72;
-    objc_msgSend_push_(stackCopy, v69, &v72, v70, v71);
+    v58 = objc_msgSend_objectAtIndex_(v13, v48, 0, v50);
+    v59 = 0;
+    v42 = v58;
+    objc_msgSend_push_(stackCopy, v56, &v58, v57);
 
     goto LABEL_11;
   }
 
-  v39 = objc_msgSend_string(self, v34, v35, v36, v37);
-  objc_msgSend_takeText_withLanguage_(recursiveCopy, v40, v39, *MEMORY[0x277D81448], v41);
+  v33 = objc_msgSend_string(self, v29, v30, v31);
+  objc_msgSend_takeText_withLanguage_(recursiveCopy, v34, v33, *MEMORY[0x277D81448]);
 
-  if (v38)
+  if (v32)
   {
-    v46 = objc_msgSend_whitespaceAfter(self, v42, v43, v44, v45);
+    v38 = objc_msgSend_whitespaceAfter(self, v35, v36, v37);
 
-    if (v46)
+    if (v38)
     {
-      v51 = objc_msgSend_whitespaceAfter(self, v47, v48, v49, v50);
-      objc_msgSend_takeText_(recursiveCopy, v52, v51, v53, v54);
+      v42 = objc_msgSend_whitespaceAfter(self, v39, v40, v41);
+      objc_msgSend_takeText_(recursiveCopy, v43, v42, v44);
 LABEL_11:
     }
   }
@@ -115,72 +115,72 @@ LABEL_11:
 
 - (void)buildASTNodeArray:(TSCEASTNodeArray *)array hostCell:(TSUCellCoord)cell symbolTable:(void *)table
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v9 = objc_msgSend_children(self, a2, array, *&cell, table, 0);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v56, v60, 16);
+  v53 = *MEMORY[0x277D85DE8];
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v9 = objc_msgSend_children(self, a2, array, *&cell, 0);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v48, v52, 16);
   if (v12)
   {
-    v13 = *v57;
+    v13 = *v49;
     do
     {
       v14 = 0;
       do
       {
-        if (*v57 != v13)
+        if (*v49 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        objc_msgSend_buildASTNodeArray_hostCell_symbolTable_(*(*(&v56 + 1) + 8 * v14++), v11, array, *&cell, table);
+        objc_msgSend_buildASTNodeArray_hostCell_symbolTable_(*(*(&v48 + 1) + 8 * v14++), v11, array, *&cell, table);
       }
 
       while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v56, v60, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v48, v52, 16);
     }
 
     while (v12);
   }
 
-  v19 = objc_msgSend_whitespaceBefore(self, v15, v16, v17, v18);
-  v20 = v19 == 0;
+  v18 = objc_msgSend_whitespaceBefore(self, v15, v16, v17);
+  v19 = v18 == 0;
 
-  if (!v20)
+  if (!v19)
   {
-    v25 = objc_msgSend_whitespaceBefore(self, v21, v22, v23, v24);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v25);
+    v23 = objc_msgSend_whitespaceBefore(self, v20, v21, v22);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 31, v23);
   }
 
-  if (*MEMORY[0x277D81590] == objc_msgSend_operatorChar(self, v21, v22, v23, v24))
+  if (*MEMORY[0x277D81590] == objc_msgSend_operatorChar(self, v20, v21, v22))
   {
-    TSCEASTTagOnlyElement::appendTagOnlyElement(array, 15, v27, v28, v29);
+    TSCEASTTagOnlyElement::appendTagOnlyElement(array, 15, v25, v26);
   }
 
-  else if (*MEMORY[0x277D815A8] == objc_msgSend_operatorChar(self, v26, v27, v28, v29))
+  else if (*MEMORY[0x277D815A8] == objc_msgSend_operatorChar(self, v24, v25, v26))
   {
-    TSCEASTTagOnlyElement::appendTagOnlyElement(array, 70, v35, v36, v37);
+    TSCEASTTagOnlyElement::appendTagOnlyElement(array, 70, v31, v32);
   }
 
   else
   {
-    v38 = MEMORY[0x277D81150];
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSTPostfixOperatorNode buildASTNodeArray:hostCell:symbolTable:]", v36, v37);
-    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v41, v42);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v44, v39, v43, 91, 0, "Undefined operator node");
+    v33 = MEMORY[0x277D81150];
+    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "[TSTPostfixOperatorNode buildASTNodeArray:hostCell:symbolTable:]", v32);
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTPostfixOperatorNode.mm", v36);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v38, v34, v37, 91, 0, "Undefined operator node");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41);
   }
 
-  v49 = objc_msgSend_whitespaceAfter(self, v30, v31, v32, v33);
-  v50 = v49 == 0;
+  v42 = objc_msgSend_whitespaceAfter(self, v27, v28, v29);
+  v43 = v42 == 0;
 
-  if (!v50)
+  if (!v43)
   {
-    v55 = objc_msgSend_whitespaceAfter(self, v51, v52, v53, v54);
-    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v55);
+    v47 = objc_msgSend_whitespaceAfter(self, v44, v45, v46);
+    TSCEASTWhitespaceElement::appendWhitespaceElement(array, 32, v47);
   }
 }
 
@@ -193,28 +193,28 @@ LABEL_11:
   storageCopy = storage;
   engineCopy = engine;
   nodesCopy = nodes;
-  v25 = ranges || objc_msgSend_operatorChar(self, v20, v21, v22, v23) == *MEMORY[0x277D815A8];
-  v26.receiver = self;
-  v26.super_class = TSTPostfixOperatorNode;
-  [(TSTOperatorNode *)&v26 addTSTCanvasReferencesToSet:setCopy inRangeContext:contextCopy withColorHelper:helperCopy preferringNodesFromStorage:storageCopy showingSpillRanges:v25 deepSearch:searchCopy calcEngine:engineCopy allVisitedNodes:nodesCopy];
+  v24 = ranges || objc_msgSend_operatorChar(self, v20, v21, v22) == *MEMORY[0x277D815A8];
+  v25.receiver = self;
+  v25.super_class = TSTPostfixOperatorNode;
+  [(TSTOperatorNode *)&v25 addTSTCanvasReferencesToSet:setCopy inRangeContext:contextCopy withColorHelper:helperCopy preferringNodesFromStorage:storageCopy showingSpillRanges:v24 deepSearch:searchCopy calcEngine:engineCopy allVisitedNodes:nodesCopy];
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[214], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E4498[214], v5);
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v8, v7, unarchiverCopy, v9);
+  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212F78FC, off_2812E4498[214], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_2212F78FC, off_2812E4498[214]);
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver

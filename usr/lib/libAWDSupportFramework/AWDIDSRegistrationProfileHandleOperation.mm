@@ -275,7 +275,6 @@ LABEL_13:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -287,7 +286,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -307,7 +305,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -322,7 +319,6 @@ LABEL_8:
   }
 
 LABEL_16:
-  resultCode = self->_resultCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -337,7 +333,6 @@ LABEL_9:
   }
 
 LABEL_17:
-  registrationError = self->_registrationError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -352,7 +347,6 @@ LABEL_10:
   }
 
 LABEL_18:
-  genericError = self->_genericError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -364,7 +358,6 @@ LABEL_11:
     }
 
 LABEL_20:
-    pOSIXError = self->_pOSIXError;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x100) == 0)
     {
@@ -375,7 +368,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  uRLError = self->_uRLError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -390,7 +382,6 @@ LABEL_12:
   }
 
 LABEL_21:
-  vettingStatus = self->_vettingStatus;
 
   PBDataWriterWriteUint32Field();
 }

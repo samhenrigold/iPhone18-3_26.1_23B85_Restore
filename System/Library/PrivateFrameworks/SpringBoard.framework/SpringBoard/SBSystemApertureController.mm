@@ -307,8 +307,8 @@ void __34__SBSystemApertureController_init__block_invoke_2(uint64_t a1)
 
       if (rootViewController)
       {
-        v8 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = SBLogSystemApertureController(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -329,8 +329,8 @@ void __34__SBSystemApertureController_init__block_invoke_2(uint64_t a1)
 
       if (rootViewController3 != curtainCloningShimViewController)
       {
-        v14 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = SBLogSystemApertureController(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -352,8 +352,8 @@ void __34__SBSystemApertureController_init__block_invoke_2(uint64_t a1)
 
         if (rootViewController4 != substituteSystemApertureViewController)
         {
-          v19 = SBLogSystemApertureController();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v22 = SBLogSystemApertureController(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
           }
@@ -376,8 +376,8 @@ void __34__SBSystemApertureController_init__block_invoke_2(uint64_t a1)
 
       if (rootViewController5 != mainCloningShimViewController)
       {
-        v26 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v30 = SBLogSystemApertureController(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -394,15 +394,15 @@ LABEL_42:
 
   else
   {
-    v27 = self->_auxillarySuperHighLevelWindow;
-    if (v27)
+    v31 = self->_auxillarySuperHighLevelWindow;
+    if (v31)
     {
-      rootViewController6 = [(UIWindow *)v27 rootViewController];
+      rootViewController6 = [(UIWindow *)v31 rootViewController];
 
       if (rootViewController6)
       {
-        v29 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v34 = SBLogSystemApertureController(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -415,16 +415,16 @@ LABEL_42:
       }
     }
 
-    v32 = self->_auxillarySuperHighLevelContinuityWindow;
-    if (v32)
+    v37 = self->_auxillarySuperHighLevelContinuityWindow;
+    if (v37)
     {
-      rootViewController8 = [(UIWindow *)v32 rootViewController];
-      v34 = self->_curtainCloningShimViewController;
+      rootViewController8 = [(UIWindow *)v37 rootViewController];
+      v39 = self->_curtainCloningShimViewController;
 
-      if (rootViewController8 != v34)
+      if (rootViewController8 != v39)
       {
-        v35 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v41 = SBLogSystemApertureController(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -436,16 +436,16 @@ LABEL_42:
       }
     }
 
-    v37 = self->_continuityWindow;
-    if (v37)
+    v43 = self->_continuityWindow;
+    if (v43)
     {
-      rootViewController9 = [(UIWindow *)v37 rootViewController];
-      v39 = self->_mainCloningShimViewController;
+      rootViewController9 = [(UIWindow *)v43 rootViewController];
+      v45 = self->_mainCloningShimViewController;
 
-      if (rootViewController9 != v39)
+      if (rootViewController9 != v45)
       {
-        v40 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v47 = SBLogSystemApertureController(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
         }
@@ -458,20 +458,20 @@ LABEL_42:
     }
 
     p_window = &self->_window;
-    v42 = self->_window;
-    if (v42)
+    v49 = self->_window;
+    if (v49)
     {
-      v43 = self->_substituteSystemApertureViewController;
+      v50 = self->_substituteSystemApertureViewController;
       p_mainCloningShimViewController = &self->_substituteSystemApertureViewController;
-      if (v43)
+      if (v50)
       {
-        rootViewController10 = [(UIWindow *)v42 rootViewController];
-        v45 = *p_mainCloningShimViewController;
+        rootViewController10 = [(UIWindow *)v49 rootViewController];
+        v52 = *p_mainCloningShimViewController;
 
-        if (rootViewController10 != v45)
+        if (rootViewController10 != v52)
         {
-          v26 = SBLogSystemApertureController();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v30 = SBLogSystemApertureController(v53);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             [SBSystemApertureController _ensureSystemAperturesOnCorrectDisplays];
           }
@@ -920,8 +920,7 @@ void __146__SBSystemApertureController__createHighLevelSystemApertureSceneWithId
     systemApertureSuppressionAssertions = self->_systemApertureSuppressionAssertions;
   }
 
-  [(NSMutableArray *)systemApertureSuppressionAssertions addObject:v4];
-  v8 = SBLogSystemApertureController();
+  v8 = SBLogSystemApertureController([(NSMutableArray *)systemApertureSuppressionAssertions addObject:v4]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -938,7 +937,7 @@ void __73__SBSystemApertureController_suppressSystemApertureCompletelyWithReason
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogSystemApertureController();
+  v4 = SBLogSystemApertureController(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -970,8 +969,7 @@ void __73__SBSystemApertureController_suppressSystemApertureCompletelyWithReason
     systemApertureSuppressEmptyHidingOnClonedDisplayAssertions = self->_systemApertureSuppressEmptyHidingOnClonedDisplayAssertions;
   }
 
-  [(NSMutableArray *)systemApertureSuppressEmptyHidingOnClonedDisplayAssertions addObject:v4];
-  v8 = SBLogSystemApertureController();
+  v8 = SBLogSystemApertureController([(NSMutableArray *)systemApertureSuppressEmptyHidingOnClonedDisplayAssertions addObject:v4]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -988,7 +986,7 @@ void __92__SBSystemApertureController_suppressHidingOfEmptySystemApertureOnClone
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogSystemApertureController();
+  v4 = SBLogSystemApertureController(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -1000,7 +998,7 @@ void __92__SBSystemApertureController_suppressHidingOfEmptySystemApertureOnClone
   [*(a1 + 32) _updateVisibilityForCloningAndSnapshots];
 }
 
-uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshots__block_invoke_2(uint64_t result, uint64_t a2)
+void *__69__SBSystemApertureController__updateVisibilityForCloningAndSnapshots__block_invoke_2(void *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -1008,8 +1006,8 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
     v6 = result;
     if (*(result + 40) == 1)
     {
-      [*(*(result + 32) + 64) setVisibleOnClonedDisplay:1];
-      if (*(v6 + 40))
+      [*(result[4] + 64) setVisibleOnClonedDisplay:1];
+      if (v6[5])
       {
         v7 = 2;
       }
@@ -1025,9 +1023,9 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
       v7 = 0;
     }
 
-    [*(*(v6 + 32) + 40) setCloningStyle:{v7, v3, v9, v4}];
-    [*(*(v6 + 32) + 48) setContentsDifferOnClonedDisplay:0];
-    v8 = *(*(v6 + 32) + 64);
+    [*(v6[4] + 40) setCloningStyle:{v7, v3, v9, v4}];
+    [*(v6[4] + 48) setContentsDifferOnClonedDisplay:0];
+    v8 = *(v6[4] + 64);
 
     return [v8 setContentsDifferOnClonedDisplay:0];
   }
@@ -1041,9 +1039,9 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
   {
     if (!self->_overrideRenderingStyleAssertion)
     {
-      v8 = [(SBSystemApertureViewController *)self->_systemApertureViewController overrideContainerRenderingStyleAssertion:3];
+      v9 = [(SBSystemApertureViewController *)self->_systemApertureViewController overrideContainerRenderingStyleAssertion:3];
       overrideRenderingStyleAssertion = self->_overrideRenderingStyleAssertion;
-      self->_overrideRenderingStyleAssertion = v8;
+      self->_overrideRenderingStyleAssertion = v9;
     }
 
     view = [(SBSystemApertureCaptureVisibilityShimViewController *)self->_mainCloningShimViewController view];
@@ -1055,9 +1053,9 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
     prototypingDefaultGainMapDefeatingLayer = self->_prototypingDefaultGainMapDefeatingLayer;
     if (!prototypingDefaultGainMapDefeatingLayer)
     {
-      v13 = objc_alloc_init(MEMORY[0x277CD9EA8]);
-      v14 = self->_prototypingDefaultGainMapDefeatingLayer;
-      self->_prototypingDefaultGainMapDefeatingLayer = v13;
+      v14 = objc_alloc_init(MEMORY[0x277CD9EA8]);
+      v15 = self->_prototypingDefaultGainMapDefeatingLayer;
+      self->_prototypingDefaultGainMapDefeatingLayer = v14;
 
       layer = [(UIWindow *)self->_auxillarySuperHighLevelWindow layer];
       [layer addSublayer:self->_prototypingDefaultGainMapDefeatingLayer];
@@ -1070,18 +1068,25 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
 
   else
   {
-    if (self->_overrideRenderingStyleAssertion && self->_isDisplayingAnyRequiredPriorityElements && [(NSMutableArray *)self->_systemApertureSuppressionAssertions count])
+    if (self->_overrideRenderingStyleAssertion)
     {
-      v3 = SBLogSystemApertureController();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      if (self->_isDisplayingAnyRequiredPriorityElements)
       {
-        *v16 = 0;
-        _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Forcing System Aperture visible in order to display required priority element", v16, 2u);
+        v3 = [(NSMutableArray *)self->_systemApertureSuppressionAssertions count];
+        if (v3)
+        {
+          v4 = SBLogSystemApertureController(v3);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+          {
+            *v17 = 0;
+            _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Forcing System Aperture visible in order to display required priority element", v17, 2u);
+          }
+        }
       }
     }
 
     [(SAInvalidatable *)self->_overrideRenderingStyleAssertion invalidateWithReason:@"No longer completely suppressing System Aperture"];
-    v4 = self->_overrideRenderingStyleAssertion;
+    v5 = self->_overrideRenderingStyleAssertion;
     self->_overrideRenderingStyleAssertion = 0;
 
     view3 = [(SBSystemApertureCaptureVisibilityShimViewController *)self->_mainCloningShimViewController view];
@@ -1091,7 +1096,7 @@ uint64_t __69__SBSystemApertureController__updateVisibilityForCloningAndSnapshot
     [view4 setHidden:0];
 
     [(CAGainMapLayer *)self->_prototypingDefaultGainMapDefeatingLayer removeFromSuperlayer];
-    v7 = self->_prototypingDefaultGainMapDefeatingLayer;
+    v8 = self->_prototypingDefaultGainMapDefeatingLayer;
     self->_prototypingDefaultGainMapDefeatingLayer = 0;
   }
 }

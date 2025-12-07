@@ -65,19 +65,19 @@
 
 - (void)countDidChange:(int64_t)change acknowledgementToken:(id)token
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   v7 = +[EMMessageRepository log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     queryIdentifier = [(_EMMessageRepositoryCountingQueryObserver *)self queryIdentifier];
-    v17 = 134218498;
+    v16 = 134218498;
     selfCopy = self;
-    v19 = 2114;
-    v20 = queryIdentifier;
-    v21 = 2114;
-    v22 = tokenCopy;
-    _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "<%p> Acknowledging count update for %{public}@: %{public}@", &v17, 0x20u);
+    v18 = 2114;
+    v19 = queryIdentifier;
+    v20 = 2114;
+    v21 = tokenCopy;
+    _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "<%p> Acknowledging count update for %{public}@: %{public}@", &v16, 0x20u);
   }
 
   [tokenCopy invoke];
@@ -102,8 +102,6 @@
       [(_EMMessageRepositoryCountingQueryObserver *)self cancel];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

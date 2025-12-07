@@ -39,25 +39,17 @@
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 17)
+  if (mode == 17 || mode == 15)
   {
-    v4 = off_30600;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 15)
+  else
   {
-    v4 = &off_30608;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (unint64_t)_numberOfOptionsForCustomEditMode:(int64_t)mode slot:(id)slot

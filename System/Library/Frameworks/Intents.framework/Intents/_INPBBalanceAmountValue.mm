@@ -3,6 +3,7 @@
 - (_INPBBalanceAmountValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -240,19 +241,18 @@ LABEL_22:
 
   if ([(_INPBBalanceAmountValue *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
   valueMetadata = [(_INPBBalanceAmountValue *)self valueMetadata];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBBalanceAmountValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -277,6 +277,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281118[string - 1];
   }
 
   return v4;

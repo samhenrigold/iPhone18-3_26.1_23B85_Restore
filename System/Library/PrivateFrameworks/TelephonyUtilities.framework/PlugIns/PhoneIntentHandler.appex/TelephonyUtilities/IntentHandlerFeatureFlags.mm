@@ -12,7 +12,7 @@
 - (BOOL)faceTimeNoFanOutEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -32,7 +32,7 @@
 - (BOOL)crrFullRecommendation
 {
   v2 = _os_feature_enabled_impl();
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -52,7 +52,7 @@
 - (BOOL)crrHandleRecommendation
 {
   v2 = _os_feature_enabled_impl();
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -72,7 +72,7 @@
 - (BOOL)faceTimeInvitationEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
@@ -92,28 +92,29 @@
 - (BOOL)emergencyServicesOverrideEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = v2 & _TUIsInternalInstall();
-  v4 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = _TUIsInternalInstall();
+  v4 = v2 & v3;
+  v5 = IntentHandlerDefaultLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"NO";
-    if (v3)
+    v6 = @"NO";
+    if (v4)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SiriPhone/emergencyServicesOverrideEnabled AND isInternalBuild: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SiriPhone/emergencyServicesOverrideEnabled AND isInternalBuild: %{public}@", &v8, 0xCu);
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)vmdEnabled
 {
   v2 = _os_feature_enabled_impl();
-  v3 = IntentHandlerDefaultLog();
+  v3 = IntentHandlerDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";

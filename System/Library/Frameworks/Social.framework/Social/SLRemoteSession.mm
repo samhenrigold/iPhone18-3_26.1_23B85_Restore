@@ -9,18 +9,18 @@
 {
   connectionCopy = connection;
   databaseCopy = database;
-  _SLLog(v4, 7, @"SLRemoteSession initializer called with connection %@ and database");
-  v12.receiver = self;
-  v12.super_class = SLRemoteSession;
-  v9 = [(SLRemoteSession *)&v12 init:connectionCopy];
-  v10 = v9;
-  if (v9)
+  _SLLog(v4, 7, @"SLRemoteSession initializer called with connection %@ and database", v9, v10, v11, v12, v13, connectionCopy);
+  v17.receiver = self;
+  v17.super_class = SLRemoteSession;
+  v14 = [(SLRemoteSession *)&v17 init];
+  v15 = v14;
+  if (v14)
   {
-    [(SLRemoteSession *)v9 setConnection:connectionCopy];
-    [(SLRemoteSession *)v10 setDatabase:databaseCopy];
+    [(SLRemoteSession *)v14 setConnection:connectionCopy];
+    [(SLRemoteSession *)v15 setDatabase:databaseCopy];
   }
 
-  return v10;
+  return v15;
 }
 
 - (BOOL)clientHasEntitlement:(id)entitlement

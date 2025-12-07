@@ -156,9 +156,11 @@ LABEL_14:
 
 - (void)setTitle:(id)title
 {
-  self->_title = [title copy];
+  v4 = [title copy];
+  title = self->_title;
+  self->_title = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, title);
 }
 
 - (BOOL)canPunchout
@@ -177,16 +179,20 @@ LABEL_14:
 
 - (void)_configureIconForAppProxy:(id)proxy
 {
-  self->_image = [MEMORY[0x277D755B8] _iconForResourceProxy:proxy format:5];
+  v4 = [MEMORY[0x277D755B8] _iconForResourceProxy:proxy format:5];
+  image = self->_image;
+  self->_image = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, image);
 }
 
 + (void)setLanguageCode:(id)code
 {
-  _languageCode = [code copy];
+  v3 = [code copy];
+  v4 = _languageCode;
+  _languageCode = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (SiriSharedUISashItemDelegate)delegate

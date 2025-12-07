@@ -2,9 +2,12 @@
 - (BOOL)_isBiometricOnlyPolicy:(int64_t)policy;
 - (BOOL)_isEvent:(int64_t)event contributingToResult:(id)result;
 - (BOOL)_setPragueInstructions:(id)instructions signature:(id)signature error:(id *)error;
+- (BOOL)_shouldFailOnAcmStatus:(int)status action:(id)action failureHandler:(id)handler;
 - (BOOL)_shouldRetryEvaluationForError:(id)error options:(id)options;
 - (BOOL)_updateACMContextWithOptions:(id)options policy:(int64_t)policy error:(id *)error;
 - (BOOL)_validatePassword:(int64_t)password options:(id)options uiDelegate:(id)delegate originator:(id)originator request:(id)request callerName:(id)name callerBundleId:(id)id reply:(id)self0;
+- (ContextPluginACM)initWithACMContext:(__ACMHandle *)context contextOwner:(BOOL)owner flags:(int64_t)flags module:(id)module;
+- (id)_acmParamForPolicy:(int64_t)policy options:(id)options userId:(unsigned int)id secondPass:(BOOL)pass;
 - (id)_decodeOperation:(id)operation;
 - (id)_fillConstraint:(id)constraint options:(id)options userId:(id)id error:(id *)error;
 - (id)_operationAsString:(id)string error:(id *)error;
@@ -27,6 +30,7 @@
 - (void)_validateACL:(id)l evaluateOperation:(id)operation options:(id)options uiDelegate:(id)delegate originator:(id)originator request:(id)request callerName:(id)name callerBundleId:(id)self0 reply:(id)self1;
 - (void)_validateOperation:(id)operation aclRef:(id)ref evaluateOperation:(id)evaluateOperation options:(id)options uiDelegate:(id)delegate originator:(id)originator request:(id)request reply:(id)self0;
 - (void)_validateOperations:(id)operations aclRef:(id)ref evaluateOperation:(id)operation options:(id)options uiDelegate:(id)delegate originator:(id)originator request:(id)request currentResult:(id)self0 reply:(id)self1;
+- (void)_verifyACMPolicy:(char *)policy acmParameter:(id)parameter maxGlobalCredentialAge:(unsigned int)age retryAllowed:(BOOL)allowed reply:(id)reply;
 - (void)authMethodWithReply:(id)reply;
 - (void)checkCredentialSatisfied:(int64_t)satisfied policy:(int64_t)policy reply:(id)reply;
 - (void)credentialEncodingSeedWithReply:(id)reply;
@@ -56,6 +60,32 @@
   [(ContextPluginACM *)&v3 dealloc];
 }
 
+- (ContextPluginACM)initWithACMContext:(__ACMHandle *)context contextOwner:(BOOL)owner flags:(int64_t)flags module:(id)module
+{
+  v16.receiver = self;
+  v16.super_class = ContextPluginACM;
+  v7 = [(ContextPluginACM *)&v16 initWithContextOwner:owner underlyingPtr:context flags:flags moduleRef:module];
+  v8 = v7;
+  if (v7)
+  {
+    v7->_acmContext = context;
+    v7->_instanceId = ACMContextGetTrackingNumber(context);
+    v9 = [[LACACMHelper alloc] initWithACMContext:v8->_acmContext];
+    acmHelper = v8->_acmHelper;
+    v8->_acmHelper = v9;
+
+    v11 = +[MechanismManagerACM sharedInstance];
+    mechanismManager = v8->_mechanismManager;
+    v8->_mechanismManager = v11;
+
+    v13 = +[AuthenticationManager sharedInstance];
+    authenticationManager = v8->_authenticationManager;
+    v8->_authenticationManager = v13;
+  }
+
+  return v8;
+}
+
 - (void)_releaseGracefully:(BOOL)gracefully
 {
   gracefullyCopy = gracefully;
@@ -77,43 +107,134 @@
   if (acmContext)
   {
     TrackingNumber = ACMContextGetTrackingNumber(acmContext);
-    v10 = sub_26D8();
-    v11 = v10;
+    v10 = TrackingNumber;
+    v11 = sub_26D8(TrackingNumber);
+    v12 = v11;
     if (gracefullyCopy)
     {
-      v12 = OS_LOG_TYPE_INFO;
+      v13 = OS_LOG_TYPE_INFO;
     }
 
     else
     {
-      v12 = OS_LOG_TYPE_ERROR;
+      v13 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(v10, v12))
+    if (os_log_type_enabled(v11, v13))
     {
       *buf = 67109634;
-      v17 = TrackingNumber;
-      v18 = 2082;
-      v19 = v6;
-      v20 = 1024;
+      v18 = v10;
+      v19 = 2082;
+      v20 = v6;
+      v21 = 1024;
       contextOwner = [(ContextPluginACM *)self contextOwner];
-      _os_log_impl(&def_1FF08, v11, v12, "Deleting ACMContext:%u %{public}s, destroy:%d", buf, 0x18u);
+      _os_log_impl(&def_1FF08, v12, v13, "Deleting ACMContext:%u %{public}s, destroy:%d", buf, 0x18u);
     }
 
-    v13 = ACMContextDelete(self->_acmContext, [(ContextPluginACM *)self contextOwner]);
-    if (v13)
+    v14 = ACMContextDelete(self->_acmContext, [(ContextPluginACM *)self contextOwner]);
+    if (v14)
     {
-      v14 = v13;
-      v15 = sub_26D8();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v15 = v14;
+      v16 = sub_26D8(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        sub_18D5C(TrackingNumber, v14, v15);
+        sub_18D5C(v10, v15, v16);
       }
     }
 
     self->_acmContext = 0;
     [(LACACMHelper *)self->_acmHelper clear];
   }
+}
+
+- (id)_acmParamForPolicy:(int64_t)policy options:(id)options userId:(unsigned int)id secondPass:(BOOL)pass
+{
+  passCopy = pass;
+  v7 = *&id;
+  optionsCopy = options;
+  v10 = objc_opt_new();
+  if (policy == 1)
+  {
+    goto LABEL_4;
+  }
+
+  if (policy == 1008)
+  {
+    if (passCopy)
+    {
+LABEL_4:
+      v11 = [LACACMParameter acmParameterWithUserId:v7];
+LABEL_5:
+      v12 = v11;
+      [v10 addParameter:v11];
+    }
+  }
+
+  else
+  {
+    if ([LACPolicyUtilities isApplePayPolicy:policy])
+    {
+      v13 = !passCopy;
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+
+    if (!v13 && +[DaemonUtils deviceHasPearl])
+    {
+      v11 = [LACACMParameter acmParameterWithTimeOffset:500];
+      goto LABEL_5;
+    }
+  }
+
+  if ([LACPolicyUtilities isDTOPolicy:policy options:optionsCopy])
+  {
+    v14 = [optionsCopy objectForKeyedSubscript:&off_325F0];
+    bOOLValue = [v14 BOOLValue];
+
+    if (bOOLValue)
+    {
+      v16 = +[LACACMParameter acmParameterDoNotStartDTOTimers];
+      [v10 addParameter:v16];
+    }
+  }
+
+  v17 = [optionsCopy objectForKeyedSubscript:&off_32608];
+  v18 = v17;
+  if (v17)
+  {
+    [v17 floatValue];
+    v20 = [LACACMParameter acmParameterWithTimeOffset:fmaxf((600.0 - v19) * 1000.0, 0.0)];
+    [v10 addParameter:v20];
+  }
+
+  parameterCount = [v10 parameterCount];
+  if (parameterCount)
+  {
+    v22 = sub_26D8(parameterCount);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = 138412290;
+      v27 = v10;
+      _os_log_impl(&def_1FF08, v22, OS_LOG_TYPE_DEFAULT, "Will use ACM parameter: %@", &v26, 0xCu);
+    }
+  }
+
+  if ([v10 parameterCount])
+  {
+    v23 = v10;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  v24 = v23;
+
+  return v23;
 }
 
 - (BOOL)_updateACMContextWithOptions:(id)options policy:(int64_t)policy error:(id *)error
@@ -393,7 +514,7 @@ LABEL_63:
       intValue = [v60 intValue];
       if (originatorCopy)
       {
-        [originatorCopy auditToken];
+        objc_msgSend_auditToken(originatorCopy);
       }
 
       else
@@ -616,6 +737,21 @@ LABEL_52:
 LABEL_64:
 }
 
+- (void)_verifyACMPolicy:(char *)policy acmParameter:(id)parameter maxGlobalCredentialAge:(unsigned int)age retryAllowed:(BOOL)allowed reply:(id)reply
+{
+  v7 = *&age;
+  replyCopy = reply;
+  acmHelper = self->_acmHelper;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_51C0;
+  v14[3] = &unk_306F0;
+  v15 = replyCopy;
+  policyCopy = policy;
+  v13 = replyCopy;
+  [(LACACMHelper *)acmHelper preflightPolicy:policy parameters:parameter maxGlobalCredentialAge:v7 processRequirement:v14];
+}
+
 - (void)verifyFileVaultUser:(id)user volumeUuid:(id)uuid options:(unint64_t)options reply:(id)reply
 {
   replyCopy = reply;
@@ -647,13 +783,13 @@ LABEL_64:
   {
     if (([v8 BOOLValue] & v11) == 1)
     {
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_55A0;
-      v18[3] = &unk_30718;
-      v11 = &v19;
-      v19 = errorCopy;
-      v12 = sub_55A0(v18);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_55A0;
+      v19[3] = &unk_30718;
+      v11 = &v20;
+      v20 = errorCopy;
+      v12 = sub_55A0(v19);
       v14 = 1;
     }
 
@@ -669,21 +805,22 @@ LABEL_64:
     v14 = 0;
   }
 
-  v15 = ([v9 BOOLValue] ^ 1) & (v13 | v12);
-  if (v15 == 1)
+  bOOLValue = [v9 BOOLValue];
+  v16 = (bOOLValue ^ 1) & (v13 | v12);
+  if (v16 == 1)
   {
-    v16 = sub_26D8();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_26D8(bOOLValue);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
       selfCopy = self;
-      v22 = 2112;
-      v23 = errorCopy;
-      v24 = 2112;
-      v25 = v8;
-      v26 = 2112;
-      v27 = v9;
-      _os_log_impl(&def_1FF08, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ retries evaluation for error: %@ lockoutRecovery:%@ nonInteractive:%@", buf, 0x2Au);
+      v23 = 2112;
+      v24 = errorCopy;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&def_1FF08, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ retries evaluation for error: %@ lockoutRecovery:%@ nonInteractive:%@", buf, 0x2Au);
     }
   }
 
@@ -691,7 +828,7 @@ LABEL_64:
   {
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)_updateRecoveryRetryCountIfNeeded:(id)needed request:(id)request userId:(id)id
@@ -789,31 +926,31 @@ LABEL_64:
 
 - (id)_unsatisfiedListForRequirement:(__ACMRequirement *)requirement
 {
-  if (ACMRequirementGetState(requirement, a2) == 2)
+  if (ACMRequirementGetState() == 2)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  else if (ACMRequirementGetType(requirement, v5) == 7)
+  else if (ACMRequirementGetType() == 7)
   {
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_635C;
-    v12[3] = &unk_30848;
-    v12[4] = self;
-    v13 = objc_opt_new();
-    v8 = v13;
-    ACMRequirementGetSubrequirements(requirement, v12);
-    v6 = [v8 componentsJoinedByString:{@", "}];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_635C;
+    v9[3] = &unk_30848;
+    v9[4] = self;
+    v10 = objc_opt_new();
+    v6 = v10;
+    ACMRequirementGetSubrequirements(requirement, v9);
+    v5 = [v6 componentsJoinedByString:{@", "}];
   }
 
   else
   {
-    Type = ACMRequirementGetType(requirement, v7);
-    v6 = [NSString stringWithFormat:@"%d:%d", Type, ACMRequirementGetState(requirement, v10)];
+    Type = ACMRequirementGetType();
+    v5 = [NSString stringWithFormat:@"%d:%d", Type, ACMRequirementGetState()];
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)finishedAuthenticationForPolicy:(int64_t)policy constraintData:(id)data operation:(id)operation internalInfo:(id)info uiDelegate:(id)delegate originator:(id)originator request:(id)request availabilityEvents:(id)self0 result:(id)self1 error:(id)self2 reply:(id)self3
@@ -975,6 +1112,112 @@ LABEL_13:
   return resultCopy;
 }
 
+- (BOOL)_shouldFailOnAcmStatus:(int)status action:(id)action failureHandler:(id)handler
+{
+  4294967271 = *&status;
+  actionCopy = action;
+  handlerCopy = handler;
+  if (4294967271 <= -22)
+  {
+    if (4294967271 > -24)
+    {
+      if (4294967271 == -23)
+      {
+        v11 = @"Owner is not present.";
+        v12 = -1;
+        v13 = 25;
+      }
+
+      else
+      {
+        v11 = @"Developer mode transition disabled";
+        v12 = -1;
+        v13 = 24;
+      }
+    }
+
+    else
+    {
+      if (4294967271 != -28)
+      {
+        if (4294967271 == -25)
+        {
+          4294967271 = [NSString stringWithFormat:@"%@ on ACMContext %u failed: %d", actionCopy, [(ContextPluginACM *)self instanceId], 4294967271];
+          v10 = [LAErrorHelper errorWithCode:-1011 subcode:0 message:4294967271];
+LABEL_23:
+          v15 = v10;
+          handlerCopy[2](handlerCopy, 0, v10);
+
+          goto LABEL_24;
+        }
+
+LABEL_22:
+        4294967271 = [NSString stringWithFormat:@"%@ on ACMContext %u failed: %d", actionCopy, [(ContextPluginACM *)self instanceId], 4294967271];
+        v10 = [LAErrorHelper internalErrorWithMessage:4294967271];
+        goto LABEL_23;
+      }
+
+      v11 = @"Unapproved hardware";
+      v12 = -1;
+      v13 = 30;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (4294967271 <= -4)
+  {
+    if (4294967271 == -21)
+    {
+      v11 = @"Pay is Locked";
+      v12 = -1;
+      v13 = 23;
+    }
+
+    else
+    {
+      if (4294967271 != -14)
+      {
+        goto LABEL_22;
+      }
+
+      v11 = @"Not available";
+      v12 = -1020;
+      v13 = 0;
+    }
+
+LABEL_18:
+    v14 = [LAErrorHelper errorWithCode:v12 subcode:v13 message:v11];
+    goto LABEL_19;
+  }
+
+  if (4294967271 == -3)
+  {
+    if (!+[LAUtils isDaytona])
+    {
+      goto LABEL_22;
+    }
+
+    v14 = [LAErrorHelper errorDeviceDoesNotSupportAction:actionCopy];
+LABEL_19:
+    4294967271 = v14;
+    handlerCopy[2](handlerCopy, 0, v14);
+LABEL_24:
+
+    LOBYTE(4294967271) = 1;
+    goto LABEL_25;
+  }
+
+  if (4294967271)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_25:
+
+  return 4294967271;
+}
+
 - (unsigned)_credentialTypeForRequirementType:(unsigned int)type
 {
   v4 = type - 1;
@@ -983,7 +1226,7 @@ LABEL_13:
     return dword_260F8[v4];
   }
 
-  v6 = sub_26D8();
+  v6 = sub_26D8(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_18DF8(type, v6);
@@ -994,7 +1237,7 @@ LABEL_13:
 
 - (void)_removeRequestedCredentials:(__ACMRequirement *)credentials
 {
-  Type = ACMRequirementGetType(credentials, a2);
+  Type = ACMRequirementGetType();
   if (Type == 7)
   {
     v15[0] = _NSConcreteStackBlock;
@@ -1007,23 +1250,24 @@ LABEL_13:
 
   else
   {
-    v7 = Type;
-    if (ACMRequirementGetState(credentials, v6) == 1)
+    v6 = Type;
+    if (ACMRequirementGetState() == 1)
     {
-      v8 = [(ContextPluginACM *)self _credentialTypeForRequirementType:v7];
-      if (v8)
+      v7 = [(ContextPluginACM *)self _credentialTypeForRequirementType:v6];
+      if (v7)
       {
-        v9 = v8;
+        v8 = v7;
         acmHelper = self->_acmHelper;
         v14 = 0;
-        v11 = [(LACACMHelper *)acmHelper removeCredentialsOfType:v9 error:&v14];
-        v12 = v14;
-        if ((v11 & 1) == 0)
+        v10 = [(LACACMHelper *)acmHelper removeCredentialsOfType:v8 error:&v14];
+        v11 = v14;
+        v12 = v11;
+        if ((v10 & 1) == 0)
         {
-          v13 = sub_26D8();
+          v13 = sub_26D8(v11);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            sub_18E70(v12, v7, v13);
+            sub_18E70(v12, v6, v13);
           }
         }
       }
@@ -1140,7 +1384,7 @@ LABEL_20:
 
     if (originatorCopy)
     {
-      [originatorCopy auditToken];
+      objc_msgSend_auditToken(originatorCopy);
     }
 
     else
@@ -1731,24 +1975,8 @@ LABEL_47:
         v56 = v38;
         v59 = v37;
         *buf = 0;
-        if (![v33 count])
+        if (![v33 count] || (v88 = v33, v89 = &off_328C0, v87 = operationCopy, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v88, &v87, 1), v61 = v33, v40 = objc_claimAutoreleasedReturnValue(), v90 = v40, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v90, &v89, 1), v41 = objc_claimAutoreleasedReturnValue(), v42 = sub_11BC0(refCopy, v41, buf), v41, v40, v33 = v61, v42))
         {
-          goto LABEL_18;
-        }
-
-        v88 = v33;
-        v89 = &off_328C0;
-        v87 = operationCopy;
-        [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-        v40 = v61 = v33;
-        v90 = v40;
-        v41 = [NSDictionary dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-        v42 = sub_11BC0(refCopy, v41, buf);
-
-        v33 = v61;
-        if (v42)
-        {
-LABEL_18:
 
           v27 = v64;
           goto LABEL_19;
@@ -2905,7 +3133,7 @@ LABEL_28:
 {
   originatorCopy = originator;
   replyCopy = reply;
-  v10 = sub_26D8();
+  v10 = sub_26D8(replyCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

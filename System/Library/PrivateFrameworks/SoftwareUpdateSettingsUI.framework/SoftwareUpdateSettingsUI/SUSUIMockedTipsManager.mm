@@ -79,7 +79,6 @@ uint64_t __39__SUSUIMockedTipsManager_sharedManager__block_invoke()
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -526,7 +526,7 @@ LABEL_61:
 
         if (objectCopy)
         {
-          [(objc_object *)objectCopy transform];
+          objc_msgSend_transform(objectCopy);
         }
 
         else
@@ -760,7 +760,7 @@ LABEL_128:
 
 - (BOOL)CA_validateValue:(id)value forKey:(id)key
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!value)
   {
     goto LABEL_12;
@@ -778,14 +778,14 @@ LABEL_128:
   else if (v7 != 465 && v7 != 707 && v7 != 703)
   {
 LABEL_12:
-    v9.receiver = self;
-    v9.super_class = CAKeyframeAnimation;
-    return [&v9 CA_validateValue:value forKey:key];
+    v10.receiver = self;
+    v10.super_class = CAKeyframeAnimation;
+    return [&v10 CA_validateValue:value forKey:key];
   }
 
-  objc_opt_class();
+  v8 = objc_opt_class();
 
-  return CAObject_validateArrayOfClass(value);
+  return CAObject_validateArrayOfClass(value, v8);
 }
 
 - (void)_copyRenderAnimationForLayer:(id)layer

@@ -26,9 +26,11 @@
 
 uint64_t __58__ICMusicSubscriptionStatusMonitor__sharedInstanceManager__block_invoke()
 {
-  _sharedInstanceManager_sSharedInstanceManager = [[ICKeyedSharedInstanceManager alloc] initWithInstantiationHandler:&__block_literal_global_24];
+  v0 = [[ICKeyedSharedInstanceManager alloc] initWithInstantiationHandler:&__block_literal_global_24];
+  v1 = _sharedInstanceManager_sSharedInstanceManager;
+  _sharedInstanceManager_sSharedInstanceManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_sharedInstanceManager

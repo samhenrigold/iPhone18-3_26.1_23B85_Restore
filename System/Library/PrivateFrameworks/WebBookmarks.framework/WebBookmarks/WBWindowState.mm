@@ -16,6 +16,7 @@
 - (id)localOrUnnamedTabGroupForRestoration:(BOOL)restoration inProfileWithIdentifier:(id)identifier deviceIdentifier:(id)deviceIdentifier;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
+- (void)setPrefersSidebarVisible:(BOOL)visible;
 @end
 
 @implementation WBWindowState
@@ -153,20 +154,19 @@ LABEL_3:
 
     v27 = [representationCopy safari_stringForKey:*MEMORY[0x277D4A668] returningNilIfEmpty:1];
     v28 = v27;
-    v29 = *MEMORY[0x277D49BD8];
     if (v27)
     {
-      v30 = v27;
+      v29 = v27;
     }
 
     else
     {
-      v30 = *MEMORY[0x277D49BD8];
+      v29 = *MEMORY[0x277D49BD8];
     }
 
-    [(WBWindowState *)v13 setActiveProfileIdentifier:v30];
+    [(WBWindowState *)v13 setActiveProfileIdentifier:v29];
 
-    v31 = v13;
+    v30 = v13;
   }
 
   return v13;
@@ -202,70 +202,7 @@ LABEL_3:
 - (BOOL)isEqualToWindowState:(id)state
 {
   stateCopy = state;
-  if (![(WBWindowState *)self isEqual:stateCopy])
-  {
-    goto LABEL_10;
-  }
-
-  localTabGroup = [(WBWindowState *)self localTabGroup];
-  localTabGroup2 = [stateCopy localTabGroup];
-  v7 = WBSIsEqual();
-
-  if (!v7)
-  {
-    goto LABEL_10;
-  }
-
-  privateTabGroup = [(WBWindowState *)self privateTabGroup];
-  privateTabGroup2 = [stateCopy privateTabGroup];
-  v10 = WBSIsEqual();
-
-  if (!v10)
-  {
-    goto LABEL_10;
-  }
-
-  dateClosed = [(WBWindowState *)self dateClosed];
-  dateClosed2 = [stateCopy dateClosed];
-  v13 = WBSIsEqual();
-
-  if (!v13)
-  {
-    goto LABEL_10;
-  }
-
-  extraAttributes = [(WBWindowState *)self extraAttributes];
-  extraAttributes2 = [stateCopy extraAttributes];
-  v16 = WBSIsEqual();
-
-  if (!v16)
-  {
-    goto LABEL_10;
-  }
-
-  tabGroupsToActiveTabs = [(WBWindowState *)self tabGroupsToActiveTabs];
-  tabGroupsToActiveTabs2 = [stateCopy tabGroupsToActiveTabs];
-  v19 = WBSIsEqual();
-
-  if (!v19)
-  {
-    goto LABEL_10;
-  }
-
-  activeProfileIdentifier = [(WBWindowState *)self activeProfileIdentifier];
-  activeProfileIdentifier2 = [stateCopy activeProfileIdentifier];
-  v22 = WBSIsEqual();
-
-  if (!v22)
-  {
-    goto LABEL_10;
-  }
-
-  profilesToActiveTabGroups = [(WBWindowState *)self profilesToActiveTabGroups];
-  profilesToActiveTabGroups2 = [stateCopy profilesToActiveTabGroups];
-  v25 = WBSIsEqual();
-
-  if (v25)
+  if (-[WBWindowState isEqual:](self, "isEqual:", stateCopy) && (-[WBWindowState localTabGroup](self, "localTabGroup"), v5 = objc_claimAutoreleasedReturnValue(), [stateCopy localTabGroup], v6 = objc_claimAutoreleasedReturnValue(), v7 = WBSIsEqual(), v6, v5, v7) && (-[WBWindowState privateTabGroup](self, "privateTabGroup"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "privateTabGroup"), v9 = objc_claimAutoreleasedReturnValue(), v10 = WBSIsEqual(), v9, v8, v10) && (-[WBWindowState dateClosed](self, "dateClosed"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "dateClosed"), v12 = objc_claimAutoreleasedReturnValue(), v13 = WBSIsEqual(), v12, v11, v13) && (-[WBWindowState extraAttributes](self, "extraAttributes"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "extraAttributes"), v15 = objc_claimAutoreleasedReturnValue(), v16 = WBSIsEqual(), v15, v14, v16) && (-[WBWindowState tabGroupsToActiveTabs](self, "tabGroupsToActiveTabs"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "tabGroupsToActiveTabs"), v18 = objc_claimAutoreleasedReturnValue(), v19 = WBSIsEqual(), v18, v17, v19) && (-[WBWindowState activeProfileIdentifier](self, "activeProfileIdentifier"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "activeProfileIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), v22 = WBSIsEqual(), v21, v20, v22) && (-[WBWindowState profilesToActiveTabGroups](self, "profilesToActiveTabGroups"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stateCopy, "profilesToActiveTabGroups"), v24 = objc_claimAutoreleasedReturnValue(), v25 = WBSIsEqual(), v24, v23, v25))
   {
     unnamedTabGroupUUIDs = [(WBWindowState *)self unnamedTabGroupUUIDs];
     unnamedTabGroupUUIDs2 = [stateCopy unnamedTabGroupUUIDs];
@@ -274,7 +211,6 @@ LABEL_3:
 
   else
   {
-LABEL_10:
     v28 = 0;
   }
 
@@ -341,58 +277,58 @@ LABEL_10:
 
 - (WBWindowState)initWithCoder:(id)coder
 {
-  v42[4] = *MEMORY[0x277D85DE8];
+  v41[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v38 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A670]];
-  v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateClosed"];
+  v37 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A670]];
+  v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dateClosed"];
   v4 = MEMORY[0x277CBEB98];
-  v42[0] = objc_opt_class();
-  v42[1] = objc_opt_class();
-  v42[2] = objc_opt_class();
-  v42[3] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
+  v41[0] = objc_opt_class();
+  v41[1] = objc_opt_class();
+  v41[2] = objc_opt_class();
+  v41[3] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
   v6 = [v4 setWithArray:v5];
-  v34 = [coderCopy decodeObjectOfClasses:v6 forKey:@"extraAttributes"];
+  v33 = [coderCopy decodeObjectOfClasses:v6 forKey:@"extraAttributes"];
 
-  v33 = [coderCopy decodeIntForKey:@"identifier"];
-  v37 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localTabGroup"];
+  v32 = [coderCopy decodeIntForKey:@"identifier"];
+  v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localTabGroup"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"privateTabGroup"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sceneID"];
   v9 = MEMORY[0x277CBEB98];
-  v41[0] = objc_opt_class();
-  v41[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
-  v11 = [v9 setWithArray:v10];
-  v32 = [coderCopy decodeObjectOfClasses:v11 forKey:*MEMORY[0x277D4A6C0]];
-
-  v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5D8]];
-  v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A668]];
-  v12 = MEMORY[0x277CBEB98];
   v40[0] = objc_opt_class();
   v40[1] = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
-  v14 = [v12 setWithArray:v13];
-  v30 = [coderCopy decodeObjectOfClasses:v14 forKey:*MEMORY[0x277D4A6A8]];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+  v11 = [v9 setWithArray:v10];
+  v31 = [coderCopy decodeObjectOfClasses:v11 forKey:*MEMORY[0x277D4A6C0]];
 
-  v15 = MEMORY[0x277CBEB98];
+  v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A5D8]];
+  v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A668]];
+  v12 = MEMORY[0x277CBEB98];
   v39[0] = objc_opt_class();
   v39[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v14 = [v12 setWithArray:v13];
+  v29 = [coderCopy decodeObjectOfClasses:v14 forKey:*MEMORY[0x277D4A6A8]];
+
+  v15 = MEMORY[0x277CBEB98];
+  v38[0] = objc_opt_class();
+  v38[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
   v17 = [v15 setWithArray:v16];
-  v28 = [coderCopy decodeObjectOfClasses:v17 forKey:*MEMORY[0x277D4A6C8]];
+  v27 = [coderCopy decodeObjectOfClasses:v17 forKey:*MEMORY[0x277D4A6C8]];
 
   v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277D4A6B0]];
 
-  v19 = [(WBWindowState *)self initWithUUID:v29 activeTabGroupUUID:v38 localTabGroup:v37 privateTabGroup:v7 sceneID:v8 windowID:v33];
-  [(WBWindowState *)v19 setDateClosed:v36];
-  [(WBWindowState *)v19 setExtraAttributes:v34];
-  [(WBWindowState *)v19 setTabGroupsToActiveTabs:v32];
-  [(WBWindowState *)v19 setActiveProfileIdentifier:v31];
-  v20 = [v30 mutableCopy];
+  v19 = [(WBWindowState *)self initWithUUID:v28 activeTabGroupUUID:v37 localTabGroup:v36 privateTabGroup:v7 sceneID:v8 windowID:v32];
+  [(WBWindowState *)v19 setDateClosed:v35];
+  [(WBWindowState *)v19 setExtraAttributes:v33];
+  [(WBWindowState *)v19 setTabGroupsToActiveTabs:v31];
+  [(WBWindowState *)v19 setActiveProfileIdentifier:v30];
+  v20 = [v29 mutableCopy];
   profilesToActiveTabGroups = v19->_profilesToActiveTabGroups;
   v19->_profilesToActiveTabGroups = v20;
 
-  v22 = [v28 mutableCopy];
+  v22 = [v27 mutableCopy];
   unnamedTabGroupUUIDs = v19->_unnamedTabGroupUUIDs;
   v19->_unnamedTabGroupUUIDs = v22;
 
@@ -400,7 +336,6 @@ LABEL_10:
   windowRestorationArchiveData = v19->_windowRestorationArchiveData;
   v19->_windowRestorationArchiveData = v24;
 
-  v26 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -548,18 +483,18 @@ LABEL_10:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v26[13] = *MEMORY[0x277D85DE8];
+  v25[13] = *MEMORY[0x277D85DE8];
   uuid = self->_uuid;
   v4 = *MEMORY[0x277D4A670];
-  v25[0] = *MEMORY[0x277D4A5D8];
-  v25[1] = v4;
+  v24[0] = *MEMORY[0x277D4A5D8];
+  v24[1] = v4;
   activeTabGroupUUID = self->_activeTabGroupUUID;
-  v26[0] = uuid;
-  v26[1] = activeTabGroupUUID;
-  v25[2] = @"localTabGroup";
+  v25[0] = uuid;
+  v25[1] = activeTabGroupUUID;
+  v24[2] = @"localTabGroup";
   dictionaryRepresentation = [(WBTabGroup *)self->_localTabGroup dictionaryRepresentation];
-  v26[2] = dictionaryRepresentation;
-  v25[3] = @"privateTabGroup";
+  v25[2] = dictionaryRepresentation;
+  v24[3] = @"privateTabGroup";
   dictionaryRepresentation2 = [(WBTabGroup *)self->_privateTabGroup dictionaryRepresentation];
   v8 = dictionaryRepresentation2;
   sceneID = &stru_288259858;
@@ -568,17 +503,17 @@ LABEL_10:
     sceneID = self->_sceneID;
   }
 
-  v26[3] = dictionaryRepresentation2;
-  v26[4] = sceneID;
-  v25[4] = @"sceneID";
-  v25[5] = @"identifier";
+  v25[3] = dictionaryRepresentation2;
+  v25[4] = sceneID;
+  v24[4] = @"sceneID";
+  v24[5] = @"identifier";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:self->_identifier];
   dateClosed = self->_dateClosed;
   extraAttributes = self->_extraAttributes;
-  v26[5] = v10;
-  v26[6] = extraAttributes;
-  v25[6] = @"extraAttributes";
-  v25[7] = @"dateClosed";
+  v25[5] = v10;
+  v25[6] = extraAttributes;
+  v24[6] = @"extraAttributes";
+  v24[7] = @"dateClosed";
   distantFuture = dateClosed;
   if (!dateClosed)
   {
@@ -588,29 +523,27 @@ LABEL_10:
   v14 = *MEMORY[0x277D4A6C0];
   tabGroupsToActiveTabs = self->_tabGroupsToActiveTabs;
   profilesToActiveTabGroups = self->_profilesToActiveTabGroups;
-  v26[7] = distantFuture;
-  v26[8] = tabGroupsToActiveTabs;
+  v25[7] = distantFuture;
+  v25[8] = tabGroupsToActiveTabs;
   v17 = *MEMORY[0x277D4A668];
-  v25[8] = v14;
-  v25[9] = v17;
+  v24[8] = v14;
+  v24[9] = v17;
   v18 = *MEMORY[0x277D4A6A8];
-  v26[9] = self->_activeProfileIdentifier;
-  v26[10] = profilesToActiveTabGroups;
+  v25[9] = self->_activeProfileIdentifier;
+  v25[10] = profilesToActiveTabGroups;
   v19 = *MEMORY[0x277D4A6C8];
-  v25[10] = v18;
-  v25[11] = v19;
+  v24[10] = v18;
+  v24[11] = v19;
   allObjects = [(NSMutableSet *)self->_unnamedTabGroupUUIDs allObjects];
-  v25[12] = *MEMORY[0x277D4A6B0];
+  v24[12] = *MEMORY[0x277D4A6B0];
   windowRestorationArchiveData = self->_windowRestorationArchiveData;
-  v26[11] = allObjects;
-  v26[12] = windowRestorationArchiveData;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:13];
+  v25[11] = allObjects;
+  v25[12] = windowRestorationArchiveData;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:13];
 
   if (!dateClosed)
   {
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -634,12 +567,11 @@ LABEL_10:
   restorationCopy = restoration;
   identifierCopy = identifier;
   deviceIdentifierCopy = deviceIdentifier;
-  v10 = *MEMORY[0x277D49BD8];
   if (WBSIsEqual())
   {
     localTabGroup = self->_localTabGroup;
 LABEL_6:
-    v15 = localTabGroup;
+    v14 = localTabGroup;
     goto LABEL_11;
   }
 
@@ -647,9 +579,9 @@ LABEL_6:
   if (unnamedTabGroupForRestoration)
   {
     profileIdentifier = [(WBTabGroup *)unnamedTabGroupForRestoration profileIdentifier];
-    v14 = WBSIsEqual();
+    v13 = WBSIsEqual();
 
-    if (v14)
+    if (v13)
     {
       localTabGroup = self->_unnamedTabGroupForRestoration;
       goto LABEL_6;
@@ -664,14 +596,26 @@ LABEL_6:
     [(NSMutableSet *)self->_unnamedTabGroupUUIDs addObject:uUIDString];
   }
 
-  v18 = [WBMutableTabGroup unnamedTabGroupWithUUID:uUIDString profileIdentifier:identifierCopy deviceIdentifier:deviceIdentifierCopy];
-  v19 = self->_unnamedTabGroupForRestoration;
-  self->_unnamedTabGroupForRestoration = v18;
+  v17 = [WBMutableTabGroup unnamedTabGroupWithUUID:uUIDString profileIdentifier:identifierCopy deviceIdentifier:deviceIdentifierCopy];
+  v18 = self->_unnamedTabGroupForRestoration;
+  self->_unnamedTabGroupForRestoration = v17;
 
-  v15 = self->_unnamedTabGroupForRestoration;
+  v14 = self->_unnamedTabGroupForRestoration;
 LABEL_11:
 
-  return v15;
+  return v14;
+}
+
+- (void)setPrefersSidebarVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  v8 = [(NSDictionary *)self->_extraAttributes mutableCopy];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:visibleCopy];
+  [v8 setObject:v5 forKeyedSubscript:*MEMORY[0x277D4A6A0]];
+
+  v6 = [v8 copy];
+  extraAttributes = self->_extraAttributes;
+  self->_extraAttributes = v6;
 }
 
 - (NSString)description

@@ -89,7 +89,7 @@
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_identifier)
   {
@@ -116,39 +116,36 @@
     PBDataWriterWriteDataField();
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_replacedDeltaIdentifiers;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v14, v18, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -202,7 +199,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -226,40 +223,39 @@
   v25 = v10[6];
   v10[6] = v24;
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v26 = self->_replacedDeltaIdentifiers;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v37, v41, 16);
+  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v36, v40, 16);
   if (v28)
   {
     v30 = v28;
-    v31 = *v38;
+    v31 = *v37;
     do
     {
       v32 = 0;
       do
       {
-        if (*v38 != v31)
+        if (*v37 != v31)
         {
           objc_enumerationMutation(v26);
         }
 
-        v33 = objc_msgSend_copyWithZone_(*(*(&v37 + 1) + 8 * v32), v29, zone, v37);
+        v33 = objc_msgSend_copyWithZone_(*(*(&v36 + 1) + 8 * v32), v29, zone, v36);
         objc_msgSend_addReplacedDeltaIdentifiers_(v10, v34, v33);
 
         ++v32;
       }
 
       while (v30 != v32);
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v37, v41, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v36, v40, 16);
     }
 
     while (v30);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -267,32 +263,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_14;
-  }
-
-  identifier = self->_identifier;
-  v9 = equalCopy[2];
-  if (identifier | v9)
-  {
-    if (!objc_msgSend_isEqual_(identifier, v7, v9))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  protectionInfo = self->_protectionInfo;
-  v11 = equalCopy[3];
-  if (protectionInfo | v11)
-  {
-    if (!objc_msgSend_isEqual_(protectionInfo, v7, v11))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (((encryptedTimestamps = self->_encryptedTimestamps, v13 = equalCopy[1], !(encryptedTimestamps | v13)) || objc_msgSend_isEqual_(encryptedTimestamps, v7, v13)) && ((timestamps = self->_timestamps, v15 = equalCopy[5], !(timestamps | v15)) || objc_msgSend_isEqual_(timestamps, v7, v15)) && ((timestampsAuthTag = self->_timestampsAuthTag, v17 = equalCopy[6], !(timestampsAuthTag | v17)) || objc_msgSend_isEqual_(timestampsAuthTag, v7, v17)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((identifier = self->_identifier, v9 = equalCopy[2], !(identifier | v9)) || objc_msgSend_isEqual_(identifier, v7, v9)) && ((protectionInfo = self->_protectionInfo, v11 = equalCopy[3], !(protectionInfo | v11)) || objc_msgSend_isEqual_(protectionInfo, v7, v11)) && ((encryptedTimestamps = self->_encryptedTimestamps, v13 = equalCopy[1], !(encryptedTimestamps | v13)) || objc_msgSend_isEqual_(encryptedTimestamps, v7, v13)) && ((timestamps = self->_timestamps, v15 = equalCopy[5], !(timestamps | v15)) || objc_msgSend_isEqual_(timestamps, v7, v15)) && ((timestampsAuthTag = self->_timestampsAuthTag, v17 = equalCopy[6], !(timestampsAuthTag | v17)) || objc_msgSend_isEqual_(timestampsAuthTag, v7, v17)))
   {
     replacedDeltaIdentifiers = self->_replacedDeltaIdentifiers;
     v19 = equalCopy[4];
@@ -309,7 +280,6 @@
 
   else
   {
-LABEL_14:
     isEqual = 0;
   }
 
@@ -328,7 +298,7 @@ LABEL_14:
 
 - (void)mergeFrom:(id)from
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = *(fromCopy + 2);
   if (v6)
@@ -378,35 +348,33 @@ LABEL_14:
     objc_msgSend_setTimestampsAuthTag_(self, v4, v12);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = *(fromCopy + 4);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v21, v25, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v20, v24, 16);
   if (v15)
   {
     v17 = v15;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        objc_msgSend_addReplacedDeltaIdentifiers_(self, v16, *(*(&v21 + 1) + 8 * i), v21);
+        objc_msgSend_addReplacedDeltaIdentifiers_(self, v16, *(*(&v20 + 1) + 8 * i), v20);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v21, v25, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v20, v24, 16);
     }
 
     while (v17);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

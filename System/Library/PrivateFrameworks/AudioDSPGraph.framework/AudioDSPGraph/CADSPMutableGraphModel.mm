@@ -2205,7 +2205,7 @@ LABEL_34:
 
 - (void)setAudioStreamConfiguration:(const CADSPAudioStreamConfiguration *)configuration forName:(id)name
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v7 = nameCopy;
   if (nameCopy)
@@ -2214,9 +2214,9 @@ LABEL_34:
     if (configuration)
     {
       v8 = *&configuration->var0.mBytesPerPacket;
-      v24 = *&configuration->var0.mSampleRate;
-      v25 = v8;
-      *&v26 = *&configuration->var0.mBitsPerChannel;
+      v25 = *&configuration->var0.mSampleRate;
+      v26 = v8;
+      *&v27 = *&configuration->var0.mBitsPerChannel;
       var1 = configuration->var1;
       std::string::basic_string[abi:ne200100]<0>(__p, [v7 UTF8String]);
       v10 = std::__string_hash<char>::operator()[abi:ne200100](__p);
@@ -2258,12 +2258,12 @@ LABEL_20:
         {
           if (AudioDSPGraph::IR::BoxAlias::operator==(v17 + 2, __p))
           {
-            v21 = v25;
-            *(v17 + 5) = v24;
-            *(v17 + 7) = v21;
-            v17[9] = v26;
+            v20 = v26;
+            *(v17 + 5) = v25;
+            *(v17 + 7) = v20;
+            v17[9] = v27;
             *(v17 + 20) = var1;
-            if (SHIBYTE(v23) < 0)
+            if (SHIBYTE(v24) < 0)
             {
               v19 = __p[0];
               goto LABEL_23;
@@ -2305,32 +2305,40 @@ LABEL_20:
 
   else
   {
-    v27 = 0u;
+    v22 = 0;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v24 = 0u;
+    v27 = 0u;
+    v25 = 0u;
     self = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
     LODWORD(__p[0]) = 134217984;
     *(__p + 4) = 0;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v21, &v22, &v25, 80, &dword_1C91AE000, self, 16, "assertion failure: name -> %llu", __p);
     _os_crash_msg();
     __break(1u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v24, [v7 UTF8String]);
-  std::__hash_table<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::__unordered_map_hasher<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,true>,std::__unordered_map_equal<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,AudioDSPGraph::IR::Hash,true>,std::allocator<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>>>::__erase_unique<AudioDSPGraph::IR::WireConfigurationAlias>(&self->super._anon_28[120], &v24);
-  if (SBYTE7(v25) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v25, [v7 UTF8String]);
+  std::__hash_table<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::__unordered_map_hasher<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,true>,std::__unordered_map_equal<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,AudioDSPGraph::IR::Hash,true>,std::allocator<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>>>::__erase_unique<AudioDSPGraph::IR::WireConfigurationAlias>(&self->super._anon_28[120], &v25);
+  if (SBYTE7(v26) < 0)
   {
-    v19 = v24;
+    v19 = v25;
 LABEL_23:
     operator delete(v19);
   }
 
 LABEL_24:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

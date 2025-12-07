@@ -255,40 +255,40 @@
   if (!stopRecordingHostTime)
   {
 LABEL_15:
-    v24 = CSLogCategoryEP;
+    v22 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
     {
       userSpeakingEndedHostTime = self->_userSpeakingEndedHostTime;
       userSpeakingEndedTimeInMs = self->_userSpeakingEndedTimeInMs;
       endpointTimeInMs = self->_endpointTimeInMs;
       *buf = 136316162;
-      v57 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+      v55 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+      v56 = 2050;
+      v57 = stopRecordingHostTime;
       v58 = 2050;
-      v59 = stopRecordingHostTime;
+      v59 = userSpeakingEndedHostTime;
       v60 = 2050;
-      v61 = userSpeakingEndedHostTime;
+      v61 = userSpeakingEndedTimeInMs;
       v62 = 2050;
-      v63 = userSpeakingEndedTimeInMs;
-      v64 = 2050;
-      v65 = endpointTimeInMs;
-      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%s Not reporting EPD due to unexpected zero or negative component values: _stopRecordingHostTime: %{public}llu, _userSpeakingEndedHostTime: %{public}llu, _userSpeakingEndedTimeInMs: %{public}f, _endpointTimeInMs: %{public}f", buf, 0x34u);
+      v63 = endpointTimeInMs;
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s Not reporting EPD due to unexpected zero or negative component values: _stopRecordingHostTime: %{public}llu, _userSpeakingEndedHostTime: %{public}llu, _userSpeakingEndedTimeInMs: %{public}f, _endpointTimeInMs: %{public}f", buf, 0x34u);
       stopRecordingHostTime = self->_stopRecordingHostTime;
     }
 
-    v25 = [NSNumber numberWithUnsignedLongLong:stopRecordingHostTime, @"stopRecordingHostTime"];
-    v53[0] = v25;
-    v52[1] = @"userSpeakingEndedHostTime";
-    v26 = [NSNumber numberWithUnsignedLongLong:self->_userSpeakingEndedHostTime];
-    v53[1] = v26;
-    v52[2] = @"userSpeakingEndedTimeInMs";
-    v27 = [NSNumber numberWithDouble:self->_userSpeakingEndedTimeInMs];
-    v53[2] = v27;
-    v52[3] = @"endpointTimeInMs";
-    v28 = [NSNumber numberWithDouble:self->_endpointTimeInMs];
-    v53[3] = v28;
-    v29 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:4];
+    v23 = [NSNumber numberWithUnsignedLongLong:stopRecordingHostTime, @"stopRecordingHostTime"];
+    v51[0] = v23;
+    v50[1] = @"userSpeakingEndedHostTime";
+    v24 = [NSNumber numberWithUnsignedLongLong:self->_userSpeakingEndedHostTime];
+    v51[1] = v24;
+    v50[2] = @"userSpeakingEndedTimeInMs";
+    v25 = [NSNumber numberWithDouble:self->_userSpeakingEndedTimeInMs];
+    v51[2] = v25;
+    v50[3] = @"endpointTimeInMs";
+    v26 = [NSNumber numberWithDouble:self->_endpointTimeInMs];
+    v51[3] = v26;
+    v27 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:4];
 
-    v30 = &kCSDiagnosticReporterEndpointDelayComponentsNegative;
+    v28 = &kCSDiagnosticReporterEndpointDelayComponentsNegative;
     goto LABEL_18;
   }
 
@@ -308,144 +308,142 @@ LABEL_15:
   v6 = v5 * 1000.0;
   v7 = self->_endpointTimeInMs - self->_userSpeakingEndedTimeInMs;
   v8 = v5 * 1000.0 - v7;
-  audioDeliveryHostTimeDelta = self->_audioDeliveryHostTimeDelta;
-  v10 = self->_stopRecordingHostTime - self->_endpointHostTime;
   CSMachAbsoluteTimeGetTimeInterval();
-  v12 = v11 * 1000.0;
-  v13 = v7 + v11 * 1000.0;
-  v14 = CSLogCategoryEP;
+  v10 = v9 * 1000.0;
+  v11 = v7 + v9 * 1000.0;
+  v12 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316418;
-    v57 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+    v55 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+    v56 = 2050;
+    v57 = *&v6;
     v58 = 2050;
-    v59 = *&v6;
+    v59 = *&v7;
     v60 = 2050;
-    v61 = *&v7;
+    v61 = v8;
     v62 = 2050;
-    v63 = v8;
+    v63 = v7 + v10;
     v64 = 2050;
-    v65 = v7 + v12;
-    v66 = 2050;
-    v67 = v12;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "KeyLog - %s EPD (ms): %{public}f, EPD_Model (ms): %{public}f, EPD_Latency (ms): %{public}f, EPD_V2 (ms): %{public}f, EPD_Latency_V2 (ms): %{public}f", buf, 0x3Eu);
+    v65 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "KeyLog - %s EPD (ms): %{public}f, EPD_Model (ms): %{public}f, EPD_Latency (ms): %{public}f, EPD_V2 (ms): %{public}f, EPD_Latency_V2 (ms): %{public}f", buf, 0x3Eu);
   }
 
-  v15 = mach_continuous_time();
-  v16 = mach_absolute_time();
-  v17 = os_signpost_id_generate(CSLogContextFacilityCoreSpeech);
-  v18 = CSLogContextFacilityCoreSpeech;
-  v19 = v18;
-  if (v17 - 1 > 0xFFFFFFFFFFFFFFFDLL)
+  v13 = mach_continuous_time();
+  v14 = mach_absolute_time();
+  v15 = os_signpost_id_generate(CSLogContextFacilityCoreSpeech);
+  v16 = CSLogContextFacilityCoreSpeech;
+  v17 = v16;
+  if (v15 - 1 > 0xFFFFFFFFFFFFFFFDLL)
   {
 
-    v22 = CSLogContextFacilityCoreSpeech;
+    v20 = CSLogContextFacilityCoreSpeech;
   }
 
   else
   {
-    v20 = v15 - v16;
-    if (os_signpost_enabled(v18))
+    v18 = v13 - v14;
+    if (os_signpost_enabled(v16))
     {
-      v21 = (self->_userSpeakingEndedHostTime + v20);
+      v19 = (self->_userSpeakingEndedHostTime + v18);
       *buf = 134349570;
-      v57 = v21;
+      v55 = v19;
+      v56 = 2080;
+      v57 = "SiriX";
       v58 = 2080;
-      v59 = "SiriX";
-      v60 = 2080;
-      v61 = "enableTelemetry=YES";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "EndpointDelay", "%{public, signpost.description:begin_time}llu, %s %s", buf, 0x20u);
+      v59 = "enableTelemetry=YES";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "EndpointDelay", "%{public, signpost.description:begin_time}llu, %s %s", buf, 0x20u);
     }
 
-    v22 = CSLogContextFacilityCoreSpeech;
-    if (os_signpost_enabled(v22))
+    v20 = CSLogContextFacilityCoreSpeech;
+    if (os_signpost_enabled(v20))
     {
-      v23 = (self->_stopRecordingHostTime + v20);
+      v21 = (self->_stopRecordingHostTime + v18);
       *buf = 134349570;
-      v57 = v23;
+      v55 = v21;
+      v56 = 2080;
+      v57 = "SiriX";
       v58 = 2080;
-      v59 = "SiriX";
-      v60 = 2080;
-      v61 = "enableTelemetry=YES";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v17, "EndpointDelay", "%{public, signpost.description:end_time}llu, %s %s", buf, 0x20u);
+      v59 = "enableTelemetry=YES";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, v15, "EndpointDelay", "%{public, signpost.description:end_time}llu, %s %s", buf, 0x20u);
     }
   }
 
-  *&v37 = v6;
+  *&v35 = v6;
+  v36 = [CSFTimeUtils millisecondsToNs:v35];
+  *&v37 = v7;
   v38 = [CSFTimeUtils millisecondsToNs:v37];
-  *&v39 = v7;
-  v40 = [CSFTimeUtils millisecondsToNs:v39];
   userSpeakingStartedTimeInMs = self->_userSpeakingStartedTimeInMs;
   *&userSpeakingStartedTimeInMs = userSpeakingStartedTimeInMs;
-  v42 = [CSFTimeUtils millisecondsToNs:userSpeakingStartedTimeInMs];
-  v43 = self->_userSpeakingEndedTimeInMs;
-  *&v43 = v43;
-  v44 = [CSFTimeUtils millisecondsToNs:v43];
-  *&v45 = v13;
-  [(CSEndpointDelayReporter *)self _emitEndpointDelayMessage:v38 epdModel:v40 speakingStart:v42 speakingEnd:v44 epdV2:[CSFTimeUtils millisecondsToNs:v45]];
-  v46 = CSLogCategoryEP;
+  v40 = [CSFTimeUtils millisecondsToNs:userSpeakingStartedTimeInMs];
+  v41 = self->_userSpeakingEndedTimeInMs;
+  *&v41 = v41;
+  v42 = [CSFTimeUtils millisecondsToNs:v41];
+  *&v43 = v11;
+  [(CSEndpointDelayReporter *)self _emitEndpointDelayMessage:v36 epdModel:v38 speakingStart:v40 speakingEnd:v42 epdV2:[CSFTimeUtils millisecondsToNs:v43]];
+  v44 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
     requestMHUUID = self->_requestMHUUID;
     *buf = 136315394;
-    v57 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
-    v58 = 2112;
-    v59 = requestMHUUID;
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "%s Submit MHEndpointDelayContextEvent to SELF for MH ID: %@", buf, 0x16u);
+    v55 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+    v56 = 2112;
+    v57 = requestMHUUID;
+    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%s Submit MHEndpointDelayContextEvent to SELF for MH ID: %@", buf, 0x16u);
   }
 
   if (v6 < 0.0 || v7 < 0.0 || v8 < 0.0)
   {
-    v48 = CSLogCategoryEP;
+    v46 = CSLogCategoryEP;
     if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v57 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+      v55 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+      v56 = 2048;
+      v57 = *&v6;
       v58 = 2048;
-      v59 = *&v6;
+      v59 = *&v7;
       v60 = 2048;
-      v61 = *&v7;
-      v62 = 2048;
-      v63 = v8;
-      _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%s One or more EPD values are negative: EPD: %f, EPD_Model: %f, EPD_Latency: %f", buf, 0x2Au);
+      v61 = v8;
+      _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "%s One or more EPD values are negative: EPD: %f, EPD_Model: %f, EPD_Latency: %f", buf, 0x2Au);
     }
 
-    v54[0] = @"EPD";
-    v25 = [NSNumber numberWithDouble:v6];
-    v55[0] = v25;
-    v54[1] = @"EPD_Model";
-    v26 = [NSNumber numberWithDouble:v7];
-    v55[1] = v26;
-    v54[2] = @"EPD_Latency";
-    v27 = [NSNumber numberWithDouble:v8];
-    v55[2] = v27;
-    v29 = [NSDictionary dictionaryWithObjects:v55 forKeys:v54 count:3];
-    v30 = &kCSDiagnosticReporterEndpointDelayValuesNegative;
+    v52[0] = @"EPD";
+    v23 = [NSNumber numberWithDouble:v6];
+    v53[0] = v23;
+    v52[1] = @"EPD_Model";
+    v24 = [NSNumber numberWithDouble:v7];
+    v53[1] = v24;
+    v52[2] = @"EPD_Latency";
+    v25 = [NSNumber numberWithDouble:v8];
+    v53[2] = v25;
+    v27 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:3];
+    v28 = &kCSDiagnosticReporterEndpointDelayValuesNegative;
 LABEL_18:
 
-    v31 = +[CSDiagnosticReporter sharedInstance];
-    [v31 submitEndpointerIssueReport:*v30 withContext:v29];
+    v29 = +[CSDiagnosticReporter sharedInstance];
+    [v29 submitEndpointerIssueReport:*v28 withContext:v27];
   }
 
 LABEL_19:
-  v32 = CSLogCategoryEP;
+  v30 = CSLogCategoryEP;
   if (os_log_type_enabled(CSLogCategoryEP, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = self->_endpointTimeInMs;
-    v34 = self->_userSpeakingEndedTimeInMs;
-    v35 = self->_userSpeakingEndedHostTime;
-    v36 = *&self->_stopRecordingHostTime;
+    v31 = self->_endpointTimeInMs;
+    v32 = self->_userSpeakingEndedTimeInMs;
+    v33 = self->_userSpeakingEndedHostTime;
+    v34 = *&self->_stopRecordingHostTime;
     *buf = 136316162;
-    v57 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+    v55 = "[CSEndpointDelayReporter reportEndpointDelayIfNeed]";
+    v56 = 2050;
+    v57 = *&v31;
     v58 = 2050;
-    v59 = *&v33;
+    v59 = *&v32;
     v60 = 2050;
-    v61 = *&v34;
+    v61 = *&v33;
     v62 = 2050;
-    v63 = *&v35;
-    v64 = 2050;
-    v65 = v36;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s endpointTimeInMs %{public}f, userSpeakingEndedTime: %{public}f, _userSpeakingEndedMachAbsTime: %{public}llu, stopRecordingMachAbsTime: %{public}llu", buf, 0x34u);
+    v63 = v34;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%s endpointTimeInMs %{public}f, userSpeakingEndedTime: %{public}f, _userSpeakingEndedMachAbsTime: %{public}llu, stopRecordingMachAbsTime: %{public}llu", buf, 0x34u);
   }
 }
 

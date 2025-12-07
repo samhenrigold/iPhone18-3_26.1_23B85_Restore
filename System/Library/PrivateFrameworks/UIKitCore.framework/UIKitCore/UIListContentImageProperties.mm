@@ -10,7 +10,7 @@
 - (id)description;
 - (id)resolvedStrokeColorForTintColor:(id)color;
 - (id)strokeColorTransformer;
-- (uint64_t)_isEqualToProperties:(int)properties compareImage:;
+- (uint64_t)_isEqualToProperties:(uint64_t)properties compareImage:;
 - (uint64_t)_isEqualToPropertiesQuick:(int)quick compareImage:;
 - (void)__setStrokeColorTransformer:(uint64_t)transformer;
 - (void)_applyPropertiesFromDefaultProperties:(uint64_t)properties;
@@ -400,22 +400,23 @@
   return v6;
 }
 
-- (uint64_t)_isEqualToProperties:(int)properties compareImage:
+- (uint64_t)_isEqualToProperties:(uint64_t)properties compareImage:
 {
+  propertiesCopy = properties;
   v5 = a2;
   if (!self)
   {
     goto LABEL_24;
   }
 
-  if (([(UIListContentImageProperties *)self _isEqualToPropertiesQuick:v5 compareImage:properties]& 1) != 0)
+  if (([(UIListContentImageProperties *)self _isEqualToPropertiesQuick:v5 compareImage:propertiesCopy]& 1) != 0)
   {
 LABEL_3:
     v6 = 1;
     goto LABEL_25;
   }
 
-  if (properties)
+  if (propertiesCopy)
   {
     v7 = v5[2];
     v8 = *(self + 16);
@@ -432,9 +433,9 @@ LABEL_3:
         goto LABEL_23;
       }
 
-      v11 = [v8 isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(v8);
 
-      if (!v11)
+      if (!isEqual)
       {
         goto LABEL_24;
       }
@@ -461,7 +462,7 @@ LABEL_3:
       goto LABEL_23;
     }
 
-    v14 = [v8 isEqual:v13];
+    v14 = objc_msgSend_isEqual_(v8);
 
     if (!v14)
     {
@@ -486,7 +487,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v17 = [v8 isEqual:v16];
+  v17 = objc_msgSend_isEqual_(v8);
 
   if (!v17)
   {
@@ -565,9 +566,9 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v11 = [v8 isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(v8);
 
-    if (!v11)
+    if (!isEqual)
     {
       goto LABEL_29;
     }

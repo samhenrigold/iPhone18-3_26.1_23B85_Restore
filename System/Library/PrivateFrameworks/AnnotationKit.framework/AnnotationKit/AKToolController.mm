@@ -916,7 +916,9 @@ LABEL_14:
   }
 
   controller = [(AKToolController *)self controller];
-  if (([controller isTornDown] & 1) == 0)
+  isTornDown = [controller isTornDown];
+  v7 = controller;
+  if ((isTornDown & 1) == 0)
   {
     delegate = [controller delegate];
     if (mode)
@@ -941,7 +943,7 @@ LABEL_14:
 
     else if (toolMode - 4 >= 2)
     {
-      v9 = controller;
+      v11 = controller;
       if (toolMode)
       {
         goto LABEL_15;
@@ -962,14 +964,14 @@ LABEL_14:
       [legacyDoodleController postNotificationName:@"AKToolController.inkToolStatusUpdated" object:self];
     }
 
-    v9 = controller;
+    v11 = controller;
 LABEL_15:
     self->_toolMode = mode;
     if (mode > 1)
     {
       if (mode == 2)
       {
-        legacyDoodleController2 = [v9 legacyDoodleController];
+        legacyDoodleController2 = [v11 legacyDoodleController];
         [legacyDoodleController2 setPressureSensitiveDoodleMode:1];
 
         goto LABEL_27;
@@ -980,9 +982,9 @@ LABEL_15:
         [(AKToolController *)self setAllInkEnabled:1];
         [(AKToolController *)self setPencilInkEnabled:1];
         attributeController = [controller attributeController];
-        v14 = [attributeController ink];
+        v16 = [attributeController ink];
 
-        if (!v14)
+        if (!v16)
         {
           attributeController2 = [controller attributeController];
           [attributeController2 setDefaultInk];
@@ -1001,7 +1003,7 @@ LABEL_15:
     {
       if (!mode)
       {
-        supportForPencilAlwaysDrawsSatisfied = [v9 supportForPencilAlwaysDrawsSatisfied];
+        supportForPencilAlwaysDrawsSatisfied = [v11 supportForPencilAlwaysDrawsSatisfied];
         [(AKToolController *)self setAllInkEnabled:0];
         if (supportForPencilAlwaysDrawsSatisfied)
         {
@@ -1022,7 +1024,7 @@ LABEL_15:
 
       if (mode == 1)
       {
-        shouldDrawVariableStrokeDoodles = [v9 shouldDrawVariableStrokeDoodles];
+        shouldDrawVariableStrokeDoodles = [v11 shouldDrawVariableStrokeDoodles];
         legacyDoodleController3 = [controller legacyDoodleController];
         [legacyDoodleController3 setPressureSensitiveDoodleMode:shouldDrawVariableStrokeDoodles];
 
@@ -1031,11 +1033,11 @@ LABEL_27:
         [modelController showOverlay];
 LABEL_30:
 
-        v9 = controller;
+        v11 = controller;
       }
     }
 
-    toolbarViewController = [v9 toolbarViewController];
+    toolbarViewController = [v11 toolbarViewController];
     [toolbarViewController revalidateItems];
     modernToolbarView = [controller modernToolbarView];
     [modernToolbarView revalidateItems];
@@ -1051,9 +1053,11 @@ LABEL_30:
     {
       [delegate controllerDidExitToolMode:controller];
     }
+
+    v7 = controller;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isTornDown, v7);
 }
 
 - (void)updateToolSenderState:(id)state enabled:(BOOL)enabled
@@ -1427,7 +1431,7 @@ LABEL_13:
     v52.size.width = v23;
     v52.size.height = v24;
     v39 = NSStringFromCGRect(v52);
-    AKLog(@"Proposed rect %@ does not fit in visible region %@");
+    AKLog();
 
     if (v42 >= v25)
     {

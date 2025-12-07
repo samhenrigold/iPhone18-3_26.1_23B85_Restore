@@ -288,7 +288,7 @@
   v8 = [v7 propertyForKey:PSIDKey];
   if ([v8 isEqualToString:@"BETA_UPDATES_OFF_IDENTIFIER"])
   {
-    sub_10018C858(self, &v12, v7);
+    sub_10018C858(self, v12, v7);
   }
 
   else

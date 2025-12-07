@@ -103,58 +103,52 @@ BOOL __43___HKBehavior_supportsCoordinatedCloudSync__block_invoke(uint64_t a1)
   return +[_HKBehavior hasPairedWatch];
 }
 
-void __33___HKBehavior__isDeviceSupported__block_invoke(uint64_t a1)
+void __33___HKBehavior__isDeviceSupported__block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v2 = HKLogInfrastructure();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(a1, a2);
+  v4 = HKLogInfrastructure(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
     v6 = 138543618;
     v7 = objc_opt_class();
     v8 = 2114;
     v9 = @"healthkit";
-    v4 = v7;
-    _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Overriding %{public}@", &v6, 0x16u);
+    v5 = v7;
+    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Overriding %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __33___HKBehavior__isDeviceSupported__block_invoke_255(uint64_t a1)
+void __33___HKBehavior__isDeviceSupported__block_invoke_255(uint64_t a1, uint64_t a2)
 {
-  v8[3] = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v2 = HKLogInfrastructure();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
+  v10[3] = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(a1, a2);
+  v4 = HKLogInfrastructure(v2, v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-  if (v3)
+  if (v5)
   {
-    v4 = HKLogInfrastructure();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v8 = HKLogInfrastructure(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      __33___HKBehavior__isDeviceSupported__block_invoke_255_cold_1(v6, v8, v4);
+      v9 = objc_opt_class();
+      __33___HKBehavior__isDeviceSupported__block_invoke_255_cold_1(v9, v10, v8);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __38___HKBehavior__isAppleInternalInstall__block_invoke(uint64_t a1)
+void __38___HKBehavior__isAppleInternalInstall__block_invoke(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogInfrastructure();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
+  _HKInitializeLogging(a1, a2);
+  v5 = HKLogInfrastructure(v3, v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v3)
+  if (v6)
   {
-    v4 = HKLogInfrastructure();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v9 = HKLogInfrastructure(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      __38___HKBehavior__isAppleInternalInstall__block_invoke_cold_1(a1, v4);
+      __38___HKBehavior__isAppleInternalInstall__block_invoke_cold_1(a1, v9);
     }
   }
 }
@@ -169,7 +163,7 @@ void __33___HKBehavior__isDeviceSupported__block_invoke_255_cold_1(void *a1, uin
 
 void __38___HKBehavior__isAppleInternalInstall__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = "n ";
@@ -180,10 +174,9 @@ void __38___HKBehavior__isAppleInternalInstall__block_invoke_cold_1(uint64_t a1,
     v2 = " NON-";
   }
 
-  v4 = 136446210;
-  v5 = v2;
-  _os_log_debug_impl(&dword_19197B000, a2, OS_LOG_TYPE_DEBUG, "Device is a%{public}sAppleInternal install", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136446210;
+  v4 = v2;
+  _os_log_debug_impl(&dword_19197B000, a2, OS_LOG_TYPE_DEBUG, "Device is a%{public}sAppleInternal install", &v3, 0xCu);
 }
 
 @end

@@ -47,18 +47,18 @@
 
 - (void)layoutSubviews
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for VerticalToggleSlider();
-  v10.receiver = self;
-  v10.super_class = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo6UIViewC11MediaCoreUIE6CornerVSgMd, &_sSo6UIViewC11MediaCoreUIE6CornerVSgMR);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for VerticalToggleSlider();
+  v9.receiver = self;
+  v9.super_class = v5;
   selfCopy = self;
-  [(VerticalToggleSlider *)&v10 layoutSubviews];
-  v8 = VerticalToggleSlider.stretchView.getter();
+  [(VerticalToggleSlider *)&v9 layoutSubviews];
+  v7 = VerticalToggleSlider.stretchView.getter();
   static UIView.Corner.rounded.getter();
-  v9 = type metadata accessor for UIView.Corner();
-  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
+  v8 = type metadata accessor for UIView.Corner();
+  (*(*(v8 - 8) + 56))(v4, 0, 1, v8);
   UIView.corner.setter();
 }
 

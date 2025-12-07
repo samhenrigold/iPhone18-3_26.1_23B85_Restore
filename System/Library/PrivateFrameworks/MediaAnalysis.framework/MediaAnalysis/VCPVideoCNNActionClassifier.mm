@@ -213,123 +213,124 @@ VCPCNNModelEspresso *__71__VCPVideoCNNActionClassifier_sharedModelStage1_inputNa
 
 - (VCPVideoCNNActionClassifier)initWithPHFaces:(id)faces
 {
-  v43[2] = *MEMORY[0x1E69E9840];
+  v49[2] = *MEMORY[0x1E69E9840];
   facesCopy = faces;
-  v40.receiver = self;
-  v40.super_class = VCPVideoCNNActionClassifier;
-  v5 = [(VCPVideoCNNActionClassifier *)&v40 init];
-  v6 = v5;
+  v46.receiver = self;
+  v46.super_class = VCPVideoCNNActionClassifier;
+  v5 = [(VCPVideoCNNActionClassifier *)&v46 init];
+  v7 = v5;
+  v8 = v5;
   if (v5)
   {
-    v7 = DeviceGeqD5x();
-    v42[0] = @"forceNNGraph";
-    v8 = [MEMORY[0x1E696AD98] numberWithBool:v7 ^ 1];
-    v43[0] = v8;
-    v42[1] = @"sharedContext";
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:v7];
-    v43[1] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+    v9 = DeviceGeqD5x(v5, v6);
+    v48[0] = @"forceNNGraph";
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:v9 ^ 1];
+    v49[0] = v10;
+    v48[1] = @"sharedContext";
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:v9];
+    v49[1] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
 
     array = [MEMORY[0x1E695DF70] array];
-    phFaces = v5->_phFaces;
-    v5->_phFaces = array;
+    phFaces = v7->_phFaces;
+    v7->_phFaces = array;
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v13 = facesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v14)
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v15 = facesCopy;
+    v16 = [v15 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    if (v16)
     {
-      v15 = *v37;
+      v17 = *v43;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v37 != v15)
+          if (*v43 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v15);
           }
 
-          [(NSMutableArray *)v5->_phFaces addObject:*(*(&v36 + 1) + 8 * i), v36];
+          [(NSMutableArray *)v7->_phFaces addObject:*(*(&v42 + 1) + 8 * i), v42];
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
-      while (v14);
+      while (v16);
     }
 
     vcp_mediaAnalysisBundle = [MEMORY[0x1E696AAE8] vcp_mediaAnalysisBundle];
     resourceURL = [vcp_mediaAnalysisBundle resourceURL];
 
-    v19 = [MEMORY[0x1E695DFF8] URLWithString:@"action_recognition_head.espresso.net" relativeToURL:resourceURL];
-    v20 = [MEMORY[0x1E695DFF8] URLWithString:@"action_taxonomy.plist" relativeToURL:resourceURL];
-    v21 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithContentsOfURL:v20];
-    taxonomy = v5->_taxonomy;
-    v5->_taxonomy = v21;
+    v21 = [MEMORY[0x1E695DFF8] URLWithString:@"action_recognition_head.espresso.net" relativeToURL:resourceURL];
+    v22 = [MEMORY[0x1E695DFF8] URLWithString:@"action_taxonomy.plist" relativeToURL:resourceURL];
+    v23 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithContentsOfURL:v22];
+    taxonomy = v7->_taxonomy;
+    v7->_taxonomy = v23;
 
-    if ([(NSArray *)v5->_taxonomy count]== 35)
+    if ([(NSArray *)v7->_taxonomy count]== 35)
     {
       array2 = [MEMORY[0x1E695DF70] array];
-      results = v5->_results;
-      v5->_results = array2;
+      results = v7->_results;
+      v7->_results = array2;
 
-      inputNames = v5->_inputNames;
-      v5->_inputNames = &unk_1F49BF178;
+      inputNames = v7->_inputNames;
+      v7->_inputNames = &unk_1F49BF178;
 
-      std::vector<void *>::resize(&v5->_inputsData.__begin_, [(NSArray *)v5->_inputNames count]);
-      if (DeviceHasANE())
+      std::vector<void *>::resize(&v7->_inputsData.__begin_, [(NSArray *)v7->_inputNames count]);
+      if (DeviceHasANE(v28, v29))
       {
-        v26 = [objc_opt_class() sharedModel:v19 inputNames:v5->_inputNames properties:0];
+        v30 = [objc_opt_class() sharedModel:v21 inputNames:v7->_inputNames properties:0];
       }
 
       else
       {
-        v26 = [[VCPCNNModelEspresso alloc] initWithParameters:v19 inputNames:v5->_inputNames outputNames:0 properties:0];
+        v30 = [[VCPCNNModelEspresso alloc] initWithParameters:v21 inputNames:v7->_inputNames outputNames:0 properties:0];
       }
 
-      modelEspresso = v5->_modelEspresso;
-      v5->_modelEspresso = v26;
+      modelEspresso = v7->_modelEspresso;
+      v7->_modelEspresso = v30;
 
-      v28 = v5->_modelEspresso;
-      if (v28)
+      v32 = v7->_modelEspresso;
+      if (v32)
       {
-        if (![(VCPCNNModelEspresso *)v28 prepareModelWithConfig:&stru_1F496CB30])
+        if (![(VCPCNNModelEspresso *)v32 prepareModelWithConfig:&stru_1F496CB30])
         {
-          v29 = [MEMORY[0x1E695DFF8] URLWithString:@"action_recognition_head_stage1.espresso.net" relativeToURL:resourceURL];
+          v33 = [MEMORY[0x1E695DFF8] URLWithString:@"action_recognition_head_stage1.espresso.net" relativeToURL:resourceURL];
 
-          if (DeviceHasANE())
+          if (DeviceHasANE(v34, v35))
           {
-            v30 = [objc_opt_class() sharedModelStage1:v29 inputNames:0 properties:v10];
+            v36 = [objc_opt_class() sharedModelStage1:v33 inputNames:0 properties:v12];
           }
 
           else
           {
-            v30 = [[VCPCNNModelEspresso alloc] initWithParameters:v29 inputNames:0 outputNames:0 properties:v10];
+            v36 = [[VCPCNNModelEspresso alloc] initWithParameters:v33 inputNames:0 outputNames:0 properties:v12];
           }
 
-          modelEspressoStage1 = v5->_modelEspressoStage1;
-          v5->_modelEspressoStage1 = v30;
+          modelEspressoStage1 = v7->_modelEspressoStage1;
+          v7->_modelEspressoStage1 = v36;
 
-          v32 = v5->_modelEspressoStage1;
-          if (v32)
+          v38 = v7->_modelEspressoStage1;
+          if (v38)
           {
-            v33 = [(VCPCNNModelEspresso *)v32 prepareModelWithConfig:&stru_1F496CB30]== 0;
+            v39 = [(VCPCNNModelEspresso *)v38 prepareModelWithConfig:&stru_1F496CB30]== 0;
 
-            if (v33)
+            if (v39)
             {
-              v6 = v5;
+              v8 = v7;
               goto LABEL_24;
             }
 
 LABEL_23:
-            v6 = 0;
+            v8 = 0;
             goto LABEL_24;
           }
 
-          v19 = v29;
+          v21 = v33;
         }
       }
     }
@@ -338,9 +339,9 @@ LABEL_23:
   }
 
 LABEL_24:
-  v34 = v6;
+  v40 = v8;
 
-  return v34;
+  return v40;
 }
 
 - (int)run:(id)run withPersons:(id)persons andRegionCrop:(CGRect)crop atTime:(id *)time andDuration:(id *)duration
@@ -575,7 +576,7 @@ LABEL_24:
           modelEspressoStage1 = self->_modelEspressoStage1;
           if (modelEspressoStage1)
           {
-            [(VCPCNNModelEspresso *)modelEspressoStage1 outputBlob];
+            objc_msgSend_outputBlob(modelEspressoStage1);
             value = buf[0].value;
           }
 
@@ -609,7 +610,7 @@ LABEL_24:
             goto LABEL_80;
           }
 
-          [(VCPCNNModelEspresso *)v69 outputBlob];
+          objc_msgSend_outputBlob(v69);
           v70 = buf[0].value;
           if (!buf[0].value)
           {

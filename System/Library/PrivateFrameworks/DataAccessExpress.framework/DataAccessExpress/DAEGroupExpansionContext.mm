@@ -48,12 +48,4 @@
   }
 }
 
-uint64_t __46__DAEGroupExpansionContext_finishedWithError___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = *(v2 + 48);
-  return (*(*(v2 + 40) + 16))();
-}
-
 @end

@@ -47,75 +47,75 @@
   [(TSUConcurrentCache *)[(TSTMasterLayout *)self->mMasterLayout cellIDToWPColumnCache] addEntriesFromDictionary:v4];
 }
 
-uint64_t __36__TSTLayoutTask_flushToGlobalCaches__block_invoke(uint64_t a1)
+void *__36__TSTLayoutTask_flushToGlobalCaches__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = TSUDynamicCast();
-  v3 = [v2 modelCellID];
-  v4 = [v2 mergedRange];
-  result = [v2 wpColumn];
+  v3 = TSUDynamicCast();
+  v4 = [v3 modelCellID];
+  v5 = [v3 mergedRange];
+  result = [v3 wpColumn];
   if (result)
   {
-    v6 = result;
-    if ([v2 keyVal] && (objc_msgSend(v2, "layoutCacheFlags") & 2) != 0 && ((objc_msgSend(objc_msgSend(*(*(a1 + 32) + 8), "tableInfo"), "editingCellID") ^ v3) & 0xFFFFFF) != 0)
+    v7 = result;
+    if ([v3 keyVal] && (objc_msgSend(v3, "layoutCacheFlags") & 2) != 0 && ((objc_msgSend(objc_msgSend(*(*(a1 + 32) + 8), "tableInfo"), "editingCellID") ^ v4) & 0xFFFFFF) != 0)
     {
-      [*(a1 + 40) setObject:v6 forKey:{objc_msgSend(v2, "keyVal")}];
+      [*(a1 + 40) setObject:v7 forKey:{objc_msgSend(v3, "keyVal")}];
     }
 
-    if ([v2 hasContent] && (objc_msgSend(v2, "layoutCacheFlags") & 1) != 0 && !objc_msgSend(v2, "verticalAlignment"))
+    if ([v3 hasContent] && (objc_msgSend(v3, "layoutCacheFlags") & 1) != 0 && !objc_msgSend(v3, "verticalAlignment"))
     {
-      HIDWORD(v7) = v3;
-      LODWORD(v7) = v3;
-      [*(a1 + 48) setObject:v6 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v7 >> 16) & 0xFFFF00FF)}];
+      HIDWORD(v8) = v4;
+      LODWORD(v8) = v4;
+      [*(a1 + 48) setObject:v7 forKey:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithUnsignedInt:", (v8 >> 16) & 0xFFFF00FF)}];
     }
 
-    result = [v2 inDynamicLayout];
+    result = [v3 inDynamicLayout];
     if ((result & 1) == 0)
     {
-      result = [v2 cellPropsRowHeight];
+      result = [v3 cellPropsRowHeight];
       if (result)
       {
-        if (v4 == 0xFFFF || (v4 & 0xFF0000) == 0xFF0000 || !HIWORD(v4) || (v4 & 0xFFFF00000000) == 0)
+        if (v5 == 0xFFFF || (v5 & 0xFF0000) == 0xFF0000 || !HIWORD(v5) || (v5 & 0xFFFF00000000) == 0)
         {
-          v22 = v24;
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __36__TSTLayoutTask_flushToGlobalCaches__block_invoke_3;
-          v24[3] = &unk_279D47708;
-          v23 = *(a1 + 32);
-          v24[4] = v2;
-          v24[5] = v23;
+          v23 = v25;
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __36__TSTLayoutTask_flushToGlobalCaches__block_invoke_3;
+          v25[3] = &unk_279D47708;
+          v24 = *(a1 + 32);
+          v25[4] = v3;
+          v25[5] = v24;
         }
 
         else
         {
-          v8 = TSTMasterLayoutSizeOfTextInColumn([v2 wpColumn]);
-          v10 = v9;
-          [v2 paddingInsets];
-          v12 = v11;
-          v14 = v13;
-          v16 = v15;
-          v18 = v17;
-          v19 = [v2 cell];
-          v21 = v19 && *(v19 + 9) << 8 == 1536 && (v20 = [v2 cell]) != 0 && *(v20 + 104) == 263;
-          v22 = v25;
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __36__TSTLayoutTask_flushToGlobalCaches__block_invoke_2;
-          v25[3] = &unk_279D4AC50;
-          v23 = *(a1 + 32);
-          v25[4] = v23;
-          v25[11] = v4;
-          *&v25[5] = v8;
-          v25[6] = v10;
-          v25[7] = v12;
-          v25[8] = v14;
-          v25[9] = v16;
-          v25[10] = v18;
-          v26 = v21;
+          v9 = TSTMasterLayoutSizeOfTextInColumn([v3 wpColumn]);
+          v11 = v10;
+          [v3 paddingInsets];
+          v13 = v12;
+          v15 = v14;
+          v17 = v16;
+          v19 = v18;
+          v20 = [v3 cell];
+          v22 = v20 && *(v20 + 9) << 8 == 1536 && (v21 = [v3 cell]) != 0 && *(v21 + 104) == 263;
+          v23 = v26;
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __36__TSTLayoutTask_flushToGlobalCaches__block_invoke_2;
+          v26[3] = &unk_279D4AC50;
+          v24 = *(a1 + 32);
+          v26[4] = v24;
+          v26[11] = v5;
+          *&v26[5] = v9;
+          v26[6] = v11;
+          v26[7] = v13;
+          v26[8] = v15;
+          v26[9] = v17;
+          v26[10] = v19;
+          v27 = v22;
         }
 
-        return [objc_msgSend(*(v23 + 8) "whCacheQueue")];
+        return [objc_msgSend(*(v24 + 8) "whCacheQueue")];
       }
     }
   }

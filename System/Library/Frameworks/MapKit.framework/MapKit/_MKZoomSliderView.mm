@@ -29,7 +29,7 @@
       v8 = MEMORY[0x1E696B098];
       if (currentLayer)
       {
-        [currentLayer transform];
+        objc_msgSend_transform(currentLayer);
       }
 
       else
@@ -99,7 +99,7 @@
       v9 = MEMORY[0x1E696B098];
       if (currentLayer)
       {
-        [currentLayer transform];
+        objc_msgSend_transform(currentLayer);
       }
 
       else

@@ -365,7 +365,7 @@ LABEL_19:
     v17 = *MEMORY[0x1E696B948];
     if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
     {
-      [HKMedicalRecord(Displayable) meaningfulDateDisplayStringWithPreferredForm:v17 showTime:?];
+      [HKMedicalRecord(Displayable) meaningfulDateDisplayStringWithPreferredForm:v17 showTime:v10];
     }
 
     v13 = HRLocalizedString(@"NO_DATE");
@@ -395,14 +395,14 @@ LABEL_21:
   return v7;
 }
 
-- (void)meaningfulDateDisplayStringWithPreferredForm:()Displayable showTime:.cold.1(void *a1)
+- (void)meaningfulDateDisplayStringWithPreferredForm:()Displayable showTime:.cold.1(void *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v3 = 138543362;
-  v4 = objc_opt_class();
-  v2 = v4;
-  _os_log_error_impl(&dword_1D101F000, v1, OS_LOG_TYPE_ERROR, "Unexpected sort date class: %{public}@", &v3, 0xCu);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1D101F000, v2, OS_LOG_TYPE_ERROR, "Unexpected sort date class: %{public}@", &v4, 0xCu);
 }
 
 @end

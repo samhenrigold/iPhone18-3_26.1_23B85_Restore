@@ -152,10 +152,9 @@ LABEL_15:
   v3[0] = @"Errors";
   v3[1] = @"LastPromptDate";
   v3[2] = @"LastPromptBuild";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
 
-  return v0;
+  return v1;
 }
 
 - (id)description
@@ -172,7 +171,7 @@ LABEL_15:
 - (void)promptIfRequiredForReason:(id)reason success:(BOOL)success error:(id)error
 {
   successCopy = success;
-  v117[2] = *MEMORY[0x277D85DE8];
+  v116[2] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   errorCopy = error;
   if (([MEMORY[0x277CCDD30] isAppleInternalInstall] & 1) != 0 || _HDIsUnitTesting)
@@ -181,9 +180,9 @@ LABEL_15:
     if (successCopy)
     {
       v12 = [MEMORY[0x277CBEB98] setWithObject:@"Errors"];
-      v108 = 0;
-      v13 = [_keyValueDomain removeValuesForKeys:v12 error:&v108];
-      v14 = v108;
+      v107 = 0;
+      v13 = [_keyValueDomain removeValuesForKeys:v12 error:&v107];
+      v14 = v107;
 
       if ((v13 & 1) == 0)
       {
@@ -196,7 +195,7 @@ LABEL_15:
           *&buf[12] = 2114;
           *&buf[14] = @"Errors";
           *&buf[22] = 2114;
-          v110 = v14;
+          v109 = v14;
           _os_log_error_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_ERROR, "%{public}@: unable to clear value for %{public}@: %{public}@", buf, 0x20u);
         }
       }
@@ -210,7 +209,7 @@ LABEL_15:
       errorCopy = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Error not provided"];
     }
 
-    v101 = _keyValueDomain;
+    v100 = _keyValueDomain;
     if (self)
     {
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.ErrorDate", self->_name];
@@ -221,10 +220,10 @@ LABEL_15:
       v17 = 0;
     }
 
-    v116[0] = v17;
+    v115[0] = v17;
     date = [MEMORY[0x277CBEAA8] date];
     v19 = HKDiagnosticStringFromDate();
-    v117[0] = v19;
+    v116[0] = v19;
     if (self)
     {
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.Reason", self->_name];
@@ -235,16 +234,16 @@ LABEL_15:
       v20 = 0;
     }
 
-    v116[1] = v20;
-    v117[1] = reasonCopy;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:2];
+    v115[1] = v20;
+    v116[1] = reasonCopy;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:2];
     v16 = [errorCopy hk_errorByAddingEntriesToUserInfo:v21];
 
     v22 = +[HDTTRPromptController _persistedValueKeys];
-    v107 = 0;
-    _keyValueDomain = v101;
-    v23 = [v101 valuesForKeys:v22 error:&v107];
-    v14 = v107;
+    v106 = 0;
+    _keyValueDomain = v100;
+    v23 = [v100 valuesForKeys:v22 error:&v106];
+    v14 = v106;
     if (!v23)
     {
       _HKInitializeLogging();
@@ -256,17 +255,17 @@ LABEL_15:
         *&buf[12] = 2112;
         *&buf[14] = v22;
         *&buf[22] = 2114;
-        v110 = v14;
+        v109 = v14;
         _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "%{public}@: unable to get values for keys %@: %{public}@", buf, 0x20u);
       }
 
       goto LABEL_72;
     }
 
-    v97 = v22;
-    v100 = v23;
+    v96 = v22;
+    v99 = v23;
     v24 = [v23 objectForKeyedSubscript:@"Errors"];
-    v96 = v24;
+    v95 = v24;
     if (v24)
     {
       v25 = v24;
@@ -274,9 +273,9 @@ LABEL_15:
       v27 = MEMORY[0x277CBEB98];
       v28 = objc_opt_class();
       v29 = [v27 setWithObjects:{v28, objc_opt_class(), 0}];
-      v106 = v14;
-      v30 = [v26 unarchivedObjectOfClasses:v29 fromData:v25 error:&v106];
-      v31 = v106;
+      v105 = v14;
+      v30 = [v26 unarchivedObjectOfClasses:v29 fromData:v25 error:&v105];
+      v31 = v105;
 
       if (!v30)
       {
@@ -284,13 +283,13 @@ LABEL_15:
         v46 = self->_loggingCategory;
         if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          _keyValueDomain = v101;
-          v47 = v96;
-          v22 = v97;
+          _keyValueDomain = v100;
+          v47 = v95;
+          v22 = v96;
 LABEL_71:
 
           v14 = v31;
-          v23 = v100;
+          v23 = v99;
 LABEL_72:
 
 LABEL_73:
@@ -301,14 +300,14 @@ LABEL_73:
         *buf = 138543874;
         *&buf[4] = self;
         *&buf[12] = 2112;
-        v47 = v96;
-        *&buf[14] = v96;
+        v47 = v95;
+        *&buf[14] = v95;
         *&buf[22] = 2112;
-        v110 = v31;
+        v109 = v31;
         _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "%{public}@: unable to unarchive errors from data %@: %@", buf, 0x20u);
-        _keyValueDomain = v101;
+        _keyValueDomain = v100;
 LABEL_70:
-        v22 = v97;
+        v22 = v96;
         goto LABEL_71;
       }
 
@@ -320,7 +319,7 @@ LABEL_70:
       v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
     }
 
-    v92 = reasonCopy;
+    v91 = reasonCopy;
     [v30 insertObject:v16 atIndex:0];
     while ([v30 count] > self->_maximumErrorCount)
     {
@@ -329,7 +328,7 @@ LABEL_70:
 
     v33 = v16;
     v34 = [v23 objectForKeyedSubscript:@"LastPromptDate"];
-    v95 = v34;
+    v94 = v34;
     if (v34)
     {
       v35 = MEMORY[0x277CBEAA8];
@@ -350,7 +349,7 @@ LABEL_70:
 
     v41 = [v30 count];
     maximumErrorCount = self->_maximumErrorCount;
-    v98 = v36;
+    v97 = v36;
     if (v36)
     {
       [v36 timeIntervalSinceNow];
@@ -366,12 +365,12 @@ LABEL_70:
     if (self->_canRepromptOnSameBuild)
     {
       v45 = 0;
-      reasonCopy = v92;
+      reasonCopy = v91;
     }
 
     else
     {
-      reasonCopy = v92;
+      reasonCopy = v91;
       if (v37 == currentOSBuild)
       {
         goto LABEL_47;
@@ -390,24 +389,24 @@ LABEL_70:
 
     if (v41 >= maximumErrorCount && !v44 && (v45 & 1) == 0)
     {
-      v88 = v16;
+      v87 = v16;
       v48 = v30;
       v49 = v37;
       v50 = v48;
-      v89 = v49;
+      v88 = v49;
       v51 = v49;
-      v52 = v98;
+      v52 = v97;
       v53 = MEMORY[0x277CCACA8];
       radarDescription = self->_radarDescription;
       v55 = currentOSBuild;
-      v93 = v52;
+      v92 = v52;
       v56 = HKDiagnosticStringFromDate();
       v57 = [v50 count];
-      v90 = v50;
-      v86 = v50;
+      v89 = v50;
+      v85 = v50;
       v58 = v51;
-      v59 = [v53 stringWithFormat:@"%@. Last Prompt (%@, %@), Current (%@) Errors (%lu): %@", radarDescription, v51, v56, v55, v57, v86];
-      v87 = v55;
+      v59 = [v53 stringWithFormat:@"%@. Last Prompt (%@, %@), Current (%@) Errors (%lu): %@", radarDescription, v51, v56, v55, v57, v85];
+      v86 = v55;
 
       _HKInitializeLogging();
       v60 = self->_loggingCategory;
@@ -420,58 +419,58 @@ LABEL_70:
         _os_log_impl(&dword_228986000, v60, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@", buf, 0x16u);
       }
 
-      v91 = v59;
+      v90 = v59;
       v61 = _HDIsUnitTesting;
       if (_HDIsUnitTesting)
       {
         v62 = _Block_copy(self->_unitTest_willPresentTTRAlertHandler);
         v63 = v62;
-        v64 = v90;
+        v64 = v89;
         v65 = v58;
-        v66 = v93;
+        v66 = v92;
         if (v62)
         {
-          (*(v62 + 2))(v62, self, v90, v58, v93);
+          (*(v62 + 2))(v62, self, v89, v58, v92);
         }
 
-        v16 = v88;
-        v37 = v89;
+        v16 = v87;
+        v37 = v88;
       }
 
       else
       {
         atomic_compare_exchange_strong(&self->_isPresenting, &v61, 1u);
-        v64 = v90;
-        v16 = v88;
+        v64 = v89;
+        v16 = v87;
         v65 = v58;
-        v37 = v89;
-        v66 = v93;
+        v37 = v88;
+        v66 = v92;
         if (v61)
         {
 LABEL_60:
 
-          v105 = v14;
-          v77 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v64 requiringSecureCoding:1 error:&v105];
-          v78 = v105;
+          v104 = v14;
+          v77 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v64 requiringSecureCoding:1 error:&v104];
+          v78 = v104;
 
           if (v77)
           {
-            v94 = v77;
-            v115[0] = v77;
-            v114[0] = @"Errors";
-            v114[1] = @"LastPromptDate";
+            v93 = v77;
+            v114[0] = v77;
+            v113[0] = @"Errors";
+            v113[1] = @"LastPromptDate";
             v79 = MEMORY[0x277CCABB0];
             date2 = [MEMORY[0x277CBEAA8] date];
             [date2 timeIntervalSinceReferenceDate];
             v81 = [v79 numberWithDouble:?];
-            v114[2] = @"LastPromptBuild";
-            v115[1] = v81;
-            v115[2] = v87;
-            v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:3];
+            v113[2] = @"LastPromptBuild";
+            v114[1] = v81;
+            v114[2] = v86;
+            v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:v113 count:3];
 
-            v104 = v78;
-            LOBYTE(v81) = [v101 setValuesWithDictionary:v82 error:&v104];
-            v31 = v104;
+            v103 = v78;
+            LOBYTE(v81) = [v100 setValuesWithDictionary:v82 error:&v103];
+            v31 = v103;
 
             if ((v81 & 1) == 0)
             {
@@ -484,14 +483,14 @@ LABEL_60:
                 *&buf[12] = 2114;
                 *&buf[14] = v82;
                 *&buf[22] = 2114;
-                v110 = v31;
+                v109 = v31;
                 _os_log_error_impl(&dword_228986000, v83, OS_LOG_TYPE_ERROR, "%{public}@: unable to set values %{public}@: %{public}@", buf, 0x20u);
               }
             }
 
-            _keyValueDomain = v101;
-            v47 = v96;
-            v77 = v94;
+            _keyValueDomain = v100;
+            v47 = v95;
+            v77 = v93;
           }
 
           else
@@ -505,13 +504,13 @@ LABEL_60:
               *&buf[12] = 2112;
               *&buf[14] = v64;
               *&buf[22] = 2112;
-              v110 = v78;
+              v109 = v78;
               _os_log_error_impl(&dword_228986000, v84, OS_LOG_TYPE_ERROR, "%{public}@: unable to archive errors %@: %@", buf, 0x20u);
             }
 
             v31 = v78;
-            _keyValueDomain = v101;
-            v47 = v96;
+            _keyValueDomain = v100;
+            v47 = v95;
           }
 
 LABEL_69:
@@ -523,15 +522,15 @@ LABEL_69:
         v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@. Please file a radar with Tap-to-Radar against 'Health'", self->_notificationMessage];
         [v63 setMessage:v76];
 
-        v66 = v93;
+        v66 = v92;
         [v63 setDefaultButton:@"Tap-to-Radar"];
         [v63 setCancelButton:@"Not Now"];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_lastPromptDate_currentBuild___block_invoke;
-        v110 = &unk_2786188C8;
-        *v111 = self;
-        *&v111[8] = v91;
+        v109 = &unk_2786188C8;
+        *v110 = self;
+        *&v110[8] = v90;
         [v63 presentWithResponseHandler:buf];
       }
 
@@ -551,26 +550,26 @@ LABEL_47:
       *&buf[12] = 2114;
       *&buf[14] = v69;
       *&buf[22] = 2114;
-      v110 = v37;
-      *v111 = 2114;
-      *&v111[2] = currentOSBuild;
-      *&v111[10] = 2048;
-      *&v111[12] = v70;
-      v112 = 2114;
-      v113 = v30;
+      v109 = v37;
+      *v110 = 2114;
+      *&v110[2] = currentOSBuild;
+      *&v110[10] = 2048;
+      *&v110[12] = v70;
+      v111 = 2114;
+      v112 = v30;
       _os_log_impl(&dword_228986000, v68, OS_LOG_TYPE_INFO, "%{public}@: TTR alert: lastPromptDate %{public}@, lastPromptBuild %{public}@ (current build %{public}@), errors (%lu) %{public}@", buf, 0x3Eu);
     }
 
-    v103 = v14;
-    v71 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v30 requiringSecureCoding:1 error:&v103];
-    v31 = v103;
+    v102 = v14;
+    v71 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v30 requiringSecureCoding:1 error:&v102];
+    v31 = v102;
 
-    _keyValueDomain = v101;
+    _keyValueDomain = v100;
     if (v71)
     {
-      v102 = v31;
-      v72 = [v101 setData:v71 forKey:@"Errors" error:&v102];
-      v73 = v102;
+      v101 = v31;
+      v72 = [v100 setData:v71 forKey:@"Errors" error:&v101];
+      v73 = v101;
 
       if ((v72 & 1) == 0)
       {
@@ -583,14 +582,14 @@ LABEL_47:
           *&buf[12] = 2114;
           *&buf[14] = @"Errors";
           *&buf[22] = 2114;
-          v110 = v73;
+          v109 = v73;
           _os_log_error_impl(&dword_228986000, v74, OS_LOG_TYPE_ERROR, "%{public}@: unable to set values for %{public}@: %{public}@", buf, 0x20u);
         }
       }
 
       v47 = v71;
       v31 = v73;
-      _keyValueDomain = v101;
+      _keyValueDomain = v100;
     }
 
     else
@@ -604,7 +603,7 @@ LABEL_47:
         *&buf[12] = 2112;
         *&buf[14] = v30;
         *&buf[22] = 2112;
-        v110 = v31;
+        v109 = v31;
         _os_log_error_impl(&dword_228986000, v75, OS_LOG_TYPE_ERROR, "%{public}@: unable to archive errors %@: %@", buf, 0x20u);
       }
 
@@ -624,8 +623,6 @@ LABEL_47:
   }
 
 LABEL_74:
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (HDKeyValueDomain)_keyValueDomain
@@ -644,7 +641,7 @@ LABEL_74:
 
 void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_lastPromptDate_currentBuild___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   atomic_store(0, (*(a1 + 32) + 24));
@@ -656,7 +653,7 @@ void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_last
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: TTR alert: 'Not Now' button pressed", buf, 0xCu);
     }
   }
@@ -669,7 +666,7 @@ void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_last
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: TTR alert: 'Tap-to-Radar' button pressed", buf, 0xCu);
       v9 = *(a1 + 32);
     }
@@ -678,13 +675,11 @@ void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_last
     v12 = [MEMORY[0x277CC1E80] defaultWorkspace];
     [v12 openURL:v11 configuration:0 completionHandler:&__block_literal_global_204];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_lastPromptDate_currentBuild___block_invoke_362(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!a2)
   {
@@ -692,13 +687,11 @@ void __96__HDTTRPromptController__presentTTRPromptForErrors_lastPromptBuild_last
     v5 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Could not open Tap-to-Radar URL %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)unitTest_setLastPromptDate:(id)date error:(id *)error

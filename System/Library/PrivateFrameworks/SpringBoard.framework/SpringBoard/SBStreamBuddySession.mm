@@ -50,11 +50,11 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained streamBuddySession:self connectionState:0 withError:0];
 
-  v6 = SBLogStreamBuddy();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogStreamBuddy(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[SBStreamBuddySession start]", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[SBStreamBuddySession start]", v8, 2u);
   }
 }
 
@@ -71,70 +71,70 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained streamBuddySession:self connectionState:1 withError:0];
 
-  v6 = SBLogStreamBuddy();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogStreamBuddy(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[SBStreamBuddySession stop]", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[SBStreamBuddySession stop]", v8, 2u);
   }
 }
 
 - (void)sendSystemApertureStateDump:(id)dump
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dumpCopy = dump;
   v5 = dumpCopy;
   if (self->_connectedPeer)
   {
     v6 = MEMORY[0x277CCAAA0];
-    v18[0] = dumpCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-    v17 = 0;
-    v8 = [v6 dataWithJSONObject:v7 options:0 error:&v17];
-    v9 = v17;
+    v20[0] = dumpCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19 = 0;
+    v8 = [v6 dataWithJSONObject:v7 options:0 error:&v19];
+    v9 = v19;
 
     if (v8)
     {
       session = self->_session;
       p_session = &self->_session;
       connectedPeers = [(MCSession *)session connectedPeers];
-      v16 = v9;
-      v13 = [(MCSession *)session sendData:v8 toPeers:connectedPeers withMode:0 error:&v16];
-      v14 = v16;
+      v18 = v9;
+      v14 = [(MCSession *)session sendData:v8 toPeers:connectedPeers withMode:0 error:&v18];
+      v15 = v18;
 
-      if (v13)
+      if (v14)
       {
 LABEL_12:
 
         goto LABEL_13;
       }
 
-      v15 = SBLogStreamBuddy();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = SBLogStreamBuddy(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(SBStreamBuddySession *)p_session sendSystemApertureStateDump:v14, v15];
+        [(SBStreamBuddySession *)p_session sendSystemApertureStateDump:v15, v17];
       }
 
-      v9 = v14;
+      v9 = v15;
     }
 
     else
     {
-      v15 = SBLogStreamBuddy();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = SBLogStreamBuddy(v10);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [SBStreamBuddySession sendSystemApertureStateDump:v15];
+        [SBStreamBuddySession sendSystemApertureStateDump:v17];
       }
     }
 
-    v14 = v9;
+    v15 = v9;
     goto LABEL_12;
   }
 
-  v14 = SBLogStreamBuddy();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = SBLogStreamBuddy(dumpCopy);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    [SBStreamBuddySession sendSystemApertureStateDump:v14];
+    [SBStreamBuddySession sendSystemApertureStateDump:v15];
   }
 
 LABEL_13:
@@ -145,7 +145,7 @@ LABEL_13:
   v18 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   handlerCopy = handler;
-  v11 = SBLogStreamBuddy();
+  v11 = SBLogStreamBuddy(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = NSStringFromSelector(a2);
@@ -164,7 +164,7 @@ LABEL_13:
 {
   v14 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
-  v7 = SBLogStreamBuddy();
+  v7 = SBLogStreamBuddy(peerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
@@ -201,38 +201,37 @@ LABEL_13:
 
 void __52__SBStreamBuddySession_session_peer_didChangeState___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   switch(v2)
   {
     case 0:
       [*(a1 + 32) streamBuddySession:*(a1 + 40) connectionState:4 withError:0];
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 16);
-      *(v7 + 16) = 0;
+      v8 = *(a1 + 40);
+      v9 = *(v8 + 16);
+      *(v8 + 16) = 0;
 
-      v3 = SBLogStreamBuddy();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = SBLogStreamBuddy(v10);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = NSStringFromSelector(*(a1 + 64));
-        v10 = 138412290;
-        v11 = v9;
-        _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "%@ state:MCSessionStateNotConnected", &v10, 0xCu);
+        v11 = NSStringFromSelector(*(a1 + 64));
+        v12 = 138412290;
+        v13 = v11;
+        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "%@ state:MCSessionStateNotConnected", &v12, 0xCu);
       }
 
       break;
     case 1:
-      [*(a1 + 32) streamBuddySession:*(a1 + 40) connectionState:3 withError:0];
-      v3 = SBLogStreamBuddy();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = SBLogStreamBuddy([*(a1 + 32) streamBuddySession:*(a1 + 40) connectionState:3 withError:0]);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = NSStringFromSelector(*(a1 + 64));
-        v5 = [*(*(a1 + 40) + 16) displayName];
-        v10 = 138412546;
-        v11 = v4;
-        v12 = 2112;
+        v5 = NSStringFromSelector(*(a1 + 64));
+        v6 = [*(*(a1 + 40) + 16) displayName];
+        v12 = 138412546;
         v13 = v5;
-        v6 = "%@ state:MCSessionStateConnecting to %@";
+        v14 = 2112;
+        v15 = v6;
+        v7 = "%@ state:MCSessionStateConnecting to %@";
         goto LABEL_8;
       }
 
@@ -240,18 +239,18 @@ void __52__SBStreamBuddySession_session_peer_didChangeState___block_invoke(uint6
     case 2:
       [*(a1 + 32) streamBuddySession:*(a1 + 40) connectionState:2 withError:0];
       objc_storeStrong((*(a1 + 40) + 16), *(a1 + 48));
-      v3 = SBLogStreamBuddy();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = SBLogStreamBuddy(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = NSStringFromSelector(*(a1 + 64));
-        v5 = [*(*(a1 + 40) + 16) displayName];
-        v10 = 138412546;
-        v11 = v4;
-        v12 = 2112;
+        v5 = NSStringFromSelector(*(a1 + 64));
+        v6 = [*(*(a1 + 40) + 16) displayName];
+        v12 = 138412546;
         v13 = v5;
-        v6 = "%@ state:MCSessionStateConnected to %@";
+        v14 = 2112;
+        v15 = v6;
+        v7 = "%@ state:MCSessionStateConnected to %@";
 LABEL_8:
-        _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, v6, &v10, 0x16u);
+        _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, v7, &v12, 0x16u);
       }
 
       break;
@@ -264,7 +263,7 @@ LABEL_8:
 {
   v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v7 = SBLogStreamBuddy();
+  v7 = SBLogStreamBuddy(dataCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(a2);
@@ -280,7 +279,7 @@ LABEL_8:
 {
   v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v8 = SBLogStreamBuddy();
+  v8 = SBLogStreamBuddy(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
@@ -296,7 +295,7 @@ LABEL_8:
 {
   v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v8 = SBLogStreamBuddy();
+  v8 = SBLogStreamBuddy(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
@@ -312,7 +311,7 @@ LABEL_8:
 {
   v15 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v9 = SBLogStreamBuddy();
+  v9 = SBLogStreamBuddy(nameCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);

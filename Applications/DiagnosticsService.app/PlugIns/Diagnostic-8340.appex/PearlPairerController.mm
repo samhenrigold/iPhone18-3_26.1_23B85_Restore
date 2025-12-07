@@ -873,42 +873,41 @@ LABEL_23:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v17 = 0;
-  v48 = 0;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v47 = 0;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v23 = 0u;
+  v26 = 0u;
   v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   *buf = 0u;
   _createFDROptions = [(PearlPairerController *)self _createFDROptions];
   v5 = AMFDRSealingMapCopyInstanceForClass();
   if (!v5)
   {
-    sub_10000C64C(&v17);
-LABEL_33:
+    sub_10000C64C();
+LABEL_31:
     v11 = 0;
     PermissionsString = 0;
     v15 = 12;
@@ -918,7 +917,7 @@ LABEL_33:
   if (!AMFDRCreateTypeWithOptions())
   {
     sub_10000C5EC();
-    goto LABEL_33;
+    goto LABEL_31;
   }
 
   v6 = AMFDRCreateTypeWithOptions();
@@ -941,9 +940,9 @@ LABEL_33:
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 138412290;
-    v19 = PermissionsString;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Request FDR permissionStr: %@", v18, 0xCu);
+    *v17 = 138412290;
+    v18 = PermissionsString;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Request FDR permissionStr: %@", v17, 0xCu);
   }
 
   AMFDRSetOption();
@@ -952,7 +951,7 @@ LABEL_33:
     v9 = handleForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10000C3E8(&v17);
+      sub_10000C3E8();
     }
 
     v11 = 0;
@@ -967,10 +966,10 @@ LABEL_33:
     v9 = handleForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10000C53C(&v17);
+      sub_10000C53C();
     }
 
-    goto LABEL_46;
+    goto LABEL_44;
   }
 
   [v10 bytes];
@@ -984,22 +983,22 @@ LABEL_33:
       v9 = handleForCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_45;
+        goto LABEL_43;
       }
 
-      goto LABEL_46;
+      goto LABEL_44;
     }
 
 LABEL_17:
-    v13 = verifyFDRData(*(&v28 + 1), v29);
+    v13 = verifyFDRData(*(&v27 + 1), v28);
     v14 = handleForCategory();
     v9 = v14;
     if (!v13)
     {
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Verify PSD2 successfully", v18, 2u);
+        *v17 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Verify PSD2 successfully", v17, 2u);
       }
 
       v15 = 0;
@@ -1011,14 +1010,14 @@ LABEL_17:
       sub_10000C4CC();
     }
 
-    goto LABEL_46;
+    goto LABEL_44;
   }
 
   v12 = handleForCategory();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v18 = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Decoded FDR2 format", v18, 2u);
+    *v17 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Decoded FDR2 format", v17, 2u);
   }
 
   if (!Img4DecodeInit())
@@ -1029,11 +1028,11 @@ LABEL_17:
   v9 = handleForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-LABEL_45:
+LABEL_43:
     sub_10000C45C();
   }
 
-LABEL_46:
+LABEL_44:
   v15 = 12;
 LABEL_21:
 
@@ -1050,11 +1049,6 @@ LABEL_24:
   }
 
   if (PermissionsString)
-  {
-    AMSupportSafeRelease();
-  }
-
-  if (v17)
   {
     AMSupportSafeRelease();
   }

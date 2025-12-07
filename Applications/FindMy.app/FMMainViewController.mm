@@ -75,7 +75,7 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1000569D0(appear);
+  sub_1000569D0(appear, selfCopy, v4);
 }
 
 - (BOOL)shouldAutorotate

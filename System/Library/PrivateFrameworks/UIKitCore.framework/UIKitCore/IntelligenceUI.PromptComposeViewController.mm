@@ -30,41 +30,45 @@
   }
 
   v8 = OBJC_IVAR____TtCO5UIKit14IntelligenceUI27PromptComposeViewController_promptComposeView;
-  v9 = objc_allocWithZone(type metadata accessor for IntelligenceUI.PromptComposeView());
+  type metadata accessor for IntelligenceUI.PromptComposeView();
+  v10 = objc_allocWithZone(v9);
   bundleCopy = bundle;
-  *(&self->super.super.super.isa + v8) = [v9 initWithFrame_];
+  *(&self->super.super.super.isa + v8) = [v10 initWithFrame_];
   if (v7)
   {
-    v11 = sub_18A4A7258();
+    v12 = sub_18A4A7258();
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v14.receiver = self;
-  v14.super_class = type metadata accessor for IntelligenceUI.PromptComposeViewController();
-  v12 = [(UIViewController *)&v14 initWithNibName:v11 bundle:bundleCopy];
+  v13 = type metadata accessor for IntelligenceUI.PromptComposeViewController();
+  v17.receiver = self;
+  v17.super_class = v14;
+  v15 = [(UIViewController *)&v17 initWithNibName:v12 bundle:bundleCopy, v13];
 
-  return v12;
+  return v15;
 }
 
 - (_TtCO5UIKit14IntelligenceUI27PromptComposeViewController)initWithCoder:(id)coder
 {
   v5 = OBJC_IVAR____TtCO5UIKit14IntelligenceUI27PromptComposeViewController_promptComposeView;
-  v6 = objc_allocWithZone(type metadata accessor for IntelligenceUI.PromptComposeView());
+  type metadata accessor for IntelligenceUI.PromptComposeView();
+  v7 = objc_allocWithZone(v6);
   coderCopy = coder;
-  *(&self->super.super.super.isa + v5) = [v6 initWithFrame_];
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for IntelligenceUI.PromptComposeViewController();
-  v8 = [(UIViewController *)&v10 initWithCoder:coderCopy];
+  *(&self->super.super.super.isa + v5) = [v7 initWithFrame_];
+  v9 = type metadata accessor for IntelligenceUI.PromptComposeViewController();
+  v13.receiver = self;
+  v13.super_class = v10;
+  v11 = [(UIViewController *)&v13 initWithCoder:coderCopy, v9];
 
-  if (v8)
+  if (v11)
   {
   }
 
-  return v8;
+  return v11;
 }
 
 @end

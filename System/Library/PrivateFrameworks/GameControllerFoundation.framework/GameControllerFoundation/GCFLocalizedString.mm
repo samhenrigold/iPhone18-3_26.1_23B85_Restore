@@ -2,8 +2,11 @@
 + (id)allocWithZone:(_NSZone *)zone;
 - (GCFLocalizedString)init;
 - (GCFLocalizedString)initWithBytesNoCopy:(void *)copy length:(unint64_t)length encoding:(unint64_t)encoding deallocator:(id)deallocator;
+- (GCFLocalizedString)initWithBytesNoCopy:(void *)copy length:(unint64_t)length encoding:(unint64_t)encoding freeWhenDone:(BOOL)done;
+- (GCFLocalizedString)initWithCStringNoCopy:(char *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (GCFLocalizedString)initWithCharacters:(const unsigned __int16 *)characters length:(unint64_t)length;
 - (GCFLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length deallocator:(id)deallocator;
+- (GCFLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length freeWhenDone:(BOOL)done;
 - (GCFLocalizedString)initWithCoder:(id)coder;
 - (GCFLocalizedString)initWithFormat:(id)format arg:(id)arg;
 - (GCFLocalizedString)initWithFormat:(id)format locale:(id)locale arguments:(char *)arguments;
@@ -93,6 +96,16 @@
   return [(_GCFLocalizedString *)v4 initWithKey:string sourceBundle:0 table:0 locale:0];
 }
 
+- (GCFLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+
+  v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharactersNoCopy:copy length:length freeWhenDone:doneCopy];
+  v9 = [[_GCFLocalizedString alloc] initWithKey:v8 sourceBundle:0 table:0 locale:0];
+
+  return &v9->super;
+}
+
 - (GCFLocalizedString)initWithCharactersNoCopy:(unsigned __int16 *)copy length:(unint64_t)length deallocator:(id)deallocator
 {
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCharactersNoCopy:copy length:length deallocator:deallocator];
@@ -131,6 +144,26 @@
   v13 = [[_GCFLocalizedString alloc] initWithKey:v12 sourceBundle:0 table:0 locale:locale];
 
   return &v13->super;
+}
+
+- (GCFLocalizedString)initWithCStringNoCopy:(char *)copy length:(unint64_t)length freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+
+  v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCStringNoCopy:copy length:length freeWhenDone:doneCopy];
+  v9 = [[_GCFLocalizedString alloc] initWithKey:v8 sourceBundle:0 table:0 locale:0];
+
+  return &v9->super;
+}
+
+- (GCFLocalizedString)initWithBytesNoCopy:(void *)copy length:(unint64_t)length encoding:(unint64_t)encoding freeWhenDone:(BOOL)done
+{
+  doneCopy = done;
+
+  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:copy length:length encoding:encoding freeWhenDone:doneCopy];
+  v11 = [[_GCFLocalizedString alloc] initWithKey:v10 sourceBundle:0 table:0 locale:0];
+
+  return &v11->super;
 }
 
 - (GCFLocalizedString)initWithBytesNoCopy:(void *)copy length:(unint64_t)length encoding:(unint64_t)encoding deallocator:(id)deallocator

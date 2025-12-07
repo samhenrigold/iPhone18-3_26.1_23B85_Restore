@@ -9,17 +9,17 @@
 
 - (PTParameterRecordsPersistenceManager)init
 {
-  v7.receiver = self;
-  v7.super_class = PTParameterRecordsPersistenceManager;
-  v2 = [(PTParameterRecordsPersistenceManager *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = PTParameterRecordsPersistenceManager;
+  v2 = [(PTParameterRecordsPersistenceManager *)&v8 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.PrototypeTools.PTParameterRecordsPersistenceManager", 0);
     parameterRecordsArchiveQueue = v2->_parameterRecordsArchiveQueue;
     v2->_parameterRecordsArchiveQueue = v3;
 
-    v5 = _ParameterRecordsPath();
-    [(PTParameterRecordsPersistenceManager *)v2 setPath:v5];
+    v6 = _ParameterRecordsPath(v5);
+    [(PTParameterRecordsPersistenceManager *)v2 setPath:v6];
   }
 
   return v2;

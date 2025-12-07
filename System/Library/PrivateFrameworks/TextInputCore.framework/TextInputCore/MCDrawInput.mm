@@ -11,8 +11,10 @@
 - (RefPtr<TI::Favonius::KeyboardLayout>)keyboardLayout;
 - (RefPtr<TI::Favonius::KeyboardLayout>)rescaleKeyboardLayout;
 - (id).cxx_construct;
+- (id)_createDrawableTouchInputWithPoint:(CGPoint)point timestamp:(double)timestamp force:(double)force radius:(double)radius touchStage:(int)stage previousTouchInput:(id)input isInflectionPoint:(BOOL)inflectionPoint;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)shortDescriptionWithLeadingString:(id)string;
+- (void)_appendWithPoint:(CGPoint)point timestamp:(double)timestamp force:(double)force radius:(double)radius touchStage:(int)stage;
 - (void)_updateSampledInputs;
 - (void)_updateSampledInputsWithResampler:(const void *)resampler permanentlyFinalized:(BOOL)finalized;
 - (void)composeNew:(id)new;
@@ -64,6 +66,43 @@
   }
 
   return self;
+}
+
+- (id)_createDrawableTouchInputWithPoint:(CGPoint)point timestamp:(double)timestamp force:(double)force radius:(double)radius touchStage:(int)stage previousTouchInput:(id)input isInflectionPoint:(BOOL)inflectionPoint
+{
+  inflectionPointCopy = inflectionPoint;
+  y = point.y;
+  x = point.x;
+  inputCopy = input;
+  v20 = 0;
+  if ([(MCDrawInput *)self shouldResample])
+  {
+    [(MCDrawInput *)self drawHand];
+    objc_msgSend_rescaleKeyboardLayout(self);
+    if (!v19)
+    {
+      objc_msgSend_keyboardLayout(self);
+    }
+
+    operator new();
+  }
+
+  timestamp = [[MCDrawableTouchInput alloc] initWithTouchPoint:inflectionPointCopy radius:&v20 timestamp:x inflectionPoint:y touchHistory:radius, timestamp];
+  if (v20)
+  {
+    v17 = atomic_load(v20 + 2);
+    if (v17 == 1)
+    {
+      (*(*v20 + 8))();
+    }
+
+    else
+    {
+      atomic_fetch_add(v20 + 2, 0xFFFFFFFF);
+    }
+  }
+
+  return timestamp;
 }
 
 - (void)_updateSampledInputsWithResampler:(const void *)resampler permanentlyFinalized:(BOOL)finalized
@@ -281,6 +320,113 @@ LABEL_18:
   return v6;
 }
 
+- (void)_appendWithPoint:(CGPoint)point timestamp:(double)timestamp force:(double)force radius:(double)radius touchStage:(int)stage
+{
+  v7 = *&stage;
+  y = point.y;
+  x = point.x;
+  objc_msgSend_rescaleKeyboardLayout(self, a2);
+  if (v37)
+  {
+    v30 = x;
+    v31 = y;
+    timestampCopy = timestamp;
+    forceCopy = force;
+    radiusCopy = radius;
+    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v37);
+    objc_msgSend_keyboardLayout(self);
+    v15 = v37[15];
+    v14 = v37[16];
+    v16 = v37[17];
+    v17 = v37[18];
+    objc_msgSend_rescaleKeyboardLayout(self);
+    v19 = v36[15];
+    v18 = v36[16];
+    v21 = v36[17];
+    v20 = v36[18];
+    v39.origin.x = v15;
+    v39.origin.y = v14;
+    v39.size.width = v16;
+    v39.size.height = v17;
+    v40.origin.x = v19;
+    v40.origin.y = v18;
+    v40.size.width = v21;
+    v40.size.height = v20;
+    if (CGRectEqualToRect(v39, v40))
+    {
+      x = v30;
+      y = v31;
+    }
+
+    else
+    {
+      x = v19 + (v30 - v15) / v16 * v21;
+      y = v18 + (v31 - v14) / v17 * v20;
+    }
+
+    force = forceCopy;
+    radius = radiusCopy;
+    timestamp = timestampCopy;
+    if (v36)
+    {
+      WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v36);
+    }
+
+    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v37);
+  }
+
+  if ([(MCDrawInput *)self shouldResample])
+  {
+    resampler = [(MCDrawInput *)self resampler];
+    v38.x = x;
+    v38.y = y;
+    v23 = TI::CP::PathResampler::append_and_resample(resampler, v38, timestamp, force, radius);
+    resampler2 = [(MCDrawInput *)self resampler];
+    v25 = 0xAAAAAAAAAAAAAAABLL * ((resampler2[6] - resampler2[5]) >> 4) - v23;
+    if (v25 >= 1)
+    {
+      do
+      {
+        [(MCKeyboardInput *)self removeComposingInput];
+        --v25;
+      }
+
+      while (v25);
+    }
+
+    if (v7 == 2)
+    {
+      TI::CP::PathResampler::finalize([(MCDrawInput *)self resampler]);
+    }
+
+    [(MCDrawInput *)self _updateSampledInputs];
+  }
+
+  else
+  {
+    inputs = [(MCKeyboardInput *)self inputs];
+    if ([inputs count])
+    {
+      inputs2 = [(MCKeyboardInput *)self inputs];
+      lastObject = [inputs2 lastObject];
+    }
+
+    else
+    {
+      lastObject = 0;
+    }
+
+    radius = [(MCDrawInput *)self _createDrawableTouchInputWithPoint:v7 timestamp:lastObject force:0 radius:x touchStage:y previousTouchInput:timestamp isInflectionPoint:force, radius];
+    v35.receiver = self;
+    v35.super_class = MCDrawInput;
+    [(MCKeyboardInput *)&v35 composeNew:radius];
+    if (v7 == 2)
+    {
+      TI::CP::PathResampler::finalize([(MCDrawInput *)self resampler]);
+    }
+  }
+}
+
 - (void)composeWith:(id)with
 {
   withCopy = with;
@@ -444,7 +590,7 @@ LABEL_33:
 
 - (id)shortDescriptionWithLeadingString:(id)string
 {
-  string = [MEMORY[0x277CCAB68] string];
+  v4 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, string);
   inputs = [(MCKeyboardInput *)self inputs];
   v6 = [inputs count];
 
@@ -472,7 +618,7 @@ LABEL_33:
       v10 = @"NO";
     }
 
-    [(MCDrawInput *)self rescaleKeyboardLayout];
+    objc_msgSend_rescaleKeyboardLayout(self);
     if (v13)
     {
       v11 = @"YES";
@@ -483,14 +629,14 @@ LABEL_33:
       v11 = @"NO";
     }
 
-    [string appendFormat:@"MCDrawInput: %@samples = %lu, shouldResample = %@, shouldRescale = %@", v7, v9, v10, v11];
+    [v4 appendFormat:@"MCDrawInput: %@samples = %lu, shouldResample = %@, shouldRescale = %@", v7, v9, v10, v11];
     if (v13)
     {
       WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v13);
     }
   }
 
-  return string;
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -500,7 +646,7 @@ LABEL_33:
   v4 = [(MCKeyboardInput *)&v12 copyWithZone:zone];
   if (v4)
   {
-    [MCDrawInput copyKeyboardLayout:&self->_keyboardLayout];
+    objc_msgSend_copyKeyboardLayout_(MCDrawInput);
     v5 = *(v4 + 5);
     *(v4 + 5) = v11;
     if (v5)
@@ -508,7 +654,7 @@ LABEL_33:
       WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v5);
     }
 
-    [MCDrawInput copyKeyboardLayout:&self->_rescaleKeyboardLayout];
+    objc_msgSend_copyKeyboardLayout_(MCDrawInput);
     v6 = *(v4 + 6);
     *(v4 + 6) = 0;
     if (v6)
@@ -522,8 +668,8 @@ LABEL_33:
     v4[88] = self->_resampler.m_params.should_flush_on_pause;
     *(v4 + 56) = v8;
     *(v4 + 72) = v7;
-    TI::CP::Path::operator=((v4 + 96), &self->_resampler.m_resampled_path.m_samples.__begin_);
-    TI::CP::Path::operator=((v4 + 144), &self->_resampler.m_raw_path.m_samples.__begin_);
+    TI::CP::Path::operator=(v4 + 12, &self->_resampler.m_resampled_path.m_samples.__begin_);
+    TI::CP::Path::operator=(v4 + 18, &self->_resampler.m_raw_path.m_samples.__begin_);
     v9 = *&self->_resampler.m_is_final;
     *(v4 + 50) = self->_resampler.m_retroactively_processed_sample_count;
     *(v4 + 24) = v9;
@@ -636,21 +782,13 @@ LABEL_33:
 
 void __34__MCDrawInput_copyKeyboardLayout___block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  KB::String::String(v10, (*a2 + 8));
-  v3 = *a2;
+  v4 = *MEMORY[0x277D85DE8];
+  KB::String::String(v3, (*a2 + 8));
   if (*(*a2 + 40) >= 0xFuLL)
   {
-    LOWORD(v9) = *(*a2 + 40);
     operator new[]();
   }
 
-  v9 = *(*a2 + 40);
-  v4 = *(v3 + 64);
-  v5 = *(v3 + 72);
-  v6 = *(v3 + 80);
-  v7 = *(v3 + 88);
-  v8 = *(v3 + 62);
   operator new();
 }
 

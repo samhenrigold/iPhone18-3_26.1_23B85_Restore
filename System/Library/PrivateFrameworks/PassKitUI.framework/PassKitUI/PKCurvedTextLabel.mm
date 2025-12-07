@@ -870,7 +870,7 @@ void __40__PKCurvedTextLabel__glyphsBoundingRect__block_invoke(uint64_t a1, doub
 
 void __63__PKCurvedTextLabel__enumerateTransformsForDrawableCharacters___block_invoke(uint64_t a1, uint64_t a2, CFIndex a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 816) locationForGlyphAtIndex:a2];
   v7 = v6;
   v9 = v8;
@@ -897,17 +897,17 @@ void __63__PKCurvedTextLabel__enumerateTransformsForDrawableCharacters___block_i
   v14 = *(a1 + 48);
   v15 = *(a1 + 56);
   v16 = [*(*(a1 + 32) + 808) attribute:*MEMORY[0x1E69DB648] atIndex:*(a1 + 64) effectiveRange:0];
-  v18 = MEMORY[0x1EEE9AC00](v16, v17);
-  v20 = (&v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  [*(*(a1 + 32) + 816) getGlyphsInRange:a2 glyphs:a3 properties:v20 characterIndexes:0 bidiLevels:{0, 0, v18}];
-  BoundingRectsForGlyphs = CTFontGetBoundingRectsForGlyphs(v16, kCTFontOrientationDefault, v20, 0, a3);
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  v19 = (&v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  [*(*(a1 + 32) + 816) getGlyphsInRange:a2 glyphs:a3 properties:v19 characterIndexes:0 bidiLevels:{0, 0, v17}];
+  BoundingRectsForGlyphs = CTFontGetBoundingRectsForGlyphs(v16, kCTFontOrientationDefault, v19, 0, a3);
   x = BoundingRectsForGlyphs.origin.x;
   y = BoundingRectsForGlyphs.origin.y;
   width = BoundingRectsForGlyphs.size.width;
   if (*(a1 + 152))
   {
     [(__CTFont *)v16 xHeight];
-    height = v24;
+    height = v23;
   }
 
   else
@@ -915,27 +915,27 @@ void __63__PKCurvedTextLabel__enumerateTransformsForDrawableCharacters___block_i
     height = BoundingRectsForGlyphs.size.height;
   }
 
-  v26 = v7 + v14 - v15 + x;
-  v41.origin.x = v26;
-  v41.origin.y = y;
+  v25 = v7 + v14 - v15 + x;
+  v40.origin.x = v25;
+  v40.origin.y = y;
+  v40.size.width = width;
+  v40.size.height = height;
+  v26 = v9 - CGRectGetMaxY(v40);
+  v41.origin.x = v25;
+  v41.origin.y = v26;
   v41.size.width = width;
   v41.size.height = height;
-  v27 = v9 - CGRectGetMaxY(v41);
-  v42.origin.x = v26;
-  v42.origin.y = v27;
+  MidX = CGRectGetMidX(v41);
+  memset(&v37, 0, sizeof(v37));
+  _TransformForLayoutLocation(&v37, v28, v29, v30, v31, v32, v33, v34, MidX, v9, *(a1 + 88), *(a1 + 96), *(*(a1 + 32) + 960), *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128));
+  v42.origin.x = v25;
+  v42.origin.y = v26;
   v42.size.width = width;
   v42.size.height = height;
-  MidX = CGRectGetMidX(v42);
-  memset(&v38, 0, sizeof(v38));
-  _TransformForLayoutLocation(&v38, v29, v30, v31, v32, v33, v34, v35, MidX, v9, *(a1 + 88), *(a1 + 96), *(*(a1 + 32) + 960), *(a1 + 104), *(a1 + 112), *(a1 + 120), *(a1 + 128));
-  v43.origin.x = v26;
-  v43.origin.y = v27;
-  v43.size.width = width;
-  v43.size.height = height;
-  v44 = CGRectOffset(v43, -MidX, -v9);
-  v36 = *(*(a1 + 40) + 16);
-  v37 = v38;
-  v36(MidX, v9, v44.origin.x, v44.origin.y, v44.size.width, v44.size.height);
+  v43 = CGRectOffset(v42, -MidX, -v9);
+  v35 = *(*(a1 + 40) + 16);
+  v36 = v37;
+  v35(MidX, v9, v43.origin.x, v43.origin.y, v43.size.width, v43.size.height);
 }
 
 @end

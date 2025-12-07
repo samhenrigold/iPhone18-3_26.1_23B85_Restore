@@ -10,14 +10,14 @@
 
 + (void)clearCache
 {
-  v2 = sub_DBC0();
+  v2 = sub_DBC0(self);
   [v2 removeAllObjects];
 }
 
 + (id)appIconImageForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = sub_DBC0();
+  v4 = sub_DBC0(identifierCopy);
   v5 = [v4 objectForKey:identifierCopy];
 
   if (v5)
@@ -43,7 +43,7 @@
     v10 = [v8 prepareImageForDescriptor:v9];
     v11 = [v8 imageForDescriptor:v9];
     v12 = [[GCSettingsAppIcon alloc] initWithISImage:v11];
-    v13 = sub_DBC0();
+    v13 = sub_DBC0(v12);
     v14 = v13;
     if (v12)
     {

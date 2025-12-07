@@ -75,17 +75,17 @@
 
 - (void)loadPlist:(int64_t)plist
 {
-  v32[3] = *MEMORY[0x1E69E9840];
-  v31[0] = &unk_1F2ED49E8;
+  v31[3] = *MEMORY[0x1E69E9840];
+  v30[0] = &unk_1F2ED49E8;
   v5 = [@"/System/Library/DuetActivityScheduler/Scheduler/Resources/" stringByAppendingString:@"com.apple.dasd.fastpass.activities.plist"];
-  v32[0] = v5;
-  v31[1] = &unk_1F2ED4A00;
+  v31[0] = v5;
+  v30[1] = &unk_1F2ED4A00;
   v6 = [@"/System/Library/DuetActivityScheduler/Scheduler/Resources/" stringByAppendingString:@"com.apple.dasd.features.plist"];
-  v32[1] = v6;
-  v31[2] = &unk_1F2ED4A18;
+  v31[1] = v6;
+  v30[2] = &unk_1F2ED4A18;
   v7 = [@"/System/Library/DuetActivityScheduler/Scheduler/Resources/" stringByAppendingString:@"com.apple.dasd.allowlist.activities.plist"];
-  v32[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v31[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:plist];
   v10 = [v8 objectForKey:v9];
@@ -94,10 +94,10 @@
   readDataToEndOfFile = [v11 readDataToEndOfFile];
   if ([readDataToEndOfFile length])
   {
-    v25 = 0;
-    v26 = 100;
-    v13 = [MEMORY[0x1E696AE40] propertyListWithData:readDataToEndOfFile options:0 format:&v26 error:&v25];
-    v14 = v25;
+    v24 = 0;
+    v25 = 100;
+    v13 = [MEMORY[0x1E696AE40] propertyListWithData:readDataToEndOfFile options:0 format:&v25 error:&v24];
+    v14 = v24;
     v15 = v14;
     v16 = _log;
     if (!v13 || v14)
@@ -112,19 +112,19 @@
     {
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEBUG))
       {
-        v23 = MEMORY[0x1E696AD98];
-        v21 = v16;
-        v24 = [v23 numberWithInteger:plist];
-        v22 = [v8 objectForKey:v24];
+        v22 = MEMORY[0x1E696AD98];
+        v20 = v16;
+        v23 = [v22 numberWithInteger:plist];
+        v21 = [v8 objectForKey:v23];
         *buf = 138412546;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v13;
-        _os_log_debug_impl(&dword_1B6E2F000, v21, OS_LOG_TYPE_DEBUG, "Successfully read plist %@:%@", buf, 0x16u);
+        v27 = v21;
+        v28 = 2112;
+        v29 = v13;
+        _os_log_debug_impl(&dword_1B6E2F000, v20, OS_LOG_TYPE_DEBUG, "Successfully read plist %@:%@", buf, 0x16u);
       }
 
       plistToDictionaryMap = self->_plistToDictionaryMap;
-      v18 = [MEMORY[0x1E696AD98] numberWithInteger:{plist, v22}];
+      v18 = [MEMORY[0x1E696AD98] numberWithInteger:{plist, v21}];
       [(NSMutableDictionary *)plistToDictionaryMap setObject:v13 forKey:v18];
     }
   }
@@ -137,13 +137,11 @@
       [(_DASPlistParser *)v19 loadPlist:plist, v8];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)loadOverrides
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   obj = selfCopy;
@@ -155,109 +153,107 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  v34 = [(_DASPlistParser *)selfCopy dictionaryForPlist:1];
-  if ([v34 count])
+  v33 = [(_DASPlistParser *)selfCopy dictionaryForPlist:1];
+  if ([v33 count])
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    [v34 allKeys];
+    [v33 allKeys];
+    v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v32 = v43 = 0u;
-    v8 = [v32 countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v8)
+    v41 = 0u;
+    v31 = v42 = 0u;
+    v7 = [v31 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v7)
     {
-      v33 = *v43;
+      v32 = *v42;
       do
       {
-        v35 = v8;
-        for (i = 0; i != v35; ++i)
+        v34 = v7;
+        for (i = 0; i != v34; ++i)
         {
-          if (*v43 != v33)
+          if (*v42 != v32)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v31);
           }
 
-          v10 = *(*(&v42 + 1) + 8 * i);
-          v37 = [v34 objectForKeyedSubscript:v10];
-          v11 = [v37 objectForKeyedSubscript:@"LimitationOverrides"];
-          if (v11)
+          v9 = *(*(&v41 + 1) + 8 * i);
+          v36 = [v33 objectForKeyedSubscript:v9];
+          v10 = [v36 objectForKeyedSubscript:@"LimitationOverrides"];
+          if (v10)
           {
-            v40 = 0u;
-            v41 = 0u;
-            v38 = 0u;
             v39 = 0u;
-            v36 = v11;
-            v12 = v11;
-            v13 = [v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
-            if (v13)
+            v40 = 0u;
+            v37 = 0u;
+            v38 = 0u;
+            v35 = v10;
+            v11 = v10;
+            v12 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
+            if (v12)
             {
-              v14 = *v39;
+              v13 = *v38;
               do
               {
-                for (j = 0; j != v13; ++j)
+                for (j = 0; j != v12; ++j)
                 {
-                  if (*v39 != v14)
+                  if (*v38 != v13)
                   {
-                    objc_enumerationMutation(v12);
+                    objc_enumerationMutation(v11);
                   }
 
-                  v16 = *(*(&v38 + 1) + 8 * j);
-                  v17 = [dictionary objectForKeyedSubscript:v16];
-                  v18 = v17 == 0;
+                  v15 = *(*(&v37 + 1) + 8 * j);
+                  v16 = [dictionary objectForKeyedSubscript:v15];
+                  v17 = v16 == 0;
 
-                  if (v18)
+                  if (v17)
                   {
-                    v19 = [MEMORY[0x1E695DFA8] set];
-                    [dictionary setObject:v19 forKeyedSubscript:v16];
+                    v18 = [MEMORY[0x1E695DFA8] set];
+                    [dictionary setObject:v18 forKeyedSubscript:v15];
                   }
 
-                  v20 = [dictionary objectForKeyedSubscript:v16];
-                  [v20 addObject:v10];
+                  v19 = [dictionary objectForKeyedSubscript:v15];
+                  [v19 addObject:v9];
                 }
 
-                v13 = [v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                v12 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
               }
 
-              while (v13);
+              while (v12);
             }
 
-            v11 = v36;
+            v10 = v35;
           }
         }
 
-        v8 = [v32 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v7 = [v31 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v8);
+      while (v7);
     }
 
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
-    v22 = obj->_overrideActivities;
-    obj->_overrideActivities = v21;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
+    v21 = obj->_overrideActivities;
+    obj->_overrideActivities = v20;
 
     overrideActivities = obj->_overrideActivities;
     goto LABEL_2;
   }
 
-  v23 = _log;
+  v22 = _log;
   if (os_log_type_enabled(_log, OS_LOG_TYPE_ERROR))
   {
-    [(_DASPlistParser *)v23 loadOverrides:v24];
+    [(_DASPlistParser *)v22 loadOverrides:v23];
   }
 
   v4 = 0;
 LABEL_3:
   objc_sync_exit(obj);
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (BOOL)containsOverrideForActivity:(id)activity withLimitation:(id)limitation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   limitationCopy = limitation;
   identifier = [activityCopy identifier];
@@ -267,28 +263,28 @@ LABEL_3:
     objc_sync_enter(v9);
     v10 = [(NSDictionary *)self->_overrideActivities objectForKeyedSubscript:limitationCopy];
     v11 = [v10 containsObject:identifier];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v11 |= [identifier containsString:{*(*(&v19 + 1) + 8 * i), v19}];
+          v11 |= [identifier containsString:{*(*(&v18 + 1) + 8 * i), v18}];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -308,7 +304,6 @@ LABEL_3:
     LOBYTE(v11) = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -366,35 +361,32 @@ LABEL_3:
 
 - (void)loadPlist:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AD98];
   v6 = a1;
   v7 = [v5 numberWithInteger:a2];
   v8 = [a3 objectForKey:v7];
-  OUTLINED_FUNCTION_1_1(&dword_1B6E2F000, v9, v10, "Failed to convert plist %@ to dictionary", v11, v12, v13, v14, 2u);
-
-  v15 = *MEMORY[0x1E69E9840];
+  LODWORD(v15) = 138412290;
+  *(&v15 + 4) = v8;
+  OUTLINED_FUNCTION_1_1(&dword_1B6E2F000, v9, v10, "Failed to convert plist %@ to dictionary", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 - (void)loadPlist:(void *)a3 .cold.2(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AD98];
   v6 = a1;
   v7 = [v5 numberWithInteger:a2];
   v8 = [a3 objectForKey:v7];
-  OUTLINED_FUNCTION_1_1(&dword_1B6E2F000, v9, v10, "Failed to read file %@", v11, v12, v13, v14, 2u);
-
-  v15 = *MEMORY[0x1E69E9840];
+  LODWORD(v15) = 138412290;
+  *(&v15 + 4) = v8;
+  OUTLINED_FUNCTION_1_1(&dword_1B6E2F000, v9, v10, "Failed to read file %@", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 - (void)containsOverrideForActivity:(uint64_t)a1 withLimitation:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "No identifier for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "No identifier for %@", &v2, 0xCu);
 }
 
 @end

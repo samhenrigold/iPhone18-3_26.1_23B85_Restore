@@ -114,14 +114,16 @@ void __33__PKInkManager_defaultInkManager__block_invoke()
 
     else
     {
-      v14 = version - 1;
+      v14 = (version - 1);
       do
       {
         v13 = [PKInkParser inkBehaviorsWithIdentifer:identifierCopy version:v14];
         [(NSMutableDictionary *)selfCopy->_inks addEntriesFromDictionary:v13];
         v15 = [[PKInkKey alloc] initWithIdentifier:identifierCopy version:v14 variant:variantCopy];
 
-        if (v14-- == 0)
+        v16 = v14 != 0;
+        v14 = (v14 - 1);
+        if (!v16)
         {
           break;
         }
@@ -130,7 +132,7 @@ void __33__PKInkManager_defaultInkManager__block_invoke()
       }
 
       while (!v13);
-      version = v14 + 1;
+      version = &v14->isa + 1;
     }
 
     v11 = v15;

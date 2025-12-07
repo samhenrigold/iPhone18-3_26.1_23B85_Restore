@@ -1,1095 +1,3 @@
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_15,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_15>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1 && *a4 == 1)
-  {
-    operator new();
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "ReblockerBox number of inputs and outputs must be one.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83353A0);
-}
-
-void sub_1C9215948(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_14,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_14>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1 && *a4 == 1)
-  {
-    operator new();
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "SRCBox number of inputs and outputs must be one.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335388);
-}
-
-void sub_1C9215B74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_13,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_13>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a4 == 1)
-  {
-    if (*a3)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "AverageBox number of inputs cannot be 0.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335370);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "AverageBox number of outputs must be 1");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335358);
-}
-
-void sub_1C9215DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_12,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_12>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a4 == 1)
-  {
-    if (*a3)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "MixBox number of inputs cannot be zero.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335340);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for MixBox. must be 1.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335328);
-}
-
-void sub_1C921602C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v17 < 0)
-  {
-    operator delete(v16);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
-}
-
-void sub_1C92161B0(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_11,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_11>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a4 == 1)
-  {
-    if (*a3)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "SumBox number of inputs cannot be zero.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335310);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for SumBox. must be 1.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83352F8);
-}
-
-void sub_1C9216390(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_10,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_10>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1)
-  {
-    if (*a4 == 1)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for CopyBox. must be 1.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83352E0);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of inputs for CopyBox. must be 1.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83352C8);
-}
-
-void sub_1C92165D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_9,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_9>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1)
-  {
-    if (*a4 == 1)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for VectorGainBox. must be 1.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83352B0);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of inputs for VectorGainBox. must be 1.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335298);
-}
-
-void sub_1C9216834(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_8,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_8>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1)
-  {
-    if (*a4 == 1)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for arithmetic abs box. must be 1.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335280);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of inputs for arithmetic abs box. must be 1.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335268);
-}
-
-void sub_1C9216A78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_7,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_7>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
-  {
-    if (*a4 == 1)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for arithmetic sum box. must be 1.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83351A8);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of inputs for arithmetic sum box. must be 2.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E8335190);
-}
-
-void sub_1C9216CBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::initialize(uint64_t a1)
-{
-  result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
-  {
-    v9 = *(a1 + 104) - *(a1 + 96);
-    goto LABEL_27;
-  }
-
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
-  {
-    v6 = 2;
-LABEL_27:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v29, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v29, off_1E8335220);
-  }
-
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v19 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v19 = *v19;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v19, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
-  {
-    v20 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v20 = *v20;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v20, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
-  {
-    v21 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v22 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v28, v21, *(*(*(v22 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v28, off_1E8335238);
-  }
-
-  if (v8 == v7)
-  {
-    v23 = v9 >> 5;
-    v24 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v24 = *v24;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v30, v24, v23, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C78);
-  }
-
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
-  {
-    v25 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v26 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v27, v25, *(*(*(v26 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v27, off_1E8335250);
-  }
-
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 == 1819304813 && v14 == 1819304813)
-  {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::initialize(void)::kernel;
-  }
-
-  else if (v13 != 1819304813 || v14 == 1819304813)
-  {
-    if (v13 != 1819304813 && v14 == 1819304813)
-    {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::initialize(void)::kernel;
-    }
-
-    else
-    {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::initialize(void)::kernel;
-    }
-  }
-
-  else
-  {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::initialize(void)::kernel;
-  }
-
-  *(a1 + 768) = v18;
-  return result;
-}
-
-void sub_1C9217000(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
-{
-  if (a18 < 0)
-  {
-    operator delete(a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)1,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)1>::process(int a1, vDSP_Length __N, float *a3, float *a4, float *a5)
-{
-  __A.realp = a3;
-  __A.imagp = &a3[__N];
-  __B.realp = a4;
-  __B.imagp = &a4[__N];
-  v5.realp = a5;
-  v5.imagp = &a5[__N];
-  vDSP_zvadd(&__A, 1, &__B, 1, &v5, 1, __N);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)1,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)0>::process(int a1, vDSP_Length __N, float *a3, const float *__B, float *a5)
-{
-  __A.realp = a3;
-  __A.imagp = &a3[__N];
-  v5.realp = a5;
-  v5.imagp = &a5[__N];
-  vDSP_zrvadd(&__A, 1, __B, 1, &v5, 1, __N);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)0,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::Domain)1>::process(int a1, vDSP_Length __N, const float *a3, float *a4, float *a5)
-{
-  __A.realp = a4;
-  __A.imagp = &a4[__N];
-  v5.realp = a5;
-  v5.imagp = &a5[__N];
-  vDSP_zrvadd(&__A, 1, a3, 1, &v5, 1, __N);
-}
-
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
-{
-  v3 = *(this + 9);
-  v4 = (*(this + 10) - v3) >> 5;
-  if (*(this + 10) == v3)
-  {
-    v33 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v33 = *v33;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  if (v4 <= 1)
-  {
-    v34 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v34 = *v34;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v5 = *(this + 12);
-  if (*(this + 13) == v5)
-  {
-    v35 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v35 = *v35;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  v6 = *(*(*(v3 + 16) + 56) + 80);
-  v7 = *(*(*(v3 + 48) + 56) + 80);
-  if (*v6 != *v7)
-  {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E83351C0);
-  }
-
-  v8 = *(*(*(v5 + 16) + 56) + 80);
-  if (*v6 != *v8)
-  {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E83351D8);
-  }
-
-  v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
-  {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E83351F0);
-  }
-
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
-  {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8335208);
-  }
-
-  v14 = *v6;
-  result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
-  {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
-    do
-    {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
-    }
-
-    while (v14);
-  }
-
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
-  {
-    v40 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v40 = *v40;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
-  {
-    v41 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v41 = *v41;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
-  {
-    v42 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v42 = *v42;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  if (v31 <= 1)
-  {
-    v43 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v43 = *v43;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
-  {
-    v44 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v44 = *v44;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  *(*(*(v32 + 16) + 56) + 72) = (*(*(*(v30 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v30 + 16) + 56) + 72);
-  return result;
-}
-
-void sub_1C921777C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, char a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
-{
-  if (*(v35 - 65) < 0)
-  {
-    operator delete(*(v35 - 88));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox::desc@<D0>(uint64_t a1@<X8>)
-{
-  result = 2.73571922e161;
-  *a1 = xmmword_1C925F1D0;
-  *(a1 + 16) = 0;
-  return result;
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox::~SumBox(AudioDSPGraph::Boxes::Arithmetic::Binary::SumBox *this)
-{
-  AudioDSPGraph::Box::~Box(this);
-
-  JUMPOUT(0x1CCA84AE0);
-}
-
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_6,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_6>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
-{
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
-  {
-    if (*a4 == 1)
-    {
-      operator new();
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of outputs for arithmetic difference box. Must be 1.");
-    AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83350D0);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__p, "wrong number of inputs for arithmetic difference box. Must be 2.");
-  AudioDSPGraph::ThrowException(1701602593, &__p, off_1E83350B8);
-}
-
-void sub_1C9217A44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v15 < 0)
-  {
-    operator delete(v14);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::initialize(uint64_t a1)
-{
-  result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
-  {
-    v9 = *(a1 + 104) - *(a1 + 96);
-    goto LABEL_27;
-  }
-
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
-  {
-    v6 = 2;
-LABEL_27:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v29, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v29, off_1E8335148);
-  }
-
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v19 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v19 = *v19;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v19, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
-  {
-    v20 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v20 = *v20;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v20, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
-  {
-    v21 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v22 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v28, v21, *(*(*(v22 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v28, off_1E8335160);
-  }
-
-  if (v8 == v7)
-  {
-    v23 = v9 >> 5;
-    v24 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v24 = *v24;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v30, v24, v23, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C78);
-  }
-
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
-  {
-    v25 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v26 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v27, v25, *(*(*(v26 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v27, off_1E8335178);
-  }
-
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 == 1819304813 && v14 == 1819304813)
-  {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::initialize(void)::kernel;
-  }
-
-  else if (v13 != 1819304813 || v14 == 1819304813)
-  {
-    if (v13 != 1819304813 && v14 == 1819304813)
-    {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::initialize(void)::kernel;
-    }
-
-    else
-    {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::initialize(void)::kernel;
-    }
-  }
-
-  else
-  {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::initialize(void)::kernel;
-  }
-
-  *(a1 + 768) = v18;
-  return result;
-}
-
-void sub_1C9217D88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
-{
-  if (a18 < 0)
-  {
-    operator delete(a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)1,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)1>::process(int a1, vDSP_Length __N, float *a3, float *a4, float *a5)
-{
-  __A.realp = a3;
-  __A.imagp = &a3[__N];
-  __B.realp = a4;
-  __B.imagp = &a4[__N];
-  v5.realp = a5;
-  v5.imagp = &a5[__N];
-  vDSP_zvsub(&__A, 1, &__B, 1, &v5, 1, __N);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)1,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)0>::process(int a1, vDSP_Length __N, float *a3, const float *__B, float *a5)
-{
-  __A.realp = a3;
-  __A.imagp = &a3[__N];
-  v5.realp = a5;
-  v5.imagp = &a5[__N];
-  vDSP_zrvsub(&__A, 1, __B, 1, &v5, 1, __N);
-}
-
-void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::KernelImpl<(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)0,(AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::Domain)1>::process(int a1, vDSP_Length __N, const float *a3, float *a4, float *a5)
-{
-  v5 = __N;
-  __A.realp = a4;
-  __A.imagp = &a4[__N];
-  v6.realp = a5;
-  v6.imagp = &a5[__N];
-  vDSP_zrvsub(&__A, 1, a3, 1, &v6, 1, __N);
-  vDSP_zvneg(&v6, 1, &v6, 1, v5);
-}
-
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
-{
-  v3 = *(this + 9);
-  v4 = (*(this + 10) - v3) >> 5;
-  if (*(this + 10) == v3)
-  {
-    v33 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v33 = *v33;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  if (v4 <= 1)
-  {
-    v34 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v34 = *v34;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v5 = *(this + 12);
-  if (*(this + 13) == v5)
-  {
-    v35 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v35 = *v35;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  v6 = *(*(*(v3 + 16) + 56) + 80);
-  v7 = *(*(*(v3 + 48) + 56) + 80);
-  if (*v6 != *v7)
-  {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E83350E8);
-  }
-
-  v8 = *(*(*(v5 + 16) + 56) + 80);
-  if (*v6 != *v8)
-  {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E8335100);
-  }
-
-  v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
-  {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E8335118);
-  }
-
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
-  {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8335130);
-  }
-
-  v14 = *v6;
-  result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
-  {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
-    do
-    {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
-    }
-
-    while (v14);
-  }
-
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
-  {
-    v40 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v40 = *v40;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
-  {
-    v41 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v41 = *v41;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
-  {
-    v42 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v42 = *v42;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  if (v31 <= 1)
-  {
-    v43 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v43 = *v43;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
-  }
-
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
-  {
-    v44 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v44 = *v44;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
-  }
-
-  *(*(*(v32 + 16) + 56) + 72) = (*(*(*(v30 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v30 + 16) + 56) + 72);
-  return result;
-}
-
 void sub_1C9218524(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, char a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
 {
   if (*(v35 - 65) < 0)
@@ -1115,19 +23,17 @@ void AudioDSPGraph::Boxes::Arithmetic::Binary::DiffBox::~DiffBox(AudioDSPGraph::
   JUMPOUT(0x1CCA84AE0);
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_5,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_5>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_5,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_5>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 2)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -1158,40 +64,28 @@ void sub_1C92187EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MaxBox>::initialize(uint64_t a1)
 {
   result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
+  v4 = *(a1 + 72);
+  v5 = *(a1 + 80);
+  v7 = (v5 - v4) >> 5;
+  if (v7 != 2)
   {
-    v9 = *(a1 + 104) - *(a1 + 96);
+    v10 = *(a1 + 104) - *(a1 + 96);
     goto LABEL_16;
   }
 
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  v8 = *(a1 + 96);
+  v9 = *(a1 + 104);
+  v10 = v9 - v8;
+  if (((v9 - v8) & 0x1FFFFFFFE0) != 0x20)
   {
-    v6 = 2;
+    v7 = 2;
 LABEL_16:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v35, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v35, off_1E8335028);
+    caulk::make_string(&v40, "There must be two inputs and one output, instead of %u and %u.", v3, v7, v10 >> 5);
+    AudioDSPGraph::ThrowException(1701602593, &v40, off_1E8335028);
   }
 
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v16 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v16 = *v16;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v36, v16, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
+  v6 = v5 - v4;
+  if (v5 == v4)
   {
     v17 = (a1 + 40);
     if (*(a1 + 63) < 0)
@@ -1199,64 +93,76 @@ LABEL_16:
       v17 = *v17;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v36, v17, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C60);
+    caulk::make_string(&v41, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v17, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
   }
 
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
+  if (((v5 - v4) >> 5) <= 1)
   {
-    v18 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v19 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v34, v18, *(*(*(v19 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v34, off_1E8335040);
-  }
-
-  if (v8 == v7)
-  {
-    v20 = v9 >> 5;
-    v21 = (a1 + 40);
+    v18 = (a1 + 40);
     if (*(a1 + 63) < 0)
     {
-      v21 = *v21;
+      v18 = *v18;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v36, v21, v20, 0);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C78);
+    caulk::make_string(&v41, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v18, v6 >> 5, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
   }
 
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
+  v11 = *(*(v4 + 16) + 120);
+  v12 = *(v11 + 28);
+  v13 = *(*(v4 + 48) + 120);
+  if (v12 != *(v13 + 28))
   {
-    v22 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v23 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v33, v22, *(*(*(v23 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v33, off_1E8335058);
+    v19 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v20 = AudioDSPGraph::Box::in(a1, 1);
+    caulk::make_string(&v39, "The inputs must have the same channel count, but have %u and %u.", v21, v19, *(*(*(v20 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v39, off_1E8335040);
   }
 
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 != 1819304813 || v14 != 1819304813)
+  if (v9 == v8)
   {
-    v28 = v13;
-    v29 = *(v12 + 8);
-    if (v13 == 1819304813 && v14 != 1819304813)
+    v22 = v10 >> 5;
+    v23 = (a1 + 40);
+    if (*(a1 + 63) < 0)
     {
-      v27 = (*(*a1 + 16))(a1);
-      caulk::make_string("Can't use real input for one bus and complex input for another with '%s' box", v32, v27);
-      AudioDSPGraph::ThrowException(1718444833, v32, off_1E8335070);
+      v23 = *v23;
     }
 
-    v25 = (*(*a1 + 16))(a1);
-    if (v28 == 1819304813 || v29 != 1819304813)
+    caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v23, v22, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
+  }
+
+  if (v12 != *(*(*(v8 + 16) + 120) + 28))
+  {
+    v24 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v25 = AudioDSPGraph::Box::out(a1, 0);
+    caulk::make_string(&v38, "The inputs and output must have the same channel count, but have %u and %u.", v26, v24, *(*(*(v25 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v38, off_1E8335058);
+  }
+
+  v14 = *(v11 + 8);
+  v15 = *(v13 + 8);
+  if (v14 != 1819304813 || v15 != 1819304813)
+  {
+    v33 = v14;
+    v34 = *(v13 + 8);
+    if (v14 == 1819304813 && v15 != 1819304813)
     {
-      caulk::make_string("Can't use complex inputs with '%s' box", v30, v25);
-      AudioDSPGraph::ThrowException(1718444833, v30, off_1E83350A0);
+      v31 = (*(*a1 + 16))(a1);
+      caulk::make_string(&v37, "Can't use real input for one bus and complex input for another with '%s' box", v32, v31);
+      AudioDSPGraph::ThrowException(1718444833, &v37, off_1E8335070);
     }
 
-    caulk::make_string("Can't use complex input for one bus and real input for another with '%s' box", v31, v25);
-    AudioDSPGraph::ThrowException(1718444833, v31, off_1E8335088);
+    v28 = (*(*a1 + 16))(a1);
+    if (v33 == 1819304813 || v34 != 1819304813)
+    {
+      caulk::make_string(&v35, "Can't use complex inputs with '%s' box", v29, v28);
+      AudioDSPGraph::ThrowException(1718444833, &v35, off_1E83350A0);
+    }
+
+    caulk::make_string(&v36, "Can't use complex input for one bus and real input for another with '%s' box", v29, v28);
+    AudioDSPGraph::ThrowException(1718444833, &v36, off_1E8335088);
   }
 
   *(a1 + 768) = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MaxBox>::initialize(void)::kernel;
@@ -1273,181 +179,181 @@ void sub_1C9218BFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MaxBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
+uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MaxBox>::process(AudioDSPGraph::Box *this, const char *a2)
 {
   v3 = *(this + 9);
   v4 = (*(this + 10) - v3) >> 5;
   if (*(this + 10) == v3)
   {
-    v33 = (this + 40);
+    v36 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v33 = *v33;
+      v36 = *v36;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v36, v4, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   if (v4 <= 1)
   {
-    v34 = (this + 40);
+    v37 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v34 = *v34;
+      v37 = *v37;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v37, v4, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   v5 = *(this + 12);
   if (*(this + 13) == v5)
   {
-    v35 = (this + 40);
+    v38 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v35 = *v35;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v38, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
   v6 = *(*(*(v3 + 16) + 56) + 80);
   v7 = *(*(*(v3 + 48) + 56) + 80);
   if (*v6 != *v7)
   {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E8334FC8);
+    v39 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v40 = AudioDSPGraph::Box::in(this, 1);
+    caulk::make_string(&v53, "The inputs must have the same channel count, but have %u and %u.", v41, v39, *(*(*(v40 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v53, off_1E8334FC8);
   }
 
   v8 = *(*(*(v5 + 16) + 56) + 80);
   if (*v6 != *v8)
   {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E8334FE0);
+    v42 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v43 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v52, "The inputs and output must have the same channel count, but have %u and %u.", v44, v42, *(*(*(v43 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v52, off_1E8334FE0);
   }
 
   v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
+  v12 = v6[3];
+  if (v12 < v10)
   {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E8334FF8);
+    caulk::make_string(&v51, "The buffer passed for input 0 should be at least %u bytes, but is %u.", v11, v10, v12);
+    AudioDSPGraph::ThrowException(1718449215, &v51, off_1E8334FF8);
   }
 
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
+  v13 = (*(**(this + 96) + 16))(*(this + 96), a2);
+  v15 = v7[3];
+  if (v15 < v13)
   {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8335010);
+    caulk::make_string(&v50, "The buffer passed for input 1 should be at least %u bytes, but is %u.", v14, v13, v15);
+    AudioDSPGraph::ThrowException(1718449215, &v50, off_1E8335010);
   }
 
-  v14 = *v6;
+  v16 = *v6;
   result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
+  if (v16)
   {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
+    v19 = result;
+    v20 = v8 + 4;
+    v21 = (v7 + 4);
+    v22 = (v6 + 4);
     do
     {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
+      v24 = *v22;
+      v22 += 2;
+      v23 = v24;
+      v25 = *v21;
+      v21 += 2;
+      result = (***(this + 96))(*(this + 96), a2, v23, v25, *v20);
+      *(v20 - 1) = v19;
+      v20 += 2;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
+  v26 = *(this + 9);
+  if (*(this + 10) == v26)
   {
-    v40 = (this + 40);
+    v45 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v40 = *v40;
+      v45 = *v45;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v45, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
+  v27 = *(this + 12);
+  if (*(this + 13) == v27)
   {
-    v41 = (this + 40);
+    v46 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v41 = *v41;
+      v46 = *v46;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v46, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
+  v28 = *(*(v26 + 16) + 56);
+  v29 = *(*(v27 + 16) + 56);
+  v30 = *(v28 + 8);
+  v31 = *(v28 + 24);
+  v32 = *(v28 + 40);
+  *(v29 + 56) = *(v28 + 56);
+  *(v29 + 40) = v32;
+  *(v29 + 24) = v31;
+  *(v29 + 8) = v30;
+  v33 = *(this + 9);
+  v34 = (*(this + 10) - v33) >> 5;
+  if (*(this + 10) == v33)
   {
-    v42 = (this + 40);
+    v47 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v42 = *v42;
+      v47 = *v47;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v47, v34, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  if (v31 <= 1)
+  if (v34 <= 1)
   {
-    v43 = (this + 40);
+    v48 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v43 = *v43;
+      v48 = *v48;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v48, v34, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
+  v35 = *(this + 12);
+  if (*(this + 13) == v35)
   {
-    v44 = (this + 40);
+    v49 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v44 = *v44;
+      v49 = *v49;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v49, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  *(*(*(v32 + 16) + 56) + 72) = (*(*(*(v30 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v30 + 16) + 56) + 72);
+  *(*(*(v35 + 16) + 56) + 72) = (*(*(*(v33 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v33 + 16) + 56) + 72);
   return result;
 }
 
@@ -1476,19 +382,17 @@ void AudioDSPGraph::Boxes::Arithmetic::Binary::MaxBox::~MaxBox(AudioDSPGraph::Bo
   JUMPOUT(0x1CCA84AE0);
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_4,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_4>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_4,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_4>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 2)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -1519,40 +423,28 @@ void sub_1C9219540(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MinBox>::initialize(uint64_t a1)
 {
   result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
+  v4 = *(a1 + 72);
+  v5 = *(a1 + 80);
+  v7 = (v5 - v4) >> 5;
+  if (v7 != 2)
   {
-    v9 = *(a1 + 104) - *(a1 + 96);
+    v10 = *(a1 + 104) - *(a1 + 96);
     goto LABEL_16;
   }
 
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  v8 = *(a1 + 96);
+  v9 = *(a1 + 104);
+  v10 = v9 - v8;
+  if (((v9 - v8) & 0x1FFFFFFFE0) != 0x20)
   {
-    v6 = 2;
+    v7 = 2;
 LABEL_16:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v35, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v35, off_1E8334F08);
+    caulk::make_string(&v40, "There must be two inputs and one output, instead of %u and %u.", v3, v7, v10 >> 5);
+    AudioDSPGraph::ThrowException(1701602593, &v40, off_1E8334F08);
   }
 
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v16 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v16 = *v16;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v36, v16, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
+  v6 = v5 - v4;
+  if (v5 == v4)
   {
     v17 = (a1 + 40);
     if (*(a1 + 63) < 0)
@@ -1560,64 +452,76 @@ LABEL_16:
       v17 = *v17;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v36, v17, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C60);
+    caulk::make_string(&v41, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v17, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
   }
 
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
+  if (((v5 - v4) >> 5) <= 1)
   {
-    v18 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v19 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v34, v18, *(*(*(v19 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v34, off_1E8334F20);
-  }
-
-  if (v8 == v7)
-  {
-    v20 = v9 >> 5;
-    v21 = (a1 + 40);
+    v18 = (a1 + 40);
     if (*(a1 + 63) < 0)
     {
-      v21 = *v21;
+      v18 = *v18;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v36, v21, v20, 0);
-    AudioDSPGraph::ThrowException(1919837985, v36, off_1E8337C78);
+    caulk::make_string(&v41, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v18, v6 >> 5, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
   }
 
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
+  v11 = *(*(v4 + 16) + 120);
+  v12 = *(v11 + 28);
+  v13 = *(*(v4 + 48) + 120);
+  if (v12 != *(v13 + 28))
   {
-    v22 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v23 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v33, v22, *(*(*(v23 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v33, off_1E8334F38);
+    v19 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v20 = AudioDSPGraph::Box::in(a1, 1);
+    caulk::make_string(&v39, "The inputs must have the same channel count, but have %u and %u.", v21, v19, *(*(*(v20 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v39, off_1E8334F20);
   }
 
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 != 1819304813 || v14 != 1819304813)
+  if (v9 == v8)
   {
-    v28 = v13;
-    v29 = *(v12 + 8);
-    if (v13 == 1819304813 && v14 != 1819304813)
+    v22 = v10 >> 5;
+    v23 = (a1 + 40);
+    if (*(a1 + 63) < 0)
     {
-      v27 = (*(*a1 + 16))(a1);
-      caulk::make_string("Can't use real input for one bus and complex input for another with '%s' box", v32, v27);
-      AudioDSPGraph::ThrowException(1718444833, v32, off_1E8334F50);
+      v23 = *v23;
     }
 
-    v25 = (*(*a1 + 16))(a1);
-    if (v28 == 1819304813 || v29 != 1819304813)
+    caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v23, v22, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
+  }
+
+  if (v12 != *(*(*(v8 + 16) + 120) + 28))
+  {
+    v24 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v25 = AudioDSPGraph::Box::out(a1, 0);
+    caulk::make_string(&v38, "The inputs and output must have the same channel count, but have %u and %u.", v26, v24, *(*(*(v25 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v38, off_1E8334F38);
+  }
+
+  v14 = *(v11 + 8);
+  v15 = *(v13 + 8);
+  if (v14 != 1819304813 || v15 != 1819304813)
+  {
+    v33 = v14;
+    v34 = *(v13 + 8);
+    if (v14 == 1819304813 && v15 != 1819304813)
     {
-      caulk::make_string("Can't use complex inputs with '%s' box", v30, v25);
-      AudioDSPGraph::ThrowException(1718444833, v30, off_1E8334F80);
+      v31 = (*(*a1 + 16))(a1);
+      caulk::make_string(&v37, "Can't use real input for one bus and complex input for another with '%s' box", v32, v31);
+      AudioDSPGraph::ThrowException(1718444833, &v37, off_1E8334F50);
     }
 
-    caulk::make_string("Can't use complex input for one bus and real input for another with '%s' box", v31, v25);
-    AudioDSPGraph::ThrowException(1718444833, v31, off_1E8334F68);
+    v28 = (*(*a1 + 16))(a1);
+    if (v33 == 1819304813 || v34 != 1819304813)
+    {
+      caulk::make_string(&v35, "Can't use complex inputs with '%s' box", v29, v28);
+      AudioDSPGraph::ThrowException(1718444833, &v35, off_1E8334F80);
+    }
+
+    caulk::make_string(&v36, "Can't use complex input for one bus and real input for another with '%s' box", v29, v28);
+    AudioDSPGraph::ThrowException(1718444833, &v36, off_1E8334F68);
   }
 
   *(a1 + 768) = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MinBox>::initialize(void)::kernel;
@@ -1634,181 +538,181 @@ void sub_1C9219950(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MinBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
+uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MinBox>::process(AudioDSPGraph::Box *this, const char *a2)
 {
   v3 = *(this + 9);
   v4 = (*(this + 10) - v3) >> 5;
   if (*(this + 10) == v3)
   {
-    v33 = (this + 40);
+    v36 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v33 = *v33;
+      v36 = *v36;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v36, v4, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   if (v4 <= 1)
   {
-    v34 = (this + 40);
+    v37 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v34 = *v34;
+      v37 = *v37;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v37, v4, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   v5 = *(this + 12);
   if (*(this + 13) == v5)
   {
-    v35 = (this + 40);
+    v38 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v35 = *v35;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v38, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
   v6 = *(*(*(v3 + 16) + 56) + 80);
   v7 = *(*(*(v3 + 48) + 56) + 80);
   if (*v6 != *v7)
   {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E8334EA8);
+    v39 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v40 = AudioDSPGraph::Box::in(this, 1);
+    caulk::make_string(&v53, "The inputs must have the same channel count, but have %u and %u.", v41, v39, *(*(*(v40 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v53, off_1E8334EA8);
   }
 
   v8 = *(*(*(v5 + 16) + 56) + 80);
   if (*v6 != *v8)
   {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E8334EC0);
+    v42 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v43 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v52, "The inputs and output must have the same channel count, but have %u and %u.", v44, v42, *(*(*(v43 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v52, off_1E8334EC0);
   }
 
   v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
+  v12 = v6[3];
+  if (v12 < v10)
   {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E8334ED8);
+    caulk::make_string(&v51, "The buffer passed for input 0 should be at least %u bytes, but is %u.", v11, v10, v12);
+    AudioDSPGraph::ThrowException(1718449215, &v51, off_1E8334ED8);
   }
 
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
+  v13 = (*(**(this + 96) + 16))(*(this + 96), a2);
+  v15 = v7[3];
+  if (v15 < v13)
   {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8334EF0);
+    caulk::make_string(&v50, "The buffer passed for input 1 should be at least %u bytes, but is %u.", v14, v13, v15);
+    AudioDSPGraph::ThrowException(1718449215, &v50, off_1E8334EF0);
   }
 
-  v14 = *v6;
+  v16 = *v6;
   result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
+  if (v16)
   {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
+    v19 = result;
+    v20 = v8 + 4;
+    v21 = (v7 + 4);
+    v22 = (v6 + 4);
     do
     {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
+      v24 = *v22;
+      v22 += 2;
+      v23 = v24;
+      v25 = *v21;
+      v21 += 2;
+      result = (***(this + 96))(*(this + 96), a2, v23, v25, *v20);
+      *(v20 - 1) = v19;
+      v20 += 2;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
+  v26 = *(this + 9);
+  if (*(this + 10) == v26)
   {
-    v40 = (this + 40);
+    v45 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v40 = *v40;
+      v45 = *v45;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v45, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
+  v27 = *(this + 12);
+  if (*(this + 13) == v27)
   {
-    v41 = (this + 40);
+    v46 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v41 = *v41;
+      v46 = *v46;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v46, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
+  v28 = *(*(v26 + 16) + 56);
+  v29 = *(*(v27 + 16) + 56);
+  v30 = *(v28 + 8);
+  v31 = *(v28 + 24);
+  v32 = *(v28 + 40);
+  *(v29 + 56) = *(v28 + 56);
+  *(v29 + 40) = v32;
+  *(v29 + 24) = v31;
+  *(v29 + 8) = v30;
+  v33 = *(this + 9);
+  v34 = (*(this + 10) - v33) >> 5;
+  if (*(this + 10) == v33)
   {
-    v42 = (this + 40);
+    v47 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v42 = *v42;
+      v47 = *v47;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v47, v34, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  if (v31 <= 1)
+  if (v34 <= 1)
   {
-    v43 = (this + 40);
+    v48 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v43 = *v43;
+      v48 = *v48;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v48, v34, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
+  v35 = *(this + 12);
+  if (*(this + 13) == v35)
   {
-    v44 = (this + 40);
+    v49 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v44 = *v44;
+      v49 = *v49;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v49, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  *(*(*(v32 + 16) + 56) + 72) = (*(*(*(v30 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v30 + 16) + 56) + 72);
+  *(*(*(v35 + 16) + 56) + 72) = (*(*(*(v33 + 48) + 56) + 72) | 0xFFFFFFEF) & *(*(*(v33 + 16) + 56) + 72);
   return result;
 }
 
@@ -1837,19 +741,17 @@ void AudioDSPGraph::Boxes::Arithmetic::Binary::MinBox::~MinBox(AudioDSPGraph::Bo
   JUMPOUT(0x1CCA84AE0);
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_3,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_3>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_3,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_3>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 2)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -1880,40 +782,28 @@ void sub_1C921A294(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(uint64_t a1)
 {
   result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
+  v4 = *(a1 + 72);
+  v5 = *(a1 + 80);
+  v7 = (v5 - v4) >> 5;
+  if (v7 != 2)
   {
-    v9 = *(a1 + 104) - *(a1 + 96);
+    v10 = *(a1 + 104) - *(a1 + 96);
     goto LABEL_27;
   }
 
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  v8 = *(a1 + 96);
+  v9 = *(a1 + 104);
+  v10 = v9 - v8;
+  if (((v9 - v8) & 0x1FFFFFFFE0) != 0x20)
   {
-    v6 = 2;
+    v7 = 2;
 LABEL_27:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v29, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v29, off_1E8334E30);
+    caulk::make_string(&v32, "There must be two inputs and one output, instead of %u and %u.", v3, v7, v10 >> 5);
+    AudioDSPGraph::ThrowException(1701602593, &v32, off_1E8334E30);
   }
 
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v19 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v19 = *v19;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v19, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
+  v6 = v5 - v4;
+  if (v5 == v4)
   {
     v20 = (a1 + 40);
     if (*(a1 + 63) < 0)
@@ -1921,68 +811,80 @@ LABEL_27:
       v20 = *v20;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v20, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
+    caulk::make_string(&v33, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v20, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C60);
   }
 
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
+  if (((v5 - v4) >> 5) <= 1)
   {
-    v21 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v22 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v28, v21, *(*(*(v22 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v28, off_1E8334E48);
-  }
-
-  if (v8 == v7)
-  {
-    v23 = v9 >> 5;
-    v24 = (a1 + 40);
+    v21 = (a1 + 40);
     if (*(a1 + 63) < 0)
     {
-      v24 = *v24;
+      v21 = *v21;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v30, v24, v23, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C78);
+    caulk::make_string(&v33, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v21, v6 >> 5, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C60);
   }
 
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
+  v11 = *(*(v4 + 16) + 120);
+  v12 = *(v11 + 28);
+  v13 = *(*(v4 + 48) + 120);
+  if (v12 != *(v13 + 28))
   {
-    v25 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v26 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v27, v25, *(*(*(v26 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v27, off_1E8334E60);
+    v22 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v23 = AudioDSPGraph::Box::in(a1, 1);
+    caulk::make_string(&v31, "The inputs must have the same channel count, but have %u and %u.", v24, v22, *(*(*(v23 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v31, off_1E8334E48);
   }
 
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 == 1819304813 && v14 == 1819304813)
+  if (v9 == v8)
   {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
-  }
-
-  else if (v13 != 1819304813 || v14 == 1819304813)
-  {
-    if (v13 != 1819304813 && v14 == 1819304813)
+    v25 = v10 >> 5;
+    v26 = (a1 + 40);
+    if (*(a1 + 63) < 0)
     {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
+      v26 = *v26;
+    }
+
+    caulk::make_string(&v33, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v26, v25, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C78);
+  }
+
+  if (v12 != *(*(*(v8 + 16) + 120) + 28))
+  {
+    v27 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v28 = AudioDSPGraph::Box::out(a1, 0);
+    caulk::make_string(&v30, "The inputs and output must have the same channel count, but have %u and %u.", v29, v27, *(*(*(v28 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v30, off_1E8334E60);
+  }
+
+  v14 = *(v11 + 8);
+  v15 = *(v13 + 8);
+  if (v14 == 1819304813 && v15 == 1819304813)
+  {
+    v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
+  }
+
+  else if (v14 != 1819304813 || v15 == 1819304813)
+  {
+    if (v14 != 1819304813 && v15 == 1819304813)
+    {
+      v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
     }
 
     else
     {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
+      v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
     }
   }
 
   else
   {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
+    v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::initialize(void)::kernel;
   }
 
-  *(a1 + 768) = v18;
+  *(a1 + 768) = v19;
   return result;
 }
 
@@ -2030,181 +932,181 @@ void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arith
   vDSP_zvdiv(&__B, 1, &v8, 1, &__C, 1, v5);
 }
 
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
+uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox>::process(AudioDSPGraph::Box *this, const char *a2)
 {
   v3 = *(this + 9);
   v4 = (*(this + 10) - v3) >> 5;
   if (*(this + 10) == v3)
   {
-    v33 = (this + 40);
+    v36 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v33 = *v33;
+      v36 = *v36;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v36, v4, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   if (v4 <= 1)
   {
-    v34 = (this + 40);
+    v37 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v34 = *v34;
+      v37 = *v37;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v37, v4, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   v5 = *(this + 12);
   if (*(this + 13) == v5)
   {
-    v35 = (this + 40);
+    v38 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v35 = *v35;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v38, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
   v6 = *(*(*(v3 + 16) + 56) + 80);
   v7 = *(*(*(v3 + 48) + 56) + 80);
   if (*v6 != *v7)
   {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E8334DD0);
+    v39 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v40 = AudioDSPGraph::Box::in(this, 1);
+    caulk::make_string(&v53, "The inputs must have the same channel count, but have %u and %u.", v41, v39, *(*(*(v40 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v53, off_1E8334DD0);
   }
 
   v8 = *(*(*(v5 + 16) + 56) + 80);
   if (*v6 != *v8)
   {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E8334DE8);
+    v42 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v43 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v52, "The inputs and output must have the same channel count, but have %u and %u.", v44, v42, *(*(*(v43 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v52, off_1E8334DE8);
   }
 
   v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
+  v12 = v6[3];
+  if (v12 < v10)
   {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E8334E00);
+    caulk::make_string(&v51, "The buffer passed for input 0 should be at least %u bytes, but is %u.", v11, v10, v12);
+    AudioDSPGraph::ThrowException(1718449215, &v51, off_1E8334E00);
   }
 
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
+  v13 = (*(**(this + 96) + 16))(*(this + 96), a2);
+  v15 = v7[3];
+  if (v15 < v13)
   {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8334E18);
+    caulk::make_string(&v50, "The buffer passed for input 1 should be at least %u bytes, but is %u.", v14, v13, v15);
+    AudioDSPGraph::ThrowException(1718449215, &v50, off_1E8334E18);
   }
 
-  v14 = *v6;
+  v16 = *v6;
   result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
+  if (v16)
   {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
+    v19 = result;
+    v20 = v8 + 4;
+    v21 = (v7 + 4);
+    v22 = (v6 + 4);
     do
     {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
+      v24 = *v22;
+      v22 += 2;
+      v23 = v24;
+      v25 = *v21;
+      v21 += 2;
+      result = (***(this + 96))(*(this + 96), a2, v23, v25, *v20);
+      *(v20 - 1) = v19;
+      v20 += 2;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
+  v26 = *(this + 9);
+  if (*(this + 10) == v26)
   {
-    v40 = (this + 40);
+    v45 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v40 = *v40;
+      v45 = *v45;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v45, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
+  v27 = *(this + 12);
+  if (*(this + 13) == v27)
   {
-    v41 = (this + 40);
+    v46 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v41 = *v41;
+      v46 = *v46;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v46, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
+  v28 = *(*(v26 + 16) + 56);
+  v29 = *(*(v27 + 16) + 56);
+  v30 = *(v28 + 8);
+  v31 = *(v28 + 24);
+  v32 = *(v28 + 40);
+  *(v29 + 56) = *(v28 + 56);
+  *(v29 + 40) = v32;
+  *(v29 + 24) = v31;
+  *(v29 + 8) = v30;
+  v33 = *(this + 9);
+  v34 = (*(this + 10) - v33) >> 5;
+  if (*(this + 10) == v33)
   {
-    v42 = (this + 40);
+    v47 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v42 = *v42;
+      v47 = *v47;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v47, v34, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  if (v31 <= 1)
+  if (v34 <= 1)
   {
-    v43 = (this + 40);
+    v48 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v43 = *v43;
+      v48 = *v48;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v48, v34, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
+  v35 = *(this + 12);
+  if (*(this + 13) == v35)
   {
-    v44 = (this + 40);
+    v49 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v44 = *v44;
+      v49 = *v49;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v49, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  *(*(*(v32 + 16) + 56) + 72) = *(*(*(v30 + 16) + 56) + 72);
+  *(*(*(v35 + 16) + 56) + 72) = *(*(*(v33 + 16) + 56) + 72);
   return result;
 }
 
@@ -2233,19 +1135,17 @@ void AudioDSPGraph::Boxes::Arithmetic::Binary::DivBox::~DivBox(AudioDSPGraph::Bo
   JUMPOUT(0x1CCA84AE0);
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_2,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_2>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_2,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_2>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 2)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 2)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -2276,40 +1176,28 @@ void sub_1C921B030(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(uint64_t a1)
 {
   result = AudioDSPGraph::Box::initialize(a1);
-  v3 = *(a1 + 72);
-  v4 = *(a1 + 80);
-  v6 = (v4 - v3) >> 5;
-  if (v6 != 2)
+  v4 = *(a1 + 72);
+  v5 = *(a1 + 80);
+  v7 = (v5 - v4) >> 5;
+  if (v7 != 2)
   {
-    v9 = *(a1 + 104) - *(a1 + 96);
+    v10 = *(a1 + 104) - *(a1 + 96);
     goto LABEL_27;
   }
 
-  v7 = *(a1 + 96);
-  v8 = *(a1 + 104);
-  v9 = v8 - v7;
-  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  v8 = *(a1 + 96);
+  v9 = *(a1 + 104);
+  v10 = v9 - v8;
+  if (((v9 - v8) & 0x1FFFFFFFE0) != 0x20)
   {
-    v6 = 2;
+    v7 = 2;
 LABEL_27:
-    caulk::make_string("There must be two inputs and one output, instead of %u and %u.", v29, v6, v9 >> 5);
-    AudioDSPGraph::ThrowException(1701602593, v29, off_1E8334D58);
+    caulk::make_string(&v32, "There must be two inputs and one output, instead of %u and %u.", v3, v7, v10 >> 5);
+    AudioDSPGraph::ThrowException(1701602593, &v32, off_1E8334D58);
   }
 
-  v5 = v4 - v3;
-  if (v4 == v3)
-  {
-    v19 = (a1 + 40);
-    if (*(a1 + 63) < 0)
-    {
-      v19 = *v19;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v19, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
-  }
-
-  if (((v4 - v3) >> 5) <= 1)
+  v6 = v5 - v4;
+  if (v5 == v4)
   {
     v20 = (a1 + 40);
     if (*(a1 + 63) < 0)
@@ -2317,68 +1205,80 @@ LABEL_27:
       v20 = *v20;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v30, v20, v5 >> 5, 1);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C60);
+    caulk::make_string(&v33, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v20, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C60);
   }
 
-  v10 = *(*(v3 + 16) + 120);
-  v11 = *(v10 + 28);
-  v12 = *(*(v3 + 48) + 120);
-  if (v11 != *(v12 + 28))
+  if (((v5 - v4) >> 5) <= 1)
   {
-    v21 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v22 = AudioDSPGraph::Box::in(a1, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v28, v21, *(*(*(v22 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v28, off_1E8334D70);
-  }
-
-  if (v8 == v7)
-  {
-    v23 = v9 >> 5;
-    v24 = (a1 + 40);
+    v21 = (a1 + 40);
     if (*(a1 + 63) < 0)
     {
-      v24 = *v24;
+      v21 = *v21;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v30, v24, v23, 0);
-    AudioDSPGraph::ThrowException(1919837985, v30, off_1E8337C78);
+    caulk::make_string(&v33, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v21, v6 >> 5, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C60);
   }
 
-  if (v11 != *(*(*(v7 + 16) + 120) + 28))
+  v11 = *(*(v4 + 16) + 120);
+  v12 = *(v11 + 28);
+  v13 = *(*(v4 + 48) + 120);
+  if (v12 != *(v13 + 28))
   {
-    v25 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
-    v26 = AudioDSPGraph::Box::out(a1, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v27, v25, *(*(*(v26 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v27, off_1E8334D88);
+    v22 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v23 = AudioDSPGraph::Box::in(a1, 1);
+    caulk::make_string(&v31, "The inputs must have the same channel count, but have %u and %u.", v24, v22, *(*(*(v23 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v31, off_1E8334D70);
   }
 
-  v13 = *(v10 + 8);
-  v14 = *(v12 + 8);
-  if (v13 == 1819304813 && v14 == 1819304813)
+  if (v9 == v8)
   {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
-  }
-
-  else if (v13 != 1819304813 || v14 == 1819304813)
-  {
-    if (v13 != 1819304813 && v14 == 1819304813)
+    v25 = v10 >> 5;
+    v26 = (a1 + 40);
+    if (*(a1 + 63) < 0)
     {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
+      v26 = *v26;
+    }
+
+    caulk::make_string(&v33, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v26, v25, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v33, off_1E8337C78);
+  }
+
+  if (v12 != *(*(*(v8 + 16) + 120) + 28))
+  {
+    v27 = *(*(*(AudioDSPGraph::Box::in(a1, 0) + 16) + 120) + 28);
+    v28 = AudioDSPGraph::Box::out(a1, 0);
+    caulk::make_string(&v30, "The inputs and output must have the same channel count, but have %u and %u.", v29, v27, *(*(*(v28 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v30, off_1E8334D88);
+  }
+
+  v14 = *(v11 + 8);
+  v15 = *(v13 + 8);
+  if (v14 == 1819304813 && v15 == 1819304813)
+  {
+    v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
+  }
+
+  else if (v14 != 1819304813 || v15 == 1819304813)
+  {
+    if (v14 != 1819304813 && v15 == 1819304813)
+    {
+      v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
     }
 
     else
     {
-      v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
+      v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
     }
   }
 
   else
   {
-    v18 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
+    v19 = &AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::initialize(void)::kernel;
   }
 
-  *(a1 + 768) = v18;
+  *(a1 + 768) = v19;
   return result;
 }
 
@@ -2421,181 +1321,181 @@ void AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arith
   vDSP_zrvmul(&__A, 1, a3, 1, &v5, 1, __N);
 }
 
-uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::process(AudioDSPGraph::Box *this, uint64_t a2)
+uint64_t AudioDSPGraph::Boxes::Arithmetic::BinaryBoxBase<AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox>::process(AudioDSPGraph::Box *this, const char *a2)
 {
   v3 = *(this + 9);
   v4 = (*(this + 10) - v3) >> 5;
   if (*(this + 10) == v3)
   {
-    v33 = (this + 40);
+    v36 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v33 = *v33;
+      v36 = *v36;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v33, v4, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v36, v4, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   if (v4 <= 1)
   {
-    v34 = (this + 40);
+    v37 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v34 = *v34;
+      v37 = *v37;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v34, v4, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v37, v4, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
   v5 = *(this + 12);
   if (*(this + 13) == v5)
   {
-    v35 = (this + 40);
+    v38 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v35 = *v35;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v38, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
   v6 = *(*(*(v3 + 16) + 56) + 80);
   v7 = *(*(*(v3 + 48) + 56) + 80);
   if (*v6 != *v7)
   {
-    v36 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v37 = AudioDSPGraph::Box::in(this, 1uLL);
-    caulk::make_string("The inputs must have the same channel count, but have %u and %u.", v48, v36, *(*(*(v37 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v48, off_1E8334CF8);
+    v39 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v40 = AudioDSPGraph::Box::in(this, 1);
+    caulk::make_string(&v53, "The inputs must have the same channel count, but have %u and %u.", v41, v39, *(*(*(v40 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v53, off_1E8334CF8);
   }
 
   v8 = *(*(*(v5 + 16) + 56) + 80);
   if (*v6 != *v8)
   {
-    v38 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
-    v39 = AudioDSPGraph::Box::out(this, 0);
-    caulk::make_string("The inputs and output must have the same channel count, but have %u and %u.", v47, v38, *(*(*(v39 + 16) + 120) + 28));
-    AudioDSPGraph::ThrowException(1667788321, v47, off_1E8334D10);
+    v42 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v43 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v52, "The inputs and output must have the same channel count, but have %u and %u.", v44, v42, *(*(*(v43 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v52, off_1E8334D10);
   }
 
   v10 = (*(**(this + 96) + 8))(*(this + 96));
-  v11 = v6[3];
-  if (v11 < v10)
+  v12 = v6[3];
+  if (v12 < v10)
   {
-    caulk::make_string("The buffer passed for input 0 should be at least %u bytes, but is %u.", v46, v10, v11);
-    AudioDSPGraph::ThrowException(1718449215, v46, off_1E8334D28);
+    caulk::make_string(&v51, "The buffer passed for input 0 should be at least %u bytes, but is %u.", v11, v10, v12);
+    AudioDSPGraph::ThrowException(1718449215, &v51, off_1E8334D28);
   }
 
-  v12 = (*(**(this + 96) + 16))(*(this + 96), a2);
-  v13 = v7[3];
-  if (v13 < v12)
+  v13 = (*(**(this + 96) + 16))(*(this + 96), a2);
+  v15 = v7[3];
+  if (v15 < v13)
   {
-    caulk::make_string("The buffer passed for input 1 should be at least %u bytes, but is %u.", v45, v12, v13);
-    AudioDSPGraph::ThrowException(1718449215, v45, off_1E8334D40);
+    caulk::make_string(&v50, "The buffer passed for input 1 should be at least %u bytes, but is %u.", v14, v13, v15);
+    AudioDSPGraph::ThrowException(1718449215, &v50, off_1E8334D40);
   }
 
-  v14 = *v6;
+  v16 = *v6;
   result = (*(**(this + 96) + 24))(*(this + 96), a2);
-  if (v14)
+  if (v16)
   {
-    v16 = result;
-    v17 = v8 + 4;
-    v18 = (v7 + 4);
-    v19 = (v6 + 4);
+    v19 = result;
+    v20 = v8 + 4;
+    v21 = (v7 + 4);
+    v22 = (v6 + 4);
     do
     {
-      v21 = *v19;
-      v19 += 2;
-      v20 = v21;
-      v22 = *v18;
-      v18 += 2;
-      result = (***(this + 96))(*(this + 96), a2, v20, v22, *v17);
-      *(v17 - 1) = v16;
-      v17 += 2;
-      --v14;
+      v24 = *v22;
+      v22 += 2;
+      v23 = v24;
+      v25 = *v21;
+      v21 += 2;
+      result = (***(this + 96))(*(this + 96), a2, v23, v25, *v20);
+      *(v20 - 1) = v19;
+      v20 += 2;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
-  v23 = *(this + 9);
-  if (*(this + 10) == v23)
+  v26 = *(this + 9);
+  if (*(this + 10) == v26)
   {
-    v40 = (this + 40);
+    v45 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v40 = *v40;
+      v45 = *v45;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v45, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v24 = *(this + 12);
-  if (*(this + 13) == v24)
+  v27 = *(this + 12);
+  if (*(this + 13) == v27)
   {
-    v41 = (this + 40);
+    v46 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v41 = *v41;
+      v46 = *v46;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v46, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  v25 = *(*(v23 + 16) + 56);
-  v26 = *(*(v24 + 16) + 56);
-  v27 = *(v25 + 8);
-  v28 = *(v25 + 24);
-  v29 = *(v25 + 40);
-  *(v26 + 56) = *(v25 + 56);
-  *(v26 + 40) = v29;
-  *(v26 + 24) = v28;
-  *(v26 + 8) = v27;
-  v30 = *(this + 9);
-  v31 = (*(this + 10) - v30) >> 5;
-  if (*(this + 10) == v30)
+  v28 = *(*(v26 + 16) + 56);
+  v29 = *(*(v27 + 16) + 56);
+  v30 = *(v28 + 8);
+  v31 = *(v28 + 24);
+  v32 = *(v28 + 40);
+  *(v29 + 56) = *(v28 + 56);
+  *(v29 + 40) = v32;
+  *(v29 + 24) = v31;
+  *(v29 + 8) = v30;
+  v33 = *(this + 9);
+  v34 = (*(this + 10) - v33) >> 5;
+  if (*(this + 10) == v33)
   {
-    v42 = (this + 40);
+    v47 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v42 = *v42;
+      v47 = *v47;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v42, v31, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v47, v34, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  if (v31 <= 1)
+  if (v34 <= 1)
   {
-    v43 = (this + 40);
+    v48 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v43 = *v43;
+      v48 = *v48;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v49, v43, v31, 1);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C60);
+    caulk::make_string(&v54, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v18, v48, v34, 1);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C60);
   }
 
-  v32 = *(this + 12);
-  if (*(this + 13) == v32)
+  v35 = *(this + 12);
+  if (*(this + 13) == v35)
   {
-    v44 = (this + 40);
+    v49 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v44 = *v44;
+      v49 = *v49;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v49, v44, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v49, off_1E8337C78);
+    caulk::make_string(&v54, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v18, v49, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v54, off_1E8337C78);
   }
 
-  *(*(*(v32 + 16) + 56) + 72) = *(*(*(v30 + 48) + 56) + 72) & 0x10 | *(*(*(v30 + 16) + 56) + 72);
+  *(*(*(v35 + 16) + 56) + 72) = *(*(*(v33 + 48) + 56) + 72) & 0x10 | *(*(*(v33 + 16) + 56) + 72);
   return result;
 }
 
@@ -2624,19 +1524,17 @@ void AudioDSPGraph::Boxes::Arithmetic::Binary::MultBox::~MultBox(AudioDSPGraph::
   JUMPOUT(0x1CCA84AE0);
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_1,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_1>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_1,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_1>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 1)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -2700,51 +1598,51 @@ void sub_1C921BEE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator=(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v9 = v8;
-      (*(*v3 + 24))(v3, v8);
+      v8 = v7;
+      (*(*v3 + 24))(v3, v7);
     }
 
     else
     {
-      v9 = (*(*v3 + 16))(v3);
+      v8 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (v8 != a1)
+  if (v7 != a1)
   {
-    v4 = v9;
+    v4 = v8;
     v5 = *(a1 + 24);
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (v5 == a1)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(**(a1 + 24) + 24))(*(a1 + 24), v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(**(a1 + 24) + 24))(*(a1 + 24), v7);
         (*(**(a1 + 24) + 32))(*(a1 + 24));
         *(a1 + 24) = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, a1);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, a1);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = *(a1 + 24);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = *(a1 + 24);
       }
 
       *(a1 + 24) = a1;
@@ -2752,21 +1650,20 @@ uint64_t std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsign
 
     else if (v5 == a1)
     {
-      (*(*v5 + 24))(*(a1 + 24), v8);
+      (*(*v5 + 24))(*(a1 + 24), v7);
       (*(**(a1 + 24) + 32))(*(a1 + 24));
-      *(a1 + 24) = v9;
-      v9 = v8;
+      *(a1 + 24) = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = *(a1 + 24);
+      v8 = *(a1 + 24);
       *(a1 + 24) = v4;
     }
   }
 
-  std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::~__value_func[abi:ne200100](v7);
   return a1;
 }
 
@@ -2844,19 +1741,17 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std
   return a1;
 }
 
-void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_0,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_0>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(uint64_t a1, uint64_t *a2, _DWORD *a3, _DWORD *a4)
+void std::__function::__func<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_0,std::allocator<AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_0>,std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(void x0_0, void *a1, _DWORD *a2, _DWORD *a3)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v4 = *a2;
-  v7[0] = a2[1];
-  *(v7 + 7) = *(a2 + 15);
-  v5 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  if (*a3 == 1)
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = a1[1];
+  *(v5 + 7) = *(a1 + 15);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  if (*a2 == 1)
   {
-    if (*a4 == 1)
+    if (*a3 == 1)
     {
       operator new();
     }
@@ -3268,7 +2163,7 @@ void AudioDSPGraph::BoxRegistry::BoxRegistry(AudioDSPGraph::BoxRegistry *this)
     operator delete(__p[0]);
   }
 
-  AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_31::operator()<char const*,int,AudioDSPGraph::Boxes::CalculationBox::OperatorDomain,AudioDSPGraph::Boxes::CalculationBox::OperatorCodomain,AudioDSPGraph::Boxes::CalculationBox::Operator>(this, "parameter_add", 1885298475);
+  AudioDSPGraph::BoxRegistry::BoxRegistry(void)::$_31::operator()<char const*,int,AudioDSPGraph::Boxes::CalculationBox::OperatorDomain,AudioDSPGraph::Boxes::CalculationBox::OperatorCodomain,AudioDSPGraph::Boxes::CalculationBox::Operator>(this, "parameter_add", 0x705F5F2Bu, 0, 0, 0);
 }
 
 void sub_1C921D8C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
@@ -3285,8 +2180,9 @@ void sub_1C921D8C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void AudioDSPGraph::BoxRegistry::newBox(void *a1, void *a2, void *a3, uint64_t a4, int a5, int a6)
+void AudioDSPGraph::BoxRegistry::newBox(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, int a6)
 {
+  v6 = a5;
   v11 = std::__string_hash<char>::operator()[abi:ne200100](a3);
   v12 = a2[1];
   if (!*&v12)
@@ -3364,7 +2260,7 @@ LABEL_16:
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
   *a4 = 0;
-  std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(a1, v18[8], __p, a5, a6);
+  std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(a1, v18[8], __p, v6, a6);
   if (SHIBYTE(v22) < 0)
   {
     operator delete(__p[0]);
@@ -3393,9 +2289,9 @@ uint64_t std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsign
   return (*(*a2 + 48))(a2, a3, &v7, &v6);
 }
 
-void AudioDSPGraph::BoxRegistry::newBox(void *a1, uint64_t a2, unint64_t a3, AudioComponentDescription *inDesc, uint64_t a5, int a6, int a7)
+void AudioDSPGraph::BoxRegistry::newBox(uint64_t *a1, uint64_t a2, unint64_t a3, AudioComponentDescription *inDesc, uint64_t a5, int a6, int a7)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
     goto LABEL_21;
@@ -3428,7 +2324,7 @@ LABEL_21:
     }
 
     *a1 = 0;
-    goto LABEL_24;
+    return;
   }
 
   while (1)
@@ -3470,19 +2366,16 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  *v16 = *a5;
-  v17 = *(a5 + 16);
+  *v15 = *a5;
+  v16 = *(a5 + 16);
   *(a5 + 8) = 0;
   *(a5 + 16) = 0;
   *a5 = 0;
-  std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(a1, v12[8], v16, a6, a7);
-  if (SHIBYTE(v17) < 0)
+  std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>::operator()(a1, v12[8], v15, a6, a7);
+  if (SHIBYTE(v16) < 0)
   {
-    operator delete(v16[0]);
+    operator delete(v15[0]);
   }
-
-LABEL_24:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C921DE18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -3502,8 +2395,7 @@ uint64_t AudioDSPGraph::Buffer::print(uint64_t result, void *a2, int a3, uint64_
     v4 = a4;
     v6 = result;
     (*(*result + 32))(result, a2, a4, 1);
-    v7 = *(v6 + 96);
-    AudioDSPGraph::printi(a2, v4 + 4, "num buffers %u\n");
+    AudioDSPGraph::printi(a2, v4 + 4, "num buffers %u\n", *(v6 + 96));
   }
 
   return result;
@@ -3677,7 +2569,7 @@ LABEL_17:
             if (a5 == 1)
             {
               this = 0;
-              *&v10 = *a6;
+              v10 = *a6;
 LABEL_56:
               *v9 = 0;
               *(v9 + 8) = v10;
@@ -3693,7 +2585,7 @@ LABEL_56:
         if (a5 == 4)
         {
           this = 0;
-          *&v10 = *a6;
+          v10 = *a6;
           goto LABEL_56;
         }
 
@@ -3705,7 +2597,7 @@ LABEL_56:
         if (a5 == 2)
         {
           this = 0;
-          *&v10 = *a6;
+          v10 = *a6;
           goto LABEL_56;
         }
 
@@ -3734,7 +2626,7 @@ LABEL_42:
       if (a5 == 4)
       {
         this = 0;
-        *&v10 = *a6;
+        v10 = *a6;
         goto LABEL_56;
       }
 
@@ -3771,7 +2663,7 @@ LABEL_42:
           if (a5 == 1)
           {
             this = 0;
-            *&v10 = *a6;
+            v10 = *a6;
             goto LABEL_56;
           }
         }
@@ -3786,7 +2678,7 @@ LABEL_42:
           if (a5 == 2)
           {
             this = 0;
-            *&v10 = *a6;
+            v10 = *a6;
             goto LABEL_56;
           }
         }
@@ -3876,9 +2768,10 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-uint64_t AudioDSPGraph::Boxes::CalculationBox::getProperty(AudioDSPGraph::Boxes::CalculationBox *this, int a2, uint64_t __val, uint64_t a4, unsigned int *a5, CFStringRef *a6, double a7)
+double AudioDSPGraph::Boxes::CalculationBox::getProperty(AudioDSPGraph::Boxes::CalculationBox *this, uint64_t a2, uint64_t __val, uint64_t a4, unsigned int *a5, __n128 *a6, __n128 a7)
 {
   v9 = a4;
+  v10 = a2;
   if (a2 <= 1936274225)
   {
     if (a2 <= 1718367795)
@@ -3930,7 +2823,8 @@ uint64_t AudioDSPGraph::Boxes::CalculationBox::getProperty(AudioDSPGraph::Boxes:
   if (a2 != v12)
   {
 
-    return AudioDSPGraph::Box::getProperty(this, a2, __val, a4, a5, a6);
+    *&result = AudioDSPGraph::Box::getProperty(this, a2, __val, a4, a5, a6, a7).n128_u64[0];
+    return result;
   }
 
 LABEL_17:
@@ -3944,7 +2838,7 @@ LABEL_17:
         std::to_string(&v33, a4);
         std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v34, "CalculationBox can't get input scope element ", &v33);
         std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v30, &v34, " with property ID ");
-        std::to_string(&v32, a2);
+        std::to_string(&v32, v10);
         if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v20 = &v32;
@@ -3973,14 +2867,15 @@ LABEL_17:
         AudioDSPGraph::ThrowException(-10877, &v35, off_1E8335568);
       }
 
-      return AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty((v13 + 16 * a4), a2, a5, a6, a7);
+      AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty((v13 + 16 * a4), a2, a5, a6, a7.n128_f64[0]);
+      return result;
     }
 
 LABEL_30:
     std::to_string(&v33, __val);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v34, "CalculationBox can't get property in scope ", &v33);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v30, &v34, " with property ID ");
-    std::to_string(&v32, a2);
+    std::to_string(&v32, v10);
     if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v17 = &v32;
@@ -4009,8 +2904,8 @@ LABEL_30:
     AudioDSPGraph::ThrowException(-10866, &v27, off_1E8335598);
   }
 
-  v15 = *(this + 193);
-  if (v15 != 1)
+  *&v15 = *(this + 193);
+  if (LODWORD(v15) != 1)
   {
     goto LABEL_30;
   }
@@ -4022,7 +2917,7 @@ LABEL_30:
     std::to_string(&v32, v9);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v33, "CalculationBox can't get output scope element ", &v32);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v34, &v33, " with property ID ");
-    std::to_string(&v28, a2);
+    std::to_string(&v28, v10);
     if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v24 = &v28;
@@ -4051,7 +2946,8 @@ LABEL_30:
     AudioDSPGraph::ThrowException(data, &v29, off_1E8335580);
   }
 
-  return AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty(&v30, a2, a5, a6, v16);
+  AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty(&v30, v10, a5, a6, v16);
+  return result;
 }
 
 void sub_1C921E928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -4089,7 +2985,7 @@ void sub_1C921E928(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty(unsigned __int8 *a1, int a2, int *a3, _BYTE *a4, double a5)
+uint64_t AudioDSPGraph::Boxes::CalculationBox::getValueAsProperty(double *a1, int a2, int *a3, _BYTE *a4, double a5)
 {
   if (a2 > 1936274225)
   {
@@ -4111,12 +3007,12 @@ LABEL_27:
           {
             if (*a1 == 1)
             {
-              v10 = *(a1 + 1);
+              v10 = a1[1];
             }
 
             else if (!*a1)
             {
-              LOBYTE(v10) = a1[8];
+              LOBYTE(v10) = *(a1 + 8);
             }
 
             *a4 = v10;
@@ -4142,7 +3038,7 @@ LABEL_37:
             goto LABEL_55;
           }
 
-          v6 = *(a1 + 1);
+          v6 = a1[1];
 LABEL_55:
           *a4 = v6;
 LABEL_58:
@@ -4168,7 +3064,7 @@ LABEL_62:
         goto LABEL_45;
       }
 
-      v8 = *(a1 + 1);
+      v8 = a1[1];
       goto LABEL_60;
     }
 
@@ -4188,7 +3084,7 @@ LABEL_62:
               goto LABEL_37;
             }
 
-            v6 = *(a1 + 1);
+            v6 = a1[1];
             goto LABEL_55;
           }
 
@@ -4217,7 +3113,7 @@ LABEL_45:
         goto LABEL_60;
       }
 
-      v8 = *(a1 + 1);
+      v8 = a1[1];
 LABEL_60:
       *a4 = v8;
       goto LABEL_61;
@@ -4229,7 +3125,7 @@ LABEL_31:
     {
       if (*a1 == 1)
       {
-        v11 = *(a1 + 1);
+        v11 = a1[1];
       }
 
       else if (!*a1)
@@ -4254,7 +3150,7 @@ LABEL_31:
       {
         if (*a1 == 1)
         {
-          a5 = *(a1 + 1);
+          a5 = a1[1];
         }
 
         else if (!*a1)
@@ -4297,7 +3193,7 @@ LABEL_31:
 
     if (*a1 == 1)
     {
-      *&a5 = *(a1 + 1);
+      *&a5 = a1[1];
     }
 
     else if (!*a1)
@@ -4314,7 +3210,7 @@ LABEL_61:
   return v5;
 }
 
-void AudioDSPGraph::Boxes::CalculationBox::calculate(AudioDSPGraph::Boxes::CalculationBox *this@<X0>, uint64_t a2@<X1>, int a3@<W2>, unint64_t a4@<X8>)
+void AudioDSPGraph::Boxes::CalculationBox::calculate(AudioDSPGraph::Boxes::CalculationBox *this@<X0>, uint64_t a2@<X1>, int a3@<W2>, double a4@<X8>)
 {
   if (a3)
   {
@@ -4369,7 +3265,7 @@ void AudioDSPGraph::Boxes::CalculationBox::calculate(AudioDSPGraph::Boxes::Calcu
 
       if (!v6[16])
       {
-        a4 = 0;
+        a4 = 0.0;
         v4 = v20 - *(v6 + 3);
       }
 
@@ -4381,8 +3277,8 @@ void AudioDSPGraph::Boxes::CalculationBox::calculate(AudioDSPGraph::Boxes::Calcu
       if (*v6 == 1)
       {
         v21 = *(v6 + 1);
-        a4 = v6[16];
-        if (a4 == 1)
+        *&a4 = v6[16];
+        if (LODWORD(a4) == 1)
         {
           v23 = *(v6 + 3);
           if (v23 != 0.0)
@@ -4413,19 +3309,19 @@ LABEL_86:
         {
           if (v21 >= 0.0)
           {
-            a4 = 0x7FF8000000000000;
+            a4 = NAN;
           }
 
           else
           {
-            a4 = 0xFFF0000000000000;
+            a4 = -INFINITY;
           }
 
           goto LABEL_101;
         }
 
 LABEL_100:
-        a4 = 0x7FF0000000000000;
+        a4 = INFINITY;
         goto LABEL_101;
       }
 
@@ -4445,7 +3341,7 @@ LABEL_100:
 
         v29 = v17 / v28;
 LABEL_87:
-        a4 = *&v29;
+        a4 = v29;
         goto LABEL_101;
       }
 
@@ -4458,7 +3354,7 @@ LABEL_87:
       if (v18)
       {
         v4 = 0;
-        a4 = v17 / v18;
+        *&a4 = v17 / v18;
         goto LABEL_102;
       }
 
@@ -4468,10 +3364,10 @@ LABEL_95:
         goto LABEL_100;
       }
 
-      a4 = 0xFFF0000000000000;
+      a4 = -INFINITY;
       if (!v17)
       {
-        a4 = 0x7FF8000000000000;
+        a4 = NAN;
       }
 
 LABEL_101:
@@ -4495,7 +3391,7 @@ LABEL_17:
       LODWORD(a4) = *v6;
       if (*v6)
       {
-        if (a4 == 1 && *(v6 + 1) == 0.0)
+        if (LODWORD(a4) == 1 && *(v6 + 1) == 0.0)
         {
           LOBYTE(a4) = 0;
           goto LABEL_76;
@@ -4505,7 +3401,7 @@ LABEL_17:
       }
 
       a4 = *(v6 + 1);
-      if (a4)
+      if (a4 != 0.0)
       {
         goto LABEL_69;
       }
@@ -4515,7 +3411,7 @@ LABEL_17:
       LODWORD(a4) = *v6;
       if (*v6)
       {
-        if (a4 != 1 || *(v6 + 1) == 0.0)
+        if (LODWORD(a4) != 1 || *(v6 + 1) == 0.0)
         {
 LABEL_69:
           if (v6[16] == 1)
@@ -4535,7 +3431,7 @@ LABEL_69:
 
           LOBYTE(a4) = !v27;
 LABEL_76:
-          a4 &= 1u;
+          *&a4 = LOBYTE(a4) & 1;
 LABEL_77:
           *this = 0;
           goto LABEL_78;
@@ -4545,7 +3441,7 @@ LABEL_77:
       else
       {
         a4 = *(v6 + 1);
-        if (!a4)
+        if (a4 == 0.0)
         {
           goto LABEL_69;
         }
@@ -4571,32 +3467,32 @@ LABEL_77:
 
       LOBYTE(a4) = !v19;
 LABEL_58:
-      LOBYTE(a4) = ~a4;
+      LOBYTE(a4) = ~LOBYTE(a4);
       goto LABEL_76;
     case 8:
       v16 = *v6;
       goto LABEL_49;
     case 9:
-      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator==(v6, (v6 + 16), a4);
+      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator==(v6, (v6 + 16), SLOBYTE(a4));
       goto LABEL_15;
     case 0xA:
-      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator==(v6, (v6 + 16), a4);
+      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator==(v6, (v6 + 16), SLOBYTE(a4));
       goto LABEL_47;
     case 0xB:
-      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v6, (v6 + 16), a4);
+      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v6, (v6 + 16), SLOBYTE(a4));
       goto LABEL_47;
     case 0xC:
-      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator>(v6, (v6 + 16), a4);
+      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator>(v6, (v6 + 16), SLOBYTE(a4));
       goto LABEL_15;
     case 0xD:
-      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator>(v6, (v6 + 16), a4);
+      v12 = AudioDSPGraph::Boxes::CalculationBox::Value::operator>(v6, (v6 + 16), SLOBYTE(a4));
 LABEL_47:
-      a4 = v12 ^ 1u;
+      *&a4 = !v12;
       goto LABEL_77;
     case 0xE:
-      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v6, (v6 + 16), a4);
+      v11 = AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v6, (v6 + 16), SLOBYTE(a4));
 LABEL_15:
-      a4 = v11;
+      *&a4 = v11;
       goto LABEL_77;
     case 0xF:
       v8 = v6 + 16;
@@ -4608,7 +3504,7 @@ LABEL_15:
       v9 = *(a2 + 784);
       v10 = (v6 + 16);
 LABEL_19:
-      if (AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v9, v10, a4))
+      if (AudioDSPGraph::Boxes::CalculationBox::Value::operator<(v9, v10, SLOBYTE(a4)))
       {
         v15 = v8;
       }
@@ -4636,7 +3532,7 @@ LABEL_49:
           if (v6[16])
           {
 LABEL_80:
-            a4 = 1;
+            *&a4 = 1;
             goto LABEL_93;
           }
 
@@ -4656,7 +3552,7 @@ LABEL_80:
         {
           if (!v6[16])
           {
-            a4 = 0;
+            a4 = 0.0;
             v4 = *(v6 + 3) + v7;
           }
 
@@ -4670,7 +3566,7 @@ LABEL_80:
       v30 = v24 + v25;
 LABEL_92:
       v4 = *&v30;
-      a4 = 1;
+      *&a4 = 1;
 LABEL_93:
       *this = a4;
       *(this + 1) = v4;
@@ -4678,24 +3574,13 @@ LABEL_93:
   }
 }
 
-uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator*(uint64_t result, uint64_t a2)
+uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator*(uint64_t result, _BYTE *a2)
 {
   if (*result == 1)
   {
-    v4 = *(result + 8);
-    if (*a2 == 1)
+    if (*a2 != 1 && *a2)
     {
-      v7 = *(a2 + 8);
-    }
-
-    else
-    {
-      if (*a2)
-      {
-        return 1;
-      }
-
-      v5 = *(a2 + 8);
+      return 1;
     }
 
     return 1;
@@ -4706,29 +3591,26 @@ uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator*(uint64_t result,
     return result;
   }
 
-  v2 = *(result + 8);
   if (*a2 == 1)
   {
-    v6 = *(a2 + 8);
     return 1;
   }
 
   if (!*a2)
   {
-    result = 0;
-    v3 = *(a2 + 8) * v2;
+    return 0;
   }
 
   return result;
 }
 
-uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator==@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W8>)
+BOOL AudioDSPGraph::Boxes::CalculationBox::Value::operator==@<W0>(uint64_t a1@<X0>, uint64_t a2@<X1>, BOOL a3@<W8>)
 {
   if (*a1 != 1)
   {
     if (*a1)
     {
-      return a3 & 1;
+      return a3;
     }
 
     v3 = *(a1 + 8);
@@ -4736,16 +3618,15 @@ uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator==@<X0>(uint64_t a
     {
       if (*a2)
       {
-        return a3 & 1;
+        return a3;
       }
 
-      v4 = *(a2 + 8) == v3;
-      goto LABEL_12;
+      return *(a2 + 8) == v3;
     }
 
     v5 = *(a2 + 8);
     v6 = v3;
-    goto LABEL_10;
+    return v5 == v6;
   }
 
   v5 = *(a1 + 8);
@@ -4753,19 +3634,14 @@ uint64_t AudioDSPGraph::Boxes::CalculationBox::Value::operator==@<X0>(uint64_t a
   {
     if (*a2)
     {
-      return a3 & 1;
+      return a3;
     }
 
     v6 = *(a2 + 8);
-LABEL_10:
-    v4 = v5 == v6;
-    goto LABEL_12;
+    return v5 == v6;
   }
 
-  v4 = *(a2 + 8) == v5;
-LABEL_12:
-  a3 = v4;
-  return a3 & 1;
+  return *(a2 + 8) == v5;
 }
 
 BOOL AudioDSPGraph::Boxes::CalculationBox::Value::operator<@<W0>(uint64_t a1@<X0>, uint64_t a2@<X1>, BOOL a3@<W8>)
@@ -5043,7 +3919,7 @@ LABEL_10:
   return this;
 }
 
-uint64_t AudioDSPGraph::Boxes::CalculationBox::getParameterList@<X0>(uint64_t this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t AudioDSPGraph::Boxes::CalculationBox::getParameterList@<X0>(uint64_t this@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
 {
   if (a2 == 2)
   {
@@ -5056,7 +3932,7 @@ uint64_t AudioDSPGraph::Boxes::CalculationBox::getParameterList@<X0>(uint64_t th
       *a3 = 0;
       v4 = &v5;
 LABEL_8:
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a3, v4, (v3 + 1), 1uLL);
+      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a3, v4, v3 + 1, 1uLL);
     }
   }
 
@@ -5089,7 +3965,7 @@ void sub_1C921F624(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AudioDSPGraph::Boxes::CalculationBox::getParameter(AudioDSPGraph::Boxes::CalculationBox *this@<X0>, int a2@<W1>, int a3@<W2>, unsigned int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>)
+void AudioDSPGraph::Boxes::CalculationBox::getParameter(AudioDSPGraph::Boxes::CalculationBox *this@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>)
 {
   v28 = a3;
   v29 = a2;
@@ -5098,8 +3974,8 @@ void AudioDSPGraph::Boxes::CalculationBox::getParameter(AudioDSPGraph::Boxes::Ca
   {
     if (a3 == 2)
     {
-      v10 = *(this + 193);
-      if (!v10)
+      *&v10 = *(this + 193);
+      if (!LODWORD(v10))
       {
         AudioDSPGraph::Boxes::CalculationBox::calculate(&v19, this, a4, v10);
         if (v22 != 1)
@@ -5259,7 +4135,7 @@ LABEL_6:
   return result;
 }
 
-void AudioDSPGraph::ErrorDescriptor::CustomDeferredDescription<unsigned int,unsigned int>::format(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double AudioDSPGraph::ErrorDescriptor::CustomDeferredDescription<unsigned int,unsigned int>::format@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v19 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 8);
@@ -5302,10 +4178,11 @@ void AudioDSPGraph::ErrorDescriptor::CustomDeferredDescription<unsigned int,unsi
     operator delete(__src);
   }
 
+  result = *&v9;
   *a2 = v9;
   *(a2 + 16) = v10;
   *(a2 + 24) = 1;
-  v8 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
 void sub_1C921FB14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *__p)
@@ -5434,49 +4311,8 @@ LABEL_4:
 uint64_t AudioDSPGraph::Boxes::ChannelCopierBox::initialize(AudioDSPGraph::Boxes::ChannelCopierBox *this)
 {
   result = AudioDSPGraph::Box::initialize(this);
-  v3 = *(this + 9);
-  if (*(this + 10) == v3)
-  {
-    v12 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v12 = *v12;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v16, v12, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v16, off_1E8337C60);
-  }
-
-  v4 = *(*(v3 + 16) + 120);
-  v5 = v4[2];
-  if (v5 == 1819304813)
-  {
-    v6 = v4[3];
-    if ((v6 & 1) == 0 || v4[8] != 32)
-    {
-      goto LABEL_21;
-    }
-  }
-
-  else
-  {
-    if (v5 != 1718773105 || v4[8] != 64)
-    {
-LABEL_21:
-      std::string::basic_string[abi:ne200100]<0>(v15, "ChannelCopierBox input format must be mono, non-interleaved float");
-      AudioDSPGraph::ThrowException(1718449215, v15, off_1E83355F8);
-    }
-
-    v6 = v4[3];
-  }
-
-  if ((v6 & 0x20) == 0 || v4[7] != 1)
-  {
-    goto LABEL_21;
-  }
-
-  v7 = *(this + 12);
-  if (*(this + 13) == v7)
+  v4 = *(this + 9);
+  if (*(this + 10) == v4)
   {
     v13 = (this + 40);
     if (*(this + 63) < 0)
@@ -5484,16 +4320,57 @@ LABEL_21:
       v13 = *v13;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v16, v13, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v16, off_1E8337C78);
+    caulk::make_string(&v17, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v13, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v17, off_1E8337C60);
   }
 
-  v8 = *(*(v7 + 16) + 120);
-  v9 = v8[2];
-  if (v9 == 1819304813)
+  v5 = *(*(v4 + 16) + 120);
+  v6 = v5[2];
+  if (v6 == 1819304813)
   {
-    v10 = v8[3];
-    if ((v10 & 1) == 0 || v8[8] != 32)
+    v7 = v5[3];
+    if ((v7 & 1) == 0 || v5[8] != 32)
+    {
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+    if (v6 != 1718773105 || v5[8] != 64)
+    {
+LABEL_21:
+      std::string::basic_string[abi:ne200100]<0>(v16, "ChannelCopierBox input format must be mono, non-interleaved float");
+      AudioDSPGraph::ThrowException(1718449215, v16, off_1E83355F8);
+    }
+
+    v7 = v5[3];
+  }
+
+  if ((v7 & 0x20) == 0 || v5[7] != 1)
+  {
+    goto LABEL_21;
+  }
+
+  v8 = *(this + 12);
+  if (*(this + 13) == v8)
+  {
+    v14 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v14 = *v14;
+    }
+
+    caulk::make_string(&v17, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v14, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v17, off_1E8337C78);
+  }
+
+  v9 = *(*(v8 + 16) + 120);
+  v10 = v9[2];
+  if (v10 == 1819304813)
+  {
+    v11 = v9[3];
+    if ((v11 & 1) == 0 || v9[8] != 32)
     {
       goto LABEL_22;
     }
@@ -5501,26 +4378,26 @@ LABEL_21:
 
   else
   {
-    if (v9 != 1718773105 || v8[8] != 64)
+    if (v10 != 1718773105 || v9[8] != 64)
     {
       goto LABEL_22;
     }
 
-    v10 = v8[3];
+    v11 = v9[3];
   }
 
-  if ((v10 & 0x20) == 0)
+  if ((v11 & 0x20) == 0)
   {
 LABEL_22:
-    v11 = this + 40;
+    v12 = this + 40;
     if (*(this + 63) < 0)
     {
-      v11 = *v11;
+      v12 = *v12;
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v16, v11);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v14, "ChannelCopierBox output format must be non-interleaved float ", &v16);
-    AudioDSPGraph::ThrowException(1718449215, &v14, off_1E8335610);
+    std::string::basic_string[abi:ne200100]<0>(&v17, v12);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v15, "ChannelCopierBox output format must be non-interleaved float ", &v17);
+    AudioDSPGraph::ThrowException(1718449215, &v15, off_1E8335610);
   }
 
   return result;
@@ -5541,35 +4418,35 @@ void sub_1C921FF20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *AudioDSPGraph::Boxes::ChannelCopierBox::process(void *this, int a2)
+char *AudioDSPGraph::Boxes::ChannelCopierBox::process(char *this, char *a2)
 {
   v2 = this;
-  v3 = this[9];
-  v4 = this[10];
+  v3 = *(this + 9);
+  v4 = *(this + 10);
   v5 = (v4 - v3) >> 5;
   if (v4 == v3)
   {
-    v22 = this + 5;
-    if (*(this + 63) < 0)
+    v21 = this + 40;
+    if (this[63] < 0)
+    {
+      v21 = *v21;
+    }
+
+    caulk::make_string(&v27, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v21, v5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C60);
+  }
+
+  v6 = *(this + 12);
+  if (*(this + 13) == v6)
+  {
+    v22 = this + 40;
+    if (this[63] < 0)
     {
       v22 = *v22;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v28, v22, v5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C60);
-  }
-
-  v6 = this[12];
-  if (this[13] == v6)
-  {
-    v23 = this + 5;
-    if (*(this + 63) < 0)
-    {
-      v23 = *v23;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v28, v23, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C78);
+    caulk::make_string(&v27, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v22, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C78);
   }
 
   v7 = *(v3 + 16);
@@ -5583,11 +4460,11 @@ void *AudioDSPGraph::Boxes::ChannelCopierBox::process(void *this, int a2)
     do
     {
       *(v12 - 1) = v11;
-      v13 = *(v10 + 16);
+      a2 = *(v10 + 16);
       this = *v12;
-      if (v13 != *v12)
+      if (a2 != *v12)
       {
-        this = memcpy(this, v13, v11);
+        this = memcpy(this, a2, v11);
       }
 
       v12 += 2;
@@ -5595,72 +4472,72 @@ void *AudioDSPGraph::Boxes::ChannelCopierBox::process(void *this, int a2)
     }
 
     while (v9);
-    v3 = v2[9];
-    v4 = v2[10];
+    v3 = *(v2 + 9);
+    v4 = *(v2 + 10);
     v5 = (v4 - v3) >> 5;
   }
 
   if (v4 == v3)
   {
-    v24 = v2 + 5;
-    if (*(v2 + 63) < 0)
+    v23 = v2 + 40;
+    if (v2[63] < 0)
+    {
+      v23 = *v23;
+    }
+
+    caulk::make_string(&v27, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v23, v5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C60);
+  }
+
+  v13 = *(v2 + 12);
+  if (*(v2 + 13) == v13)
+  {
+    v24 = v2 + 40;
+    if (v2[63] < 0)
     {
       v24 = *v24;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v28, v24, v5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C60);
+    caulk::make_string(&v27, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v24, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C78);
   }
 
-  v14 = v2[12];
-  if (v2[13] == v14)
+  v14 = *(*(v3 + 16) + 56);
+  v15 = *(*(v13 + 16) + 56);
+  v16 = *(v14 + 8);
+  v17 = *(v14 + 24);
+  v18 = *(v14 + 40);
+  *(v15 + 56) = *(v14 + 56);
+  *(v15 + 40) = v18;
+  *(v15 + 24) = v17;
+  *(v15 + 8) = v16;
+  v19 = *(v2 + 9);
+  if (*(v2 + 10) == v19)
   {
-    v25 = v2 + 5;
-    if (*(v2 + 63) < 0)
+    v25 = v2 + 40;
+    if (v2[63] < 0)
     {
       v25 = *v25;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v28, v25, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C78);
+    caulk::make_string(&v27, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v25, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C60);
   }
 
-  v15 = *(*(v3 + 16) + 56);
-  v16 = *(*(v14 + 16) + 56);
-  v17 = *(v15 + 8);
-  v18 = *(v15 + 24);
-  v19 = *(v15 + 40);
-  *(v16 + 56) = *(v15 + 56);
-  *(v16 + 40) = v19;
-  *(v16 + 24) = v18;
-  *(v16 + 8) = v17;
-  v20 = v2[9];
-  if (v2[10] == v20)
+  v20 = *(v2 + 12);
+  if (*(v2 + 13) == v20)
   {
-    v26 = v2 + 5;
-    if (*(v2 + 63) < 0)
+    v26 = v2 + 40;
+    if (v2[63] < 0)
     {
       v26 = *v26;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v28, v26, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C60);
+    caulk::make_string(&v27, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v26, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v27, off_1E8337C78);
   }
 
-  v21 = v2[12];
-  if (v2[13] == v21)
-  {
-    v27 = v2 + 5;
-    if (*(v2 + 63) < 0)
-    {
-      v27 = *v27;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v28, v27, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C78);
-  }
-
-  *(*(*(v21 + 16) + 56) + 72) = *(*(*(v20 + 16) + 56) + 72);
+  *(*(*(v20 + 16) + 56) + 72) = *(*(*(v19 + 16) + 56) + 72);
   return this;
 }
 
@@ -5692,8 +4569,8 @@ void AudioDSPGraph::Boxes::ChannelCopierBox::~ChannelCopierBox(AudioDSPGraph::Bo
 uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::initialize(AudioDSPGraph::Boxes::ChannelJoinerBox *this)
 {
   result = AudioDSPGraph::Box::initialize(this);
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
+  v4 = *(this + 12);
+  if (*(this + 13) == v4)
   {
     v21 = (this + 40);
     if (*(this + 63) < 0)
@@ -5701,54 +4578,54 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::initialize(AudioDSPGraph::Boxes
       v21 = *v21;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v28, v21, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C78);
+    caulk::make_string(&v28, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v21, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v28, off_1E8337C78);
   }
 
-  v4 = *(*(v3 + 16) + 120);
-  v5 = v4[3];
-  if ((v5 & 0x20) == 0)
+  v5 = *(*(v4 + 16) + 120);
+  v6 = v5[3];
+  if ((v6 & 0x20) == 0)
   {
     std::string::basic_string[abi:ne200100]<0>(v27, "ChannelJoinerBox output format must be de-interleaved");
     AudioDSPGraph::ThrowException(1718449215, v27, off_1E8335628);
   }
 
-  v6 = v4[2];
-  if (v6 == 1819304813)
+  v7 = v5[2];
+  if (v7 == 1819304813)
   {
-    if ((v5 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       goto LABEL_38;
     }
 
-    v7 = v4[8];
-    if (v7 != 32)
+    v8 = v5[8];
+    if (v8 != 32)
     {
       goto LABEL_38;
     }
   }
 
-  else if (v6 != 1718773105 || (v7 = v4[8], v7 != 64))
+  else if (v7 != 1718773105 || (v8 = v5[8], v8 != 64))
   {
 LABEL_38:
     std::string::basic_string[abi:ne200100]<0>(v26, "ChannelJoinerBox output format must be 32-bit floating-point PCM or 'freq'");
     AudioDSPGraph::ThrowException(1718449215, v26, off_1E8335640);
   }
 
-  v8 = *(this + 9);
-  v9 = *(this + 10) - v8;
-  if ((v9 & 0x1FFFFFFFE0) != 0)
+  v9 = *(this + 9);
+  v10 = *(this + 10) - v9;
+  if ((v10 & 0x1FFFFFFFE0) != 0)
   {
-    LODWORD(v10) = 0;
-    v11 = v9 >> 5;
-    v12 = (v9 >> 5);
-    v13 = v8 + 16;
-    v14 = v11;
-    result = v7;
-    v15 = v4[2];
+    LODWORD(v11) = 0;
+    v12 = v10 >> 5;
+    v13 = (v10 >> 5);
+    v14 = v9 + 16;
+    v15 = v12;
+    result = v8;
+    v3 = v5[2];
     while (1)
     {
-      if (!v14)
+      if (!v15)
       {
         v20 = (this + 40);
         if (*(this + 63) < 0)
@@ -5756,11 +4633,11 @@ LABEL_38:
           v20 = *v20;
         }
 
-        caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v28, v20, v11, v11);
-        AudioDSPGraph::ThrowException(1919837985, v28, off_1E8337C60);
+        caulk::make_string(&v28, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v20, v12, v12);
+        AudioDSPGraph::ThrowException(1919837985, &v28, off_1E8337C60);
       }
 
-      v16 = *(*v13 + 120);
+      v16 = *(*v14 + 120);
       v17 = v16[3];
       if ((v17 & 0x20) == 0)
       {
@@ -5776,9 +4653,9 @@ LABEL_38:
           goto LABEL_33;
         }
 
-        result = v7;
-        v15 = v4[2];
-        if (v6 == 1718773105)
+        result = v8;
+        v3 = v5[2];
+        if (v7 == 1718773105)
         {
           goto LABEL_32;
         }
@@ -5793,33 +4670,33 @@ LABEL_33:
           AudioDSPGraph::ThrowException(1718449215, v24, off_1E8335670);
         }
 
-        if (v15 != 1718773105 || result != 64)
+        if (v3 != 1718773105 || result != 64)
         {
 LABEL_32:
           std::string::basic_string[abi:ne200100]<0>(v23, "ChannelJoinerBox input and output formats must be compatible");
           AudioDSPGraph::ThrowException(1718449215, v23, off_1E8335688);
         }
 
-        v15 = 1718773105;
+        v3 = 1718773105;
       }
 
-      v10 = (v16[7] + v10);
-      v13 += 32;
-      --v14;
-      if (!--v12)
+      v11 = (v16[7] + v11);
+      v14 += 32;
+      --v15;
+      if (!--v13)
       {
         goto LABEL_26;
       }
     }
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_26:
-  v19 = v4[7];
-  if (v19 != v10)
+  v19 = v5[7];
+  if (v19 != v11)
   {
-    caulk::make_string("ChannelJoinerBox channel mismatch: can't join %u input channels into %u output channels", v22, v10, v19);
-    AudioDSPGraph::ThrowException(1718449215, v22, off_1E83356A0);
+    caulk::make_string(&v22, "ChannelJoinerBox channel mismatch: can't join %u input channels into %u output channels", v3, v11, v19);
+    AudioDSPGraph::ThrowException(1718449215, &v22, off_1E83356A0);
   }
 
   return result;
@@ -5835,7 +4712,7 @@ void sub_1C92205E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned int a2)
+uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, const char *a2)
 {
   v2 = *(this + 96);
   if (*(this + 104) == v2)
@@ -5846,8 +4723,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
       v31 = *v31;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v37, v31, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C78);
+    caulk::make_string(&v37, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v31, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C78);
   }
 
   v3 = *(v2 + 16);
@@ -5873,8 +4750,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
           v30 = *v30;
         }
 
-        caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v37, v30, v12, v7);
-        AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C60);
+        caulk::make_string(&v37, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v30, v12, v7);
+        AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
       }
 
       v13 = *(v4 + 32 * v7 + 16);
@@ -5899,9 +4776,13 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
             bzero(*v19, v10);
           }
 
-          else if (*v18 != *v19)
+          else
           {
-            memcpy(*v19, *v18, v10);
+            a2 = *v18;
+            if (*v18 != *v19)
+            {
+              memcpy(*v19, a2, v10);
+            }
           }
 
           ++v17;
@@ -5937,8 +4818,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
       v32 = *v32;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v37, v32, v6 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C60);
+    caulk::make_string(&v37, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v32, v6 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
   }
 
   v20 = *(this + 96);
@@ -5950,8 +4831,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
       v33 = *v33;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v37, v33, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C78);
+    caulk::make_string(&v37, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v33, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C78);
   }
 
   v21 = *(*(v4 + 16) + 56);
@@ -5972,8 +4853,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
       v34 = *v34;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v37, v34, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C60);
+    caulk::make_string(&v37, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v34, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
   }
 
   v27 = *(this + 96);
@@ -5985,8 +4866,8 @@ uint64_t AudioDSPGraph::Boxes::ChannelJoinerBox::process(uint64_t this, unsigned
       v35 = *v35;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v37, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v37, off_1E8337C78);
+    caulk::make_string(&v37, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v35, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C78);
   }
 
   v28 = *(*(*(v26 + 16) + 56) + 72);
@@ -6028,89 +4909,8 @@ void AudioDSPGraph::Boxes::ChannelJoinerBox::~ChannelJoinerBox(AudioDSPGraph::Bo
 uint64_t AudioDSPGraph::Boxes::ChannelSplitterBox::initialize(AudioDSPGraph::Boxes::ChannelSplitterBox *this)
 {
   AudioDSPGraph::Box::initialize(this);
-  v2 = *(this + 9);
-  if (*(this + 10) == v2)
-  {
-    v34 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v34 = *v34;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v40, v34, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v40, off_1E8337C60);
-  }
-
-  v3 = *(*(v2 + 16) + 120);
-  v4 = v3[7];
-  v5 = *(this + 12);
-  v6 = *(this + 13) - v5;
-  v7 = v6 >> 5;
-  v8 = (v6 >> 5);
-  v9 = 0;
-  v10 = v6 & 0x1FFFFFFFE0;
-  if ((v6 & 0x1FFFFFFFE0) != 0)
-  {
-    v11 = (v6 >> 5) - 1;
-    if (v7 < v11)
-    {
-      v11 = v7;
-    }
-
-    v12 = (v5 + 16);
-    v13 = v7;
-    v14 = v8;
-    do
-    {
-      if (!v13)
-      {
-        v28 = (this + 40);
-        if (*(this + 63) < 0)
-        {
-          v28 = *v28;
-        }
-
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v40, v28, v7, v11);
-        AudioDSPGraph::ThrowException(1919837985, v40, off_1E8337C78);
-      }
-
-      v15 = *v12;
-      v12 += 4;
-      v9 = (*(*(v15 + 120) + 28) + v9);
-      --v13;
-      --v14;
-    }
-
-    while (v14);
-  }
-
-  v16 = v3[2];
-  if (v16 == 1819304813)
-  {
-    result = v3[3];
-    if ((result & 1) == 0 || v3[8] != 32)
-    {
-      goto LABEL_61;
-    }
-  }
-
-  else
-  {
-    if (v16 != 1718773105 || v3[8] != 64)
-    {
-LABEL_61:
-      operator new();
-    }
-
-    result = v3[3];
-  }
-
-  if ((result & 0x20) == 0)
-  {
-    goto LABEL_61;
-  }
-
-  if (v4 != v9)
+  v3 = *(this + 9);
+  if (*(this + 10) == v3)
   {
     v35 = (this + 40);
     if (*(this + 63) < 0)
@@ -6118,18 +4918,32 @@ LABEL_61:
       v35 = *v35;
     }
 
-    caulk::make_string("ChannelSplitterBox %s input has %u channels but output has %u channels", v39, v35, v4, v9);
-    AudioDSPGraph::ThrowException(1718449215, v39, off_1E83356D0);
+    caulk::make_string(&v41, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v2, v35, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
   }
 
-  if (v10)
+  v4 = *(*(v3 + 16) + 120);
+  v5 = v4[7];
+  v6 = *(this + 12);
+  v7 = *(this + 13) - v6;
+  v8 = v7 >> 5;
+  v9 = (v7 >> 5);
+  v10 = 0;
+  v11 = v7 & 0x1FFFFFFFE0;
+  if ((v7 & 0x1FFFFFFFE0) != 0)
   {
-    v18 = v5 + 16;
-    v19 = v7;
-    v20 = v8;
+    v12 = (v7 >> 5) - 1;
+    if (v8 < v12)
+    {
+      v12 = v8;
+    }
+
+    v13 = (v6 + 16);
+    v14 = v8;
+    v15 = v9;
     do
     {
-      if (!v19)
+      if (!v14)
       {
         v29 = (this + 40);
         if (*(this + 63) < 0)
@@ -6137,16 +4951,84 @@ LABEL_61:
           v29 = *v29;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v40, v29, v7, v7);
-        AudioDSPGraph::ThrowException(1919837985, v40, off_1E8337C78);
+        caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v29, v8, v12);
+        AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
       }
 
-      v21 = *(*v18 + 120);
-      v22 = v21[2];
-      if (v22 == 1819304813)
+      v16 = *v13;
+      v13 += 4;
+      v2 = *(*(v16 + 120) + 28);
+      v10 = (v2 + v10);
+      --v14;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  v17 = v4[2];
+  if (v17 == 1819304813)
+  {
+    result = v4[3];
+    if ((result & 1) == 0 || v4[8] != 32)
+    {
+      goto LABEL_61;
+    }
+  }
+
+  else
+  {
+    if (v17 != 1718773105 || v4[8] != 64)
+    {
+LABEL_61:
+      operator new();
+    }
+
+    result = v4[3];
+  }
+
+  if ((result & 0x20) == 0)
+  {
+    goto LABEL_61;
+  }
+
+  if (v5 != v10)
+  {
+    v36 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v36 = *v36;
+    }
+
+    caulk::make_string(&v40, "ChannelSplitterBox %s input has %u channels but output has %u channels", v2, v36, v5, v10);
+    AudioDSPGraph::ThrowException(1718449215, &v40, off_1E83356D0);
+  }
+
+  if (v11)
+  {
+    v19 = v6 + 16;
+    v20 = v8;
+    v21 = v9;
+    do
+    {
+      if (!v20)
       {
-        result = v21[3];
-        if ((result & 1) == 0 || v21[8] != 32)
+        v30 = (this + 40);
+        if (*(this + 63) < 0)
+        {
+          v30 = *v30;
+        }
+
+        caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v30, v8, v8);
+        AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
+      }
+
+      v22 = *(*v19 + 120);
+      v23 = v22[2];
+      if (v23 == 1819304813)
+      {
+        result = v22[3];
+        if ((result & 1) == 0 || v22[8] != 32)
         {
           goto LABEL_40;
         }
@@ -6154,20 +5036,20 @@ LABEL_61:
 
       else
       {
-        if (v22 != 1718773105 || v21[8] != 64)
+        if (v23 != 1718773105 || v22[8] != 64)
         {
 LABEL_40:
-          v27 = (this + 40);
+          v28 = (this + 40);
           if (*(this + 63) < 0)
           {
-            v27 = *v27;
+            v28 = *v28;
           }
 
-          caulk::make_string("ChannelSplitterBox %s output format must be non-interleaved float in time- of frequency-domain", v38, v27);
-          AudioDSPGraph::ThrowException(1718449215, v38, off_1E83356E8);
+          caulk::make_string(&v39, "ChannelSplitterBox %s output format must be non-interleaved float in time- of frequency-domain", v2, v28);
+          AudioDSPGraph::ThrowException(1718449215, &v39, off_1E83356E8);
         }
 
-        result = v21[3];
+        result = v22[3];
       }
 
       if ((result & 0x20) == 0)
@@ -6175,56 +5057,19 @@ LABEL_40:
         goto LABEL_40;
       }
 
-      v18 += 32;
-      --v19;
+      v19 += 32;
       --v20;
+      --v21;
     }
 
-    while (v20);
-    v23 = v5 + 16;
-    v24 = v7;
-    if (v16 == 1718773105)
+    while (v21);
+    v24 = v6 + 16;
+    v25 = v8;
+    if (v17 == 1718773105)
     {
       do
       {
-        if (!v24)
-        {
-          v30 = (this + 40);
-          if (*(this + 63) < 0)
-          {
-            v30 = *v30;
-          }
-
-          caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v40, v30, v7, v7);
-          AudioDSPGraph::ThrowException(1919837985, v40, off_1E8337C78);
-        }
-
-        v25 = *(*v23 + 120);
-        if (*(v25 + 8) != 1718773105 || *(v25 + 32) != 64)
-        {
-          v32 = (this + 40);
-          if (*(this + 63) < 0)
-          {
-            v32 = *v32;
-          }
-
-          caulk::make_string("ChannelSplitterBox %s output is in time-domain but input is in frequency-domain", v37, v32);
-          AudioDSPGraph::ThrowException(1718449215, v37, off_1E8335700);
-        }
-
-        v23 += 32;
-        --v24;
-        --v8;
-      }
-
-      while (v8);
-    }
-
-    else
-    {
-      do
-      {
-        if (!v24)
+        if (!v25)
         {
           v31 = (this + 40);
           if (*(this + 63) < 0)
@@ -6232,12 +5077,12 @@ LABEL_40:
             v31 = *v31;
           }
 
-          caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v40, v31, v7, v7);
-          AudioDSPGraph::ThrowException(1919837985, v40, off_1E8337C78);
+          caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v31, v8, v8);
+          AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
         }
 
-        v26 = *(*v23 + 120);
-        if (*(v26 + 8) == 1718773105 && *(v26 + 32) == 64)
+        v26 = *(*v24 + 120);
+        if (*(v26 + 8) != 1718773105 || *(v26 + 32) != 64)
         {
           v33 = (this + 40);
           if (*(this + 63) < 0)
@@ -6245,16 +5090,53 @@ LABEL_40:
             v33 = *v33;
           }
 
-          caulk::make_string("ChannelSplitterBox %s output is in frequency-domain but input is in time-domain", v36, v33);
-          AudioDSPGraph::ThrowException(1718449215, v36, off_1E8335718);
+          caulk::make_string(&v38, "ChannelSplitterBox %s output is in time-domain but input is in frequency-domain", v2, v33);
+          AudioDSPGraph::ThrowException(1718449215, &v38, off_1E8335700);
         }
 
-        v23 += 32;
-        --v24;
-        --v8;
+        v24 += 32;
+        --v25;
+        --v9;
       }
 
-      while (v8);
+      while (v9);
+    }
+
+    else
+    {
+      do
+      {
+        if (!v25)
+        {
+          v32 = (this + 40);
+          if (*(this + 63) < 0)
+          {
+            v32 = *v32;
+          }
+
+          caulk::make_string(&v41, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v32, v8, v8);
+          AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
+        }
+
+        v27 = *(*v24 + 120);
+        if (*(v27 + 8) == 1718773105 && *(v27 + 32) == 64)
+        {
+          v34 = (this + 40);
+          if (*(this + 63) < 0)
+          {
+            v34 = *v34;
+          }
+
+          caulk::make_string(&v37, "ChannelSplitterBox %s output is in frequency-domain but input is in time-domain", v2, v34);
+          AudioDSPGraph::ThrowException(1718449215, &v37, off_1E8335718);
+        }
+
+        v24 += 32;
+        --v25;
+        --v9;
+      }
+
+      while (v9);
     }
   }
 
@@ -6271,26 +5153,26 @@ void sub_1C9220F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *AudioDSPGraph::Boxes::ChannelSplitterBox::process(void *this, int a2)
+char *AudioDSPGraph::Boxes::ChannelSplitterBox::process(char *this, char *a2)
 {
   v2 = this;
-  v3 = this[9];
-  v4 = this[10];
+  v3 = *(this + 9);
+  v4 = *(this + 10);
   if (v4 == v3)
   {
-    v30 = (v4 - v3) >> 5;
-    v31 = this + 5;
-    if (*(this + 63) < 0)
+    v29 = (v4 - v3) >> 5;
+    v30 = this + 40;
+    if (this[63] < 0)
     {
-      v31 = *v31;
+      v30 = *v30;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v32, v31, v30, 0);
-    AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C60);
+    caulk::make_string(&v31, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v30, v29, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C60);
   }
 
-  v5 = this[12];
-  v6 = this[13];
+  v5 = *(this + 12);
+  v6 = *(this + 13);
   v7 = *(v3 + 16);
   if (((v6 - v5) & 0x1FFFFFFFE0) != 0)
   {
@@ -6304,14 +5186,14 @@ void *AudioDSPGraph::Boxes::ChannelSplitterBox::process(void *this, int a2)
       v13 = (v6 - v5) >> 5;
       if (v13 <= v8)
       {
-        v29 = v2 + 5;
-        if (*(v2 + 63) < 0)
+        v28 = v2 + 40;
+        if (v2[63] < 0)
         {
-          v29 = *v29;
+          v28 = *v28;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v32, v29, v13, v8);
-        AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C78);
+        caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v28, v13, v8);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
       }
 
       v14 = *(*(*(v5 + 32 * v8 + 16) + 56) + 80);
@@ -6322,11 +5204,11 @@ void *AudioDSPGraph::Boxes::ChannelSplitterBox::process(void *this, int a2)
         do
         {
           *(v16 - 1) = v10;
-          v17 = *(v11 + 16 * v9 + 8);
+          a2 = *(v11 + 16 * v9 + 8);
           this = *v16;
-          if (v17 != *v16)
+          if (a2 != *v16)
           {
-            this = memcpy(this, v17, v10);
+            this = memcpy(this, a2, v10);
           }
 
           ++v9;
@@ -6335,71 +5217,71 @@ void *AudioDSPGraph::Boxes::ChannelSplitterBox::process(void *this, int a2)
         }
 
         while (v15);
-        v3 = v2[9];
-        v4 = v2[10];
+        v3 = *(v2 + 9);
+        v4 = *(v2 + 10);
       }
 
       if (v4 == v3)
       {
-        v25 = v2 + 5;
-        if (*(v2 + 63) < 0)
+        v24 = v2 + 40;
+        if (v2[63] < 0)
         {
-          v25 = *v25;
+          v24 = *v24;
         }
 
-        caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v32, v25, 0, 0);
-        AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C60);
+        caulk::make_string(&v31, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v24, 0, 0);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C60);
       }
 
-      v18 = v2[12];
-      v19 = (v2[13] - v18) >> 5;
-      if (v19 <= v8)
+      v17 = *(v2 + 12);
+      v18 = (*(v2 + 13) - v17) >> 5;
+      if (v18 <= v8)
       {
-        v28 = v2 + 5;
-        if (*(v2 + 63) < 0)
-        {
-          v28 = *v28;
-        }
-
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v32, v28, v19, v8);
-        AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C78);
-      }
-
-      v20 = *(*(v3 + 16) + 56);
-      v21 = *(*(v18 + 32 * v8 + 16) + 56);
-      v22 = *(v20 + 8);
-      v23 = *(v20 + 24);
-      v24 = *(v20 + 40);
-      *(v21 + 56) = *(v20 + 56);
-      *(v21 + 40) = v24;
-      *(v21 + 24) = v23;
-      *(v21 + 8) = v22;
-      v3 = v2[9];
-      v4 = v2[10];
-      if (v4 == v3)
-      {
-        v26 = v2 + 5;
-        if (*(v2 + 63) < 0)
-        {
-          v26 = *v26;
-        }
-
-        caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v32, v26, 0, 0);
-        AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C60);
-      }
-
-      v5 = v2[12];
-      v6 = v2[13];
-      if ((v6 - v5) >> 5 <= v8)
-      {
-        v27 = v2 + 5;
-        if (*(v2 + 63) < 0)
+        v27 = v2 + 40;
+        if (v2[63] < 0)
         {
           v27 = *v27;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v32, v27, (v6 - v5) >> 5, v8);
-        AudioDSPGraph::ThrowException(1919837985, v32, off_1E8337C78);
+        caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v27, v18, v8);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
+      }
+
+      v19 = *(*(v3 + 16) + 56);
+      v20 = *(*(v17 + 32 * v8 + 16) + 56);
+      v21 = *(v19 + 8);
+      v22 = *(v19 + 24);
+      v23 = *(v19 + 40);
+      *(v20 + 56) = *(v19 + 56);
+      *(v20 + 40) = v23;
+      *(v20 + 24) = v22;
+      *(v20 + 8) = v21;
+      v3 = *(v2 + 9);
+      v4 = *(v2 + 10);
+      if (v4 == v3)
+      {
+        v25 = v2 + 40;
+        if (v2[63] < 0)
+        {
+          v25 = *v25;
+        }
+
+        caulk::make_string(&v31, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v25, 0, 0);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C60);
+      }
+
+      v5 = *(v2 + 12);
+      v6 = *(v2 + 13);
+      if ((v6 - v5) >> 5 <= v8)
+      {
+        v26 = v2 + 40;
+        if (v2[63] < 0)
+        {
+          v26 = *v26;
+        }
+
+        caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v26, (v6 - v5) >> 5, v8);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
       }
 
       *(*(*(v5 + 32 * v8++ + 16) + 56) + 72) = *(*(*(v3 + 16) + 56) + 72);
@@ -6439,34 +5321,34 @@ void AudioDSPGraph::Boxes::ChannelSplitterBox::~ChannelSplitterBox(AudioDSPGraph
 double AudioDSPGraph::Boxes::ConstantSourceBox::initialize(AudioDSPGraph::Boxes::ConstantSourceBox *this)
 {
   AudioDSPGraph::Box::initialize(this);
-  v2 = *(this + 12);
-  v3 = *(this + 13) - v2;
-  if ((v3 & 0x1FFFFFFFE0) != 0)
+  v3 = *(this + 12);
+  v4 = *(this + 13) - v3;
+  if ((v4 & 0x1FFFFFFFE0) != 0)
   {
-    v4 = v3 >> 5;
-    v5 = (v3 >> 5);
-    v6 = v2 + 16;
-    v7 = v4;
+    v5 = v4 >> 5;
+    v6 = (v4 >> 5);
+    v7 = v3 + 16;
+    v8 = v5;
     do
     {
-      if (!v7)
+      if (!v8)
       {
-        v12 = (this + 40);
+        v13 = (this + 40);
         if (*(this + 63) < 0)
         {
-          v12 = *v12;
+          v13 = *v13;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v13, v12, v4, v4);
-        AudioDSPGraph::ThrowException(1919837985, v13, off_1E8337C78);
+        caulk::make_string(&v14, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v13, v5, v5);
+        AudioDSPGraph::ThrowException(1919837985, &v14, off_1E8337C78);
       }
 
-      v8 = *(*v6 + 120);
-      v9 = v8[2];
-      if (v9 == 1819304813)
+      v9 = *(*v7 + 120);
+      v10 = v9[2];
+      if (v10 == 1819304813)
       {
-        v10 = v8[3];
-        if ((v10 & 1) == 0 || v8[8] != 32)
+        v11 = v9[3];
+        if ((v11 & 1) == 0 || v9[8] != 32)
         {
           goto LABEL_14;
         }
@@ -6474,26 +5356,26 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::initialize(AudioDSPGraph::Boxes:
 
       else
       {
-        if (v9 != 1718773105 || v8[8] != 64)
+        if (v10 != 1718773105 || v9[8] != 64)
         {
 LABEL_14:
           operator new();
         }
 
-        v10 = v8[3];
+        v11 = v9[3];
       }
 
-      if ((v10 & 0x20) == 0)
+      if ((v11 & 0x20) == 0)
       {
         goto LABEL_14;
       }
 
-      v6 += 32;
-      --v7;
-      --v5;
+      v7 += 32;
+      --v8;
+      --v6;
     }
 
-    while (v5);
+    while (v6);
   }
 
   *(this + 776) = 0u;
@@ -6515,8 +5397,9 @@ void sub_1C9221558(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::ConstantSourceBox *this, unsigned int a2)
+double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::ConstantSourceBox *this, const char *a2)
 {
+  __N = a2;
   v3 = *(this + 12);
   v4 = *(this + 13);
   v5 = v4 - v3;
@@ -6524,8 +5407,8 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
   {
     v6 = 0;
     v7 = 4 * a2;
-    v8 = a2 + 1;
-    v9 = a2 - 1;
+    v8 = (a2 + 1);
+    v9 = (a2 - 1);
     v10 = 8 * a2;
     __N_4 = (this + 776);
     do
@@ -6539,8 +5422,8 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
           v27 = *v27;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v31, v27, v11, v6);
-        AudioDSPGraph::ThrowException(1919837985, v31, off_1E8337C78);
+        caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v27, v11, v6);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
       }
 
       v12 = *(*(*(v3 + 32 * v6 + 16) + 56) + 80);
@@ -6560,8 +5443,8 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
               v26 = *v26;
             }
 
-            caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v31, v26, v16, v6);
-            AudioDSPGraph::ThrowException(1919837985, v31, off_1E8337C78);
+            caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v26, v16, v6);
+            AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
           }
 
           v17 = *v14;
@@ -6569,13 +5452,13 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
           if (*(*(*(v15 + 32 * v6 + 16) + 120) + 8) == 1718773105)
           {
             vDSP_vfill(v18, v17, 1, v8);
-            vDSP_vfill(this + 192, &(*v14)[a2 + 1], 1, v9);
+            vDSP_vfill(this + 192, &(*v14)[__N + 1], 1, v9);
             v19 = v10;
           }
 
           else
           {
-            vDSP_vfill(v18, v17, 1, a2);
+            vDSP_vfill(v18, v17, 1, __N);
             v19 = v7;
           }
 
@@ -6598,8 +5481,8 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
           v28 = *v28;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v31, v28, v20, v6);
-        AudioDSPGraph::ThrowException(1919837985, v31, off_1E8337C78);
+        caulk::make_string(&v31, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v28, v20, v6);
+        AudioDSPGraph::ThrowException(1919837985, &v31, off_1E8337C78);
       }
 
       v21 = *(*(v3 + 32 * v6 + 16) + 56);
@@ -6620,7 +5503,7 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::process(AudioDSPGraph::Boxes::Co
     while (v6 < ((v4 - v3) >> 5));
   }
 
-  result = *(this + 97) + a2;
+  result = *(this + 97) + __N;
   *(this + 97) = result;
   return result;
 }
@@ -6643,7 +5526,7 @@ double AudioDSPGraph::Boxes::ConstantSourceBox::desc@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-void AudioDSPGraph::Boxes::ConstantSourceBox::getParameterInfo(AudioDSPGraph::Boxes::ConstantSourceBox *this@<X0>, int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+double AudioDSPGraph::Boxes::ConstantSourceBox::getParameterInfo@<D0>(AudioDSPGraph::Boxes::ConstantSourceBox *this@<X0>, int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
 {
   v16 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -6652,7 +5535,7 @@ void AudioDSPGraph::Boxes::ConstantSourceBox::getParameterInfo(AudioDSPGraph::Bo
 LABEL_7:
     *a4 = v4;
     *(a4 + 104) = 0;
-    goto LABEL_8;
+    return result;
   }
 
   if (a3 > 1)
@@ -6693,22 +5576,22 @@ LABEL_7:
 
   *(a4 + 84) = -_D0;
   *(a4 + 92) = 0;
+  *&result = 3355443200;
   *(a4 + 96) = 3355443200;
   *(a4 + 104) = 1;
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
-void AudioDSPGraph::Boxes::ConstantSourceBox::getParameterList(int a1@<W1>, void *a2@<X8>)
+void AudioDSPGraph::Boxes::ConstantSourceBox::getParameterList(int a1@<W1>, uint64_t *a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v3 = 0x100000000;
+    v2 = 0x100000000;
     a2[1] = 0;
     a2[2] = 0;
     *a2 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v3, &v4, 2uLL);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v2, &v3, 2uLL);
   }
 
   *a2 = 0;
@@ -6827,21 +5710,8 @@ void AudioDSPGraph::Boxes::ConstantSourceBox::~ConstantSourceBox(AudioDSPGraph::
 uint64_t AudioDSPGraph::Boxes::CopyBox::initialize(AudioDSPGraph::Boxes::CopyBox *this)
 {
   AudioDSPGraph::Box::initialize(this);
-  v2 = *(this + 9);
-  if (*(this + 10) == v2)
-  {
-    v5 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v5 = *v5;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v7, v5, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v7, off_1E8337C60);
-  }
-
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
+  v3 = *(this + 9);
+  if (*(this + 10) == v3)
   {
     v6 = (this + 40);
     if (*(this + 63) < 0)
@@ -6849,11 +5719,24 @@ uint64_t AudioDSPGraph::Boxes::CopyBox::initialize(AudioDSPGraph::Boxes::CopyBox
       v6 = *v6;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v7, v6, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v7, off_1E8337C78);
+    caulk::make_string(&v8, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v2, v6, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v8, off_1E8337C60);
   }
 
-  result = memcmp(*(*(v2 + 16) + 120), *(*(v3 + 16) + 120), 0x28uLL);
+  v4 = *(this + 12);
+  if (*(this + 13) == v4)
+  {
+    v7 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v7 = *v7;
+    }
+
+    caulk::make_string(&v8, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v7, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v8, off_1E8337C78);
+  }
+
+  result = memcmp(*(*(v3 + 16) + 120), *(*(v4 + 16) + 120), 0x28uLL);
   if (result)
   {
     operator new();
@@ -6872,23 +5755,10 @@ void sub_1C9221CDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 AudioDSPGraph::Boxes::CopyBox::process(AudioDSPGraph::Boxes::CopyBox *this, int a2)
+__n128 AudioDSPGraph::Boxes::CopyBox::process(AudioDSPGraph::Boxes::CopyBox *this, const char *a2)
 {
   v3 = *(this + 9);
   if (*(this + 10) == v3)
-  {
-    v14 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v14 = *v14;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v17, v14, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v17, off_1E8337C60);
-  }
-
-  v4 = *(this + 12);
-  if (*(this + 13) == v4)
   {
     v15 = (this + 40);
     if (*(this + 63) < 0)
@@ -6896,13 +5766,12 @@ __n128 AudioDSPGraph::Boxes::CopyBox::process(AudioDSPGraph::Boxes::CopyBox *thi
       v15 = *v15;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v17, v15, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v17, off_1E8337C78);
+    caulk::make_string(&v18, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v15, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v18, off_1E8337C60);
   }
 
-  AudioDSPGraph::SimpleABL::copy((*(*(v3 + 16) + 56) + 80), (*(*(v4 + 16) + 56) + 80), 0, 0, (*(*(*(v3 + 16) + 120) + 24) * a2), 1);
-  v6 = *(this + 9);
-  if (*(this + 10) == v6)
+  v4 = *(this + 12);
+  if (*(this + 13) == v4)
   {
     v16 = (this + 40);
     if (*(this + 63) < 0)
@@ -6910,31 +5779,45 @@ __n128 AudioDSPGraph::Boxes::CopyBox::process(AudioDSPGraph::Boxes::CopyBox *thi
       v16 = *v16;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v17, v16, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v17, off_1E8337C60);
+    caulk::make_string(&v18, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v16, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v18, off_1E8337C78);
   }
 
-  v7 = *(this + 12);
-  v8 = *(this + 13);
-  if (v7 != v8)
+  AudioDSPGraph::SimpleABL::copy((*(*(v3 + 16) + 56) + 80), (*(*(v4 + 16) + 56) + 80), 0, 0, (*(*(*(v3 + 16) + 120) + 24) * a2), 1);
+  v7 = *(this + 9);
+  if (*(this + 10) == v7)
   {
-    v9 = *(*(v6 + 16) + 56);
-    v10 = *(v9 + 72);
-    do
+    v17 = (this + 40);
+    if (*(this + 63) < 0)
     {
-      v11 = *(*(v7 + 16) + 56);
-      result = *(v9 + 8);
-      v12 = *(v9 + 24);
-      v13 = *(v9 + 40);
-      *(v11 + 56) = *(v9 + 56);
-      *(v11 + 40) = v13;
-      *(v11 + 24) = v12;
-      *(v11 + 8) = result;
-      *(v11 + 72) = v10;
-      v7 += 32;
+      v17 = *v17;
     }
 
-    while (v7 != v8);
+    caulk::make_string(&v18, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v5, v17, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v18, off_1E8337C60);
+  }
+
+  v8 = *(this + 12);
+  v9 = *(this + 13);
+  if (v8 != v9)
+  {
+    v10 = *(*(v7 + 16) + 56);
+    v11 = *(v10 + 72);
+    do
+    {
+      v12 = *(*(v8 + 16) + 56);
+      result = *(v10 + 8);
+      v13 = *(v10 + 24);
+      v14 = *(v10 + 40);
+      *(v12 + 56) = *(v10 + 56);
+      *(v12 + 40) = v14;
+      *(v12 + 24) = v13;
+      *(v12 + 8) = result;
+      *(v12 + 72) = v11;
+      v8 += 32;
+    }
+
+    while (v8 != v9);
   }
 
   return result;
@@ -6973,67 +5856,65 @@ double AudioDSPGraph::Boxes::DecibelControlBox::desc@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-void AudioDSPGraph::Boxes::DecibelControlBox::getParameterInfo(int a1@<W1>, int a2@<W2>, uint64_t a3@<X8>)
+double AudioDSPGraph::Boxes::DecibelControlBox::getParameterInfo@<D0>(int a1@<W1>, int a2@<W2>, uint64_t a3@<X8>)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  if (a1)
   {
-    if (a2 == 1)
-    {
-      *a3 = *"DBValue";
-      *(a3 + 16) = unk_1C925F682;
-      *(a3 + 32) = xmmword_1C925F692;
-      *(a3 + 48) = 0u;
-      *(a3 + 64) = 0;
-      *(a3 + 72) = @"DBValue";
-      *(a3 + 80) = 13;
-      *(a3 + 84) = -COERCE_DOUBLE(0x7F0000007FLL);
-      *(a3 + 92) = 0;
-    }
-
-    else
-    {
-      if (a2)
-      {
-        v4 = -10878;
-        goto LABEL_3;
-      }
-
-      memset(v6, 0, sizeof(v6));
-      *a3 = *"LinearValue";
-      *(a3 + 16) = unk_1C925F6B7;
-      *(a3 + 32) = xmmword_1C925F6C7;
-      *(a3 + 48) = *v6;
-      *(a3 + 64) = 0 >> 96;
-      *(a3 + 72) = @"LinearValue";
-      *(a3 + 80) = 14;
-      *(a3 + 84) = 0x7F80000000000000;
-      *(a3 + 92) = 1065353216;
-    }
-
-    *(a3 + 96) = 3355443200;
-    *(a3 + 104) = 1;
-    goto LABEL_9;
+    v3 = -10866;
+LABEL_3:
+    *a3 = v3;
+    *(a3 + 104) = 0;
+    return result;
   }
 
-  v4 = -10866;
-LABEL_3:
-  *a3 = v4;
-  *(a3 + 104) = 0;
-LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
+  if (a2 == 1)
+  {
+    *a3 = *"DBValue";
+    *(a3 + 16) = unk_1C925F682;
+    *(a3 + 32) = xmmword_1C925F692;
+    *(a3 + 48) = 0u;
+    *(a3 + 64) = 0;
+    *(a3 + 72) = @"DBValue";
+    *(a3 + 80) = 13;
+    *(a3 + 84) = -COERCE_DOUBLE(0x7F0000007FLL);
+    *(a3 + 92) = 0;
+  }
+
+  else
+  {
+    if (a2)
+    {
+      v3 = -10878;
+      goto LABEL_3;
+    }
+
+    *a3 = *"LinearValue";
+    *(a3 + 16) = unk_1C925F6B7;
+    *(a3 + 32) = xmmword_1C925F6C7;
+    *(a3 + 48) = 0u;
+    *(a3 + 64) = 0;
+    *(a3 + 72) = @"LinearValue";
+    *(a3 + 80) = 14;
+    *(a3 + 84) = 0x7F80000000000000;
+    *(a3 + 92) = 1065353216;
+  }
+
+  *&result = 3355443200;
+  *(a3 + 96) = 3355443200;
+  *(a3 + 104) = 1;
+  return result;
 }
 
-void AudioDSPGraph::Boxes::DecibelControlBox::getParameterList(int a1@<W1>, void *a2@<X8>)
+void AudioDSPGraph::Boxes::DecibelControlBox::getParameterList(int a1@<W1>, uint64_t *a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v3 = 0x100000000;
+    v2 = 0x100000000;
     a2[1] = 0;
     a2[2] = 0;
     *a2 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v3, &v4, 2uLL);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v2, &v3, 2uLL);
   }
 
   *a2 = 0;
@@ -7202,40 +6083,40 @@ void AudioDSPGraph::Boxes::DelayBox::uninitialize(AudioDSPGraph::Boxes::DelayBox
 void AudioDSPGraph::Boxes::DelayBox::initialize(AudioDSPGraph::Boxes::DelayBox *this)
 {
   AudioDSPGraph::Box::initialize(this);
-  v2 = *(this + 196);
-  if (v2)
+  v3 = *(this + 196);
+  if (v3)
   {
-    v3 = *(this + 12);
-    if (*(this + 13) == v3)
+    v4 = *(this + 12);
+    if (*(this + 13) == v4)
     {
-      v12 = (this + 40);
+      v13 = (this + 40);
       if (*(this + 63) < 0)
       {
-        v12 = *v12;
+        v13 = *v13;
       }
 
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v13, v12, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v13, off_1E8337C78);
+      caulk::make_string(&v14, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v13, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v14, off_1E8337C78);
     }
 
-    v4 = *(*(v3 + 16) + 120);
-    v5 = v2 + 2 * *(*(this + 3) + 272);
-    *(this + 199) = v5;
-    v6 = (*(v4 + 12) & 0x20) == 0;
-    v9 = v4 + 24;
-    v7 = *(v4 + 24);
-    v8 = *(v9 + 4);
-    if (v6)
+    v5 = *(*(v4 + 16) + 120);
+    v6 = v3 + 2 * *(*(this + 3) + 272);
+    *(this + 199) = v6;
+    v7 = (*(v5 + 12) & 0x20) == 0;
+    v10 = v5 + 24;
+    v8 = *(v5 + 24);
+    v9 = *(v10 + 4);
+    if (v7)
     {
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    AudioDSPGraph::SimpleABL::alloc((this + 768), v10, v7 * v5, 0);
+    AudioDSPGraph::SimpleABL::alloc((this + 768), v11, v8 * v6, 0);
   }
 
   else
@@ -7243,9 +6124,9 @@ void AudioDSPGraph::Boxes::DelayBox::initialize(AudioDSPGraph::Boxes::DelayBox *
     *(this + 199) = 0;
   }
 
-  v11 = *(this + 197);
-  *(this + 198) = v11;
-  *(this + 100) = v11;
+  v12 = *(this + 197);
+  *(this + 198) = v12;
+  *(this + 100) = v12;
 }
 
 void sub_1C9222500(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -7258,7 +6139,7 @@ void sub_1C9222500(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *AudioDSPGraph::Boxes::DelayBox::process(AudioDSPGraph::Boxes::DelayBox *this, int a2)
+void *AudioDSPGraph::Boxes::DelayBox::process(AudioDSPGraph::Boxes::DelayBox *this, const char *a2)
 {
   v3 = *(this + 197);
   if (v3)
@@ -7266,29 +6147,30 @@ void *AudioDSPGraph::Boxes::DelayBox::process(AudioDSPGraph::Boxes::DelayBox *th
     v4 = *(this + 12);
     if (*(this + 13) == v4)
     {
-      v41 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v41 = *v41;
-      }
-
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v45, v41, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v45, off_1E8337C78);
-    }
-
-    v5 = *(this + 9);
-    if (*(this + 10) == v5)
-    {
       v42 = (this + 40);
       if (*(this + 63) < 0)
       {
         v42 = *v42;
       }
 
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v45, v42, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v45, off_1E8337C60);
+      caulk::make_string(&v46, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v42, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v46, off_1E8337C78);
     }
 
+    v5 = *(this + 9);
+    if (*(this + 10) == v5)
+    {
+      v43 = (this + 40);
+      if (*(this + 63) < 0)
+      {
+        v43 = *v43;
+      }
+
+      caulk::make_string(&v46, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v43, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v46, off_1E8337C60);
+    }
+
+    v6 = a2;
     v7 = *(v4 + 16);
     v8 = *(v7 + 120);
     v9 = *(*(v5 + 16) + 56);
@@ -7312,61 +6194,61 @@ void *AudioDSPGraph::Boxes::DelayBox::process(AudioDSPGraph::Boxes::DelayBox *th
       *(this + 201) = v14 - v3 + v15;
     }
 
-    AudioDSPGraph::SimpleABL::dstWrapCopy((v9 + 80), this + 96, v14 * v12, v13);
+    AudioDSPGraph::SimpleABL::dstWrapCopy((v9 + 80), (this + 768), v14 * v12, v13);
     result = AudioDSPGraph::SimpleABL::srcWrapCopy((this + 768), (v10 + 80), (*(this + 201) * v12), v13, 0);
     if (v11)
     {
-      v19 = (v11 + 3) & 0x1FFFFFFFCLL;
-      v20 = vdupq_n_s64(v11 - 1);
-      v21 = xmmword_1C925F0F0;
-      v22 = xmmword_1C925F100;
-      v23 = (*(v10 + 80) + 44);
-      v24 = vdupq_n_s64(4uLL);
+      v20 = (v11 + 3) & 0x1FFFFFFFCLL;
+      v21 = vdupq_n_s64(v11 - 1);
+      v22 = xmmword_1C925F0F0;
+      v23 = xmmword_1C925F100;
+      v24 = (*(v10 + 80) + 44);
+      v25 = vdupq_n_s64(4uLL);
       do
       {
-        v25 = vmovn_s64(vcgeq_u64(v20, v22));
-        if (vuzp1_s16(v25, *v20.i8).u8[0])
+        v26 = vmovn_s64(vcgeq_u64(v21, v23));
+        if (vuzp1_s16(v26, *v21.i8).u8[0])
         {
-          *(v23 - 8) = v13;
+          *(v24 - 8) = v13;
         }
 
-        if (vuzp1_s16(v25, *&v20).i8[2])
+        if (vuzp1_s16(v26, *&v21).i8[2])
         {
-          *(v23 - 4) = v13;
+          *(v24 - 4) = v13;
         }
 
-        if (vuzp1_s16(*&v20, vmovn_s64(vcgeq_u64(v20, *&v21))).i32[1])
+        if (vuzp1_s16(*&v21, vmovn_s64(vcgeq_u64(v21, *&v22))).i32[1])
         {
-          *v23 = v13;
-          v23[4] = v13;
+          *v24 = v13;
+          v24[4] = v13;
         }
 
-        v21 = vaddq_s64(v21, v24);
-        v22 = vaddq_s64(v22, v24);
-        v23 += 16;
-        v19 -= 4;
+        v22 = vaddq_s64(v22, v25);
+        v23 = vaddq_s64(v23, v25);
+        v24 += 16;
+        v20 -= 4;
       }
 
-      while (v19);
+      while (v20);
     }
 
-    v26 = *(this + 200) + a2;
-    *(this + 200) = v26;
-    v27 = *(this + 201) + a2;
-    *(this + 201) = v27;
-    v28 = *(this + 199);
-    v29 = v26 >= v28;
-    v30 = v26 - v28;
-    if (v29)
+    v27 = *(this + 200) + v6;
+    *(this + 200) = v27;
+    v28 = *(this + 201) + v6;
+    *(this + 201) = v28;
+    v29 = *(this + 199);
+    v30 = v27 >= v29;
+    v31 = v27 - v29;
+    if (v30)
     {
-      *(this + 200) = v30;
+      *(this + 200) = v31;
     }
 
-    v29 = v27 >= v28;
-    v31 = v27 - v28;
-    if (v29)
+    v30 = v28 >= v29;
+    v32 = v28 - v29;
+    if (v30)
     {
-      *(this + 201) = v31;
+      *(this + 201) = v32;
     }
   }
 
@@ -7375,65 +6257,65 @@ void *AudioDSPGraph::Boxes::DelayBox::process(AudioDSPGraph::Boxes::DelayBox *th
     v16 = *(this + 12);
     if (*(this + 13) == v16)
     {
-      v43 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v43 = *v43;
-      }
-
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v45, v43, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v45, off_1E8337C78);
-    }
-
-    v17 = *(this + 9);
-    if (*(this + 10) == v17)
-    {
       v44 = (this + 40);
       if (*(this + 63) < 0)
       {
         v44 = *v44;
       }
 
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v45, v44, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v45, off_1E8337C60);
+      caulk::make_string(&v46, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v44, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v46, off_1E8337C78);
+    }
+
+    v17 = *(this + 9);
+    if (*(this + 10) == v17)
+    {
+      v45 = (this + 40);
+      if (*(this + 63) < 0)
+      {
+        v45 = *v45;
+      }
+
+      caulk::make_string(&v46, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v45, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v46, off_1E8337C60);
     }
 
     result = AudioDSPGraph::Buffer::copyFrom(*(*(v16 + 16) + 56), *(*(v17 + 16) + 56));
   }
 
-  v32 = *(this + 9);
-  if (*(this + 10) == v32)
+  v33 = *(this + 9);
+  if (*(this + 10) == v33)
   {
-    v40 = (this + 40);
+    v41 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v40 = *v40;
+      v41 = *v41;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v45, v40, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v45, off_1E8337C60);
+    caulk::make_string(&v46, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v19, v41, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v46, off_1E8337C60);
   }
 
-  v33 = *(this + 12);
-  v34 = *(this + 13);
-  if (v33 != v34)
+  v34 = *(this + 12);
+  v35 = *(this + 13);
+  if (v34 != v35)
   {
-    v35 = *(*(v32 + 16) + 56);
+    v36 = *(*(v33 + 16) + 56);
     do
     {
-      v36 = *(*(v33 + 16) + 56);
-      v37 = *(v35 + 8);
-      v38 = *(v35 + 24);
-      v39 = *(v35 + 40);
-      *(v36 + 56) = *(v35 + 56);
-      *(v36 + 40) = v39;
-      *(v36 + 24) = v38;
-      *(v36 + 8) = v37;
-      *(v36 + 72) = 0;
-      v33 += 32;
+      v37 = *(*(v34 + 16) + 56);
+      v38 = *(v36 + 8);
+      v39 = *(v36 + 24);
+      v40 = *(v36 + 40);
+      *(v37 + 56) = *(v36 + 56);
+      *(v37 + 40) = v40;
+      *(v37 + 24) = v39;
+      *(v37 + 8) = v38;
+      *(v37 + 72) = 0;
+      v34 += 32;
     }
 
-    while (v33 != v34);
+    while (v34 != v35);
   }
 
   *(this + 198) = v3;
@@ -7485,26 +6367,23 @@ uint64_t AudioDSPGraph::Boxes::DelayBox::setProperty(AudioDSPGraph::Boxes::Delay
   return v9;
 }
 
-uint64_t AudioDSPGraph::Boxes::DelayBox::getProperty(AudioDSPGraph::Boxes::DelayBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, CFStringRef *a6)
+void AudioDSPGraph::Boxes::DelayBox::getProperty(AudioDSPGraph::Boxes::DelayBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, __n128 *a6, __n128 a7)
 {
-  if (a2 != 64000 || (a4 | a3) != 0)
+  if (a2 == 64000 && (a4 | a3) == 0)
   {
-    return AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6);
+    if (*a5 == 4)
+    {
+      if (a6)
+      {
+        a6->n128_u32[0] = *(this + 196);
+      }
+    }
   }
 
-  if (*a5 != 4)
+  else
   {
-    return 561211770;
+    AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6, a7);
   }
-
-  if (!a6)
-  {
-    return 4294967246;
-  }
-
-  result = 0;
-  *a6 = *(this + 196);
-  return result;
 }
 
 uint64_t AudioDSPGraph::Boxes::DelayBox::getPropertyInfo(AudioDSPGraph::Boxes::DelayBox *this, int a2, int a3, int a4)
@@ -7535,53 +6414,51 @@ double AudioDSPGraph::Boxes::DelayBox::desc@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-void AudioDSPGraph::Boxes::DelayBox::getParameterInfo(int a1@<W1>, int a2@<W2>, uint64_t a3@<X8>)
+double AudioDSPGraph::Boxes::DelayBox::getParameterInfo@<D0>(int a1@<W1>, int a2@<W2>, uint64_t a3@<X8>)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v4 = -10866;
+    v3 = -10866;
   }
 
   else
   {
     if (!a2)
     {
-      memset(v6, 0, sizeof(v6));
       *a3 = *"delay samples";
       *(a3 + 16) = unk_1C925F6EC;
       *(a3 + 32) = xmmword_1C925F6FC;
-      *(a3 + 48) = *v6;
-      *(a3 + 64) = 0 >> 96;
+      *(a3 + 48) = 0u;
+      *(a3 + 64) = 0;
       *(a3 + 72) = @"delay samples";
       *(a3 + 80) = 5;
       *(a3 + 84) = 0x4974240000000000;
       *(a3 + 92) = 1065353216;
+      *&result = 3355443200;
       *(a3 + 96) = 3355443200;
       *(a3 + 104) = 1;
-      goto LABEL_6;
+      return result;
     }
 
-    v4 = -10878;
+    v3 = -10878;
   }
 
-  *a3 = v4;
+  *a3 = v3;
   *(a3 + 104) = 0;
-LABEL_6:
-  v5 = *MEMORY[0x1E69E9840];
+  return result;
 }
 
-void AudioDSPGraph::Boxes::DelayBox::getParameterList(int a1@<W1>, void *a2@<X8>)
+void AudioDSPGraph::Boxes::DelayBox::getParameterList(int a1@<W1>, uint64_t *a2@<X8>)
 {
   if (!a1)
   {
-    v6[0] = v3;
-    v6[1] = v4;
-    v5 = 0;
+    v5[0] = v2;
+    v5[1] = v3;
+    v4 = 0;
     a2[1] = 0;
     a2[2] = 0;
     *a2 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v5, v6, 1uLL);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v4, v5, 1uLL);
   }
 
   *a2 = 0;
@@ -7709,22 +6586,22 @@ void AudioDSPGraph::Boxes::DelayBox::setDelayFrames(AudioDSPGraph::Boxes::DelayB
   *(this + 32) = 1;
 }
 
-unint64_t AudioDSPGraph::Boxes::DelayBox::selfLatencyInTicks(AudioDSPGraph::Boxes::DelayBox *this)
+unint64_t AudioDSPGraph::Boxes::DelayBox::selfLatencyInTicks(AudioDSPGraph::Boxes::DelayBox *this, const char *a2)
 {
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
+  v2 = *(this + 12);
+  if (*(this + 13) == v2)
   {
-    v3 = (this + 40);
+    v4 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v3 = *v3;
+      v4 = *v4;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E8337C78);
+    caulk::make_string(&v5, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v4, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v5, off_1E8337C78);
   }
 
-  return *(*(this + 2) + 848) / **(*(v1 + 16) + 120) * *(this + 197);
+  return *(*(this + 2) + 848) / **(*(v2 + 16) + 120) * *(this + 197);
 }
 
 void sub_1C9222E18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -7785,46 +6662,13 @@ void sub_1C9222FB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 AudioDSPGraph::Boxes::DenormalEliminatorBox::process(AudioDSPGraph::Boxes::DenormalEliminatorBox *this, unsigned int a2)
+__n128 AudioDSPGraph::Boxes::DenormalEliminatorBox::process(AudioDSPGraph::Boxes::DenormalEliminatorBox *this, const char *a2, BOOL a3)
 {
-  v3 = atomic_load(this + 764);
-  if (v3)
+  v4 = atomic_load(this + 764);
+  if (v4)
   {
-    v4 = *(this + 9);
-    if (*(this + 10) == v4)
-    {
-      v25 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v25 = *v25;
-      }
-
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v29, v25, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C60);
-    }
-
-    v5 = *(this + 12);
-    if (*(this + 13) == v5)
-    {
-      v27 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v27 = *v27;
-      }
-
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v29, v27, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C78);
-    }
-
-    AudioDSPGraph::SimpleABL::copy((*(*(v4 + 16) + 56) + 80), *(*(*(v5 + 16) + 56) + 80));
-  }
-
-  else
-  {
-    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 4, 4, 0));
-    _WriteStatusReg(ARM64_SYSREG(3, 3, 4, 4, 0), StatusReg | 0x1000000);
-    v8 = *(this + 12);
-    if (*(this + 13) == v8)
+    v5 = *(this + 9);
+    if (*(this + 10) == v5)
     {
       v26 = (this + 40);
       if (*(this + 63) < 0)
@@ -7832,33 +6676,53 @@ __n128 AudioDSPGraph::Boxes::DenormalEliminatorBox::process(AudioDSPGraph::Boxes
         v26 = *v26;
       }
 
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v29, v26, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C78);
+      caulk::make_string(&v30, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v26, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C60);
     }
 
-    v9 = **(*(*(v8 + 16) + 56) + 80);
-    if (v9)
+    v6 = *(this + 12);
+    if (*(this + 13) == v6)
     {
-      v10 = a2;
-      v11 = 16;
+      v28 = (this + 40);
+      if (*(this + 63) < 0)
+      {
+        v28 = *v28;
+      }
+
+      caulk::make_string(&v30, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v28, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C78);
+    }
+
+    AudioDSPGraph::SimpleABL::copy((*(*(v5 + 16) + 56) + 80), *(*(*(v6 + 16) + 56) + 80));
+  }
+
+  else
+  {
+    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 4, 4, 0));
+    _WriteStatusReg(ARM64_SYSREG(3, 3, 4, 4, 0), StatusReg | 0x1000000);
+    v9 = *(this + 12);
+    if (*(this + 13) == v9)
+    {
+      v27 = (this + 40);
+      if (*(this + 63) < 0)
+      {
+        v27 = *v27;
+      }
+
+      caulk::make_string(&v30, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v27, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C78);
+    }
+
+    v10 = **(*(*(v9 + 16) + 56) + 80);
+    if (v10)
+    {
+      v11 = a2;
+      v12 = 16;
       do
       {
-        v28 = 0;
-        v12 = *(this + 9);
-        if (*(this + 10) == v12)
-        {
-          v22 = (this + 40);
-          if (*(this + 63) < 0)
-          {
-            v22 = *v22;
-          }
-
-          caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v29, v22, 0, 0);
-          AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C60);
-        }
-
-        v13 = *(this + 12);
-        if (*(this + 13) == v13)
+        v29 = 0;
+        v13 = *(this + 9);
+        if (*(this + 10) == v13)
         {
           v23 = (this + 40);
           if (*(this + 63) < 0)
@@ -7866,55 +6730,68 @@ __n128 AudioDSPGraph::Boxes::DenormalEliminatorBox::process(AudioDSPGraph::Boxes
             v23 = *v23;
           }
 
-          caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v29, v23, 0, 0);
-          AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C78);
+          caulk::make_string(&v30, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v23, 0, 0);
+          AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C60);
         }
 
-        MEMORY[0x1CCA853C0](*(*(*(*(v12 + 16) + 56) + 80) + v11), 1, &v28, *(*(*(*(v13 + 16) + 56) + 80) + v11), 1, v10);
-        v11 += 16;
-        --v9;
+        v14 = *(this + 12);
+        if (*(this + 13) == v14)
+        {
+          v24 = (this + 40);
+          if (*(this + 63) < 0)
+          {
+            v24 = *v24;
+          }
+
+          caulk::make_string(&v30, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v24, 0, 0);
+          AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C78);
+        }
+
+        MEMORY[0x1CCA853C0](*(*(*(*(v13 + 16) + 56) + 80) + v12), 1, &v29, *(*(*(*(v14 + 16) + 56) + 80) + v12), 1, v11);
+        v12 += 16;
+        --v10;
       }
 
-      while (v9);
+      while (v10);
     }
 
     _WriteStatusReg(ARM64_SYSREG(3, 3, 4, 4, 0), StatusReg);
   }
 
-  v14 = *(this + 9);
-  if (*(this + 10) == v14)
+  v15 = *(this + 9);
+  if (*(this + 10) == v15)
   {
-    v24 = (this + 40);
+    v25 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v24 = *v24;
+      v25 = *v25;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v29, v24, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v29, off_1E8337C60);
+    caulk::make_string(&v30, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v25, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v30, off_1E8337C60);
   }
 
-  v15 = *(this + 12);
-  v16 = *(this + 13);
-  if (v15 != v16)
+  v16 = *(this + 12);
+  v17 = *(this + 13);
+  if (v16 != v17)
   {
-    v17 = *(*(v14 + 16) + 56);
-    v18 = *(v17 + 72);
+    v18 = *(*(v15 + 16) + 56);
+    v19 = *(v18 + 72);
     do
     {
-      v19 = *(*(v15 + 16) + 56);
-      result = *(v17 + 8);
-      v20 = *(v17 + 24);
-      v21 = *(v17 + 40);
-      *(v19 + 56) = *(v17 + 56);
-      *(v19 + 40) = v21;
-      *(v19 + 24) = v20;
-      *(v19 + 8) = result;
-      *(v19 + 72) = v18;
-      v15 += 32;
+      v20 = *(*(v16 + 16) + 56);
+      result = *(v18 + 8);
+      v21 = *(v18 + 24);
+      v22 = *(v18 + 40);
+      *(v20 + 56) = *(v18 + 56);
+      *(v20 + 40) = v22;
+      *(v20 + 24) = v21;
+      *(v20 + 8) = result;
+      *(v20 + 72) = v19;
+      v16 += 32;
     }
 
-    while (v15 != v16);
+    while (v16 != v17);
   }
 
   return result;
@@ -7997,7 +6874,6 @@ void sub_1C9223490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void AudioDSPGraph::ThrowException(int a1, uint64_t *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
   exception = __cxa_allocate_exception(0x30uLL);
   v7 = *a2;
   *&v9 = a2[1];
@@ -8054,8 +6930,7 @@ uint64_t AudioDSPGraph::FileInjector::print(uint64_t result, void *a2, int a3, u
     v4 = a4;
     v6 = result;
     (*(*result + 32))(result, a2, a4, 1);
-    v7 = *(v6 + 8);
-    AudioDSPGraph::printi(a2, v4 + 4, "wire %p\n");
+    AudioDSPGraph::printi(a2, v4 + 4, "wire %p\n", *(v6 + 8));
   }
 
   return result;
@@ -8188,8 +7063,7 @@ uint64_t AudioDSPGraph::FileRecorder::print(uint64_t result, void *a2, int a3, u
     v4 = a4;
     v6 = result;
     (*(*result + 32))(result, a2, a4, 1);
-    v7 = *(v6 + 8);
-    AudioDSPGraph::printi(a2, v4 + 4, "wire %p\n");
+    AudioDSPGraph::printi(a2, v4 + 4, "wire %p\n", *(v6 + 8));
   }
 
   return result;
@@ -8234,19 +7108,10 @@ void AudioDSPGraph::FileRecorder::~FileRecorder(void **this)
   }
 }
 
-void *std::vector<std::unique_ptr<TimeFreqConverter>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::unique_ptr<TimeFreqConverter>>::reserve(const void **result, unint64_t a2)
 {
-  v8 = *result;
   if (a2 > (result[2] - *result) >> 3)
   {
-    v11 = v5;
-    v12 = v4;
-    v13 = v3;
-    v14 = v2;
-    v15 = v6;
-    v16 = v7;
-    v9 = result[1] - v8;
-    v10 = result;
     std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](a2);
   }
 
@@ -8507,57 +7372,53 @@ uint64_t AudioDSPGraph::FileRecorder::record(uint64_t this)
     this = *(this + 16);
     if (this)
     {
-      v2 = *(v1 + 8);
+      v2 = v1[1];
       v3 = *(v2 + 56);
-      v4 = *(v3 + 8);
-      if (*(v1 + 48) == *(v1 + 56))
+      if (v1[6] == v1[7])
       {
-        v7 = *(v3 + 80);
-        v8 = *(v1 + 89);
-        v9 = *(*this + 96);
+        v6 = *(*this + 96);
       }
 
       else
       {
-        v5 = *(v2 + 32);
-        if (v5)
+        v4 = *(v2 + 32);
+        if (v4)
         {
-          v6 = *(*(*(v5 + 16) + 8) + 24);
+          v5 = *(*(*(v4 + 16) + 8) + 24);
         }
 
         else
         {
-          v6 = 0;
+          v5 = 0;
         }
 
-        v10 = *(v6 + 268);
-        if (v10 == 1)
+        v7 = *(v5 + 268);
+        if (v7 == 1)
         {
-          v10 = *(v6 + 272);
+          v7 = *(v5 + 272);
         }
 
-        v11 = *(v3 + 80);
-        v12 = *(v1 + 72);
-        if (*v11)
+        v8 = *(v3 + 80);
+        v9 = v1[9];
+        if (*v8)
         {
-          v13 = 0;
-          v14 = v10;
-          v15 = 4;
+          v10 = 0;
+          v11 = v7;
+          v12 = 4;
           do
           {
-            TimeFreqConverter::Synthesize(*(*(v1 + 48) + 8 * v13++), *&v11[v15], (*&v11[v15] + 4 * v14), *(v12 + v15 * 4));
-            v15 += 4;
+            TimeFreqConverter::Synthesize(*(v1[6] + 8 * v10++), *&v8[v12], (*&v8[v12] + 4 * v11), *(v9 + v12 * 4));
+            v12 += 4;
           }
 
-          while (v13 < *v11);
-          this = *(v1 + 16);
+          while (v10 < *v8);
+          this = v1[2];
         }
 
-        v16 = *(v1 + 89);
-        v9 = *(*this + 96);
+        v6 = *(*this + 96);
       }
 
-      return v9();
+      return v6();
     }
   }
 
@@ -8581,21 +7442,8 @@ float AudioDSPGraph::Boxes::GainBox::reset(AudioDSPGraph::Boxes::GainBox *this)
 uint64_t AudioDSPGraph::Boxes::GainBox::initialize(AudioDSPGraph::Boxes::GainBox *this)
 {
   result = AudioDSPGraph::Box::initialize(this);
-  v4 = *(this + 9);
-  if (*(this + 10) == v4)
-  {
-    v41 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v41 = *v41;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v51, v41, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C60);
-  }
-
-  v5 = *(this + 12);
-  if (*(this + 13) == v5)
+  v5 = *(this + 9);
+  if (*(this + 10) == v5)
   {
     v42 = (this + 40);
     if (*(this + 63) < 0)
@@ -8603,20 +7451,33 @@ uint64_t AudioDSPGraph::Boxes::GainBox::initialize(AudioDSPGraph::Boxes::GainBox
       v42 = *v42;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v51, v42, 0, 0);
+    caulk::make_string(&v51, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v42, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C60);
+  }
+
+  v6 = *(this + 12);
+  if (*(this + 13) == v6)
+  {
+    v43 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v43 = *v43;
+    }
+
+    caulk::make_string(&v51, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v43, 0, 0);
     AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C78);
   }
 
-  v6 = *(*(v4 + 16) + 120);
   v7 = *(*(v5 + 16) + 120);
+  v8 = *(*(v6 + 16) + 120);
   *(this + 805) = 1;
-  v8 = *(v6 + 8);
-  if (v8 == 1819304813)
+  v9 = *(v7 + 8);
+  if (v9 == 1819304813)
   {
-    v9 = *(v6 + 12);
-    if ((v9 & 1) != 0 && *(v6 + 32) == 32)
+    v10 = *(v7 + 12);
+    if ((v10 & 1) != 0 && *(v7 + 32) == 32)
     {
-      v10 = 32;
+      v11 = 32;
       goto LABEL_10;
     }
 
@@ -8625,30 +7486,30 @@ LABEL_85:
     AudioDSPGraph::ThrowException(1718449215, v50, off_1E83359D0);
   }
 
-  if (v8 != 1718773105 || *(v6 + 32) != 64)
+  if (v9 != 1718773105 || *(v7 + 32) != 64)
   {
     goto LABEL_85;
   }
 
-  v9 = *(v6 + 12);
-  v10 = 64;
+  v10 = *(v7 + 12);
+  v11 = 64;
 LABEL_10:
-  if ((v9 & 0x20) == 0)
+  if ((v10 & 0x20) == 0)
   {
     goto LABEL_85;
   }
 
-  v11 = *(v7 + 8);
-  if (v11 == 1819304813)
+  v12 = *(v8 + 8);
+  if (v12 == 1819304813)
   {
-    v12 = *(v7 + 12);
-    if ((v12 & 1) == 0)
+    v13 = *(v8 + 12);
+    if ((v13 & 1) == 0)
     {
       goto LABEL_86;
     }
 
-    v13 = *(v7 + 32);
-    if (v13 != 32)
+    v14 = *(v8 + 32);
+    if (v14 != 32)
     {
       goto LABEL_86;
     }
@@ -8656,216 +7517,216 @@ LABEL_10:
 
   else
   {
-    if (v11 != 1718773105 || *(v7 + 32) != 64)
+    if (v12 != 1718773105 || *(v8 + 32) != 64)
     {
 LABEL_86:
       std::string::basic_string[abi:ne200100]<0>(v49, "GainBox output format must be non-interleaved float or 'freq'");
       AudioDSPGraph::ThrowException(1718449215, v49, off_1E83359E8);
     }
 
-    v12 = *(v7 + 12);
-    v13 = 64;
+    v13 = *(v8 + 12);
+    v14 = 64;
   }
 
-  if ((v12 & 0x20) == 0)
+  if ((v13 & 0x20) == 0)
   {
     goto LABEL_86;
   }
 
-  v14 = *v6;
-  if (*v6 != 0.0)
+  v15 = *v7;
+  if (*v7 != 0.0)
   {
-    v3 = *v7;
-    if (*v7 != 0.0 && v14 != v3)
+    v4 = *v8;
+    if (*v8 != 0.0 && v15 != v4)
     {
       goto LABEL_78;
     }
   }
 
-  if (v8 != v11)
+  if (v9 != v12)
   {
     goto LABEL_78;
   }
 
-  v16 = *(v6 + 16);
-  if (v16)
+  v17 = *(v7 + 16);
+  if (v17)
   {
-    v17 = *(v7 + 16);
-    if (v17 && v16 != v17)
+    v18 = *(v8 + 16);
+    if (v18 && v17 != v18)
     {
       goto LABEL_78;
     }
   }
 
-  v19 = *(v6 + 20);
-  if (v19)
+  v20 = *(v7 + 20);
+  if (v20)
   {
-    v20 = *(v7 + 20);
-    if (v20)
+    v21 = *(v8 + 20);
+    if (v21)
     {
-      if (v19 != v20)
+      if (v20 != v21)
       {
         goto LABEL_78;
       }
     }
   }
 
-  v21 = *(v6 + 24);
-  if (v21)
+  v22 = *(v7 + 24);
+  if (v22)
   {
-    v22 = *(v7 + 24);
-    if (v22)
+    v23 = *(v8 + 24);
+    if (v23)
     {
-      if (v21 != v22)
+      if (v22 != v23)
       {
         goto LABEL_78;
       }
     }
   }
 
-  v23 = *(v6 + 28);
-  if (v23)
+  v24 = *(v7 + 28);
+  if (v24)
   {
-    result = *(v7 + 28);
-    if (v23 != result && result != 0)
+    result = *(v8 + 28);
+    if (v24 != result && result != 0)
     {
       goto LABEL_78;
     }
   }
 
-  if (v10 != v13)
+  if (v11 != v14)
   {
     goto LABEL_78;
   }
 
-  if (v9 && v12)
+  if (v10 && v13)
   {
-    if (v8 == 1819304813)
+    if (v9 == 1819304813)
     {
-      v25 = 8 * v21;
-      v26 = v9 | 8;
-      if (8 * v21 != v10)
+      v26 = 8 * v22;
+      v27 = v10 | 8;
+      if (8 * v22 != v11)
       {
-        v26 = v9;
+        v27 = v10;
       }
 
-      if (v21)
+      if (v22)
       {
-        v27 = v26;
+        v28 = v27;
       }
 
       else
       {
-        v27 = v9;
+        v28 = v10;
       }
 
-      v9 &= ~0x80000000;
-      v28 = v27 & 0x7FFFFFEF;
-      if (v25 == v10)
+      v10 &= ~0x80000000;
+      v29 = v28 & 0x7FFFFFEF;
+      if (v26 == v11)
       {
-        v9 = v28;
+        v10 = v29;
       }
 
-      if (v9)
+      if (v10)
       {
-        v9 &= 0x7FFFFFFBu;
+        v10 &= 0x7FFFFFFBu;
       }
 
-      result = v9 & 0xFFFFFFDF;
-      if (v23 == 1)
+      result = v10 & 0xFFFFFFDF;
+      if (v24 == 1)
       {
-        v9 &= ~0x20u;
+        v10 &= ~0x20u;
       }
 
-      if (!v9)
+      if (!v10)
       {
-        v9 = 0x80000000;
+        v10 = 0x80000000;
       }
 
-      if (v11 == 1819304813)
+      if (v12 == 1819304813)
       {
-        v29 = *(v7 + 24);
-        result = (8 * v29);
-        v30 = v12 | 8;
-        if (result != v13)
+        v30 = *(v8 + 24);
+        result = (8 * v30);
+        v31 = v13 | 8;
+        if (result != v14)
         {
-          v30 = v12;
+          v31 = v13;
         }
 
-        if (v29)
+        if (v30)
         {
-          v31 = v30;
+          v32 = v31;
         }
 
         else
         {
-          v31 = v12;
+          v32 = v13;
         }
 
-        v32 = v12 & 0x7FFFFFFF;
-        v33 = v31 & 0x7FFFFFEF;
-        if (result != v13)
+        v33 = v13 & 0x7FFFFFFF;
+        v34 = v32 & 0x7FFFFFEF;
+        if (result != v14)
         {
-          v33 = v32;
+          v34 = v33;
         }
 
-        if (v33)
+        if (v34)
         {
-          v33 &= 0x7FFFFFFBu;
+          v34 &= 0x7FFFFFFBu;
         }
 
-        if (*(v7 + 28) == 1)
+        if (*(v8 + 28) == 1)
         {
-          v33 &= 0x7FFFFFDFu;
+          v34 &= 0x7FFFFFDFu;
         }
 
-        if (v33)
+        if (v34)
         {
-          v12 = v33;
+          v13 = v34;
         }
 
         else
         {
-          v12 = 0x80000000;
+          v13 = 0x80000000;
         }
       }
     }
 
-    if (v9 != v12)
+    if (v10 != v13)
     {
 LABEL_78:
-      v34 = v7;
-      CA::StreamDescription::AsString(&v45, v6, v14, *&v3);
+      v35 = v8;
+      CA::StreamDescription::AsString(&v45, v7, v15, *&v4);
       std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v46, "GainBox input and output formats don't match (", &v45);
-      *&v35 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v47, &v46, " != ").n128_u64[0];
-      CA::StreamDescription::AsString(v43, v34, v35, v36);
-      if ((v44 & 0x80u) == 0)
+      *&v36 = std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v47, &v46, " != ").n128_u64[0];
+      CA::StreamDescription::AsString(&v44, v35, v36, v37);
+      if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v37 = v43;
+        v38 = &v44;
       }
 
       else
       {
-        v37 = v43[0];
+        v38 = v44.__r_.__value_.__r.__words[0];
       }
 
-      if ((v44 & 0x80u) == 0)
+      if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v38 = v44;
+        size = HIBYTE(v44.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v38 = v43[1];
+        size = v44.__r_.__value_.__l.__size_;
       }
 
-      v39 = std::string::append(&v47, v37, v38);
-      v40 = *&v39->__r_.__value_.__l.__data_;
-      v51.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-      *&v51.__r_.__value_.__l.__data_ = v40;
-      v39->__r_.__value_.__l.__size_ = 0;
-      v39->__r_.__value_.__r.__words[2] = 0;
-      v39->__r_.__value_.__r.__words[0] = 0;
+      v40 = std::string::append(&v47, v38, size);
+      v41 = *&v40->__r_.__value_.__l.__data_;
+      v51.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
+      *&v51.__r_.__value_.__l.__data_ = v41;
+      v40->__r_.__value_.__l.__size_ = 0;
+      v40->__r_.__value_.__r.__words[2] = 0;
+      v40->__r_.__value_.__r.__words[0] = 0;
       std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v48, &v51, ")");
       AudioDSPGraph::ThrowException(1718449215, &v48, off_1E8335A00);
     }
@@ -8909,7 +7770,7 @@ void sub_1C9224638(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AudioDSPGraph::Boxes::GainBox::process(AudioDSPGraph::Boxes::GainBox *this, vDSP_Length __N)
+void AudioDSPGraph::Boxes::GainBox::process(AudioDSPGraph::Boxes::GainBox *this, const char *__N)
 {
   v3 = *(this + 9);
   v4 = *(this + 10);
@@ -8922,8 +7783,8 @@ void AudioDSPGraph::Boxes::GainBox::process(AudioDSPGraph::Boxes::GainBox *this,
       v50 = *v50;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __Start, v50, v5 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, __Start, off_1E8337C60);
+    caulk::make_string(&__Start, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __N, v50, v5 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &__Start, off_1E8337C60);
   }
 
   v6 = *(this + 12);
@@ -8937,8 +7798,8 @@ void AudioDSPGraph::Boxes::GainBox::process(AudioDSPGraph::Boxes::GainBox *this,
       v51 = *v51;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", __Start, v51, v8 >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, __Start, off_1E8337C78);
+    caulk::make_string(&__Start, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", __N, v51, v8 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &__Start, off_1E8337C78);
   }
 
   v9 = *(v3 + 16);
@@ -9035,12 +7896,12 @@ LABEL_28:
         {
           v38 = *v37;
           v39 = *v36;
-          LODWORD(__Start[0]) = *(this + 199);
-          vDSP_vrampmul(v38, 1, __Start, this + 198, v39, 1, v20);
+          LODWORD(__Start.__r_.__value_.__l.__data_) = *(this + 199);
+          vDSP_vrampmul(v38, 1, &__Start, this + 198, v39, 1, v20);
           if (v15 == 1718773105)
           {
-            LODWORD(__Start[0]) = *(this + 199);
-            vDSP_vrampmul(&v38[v20], 1, __Start, this + 198, &v39[v20], 1, v20);
+            LODWORD(__Start.__r_.__value_.__l.__data_) = *(this + 199);
+            vDSP_vrampmul(&v38[v20], 1, &__Start, this + 198, &v39[v20], 1, v20);
           }
 
           v36 += 2;
@@ -9062,13 +7923,13 @@ LABEL_28:
       {
         v34 = *v33;
         v35 = *v32;
-        LODWORD(__Start[0]) = *(this + 199);
-        vDSP_vrampmul(v34, 1, __Start, this + 198, v35, 1, v31);
+        LODWORD(__Start.__r_.__value_.__l.__data_) = *(this + 199);
+        vDSP_vrampmul(v34, 1, &__Start, this + 198, v35, 1, v31);
         MEMORY[0x1CCA853E0](&v34[v31], 1, v54, &v35[v31], 1, v53);
         if (v15 == 1718773105)
         {
-          LODWORD(__Start[0]) = *(this + 199);
-          vDSP_vrampmul(&v34[v20], 1, __Start, this + 198, &v35[v20], 1, v31);
+          LODWORD(__Start.__r_.__value_.__l.__data_) = *(this + 199);
+          vDSP_vrampmul(&v34[v20], 1, &__Start, this + 198, &v35[v20], 1, v31);
           MEMORY[0x1CCA853E0](&v34[v31 + v20], 1, v54, &v35[v31 + v20], 1, v53);
         }
 
@@ -9124,8 +7985,8 @@ LABEL_45:
       v52 = *v52;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __Start, v52, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, __Start, off_1E8337C60);
+    caulk::make_string(&__Start, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", __N, v52, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &__Start, off_1E8337C60);
   }
 
   v42 = *(this + 12);
@@ -9196,23 +8057,23 @@ uint64_t AudioDSPGraph::Boxes::GainBox::setProperty(AudioDSPGraph::Boxes::GainBo
   return v6;
 }
 
-double AudioDSPGraph::Boxes::GainBox::getProperty(AudioDSPGraph::Boxes::GainBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, CFStringRef *a6)
+double AudioDSPGraph::Boxes::GainBox::getProperty(AudioDSPGraph::Boxes::GainBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, __n128 *a6, __n128 a7)
 {
   if (a2 == 3098)
   {
     if (*a5 == 8 && a6 && !a3)
     {
-      result = *(this + 97);
-      *a6 = result;
+      a7.n128_u64[0] = *(this + 97);
+      a6->n128_u64[0] = a7.n128_u64[0];
     }
   }
 
   else
   {
-    AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6);
+    a7.n128_u64[0] = AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6, a7).n128_u64[0];
   }
 
-  return result;
+  return a7.n128_f64[0];
 }
 
 unint64_t AudioDSPGraph::Boxes::GainBox::getPropertyInfo(AudioDSPGraph::Boxes::GainBox *this, int a2, int a3)
@@ -9244,58 +8105,54 @@ unint64_t AudioDSPGraph::Boxes::GainBox::getPropertyInfo(AudioDSPGraph::Boxes::G
 
 uint64_t AudioDSPGraph::Boxes::GainBox::getParameterInfo@<X0>(uint64_t this@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if (!a2)
+  if (a2)
   {
-    if (a3 == 1)
-    {
-      memset(v7, 0, sizeof(v7));
-      *a4 = *"mute";
-      *(a4 + 16) = unk_1C925F721;
-      *(a4 + 32) = xmmword_1C925F731;
-      *(a4 + 48) = *v7;
-      *(a4 + 64) = 0 >> 96;
-      *(a4 + 72) = @"mute";
-      *(a4 + 80) = 2;
-      *(a4 + 84) = 0x3F80000000000000;
-      *(a4 + 92) = 0;
-      *(a4 + 96) = 3355443200;
-    }
-
-    else
-    {
-      if (a3)
-      {
-        v5 = -10878;
-        goto LABEL_3;
-      }
-
-      this = (*(*this + 640))(this);
-    }
-
-    *(a4 + 104) = 1;
-    goto LABEL_9;
+    v5 = -10866;
+LABEL_3:
+    *a4 = v5;
+    *(a4 + 104) = 0;
+    return this;
   }
 
-  v5 = -10866;
-LABEL_3:
-  *a4 = v5;
-  *(a4 + 104) = 0;
-LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
+  if (a3 == 1)
+  {
+    *a4 = *"mute";
+    *(a4 + 16) = unk_1C925F721;
+    *(a4 + 32) = xmmword_1C925F731;
+    *(a4 + 48) = 0u;
+    *(a4 + 64) = 0;
+    *(a4 + 72) = @"mute";
+    *(a4 + 80) = 2;
+    *(a4 + 84) = 0x3F80000000000000;
+    *(a4 + 92) = 0;
+    *(a4 + 96) = 3355443200;
+  }
+
+  else
+  {
+    if (a3)
+    {
+      v5 = -10878;
+      goto LABEL_3;
+    }
+
+    this = (*(*this + 640))(this);
+  }
+
+  *(a4 + 104) = 1;
   return this;
 }
 
-void AudioDSPGraph::Boxes::GainBox::getParameterList(int a1@<W1>, void *a2@<X8>)
+void AudioDSPGraph::Boxes::GainBox::getParameterList(int a1@<W1>, uint64_t *a2@<X8>)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v3 = 0x100000000;
+    v2 = 0x100000000;
     a2[1] = 0;
     a2[2] = 0;
     *a2 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v3, &v4, 2uLL);
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a2, &v2, &v3, 2uLL);
   }
 
   *a2 = 0;
@@ -9512,15 +8369,14 @@ void AudioDSPGraph::Boxes::DecibelGainBox::~DecibelGainBox(AudioDSPGraph::Boxes:
   JUMPOUT(0x1CCA84AE0);
 }
 
-uint64_t AudioDSPGraph::Graph::print(uint64_t result, void *a2, int a3, uint64_t a4)
+void *AudioDSPGraph::Graph::print(void *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 >= 1)
   {
     v4 = a4;
     v6 = result;
     (*(*result + 32))(result, a2, a4, 1);
-    v7 = *(v6 + 922);
-    AudioDSPGraph::printi(a2, v4 + 4, "initialized %d\n");
+    AudioDSPGraph::printi(a2, v4 + 4, "initialized %d\n", *(v6 + 922));
   }
 
   return result;
@@ -9811,7 +8667,7 @@ void AudioDSPGraph::Graph::~Graph(AudioDSPGraph::Graph *this)
     operator delete(v44);
   }
 
-  std::__hash_table<std::unique_ptr<AudioDSPGraph::IsoGroup>,std::hash<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::equal_to<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::allocator<std::unique_ptr<AudioDSPGraph::IsoGroup>>>::~__hash_table(this + 312);
+  std::__hash_table<std::unique_ptr<AudioDSPGraph::IsoGroup>,std::hash<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::equal_to<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::allocator<std::unique_ptr<AudioDSPGraph::IsoGroup>>>::~__hash_table(this + 39);
   v45[0] = (this + 288);
   std::vector<std::unique_ptr<AudioDSPGraph::InternalBuffer>>::__destroy_vector::operator()[abi:ne200100](v45);
   *(this + 30) = &unk_1F48D0D00;
@@ -9953,4 +8809,3200 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned int,AudioDSPGraph::Gr
   }
 
   return a1;
+}
+
+void **std::__hash_table<std::unique_ptr<AudioDSPGraph::IsoGroup>,std::hash<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::equal_to<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::allocator<std::unique_ptr<AudioDSPGraph::IsoGroup>>>::~__hash_table(void **a1)
+{
+  std::__hash_table<std::unique_ptr<AudioDSPGraph::IsoGroup>,std::hash<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::equal_to<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::allocator<std::unique_ptr<AudioDSPGraph::IsoGroup>>>::__deallocate_node(a1[2]);
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void std::vector<std::unique_ptr<AudioDSPGraph::InternalBuffer>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v2 = *a1;
+  if (*v2)
+  {
+    std::vector<std::unique_ptr<AudioDSPGraph::InternalBuffer>>::clear[abi:ne200100](v2);
+    v3 = **a1;
+
+    operator delete(v3);
+  }
+}
+
+uint64_t std::__hash_table<std::unique_ptr<AudioDSPGraph::Box>,std::hash<std::unique_ptr<AudioDSPGraph::Box>>,std::equal_to<std::unique_ptr<AudioDSPGraph::Box>>,std::allocator<std::unique_ptr<AudioDSPGraph::Box>>>::~__hash_table(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    do
+    {
+      v3 = *v2;
+      v4 = v2[2];
+      v2[2] = 0;
+      if (v4)
+      {
+        (*(*v4 + 8))(v4);
+      }
+
+      operator delete(v2);
+      v2 = v3;
+    }
+
+    while (v3);
+  }
+
+  v5 = *a1;
+  *a1 = 0;
+  if (v5)
+  {
+    operator delete(v5);
+  }
+
+  return a1;
+}
+
+void *std::vector<std::unique_ptr<AudioDSPGraph::InternalBuffer>>::clear[abi:ne200100](void *result)
+{
+  v1 = result;
+  v2 = *result;
+  v3 = result[1];
+  while (v3 != v2)
+  {
+    v4 = *--v3;
+    result = v4;
+    *v3 = 0;
+    if (v4)
+    {
+      result = (*(*result + 8))(result);
+    }
+  }
+
+  v1[1] = v2;
+  return result;
+}
+
+void std::__hash_table<std::unique_ptr<AudioDSPGraph::IsoGroup>,std::hash<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::equal_to<std::unique_ptr<AudioDSPGraph::IsoGroup>>,std::allocator<std::unique_ptr<AudioDSPGraph::IsoGroup>>>::__deallocate_node(void *__p)
+{
+  if (__p)
+  {
+    v1 = __p;
+    do
+    {
+      v2 = *v1;
+      v3 = v1[2];
+      v1[2] = 0;
+      if (v3)
+      {
+        (*(*v3 + 8))(v3);
+      }
+
+      operator delete(v1);
+      v1 = v2;
+    }
+
+    while (v2);
+  }
+}
+
+uint64_t *std::unique_ptr<AudioDSPGraph::Subset>::reset[abi:ne200100](uint64_t *result)
+{
+  v1 = *result;
+  *result = 0;
+  if (v1)
+  {
+    std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::~__hash_table(v1 + 32);
+    if (*(v1 + 31) < 0)
+    {
+      operator delete(*(v1 + 8));
+    }
+
+    JUMPOUT(0x1CCA84AE0);
+  }
+
+  return result;
+}
+
+unint64_t AudioDSPGraph::Graph::generateSerialNumber(AudioDSPGraph::Graph *this)
+{
+  {
+    std::random_device::random_device[abi:ne200100](&v5);
+    v4 = MEMORY[0x1CCA84770](&v5);
+    AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNo = AudioDSPGraph::intHash(v4);
+    std::random_device::~random_device(&v5);
+  }
+
+  std::mutex::lock(&AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNoLock);
+  v1 = atomic_load(&AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNo);
+  atomic_store(v1 + 1 + (((v1 + 1) / 0x7FFFFFFFFFFFFFFFLL) | (((v1 + 1) / 0x7FFFFFFFFFFFFFFFLL) << 63)), &AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNo);
+  v2 = atomic_load(&AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNo);
+  std::mutex::unlock(&AudioDSPGraph::Graph::generateSerialNumber(void)::sSerialNoLock);
+  return v2;
+}
+
+void sub_1C9226410(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, std::random_device argC, std::random_device a11, int a13, std::random_device a12)
+{
+  std::random_device::~random_device(&argC);
+  _Unwind_Resume(a1);
+}
+
+std::random_device *std::random_device::random_device[abi:ne200100](std::random_device *a1)
+{
+  std::string::basic_string[abi:ne200100]<0>(&__token, "/dev/urandom");
+  std::random_device::random_device(a1, &__token);
+  if (SHIBYTE(__token.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__token.__r_.__value_.__l.__data_);
+  }
+
+  return a1;
+}
+
+void sub_1C9226490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unint64_t AudioDSPGraph::intHash(AudioDSPGraph *this)
+{
+  v1 = (this + ~(this << 32)) ^ ((this + ~(this << 32)) >> 22);
+  v2 = 9 * ((v1 + ~(v1 << 13)) ^ ((v1 + ~(v1 << 13)) >> 8));
+  v3 = (v2 ^ (v2 >> 15)) + ~((v2 ^ (v2 >> 15)) << 27);
+  return v3 ^ (v3 >> 31);
+}
+
+void AudioDSPGraph::Graph::construct(AudioDSPGraph::Graph *this, const AudioStreamBasicDescription *a2, const AudioDSPGraph::BoxRegistry *a3)
+{
+  v4 = a2;
+  v5 = this;
+  v461 = *MEMORY[0x1E69E9840];
+  if (LOBYTE(a2->mBytesPerFrame) == 1)
+  {
+    if (SHIBYTE(a2->mFramesPerPacket) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v448, *&a2->mSampleRate, *&a2->mFormatID);
+      v5 = this;
+    }
+
+    else
+    {
+      *&v448.__r_.__value_.__l.__data_ = *&a2->mSampleRate;
+      v448.__r_.__value_.__r.__words[2] = *&a2->mBytesPerPacket;
+    }
+
+    v6 = (v5 + 504);
+    if (*(v5 + 528) == 1)
+    {
+      if (*(v5 + 527) < 0)
+      {
+        operator delete(*v6);
+      }
+
+      *v6 = *&v448.__r_.__value_.__l.__data_;
+      *(v5 + 65) = *(&v448.__r_.__value_.__l + 2);
+      *(&v448.__r_.__value_.__s + 23) = 0;
+      v448.__r_.__value_.__s.__data_[0] = 0;
+    }
+
+    else
+    {
+      *v6 = *&v448.__r_.__value_.__l.__data_;
+      *(v5 + 65) = *(&v448.__r_.__value_.__l + 2);
+      memset(&v448, 0, sizeof(v448));
+      *(v5 + 528) = 1;
+    }
+
+    v4 = a2;
+  }
+
+  for (i = *&v4[4].mFormatID; i; v5 = this)
+  {
+    v8 = *(i + 7);
+    *v455 = *(i + 5);
+    *&v455[16] = v8;
+    *&v455[32] = i[9];
+    *&v455[40] = *(i + 20);
+    if (*(v5 + 921) == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v452, "graph is configured");
+      AudioDSPGraph::ThrowException(1667655457, &v452, off_1E8336408);
+    }
+
+    if (*&v455[8] == 1718773105 && *&v455[32] != 64)
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v452, "frequency domain format should be 64 bits.");
+      AudioDSPGraph::ThrowException(1718449215, &v452, off_1E8336420);
+    }
+
+    if (*v455 != floor(*v455))
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v452, "only integer sample rates are supported.");
+      AudioDSPGraph::ThrowException(1718449215, &v452, off_1E8336438);
+    }
+
+    if ((AudioDSPGraph::MinimalSafetyCheck(v455, a2) & 1) == 0)
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v452, "format failed sanity check.");
+      AudioDSPGraph::ThrowException(1718449215, &v452, off_1E8336450);
+    }
+
+    v452.__r_.__value_.__r.__words[0] = (i + 2);
+    v9 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 166, i + 2, &v452);
+    v10 = *&v455[16];
+    *(v9 + 5) = *v455;
+    *(v9 + 7) = v10;
+    *(v9 + 68) = *&v455[28];
+    v452.__r_.__value_.__r.__words[0] = (i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::FormatAndBlockSize>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 166, i + 2, &v452);
+    i = *i;
+  }
+
+  if (*(v5 + 922) == 1)
+  {
+    std::string::basic_string[abi:ne200100]<0>(v455, "graph is initialized");
+    AudioDSPGraph::ThrowException(1667655457, v455, off_1E83363D8);
+  }
+
+  *(v5 + 260) = a2->mBitsPerChannel;
+  v11 = *(v5 + 60);
+  if (v11)
+  {
+    do
+    {
+      v12 = (*(*v11[2] + 256))(v11[2]);
+      if (v12)
+      {
+        *(v12 + 896) = *(v5 + 260);
+      }
+
+      v11 = *v11;
+    }
+
+    while (v11);
+    if (*(v5 + 922))
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "graph is initialized");
+      AudioDSPGraph::ThrowException(1667655457, v455, off_1E83363F0);
+    }
+
+    mReserved = a2->mReserved;
+  }
+
+  else
+  {
+    mReserved = a2->mReserved;
+  }
+
+  *(v5 + 261) = mReserved;
+  for (j = *(v5 + 60); j; j = *j)
+  {
+    v15 = (*(*j[2] + 256))(j[2]);
+    if (v15)
+    {
+      *(v15 + 900) = *(v5 + 261);
+    }
+  }
+
+  if (*(v5 + 921) == 1)
+  {
+    std::string::basic_string[abi:ne200100]<0>(v455, "cannot set slice duration if graph is already configured.");
+    AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335C28);
+  }
+
+  mFormatID = a2[1].mFormatID;
+  *(v5 + 104) = *&a2[1].mSampleRate;
+  *(v5 + 920) = mFormatID;
+  if (*(v5 + 922) == 1)
+  {
+    std::string::basic_string[abi:ne200100]<0>(v455, "cannot set options if graph is already initialized.");
+    AudioDSPGraph::ThrowException(1667655457, v455, off_1E8336468);
+  }
+
+  *(v5 + 840) = BYTE1(a2[1].mFormatID);
+  v17 = *&a2[1].mBytesPerPacket;
+  for (k = *&a2[1].mBytesPerFrame; v17 != k; v5 = this)
+  {
+    if (*(v17 + 112) == 1)
+    {
+      v19 = *(v5 + 127);
+      v20 = *(v5 + 128);
+      Subset = AudioDSPGraph::Graph::getSubset(v19, v20, (v17 + 88));
+      if (!Subset)
+      {
+        Subset = AudioDSPGraph::Graph::getSubset(v19, v20, (v17 + 88));
+        if (!Subset)
+        {
+          operator new();
+        }
+      }
+
+      v22 = Subset;
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    if (*(v17 + 76) == 1)
+    {
+      if (*(v17 + 23) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v447, *v17, *(v17 + 8));
+      }
+
+      else
+      {
+        v447 = *v17;
+      }
+
+      AudioDSPGraph::BoxRegistry::newBox(v455, *(a3 + 5), *(a3 + 6), (v17 + 56), &v447, *(v17 + 80), *(v17 + 84));
+      v23 = *v455;
+      *v455 = 0;
+      if (SHIBYTE(v447.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v447.__r_.__value_.__l.__data_);
+      }
+
+      if (!v23)
+      {
+        v402 = v455;
+        caulk::string_from_4cc(v455, *(v17 + 56));
+        if (v455[23] < 0)
+        {
+          v402 = *v455;
+        }
+
+        v403 = &v452;
+        caulk::string_from_4cc(&v452, *(v17 + 60));
+        if ((v452.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v403 = v452.__r_.__value_.__r.__words[0];
+        }
+
+        caulk::string_from_4cc(__s1, *(v17 + 64));
+        if (__s1[23] >= 0)
+        {
+          v405 = __s1;
+        }
+
+        else
+        {
+          v405 = *__s1;
+        }
+
+        caulk::make_string(&v446, "box component (%s %s %s) not found", v404, v402, v403, v405);
+        AudioDSPGraph::ThrowException(1852204065, &v446, off_1E8335AA8);
+      }
+    }
+
+    else
+    {
+      if (*(v17 + 48) != 1)
+      {
+        v406 = *(v17 + 23);
+        v407 = v406;
+        v408 = *v17;
+        v409 = *(v17 + 8);
+        v452.__r_.__value_.__r.__words[2] = 13;
+        if ((v406 & 0x80u) != 0)
+        {
+          v406 = v409;
+        }
+
+        if (v407 >= 0)
+        {
+          v410 = v17;
+        }
+
+        else
+        {
+          v410 = v408;
+        }
+
+        v452.__r_.__value_.__l.__size_ = v406;
+        v452.__r_.__value_.__r.__words[0] = v410;
+        *v455 = &v455[40];
+        *&v455[8] = xmmword_1C925F110;
+        *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+        *&v455[32] = 0;
+        v460 = &v455[40];
+        *__s1 = 1;
+        *&__s1[8] = &v452;
+        *&__s1[16] = 13;
+        std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "box {} has no class name or component description", 51, __s1);
+        std::string::basic_string<std::string_view,0>(v443, v460, *&v455[16]);
+        if (v460 != &v455[40])
+        {
+          operator delete(v460);
+        }
+
+        AudioDSPGraph::ThrowException(1852204065, v443, off_1E8335AD8);
+      }
+
+      if (*(v17 + 23) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v445, *v17, *(v17 + 8));
+      }
+
+      else
+      {
+        v445 = *v17;
+      }
+
+      AudioDSPGraph::BoxRegistry::newBox(v455, a3, (v17 + 24), &v445, *(v17 + 80), *(v17 + 84));
+      v23 = *v455;
+      *v455 = 0;
+      if (SHIBYTE(v445.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v445.__r_.__value_.__l.__data_);
+      }
+
+      if (!v23)
+      {
+        v411 = *(v17 + 47);
+        v412 = v411;
+        v413 = *(v17 + 24);
+        v414 = *(v17 + 32);
+        v452.__r_.__value_.__r.__words[2] = 13;
+        if ((v411 & 0x80u) != 0)
+        {
+          v411 = v414;
+        }
+
+        if (v412 >= 0)
+        {
+          v415 = v17 + 24;
+        }
+
+        else
+        {
+          v415 = v413;
+        }
+
+        v452.__r_.__value_.__l.__size_ = v411;
+        v452.__r_.__value_.__r.__words[0] = v415;
+        *v455 = &v455[40];
+        *&v455[8] = xmmword_1C925F110;
+        *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+        *&v455[32] = 0;
+        v460 = &v455[40];
+        *__s1 = 1;
+        *&__s1[8] = &v452;
+        *&__s1[16] = 13;
+        std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "box class {} not found", 24, __s1);
+        std::string::basic_string<std::string_view,0>(v444, v460, *&v455[16]);
+        if (v460 != &v455[40])
+        {
+          operator delete(v460);
+        }
+
+        AudioDSPGraph::ThrowException(1852204065, v444, off_1E8335AC0);
+      }
+    }
+
+    if (v22)
+    {
+      v24 = *(v23 + 32);
+      if (v24 != v22)
+      {
+        if (v24)
+        {
+          v25 = v24[5];
+          if (v25)
+          {
+            v26 = 0x9DDFEA08EB382D69 * ((8 * (v23 & 0x1FFFFFFF) + 8) ^ HIDWORD(v23));
+            v27 = 0x9DDFEA08EB382D69 * (HIDWORD(v23) ^ (v26 >> 47) ^ v26);
+            v28 = 0x9DDFEA08EB382D69 * (v27 ^ (v27 >> 47));
+            v29 = vcnt_s8(v25);
+            v29.i16[0] = vaddlv_u8(v29);
+            if (v29.u32[0] > 1uLL)
+            {
+              v30 = 0x9DDFEA08EB382D69 * (v27 ^ (v27 >> 47));
+              if (v28 >= *&v25)
+              {
+                v30 = v28 % *&v25;
+              }
+            }
+
+            else
+            {
+              v30 = v28 & (*&v25 - 1);
+            }
+
+            v31 = v24[4];
+            v32 = *(v31 + 8 * v30);
+            if (v32)
+            {
+              v33 = *v32;
+              if (*v32)
+              {
+                v34 = *&v25 - 1;
+                do
+                {
+                  v35 = v33[1];
+                  if (v35 == v28)
+                  {
+                    if (v33[2] == v23)
+                    {
+                      v36 = v33[1];
+                      if (v29.u32[0] > 1uLL)
+                      {
+                        if (v36 >= *&v25)
+                        {
+                          v36 %= *&v25;
+                        }
+                      }
+
+                      else
+                      {
+                        v36 &= v34;
+                      }
+
+                      v37 = *(v31 + 8 * v36);
+                      do
+                      {
+                        v38 = v37;
+                        v37 = *v37;
+                      }
+
+                      while (v37 != v33);
+                      if (v38 == v24 + 6)
+                      {
+                        goto LABEL_92;
+                      }
+
+                      v39 = v38[1];
+                      if (v29.u32[0] > 1uLL)
+                      {
+                        if (v39 >= *&v25)
+                        {
+                          v39 %= *&v25;
+                        }
+                      }
+
+                      else
+                      {
+                        v39 &= v34;
+                      }
+
+                      if (v39 != v36)
+                      {
+LABEL_92:
+                        if (!*v33)
+                        {
+                          goto LABEL_93;
+                        }
+
+                        v40 = *(*v33 + 8);
+                        if (v29.u32[0] > 1uLL)
+                        {
+                          if (v40 >= *&v25)
+                          {
+                            v40 %= *&v25;
+                          }
+                        }
+
+                        else
+                        {
+                          v40 &= v34;
+                        }
+
+                        if (v40 != v36)
+                        {
+LABEL_93:
+                          *(v31 + 8 * v36) = 0;
+                        }
+                      }
+
+                      v41 = *v33;
+                      if (*v33)
+                      {
+                        v42 = *(v41 + 8);
+                        if (v29.u32[0] > 1uLL)
+                        {
+                          if (v42 >= *&v25)
+                          {
+                            v42 %= *&v25;
+                          }
+                        }
+
+                        else
+                        {
+                          v42 &= v34;
+                        }
+
+                        if (v42 != v36)
+                        {
+                          *(v24[4] + 8 * v42) = v38;
+                          v41 = *v33;
+                        }
+                      }
+
+                      *v38 = v41;
+                      *v33 = 0;
+                      --v24[7];
+                      operator delete(v33);
+                      break;
+                    }
+                  }
+
+                  else
+                  {
+                    if (v29.u32[0] > 1uLL)
+                    {
+                      if (v35 >= *&v25)
+                      {
+                        v35 %= *&v25;
+                      }
+                    }
+
+                    else
+                    {
+                      v35 &= v34;
+                    }
+
+                    if (v35 != v30)
+                    {
+                      break;
+                    }
+                  }
+
+                  v33 = *v33;
+                }
+
+                while (v33);
+              }
+            }
+          }
+        }
+
+        *(v23 + 32) = v22;
+        *v455 = v23;
+        std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::__emplace_unique_key_args<AudioDSPGraph::Box *,AudioDSPGraph::Box * const&>(v22 + 4, v23, v455);
+      }
+    }
+
+    AudioDSPGraph::Graph::addBox(v5, v23, 0, 0);
+    v17 += 120;
+  }
+
+  if (*&a2[4].mBitsPerChannel != *&a2[5].mSampleRate)
+  {
+    if (*(v5 + 921) != 1)
+    {
+      operator new();
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+    AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335DF0);
+  }
+
+  if (*&a2[5].mBytesPerPacket != *&a2[5].mBytesPerFrame)
+  {
+    if (*(v5 + 921) != 1)
+    {
+      operator new();
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+    AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335E08);
+  }
+
+  mSampleRate = a2[6].mSampleRate;
+  for (m = *&a2[6].mFormatID; *&mSampleRate != m; v5 = this)
+  {
+    *v455 = mSampleRate;
+    std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Jack>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 176, *&mSampleRate, v455)[5] = 0;
+    *v455 = mSampleRate;
+    std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Jack>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Jack>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 176, *&mSampleRate, v455);
+    *&mSampleRate += 24;
+  }
+
+  v46 = *&a2[3].mFormatID;
+  v45 = *&a2[3].mBytesPerPacket;
+  while (v46 != v45)
+  {
+    memset(__s1, 0, 40);
+    *&__s1[40] = 1;
+    v47 = *(v46 + 112);
+    if (v47 == 2)
+    {
+      v50 = std::__string_hash<char>::operator()[abi:ne200100](v46 + 64);
+      v51 = *(v5 + 672);
+      if (!*&v51)
+      {
+        goto LABEL_511;
+      }
+
+      v52 = v50;
+      v53 = vcnt_s8(v51);
+      v53.i16[0] = vaddlv_u8(v53);
+      v54 = v53.u32[0];
+      if (v53.u32[0] > 1uLL)
+      {
+        v55 = v50;
+        if (v50 >= *&v51)
+        {
+          v55 = v50 % *&v51;
+        }
+      }
+
+      else
+      {
+        v55 = (*&v51 - 1) & v50;
+      }
+
+      v56 = *(*(v5 + 83) + 8 * v55);
+      if (!v56 || (v57 = *v56) == 0)
+      {
+LABEL_511:
+        std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+      }
+
+      while (1)
+      {
+        v58 = v57[1];
+        if (v52 == v58)
+        {
+          if (AudioDSPGraph::IR::BoxAlias::operator==(v57 + 2, (v46 + 64)))
+          {
+            v48 = v57 + 5;
+            v59 = *(v57 + 7);
+            *__s1 = *(v57 + 5);
+            *&__s1[16] = v59;
+            *&__s1[28] = *(v57 + 68);
+            goto LABEL_134;
+          }
+        }
+
+        else
+        {
+          if (v54 > 1)
+          {
+            if (v58 >= *&v51)
+            {
+              v58 %= *&v51;
+            }
+          }
+
+          else
+          {
+            v58 &= *&v51 - 1;
+          }
+
+          if (v58 != v55)
+          {
+            goto LABEL_511;
+          }
+        }
+
+        v57 = *v57;
+        if (!v57)
+        {
+          goto LABEL_511;
+        }
+      }
+    }
+
+    if (v47 != 1)
+    {
+      v454[0] = 0;
+      std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string const,unsigned int const,std::string const,unsigned int const>(v454, &v452, v46, (v46 + 24), (v46 + 32), (v46 + 56));
+      *v455 = &v455[40];
+      *&v455[8] = xmmword_1C925F110;
+      *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      *&v455[32] = 0;
+      v460 = &v455[40];
+      v451.__r_.__value_.__r.__words[0] = 4;
+      v451.__r_.__value_.__l.__size_ = &v452;
+      v451.__r_.__value_.__r.__words[2] = v454[0];
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "wire from {} port {} to {} port {} has no configuration", 59, &v451);
+      std::string::basic_string<std::string_view,0>(v441, v460, *&v455[16]);
+      if (v460 != &v455[40])
+      {
+        operator delete(v460);
+      }
+
+      AudioDSPGraph::ThrowException(1852204065, v441, off_1E8335B08);
+    }
+
+    v48 = 0;
+    v49 = *(v46 + 80);
+    *__s1 = *(v46 + 64);
+    *&__s1[16] = v49;
+    *&__s1[32] = *(v46 + 96);
+    *&__s1[40] = *(v46 + 104);
+LABEL_134:
+    v60 = *(v46 + 24);
+    v61 = *(v46 + 56);
+    if (v60)
+    {
+      v62 = 0;
+    }
+
+    else
+    {
+      v63 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 88, v46);
+      if (v63)
+      {
+        v62 = (v63 + 5);
+      }
+
+      else
+      {
+        v62 = 0;
+      }
+    }
+
+    v64 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v46);
+    if (v64)
+    {
+      v65 = v64[5];
+    }
+
+    else
+    {
+      v65 = 0;
+    }
+
+    if (!(v65 | v62))
+    {
+      std::operator+<char>();
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v451, &v450, " index ");
+      std::to_string(&v449, v60);
+      if ((v449.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v369 = &v449;
+      }
+
+      else
+      {
+        v369 = v449.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v449.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v449.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v449.__r_.__value_.__l.__size_;
+      }
+
+      v371 = std::string::append(&v451, v369, size);
+      v372 = *&v371->__r_.__value_.__l.__data_;
+      v452.__r_.__value_.__r.__words[2] = v371->__r_.__value_.__r.__words[2];
+      *&v452.__r_.__value_.__l.__data_ = v372;
+      v371->__r_.__value_.__l.__size_ = 0;
+      v371->__r_.__value_.__r.__words[2] = 0;
+      v371->__r_.__value_.__r.__words[0] = 0;
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v455, &v452, " not found");
+      AudioDSPGraph::ThrowException(1852204065, v455, off_1E8335E20);
+    }
+
+    if (v61)
+    {
+      v66 = 0;
+    }
+
+    else
+    {
+      v67 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 88, (v46 + 32));
+      if (v67)
+      {
+        v66 = v67 + 5;
+      }
+
+      else
+      {
+        v66 = 0;
+      }
+    }
+
+    v68 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (v46 + 32));
+    if (v68)
+    {
+      v70 = v68[5];
+    }
+
+    else
+    {
+      v70 = 0;
+    }
+
+    if (!(v70 | v66))
+    {
+      std::operator+<char>();
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v451, &v450, " index ");
+      std::to_string(&v449, v61);
+      if ((v449.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v365 = &v449;
+      }
+
+      else
+      {
+        v365 = v449.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v449.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v366 = HIBYTE(v449.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v366 = v449.__r_.__value_.__l.__size_;
+      }
+
+      v367 = std::string::append(&v451, v365, v366);
+      v368 = *&v367->__r_.__value_.__l.__data_;
+      v452.__r_.__value_.__r.__words[2] = v367->__r_.__value_.__r.__words[2];
+      *&v452.__r_.__value_.__l.__data_ = v368;
+      v367->__r_.__value_.__l.__size_ = 0;
+      v367->__r_.__value_.__r.__words[2] = 0;
+      v367->__r_.__value_.__r.__words[0] = 0;
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v455, &v452, " not found");
+      AudioDSPGraph::ThrowException(1852204065, v455, off_1E8335E38);
+    }
+
+    if (*&__s1[8] == 1718773105 && *&__s1[32] != 64)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "frequency domain format should be 64 bits.");
+      AudioDSPGraph::ThrowException(1718449215, v455, off_1E8335E50);
+    }
+
+    if (*__s1 != floor(*__s1))
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "only integer sample rates are supported.");
+      AudioDSPGraph::ThrowException(1718449215, v455, off_1E8335E68);
+    }
+
+    if ((AudioDSPGraph::MinimalSafetyCheck(__s1, v69) & 1) == 0)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "format failed sanity check.");
+      AudioDSPGraph::ThrowException(1718449215, v455, off_1E8335E80);
+    }
+
+    if (*(v5 + 921) == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+      AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335E98);
+    }
+
+    if (v62)
+    {
+      if (v66)
+      {
+        v72 = *v66;
+        v73 = *v62;
+        if (*v62)
+        {
+          if (v72)
+          {
+            if (v73 == v72)
+            {
+              goto LABEL_188;
+            }
+
+            if (*(v72 + 8))
+            {
+              std::string::basic_string[abi:ne200100]<0>(v455, "destination jack already has a source.");
+              AudioDSPGraph::ThrowException(1633903905, v455, off_1E8335EB0);
+            }
+
+            AudioDSPGraph::Wire::addAll(*v62, *(v72 + 32));
+            AudioDSPGraph::Graph::removeWire(this, v72);
+          }
+
+LABEL_187:
+          *v66 = v73;
+          goto LABEL_188;
+        }
+
+        if (!v72)
+        {
+          operator new();
+        }
+
+        *v62 = v72;
+        v73 = v72;
+      }
+
+      else
+      {
+        v78 = *(v70 + 72);
+        v79 = (*(v70 + 80) - v78) >> 5;
+        if (v79 <= v61)
+        {
+          v417 = (v70 + 40);
+          if (*(v70 + 63) < 0)
+          {
+            v417 = *v417;
+          }
+
+          caulk::make_string(v455, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v71, v417, v79, v61);
+          AudioDSPGraph::ThrowException(1919837985, v455, off_1E8337C60);
+        }
+
+        v80 = v78 + 32 * v61;
+        if (*(v80 + 16))
+        {
+          std::string::basic_string[abi:ne200100]<0>(v455, "The input port already has a connection.");
+          AudioDSPGraph::ThrowException(1633903905, v455, off_1E8335EC8);
+        }
+
+        v73 = *v62;
+        if (!*v62)
+        {
+          operator new();
+        }
+
+        *v455 = v80;
+        std::__hash_table<AudioDSPGraph::InputPort *,std::hash<AudioDSPGraph::InputPort *>,std::equal_to<AudioDSPGraph::InputPort *>,std::allocator<AudioDSPGraph::InputPort *>>::__emplace_unique_key_args<AudioDSPGraph::InputPort *,AudioDSPGraph::InputPort * const&>(v73 + 4, v80, v455);
+        *(v80 + 16) = v73;
+      }
+    }
+
+    else
+    {
+      v74 = *(v65 + 96);
+      v75 = (*(v65 + 104) - v74) >> 5;
+      if (v75 <= v60)
+      {
+        v416 = (v65 + 40);
+        if (*(v65 + 63) < 0)
+        {
+          v416 = *v416;
+        }
+
+        caulk::make_string(v455, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v71, v416, v75, v60);
+        AudioDSPGraph::ThrowException(1919837985, v455, off_1E8337C78);
+      }
+
+      v76 = (v74 + 32 * v60);
+      if (v66)
+      {
+        v73 = v76[2];
+        v77 = *v66;
+        if (v73)
+        {
+          if (v77)
+          {
+            if (v73 == v77)
+            {
+              goto LABEL_188;
+            }
+
+            if (*(v77 + 8))
+            {
+              std::string::basic_string[abi:ne200100]<0>(v455, "The jack already has a source.");
+              AudioDSPGraph::ThrowException(1633903905, v455, off_1E8335EE0);
+            }
+
+            AudioDSPGraph::Wire::addAll(v76[2], *(v77 + 32));
+            AudioDSPGraph::Graph::removeWire(this, v77);
+          }
+
+          goto LABEL_187;
+        }
+
+        if (!v77)
+        {
+          operator new();
+        }
+
+        AudioDSPGraph::Wire::setSource(*v66, v76);
+        v73 = v77;
+      }
+
+      else
+      {
+        v81 = *(v70 + 72);
+        v82 = (*(v70 + 80) - v81) >> 5;
+        if (v82 <= v61)
+        {
+          v418 = (v70 + 40);
+          if (*(v70 + 63) < 0)
+          {
+            v418 = *v418;
+          }
+
+          caulk::make_string(v455, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v71, v418, v82, v61);
+          AudioDSPGraph::ThrowException(1919837985, v455, off_1E8337C60);
+        }
+
+        v83 = v81 + 32 * v61;
+        if (*(v83 + 16))
+        {
+          std::string::basic_string[abi:ne200100]<0>(v455, "The input port already has a connection.");
+          AudioDSPGraph::ThrowException(1633903905, v455, off_1E8335EF8);
+        }
+
+        v73 = v76[2];
+        if (!v73)
+        {
+          operator new();
+        }
+
+        *v455 = v83;
+        std::__hash_table<AudioDSPGraph::InputPort *,std::hash<AudioDSPGraph::InputPort *>,std::equal_to<AudioDSPGraph::InputPort *>,std::allocator<AudioDSPGraph::InputPort *>>::__emplace_unique_key_args<AudioDSPGraph::InputPort *,AudioDSPGraph::InputPort * const&>(v73 + 4, v83, v455);
+        *(v83 + 16) = v73;
+      }
+    }
+
+LABEL_188:
+    v84 = *&__s1[40];
+    if (*(v73 + 64) == 1)
+    {
+      v85 = *(v73 + 15);
+      if (memcmp(__s1, v85, 0x28uLL) || v85[10] != v84)
+      {
+        v373 = *(*(v73 + 1) + 8);
+        v374 = (v373 + 40);
+        if (*(v373 + 63) < 0)
+        {
+          v374 = *v374;
+        }
+
+        *v455 = *__s1;
+        *&v455[16] = *&__s1[16];
+        *&v455[32] = *&__s1[32];
+        CA::StreamDescription::AsString(&v452, v455, *__s1, *&__s1[16]);
+        v375 = SHIBYTE(v452.__r_.__value_.__r.__words[2]);
+        v376 = v452.__r_.__value_.__r.__words[0];
+        v377 = *(v73 + 15);
+        *v455 = *v377;
+        *&v455[16] = *(v377 + 16);
+        *&v455[32] = *(v377 + 32);
+        CA::StreamDescription::AsString(&v451, v455, *&v455[16], v378);
+        if (v375 >= 0)
+        {
+          v380 = &v452;
+        }
+
+        else
+        {
+          v380 = v376;
+        }
+
+        if ((v451.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v381 = &v451;
+        }
+
+        else
+        {
+          v381 = v451.__r_.__value_.__r.__words[0];
+        }
+
+        caulk::make_string(v455, "Wire from box %s: format\n%s, %u block size\ndoes not match the one previously set\n%s, %u block size\n", v379, v374, v380, v84, v381, *(*(v73 + 15) + 40));
+        AudioDSPGraph::ThrowException(1718444833, v455, off_1E8337D50);
+      }
+    }
+
+    else
+    {
+      v86 = *&__s1[16];
+      *(v73 + 72) = *__s1;
+      *(v73 + 88) = v86;
+      *(v73 + 13) = *&__s1[32];
+      *(v73 + 64) = 1;
+    }
+
+    *(v73 + 28) = v84;
+    *(v73 + 15) = v73 + 72;
+    v5 = this;
+    if (v48)
+    {
+      if (memcmp(v48, v73 + 72, 0x28uLL) || v48[10] != v84)
+      {
+        v349 = *(*(v73 + 1) + 8);
+        v350 = (v349 + 40);
+        if (*(v349 + 63) < 0)
+        {
+          v350 = *v350;
+        }
+
+        v351 = *(v48 + 1);
+        *v455 = *v48;
+        *&v455[16] = v351;
+        *&v455[32] = *(v48 + 4);
+        CA::StreamDescription::AsString(&v452, v455, *v455, *&v351);
+        v352 = SHIBYTE(v452.__r_.__value_.__r.__words[2]);
+        v353 = v452.__r_.__value_.__r.__words[0];
+        v354 = v48[10];
+        v355 = *(v73 + 15);
+        *v455 = *v355;
+        *&v455[16] = *(v355 + 16);
+        *&v455[32] = *(v355 + 32);
+        CA::StreamDescription::AsString(&v451, v455, *&v455[16], v356);
+        if (v352 >= 0)
+        {
+          v358 = &v452;
+        }
+
+        else
+        {
+          v358 = v353;
+        }
+
+        if ((v451.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v359 = &v451;
+        }
+
+        else
+        {
+          v359 = v451.__r_.__value_.__r.__words[0];
+        }
+
+        caulk::make_string(v455, "Wire from box %s: format\n%s, %u block size\ndoes not match the one previously set\n%s, %u block size\n", v357, v350, v358, v354, v359, *(*(v73 + 15) + 40));
+        AudioDSPGraph::ThrowException(1718444833, v455, off_1E8337D68);
+      }
+
+      *(v73 + 15) = v48;
+    }
+
+    v46 += 120;
+  }
+
+  v87 = *&a2[6].mBytesPerFrame;
+  v422 = *&a2[6].mBitsPerChannel;
+  if (v87 == v422)
+  {
+    goto LABEL_218;
+  }
+
+  while (2)
+  {
+    if (*(v5 + 921) == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+      AudioDSPGraph::ThrowException(1667655457, v455, off_1E8336228);
+    }
+
+    v88 = *(v87 + 1);
+    v90 = *v87;
+    v89 = v87[1];
+    v91 = *(v5 + 592);
+    if (!*&v91)
+    {
+      goto LABEL_216;
+    }
+
+    v92 = vcnt_s8(v91);
+    v92.i16[0] = vaddlv_u8(v92);
+    if (v92.u32[0] > 1uLL)
+    {
+      v93 = *v87;
+      if (*&v91 <= v90)
+      {
+        v93 = v90 % v91.i32[0];
+      }
+    }
+
+    else
+    {
+      v93 = (v91.i32[0] - 1) & v90;
+    }
+
+    v94 = *(*(v5 + 73) + 8 * v93);
+    if (!v94 || (v95 = *v94) == 0)
+    {
+LABEL_216:
+      operator new();
+    }
+
+    while (2)
+    {
+      v96 = v95[1];
+      if (v96 != v90)
+      {
+        if (v92.u32[0] > 1uLL)
+        {
+          if (v96 >= *&v91)
+          {
+            v96 %= *&v91;
+          }
+        }
+
+        else
+        {
+          v96 &= *&v91 - 1;
+        }
+
+        if (v96 != v93)
+        {
+          goto LABEL_216;
+        }
+
+        goto LABEL_215;
+      }
+
+      if (*(v95 + 4) != v90)
+      {
+LABEL_215:
+        v95 = *v95;
+        if (!v95)
+        {
+          goto LABEL_216;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    *(v95 + 6) = v90;
+    *(v95 + 7) = v88;
+    *(v95 + 32) = BYTE4(v88);
+    *(v95 + 36) = v89 == 1;
+    v95[6] = v95[5];
+    v87 += 4;
+    if (v87 != v422)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_218:
+  v97 = *&a2[7].mFormatID;
+  v98 = *&a2[7].mBytesPerPacket;
+  if (v97 != v98)
+  {
+    while (1)
+    {
+      v99 = *(v97 + 32);
+      v100 = *(v97 + 40);
+      v101 = (v97 + 8);
+      v102 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (v97 + 8));
+      if (!v102)
+      {
+        goto LABEL_554;
+      }
+
+      v103 = v102[5];
+      if (!v103)
+      {
+        break;
+      }
+
+      if (*(v5 + 921) == 1)
+      {
+        std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+        AudioDSPGraph::ThrowException(1667655457, v455, off_1E8336240);
+      }
+
+      v104 = std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>(v5 + 73, *v97);
+      if (!v104)
+      {
+        std::string::basic_string[abi:ne200100]<0>(v455, "connectParameter : inParamID not found");
+        AudioDSPGraph::ThrowException(1852204065, v455, off_1E8336258);
+      }
+
+      v105 = v104;
+      v107 = v104[6];
+      v106 = v104[7];
+      if (v107 >= v106)
+      {
+        v109 = v104[5];
+        v110 = 0xAAAAAAAAAAAAAAABLL * ((v107 - v109) >> 3);
+        v111 = v110 + 1;
+        if (v110 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+        }
+
+        v112 = 0xAAAAAAAAAAAAAAABLL * ((v106 - v109) >> 3);
+        if (2 * v112 > v111)
+        {
+          v111 = 2 * v112;
+        }
+
+        if (v112 >= 0x555555555555555)
+        {
+          v113 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v113 = v111;
+        }
+
+        if (v113)
+        {
+          if (v113 <= 0xAAAAAAAAAAAAAAALL)
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v114 = 24 * v110;
+        *v114 = v103;
+        *(v114 + 8) = v99;
+        *(v114 + 16) = v100;
+        v108 = 24 * v110 + 24;
+        v115 = v104[5];
+        v116 = v104[6] - v115;
+        v117 = (24 * v110 - v116);
+        memcpy(v117, v115, v116);
+        v118 = v105[5];
+        v105[5] = v117;
+        v105[6] = v108;
+        v105[7] = 0;
+        if (v118)
+        {
+          operator delete(v118);
+        }
+
+        v5 = this;
+      }
+
+      else
+      {
+        *v107 = v103;
+        *(v107 + 8) = v99;
+        v108 = v107 + 24;
+        *(v107 + 16) = v100;
+      }
+
+      v105[6] = v108;
+      v97 += 48;
+      if (v97 == v98)
+      {
+        goto LABEL_238;
+      }
+    }
+
+    v101 = (v97 + 8);
+LABEL_554:
+    AudioDSPGraph::stringFromFourCharCode<unsigned int>(&v451, *v97);
+    std::make_format_args[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string,std::string const>(&v452, &v451, v101);
+    *v455 = &v455[40];
+    *&v455[8] = xmmword_1C925F110;
+    *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v455[32] = 0;
+    v460 = &v455[40];
+    *__s1 = 2;
+    *&__s1[8] = &v452;
+    *&__s1[16] = __s.__r_.__value_.__l.__size_;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "parameter connection {} box {} not found", 42, __s1);
+    std::string::basic_string<std::string_view,0>(v440, v460, *&v455[16]);
+    if (v460 != &v455[40])
+    {
+      operator delete(v460);
+    }
+
+    AudioDSPGraph::ThrowException(1852204065, v440, off_1E8335B20);
+  }
+
+LABEL_238:
+  v119 = *&a2[7].mBitsPerChannel;
+  v120 = a2[8].mSampleRate;
+  if (v119 != *&v120)
+  {
+    v419 = a2[8].mSampleRate;
+    while (1)
+    {
+      v121 = *(v119 + 24);
+      v122 = *(v119 + 32);
+      v123 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v119);
+      if (!v123 || (v124 = v123[5]) == 0)
+      {
+        v334 = *(v119 + 23);
+        v335 = v334;
+        v336 = *v119;
+        v337 = *(v119 + 8);
+        v452.__r_.__value_.__r.__words[2] = 13;
+        if ((v334 & 0x80u) != 0)
+        {
+          v334 = v337;
+        }
+
+        if (v335 >= 0)
+        {
+          v338 = v119;
+        }
+
+        else
+        {
+          v338 = v336;
+        }
+
+        v452.__r_.__value_.__l.__size_ = v334;
+        v452.__r_.__value_.__r.__words[0] = v338;
+        *v455 = &v455[40];
+        *&v455[8] = xmmword_1C925F110;
+        *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+        *&v455[32] = 0;
+        v460 = &v455[40];
+        *__s1 = 1;
+        *&__s1[8] = &v452;
+        *&__s1[16] = 13;
+        std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "parameter wire source box {} not found", 40, __s1);
+        std::string::basic_string<std::string_view,0>(__dst, v460, *&v455[16]);
+        if (v460 != &v455[40])
+        {
+          operator delete(v460);
+        }
+
+        AudioDSPGraph::ThrowException(1852204065, __dst, off_1E8335B38);
+      }
+
+      v125 = v119 + 40;
+      v126 = *(v119 + 64);
+      v127 = *(v119 + 72);
+      v128 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (v119 + 40));
+      if (!v128)
+      {
+        goto LABEL_560;
+      }
+
+      v129 = v128[5];
+      if (!v129)
+      {
+        break;
+      }
+
+      if (*(v5 + 921) == 1)
+      {
+        std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+        AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335F10);
+      }
+
+      v130 = *(v119 + 80);
+      v131 = *(v5 + 68);
+      v132 = *(v5 + 69);
+      if (v131 >= v132)
+      {
+        v134 = *(v5 + 67);
+        v135 = v131 - v134;
+        v136 = 0x6DB6DB6DB6DB6DB7 * ((v131 - v134) >> 3);
+        v137 = v136 + 1;
+        if ((v136 + 1) > 0x492492492492492)
+        {
+          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+        }
+
+        v138 = 0x6DB6DB6DB6DB6DB7 * ((v132 - v134) >> 3);
+        if (2 * v138 > v137)
+        {
+          v137 = 2 * v138;
+        }
+
+        if (v138 >= 0x249249249249249)
+        {
+          v139 = 0x492492492492492;
+        }
+
+        else
+        {
+          v139 = v137;
+        }
+
+        if (v139)
+        {
+          if (v139 <= 0x492492492492492)
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v140 = 56 * v136;
+        *v140 = v124;
+        *(v140 + 8) = v121;
+        v423 = v122;
+        *(v140 + 16) = v122;
+        *(v140 + 24) = v129;
+        *(v140 + 32) = v126;
+        *(v140 + 40) = v127;
+        v141 = v130;
+        *(v140 + 48) = v130;
+        v133 = 56 * v136 + 56;
+        v142 = 56 * v136 - v135;
+        memcpy((v140 - v135), v134, v135);
+        *(v5 + 67) = v142;
+        *(v5 + 68) = v133;
+        *(v5 + 69) = 0;
+        if (v134)
+        {
+          operator delete(v134);
+        }
+
+        v120 = v419;
+        v130 = v141;
+        v122 = v423;
+      }
+
+      else
+      {
+        *v131 = v124;
+        *(v131 + 8) = v121;
+        *(v131 + 16) = v122;
+        *(v131 + 24) = v129;
+        *(v131 + 32) = v126;
+        *(v131 + 40) = v127;
+        v133 = v131 + 56;
+        *(v131 + 48) = v130;
+      }
+
+      *(v5 + 68) = v133;
+      v143 = *(v129 + 168);
+      v144 = *(v129 + 176);
+      if (v143 >= v144)
+      {
+        v146 = *(v129 + 160);
+        v147 = 0xCCCCCCCCCCCCCCCDLL * ((v143 - v146) >> 3);
+        v148 = v147 + 1;
+        if (v147 + 1 > 0x666666666666666)
+        {
+          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+        }
+
+        v149 = 0xCCCCCCCCCCCCCCCDLL * ((v144 - v146) >> 3);
+        if (2 * v149 > v148)
+        {
+          v148 = 2 * v149;
+        }
+
+        if (v149 >= 0x333333333333333)
+        {
+          v150 = 0x666666666666666;
+        }
+
+        else
+        {
+          v150 = v148;
+        }
+
+        if (v150)
+        {
+          if (v150 <= 0x666666666666666)
+          {
+            operator new();
+          }
+
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        v151 = 40 * v147;
+        *v151 = v124;
+        *(v151 + 8) = v121;
+        *(v151 + 16) = v122;
+        *(v151 + 24) = v126;
+        *(v151 + 32) = v127;
+        *(v151 + 36) = v130;
+        v145 = 40 * v147 + 40;
+        v152 = *(v129 + 160);
+        v153 = *(v129 + 168) - v152;
+        v154 = 40 * v147 - v153;
+        memcpy((v151 - v153), v152, v153);
+        v155 = *(v129 + 160);
+        *(v129 + 160) = v154;
+        *(v129 + 168) = v145;
+        *(v129 + 176) = 0;
+        if (v155)
+        {
+          operator delete(v155);
+        }
+
+        v5 = this;
+      }
+
+      else
+      {
+        *v143 = v124;
+        *(v143 + 8) = v121;
+        *(v143 + 16) = v122;
+        *(v143 + 24) = v126;
+        *(v143 + 32) = v127;
+        v145 = v143 + 40;
+        *(v143 + 36) = v130;
+      }
+
+      *(v129 + 168) = v145;
+      atomic_fetch_add((v129 + 760), 1u);
+      v119 += 88;
+      if (v119 == *&v120)
+      {
+        goto LABEL_274;
+      }
+    }
+
+    v125 = v119 + 40;
+LABEL_560:
+    v360 = *(v119 + 63);
+    v361 = v360;
+    v362 = *(v119 + 40);
+    v363 = *(v119 + 48);
+    v452.__r_.__value_.__r.__words[2] = 13;
+    if ((v360 & 0x80u) != 0)
+    {
+      v360 = v363;
+    }
+
+    if (v361 >= 0)
+    {
+      v364 = v125;
+    }
+
+    else
+    {
+      v364 = v362;
+    }
+
+    v452.__r_.__value_.__l.__size_ = v360;
+    v452.__r_.__value_.__r.__words[0] = v364;
+    *v455 = &v455[40];
+    *&v455[8] = xmmword_1C925F110;
+    *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v455[32] = 0;
+    v460 = &v455[40];
+    *__s1 = 1;
+    *&__s1[8] = &v452;
+    *&__s1[16] = 13;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "parameter wire destination {} not found", 41, __s1);
+    std::string::basic_string<std::string_view,0>(v438, v460, *&v455[16]);
+    if (v460 != &v455[40])
+    {
+      operator delete(v460);
+    }
+
+    AudioDSPGraph::ThrowException(1852204065, v438, off_1E8335B50);
+  }
+
+LABEL_274:
+  v156 = a2;
+  v158 = *&a2[8].mBytesPerPacket;
+  v157 = *&a2[8].mBytesPerFrame;
+  if (v158 == v157)
+  {
+    goto LABEL_325;
+  }
+
+  while (2)
+  {
+    v159 = *v158;
+    std::__optional_copy_base<std::vector<unsigned char>,false>::__optional_copy_base[abi:ne200100](__p, (v158 + 2));
+    v5 = this;
+    if (*(this + 921) == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+      AudioDSPGraph::ThrowException(1667655457, v455, off_1E8336180);
+    }
+
+    v160 = v158[1] == 1;
+    *v455 = v159;
+    v455[8] = 0;
+    v455[32] = 0;
+    if (v437 == 1)
+    {
+      *&v455[8] = *__p;
+      *&v455[24] = v436;
+      __p[1] = 0;
+      v436 = 0;
+      __p[0] = 0;
+      v455[32] = 1;
+    }
+
+    v455[40] = v160;
+    v457 = 0;
+    v458 = 0;
+    __src = 0;
+    v161 = *(this + 632);
+    if (!*&v161)
+    {
+      goto LABEL_294;
+    }
+
+    v162 = vcnt_s8(v161);
+    v162.i16[0] = vaddlv_u8(v162);
+    if (v162.u32[0] > 1uLL)
+    {
+      v163 = v159;
+      if (*&v161 <= v159)
+      {
+        v163 = v159 % v161.i32[0];
+      }
+    }
+
+    else
+    {
+      v163 = (v161.i32[0] - 1) & v159;
+    }
+
+    v164 = *(*(this + 78) + 8 * v163);
+    if (!v164 || (v165 = *v164) == 0)
+    {
+LABEL_294:
+      operator new();
+    }
+
+    while (2)
+    {
+      v166 = v165[1];
+      if (v166 != v159)
+      {
+        if (v162.u32[0] > 1uLL)
+        {
+          if (v166 >= *&v161)
+          {
+            v166 %= *&v161;
+          }
+        }
+
+        else
+        {
+          v166 &= *&v161 - 1;
+        }
+
+        if (v166 != v163)
+        {
+          goto LABEL_294;
+        }
+
+        goto LABEL_293;
+      }
+
+      if (*(v165 + 4) != v159)
+      {
+LABEL_293:
+        v165 = *v165;
+        if (!v165)
+        {
+          goto LABEL_294;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    *(v165 + 6) = v159;
+    std::__optional_storage_base<std::vector<unsigned char>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<unsigned char>,false> const&>((v165 + 4), &v455[8]);
+    *(v165 + 64) = v455[40];
+    if (v165 + 3 != v455)
+    {
+      v167 = v165[9];
+      v168 = __src;
+      v169 = v457;
+      v170 = v457 - __src;
+      v171 = v165[11];
+      if (v171 - v167 < (v457 - __src))
+      {
+        if (v167)
+        {
+          v165[10] = v167;
+          operator delete(v167);
+          v171 = 0;
+          v165[9] = 0;
+          v165[10] = 0;
+          v165[11] = 0;
+        }
+
+        v172 = 0xAAAAAAAAAAAAAAABLL * (v170 >> 3);
+        if (v172 <= 0xAAAAAAAAAAAAAAALL)
+        {
+          v173 = 0xAAAAAAAAAAAAAAABLL * (v171 >> 3);
+          if (2 * v173 > v172)
+          {
+            v172 = 2 * v173;
+          }
+
+          if (v173 >= 0x555555555555555)
+          {
+            v174 = 0xAAAAAAAAAAAAAAALL;
+          }
+
+          else
+          {
+            v174 = v172;
+          }
+
+          if (v174 <= 0xAAAAAAAAAAAAAAALL)
+          {
+            std::allocator<AudioDSPGraph::PropertyEndpoint>::allocate_at_least[abi:ne200100](v174);
+          }
+        }
+
+        std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v175 = v157;
+      v176 = v165[10];
+      v177 = v176 - v167;
+      if (v176 - v167 >= v170)
+      {
+        v157 = v175;
+        if (v457 != __src)
+        {
+          memmove(v165[9], __src, v170 - 4);
+        }
+
+        v165[10] = &v167[v170];
+      }
+
+      else
+      {
+        if (v176 != v167)
+        {
+          memmove(v165[9], __src, v177 - 4);
+          v176 = v165[10];
+        }
+
+        v178 = v169 - &v168[v177];
+        if (v169 != &v168[v177])
+        {
+          memmove(v176, &v168[v177], v178 - 4);
+        }
+
+        v165[10] = &v176[v178];
+        v157 = v175;
+      }
+    }
+
+    if (__src)
+    {
+      v457 = __src;
+      operator delete(__src);
+    }
+
+    v156 = a2;
+    if (v455[32] == 1 && *&v455[8])
+    {
+      *&v455[16] = *&v455[8];
+      operator delete(*&v455[8]);
+    }
+
+    if (v437 == 1 && __p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+    }
+
+    v158 += 10;
+    if (v158 != v157)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_325:
+  v179 = v156;
+  v180 = v156[9].mSampleRate;
+  v181 = *&v179[9].mFormatID;
+  if (*&v180 != v181)
+  {
+    while (1)
+    {
+      v182 = *(*&v180 + 32);
+      v183 = *(*&v180 + 40);
+      v184 = (*&v180 + 8);
+      v185 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (*&v180 + 8));
+      if (!v185)
+      {
+        goto LABEL_571;
+      }
+
+      v186 = v185[5];
+      if (!v186)
+      {
+        break;
+      }
+
+      if (*(v5 + 921) == 1)
+      {
+        std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+        AudioDSPGraph::ThrowException(1667655457, v455, off_1E8336198);
+      }
+
+      v187 = std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>(v5 + 78, **&v180);
+      if (!v187)
+      {
+        std::string::basic_string[abi:ne200100]<0>(v455, "connectProperty : inPropertyID not found");
+        AudioDSPGraph::ThrowException(1852204065, v455, off_1E83361B0);
+      }
+
+      v188 = v187;
+      v190 = v187[10];
+      v189 = v187[11];
+      if (v190 >= v189)
+      {
+        v192 = v187[9];
+        v193 = 0xAAAAAAAAAAAAAAABLL * ((v190 - v192) >> 3);
+        v194 = v193 + 1;
+        if (v193 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+        }
+
+        v195 = 0xAAAAAAAAAAAAAAABLL * ((v189 - v192) >> 3);
+        if (2 * v195 > v194)
+        {
+          v194 = 2 * v195;
+        }
+
+        if (v195 >= 0x555555555555555)
+        {
+          v196 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v196 = v194;
+        }
+
+        if (v196)
+        {
+          std::allocator<AudioDSPGraph::PropertyEndpoint>::allocate_at_least[abi:ne200100](v196);
+        }
+
+        v197 = 24 * v193;
+        *v197 = v186;
+        *(v197 + 8) = v182;
+        *(v197 + 16) = v183;
+        v191 = 24 * v193 + 24;
+        v198 = v188[9];
+        v199 = v188[10] - v198;
+        v200 = (24 * v193 - v199);
+        memcpy(v200, v198, v199);
+        v201 = v188[9];
+        v188[9] = v200;
+        v188[10] = v191;
+        v188[11] = 0;
+        if (v201)
+        {
+          operator delete(v201);
+        }
+
+        v5 = this;
+      }
+
+      else
+      {
+        *v190 = v186;
+        *(v190 + 8) = v182;
+        v191 = v190 + 24;
+        *(v190 + 16) = v183;
+      }
+
+      v188[10] = v191;
+      *&v180 += 48;
+      if (*&v180 == v181)
+      {
+        goto LABEL_344;
+      }
+    }
+
+    v184 = (*&v180 + 8);
+LABEL_571:
+    AudioDSPGraph::stringFromFourCharCode<unsigned int>(&v451, **&v180);
+    std::make_format_args[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string,std::string const>(&v452, &v451, v184);
+    *v455 = &v455[40];
+    *&v455[8] = xmmword_1C925F110;
+    *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v455[32] = 0;
+    v460 = &v455[40];
+    *__s1 = 2;
+    *&__s1[8] = &v452;
+    *&__s1[16] = __s.__r_.__value_.__l.__size_;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "property connection {} box {} not found", 41, __s1);
+    std::string::basic_string<std::string_view,0>(v434, v460, *&v455[16]);
+    if (v460 != &v455[40])
+    {
+      operator delete(v460);
+    }
+
+    AudioDSPGraph::ThrowException(1852204065, v434, off_1E8335B68);
+  }
+
+LABEL_344:
+  v202 = a2;
+  v203 = *&a2[9].mBytesPerFrame;
+  for (n = *&a2[9].mBitsPerChannel; v203 != n; v203 += 88)
+  {
+    v204 = *(v203 + 24);
+    v205 = *(v203 + 32);
+    v206 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v203);
+    if (!v206 || (v207 = v206[5]) == 0)
+    {
+      v339 = *(v203 + 23);
+      v340 = v339;
+      v341 = *v203;
+      v342 = *(v203 + 8);
+      v452.__r_.__value_.__r.__words[2] = 13;
+      if ((v339 & 0x80u) != 0)
+      {
+        v339 = v342;
+      }
+
+      if (v340 >= 0)
+      {
+        v343 = v203;
+      }
+
+      else
+      {
+        v343 = v341;
+      }
+
+      v452.__r_.__value_.__l.__size_ = v339;
+      v452.__r_.__value_.__r.__words[0] = v343;
+      *v455 = &v455[40];
+      *&v455[8] = xmmword_1C925F110;
+      *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      *&v455[32] = 0;
+      v460 = &v455[40];
+      *__s1 = 1;
+      *&__s1[8] = &v452;
+      *&__s1[16] = 13;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "property wire source box {} not found", 39, __s1);
+      std::string::basic_string<std::string_view,0>(v433, v460, *&v455[16]);
+      if (v460 != &v455[40])
+      {
+        operator delete(v460);
+      }
+
+      AudioDSPGraph::ThrowException(1852204065, v433, off_1E8335B80);
+    }
+
+    v208 = *(v203 + 64);
+    v209 = *(v203 + 72);
+    v210 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (v203 + 40));
+    if (!v210 || (v211 = v210[5]) == 0)
+    {
+      v344 = *(v203 + 63);
+      v345 = v344;
+      v346 = *(v203 + 40);
+      v347 = *(v203 + 48);
+      v452.__r_.__value_.__r.__words[2] = 13;
+      if ((v344 & 0x80u) != 0)
+      {
+        v344 = v347;
+      }
+
+      if (v345 >= 0)
+      {
+        v348 = v203 + 40;
+      }
+
+      else
+      {
+        v348 = v346;
+      }
+
+      v452.__r_.__value_.__l.__size_ = v344;
+      v452.__r_.__value_.__r.__words[0] = v348;
+      *v455 = &v455[40];
+      *&v455[8] = xmmword_1C925F110;
+      *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      *&v455[32] = 0;
+      v460 = &v455[40];
+      *__s1 = 1;
+      *&__s1[8] = &v452;
+      *&__s1[16] = 13;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "property wire destination {} not found", 40, __s1);
+      std::string::basic_string<std::string_view,0>(v432, v460, *&v455[16]);
+      if (v460 != &v455[40])
+      {
+        operator delete(v460);
+      }
+
+      AudioDSPGraph::ThrowException(1852204065, v432, off_1E8335B98);
+    }
+
+    if (*(v5 + 921) == 1)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+      AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335F28);
+    }
+
+    v212 = *(v203 + 80);
+    v213 = *(v5 + 71);
+    v214 = *(v5 + 72);
+    if (v213 >= v214)
+    {
+      v216 = *(v5 + 70);
+      v217 = v213 - v216;
+      v218 = 0x6DB6DB6DB6DB6DB7 * ((v213 - v216) >> 3);
+      v219 = v218 + 1;
+      if ((v218 + 1) > 0x492492492492492)
+      {
+        std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v220 = 0x6DB6DB6DB6DB6DB7 * ((v214 - v216) >> 3);
+      if (2 * v220 > v219)
+      {
+        v219 = 2 * v220;
+      }
+
+      if (v220 >= 0x249249249249249)
+      {
+        v221 = 0x492492492492492;
+      }
+
+      else
+      {
+        v221 = v219;
+      }
+
+      if (v221)
+      {
+        if (v221 <= 0x492492492492492)
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v222 = 56 * v218;
+      *v222 = v207;
+      *(v222 + 8) = v204;
+      v420 = v205;
+      *(v222 + 16) = v205;
+      *(v222 + 24) = v211;
+      *(v222 + 32) = v208;
+      *(v222 + 40) = v209;
+      v223 = v212;
+      *(v222 + 48) = v212;
+      v215 = 56 * v218 + 56;
+      v224 = 56 * v218 - v217;
+      memcpy((v222 - v217), v216, v217);
+      *(v5 + 70) = v224;
+      *(v5 + 71) = v215;
+      *(v5 + 72) = 0;
+      if (v216)
+      {
+        operator delete(v216);
+      }
+
+      v212 = v223;
+      v5 = this;
+      v205 = v420;
+    }
+
+    else
+    {
+      *v213 = v207;
+      *(v213 + 8) = v204;
+      *(v213 + 16) = v205;
+      *(v213 + 24) = v211;
+      *(v213 + 32) = v208;
+      *(v213 + 40) = v209;
+      v215 = v213 + 56;
+      *(v213 + 48) = v212;
+    }
+
+    *(v5 + 71) = v215;
+    v226 = *(v211 + 192);
+    v225 = *(v211 + 200);
+    if (v226 >= v225)
+    {
+      v228 = *(v211 + 184);
+      v229 = (v226 - v228) >> 6;
+      if ((v229 + 1) >> 58)
+      {
+        std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v230 = v225 - v228;
+      v231 = v230 >> 5;
+      if (v230 >> 5 <= (v229 + 1))
+      {
+        v231 = v229 + 1;
+      }
+
+      if (v230 >= 0x7FFFFFFFFFFFFFC0)
+      {
+        v232 = 0x3FFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v232 = v231;
+      }
+
+      *&v455[32] = v211 + 184;
+      if (v232)
+      {
+        if (!(v232 >> 58))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v233 = v229 << 6;
+      *v455 = 0;
+      *&v455[8] = v233;
+      *&v455[16] = v229 << 6;
+      *&v455[24] = 0;
+      *v233 = v207;
+      *(v233 + 8) = v204;
+      *(v233 + 16) = v205;
+      *(v233 + 24) = v208;
+      *(v233 + 32) = v209;
+      *(v233 + 36) = v212;
+      *(v233 + 48) = 0;
+      *(v233 + 56) = 0;
+      *(v233 + 40) = 0;
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(((v229 << 6) + 40), 0, 0, 0);
+      *&v455[16] += 64;
+      v235 = *(v211 + 184);
+      v234 = *(v211 + 192);
+      v236 = *&v455[8] + v235 - v234;
+      v202 = a2;
+      v5 = this;
+      if (v235 != v234)
+      {
+        v237 = *(v211 + 184);
+        v238 = *&v455[8] + v235 - v234;
+        do
+        {
+          v239 = *v237;
+          v240 = v237[1];
+          *(v238 + 29) = *(v237 + 29);
+          *v238 = v239;
+          *(v238 + 16) = v240;
+          *(v238 + 48) = 0;
+          *(v238 + 56) = 0;
+          *(v238 + 40) = 0;
+          *(v238 + 40) = *(v237 + 40);
+          *(v238 + 56) = *(v237 + 7);
+          *(v237 + 5) = 0;
+          *(v237 + 6) = 0;
+          *(v237 + 7) = 0;
+          v237 += 4;
+          v238 += 64;
+        }
+
+        while (v237 != v234);
+        do
+        {
+          v241 = *(v235 + 40);
+          if (v241)
+          {
+            *(v235 + 48) = v241;
+            operator delete(v241);
+          }
+
+          v235 += 64;
+        }
+
+        while (v235 != v234);
+      }
+
+      v242 = *(v211 + 184);
+      *(v211 + 184) = v236;
+      v243 = *(v211 + 200);
+      v421 = *&v455[16];
+      *(v211 + 192) = *&v455[16];
+      *&v455[16] = v242;
+      *&v455[24] = v243;
+      *&v455[8] = v242;
+      *v455 = v242;
+      std::__split_buffer<AudioDSPGraph::PropertyTap>::~__split_buffer(v455);
+      v227 = v421;
+    }
+
+    else
+    {
+      *v226 = v207;
+      *(v226 + 8) = v204;
+      *(v226 + 16) = v205;
+      *(v226 + 24) = v208;
+      *(v226 + 32) = v209;
+      *(v226 + 36) = v212;
+      *(v226 + 48) = 0;
+      *(v226 + 56) = 0;
+      *(v226 + 40) = 0;
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v226 + 40), 0, 0, 0);
+      v227 = v226 + 64;
+      *(v211 + 192) = v226 + 64;
+      v202 = a2;
+    }
+
+    *(v211 + 192) = v227;
+    atomic_fetch_add((v211 + 760), 1u);
+  }
+
+  v244 = v202[2].mSampleRate;
+  v245 = *&v202[2].mFormatID;
+  if (*&v244 != v245)
+  {
+    v246 = *&v244 + 24;
+    do
+    {
+      if (*(v246 + 24) == 1)
+      {
+        v247 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (v246 - 24));
+        if (!v247 || (v248 = v247[5]) == 0)
+        {
+          v382 = *(v246 - 1);
+          v383 = v382;
+          v384 = *(v246 - 24);
+          v385 = *(v246 - 16);
+          v452.__r_.__value_.__r.__words[2] = 13;
+          if ((v382 & 0x80u) != 0)
+          {
+            v382 = v385;
+          }
+
+          if (v383 >= 0)
+          {
+            v386 = v246 - 24;
+          }
+
+          else
+          {
+            v386 = v384;
+          }
+
+          v452.__r_.__value_.__l.__size_ = v382;
+          v452.__r_.__value_.__r.__words[0] = v386;
+          *v455 = &v455[40];
+          *&v455[8] = xmmword_1C925F110;
+          *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+          *&v455[32] = 0;
+          v460 = &v455[40];
+          *__s1 = 1;
+          *&__s1[8] = &v452;
+          *&__s1[16] = 13;
+          std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "ordering constraint before box {} not found", 45, __s1);
+          std::string::basic_string<std::string_view,0>(v431, v460, *&v455[16]);
+          if (v460 != &v455[40])
+          {
+            operator delete(v460);
+          }
+
+          AudioDSPGraph::ThrowException(1852204065, v431, off_1E8335BB0);
+        }
+
+        v249 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v246);
+        if (!v249 || (v250 = v249[5]) == 0)
+        {
+          v387 = *(v246 + 23);
+          v388 = v387;
+          v389 = *v246;
+          v390 = *(v246 + 8);
+          v452.__r_.__value_.__r.__words[2] = 13;
+          if ((v387 & 0x80u) != 0)
+          {
+            v387 = v390;
+          }
+
+          if (v388 >= 0)
+          {
+            v391 = v246;
+          }
+
+          else
+          {
+            v391 = v389;
+          }
+
+          v452.__r_.__value_.__l.__size_ = v387;
+          v452.__r_.__value_.__r.__words[0] = v391;
+          *v455 = &v455[40];
+          *&v455[8] = xmmword_1C925F110;
+          *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+          *&v455[32] = 0;
+          v460 = &v455[40];
+          *__s1 = 1;
+          *&__s1[8] = &v452;
+          *&__s1[16] = 13;
+          std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "ordering constraint after box {} not found", 44, __s1);
+          std::string::basic_string<std::string_view,0>(v430, v460, *&v455[16]);
+          if (v460 != &v455[40])
+          {
+            operator delete(v460);
+          }
+
+          AudioDSPGraph::ThrowException(1852204065, v430, off_1E8335BC8);
+        }
+
+        if (*(v5 + 921) == 1)
+        {
+          std::string::basic_string[abi:ne200100]<0>(v455, "graph is configured");
+          AudioDSPGraph::ThrowException(1667655457, v455, off_1E8335F40);
+        }
+
+        *v455 = v249[5];
+        std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::__emplace_unique_key_args<AudioDSPGraph::Box *,AudioDSPGraph::Box * const&>((v248 + 120), v250, v455);
+        v5 = this;
+      }
+
+      v251 = v246 + 32;
+      v246 += 56;
+    }
+
+    while (v251 != v245);
+  }
+
+  v252 = *&a2[10].mFormatID;
+  v253 = *&a2[10].mBytesPerPacket;
+  if (v252 != v253)
+  {
+    while (1)
+    {
+      data = *v252;
+      v256 = (v252 + 32);
+      v255 = *(v252 + 32);
+      v257 = (v252 + 8);
+      LODWORD(v450.__r_.__value_.__l.__data_) = *v252;
+      if (v255 >> 15 == 49898)
+      {
+        break;
+      }
+
+      if (v255 == 1634626682 && *(v252 + 36) == 1952805748)
+      {
+        if ((*(v252 + 31) & 0x80000000) == 0)
+        {
+          v262 = *v257;
+          *&v455[16] = *(v252 + 24);
+          *v455 = v262;
+          v263 = *(v252 + 48);
+          *&v455[24] = *v256;
+          *&v455[40] = v263;
+          *__s1 = data;
+          goto LABEL_414;
+        }
+
+        std::string::__init_copy_ctor_external(v455, *(v252 + 8), *(v252 + 16));
+        v269 = *(v252 + 31);
+        v270 = *(v252 + 48);
+        *&v455[24] = *v256;
+        *&v455[40] = v270;
+        *__s1 = v450.__r_.__value_.__l.__data_;
+        if (v269 < 0)
+        {
+          std::string::__init_copy_ctor_external(&__s1[8], *(v252 + 8), *(v252 + 16));
+        }
+
+        else
+        {
+LABEL_414:
+          *&__s1[8] = *v257;
+          *&__s1[24] = *(v252 + 24);
+        }
+
+        p_src = 0;
+        operator new();
+      }
+
+      if (*(v252 + 31) < 0)
+      {
+        std::string::__init_copy_ctor_external(v455, *(v252 + 8), *(v252 + 16));
+        data = v450.__r_.__value_.__l.__data_;
+        v5 = this;
+      }
+
+      else
+      {
+        v261 = *v257;
+        *&v455[16] = *(v252 + 24);
+        *v455 = v261;
+      }
+
+      v266 = *v256;
+      *&v455[40] = *(v252 + 48);
+      *&v455[24] = v266;
+      __src = &unk_1F48D0E28;
+      p_src = &__src;
+      v451.__r_.__value_.__r.__words[0] = &v450;
+      v267 = std::__hash_table<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,AudioDSPGraph::AnalyzerBuilder::Info>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v5 + 62, data, &v451);
+      v268 = v267;
+      if (*(v267 + 47) < 0)
+      {
+        operator delete(v267[3]);
+      }
+
+      *(v268 + 3) = *v455;
+      v268[5] = *&v455[16];
+      v455[23] = 0;
+      v455[0] = 0;
+      *(v268 + 3) = *&v455[24];
+      *(v268 + 16) = *&v455[40];
+      std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Analyzer> ()(void)>::operator=[abi:ne200100]((v268 + 9), &__src);
+      std::__function::__value_func<std::unique_ptr<AudioDSPGraph::Analyzer> ()(void)>::~__value_func[abi:ne200100](&__src);
+      if ((v455[23] & 0x80000000) != 0)
+      {
+        operator delete(*v455);
+      }
+
+      v252 += 56;
+      if (v252 == v253)
+      {
+        goto LABEL_420;
+      }
+    }
+
+    if ((*(v252 + 31) & 0x80000000) == 0)
+    {
+      v258 = *v257;
+      *&v455[16] = *(v252 + 24);
+      *v455 = v258;
+      v259 = *v256;
+      *&v455[40] = *(v252 + 48);
+      *&v455[24] = v259;
+      LODWORD(v452.__r_.__value_.__l.__data_) = data;
+      *(v452.__r_.__value_.__r.__words + 4) = *v256;
+      HIDWORD(v452.__r_.__value_.__r.__words[2]) = *(v252 + 48);
+      goto LABEL_406;
+    }
+
+    std::string::__init_copy_ctor_external(v455, *(v252 + 8), *(v252 + 16));
+    v264 = *(v252 + 31);
+    v265 = *v256;
+    *&v455[40] = *(v252 + 48);
+    *&v455[24] = v265;
+    LODWORD(v452.__r_.__value_.__l.__data_) = v450.__r_.__value_.__l.__data_;
+    *(v452.__r_.__value_.__r.__words + 4) = *v256;
+    HIDWORD(v452.__r_.__value_.__r.__words[2]) = *(v252 + 48);
+    if (v264 < 0)
+    {
+      std::string::__init_copy_ctor_external(&__s, *(v252 + 8), *(v252 + 16));
+    }
+
+    else
+    {
+LABEL_406:
+      *&__s.__r_.__value_.__l.__data_ = *v257;
+      __s.__r_.__value_.__r.__words[2] = *(v252 + 24);
+    }
+
+    p_src = 0;
+    operator new();
+  }
+
+LABEL_420:
+  v271 = *&a2[10].mBitsPerChannel;
+  v272 = a2[11].mSampleRate;
+  if (v271 == *&v272)
+  {
+    goto LABEL_497;
+  }
+
+  while (2)
+  {
+    v273 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v271 + 1);
+    if (!v273 || (v274 = v273[5]) == 0)
+    {
+      std::string::basic_string[abi:ne200100]<0>(v429, "analysis box not found");
+      AudioDSPGraph::ThrowException(1852204065, v429, off_1E8335BE0);
+    }
+
+    v275 = *v271;
+    v276 = v271[8];
+    std::mutex::lock((v274 + 256));
+    for (ii = *(v274 + 320); ii != *(v274 + 328); ii += 8)
+    {
+      if (*(*ii + 24) == v275 && *(*ii + 80) == v276)
+      {
+        goto LABEL_496;
+      }
+    }
+
+    v278 = *(v274 + 16);
+    v279 = v278[32];
+    if (!*&v279)
+    {
+      goto LABEL_510;
+    }
+
+    v280 = vcnt_s8(v279);
+    v280.i16[0] = vaddlv_u8(v280);
+    if (v280.u32[0] > 1uLL)
+    {
+      v281 = v275;
+      if (*&v279 <= v275)
+      {
+        v281 = v275 % v279.i32[0];
+      }
+    }
+
+    else
+    {
+      v281 = (v279.i32[0] - 1) & v275;
+    }
+
+    v282 = *(*&v278[31] + 8 * v281);
+    if (!v282 || (v283 = *v282) == 0)
+    {
+LABEL_510:
+      std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+    }
+
+    while (2)
+    {
+      v284 = v283[1];
+      if (v284 != v275)
+      {
+        if (v280.u32[0] > 1uLL)
+        {
+          if (v284 >= *&v279)
+          {
+            v284 %= *&v279;
+          }
+        }
+
+        else
+        {
+          v284 &= *&v279 - 1;
+        }
+
+        if (v284 != v281)
+        {
+          goto LABEL_510;
+        }
+
+        goto LABEL_443;
+      }
+
+      if (*(v283 + 4) != v275)
+      {
+LABEL_443:
+        v283 = *v283;
+        if (!v283)
+        {
+          goto LABEL_510;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    v285 = v283[12];
+    if (!v285)
+    {
+      std::__throw_bad_function_call[abi:ne200100]();
+    }
+
+    v286 = (*(*v285 + 48))(&v452);
+    v287 = v452.__r_.__value_.__r.__words[0];
+    if (!v452.__r_.__value_.__r.__words[0])
+    {
+      std::string::basic_string[abi:ne200100]<0>(v455, "Box::addAnalyzer, Analyzer Not Supported.");
+      AudioDSPGraph::ThrowException(1852204065, v455, off_1E8334B30);
+    }
+
+    *(v452.__r_.__value_.__r.__words[0] + 80) = v276;
+    *(v287 + 88) = AudioDSPGraph::Graph::generateSerialNumber(v286);
+    v288 = *(v274 + 16);
+    v289 = v452.__r_.__value_.__r.__words[0];
+    std::mutex::lock((v288 + 176));
+    v290 = 0x9DDFEA08EB382D69 * ((8 * (v289 & 0x1FFFFFFF) + 8) ^ HIDWORD(v289));
+    v291 = 0x9DDFEA08EB382D69 * (HIDWORD(v289) ^ (v290 >> 47) ^ v290);
+    v292 = 0x9DDFEA08EB382D69 * (v291 ^ (v291 >> 47));
+    v293 = *(v288 + 104);
+    if (!*&v293)
+    {
+      goto LABEL_463;
+    }
+
+    v294 = vcnt_s8(v293);
+    v294.i16[0] = vaddlv_u8(v294);
+    if (v294.u32[0] > 1uLL)
+    {
+      v295 = 0x9DDFEA08EB382D69 * (v291 ^ (v291 >> 47));
+      if (v292 >= *&v293)
+      {
+        v295 = v292 % *&v293;
+      }
+    }
+
+    else
+    {
+      v295 = v292 & (*&v293 - 1);
+    }
+
+    v296 = *(*(v288 + 96) + 8 * v295);
+    if (!v296 || (v297 = *v296) == 0)
+    {
+LABEL_463:
+      operator new();
+    }
+
+    while (2)
+    {
+      v298 = v297[1];
+      if (v298 != v292)
+      {
+        if (v294.u32[0] > 1uLL)
+        {
+          if (v298 >= *&v293)
+          {
+            v298 %= *&v293;
+          }
+        }
+
+        else
+        {
+          v298 &= *&v293 - 1;
+        }
+
+        if (v298 != v295)
+        {
+          goto LABEL_463;
+        }
+
+LABEL_462:
+        v297 = *v297;
+        if (!v297)
+        {
+          goto LABEL_463;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    if (v297[2] != v289)
+    {
+      goto LABEL_462;
+    }
+
+    v299 = *(v289 + 88);
+    v300 = *(v288 + 144);
+    if (!*&v300)
+    {
+      goto LABEL_480;
+    }
+
+    v301 = vcnt_s8(v300);
+    v301.i16[0] = vaddlv_u8(v301);
+    if (v301.u32[0] > 1uLL)
+    {
+      v302 = *(v289 + 88);
+      if (v299 >= *&v300)
+      {
+        v302 = v299 % *&v300;
+      }
+    }
+
+    else
+    {
+      v302 = (*&v300 - 1) & v299;
+    }
+
+    v303 = *(*(v288 + 136) + 8 * v302);
+    if (!v303 || (v304 = *v303) == 0)
+    {
+LABEL_480:
+      operator new();
+    }
+
+    while (2)
+    {
+      v305 = v304[1];
+      if (v305 != v299)
+      {
+        if (v301.u32[0] > 1uLL)
+        {
+          if (v305 >= *&v300)
+          {
+            v305 %= *&v300;
+          }
+        }
+
+        else
+        {
+          v305 &= *&v300 - 1;
+        }
+
+        if (v305 != v302)
+        {
+          goto LABEL_480;
+        }
+
+LABEL_479:
+        v304 = *v304;
+        if (!v304)
+        {
+          goto LABEL_480;
+        }
+
+        continue;
+      }
+
+      break;
+    }
+
+    if (v304[2] != v299)
+    {
+      goto LABEL_479;
+    }
+
+    std::mutex::unlock((v288 + 176));
+    v307 = *(v274 + 328);
+    v306 = *(v274 + 336);
+    if (v307 >= v306)
+    {
+      v310 = *(v274 + 320);
+      v311 = v307 - v310;
+      v312 = (v307 - v310) >> 3;
+      v313 = v312 + 1;
+      if ((v312 + 1) >> 61)
+      {
+        std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+      }
+
+      v314 = v306 - v310;
+      if (v314 >> 2 > v313)
+      {
+        v313 = v314 >> 2;
+      }
+
+      if (v314 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v315 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v315 = v313;
+      }
+
+      if (v315)
+      {
+        if (!(v315 >> 61))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      v316 = v312;
+      v317 = (8 * v312);
+      v318 = v452.__r_.__value_.__r.__words[0];
+      v452.__r_.__value_.__r.__words[0] = 0;
+      v319 = &v317[-v316];
+      *v317 = v318;
+      v309 = v317 + 1;
+      memcpy(v319, v310, v311);
+      v320 = *(v274 + 320);
+      *(v274 + 320) = v319;
+      *(v274 + 328) = v309;
+      *(v274 + 336) = 0;
+      if (v320)
+      {
+        operator delete(v320);
+      }
+    }
+
+    else
+    {
+      v308 = v452.__r_.__value_.__r.__words[0];
+      v452.__r_.__value_.__r.__words[0] = 0;
+      *v307 = v308;
+      v309 = v307 + 8;
+    }
+
+    *(v274 + 328) = v309;
+    atomic_fetch_add((v274 + 760), 1u);
+    v321 = v452.__r_.__value_.__r.__words[0];
+    v452.__r_.__value_.__r.__words[0] = 0;
+    if (v321)
+    {
+      (*(*v321 + 8))(v321);
+    }
+
+LABEL_496:
+    std::mutex::unlock((v274 + 256));
+    v271 += 10;
+    v5 = this;
+    if (v271 != *&v272)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_497:
+  v322 = *&a2[11].mBytesPerPacket;
+  v323 = *&a2[11].mBytesPerFrame;
+  if (v322 != v323)
+  {
+    while (1)
+    {
+      v324 = (v322 + 3);
+      v325 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, v322 + 3);
+      if (!v325)
+      {
+        goto LABEL_621;
+      }
+
+      v326 = v325[5];
+      if (!v326)
+      {
+        break;
+      }
+
+      v327 = v322;
+      if (*(v322 + 23) < 0)
+      {
+        v327 = *v322;
+      }
+
+      (*(*v326 + 144))(v326, v327, *(v322 + 12), *(v322 + 52));
+      v322 += 7;
+      v5 = this;
+      if (v322 == v323)
+      {
+        goto LABEL_503;
+      }
+    }
+
+    v324 = (v322 + 3);
+LABEL_621:
+    v392 = *(v322 + 47);
+    v393 = v392;
+    v394 = v322[3];
+    v395 = v322[4];
+    v452.__r_.__value_.__r.__words[2] = 13;
+    if ((v392 & 0x80u) != 0)
+    {
+      v392 = v395;
+    }
+
+    if (v393 >= 0)
+    {
+      v396 = v324;
+    }
+
+    else
+    {
+      v396 = v394;
+    }
+
+    v452.__r_.__value_.__l.__size_ = v392;
+    v452.__r_.__value_.__r.__words[0] = v396;
+    *v455 = &v455[40];
+    *&v455[8] = xmmword_1C925F110;
+    *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v455[32] = 0;
+    v460 = &v455[40];
+    *__s1 = 1;
+    *&__s1[8] = &v452;
+    *&__s1[16] = 13;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "inject box {} not found", 25, __s1);
+    std::string::basic_string<std::string_view,0>(v428, v460, *&v455[16]);
+    if (v460 != &v455[40])
+    {
+      operator delete(v460);
+    }
+
+    AudioDSPGraph::ThrowException(1852204065, v428, off_1E8335BF8);
+  }
+
+LABEL_503:
+  v328 = a2[12].mSampleRate;
+  v329 = *&a2[12].mFormatID;
+  if (*&v328 != v329)
+  {
+    while (1)
+    {
+      v330 = *&v328 + 24;
+      v331 = std::__hash_table<std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,AudioDSPGraph::Box *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,AudioDSPGraph::Box *>>>::find<std::string>(v5 + 117, (*&v328 + 24));
+      if (!v331)
+      {
+        goto LABEL_630;
+      }
+
+      v332 = v331[5];
+      if (!v332)
+      {
+        break;
+      }
+
+      v333 = v328;
+      if (*(*&v328 + 23) < 0)
+      {
+        v333 = **&v328;
+      }
+
+      (*(*v332 + 160))(v332, COERCE_FLOAT64(*&v333), *(*&v328 + 48), 1, (BYTE1(a2[1].mFormatID) >> 3) & 1, 4130);
+      *&v328 += 56;
+      v5 = this;
+      if (*&v328 == v329)
+      {
+        return;
+      }
+    }
+
+    v330 = *&v328 + 24;
+LABEL_630:
+    v397 = *(*&v328 + 47);
+    v398 = v397;
+    v399 = *(*&v328 + 24);
+    v400 = *(*&v328 + 32);
+    v452.__r_.__value_.__r.__words[2] = 13;
+    if ((v397 & 0x80u) != 0)
+    {
+      v397 = v400;
+    }
+
+    if (v398 >= 0)
+    {
+      v401 = v330;
+    }
+
+    else
+    {
+      v401 = v399;
+    }
+
+    v452.__r_.__value_.__l.__size_ = v397;
+    v452.__r_.__value_.__r.__words[0] = v401;
+    *v455 = &v455[40];
+    *&v455[8] = xmmword_1C925F110;
+    *&v455[24] = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v455[32] = 0;
+    v460 = &v455[40];
+    *__s1 = 1;
+    *&__s1[8] = &v452;
+    *&__s1[16] = 13;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v455, "record box {} not found", 25, __s1);
+    std::string::basic_string<std::string_view,0>(v427, v460, *&v455[16]);
+    if (v460 != &v455[40])
+    {
+      operator delete(v460);
+    }
+
+    AudioDSPGraph::ThrowException(1852204065, v427, off_1E8335C10);
+  }
 }

@@ -1,4 +1,4 @@
-void sub_100001DBC(const void **a1, _WORD *a2)
+void sub_100001DBC(const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -264,9 +264,9 @@ float UniformFloat(uint64_t *a1)
   return result;
 }
 
-void sub_100003F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -473,7 +473,7 @@ void sub_1000063C0(IONotificationPort **a1, io_iterator_t a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void sub_100006980(uint64_t a1, io_registry_entry_t a2, int a3)
+void sub_100006980(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3 == -536723200)
   {
@@ -481,21 +481,22 @@ void sub_100006980(uint64_t a1, io_registry_entry_t a2, int a3)
   }
 }
 
-void sub_10000699C(io_registry_entry_t a1)
+void sub_10000699C(uint64_t a1)
 {
+  v1 = a1;
   v2 = objc_autoreleasePoolPush();
   v3 = +[NSMutableDictionary dictionary];
-  sub_100006DB8(a1, v3, @"CurrentCapacity");
-  sub_100006DB8(a1, v3, @"MaxCapacity");
-  sub_100006DB8(a1, v3, @"AtCriticalLevel");
-  sub_100006DB8(a1, v3, @"Voltage");
-  sub_100006DB8(a1, v3, @"FullyCharged");
-  sub_100006DB8(a1, v3, @"IsCharging");
-  sub_100006DB8(a1, v3, @"ExternalConnected");
-  sub_100006DB8(a1, v3, @"ExternalChargeCapable");
-  sub_100006DB8(a1, v3, @"AdapterInfo");
-  sub_100006DB8(a1, v3, @"CapacityEstimated");
-  sub_100006DB8(a1, v3, @"AdapterDetails");
+  sub_100006DB8(v1, v3, @"CurrentCapacity");
+  sub_100006DB8(v1, v3, @"MaxCapacity");
+  sub_100006DB8(v1, v3, @"AtCriticalLevel");
+  sub_100006DB8(v1, v3, @"Voltage");
+  sub_100006DB8(v1, v3, @"FullyCharged");
+  sub_100006DB8(v1, v3, @"IsCharging");
+  sub_100006DB8(v1, v3, @"ExternalConnected");
+  sub_100006DB8(v1, v3, @"ExternalChargeCapable");
+  sub_100006DB8(v1, v3, @"AdapterInfo");
+  sub_100006DB8(v1, v3, @"CapacityEstimated");
+  sub_100006DB8(v1, v3, @"AdapterDetails");
   v4 = [v3 count];
   v5 = DiagnosticLogHandleForCategory();
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
@@ -604,22 +605,25 @@ void sub_100006DB8(io_registry_entry_t a1, void *a2, const __CFString *a3)
   }
 }
 
-void sub_100006E44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006E44(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_100006E60(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006E60(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_100007294(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007294(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 BOOL sub_100007640(id a1, id a2)
@@ -690,7 +694,7 @@ double matrix4x4_rotation(float a1, float32x4_t a2)
   return *v5.i64;
 }
 
-void sub_10000B2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id a56)
+void sub_10000B2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id a56)
 {
   _Block_object_dispose(&a51, 8);
 
@@ -734,22 +738,28 @@ void sub_10000B72C(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Updating battery data based on properties: %{public}@", &v2, 0xCu);
 }
 
-void sub_10000B7A4()
+void sub_10000B7A4(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  sub_100007294(&_mh_execute_header, v1, v2, "Starting [%@]", v3, v4, v5, v6, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  sub_100007294(&_mh_execute_header, v2, v3, "Starting [%@]", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void sub_10000B82C()
+void sub_10000B82C(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  sub_100007294(&_mh_execute_header, v1, v2, "Cancelling [%@]", v3, v4, v5, v6, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  sub_100007294(&_mh_execute_header, v2, v3, "Cancelling [%@]", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void sub_10000B8B4()
+void sub_10000B8B4(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  sub_100007294(&_mh_execute_header, v1, v2, "Finishing [%@]", v3, v4, v5, v6, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  sub_100007294(&_mh_execute_header, v2, v3, "Finishing [%@]", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_10000BAA4(uint64_t a1, NSObject *a2)

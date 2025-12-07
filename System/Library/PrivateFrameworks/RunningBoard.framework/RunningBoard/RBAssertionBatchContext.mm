@@ -16,7 +16,7 @@
 
 + (id)contextForProcess:(id)process withDescriptorsToAcquire:(id)acquire identifiersToInvalidate:(id)invalidate daemonContext:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   processCopy = process;
   acquireCopy = acquire;
   invalidateCopy = invalidate;
@@ -53,29 +53,29 @@ LABEL_3:
 LABEL_21:
   +[RBAssertionBatchContext contextForProcess:withDescriptorsToAcquire:identifiersToInvalidate:daemonContext:];
 LABEL_4:
-  v26 = invalidateCopy;
+  v25 = invalidateCopy;
   selfCopy = self;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v14 = acquireCopy;
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
     v17 = 0;
-    v18 = *v29;
+    v18 = *v28;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v18)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = [RBAssertionAcquisitionContext contextForProcess:processCopy withDescriptor:*(*(&v28 + 1) + 8 * i) daemonContext:contextCopy, v26, selfCopy, v28];
+        v20 = [RBAssertionAcquisitionContext contextForProcess:processCopy withDescriptor:*(*(&v27 + 1) + 8 * i) daemonContext:contextCopy, v25, selfCopy, v27];
         acquisitionPolicy = [v20 acquisitionPolicy];
         if (acquisitionPolicy > v17)
         {
@@ -87,7 +87,7 @@ LABEL_4:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v16);
@@ -98,9 +98,7 @@ LABEL_4:
     v17 = 0;
   }
 
-  v23 = [selfCopy contextForProcess:processCopy acquisitionCompletionPolicy:v17 withDescriptorsToAcquire:v14 identifiersToInvalidate:v26 daemonContext:contextCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [selfCopy contextForProcess:processCopy acquisitionCompletionPolicy:v17 withDescriptorsToAcquire:v14 identifiersToInvalidate:v25 daemonContext:contextCopy];
 
   return v23;
 }

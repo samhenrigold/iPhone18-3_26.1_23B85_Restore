@@ -22,7 +22,7 @@
 
   v6 = sub_1E3D497F4(v8);
 
-  sub_1E325F748(v8, &unk_1ECF296E0);
+  sub_1E325F748(v8, &unk_1ECF296E0, &unk_1E4298030);
   return v6 & 1;
 }
 

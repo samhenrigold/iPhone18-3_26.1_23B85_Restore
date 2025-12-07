@@ -258,7 +258,7 @@ void __121__RTSettledStateMetrics_createSettledStateMetricsForNewSettledStateTra
   *a4 = 1;
 }
 
-uint64_t __121__RTSettledStateMetrics_createSettledStateMetricsForNewSettledStateTransition_settledStateTransitionStore_locationStore___block_invoke_46(uint64_t a1, void *a2)
+void *__121__RTSettledStateMetrics_createSettledStateMetricsForNewSettledStateTransition_settledStateTransitionStore_locationStore___block_invoke_46(uint64_t a1, void *a2)
 {
   result = [a2 distanceTraveled];
   *(*(*(a1 + 32) + 8) + 24) = v4;

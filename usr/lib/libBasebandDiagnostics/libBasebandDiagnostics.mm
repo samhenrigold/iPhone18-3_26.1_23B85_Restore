@@ -116,44 +116,44 @@ void BasebandRFDiagnostics::resetAll(BasebandRFDiagnostics *this)
 
 void BasebandRFDiagnostics::create(std::__shared_weak_count ***a1@<X8>)
 {
-  v3 = operator new(0xE0uLL);
-  BasebandDiagnostics::BasebandDiagnostics(v3);
-  *v3 = &unk_2A1E20678;
-  v3[17] = 0;
-  v3[18] = 0;
-  v3[16] = 0;
-  v3[21] = 0;
-  v3[22] = 0;
-  v3[20] = 0;
-  v3[24] = 0;
-  *(v3 + 50) = 0;
-  v3[26] = 0;
-  *(v3 + 54) = 0;
-  *a1 = v3;
+  v2 = operator new(0xE0uLL);
+  BasebandDiagnostics::BasebandDiagnostics(v2);
+  *v2 = &unk_2A1E20678;
+  v2[17] = 0;
+  v2[18] = 0;
+  v2[16] = 0;
+  v2[21] = 0;
+  v2[22] = 0;
+  v2[20] = 0;
+  v2[24] = 0;
+  *(v2 + 50) = 0;
+  v2[26] = 0;
+  *(v2 + 54) = 0;
+  *a1 = v2;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v4 = operator new(0x20uLL);
-  v4[1] = 0;
-  v5 = v4 + 1;
-  *v4 = &unk_2A1E206C0;
-  v4[2] = 0;
-  v4[3] = v3;
-  a1[1] = v4;
-  v6 = v3[2];
-  if (v6)
+  v3 = operator new(0x20uLL);
+  v3->__shared_owners_ = 0;
+  p_shared_owners = &v3->__shared_owners_;
+  v3->__vftable = &unk_2A1E206C0;
+  v3->__shared_weak_owners_ = 0;
+  v3[1].__vftable = v2;
+  a1[1] = v3;
+  v5 = v2[2];
+  if (v5)
   {
-    if (v6->__shared_owners_ != -1)
+    if (v5->__shared_owners_ != -1)
     {
       return;
     }
 
-    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
-    v3[1] = v3;
-    v3[2] = v4;
-    v7 = v4;
-    std::__shared_weak_count::__release_weak(v6);
-    v4 = v7;
-    if (atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v2[1] = v2;
+    v2[2] = v3;
+    v6 = v3;
+    std::__shared_weak_count::__release_weak(v5);
+    v3 = v6;
+    if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
       return;
     }
@@ -161,20 +161,20 @@ void BasebandRFDiagnostics::create(std::__shared_weak_count ***a1@<X8>)
 
   else
   {
-    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
-    v3[1] = v3;
-    v3[2] = v4;
-    if (atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v3->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v2[1] = v2;
+    v2[2] = v3;
+    if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
       return;
     }
   }
 
-  v8 = v4;
-  (*(*v4 + 16))();
+  v7 = v3;
+  (v3->__on_zero_shared)();
 
-  std::__shared_weak_count::__release_weak(v8);
+  std::__shared_weak_count::__release_weak(v7);
 }
 
 void sub_296FE511C(void *a1)
@@ -186,7 +186,7 @@ void sub_296FE511C(void *a1)
 
 uint64_t BasebandRFDiagnostics::getBasebandPersonalizationInfoINT(BasebandRFDiagnostics *this)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v2 = xpc_dictionary_create(0, 0, 0);
   v3 = MEMORY[0x29EDCAA00];
   if (v2 || (v2 = xpc_null_create()) != 0)
@@ -220,14 +220,14 @@ uint64_t BasebandRFDiagnostics::getBasebandPersonalizationInfoINT(BasebandRFDiag
   v6 = xpc_null_create();
   xpc_release(v5);
   xpc_release(v6);
-  v33 = xpc_null_create();
+  v32 = xpc_null_create();
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__p = v7;
-  v32 = v7;
+  v31 = v7;
   v8 = *(this + 8);
-  v29 = *(this + 7);
-  v30 = v8;
+  v28 = *(this + 7);
+  v29 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -255,12 +255,12 @@ uint64_t BasebandRFDiagnostics::getBasebandPersonalizationInfoINT(BasebandRFDiag
 
     v12 = operator new(v13);
     __dst[1] = v11;
-    v28 = v13 | 0x8000000000000000;
+    v27 = v13 | 0x8000000000000000;
     __dst[0] = v12;
     goto LABEL_19;
   }
 
-  HIBYTE(v28) = v10;
+  HIBYTE(v27) = v10;
   v12 = __dst;
   if (v10)
   {
@@ -270,19 +270,19 @@ LABEL_19:
 
   *(v11 + v12) = 0;
   abm::client::PerformCommand();
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v14 = v30;
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v14 = v29;
+  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v14->__on_zero_shared)(v14);
     std::__shared_weak_count::__release_weak(v14);
     object = 0xAAAAAAAAAAAAAAAALL;
-    v15 = v33;
-    if (v33)
+    v15 = v32;
+    if (v32)
     {
       goto LABEL_25;
     }
@@ -291,8 +291,8 @@ LABEL_19:
   else
   {
     object = 0xAAAAAAAAAAAAAAAALL;
-    v15 = v33;
-    if (v33)
+    v15 = v32;
+    if (v32)
     {
 LABEL_25:
       object = v15;
@@ -330,23 +330,23 @@ LABEL_34:
       goto LABEL_35;
     }
 
-    TelephonyXPC::Result::describe(__p, __dst);
-    if (v28 >= 0)
+    TelephonyXPC::Result::describe(__dst, __p);
+    if (v27 >= 0)
     {
-      v24 = __dst;
+      v23 = __dst;
     }
 
     else
     {
-      v24 = __dst[0];
+      v23 = __dst[0];
     }
 
     *buf = 136315138;
-    *&buf[4] = v24;
-    v23 = "Get pers parameters cmd failed: %s";
+    *&buf[4] = v23;
+    v22 = "Get pers parameters cmd failed: %s";
 LABEL_62:
-    _os_log_error_impl(&dword_296FE4000, v17, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
-    if (SHIBYTE(v28) < 0)
+    _os_log_error_impl(&dword_296FE4000, v17, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
+    if (SHIBYTE(v27) < 0)
     {
       operator delete(__dst[0]);
     }
@@ -366,7 +366,7 @@ LABEL_62:
 
   if (xpc_dictionary_get_value(object, *MEMORY[0x29EDBEEF0]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBE840]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBE8E0]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBF178]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBF168]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBEEE8]) && xpc_dictionary_get_value(object, *MEMORY[0x29EDBE8E8]))
   {
-    v25 = object;
+    v24 = object;
     if (object)
     {
       xpc_retain(object);
@@ -374,7 +374,7 @@ LABEL_62:
 
     else
     {
-      v25 = xpc_null_create();
+      v24 = xpc_null_create();
     }
 
     xpc::bridge();
@@ -382,7 +382,7 @@ LABEL_62:
     ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::operator=(this + 24, __dst);
     ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(__dst);
     ctu::cf::CFSharedRef<void const>::~CFSharedRef(buf);
-    xpc_release(v25);
+    xpc_release(v24);
     v19 = 1;
     goto LABEL_38;
   }
@@ -391,19 +391,19 @@ LABEL_62:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     xpc::object::to_string(__dst, &object);
-    if (v28 >= 0)
+    if (v27 >= 0)
     {
-      v22 = __dst;
+      v21 = __dst;
     }
 
     else
     {
-      v22 = __dst[0];
+      v21 = __dst[0];
     }
 
     *buf = 136315138;
-    *&buf[4] = v22;
-    v23 = "Missing parameters in GetPersInfo: %s";
+    *&buf[4] = v21;
+    v22 = "Missing parameters in GetPersInfo: %s";
     goto LABEL_62;
   }
 
@@ -418,13 +418,12 @@ LABEL_35:
   v19 = 0;
 LABEL_38:
   xpc_release(object);
-  if (SHIBYTE(v32) < 0)
+  if (SHIBYTE(v31) < 0)
   {
     operator delete(__p[1]);
   }
 
   xpc_release(v4);
-  v20 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
@@ -466,7 +465,7 @@ const void **ctu::cf::CFSharedRef<void const>::~CFSharedRef(const void **a1)
   return a1;
 }
 
-uint64_t TelephonyXPC::Result::describe@<X0>(TelephonyXPC::Result *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *TelephonyXPC::Result::describe@<X0>(uint64_t *__return_ptr a1@<X8>, TelephonyXPC::Result *this@<X0>)
 {
   v34 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -671,7 +670,7 @@ LABEL_38:
     if ((BYTE8(v32) & 8) == 0)
     {
       v17 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_52;
     }
 
@@ -697,22 +696,22 @@ LABEL_56:
     }
 
     v21 = operator new(v20);
-    *(a2 + 1) = v17;
-    *(a2 + 2) = v20 | 0x8000000000000000;
-    *a2 = v21;
-    a2 = v21;
+    a1[1] = v17;
+    a1[2] = v20 | 0x8000000000000000;
+    *a1 = v21;
+    a1 = v21;
     goto LABEL_51;
   }
 
-  a2[23] = v17;
+  *(a1 + 23) = v17;
   if (v17)
   {
 LABEL_51:
-    memmove(a2, v19, v17);
+    memmove(a1, v19, v17);
   }
 
 LABEL_52:
-  a2[v17] = 0;
+  *(a1 + v17) = 0;
   *&v26 = *MEMORY[0x29EDC9538];
   *(&v26 + *(v26 - 24)) = *(MEMORY[0x29EDC9538] + 24);
   *(&v26 + 1) = MEMORY[0x29EDC9570] + 16;
@@ -727,22 +726,22 @@ LABEL_52:
   return MEMORY[0x29C269940](v33);
 }
 
-void sub_296FE5CF4(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+void sub_296FE5CF4(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a22);
-  if (a7 < 0)
+  va_start(va, a26);
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
-  std::ostringstream::~ostringstream(&a9, MEMORY[0x29EDC9538]);
+  std::ostringstream::~ostringstream(&a13, MEMORY[0x29EDC9538]);
   MEMORY[0x29C269940](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t BasebandRFDiagnostics::getBasebandPersonalizationInfo(BasebandRFDiagnostics *this)
 {
-  v57 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   v2 = xpc_dictionary_create(0, 0, 0);
   v3 = MEMORY[0x29EDCAA00];
   if (v2 || (v2 = xpc_null_create()) != 0)
@@ -776,14 +775,14 @@ uint64_t BasebandRFDiagnostics::getBasebandPersonalizationInfo(BasebandRFDiagnos
   v6 = xpc_null_create();
   xpc_release(v5);
   xpc_release(v6);
-  v55 = xpc_null_create();
+  v52 = xpc_null_create();
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__p = v7;
-  v54 = v7;
+  v51 = v7;
   v8 = *(this + 8);
-  v51 = *(this + 7);
-  v52 = v8;
+  v48 = *(this + 7);
+  v49 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -831,13 +830,13 @@ LABEL_19:
     operator delete(*__dst);
   }
 
-  v14 = v52;
-  if (v52 && !atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v14 = v49;
+  if (v49 && !atomic_fetch_add(&v49->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v14->__on_zero_shared)(v14);
     std::__shared_weak_count::__release_weak(v14);
-    v15 = v55;
-    if (v55)
+    v15 = v52;
+    if (v52)
     {
       goto LABEL_28;
     }
@@ -845,8 +844,8 @@ LABEL_19:
 
   else
   {
-    v15 = v55;
-    if (v55)
+    v15 = v52;
+    if (v52)
     {
       goto LABEL_28;
     }
@@ -875,7 +874,7 @@ LABEL_28:
 LABEL_31:
   xpc_release(v15);
   v17 = buf;
-  if (LODWORD(__p[0]) || MEMORY[0x29C269CA0](v16) != v3 || (v23 = *MEMORY[0x29EDBEEF0], !xpc_dictionary_get_value(v16, *MEMORY[0x29EDBEEF0])) || (v24 = *MEMORY[0x29EDBE840], !xpc_dictionary_get_value(v16, *MEMORY[0x29EDBE840])))
+  if (LODWORD(__p[0]) || MEMORY[0x29C269CA0](v16) != v3 || (v22 = *MEMORY[0x29EDBEEF0], !xpc_dictionary_get_value(v16, *MEMORY[0x29EDBEEF0])) || (v23 = *MEMORY[0x29EDBE840], !xpc_dictionary_get_value(v16, *MEMORY[0x29EDBE840])))
   {
     v18 = *(this + 5);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -894,10 +893,10 @@ LABEL_35:
       v19 = *(this + 5);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        TelephonyXPC::Result::describe(__p, __dst);
-        v26 = __dst[23] >= 0 ? __dst : *__dst;
+        TelephonyXPC::Result::describe(__dst, __p);
+        v25 = __dst[23] >= 0 ? __dst : *__dst;
         *buf = 136315138;
-        *&buf[4] = v26;
+        *&buf[4] = v25;
         _os_log_error_impl(&dword_296FE4000, v19, OS_LOG_TYPE_ERROR, "Get firmware info cmd failed: %s", buf, 0xCu);
         if ((__dst[23] & 0x80000000) != 0)
         {
@@ -910,7 +909,7 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  value = xpc_dictionary_get_value(v16, v23);
+  value = xpc_dictionary_get_value(v16, v22);
   object = value;
   if (value)
   {
@@ -930,11 +929,11 @@ LABEL_35:
     operator delete(*__dst);
   }
 
-  v27 = *(this + 16);
-  if (v27)
+  v26 = *(this + 16);
+  if (v26)
   {
-    *(this + 17) = v27;
-    operator delete(v27);
+    *(this + 17) = v26;
+    operator delete(v26);
     *(this + 16) = 0;
     *(this + 17) = 0;
     *(this + 18) = 0;
@@ -944,11 +943,11 @@ LABEL_35:
   *(this + 18) = *&buf[16];
   memset(buf, 0, sizeof(buf));
   xpc_release(object);
-  v28 = xpc_dictionary_get_value(v16, v24);
-  *__dst = v28;
-  if (v28)
+  v27 = xpc_dictionary_get_value(v16, v23);
+  *__dst = v27;
+  if (v27)
   {
-    xpc_retain(v28);
+    xpc_retain(v27);
   }
 
   else
@@ -959,33 +958,32 @@ LABEL_35:
   *(this + 38) = xpc::dyn_cast_or_default();
   xpc_release(*__dst);
   memset(__dst, 170, 24);
-  ctu::hex(*(this + 16), (*(this + 17) - *(this + 16)));
-  v29 = *(this + 5);
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  ctu::hex(__dst, *(this + 16), (*(this + 17) - *(this + 16)));
+  v28 = *(this + 5);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    v41 = __dst;
+    v40 = __dst;
     if (__dst[23] < 0)
     {
-      v41 = *__dst;
+      v40 = *__dst;
     }
 
-    v42 = *(this + 38);
+    v41 = *(this + 38);
     *buf = 136315394;
-    *&buf[4] = v41;
+    *&buf[4] = v40;
     *&buf[12] = 1024;
-    *&buf[14] = v42;
-    _os_log_debug_impl(&dword_296FE4000, v29, OS_LOG_TYPE_DEBUG, "#D Serial Number: %s, ChipId: %d", buf, 0x12u);
+    *&buf[14] = v41;
+    _os_log_debug_impl(&dword_296FE4000, v28, OS_LOG_TYPE_DEBUG, "#D Serial Number: %s, ChipId: %d", buf, 0x12u);
     if ((__dst[23] & 0x80000000) == 0)
     {
 LABEL_61:
-      *&v30 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v30 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__dst = v30;
-      *&__dst[16] = v30;
-      v31 = *(this + 8);
-      v46 = *(this + 7);
-      v48 = v31;
-      if (!v31)
+      *&v29 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *__dst = v29;
+      *&__dst[16] = v29;
+      v30 = *(this + 8);
+      v45 = v30;
+      if (!v30)
       {
         goto LABEL_63;
       }
@@ -1000,99 +998,98 @@ LABEL_61:
   }
 
   operator delete(*__dst);
-  *&v43 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v43 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *__dst = v43;
-  *&__dst[16] = v43;
-  v31 = *(this + 8);
-  v47 = *(this + 7);
-  v48 = v31;
-  if (v31)
+  *&v42 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *__dst = v42;
+  *&__dst[16] = v42;
+  v30 = *(this + 8);
+  v45 = v30;
+  if (v30)
   {
 LABEL_62:
-    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
 LABEL_63:
-  v32 = *MEMORY[0x29EDBEA00];
-  v33 = strlen(*MEMORY[0x29EDBEA00]);
-  if (v33 > 0x7FFFFFFFFFFFFFF7)
+  v31 = *MEMORY[0x29EDBEA00];
+  v32 = strlen(*MEMORY[0x29EDBEA00]);
+  if (v32 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v34 = v33;
-  if (v33 >= 0x17)
+  v33 = v32;
+  if (v32 >= 0x17)
   {
-    if ((v33 | 7) == 0x17)
+    if ((v32 | 7) == 0x17)
     {
-      v35 = 25;
+      v34 = 25;
     }
 
     else
     {
-      v35 = (v33 | 7) + 1;
+      v34 = (v32 | 7) + 1;
     }
 
-    v17 = operator new(v35);
-    *&buf[8] = v34;
-    *&buf[16] = v35 | 0x8000000000000000;
+    v17 = operator new(v34);
+    *&buf[8] = v33;
+    *&buf[16] = v34 | 0x8000000000000000;
     *buf = v17;
   }
 
   else
   {
-    buf[23] = v33;
-    if (!v33)
+    buf[23] = v32;
+    if (!v32)
     {
       goto LABEL_72;
     }
   }
 
-  memmove(v17, v32, v34);
+  memmove(v17, v31, v33);
 LABEL_72:
-  *(v17 + v34) = 0;
+  *(v17 + v33) = 0;
   abm::client::PerformCommand();
   if (buf[23] < 0)
   {
     operator delete(*buf);
   }
 
-  if (v48 && !atomic_fetch_add(&v48->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v48->__on_zero_shared)(v48);
-    std::__shared_weak_count::__release_weak(v48);
+    (v45->__on_zero_shared)(v45);
+    std::__shared_weak_count::__release_weak(v45);
   }
 
-  v36 = v55;
-  if (v55 || (v36 = xpc_null_create()) != 0)
+  v35 = v52;
+  if (v52 || (v35 = xpc_null_create()) != 0)
   {
-    if (MEMORY[0x29C269CA0](v36) == v3)
+    if (MEMORY[0x29C269CA0](v35) == v3)
     {
-      xpc_retain(v36);
-      v37 = v36;
+      xpc_retain(v35);
+      v36 = v35;
     }
 
     else
     {
-      v37 = xpc_null_create();
+      v36 = xpc_null_create();
     }
   }
 
   else
   {
-    v37 = xpc_null_create();
-    v36 = 0;
+    v36 = xpc_null_create();
+    v35 = 0;
   }
 
-  xpc_release(v36);
-  if (!*__dst && MEMORY[0x29C269CA0](v37) == v3 && (v39 = *MEMORY[0x29EDBE838], xpc_dictionary_get_value(v37, *MEMORY[0x29EDBE838])))
+  xpc_release(v35);
+  if (!*__dst && MEMORY[0x29C269CA0](v36) == v3 && (v38 = *MEMORY[0x29EDBE838], xpc_dictionary_get_value(v36, *MEMORY[0x29EDBE838])))
   {
-    v40 = xpc_dictionary_get_value(v37, v39);
-    *buf = v40;
-    if (v40)
+    v39 = xpc_dictionary_get_value(v36, v38);
+    *buf = v39;
+    if (v39)
     {
-      xpc_retain(v40);
+      xpc_retain(v39);
     }
 
     else
@@ -1102,13 +1099,13 @@ LABEL_72:
 
     *(this + 46) = xpc::dyn_cast_or_default();
     xpc_release(*buf);
-    v44 = *(this + 5);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v43 = *(this + 5);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      v45 = *(this + 46);
+      v44 = *(this + 46);
       *buf = 67109120;
-      *&buf[4] = v45;
-      _os_log_debug_impl(&dword_296FE4000, v44, OS_LOG_TYPE_DEBUG, "#D GoldCertID: 0x%x", buf, 8u);
+      *&buf[4] = v44;
+      _os_log_debug_impl(&dword_296FE4000, v43, OS_LOG_TYPE_DEBUG, "#D GoldCertID: 0x%x", buf, 8u);
     }
 
     v20 = 1;
@@ -1116,17 +1113,17 @@ LABEL_72:
 
   else
   {
-    v38 = *(this + 5);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = *(this + 5);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_296FE4000, v38, OS_LOG_TYPE_ERROR, "Failed to get GoldCertId", buf, 2u);
+      _os_log_error_impl(&dword_296FE4000, v37, OS_LOG_TYPE_ERROR, "Failed to get GoldCertId", buf, 2u);
     }
 
     v20 = 0;
   }
 
-  xpc_release(v37);
+  xpc_release(v36);
   if ((__dst[31] & 0x80000000) != 0)
   {
     operator delete(*&__dst[8]);
@@ -1134,13 +1131,12 @@ LABEL_72:
 
 LABEL_37:
   xpc_release(v16);
-  if (SHIBYTE(v54) < 0)
+  if (SHIBYTE(v51) < 0)
   {
     operator delete(__p[1]);
   }
 
   xpc_release(v4);
-  v21 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
@@ -1156,21 +1152,19 @@ void sub_296FE6514(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t BasebandRFDiagnostics::getPersonalizationInfo(ctu **this)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v2 = capabilities::radio::vendor(this);
   if ((v2 - 1) >= 2)
   {
     if (v2 != 3 || (BasebandRFDiagnostics::getBasebandPersonalizationInfoINT(this) & 1) == 0)
     {
-      goto LABEL_10;
+      return 1;
     }
   }
 
   else if (!BasebandRFDiagnostics::getBasebandPersonalizationInfo(this))
   {
-LABEL_10:
-    v6 = 1;
-    goto LABEL_58;
+    return 1;
   }
 
   v3 = xpc_dictionary_create(0, 0, 0);
@@ -1206,14 +1200,13 @@ LABEL_10:
   v8 = xpc_null_create();
   xpc_release(v7);
   xpc_release(v8);
-  v34 = xpc_null_create();
+  v32 = xpc_null_create();
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__p = v9;
-  v33 = v9;
+  v31 = v9;
   v10 = this[8];
-  v30 = this[7];
-  v31 = v10;
+  v29 = v10;
   if (v10)
   {
     atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
@@ -1241,7 +1234,7 @@ LABEL_10:
 
     v14 = operator new(v15);
     __dst[1] = v13;
-    __dst[2] = (v15 | 0x8000000000000000);
+    __dst[2] = v15 | 0x8000000000000000;
     __dst[0] = v14;
     goto LABEL_25;
   }
@@ -1254,13 +1247,13 @@ LABEL_25:
     memmove(v14, v11, v13);
   }
 
-  *(v13 + v14) = 0;
+  *(v14 + v13) = 0;
   abm::client::PerformCommand();
   if (SHIBYTE(__dst[2]) < 0)
   {
     operator delete(__dst[0]);
-    v16 = v31;
-    if (!v31)
+    v16 = v29;
+    if (!v29)
     {
       goto LABEL_31;
     }
@@ -1268,8 +1261,8 @@ LABEL_25:
 
   else
   {
-    v16 = v31;
-    if (!v31)
+    v16 = v29;
+    if (!v29)
     {
       goto LABEL_31;
     }
@@ -1279,8 +1272,8 @@ LABEL_25:
   {
     (v16->__on_zero_shared)(v16);
     std::__shared_weak_count::__release_weak(v16);
-    v17 = v34;
-    if (v34)
+    v17 = v32;
+    if (v32)
     {
       goto LABEL_35;
     }
@@ -1289,8 +1282,8 @@ LABEL_25:
   }
 
 LABEL_31:
-  v17 = v34;
-  if (v34)
+  v17 = v32;
+  if (v32)
   {
     goto LABEL_35;
   }
@@ -1323,10 +1316,10 @@ LABEL_38:
     v19 = this[5];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      TelephonyXPC::Result::describe(__p, __dst);
-      v27 = SHIBYTE(__dst[2]) >= 0 ? __dst : __dst[0];
+      TelephonyXPC::Result::describe(__dst, __p);
+      v26 = __dst[2] >= 0 ? __dst : __dst[0];
       *buf = 136315138;
-      *&buf[4] = v27;
+      *&buf[4] = v26;
       _os_log_error_impl(&dword_296FE4000, v19, OS_LOG_TYPE_ERROR, "Get rf self test nonce cmd failed: %s", buf, 0xCu);
       if (SHIBYTE(__dst[2]) < 0)
       {
@@ -1383,23 +1376,23 @@ LABEL_40:
   }
 
   *(this + 10) = *buf;
-  this[22] = v37;
-  v37 = 0;
+  this[22] = v35;
+  v35 = 0;
   memset(buf, 0, sizeof(buf));
   xpc_release(object);
   memset(__dst, 170, 24);
-  ctu::hex(this[20], (this[21] - this[20]));
+  ctu::hex(__dst, this[20], (this[21] - this[20]));
   v24 = this[5];
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v28 = __dst;
-    if (SHIBYTE(__dst[2]) < 0)
+    v27 = __dst;
+    if (__dst[2] < 0)
     {
-      v28 = __dst[0];
+      v27 = __dst[0];
     }
 
     *buf = 136315138;
-    *&buf[4] = v28;
+    *&buf[4] = v27;
     _os_log_debug_impl(&dword_296FE4000, v24, OS_LOG_TYPE_DEBUG, "#D RF Self Test Nonce: %s", buf, 0xCu);
     if ((SHIBYTE(__dst[2]) & 0x80000000) == 0)
     {
@@ -1419,14 +1412,12 @@ LABEL_54:
   v6 = 0;
 LABEL_55:
   xpc_release(v18);
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(v31) < 0)
   {
     operator delete(__p[1]);
   }
 
   xpc_release(v5);
-LABEL_58:
-  v25 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1446,12 +1437,12 @@ uint64_t BasebandRFDiagnostics::isRFTestSupported(uint64_t a1, int a2)
 {
   if (a2 == 2)
   {
-    return MEMORY[0x2A1C6EB90]();
+    return MEMORY[0x2A1C6EB90](a1);
   }
 
   if (a2 == 1)
   {
-    return MEMORY[0x2A1C6EAC8]();
+    return MEMORY[0x2A1C6EAC8](a1);
   }
 
   return 0;
@@ -1485,7 +1476,7 @@ BOOL BasebandRFDiagnostics::getAPAuthParameters(BasebandRFDiagnostics *this)
 uint64_t BasebandRFDiagnostics::getSignedTicketAndStore(BasebandRFDiagnostics *this, int a2)
 {
   v3 = this;
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   cf = 0;
   if (a2)
   {
@@ -1510,7 +1501,7 @@ uint64_t BasebandRFDiagnostics::getSignedTicketAndStore(BasebandRFDiagnostics *t
         v9 = cf;
         if (!cf)
         {
-          goto LABEL_45;
+          return v8;
         }
       }
 
@@ -1520,7 +1511,7 @@ uint64_t BasebandRFDiagnostics::getSignedTicketAndStore(BasebandRFDiagnostics *t
         v9 = cf;
         if (!cf)
         {
-          goto LABEL_45;
+          return v8;
         }
       }
 
@@ -1531,7 +1522,7 @@ uint64_t BasebandRFDiagnostics::getSignedTicketAndStore(BasebandRFDiagnostics *t
   v10 = capabilities::radio::vendor(this);
   if ((v10 - 1) < 2)
   {
-    RFSelfTestTicket = BasebandRFDiagnostics::getRFSelfTestTicket(v3, a2, 1u, &cf);
+    RFSelfTestTicket = BasebandRFDiagnostics::getRFSelfTestTicket(v3, a2, 1, &cf);
     goto LABEL_16;
   }
 
@@ -1571,7 +1562,7 @@ LABEL_26:
           v9 = cf;
           if (!cf)
           {
-            goto LABEL_45;
+            return v8;
           }
         }
 
@@ -1581,7 +1572,7 @@ LABEL_26:
           v9 = cf;
           if (!cf)
           {
-            goto LABEL_45;
+            return v8;
           }
         }
 
@@ -1647,7 +1638,7 @@ LABEL_19:
     v9 = cf;
     if (!cf)
     {
-      goto LABEL_45;
+      return v8;
     }
 
     goto LABEL_44;
@@ -1661,8 +1652,6 @@ LABEL_44:
     CFRelease(v9);
   }
 
-LABEL_45:
-  v20 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -2142,24 +2131,24 @@ LABEL_40:
   return v34;
 }
 
-void sub_296FE7A08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296FE7A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va5, a2);
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va5, a3);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
-  v7 = va_arg(va2, void);
+  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, void);
   va_copy(va3, va2);
-  v8 = va_arg(va3, const void *);
+  v9 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v10 = va_arg(va4, const void *);
+  v11 = va_arg(va4, const void *);
   va_copy(va5, va4);
-  v12 = va_arg(va5, const void *);
+  v13 = va_arg(va5, const void *);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(va2);
@@ -2169,15 +2158,11 @@ void sub_296FE7A08(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t BasebandRFDiagnostics::getRFSelfTestTicket(const UInt8 **this, BOOL a2, unsigned int a3, const __CFData **a4)
+uint64_t BasebandRFDiagnostics::getRFSelfTestTicket(const UInt8 **this, char a2, uint64_t a3, const __CFData **a4)
 {
   v5 = *MEMORY[0x29EDB8ED8];
   v6 = CFDataCreate(*MEMORY[0x29EDB8ED8], this[16], this[17] - this[16]);
   v7 = CFDataCreate(v5, this[20], this[21] - this[20]);
-  v8 = *(this + 38);
-  v9 = *(this + 46);
-  v10 = *(this + 50);
-  v11 = this[26];
   RFSelfTestTicket = AMAuthInstallBasebandGetRFSelfTestTicket();
   if (v7)
   {
@@ -2192,19 +2177,19 @@ uint64_t BasebandRFDiagnostics::getRFSelfTestTicket(const UInt8 **this, BOOL a2,
   return RFSelfTestTicket;
 }
 
-void sub_296FE7B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296FE7B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_296FE7B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296FE7B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -2237,16 +2222,16 @@ void sub_296FE7C1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestAST2Mode(BasebandRFDiagnostics *this)
+uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestAST2Mode(NSObject **this)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   *buf = operator new(0x19uLL);
   *&buf[8] = xmmword_296FF2BA0;
   strcpy(*buf, "RFSelfTestTicketBlocked");
   if (BasebandDiagnostics::readIntegerFromUserDefaults(this, buf))
   {
     v2 = 0;
-    v28 = 0;
+    v27 = 0;
     if (buf[23] < 0)
     {
 LABEL_11:
@@ -2266,7 +2251,7 @@ LABEL_11:
     strcpy(__p, "RFSelfTestTicket");
     ObjectFromUserDefaults = BasebandDiagnostics::readObjectFromUserDefaults(this, __p);
     v2 = ObjectFromUserDefaults;
-    v28 = ObjectFromUserDefaults;
+    v27 = ObjectFromUserDefaults;
     if (ObjectFromUserDefaults)
     {
       CFRetain(ObjectFromUserDefaults);
@@ -2290,7 +2275,7 @@ LABEL_11:
   if (!v2)
   {
 LABEL_17:
-    v6 = *(this + 5);
+    v6 = this[5];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -2303,7 +2288,7 @@ LABEL_17:
       goto LABEL_56;
     }
 
-    goto LABEL_57;
+    return v7;
   }
 
 LABEL_12:
@@ -2389,11 +2374,11 @@ LABEL_12:
 
   memset(buf, 0, sizeof(buf));
   ctu::cf::assign();
-  *v25 = *buf;
-  v26 = *&buf[16];
+  *v24 = *buf;
+  v25 = *&buf[16];
   if ((buf[23] & 0x80u) == 0)
   {
-    v16 = v25;
+    v16 = v24;
   }
 
   else
@@ -2404,13 +2389,13 @@ LABEL_12:
   xpc_dictionary_set_value(v5, v16, v15);
   v17 = xpc_null_create();
   xpc_release(v15);
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v25) < 0)
   {
-    operator delete(v25[0]);
+    operator delete(v24[0]);
   }
 
   xpc_release(v17);
-  v24 = v5;
+  v23 = v5;
   if (v5)
   {
     xpc_retain(v5);
@@ -2420,12 +2405,12 @@ LABEL_12:
   else
   {
     v18 = xpc_null_create();
-    v24 = v18;
+    v23 = v18;
   }
 
-  v19 = BasebandRFDiagnostics::sendCommandBasebandRequestRFSelfTest(this, &v24);
+  v19 = BasebandRFDiagnostics::sendCommandBasebandRequestRFSelfTest(this, &v23);
   xpc_release(v18);
-  v24 = 0;
+  v23 = 0;
   if (v19)
   {
     v7 = 0;
@@ -2436,7 +2421,7 @@ LABEL_12:
     v7 = 7;
   }
 
-  v20 = *(this + 5);
+  v20 = this[5];
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = "Failed";
@@ -2466,15 +2451,13 @@ LABEL_12:
     operator delete(__p[0]);
   }
 
-  v2 = v28;
-  if (v28)
+  v2 = v27;
+  if (v27)
   {
 LABEL_56:
     CFRelease(v2);
   }
 
-LABEL_57:
-  v22 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -2488,81 +2471,80 @@ void sub_296FE80BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-BOOL BasebandRFDiagnostics::sendCommandBasebandRequestRFSelfTest(uint64_t a1, uint64_t *a2)
+BOOL BasebandRFDiagnostics::sendCommandBasebandRequestRFSelfTest(uint64_t a1, void *a2)
 {
-  v25 = xpc_null_create();
-  *&v4 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v23 = v4;
-  v24 = v4;
-  v5 = *(a1 + 64);
-  v21 = *(a1 + 56);
-  v22 = v5;
-  if (v5)
+  v23 = xpc_null_create();
+  *&v3 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *v21 = v3;
+  v22 = v3;
+  v4 = *(a1 + 64);
+  v19 = *(a1 + 56);
+  v20 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v6 = *MEMORY[0x29EDBF690];
-  v7 = strlen(*MEMORY[0x29EDBF690]);
-  if (v7 >= 0x7FFFFFFFFFFFFFF8)
+  v5 = *MEMORY[0x29EDBF690];
+  v6 = strlen(*MEMORY[0x29EDBF690]);
+  if (v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = v7;
-  if (v7 >= 0x17)
+  v7 = v6;
+  if (v6 >= 0x17)
   {
-    if ((v7 | 7) == 0x17)
+    if ((v6 | 7) == 0x17)
     {
-      v10 = 25;
+      v9 = 25;
     }
 
     else
     {
-      v10 = (v7 | 7) + 1;
+      v9 = (v6 | 7) + 1;
     }
 
-    p_dst = operator new(v10);
-    *(&__dst + 1) = v8;
-    v27 = v10 | 0x8000000000000000;
+    p_dst = operator new(v9);
+    *(&__dst + 1) = v7;
+    v25 = v9 | 0x8000000000000000;
     *&__dst = p_dst;
     goto LABEL_11;
   }
 
-  HIBYTE(v27) = v7;
+  HIBYTE(v25) = v6;
   p_dst = &__dst;
-  if (v7)
+  if (v6)
   {
 LABEL_11:
-    memmove(p_dst, v6, v8);
+    memmove(p_dst, v5, v7);
   }
 
-  *(p_dst + v8) = 0;
-  v11 = *a2;
+  *(p_dst + v7) = 0;
   abm::client::PerformCommand();
-  if (SHIBYTE(v27) < 0)
+  if (SHIBYTE(v25) < 0)
   {
     operator delete(__dst);
   }
 
-  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v22->__on_zero_shared)(v22);
-    std::__shared_weak_count::__release_weak(v22);
-    v12 = v25;
-    if (v25)
+    (v20->__on_zero_shared)(v20);
+    std::__shared_weak_count::__release_weak(v20);
+    v10 = v23;
+    if (v23)
     {
 LABEL_20:
-      if (MEMORY[0x29C269CA0](v12) == MEMORY[0x29EDCAA00])
+      if (MEMORY[0x29C269CA0](v10) == MEMORY[0x29EDCAA00])
       {
-        xpc_retain(v12);
-        v13 = v12;
+        xpc_retain(v10);
+        v11 = v10;
       }
 
       else
       {
-        v13 = xpc_null_create();
+        v11 = xpc_null_create();
       }
 
       goto LABEL_23;
@@ -2571,39 +2553,39 @@ LABEL_20:
 
   else
   {
-    v12 = v25;
-    if (v25)
+    v10 = v23;
+    if (v23)
     {
       goto LABEL_20;
     }
   }
 
-  v12 = xpc_null_create();
-  if (v12)
+  v10 = xpc_null_create();
+  if (v10)
   {
     goto LABEL_20;
   }
 
-  v13 = xpc_null_create();
-  v12 = 0;
+  v11 = xpc_null_create();
+  v10 = 0;
 LABEL_23:
-  xpc_release(v12);
+  xpc_release(v10);
   __dst = 0uLL;
-  v27 = 0;
+  v25 = 0;
   ctu::cf::assign();
   *__p = __dst;
-  v19 = v27;
-  if (v27 >= 0)
+  v17 = v25;
+  if (v25 >= 0)
   {
-    v14 = __p;
+    v12 = __p;
   }
 
   else
   {
-    v14 = __p[0];
+    v12 = __p[0];
   }
 
-  value = xpc_dictionary_get_value(v13, v14);
+  value = xpc_dictionary_get_value(v11, v12);
   object = value;
   if (value)
   {
@@ -2618,19 +2600,19 @@ LABEL_23:
   *(a1 + 216) = xpc::dyn_cast_or_default();
   xpc_release(object);
   object = 0;
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v17) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v16 = v23[0];
-  xpc_release(v13);
-  if (SHIBYTE(v24) < 0)
+  v14 = v21[0];
+  xpc_release(v11);
+  if (SHIBYTE(v22) < 0)
   {
-    operator delete(v23[1]);
+    operator delete(v21[1]);
   }
 
-  return v16 == 0;
+  return v14 == 0;
 }
 
 void sub_296FE8490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, xpc_object_t object, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -2650,12 +2632,12 @@ void sub_296FE8490(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_296FE84FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_296FE84FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  if (*(v5 - 49) < 0)
+  va_start(va, a9);
+  if (*(v9 - 49) < 0)
   {
-    operator delete(*(v5 - 72));
+    operator delete(*(v9 - 72));
     std::shared_ptr<abm::client::Manager>::~shared_ptr[abi:ne200100](va);
     _Unwind_Resume(a1);
   }
@@ -2677,7 +2659,7 @@ const void **ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(const void **a1)
 
 uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode(uint64_t a1, unsigned int a2, unsigned int a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v6 = xpc_dictionary_create(0, 0, 0);
   if (v6 || (v6 = xpc_null_create()) != 0)
   {
@@ -2721,11 +2703,11 @@ uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode(uint64_t a1, unsi
     memset(buf, 0, sizeof(buf));
     ctu::cf::assign();
     *__p = 0u;
-    v24 = 0;
+    v23 = 0;
     xpc_dictionary_set_value(v7, __p, v10);
     v11 = xpc_null_create();
     xpc_release(v10);
-    if (SHIBYTE(v24) < 0)
+    if (SHIBYTE(v23) < 0)
     {
       operator delete(__p[0]);
     }
@@ -2740,7 +2722,7 @@ uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode(uint64_t a1, unsi
     memset(buf, 0, sizeof(buf));
     ctu::cf::assign();
     *__p = *buf;
-    v24 = *&buf[16];
+    v23 = *&buf[16];
     if ((buf[23] & 0x80u) == 0)
     {
       v13 = __p;
@@ -2754,7 +2736,7 @@ uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode(uint64_t a1, unsi
     xpc_dictionary_set_value(v7, v13, v12);
     v14 = xpc_null_create();
     xpc_release(v12);
-    if (SHIBYTE(v24) < 0)
+    if (SHIBYTE(v23) < 0)
     {
       operator delete(__p[0]);
     }
@@ -2814,7 +2796,6 @@ uint64_t BasebandRFDiagnostics::startBasebandRFSelfTestFTMMode(uint64_t a1, unsi
   }
 
   xpc_release(v7);
-  v20 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -2837,7 +2818,7 @@ uint64_t BasebandRFDiagnostics::setBasebandRFSelfTestTicket(BasebandRFDiagnostic
   if (BasebandDiagnostics::readIntegerFromUserDefaults(this, __p))
   {
     v2 = 0;
-    v34 = 0;
+    v32 = 0;
     if (SHIBYTE(__p[2]) < 0)
     {
       goto LABEL_3;
@@ -2855,7 +2836,7 @@ LABEL_10:
       goto LABEL_15;
     }
 
-    memset(v33, 0, sizeof(v33));
+    memset(v31, 0, sizeof(v31));
     ctu::cf::assign();
     v4 = xpc_array_create(0, 0);
     if (v4 || (v4 = xpc_null_create()) != 0)
@@ -2879,8 +2860,8 @@ LABEL_10:
     }
 
     xpc_release(v4);
-    v8 = v33[0];
-    for (i = v33[1]; v8 != i; ++v8)
+    v8 = v31[0];
+    for (i = v31[1]; v8 != i; ++v8)
     {
       v10 = xpc_int64_create(*v8);
       if (!v10)
@@ -2928,7 +2909,7 @@ LABEL_10:
     memset(__p, 0, 24);
     ctu::cf::assign();
     *__dst = *__p;
-    v32 = __p[2];
+    v30 = __p[2];
     if (SHIBYTE(__p[2]) >= 0)
     {
       v14 = __dst;
@@ -2942,7 +2923,7 @@ LABEL_10:
     xpc_dictionary_set_value(v12, v14, v13);
     v15 = xpc_null_create();
     xpc_release(v13);
-    if (SHIBYTE(v32) < 0)
+    if (SHIBYTE(v30) < 0)
     {
       operator delete(__dst[0]);
     }
@@ -2953,8 +2934,7 @@ LABEL_10:
     *__p = v16;
     *&__p[2] = v16;
     v17 = *(this + 8);
-    v29 = *(this + 7);
-    v30 = v17;
+    v28 = v17;
     if (v17)
     {
       atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2982,24 +2962,24 @@ LABEL_10:
 
       v21 = operator new(v22);
       __dst[1] = v20;
-      v32 = (v22 | 0x8000000000000000);
+      v30 = (v22 | 0x8000000000000000);
       __dst[0] = v21;
     }
 
     else
     {
-      HIBYTE(v32) = v19;
+      HIBYTE(v30) = v19;
       v21 = __dst;
       if (!v19)
       {
 LABEL_52:
         *(v20 + v21) = 0;
         abm::client::PerformCommand();
-        if (SHIBYTE(v32) < 0)
+        if (SHIBYTE(v30) < 0)
         {
           operator delete(__dst[0]);
-          v23 = v30;
-          if (!v30)
+          v23 = v28;
+          if (!v28)
           {
             goto LABEL_57;
           }
@@ -3007,8 +2987,8 @@ LABEL_52:
 
         else
         {
-          v23 = v30;
-          if (!v30)
+          v23 = v28;
+          if (!v28)
           {
             goto LABEL_57;
           }
@@ -3058,10 +3038,10 @@ LABEL_61:
 LABEL_62:
         xpc_release(v12);
         xpc_release(v5);
-        if (v33[0])
+        if (v31[0])
         {
-          v33[1] = v33[0];
-          operator delete(v33[0]);
+          v31[1] = v31[0];
+          operator delete(v31[0]);
         }
 
         v25 = *(this + 5);
@@ -3084,25 +3064,25 @@ LABEL_62:
         if (SHIBYTE(__p[2]) < 0)
         {
           operator delete(__p[0]);
-          v2 = v34;
-          if (!v34)
+          v2 = v32;
+          if (!v32)
           {
-            goto LABEL_73;
+            return v7;
           }
         }
 
         else
         {
-          v2 = v34;
-          if (!v34)
+          v2 = v32;
+          if (!v32)
           {
-            goto LABEL_73;
+            return v7;
           }
         }
 
 LABEL_72:
         CFRelease(v2);
-        goto LABEL_73;
+        return v7;
       }
     }
 
@@ -3110,19 +3090,19 @@ LABEL_72:
     goto LABEL_52;
   }
 
-  HIBYTE(v33[2]) = 16;
-  strcpy(v33, "RFSelfTestTicket");
-  ObjectFromUserDefaults = BasebandDiagnostics::readObjectFromUserDefaults(this, v33);
+  HIBYTE(v31[2]) = 16;
+  strcpy(v31, "RFSelfTestTicket");
+  ObjectFromUserDefaults = BasebandDiagnostics::readObjectFromUserDefaults(this, v31);
   v2 = ObjectFromUserDefaults;
-  v34 = ObjectFromUserDefaults;
+  v32 = ObjectFromUserDefaults;
   if (ObjectFromUserDefaults)
   {
     CFRetain(ObjectFromUserDefaults);
   }
 
-  if (SHIBYTE(v33[2]) < 0)
+  if (SHIBYTE(v31[2]) < 0)
   {
-    operator delete(v33[0]);
+    operator delete(v31[0]);
     if ((SHIBYTE(__p[2]) & 0x80000000) == 0)
     {
       goto LABEL_9;
@@ -3155,8 +3135,6 @@ LABEL_15:
     goto LABEL_72;
   }
 
-LABEL_73:
-  v27 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -3170,13 +3148,12 @@ void sub_296FE8F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-BOOL BasebandRFDiagnostics::prepareRFSelfTest(NSObject **this)
+uint64_t BasebandRFDiagnostics::prepareRFSelfTest(NSObject **this)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (capabilities::radio::vendor(this) != 3)
   {
-    v4 = 1;
-    goto LABEL_30;
+    return 1;
   }
 
   v2 = xpc_dictionary_create(0, 0, 0);
@@ -3205,11 +3182,10 @@ BOOL BasebandRFDiagnostics::prepareRFSelfTest(NSObject **this)
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *__p = v5;
   v6 = this[8];
-  v16 = this[7];
-  v17 = v6;
+  v15 = v6;
   if (v6)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6[1], 1uLL, memory_order_relaxed);
   }
 
   v7 = *MEMORY[0x29EDBF688];
@@ -3234,13 +3210,13 @@ BOOL BasebandRFDiagnostics::prepareRFSelfTest(NSObject **this)
 
     p_dst = operator new(v11);
     *(&__dst + 1) = v9;
-    v20 = v11 | 0x8000000000000000;
+    v18 = v11 | 0x8000000000000000;
     *&__dst = p_dst;
   }
 
   else
   {
-    HIBYTE(v20) = v8;
+    HIBYTE(v18) = v8;
     p_dst = &__dst;
     if (!v8)
     {
@@ -3252,15 +3228,15 @@ BOOL BasebandRFDiagnostics::prepareRFSelfTest(NSObject **this)
 LABEL_20:
   *(p_dst + v9) = 0;
   abm::client::PerformCommand();
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v18) < 0)
   {
     operator delete(__dst);
   }
 
-  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v17->__on_zero_shared)(v17);
-    std::__shared_weak_count::__release_weak(v17);
+    (v15->__on_zero_shared)(v15);
+    std::__shared_weak_count::__release_weak(v15);
   }
 
   v4 = LODWORD(__p[0]) == 0;
@@ -3280,8 +3256,6 @@ LABEL_20:
 
   operator delete(__p[1]);
   xpc_release(v3);
-LABEL_30:
-  v14 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -3295,26 +3269,26 @@ void sub_296FE92E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-BOOL BasebandRFDiagnostics::createNum64Num32FromData(uint64_t a1, CFDataRef theData, const void **a3)
+BOOL BasebandRFDiagnostics::createNum64Num32FromData(uint64_t a1, CFDataRef theData, CFNumberRef *a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (!theData || !a3)
   {
     v12 = *(a1 + 40);
     result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      *__dst = 0;
-      v14 = "Null param";
-LABEL_16:
-      v15 = v12;
-      v16 = 2;
-      goto LABEL_17;
+      return result;
     }
 
-LABEL_19:
-    v19 = *MEMORY[0x29EDCA608];
-    return result;
+    *__dst = 0;
+    v14 = "Null param";
+LABEL_16:
+    v15 = v12;
+    v16 = 2;
+LABEL_17:
+    _os_log_error_impl(&dword_296FE4000, v15, OS_LOG_TYPE_ERROR, v14, __dst, v16);
+    return 0;
   }
 
   BytePtr = CFDataGetBytePtr(theData);
@@ -3322,95 +3296,88 @@ LABEL_19:
   {
     v12 = *(a1 + 40);
     result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      *__dst = 0;
-      v14 = "Get byte pointer failed";
-      goto LABEL_16;
+      return result;
     }
 
-    goto LABEL_19;
+    *__dst = 0;
+    v14 = "Get byte pointer failed";
+    goto LABEL_16;
   }
 
   v7 = BytePtr;
   Length = CFDataGetLength(theData);
-  if (Length < 0 || Length >= 9uLL)
+  if ((Length & 0x8000000000000000) == 0 && Length < 9uLL)
   {
-    v17 = Length;
-    v18 = *(a1 + 40);
-    result = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
-    if (!result)
+    if (Length < 5uLL)
     {
-      goto LABEL_19;
+      *__dst = 0;
+      memcpy(__dst, v7, Length);
+      v19 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, __dst);
+      v20 = *a3;
+      *a3 = v19;
+      if (v20)
+      {
+        CFRelease(v20);
+        v19 = *a3;
+      }
+
+      if (!v19)
+      {
+        v11 = *(a1 + 40);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+LABEL_25:
+          *v21 = 0;
+          _os_log_error_impl(&dword_296FE4000, v11, OS_LOG_TYPE_ERROR, "Data allocation error during conversion", v21, 2u);
+        }
+
+        return 0;
+      }
     }
 
+    else
+    {
+      *__dst = 0;
+      memcpy(__dst, v7, Length);
+      v9 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt64Type, __dst);
+      v10 = *a3;
+      *a3 = v9;
+      if (v10)
+      {
+        CFRelease(v10);
+        v9 = *a3;
+      }
+
+      if (!v9)
+      {
+        v11 = *(a1 + 40);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_25;
+        }
+
+        return 0;
+      }
+    }
+
+    return 1;
+  }
+
+  v17 = Length;
+  v18 = *(a1 + 40);
+  result = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
     *__dst = 134217984;
     *&__dst[4] = v17;
     v14 = "Data size wrong %lu";
     v15 = v18;
     v16 = 12;
-LABEL_17:
-    _os_log_error_impl(&dword_296FE4000, v15, OS_LOG_TYPE_ERROR, v14, __dst, v16);
-    goto LABEL_26;
+    goto LABEL_17;
   }
 
-  if (Length >= 5uLL)
-  {
-    *__dst = 0;
-    memcpy(__dst, v7, Length);
-    v9 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt64Type, __dst);
-    v10 = *a3;
-    *a3 = v9;
-    if (v10)
-    {
-      CFRelease(v10);
-      v9 = *a3;
-    }
-
-    if (!v9)
-    {
-      v11 = *(a1 + 40);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_26;
-    }
-
-LABEL_23:
-    result = 1;
-    v22 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  *__dst = 0;
-  memcpy(__dst, v7, Length);
-  v20 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberSInt32Type, __dst);
-  v21 = *a3;
-  *a3 = v20;
-  if (v21)
-  {
-    CFRelease(v21);
-    v20 = *a3;
-  }
-
-  if (v20)
-  {
-    goto LABEL_23;
-  }
-
-  v11 = *(a1 + 40);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-LABEL_25:
-    *v24 = 0;
-    _os_log_error_impl(&dword_296FE4000, v11, OS_LOG_TYPE_ERROR, "Data allocation error during conversion", v24, 2u);
-  }
-
-LABEL_26:
-  result = 0;
-  v23 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3630,10 +3597,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x29C269850](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -3645,7 +3612,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -3655,7 +3622,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -3665,9 +3632,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_296FE9BD8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_296FE9BD8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C269860](&a10);
+  MEMORY[0x29C269860](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -4101,123 +4068,123 @@ void config::hw::deviceMaterial(config::hw *this)
 
 void config::hw::getBootArgs(std::string *a1@<X8>)
 {
-  memset(v48, 170, 24);
-  v3 = pthread_mutex_lock(&ctu::Singleton<ctu::Gestalt,ctu::Gestalt,ctu::PthreadMutexGuardPolicy<ctu::Gestalt>>::sInstance);
-  v4 = off_2A13988B8;
+  memset(v46, 170, 24);
+  v2 = pthread_mutex_lock(&ctu::Singleton<ctu::Gestalt,ctu::Gestalt,ctu::PthreadMutexGuardPolicy<ctu::Gestalt>>::sInstance);
+  v3 = off_2A13988B8;
   if (!off_2A13988B8)
   {
-    ctu::Gestalt::create_default_global(__p, v3);
-    v5 = *__p;
+    ctu::Gestalt::create_default_global(__p, v2);
+    v4 = *__p;
     __p[0] = 0;
     __p[1] = 0;
-    v6 = *(&off_2A13988B8 + 1);
-    off_2A13988B8 = v5;
-    if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v5 = *(&off_2A13988B8 + 1);
+    off_2A13988B8 = v4;
+    if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v5->__on_zero_shared)(v5);
+      std::__shared_weak_count::__release_weak(v5);
+    }
+
+    v6 = __p[1];
+    if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v6->__on_zero_shared)(v6);
       std::__shared_weak_count::__release_weak(v6);
     }
 
-    v7 = __p[1];
-    if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-
-    v4 = off_2A13988B8;
+    v3 = off_2A13988B8;
   }
 
-  v8 = *(&off_2A13988B8 + 1);
-  v48[3] = v4;
-  v48[4] = *(&off_2A13988B8 + 1);
+  v7 = *(&off_2A13988B8 + 1);
+  v46[3] = v3;
+  v46[4] = *(&off_2A13988B8 + 1);
   if (*(&off_2A13988B8 + 1))
   {
     atomic_fetch_add_explicit((*(&off_2A13988B8 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<ctu::Gestalt,ctu::Gestalt,ctu::PthreadMutexGuardPolicy<ctu::Gestalt>>::sInstance);
-  (*(*v4 + 112))(v48, v4);
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  (*(*v3 + 112))(v46, v3);
+  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
+    (v7->__on_zero_shared)(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
-  HIBYTE(v47) = 9;
+  HIBYTE(v45) = 9;
   strcpy(__p, "boot-args");
-  v9 = v48[1];
-  if (v48[1])
+  v8 = v46[1];
+  if (v46[1])
   {
     while (1)
     {
-      v11 = v9;
-      v14 = v9[4];
-      v12 = v9 + 4;
-      v13 = v14;
-      v15 = *(v12 + 23);
-      if (v15 >= 0)
+      v10 = v8;
+      v13 = v8[4];
+      v11 = v8 + 4;
+      v12 = v13;
+      v14 = *(v11 + 23);
+      if (v14 >= 0)
       {
-        v16 = v12;
+        v15 = v11;
       }
 
       else
       {
-        v16 = v13;
+        v15 = v12;
       }
 
-      if (v15 >= 0)
+      if (v14 >= 0)
       {
-        v17 = *(v12 + 23);
-      }
-
-      else
-      {
-        v17 = v12[1];
-      }
-
-      if (v17 >= 9)
-      {
-        v18 = 9;
+        v16 = *(v11 + 23);
       }
 
       else
       {
-        v18 = v17;
+        v16 = v11[1];
       }
 
-      v19 = memcmp(__p, v16, v18);
-      if (v19)
+      if (v16 >= 9)
       {
-        if (v19 < 0)
+        v17 = 9;
+      }
+
+      else
+      {
+        v17 = v16;
+      }
+
+      v18 = memcmp(__p, v15, v17);
+      if (v18)
+      {
+        if (v18 < 0)
         {
           goto LABEL_16;
         }
 
 LABEL_30:
-        v20 = memcmp(v16, __p, v18);
-        if (v20)
+        v19 = memcmp(v15, __p, v17);
+        if (v19)
         {
-          if ((v20 & 0x80000000) == 0)
+          if ((v19 & 0x80000000) == 0)
           {
             goto LABEL_58;
           }
         }
 
-        else if (v17 >= 9)
+        else if (v16 >= 9)
         {
 LABEL_58:
-          v21 = v11;
-          if (*(v11 + 79) < 0)
+          v20 = v10;
+          if (*(v10 + 79) < 0)
           {
             goto LABEL_59;
           }
 
 LABEL_56:
-          v39 = *(v21 + 56);
-          a1->__r_.__value_.__r.__words[2] = *(v21 + 9);
-          *&a1->__r_.__value_.__l.__data_ = v39;
-          if (SHIBYTE(v47) < 0)
+          v38 = *(v20 + 56);
+          a1->__r_.__value_.__r.__words[2] = *(v20 + 9);
+          *&a1->__r_.__value_.__l.__data_ = v38;
+          if (SHIBYTE(v45) < 0)
           {
             goto LABEL_57;
           }
@@ -4225,25 +4192,25 @@ LABEL_56:
           goto LABEL_60;
         }
 
-        v9 = v11[1];
-        if (!v9)
+        v8 = v10[1];
+        if (!v8)
         {
-          v10 = (v11 + 1);
+          v9 = (v10 + 1);
           goto LABEL_37;
         }
       }
 
       else
       {
-        if (v17 <= 9)
+        if (v16 <= 9)
         {
           goto LABEL_30;
         }
 
 LABEL_16:
-        v9 = *v11;
-        v10 = v11;
-        if (!*v11)
+        v8 = *v10;
+        v9 = v10;
+        if (!*v10)
         {
           goto LABEL_37;
         }
@@ -4251,36 +4218,36 @@ LABEL_16:
     }
   }
 
-  v10 = &v48[1];
-  v11 = &v48[1];
+  v9 = &v46[1];
+  v10 = &v46[1];
 LABEL_37:
-  v21 = operator new(0x50uLL);
-  *(v21 + 2) = *__p;
-  v22 = v47;
+  v20 = operator new(0x50uLL);
+  *(v20 + 2) = *__p;
+  v21 = v45;
   __p[1] = 0;
-  v47 = 0;
+  v45 = 0;
   __p[0] = 0;
-  *(v21 + 6) = v22;
-  *(v21 + 7) = 0;
-  *(v21 + 8) = 0;
-  *(v21 + 9) = 0;
-  *v21 = 0;
-  *(v21 + 1) = 0;
-  *(v21 + 2) = v11;
-  *v10 = v21;
-  if (*v48[0])
+  *(v20 + 6) = v21;
+  *(v20 + 7) = 0;
+  *(v20 + 8) = 0;
+  *(v20 + 9) = 0;
+  *v20 = 0;
+  *(v20 + 1) = 0;
+  *(v20 + 2) = v10;
+  *v9 = v20;
+  if (*v46[0])
   {
-    v48[0] = *v48[0];
+    v46[0] = *v46[0];
   }
 
-  v23 = v48[1];
-  v24 = v21 == v48[1];
-  v21[24] = v21 == v48[1];
-  if (v24)
+  v22 = v46[1];
+  v23 = v20 == v46[1];
+  v20[24] = v20 == v46[1];
+  if (v23)
   {
 LABEL_55:
-    ++v48[2];
-    if (v21[79] < 0)
+    ++v46[2];
+    if (v20[79] < 0)
     {
       goto LABEL_59;
     }
@@ -4288,33 +4255,32 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  v25 = v21;
+  v24 = v20;
   while (1)
   {
-    v26 = *(v25 + 2);
-    if (*(v26 + 24))
+    v25 = *(v24 + 2);
+    if (*(v25 + 24))
     {
       goto LABEL_55;
     }
 
-    v27 = *(v26 + 16);
-    v28 = *v27;
-    if (*v27 != v26)
+    v26 = *(v25 + 16);
+    v27 = *v26;
+    if (*v26 != v25)
     {
       break;
     }
 
-    v32 = *(v27 + 1);
-    if (!v32 || (v33 = *(v32 + 24), v31 = (v32 + 24), v33 == 1))
+    v31 = *(v26 + 1);
+    if (!v31 || (v32 = *(v31 + 24), v30 = (v31 + 24), v32 == 1))
     {
-      if (*v26 == v25)
+      if (*v25 == v24)
       {
-        v45 = *(v25 + 2);
-        *(v26 + 24) = 1;
-        v27[24] = 0;
-        v37 = *(v28 + 8);
-        *v27 = v37;
-        if (v37)
+        *(v25 + 24) = 1;
+        v26[24] = 0;
+        v36 = *(v27 + 8);
+        *v26 = v36;
+        if (v36)
         {
           goto LABEL_53;
         }
@@ -4322,111 +4288,111 @@ LABEL_55:
 
       else
       {
-        v34 = *(v26 + 8);
-        v35 = *v34;
-        *(v26 + 8) = *v34;
-        v36 = v26;
-        if (v35)
+        v33 = *(v25 + 8);
+        v34 = *v33;
+        *(v25 + 8) = *v33;
+        v35 = v25;
+        if (v34)
         {
-          *(v35 + 16) = v26;
-          v27 = *(v26 + 16);
-          v36 = *v27;
+          *(v34 + 16) = v25;
+          v26 = *(v25 + 16);
+          v35 = *v26;
         }
 
-        v34[2] = v27;
-        *&v27[8 * (v36 != v26)] = v34;
-        *v34 = v26;
-        *(v26 + 16) = v34;
-        v27 = v34[2];
-        v28 = *v27;
-        *(v34 + 24) = 1;
-        v27[24] = 0;
-        v37 = *(v28 + 8);
-        *v27 = v37;
-        if (v37)
+        v33[2] = v26;
+        *&v26[8 * (v35 != v25)] = v33;
+        *v33 = v25;
+        *(v25 + 16) = v33;
+        v26 = v33[2];
+        v27 = *v26;
+        *(v33 + 24) = 1;
+        v26[24] = 0;
+        v36 = *(v27 + 8);
+        *v26 = v36;
+        if (v36)
         {
 LABEL_53:
-          *(v37 + 16) = v27;
+          *(v36 + 16) = v26;
         }
       }
 
-      v38 = *(v27 + 2);
-      *(v28 + 16) = v38;
-      v38[*v38 != v27] = v28;
-      *(v28 + 8) = v27;
-      *(v27 + 2) = v28;
+      v37 = *(v26 + 2);
+      *(v27 + 16) = v37;
+      v37[*v37 != v26] = v27;
+      *(v27 + 8) = v26;
+      *(v26 + 2) = v27;
       goto LABEL_55;
     }
 
 LABEL_41:
-    *(v26 + 24) = 1;
-    v25 = v27;
-    v27[24] = v27 == v23;
-    *v31 = 1;
-    if (v27 == v23)
+    *(v25 + 24) = 1;
+    v24 = v26;
+    v26[24] = v26 == v22;
+    *v30 = 1;
+    if (v26 == v22)
     {
       goto LABEL_55;
     }
   }
 
-  if (v28)
+  if (v27)
   {
-    v30 = *(v28 + 24);
-    v29 = (v28 + 24);
-    if (v30 != 1)
+    v29 = *(v27 + 24);
+    v28 = (v27 + 24);
+    if (v29 != 1)
     {
-      v31 = v29;
+      v30 = v28;
       goto LABEL_41;
     }
   }
 
-  v40 = *v26;
-  if (*v26 == v25)
+  v39 = *v25;
+  if (*v25 == v24)
   {
-    v41 = *(v40 + 1);
-    *v26 = v41;
-    if (v41)
+    v40 = *(v39 + 1);
+    *v25 = v40;
+    if (v40)
     {
-      *(v41 + 16) = v26;
-      v27 = *(v26 + 16);
+      *(v40 + 16) = v25;
+      v26 = *(v25 + 16);
     }
 
-    *(v40 + 2) = v27;
-    *&v27[8 * (*v27 != v26)] = v40;
-    *(v40 + 1) = v26;
-    *(v26 + 16) = v40;
-    v27 = *(v40 + 2);
+    *(v39 + 2) = v26;
+    *&v26[8 * (*v26 != v25)] = v39;
+    *(v39 + 1) = v25;
+    *(v25 + 16) = v39;
+    v26 = *(v39 + 2);
   }
 
   else
   {
-    v40 = *(v25 + 2);
+    v39 = *(v24 + 2);
   }
 
-  v40[24] = 1;
-  v27[24] = 0;
-  v42 = *(v27 + 1);
-  v43 = *v42;
-  *(v27 + 1) = *v42;
-  if (v43)
+  v39[24] = 1;
+  v26[24] = 0;
+  v41 = *(v26 + 1);
+  v42 = *v41;
+  *(v26 + 1) = *v41;
+  if (v42)
   {
-    *(v43 + 2) = v27;
+    *(v42 + 2) = v26;
   }
 
-  v44 = *(v27 + 2);
-  v42[2] = v44;
-  v44[*v44 != v27] = v42;
-  *v42 = v27;
-  *(v27 + 2) = v42;
-  ++v48[2];
-  if ((v21[79] & 0x80000000) == 0)
+  v43 = *(v26 + 2);
+  v41[2] = v43;
+  v43[*v43 != v26] = v41;
+  *v41 = v26;
+  *(v26 + 2) = v41;
+  ++v46[2];
+  if ((v20[79] & 0x80000000) == 0)
   {
     goto LABEL_56;
   }
 
 LABEL_59:
-  std::string::__init_copy_ctor_external(a1, *(v21 + 7), *(v21 + 8));
-  if ((SHIBYTE(v47) & 0x80000000) == 0)
+  std::string::__init_copy_ctor_external(a1, *(v20 + 7), *(v20 + 8));
+  if ((SHIBYTE(v45) & 0x80000000) == 0)
   {
     goto LABEL_60;
   }
@@ -4434,12 +4400,12 @@ LABEL_59:
 LABEL_57:
   operator delete(__p[0]);
 LABEL_60:
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v48[1]);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v46[1]);
 }
 
-void sub_296FEAE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296FEAE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::shared_ptr<abm::client::Manager>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4545,12 +4511,12 @@ void config::hw::regionInfo(config::hw *this)
   }
 }
 
-uint64_t config::build::carrier(config::build *this)
+config::build *config::build::carrier(config::build *this)
 {
   result = TelephonyUtilIsCarrierBuild();
   if (result)
   {
-    return TelephonyUtilIsInternalBuild() ^ 1;
+    return (TelephonyUtilIsInternalBuild() ^ 1);
   }
 
   return result;
@@ -4810,18 +4776,18 @@ void radio::OpMode::~OpMode(radio::OpMode *this)
 
 void radio::OpMode::create(void *a1@<X8>)
 {
-  v3 = operator new(0x50uLL);
-  *(v3 + 1) = 0;
-  *(v3 + 2) = 0;
-  *v3 = &unk_2A1E20730;
-  *(v3 + 40) = 0u;
-  *(v3 + 56) = 0u;
-  *(v3 + 9) = 0;
-  a1[1] = v3;
-  *(v3 + 24) = 0u;
-  v3 += 24;
-  *a1 = v3;
-  radio::OpMode::init(v3);
+  v2 = operator new(0x50uLL);
+  *(v2 + 1) = 0;
+  *(v2 + 2) = 0;
+  *v2 = &unk_2A1E20730;
+  *(v2 + 40) = 0u;
+  *(v2 + 56) = 0u;
+  *(v2 + 9) = 0;
+  a1[1] = v2;
+  *(v2 + 24) = 0u;
+  v2 += 24;
+  *a1 = v2;
+  radio::OpMode::init(v2);
 }
 
 void radio::OpMode::init(radio::OpMode *this)
@@ -5966,7 +5932,7 @@ const char *radio::asString(_BYTE *a1)
   }
 }
 
-uint64_t radio::BasebandProperties::create(const __CFDictionary **a1)
+unint64_t radio::BasebandProperties::create(const __CFDictionary **a1)
 {
   v1 = *a1;
   if (!*a1)
@@ -5996,13 +5962,13 @@ uint64_t radio::BasebandProperties::create(const __CFDictionary **a1)
   return (Int << 16) | (v4 << 32) | v5 | 1;
 }
 
-void sub_296FED404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296FED404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  MEMORY[0x29C269670](va1);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
+  MEMORY[0x29C269670](va1, a2);
   MEMORY[0x29C2696A0](va);
   _Unwind_Resume(a1);
 }
@@ -6111,17 +6077,18 @@ LABEL_22:
   }
 }
 
-void sub_296FED678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, const void *a11)
+void sub_296FED678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, const void *a12)
 {
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a10);
-  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a11);
+  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a12);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_296FED6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, const void *a11)
+void sub_296FED6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, uint64_t a10, ...)
 {
-  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a11);
+  va_start(va, a10);
+  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(&a9);
   _Unwind_Resume(a1);
 }
@@ -6178,7 +6145,7 @@ const char *BasebandDiagnostics::asString(uint64_t a1, unsigned int a2)
 
 void BasebandDiagnostics::BasebandDiagnostics(BasebandDiagnostics *this)
 {
-  ctu::OsLogContext::OsLogContext(&v10, "com.apple.telephony.abm", "BBDiag");
+  ctu::OsLogContext::OsLogContext(&v9, "com.apple.telephony.abm", "BBDiag");
   initially_inactive = dispatch_queue_attr_make_initially_inactive(0);
   v3 = dispatch_queue_create_with_target_V2("BasebandDiagnostics", initially_inactive, 0);
   dispatch_set_qos_class_floor(v3, QOS_CLASS_UTILITY, 0);
@@ -6199,9 +6166,9 @@ void BasebandDiagnostics::BasebandDiagnostics(BasebandDiagnostics *this)
   }
 
   ctu::OsLogLogger::OsLogLogger();
-  MEMORY[0x29C269620](this + 40, v11);
-  MEMORY[0x29C269630](v11);
-  ctu::OsLogContext::~OsLogContext(&v10);
+  MEMORY[0x29C269620](this + 40, v10);
+  MEMORY[0x29C269630](v10);
+  ctu::OsLogContext::~OsLogContext(&v9);
   *(this + 3) = 0u;
   *(this + 13) = 0;
   *this = &unk_2A1E20780;
@@ -6209,32 +6176,31 @@ void BasebandDiagnostics::BasebandDiagnostics(BasebandDiagnostics *this)
   *(this + 15) = 0;
   *(this + 4) = 0u;
   *(this + 10) = 0;
-  v4 = *(this + 3);
   abm::client::CreateManager();
-  v5 = v10;
-  v10 = 0uLL;
-  v6 = *(this + 8);
-  *(this + 56) = v5;
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v4 = v9;
+  v9 = 0uLL;
+  v5 = *(this + 8);
+  *(this + 56) = v4;
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
+  }
+
+  v6 = *(&v9 + 1);
+  if (*(&v9 + 1) && !atomic_fetch_add((*(&v9 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v6->__on_zero_shared)(v6);
     std::__shared_weak_count::__release_weak(v6);
   }
 
-  v7 = *(&v10 + 1);
-  if (*(&v10 + 1) && !atomic_fetch_add((*(&v10 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
   *(this + 96) = 0;
-  v8 = dispatch_group_create();
-  v9 = *(this + 9);
-  *(this + 9) = v8;
-  if (v9)
+  v7 = dispatch_group_create();
+  v8 = *(this + 9);
+  *(this + 9) = v7;
+  if (v8)
   {
-    dispatch_release(v9);
+    dispatch_release(v8);
   }
 }
 
@@ -6294,18 +6260,17 @@ void BasebandDiagnostics::~BasebandDiagnostics(BasebandDiagnostics *this)
 {
   *this = &unk_2A1E20780;
   v2 = *(this + 8);
-  v13 = *(this + 7);
-  v14 = v2;
+  v13 = v2;
   if (v2)
   {
     atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   abm::client::EventsOff();
-  if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v14->__on_zero_shared)(v14);
-    std::__shared_weak_count::__release_weak(v14);
+    (v13->__on_zero_shared)(v13);
+    std::__shared_weak_count::__release_weak(v13);
   }
 
   v3 = *(this + 10);
@@ -6381,10 +6346,10 @@ void BasebandDiagnostics::~BasebandDiagnostics(BasebandDiagnostics *this)
 
 BOOL BasebandDiagnostics::resetBaseband(void *a1, uint64_t a2, int a3)
 {
-  v39 = *MEMORY[0x29EDCA608];
-  v33 = 0xAAAAAAAAE020E002;
+  v37 = *MEMORY[0x29EDCA608];
+  v31 = 0xAAAAAAAAE020E002;
   __p = 0uLL;
-  v35 = 0;
+  v33 = 0;
   v6 = xpc_dictionary_create(0, 0, 0);
   if (v6 || (v6 = xpc_null_create()) != 0)
   {
@@ -6470,8 +6435,7 @@ BOOL BasebandDiagnostics::resetBaseband(void *a1, uint64_t a2, int a3)
   xpc_release(v15);
   xpc_release(v16);
   v17 = a1[8];
-  v31 = a1[7];
-  v32 = v17;
+  v30 = v17;
   if (v17)
   {
     atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6514,34 +6478,34 @@ LABEL_32:
 
   v21[v20] = 0;
   abm::client::PerformCommand();
-  LODWORD(v33) = *buf;
-  if (SHIBYTE(v35) < 0)
+  LODWORD(v31) = *buf;
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__p);
   }
 
   __p = *&buf[8];
-  v35 = v38;
-  HIBYTE(v38) = 0;
+  v33 = v36;
+  HIBYTE(v36) = 0;
   buf[8] = 0;
   if ((__dst[23] & 0x80000000) != 0)
   {
     operator delete(*__dst);
   }
 
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v32->__on_zero_shared)(v32);
-    std::__shared_weak_count::__release_weak(v32);
-    v23 = v33;
+    (v30->__on_zero_shared)(v30);
+    std::__shared_weak_count::__release_weak(v30);
+    v23 = v31;
     v24 = a1[5];
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-    if (v33)
+    if (v31)
     {
 LABEL_40:
       if (v25)
       {
-        TelephonyXPC::Result::describe(&v33, buf);
+        TelephonyXPC::Result::describe(buf, &v31);
         v26 = "soft";
         if (a3)
         {
@@ -6575,10 +6539,10 @@ LABEL_40:
 
   else
   {
-    v23 = v33;
+    v23 = v31;
     v24 = a1[5];
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-    if (v33)
+    if (v31)
     {
       goto LABEL_40;
     }
@@ -6599,14 +6563,12 @@ LABEL_40:
 
 LABEL_53:
   xpc_release(v7);
-  if (SHIBYTE(v35) < 0)
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__p);
   }
 
-  result = v23 == 0;
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  return v23 == 0;
 }
 
 void sub_296FEE180(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -6621,7 +6583,7 @@ void sub_296FEE180(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t BasebandDiagnostics::getOperatingMode(BasebandDiagnostics *this)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -6631,7 +6593,7 @@ uint64_t BasebandDiagnostics::getOperatingMode(BasebandDiagnostics *this)
 
   *buf = 0xAAAAAAAAE020E002;
   __p = 0uLL;
-  v31 = 0;
+  v29 = 0;
   v3 = xpc_dictionary_create(0, 0, 0);
   v4 = MEMORY[0x29EDCAA00];
   if (v3 || (v3 = xpc_null_create()) != 0)
@@ -6667,9 +6629,8 @@ uint64_t BasebandDiagnostics::getOperatingMode(BasebandDiagnostics *this)
   xpc_release(v7);
   v8 = xpc_null_create();
   v9 = *(this + 8);
-  v26 = *(this + 7);
-  v27 = v9;
-  v28 = v8;
+  v25 = v9;
+  v26 = v8;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6697,12 +6658,12 @@ uint64_t BasebandDiagnostics::getOperatingMode(BasebandDiagnostics *this)
 
     p_dst = operator new(v14);
     *(&__dst + 1) = v12;
-    v33 = v14 | 0x8000000000000000;
+    v31 = v14 | 0x8000000000000000;
     *&__dst = p_dst;
     goto LABEL_21;
   }
 
-  HIBYTE(v33) = v11;
+  HIBYTE(v31) = v11;
   p_dst = &__dst;
   if (v11)
   {
@@ -6713,26 +6674,26 @@ LABEL_21:
   *(p_dst + v12) = 0;
   abm::client::PerformCommand();
   *buf = *object;
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v29) < 0)
   {
     operator delete(__p);
   }
 
   __p = *&object[8];
-  v31 = v35;
-  HIBYTE(v35) = 0;
+  v29 = v33;
+  HIBYTE(v33) = 0;
   object[8] = 0;
-  if (SHIBYTE(v33) < 0)
+  if (SHIBYTE(v31) < 0)
   {
     operator delete(__dst);
   }
 
-  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v27->__on_zero_shared)(v27);
-    std::__shared_weak_count::__release_weak(v27);
-    v15 = v28;
-    if (v28)
+    (v25->__on_zero_shared)(v25);
+    std::__shared_weak_count::__release_weak(v25);
+    v15 = v26;
+    if (v26)
     {
       goto LABEL_32;
     }
@@ -6740,8 +6701,8 @@ LABEL_21:
 
   else
   {
-    v15 = v28;
-    if (v28)
+    v15 = v26;
+    if (v26)
     {
       goto LABEL_32;
     }
@@ -6783,13 +6744,13 @@ LABEL_35:
       *object = xpc_null_create();
     }
 
-    v23 = xpc::dyn_cast_or_default();
+    v22 = xpc::dyn_cast_or_default();
     xpc_release(*object);
-    if (v23 >= 7u)
+    if (v22 >= 7u)
     {
       v19 = 5;
-      v24 = *(this + 5);
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v23 = *(this + 5);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_44;
       }
@@ -6797,9 +6758,9 @@ LABEL_35:
 
     else
     {
-      v19 = dword_296FF2E8C[v23 & 7];
-      v24 = *(this + 5);
-      if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v19 = dword_296FF2E8C[v22 & 7];
+      v23 = *(this + 5);
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_44;
       }
@@ -6807,24 +6768,24 @@ LABEL_35:
 
     if (v19 > 3)
     {
-      v25 = "Invalid";
+      v24 = "Invalid";
     }
 
     else
     {
-      v25 = off_29EE612F0[v19];
+      v24 = off_29EE612F0[v19];
     }
 
     *object = 136315138;
-    *&object[4] = v25;
-    _os_log_impl(&dword_296FE4000, v24, OS_LOG_TYPE_DEFAULT, "#I Baseband operating mode: %s", object, 0xCu);
+    *&object[4] = v24;
+    _os_log_impl(&dword_296FE4000, v23, OS_LOG_TYPE_DEFAULT, "#I Baseband operating mode: %s", object, 0xCu);
     goto LABEL_44;
   }
 
   v17 = *(this + 5);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    TelephonyXPC::Result::describe(buf, object);
+    TelephonyXPC::Result::describe(object, buf);
     v18 = object[23] >= 0 ? object : *object;
     LODWORD(__dst) = 136315138;
     *(&__dst + 4) = v18;
@@ -6839,12 +6800,11 @@ LABEL_35:
 LABEL_44:
   xpc_release(v16);
   xpc_release(v5);
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v29) < 0)
   {
     operator delete(__p);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v19;
 }
 
@@ -6858,9 +6818,9 @@ void sub_296FEE724(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-BOOL BasebandDiagnostics::setOperatingMode(void *a1, int a2)
+BOOL BasebandDiagnostics::setOperatingMode(void *a1, unsigned int a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (a2 >= 5)
   {
     v3 = a1[5];
@@ -6869,15 +6829,15 @@ BOOL BasebandDiagnostics::setOperatingMode(void *a1, int a2)
     {
       *buf = 0;
       _os_log_impl(&dword_296FE4000, v3, OS_LOG_TYPE_DEFAULT, "#I Invalid Baseband op mode", buf, 2u);
-      v4 = 0;
+      return 0;
     }
 
-    goto LABEL_61;
+    return v4;
   }
 
   *buf = 0xAAAAAAAAE020E002;
   __p = 0uLL;
-  v28 = 0;
+  v26 = 0;
   v6 = xpc_dictionary_create(0, 0, 0);
   if (v6 || (v6 = xpc_null_create()) != 0)
   {
@@ -6965,8 +6925,7 @@ BOOL BasebandDiagnostics::setOperatingMode(void *a1, int a2)
   xpc_release(v11);
 LABEL_29:
   v12 = a1[8];
-  v24 = a1[7];
-  v25 = v12;
+  v23 = v12;
   if (v12)
   {
     atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -6994,13 +6953,13 @@ LABEL_29:
 
     p_dst = operator new(v17);
     *(&__dst + 1) = v15;
-    v30 = v17 | 0x8000000000000000;
+    v28 = v17 | 0x8000000000000000;
     *&__dst = p_dst;
   }
 
   else
   {
-    HIBYTE(v30) = v14;
+    HIBYTE(v28) = v14;
     p_dst = &__dst;
     if (!v14)
     {
@@ -7012,25 +6971,25 @@ LABEL_29:
 LABEL_40:
   *(p_dst + v15) = 0;
   abm::client::PerformCommand();
-  *buf = *v31;
-  if (SHIBYTE(v28) < 0)
+  *buf = *v29;
+  if (SHIBYTE(v26) < 0)
   {
     operator delete(__p);
   }
 
-  __p = *&v31[8];
-  v28 = v32;
-  HIBYTE(v32) = 0;
-  v31[8] = 0;
-  if (SHIBYTE(v30) < 0)
+  __p = *&v29[8];
+  v26 = v30;
+  HIBYTE(v30) = 0;
+  v29[8] = 0;
+  if (SHIBYTE(v28) < 0)
   {
     operator delete(__dst);
   }
 
-  if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v25->__on_zero_shared)(v25);
-    std::__shared_weak_count::__release_weak(v25);
+    (v23->__on_zero_shared)(v23);
+    std::__shared_weak_count::__release_weak(v23);
   }
 
   v4 = *buf == 0;
@@ -7040,14 +6999,14 @@ LABEL_40:
   {
     if (v19)
     {
-      TelephonyXPC::Result::describe(buf, v31);
-      v20 = v31[23] >= 0 ? v31 : *v31;
+      TelephonyXPC::Result::describe(v29, buf);
+      v20 = v29[23] >= 0 ? v29 : *v29;
       LODWORD(__dst) = 136315138;
       *(&__dst + 4) = v20;
       _os_log_impl(&dword_296FE4000, v18, OS_LOG_TYPE_DEFAULT, "#I Failed to set operating mode: %s", &__dst, 0xCu);
-      if ((v31[23] & 0x80000000) != 0)
+      if ((v29[23] & 0x80000000) != 0)
       {
-        operator delete(*v31);
+        operator delete(*v29);
       }
     }
   }
@@ -7064,19 +7023,17 @@ LABEL_40:
       v21 = off_29EE612F0[a2];
     }
 
-    *v31 = 136315138;
-    *&v31[4] = v21;
-    _os_log_impl(&dword_296FE4000, v18, OS_LOG_TYPE_DEFAULT, "#I Set operating mode to %s success", v31, 0xCu);
+    *v29 = 136315138;
+    *&v29[4] = v21;
+    _os_log_impl(&dword_296FE4000, v18, OS_LOG_TYPE_DEFAULT, "#I Set operating mode to %s success", v29, 0xCu);
   }
 
   xpc_release(v7);
-  if (SHIBYTE(v28) < 0)
+  if (SHIBYTE(v26) < 0)
   {
     operator delete(__p);
   }
 
-LABEL_61:
-  v22 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -7100,115 +7057,113 @@ void BasebandDiagnostics::waitForBasebandOperatingMode(uint64_t a1, int a2)
   *(a1 + 88) = a2;
   *(a1 + 96) = 1;
   v3 = *(a1 + 16);
-  if (!v3 || (v4 = *(a1 + 8), (v5 = std::__shared_weak_count::lock(v3)) == 0))
+  if (!v3 || (v4 = std::__shared_weak_count::lock(v3)) == 0)
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v6 = v5;
-  atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v5 = v4;
+  atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v6);
+    (v4->__on_zero_shared)(v4);
+    std::__shared_weak_count::__release_weak(v5);
   }
 
-  v7 = *(a1 + 64);
-  v22 = *(a1 + 56);
-  v23 = v7;
-  if (v7)
+  v6 = *(a1 + 64);
+  v19 = *(a1 + 56);
+  v20 = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v8 = *MEMORY[0x29EDBF6A0];
-  v9 = strlen(*MEMORY[0x29EDBF6A0]);
-  if (v9 >= 0x7FFFFFFFFFFFFFF8)
+  v7 = *MEMORY[0x29EDBF6A0];
+  v8 = strlen(*MEMORY[0x29EDBF6A0]);
+  if (v8 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v10 = v9;
-  if (v9 >= 0x17)
+  v9 = v8;
+  if (v8 >= 0x17)
   {
-    if ((v9 | 7) == 0x17)
+    if ((v8 | 7) == 0x17)
     {
-      v12 = 25;
+      v11 = 25;
     }
 
     else
     {
-      v12 = (v9 | 7) + 1;
+      v11 = (v8 | 7) + 1;
     }
 
-    v11 = operator new(v12);
-    __dst[1] = v10;
-    v21 = v12 | 0x8000000000000000;
-    __dst[0] = v11;
+    v10 = operator new(v11);
+    __dst[1] = v9;
+    v18 = v11 | 0x8000000000000000;
+    __dst[0] = v10;
   }
 
   else
   {
-    HIBYTE(v21) = v9;
-    v11 = __dst;
-    if (!v9)
+    HIBYTE(v18) = v8;
+    v10 = __dst;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  memmove(v11, v8, v10);
+  memmove(v10, v7, v9);
 LABEL_18:
-  *(v10 + v11) = 0;
-  atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  *(v9 + v10) = 0;
+  atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   abm::client::RegisterEventHandler();
-  if (SHIBYTE(v21) < 0)
+  if (SHIBYTE(v18) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v13 = v23;
-  if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v12 = v20;
+  if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v13->__on_zero_shared)(v13);
-    std::__shared_weak_count::__release_weak(v13);
+    (v12->__on_zero_shared)(v12);
+    std::__shared_weak_count::__release_weak(v12);
+  }
+
+  v13 = *(a1 + 64);
+  v16 = v13;
+  if (v13)
+  {
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  abm::client::EventsOff();
+  if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v16->__on_zero_shared)(v16);
+    std::__shared_weak_count::__release_weak(v16);
   }
 
   v14 = *(a1 + 64);
-  v18 = *(a1 + 56);
-  v19 = v14;
+  v15 = v14;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  abm::client::EventsOff();
-  if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v19->__on_zero_shared)(v19);
-    std::__shared_weak_count::__release_weak(v19);
-  }
-
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 56);
-  v17 = v15;
+  abm::client::EventsOn();
   if (v15)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  abm::client::EventsOn();
-  if (v17)
-  {
-    if (!atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v17->__on_zero_shared)(v17);
-      std::__shared_weak_count::__release_weak(v17);
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
     }
   }
 
-  std::__shared_weak_count::__release_weak(v6);
-  std::__shared_weak_count::__release_weak(v6);
+  std::__shared_weak_count::__release_weak(v5);
+  std::__shared_weak_count::__release_weak(v5);
 }
 
 void sub_296FEF100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -7227,24 +7182,32 @@ void sub_296FEF100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN19BasebandDiagnostics28waitForBasebandOperatingModeE14BasebandOpMode_block_invoke(void *a1, xpc_object_t a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v3 = a1[6];
   if (!v3)
   {
-    goto LABEL_34;
+    return;
   }
 
   v5 = a1[4];
   v6 = std::__shared_weak_count::lock(v3);
-  v20 = v6;
+  v19 = v6;
   if (!v6)
   {
-    goto LABEL_34;
+    return;
   }
 
   if (!a1[5])
   {
-    goto LABEL_32;
+LABEL_32:
+    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v18 = v6;
+      (v6->__on_zero_shared)();
+      std::__shared_weak_count::__release_weak(v18);
+    }
+
+    return;
   }
 
   if (a2)
@@ -7326,8 +7289,8 @@ LABEL_17:
 LABEL_22:
     *object = 136315394;
     *&object[4] = v11;
-    v22 = 2080;
-    v23 = v13;
+    v21 = 2080;
+    v22 = v13;
     _os_log_impl(&dword_296FE4000, v10, OS_LOG_TYPE_DEFAULT, "#I BB mode event [%s] - target mode [%s]", object, 0x16u);
   }
 
@@ -7362,20 +7325,11 @@ LABEL_22:
   }
 
   xpc_release(v7);
-  v6 = v20;
-  if (v20)
+  v6 = v19;
+  if (v19)
   {
-LABEL_32:
-    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v18 = v6;
-      (v6->__on_zero_shared)();
-      std::__shared_weak_count::__release_weak(v18);
-    }
+    goto LABEL_32;
   }
-
-LABEL_34:
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296FEF438(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object)
@@ -7412,11 +7366,10 @@ void __destroy_helper_block_ea8_40c44_ZTSNSt3__18weak_ptrI19BasebandDiagnosticsE
 
 BOOL BasebandDiagnostics::updateBasebandOperatingMode(uint64_t a1, unsigned int a2, int a3, int a4)
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   if (a2 == 5)
   {
-    v4 = 0;
-    goto LABEL_64;
+    return 0;
   }
 
   v6 = *(a1 + 16);
@@ -7468,7 +7421,7 @@ BOOL BasebandDiagnostics::updateBasebandOperatingMode(uint64_t a1, unsigned int 
   }
 
   BasebandDiagnostics::waitForBasebandOperatingMode(a1, a2);
-  v38 = v11;
+  v36 = v11;
   while (*(a1 + 96) == 1)
   {
     v15 = *(a1 + 72);
@@ -7512,23 +7465,22 @@ BOOL BasebandDiagnostics::updateBasebandOperatingMode(uint64_t a1, unsigned int 
 
     if (v21 <= 0x16)
     {
-      v42 = 0;
+      v40 = 0;
       buf = 0uLL;
       p_buf = &buf;
-      HIBYTE(v42) = v20 + 41;
+      HIBYTE(v40) = v20 + 41;
 LABEL_35:
-      v24 = *v18;
       if (v19 >= 0)
       {
-        v25 = v18;
+        v24 = v18;
       }
 
       else
       {
-        v25 = *v18;
+        v24 = *v18;
       }
 
-      memmove(p_buf, v25, v20);
+      memmove(p_buf, v24, v20);
       goto LABEL_39;
     }
 
@@ -7544,7 +7496,7 @@ LABEL_35:
 
     p_buf = operator new(v22);
     *(&buf + 1) = v20 + 41;
-    v42 = v22 | 0x8000000000000000;
+    v40 = v22 | 0x8000000000000000;
     *&buf = p_buf;
     if (v20)
     {
@@ -7555,15 +7507,15 @@ LABEL_39:
     strcpy(p_buf + v20, ": resetting baseband to recover to online");
     if (BasebandDiagnostics::resetBaseband(a1, &buf, 0))
     {
-      LOBYTE(v26) = 1;
+      LOBYTE(v25) = 1;
       goto LABEL_42;
     }
 
 LABEL_41:
-    v26 = BasebandDiagnostics::setOperatingMode(a1, a2);
+    v25 = BasebandDiagnostics::setOperatingMode(a1, a2);
     if (!a4)
     {
-      if (!v26)
+      if (!v25)
       {
         goto LABEL_56;
       }
@@ -7572,17 +7524,17 @@ LABEL_41:
     }
 
 LABEL_42:
-    if (SHIBYTE(v42) < 0)
+    if (SHIBYTE(v40) < 0)
     {
-      v27 = v26;
+      v26 = v25;
       operator delete(buf);
-      if (!v27)
+      if (!v26)
       {
         goto LABEL_56;
       }
     }
 
-    else if (!v26)
+    else if (!v25)
     {
       goto LABEL_56;
     }
@@ -7590,69 +7542,69 @@ LABEL_42:
 LABEL_48:
     if ((*(a1 + 96) & 1) == 0)
     {
-      v35 = *(a1 + 80);
+      v34 = *(a1 + 80);
       *(a1 + 80) = 0;
-      if (v35)
+      if (v34)
       {
-        dispatch_group_leave(v35);
-        dispatch_release(v35);
+        dispatch_group_leave(v34);
+        dispatch_release(v34);
       }
 
       break;
     }
 
-    v28 = *(a1 + 40);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = *(a1 + 40);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = "Invalid";
+      v28 = "Invalid";
       if (a2 <= 3)
       {
-        v29 = off_29EE612F0[a2];
+        v28 = off_29EE612F0[a2];
       }
 
-      *v39 = 136315138;
-      v40 = v29;
-      _os_log_impl(&dword_296FE4000, v28, OS_LOG_TYPE_DEFAULT, "#I Waiting for Baseband %s mode", v39, 0xCu);
+      *v37 = 136315138;
+      v38 = v28;
+      _os_log_impl(&dword_296FE4000, v27, OS_LOG_TYPE_DEFAULT, "#I Waiting for Baseband %s mode", v37, 0xCu);
     }
 
-    v30 = *(a1 + 72);
-    v31 = dispatch_time(0, 10000000000);
-    if (!dispatch_group_wait(v30, v31))
+    v29 = *(a1 + 72);
+    v30 = dispatch_time(0, 10000000000);
+    if (!dispatch_group_wait(v29, v30))
     {
-      v33 = 0;
-      v34 = *(a1 + 80);
+      v32 = 0;
+      v33 = *(a1 + 80);
       *(a1 + 80) = 0;
-      if (!v34)
+      if (!v33)
       {
         goto LABEL_17;
       }
 
 LABEL_57:
-      dispatch_group_leave(v34);
-      dispatch_release(v34);
+      dispatch_group_leave(v33);
+      dispatch_release(v33);
       goto LABEL_17;
     }
 
-    v32 = *(a1 + 40);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v31 = *(a1 + 40);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      *v39 = 67109120;
-      LODWORD(v40) = a3;
-      _os_log_impl(&dword_296FE4000, v32, OS_LOG_TYPE_DEFAULT, "#I Baseband mode not updated in time. retry=%d", v39, 8u);
+      *v37 = 67109120;
+      LODWORD(v38) = a3;
+      _os_log_impl(&dword_296FE4000, v31, OS_LOG_TYPE_DEFAULT, "#I Baseband mode not updated in time. retry=%d", v37, 8u);
     }
 
 LABEL_56:
-    v33 = a3;
-    v34 = *(a1 + 80);
+    v32 = a3;
+    v33 = *(a1 + 80);
     *(a1 + 80) = 0;
-    if (v34)
+    if (v33)
     {
       goto LABEL_57;
     }
 
 LABEL_17:
-    a3 = v33 - 1;
-    if (!v33)
+    a3 = v32 - 1;
+    if (!v32)
     {
       break;
     }
@@ -7660,11 +7612,9 @@ LABEL_17:
 
   *(a1 + 88) = 5;
   v4 = *(a1 + 92) == a2;
-  v11 = v38;
+  v11 = v36;
 LABEL_63:
   std::__shared_weak_count::__release_weak(v11);
-LABEL_64:
-  v36 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -7690,95 +7640,88 @@ uint64_t BasebandDiagnostics::getRadioType(BasebandDiagnostics *this)
   return v2;
 }
 
-BOOL BasebandDiagnostics::addAWDConfig(BasebandDiagnostics *a1, uint64_t *a2)
+BOOL BasebandDiagnostics::addAWDConfig(NSObject **a1, uint64_t ***a2)
 {
-  v2 = a2;
-  v19[72] = *MEMORY[0x29EDCA608];
-  if (*(a2 + 23) < 0)
-  {
-    v4 = *a2;
-  }
-
-  memset(&v19[1], 170, 0x238uLL);
-  v19[59] = 0;
-  v5 = MEMORY[0x29EDC9558] + 64;
-  v19[53] = MEMORY[0x29EDC9558] + 64;
-  v6 = MEMORY[0x29EDC9518];
-  v7 = *(MEMORY[0x29EDC9518] + 16);
-  v19[0] = *(MEMORY[0x29EDC9518] + 8);
-  *(v19 + *(v19[0] - 24)) = v7;
-  v19[1] = 0;
-  v8 = (v19 + *(v19[0] - 24));
-  std::ios_base::init(v8, &v19[2]);
-  v9 = MEMORY[0x29EDC9558] + 24;
-  v8[1].__vftable = 0;
-  v8[1].__fmtflags_ = -1;
-  v19[0] = v9;
-  v19[53] = v5;
-  MEMORY[0x29C2697F0](&v19[2]);
+  v17[72] = *MEMORY[0x29EDCA608];
+  memset(&v17[1], 170, 0x238uLL);
+  v17[59] = 0;
+  v4 = MEMORY[0x29EDC9558] + 64;
+  v17[53] = MEMORY[0x29EDC9558] + 64;
+  v5 = MEMORY[0x29EDC9518];
+  v6 = *(MEMORY[0x29EDC9518] + 16);
+  v17[0] = *(MEMORY[0x29EDC9518] + 8);
+  *(v17 + *(v17[0] - 24)) = v6;
+  v17[1] = 0;
+  v7 = (v17 + *(v17[0] - 24));
+  std::ios_base::init(v7, &v17[2]);
+  v8 = MEMORY[0x29EDC9558] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  v17[0] = v8;
+  v17[53] = v4;
+  MEMORY[0x29C2697F0](&v17[2]);
   if (!std::filebuf::open())
   {
-    std::ios_base::clear((v19 + *(v19[0] - 24)), *(&v19[4] + *(v19[0] - 24)) | 4);
+    std::ios_base::clear((v17 + *(v17[0] - 24)), *(&v17[4] + *(v17[0] - 24)) | 4);
   }
 
-  if (v19[17])
+  if (v17[17])
   {
     __sz = 0xAAAAAAAAAAAAAAAALL;
-    *&v10 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v17[6] = v10;
-    v17[7] = v10;
-    v17[4] = v10;
-    v17[5] = v10;
-    v17[2] = v10;
-    v17[3] = v10;
-    v17[0] = v10;
-    v17[1] = v10;
+    *&v9 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v15[6] = v9;
+    v15[7] = v9;
+    v15[4] = v9;
+    v15[5] = v9;
+    v15[2] = v9;
+    v15[3] = v9;
+    v15[0] = v9;
+    v15[1] = v9;
     std::istream::tellg();
-    v11 = operator new[](0xAAAAAAAAAAAAAAAALL);
+    v10 = operator new[](0xAAAAAAAAAAAAAAAALL);
     std::istream::seekg();
     std::istream::read();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((v19 + *(v19[0] - 24)), *(&v19[4] + *(v19[0] - 24)) | 4);
+      std::ios_base::clear((v17 + *(v17[0] - 24)), *(&v17[4] + *(v17[0] - 24)) | 4);
     }
 
-    v12 = xpc_data_create(v11, 0xAAAAAAAAAAAAAAAALL);
-    if (!v12)
+    v11 = xpc_data_create(v10, 0xAAAAAAAAAAAAAAAALL);
+    if (!v11)
     {
-      v12 = xpc_null_create();
+      v11 = xpc_null_create();
     }
 
-    operator delete[](v11);
-    v13 = BasebandDiagnostics::addAWDConfigPayload(a1, v11, 0xAAAAAAAAAAAAAAAALL);
-    xpc_release(v12);
+    operator delete[](v10);
+    v12 = BasebandDiagnostics::addAWDConfigPayload(a1, v10, 0xAAAAAAAAAAAAAAAALL);
+    xpc_release(v11);
   }
 
   else
   {
-    v14 = *(a1 + 5);
-    v13 = 0;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = a1[5];
+    v12 = 0;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v2 + 23) < 0)
+      if (*(a2 + 23) < 0)
       {
-        v2 = *v2;
+        a2 = *a2;
       }
 
-      LODWORD(v17[0]) = 136315138;
-      *(v17 + 4) = v2;
-      _os_log_impl(&dword_296FE4000, v14, OS_LOG_TYPE_DEFAULT, "#I Failed to open AWD Config file (%s)", v17, 0xCu);
-      v13 = 0;
+      LODWORD(v15[0]) = 136315138;
+      *(v15 + 4) = a2;
+      _os_log_impl(&dword_296FE4000, v13, OS_LOG_TYPE_DEFAULT, "#I Failed to open AWD Config file (%s)", v15, 0xCu);
+      v12 = 0;
     }
   }
 
-  v19[0] = *v6;
-  *(v19 + *(v19[0] - 24)) = v6[3];
-  MEMORY[0x29C269800](&v19[2]);
+  v17[0] = *v5;
+  *(v17 + *(v17[0] - 24)) = v5[3];
+  MEMORY[0x29C269800](&v17[2]);
   std::istream::~istream();
-  MEMORY[0x29C269940](&v19[53]);
-  v15 = *MEMORY[0x29EDCA608];
-  return v13;
+  MEMORY[0x29C269940](&v17[53]);
+  return v12;
 }
 
 void sub_296FEFD8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
@@ -7793,7 +7736,7 @@ void sub_296FEFD8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL BasebandDiagnostics::addAWDConfigPayload(BasebandDiagnostics *this, char *bytes, size_t length)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v4 = xpc_data_create(bytes, length);
   if (!v4)
   {
@@ -7884,9 +7827,9 @@ BOOL BasebandDiagnostics::addAWDConfigPayload(BasebandDiagnostics *this, char *b
   xpc_release(v19);
   v20 = xpc_null_create();
   v21 = *(this + 8);
-  v35 = *(this + 7);
-  v36 = v21;
-  v37 = v20;
+  v34 = *(this + 7);
+  v35 = v21;
+  v36 = v20;
   if (v21)
   {
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7914,12 +7857,12 @@ BOOL BasebandDiagnostics::addAWDConfigPayload(BasebandDiagnostics *this, char *b
 
     v25 = operator new(v26);
     __p[1] = v24;
-    v34 = v26 | 0x8000000000000000;
+    v33 = v26 | 0x8000000000000000;
     __p[0] = v25;
     goto LABEL_31;
   }
 
-  HIBYTE(v34) = v23;
+  HIBYTE(v33) = v23;
   v25 = __p;
   if (v23)
   {
@@ -7930,17 +7873,17 @@ LABEL_31:
   *(v24 + v25) = 0;
   abm::client::PerformCommand();
   v27 = *buf;
-  v12 = *&v39[4];
-  v28 = v40;
-  HIBYTE(v40) = 0;
-  v39[4] = 0;
-  if (SHIBYTE(v34) < 0)
+  v12 = *&v38[4];
+  v28 = v39;
+  HIBYTE(v39) = 0;
+  v38[4] = 0;
+  if (SHIBYTE(v33) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v29 = v36;
-  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v29 = v35;
+  if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v29->__on_zero_shared)(v29);
     std::__shared_weak_count::__release_weak(v29);
@@ -7959,7 +7902,7 @@ LABEL_38:
     }
 
     *buf = 136315138;
-    *v39 = v30;
+    *v38 = v30;
     _os_log_impl(&dword_296FE4000, v14, OS_LOG_TYPE_DEFAULT, "#I AWD Configuration add %s", buf, 0xCu);
   }
 
@@ -7971,7 +7914,6 @@ LABEL_41:
   }
 
   xpc_release(v5);
-  v31 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
@@ -7987,8 +7929,8 @@ void sub_296FF0204(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL BasebandDiagnostics::removeAWDConfig(BasebandDiagnostics *this)
 {
-  v33 = *MEMORY[0x29EDCA608];
-  v29 = xpc_null_create();
+  v31 = *MEMORY[0x29EDCA608];
+  v27 = xpc_null_create();
   v2 = xpc_dictionary_create(0, 0, 0);
   if (v2 || (v2 = xpc_null_create()) != 0)
   {
@@ -8032,8 +7974,8 @@ BOOL BasebandDiagnostics::removeAWDConfig(BasebandDiagnostics *this)
   xpc_release(v6);
   xpc_release(v7);
   v8 = *(this + 8);
-  v27 = *(this + 7);
-  v28 = v8;
+  v25 = *(this + 7);
+  v26 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8061,12 +8003,12 @@ BOOL BasebandDiagnostics::removeAWDConfig(BasebandDiagnostics *this)
 
     v12 = operator new(v13);
     __dst[1] = v11;
-    v26 = v13 | 0x8000000000000000;
+    v24 = v13 | 0x8000000000000000;
     __dst[0] = v12;
     goto LABEL_21;
   }
 
-  HIBYTE(v26) = v10;
+  HIBYTE(v24) = v10;
   v12 = __dst;
   if (v10)
   {
@@ -8077,17 +8019,17 @@ LABEL_21:
   *(v11 + v12) = 0;
   abm::client::PerformCommand();
   v14 = *buf;
-  v15 = *&v31[4];
-  v16 = v32;
-  HIBYTE(v32) = 0;
-  v31[4] = 0;
-  if (SHIBYTE(v26) < 0)
+  v15 = *&v29[4];
+  v16 = v30;
+  HIBYTE(v30) = 0;
+  v29[4] = 0;
+  if (SHIBYTE(v24) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v17 = v28;
-  if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v17 = v26;
+  if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v17->__on_zero_shared)(v17);
     std::__shared_weak_count::__release_weak(v17);
@@ -8114,22 +8056,21 @@ LABEL_21:
   }
 
   *buf = 136315138;
-  *v31 = v19;
+  *v29 = v19;
   _os_log_impl(&dword_296FE4000, v18, OS_LOG_TYPE_DEFAULT, "#I AWD Configuration remove %s", buf, 0xCu);
 LABEL_30:
   v20 = *(this + 8);
-  v23 = *(this + 7);
-  v24 = v20;
+  v22 = v20;
   if (v20)
   {
     atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   abm::client::EventsOff();
-  if (v24 && !atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v24->__on_zero_shared)(v24);
-    std::__shared_weak_count::__release_weak(v24);
+    (v22->__on_zero_shared)(v22);
+    std::__shared_weak_count::__release_weak(v22);
   }
 
   xpc_release(v3);
@@ -8138,9 +8079,7 @@ LABEL_30:
     operator delete(v15);
   }
 
-  result = v14 == 0;
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
+  return v14 == 0;
 }
 
 void sub_296FF065C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -8187,7 +8126,7 @@ void BasebandDiagnostics::resetAll(BasebandDiagnostics *this)
 
 void BasebandDiagnostics::registerAWDMetricHandler(void *a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v3 = *(a2 + 24);
   if (v3)
   {
@@ -8195,21 +8134,21 @@ void BasebandDiagnostics::registerAWDMetricHandler(void *a1, uint64_t a2)
     *&v4 = 0xAAAAAAAAAAAAAAAALL;
     *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
     *buf = v4;
-    v35 = v4;
+    v32 = v4;
     if (v3 == a2)
     {
-      *(&v35 + 1) = buf;
+      *(&v32 + 1) = buf;
       (*(*v3 + 24))(v3, buf);
     }
 
     else
     {
-      *(&v35 + 1) = (*(*v3 + 16))(v3);
+      *(&v32 + 1) = (*(*v3 + 16))(v3);
     }
 
     v6 = a1[8];
-    v25 = a1[7];
-    v26 = v6;
+    v22 = a1[7];
+    v23 = v6;
     if (v6)
     {
       atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8237,74 +8176,72 @@ void BasebandDiagnostics::registerAWDMetricHandler(void *a1, uint64_t a2)
 
       v10 = operator new(v11);
       __dst[1] = v9;
-      v24 = v11 | 0x8000000000000000;
+      v21 = v11 | 0x8000000000000000;
       __dst[0] = v10;
     }
 
     else
     {
-      HIBYTE(v24) = v8;
+      HIBYTE(v21) = v8;
       v10 = __dst;
       if (!v8)
       {
 LABEL_18:
         *(v9 + v10) = 0;
-        v27 = MEMORY[0x29EDCA5F8];
-        v28 = 3321888768;
-        v29 = ___ZN19BasebandDiagnostics24registerAWDMetricHandlerENSt3__18functionIFvNS0_6vectorIhNS0_9allocatorIhEEEEEEE_block_invoke;
-        v30 = &__block_descriptor_72_ea8_40c57_ZTSNSt3__18functionIFvNS_6vectorIhNS_9allocatorIhEEEEEEE_e31_v24__0_v8__dispatch_group_s__16l;
-        v31 = a1;
-        v12 = *(&v35 + 1);
-        if (*(&v35 + 1))
+        v24 = MEMORY[0x29EDCA5F8];
+        v25 = 3321888768;
+        v26 = ___ZN19BasebandDiagnostics24registerAWDMetricHandlerENSt3__18functionIFvNS0_6vectorIhNS0_9allocatorIhEEEEEEE_block_invoke;
+        v27 = &__block_descriptor_72_ea8_40c57_ZTSNSt3__18functionIFvNS_6vectorIhNS_9allocatorIhEEEEEEE_e31_v24__0_v8__dispatch_group_s__16l;
+        v28 = a1;
+        v12 = *(&v32 + 1);
+        if (*(&v32 + 1))
         {
-          if (*(&v35 + 1) == buf)
+          if (*(&v32 + 1) == buf)
           {
-            v33 = v32;
-            (*(**(&v35 + 1) + 24))(*(&v35 + 1), v32);
+            v30 = v29;
+            (*(**(&v32 + 1) + 24))(*(&v32 + 1), v29);
 LABEL_23:
             abm::client::RegisterEventHandler();
-            if (SHIBYTE(v24) < 0)
+            if (SHIBYTE(v21) < 0)
             {
               operator delete(__dst[0]);
             }
 
-            v13 = v26;
-            if (v26 && !atomic_fetch_add(&v26->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            v13 = v23;
+            if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
               (v13->__on_zero_shared)(v13);
               std::__shared_weak_count::__release_weak(v13);
             }
 
             v14 = a1[8];
-            v21 = a1[7];
-            v22 = v14;
+            v19 = v14;
             if (v14)
             {
               atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             abm::client::EventsOff();
-            if (v22 && !atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v22->__on_zero_shared)(v22);
-              std::__shared_weak_count::__release_weak(v22);
+              (v19->__on_zero_shared)(v19);
+              std::__shared_weak_count::__release_weak(v19);
             }
 
             v15 = a1[8];
-            v19 = a1[7];
-            v20 = v15;
+            v18 = v15;
             if (v15)
             {
               atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
             abm::client::EventsOn();
-            if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v20->__on_zero_shared)(v20);
-              std::__shared_weak_count::__release_weak(v20);
-              v16 = v33;
-              if (v33 != v32)
+              (v18->__on_zero_shared)(v18);
+              std::__shared_weak_count::__release_weak(v18);
+              v16 = v30;
+              if (v30 != v29)
               {
 LABEL_38:
                 if (v16)
@@ -8312,8 +8249,8 @@ LABEL_38:
                   (*(*v16 + 40))(v16);
                 }
 
-                v17 = *(&v35 + 1);
-                if (*(&v35 + 1) != buf)
+                v17 = *(&v32 + 1);
+                if (*(&v32 + 1) != buf)
                 {
                   goto LABEL_41;
                 }
@@ -8324,16 +8261,16 @@ LABEL_38:
 
             else
             {
-              v16 = v33;
-              if (v33 != v32)
+              v16 = v30;
+              if (v30 != v29)
               {
                 goto LABEL_38;
               }
             }
 
             (*(*v16 + 32))(v16);
-            v17 = *(&v35 + 1);
-            if (*(&v35 + 1) != buf)
+            v17 = *(&v32 + 1);
+            if (*(&v32 + 1) != buf)
             {
 LABEL_41:
               if (v17)
@@ -8341,18 +8278,18 @@ LABEL_41:
                 (*(*v17 + 40))(v17);
               }
 
-              goto LABEL_46;
+              return;
             }
 
 LABEL_45:
             (*(*v17 + 32))(v17);
-            goto LABEL_46;
+            return;
           }
 
-          v12 = (*(**(&v35 + 1) + 16))(*(&v35 + 1));
+          v12 = (*(**(&v32 + 1) + 16))(*(&v32 + 1));
         }
 
-        v33 = v12;
+        v30 = v12;
         goto LABEL_23;
       }
     }
@@ -8367,9 +8304,6 @@ LABEL_45:
     *buf = 0;
     _os_log_error_impl(&dword_296FE4000, v5, OS_LOG_TYPE_ERROR, "No AWD Metric handler", buf, 2u);
   }
-
-LABEL_46:
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296FF0C40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -8443,7 +8377,7 @@ LABEL_8:
       if (xpc_dictionary_get_value(v5, *MEMORY[0x29EDBE4D8]))
       {
         v10 = xpc_dictionary_get_value(v5, v9);
-        v30 = v10;
+        v28 = v10;
         if (v10)
         {
           xpc_retain(v10);
@@ -8451,17 +8385,17 @@ LABEL_8:
 
         else
         {
-          v30 = xpc_null_create();
+          v28 = xpc_null_create();
         }
 
         memset(objecta, 0, 24);
         xpc::dyn_cast_or_default();
-        v12 = v31;
-        v13 = v32;
+        v12 = v29;
+        v13 = v30;
+        v29 = 0;
+        v30 = 0;
         v31 = 0;
-        v32 = 0;
-        v33 = 0;
-        xpc_release(v30);
+        xpc_release(v28);
         v14 = *(v3 + 40);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
@@ -8490,11 +8424,11 @@ LABEL_8:
           xpc_release(objecta[0]);
           if (!v17)
           {
-            v26 = *(v3 + 40);
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v24 = *(v3 + 40);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               LOWORD(objecta[0]) = 0;
-              _os_log_impl(&dword_296FE4000, v26, OS_LOG_TYPE_DEFAULT, "#I Continue to wait for more data..", objecta, 2u);
+              _os_log_impl(&dword_296FE4000, v24, OS_LOG_TYPE_DEFAULT, "#I Continue to wait for more data..", objecta, 2u);
             }
 
             goto LABEL_36;
@@ -8502,8 +8436,7 @@ LABEL_8:
         }
 
         memset(objecta, 170, 24);
-        v18 = *(v3 + 112) - *(v3 + 104);
-        wis::createTagForProtobuf(0xF);
+        wis::createTagForProtobuf(objecta, 0xF);
         std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(v3 + 104, *(v3 + 104), objecta[0], objecta[1], objecta[1] - objecta[0]);
         if (objecta[0])
         {
@@ -8525,34 +8458,34 @@ LABEL_8:
         *(v3 + 112) = *(v3 + 104);
       }
 
-      v19 = *(a1 + 64);
-      if (v19)
+      v18 = *(a1 + 64);
+      if (v18)
       {
         __p = 0;
-        v28 = 0;
-        v29 = 0;
-        v21 = *(v3 + 104);
-        v20 = *(v3 + 112);
-        v22 = v20 - v21;
-        if (v20 != v21)
+        v26 = 0;
+        v27 = 0;
+        v20 = *(v3 + 104);
+        v19 = *(v3 + 112);
+        v21 = v19 - v20;
+        if (v19 != v20)
         {
-          if ((v22 & 0x8000000000000000) != 0)
+          if ((v21 & 0x8000000000000000) != 0)
           {
             std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
           }
 
-          v23 = operator new(v20 - v21);
-          v24 = &v23[v22];
-          __p = v23;
-          v29 = &v23[v22];
-          memcpy(v23, v21, v22);
-          v28 = v24;
+          v22 = operator new(v19 - v20);
+          v23 = &v22[v21];
+          __p = v22;
+          v27 = &v22[v21];
+          memcpy(v22, v20, v21);
+          v26 = v23;
         }
 
-        (*(*v19 + 48))(v19, &__p);
+        (*(*v18 + 48))(v18, &__p);
         if (__p)
         {
-          v28 = __p;
+          v26 = __p;
           operator delete(__p);
         }
       }
@@ -8567,7 +8500,6 @@ LABEL_36:
   }
 
   xpc_release(v5);
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296FF10BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, xpc_object_t a13, uint64_t a14, uint64_t a15, uint64_t a16, xpc_object_t object, uint64_t a18)
@@ -8647,7 +8579,7 @@ uint64_t std::function<void ()(std::vector<unsigned char>)>::~function(uint64_t 
 
 BOOL BasebandDiagnostics::saveToUserDefaults(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v6 = [objc_alloc(MEMORY[0x29EDB8E78]) initWithSuiteName:@"com.apple.BasebandDiagnostics"];
   if (v6)
   {
@@ -8695,20 +8627,19 @@ BOOL BasebandDiagnostics::saveToUserDefaults(uint64_t a1, uint64_t *a2, uint64_t
       v13 = "Success";
     }
 
-    v16 = 136315394;
-    v17 = v12;
-    v18 = 2080;
-    v19 = v13;
-    _os_log_impl(&dword_296FE4000, v11, OS_LOG_TYPE_DEFAULT, "#I User Defaults - Save Data for key=%s: %s", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = v12;
+    v17 = 2080;
+    v18 = v13;
+    _os_log_impl(&dword_296FE4000, v11, OS_LOG_TYPE_DEFAULT, "#I User Defaults - Save Data for key=%s: %s", &v15, 0x16u);
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v6 != 0;
 }
 
 BOOL BasebandDiagnostics::removeFromUserDefaults(uint64_t a1, uint64_t *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v4 = [objc_alloc(MEMORY[0x29EDB8E78]) initWithSuiteName:@"com.apple.BasebandDiagnostics"];
   if (v4)
   {
@@ -8743,14 +8674,13 @@ BOOL BasebandDiagnostics::removeFromUserDefaults(uint64_t a1, uint64_t *a2)
       v9 = "Success";
     }
 
-    v12 = 136315394;
-    v13 = v8;
-    v14 = 2080;
-    v15 = v9;
-    _os_log_impl(&dword_296FE4000, v7, OS_LOG_TYPE_DEFAULT, "#I User Defaults - Remove key=%s: %s", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = v8;
+    v13 = 2080;
+    v14 = v9;
+    _os_log_impl(&dword_296FE4000, v7, OS_LOG_TYPE_DEFAULT, "#I User Defaults - Remove key=%s: %s", &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v4 != 0;
 }
 
@@ -8810,7 +8740,7 @@ uint64_t BasebandDiagnostics::readIntegerFromUserDefaults(uint64_t a1, uint64_t 
   }
 }
 
-void BasebandDiagnostics::readStringFromUserDefaults(uint64_t *a1@<X1>, const void **a2@<X2>, uint64_t a3@<X8>)
+void BasebandDiagnostics::readStringFromUserDefaults(uint64_t *a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
   *a3 = 0;
   *(a3 + 8) = 0;
@@ -8925,7 +8855,7 @@ uint64_t std::ifstream::~ifstream(void *a1)
   return std::istream::~istream();
 }
 
-void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(uint64_t a1, _BYTE *__dst, _BYTE *__src, void *a4, unint64_t a5)
+void std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(uint64_t a1, _BYTE *__dst, _BYTE *__src, void *a4, uint64_t a5)
 {
   if (a5 < 1)
   {
@@ -9248,7 +9178,7 @@ void *std::string::__assign_no_alias<true>(void *__dst, const void *a2, size_t _
   return __dst;
 }
 
-void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t __len)
+void ***std::string::__assign_no_alias<false>(void ***a1, const void *a2, void **__len)
 {
   v5 = a1[2];
   v6 = v5 & 0x7FFFFFFFFFFFFFFFLL;
@@ -9326,7 +9256,7 @@ void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t _
     }
   }
 
-  *(v7 + __len) = 0;
+  *(__len + v7) = 0;
   return a1;
 }
 

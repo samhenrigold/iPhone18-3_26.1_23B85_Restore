@@ -97,8 +97,8 @@
     objc_msgSend_range(storageCopy, v29, v30);
     v57.location = NSExpandedRange();
     v57.length = v32;
-    TSWPAttributeArray::begin(v31, &v57, &v55);
-    TSWPAttributeArray::end(v31, &v57, v33, v54);
+    TSWPAttributeArray::begin(&v55, v31, &v57);
+    TSWPAttributeArray::end(v54, v31, &v57, v33);
     for (k = v56; k != v54[1]; k = ++v56)
     {
       v35 = TSWPAttributeArray::iterator::operator*(&v55);

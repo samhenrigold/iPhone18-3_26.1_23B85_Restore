@@ -1720,7 +1720,7 @@ void __80__CKComposition_UIPasteboard__dataForPasteboardType_forItemProvider_com
   _Block_object_dispose(v34, 8);
 }
 
-uint64_t __81__CKComposition_UIPasteboard__filenameForType_forItemProvider_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__81__CKComposition_UIPasteboard__filenameForType_forItemProvider_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*MEMORY[0x1E69DE2A8] containsObject:a2];
   if (result)
@@ -3339,7 +3339,7 @@ LABEL_33:
 
     else
     {
-      v39 = CKFrameworkBundle();
+      v39 = CKFrameworkBundle(0);
       v40 = [v39 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
       [*(a1 + 48) setCollaborationOptionsSummary:v40];
     }
@@ -3749,7 +3749,7 @@ void __130__CKComposition_UIPasteboard__createPluginPayloadCompositionFromCloudK
 
       else
       {
-        v28 = CKFrameworkBundle();
+        v28 = CKFrameworkBundle(0);
         v29 = [v28 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
         [v26 setCollaborationOptionsSummary:v29];
       }
@@ -3914,7 +3914,7 @@ void __135__CKComposition_UIPasteboard__createPluginPayloadCompositionFromCollab
 
   else
   {
-    v17 = CKFrameworkBundle();
+    v17 = CKFrameworkBundle(0);
     v18 = [v17 localizedStringForKey:@"DEFAULT_COLLABORATION_OPTIONS_SUMMARY" value:&stru_1F04268F8 table:@"ChatKit"];
     [v15 setCollaborationOptionsSummary:v18];
   }
@@ -9424,7 +9424,7 @@ void __43__CKComposition_firstEmbeddedPluginPayload__block_invoke(uint64_t a1, v
 
 void __67__CKComposition__compositionTextBeginsWithEmbeddedPluginAttachment__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a2 objectForKeyedSubscript:@"EmbeddedRichLinkConfiguration"];
+  v7 = [a2 objectForKeyedSubscript:{@"EmbeddedRichLinkConfiguration", a4}];
   if (v7)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -9886,21 +9886,21 @@ LABEL_6:
   return v20;
 }
 
-uint64_t __82__CKComposition_CKMediaObject__compositionByReplacingMediaObject_withMediaObject___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__82__CKComposition_CKMediaObject__compositionByReplacingMediaObject_withMediaObject___block_invoke(id *result, id a2, uint64_t a3, uint64_t a4)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
-    return [*(result + 40) addAttribute:@"MediaObjectForTextAttachment" value:*(result + 48) range:{a3, a4}];
+    return [result[5] addAttribute:@"MediaObjectForTextAttachment" value:result[6] range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __82__CKComposition_CKMediaObject__compositionByReplacingMediaObject_withMediaObject___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__82__CKComposition_CKMediaObject__compositionByReplacingMediaObject_withMediaObject___block_invoke_2(id *result, id a2, uint64_t a3, uint64_t a4)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
-    return [*(result + 40) addAttribute:@"AdaptiveImageGlyphMediaObject" value:*(result + 48) range:{a3, a4}];
+    return [result[5] addAttribute:@"AdaptiveImageGlyphMediaObject" value:result[6] range:{a3, a4}];
   }
 
   return result;
@@ -9929,7 +9929,7 @@ uint64_t __82__CKComposition_CKMediaObject__compositionByReplacingMediaObject_wi
   return v13;
 }
 
-uint64_t __66__CKComposition_CKMediaObject__compositionByRemovingMediaObjects___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__66__CKComposition_CKMediaObject__compositionByRemovingMediaObjects___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -9955,21 +9955,21 @@ uint64_t __66__CKComposition_CKMediaObject__compositionByRemovingMediaObjects___
   return result;
 }
 
-uint64_t __44__CKComposition_CKMediaObject__mediaObjects__block_invoke(uint64_t result, uint64_t a2)
+id *__44__CKComposition_CKMediaObject__mediaObjects__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __44__CKComposition_CKMediaObject__mediaObjects__block_invoke_2(uint64_t result, uint64_t a2)
+id *__44__CKComposition_CKMediaObject__mediaObjects__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -11617,7 +11617,7 @@ LABEL_31:
 
 - (void)saveCompositionWithChatIdentifier:(id)identifier
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (IMOSLoggingEnabled())
   {
@@ -11626,38 +11626,36 @@ LABEL_31:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v57 = "[CKComposition(CKPersistentComposition) saveCompositionWithChatIdentifier:]";
-      v58 = 2112;
-      v59 = identifierCopy;
+      v61 = "[CKComposition(CKPersistentComposition) saveCompositionWithChatIdentifier:]";
+      v62 = 2112;
+      v63 = identifierCopy;
       _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEBUG, "%s chatIdentifier:%@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v50 = "[CKComposition(CKPersistentComposition) saveCompositionWithChatIdentifier:]";
-    v51 = identifierCopy;
-    _CKLog();
+    _CKLog(0xFu, @"%s chatIdentifier:%@", v6, v7, v8, v9, v10, v11, "[CKComposition(CKPersistentComposition) saveCompositionWithChatIdentifier:]");
   }
 
   if (identifierCopy)
   {
     im_lastPathComponent = [identifierCopy im_lastPathComponent];
-    v7 = [identifierCopy isEqualToString:im_lastPathComponent];
+    v13 = [identifierCopy isEqualToString:im_lastPathComponent];
 
-    if ((v7 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       if (IMOSLoggingEnabled())
       {
-        v8 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           im_lastPathComponent2 = [identifierCopy im_lastPathComponent];
           *buf = 138412546;
-          v57 = identifierCopy;
-          v58 = 2112;
-          v59 = im_lastPathComponent2;
-          _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "chatIdentifier has path specifiers %@. using stripped chatIdentifier instead %@", buf, 0x16u);
+          v61 = identifierCopy;
+          v62 = 2112;
+          v63 = im_lastPathComponent2;
+          _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "chatIdentifier has path specifiers %@. using stripped chatIdentifier instead %@", buf, 0x16u);
         }
       }
 
@@ -11667,65 +11665,65 @@ LABEL_31:
     }
   }
 
-  v11 = CKDraftsDirectoryURL();
-  v53 = [v11 URLByAppendingPathComponent:identifierCopy isDirectory:1];
+  v17 = CKDraftsDirectoryURL();
+  v57 = [v17 URLByAppendingPathComponent:identifierCopy isDirectory:1];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  [defaultManager createDirectoryAtURL:v53 withIntermediateDirectories:1 attributes:0 error:0];
-  v52 = CKPluginTmpSubDirectoryURL(identifierCopy, 0);
-  path = [v52 path];
-  v13 = [defaultManager fileExistsAtPath:path];
+  [defaultManager createDirectoryAtURL:v57 withIntermediateDirectories:1 attributes:0 error:0];
+  v56 = CKPluginTmpSubDirectoryURL(identifierCopy, 0);
+  path = [v56 path];
+  v19 = [defaultManager fileExistsAtPath:path];
 
-  if (v13)
+  if (v19)
   {
-    v14 = CKPluginDraftDirectoryURL(identifierCopy, 0);
-    path2 = [v14 path];
-    v16 = [defaultManager fileExistsAtPath:path2];
+    v20 = CKPluginDraftDirectoryURL(identifierCopy, 0);
+    path2 = [v20 path];
+    v22 = [defaultManager fileExistsAtPath:path2];
 
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v23 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v18 = @"NO";
+        v24 = @"NO";
         *buf = 138412802;
-        v57 = v14;
-        v58 = 2112;
-        if (v16)
+        v61 = v20;
+        v62 = 2112;
+        if (v22)
         {
-          v18 = @"YES";
+          v24 = @"YES";
         }
 
-        v59 = v52;
-        v60 = 2112;
-        v61 = v18;
-        _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "onSave draft %@ working %@ draftExists %@", buf, 0x20u);
+        v63 = v56;
+        v64 = 2112;
+        v65 = v24;
+        _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "onSave draft %@ working %@ draftExists %@", buf, 0x20u);
       }
     }
 
-    if (v16)
+    if (v22)
     {
-      [defaultManager removeItemAtURL:v14 error:0];
+      [defaultManager removeItemAtURL:v20 error:0];
     }
 
-    v55 = 0;
-    [defaultManager copyItemAtURL:v52 toURL:v14 error:{&v55, v50, v51}];
-    v19 = v55;
-    if (v19 && IMOSLoggingEnabled())
+    v59 = 0;
+    [defaultManager copyItemAtURL:v56 toURL:v20 error:&v59];
+    v25 = v59;
+    if (v25 && IMOSLoggingEnabled())
     {
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v57 = v19;
-        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "Error when backing up working dir to drafts: %@", buf, 0xCu);
+        v61 = v25;
+        _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "Error when backing up working dir to drafts: %@", buf, 0xCu);
       }
     }
   }
 
-  v21 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:5];
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{-[CKComposition isAudioComposition](self, "isAudioComposition")}];
-  [v21 setObject:v22 forKey:@"audioMessage"];
+  v27 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:5];
+  v28 = [MEMORY[0x1E696AD98] numberWithBool:{-[CKComposition isAudioComposition](self, "isAudioComposition")}];
+  [v27 setObject:v28 forKey:@"audioMessage"];
 
   if ([(CKComposition *)self isAudioComposition])
   {
@@ -11736,7 +11734,7 @@ LABEL_31:
     if (objc_opt_isKindOfClass())
     {
       powerLevels = [firstObject powerLevels];
-      [v21 setObject:powerLevels forKeyedSubscript:@"audioPowerLevels"];
+      [v27 setObject:powerLevels forKeyedSubscript:@"audioPowerLevels"];
     }
 
     else
@@ -11749,77 +11747,77 @@ LABEL_31:
     }
   }
 
-  v26 = [(CKComposition *)self shelfPluginPayload:v50];
+  shelfPluginPayload = [(CKComposition *)self shelfPluginPayload];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
-    v28 = v26;
+    v34 = shelfPluginPayload;
   }
 
   else
   {
-    v28 = 0;
+    v34 = 0;
   }
 
-  v29 = v28;
-  if (v26)
+  v35 = v34;
+  if (shelfPluginPayload)
   {
     if (isKindOfClass)
     {
-      mediaObject = [v26 mediaObject];
-      v31 = mediaObject == 0;
+      mediaObject = [shelfPluginPayload mediaObject];
+      v37 = mediaObject == 0;
 
-      if (v31)
+      if (v37)
       {
-        v38 = v26;
+        v44 = shelfPluginPayload;
       }
 
       else
       {
-        mediaObject2 = [v26 mediaObject];
-        v33 = [v26 copy];
+        mediaObject2 = [shelfPluginPayload mediaObject];
+        v39 = [shelfPluginPayload copy];
 
-        v34 = [v53 URLByAppendingPathComponent:@"Attachments" isDirectory:1];
+        v40 = [v57 URLByAppendingPathComponent:@"Attachments" isDirectory:1];
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        v36 = CKWriteMediaObjectToFileLocation(mediaObject2, v34, defaultManager2);
+        v42 = CKWriteMediaObjectToFileLocation(mediaObject2, v40, defaultManager2);
 
-        [v33 setFileURL:v36];
+        [v39 setFileURL:v42];
         transcoderUserInfo = [mediaObject2 transcoderUserInfo];
-        [v33 setUserInfo:transcoderUserInfo];
+        [v39 setUserInfo:transcoderUserInfo];
 
-        v38 = v33;
-        v26 = v38;
+        v44 = v39;
+        shelfPluginPayload = v44;
       }
     }
 
     else
     {
-      v38 = 0;
+      v44 = 0;
     }
 
-    v39 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v26 requiringSecureCoding:1 error:0];
-    [v21 setObject:v39 forKey:@"shelfPluginPayload"];
+    v45 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:shelfPluginPayload requiringSecureCoding:1 error:0];
+    [v27 setObject:v45 forKey:@"shelfPluginPayload"];
   }
 
   else
   {
-    v38 = v29;
+    v44 = v35;
   }
 
-  [(CKComposition *)self _persistTextToComposition:v21 directoryURL:v53];
+  [(CKComposition *)self _persistTextToComposition:v27 directoryURL:v57];
   subject = [(CKComposition *)self subject];
   if (subject)
   {
-    v41 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:subject requiringSecureCoding:1 error:0];
-    [v21 setObject:v41 forKey:@"subject"];
+    v47 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:subject requiringSecureCoding:1 error:0];
+    [v27 setObject:v47 forKey:@"subject"];
     if (IMOSLoggingEnabled())
     {
-      v42 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v48 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v42, OS_LOG_TYPE_INFO, "-> preserving subject to draft", buf, 2u);
+        _os_log_impl(&dword_19020E000, v48, OS_LOG_TYPE_INFO, "-> preserving subject to draft", buf, 2u);
       }
     }
   }
@@ -11827,15 +11825,15 @@ LABEL_31:
   bizIntent = [(CKComposition *)self bizIntent];
   if (bizIntent)
   {
-    v44 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:bizIntent requiringSecureCoding:1 error:0];
-    [v21 setObject:v44 forKey:@"bizIntent"];
+    v50 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:bizIntent requiringSecureCoding:1 error:0];
+    [v27 setObject:v50 forKey:@"bizIntent"];
     if (IMOSLoggingEnabled())
     {
-      v45 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v51 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v45, OS_LOG_TYPE_INFO, "-> preserving bizInent to draft", buf, 2u);
+        _os_log_impl(&dword_19020E000, v51, OS_LOG_TYPE_INFO, "-> preserving bizInent to draft", buf, 2u);
       }
     }
   }
@@ -11843,21 +11841,21 @@ LABEL_31:
   sendLaterPluginInfo = [(CKComposition *)self sendLaterPluginInfo];
   if (sendLaterPluginInfo)
   {
-    v47 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:sendLaterPluginInfo requiringSecureCoding:1 error:0];
-    [v21 setObject:v47 forKey:@"sendLaterPluginInfo"];
+    v53 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:sendLaterPluginInfo requiringSecureCoding:1 error:0];
+    [v27 setObject:v53 forKey:@"sendLaterPluginInfo"];
     if (IMOSLoggingEnabled())
     {
-      v48 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      v54 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v48, OS_LOG_TYPE_INFO, "-> preserving sendLaterPluginInfo to draft", buf, 2u);
+        _os_log_impl(&dword_19020E000, v54, OS_LOG_TYPE_INFO, "-> preserving sendLaterPluginInfo to draft", buf, 2u);
       }
     }
   }
 
-  v49 = [MEMORY[0x1E696AE40] dataWithPropertyList:v21 format:100 options:0 error:0];
-  [(CKComposition *)self _saveCompositionData:v49 atURL:v53 forChatIdentifier:identifierCopy];
+  v55 = [MEMORY[0x1E696AE40] dataWithPropertyList:v27 format:100 options:0 error:0];
+  [(CKComposition *)self _saveCompositionData:v55 atURL:v57 forChatIdentifier:identifierCopy];
 }
 
 - (void)_persistTextToComposition:(id)composition directoryURL:(id)l
@@ -11948,7 +11946,7 @@ LABEL_14:
 
 + (void)deleteCompositionWithChatIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (IMOSLoggingEnabled())
   {
@@ -11957,31 +11955,29 @@ LABEL_14:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v14 = "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]";
-      v15 = 2112;
-      v16 = identifierCopy;
+      v24 = "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]";
+      v25 = 2112;
+      v26 = identifierCopy;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEBUG, "%s chatIdentifier:%@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v11 = "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]";
-    v12 = identifierCopy;
-    _CKLog();
+    _CKLog(0xFu, @"%s chatIdentifier:%@", v5, v6, v7, v8, v9, v10, "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]");
   }
 
   im_lastPathComponent = [identifierCopy im_lastPathComponent];
 
   if ([im_lastPathComponent length])
   {
-    v6 = CKDraftsDirectoryURL();
-    v7 = [v6 URLByAppendingPathComponent:im_lastPathComponent isDirectory:1];
+    v12 = CKDraftsDirectoryURL();
+    v13 = [v12 URLByAppendingPathComponent:im_lastPathComponent isDirectory:1];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    [defaultManager removeItemAtURL:v7 error:0];
-    v9 = CKPluginTmpSubDirectoryURL(im_lastPathComponent, 0);
-    [defaultManager removeItemAtURL:v9 error:0];
+    [defaultManager removeItemAtURL:v13 error:0];
+    v15 = CKPluginTmpSubDirectoryURL(im_lastPathComponent, 0);
+    [defaultManager removeItemAtURL:v15 error:0];
   }
 
   else
@@ -11989,18 +11985,18 @@ LABEL_14:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(15);
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v14 = "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]";
-        _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_DEBUG, "%s chatIdentifier is invalid", buf, 0xCu);
+        v24 = "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]";
+        _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "%s chatIdentifier is invalid", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0xFu, @"%s chatIdentifier is invalid", v17, v18, v19, v20, v21, v22, "+[CKComposition(CKPersistentComposition) deleteCompositionWithChatIdentifier:]");
     }
   }
 }
@@ -12024,7 +12020,7 @@ id __80__CKComposition_CKPersistentComposition__savedCompositionDataForChatIdent
 
 + (id)_savedCompositionDataForChatIdentifier:(id)identifier readUsingBlock:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   blockCopy = block;
   if (IMOSLoggingEnabled())
@@ -12034,87 +12030,85 @@ id __80__CKComposition_CKPersistentComposition__savedCompositionDataForChatIdent
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v30 = "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]";
-      v31 = 2112;
-      v32 = identifierCopy;
+      v40 = "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]";
+      v41 = 2112;
+      v42 = identifierCopy;
       _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "%s chatIdentifier:%@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v26 = "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]";
-    v27 = identifierCopy;
-    _CKLog();
+    _CKLog(0xFu, @"%s chatIdentifier:%@", v8, v9, v10, v11, v12, v13, "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]");
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   im_lastPathComponent = [identifierCopy im_lastPathComponent];
   if ([im_lastPathComponent length])
   {
-    v10 = CKDraftsDirectoryURL();
-    v11 = [v10 URLByAppendingPathComponent:im_lastPathComponent isDirectory:1];
+    v16 = CKDraftsDirectoryURL();
+    v17 = [v16 URLByAppendingPathComponent:im_lastPathComponent isDirectory:1];
 
-    v12 = CKPluginDraftDirectoryURL(im_lastPathComponent, 0);
-    path = [v12 path];
-    v14 = [defaultManager fileExistsAtPath:path];
+    v18 = CKPluginDraftDirectoryURL(im_lastPathComponent, 0);
+    path = [v18 path];
+    v20 = [defaultManager fileExistsAtPath:path];
 
-    if (v14)
+    if (v20)
     {
-      v15 = CKPluginTmpSubDirectoryURL(im_lastPathComponent, 0);
-      path2 = [v15 path];
-      v17 = [defaultManager fileExistsAtPath:path2];
+      v21 = CKPluginTmpSubDirectoryURL(im_lastPathComponent, 0);
+      path2 = [v21 path];
+      v23 = [defaultManager fileExistsAtPath:path2];
 
       if (IMOSLoggingEnabled())
       {
-        v18 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v24 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v19 = @"NO";
+          v25 = @"NO";
           *buf = 138412802;
-          v30 = v12;
-          v31 = 2112;
-          if (v17)
+          v40 = v18;
+          v41 = 2112;
+          if (v23)
           {
-            v19 = @"YES";
+            v25 = @"YES";
           }
 
-          v32 = v15;
-          v33 = 2112;
-          v34 = v19;
-          _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "getSaved draft %@ working %@ workExists %@", buf, 0x20u);
+          v42 = v21;
+          v43 = 2112;
+          v44 = v25;
+          _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "getSaved draft %@ working %@ workExists %@", buf, 0x20u);
         }
       }
 
-      if (v17)
+      if (v23)
       {
-        [defaultManager removeItemAtURL:v15 error:0];
+        [defaultManager removeItemAtURL:v21 error:0];
       }
 
-      v28 = 0;
-      [defaultManager copyItemAtURL:v12 toURL:v15 error:&v28];
-      v20 = v28;
+      v38 = 0;
+      [defaultManager copyItemAtURL:v18 toURL:v21 error:&v38];
+      v26 = v38;
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v30 = v20;
-          _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "Error when restoring draft to working with error %@", buf, 0xCu);
+          v40 = v26;
+          _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Error when restoring draft to working with error %@", buf, 0xCu);
         }
       }
     }
 
-    v22 = blockCopy[2](blockCopy, v11);
-    if (v22)
+    v28 = blockCopy[2](blockCopy, v17);
+    if (v28)
     {
-      v23 = [MEMORY[0x1E696AE40] propertyListWithData:v22 options:0 format:0 error:0];
+      v29 = [MEMORY[0x1E696AE40] propertyListWithData:v28 options:0 format:0 error:0];
     }
 
     else
     {
-      v23 = 0;
+      v29 = 0;
     }
   }
 
@@ -12123,29 +12117,29 @@ id __80__CKComposition_CKPersistentComposition__savedCompositionDataForChatIdent
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(15);
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v30 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v30 = "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]";
-        _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_DEBUG, "%s chat identifier is invalid", buf, 0xCu);
+        v40 = "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]";
+        _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_DEBUG, "%s chat identifier is invalid", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0xFu, @"%s chat identifier is invalid", v31, v32, v33, v34, v35, v36, "+[CKComposition(CKPersistentComposition) _savedCompositionDataForChatIdentifier:readUsingBlock:]");
     }
 
-    v23 = 0;
+    v29 = 0;
   }
 
-  return v23;
+  return v29;
 }
 
 + (id)savedCompositionFromData:(id)data
 {
-  *&v62[5] = *MEMORY[0x1E69E9840];
+  *&v67[5] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (IMOSLoggingEnabled())
   {
@@ -12154,72 +12148,71 @@ id __80__CKComposition_CKPersistentComposition__savedCompositionDataForChatIdent
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      *v62 = "+[CKComposition(CKPersistentComposition) savedCompositionFromData:]";
+      *v67 = "+[CKComposition(CKPersistentComposition) savedCompositionFromData:]";
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v50 = "+[CKComposition(CKPersistentComposition) savedCompositionFromData:]";
-    _CKLog();
+    _CKLog(0xFu, @"%s", v5, v6, v7, v8, v9, v10, "+[CKComposition(CKPersistentComposition) savedCompositionFromData:]");
   }
 
-  v54 = [dataCopy objectForKey:{@"shelfPluginPayload", v50}];
-  if (!v54)
+  v59 = [dataCopy objectForKey:@"shelfPluginPayload"];
+  if (!v59)
   {
     shouldHideAttachments = 0;
-    v55 = 0;
+    v60 = 0;
     goto LABEL_28;
   }
 
   mEMORY[0x1E69A5AD0] = [MEMORY[0x1E69A5AD0] sharedInstance];
-  v60 = 0;
-  v55 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v54 error:&v60];
-  v6 = v60;
-  if (v55)
+  v65 = 0;
+  v60 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v59 error:&v65];
+  v12 = v65;
+  if (v60)
   {
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v8 = v55;
+    v14 = v60;
     if ((isKindOfClass & 1) == 0)
     {
-      v8 = 0;
+      v14 = 0;
     }
 
-    v9 = v8;
+    v15 = v14;
     if (isKindOfClass)
     {
-      fileURL = [v55 fileURL];
-      v11 = fileURL == 0;
+      fileURL = [v60 fileURL];
+      v17 = fileURL == 0;
 
-      if (!v11)
+      if (!v17)
       {
-        v12 = +[CKMediaObjectManager sharedInstance];
-        fileURL2 = [v55 fileURL];
-        userInfo = [v55 userInfo];
-        attributionInfo = [v55 attributionInfo];
-        LOBYTE(v51) = [v55 shouldHideAttachments];
-        v16 = [v12 mediaObjectWithFileURL:fileURL2 filename:0 transcoderUserInfo:userInfo attributionInfo:attributionInfo adaptiveImageGlyphContentIdentifier:0 adaptiveImageGlyphContentDescription:0 hideAttachment:v51];
+        v18 = +[CKMediaObjectManager sharedInstance];
+        fileURL2 = [v60 fileURL];
+        userInfo = [v60 userInfo];
+        attributionInfo = [v60 attributionInfo];
+        LOBYTE(v56) = [v60 shouldHideAttachments];
+        v22 = [v18 mediaObjectWithFileURL:fileURL2 filename:0 transcoderUserInfo:userInfo attributionInfo:attributionInfo adaptiveImageGlyphContentIdentifier:0 adaptiveImageGlyphContentDescription:0 hideAttachment:v56];
 
-        if (v16)
+        if (v22)
         {
-          [v55 setMediaObject:v16];
-          fileURL3 = [v16 fileURL];
-          [v55 setFileURL:fileURL3];
+          [v60 setMediaObject:v22];
+          fileURL3 = [v22 fileURL];
+          [v60 setFileURL:fileURL3];
         }
       }
     }
 
     if (IMOSLoggingEnabled())
     {
-      v18 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v24 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        pluginBundleID = [v55 pluginBundleID];
+        pluginBundleID = [v60 pluginBundleID];
         *buf = 138412290;
-        *v62 = pluginBundleID;
-        _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "-> shelf:\n'NSDATA'->'%@'", buf, 0xCu);
+        *v67 = pluginBundleID;
+        _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "-> shelf:\n'NSDATA'->'%@'", buf, 0xCu);
       }
     }
 
@@ -12230,42 +12223,42 @@ LABEL_26:
 
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v62 = v6;
-      _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "Error decoding composition shelf data: %@", buf, 0xCu);
+      *v67 = v12;
+      _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "Error decoding composition shelf data: %@", buf, 0xCu);
     }
 
     goto LABEL_26;
   }
 
 LABEL_27:
-  shouldHideAttachments = [v55 shouldHideAttachments];
+  shouldHideAttachments = [v60 shouldHideAttachments];
 
 LABEL_28:
-  v53 = [dataCopy objectForKey:@"text"];
-  if (v53)
+  v58 = [dataCopy objectForKey:@"text"];
+  if (v58)
   {
-    v59 = 0;
-    v21 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v53 error:&v59];
-    v22 = v59;
-    if (v21)
+    v64 = 0;
+    v27 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v58 error:&v64];
+    v28 = v64;
+    if (v27)
     {
-      v23 = +[CKMediaObjectManager sharedInstance];
-      v52 = CKTextForPersistentText(v21, v23, shouldHideAttachments);
+      v29 = +[CKMediaObjectManager sharedInstance];
+      v57 = CKTextForPersistentText(v27, v29, shouldHideAttachments);
 
       if (IMOSLoggingEnabled())
       {
-        v24 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v30 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 67109376;
-          v62[0] = v52 != 0;
-          LOWORD(v62[1]) = 1024;
-          *(&v62[1] + 2) = 1;
-          _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "-> has retrieved text:%{BOOL}d for persistentText:%{BOOL}d", buf, 0xEu);
+          v67[0] = v57 != 0;
+          LOWORD(v67[1]) = 1024;
+          *(&v67[1] + 2) = 1;
+          _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "-> has retrieved text:%{BOOL}d for persistentText:%{BOOL}d", buf, 0xEu);
         }
       }
     }
@@ -12274,179 +12267,179 @@ LABEL_28:
     {
       if (IMOSLoggingEnabled())
       {
-        v25 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v31 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v62 = v22;
-          _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Error decoding composition text data: %@", buf, 0xCu);
+          *v67 = v28;
+          _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "Error decoding composition text data: %@", buf, 0xCu);
         }
       }
 
-      v52 = 0;
+      v57 = 0;
     }
   }
 
   else
   {
-    v52 = 0;
+    v57 = 0;
   }
 
-  v26 = [dataCopy objectForKey:@"subject"];
-  if (!v26)
+  v32 = [dataCopy objectForKey:@"subject"];
+  if (!v32)
   {
-    v27 = 0;
+    v33 = 0;
     goto LABEL_53;
   }
 
-  v58 = 0;
-  v27 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v26 error:&v58];
-  v28 = v58;
-  v29 = IMOSLoggingEnabled();
-  if (v27)
+  v63 = 0;
+  v33 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v32 error:&v63];
+  v34 = v63;
+  v35 = IMOSLoggingEnabled();
+  if (v33)
   {
-    if (v29)
+    if (v35)
     {
-      v30 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v36 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "-> Subject retrieved and unarchived.", buf, 2u);
+        _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_INFO, "-> Subject retrieved and unarchived.", buf, 2u);
       }
 
 LABEL_51:
     }
   }
 
-  else if (v29)
+  else if (v35)
   {
-    v30 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v36 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v62 = v28;
-      _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "Error decoding composition subject data: %@", buf, 0xCu);
+      *v67 = v34;
+      _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_INFO, "Error decoding composition subject data: %@", buf, 0xCu);
     }
 
     goto LABEL_51;
   }
 
 LABEL_53:
-  v31 = [dataCopy objectForKey:@"bizIntent"];
-  if (!v31)
+  v37 = [dataCopy objectForKey:@"bizIntent"];
+  if (!v37)
   {
-    v34 = 0;
+    v40 = 0;
     goto LABEL_67;
   }
 
-  v32 = MEMORY[0x1E696ACD0];
-  v33 = objc_opt_class();
-  v57 = 0;
-  v34 = [v32 unarchivedDictionaryWithKeysOfClass:v33 objectsOfClass:objc_opt_class() fromData:v31 error:&v57];
-  v35 = v57;
-  v36 = IMOSLoggingEnabled();
-  if (v34)
+  v38 = MEMORY[0x1E696ACD0];
+  v39 = objc_opt_class();
+  v62 = 0;
+  v40 = [v38 unarchivedDictionaryWithKeysOfClass:v39 objectsOfClass:objc_opt_class() fromData:v37 error:&v62];
+  v41 = v62;
+  v42 = IMOSLoggingEnabled();
+  if (v40)
   {
-    if (v36)
+    if (v42)
     {
-      v37 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v43 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
-        v38 = [v34 count];
-        v39 = @"something";
-        if (!v38)
+        v44 = [v40 count];
+        v45 = @"something";
+        if (!v44)
         {
-          v39 = @"nothing";
+          v45 = @"nothing";
         }
 
         *buf = 138412290;
-        *v62 = v39;
-        _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_INFO, "-> bizIntent:%@", buf, 0xCu);
+        *v67 = v45;
+        _os_log_impl(&dword_19020E000, v43, OS_LOG_TYPE_INFO, "-> bizIntent:%@", buf, 0xCu);
       }
 
 LABEL_65:
     }
   }
 
-  else if (v36)
+  else if (v42)
   {
-    v37 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v43 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v62 = v35;
-      _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_INFO, "Error decoding composition bizIntent data: %@", buf, 0xCu);
+      *v67 = v41;
+      _os_log_impl(&dword_19020E000, v43, OS_LOG_TYPE_INFO, "Error decoding composition bizIntent data: %@", buf, 0xCu);
     }
 
     goto LABEL_65;
   }
 
 LABEL_67:
-  v40 = [dataCopy objectForKey:@"sendLaterPluginInfo"];
-  if (!v40)
+  v46 = [dataCopy objectForKey:@"sendLaterPluginInfo"];
+  if (!v46)
   {
-    v41 = 0;
+    v47 = 0;
     goto LABEL_79;
   }
 
-  v56 = 0;
-  v41 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v40 error:&v56];
-  v42 = v56;
-  v43 = IMOSLoggingEnabled();
-  if (v41)
+  v61 = 0;
+  v47 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v46 error:&v61];
+  v48 = v61;
+  v49 = IMOSLoggingEnabled();
+  if (v47)
   {
-    if (v43)
+    if (v49)
     {
-      v44 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      v50 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        *v62 = v41;
-        _os_log_impl(&dword_19020E000, v44, OS_LOG_TYPE_INFO, "-> sendLaterPluginInfo:%@", buf, 0xCu);
+        *v67 = v47;
+        _os_log_impl(&dword_19020E000, v50, OS_LOG_TYPE_INFO, "-> sendLaterPluginInfo:%@", buf, 0xCu);
       }
 
 LABEL_77:
     }
   }
 
-  else if (v43)
+  else if (v49)
   {
-    v44 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    v50 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v62 = v42;
-      _os_log_impl(&dword_19020E000, v44, OS_LOG_TYPE_INFO, "Error decoding composition sendLaterPluginInfo data: %@", buf, 0xCu);
+      *v67 = v48;
+      _os_log_impl(&dword_19020E000, v50, OS_LOG_TYPE_INFO, "Error decoding composition sendLaterPluginInfo data: %@", buf, 0xCu);
     }
 
     goto LABEL_77;
   }
 
 LABEL_79:
-  v45 = [dataCopy objectForKey:@"audioMessage"];
-  if ([v45 BOOLValue])
+  v51 = [dataCopy objectForKey:@"audioMessage"];
+  if ([v51 BOOLValue])
   {
-    v46 = [dataCopy objectForKeyedSubscript:@"audioPowerLevels"];
-    v47 = [[_CKAudioComposition alloc] initWithText:v52 subject:v27 powerLevels:v46];
+    v52 = [dataCopy objectForKeyedSubscript:@"audioPowerLevels"];
+    v53 = [[_CKAudioComposition alloc] initWithText:v57 subject:v33 powerLevels:v52];
   }
 
   else
   {
-    v47 = [[CKComposition alloc] initWithText:v52 subject:v27 shelfPluginPayload:v55 bizIntent:v34];
-    [(CKComposition *)v47 setSendLaterPluginInfo:v41];
+    v53 = [[CKComposition alloc] initWithText:v57 subject:v33 shelfPluginPayload:v60 bizIntent:v40];
+    [(CKComposition *)v53 setSendLaterPluginInfo:v47];
   }
 
-  if ([(CKComposition *)v47 hasRestorableContent])
+  if ([(CKComposition *)v53 hasRestorableContent])
   {
-    v48 = v47;
+    v54 = v53;
   }
 
   else
   {
-    v48 = 0;
+    v54 = 0;
   }
 
-  return v48;
+  return v54;
 }
 
 - (id)_compositionByAppendingText:(id)text isExpirable:(BOOL)expirable shelfPluginPayload:(id)payload shelfMediaObject:(id)object addingNewLineIfNedded:(BOOL)nedded
@@ -12613,9 +12606,10 @@ LABEL_36:
 {
   swift_getObjCClassMetadata();
   textCopy = text;
-  v5 = static CKComposition.composition(forWritingToolsText:)(textCopy);
+  static CKComposition.composition(forWritingToolsText:)(textCopy);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)hasRestorableContent

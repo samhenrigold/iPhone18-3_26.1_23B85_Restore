@@ -15,6 +15,7 @@
 - (void)_startNextOperation;
 - (void)addSignificantEvent:(id)event homePresenceByPairingIdentity:(id)identity completionHandler:(id)handler;
 - (void)addVideoInitData:(id)data completionHandler:(id)handler;
+- (void)addVideoSegmentData:(id)data timeOffsetWithinClip:(double)clip duration:(double)duration clipFinalizedBecauseMaxDurationExceeded:(BOOL)exceeded completionHandler:(id)handler;
 - (void)createClipWithCompletionHandler:(id)handler;
 - (void)finishWithCompletionHandler:(id)handler;
 @end
@@ -30,28 +31,26 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   logIdentifier = [(HMDCameraClipUploader *)self logIdentifier];
   v5 = [v3 initWithName:@"Identifier" value:logIdentifier];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   clipUUID = [(HMDCameraClipUploader *)self clipUUID];
   v8 = [v6 initWithName:@"Clip UUID" value:clipUUID];
-  v19[1] = v8;
+  v18[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   startDate = [(HMDCameraClipUploader *)self startDate];
   v11 = [v9 initWithName:@"Start Date" value:startDate];
-  v19[2] = v11;
+  v18[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   v13 = MEMORY[0x277CCABB0];
   [(HMDCameraClipUploader *)self targetFragmentDuration];
   v14 = [v13 numberWithDouble:?];
   v15 = [v12 initWithName:@"Target Fragment Duration" value:v14];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }
@@ -75,7 +74,7 @@
 
 - (void)_handleFatalOperationFailureDueToError:(id)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraClipUploader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -83,9 +82,9 @@
   v6 = MEMORY[0x277CCA9B8];
   if (errorCopy)
   {
-    v21 = *MEMORY[0x277CCA7E8];
-    v22[0] = errorCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA7E8];
+    v21[0] = errorCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v8 = [v6 errorWithDomain:@"HMDCameraClipUploaderErrorDomain" code:1 userInfo:v7];
   }
 
@@ -94,31 +93,31 @@
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMDCameraClipUploaderErrorDomain" code:1 userInfo:0];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   operations = [(HMDCameraClipUploader *)self operations];
-  v10 = [operations countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [operations countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(operations);
         }
 
-        [*(*(&v16 + 1) + 8 * v13++) cancelWithError:v8];
+        [*(*(&v15 + 1) + 8 * v13++) cancelWithError:v8];
       }
 
       while (v11 != v13);
-      v11 = [operations countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [operations countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -126,13 +125,11 @@
 
   delegate = [(HMDCameraClipUploader *)self delegate];
   [delegate clipUploaderDidFail:self];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startNextOperation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   operations = [(HMDCameraClipUploader *)self operations];
   firstObject = [operations firstObject];
 
@@ -144,23 +141,21 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = firstObject;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting next operation: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = firstObject;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting next operation: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [firstObject start];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_operationCompleted:(id)completed isFinalOperation:(BOOL)operation future:(id)future
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   futureCopy = future;
   error = [completedCopy error];
@@ -172,13 +167,13 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v14;
-      v23 = 2114;
-      v24 = completedCopy;
-      v25 = 2114;
-      v26 = error;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Handling fatal error for operation %{public}@: %{public}@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v14;
+      v22 = 2114;
+      v23 = completedCopy;
+      v24 = 2114;
+      v25 = error;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Handling fatal error for operation %{public}@: %{public}@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -194,11 +189,11 @@
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v19;
-    v23 = 2112;
-    v24 = completedCopy;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Operation completed: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v19;
+    v22 = 2112;
+    v23 = completedCopy;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Operation completed: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
@@ -212,29 +207,27 @@
   {
     [futureCopy finishWithNoResult];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_addOperation:(id)operation isFinalOperation:(BOOL)finalOperation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   workQueue = [(HMDCameraClipUploader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v8 = objc_alloc_init(MEMORY[0x277D2C900]);
   objc_initWeak(&location, operationCopy);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __56__HMDCameraClipUploader__addOperation_isFinalOperation___block_invoke;
-  v21[3] = &unk_279730EA0;
-  v21[4] = self;
-  objc_copyWeak(&v23, &location);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __56__HMDCameraClipUploader__addOperation_isFinalOperation___block_invoke;
+  v20[3] = &unk_279730EA0;
+  v20[4] = self;
+  objc_copyWeak(&v22, &location);
   finalOperationCopy = finalOperation;
   v9 = v8;
-  v22 = v9;
-  [operationCopy setCompletionBlock:v21];
+  v21 = v9;
+  [operationCopy setCompletionBlock:v20];
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
   v12 = HMFGetOSLogHandle();
@@ -242,9 +235,9 @@
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v13;
-    v28 = 2112;
-    v29 = operationCopy;
+    v26 = v13;
+    v27 = 2112;
+    v28 = operationCopy;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Adding operation to queue: %@", buf, 0x16u);
   }
 
@@ -260,13 +253,11 @@
     [(HMDCameraClipUploader *)selfCopy _startNextOperation];
   }
 
-  v17 = v22;
+  v17 = v21;
   v18 = v9;
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -376,6 +367,65 @@ void __53__HMDCameraClipUploader_finishWithCompletionHandler___block_invoke(uint
   }
 }
 
+- (void)addVideoSegmentData:(id)data timeOffsetWithinClip:(double)clip duration:(double)duration clipFinalizedBecauseMaxDurationExceeded:(BOOL)exceeded completionHandler:(id)handler
+{
+  exceededCopy = exceeded;
+  v32 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  handlerCopy = handler;
+  workQueue = [(HMDCameraClipUploader *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  if ([(HMDCameraClipUploader *)self hasAddedCreateClipOperation])
+  {
+    v15 = objc_alloc_init(HMDCameraClipSegmentMetadata);
+    [(HMDCameraClipSegmentMetadata *)v15 setType:1];
+    [(HMDCameraClipSegmentMetadata *)v15 setDuration:duration];
+    [(HMDCameraClipSegmentMetadata *)v15 setTimeOffset:clip];
+    factory = [(HMDCameraClipUploader *)self factory];
+    clipUUID = [(HMDCameraClipUploader *)self clipUUID];
+    localZone = [(HMDCameraClipUploader *)self localZone];
+    encryptionManager = [(HMDCameraClipUploader *)self encryptionManager];
+    v20 = [factory createUploadVideoSegmentOperationForModelID:clipUUID localZone:localZone data:dataCopy metadata:v15 encryptionManager:encryptionManager];
+
+    uploadOperationEvent = [v20 uploadOperationEvent];
+    [uploadOperationEvent setDidCausePreviousClipToFinalizeDueToDurationLimit:exceededCopy];
+
+    v22 = [(HMDCameraClipUploader *)self _addOperation:v20 isFinalOperation:0];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __133__HMDCameraClipUploader_addVideoSegmentData_timeOffsetWithinClip_duration_clipFinalizedBecauseMaxDurationExceeded_completionHandler___block_invoke;
+    v28[3] = &unk_279730E28;
+    v29 = handlerCopy;
+    v23 = [v22 addCompletionBlock:v28];
+
+LABEL_7:
+    goto LABEL_8;
+  }
+
+  v24 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v26 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    v27 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v31 = v27;
+    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Asked to add video segment before clip has been created", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v24);
+  v15 = _Block_copy(handlerCopy);
+  if (v15)
+  {
+    v20 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
+    (v15->_byteOffset)(v15, v20);
+    goto LABEL_7;
+  }
+
+LABEL_8:
+}
+
 void __133__HMDCameraClipUploader_addVideoSegmentData_timeOffsetWithinClip_duration_clipFinalizedBecauseMaxDurationExceeded_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = a3;
@@ -389,7 +439,7 @@ void __133__HMDCameraClipUploader_addVideoSegmentData_timeOffsetWithinClip_durat
 
 - (void)addVideoInitData:(id)data completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   workQueue = [(HMDCameraClipUploader *)self workQueue];
@@ -406,12 +456,12 @@ void __133__HMDCameraClipUploader_addVideoSegmentData_timeOffsetWithinClip_durat
     v14 = [factory createUploadVideoSegmentOperationForModelID:clipUUID localZone:localZone data:dataCopy metadata:v9 encryptionManager:encryptionManager];
 
     v15 = [(HMDCameraClipUploader *)self _addOperation:v14 isFinalOperation:0];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __60__HMDCameraClipUploader_addVideoInitData_completionHandler___block_invoke;
-    v22[3] = &unk_279730E28;
-    v23 = handlerCopy;
-    v16 = [v15 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __60__HMDCameraClipUploader_addVideoInitData_completionHandler___block_invoke;
+    v21[3] = &unk_279730E28;
+    v22 = handlerCopy;
+    v16 = [v15 addCompletionBlock:v21];
 
 LABEL_7:
     goto LABEL_8;
@@ -424,7 +474,7 @@ LABEL_7:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v20;
+    v24 = v20;
     _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Asked to add video init data before clip has been created", buf, 0xCu);
   }
 
@@ -438,8 +488,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDCameraClipUploader_addVideoInitData_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -534,7 +582,7 @@ void __93__HMDCameraClipUploader_addSignificantEvent_homePresenceByPairingIdenti
 
 void __93__HMDCameraClipUploader_addSignificantEvent_homePresenceByPairingIdentity_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
@@ -544,17 +592,15 @@ void __93__HMDCameraClipUploader_addSignificantEvent_homePresenceByPairingIdenti
   {
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 32);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting significant event operation: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting significant event operation: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [*(a1 + 32) start];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDCameraClipUploader_addSignificantEvent_homePresenceByPairingIdentity_completionHandler___block_invoke_3(uint64_t a1)
@@ -632,7 +678,7 @@ void __57__HMDCameraClipUploader_createClipWithCompletionHandler___block_invoke(
   v9 = [v7 numberWithUnsignedInteger:{objc_msgSend(operations2, "count")}];
   [dictionary setObject:v9 forKeyedSubscript:@"Total Operations Count"];
 
-  v10 = [dictionary copy];
+  v10 = objc_msgSend_copy(dictionary);
 
   return v10;
 }
@@ -709,7 +755,7 @@ LABEL_19:
   if (v25)
   {
     objc_storeStrong(&v25->_clipUUID, d);
-    v27 = [dateCopy copy];
+    v27 = objc_msgSend_copy(dateCopy);
     startDate = v26->_startDate;
     v26->_startDate = v27;
 
@@ -760,12 +806,11 @@ LABEL_19:
 
 uint64_t __36__HMDCameraClipUploader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v16_163717;
-  logCategory__hmf_once_v16_163717 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v16_163717;
+  logCategory__hmf_once_v16_163717 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -4,6 +4,7 @@
 + (float)associatedFloatValueForKey:(id)key onObject:(id)object withDefault:(float)default;
 + (id)associatedValueForKey:(id)key onObject:(id)object withDefault:(id)default;
 + (int64_t)associatedIntValueForKey:(id)key onObject:(id)object withDefault:(int64_t)default;
++ (void)associateBoolValue:(BOOL)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy;
 + (void)associateDoubleValue:(double)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy;
 + (void)associateFloatValue:(float)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy;
 + (void)associateIntValue:(int64_t)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy;
@@ -54,6 +55,16 @@
       }
     }
   }
+}
+
++ (void)associateBoolValue:(BOOL)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy
+{
+  valueCopy = value;
+  v10 = MEMORY[0x1E696AD98];
+  objectCopy = object;
+  keyCopy = key;
+  v13 = [v10 numberWithBool:valueCopy];
+  [self associateValue:v13 forKey:keyCopy onObject:objectCopy withPolicy:policy];
 }
 
 + (void)associateIntValue:(int64_t)value forKey:(id)key onObject:(id)object withPolicy:(unint64_t)policy

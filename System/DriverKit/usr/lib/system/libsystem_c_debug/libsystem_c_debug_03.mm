@@ -1,4 +1,4 @@
-__int32 *do_mvis(__int32 *a1, __int32 a2, __int16 a3, int a4, const __int32 *a5)
+__int32 *do_mvis(__int32 *a1, wint_t a2, __int16 a3, unsigned int a4, const __int32 *a5)
 {
   if (a2 == 10 || (!iswspace(a2) || a4 != 13 && a4 != 10) && (iswspace(a2) || a2 >= 33 && a2 != 61 && a2 <= 126) && !wcschr(dword_C2774, a2))
   {
@@ -58,7 +58,7 @@ LABEL_17:
   return a1;
 }
 
-_DWORD *do_mbyte(_DWORD *a1, int a2, __int16 a3, unsigned __int8 a4, int a5)
+_DWORD *do_mbyte(_DWORD *a1, wint_t a2, __int16 a3, unsigned __int8 a4, int a5)
 {
   v14 = a1;
   v13 = a2;
@@ -209,7 +209,7 @@ LABEL_22:
   return v17;
 }
 
-uint64_t waitpid_NOCANCEL(uint64_t a1, uint64_t a2, int a3)
+uint64_t waitpid_NOCANCEL(unsigned int a1, uint64_t a2, unsigned int a3)
 {
   if ((a3 & 0x13) == a3)
   {
@@ -592,7 +592,7 @@ wint_t btowc_l(int a1, locale_t a2)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (v6 == -1)
@@ -980,7 +980,7 @@ uint64_t __collate_load_tables_legacy(const char *a1, void *a2, uint64_t a3, voi
                 memcpy(v19 + 1, v20 + 1, 0x28uLL);
                 *v19 = *v20;
                 *v19 = _OSSwapInt32(*v19);
-                wntohl((v19 + 1), 10);
+                wntohl(v19 + 1, 10);
                 v20 += 11;
                 v19 += 25;
               }
@@ -1152,7 +1152,7 @@ uint64_t __collate_wcsnlen(_DWORD *a1, int a2)
   return i;
 }
 
-uint64_t _collate_lookup(uint64_t result, const __int32 *a2, _DWORD *a3, int *a4, int a5, int **a6)
+uint64_t _collate_lookup(uint64_t result, int *a2, _DWORD *a3, int *a4, int a5, uint64_t *a6)
 {
   v19 = result;
   v18 = a2;
@@ -1388,7 +1388,7 @@ const __int32 *__collate_lookup_l(const __int32 *result, int *a2, int *a3, int *
 
   else
   {
-    v12 = &__c_locale;
+    v12 = __c_locale;
   }
 
   v9 = v12[165];
@@ -1477,7 +1477,7 @@ const __int32 *__collate_lookup_l(const __int32 *result, int *a2, int *a3, int *
   return result;
 }
 
-char *__collate_lookup(char *result, int *a2, int *a3, int *a4)
+int *__collate_lookup(int *result, int *a2, int *a3, int *a4)
 {
   v11 = result;
   v13 = __locale_key;
@@ -1550,7 +1550,7 @@ __int32 *__collate_mbstowcs(char *a1, _xlocale *a2)
   return v3;
 }
 
-uint64_t __collate_lookup_which(const __int32 *a1, _DWORD *a2, int *a3, int a4, uint64_t a5)
+int *__collate_lookup_which(const __int32 *a1, _DWORD *a2, int *a3, int a4, uint64_t a5)
 {
   v16 = a1;
   v15 = a2;
@@ -1876,7 +1876,7 @@ uint64_t __collate_equiv_class(char *a1, size_t a2, mbstate_t *a3, _xlocale *a4)
   }
 }
 
-uint64_t __collate_equiv_match(int a1, _DWORD *a2, unint64_t a3, __int32 a4, char *a5, size_t a6, void *a7, void *a8, _xlocale *a9)
+unint64_t __collate_equiv_match(int a1, _DWORD *a2, unint64_t a3, __int32 a4, char *a5, size_t a6, void *a7, void *a8, _xlocale *a9)
 {
   v36 = a1;
   v35 = a2;
@@ -2192,7 +2192,7 @@ uint64_t __collate_pri_for (uint64_t a1, int a2)
   }
 }
 
-uint64_t _collate_wxfrm(uint64_t a1, const __int32 *a2, _DWORD *a3, uint64_t a4)
+uint64_t _collate_wxfrm(uint64_t a1, int *a2, _DWORD *a3, uint64_t a4)
 {
   v28 = a1;
   v27 = a2;
@@ -2355,7 +2355,7 @@ LABEL_39:
   return -1;
 }
 
-uint64_t _collate_sxfrm(uint64_t a1, const __int32 *a2, _BYTE *a3, uint64_t a4)
+uint64_t _collate_sxfrm(uint64_t a1, int *a2, _BYTE *a3, uint64_t a4)
 {
   v33 = a1;
   v32 = a2;
@@ -2620,7 +2620,7 @@ uint64_t __collate_equiv_value(uint64_t a1, __int32 *a2, size_t a3)
   }
 }
 
-uint64_t wntohl(uint64_t result, int a2)
+unsigned int *wntohl(unsigned int *result, int a2)
 {
   for (i = result; ; ++i)
   {
@@ -2934,7 +2934,7 @@ uint64_t _EUC_mbrtowc_impl(int *a1, unsigned __int8 *a2, unint64_t a3, int *a4, 
   }
 }
 
-uint64_t _EUC_wcrtomb_impl(_BYTE *a1, int a2, uint64_t a3, unsigned __int8 a4, unsigned __int8 a5, unsigned __int8 a6, unsigned __int8 a7)
+uint64_t _EUC_wcrtomb_impl(_BYTE *a1, unsigned int a2, uint64_t a3, unsigned __int8 a4, unsigned __int8 a5, unsigned __int8 a6, unsigned __int8 a7)
 {
   v12 = a2;
   if (*(a3 + 4))
@@ -3111,10 +3111,10 @@ uint64_t _GB18030_init(uint64_t a1)
   return 0;
 }
 
-uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
+uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, char *a4)
 {
   v23 = a2;
-  if (*a4 < 0 || *a4 > 4)
+  if ((*a4 & 0x80000000) != 0 || *a4 > 4)
   {
     *__error() = 22;
     return -1;
@@ -3157,7 +3157,7 @@ uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
     v9 = v10;
   }
 
-  strncpy(a4 + *a4 + 4, v23, v9);
+  strncpy(&a4[*a4 + 4], v23, v9);
   v12 = *a4;
   *a4 += v9;
   v22 = *a4;
@@ -3166,8 +3166,8 @@ uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
     return -2;
   }
 
-  v4 = (a4 + 1);
-  if (*(a4 + 4) > 0x7Fu)
+  v4 = (a4 + 4);
+  if (a4[4] > 0x7Fu)
   {
     if (*v4 >= 0x81u && *v4 != 255)
     {
@@ -3177,8 +3177,8 @@ uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
         return -2;
       }
 
-      v5 = a4 + 5;
-      v14 = *(a4 + 5);
+      v5 = (a4 + 5);
+      v14 = a4[5];
       if (v14 >= 0x40 && *v5 <= 0x7Eu || *v5 >= 0x80u && *v5 != 255)
       {
         v16 = v14 | (v17 << 8);
@@ -3194,9 +3194,9 @@ uint64_t _GB18030_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
           return -2;
         }
 
-        v6 = a4 + 6;
-        v24 = a4 + 7;
-        if (*(a4 + 6) >= 0x81u && *v6 != 255)
+        v6 = (a4 + 6);
+        v24 = (a4 + 7);
+        if (a4[6] >= 0x81u && *v6 != 255)
         {
           v19 = *v6 | (v18 << 8);
           if (v22 < 4)
@@ -3357,10 +3357,10 @@ uint64_t _GB2312_init(uint64_t a1)
   return 0;
 }
 
-uint64_t _GB2312_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
+uint64_t _GB2312_mbrtowc(int *a1, const char *a2, unint64_t a3, char *a4)
 {
   v17 = a2;
-  if (*a4 < 0 || *a4 > 2)
+  if ((*a4 & 0x80000000) != 0 || *a4 > 2)
   {
     *__error() = 22;
     return -1;
@@ -3405,10 +3405,10 @@ uint64_t _GB2312_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
       v8 = v9;
     }
 
-    strncpy(a4 + *a4 + 4, v17, v8);
+    strncpy(&a4[*a4 + 4], v17, v8);
     v11 = *a4;
     *a4 += v8;
-    v18 = a4 + 1;
+    v18 = a4 + 4;
     v12 = _GB2312_check(a4 + 4, *a4);
     if (v12 < 0)
     {
@@ -3427,8 +3427,7 @@ uint64_t _GB2312_mbrtowc(int *a1, const char *a2, unint64_t a3, int *a4)
           break;
         }
 
-        v5 = v18;
-        v18 = (v18 + 1);
+        v5 = v18++;
         v14 = *v5 | (v14 << 8);
       }
 
@@ -4201,13 +4200,13 @@ lconv *__cdecl localeconv_l(locale_t a1)
   {
     if (a1 == -1)
     {
-      v4 = &__global_locale;
+      v4 = __global_locale;
     }
   }
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   os_unfair_lock_lock(v4 + 324);
@@ -4292,7 +4291,7 @@ int mblen_l(const char *a1, size_t a2, locale_t a3)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (a1)
@@ -4339,13 +4338,13 @@ size_t mbrlen_l(const char *a1, size_t a2, mbstate_t *a3, locale_t a4)
   {
     if (a4 == -1)
     {
-      v5 = &__global_locale;
+      v5 = __global_locale;
     }
   }
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (!a3)
@@ -4379,13 +4378,13 @@ size_t mbrtowc_l(__int32 *a1, const char *a2, size_t a3, mbstate_t *a4, locale_t
   {
     if (a5 == -1)
     {
-      v6 = &__global_locale;
+      v6 = __global_locale;
     }
   }
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   if (!a4)
@@ -4416,12 +4415,12 @@ int mbsinit_l(const mbstate_t *a1, locale_t a2)
   v3 = a2;
   if (!a2)
   {
-    return (*(off_D4F88 + 10))(a1, &__c_locale);
+    return (*(off_D4F88 + 10))(a1, __c_locale);
   }
 
   if (a2 == -1)
   {
-    v3 = &__global_locale;
+    v3 = __global_locale;
   }
 
   return (*(*(v3 + 166) + 80))(a1, v3);
@@ -4450,13 +4449,13 @@ size_t mbsnrtowcs_l(__int32 *a1, const char **a2, size_t a3, size_t a4, mbstate_
   {
     if (a6 == -1)
     {
-      v7 = &__global_locale;
+      v7 = __global_locale;
     }
   }
 
   else
   {
-    v7 = &__c_locale;
+    v7 = __c_locale;
   }
 
   if (!a5)
@@ -4556,13 +4555,13 @@ size_t mbsrtowcs_l(__int32 *a1, const char **a2, size_t a3, mbstate_t *a4, local
   {
     if (a5 == -1)
     {
-      v6 = &__global_locale;
+      v6 = __global_locale;
     }
   }
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   if (!a4)
@@ -4606,7 +4605,7 @@ size_t mbstowcs_l(__int32 *a1, const char *a2, size_t a3, locale_t a4)
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   memcpy(__b, &mbstowcs_l_initial, sizeof(__b));
@@ -4642,7 +4641,7 @@ int mbtowc_l(__int32 *a1, const char *a2, size_t a3, locale_t a4)
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   if (a2)
@@ -4691,7 +4690,7 @@ uint64_t _MSKanji_init(uint64_t a1)
   return 0;
 }
 
-uint64_t _MSKanji_mbrtowc(_DWORD *a1, unsigned __int8 *a2, unint64_t a3, unsigned int *a4)
+uint64_t _MSKanji_mbrtowc(unsigned int *a1, unsigned __int8 *a2, unint64_t a3, unsigned int *a4)
 {
   v9 = a2;
   if ((*a4 & 0xFFFFFF00) != 0)
@@ -4963,7 +4962,7 @@ char *__cdecl nl_langinfo_l(nl_item a1, locale_t a2)
 
   else
   {
-    v12 = &__c_locale;
+    v12 = __c_locale;
   }
 
   switch(a1)
@@ -5139,9 +5138,9 @@ char *__cdecl nl_langinfo_l(nl_item a1, locale_t a2)
     case 57:
       v11 = __get_current_time_locale(v12)[56];
 LABEL_52:
-      if (v11 && !*v11 && a1 != 57 && a1 && v12 != &__c_locale)
+      if (v11 && !*v11 && a1 != 57 && a1 && v12 != __c_locale)
       {
-        v11 = nl_langinfo_l(a1, &__c_locale);
+        v11 = nl_langinfo_l(a1, __c_locale);
       }
 
       v14 = v11;
@@ -5306,7 +5305,7 @@ uint64_t __maskrune_l(int a1, unsigned int a2, void *a3)
 
     else
     {
-      v6 = &__c_locale;
+      v6 = __c_locale;
     }
 
     v4 = *(*(v6[166] + 120) + 60 + 4 * a1);
@@ -5415,7 +5414,7 @@ uint64_t _none_mbrtowc(_DWORD *a1, _BYTE *a2, uint64_t a3)
   return *a2 != 0;
 }
 
-int64_t _none_mbsnrtowcs(_DWORD *a1, const void **a2, size_t a3, uint64_t a4)
+size_t _none_mbsnrtowcs(_DWORD *a1, const void **a2, size_t a3, uint64_t a4)
 {
   v17 = a1;
   v15 = a3;
@@ -5570,13 +5569,13 @@ uint64_t ___runetype_l(int a1, void *a2)
   {
     if (a2 == -1)
     {
-      v6 = &__global_locale;
+      v6 = __global_locale;
     }
   }
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   v4 = *(*(v6[166] + 120) + 3144);
@@ -5827,10 +5826,10 @@ uint64_t currentlocale()
     }
   }
 
-  strlcpy(currentlocale_current_locale_string, "C", 0xE7uLL);
+  strlcpy(currentlocale_current_locale_string, &current_categories[32], 0xE7uLL);
   for (i = 2; i < 7; ++i)
   {
-    if (strcmp("C", &current_categories[32 * i]))
+    if (strcmp(&current_categories[32], &current_categories[32 * i]))
     {
       for (j = 2; j < 7; ++j)
       {
@@ -5845,7 +5844,7 @@ uint64_t currentlocale()
   return currentlocale_current_locale_string;
 }
 
-const char *__get_locale_env(int a1)
+char *__get_locale_env(int a1)
 {
   v2 = getenv("LC_ALL");
   if (!v2 || !*v2)
@@ -5868,7 +5867,7 @@ const char *__get_locale_env(int a1)
 
 char *loadlocale(int a1)
 {
-  v6 = &new_categories + 32 * a1;
+  v6 = &new_categories[32 * a1];
   v5 = &current_categories[32 * a1];
   if (*v6 == 46 && (!v6[1] || v6[1] == 46 && !v6[2]) || strchr(v6, 47))
   {
@@ -6225,13 +6224,13 @@ uint64_t ___tolower_l(int a1, void *a2)
     {
       if (a2 == -1)
       {
-        v6 = &__global_locale;
+        v6 = __global_locale;
       }
     }
 
     else
     {
-      v6 = &__c_locale;
+      v6 = __c_locale;
     }
 
     if (a1 >= 256)
@@ -6291,13 +6290,13 @@ uint64_t ___toupper_l(int a1, void *a2)
     {
       if (a2 == -1)
       {
-        v6 = &__global_locale;
+        v6 = __global_locale;
       }
     }
 
     else
     {
-      v6 = &__c_locale;
+      v6 = __c_locale;
     }
 
     if (a1 >= 256)
@@ -6694,7 +6693,7 @@ uint64_t _UTF8_mbsnrtowcs(int *a1, char **a2, unint64_t a3, uint64_t a4, uint64_
   return -1;
 }
 
-uint64_t _UTF8_wcsnrtombs(char *a1, int **a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+size_t _UTF8_wcsnrtombs(char *a1, int **a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
   v22 = a1;
   v21 = a2;
@@ -6822,13 +6821,13 @@ size_t wcrtomb_l(char *a1, __int32 a2, mbstate_t *a3, locale_t a4)
   {
     if (a4 == -1)
     {
-      v5 = &__global_locale;
+      v5 = __global_locale;
     }
   }
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (!a3)
@@ -6856,37 +6855,56 @@ size_t wcrtomb(char *a1, __int32 a2, mbstate_t *a3)
 
 size_t wcsftime_l(__int32 *a1, size_t a2, const __int32 *a3, const tm *a4, locale_t a5)
 {
-  v18 = a1;
-  v17 = a2;
-  v16 = a3;
-  v15 = a4;
-  v14 = a5;
+  v17 = a1;
+  v16 = a2;
+  v15 = a3;
+  v14 = a4;
+  v13 = a5;
   memset(&__b, 0, sizeof(__b));
-  v13 = 0;
   v12 = 0;
   v11 = 0;
   v10 = 0;
-  if (v14)
+  v9 = 0;
+  if (v13)
   {
-    if (v14 == -1)
+    if (v13 == -1)
     {
-      v14 = __global_locale;
+      v13 = __global_locale;
     }
   }
 
   else
   {
-    v14 = &__c_locale;
+    v13 = __c_locale;
   }
 
-  v13 = 0;
   v12 = 0;
+  v11 = 0;
   memcpy(&__b, &wcsftime_l_initial, sizeof(__b));
-  v10 = v16;
-  v8 = wcsrtombs_l(0, &v10, 0, &__b, v14);
-  if (v8 == -1)
+  v9 = v15;
+  v7 = wcsrtombs_l(0, &v9, 0, &__b, v13);
+  if (v7 == -1)
   {
     goto LABEL_16;
+  }
+
+  v11 = malloc_type_malloc();
+  if (!v11)
+  {
+    goto LABEL_16;
+  }
+
+  memcpy(&__b, &wcsftime_l_initial, sizeof(__b));
+  wcsrtombs_l(v11, &v9, v7 + 1, &__b, v13);
+  if (0xFFFFFFFFFFFFFFFFLL / *(*(v13 + 166) + 64) <= v16)
+  {
+    *__error() = 22;
+LABEL_16:
+    v6 = *__error();
+    free(v11);
+    free(v12);
+    *__error() = v6;
+    return 0;
   }
 
   v12 = malloc_type_malloc();
@@ -6895,42 +6913,22 @@ size_t wcsftime_l(__int32 *a1, size_t a2, const __int32 *a3, const tm *a4, local
     goto LABEL_16;
   }
 
+  if (!strftime_l(v12, v16, v11, v14, v13))
+  {
+    goto LABEL_16;
+  }
+
+  v10 = v12;
   memcpy(&__b, &wcsftime_l_initial, sizeof(__b));
-  wcsrtombs_l(v12, &v10, v8 + 1, &__b, v14);
-  if (0xFFFFFFFFFFFFFFFFLL / *(*(v14 + 166) + 64) <= v17)
-  {
-    *__error() = 22;
-LABEL_16:
-    v7 = *__error();
-    free(v12);
-    free(v13);
-    *__error() = v7;
-    return 0;
-  }
-
-  v5 = *(*(v14 + 166) + 64);
-  v13 = malloc_type_malloc();
-  if (!v13)
+  v8 = mbsrtowcs_l(v17, &v10, v16, &__b, v13);
+  if (v8 == -2 || v8 == -1 || v10)
   {
     goto LABEL_16;
   }
 
-  if (!strftime_l(v13, v17, v12, v15, v14))
-  {
-    goto LABEL_16;
-  }
-
-  v11 = v13;
-  memcpy(&__b, &wcsftime_l_initial, sizeof(__b));
-  v9 = mbsrtowcs_l(v18, &v11, v17, &__b, v14);
-  if (v9 == -2 || v9 == -1 || v11)
-  {
-    goto LABEL_16;
-  }
-
+  free(v11);
   free(v12);
-  free(v13);
-  return v9;
+  return v8;
 }
 
 size_t wcsftime(__int32 *a1, size_t a2, const __int32 *a3, const tm *a4)
@@ -6956,13 +6954,13 @@ size_t wcsnrtombs_l(char *a1, const __int32 **a2, size_t a3, size_t a4, mbstate_
   {
     if (a6 == -1)
     {
-      v7 = &__global_locale;
+      v7 = __global_locale;
     }
   }
 
   else
   {
-    v7 = &__c_locale;
+    v7 = __c_locale;
   }
 
   if (!a5)
@@ -6988,7 +6986,7 @@ size_t wcsnrtombs(char *a1, const __int32 **a2, size_t a3, size_t a4, mbstate_t 
   }
 }
 
-uint64_t __wcsnrtombs_std(void *a1, _DWORD **a2, uint64_t a3, unint64_t a4, void *a5, uint64_t a6)
+unint64_t __wcsnrtombs_std(void *a1, _DWORD **a2, uint64_t a3, unint64_t a4, void *a5, uint64_t a6)
 {
   __dst = a1;
   v22 = a2;
@@ -7094,13 +7092,13 @@ size_t wcsrtombs_l(char *a1, const __int32 **a2, size_t a3, mbstate_t *a4, local
   {
     if (a5 == -1)
     {
-      v6 = &__global_locale;
+      v6 = __global_locale;
     }
   }
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   if (!a4)
@@ -7183,7 +7181,7 @@ double wcstod_l(const __int32 *a1, __int32 **a2, locale_t a3)
 
   else
   {
-    v28 = &__c_locale;
+    v28 = __c_locale;
   }
 
   v23 = __numeric_ctype(v28);
@@ -7326,7 +7324,7 @@ float wcstof_l(const __int32 *a1, __int32 **a2, locale_t a3)
 
   else
   {
-    v28 = &__c_locale;
+    v28 = __c_locale;
   }
 
   v23 = __numeric_ctype(v28);
@@ -7437,7 +7435,7 @@ intmax_t wcstoimax_l(const __int32 *nptr, __int32 **endptr, int base, locale_t a
 
   else
   {
-    v21 = &__c_locale;
+    v21 = __c_locale;
   }
 
   v20 = nptr;
@@ -7615,7 +7613,7 @@ uint64_t wcstol_l(const __int32 *a1, __int32 **a2, int a3, locale_t a4)
 
   else
   {
-    v21 = &__c_locale;
+    v21 = __c_locale;
   }
 
   v20 = a1;
@@ -7825,7 +7823,7 @@ long double wcstold_l(const __int32 *a1, __int32 **a2, locale_t a3)
 
   else
   {
-    v28 = &__c_locale;
+    v28 = __c_locale;
   }
 
   v23 = __numeric_ctype(v28);
@@ -7936,7 +7934,7 @@ uint64_t wcstoll_l(const __int32 *a1, __int32 **a2, int a3, locale_t a4)
 
   else
   {
-    v21 = &__c_locale;
+    v21 = __c_locale;
   }
 
   v20 = a1;
@@ -8119,7 +8117,7 @@ size_t wcstombs_l(char *a1, const __int32 *a2, size_t a3, locale_t a4)
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   memcpy(__b, &wcstombs_l_initial, sizeof(__b));
@@ -8155,7 +8153,7 @@ unint64_t wcstoul_l(const __int32 *a1, __int32 **a2, int a3, locale_t a4)
 
   else
   {
-    v18 = &__c_locale;
+    v18 = __c_locale;
   }
 
   v17 = a1;
@@ -8322,7 +8320,7 @@ unint64_t wcstoull_l(const __int32 *a1, __int32 **a2, int a3, locale_t a4)
 
   else
   {
-    v18 = &__c_locale;
+    v18 = __c_locale;
   }
 
   v17 = a1;
@@ -8489,7 +8487,7 @@ uintmax_t wcstoumax_l(const __int32 *nptr, __int32 **endptr, int base, locale_t 
 
   else
   {
-    v18 = &__c_locale;
+    v18 = __c_locale;
   }
 
   v17 = nptr;
@@ -8658,7 +8656,7 @@ int wctob_l(wint_t a1, locale_t a2)
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   if (v5 != -1 && (*(*(v4 + 166) + 96))(v3, v5, __b, v4) == 1)
@@ -8700,7 +8698,7 @@ int wctomb_l(char *a1, __int32 a2, locale_t a3)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (a1)
@@ -8753,7 +8751,7 @@ wint_t towctrans_l(wint_t a1, wctrans_t a2, locale_t a3)
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   if (!a2)
@@ -8847,7 +8845,7 @@ wctype_t wctype_l(const char *a1, locale_t a2)
 
   else
   {
-    a2 = &__c_locale;
+    a2 = __c_locale;
   }
 
   v8 = *(*(a2 + 166) + 120);
@@ -9001,7 +8999,7 @@ uint64_t memstream_update(uint64_t result)
   return result;
 }
 
-uint64_t memstream_write(uint64_t **a1, const void *a2, int a3)
+uint64_t memstream_write(void *a1, const void *a2, int a3)
 {
   if (memstream_grow(a1, a1[3] + a3))
   {
@@ -9011,8 +9009,8 @@ uint64_t memstream_write(uint64_t **a1, const void *a2, int a3)
       __n = a3;
     }
 
-    memcpy(a1[3] + **a1, a2, __n);
-    a1[3] = (a1[3] + __n);
+    memcpy((**a1 + a1[3]), a2, __n);
+    a1[3] += __n;
     memstream_update(a1);
     fprintf(__stderrp, "MS: write(%p, %d) = %zd\n", a1, a3, __n);
     return __n;
@@ -9080,19 +9078,19 @@ LABEL_17:
   return -1;
 }
 
-uint64_t memstream_grow(uint64_t **a1, uint64_t a2)
+uint64_t memstream_grow(void *a1, uint64_t a2)
 {
   if (a2 < 0 || a2 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v7 = 0x7FFFFFFFFFFFFFFELL;
+    v6 = 0x7FFFFFFFFFFFFFFELL;
   }
 
   else
   {
-    v7 = a2;
+    v6 = a2;
   }
 
-  if (v7 <= a1[2])
+  if (v6 <= a1[2])
   {
     return 1;
   }
@@ -9102,32 +9100,31 @@ uint64_t memstream_grow(uint64_t **a1, uint64_t a2)
     v2 = a1[2];
     if ((v2 * 15) >> 64 == (15 * v2) >> 63)
     {
-      v6 = 15 * v2 / 10;
+      v5 = 15 * v2 / 10;
     }
 
     else
     {
-      v6 = 0x7FFFFFFFFFFFFFFELL;
+      v5 = 0x7FFFFFFFFFFFFFFELL;
     }
 
-    if (v6 <= v7)
+    if (v5 <= v6)
     {
-      v5 = v7;
+      v4 = v6;
     }
 
     else
     {
-      v5 = v6;
+      v4 = v5;
     }
 
-    v3 = **a1;
-    v8 = malloc_type_realloc();
-    if (v8)
+    v7 = malloc_type_realloc();
+    if (v7)
     {
-      fprintf(__stderrp, "MS: %p growing from %zd to %zd\n", a1, a1[2], v5);
-      bzero(a1[2] + v8 + 1, v5 - a1[2]);
-      **a1 = v8;
-      a1[2] = v5;
+      fprintf(__stderrp, "MS: %p growing from %zd to %zd\n", a1, a1[2], v4);
+      bzero((v7 + a1[2] + 1), v4 - a1[2]);
+      **a1 = v7;
+      a1[2] = v4;
       return 1;
     }
 
@@ -9520,99 +9517,98 @@ LABEL_51:
 uint64_t loadCat(const char *a1)
 {
   *__s1 = 0u;
-  v23 = 0u;
-  v19 = malloc_type_malloc();
-  if (!v19)
+  v22 = 0u;
+  v18 = malloc_type_malloc();
+  if (!v18)
   {
     return -1;
   }
 
-  v12 = open_NOCANCEL();
-  if (v12 == -1)
+  v11 = open_NOCANCEL();
+  if (v11 == -1)
   {
-    v13 = *__error();
-    free(v19);
-    *__error() = v13;
+    v12 = *__error();
+    free(v18);
+    *__error() = v12;
     return -1;
   }
 
   else
   {
-    v1 = fdopen(v12, "r");
-    *v19 = v1;
+    v1 = fdopen(v11, "r");
+    *v18 = v1;
     if (v1)
     {
-      if (fread(__s1, 0x20uLL, 1uLL, *v19) == 1 && !strncmp(__s1, "*nazgul*", 8uLL))
+      if (fread(__s1, 0x20uLL, 1uLL, *v18) == 1 && !strncmp(__s1, "*nazgul*", 8uLL))
       {
         if (_OSSwapInt32(*&__s1[8]) == 1)
         {
-          if (_OSSwapInt32(DWORD1(v23)))
+          if (_OSSwapInt32(DWORD1(v22)))
           {
-            *(v19 + 2) = _OSSwapInt32(DWORD1(v23));
-            v2 = *(v19 + 2);
-            v3 = malloc_type_malloc();
-            v19[2] = v3;
-            if (v3)
+            *(v18 + 2) = _OSSwapInt32(DWORD1(v22));
+            v2 = malloc_type_malloc();
+            v18[2] = v2;
+            if (v2)
             {
-              v16 = _OSSwapInt64(*(&v23 + 1));
+              v15 = _OSSwapInt64(*(&v22 + 1));
               for (i = 0; ; ++i)
               {
-                if (i >= *(v19 + 2))
+                if (i >= *(v18 + 2))
                 {
-                  return v19;
+                  return v18;
                 }
 
-                if (fseeko(*v19, v16, 0) == -1)
-                {
-                  break;
-                }
-
-                v18 = v19[2] + 40 * i;
-                if (fread(v18, 0x28uLL, 1uLL, *v19) != 1)
+                if (fseeko(*v18, v15, 0) == -1)
                 {
                   break;
                 }
 
-                if (*(v18 + 36))
+                v17 = v18[2] + 40 * i;
+                if (fread(v17, 0x28uLL, 1uLL, *v18) != 1)
+                {
+                  break;
+                }
+
+                if (*(v17 + 36))
                 {
                   --i;
                 }
 
                 else
                 {
-                  *(v18 + 36) = 1;
+                  *(v17 + 36) = 1;
                 }
 
-                v16 = _OSSwapInt64(*(v18 + 4));
+                v15 = _OSSwapInt64(*(v17 + 4));
               }
 
-              __nls_free_resources(v19, i);
-              fclose(*v19);
+              __nls_free_resources(v18, i);
+              fclose(*v18);
               fprintf(__stderrp, "%s: corrupt file.", _errowner);
-              free(v19);
+              free(v18);
               *__error() = 79;
               return -1;
             }
 
             else
             {
-              v15 = *__error();
-              fclose(*v19);
+              v14 = *__error();
+              fclose(*v18);
               fprintf(__stderrp, "%s: no more memory.", _errowner);
-              free(v19);
-              *__error() = v15;
+              free(v18);
+              *__error() = v14;
               return -1;
             }
           }
 
           else
           {
-            fclose(*v19);
-            free(v19);
-            v6 = __stderrp;
-            v7 = _errowner;
-            v5 = _OSSwapInt32(DWORD1(v23));
-            fprintf(v6, "%s: %s has %d sets!\n", v7, a1, v5);
+            fclose(*v18);
+            free(v18);
+            v5 = __stderrp;
+            v6 = _errowner;
+            v4 = _OSSwapInt32(DWORD1(v22));
+            fprintf(v5, "%s: %s has %d sets!\n", v6, a1, v4);
             *__error() = 79;
             return -1;
           }
@@ -9620,20 +9616,20 @@ uint64_t loadCat(const char *a1)
 
         else
         {
-          fclose(*v19);
-          free(v19);
-          v11 = _OSSwapInt32(*&__s1[8]);
-          if (_OSSwapInt32(v11) == 1)
+          fclose(*v18);
+          free(v18);
+          v10 = _OSSwapInt32(*&__s1[8]);
+          if (_OSSwapInt32(v10) == 1)
           {
             fprintf(__stderrp, "%s: %s is the wrong byte ordering.\n", _errowner, a1);
           }
 
           else
           {
-            v9 = __stderrp;
-            v10 = _errowner;
-            v8 = _OSSwapInt32(*&__s1[8]);
-            fprintf(v9, "%s: %s is version %d, we need %d.\n", v10, a1, v8, 1);
+            v8 = __stderrp;
+            v9 = _errowner;
+            v7 = _OSSwapInt32(*&__s1[8]);
+            fprintf(v8, "%s: %s is version %d, we need %d.\n", v9, a1, v7, 1);
           }
 
           *__error() = 79;
@@ -9643,9 +9639,9 @@ uint64_t loadCat(const char *a1)
 
       else
       {
-        fclose(*v19);
+        fclose(*v18);
         fprintf(__stderrp, "%s: corrupt file.", _errowner);
-        free(v19);
+        free(v18);
         *__error() = 79;
         return -1;
       }
@@ -9653,10 +9649,10 @@ uint64_t loadCat(const char *a1)
 
     else
     {
-      v14 = *__error();
+      v13 = *__error();
       close_NOCANCEL();
-      free(v19);
-      *__error() = v14;
+      free(v18);
+      *__error() = v13;
       return -1;
     }
   }

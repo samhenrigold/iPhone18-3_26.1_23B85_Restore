@@ -17,18 +17,17 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
   v6 = *(&self->super.isa + OBJC_IVAR____TtC13AskToMessages6Choice_action);
   if (v6)
   {
-    v7 = *&self->id[OBJC_IVAR____TtC13AskToMessages6Choice_action];
     v6(self);
   }
 
-  sub_D1A8(v8);
+  sub_D1A8(v7);
 }
 
 - (_TtC13AskToMessages6Choice)init

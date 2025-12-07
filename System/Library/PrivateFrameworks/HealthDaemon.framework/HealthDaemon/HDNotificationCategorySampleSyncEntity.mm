@@ -6,7 +6,7 @@
 
 + (id)_predicateForCategoryTypesToSync
 {
-  v2 = +[HDCategorySampleSyncEntity _categoryTypesDerivedFromQuantitySamples];
+  v2 = +[(HDCategorySampleSyncEntity *)self];
   v3 = HDSampleEntityPredicateForDataTypes(v2);
 
   return v3;

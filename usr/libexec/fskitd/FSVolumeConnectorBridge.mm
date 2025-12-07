@@ -6,14 +6,19 @@
 - (void)abortSearch:(id)search requestID:(unint64_t)d reply:(id)reply;
 - (void)blockmapFile:(id)file range:(_NSRange)range flags:(unsigned int)flags operationID:(unint64_t)d reply:(id)reply;
 - (void)checkAccessTo:(id)to requestedAccess:(unsigned int)access requestID:(unint64_t)d reply:(id)reply;
+- (void)close:(id)close keepingMode:(int)mode requestID:(unint64_t)d reply:(id)reply;
 - (void)createIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
+- (void)endIO:(id)o range:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d reply:(id)reply;
 - (void)fetchVolumeMachPortLabeled:(id)labeled requestID:(unint64_t)d reply:(id)reply;
 - (void)fileAttributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
 - (void)getRootFileHandleWithError:(id)error;
 - (void)listXattrsOf:(id)of requestID:(unint64_t)d reply:(id)reply;
+- (void)lookupIn:(id)in name:(id)name usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply;
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply;
 - (void)makeDirectoryIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
 - (void)makeLinkOf:(id)of named:(id)named inDirectory:(id)directory requestID:(unint64_t)d reply:(id)reply;
 - (void)makeSymLinkIn:(id)in named:(id)named contents:(id)contents attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
+- (void)open:(id)open withMode:(int)mode requestID:(unint64_t)d reply:(id)reply;
 - (void)otherAttributeOf:(id)of named:(id)named requestID:(unint64_t)d reply:(id)reply;
 - (void)parentsAndAttributesForItemsByID:(id)d requestID:(unint64_t)iD reply:(id)reply;
 - (void)pathConfiguration:(id)configuration requestID:(unint64_t)d reply:(id)reply;
@@ -22,9 +27,14 @@
 - (void)readFrom:(id)from atOffset:(unint64_t)offset intoBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply;
 - (void)readLinkOf:(id)of requestID:(unint64_t)d reply:(id)reply;
 - (void)reclaim:(id)reclaim requestID:(unint64_t)d reply:(id)reply;
+- (void)removeDirectory:(id)directory from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply;
+- (void)removeItem:(id)item from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply;
 - (void)renameItemIn:(id)in named:(id)named item:(id)item toDirectory:(id)directory newName:(id)name toItem:(id)toItem usingFlags:(unsigned int)flags requestID:(unint64_t)self0 reply:(id)self1;
+- (void)replenishSearchCreditsFor:(id)for credits:(unsigned int)credits requestID:(unint64_t)d reply:(id)reply;
+- (void)search:(id)search token:(id)token criteria:(id)criteria resumeAt:(id)at maxData:(unsigned int)data maxDelay:(double)delay initialCredits:(unsigned int)credits requestID:(unint64_t)self0 reply:(id)self1;
 - (void)setFileAttributesOf:(id)of to:(id)to requestID:(unint64_t)d reply:(id)reply;
 - (void)setOtherAttributeOf:(id)of named:(id)named value:(id)value requestID:(unint64_t)d reply:(id)reply;
+- (void)setUpdateInterest:(id)interest interest:(BOOL)a4 requestID:(unint64_t)d reply:(id)reply;
 - (void)setXattrOf:(id)of named:(id)named value:(id)value how:(int)how requestID:(unint64_t)d reply:(id)reply;
 - (void)volumeStatistics:(id)statistics requestID:(unint64_t)d reply:(id)reply;
 - (void)writeTo:(id)to atOffset:(unint64_t)offset fromBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply;
@@ -158,6 +168,21 @@
   [(FSVolumeXPC *)proxy checkAccessTo:fsFileHandle requestedAccess:access requestID:d replyHandler:v14];
 }
 
+- (void)close:(id)close keepingMode:(int)mode requestID:(unint64_t)d reply:(id)reply
+{
+  v7 = *&mode;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  fsFileHandle = [close fsFileHandle];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000948C;
+  v14[3] = &unk_100060BB0;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(FSVolumeXPC *)proxy close:fsFileHandle keepingMode:v7 requestID:d replyHandler:v14];
+}
+
 - (void)createIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply
 {
   replyCopy = reply;
@@ -172,6 +197,23 @@
   v19 = replyCopy;
   v17 = replyCopy;
   [(FSVolumeXPC *)proxy createIn:fsFileHandle named:namedCopy type:1 attributes:attributesCopy requestID:d replyHandler:v18];
+}
+
+- (void)endIO:(id)o range:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d reply:(id)reply
+{
+  v10 = *&status;
+  length = range.length;
+  location = range.location;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  fsFileHandle = [o fsFileHandle];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100009780;
+  v19[3] = &unk_100060C28;
+  v20 = replyCopy;
+  v18 = replyCopy;
+  [(FSVolumeXPC *)proxy endIO:fsFileHandle range:location status:length flags:v10 operationID:flags replyHandler:d, v19];
 }
 
 - (void)fetchVolumeMachPortLabeled:(id)labeled requestID:(unint64_t)d reply:(id)reply
@@ -236,6 +278,42 @@
   [(FSVolumeXPC *)proxy listXattrsOf:fsFileHandle requestID:d replyHandler:v12];
 }
 
+- (void)lookupIn:(id)in name:(id)name usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v8 = *&flags;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  nameCopy = name;
+  fsFileHandle = [in fsFileHandle];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100009DAC;
+  v17[3] = &unk_100060CC8;
+  v18 = replyCopy;
+  v16 = replyCopy;
+  [(FSVolumeXPC *)proxy lookupIn:fsFileHandle name:nameCopy flags:v8 requestID:d replyHandler:v17];
+}
+
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v10 = *&flags;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  attributesCopy = attributes;
+  directoryCopy = directory;
+  namedCopy = named;
+  fsFileHandle = [of fsFileHandle];
+  fsFileHandle2 = [directoryCopy fsFileHandle];
+
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000A040;
+  v24[3] = &unk_100060C00;
+  v25 = replyCopy;
+  v23 = replyCopy;
+  [(FSVolumeXPC *)proxy makeCloneOf:fsFileHandle named:namedCopy inDirectory:fsFileHandle2 attributes:attributesCopy usingFlags:v10 requestID:d replyHandler:v24];
+}
+
 - (void)makeDirectoryIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply
 {
   replyCopy = reply;
@@ -287,6 +365,21 @@
   v23 = replyCopy;
   v21 = replyCopy;
   [(FSVolumeXPC *)proxy makeSymlinkIn:fsFileHandle named:namedCopy contents:v20 attributes:attributesCopy requestID:d replyHandler:v22];
+}
+
+- (void)open:(id)open withMode:(int)mode requestID:(unint64_t)d reply:(id)reply
+{
+  v7 = *&mode;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  fsFileHandle = [open fsFileHandle];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000A7AC;
+  v14[3] = &unk_100060BB0;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(FSVolumeXPC *)proxy open:fsFileHandle withMode:v7 requestID:d replyHandler:v14];
 }
 
 - (void)otherAttributeOf:(id)of named:(id)named requestID:(unint64_t)d reply:(id)reply
@@ -490,6 +583,44 @@
   [(FSVolumeXPC *)proxy reclaim:fsFileHandle requestID:d replyHandler:v12];
 }
 
+- (void)removeDirectory:(id)directory from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&flags;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  namedCopy = named;
+  fromCopy = from;
+  fsFileHandle = [directory fsFileHandle];
+  fsFileHandle2 = [fromCopy fsFileHandle];
+
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10000B508;
+  v21[3] = &unk_100060BD8;
+  v22 = replyCopy;
+  v20 = replyCopy;
+  [(FSVolumeXPC *)proxy removeDirectory:fsFileHandle from:fsFileHandle2 named:namedCopy usingFlags:v9 requestID:d replyHandler:v21];
+}
+
+- (void)removeItem:(id)item from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&flags;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  namedCopy = named;
+  fromCopy = from;
+  fsFileHandle = [item fsFileHandle];
+  fsFileHandle2 = [fromCopy fsFileHandle];
+
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10000B634;
+  v21[3] = &unk_100060CF0;
+  v22 = replyCopy;
+  v20 = replyCopy;
+  [(FSVolumeXPC *)proxy removeItem:fsFileHandle from:fsFileHandle2 named:namedCopy usingFlags:v9 requestID:d replyHandler:v21];
+}
+
 - (void)renameItemIn:(id)in named:(id)named item:(id)item toDirectory:(id)directory newName:(id)name toItem:(id)toItem usingFlags:(unsigned int)flags requestID:(unint64_t)self0 reply:(id)self1
 {
   inCopy = in;
@@ -516,6 +647,39 @@
   v26 = replyCopy;
   LODWORD(v27) = flags;
   [(FSVolumeXPC *)proxy renameItemIn:fsFileHandle named:namedCopy item:v24 toDirectory:fsFileHandle2 newName:nameCopy toItem:toItem usingFlags:v27 requestID:d replyHandler:v30];
+}
+
+- (void)replenishSearchCreditsFor:(id)for credits:(unsigned int)credits requestID:(unint64_t)d reply:(id)reply
+{
+  v7 = *&credits;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10000B8C8;
+  v13[3] = &unk_100060BB0;
+  v14 = replyCopy;
+  v12 = replyCopy;
+  [(FSVolumeXPC *)proxy replenishSearchCreditsFor:for credits:v7 requestID:d replyHandler:v13];
+}
+
+- (void)search:(id)search token:(id)token criteria:(id)criteria resumeAt:(id)at maxData:(unsigned int)data maxDelay:(double)delay initialCredits:(unsigned int)credits requestID:(unint64_t)self0 reply:(id)self1
+{
+  v11 = *&credits;
+  v13 = *&data;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  atCopy = at;
+  criteriaCopy = criteria;
+  tokenCopy = token;
+  fsFileHandle = [search fsFileHandle];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10000BA10;
+  v26[3] = &unk_100060BB0;
+  v27 = replyCopy;
+  v25 = replyCopy;
+  [(FSVolumeXPC *)proxy search:fsFileHandle token:tokenCopy criteria:criteriaCopy resumeAt:atCopy maxData:v13 maxDelay:v11 initialCredits:delay requestID:d replyHandler:v26];
 }
 
 - (void)setFileAttributesOf:(id)of to:(id)to requestID:(unint64_t)d reply:(id)reply
@@ -547,6 +711,21 @@
   v19 = replyCopy;
   v17 = replyCopy;
   [(FSVolumeXPC *)proxy setOtherAttributeOf:fsFileHandle named:namedCopy value:valueCopy requestID:d replyHandler:v18];
+}
+
+- (void)setUpdateInterest:(id)interest interest:(BOOL)a4 requestID:(unint64_t)d reply:(id)reply
+{
+  v7 = a4;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  fsFileHandle = [interest fsFileHandle];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10000BCF8;
+  v14[3] = &unk_100060E08;
+  v15 = replyCopy;
+  v13 = replyCopy;
+  [(FSVolumeXPC *)proxy setUpdateInterest:fsFileHandle interest:v7 requestID:d replyHandler:v14];
 }
 
 - (void)setXattrOf:(id)of named:(id)named value:(id)value how:(int)how requestID:(unint64_t)d reply:(id)reply

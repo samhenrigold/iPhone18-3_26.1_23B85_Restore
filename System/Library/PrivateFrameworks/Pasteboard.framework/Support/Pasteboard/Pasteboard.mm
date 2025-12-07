@@ -342,106 +342,102 @@ void sub_10000288C(id a1)
 
 void sub_100002CC0(uint64_t a1)
 {
-  if ((*(a1 + 72) & 1) == 0)
+  if ((*(a1 + 72) & 1) == 0 && PBIsPasteboardNameGeneralPasteboard())
   {
-    v2 = *(a1 + 32);
-    if (PBIsPasteboardNameGeneralPasteboard())
+    v2 = PBDeviceLockedGeneralPasteboardName;
+    v3 = PBGeneralPasteboardName;
+    v4 = [*(a1 + 40) workQueue_pasteboardWithPersistenceName:PBDeviceLockedGeneralPasteboardName name:PBGeneralPasteboardName localOnly:1];
+    if (v4)
     {
-      v3 = PBDeviceLockedGeneralPasteboardName;
-      v4 = PBGeneralPasteboardName;
-      v5 = [*(a1 + 40) workQueue_pasteboardWithPersistenceName:PBDeviceLockedGeneralPasteboardName name:PBGeneralPasteboardName localOnly:1];
-      if (v5)
+      v5 = _PBLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = _PBLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Pulling device-locked pasteboard into general pasteboard.", buf, 2u);
-        }
-
-        v7 = [PBItemCollection alloc];
-        v8 = [v5 items];
-        v9 = [v7 initWithItems:v8];
-
-        [v9 setName:v4];
-        v10 = [v5 metadata];
-        [v9 setMetadata:v10];
-
-        v11 = [v5 privateMetadata];
-        [v9 setPrivateMetadata:v11];
-
-        v12 = [v5 expirationDate];
-        [v9 setExpirationDate:v12];
-
-        [v9 setPersistent:1];
-        v13 = [v5 originatorPersistentID];
-        [v9 setOriginatorPersistentID:v13];
-
-        v14 = [v5 originatorBundleID];
-        [v9 setOriginatorBundleID:v14];
-
-        v15 = [v5 originatorTeamID];
-        [v9 setOriginatorTeamID:v15];
-
-        v16 = [v5 originatorLocalizedName];
-        [v9 setOriginatorLocalizedName:v16];
-
-        v17 = [v5 saveBootSession];
-        [v9 setSaveBootSession:v17];
-
-        [v9 setSaveTimestamp:{objc_msgSend(v5, "saveTimestamp")}];
-        [v9 setLocalOnly:1];
-        v18 = [*(a1 + 40) workQueue_savePasteboard:v9 isServerToServerCopy:1 outNotificationState:0 outChangeCount:0];
-        [*(a1 + 40) workQueue_deletePasteboardWithPersistenceName:v3];
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Pulling device-locked pasteboard into general pasteboard.", buf, 2u);
       }
+
+      v6 = [PBItemCollection alloc];
+      v7 = [v4 items];
+      v8 = [v6 initWithItems:v7];
+
+      [v8 setName:v3];
+      v9 = [v4 metadata];
+      [v8 setMetadata:v9];
+
+      v10 = [v4 privateMetadata];
+      [v8 setPrivateMetadata:v10];
+
+      v11 = [v4 expirationDate];
+      [v8 setExpirationDate:v11];
+
+      [v8 setPersistent:1];
+      v12 = [v4 originatorPersistentID];
+      [v8 setOriginatorPersistentID:v12];
+
+      v13 = [v4 originatorBundleID];
+      [v8 setOriginatorBundleID:v13];
+
+      v14 = [v4 originatorTeamID];
+      [v8 setOriginatorTeamID:v14];
+
+      v15 = [v4 originatorLocalizedName];
+      [v8 setOriginatorLocalizedName:v15];
+
+      v16 = [v4 saveBootSession];
+      [v8 setSaveBootSession:v16];
+
+      [v8 setSaveTimestamp:{objc_msgSend(v4, "saveTimestamp")}];
+      [v8 setLocalOnly:1];
+      v17 = [*(a1 + 40) workQueue_savePasteboard:v8 isServerToServerCopy:1 outNotificationState:0 outChangeCount:0];
+      [*(a1 + 40) workQueue_deletePasteboardWithPersistenceName:v2];
     }
   }
 
-  v19 = [*(a1 + 40) workQueue_pasteboardWithPersistenceName:*(a1 + 32) name:*(a1 + 48) localOnly:*(a1 + 73)];
-  if (!v19)
+  v18 = [*(a1 + 40) workQueue_pasteboardWithPersistenceName:*(a1 + 32) name:*(a1 + 48) localOnly:*(a1 + 73)];
+  if (!v18)
   {
     if (*(a1 + 74) != 1)
     {
-      v19 = 0;
+      v18 = 0;
       if (sub_100002638())
       {
 LABEL_18:
-        v20 = *(a1 + 64);
-        if (!v20)
+        v19 = *(a1 + 64);
+        if (!v19)
         {
           goto LABEL_23;
         }
 
-        v24 = v20;
-        v19 = v19;
+        v23 = v19;
+        v18 = v18;
         PBDispatchAsyncCallback();
 
-        v21 = v24;
+        v20 = v23;
 LABEL_22:
 
         goto LABEL_23;
       }
 
 LABEL_20:
-      v22 = *(a1 + 64);
-      if (!v22)
+      v21 = *(a1 + 64);
+      if (!v21)
       {
         goto LABEL_23;
       }
 
-      v23 = v22;
-      v19 = v19;
+      v22 = v21;
+      v18 = v18;
       PBDispatchAsyncCallback();
 
-      v21 = v23;
+      v20 = v22;
       goto LABEL_22;
     }
 
-    v19 = [[PBItemCollection alloc] initWithItems:&__NSArray0__struct];
-    [v19 setName:*(a1 + 48)];
+    v18 = [[PBItemCollection alloc] initWithItems:&__NSArray0__struct];
+    [v18 setName:*(a1 + 48)];
     if (*(a1 + 72) == 1)
     {
-      [v19 setDeviceLockedPasteboard:1];
+      [v18 setDeviceLockedPasteboard:1];
     }
   }
 
@@ -450,22 +446,20 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  if (!v19 || ![v19 isRemote] || (objc_msgSend(v19, "isRemoteMetadataLoaded") & 1) != 0)
+  if (!v18 || ![v18 isRemote] || (objc_msgSend(v18, "isRemoteMetadataLoaded") & 1) != 0)
   {
     goto LABEL_18;
   }
 
-  [*(a1 + 40) workQueue_faultMetadataForRemotePasteboard:v19 processInfo:*(a1 + 56) completionBlock:*(a1 + 64)];
+  [*(a1 + 40) workQueue_faultMetadataForRemotePasteboard:v18 processInfo:*(a1 + 56) completionBlock:*(a1 + 64)];
 LABEL_23:
 }
 
 void sub_1000030F8(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNameInvalidError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNameInvalidError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void sub_1000033F0(uint64_t a1)
@@ -572,11 +566,9 @@ LABEL_17:
 
 void sub_1000036DC(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNotAvailableError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNotAvailableError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void sub_100003740(uint64_t a1, void *a2, void *a3)
@@ -617,20 +609,16 @@ void sub_100003740(uint64_t a1, void *a2, void *a3)
 
 void sub_1000038E4(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNameInvalidError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNameInvalidError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void sub_100003948(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNameInvalidError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNameInvalidError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void sub_1000040D4(uint64_t a1)
@@ -649,26 +637,19 @@ void sub_1000040D4(uint64_t a1)
 
 void sub_10000445C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = PBPasteboardPersistenceName();
-  [*(a1 + 56) workQueue_deletePasteboardWithPersistenceName:v5];
-  v6 = *(a1 + 32);
+  v2 = PBPasteboardPersistenceName();
+  [*(a1 + 56) workQueue_deletePasteboardWithPersistenceName:v2];
   if (PBIsPasteboardNameGeneralPasteboard())
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = PBPasteboardPersistenceName();
-    [*(a1 + 56) workQueue_deletePasteboardWithPersistenceName:v10];
+    v3 = PBPasteboardPersistenceName();
+    [*(a1 + 56) workQueue_deletePasteboardWithPersistenceName:v3];
   }
 
   sub_10000F95C();
-  v11 = *(a1 + 64);
-  if (v11)
+  v4 = *(a1 + 64);
+  if (v4)
   {
-    v12 = v11;
+    v5 = v4;
     PBDispatchAsyncCallback();
   }
 }
@@ -1258,9 +1239,9 @@ void sub_1000069D8(id a1)
   [v1 getUUIDBytes:&unk_100039270];
 }
 
-void sub_100007EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100007EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1323,9 +1304,9 @@ LABEL_13:
 LABEL_14:
 }
 
-void sub_100008244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1531,21 +1512,19 @@ __CFDictionary *__cdecl sub_100008CA4(id a1, __CFDictionary *a2)
   return v2;
 }
 
-void sub_100009A0C(uint64_t a1)
+void sub_100009A0C(void *a1)
 {
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = PBPasteboardNameNotAvailableError();
-  (*(v3 + 16))(v3, 0, v5);
+  v2 = a1[5];
+  v3 = PBPasteboardNameNotAvailableError();
+  (*(v2 + 16))(v2, 0, v3);
 
-  v6 = _PBLog();
-  v7 = v6;
-  v8 = *(a1 + 48);
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v4 = _PBLog();
+  v5 = v4;
+  v6 = a1[6];
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, v8, "PasteboardWithName", &unk_10002C5F1, v9, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_END, v6, "PasteboardWithName", &unk_10002C5F1, v7, 2u);
   }
 }
 
@@ -1591,35 +1570,32 @@ void sub_100009ACC(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100009C78(uint64_t a1)
+void sub_100009C78(void *a1)
 {
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = PBPasteboardNameNotAvailableError();
-  (*(v3 + 16))(v3, 0, v5);
+  v2 = a1[5];
+  v3 = PBPasteboardNameNotAvailableError();
+  (*(v2 + 16))(v2, 0, v3);
 
-  v6 = _PBLog();
-  v7 = v6;
-  v8 = *(a1 + 48);
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v4 = _PBLog();
+  v5 = v4;
+  v6 = a1[6];
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, v8, "PasteboardWithName", &unk_10002C5F1, v9, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_END, v6, "PasteboardWithName", &unk_10002C5F1, v7, 2u);
   }
 }
 
-void sub_100009D38(void *a1)
+void sub_100009D38(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  v3 = _PBLog();
-  v4 = v3;
-  v5 = a1[6];
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+  (*(*(a1 + 40) + 16))();
+  v2 = _PBLog();
+  v3 = v2;
+  v4 = *(a1 + 48);
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_INTERVAL_END, v5, "PasteboardWithName", &unk_10002C5F1, v6, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_INTERVAL_END, v4, "PasteboardWithName", &unk_10002C5F1, v5, 2u);
   }
 }
 
@@ -1696,37 +1672,37 @@ void sub_10000AA88(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_10000AF10(void *a1)
+void sub_10000AF10(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v3 = _PBLog();
-  v4 = v3;
-  if (v2)
+  v3 = a1[4];
+  v4 = _PBLog();
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = a1[4];
-      v5 = a1[5];
+      v7 = a1[4];
+      v6 = a1[5];
       *buf = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "...deleting pasteboard name %@ failed with error: %@", buf, 0x16u);
+      v12 = v6;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "...deleting pasteboard name %@ failed with error: %@", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[5];
+    v8 = a1[5];
     *buf = 138412290;
-    v11 = v7;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "...deleting pasteboard name %@ completed successfully.", buf, 0xCu);
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "...deleting pasteboard name %@ completed successfully.", buf, 0xCu);
   }
 
-  v8 = a1[6];
-  if (v8)
+  v9 = a1[6];
+  if (v9)
   {
-    v9 = v8;
+    v10 = v9;
     PBDispatchAsyncCallback();
   }
 }
@@ -1815,20 +1791,16 @@ void sub_10000B9A8(uint64_t a1)
 
 void sub_10000C4D0(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNameNotAvailableError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNameNotAvailableError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void sub_10000C534(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = PBPasteboardNameNotAvailableError();
-  (*(v2 + 16))(v2, 0, v4);
+  v1 = *(a1 + 40);
+  v2 = PBPasteboardNameNotAvailableError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 id sub_10000C598()
@@ -1882,30 +1854,30 @@ void sub_10000C6BC(uint64_t a1, void *a2, void *a3)
 
       if (v10 < v12)
       {
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_10000CC48;
-        v48[3] = &unk_100031410;
-        v49 = *(a1 + 80);
-        v13 = objc_retainBlock(v48);
+        v46[0] = _NSConcreteStackBlock;
+        v46[1] = 3221225472;
+        v46[2] = sub_10000CC48;
+        v46[3] = &unk_100031410;
+        v47 = *(a1 + 80);
+        v13 = objc_retainBlock(v46);
         objc_initWeak(&location, v5);
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_10000CCCC;
-        v43[3] = &unk_100031438;
-        objc_copyWeak(v46, &location);
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_10000CCCC;
+        v41[3] = &unk_100031438;
+        objc_copyWeak(v44, &location);
         v14 = *(a1 + 88);
-        v46[1] = *(a1 + 96);
-        v45 = v14;
-        v44 = *(a1 + 40);
-        v15 = objc_retainBlock(v43);
+        v44[1] = *(a1 + 96);
+        v43 = v14;
+        v42 = *(a1 + 40);
+        v15 = objc_retainBlock(v41);
         if (*(a1 + 112) != 1)
         {
 LABEL_32:
           (v15[2])(v15, 0);
 LABEL_41:
 
-          objc_destroyWeak(v46);
+          objc_destroyWeak(v44);
           objc_destroyWeak(&location);
 
           goto LABEL_42;
@@ -1921,21 +1893,21 @@ LABEL_41:
         {
           if (v20 == 1)
           {
-            v31 = _PBLog();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v29 = _PBLog();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Paste denied silently.", buf, 2u);
+              _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Paste denied silently.", buf, 2u);
             }
           }
 
           else if (v20 == 2)
           {
-            v28 = _PBLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            v26 = _PBLog();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Paste allowed silently.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Paste allowed silently.", buf, 2u);
             }
 
             if (!PBPreferencesBoolValue())
@@ -1978,20 +1950,20 @@ LABEL_39:
                   }
                 }
 
-                v32 = mach_absolute_time();
-                v33 = *(a1 + 40);
-                v36 = a1 + 64;
-                v34 = *(a1 + 64);
-                v35 = *(v36 + 8);
-                v37[0] = _NSConcreteStackBlock;
-                v37[1] = 3221225472;
-                v37[2] = sub_10000CD68;
-                v37[3] = &unk_100031460;
-                v41 = v32;
-                v38 = v33;
-                v39 = v13;
-                v40 = v15;
-                [v35 requestUserAuthorizationForPasteboard:v5 auditTokenInfo:v38 loadContext:v34 completionHandler:v37];
+                v30 = mach_absolute_time();
+                v31 = *(a1 + 40);
+                v34 = a1 + 64;
+                v32 = *(a1 + 64);
+                v33 = *(v34 + 8);
+                v35[0] = _NSConcreteStackBlock;
+                v35[1] = 3221225472;
+                v35[2] = sub_10000CD68;
+                v35[3] = &unk_100031460;
+                v39 = v30;
+                v36 = v31;
+                v37 = v13;
+                v38 = v15;
+                [v33 requestUserAuthorizationForPasteboard:v5 auditTokenInfo:v36 loadContext:v32 completionHandler:v35];
 
                 goto LABEL_41;
               }
@@ -1999,11 +1971,11 @@ LABEL_39:
               goto LABEL_36;
             }
 
-            v30 = _PBLog();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v28 = _PBLog();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Paste allowed but announced", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Paste allowed but announced", buf, 2u);
             }
 
 LABEL_31:
@@ -2011,11 +1983,11 @@ LABEL_31:
             goto LABEL_32;
           }
 
-          v29 = _PBLog();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v27 = _PBLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Paste denied but announced.", buf, 2u);
+            _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Paste denied but announced.", buf, 2u);
           }
 
           [*(a1 + 72) announcePasteDenied];
@@ -2032,8 +2004,7 @@ LABEL_36:
         goto LABEL_42;
       }
 
-      v26 = *(a1 + 96);
-      v25 = PBIndexOutOfRangeError();
+      v24 = PBIndexOutOfRangeError();
     }
 
     else
@@ -2044,12 +2015,11 @@ LABEL_36:
         goto LABEL_42;
       }
 
-      v24 = *(a1 + 32);
-      v25 = PBPasteboardNotAvailableError();
+      v24 = PBPasteboardNotAvailableError();
     }
 
-    v27 = v25;
-    (*(v23 + 16))(v23, 0, v25);
+    v25 = v24;
+    (*(v23 + 16))(v23, 0, v24);
 
     goto LABEL_42;
   }
@@ -2088,7 +2058,6 @@ void sub_10000CCCC(uint64_t a1, void *a2)
   v4 = [WeakRetained items];
   v5 = [v4 objectAtIndexedSubscript:*(a1 + 56)];
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -2111,20 +2080,20 @@ void sub_10000D070(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = [a3 representationConformingToType:*(a1 + 32)];
   if (v9)
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10000D2A8;
-    v21[3] = &unk_1000314D8;
-    v24 = *(a1 + 40);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10000D2A8;
+    v20[3] = &unk_1000314D8;
+    v23 = *(a1 + 40);
     v10 = v8;
     v11 = *(a1 + 56);
-    v22 = v10;
-    v26 = v11;
-    v23 = v7;
-    v25 = *(a1 + 48);
-    v12 = [v9 loadWithCompletionHandler:v21];
+    v21 = v10;
+    v25 = v11;
+    v22 = v7;
+    v24 = *(a1 + 48);
+    v12 = [v9 loadWithCompletionHandler:v20];
 
-    v13 = v24;
+    v13 = v23;
   }
 
   else
@@ -2132,27 +2101,26 @@ void sub_10000D070(uint64_t a1, void *a2, void *a3, void *a4)
     v14 = _PBLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 138412290;
-      v28 = v20;
+      v27 = v19;
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Cannot find representation for type %@", buf, 0xCu);
     }
 
     v15 = *(a1 + 40);
     if (v15)
     {
-      v16 = *(a1 + 32);
-      v17 = PBCannotLoadRepresentationError();
-      (*(v15 + 16))(v15, v8, v17);
+      v16 = PBCannotLoadRepresentationError();
+      (*(v15 + 16))(v15, v8, v16);
     }
 
-    v18 = _PBLog();
-    v13 = v18;
-    v19 = *(a1 + 56);
-    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v17 = _PBLog();
+    v13 = v17;
+    v18 = *(a1 + 56);
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_END, v19, "RequestItem", &unk_10002C5F1, buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_END, v18, "RequestItem", &unk_10002C5F1, buf, 2u);
     }
   }
 }
@@ -2402,36 +2370,36 @@ void sub_10000DBEC(uint64_t a1, void *a2, void *a3)
     v11 = v10;
     if (v10)
     {
-      v28 = v10;
-      v29 = v5;
+      v27 = v10;
+      v28 = v5;
       v12 = [*(a1 + 48) detectionsForPatterns:*(a1 + 56) inValue:v10];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v13 = *(a1 + 56);
-      v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v31;
+        v16 = *v30;
         do
         {
           for (i = 0; i != v15; i = i + 1)
           {
-            if (*v31 != v16)
+            if (*v30 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v30 + 1) + 8 * i);
+            v18 = *(*(&v29 + 1) + 8 * i);
             v19 = *(a1 + 88);
             v20 = [v12 objectForKeyedSubscript:v18];
             v21 = (*(v19 + 16))(v19, v20);
             [*(a1 + 64) setObject:v21 forKeyedSubscript:v18];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v15);
@@ -2444,8 +2412,8 @@ void sub_10000DBEC(uint64_t a1, void *a2, void *a3)
         (*(v22 + 16))(v22, *(a1 + 64), 0);
       }
 
-      v11 = v28;
-      v5 = v29;
+      v11 = v27;
+      v5 = v28;
     }
 
     else
@@ -2453,9 +2421,9 @@ void sub_10000DBEC(uint64_t a1, void *a2, void *a3)
       v23 = _PBLog();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v27 = *(a1 + 40);
+        v26 = *(a1 + 40);
         *buf = 138412290;
-        v36 = v27;
+        v35 = v26;
         _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Cannot create string representation for type %@", buf, 0xCu);
       }
 
@@ -2465,10 +2433,9 @@ void sub_10000DBEC(uint64_t a1, void *a2, void *a3)
         goto LABEL_24;
       }
 
-      v26 = *(a1 + 32);
-      v25 = *(a1 + 40);
+      v25 = *(a1 + 32);
       v12 = PBCannotLoadRepresentationError();
-      (*(v24 + 16))(v24, v26, v12);
+      (*(v24 + 16))(v24, v25, v12);
     }
 
 LABEL_24:
@@ -2478,7 +2445,7 @@ LABEL_24:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v36 = v6;
+    v35 = v6;
     _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "... loading failed with error: %@", buf, 0xCu);
   }
 
@@ -2591,7 +2558,6 @@ LABEL_7:
 
 uint64_t sub_10000EB3C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_1000392B0 = objc_opt_new();
 
   return _objc_release_x1();
@@ -3364,10 +3330,11 @@ LABEL_11:
   _Block_object_dispose(&v45, 8);
 }
 
-void sub_1000117E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000117E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3485,16 +3452,16 @@ void sub_100011AF4(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
   _Block_object_dispose(&v32, 8);
 }
 
-void sub_100011D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100011D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3702,10 +3669,9 @@ uint64_t sub_100012DB0(uint64_t a1, void (**a2)(void, void, void, void, void))
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = a2;
-    v5 = PBCannotLoadRepresentationError();
-    (a2)[2](v4, 0, 0, v5, 0);
+    v3 = a2;
+    v4 = PBCannotLoadRepresentationError();
+    (a2)[2](v3, 0, 0, v4, 0);
   }
 
   return 0;
@@ -4204,9 +4170,9 @@ void sub_1000146B4(uint64_t a1, void *a2)
   [WeakRetained invalidate];
 }
 
-void sub_1000147F8(uint64_t a1)
+void sub_1000147F8(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
   PBDispatchAsyncCallback();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained invalidate];
@@ -4300,13 +4266,13 @@ id sub_100014EE0(uint64_t a1, void *a2)
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     *buf = 134218754;
-    v39 = WeakRetained;
-    v40 = 2112;
-    v41 = v6;
-    v42 = 2112;
-    v43 = v7;
-    v44 = 2112;
-    v45 = v8;
+    v38 = WeakRetained;
+    v39 = 2112;
+    v40 = v6;
+    v41 = 2112;
+    v42 = v7;
+    v43 = 2112;
+    v44 = v8;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Loading item %p %@ type %@ from URL %@", buf, 0x2Au);
   }
 
@@ -4320,9 +4286,9 @@ id sub_100014EE0(uint64_t a1, void *a2)
   }
 
   v13 = objc_alloc_init(NSProgress);
-  v37 = 0;
-  v14 = [NSURL bookmarkDataWithContentsOfURL:v9 error:&v37];
-  v15 = v37;
+  v36 = 0;
+  v14 = [NSURL bookmarkDataWithContentsOfURL:v9 error:&v36];
+  v15 = v36;
   if (v15 || !v14)
   {
     v23 = _PBLog();
@@ -4331,26 +4297,26 @@ id sub_100014EE0(uint64_t a1, void *a2)
       v28 = [WeakRetained UUID];
       v29 = *(a1 + 32);
       *buf = 134218754;
-      v39 = WeakRetained;
-      v40 = 2112;
-      v41 = v28;
-      v42 = 2114;
-      v43 = v29;
-      v44 = 2112;
-      v45 = v15;
+      v38 = WeakRetained;
+      v39 = 2112;
+      v40 = v28;
+      v41 = 2114;
+      v42 = v29;
+      v43 = 2112;
+      v44 = v15;
       _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to load bookmark for item %p %@ type %{public}@. Error: %@", buf, 0x2Au);
     }
   }
 
   else
   {
-    v36 = 0;
-    v16 = PBStorageRootURL();
     v35 = 0;
-    v17 = [NSURL URLByResolvingBookmarkData:v14 options:256 relativeToURL:v16 bookmarkDataIsStale:&v36 error:&v35];
-    v15 = v35;
+    v16 = PBStorageRootURL();
+    v34 = 0;
+    v17 = [NSURL URLByResolvingBookmarkData:v14 options:256 relativeToURL:v16 bookmarkDataIsStale:&v35 error:&v34];
+    v15 = v34;
 
-    if (v36 == 1)
+    if (v35 == 1)
     {
       v18 = _PBLog();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -4358,11 +4324,11 @@ id sub_100014EE0(uint64_t a1, void *a2)
         v30 = [WeakRetained UUID];
         v31 = *(a1 + 32);
         *buf = 134218498;
-        v39 = WeakRetained;
-        v40 = 2112;
-        v41 = v30;
-        v42 = 2114;
-        v43 = v31;
+        v38 = WeakRetained;
+        v39 = 2112;
+        v40 = v30;
+        v41 = 2114;
+        v42 = v31;
         _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Item %p %@ type %{public}@ bookmark data is stale. Using it anyway.", buf, 0x20u);
       }
     }
@@ -4376,22 +4342,21 @@ id sub_100014EE0(uint64_t a1, void *a2)
         v20 = [WeakRetained UUID];
         v21 = *(a1 + 32);
         *buf = 134218498;
-        v39 = WeakRetained;
-        v40 = 2112;
-        v41 = v20;
-        v42 = 2114;
-        v43 = v21;
+        v38 = WeakRetained;
+        v39 = 2112;
+        v40 = v20;
+        v41 = 2114;
+        v42 = v21;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Item %p %@ type %{public}@ successfully resolved bookmark data.", buf, 0x20u);
       }
 
       objc_initWeak(buf, v13);
-      objc_copyWeak(&v34, buf);
-      v32 = *(a1 + 32);
-      v33 = v3;
+      objc_copyWeak(&v33, buf);
+      v32 = v3;
       v22 = PBCoordinatedRead();
       [v13 addChild:v22 withPendingUnitCount:2];
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(buf);
 
       goto LABEL_23;
@@ -4403,13 +4368,13 @@ id sub_100014EE0(uint64_t a1, void *a2)
       v25 = [WeakRetained UUID];
       v26 = *(a1 + 32);
       *buf = 134218754;
-      v39 = WeakRetained;
-      v40 = 2112;
-      v41 = v25;
-      v42 = 2112;
-      v43 = v26;
-      v44 = 2112;
-      v45 = v15;
+      v38 = WeakRetained;
+      v39 = 2112;
+      v40 = v25;
+      v41 = 2112;
+      v42 = v26;
+      v43 = 2112;
+      v44 = v15;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Item %p %@ type %@ could not resolved bookmark data to a URL. Error: %@", buf, 0x2Au);
     }
   }
@@ -4442,56 +4407,55 @@ void sub_100015484(uint64_t a1, void *a2, void *a3)
   v12 = v8;
   if (v5 && !v8)
   {
-    v13 = *(a1 + 32);
-    v14 = [*(a1 + 40) suggestedName];
+    v13 = [*(a1 + 40) suggestedName];
     v11 = PBCloneURLToTemporaryFolder();
     v10 = 0;
     v12 = 0;
 
-    v15 = _PBLog();
-    v16 = v15;
+    v14 = _PBLog();
+    v15 = v14;
     if (v11)
     {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
 LABEL_8:
 
         goto LABEL_9;
       }
 
-      v17 = *(a1 + 40);
-      v18 = [v17 UUID];
-      v19 = *(a1 + 32);
+      v16 = *(a1 + 40);
+      v17 = [v16 UUID];
+      v18 = *(a1 + 32);
       *buf = 134218498;
-      v35 = v17;
-      v36 = 2112;
-      v37 = v18;
-      v20 = v18;
-      v38 = 2114;
-      v39 = v19;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Item %p %@ type %{public}@ successfully made a local copy of a bookmarked file.", buf, 0x20u);
+      v32 = v16;
+      v33 = 2112;
+      v34 = v17;
+      v19 = v17;
+      v35 = 2114;
+      v36 = v18;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Item %p %@ type %{public}@ successfully made a local copy of a bookmarked file.", buf, 0x20u);
     }
 
     else
     {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_8;
       }
 
-      v26 = *(a1 + 40);
-      v27 = [v26 UUID];
-      v28 = *(a1 + 32);
+      v24 = *(a1 + 40);
+      v25 = [v24 UUID];
+      v26 = *(a1 + 32);
       *buf = 134218754;
-      v35 = v26;
-      v36 = 2112;
-      v37 = v27;
-      v20 = v27;
-      v38 = 2114;
-      v39 = v28;
-      v40 = 2114;
-      v41 = v12;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Item %p %@ type %{public}@ could not make a copy of a bookmarked file. Error: %{public}@", buf, 0x2Au);
+      v32 = v24;
+      v33 = 2112;
+      v34 = v25;
+      v19 = v25;
+      v35 = 2114;
+      v36 = v26;
+      v37 = 2114;
+      v38 = v12;
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Item %p %@ type %{public}@ could not make a copy of a bookmarked file. Error: %{public}@", buf, 0x2Au);
     }
 
     goto LABEL_8;
@@ -4499,16 +4463,14 @@ LABEL_8:
 
 LABEL_9:
   [WeakRetained setCompletedUnitCount:{objc_msgSend(WeakRetained, "totalUnitCount")}];
-  v29 = v11;
-  v21 = *(a1 + 48);
-  v30 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
-  v31 = v9;
-  v32 = v10;
-  v33 = v21;
-  v22 = v12;
-  v23 = v10;
-  v24 = v9;
-  v25 = v11;
+  v27 = v11;
+  v28 = v9;
+  v29 = v10;
+  v30 = *(a1 + 48);
+  v20 = v12;
+  v21 = v10;
+  v22 = v9;
+  v23 = v11;
   PBDispatchAsyncCallback();
 }
 
@@ -4516,7 +4478,7 @@ void sub_100015794(uint64_t a1)
 {
   if (*(a1 + 88) == 1)
   {
-    v9 = [[PBSecurityScopedURLWrapper alloc] initWithURL:*(a1 + 32) readonly:1];
+    v8 = [[PBSecurityScopedURLWrapper alloc] initWithURL:*(a1 + 32) readonly:1];
     (*(*(a1 + 80) + 16))();
   }
 
@@ -4525,37 +4487,34 @@ void sub_100015794(uint64_t a1)
     v2 = _PBLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 40);
-      v6 = [v5 UUID];
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 56);
+      v4 = *(a1 + 40);
+      v5 = [v4 UUID];
+      v6 = *(a1 + 48);
+      v7 = *(a1 + 56);
       *buf = 134218754;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v7;
-      v16 = 2114;
-      v17 = v8;
+      v10 = v4;
+      v11 = 2112;
+      v12 = v5;
+      v13 = 2114;
+      v14 = v6;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Item %p %@ type %{public}@ could not coordinate reading bookmarked file. Error: %{public}@", buf, 0x2Au);
     }
 
     v3 = +[NSFileManager defaultManager];
     [v3 removeItemAtURL:*(a1 + 64) error:0];
 
-    v4 = *(a1 + 72);
     (*(*(a1 + 80) + 16))();
   }
 }
 
-void sub_100015FCC(uint64_t a1)
+void sub_100015FCC(id *a1)
 {
-  v2 = [*(a1 + 32) subarrayWithRange:{1, objc_msgSend(*(a1 + 32), "count") - 1}];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v8 = *(a1 + 72);
-  v7 = *(a1 + 64);
+  v2 = [a1[4] subarrayWithRange:{1, objc_msgSend(a1[4], "count") - 1}];
+  v4 = a1[6];
+  v5 = a1[7];
+  v6 = a1[8];
   v3 = v2;
   PBDispatchAsyncCallback();
 }
@@ -4783,9 +4742,9 @@ void sub_100016668(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_100016A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100016A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4892,7 +4851,7 @@ void sub_100017E88(id a1)
   _objc_release_x1();
 }
 
-void sub_1000186B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1000186B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -5401,9 +5360,9 @@ void sub_100019764(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10001A390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10001A390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5496,9 +5455,9 @@ void sub_10001A710(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10001A9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001A9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5535,30 +5494,29 @@ id sub_10001AB88(uint64_t a1)
   return result;
 }
 
-void sub_10001ABD4(uint64_t a1, void *a2)
+void sub_10001ABD4(id *a1, void *a2)
 {
   v3 = a2;
   if (!v3)
   {
-    v6 = [*(a1 + 32) subarrayWithRange:{1, objc_msgSend(*(a1 + 32), "count") - 1}];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v10 = *(a1 + 64);
-    v9 = *(a1 + 56);
+    v6 = [a1[4] subarrayWithRange:{1, objc_msgSend(a1[4], "count") - 1}];
+    v7 = a1[5];
+    v8 = a1[6];
+    v9 = a1[7];
     v5 = v6;
     PBDispatchAsyncCallback();
 
     goto LABEL_5;
   }
 
-  v4 = *(a1 + 56);
+  v4 = a1[7];
   if (v4)
   {
-    v12 = v4;
-    v11 = v3;
+    v11 = v4;
+    v10 = v3;
     PBDispatchAsyncCallback();
 
-    v5 = v12;
+    v5 = v11;
 LABEL_5:
   }
 }

@@ -65,7 +65,7 @@
 
     [(MTAWorldClockMapCityView *)v5 addSubview:v5->_nameLabel];
     v23 = [UIImageView alloc];
-    v24 = sub_10004F080();
+    v24 = sub_10004F080(v23);
     v25 = [v23 initWithImage:v24];
     [(MTAWorldClockMapCityView *)v5 setDotImageView:v25];
 

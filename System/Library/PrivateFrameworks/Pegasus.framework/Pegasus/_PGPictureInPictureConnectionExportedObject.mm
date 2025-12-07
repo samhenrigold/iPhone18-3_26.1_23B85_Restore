@@ -23,7 +23,7 @@
 - (_PGPictureInPictureConnectionExportedObject)initWithPictureInPictureProxy:(id)proxy
 {
   proxyCopy = proxy;
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(proxyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureRemoteObject dealloc];
@@ -43,7 +43,7 @@
 
 - (void)dealloc
 {
-  v3 = PGLogCommon();
+  v3 = PGLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureRemoteObject dealloc];

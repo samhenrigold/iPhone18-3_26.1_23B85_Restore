@@ -140,28 +140,28 @@ void __53__MRSystemMediaBundles_isBundleID_systemMediaBundle___block_invoke_5()
 
 + (id)systemMediaBundleIDForBundleID:(id)d type:(unint64_t)type
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [self _allSystemMediaBundles];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v7 = v19 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = v18 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        integerValue = [*(*(&v16 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v15 + 1) + 8 * i) integerValue];
         if ([self isBundleID:dCopy systemMediaBundle:integerValue])
         {
           v13 = [self systemMediaBundleIDForBundle:integerValue type:type];
@@ -170,7 +170,7 @@ void __53__MRSystemMediaBundles_isBundleID_systemMediaBundle___block_invoke_5()
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -182,8 +182,6 @@ void __53__MRSystemMediaBundles_isBundleID_systemMediaBundle___block_invoke_5()
 
   v13 = dCopy;
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

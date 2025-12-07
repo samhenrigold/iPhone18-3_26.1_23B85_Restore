@@ -132,7 +132,6 @@ void __54__SCWOperationThrottler_initWithDelegate_updateQueue___block_invoke_2(i
 void __54__SCWOperationThrottler_initWithDelegate_updateQueue___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) operationThrottlerPerformOperation:v3];
@@ -143,15 +142,15 @@ void __54__SCWOperationThrottler_initWithDelegate_updateQueue___block_invoke_3(u
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     dispatch_suspend(WeakRetained);
     dispatch_suspend(*(a1 + 40));
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __54__SCWOperationThrottler_initWithDelegate_updateQueue___block_invoke_4;
-    v8[3] = &unk_1E85E3448;
-    v9 = WeakRetained;
-    v6 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v7 = WeakRetained;
-    [v6 operationThrottler:v3 performAsyncOperationWithCompletion:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __54__SCWOperationThrottler_initWithDelegate_updateQueue___block_invoke_4;
+    v7[3] = &unk_1E85E3448;
+    v8 = WeakRetained;
+    v5 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v6 = WeakRetained;
+    [v5 operationThrottler:v3 performAsyncOperationWithCompletion:v7];
   }
 }
 

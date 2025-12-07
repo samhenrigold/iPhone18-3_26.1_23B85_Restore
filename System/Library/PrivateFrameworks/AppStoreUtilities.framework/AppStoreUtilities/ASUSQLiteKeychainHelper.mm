@@ -8,7 +8,7 @@
 
 + (id)fetchKeyWithIdentifier:(id)identifier error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   identifier = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.app-store-utilities.encryption", identifier];
   v6 = objc_opt_self();
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 3, 0, 0);
@@ -34,9 +34,9 @@
   {
     if (v9 == -25300 || v9 == 0)
     {
-      v20 = *MEMORY[0x277CCA068];
-      v21[0] = @"SecItemCopyMatching succeeded with empty results";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277CCA068];
+      v20[0] = @"SecItemCopyMatching succeeded with empty results";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ASUSQLiteErrorDomain" code:5 userInfo:v12];
     }
 
@@ -72,8 +72,6 @@
 
 LABEL_17:
   CFRelease(Mutable);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -118,7 +116,7 @@ LABEL_17:
 
 + (uint64_t)_copyErrorForOSStatus:(uint64_t)status
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   objc_opt_self();
   v3 = SecCopyErrorMessageString(a2, 0);
   if (v3)
@@ -128,16 +126,15 @@ LABEL_17:
 
   else
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"Keychain failed to return value (error %d)", a2, v10];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"Keychain failed to return value (error %d)", a2, v9];
   }
   v4 = ;
   v5 = MEMORY[0x277CCA9B8];
-  v11 = *MEMORY[0x277CCA068];
-  v12[0] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA068];
+  v11[0] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [v5 errorWithDomain:@"ASUSQLiteErrorDomain" code:4 userInfo:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

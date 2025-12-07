@@ -7,14 +7,14 @@
 
 + (id)ttrSheetView:(id)view
 {
-  v4 = type metadata accessor for TTRSheetView();
+  v4 = type metadata accessor for TTRSheetView(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v14 - v8;
   viewCopy = view;
   sub_190A2B948(viewCopy, v9);
-  objc_allocWithZone(type metadata accessor for TTRSheetViewUIHostingController());
+  objc_allocWithZone(type metadata accessor for TTRSheetViewUIHostingController(0));
   sub_190A2C12C(v9, v6);
   v11 = sub_190D54B60();
   sub_190AD4530(v9);

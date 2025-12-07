@@ -2,6 +2,7 @@
 - (CARBluetoothPairingPrompt)initWithPairingStyle:(unint64_t)style deviceName:(id)name passKey:(id)key;
 - (UIAlertController)presentedAlertController;
 - (id)_alertController;
+- (void)_handlePairingCompleted:(BOOL)completed;
 - (void)dealloc;
 - (void)presentFromViewController:(id)controller;
 @end
@@ -95,6 +96,18 @@
   [controllerCopy presentViewController:_alertController animated:1 completion:0];
 
   [(CARBluetoothPairingPrompt *)self setPresentedAlertController:_alertController];
+}
+
+- (void)_handlePairingCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  confirmationCompletion = [(CARBluetoothPairingPrompt *)self confirmationCompletion];
+  if (confirmationCompletion)
+  {
+    v5 = confirmationCompletion;
+    confirmationCompletion[2](confirmationCompletion, completedCopy);
+    confirmationCompletion = v5;
+  }
 }
 
 - (UIAlertController)presentedAlertController

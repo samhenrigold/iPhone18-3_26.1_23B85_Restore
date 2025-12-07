@@ -88,31 +88,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  audioPreferences = [(HMCameraStreamPreferences *)self audioPreferences];
-  audioPreferences2 = [v6 audioPreferences];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_9;
-  }
-
-  videoPreferences = [(HMCameraStreamPreferences *)self videoPreferences];
-  videoPreferences2 = [v6 videoPreferences];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  minimumRequiredAvailableOrInUseStreams = [(HMCameraStreamPreferences *)self minimumRequiredAvailableOrInUseStreams];
-  if (minimumRequiredAvailableOrInUseStreams == [v6 minimumRequiredAvailableOrInUseStreams])
+  if (v6 && (-[HMCameraStreamPreferences audioPreferences](self, "audioPreferences"), v7 = objc_claimAutoreleasedReturnValue(), [v6 audioPreferences], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMCameraStreamPreferences videoPreferences](self, "videoPreferences"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "videoPreferences"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (v13 = -[HMCameraStreamPreferences minimumRequiredAvailableOrInUseStreams](self, "minimumRequiredAvailableOrInUseStreams"), v13 == objc_msgSend(v6, "minimumRequiredAvailableOrInUseStreams")))
   {
     shouldTakeOwnershipOfExistingStream = [(HMCameraStreamPreferences *)self shouldTakeOwnershipOfExistingStream];
     v15 = shouldTakeOwnershipOfExistingStream ^ [v6 shouldTakeOwnershipOfExistingStream] ^ 1;
@@ -120,7 +96,6 @@
 
   else
   {
-LABEL_9:
     LOBYTE(v15) = 0;
   }
 

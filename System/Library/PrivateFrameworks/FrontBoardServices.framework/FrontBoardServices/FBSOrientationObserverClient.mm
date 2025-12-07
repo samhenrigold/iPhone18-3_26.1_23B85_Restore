@@ -29,22 +29,22 @@
 
 - (void)_lock_activate
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot activate an invalidated client. Create a new client."];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot activate an invalidated client. Create a new client."];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v8 = @"FBSOrientationObserverClient.m";
-    v9 = 1024;
-    v10 = 200;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"FBSOrientationObserverClient.m";
+    v10 = 1024;
+    v11 = 200;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -72,22 +72,22 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must be invalidated before dealloc"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must be invalidated before dealloc"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v8 = @"FBSOrientationObserverClient.m";
-    v9 = 1024;
-    v10 = 85;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
+    v9 = @"FBSOrientationObserverClient.m";
+    v10 = 1024;
+    v11 = 85;
+    v12 = v7;
+    v13 = v3;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -102,7 +102,7 @@
   v9 = [off_1E76BCA30 endpointForMachName:v7 service:v8 instance:0];
   if (!v9)
   {
-    v10 = FBLogInterfaceOrientationObserver();
+    v10 = FBLogInterfaceOrientationObserver(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(FBSOrientationObserverClient *)v7 initWithDelegate:v8, v10];
@@ -118,15 +118,15 @@
 
 - (id)_initWithEndpoint:(id)endpoint calloutQueue:(id)queue delegate:(id)delegate
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   queueCopy = queue;
   delegateCopy = delegate;
   if (endpointCopy)
   {
-    v24.receiver = self;
-    v24.super_class = FBSOrientationObserverClient;
-    v12 = [(FBSOrientationObserverClient *)&v24 init];
+    v25.receiver = self;
+    v25.super_class = FBSOrientationObserverClient;
+    v12 = [(FBSOrientationObserverClient *)&v25 init];
     v13 = v12;
     if (v12)
     {
@@ -134,27 +134,27 @@
       v13->_lock._os_unfair_lock_opaque = 0;
       objc_storeStrong(&v13->_calloutQueue, queue);
       objc_storeStrong(&v13->_endpoint, endpoint);
-      v14 = FBLogInterfaceOrientationObserver();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = FBLogInterfaceOrientationObserver(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         endpoint = v13->_endpoint;
         *buf = 138412290;
         endpointCopy2 = endpoint;
-        _os_log_impl(&dword_1A2DBB000, v14, OS_LOG_TYPE_DEFAULT, "Creating orientation service connection with %@", buf, 0xCu);
+        _os_log_impl(&dword_1A2DBB000, v15, OS_LOG_TYPE_DEFAULT, "Creating orientation service connection with %@", buf, 0xCu);
       }
 
-      v16 = [off_1E76BCA28 connectionWithEndpoint:v13->_endpoint];
+      v17 = [off_1E76BCA28 connectionWithEndpoint:v13->_endpoint];
       lock_connection = v13->_lock_connection;
-      v13->_lock_connection = v16;
+      v13->_lock_connection = v17;
 
-      v18 = v13->_lock_connection;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __72__FBSOrientationObserverClient__initWithEndpoint_calloutQueue_delegate___block_invoke;
-      v21[3] = &unk_1E76BE820;
-      v22 = v13;
-      v23 = queueCopy;
-      [(BSServiceConnection *)v18 configureConnection:v21];
+      v19 = v13->_lock_connection;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __72__FBSOrientationObserverClient__initWithEndpoint_calloutQueue_delegate___block_invoke;
+      v22[3] = &unk_1E76BE820;
+      v23 = v13;
+      v24 = queueCopy;
+      [(BSServiceConnection *)v19 configureConnection:v22];
     }
 
     self = v13;
@@ -257,12 +257,13 @@ void __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = FBLogInterfaceOrientationObserver();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = FBLogInterfaceOrientationObserver(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion___block_invoke_cold_1(a1, v6, v7);
+      __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion___block_invoke_cold_1(a1, v7, v8);
     }
   }
 
@@ -304,16 +305,16 @@ void __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion
 
 - (void)_connectionInterrupted:(id)interrupted
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   interruptedCopy = interrupted;
-  v5 = FBLogInterfaceOrientationObserver();
+  v5 = FBLogInterfaceOrientationObserver(interruptedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218242;
+    v10 = 134218242;
     selfCopy2 = self;
-    v11 = 2114;
-    v12 = interruptedCopy;
-    _os_log_impl(&dword_1A2DBB000, v5, OS_LOG_TYPE_DEFAULT, "<%p> connection interrupted: %{public}@", &v9, 0x16u);
+    v12 = 2114;
+    v13 = interruptedCopy;
+    _os_log_impl(&dword_1A2DBB000, v5, OS_LOG_TYPE_DEFAULT, "<%p> connection interrupted: %{public}@", &v10, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -323,12 +324,12 @@ void __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion
   os_unfair_lock_unlock(&self->_lock);
   if (lock_interest == 1)
   {
-    v8 = FBLogInterfaceOrientationObserver();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = FBLogInterfaceOrientationObserver(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_DEFAULT, "<%p> sending re-registration for orientation interest", &v9, 0xCu);
+      _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "<%p> sending re-registration for orientation interest", &v10, 0xCu);
     }
 
     [(FBSOrientationObserverClient *)self _server:_lock_remoteTarget registerOrientationInterest:1];
@@ -339,7 +340,7 @@ void __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion
 {
   v11 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
-  v5 = FBLogInterfaceOrientationObserver();
+  v5 = FBLogInterfaceOrientationObserver(invalidatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134218242;
@@ -361,7 +362,7 @@ void __73__FBSOrientationObserverClient_activeInterfaceOrientationWithCompletion
 {
   v11 = *MEMORY[0x1E69E9840];
   activatedCopy = activated;
-  v5 = FBLogInterfaceOrientationObserver();
+  v5 = FBLogInterfaceOrientationObserver(activatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134218242;

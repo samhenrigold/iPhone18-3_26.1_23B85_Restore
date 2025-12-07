@@ -44,7 +44,7 @@ void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_
     v10 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_2(a1 + 40);
+      __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_2();
     }
 
     goto LABEL_7;
@@ -62,13 +62,12 @@ void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_
     v10 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_1(a1 + 40);
+      __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_1();
     }
 
 LABEL_7:
   }
 
-  v11 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
 }
 
@@ -83,22 +82,20 @@ LABEL_7:
   return v4;
 }
 
-void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_error_impl(&dword_240F3C000, v2, OS_LOG_TYPE_ERROR, "Strings table could not be parsed: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_error_impl(&dword_240F3C000, v1, OS_LOG_TYPE_ERROR, "Strings table could not be parsed: %@", &v2, 0xCu);
 }
 
-void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_2(uint64_t a1)
+void __64__ASTLocalization_prepareLocalizedStringsWithCompletionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_error_impl(&dword_240F3C000, v2, OS_LOG_TYPE_ERROR, "Strings table could not be downloaded: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_error_impl(&dword_240F3C000, v1, OS_LOG_TYPE_ERROR, "Strings table could not be downloaded: %@", &v2, 0xCu);
 }
 
 @end

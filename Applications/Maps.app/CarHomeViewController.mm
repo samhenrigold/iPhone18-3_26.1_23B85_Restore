@@ -36,10 +36,10 @@
   }
 
   v9 = OBJC_IVAR____TtC4Maps21CarHomeViewController_viewModel;
-  type metadata accessor for CarHomeViewModel();
+  type metadata accessor for CarHomeViewModel(0);
   swift_allocObject();
   bundleCopy = bundle;
-  *(&self->super.super.super.super.super.isa + v9) = sub_1003A4748();
+  *(&self->super.super.super.super.super.isa + v9) = sub_1003A4748(bundleCopy);
   *&self->super.hostingController[OBJC_IVAR____TtC4Maps21CarHomeViewController_actionDelegate] = 0;
   swift_unknownObjectWeakInit();
   if (name)
@@ -63,10 +63,10 @@
 {
   ObjectType = swift_getObjectType();
   v6 = OBJC_IVAR____TtC4Maps21CarHomeViewController_viewModel;
-  type metadata accessor for CarHomeViewModel();
+  type metadata accessor for CarHomeViewModel(0);
   swift_allocObject();
   coderCopy = coder;
-  *(&self->super.super.super.super.super.isa + v6) = sub_1003A4748();
+  *(&self->super.super.super.super.super.isa + v6) = sub_1003A4748(coderCopy);
   *&self->super.hostingController[OBJC_IVAR____TtC4Maps21CarHomeViewController_actionDelegate] = 0;
   swift_unknownObjectWeakInit();
   v10.receiver = self;

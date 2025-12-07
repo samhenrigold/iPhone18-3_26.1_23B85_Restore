@@ -141,10 +141,11 @@ LABEL_12:
 {
   errorCopy = error;
   atCopy = at;
+  v7 = atCopy;
   if (errorCopy)
   {
-    v7 = sub_100002660();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002660(atCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0D58();
     }
@@ -154,8 +155,7 @@ LABEL_12:
 - (void)mq_incrementCloudVersion
 {
   mq_cloudSyncVersions = [(BCCloudDataManager *)self mq_cloudSyncVersions];
-  [mq_cloudSyncVersions setCloudVersion:{objc_msgSend(mq_cloudSyncVersions, "cloudVersion") + 1}];
-  v3 = sub_100002660();
+  v3 = sub_100002660([mq_cloudSyncVersions setCloudVersion:{objc_msgSend(mq_cloudSyncVersions, "cloudVersion") + 1}]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 134217984;
@@ -930,7 +930,7 @@ LABEL_12:
 {
   tokenCopy = token;
   mocCopy = moc;
-  v10 = sub_100002660();
+  v10 = sub_100002660(mocCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     entityName = [(BCCloudDataManager *)self entityName];
@@ -986,22 +986,22 @@ LABEL_12:
 
   if (verboseLoggingEnabled)
   {
-    v12 = sub_10000DB80();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_10000DB80(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       entityName = [(BCCloudDataManager *)self entityName];
       *buf = 138412546;
-      v26 = entityName;
-      v27 = 2112;
-      v28 = sinceCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "\\BCCloudDataManager %@ getChangesSince cloudSyncVersions:%@\\"", buf, 0x16u);
+      v27 = entityName;
+      v28 = 2112;
+      v29 = sinceCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "\\BCCloudDataManager %@ getChangesSince cloudSyncVersions:%@\", buf, 0x16u);
     }
   }
 
-  v14 = [(BCCloudDataManager *)self moc];
-  v15 = v14 == 0;
+  v15 = [(BCCloudDataManager *)self moc];
+  v16 = v15 == 0;
 
-  if (v15)
+  if (v16)
   {
     responseQueue = [(BCCloudDataManager *)self responseQueue];
     block[0] = _NSConcreteStackBlock;
@@ -1009,26 +1009,26 @@ LABEL_12:
     block[2] = sub_100050354;
     block[3] = &unk_10023FED8;
     block[4] = self;
-    v24 = completionCopy;
+    v25 = completionCopy;
     dispatch_async(responseQueue, block);
   }
 
   else
   {
     objc_initWeak(buf, self);
-    v16 = [(BCCloudDataManager *)self moc];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000503D8;
-    v18[3] = &unk_100241298;
-    objc_copyWeak(v22, buf);
-    v19 = sinceCopy;
+    v17 = [(BCCloudDataManager *)self moc];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_1000503D8;
+    v19[3] = &unk_100241298;
+    objc_copyWeak(v23, buf);
+    v20 = sinceCopy;
     selfCopy = self;
-    v22[1] = class;
-    v21 = completionCopy;
-    [v16 performBlock:v18];
+    v23[1] = class;
+    v22 = completionCopy;
+    [v17 performBlock:v19];
 
-    objc_destroyWeak(v22);
+    objc_destroyWeak(v23);
     objc_destroyWeak(buf);
   }
 }
@@ -1069,7 +1069,7 @@ LABEL_12:
 - (void)hasSaltChangedWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002660();
+  v5 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     entityName = [(BCCloudDataManager *)self entityName];
@@ -1115,40 +1115,40 @@ LABEL_12:
 
   if (v3)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_10004A934;
-    v15 = sub_10004A944;
-    v16 = objc_alloc_init(NSMutableArray);
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = sub_10004A934;
+    v16 = sub_10004A944;
+    v17 = objc_alloc_init(NSMutableArray);
     objc_initWeak(&location, self);
-    v4 = [(BCCloudDataManager *)self moc];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100051C34;
-    v8[3] = &unk_1002412E8;
-    objc_copyWeak(&v9, &location);
-    v8[4] = &v11;
-    [v4 performBlockAndWait:v8];
+    v5 = [(BCCloudDataManager *)self moc];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100051C34;
+    v9[3] = &unk_1002412E8;
+    objc_copyWeak(&v10, &location);
+    v9[4] = &v12;
+    [v5 performBlockAndWait:v9];
 
-    v5 = v12[5];
-    objc_destroyWeak(&v9);
+    v6 = v13[5];
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
   else
   {
-    v6 = sub_100002660();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100002660(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C0DDC();
     }
 
-    v5 = &__NSArray0__struct;
+    v6 = &__NSArray0__struct;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BDSCloudDataManagerMonitor)monitor

@@ -3,6 +3,7 @@
 + (int64_t)maximumUploadSizeForImmediateRun;
 + (int64_t)predictedUploadSizeForPrediction:(id)prediction;
 - (BOOL)cplRequestsImmediateRuntime;
+- (void)setCplRequestsImmediateRuntime:(BOOL)runtime;
 - (void)updateWithPrediction:(id)prediction;
 @end
 
@@ -67,6 +68,16 @@
   }
 
   return [(BGSystemTaskRequest *)self requestsImmediateRuntime];
+}
+
+- (void)setCplRequestsImmediateRuntime:(BOOL)runtime
+{
+  runtimeCopy = runtime;
+  if (objc_opt_respondsToSelector())
+  {
+
+    [(BGSystemTaskRequest *)self setRequestsImmediateRuntime:runtimeCopy];
+  }
 }
 
 @end

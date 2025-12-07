@@ -101,10 +101,10 @@
   OUTLINED_FUNCTION_0_215();
   v7 = v4;
   v8 = v5;
-  MetricsRenderEventListViewController.tableView(_:didSelectRowAt:)();
+  MetricsRenderEventListViewController.tableView(_:didSelectRowAt:)(v9);
 
-  v9 = OUTLINED_FUNCTION_20_3();
-  v10(v9);
+  v10 = OUTLINED_FUNCTION_20_3();
+  v11(v10);
 }
 
 @end

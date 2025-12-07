@@ -171,9 +171,9 @@
 {
   [(RCWaveformDataSource *)self duration];
 
-  v3 = RCTimeRangeMake(0.0, v2);
-  result.var1 = v4;
-  result.var0 = v3;
+  RCTimeRangeMake();
+  result.var1 = v3;
+  result.var0 = v2;
   return result;
 }
 

@@ -91,11 +91,11 @@
     v20 = 0;
     v12 = [(CoreTelephonyClient *)ctClient context:context getCapability:v11 status:&v21 with:&v20];
     v13 = v20;
-    v14 = TPSLog();
-    v15 = v14;
+    v15 = TPSLog(v13, v14);
+    v16 = v15;
     if (v12)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [(PHBrandedCallingSwitchSpecifier *)&self->_context getBrandedCallingEnabled];
       }
@@ -105,27 +105,25 @@
 
     else
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = self->_context;
-        v17 = @"Off";
+        v17 = self->_context;
+        v18 = @"Off";
         if (v21)
         {
-          v17 = @"On";
+          v18 = @"On";
         }
 
         *buf = 138412546;
-        v23 = v16;
+        v23 = v17;
         v24 = 2112;
-        v25 = v17;
-        _os_log_impl(&dword_21B8E9000, v15, OS_LOG_TYPE_DEFAULT, "Fetched state of branded calling for context: %@, state: %@", buf, 0x16u);
+        v25 = v18;
+        _os_log_impl(&dword_21B8E9000, v16, OS_LOG_TYPE_DEFAULT, "Fetched state of branded calling for context: %@, state: %@", buf, 0x16u);
       }
 
       v8 = [MEMORY[0x277CCABB0] numberWithBool:v21];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -144,55 +142,51 @@
   else
   {
     v7 = -[CoreTelephonyClient context:setCapability:enabled:with:](self->_ctClient, "context:setCapability:enabled:with:", self->_context, *MEMORY[0x277CC3808], [enabledCopy BOOLValue], 0);
-    v8 = TPSLog();
-    v9 = v8;
+    v9 = TPSLog(v7, v8);
+    v10 = v9;
     if (v7)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(PHBrandedCallingSwitchSpecifier *)&self->_context setBrandedCallingEnabled:v9];
+        [(PHBrandedCallingSwitchSpecifier *)&self->_context setBrandedCallingEnabled:v10];
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       context = self->_context;
       bOOLValue = [enabledCopy BOOLValue];
-      v12 = @"Off";
+      v13 = @"Off";
       if (bOOLValue)
       {
-        v12 = @"On";
+        v13 = @"On";
       }
 
       v14 = 138412546;
       v15 = context;
       v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Set state of branded calling for context: %@, state: %@", &v14, 0x16u);
+      v17 = v13;
+      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "Set state of branded calling for context: %@, state: %@", &v14, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBrandedCallingEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch state of branded calling for context: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch state of branded calling for context: %@", &v3, 0xCu);
 }
 
 - (void)setBrandedCallingEnabled:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Failed to set state of branded calling for context: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Failed to set state of branded calling for context: %@", &v3, 0xCu);
 }
 
 @end

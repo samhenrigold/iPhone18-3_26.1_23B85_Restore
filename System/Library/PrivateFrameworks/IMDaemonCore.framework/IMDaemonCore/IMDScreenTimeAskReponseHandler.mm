@@ -13,16 +13,15 @@
   userInfo = [content userInfo];
 
   v8 = [userInfo objectForKeyedSubscript:@"CKBBContextKeyBalloonBundleID"];
-  v9 = *MEMORY[0x277D196F0];
-  v10 = IMBalloonExtensionIDWithSuffix();
-  LOBYTE(content) = [v8 isEqualToString:v10];
+  v9 = IMBalloonExtensionIDWithSuffix();
+  LOBYTE(content) = [v8 isEqualToString:v9];
 
   return content;
 }
 
 - (void)handleNotificationResponse:(id)response userNotificationCenter:(id)center completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   centerCopy = center;
   handlerCopy = handler;
@@ -93,14 +92,14 @@ LABEL_2:
       {
         v34 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
         *buf = 138412290;
-        v51 = v34;
+        v50 = v34;
         _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Sending sent ST response with answer: %@", buf, 0xCu);
       }
     }
 
-    v45 = 0;
-    [v12 respondToAskForTimeRequestWithIdentifier:value answer:v16 error:&v45];
-    v35 = v45;
+    v44 = 0;
+    [v12 respondToAskForTimeRequestWithIdentifier:value answer:v16 error:&v44];
+    v35 = v44;
     if (v35)
     {
       mEMORY[0x277D1AAA8] = IMLogHandleForCategory();
@@ -119,7 +118,7 @@ LABEL_2:
         {
           v38 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
           *buf = 138412290;
-          v51 = v38;
+          v50 = v38;
           _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Successfully sent ST response with answer: %@", buf, 0xCu);
         }
       }
@@ -132,30 +131,30 @@ LABEL_2:
     goto LABEL_42;
   }
 
-  v41 = [userInfo objectForKey:*MEMORY[0x277D1A440]];
-  v19 = [MEMORY[0x277CBEBC0] URLWithString:v41];
+  v40 = [userInfo objectForKey:*MEMORY[0x277D1A440]];
+  v19 = [MEMORY[0x277CBEBC0] URLWithString:v40];
   if (v19)
   {
-    v40 = [MEMORY[0x277CCACE0] componentsWithURL:v19 resolvingAgainstBaseURL:1];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
+    v39 = [MEMORY[0x277CCACE0] componentsWithURL:v19 resolvingAgainstBaseURL:1];
     v47 = 0u;
-    queryItems = [v40 queryItems];
-    v21 = [queryItems countByEnumeratingWithState:&v46 objects:v52 count:16];
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    queryItems = [v39 queryItems];
+    v21 = [queryItems countByEnumeratingWithState:&v45 objects:v51 count:16];
     if (v21)
     {
-      v22 = *v47;
+      v22 = *v46;
       while (2)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v47 != v22)
+          if (*v46 != v22)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v24 = *(*(&v46 + 1) + 8 * i);
+          v24 = *(*(&v45 + 1) + 8 * i);
           name = [v24 name];
           v26 = [name isEqualToString:@"requestID"];
 
@@ -166,7 +165,7 @@ LABEL_2:
           }
         }
 
-        v21 = [queryItems countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v21 = [queryItems countByEnumeratingWithState:&v45 objects:v51 count:16];
         if (v21)
         {
           continue;
@@ -205,8 +204,6 @@ LABEL_19:
   }
 
 LABEL_42:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

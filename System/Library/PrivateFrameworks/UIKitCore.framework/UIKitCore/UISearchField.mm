@@ -32,7 +32,7 @@
     else
     {
       v12 = [UIColor colorWithWhite:0.0 alpha:0.2];
-      _interactionTintColor2 = [(UIColor *)1.0 _composedColorFromSourceColor:v12 destinationColor:0 tintColor:0 alpha:?];
+      _interactionTintColor2 = [UIColor _composedColorFromSourceColor:v12 destinationColor:0 tintColor:0 alpha:1.0];
     }
 
     [_interactionTintColor2 set];

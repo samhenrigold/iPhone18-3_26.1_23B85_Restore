@@ -18,16 +18,16 @@
 
 - (id)contextByApplyingChangeEvaluation:(id)evaluation
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   evaluationCopy = evaluation;
   v5 = [HDSPEnvironmentContext alloc];
   v6 = v5;
   source = self->_source;
   if (self->_changeEvaluation)
   {
-    v13[0] = self->_changeEvaluation;
-    v13[1] = evaluationCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = self->_changeEvaluation;
+    v12[1] = evaluationCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v9 = [HDSPSleepScheduleModelChangeEvaluation combinedEvaluation:v8];
     v10 = [(HDSPEnvironmentContext *)v6 initWithSource:source changeEvaluation:v9];
   }
@@ -36,8 +36,6 @@
   {
     v10 = [(HDSPEnvironmentContext *)v5 initWithSource:self->_source changeEvaluation:evaluationCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

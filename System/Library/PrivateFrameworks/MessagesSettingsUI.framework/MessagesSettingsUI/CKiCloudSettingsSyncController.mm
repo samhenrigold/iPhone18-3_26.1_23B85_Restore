@@ -53,7 +53,7 @@
 
 - (void)_prepareForInitialSyncState
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D18D58] = [MEMORY[0x277D18D58] sharedInstance];
   isSyncing = [mEMORY[0x277D18D58] isSyncing];
 
@@ -71,21 +71,19 @@
     {
       [v8 syncJobState];
       v10 = IMStringFromIMCloudKitSyncJobState();
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_258D24000, v9, OS_LOG_TYPE_INFO, "Preparing UI for initial sync state - syncJobState={%@}.", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_258D24000, v9, OS_LOG_TYPE_INFO, "Preparing UI for initial sync state - syncJobState={%@}.", &v12, 0xCu);
     }
   }
 
   syncStatusHandler = [(CKiCloudSettingsSyncController *)self syncStatusHandler];
   (syncStatusHandler)[2](syncStatusHandler, v8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSync
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.Messages"];
   v3 = [v2 objectForKey:@"hasFinishedNewDeviceBringUpSync"];
   bOOLValue = [v3 BOOLValue];
@@ -101,21 +99,19 @@
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Attempting to start {%@} sync now.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_258D24000, v7, OS_LOG_TYPE_INFO, "Attempting to start {%@} sync now.", &v9, 0xCu);
     }
   }
 
   mEMORY[0x277D18D58] = [MEMORY[0x277D18D58] sharedInstance];
   [mEMORY[0x277D18D58] initiateSync:v6 forceRunNow:1 reply:&__block_literal_global_1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CKiCloudSettingsSyncController_startSync__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (IMOSLoggingEnabled())
   {
@@ -128,13 +124,11 @@ void __43__CKiCloudSettingsSyncController_startSync__block_invoke(uint64_t a1, i
         v6 = @"YES";
       }
 
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Initiate sync replied with success={%@}", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_258D24000, v5, OS_LOG_TYPE_INFO, "Initiate sync replied with success={%@}", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelCurrentSync
@@ -163,31 +157,29 @@ void __43__CKiCloudSettingsSyncController_startSync__block_invoke(uint64_t a1, i
   [mEMORY[0x277D18D58] cancelSync:&__block_literal_global_56];
 }
 
-void __51__CKiCloudSettingsSyncController_cancelCurrentSync__block_invoke(uint64_t a1, int a2)
+void __51__CKiCloudSettingsSyncController_cancelCurrentSync__block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
   v12 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
-    v3 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = IMStringFromIMCloudKitSyncType();
-      v5 = v4;
-      v6 = @"NO";
+      v5 = IMStringFromIMCloudKitSyncType();
+      v6 = v5;
+      v7 = @"NO";
       if (a2)
       {
-        v6 = @"YES";
+        v7 = @"YES";
       }
 
       v8 = 138412546;
-      v9 = v4;
+      v9 = v5;
       v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_258D24000, v3, OS_LOG_TYPE_INFO, "Canceling {%@} sync. success={%@}", &v8, 0x16u);
+      v11 = v7;
+      _os_log_impl(&dword_258D24000, v4, OS_LOG_TYPE_INFO, "Canceling {%@} sync. success={%@}", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isMiCEnabled
@@ -208,7 +200,7 @@ void __51__CKiCloudSettingsSyncController_cancelCurrentSync__block_invoke(uint64
 
 - (void)cloudKitEventNotificationManager:(id)manager syncStateDidChange:(id)change
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   changeCopy = change;
   syncStatusHandler = [(CKiCloudSettingsSyncController *)self syncStatusHandler];
@@ -225,24 +217,24 @@ void __51__CKiCloudSettingsSyncController_cancelCurrentSync__block_invoke(uint64
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = @"NO";
-        *v19 = 138413058;
+        *v18 = 138413058;
         if (syncJobState)
         {
           v14 = @"YES";
         }
 
-        *&v19[4] = v14;
-        v20 = 2112;
-        v21 = v12;
-        v22 = 2112;
-        v23 = statistics;
-        v24 = 2048;
-        v25 = remainingMessagesCount;
-        _os_log_impl(&dword_258D24000, v13, OS_LOG_TYPE_INFO, "syncStateDidChange – syncing={%@}, jobState={%@}, syncStatistics={%@}, messagesToUpload={%ld}", v19, 0x2Au);
+        *&v18[4] = v14;
+        v19 = 2112;
+        v20 = v12;
+        v21 = 2112;
+        v22 = statistics;
+        v23 = 2048;
+        v24 = remainingMessagesCount;
+        _os_log_impl(&dword_258D24000, v13, OS_LOG_TYPE_INFO, "syncStateDidChange – syncing={%@}, jobState={%@}, syncStatistics={%@}, messagesToUpload={%ld}", v18, 0x2Au);
       }
     }
 
-    [(CKiCloudSettingsSyncController *)self setSyncing:syncJobState != 0, *v19];
+    [(CKiCloudSettingsSyncController *)self setSyncing:syncJobState != 0, *v18];
     [(CKiCloudSettingsSyncController *)self setMessagesToUploadCount:remainingMessagesCount];
     v15 = [(CKiCloudSettingsSyncController *)self _syncSummaryForSyncState:changeCopy];
     [(CKiCloudSettingsSyncController *)self setSyncSummary:v15];
@@ -256,12 +248,10 @@ void __51__CKiCloudSettingsSyncController_cancelCurrentSync__block_invoke(uint64
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_258D24000, v17, OS_LOG_TYPE_INFO, "No callback block provided for syncStateDidChange. Programmer error.", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_258D24000, v17, OS_LOG_TYPE_INFO, "No callback block provided for syncStateDidChange. Programmer error.", v18, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_syncSummaryForSyncState:(id)state

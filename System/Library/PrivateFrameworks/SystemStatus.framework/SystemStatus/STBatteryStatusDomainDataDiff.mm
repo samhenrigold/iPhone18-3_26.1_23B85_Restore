@@ -136,26 +136,26 @@
   [(BSSettings *)v7 enumerateObjectsWithBlock:v9];
 }
 
-uint64_t __52__STBatteryStatusDomainDataDiff_applyToMutableData___block_invoke(uint64_t result, uint64_t a2)
+void *__52__STBatteryStatusDomainDataDiff_applyToMutableData___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = result;
+  v3 = result;
   if (a2 == 3)
   {
     result = BSSettingFlagIsExplicitNo();
     if (result)
     {
-      v5 = *(v2 + 32);
+      v6 = v3[4];
 
-      return [v5 setChargingDescription:0];
+      return [v6 setChargingDescription:0];
     }
   }
 
   else if (a2 == 2)
   {
-    v3 = *(result + 32);
+    v4 = result[4];
     IsYes = BSSettingFlagIsYes();
 
-    return [v3 setBatterySaverModeActive:IsYes];
+    return [v4 setBatterySaverModeActive:IsYes];
   }
 
   return result;

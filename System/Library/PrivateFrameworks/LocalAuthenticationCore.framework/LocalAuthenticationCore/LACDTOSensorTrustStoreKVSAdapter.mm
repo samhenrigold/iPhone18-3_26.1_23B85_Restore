@@ -23,18 +23,19 @@
 - (void)storeSensorTrustState:(id)state completion:(id)completion
 {
   completionCopy = completion;
-  if ([state isDisapproved])
+  isDisapproved = [state isDisapproved];
+  if (isDisapproved)
   {
-    v8 = [[LACDTOKVStoreValue alloc] initWithBoolValue:0];
-    [(LACDTOKVStoreWriter *)self->_kvStore setValue:v8 forKey:6 completion:completionCopy];
+    v9 = [[LACDTOKVStoreValue alloc] initWithBoolValue:0];
+    [(LACDTOKVStoreWriter *)self->_kvStore setValue:v9 forKey:6 completion:completionCopy];
   }
 
   else
   {
-    v7 = LACLogDTOSensor();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = LACLogDTOSensor(isDisapproved);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [LACDTOSensorTrustStoreKVSAdapter storeSensorTrustState:v7 completion:?];
+      [LACDTOSensorTrustStoreKVSAdapter storeSensorTrustState:v8 completion:?];
     }
 
     (*(completionCopy + 2))(completionCopy, 0);

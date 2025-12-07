@@ -8,7 +8,9 @@
 - (void)handleRecordTap:(id)tap;
 - (void)hideUserInfoLabelWithDuration:(double)duration;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)recordingDidFinish:(BOOL)finish;
 - (void)showUserInfoLabelWithText:(id)text;
+- (void)updateEditButtonVisibilityForceHide:(BOOL)hide;
 - (void)viewDidLoad;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
 @end
@@ -254,6 +256,14 @@ id __81__MessagesViewControllerAccessibility__accessibilityLoadAccessibilityInfo
   [(MessagesViewControllerAccessibility *)&v21 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
 }
 
+- (void)recordingDidFinish:(BOOL)finish
+{
+  v4.receiver = self;
+  v4.super_class = MessagesViewControllerAccessibility;
+  [(MessagesViewControllerAccessibility *)&v4 recordingDidFinish:finish];
+  [(MessagesViewControllerAccessibility *)self _accessibilityUpdateRecordButtonLabel];
+}
+
 - (void)showUserInfoLabelWithText:(id)text
 {
   textCopy = text;
@@ -292,6 +302,14 @@ id __81__MessagesViewControllerAccessibility__accessibilityLoadAccessibilityInfo
   v6.super_class = MessagesViewControllerAccessibility;
   [(MessagesViewControllerAccessibility *)&v6 dismissLaunchScreenIfNecessaryForPresentationStyle:style controller:controller];
   [(MessagesViewControllerAccessibility *)self _accessibilityUpdateCollectionViewAccessibilityForPresentationStyle:style];
+}
+
+- (void)updateEditButtonVisibilityForceHide:(BOOL)hide
+{
+  v3.receiver = self;
+  v3.super_class = MessagesViewControllerAccessibility;
+  [(MessagesViewControllerAccessibility *)&v3 updateEditButtonVisibilityForceHide:hide];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(id)identifier sender:(id)sender

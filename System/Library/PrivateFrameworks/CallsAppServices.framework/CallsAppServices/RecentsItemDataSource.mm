@@ -41,33 +41,12 @@
 - (void)conversationManager:(id)manager didChangeActivatedLinks:(id)links
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC7610E0, &qword_1D33E16C0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
+  v7 = &v14 - v6;
   sub_1D331DA18(0, &qword_1EDEBEEC0, 0x1E69D8B70);
-  v9 = sub_1D33DE8B4();
-  v10 = sub_1D33DE9B4();
-  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
-  sub_1D33DE974();
-  selfCopy = self;
-  v12 = sub_1D33DE964();
-  v13 = swift_allocObject();
-  v14 = MEMORY[0x1E69E85E0];
-  v13[2] = v12;
-  v13[3] = v14;
-  v13[4] = selfCopy;
-  v13[5] = v9;
-  sub_1D333E088(0, 0, v8, &unk_1D33E3780, v13);
-}
-
-- (void)conversationManager:(id)manager linkChangedForConversation:(id)conversation
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC7610E0, &qword_1D33E16C0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
+  v8 = sub_1D33DE8B4();
   v9 = sub_1D33DE9B4();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   sub_1D33DE974();
   selfCopy = self;
   v11 = sub_1D33DE964();
@@ -76,7 +55,26 @@
   v12[2] = v11;
   v12[3] = v13;
   v12[4] = selfCopy;
-  sub_1D333E088(0, 0, v8, &unk_1D33E3778, v12);
+  v12[5] = v8;
+  sub_1D333E088(0, 0, v7, &unk_1D33E3780, v12);
+}
+
+- (void)conversationManager:(id)manager linkChangedForConversation:(id)conversation
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC7610E0, &qword_1D33E16C0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v13 - v6;
+  v8 = sub_1D33DE9B4();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  sub_1D33DE974();
+  selfCopy = self;
+  v10 = sub_1D33DE964();
+  v11 = swift_allocObject();
+  v12 = MEMORY[0x1E69E85E0];
+  v11[2] = v10;
+  v11[3] = v12;
+  v11[4] = selfCopy;
+  sub_1D333E088(0, 0, v7, &unk_1D33E3778, v11);
 }
 
 @end

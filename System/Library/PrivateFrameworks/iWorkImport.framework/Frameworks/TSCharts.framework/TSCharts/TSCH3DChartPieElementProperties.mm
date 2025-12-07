@@ -19,7 +19,7 @@
   v8.receiver = self;
   v8.super_class = TSCH3DChartPieElementProperties;
   v4 = [(TSCH3DChartBasicElementProperties *)&v8 copyWithZone:zone];
-  v5 = v4;
+  p_isa = &v4->super.super.super.super.isa;
   if (v4)
   {
     v6 = v4 == self;
@@ -33,11 +33,11 @@
   if (!v6)
   {
     sub_27616EE68(&v4->_percentOfTotal.__begin_, self->_percentOfTotal.__begin_, self->_percentOfTotal.__end_, self->_percentOfTotal.__end_ - self->_percentOfTotal.__begin_);
-    sub_27616EE68(&v5->_rotation.__begin_, self->_rotation.__begin_, self->_rotation.__end_, self->_rotation.__end_ - self->_rotation.__begin_);
-    sub_27616EE68(&v5->_explode.__begin_, self->_explode.__begin_, self->_explode.__end_, self->_explode.__end_ - self->_explode.__begin_);
+    sub_27616EE68(p_isa + 11, self->_rotation.__begin_, self->_rotation.__end_, self->_rotation.__end_ - self->_rotation.__begin_);
+    sub_27616EE68(p_isa + 14, self->_explode.__begin_, self->_explode.__end_, self->_explode.__end_ - self->_explode.__begin_);
   }
 
-  return v5;
+  return p_isa;
 }
 
 - (id)boundsGeometryForSeries:(id)series index:(void *)index
@@ -71,18 +71,18 @@
   while (1)
   {
     v38 = objc_msgSend_nextSeries(v28, v33, v35, v36, v37);
-    v43 = v38;
+    v42 = v38;
     if (!v38)
     {
       break;
     }
 
-    objc_msgSend_position(v38, v39, v40, v41, v42);
-    v48 = objc_msgSend_index(v43, v44, v45, v46, v47);
-    v53 = objc_msgSend_pieSeriesModelCacheForSeries_(v34, v49, v50, v51, v52, v48);
-    v58 = objc_msgSend_labels(self, v54, v55, v56, v57);
-    v63 = objc_msgSend_paragraphStyle(v53, v59, v60, v61, v62);
-    objc_msgSend_setParagraphStyle_atIndex_(v58, v64, v65, v66, v67, v63, v68);
+    objc_msgSend_position(v38, v39, v40, v41);
+    v46 = objc_msgSend_index(v42, v43, v44, v45);
+    v51 = objc_msgSend_pieSeriesModelCacheForSeries_(v34, v47, v48, v49, v50, v46);
+    v56 = objc_msgSend_labels(self, v52, v53, v54, v55);
+    v61 = objc_msgSend_paragraphStyle(v51, v57, v58, v59, v60);
+    objc_msgSend_setParagraphStyle_atIndex_(v56, v62, v63, v64, v65, v61, v66);
   }
 }
 
@@ -232,32 +232,32 @@
   while (1)
   {
     v29 = objc_msgSend_nextSeries(v8, v25, v26, v27, v28);
-    v34 = v29;
+    v33 = v29;
     if (!v29)
     {
       break;
     }
 
-    objc_msgSend_position(v29, v30, v31, v32, v33);
-    v39 = objc_msgSend_index(v34, v35, v36, v37, v38);
-    v44 = objc_msgSend_pieSeriesModelCacheForSeries_(v13, v40, v41, v42, v43, v39);
-    objc_msgSend_percentage(v44, v45, v46, v47, v48);
-    *&v49 = v49;
-    objc_msgSend_setPercentOfTotal_atElementIndex_(self, v50, v49, v51, v52, v72);
-    objc_msgSend_midAngle(v44, v53, v54, v55, v56);
-    v58 = v57 + 1.57079633;
-    *&v58 = v58;
-    objc_msgSend_setRotation_atElementIndex_(self, v59, v58, v60, v61, v72);
-    v66 = 0;
+    objc_msgSend_position(v29, v30, v31, v32);
+    v37 = objc_msgSend_index(v33, v34, v35, v36);
+    v42 = objc_msgSend_pieSeriesModelCacheForSeries_(v13, v38, v39, v40, v41, v37);
+    objc_msgSend_percentage(v42, v43, v44, v45, v46);
+    *&v47 = v47;
+    objc_msgSend_setPercentOfTotal_atElementIndex_(self, v48, v47, v49, v50, v70);
+    objc_msgSend_midAngle(v42, v51, v52, v53, v54);
+    v56 = v55 + 1.57079633;
+    *&v56 = v56;
+    objc_msgSend_setRotation_atElementIndex_(self, v57, v56, v58, v59, v70);
+    v64 = 0;
     if ((isSingleCircleSpecialCaseOutSeries & 1) == 0)
     {
-      v67 = objc_msgSend_series(v34, v62, v63, v64, v65);
-      objc_msgSend_floatValueForProperty_defaultValue_(v67, v68, 0.0, v69, v70, 1211);
-      v66 = v71;
+      v65 = objc_msgSend_series(v33, v60, v61, v62, v63);
+      objc_msgSend_floatValueForProperty_defaultValue_(v65, v66, 0.0, v67, v68, 1211);
+      v64 = v69;
     }
 
-    LODWORD(v63) = v66;
-    objc_msgSend_setExplosion_atElementIndex_(self, v62, v63, v64, v65, v72);
+    LODWORD(v61) = v64;
+    objc_msgSend_setExplosion_atElementIndex_(self, v60, v61, v62, v63, v70);
   }
 }
 
@@ -267,17 +267,17 @@
   sub_27616DE40(&self->_percentOfTotal.__begin_, self->super._size.var1.var0);
   sub_27616DE40(&self->_rotation.__begin_, p_size->var1.var0);
   sub_27616DE40(&self->_explode.__begin_, p_size->var1.var0);
-  v8 = objc_msgSend_transform(TSCH3DTransform, v4, v5, v6, v7);
-  objc_msgSend_setChartTransform_(self, v9, v10, v11, v12, v8);
+  v7 = objc_msgSend_transform(TSCH3DTransform, v4, v5, v6);
+  objc_msgSend_setChartTransform_(self, v8, v9, v10, v11, v7);
 
-  v17 = objc_msgSend_chartTransform(self, v13, v14, v15, v16);
-  v33 = 0x3F0000003F000000;
-  v34 = 0;
-  objc_msgSend_setTranslation_(v17, v18, 0.0000305175853, v19, v20, &v33);
+  v16 = objc_msgSend_chartTransform(self, v12, v13, v14, v15);
+  v32 = 0x3F0000003F000000;
+  v33 = 0;
+  objc_msgSend_setTranslation_(v16, v17, 0.0000305175853, v18, v19, &v32);
 
-  objc_msgSend_createResources(self, v21, v22, v23, v24);
-  objc_msgSend_updateLabels(self, v25, v26, v27, v28);
-  objc_msgSend_updateValues(self, v29, v30, v31, v32);
+  objc_msgSend_createResources(self, v20, v21, v22, v23);
+  objc_msgSend_updateLabels(self, v24, v25, v26, v27);
+  objc_msgSend_updateValues(self, v28, v29, v30, v31);
 }
 
 - (id).cxx_construct

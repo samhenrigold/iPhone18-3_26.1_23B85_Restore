@@ -39,17 +39,15 @@
 
 - (void)managedDuplicateServiceCriteria:(id)criteria
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   log_t = [(_CNDonationManagedDuplicatesLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = criteriaCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "managed duplicate service has criteria %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = criteriaCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "managed duplicate service has criteria %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willRefreshDuplicates
@@ -74,32 +72,28 @@
 
 - (void)didSkipRefreshDuplicates:(id)duplicates
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   duplicatesCopy = duplicates;
   log_t = [(_CNDonationManagedDuplicatesLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = duplicatesCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Skipping refresh of duplicates due to recent failure. Previous refresh attempted at %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = duplicatesCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Skipping refresh of duplicates due to recent failure. Previous refresh attempted at %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailRefreshingDuplicates:(id)duplicates
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   duplicatesCopy = duplicates;
   log_t = [(_CNDonationManagedDuplicatesLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = duplicatesCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Failed to refresh duplicates. %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = duplicatesCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Failed to refresh duplicates. %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

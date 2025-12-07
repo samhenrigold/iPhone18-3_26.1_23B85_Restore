@@ -681,31 +681,7 @@ LABEL_25:
   preferredUnits = self->_preferredUnits;
   self->_preferredUnits = v4;
 
-  MEMORY[0x2821F96F8]();
-}
-
-void __38__FIUnitManager__updatePreferredUnits__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_24B35E000, v0, v1, "[Fitness] Error fetching preferred units: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setPreferredHKUnit:forQuantityType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_24B35E000, v0, v1, "[FitnessUI] Attempting to set an invalid user unit: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__FIUnitManager__setPreferredHKUnit_forQuantityType___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_24B35E000, v0, v1, "[FitnessUI] Error setting preferred units: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  MEMORY[0x2821F96F8](v4, preferredUnits);
 }
 
 @end

@@ -31,129 +31,20 @@
   recordName = v5->_recordName;
   v5->_recordName = v10;
 
-  if (!v5->_recordName)
+  if (!v5->_recordName
+    || ([recordCopy objectForKey:@"manufacturer"], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "copy"), manufacturer = v5->_manufacturer, v5->_manufacturer = v13, manufacturer, v12, !v5->_manufacturer)
+    || ([recordCopy objectForKey:@"recordStatus"], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "copy"), recordStatus = v5->_recordStatus, v5->_recordStatus = v16, recordStatus, v15, !v5->_recordStatus)
+    || ([recordCopy objectForKey:@"model"], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "copy"), model = v5->_model, v5->_model = v19, model, v18, !v5->_model)
+    || ([recordCopy objectForKey:@"firmwareVersion"], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "copy"), firmwareVersion = v5->_firmwareVersion, v5->_firmwareVersion = v22, firmwareVersion, v21, !v5->_firmwareVersion)
+    || ([recordCopy objectForKey:@"firmwareURL"], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "copy"), firmwareURL = v5->_firmwareURL, v5->_firmwareURL = v25, firmwareURL, v24, !v5->_firmwareURL)
+    || ([recordCopy objectForKey:@"releaseType"], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "copy"), releaseType = v5->_releaseType, v5->_releaseType = v28, releaseType, v27, objc_msgSend(recordCopy, "objectForKey:", @"updateClassification"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "copy"), updateClassification = v5->_updateClassification, v5->_updateClassification = v31, updateClassification, v30, objc_msgSend(recordCopy, "objectForKey:", @"releaseNotesURL"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "copy"), releaseNotesURL = v5->_releaseNotesURL, v5->_releaseNotesURL = v34, releaseNotesURL, v33, !v5->_releaseNotesURL)
+    || ([recordCopy objectForKey:@"firmwareBinaryHash"], v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "copy"), firmwareBinaryHash = v5->_firmwareBinaryHash, v5->_firmwareBinaryHash = v37, firmwareBinaryHash, v36, !v5->_firmwareBinaryHash)
+    || ([recordCopy objectForKey:@"releaseNotesHash"], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "copy"), releaseNotesHash = v5->_releaseNotesHash, v5->_releaseNotesHash = v40, releaseNotesHash, v39, !v5->_releaseNotesHash)
+    || ([recordCopy objectForKey:@"signature"], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "copy"), signature = v5->_signature, v5->_signature = v43, signature, v42, !v5->_signature)
+    || ([recordCopy objectForKey:@"releaseDate"], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v45, "copy"), releaseDate = v5->_releaseDate, v5->_releaseDate = v46, releaseDate, v45, !v5->_releaseDate)
+    || ([recordCopy objectForKey:@"firmwareFileSize"], v48 = objc_claimAutoreleasedReturnValue(), v49 = objc_msgSend(v48, "copy"), firmwareFileSize = v5->_firmwareFileSize, v5->_firmwareFileSize = v49, firmwareFileSize, v48, !v5->_firmwareFileSize)
+    || ([recordCopy objectForKey:@"releaseNotesFileSize"], v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "copy"), releaseNotesFileSize = v5->_releaseNotesFileSize, v5->_releaseNotesFileSize = v52, releaseNotesFileSize, v51, !v5->_releaseNotesFileSize))
   {
-    goto LABEL_20;
-  }
-
-  v12 = [recordCopy objectForKey:@"manufacturer"];
-  v13 = [v12 copy];
-  manufacturer = v5->_manufacturer;
-  v5->_manufacturer = v13;
-
-  if (!v5->_manufacturer)
-  {
-    goto LABEL_20;
-  }
-
-  v15 = [recordCopy objectForKey:@"recordStatus"];
-  v16 = [v15 copy];
-  recordStatus = v5->_recordStatus;
-  v5->_recordStatus = v16;
-
-  if (!v5->_recordStatus)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = [recordCopy objectForKey:@"model"];
-  v19 = [v18 copy];
-  model = v5->_model;
-  v5->_model = v19;
-
-  if (!v5->_model)
-  {
-    goto LABEL_20;
-  }
-
-  v21 = [recordCopy objectForKey:@"firmwareVersion"];
-  v22 = [v21 copy];
-  firmwareVersion = v5->_firmwareVersion;
-  v5->_firmwareVersion = v22;
-
-  if (!v5->_firmwareVersion)
-  {
-    goto LABEL_20;
-  }
-
-  v24 = [recordCopy objectForKey:@"firmwareURL"];
-  v25 = [v24 copy];
-  firmwareURL = v5->_firmwareURL;
-  v5->_firmwareURL = v25;
-
-  if (!v5->_firmwareURL)
-  {
-    goto LABEL_20;
-  }
-
-  v27 = [recordCopy objectForKey:@"releaseType"];
-  v28 = [v27 copy];
-  releaseType = v5->_releaseType;
-  v5->_releaseType = v28;
-
-  v30 = [recordCopy objectForKey:@"updateClassification"];
-  v31 = [v30 copy];
-  updateClassification = v5->_updateClassification;
-  v5->_updateClassification = v31;
-
-  v33 = [recordCopy objectForKey:@"releaseNotesURL"];
-  v34 = [v33 copy];
-  releaseNotesURL = v5->_releaseNotesURL;
-  v5->_releaseNotesURL = v34;
-
-  if (!v5->_releaseNotesURL)
-  {
-    goto LABEL_20;
-  }
-
-  v36 = [recordCopy objectForKey:@"firmwareBinaryHash"];
-  v37 = [v36 copy];
-  firmwareBinaryHash = v5->_firmwareBinaryHash;
-  v5->_firmwareBinaryHash = v37;
-
-  if (!v5->_firmwareBinaryHash)
-  {
-    goto LABEL_20;
-  }
-
-  v39 = [recordCopy objectForKey:@"releaseNotesHash"];
-  v40 = [v39 copy];
-  releaseNotesHash = v5->_releaseNotesHash;
-  v5->_releaseNotesHash = v40;
-
-  if (!v5->_releaseNotesHash)
-  {
-    goto LABEL_20;
-  }
-
-  v42 = [recordCopy objectForKey:@"signature"];
-  v43 = [v42 copy];
-  signature = v5->_signature;
-  v5->_signature = v43;
-
-  if (!v5->_signature)
-  {
-    goto LABEL_20;
-  }
-
-  v45 = [recordCopy objectForKey:@"releaseDate"];
-  v46 = [v45 copy];
-  releaseDate = v5->_releaseDate;
-  v5->_releaseDate = v46;
-
-  if (!v5->_releaseDate)
-  {
-    goto LABEL_20;
-  }
-
-  v48 = [recordCopy objectForKey:@"firmwareFileSize"];
-  v49 = [v48 copy];
-  firmwareFileSize = v5->_firmwareFileSize;
-  v5->_firmwareFileSize = v49;
-
-  if (!v5->_firmwareFileSize || ([recordCopy objectForKey:@"releaseNotesFileSize"], v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "copy"), releaseNotesFileSize = v5->_releaseNotesFileSize, v5->_releaseNotesFileSize = v52, releaseNotesFileSize, v51, !v5->_releaseNotesFileSize))
-  {
-LABEL_20:
     v58 = v5;
     v5 = 0;
     goto LABEL_18;
@@ -258,11 +149,9 @@ LABEL_18:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  recordName = self->_recordName;
-  firmwareBinaryHash = self->_firmwareBinaryHash;
-  v8 = [v3 stringWithFormat:@"<%@: recordName=%@, firmwareVersion=%@, firmwareURL=%@, releaseNotesURL=%@, firmwareBinaryHash=%@, releaseNotesHash=%@>", v5, recordName, self->_firmwareVersion, self->_firmwareURL, self->_releaseNotesURL, firmwareBinaryHash, self->_releaseNotesHash];
+  v6 = [v3 stringWithFormat:@"<%@: recordName=%@, firmwareVersion=%@, firmwareURL=%@, releaseNotesURL=%@, firmwareBinaryHash=%@, releaseNotesHash=%@>", v5, self->_recordName, self->_firmwareVersion, self->_firmwareURL, self->_releaseNotesURL, self->_firmwareBinaryHash, self->_releaseNotesHash];
 
-  return v8;
+  return v6;
 }
 
 - (void)initWithCKRecord:(uint64_t *)a3 .cold.1(void *a1, uint64_t a2, uint64_t *a3)

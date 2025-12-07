@@ -393,7 +393,7 @@ LABEL_13:
 
 - (id)attributedStringToHighlightText:()MobilePhoneAdditions primaryColour:secondaryColour:style:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -408,35 +408,35 @@ LABEL_13:
     v18 = a6 - 1;
     if (a6 == 1)
     {
-      v34 = v12;
-      v35 = v11;
-      v36 = v10;
+      v33 = v12;
+      v34 = v11;
+      v35 = v10;
       v19 = [selfCopy componentsSeparatedByString:@" "];
       v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v19, "count")}];
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
       v21 = v19;
-      v22 = [v21 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v41;
+        v24 = *v40;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v41 != v24)
+            if (*v40 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = [*(*(&v40 + 1) + 8 * i) _encodedDialerStringSkippingUnmappedCharacters:0];
+            v26 = [*(*(&v39 + 1) + 8 * i) _encodedDialerStringSkippingUnmappedCharacters:0];
             [v20 addObject:v26];
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v23);
@@ -448,10 +448,10 @@ LABEL_13:
 
       v17 = unformattedNumberInLatin;
       selfCopy = v27;
-      v11 = v35;
-      v10 = v36;
+      v11 = v34;
+      v10 = v35;
       a6 = 1;
-      v12 = v34;
+      v12 = v33;
       v18 = 0;
     }
 
@@ -464,17 +464,15 @@ LABEL_13:
     else if (v18 < 2 || [v17 isNumeric] && objc_msgSend(selfCopy, "isNumeric"))
     {
       v31 = [selfCopy indexSetToHighlightDigitsInText:v17 allowMatchingLastFour:a6 == 2];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __102__NSString_MobilePhoneAdditions__attributedStringToHighlightText_primaryColour_secondaryColour_style___block_invoke;
-      v37[3] = &unk_279A228A0;
-      v38 = v13;
-      v39 = v12;
-      [v31 enumerateRangesUsingBlock:v37];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __102__NSString_MobilePhoneAdditions__attributedStringToHighlightText_primaryColour_secondaryColour_style___block_invoke;
+      v36[3] = &unk_279A228A0;
+      v37 = v13;
+      v38 = v12;
+      [v31 enumerateRangesUsingBlock:v36];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

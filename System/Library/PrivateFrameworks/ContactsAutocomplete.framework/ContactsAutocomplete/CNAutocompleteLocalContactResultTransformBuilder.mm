@@ -97,33 +97,33 @@
 
 id __77__CNAutocompleteLocalContactResultTransformBuilder_makeTransformForProperty___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 valueForKey:*(a1 + 32)];
   v5 = [*(a1 + 40) stringFromContact:v3];
   v6 = sNameComponentsFromContact_block_invoke(v5, v3);
-  v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [*(a1 + 56) resultValueForContactPropertyValue:*(*(&v25 + 1) + 8 * v10) propertyKey:*(a1 + 32) contact:v3];
+        v11 = [*(a1 + 56) resultValueForContactPropertyValue:*(*(&v24 + 1) + 8 * v10) propertyKey:*(a1 + 32) contact:v3];
         v12 = *(a1 + 64);
         if (v12 == 1)
         {
@@ -136,7 +136,7 @@ LABEL_10:
           }
 
 LABEL_11:
-          [v24 addObject:v14];
+          [v23 addObject:v14];
           goto LABEL_12;
         }
 
@@ -181,15 +181,14 @@ LABEL_12:
       }
 
       while (v8 != v10);
-      v19 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v19 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       v8 = v19;
     }
 
     while (v19);
   }
 
-  v20 = [v24 copy];
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [v23 copy];
 
   return v20;
 }
@@ -236,7 +235,7 @@ void __75__CNAutocompleteLocalContactResultTransformBuilder_addressTypeForProper
     [(CNAutocompleteResultValue *)v12 setIdentifier:identifier];
   }
 
-  [(CNAutocompleteResultValue *)v12 setAddressType:v11];
+  v15 = [(CNAutocompleteResultValue *)v12 setAddressType:v11];
   switch(v11)
   {
     case 1:
@@ -244,19 +243,19 @@ void __75__CNAutocompleteLocalContactResultTransformBuilder_addressTypeForProper
       value = [valueCopy value];
       if (objc_opt_isKindOfClass())
       {
-        v23 = value;
+        v24 = value;
       }
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
 
-      v17 = v23;
+      v18 = v24;
 
-      if (v17)
+      if (v18)
       {
-        [(CNAutocompleteResultValue *)v12 setAddress:v17];
+        [(CNAutocompleteResultValue *)v12 setAddress:v18];
       }
 
       break;
@@ -265,22 +264,22 @@ void __75__CNAutocompleteLocalContactResultTransformBuilder_addressTypeForProper
       value2 = [valueCopy value];
       if (objc_opt_isKindOfClass())
       {
-        v21 = value2;
+        v22 = value2;
       }
 
       else
       {
-        v21 = 0;
+        v22 = 0;
       }
 
-      v17 = v21;
+      v18 = v22;
 
-      if (!v17)
+      if (!v18)
       {
         break;
       }
 
-      stringValue = [v17 stringValue];
+      stringValue = [v18 stringValue];
       [(CNAutocompleteResultValue *)v12 setAddress:stringValue];
 LABEL_16:
 
@@ -290,42 +289,40 @@ LABEL_16:
       value3 = [valueCopy value];
       if (objc_opt_isKindOfClass())
       {
-        v16 = value3;
+        v17 = value3;
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      v17 = v16;
+      v18 = v17;
 
-      if (!v17)
+      if (!v18)
       {
         break;
       }
 
-      username = [v17 username];
+      username = [v18 username];
       [(CNAutocompleteResultValue *)v12 setAddress:username];
 
-      stringValue = [v17 service];
+      stringValue = [v18 service];
       [(CNAutocompleteResultValue *)v12 setInstantMessageAddressService:stringValue];
       goto LABEL_16;
     default:
-      v17 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = CNALoggingContextDebug(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v26 = 138412546;
         v27 = keyCopy;
         v28 = 2112;
         v29 = contactCopy;
-        _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Unknown address type for property: %@ contact: %@", &v26, 0x16u);
+        _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Unknown address type for property: %@ contact: %@", &v26, 0x16u);
       }
 
       break;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

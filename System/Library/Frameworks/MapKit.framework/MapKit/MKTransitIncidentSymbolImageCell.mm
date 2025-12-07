@@ -120,7 +120,7 @@
   }
 }
 
-uint64_t __102__MKTransitIncidentSymbolImageCell_configureWithIncidentMessage_referenceDate_shouldShowImage_inSiri___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__102__MKTransitIncidentSymbolImageCell_configureWithIncidentMessage_referenceDate_shouldShowImage_inSiri___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isBlockingIncident];
   if (result)

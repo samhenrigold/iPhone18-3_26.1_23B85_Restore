@@ -48,7 +48,7 @@
 
 void __42__HMDManagedObjectCodingChangeSet_summary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 hmd_debugIdentifier];
@@ -68,7 +68,7 @@ void __42__HMDManagedObjectCodingChangeSet_summary__block_invoke(uint64_t a1, vo
 
     else if (v6)
     {
-      v37 = v5;
+      v36 = v5;
       v10 = MEMORY[0x277CBEB18];
       v11 = [(HMDManagedObjectCodingChangeDetails *)v6 changedAttributeKeys];
       v12 = [v11 count];
@@ -86,45 +86,45 @@ void __42__HMDManagedObjectCodingChangeSet_summary__block_invoke(uint64_t a1, vo
       v19 = *(a1 + 40);
       v20 = MEMORY[0x277CCACA8];
       v21 = [v14 componentsJoinedByString:{@", "}];
-      v36 = v7;
+      v35 = v7;
       v22 = [v20 stringWithFormat:@"\n<%@>: %@", v7, v21];
       [v19 addObject:v22];
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v23 = v14;
-      v24 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v39;
+        v26 = *v38;
         do
         {
           v27 = 0;
           do
           {
-            if (*v39 != v26)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v9, *(*(&v38 + 1) + 8 * v27)];
+            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v9, *(*(&v37 + 1) + 8 * v27)];
             [*(a1 + 56) addObject:v28];
 
             ++v27;
           }
 
           while (v25 != v27);
-          v25 = [v23 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
         while (v25);
       }
 
-      v7 = v36;
-      v5 = v37;
+      v7 = v35;
+      v5 = v36;
     }
   }
 
@@ -137,16 +137,14 @@ void __42__HMDManagedObjectCodingChangeSet_summary__block_invoke(uint64_t a1, vo
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v32;
-      v45 = 2112;
-      v46 = v7;
+      v43 = v32;
+      v44 = 2112;
+      v45 = v7;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse object name from debug identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v29);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)changeScopeForObjectWithID:(id)d attributeKeys:(id *)keys relationshipKeys:(id *)relationshipKeys
@@ -345,34 +343,34 @@ LABEL_16:
 
 - (void)synthesizeParentChildChanges:(void *)changes forObject:(void *)object withDescription:(void *)description model:
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a2;
   changesCopy = changes;
   descriptionCopy = description;
   selfCopy = self;
   if (self)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     parentRelationships = [object parentRelationships];
-    v32 = [parentRelationships countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v32)
+    v31 = [parentRelationships countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v31)
     {
-      v30 = changesCopy;
-      v31 = *v34;
-      v29 = parentRelationships;
+      v29 = changesCopy;
+      v30 = *v33;
+      v28 = parentRelationships;
       do
       {
-        for (i = 0; i != v32; ++i)
+        for (i = 0; i != v31; ++i)
         {
-          if (*v34 != v31)
+          if (*v33 != v30)
           {
             objc_enumerationMutation(parentRelationships);
           }
 
-          v14 = *(*(&v33 + 1) + 8 * i);
+          v14 = *(*(&v32 + 1) + 8 * i);
           name = [v14 name];
           v16 = [changesCopy valueForKey:name];
 
@@ -413,8 +411,8 @@ LABEL_16:
                 }
 
                 v9 = v25;
-                parentRelationships = v29;
-                changesCopy = v30;
+                parentRelationships = v28;
+                changesCopy = v29;
               }
             }
 
@@ -422,14 +420,12 @@ LABEL_16:
           }
         }
 
-        v32 = [parentRelationships countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v31 = [parentRelationships countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v32);
+      while (v31);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __97__HMDManagedObjectCodingChangeSet_populateChangeDetails_withUpdatedProperties_codingDescription___block_invoke(uint64_t a1, void *a2)

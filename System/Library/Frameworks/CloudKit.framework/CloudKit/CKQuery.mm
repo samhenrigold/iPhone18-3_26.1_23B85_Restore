@@ -166,56 +166,55 @@
 
 - (void)setSortDescriptors:(NSArray *)sortDescriptors
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = sortDescriptors;
   if (v4)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v27 = [CKException alloc];
-      v29 = objc_msgSend_initWithCode_format_(v27, v28, 12, @"sortDescriptors must be an array");
-      objc_exception_throw(v29);
+      v25 = [CKException alloc];
+      v27 = objc_msgSend_initWithCode_format_(v25, v26, 12, @"sortDescriptors must be an array");
+      objc_exception_throw(v27);
     }
   }
 
-  v33 = 0u;
-  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = v4;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v31, v35, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v29, v33, 16);
   if (v7)
   {
-    v8 = *v32;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v32 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * v9);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v17 = [CKException alloc];
+            v15 = [CKException alloc];
+            v16 = objc_opt_class();
+            v17 = NSStringFromClass(v16);
             v18 = objc_opt_class();
             v19 = NSStringFromClass(v18);
             v20 = objc_opt_class();
             v21 = NSStringFromClass(v20);
-            v22 = objc_opt_class();
-            v23 = NSStringFromClass(v22);
-            v25 = objc_msgSend_initWithCode_format_(v17, v24, 12, @"sortDescriptor items must be of class %@ or %@, not %@", v19, v21, v23);
-            v26 = v25;
+            v23 = objc_msgSend_initWithCode_format_(v15, v22, 12, @"sortDescriptor items must be of class %@ or %@, not %@", v17, v19, v21);
+            v24 = v23;
 
-            objc_exception_throw(v25);
+            objc_exception_throw(v23);
           }
         }
 
@@ -223,7 +222,7 @@
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v31, v35, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v10, &v29, v33, 16);
     }
 
     while (v7);
@@ -231,17 +230,16 @@
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = sub_18857D5EC;
-  v30[3] = &unk_1E70BDE38;
-  v30[4] = selfCopy;
-  v14 = objc_msgSend_CKDeepCopyWithLeafNodeCopyBlock_(v5, v13, v30);
-  v15 = selfCopy->_sortDescriptors;
-  selfCopy->_sortDescriptors = v14;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = sub_18857D5EC;
+  v28[3] = &unk_1E70BDE38;
+  v28[4] = selfCopy;
+  v13 = objc_msgSend_CKDeepCopyWithLeafNodeCopyBlock_(v5, v12, v28);
+  v14 = selfCopy->_sortDescriptors;
+  selfCopy->_sortDescriptors = v13;
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setPredicate:(id)predicate

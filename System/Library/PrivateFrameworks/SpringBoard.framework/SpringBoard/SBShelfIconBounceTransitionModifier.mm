@@ -23,7 +23,7 @@
 
 - (unint64_t)bounceIconGenerationCountForCurrentCount:(unint64_t)count
 {
-  [(SBShelfIconBounceTransitionModifier *)self presentationAttributesForShelf:self->_shelf];
+  objc_msgSend_presentationAttributesForShelf_(self, a2, self->_shelf);
   v5 = v8;
   if ([(SBTransitionSwitcherModifier *)self transitionPhase]== 1 && v5 == 1)
   {
@@ -38,7 +38,7 @@
 
 - (CGRect)bounceIconInitialFrame
 {
-  [(SBShelfIconBounceTransitionModifier *)self presentationAttributesForShelf:self->_shelf];
+  objc_msgSend_presentationAttributesForShelf_(self, a2, self->_shelf);
   v2 = v6;
   v3 = v7;
   v4 = v8;

@@ -76,7 +76,7 @@ void __83__AAUSBSupportedDeviceManager_proxCardUserActionOnHeadphone_withAction_
 {
   if (gLogCategory_AAUSBSupportedDeviceManager <= 30 && (gLogCategory_AAUSBSupportedDeviceManager != -1 || _LogCategory_Initialize()))
   {
-    __83__AAUSBSupportedDeviceManager_proxCardUserActionOnHeadphone_withAction_completion___block_invoke_cold_1(a1);
+    __83__AAUSBSupportedDeviceManager_proxCardUserActionOnHeadphone_withAction_completion___block_invoke_cold_1();
   }
 
   v2 = [*(a1 + 32) _ensureXPCStarted];
@@ -122,9 +122,11 @@ void __83__AAUSBSupportedDeviceManager_proxCardUserActionOnHeadphone_withAction_
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "AAUSBSupportedDeviceManager, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 - (id)_ensureXPCStarted
@@ -193,8 +195,8 @@ _BYTE *__48__AAUSBSupportedDeviceManager__ensureXPCStarted__block_invoke_2(uint6
     [AAUSBSupportedDeviceManager _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(AAUSBSupportedDeviceManager *)self _reportError:v3];
+  v10 = BTErrorF(4294960596, "XPC interrupted", v2, v3, v4, v5, v6, v7, v9);
+  [(AAUSBSupportedDeviceManager *)self _reportError:v10];
 }
 
 - (void)invalidate
@@ -208,23 +210,23 @@ _BYTE *__48__AAUSBSupportedDeviceManager__ensureXPCStarted__block_invoke_2(uint6
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __41__AAUSBSupportedDeviceManager_invalidate__block_invoke(uint64_t result)
+void *__41__AAUSBSupportedDeviceManager_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 16) & 1) == 0)
   {
     v3 = result;
     *(v2 + 16) = 1;
-    if ((*(*(result + 32) + 17) & 1) == 0 && gLogCategory_AAUSBSupportedDeviceManager <= 30 && (gLogCategory_AAUSBSupportedDeviceManager != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 17) & 1) == 0 && gLogCategory_AAUSBSupportedDeviceManager <= 30 && (gLogCategory_AAUSBSupportedDeviceManager != -1 || _LogCategory_Initialize()))
     {
       __41__AAUSBSupportedDeviceManager_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[3])
     {
       [v4[3] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -244,14 +246,14 @@ uint64_t __41__AAUSBSupportedDeviceManager_invalidate__block_invoke(uint64_t res
 
     if (!self->_xpcCnx)
     {
-      v6 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v13 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v6)
+      if (v13)
       {
-        v4 = BTErrorF();
-        v6[2](v6, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v12);
+        v13[2](v13, v10);
       }
 
       xpcCnx = self->_xpcCnx;
@@ -266,7 +268,7 @@ uint64_t __41__AAUSBSupportedDeviceManager_invalidate__block_invoke(uint64_t res
   }
 }
 
-void __48__AAUSBSupportedDeviceManager__handleServerDied__block_invoke()
+void __48__AAUSBSupportedDeviceManager__handleServerDied__block_invoke(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_AAUSBSupportedDeviceManager <= 50 && (gLogCategory_AAUSBSupportedDeviceManager != -1 || _LogCategory_Initialize()))
   {
@@ -290,13 +292,6 @@ void __48__AAUSBSupportedDeviceManager__handleServerDied__block_invoke()
   {
     (v4)[2](v4, errorCopy);
   }
-}
-
-uint64_t __83__AAUSBSupportedDeviceManager_proxCardUserActionOnHeadphone_withAction_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 32);
-  v3 = *(a1 + 40);
-  return LogPrintF();
 }
 
 @end

@@ -341,7 +341,7 @@ LABEL_6:
 
 - (WFActionOutputVariable)initWithDictionary:(id)dictionary variableProvider:(id)provider
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   providerCopy = provider;
   v8 = [dictionaryCopy objectForKey:@"OutputUUID"];
@@ -353,14 +353,14 @@ LABEL_6:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v20 = "WFEnforceClass";
-      v21 = 2114;
-      v22 = v10;
-      v23 = 2114;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = v9;
-      v13 = v24;
+      v19 = "WFEnforceClass";
+      v20 = 2114;
+      v21 = v10;
+      v22 = 2114;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = v9;
+      v13 = v23;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
 
@@ -372,7 +372,7 @@ LABEL_6:
     v11 = v10;
   }
 
-  if (v11 && (v18.receiver = self, v18.super_class = WFActionOutputVariable, v14 = [(WFVariable *)&v18 initWithDictionary:dictionaryCopy variableProvider:providerCopy], (self = v14) != 0))
+  if (v11 && (v17.receiver = self, v17.super_class = WFActionOutputVariable, v14 = [(WFVariable *)&v17 initWithDictionary:dictionaryCopy variableProvider:providerCopy], (self = v14) != 0))
   {
     objc_storeWeak(&v14->_variableProvider, providerCopy);
     self = self;
@@ -384,7 +384,6 @@ LABEL_6:
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

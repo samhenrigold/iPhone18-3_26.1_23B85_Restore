@@ -1,62 +1,125 @@
 @interface MCMCommandSetDataProtection
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)isThirdParty;
+- (BOOL)_updateMetadataForContainerIdentity:(id)identity dataProtectionClass:(int)class error:(id *)error;
 - (BOOL)preflightClientAllowed;
-- (BOOL)retryIfLocked;
-- (BOOL)skipIfUnchanged;
 - (MCMCommandSetDataProtection)initWithContainerIdentity:(id)identity thirdParty:(BOOL)party dataProtectionClass:(int)class retryIfLocked:(BOOL)locked skipIfUnchanged:(BOOL)unchanged context:(id)context resultPromise:(id)promise;
 - (MCMCommandSetDataProtection)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMContainerIdentity)containerIdentity;
-- (int)dataProtectionClass;
 - (void)execute;
 @end
 
 @implementation MCMCommandSetDataProtection
 
-- (BOOL)skipIfUnchanged
+- (BOOL)_updateMetadataForContainerIdentity:(id)identity dataProtectionClass:(int)class error:(id *)error
 {
-  result = self->_skipIfUnchanged;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
+  v5 = *&class;
+  v40 = *MEMORY[0x1E69E9840];
+  identityCopy = identity;
+  context = [(MCMCommand *)self context];
+  containerCache = [context containerCache];
+  v33 = 0;
+  v10 = [containerCache entryForContainerIdentity:identityCopy error:&v33];
 
-- (BOOL)retryIfLocked
-{
-  result = self->_retryIfLocked;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
+  v11 = v33;
+  if (!v10)
+  {
+    v14 = 0;
+    v12 = 0;
+    v20 = 0;
+    goto LABEL_17;
+  }
 
-- (int)dataProtectionClass
-{
-  result = self->_dataProtectionClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
+  v32 = v11;
+  v12 = [v10 metadataWithError:&v32];
+  v13 = v32;
 
-- (BOOL)isThirdParty
-{
-  result = self->_thirdParty;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
+  if (!v12)
+  {
+    v21 = container_log_handle_for_category();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      identifier = [v10 identifier];
+      containerPath = [v10 containerPath];
+      containerClass = [containerPath containerClass];
+      *buf = 138412802;
+      v35 = identifier;
+      v36 = 2048;
+      v37 = containerClass;
+      v38 = 2112;
+      v39 = v13;
+      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Could not fetch metadata after data protection change on [%@(%llu)]: %@", buf, 0x20u);
+    }
 
-- (MCMContainerIdentity)containerIdentity
-{
-  result = self->_containerIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
+    v14 = 0;
+    v12 = 0;
+    goto LABEL_16;
+  }
+
+  v14 = [v12 metadataByChangingDataProtectionClass:v5];
+  v31 = v13;
+  v15 = [v14 writeMetadataToDiskWithError:&v31];
+  v16 = v31;
+
+  if ((v15 & 1) == 0)
+  {
+    v21 = container_log_handle_for_category();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      identifier2 = [v12 identifier];
+      containerClass2 = [v12 containerClass];
+      *buf = 138412802;
+      v35 = identifier2;
+      v36 = 2048;
+      v37 = containerClass2;
+      v38 = 2112;
+      v39 = v16;
+      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Could not save metadata after data protection change on [%@(%llu)]: %@", buf, 0x20u);
+    }
+
+    v13 = v16;
+    goto LABEL_16;
+  }
+
+  context2 = [(MCMCommand *)self context];
+  containerCache2 = [context2 containerCache];
+  v30 = v16;
+  v19 = [containerCache2 addContainerMetadata:v14 error:&v30];
+  v11 = v30;
+
+  if (!v19)
+  {
+    v21 = container_log_handle_for_category();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      identifier3 = [v14 identifier];
+      containerClass3 = [v14 containerClass];
+      *buf = 138412802;
+      v35 = identifier3;
+      v36 = 2048;
+      v37 = containerClass3;
+      v38 = 2112;
+      v39 = v11;
+      _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Could not update metadata in cache after data protection change on [%@(%llu)]: %@", buf, 0x20u);
+    }
+
+    v10 = 0;
+    v13 = v11;
+LABEL_16:
+
+    v20 = 0;
+    v11 = v13;
+    goto LABEL_17;
+  }
+
+  v20 = 1;
+  v10 = v19;
+LABEL_17:
+
+  return v20;
 }
 
 - (void)execute
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   containerIdentity = [(MCMCommandSetDataProtection *)self containerIdentity];
   resultPromise = [(MCMCommand *)self resultPromise];
@@ -66,10 +129,10 @@
   aBlock[3] = &unk_1E86B0AA8;
   aBlock[4] = self;
   v6 = containerIdentity;
-  v45 = v6;
+  v44 = v6;
   v7 = resultPromise;
-  v46 = v7;
-  v35 = _Block_copy(aBlock);
+  v45 = v7;
+  v34 = _Block_copy(aBlock);
   containerClass = [v6 containerClass];
   if (containerClass > 0xB || ((1 << containerClass) & 0xED4) == 0 || (v9 = [v6 containerClass], v9 == 13) || v9 == 7)
   {
@@ -84,9 +147,9 @@ LABEL_6:
 
   context = [(MCMCommand *)self context];
   containerCache = [context containerCache];
-  v43 = 0;
-  v12 = [containerCache entryForContainerIdentity:v6 error:&v43];
-  v10 = v43;
+  v42 = 0;
+  v12 = [containerCache entryForContainerIdentity:v6 error:&v42];
+  v10 = v42;
 
   if (!v12)
   {
@@ -94,88 +157,88 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v42 = v10;
-  v14 = [v12 metadataWithError:&v42];
-  v20 = v42;
+  v41 = v10;
+  v14 = [v12 metadataWithError:&v41];
+  v19 = v41;
 
   if (!v14)
   {
-    v11 = [[MCMResultBase alloc] initWithError:v20];
+    v11 = [[MCMResultBase alloc] initWithError:v19];
     v13 = 0;
     goto LABEL_19;
   }
 
-  v21 = [MEMORY[0x1E696AD98] numberWithInt:{-[MCMCommandSetDataProtection dataProtectionClass](self, "dataProtectionClass")}];
-  v13 = [v14 metadataBySettingInfoValue:v21 forKey:@"com.apple.MobileInstallation.ContentProtectionClass"];
+  v20 = [MEMORY[0x1E696AD98] numberWithInt:{-[MCMCommandSetDataProtection dataProtectionClass](self, "dataProtectionClass")}];
+  v13 = [v14 metadataBySettingInfoValue:v20 forKey:@"com.apple.MobileInstallation.ContentProtectionClass"];
 
   if ([(MCMCommandSetDataProtection *)self skipIfUnchanged]&& v13 == v14)
   {
     v11 = 0;
 LABEL_19:
-    v10 = v20;
+    v10 = v19;
     goto LABEL_7;
   }
 
-  v41 = v20;
-  v22 = [v13 writeMetadataToDiskWithError:&v41];
-  v10 = v41;
+  v40 = v19;
+  v21 = [v13 writeMetadataToDiskWithError:&v40];
+  v10 = v40;
 
-  if (v22)
+  if (v21)
   {
     context2 = [(MCMCommand *)self context];
     containerCache2 = [context2 containerCache];
-    v40 = v10;
-    v24 = [containerCache2 addContainerMetadata:v13 error:&v40];
-    v34 = v40;
+    v39 = v10;
+    v23 = [containerCache2 addContainerMetadata:v13 error:&v39];
+    v33 = v39;
 
-    v25 = v24;
-    if (!v24)
+    v24 = v23;
+    if (!v23)
     {
-      v26 = container_log_handle_for_category();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = container_log_handle_for_category();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         identifier = [v13 identifier];
         containerClass2 = [v13 containerClass];
         *buf = 138412802;
-        v48 = identifier;
-        v49 = 2048;
-        v50 = containerClass2;
-        v51 = 2112;
-        v52 = v34;
-        _os_log_error_impl(&dword_1DF2C3000, v26, OS_LOG_TYPE_ERROR, "Could not update metadata in cache when asked to change data protection on [%@(%llu)]: %@", buf, 0x20u);
+        v47 = identifier;
+        v48 = 2048;
+        v49 = containerClass2;
+        v50 = 2112;
+        v51 = v33;
+        _os_log_error_impl(&dword_1DF2C3000, v25, OS_LOG_TYPE_ERROR, "Could not update metadata in cache when asked to change data protection on [%@(%llu)]: %@", buf, 0x20u);
       }
     }
 
-    v27 = MCMDataProtectionQueue();
+    v26 = MCMDataProtectionQueue();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__MCMCommandSetDataProtection_execute__block_invoke_8;
     block[3] = &unk_1E86B0AD0;
     v13 = v13;
-    v37 = v13;
+    v36 = v13;
     selfCopy = self;
-    v39 = v35;
-    dispatch_async(v27, block);
+    v38 = v34;
+    dispatch_async(v26, block);
 
     v11 = 0;
-    v12 = v25;
-    v10 = v34;
+    v12 = v24;
+    v10 = v33;
   }
 
   else
   {
-    v28 = container_log_handle_for_category();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = container_log_handle_for_category();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       identifier2 = [v13 identifier];
       containerClass3 = [v13 containerClass];
       *buf = 138412802;
-      v48 = identifier2;
-      v49 = 2048;
-      v50 = containerClass3;
-      v51 = 2112;
-      v52 = v10;
-      _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, "Could not save metadata when asked to change data protection on [%@(%llu)]: %@", buf, 0x20u);
+      v47 = identifier2;
+      v48 = 2048;
+      v49 = containerClass3;
+      v50 = 2112;
+      v51 = v10;
+      _os_log_error_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_ERROR, "Could not save metadata when asked to change data protection on [%@(%llu)]: %@", buf, 0x20u);
     }
 
     v11 = [[MCMResultBase alloc] initWithError:v10];
@@ -186,7 +249,7 @@ LABEL_7:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v48 = v10;
+    v47 = v10;
     _os_log_debug_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_DEBUG, "Set data protection (start); error = %@", buf, 0xCu);
   }
 
@@ -197,39 +260,21 @@ LABEL_7:
   }
 
   objc_autoreleasePoolPop(v3);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MCMCommandSetDataProtection_execute__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__12529;
-  v21 = __Block_byref_object_dispose__12530;
-  v22 = [[MCMError alloc] initWithErrorType:a2];
-  if (v18[5])
+  v22 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__12529;
+  v20 = __Block_byref_object_dispose__12530;
+  v21 = [[MCMError alloc] initWithErrorType:a2];
+  if (v17[5] || (v3 = MCMSharedFastWorkloop(), v9 = MEMORY[0x1E69E9820], v10 = 3221225472, v11 = __38__MCMCommandSetDataProtection_execute__block_invoke_4, v12 = &unk_1E86B0DB8, v4 = *(a1 + 40), v13 = *(a1 + 32), v14 = v4, v15 = &v16, dispatch_async_and_wait(v3, &v9), v3, v14, v17[5]))
   {
-    goto LABEL_3;
-  }
-
-  v3 = MCMSharedFastWorkloop();
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __38__MCMCommandSetDataProtection_execute__block_invoke_4;
-  v13 = &unk_1E86B0DB8;
-  v4 = *(a1 + 40);
-  v14 = *(a1 + 32);
-  v15 = v4;
-  v16 = &v17;
-  dispatch_async_and_wait(v3, &v10);
-
-  if (v18[5])
-  {
-LABEL_3:
     v5 = [MCMResultBase alloc];
-    v6 = [(MCMResultBase *)v5 initWithError:v18[5]];
+    v6 = [(MCMResultBase *)v5 initWithError:v17[5]];
   }
 
   else
@@ -238,20 +283,17 @@ LABEL_3:
   }
 
   v7 = v6;
-  [*(a1 + 48) completeWithResult:{v6, v10, v11, v12, v13, v14}];
+  [*(a1 + 48) completeWithResult:{v6, v9, v10, v11, v12, v13}];
   v8 = [*(a1 + 32) reply];
   [v8 send];
 
-  _Block_object_dispose(&v17, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 }
 
 void __38__MCMCommandSetDataProtection_execute__block_invoke_8(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = +[MCMDataProtectionManager defaultManager];
-  [v3 setDataProtectionOnDataContainerForMetadata:*(a1 + 32) isSecondOrThirdPartyApp:objc_msgSend(*(a1 + 40) retryIfLocked:"isThirdParty") deferUntilNextLaunch:objc_msgSend(*(a1 + 40) withCompletion:{"retryIfLocked"), 0, *(a1 + 48)}];
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = +[MCMDataProtectionManager defaultManager];
+  [v2 setDataProtectionOnDataContainerForMetadata:*(a1 + 32) isSecondOrThirdPartyApp:objc_msgSend(*(a1 + 40) retryIfLocked:"isThirdParty") deferUntilNextLaunch:objc_msgSend(*(a1 + 40) withCompletion:{"retryIfLocked"), 0, *(a1 + 48)}];
 }
 
 void __38__MCMCommandSetDataProtection_execute__block_invoke_4(void *a1)
@@ -264,27 +306,24 @@ void __38__MCMCommandSetDataProtection_execute__block_invoke_4(void *a1)
   obj[0] = *(v5 + 40);
   [v2 _updateMetadataForContainerIdentity:v3 dataProtectionClass:v4 error:obj];
   objc_storeStrong((v5 + 40), obj[0]);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToSetDataProtection = [clientIdentity isAllowedToSetDataProtection];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToSetDataProtection;
 }
 
 - (MCMCommandSetDataProtection)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v14.receiver = self;
-  v14.super_class = MCMCommandSetDataProtection;
-  v9 = [(MCMCommand *)&v14 initWithMessage:messageCopy context:context reply:reply];
+  v13.receiver = self;
+  v13.super_class = MCMCommandSetDataProtection;
+  v9 = [(MCMCommand *)&v13 initWithMessage:messageCopy context:context reply:reply];
   if (v9)
   {
     containerIdentity = [messageCopy containerIdentity];
@@ -296,17 +335,16 @@ void __38__MCMCommandSetDataProtection_execute__block_invoke_4(void *a1)
     *(v9 + 41) = [messageCopy retryIfLocked];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (MCMCommandSetDataProtection)initWithContainerIdentity:(id)identity thirdParty:(BOOL)party dataProtectionClass:(int)class retryIfLocked:(BOOL)locked skipIfUnchanged:(BOOL)unchanged context:(id)context resultPromise:(id)promise
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
-  v21.receiver = self;
-  v21.super_class = MCMCommandSetDataProtection;
-  v17 = [(MCMCommand *)&v21 initWithContext:context resultPromise:promise];
+  v20.receiver = self;
+  v20.super_class = MCMCommandSetDataProtection;
+  v17 = [(MCMCommand *)&v20 initWithContext:context resultPromise:promise];
   v18 = v17;
   if (v17)
   {
@@ -317,23 +355,13 @@ void __38__MCMCommandSetDataProtection_execute__block_invoke_4(void *a1)
     v18->_skipIfUnchanged = unchanged;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 21;
 }
 
 @end

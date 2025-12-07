@@ -110,29 +110,29 @@ LABEL_9:
 - (void)dispatchEvent:(id)event forObserver:(id)observer
 {
   observerCopy = observer;
-  NodeEventFromNodeEventRef(event, &v14);
+  NodeEventFromNodeEventRef(&v13, event);
   obj = self;
-  v13 = v14;
-  v7 = *TNodeEventPtr::operator->(&v14);
-  v8 = TNodeFromFINode(&obj->super.super.super.super);
-  v9 = *(TNodeEventPtr::operator->(&v13) + 64);
+  v12 = v13;
+  TNodeEventPtr::operator->(&v13);
+  v7 = TNodeFromFINode(obj);
+  v8 = *(TNodeEventPtr::operator->(&v12) + 64);
+  v16 = v8;
+  if (v8)
+  {
+    TDSNotifier::AddPtrReference(v8);
+  }
+
+  v9 = *v8;
+  v10 = *(v8 + 1);
   v17 = v9;
-  if (v9)
-  {
-    TDSNotifier::AddPtrReference(v9);
-  }
-
-  v10 = *v9;
-  v11 = *(v9 + 1);
   v18 = v10;
-  v19 = v11;
-  if (v11)
+  if (v10)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
   }
 
-  TNodePtr::TNodePtr(&v16, v8);
-  TNodePtr::TNodePtr(&v15, v8);
+  TNodePtr::TNodePtr(&v15, v7);
+  TNodePtr::TNodePtr(&v14, v7);
   TDSNotifier::Make();
 }
 

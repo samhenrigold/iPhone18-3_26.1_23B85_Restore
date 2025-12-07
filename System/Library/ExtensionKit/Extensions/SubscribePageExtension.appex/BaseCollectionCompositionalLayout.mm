@@ -48,7 +48,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_10072617C(x, y, width, height);
+  v8 = sub_10072617C(selfCopy, x, y, width, height);
 
   if (v8)
   {
@@ -97,28 +97,30 @@
 
 - (void)prepareLayout
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for BaseCollectionCompositionalLayout();
-  v2 = v6.receiver;
-  [(BaseCollectionCompositionalLayout *)&v6 prepareLayout];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for BaseCollectionCompositionalLayout();
+  v2 = v8.receiver;
+  [(BaseCollectionCompositionalLayout *)&v8 prepareLayout];
   v3 = &v2[OBJC_IVAR____TtC22SubscribePageExtension33BaseCollectionCompositionalLayout_pendingPrepareObserver];
   v4 = *&v2[OBJC_IVAR____TtC22SubscribePageExtension33BaseCollectionCompositionalLayout_pendingPrepareObserver];
   if (v4)
   {
+    v5 = v3[1];
 
     v4(v2);
-    sub_1000164A8(v4);
-    v5 = *v3;
+    sub_1000164A8(v4, v5);
+    v6 = *v3;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
+  v7 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_1000164A8(v5);
+  sub_1000164A8(v6, v7);
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change

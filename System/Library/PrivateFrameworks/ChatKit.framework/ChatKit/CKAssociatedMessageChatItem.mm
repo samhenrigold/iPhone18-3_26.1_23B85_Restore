@@ -170,7 +170,7 @@
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  [(CKAssociatedMessageChatItem *)self geometryDescriptor];
+  objc_msgSend_geometryDescriptor(self);
   [v8 frameForAssociatedMessageItemSize:v25 parentFrame:v10 geometryDescriptor:{v12, v14, v16, v18, v20}];
   result.size.height = v24;
   result.size.width = v23;
@@ -194,7 +194,7 @@
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  [(CKAssociatedMessageChatItem *)self geometryDescriptor];
+  objc_msgSend_geometryDescriptor(self);
   [v8 verticalOriginForAssociatedMessageItemSize:v22 parentFrame:v10 geometryDescriptor:{v12, v14, v16, v18, v20}];
   return result;
 }
@@ -214,21 +214,20 @@
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  [(CKAssociatedMessageChatItem *)self geometryDescriptor];
+  objc_msgSend_geometryDescriptor(self);
   [v8 horizontalOriginForAssociatedMessageItemSize:v22 parentFrame:v10 geometryDescriptor:{v12, v14, v16, v18, v20}];
   return result;
 }
 
 - (CATransform3D)transformForImageViewWithParentSize:(SEL)size shouldScale:(CGSize)scale
 {
-  v5 = a5;
   height = scale.height;
   width = scale.width;
-  v10 = objc_opt_class();
-  result = [(CKAssociatedMessageChatItem *)self geometryDescriptor];
-  if (v10)
+  v9 = objc_opt_class();
+  result = objc_msgSend_geometryDescriptor(self);
+  if (v9)
   {
-    return [v10 transformForImageViewWithGeometryDescriptor:v12 shouldScale:v5 parentSize:{width, height}];
+    return objc_msgSend_transformForImageViewWithGeometryDescriptor_shouldScale_parentSize_(v9, width, height);
   }
 
   *&retstr->m41 = 0u;
@@ -327,12 +326,12 @@ void __114__CKAssociatedMessageChatItem_TranscriptLayout__adjustContentAlignment
 {
   height = size.height;
   width = size.width;
-  v28 = frame.size.width;
-  v29 = frame.size.height;
+  v27 = frame.size.width;
+  v28 = frame.size.height;
   origin = frame.origin;
   y = frame.origin.y;
   v9 = MEMORY[0x1E695F058];
-  v25 = *(MEMORY[0x1E695F058] + 16);
+  v24 = *(MEMORY[0x1E695F058] + 16);
   v10 = CKMainScreenScale_once_28;
   viewCopy = view;
   if (v10 != -1)
@@ -346,42 +345,41 @@ void __114__CKAssociatedMessageChatItem_TranscriptLayout__adjustContentAlignment
     *&v12 = 1.0;
   }
 
-  v13.f64[0] = v28;
-  v13.f64[1] = v29;
+  v13.f64[0] = v27;
+  v13.f64[1] = v28;
   v14.f64[0] = origin.x;
   __asm { FMOV            V2.2D, #0.5 }
 
   v14.f64[1] = y;
   v20 = *v9;
   v21 = v9[1];
-  [viewCopy setCenter:{vdivq_f64(vrndmq_f64(vmulq_n_f64(vaddq_f64(v14, vmulq_f64(vsubq_f64(v13, v25), _Q2)), *&v12)), vdupq_lane_s64(v12, 0)), *&v25, origin}];
-  [viewCopy setBounds:{v20, v21, v28, v29}];
-  v22 = descriptor->layoutIntent - 12 < 0xFFFFFFFFFFFFFFF5;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  [viewCopy setCenter:{vdivq_f64(vrndmq_f64(vmulq_n_f64(vaddq_f64(v14, vmulq_f64(vsubq_f64(v13, v24), _Q2)), *&v12)), vdupq_lane_s64(v12, 0)), *&v24, origin}];
+  [viewCopy setBounds:{v20, v21, v27, v28}];
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v23 = *&descriptor->parentPreviewWidth;
-  v30 = *&descriptor->layoutIntent;
-  v31 = v23;
-  v32 = *&descriptor->yScalar;
-  *&v33 = descriptor->rotation;
-  [CKAssociatedMessageChatItem transformForImageViewWithGeometryDescriptor:&v30 shouldScale:v22 parentSize:width, height];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v22 = *&descriptor->parentPreviewWidth;
+  v29 = *&descriptor->layoutIntent;
+  v30 = v22;
+  v31 = *&descriptor->yScalar;
+  *&v32 = descriptor->rotation;
+  objc_msgSend_transformForImageViewWithGeometryDescriptor_shouldScale_parentSize_(CKAssociatedMessageChatItem, width, height);
   layer = [viewCopy layer];
 
+  v33 = v41;
   v34 = v42;
   v35 = v43;
   v36 = v44;
-  v37 = v45;
+  v29 = v37;
   v30 = v38;
   v31 = v39;
   v32 = v40;
-  v33 = v41;
-  [layer setTransform:&v30];
+  [layer setTransform:&v29];
 }
 
 + (CGPoint)locationForStickerReactionWithParentFrame:(CGRect)frame reactionIndex:(int64_t)index parentIsFromMe:(BOOL)me insets:(UIEdgeInsets)insets
@@ -542,7 +540,7 @@ void __114__CKAssociatedMessageChatItem_TranscriptLayout__adjustContentAlignment
   if (iMAssociatedMessageChatItem)
   {
     v6 = iMAssociatedMessageChatItem;
-    [iMAssociatedMessageChatItem geometryDescriptor];
+    objc_msgSend_geometryDescriptor(iMAssociatedMessageChatItem);
     iMAssociatedMessageChatItem = v6;
   }
 

@@ -67,15 +67,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -84,13 +90,12 @@
     {
       v13 = 138412290;
       v14 = objc_opt_class();
-      LODWORD(v12) = 12;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Received failure response with no dialog", &v13, 12);
+      if (v11)
       {
-        v11 = v10;
-        [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v12}];
-        free(v11);
+        v12 = v11;
+        [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+        free(v12);
         SSFileLog();
       }
     }

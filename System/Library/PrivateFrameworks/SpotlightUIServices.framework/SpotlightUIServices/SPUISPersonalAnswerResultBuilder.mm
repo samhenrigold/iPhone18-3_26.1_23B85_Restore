@@ -147,7 +147,7 @@
 
 - (id)buildDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   displayName = [(SPUISPersonalAnswerResultBuilder *)self displayName];
 
   if (displayName)
@@ -178,14 +178,12 @@
   }
 
   v12 = [MEMORY[0x277D4C598] textWithString:displayName];
-  v18[0] = v12;
+  v17[0] = v12;
   v13 = [MEMORY[0x277D4C598] textWithString:v6];
-  v18[1] = v13;
+  v17[1] = v13;
   v14 = [MEMORY[0x277D4C598] textWithString:v11];
-  v18[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   return v15;
 }

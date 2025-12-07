@@ -25,16 +25,16 @@
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
 {
   statusCopy = status;
-  _HKInitializeLogging();
-  v6 = HKLogInfrastructure();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  _HKInitializeLogging(statusCopy, v6);
+  v9 = HKLogInfrastructure(v7, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
 
-  if (v7)
+  if (v10)
   {
-    v8 = HKLogInfrastructure();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v13 = HKLogInfrastructure(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [_HKFeatureStatusProvidingObserverBridge featureStatusProviding:v8 didUpdateFeatureStatus:?];
+      [_HKFeatureStatusProvidingObserverBridge featureStatusProviding:v13 didUpdateFeatureStatus:?];
     }
   }
 
@@ -43,17 +43,15 @@
 
 - (void)featureStatusProviding:(uint64_t)a1 didUpdateFeatureStatus:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = *(a1 + 8);
-  v8 = 138543618;
-  v9 = v4;
-  v10 = 2114;
-  v11 = v5;
+  v7 = 138543618;
+  v8 = v4;
+  v9 = 2114;
+  v10 = v5;
   v6 = v4;
-  _os_log_debug_impl(&dword_19197B000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@]: Observed feature status update for %{public}@, notifying observers", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@]: Observed feature status update for %{public}@, notifying observers", &v7, 0x16u);
 }
 
 @end

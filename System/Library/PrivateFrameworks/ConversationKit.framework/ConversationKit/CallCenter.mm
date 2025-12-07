@@ -39,14 +39,14 @@
 {
   startCopy = start;
   selfCopy = self;
-  CallCenter.audioDeviceControllerMutedTalkerDidStart(_:)();
+  CallCenter.audioDeviceControllerMutedTalkerDidStart(_:)(selfCopy);
 }
 
 - (void)audioDeviceControllerMutedTalkerDidEnd:(id)end
 {
   endCopy = end;
   selfCopy = self;
-  CallCenter.audioDeviceControllerMutedTalkerDidEnd(_:)();
+  CallCenter.audioDeviceControllerMutedTalkerDidEnd(_:)(selfCopy);
 }
 
 - (void)conversationManager:(id)manager stateChangedForConversation:(id)conversation
@@ -312,7 +312,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  CallCenter.routesChanged(for:)();
+  CallCenter.routesChanged(for:)(controllerCopy);
 }
 
 @end

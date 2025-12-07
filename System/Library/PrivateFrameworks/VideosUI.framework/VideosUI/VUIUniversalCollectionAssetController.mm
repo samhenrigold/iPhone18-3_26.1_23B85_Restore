@@ -586,8 +586,7 @@ uint64_t __173__VUIUniversalCollectionAssetController_startDownloadAllowingCellu
         v12 = [v5 indexOfObject:{v11, v18}];
         if (v12 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          [v5 addObject:v11];
-          v13 = VUIDefaultLogObject();
+          v13 = VUIDefaultLogObject([v5 addObject:v11]);
           if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_12;
@@ -601,8 +600,7 @@ uint64_t __173__VUIUniversalCollectionAssetController_startDownloadAllowingCellu
 
         else
         {
-          [v5 replaceObjectAtIndex:v12 withObject:v11];
-          v13 = VUIDefaultLogObject();
+          v13 = VUIDefaultLogObject([v5 replaceObjectAtIndex:v12 withObject:v11]);
           if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_12;
@@ -635,25 +633,25 @@ LABEL_12:
 
 - (void)removeAssetControllers:(id)controllers
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assetControllers = self->_assetControllers;
   controllersCopy = controllers;
   v6 = [(NSArray *)assetControllers mutableCopy];
   [v6 removeObjectsInArray:controllersCopy];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [(NSArray *)self->_assetControllers count];
-    v10 = 134218240;
-    v11 = v8;
-    v12 = 2048;
-    v13 = [v6 count];
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIUniversalCollectionAssetController:: removeAssetControllers, before: %lu, after: %lu", &v10, 0x16u);
+    v9 = [(NSArray *)self->_assetControllers count];
+    v11 = 134218240;
+    v12 = v9;
+    v13 = 2048;
+    v14 = [v6 count];
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIUniversalCollectionAssetController:: removeAssetControllers, before: %lu, after: %lu", &v11, 0x16u);
   }
 
-  v9 = [v6 copy];
-  [(VUIUniversalCollectionAssetController *)self setAssetControllers:v9];
+  v10 = [v6 copy];
+  [(VUIUniversalCollectionAssetController *)self setAssetControllers:v10];
 
   [(VUIUniversalCollectionAssetController *)self _updateDownloadStateAndNotifyListeners];
 }

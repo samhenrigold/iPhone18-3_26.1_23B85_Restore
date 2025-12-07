@@ -25,8 +25,8 @@
   if (dataCopy)
   {
     v8 = objc_alloc_init(THMacTOCNode);
-    [(THMacTOCNode *)v8 setNodeType:8];
-    -[THMacTOCNode setTitle:](v8, "setTitle:", [THBundle() localizedStringForKey:@"Thumbnails" value:&stru_471858 table:0]);
+    v9 = [(THMacTOCNode *)v8 setNodeType:8];
+    -[THMacTOCNode setTitle:](v8, "setTitle:", [THBundle(v9 v10)]);
     [(THMacTOCNode *)v8 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
     [(THMacTOCNode *)v8 setDisplayPageNumber:&stru_471858];
     [(THMacTOCNode *)v7 addChild:v8];
@@ -35,247 +35,248 @@
   properties = [root properties];
   if ([properties introMediaUrl])
   {
-    v10 = objc_alloc_init(THMacTOCNode);
-    [(THMacTOCNode *)v10 setNodeType:2];
-    -[THMacTOCNode setTitle:](v10, "setTitle:", [THBundle() localizedStringForKey:@"Intro Image" value:&stru_471858 table:0]);
-    [(THMacTOCNode *)v10 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
-    [(THMacTOCNode *)v10 setDisplayPageNumber:&stru_471858];
-    if ([properties introMediaIsVideo])
+    v12 = objc_alloc_init(THMacTOCNode);
+    v13 = [(THMacTOCNode *)v12 setNodeType:2];
+    -[THMacTOCNode setTitle:](v12, "setTitle:", [THBundle(v13 v14)]);
+    [(THMacTOCNode *)v12 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
+    [(THMacTOCNode *)v12 setDisplayPageNumber:&stru_471858];
+    introMediaIsVideo = [properties introMediaIsVideo];
+    if (introMediaIsVideo)
     {
-      -[THMacTOCNode setTitle:](v10, "setTitle:", [THBundle() localizedStringForKey:@"Intro Movie" value:&stru_471858 table:0]);
-      v11 = +[AVAsset assetWithURL:](AVAsset, "assetWithURL:", [properties introMediaUrl]);
-      if (v11)
+      -[THMacTOCNode setTitle:](v12, "setTitle:", [THBundle(introMediaIsVideo v16)]);
+      v17 = +[AVAsset assetWithURL:](AVAsset, "assetWithURL:", [properties introMediaUrl]);
+      if (v17)
       {
-        [(AVAsset *)v11 duration];
+        objc_msgSend_duration(v17);
         Seconds = CMTimeGetSeconds(&time);
-        v13 = floor(Seconds / 60.0);
-        v14 = Seconds - v13 * 60.0;
-        v15 = floor(v13 / 60.0);
-        v16 = v13 - v15 * 60.0;
-        v17 = THBundle();
-        if (v15 <= 0.0)
+        v19 = floor(Seconds / 60.0);
+        v20 = Seconds - v19 * 60.0;
+        v21 = floor(v19 / 60.0);
+        v22 = v19 - v21 * 60.0;
+        v25 = THBundle(v23, v24);
+        if (v21 <= 0.0)
         {
-          v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v17 localizedStringForKey:@"%1$2d:%2$02d" value:&stru_471858 table:0], v16, v14, v47);
+          v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v25 localizedStringForKey:@"%1$2d:%2$02d" value:&stru_471858 table:0], v22, v20, v57);
         }
 
         else
         {
-          v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v17 localizedStringForKey:@"%1$2d:%2$02d:%3$02d" value:&stru_471858 table:0], v15, v16, v14);
+          v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v25 localizedStringForKey:@"%1$2d:%2$02d:%3$02d" value:&stru_471858 table:0], v21, v22, v20);
         }
 
-        [(THMacTOCNode *)v10 setDisplayPageNumber:v18];
+        [(THMacTOCNode *)v12 setDisplayPageNumber:v26];
       }
     }
 
-    [(THMacTOCNode *)v7 addChild:v10];
+    [(THMacTOCNode *)v7 addChild:v12];
   }
 
   tocModel = [root tocModel];
-  v20 = 0;
+  v28 = 0;
   if ([objc_msgSend(tocModel "tiles")])
   {
-    v21 = 0;
-    v54 = v7;
-    v49 = dataCopy;
+    v29 = 0;
+    v64 = v7;
+    v59 = dataCopy;
     navigatorCopy = navigator;
-    v48 = tocModel;
+    v58 = tocModel;
     do
     {
-      v51 = v21;
-      v22 = [objc_msgSend(tocModel "tiles")];
-      browserPageNode = [v22 browserPageNode];
-      v24 = objc_alloc_init(THMacTOCNode);
-      [(THMacTOCNode *)v24 setNodeType:16];
-      -[THMacTOCNode setChapterTOCPageInfo:](v24, "setChapterTOCPageInfo:", [browserPageNode pageAtRelativeIndex:0 forPresentationType:{objc_msgSend(objc_msgSend(root, "properties"), "chapterBrowserPagePresentationType")}]);
-      -[THMacTOCNode setTitle:](v24, "setTitle:", [objc_msgSend(v22 "frontTitleText")]);
-      [(THMacTOCNode *)v24 setNavigator:navigator];
-      -[THMacTOCNode setLink:](v24, "setLink:", [v22 firstModelLink]);
+      v61 = v29;
+      v30 = [objc_msgSend(tocModel "tiles")];
+      browserPageNode = [v30 browserPageNode];
+      v32 = objc_alloc_init(THMacTOCNode);
+      [(THMacTOCNode *)v32 setNodeType:16];
+      -[THMacTOCNode setChapterTOCPageInfo:](v32, "setChapterTOCPageInfo:", [browserPageNode pageAtRelativeIndex:0 forPresentationType:{objc_msgSend(objc_msgSend(root, "properties"), "chapterBrowserPagePresentationType")}]);
+      -[THMacTOCNode setTitle:](v32, "setTitle:", [objc_msgSend(v30 "frontTitleText")]);
+      [(THMacTOCNode *)v32 setNavigator:navigator];
+      -[THMacTOCNode setLink:](v32, "setLink:", [v30 firstModelLink]);
       if (dataCopy)
       {
-        v25 = v20;
+        v33 = v28;
       }
 
       else
       {
-        v25 = 0x7FFFFFFFFFFFFFFFLL;
+        v33 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
-      [(THMacTOCNode *)v24 setAbsolutePageIndex:v25];
+      [(THMacTOCNode *)v32 setAbsolutePageIndex:v33];
       if (dataCopy)
       {
-        -[THMacTOCNode setImageData:](v24, "setImageData:", [objc_msgSend(v22 "largerThumbs")]);
+        -[THMacTOCNode setImageData:](v32, "setImageData:", [objc_msgSend(v30 "largerThumbs")]);
       }
 
-      if ([objc_msgSend(v22 "portraitEntries")])
+      if ([objc_msgSend(v30 "portraitEntries")])
       {
-        v26 = 0;
-        v27 = 0;
+        v34 = 0;
+        v35 = 0;
         do
         {
-          v28 = [objc_msgSend(v22 "portraitEntries")];
-          if (![v28 indentLevel])
+          v36 = [objc_msgSend(v30 "portraitEntries")];
+          if (![v36 indentLevel])
           {
             if (dataCopy)
             {
-              -[THMacTOCNode setNodeNumberString:](v24, "setNodeNumberString:", [v28 sectionIdentifier]);
-              -[THMacTOCNode setDisplayPageNumber:](v24, "setDisplayPageNumber:", [v28 displayPageNumber]);
-              -[THMacTOCNode setDisplayPageNumberValue:](v24, "setDisplayPageNumberValue:", [v28 displayPageNumberValue]);
+              -[THMacTOCNode setNodeNumberString:](v32, "setNodeNumberString:", [v36 sectionIdentifier]);
+              -[THMacTOCNode setDisplayPageNumber:](v32, "setDisplayPageNumber:", [v36 displayPageNumber]);
+              -[THMacTOCNode setDisplayPageNumberValue:](v32, "setDisplayPageNumberValue:", [v36 displayPageNumberValue]);
             }
 
-            -[THMacTOCNode setDisplayPageNumberFormat:](v24, "setDisplayPageNumberFormat:", [v28 displayPageNumberFormat]);
-            -[THMacTOCNode setLink:](v24, "setLink:", [v28 modelLink]);
+            -[THMacTOCNode setDisplayPageNumberFormat:](v32, "setDisplayPageNumberFormat:", [v36 displayPageNumberFormat]);
+            -[THMacTOCNode setLink:](v32, "setLink:", [v36 modelLink]);
           }
 
-          if ([v28 indentLevel] == &dword_0 + 1 && objc_msgSend(v28, "includeInTOC"))
+          if ([v36 indentLevel] == &dword_0 + 1 && objc_msgSend(v36, "includeInTOC"))
           {
-            v27 = objc_alloc_init(THMacTOCNode);
-            if ([v28 pageIndex] == 0x7FFFFFFFFFFFFFFFLL)
+            v35 = objc_alloc_init(THMacTOCNode);
+            if ([v36 pageIndex] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v29 = 128;
+              v37 = 128;
             }
 
             else
             {
-              v29 = 32;
+              v37 = 32;
             }
 
-            [(THMacTOCNode *)v27 setNodeType:v29];
-            [(THMacTOCNode *)v27 setNavigator:navigator];
-            -[THMacTOCNode setTitle:](v27, "setTitle:", [objc_msgSend(v28 "title")]);
+            [(THMacTOCNode *)v35 setNodeType:v37];
+            [(THMacTOCNode *)v35 setNavigator:navigator];
+            -[THMacTOCNode setTitle:](v35, "setTitle:", [objc_msgSend(v36 "title")]);
             if (dataCopy)
             {
-              -[THMacTOCNode setNodeNumberString:](v27, "setNodeNumberString:", [v28 sectionIdentifier]);
-              -[THMacTOCNode setDisplayPageNumber:](v27, "setDisplayPageNumber:", [v28 displayPageNumber]);
-              -[THMacTOCNode setDisplayPageNumberValue:](v27, "setDisplayPageNumberValue:", [v28 displayPageNumberValue]);
-              -[THMacTOCNode setDisplayPageNumberFormat:](v27, "setDisplayPageNumberFormat:", [v28 displayPageNumberFormat]);
-              pageIndex = [v28 pageIndex];
+              -[THMacTOCNode setNodeNumberString:](v35, "setNodeNumberString:", [v36 sectionIdentifier]);
+              -[THMacTOCNode setDisplayPageNumber:](v35, "setDisplayPageNumber:", [v36 displayPageNumber]);
+              -[THMacTOCNode setDisplayPageNumberValue:](v35, "setDisplayPageNumberValue:", [v36 displayPageNumberValue]);
+              -[THMacTOCNode setDisplayPageNumberFormat:](v35, "setDisplayPageNumberFormat:", [v36 displayPageNumberFormat]);
+              pageIndex = [v36 pageIndex];
             }
 
             else
             {
-              -[THMacTOCNode setDisplayPageNumberFormat:](v27, "setDisplayPageNumberFormat:", [v28 displayPageNumberFormat]);
+              -[THMacTOCNode setDisplayPageNumberFormat:](v35, "setDisplayPageNumberFormat:", [v36 displayPageNumberFormat]);
               pageIndex = 0x7FFFFFFFFFFFFFFFLL;
             }
 
-            [(THMacTOCNode *)v27 setAbsolutePageIndex:pageIndex];
-            -[THMacTOCNode setLink:](v27, "setLink:", [v28 modelLink]);
-            if ([v28 pageIndex] != 0x7FFFFFFFFFFFFFFFLL && dataCopy)
+            [(THMacTOCNode *)v35 setAbsolutePageIndex:pageIndex];
+            -[THMacTOCNode setLink:](v35, "setLink:", [v36 modelLink]);
+            if ([v36 pageIndex] != 0x7FFFFFFFFFFFFFFFLL && dataCopy)
             {
-              largerThumbs = [v22 largerThumbs];
-              pageIndex2 = [v28 pageIndex];
-              v33 = pageIndex2 - [(THMacTOCNode *)v24 absolutePageIndex];
+              largerThumbs = [v30 largerThumbs];
+              pageIndex2 = [v36 pageIndex];
+              v41 = pageIndex2 - [(THMacTOCNode *)v32 absolutePageIndex];
               navigator = navigatorCopy;
-              -[THMacTOCNode setImageData:](v27, "setImageData:", [largerThumbs objectAtIndex:v33]);
+              -[THMacTOCNode setImageData:](v35, "setImageData:", [largerThumbs objectAtIndex:v41]);
             }
 
-            [(THMacTOCNode *)v24 addChild:v27];
+            [(THMacTOCNode *)v32 addChild:v35];
           }
 
-          if ([v28 indentLevel] == &dword_0 + 2 && objc_msgSend(v28, "includeInTOC"))
+          if ([v36 indentLevel] == &dword_0 + 2 && objc_msgSend(v36, "includeInTOC"))
           {
-            v34 = objc_alloc_init(THMacTOCNode);
-            [(THMacTOCNode *)v34 setNodeType:128];
-            [(THMacTOCNode *)v34 setNavigator:navigator];
-            -[THMacTOCNode setTitle:](v34, "setTitle:", [objc_msgSend(v28 "title")]);
+            v42 = objc_alloc_init(THMacTOCNode);
+            [(THMacTOCNode *)v42 setNodeType:128];
+            [(THMacTOCNode *)v42 setNavigator:navigator];
+            -[THMacTOCNode setTitle:](v42, "setTitle:", [objc_msgSend(v36 "title")]);
             if (dataCopy)
             {
-              -[THMacTOCNode setNodeNumberString:](v34, "setNodeNumberString:", [v28 sectionIdentifier]);
-              -[THMacTOCNode setDisplayPageNumber:](v34, "setDisplayPageNumber:", [v28 displayPageNumber]);
-              -[THMacTOCNode setDisplayPageNumberValue:](v34, "setDisplayPageNumberValue:", [v28 displayPageNumberValue]);
+              -[THMacTOCNode setNodeNumberString:](v42, "setNodeNumberString:", [v36 sectionIdentifier]);
+              -[THMacTOCNode setDisplayPageNumber:](v42, "setDisplayPageNumber:", [v36 displayPageNumber]);
+              -[THMacTOCNode setDisplayPageNumberValue:](v42, "setDisplayPageNumberValue:", [v36 displayPageNumberValue]);
             }
 
-            -[THMacTOCNode setDisplayPageNumberFormat:](v34, "setDisplayPageNumberFormat:", [v28 displayPageNumberFormat]);
-            [(THMacTOCNode *)v34 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
-            -[THMacTOCNode setLink:](v34, "setLink:", [v28 modelLink]);
-            [(THMacTOCNode *)v27 addChild:v34];
+            -[THMacTOCNode setDisplayPageNumberFormat:](v42, "setDisplayPageNumberFormat:", [v36 displayPageNumberFormat]);
+            [(THMacTOCNode *)v42 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
+            -[THMacTOCNode setLink:](v42, "setLink:", [v36 modelLink]);
+            [(THMacTOCNode *)v35 addChild:v42];
           }
 
-          ++v26;
+          ++v34;
         }
 
-        while (v26 < [objc_msgSend(v22 "portraitEntries")]);
+        while (v34 < [objc_msgSend(v30 "portraitEntries")]);
       }
 
-      [(THMacTOCNode *)v7 addChild:v24];
+      [(THMacTOCNode *)v7 addChild:v32];
       if (dataCopy)
       {
-        ++v20;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        largerThumbs2 = [v22 largerThumbs];
-        v36 = [largerThumbs2 countByEnumeratingWithState:&v55 objects:v60 count:16];
-        if (v36)
+        ++v28;
+        v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
+        largerThumbs2 = [v30 largerThumbs];
+        v44 = [largerThumbs2 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        if (v44)
         {
-          v37 = v36;
-          v38 = *v56;
-          v39 = 1;
+          v45 = v44;
+          v46 = *v66;
+          v47 = 1;
           do
           {
-            for (i = 0; i != v37; i = i + 1)
+            for (i = 0; i != v45; i = i + 1)
             {
-              if (*v56 != v38)
+              if (*v66 != v46)
               {
                 objc_enumerationMutation(largerThumbs2);
               }
 
-              if ((v39 & 1) == 0)
+              if ((v47 & 1) == 0)
               {
-                v41 = *(*(&v55 + 1) + 8 * i);
-                v42 = [self nodeForPageIndex:v20 inNode:v54 excludeHeadings:1];
-                v43 = objc_alloc_init(THMacTOCNode);
-                [(THMacTOCNode *)v43 setNodeType:64];
-                -[THMacTOCNode setDisplayPageNumberValue:](v43, "setDisplayPageNumberValue:", [v42 displayPageNumberValue] + v20 - objc_msgSend(v42, "absolutePageIndex"));
-                -[THMacTOCNode setDisplayPageNumberFormat:](v43, "setDisplayPageNumberFormat:", [v42 displayPageNumberFormat]);
-                [(THMacTOCNode *)v43 setDisplayPageNumber:[NSString stringForValue:[(THMacTOCNode *)v43 displayPageNumberValue] withListNumberFormat:[(THMacTOCNode *)v43 displayPageNumberFormat] includeFormatting:0]];
-                [(THMacTOCNode *)v43 setAbsolutePageIndex:v20];
-                [(THMacTOCNode *)v43 setImageData:v41];
-                [(THMacTOCNode *)v24 addPage:v43];
+                v49 = *(*(&v65 + 1) + 8 * i);
+                v50 = [self nodeForPageIndex:v28 inNode:v64 excludeHeadings:1];
+                v51 = objc_alloc_init(THMacTOCNode);
+                [(THMacTOCNode *)v51 setNodeType:64];
+                -[THMacTOCNode setDisplayPageNumberValue:](v51, "setDisplayPageNumberValue:", [v50 displayPageNumberValue] + v28 - objc_msgSend(v50, "absolutePageIndex"));
+                -[THMacTOCNode setDisplayPageNumberFormat:](v51, "setDisplayPageNumberFormat:", [v50 displayPageNumberFormat]);
+                [(THMacTOCNode *)v51 setDisplayPageNumber:[NSString stringForValue:[(THMacTOCNode *)v51 displayPageNumberValue] withListNumberFormat:[(THMacTOCNode *)v51 displayPageNumberFormat] includeFormatting:0]];
+                [(THMacTOCNode *)v51 setAbsolutePageIndex:v28];
+                [(THMacTOCNode *)v51 setImageData:v49];
+                [(THMacTOCNode *)v32 addPage:v51];
 
-                ++v20;
+                ++v28;
               }
 
-              v39 = 0;
+              v47 = 0;
             }
 
-            v37 = [largerThumbs2 countByEnumeratingWithState:&v55 objects:v60 count:16];
-            v39 = 0;
+            v45 = [largerThumbs2 countByEnumeratingWithState:&v65 objects:v70 count:16];
+            v47 = 0;
           }
 
-          while (v37);
+          while (v45);
         }
       }
 
-      v21 = v51 + 1;
-      tocModel = v48;
-      v7 = v54;
-      dataCopy = v49;
+      v29 = v61 + 1;
+      tocModel = v58;
+      v7 = v64;
+      dataCopy = v59;
       navigator = navigatorCopy;
     }
 
-    while (v51 + 1 < [objc_msgSend(v48 "tiles")]);
+    while (v61 + 1 < [objc_msgSend(v58 "tiles")]);
   }
 
   if (dataCopy)
   {
-    v44 = v20;
+    v52 = v28;
   }
 
   else
   {
-    v44 = 0x7FFFFFFFFFFFFFFFLL;
+    v52 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  [(THMacTOCNode *)v7 setAbsolutePageIndex:v44];
+  [(THMacTOCNode *)v7 setAbsolutePageIndex:v52];
   if ([objc_msgSend(root "glossary")])
   {
-    v45 = objc_alloc_init(THMacTOCNode);
-    [(THMacTOCNode *)v45 setNodeType:4];
-    -[THMacTOCNode setTitle:](v45, "setTitle:", [THBundle() localizedStringForKey:@"Glossary" value:&stru_471858 table:0]);
-    [(THMacTOCNode *)v45 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
-    [(THMacTOCNode *)v45 setDisplayPageNumber:&stru_471858];
-    [(THMacTOCNode *)v7 addChild:v45];
+    v53 = objc_alloc_init(THMacTOCNode);
+    v54 = [(THMacTOCNode *)v53 setNodeType:4];
+    -[THMacTOCNode setTitle:](v53, "setTitle:", [THBundle(v54 v55)]);
+    [(THMacTOCNode *)v53 setAbsolutePageIndex:0x7FFFFFFFFFFFFFFFLL];
+    [(THMacTOCNode *)v53 setDisplayPageNumber:&stru_471858];
+    [(THMacTOCNode *)v7 addChild:v53];
   }
 
   return v7;
@@ -640,28 +641,32 @@ LABEL_20:
     {
       if ([(THMacTOCNode *)self navigator]&& [(THMacTOCNode *)self link])
       {
-        if (![(THDocumentRoot *)[(THDocumentNavigator *)[(THMacTOCNode *)self navigator] documentRoot] reflowablePaginationController]|| [(THReflowablePaginationController *)[(THDocumentRoot *)[(THDocumentNavigator *)[(THMacTOCNode *)self navigator] documentRoot] reflowablePaginationController] paginationComplete])
+        if (![(THDocumentRoot *)[(THDocumentNavigator *)[(THMacTOCNode *)self navigator] documentRoot] reflowablePaginationController]|| (absolutePageIndex = [(THReflowablePaginationController *)[(THDocumentRoot *)[(THDocumentNavigator *)[(THMacTOCNode *)self navigator] documentRoot] reflowablePaginationController] paginationComplete], absolutePageIndex))
         {
-          v4 = [(THDocumentNavigator *)[(THMacTOCNode *)self navigator] pageNumberStringForLink:[(THMacTOCNode *)self link]];
+          v6 = [(THDocumentNavigator *)[(THMacTOCNode *)self navigator] pageNumberStringForLink:[(THMacTOCNode *)self link]];
 LABEL_12:
-          result = v4;
+          result = v6;
           goto LABEL_13;
         }
       }
 
-      else if ([(THMacTOCNode *)self absolutePageIndex]!= 0x7FFFFFFFFFFFFFFFLL)
+      else
       {
-        v4 = [NSString stringWithFormat:@"%ld", [(THMacTOCNode *)self absolutePageIndex]+ 1];
-        goto LABEL_12;
+        absolutePageIndex = [(THMacTOCNode *)self absolutePageIndex];
+        if (absolutePageIndex != 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v6 = [NSString stringWithFormat:@"%ld", [(THMacTOCNode *)self absolutePageIndex]+ 1];
+          goto LABEL_12;
+        }
       }
 
-      result = [THBundle() localizedStringForKey:@"-" value:&stru_471858 table:0];
+      result = [THBundle(absolutePageIndex v5)];
 LABEL_13:
       self->_displayPageNumber = result;
       return result;
     }
 
-    v4 = [NSString stringForValue:[(THMacTOCNode *)self displayPageNumberValue] withListNumberFormat:[(THMacTOCNode *)self displayPageNumberFormat] includeFormatting:0];
+    v6 = [NSString stringForValue:[(THMacTOCNode *)self displayPageNumberValue] withListNumberFormat:[(THMacTOCNode *)self displayPageNumberFormat] includeFormatting:0];
     goto LABEL_12;
   }
 

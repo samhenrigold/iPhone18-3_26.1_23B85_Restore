@@ -1,10 +1,10 @@
 @interface UIEventFetcher
 - (UIEventFetcher)init;
-- (uint64_t)_latestHoverEventForContextID:(uint64_t)result;
-- (uint64_t)_receiveHIDEventInternal:(uint64_t)result;
-- (uint64_t)signalEventsAvailableWithReason:(uint64_t)result filteredEventCount:(uint64_t)count;
+- (_DWORD)signalEventsAvailableWithReason:(uint64_t)reason filteredEventCount:;
+- (void)_latestHoverEventForContextID:(void *)result;
 - (void)_logSynchronizedEvent:(uint64_t)event;
 - (void)_receiveHIDEvent:(__IOHIDEvent *)event;
+- (void)_receiveHIDEventInternal:(uint64_t)internal;
 - (void)_removeHIDEventObserver;
 - (void)_removeHIDGameControllerEventObserver;
 - (void)_requestFilterChainUpdate;
@@ -310,7 +310,7 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
 
 - (void)displayLinkDidFire:(id)fire
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   fireCopy = fire;
   kdebug_trace();
   self->_countOfEventsReceivedInPreviousFrame = self->_countOfEventsReceivedSinceLastDisplayLinkCallback;
@@ -318,8 +318,8 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
   [(CADisplayLink *)self->_displayLink timestamp];
   self->_estimatedDisplayLinkDrift = v4 - v5;
   v6 = self->_latestMoveDragEventsBySessionID;
-  v26 = [(NSMutableDictionary *)v6 count];
-  if (v26)
+  v27 = [(NSMutableDictionary *)v6 count];
+  if (v27)
   {
     v7 = self->_latestMoveDragEventTimestamp >= self->_latestMoveDragEventResendTimestamp ? self->_latestMoveDragEventTimestamp : self->_latestMoveDragEventResendTimestamp;
     v8 = CACurrentMediaTime();
@@ -335,14 +335,14 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
         }
       }
 
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v48 = __37__UIEventFetcher_displayLinkDidFire___block_invoke;
-      v49 = &unk_1E70F35B8;
-      v50 = v6;
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v49 = __37__UIEventFetcher_displayLinkDidFire___block_invoke;
+      v50 = &unk_1E70F35B8;
+      v51 = v6;
       selfCopy = self;
       os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
-      v48(v47);
+      v49(v48);
       os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
       self->_latestMoveDragEventResendTimestamp = v8;
     }
@@ -350,40 +350,40 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
 
   if ([(NSMutableSet *)self->_contextIDsNeedingHoverEventResend count])
   {
-    v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
+    v45 = 0u;
     v10 = self->_contextIDsNeedingHoverEventResend;
-    v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v11)
     {
-      v12 = *v44;
+      v12 = *v45;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v44 != v12)
+          if (*v45 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = -[UIEventFetcher _latestHoverEventForContextID:](self, [*(*(&v43 + 1) + 8 * i) unsignedIntegerValue]);
+          v14 = -[UIEventFetcher _latestHoverEventForContextID:](self, [*(*(&v44 + 1) + 8 * i) unsignedIntegerValue]);
           if (v14)
           {
-            v38[0] = MEMORY[0x1E69E9820];
-            v38[1] = 3221225472;
-            v39 = __37__UIEventFetcher_displayLinkDidFire___block_invoke_3;
-            v40 = &unk_1E70F32F0;
+            v39[0] = MEMORY[0x1E69E9820];
+            v39[1] = 3221225472;
+            v40 = __37__UIEventFetcher_displayLinkDidFire___block_invoke_3;
+            v41 = &unk_1E70F32F0;
             selfCopy2 = self;
-            v42 = v14;
+            v43 = v14;
             os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
-            v39(v38);
+            v40(v39);
             os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
           }
         }
 
-        v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v44 objects:v53 count:16];
       }
 
       while (v11);
@@ -393,20 +393,20 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
   }
 
   *buf = 0;
-  v35 = buf;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v29 = __37__UIEventFetcher_displayLinkDidFire___block_invoke_4;
-  v30 = &unk_1E70FEE78;
+  v36 = buf;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v30 = __37__UIEventFetcher_displayLinkDidFire___block_invoke_4;
+  v31 = &unk_1E70FEE78;
   selfCopy3 = self;
   v15 = fireCopy;
-  v32 = v15;
-  v33 = buf;
-  v16 = v28;
+  v33 = v15;
+  v34 = buf;
+  v16 = v29;
   os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
-  v29(v16);
+  v30(v16);
 
   os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
   if (self->_countOfEventsReceivedSinceLastDisplayLinkCallback)
@@ -414,7 +414,8 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
     if (self->_needsSignalOnDisplayLink)
     {
       kdebug_trace();
-      if (*(v35 + 6) >= 1)
+      v17 = *(v36 + 6);
+      if (v17 >= 1)
       {
         goto LABEL_26;
       }
@@ -424,11 +425,12 @@ uint64_t __59__UIEventFetcher_resendDragMoveEventsOnTimer_withInterval___block_i
   else
   {
     kdebug_trace();
-    if (*(v35 + 6) >= 1)
+    v17 = *(v36 + 6);
+    if (v17 >= 1)
     {
 LABEL_26:
-      [UIEventFetcher signalEventsAvailableWithReason:2 filteredEventCount:?];
-      v17 = 1;
+      [(UIEventFetcher *)self signalEventsAvailableWithReason:v17 filteredEventCount:?];
+      v18 = 1;
       goto LABEL_34;
     }
 
@@ -437,8 +439,8 @@ LABEL_26:
     if (displayLinkIdleTicks >= -1)
     {
       isPaused = [v15 isPaused];
-      v20 = v26 ? 1 : isPaused;
-      if ((v20 & 1) == 0)
+      v21 = v27 ? 1 : isPaused;
+      if ((v21 & 1) == 0)
       {
         [v15 setPaused:1];
         self->_commitTimeForTouchEvents = 0.0;
@@ -447,16 +449,16 @@ LABEL_26:
     }
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_34:
   [v15 timestamp];
-  v22 = v21;
+  v23 = v22;
   [v15 targetTimestamp];
-  v24 = v23;
+  v25 = v24;
   [v15 timestamp];
-  if (self->_lastImportantEventTimestamp < v22 + (v24 - v25) * -0.3)
+  if (self->_lastImportantEventTimestamp < v23 + (v25 - v26) * -0.3)
   {
-    self->_didSignalOneMoveEventSinceLastDisplayLinkCallback = v17;
+    self->_didSignalOneMoveEventSinceLastDisplayLinkCallback = v18;
     self->_countOfEventsReceivedSinceLastDisplayLinkCallback = 0;
   }
 
@@ -477,11 +479,11 @@ uint64_t __37__UIEventFetcher_displayLinkDidFire___block_invoke(uint64_t a1)
   return [v1 enumerateKeysAndObjectsUsingBlock:v3];
 }
 
-- (uint64_t)_latestHoverEventForContextID:(uint64_t)result
+- (void)_latestHoverEventForContextID:(void *)result
 {
   if (result)
   {
-    v2 = *(result + 240);
+    v2 = result[30];
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
     v4 = [v2 objectForKey:v3];
 
@@ -491,7 +493,7 @@ uint64_t __37__UIEventFetcher_displayLinkDidFire___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __37__UIEventFetcher_displayLinkDidFire___block_invoke_4(uint64_t a1)
+void *__37__UIEventFetcher_displayLinkDidFire___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 40) timestamp];
   v3 = *(a1 + 32);
@@ -507,32 +509,32 @@ uint64_t __37__UIEventFetcher_displayLinkDidFire___block_invoke_4(uint64_t a1)
   return result;
 }
 
-- (uint64_t)signalEventsAvailableWithReason:(uint64_t)result filteredEventCount:(uint64_t)count
+- (_DWORD)signalEventsAvailableWithReason:(uint64_t)reason filteredEventCount:
 {
   if (result)
   {
-    v2 = result;
-    *(result + 72) = 0;
-    if ((count - 1) > 6)
+    v3 = result;
+    result[18] = 0;
+    if ((a2 - 1) > 6)
     {
-      v3 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v3 = qword_18A67FA88[count - 1];
+      v4 = qword_18A67FA88[a2 - 1];
     }
 
-    *(result + 152) = v3;
-    *(result + 160) = count;
-    v4 = CACurrentMediaTime();
-    v5 = *(v2 + 136);
-    *(v2 + 120) = v4;
-    *(v2 + 128) = v5;
+    *(result + 19) = v4;
+    *(result + 20) = a2;
+    v5 = CACurrentMediaTime();
+    v6 = *(v3 + 17);
+    *(v3 + 15) = v5;
+    *(v3 + 16) = v6;
     kdebug_trace();
-    v6 = *(v2 + 256);
+    v7 = *(v3 + 32);
 
-    return [v6 eventFetcherDidReceiveEvents:v2];
+    return [v7 eventFetcherDidReceiveEvents:v3];
   }
 
   return result;
@@ -548,49 +550,49 @@ uint64_t __37__UIEventFetcher_displayLinkDidFire___block_invoke_4(uint64_t a1)
   _UIEventHIDEnumerateChildren(event, 11, v1);
 }
 
-void __40__UIEventFetcher__logSynchronizedEvent___block_invoke()
+void __40__UIEventFetcher__logSynchronizedEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   TimeStamp = IOHIDEventGetTimeStamp();
-  v1 = _UIMediaTimeForMachTime(TimeStamp);
-  v2 = BKSHIDEventGetDigitizerAttributes();
-  v3 = _UIEventHIDPathAttributesForChild(v2);
-  v4 = v3;
-  if (v3)
+  v4 = _UIMediaTimeForMachTime(TimeStamp);
+  v5 = BKSHIDEventGetDigitizerAttributes();
+  v6 = _UIEventHIDPathAttributesForChild(v5, a2);
+  v7 = v6;
+  if (v6)
   {
-    [v3 hitTestLocationX];
-    v6 = v5;
-    [v4 hitTestLocationY];
+    [v6 hitTestLocationX];
+    v9 = v8;
+    [v7 hitTestLocationY];
   }
 
   else
   {
     IOHIDEventGetFloatValue();
-    v6 = v8;
+    v9 = v11;
     IOHIDEventGetFloatValue();
   }
 
-  v9 = v7;
+  v12 = v10;
 
   IntegerValue = IOHIDEventGetIntegerValue();
-  v11 = IOHIDEventGetIntegerValue();
+  v14 = IOHIDEventGetIntegerValue();
   CategoryCachedImpl = __UILogGetCategoryCachedImpl("HIDEventSynchronization", &_UIInternalPreference_HIDEventsDeliverImmediatly_block_invoke___s_category);
   if (*CategoryCachedImpl)
   {
-    v13 = *(CategoryCachedImpl + 8);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = *(CategoryCachedImpl + 8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v14[0] = 67110144;
-      v14[1] = v11 != 0;
-      v15 = 1024;
-      v16 = (IntegerValue >> 7) & 1;
-      v17 = 2048;
-      v18 = v6;
-      v19 = 2048;
-      v20 = v9;
-      v21 = 2048;
-      v22 = v1;
-      _os_log_impl(&dword_188A29000, v13, OS_LOG_TYPE_ERROR, "[UIEventFetcher] Synchronized event (t: %u, c: %u). Position: [%f:%f]. Timestamp: %f", v14, 0x2Cu);
+      v17[0] = 67110144;
+      v17[1] = v14 != 0;
+      v18 = 1024;
+      v19 = (IntegerValue >> 7) & 1;
+      v20 = 2048;
+      v21 = v9;
+      v22 = 2048;
+      v23 = v12;
+      v24 = 2048;
+      v25 = v4;
+      _os_log_impl(&dword_188A29000, v16, OS_LOG_TYPE_ERROR, "[UIEventFetcher] Synchronized event (t: %u, c: %u). Position: [%f:%f]. Timestamp: %f", v17, 0x2Cu);
     }
   }
 }
@@ -618,11 +620,10 @@ void __35__UIEventFetcher__receiveHIDEvent___block_invoke(uint64_t a1)
   CFRelease(v2);
 }
 
-- (uint64_t)_receiveHIDEventInternal:(uint64_t)result
+- (void)_receiveHIDEventInternal:(uint64_t)internal
 {
-  if (result)
+  if (internal)
   {
-    v3 = result;
     _UIEventProfileCollectionSubmitEvent(a2);
     Type = IOHIDEventGetType();
     IOHIDEventGetEventFlags();
@@ -647,31 +648,30 @@ void __35__UIEventFetcher__receiveHIDEvent___block_invoke(uint64_t a1)
       v14 = 3221225472;
       v15 = __39__UIEventFetcher_filterEventAndSignal___block_invoke;
       v16 = &unk_1E70F32F0;
-      v17 = v3;
+      internalCopy2 = internal;
       v18 = a2;
       os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
       __39__UIEventFetcher_filterEventAndSignal___block_invoke(&v13);
       os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
-      [*(v3 + 256) eventFetcherDidReceiveEvents:v3];
+      [*(internal + 256) eventFetcherDidReceiveEvents:internal];
       kdebug_trace();
     }
 
-    result = _UIUpdateCycleEnabled();
-    if ((result & 1) == 0)
+    if ((_UIUpdateCycleEnabled() & 1) == 0)
     {
       kdebug_trace();
       v12[0] = MEMORY[0x1E69E9820];
       v12[1] = 3221225472;
       v12[2] = __43__UIEventFetcher__receiveHIDEventInternal___block_invoke;
       v12[3] = &unk_1E70F3590;
-      v12[4] = v3;
+      v12[4] = internal;
       os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
       __43__UIEventFetcher__receiveHIDEventInternal___block_invoke(v12);
       os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
-      v37[0] = 0;
-      v37[1] = v37;
-      v37[2] = 0x2020000000;
-      v38 = 0;
+      v37 = 0;
+      v38 = &v37;
+      v39 = 0x2020000000;
+      v40 = 0;
       v33 = 0;
       v34 = &v33;
       v35 = 0x2020000000;
@@ -688,8 +688,8 @@ void __35__UIEventFetcher__receiveHIDEvent___block_invoke(uint64_t a1)
       v26[1] = v26;
       v26[2] = 0x2020000000;
       v27 = 0;
-      v6 = *(v3 + 168);
-      isPaused = [*(v3 + 80) isPaused];
+      v6 = *(internal + 168);
+      isPaused = [*(internal + 80) isPaused];
       v13 = MEMORY[0x1E69E9820];
       v14 = 3221225472;
       v15 = __30__UIEventFetcher_filterEvent___block_invoke;
@@ -698,8 +698,8 @@ void __35__UIEventFetcher__receiveHIDEvent___block_invoke(uint64_t a1)
       v25 = v6;
       v22 = v28;
       v23 = a2;
-      v17 = v3;
-      v18 = v37;
+      internalCopy2 = internal;
+      v18 = &v37;
       v19 = &v33;
       v20 = &v29;
       v21 = v26;
@@ -711,34 +711,32 @@ void __35__UIEventFetcher__receiveHIDEvent___block_invoke(uint64_t a1)
       kdebug_trace();
       if (*(v34 + 24) == 1)
       {
-        if (*(v3 + 80))
+        if (*(internal + 80))
         {
           v9 = CACurrentMediaTime();
-          v10 = *(v3 + 192);
+          v10 = *(internal + 192);
           if (v10 != 0.0)
           {
-            v11 = v10 - *(v3 + 184);
+            v11 = v10 - *(internal + 184);
             if (v10 < v9 + v11 * 0.3)
             {
-              *(v3 + 184) = v10;
-              *(v3 + 192) = v10 + v11;
+              *(internal + 184) = v10;
+              *(internal + 192) = v10 + v11;
             }
           }
         }
 
-        [UIEventFetcher signalEventsAvailableWithReason:v3 filteredEventCount:v30[3]];
+        [(UIEventFetcher *)internal signalEventsAvailableWithReason:*(v38 + 6) filteredEventCount:?];
       }
 
       _Block_object_dispose(v26, 8);
       _Block_object_dispose(v28, 8);
       _Block_object_dispose(&v29, 8);
       _Block_object_dispose(&v33, 8);
-      _Block_object_dispose(v37, 8);
-      return kdebug_trace();
+      _Block_object_dispose(&v37, 8);
+      kdebug_trace();
     }
   }
-
-  return result;
 }
 
 uint64_t __43__UIEventFetcher__receiveHIDEventInternal___block_invoke(uint64_t result)
@@ -769,32 +767,32 @@ uint64_t __43__UIEventFetcher__receiveHIDEventInternal___block_invoke(uint64_t r
   }
 }
 
-uint64_t __48__UIEventFetcher__resendHoverEventForContextID___block_invoke(uint64_t result)
+void *__48__UIEventFetcher__resendHoverEventForContextID___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1)
   {
-    v2 = *(result + 40);
+    v2 = *(result + 10);
     if ((_UIUpdateCycleEnabled() & 1) == 0)
     {
-      v3 = v1[29];
+      v3 = *(v1 + 232);
       if (!v3)
       {
         v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-        v5 = v1[29];
-        v1[29] = v4;
+        v5 = *(v1 + 232);
+        *(v1 + 232) = v4;
 
-        v3 = v1[29];
+        v3 = *(v1 + 232);
       }
 
       v6 = [v3 count];
-      v7 = v1[29];
+      v7 = *(v1 + 232);
       v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v2];
       [v7 addObject:v8];
 
-      if ([v1[10] isPaused] && objc_msgSend(v1[29], "count") > v6)
+      if ([*(v1 + 80) isPaused] && objc_msgSend(*(v1 + 232), "count") > v6)
       {
-        [v1[10] setPaused:0];
+        [*(v1 + 80) setPaused:0];
       }
     }
 
@@ -813,7 +811,7 @@ uint64_t __48__UIEventFetcher__resendHoverEventForContextID___block_invoke(uint6
         os_unfair_lock_lock(&__UIEventFetcherEventArrayAccessLock);
         __56__UIEventFetcher__resendHoverEventForContextIDInternal___block_invoke(&v9);
         os_unfair_lock_unlock(&__UIEventFetcherEventArrayAccessLock);
-        return [v1[32] eventFetcherDidReceiveEvents:{v1, v9, v10}];
+        return [*(v1 + 256) eventFetcherDidReceiveEvents:{v1, v9, v10}];
       }
     }
   }
@@ -863,7 +861,7 @@ void __45__UIEventFetcher_drainEventsIntoEnvironment___block_invoke(uint64_t a1)
           objc_enumerationMutation(v4);
         }
 
-        if (_UIEventHIDEventWantsImmediateDelivery())
+        if (_UIEventHIDEventWantsImmediateDelivery(*(*(&v40 + 1) + 8 * i)))
         {
 
           goto LABEL_25;
@@ -1228,7 +1226,7 @@ LABEL_30:
       switch(v24)
       {
         case 3:
-          v28 = _UIEventHIDPressTypeForKeyboardHIDEvent() == -1;
+          v28 = _UIEventHIDPressTypeForKeyboardHIDEvent(v22) == -1;
 LABEL_51:
           v26 = !v28;
           break;
@@ -1263,7 +1261,7 @@ LABEL_51:
         goto LABEL_115;
       }
 
-      if (_UIEventHIDEventWantsImmediateDelivery())
+      if (_UIEventHIDEventWantsImmediateDelivery(v22))
       {
         *(*(*(a1 + 48) + 8) + 24) = 1;
         *(*(*(a1 + 56) + 8) + 24) = 4;
@@ -1284,7 +1282,7 @@ LABEL_51:
       }
 
       v33 = *(v31 + 152);
-      if (_UIEventHIDEventWantsImmediateDelivery())
+      if (_UIEventHIDEventWantsImmediateDelivery(v22))
       {
         goto LABEL_75;
       }
@@ -1665,7 +1663,7 @@ LABEL_160:
 
     if ((_UIUpdateCycleEnabled() & 1) == 0)
     {
-      [UIEventFetcher signalEventsAvailableWithReason:sink filteredEventCount:1];
+      [(UIEventFetcher *)sink signalEventsAvailableWithReason:0 filteredEventCount:?];
     }
   }
 }

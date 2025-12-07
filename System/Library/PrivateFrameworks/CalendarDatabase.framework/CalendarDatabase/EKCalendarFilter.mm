@@ -7,6 +7,9 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isFilteringAll;
 - (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type calendarUIDs:(id)ds;
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type filteringCalendars:(id)calendars;
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type filteringCalendarsWithUIDs:(id)ds;
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type showingCalendarsWithUIDs:(id)ds;
 - (EKCalendarFilter)initWithDatabase:(CalDatabase *)database showingCalendars:(id)calendars;
 - (EKCalendarFilter)initWithDatabase:(CalDatabase *)database showingCalendarsWithUIDs:(id)ds;
 - (id)_UIDAntiSetWithCalendars:(id)calendars;
@@ -23,6 +26,7 @@
 - (id)filterQueryForQueryString:(id)string creator:(void *)creator userInfo:(void *)info;
 - (id)filteredCalendars;
 - (id)initFilteringAllWithDatabase:(CalDatabase *)database;
+- (id)visibleCalendarsWithOptions:(int)options;
 - (int)visibleCalendarCountWithOptions:(int)options;
 - (void)dealloc;
 - (void)validate;
@@ -99,6 +103,53 @@
   return v8;
 }
 
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type showingCalendarsWithUIDs:(id)ds
+{
+  v5 = *&type;
+  dsCopy = ds;
+  v9 = [(EKCalendarFilter *)self initWithDatabase:database entityType:v5 calendarUIDs:0];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = [(EKCalendarFilter *)v9 _generateUIDSetToShowCalendarUIDs:dsCopy];
+    calendarUIDs = v10->_calendarUIDs;
+    v10->_calendarUIDs = v11;
+  }
+
+  return v10;
+}
+
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type filteringCalendars:(id)calendars
+{
+  v5 = *&type;
+  calendarsCopy = calendars;
+  v9 = [(EKCalendarFilter *)self initWithDatabase:database entityType:v5 calendarUIDs:0];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = [(EKCalendarFilter *)v9 _generateUIDSetToFilterCalendars:calendarsCopy];
+    calendarUIDs = v10->_calendarUIDs;
+    v10->_calendarUIDs = v11;
+  }
+
+  return v10;
+}
+
+- (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type filteringCalendarsWithUIDs:(id)ds
+{
+  v5 = *&type;
+  dsCopy = ds;
+  v9 = [(EKCalendarFilter *)self initWithDatabase:database entityType:v5 calendarUIDs:0];
+  if (v9)
+  {
+    v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:dsCopy];
+    calendarUIDs = v9->_calendarUIDs;
+    v9->_calendarUIDs = v10;
+  }
+
+  return v9;
+}
+
 - (EKCalendarFilter)initWithDatabase:(CalDatabase *)database entityType:(int)type calendarUIDs:(id)ds
 {
   dsCopy = ds;
@@ -139,86 +190,82 @@
 
 - (id)_UIDSetWithCalendars:(id)calendars
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   calendarsCopy = calendars;
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = calendarsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if (_CalCalendarCanContainEntityType(*(*(&v14 + 1) + 8 * i), self->_entityType))
+        if (_CalCalendarCanContainEntityType(*(*(&v13 + 1) + 8 * i), self->_entityType))
         {
-          v11 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v14}];
+          v11 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v13}];
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_UIDAntiSetWithCalendars:(id)calendars
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   calendarsCopy = calendars;
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = calendarsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         Store = _CalCalendarGetStore(v11);
         if (!Store || (v13 = Store, !_CalStoreIsEnabled(Store)) || self->_entityType == 2 && !_CalStoreAllowsEvents(v13) || _CalCalendarIsHidden(v11) || (_CalCalendarCanContainEntityType(v11, self->_entityType) & 1) == 0)
         {
-          v14 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v17}];
+          v14 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v16}];
           [v5 addObject:v14];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -298,40 +345,39 @@
 
 - (id)filteredCalendars
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
   if (CalDatabaseLockForThread(self->_database))
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = self->_calendarUIDs;
-    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           RecordStore = _CalDatabaseGetRecordStore(self->_database);
-          [v9 intValue];
-          CalendarWithUID = _CalGetCalendarWithUID(RecordStore);
+          CalendarWithUID = _CalGetCalendarWithUID(RecordStore, [v9 intValue]);
           if (CalendarWithUID)
           {
             [v3 addObject:CalendarWithUID];
           }
         }
 
-        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -340,41 +386,39 @@
     CalDatabaseUnlockForThread(self->_database);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)_visibleCalendarsWithOptions:(int)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = _CalDatabaseCopyOfAllCalendarsInStoreWithOptions(self->_database, 0, options | 2u);
   if (v4)
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = v4;
-    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (_CalCalendarCanContainEntityTypeAndStoreAllowsIt(v11, 2))
           {
-            v12 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v15}];
+            v12 = [MEMORY[0x1E696AD98] numberWithInt:{CPRecordGetID(), v14}];
             if (([(NSMutableSet *)self->_calendarUIDs containsObject:v12]& 1) == 0)
             {
               [v5 addObject:v11];
@@ -382,7 +426,7 @@
           }
         }
 
-        v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -394,46 +438,63 @@
     v5 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  return v5;
+}
+
+- (id)visibleCalendarsWithOptions:(int)options
+{
+  v3 = *&options;
+  os_unfair_lock_lock(&self->_database->var9);
+  v5 = [(EKCalendarFilter *)self _visibleCalendarsWithOptions:v3];
+  database = self->_database;
+  if (CDBLockingAssertionsEnabled == 1)
+  {
+    os_unfair_lock_assert_owner(&database->var9);
+  }
+
+  os_unfair_lock_unlock(&database->var9);
 
   return v5;
 }
 
 - (int)visibleCalendarCountWithOptions:(int)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = CalDatabaseCopyOfAllCalendarsInStoreWithOptions(self->_database, 0, options | 2u);
   v5 = v4;
   if (v4)
   {
+    v19 = 0u;
+    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
     v6 = v4;
-    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [(__CFArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v16;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          if (CalCalendarCanContainEntityTypeAndStoreAllowsIt(*(*(&v15 + 1) + 8 * i), 2))
+          v12 = *(*(&v17 + 1) + 8 * i);
+          if (CalCalendarCanContainEntityTypeAndStoreAllowsIt(v12, 2))
           {
-            v12 = [MEMORY[0x1E696AD98] numberWithInt:{CalCalendarGetUID(), v15}];
-            v9 += [(NSMutableSet *)self->_calendarUIDs containsObject:v12]^ 1;
+            v13 = MEMORY[0x1E696AD98];
+            UID = CalCalendarGetUID(v12);
+            v15 = [v13 numberWithInt:{UID, v17}];
+            v9 += [(NSMutableSet *)self->_calendarUIDs containsObject:v15]^ 1;
           }
         }
 
-        v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [(__CFArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
@@ -450,7 +511,6 @@
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -531,8 +591,7 @@ LABEL_13:
 {
   dCopy = d;
   setCopy = set;
-  [dCopy intValue];
-  v8 = CalDatabaseCopyCalendarWithUID(database);
+  v8 = CalDatabaseCopyCalendarWithUID(database, [dCopy intValue]);
   if (v8)
   {
     v9 = v8;
@@ -547,29 +606,29 @@ LABEL_13:
 
 + (void)_addCalendarUIDsFromPrefs:(id)prefs toSet:(id)set database:(CalDatabase *)database
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   prefsCopy = prefs;
   setCopy = set;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v10 = [prefsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [prefsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(prefsCopy);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -580,20 +639,17 @@ LABEL_13:
       }
 
       while (v11 != v13);
-      v11 = [prefsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [prefsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addCalendarsForStoreWithUID:(id)d toSet:(id)set database:(CalDatabase *)database
 {
   setCopy = set;
-  [d intValue];
-  v7 = CalDatabaseCopyStoreWithUID(database);
+  v7 = CalDatabaseCopyStoreWithUID(database, [d intValue]);
   if (v7)
   {
     v8 = v7;
@@ -610,7 +666,7 @@ LABEL_13:
           ValueAtIndex = CFArrayGetValueAtIndex(v10, i);
           if (!CalCalendarIsHidden(ValueAtIndex) && CalCalendarCanContainEntityTypeAndStoreAllowsIt(ValueAtIndex, 2))
           {
-            v15 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarGetUID()];
+            v15 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarGetUID(ValueAtIndex)];
             [setCopy addObject:v15];
           }
         }
@@ -625,71 +681,67 @@ LABEL_13:
 
 - (void)validate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(NSMutableSet *)self->_calendarUIDs count])
   {
     v3 = [(NSMutableSet *)self->_calendarUIDs copy];
+    v15 = 0u;
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (!v5)
     {
       goto LABEL_16;
     }
 
     v6 = v5;
-    v7 = *v18;
+    v7 = *v16;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        database = self->_database;
-        [v9 intValue];
-        v11 = CalDatabaseCopyCalendarWithUID(database);
-        if (!v11)
+        v9 = *(*(&v15 + 1) + 8 * i);
+        v10 = CalDatabaseCopyCalendarWithUID(self->_database, [v9 intValue]);
+        if (!v10)
         {
           goto LABEL_13;
         }
 
-        v12 = v11;
-        if (CalCalendarIsHidden(v11) || (v13 = CalCalendarCopyStore(v12)) == 0)
+        v11 = v10;
+        if (CalCalendarIsHidden(v10) || (v12 = CalCalendarCopyStore(v11)) == 0)
         {
-          CFRelease(v12);
+          CFRelease(v11);
 LABEL_13:
           [(NSMutableSet *)self->_calendarUIDs removeObject:v9];
           continue;
         }
 
-        v14 = v13;
-        IsEnabled = CalStoreIsEnabled(v13);
-        CFRelease(v14);
-        CFRelease(v12);
+        v13 = v12;
+        IsEnabled = CalStoreIsEnabled(v12);
+        CFRelease(v13);
+        CFRelease(v11);
         if (!IsEnabled)
         {
           goto LABEL_13;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (!v6)
       {
 LABEL_16:
 
-        break;
+        return;
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_addFilterToQuery:(id)query creator:(void *)creator userInfo:(void *)info

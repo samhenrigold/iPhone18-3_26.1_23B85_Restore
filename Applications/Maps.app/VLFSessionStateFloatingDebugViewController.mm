@@ -134,7 +134,7 @@
   }
 
   session = [(VLFSessionStateFloatingDebugViewController *)self session];
-  configuration = [session configuration];
+  v22 = objc_msgSend_configuration(session);
 
   v23 = objc_opt_class();
   v24 = NSStringFromClass(v23);
@@ -143,13 +143,13 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    templateConfiguration = [configuration templateConfiguration];
+    templateConfiguration = [v22 templateConfiguration];
     v26 = objc_opt_class();
     v27 = NSStringFromClass(v26);
     [v4 appendFormat:@"Template configuration: %@\n", v27];
   }
 
-  v73 = configuration;
+  v73 = v22;
   [v4 appendFormat:@"\nCurrent state:"];
   session2 = [(VLFSessionStateFloatingDebugViewController *)self session];
   state = [session2 state];
@@ -284,7 +284,7 @@
   v69 = mapView;
   if (mapView)
   {
-    [mapView _userTrackingBehavior];
+    objc_msgSend__userTrackingBehavior(mapView);
   }
 
   v70 = VKStringForAnnotationTrackingBehavior();

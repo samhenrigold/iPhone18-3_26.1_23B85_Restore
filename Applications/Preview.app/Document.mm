@@ -11,7 +11,7 @@
 
 - (void)closeWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000FF5D8(&qword_10020D600);
+  v5 = sub_1000FF5D8(&qword_10020D600, &qword_1001A50F0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -36,7 +36,7 @@
 
 - (void)handleError:(id)error userInteractionPermitted:(BOOL)permitted
 {
-  v7 = sub_1000FF5D8(&qword_10020D600);
+  v7 = sub_1000FF5D8(&qword_10020D600, &qword_1001A50F0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = type metadata accessor for TaskPriority();
@@ -72,7 +72,7 @@
 
 - (void)presentedItemDidMoveToURL:(id)l
 {
-  v4 = sub_1000FF5D8(&qword_10020D600);
+  v4 = sub_1000FF5D8(&qword_10020D600, &qword_1001A50F0);
   __chkstk_darwin(v4 - 8);
   v6 = &v19 - v5;
   v7 = type metadata accessor for URL();
@@ -102,7 +102,7 @@
 
 - (void)openWithCompletionHandler:(id)handler
 {
-  v5 = sub_1000FF5D8(&qword_10020D600);
+  v5 = sub_1000FF5D8(&qword_10020D600, &qword_1001A50F0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -133,7 +133,7 @@
   v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = OBJC_IVAR____TtC17PreviewFoundation8Document_openingOptions;
-  v9 = type metadata accessor for DocumentOpeningOptions();
+  v9 = type metadata accessor for DocumentOpeningOptions(0);
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   *&self->stateDelegate[OBJC_IVAR____TtC17PreviewFoundation8Document_stateDelegate] = 0;
   swift_unknownObjectWeakInit();

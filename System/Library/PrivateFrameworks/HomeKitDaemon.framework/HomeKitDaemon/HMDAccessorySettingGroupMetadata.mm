@@ -10,7 +10,7 @@
 
 - (id)modelsWithParentIdentifier:(id)identifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [HMDAccessorySettingGroupModel alloc];
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -20,70 +20,69 @@
   [(HMDAccessorySettingGroupModel *)v7 setName:name];
 
   v9 = [MEMORY[0x277CBEB18] arrayWithObject:v7];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   settings = [(HMDAccessorySettingGroupMetadata *)self settings];
-  v11 = [settings countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v11 = [settings countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(settings);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         uuid = [(HMDBackingStoreModelObject *)v7 uuid];
         v17 = [v15 modelsWithParentIdentifier:uuid];
         [v9 addObjectsFromArray:v17];
       }
 
-      v12 = [settings countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v12 = [settings countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v12);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   groups = [(HMDAccessorySettingGroupMetadata *)self groups];
-  v19 = [groups countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v19 = [groups countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v30;
+    v21 = *v29;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(groups);
         }
 
-        v23 = *(*(&v29 + 1) + 8 * j);
+        v23 = *(*(&v28 + 1) + 8 * j);
         uuid2 = [(HMDBackingStoreModelObject *)v7 uuid];
         v25 = [v23 modelsWithParentIdentifier:uuid2];
         [v9 addObjectsFromArray:v25];
       }
 
-      v20 = [groups countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v20 = [groups countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v20);
   }
 
-  v26 = [v9 copy];
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = objc_msgSend_copy(v9);
 
   return v26;
 }
@@ -113,7 +112,7 @@
     v15 = [(HMDAccessorySettingGroupMetadata *)&v23 init];
     if (v15)
     {
-      v16 = [v14 copy];
+      v16 = objc_msgSend_copy(v14);
       name = v15->_name;
       v15->_name = v16;
 
@@ -134,7 +133,7 @@
 
       if (settingsCopy)
       {
-        v20 = [settingsCopy copy];
+        v20 = objc_msgSend_copy(settingsCopy);
       }
 
       else
@@ -149,7 +148,7 @@
 
       if (groupsCopy)
       {
-        v21 = [groupsCopy copy];
+        v21 = objc_msgSend_copy(groupsCopy);
       }
 
       else
@@ -206,34 +205,34 @@
 
 + (id)groupsWithArrayRepresenation:(id)represenation parentKeyPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   represenationCopy = represenation;
   pathCopy = path;
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = represenationCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = [HMDAccessorySettingGroupMetadata groupWithDictonaryRepresentation:v13 parentKeyPath:pathCopy, v18];
+          v14 = [HMDAccessorySettingGroupMetadata groupWithDictonaryRepresentation:v13 parentKeyPath:pathCopy, v17];
           if (v14)
           {
             [array addObject:v14];
@@ -241,14 +240,13 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  v15 = [array copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(array);
 
   return v15;
 }

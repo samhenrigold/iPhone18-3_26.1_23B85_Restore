@@ -11,6 +11,7 @@
 - (void)remote_leaveInvitationWithUUID:(id)d completion:(id)completion;
 - (void)remote_revokeInvitationWithUUID:(id)d completion:(id)completion;
 - (void)remote_unpauseInvitationWithUUID:(id)d completion:(id)completion;
+- (void)remote_updateAuthorizationIdentifiersForInvitationUUID:(id)d sharingAuthorizationsToAdd:(id)add sharingAuthorizationsToDelete:(id)delete deleteOnCommit:(BOOL)commit completion:(id)completion;
 - (void)remote_updateNotificationStatusWithUUID:(id)d notificationStatus:(int64_t)status completion:(id)completion;
 - (void)sharingEntriesDidUpdate:(id)update;
 - (void)summarySharingEntryIDSManager:(id)manager didUpdateReachabilityStatus:(id)status error:(id)error;
@@ -61,11 +62,11 @@
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sharingEntryManager = self->_sharingEntryManager;
-  v9 = 0;
-  v5 = [(HDSummarySharingEntryManager *)sharingEntryManager resolveContactsIfNeededWithError:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [(HDSummarySharingEntryManager *)sharingEntryManager resolveContactsIfNeededWithError:&v8];
+  v6 = v8;
   if (!v5)
   {
     _HKInitializeLogging();
@@ -74,13 +75,11 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = v6;
+      v11 = 2114;
+      v12 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to resolve contacts: %{public}@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)taskIdentifier
@@ -92,10 +91,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -118,26 +116,24 @@
 
 void __100__HDSummarySharingEntryStoreServer_summarySharingEntryIDSManager_didUpdateReachabilityStatus_error___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of reachability status update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of reachability status update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingEntriesDidUpdate:(id)update
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if ([updateCopy count])
   {
@@ -147,42 +143,42 @@ void __100__HDSummarySharingEntryStoreServer_summarySharingEntryIDSManager_didUp
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v37 = 2112;
-      v38 = updateCopy;
+      v36 = 2112;
+      v37 = updateCopy;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Sharing entries updated: %@", buf, 0x16u);
     }
 
     client = [(HDStandardTaskServer *)self client];
     connection = [client connection];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke;
-    v33[3] = &unk_2786138D0;
-    v33[4] = self;
-    v25 = [connection remoteObjectProxyWithErrorHandler:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke;
+    v32[3] = &unk_2786138D0;
+    v32[4] = self;
+    v24 = [connection remoteObjectProxyWithErrorHandler:v32];
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = updateCopy;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         v13 = 0;
         do
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          uUID = [*(*(&v29 + 1) + 8 * v13) UUID];
+          uUID = [*(*(&v28 + 1) + 8 * v13) UUID];
           v15 = HDSummarySharingEntryPredicateForUUID(uUID);
           [v8 addObject:v15];
 
@@ -190,7 +186,7 @@ void __100__HDSummarySharingEntryStoreServer_summarySharingEntryIDSManager_didUp
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v11);
@@ -199,21 +195,21 @@ void __100__HDSummarySharingEntryStoreServer_summarySharingEntryIDSManager_didUp
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
     sharingEntryManager = self->_sharingEntryManager;
     v18 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v8];
-    v28 = 0;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke_298;
-    v26[3] = &unk_27861D260;
-    v26[4] = self;
+    v27 = 0;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke_298;
+    v25[3] = &unk_27861D260;
+    v25[4] = self;
     v19 = v16;
-    v27 = v19;
-    v20 = [(HDSummarySharingEntryManager *)sharingEntryManager enumerateCodableEntriesWithPredicate:v18 error:&v28 handler:v26];
-    v21 = v28;
+    v26 = v19;
+    v20 = [(HDSummarySharingEntryManager *)sharingEntryManager enumerateCodableEntriesWithPredicate:v18 error:&v27 handler:v25];
+    v21 = v27;
 
     if (v20)
     {
-      v22 = v25;
-      [v25 clientRemote_sharingEntriesDidUpdate:v19];
+      v22 = v24;
+      [v24 clientRemote_sharingEntriesDidUpdate:v19];
     }
 
     else
@@ -224,35 +220,31 @@ void __100__HDSummarySharingEntryStoreServer_summarySharingEntryIDSManager_didUp
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v37 = 2112;
-        v38 = v21;
+        v36 = 2112;
+        v37 = v21;
         _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Sharing entries updated but failed to fetch new entries. %@", buf, 0x16u);
       }
 
-      v22 = v25;
+      v22 = v24;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of sharing entry update: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of sharing entry update: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__HDSummarySharingEntryStoreServer_sharingEntriesDidUpdate___block_invoke_298(uint64_t a1, void *a2)
@@ -392,6 +384,17 @@ void __78__HDSummarySharingEntryStoreServer_remote_leaveInvitationWithUUID_compl
   v7 = [(HDSummarySharingEntryManager *)sharingEntryManager updateEntryWithUUID:d pauseStatus:0 error:&v9];
   v8 = v9;
   completionCopy[2](completionCopy, v7, v8);
+}
+
+- (void)remote_updateAuthorizationIdentifiersForInvitationUUID:(id)d sharingAuthorizationsToAdd:(id)add sharingAuthorizationsToDelete:(id)delete deleteOnCommit:(BOOL)commit completion:(id)completion
+{
+  commitCopy = commit;
+  sharingEntryManager = self->_sharingEntryManager;
+  v15 = 0;
+  completionCopy = completion;
+  v13 = [(HDSummarySharingEntryManager *)sharingEntryManager updateEntryWithUUID:d authorizationsToAdd:add authorizationsToDelete:delete deleteOnCommit:commitCopy error:&v15];
+  v14 = v15;
+  completionCopy[2](completionCopy, v13, v14);
 }
 
 - (void)remote_updateNotificationStatusWithUUID:(id)d notificationStatus:(int64_t)status completion:(id)completion

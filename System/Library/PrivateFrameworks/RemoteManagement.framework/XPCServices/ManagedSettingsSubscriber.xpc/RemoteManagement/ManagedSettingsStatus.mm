@@ -42,7 +42,7 @@
 - (_TtC25ManagedSettingsSubscriber21ManagedSettingsStatus)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ManagedSettingsStatus();
+  v3.super_class = type metadata accessor for ManagedSettingsStatus(self, a2);
   return [(ManagedSettingsStatus *)&v3 init];
 }
 

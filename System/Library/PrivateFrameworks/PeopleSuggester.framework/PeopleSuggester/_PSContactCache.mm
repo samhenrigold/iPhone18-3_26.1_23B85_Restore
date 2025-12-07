@@ -15,7 +15,6 @@
 - (void)_setContact:(id)contact forHandle:(id)handle;
 - (void)_setLikelyFaceTimeHandle:(id)handle forContactIdentifier:(id)identifier;
 - (void)dealloc;
-- (void)fetchMeContact;
 - (void)syncChangeHistory;
 - (void)visitAddContactEvent:(id)event;
 - (void)visitDeleteContactEvent:(id)event;
@@ -38,35 +37,35 @@
 
 - (_PSContactCache)init
 {
-  v43.receiver = self;
-  v43.super_class = _PSContactCache;
-  v2 = [(_PSContactCache *)&v43 init];
+  v44.receiver = self;
+  v44.super_class = _PSContactCache;
+  v2 = [(_PSContactCache *)&v44 init];
   if (!v2)
   {
     return v2;
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2050000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2050000000;
   v3 = getCNContactStoreClass_softClass_6;
-  v52 = getCNContactStoreClass_softClass_6;
+  v53 = getCNContactStoreClass_softClass_6;
   if (!getCNContactStoreClass_softClass_6)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getCNContactStoreClass_block_invoke_6;
-    v47 = &unk_1E7C23BF0;
-    v48 = &v49;
-    ContactsLibraryCore_8();
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getCNContactStoreClass_block_invoke_6;
+    v48 = &unk_1E7C23BF0;
+    v49 = &v50;
+    ContactsLibraryCore_8(0);
     Class = objc_getClass("CNContactStore");
-    *(v48[1] + 24) = Class;
-    getCNContactStoreClass_softClass_6 = *(v48[1] + 24);
-    v3 = v50[3];
+    *(v49[1] + 24) = Class;
+    getCNContactStoreClass_softClass_6 = *(v49[1] + 24);
+    v3 = v51[3];
   }
 
   v5 = v3;
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   v6 = objc_opt_new();
   contactStore = v2->_contactStore;
   v2->_contactStore = v6;
@@ -87,51 +86,51 @@
   cachedFaceTimeableHandleForContactIdentifier = v2->_cachedFaceTimeableHandleForContactIdentifier;
   v2->_cachedFaceTimeableHandleForContactIdentifier = v16;
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2050000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2050000000;
   v18 = getIDSIDQueryControllerClass_softClass;
-  v52 = getIDSIDQueryControllerClass_softClass;
+  v53 = getIDSIDQueryControllerClass_softClass;
   if (!getIDSIDQueryControllerClass_softClass)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getIDSIDQueryControllerClass_block_invoke;
-    v47 = &unk_1E7C23BF0;
-    v48 = &v49;
-    IDSLibraryCore();
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getIDSIDQueryControllerClass_block_invoke;
+    v48 = &unk_1E7C23BF0;
+    v49 = &v50;
+    IDSLibraryCore(0);
     v19 = objc_getClass("IDSIDQueryController");
-    *(v48[1] + 24) = v19;
-    getIDSIDQueryControllerClass_softClass = *(v48[1] + 24);
-    v18 = v50[3];
+    *(v49[1] + 24) = v19;
+    getIDSIDQueryControllerClass_softClass = *(v49[1] + 24);
+    v18 = v51[3];
   }
 
   v20 = v18;
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   sharedInstance = [v18 sharedInstance];
   idsQueryController = v2->_idsQueryController;
   v2->_idsQueryController = sharedInstance;
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
   v23 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
-  v52 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
+  v53 = getIDSServiceNameFaceTimeSymbolLoc_ptr;
   if (!getIDSServiceNameFaceTimeSymbolLoc_ptr)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getIDSServiceNameFaceTimeSymbolLoc_block_invoke;
-    v47 = &unk_1E7C23BF0;
-    v48 = &v49;
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getIDSServiceNameFaceTimeSymbolLoc_block_invoke;
+    v48 = &unk_1E7C23BF0;
+    v49 = &v50;
     v24 = IDSLibrary();
     v25 = dlsym(v24, "IDSServiceNameFaceTime");
-    *(v48[1] + 24) = v25;
-    getIDSServiceNameFaceTimeSymbolLoc_ptr = *(v48[1] + 24);
-    v23 = v50[3];
+    *(v49[1] + 24) = v25;
+    getIDSServiceNameFaceTimeSymbolLoc_ptr = *(v49[1] + 24);
+    v23 = v51[3];
   }
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   if (v23)
   {
     objc_storeStrong(&v2->_faceTimeServiceName, *v23);
@@ -145,43 +144,43 @@
     block[1] = 3221225472;
     block[2] = __23___PSContactCache_init__block_invoke;
     block[3] = &unk_1E7C25710;
-    objc_copyWeak(&v41, &location);
+    objc_copyWeak(&v42, &location);
     v28 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x2020000000;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
     v30 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0;
-    v52 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0;
+    v53 = getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0;
     if (!getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0)
     {
-      v44 = MEMORY[0x1E69E9820];
-      v45 = 3221225472;
-      v46 = __getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke_0;
-      v47 = &unk_1E7C23BF0;
-      v48 = &v49;
+      v45 = MEMORY[0x1E69E9820];
+      v46 = 3221225472;
+      v47 = __getCNContactStoreDidChangeNotificationSymbolLoc_block_invoke_0;
+      v48 = &unk_1E7C23BF0;
+      v49 = &v50;
       v31 = ContactsLibrary_7();
       v32 = dlsym(v31, "CNContactStoreDidChangeNotification");
-      *(v48[1] + 24) = v32;
-      getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0 = *(v48[1] + 24);
-      v30 = v50[3];
+      *(v49[1] + 24) = v32;
+      getCNContactStoreDidChangeNotificationSymbolLoc_ptr_0 = *(v49[1] + 24);
+      v30 = v51[3];
     }
 
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v50, 8);
     if (v30)
     {
       v33 = *v30;
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __23___PSContactCache_init__block_invoke_2;
-      v38[3] = &unk_1E7C25738;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __23___PSContactCache_init__block_invoke_2;
+      v39[3] = &unk_1E7C25738;
       v34 = v28;
-      v39 = v34;
-      v35 = [defaultCenter addObserverForName:v33 object:0 queue:0 usingBlock:v38];
+      v40 = v34;
+      v35 = [defaultCenter addObserverForName:v33 object:0 queue:0 usingBlock:v39];
       notificationCenterToken = v2->_notificationCenterToken;
       v2->_notificationCenterToken = v35;
 
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(&location);
       return v2;
     }
@@ -192,8 +191,8 @@
     [_PSBlockedHandlesCache beginSyncingWithTU];
   }
 
-  dlerror();
-  result = abort_report_np();
+  v38 = dlerror();
+  result = abort_report_np("%s", v38);
   __break(1u);
   return result;
 }
@@ -332,7 +331,7 @@
 
 - (void)_setContact:(id)contact
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   v5 = contactCopy;
   if (contactCopy)
@@ -340,28 +339,28 @@
     identifier = [contactCopy identifier];
     [(_PSContactCache *)self _setContact:v5 forHandle:identifier];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     phoneNumbers = [v5 phoneNumbers];
-    v8 = [phoneNumbers countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [phoneNumbers countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       do
       {
         v11 = 0;
         do
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
           v12 = MEMORY[0x1E69978B0];
-          value = [*(*(&v29 + 1) + 8 * v11) value];
+          value = [*(*(&v28 + 1) + 8 * v11) value];
           stringValue = [value stringValue];
           v15 = [v12 normalizedStringFromContactString:stringValue];
 
@@ -370,34 +369,34 @@
         }
 
         while (v9 != v11);
-        v9 = [phoneNumbers countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [phoneNumbers countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v9);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     emailAddresses = [v5 emailAddresses];
-    v17 = [emailAddresses countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v17 = [emailAddresses countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         v20 = 0;
         do
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
           v21 = MEMORY[0x1E69978B0];
-          value2 = [*(*(&v25 + 1) + 8 * v20) value];
+          value2 = [*(*(&v24 + 1) + 8 * v20) value];
           v23 = [v21 normalizedStringFromContactString:value2];
 
           [(_PSContactCache *)self _setContact:v5 forHandle:v23];
@@ -405,14 +404,12 @@
         }
 
         while (v18 != v20);
-        v18 = [emailAddresses countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v18 = [emailAddresses countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v18);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)visitAddContactEvent:(id)event
@@ -463,22 +460,179 @@
 
 - (void)syncChangeHistory
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "_PSContactCache: Enumerating CNContactStore change history failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
+  v2 = +[_PSLogging generalChannel];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B5ED1000, v2, OS_LOG_TYPE_DEFAULT, "_PSContactCache: Synchronizing ContactStore history changes.", buf, 2u);
+  }
+
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2050000000;
+  v3 = getCNChangeHistoryFetchRequestClass_softClass_0;
+  v44 = getCNChangeHistoryFetchRequestClass_softClass_0;
+  if (!getCNChangeHistoryFetchRequestClass_softClass_0)
+  {
+    *buf = MEMORY[0x1E69E9820];
+    v37 = 3221225472;
+    v38 = __getCNChangeHistoryFetchRequestClass_block_invoke_0;
+    v39 = &unk_1E7C23BF0;
+    v40 = &v41;
+    ContactsLibraryCore_8(0);
+    Class = objc_getClass("CNChangeHistoryFetchRequest");
+    *(v40[1] + 24) = Class;
+    getCNChangeHistoryFetchRequestClass_softClass_0 = *(v40[1] + 24);
+    v3 = v42[3];
+  }
+
+  v5 = v3;
+  _Block_object_dispose(&v41, 8);
+  v29 = objc_opt_new();
+  [v29 setStartingToken:self->_changeHistoryToken];
+  [v29 setIncludeGroupChanges:0];
+  [v29 setShouldUnifyResults:0];
+  contactKeysToFetch = [(_PSContactCache *)self contactKeysToFetch];
+  [v29 setAdditionalContactKeyDescriptors:contactKeysToFetch];
+
+  contactStore = self->_contactStore;
+  v35 = 0;
+  v27 = [(CNContactStore *)contactStore enumeratorForChangeHistoryFetchRequest:v29 error:&v35];
+  v8 = v35;
+  v9 = v8;
+  if (v27 && !v8)
+  {
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    obj = [v27 value];
+    v10 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+    if (v10)
+    {
+      v11 = 0;
+      v12 = *v32;
+      while (2)
+      {
+        v13 = 0;
+        v14 = v11 + 1;
+        v11 += v10;
+        do
+        {
+          if (*v32 != v12)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v15 = *(*(&v31 + 1) + 8 * v13);
+          v16 = objc_autoreleasePoolPush();
+          v17 = v9;
+          v41 = 0;
+          v42 = &v41;
+          v43 = 0x2050000000;
+          v18 = getCNChangeHistoryDropEverythingEventClass_softClass_0;
+          v44 = getCNChangeHistoryDropEverythingEventClass_softClass_0;
+          if (!getCNChangeHistoryDropEverythingEventClass_softClass_0)
+          {
+            *buf = MEMORY[0x1E69E9820];
+            v37 = 3221225472;
+            v38 = __getCNChangeHistoryDropEverythingEventClass_block_invoke_0;
+            v39 = &unk_1E7C23BF0;
+            v40 = &v41;
+            ContactsLibraryCore_8(0);
+            v19 = objc_getClass("CNChangeHistoryDropEverythingEvent");
+            *(v40[1] + 24) = v19;
+            getCNChangeHistoryDropEverythingEventClass_softClass_0 = *(v40[1] + 24);
+            v18 = v42[3];
+          }
+
+          v20 = v18;
+          _Block_object_dispose(&v41, 8);
+          v9 = v17;
+          if (objc_opt_isKindOfClass())
+          {
+            v22 = +[_PSLogging generalChannel];
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            {
+              [_PSContactCache syncChangeHistory];
+            }
+
+            objc_autoreleasePoolPop(v16);
+            [(_PSContactCache *)self _purge];
+            goto LABEL_23;
+          }
+
+          [v15 acceptEventVisitor:self];
+          objc_autoreleasePoolPop(v16);
+          ++v13;
+          ++v14;
+        }
+
+        while (v10 != v13);
+        v10 = [obj countByEnumeratingWithState:&v31 objects:v45 count:16];
+        if (v10)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+      v14 = v11;
+LABEL_23:
+      if (v14 >= 1)
+      {
+        fetchMeContact = [(_PSContactCache *)self fetchMeContact];
+LABEL_29:
+        currentHistoryToken = [v27 currentHistoryToken];
+        changeHistoryToken = self->_changeHistoryToken;
+        self->_changeHistoryToken = currentHistoryToken;
+
+        v21 = +[_PSLogging generalChannel];
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1B5ED1000, v21, OS_LOG_TYPE_DEFAULT, "_PSContactCache: Finished synchronizing ContactStore history changes.", buf, 2u);
+        }
+
+        goto LABEL_31;
+      }
+    }
+
+    else
+    {
+    }
+
+    v24 = +[_PSLogging generalChannel];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1B5ED1000, v24, OS_LOG_TYPE_DEFAULT, "_PSContactCache: No events in ContactStore change history. Skipping me contact update.", buf, 2u);
+    }
+
+    goto LABEL_29;
+  }
+
+  v21 = +[_PSLogging generalChannel];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    [_PSContactCache syncChangeHistory];
+  }
+
+LABEL_31:
 }
 
 - (id)fetchMeContact
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   contactStore = self->_contactStore;
   v4 = getCNContactIdentifierKey_4();
-  v16[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
-  v13 = 0;
-  v6 = [(CNContactStore *)contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v5 error:&v13];
-  v7 = v13;
+  v15[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v12 = 0;
+  v6 = [(CNContactStore *)contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v5 error:&v12];
+  v7 = v12;
 
   if (v7)
   {
@@ -498,7 +652,7 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_DEFAULT, "_PSContactCache: Me Card query returns nil in _PSContactCache. Error: %@", buf, 0xCu);
   }
 
@@ -512,14 +666,13 @@ LABEL_9:
   }
 
   [(_PSContactCache *)self _setContact:v6 forHandle:@"kMeSentinelString"];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)getFaceTimeableHandleForContact:(id)contact interactionStore:(id)store seedRecipientHandle:(id)handle
 {
-  v158 = *MEMORY[0x1E69E9840];
+  v157 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   storeCopy = store;
   handleCopy = handle;
@@ -565,7 +718,7 @@ LABEL_9:
   identifier = [contactCopy identifier];
   v22 = [(_PSContactCache *)self _getCachedFaceTimeableHandleForContactIdentifier:identifier];
 
-  v133 = v22;
+  v132 = v22;
   if (v22)
   {
     v23 = +[_PSLogging generalChannel];
@@ -575,28 +728,28 @@ LABEL_9:
       handle = [v22 handle];
       identifier2 = [contactCopy identifier];
       *buf = 138412546;
-      v155 = handle;
-      v156 = 2112;
-      v157 = identifier2;
+      v154 = handle;
+      v155 = 2112;
+      v156 = identifier2;
       _os_log_impl(&dword_1B5ED1000, v23, OS_LOG_TYPE_DEFAULT, "Returning cached FaceTimeable handle %@ for contact UUID %@", buf, 0x16u);
     }
 
-    handle2 = [v133 handle];
+    handle2 = [v132 handle];
     goto LABEL_121;
   }
 
-  v131 = v14;
-  v132 = v12;
+  v130 = v14;
+  v131 = v12;
   identifier3 = [contactCopy identifier];
   v28 = +[_PSConstants macFacetimeBundleId];
-  v153[0] = v28;
+  v152[0] = v28;
   v29 = +[_PSConstants mobileFacetimeBundleId];
-  v153[1] = v29;
-  handle2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:2];
-  v130 = storeCopy;
+  v152[1] = v29;
+  handle2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:2];
+  v129 = storeCopy;
   v30 = [_PSInteractionStoreUtils mostRecentInteractionInvolvingMatchingIdentifier:identifier3 store:storeCopy bundleIds:handle2];
 
-  v129 = v30;
+  v128 = v30;
   if (!v30)
   {
     type = 0;
@@ -609,29 +762,29 @@ LABEL_9:
   {
     identifier4 = [contactCopy identifier];
     *buf = 138412290;
-    v155 = identifier4;
+    v154 = identifier4;
     _os_log_impl(&dword_1B5ED1000, v31, OS_LOG_TYPE_DEFAULT, "Found previous FaceTime interaction to cache handle for contact UUID %@, checking with IDS filter", buf, 0xCu);
   }
 
   recipients = [v30 recipients];
-  v149[0] = MEMORY[0x1E69E9820];
-  v149[1] = 3221225472;
-  v149[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_73;
-  v149[3] = &unk_1E7C268C8;
+  v148[0] = MEMORY[0x1E69E9820];
+  v148[1] = 3221225472;
+  v148[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_73;
+  v148[3] = &unk_1E7C268C8;
   v34 = contactCopy;
-  v150 = v34;
-  v35 = [recipients _pas_filteredArrayWithTest:v149];
+  v149 = v34;
+  v35 = [recipients _pas_filteredArrayWithTest:v148];
   firstObject3 = [v35 firstObject];
 
   handle2 = [firstObject3 identifier];
-  if (([v132 containsObject:handle2] & 1) == 0 && !objc_msgSend(v131, "containsObject:", handle2))
+  if (([v131 containsObject:handle2] & 1) == 0 && !objc_msgSend(v130, "containsObject:", handle2))
   {
     v44 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       identifier5 = [v34 identifier];
       *buf = 138412290;
-      v155 = identifier5;
+      v154 = identifier5;
       _os_log_impl(&dword_1B5ED1000, v44, OS_LOG_TYPE_DEFAULT, "Found previous FaceTime interaction for best FaceTime handle, but handle no longer associated to contact %@", buf, 0xCu);
     }
 
@@ -661,9 +814,9 @@ LABEL_29:
   {
     identifier6 = [v34 identifier];
     *buf = 138412546;
-    v155 = handle2;
-    v156 = 2112;
-    v157 = identifier6;
+    v154 = handle2;
+    v155 = 2112;
+    v156 = identifier6;
     _os_log_impl(&dword_1B5ED1000, v38, OS_LOG_TYPE_DEFAULT, "Caching handle %@ for contact UUID %@", buf, 0x16u);
   }
 
@@ -682,13 +835,13 @@ LABEL_31:
   }
 
 LABEL_32:
-  v46 = v132;
-  if ([v132 count])
+  v46 = v131;
+  if ([v131 count])
   {
     identifier8 = [contactCopy identifier];
     v48 = [MEMORY[0x1E695DF00] now];
     v49 = [v48 dateByAddingTimeInterval:-86400.0];
-    v50 = [_PSInteractionStoreUtils someIMessageInteractionInvolvingContactIdentifier:identifier8 store:v130 contactType:1 afterStartDate:v49];
+    v50 = [_PSInteractionStoreUtils someIMessageInteractionInvolvingContactIdentifier:identifier8 store:v129 contactType:1 afterStartDate:v49];
 
     v51 = v50;
     if (v50)
@@ -698,37 +851,37 @@ LABEL_32:
       {
         identifier9 = [contactCopy identifier];
         *buf = 138412290;
-        v155 = identifier9;
+        v154 = identifier9;
         _os_log_impl(&dword_1B5ED1000, v52, OS_LOG_TYPE_DEFAULT, "Found previous phone iMessage interaction to cache handle for contact UUID %@, checking with IDS filter", buf, 0xCu);
       }
 
-      v135 = v51;
+      v134 = v51;
       recipients2 = [v51 recipients];
-      v147[0] = MEMORY[0x1E69E9820];
-      v147[1] = 3221225472;
-      v147[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_75;
-      v147[3] = &unk_1E7C268C8;
+      v146[0] = MEMORY[0x1E69E9820];
+      v146[1] = 3221225472;
+      v146[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_75;
+      v146[3] = &unk_1E7C268C8;
       v55 = contactCopy;
-      v148 = v55;
-      v56 = [recipients2 _pas_filteredArrayWithTest:v147];
+      v147 = v55;
+      v56 = [recipients2 _pas_filteredArrayWithTest:v146];
       firstObject4 = [v56 firstObject];
 
       v58 = firstObject4;
       identifier10 = [firstObject4 identifier];
-      if (([v132 containsObject:identifier10] & 1) != 0 || objc_msgSend(v131, "containsObject:", identifier10))
+      if (([v131 containsObject:identifier10] & 1) != 0 || objc_msgSend(v130, "containsObject:", identifier10))
       {
         v60 = -[_PSContactCache getFaceTimeIDSStatusForHandle:contactType:](self, "getFaceTimeIDSStatusForHandle:contactType:", identifier10, [v58 type]);
         if (v60 == 1)
         {
-          v127 = v58;
+          v126 = v58;
           v61 = +[_PSLogging generalChannel];
           if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
             identifier11 = [v55 identifier];
             *buf = 138412546;
-            v155 = identifier10;
-            v156 = 2112;
-            v157 = identifier11;
+            v154 = identifier10;
+            v155 = 2112;
+            v156 = identifier11;
             _os_log_impl(&dword_1B5ED1000, v61, OS_LOG_TYPE_DEFAULT, "Caching handle %@ for contact UUID %@", buf, 0x16u);
           }
 
@@ -737,7 +890,7 @@ LABEL_32:
 
           handle2 = identifier10;
           v64 = 0;
-          v58 = v127;
+          v58 = v126;
         }
 
         else
@@ -759,7 +912,7 @@ LABEL_32:
           [v55 identifier];
           v67 = v66 = v58;
           *buf = 138412290;
-          v155 = v67;
+          v154 = v67;
           _os_log_impl(&dword_1B5ED1000, v65, OS_LOG_TYPE_DEFAULT, "Found previous phone iMessage interaction for best FaceTime handle, but handle no longer associated to contact %@", buf, 0xCu);
 
           v58 = v66;
@@ -770,12 +923,12 @@ LABEL_32:
 
       if (!v64)
       {
-        v100 = v135;
+        v100 = v134;
         goto LABEL_119;
       }
 
-      v46 = v132;
-      v51 = v135;
+      v46 = v131;
+      v51 = v134;
     }
   }
 
@@ -784,32 +937,32 @@ LABEL_32:
   {
     identifier13 = [contactCopy identifier];
     *buf = 138412290;
-    v155 = identifier13;
+    v154 = identifier13;
     _os_log_impl(&dword_1B5ED1000, v68, OS_LOG_TYPE_DEFAULT, "Checking IDS eligibility for phone numbers belong to contact UUID %@", buf, 0xCu);
   }
 
-  v136 = handleCopy;
+  v135 = handleCopy;
 
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
   v70 = v46;
-  v71 = [v70 countByEnumeratingWithState:&v143 objects:v152 count:16];
+  v71 = [v70 countByEnumeratingWithState:&v142 objects:v151 count:16];
   if (v71)
   {
     v72 = v71;
-    v73 = *v144;
+    v73 = *v143;
     do
     {
       for (i = 0; i != v72; ++i)
       {
-        if (*v144 != v73)
+        if (*v143 != v73)
         {
           objc_enumerationMutation(v70);
         }
 
-        v75 = *(*(&v143 + 1) + 8 * i);
+        v75 = *(*(&v142 + 1) + 8 * i);
         v76 = [(_PSContactCache *)self getFaceTimeIDSStatusForHandle:v75 contactType:1];
         if (v76)
         {
@@ -820,9 +973,9 @@ LABEL_32:
             {
               identifier14 = [contactCopy identifier];
               *buf = 138412546;
-              v155 = v75;
-              v156 = 2112;
-              v157 = identifier14;
+              v154 = v75;
+              v155 = 2112;
+              v156 = identifier14;
 LABEL_79:
               _os_log_impl(&dword_1B5ED1000, v96, OS_LOG_TYPE_DEFAULT, "Caching handle %@ for contact UUID %@", buf, 0x16u);
             }
@@ -831,7 +984,7 @@ LABEL_79:
           }
         }
 
-        else if (!v42 || [v136 isEqualToString:v75])
+        else if (!v42 || [v135 isEqualToString:v75])
         {
           v77 = v75;
 
@@ -840,19 +993,19 @@ LABEL_79:
         }
       }
 
-      v72 = [v70 countByEnumeratingWithState:&v143 objects:v152 count:16];
+      v72 = [v70 countByEnumeratingWithState:&v142 objects:v151 count:16];
     }
 
     while (v72);
   }
 
-  handleCopy = v136;
-  if ([v131 count])
+  handleCopy = v135;
+  if ([v130 count])
   {
     identifier15 = [contactCopy identifier];
     v79 = [MEMORY[0x1E695DF00] now];
     v80 = [v79 dateByAddingTimeInterval:-86400.0];
-    v81 = [_PSInteractionStoreUtils someIMessageInteractionInvolvingContactIdentifier:identifier15 store:v130 contactType:2 afterStartDate:v80];
+    v81 = [_PSInteractionStoreUtils someIMessageInteractionInvolvingContactIdentifier:identifier15 store:v129 contactType:2 afterStartDate:v80];
 
     v82 = 0x1E7C23000uLL;
     if (!v81)
@@ -867,40 +1020,40 @@ LABEL_91:
     {
       identifier16 = [contactCopy identifier];
       *buf = 138412290;
-      v155 = identifier16;
+      v154 = identifier16;
       _os_log_impl(&dword_1B5ED1000, v83, OS_LOG_TYPE_DEFAULT, "Found previous email iMessage interaction to cache handle for contact UUID %@", buf, 0xCu);
     }
 
     recipients3 = [v81 recipients];
-    v141[0] = MEMORY[0x1E69E9820];
-    v141[1] = 3221225472;
-    v141[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_76;
-    v141[3] = &unk_1E7C268C8;
-    v126 = contactCopy;
-    v142 = v126;
-    v86 = [recipients3 _pas_filteredArrayWithTest:v141];
+    v140[0] = MEMORY[0x1E69E9820];
+    v140[1] = 3221225472;
+    v140[2] = __88___PSContactCache_getFaceTimeableHandleForContact_interactionStore_seedRecipientHandle___block_invoke_76;
+    v140[3] = &unk_1E7C268C8;
+    v125 = contactCopy;
+    v141 = v125;
+    v86 = [recipients3 _pas_filteredArrayWithTest:v140];
     firstObject5 = [v86 firstObject];
 
     identifier17 = [firstObject5 identifier];
-    v128 = v81;
-    if (([v70 containsObject:identifier17] & 1) == 0 && !objc_msgSend(v131, "containsObject:", identifier17))
+    v127 = v81;
+    if (([v70 containsObject:identifier17] & 1) == 0 && !objc_msgSend(v130, "containsObject:", identifier17))
     {
-      v125 = identifier17;
+      v124 = identifier17;
       v82 = 0x1E7C23000uLL;
       v101 = +[_PSLogging generalChannel];
       if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
       {
-        [v126 identifier];
+        [v125 identifier];
         v103 = v102 = firstObject5;
         *buf = 138412290;
-        v155 = v103;
+        v154 = v103;
         _os_log_impl(&dword_1B5ED1000, v101, OS_LOG_TYPE_DEFAULT, "Found previous email iMessage interaction for best FaceTime handle, but handle no longer associated to contact %@", buf, 0xCu);
 
         firstObject5 = v102;
       }
 
       v95 = 1;
-      identifier17 = v125;
+      identifier17 = v124;
       goto LABEL_89;
     }
 
@@ -912,15 +1065,15 @@ LABEL_91:
       v92 = +[_PSLogging generalChannel];
       if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        identifier18 = [v126 identifier];
+        identifier18 = [v125 identifier];
         *buf = 138412546;
-        v155 = v90;
-        v156 = 2112;
-        v157 = identifier18;
+        v154 = v90;
+        v155 = 2112;
+        v156 = identifier18;
         _os_log_impl(&dword_1B5ED1000, v92, OS_LOG_TYPE_DEFAULT, "Caching handle %@ for contact UUID %@", buf, 0x16u);
       }
 
-      identifier19 = [v126 identifier];
+      identifier19 = [v125 identifier];
       identifier17 = v90;
       [(_PSContactCache *)self _setLikelyFaceTimeHandle:v90 forContactIdentifier:identifier19];
 
@@ -950,11 +1103,11 @@ LABEL_89:
 
     if (v95)
     {
-      v81 = v128;
+      v81 = v127;
       goto LABEL_91;
     }
 
-    v100 = v128;
+    v100 = v127;
 LABEL_119:
 
     goto LABEL_120;
@@ -982,9 +1135,9 @@ LABEL_92:
     {
       identifier20 = [contactCopy identifier];
       *buf = 138412546;
-      v155 = handle2;
-      v156 = 2112;
-      v157 = identifier20;
+      v154 = handle2;
+      v155 = 2112;
+      v156 = identifier20;
       _os_log_impl(&dword_1B5ED1000, generalChannel, OS_LOG_TYPE_DEFAULT, "As best effort guess, using phone number %@ for contact UUID %@", buf, 0x16u);
     }
 
@@ -996,16 +1149,16 @@ LABEL_92:
   {
     identifier21 = [contactCopy identifier];
     *buf = 138412290;
-    v155 = identifier21;
+    v154 = identifier21;
     _os_log_impl(&dword_1B5ED1000, generalChannel2, OS_LOG_TYPE_DEFAULT, "Checking IDS eligibility for emails belong to contact UUID %@", buf, 0xCu);
   }
 
-  v139 = 0u;
-  v140 = 0u;
-  v137 = 0u;
   v138 = 0u;
-  v70 = v131;
-  v106 = [v70 countByEnumeratingWithState:&v137 objects:v151 count:16];
+  v139 = 0u;
+  v136 = 0u;
+  v137 = 0u;
+  v70 = v130;
+  v106 = [v70 countByEnumeratingWithState:&v136 objects:v150 count:16];
   if (!v106)
   {
 LABEL_110:
@@ -1014,14 +1167,14 @@ LABEL_110:
     v113 = os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT);
     if (v42)
     {
-      handleCopy = v136;
+      handleCopy = v135;
       if (v113)
       {
         identifier22 = [contactCopy identifier];
         *buf = 138412546;
-        v155 = v42;
-        v156 = 2112;
-        v157 = identifier22;
+        v154 = v42;
+        v155 = 2112;
+        v156 = identifier22;
         _os_log_impl(&dword_1B5ED1000, v112, OS_LOG_TYPE_DEFAULT, "Caching fallback handle %@ for contact UUID %@", buf, 0x16u);
       }
 
@@ -1031,14 +1184,14 @@ LABEL_110:
 
     else
     {
-      handleCopy = v136;
+      handleCopy = v135;
       if (v113)
       {
         identifier23 = [contactCopy identifier];
         *buf = 138412546;
-        v155 = 0;
-        v156 = 2112;
-        v157 = identifier23;
+        v154 = 0;
+        v155 = 2112;
+        v156 = identifier23;
         _os_log_impl(&dword_1B5ED1000, v112, OS_LOG_TYPE_DEFAULT, "Caching handle %@ for contact UUID %@", buf, 0x16u);
       }
 
@@ -1053,21 +1206,21 @@ LABEL_110:
   }
 
   v107 = v106;
-  v108 = *v138;
+  v108 = *v137;
 LABEL_99:
   v109 = 0;
   while (1)
   {
-    if (*v138 != v108)
+    if (*v137 != v108)
     {
       objc_enumerationMutation(v70);
     }
 
-    v75 = *(*(&v137 + 1) + 8 * v109);
+    v75 = *(*(&v136 + 1) + 8 * v109);
     v110 = [(_PSContactCache *)self getFaceTimeIDSStatusForHandle:v75 contactType:1];
     if (!v110)
     {
-      if (!v42 || [v136 isEqualToString:v75])
+      if (!v42 || [v135 isEqualToString:v75])
       {
         v111 = v75;
 
@@ -1085,7 +1238,7 @@ LABEL_99:
 LABEL_108:
     if (v107 == ++v109)
     {
-      v107 = [v70 countByEnumeratingWithState:&v137 objects:v151 count:16];
+      v107 = [v70 countByEnumeratingWithState:&v136 objects:v150 count:16];
       if (v107)
       {
         goto LABEL_99;
@@ -1100,9 +1253,9 @@ LABEL_108:
   {
     identifier14 = [contactCopy identifier];
     *buf = 138412546;
-    v155 = v75;
-    v156 = 2112;
-    v157 = identifier14;
+    v154 = v75;
+    v155 = 2112;
+    v156 = identifier14;
     goto LABEL_79;
   }
 
@@ -1112,26 +1265,24 @@ LABEL_80:
   [(_PSContactCache *)self _setLikelyFaceTimeHandle:v75 forContactIdentifier:identifier25];
 
   handle2 = v75;
-  handleCopy = v136;
+  handleCopy = v135;
 LABEL_120:
 
-  storeCopy = v130;
-  v14 = v131;
-  v12 = v132;
+  storeCopy = v129;
+  v14 = v130;
+  v12 = v131;
   v24 = 0;
 LABEL_121:
 
 LABEL_122:
 LABEL_123:
 
-  v120 = *MEMORY[0x1E69E9840];
-
   return handle2;
 }
 
 - (int64_t)getFaceTimeIDSStatusForHandle:(id)handle contactType:(unint64_t)type
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (_os_feature_enabled_impl())
   {
@@ -1148,26 +1299,26 @@ LABEL_123:
   v8 = handleCopy;
   if (type == 1)
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v9 = getIDSCopyIDForPhoneNumberSymbolLoc_ptr;
-    v21 = getIDSCopyIDForPhoneNumberSymbolLoc_ptr;
+    v20 = getIDSCopyIDForPhoneNumberSymbolLoc_ptr;
     if (!getIDSCopyIDForPhoneNumberSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getIDSCopyIDForPhoneNumberSymbolLoc_block_invoke;
-      v23 = &unk_1E7C23BF0;
-      v24 = &v18;
+      v22 = &unk_1E7C23BF0;
+      v23 = &v17;
       v10 = IDSLibrary();
       v11 = dlsym(v10, "IDSCopyIDForPhoneNumber");
-      *(v24[1] + 24) = v11;
-      getIDSCopyIDForPhoneNumberSymbolLoc_ptr = *(v24[1] + 24);
-      v9 = v19[3];
+      *(v23[1] + 24) = v11;
+      getIDSCopyIDForPhoneNumberSymbolLoc_ptr = *(v23[1] + 24);
+      v9 = v18[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v9)
     {
       goto LABEL_17;
@@ -1176,26 +1327,26 @@ LABEL_123:
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
     v9 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
-    v21 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
+    v20 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
     if (!getIDSCopyIDForEmailAddressSymbolLoc_ptr)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getIDSCopyIDForEmailAddressSymbolLoc_block_invoke;
-      v23 = &unk_1E7C23BF0;
-      v24 = &v18;
+      v22 = &unk_1E7C23BF0;
+      v23 = &v17;
       v12 = IDSLibrary();
       v13 = dlsym(v12, "IDSCopyIDForEmailAddress");
-      *(v24[1] + 24) = v13;
-      getIDSCopyIDForEmailAddressSymbolLoc_ptr = *(v24[1] + 24);
-      v9 = v19[3];
+      *(v23[1] + 24) = v13;
+      getIDSCopyIDForEmailAddressSymbolLoc_ptr = *(v23[1] + 24);
+      v9 = v18[3];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     if (!v9)
     {
 LABEL_17:
@@ -1206,7 +1357,7 @@ LABEL_17:
 
   v14 = v9(v8);
 
-  v7 = [(IDSIDQueryController *)self->_idsQueryController _currentIDStatusForDestination:v14 service:self->_faceTimeServiceName respectExpiry:0 listenerID:@"com.apple.PeopleSuggester.IDSListener", v18];
+  v7 = [(IDSIDQueryController *)self->_idsQueryController _currentIDStatusForDestination:v14 service:self->_faceTimeServiceName respectExpiry:0 listenerID:@"com.apple.PeopleSuggester.IDSListener", v17];
   v15 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
@@ -1218,7 +1369,6 @@ LABEL_17:
   }
 
 LABEL_16:
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1248,7 +1398,7 @@ LABEL_16:
 
 - (id)getContactForHandle:(id)handle handleType:(int64_t)type
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (!handleCopy)
   {
@@ -1266,27 +1416,27 @@ LABEL_16:
     {
       case 2:
         CNContactClass_3 = getCNContactClass_3();
-        v32 = 0;
-        v33 = &v32;
-        v34 = 0x2050000000;
+        v31 = 0;
+        v32 = &v31;
+        v33 = 0x2050000000;
         v18 = getCNPhoneNumberClass_softClass_3;
-        v35 = getCNPhoneNumberClass_softClass_3;
+        v34 = getCNPhoneNumberClass_softClass_3;
         if (!getCNPhoneNumberClass_softClass_3)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getCNPhoneNumberClass_block_invoke_3;
-          v37 = &unk_1E7C23BF0;
-          v38 = &v32;
-          ContactsLibraryCore_8();
+          v36 = &unk_1E7C23BF0;
+          v37 = &v31;
+          ContactsLibraryCore_8(0);
           Class = objc_getClass("CNPhoneNumber");
-          *(v38[1] + 24) = Class;
-          getCNPhoneNumberClass_softClass_3 = *(v38[1] + 24);
-          v18 = v33[3];
+          *(v37[1] + 24) = Class;
+          getCNPhoneNumberClass_softClass_3 = *(v37[1] + 24);
+          v18 = v32[3];
         }
 
         v20 = v18;
-        _Block_object_dispose(&v32, 8);
+        _Block_object_dispose(&v31, 8);
         v21 = [v18 phoneNumberWithStringValue:v8];
         v16 = [CNContactClass_3 predicateForContactsMatchingPhoneNumber:v21];
 
@@ -1297,9 +1447,9 @@ LABEL_16:
       case 0:
         contactStore = self->_contactStore;
         contactKeysToFetch = [(_PSContactCache *)self contactKeysToFetch];
-        v31 = 0;
-        firstObject = [(CNContactStore *)contactStore unifiedContactWithIdentifier:v8 keysToFetch:contactKeysToFetch error:&v31];
-        v15 = v31;
+        v30 = 0;
+        firstObject = [(CNContactStore *)contactStore unifiedContactWithIdentifier:v8 keysToFetch:contactKeysToFetch error:&v30];
+        v15 = v30;
 
         v16 = +[_PSLogging generalChannel];
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -1309,7 +1459,7 @@ LABEL_16:
           *&buf[12] = 2117;
           *&buf[14] = firstObject;
           *&buf[22] = 2112;
-          v37 = v15;
+          v36 = v15;
           _os_log_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEFAULT, "_PSContactCache: ZKW FaceTime suggestions attempted to lookup contact for uuid %@, found contact %{sensitive}@, error %@", buf, 0x20u);
         }
 
@@ -1349,9 +1499,9 @@ LABEL_22:
 
     v23 = self->_contactStore;
     contactKeysToFetch2 = [(_PSContactCache *)self contactKeysToFetch];
-    v30 = 0;
-    v25 = [(CNContactStore *)v23 unifiedContactsMatchingPredicate:v16 keysToFetch:contactKeysToFetch2 error:&v30];
-    v15 = v30;
+    v29 = 0;
+    v25 = [(CNContactStore *)v23 unifiedContactsMatchingPredicate:v16 keysToFetch:contactKeysToFetch2 error:&v29];
+    v15 = v29;
 
     v26 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -1361,7 +1511,7 @@ LABEL_22:
       *&buf[12] = 2117;
       *&buf[14] = v25;
       *&buf[22] = 2112;
-      v37 = v15;
+      v36 = v15;
       _os_log_impl(&dword_1B5ED1000, v26, OS_LOG_TYPE_DEFAULT, "_PSContactCache: ZKW FaceTime suggestions attempted to lookup contact for handle %@, found contacts %{sensitive}@, error %@", buf, 0x20u);
     }
 
@@ -1380,67 +1530,66 @@ LABEL_22:
 LABEL_29:
 
 LABEL_30:
-  v28 = *MEMORY[0x1E69E9840];
 
   return contact;
 }
 
 - (id)contactKeysToFetch
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2050000000;
+  v22 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v2 = getCNContactFormatterClass_softClass_5;
-  v19 = getCNContactFormatterClass_softClass_5;
+  v18 = getCNContactFormatterClass_softClass_5;
   if (!getCNContactFormatterClass_softClass_5)
   {
-    ContactsLibraryCore_8();
-    v17[3] = objc_getClass("CNContactFormatter");
-    getCNContactFormatterClass_softClass_5 = v17[3];
-    v2 = v17[3];
+    ContactsLibraryCore_8(0);
+    v16[3] = objc_getClass("CNContactFormatter");
+    getCNContactFormatterClass_softClass_5 = v16[3];
+    v2 = v16[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   v4 = [v2 descriptorForRequiredKeysForStyle:0];
   v5 = getCNContactIdentifierKey_4();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v6 = getCNContactPhoneNumbersKeySymbolLoc_ptr_6;
-  v19 = getCNContactPhoneNumbersKeySymbolLoc_ptr_6;
-  v20[0] = v5;
+  v18 = getCNContactPhoneNumbersKeySymbolLoc_ptr_6;
+  v19[0] = v5;
   if (!getCNContactPhoneNumbersKeySymbolLoc_ptr_6)
   {
     v7 = ContactsLibrary_7();
-    v17[3] = dlsym(v7, "CNContactPhoneNumbersKey");
-    getCNContactPhoneNumbersKeySymbolLoc_ptr_6 = v17[3];
-    v6 = v17[3];
+    v16[3] = dlsym(v7, "CNContactPhoneNumbersKey");
+    getCNContactPhoneNumbersKeySymbolLoc_ptr_6 = v16[3];
+    v6 = v16[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   if (!v6)
   {
     goto LABEL_12;
   }
 
   v8 = *v6;
-  v20[1] = v8;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v19[1] = v8;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v9 = getCNContactEmailAddressesKeySymbolLoc_ptr_6;
-  v19 = getCNContactEmailAddressesKeySymbolLoc_ptr_6;
+  v18 = getCNContactEmailAddressesKeySymbolLoc_ptr_6;
   if (!getCNContactEmailAddressesKeySymbolLoc_ptr_6)
   {
     v10 = ContactsLibrary_7();
-    v17[3] = dlsym(v10, "CNContactEmailAddressesKey");
-    getCNContactEmailAddressesKeySymbolLoc_ptr_6 = v17[3];
-    v9 = v17[3];
+    v16[3] = dlsym(v10, "CNContactEmailAddressesKey");
+    getCNContactEmailAddressesKeySymbolLoc_ptr_6 = v16[3];
+    v9 = v16[3];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   if (!v9)
   {
 LABEL_12:
@@ -1448,39 +1597,20 @@ LABEL_12:
     __break(1u);
   }
 
-  v21 = *v9;
-  v22 = v4;
+  v20 = *v9;
+  v21 = v4;
   v11 = MEMORY[0x1E695DEC8];
-  v12 = v21;
-  v13 = [v11 arrayWithObjects:v20 count:4];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = v20;
+  v13 = [v11 arrayWithObjects:v19 count:4];
 
   return v13;
 }
 
-- (void)fetchMeContact
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Error fetching me contact from store in _PSContactCache: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)getContactForHandle:handleType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSContactCache: Returning cached contact for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)getContactForHandle:handleType:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "_PSContactCache: Unknown handle type %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSContactCache: Returning cached contact for %@", v1, 0xCu);
 }
 
 @end

@@ -13,49 +13,49 @@ id __101___GCControllerInputComponent_initWithIdentifier_templateFacadeParameter
 
 void __50___GCControllerInputComponent_setSettingsProfile___block_invoke(uint64_t a1)
 {
-  v284 = *MEMORY[0x1E69E9840];
-  v205 = objc_opt_new();
-  v201 = a1;
+  v286 = *MEMORY[0x1E69E9840];
+  v207 = objc_opt_new();
+  v203 = a1;
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = [v2 elementMappings];
     v4 = [v3 allValues];
 
-    v275[0] = MEMORY[0x1E69E9820];
-    v275[1] = 3221225472;
-    v275[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2;
-    v275[3] = &unk_1E841B420;
-    v275[4] = *(v201 + 40);
-    v5 = [v4 gc_arrayByTransformingElementsWithOptions:1 usingBlock:v275];
+    v277[0] = MEMORY[0x1E69E9820];
+    v277[1] = 3221225472;
+    v277[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2;
+    v277[3] = &unk_1E841B420;
+    v277[4] = *(v203 + 40);
+    v5 = [v4 gc_arrayByTransformingElementsWithOptions:1 usingBlock:v277];
 
     v6 = [v5 sortedArrayUsingComparator:&__block_literal_global_99_0];
 
-    v231 = objc_opt_new();
-    v232 = objc_opt_new();
+    v233 = objc_opt_new();
+    v234 = objc_opt_new();
+    v276 = 0u;
+    v275 = 0u;
     v274 = 0u;
     v273 = 0u;
-    v272 = 0u;
-    v271 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v271 objects:v283 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v273 objects:v285 count:16];
     if (v8)
     {
-      v9 = *v272;
+      v9 = *v274;
       v10 = MEMORY[0x1E695E0F0];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v272 != v9)
+          if (*v274 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v271 + 1) + 8 * i);
+          v12 = *(*(&v273 + 1) + 8 * i);
           v13 = [v12 elementKey];
           v14 = [v12 mappingKey];
-          v15 = [v231 objectForKeyedSubscript:v13];
+          v15 = [v233 objectForKeyedSubscript:v13];
           v16 = v15;
           if (!v15)
           {
@@ -63,9 +63,9 @@ void __50___GCControllerInputComponent_setSettingsProfile___block_invoke(uint64_
           }
 
           v17 = [v15 arrayByAddingObject:v12];
-          [v231 setObject:v17 forKeyedSubscript:v13];
+          [v233 setObject:v17 forKeyedSubscript:v13];
 
-          v18 = [v232 objectForKeyedSubscript:v14];
+          v18 = [v234 objectForKeyedSubscript:v14];
           v19 = v18;
           if (!v18)
           {
@@ -73,220 +73,222 @@ void __50___GCControllerInputComponent_setSettingsProfile___block_invoke(uint64_
           }
 
           v20 = [v18 arrayByAddingObject:v12];
-          [v232 setObject:v20 forKeyedSubscript:v14];
+          [v234 setObject:v20 forKeyedSubscript:v14];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v271 objects:v283 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v273 objects:v285 count:16];
       }
 
       while (v8);
     }
 
-    v234 = objc_opt_new();
-    v233 = objc_opt_new();
+    v236 = objc_opt_new();
+    v235 = objc_opt_new();
+    v272 = 0u;
+    v271 = 0u;
     v270 = 0u;
     v269 = 0u;
-    v268 = 0u;
-    v267 = 0u;
-    v21 = *(*(v201 + 40) + 48);
-    v22 = [v21 countByEnumeratingWithState:&v267 objects:v282 count:16];
+    v21 = *(*(v203 + 40) + 48);
+    v22 = [v21 countByEnumeratingWithState:&v269 objects:v284 count:16];
     if (v22)
     {
-      v23 = *v268;
+      v23 = *v270;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v268 != v23)
+          if (*v270 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v267 + 1) + 8 * j);
+          v25 = *(*(&v269 + 1) + 8 * j);
           v26 = [(_GCDevicePhysicalInputElementParameters *)v25 identifier];
-          [v234 setObject:v25 forKey:v26];
+          [v236 setObject:v25 forKey:v26];
 
           v27 = [v25 copy];
           v28 = [(_GCDevicePhysicalInputElementParameters *)v27 identifier];
-          [v233 setObject:v27 forKey:v28];
+          [v235 setObject:v27 forKey:v28];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v267 objects:v282 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v269 objects:v284 count:16];
       }
 
       while (v22);
     }
 
+    v268 = 0u;
+    v267 = 0u;
     v266 = 0u;
     v265 = 0u;
-    v264 = 0u;
-    v263 = 0u;
     obj = v7;
-    v226 = [obj countByEnumeratingWithState:&v263 objects:v281 count:16];
-    if (v226)
+    v228 = [obj countByEnumeratingWithState:&v265 objects:v283 count:16];
+    if (v228)
     {
-      v225 = *v264;
+      v227 = *v266;
       do
       {
-        for (k = 0; k != v226; k = k + 1)
+        for (k = 0; k != v228; k = k + 1)
         {
-          if (*v264 != v225)
+          if (*v266 != v227)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v263 + 1) + 8 * k);
+          v30 = *(*(&v265 + 1) + 8 * k);
           v31 = [v30 elementKey];
-          v32 = [v234 objectForKeyedSubscript:v31];
+          v32 = [v236 objectForKeyedSubscript:v31];
 
           v33 = [v30 mappingKey];
-          v34 = [v233 objectForKeyedSubscript:v33];
+          v34 = [v235 objectForKeyedSubscript:v33];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            isKindOfClass = objc_opt_isKindOfClass();
+            if (isKindOfClass)
             {
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              isKindOfClass = objc_opt_isKindOfClass();
+              if (isKindOfClass)
               {
-                v35 = v34;
-                v228 = v32;
-                v36 = [(_GCDevicePhysicalInputElementParameters *)v35 identifier];
-                v37 = [(_GCDevicePhysicalInputElementParameters *)v228 identifier];
-                v38 = [v36 isEqualToString:v37];
+                v36 = v34;
+                v230 = v32;
+                v37 = [(_GCDevicePhysicalInputElementParameters *)v36 identifier];
+                v38 = [(_GCDevicePhysicalInputElementParameters *)v230 identifier];
+                v39 = [v37 isEqualToString:v38];
 
-                if ((v38 & 1) == 0)
+                if ((v39 & 1) == 0)
                 {
-                  v222 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 eventUpValueField];
-                  v220 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 eventRightValueField];
-                  v218 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 eventDownValueField];
-                  v216 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 eventLeftValueField];
-                  v214 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 eventUpValueField];
-                  v212 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 eventRightValueField];
-                  v210 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 eventDownValueField];
-                  v208 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 eventLeftValueField];
-                  v39 = [(_GCDevicePhysicalInputElementParameters *)v228 identifier];
-                  v40 = [v232 objectForKey:v39];
-                  v41 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_107_0];
-                  v42 = [v40 filteredArrayUsingPredicate:v41];
-                  v206 = [v42 count] != 0;
+                  v224 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 eventUpValueField];
+                  v222 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 eventRightValueField];
+                  v220 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 eventDownValueField];
+                  v218 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 eventLeftValueField];
+                  v216 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 eventUpValueField];
+                  v214 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 eventRightValueField];
+                  v212 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 eventDownValueField];
+                  v210 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 eventLeftValueField];
+                  v40 = [(_GCDevicePhysicalInputElementParameters *)v230 identifier];
+                  v41 = [v234 objectForKey:v40];
+                  v42 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_107_0];
+                  v43 = [v41 filteredArrayUsingPredicate:v42];
+                  v208 = [v43 count] != 0;
 
-                  v43 = [(_GCDevicePhysicalInputElementParameters *)v35 identifier];
-                  v44 = [v231 objectForKey:v43];
-                  LODWORD(v41) = [v44 count] == 0;
+                  v44 = [(_GCDevicePhysicalInputElementParameters *)v36 identifier];
+                  v45 = [v233 objectForKey:v44];
+                  LODWORD(v42) = [v45 count] == 0;
 
-                  if (v41)
+                  if (v42)
                   {
-                    v117 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 xySources];
-                    v118 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xySources];
-                    v119 = [v117 setByAddingObjectsFromSet:v118];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXySources:v119, v120];
+                    v120 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 xySources];
+                    v121 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xySources];
+                    v122 = [v120 setByAddingObjectsFromSet:v121];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXySources:v122, v123];
 
-                    v121 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 xSources];
-                    v122 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xSources];
-                    v123 = [v121 setByAddingObjectsFromSet:v122];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXSources:v123, v124];
+                    v124 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 xSources];
+                    v125 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xSources];
+                    v126 = [v124 setByAddingObjectsFromSet:v125];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXSources:v126, v127];
 
-                    v125 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 ySources];
-                    v126 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 ySources];
-                    v127 = [v125 setByAddingObjectsFromSet:v126];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setYSources:v127, v128];
+                    v128 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 ySources];
+                    v129 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 ySources];
+                    v130 = [v128 setByAddingObjectsFromSet:v129];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setYSources:v130, v131];
 
-                    v129 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 upSources];
-                    v130 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 upSources];
-                    v131 = [v129 setByAddingObjectsFromSet:v130];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setUpSources:v131, v132];
+                    v132 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 upSources];
+                    v133 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 upSources];
+                    v134 = [v132 setByAddingObjectsFromSet:v133];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setUpSources:v134, v135];
 
-                    v133 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 rightSources];
-                    v134 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 rightSources];
-                    v135 = [v133 setByAddingObjectsFromSet:v134];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setRightSources:v135, v136];
+                    v136 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 rightSources];
+                    v137 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 rightSources];
+                    v138 = [v136 setByAddingObjectsFromSet:v137];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setRightSources:v138, v139];
 
-                    v137 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 downSources];
-                    v138 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 downSources];
-                    v139 = [v137 setByAddingObjectsFromSet:v138];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setDownSources:v139, v140];
+                    v140 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 downSources];
+                    v141 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 downSources];
+                    v142 = [v140 setByAddingObjectsFromSet:v141];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setDownSources:v142, v143];
 
-                    v141 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 leftSources];
-                    v142 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 leftSources];
-                    v143 = [v141 setByAddingObjectsFromSet:v142];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setLeftSources:v143, v144];
+                    v144 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 leftSources];
+                    v145 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 leftSources];
+                    v146 = [v144 setByAddingObjectsFromSet:v145];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setLeftSources:v146, v147];
 
-                    v262[0] = MEMORY[0x1E69E9820];
-                    v262[1] = 3221225472;
-                    v262[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3;
-                    v262[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-                    v262[4] = v214;
-                    v262[5] = v222;
-                    v262[6] = v212;
-                    v262[7] = v220;
-                    v262[8] = v210;
-                    v262[9] = v218;
-                    v70 = v262;
-                    v262[10] = v208;
-                    v262[11] = v216;
+                    v264[0] = MEMORY[0x1E69E9820];
+                    v264[1] = 3221225472;
+                    v264[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3;
+                    v264[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+                    v264[4] = v216;
+                    v264[5] = v224;
+                    v264[6] = v214;
+                    v264[7] = v222;
+                    v264[8] = v212;
+                    v264[9] = v220;
+                    v71 = v264;
+                    v264[10] = v210;
+                    v264[11] = v218;
                   }
 
                   else
                   {
-                    v204 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 xSources];
-                    v45 = [(_GCDevicePhysicalInputElementParameters *)v35 identifier];
-                    v46 = [v234 objectForKeyedSubscript:v45];
-                    v47 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v46 xSources];
-                    if ([v204 isEqual:v47])
+                    v206 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 xSources];
+                    v46 = [(_GCDevicePhysicalInputElementParameters *)v36 identifier];
+                    v47 = [v236 objectForKeyedSubscript:v46];
+                    v48 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v47 xSources];
+                    if ([v206 isEqual:v48])
                     {
-                      v203 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 ySources];
-                      v48 = [(_GCDevicePhysicalInputElementParameters *)v35 identifier];
-                      v49 = [v234 objectForKeyedSubscript:v48];
-                      v50 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v49 ySources];
-                      v202 = [v203 isEqual:v50];
+                      v205 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 ySources];
+                      v49 = [(_GCDevicePhysicalInputElementParameters *)v36 identifier];
+                      v50 = [v236 objectForKeyedSubscript:v49];
+                      v51 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v50 ySources];
+                      v204 = [v205 isEqual:v51];
 
-                      if (v202)
+                      if (v204)
                       {
-                        v51 = [(_GCDevicePhysicalInputElementParameters *)v228 localizedName];
-                        [(_GCDevicePhysicalInputElementParameters *)v35 setLocalizedName:v51, v52];
+                        v52 = [(_GCDevicePhysicalInputElementParameters *)v230 localizedName];
+                        [(_GCDevicePhysicalInputElementParameters *)v36 setLocalizedName:v52, v53];
 
-                        v53 = [(_GCDevicePhysicalInputElementParameters *)v228 symbol];
-                        [(_GCDevicePhysicalInputElementParameters *)v35 setSymbol:v53, v54];
+                        v54 = [(_GCDevicePhysicalInputElementParameters *)v230 symbol];
+                        [(_GCDevicePhysicalInputElementParameters *)v36 setSymbol:v54, v55];
 
-                        v55 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xySources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXySources:v55, v56];
+                        v56 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xySources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXySources:v56, v57];
 
-                        v57 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xSources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXSources:v57, v58];
+                        v58 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xSources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXSources:v58, v59];
 
-                        v59 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 ySources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setYSources:v59, v60];
+                        v60 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 ySources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setYSources:v60, v61];
 
-                        v61 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 upSources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setUpSources:v61, v62];
+                        v62 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 upSources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setUpSources:v62, v63];
 
-                        v63 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 rightSources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setRightSources:v63, v64];
+                        v64 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 rightSources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setRightSources:v64, v65];
 
-                        v65 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 downSources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setDownSources:v65, v66];
+                        v66 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 downSources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setDownSources:v66, v67];
 
-                        v67 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 leftSources];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setLeftSources:v67, v68];
+                        v68 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 leftSources];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setLeftSources:v68, v69];
 
-                        v69 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 isAnalog];
-                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setAnalog:v69];
-                        v261[0] = MEMORY[0x1E69E9820];
-                        v261[1] = 3221225472;
-                        v261[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_4;
-                        v261[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-                        v261[4] = v222;
-                        v261[5] = v214;
-                        v261[6] = v220;
-                        v261[7] = v212;
-                        v261[8] = v218;
-                        v261[9] = v210;
-                        v70 = v261;
-                        v261[10] = v216;
-                        v261[11] = v208;
+                        v70 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 isAnalog];
+                        [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setAnalog:v70];
+                        v263[0] = MEMORY[0x1E69E9820];
+                        v263[1] = 3221225472;
+                        v263[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_4;
+                        v263[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+                        v263[4] = v224;
+                        v263[5] = v216;
+                        v263[6] = v222;
+                        v263[7] = v214;
+                        v263[8] = v220;
+                        v263[9] = v212;
+                        v71 = v263;
+                        v263[10] = v218;
+                        v263[11] = v210;
                         goto LABEL_59;
                       }
                     }
@@ -295,88 +297,88 @@ void __50___GCControllerInputComponent_setSettingsProfile___block_invoke(uint64_
                     {
                     }
 
-                    v145 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 xySources];
-                    v146 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xySources];
-                    v147 = [v145 setByAddingObjectsFromSet:v146];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXySources:v147, v148];
+                    v148 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 xySources];
+                    v149 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xySources];
+                    v150 = [v148 setByAddingObjectsFromSet:v149];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXySources:v150, v151];
 
-                    v149 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 xSources];
-                    v150 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 xSources];
-                    v151 = [v149 setByAddingObjectsFromSet:v150];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setXSources:v151, v152];
+                    v152 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 xSources];
+                    v153 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 xSources];
+                    v154 = [v152 setByAddingObjectsFromSet:v153];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setXSources:v154, v155];
 
-                    v153 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 ySources];
-                    v154 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 ySources];
-                    v155 = [v153 setByAddingObjectsFromSet:v154];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setYSources:v155, v156];
+                    v156 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 ySources];
+                    v157 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 ySources];
+                    v158 = [v156 setByAddingObjectsFromSet:v157];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setYSources:v158, v159];
 
-                    v157 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 upSources];
-                    v158 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 upSources];
-                    v159 = [v157 setByAddingObjectsFromSet:v158];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setUpSources:v159, v160];
+                    v160 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 upSources];
+                    v161 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 upSources];
+                    v162 = [v160 setByAddingObjectsFromSet:v161];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setUpSources:v162, v163];
 
-                    v161 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 rightSources];
-                    v162 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 rightSources];
-                    v163 = [v161 setByAddingObjectsFromSet:v162];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setRightSources:v163, v164];
+                    v164 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 rightSources];
+                    v165 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 rightSources];
+                    v166 = [v164 setByAddingObjectsFromSet:v165];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setRightSources:v166, v167];
 
-                    v165 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 downSources];
-                    v166 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 downSources];
-                    v167 = [v165 setByAddingObjectsFromSet:v166];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setDownSources:v167, v168];
+                    v168 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 downSources];
+                    v169 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 downSources];
+                    v170 = [v168 setByAddingObjectsFromSet:v169];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setDownSources:v170, v171];
 
-                    v169 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 leftSources];
-                    v170 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v228 leftSources];
-                    v171 = [v169 setByAddingObjectsFromSet:v170];
-                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v35 setLeftSources:v171, v172];
+                    v172 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 leftSources];
+                    v173 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v230 leftSources];
+                    v174 = [v172 setByAddingObjectsFromSet:v173];
+                    [(_GCDevicePhysicalInputDirectionPadElementParameters *)v36 setLeftSources:v174, v175];
 
-                    v260[0] = MEMORY[0x1E69E9820];
-                    v260[1] = 3221225472;
-                    v260[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_5;
-                    v260[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-                    v260[4] = v214;
-                    v260[5] = v222;
-                    v260[6] = v212;
-                    v260[7] = v220;
-                    v260[8] = v210;
-                    v260[9] = v218;
-                    v70 = v260;
-                    v260[10] = v208;
-                    v260[11] = v216;
+                    v262[0] = MEMORY[0x1E69E9820];
+                    v262[1] = 3221225472;
+                    v262[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_5;
+                    v262[3] = &__block_descriptor_97_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+                    v262[4] = v216;
+                    v262[5] = v224;
+                    v262[6] = v214;
+                    v262[7] = v222;
+                    v262[8] = v212;
+                    v262[9] = v220;
+                    v71 = v262;
+                    v262[10] = v210;
+                    v262[11] = v218;
                   }
 
 LABEL_59:
-                  *(v70 + 96) = v206;
-                  v173 = [v70 copy];
-                  v174 = _Block_copy(v173);
-                  [v205 addObject:v174];
+                  *(v71 + 96) = v208;
+                  v176 = [v71 copy];
+                  v177 = _Block_copy(v176);
+                  [v207 addObject:v177];
                 }
 
                 goto LABEL_61;
               }
             }
 
-            v35 = _gc_log_device_physicalinput();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+            v36 = _gc_log_device_physicalinput(isKindOfClass);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v278 = v32;
-              v279 = 2112;
-              v280 = v34;
-              v79 = v35;
-              v80 = "#WARNING Can not implement dpad remapping from '%@' -> '%@'.";
+              v280 = v32;
+              v281 = 2112;
+              v282 = v34;
+              v80 = v36;
+              v81 = "#WARNING Can not implement dpad remapping from '%@' -> '%@'.";
 LABEL_38:
-              _os_log_debug_impl(&dword_1D2CD5000, v79, OS_LOG_TYPE_DEBUG, v80, buf, 0x16u);
+              _os_log_debug_impl(&dword_1D2CD5000, v80, OS_LOG_TYPE_DEBUG, v81, buf, 0x16u);
             }
           }
 
           else
           {
-            v71 = [(_GCDevicePhysicalInputElementParameters *)v34 identifier];
-            v72 = [(_GCDevicePhysicalInputElementParameters *)v32 identifier];
-            v73 = [v71 isEqualToString:v72];
+            v72 = [(_GCDevicePhysicalInputElementParameters *)v34 identifier];
+            v73 = [(_GCDevicePhysicalInputElementParameters *)v32 identifier];
+            v74 = [v72 isEqualToString:v73];
 
-            if (v73)
+            if (v74)
             {
               goto LABEL_62;
             }
@@ -384,223 +386,225 @@ LABEL_38:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v74 = v32;
-              v35 = [(_GCDevicePhysicalInputElementParameters *)v74 localizedName];
-              v223 = [(_GCDevicePhysicalInputElementParameters *)v74 symbol];
-              v207 = [(_GCDevicePhysicalInputButtonElementParameters *)v74 isAnalog];
-              v75 = [(_GCDevicePhysicalInputButtonElementParameters *)v74 pressedThreshold];
-              v76 = *&v75;
-              v229 = [(_GCDevicePhysicalInputButtonElementParameters *)v74 sources];
-              v219 = [(_GCDevicePhysicalInputButtonElementParameters *)v74 eventPressedValueField];
-              v77 = [(_GCDevicePhysicalInputElementParameters *)v74 identifier];
+              v75 = v32;
+              v36 = [(_GCDevicePhysicalInputElementParameters *)v75 localizedName];
+              v225 = [(_GCDevicePhysicalInputElementParameters *)v75 symbol];
+              v209 = [(_GCDevicePhysicalInputButtonElementParameters *)v75 isAnalog];
+              v76 = [(_GCDevicePhysicalInputButtonElementParameters *)v75 pressedThreshold];
+              v77 = *&v76;
+              v231 = [(_GCDevicePhysicalInputButtonElementParameters *)v75 sources];
+              v221 = [(_GCDevicePhysicalInputButtonElementParameters *)v75 eventPressedValueField];
+              v78 = [(_GCDevicePhysicalInputElementParameters *)v75 identifier];
 
-              v78 = [v232 objectForKey:v77];
-              v217 = [v78 count];
+              v79 = [v234 objectForKey:v78];
+              v219 = [v79 count];
             }
 
             else
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v82 = objc_opt_isKindOfClass();
+              if ((v82 & 1) == 0)
               {
-                v35 = _gc_log_device_physicalinput();
-                if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+                v36 = _gc_log_device_physicalinput(v82);
+                if (!os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_61;
                 }
 
                 *buf = 138412546;
-                v278 = v32;
-                v279 = 2112;
-                v280 = v34;
-                v79 = v35;
-                v80 = "#WARNING Can not implement remapping from unknown '%@' -> '%@'.";
+                v280 = v32;
+                v281 = 2112;
+                v282 = v34;
+                v80 = v36;
+                v81 = "#WARNING Can not implement remapping from unknown '%@' -> '%@'.";
                 goto LABEL_38;
               }
 
-              v81 = v32;
-              v82 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v81 pressedSources];
-              v83 = [v82 anyObject];
-              v35 = [v83 elementLocalizedName];
-
-              v84 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v81 pressedSources];
+              v83 = v32;
+              v84 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v83 pressedSources];
               v85 = [v84 anyObject];
-              v223 = [v85 symbol];
+              v36 = [v85 elementLocalizedName];
 
-              v229 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v81 pressedSources];
-              v219 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v81 eventPressedValueField];
-              v77 = [(_GCDevicePhysicalInputElementParameters *)v81 identifier];
-              v78 = [v232 objectForKey:v77];
-              v86 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_113];
+              v86 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v83 pressedSources];
+              v87 = [v86 anyObject];
+              v225 = [v87 symbol];
 
-              v87 = [v78 filteredArrayUsingPredicate:v86];
-              v217 = [v87 count];
+              v231 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v83 pressedSources];
+              v221 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v83 eventPressedValueField];
+              v78 = [(_GCDevicePhysicalInputElementParameters *)v83 identifier];
+              v79 = [v234 objectForKey:v78];
+              v88 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_113];
 
-              v207 = 0;
-              v76 = 0.0;
+              v89 = [v79 filteredArrayUsingPredicate:v88];
+              v219 = [v89 count];
+
+              v209 = 0;
+              v77 = 0.0;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v88 = v34;
-              v221 = [(_GCDevicePhysicalInputButtonElementParameters *)v88 sources];
-              v209 = [(_GCDevicePhysicalInputButtonElementParameters *)v88 eventPressedValueField];
-              v89 = [(_GCDevicePhysicalInputElementParameters *)v88 identifier];
-              v90 = [v231 objectForKey:v89];
-              v91 = [v90 count];
+              v90 = v34;
+              v223 = [(_GCDevicePhysicalInputButtonElementParameters *)v90 sources];
+              v211 = [(_GCDevicePhysicalInputButtonElementParameters *)v90 eventPressedValueField];
+              v91 = [(_GCDevicePhysicalInputElementParameters *)v90 identifier];
+              v92 = [v233 objectForKey:v91];
+              v93 = [v92 count];
 
               aBlock[0] = MEMORY[0x1E69E9820];
               aBlock[1] = 3221225472;
               aBlock[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_114;
               aBlock[3] = &unk_1E841B488;
-              v92 = v88;
-              v259 = v92;
-              v93 = _Block_copy(aBlock);
+              v94 = v90;
+              v261 = v94;
+              v95 = _Block_copy(aBlock);
+              v258[0] = MEMORY[0x1E69E9820];
+              v258[1] = 3221225472;
+              v258[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_116;
+              v258[3] = &unk_1E841B4B0;
+              v96 = v94;
+              v259 = v96;
+              v215 = _Block_copy(v258);
               v256[0] = MEMORY[0x1E69E9820];
               v256[1] = 3221225472;
-              v256[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_116;
-              v256[3] = &unk_1E841B4B0;
-              v94 = v92;
-              v257 = v94;
-              v213 = _Block_copy(v256);
+              v256[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3_118;
+              v256[3] = &unk_1E841B4D8;
+              v97 = v96;
+              v257 = v97;
+              v217 = _Block_copy(v256);
               v254[0] = MEMORY[0x1E69E9820];
               v254[1] = 3221225472;
-              v254[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3_118;
-              v254[3] = &unk_1E841B4D8;
-              v95 = v94;
-              v255 = v95;
-              v215 = _Block_copy(v254);
+              v254[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_4_120;
+              v254[3] = &unk_1E8419678;
+              v98 = v97;
+              v255 = v98;
+              v213 = _Block_copy(v254);
               v252[0] = MEMORY[0x1E69E9820];
               v252[1] = 3221225472;
-              v252[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_4_120;
-              v252[3] = &unk_1E8419678;
-              v96 = v95;
-              v253 = v96;
-              v211 = _Block_copy(v252);
-              v250[0] = MEMORY[0x1E69E9820];
-              v250[1] = 3221225472;
-              v250[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_5_122;
-              v250[3] = &unk_1E841B500;
-              v97 = v96;
-              v251 = v97;
-              v98 = _Block_copy(v250);
-              v247[0] = MEMORY[0x1E69E9820];
-              v247[1] = 3221225472;
-              v247[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_6;
-              v247[3] = &unk_1E841B528;
-              v248 = v97;
-              v249 = v234;
-              v99 = v97;
-              v100 = _Block_copy(v247);
+              v252[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_5_122;
+              v252[3] = &unk_1E841B500;
+              v99 = v98;
+              v253 = v99;
+              v100 = _Block_copy(v252);
+              v249[0] = MEMORY[0x1E69E9820];
+              v249[1] = 3221225472;
+              v249[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_6;
+              v249[3] = &unk_1E841B528;
+              v250 = v99;
+              v251 = v236;
+              v101 = v99;
+              v102 = _Block_copy(v249);
 
-              v101 = &v255;
-              v102 = &v257;
-              v103 = &v259;
+              v103 = &v257;
+              v104 = &v259;
+              v105 = &v261;
             }
 
             else
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v106 = objc_opt_isKindOfClass();
+              if ((v106 & 1) == 0)
               {
-                v113 = _gc_log_device_physicalinput();
-                if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
+                v116 = _gc_log_device_physicalinput(v106);
+                if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
-                  v278 = v32;
-                  v279 = 2112;
-                  v280 = v34;
-                  _os_log_debug_impl(&dword_1D2CD5000, v113, OS_LOG_TYPE_DEBUG, "#WARNING Can not implement remapping from '%@' -> unknown '%@'.", buf, 0x16u);
+                  v280 = v32;
+                  v281 = 2112;
+                  v282 = v34;
+                  _os_log_debug_impl(&dword_1D2CD5000, v116, OS_LOG_TYPE_DEBUG, "#WARNING Can not implement remapping from '%@' -> unknown '%@'.", buf, 0x16u);
                 }
 
                 goto LABEL_61;
               }
 
-              v104 = v34;
-              v221 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v104 pressedSources];
-              v209 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v104 eventPressedValueField];
-              v105 = [(_GCDevicePhysicalInputElementParameters *)v104 identifier];
-              v106 = [v231 objectForKey:v105];
-              v107 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_127_0];
-              v108 = [v106 filteredArrayUsingPredicate:v107];
-              v91 = [v108 count];
+              v107 = v34;
+              v223 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v107 pressedSources];
+              v211 = [(_GCDevicePhysicalInputClickableDirectionPadElementParameters *)v107 eventPressedValueField];
+              v108 = [(_GCDevicePhysicalInputElementParameters *)v107 identifier];
+              v109 = [v233 objectForKey:v108];
+              v110 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_127_0];
+              v111 = [v109 filteredArrayUsingPredicate:v110];
+              v93 = [v111 count];
 
-              v245[0] = MEMORY[0x1E69E9820];
-              v245[1] = 3221225472;
-              v245[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_8;
-              v245[3] = &unk_1E841B488;
-              v109 = v104;
-              v246 = v109;
-              v93 = _Block_copy(v245);
-              v242[0] = MEMORY[0x1E69E9820];
-              v242[1] = 3221225472;
-              v242[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_13;
-              v242[3] = &unk_1E841B528;
-              v243 = v109;
-              v244 = v234;
-              v110 = v109;
-              v100 = _Block_copy(v242);
-              v101 = &v244;
-              v102 = &v243;
+              v247[0] = MEMORY[0x1E69E9820];
+              v247[1] = 3221225472;
+              v247[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_8;
+              v247[3] = &unk_1E841B488;
+              v112 = v107;
+              v248 = v112;
+              v95 = _Block_copy(v247);
+              v244[0] = MEMORY[0x1E69E9820];
+              v244[1] = 3221225472;
+              v244[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_13;
+              v244[3] = &unk_1E841B528;
+              v245 = v112;
+              v246 = v236;
+              v113 = v112;
+              v102 = _Block_copy(v244);
               v103 = &v246;
-              v98 = &__block_literal_global_135;
-              v215 = &__block_literal_global_131;
-              v211 = &__block_literal_global_133;
-              v213 = &__block_literal_global_129_0;
+              v104 = &v245;
+              v105 = &v248;
+              v100 = &__block_literal_global_135;
+              v217 = &__block_literal_global_131;
+              v213 = &__block_literal_global_133;
+              v215 = &__block_literal_global_129_0;
             }
 
-            if (v91)
+            if (v93)
             {
-              if (v100[2](v100))
+              if (v102[2](v102))
               {
-                v213[2](v213, v35);
-                v215[2](v215, v223);
-                v93[2](v93, v229);
-                v211[2](v211, v207);
-                v98[2](v98, v76);
-                v240[0] = MEMORY[0x1E69E9820];
-                v240[1] = 3221225472;
-                v240[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_138;
-                v240[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-                v240[4] = v219;
-                v240[5] = v209;
-                v111 = v240;
+                v215[2](v215, v36);
+                v217[2](v217, v225);
+                v95[2](v95, v231);
+                v213[2](v213, v209);
+                v100[2](v100, v77);
+                v242[0] = MEMORY[0x1E69E9820];
+                v242[1] = 3221225472;
+                v242[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_138;
+                v242[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+                v242[4] = v221;
+                v242[5] = v211;
+                v114 = v242;
               }
 
               else
               {
-                v114 = [v221 setByAddingObjectsFromSet:v229];
-                v93[2](v93, v114);
+                v117 = [v223 setByAddingObjectsFromSet:v231];
+                v95[2](v95, v117);
 
-                v239[0] = MEMORY[0x1E69E9820];
-                v239[1] = 3221225472;
-                v239[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3_139;
-                v239[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-                v239[4] = v209;
-                v239[5] = v219;
-                v111 = v239;
+                v241[0] = MEMORY[0x1E69E9820];
+                v241[1] = 3221225472;
+                v241[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_3_139;
+                v241[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+                v241[4] = v211;
+                v241[5] = v221;
+                v114 = v241;
               }
             }
 
             else
             {
-              v112 = [v221 setByAddingObjectsFromSet:v229];
-              v93[2](v93, v112);
+              v115 = [v223 setByAddingObjectsFromSet:v231];
+              v95[2](v95, v115);
 
-              v241[0] = MEMORY[0x1E69E9820];
-              v241[1] = 3221225472;
-              v241[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_136;
-              v241[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
-              v241[4] = v209;
-              v241[5] = v219;
-              v111 = v241;
+              v243[0] = MEMORY[0x1E69E9820];
+              v243[1] = 3221225472;
+              v243[2] = __50___GCControllerInputComponent_setSettingsProfile___block_invoke_136;
+              v243[3] = &__block_descriptor_49_e51_v24__0____GCGamepadEvent__8___GCGamepadEventImpl_16l;
+              v243[4] = v211;
+              v243[5] = v221;
+              v114 = v243;
             }
 
-            *(v111 + 48) = v217 != 0;
-            v115 = [v111 copy];
-            v116 = _Block_copy(v115);
-            [v205 addObject:v116];
+            *(v114 + 48) = v219 != 0;
+            v118 = [v114 copy];
+            v119 = _Block_copy(v118);
+            [v207 addObject:v119];
           }
 
 LABEL_61:
@@ -608,36 +612,36 @@ LABEL_61:
 LABEL_62:
         }
 
-        v226 = [obj countByEnumeratingWithState:&v263 objects:v281 count:16];
+        v228 = [obj countByEnumeratingWithState:&v265 objects:v283 count:16];
       }
 
-      while (v226);
+      while (v228);
     }
 
+    v239 = 0u;
+    v240 = 0u;
     v237 = 0u;
     v238 = 0u;
-    v235 = 0u;
-    v236 = 0u;
-    v227 = obj;
-    v175 = [v227 countByEnumeratingWithState:&v235 objects:v276 count:16];
-    if (v175)
+    v229 = obj;
+    v178 = [v229 countByEnumeratingWithState:&v237 objects:v278 count:16];
+    if (v178)
     {
-      v230 = *v236;
+      v232 = *v238;
       do
       {
-        for (m = 0; m != v175; ++m)
+        for (m = 0; m != v178; ++m)
         {
-          if (*v236 != v230)
+          if (*v238 != v232)
           {
-            objc_enumerationMutation(v227);
+            objc_enumerationMutation(v229);
           }
 
-          v177 = *(*(&v235 + 1) + 8 * m);
-          v178 = [v177 elementKey];
-          v179 = [v234 objectForKeyedSubscript:v178];
+          v180 = *(*(&v237 + 1) + 8 * m);
+          v181 = [v180 elementKey];
+          v182 = [v236 objectForKeyedSubscript:v181];
 
-          v180 = [v177 mappingKey];
-          v181 = [v233 objectForKeyedSubscript:v180];
+          v183 = [v180 mappingKey];
+          v184 = [v235 objectForKeyedSubscript:v183];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -648,70 +652,68 @@ LABEL_62:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v182 = v181;
-                v183 = v177;
-                if ([v183 invertHorizontally])
+                v185 = v184;
+                v186 = v180;
+                if ([v186 invertHorizontally])
                 {
-                  v184 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventRightValueField];
-                  v185 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventLeftValueField];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventLeftValueField:v184];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventRightValueField:v185];
+                  v187 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventRightValueField];
+                  v188 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventLeftValueField];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventLeftValueField:v187];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventRightValueField:v188];
                 }
 
-                if ([v183 invertVertically])
+                if ([v186 invertVertically])
                 {
-                  v186 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventUpValueField];
-                  v187 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventDownValueField];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventUpValueField:v187];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventDownValueField:v186];
+                  v189 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventUpValueField];
+                  v190 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventDownValueField];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventUpValueField:v190];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventDownValueField:v189];
                 }
 
-                if ([v183 swapAxes])
+                if ([v186 swapAxes])
                 {
-                  v188 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventUpValueField];
-                  v189 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventRightValueField];
-                  v190 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventDownValueField];
-                  v191 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 eventLeftValueField];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventLeftValueField:v190];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventRightValueField:v188];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventUpValueField:v189];
-                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v182 setEventDownValueField:v191];
+                  v191 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventUpValueField];
+                  v192 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventRightValueField];
+                  v193 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventDownValueField];
+                  v194 = [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 eventLeftValueField];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventLeftValueField:v193];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventRightValueField:v191];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventUpValueField:v192];
+                  [(_GCDevicePhysicalInputDirectionPadElementParameters *)v185 setEventDownValueField:v194];
                 }
               }
             }
           }
         }
 
-        v175 = [v227 countByEnumeratingWithState:&v235 objects:v276 count:16];
+        v178 = [v229 countByEnumeratingWithState:&v237 objects:v278 count:16];
       }
 
-      while (v175);
+      while (v178);
     }
 
-    v192 = [v233 allValues];
+    v195 = [v235 allValues];
   }
 
   else
   {
-    v192 = 0;
+    v195 = 0;
   }
 
-  v193 = MEMORY[0x1E695DFD8];
-  v194 = [v192 gc_arrayByTransformingElementsUsingBlock:&__block_literal_global_142];
-  v195 = [v193 setWithArray:v194];
+  v196 = MEMORY[0x1E695DFD8];
+  v197 = [v195 gc_arrayByTransformingElementsUsingBlock:&__block_literal_global_142];
+  v198 = [v196 setWithArray:v197];
 
-  v196 = *(v201 + 40);
-  objc_sync_enter(v196);
-  objc_storeStrong((*(v201 + 40) + 56), *(v201 + 32));
-  v197 = [v205 copy];
-  v198 = *(v201 + 40);
-  v199 = *(v198 + 64);
-  *(v198 + 64) = v197;
+  v199 = *(v203 + 40);
+  objc_sync_enter(v199);
+  objc_storeStrong((*(v203 + 40) + 56), *(v203 + 32));
+  v200 = [v207 copy];
+  v201 = *(v203 + 40);
+  v202 = *(v201 + 64);
+  *(v201 + 64) = v200;
 
-  [(_GCDevicePhysicalInput *)*(v201 + 48) updateWithElements:v195];
-  objc_sync_exit(v196);
-
-  v200 = *MEMORY[0x1E69E9840];
+  [(_GCDevicePhysicalInput *)*(v203 + 48) updateWithElements:v198];
+  objc_sync_exit(v199);
 }
 
 id __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2(uint64_t a1, void *a2)
@@ -779,7 +781,7 @@ id __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2(uint64_
     v9 = v8;
     v3 = v22;
 LABEL_17:
-    v8 = _gc_log_device_physicalinput();
+    v8 = _gc_log_device_physicalinput(v19);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_cold_2();
@@ -791,25 +793,23 @@ LABEL_17:
   v3 = v22;
   if (v8)
   {
-    v19 = [v22 copy];
-    [v19 setElementKey:v9];
-    [v19 setMappingKey:v8];
+    v20 = [v22 copy];
+    [v20 setElementKey:v9];
+    [v20 setMappingKey:v8];
     goto LABEL_20;
   }
 
-  v8 = _gc_log_device_physicalinput();
+  v8 = _gc_log_device_physicalinput(v19);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_cold_1();
   }
 
 LABEL_19:
-  v19 = 0;
+  v20 = 0;
 LABEL_20:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v20;
 }
 
 uint64_t __50___GCControllerInputComponent_setSettingsProfile___block_invoke_96(uint64_t a1, void *a2, void *a3)
@@ -1091,22 +1091,6 @@ id __50___GCControllerInputComponent_setSettingsProfile___block_invoke_4_140(uin
   v3 = [objc_alloc(objc_msgSend(objc_opt_class() "viewClass"))];
 
   return v3;
-}
-
-void __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_35();
-  OUTLINED_FUNCTION_1_27(&dword_1D2CD5000, v0, v1, "Ignoring mapping %@.  No element for destination alias '%{public}@'.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __50___GCControllerInputComponent_setSettingsProfile___block_invoke_2_cold_2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_35();
-  OUTLINED_FUNCTION_1_27(&dword_1D2CD5000, v0, v1, "Ignoring mapping %@.  No element for source alias '%{public}@'.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

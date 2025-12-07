@@ -27,17 +27,17 @@
       v26 = identifierCopy;
       objc_opt_self();
       v27 = p_info;
-      v36 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v28, *(v23 + 7), v29, v30, v31);
-      v37 = *(v23 + 5);
-      if (v37 != v23 + 48)
+      v36 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v28, *(v23 + 56), v29, v30, v31);
+      v37 = *(v23 + 40);
+      if (v37 != (v23 + 48))
       {
         do
         {
-          v43 = objc_msgSend_objectAtIndexedSubscript_(v24, v32, *(v37 + 4), v33, v34, v35);
+          v43 = objc_msgSend_objectAtIndexedSubscript_(v24, v32, v37[4], v33, v34, v35);
           v49 = objc_msgSend_encodedStrokeIdentifier(v43, v44, v45, v46, v47, v48);
           objc_msgSend_addObject_(v36, v50, v49, v51, v52, v53);
 
-          v54 = *(v37 + 1);
+          v54 = v37[1];
           if (v54)
           {
             do
@@ -53,7 +53,7 @@
           {
             do
             {
-              v55 = *(v37 + 2);
+              v55 = v37[2];
               v56 = *v55 == v37;
               v37 = v55;
             }
@@ -64,7 +64,7 @@
           v37 = v55;
         }
 
-        while (v55 != v23 + 48);
+        while (v55 != (v23 + 48));
       }
 
       p_info = v27;
@@ -106,10 +106,10 @@
   v107 = v106;
   if (v106)
   {
-    p_begin = &v106->_fastGroupingClusters.__begin_;
+    p_fastGroupingClusters = &v106->_fastGroupingClusters;
     if (&v107->_fastGroupingClusters != clusters)
     {
-      sub_183975F34(p_begin, *clusters, *(clusters + 1), 0x8E38E38E38E38E39 * ((*(clusters + 1) - *clusters) >> 3));
+      sub_183975F34(p_fastGroupingClusters, *clusters, *(clusters + 1), 0x8E38E38E38E38E39 * ((*(clusters + 1) - *clusters) >> 3));
     }
   }
 

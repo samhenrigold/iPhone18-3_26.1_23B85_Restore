@@ -324,7 +324,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v79 = *MEMORY[0x29EDCA608];
+  v78 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if ((*&self->_has & 4) != 0)
   {
@@ -441,29 +441,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_chunkingInfos count])
   {
     v9 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_chunkingInfos, "count")}];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
     chunkingInfos = self->_chunkingInfos;
-    v11 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v69 objects:v78 count:16];
+    v11 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v68 objects:v77 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v70;
+      v13 = *v69;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v70 != v13)
+          if (*v69 != v13)
           {
             objc_enumerationMutation(chunkingInfos);
           }
 
-          [v9 addObject:{objc_msgSend(*(*(&v69 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v9 addObject:{objc_msgSend(*(*(&v68 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v12 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v69 objects:v78 count:16];
+        v12 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v68 objects:v77 count:16];
       }
 
       while (v12);
@@ -475,29 +475,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_authHttpInfos count])
   {
     v15 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_authHttpInfos, "count")}];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     authHttpInfos = self->_authHttpInfos;
-    v17 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v65 objects:v77 count:16];
+    v17 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v64 objects:v76 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v66;
+      v19 = *v65;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v66 != v19)
+          if (*v65 != v19)
           {
             objc_enumerationMutation(authHttpInfos);
           }
 
-          [v15 addObject:{objc_msgSend(*(*(&v65 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v15 addObject:{objc_msgSend(*(*(&v64 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v18 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v65 objects:v77 count:16];
+        v18 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v64 objects:v76 count:16];
       }
 
       while (v18);
@@ -509,29 +509,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_containerHttpInfos count])
   {
     v21 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_containerHttpInfos, "count")}];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     containerHttpInfos = self->_containerHttpInfos;
-    v23 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v61 objects:v76 count:16];
+    v23 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v60 objects:v75 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v62;
+      v25 = *v61;
       do
       {
         for (k = 0; k != v24; ++k)
         {
-          if (*v62 != v25)
+          if (*v61 != v25)
           {
             objc_enumerationMutation(containerHttpInfos);
           }
 
-          [v21 addObject:{objc_msgSend(*(*(&v61 + 1) + 8 * k), "dictionaryRepresentation")}];
+          [v21 addObject:{objc_msgSend(*(*(&v60 + 1) + 8 * k), "dictionaryRepresentation")}];
         }
 
-        v24 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v61 objects:v76 count:16];
+        v24 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v60 objects:v75 count:16];
       }
 
       while (v24);
@@ -543,29 +543,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_completeHttpInfos count])
   {
     v27 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_completeHttpInfos, "count")}];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     completeHttpInfos = self->_completeHttpInfos;
-    v29 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v57 objects:v75 count:16];
+    v29 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v56 objects:v74 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v58;
+      v31 = *v57;
       do
       {
         for (m = 0; m != v30; ++m)
         {
-          if (*v58 != v31)
+          if (*v57 != v31)
           {
             objc_enumerationMutation(completeHttpInfos);
           }
 
-          [v27 addObject:{objc_msgSend(*(*(&v57 + 1) + 8 * m), "dictionaryRepresentation")}];
+          [v27 addObject:{objc_msgSend(*(*(&v56 + 1) + 8 * m), "dictionaryRepresentation")}];
         }
 
-        v30 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v57 objects:v75 count:16];
+        v30 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v56 objects:v74 count:16];
       }
 
       while (v30);
@@ -577,29 +577,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_cancelErrors count])
   {
     v33 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_cancelErrors, "count")}];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     cancelErrors = self->_cancelErrors;
-    v35 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v53 objects:v74 count:16];
+    v35 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v52 objects:v73 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v54;
+      v37 = *v53;
       do
       {
         for (n = 0; n != v36; ++n)
         {
-          if (*v54 != v37)
+          if (*v53 != v37)
           {
             objc_enumerationMutation(cancelErrors);
           }
 
-          [v33 addObject:{objc_msgSend(*(*(&v53 + 1) + 8 * n), "dictionaryRepresentation")}];
+          [v33 addObject:{objc_msgSend(*(*(&v52 + 1) + 8 * n), "dictionaryRepresentation")}];
         }
 
-        v36 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v53 objects:v74 count:16];
+        v36 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v52 objects:v73 count:16];
       }
 
       while (v36);
@@ -611,29 +611,29 @@ LABEL_22:
   if ([(NSMutableArray *)self->_errors count])
   {
     v39 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_errors, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     errors = self->_errors;
-    v41 = [(NSMutableArray *)errors countByEnumeratingWithState:&v49 objects:v73 count:16];
+    v41 = [(NSMutableArray *)errors countByEnumeratingWithState:&v48 objects:v72 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v50;
+      v43 = *v49;
       do
       {
         for (ii = 0; ii != v42; ++ii)
         {
-          if (*v50 != v43)
+          if (*v49 != v43)
           {
             objc_enumerationMutation(errors);
           }
 
-          [v39 addObject:{objc_msgSend(*(*(&v49 + 1) + 8 * ii), "dictionaryRepresentation")}];
+          [v39 addObject:{objc_msgSend(*(*(&v48 + 1) + 8 * ii), "dictionaryRepresentation")}];
         }
 
-        v42 = [(NSMutableArray *)errors countByEnumeratingWithState:&v49 objects:v73 count:16];
+        v42 = [(NSMutableArray *)errors countByEnumeratingWithState:&v48 objects:v72 count:16];
       }
 
       while (v42);
@@ -692,16 +692,14 @@ LABEL_81:
     [dictionary setObject:ckContainerId forKey:@"ckContainerId"];
   }
 
-  v47 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v88 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteInt64Field();
   }
 
@@ -713,14 +711,12 @@ LABEL_81:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startTime = self->_startTime;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteInt64Field();
   }
 
@@ -731,7 +727,6 @@ LABEL_81:
 
   if ((*&self->_has & 8) != 0)
   {
-    cancelledErrorCode = self->_cancelledErrorCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -740,16 +735,15 @@ LABEL_81:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((v9 & 0x800) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x800) != 0)
   {
-    requestErrorCode = self->_requestErrorCode;
     PBDataWriterWriteInt32Field();
-    v9 = self->_has;
-    if ((v9 & 0x20) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x20) == 0)
     {
 LABEL_17:
-      if ((v9 & 0x100) == 0)
+      if ((v5 & 0x100) == 0)
       {
         goto LABEL_18;
       }
@@ -758,18 +752,17 @@ LABEL_17:
     }
   }
 
-  else if ((v9 & 0x20) == 0)
+  else if ((v5 & 0x20) == 0)
   {
     goto LABEL_17;
   }
 
-  itemCount = self->_itemCount;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((v9 & 0x100) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) == 0)
   {
 LABEL_18:
-    if ((v9 & 0x400) == 0)
+    if ((v5 & 0x400) == 0)
     {
       goto LABEL_19;
     }
@@ -778,13 +771,12 @@ LABEL_18:
   }
 
 LABEL_74:
-  itemsAlreadyPresentCount = self->_itemsAlreadyPresentCount;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((v9 & 0x400) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x400) == 0)
   {
 LABEL_19:
-    if ((v9 & 0x200) == 0)
+    if ((v5 & 0x200) == 0)
     {
       goto LABEL_20;
     }
@@ -793,13 +785,12 @@ LABEL_19:
   }
 
 LABEL_75:
-  itemsPartiallyPresentCount = self->_itemsPartiallyPresentCount;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((v9 & 0x200) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x200) == 0)
   {
 LABEL_20:
-    if ((v9 & 0x10) == 0)
+    if ((v5 & 0x10) == 0)
     {
       goto LABEL_22;
     }
@@ -808,200 +799,191 @@ LABEL_20:
   }
 
 LABEL_76:
-  itemsNotPresentCount = self->_itemsNotPresentCount;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_21:
-    chunksUploaded = self->_chunksUploaded;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_22:
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   chunkingInfos = self->_chunkingInfos;
-  v12 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v78 objects:v87 count:16];
-  if (v12)
+  v7 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v7)
   {
-    v13 = v12;
-    v14 = *v79;
+    v8 = v7;
+    v9 = *v58;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v79 != v14)
+        if (*v58 != v9)
         {
           objc_enumerationMutation(chunkingInfos);
         }
 
-        v16 = *(*(&v78 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v78 objects:v87 count:16];
+      v8 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v57 objects:v66 count:16];
+    }
+
+    while (v8);
+  }
+
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  authHttpInfos = self->_authHttpInfos;
+  v12 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v53 objects:v65 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v54;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v54 != v14)
+        {
+          objc_enumerationMutation(authHttpInfos);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v13 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v53 objects:v65 count:16];
     }
 
     while (v13);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
-  v75 = 0u;
-  authHttpInfos = self->_authHttpInfos;
-  v18 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v74 objects:v86 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v75;
-    do
-    {
-      for (j = 0; j != v19; ++j)
-      {
-        if (*v75 != v20)
-        {
-          objc_enumerationMutation(authHttpInfos);
-        }
-
-        v22 = *(*(&v74 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v19 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v74 objects:v86 count:16];
-    }
-
-    while (v19);
-  }
-
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   containerHttpInfos = self->_containerHttpInfos;
-  v24 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v70 objects:v85 count:16];
-  if (v24)
+  v17 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v49 objects:v64 count:16];
+  if (v17)
   {
-    v25 = v24;
-    v26 = *v71;
+    v18 = v17;
+    v19 = *v50;
     do
     {
-      for (k = 0; k != v25; ++k)
+      for (k = 0; k != v18; ++k)
       {
-        if (*v71 != v26)
+        if (*v50 != v19)
         {
           objc_enumerationMutation(containerHttpInfos);
         }
 
-        v28 = *(*(&v70 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v25 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v18 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v49 objects:v64 count:16];
     }
 
-    while (v25);
+    while (v18);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   completeHttpInfos = self->_completeHttpInfos;
-  v30 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v66 objects:v84 count:16];
-  if (v30)
+  v22 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v45 objects:v63 count:16];
+  if (v22)
   {
-    v31 = v30;
-    v32 = *v67;
+    v23 = v22;
+    v24 = *v46;
     do
     {
-      for (m = 0; m != v31; ++m)
+      for (m = 0; m != v23; ++m)
       {
-        if (*v67 != v32)
+        if (*v46 != v24)
         {
           objc_enumerationMutation(completeHttpInfos);
         }
 
-        v34 = *(*(&v66 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v31 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v66 objects:v84 count:16];
+      v23 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v45 objects:v63 count:16];
     }
 
-    while (v31);
+    while (v23);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   cancelErrors = self->_cancelErrors;
-  v36 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v62 objects:v83 count:16];
-  if (v36)
+  v27 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v41 objects:v62 count:16];
+  if (v27)
   {
-    v37 = v36;
-    v38 = *v63;
+    v28 = v27;
+    v29 = *v42;
     do
     {
-      for (n = 0; n != v37; ++n)
+      for (n = 0; n != v28; ++n)
       {
-        if (*v63 != v38)
+        if (*v42 != v29)
         {
           objc_enumerationMutation(cancelErrors);
         }
 
-        v40 = *(*(&v62 + 1) + 8 * n);
         PBDataWriterWriteSubmessage();
       }
 
-      v37 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v62 objects:v83 count:16];
+      v28 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v41 objects:v62 count:16];
     }
 
-    while (v37);
+    while (v28);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
-  v59 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   errors = self->_errors;
-  v42 = [(NSMutableArray *)errors countByEnumeratingWithState:&v58 objects:v82 count:16];
-  if (v42)
+  v32 = [(NSMutableArray *)errors countByEnumeratingWithState:&v37 objects:v61 count:16];
+  if (v32)
   {
-    v43 = v42;
-    v44 = *v59;
+    v33 = v32;
+    v34 = *v38;
     do
     {
-      for (ii = 0; ii != v43; ++ii)
+      for (ii = 0; ii != v33; ++ii)
       {
-        if (*v59 != v44)
+        if (*v38 != v34)
         {
           objc_enumerationMutation(errors);
         }
 
-        v46 = *(*(&v58 + 1) + 8 * ii);
         PBDataWriterWriteSubmessage();
       }
 
-      v43 = [(NSMutableArray *)errors countByEnumeratingWithState:&v58 objects:v82 count:16];
+      v33 = [(NSMutableArray *)errors countByEnumeratingWithState:&v37 objects:v61 count:16];
     }
 
-    while (v43);
+    while (v33);
   }
 
-  v47 = self->_has;
-  if ((v47 & 0x2000) != 0)
+  v36 = self->_has;
+  if ((v36 & 0x2000) != 0)
   {
-    allItemsSuccessful = self->_allItemsSuccessful;
     PBDataWriterWriteBOOLField();
-    v47 = self->_has;
-    if ((v47 & 0x80) == 0)
+    v36 = self->_has;
+    if ((v36 & 0x80) == 0)
     {
 LABEL_66:
-      if ((v47 & 0x1000) == 0)
+      if ((v36 & 0x1000) == 0)
       {
         goto LABEL_67;
       }
@@ -1010,18 +992,17 @@ LABEL_66:
     }
   }
 
-  else if ((v47 & 0x80) == 0)
+  else if ((v36 & 0x80) == 0)
   {
     goto LABEL_66;
   }
 
-  itemCountSuccessful = self->_itemCountSuccessful;
   PBDataWriterWriteUint32Field();
-  v47 = self->_has;
-  if ((v47 & 0x1000) == 0)
+  v36 = self->_has;
+  if ((v36 & 0x1000) == 0)
   {
 LABEL_67:
-    if ((v47 & 0x40) == 0)
+    if ((v36 & 0x40) == 0)
     {
       goto LABEL_69;
     }
@@ -1030,12 +1011,10 @@ LABEL_67:
   }
 
 LABEL_80:
-  allItemsFailed = self->_allItemsFailed;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_68:
-    itemCountFailed = self->_itemCountFailed;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1044,8 +1023,6 @@ LABEL_69:
   {
     PBDataWriterWriteStringField();
   }
-
-  v49 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1310,7 +1287,7 @@ LABEL_51:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v78 = *MEMORY[0x29EDCA608];
+  v77 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 4) != 0)
@@ -1420,175 +1397,175 @@ LABEL_15:
   }
 
 LABEL_16:
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   chunkingInfos = self->_chunkingInfos;
-  v10 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v68 objects:v77 count:16];
+  v10 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v67 objects:v76 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v69;
+    v12 = *v68;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v69 != v12)
+        if (*v68 != v12)
         {
           objc_enumerationMutation(chunkingInfos);
         }
 
-        v14 = [*(*(&v68 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v67 + 1) + 8 * i) copyWithZone:zone];
         [v6 addChunkingInfos:v14];
       }
 
-      v11 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v68 objects:v77 count:16];
+      v11 = [(NSMutableArray *)chunkingInfos countByEnumeratingWithState:&v67 objects:v76 count:16];
     }
 
     while (v11);
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   authHttpInfos = self->_authHttpInfos;
-  v16 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v64 objects:v76 count:16];
+  v16 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v63 objects:v75 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v65;
+    v18 = *v64;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v65 != v18)
+        if (*v64 != v18)
         {
           objc_enumerationMutation(authHttpInfos);
         }
 
-        v20 = [*(*(&v64 + 1) + 8 * j) copyWithZone:zone];
+        v20 = [*(*(&v63 + 1) + 8 * j) copyWithZone:zone];
         [v6 addAuthHttpInfos:v20];
       }
 
-      v17 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v17 = [(NSMutableArray *)authHttpInfos countByEnumeratingWithState:&v63 objects:v75 count:16];
     }
 
     while (v17);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   containerHttpInfos = self->_containerHttpInfos;
-  v22 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v60 objects:v75 count:16];
+  v22 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v59 objects:v74 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v61;
+    v24 = *v60;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v61 != v24)
+        if (*v60 != v24)
         {
           objc_enumerationMutation(containerHttpInfos);
         }
 
-        v26 = [*(*(&v60 + 1) + 8 * k) copyWithZone:zone];
+        v26 = [*(*(&v59 + 1) + 8 * k) copyWithZone:zone];
         [v6 addContainerHttpInfos:v26];
       }
 
-      v23 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v60 objects:v75 count:16];
+      v23 = [(NSMutableArray *)containerHttpInfos countByEnumeratingWithState:&v59 objects:v74 count:16];
     }
 
     while (v23);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   completeHttpInfos = self->_completeHttpInfos;
-  v28 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v56 objects:v74 count:16];
+  v28 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v55 objects:v73 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v57;
+    v30 = *v56;
     do
     {
       for (m = 0; m != v29; ++m)
       {
-        if (*v57 != v30)
+        if (*v56 != v30)
         {
           objc_enumerationMutation(completeHttpInfos);
         }
 
-        v32 = [*(*(&v56 + 1) + 8 * m) copyWithZone:zone];
+        v32 = [*(*(&v55 + 1) + 8 * m) copyWithZone:zone];
         [v6 addCompleteHttpInfos:v32];
       }
 
-      v29 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v56 objects:v74 count:16];
+      v29 = [(NSMutableArray *)completeHttpInfos countByEnumeratingWithState:&v55 objects:v73 count:16];
     }
 
     while (v29);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   cancelErrors = self->_cancelErrors;
-  v34 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v52 objects:v73 count:16];
+  v34 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v51 objects:v72 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v53;
+    v36 = *v52;
     do
     {
       for (n = 0; n != v35; ++n)
       {
-        if (*v53 != v36)
+        if (*v52 != v36)
         {
           objc_enumerationMutation(cancelErrors);
         }
 
-        v38 = [*(*(&v52 + 1) + 8 * n) copyWithZone:zone];
+        v38 = [*(*(&v51 + 1) + 8 * n) copyWithZone:zone];
         [v6 addCancelError:v38];
       }
 
-      v35 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v52 objects:v73 count:16];
+      v35 = [(NSMutableArray *)cancelErrors countByEnumeratingWithState:&v51 objects:v72 count:16];
     }
 
     while (v35);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   errors = self->_errors;
-  v40 = [(NSMutableArray *)errors countByEnumeratingWithState:&v48 objects:v72 count:16];
+  v40 = [(NSMutableArray *)errors countByEnumeratingWithState:&v47 objects:v71 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v49;
+    v42 = *v48;
     do
     {
       for (ii = 0; ii != v41; ++ii)
       {
-        if (*v49 != v42)
+        if (*v48 != v42)
         {
           objc_enumerationMutation(errors);
         }
 
-        v44 = [*(*(&v48 + 1) + 8 * ii) copyWithZone:zone];
+        v44 = [*(*(&v47 + 1) + 8 * ii) copyWithZone:zone];
         [v6 addError:v44];
       }
 
-      v41 = [(NSMutableArray *)errors countByEnumeratingWithState:&v48 objects:v72 count:16];
+      v41 = [(NSMutableArray *)errors countByEnumeratingWithState:&v47 objects:v71 count:16];
     }
 
     while (v41);
@@ -1644,7 +1621,6 @@ LABEL_62:
 LABEL_63:
 
   *(v6 + 80) = [(NSString *)self->_ckContainerId copyWithZone:zone];
-  v46 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1851,7 +1827,6 @@ LABEL_63:
                     goto LABEL_100;
                   }
 
-                  v22 = *(equal + 161);
                   if (self->_allItemsSuccessful)
                   {
                     if ((*(equal + 161) & 1) == 0)
@@ -1888,7 +1863,6 @@ LABEL_63:
                 {
                   if ((*(equal + 82) & 0x1000) != 0)
                   {
-                    v23 = *(equal + 160);
                     if (self->_allItemsFailed)
                     {
                       if ((*(equal + 160) & 1) == 0)
@@ -2138,7 +2112,7 @@ LABEL_29:
 
 - (void)mergeFrom:(id)from
 {
-  v69 = *MEMORY[0x29EDCA608];
+  v68 = *MEMORY[0x29EDCA608];
   if ((*(from + 82) & 4) != 0)
   {
     self->_timestamp = *(from + 3);
@@ -2258,169 +2232,169 @@ LABEL_21:
   }
 
 LABEL_22:
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v7 = *(from + 8);
-  v8 = [v7 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v58 objects:v67 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v60;
+    v10 = *v59;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v60 != v10)
+        if (*v59 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addChunkingInfos:*(*(&v59 + 1) + 8 * i)];
+        [(AWDMMCSPutRequestInfo *)self addChunkingInfos:*(*(&v58 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
     while (v9);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v12 = *(from + 4);
-  v13 = [v12 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v56;
+    v15 = *v55;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v56 != v15)
+        if (*v55 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addAuthHttpInfos:*(*(&v55 + 1) + 8 * j)];
+        [(AWDMMCSPutRequestInfo *)self addAuthHttpInfos:*(*(&v54 + 1) + 8 * j)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
     while (v14);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v17 = *(from + 13);
-  v18 = [v17 countByEnumeratingWithState:&v51 objects:v66 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v50 objects:v65 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v52;
+    v20 = *v51;
     do
     {
       for (k = 0; k != v19; ++k)
       {
-        if (*v52 != v20)
+        if (*v51 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addContainerHttpInfos:*(*(&v51 + 1) + 8 * k)];
+        [(AWDMMCSPutRequestInfo *)self addContainerHttpInfos:*(*(&v50 + 1) + 8 * k)];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v51 objects:v66 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v50 objects:v65 count:16];
     }
 
     while (v19);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v22 = *(from + 12);
-  v23 = [v22 countByEnumeratingWithState:&v47 objects:v65 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v46 objects:v64 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v48;
+    v25 = *v47;
     do
     {
       for (m = 0; m != v24; ++m)
       {
-        if (*v48 != v25)
+        if (*v47 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addCompleteHttpInfos:*(*(&v47 + 1) + 8 * m)];
+        [(AWDMMCSPutRequestInfo *)self addCompleteHttpInfos:*(*(&v46 + 1) + 8 * m)];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v47 objects:v65 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v46 objects:v64 count:16];
     }
 
     while (v24);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v27 = *(from + 5);
-  v28 = [v27 countByEnumeratingWithState:&v43 objects:v64 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v42 objects:v63 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v44;
+    v30 = *v43;
     do
     {
       for (n = 0; n != v29; ++n)
       {
-        if (*v44 != v30)
+        if (*v43 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addCancelError:*(*(&v43 + 1) + 8 * n)];
+        [(AWDMMCSPutRequestInfo *)self addCancelError:*(*(&v42 + 1) + 8 * n)];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v43 objects:v64 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v42 objects:v63 count:16];
     }
 
     while (v29);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v32 = *(from + 14);
-  v33 = [v32 countByEnumeratingWithState:&v39 objects:v63 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v38 objects:v62 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v40;
+    v35 = *v39;
     do
     {
       for (ii = 0; ii != v34; ++ii)
       {
-        if (*v40 != v35)
+        if (*v39 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        [(AWDMMCSPutRequestInfo *)self addError:*(*(&v39 + 1) + 8 * ii)];
+        [(AWDMMCSPutRequestInfo *)self addError:*(*(&v38 + 1) + 8 * ii)];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v39 objects:v63 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v38 objects:v62 count:16];
     }
 
     while (v34);
@@ -2478,8 +2452,6 @@ LABEL_69:
   {
     [(AWDMMCSPutRequestInfo *)self setCkContainerId:?];
   }
-
-  v38 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -14,14 +14,15 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6FindMy25FMExtendedPlatterInfoView_actionHandler);
   if (v2)
   {
-    v5[3] = swift_getObjectType();
-    v5[0] = self;
+    v3 = *&self->iconImageView[OBJC_IVAR____TtC6FindMy25FMExtendedPlatterInfoView_actionHandler];
+    v7[3] = swift_getObjectType();
+    v7[0] = self;
     selfCopy = self;
-    sub_100062900(v2);
-    v2(v5);
+    v6 = sub_100062900(v2, v3);
+    v2(v7, v6);
 
-    sub_10001835C(v2);
-    sub_100006060(v5);
+    sub_10001835C(v2, v3);
+    sub_100006060(v7);
   }
 }
 
@@ -47,7 +48,7 @@
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -67,7 +68,7 @@
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  sub_10000905C(0, &qword_1006B0C30);
+  sub_10000905C(0, &qword_1006B0C30, UITouch_ptr);
   sub_1000D5BCC();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;

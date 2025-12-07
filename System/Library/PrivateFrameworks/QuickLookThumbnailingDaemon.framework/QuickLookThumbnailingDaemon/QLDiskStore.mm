@@ -10,11 +10,11 @@
 
 - (QLDiskStore)initWithURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v14.receiver = self;
-  v14.super_class = QLDiskStore;
-  v5 = [(QLDiskStore *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = QLDiskStore;
+  v5 = [(QLDiskStore *)&v13 init];
   if (!v5)
   {
     goto LABEL_10;
@@ -46,8 +46,8 @@
     block[1] = 3221225472;
     block[2] = __27__QLDiskStore_initWithURL___block_invoke;
     block[3] = &unk_279ADD528;
-    v16 = v5;
-    memcpy(v17, &__src, sizeof(v17));
+    v15 = v5;
+    memcpy(v16, &__src, sizeof(v16));
     dispatch_async(v11, block);
 
 LABEL_10:
@@ -66,11 +66,10 @@ LABEL_8:
   v7 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t __27__QLDiskStore_initWithURL___block_invoke(uint64_t a1)
+void *__27__QLDiskStore_initWithURL___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setDisableQuickLook:{file_exists((a1 + 128), ".ql_disablethumbnails")}];
   if ([*(a1 + 32) disableQuickLook])
@@ -97,10 +96,10 @@ uint64_t __27__QLDiskStore_initWithURL___block_invoke(uint64_t a1)
 
 + (id)diskStoreForURL:(id)l
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  memset(&v11, 0, 512);
-  if (([lCopy getFileSystemRepresentation:v10 maxLength:1024] & 1) == 0)
+  memset(&v10, 0, 512);
+  if (([lCopy getFileSystemRepresentation:v9 maxLength:1024] & 1) == 0)
   {
     v5 = _log_2();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -111,7 +110,7 @@ uint64_t __27__QLDiskStore_initWithURL___block_invoke(uint64_t a1)
     goto LABEL_7;
   }
 
-  if (statfs(v10, &v11))
+  if (statfs(v9, &v10))
   {
     v5 = _log_2();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -133,7 +132,7 @@ LABEL_7:
     diskStores = Mutable;
   }
 
-  v6 = CFDictionaryGetValue(Mutable, &v11.f_fsid);
+  v6 = CFDictionaryGetValue(Mutable, &v10.f_fsid);
   if (!v6)
   {
     v6 = [[self alloc] initWithURL:lCopy];
@@ -141,8 +140,6 @@ LABEL_7:
 
   pthread_mutex_unlock(&lock);
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -186,18 +183,18 @@ LABEL_8:
 
 + (id)diskStores
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = MEMORY[0x266707090](0, 0, 0);
   if (v3)
   {
     v4 = v3;
-    v12 = 0;
+    v11 = 0;
     while (1)
     {
       do
       {
-        v5 = MEMORY[0x2667070A0](v4, &v12, 0);
+        v5 = MEMORY[0x2667070A0](v4, &v11, 0);
       }
 
       while (v5 == 3);
@@ -207,7 +204,7 @@ LABEL_8:
       }
 
       v6 = [QLDiskStore alloc];
-      v7 = [(QLDiskStore *)v6 initWithURL:v12];
+      v7 = [(QLDiskStore *)v6 initWithURL:v11];
       v8 = _log_2();
       v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
       if (v7)
@@ -215,9 +212,9 @@ LABEL_8:
         if (v9)
         {
           *buf = 138412546;
-          v14 = v12;
-          v15 = 2112;
-          v16 = v7;
+          v13 = v11;
+          v14 = 2112;
+          v15 = v7;
           _os_log_error_impl(&dword_2615D3000, v8, OS_LOG_TYPE_ERROR, "Getting store for %@: %@", buf, 0x16u);
         }
 
@@ -229,7 +226,7 @@ LABEL_8:
         if (v9)
         {
           *buf = 138412290;
-          v14 = v12;
+          v13 = v11;
           _os_log_error_impl(&dword_2615D3000, v8, OS_LOG_TYPE_ERROR, "No store for %@", buf, 0xCu);
         }
       }
@@ -238,27 +235,22 @@ LABEL_8:
     CFRelease(v4);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (void)initWithURL:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_2615D3000, v1, v2, "Can't get FS stat for %s: %i", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2615D3000, v0, v1, "Can't get FS stat for %s: %i", v2, v3, v4, v5);
 }
 
 - (void)initWithURL:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Can't get file system representation for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Can't get file system representation for %@", &v2, 0xCu);
 }
 
 @end

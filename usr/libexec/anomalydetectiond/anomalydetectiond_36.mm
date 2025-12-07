@@ -123,28 +123,26 @@ uint64_t CMMsl::KappaActivityWatch::hash_value(CMMsl::KappaActivityWatch *this)
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 52);
-  if ((v6 & 0x100) == 0)
+  v3 = PBHashBytes();
+  v4 = *(this + 52);
+  if ((v4 & 0x100) == 0)
   {
-    v7 = 0;
-    if ((v6 & 0x40) != 0)
+    v5 = 0;
+    if ((v4 & 0x40) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_21:
-    v9 = 0;
-    if ((v6 & 0x80) != 0)
+    v7 = 0;
+    if ((v4 & 0x80) != 0)
     {
       goto LABEL_10;
     }
 
 LABEL_22:
-    v11 = 0;
-    if ((v6 & 0x20) != 0)
+    v9 = 0;
+    if ((v4 & 0x20) != 0)
     {
       goto LABEL_14;
     }
@@ -152,24 +150,41 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v15 = *(this + 25);
-  if (v15 == 0.0)
+  v13 = *(this + 25);
+  if (v13 == 0.0)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = LODWORD(v13);
+  }
+
+  if ((v4 & 0x40) == 0)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_6:
+  v6 = *(this + 23);
+  if (v6 == 0.0)
   {
     v7 = 0;
   }
 
   else
   {
-    v7 = LODWORD(v15);
+    v7 = LODWORD(v6);
   }
 
-  if ((v6 & 0x40) == 0)
+  if ((v4 & 0x80) == 0)
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-LABEL_6:
-  v8 = *(this + 23);
+LABEL_10:
+  v8 = *(this + 24);
   if (v8 == 0.0)
   {
     v9 = 0;
@@ -180,35 +195,18 @@ LABEL_6:
     v9 = LODWORD(v8);
   }
 
-  if ((v6 & 0x80) == 0)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_10:
-  v10 = *(this + 24);
-  if (v10 == 0.0)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = LODWORD(v10);
-  }
-
-  if ((v6 & 0x20) != 0)
+  if ((v4 & 0x20) != 0)
   {
 LABEL_14:
-    v12 = *(this + 22);
-    if ((v6 & 2) != 0)
+    v10 = *(this + 22);
+    if ((v4 & 2) != 0)
     {
       goto LABEL_15;
     }
 
 LABEL_24:
-    v13 = 0;
-    if ((v6 & 4) != 0)
+    v11 = 0;
+    if ((v4 & 4) != 0)
     {
       goto LABEL_16;
     }
@@ -217,62 +215,60 @@ LABEL_24:
   }
 
 LABEL_23:
-  v12 = 0;
-  if ((v6 & 2) == 0)
+  v10 = 0;
+  if ((v4 & 2) == 0)
   {
     goto LABEL_24;
   }
 
 LABEL_15:
-  v13 = *(this + 8);
-  if ((v6 & 4) != 0)
+  v11 = *(this + 8);
+  if ((v4 & 4) != 0)
   {
 LABEL_16:
-    v14 = *(this + 9);
+    v12 = *(this + 9);
     goto LABEL_26;
   }
 
 LABEL_25:
-  v14 = 0;
+  v12 = 0;
 LABEL_26:
-  v16 = *(this + 1);
-  v17 = *(this + 2);
-  v18 = PBHashBytes();
-  v19 = *(this + 52);
-  if ((v19 & 0x10) != 0)
+  v14 = PBHashBytes();
+  v15 = *(this + 52);
+  if ((v15 & 0x10) != 0)
   {
-    v23 = *(this + 21);
-    v20 = LODWORD(v23);
-    if (v23 == 0.0)
+    v19 = *(this + 21);
+    v16 = LODWORD(v19);
+    if (v19 == 0.0)
     {
-      v20 = 0;
+      v16 = 0;
     }
 
-    if ((v19 & 8) != 0)
+    if ((v15 & 8) != 0)
     {
       goto LABEL_28;
     }
 
 LABEL_34:
-    v22 = 0;
-    return v5 ^ v2 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v14 ^ v18 ^ v20 ^ v22;
+    v18 = 0;
+    return v3 ^ v2 ^ v5 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18;
   }
 
-  v20 = 0;
-  if ((v19 & 8) == 0)
+  v16 = 0;
+  if ((v15 & 8) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_28:
-  v21 = *(this + 20);
-  v22 = LODWORD(v21);
-  if (v21 == 0.0)
+  v17 = *(this + 20);
+  v18 = LODWORD(v17);
+  if (v17 == 0.0)
   {
-    v22 = 0;
+    v18 = 0;
   }
 
-  return v5 ^ v2 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v14 ^ v18 ^ v20 ^ v22;
+  return v3 ^ v2 ^ v5 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18;
 }
 
 void CMMsl::KappaAirbagResult::~KappaAirbagResult(CMMsl::KappaAirbagResult *this)
@@ -529,7 +525,7 @@ float CMMsl::KappaAirbagResult::KappaAirbagResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaAirbagResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaAirbagResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2372,7 +2368,7 @@ float CMMsl::KappaAudioResult::KappaAudioResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaAudioResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaAudioResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5051,7 +5047,7 @@ float CMMsl::KappaBaroResult::KappaBaroResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaBaroResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaBaroResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9296,7 +9292,7 @@ float CMMsl::KappaCrashResult::KappaCrashResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

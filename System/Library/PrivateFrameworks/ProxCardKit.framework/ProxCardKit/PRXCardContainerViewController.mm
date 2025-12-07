@@ -58,9 +58,9 @@
 - (PRXCardContainerViewController)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v14.receiver = self;
-  v14.super_class = PRXCardContainerViewController;
-  v6 = [(PRXCardContainerViewController *)&v14 initWithNibName:0 bundle:0];
+  v15.receiver = self;
+  v15.super_class = PRXCardContainerViewController;
+  v6 = [(PRXCardContainerViewController *)&v15 initWithNibName:0 bundle:0];
   v7 = v6;
   if (v6)
   {
@@ -72,10 +72,10 @@
     [(UINavigationController *)v7->_mainNavigationController setDelegate:v7];
     [(UINavigationController *)v7->_mainNavigationController setNavigationBarHidden:1];
     objc_storeStrong(&v7->_contentViewController, v7->_mainNavigationController);
-    v7->_containerLayoutMargins.top = PRXCardContainerDefaultLayoutMargins();
-    v7->_containerLayoutMargins.leading = v10;
-    v7->_containerLayoutMargins.bottom = v11;
-    v7->_containerLayoutMargins.trailing = v12;
+    v7->_containerLayoutMargins.top = PRXCardContainerDefaultLayoutMargins(v10);
+    v7->_containerLayoutMargins.leading = v11;
+    v7->_containerLayoutMargins.bottom = v12;
+    v7->_containerLayoutMargins.trailing = v13;
     v7->_legacyCard = 0;
     [(PRXCardContainerViewController *)v7 _commonInit];
   }

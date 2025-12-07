@@ -294,7 +294,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    disabledRoleCount = self->_disabledRoleCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -314,7 +313,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  detachedRoleCount = self->_detachedRoleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -329,7 +327,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  childRoleCount = self->_childRoleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -344,7 +341,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  routerRoleCount = self->_routerRoleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -359,7 +355,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  leaderRoleCount = self->_leaderRoleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -374,7 +369,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  attachAttempts = self->_attachAttempts;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -389,7 +383,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  partitionIdChangesCount = self->_partitionIdChangesCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -404,7 +397,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  betterPartitionAttachAttempts = self->_betterPartitionAttachAttempts;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) == 0)
   {
@@ -415,7 +407,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  parentChangesCount = self->_parentChangesCount;
   PBDataWriterWriteUint32Field();
   v5 = toCopy;
 

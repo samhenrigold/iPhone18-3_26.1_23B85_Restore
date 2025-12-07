@@ -10,90 +10,90 @@
 + (BOOL)isVocalizerVoiceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (objc_msgSend_hasPrefix_(identifierCopy, v5, @"com.apple.ttsbundle", v6, v7) && (objc_msgSend_isOldSiriVoiceIdentifier_(self, v8, identifierCopy, v9, v10) & 1) == 0)
+  if ([identifierCopy hasPrefix:@"com.apple.ttsbundle"] && (objc_msgSend(self, "isOldSiriVoiceIdentifier:", identifierCopy) & 1) == 0)
   {
-    v14 = objc_msgSend_isSiriVoiceIdentifier_(self, v11, identifierCopy, v12, v13) ^ 1;
+    v5 = [self isSiriVoiceIdentifier:identifierCopy] ^ 1;
   }
 
   else
   {
-    LOBYTE(v14) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return v14;
+  return v5;
 }
 
 + (BOOL)isCompactVocalizerVoiceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (objc_msgSend_isVocalizerVoiceIdentifier_(self, v5, identifierCopy, v6, v7))
+  if ([self isVocalizerVoiceIdentifier:identifierCopy])
   {
-    v18 = 0;
-    v19 = 0;
-    v10 = TTSGetComponentsInNashvilleVoiceIdentifier(identifierCopy, &v19, &v18, v8, v9);
-    v11 = v19;
-    v12 = v18;
-    v16 = v12;
-    if (v10)
+    v10 = 0;
+    v11 = 0;
+    v5 = TTSGetComponentsInNashvilleVoiceIdentifier(identifierCopy, &v11, &v10);
+    v6 = v11;
+    v7 = v10;
+    v8 = v7;
+    if (v5)
     {
-      LOBYTE(v10) = objc_msgSend_isEqualToString_(v12, v13, @"compact", v14, v15);
+      LOBYTE(v5) = [v7 isEqualToString:@"compact"];
     }
   }
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return v10;
+  return v5;
 }
 
 + (BOOL)isCombinedVocalizerVoiceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if (objc_msgSend_isVocalizerVoiceIdentifier_(self, v5, identifierCopy, v6, v7))
+  if ([self isVocalizerVoiceIdentifier:identifierCopy])
   {
-    v14 = 0;
-    v15 = 0;
-    v10 = TTSGetComponentsInNashvilleVoiceIdentifier(identifierCopy, &v15, &v14, v8, v9);
-    v11 = v15;
-    if (v14)
+    v9 = 0;
+    v10 = 0;
+    v5 = TTSGetComponentsInNashvilleVoiceIdentifier(identifierCopy, &v10, &v9);
+    v6 = v10;
+    if (v9)
     {
-      v12 = !v10;
+      v7 = !v5;
     }
 
     else
     {
-      v12 = 1;
+      v7 = 1;
     }
   }
 
   else
   {
-    v12 = 0;
+    v7 = 0;
   }
 
-  return v12;
+  return v7;
 }
 
 + (id)nameForVoiceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v9 = objc_msgSend_sharedInstance(TTSAXResourceManager, v5, v6, v7, v8);
-  v13 = objc_msgSend_resourceWithVoiceId_(v9, v10, identifierCopy, v11, v12);
+  v5 = +[TTSAXResourceManager sharedInstance];
+  v6 = [v5 resourceWithVoiceId:identifierCopy];
 
-  LODWORD(self) = objc_msgSend_isSiriVoiceIdentifier_(self, v14, identifierCopy, v15, v16);
+  LODWORD(self) = [self isSiriVoiceIdentifier:identifierCopy];
   if (self)
   {
-    v21 = objc_msgSend_localizedName(v13, v17, v18, v19, v20);
+    localizedName = [v6 localizedName];
   }
 
   else
   {
-    v21 = 0;
+    localizedName = 0;
   }
 
-  return v21;
+  return localizedName;
 }
 
 @end

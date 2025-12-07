@@ -8,7 +8,7 @@
 + (id)anySettled:(id)settled;
 + (id)futureForOperation:(id)operation;
 + (id)futureWithDelay:(double)delay;
-+ (id)futureWithDelay:(uint64_t)delay outcome:(void *)outcome;
++ (id)futureWithDelay:(void *)delay outcome:(double)outcome;
 + (id)futureWithError:(id)error;
 + (id)futureWithPromise:(id *)promise;
 + (id)futureWithValue:(id)value;
@@ -89,9 +89,11 @@
 
 uint64_t __32__HMFFuture__futureWithNilValue__block_invoke()
 {
-  qword_280AFC578 = [[HMFFulfilledFuture alloc] initWithValue:?];
+  v0 = [[HMFFulfilledFuture alloc] initWithValue:?];
+  v1 = qword_280AFC578;
+  qword_280AFC578 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __40__HMFFuture__futureWithUnspecifiedError__block_invoke()
@@ -357,28 +359,28 @@ void __39__HMFFuture__inContext_transform_with___block_invoke(void *a1)
   v4 = HMFFuture;
   if (HMFFuture)
   {
-    v4 = [(HMFFuture *)delay futureWithDelay:1 outcome:0];
+    v4 = [HMFFuture futureWithDelay:0 outcome:delay];
     v3 = vars8;
   }
 
   return v4;
 }
 
-+ (id)futureWithDelay:(uint64_t)delay outcome:(void *)outcome
++ (id)futureWithDelay:(void *)delay outcome:(double)outcome
 {
   objc_opt_self();
   v16 = 0;
   v7 = [HMFFuture futureWithPromise:&v16];
-  v8 = dispatch_time(0, (self * 1000000000.0));
+  v8 = dispatch_time(0, (outcome * 1000000000.0));
   v9 = dispatch_get_global_queue(21, 0);
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3254779904;
   v12[2] = __46__HMFFuture_Timeout__futureWithDelay_outcome___block_invoke;
   v12[3] = &unk_283EBCAE0;
   v13 = v16;
+  v14 = a2;
   delayCopy = delay;
-  outcomeCopy = outcome;
-  outcomeCopy2 = outcome;
+  delayCopy2 = delay;
   dispatch_after(v8, v9, v12);
 
   return v7;
@@ -386,13 +388,13 @@ void __39__HMFFuture__inContext_transform_with___block_invoke(void *a1)
 
 - (id)timeout:(double)timeout
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (_MergedGlobals_58 != -1)
   {
     dispatch_once(&_MergedGlobals_58, &__block_literal_global_5);
   }
 
-  v14[0] = self;
+  v13[0] = self;
   v5 = qword_280AFC5B8;
   v6 = v5;
   if (v5)
@@ -409,7 +411,7 @@ void __39__HMFFuture__inContext_transform_with___block_invoke(void *a1)
 
   if (HMFFuture)
   {
-    v9 = [(HMFFuture *)timeout futureWithDelay:2 outcome:v8];
+    v9 = [HMFFuture futureWithDelay:v8 outcome:timeout];
   }
 
   else
@@ -418,20 +420,20 @@ void __39__HMFFuture__inContext_transform_with___block_invoke(void *a1)
     v9 = 0;
   }
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [HMFFuture anySettled:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 uint64_t __30__HMFFuture_Timeout__timeout___block_invoke()
 {
-  qword_280AFC5B8 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:13];
+  v0 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:13];
+  v1 = qword_280AFC5B8;
+  qword_280AFC5B8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __46__HMFFuture_Timeout__futureWithDelay_outcome___block_invoke(uint64_t a1)
@@ -590,56 +592,56 @@ void __56__HMFFuture_Waiting__waitForResult_orError_withTimeout___block_invoke(u
 
 + (id)all:(id)all
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [all copy];
   v4 = [v3 count];
   if (v4)
   {
     v5 = v4;
-    v25 = 0;
-    v6 = [HMFFuture futureWithPromise:&v25];
-    v24[0] = 0;
-    v24[1] = v24;
-    v24[2] = 0x2020000000;
-    v24[3] = v5;
+    v24 = 0;
+    v6 = [HMFFuture futureWithPromise:&v24];
+    v23[0] = 0;
+    v23[1] = v23;
+    v23[2] = 0x2020000000;
+    v23[3] = v5;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __30__HMFFuture_Combinators__all___block_invoke;
     aBlock[3] = &unk_2786E7B18;
-    v20 = v25;
-    v22 = v24;
-    v23 = v5;
+    v19 = v24;
+    v21 = v23;
+    v22 = v5;
     v7 = v3;
-    v21 = v7;
+    v20 = v7;
     v8 = _Block_copy(aBlock);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
     if (v10)
     {
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * i) getResultWithCompletion:{v8, v15}];
+          [*(*(&v14 + 1) + 8 * i) getResultWithCompletion:{v8, v14}];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(v24, 8);
+    _Block_object_dispose(v23, 8);
   }
 
   else
@@ -647,15 +649,13 @@ void __56__HMFFuture_Waiting__waitForResult_orError_withTimeout___block_invoke(u
     v6 = [HMFFuture futureWithValue:MEMORY[0x277CBEBF8]];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 void __30__HMFFuture_Combinators__all___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v18 = a2;
+  v23 = *MEMORY[0x277D85DE8];
+  v17 = a2;
   v6 = a3;
   if (v6)
   {
@@ -665,25 +665,25 @@ void __30__HMFFuture_Combinators__all___block_invoke(uint64_t a1, void *a2, void
   else if (atomic_fetch_add((*(*(a1 + 48) + 8) + 24), 0xFFFFFFFFFFFFFFFFLL) == 1)
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:*(a1 + 56)];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = *(a1 + 40);
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v19 + 1) + 8 * i) outcomeIfSettled];
+          [*(*(&v18 + 1) + 8 * i) outcomeIfSettled];
           v13 = v12;
           v14 = v12;
           if (!v12)
@@ -698,7 +698,7 @@ void __30__HMFFuture_Combinators__all___block_invoke(uint64_t a1, void *a2, void
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -708,62 +708,60 @@ void __30__HMFFuture_Combinators__all___block_invoke(uint64_t a1, void *a2, void
     v16 = [v7 copy];
     [v15 fulfillWithValue:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allSettled:(id)settled
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [settled copy];
   v4 = [v3 count];
   if (v4)
   {
     v5 = v4;
-    v25 = 0;
-    v6 = [HMFFuture futureWithPromise:&v25];
-    v24[0] = 0;
-    v24[1] = v24;
-    v24[2] = 0x2020000000;
-    v24[3] = v5;
+    v24 = 0;
+    v6 = [HMFFuture futureWithPromise:&v24];
+    v23[0] = 0;
+    v23[1] = v23;
+    v23[2] = 0x2020000000;
+    v23[3] = v5;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __37__HMFFuture_Combinators__allSettled___block_invoke;
     aBlock[3] = &unk_2786E7B18;
-    v22 = v24;
-    v23 = v5;
+    v21 = v23;
+    v22 = v5;
     v7 = v3;
-    v20 = v7;
-    v21 = v25;
+    v19 = v7;
+    v20 = v24;
     v8 = _Block_copy(aBlock);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
     if (v10)
     {
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * i) getResultWithCompletion:{v8, v15}];
+          [*(*(&v14 + 1) + 8 * i) getResultWithCompletion:{v8, v14}];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(v24, 8);
+    _Block_object_dispose(v23, 8);
   }
 
   else
@@ -771,38 +769,36 @@ void __30__HMFFuture_Combinators__all___block_invoke(uint64_t a1, void *a2, void
     v6 = [HMFFuture futureWithValue:MEMORY[0x277CBEBF8]];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 void __37__HMFFuture_Combinators__allSettled___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v18 = a2;
+  v23 = *MEMORY[0x277D85DE8];
+  v17 = a2;
   v6 = a3;
   if (atomic_fetch_add((*(*(a1 + 48) + 8) + 24), 0xFFFFFFFFFFFFFFFFLL) == 1)
   {
     v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:*(a1 + 56)];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = *(a1 + 32);
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v19 + 1) + 8 * i) outcomeIfSettled];
+          [*(*(&v18 + 1) + 8 * i) outcomeIfSettled];
           v13 = v12;
           v14 = v12;
           if (!v12)
@@ -817,7 +813,7 @@ void __37__HMFFuture_Combinators__allSettled___block_invoke(uint64_t a1, void *a
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -827,13 +823,11 @@ void __37__HMFFuture_Combinators__allSettled___block_invoke(uint64_t a1, void *a
     v16 = [v7 copy];
     [v15 fulfillWithValue:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)any:(id)any
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [any copy];
   v4 = [v3 count];
   if (!v4)
@@ -842,58 +836,57 @@ void __37__HMFFuture_Combinators__allSettled___block_invoke(uint64_t a1, void *a
   }
 
   v5 = v4;
-  v25 = 0;
-  v6 = [HMFFuture futureWithPromise:&v25];
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v24[3] = v5;
+  v24 = 0;
+  v6 = [HMFFuture futureWithPromise:&v24];
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v23[3] = v5;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __30__HMFFuture_Combinators__any___block_invoke;
   aBlock[3] = &unk_2786E7B18;
-  v20 = v25;
-  v22 = v24;
-  v23 = v5;
+  v19 = v24;
+  v21 = v23;
+  v22 = v5;
   v7 = v3;
-  v21 = v7;
+  v20 = v7;
   v8 = _Block_copy(aBlock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v15 + 1) + 8 * i) getResultWithCompletion:{v8, v15}];
+        [*(*(&v14 + 1) + 8 * i) getResultWithCompletion:{v8, v14}];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v26 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v14 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  _Block_object_dispose(v24, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v23, 8);
 
   return v6;
 }
 
 void __30__HMFFuture_Combinators__any___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -901,30 +894,30 @@ void __30__HMFFuture_Combinators__any___block_invoke(uint64_t a1, void *a2, void
     if (atomic_fetch_add((*(*(a1 + 48) + 8) + 24), 0xFFFFFFFFFFFFFFFFLL) == 1)
     {
       v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:*(a1 + 56)];
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v8 = *(a1 + 40);
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v9)
       {
-        v10 = *v21;
+        v10 = *v20;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            [*(*(&v20 + 1) + 8 * i) outcomeIfSettled];
+            [*(*(&v19 + 1) + 8 * i) outcomeIfSettled];
             v13 = v12;
             [v7 addObject:v12];
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
         }
 
         while (v9);
@@ -932,10 +925,10 @@ void __30__HMFFuture_Combinators__any___block_invoke(uint64_t a1, void *a2, void
 
       v14 = *(a1 + 32);
       v15 = MEMORY[0x277CCA9B8];
-      v24 = @"HMFDetailedErrorsKey";
+      v23 = @"HMFDetailedErrorsKey";
       v16 = [v7 copy];
-      v25 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v24 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       v18 = [v15 hmfErrorWithCode:17 userInfo:v17];
       [v14 rejectWithError:v18];
     }
@@ -945,51 +938,47 @@ void __30__HMFFuture_Combinators__any___block_invoke(uint64_t a1, void *a2, void
   {
     [*(a1 + 32) fulfillWithValue:v5];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)anySettled:(id)settled
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   settledCopy = settled;
   if (![settledCopy count])
   {
     _HMFPreconditionFailure(@"futures.count >= 1");
   }
 
-  v17 = 0;
-  v4 = [HMFFuture futureWithPromise:&v17];
-  resolverBlock = [v17 resolverBlock];
+  v16 = 0;
+  v4 = [HMFFuture futureWithPromise:&v16];
+  resolverBlock = [v16 resolverBlock];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = settledCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v13 + 1) + 8 * i) getResultWithCompletion:{resolverBlock, v13}];
+        [*(*(&v12 + 1) + 8 * i) getResultWithCompletion:{resolverBlock, v12}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

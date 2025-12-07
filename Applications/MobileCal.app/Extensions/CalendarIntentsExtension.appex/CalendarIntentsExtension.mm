@@ -72,11 +72,10 @@ unint64_t sub_100001A94()
 id sub_100001AF8(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  return v4;
+  return v3;
 }
 
 uint64_t sub_100001B48()
@@ -156,7 +155,6 @@ uint64_t sub_100001E60(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100001E78()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 24, 7);
@@ -167,7 +165,6 @@ uint64_t sub_100001EBC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -182,12 +179,11 @@ uint64_t sub_100001F04(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100001F6C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100001F6C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -198,14 +194,11 @@ uint64_t sub_100001F6C(uint64_t a1, unint64_t *a2, uint64_t *a3)
 
 uint64_t *sub_100001FB4(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

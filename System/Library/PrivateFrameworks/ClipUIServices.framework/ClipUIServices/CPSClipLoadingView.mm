@@ -476,11 +476,11 @@ uint64_t __72__CPSClipLoadingView_setLoadingHasFailed_animated_reason_reloadHand
   return [v4 setAlpha:v3];
 }
 
-uint64_t __72__CPSClipLoadingView_setLoadingHasFailed_animated_reason_reloadHandler___block_invoke_2(uint64_t result)
+id *__72__CPSClipLoadingView_setLoadingHasFailed_animated_reason_reloadHandler___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) setLoadingProgress:0 completion:0.0];
+    return [result[4] setLoadingProgress:0 completion:0.0];
   }
 
   return result;
@@ -716,18 +716,19 @@ uint64_t __52__CPSClipLoadingView_setLoadingProgress_completion___block_invoke_3
 
 - (void)finishLoadingWithCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipUIServices(completionCopy, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
     loadingProgress = self->_loadingProgress;
     progressChangeAnimationCount = self->_progressChangeAnimationCount;
     *buf = 134218240;
-    v31 = loadingProgress;
-    v32 = 2048;
-    v33 = progressChangeAnimationCount;
-    _os_log_impl(&dword_24374B000, v5, OS_LOG_TYPE_DEFAULT, "Requested to finish the loading animation with current progress %f and animation count %ld.", buf, 0x16u);
+    v34 = loadingProgress;
+    v35 = 2048;
+    v36 = progressChangeAnimationCount;
+    _os_log_impl(&dword_24374B000, v6, OS_LOG_TYPE_DEFAULT, "Requested to finish the loading animation with current progress %f and animation count %ld.", buf, 0x16u);
   }
 
   if (self->_loadingProgress >= 1.0)
@@ -737,37 +738,37 @@ uint64_t __52__CPSClipLoadingView_setLoadingProgress_completion___block_invoke_3
       if (!self->_deferredActions)
       {
         objc_initWeak(buf, self);
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_2;
-        v24[3] = &unk_278DD2900;
-        objc_copyWeak(&v26, buf);
-        v25 = completionCopy;
-        v9 = MEMORY[0x245D3DDC0](v24);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_2;
+        v27[3] = &unk_278DD2900;
+        objc_copyWeak(&v29, buf);
+        v28 = completionCopy;
+        v12 = MEMORY[0x245D3DDC0](v27);
         deferredActions = self->_deferredActions;
-        self->_deferredActions = v9;
+        self->_deferredActions = v12;
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v29);
         objc_destroyWeak(buf);
       }
     }
 
     else
     {
-      v11 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v7, v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_24374B000, v11, OS_LOG_TYPE_DEFAULT, "Animating out the loading view.", buf, 2u);
+        _os_log_impl(&dword_24374B000, v14, OS_LOG_TYPE_DEFAULT, "Animating out the loading view.", buf, 2u);
       }
 
       backdropLayer = self->_backdropLayer;
-      v13 = [(CPSClipLoadingView *)self _backdropEffectRemovalAnimationForKeyPath:@"filters.luminanceCurveMap.inputAmount"];
-      [(CABackdropLayer *)backdropLayer addAnimation:v13 forKey:0];
+      v16 = [(CPSClipLoadingView *)self _backdropEffectRemovalAnimationForKeyPath:@"filters.luminanceCurveMap.inputAmount"];
+      [(CABackdropLayer *)backdropLayer addAnimation:v16 forKey:0];
 
-      v14 = self->_backdropLayer;
-      v15 = [(CPSClipLoadingView *)self _backdropEffectRemovalAnimationForKeyPath:@"filters.colorSaturate.inputAmount"];
-      [(CABackdropLayer *)v14 addAnimation:v15 forKey:0];
+      v17 = self->_backdropLayer;
+      v18 = [(CPSClipLoadingView *)self _backdropEffectRemovalAnimationForKeyPath:@"filters.colorSaturate.inputAmount"];
+      [(CABackdropLayer *)v17 addAnimation:v18 forKey:0];
 
       layer = [(UIView *)self->_labelContainerView layer];
       _basicAnimationToDecreaseOpacity = [(CPSClipLoadingView *)self _basicAnimationToDecreaseOpacity];
@@ -778,12 +779,12 @@ uint64_t __52__CPSClipLoadingView_setLoadingProgress_completion___block_invoke_3
       [layer2 addAnimation:_springAnimationToDecreaseOpacity forKey:0];
 
       _textScaleUpSpringAnimation = [(CPSClipLoadingView *)self _textScaleUpSpringAnimation];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_71;
-      v22[3] = &unk_278DD2928;
-      v23 = completionCopy;
-      [_textScaleUpSpringAnimation cps_setDelegateWithDidStartHandler:0 didStopHandler:v22];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_71;
+      v25[3] = &unk_278DD2928;
+      v26 = completionCopy;
+      [_textScaleUpSpringAnimation cps_setDelegateWithDidStartHandler:0 didStopHandler:v25];
       layer3 = [(UIView *)self->_clipNameContainerView layer];
       [layer3 addAnimation:_textScaleUpSpringAnimation forKey:0];
     }
@@ -792,16 +793,16 @@ uint64_t __52__CPSClipLoadingView_setLoadingProgress_completion___block_invoke_3
   else
   {
     objc_initWeak(buf, self);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke;
-    v27[3] = &unk_278DD2900;
-    objc_copyWeak(&v29, buf);
-    v28 = completionCopy;
-    LODWORD(v8) = 1.0;
-    [(CPSClipLoadingView *)self setLoadingProgress:v27 completion:v8];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke;
+    v30[3] = &unk_278DD2900;
+    objc_copyWeak(&v32, buf);
+    v31 = completionCopy;
+    LODWORD(v11) = 1.0;
+    [(CPSClipLoadingView *)self setLoadingProgress:v30 completion:v11];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
   }
 }
@@ -818,13 +819,13 @@ void __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_2(uint6
   [WeakRetained finishLoadingWithCompletion:*(a1 + 32)];
 }
 
-uint64_t __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_71(uint64_t a1)
+uint64_t __50__CPSClipLoadingView_finishLoadingWithCompletion___block_invoke_71(uint64_t a1, uint64_t a2)
 {
-  v2 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CPS_LOG_CHANNEL_PREFIXClipUIServices(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_24374B000, v2, OS_LOG_TYPE_DEFAULT, "The loading view has been animated out.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_24374B000, v3, OS_LOG_TYPE_DEFAULT, "The loading view has been animated out.", v5, 2u);
   }
 
   result = *(a1 + 32);

@@ -51,14 +51,14 @@
     v8 = &unk_1F1611C50;
   }
 
-  else if (([(_MKPlaceItem *)self->_placeItem options]& 1) != 0)
+  else if (objc_msgSend_options(self->_placeItem))
   {
     v8 = &unk_1F1611C68;
   }
 
   else
   {
-    if (([(_MKPlaceItem *)self->_placeItem options]& 2) == 0)
+    if ((objc_msgSend_options(self->_placeItem) & 2) == 0)
     {
       goto LABEL_10;
     }

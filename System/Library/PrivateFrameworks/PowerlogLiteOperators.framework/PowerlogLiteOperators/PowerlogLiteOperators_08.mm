@@ -1601,21 +1601,22 @@ LABEL_62:
 
 uint64_t __PLLogScreenState_block_invoke()
 {
-  qword_2811F3F98 = os_log_create("com.apple.powerlog", "screenState");
+  v0 = os_log_create("com.apple.powerlog", "screenState");
+  qword_2811F3F98 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-void sub_21A656368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21A656368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21A6579C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21A6579C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2379,15 +2380,16 @@ LABEL_149:
 
 uint64_t __PLLogProcessNetwork_block_invoke()
 {
-  _MergedGlobals_1_11 = os_log_create("com.apple.powerlog", "ProcessNetwork");
+  v0 = os_log_create("com.apple.powerlog", "ProcessNetwork");
+  _MergedGlobals_1_11 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-void sub_21A6643B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_21A6643B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2721,14 +2723,15 @@ LABEL_86:
 
 uint64_t __PLLogSMC_block_invoke()
 {
-  qword_2811F3FF0 = os_log_create("com.apple.powerlog", "smc");
+  v0 = os_log_create("com.apple.powerlog", "smc");
+  qword_2811F3FF0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-void sub_21A668844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21A668844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3747,9 +3750,10 @@ id PLLogSiri()
 
 uint64_t __PLLogSiri_block_invoke()
 {
-  _MergedGlobals_1_13 = os_log_create("com.apple.powerlog", "siri");
+  v0 = os_log_create("com.apple.powerlog", "siri");
+  _MergedGlobals_1_13 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t KCellularServingCellLostReadFrom(uint64_t a1, void *a2)
@@ -4002,16 +4006,18 @@ id PLLogMDNS()
 
 uint64_t __PLLogMDNS_block_invoke()
 {
-  _MergedGlobals_1_14 = os_log_create("com.apple.powerlog", "MDNS");
+  v0 = os_log_create("com.apple.powerlog", "MDNS");
+  _MergedGlobals_1_14 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t __PLLogAssertion_block_invoke()
 {
-  qword_2811F4180 = os_log_create("com.apple.powerlog", "assertion");
+  v0 = os_log_create("com.apple.powerlog", "assertion");
+  qword_2811F4180 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void sub_21A67E9E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
@@ -4021,19 +4027,20 @@ void sub_21A67E9E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21A67F374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21A67F374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21A684684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_21A684684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 240), 8);
-  _Block_object_dispose((v37 - 208), 8);
-  _Block_object_dispose((v37 - 176), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 240), 8);
+  _Block_object_dispose((v36 - 208), 8);
+  _Block_object_dispose((v36 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5146,9 +5153,10 @@ LABEL_242:
 
 uint64_t __PLLogConfig_block_invoke()
 {
-  _MergedGlobals_1_19 = os_log_create("com.apple.powerlog", "config");
+  v0 = os_log_create("com.apple.powerlog", "config");
+  _MergedGlobals_1_19 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void sub_21A68E730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location)
@@ -5172,9 +5180,10 @@ id PLLogSoC()
 
 uint64_t __PLLogSoC_block_invoke()
 {
-  _MergedGlobals_90 = os_log_create("com.apple.PerfPowerServices", "soc");
+  v0 = os_log_create("com.apple.PerfPowerServices", "soc");
+  _MergedGlobals_90 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t AWDMETRICSKCellularPowerLogLteNrRxDiversityHistRxdBinReadFrom(uint64_t a1, void *a2)
@@ -5701,14 +5710,15 @@ id logPPSFeatureFlagReaderHelper()
 
 uint64_t __logPPSFeatureFlagReaderHelper_block_invoke()
 {
-  _MergedGlobals_91 = os_log_create("com.apple.powerlog", "PPSFeatureFlagReaderHelper");
+  v0 = os_log_create("com.apple.powerlog", "PPSFeatureFlagReaderHelper");
+  _MergedGlobals_91 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
-void sub_21A697280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21A697280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5727,9 +5737,10 @@ id PLLogBluetooth()
 
 uint64_t __PLLogBluetooth_block_invoke()
 {
-  qword_2811F43B8 = os_log_create("com.apple.powerlog", "Bluetooth");
+  v0 = os_log_create("com.apple.powerlog", "Bluetooth");
+  qword_2811F43B8 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void BluetoothSessionEvent(uint64_t a1, int a2, int a3, void *a4)
@@ -5771,12 +5782,12 @@ void sub_21A69F7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21A6A7194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_21A6A7194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v69 - 224), 8);
+  _Block_object_dispose((v66 - 224), 8);
   _Block_object_dispose(&a61, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Block_object_dispose(&STACK[0x2A8], 8);
   _Block_object_dispose(&STACK[0x2C8], 8);
@@ -7243,14 +7254,15 @@ LABEL_90:
 
 uint64_t __PLLogSleepWake_block_invoke()
 {
-  qword_2811F46F0 = os_log_create("com.apple.powerlog", "SleepWake");
+  v0 = os_log_create("com.apple.powerlog", "SleepWake");
+  qword_2811F46F0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void fakeSleep(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -7278,7 +7290,7 @@ void fakeSleep(uint64_t a1, void *a2)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v54 = v4;
+        v53 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7290,14 +7302,14 @@ void fakeSleep(uint64_t a1, void *a2)
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v11 = objc_opt_class();
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __fakeSleep_block_invoke_395;
-    v51[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v51[4] = v11;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __fakeSleep_block_invoke_395;
+    v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v50[4] = v11;
     if (qword_2811F4708 != -1)
     {
-      dispatch_once(&qword_2811F4708, v51);
+      dispatch_once(&qword_2811F4708, v50);
     }
 
     if (byte_2811F46E1 == 1)
@@ -7313,7 +7325,7 @@ void fakeSleep(uint64_t a1, void *a2)
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v54 = v12;
+        v53 = v12;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -7327,14 +7339,14 @@ void fakeSleep(uint64_t a1, void *a2)
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v21 = objc_opt_class();
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __fakeSleep_block_invoke_407;
-    v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v50[4] = v21;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __fakeSleep_block_invoke_407;
+    v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v49[4] = v21;
     if (qword_2811F4710 != -1)
     {
-      dispatch_once(&qword_2811F4710, v50);
+      dispatch_once(&qword_2811F4710, v49);
     }
 
     if (byte_2811F46E2 == 1)
@@ -7350,39 +7362,39 @@ void fakeSleep(uint64_t a1, void *a2)
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v54 = v22;
+        v53 = v22;
         _os_log_debug_impl(&dword_21A4C6000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   v28 = [v2 canSleepSemaphore];
-  v45 = MEMORY[0x277D85DD0];
-  v46 = 3221225472;
-  v47 = __fakeSleep_block_invoke_411;
-  v48 = &unk_2782591D0;
+  v44 = MEMORY[0x277D85DD0];
+  v45 = 3221225472;
+  v46 = __fakeSleep_block_invoke_411;
+  v47 = &unk_2782591D0;
   v29 = v20;
-  v49 = v29;
-  [v28 waitWithBlock:&v45];
+  v48 = v29;
+  [v28 waitWithBlock:&v44];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v30 = objc_opt_class();
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __fakeSleep_block_invoke_417;
-    v43 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v44 = v30;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __fakeSleep_block_invoke_417;
+    v42 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v43 = v30;
     if (qword_2811F4720 != -1)
     {
-      dispatch_once(&qword_2811F4720, &v40);
+      dispatch_once(&qword_2811F4720, &v39);
     }
 
     if (byte_2811F46E4 == 1)
     {
       v31 = MEMORY[0x277CCACA8];
       v32 = [v29 entryID];
-      v33 = [v31 stringWithFormat:@"Sleep Fake: after block entry.id=%lld", v32, v40, v41, v42, v43, v44, v45, v46, v47, v48];
+      v33 = [v31 stringWithFormat:@"Sleep Fake: after block entry.id=%lld", v32, v39, v40, v41, v42, v43, v44, v45, v46, v47];
       v34 = MEMORY[0x277D3F178];
       v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSleepWakeAgent.m"];
       v36 = [v35 lastPathComponent];
@@ -7393,13 +7405,11 @@ void fakeSleep(uint64_t a1, void *a2)
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v54 = v33;
+        v53 = v33;
         _os_log_debug_impl(&dword_21A4C6000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void fakeWakeBB(uint64_t a1, void *a2)
@@ -7420,21 +7430,21 @@ void fakeWakeWiFi(uint64_t a1, void *a2)
   [v2 logEntry:v4];
 }
 
-uint64_t __fakeSleep_block_invoke(uint64_t a1)
+void *__fakeSleep_block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_24 = result;
   return result;
 }
 
-uint64_t __fakeSleep_block_invoke_395(uint64_t a1)
+void *__fakeSleep_block_invoke_395(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E1 = result;
   return result;
 }
 
-uint64_t __fakeSleep_block_invoke_407(uint64_t a1)
+void *__fakeSleep_block_invoke_407(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E2 = result;
@@ -7443,15 +7453,15 @@ uint64_t __fakeSleep_block_invoke_407(uint64_t a1)
 
 void __fakeSleep_block_invoke_411(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v2 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __fakeSleep_block_invoke_2;
-    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v2;
+    v12 = 3221225472;
+    v13 = __fakeSleep_block_invoke_2;
+    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v15 = v2;
     if (qword_2811F4718 != -1)
     {
       dispatch_once(&qword_2811F4718, &block);
@@ -7461,7 +7471,7 @@ void __fakeSleep_block_invoke_411(uint64_t a1)
     {
       v3 = MEMORY[0x277CCACA8];
       v4 = [*(a1 + 32) entryID];
-      v5 = [v3 stringWithFormat:@"Sleep Fake: block Done entry.id=%lld", v4, block, v13, v14, v15, v16];
+      v5 = [v3 stringWithFormat:@"Sleep Fake: block Done entry.id=%lld", v4, block, v12, v13, v14, v15];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSleepWakeAgent.m"];
       v8 = [v7 lastPathComponent];
@@ -7472,44 +7482,42 @@ void __fakeSleep_block_invoke_411(uint64_t a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v5;
+        v17 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __fakeSleep_block_invoke_2(uint64_t a1)
+void *__fakeSleep_block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E3 = result;
   return result;
 }
 
-uint64_t __fakeSleep_block_invoke_417(uint64_t a1)
+void *__fakeSleep_block_invoke_417(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E4 = result;
   return result;
 }
 
-uint64_t __PowerChangedCallback_block_invoke(uint64_t a1)
+void *__PowerChangedCallback_block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E5 = result;
   return result;
 }
 
-uint64_t __PowerChangedCallback_block_invoke_438(uint64_t a1)
+void *__PowerChangedCallback_block_invoke_438(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E6 = result;
   return result;
 }
 
-uint64_t __PowerChangedCallback_block_invoke_444(uint64_t a1)
+void *__PowerChangedCallback_block_invoke_444(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E7 = result;
@@ -7518,16 +7526,16 @@ uint64_t __PowerChangedCallback_block_invoke_444(uint64_t a1)
 
 void __PowerChangedCallback_block_invoke_448(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   IOAllowPowerChange([*(*(a1[4] + 8) + 40) rootDomainConnect], a1[6]);
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v2 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __PowerChangedCallback_block_invoke_2;
-    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v2;
+    v12 = 3221225472;
+    v13 = __PowerChangedCallback_block_invoke_2;
+    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v15 = v2;
     if (qword_2811F4740 != -1)
     {
       dispatch_once(&qword_2811F4740, &block);
@@ -7537,7 +7545,7 @@ void __PowerChangedCallback_block_invoke_448(void *a1)
     {
       v3 = MEMORY[0x277CCACA8];
       v4 = [*(*(a1[5] + 8) + 40) entryID];
-      v5 = [v3 stringWithFormat:@"Sleep: block Done entry.id=%lld", v4, block, v13, v14, v15, v16];
+      v5 = [v3 stringWithFormat:@"Sleep: block Done entry.id=%lld", v4, block, v12, v13, v14, v15];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Software/PLSleepWakeAgent.m"];
       v8 = [v7 lastPathComponent];
@@ -7548,30 +7556,28 @@ void __PowerChangedCallback_block_invoke_448(void *a1)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v18 = v5;
+        v17 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __PowerChangedCallback_block_invoke_2(uint64_t a1)
+void *__PowerChangedCallback_block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E8 = result;
   return result;
 }
 
-uint64_t __PowerChangedCallback_block_invoke_454(uint64_t a1)
+void *__PowerChangedCallback_block_invoke_454(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46E9 = result;
   return result;
 }
 
-uint64_t __PowerChangedCallback_block_invoke_460(uint64_t a1)
+void *__PowerChangedCallback_block_invoke_460(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46EA = result;
@@ -7751,9 +7757,10 @@ LABEL_45:
 
 uint64_t __PLLogIOReport_block_invoke()
 {
-  qword_2811F4770 = os_log_create("com.apple.powerlog", "ioreport");
+  v0 = os_log_create("com.apple.powerlog", "ioreport");
+  qword_2811F4770 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 BOOL InitializeAllChecks@<W0>(uint64_t a1@<X8>)
@@ -9323,16 +9330,18 @@ id PLLogEdu()
 
 uint64_t __PLLogEdu_block_invoke()
 {
-  _MergedGlobals_92 = os_log_create("com.apple.powerlog", "edu");
+  v0 = os_log_create("com.apple.powerlog", "edu");
+  _MergedGlobals_92 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t __PLLogIDS_block_invoke()
 {
-  _MergedGlobals_1_26 = os_log_create("com.apple.powerlog", "IDS");
+  v0 = os_log_create("com.apple.powerlog", "IDS");
+  _MergedGlobals_1_26 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 uint64_t KCellularCellPlmnSearchCountReadFrom(uint64_t a1, void *a2)

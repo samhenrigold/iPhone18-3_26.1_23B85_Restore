@@ -6,12 +6,14 @@
 + (id)className;
 + (id)createEntriesForMetrics:(id)metrics withData:(id)data withDate:(id)date;
 + (id)entryDefinitions;
++ (id)entryKeyForType:(id)type andName:(id)name isDynamic:(BOOL)dynamic;
 + (id)entryKeys;
 + (id)operator;
 + (id)storageQueueName;
 + (id)trimConditionsWithEntryKey:(id)key withTrimDate:(id)date withCount:(id)count withStartDateKey:(id)dateKey;
 + (id)trimConditionsWithEntryKey:(id)key withTrimDate:(id)date withDuration:(id)duration withStartDateKey:(id)dateKey;
 + (void)load;
++ (void)setEnabled:(BOOL)enabled;
 - (BOOL)defaultBoolForKey:(id)key;
 - (BOOL)isDebugEnabled;
 - (BOOL)isDebugEnabledForKey:(id)key;
@@ -191,6 +193,17 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
   return v2;
 }
 
++ (id)entryKeyForType:(id)type andName:(id)name isDynamic:(BOOL)dynamic
+{
+  dynamicCopy = dynamic;
+  nameCopy = name;
+  typeCopy = type;
+  className = [self className];
+  v11 = [PLEntryKey entryKeyForOperatorName:className withType:typeCopy withName:nameCopy isDynamic:dynamicCopy];
+
+  return v11;
+}
+
 + (BOOL)isEnabled
 {
   v2 = MEMORY[0x1E696AEC0];
@@ -199,6 +212,15 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
 
   LOBYTE(className) = [PLDefaults BOOLForKey:v4 ifNotSet:1];
   return className;
+}
+
++ (void)setEnabled:(BOOL)enabled
+{
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  v4 = MEMORY[0x1E696AEC0];
+  className = [self className];
+  v6 = [v4 stringWithFormat:@"%@%@", className, @"_Enabled"];
+  [PLDefaults setObject:v7 forKey:v6];
 }
 
 + (BOOL)isDebugEnabledForKey:(id)key
@@ -232,9 +254,9 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
 
 - (PLOperator)init
 {
-  v37.receiver = self;
-  v37.super_class = PLOperator;
-  v2 = [(PLOperator *)&v37 init];
+  v39.receiver = self;
+  v39.super_class = PLOperator;
+  v2 = [(PLOperator *)&v39 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -265,8 +287,8 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
         v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator init]"];
         [PLCoreStorage logMessage:v8 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:183];
 
-        v12 = PLLogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v13 = PLLogCommon(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -275,33 +297,33 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
 
     if (+[PLDefaults debugEnabled])
     {
-      v13 = objc_opt_class();
-      v30 = MEMORY[0x1E69E9820];
-      v31 = 3221225472;
-      v32 = __18__PLOperator_init__block_invoke_39;
-      v33 = &unk_1E8519630;
-      v34 = @"entryDefinitions";
-      v35 = v13;
+      v14 = objc_opt_class();
+      v32 = MEMORY[0x1E69E9820];
+      v33 = 3221225472;
+      v34 = __18__PLOperator_init__block_invoke_39;
+      v35 = &unk_1E8519630;
+      v36 = @"entryDefinitions";
+      v37 = v14;
       if (init_defaultOnce_37 != -1)
       {
-        dispatch_once(&init_defaultOnce_37, &v30);
+        dispatch_once(&init_defaultOnce_37, &v32);
       }
 
-      v14 = init_classDebugEnabled_38;
+      v15 = init_classDebugEnabled_38;
 
-      if (v14 == 1)
+      if (v15 == 1)
       {
-        v15 = MEMORY[0x1E696AEC0];
+        v16 = MEMORY[0x1E696AEC0];
         entryDefinitions = [objc_opt_class() entryDefinitions];
-        v17 = [v15 stringWithFormat:@"%@", entryDefinitions, v30, v31, v32, v33];
+        v18 = [v16 stringWithFormat:@"%@", entryDefinitions, v32, v33, v34, v35];
 
-        v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-        lastPathComponent2 = [v18 lastPathComponent];
-        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator init]"];
-        [PLCoreStorage logMessage:v17 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:184];
+        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+        lastPathComponent2 = [v19 lastPathComponent];
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator init]"];
+        [PLCoreStorage logMessage:v18 fromFile:lastPathComponent2 fromFunction:v21 fromLineNumber:184];
 
-        v21 = PLLogCommon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v23 = PLLogCommon(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -310,22 +332,22 @@ uint64_t __30__PLOperator_storageQueueName__block_invoke()
 
     if ([(PLOperator *)v2 isDebugEnabled])
     {
-      v22 = MEMORY[0x1E696AEC0];
+      v24 = MEMORY[0x1E696AEC0];
       className2 = [(PLOperator *)v2 className];
-      v24 = [v22 stringWithFormat:@"com.apple.powerlogd.%@.log", className2];
+      v26 = [v24 stringWithFormat:@"com.apple.powerlogd.%@.log", className2];
 
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-      CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, didReceiveLogNotification, v24, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+      CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, didReceiveLogNotification, v26, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     }
 
-    v26 = objc_opt_new();
-    [(PLOperator *)v2 setFilterDefinitions:v26];
-
-    v27 = objc_opt_new();
-    [(PLOperator *)v2 setFilterDeltaLastEntryIDs:v27];
-
     v28 = objc_opt_new();
-    [(PLOperator *)v2 setBufferedEntries:v28];
+    [(PLOperator *)v2 setFilterDefinitions:v28];
+
+    v29 = objc_opt_new();
+    [(PLOperator *)v2 setFilterDeltaLastEntryIDs:v29];
+
+    v30 = objc_opt_new();
+    [(PLOperator *)v2 setBufferedEntries:v30];
 
     [(PLOperator *)v2 setTriggerBufferFlush:0];
     [(PLOperator *)v2 subscribeNotificationsForEntries];
@@ -470,13 +492,12 @@ void __32__PLOperator_logFromCFCallback___block_invoke(uint64_t a1)
   v2 = objc_autoreleasePoolPush();
   if (+[PLDefaults debugEnabled])
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
+    v3 = objc_opt_class();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __32__PLOperator_logFromCFCallback___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v4;
+    block[4] = v3;
     if (ArrayReserved_block_invoke_defaultOnce_1 != -1)
     {
       dispatch_once(&ArrayReserved_block_invoke_defaultOnce_1, block);
@@ -484,16 +505,16 @@ void __32__PLOperator_logFromCFCallback___block_invoke(uint64_t a1)
 
     if (ArrayReserved_block_invoke_classDebugEnabled_1 == 1)
     {
-      v5 = MEMORY[0x1E696AEC0];
-      v6 = [*(a1 + 32) className];
-      v7 = [v5 stringWithFormat:@"%@ got CFCallback %@", v6, *(a1 + 40)];
+      v4 = MEMORY[0x1E696AEC0];
+      v5 = [*(a1 + 32) className];
+      v6 = [v4 stringWithFormat:@"%@ got CFCallback %@", v5, *(a1 + 40)];
 
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-      v9 = [v8 lastPathComponent];
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logFromCFCallback:]_block_invoke"];
-      [PLCoreStorage logMessage:v7 fromFile:v9 fromFunction:v10 fromLineNumber:306];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+      v8 = [v7 lastPathComponent];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logFromCFCallback:]_block_invoke"];
+      [PLCoreStorage logMessage:v6 fromFile:v8 fromFunction:v9 fromLineNumber:306];
 
-      v11 = PLLogCommon();
+      v11 = PLLogCommon(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -518,10 +539,10 @@ BOOL __32__PLOperator_logFromCFCallback___block_invoke_2(uint64_t a1)
   {
     v3 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __25__PLOperator_flushBuffer__block_invoke;
-    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v21 = v3;
+    v19 = 3221225472;
+    v20 = __25__PLOperator_flushBuffer__block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v3;
     if (flushBuffer_defaultOnce != -1)
     {
       dispatch_once(&flushBuffer_defaultOnce, &block);
@@ -532,15 +553,15 @@ BOOL __32__PLOperator_logFromCFCallback___block_invoke_2(uint64_t a1)
       v4 = MEMORY[0x1E696AEC0];
       bufferedEntries = [(PLOperator *)self bufferedEntries];
       v6 = [bufferedEntries count];
-      v7 = [v4 stringWithFormat:@"Flushing buffer, queue size %lu", v6, block, v18, v19, v20, v21];
+      v7 = [v4 stringWithFormat:@"Flushing buffer, queue size %lu", v6, block, v19, v20, v21, v22];
 
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
       lastPathComponent = [v8 lastPathComponent];
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator flushBuffer]"];
       [PLCoreStorage logMessage:v7 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:315];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = PLLogCommon(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -548,13 +569,13 @@ BOOL __32__PLOperator_logFromCFCallback___block_invoke_2(uint64_t a1)
   }
 
   bufferedEntries2 = [(PLOperator *)self bufferedEntries];
-  v13 = [bufferedEntries2 count];
+  v14 = [bufferedEntries2 count];
 
-  if (v13)
+  if (v14)
   {
     bufferedEntries3 = [(PLOperator *)self bufferedEntries];
-    v15 = objc_opt_new();
-    [(PLOperator *)self setBufferedEntries:v15];
+    v16 = objc_opt_new();
+    [(PLOperator *)self setBufferedEntries:v16];
 
     storage = [(PLOperator *)self storage];
     [storage writeEntries:bufferedEntries3 withCompletionBlock:&__block_literal_global_65];
@@ -593,13 +614,12 @@ void __37__PLOperator_enableBufferFlushTimer___block_invoke(uint64_t a1)
   [*(a1 + 32) flushBuffer];
   if (+[PLDefaults debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__PLOperator_enableBufferFlushTimer___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (ArrayReserved_block_invoke_2_defaultOnce_0 != -1)
     {
       dispatch_once(&ArrayReserved_block_invoke_2_defaultOnce_0, block);
@@ -607,14 +627,14 @@ void __37__PLOperator_enableBufferFlushTimer___block_invoke(uint64_t a1)
 
     if (ArrayReserved_block_invoke_2_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Timer triggered flush buffer"];
-      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-      v6 = [v5 lastPathComponent];
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator enableBufferFlushTimer:]_block_invoke"];
-      [PLCoreStorage logMessage:v4 fromFile:v6 fromFunction:v7 fromLineNumber:334];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Timer triggered flush buffer"];
+      v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+      v4 = [v3 lastPathComponent];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator enableBufferFlushTimer:]_block_invoke"];
+      [PLCoreStorage logMessage:v2 fromFile:v4 fromFunction:v5 fromLineNumber:334];
 
-      v8 = PLLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -667,26 +687,26 @@ BOOL __37__PLOperator_enableBufferFlushTimer___block_invoke_2(uint64_t a1)
       v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logProportionateAggregateEntry:withStartDate:withEndDate:]"];
       [PLCoreStorage logMessage:entryCopy fromFile:lastPathComponent fromFunction:v18 fromLineNumber:350];
 
-      v19 = PLLogCommon();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = PLLogCommon(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
 
     entryDefinition = [entryCopy entryDefinition];
-    v21 = [PLEntryDefinition isAggregateForEntryDefinition:entryDefinition];
+    v22 = [PLEntryDefinition isAggregateForEntryDefinition:entryDefinition];
 
-    if (v21)
+    if (v22)
     {
-      v22 = self->_lastLogDateForEntryKey;
-      objc_sync_enter(v22);
+      v23 = self->_lastLogDateForEntryKey;
+      objc_sync_enter(v23);
       monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
       lastLogDateForEntryKey = [(PLOperator *)self lastLogDateForEntryKey];
       entryKey2 = [entryCopy entryKey];
       [lastLogDateForEntryKey setObject:monotonicDate forKeyedSubscript:entryKey2];
 
-      objc_sync_exit(v22);
+      objc_sync_exit(v23);
       if (!+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") && !+[PLUtilities isPerfPowerMetricd])
       {
         storage2 = [(PLOperator *)self storage];
@@ -700,7 +720,7 @@ LABEL_15:
 
 - (void)logEntry:(id)entry
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v76[1] = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -739,26 +759,26 @@ LABEL_15:
     v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logEntry:]"];
     [PLCoreStorage logMessage:entryCopy fromFile:lastPathComponent fromFunction:v13 fromLineNumber:372];
 
-    v14 = PLLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = PLLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
   }
 
   entryDefinition = [entryCopy entryDefinition];
-  v16 = [PLEntryDefinition isAggregateForEntryDefinition:entryDefinition];
+  v17 = [PLEntryDefinition isAggregateForEntryDefinition:entryDefinition];
 
-  if (v16)
+  if (v17)
   {
-    v17 = self->_lastLogDateForEntryKey;
-    objc_sync_enter(v17);
+    v18 = self->_lastLogDateForEntryKey;
+    objc_sync_enter(v18);
     monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
     lastLogDateForEntryKey = [(PLOperator *)self lastLogDateForEntryKey];
     entryKey2 = [entryCopy entryKey];
     [lastLogDateForEntryKey setObject:monotonicDate forKeyedSubscript:entryKey2];
 
-    objc_sync_exit(v17);
+    objc_sync_exit(v18);
     if (!+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") && !+[PLUtilities isPerfPowerMetricd])
     {
       storage2 = [(PLOperator *)self storage];
@@ -773,44 +793,44 @@ LABEL_15:
     goto LABEL_41;
   }
 
-  v22 = self->_lastLogDateForEntryKey;
-  objc_sync_enter(v22);
+  v23 = self->_lastLogDateForEntryKey;
+  objc_sync_enter(v23);
   monotonicDate2 = [MEMORY[0x1E695DF00] monotonicDate];
   lastLogDateForEntryKey2 = [(PLOperator *)self lastLogDateForEntryKey];
   entryKey3 = [entryCopy entryKey];
   [lastLogDateForEntryKey2 setObject:monotonicDate2 forKeyedSubscript:entryKey3];
 
-  objc_sync_exit(v22);
+  objc_sync_exit(v23);
   entryKey4 = [entryCopy entryKey];
-  v27 = [PLEntryDefinition definitionForEntryKey:entryKey4];
-  v28 = [v27 objectForKeyedSubscript:?];
-  v29 = [v28 objectForKeyedSubscript:@"BufferEntries"];
-  LODWORD(entryKey3) = [v29 BOOLValue];
+  v28 = [PLEntryDefinition definitionForEntryKey:entryKey4];
+  v29 = [v28 objectForKeyedSubscript:?];
+  v30 = [v29 objectForKeyedSubscript:@"BufferEntries"];
+  LODWORD(entryKey3) = [v30 BOOLValue];
 
   if (entryKey3)
   {
     entryKey5 = [entryCopy entryKey];
-    v30 = [PLEntryDefinition definitionForEntryKey:entryKey5];
-    v31 = [v30 objectForKeyedSubscript:@"Configs"];
-    v32 = [v31 objectForKeyedSubscript:?];
-    if (v32)
+    v31 = [PLEntryDefinition definitionForEntryKey:entryKey5];
+    v32 = [v31 objectForKeyedSubscript:@"Configs"];
+    v33 = [v32 objectForKeyedSubscript:?];
+    if (v33)
     {
       entryKey6 = [entryCopy entryKey];
-      v34 = [PLEntryDefinition definitionForEntryKey:entryKey6];
-      v35 = [v34 objectForKeyedSubscript:@"Configs"];
-      v36 = [v35 objectForKeyedSubscript:@"BufferFlushInterval"];
+      v35 = [PLEntryDefinition definitionForEntryKey:entryKey6];
+      v36 = [v35 objectForKeyedSubscript:@"Configs"];
+      v37 = [v36 objectForKeyedSubscript:@"BufferFlushInterval"];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
         entryKey7 = [entryCopy entryKey];
-        v38 = [PLEntryDefinition definitionForEntryKey:entryKey7];
-        v39 = [v38 objectForKeyedSubscript:@"Configs"];
-        v40 = [v39 objectForKeyedSubscript:@"BufferFlushInterval"];
-        unsignedIntValue = [v40 unsignedIntValue];
+        v39 = [PLEntryDefinition definitionForEntryKey:entryKey7];
+        v40 = [v39 objectForKeyedSubscript:@"Configs"];
+        v41 = [v40 objectForKeyedSubscript:@"BufferFlushInterval"];
+        unsignedIntValue = [v41 unsignedIntValue];
 
-        v42 = unsignedIntValue;
+        v43 = unsignedIntValue;
         goto LABEL_25;
       }
     }
@@ -819,52 +839,52 @@ LABEL_15:
     {
     }
 
-    v42 = 10;
+    v43 = 10;
 LABEL_25:
-    [(PLOperator *)self enableBufferFlushTimer:v42];
+    [(PLOperator *)self enableBufferFlushTimer:v43];
     bufferedEntries = [(PLOperator *)self bufferedEntries];
     [bufferedEntries addObject:entryCopy];
 
     if (v9)
     {
-      v45 = MEMORY[0x1E696AEC0];
+      v46 = MEMORY[0x1E696AEC0];
       bufferedEntries2 = [(PLOperator *)self bufferedEntries];
-      v47 = [v45 stringWithFormat:@"Added entry onto queue, queue size: %lu", objc_msgSend(bufferedEntries2, "count")];
+      v48 = [v46 stringWithFormat:@"Added entry onto queue, queue size: %lu", objc_msgSend(bufferedEntries2, "count")];
 
-      v48 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-      lastPathComponent2 = [v48 lastPathComponent];
-      v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logEntry:]"];
-      [PLCoreStorage logMessage:v47 fromFile:lastPathComponent2 fromFunction:v50 fromLineNumber:400];
+      v49 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+      lastPathComponent2 = [v49 lastPathComponent];
+      v51 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logEntry:]"];
+      [PLCoreStorage logMessage:v48 fromFile:lastPathComponent2 fromFunction:v51 fromLineNumber:400];
 
-      v51 = PLLogCommon();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+      v53 = PLLogCommon(v52);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
 
     entryKey8 = [entryCopy entryKey];
-    v53 = [PLEntryDefinition definitionForEntryKey:entryKey8];
-    v54 = [v53 objectForKeyedSubscript:@"Configs"];
-    v55 = [v54 objectForKeyedSubscript:?];
-    if (v55)
+    v55 = [PLEntryDefinition definitionForEntryKey:entryKey8];
+    v56 = [v55 objectForKeyedSubscript:@"Configs"];
+    v57 = [v56 objectForKeyedSubscript:?];
+    if (v57)
     {
       entryKey9 = [entryCopy entryKey];
-      v57 = [PLEntryDefinition definitionForEntryKey:entryKey9];
-      v58 = [v57 objectForKeyedSubscript:@"Configs"];
-      v59 = [v58 objectForKeyedSubscript:@"BufferSize"];
+      v59 = [PLEntryDefinition definitionForEntryKey:entryKey9];
+      v60 = [v59 objectForKeyedSubscript:@"Configs"];
+      v61 = [v60 objectForKeyedSubscript:@"BufferSize"];
       objc_opt_class();
-      v71 = objc_opt_isKindOfClass();
+      v72 = objc_opt_isKindOfClass();
 
-      if (v71)
+      if (v72)
       {
         entryKey10 = [entryCopy entryKey];
-        v61 = [PLEntryDefinition definitionForEntryKey:entryKey10];
-        v62 = [v61 objectForKeyedSubscript:@"Configs"];
-        v63 = [v62 objectForKeyedSubscript:@"BufferSize"];
-        unsignedIntValue2 = [v63 unsignedIntValue];
+        v63 = [PLEntryDefinition definitionForEntryKey:entryKey10];
+        v64 = [v63 objectForKeyedSubscript:@"Configs"];
+        v65 = [v64 objectForKeyedSubscript:@"BufferSize"];
+        unsignedIntValue2 = [v65 unsignedIntValue];
 
-        v65 = unsignedIntValue2;
+        v67 = unsignedIntValue2;
         goto LABEL_34;
       }
     }
@@ -873,12 +893,12 @@ LABEL_25:
     {
     }
 
-    v65 = 10;
+    v67 = 10;
 LABEL_34:
     bufferedEntries3 = [(PLOperator *)self bufferedEntries];
-    v67 = [bufferedEntries3 count] < v65;
+    v69 = [bufferedEntries3 count] < v67;
 
-    if (!v67)
+    if (!v69)
     {
       [(PLOperator *)self flushBuffer];
     }
@@ -888,21 +908,21 @@ LABEL_34:
 
   if (+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") || +[PLUtilities isPerfPowerMetricd])
   {
-    v75[0] = entryCopy;
-    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:1];
-    [(PLOperator *)self postEntries:v43];
+    v76[0] = entryCopy;
+    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:1];
+    [(PLOperator *)self postEntries:v44];
   }
 
   else
   {
     storage3 = [(PLOperator *)self storage];
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = __23__PLOperator_logEntry___block_invoke;
-    v73[3] = &unk_1E8519100;
-    v73[4] = self;
-    v74 = entryCopy;
-    [storage3 writeEntry:v74 withCompletionBlock:v73];
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 3221225472;
+    v74[2] = __23__PLOperator_logEntry___block_invoke;
+    v74[3] = &unk_1E8519100;
+    v74[4] = self;
+    v75 = entryCopy;
+    [storage3 writeEntry:v75 withCompletionBlock:v74];
   }
 
 LABEL_37:
@@ -912,19 +932,15 @@ LABEL_37:
   }
 
 LABEL_41:
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 void __23__PLOperator_logEntry___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   [v1 postEntries:v2];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logEntries:(id)entries withGroupID:(id)d
@@ -945,8 +961,8 @@ void __23__PLOperator_logEntry___block_invoke(uint64_t a1)
       v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logEntries:withGroupID:]"];
       [PLCoreStorage logMessage:entriesCopy fromFile:lastPathComponent fromFunction:v13 fromLineNumber:453];
 
-      v14 = PLLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogCommon(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -958,100 +974,98 @@ void __23__PLOperator_logEntry___block_invoke(uint64_t a1)
     v49 = 0u;
     v47 = 0u;
     v46 = 0u;
-    v15 = entriesCopy;
-    v16 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
-    if (v16)
+    v16 = entriesCopy;
+    v17 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    if (v17)
     {
-      v17 = v16;
-      v18 = *v47;
-      v19 = 0x1E8518000uLL;
+      v18 = v17;
+      v19 = *v47;
       v20 = 0x1E8518000uLL;
+      v21 = 0x1E8518000uLL;
       v38 = *v47;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v47 != v18)
+          if (*v47 != v19)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v46 + 1) + 8 * i);
-          v23 = [*(v19 + 2256) isAggregateForEntryKey:v22];
-          isPowerlogHelperd = [*(v20 + 2584) isPowerlogHelperd];
-          if (v23)
+          v23 = *(*(&v46 + 1) + 8 * i);
+          v24 = [*(v20 + 2256) isAggregateForEntryKey:v23];
+          isPowerlogHelperd = [*(v21 + 2584) isPowerlogHelperd];
+          if (v24)
           {
-            if ((isPowerlogHelperd & 1) == 0 && ([*(v20 + 2584) isPerfPowerMetricd] & 1) == 0)
+            if ((isPowerlogHelperd & 1) == 0 && ([*(v21 + 2584) isPerfPowerMetricd] & 1) == 0)
             {
               v44 = 0u;
               v45 = 0u;
               v42 = 0u;
               v43 = 0u;
-              v25 = [v15 objectForKeyedSubscript:v22];
-              v26 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
-              if (v26)
+              v26 = [v16 objectForKeyedSubscript:v23];
+              v27 = [v26 countByEnumeratingWithState:&v42 objects:v50 count:16];
+              if (v27)
               {
-                v27 = v26;
-                v28 = *v43;
+                v28 = v27;
+                v29 = *v43;
                 do
                 {
-                  for (j = 0; j != v27; ++j)
+                  for (j = 0; j != v28; ++j)
                   {
-                    if (*v43 != v28)
+                    if (*v43 != v29)
                     {
-                      objc_enumerationMutation(v25);
+                      objc_enumerationMutation(v26);
                     }
 
-                    v30 = *(*(&v42 + 1) + 8 * j);
+                    v31 = *(*(&v42 + 1) + 8 * j);
                     storage = [(PLOperator *)self storage];
-                    [storage writeAggregateEntry:v30];
+                    [storage writeAggregateEntry:v31];
                   }
 
-                  v27 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+                  v28 = [v26 countByEnumeratingWithState:&v42 objects:v50 count:16];
                 }
 
-                while (v27);
+                while (v28);
               }
 
-              v18 = v38;
-              v19 = 0x1E8518000;
+              v19 = v38;
               v20 = 0x1E8518000;
+              v21 = 0x1E8518000;
             }
           }
 
-          else if (isPowerlogHelperd & 1) != 0 || ([*(v20 + 2584) isPerfPowerMetricd])
+          else if (isPowerlogHelperd & 1) != 0 || ([*(v21 + 2584) isPerfPowerMetricd])
           {
-            v32 = [v15 objectForKeyedSubscript:v22];
-            [(PLOperator *)self postEntries:v32];
+            v33 = [v16 objectForKeyedSubscript:v23];
+            [(PLOperator *)self postEntries:v33];
           }
 
           else
           {
             storage2 = [(PLOperator *)self storage];
-            v34 = [v15 objectForKeyedSubscript:v22];
+            v35 = [v16 objectForKeyedSubscript:v23];
             v39[0] = MEMORY[0x1E69E9820];
             v39[1] = 3221225472;
             v39[2] = __37__PLOperator_logEntries_withGroupID___block_invoke;
             v39[3] = &unk_1E8519AF8;
             v39[4] = self;
-            v40 = v15;
-            v41 = v22;
-            [storage2 writeEntries:v34 withCompletionBlock:v39];
+            v40 = v16;
+            v41 = v23;
+            [storage2 writeEntries:v35 withCompletionBlock:v39];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
-      while (v17);
+      while (v18);
     }
 
     dCopy = v36;
-    [(PLOperator *)self postEntries:v15 withGroupID:v36];
+    [(PLOperator *)self postEntries:v16 withGroupID:v36];
     entriesCopy = v37;
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __37__PLOperator_logEntries_withGroupID___block_invoke(uint64_t a1)
@@ -1143,32 +1157,28 @@ void __36__PLOperator_updateEntry_withBlock___block_invoke(uint64_t a1)
 
 void __36__PLOperator_updateEntry_withBlock___block_invoke_2(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v8 = @"entry";
-  v9[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"entry";
+  v8[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [*(a1 + 32) entryKey];
   v6 = [v4 stringWithFormat:@"%@_update", v5];
   [PLUtilities postNotificationName:v6 object:*(a1 + 40) userInfo:v3];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __36__PLOperator_updateEntry_withBlock___block_invoke_3(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v8 = @"entry";
-  v9[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"entry";
+  v8[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = MEMORY[0x1E696AEC0];
   v5 = [*(a1 + 32) entryKey];
   v6 = [v4 stringWithFormat:@"%@_update", v5];
   [PLUtilities postNotificationName:v6 object:*(a1 + 40) userInfo:v3];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldWriteEntry:(id)entry withDebug:(BOOL)debug
@@ -1195,37 +1205,37 @@ void __36__PLOperator_updateEntry_withBlock___block_invoke_3(uint64_t a1)
       v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator shouldWriteEntry:withDebug:]"];
       [PLCoreStorage logMessage:v11 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:517];
 
-      v15 = PLLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = PLLogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
 
       if (v10)
       {
-        v16 = [entryCopy compare:v10 options:2];
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"result=%ld", v16];
-        v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-        lastPathComponent2 = [v18 lastPathComponent];
-        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator shouldWriteEntry:withDebug:]"];
-        [PLCoreStorage logMessage:v17 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:520];
+        v17 = [entryCopy compare:v10 options:2];
+        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"result=%ld", v17];
+        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+        lastPathComponent2 = [v19 lastPathComponent];
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator shouldWriteEntry:withDebug:]"];
+        [PLCoreStorage logMessage:v18 fromFile:lastPathComponent2 fromFunction:v21 fromLineNumber:520];
 
-        v21 = PLLogCommon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v23 = PLLogCommon(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
 
-        if (!v16)
+        if (!v17)
         {
-          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"skipping logging"];
-          v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-          lastPathComponent3 = [v23 lastPathComponent];
-          v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator shouldWriteEntry:withDebug:]"];
-          [PLCoreStorage logMessage:v22 fromFile:lastPathComponent3 fromFunction:v25 fromLineNumber:522];
+          v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"skipping logging"];
+          v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+          lastPathComponent3 = [v25 lastPathComponent];
+          v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator shouldWriteEntry:withDebug:]"];
+          [PLCoreStorage logMessage:v24 fromFile:lastPathComponent3 fromFunction:v27 fromLineNumber:522];
 
-          v26 = PLLogCommon();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v29 = PLLogCommon(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
           }
@@ -1239,32 +1249,32 @@ void __36__PLOperator_updateEntry_withBlock___block_invoke_3(uint64_t a1)
     {
 LABEL_18:
       entryKey2 = [entryCopy entryKey];
-      v28 = [entryKey2 rangeOfString:@"EventBackward"];
+      v31 = [entryKey2 rangeOfString:@"EventBackward"];
 
-      if (v28 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v31 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v33[0] = 0;
-        v33[1] = v33;
-        v33[2] = 0x3032000000;
-        v33[3] = __Block_byref_object_copy__19;
-        v33[4] = __Block_byref_object_dispose__19;
-        v34 = entryCopy;
-        v31[0] = 0;
-        v31[1] = v31;
-        v31[2] = 0x3032000000;
-        v31[3] = __Block_byref_object_copy__19;
-        v31[4] = __Block_byref_object_dispose__19;
-        v32 = v10;
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __41__PLOperator_shouldWriteEntry_withDebug___block_invoke;
-        v30[3] = &unk_1E8519198;
-        v30[4] = v31;
-        v30[5] = v33;
-        [(PLOperator *)self updateEntry:v32 withBlock:v30];
-        _Block_object_dispose(v31, 8);
+        v36[0] = 0;
+        v36[1] = v36;
+        v36[2] = 0x3032000000;
+        v36[3] = __Block_byref_object_copy__19;
+        v36[4] = __Block_byref_object_dispose__19;
+        v37 = entryCopy;
+        v34[0] = 0;
+        v34[1] = v34;
+        v34[2] = 0x3032000000;
+        v34[3] = __Block_byref_object_copy__19;
+        v34[4] = __Block_byref_object_dispose__19;
+        v35 = v10;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __41__PLOperator_shouldWriteEntry_withDebug___block_invoke;
+        v33[3] = &unk_1E8519198;
+        v33[4] = v34;
+        v33[5] = v36;
+        [(PLOperator *)self updateEntry:v35 withBlock:v33];
+        _Block_object_dispose(v34, 8);
 
-        _Block_object_dispose(v33, 8);
+        _Block_object_dispose(v36, 8);
       }
 
       v7 = 0;
@@ -1308,41 +1318,40 @@ void __41__PLOperator_shouldWriteEntry_withDebug___block_invoke(uint64_t a1)
 
 void __26__PLOperator_postEntries___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v23 = *v28;
+    v22 = *v27;
     do
     {
       v5 = 0;
-      v22 = v4;
+      v21 = v4;
       do
       {
-        if (*v28 != v23)
+        if (*v27 != v22)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v27 + 1) + 8 * v5);
-        v33 = @"entry";
-        v34 = v6;
-        v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v6 = *(*(&v26 + 1) + 8 * v5);
+        v32 = @"entry";
+        v33 = v6;
+        v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
         if (+[PLDefaults debugEnabled])
         {
-          v8 = *(a1 + 40);
-          v9 = objc_opt_class();
+          v8 = objc_opt_class();
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __26__PLOperator_postEntries___block_invoke_2;
           block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          block[4] = v9;
+          block[4] = v8;
           if (ArrayReserved_block_invoke_3_defaultOnce_0 != -1)
           {
             dispatch_once(&ArrayReserved_block_invoke_3_defaultOnce_0, block);
@@ -1350,26 +1359,26 @@ void __26__PLOperator_postEntries___block_invoke(uint64_t a1)
 
           if (ArrayReserved_block_invoke_3_classDebugEnabled_0 == 1)
           {
-            v10 = v2;
-            v11 = MEMORY[0x1E696AEC0];
-            v12 = [v6 entryKey];
-            v13 = [v11 stringWithFormat:@"posting %@", v12];
+            v9 = v2;
+            v10 = MEMORY[0x1E696AEC0];
+            v11 = [v6 entryKey];
+            v12 = [v10 stringWithFormat:@"posting %@", v11];
 
-            v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-            v15 = [v14 lastPathComponent];
-            v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke"];
-            [PLCoreStorage logMessage:v13 fromFile:v15 fromFunction:v16 fromLineNumber:544];
+            v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+            v14 = [v13 lastPathComponent];
+            v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke"];
+            [PLCoreStorage logMessage:v12 fromFile:v14 fromFunction:v15 fromLineNumber:544];
 
-            v17 = PLLogCommon();
+            v17 = PLLogCommon(v16);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v32 = v13;
+              v31 = v12;
               _os_log_debug_impl(&dword_1D8611000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v2 = v10;
-            v4 = v22;
+            v2 = v9;
+            v4 = v21;
           }
         }
 
@@ -1377,27 +1386,25 @@ void __26__PLOperator_postEntries___block_invoke(uint64_t a1)
         [PLUtilities postNotificationName:v18 object:*(a1 + 40) userInfo:v7];
 
         v19 = [*(a1 + 40) filterDefinitions];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __26__PLOperator_postEntries___block_invoke_101;
-        v24[3] = &unk_1E8519318;
-        v24[4] = *(a1 + 40);
-        v24[5] = v6;
-        v25 = v7;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __26__PLOperator_postEntries___block_invoke_101;
+        v23[3] = &unk_1E8519318;
+        v23[4] = *(a1 + 40);
+        v23[5] = v6;
+        v24 = v7;
         v20 = v7;
-        [v19 enumerateKeysAndObjectsUsingBlock:v24];
+        [v19 enumerateKeysAndObjectsUsingBlock:v23];
 
         ++v5;
       }
 
       while (v4 != v5);
-      v4 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v4);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __26__PLOperator_postEntries___block_invoke_2(uint64_t a1)
@@ -1416,13 +1423,12 @@ void __26__PLOperator_postEntries___block_invoke_101(uint64_t a1, void *a2, uint
   {
     if (v6)
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
+      v7 = objc_opt_class();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __26__PLOperator_postEntries___block_invoke_2_102;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v8;
+      block[4] = v7;
       if (ArrayReserved_block_invoke_4_defaultOnce_0 != -1)
       {
         dispatch_once(&ArrayReserved_block_invoke_4_defaultOnce_0, block);
@@ -1430,16 +1436,16 @@ void __26__PLOperator_postEntries___block_invoke_101(uint64_t a1, void *a2, uint
 
       if (ArrayReserved_block_invoke_4_classDebugEnabled_0 == 1)
       {
-        v9 = MEMORY[0x1E696AEC0];
-        v10 = [*(a1 + 40) entryKey];
-        v11 = [v9 stringWithFormat:@"posting %@ with NotificationName %@", v10, v5];
+        v8 = MEMORY[0x1E696AEC0];
+        v9 = [*(a1 + 40) entryKey];
+        v10 = [v8 stringWithFormat:@"posting %@ with NotificationName %@", v9, v5];
 
-        v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-        v13 = [v12 lastPathComponent];
-        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke"];
-        [PLCoreStorage logMessage:v11 fromFile:v13 fromFunction:v14 fromLineNumber:551];
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+        v12 = [v11 lastPathComponent];
+        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke"];
+        [PLCoreStorage logMessage:v10 fromFile:v12 fromFunction:v13 fromLineNumber:551];
 
-        v15 = PLLogCommon();
+        v15 = PLLogCommon(v14);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -1452,13 +1458,12 @@ void __26__PLOperator_postEntries___block_invoke_101(uint64_t a1, void *a2, uint
 
   else if (v6)
   {
-    v16 = *(a1 + 32);
-    v17 = objc_opt_class();
+    v16 = objc_opt_class();
     v25 = MEMORY[0x1E69E9820];
     v26 = 3221225472;
     v27 = __26__PLOperator_postEntries___block_invoke_108;
     v28 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v29 = v17;
+    v29 = v16;
     if (ArrayReserved_block_invoke_4_defaultOnce_106 != -1)
     {
       dispatch_once(&ArrayReserved_block_invoke_4_defaultOnce_106, &v25);
@@ -1466,16 +1471,16 @@ void __26__PLOperator_postEntries___block_invoke_101(uint64_t a1, void *a2, uint
 
     if (ArrayReserved_block_invoke_4_classDebugEnabled_107 == 1)
     {
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = [*(a1 + 40) entryKey];
-      v20 = [v18 stringWithFormat:@"NOT posting %@ with NotificationName %@", v19, v5, v25, v26, v27, v28, v29];
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = [*(a1 + 40) entryKey];
+      v19 = [v17 stringWithFormat:@"NOT posting %@ with NotificationName %@", v18, v5, v25, v26, v27, v28, v29];
 
-      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-      v22 = [v21 lastPathComponent];
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke_2"];
-      [PLCoreStorage logMessage:v20 fromFile:v22 fromFunction:v23 fromLineNumber:554];
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+      v21 = [v20 lastPathComponent];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postEntries:]_block_invoke_2"];
+      [PLCoreStorage logMessage:v19 fromFile:v21 fromFunction:v22 fromLineNumber:554];
 
-      v24 = PLLogCommon();
+      v24 = PLLogCommon(v23);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -1532,27 +1537,25 @@ void __38__PLOperator_postEntries_withGroupID___block_invoke(id *a1)
 
 void __38__PLOperator_postEntries_withGroupID___block_invoke_2(void *a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GroupID_%@", a1[4]];
   v4 = a1[5];
   v3 = a1[6];
-  v7 = @"group";
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"group";
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [PLUtilities postNotificationName:v2 object:v4 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)postFilteredNotificationForEntry:(id)entry withFilteredDefition:(id)defition withNotificationName:(id)name
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   defitionCopy = defition;
   nameCopy = name;
   v11 = objc_autoreleasePoolPush();
   v12 = [nameCopy componentsSeparatedByString:@"."];
-  v130 = v12;
+  v131 = v12;
   if ([v12 count])
   {
     firstObject = [v12 firstObject];
@@ -1571,62 +1574,48 @@ void __38__PLOperator_postEntries_withGroupID___block_invoke_2(void *a1)
         [filterDeltaLastEntryIDs2 setObject:entryCopy forKeyedSubscript:nameCopy];
       }
 
-      v129 = v11;
-      v144 = 0u;
+      v130 = v11;
       v145 = 0u;
-      v142 = 0u;
+      v146 = 0u;
       v143 = 0u;
+      v144 = 0u;
       obj = defitionCopy;
-      v132 = [obj countByEnumeratingWithState:&v142 objects:v150 count:16];
-      v133 = v17;
+      v133 = [obj countByEnumeratingWithState:&v143 objects:v151 count:16];
+      v134 = v17;
       v19 = 0;
-      if (!v132)
+      if (!v133)
       {
         v20 = 1;
         goto LABEL_77;
       }
 
-      v131 = *v143;
+      v132 = *v144;
       v20 = 1;
       while (1)
       {
         v21 = 0;
         do
         {
-          if (*v143 != v131)
+          if (*v144 != v132)
           {
             objc_enumerationMutation(obj);
           }
 
-          v135 = v21;
-          v22 = *(*(&v142 + 1) + 8 * v21);
+          v136 = v21;
+          v22 = *(*(&v143 + 1) + 8 * v21);
           v23 = [obj objectForKeyedSubscript:v22];
           v24 = [v23 mutableCopy];
 
-          v136 = v24;
+          v137 = v24;
           v25 = [v24 objectForKeyedSubscript:&unk_1F540A320];
 
           if (v25)
           {
-            if (!v17)
-            {
-              goto LABEL_75;
-            }
-
-            entryDate = [v17 entryDate];
-            entryDate2 = [entryCopy entryDate];
-            [entryDate timeIntervalSinceDate:entryDate2];
-            v29 = fabs(v28);
-            v30 = [v24 objectForKeyedSubscript:&unk_1F540A320];
-            [v30 doubleValue];
-            v32 = v31;
-
-            v17 = v133;
-            if (v29 <= v32)
+            if (!v17 || ([v17 entryDate], v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(entryCopy, "entryDate"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "timeIntervalSinceDate:", v27), v29 = fabs(v28), objc_msgSend(v24, "objectForKeyedSubscript:", &unk_1F540A320), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "doubleValue"), v32 = v31, v30, v27, v17 = v134, v26, v29 <= v32))
             {
 LABEL_75:
 
-              v110 = 0;
+              v111 = 0;
               goto LABEL_86;
             }
           }
@@ -1645,9 +1634,9 @@ LABEL_75:
               goto LABEL_75;
             }
 
-            entryDate3 = [v17 entryDate];
-            entryDate4 = [entryCopy entryDate];
-            [entryDate3 timeIntervalSinceDate:entryDate4];
+            entryDate = [v17 entryDate];
+            entryDate2 = [entryCopy entryDate];
+            [entryDate timeIntervalSinceDate:entryDate2];
             v37 = fabs(v36);
             v38 = [v24 objectForKeyedSubscript:&unk_1F540A338];
             [v38 doubleValue];
@@ -1659,7 +1648,7 @@ LABEL_75:
             }
 
             v20 = 0;
-            v17 = v133;
+            v17 = v134;
           }
 
           v41 = [v24 objectForKeyedSubscript:&unk_1F540A350];
@@ -1689,7 +1678,7 @@ LABEL_26:
             }
 
             v20 = 0;
-            v17 = v133;
+            v17 = v134;
           }
 
           v51 = [v24 objectForKeyedSubscript:&unk_1F540A368];
@@ -1718,14 +1707,14 @@ LABEL_14:
             goto LABEL_28;
           }
 
-          v126 = nameCopy;
-          v127 = defitionCopy;
-          v140 = 0u;
+          v127 = nameCopy;
+          v128 = defitionCopy;
           v141 = 0u;
-          v138 = 0u;
+          v142 = 0u;
           v139 = 0u;
+          v140 = 0u;
           v54 = v24;
-          v55 = [v54 countByEnumeratingWithState:&v138 objects:v149 count:16];
+          v55 = [v54 countByEnumeratingWithState:&v139 objects:v150 count:16];
           if (!v55)
           {
             v20 = 1;
@@ -1733,18 +1722,18 @@ LABEL_14:
           }
 
           v56 = v55;
-          v57 = *v139;
+          v57 = *v140;
           v20 = 1;
           do
           {
             for (i = 0; i != v56; ++i)
             {
-              if (*v139 != v57)
+              if (*v140 != v57)
               {
                 objc_enumerationMutation(v54);
               }
 
-              v59 = *(*(&v138 + 1) + 8 * i);
+              v59 = *(*(&v139 + 1) + 8 * i);
               shortValue = [v59 shortValue];
               if (shortValue > 3)
               {
@@ -1872,66 +1861,66 @@ LABEL_59:
               }
             }
 
-            v56 = [v54 countByEnumeratingWithState:&v138 objects:v149 count:16];
+            v56 = [v54 countByEnumeratingWithState:&v139 objects:v150 count:16];
           }
 
           while (v56);
 LABEL_65:
 
           v19 = 0;
-          nameCopy = v126;
-          defitionCopy = v127;
+          nameCopy = v127;
+          defitionCopy = v128;
 LABEL_27:
-          v17 = v133;
+          v17 = v134;
 LABEL_28:
 
-          v21 = v135 + 1;
+          v21 = v136 + 1;
         }
 
-        while (v135 + 1 != v132);
-        v101 = [obj countByEnumeratingWithState:&v142 objects:v150 count:16];
-        v132 = v101;
+        while (v136 + 1 != v133);
+        v101 = [obj countByEnumeratingWithState:&v143 objects:v151 count:16];
+        v133 = v101;
         if (!v101)
         {
 LABEL_77:
 
           if (+[PLDefaults debugEnabled])
           {
-            v111 = objc_opt_class();
-            v137[0] = MEMORY[0x1E69E9820];
-            v137[1] = 3221225472;
-            v137[2] = __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_withNotificationName___block_invoke_137;
-            v137[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v137[4] = v111;
+            v112 = objc_opt_class();
+            v138[0] = MEMORY[0x1E69E9820];
+            v138[1] = 3221225472;
+            v138[2] = __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_withNotificationName___block_invoke_137;
+            v138[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v138[4] = v112;
             if (postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__defaultOnce_135 != -1)
             {
-              dispatch_once(&postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__defaultOnce_135, v137);
+              dispatch_once(&postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__defaultOnce_135, v138);
             }
 
             if (postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__classDebugEnabled_136 == 1)
             {
-              v112 = MEMORY[0x1E696AEC0];
+              v113 = MEMORY[0x1E696AEC0];
               entryKey2 = [entryCopy entryKey];
-              v114 = NSStringFromBOOL();
               v115 = NSStringFromBOOL();
-              v116 = nameCopy;
-              v117 = v115;
+              v116 = NSStringFromBOOL();
+              v117 = nameCopy;
               v118 = v116;
-              v115 = [v112 stringWithFormat:@"entryKey=%@ notificationName=%@ shouldPost=%@ Post=%@", entryKey2, v116, v114, v115];
+              v119 = v117;
+              v116 = [v113 stringWithFormat:@"entryKey=%@ notificationName=%@ shouldPost=%@ Post=%@", entryKey2, v117, v115, v116];
 
-              v120 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-              lastPathComponent = [v120 lastPathComponent];
-              v122 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postFilteredNotificationForEntry:withFilteredDefition:withNotificationName:]"];
-              [PLCoreStorage logMessage:v115 fromFile:lastPathComponent fromFunction:v122 fromLineNumber:693];
+              v121 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+              lastPathComponent = [v121 lastPathComponent];
+              v123 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postFilteredNotificationForEntry:withFilteredDefition:withNotificationName:]"];
+              [PLCoreStorage logMessage:v116 fromFile:lastPathComponent fromFunction:v123 fromLineNumber:693];
 
-              v123 = PLLogCommon();
-              if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
+              v125 = PLLogCommon(v124);
+              if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
               {
                 [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
               }
 
-              nameCopy = v118;
-              v17 = v133;
+              nameCopy = v119;
+              v17 = v134;
             }
           }
 
@@ -1939,16 +1928,16 @@ LABEL_77:
           {
             obj = [(PLOperator *)selfCopy filterDeltaLastEntryIDs];
             [obj setObject:entryCopy forKeyedSubscript:nameCopy];
-            v110 = 1;
+            v111 = 1;
 LABEL_86:
-            v11 = v129;
+            v11 = v130;
 LABEL_87:
           }
 
           else
           {
-            v110 = 0;
-            v11 = v129;
+            v111 = 0;
+            v11 = v130;
           }
 
           goto LABEL_89;
@@ -1964,8 +1953,8 @@ LABEL_87:
     block[1] = 3221225472;
     block[2] = __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_withNotificationName___block_invoke;
     block[3] = &unk_1E8519630;
-    v147 = @"FilteredNotifications";
-    v148 = v102;
+    v148 = @"FilteredNotifications";
+    v149 = v102;
     if (postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__defaultOnce != -1)
     {
       dispatch_once(&postFilteredNotificationForEntry_withFilteredDefition_withNotificationName__defaultOnce, block);
@@ -1984,17 +1973,17 @@ LABEL_87:
       v109 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator postFilteredNotificationForEntry:withFilteredDefition:withNotificationName:]"];
       [PLCoreStorage logMessage:nameCopy fromFile:lastPathComponent2 fromFunction:v109 fromLineNumber:579];
 
-      obj = PLLogCommon();
+      obj = PLLogCommon(v110);
       if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
       {
         v17 = nameCopy;
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
-        v110 = 0;
+        v111 = 0;
       }
 
       else
       {
-        v110 = 0;
+        v111 = 0;
         v17 = nameCopy;
       }
 
@@ -2002,12 +1991,11 @@ LABEL_87:
     }
   }
 
-  v110 = 0;
+  v111 = 0;
 LABEL_89:
 
   objc_autoreleasePoolPop(v11);
-  v124 = *MEMORY[0x1E69E9840];
-  return v110;
+  return v111;
 }
 
 BOOL __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_withNotificationName___block_invoke(uint64_t a1)
@@ -2040,50 +2028,50 @@ BOOL __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_with
 
 - (void)subscribeNotificationsForEntries
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
   entryKeys = [(PLOperator *)self entryKeys];
   v4 = [entryKeys copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v41;
+    v7 = *v42;
     v8 = 0x1E8518000uLL;
-    v32 = *v41;
-    v31 = v4;
+    v33 = *v42;
+    v32 = v4;
     do
     {
       v9 = 0;
-      v33 = v6;
+      v34 = v6;
       do
       {
-        if (*v41 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * v9);
+        v10 = *(*(&v41 + 1) + 8 * v9);
         if ([*(v8 + 2256) isOnDemandQueryableForEntryKey:v10])
         {
           v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"requesting.%@", v10];
           if (+[PLDefaults debugEnabled])
           {
             v12 = objc_opt_class();
-            v37[0] = MEMORY[0x1E69E9820];
-            v37[1] = 3221225472;
-            v37[2] = __46__PLOperator_subscribeNotificationsForEntries__block_invoke;
-            v37[3] = &unk_1E8519630;
-            v38 = @"notifications";
-            v39 = v12;
+            v38[0] = MEMORY[0x1E69E9820];
+            v38[1] = 3221225472;
+            v38[2] = __46__PLOperator_subscribeNotificationsForEntries__block_invoke;
+            v38[3] = &unk_1E8519630;
+            v39 = @"notifications";
+            v40 = v12;
             if (subscribeNotificationsForEntries_defaultOnce != -1)
             {
-              dispatch_once(&subscribeNotificationsForEntries_defaultOnce, v37);
+              dispatch_once(&subscribeNotificationsForEntries_defaultOnce, v38);
             }
 
             v13 = subscribeNotificationsForEntries_classDebugEnabled;
@@ -2096,17 +2084,17 @@ BOOL __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_with
               v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator subscribeNotificationsForEntries]"];
               [PLCoreStorage logMessage:v14 fromFile:lastPathComponent fromFunction:v17 fromLineNumber:718];
 
-              v18 = PLLogCommon();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+              v19 = PLLogCommon(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v45 = v14;
-                _os_log_debug_impl(&dword_1D8611000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+                v46 = v14;
+                _os_log_debug_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v4 = v31;
-              v7 = v32;
-              v6 = v33;
+              v4 = v32;
+              v7 = v33;
+              v6 = v34;
               v8 = 0x1E8518000;
             }
           }
@@ -2115,60 +2103,59 @@ BOOL __89__PLOperator_postFilteredNotificationForEntry_withFilteredDefition_with
           [defaultCenter addObserver:self selector:sel_logRequestNotification_ name:v11 object:0];
         }
 
-        v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"requestingFilter.%@", v10];
+        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"requestingFilter.%@", v10];
         if (+[PLDefaults debugEnabled])
         {
-          v21 = objc_opt_class();
+          v22 = objc_opt_class();
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __46__PLOperator_subscribeNotificationsForEntries__block_invoke_157;
           block[3] = &unk_1E8519630;
-          v35 = @"notifications";
-          v36 = v21;
+          v36 = @"notifications";
+          v37 = v22;
           if (subscribeNotificationsForEntries_defaultOnce_155 != -1)
           {
             dispatch_once(&subscribeNotificationsForEntries_defaultOnce_155, block);
           }
 
-          v22 = subscribeNotificationsForEntries_classDebugEnabled_156;
+          v23 = subscribeNotificationsForEntries_classDebugEnabled_156;
 
-          if (v22 == 1)
+          if (v23 == 1)
           {
-            v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"signing up for notification %@", v20];
-            v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-            lastPathComponent2 = [v24 lastPathComponent];
-            v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator subscribeNotificationsForEntries]"];
-            [PLCoreStorage logMessage:v23 fromFile:lastPathComponent2 fromFunction:v26 fromLineNumber:723];
+            v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"signing up for notification %@", v21];
+            v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+            lastPathComponent2 = [v25 lastPathComponent];
+            v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator subscribeNotificationsForEntries]"];
+            [PLCoreStorage logMessage:v24 fromFile:lastPathComponent2 fromFunction:v27 fromLineNumber:723];
 
-            v27 = PLLogCommon();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v29 = PLLogCommon(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v45 = v23;
-              _os_log_debug_impl(&dword_1D8611000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+              v46 = v24;
+              _os_log_debug_impl(&dword_1D8611000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v7 = v32;
-            v6 = v33;
+            v7 = v33;
+            v6 = v34;
             v8 = 0x1E8518000;
           }
         }
 
         defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-        [defaultCenter2 addObserver:self selector:sel_setupFilterRequest_ name:v20 object:0];
+        [defaultCenter2 addObserver:self selector:sel_setupFilterRequest_ name:v21 object:0];
 
         ++v9;
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v6);
   }
 
   objc_autoreleasePoolPop(context);
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __46__PLOperator_subscribeNotificationsForEntries__block_invoke(uint64_t a1)
@@ -2204,33 +2191,32 @@ void __37__PLOperator_logRequestNotification___block_invoke(uint64_t a1)
   v2 = objc_autoreleasePoolPush();
   if (+[PLDefaults debugEnabled])
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
+    v3 = objc_opt_class();
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__PLOperator_logRequestNotification___block_invoke_2;
     block[3] = &unk_1E8519630;
     v24 = @"notifications";
-    v25 = v4;
+    v25 = v3;
     if (ArrayReserved_block_invoke_5_defaultOnce_0 != -1)
     {
       dispatch_once(&ArrayReserved_block_invoke_5_defaultOnce_0, block);
     }
 
-    v5 = ArrayReserved_block_invoke_5_classDebugEnabled_0;
+    v4 = ArrayReserved_block_invoke_5_classDebugEnabled_0;
 
-    if (v5 == 1)
+    if (v4 == 1)
     {
-      v6 = MEMORY[0x1E696AEC0];
-      v7 = [*(a1 + 40) name];
-      v8 = [v6 stringWithFormat:@"notification=%@", v7];
+      v5 = MEMORY[0x1E696AEC0];
+      v6 = [*(a1 + 40) name];
+      v7 = [v5 stringWithFormat:@"notification=%@", v6];
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logRequestNotification:]_block_invoke"];
-      [PLCoreStorage logMessage:v8 fromFile:v10 fromFunction:v11 fromLineNumber:732];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+      v9 = [v8 lastPathComponent];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logRequestNotification:]_block_invoke"];
+      [PLCoreStorage logMessage:v7 fromFile:v9 fromFunction:v10 fromLineNumber:732];
 
-      v12 = PLLogCommon();
+      v12 = PLLogCommon(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -2244,7 +2230,6 @@ void __37__PLOperator_logRequestNotification___block_invoke(uint64_t a1)
   v15 = [PLEntryDefinition logSelectorStringForEnteryKey:v14];
   v16 = NSSelectorFromString(v15);
 
-  v17 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) performSelector:v16];
@@ -2252,13 +2237,13 @@ void __37__PLOperator_logRequestNotification___block_invoke(uint64_t a1)
 
   else
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Does not respond to entryKey=%@", v14];
-    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-    v20 = [v19 lastPathComponent];
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logRequestNotification:]_block_invoke"];
-    [PLCoreStorage logMessage:v18 fromFile:v20 fromFunction:v21 fromLineNumber:741];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Does not respond to entryKey=%@", v14];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+    v19 = [v18 lastPathComponent];
+    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator logRequestNotification:]_block_invoke"];
+    [PLCoreStorage logMessage:v17 fromFile:v19 fromFunction:v20 fromLineNumber:741];
 
-    v22 = PLLogCommon();
+    v22 = PLLogCommon(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -2309,30 +2294,29 @@ void __33__PLOperator_setupFilterRequest___block_invoke(uint64_t a1)
 
     if (+[PLDefaults debugEnabled])
     {
-      v11 = *(a1 + 40);
-      v12 = objc_opt_class();
+      v11 = objc_opt_class();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __33__PLOperator_setupFilterRequest___block_invoke_2;
       block[3] = &unk_1E8519630;
       v20 = @"notifications";
-      v21 = v12;
+      v21 = v11;
       if (ArrayReserved_block_invoke_6_defaultOnce_0 != -1)
       {
         dispatch_once(&ArrayReserved_block_invoke_6_defaultOnce_0, block);
       }
 
-      v13 = ArrayReserved_block_invoke_6_classDebugEnabled_0;
+      v12 = ArrayReserved_block_invoke_6_classDebugEnabled_0;
 
-      if (v13 == 1)
+      if (v12 == 1)
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"added requestingFilter %@", v6];
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
-        v16 = [v15 lastPathComponent];
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator setupFilterRequest:]_block_invoke"];
-        [PLCoreStorage logMessage:v14 fromFile:v16 fromFunction:v17 fromLineNumber:755];
+        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"added requestingFilter %@", v6];
+        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogCore/PLOperator.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator setupFilterRequest:]_block_invoke"];
+        [PLCoreStorage logMessage:v13 fromFile:v15 fromFunction:v16 fromLineNumber:755];
 
-        v18 = PLLogCommon();
+        v18 = PLLogCommon(v17);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -2413,43 +2397,43 @@ BOOL __33__PLOperator_setupFilterRequest___block_invoke_2(uint64_t a1)
 
 - (id)tablesToTrimConditionsForTrimDate:(id)date
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v51 = dateCopy;
+  v50 = dateCopy;
   [dateCopy timeIntervalSince1970];
   v6 = v5;
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   selfCopy = self;
   v7 = [PLEntryKey entryKeysForOperator:self];
   v8 = [v7 copy];
 
   obj = v8;
-  v53 = [v8 countByEnumeratingWithState:&v55 objects:v59 count:16];
-  if (v53)
+  v52 = [v8 countByEnumeratingWithState:&v54 objects:v58 count:16];
+  if (v52)
   {
-    v52 = *v56;
+    v51 = *v55;
     v9 = @"TrimConditionsTemplate";
     do
     {
       v10 = 0;
       do
       {
-        if (*v56 != v52)
+        if (*v55 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v55 + 1) + 8 * v10);
+        v11 = *(*(&v54 + 1) + 8 * v10);
         v12 = [PLEntryKey PLEntryKeyForEntryKey:v11];
         v13 = [PLEntryDefinition definitionForEntryKey:v11];
         v14 = [v13 objectForKeyedSubscript:@"Configs"];
         v15 = [v14 objectForKeyedSubscript:v9];
 
-        v54 = v11;
+        v53 = v11;
         v16 = v12;
         if (v15)
         {
@@ -2502,13 +2486,13 @@ BOOL __33__PLOperator_setupFilterRequest___block_invoke_2(uint64_t a1)
           v9 = v21;
           if (v20 != 2)
           {
-            v26 = v54;
+            v26 = v53;
             if (v20 != 0x7FFF)
             {
               goto LABEL_35;
             }
 
-            v30 = [(PLOperator *)selfCopy trimConditionsForEntryKey:v54 forTrimDate:v51];
+            v30 = [(PLOperator *)selfCopy trimConditionsForEntryKey:v53 forTrimDate:v50];
 LABEL_24:
             v31 = v30;
             if (v30)
@@ -2521,15 +2505,15 @@ LABEL_24:
 
           v27 = [v13 objectForKeyedSubscript:@"Configs"];
           v28 = [v27 objectForKeyedSubscript:@"TrimConditionsTemplateArg"];
-          v26 = v54;
-          v29 = [PLOperator trimConditionsWithEntryKey:v54 withTrimDate:v51 withCount:v28 withStartDateKey:v24];
+          v26 = v53;
+          v29 = [PLOperator trimConditionsWithEntryKey:v53 withTrimDate:v50 withCount:v28 withStartDateKey:v24];
           goto LABEL_29;
         }
 
         if (v20)
         {
           v9 = v21;
-          v26 = v54;
+          v26 = v53;
           if (v20 != 1)
           {
             goto LABEL_35;
@@ -2537,7 +2521,7 @@ LABEL_24:
 
           v27 = [v13 objectForKeyedSubscript:@"Configs"];
           v28 = [v27 objectForKeyedSubscript:@"TrimConditionsTemplateArg"];
-          v29 = [PLOperator trimConditionsWithEntryKey:v54 withTrimDate:v51 withDuration:v28 withStartDateKey:v24];
+          v29 = [PLOperator trimConditionsWithEntryKey:v53 withTrimDate:v50 withDuration:v28 withStartDateKey:v24];
 LABEL_29:
           v31 = v29;
 
@@ -2576,7 +2560,7 @@ LABEL_29:
         {
           v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is NULL OR %@<(SELECT max(%@) FROM '%@' WHERE %@<%f)", v24, v24, v24, v16, v24, v6];
 LABEL_33:
-          v26 = v54;
+          v26 = v53;
           if (!v31)
           {
             goto LABEL_35;
@@ -2591,10 +2575,10 @@ LABEL_34:
         entryType3 = [v16 entryType];
         v44 = [entryType3 isEqualToString:@"Aggregate"];
 
-        v26 = v54;
+        v26 = v53;
         if (v44)
         {
-          v30 = [PLOperator trimConditionsWithEntryKey:v54 withTrimDate:v51 withDuration:&unk_1F540B640 withStartDateKey:v24];
+          v30 = [PLOperator trimConditionsWithEntryKey:v53 withTrimDate:v50 withDuration:&unk_1F540B640 withStartDateKey:v24];
           goto LABEL_24;
         }
 
@@ -2603,15 +2587,13 @@ LABEL_35:
         ++v10;
       }
 
-      while (v53 != v10);
-      v45 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-      v53 = v45;
+      while (v52 != v10);
+      v45 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v52 = v45;
     }
 
     while (v45);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -2626,8 +2608,8 @@ LABEL_35:
     v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLOperator trimConditionsForEntryKey:forTrimDate:]"];
     [PLCoreStorage logMessage:v4 fromFile:lastPathComponent fromFunction:v7 fromLineNumber:872];
 
-    v8 = PLLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLLogCommon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
@@ -2643,14 +2625,15 @@ LABEL_35:
   categoryCopy = category;
   dataCopy = data;
   dateCopy = date;
+  v14 = dateCopy;
   if (dataCopy)
   {
-    v14 = [MEMORY[0x1E69BDC20] getMetadataByNameForSubsystem:subsystemCopy category:categoryCopy];
-    if (v14)
+    v15 = [MEMORY[0x1E69BDC20] getMetadataByNameForSubsystem:subsystemCopy category:categoryCopy];
+    if (v15)
     {
-      if (dateCopy)
+      if (v14)
       {
-        monotonicDate = dateCopy;
+        monotonicDate = v14;
       }
 
       else
@@ -2658,18 +2641,18 @@ LABEL_35:
         monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
       }
 
-      v16 = monotonicDate;
-      v17 = [PLOperator createEntriesForMetrics:v14 withData:dataCopy withDate:monotonicDate];
-      v18 = PPSLogCommon();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = monotonicDate;
+      v18 = [PLOperator createEntriesForMetrics:v15 withData:dataCopy withDate:monotonicDate];
+      v19 = PPSLogCommon(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
         v33 = subsystemCopy;
         v34 = 2112;
         v35 = categoryCopy;
         v36 = 2048;
-        v37 = [v17 count];
-        _os_log_debug_impl(&dword_1D8611000, v18, OS_LOG_TYPE_DEBUG, "[Log] Number of entries for subsystem/category: %@/%@ : %lu", buf, 0x20u);
+        v37 = [v18 count];
+        _os_log_debug_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEBUG, "[Log] Number of entries for subsystem/category: %@/%@ : %lu", buf, 0x20u);
       }
 
       v26 = subsystemCopy;
@@ -2678,18 +2661,18 @@ LABEL_35:
       v30 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v25 = v17;
-      allValues = [v17 allValues];
-      v20 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v20)
+      v25 = v18;
+      allValues = [v18 allValues];
+      v21 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v28;
+        v22 = v21;
+        v23 = *v28;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v28 != v22)
+            if (*v28 != v23)
             {
               objc_enumerationMutation(allValues);
             }
@@ -2697,10 +2680,10 @@ LABEL_35:
             [(PLOperator *)self logEntry:*(*(&v27 + 1) + 8 * i)];
           }
 
-          v21 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v22 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
       subsystemCopy = v26;
@@ -2708,8 +2691,8 @@ LABEL_35:
 
     else
     {
-      v16 = PPSLogCommon();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = PPSLogCommon(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PLOperator logForSubsystem:category:data:date:];
       }
@@ -2718,14 +2701,12 @@ LABEL_35:
 
   else
   {
-    v14 = PPSLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PPSLogCommon(dateCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PLOperator logForSubsystem:category:data:date:];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logDMAEntry:(id)entry
@@ -2738,51 +2719,52 @@ LABEL_35:
   entryKey = [entryCopy entryKey];
   v8 = [v6 stringWithFormat:@"com.apple.perfpowerservices.dma.%@", entryKey];
 
-  v9 = PLLogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = PLLogCommon(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [PLOperator logDMAEntry:];
   }
 
   entryDefinition = [entryCopy entryDefinition];
-  v11 = [PLEntryDefinition keyConfigsForEntryDefinition:entryDefinition];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __26__PLOperator_logDMAEntry___block_invoke;
-  v23[3] = &unk_1E851ADE0;
-  v12 = v5;
-  v24 = v12;
-  [v11 enumerateKeysAndObjectsUsingBlock:v23];
+  v12 = [PLEntryDefinition keyConfigsForEntryDefinition:entryDefinition];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __26__PLOperator_logDMAEntry___block_invoke;
+  v25[3] = &unk_1E851ADE0;
+  v13 = v5;
+  v26 = v13;
+  [v12 enumerateKeysAndObjectsUsingBlock:v25];
 
-  if ([entryCopy hasDynamicKeys])
+  hasDynamicKeys = [entryCopy hasDynamicKeys];
+  if (hasDynamicKeys)
   {
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = PLLogCommon(hasDynamicKeys);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [PLOperator logDMAEntry:];
     }
 
     dMAKeys = [entryCopy DMAKeys];
-    v15 = [v12 dictionaryWithValuesForKeys:dMAKeys];
-    v16 = [v15 mutableCopy];
+    v17 = [v13 dictionaryWithValuesForKeys:dMAKeys];
+    v18 = [v17 mutableCopy];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __26__PLOperator_logDMAEntry___block_invoke_225;
-    v20[3] = &unk_1E8519948;
-    v21 = v16;
-    v22 = v8;
-    v17 = v16;
-    [v12 enumerateKeysAndObjectsUsingBlock:v20];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __26__PLOperator_logDMAEntry___block_invoke_225;
+    v22[3] = &unk_1E8519948;
+    v23 = v18;
+    v24 = v8;
+    v19 = v18;
+    [v13 enumerateKeysAndObjectsUsingBlock:v22];
   }
 
   else
   {
-    v18 = v12;
-    v19 = entryCopy;
+    v20 = v13;
+    v21 = entryCopy;
     AnalyticsSendEventLazy();
 
-    v17 = v18;
+    v19 = v20;
   }
 }
 
@@ -2800,23 +2782,23 @@ void __26__PLOperator_logDMAEntry___block_invoke(uint64_t a1, void *a2, void *a3
 
     if (v10)
     {
-      v11 = *v7;
-      v12 = v10;
+      v12 = *v7;
+      v13 = v10;
     }
 
     else
     {
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PLLogCommon(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __26__PLOperator_logDMAEntry___block_invoke_cold_1(v7, v5, v13);
+        __26__PLOperator_logDMAEntry___block_invoke_cold_1(v7, v5, v14);
       }
 
-      v11 = *v7;
-      v12 = @"unknown";
+      v12 = *v7;
+      v13 = @"unknown";
     }
 
-    [v11 setObject:v12 forKeyedSubscript:v5];
+    [v12 setObject:v13 forKeyedSubscript:v5];
   }
 }
 
@@ -2829,8 +2811,7 @@ void __26__PLOperator_logDMAEntry___block_invoke_225(uint64_t a1, void *a2, void
   {
     [*(a1 + 32) setValuesForKeysWithDictionary:v5];
     [*(a1 + 32) setObject:v6 forKey:@"value"];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     AnalyticsSendEventLazy();
   }
 }
@@ -2858,53 +2839,53 @@ id __26__PLOperator_logDMAEntry___block_invoke_3(uint64_t a1)
   metricsCopy = metrics;
   dataCopy = data;
   dateCopy = date;
-  v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x3032000000;
-  v32[2] = __Block_byref_object_copy__19;
-  v32[3] = __Block_byref_object_dispose__19;
-  v33 = 0;
+  v32 = 0;
+  v33[0] = &v32;
+  v33[1] = 0x3032000000;
+  v33[2] = __Block_byref_object_copy__19;
+  v33[3] = __Block_byref_object_dispose__19;
+  v34 = 0;
   v10 = objc_opt_new();
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke;
-  v26 = &unk_1E851B540;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke;
+  v27 = &unk_1E851B540;
   v11 = metricsCopy;
-  v27 = v11;
-  v30 = &v31;
+  v28 = v11;
+  v31 = &v32;
   v12 = v10;
-  v28 = v12;
+  v29 = v12;
   v13 = dateCopy;
-  v29 = v13;
-  [dataCopy enumerateKeysAndObjectsUsingBlock:&v23];
-  if (*(v32[0] + 40))
+  v30 = v13;
+  [dataCopy enumerateKeysAndObjectsUsingBlock:&v24];
+  if (*(v33[0] + 40))
   {
-    v14 = [v12 objectForKey:{v23, v24, v25, v26, v27, v28}];
+    v14 = [v12 objectForKey:{v24, v25, v26, v27, v28, v29}];
 
     if (!v14)
     {
       v15 = [PLEntry alloc];
-      v16 = [(PLEntry *)v15 initWithEntryKey:*(v32[0] + 40) withDate:v13];
-      [v12 setObject:v16 forKeyedSubscript:*(v32[0] + 40)];
+      v16 = [(PLEntry *)v15 initWithEntryKey:*(v33[0] + 40) withDate:v13];
+      [v12 setObject:v16 forKeyedSubscript:*(v33[0] + 40)];
     }
 
     v17 = [dataCopy objectForKeyedSubscript:@"__PPSKVPairs__"];
-    v18 = [v12 objectForKeyedSubscript:*(v32[0] + 40)];
+    v18 = [v12 objectForKeyedSubscript:*(v33[0] + 40)];
     [v18 setObject:v17 forKeyedSubscript:@"__PPSKVPairs__"];
 
-    v19 = PPSLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = PPSLogCommon(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [PLOperator createEntriesForMetrics:v32 withData:? withDate:?];
+      [PLOperator createEntriesForMetrics:v33 withData:? withDate:?];
     }
   }
 
-  v20 = v29;
-  v21 = v12;
+  v21 = v30;
+  v22 = v12;
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
 
-  return v21;
+  return v22;
 }
 
 void __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2912,65 +2893,66 @@ void __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke(u
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if ([v5 isEqualToString:@"__PPSKVPairs__"])
     {
-      v7 = [v6 firstObject];
-      v8 = v7;
-      if (!v7)
+      v8 = [v6 firstObject];
+      v9 = v8;
+      if (!v8)
       {
 LABEL_24:
 
         goto LABEL_25;
       }
 
-      v9 = [v7 allKeys];
-      v10 = [v9 firstObject];
-      v11 = [*(a1 + 32) objectForKeyedSubscript:v10];
-      v12 = [PPSEntryKey entryKeyForMetric:v11];
-      v13 = *(*(a1 + 56) + 8);
-      v14 = *(v13 + 40);
-      *(v13 + 40) = v12;
+      v10 = [v8 allKeys];
+      v11 = [v10 firstObject];
+      v12 = [*(a1 + 32) objectForKeyedSubscript:v11];
+      v13 = [PPSEntryKey entryKeyForMetric:v12];
+      v14 = *(*(a1 + 56) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
 
     else
     {
-      v8 = [*(a1 + 32) objectForKeyedSubscript:v5];
-      if (v8)
+      v9 = [*(a1 + 32) objectForKeyedSubscript:v5];
+      if (v9)
       {
         if (+[PLUtilities OverrideAllowlistEnabled])
         {
-          if (![PPSCoreUtilities shouldLogMetric:v8])
+          if (![PPSCoreUtilities shouldLogMetric:v9])
           {
             goto LABEL_24;
           }
         }
 
-        else if (![PPSCoreUtilities isValidModeForMetric:v8]|| ![PPSCoreUtilities isAllowedMetric:v8])
+        else if (![PPSCoreUtilities isValidModeForMetric:v9]|| ![PPSCoreUtilities isAllowedMetric:v9])
         {
           goto LABEL_24;
         }
 
-        v9 = [PPSEntryKey entryKeyForMetric:v8];
-        if (v9)
+        v10 = [PPSEntryKey entryKeyForMetric:v9];
+        if (v10)
         {
-          v16 = [*(a1 + 40) objectForKeyedSubscript:v9];
+          v17 = [*(a1 + 40) objectForKeyedSubscript:v10];
 
-          if (!v16)
+          if (!v17)
           {
-            v17 = [[PLEntry alloc] initWithEntryKey:v9 withDate:*(a1 + 48)];
-            [*(a1 + 40) setObject:v17 forKeyedSubscript:v9];
+            v18 = [[PLEntry alloc] initWithEntryKey:v10 withDate:*(a1 + 48)];
+            [*(a1 + 40) setObject:v18 forKeyedSubscript:v10];
           }
 
-          v18 = [*(a1 + 40) objectForKeyedSubscript:v9];
-          [v18 setObject:v6 forKeyedSubscript:v5];
+          v19 = [*(a1 + 40) objectForKeyedSubscript:v10];
+          [v19 setObject:v6 forKeyedSubscript:v5];
         }
 
         else
         {
-          v18 = PPSLogCommon();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = PPSLogCommon(0);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_2();
           }
@@ -2979,8 +2961,8 @@ LABEL_24:
 
       else
       {
-        v9 = PPSLogCommon();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = PPSLogCommon(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_3();
         }
@@ -2990,10 +2972,10 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v15 = PPSLogCommon();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+  v16 = PPSLogCommon(isKindOfClass);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
-    __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_1(v5, v15);
+    __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_1(v5, v16);
   }
 
 LABEL_25:
@@ -3001,86 +2983,52 @@ LABEL_25:
 
 - (void)logForSubsystem:category:data:date:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0(&dword_1D8611000, v0, v1, "[Log] Metadata not found for subsystem/category: %@/%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logForSubsystem:category:data:date:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0(&dword_1D8611000, v0, v1, "[Log] Nil payload for subsystem/category: %@/%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)logDMAEntry:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "Processing DMA data: '%@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)logDMAEntry:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "DMA data '%@' has dynamic keys", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __26__PLOperator_logDMAEntry___block_invoke_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = [*a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "Failed to translate process name '%@' to bundle ID for DMA!", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D8611000, a3, OS_LOG_TYPE_ERROR, "Failed to translate process name '%@' to bundle ID for DMA!", v5, 0xCu);
 }
 
 + (void)createEntriesForMetrics:(uint64_t)a1 withData:withDate:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = *(*a1 + 40);
-  v4 = 138412546;
-  v5 = v1;
+  v3 = 138412546;
+  v4 = v1;
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_1D8611000, v2, OS_LOG_TYPE_DEBUG, "Adding to %@ entries array %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D8611000, v2, OS_LOG_TYPE_DEBUG, "Adding to %@ entries array %@", &v3, 0x16u);
 }
 
 void __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = objc_opt_class();
-  v3 = v8;
-  _os_log_fault_impl(&dword_1D8611000, a2, OS_LOG_TYPE_FAULT, "Metric name: %@ is not String class %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = objc_opt_class();
+  v3 = v7;
+  _os_log_fault_impl(&dword_1D8611000, a2, OS_LOG_TYPE_FAULT, "Metric name: %@ is not String class %@", &v4, 0x16u);
 }
 
 void __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1D8611000, v0, OS_LOG_TYPE_ERROR, "No entryKey for metric: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __56__PLOperator_createEntriesForMetrics_withData_withDate___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "No metadata for metric: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D8611000, v0, OS_LOG_TYPE_ERROR, "No entryKey for metric: %@", v1, 0xCu);
 }
 
 @end

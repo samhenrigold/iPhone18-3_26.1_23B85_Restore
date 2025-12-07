@@ -95,7 +95,7 @@
 
 - (void)_handleUpdateScheduleEntriesMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   messagePayload = [messageCopy messagePayload];
   v6 = [(HMDHomeActivityStateSchedule *)self _scheduleEntriesFromPayload:messagePayload];
@@ -106,16 +106,16 @@
     if ([(HMDHomeActivityStateSchedule *)self _validateScheduleEntries:v7])
     {
       workContext = [(HMDHomeActivityStateSchedule *)self workContext];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage___block_invoke;
-      v19[3] = &unk_27867C6C8;
-      v20 = v7;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage___block_invoke;
+      v18[3] = &unk_27867C6C8;
+      v19 = v7;
       selfCopy = self;
-      v22 = messageCopy;
-      [(HMDHomeActivityStateSchedule *)self _relayOrHandleMessage:v22 inContext:workContext then:v19];
+      v21 = messageCopy;
+      [(HMDHomeActivityStateSchedule *)self _relayOrHandleMessage:v21 inContext:workContext then:v18];
 
-      v9 = v20;
+      v9 = v19;
     }
 
     else
@@ -127,9 +127,9 @@
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v24 = v17;
-        v25 = 2112;
-        v26 = v7;
+        v23 = v17;
+        v24 = 2112;
+        v25 = v7;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate schedule entries: %@", buf, 0x16u);
       }
 
@@ -148,7 +148,7 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v13;
+      v23 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Ignoring the set schedule entries message because the schedules entries are nil", buf, 0xCu);
     }
 
@@ -156,13 +156,11 @@
     v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     [messageCopy respondWithError:v7];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) scheduleEntries];
@@ -178,11 +176,11 @@ uint64_t __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage_
     {
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) scheduleEntries];
-      v20 = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Schedule Entries are already %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Schedule Entries are already %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -195,11 +193,11 @@ uint64_t __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage_
     {
       v13 = HMFGetLogIdentifier();
       v14 = *(a1 + 32);
-      v20 = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Setting schedule entries to: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Setting schedule entries to: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -211,7 +209,6 @@ uint64_t __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage_
     [v16 updateGenerationCounterWithReason:@"Home Activity State Schedule Schedule Entries Updated" sourceUUID:v17 shouldNotifyClients:1];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -253,29 +250,29 @@ uint64_t __68__HMDHomeActivityStateSchedule__handleUpdateScheduleEntriesMessage_
 
 - (id)_scheduleEntriesFromPayload:(id)payload
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   array = [MEMORY[0x277CBEB18] array];
   [payloadCopy hmf_arrayForKey:*MEMORY[0x277CCFDF0]];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v5 = v30 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v5 = v29 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * v9);
+      v10 = *(*(&v26 + 1) + 8 * v9);
       objc_opt_class();
       v11 = (objc_opt_isKindOfClass() & 1) != 0 ? v10 : 0;
       v12 = v11;
@@ -295,9 +292,9 @@ LABEL_3:
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v32 = v23;
-          v33 = 2112;
-          v34 = v12;
+          v31 = v23;
+          v32 = 2112;
+          v33 = v12;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to get schedule entry from serialized schedule entry %@", buf, 0x16u);
         }
 
@@ -313,7 +310,7 @@ LABEL_20:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -330,7 +327,7 @@ LABEL_20:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to serialize schedule entry from payload", buf, 0xCu);
     }
 
@@ -340,17 +337,15 @@ LABEL_20:
 
 LABEL_13:
 
-  v15 = [array copy];
+  v15 = objc_msgSend_copy(array);
 LABEL_21:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 - (id)_relayMessageToPrimaryResident:(id)resident inContext:(id)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   contextCopy = context;
   home = [(HMDHomeActivityStateSchedule *)self home];
@@ -398,24 +393,24 @@ LABEL_6:
       v25 = HMFGetLogIdentifier();
       identifier2 = [residentCopy identifier];
       *buf = 138543618;
-      v35 = v25;
-      v36 = 2114;
-      v37 = identifier2;
+      v34 = v25;
+      v35 = 2114;
+      v36 = identifier2;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@(RequestID: %{public}@) Relaying to the primary resident", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
     msgDispatcher = [(HMDHomeActivityStateSchedule *)selfCopy msgDispatcher];
-    v28 = [v15 copy];
+    v28 = objc_msgSend_copy(v15);
     v29 = [msgDispatcher sendMessageExpectingResponse:v28];
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inContext___block_invoke;
-    v32[3] = &unk_2786882F0;
-    v32[4] = selfCopy;
-    v33 = residentCopy;
-    futureWithNoValue = [v29 inContext:contextCopy recover:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inContext___block_invoke;
+    v31[3] = &unk_2786882F0;
+    v31[4] = selfCopy;
+    v32 = residentCopy;
+    futureWithNoValue = [v29 inContext:contextCopy recover:v31];
   }
 
   else
@@ -425,14 +420,12 @@ LABEL_6:
 
 LABEL_11:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return futureWithNoValue;
 }
 
 uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inContext___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -441,13 +434,13 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
   {
     v7 = HMFGetLogIdentifier();
     v8 = [*(a1 + 40) identifier];
-    v14 = 138543874;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@(RequestID: %{public}@) Relayed request failed with error: %@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@(RequestID: %{public}@) Relayed request failed with error: %@", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -464,7 +457,6 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
     objc_claimAutoreleasedReturnValue();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 2;
 }
 
@@ -481,19 +473,19 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
 
 - (void)_registerForMessages
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   home = [(HMDHomeActivityStateSchedule *)self home];
   if (home)
   {
     msgDispatcher = [(HMDHomeActivityStateSchedule *)self msgDispatcher];
     v5 = *MEMORY[0x277CCFE00];
     v6 = +[HMDRemoteMessagePolicy defaultSecurePrimaryResidentPolicy];
-    v15[0] = v6;
+    v14[0] = v6;
     v7 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-    v15[1] = v7;
+    v14[1] = v7;
     v8 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v15[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [msgDispatcher registerForMessage:v5 receiver:self policies:v9 selector:sel__handleUpdateScheduleEntriesMessage_];
   }
 
@@ -506,19 +498,17 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Not going to register for messages as home is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextStartDate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   scheduleEntries = [(HMDHomeActivityStateSchedule *)self scheduleEntries];
   v4 = [scheduleEntries count];
 
@@ -531,30 +521,30 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
     firstObject = [scheduleEntries2 firstObject];
 
     gregorian = [(HMDHomeActivityStateSchedule *)self gregorian];
-    v24 = firstObject;
+    v23 = firstObject;
     start = [firstObject start];
     v11 = [gregorian nextDateAfterDate:currentDate matchingComponents:start options:0];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     scheduleEntries3 = [(HMDHomeActivityStateSchedule *)self scheduleEntries];
-    v13 = [scheduleEntries3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [scheduleEntries3 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(scheduleEntries3);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
+          v17 = *(*(&v24 + 1) + 8 * i);
           gregorian2 = [(HMDHomeActivityStateSchedule *)self gregorian];
           start2 = [v17 start];
           v20 = [gregorian2 nextDateAfterDate:currentDate matchingComponents:start2 options:0];
@@ -567,7 +557,7 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
           }
         }
 
-        v14 = [scheduleEntries3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [scheduleEntries3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
@@ -579,14 +569,12 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
     v11 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)endDateIfActiveScheduleEntry
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   scheduleEntries = [(HMDHomeActivityStateSchedule *)self scheduleEntries];
   v4 = [scheduleEntries count];
 
@@ -595,26 +583,26 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
     dataSource = [(HMDHomeActivityStateSchedule *)self dataSource];
     currentDate = [dataSource currentDate];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     scheduleEntries2 = [(HMDHomeActivityStateSchedule *)self scheduleEntries];
-    v8 = [scheduleEntries2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [scheduleEntries2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(scheduleEntries2);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           gregorian = [(HMDHomeActivityStateSchedule *)self gregorian];
           start = [v12 start];
           v15 = [gregorian nextDateAfterDate:currentDate matchingComponents:start options:0];
@@ -630,7 +618,7 @@ uint64_t __73__HMDHomeActivityStateSchedule__relayMessageToPrimaryResident_inCon
           }
         }
 
-        v9 = [scheduleEntries2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [scheduleEntries2 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           continue;
@@ -649,14 +637,12 @@ LABEL_12:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)configureWithDataSource:(id)source
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -667,15 +653,15 @@ LABEL_12:
     messageDispatcher = [(HMDHomeActivityStateManagerDataSource *)sourceCopy messageDispatcher];
     home = [(HMDHomeActivityStateManagerDataSource *)sourceCopy home];
     queue = [(HMDHomeActivityStateManagerDataSource *)sourceCopy queue];
-    v24 = 138544130;
-    v25 = v8;
-    v26 = 2112;
-    v27 = messageDispatcher;
-    v28 = 2112;
-    v29 = home;
-    v30 = 2112;
-    v31 = queue;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Configuring Home Activity State Schedule with message dispatcher: %@, home: %@, queue: %@", &v24, 0x2Au);
+    v23 = 138544130;
+    v24 = v8;
+    v25 = 2112;
+    v26 = messageDispatcher;
+    v27 = 2112;
+    v28 = home;
+    v29 = 2112;
+    v30 = queue;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Configuring Home Activity State Schedule with message dispatcher: %@, home: %@, queue: %@", &v23, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -701,7 +687,6 @@ LABEL_12:
   selfCopy->_workContext = v21;
 
   [(HMDHomeActivityStateSchedule *)selfCopy _registerForMessages];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeActivityStateSchedule)initWithActivityState:(unint64_t)state
@@ -743,10 +728,9 @@ LABEL_12:
 
 void __43__HMDHomeActivityStateSchedule_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_165286;
-  logCategory__hmf_once_v15_165286 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_165286;
+  logCategory__hmf_once_v15_165286 = v0;
 }
 
 @end

@@ -46,7 +46,7 @@ uint64_t __38__MIOPixelBufferSampler_sharedSampler__block_invoke(uint64_t a1)
 
 - (id)pixelBuffer:(__CVBuffer *)buffer sampleAtNormalizedX:(double)x normalizedY:(double)y error:(id *)error
 {
-  v7 = pixelBufferSampler::sample(buffer, a2, x, y);
+  v7 = pixelBufferSampler::sample(buffer, a2, x, y, buffer);
   v8 = v7;
   if (error && !v7)
   {

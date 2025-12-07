@@ -36,7 +36,7 @@
   {
     v8 = *&type;
     *name = @"apple:dissolve";
-    v13 = KNBundle();
+    v13 = KNBundle(self);
     v11 = [v13 localizedStringForKey:@"%@ builds were exported as Dissolve." value:&stru_471858 table:@"Keynote"];
     v12 = [self localizedMenuString:v8];
     *warning = [NSString stringWithFormat:v11, v12];
@@ -45,20 +45,21 @@
 
 - (KNBuildVanish)initWithAnimationContext:(id)context
 {
-  v9.receiver = self;
-  v9.super_class = KNBuildVanish;
-  v3 = [(KNAnimationEffect *)&v9 initWithAnimationContext:context];
+  v10.receiver = self;
+  v10.super_class = KNBuildVanish;
+  v3 = [(KNAnimationEffect *)&v10 initWithAnimationContext:context];
+  v4 = v3;
   if (v3)
   {
-    v4 = KNBundle();
-    v5 = [v4 pathForResource:@"Vanish" ofType:@"parameterGroup"];
+    v5 = KNBundle(v3);
+    v6 = [v5 pathForResource:@"Vanish" ofType:@"parameterGroup"];
 
-    v6 = [KNAnimParameterGroup parameterGroupForFile:v5];
-    parameterGroup = v3->_parameterGroup;
-    v3->_parameterGroup = v6;
+    v7 = [KNAnimParameterGroup parameterGroupForFile:v6];
+    parameterGroup = v4->_parameterGroup;
+    v4->_parameterGroup = v7;
   }
 
-  return v3;
+  return v4;
 }
 
 - (CGRect)frameOfEffectWithContext:(id)context
@@ -190,7 +191,7 @@
   [(KNAnimationContext *)self->super.mAnimationContext slideRect];
   v17 = v16;
   v19 = v18;
-  [buildCopy duration];
+  objc_msgSend_duration(buildCopy);
   v21 = v20;
   [imageCopy frame];
   v24 = (sqrt(sqrt(v23 * (v22 / v19) / v17)) * 10000.0);
@@ -276,7 +277,7 @@
 - (void)p_setupParticleTexturedRectWithContext:(id)context
 {
   contextCopy = context;
-  v5 = KNBundle();
+  v5 = KNBundle(contextCopy);
   v14 = [v5 pathForResource:@"KNBuildVanish" ofType:@"png"];
 
   v6 = [NSData dataWithContentsOfFile:v14];
@@ -388,7 +389,7 @@
   textures = [contextCopy textures];
   lastObject = [textures lastObject];
 
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:contextCopy];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   self->_projectionMatrix = v15;
   [(KNBuildVanish *)self p_setupParticleTexturedRectWithContext:contextCopy];
   [(KNBuildVanish *)self p_setupMetalShadersWithContext:contextCopy];
@@ -473,12 +474,12 @@
   *&self->_anon_5c[60] = LODWORD(v12);
   [(KNAnimParameterGroup *)self->_parameterGroup valueForAnimationCurve:@"Opacity Fade" atPercent:v7];
   v14 = v13;
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   v16 = v7 * v15;
   v17 = 0.0;
   if (v16 < 0.1)
   {
-    [contextCopy duration];
+    objc_msgSend_duration(contextCopy, 0.0);
     v17 = v7 * v18 / 0.1;
   }
 
@@ -487,7 +488,7 @@
   textures = [contextCopy textures];
   lastObject = [textures lastObject];
 
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   if (v7 * v23 <= 0.2)
   {
     [lastObject singleTextureOpacity];
@@ -495,7 +496,7 @@
     [(KNGaussianBlurEffect *)self->_blurEffect renderEffectAtPercent:metalContext withContext:v20];
   }
 
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   if (v7 * v25 >= 0.1)
   {
     randomGenerator = [contextCopy randomGenerator];

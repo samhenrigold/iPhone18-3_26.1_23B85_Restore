@@ -111,6 +111,7 @@
 
 - (BOOL)setActive:(BOOL)active
 {
+  activeCopy = active;
   v4 = *&self->inner[OBJC_IVAR____SECapability_inner + 40];
   v5 = *&self->inner[OBJC_IVAR____SECapability_inner + 8];
   v17 = *&self->inner[OBJC_IVAR____SECapability_inner + 24];
@@ -128,7 +129,7 @@
   v10 = v16[0];
   v11 = v5;
   sub_265747E7C(v16, v21);
-  v8 = sub_265748F00(active);
+  LOBYTE(activeCopy) = sub_265748F00(activeCopy, v8);
   v21[2] = v12;
   v21[3] = v13;
   v21[4] = v14;
@@ -136,26 +137,23 @@
   v21[0] = v10;
   v21[1] = v11;
   sub_265747ED8(v21);
-  return v8 & 1;
+  return activeCopy & 1;
 }
 
 - (NSString)mediaEnvironment
 {
-  v2 = (self + OBJC_IVAR____SECapability_inner);
-  v3 = self->inner[OBJC_IVAR____SECapability_inner + 72];
-  if (v3 == 3)
+  v2 = self->inner[OBJC_IVAR____SECapability_inner + 72];
+  if (v2 == 3)
   {
-    v5 = *v2;
-    v4 = v2[1];
 
-    v6 = sub_2657501B8();
+    v3 = sub_2657501B8();
 
-    return v6;
+    return v3;
   }
 
   else
   {
-    if (v3 == 2)
+    if (v2 == 2)
     {
       self = sub_265750408();
       __break(1u);

@@ -476,12 +476,12 @@
   else
   {
     v19 = objc_msgSend_objectValueForProperty_(v5, v10, v11, v12, v13, 1184);
-    v24 = v19;
+    v23 = v19;
     if (v19)
     {
-      v25 = MEMORY[0x277D801F8];
-      v26 = objc_msgSend_color(v19, v20, v21, v22, v23);
-      v15 = objc_msgSend_colorWithColor_(v25, v27, v28, v29, v30, v26);
+      v24 = MEMORY[0x277D801F8];
+      v25 = objc_msgSend_color(v19, v20, v21, v22);
+      v15 = objc_msgSend_colorWithColor_(v24, v26, v27, v28, v29, v25);
     }
 
     else

@@ -43,7 +43,7 @@
         v25 = v10->_assetReader;
         if (v25)
         {
-          [(AVAssetReader *)v25 timeRange];
+          objc_msgSend_timeRange(v25);
         }
 
         else
@@ -94,7 +94,7 @@
         v35 = v10->_assetReader;
         if (v35)
         {
-          [(AVAssetReader *)v35 timeRange];
+          objc_msgSend_timeRange(v35);
         }
 
         else

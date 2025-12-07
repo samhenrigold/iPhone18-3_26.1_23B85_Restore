@@ -1,17 +1,17 @@
-void start()
+void start(uint64_t a1)
 {
-  v0 = sub_100001738();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_100001738(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Starting up", v4, 2u);
+    *v5 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Starting up", v5, 2u);
   }
 
-  v1 = dispatch_get_global_queue(0, 0);
-  v2 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v1);
+  v2 = dispatch_get_global_queue(0, 0);
+  v3 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v2);
 
-  dispatch_source_set_event_handler(v2, &stru_100004278);
-  dispatch_resume(v2);
+  dispatch_source_set_event_handler(v3, &stru_100004278);
+  dispatch_resume(v3);
   xpc_track_activity();
   mach_service = xpc_connection_create_mach_service("com.apple.mobile.assertion_agent", &_dispatch_main_q, 1uLL);
   xpc_connection_set_event_handler(mach_service, &stru_1000042B8);
@@ -21,7 +21,7 @@ void start()
 
 void sub_100000924(id a1)
 {
-  v1 = sub_100001738();
+  v1 = sub_100001738(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     *v2 = 0;
@@ -54,7 +54,7 @@ void sub_100000984(id a1, OS_xpc_object *a2)
     if (v3)
     {
       v4 = v3;
-      v5 = sub_100001738();
+      v5 = sub_100001738(v3);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         sub_1000019CC(v4, v5);
@@ -76,18 +76,18 @@ void sub_100000A94(uint64_t a1, void *a2)
   v4 = os_transaction_create();
   xpc_connection_cancel(*(a1 + 32));
   v5 = objc_autoreleasePoolPush();
-  v17 = 0;
+  v18 = 0;
   value = 0;
   theDict = 0;
   v6 = lockdown_copy_checkin_info();
   if (v6)
   {
     v7 = v6;
-    v8 = sub_100001738();
+    v8 = sub_100001738(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v20 = v7;
+      v21 = v7;
       v9 = "Unable to copy lockdown checkin info: %d";
       v10 = v8;
       v11 = 8;
@@ -104,18 +104,19 @@ LABEL_5:
       v12 = Mutable;
       CFDictionaryAddValue(Mutable, kLockdownCheckinConnectionInfoKey, value);
       v14 = secure_lockdown_checkin();
-      v15 = sub_100001738();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v15 = v14;
+      v16 = sub_100001738(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v20 = v14;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Lockdown checkin did not provide connection info: %d", buf, 8u);
+        v21 = v15;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Lockdown checkin did not provide connection info: %d", buf, 8u);
       }
 
       goto LABEL_14;
     }
 
-    v8 = sub_100001738();
+    v8 = sub_100001738(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -138,7 +139,7 @@ LABEL_14:
     CFRelease(v12);
   }
 
-  if (v17)
+  if (v18)
   {
     lockdown_disconnect();
   }
@@ -153,16 +154,16 @@ LABEL_14:
 LABEL_23:
 }
 
-id sub_100001738()
+id sub_100001738(uint64_t a1)
 {
   if (qword_100008008 != -1)
   {
     sub_100001B9C();
   }
 
-  v1 = qword_100008000;
+  v2 = qword_100008000;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000177C(id a1)
@@ -193,7 +194,7 @@ void sub_1000017E0(uint64_t a1, const void *a2)
         if (v4)
         {
           v5 = v4;
-          v6 = sub_100001738();
+          v6 = sub_100001738(v4);
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
@@ -217,7 +218,7 @@ void sub_1000018E4()
     if (v2)
     {
       v3 = v2;
-      v4 = sub_100001738();
+      v4 = sub_100001738(v2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5[0] = 67109120;

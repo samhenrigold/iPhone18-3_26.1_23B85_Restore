@@ -8,8 +8,10 @@
 - (id)executeUTPlaySoundCommand:(id)command;
 - (id)maintenanceConnectionUpdateBlock;
 - (id)remoteInterface;
+- (void)_cacheBatteryStatus:(unsigned __int8)status beaconUUID:(id)d;
 - (void)_invalidate;
 - (void)_unregisterDarwinNotificationName:(id)name;
+- (void)_updateBatteryStatus:(unsigned __int8)status beaconUUID:(id)d completion:(id)completion;
 - (void)_updateOwnerSessionState;
 - (void)acceptUTForBeaconUUID:(id)d;
 - (void)activeCompanionWithCompletion:(id)completion;
@@ -188,164 +190,162 @@
 
 - (id)remoteInterface
 {
-  v84[4] = *MEMORY[0x277D85DE8];
+  v83[4] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287606D90];
   v3 = MEMORY[0x277CBEB98];
-  v84[0] = objc_opt_class();
-  v84[1] = objc_opt_class();
-  v84[2] = objc_opt_class();
-  v84[3] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:4];
+  v83[0] = objc_opt_class();
+  v83[1] = objc_opt_class();
+  v83[2] = objc_opt_class();
+  v83[3] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_latestLocationsForIdentifiers_fetchLimit_sources_completion_ argumentIndex:0 ofReply:1];
 
   v6 = MEMORY[0x277CBEB98];
-  v83[0] = objc_opt_class();
-  v83[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:2];
+  v82[0] = objc_opt_class();
+  v82[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
   v8 = [v6 setWithArray:v7];
   [v2 setClasses:v8 forSelector:sel_rawSearchResultsForIdentifier_dateInterval_completion_ argumentIndex:0 ofReply:1];
 
   v9 = MEMORY[0x277CBEB98];
-  v82[0] = objc_opt_class();
-  v82[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
+  v81[0] = objc_opt_class();
+  v81[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
   v11 = [v9 setWithArray:v10];
   [v2 setClasses:v11 forSelector:sel_allBeaconsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v12 = MEMORY[0x277CBEB98];
-  v81[0] = objc_opt_class();
-  v81[1] = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
+  v80[0] = objc_opt_class();
+  v80[1] = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
   v14 = [v12 setWithArray:v13];
   [v2 setClasses:v14 forSelector:sel_unacceptedBeaconsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v15 = MEMORY[0x277CBEB98];
-  v80[0] = objc_opt_class();
-  v80[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+  v79[0] = objc_opt_class();
+  v79[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
   v17 = [v15 setWithArray:v16];
   [v2 setClasses:v17 forSelector:sel_beaconGroupsForUUIDs_completion_ argumentIndex:0 ofReply:1];
 
   v18 = MEMORY[0x277CBEB98];
-  v79[0] = objc_opt_class();
-  v79[1] = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+  v78[0] = objc_opt_class();
+  v78[1] = objc_opt_class();
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
   v20 = [v18 setWithArray:v19];
   [v2 setClasses:v20 forSelector:sel_standaloneBeaconsForUUIDs_completion_ argumentIndex:0 ofReply:1];
 
   v21 = MEMORY[0x277CBEB98];
-  v78[0] = objc_opt_class();
-  v78[1] = objc_opt_class();
-  v78[2] = objc_opt_class();
-  v78[3] = objc_opt_class();
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:4];
+  v77[0] = objc_opt_class();
+  v77[1] = objc_opt_class();
+  v77[2] = objc_opt_class();
+  v77[3] = objc_opt_class();
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:4];
   v23 = [v21 setWithArray:v22];
   [v2 setClasses:v23 forSelector:sel_didObserveUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
 
   v24 = MEMORY[0x277CBEB98];
-  v77[0] = objc_opt_class();
-  v77[1] = objc_opt_class();
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
+  v76[0] = objc_opt_class();
+  v76[1] = objc_opt_class();
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
   v26 = [v24 setWithArray:v25];
   [v2 setClasses:v26 forSelector:sel_didObserveUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:1];
 
   v27 = MEMORY[0x277CBEB98];
-  v76[0] = objc_opt_class();
-  v76[1] = objc_opt_class();
-  v76[2] = objc_opt_class();
-  v76[3] = objc_opt_class();
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:4];
-  v29 = [v27 setWithArray:v28];
-  [v2 setClasses:v29 forSelector:sel_didDetectUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
-
-  v30 = MEMORY[0x277CBEB98];
   v75[0] = objc_opt_class();
   v75[1] = objc_opt_class();
   v75[2] = objc_opt_class();
   v75[3] = objc_opt_class();
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:4];
-  v32 = [v30 setWithArray:v31];
-  [v2 setClasses:v32 forSelector:sel_didUpdateUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:4];
+  v29 = [v27 setWithArray:v28];
+  [v2 setClasses:v29 forSelector:sel_didDetectUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
 
-  v33 = MEMORY[0x277CBEB98];
+  v30 = MEMORY[0x277CBEB98];
   v74[0] = objc_opt_class();
   v74[1] = objc_opt_class();
   v74[2] = objc_opt_class();
   v74[3] = objc_opt_class();
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:4];
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:4];
+  v32 = [v30 setWithArray:v31];
+  [v2 setClasses:v32 forSelector:sel_didUpdateUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
+
+  v33 = MEMORY[0x277CBEB98];
+  v73[0] = objc_opt_class();
+  v73[1] = objc_opt_class();
+  v73[2] = objc_opt_class();
+  v73[3] = objc_opt_class();
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:4];
   v35 = [v33 setWithArray:v34];
   [v2 setClasses:v35 forSelector:sel_didWithdrawUnauthorizedTrackingWithCompletion_completion_ argumentIndex:0 ofReply:0];
 
   v36 = MEMORY[0x277CBEB98];
-  v73[0] = objc_opt_class();
-  v73[1] = objc_opt_class();
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+  v72[0] = objc_opt_class();
+  v72[1] = objc_opt_class();
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
   v38 = [v36 setWithArray:v37];
   [v2 setClasses:v38 forSelector:sel_beaconsToMaintainWithCompletion_ argumentIndex:0 ofReply:1];
 
   v39 = MEMORY[0x277CBEB98];
-  v72[0] = objc_opt_class();
-  v72[1] = objc_opt_class();
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+  v71[0] = objc_opt_class();
+  v71[1] = objc_opt_class();
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
   v41 = [v39 setWithArray:v40];
   [v2 setClasses:v41 forSelector:sel_unknownBeaconsForUUIDs_completion_ argumentIndex:0 ofReply:1];
 
   v42 = MEMORY[0x277CBEB98];
-  v71[0] = objc_opt_class();
-  v71[1] = objc_opt_class();
-  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v70[0] = objc_opt_class();
+  v70[1] = objc_opt_class();
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
   v44 = [v42 setWithArray:v43];
   [v2 setClasses:v44 forSelector:sel_beaconsToMaintainPersistentConnection_ argumentIndex:0 ofReply:1];
 
   v45 = MEMORY[0x277CBEB98];
-  v70[0] = objc_opt_class();
-  v70[1] = objc_opt_class();
-  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v69[0] = objc_opt_class();
+  v69[1] = objc_opt_class();
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
   v47 = [v45 setWithArray:v46];
   [v2 setClasses:v47 forSelector:sel_safeLocationsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v48 = MEMORY[0x277CBEB98];
-  v69[0] = objc_opt_class();
-  v69[1] = objc_opt_class();
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+  v68[0] = objc_opt_class();
+  v68[1] = objc_opt_class();
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
   v50 = [v48 setWithArray:v49];
   [v2 setClasses:v50 forSelector:sel_beaconsToMonitorForSeparation_ argumentIndex:0 ofReply:1];
 
   v51 = MEMORY[0x277CBEB98];
-  v68 = objc_opt_class();
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+  v67 = objc_opt_class();
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
   v53 = [v51 setWithArray:v52];
   [v2 setClasses:v53 forSelector:sel_publishSeparationEventForBeacons_eventType_region_completion_ argumentIndex:0 ofReply:1];
 
   v54 = MEMORY[0x277CBEB98];
-  v67 = objc_opt_class();
-  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+  v66 = objc_opt_class();
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
   v56 = [v54 setWithArray:v55];
   [v2 setClasses:v56 forSelector:sel_activeCompanionWithCompletion_ argumentIndex:0 ofReply:1];
 
   v57 = MEMORY[0x277CBEB98];
-  v66[0] = objc_opt_class();
-  v66[1] = objc_opt_class();
-  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  v65[0] = objc_opt_class();
+  v65[1] = objc_opt_class();
+  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
   v59 = [v57 setWithArray:v58];
   [v2 setClasses:v59 forSelector:sel_allObservationsForBeacon_completion_ argumentIndex:0 ofReply:1];
 
   v60 = MEMORY[0x277CBEB98];
-  v65[0] = objc_opt_class();
-  v65[1] = objc_opt_class();
-  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
-  v62 = [v60 setWithArray:{v61, v65[0]}];
+  v64[0] = objc_opt_class();
+  v64[1] = objc_opt_class();
+  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+  v62 = [v60 setWithArray:{v61, v64[0]}];
   [v2 setClasses:v62 forSelector:sel_addSafeLocation_completion_ argumentIndex:1 ofReply:1];
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -355,10 +355,9 @@
   }
 
   [(SPOwnerSession *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = SPOwnerSession;
-  [(SPOwnerSession *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SPOwnerSession;
+  [(SPOwnerSession *)&v4 dealloc];
 }
 
 - (void)_invalidate
@@ -401,14 +400,14 @@
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPOwnerSession *)self setSession:v7];
 
-    v8 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_OwnerSession(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPOwnerSession *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPOwnerSession *)self session];
@@ -417,8 +416,6 @@
 
   session3 = [(SPOwnerSession *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -551,28 +548,26 @@ void __89__SPOwnerSession_SeparationMonitoring__disableSeparationMonitoringForBe
 
 - (void)enableSeparationMonitoringForBeacon:(id)beacon completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   beaconCopy = beacon;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   beaconCopy2 = beacon;
   v9 = [v6 arrayWithObjects:&beaconCopy count:1];
 
-  [(SPOwnerSession *)self enableSeparationMonitoringForBeacons:v9 completion:completionCopy, beaconCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(SPOwnerSession *)self enableSeparationMonitoringForBeacons:v9 completion:completionCopy, beaconCopy, v11];
 }
 
 - (void)disableSeparationMonitoringForBeacon:(id)beacon completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   beaconCopy = beacon;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   beaconCopy2 = beacon;
   v9 = [v6 arrayWithObjects:&beaconCopy count:1];
 
-  [(SPOwnerSession *)self disableSeparationMonitoringForBeacons:v9 completion:completionCopy, beaconCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(SPOwnerSession *)self disableSeparationMonitoringForBeacons:v9 completion:completionCopy, beaconCopy, v11];
 }
 
 - (void)safeLocationsForSeparationMonitoring:(id)monitoring
@@ -731,7 +726,7 @@ void __70__SPOwnerSession_SeparationMonitoring__updateSafeLocation_completion___
 
 - (void)assignSafeLocation:(id)location to:(id)to completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v8 = MEMORY[0x277CBEA60];
   completionCopy = completion;
@@ -739,13 +734,12 @@ void __70__SPOwnerSession_SeparationMonitoring__updateSafeLocation_completion___
   locationCopy = location;
   v12 = [v8 arrayWithObjects:&toCopy count:1];
 
-  [(SPOwnerSession *)self assignSafeLocation:locationCopy beaconUUIDs:v12 completion:completionCopy, toCopy, v15];
-  v13 = *MEMORY[0x277D85DE8];
+  [(SPOwnerSession *)self assignSafeLocation:locationCopy beaconUUIDs:v12 completion:completionCopy, toCopy, v14];
 }
 
 - (void)unassignSafeLocation:(id)location beaconUUID:(id)d completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v8 = MEMORY[0x277CBEA60];
   completionCopy = completion;
@@ -753,8 +747,7 @@ void __70__SPOwnerSession_SeparationMonitoring__updateSafeLocation_completion___
   locationCopy = location;
   v12 = [v8 arrayWithObjects:&dCopy count:1];
 
-  [(SPOwnerSession *)self unassignSafeLocation:locationCopy beaconUUIDs:v12 completion:completionCopy, dCopy, v15];
-  v13 = *MEMORY[0x277D85DE8];
+  [(SPOwnerSession *)self unassignSafeLocation:locationCopy beaconUUIDs:v12 completion:completionCopy, dCopy, v14];
 }
 
 - (void)assignSafeLocation:(id)location beaconUUIDs:(id)ds completion:(id)completion
@@ -984,7 +977,7 @@ void __73__SPOwnerSession_SeparationMonitoring__forceLOIBasedSafeLocationRefresh
 
 void __73__SPOwnerSession_MaintenanceConnection__maintenanceConnectionUpdateBlock__block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_MaintenanceConnection();
+  v2 = LogCategory_MaintenanceConnection(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1214,32 +1207,29 @@ void __49__SPOwnerSession_locationsForBeacons_completion___block_invoke_3(uint64
 
 void __49__SPOwnerSession_locationsForBeacons_completion___block_invoke_4(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setFetchLimit:*(a1 + 40)];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) fetchLimit];
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: fetchLimit set to %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: fetchLimit set to %@", &v8, 0xCu);
   }
 
-  [*(a1 + 32) setLocationCache:*(a1 + 48)];
-  v4 = LogCategory_OwnerSession();
+  v4 = LogCategory_OwnerSession([*(a1 + 32) setLocationCache:*(a1 + 48)]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 48);
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: updated location cache: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: updated location cache: %@", &v8, 0xCu);
   }
 
   v6 = *(a1 + 56);
   v7 = [*(a1 + 32) locationCache];
   (*(v6 + 16))(v6, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_enforceRateLimit
@@ -1267,31 +1257,29 @@ void __49__SPOwnerSession_locationsForBeacons_completion___block_invoke_4(uint64
 
 void __35__SPOwnerSession__enforceRateLimit__block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) tokenBucket];
   v3 = [v2 operationAllowed];
 
   if ((v3 & 1) == 0)
   {
-    v14[0] = @"delay";
+    v13[0] = @"delay";
     v4 = MEMORY[0x277CCABB0];
     v5 = [*(a1 + 32) tokenBucket];
     [v5 timeIntervalUntilOperationAllowed];
     v6 = [v4 numberWithDouble:?];
-    v14[1] = @"stats";
-    v15[0] = v6;
+    v13[1] = @"stats";
+    v14[0] = v6;
     v7 = [*(a1 + 32) tokenBucket];
     v8 = [v7 dumpStatistics];
-    v15[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:20 userInfo:v9];
     v11 = *(*(a1 + 40) + 8);
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationForContext:(id)context completion:(id)completion
@@ -1462,7 +1450,7 @@ void __44__SPOwnerSession_connectionExpiryTimerFired__block_invoke(uint64_t a1)
 
 - (void)updateConnectionExpiryDispatchTimerWithBeacons:(id)beacons
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   beaconsCopy = beacons;
   queue = [(SPOwnerSession *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -1475,29 +1463,29 @@ void __44__SPOwnerSession_connectionExpiryTimerFired__block_invoke(uint64_t a1)
   }
 
   *buf = 0;
-  v14 = buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__4;
-  v17 = __Block_byref_object_dispose__4;
-  v18 = 0;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__SPOwnerSession_updateConnectionExpiryDispatchTimerWithBeacons___block_invoke;
-  v12[3] = &unk_279B599F8;
-  v12[4] = buf;
-  [beaconsCopy enumerateObjectsUsingBlock:v12];
-  if (*(v14 + 5))
+  v13 = buf;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__4;
+  v16 = __Block_byref_object_dispose__4;
+  v17 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__SPOwnerSession_updateConnectionExpiryDispatchTimerWithBeacons___block_invoke;
+  v11[3] = &unk_279B599F8;
+  v11[4] = buf;
+  [beaconsCopy enumerateObjectsUsingBlock:v11];
+  if (*(v13 + 5))
   {
     v7 = LogCategory_BeaconManager();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(v14 + 5);
-      *v19 = 138412290;
-      v20 = v8;
-      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPBeaconManager updating connection expiry timer with fire date %@", v19, 0xCu);
+      v8 = *(v13 + 5);
+      *v18 = 138412290;
+      v19 = v8;
+      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPBeaconManager updating connection expiry timer with fire date %@", v18, 0xCu);
     }
 
-    [*(v14 + 5) timeIntervalSinceNow];
+    [*(v13 + 5) timeIntervalSinceNow];
     if (v9 < 1.0)
     {
       v9 = 1.0;
@@ -1511,14 +1499,12 @@ void __44__SPOwnerSession_connectionExpiryTimerFired__block_invoke(uint64_t a1)
     v10 = LogCategory_BeaconManager();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPBeaconManager not updating connection expiry timer, there are no expiring beacons.", v19, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPBeaconManager not updating connection expiry timer, there are no expiring beacons.", v18, 2u);
     }
   }
 
   _Block_object_dispose(buf, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SPOwnerSession_updateConnectionExpiryDispatchTimerWithBeacons___block_invoke(uint64_t a1, void *a2)
@@ -1598,14 +1584,14 @@ void __68__SPOwnerSession_rawSearchResultsForBeacon_dateInterval_completion___bl
 
 void __43__SPOwnerSession_beaconForUUID_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = LogCategory_BeaconManager();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[SPOwnerSession beaconForUUID:completion:]_block_invoke";
+      v10 = "[SPOwnerSession beaconForUUID:completion:]_block_invoke";
       _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %s", buf, 0xCu);
     }
 
@@ -1615,18 +1601,18 @@ void __43__SPOwnerSession_beaconForUUID_completion___block_invoke(id *a1)
     block[1] = 3221225472;
     block[2] = __43__SPOwnerSession_beaconForUUID_completion___block_invoke_266;
     block[3] = &unk_279B58BA8;
-    objc_copyWeak(&v9, buf);
-    v7 = a1[4];
-    v8 = a1[6];
+    objc_copyWeak(&v8, buf);
+    v6 = a1[4];
+    v7 = a1[6];
     dispatch_async(v3, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v4 = LogCategory_OwnerSession();
+    v4 = LogCategory_OwnerSession(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __43__SPOwnerSession_beaconForUUID_completion___block_invoke_cold_1();
@@ -1634,8 +1620,6 @@ void __43__SPOwnerSession_beaconForUUID_completion___block_invoke(id *a1)
 
     (*(a1[6] + 2))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SPOwnerSession_beaconForUUID_completion___block_invoke_266(uint64_t a1)
@@ -1749,16 +1733,16 @@ void __66__SPOwnerSession_forceUpdateKeyAlignmentRecordForUUID_completion___bloc
 
 void __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(a1);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[SPOwnerSession beaconForIdentifier:completion:]_block_invoke";
+      v13 = "[SPOwnerSession beaconForIdentifier:completion:]_block_invoke";
       _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %s", buf, 0xCu);
     }
 
@@ -1767,12 +1751,12 @@ void __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke(id *a1)
     block[1] = 3221225472;
     block[2] = __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke_267;
     block[3] = &unk_279B58BA8;
-    objc_copyWeak(&v12, a1 + 7);
-    v10 = a1[4];
-    v11 = a1[6];
+    objc_copyWeak(&v11, a1 + 7);
+    v9 = a1[4];
+    v10 = a1[6];
     dispatch_async(v5, block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
   }
 
   else
@@ -1786,8 +1770,6 @@ void __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke(id *a1)
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:2 userInfo:0];
     v6[2](v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke_267(uint64_t a1)
@@ -1820,16 +1802,16 @@ void __49__SPOwnerSession_beaconForIdentifier_completion___block_invoke_267(uint
 
 void __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(a1);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[SPOwnerSession beaconGroupForIdentifier:completion:]_block_invoke";
+      v13 = "[SPOwnerSession beaconGroupForIdentifier:completion:]_block_invoke";
       _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %s", buf, 0xCu);
     }
 
@@ -1838,12 +1820,12 @@ void __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke(id 
     block[1] = 3221225472;
     block[2] = __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke_268;
     block[3] = &unk_279B58BA8;
-    objc_copyWeak(&v12, a1 + 7);
-    v10 = a1[4];
-    v11 = a1[6];
+    objc_copyWeak(&v11, a1 + 7);
+    v9 = a1[4];
+    v10 = a1[6];
     dispatch_async(v5, block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
   }
 
   else
@@ -1857,8 +1839,6 @@ void __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke(id 
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:17 userInfo:0];
     v6[2](v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke_268(uint64_t a1)
@@ -1889,16 +1869,16 @@ void __54__SPOwnerSession_beaconGroupForIdentifier_completion___block_invoke_268
 
 void __58__SPOwnerSession_hasAccessoryWithCapabilities_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(a1);
   v4 = v3;
   if (v2)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[SPOwnerSession hasAccessoryWithCapabilities:completion:]_block_invoke";
+      v12 = "[SPOwnerSession hasAccessoryWithCapabilities:completion:]_block_invoke";
       _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %s", buf, 0xCu);
     }
 
@@ -1907,12 +1887,12 @@ void __58__SPOwnerSession_hasAccessoryWithCapabilities_completion___block_invoke
     block[1] = 3221225472;
     block[2] = __58__SPOwnerSession_hasAccessoryWithCapabilities_completion___block_invoke_269;
     block[3] = &unk_279B59A98;
-    objc_copyWeak(v11, (a1 + 48));
-    v11[1] = *(a1 + 56);
-    v10 = *(a1 + 40);
+    objc_copyWeak(v10, (a1 + 48));
+    v10[1] = *(a1 + 56);
+    v9 = *(a1 + 40);
     dispatch_async(v5, block);
 
-    objc_destroyWeak(v11);
+    objc_destroyWeak(v10);
   }
 
   else
@@ -1926,8 +1906,6 @@ void __58__SPOwnerSession_hasAccessoryWithCapabilities_completion___block_invoke
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:5 userInfo:0];
     (*(v6 + 16))(v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPOwnerSession_hasAccessoryWithCapabilities_completion___block_invoke_269(uint64_t a1)
@@ -2048,14 +2026,14 @@ void __52__SPOwnerSession_clientConfigurationWithCompletion___block_invoke(uint6
 
 - (void)fetchFindMyNetworkStatusForMACAddress:(id)address completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
-  v8 = LogCategory_OwnerSession();
+  v8 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = addressCopy;
+    v17 = addressCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: fetchFindMyNetworkStatusForMACAddress: %@", buf, 0xCu);
   }
 
@@ -2065,16 +2043,15 @@ void __52__SPOwnerSession_clientConfigurationWithCompletion___block_invoke(uint6
   block[1] = 3221225472;
   block[2] = __67__SPOwnerSession_fetchFindMyNetworkStatusForMACAddress_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = addressCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = addressCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = addressCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPOwnerSession_fetchFindMyNetworkStatusForMACAddress_completion___block_invoke(uint64_t a1)
@@ -2087,36 +2064,35 @@ void __67__SPOwnerSession_fetchFindMyNetworkStatusForMACAddress_completion___blo
 - (void)setFindMyNetworkStatusForMACAddress:(id)address status:(BOOL)status completion:(id)completion
 {
   statusCopy = status;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
-  v10 = LogCategory_OwnerSession();
+  v10 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109378;
     HIDWORD(buf) = statusCopy;
-    v21 = 2112;
-    v22 = addressCopy;
+    v20 = 2112;
+    v21 = addressCopy;
     _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: setFindMyNetworkStatus: %d for MACAddress: %@", &buf, 0x12u);
   }
 
   objc_initWeak(&buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__SPOwnerSession_setFindMyNetworkStatusForMACAddress_status_completion___block_invoke;
-  v15[3] = &unk_279B59678;
-  objc_copyWeak(&v18, &buf);
-  v19 = statusCopy;
-  v16 = addressCopy;
-  v17 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__SPOwnerSession_setFindMyNetworkStatusForMACAddress_status_completion___block_invoke;
+  v14[3] = &unk_279B59678;
+  objc_copyWeak(&v17, &buf);
+  v18 = statusCopy;
+  v15 = addressCopy;
+  v16 = completionCopy;
   v12 = completionCopy;
   v13 = addressCopy;
-  dispatch_async(queue, v15);
+  dispatch_async(queue, v14);
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&buf);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SPOwnerSession_setFindMyNetworkStatusForMACAddress_status_completion___block_invoke(uint64_t a1)
@@ -2310,92 +2286,91 @@ void __60__SPOwnerSession_forceRePairingWithUUID_partIds_completion___block_invo
 
 - (id)executeCommand:(id)command
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   commandCopy = command;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = commandCopy;
+    v23 = commandCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeCommand: %@", buf, 0xCu);
   }
 
   v6 = objc_alloc_init(MEMORY[0x277D07B68]);
   date = [MEMORY[0x277CBEAA8] date];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __33__SPOwnerSession_executeCommand___block_invoke;
-  v18 = &unk_279B59B38;
-  v19 = commandCopy;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __33__SPOwnerSession_executeCommand___block_invoke;
+  v17 = &unk_279B59B38;
+  v18 = commandCopy;
   v8 = v6;
-  v20 = v8;
+  v19 = v8;
   selfCopy = self;
-  v22 = date;
+  v21 = date;
   v9 = date;
   v10 = commandCopy;
-  v11 = _Block_copy(&v15);
-  [(SPOwnerSession *)self executeCommand:v10 completion:v11, v15, v16, v17, v18];
+  v11 = _Block_copy(&v14);
+  [(SPOwnerSession *)self executeCommand:v10 completion:v11, v14, v15, v16, v17];
   v12 = v8;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __33__SPOwnerSession_executeCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_OwnerSession();
+  v4 = LogCategory_OwnerSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v26 = v5;
+    v27 = v5;
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: commandCompletion: %@", buf, 0xCu);
   }
 
   if (v3)
   {
-    v6 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogCategory_OwnerSession(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) identifier];
-      v8 = [v7 UUIDString];
+      v8 = [*(a1 + 32) identifier];
+      v9 = [v8 UUIDString];
       *buf = 138412546;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with error %@", buf, 0x16u);
+      v27 = v9;
+      v28 = 2112;
+      v29 = v3;
+      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with error %@", buf, 0x16u);
     }
 
-    v9 = dispatch_get_global_queue(0, 0);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __33__SPOwnerSession_executeCommand___block_invoke_271;
-    v22[3] = &unk_279B58C78;
-    v23 = *(a1 + 40);
-    v24 = v3;
-    dispatch_async(v9, v22);
+    v10 = dispatch_get_global_queue(0, 0);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __33__SPOwnerSession_executeCommand___block_invoke_271;
+    v23[3] = &unk_279B58C78;
+    v24 = *(a1 + 40);
+    v25 = v3;
+    dispatch_async(v10, v23);
   }
 
   else
   {
-    v10 = [*(a1 + 32) taskName];
+    v11 = [*(a1 + 32) taskName];
 
-    v11 = LogCategory_OwnerSession();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v10)
+    v13 = LogCategory_OwnerSession(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      if (v12)
+      if (v14)
       {
-        v13 = [*(a1 + 32) identifier];
-        v14 = [v13 UUIDString];
-        v15 = [*(a1 + 32) taskName];
+        v15 = [*(a1 + 32) identifier];
+        v16 = [v15 UUIDString];
+        v17 = [*(a1 + 32) taskName];
         *buf = 138412546;
-        v26 = v14;
-        v27 = 2112;
-        v28 = v15;
-        _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with task: %@", buf, 0x16u);
+        v27 = v16;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_impl(&dword_2643D0000, v13, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with task: %@", buf, 0x16u);
       }
 
       [*(a1 + 48) finishBeaconGroupFuture:*(a1 + 40) command:*(a1 + 32) commandIssueDate:*(a1 + 56)];
@@ -2403,23 +2378,21 @@ void __33__SPOwnerSession_executeCommand___block_invoke(uint64_t a1, void *a2)
 
     else
     {
-      if (v12)
+      if (v14)
       {
-        v16 = [*(a1 + 32) identifier];
-        v17 = [v16 UUIDString];
+        v18 = [*(a1 + 32) identifier];
+        v19 = [v18 UUIDString];
         *buf = 138412290;
-        v26 = v17;
-        _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with no task.", buf, 0xCu);
+        v27 = v19;
+        _os_log_impl(&dword_2643D0000, v13, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Command: %@ finishing with no task.", buf, 0xCu);
       }
 
-      v19 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      v20 = [*(a1 + 32) beaconIdentifier];
-      [v18 finishBeaconFuture:v19 beaconUUID:v20];
+      v21 = *(a1 + 40);
+      v20 = *(a1 + 48);
+      v22 = [*(a1 + 32) beaconIdentifier];
+      [v20 finishBeaconFuture:v21 beaconUUID:v22];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishBeaconGroupFuture:(id)future command:(id)command commandIssueDate:(id)date
@@ -2456,13 +2429,13 @@ void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___blo
     v4 = [*(a1 + 32) beaconIdentifier];
     [v3 setIdentifier:v4];
 
-    v5 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_OwnerSession(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) beaconIdentifier];
+      v7 = [*(a1 + 32) beaconIdentifier];
       *buf = 138412290;
-      v18 = v6;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: finishBeaconGroupFuture: GroupUUID: %@", buf, 0xCu);
+      v18 = v7;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: finishBeaconGroupFuture: GroupUUID: %@", buf, 0xCu);
     }
 
     [*(a1 + 40) finishWithResult:v3];
@@ -2470,24 +2443,22 @@ void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___blo
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___block_invoke_273;
     v12[3] = &unk_279B59B60;
     v13 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v14 = v9;
-    v15 = v10;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v14 = v10;
+    v15 = v11;
     v16 = *(a1 + 64);
-    [v7 unknownBeaconsForUUIDs:v8 completion:v12];
+    [v8 unknownBeaconsForUUIDs:v9 completion:v12];
 
     v3 = v13;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___block_invoke_273(uint64_t a1, void *a2)
@@ -2499,13 +2470,13 @@ void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___blo
     v4 = [*(a1 + 32) beaconIdentifier];
     [v3 setIdentifier:v4];
 
-    v5 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_OwnerSession(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) beaconIdentifier];
+      v7 = [*(a1 + 32) beaconIdentifier];
       v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: finish future with unknown beacon: %@", &v13, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: finish future with unknown beacon: %@", &v13, 0xCu);
     }
 
     [*(a1 + 40) finishWithResult:v3];
@@ -2513,21 +2484,19 @@ void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___blo
 
   else
   {
-    v7 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogCategory_OwnerSession(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___block_invoke_273_cold_1();
     }
 
-    v9 = *(a1 + 40);
-    v8 = *(a1 + 48);
+    v10 = *(a1 + 40);
+    v9 = *(a1 + 48);
     v3 = [*(a1 + 32) beaconIdentifier];
-    v10 = [*(a1 + 32) taskName];
-    v11 = [*(a1 + 32) identifier];
-    [v8 addBeaconChangedListener:v9 beaconUUID:v3 taskName:v10 commandIdentifier:v11 commandIssueDate:*(a1 + 56)];
+    v11 = [*(a1 + 32) taskName];
+    v12 = [*(a1 + 32) identifier];
+    [v9 addBeaconChangedListener:v10 beaconUUID:v3 taskName:v11 commandIdentifier:v12 commandIssueDate:*(a1 + 56)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishBeaconFuture:(id)future beaconUUID:(id)d
@@ -2547,14 +2516,14 @@ void __67__SPOwnerSession_finishBeaconGroupFuture_command_commandIssueDate___blo
 
 void __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke_2;
-  v10[3] = &unk_279B59BB0;
-  v11 = *(a1 + 32);
-  v4 = [a2 fm_firstObjectPassingTest:v10];
-  v5 = LogCategory_OwnerSession();
+  v13 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke_2;
+  v9[3] = &unk_279B59BB0;
+  v10 = *(a1 + 32);
+  v4 = [a2 fm_firstObjectPassingTest:v9];
+  v5 = LogCategory_OwnerSession(v4);
   v6 = v5;
   if (v4)
   {
@@ -2562,7 +2531,7 @@ void __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke(uint64_t 
     {
       v7 = *(a1 + 32);
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: finishBeaconFuture: BeaconUUID: %@", buf, 0xCu);
     }
 
@@ -2579,8 +2548,6 @@ void __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke(uint64_t 
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:2 userInfo:0];
     [*(a1 + 40) finishWithError:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke_2(uint64_t a1, void *a2)
@@ -2593,7 +2560,7 @@ uint64_t __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke_2(uin
 
 - (void)addBeaconChangedListener:(id)listener beaconUUID:(id)d taskName:(id)name commandIdentifier:(id)identifier commandIssueDate:(id)date
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   dCopy = d;
   nameCopy = name;
@@ -2602,197 +2569,191 @@ uint64_t __48__SPOwnerSession_finishBeaconFuture_beaconUUID___block_invoke_2(uin
   queue = [(SPOwnerSession *)self queue];
   v18 = objc_opt_new();
   v19 = [SPSimpleBeaconContext alloc];
-  v45[0] = dCopy;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+  v44[0] = dCopy;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
   v21 = [(SPSimpleBeaconContext *)v19 initWithFetchProperties:4608 matchingBeaconUUIDs:v20];
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke;
-  v38[3] = &unk_279B59C50;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke;
+  v37[3] = &unk_279B59C50;
   v22 = dCopy;
-  v39 = v22;
-  v40 = queue;
-  v41 = nameCopy;
-  v42 = identifierCopy;
-  v43 = dateCopy;
-  v44 = listenerCopy;
+  v38 = v22;
+  v39 = queue;
+  v40 = nameCopy;
+  v41 = identifierCopy;
+  v42 = dateCopy;
+  v43 = listenerCopy;
   v23 = listenerCopy;
   v24 = dateCopy;
   v25 = identifierCopy;
   v26 = nameCopy;
   v27 = queue;
-  [v18 setSimpleBeaconDifferenceBlock:v38];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2_284;
-  v36[3] = &unk_279B58A20;
+  [v18 setSimpleBeaconDifferenceBlock:v37];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2_284;
+  v35[3] = &unk_279B58A20;
   v28 = v22;
-  v37 = v28;
-  [v18 startUpdatingSimpleBeaconsWithContext:v21 completion:v36];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_286;
-  v33[3] = &unk_279B59C78;
-  v34 = v18;
-  v35 = v28;
+  v36 = v28;
+  [v18 startUpdatingSimpleBeaconsWithContext:v21 completion:v35];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_286;
+  v32[3] = &unk_279B59C78;
+  v33 = v18;
+  v34 = v28;
   v29 = v28;
   v30 = v18;
-  v31 = [v23 addCompletionBlock:v33];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [v23 addCompletionBlock:v32];
 }
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     v9 = [v5 insertions];
     *buf = 138412802;
-    v21 = v8;
-    v22 = 2048;
-    v23 = [v9 count];
-    v24 = 2112;
-    v25 = v6;
+    v20 = v8;
+    v21 = 2048;
+    v22 = [v9 count];
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task info updated beacon: %@, changes: %lu, error %@", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279;
-  v13[3] = &unk_279B59C28;
-  v14 = v5;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279;
+  v12[3] = &unk_279B59C28;
+  v13 = v5;
   v10 = *(a1 + 40);
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 56);
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 72);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 48);
+  v16 = *(a1 + 56);
+  v17 = *(a1 + 64);
+  v18 = *(a1 + 72);
   v11 = v5;
-  dispatch_async(v10, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v10, v12);
 }
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) insertions];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2;
-  v36[3] = &unk_279B59C00;
-  v37 = *(a1 + 40);
-  v3 = [v2 fm_filter:v36];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2;
+  v38[3] = &unk_279B59C00;
+  v39 = *(a1 + 40);
+  v3 = [v2 fm_filter:v38];
   v4 = [v3 firstObject];
   v5 = [v4 object];
 
   v6 = [v5 taskInformation];
   v7 = [v6 objectForKeyedSubscript:*(a1 + 48)];
 
-  v8 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogCategory_OwnerSession(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 40);
-    v10 = [v7 lastUpdated];
-    v11 = [v7 state];
+    v10 = *(a1 + 40);
+    v11 = [v7 lastUpdated];
+    v12 = [v7 state];
     *buf = 138412802;
-    v39 = v9;
-    v40 = 2112;
     v41 = v10;
-    v42 = 2048;
+    v42 = 2112;
     v43 = v11;
-    _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task info updated beacon: %@, date: %@, state %ld", buf, 0x20u);
+    v44 = 2048;
+    v45 = v12;
+    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task info updated beacon: %@, date: %@, state %ld", buf, 0x20u);
   }
 
   if (v7)
   {
-    v12 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = LogCategory_OwnerSession(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [v7 lastUpdated];
-      v14 = *(a1 + 56);
+      v15 = [v7 lastUpdated];
+      v16 = *(a1 + 56);
       *buf = 138412546;
-      v39 = v13;
-      v40 = 2112;
-      v41 = v14;
-      _os_log_impl(&dword_2643D0000, v12, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task last updated: %@ command: %@", buf, 0x16u);
+      v41 = v15;
+      v42 = 2112;
+      v43 = v16;
+      _os_log_impl(&dword_2643D0000, v14, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task last updated: %@ command: %@", buf, 0x16u);
     }
 
-    v15 = [v7 lastUpdated];
-    [v15 timeIntervalSinceReferenceDate];
-    v17 = v16;
+    v17 = [v7 lastUpdated];
+    [v17 timeIntervalSinceReferenceDate];
+    v19 = v18;
     [*(a1 + 64) timeIntervalSinceReferenceDate];
-    if (v17 > v18)
+    if (v19 > v20)
     {
     }
 
     else
     {
-      v19 = [v7 commandIdentifier];
-      v20 = [v19 isEqual:*(a1 + 56)];
+      v21 = [v7 commandIdentifier];
+      v22 = [v21 isEqual:*(a1 + 56)];
 
-      if (!v20)
+      if (!v22)
       {
         goto LABEL_18;
       }
     }
 
-    v25 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = LogCategory_OwnerSession(v23);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [v7 name];
-      v27 = *(a1 + 56);
+      v29 = [v7 name];
+      v30 = *(a1 + 56);
       *buf = 138412546;
-      v39 = v26;
-      v40 = 2112;
-      v41 = v27;
-      _os_log_impl(&dword_2643D0000, v25, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task completed: %@ command: %@", buf, 0x16u);
+      v41 = v29;
+      v42 = 2112;
+      v43 = v30;
+      _os_log_impl(&dword_2643D0000, v28, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: task completed: %@ command: %@", buf, 0x16u);
     }
 
-    v28 = dispatch_get_global_queue(0, 0);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_281;
-    v33[3] = &unk_279B58C78;
-    v34 = v5;
-    v35 = *(a1 + 72);
-    dispatch_async(v28, v33);
+    v31 = dispatch_get_global_queue(0, 0);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_281;
+    v35[3] = &unk_279B58C78;
+    v36 = v5;
+    v37 = *(a1 + 72);
+    dispatch_async(v31, v35);
 
-    v24 = v34;
+    v27 = v36;
     goto LABEL_17;
   }
 
   if (v5)
   {
-    v21 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = LogCategory_OwnerSession(v13);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279_cold_1((a1 + 48), v21);
+      __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279_cold_1((a1 + 48), v24);
     }
 
-    v22 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:3 userInfo:0];
-    v23 = dispatch_get_global_queue(0, 0);
+    v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.searchpartyd.SPOwnerSession.ErrorDomain" code:3 userInfo:0];
+    v26 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_282;
     block[3] = &unk_279B58C78;
-    v31 = *(a1 + 72);
-    v32 = v22;
-    v24 = v22;
-    dispatch_async(v23, block);
+    v33 = *(a1 + 72);
+    v34 = v25;
+    v27 = v25;
+    dispatch_async(v26, block);
 
 LABEL_17:
   }
 
 LABEL_18:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2(uint64_t a1, void *a2)
@@ -2860,22 +2821,20 @@ void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandId
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2_284(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: registered for task info updates on this beacon: %@, subscribed: %i, error %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: registered for task info updates on this beacon: %@, subscribed: %i, error %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_286(uint64_t a1)
@@ -2891,22 +2850,20 @@ void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandId
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_2_287(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: stopped all task info updates on this beacon: %@, stopped: %i, error %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: stopped all task info updates on this beacon: %@, stopped: %i, error %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executeCommand:(id)command completion:(id)completion
@@ -2951,7 +2908,7 @@ void __44__SPOwnerSession_executeCommand_completion___block_invoke_2(uint64_t a1
 
 - (void)startRefreshing
 {
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3033,28 +2990,27 @@ void __33__SPOwnerSession_startRefreshing__block_invoke_5(uint64_t a1)
 
 - (void)startRefreshingBeacons:(id)beacons
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   beaconsCopy = beacons;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(beaconsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [beaconsCopy count];
+    v15 = [beaconsCopy count];
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: startRefreshingBeacons: %lu", buf, 0xCu);
   }
 
   queue = [(SPOwnerSession *)self queue];
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __41__SPOwnerSession_startRefreshingBeacons___block_invoke;
-  v12 = &unk_279B58C78;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __41__SPOwnerSession_startRefreshingBeacons___block_invoke;
+  v11 = &unk_279B58C78;
   selfCopy = self;
-  v14 = beaconsCopy;
+  v13 = beaconsCopy;
   v7 = beaconsCopy;
-  dispatch_async(queue, &v9);
+  dispatch_async(queue, &v8);
 
-  [(SPOwnerSession *)self startRefreshing:v9];
-  v8 = *MEMORY[0x277D85DE8];
+  [(SPOwnerSession *)self startRefreshing:v8];
 }
 
 void __41__SPOwnerSession_startRefreshingBeacons___block_invoke(uint64_t a1)
@@ -3065,7 +3021,7 @@ void __41__SPOwnerSession_startRefreshingBeacons___block_invoke(uint64_t a1)
 
 - (void)stopRefreshing
 {
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3091,7 +3047,7 @@ void __41__SPOwnerSession_startRefreshingBeacons___block_invoke(uint64_t a1)
 
 - (void)updateAllBeacons
 {
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3220,15 +3176,15 @@ void __43__SPOwnerSession_allBeaconsWithCompletion___block_invoke_4(uint64_t a1)
 
 - (void)startUpdatingApplicationBeaconsWithContext:(id)context collectionDifference:(id)difference completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   differenceCopy = difference;
   completionCopy = completion;
-  v11 = LogCategory_OwnerSession();
+  v11 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v26 = "[SPOwnerSession startUpdatingApplicationBeaconsWithContext:collectionDifference:completion:]";
+    v25 = "[SPOwnerSession startUpdatingApplicationBeaconsWithContext:collectionDifference:completion:]";
     _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %{public}s", buf, 0xCu);
   }
 
@@ -3237,24 +3193,22 @@ void __43__SPOwnerSession_allBeaconsWithCompletion___block_invoke_4(uint64_t a1)
   aBlock[2] = __93__SPOwnerSession_startUpdatingApplicationBeaconsWithContext_collectionDifference_completion___block_invoke;
   aBlock[3] = &unk_279B58E30;
   aBlock[4] = self;
-  v22 = contextCopy;
-  v23 = differenceCopy;
-  v24 = completionCopy;
+  v21 = contextCopy;
+  v22 = differenceCopy;
+  v23 = completionCopy;
   v12 = completionCopy;
   v13 = contextCopy;
   v14 = differenceCopy;
   v15 = _Block_copy(aBlock);
   queue = [(SPOwnerSession *)self queue];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __93__SPOwnerSession_startUpdatingApplicationBeaconsWithContext_collectionDifference_completion___block_invoke_4;
-  v19[3] = &unk_279B58B80;
-  v19[4] = self;
-  v20 = v15;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __93__SPOwnerSession_startUpdatingApplicationBeaconsWithContext_collectionDifference_completion___block_invoke_4;
+  v18[3] = &unk_279B58B80;
+  v18[4] = self;
+  v19 = v15;
   v17 = v15;
-  dispatch_async(queue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v18);
 }
 
 void __93__SPOwnerSession_startUpdatingApplicationBeaconsWithContext_collectionDifference_completion___block_invoke(uint64_t a1)
@@ -3344,27 +3298,25 @@ void __93__SPOwnerSession_startUpdatingApplicationBeaconsWithContext_collectionD
 
 - (void)stopUpdatingApplicationBeaconsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v12 = "[SPOwnerSession stopUpdatingApplicationBeaconsWithCompletion:]";
+    v11 = "[SPOwnerSession stopUpdatingApplicationBeaconsWithCompletion:]";
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: SPI: %{public}s", buf, 0xCu);
   }
 
   queue = [(SPOwnerSession *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __63__SPOwnerSession_stopUpdatingApplicationBeaconsWithCompletion___block_invoke;
-  v9[3] = &unk_279B58B80;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __63__SPOwnerSession_stopUpdatingApplicationBeaconsWithCompletion___block_invoke;
+  v8[3] = &unk_279B58B80;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __63__SPOwnerSession_stopUpdatingApplicationBeaconsWithCompletion___block_invoke(uint64_t a1)
@@ -3515,14 +3467,14 @@ void __60__SPOwnerSession_waitForBeaconStoreAvailableWithCompletion___block_invo
 
 - (void)updateBeaconObservations:(id)observations completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   observationsCopy = observations;
   completionCopy = completion;
-  v8 = LogCategory_OwnerSession();
+  v8 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = observationsCopy;
+    v17 = observationsCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "update beacon observations %@", buf, 0xCu);
   }
 
@@ -3532,16 +3484,15 @@ void __60__SPOwnerSession_waitForBeaconStoreAvailableWithCompletion___block_invo
   block[1] = 3221225472;
   block[2] = __54__SPOwnerSession_updateBeaconObservations_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = observationsCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = observationsCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = observationsCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SPOwnerSession_updateBeaconObservations_completion___block_invoke(uint64_t a1)
@@ -3553,13 +3504,13 @@ void __54__SPOwnerSession_updateBeaconObservations_completion___block_invoke(uin
 
 - (id)executeUTPlaySoundCommand:(id)command
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   commandCopy = command;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = commandCopy;
+    v25 = commandCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeUTPlaySoundCommand: %@", buf, 0xCu);
   }
 
@@ -3567,115 +3518,113 @@ void __54__SPOwnerSession_updateBeaconObservations_completion___block_invoke(uin
   v6 = objc_alloc_init(MEMORY[0x277D07B68]);
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(commandCopy, "playSoundContext")}];
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_2875F2BE0];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke;
-  v20 = &unk_279B59B38;
-  v21 = commandCopy;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke;
+  v19 = &unk_279B59B38;
+  v20 = commandCopy;
   v9 = v6;
-  v22 = v9;
-  v23 = v8;
-  v24 = v7;
+  v21 = v9;
+  v22 = v8;
+  v23 = v7;
   v10 = v7;
   v11 = v8;
   v12 = commandCopy;
-  v13 = _Block_copy(&v17);
-  [(SPOwnerSession *)self executeCommand:v12 completion:v13, v17, v18, v19, v20];
+  v13 = _Block_copy(&v16);
+  [(SPOwnerSession *)self executeCommand:v12 completion:v13, v16, v17, v18, v19];
   v14 = v9;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_OwnerSession();
+  v4 = LogCategory_OwnerSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v26 = v5;
+    v27 = v5;
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: commandCompletion: %@", buf, 0xCu);
   }
 
   if (v3)
   {
-    v6 = LogCategory_OwnerSession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogCategory_OwnerSession(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) identifier];
-      v8 = [v7 UUIDString];
+      v8 = [*(a1 + 32) identifier];
+      v9 = [v8 UUIDString];
       *buf = 138412546;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeUTPlaySoundCommand: %@ finishing with error %@", buf, 0x16u);
+      v27 = v9;
+      v28 = 2112;
+      v29 = v3;
+      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeUTPlaySoundCommand: %@ finishing with error %@", buf, 0x16u);
     }
 
-    v9 = dispatch_get_global_queue(0, 0);
+    v10 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_303;
     block[3] = &unk_279B58C78;
-    v23 = *(a1 + 40);
-    v24 = v3;
-    dispatch_async(v9, block);
+    v24 = *(a1 + 40);
+    v25 = v3;
+    dispatch_async(v10, block);
 
-    v10 = v23;
+    v11 = v24;
   }
 
   else
   {
-    v11 = [*(a1 + 48) containsObject:*(a1 + 56)];
-    v12 = LogCategory_OwnerSession();
-    v10 = v12;
-    if (v11)
+    v12 = [*(a1 + 48) containsObject:*(a1 + 56)];
+    v13 = v12;
+    v14 = LogCategory_OwnerSession(v12);
+    v11 = v14;
+    if (v13)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [*(a1 + 32) identifier];
-        v14 = [v13 UUIDString];
+        v15 = [*(a1 + 32) identifier];
+        v16 = [v15 UUIDString];
         *buf = 138412290;
-        v26 = v14;
-        _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeUTPlaySoundCommand: %@ finished.", buf, 0xCu);
+        v27 = v16;
+        _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: executeUTPlaySoundCommand: %@ finished.", buf, 0xCu);
       }
 
-      v15 = objc_opt_new();
-      v16 = [*(a1 + 32) beaconIdentifier];
-      [v15 setIdentifier:v16];
+      v17 = objc_opt_new();
+      v18 = [*(a1 + 32) beaconIdentifier];
+      [v17 setIdentifier:v18];
 
-      v17 = dispatch_get_global_queue(0, 0);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_304;
-      v19[3] = &unk_279B58C78;
-      v20 = *(a1 + 40);
-      v21 = v15;
-      v10 = v15;
-      dispatch_async(v17, v19);
+      v19 = dispatch_get_global_queue(0, 0);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_304;
+      v20[3] = &unk_279B58C78;
+      v21 = *(a1 + 40);
+      v22 = v17;
+      v11 = v17;
+      dispatch_async(v19, v20);
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_cold_1(a1, (a1 + 56), v10);
+      __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_cold_1(a1, (a1 + 56), v11);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unknownBeaconsForUUIDs:(id)ds completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
-  v8 = LogCategory_OwnerSession();
+  v8 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = dsCopy;
+    v17 = dsCopy;
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "unknownBeaconsForUUIDs %@", buf, 0xCu);
   }
 
@@ -3685,16 +3634,15 @@ void __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke(uint64_t a1, 
   block[1] = 3221225472;
   block[2] = __52__SPOwnerSession_unknownBeaconsForUUIDs_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = dsCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = dsCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = dsCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SPOwnerSession_unknownBeaconsForUUIDs_completion___block_invoke(uint64_t a1)
@@ -3707,34 +3655,32 @@ void __52__SPOwnerSession_unknownBeaconsForUUIDs_completion___block_invoke(uint6
 - (void)updateBatteryStatus:(unsigned __int8)status beaconUUID:(id)d completion:(id)completion
 {
   statusCopy = status;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v10 = LogCategory_OwnerSession();
+  v10 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 67109378;
-    v21 = statusCopy;
-    v22 = 2112;
-    v23 = uUIDString;
+    v20 = statusCopy;
+    v21 = 2112;
+    v22 = uUIDString;
     _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "updateBatteryStatus %d for beacon %@.", buf, 0x12u);
   }
 
   queue = [(SPOwnerSession *)self queue];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __60__SPOwnerSession_updateBatteryStatus_beaconUUID_completion___block_invoke;
-  v16[3] = &unk_279B59890;
-  v16[4] = self;
-  v17 = dCopy;
-  v19 = statusCopy;
-  v18 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__SPOwnerSession_updateBatteryStatus_beaconUUID_completion___block_invoke;
+  v15[3] = &unk_279B59890;
+  v15[4] = self;
+  v16 = dCopy;
+  v18 = statusCopy;
+  v17 = completionCopy;
   v13 = completionCopy;
   v14 = dCopy;
-  dispatch_async(queue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v15);
 }
 
 void __60__SPOwnerSession_updateBatteryStatus_beaconUUID_completion___block_invoke(uint64_t a1)
@@ -3757,7 +3703,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v6 = LogCategory_OwnerSession();
+  v6 = LogCategory_OwnerSession(v4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -3768,6 +3714,31 @@ LABEL_7:
   (*(*(a1 + 48) + 16))();
 
 LABEL_8:
+}
+
+- (void)_updateBatteryStatus:(unsigned __int8)status beaconUUID:(id)d completion:(id)completion
+{
+  statusCopy = status;
+  dCopy = d;
+  completionCopy = completion;
+  queue = [(SPOwnerSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v11 = objc_initWeak(&location, self);
+  userAgentProxy = [(SPOwnerSession *)self userAgentProxy];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __61__SPOwnerSession__updateBatteryStatus_beaconUUID_completion___block_invoke;
+  v15[3] = &unk_279B59D10;
+  v15[4] = self;
+  v18 = statusCopy;
+  v13 = dCopy;
+  v16 = v13;
+  v14 = completionCopy;
+  v17 = v14;
+  [userAgentProxy updateBatteryStatus:statusCopy beaconUUID:v13 completion:v15];
+
+  objc_destroyWeak(&location);
 }
 
 void __61__SPOwnerSession__updateBatteryStatus_beaconUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -3794,7 +3765,7 @@ uint64_t __61__SPOwnerSession__updateBatteryStatus_beaconUUID_completion___block
   v2 = *(a1 + 32);
   if (!v2)
   {
-    v3 = LogCategory_OwnerSession();
+    v3 = LogCategory_OwnerSession(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -3806,17 +3777,17 @@ uint64_t __61__SPOwnerSession__updateBatteryStatus_beaconUUID_completion___block
 LABEL_8:
 
     [*(a1 + 40) _cacheBatteryStatus:*(a1 + 64) beaconUUID:*(a1 + 48)];
-    goto LABEL_9;
+    return (*(*(a1 + 56) + 16))(*(a1 + 56));
   }
 
   if ([v2 code] == 4)
   {
-    v3 = LogCategory_OwnerSession();
+    v3 = LogCategory_OwnerSession(4);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
+      v7 = 0;
       v4 = "Battery status has NOT changed. Saving status to local cache to save an XPC call next time.";
-      v5 = &v8;
+      v5 = &v7;
 LABEL_7:
       _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 2u);
       goto LABEL_8;
@@ -3825,9 +3796,19 @@ LABEL_7:
     goto LABEL_8;
   }
 
-LABEL_9:
-  v6 = *(a1 + 32);
   return (*(*(a1 + 56) + 16))(*(a1 + 56));
+}
+
+- (void)_cacheBatteryStatus:(unsigned __int8)status beaconUUID:(id)d
+{
+  statusCopy = status;
+  dCopy = d;
+  queue = [(SPOwnerSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:statusCopy];
+  batteryStatusCache = [(SPOwnerSession *)self batteryStatusCache];
+  [batteryStatusCache setObject:v9 forKeyedSubscript:dCopy];
 }
 
 - (SPOwnerSessionState)ownerSessionState
@@ -3932,9 +3913,9 @@ void __42__SPOwnerSession__updateOwnerSessionState__block_invoke_3(id *a1)
 - (void)disableUTAppAlert:(BOOL)alert completion:(id)completion
 {
   alertCopy = alert;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
@@ -3948,15 +3929,14 @@ void __42__SPOwnerSession__updateOwnerSessionState__block_invoke_3(id *a1)
   block[1] = 3221225472;
   block[2] = __47__SPOwnerSession_disableUTAppAlert_completion___block_invoke;
   block[3] = &unk_279B596C8;
-  objc_copyWeak(&v13, &buf);
-  v14 = alertCopy;
-  v12 = completionCopy;
+  objc_copyWeak(&v12, &buf);
+  v13 = alertCopy;
+  v11 = completionCopy;
   v9 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SPOwnerSession_disableUTAppAlert_completion___block_invoke(uint64_t a1)
@@ -3969,7 +3949,7 @@ void __47__SPOwnerSession_disableUTAppAlert_completion___block_invoke(uint64_t a
 - (void)isUTAppAlertDisabled:(id)disabled
 {
   disabledCopy = disabled;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(disabledCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -4016,13 +3996,13 @@ void __39__SPOwnerSession_isUTAppAlertDisabled___block_invoke(uint64_t a1)
 
 void __63__SPOwnerSession_fetchUnauthorizedEncryptedPayload_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OwnerSession();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OwnerSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] UUIDString];
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "fetchUnauthorizedEncryptedPayload %@", buf, 0xCu);
   }
 
@@ -4032,14 +4012,13 @@ void __63__SPOwnerSession_fetchUnauthorizedEncryptedPayload_completion___block_i
   block[1] = 3221225472;
   block[2] = __63__SPOwnerSession_fetchUnauthorizedEncryptedPayload_completion___block_invoke_306;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v9, buf);
-  v7 = a1[4];
-  v8 = a1[6];
+  objc_copyWeak(&v8, buf);
+  v6 = a1[4];
+  v7 = a1[6];
   dispatch_async(v4, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SPOwnerSession_fetchUnauthorizedEncryptedPayload_completion___block_invoke_306(uint64_t a1)
@@ -4067,13 +4046,13 @@ void __63__SPOwnerSession_fetchUnauthorizedEncryptedPayload_completion___block_i
 
 void __57__SPOwnerSession_fetchHawkeyeFirmwareVersion_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OwnerSession();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OwnerSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] UUIDString];
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "fetchFirmwareVersion %@", buf, 0xCu);
   }
 
@@ -4083,14 +4062,13 @@ void __57__SPOwnerSession_fetchHawkeyeFirmwareVersion_completion___block_invoke(
   block[1] = 3221225472;
   block[2] = __57__SPOwnerSession_fetchHawkeyeFirmwareVersion_completion___block_invoke_307;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v9, buf);
-  v7 = a1[4];
-  v8 = a1[6];
+  objc_copyWeak(&v8, buf);
+  v6 = a1[4];
+  v7 = a1[6];
   dispatch_async(v4, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SPOwnerSession_fetchHawkeyeFirmwareVersion_completion___block_invoke_307(uint64_t a1)
@@ -4115,7 +4093,7 @@ void __57__SPOwnerSession_fetchHawkeyeFirmwareVersion_completion___block_invoke_
 
 void __73__SPOwnerSession_stopFetchingUnauthorizedEncryptedPayloadWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_OwnerSession();
+  v2 = LogCategory_OwnerSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -4161,13 +4139,13 @@ void __73__SPOwnerSession_stopFetchingUnauthorizedEncryptedPayloadWithCompletion
 
 void __80__SPOwnerSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OwnerSession();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OwnerSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] UUIDString];
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "peripheralConnectionMaterial for %@", buf, 0xCu);
   }
 
@@ -4177,14 +4155,13 @@ void __80__SPOwnerSession_peripheralConnectionMaterialForAccessoryIdentifier_com
   block[1] = 3221225472;
   block[2] = __80__SPOwnerSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke_309;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v9, buf);
-  v7 = a1[4];
-  v8 = a1[6];
+  objc_copyWeak(&v8, buf);
+  v6 = a1[4];
+  v7 = a1[6];
   dispatch_async(v4, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __80__SPOwnerSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke_309(uint64_t a1)
@@ -4401,7 +4378,7 @@ void __83__SPOwnerSession_readRawAISMetadataFromMACAddress_useOwnerControlPoint_
 {
   v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -4427,44 +4404,41 @@ void __83__SPOwnerSession_readRawAISMetadataFromMACAddress_useOwnerControlPoint_
   v15 = *(a1 + 40);
   [v6 readRawAISMetadataFromMACAddress:v14 useOwnerControlPoint:v8 completion:v13];
 
-  v9 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LogCategory_OwnerSession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 56);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 56);
     *buf = 141558530;
     v18 = 1752392040;
     v19 = 2112;
-    v20 = v10;
+    v20 = v11;
     v21 = 1024;
-    v22 = v11;
-    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromMACAddress %{mask.hash}@ userOwnerControlPoint:%d", buf, 0x1Cu);
+    v22 = v12;
+    _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromMACAddress %{mask.hash}@ userOwnerControlPoint:%d", buf, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SPOwnerSession_readRawAISMetadataFromMACAddress_useOwnerControlPoint_completion___block_invoke_312(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 48);
-    v11 = 141558530;
-    v12 = 1752392040;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 1024;
-    v16 = v9;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromMACAddress %{mask.hash}@ useOwnerControlPoint:%d completion called", &v11, 0x1Cu);
+    v10 = 141558530;
+    v11 = 1752392040;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 1024;
+    v15 = v9;
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromMACAddress %{mask.hash}@ useOwnerControlPoint:%d completion called", &v10, 0x1Cu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readAISMetadataFromMACAddress:(id)address useOwnerControlPoint:(BOOL)point completion:(id)completion
@@ -4527,7 +4501,7 @@ void __80__SPOwnerSession_readAISMetadataFromMACAddress_useOwnerControlPoint_com
 {
   v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -4553,44 +4527,41 @@ void __80__SPOwnerSession_readAISMetadataFromMACAddress_useOwnerControlPoint_com
   v15 = *(a1 + 40);
   [v6 readAISMetadataFromMACAddress:v14 useOwnerControlPoint:v8 completion:v13];
 
-  v9 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LogCategory_OwnerSession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 56);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 56);
     *buf = 141558530;
     v18 = 1752392040;
     v19 = 2112;
-    v20 = v10;
+    v20 = v11;
     v21 = 1024;
-    v22 = v11;
-    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromMACAddress %{mask.hash}@ userOwnerControlPoint:%d", buf, 0x1Cu);
+    v22 = v12;
+    _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromMACAddress %{mask.hash}@ userOwnerControlPoint:%d", buf, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __80__SPOwnerSession_readAISMetadataFromMACAddress_useOwnerControlPoint_completion___block_invoke_314(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 48);
-    v11 = 141558530;
-    v12 = 1752392040;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 1024;
-    v16 = v9;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromMACAddress %{mask.hash}@ useOwnerControlPoint:%d completion called", &v11, 0x1Cu);
+    v10 = 141558530;
+    v11 = 1752392040;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 1024;
+    v15 = v9;
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromMACAddress %{mask.hash}@ useOwnerControlPoint:%d completion called", &v10, 0x1Cu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readRawAISMetadataFromBeaconIdentifier:(id)identifier completion:(id)completion
@@ -4648,28 +4619,26 @@ void __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___bl
 
 void __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v4;
+    v11 = v4;
     _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromBeaconIdentifier %{mask}@ called", buf, 0xCu);
   }
 
   v5 = [WeakRetained userAgentProxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___block_invoke_316;
-  v8[3] = &unk_279B59E28;
-  v9 = v6;
-  v10 = *(a1 + 40);
-  [v5 readRawAISMetadataForIdentifier:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___block_invoke_316;
+  v7[3] = &unk_279B59E28;
+  v8 = v6;
+  v9 = *(a1 + 40);
+  [v5 readRawAISMetadataForIdentifier:v8 completion:v7];
 }
 
 void __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___block_invoke_316(uint64_t a1, void *a2, void *a3)
@@ -4677,7 +4646,7 @@ void __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___bl
   v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
@@ -4688,19 +4657,18 @@ void __68__SPOwnerSession_readRawAISMetadataFromBeaconIdentifier_completion___bl
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
   }
 
-  v9 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LogCategory_OwnerSession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     v12 = 141558274;
     v13 = 1752392040;
     v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
+    v15 = v11;
+    _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "readRawAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readAISMetadataFromBeaconIdentifier:(id)identifier completion:(id)completion
@@ -4758,28 +4726,26 @@ void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block
 
 void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = LogCategory_OwnerSession();
+  v3 = LogCategory_OwnerSession(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v4;
+    v11 = v4;
     _os_log_impl(&dword_2643D0000, v3, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromBeaconIdentifier %{mask}@ called", buf, 0xCu);
   }
 
   v5 = [WeakRetained userAgentProxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block_invoke_317;
-  v8[3] = &unk_279B59E50;
-  v9 = v6;
-  v10 = *(a1 + 40);
-  [v5 readAISMetadataForIdentifier:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block_invoke_317;
+  v7[3] = &unk_279B59E50;
+  v8 = v6;
+  v9 = *(a1 + 40);
+  [v5 readAISMetadataForIdentifier:v8 completion:v7];
 }
 
 void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block_invoke_317(uint64_t a1, void *a2, void *a3)
@@ -4787,7 +4753,7 @@ void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block
   v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
@@ -4798,31 +4764,30 @@ void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
   }
 
-  v9 = LogCategory_OwnerSession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LogCategory_OwnerSession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     v12 = 141558274;
     v13 = 1752392040;
     v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
+    v15 = v11;
+    _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "readAISMetadataFromBeaconIdentifier %{mask.hash}@ completion called", &v12, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDetectUnauthorizedTrackingWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) didDetectUnauthorizedTrackingWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) didDetectUnauthorizedTrackingWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -4832,16 +4797,15 @@ void __65__SPOwnerSession_readAISMetadataFromBeaconIdentifier_completion___block
   block[1] = 3221225472;
   block[2] = __92__SPOwnerSession_TrackingAvoidance__didDetectUnauthorizedTrackingWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SPOwnerSession_TrackingAvoidance__didDetectUnauthorizedTrackingWithCompletion_completion___block_invoke(uint64_t a1)
@@ -4853,14 +4817,14 @@ void __92__SPOwnerSession_TrackingAvoidance__didDetectUnauthorizedTrackingWithCo
 
 - (void)didUpdateUnauthorizedTrackingWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) didUpdateUnauthorizedTrackingWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) didUpdateUnauthorizedTrackingWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -4870,16 +4834,15 @@ void __92__SPOwnerSession_TrackingAvoidance__didDetectUnauthorizedTrackingWithCo
   block[1] = 3221225472;
   block[2] = __92__SPOwnerSession_TrackingAvoidance__didUpdateUnauthorizedTrackingWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SPOwnerSession_TrackingAvoidance__didUpdateUnauthorizedTrackingWithCompletion_completion___block_invoke(uint64_t a1)
@@ -4891,14 +4854,14 @@ void __92__SPOwnerSession_TrackingAvoidance__didUpdateUnauthorizedTrackingWithCo
 
 - (void)didWithdrawUnauthorizedTrackingWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) didWithdrawUnauthorizedTrackingWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) didWithdrawUnauthorizedTrackingWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -4908,16 +4871,15 @@ void __92__SPOwnerSession_TrackingAvoidance__didUpdateUnauthorizedTrackingWithCo
   block[1] = 3221225472;
   block[2] = __94__SPOwnerSession_TrackingAvoidance__didWithdrawUnauthorizedTrackingWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __94__SPOwnerSession_TrackingAvoidance__didWithdrawUnauthorizedTrackingWithCompletion_completion___block_invoke(uint64_t a1)
@@ -4929,14 +4891,14 @@ void __94__SPOwnerSession_TrackingAvoidance__didWithdrawUnauthorizedTrackingWith
 
 - (void)ignoringUnauthorizedTrackingWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) ignoringUnauthorizedTrackingWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) ignoringUnauthorizedTrackingWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -4946,16 +4908,15 @@ void __94__SPOwnerSession_TrackingAvoidance__didWithdrawUnauthorizedTrackingWith
   block[1] = 3221225472;
   block[2] = __91__SPOwnerSession_TrackingAvoidance__ignoringUnauthorizedTrackingWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __91__SPOwnerSession_TrackingAvoidance__ignoringUnauthorizedTrackingWithCompletion_completion___block_invoke(uint64_t a1)
@@ -4967,14 +4928,14 @@ void __91__SPOwnerSession_TrackingAvoidance__ignoringUnauthorizedTrackingWithCom
 
 - (void)unauthorizedTrackingTypeWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) unauthorizedTrackingTypeWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) unauthorizedTrackingTypeWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -4984,16 +4945,15 @@ void __91__SPOwnerSession_TrackingAvoidance__ignoringUnauthorizedTrackingWithCom
   block[1] = 3221225472;
   block[2] = __87__SPOwnerSession_TrackingAvoidance__unauthorizedTrackingTypeWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __87__SPOwnerSession_TrackingAvoidance__unauthorizedTrackingTypeWithCompletion_completion___block_invoke(uint64_t a1)
@@ -5005,14 +4965,14 @@ void __87__SPOwnerSession_TrackingAvoidance__unauthorizedTrackingTypeWithComplet
 
 - (void)playUnauthorizedSoundOnBeaconByUUID:(id)d completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) playUnauthorizedSoundOnBeaconByUUID:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) playUnauthorizedSoundOnBeaconByUUID:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -5022,16 +4982,15 @@ void __87__SPOwnerSession_TrackingAvoidance__unauthorizedTrackingTypeWithComplet
   block[1] = 3221225472;
   block[2] = __84__SPOwnerSession_TrackingAvoidance__playUnauthorizedSoundOnBeaconByUUID_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = dCopy;
-  v15 = completionCopy;
+  objc_copyWeak(&v15, buf);
+  v13 = dCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = dCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SPOwnerSession_TrackingAvoidance__playUnauthorizedSoundOnBeaconByUUID_completion___block_invoke(uint64_t a1)
@@ -5043,14 +5002,14 @@ void __84__SPOwnerSession_TrackingAvoidance__playUnauthorizedSoundOnBeaconByUUID
 
 - (void)ignoreBeaconByUUID:(id)d until:(unint64_t)until
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v7 = LogCategory_OwnerSession();
+  v7 = LogCategory_OwnerSession(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412290;
-    v16 = uUIDString;
+    v15 = uUIDString;
     _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "received ignore beacon for %@", buf, 0xCu);
   }
 
@@ -5060,15 +5019,14 @@ void __84__SPOwnerSession_TrackingAvoidance__playUnauthorizedSoundOnBeaconByUUID
   block[1] = 3221225472;
   block[2] = __62__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until___block_invoke;
   block[3] = &unk_279B59F50;
-  objc_copyWeak(v14, buf);
-  v13 = dCopy;
-  v14[1] = until;
+  objc_copyWeak(v13, buf);
+  v12 = dCopy;
+  v13[1] = until;
   v10 = dCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(v14);
+  objc_destroyWeak(v13);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until___block_invoke(uint64_t a1)
@@ -5080,35 +5038,34 @@ void __62__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until___block_in
 
 - (void)ignoreBeaconByUUID:(id)d until:(unint64_t)until completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
-  v10 = LogCategory_OwnerSession();
+  v10 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412290;
-    v21 = uUIDString;
+    v20 = uUIDString;
     _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "received ignore beacon for %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __73__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until_completion___block_invoke;
-  v16[3] = &unk_279B59F78;
-  objc_copyWeak(v19, buf);
-  v19[1] = until;
-  v17 = dCopy;
-  v18 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __73__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until_completion___block_invoke;
+  v15[3] = &unk_279B59F78;
+  objc_copyWeak(v18, buf);
+  v18[1] = until;
+  v16 = dCopy;
+  v17 = completionCopy;
   v13 = completionCopy;
   v14 = dCopy;
-  dispatch_async(queue, v16);
+  dispatch_async(queue, v15);
 
-  objc_destroyWeak(v19);
+  objc_destroyWeak(v18);
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until_completion___block_invoke(uint64_t a1)
@@ -5120,37 +5077,36 @@ void __73__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_until_completion
 
 - (void)ignoreBeaconByUUID:(id)d untilDate:(id)date completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   completionCopy = completion;
-  v11 = LogCategory_OwnerSession();
+  v11 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412290;
-    v24 = uUIDString;
+    v23 = uUIDString;
     _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "received ignore beacon for %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __77__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_untilDate_completion___block_invoke;
-  v18[3] = &unk_279B59A20;
-  objc_copyWeak(&v22, buf);
-  v19 = dCopy;
-  v20 = dateCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __77__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_untilDate_completion___block_invoke;
+  v17[3] = &unk_279B59A20;
+  objc_copyWeak(&v21, buf);
+  v18 = dCopy;
+  v19 = dateCopy;
+  v20 = completionCopy;
   v14 = completionCopy;
   v15 = dateCopy;
   v16 = dCopy;
-  dispatch_async(queue, v18);
+  dispatch_async(queue, v17);
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_untilDate_completion___block_invoke(uint64_t a1)
@@ -5162,36 +5118,35 @@ void __77__SPOwnerSession_TrackingAvoidance__ignoreBeaconByUUID_untilDate_comple
 
 - (void)ignoreBeaconByAdvertisement:(id)advertisement until:(unint64_t)until completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   completionCopy = completion;
-  v10 = LogCategory_OwnerSession();
+  v10 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     data = [advertisementCopy data];
     fm_hexString = [data fm_hexString];
     *buf = 138412290;
-    v22 = fm_hexString;
+    v21 = fm_hexString;
     _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "received ignore beacon for %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __82__SPOwnerSession_TrackingAvoidance__ignoreBeaconByAdvertisement_until_completion___block_invoke;
-  v17[3] = &unk_279B59F78;
-  objc_copyWeak(v20, buf);
-  v20[1] = until;
-  v18 = advertisementCopy;
-  v19 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __82__SPOwnerSession_TrackingAvoidance__ignoreBeaconByAdvertisement_until_completion___block_invoke;
+  v16[3] = &unk_279B59F78;
+  objc_copyWeak(v19, buf);
+  v19[1] = until;
+  v17 = advertisementCopy;
+  v18 = completionCopy;
   v14 = completionCopy;
   v15 = advertisementCopy;
-  dispatch_async(queue, v17);
+  dispatch_async(queue, v16);
 
-  objc_destroyWeak(v20);
+  objc_destroyWeak(v19);
   objc_destroyWeak(buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SPOwnerSession_TrackingAvoidance__ignoreBeaconByAdvertisement_until_completion___block_invoke(uint64_t a1)
@@ -5203,31 +5158,30 @@ void __82__SPOwnerSession_TrackingAvoidance__ignoreBeaconByAdvertisement_until_c
 
 - (void)acceptUTForBeaconUUID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138412290;
-    v14 = uUIDString;
+    v13 = uUIDString;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "received accept UT event for beacon %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__SPOwnerSession_TrackingAvoidance__acceptUTForBeaconUUID___block_invoke;
-  v10[3] = &unk_279B59228;
-  objc_copyWeak(&v12, buf);
-  v11 = dCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__SPOwnerSession_TrackingAvoidance__acceptUTForBeaconUUID___block_invoke;
+  v9[3] = &unk_279B59228;
+  objc_copyWeak(&v11, buf);
+  v10 = dCopy;
   v8 = dCopy;
-  dispatch_async(queue, v10);
+  dispatch_async(queue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SPOwnerSession_TrackingAvoidance__acceptUTForBeaconUUID___block_invoke(uint64_t a1)
@@ -5239,14 +5193,14 @@ void __59__SPOwnerSession_TrackingAvoidance__acceptUTForBeaconUUID___block_invok
 
 - (void)didObserveUnauthorizedTrackingWithCompletion:(id)completion completion:(id)a4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = a4;
   v8 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SPOwnerSession(TrackingAvoidance) didObserveUnauthorizedTrackingWithCompletion:completion:]";
+    v17 = "[SPOwnerSession(TrackingAvoidance) didObserveUnauthorizedTrackingWithCompletion:completion:]";
     _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
@@ -5256,16 +5210,15 @@ void __59__SPOwnerSession_TrackingAvoidance__acceptUTForBeaconUUID___block_invok
   block[1] = 3221225472;
   block[2] = __93__SPOwnerSession_TrackingAvoidance__didObserveUnauthorizedTrackingWithCompletion_completion___block_invoke;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v16, buf);
-  v14 = completionCopy;
-  v15 = v7;
+  objc_copyWeak(&v15, buf);
+  v13 = completionCopy;
+  v14 = v7;
   v10 = v7;
   v11 = completionCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __93__SPOwnerSession_TrackingAvoidance__didObserveUnauthorizedTrackingWithCompletion_completion___block_invoke(uint64_t a1)
@@ -5277,30 +5230,29 @@ void __93__SPOwnerSession_TrackingAvoidance__didObserveUnauthorizedTrackingWithC
 
 - (void)publishWildModeRecordsWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[SPOwnerSession(TrackingAvoidance) publishWildModeRecordsWithCompletion:]";
+    v12 = "[SPOwnerSession(TrackingAvoidance) publishWildModeRecordsWithCompletion:]";
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: API: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPOwnerSession *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __74__SPOwnerSession_TrackingAvoidance__publishWildModeRecordsWithCompletion___block_invoke;
-  v9[3] = &unk_279B59650;
-  objc_copyWeak(&v11, buf);
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __74__SPOwnerSession_TrackingAvoidance__publishWildModeRecordsWithCompletion___block_invoke;
+  v8[3] = &unk_279B59650;
+  objc_copyWeak(&v10, buf);
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
+  dispatch_async(queue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SPOwnerSession_TrackingAvoidance__publishWildModeRecordsWithCompletion___block_invoke(uint64_t a1)
@@ -5364,30 +5316,27 @@ void __90__SPOwnerSession_TagSeparation__tagSeparationStateChanged_beaconUUID_lo
 
 void __98__SPOwnerSession_addBeaconChangedListener_beaconUUID_taskName_commandIdentifier_commandIssueDate___block_invoke_279_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPOwnerSession: notifiedBeaconsChangedBlock: beacon does not support task %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPOwnerSession: notifiedBeaconsChangedBlock: beacon does not support task %@", &v3, 0xCu);
 }
 
 void __44__SPOwnerSession_executeUTPlaySoundCommand___block_invoke_cold_1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) identifier];
   v7 = [v6 UUIDString];
   v8 = [*(a1 + 32) taskName];
   v9 = *a2;
-  v11 = 138412802;
-  v12 = v7;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2112;
-  v16 = v9;
-  _os_log_error_impl(&dword_2643D0000, a3, OS_LOG_TYPE_ERROR, "SPOwnerSession: executeUTPlaySoundCommand: %@ finishing with task: %@ playSoundContext %@. We should never get here", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138412802;
+  v11 = v7;
+  v12 = 2112;
+  v13 = v8;
+  v14 = 2112;
+  v15 = v9;
+  _os_log_error_impl(&dword_2643D0000, a3, OS_LOG_TYPE_ERROR, "SPOwnerSession: executeUTPlaySoundCommand: %@ finishing with task: %@ playSoundContext %@. We should never get here", &v10, 0x20u);
 }
 
 @end

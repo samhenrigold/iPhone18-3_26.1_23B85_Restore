@@ -15,18 +15,14 @@
 
 - (void)setStartTime:(id)time
 {
-  v4 = [time copy];
-  startTime = self->super._startTime;
-  self->super._startTime = v4;
+  self->super._startTime = [time copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setEndTime:(id)time
 {
-  v4 = [time copy];
-  endTime = self->super._endTime;
-  self->super._endTime = v4;
+  self->super._endTime = [time copy];
 
   MEMORY[0x2821F96F8]();
 }

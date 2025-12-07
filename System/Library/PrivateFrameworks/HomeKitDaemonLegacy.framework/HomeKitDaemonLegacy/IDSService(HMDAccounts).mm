@@ -28,21 +28,8 @@
     v7 = 0;
   }
 
-  if (![v3 containsObject:v7])
+  if (![v3 containsObject:v7] || (v10[0] = MEMORY[0x277D85DD0], v10[1] = 3221225472, v10[2] = __53__IDSService_HMDAccounts__hmd_preferredDisplayHandle__block_invoke, v10[3] = &unk_27972B1A0, v11 = v7, objc_msgSend(v3, "hmf_objectPassingTest:", v10), lastObject = objc_claimAutoreleasedReturnValue(), v11, !lastObject))
   {
-    goto LABEL_6;
-  }
-
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __53__IDSService_HMDAccounts__hmd_preferredDisplayHandle__block_invoke;
-  v10[3] = &unk_27972B1A0;
-  v11 = v7;
-  lastObject = [v3 hmf_objectPassingTest:v10];
-
-  if (!lastObject)
-  {
-LABEL_6:
     [v3 sortWithOptions:16 usingComparator:&__block_literal_global_11_97349];
     lastObject = [v3 lastObject];
   }
@@ -52,45 +39,45 @@ LABEL_6:
 
 - (id)hmd_preferredHandle
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   hmd_handles = [self hmd_handles];
-  v15 = [hmd_handles na_map:&__block_literal_global_97352];
+  v14 = [hmd_handles na_map:&__block_literal_global_97352];
   v3 = _IDSCopyOrderedAliasesWithGetter();
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __46__IDSService_HMDAccounts__hmd_preferredHandle__block_invoke_3;
-        v17[3] = &unk_27972A5F0;
-        v17[4] = v10;
-        v11 = [hmd_handles na_firstObjectPassingTest:v17];
+        v10 = *(*(&v17 + 1) + 8 * i);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __46__IDSService_HMDAccounts__hmd_preferredHandle__block_invoke_3;
+        v16[3] = &unk_27972A5F0;
+        v16[4] = v10;
+        v11 = [hmd_handles na_firstObjectPassingTest:v16];
         if (v11)
         {
           [v4 addObject:v11];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -99,47 +86,44 @@ LABEL_6:
   firstObject = [v4 firstObject];
 
   objc_autoreleasePoolPop(context);
-  v13 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
 
 - (id)hmd_handles
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   accounts = [self accounts];
-  v4 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(accounts);
         }
 
-        hmd_handles = [*(*(&v12 + 1) + 8 * i) hmd_handles];
+        hmd_handles = [*(*(&v11 + 1) + 8 * i) hmd_handles];
         [orderedSet addObjectsFromArray:hmd_handles];
       }
 
-      v5 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   array = [orderedSet array];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }

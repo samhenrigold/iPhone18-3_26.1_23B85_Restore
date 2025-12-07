@@ -323,7 +323,7 @@ LABEL_5:
     __assert_rtn("[CAFenceHandle encodeWithCoder:]", "CAFenceHandle.mm", 582, "[coder isKindOfClass:[NSXPCCoder class]]");
   }
 
-  v5 = [CAFenceHandle _createXPCObjForCoding:?];
+  v5 = [(CAFenceHandle *)self _createXPCObjForCoding:?];
   if (v5)
   {
     v6 = v5;
@@ -342,15 +342,15 @@ LABEL_5:
 
   encode_id = _next_encode_id();
   kdebug_trace();
-  v3 = xpc_dictionary_create(0, 0, 0);
-  v4 = v3;
-  v5 = *(coding + 16);
-  if (v5)
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  v6 = *(coding + 16);
+  if (v6)
   {
-    xpc_dictionary_set_uint64(v3, "f", v5);
+    xpc_dictionary_set_uint64(v4, "f", v6);
   }
 
-  xpc_dictionary_set_uint64(v4, "e", encode_id);
+  xpc_dictionary_set_uint64(v5, "e", encode_id);
   if ((*(coding + 24) + 1) >= 2)
   {
     os_unfair_lock_lock((coding + 96));
@@ -362,7 +362,7 @@ LABEL_5:
     os_unfair_lock_unlock((coding + 96));
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -594,7 +594,7 @@ LABEL_17:
 + (void)_newFenceWithPort:(uint64_t)port name:
 {
   objc_opt_self();
-  if ((a2 + 1) <= 1)
+  if (a2 + 1 <= 1)
   {
     __assert_rtn("+[CAFenceHandle _newFenceWithPort:name:]", "CAFenceHandle.mm", 459, "MACH_PORT_VALID (port)");
   }

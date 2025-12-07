@@ -2,6 +2,7 @@
 - (WCM_RCU2ControllerIOS)init;
 - (void)dealloc;
 - (void)handleMessage:(id)message;
+- (void)handlePowerState:(BOOL)state;
 @end
 
 @implementation WCM_RCU2ControllerIOS
@@ -25,6 +26,13 @@
   v3.receiver = self;
   v3.super_class = WCM_RCU2ControllerIOS;
   [(WCM_RCU2Controller *)&v3 dealloc];
+}
+
+- (void)handlePowerState:(BOOL)state
+{
+  v3.receiver = self;
+  v3.super_class = WCM_RCU2ControllerIOS;
+  [(WCM_RCU2Controller *)&v3 handlePowerState:state];
 }
 
 - (void)handleMessage:(id)message

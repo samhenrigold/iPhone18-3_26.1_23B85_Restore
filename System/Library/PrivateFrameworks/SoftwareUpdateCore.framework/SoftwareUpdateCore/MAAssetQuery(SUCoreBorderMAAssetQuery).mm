@@ -391,29 +391,29 @@ LABEL_44:
 
 - (id)_getQueryParamsForKey:()SUCoreBorderMAAssetQuery
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   queryParams = [self queryParams];
-  v6 = [queryParams countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [queryParams countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(queryParams);
         }
 
         if (v4)
         {
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           v10 = [v9 safeStringForKey:@"queryKey"];
           v11 = [v10 isEqualToString:v4];
 
@@ -425,7 +425,7 @@ LABEL_44:
         }
       }
 
-      v6 = [queryParams countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [queryParams countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -437,33 +437,30 @@ LABEL_44:
 
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (uint64_t)_arrayContainsNSNull:()SUCoreBorderMAAssetQuery
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -472,7 +469,7 @@ LABEL_12:
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -484,32 +481,31 @@ LABEL_12:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (id)_getFirstNSStringEntryFromArray:()SUCoreBorderMAAssetQuery
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = a3;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -518,7 +514,7 @@ LABEL_11:
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -529,8 +525,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -9,9 +9,9 @@
 - (id)hf_faceCropImageForSignificantEvent:()HFAdditions;
 - (id)hf_significantEventWithIdentifier:()HFAdditions;
 - (uint64_t)hf_shouldDisableLiveStream;
-- (uint64_t)hf_supportsReachabilityNotifications;
-- (uint64_t)hf_supportsRecordingEvents;
+- (unint64_t)hf_supportsRecordingEvents;
 - (unint64_t)hf_thermalShutdownMode;
+- (void)hf_supportsReachabilityNotifications;
 - (void)hf_updateDoorbellChime:()HFAdditions;
 @end
 
@@ -46,7 +46,7 @@
   return v4;
 }
 
-- (uint64_t)hf_supportsRecordingEvents
+- (unint64_t)hf_supportsRecordingEvents
 {
   userSettings = [self userSettings];
   supportedFeatures = [userSettings supportedFeatures];
@@ -123,14 +123,14 @@
   return v3;
 }
 
-- (uint64_t)hf_supportsReachabilityNotifications
+- (void)hf_supportsReachabilityNotifications
 {
   result = [self hf_supportsRecordingEvents];
   if (result)
   {
     accessory = [self accessory];
-    home = [accessory home];
-    hf_supportsReachabilityNotifications = [home hf_supportsReachabilityNotifications];
+    v4 = objc_msgSend_home(accessory);
+    hf_supportsReachabilityNotifications = [v4 hf_supportsReachabilityNotifications];
 
     return hf_supportsReachabilityNotifications;
   }
@@ -172,9 +172,9 @@
 
 - (void)hf_updateDoorbellChime:()HFAdditions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accessory = [self accessory];
-  home = [accessory home];
+  v6 = objc_msgSend_home(accessory);
 
   hf_doorbellChimeMuteCharacteristic = [self hf_doorbellChimeMuteCharacteristic];
   v8 = MEMORY[0x277CBEC38];
@@ -187,76 +187,74 @@
   v10 = HFLogForCategory(0xEuLL);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v18[0] = 67109378;
-    v18[1] = [v9 BOOLValue];
-    v19 = 2112;
-    v20 = hf_doorbellChimeMuteCharacteristic;
-    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Attempt to update doorbell chime - should mute = %{BOOL}d for characteristic:%@", v18, 0x12u);
+    v17[0] = 67109378;
+    v17[1] = [v9 BOOLValue];
+    v18 = 2112;
+    v19 = hf_doorbellChimeMuteCharacteristic;
+    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Attempt to update doorbell chime - should mute = %{BOOL}d for characteristic:%@", v17, 0x12u);
   }
 
   if (hf_doorbellChimeMuteCharacteristic)
   {
-    hf_characteristicValueManager = [home hf_characteristicValueManager];
+    hf_characteristicValueManager = [v6 hf_characteristicValueManager];
     v12 = objc_opt_new();
     [hf_characteristicValueManager beginTransactionWithReason:@"HFDoorbellMute-Toggle" readPolicy:v12 logger:0];
 
     v13 = objc_alloc_init(HFCharacteristicValueSet);
     [(HFCharacteristicValueSet *)v13 setValue:v9 forCharacteristic:hf_doorbellChimeMuteCharacteristic];
-    hf_characteristicValueManager2 = [home hf_characteristicValueManager];
+    hf_characteristicValueManager2 = [v6 hf_characteristicValueManager];
     v15 = [hf_characteristicValueManager2 writeValuesForCharacteristics:v13];
 
-    hf_characteristicValueManager3 = [home hf_characteristicValueManager];
+    hf_characteristicValueManager3 = [v6 hf_characteristicValueManager];
     [hf_characteristicValueManager3 commitTransactionWithReason:@"HFDoorbellMute-Toggle"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)hf_cameraAccessModeSelectedOptionForCameraProfiles:()HFAdditions presenceType:
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v26[0] = @"HFCameraStreamingOptionOff";
-  v26[1] = @"HFCameraStreamingOptionDetectActivity";
-  v26[2] = @"HFCameraStreamingOptionStream";
-  v26[3] = @"HFCameraStreamingOptionStreamAndRecord";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+  v25[0] = @"HFCameraStreamingOptionOff";
+  v25[1] = @"HFCameraStreamingOptionDetectActivity";
+  v25[2] = @"HFCameraStreamingOptionStream";
+  v25[3] = @"HFCameraStreamingOptionStreamAndRecord";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        userSettings = [*(*(&v21 + 1) + 8 * i) userSettings];
+        userSettings = [*(*(&v20 + 1) + 8 * i) userSettings];
         v13 = [userSettings accessModeForPresenceType:a4];
 
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __96__HMCameraProfile_HFAdditions__hf_cameraAccessModeSelectedOptionForCameraProfiles_presenceType___block_invoke;
-        v20[3] = &__block_descriptor_40_e18_B16__0__NSString_8l;
-        v20[4] = v13;
-        v14 = [v6 na_firstObjectPassingTest:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __96__HMCameraProfile_HFAdditions__hf_cameraAccessModeSelectedOptionForCameraProfiles_presenceType___block_invoke;
+        v19[3] = &__block_descriptor_40_e18_B16__0__NSString_8l;
+        v19[4] = v13;
+        v14 = [v6 na_firstObjectPassingTest:v19];
         if ([v6 indexOfObject:v14] > v9)
         {
           v9 = [v6 indexOfObject:v14];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -270,7 +268,6 @@
   v15 = [v6 objectAtIndex:v9];
   v16 = cameraStreamingOptionFromString(v15);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

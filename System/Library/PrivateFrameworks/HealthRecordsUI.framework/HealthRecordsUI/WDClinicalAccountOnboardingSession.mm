@@ -19,7 +19,7 @@
   v9[3] = account;
   accountCopy = account;
   selfCopy = self;
-  v7 = sub_1D1327FA4(sub_1D13286E0, v9, "HealthRecordsUI/AccountOnboardingSession+ViewControllers.swift", 62);
+  v7 = sub_1D1327FA4(sub_1D13286E0, v9, "HealthRecordsUI/AccountOnboardingSession+ViewControllers.swift", 62, 2, 18);
 
   return v7;
 }
@@ -29,7 +29,7 @@
   sub_1D13905AC();
   v7[2] = account;
   accountCopy = account;
-  v5 = sub_1D132815C(sub_1D13286F8, v7, "HealthRecordsUI/AccountOnboardingSession+ViewControllers.swift", 62);
+  v5 = sub_1D132815C(sub_1D13286F8, v7, "HealthRecordsUI/AccountOnboardingSession+ViewControllers.swift", 62, 2, 26);
 
   return v5;
 }

@@ -6,7 +6,7 @@
 
 - (void)sendEvent:(id)event
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -25,101 +25,101 @@
     v8 = MGCopyAnswer();
     if (v8)
     {
-      v49 = [@"iOS-" stringByAppendingString:v8];
+      v48 = [@"iOS-" stringByAppendingString:v8];
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
-    if (identifier && bundleID && v49)
+    if (identifier && bundleID && v48)
     {
       v9 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:CFAbsoluteTimeGetCurrent()];
       v10 = objc_alloc(MEMORY[0x1E695DF90]);
-      v67[0] = v49;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:1];
+      v66[0] = v48;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
       osBuild = [get_DKDiscoverabilitySignalsMetadataKeyClass() osBuild];
-      v66 = osBuild;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
-      v47 = [v10 initWithObjects:v11 forKeys:v13];
+      v65 = osBuild;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
+      v46 = [v10 initWithObjects:v11 forKeys:v13];
 
       if (context)
       {
         context2 = [get_DKDiscoverabilitySignalsMetadataKeyClass() context];
-        [v47 setObject:context forKeyedSubscript:context2];
+        [v46 setObject:context forKeyedSubscript:context2];
       }
 
       if (userInfo)
       {
         userInfo2 = [get_DKDiscoverabilitySignalsMetadataKeyClass() userInfo];
-        [v47 setObject:userInfo forKeyedSubscript:userInfo2];
+        [v46 setObject:userInfo forKeyedSubscript:userInfo2];
       }
 
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2050000000;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2050000000;
       v16 = get_DKSourceClass_softClass;
-      v63 = get_DKSourceClass_softClass;
+      v62 = get_DKSourceClass_softClass;
       if (!get_DKSourceClass_softClass)
       {
-        v55 = MEMORY[0x1E69E9820];
-        v56 = 3221225472;
-        v57 = __get_DKSourceClass_block_invoke;
-        v58 = &unk_1E6E52EB0;
-        v59 = &v60;
-        __get_DKSourceClass_block_invoke(&v55);
-        v16 = v61[3];
+        v54 = MEMORY[0x1E69E9820];
+        v55 = 3221225472;
+        v56 = __get_DKSourceClass_block_invoke;
+        v57 = &unk_1E6E52EB0;
+        v58 = &v59;
+        __get_DKSourceClass_block_invoke(&v54);
+        v16 = v60[3];
       }
 
       v17 = v16;
-      _Block_object_dispose(&v60, 8);
-      v46 = [[v16 alloc] initWithIdentifier:0 bundleIdentifier:bundleID itemIdentifier:0 groupIdentifier:0 deviceIdentifier:0 userIdentifier:0];
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2050000000;
+      _Block_object_dispose(&v59, 8);
+      v45 = [[v16 alloc] initWithIdentifier:0 bundleIdentifier:bundleID itemIdentifier:0 groupIdentifier:0 deviceIdentifier:0 userIdentifier:0];
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2050000000;
       v18 = get_DKEventClass_softClass_2;
-      v63 = get_DKEventClass_softClass_2;
+      v62 = get_DKEventClass_softClass_2;
       if (!get_DKEventClass_softClass_2)
       {
-        v55 = MEMORY[0x1E69E9820];
-        v56 = 3221225472;
-        v57 = __get_DKEventClass_block_invoke_2;
-        v58 = &unk_1E6E52EB0;
-        v59 = &v60;
-        __get_DKEventClass_block_invoke_2(&v55);
-        v18 = v61[3];
+        v54 = MEMORY[0x1E69E9820];
+        v55 = 3221225472;
+        v56 = __get_DKEventClass_block_invoke_2;
+        v57 = &unk_1E6E52EB0;
+        v58 = &v59;
+        __get_DKEventClass_block_invoke_2(&v54);
+        v18 = v60[3];
       }
 
       v19 = v18;
-      _Block_object_dispose(&v60, 8);
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2050000000;
+      _Block_object_dispose(&v59, 8);
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2050000000;
       v20 = get_DKSystemEventStreamsClass_softClass_1;
-      v63 = get_DKSystemEventStreamsClass_softClass_1;
+      v62 = get_DKSystemEventStreamsClass_softClass_1;
       if (!get_DKSystemEventStreamsClass_softClass_1)
       {
-        v55 = MEMORY[0x1E69E9820];
-        v56 = 3221225472;
-        v57 = __get_DKSystemEventStreamsClass_block_invoke_1;
-        v58 = &unk_1E6E52EB0;
-        v59 = &v60;
-        __get_DKSystemEventStreamsClass_block_invoke_1(&v55);
-        v20 = v61[3];
+        v54 = MEMORY[0x1E69E9820];
+        v55 = 3221225472;
+        v56 = __get_DKSystemEventStreamsClass_block_invoke_1;
+        v57 = &unk_1E6E52EB0;
+        v58 = &v59;
+        __get_DKSystemEventStreamsClass_block_invoke_1(&v54);
+        v20 = v60[3];
       }
 
       v21 = v20;
-      _Block_object_dispose(&v60, 8);
+      _Block_object_dispose(&v59, 8);
       discoverabilitySignalsStream = [v20 discoverabilitySignalsStream];
-      v23 = [v47 copy];
-      v45 = [v18 eventWithStream:discoverabilitySignalsStream source:v46 startDate:v9 endDate:v9 identifierStringValue:identifier metadata:v23];
+      v23 = [v46 copy];
+      v44 = [v18 eventWithStream:discoverabilitySignalsStream source:v45 startDate:v9 endDate:v9 identifierStringValue:identifier metadata:v23];
 
       if (userInfo)
       {
-        v54 = 0;
-        v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:userInfo options:0 error:&v54];
-        v25 = v54;
+        v53 = 0;
+        v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:userInfo options:0 error:&v53];
+        v25 = v53;
         if (v25)
         {
           v26 = __biome_log_for_category();
@@ -135,28 +135,28 @@
         v24 = 0;
       }
 
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2050000000;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2050000000;
       v27 = getBMDiscoverabilitySignalsClass_softClass;
-      v63 = getBMDiscoverabilitySignalsClass_softClass;
+      v62 = getBMDiscoverabilitySignalsClass_softClass;
       if (!getBMDiscoverabilitySignalsClass_softClass)
       {
-        v55 = MEMORY[0x1E69E9820];
-        v56 = 3221225472;
-        v57 = __getBMDiscoverabilitySignalsClass_block_invoke;
-        v58 = &unk_1E6E52EB0;
-        v59 = &v60;
-        __getBMDiscoverabilitySignalsClass_block_invoke(&v55);
-        v27 = v61[3];
+        v54 = MEMORY[0x1E69E9820];
+        v55 = 3221225472;
+        v56 = __getBMDiscoverabilitySignalsClass_block_invoke;
+        v57 = &unk_1E6E52EB0;
+        v58 = &v59;
+        __getBMDiscoverabilitySignalsClass_block_invoke(&v54);
+        v27 = v60[3];
       }
 
       v28 = v27;
-      _Block_object_dispose(&v60, 8);
+      _Block_object_dispose(&v59, 8);
       v29 = [v27 alloc];
       identifier2 = [v6 identifier];
       context3 = [v6 context];
-      v32 = [v29 initWithContentIdentifier:identifier2 context:context3 osBuild:v49 userInfo:v24];
+      v32 = [v29 initWithContentIdentifier:identifier2 context:context3 osBuild:v48 userInfo:v24];
 
       v33 = BMRootLibraryBridge();
       v34 = [v33 streamWithIdentifier:@"Discoverability.Signals" error:0];
@@ -165,9 +165,9 @@
       [source sendEvent:v32];
 
       v36 = objc_alloc(MEMORY[0x1E695DF90]);
-      v65[0] = identifier;
-      v65[1] = bundleID;
-      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
+      v64[0] = identifier;
+      v64[1] = bundleID;
+      v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:2];
       v38 = [v36 initWithObjects:v37 forKeys:&unk_1EF309260];
 
       if (context)
@@ -180,34 +180,34 @@
         [v38 setObject:userInfo forKeyedSubscript:@"userInfo"];
       }
 
-      v60 = 0;
-      v61 = &v60;
-      v62 = 0x2050000000;
+      v59 = 0;
+      v60 = &v59;
+      v61 = 0x2050000000;
       v39 = get_DKKnowledgeStoreClass_softClass_0;
-      v63 = get_DKKnowledgeStoreClass_softClass_0;
+      v62 = get_DKKnowledgeStoreClass_softClass_0;
       if (!get_DKKnowledgeStoreClass_softClass_0)
       {
-        v55 = MEMORY[0x1E69E9820];
-        v56 = 3221225472;
-        v57 = __get_DKKnowledgeStoreClass_block_invoke_0;
-        v58 = &unk_1E6E52EB0;
-        v59 = &v60;
-        __get_DKKnowledgeStoreClass_block_invoke_0(&v55);
-        v39 = v61[3];
+        v54 = MEMORY[0x1E69E9820];
+        v55 = 3221225472;
+        v56 = __get_DKKnowledgeStoreClass_block_invoke_0;
+        v57 = &unk_1E6E52EB0;
+        v58 = &v59;
+        __get_DKKnowledgeStoreClass_block_invoke_0(&v54);
+        v39 = v60[3];
       }
 
       v40 = v39;
-      _Block_object_dispose(&v60, 8);
+      _Block_object_dispose(&v59, 8);
       userKnowledgeStore = [v39 userKnowledgeStore];
-      v64 = v45;
-      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __52__BMCoreDuetDiscoverabilitySignalsSource_sendEvent___block_invoke;
-      v52[3] = &unk_1E6E53900;
-      v53 = v38;
+      v63 = v44;
+      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __52__BMCoreDuetDiscoverabilitySignalsSource_sendEvent___block_invoke;
+      v51[3] = &unk_1E6E53900;
+      v52 = v38;
       v43 = v38;
-      [userKnowledgeStore saveObjects:v42 responseQueue:0 withCompletion:v52];
+      [userKnowledgeStore saveObjects:v42 responseQueue:0 withCompletion:v51];
     }
 
     else
@@ -228,8 +228,6 @@
       [BMCoreDuetDiscoverabilitySignalsSource sendEvent:v6];
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 void __52__BMCoreDuetDiscoverabilitySignalsSource_sendEvent___block_invoke(uint64_t a1, int a2, void *a3)

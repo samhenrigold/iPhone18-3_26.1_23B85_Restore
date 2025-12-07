@@ -342,7 +342,7 @@ LABEL_3:
 {
   queueCopy = queue;
   v6 = a2;
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ((objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, a2, queue) & 1) == 0)
   {
     if (qword_1ED71C7A0 != -1)
@@ -350,39 +350,39 @@ LABEL_3:
       dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
     }
 
-    v11 = qword_1ED71C7A8;
+    v10 = qword_1ED71C7A8;
     v6 = "";
     self = "assert";
     handler = "[CMMotionActivityManager isActivityLiteAvailable]";
     if (os_log_type_enabled(qword_1ED71C7A8, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2082;
-      v26 = "assert";
-      v27 = 2081;
-      v28 = "[CMMotionActivityManager isActivityLiteAvailable]";
-      _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C7A0 != -1)
       {
         dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
       }
     }
 
-    v12 = qword_1ED71C7A8;
+    v11 = qword_1ED71C7A8;
     if (os_signpost_enabled(qword_1ED71C7A8))
     {
       *buf = 68289539;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2082;
-      v26 = "assert";
-      v27 = 2081;
-      v28 = "[CMMotionActivityManager isActivityLiteAvailable]";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Activity Lite is unavailable on this platform", "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Activity Lite is unavailable on this platform", "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C7A0 != -1)
       {
         dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
@@ -393,31 +393,28 @@ LABEL_3:
     if (os_log_type_enabled(qword_1ED71C7A8, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2082;
-      v26 = "assert";
-      v27 = 2081;
-      v28 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "[CMMotionActivityManager isActivityLiteAvailable]";
       _os_log_impl(&dword_19B41C000, queueCopy, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v18 = 347;
-    v19 = "[CMMotionActivityManager startActivityLiteUpdatesToQueue:withHandler:]";
-    v17 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Activity/CMMotionActivityManager.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Activity/CMMotionActivityManager.mm", 347, "[CMMotionActivityManager startActivityLiteUpdatesToQueue:withHandler:]");
 LABEL_16:
-    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9, v17, v18, v19);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, v6, self, @"CMMotionActivityManager.mm", 349, @"Invalid parameter not satisfying: %@", @"queue");
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, v6, self, @"CMMotionActivityManager.mm", 349, @"Invalid parameter not satisfying: %@", @"queue");
     if (handler)
     {
       goto LABEL_4;
     }
 
 LABEL_17:
-    v15 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v15, v16, v6, self, @"CMMotionActivityManager.mm", 350, @"Invalid parameter not satisfying: %@", @"handler");
+    v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, v6, self, @"CMMotionActivityManager.mm", 350, @"Invalid parameter not satisfying: %@", @"handler");
     goto LABEL_4;
   }
 
@@ -432,20 +429,19 @@ LABEL_17:
   }
 
 LABEL_4:
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_19B5D2DAC;
-  v20[3] = &unk_1E7532C80;
-  v20[5] = queueCopy;
-  v20[6] = handler;
-  v20[4] = self;
-  objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v8, v20);
-  v10 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_19B5D2DAC;
+  v16[3] = &unk_1E7532C80;
+  v16[5] = queueCopy;
+  v16[6] = handler;
+  v16[4] = self;
+  objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v8, v16);
 }
 
 - (void)stopActivityLiteUpdates
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((objc_msgSend_isActivityLiteAvailable(CMMotionActivityManager, a2, v2) & 1) == 0)
   {
     if (qword_1ED71C7A0 != -1)
@@ -453,18 +449,36 @@ LABEL_4:
       dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
     }
 
-    v6 = qword_1ED71C7A8;
+    v5 = qword_1ED71C7A8;
     if (os_log_type_enabled(qword_1ED71C7A8, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "[CMMotionActivityManager isActivityLiteAvailable]";
-      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED71C7A0 != -1)
+      {
+        dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
+      }
+    }
+
+    v6 = qword_1ED71C7A8;
+    if (os_signpost_enabled(qword_1ED71C7A8))
+    {
+      *buf = 68289539;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Activity Lite is unavailable on this platform", "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C7A0 != -1)
       {
         dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
@@ -472,47 +486,28 @@ LABEL_4:
     }
 
     v7 = qword_1ED71C7A8;
-    if (os_signpost_enabled(qword_1ED71C7A8))
-    {
-      *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "[CMMotionActivityManager isActivityLiteAvailable]";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Activity Lite is unavailable on this platform", "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED71C7A0 != -1)
-      {
-        dispatch_once(&qword_1ED71C7A0, &unk_1F0E28E20);
-      }
-    }
-
-    v8 = qword_1ED71C7A8;
     if (os_log_type_enabled(qword_1ED71C7A8, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "[CMMotionActivityManager isActivityLiteAvailable]";
-      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "[CMMotionActivityManager isActivityLiteAvailable]";
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Activity Lite is unavailable on this platform, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreMotion/Activity/CMMotionActivityManager.mm", 370, "[CMMotionActivityManager stopActivityLiteUpdates]");
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_19B5D3238;
-  v9[3] = &unk_1E7532988;
-  v9[4] = self;
-  objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v4, v9);
-  v5 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_19B5D3238;
+  v8[3] = &unk_1E7532988;
+  v8[4] = self;
+  objc_msgSend_tccServiceMotionAccessWithBlock_(CMMotionUtils, v4, v8);
 }
 
 - (id)filterActivities:(id)activities withAttribute:(int64_t)attribute

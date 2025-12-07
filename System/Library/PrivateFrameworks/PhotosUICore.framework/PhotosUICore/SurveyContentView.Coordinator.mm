@@ -28,7 +28,7 @@
 
 - (void)surveyQuestionGadget:(id)gadget presentViewController:(id)controller regionOfInterest:(id)interest
 {
-  v8 = type metadata accessor for LemonadeNavigationDestination();
+  v8 = type metadata accessor for LemonadeNavigationDestination(0);
   MEMORY[0x1EEE9AC00](v8);
   v10 = (&v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   *v10 = controller;

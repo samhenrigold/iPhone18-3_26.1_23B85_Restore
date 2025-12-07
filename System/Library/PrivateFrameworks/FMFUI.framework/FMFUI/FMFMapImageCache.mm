@@ -23,18 +23,18 @@
   return v3;
 }
 
-void __34__FMFMapImageCache_sharedInstance__block_invoke()
+void __34__FMFMapImageCache_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = LogCategory_Daemon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = LogCategory_Daemon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_24A4E3000, v0, OS_LOG_TYPE_INFO, "Creating shared instance of FMFMapImageCache", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_24A4E3000, v1, OS_LOG_TYPE_INFO, "Creating shared instance of FMFMapImageCache", v4, 2u);
   }
 
-  v1 = objc_alloc_init(FMFMapImageCache);
-  v2 = sharedInstance__instance;
-  sharedInstance__instance = v1;
+  v2 = objc_alloc_init(FMFMapImageCache);
+  v3 = sharedInstance__instance;
+  sharedInstance__instance = v2;
 }
 
 - (void)dealloc
@@ -89,19 +89,17 @@ void __34__FMFMapImageCache_sharedInstance__block_invoke()
 
 - (id)_keyForHandles:(id)handles
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC98];
   handlesCopy = handles;
   v6 = [v4 sortDescriptorWithKey:@"identifier" ascending:1 selector:sel_localizedCaseInsensitiveCompare_];
-  v14[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v8 = [handlesCopy sortedArrayUsingDescriptors:v7];
 
   v9 = [v8 description];
   _orientationKey = [(FMFMapImageCache *)self _orientationKey];
   v11 = [v9 stringByAppendingString:_orientationKey];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

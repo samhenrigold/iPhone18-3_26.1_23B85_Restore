@@ -8,18 +8,19 @@
 
 - (void)viewDidLoad
 {
-  v6.receiver = self;
-  v6.super_class = swift_getObjectType();
-  v2 = v6.receiver;
-  [(MapsHostingContaineeViewController *)&v6 viewDidLoad];
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v2 = v7.receiver;
+  [(MapsHostingContaineeViewController *)&v7 viewDidLoad];
   v3 = *&v2[OBJC_IVAR____TtC4Maps37TestResizeableContaineeViewController_viewModel];
   v4 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v5 = *(v3 + 16);
+  v6 = *(v3 + 24);
   *(v3 + 16) = sub_1000D8714;
   *(v3 + 24) = v4;
 
-  sub_1000588AC(v5);
+  sub_1000588AC(v5, v6);
 }
 
 - (_TtC4Maps37TestResizeableContaineeViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -11,18 +11,20 @@
 
 - (NSString)description
 {
+  v12 = 0;
   identifier = [(HMDCUWiFiDeviceWrapper *)self identifier];
   ssid = [(HMDCUWiFiDeviceWrapper *)self ssid];
   name = [(HMDCUWiFiDeviceWrapper *)self name];
   deviceID = [(HMDCUWiFiDeviceWrapper *)self deviceID];
-  NSAppendPrintF();
-  v6 = 0;
+  NSAppendPrintF(&v12, "HMDCUWiFiDevice %@ (%@:%@) deviceID %@", identifier, ssid, name, deviceID);
+  v7 = v12;
 
-  [(CUWiFiDevice *)self->_cuWiFiDevice deviceIEFlags:identifier];
-  NSAppendPrintF();
-  v7 = v6;
+  v11 = v7;
+  NSAppendPrintF(&v11, " flags: %#{flags}\n", [(CUWiFiDevice *)self->_cuWiFiDevice deviceIEFlags], &unk_253D4BE28);
+  v8 = v11;
+  v9 = v11;
 
-  return v6;
+  return v8;
 }
 
 - (void)cancelConfigurationWithCompletionHandler:(id)handler
@@ -56,7 +58,7 @@ void __67__HMDCUWiFiDeviceWrapper_cancelConfigurationWithCompletionHandler___blo
 
 - (void)startConfigurationWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_wacSession)
   {
@@ -87,32 +89,30 @@ void __67__HMDCUWiFiDeviceWrapper_cancelConfigurationWithCompletionHandler___blo
     [(CUWACSession *)self->_wacSession setDispatchQueue:self->_dispatchQueue];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__92759;
-    v24 = __Block_byref_object_dispose__92760;
-    v25 = 0;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__92759;
+    v23 = __Block_byref_object_dispose__92760;
+    v24 = 0;
     objc_initWeak(&location, self);
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___block_invoke;
-    v16 = &unk_279729E50;
-    objc_copyWeak(&v19, &location);
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___block_invoke;
+    v15 = &unk_279729E50;
+    objc_copyWeak(&v18, &location);
     p_buf = &buf;
-    v17 = handlerCopy;
-    [(CUWACSession *)self->_wacSession setProgressHandler:&v13];
-    [(CUWACSession *)self->_wacSession activate:v13];
+    v16 = handlerCopy;
+    [(CUWACSession *)self->_wacSession setProgressHandler:&v12];
+    [(CUWACSession *)self->_wacSession activate:v12];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
     _Block_object_dispose(&buf, 8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
@@ -131,7 +131,7 @@ void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___bloc
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v35 = v19;
+        v34 = v19;
         v20 = "%{public}@WAC setup successful";
         v21 = v18;
         v22 = 12;
@@ -157,9 +157,9 @@ LABEL_65:
           v13 = HMFGetLogIdentifier();
           v14 = *(*(*(a1 + 40) + 8) + 40);
           *buf = 138543618;
-          v35 = v13;
-          v36 = 2112;
-          v37 = v14;
+          v34 = v13;
+          v35 = 2112;
+          v36 = v14;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@WAC setup failed: %@", buf, 0x16u);
         }
 
@@ -310,11 +310,11 @@ LABEL_65:
             v30 = "JoinedSoftAP";
 LABEL_64:
             *buf = 138543874;
-            v35 = v29;
-            v36 = 2080;
-            v37 = v30;
-            v38 = 2112;
-            v39 = v5;
+            v34 = v29;
+            v35 = 2080;
+            v36 = v30;
+            v37 = 2112;
+            v38 = v5;
             v20 = "%{public}@CUWACSession progress %s: %@";
             v21 = v18;
             v22 = 32;
@@ -338,7 +338,7 @@ LABEL_64:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v26;
+    v34 = v26;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@WAC setup finalized, calling completion", buf, 0xCu);
   }
 
@@ -355,12 +355,10 @@ LABEL_64:
   block[1] = 3221225472;
   block[2] = __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___block_invoke_90;
   block[3] = &unk_279732FD8;
-  objc_copyWeak(&v33, (a1 + 48));
+  objc_copyWeak(&v32, (a1 + 48));
   dispatch_async(v28, block);
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
 LABEL_67:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___block_invoke_90(uint64_t a1)
@@ -396,12 +394,12 @@ void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___bloc
 
 - (HMDCUWiFiDeviceWrapper)initWithCUWiFiDevice:(id)device dispatchQueue:(id)queue
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   queueCopy = queue;
-  v16.receiver = self;
-  v16.super_class = HMDCUWiFiDeviceWrapper;
-  v9 = [(HMDCUWiFiDeviceWrapper *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HMDCUWiFiDeviceWrapper;
+  v9 = [(HMDCUWiFiDeviceWrapper *)&v15 init];
   v10 = v9;
   if (v9)
   {
@@ -411,12 +409,11 @@ void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___bloc
     [deviceIEDeviceID bytes];
     [deviceIEDeviceID length];
     HardwareAddressToCString();
-    v12 = [MEMORY[0x277CCACA8] stringWithCString:v17 encoding:4];
+    v12 = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
     deviceID = v10->deviceID;
     v10->deviceID = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -434,12 +431,11 @@ void __66__HMDCUWiFiDeviceWrapper_startConfigurationWithCompletionHandler___bloc
 
 uint64_t __37__HMDCUWiFiDeviceWrapper_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_92796;
-  logCategory__hmf_once_v19_92796 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_92796;
+  logCategory__hmf_once_v19_92796 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

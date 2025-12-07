@@ -35,14 +35,14 @@
 {
   sub_1DA7AF3EC(0, &unk_1EE114DB8, 0x1E6983278);
   sub_1DA7B0D88(&qword_1EE114DB0, &unk_1EE114DB8, 0x1E6983278);
-  sub_1DA940E94();
-  v5 = sub_1DA940A14();
-  v7 = v6;
+  v5 = sub_1DA940E94();
+  v6 = sub_1DA940A14();
+  v8 = v7;
   sub_1DA940A94();
   selfCopy = self;
   os_transaction_create();
 
-  sub_1DA7B0DD8(selfCopy, v5, v7);
+  sub_1DA7B0DD8(selfCopy, v6, v8, v5);
   swift_unknownObjectRelease();
 }
 
@@ -81,7 +81,7 @@
 
   selfCopy = self;
   sub_1DA7B535C(v7, v8, v10, v6, v11);
-  sub_1DA7B5220(v6);
+  sub_1DA7B5220(v6, v11);
 }
 
 - (void)removeDeliveredNotificationsWithIdentifiers:(id)identifiers forBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -104,7 +104,7 @@
 
   selfCopy = self;
   sub_1DA7B5AFC(v7, v8, v10, v6, v11);
-  sub_1DA7B5220(v6);
+  sub_1DA7B5220(v6, v11);
 }
 
 - (_TtC21UserNotificationsCore29NotificationServiceConnection)init
@@ -161,20 +161,20 @@
   contentCopy = content;
   selfCopy = self;
   sub_1DA893C24(v9, v11, v12, v14, contentCopy, v8, v15);
-  sub_1DA7B5220(v8);
+  sub_1DA7B5220(v8, v15);
 }
 
 - (void)setNotificationRequests:(id)requests forBundleIdentifier:(id)identifier
 {
   sub_1DA7AF3EC(0, &unk_1EE110BE0, 0x1E6983298);
-  sub_1DA940BE4();
-  v5 = sub_1DA940A14();
-  v7 = v6;
+  v5 = sub_1DA940BE4();
+  v6 = sub_1DA940A14();
+  v8 = v7;
   sub_1DA940A94();
   selfCopy = self;
   os_transaction_create();
 
-  sub_1DA8942A8(selfCopy, v5, v7);
+  sub_1DA8942A8(selfCopy, v6, v8, v5);
   swift_unknownObjectRelease();
 }
 
@@ -199,7 +199,7 @@
 
   selfCopy = self;
   sub_1DA8947CC(v7, v8, v10, v6, v11);
-  sub_1DA7B5220(v6);
+  sub_1DA7B5220(v6, v11);
 }
 
 - (void)removeAllPendingNotificationRequestsForBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -221,7 +221,7 @@
 
   selfCopy = self;
   sub_1DA894E50(v6, v8, v5, v9);
-  sub_1DA7B5220(v5);
+  sub_1DA7B5220(v5, v9);
 }
 
 - (void)removeAllDeliveredNotificationsForBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -243,7 +243,7 @@
 
   selfCopy = self;
   sub_1DA895460(v6, v8, v5, v9);
-  sub_1DA7B5220(v5);
+  sub_1DA7B5220(v5, v9);
 }
 
 - (void)setBadgeString:(id)string forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
@@ -288,8 +288,10 @@
   v8 = sub_1DA93F9A4();
   v10 = v9;
 
-  sub_1DA940A14();
-  sub_1DA896318();
+  v11 = sub_1DA940A14();
+  v13 = v12;
+
+  sub_1DA896318(v8, v10, v11, v13);
 
   sub_1DA828324(v8, v10);
 }

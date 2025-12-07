@@ -39,11 +39,12 @@
     swift_once();
   }
 
-  static os_log_type_t.error.getter();
-  os_log(_:dso:log:type:_:)();
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for RootNavigationController();
-  [(RootNavigationController *)&v4 dealloc];
+  v4 = qword_100382478;
+  v5 = static os_log_type_t.error.getter();
+  os_log(_:dso:log:type:_:)("root navigation vc deinit called", 32, 2, &_mh_execute_header, v4, v5, _swiftEmptyArrayStorage);
+  v6.receiver = selfCopy;
+  v6.super_class = type metadata accessor for RootNavigationController();
+  [(RootNavigationController *)&v6 dealloc];
 }
 
 - (void)didReceiveMemoryWarning

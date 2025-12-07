@@ -258,7 +258,7 @@ void __36__EMCachingContactStore_signpostLog__block_invoke(uint64_t a1)
 - (id)_fetchDisplayNameForEmailAddress:(id)address abbreviated:(BOOL)abbreviated
 {
   abbreviatedCopy = abbreviated;
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if (abbreviatedCopy)
   {
@@ -323,8 +323,8 @@ LABEL_10:
 
   cnStore = [(EMCachingContactStore *)self cnStore];
   v19 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:v7];
-  v31[0] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   v17 = [cnStore em_fetchContactForEmailAddress:addressCopy keysToFetch:v20 createIfNeeded:1];
 
   if (v17)
@@ -362,20 +362,18 @@ LABEL_16:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (BOOL)contactExistsForEmailAddress:(id)address
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   options = [(EMCachingContactStore *)self options];
   emailAddressCacheFuture = [(EMCachingContactStore *)self emailAddressCacheFuture];
-  v20 = 0;
-  v7 = [emailAddressCacheFuture resultIfAvailable:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [emailAddressCacheFuture resultIfAvailable:&v19];
+  v8 = v19;
 
   if (v7)
   {
@@ -406,13 +404,12 @@ LABEL_16:
     }
 
     cnStore = [(EMCachingContactStore *)self cnStore];
-    v21[0] = *MEMORY[0x1E695C258];
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = *MEMORY[0x1E695C258];
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     v16 = [cnStore em_fetchContactForEmailAddress:addressCopy keysToFetch:v15 createIfNeeded:0];
     v17 = v16 != 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -478,31 +475,29 @@ void __61__EMCachingContactStore__scheduleEmailAddressCachePopulation__block_inv
 
 - (void)_scheduleEmailAddressCachePopulationImpl
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = _scheduleEmailAddressCachePopulationImpl_cacheRequestCount++;
   v4 = +[EMCachingContactStore log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "[Email Address Cache] %lld: Scheduling cache population", buf, 0xCu);
   }
 
   addressCacheScheduler = [(EMCachingContactStore *)self addressCacheScheduler];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block_invoke;
-  v7[3] = &unk_1E826C4F0;
-  v7[4] = self;
-  v7[5] = v3;
-  [addressCacheScheduler performBlock:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block_invoke;
+  v6[3] = &unk_1E826C4F0;
+  v6[4] = self;
+  v6[5] = v3;
+  [addressCacheScheduler performBlock:v6];
 }
 
 void __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E699B868] promise];
   v3 = [*(a1 + 32) emailAddressCacheFuture];
   v4 = [v3 resultIfAvailable];
@@ -514,7 +509,7 @@ void __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block
     {
       v6 = *(a1 + 40);
       *buf = 134217984;
-      v27 = v6;
+      v26 = v6;
       _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "[Email Address Cache] %lld: Population request already fulfilled", buf, 0xCu);
     }
   }
@@ -536,9 +531,9 @@ void __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block
     }
 
     v12 = [*(a1 + 32) cnStore];
-    v25 = 0;
-    v13 = [v12 allContactEmailAddressesWithError:&v25];
-    v5 = v25;
+    v24 = 0;
+    v13 = [v12 allContactEmailAddressesWithError:&v24];
+    v5 = v24;
 
     v14 = +[EMCachingContactStore signpostLog];
     v15 = v14;
@@ -575,13 +570,11 @@ void __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block
       {
         v23 = *(a1 + 40);
         *buf = 134217984;
-        v27 = v23;
+        v26 = v23;
         _os_log_impl(&dword_1C6655000, v22, OS_LOG_TYPE_DEFAULT, "[Email Address Cache] %lld: Population request finished", buf, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __65__EMCachingContactStore__scheduleEmailAddressCachePopulationImpl__block_invoke_cold_1(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)

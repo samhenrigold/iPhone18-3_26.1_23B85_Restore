@@ -37,7 +37,7 @@
 
 - (void)_executeSceneUpdatesIfAppropriate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_processLaunched)
   {
     process = [(FBApplicationProcessLaunchTransaction *)self->_processLaunchTransaction process];
@@ -55,32 +55,32 @@
 
         v6 = [(NSMutableArray *)self->_pendingUpdateTransactions copy];
         [(NSMutableArray *)self->_pendingUpdateTransactions removeAllObjects];
-        v16 = 0u;
-        v17 = 0u;
-        v14 = 0u;
         v15 = 0u;
+        v16 = 0u;
+        v13 = 0u;
+        v14 = 0u;
         v7 = v6;
-        v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v15;
+          v10 = *v14;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v15 != v10)
+              if (*v14 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v14 + 1) + 8 * i);
-              [v12 addObserver:{self, v14}];
+              v12 = *(*(&v13 + 1) + 8 * i);
+              [v12 addObserver:{self, v13}];
               [v12 setWaitsForSceneCommit:self->_waitsForSceneCommits];
               [(FBSynchronizedTransactionGroup *)self addSynchronizedTransaction:v12];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
           }
 
           while (v9);
@@ -88,8 +88,6 @@
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willBegin
@@ -114,43 +112,42 @@
 
 - (void)_didComplete
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(FBApplicationProcessLaunchTransaction *)self->_processLaunchTransaction removeObserver:self];
   [(NSMutableArray *)self->_pendingUpdateTransactions removeAllObjects];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = self->_updateSceneTransactions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) removeObserver:self];
+        [*(*(&v9 + 1) + 8 * v7++) removeObserver:self];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = FBApplicationUpdateScenesTransaction;
-  [(FBSynchronizedTransactionGroup *)&v9 _didComplete];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FBApplicationUpdateScenesTransaction;
+  [(FBSynchronizedTransactionGroup *)&v8 _didComplete];
 }
 
 - (FBApplicationUpdateScenesTransaction)init
@@ -302,39 +299,37 @@ id __88__FBApplicationUpdateScenesTransaction_initWithClientIdentity_executionCo
 
 - (void)setWaitsForSceneCommits:(BOOL)commits
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   self->_waitsForSceneCommits = commits;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_updateSceneTransactions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setWaitsForSceneCommit:{self->_waitsForSceneCommits, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setWaitsForSceneCommit:{self->_waitsForSceneCommits, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (FBApplicationProcess)process
@@ -476,89 +471,84 @@ id __88__FBApplicationUpdateScenesTransaction_initWithClientIdentity_executionCo
 
 - (void)_willInterruptWithReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = FBApplicationUpdateScenesTransaction;
-  [(FBApplicationUpdateScenesTransaction *)&v14 _willInterruptWithReason:reason];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = FBApplicationUpdateScenesTransaction;
+  [(FBApplicationUpdateScenesTransaction *)&v13 _willInterruptWithReason:reason];
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_updateSceneTransactions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setWaitsForSceneCommit:{0, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setWaitsForSceneCommit:{0, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willFailWithReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = FBApplicationUpdateScenesTransaction;
-  [(FBApplicationUpdateScenesTransaction *)&v14 _willFailWithReason:reason];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = FBApplicationUpdateScenesTransaction;
+  [(FBApplicationUpdateScenesTransaction *)&v13 _willFailWithReason:reason];
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_updateSceneTransactions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setWaitsForSceneCommit:{0, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setWaitsForSceneCommit:{0, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_customizedDescriptionProperties
 {
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setObject:self->_clientIdentity forKey:@"ClientIdentity"];
-  waitsForSceneCommits = self->_waitsForSceneCommits;
-  v5 = NSStringFromBOOL();
-  [dictionary setObject:v5 forKey:@"Waits for scene commits"];
+  v4 = NSStringFromBOOL();
+  [dictionary setObject:v4 forKey:@"Waits for scene commits"];
 
   return dictionary;
 }
@@ -737,7 +727,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)initWithApplicationBundleID:(char *)a1 executionContextProvider:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"bundleID"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -745,7 +735,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"bundleID", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -786,8 +776,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)initWithClientIdentity:(char *)a1 executionContextProvider:.cold.2(char *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"clientIdentity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -795,7 +784,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"clientIdentity", v11, v12);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -806,7 +795,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)_updateSceneWithIdentity:(char *)a1 parameters:transitionContext:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneParametersClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -814,7 +803,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneParametersClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -824,7 +813,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)_updateSceneWithIdentity:(char *)a1 parameters:transitionContext:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -832,7 +821,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSpecificationClass]", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -842,7 +831,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)_updateSceneWithIdentity:(char *)a1 parameters:transitionContext:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -850,7 +839,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -860,7 +849,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
 
 - (void)_updateSceneWithIdentity:(char *)a1 parameters:transitionContext:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -868,7 +857,7 @@ void __78__FBApplicationUpdateScenesTransaction_updateSceneTransactionDidCommitU
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

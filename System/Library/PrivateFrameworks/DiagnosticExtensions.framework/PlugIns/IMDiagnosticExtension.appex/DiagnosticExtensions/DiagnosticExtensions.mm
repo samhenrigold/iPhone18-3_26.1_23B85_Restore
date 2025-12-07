@@ -258,9 +258,9 @@ void sub_100002A74(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100002CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -290,12 +290,11 @@ IMDiagnosticSwiftBridge __swiftcall IMDiagnosticSwiftBridge.init()()
 
 unint64_t sub_100002F3C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_10000342C();
   sub_10000340C();
-  v6 = sub_10000343C();
+  v4 = sub_10000343C();
 
-  return sub_100002FB4(a1, a2, v6);
+  return sub_100002FB4(a1, a2, v4);
 }
 
 unint64_t sub_100002FB4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -398,7 +397,6 @@ uint64_t sub_100003240(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

@@ -131,66 +131,64 @@
 
 - (id)_fieldsOfLegacyOSObject:(id)object
 {
-  v30[19] = *MEMORY[0x1E69E9840];
+  v29[19] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   pointerSize = [objectCopy pointerSize];
-  v29 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"server" type:@"^{IOUserServer_IVars}" scan:1 offset:0 size:pointerSize];
-  v27 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRefsListEntryNext" type:@"^v" scan:4 offset:8 size:pointerSize];
-  v26 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRefsListEntryPrev" type:@"^v" scan:4 offset:16 size:pointerSize];
-  v28 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRef" type:@"Q" scan:0 offset:24 size:8];
-  v24 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"flags" type:@"Q" scan:0 offset:32 size:8];
-  v23 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"sendRights" type:@"L" scan:0 offset:40 size:4];
-  v25 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteQueueCount" type:@"L" scan:0 offset:44 size:4];
-  v22 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteMethodsCount" type:@"L" scan:0 offset:48 size:4];
-  v21 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteQueues" type:@"^Q" scan:1 offset:56 size:pointerSize];
-  v20 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteMethods" type:@"^Q" scan:1 offset:64 size:pointerSize];
-  v19 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"queueAlloc" type:@"L" scan:0 offset:72 size:4];
+  v28 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"server" type:@"^{IOUserServer_IVars}" scan:1 offset:0 size:pointerSize];
+  v26 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRefsListEntryNext" type:@"^v" scan:4 offset:8 size:pointerSize];
+  v25 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRefsListEntryPrev" type:@"^v" scan:4 offset:16 size:pointerSize];
+  v27 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"objectRef" type:@"Q" scan:0 offset:24 size:8];
+  v23 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"flags" type:@"Q" scan:0 offset:32 size:8];
+  v22 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"sendRights" type:@"L" scan:0 offset:40 size:4];
+  v24 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteQueueCount" type:@"L" scan:0 offset:44 size:4];
+  v21 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteMethodsCount" type:@"L" scan:0 offset:48 size:4];
+  v20 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteQueues" type:@"^Q" scan:1 offset:56 size:pointerSize];
+  v19 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"remoteMethods" type:@"^Q" scan:1 offset:64 size:pointerSize];
+  v18 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"queueAlloc" type:@"L" scan:0 offset:72 size:4];
   v5 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"queueArray" type:@"^@IODispatchQueue" scan:1 offset:80 size:pointerSize];
-  v18 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"vtable" type:@"^" scan:0 offset:88 size:pointerSize];
-  v17 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"refcount" type:@"l" scan:0 offset:96 size:4];
+  v17 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"vtable" type:@"^" scan:0 offset:88 size:pointerSize];
+  v16 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"refcount" type:@"l" scan:0 offset:96 size:4];
   v6 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"reserved" type:@"l" scan:0 offset:100 size:4];
-  v16 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"meta" type:@"@" scan:1 offset:104 size:pointerSize];
+  v15 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"meta" type:@"@" scan:1 offset:104 size:pointerSize];
   v7 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"metaClassPrivate" type:@"^{OSMetaClassPrivate}" scan:1 offset:112 size:pointerSize];
-  v15 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"retainCount" type:@"i" scan:0 offset:120 size:4];
+  v14 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"retainCount" type:@"i" scan:0 offset:120 size:4];
   v8 = MEMORY[0x1E696AEC0];
   className = [objectCopy className];
 
   v10 = [v8 stringWithFormat:@"^{%@_IVars}", className];
 
   v11 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"ivars" type:v10 scan:1 offset:128 size:pointerSize];
-  v30[0] = v29;
-  v30[1] = v27;
-  v30[2] = v26;
-  v30[3] = v28;
-  v30[4] = v24;
-  v30[5] = v23;
-  v30[6] = v25;
-  v30[7] = v22;
-  v30[8] = v21;
-  v30[9] = v20;
-  v30[10] = v19;
-  v30[11] = v5;
-  v30[12] = v18;
-  v30[13] = v17;
-  v30[14] = v6;
-  v30[15] = v16;
-  v30[16] = v7;
-  v30[17] = v15;
-  v30[18] = v11;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:19];
+  v29[0] = v28;
+  v29[1] = v26;
+  v29[2] = v25;
+  v29[3] = v27;
+  v29[4] = v23;
+  v29[5] = v22;
+  v29[6] = v24;
+  v29[7] = v21;
+  v29[8] = v20;
+  v29[9] = v19;
+  v29[10] = v18;
+  v29[11] = v5;
+  v29[12] = v17;
+  v29[13] = v16;
+  v29[14] = v6;
+  v29[15] = v15;
+  v29[16] = v7;
+  v29[17] = v14;
+  v29[18] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:19];
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 - (id)_fieldsOfOSObject:(id)object startOffset:(unint64_t)offset
 {
-  v20[7] = *MEMORY[0x1E69E9840];
+  v19[7] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   pointerSize = [objectCopy pointerSize];
-  v19 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"vtable" type:@"^" scan:0 offset:offset size:pointerSize];
-  v18 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"refcount" type:@"l" scan:0 offset:(offset + 8) size:4];
+  v18 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"vtable" type:@"^" scan:0 offset:offset size:pointerSize];
+  v17 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"refcount" type:@"l" scan:0 offset:(offset + 8) size:4];
   v7 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"reserved" type:@"l" scan:0 offset:(offset + 12) size:4];
   v8 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"meta" type:@"@" scan:1 offset:(offset + 16) size:pointerSize];
   v9 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"metaClassPrivate" type:@"^{OSMetaClassPrivate}" scan:1 offset:(offset + 24) size:pointerSize];
@@ -201,16 +199,14 @@
   v13 = [v11 stringWithFormat:@"^{%@_IVars}", displayName];
 
   v14 = [(VMUFieldInfo *)[VMUMutableFieldInfo alloc] initWithName:@"ivars" type:v13 scan:1 offset:(offset + 40) size:pointerSize];
-  v20[0] = v19;
-  v20[1] = v18;
-  v20[2] = v7;
-  v20[3] = v8;
-  v20[4] = v9;
-  v20[5] = v10;
-  v20[6] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:7];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v19[0] = v18;
+  v19[1] = v17;
+  v19[2] = v7;
+  v19[3] = v8;
+  v19[4] = v9;
+  v19[5] = v10;
+  v19[6] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:7];
 
   return v15;
 }
@@ -381,7 +377,6 @@ LABEL_8:
   if (HIDWORD(*information))
   {
     v5 = (*information & 7) == 0;
-    *information;
   }
 
   else

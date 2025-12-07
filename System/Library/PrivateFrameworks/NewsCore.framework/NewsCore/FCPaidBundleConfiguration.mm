@@ -222,14 +222,14 @@
   return v10 & 1;
 }
 
-void __48__FCPaidBundleConfiguration_areMagazinesEnabled__block_invoke()
+void __48__FCPaidBundleConfiguration_areMagazinesEnabled__block_invoke(uint64_t a1)
 {
   if (NFInternalBuild())
   {
-    v0 = MEMORY[0x1E696AEC0];
-    v2 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v1 = [v2 stringForKey:@"news.features.magazines"];
-    _MergedGlobals_187 = [v0 fc_string:@"enabled" isEqualToString:v1];
+    v1 = MEMORY[0x1E696AEC0];
+    v3 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v2 = [v3 stringForKey:@"news.features.magazines"];
+    _MergedGlobals_187 = [v1 fc_string:@"enabled" isEqualToString:v2];
   }
 
   else
@@ -380,27 +380,25 @@ LABEL_8:
 
 void __85__FCPaidBundleConfiguration_defaultVanityURLMappingResourceIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"VUM", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"VUM", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"VUM", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"VUM", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"VUM", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB27770;
   qword_1EDB27770 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)vanityURLMappingRefreshRate
@@ -791,7 +789,7 @@ LABEL_32:
 
 - (id)paywallConfigurationsByTypeForKey:(id)key
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   lock = [(FCPaidBundleConfiguration *)self lock];
   [lock lock];
@@ -813,26 +811,26 @@ LABEL_32:
     if (v10)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
+        v14 = *v24;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [[FCPaywallConfiguration alloc] initWithConfigDictionary:*(*(&v24 + 1) + 8 * i)];
+            v16 = [[FCPaywallConfiguration alloc] initWithConfigDictionary:*(*(&v23 + 1) + 8 * i)];
             paywallType = [(FCPaywallConfiguration *)v16 paywallType];
             if (v16)
             {
@@ -851,7 +849,7 @@ LABEL_32:
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v13);
@@ -873,14 +871,12 @@ LABEL_32:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (id)subscriptionButtonConfigurationsByTypeForKey:(id)key
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   lock = [(FCPaidBundleConfiguration *)self lock];
   [lock lock];
@@ -902,26 +898,26 @@ LABEL_32:
     if (v10)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
+        v14 = *v24;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v24 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [[FCSubscriptionButtonConfiguration alloc] initWithConfigDictionary:*(*(&v24 + 1) + 8 * i)];
+            v16 = [[FCSubscriptionButtonConfiguration alloc] initWithConfigDictionary:*(*(&v23 + 1) + 8 * i)];
             subscriptionButtonType = [(FCSubscriptionButtonConfiguration *)v16 subscriptionButtonType];
             if (v16)
             {
@@ -940,7 +936,7 @@ LABEL_32:
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v13);
@@ -961,8 +957,6 @@ LABEL_32:
       dictionary = 0;
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1369,7 +1363,7 @@ LABEL_9:
 
 - (NSDictionary)magazineGenresByGenre
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   magazineGenresByGenre = self->_magazineGenresByGenre;
   if (!magazineGenresByGenre)
   {
@@ -1379,29 +1373,29 @@ LABEL_9:
     if (v5)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v22;
+        v10 = *v21;
         do
         {
           v11 = 0;
           do
           {
-            if (*v22 != v10)
+            if (*v21 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v21 + 1) + 8 * v11);
+            v12 = *(*(&v20 + 1) + 8 * v11);
             v13 = [FCMagazineGenre alloc];
-            v14 = [(FCMagazineGenre *)v13 initWithConfigDictionary:v12, v21];
+            v14 = [(FCMagazineGenre *)v13 initWithConfigDictionary:v12, v20];
             genre = [(FCMagazineGenre *)v14 genre];
 
             if (genre)
@@ -1414,7 +1408,7 @@ LABEL_9:
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v9);
@@ -1433,8 +1427,6 @@ LABEL_9:
 
     magazineGenresByGenre = self->_magazineGenresByGenre;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return magazineGenresByGenre;
 }
@@ -2176,7 +2168,7 @@ LABEL_8:
 
 - (NSArray)audioFeedPaywallPositions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   configDict = [(FCPaidBundleConfiguration *)self configDict];
   v3 = FCAppConfigurationArrayValueWithDefaultValue(configDict, @"audioFeedPaywallPositions", 0);
 
@@ -2188,11 +2180,9 @@ LABEL_8:
   else
   {
     v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2];
-    v8[0] = v5;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v5;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2215,7 +2205,7 @@ LABEL_8:
 
 - (NSDictionary)audioUpsellConfigurationsByID
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   audioUpsellConfigurationsByID = self->_audioUpsellConfigurationsByID;
   if (!audioUpsellConfigurationsByID)
   {
@@ -2225,29 +2215,29 @@ LABEL_8:
     if (v5)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v19;
         do
         {
           v11 = 0;
           do
           {
-            if (*v20 != v10)
+            if (*v19 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * v11);
+            v12 = *(*(&v18 + 1) + 8 * v11);
             v13 = [FCAudioUpsellConfig alloc];
-            v14 = [(FCAudioUpsellConfig *)v13 initWithConfigDictionary:v12, v19];
+            v14 = [(FCAudioUpsellConfig *)v13 initWithConfigDictionary:v12, v18];
             identifier = [(FCAudioUpsellConfig *)v14 identifier];
             [(NSDictionary *)dictionary fc_safelySetObject:v14 forKey:identifier];
 
@@ -2255,7 +2245,7 @@ LABEL_8:
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v9);
@@ -2267,8 +2257,6 @@ LABEL_8:
 
     audioUpsellConfigurationsByID = self->_audioUpsellConfigurationsByID;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return audioUpsellConfigurationsByID;
 }
@@ -2354,22 +2342,20 @@ LABEL_8:
 
 void __70__FCPaidBundleConfiguration_renewalLandingPageByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"ApD6XdJJuQ9Kr_QCk9ivPDQ";
-  v4[1] = @"AVtXQTyGvT4OsKHgxZ05M1A";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"Apnn-WUtwSc2wEXaXYwuUWA";
-  v4[3] = @"AXu1vfWkQTGCTyH2EjVUFwQ";
-  v3[4] = @"143460";
-  v4[4] = @"AfRcHZ0YIQbC4GCJ2KwZYxw";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"ApD6XdJJuQ9Kr_QCk9ivPDQ";
+  v3[1] = @"AVtXQTyGvT4OsKHgxZ05M1A";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"Apnn-WUtwSc2wEXaXYwuUWA";
+  v3[3] = @"AXu1vfWkQTGCTyH2EjVUFwQ";
+  v2[4] = @"143460";
+  v3[4] = @"AfRcHZ0YIQbC4GCJ2KwZYxw";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27700;
   qword_1EDB27700 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultLandingPageByLocalizedStorefrontID
@@ -2386,22 +2372,20 @@ void __70__FCPaidBundleConfiguration_renewalLandingPageByLocalizedStorefrontID__
 
 void __70__FCPaidBundleConfiguration_defaultLandingPageByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"A53eyrvagTQO5cri5DWwDnw";
-  v4[1] = @"AvPUnt7dQSmGX_KaIUHC5kQ";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"AfEzIPkyQTxC9g7atKJeVKw";
-  v4[3] = @"A1fFFI_OFTuWOCZBiz3nBkw";
-  v3[4] = @"143460";
-  v4[4] = @"ATV43D73KTPyTlJ-hlICZmA";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"A53eyrvagTQO5cri5DWwDnw";
+  v3[1] = @"AvPUnt7dQSmGX_KaIUHC5kQ";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"AfEzIPkyQTxC9g7atKJeVKw";
+  v3[3] = @"A1fFFI_OFTuWOCZBiz3nBkw";
+  v2[4] = @"143460";
+  v3[4] = @"ATV43D73KTPyTlJ-hlICZmA";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27710;
   qword_1EDB27710 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultServicesBundleLandingPageByLocalizedStorefrontID
@@ -2418,22 +2402,20 @@ void __70__FCPaidBundleConfiguration_defaultLandingPageByLocalizedStorefrontID__
 
 void __84__FCPaidBundleConfiguration_defaultServicesBundleLandingPageByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"AdgSCAdtlS0P9UQhWGbPVRA";
-  v4[1] = @"AMNrflzD8TRirzxx_2tdqdA";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"AM3SM6D1cSHG6iB9O-deE_A";
-  v4[3] = @"ASKOyErGaR3vAe6iqsxkekQ";
-  v3[4] = @"143460";
-  v4[4] = @"AiLdUCfKuR2C9hsKAryYVQw";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"AdgSCAdtlS0P9UQhWGbPVRA";
+  v3[1] = @"AMNrflzD8TRirzxx_2tdqdA";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"AM3SM6D1cSHG6iB9O-deE_A";
+  v3[3] = @"ASKOyErGaR3vAe6iqsxkekQ";
+  v2[4] = @"143460";
+  v3[4] = @"AiLdUCfKuR2C9hsKAryYVQw";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27720;
   qword_1EDB27720 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultFamilySharingLandingPageByLocalizedStorefrontID
@@ -2450,22 +2432,20 @@ void __84__FCPaidBundleConfiguration_defaultServicesBundleLandingPageByLocalized
 
 void __83__FCPaidBundleConfiguration_defaultFamilySharingLandingPageByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"ATHi8wuYqRw6_2XiqVdBmRQ";
-  v4[1] = @"ABnZHWwYzQAOG4srVl6oJPw";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"ADaPfwzFeS4Kqd7ynKkCGtA";
-  v4[3] = @"ApJ3T6edORFWeIsm1UYVVnQ";
-  v3[4] = @"143460";
-  v4[4] = @"AOKrTMJ1ORhKcIeS77Oak5g";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"ATHi8wuYqRw6_2XiqVdBmRQ";
+  v3[1] = @"ABnZHWwYzQAOG4srVl6oJPw";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"ADaPfwzFeS4Kqd7ynKkCGtA";
+  v3[3] = @"ApJ3T6edORFWeIsm1UYVVnQ";
+  v2[4] = @"143460";
+  v3[4] = @"AOKrTMJ1ORhKcIeS77Oak5g";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27730;
   qword_1EDB27730 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultEndOfPurchaseFamilySharingSetupArticleIDByLocalizedStorefrontID
@@ -2482,22 +2462,20 @@ void __83__FCPaidBundleConfiguration_defaultFamilySharingLandingPageByLocalizedS
 
 void __99__FCPaidBundleConfiguration_defaultEndOfPurchaseFamilySharingSetupArticleIDByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"Axse1yHejTiq4m6_FDhWjzQ";
-  v4[1] = @"AQteqTSopTuyVb6risDsqqA";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"AQY3aWLseQxyESRs82-fbVA";
-  v4[3] = @"AHhJreKRQTyueyd82FfUzVA";
-  v3[4] = @"143460";
-  v4[4] = @"ADcFux8UIR96JlKqVNI1fpQ";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"Axse1yHejTiq4m6_FDhWjzQ";
+  v3[1] = @"AQteqTSopTuyVb6risDsqqA";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"AQY3aWLseQxyESRs82-fbVA";
+  v3[3] = @"AHhJreKRQTyueyd82FfUzVA";
+  v2[4] = @"143460";
+  v3[4] = @"ADcFux8UIR96JlKqVNI1fpQ";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27740;
   qword_1EDB27740 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultEndOfPurchaseNoFamilySharingSetupArticleIDByLocalizedStorefrontID
@@ -2514,22 +2492,20 @@ void __99__FCPaidBundleConfiguration_defaultEndOfPurchaseFamilySharingSetupArtic
 
 void __101__FCPaidBundleConfiguration_defaultEndOfPurchaseNoFamilySharingSetupArticleIDByLocalizedStorefrontID__block_invoke()
 {
-  v4[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"143441";
-  v3[1] = @"143455";
-  v4[0] = @"Aj9QiLScMQ6ux3gXuFpSjLQ";
-  v4[1] = @"AzXHbVKNIT4CFohbsyaGOOw";
-  v3[2] = @"143455-fr-ca";
-  v3[3] = @"143444";
-  v4[2] = @"AbTcLWiv4TvGpXAB-tS0e3w";
-  v4[3] = @"Ad0wrgFufRKKrELGiiY6KAA";
-  v3[4] = @"143460";
-  v4[4] = @"AoXCsrwX1Tm6WCWhQvbwomw";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x1E69E9840];
+  v2[0] = @"143441";
+  v2[1] = @"143455";
+  v3[0] = @"Aj9QiLScMQ6ux3gXuFpSjLQ";
+  v3[1] = @"AzXHbVKNIT4CFohbsyaGOOw";
+  v2[2] = @"143455-fr-ca";
+  v2[3] = @"143444";
+  v3[2] = @"AbTcLWiv4TvGpXAB-tS0e3w";
+  v3[3] = @"Ad0wrgFufRKKrELGiiY6KAA";
+  v2[4] = @"143460";
+  v3[4] = @"AoXCsrwX1Tm6WCWhQvbwomw";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = qword_1EDB27750;
   qword_1EDB27750 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultTagListIDByLocalizedStorefrontID
@@ -2546,27 +2522,25 @@ void __101__FCPaidBundleConfiguration_defaultEndOfPurchaseNoFamilySharingSetupAr
 
 void __68__FCPaidBundleConfiguration_defaultTagListIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"GI", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"GI", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"GI", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"GI", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"GI", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB27760;
   qword_1EDB27760 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)defaultPaidFeedIDByLocalizedStorefrontID
@@ -2583,147 +2557,137 @@ void __68__FCPaidBundleConfiguration_defaultTagListIDByLocalizedStorefrontID__bl
 
 void __69__FCPaidBundleConfiguration_defaultPaidFeedIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
+  v8[5] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$en-US", @"TRKNDEVsSSl2ye3cRDsruSQ", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$en-CA", @"TRKNDEVsSSl2ye3cRDsruSQ"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$fr-CA", @"TRKNDEVsSSl2ye3cRDsruSQ"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$en-UK", @"TRKNDEVsSSl2ye3cRDsruSQ"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$en-AU", @"TRKNDEVsSSl2ye3cRDsruSQ"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB27780;
   qword_1EDB27780 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)defaultPaywallConfigs
 {
-  v18[11] = *MEMORY[0x1E69E9840];
+  v17[11] = *MEMORY[0x1E69E9840];
   defaultLandingPageArticleID = [(FCPaidBundleConfiguration *)self defaultLandingPageArticleID];
-  v17[0] = &unk_1F2E70818;
-  v16 = [FCPaywallConfiguration defaultArticleHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[0] = v16;
-  v17[1] = &unk_1F2E70830;
-  v15 = [FCPaywallConfiguration defaultArticleSharedHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[1] = v15;
-  v17[2] = &unk_1F2E70848;
-  v14 = [FCPaywallConfiguration defaultArticleSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[2] = v14;
-  v17[3] = &unk_1F2E70860;
+  v16[0] = &unk_1F2E70818;
+  v15 = [FCPaywallConfiguration defaultArticleHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
+  v17[0] = v15;
+  v16[1] = &unk_1F2E70830;
+  v14 = [FCPaywallConfiguration defaultArticleSharedHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
+  v17[1] = v14;
+  v16[2] = &unk_1F2E70848;
+  v13 = [FCPaywallConfiguration defaultArticleSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
+  v17[2] = v13;
+  v16[3] = &unk_1F2E70860;
   v3 = [FCPaywallConfiguration defaultArticleSharedSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[3] = v3;
-  v17[4] = &unk_1F2E70878;
+  v17[3] = v3;
+  v16[4] = &unk_1F2E70878;
   v4 = [FCPaywallConfiguration defaultChannelSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[4] = v4;
-  v17[5] = &unk_1F2E70890;
+  v17[4] = v4;
+  v16[5] = &unk_1F2E70890;
   v5 = [FCPaywallConfiguration defaultMagazineFeedSoftPaywallSmallPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[5] = v5;
-  v17[6] = &unk_1F2E708A8;
+  v17[5] = v5;
+  v16[6] = &unk_1F2E708A8;
   v6 = [FCPaywallConfiguration defaultMagazineFeedSoftPaywallMediumPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[6] = v6;
-  v17[7] = &unk_1F2E708C0;
+  v17[6] = v6;
+  v16[7] = &unk_1F2E708C0;
   v7 = [FCPaywallConfiguration defaultMagazineFeedSoftPaywallLargePaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[7] = v7;
-  v17[8] = &unk_1F2E708D8;
+  v17[7] = v7;
+  v16[8] = &unk_1F2E708D8;
   v8 = [FCPaywallConfiguration defaultMagazineFeedVideoSoftPaywallSmallPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[8] = v8;
-  v17[9] = &unk_1F2E708F0;
+  v17[8] = v8;
+  v16[9] = &unk_1F2E708F0;
   v9 = [FCPaywallConfiguration defaultMagazineFeedVideoSoftPaywallLargePaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[9] = v9;
-  v17[10] = &unk_1F2E70908;
+  v17[9] = v9;
+  v16[10] = &unk_1F2E70908;
   v10 = [FCPaywallConfiguration defaultPDFHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v18[10] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:11];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v17[10] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:11];
 
   return v11;
 }
 
 - (id)defaultAudioPaywallConfigs
 {
-  v14[7] = *MEMORY[0x1E69E9840];
+  v13[7] = *MEMORY[0x1E69E9840];
   defaultLandingPageArticleID = [(FCPaidBundleConfiguration *)self defaultLandingPageArticleID];
-  v13[0] = &unk_1F2E70818;
+  v12[0] = &unk_1F2E70818;
   v3 = [FCPaywallConfiguration defaultAudioArticleHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[0] = v3;
-  v13[1] = &unk_1F2E70830;
+  v13[0] = v3;
+  v12[1] = &unk_1F2E70830;
   v4 = [FCPaywallConfiguration defaultAudioArticleSharedHardPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[1] = v4;
-  v13[2] = &unk_1F2E70848;
+  v13[1] = v4;
+  v12[2] = &unk_1F2E70848;
   v5 = [FCPaywallConfiguration defaultAudioArticleSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[2] = v5;
-  v13[3] = &unk_1F2E70860;
+  v13[2] = v5;
+  v12[3] = &unk_1F2E70860;
   v6 = [FCPaywallConfiguration defaultAudioArticleSharedSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[3] = v6;
-  v13[4] = &unk_1F2E70920;
+  v13[3] = v6;
+  v12[4] = &unk_1F2E70920;
   v7 = [FCPaywallConfiguration defaultAudioFeedSoftPaywallSmallPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[4] = v7;
-  v13[5] = &unk_1F2E70938;
+  v13[4] = v7;
+  v12[5] = &unk_1F2E70938;
   v8 = [FCPaywallConfiguration defaultAudioFeedSoftPaywallLargePaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[5] = v8;
-  v13[6] = &unk_1F2E70878;
+  v13[5] = v8;
+  v12[6] = &unk_1F2E70878;
   v9 = [FCPaywallConfiguration defaultChannelSoftPaywallWithLandingPageArticleID:defaultLandingPageArticleID];
-  v14[6] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[6] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }
 
 - (id)defaultSubscriptionButtonConfigs
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   defaultLandingPageArticleID = [(FCPaidBundleConfiguration *)self defaultLandingPageArticleID];
-  v9[0] = &unk_1F2E70818;
+  v8[0] = &unk_1F2E70818;
   v3 = [FCSubscriptionButtonConfiguration defaultArticleSubscriptionButtonWithLandingPageArticleID:defaultLandingPageArticleID];
-  v10[0] = v3;
-  v9[1] = &unk_1F2E70830;
+  v9[0] = v3;
+  v8[1] = &unk_1F2E70830;
   v4 = +[FCSubscriptionButtonConfiguration defaultOsloSheetTargetSubscriptionButton];
-  v10[1] = v4;
-  v9[2] = &unk_1F2E70848;
+  v9[1] = v4;
+  v8[2] = &unk_1F2E70848;
   v5 = [FCSubscriptionButtonConfiguration defaultIssueCoverSubscriptionButtonWithLandingPageArticleID:defaultLandingPageArticleID];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (id)defaultServicesBundleSubscriptionButtonConfigs
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   defaultServicesBundleLandingPageArticleID = [(FCPaidBundleConfiguration *)self defaultServicesBundleLandingPageArticleID];
-  v9[0] = &unk_1F2E70818;
+  v8[0] = &unk_1F2E70818;
   v3 = [FCSubscriptionButtonConfiguration defaultArticleSubscriptionButtonWithLandingPageArticleID:defaultServicesBundleLandingPageArticleID];
-  v10[0] = v3;
-  v9[1] = &unk_1F2E70830;
+  v9[0] = v3;
+  v8[1] = &unk_1F2E70830;
   v4 = +[FCSubscriptionButtonConfiguration defaultAmsSheetTargetSubscriptionButton];
-  v10[1] = v4;
-  v9[2] = &unk_1F2E70848;
+  v9[1] = v4;
+  v8[2] = &unk_1F2E70848;
   v5 = [FCSubscriptionButtonConfiguration defaultIssueCoverSubscriptionButtonWithLandingPageArticleID:defaultServicesBundleLandingPageArticleID];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (id)defaultMagazineGenres
 {
-  v71[15] = *MEMORY[0x1E69E9840];
+  v70[15] = *MEMORY[0x1E69E9840];
   v2 = FCBundle();
   v3 = [v2 localizedStringForKey:@"automotive magazines" value:&stru_1F2DC7DC0 table:0];
   v4 = [FCMagazineGenre magazineGenreWithGenre:@"automotive" localizedDescription:v3];
@@ -2746,99 +2710,97 @@ void __69__FCPaidBundleConfiguration_defaultPaidFeedIDByLocalizedStorefrontID__b
 
   v17 = FCBundle();
   v18 = [v17 localizedStringForKey:@"food & cooking magazines" value:&stru_1F2DC7DC0 table:0];
-  v69 = [FCMagazineGenre magazineGenreWithGenre:@"food-cooking" localizedDescription:v18];
+  v68 = [FCMagazineGenre magazineGenreWithGenre:@"food-cooking" localizedDescription:v18];
 
   v19 = FCBundle();
   v20 = [v19 localizedStringForKey:@"health & fitness magazines" value:&stru_1F2DC7DC0 table:0];
-  v68 = [FCMagazineGenre magazineGenreWithGenre:@"health-fitness" localizedDescription:v20];
+  v67 = [FCMagazineGenre magazineGenreWithGenre:@"health-fitness" localizedDescription:v20];
 
   v21 = FCBundle();
   v22 = [v21 localizedStringForKey:@"home & gardening magazines" value:&stru_1F2DC7DC0 table:0];
-  v67 = [FCMagazineGenre magazineGenreWithGenre:@"home-gardening" localizedDescription:v22];
+  v66 = [FCMagazineGenre magazineGenreWithGenre:@"home-gardening" localizedDescription:v22];
 
   v23 = FCBundle();
   v24 = [v23 localizedStringForKey:@"kids & parenting magazines" value:&stru_1F2DC7DC0 table:0];
-  v66 = [FCMagazineGenre magazineGenreWithGenre:@"kids-parenting" localizedDescription:v24];
+  v65 = [FCMagazineGenre magazineGenreWithGenre:@"kids-parenting" localizedDescription:v24];
 
   v25 = FCBundle();
   v26 = [v25 localizedStringForKey:@"men’s lifestyle magazines" value:&stru_1F2DC7DC0 table:0];
-  v65 = [FCMagazineGenre magazineGenreWithGenre:@"men-lifestyle" localizedDescription:v26];
+  v64 = [FCMagazineGenre magazineGenreWithGenre:@"men-lifestyle" localizedDescription:v26];
 
   v27 = FCBundle();
   v28 = [v27 localizedStringForKey:@"news & politics magazines" value:&stru_1F2DC7DC0 table:0];
-  v64 = [FCMagazineGenre magazineGenreWithGenre:@"news-politics" localizedDescription:v28];
+  v63 = [FCMagazineGenre magazineGenreWithGenre:@"news-politics" localizedDescription:v28];
 
   v29 = FCBundle();
   v30 = [v29 localizedStringForKey:@"science & technology magazines" value:&stru_1F2DC7DC0 table:0];
-  v63 = [FCMagazineGenre magazineGenreWithGenre:@"science-technology" localizedDescription:v30];
+  v62 = [FCMagazineGenre magazineGenreWithGenre:@"science-technology" localizedDescription:v30];
 
   v31 = FCBundle();
   v32 = [v31 localizedStringForKey:@"sports & recreation magazines" value:&stru_1F2DC7DC0 table:0];
-  v62 = [FCMagazineGenre magazineGenreWithGenre:@"sports-recreation" localizedDescription:v32];
+  v61 = [FCMagazineGenre magazineGenreWithGenre:@"sports-recreation" localizedDescription:v32];
 
   v33 = FCBundle();
   v34 = [v33 localizedStringForKey:@"travel magazines" value:&stru_1F2DC7DC0 table:0];
-  v61 = [FCMagazineGenre magazineGenreWithGenre:@"travel-regional" localizedDescription:v34];
+  v60 = [FCMagazineGenre magazineGenreWithGenre:@"travel-regional" localizedDescription:v34];
 
   v35 = FCBundle();
   v36 = [v35 localizedStringForKey:@"women’s lifestyle magazines" value:&stru_1F2DC7DC0 table:0];
-  v49 = [FCMagazineGenre magazineGenreWithGenre:@"women-lifestyle" localizedDescription:v36];
+  v48 = [FCMagazineGenre magazineGenreWithGenre:@"women-lifestyle" localizedDescription:v36];
 
-  v60 = v4;
+  v59 = v4;
   genre = [v4 genre];
-  v70[0] = genre;
-  v71[0] = v4;
-  v59 = v7;
+  v69[0] = genre;
+  v70[0] = v4;
+  v58 = v7;
   genre2 = [v7 genre];
-  v70[1] = genre2;
-  v71[1] = v7;
-  v58 = v10;
+  v69[1] = genre2;
+  v70[1] = v7;
+  v57 = v10;
   genre3 = [v10 genre];
-  v70[2] = genre3;
-  v71[2] = v10;
-  v57 = v13;
+  v69[2] = genre3;
+  v70[2] = v10;
+  v56 = v13;
   genre4 = [v13 genre];
-  v70[3] = genre4;
-  v71[3] = v13;
-  v56 = v16;
+  v69[3] = genre4;
+  v70[3] = v13;
+  v55 = v16;
   genre5 = [v16 genre];
-  v70[4] = genre5;
-  v71[4] = v16;
-  genre6 = [v69 genre];
-  v70[5] = genre6;
-  v71[5] = v69;
-  genre7 = [v68 genre];
-  v70[6] = genre7;
-  v71[6] = v68;
-  genre8 = [v67 genre];
-  v70[7] = genre8;
-  v71[7] = v67;
-  genre9 = [v66 genre];
-  v70[8] = genre9;
-  v71[8] = v66;
-  genre10 = [v65 genre];
-  v70[9] = genre10;
-  v71[9] = v65;
-  genre11 = [v64 genre];
-  v70[10] = genre11;
-  v71[10] = v64;
-  genre12 = [v63 genre];
-  v70[11] = genre12;
-  v71[11] = v63;
-  genre13 = [v62 genre];
-  v70[12] = genre13;
-  v71[12] = v62;
-  genre14 = [v61 genre];
-  v70[13] = genre14;
-  v71[13] = v61;
-  genre15 = [v49 genre];
-  v70[14] = genre15;
-  v71[14] = v49;
-  v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:15];
+  v69[4] = genre5;
+  v70[4] = v16;
+  genre6 = [v68 genre];
+  v69[5] = genre6;
+  v70[5] = v68;
+  genre7 = [v67 genre];
+  v69[6] = genre7;
+  v70[6] = v67;
+  genre8 = [v66 genre];
+  v69[7] = genre8;
+  v70[7] = v66;
+  genre9 = [v65 genre];
+  v69[8] = genre9;
+  v70[8] = v65;
+  genre10 = [v64 genre];
+  v69[9] = genre10;
+  v70[9] = v64;
+  genre11 = [v63 genre];
+  v69[10] = genre11;
+  v70[10] = v63;
+  genre12 = [v62 genre];
+  v69[11] = genre12;
+  v70[11] = v62;
+  genre13 = [v61 genre];
+  v69[12] = genre13;
+  v70[12] = v61;
+  genre14 = [v60 genre];
+  v69[13] = genre14;
+  v70[13] = v60;
+  genre15 = [v48 genre];
+  v69[14] = genre15;
+  v70[14] = v48;
+  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:15];
 
-  v46 = *MEMORY[0x1E69E9840];
-
-  return v48;
+  return v47;
 }
 
 @end

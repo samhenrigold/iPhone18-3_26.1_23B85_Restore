@@ -21,13 +21,11 @@
 
 id __42__SKPartition_buildWithScheme_sectorSize___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKPartitionTable.m", 67);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }

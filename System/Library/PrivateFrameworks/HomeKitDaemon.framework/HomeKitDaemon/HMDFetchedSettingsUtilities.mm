@@ -9,7 +9,7 @@
 
 + (id)transformHPLanguageItemsToLanguageListValue:(id)value
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = valueCopy;
   if (valueCopy)
@@ -25,16 +25,14 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Empty language item list", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Empty language item list", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -58,36 +56,30 @@
 
 + (id)_outputGenderStringFromAFVoiceGender:(int64_t)gender
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ((gender - 1) >= 3)
+  v11 = *MEMORY[0x277D85DE8];
+  if ((gender - 1) < 3)
   {
-    v5 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unknown Voice Gender Value", &v10, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v5);
-    result = @"?";
+    return off_27867AFE8[gender - 1];
   }
 
-  else
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    result = off_27867AFE8[gender - 1];
+    v8 = HMFGetLogIdentifier();
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Unknown Voice Gender Value", &v9, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v5);
+  return @"?";
 }
 
 + (int64_t)_outputGenderFromString:(id)string
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy isEqualToString:@"m"])
   {
@@ -112,18 +104,17 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v9;
-      v14 = 2112;
-      v15 = stringCopy;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unknown gender option %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v9;
+      v13 = 2112;
+      v14 = stringCopy;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unknown gender option %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

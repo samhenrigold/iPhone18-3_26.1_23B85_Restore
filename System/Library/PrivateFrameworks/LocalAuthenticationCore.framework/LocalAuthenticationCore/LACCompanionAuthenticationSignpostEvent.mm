@@ -14,13 +14,13 @@
   return v2;
 }
 
-void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestWillStart__block_invoke_2()
+void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestWillStart__block_invoke_2(uint64_t a1)
 {
-  v0 = LACLogABM();
-  if (os_signpost_enabled(v0))
+  v1 = LACLogABM(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CompanionAuthenticationRequest", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CompanionAuthenticationRequest", "", v2, 2u);
   }
 }
 
@@ -31,13 +31,13 @@ void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestWillStar
   return v2;
 }
 
-void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestDidFinish__block_invoke_2()
+void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestDidFinish__block_invoke_2(uint64_t a1)
 {
-  v0 = LACLogABM();
-  if (os_signpost_enabled(v0))
+  v1 = LACLogABM(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CompanionAuthenticationRequest", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CompanionAuthenticationRequest", "", v2, 2u);
   }
 }
 
@@ -48,13 +48,13 @@ void __73__LACCompanionAuthenticationSignpostEvent_authenticationRequestDidFinis
   return v2;
 }
 
-void __74__LACCompanionAuthenticationSignpostEvent_eligibleDevicesRequestWillStart__block_invoke_2()
+void __74__LACCompanionAuthenticationSignpostEvent_eligibleDevicesRequestWillStart__block_invoke_2(uint64_t a1)
 {
-  v0 = LACLogABM();
-  if (os_signpost_enabled(v0))
+  v1 = LACLogABM(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CompanionEligibleDevicesRequest", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "CompanionEligibleDevicesRequest", "", v2, 2u);
   }
 }
 
@@ -65,13 +65,13 @@ void __74__LACCompanionAuthenticationSignpostEvent_eligibleDevicesRequestWillSta
   return v2;
 }
 
-void __74__LACCompanionAuthenticationSignpostEvent_eligibleDevicesRequestDidFinish__block_invoke_2()
+void __74__LACCompanionAuthenticationSignpostEvent_eligibleDevicesRequestDidFinish__block_invoke_2(uint64_t a1)
 {
-  v0 = LACLogABM();
-  if (os_signpost_enabled(v0))
+  v1 = LACLogABM(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CompanionEligibleDevicesRequest", "", v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CompanionEligibleDevicesRequest", "", v2, 2u);
   }
 }
 

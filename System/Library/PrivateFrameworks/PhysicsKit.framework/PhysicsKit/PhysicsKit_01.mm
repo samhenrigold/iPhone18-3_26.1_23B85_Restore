@@ -1,16 +1,14 @@
-void *std::vector<PKCField *>::reserve(void *result, unint64_t a2)
+void std::vector<PKCField *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PKPhysicsShape *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PKPhysicsShape *>>(a1, a2);
     }
 
     std::vector<PKPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t PKCAether::fieldCount(PKCAether *this)
@@ -110,7 +108,7 @@ void **std::vector<std::shared_ptr<PKCField>>::push_back[abi:ne200100](void **re
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -141,7 +139,7 @@ void **std::vector<std::shared_ptr<PKCField>>::push_back[abi:ne200100](void **re
   return result;
 }
 
-uint64_t PKCAether::Evaluator::evalVelocity(uint64_t result, int a2, float32x4_t a3, __n128 a4, float a5, float a6, double a7)
+uint64_t PKCAether::Evaluator::evalVelocity(uint64_t result, int a2, __n128 a3, __n128 a4, float a5, float a6, double a7)
 {
   v21 = a3;
   v11 = *(result + 24);
@@ -214,7 +212,7 @@ LABEL_17:
   return result;
 }
 
-void PKCAether::Evaluator::evalForce(float32x4_t *a1, int a2, float a3, float32x4_t a4, __n128 a5, __n128 a6, float a7, double a8)
+void PKCAether::Evaluator::evalForce(float32x4_t *a1, int a2, float a3, __n128 a4, __n128 a5, __n128 a6, float a7, double a8)
 {
   v25 = a4;
   v12 = a1[1].i64[1];
@@ -626,7 +624,7 @@ void **std::vector<std::weak_ptr<PKCField>>::push_back[abi:ne200100](void **resu
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -657,7 +655,7 @@ void **std::vector<std::weak_ptr<PKCField>>::push_back[abi:ne200100](void **resu
   return result;
 }
 
-void PKCAether::removeField(uint64_t a1, uint64_t *a2)
+void PKCAether::removeField(__int128 **a1, uint64_t *a2)
 {
   PKCAether::fieldCount(a1);
   v4 = a2[1];
@@ -678,8 +676,8 @@ void PKCAether::removeField(uint64_t a1, uint64_t *a2)
 
   v6 = 0;
 LABEL_6:
-  v7 = *(a1 + 16);
-  if (v7 != *(a1 + 24))
+  v7 = a1[2];
+  if (v7 != a1[3])
   {
     do
     {
@@ -697,23 +695,23 @@ LABEL_6:
       else if (!v6)
       {
 LABEL_10:
-        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::weak_ptr<PKCField> *,std::weak_ptr<PKCField> *,std::weak_ptr<PKCField> *>(&v15, (v7 + 16), *(a1 + 24), v7);
+        std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::weak_ptr<PKCField> *,std::weak_ptr<PKCField> *,std::weak_ptr<PKCField> *>(&v15, (v7 + 16), a1[3], v7);
         v12 = v11;
-        for (i = *(a1 + 24); i != v12; i -= 16)
+        for (i = a1[3]; i != v12; --i)
         {
-          v14 = *(i - 8);
+          v14 = *(i - 1);
           if (v14)
           {
             std::__shared_weak_count::__release_weak(v14);
           }
         }
 
-        *(a1 + 24) = v12;
+        a1[3] = v12;
         continue;
       }
 
       v7 += 16;
-      v12 = *(a1 + 24);
+      v12 = a1[3];
     }
 
     while (v7 != v12);
@@ -992,9 +990,9 @@ void b2ChainShape::~b2ChainShape(b2ChainShape *this)
   JUMPOUT(0x25F8C0280);
 }
 
-void *b2ChainShape::CreateLoop(void **this, const b2Vec2 *a2, int a3)
+void *b2ChainShape::CreateLoop(const void **this, const b2Vec2 *a2, int a3)
 {
-  std::vector<b2Vec2>::resize((this + 2), a3 + 1);
+  std::vector<b2Vec2>::resize(this + 2, a3 + 1);
   result = memcpy(this[2], a2, 8 * a3);
   *(this[2] + a3) = *this[2];
   v7 = this[2];
@@ -1004,14 +1002,14 @@ void *b2ChainShape::CreateLoop(void **this, const b2Vec2 *a2, int a3)
   return result;
 }
 
-void *b2ChainShape::CreateChain(void **this, const b2Vec2 *a2, int a3)
+void *b2ChainShape::CreateChain(const void **this, const b2Vec2 *a2, unsigned int a3)
 {
   if (a3 <= 1)
   {
     b2ChainShape::CreateChain();
   }
 
-  std::vector<b2Vec2>::resize((this + 2), a3);
+  std::vector<b2Vec2>::resize(this + 2, a3);
   result = memcpy(this[2], a2, 8 * a3);
   *(this + 28) = 0;
   return result;
@@ -1031,9 +1029,9 @@ uint64_t b2ChainShape::SetNextVertex(uint64_t this, const b2Vec2 *a2)
   return this;
 }
 
-uint64_t b2ChainShape::GetChildEdge(uint64_t this, b2EdgeShape *a2, unsigned int a3)
+uint64_t b2ChainShape::GetChildEdge(uint64_t this, b2EdgeShape *a2, int a3)
 {
-  if ((a3 & 0x80000000) != 0 || (v3 = *(this + 16), (((*(this + 24) - v3) >> 3) - 1) <= a3))
+  if (a3 < 0 || (v3 = *(this + 16), (((*(this + 24) - v3) >> 3) - 1) <= a3))
   {
     b2ChainShape::GetChildEdge();
   }
@@ -1072,7 +1070,7 @@ uint64_t b2ChainShape::GetChildEdge(uint64_t this, b2EdgeShape *a2, unsigned int
   return this;
 }
 
-void b2ChainShape::ComputeDistance(b2ChainShape *this, const b2Transform *a2, float32x2_t *a3, float *a4, b2Vec2 *a5, unsigned int a6)
+void b2ChainShape::ComputeDistance(b2ChainShape *this, const b2Transform *a2, float32x2_t *a3, float *a4, b2Vec2 *a5, int a6)
 {
   v10[0] = &unk_287079F18;
   v10[1] = 0x3C1374BC00000001;
@@ -1176,7 +1174,7 @@ uint64_t b2CircleShape::RayCast(float *a1, float32x2_t *a2, float32x2_t *a3, flo
 {
   v4 = a4[1];
   v5 = vrev64_s32(v4);
-  v4.f32[0] = -v4.f32[0];
+  *v4.i32 = -*v4.i32;
   v6 = vsub_f32(*a3, vadd_f32(*a4, vmla_n_f32(vmul_n_f32(v4, a1[5]), v5, a1[4])));
   v7 = vsub_f32(a3[1], *a3);
   v8 = vmuls_lane_f32(v6.f32[1], v7, 1) + (v6.f32[0] * v7.f32[0]);
@@ -1216,7 +1214,7 @@ float32x4_t b2CircleShape::ComputeAABB(uint64_t a1, _OWORD *a2, float32x2_t *a3)
 {
   v3 = a3[1];
   v4 = vrev64_s32(v3);
-  v3.f32[0] = -v3.f32[0];
+  *v3.i32 = -*v3.i32;
   v5 = (a1 + 12);
   *v6.f32 = vadd_f32(*a3, vmla_n_f32(vmul_n_f32(v3, *(a1 + 20)), v4, *(a1 + 16)));
   v6.i64[1] = v6.i64[0];
@@ -1246,13 +1244,13 @@ uint64_t b2EdgeShape::Set(uint64_t this, const b2Vec2 *a2, const b2Vec2 *a3)
   return this;
 }
 
-void b2EdgeShape::ComputeDistance(b2EdgeShape *this, const b2Transform *a2, float32x2_t *a3, float *a4, b2Vec2 *a5)
+void b2EdgeShape::ComputeDistance(float *this, const b2Transform *a2, float32x2_t *a3, float *a4, b2Vec2 *a5)
 {
   var1 = a2->var1;
   v6 = vrev64_s32(var1);
   var1.var0 = -var1.var0;
-  v7 = vadd_f32(a2->var0, vmla_n_f32(vmul_n_f32(var1, *(this + 5)), v6, *(this + 4)));
-  v8 = vadd_f32(a2->var0, vmla_n_f32(vmul_n_f32(var1, *(this + 7)), v6, *(this + 6)));
+  v7 = vadd_f32(a2->var0, vmla_n_f32(vmul_n_f32(var1, this[5]), v6, this[4]));
+  v8 = vadd_f32(a2->var0, vmla_n_f32(vmul_n_f32(var1, this[7]), v6, this[6]));
   v9 = vsub_f32(*a3, v7);
   v10 = vsub_f32(v8, v7);
   v11 = COERCE_FLOAT(vmul_f32(v9, v10).i32[1]) + (v9.f32[0] * v10.f32[0]);
@@ -1396,11 +1394,11 @@ float32x2_t b2EdgeShape::ComputeMass(float32x2_t *a1, uint64_t a2)
   return result;
 }
 
-double b2PolygonShape::SetAsBox(b2PolygonShape *this, float a2, float a3)
+double b2PolygonShape::SetAsBox(const void **this, float a2, float a3)
 {
-  std::vector<b2Vec2>::resize(this + 16, 4uLL);
-  std::vector<b2Vec2>::resize(this + 40, 4uLL);
-  v6 = *(this + 2);
+  std::vector<b2Vec2>::resize(this + 2, 4uLL);
+  std::vector<b2Vec2>::resize(this + 5, 4uLL);
+  v6 = this[2];
   *v6 = -a2;
   v6[1] = -a3;
   v6[2] = a2;
@@ -1409,19 +1407,19 @@ double b2PolygonShape::SetAsBox(b2PolygonShape *this, float a2, float a3)
   v6[5] = a3;
   v6[6] = -a2;
   v6[7] = a3;
-  v7 = *(this + 5);
+  v7 = this[5];
   result = -0.0078125;
   *v7 = xmmword_25E7EB8F0;
   v7[1] = xmmword_25E7EB900;
-  *(this + 8) = 0;
+  this[8] = 0;
   return result;
 }
 
-void b2PolygonShape::SetAsBox(b2PolygonShape *this, float a2, float a3, const b2Vec2 *a4, float a5)
+void b2PolygonShape::SetAsBox(const void **this, float a2, float a3, const b2Vec2 *a4, float a5)
 {
-  std::vector<b2Vec2>::resize(this + 16, 4uLL);
-  std::vector<b2Vec2>::resize(this + 40, 4uLL);
-  v10 = *(this + 2);
+  std::vector<b2Vec2>::resize(this + 2, 4uLL);
+  std::vector<b2Vec2>::resize(this + 5, 4uLL);
+  v10 = this[2];
   *v10 = -a2;
   v10[1] = -a3;
   v10[2] = a2;
@@ -1430,14 +1428,14 @@ void b2PolygonShape::SetAsBox(b2PolygonShape *this, float a2, float a3, const b2
   v10[5] = a3;
   v10[6] = -a2;
   v10[7] = a3;
-  v11 = *(this + 5);
+  v11 = this[5];
   *v11 = xmmword_25E7EB8F0;
   v11[1] = xmmword_25E7EB900;
-  *(this + 8) = *a4;
+  this[8] = *a4;
   x = a4->x;
   y = a4->y;
   v14 = __sincosf_stret(a5);
-  v15 = *(this + 3) - v10;
+  v15 = this[3] - v10;
   if ((v15 >> 3) >= 1)
   {
     v16 = -v14.__sinval;
@@ -1787,14 +1785,14 @@ LABEL_15:
   return result;
 }
 
-uint64_t b2PolygonShape::RayCast(void *a1, float *a2, float *a3, float *a4)
+uint64_t b2PolygonShape::RayCast(void *a1, float *a2, float *a3, float *a4, __n128 a5)
 {
-  v4 = a3[4];
-  v5 = a1[2];
-  v6 = a1[3] - v5;
-  if ((v6 >> 3) < 1)
+  v5 = a3[4];
+  v6 = a1[2];
+  v7 = a1[3] - v6;
+  if ((v7 >> 3) < 1)
   {
-    if (v4 >= 0.0)
+    if (v5 >= 0.0)
     {
       return 0;
     }
@@ -1803,74 +1801,74 @@ LABEL_26:
     b2PolygonShape::RayCast();
   }
 
-  v7 = 0;
-  v8 = a4[1];
-  v9 = *a3 - *a4;
-  v10 = a3[1] - v8;
-  v12 = a4[2];
-  v11 = a4[3];
-  v13 = (v10 * v12) + (v11 * v9);
-  v14 = (v11 * v10) - (v12 * v9);
-  v15 = a3[2] - *a4;
-  v16 = a3[3] - v8;
-  v17 = (v12 * v16) + (v11 * v15);
-  v18 = (v11 * v16) - (v12 * v15);
-  v19 = v17 - v13;
+  v8 = 0;
+  v9 = a4[1];
+  v10 = *a3 - *a4;
+  v11 = a3[1] - v9;
+  v13 = a4[2];
+  v12 = a4[3];
+  v14 = (v11 * v13) + (v12 * v10);
+  v15 = (v12 * v11) - (v13 * v10);
+  v16 = a3[2] - *a4;
+  v17 = a3[3] - v9;
+  v18 = (v13 * v17) + (v12 * v16);
+  v19 = (v12 * v17) - (v13 * v16);
   v20 = v18 - v14;
-  v21 = (v6 >> 3) & 0x7FFFFFFF;
-  v22 = (a1[5] + 4);
-  v23 = (v5 + 4);
-  v24 = -1;
-  v25 = 0.0;
-  v26 = a3[4];
+  v21 = v19 - v15;
+  v22 = (v7 >> 3) & 0x7FFFFFFF;
+  v23 = (a1[5] + 4);
+  v24 = (v6 + 4);
+  v25 = -1;
+  v26 = 0.0;
+  v27 = a3[4];
   do
   {
-    v27 = *(v22 - 1);
-    v28 = ((*v23 - v14) * *v22) + (v27 * (*(v23 - 1) - v13));
-    v29 = (v20 * *v22) + (v27 * v19);
-    if (v29 == 0.0)
+    v28 = *(v23 - 1);
+    v29 = ((*v24 - v15) * *v23) + (v28 * (*(v24 - 1) - v14));
+    v30 = (v21 * *v23) + (v28 * v20);
+    if (v30 == 0.0)
     {
-      if (v28 < 0.0)
+      if (v29 < 0.0)
       {
         return 0;
       }
     }
 
-    else if (v29 < 0.0 && v28 < (v25 * v29))
+    else if (v30 < 0.0 && v29 < (v26 * v30))
     {
-      v24 = v7;
-      v25 = v28 / v29;
+      v25 = v8;
+      v26 = v29 / v30;
     }
 
-    else if (v29 > 0.0 && v28 < (v26 * v29))
+    else if (v30 > 0.0 && v29 < (v27 * v30))
     {
-      v26 = v28 / v29;
+      v27 = v29 / v30;
     }
 
-    if (v26 < v25)
+    if (v27 < v26)
     {
       return 0;
     }
 
-    ++v7;
-    v22 += 2;
+    ++v8;
     v23 += 2;
+    v24 += 2;
   }
 
-  while (v21 != v7);
-  if (v25 < 0.0 || v25 > v4)
+  while (v22 != v8);
+  if (v26 < 0.0 || v26 > v5)
   {
     goto LABEL_26;
   }
 
-  if ((v24 & 0x80000000) == 0)
+  if ((v25 & 0x80000000) == 0)
   {
-    a2[2] = v25;
-    v32 = (a1[5] + 8 * v24);
-    v33 = v32[1];
-    v34 = (v11 * v33) + (v12 * *v32);
-    *a2 = (v33 * -v12) + (v11 * *v32);
-    a2[1] = v34;
+    a2[2] = v26;
+    v33 = (a1[5] + 8 * v25);
+    v34 = v33[1];
+    v35 = (v12 * v34) + (v13 * *v33);
+    *a2 = (v34 * -v13) + (v12 * *v33);
+    a2[1] = v35;
     return 1;
   }
 
@@ -1881,7 +1879,7 @@ float32x4_t b2PolygonShape::ComputeAABB(uint64_t a1, _OWORD *a2, float32x2_t *a3
 {
   v4 = a3[1];
   v3 = vrev64_s32(v4);
-  v4.f32[0] = -v4.f32[0];
+  *v4.i32 = -*v4.i32;
   v5 = *(a1 + 16);
   *v6.f32 = vadd_f32(*a3, vmla_n_f32(vmul_n_f32(v4, v5[1]), v3, *v5));
   v6.i64[1] = v6.i64[0];
@@ -2006,17 +2004,17 @@ void b2PolygonShape::~b2PolygonShape(b2PolygonShape *this)
   JUMPOUT(0x25F8C0280);
 }
 
-void *std::vector<b2Vec2>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<b2Vec2>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<PKPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<PKPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25E7CA5F8(_Unwind_Exception *exception_object)
@@ -2117,29 +2115,21 @@ float b2Mat33::GetSymInverse33(b2Mat33 *this, b2Mat33 *a2)
   return result;
 }
 
-uint64_t PKCMechanics::Solve(uint64_t result, __int128 *a2)
+void PKCMechanics::Solve(uint64_t *result, __int128 *a2)
 {
-  v2 = *(result + 8);
-  v3 = *(result + 16);
-  if (v2 != v3)
+  v2 = result[1];
+  v3 = result[2];
+  while (v2 != v3)
   {
-    v5 = result;
-    do
-    {
-      v6 = *v2++;
-      QuadTree::bounds(v6, &v11, &v12, &v13, &v14);
-      v7[0] = &unk_287079400;
-      v7[1] = v5;
-      v8 = *a2;
-      v9 = *(a2 + 2);
-      v10 = v6;
-      result = b2World::QueryAABB(*v5, v7, &v11);
-    }
-
-    while (v2 != v3);
+    v6 = *v2++;
+    QuadTree::bounds(v6, &v11, &v12, &v13, &v14);
+    v7[0] = &unk_287079400;
+    v7[1] = result;
+    v8 = *a2;
+    v9 = *(a2 + 2);
+    v10 = v6;
+    b2World::QueryAABB(*result, v7, &v11);
   }
-
-  return result;
 }
 
 void PKCMechanics::addQuadTree(PKCMechanics *this, QuadTree *a2)
@@ -2389,7 +2379,7 @@ void b2StackAllocator::Free(void **this, void *a2)
   {
     b2Free(a2);
     v5 = *(v4 - 2);
-    LODWORD(v3) = v2[132];
+    LODWORD(v3) = *(v2 + 132);
   }
 
   else
@@ -2398,8 +2388,8 @@ void b2StackAllocator::Free(void **this, void *a2)
     *v2 -= v5;
   }
 
-  v2[1] -= v5;
-  v2[132] = v3 - 1;
+  *(v2 + 1) -= v5;
+  *(v2 + 132) = v3 - 1;
 }
 
 void b2Timer::b2Timer(b2Timer *this)
@@ -2591,7 +2581,7 @@ void b2Body::SynchronizeFixtures(b2Body *this)
   }
 }
 
-void b2Body::SetType(b2Body *this, int a2, double a3, double a4, double a5, double a6, double a7, __n128 a8, __n128 a9)
+void b2Body::SetType(b2Body *this, int a2, double a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
 {
   if ((this->var17[443].var18 & 2) != 0)
   {
@@ -2654,7 +2644,7 @@ void b2Body::SetType(b2Body *this, int a2, double a3, double a4, double a5, doub
   }
 }
 
-float b2Body::ResetMassData(b2Body *this, double a2, double a3, double a4, double a5, double a6, __n128 a7, __n128 a8)
+float b2Body::ResetMassData(b2Body *this, double a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
   *&this->var26 = 0;
   *&this->var29 = 0;
@@ -2669,19 +2659,24 @@ float b2Body::ResetMassData(b2Body *this, double a2, double a3, double a4, doubl
     a7.n128_u32[0] = b2Vec2_zero_fn(void)::b2Vec2_zero_init;
     for (i = this->var20; i; i = i->var2)
     {
-      if (*&i->var1 != 0.0)
+      v12 = *&i->var1;
+      if (v12 != 0.0)
       {
         v25 = a8;
         v26 = a7;
-        (*(*i[1].var0 + 64))(i[1].var0, v27);
+        (*(*i[1].var0 + 64))(i[1].var0, v27, v12, a3, a4, a5, a6);
         a8 = v25;
         a7 = v26;
-        v12 = v27[0];
-        v13 = v27[1];
+        a3.n128_f32[0] = v27[0];
+        a4.n128_f32[0] = v27[1];
         this->var26 = v27[0] + this->var26;
-        a7.n128_f32[0] = v26.n128_f32[0] + (v12 * v13);
-        a8.n128_f32[0] = v25.n128_f32[0] + (v12 * v27[2]);
-        this->var29 = v27[3] + this->var29;
+        v13 = a3.n128_f32[0] * a4.n128_f32[0];
+        a4.n128_f32[0] = v28;
+        a5.n128_f32[0] = v29;
+        a3.n128_f32[0] = a3.n128_f32[0] * v28;
+        a7.n128_f32[0] = v26.n128_f32[0] + v13;
+        a8.n128_f32[0] = v25.n128_f32[0] + a3.n128_f32[0];
+        this->var29 = v29 + this->var29;
       }
     }
 
@@ -2929,7 +2924,7 @@ b2Body *b2Body::SetBullet(b2Body *this, int a2)
   return this;
 }
 
-float b2Body::SetFixedRotation(b2Body *this, int w1_0, double a2, double a3, double a4, double a5, double a6, __n128 a7, __n128 a8)
+float b2Body::SetFixedRotation(b2Body *this, int w1_0, double a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
   if (w1_0)
   {
@@ -3102,13 +3097,13 @@ uint64_t *b2ContactManager::UnBufferMove(b2ContactManager *this, int a2)
   return result;
 }
 
-uint64_t *b2ContactManager::MoveProxy(uint64_t a1, unsigned int a2, float32x2_t *a3, float32x2_t *a4)
+uint64_t *b2ContactManager::MoveProxy(uint64_t a1, int a2, float32x2_t *a3, float32x2_t *a4)
 {
   v6 = a2;
   result = b2DynamicTree::MoveProxy((a1 + 16), a2, a3, a4);
   if (result)
   {
-    return std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>((a1 + 56), &v6);
+    return std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>((a1 + 56), &v6, &v6);
   }
 
   return result;
@@ -3118,11 +3113,11 @@ uint64_t b2ContactManager::CreateProxyId(uint64_t a1, float32x2_t *a2)
 {
   ProxyId = b2DynamicTree::CreateProxyId((a1 + 16), a2);
   ++*(a1 + 8);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>((a1 + 56), &ProxyId);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>((a1 + 56), &ProxyId, &ProxyId);
   return ProxyId;
 }
 
-uint64_t b2ContactManager::DestroyProxy(b2ContactManager *this, unsigned int a2)
+uint64_t b2ContactManager::DestroyProxy(b2ContactManager *this, int a2)
 {
   b2ContactManager::UnBufferMove(this, a2);
   --*(this + 2);
@@ -3319,7 +3314,7 @@ LABEL_26:
         {
           v24 = *(*&result->var10.var1.var0.var1 + 24);
           v25 = *(*&result->var10.var2.var0.var0 + 24);
-          std::__hash_table<b2Contact *,std::hash<b2Contact *>,std::equal_to<b2Contact *>,std::allocator<b2Contact *>>::__emplace_unique_key_args<b2Contact *,b2Contact * const&>(&v9->var15, &v32);
+          std::__hash_table<b2Contact *,std::hash<b2Contact *>,std::equal_to<b2Contact *>,std::allocator<b2Contact *>>::__emplace_unique_key_args<b2Contact *,b2Contact * const&>(&v9->var15, &v32, &v32);
           v26 = v32;
           v27 = v32;
           *&v32->var4 = v25;
@@ -3378,12 +3373,12 @@ uint64_t b2ContactManager::InvalidateContacts(uint64_t this)
   return this;
 }
 
-uint64_t b2ContactManager::QueryCallback(b2ContactManager *this, unsigned int a2)
+uint64_t b2ContactManager::QueryCallback(b2ContactManager *this, signed int a2)
 {
   LODWORD(v2) = *(this + 44);
   if (v2 != a2)
   {
-    if ((a2 & 0x80000000) != 0 || (v3 = *(this + 9), v3 <= a2))
+    if (a2 < 0 || (v3 = *(this + 9), v3 <= a2))
     {
       b2ContactManager::QueryCallback();
     }
@@ -3436,7 +3431,7 @@ uint64_t b2ContactManager::QueryCallback(b2ContactManager *this, unsigned int a2
       }
 
       v19 = v2 | (v17 << 32);
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this + 12, &v19);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(this + 12, &v19, &v19);
     }
   }
 
@@ -3580,119 +3575,119 @@ LABEL_33:
   }
 }
 
-void *b2ContactManager::FindNewContacts(b2Body *this)
+b2Body *b2ContactManager::FindNewContacts(b2Body *this)
 {
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear(&this->var10.var2.var0.var1);
   for (i = this->var10.var1.var0.var0; i; i = **&i)
   {
-    v3 = *(*&i + 16);
-    LODWORD(this->var20) = v3;
-    if (v3 != -1)
+    v5 = *(*&i + 16);
+    LODWORD(this->var20) = v5;
+    if (v5 != -1)
     {
-      if ((v3 & 0x80000000) != 0 || SLODWORD(this->var8.var0.y) <= v3)
+      if ((v5 & 0x80000000) != 0 || SLODWORD(this->var8.var0.y) <= v5)
       {
         b2ContactManager::FindNewContacts();
       }
 
-      b2DynamicTree::Query<b2ContactManager>(&this->var4, this, (*&this->var6 + 48 * v3));
+      b2DynamicTree::Query<b2ContactManager>(&this->var4, this, (*&this->var6 + 48 * v5), v2, v3);
     }
   }
 
   result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear(&this->var9.var1);
   for (j = *&this->var11.y; j; j = *j)
   {
-    v6 = j[2];
-    if (v6 < 0 || (y_low = LODWORD(this->var8.var0.y), y_low <= SHIDWORD(v6)))
+    v8 = j[2];
+    if (v8 < 0 || (y_low = LODWORD(this->var8.var0.y), y_low <= SHIDWORD(v8)))
     {
       b2ContactManager::FindNewContacts();
     }
 
-    if ((v6 & 0x80000000) != 0 || y_low <= v6)
+    if ((v8 & 0x80000000) != 0 || y_low <= v8)
     {
       b2ContactManager::FindNewContacts();
     }
 
-    result = b2ContactManager::AddPair(this, *(*&this->var6 + 48 * HIDWORD(v6) + 16), *(*&this->var6 + 48 * (j[2] & 0x7FFFFFFFLL) + 16));
+    result = b2ContactManager::AddPair(this, *(*&this->var6 + 48 * HIDWORD(v8) + 16), *(*&this->var6 + 48 * (j[2] & 0x7FFFFFFFLL) + 16));
   }
 
   return result;
 }
 
-void **b2DynamicTree::Query<b2ContactManager>(int *a1, b2ContactManager *this, float *a3)
+void **b2DynamicTree::Query<b2ContactManager>(int *a1, b2ContactManager *this, float *a3, __n128 a4, __n128 a5)
 {
-  v19 = v20;
-  v6 = *a1;
-  v22 = 256;
-  v20[0] = v6;
-  v7 = 1;
+  v21 = v22;
+  v8 = *a1;
+  v24 = 256;
+  v22[0] = v8;
+  v9 = 1;
   do
   {
-    v8 = v7 - 1;
-    v21 = v7 - 1;
-    v9 = v19;
-    v10 = v19[v7 - 1];
-    if (v10 != -1)
+    v10 = v9 - 1;
+    v23 = v9 - 1;
+    v11 = v21;
+    v12 = v21[v9 - 1];
+    if (v12 != -1)
     {
-      v11 = *(a1 + 1) + 48 * v10;
-      if (*a3 <= *(v11 + 8) && a3[1] <= *(v11 + 12) && *v11 <= a3[2] && *(v11 + 4) <= a3[3])
+      v13 = *(a1 + 1) + 48 * v12;
+      if (*a3 <= *(v13 + 8) && a3[1] <= *(v13 + 12) && *v13 <= a3[2] && *(v13 + 4) <= a3[3])
       {
-        v14 = *(v11 + 36);
-        if (v14 == -1)
+        v16 = *(v13 + 36);
+        if (v16 == -1)
         {
-          b2ContactManager::QueryCallback(this, v10);
-          v8 = v21;
+          b2ContactManager::QueryCallback(this, v12);
+          v10 = v23;
         }
 
         else
         {
-          v15 = v22;
-          if (v7 <= v22)
+          v17 = v24;
+          if (v9 <= v24)
           {
-            v19[v8] = v14;
+            v21[v10] = v16;
           }
 
           else
           {
-            v22 *= 2;
-            v19 = b2Alloc(8 * v15);
-            memcpy(v19, v9, 4 * v21);
-            if (v9 != v20)
+            v24 *= 2;
+            v21 = b2Alloc(8 * v17);
+            memcpy(v21, v11, 4 * v23);
+            if (v11 != v22)
             {
-              b2Free(v9);
+              b2Free(v11);
             }
 
-            v9 = v19;
-            v19[v21] = *(v11 + 36);
+            v11 = v21;
+            v21[v23] = *(v13 + 36);
           }
 
-          v16 = v21 + 1;
-          v21 = v16;
-          v17 = v22;
-          if (v16 >= v22)
+          v18 = v23 + 1;
+          v23 = v18;
+          v19 = v24;
+          if (v18 >= v24)
           {
-            v22 *= 2;
-            v19 = b2Alloc(8 * v17);
-            memcpy(v19, v9, 4 * v21);
-            if (v9 != v20)
+            v24 *= 2;
+            v21 = b2Alloc(8 * v19);
+            memcpy(v21, v11, 4 * v23);
+            if (v11 != v22)
             {
-              b2Free(v9);
+              b2Free(v11);
             }
 
-            v9 = v19;
-            v16 = v21;
+            v11 = v21;
+            v18 = v23;
           }
 
-          v9[v16] = *(v11 + 40);
-          v8 = ++v21;
+          v11[v18] = *(v13 + 40);
+          v10 = ++v23;
         }
       }
     }
 
-    v7 = v8;
+    v9 = v10;
   }
 
-  while (v8 > 0);
-  return b2GrowableStack<int,256>::~b2GrowableStack(&v19);
+  while (v10 > 0);
+  return b2GrowableStack<int,256>::~b2GrowableStack(&v21);
 }
 
 uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(void *a1, int *a2)
@@ -3886,33 +3881,33 @@ LABEL_19:
   return result;
 }
 
-uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3920,75 +3915,75 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::__hash_table<b2Contact *,std::hash<b2Contact *>,std::equal_to<b2Contact *>,std::allocator<b2Contact *>>::__emplace_unique_key_args<b2Contact *,b2Contact * const&>(void *a1, void *a2)
+void *std::__hash_table<b2Contact *,std::hash<b2Contact *>,std::equal_to<b2Contact *>,std::allocator<b2Contact *>>::__emplace_unique_key_args<b2Contact *,b2Contact * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -3996,73 +3991,73 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -4070,44 +4065,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::clear(void *result)
@@ -4227,20 +4222,20 @@ void b2Fixture::CreateProxies(b2Fixture *this, b2ContactManager *a2, const b2Tra
   }
 }
 
-void std::vector<b2FixtureProxy>::resize(void *a1, unint64_t a2)
+void std::vector<b2FixtureProxy>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<b2FixtureProxy>::__append(a1, a2 - v2);
+    std::vector<b2FixtureProxy>::__append(result, a2 - v2);
   }
 }
 
@@ -4452,9 +4447,9 @@ void b2Island::~b2Island(b2Island *this)
   }
 }
 
-void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a5, float a6, float a7, float a8, float a9, int a10, char *a11)
+void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, uint64_t **a4, double a5, float a6, float a7, float a8, float a9, int a10, char *a11)
 {
-  PKCAether::Evaluator::Evaluator(&v89, a4);
+  PKCAether::Evaluator::Evaluator(&v97, a4);
   v21 = a1[2];
   if (a1[3] != v21)
   {
@@ -4470,11 +4465,11 @@ void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a
       *(v25 + 80) = v26;
       if (*(v25 + 20) == 2)
       {
-        v75 = v20;
-        v76 = v26;
-        v26.i64[0] = *(v25 + 32);
-        v74 = v26;
-        PKCAether::Evaluator::evalVelocity(&v89, *(v25 + 4), v26, v20, *(v25 + 208), *(v25 + 216), a5);
+        v83 = v20;
+        v84 = v26;
+        v26.n128_u64[0] = *(v25 + 32);
+        v82 = v26;
+        PKCAether::Evaluator::evalVelocity(&v97, *(v25 + 4), v26, v20, *(v25 + 208), *(v25 + 216), a5);
         if (*&v28 >= 3.4028e38)
         {
           if (*v25)
@@ -4488,10 +4483,10 @@ void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a
           }
 
           v29.n128_u32[0] = *(v25 + 208);
-          PKCAether::Evaluator::evalForce(&v89, *(v25 + 4), v31, v74, v75, v29, *(v25 + 216), a5);
+          PKCAether::Evaluator::evalForce(&v97, *(v25 + 4), v31, v82, v83, v29, *(v25 + 216), a5);
           v30 = *a3;
-          v20.n128_u64[1] = v75.n128_u64[1];
-          v20.n128_u64[0] = vadd_f32(v75.n128_u64[0], vmul_n_f32(vadd_f32(v32, *(v25 + 140)), *a3 * *(v25 + 212)));
+          v20.n128_u64[1] = v83.n128_u64[1];
+          v20.n128_u64[0] = vadd_f32(v83.n128_u64[0], vmul_n_f32(vadd_f32(v32, *(v25 + 140)), *a3 * *(v25 + 212)));
         }
 
         else
@@ -4513,7 +4508,7 @@ void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a
           v27 = v27 * (1.0 / ((v30 * v34) + 1.0));
         }
 
-        v26 = v76;
+        v26 = v84;
       }
 
       *(a1[11] + v22) = v26;
@@ -4528,171 +4523,171 @@ void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a
     while (v24 < (a1[3] - v21) >> 3);
   }
 
-  v85 = *a3;
+  v93 = *a3;
   v35 = a1[11];
   v36 = a1[12];
-  v86 = *(a3 + 2);
-  v87 = v35;
-  v88 = v36;
-  v78 = *a3;
-  v79 = *(a3 + 2);
-  v80 = (a1[6] - a1[5]) >> 3;
-  v81 = v35;
-  v82 = v36;
-  v83 = *a1;
-  v84 = a6;
-  b2ContactSolver::b2ContactSolver(v77, &v78, a1 + 2, a1 + 5);
-  b2ContactSolver::InitializeVelocityConstraints(v77);
+  v94 = *(a3 + 2);
+  v95 = v35;
+  v96 = v36;
+  v86 = *a3;
+  v87 = *(a3 + 2);
+  v88 = (a1[6] - a1[5]) >> 3;
+  v89 = v35;
+  v90 = v36;
+  v91 = *a1;
+  v92 = a6;
+  b2ContactSolver::b2ContactSolver(v85, &v86, (a1 + 2), (a1 + 5));
+  b2ContactSolver::InitializeVelocityConstraints(v85);
   if (*(a3 + 20) == 1)
   {
-    b2ContactSolver::WarmStart(v77);
+    b2ContactSolver::WarmStart(v85);
   }
 
-  v37 = a1[8];
-  v38 = a1[9];
-  while (v37 != v38)
+  v45 = a1[8];
+  v46 = a1[9];
+  while (v45 != v46)
   {
-    (*(**v37 + 48))(*v37, &v85);
-    ++v37;
+    (*(**v45 + 48))(*v45, &v93);
+    ++v45;
   }
 
   if (*(a3 + 3) >= 1)
   {
-    v39 = 0;
+    v47 = 0;
     do
     {
-      v40 = a1[8];
-      v41 = a1[9];
-      while (v40 != v41)
+      v48 = a1[8];
+      v49 = a1[9];
+      while (v48 != v49)
       {
-        (*(**v40 + 56))(*v40, &v85);
-        ++v40;
+        (*(**v48 + 56))(*v48, &v93);
+        ++v48;
       }
 
-      b2ContactSolver::SolveVelocityConstraints(v77);
-      ++v39;
+      b2ContactSolver::SolveVelocityConstraints(v85, v37, v38, v39, v40, v41, v42, v43, v44);
+      ++v47;
     }
 
-    while (v39 < *(a3 + 3));
+    while (v47 < *(a3 + 3));
   }
 
-  b2ContactSolver::StoreImpulses(v77);
-  v42 = a1[2];
-  v43 = a1[3];
-  if (v43 != v42)
+  b2ContactSolver::StoreImpulses(v85);
+  v50 = a1[2];
+  v51 = a1[3];
+  if (v51 != v50)
   {
-    v44 = 0;
+    v52 = 0;
     do
     {
-      v45 = *(a1[12] + 16 * v44);
-      v46 = *a3;
-      v47 = vmulq_f32(v45, v45).u64[0];
-      v48 = vmuls_lane_f32(v46 * v46, v47, 1) + (v47.f32[0] * (v46 * v46));
-      if (v48 > 4.0)
+      v53 = *(a1[12] + 16 * v52);
+      v54 = *a3;
+      v55 = vmulq_f32(v53, v53).u64[0];
+      v56 = vmuls_lane_f32(v54 * v54, v55, 1) + (v55.f32[0] * (v54 * v54));
+      if (v56 > 4.0)
       {
-        v49.i64[0] = vmulq_n_f32(v45, 2.0 / sqrtf(v48)).u64[0];
-        v49.i64[1] = *(a1[12] + 16 * v44 + 8);
-        v45 = v49;
+        v57.i64[0] = vmulq_n_f32(v53, 2.0 / sqrtf(v56)).u64[0];
+        v57.i64[1] = *(a1[12] + 16 * v52 + 8);
+        v53 = v57;
       }
 
-      v50 = vmuls_lane_f32(v46, v45, 3);
-      if ((v50 * v50) > 2.4674)
+      v58 = vmuls_lane_f32(v54, v53, 3);
+      if ((v58 * v58) > 2.4674)
       {
-        if (v50 <= 0.0)
+        if (v58 <= 0.0)
         {
-          v50 = -v50;
+          v58 = -v58;
         }
 
-        v45.f32[3] = v45.f32[3] * (1.5708 / v50);
+        v53.f32[3] = v53.f32[3] * (1.5708 / v58);
       }
 
-      *(a1[11] + 16 * v44) = vmlaq_n_f32(*(a1[11] + 16 * v44), v45, v46);
-      *(a1[12] + 16 * v44++) = v45;
-      v42 = a1[2];
-      v43 = a1[3];
+      *(a1[11] + 16 * v52) = vmlaq_n_f32(*(a1[11] + 16 * v52), v53, v54);
+      *(a1[12] + 16 * v52++) = v53;
+      v50 = a1[2];
+      v51 = a1[3];
     }
 
-    while (v44 < (v43 - v42) >> 3);
+    while (v52 < (v51 - v50) >> 3);
   }
 
   if (*(a3 + 4) < 1)
   {
-    v56 = 1;
+    v64 = 1;
   }
 
   else
   {
-    v51 = 0;
+    v59 = 0;
     do
     {
-      v52 = b2ContactSolver::SolvePositionConstraints(v77);
-      v53 = a1[8];
-      v54 = a1[9];
-      v55 = 1;
-      while (v53 != v54)
+      v60 = b2ContactSolver::SolvePositionConstraints(v85);
+      v61 = a1[8];
+      v62 = a1[9];
+      v63 = 1;
+      while (v61 != v62)
       {
-        v55 &= (*(**v53 + 64))(*v53, &v85);
-        ++v53;
+        v63 &= (*(**v61 + 64))(*v61, &v93);
+        ++v61;
       }
 
-      if (v52 & v55)
+      if (v60 & v63)
       {
         break;
       }
 
-      ++v51;
+      ++v59;
     }
 
-    while (v51 < *(a3 + 4));
-    v56 = v52 & v55 ^ 1;
-    v42 = a1[2];
-    v43 = a1[3];
+    while (v59 < *(a3 + 4));
+    v64 = v60 & v63 ^ 1;
+    v50 = a1[2];
+    v51 = a1[3];
   }
 
-  if (v43 != v42)
+  if (v51 != v50)
   {
-    v57 = 0;
-    v58 = 0;
+    v65 = 0;
+    v66 = 0;
     do
     {
-      v59 = *(v42 + 8 * v58);
-      *(v59 + 96) = *(a1[11] + v57);
-      *(v59 + 128) = *(a1[12] + v57);
-      *(v59 + 136) = *(a1[12] + v57 + 12);
-      v60 = __sincosf_stret(*(v59 + 108));
-      *(v59 + 40) = v60;
-      v61 = *(v59 + 64);
-      v62 = *(v59 + 68);
-      v63 = *(v59 + 100) - ((v60.__cosval * v62) + (v60.__sinval * v61));
-      *(v59 + 32) = *(v59 + 96) - ((v60.__cosval * v61) - (v60.__sinval * v62));
-      *(v59 + 36) = v63;
-      ++v58;
-      v42 = a1[2];
-      v57 += 16;
+      v67 = *(v50 + 8 * v66);
+      *(v67 + 96) = *(a1[11] + v65);
+      *(v67 + 128) = *(a1[12] + v65);
+      *(v67 + 136) = *(a1[12] + v65 + 12);
+      v68 = __sincosf_stret(*(v67 + 108));
+      *(v67 + 40) = v68;
+      v69 = *(v67 + 64);
+      v70 = *(v67 + 68);
+      v71 = *(v67 + 100) - ((v68.__cosval * v70) + (v68.__sinval * v69));
+      *(v67 + 32) = *(v67 + 96) - ((v68.__cosval * v69) - (v68.__sinval * v70));
+      *(v67 + 36) = v71;
+      ++v66;
+      v50 = a1[2];
+      v65 += 16;
     }
 
-    while (v58 < (a1[3] - v42) >> 3);
+    while (v66 < (a1[3] - v50) >> 3);
   }
 
-  b2Island::Report(a1, v77[9]);
+  b2Island::Report(a1, v85[9]);
   if (a10)
   {
-    v65 = a1[2];
-    v64 = a1[3];
-    if (v65 == v64)
+    v73 = a1[2];
+    v72 = a1[3];
+    if (v73 == v72)
     {
-      v67 = 3.4028e38;
+      v75 = 3.4028e38;
       if (a9 > 3.4028e38)
       {
-        v72 = 1;
+        v80 = 1;
       }
 
       else
       {
-        v72 = v56;
+        v80 = v64;
       }
 
-      if ((v72 & 1) == 0)
+      if ((v80 & 1) == 0)
       {
         goto LABEL_72;
       }
@@ -4700,80 +4695,80 @@ void b2Island::Solve(uint64_t *a1, int a2, __int128 *a3, PKCAether *a4, double a
 
     else
     {
-      v66 = *a3;
-      v67 = 3.4028e38;
-      v68 = v65;
+      v74 = *a3;
+      v75 = 3.4028e38;
+      v76 = v73;
       do
       {
-        v69 = *v68;
-        if ((*v68)->var5)
+        v77 = *v76;
+        if ((*v76)->var5)
         {
-          if ((v69->var6 & 4) != 0 && (*&v69->var15 * *&v69->var15) <= (a8 * a8) && ((*(&v69->var14 + 1) * *(&v69->var14 + 1)) + (v69->var14 * v69->var14)) <= (a7 * a7))
+          if ((v77->var6 & 4) != 0 && (*&v77->var15 * *&v77->var15) <= (a8 * a8) && ((*(&v77->var14 + 1) * *(&v77->var14 + 1)) + (v77->var14 * v77->var14)) <= (a7 * a7))
           {
-            v70 = v66 + *&v69[1].var1;
-            *&v69[1].var1 = v70;
-            if (v67 >= v70)
+            v78 = v74 + *&v77[1].var1;
+            *&v77[1].var1 = v78;
+            if (v75 >= v78)
             {
-              v67 = v70;
+              v75 = v78;
             }
           }
 
           else
           {
-            v69[1].var1 = 0;
-            v67 = 0.0;
+            v77[1].var1 = 0;
+            v75 = 0.0;
           }
         }
 
-        ++v68;
+        ++v76;
       }
 
-      while (v68 != v64);
-      if (v67 < a9)
+      while (v76 != v72);
+      if (v75 < a9)
       {
-        v71 = 1;
+        v79 = 1;
       }
 
       else
       {
-        v71 = v56;
+        v79 = v64;
       }
 
-      if ((v71 & 1) == 0)
+      if ((v79 & 1) == 0)
       {
         do
         {
-          b2Body::SetAwake(*v65++, 0);
+          b2Body::SetAwake(*v73++, 0);
         }
 
-        while (v65 != v64);
+        while (v73 != v72);
 LABEL_72:
-        v73 = 1;
+        v81 = 1;
         goto LABEL_73;
       }
     }
 
-    v73 = (v67 > 0.0) & ~v56;
+    v81 = (v75 > 0.0) & ~v64;
 LABEL_73:
-    *a11 = v73;
+    *a11 = v81;
   }
 
-  b2ContactSolver::~b2ContactSolver(v77);
-  if (v90)
+  b2ContactSolver::~b2ContactSolver(v85);
+  if (v98)
   {
-    v91 = v90;
-    operator delete(v90);
+    v99 = v98;
+    operator delete(v98);
   }
 
-  v77[0] = &v89;
-  std::vector<std::shared_ptr<PKCField>>::__destroy_vector::operator()[abi:ne200100](v77);
+  v85[0] = &v97;
+  std::vector<std::shared_ptr<PKCField>>::__destroy_vector::operator()[abi:ne200100](v85);
 }
 
-void sub_25E7CE06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25E7CE06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   b2ContactSolver::~b2ContactSolver(va);
-  PKCAether::Evaluator::~Evaluator((v8 - 224));
+  PKCAether::Evaluator::~Evaluator((v15 - 224));
   _Unwind_Resume(a1);
 }
 
@@ -4861,19 +4856,19 @@ void b2Island::SolveTOI(void *a1, __int128 *a2, int a3, int a4, float a5)
     while (v11 != v13);
   }
 
-  v38 = (a1[6] - a1[5]) >> 3;
-  v40 = *a1;
-  v36 = *a2;
-  v37 = *(a2 + 2);
-  v39 = *(a1 + 11);
-  v41 = a5;
-  b2ContactSolver::b2ContactSolver(v34, &v36, a1 + 2, a1 + 5);
+  v45 = (a1[6] - a1[5]) >> 3;
+  v47 = *a1;
+  v43 = *a2;
+  v44 = *(a2 + 2);
+  v46 = *(a1 + 11);
+  v48 = a5;
+  b2ContactSolver::b2ContactSolver(v41, &v43, (a1 + 2), (a1 + 5));
   if (*(a2 + 4) >= 1)
   {
     v15 = 0;
     do
     {
-      if (b2ContactSolver::SolveTOIPositionConstraints(v34, a3, a4))
+      if (b2ContactSolver::SolveTOIPositionConstraints(v41, a3, a4))
       {
         break;
       }
@@ -4886,78 +4881,78 @@ void b2Island::SolveTOI(void *a1, __int128 *a2, int a3, int a4, float a5)
 
   *(*(a1[2] + 8 * a3) + 80) = *(a1[11] + 16 * a3);
   *(*(a1[2] + 8 * a4) + 80) = *(a1[11] + 16 * a4);
-  b2ContactSolver::InitializeVelocityConstraints(v34);
+  b2ContactSolver::InitializeVelocityConstraints(v41);
   if (*(a2 + 3) >= 1)
   {
-    v17 = 0;
+    v24 = 0;
     do
     {
-      b2ContactSolver::SolveVelocityConstraints(v34);
-      ++v17;
+      b2ContactSolver::SolveVelocityConstraints(v41, v16, v17, v18, v19, v20, v21, v22, v23);
+      ++v24;
     }
 
-    while (v17 < *(a2 + 3));
+    while (v24 < *(a2 + 3));
   }
 
   if (v7 >= 1)
   {
-    v18 = 0;
-    v16.i32[0] = *a2;
-    v19 = *v16.i32 * *v16.i32;
-    v32 = *a2;
-    v31 = vdupq_lane_s32(v16, 0);
+    v25 = 0;
+    v16.n128_u32[0] = *a2;
+    v26 = v16.n128_f32[0] * v16.n128_f32[0];
+    v39 = *a2;
+    v38 = vdupq_lane_s32(v16.n128_u64[0], 0);
     do
     {
-      v20 = *(a1[12] + 16 * v18);
-      v21 = vmulq_f32(v20, v20).u64[0];
-      v22 = vmuls_lane_f32(v19, v21, 1) + (v21.f32[0] * v19);
-      if (v22 > 4.0)
+      v27 = *(a1[12] + 16 * v25);
+      v28 = vmulq_f32(v27, v27).u64[0];
+      v29 = vmuls_lane_f32(v26, v28, 1) + (v28.f32[0] * v26);
+      if (v29 > 4.0)
       {
-        v23.i64[0] = vmulq_n_f32(v20, 2.0 / sqrtf(v22)).u64[0];
-        v23.i64[1] = *(a1[12] + 16 * v18 + 8);
-        v20 = v23;
+        v30.i64[0] = vmulq_n_f32(v27, 2.0 / sqrtf(v29)).u64[0];
+        v30.i64[1] = *(a1[12] + 16 * v25 + 8);
+        v27 = v30;
       }
 
-      v24 = v20.f32[3];
-      v25 = vmuls_lane_f32(v32, v20, 3);
-      if ((v25 * v25) > 2.4674)
+      v31 = v27.f32[3];
+      v32 = vmuls_lane_f32(v39, v27, 3);
+      if ((v32 * v32) > 2.4674)
       {
-        if (v25 <= 0.0)
+        if (v32 <= 0.0)
         {
-          v25 = -v25;
+          v32 = -v32;
         }
 
-        v24 = v20.f32[3] * (1.5708 / v25);
-        v20.f32[3] = v24;
+        v31 = v27.f32[3] * (1.5708 / v32);
+        v27.f32[3] = v31;
       }
 
-      v26 = a1[11];
-      v33 = vmlaq_f32(*(v26 + 16 * v18), v20, v31);
-      *(v26 + 16 * v18) = v33;
-      *(a1[12] + 16 * v18) = v20;
-      v27 = *(a1[2] + 8 * v18);
-      *(v27 + 96) = v33;
-      *(v27 + 128) = v20.i64[0];
-      *(v27 + 136) = v24;
-      v28 = __sincosf_stret(v33.f32[3]);
-      *(v27 + 40) = v28;
-      v29 = *(v27 + 64);
-      v30 = *(v27 + 68);
-      *(v27 + 32) = v33.f32[0] - ((v28.__cosval * v29) - (v28.__sinval * v30));
-      *(v27 + 36) = v33.f32[1] - ((v28.__cosval * v30) + (v28.__sinval * v29));
-      ++v18;
+      v33 = a1[11];
+      v40 = vmlaq_f32(*(v33 + 16 * v25), v27, v38);
+      *(v33 + 16 * v25) = v40;
+      *(a1[12] + 16 * v25) = v27;
+      v34 = *(a1[2] + 8 * v25);
+      *(v34 + 96) = v40;
+      *(v34 + 128) = v27.i64[0];
+      *(v34 + 136) = v31;
+      v35 = __sincosf_stret(v40.f32[3]);
+      *(v34 + 40) = v35;
+      v36 = *(v34 + 64);
+      v37 = *(v34 + 68);
+      *(v34 + 32) = v40.f32[0] - ((v35.__cosval * v36) - (v35.__sinval * v37));
+      *(v34 + 36) = v40.f32[1] - ((v35.__cosval * v37) + (v35.__sinval * v36));
+      ++v25;
     }
 
-    while (v11 != v18);
+    while (v11 != v25);
   }
 
-  b2Island::Report(a1, v35);
-  b2ContactSolver::~b2ContactSolver(v34);
+  b2Island::Report(a1, v42);
+  b2ContactSolver::~b2ContactSolver(v41);
 }
 
-void sub_25E7CE498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25E7CE498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   b2ContactSolver::~b2ContactSolver(va);
   _Unwind_Resume(a1);
 }
@@ -5062,7 +5057,7 @@ void b2World::~b2World(b2World *this)
     operator delete(v8);
   }
 
-  b2ContactManager::~b2ContactManager((this + 102944));
+  b2ContactManager::~b2ContactManager(this + 12868);
 
   b2StackAllocator::~b2StackAllocator(this);
 }
@@ -5084,45 +5079,45 @@ void b2World::CreateBody(b2World *this, const b2BodyDef *a2)
   b2World::CreateBody();
 }
 
-void b2World::DestroyBody(b2World *this, b2Body *a2, uint64_t a3)
+void b2World::DestroyBody(b2World *this, b2Body *a2)
 {
-  v3 = this + 102400;
+  v2 = this + 102400;
   if (*(this + 25786) > 0)
   {
     if ((*(this + 102936) & 2) == 0)
     {
-      v6 = *&a2->var22;
-      if (v6)
+      v5 = *&a2->var22;
+      if (v5)
       {
         do
         {
-          v7 = *(v6 + 24);
-          v8 = *(v3 + 96);
-          if (v8)
+          v6 = *(v5 + 24);
+          v7 = *(v2 + 96);
+          if (v7)
           {
-            (*(*v8 + 16))(v8, *(v6 + 8));
+            (*(*v7 + 16))(v7, *(v5 + 8));
           }
 
-          b2World::DestroyJoint(this, *(v6 + 8));
-          *&a2->var22 = v7;
-          v6 = v7;
+          b2World::DestroyJoint(this, *(v5 + 8));
+          *&a2->var22 = v6;
+          v5 = v6;
         }
 
-        while (v7);
+        while (v6);
       }
 
       *&a2->var22 = 0;
-      v9 = *&a2->var24;
-      if (v9)
+      v8 = *&a2->var24;
+      if (v8)
       {
         do
         {
-          v10 = *(v9 + 24);
-          b2ContactManager::DestroyContact((this + 102944), *(v9 + 8));
-          v9 = v10;
+          v9 = *(v8 + 24);
+          b2ContactManager::DestroyContact((this + 102944), *(v8 + 8));
+          v8 = v9;
         }
 
-        while (v10);
+        while (v9);
       }
 
       *&a2->var24 = 0;
@@ -5132,10 +5127,10 @@ void b2World::DestroyBody(b2World *this, b2Body *a2, uint64_t a3)
         do
         {
           var2 = var20->var2;
-          v13 = *(v3 + 96);
-          if (v13)
+          v12 = *(v2 + 96);
+          if (v12)
           {
-            (*(*v13 + 24))(v13, var20);
+            (*(*v12 + 24))(v12, var20);
           }
 
           b2Fixture::DestroyProxies(var20, (this + 102944));
@@ -5151,24 +5146,24 @@ void b2World::DestroyBody(b2World *this, b2Body *a2, uint64_t a3)
       a2->var20 = 0;
       LODWORD(a2->var21) = 0;
       var18 = a2->var18;
-      v14 = *&a2->var19;
+      v13 = *&a2->var19;
       if (var18)
       {
-        *(var18 + 21) = v14;
+        *(var18 + 21) = v13;
       }
 
-      if (v14)
+      if (v13)
       {
-        *(v14 + 160) = var18;
+        *(v13 + 160) = var18;
       }
 
-      if (*(v3 + 91) == a2)
+      if (*(v2 + 91) == a2)
       {
-        *(v3 + 91) = v14;
+        *(v2 + 91) = v13;
       }
 
-      --*(v3 + 186);
-      PKCMechanics::QueryAABB(a2, a2, a3);
+      --*(v2 + 186);
+      PKCMechanics::QueryAABB();
 
       JUMPOUT(0x25F8C0280);
     }
@@ -5512,21 +5507,28 @@ void b2World::Solve(b2StackAllocator *a1, __int128 *a2)
   b2Island::~b2Island(v42);
 }
 
+void sub_25E7CF0E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  b2Island::~b2Island(va);
+  _Unwind_Resume(a1);
+}
+
 void b2World::SolveTOI(b2ContactListener **a1, uint64_t a2)
 {
   v110 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 12800);
+  v2 = a1 + 12800;
   b2Island::b2Island(v89, 64, 32, 0, a1, a1[12868]);
-  v3 = (v2 + 136);
+  v3 = (v2 + 68);
   if (*(v2 + 791) == 1)
   {
-    for (i = *(v2 + 91); i; i = *(i + 168))
+    for (i = v2[91]; i; i = *(i + 21))
     {
-      *(i + 24) &= ~1u;
-      *(i + 112) = 0;
+      *(i + 12) &= ~1u;
+      *(i + 28) = 0;
     }
 
-    b2ContactManager::InvalidateContacts((v2 + 136));
+    b2ContactManager::InvalidateContacts((v2 + 68));
   }
 
   v5 = 1;
@@ -5861,7 +5863,7 @@ LABEL_72:
   HIDWORD(v98) = v74;
   LODWORD(v99) = 20;
   BYTE4(v99) = 0;
-  b2Island::SolveTOI(v89, &v98, v82->var7, v83->var7, v79[200]);
+  b2Island::SolveTOI(v89, &v98, v82->var7, v83->var7, *(v79 + 200));
   v75 = v90;
   v76 = v91;
   while (v75 != v76)
@@ -5891,9 +5893,9 @@ LABEL_76:
   b2Island::~b2Island(v89);
 }
 
-void sub_25E7CF918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25E7CF918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   b2Island::~b2Island(va);
   _Unwind_Resume(a1);
 }
@@ -5925,7 +5927,7 @@ void b2World::Step(b2World *this, float a2, int a3, int a4)
   b2ContactManager::Collide((this + 102944));
   if (v6 > 0.0 && (v8[791] & 1) != 0)
   {
-    PKCMechanics::Solve(this + 103224, &v13);
+    PKCMechanics::Solve(this + 12903, &v13);
     b2World::Solve(this, &v13);
     LODWORD(v6) = v13;
   }
@@ -5965,24 +5967,24 @@ b2World *b2World::ClearForces(b2World *this)
   return this;
 }
 
-uint64_t b2World::QueryAABB(uint64_t a1, uint64_t a2, float *a3)
+void b2World::QueryAABB(uint64_t a1, uint64_t a2, float *a3)
+{
+  v3[0] = a1 + 102944;
+  v3[1] = a2;
+  b2DynamicTree::Query<b2WorldQueryWrapper>((a1 + 102960), v3, a3);
+  PKCMechanics::QueryAABB();
+}
+
+void b2World::RayCast(uint64_t a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4)
 {
   v7[0] = a1 + 102944;
   v7[1] = a2;
-  b2DynamicTree::Query<b2WorldQueryWrapper>((a1 + 102960), v7, a3);
-  return PKCMechanics::QueryAABB(a1 + 103224, a2, a3);
-}
-
-uint64_t b2World::RayCast(uint64_t a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4)
-{
-  v11[0] = a1 + 102944;
-  v11[1] = a2;
-  v10 = 1065353216;
-  v7 = *a4;
-  v9[0] = *a3;
-  v9[1] = v7;
-  b2DynamicTree::RayCast<b2WorldRayCastWrapper>((a1 + 102960), v11, v9);
-  return PKCMechanics::QueryAABB(a1 + 103224, a2, a3);
+  v6 = 1065353216;
+  v4 = *a4;
+  v5[0] = *a3;
+  v5[1] = v4;
+  b2DynamicTree::RayCast<b2WorldRayCastWrapper>((a1 + 102960), v7, v5);
+  PKCMechanics::QueryAABB();
 }
 
 void b2World::DrawShape(uint64_t a1, uint64_t a2, b2Transform *a3, QuadTreeNode *a4)
@@ -6258,7 +6260,7 @@ void b2World::DrawDebugData(b2World *this)
         if ((v32[0] - v33.f32[0]) > 0.0)
         {
           v21 = v32[1] - v33.f32[1];
-          v17.i64[0] = 0;
+          v17.n128_u64[0] = 0;
           v27 = v17;
           v22 = v20 / v31;
           do
@@ -6270,9 +6272,9 @@ void b2World::DrawDebugData(b2World *this)
               {
                 v23 = v27;
                 v28 = v18;
-                v23.i32[1] = v18;
-                *v23.f32 = vadd_f32(*v23.f32, v33);
-                v30 = v23.i64[0];
+                v23.n128_u32[1] = v18;
+                v23.n128_u64[0] = vadd_f32(v23.n128_u64[0], v33);
+                v30 = v23.n128_u64[0];
                 v19.n128_u32[0] = 1.0;
                 PKCAether::Evaluator::evalForce(&v36, -1, 0.0, v23, 0, v19, 0.0, *(v2 + 99));
                 v24 = *(v2 + 97);
@@ -6286,11 +6288,11 @@ void b2World::DrawDebugData(b2World *this)
             }
 
             v26 = v27;
-            v26.f32[0] = v22 + v27.f32[0];
+            v26.n128_f32[0] = v22 + v27.n128_f32[0];
             v27 = v26;
           }
 
-          while (v26.f32[0] < v20);
+          while (v26.n128_f32[0] < v20);
         }
 
         if (__p[1])
@@ -6306,9 +6308,9 @@ void b2World::DrawDebugData(b2World *this)
   }
 }
 
-void sub_25E7D05C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25E7D05C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   PKCAether::Evaluator::~Evaluator(va);
   _Unwind_Resume(a1);
 }
@@ -6402,9 +6404,9 @@ LABEL_29:
   return b2GrowableStack<int,256>::~b2GrowableStack(&v22);
 }
 
-uint64_t b2ContactManager::GetFixtureProxy(b2ContactManager *this, unsigned int a2)
+uint64_t b2ContactManager::GetFixtureProxy(b2ContactManager *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 9) <= a2)
+  if (a2 < 0 || *(this + 9) <= a2)
   {
     b2ContactManager::FindNewContacts();
   }
@@ -6590,7 +6592,7 @@ LABEL_40:
   return b2GrowableStack<int,256>::~b2GrowableStack(&v53);
 }
 
-float32_t b2WorldRayCastWrapper::RayCastCallback(uint64_t a1, float32x2_t *a2, unsigned int a3)
+float32_t b2WorldRayCastWrapper::RayCastCallback(uint64_t a1, float32x2_t *a2, signed int a3)
 {
   FixtureProxy = b2ContactManager::GetFixtureProxy(*a1, a3);
   v6 = *(FixtureProxy + 16);
@@ -6842,7 +6844,7 @@ void b2CircleContact::b2CircleContact(b2CircleContact *this, b2Fixture *a2, b2Fi
 
 void b2Contact::InitializeRegisters(b2Contact *this)
 {
-  b2Contact::s_registers = b2CircleContact::Create;
+  b2Contact::s_registers[0] = b2CircleContact::Create;
   byte_27FD07110 = 1;
   qword_27FD071A8 = b2PolygonAndCircleContact::Create;
   byte_27FD071B0 = 1;
@@ -7414,244 +7416,244 @@ uint64_t b2ContactSolver::WarmStart(uint64_t this)
   return this;
 }
 
-uint64_t b2ContactSolver::SolveVelocityConstraints(uint64_t this)
+uint64_t b2ContactSolver::SolveVelocityConstraints(uint64_t this, __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
 {
   if (*(this + 80) >= 1)
   {
-    v1 = 0;
+    v9 = 0;
     for (i = 16; ; i += 152)
     {
-      v3 = *(this + 72);
-      v4 = v3 + 152 * v1;
-      v6 = *(v4 + 112);
-      v5 = *(v4 + 116);
-      v7 = **(this + 24);
-      v8 = *(v7 + 8 * v6);
-      v9 = *(v7 + 8 * v5);
-      v10 = *(v8 + 8);
-      v11 = *(v9 + 8) & *(v8 + 12);
-      v12 = v10 & *(v9 + 12);
-      if (v11 | v12)
+      v11 = *(this + 72);
+      v12 = v11 + 152 * v9;
+      v14 = *(v12 + 112);
+      v13 = *(v12 + 116);
+      v15 = **(this + 24);
+      v16 = *(v15 + 8 * v14);
+      v17 = *(v15 + 8 * v13);
+      v18 = *(v16 + 8);
+      v19 = *(v17 + 8) & *(v16 + 12);
+      v20 = v18 & *(v17 + 12);
+      if (v19 | v20)
       {
         break;
       }
 
 LABEL_36:
-      if (++v1 >= *(this + 80))
+      if (++v9 >= *(this + 80))
       {
         return this;
       }
     }
 
-    v14 = *(v4 + 120);
-    v13 = *(v4 + 124);
-    v16 = *(v4 + 128);
-    v15 = *(v4 + 132);
-    v17 = *(v4 + 144);
-    v18 = *(this + 48);
-    v19 = (v18 + 16 * v6);
-    v20 = *v19;
-    v21 = v19[1];
-    v22 = v19[3];
-    v23 = (v18 + 16 * v5);
-    v25 = *v23;
-    v24 = v23[1];
-    v26 = v23[3];
-    v28 = *(v4 + 72);
-    v27 = *(v4 + 76);
-    if (v17 >= 1)
+    v22 = *(v12 + 120);
+    v21 = *(v12 + 124);
+    v24 = *(v12 + 128);
+    v23 = *(v12 + 132);
+    v25 = *(v12 + 144);
+    v26 = *(this + 48);
+    v27 = (v26 + 16 * v14);
+    v28 = *v27;
+    v29 = v27[1];
+    v30 = v27[3];
+    v31 = (v26 + 16 * v13);
+    v33 = *v31;
+    v32 = v31[1];
+    v34 = v31[3];
+    v36 = *(v12 + 72);
+    v35 = *(v12 + 76);
+    if (v25 >= 1)
     {
-      v29 = -v28;
-      v30 = *(v4 + 136);
-      v31 = -v16;
-      v32 = (v3 + i);
-      v33 = *(v4 + 144);
+      v37 = -v36;
+      v38 = *(v12 + 136);
+      v39 = -v24;
+      v40 = (v11 + i);
+      v41 = *(v12 + 144);
       do
       {
-        v35 = *(v32 - 2);
-        v34 = *(v32 - 1);
-        v37 = *(v32 - 4);
-        v36 = *(v32 - 3);
-        v38 = v32[1];
-        v39 = v38 - (v32[3] * (((((v24 + (v26 * v35)) - v21) - (v22 * v37)) * v29) + ((((v25 - (v26 * v34)) - v20) + (v22 * v36)) * v27)));
-        if (v39 >= (v30 * *v32))
+        v43 = *(v40 - 2);
+        v42 = *(v40 - 1);
+        v45 = *(v40 - 4);
+        v44 = *(v40 - 3);
+        v46 = v40[1];
+        v47 = v46 - (v40[3] * (((((v32 + (v34 * v43)) - v29) - (v30 * v45)) * v37) + ((((v33 - (v34 * v42)) - v28) + (v30 * v44)) * v35)));
+        if (v47 >= (v38 * *v40))
         {
-          v39 = v30 * *v32;
+          v47 = v38 * *v40;
         }
 
-        if (v39 < -(v30 * *v32))
+        if (v47 < -(v38 * *v40))
         {
-          v39 = -(v30 * *v32);
+          v47 = -(v38 * *v40);
         }
 
-        v40 = v39 - v38;
-        v32[1] = v39;
-        v41 = v27 * (v39 - v38);
-        v42 = v40 * v29;
-        if (v11)
+        v48 = v47 - v46;
+        v40[1] = v47;
+        v49 = v35 * (v47 - v46);
+        v50 = v48 * v37;
+        if (v19)
         {
-          v20 = v20 - (v14 * v41);
-          v21 = v21 - (v14 * v42);
-          v22 = v22 + (v31 * ((v37 * v42) - (v36 * v41)));
+          v28 = v28 - (v22 * v49);
+          v29 = v29 - (v22 * v50);
+          v30 = v30 + (v39 * ((v45 * v50) - (v44 * v49)));
         }
 
-        if (v12)
+        if (v20)
         {
-          v25 = v25 + (v13 * v41);
-          v24 = v24 + (v13 * v42);
-          v26 = v26 + (v15 * ((v35 * v42) - (v34 * v41)));
+          v33 = v33 + (v21 * v49);
+          v32 = v32 + (v21 * v50);
+          v34 = v34 + (v23 * ((v43 * v50) - (v42 * v49)));
         }
 
-        v32 += 9;
-        --v33;
+        v40 += 9;
+        --v41;
       }
 
-      while (v33);
-      if (v17 == 1)
+      while (v41);
+      if (v25 == 1)
       {
-        v44 = *(v4 + 8);
-        v43 = *(v4 + 12);
-        v46 = *v4;
-        v45 = *(v4 + 4);
-        v47 = *(v4 + 16);
-        v48 = fmaxf(v47 - (*(v4 + 24) * (((v27 * (((v24 + (v26 * v44)) - v21) - (v22 * *v4))) + ((((v25 - (v26 * v43)) - v20) + (v22 * v45)) * v28)) - *(v4 + 32))), 0.0);
-        *(v4 + 16) = v48;
-        v49 = v28 * (v48 - v47);
-        v50 = v27 * (v48 - v47);
-        if (v11)
+        v52 = *(v12 + 8);
+        v51 = *(v12 + 12);
+        v54 = *v12;
+        v53 = *(v12 + 4);
+        v55 = *(v12 + 16);
+        v56 = fmaxf(v55 - (*(v12 + 24) * (((v35 * (((v32 + (v34 * v52)) - v29) - (v30 * *v12))) + ((((v33 - (v34 * v51)) - v28) + (v30 * v53)) * v36)) - *(v12 + 32))), 0.0);
+        *(v12 + 16) = v56;
+        v57 = v36 * (v56 - v55);
+        v58 = v35 * (v56 - v55);
+        if (v19)
         {
-          v20 = v20 - (v14 * v49);
-          v21 = v21 - (v14 * v50);
-          v22 = v22 + (v31 * ((v46 * v50) - (v45 * v49)));
+          v28 = v28 - (v22 * v57);
+          v29 = v29 - (v22 * v58);
+          v30 = v30 + (v39 * ((v54 * v58) - (v53 * v57)));
         }
 
-        if (v12)
+        if (v20)
         {
-          v25 = v25 + (v13 * v49);
-          v24 = v24 + (v13 * v50);
-          v26 = v26 + (v15 * ((v44 * v50) - (v43 * v49)));
+          v33 = v33 + (v21 * v57);
+          v32 = v32 + (v21 * v58);
+          v34 = v34 + (v23 * ((v52 * v58) - (v51 * v57)));
         }
 
         goto LABEL_32;
       }
     }
 
-    v51 = *(v4 + 16);
-    if (v51 < 0.0 || (v52 = *(v4 + 52), v52 < 0.0))
+    v59 = *(v12 + 16);
+    if (v59 < 0.0 || (v60 = *(v12 + 52), v60 < 0.0))
     {
       b2ContactSolver::SolveVelocityConstraints();
     }
 
-    v53 = *(v4 + 8);
-    v54 = *(v4 + 12);
-    v55 = *v4;
-    v56 = *(v4 + 4);
-    v57 = *(v4 + 44);
-    v58 = *(v4 + 48);
-    v60 = *(v4 + 36);
-    v59 = *(v4 + 40);
-    v61 = *(v4 + 104);
-    v62 = *(v4 + 100);
-    v63 = (((v27 * (((v24 + (v26 * v53)) - v21) - (v22 * *v4))) + ((((v25 - (v26 * v54)) - v20) + (v22 * v56)) * v28)) - *(v4 + 32)) - ((v52 * v61) + (*(v4 + 96) * v51));
-    v64 = (((v27 * (((v24 + (v26 * v57)) - v21) - (v22 * v60))) + ((((v25 - (v26 * v58)) - v20) + (v22 * v59)) * v28)) - *(v4 + 68)) - ((v52 * *(v4 + 108)) + (v62 * v51));
-    v65 = (*(v4 + 88) * v64) + (*(v4 + 80) * v63);
-    if (v65 > 0.0 || (v66 = (v64 * *(v4 + 92)) + (*(v4 + 84) * v63), v66 > 0.0))
+    v61 = *(v12 + 8);
+    v62 = *(v12 + 12);
+    v63 = *v12;
+    v64 = *(v12 + 4);
+    v65 = *(v12 + 44);
+    v66 = *(v12 + 48);
+    v68 = *(v12 + 36);
+    v67 = *(v12 + 40);
+    v69 = *(v12 + 104);
+    v70 = *(v12 + 100);
+    v71 = (((v35 * (((v32 + (v34 * v61)) - v29) - (v30 * *v12))) + ((((v33 - (v34 * v62)) - v28) + (v30 * v64)) * v36)) - *(v12 + 32)) - ((v60 * v69) + (*(v12 + 96) * v59));
+    v72 = (((v35 * (((v32 + (v34 * v65)) - v29) - (v30 * v68))) + ((((v33 - (v34 * v66)) - v28) + (v30 * v67)) * v36)) - *(v12 + 68)) - ((v60 * *(v12 + 108)) + (v70 * v59));
+    v73 = (*(v12 + 88) * v72) + (*(v12 + 80) * v71);
+    if (v73 > 0.0 || (v74 = (v72 * *(v12 + 92)) + (*(v12 + 84) * v71), v74 > 0.0))
     {
-      v73 = -(*(v4 + 24) * v63);
-      if (v73 < 0.0 || (v64 + (v62 * v73)) < 0.0)
+      v81 = -(*(v12 + 24) * v71);
+      if (v81 < 0.0 || (v72 + (v70 * v81)) < 0.0)
       {
-        v80 = -(*(v4 + 60) * v64);
-        if (v80 >= 0.0 && (v63 + (v61 * v80)) >= 0.0)
+        v88 = -(*(v12 + 60) * v72);
+        if (v88 >= 0.0 && (v71 + (v69 * v88)) >= 0.0)
         {
-          v81 = 0.0 - v51;
-          v82 = v80 - v52;
-          v83 = v28 * v81;
-          v84 = v27 * v81;
-          v85 = v28 * v82;
-          v86 = v27 * v82;
-          v20 = v20 - (v14 * (v83 + v85));
-          v21 = v21 - (v14 * (v84 + v86));
-          v22 = v22 - (v16 * (((v55 * v84) - (v56 * v83)) + ((v60 * v86) - (v59 * v85))));
-          v25 = v25 + (v13 * (v83 + v85));
-          v24 = v24 + (v13 * (v84 + v86));
-          v26 = v26 + (v15 * (((v53 * v84) - (v54 * v83)) + ((v57 * v86) - (v58 * v85))));
-          *(v4 + 16) = 0;
-          *(v4 + 52) = v80;
+          v89 = 0.0 - v59;
+          v90 = v88 - v60;
+          v91 = v36 * v89;
+          v92 = v35 * v89;
+          v93 = v36 * v90;
+          v94 = v35 * v90;
+          v28 = v28 - (v22 * (v91 + v93));
+          v29 = v29 - (v22 * (v92 + v94));
+          v30 = v30 - (v24 * (((v63 * v92) - (v64 * v91)) + ((v68 * v94) - (v67 * v93))));
+          v33 = v33 + (v21 * (v91 + v93));
+          v32 = v32 + (v21 * (v92 + v94));
+          v34 = v34 + (v23 * (((v61 * v92) - (v62 * v91)) + ((v65 * v94) - (v66 * v93))));
+          *(v12 + 16) = 0;
+          *(v12 + 52) = v88;
           goto LABEL_32;
         }
 
-        if (v63 < 0.0 || v64 < 0.0)
+        if (v71 < 0.0 || v72 < 0.0)
         {
           goto LABEL_32;
         }
 
-        v88 = 0.0 - v51;
-        v89 = 0.0 - v52;
-        v90 = v28 * v88;
-        v91 = v27 * v88;
-        v92 = v28 * v89;
-        v93 = v27 * v89;
-        v20 = v20 - (v14 * (v90 + v92));
-        v21 = v21 - (v14 * (v91 + v93));
-        v22 = v22 - (v16 * (((v55 * v91) - (v56 * v90)) + ((v60 * v93) - (v59 * v92))));
-        v25 = v25 + (v13 * (v90 + v92));
-        v24 = v24 + (v13 * (v91 + v93));
-        v26 = v26 + (v15 * (((v53 * v91) - (v54 * v90)) + ((v57 * v93) - (v58 * v92))));
-        *(v4 + 16) = 0;
+        v96 = 0.0 - v59;
+        v97 = 0.0 - v60;
+        v98 = v36 * v96;
+        v99 = v35 * v96;
+        v100 = v36 * v97;
+        v101 = v35 * v97;
+        v28 = v28 - (v22 * (v98 + v100));
+        v29 = v29 - (v22 * (v99 + v101));
+        v30 = v30 - (v24 * (((v63 * v99) - (v64 * v98)) + ((v68 * v101) - (v67 * v100))));
+        v33 = v33 + (v21 * (v98 + v100));
+        v32 = v32 + (v21 * (v99 + v101));
+        v34 = v34 + (v23 * (((v61 * v99) - (v62 * v98)) + ((v65 * v101) - (v66 * v100))));
+        *(v12 + 16) = 0;
       }
 
       else
       {
-        v74 = v73 - v51;
-        v75 = 0.0 - v52;
-        v76 = v28 * v74;
-        v77 = v27 * v74;
-        v78 = v28 * v75;
-        v79 = v27 * v75;
-        v20 = v20 - (v14 * (v78 + v76));
-        v21 = v21 - (v14 * (v79 + v77));
-        v22 = v22 - (v16 * (((v60 * v79) - (v59 * v78)) + ((v55 * v77) - (v56 * v76))));
-        v25 = v25 + (v13 * (v78 + v76));
-        v24 = v24 + (v13 * (v79 + v77));
-        v26 = v26 + (v15 * (((v57 * v79) - (v58 * v78)) + ((v53 * v77) - (v54 * v76))));
-        *(v4 + 16) = v73;
+        v82 = v81 - v59;
+        v83 = 0.0 - v60;
+        v84 = v36 * v82;
+        v85 = v35 * v82;
+        v86 = v36 * v83;
+        v87 = v35 * v83;
+        v28 = v28 - (v22 * (v86 + v84));
+        v29 = v29 - (v22 * (v87 + v85));
+        v30 = v30 - (v24 * (((v68 * v87) - (v67 * v86)) + ((v63 * v85) - (v64 * v84))));
+        v33 = v33 + (v21 * (v86 + v84));
+        v32 = v32 + (v21 * (v87 + v85));
+        v34 = v34 + (v23 * (((v65 * v87) - (v66 * v86)) + ((v61 * v85) - (v62 * v84))));
+        *(v12 + 16) = v81;
       }
 
-      *(v4 + 52) = 0;
+      *(v12 + 52) = 0;
     }
 
     else
     {
-      v67 = -v65 - v51;
-      v68 = -v66 - v52;
-      v69 = v28 * v67;
-      v70 = v27 * v67;
-      v71 = v28 * v68;
-      v72 = v27 * v68;
-      v20 = v20 - (v14 * (v69 + v71));
-      v21 = v21 - (v14 * (v70 + v72));
-      v22 = v22 - (v16 * (((v55 * v70) - (v56 * v69)) + ((v60 * v72) - (v59 * v71))));
-      v25 = v25 + (v13 * (v69 + v71));
-      v24 = v24 + (v13 * (v70 + v72));
-      v26 = v26 + (v15 * (((v53 * v70) - (v54 * v69)) + ((v57 * v72) - (v58 * v71))));
-      *(v4 + 16) = -v65;
-      *(v4 + 52) = -v66;
+      v75 = -v73 - v59;
+      v76 = -v74 - v60;
+      v77 = v36 * v75;
+      v78 = v35 * v75;
+      v79 = v36 * v76;
+      v80 = v35 * v76;
+      v28 = v28 - (v22 * (v77 + v79));
+      v29 = v29 - (v22 * (v78 + v80));
+      v30 = v30 - (v24 * (((v63 * v78) - (v64 * v77)) + ((v68 * v80) - (v67 * v79))));
+      v33 = v33 + (v21 * (v77 + v79));
+      v32 = v32 + (v21 * (v78 + v80));
+      v34 = v34 + (v23 * (((v61 * v78) - (v62 * v77)) + ((v65 * v80) - (v66 * v79))));
+      *(v12 + 16) = -v73;
+      *(v12 + 52) = -v74;
     }
 
 LABEL_32:
-    if (v11)
+    if (v19)
     {
-      *v19 = v20;
-      v19[1] = v21;
-      *(*(this + 48) + 16 * v6 + 12) = v22;
+      *v27 = v28;
+      v27[1] = v29;
+      *(*(this + 48) + 16 * v14 + 12) = v30;
     }
 
-    if (v12)
+    if (v20)
     {
-      v87 = (*(this + 48) + 16 * v5);
-      *v87 = v25;
-      v87[1] = v24;
-      *(*(this + 48) + 16 * v5 + 12) = v26;
+      v95 = (*(this + 48) + 16 * v13);
+      *v95 = v33;
+      v95[1] = v32;
+      *(*(this + 48) + 16 * v13 + 12) = v34;
     }
 
     goto LABEL_36;

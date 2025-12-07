@@ -1,4 +1,5 @@
 @interface CSVoiceTriggerAssetHandler
++ (id)assetHandlerFactoryWithDisableOnDeviceCompilation:(BOOL)compilation;
 + (id)sharedHandler;
 + (id)sharedHandlerDisabledOnDeviceCompilation;
 - (CSVoiceTriggerAssetHandler)init;
@@ -159,6 +160,35 @@
   }
 
   return v2;
+}
+
++ (id)assetHandlerFactoryWithDisableOnDeviceCompilation:(BOOL)compilation
+{
+  compilationCopy = compilation;
+  if (+[CSUtils isDarwinOS])
+  {
+    v4 = objc_alloc_init(CSVoiceTriggerAssetHandlerDarwin);
+  }
+
+  else
+  {
+    v5 = +[CSFPreferences sharedPreferences];
+    isVoiceTriggerAssetOverridingEnabled = [v5 isVoiceTriggerAssetOverridingEnabled];
+
+    if (isVoiceTriggerAssetOverridingEnabled)
+    {
+      v7 = CSVoiceTriggerAssetHandlerFromFile;
+    }
+
+    else
+    {
+      v7 = CSVoiceTriggerAssetHandlerMac;
+    }
+
+    v4 = [[v7 alloc] initWithDisableOnDeviceCompilation:compilationCopy];
+  }
+
+  return v4;
 }
 
 + (id)sharedHandlerDisabledOnDeviceCompilation

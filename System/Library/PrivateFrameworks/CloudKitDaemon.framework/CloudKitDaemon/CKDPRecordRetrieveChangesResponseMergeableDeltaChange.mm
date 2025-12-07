@@ -44,7 +44,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   identifier = self->_identifier;
   if (identifier)
@@ -72,30 +72,30 @@
     v18 = objc_alloc(MEMORY[0x277CBEB18]);
     v21 = objc_msgSend_count(self->_deltas, v19, v20);
     v23 = objc_msgSend_initWithCapacity_(v18, v22, v21);
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v24 = self->_deltas;
-    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v40, v44, 16);
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v39, v43, 16);
     if (v26)
     {
       v29 = v26;
-      v30 = *v41;
+      v30 = *v40;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v41 != v30)
+          if (*v40 != v30)
           {
             objc_enumerationMutation(v24);
           }
 
-          v32 = objc_msgSend_dictionaryRepresentation(*(*(&v40 + 1) + 8 * i), v27, v28, v40);
+          v32 = objc_msgSend_dictionaryRepresentation(*(*(&v39 + 1) + 8 * i), v27, v28, v39);
           objc_msgSend_addObject_(v23, v33, v32);
         }
 
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v40, v44, 16);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v39, v43, 16);
       }
 
       while (v29);
@@ -111,14 +111,12 @@
     objc_msgSend_setObject_forKey_(v6, v37, v36, @"recordType");
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_identifier)
   {
@@ -135,33 +133,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_deltas;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v14, v18, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
     while (v8);
@@ -171,8 +168,6 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -220,7 +215,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -236,34 +231,34 @@
   v19 = v10[2];
   v10[2] = v18;
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v20 = self->_deltas;
-  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v34, v38, 16);
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v33, v37, 16);
   if (v22)
   {
     v24 = v22;
-    v25 = *v35;
+    v25 = *v34;
     do
     {
       v26 = 0;
       do
       {
-        if (*v35 != v25)
+        if (*v34 != v25)
         {
           objc_enumerationMutation(v20);
         }
 
-        v27 = objc_msgSend_copyWithZone_(*(*(&v34 + 1) + 8 * v26), v23, zone, v34);
+        v27 = objc_msgSend_copyWithZone_(*(*(&v33 + 1) + 8 * v26), v23, zone, v33);
         objc_msgSend_addDeltas_(v10, v28, v27);
 
         ++v26;
       }
 
       while (v24 != v26);
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v34, v38, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v33, v37, 16);
     }
 
     while (v24);
@@ -273,7 +268,6 @@
   v31 = v10[5];
   v10[5] = v30;
 
-  v32 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -281,22 +275,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_12;
-  }
-
-  identifier = self->_identifier;
-  v9 = equalCopy[3];
-  if (identifier | v9)
-  {
-    if (!objc_msgSend_isEqual_(identifier, v7, v9))
-    {
-      goto LABEL_12;
-    }
-  }
-
-  if (((recordIdentifier = self->_recordIdentifier, v11 = equalCopy[4], !(recordIdentifier | v11)) || objc_msgSend_isEqual_(recordIdentifier, v7, v11)) && ((fieldIdentifier = self->_fieldIdentifier, v13 = equalCopy[2], !(fieldIdentifier | v13)) || objc_msgSend_isEqual_(fieldIdentifier, v7, v13)) && ((deltas = self->_deltas, v15 = equalCopy[1], !(deltas | v15)) || objc_msgSend_isEqual_(deltas, v7, v15)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((identifier = self->_identifier, v9 = equalCopy[3], !(identifier | v9)) || objc_msgSend_isEqual_(identifier, v7, v9)) && ((recordIdentifier = self->_recordIdentifier, v11 = equalCopy[4], !(recordIdentifier | v11)) || objc_msgSend_isEqual_(recordIdentifier, v7, v11)) && ((fieldIdentifier = self->_fieldIdentifier, v13 = equalCopy[2], !(fieldIdentifier | v13)) || objc_msgSend_isEqual_(fieldIdentifier, v7, v13)) && ((deltas = self->_deltas, v15 = equalCopy[1], !(deltas | v15)) || objc_msgSend_isEqual_(deltas, v7, v15)))
   {
     recordType = self->_recordType;
     v17 = equalCopy[5];
@@ -313,7 +292,6 @@
 
   else
   {
-LABEL_12:
     isEqual = 0;
   }
 
@@ -331,7 +309,7 @@ LABEL_12:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   identifier = self->_identifier;
   v7 = *(fromCopy + 3);
@@ -378,29 +356,29 @@ LABEL_12:
     objc_msgSend_setFieldIdentifier_(self, v4, v11);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v12 = *(fromCopy + 1);
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v23, v27, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v22, v26, 16);
   if (v14)
   {
     v16 = v14;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        objc_msgSend_addDeltas_(self, v15, *(*(&v23 + 1) + 8 * i), v23);
+        objc_msgSend_addDeltas_(self, v15, *(*(&v22 + 1) + 8 * i), v22);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v23, v27, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v22, v26, 16);
     }
 
     while (v16);
@@ -420,8 +398,6 @@ LABEL_12:
   {
     objc_msgSend_setRecordType_(self, v19, v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

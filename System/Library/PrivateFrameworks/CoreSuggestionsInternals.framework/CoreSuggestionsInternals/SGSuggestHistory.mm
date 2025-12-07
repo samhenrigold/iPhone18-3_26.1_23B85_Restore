@@ -24,8 +24,18 @@
 - (SGSuggestHistory)init;
 - (SGSuggestHistory)initWithKVS:(id)s kvStoreIdentifier:(id)identifier;
 - (id)_canaryHash;
+- (id)_hashesForConfirmedField:(id)field value:(id)value storageEvent:(id)event forMatching:(BOOL)matching;
+- (id)confirmHashesForOpaqueKey:(id)key withCreationTime:(SGUnixTimestamp_)time forMatching:(BOOL)matching;
+- (id)confirmHashesForOpaqueKeyWithoutTimestamp:(id)timestamp forMatching:(BOOL)matching;
 - (id)description;
 - (id)hashesByAddingCompatibilityHashesToHashes:(id)hashes forMatching:(BOOL)matching;
+- (id)hashesForContact:(id)contact forMatching:(BOOL)matching;
+- (id)hashesForContactDetail:(id)detail fromContact:(id)contact forMatching:(BOOL)matching;
+- (id)hashesForCuratedContactDetail:(id)detail fromContact:(id)contact forMatching:(BOOL)matching;
+- (id)hashesForOpaqueKey:(id)key forMatching:(BOOL)matching;
+- (id)hashesForPseudoEventByKey:(id)key forMatching:(BOOL)matching;
+- (id)hashesForStorageContact:(id)contact forMatching:(BOOL)matching;
+- (id)hashesForStrings:(id)strings forMatching:(BOOL)matching;
 - (id)identityBasedHashesForPseudoEvent:(id)event withCreationTime:(SGUnixTimestamp_)time;
 - (id)identityBasedHashesForPseudoReminder:(id)reminder withCreationTime:(SGUnixTimestamp_)time;
 - (id)keysForContact:(id)contact;
@@ -37,6 +47,7 @@
 - (id)legacyManateeSecret;
 - (id)loadResetInfo;
 - (id)mutableSetForKey:(id)key;
+- (id)rejectHashesForOpaqueKey:(id)key forMatching:(BOOL)matching;
 - (id)salt;
 - (void)_setHashes:(id)hashes forKey:(id)key;
 - (void)_setInternalStateAccordingToKVS:(id)s;
@@ -186,63 +197,61 @@ void __60__SGSuggestHistory_hasConfirmedField_value_forStorageEvent___block_invo
 
 - (void)confirmFieldValues:(id)values forStorageEvent:(id)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   eventCopy = event;
-  v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{2 * objc_msgSend(valuesCopy, "count")}];
+  v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2 * objc_msgSend_count(valuesCopy)];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v9 = valuesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v33;
+    v12 = *v32;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         v15 = [v9 objectForKeyedSubscript:v14];
         v16 = [(SGSuggestHistory *)self _hashesForConfirmedField:v14 value:v15 storageEvent:eventCopy forMatching:0];
         [v8 addObjectsFromArray:v16];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v11);
   }
 
   lock = self->_lock;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke;
-  v29[3] = &unk_27894C960;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke;
+  v28[3] = &unk_27894C960;
   v18 = v8;
-  v30 = v18;
+  v29 = v18;
   selfCopy = self;
-  [(_PASLock *)lock runWithLockAcquired:v29];
+  [(_PASLock *)lock runWithLockAcquired:v28];
   v19 = self->_lock;
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke_2;
-  v26 = &unk_27894C960;
-  v27 = v18;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke_2;
+  v25 = &unk_27894C960;
+  v26 = v18;
   selfCopy2 = self;
   v20 = v18;
-  [(_PASLock *)v19 runWithLockAcquired:&v23];
+  [(_PASLock *)v19 runWithLockAcquired:&v22];
   recordId = [eventCopy recordId];
   [SGDNotificationBroadcaster emitEventUpdated:recordId];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke(uint64_t a1, void *a2)
@@ -263,37 +272,66 @@ void __55__SGSuggestHistory_confirmFieldValues_forStorageEvent___block_invoke_2(
   [*(a1 + 40) pushConfirmedEventWithoutTimestampFields:v5];
 }
 
+- (id)_hashesForConfirmedField:(id)field value:(id)value storageEvent:(id)event forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v23[3] = *MEMORY[0x277D85DE8];
+  v10 = MEMORY[0x277CBEB18];
+  eventCopy = event;
+  valueCopy = value;
+  fieldCopy = field;
+  v14 = [[v10 alloc] initWithCapacity:2];
+  v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:valueCopy requiringSecureCoding:1 error:0];
+
+  [v15 bytes];
+  [v15 length];
+  v16 = _PASBytesToHex();
+  opaqueKey = [eventCopy opaqueKey];
+
+  v23[0] = opaqueKey;
+  v23[1] = fieldCopy;
+  v23[2] = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+
+  salt = [(SGSuggestHistory *)self salt];
+  v20 = SGSha256BytesForStrings(v18, salt);
+  [v14 addObject:v20];
+
+  v21 = [(SGSuggestHistory *)self hashesByAddingCompatibilityHashesToHashes:v14 forMatching:matchingCopy];
+
+  return v21;
+}
+
 - (BOOL)hasContactDetailKey:(id)key
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   serialize = [keyCopy serialize];
-  v19[0] = serialize;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = serialize;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v7 = [(SGSuggestHistory *)self hashesForStrings:v6 forMatching:1];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   lock = self->_lock;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __40__SGSuggestHistory_hasContactDetailKey___block_invoke;
-  v12[3] = &unk_27894C988;
-  v14 = &v15;
-  v12[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __40__SGSuggestHistory_hasContactDetailKey___block_invoke;
+  v11[3] = &unk_27894C988;
+  v13 = &v14;
+  v11[4] = self;
   v9 = v7;
-  v13 = v9;
-  [(_PASLock *)lock runWithLockAcquired:v12];
-  LOBYTE(v7) = *(v16 + 24);
+  v12 = v9;
+  [(_PASLock *)lock runWithLockAcquired:v11];
+  LOBYTE(v7) = *(v15 + 24);
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
   return v7 & 1;
 }
 
-uint64_t __40__SGSuggestHistory_hasContactDetailKey___block_invoke(uint64_t a1, uint64_t a2)
+void *__40__SGSuggestHistory_hasContactDetailKey___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _anyHash:*(a1 + 40) inSet:*(a2 + 72)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -340,7 +378,7 @@ void __48__SGSuggestHistory_hasContactDetail_forContact___block_invoke(void *a1,
 
 - (void)rejectEventFromExternalDevice:(id)device
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(SGSuggestHistory *)self kvs];
   v6 = [SGSuggestHistory newTestingInstanceWithSharedKVS:v5];
@@ -348,29 +386,28 @@ void __48__SGSuggestHistory_hasContactDetail_forContact___block_invoke(void *a1,
   opaqueKey = [deviceCopy opaqueKey];
   v8 = [v6 rejectHashesForOpaqueKey:opaqueKey forMatching:0];
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__8313;
-  v18 = __Block_byref_object_dispose__8314;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__8313;
+  v17 = __Block_byref_object_dispose__8314;
+  v18 = 0;
   lock = self->_lock;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __50__SGSuggestHistory_rejectEventFromExternalDevice___block_invoke;
-  v13[3] = &unk_27894C710;
-  v13[4] = &v14;
-  [(_PASLock *)lock runWithLockAcquired:v13];
-  [v15[5] addObjectsFromArray:v8];
-  [(SGSuggestHistory *)self _setHashes:v15[5] forKey:@"rejectedEvents"];
-  v20 = *MEMORY[0x277CCA7B0];
-  v21[0] = &unk_284749308;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__SGSuggestHistory_rejectEventFromExternalDevice___block_invoke;
+  v12[3] = &unk_27894C710;
+  v12[4] = &v13;
+  [(_PASLock *)lock runWithLockAcquired:v12];
+  [v14[5] addObjectsFromArray:v8];
+  [(SGSuggestHistory *)self _setHashes:v14[5] forKey:@"rejectedEvents"];
+  v19 = *MEMORY[0x277CCA7B0];
+  v20[0] = &unk_284749308;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v11 = [MEMORY[0x277CCAB88] notificationWithName:@"new data" object:self userInfo:v10];
   [(SGSuggestHistory *)self handleSyncedDataChanged:v11];
 
-  _Block_object_dispose(&v14, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __50__SGSuggestHistory_rejectEventFromExternalDevice___block_invoke(uint64_t a1, uint64_t a2)
@@ -385,7 +422,7 @@ uint64_t __50__SGSuggestHistory_rejectEventFromExternalDevice___block_invoke(uin
 
 - (void)confirmEventFromExternalDevice:(id)device
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(SGSuggestHistory *)self kvs];
   v6 = [SGSuggestHistory newTestingInstanceWithSharedKVS:v5];
@@ -398,40 +435,38 @@ uint64_t __50__SGSuggestHistory_rejectEventFromExternalDevice___block_invoke(uin
   opaqueKey2 = [deviceCopy opaqueKey];
   v11 = [v6 confirmHashesForOpaqueKeyWithoutTimestamp:opaqueKey2 forMatching:0];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__8313;
-  v27 = __Block_byref_object_dispose__8314;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__8313;
-  v21 = __Block_byref_object_dispose__8314;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__8313;
+  v26 = __Block_byref_object_dispose__8314;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__8313;
+  v20 = __Block_byref_object_dispose__8314;
+  v21 = 0;
   lock = self->_lock;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__SGSuggestHistory_confirmEventFromExternalDevice___block_invoke;
-  v16[3] = &unk_27894C7B0;
-  v16[4] = &v23;
-  v16[5] = &v17;
-  [(_PASLock *)lock runWithLockAcquired:v16];
-  [v24[5] addObjectsFromArray:v9];
-  [v18[5] addObjectsFromArray:v11];
-  [(SGSuggestHistory *)self _setHashes:v24[5] forKey:@"events"];
-  [(SGSuggestHistory *)self _setHashes:v18[5] forKey:@"eventsWithoutTimestamp"];
-  v29 = *MEMORY[0x277CCA7B0];
-  v30[0] = &unk_284749308;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __51__SGSuggestHistory_confirmEventFromExternalDevice___block_invoke;
+  v15[3] = &unk_27894C7B0;
+  v15[4] = &v22;
+  v15[5] = &v16;
+  [(_PASLock *)lock runWithLockAcquired:v15];
+  [v23[5] addObjectsFromArray:v9];
+  [v17[5] addObjectsFromArray:v11];
+  [(SGSuggestHistory *)self _setHashes:v23[5] forKey:@"events"];
+  [(SGSuggestHistory *)self _setHashes:v17[5] forKey:@"eventsWithoutTimestamp"];
+  v28 = *MEMORY[0x277CCA7B0];
+  v29[0] = &unk_284749308;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
   v14 = [MEMORY[0x277CCAB88] notificationWithName:@"new data" object:self userInfo:v13];
   [(SGSuggestHistory *)self handleSyncedDataChanged:v14];
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 uint64_t __51__SGSuggestHistory_confirmEventFromExternalDevice___block_invoke(uint64_t a1, void *a2)
@@ -473,7 +508,7 @@ uint64_t __51__SGSuggestHistory_confirmEventFromExternalDevice___block_invoke(ui
 
 - (BOOL)isValidSuggestion:(id)suggestion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -533,16 +568,15 @@ LABEL_20:
   v11 = sgLogHandle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v15 = 138412290;
-    v16 = objc_opt_class();
-    v14 = v16;
-    _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "Argument must be of type SGRealtimeContact or SGRealtimeEvent, but was %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = objc_opt_class();
+    v13 = v15;
+    _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "Argument must be of type SGRealtimeContact or SGRealtimeEvent, but was %@", &v14, 0xCu);
   }
 
   v8 = 1;
 LABEL_21:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -641,7 +675,7 @@ void __40__SGSuggestHistory_isConfirmedReminder___block_invoke(uint64_t a1, void
   return lock;
 }
 
-uint64_t __39__SGSuggestHistory_isValidNewReminder___block_invoke(uint64_t a1)
+void *__39__SGSuggestHistory_isValidNewReminder___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isConfirmedReminder:*(a1 + 40)];
   if (result)
@@ -676,29 +710,29 @@ uint64_t __39__SGSuggestHistory_isValidNewReminder___block_invoke(uint64_t a1)
 
 void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_creationTimestamp___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) rejectHashesForOpaqueKey:*(a1 + 40) forMatching:1];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v41 + 1) + 8 * i);
         if ([v3[3] containsObject:v10])
         {
           v11 = [*(a1 + 32) _canaryHash];
@@ -712,7 +746,7 @@ void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_crea
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v6);
@@ -722,28 +756,28 @@ void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_crea
     }
   }
 
-  v33 = v4;
+  v32 = v4;
   v13 = [*(a1 + 32) confirmHashesForOpaqueKey:*(a1 + 40) withCreationTime:1 forMatching:*(a1 + 48)];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v39;
+    v17 = *v38;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v39 != v17)
+        if (*v38 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * j);
+        v19 = *(*(&v37 + 1) + 8 * j);
         if ([v3[1] containsObject:v19])
         {
           v20 = [*(a1 + 32) _canaryHash];
@@ -757,7 +791,7 @@ void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_crea
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v15);
@@ -768,28 +802,28 @@ void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_crea
   }
 
   v22 = [*(a1 + 32) confirmHashesForOpaqueKeyWithoutTimestamp:*(a1 + 40) forMatching:1];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v23 = [v22 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v23)
   {
     v24 = v23;
-    v32 = v13;
+    v31 = v13;
     v25 = 0;
-    v26 = *v35;
+    v26 = *v34;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v35 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(v22);
         }
 
-        v28 = *(*(&v34 + 1) + 8 * k);
-        if ([v3[2] containsObject:{v28, v32}])
+        v28 = *(*(&v33 + 1) + 8 * k);
+        if ([v3[2] containsObject:{v28, v31}])
         {
           v29 = [*(a1 + 32) _canaryHash];
           v30 = [v28 isEqual:v29];
@@ -802,18 +836,16 @@ void __86__SGSuggestHistory_removeConfirmationHistoryForEntityWithOpaqueKey_crea
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v24);
-    v13 = v32;
+    v13 = v31;
     if (v25)
     {
       [*(a1 + 32) pushConfirmedEventsWithoutTimestamp:v3];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeConfirmationHistoryForEvent:(id)event
@@ -990,7 +1022,7 @@ void __39__SGSuggestHistory_isUpdatableContact___block_invoke(void *a1, void *a2
   return lock;
 }
 
-uint64_t __42__SGSuggestHistory_isValidCancelledEvent___block_invoke(uint64_t a1)
+void *__42__SGSuggestHistory_isValidCancelledEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isConfirmedEvent:*(a1 + 40)];
   if (result)
@@ -1031,7 +1063,7 @@ uint64_t __42__SGSuggestHistory_isValidCancelledEvent___block_invoke(uint64_t a1
   return lock;
 }
 
-uint64_t __36__SGSuggestHistory_isValidNewEvent___block_invoke(uint64_t a1)
+void *__36__SGSuggestHistory_isValidNewEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isConfirmedEvent:*(a1 + 40)];
   if (result & 1) != 0 || (result = [*(a1 + 32) isConfirmedEventWithoutTimeStamp:*(a1 + 40)], (result))
@@ -1119,30 +1151,30 @@ void __31__SGSuggestHistory_hasContact___block_invoke(void *a1, void *a2)
 
 - (BOOL)_anyHash:(id)hash inSet:(id)set
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   setCopy = set;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = hashCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        if ([setCopy containsObject:{v13, v19}])
+        v13 = *(*(&v18 + 1) + 8 * i);
+        if ([setCopy containsObject:{v13, v18}])
         {
           _canaryHash = [(SGSuggestHistory *)self _canaryHash];
           v15 = [v13 isEqual:_canaryHash];
@@ -1155,7 +1187,7 @@ void __31__SGSuggestHistory_hasContact___block_invoke(void *a1, void *a2)
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -1168,13 +1200,12 @@ void __31__SGSuggestHistory_hasContact___block_invoke(void *a1, void *a2)
   v16 = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)rejectReminderFromExternalDevice:(id)device
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(SGSuggestHistory *)self kvs];
   v6 = [SGSuggestHistory newTestingInstanceWithSharedKVS:v5];
@@ -1182,29 +1213,28 @@ LABEL_12:
   opaqueKey = [deviceCopy opaqueKey];
   v8 = [v6 rejectHashesForOpaqueKey:opaqueKey forMatching:0];
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__8313;
-  v18 = __Block_byref_object_dispose__8314;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__8313;
+  v17 = __Block_byref_object_dispose__8314;
+  v18 = 0;
   lock = self->_lock;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__SGSuggestHistory_rejectReminderFromExternalDevice___block_invoke;
-  v13[3] = &unk_27894C710;
-  v13[4] = &v14;
-  [(_PASLock *)lock runWithLockAcquired:v13];
-  [v15[5] addObjectsFromArray:v8];
-  [(SGSuggestHistory *)self _setHashes:v15[5] forKey:@"rejectedReminders"];
-  v20 = *MEMORY[0x277CCA7B0];
-  v21[0] = &unk_284749308;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__SGSuggestHistory_rejectReminderFromExternalDevice___block_invoke;
+  v12[3] = &unk_27894C710;
+  v12[4] = &v13;
+  [(_PASLock *)lock runWithLockAcquired:v12];
+  [v14[5] addObjectsFromArray:v8];
+  [(SGSuggestHistory *)self _setHashes:v14[5] forKey:@"rejectedReminders"];
+  v19 = *MEMORY[0x277CCA7B0];
+  v20[0] = &unk_284749308;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v11 = [MEMORY[0x277CCAB88] notificationWithName:@"new data" object:self userInfo:v10];
   [(SGSuggestHistory *)self handleSyncedDataChanged:v11];
 
-  _Block_object_dispose(&v14, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __53__SGSuggestHistory_rejectReminderFromExternalDevice___block_invoke(uint64_t a1, uint64_t a2)
@@ -1219,7 +1249,7 @@ uint64_t __53__SGSuggestHistory_rejectReminderFromExternalDevice___block_invoke(
 
 - (void)confirmReminderFromExternalDevice:(id)device
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(SGSuggestHistory *)self kvs];
   v6 = [SGSuggestHistory newTestingInstanceWithSharedKVS:v5];
@@ -1229,29 +1259,28 @@ uint64_t __53__SGSuggestHistory_rejectReminderFromExternalDevice___block_invoke(
   [creationDate timeIntervalSince1970];
   v9 = [v6 confirmHashesForRemindersOpaqueKey:opaqueKey withCreationTime:0 forMatching:?];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__8313;
-  v19 = __Block_byref_object_dispose__8314;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__8313;
+  v18 = __Block_byref_object_dispose__8314;
+  v19 = 0;
   lock = self->_lock;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__SGSuggestHistory_confirmReminderFromExternalDevice___block_invoke;
-  v14[3] = &unk_27894C710;
-  v14[4] = &v15;
-  [(_PASLock *)lock runWithLockAcquired:v14];
-  [v16[5] addObjectsFromArray:v9];
-  [(SGSuggestHistory *)self _setHashes:v16[5] forKey:@"reminders"];
-  v21 = *MEMORY[0x277CCA7B0];
-  v22[0] = &unk_284749308;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __54__SGSuggestHistory_confirmReminderFromExternalDevice___block_invoke;
+  v13[3] = &unk_27894C710;
+  v13[4] = &v14;
+  [(_PASLock *)lock runWithLockAcquired:v13];
+  [v15[5] addObjectsFromArray:v9];
+  [(SGSuggestHistory *)self _setHashes:v15[5] forKey:@"reminders"];
+  v20 = *MEMORY[0x277CCA7B0];
+  v21[0] = &unk_284749308;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   v12 = [MEMORY[0x277CCAB88] notificationWithName:@"new data" object:self userInfo:v11];
   [(SGSuggestHistory *)self handleSyncedDataChanged:v12];
 
-  _Block_object_dispose(&v15, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t __54__SGSuggestHistory_confirmReminderFromExternalDevice___block_invoke(uint64_t a1, uint64_t a2)
@@ -1289,15 +1318,15 @@ void __55__SGSuggestHistory_writeAndPushRejectedReminderHashes___block_invoke(ui
 
 - (void)rejectReminder:(id)reminder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reminderCopy = reminder;
   v5 = sgRemindersLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     opaqueKey = [reminderCopy opaqueKey];
-    v10 = 138412290;
-    v11 = opaqueKey;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting reminder with opaqueKey %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = opaqueKey;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting reminder with opaqueKey %@", &v9, 0xCu);
   }
 
   opaqueKey2 = [reminderCopy opaqueKey];
@@ -1305,7 +1334,6 @@ void __55__SGSuggestHistory_writeAndPushRejectedReminderHashes___block_invoke(ui
   [(SGSuggestHistory *)self writeAndPushRejectedReminderHashes:v7];
 
   [SGDNotificationBroadcaster emitReminderUpdated:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAndPushConfirmedReminderHashes:(id)hashes
@@ -1333,15 +1361,15 @@ void __56__SGSuggestHistory_writeAndPushConfirmedReminderHashes___block_invoke(u
 
 - (void)confirmReminder:(id)reminder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reminderCopy = reminder;
   v5 = sgRemindersLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     opaqueKey = [reminderCopy opaqueKey];
-    v12 = 138412290;
-    v13 = opaqueKey;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming reminder with opaqueKey %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = opaqueKey;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming reminder with opaqueKey %@", &v11, 0xCu);
   }
 
   opaqueKey2 = [reminderCopy opaqueKey];
@@ -1352,8 +1380,6 @@ void __56__SGSuggestHistory_writeAndPushConfirmedReminderHashes___block_invoke(u
 
   recordId = [reminderCopy recordId];
   [SGDNotificationBroadcaster emitReminderUpdated:recordId];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAndPushRejectedEventHashes:(id)hashes
@@ -1381,14 +1407,14 @@ void __52__SGSuggestHistory_writeAndPushRejectedEventHashes___block_invoke(uint6
 
 - (void)rejectStorageEvent:(id)event
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = eventCopy;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting storage event %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = eventCopy;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting storage event %@", &v8, 0xCu);
   }
 
   opaqueKey = [eventCopy opaqueKey];
@@ -1396,19 +1422,18 @@ void __52__SGSuggestHistory_writeAndPushRejectedEventHashes___block_invoke(uint6
   [(SGSuggestHistory *)self writeAndPushRejectedEventHashes:v7];
 
   [SGDNotificationBroadcaster emitEventUpdated:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rejectEvent:(id)event
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = eventCopy;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting event %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = eventCopy;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting event %@", &v8, 0xCu);
   }
 
   opaqueKey = [eventCopy opaqueKey];
@@ -1416,7 +1441,6 @@ void __52__SGSuggestHistory_writeAndPushRejectedEventHashes___block_invoke(uint6
   [(SGSuggestHistory *)self writeAndPushRejectedEventHashes:v7];
 
   [SGDNotificationBroadcaster emitEventUpdated:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAndPushConfirmedEventWithoutTimestampHashes:(id)hashes
@@ -1467,14 +1491,14 @@ void __53__SGSuggestHistory_writeAndPushConfirmedEventHashes___block_invoke(uint
 
 - (void)confirmStorageEvent:(id)event
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = eventCopy;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming storage event %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = eventCopy;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming storage event %@", &v11, 0xCu);
   }
 
   opaqueKey = [eventCopy opaqueKey];
@@ -1488,20 +1512,18 @@ void __53__SGSuggestHistory_writeAndPushConfirmedEventHashes___block_invoke(uint
 
   recordId = [eventCopy recordId];
   [SGDNotificationBroadcaster emitEventUpdated:recordId];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmEvent:(id)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412290;
-    v14 = eventCopy;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming event %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = eventCopy;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming event %@", &v12, 0xCu);
   }
 
   opaqueKey = [eventCopy opaqueKey];
@@ -1516,34 +1538,30 @@ void __53__SGSuggestHistory_writeAndPushConfirmedEventHashes___block_invoke(uint
 
   recordId = [eventCopy recordId];
   [SGDNotificationBroadcaster emitEventUpdated:recordId];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rejectContact:(id)contact
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v16 = contactCopy;
+    v15 = contactCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting contact %@", buf, 0xCu);
   }
 
   lock = self->_lock;
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __34__SGSuggestHistory_rejectContact___block_invoke;
-  v12 = &unk_27894C960;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __34__SGSuggestHistory_rejectContact___block_invoke;
+  v11 = &unk_27894C960;
   selfCopy = self;
-  v14 = contactCopy;
+  v13 = contactCopy;
   v7 = contactCopy;
-  [(_PASLock *)lock runWithLockAcquired:&v9];
-  [SGDNotificationBroadcaster emitContactUpdated:0, v9, v10, v11, v12, selfCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(_PASLock *)lock runWithLockAcquired:&v8];
+  [SGDNotificationBroadcaster emitContactUpdated:0, v8, v9, v10, v11, selfCopy];
 }
 
 void __34__SGSuggestHistory_rejectContact___block_invoke(uint64_t a1, uint64_t a2)
@@ -1555,33 +1573,31 @@ void __34__SGSuggestHistory_rejectContact___block_invoke(uint64_t a1, uint64_t a
 
 - (void)rejectRealtimeContact:(id)contact
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v16 = contactCopy;
+    v15 = contactCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Rejecting contact %@", buf, 0xCu);
   }
 
   lock = self->_lock;
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __42__SGSuggestHistory_rejectRealtimeContact___block_invoke;
-  v12 = &unk_27894C960;
-  v13 = contactCopy;
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __42__SGSuggestHistory_rejectRealtimeContact___block_invoke;
+  v11 = &unk_27894C960;
+  v12 = contactCopy;
   selfCopy = self;
   v7 = contactCopy;
-  [(_PASLock *)lock runWithLockAcquired:&v9];
-  [SGDNotificationBroadcaster emitContactUpdated:0, v9, v10, v11, v12];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(_PASLock *)lock runWithLockAcquired:&v8];
+  [SGDNotificationBroadcaster emitContactUpdated:0, v8, v9, v10, v11];
 }
 
 void __42__SGSuggestHistory_rejectRealtimeContact___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) state] == 1)
   {
@@ -1610,53 +1626,47 @@ void __42__SGSuggestHistory_rejectRealtimeContact___block_invoke(uint64_t a1, vo
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [*(a1 + 32) state];
-      v15[0] = 67109120;
-      v15[1] = v14;
-      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "Don't know how to deal with this realtime contact state (state = %i)", v15, 8u);
+      v13 = [*(a1 + 32) state];
+      v14[0] = 67109120;
+      v14[1] = v13;
+      _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "Don't know how to deal with this realtime contact state (state = %i)", v14, 8u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rejectContactDetailKey:(id)key
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   serialize = [key serialize];
-  v8[0] = serialize;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = serialize;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v6 = [(SGSuggestHistory *)self hashesForStrings:v5 forMatching:0];
   [(SGSuggestHistory *)self confirmOrRejectDetailHashes:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmOrRejectRecordForContact:(id)contact
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = contactCopy;
+    v16 = contactCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Confirming or rejecting contact %@", buf, 0xCu);
   }
 
   lock = self->_lock;
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __52__SGSuggestHistory_confirmOrRejectRecordForContact___block_invoke;
-  v13 = &unk_27894C960;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __52__SGSuggestHistory_confirmOrRejectRecordForContact___block_invoke;
+  v12 = &unk_27894C960;
   selfCopy = self;
-  v15 = contactCopy;
+  v14 = contactCopy;
   v7 = contactCopy;
-  [(_PASLock *)lock runWithLockAcquired:&v10];
+  [(_PASLock *)lock runWithLockAcquired:&v9];
   recordId = [v7 recordId];
   [SGDNotificationBroadcaster emitContactUpdated:recordId];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SGSuggestHistory_confirmOrRejectRecordForContact___block_invoke(uint64_t a1, void *a2)
@@ -1673,15 +1683,15 @@ void __52__SGSuggestHistory_confirmOrRejectRecordForContact___block_invoke(uint6
 
 - (void)confirmOrRejectDetail:(id)detail forContact:(id)contact
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   detailCopy = detail;
   v8 = sgLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = contactCopy;
-    _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "Confirming or rejecting record for contact %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = contactCopy;
+    _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "Confirming or rejecting record for contact %@", &v11, 0xCu);
   }
 
   v9 = [(SGSuggestHistory *)self hashesForContactDetail:detailCopy fromContact:contactCopy forMatching:0];
@@ -1689,8 +1699,6 @@ void __52__SGSuggestHistory_confirmOrRejectRecordForContact___block_invoke(uint6
   [(SGSuggestHistory *)self confirmOrRejectDetailHashes:v9];
   recordId = [contactCopy recordId];
   [SGDNotificationBroadcaster emitContactUpdated:recordId];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmOrRejectDetailHashes:(id)hashes
@@ -1718,44 +1726,44 @@ void __48__SGSuggestHistory_confirmOrRejectDetailHashes___block_invoke(uint64_t 
 
 - (void)handleSyncedDataChanged:(id)changed
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x3032000000;
-  v74 = __Block_byref_object_copy__8313;
-  v75 = __Block_byref_object_dispose__8314;
-  v76 = 0;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__8313;
-  v69 = __Block_byref_object_dispose__8314;
   v70 = 0;
-  v63[0] = 0;
-  v63[1] = v63;
-  v63[2] = 0x3032000000;
-  v63[3] = __Block_byref_object_copy__8313;
-  v63[4] = __Block_byref_object_dispose__8314;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = __Block_byref_object_copy__8313;
+  v74 = __Block_byref_object_dispose__8314;
+  v75 = 0;
   v64 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__8313;
-  v61 = __Block_byref_object_dispose__8314;
-  v62 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__8313;
-  v55 = __Block_byref_object_dispose__8314;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__8313;
+  v68 = __Block_byref_object_dispose__8314;
+  v69 = 0;
+  v62[0] = 0;
+  v62[1] = v62;
+  v62[2] = 0x3032000000;
+  v62[3] = __Block_byref_object_copy__8313;
+  v62[4] = __Block_byref_object_dispose__8314;
+  v63 = 0;
   v56 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__8313;
-  v49 = __Block_byref_object_dispose__8314;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__8313;
+  v60 = __Block_byref_object_dispose__8314;
+  v61 = 0;
   v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__8313;
+  v54 = __Block_byref_object_dispose__8314;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__8313;
+  v48 = __Block_byref_object_dispose__8314;
+  v49 = 0;
   userInfo = [changedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7B0]];
   unsignedIntegerValue = [v6 unsignedIntegerValue];
@@ -1764,146 +1772,146 @@ void __48__SGSuggestHistory_confirmOrRejectDetailHashes___block_invoke(uint64_t 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v82 = unsignedIntegerValue;
+    v81 = unsignedIntegerValue;
     _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "Suggestions history synced data change, reason=%i", buf, 8u);
   }
 
   lock = self->_lock;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __44__SGSuggestHistory_handleSyncedDataChanged___block_invoke;
-  v44[3] = &unk_27894C938;
-  v44[4] = self;
-  v44[5] = &v71;
-  v44[6] = &v65;
-  v44[7] = v63;
-  v44[8] = &v57;
-  v44[9] = &v51;
-  v44[10] = &v45;
-  v44[11] = unsignedIntegerValue;
-  [(_PASLock *)lock runWithLockAcquired:v44];
-  if (v66[5])
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __44__SGSuggestHistory_handleSyncedDataChanged___block_invoke;
+  v43[3] = &unk_27894C938;
+  v43[4] = self;
+  v43[5] = &v70;
+  v43[6] = &v64;
+  v43[7] = v62;
+  v43[8] = &v56;
+  v43[9] = &v50;
+  v43[10] = &v44;
+  v43[11] = unsignedIntegerValue;
+  [(_PASLock *)lock runWithLockAcquired:v43];
+  if (v65[5])
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v10 = v72[5];
-    v11 = [v10 countByEnumeratingWithState:&v40 objects:v80 count:16];
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v10 = v71[5];
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v79 count:16];
     if (v11)
     {
-      v12 = *v41;
+      v12 = *v40;
       do
       {
         v13 = 0;
         do
         {
-          if (*v41 != v12)
+          if (*v40 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v40 + 1) + 8 * v13++) processNewConfirmOrRejectEventHashes:v66[5]];
+          [*(*(&v39 + 1) + 8 * v13++) processNewConfirmOrRejectEventHashes:v65[5]];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v40 objects:v80 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v39 objects:v79 count:16];
       }
 
       while (v11);
     }
   }
 
-  if (v58[5])
+  if (v57[5])
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v14 = v72[5];
-    v15 = [v14 countByEnumeratingWithState:&v36 objects:v79 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v14 = v71[5];
+    v15 = [v14 countByEnumeratingWithState:&v35 objects:v78 count:16];
     if (v15)
     {
-      v16 = *v37;
+      v16 = *v36;
       do
       {
         v17 = 0;
         do
         {
-          if (*v37 != v16)
+          if (*v36 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          [*(*(&v36 + 1) + 8 * v17++) processNewConfirmOrRejectEventHashes:v58[5]];
+          [*(*(&v35 + 1) + 8 * v17++) processNewConfirmOrRejectEventHashes:v57[5]];
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v36 objects:v79 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v35 objects:v78 count:16];
       }
 
       while (v15);
     }
   }
 
-  if (v52[5])
+  if (v51[5])
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v18 = v72[5];
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v78 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = v71[5];
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v77 count:16];
     if (v19)
     {
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         v21 = 0;
         do
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          [*(*(&v32 + 1) + 8 * v21++) processNewConfirmedOrRejectedReminderHashes:v52[5]];
+          [*(*(&v31 + 1) + 8 * v21++) processNewConfirmedOrRejectedReminderHashes:v51[5]];
         }
 
         while (v19 != v21);
-        v19 = [v18 countByEnumeratingWithState:&v32 objects:v78 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v31 objects:v77 count:16];
       }
 
       while (v19);
     }
   }
 
-  if (v46[5])
+  if (v45[5])
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v22 = v72[5];
-    v23 = [v22 countByEnumeratingWithState:&v28 objects:v77 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v22 = v71[5];
+    v23 = [v22 countByEnumeratingWithState:&v27 objects:v76 count:16];
     if (v23)
     {
-      v24 = *v29;
+      v24 = *v28;
       do
       {
         v25 = 0;
         do
         {
-          if (*v29 != v24)
+          if (*v28 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          [*(*(&v28 + 1) + 8 * v25++) processNewConfirmedOrRejectedReminderHashes:{v46[5], v28}];
+          [*(*(&v27 + 1) + 8 * v25++) processNewConfirmedOrRejectedReminderHashes:{v45[5], v27}];
         }
 
         while (v23 != v25);
-        v23 = [v22 countByEnumeratingWithState:&v28 objects:v77 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v27 objects:v76 count:16];
       }
 
       while (v23);
@@ -1922,21 +1930,20 @@ void __48__SGSuggestHistory_confirmOrRejectDetailHashes___block_invoke(uint64_t 
     [(SGSuggestHistory *)self migrateIfNeeded];
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(v63, 8);
-  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(v62, 8);
+  _Block_object_dispose(&v64, 8);
 
-  _Block_object_dispose(&v71, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v70, 8);
 }
 
 void __44__SGSuggestHistory_handleSyncedDataChanged___block_invoke(uint64_t a1, void *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(v3 + 13);
   *(v3 + 13) = 0;
@@ -2004,7 +2011,7 @@ LABEL_62:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v79 = 0x408C200000000000;
+            v78 = 0x408C200000000000;
             _os_log_impl(&dword_231E60000, v21, OS_LOG_TYPE_INFO, "Resetting history due to a KVS reset event within %g sec time window.", buf, 0xCu);
           }
 
@@ -2033,12 +2040,12 @@ LABEL_62:
         v25 = sgEventsLogHandle();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = [v10 count];
-          v27 = [*(*(*(a1 + 48) + 8) + 40) count];
+          v26 = objc_msgSend_count(v10);
+          v27 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
           *buf = 134349312;
-          v79 = v26;
-          v80 = 2050;
-          v81 = v27;
+          v78 = v26;
+          v79 = 2050;
+          v80 = v27;
           _os_log_impl(&dword_231E60000, v25, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated confirmed event hashes (%{public}lu total, %{public}lu new)", buf, 0x16u);
         }
 
@@ -2058,12 +2065,12 @@ LABEL_62:
         v32 = sgEventsLogHandle();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = [v28 count];
-          v34 = [*(*(*(a1 + 56) + 8) + 40) count];
+          v33 = objc_msgSend_count(v28);
+          v34 = objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40));
           *buf = 134349312;
-          v79 = v33;
-          v80 = 2050;
-          v81 = v34;
+          v78 = v33;
+          v79 = 2050;
+          v80 = v34;
           _os_log_impl(&dword_231E60000, v32, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated confirmed event hashes (%{public}lu total, %{public}lu new)", buf, 0x16u);
         }
 
@@ -2083,12 +2090,12 @@ LABEL_62:
         v39 = sgEventsLogHandle();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = [v35 count];
-          v41 = [*(*(*(a1 + 64) + 8) + 40) count];
+          v40 = objc_msgSend_count(v35);
+          v41 = objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40));
           *buf = 134349312;
-          v79 = v40;
-          v80 = 2050;
-          v81 = v41;
+          v78 = v40;
+          v79 = 2050;
+          v80 = v41;
           _os_log_impl(&dword_231E60000, v39, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated rejected event hashes (%{public}lu total, %{public}lu new)", buf, 0x16u);
         }
 
@@ -2102,9 +2109,9 @@ LABEL_62:
         v43 = sgEventsLogHandle();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = [v42 count];
+          v44 = objc_msgSend_count(v42);
           *buf = 134349056;
-          v79 = v44;
+          v78 = v44;
           _os_log_impl(&dword_231E60000, v43, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated confirmed event field hashes (%{public}lu total)", buf, 0xCu);
         }
 
@@ -2118,9 +2125,9 @@ LABEL_62:
         v46 = sgEventsLogHandle();
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v47 = [v45 count];
+          v47 = objc_msgSend_count(v45);
           *buf = 134349056;
-          v79 = v47;
+          v78 = v47;
           _os_log_impl(&dword_231E60000, v46, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated confirmed event field without timestamp hashes (%{public}lu total)", buf, 0xCu);
         }
 
@@ -2140,12 +2147,12 @@ LABEL_62:
         v52 = sgRemindersLogHandle();
         if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
         {
-          v53 = [v48 count];
-          v54 = [*(*(*(a1 + 72) + 8) + 40) count];
+          v53 = objc_msgSend_count(v48);
+          v54 = objc_msgSend_count(*(*(*(a1 + 72) + 8) + 40));
           *buf = 134349312;
-          v79 = v53;
-          v80 = 2050;
-          v81 = v54;
+          v78 = v53;
+          v79 = 2050;
+          v80 = v54;
           _os_log_impl(&dword_231E60000, v52, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated confirmed reminder hashes (%{public}lu total, %{public}lu new)", buf, 0x16u);
         }
 
@@ -2154,7 +2161,7 @@ LABEL_62:
       }
 
       v55 = [*(a1 + 32) setForKey:@"rejectedReminders"];
-      v77 = v55;
+      v76 = v55;
       if (([v55 isEqualToSet:*(v3 + 5)] & 1) == 0)
       {
         v56 = [v55 mutableCopy];
@@ -2166,13 +2173,13 @@ LABEL_62:
         v59 = sgRemindersLogHandle();
         if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = [v55 count];
-          v61 = [*(*(*(a1 + 80) + 8) + 40) count];
+          v60 = objc_msgSend_count(v55);
+          v61 = objc_msgSend_count(*(*(*(a1 + 80) + 8) + 40));
           *buf = 134349312;
-          v79 = v60;
-          v55 = v77;
-          v80 = 2048;
-          v81 = v61;
+          v78 = v60;
+          v55 = v76;
+          v79 = 2048;
+          v80 = v61;
           _os_log_impl(&dword_231E60000, v59, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory - Receive updated rejected reminder hashes (%{public}lu total %lu new)", buf, 0x16u);
         }
 
@@ -2180,16 +2187,16 @@ LABEL_62:
         [*(a1 + 32) pushRejectedReminders:v3];
       }
 
-      v76 = v48;
+      v75 = v48;
       v62 = [*(a1 + 32) setForKey:@"newContacts"];
       if (([v62 isEqualToSet:*(v3 + 6)] & 1) == 0)
       {
         v63 = sgLogHandle();
         if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
         {
-          v72 = [v62 count];
+          v71 = objc_msgSend_count(v62);
           *buf = 134217984;
-          v79 = v72;
+          v78 = v71;
           _os_log_debug_impl(&dword_231E60000, v63, OS_LOG_TYPE_DEBUG, "Receive updated contact hashes (%lu total)", buf, 0xCu);
         }
 
@@ -2203,9 +2210,9 @@ LABEL_62:
         v65 = sgLogHandle();
         if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
         {
-          v73 = [v64 count];
+          v72 = objc_msgSend_count(v64);
           *buf = 134217984;
-          v79 = v73;
+          v78 = v72;
           _os_log_debug_impl(&dword_231E60000, v65, OS_LOG_TYPE_DEBUG, "Receive updated storage detail hashes (%lu total)", buf, 0xCu);
         }
 
@@ -2216,16 +2223,16 @@ LABEL_62:
       v66 = [*(a1 + 32) setForKey:@"dontUpdate"];
       if (([v66 isEqualToSet:*(v3 + 10)] & 1) == 0)
       {
-        v75 = v45;
+        v74 = v45;
         v67 = v42;
         v68 = v35;
         v69 = v28;
         v70 = sgLogHandle();
         if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
         {
-          v74 = [v66 count];
+          v73 = objc_msgSend_count(v66);
           *buf = 134217984;
-          v79 = v74;
+          v78 = v73;
           _os_log_debug_impl(&dword_231E60000, v70, OS_LOG_TYPE_DEBUG, "Receive updated don't-update hashes (%lu total)", buf, 0xCu);
         }
 
@@ -2234,7 +2241,7 @@ LABEL_62:
         v28 = v69;
         v35 = v68;
         v42 = v67;
-        v45 = v75;
+        v45 = v74;
       }
 
       goto LABEL_62;
@@ -2254,8 +2261,6 @@ LABEL_10:
       goto LABEL_62;
     }
   }
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -2286,7 +2291,7 @@ LABEL_10:
 
 void __32__SGSuggestHistory_resetNoFlush__block_invoke(uint64_t a1, void *a2)
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v3 = a2[13];
   a2[13] = 0;
   v4 = a2;
@@ -2337,17 +2342,96 @@ void __32__SGSuggestHistory_resetNoFlush__block_invoke(uint64_t a1, void *a2)
   v26 = MEMORY[0x277CCABB0];
   v27 = [v4[11] objectAtIndexedSubscript:0];
   v28 = [v26 numberWithUnsignedLong:{objc_msgSend(v27, "unsignedLongValue") + 1}];
-  v34[0] = v28;
+  v33[0] = v28;
   v29 = MEMORY[0x277CCABB0];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v30 = [v29 numberWithDouble:?];
-  v34[1] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[1] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   v32 = v4[11];
   v4[11] = v31;
 
   [*(a1 + 32) pushAll:v4];
-  v33 = *MEMORY[0x277D85DE8];
+}
+
+- (id)hashesForPseudoEventByKey:(id)key forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  serialize = [key serialize];
+  v7 = [(SGSuggestHistory *)self hashesForOpaqueKey:serialize forMatching:matchingCopy];
+
+  return v7;
+}
+
+- (id)hashesForOpaqueKey:(id)key forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v12[1] = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  if (!keyCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestHistory.m" lineNumber:1003 description:{@"Invalid parameter not satisfying: %@", @"opaqueKey"}];
+  }
+
+  v12[0] = keyCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v9 = [(SGSuggestHistory *)self hashesForStrings:v8 forMatching:matchingCopy];
+
+  return v9;
+}
+
+- (id)rejectHashesForOpaqueKey:(id)key forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  keyCopy = key;
+  if (!keyCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestHistory.m" lineNumber:997 description:{@"Invalid parameter not satisfying: %@", @"opaqueKey"}];
+  }
+
+  v8 = [(SGSuggestHistory *)self hashesForOpaqueKey:keyCopy forMatching:matchingCopy];
+
+  return v8;
+}
+
+- (id)confirmHashesForOpaqueKeyWithoutTimestamp:(id)timestamp forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  timestampCopy = timestamp;
+  if (!timestampCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestHistory.m" lineNumber:990 description:{@"Invalid parameter not satisfying: %@", @"opaqueKey"}];
+  }
+
+  v8 = [(SGSuggestHistory *)self hashesForOpaqueKey:timestampCopy forMatching:matchingCopy];
+
+  return v8;
+}
+
+- (id)confirmHashesForOpaqueKey:(id)key withCreationTime:(SGUnixTimestamp_)time forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v17[1] = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  if (!keyCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestHistory.m" lineNumber:981 description:{@"Invalid parameter not satisfying: %@", @"opaqueKey"}];
+  }
+
+  v10 = objc_autoreleasePoolPush();
+  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%.2f", *&time.secondsFromUnixEpoch];
+  v12 = [keyCopy stringByAppendingString:v11];
+
+  objc_autoreleasePoolPop(v10);
+  v17[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v14 = [(SGSuggestHistory *)self hashesForStrings:v13 forMatching:matchingCopy];
+
+  return v14;
 }
 
 - (id)identityBasedHashesForPseudoReminder:(id)reminder withCreationTime:(SGUnixTimestamp_)time
@@ -2394,10 +2478,59 @@ void __32__SGSuggestHistory_resetNoFlush__block_invoke(uint64_t a1, void *a2)
   return v13;
 }
 
+- (id)hashesForCuratedContactDetail:(id)detail fromContact:(id)contact forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v7 = [(SGSuggestHistory *)self keysForCuratedContactDetail:detail ofContact:contact];
+  v8 = [(SGSuggestHistory *)self hashesForStrings:v7 forMatching:matchingCopy];
+
+  return v8;
+}
+
+- (id)hashesForContactDetail:(id)detail fromContact:(id)contact forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v7 = [(SGSuggestHistory *)self keysForContactDetail:detail ofContact:contact];
+  v8 = [(SGSuggestHistory *)self hashesForStrings:v7 forMatching:matchingCopy];
+
+  return v8;
+}
+
+- (id)hashesForStorageContact:(id)contact forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v6 = [(SGSuggestHistory *)self keysForStorageContact:contact];
+  v7 = [(SGSuggestHistory *)self hashesForStrings:v6 forMatching:matchingCopy];
+
+  return v7;
+}
+
+- (id)hashesForContact:(id)contact forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  v6 = [(SGSuggestHistory *)self keysForContact:contact];
+  v7 = [(SGSuggestHistory *)self hashesForStrings:v6 forMatching:matchingCopy];
+
+  return v7;
+}
+
+- (id)hashesForStrings:(id)strings forMatching:(BOOL)matching
+{
+  matchingCopy = matching;
+  stringsCopy = strings;
+  salt = [(SGSuggestHistory *)self salt];
+  v7 = salt;
+  v8 = sgMap();
+
+  v9 = [(SGSuggestHistory *)self hashesByAddingCompatibilityHashesToHashes:v8 forMatching:matchingCopy];
+
+  return v9;
+}
+
 - (id)hashesByAddingCompatibilityHashesToHashes:(id)hashes forMatching:(BOOL)matching
 {
   matchingCopy = matching;
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   hashesCopy = hashes;
   v7 = hashesCopy;
   if (matchingCopy)
@@ -2414,8 +2547,8 @@ void __32__SGSuggestHistory_resetNoFlush__block_invoke(uint64_t a1, void *a2)
 
     v12 = objc_autoreleasePoolPush();
     _canaryHash = [(SGSuggestHistory *)self _canaryHash];
-    v19[0] = _canaryHash;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = _canaryHash;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v15 = [v14 arrayByAddingObjectsFromArray:v7];
     v16 = [v15 arrayByAddingObjectsFromArray:v11];
 
@@ -2426,8 +2559,6 @@ void __32__SGSuggestHistory_resetNoFlush__block_invoke(uint64_t a1, void *a2)
   {
     v16 = [hashesCopy copy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2555,7 +2686,7 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
   }
 
   emailAddresses = [contactCopy emailAddresses];
-  v13 = [emailAddresses count];
+  v13 = objc_msgSend_count(emailAddresses);
 
   if (v13)
   {
@@ -2611,7 +2742,7 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
 
 - (id)keysForContactDetail:(id)detail ofContact:(id)contact
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   detailCopy = detail;
   contactCopy = contact;
   context = objc_autoreleasePoolPush();
@@ -2628,7 +2759,7 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
   }
 
   emailAddresses = [contactCopy emailAddresses];
-  v14 = [emailAddresses count];
+  v14 = objc_msgSend_count(emailAddresses);
 
   if (v14)
   {
@@ -2643,43 +2774,43 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v43 = v8;
-    v44 = contactCopy;
-    v42 = detailCopy;
-    v20 = [[SGSocialProfileDetails alloc] initWithSocialProfile:v42];
+    v42 = v8;
+    v43 = contactCopy;
+    v41 = detailCopy;
+    v20 = [[SGSocialProfileDetails alloc] initWithSocialProfile:v41];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     uniqueIdentifiers = [(SGSocialProfileDetails *)v20 uniqueIdentifiers];
-    v22 = [uniqueIdentifiers countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v22 = [uniqueIdentifiers countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v47;
+      v24 = *v46;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v47 != v24)
+          if (*v46 != v24)
           {
             objc_enumerationMutation(uniqueIdentifiers);
           }
 
-          v26 = *(*(&v46 + 1) + 8 * i);
+          v26 = *(*(&v45 + 1) + 8 * i);
           SGNormalizeSocialProfile(v26);
           v27 = [objc_claimAutoreleasedReturnValue() stringByAppendingString:v19];
           [v7 addObject:v27];
         }
 
-        v23 = [uniqueIdentifiers countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v23 = [uniqueIdentifiers countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v23);
     }
 
-    v8 = v43;
-    contactCopy = v44;
+    v8 = v42;
+    contactCopy = v43;
   }
 
   if (objc_opt_respondsToSelector())
@@ -2715,36 +2846,35 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
   }
 
   objc_autoreleasePoolPop(context);
-  v40 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)keysForStorageContact:(id)contact
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v4 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   profiles = [contactCopy profiles];
-  v6 = [profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [profiles countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(profiles);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         title = [v10 title];
 
         if (title)
@@ -2766,20 +2896,18 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
         }
       }
 
-      v7 = [profiles countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [profiles countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)keysForContact:(id)contact
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v4 = objc_opt_new();
   name = [contactCopy name];
@@ -2793,37 +2921,35 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
     [v4 addObject:v9];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   emailAddresses = [contactCopy emailAddresses];
-  v11 = [emailAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [emailAddresses countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        emailAddress = [*(*(&v19 + 1) + 8 * i) emailAddress];
+        emailAddress = [*(*(&v18 + 1) + 8 * i) emailAddress];
         v16 = SGNormalizeEmailAddress();
         [v4 addObject:v16];
       }
 
-      v12 = [emailAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [emailAddresses countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2914,196 +3040,184 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
 
 - (void)pushResetInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [infoCopy[11] objectAtIndexedSubscript:0];
-    unsignedLongValue = [v8 unsignedLongValue];
-    v10 = [infoCopy[11] objectAtIndexedSubscript:1];
-    [v10 doubleValue];
-    v12 = 134218240;
-    v13 = unsignedLongValue;
-    v14 = 2048;
-    v15 = v11;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing reset info (generation %lu, timestamp %.1f)", &v12, 0x16u);
+    v7 = [infoCopy[11] objectAtIndexedSubscript:0];
+    unsignedLongValue = [v7 unsignedLongValue];
+    v9 = [infoCopy[11] objectAtIndexedSubscript:1];
+    [v9 doubleValue];
+    v11 = 134218240;
+    v12 = unsignedLongValue;
+    v13 = 2048;
+    v14 = v10;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing reset info (generation %lu, timestamp %.1f)", &v11, 0x16u);
   }
 
   v6 = [(SGSuggestHistory *)self kvs];
   [v6 setArray:infoCopy[11] forKey:@"resetInfo"];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushDontUpdate:(id)update
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [updateCopy[10] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing do-not-update set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(updateCopy[10]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing do-not-update set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:updateCopy[10] forKey:@"dontUpdate"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushStorageDetails:(id)details
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [detailsCopy[9] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing storage details set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(detailsCopy[9]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing storage details set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:detailsCopy[9] forKey:@"storageDetails"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushContacts:(id)contacts
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [contactsCopy[6] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing contacts set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(contactsCopy[6]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing contacts set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:contactsCopy[6] forKey:@"newContacts"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushConfirmedEventWithoutTimestampFields:(id)fields
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [fieldsCopy[8] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed event without timestamp fields set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(fieldsCopy[8]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed event without timestamp fields set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:fieldsCopy[8] forKey:@"confirmedEventWithoutTimestampFields"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushConfirmedEventFields:(id)fields
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [fieldsCopy[7] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed event fields set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(fieldsCopy[7]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed event fields set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:fieldsCopy[7] forKey:@"confirmedEventFields"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushRejectedReminders:(id)reminders
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   remindersCopy = reminders;
   v5 = sgRemindersLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [remindersCopy[5] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing rejected reminders set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(remindersCopy[5]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing rejected reminders set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:remindersCopy[5] forKey:@"rejectedReminders"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushConfirmedReminders:(id)reminders
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   remindersCopy = reminders;
   v5 = sgRemindersLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [remindersCopy[4] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed reminders set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(remindersCopy[4]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed reminders set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:remindersCopy[4] forKey:@"reminders"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushRejectedEvents:(id)events
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [eventsCopy[3] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing rejected events set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(eventsCopy[3]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing rejected events set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:eventsCopy[3] forKey:@"rejectedEvents"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushConfirmedEventsWithoutTimestamp:(id)timestamp
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [timestampCopy[2] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed events without timestamp set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(timestampCopy[2]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed events without timestamp set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:timestampCopy[2] forKey:@"eventsWithoutTimestamp"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushConfirmedEvents:(id)events
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [eventsCopy[1] count];
-    v8[0] = 67109120;
-    v8[1] = v7;
-    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed events set with %i items", v8, 8u);
+    v6 = objc_msgSend_count(eventsCopy[1]);
+    v7[0] = 67109120;
+    v7[1] = v6;
+    _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Pushing confirmed events set with %i items", v7, 8u);
   }
 
   [(SGSuggestHistory *)self _setHashes:eventsCopy[1] forKey:@"events"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setHashes:(id)hashes forKey:(id)key
@@ -3119,7 +3233,7 @@ void __31__SGSuggestHistory__canaryHash__block_invoke()
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGSuggestHistory.m" lineNumber:631 description:{@"Invalid parameter not satisfying: %@", @"![hashes containsObject:[self _canaryHash]]"}];
   }
 
-  if ([hashesCopy count])
+  if (objc_msgSend_count(hashesCopy))
   {
     v10 = objc_autoreleasePoolPush();
     v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:hashesCopy requiringSecureCoding:1 error:0];
@@ -3156,39 +3270,37 @@ void __38__SGSuggestHistory__setHashes_forKey___block_invoke()
 
 void __49__SGSuggestHistory__tellObserversHashesDidChange__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a2 + 96) copy];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) hashesDidChange];
+        [*(*(&v8 + 1) + 8 * v7++) hashesDidChange];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -3217,18 +3329,18 @@ uint64_t __31__SGSuggestHistory_description__block_invoke(uint64_t a1, void *a2)
   v2 = MEMORY[0x277CCACA8];
   v3 = a2;
   v18 = [v2 alloc];
-  v17 = [v3[1] count];
-  v4 = [v3[2] count];
-  v5 = [v3[3] count];
-  v6 = [v3[4] count];
-  v7 = [v3[5] count];
-  v8 = [v3[7] count];
-  v9 = [v3[8] count];
-  v10 = [v3[6] count];
-  v11 = [v3[9] count];
+  v17 = objc_msgSend_count(v3[1]);
+  v4 = objc_msgSend_count(v3[2]);
+  v5 = objc_msgSend_count(v3[3]);
+  v6 = objc_msgSend_count(v3[4]);
+  v7 = objc_msgSend_count(v3[5]);
+  v8 = objc_msgSend_count(v3[7]);
+  v9 = objc_msgSend_count(v3[8]);
+  v10 = objc_msgSend_count(v3[6]);
+  v11 = objc_msgSend_count(v3[9]);
   v12 = v3[10];
 
-  v13 = [v18 initWithFormat:@"Suggest history with %d confirmed event hashes, %d confirmed event without timestamp hashes, %d rejected event hashes, %d confirmed reminder hashes, %d rejected reminder hashes, %d confirmed event field hashes, %d confirmed event without timestamp field hashes, %d contact hashes, %d storage detail hashes, and %d no-update hashes.", v17, v4, v5, v6, v7, v8, v9, v10, v11, objc_msgSend(v12, "count")];
+  v13 = [v18 initWithFormat:@"Suggest history with %d confirmed event hashes, %d confirmed event without timestamp hashes, %d rejected event hashes, %d confirmed reminder hashes, %d rejected reminder hashes, %d confirmed event field hashes, %d confirmed event without timestamp field hashes, %d contact hashes, %d storage detail hashes, and %d no-update hashes.", v17, v4, v5, v6, v7, v8, v9, v10, v11, objc_msgSend_count(v12)];
   v14 = *(*(a1 + 32) + 8);
   v15 = *(v14 + 40);
   *(v14 + 40) = v13;
@@ -3241,7 +3353,7 @@ uint64_t __31__SGSuggestHistory_description__block_invoke(uint64_t a1, void *a2)
   v2 = [(SGSuggestHistory *)self kvs];
   v3 = [v2 arrayForKey:@"resetInfo"];
 
-  if (v3 && [v3 count] == 2)
+  if (v3 && objc_msgSend_count(v3) == 2)
   {
     v4 = [v3 objectAtIndexedSubscript:0];
     objc_opt_class();
@@ -3524,28 +3636,28 @@ void __24__SGSuggestHistory_salt__block_invoke(uint64_t a1, void *a2)
 
 - (void)migrateFromKVS:(id)s withCompletion:(id)completion
 {
-  v62[10] = *MEMORY[0x277D85DE8];
+  v61[10] = *MEMORY[0x277D85DE8];
   sCopy = s;
   completionCopy = completion;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__8313;
-  v52 = __Block_byref_object_dispose__8314;
   v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__8313;
+  v51 = __Block_byref_object_dispose__8314;
+  v52 = 0;
   lock = self->_lock;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke;
-  v47[3] = &unk_27894C7B0;
-  v47[4] = &v54;
-  v47[5] = &v48;
-  [(_PASLock *)lock runWithLockAcquired:v47];
-  if (*(v55 + 24) == 1)
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke;
+  v46[3] = &unk_27894C7B0;
+  v46[4] = &v53;
+  v46[5] = &v47;
+  [(_PASLock *)lock runWithLockAcquired:v46];
+  if (*(v54 + 24) == 1)
   {
     v10 = sgLogHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -3559,43 +3671,43 @@ void __24__SGSuggestHistory_salt__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v62[0] = @"events";
-    v62[1] = @"eventsWithoutTimestamp";
-    v62[2] = @"rejectedEvents";
-    v62[3] = @"reminders";
-    v62[4] = @"rejectedReminders";
-    v62[5] = @"newContacts";
-    v62[6] = @"storageDetails";
-    v62[7] = @"dontUpdate";
-    v62[8] = @"confirmedEventFields";
-    v62[9] = @"confirmedEventWithoutTimestampFields";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:10];
+    v61[0] = @"events";
+    v61[1] = @"eventsWithoutTimestamp";
+    v61[2] = @"rejectedEvents";
+    v61[3] = @"reminders";
+    v61[4] = @"rejectedReminders";
+    v61[5] = @"newContacts";
+    v61[6] = @"storageDetails";
+    v61[7] = @"dontUpdate";
+    v61[8] = @"confirmedEventFields";
+    v61[9] = @"confirmedEventWithoutTimestampFields";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:10];
     v12 = self->_lock;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_103;
-    v40[3] = &unk_27894C800;
-    v30 = v11;
-    v41 = v30;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_103;
+    v39[3] = &unk_27894C800;
+    v29 = v11;
+    v40 = v29;
     v13 = sCopy;
-    v42 = v13;
+    v41 = v13;
     v14 = v12;
-    v46 = a2;
-    v43 = v14;
+    v45 = a2;
+    v42 = v14;
     selfCopy = self;
-    v45 = completionCopy;
-    v15 = [v40 copy];
-    if (v49[5] && ([MEMORY[0x277CBEAA8] date], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "timeIntervalSinceDate:", v49[5]), v18 = v17 < 600.0, v16, v18))
+    v44 = completionCopy;
+    v15 = [v39 copy];
+    if (v48[5] && ([MEMORY[0x277CBEAA8] date], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "timeIntervalSinceDate:", v48[5]), v18 = v17 < 600.0, v16, v18))
     {
       v19 = sgLogHandle();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         date = [MEMORY[0x277CBEAA8] date];
-        [date timeIntervalSinceDate:v49[5]];
+        [date timeIntervalSinceDate:v48[5]];
         *buf = 134218240;
-        v59 = v21;
-        v60 = 2048;
-        v61 = 0x4082C00000000000;
+        v58 = v21;
+        v59 = 2048;
+        v60 = 0x4082C00000000000;
         _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS aborting, %f sec elapsed since last migration but cooldown period is %f", buf, 0x16u);
       }
 
@@ -3604,36 +3716,36 @@ void __24__SGSuggestHistory_salt__block_invoke(uint64_t a1, void *a2)
 
     else
     {
-      [(_PASLock *)v14 runWithLockAcquired:&__block_literal_global_117, v30];
+      [(_PASLock *)v14 runWithLockAcquired:&__block_literal_global_117, v29];
       kvsIfSyncSupported = [(SGSuggestHistory *)self kvsIfSyncSupported];
       if (kvsIfSyncSupported)
       {
         v23 = objc_opt_new();
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_119;
-        v38[3] = &unk_278955BA8;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_119;
+        v37[3] = &unk_278955BA8;
         v24 = v23;
-        v39 = v24;
-        [v13 synchronizeWithCompletionHandler:v38];
+        v38 = v24;
+        [v13 synchronizeWithCompletionHandler:v37];
         v25 = +[SGDCloudKitSync sharedInstance];
         privacySalt = [v25 privacySalt];
 
         objc_initWeak(buf, self);
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_122;
-        v31[3] = &unk_27894C898;
-        v32 = kvsIfSyncSupported;
-        objc_copyWeak(&v37, buf);
-        v36 = v15;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_122;
+        v30[3] = &unk_27894C898;
+        v31 = kvsIfSyncSupported;
+        objc_copyWeak(&v36, buf);
+        v35 = v15;
         v27 = v24;
-        v33 = v27;
-        v34 = v13;
-        v35 = v30;
-        [privacySalt wait:v31];
+        v32 = v27;
+        v33 = v13;
+        v34 = v29;
+        [privacySalt wait:v30];
 
-        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v36);
         objc_destroyWeak(buf);
       }
 
@@ -3656,10 +3768,9 @@ void __24__SGSuggestHistory_salt__block_invoke(uint64_t a1, void *a2)
     }
   }
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v47, 8);
 
-  _Block_object_dispose(&v54, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
 }
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
@@ -3671,7 +3782,7 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke(uint64_
 
 uint64_t __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_103(uint64_t a1, int a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = sgLogHandle();
@@ -3679,50 +3790,50 @@ uint64_t __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_103
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v24 = v5;
+      v23 = v5;
       _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS succeeded, deleting keys from fromKVS: %@", buf, 0xCu);
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = *(a1 + 32);
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         v10 = 0;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(a1 + 40) setData:0 forKey:*(*(&v18 + 1) + 8 * v10++)];
+          [*(a1 + 40) setData:0 forKey:*(*(&v17 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
     }
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_104;
-  v17[3] = &unk_27894C7D8;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_104;
+  v16[3] = &unk_27894C7D8;
   v11 = *(a1 + 72);
   v12 = *(a1 + 48);
-  v17[4] = *(a1 + 56);
-  v17[5] = v11;
-  [v12 runWithLockAcquired:v17];
+  v16[4] = *(a1 + 56);
+  v16[5] = v11;
+  [v12 runWithLockAcquired:v16];
   v13 = sgLogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
@@ -3733,18 +3844,16 @@ uint64_t __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_103
     }
 
     *buf = 138412290;
-    v24 = v14;
+    v23 = v14;
     _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS %@, calling completion block...", buf, 0xCu);
   }
 
-  result = (*(*(a1 + 64) + 16))();
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_119(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgLogHandle();
   v5 = v4;
@@ -3752,9 +3861,9 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_119(uin
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_231E60000, v5, OS_LOG_TYPE_ERROR, "SGSuggestHistory: migrateFromKVS error syncing fromKVS (will still proceed with migration, this is a best-effort thing): %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_231E60000, v5, OS_LOG_TYPE_ERROR, "SGSuggestHistory: migrateFromKVS error syncing fromKVS (will still proceed with migration, this is a best-effort thing): %@", &v6, 0xCu);
     }
 
     [*(a1 + 32) fail:v3];
@@ -3764,14 +3873,12 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_119(uin
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS successfully synced fromKVS", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS successfully synced fromKVS", &v6, 2u);
     }
 
     [*(a1 + 32) succeed:MEMORY[0x277CBEC38]];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_122(id *a1, void *a2, void *a3)
@@ -3798,7 +3905,7 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_122(id 
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v5 = WeakRetained;
@@ -3806,23 +3913,23 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_2(uint6
   {
     if (!v3)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_123;
-      v15[3] = &unk_27894C848;
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v18 = *(a1 + 72);
-      v11 = *(a1 + 56);
-      v12 = *(a1 + 64);
-      *&v13 = v11;
-      *(&v13 + 1) = v12;
-      *&v14 = v9;
-      *(&v14 + 1) = v10;
-      v16 = v14;
-      v17 = v13;
-      [v8 wait:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_123;
+      v14[3] = &unk_27894C848;
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 48);
+      v17 = *(a1 + 72);
+      v10 = *(a1 + 56);
+      v11 = *(a1 + 64);
+      *&v12 = v10;
+      *(&v12 + 1) = v11;
+      *&v13 = v8;
+      *(&v13 + 1) = v9;
+      v15 = v13;
+      v16 = v12;
+      [v7 wait:v14];
 
       goto LABEL_9;
     }
@@ -3831,7 +3938,7 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_2(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v3;
+      v19 = v3;
       _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, "SGSuggestHistory: migrateFromKVS bailing due to error syncing dest KVS: %@", buf, 0xCu);
     }
   }
@@ -3848,19 +3955,17 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_2(uint6
 
   (*(*(a1 + 72) + 16))();
 LABEL_9:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_123(uint64_t a1, void *a2, void *a3)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) dataForKey:@"SGSalt"];
   v8 = [*(a1 + 40) dataForKey:@"SGSalt"];
 
-  v57 = a1;
+  v56 = a1;
   if (v8)
   {
     v9 = [*(a1 + 40) dataForKey:@"SGSalt"];
@@ -3871,11 +3976,11 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_123(uin
       log = sgLogHandle();
       if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
       {
-        v11 = [*(v57 + 40) dataForKey:@"SGSalt"];
+        v11 = [*(v56 + 40) dataForKey:@"SGSalt"];
         *buf = 138478083;
-        v66 = v11;
-        v67 = 2113;
-        v68 = v7;
+        v65 = v11;
+        v66 = 2113;
+        v67 = v7;
         v12 = "SGSuggestHistory: bailing with success because new (%{private}@) and old (%{private}@) kvs have different salts";
 LABEL_13:
         _os_log_error_impl(&dword_231E60000, log, OS_LOG_TYPE_ERROR, v12, buf, 0x16u);
@@ -3893,27 +3998,27 @@ LABEL_13:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v66 = v7;
+      v65 = v7;
       _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS copying salt %{private}@ to new kvs", buf, 0xCu);
     }
 
     [*(a1 + 40) setData:v7 forKey:@"SGSalt"];
   }
 
-  v14 = [*(v57 + 40) dataForKey:@"SGSaltManatee"];
+  v14 = [*(v56 + 40) dataForKey:@"SGSaltManatee"];
 
-  v15 = *(v57 + 48);
+  v15 = *(v56 + 48);
   if (!v14)
   {
     if (v15)
     {
-      [*(v57 + 40) setData:*(v57 + 48) forKey:@"SGSaltManatee"];
+      [*(v56 + 40) setData:*(v56 + 48) forKey:@"SGSaltManatee"];
       v19 = sgLogHandle();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = *(v57 + 48);
+        v20 = *(v56 + 48);
         *buf = 138477827;
-        v66 = v20;
+        v65 = v20;
         v21 = "SGSuggestHistory: migrateFromKVS copying legacy manatee salt %{private}@";
         v22 = v19;
         v23 = 12;
@@ -3936,32 +4041,32 @@ LABEL_19:
     }
 
 LABEL_21:
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    log = *(v57 + 56);
-    v24 = [log countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    log = *(v56 + 56);
+    v24 = [log countByEnumeratingWithState:&v60 objects:v70 count:16];
     if (v24)
     {
       v25 = v24;
-      v54 = v7;
-      v55 = v6;
-      v56 = v5;
-      v60 = *v62;
-      v26 = v57;
+      v53 = v7;
+      v54 = v6;
+      v55 = v5;
+      v59 = *v61;
+      v26 = v56;
       do
       {
         v27 = 0;
-        v58 = v25;
+        v57 = v25;
         do
         {
-          if (*v62 != v60)
+          if (*v61 != v59)
           {
             objc_enumerationMutation(log);
           }
 
-          v28 = *(*(&v61 + 1) + 8 * v27);
+          v28 = *(*(&v60 + 1) + 8 * v27);
           v29 = objc_autoreleasePoolPush();
           v30 = [*(v26 + 32) dataForKey:v28];
           if (v30)
@@ -3987,9 +4092,9 @@ LABEL_21:
                 objc_autoreleasePoolPop(v39);
                 v43 = [v38 unarchivedObjectOfClasses:v42 fromData:v37 error:0];
 
-                v44 = [v43 count];
+                v44 = objc_msgSend_count(v43);
                 [v43 unionSet:v36];
-                v45 = [v43 count];
+                v45 = objc_msgSend_count(v43);
                 v46 = sgLogHandle();
                 v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT);
                 if (v45 == v44)
@@ -3997,11 +4102,11 @@ LABEL_21:
                   if (v47)
                   {
                     *buf = 138543362;
-                    v66 = v28;
+                    v65 = v28;
                     _os_log_impl(&dword_231E60000, v46, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ fromKVS does not have any entries that aren't already in dest", buf, 0xCu);
                   }
 
-                  v26 = v57;
+                  v26 = v56;
                 }
 
                 else
@@ -4009,29 +4114,29 @@ LABEL_21:
                   if (v47)
                   {
                     *buf = 138543618;
-                    v66 = v28;
-                    v67 = 2048;
-                    v68 = v45 - v44;
+                    v65 = v28;
+                    v66 = 2048;
+                    v67 = v45 - v44;
                     _os_log_impl(&dword_231E60000, v46, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ fromKVS migrating %tu entries from fromKVS to dest kvs that dest kvs didn't already have", buf, 0x16u);
                   }
 
                   v46 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v43 requiringSecureCoding:1 error:0];
                   v50 = sgLogHandle();
                   v51 = v50;
-                  v26 = v57;
+                  v26 = v56;
                   if (v46)
                   {
                     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                     {
                       v52 = [v46 length];
                       *buf = 138543618;
-                      v66 = v28;
-                      v67 = 2048;
-                      v68 = v52;
+                      v65 = v28;
+                      v66 = 2048;
+                      v67 = v52;
                       _os_log_impl(&dword_231E60000, v51, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ newDestData is length %tu", buf, 0x16u);
                     }
 
-                    [*(v57 + 40) setData:v46 forKey:v28];
+                    [*(v56 + 40) setData:v46 forKey:v28];
                   }
 
                   else
@@ -4039,11 +4144,11 @@ LABEL_21:
                     if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 138543875;
-                      v66 = v28;
-                      v67 = 2113;
-                      v68 = v36;
-                      v69 = 2113;
-                      v70 = v43;
+                      v65 = v28;
+                      v66 = 2113;
+                      v67 = v36;
+                      v68 = 2113;
+                      v69 = v43;
                       _os_log_fault_impl(&dword_231E60000, v51, OS_LOG_TYPE_FAULT, "SGSuggestHistory: migrateFromKVS newDestData is nil for key %{public}@! this should not happen. src: %{private}@, dest: %{private}@", buf, 0x20u);
                     }
 
@@ -4063,14 +4168,14 @@ LABEL_21:
                 if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v66 = v28;
+                  v65 = v28;
                   _os_log_impl(&dword_231E60000, v49, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ fromKVS does not have any existing entries in dest, so copying the serialized object directly", buf, 0xCu);
                 }
 
                 [*(v26 + 40) setData:v30 forKey:v28];
               }
 
-              v25 = v58;
+              v25 = v57;
             }
 
             else
@@ -4079,7 +4184,7 @@ LABEL_21:
               if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138543362;
-                v66 = v28;
+                v65 = v28;
                 _os_log_fault_impl(&dword_231E60000, v48, OS_LOG_TYPE_FAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ failed to decode data in fromKVS, so skipping", buf, 0xCu);
               }
 
@@ -4099,7 +4204,7 @@ LABEL_58:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v66 = v28;
+              v65 = v28;
               _os_log_impl(&dword_231E60000, v36, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateFromKVS for key %{public}@ has no existing data in fromKVS, so skipping", buf, 0xCu);
             }
           }
@@ -4109,19 +4214,19 @@ LABEL_58:
         }
 
         while (v25 != v27);
-        v25 = [log countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v25 = [log countByEnumeratingWithState:&v60 objects:v70 count:16];
       }
 
       while (v25);
-      v6 = v55;
-      v5 = v56;
-      v7 = v54;
+      v6 = v54;
+      v5 = v55;
+      v7 = v53;
     }
 
     goto LABEL_57;
   }
 
-  v16 = [*(v57 + 40) dataForKey:@"SGSaltManatee"];
+  v16 = [*(v56 + 40) dataForKey:@"SGSaltManatee"];
   v17 = [v15 isEqual:v16];
 
   if (v17)
@@ -4132,20 +4237,19 @@ LABEL_58:
   log = sgLogHandle();
   if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
   {
-    v18 = *(v57 + 48);
-    v11 = [*(v57 + 40) dataForKey:@"SGSaltManatee"];
+    v18 = *(v56 + 48);
+    v11 = [*(v56 + 40) dataForKey:@"SGSaltManatee"];
     *buf = 138478083;
-    v66 = v18;
-    v67 = 2113;
-    v68 = v11;
+    v65 = v18;
+    v66 = 2113;
+    v67 = v11;
     v12 = "SGSuggestHistory: migrateFromKVS legacy manatee salt %{private}@ in fromKVS conflicts with existing legacy manatee salt %{private}@ in dest, so we're going to bail with success";
     goto LABEL_13;
   }
 
 LABEL_57:
 
-  (*(*(v57 + 64) + 16))();
-  v53 = *MEMORY[0x277D85DE8];
+  (*(*(v56 + 64) + 16))();
 }
 
 void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_115(uint64_t a1, void *a2)
@@ -4174,7 +4278,7 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_104(uin
 
 - (void)recordSuccessfulMigration
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
   v5 = SGRandomDataOfLength(9uLL);
   v6 = [v5 base64EncodedStringWithOptions:0];
@@ -4194,28 +4298,26 @@ void __50__SGSuggestHistory_migrateFromKVS_withCompletion___block_invoke_104(uin
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: recording successful migration using token %{public}@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)needsMigration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D02098] didKVSMigrationTokenForIdentifier:self->_kvStoreIdentifier];
   if (!v3)
   {
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
+      LOWORD(v13) = 0;
       v9 = "SGSuggestHistory: needsMigration returning YES because migrationToken is nil";
       v10 = v6;
       v11 = 2;
 LABEL_10:
-      _os_log_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+      _os_log_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
     }
 
 LABEL_11:
@@ -4232,8 +4334,8 @@ LABEL_11:
   {
     if (v7)
     {
-      v14 = 138543362;
-      v15 = v3;
+      v13 = 138543362;
+      v14 = v3;
       v9 = "SGSuggestHistory: needsMigration returning YES because migrationToken %{public}@ is not set in the KVS";
       v10 = v6;
       v11 = 12;
@@ -4245,21 +4347,20 @@ LABEL_11:
 
   if (v7)
   {
-    v14 = 138543362;
-    v15 = v3;
-    _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: needsMigration returning NO because migrationToken %{public}@ is already set in the KVS", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v3;
+    _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: needsMigration returning NO because migrationToken %{public}@ is already set in the KVS", &v13, 0xCu);
   }
 
   v8 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)migrateIfNeeded
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -4269,17 +4370,17 @@ LABEL_12:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__8313;
-  v34 = __Block_byref_object_dispose__8314;
-  v35 = 0;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__8313;
+  v33 = __Block_byref_object_dispose__8314;
+  v34 = 0;
   lock = self->_lock;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __35__SGSuggestHistory_migrateIfNeeded__block_invoke;
-  v30[3] = &unk_27894C710;
-  v30[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __35__SGSuggestHistory_migrateIfNeeded__block_invoke;
+  v29[3] = &unk_27894C710;
+  v29[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v29];
   v5 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
@@ -4326,10 +4427,10 @@ LABEL_13:
   objc_autoreleasePoolPop(v8);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__8313;
-  v34 = __Block_byref_object_dispose__8314;
-  v35 = 0;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__8313;
+  v33 = __Block_byref_object_dispose__8314;
+  v34 = 0;
   v12 = objc_autoreleasePoolPush();
   v13 = v6;
   [v6 UTF8String];
@@ -4344,28 +4445,26 @@ LABEL_13:
   block[3] = &unk_278955BF0;
   block[4] = &buf;
   v16 = dispatch_block_create(0, block);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __35__SGSuggestHistory_migrateIfNeeded__block_invoke_78;
-  v22[3] = &unk_27894C788;
-  objc_copyWeak(&v27, &location);
-  v23 = v5;
-  v24 = v11;
-  v25 = v16;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __35__SGSuggestHistory_migrateIfNeeded__block_invoke_78;
+  v21[3] = &unk_27894C788;
+  objc_copyWeak(&v26, &location);
+  v22 = v5;
+  v23 = v11;
+  v24 = v16;
   p_buf = &buf;
   v17 = v16;
   v18 = v11;
-  dispatch_async(v18, v22);
+  dispatch_async(v18, v21);
   v19 = dispatch_time(0, 300000000000);
   dispatch_after(v19, v18, v17);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   _Block_object_dispose(&buf, 8);
 
   objc_destroyWeak(&location);
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__SGSuggestHistory_migrateIfNeeded__block_invoke_77(uint64_t a1)
@@ -4445,7 +4544,7 @@ void __35__SGSuggestHistory_migrateIfNeeded__block_invoke_79(uint64_t a1, char a
 
 void __35__SGSuggestHistory_migrateIfNeeded__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(*(a1 + 48) + 8) + 40);
   dispatch_block_cancel(*(a1 + 40));
   v3 = *(*(a1 + 48) + 8);
@@ -4465,17 +4564,15 @@ void __35__SGSuggestHistory_migrateIfNeeded__block_invoke_2(uint64_t a1)
       v6 = @"FAILURE";
     }
 
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateIfNeeded %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEFAULT, "SGSuggestHistory: migrateIfNeeded %@", &v7, 0xCu);
   }
 
   if (*(a1 + 56) == 1)
   {
     [*(a1 + 32) recordSuccessfulMigration];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMigrateFromStore:(id)store

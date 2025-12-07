@@ -24,9 +24,9 @@
 - (SNKShotLabel)label
 {
   selfCopy = self;
-  v3 = sub_1C97B1154();
+  v4 = sub_1C97B1154(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLabel:(id)label

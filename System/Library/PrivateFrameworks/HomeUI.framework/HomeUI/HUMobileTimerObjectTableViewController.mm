@@ -1065,20 +1065,20 @@ void __72__HUMobileTimerObjectTableViewController__configureNoItemsViewAnimated_
   return _isSiriEndpointActive;
 }
 
-void __82__HUMobileTimerObjectTableViewController__activateAccessoryForMobileTimerCreation__block_invoke(uint64_t a1, void *a2)
+void __82__HUMobileTimerObjectTableViewController__activateAccessoryForMobileTimerCreation__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = HFLogForCategory();
-  v6 = v5;
-  if (v3)
+  v6 = HFLogForCategory();
+  v7 = v6;
+  if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v3;
-      _os_log_error_impl(&dword_20CEB6000, v6, OS_LOG_TYPE_ERROR, "[HMSiriEndpointProfile applyOnboardingSelections:completionHandler:] Implicit Onboarding failed with error: %@ - Add Timer/Alarm failed", &v17, 0xCu);
+      v18 = 138412290;
+      v19 = v4;
+      _os_log_error_impl(&dword_20CEB6000, v7, OS_LOG_TYPE_ERROR, "[HMSiriEndpointProfile applyOnboardingSelections:completionHandler:] Implicit Onboarding failed with error: %@ - Add Timer/Alarm failed", &v18, 0xCu);
     }
 
     [WeakRetained _showSpinner:0];
@@ -1087,29 +1087,29 @@ void __82__HUMobileTimerObjectTableViewController__activateAccessoryForMobileTim
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = HMSiriEndpointOnboardingResultAsString();
-      v17 = 138412290;
-      v18 = v7;
-      _os_log_impl(&dword_20CEB6000, v6, OS_LOG_TYPE_DEFAULT, "[HMSiriEndpointProfile applyOnboardingSelections:completionHandler:] Implicit Onboarding succeeded with result: %@", &v17, 0xCu);
+      v8 = HMSiriEndpointOnboardingResultAsString();
+      v18 = 138412290;
+      v19 = v8;
+      _os_log_impl(&dword_20CEB6000, v7, OS_LOG_TYPE_DEFAULT, "[HMSiriEndpointProfile applyOnboardingSelections:completionHandler:] Implicit Onboarding succeeded with result: %@", &v18, 0xCu);
     }
 
     if ([WeakRetained _isSiriEndpointActive])
     {
       [WeakRetained _showSpinner:0];
       [WeakRetained _reloadTableViewWithExistingData];
-      v8 = HFLogForCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = HFLogForCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [WeakRetained accessory];
-        v17 = 138412802;
-        v18 = WeakRetained;
-        v19 = 2080;
-        v20 = "[HUMobileTimerObjectTableViewController _activateAccessoryForMobileTimerCreation]_block_invoke";
-        v21 = 2112;
-        v22 = v9;
-        _os_log_impl(&dword_20CEB6000, v8, OS_LOG_TYPE_DEFAULT, "(%@)%s: Siri endpoint accessory %@ is onboarded & active", &v17, 0x20u);
+        v10 = [WeakRetained accessory];
+        v18 = 138412802;
+        v19 = WeakRetained;
+        v20 = 2080;
+        v21 = "[HUMobileTimerObjectTableViewController _activateAccessoryForMobileTimerCreation]_block_invoke";
+        v22 = 2112;
+        v23 = v10;
+        _os_log_impl(&dword_20CEB6000, v9, OS_LOG_TYPE_DEFAULT, "(%@)%s: Siri endpoint accessory %@ is onboarded & active", &v18, 0x20u);
       }
 
       [WeakRetained presentAddMobileTimerObjectViewControllerOnMainThread];
@@ -1117,28 +1117,28 @@ void __82__HUMobileTimerObjectTableViewController__activateAccessoryForMobileTim
 
     else
     {
-      v10 = HFLogForCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = HFLogForCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [WeakRetained accessory];
-        v17 = 138412802;
-        v18 = WeakRetained;
-        v19 = 2080;
-        v20 = "[HUMobileTimerObjectTableViewController _activateAccessoryForMobileTimerCreation]_block_invoke";
-        v21 = 2112;
-        v22 = v11;
-        _os_log_impl(&dword_20CEB6000, v10, OS_LOG_TYPE_DEFAULT, "(%@)%s: Siri endpoint accessory %@ is onboarded but NOT active, BEGINNING TO WAIT", &v17, 0x20u);
+        v12 = [WeakRetained accessory];
+        v18 = 138412802;
+        v19 = WeakRetained;
+        v20 = 2080;
+        v21 = "[HUMobileTimerObjectTableViewController _activateAccessoryForMobileTimerCreation]_block_invoke";
+        v22 = 2112;
+        v23 = v12;
+        _os_log_impl(&dword_20CEB6000, v11, OS_LOG_TYPE_DEFAULT, "(%@)%s: Siri endpoint accessory %@ is onboarded but NOT active, BEGINNING TO WAIT", &v18, 0x20u);
       }
 
       [WeakRetained setCreateNewMTObjectPendingSidekickActivation:1];
-      v12 = objc_alloc(MEMORY[0x277CBEBB8]);
-      v13 = [MEMORY[0x277CBEAA8] date];
-      v14 = [v12 initWithFireDate:v13 interval:WeakRetained target:sel__accessoryActivationTimerFinished_ selector:0 userInfo:0 repeats:20.0];
-      [WeakRetained setAccessoryActivationTimer:v14];
+      v13 = objc_alloc(MEMORY[0x277CBEBB8]);
+      v14 = [MEMORY[0x277CBEAA8] date];
+      v15 = [v13 initWithFireDate:v14 interval:WeakRetained target:sel__accessoryActivationTimerFinished_ selector:0 userInfo:0 repeats:20.0];
+      [WeakRetained setAccessoryActivationTimer:v15];
 
-      v15 = [MEMORY[0x277CBEB88] currentRunLoop];
-      v16 = [WeakRetained accessoryActivationTimer];
-      [v15 addTimer:v16 forMode:*MEMORY[0x277CBE640]];
+      v16 = [MEMORY[0x277CBEB88] currentRunLoop];
+      v17 = [WeakRetained accessoryActivationTimer];
+      [v16 addTimer:v17 forMode:*MEMORY[0x277CBE640]];
     }
   }
 }

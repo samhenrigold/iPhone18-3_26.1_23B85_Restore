@@ -415,14 +415,14 @@ LABEL_63:
 
       for (i = 0; i != 3; ++i)
       {
-        v97.n128_f64[i] = self->_p1.position.var0.__val_._e[i] - self->_p0.position.var0.__val_._e[i];
+        v98.n128_f64[i] = self->_p1.position.var0.__val_._e[i] - self->_p0.position.var0.__val_._e[i];
       }
 
       v51 = 0;
       v52 = 0.0;
       do
       {
-        v52 = v52 + v97.n128_f64[v51] * v97.n128_f64[v51];
+        v52 = v52 + v98.n128_f64[v51] * v98.n128_f64[v51];
         ++v51;
       }
 
@@ -462,21 +462,21 @@ LABEL_63:
 
         for (j = 0; j != 3; ++j)
         {
-          v97.n128_f64[j] = self->_p1.position.var0.__val_._e[j] - self->_p0.position.var0.__val_._e[j];
+          v98.n128_f64[j] = self->_p1.position.var0.__val_._e[j] - self->_p0.position.var0.__val_._e[j];
         }
 
         v58 = 0;
-        v103 = v97;
         v104 = v98;
+        v105 = v99;
         do
         {
-          v97.n128_f64[v58] = v103.n128_f64[v58] * 0.001;
+          v98.n128_f64[v58] = v104.n128_f64[v58] * 0.001;
           ++v58;
         }
 
         while (v58 != 3);
-        v59 = *&v98;
-        *self->_p1.tangent._e = v97;
+        v59 = *&v99;
+        *self->_p1.tangent._e = v98;
         self->_p1.tangent._e[2] = v59;
         self->_mbValid = 0;
         tangentValid = self->_p0.tangentValid;
@@ -493,7 +493,7 @@ LABEL_63:
         v64 = &self->_p0.tangent;
         do
         {
-          v97.n128_f64[v63] = self->_p1.position.var0.__val_._e[v63] - self->_p0.position.var0.__val_._e[v63];
+          v98.n128_f64[v63] = self->_p1.position.var0.__val_._e[v63] - self->_p0.position.var0.__val_._e[v63];
           ++v63;
         }
 
@@ -502,7 +502,7 @@ LABEL_63:
         v66 = 0.0;
         do
         {
-          v66 = v66 + v97.n128_f64[v65] * v97.n128_f64[v65];
+          v66 = v66 + v98.n128_f64[v65] * v98.n128_f64[v65];
           ++v65;
         }
 
@@ -533,25 +533,25 @@ LABEL_63:
 
         v72 = gm::Matrix<double,3,1>::normalized<int,void>(v64);
         v73 = 0;
-        v103.n128_f64[0] = v72;
-        v103.n128_u64[1] = v74;
-        v104 = v75;
+        v104.n128_f64[0] = v72;
+        v104.n128_u64[1] = v74;
+        v105 = v75;
         do
         {
-          v97.n128_f64[v73] = v69 * 3.0 * v103.n128_f64[v73];
+          v98.n128_f64[v73] = v69 * 3.0 * v104.n128_f64[v73];
           ++v73;
         }
 
         while (v73 != 3);
         v76 = 0;
-        v34 = *&v98;
-        v96 = v97;
-        *self->_p0.tangent._e = v97;
+        v34 = *&v99;
+        v97 = v98;
+        *self->_p0.tangent._e = v98;
         self->_p0.tangent._e[2] = v34;
         v77 = &self->_p1.tangent;
         do
         {
-          v97.n128_f64[v76] = self->_p1.position.var0.__val_._e[v76] - self->_p0.position.var0.__val_._e[v76];
+          v98.n128_f64[v76] = self->_p1.position.var0.__val_._e[v76] - self->_p0.position.var0.__val_._e[v76];
           ++v76;
         }
 
@@ -560,7 +560,7 @@ LABEL_63:
         v79 = 0.0;
         do
         {
-          v79 = v79 + v97.n128_f64[v78] * v97.n128_f64[v78];
+          v79 = v79 + v98.n128_f64[v78] * v98.n128_f64[v78];
           ++v78;
         }
 
@@ -591,12 +591,12 @@ LABEL_63:
 
         v85 = gm::Matrix<double,3,1>::normalized<int,void>(v77);
         v86 = 0;
-        v103.n128_f64[0] = v85;
-        v103.n128_u64[1] = v87;
-        v104 = v88;
+        v104.n128_f64[0] = v85;
+        v104.n128_u64[1] = v87;
+        v105 = v88;
         do
         {
-          v97.n128_f64[v86] = v82 * 3.0 * v103.n128_f64[v86];
+          v98.n128_f64[v86] = v82 * 3.0 * v104.n128_f64[v86];
           ++v86;
         }
 
@@ -621,14 +621,14 @@ LABEL_63:
       {
         for (k = 0; k != 3; ++k)
         {
-          v97.n128_f64[k] = self->_p1.position.var0.__val_._e[k] - self->_p0.position.var0.__val_._e[k];
+          v98.n128_f64[k] = self->_p1.position.var0.__val_._e[k] - self->_p0.position.var0.__val_._e[k];
         }
 
         v10 = 0;
         v11 = 0.0;
         do
         {
-          v11 = v11 + v97.n128_f64[v10] * v97.n128_f64[v10];
+          v11 = v11 + v98.n128_f64[v10] * v98.n128_f64[v10];
           ++v10;
         }
 
@@ -649,22 +649,22 @@ LABEL_63:
         {
           for (m = 0; m != 3; ++m)
           {
-            v97.n128_f64[m] = self->_p1.position.var0.__val_._e[m] - self->_p0.position.var0.__val_._e[m];
+            v98.n128_f64[m] = self->_p1.position.var0.__val_._e[m] - self->_p0.position.var0.__val_._e[m];
           }
 
           v17 = 0;
-          v103 = v97;
           v104 = v98;
+          v105 = v99;
           do
           {
-            v97.n128_f64[v17] = v103.n128_f64[v17] * 0.001;
+            v98.n128_f64[v17] = v104.n128_f64[v17] * 0.001;
             ++v17;
           }
 
           while (v17 != 3);
           v18 = 0;
-          v19 = *&v98;
-          *self->_p1.tangent._e = v97;
+          v19 = *&v99;
+          *self->_p1.tangent._e = v98;
           v20 = &self->_p1.tangent;
           self->_p1.tangent._e[2] = v19;
           v21 = &self->_p0.tangent;
@@ -672,7 +672,7 @@ LABEL_63:
           self->_p0.tangent._e[2] = self->_p1.tangent._e[2];
           do
           {
-            v97.n128_f64[v18] = self->_p1.position.var0.__val_._e[v18] - self->_p0.position.var0.__val_._e[v18];
+            v98.n128_f64[v18] = self->_p1.position.var0.__val_._e[v18] - self->_p0.position.var0.__val_._e[v18];
             ++v18;
           }
 
@@ -681,7 +681,7 @@ LABEL_63:
           v23 = 0.0;
           do
           {
-            v23 = v23 + v97.n128_f64[v22] * v97.n128_f64[v22];
+            v23 = v23 + v98.n128_f64[v22] * v98.n128_f64[v22];
             ++v22;
           }
 
@@ -712,24 +712,24 @@ LABEL_63:
 
           v29 = gm::Matrix<double,3,1>::normalized<int,void>(v21);
           v30 = 0;
-          v103.n128_f64[0] = v29;
-          v103.n128_u64[1] = v31;
-          v104 = v32;
+          v104.n128_f64[0] = v29;
+          v104.n128_u64[1] = v31;
+          v105 = v32;
           do
           {
-            v97.n128_f64[v30] = v26 * 3.0 * v103.n128_f64[v30];
+            v98.n128_f64[v30] = v26 * 3.0 * v104.n128_f64[v30];
             ++v30;
           }
 
           while (v30 != 3);
           v33 = 0;
-          v34 = *&v98;
-          v96 = v97;
-          *self->_p0.tangent._e = v97;
+          v34 = *&v99;
+          v97 = v98;
+          *self->_p0.tangent._e = v98;
           self->_p0.tangent._e[2] = v34;
           do
           {
-            v97.n128_f64[v33] = self->_p1.position.var0.__val_._e[v33] - self->_p0.position.var0.__val_._e[v33];
+            v98.n128_f64[v33] = self->_p1.position.var0.__val_._e[v33] - self->_p0.position.var0.__val_._e[v33];
             ++v33;
           }
 
@@ -738,7 +738,7 @@ LABEL_63:
           v36 = 0.0;
           do
           {
-            v36 = v36 + v97.n128_f64[v35] * v97.n128_f64[v35];
+            v36 = v36 + v98.n128_f64[v35] * v98.n128_f64[v35];
             ++v35;
           }
 
@@ -769,30 +769,30 @@ LABEL_63:
 
           v42 = gm::Matrix<double,3,1>::normalized<int,void>(&self->_p1.tangent);
           v43 = 0;
-          v103.n128_f64[0] = v42;
-          v103.n128_u64[1] = v44;
-          v104 = v45;
+          v104.n128_f64[0] = v42;
+          v104.n128_u64[1] = v44;
+          v105 = v45;
           do
           {
-            v97.n128_f64[v43] = v39 * 3.0 * v103.n128_f64[v43];
+            v98.n128_f64[v43] = v39 * 3.0 * v104.n128_f64[v43];
             ++v43;
           }
 
           while (v43 != 3);
 LABEL_98:
-          v89 = *&v98;
-          v90 = v97;
-          *self->_p1.tangent._e = v97;
+          v89 = *&v99;
+          v90 = v98;
+          *self->_p1.tangent._e = v98;
           self->_p1.tangent._e[2] = v89;
-          VKPolynomialCoefficientsForHermitePolynomialWithConstraints(&v97, *&self->_p0.position.var0.__null_state_, self->_p0.position.var0.__val_._e[2], v96, v34, *&self->_p1.position.var0.__null_state_, v5, v90, v89);
-          v91 = v100;
-          *&self->_mb.mb[1][1] = v99;
+          VKPolynomialCoefficientsForHermitePolynomialWithConstraints(&v98, *&self->_p0.position.var0.__null_state_, self->_p0.position.var0.__val_._e[2], v97, v34, *&self->_p1.position.var0.__null_state_, v5, v90, v89);
+          v91 = v101;
+          *&self->_mb.mb[1][1] = v100;
           *&self->_mb.mb[2][0] = v91;
-          v92 = v102;
-          *&self->_mb.mb[2][2] = v101;
+          v92 = v103;
+          *&self->_mb.mb[2][2] = v102;
           *&self->_mb.mb[3][1] = v92;
-          v93 = v98;
-          *&self->_mb.mb[0][0] = v97;
+          v93 = v99;
+          *&self->_mb.mb[0][0] = v98;
           *&self->_mb.mb[0][2] = v93;
           self->_mbValid = 1;
           return;
@@ -802,7 +802,7 @@ LABEL_98:
 
 LABEL_100:
     v94 = std::__throw_bad_optional_access[abi:nn200100]();
-    md::RasterResourceDataRequester::resolveTile(v94, v95);
+    md::RasterResourceDataRequester::resolveTile(v94, v95, v96);
     return;
   }
 

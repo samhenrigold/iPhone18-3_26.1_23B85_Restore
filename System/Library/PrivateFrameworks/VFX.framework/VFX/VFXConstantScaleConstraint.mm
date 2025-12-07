@@ -12,19 +12,20 @@
 
 - (VFXConstantScaleConstraint)init
 {
-  v8.receiver = self;
-  v8.super_class = VFXConstantScaleConstraint;
-  v2 = [(VFXConstraint *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VFXConstantScaleConstraint;
+  v2 = [(VFXConstraint *)&v9 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = sub_1AF151568();
-    v2->_scale = 1.0;
-    v2->super._constraintRef = v3;
-    v2->_screenSpace = 1;
-    objc_msgSend_didInitConstraintRef(v2, v4, v5, v6);
+    v5 = sub_1AF151568(v2, v3);
+    v4->_scale = 1.0;
+    v4->super._constraintRef = v5;
+    v4->_screenSpace = 1;
+    objc_msgSend_didInitConstraintRef(v4, v6, v7);
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)constantScaleConstraint
@@ -42,7 +43,7 @@
   v3[2] = sub_1AF2BCE44;
   v3[3] = &unk_1E7A7E270;
   v3[4] = self;
-  scaleCopy = scale;
+  *&v4 = scale;
   objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, a2, self, v3);
 }
 
@@ -61,7 +62,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  objc_msgSend_copyTo_(self, v5, v4, v6);
+  objc_msgSend_copyTo_(self, v5, v4);
   v4[18] = LODWORD(self->_scale);
   *(v4 + 76) = self->_screenSpace;
   return v4;
@@ -69,32 +70,33 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v9.receiver = self;
-  v9.super_class = VFXConstantScaleConstraint;
-  [(VFXConstraint *)&v9 encodeWithCoder:?];
+  v8.receiver = self;
+  v8.super_class = VFXConstantScaleConstraint;
+  [(VFXConstraint *)&v8 encodeWithCoder:?];
   objc_msgSend_encodeBool_forKey_(coder, v5, self->_screenSpace, @"screenSpace");
   *&v6 = self->_scale;
-  objc_msgSend_encodeFloat_forKey_(coder, v7, @"scale", v8, v6);
+  objc_msgSend_encodeFloat_forKey_(coder, v7, @"scale", v6);
 }
 
 - (VFXConstantScaleConstraint)initWithCoder:(id)coder
 {
-  v24.receiver = self;
-  v24.super_class = VFXConstantScaleConstraint;
-  v4 = [(VFXConstraint *)&v24 initWithCoder:?];
+  v19.receiver = self;
+  v19.super_class = VFXConstantScaleConstraint;
+  v4 = [(VFXConstraint *)&v19 initWithCoder:?];
+  v6 = v4;
   if (v4)
   {
-    v4->super._constraintRef = sub_1AF151568();
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v5, v6, v7);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v13 = objc_msgSend_decodeBoolForKey_(coder, v11, @"screenSpace", v12);
-    objc_msgSend_setScreenSpace_(v4, v14, v13, v15);
-    objc_msgSend_decodeFloatForKey_(coder, v16, @"scale", v17);
-    objc_msgSend_setScale_(v4, v18, v19, v20);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v21, v8, v22);
+    v4->super._constraintRef = sub_1AF151568(v4, v5);
+    v9 = objc_msgSend_immediateMode(VFXTransaction, v7, v8);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v10, 1);
+    v12 = objc_msgSend_decodeBoolForKey_(coder, v11, @"screenSpace");
+    objc_msgSend_setScreenSpace_(v6, v13, v12);
+    objc_msgSend_decodeFloatForKey_(coder, v14, @"scale");
+    objc_msgSend_setScale_(v6, v15, v16);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v17, v9);
   }
 
-  return v4;
+  return v6;
 }
 
 @end

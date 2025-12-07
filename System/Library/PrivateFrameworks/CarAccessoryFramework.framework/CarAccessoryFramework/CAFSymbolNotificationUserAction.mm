@@ -113,8 +113,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v15[5] = *MEMORY[0x277D85DE8];
-  v14[0] = @"contentURLAction";
+  v14[5] = *MEMORY[0x277D85DE8];
+  v13[0] = @"contentURLAction";
   contentURLAction = [(CAFSymbolNotificationUserAction *)self contentURLAction];
   null = contentURLAction;
   if (!contentURLAction)
@@ -122,14 +122,14 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"disabled";
+  v14[0] = null;
+  v13[1] = @"disabled";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[CAFSymbolNotificationUserAction disabled](self, "disabled")}];
-  v15[1] = v5;
-  v14[2] = @"symbolColor";
+  v14[1] = v5;
+  v13[2] = @"symbolColor";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSymbolNotificationUserAction symbolColor](self, "symbolColor")}];
-  v15[2] = v6;
-  v14[3] = @"symbolName";
+  v14[2] = v6;
+  v13[3] = @"symbolName";
   symbolName = [(CAFSymbolNotificationUserAction *)self symbolName];
   null2 = symbolName;
   if (!symbolName)
@@ -137,8 +137,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[3] = null2;
-  v14[4] = @"userVisibleLabel";
+  v14[3] = null2;
+  v13[4] = @"userVisibleLabel";
   userVisibleLabel = [(CAFSymbolNotificationUserAction *)self userVisibleLabel];
   null3 = userVisibleLabel;
   if (!userVisibleLabel)
@@ -146,8 +146,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[4] = null3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = null3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
   if (!userVisibleLabel)
   {
   }
@@ -159,8 +159,6 @@
   if (!contentURLAction)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

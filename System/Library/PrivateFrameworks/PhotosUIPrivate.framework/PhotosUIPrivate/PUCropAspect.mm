@@ -322,11 +322,11 @@ LABEL_4:
 {
   v7 = PULocalizedString(@"PHOTOEDIT_CROP_ASPECT_RATIO_TEMPLATE");
   v8 = PXLocalizedStringFromInteger();
-  v12 = PXLocalizedStringFromInteger();
-  v9 = PUStringWithValidatedFormat();
+  v18 = PXLocalizedStringFromInteger();
+  v15 = PUStringWithValidatedFormat(v7, @"%@ %@", v9, v10, v11, v12, v13, v14, v8);
 
-  v10 = [(PUCropAspect *)self _initWithWidth:v9 height:width localizedName:height, v8, v12];
-  return v10;
+  v16 = [(PUCropAspect *)self _initWithWidth:v15 height:width localizedName:height];
+  return v16;
 }
 
 + (id)originalAspectForWidth:(unint64_t)width height:(unint64_t)height

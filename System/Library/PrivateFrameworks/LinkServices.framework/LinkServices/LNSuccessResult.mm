@@ -319,7 +319,7 @@ LABEL_47:
 
 - (NSArray)predictions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   predictions = self->_predictions;
   if (!predictions)
   {
@@ -329,9 +329,9 @@ LABEL_47:
     v7 = [v4 setWithObjects:{v5, v6, objc_opt_class(), 0}];
     v8 = MEMORY[0x1E696ACD0];
     predictionsData = [(LNSuccessResult *)self predictionsData];
-    v17 = 0;
-    v10 = [v8 unarchivedObjectOfClasses:v7 fromData:predictionsData error:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [v8 unarchivedObjectOfClasses:v7 fromData:predictionsData error:&v16];
+    v11 = v16;
 
     if (v11 || !v10)
     {
@@ -340,11 +340,11 @@ LABEL_47:
       {
         predictionsData2 = [(LNSuccessResult *)self predictionsData];
         *buf = 138412802;
-        v19 = v7;
-        v20 = 2112;
-        v21 = predictionsData2;
-        v22 = 2112;
-        v23 = v11;
+        v18 = v7;
+        v19 = 2112;
+        v20 = predictionsData2;
+        v21 = 2112;
+        v22 = v11;
         _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_ERROR, "Object archival failed for %@ with %@: %@", buf, 0x20u);
       }
     }
@@ -355,23 +355,21 @@ LABEL_47:
     predictions = self->_predictions;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return predictions;
 }
 
 - (LNActionAppContext)actionAppContext
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   actionAppContext = self->_actionAppContext;
   if (!actionAppContext)
   {
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     appContextData = [(LNSuccessResult *)self appContextData];
-    v15 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:appContextData error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:appContextData error:&v14];
+    v8 = v14;
 
     if (v8 || !v7)
     {
@@ -381,11 +379,11 @@ LABEL_47:
         v10 = objc_opt_class();
         appContextData2 = [(LNSuccessResult *)self appContextData];
         *buf = 138412802;
-        v17 = v10;
-        v18 = 2112;
-        v19 = appContextData2;
-        v20 = 2112;
-        v21 = v8;
+        v16 = v10;
+        v17 = 2112;
+        v18 = appContextData2;
+        v19 = 2112;
+        v20 = v8;
         _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Object archival failed for %@ with %@: %@", buf, 0x20u);
       }
     }
@@ -396,23 +394,21 @@ LABEL_47:
     actionAppContext = self->_actionAppContext;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return actionAppContext;
 }
 
 - (LNActionOutput)output
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   output = self->_output;
   if (!output)
   {
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     outputData = [(LNSuccessResult *)self outputData];
-    v15 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:outputData error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:outputData error:&v14];
+    v8 = v14;
 
     if (v8 || !v7)
     {
@@ -422,11 +418,11 @@ LABEL_47:
         v10 = objc_opt_class();
         outputData2 = [(LNSuccessResult *)self outputData];
         *buf = 138412802;
-        v17 = v10;
-        v18 = 2112;
-        v19 = outputData2;
-        v20 = 2112;
-        v21 = v8;
+        v16 = v10;
+        v17 = 2112;
+        v18 = outputData2;
+        v19 = 2112;
+        v20 = v8;
         _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Object archival failed for %@ with %@: %@", buf, 0x20u);
       }
     }
@@ -437,23 +433,21 @@ LABEL_47:
     output = self->_output;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return output;
 }
 
 - (LNAction)action
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   action = self->_action;
   if (!action)
   {
     v4 = MEMORY[0x1E696ACD0];
     v5 = objc_opt_class();
     actionData = [(LNSuccessResult *)self actionData];
-    v15 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:actionData error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:actionData error:&v14];
+    v8 = v14;
 
     if (v8 || !v7)
     {
@@ -463,11 +457,11 @@ LABEL_47:
         v10 = objc_opt_class();
         actionData2 = [(LNSuccessResult *)self actionData];
         *buf = 138412802;
-        v17 = v10;
-        v18 = 2112;
-        v19 = actionData2;
-        v20 = 2112;
-        v21 = v8;
+        v16 = v10;
+        v17 = 2112;
+        v18 = actionData2;
+        v19 = 2112;
+        v20 = v8;
         _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Object archival failed for %@ with %@: %@", buf, 0x20u);
       }
     }
@@ -477,8 +471,6 @@ LABEL_47:
 
     action = self->_action;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return action;
 }
@@ -558,34 +550,34 @@ LABEL_4:
 
 - (LNSuccessResult)initWithAction:(id)action output:(id)output actionAppContext:(id)context predictions:(id)predictions undoReference:(id)reference
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   outputCopy = output;
   contextCopy = context;
   predictionsCopy = predictions;
   v14 = MEMORY[0x1E696ACC8];
-  v39 = 0;
+  v38 = 0;
   referenceCopy = reference;
-  v16 = [v14 archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v39];
-  v17 = v39;
+  v16 = [v14 archivedDataWithRootObject:actionCopy requiringSecureCoding:1 error:&v38];
+  v17 = v38;
   if (v17 || !v16)
   {
     v18 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v41 = actionCopy;
-      v42 = 2112;
-      v43 = v17;
+      v40 = actionCopy;
+      v41 = 2112;
+      v42 = v17;
       _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
     }
   }
 
-  v34 = actionCopy;
+  v33 = actionCopy;
 
-  v38 = 0;
-  v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:outputCopy requiringSecureCoding:1 error:&v38];
-  v20 = v38;
+  v37 = 0;
+  v19 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:outputCopy requiringSecureCoding:1 error:&v37];
+  v20 = v37;
   v21 = contextCopy;
   if (v20 || !v19)
   {
@@ -593,43 +585,43 @@ LABEL_4:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v41 = outputCopy;
-      v42 = 2112;
-      v43 = v20;
+      v40 = outputCopy;
+      v41 = 2112;
+      v42 = v20;
       _os_log_impl(&dword_19763D000, v22, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
     }
   }
 
   v23 = outputCopy;
 
-  v37 = 0;
-  v24 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v37];
-  v25 = v37;
+  v36 = 0;
+  v24 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v36];
+  v25 = v36;
   if (v25 || !v24)
   {
     v26 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v41 = contextCopy;
-      v42 = 2112;
-      v43 = v25;
+      v40 = contextCopy;
+      v41 = 2112;
+      v42 = v25;
       _os_log_impl(&dword_19763D000, v26, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
     }
   }
 
-  v36 = 0;
-  v27 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:predictionsCopy requiringSecureCoding:1 error:&v36];
-  v28 = v36;
+  v35 = 0;
+  v27 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:predictionsCopy requiringSecureCoding:1 error:&v35];
+  v28 = v35;
   if (v28 || !v27)
   {
     v29 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v41 = predictionsCopy;
-      v42 = 2112;
-      v43 = v28;
+      v40 = predictionsCopy;
+      v41 = 2112;
+      v42 = v28;
       _os_log_impl(&dword_19763D000, v29, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
     }
 
@@ -637,7 +629,6 @@ LABEL_4:
   }
 
   v30 = [(LNSuccessResult *)self initWithActionData:v16 outputData:v19 appContextData:v24 predictionsData:v27 undoReference:referenceCopy];
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

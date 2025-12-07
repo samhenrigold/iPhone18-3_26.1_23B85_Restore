@@ -17035,7 +17035,7 @@ void __56__PKPaymentService_VPAN__virtualCardCountWithActiveVPAN__block_invoke(u
   }
 }
 
-uint64_t __56__PKPaymentService_VPAN__virtualCardCountWithActiveVPAN__block_invoke_16(uint64_t a1, void *a2)
+void *__56__PKPaymentService_VPAN__virtualCardCountWithActiveVPAN__block_invoke_16(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 40) + 8) + 24) = result;

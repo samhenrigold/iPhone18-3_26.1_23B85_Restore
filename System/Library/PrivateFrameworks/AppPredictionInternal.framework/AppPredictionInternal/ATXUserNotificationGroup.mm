@@ -41,7 +41,7 @@ uint64_t __50__ATXUserNotificationGroup_initWithNotifications___block_invoke(uin
 
 - (BOOL)runCachedCheckOnNotificationsWithIvar:(int64_t *)ivar block:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (*ivar)
   {
@@ -50,33 +50,33 @@ uint64_t __50__ATXUserNotificationGroup_initWithNotifications___block_invoke(uin
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = self->_notifications;
-    v7 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
-      v9 = *v15;
+      v9 = *v14;
       v10 = 2;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          if (blockCopy[2](blockCopy, *(*(&v14 + 1) + 8 * i)))
+          if (blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * i)))
           {
             LOBYTE(v7) = 1;
             goto LABEL_13;
           }
         }
 
-        v7 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(NSArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -92,41 +92,40 @@ LABEL_13:
     *ivar = v10;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (double)latestNotificationTimestamp
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_notifications;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v11 + 1) + 8 * i) timestamp];
+        [*(*(&v10 + 1) + 8 * i) timestamp];
         if (v8 >= v6)
         {
           v6 = v8;
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -137,7 +136,6 @@ LABEL_13:
     v6 = 0.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

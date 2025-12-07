@@ -10,7 +10,7 @@
 
 - (void)outputToLog:(id)log
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     message = self->_message;
@@ -19,23 +19,21 @@
     activityType = self->super._activityType;
     kind = [(GTTransportMessage_replayer *)self->_message kind];
     attributes = [(GTTransportMessage_replayer *)self->_message attributes];
-    v11[0] = 67109890;
-    v11[1] = message;
-    v12 = 2114;
-    v13 = activityType;
-    v14 = 1024;
-    v15 = kind;
-    v16 = 2114;
-    v17 = attributes;
-    _os_log_impl(&dword_24D764000, logCopy, OS_LOG_TYPE_INFO, "%u. %{public}@(%u):\t%{public}@", v11, 0x22u);
+    v10[0] = 67109890;
+    v10[1] = message;
+    v11 = 2114;
+    v12 = activityType;
+    v13 = 1024;
+    v14 = kind;
+    v15 = 2114;
+    v16 = attributes;
+    _os_log_impl(&dword_24D764000, logCopy, OS_LOG_TYPE_INFO, "%u. %{public}@(%u):\t%{public}@", v10, 0x22u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)jsonObject
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   payload = [(GTTransportMessage_replayer *)self->_message payload];
   v4 = [payload base64EncodedStringWithOptions:1];
 
@@ -51,40 +49,40 @@
     attributes2 = 0;
   }
 
-  v21[0] = self->super._activityType;
-  v20[0] = @"activityType";
-  v20[1] = @"message";
-  v18[0] = @"kind";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[GTTransportMessage_replayer kind](self->_message, "kind")}];
-  v19[0] = v17;
-  v18[1] = @"serial";
+  v20[0] = self->super._activityType;
+  v19[0] = @"activityType";
+  v19[1] = @"message";
+  v17[0] = @"kind";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[GTTransportMessage_replayer kind](self->_message, "kind")}];
+  v18[0] = v16;
+  v17[1] = @"serial";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[GTTransportMessage_replayer serial](self->_message, "serial")}];
-  v19[1] = v8;
-  v18[2] = @"attributes";
+  v18[1] = v8;
+  v17[2] = @"attributes";
   null = attributes2;
   if (!attributes2)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[2] = null;
-  v18[3] = @"payload";
+  v18[2] = null;
+  v17[3] = @"payload";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v19[3] = null2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-  v21[1] = v11;
-  v20[2] = @"activityStartTime";
+  v18[3] = null2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v20[1] = v11;
+  v19[2] = @"activityStartTime";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityStartTime];
-  v21[2] = v12;
-  v20[3] = @"activityEndTime";
+  v20[2] = v12;
+  v19[3] = @"activityEndTime";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityEndTime];
-  v21[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v20[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
   if (v4)
   {
@@ -104,7 +102,6 @@
   }
 
 LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -12,7 +12,8 @@
   v2 = v3.receiver;
   [(StickerCollectionAddButtonCell *)&v3 layoutSubviews];
   [v2 bounds];
-  CGPointMake([v2 bounds]);
+  [v2 bounds];
+  CGPointMake();
   [*&v2[OBJC_IVAR____TtC10StickersUI30StickerCollectionAddButtonCell_button] setFrame_];
 }
 

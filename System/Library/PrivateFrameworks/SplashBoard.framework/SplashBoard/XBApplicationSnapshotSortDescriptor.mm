@@ -41,7 +41,7 @@ uint64_t __55__XBApplicationSnapshotSortDescriptor_NSSortDescriptor__block_invok
   v5 = a2;
   v6 = a3;
   v7 = v5;
-  v8 = FAKE_NIL_PTR();
+  v8 = FAKE_NIL_PTR(v7);
 
   v9 = v7;
   if (v8 == v7)
@@ -51,7 +51,7 @@ uint64_t __55__XBApplicationSnapshotSortDescriptor_NSSortDescriptor__block_invok
   }
 
   v10 = v6;
-  v11 = FAKE_NIL_PTR();
+  v11 = FAKE_NIL_PTR(v10);
 
   v12 = v10;
   if (v11 == v10)

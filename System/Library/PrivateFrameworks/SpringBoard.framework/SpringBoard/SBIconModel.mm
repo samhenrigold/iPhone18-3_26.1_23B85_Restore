@@ -27,34 +27,34 @@
 
 - (BOOL)isIconVisible:(id)visible
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   visibleCopy = visible;
   if (visibleCopy)
   {
-    v10.receiver = self;
-    v10.super_class = SBIconModel;
-    if ([(SBHIconModel *)&v10 isIconVisible:visibleCopy])
+    v11.receiver = self;
+    v11.super_class = SBIconModel;
+    if ([(SBHIconModel *)&v11 isIconVisible:visibleCopy])
     {
-      if (![visibleCopy isBookmarkIcon] || (-[SBHIconModel hiddenIconTags](self, "hiddenIconTags"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "containsObject:", @"com.apple.webapp"), v5, !v6))
+      if (![visibleCopy isBookmarkIcon] || (-[SBHIconModel hiddenIconTags](self, "hiddenIconTags"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend_containsObject_(v5), v5, !v6))
       {
-        v8 = 1;
+        v9 = 1;
         goto LABEL_10;
       }
 
-      v7 = SBLogIcon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = SBLogIcon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v12 = visibleCopy;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Icon is not visible: %{public}@ / WebAppBundle", buf, 0xCu);
+        v13 = visibleCopy;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Icon is not visible: %{public}@ / WebAppBundle", buf, 0xCu);
       }
     }
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_10:
 
-  return v8;
+  return v9;
 }
 
 - (id)bookmarkIconForWebClipIdentifier:(id)identifier
@@ -634,7 +634,7 @@ id __59__SBIconModel_osMigrationHomeScreenLeafItemForIcon_inList___block_invoke_
         }
 
         v26 = *(*(&v34 + 1) + 8 * j);
-        if ([v26 isApplicationIcon] && (objc_msgSend(allIcons, "containsObject:", v26) & 1) == 0)
+        if ([v26 isApplicationIcon] && (objc_msgSend_containsObject_(allIcons) & 1) == 0)
         {
           v27 = [ignoredList addIcon:v26];
         }
@@ -817,7 +817,7 @@ LABEL_23:
           *slideCopy = v31;
         }
 
-        LODWORD(v18) = [v28 containsObject:v17] ^ 1;
+        LODWORD(v18) = objc_msgSend_containsObject_(v28) ^ 1;
         goto LABEL_26;
       }
 

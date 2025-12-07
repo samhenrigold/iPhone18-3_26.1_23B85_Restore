@@ -100,7 +100,7 @@ double __49___PXAppleMusicPlayerController_fetchCurrentTime__block_invoke(uint64
     }
   }
 
-  [*(*(a1 + 32) + 128) currentPlaybackTime];
+  objc_msgSend_currentPlaybackTime(*(*(a1 + 32) + 128));
   CMTimeMakeWithSeconds(&v6, v4, PXAudioDefaultCMTimeScale);
   result = *&v6.value;
   *(*(*(a1 + 40) + 8) + 32) = v6;
@@ -165,7 +165,7 @@ void __38___PXAppleMusicPlayerController__init__block_invoke_2(uint64_t a1)
   [WeakRetained _handleItemPlaybackDidEnd];
 }
 
-uint64_t __62___PXAppleMusicPlayerController_canApplyWorkaroundFor80278485__block_invoke()
+void *__62___PXAppleMusicPlayerController_canApplyWorkaroundFor80278485__block_invoke()
 {
   result = [MEMORY[0x1E69707E8] instancesRespondToSelector:sel_setServerTimeSnapshot_];
   canApplyWorkaroundFor80278485_canApply = result;

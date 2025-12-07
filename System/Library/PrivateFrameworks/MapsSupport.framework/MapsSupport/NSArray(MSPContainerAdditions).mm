@@ -8,33 +8,33 @@
 
 - (id)_maps_indexesOfObjectsCorrespondingToIdentifiableObjects:()MSPContainerAdditions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   v5 = [a3 valueForKey:@"storageIdentifier"];
   v6 = [v4 setWithArray:v5];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   selfCopy = self;
-  v9 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         storageIdentifier = [v14 storageIdentifier];
         v16 = [v6 containsObject:storageIdentifier];
 
@@ -48,44 +48,42 @@
         ++v11;
       }
 
-      v10 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (uint64_t)_maps_indexOfObjectCorrespondingToIdentifiableObject:()MSPContainerAdditions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
 LABEL_3:
     v10 = 0;
     v11 = v8;
     v8 += v7;
     while (1)
     {
-      if (*v18 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(selfCopy);
       }
 
-      storageIdentifier = [*(*(&v17 + 1) + 8 * v10) storageIdentifier];
+      storageIdentifier = [*(*(&v16 + 1) + 8 * v10) storageIdentifier];
       storageIdentifier2 = [v4 storageIdentifier];
       v14 = [storageIdentifier isEqual:storageIdentifier2];
 
@@ -97,7 +95,7 @@ LABEL_3:
       ++v11;
       if (v7 == ++v10)
       {
-        v7 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -114,74 +112,71 @@ LABEL_9:
     v11 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)_maps_arrayWithObjectsConformingToProtocols:()MSPContainerAdditions
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = self;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = v4;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              if ([v10 conformsToProtocol:*(*(&v19 + 1) + 8 * j)])
+              if ([v10 conformsToProtocol:*(*(&v18 + 1) + 8 * j)])
               {
                 [v5 addObject:v10];
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

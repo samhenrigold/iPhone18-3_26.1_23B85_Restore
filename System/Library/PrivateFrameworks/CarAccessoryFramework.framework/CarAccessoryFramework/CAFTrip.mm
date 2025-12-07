@@ -57,8 +57,10 @@
 - (NSString)userVisibleLabel;
 - (id)name;
 - (unsigned)sortOrder;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)resetWithCompletion:(id)completion;
+- (void)setShowOdometer:(BOOL)odometer;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -657,6 +659,13 @@
   return bOOLValue;
 }
 
+- (void)setShowOdometer:(BOOL)odometer
+{
+  odometerCopy = odometer;
+  showOdometerCharacteristic = [(CAFTrip *)self showOdometerCharacteristic];
+  [showOdometerCharacteristic setBoolValue:odometerCopy];
+}
+
 - (BOOL)hasShowOdometer
 {
   showOdometerCharacteristic = [(CAFTrip *)self showOdometerCharacteristic];
@@ -717,6 +726,209 @@ void __31__CAFTrip_resetWithCompletion___block_invoke(uint64_t a1)
   v3 = resetControl != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFTrip *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier2 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFTrip *)self userVisibleLabel];
+      [observers tripService:self didUpdateUserVisibleLabel:userVisibleLabel];
+
+LABEL_8:
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self name];
+      [observers2 tripService:self didUpdateName:name];
+LABEL_33:
+
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000003"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    sortOrderCharacteristic = [(CAFTrip *)self sortOrderCharacteristic];
+    uniqueIdentifier4 = [sortOrderCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers tripService:self didUpdateSortOrder:{-[CAFTrip sortOrder](self, "sortOrder")}];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000045"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    averageSpeedCharacteristic = [(CAFTrip *)self averageSpeedCharacteristic];
+    uniqueIdentifier6 = [averageSpeedCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self averageSpeed];
+      [observers2 tripService:self didUpdateAverageSpeed:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000030000022"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    distanceCharacteristic = [(CAFTrip *)self distanceCharacteristic];
+    uniqueIdentifier8 = [distanceCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self distance];
+      [observers2 tripService:self didUpdateDistance:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000030000023"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    durationCharacteristic = [(CAFTrip *)self durationCharacteristic];
+    uniqueIdentifier10 = [durationCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self duration];
+      [observers2 tripService:self didUpdateDuration:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000030000025"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    energyCharacteristic = [(CAFTrip *)self energyCharacteristic];
+    uniqueIdentifier12 = [energyCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self energy];
+      [observers2 tripService:self didUpdateEnergy:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x0000000035000012"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    energyEfficiencyCharacteristic = [(CAFTrip *)self energyEfficiencyCharacteristic];
+    uniqueIdentifier14 = [energyEfficiencyCharacteristic uniqueIdentifier];
+    v45 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v45)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self energyEfficiency];
+      [observers2 tripService:self didUpdateEnergyEfficiency:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x0000000035000013"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    fuelEfficiencyCharacteristic = [(CAFTrip *)self fuelEfficiencyCharacteristic];
+    uniqueIdentifier16 = [fuelEfficiencyCharacteristic uniqueIdentifier];
+    v50 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v50)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTrip *)self fuelEfficiency];
+      [observers2 tripService:self didUpdateFuelEfficiency:name];
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if ([observers2 isEqual:@"0x0000000035000016"])
+  {
+    uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+    showOdometerCharacteristic = [(CAFTrip *)self showOdometerCharacteristic];
+    uniqueIdentifier18 = [showOdometerCharacteristic uniqueIdentifier];
+    v54 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+    if (!v54)
+    {
+      goto LABEL_35;
+    }
+
+    observers2 = [(CAFService *)self observers];
+    [observers2 tripService:self didUpdateShowOdometer:{-[CAFTrip showOdometer](self, "showOdometer")}];
+  }
+
+LABEL_34:
+
+LABEL_35:
+  v55.receiver = self;
+  v55.super_class = CAFTrip;
+  [(CAFService *)&v55 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUserVisibleLabel

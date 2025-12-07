@@ -72,64 +72,55 @@
 - (RCWaveformViewController)initWithOverviewWaveform:(BOOL)waveform duration:(double)duration
 {
   waveformCopy = waveform;
-  v18.receiver = self;
-  v18.super_class = RCWaveformViewController;
-  v6 = [(RCWaveformViewController *)&v18 init];
-  if (v6)
+  v17.receiver = self;
+  v17.super_class = RCWaveformViewController;
+  v5 = [(RCWaveformViewController *)&v17 init];
+  if (v5)
   {
-    v7 = objc_alloc_init(RCWaveformRenderer);
-    rendererController = v6->_rendererController;
-    v6->_rendererController = v7;
+    v6 = objc_alloc_init(RCWaveformRenderer);
+    rendererController = v5->_rendererController;
+    v5->_rendererController = v6;
 
-    [(RCWaveformRenderer *)v6->_rendererController setRendererDelegate:v6];
-    v6->_isOverview = waveformCopy;
-    if (duration > 0.0 && waveformCopy)
+    [(RCWaveformRenderer *)v5->_rendererController setRendererDelegate:v5];
+    v5->_isOverview = waveformCopy;
+    RCTimeRangeMake();
+    v5->_visibleTimeRange.beginTime = v8;
+    v5->_visibleTimeRange.endTime = v9;
+    [(RCWaveformRenderer *)v5->_rendererController setIsOverview:waveformCopy];
+    v5->_highlightTimeRange = RCTimeRangeInvalid;
+    v5->_currentTimeDisplayOptions = 0;
+    v5->_clipTimeMarkersToDuration = 1;
+    v10 = objc_opt_new();
+    timeMarkerView = v5->_timeMarkerView;
+    v5->_timeMarkerView = v10;
+
+    v5->_isCompactView = 1;
+    v5->_desiredTimeDeltaForVisibleTimeRange = 6.0;
+    if (!v5->_isOverview)
     {
-      durationCopy = duration;
-    }
-
-    else
-    {
-      durationCopy = 6.0;
-    }
-
-    v6->_visibleTimeRange.beginTime = RCTimeRangeMake(0.0, durationCopy);
-    v6->_visibleTimeRange.endTime = v10;
-    [(RCWaveformRenderer *)v6->_rendererController setIsOverview:waveformCopy];
-    v6->_highlightTimeRange = RCTimeRangeInvalid;
-    v6->_currentTimeDisplayOptions = 0;
-    v6->_clipTimeMarkersToDuration = 1;
-    v11 = objc_opt_new();
-    timeMarkerView = v6->_timeMarkerView;
-    v6->_timeMarkerView = v11;
-
-    v6->_isCompactView = 1;
-    v6->_desiredTimeDeltaForVisibleTimeRange = 6.0;
-    if (!v6->_isOverview)
-    {
-      v13 = 3;
-      v14 = [[NSMutableArray alloc] initWithCapacity:3];
-      timeMarkerViews = v6->_timeMarkerViews;
-      v6->_timeMarkerViews = v14;
+      v12 = 3;
+      v13 = [[NSMutableArray alloc] initWithCapacity:3];
+      timeMarkerViews = v5->_timeMarkerViews;
+      v5->_timeMarkerViews = v13;
 
       do
       {
-        v16 = objc_alloc_init(RCChronologicalAnnotationView);
-        [(NSMutableArray *)v6->_timeMarkerViews addObject:v16];
+        v15 = objc_alloc_init(RCChronologicalAnnotationView);
+        [(NSMutableArray *)v5->_timeMarkerViews addObject:v15];
 
-        --v13;
+        --v12;
       }
 
-      while (v13);
+      while (v12);
     }
 
-    [(RCWaveformViewController *)v6 addChildViewController:v6->_rendererController];
-    [(RCWaveformRenderer *)v6->_rendererController didMoveToParentViewController:v6];
-    v6->_pointsPerSecond = 100.0;
-    v6->_pointsPerSecondScale = 1.0;
+    [(RCWaveformViewController *)v5 addChildViewController:v5->_rendererController];
+    [(RCWaveformRenderer *)v5->_rendererController didMoveToParentViewController:v5];
+    v5->_pointsPerSecond = 100.0;
+    v5->_pointsPerSecondScale = 1.0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)dealloc
@@ -344,39 +335,33 @@ LABEL_11:
     {
       if (endTime <= duration && beginTime <= duration)
       {
-LABEL_14:
+LABEL_12:
         if (!RCTimeRangeEqualToTimeRange(self->_selectedTimeRange.beginTime, self->_selectedTimeRange.endTime, beginTime, endTime))
         {
           [(RCWaveformViewController *)self _setSelectedTimeRange:0 updateVisibleTimeRange:1 updateWaveformViewContentSizeAndOffset:0 notifyDelegate:beginTime animationDuration:endTime, 0.0];
         }
 
-        goto LABEL_16;
-      }
-
-      durationCopy = duration;
-    }
-
-    else
-    {
-      if (beginTime < duration)
-      {
-        if (endTime > duration)
-        {
-          self->_selectedTimeRange.endTime = duration;
-        }
-
         goto LABEL_14;
       }
-
-      durationCopy = 0.0;
     }
 
-    beginTime = RCTimeRangeMake(durationCopy, duration);
+    else if (beginTime < duration)
+    {
+      if (endTime > duration)
+      {
+        self->_selectedTimeRange.endTime = duration;
+      }
+
+      goto LABEL_12;
+    }
+
+    RCTimeRangeMake();
+    beginTime = v8;
     endTime = v9;
-    goto LABEL_14;
+    goto LABEL_12;
   }
 
-LABEL_16:
+LABEL_14:
   if (self->_clipTimeMarkersToDuration)
   {
     [(RCWaveformViewController *)self _layoutTimeMarkerViewsForCurrentlyVisibleTimeRange];
@@ -415,46 +400,19 @@ LABEL_16:
 
 - (void)updateVisibleTimeRangeToFullDuration
 {
-  duration = self->_duration;
   dataSource = [(RCWaveformViewController *)self dataSource];
   [dataSource duration];
+
+  v4 = +[RCRecorderStyleProvider sharedStyleProvider];
+  [v4 overviewWaveformMinimumDurationToDisplayWhenRecording];
+
+  [(RCWaveformViewController *)self isPlayback];
+  RCTimeRangeMake();
   v6 = v5;
+  v8 = v7;
+  [(RCWaveformViewController *)self setDesiredTimeDeltaForVisibleTimeRange:RCTimeRangeDelta(v5, v7)];
 
-  if (duration < v6)
-  {
-    duration = v6;
-  }
-
-  v7 = +[RCRecorderStyleProvider sharedStyleProvider];
-  [v7 overviewWaveformMinimumDurationToDisplayWhenRecording];
-  v9 = v8;
-
-  isPlayback = [(RCWaveformViewController *)self isPlayback];
-  if (duration >= v9)
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-    v11 = isPlayback;
-  }
-
-  if (v11)
-  {
-    v12 = duration;
-  }
-
-  else
-  {
-    v12 = v9;
-  }
-
-  v13 = RCTimeRangeMake(0.0, v12);
-  v15 = v14;
-  [(RCWaveformViewController *)self setDesiredTimeDeltaForVisibleTimeRange:RCTimeRangeDelta(v13, v14)];
-
-  [(RCWaveformViewController *)self setVisibleTimeRange:v13 animationDuration:v15, 0.0];
+  [(RCWaveformViewController *)self setVisibleTimeRange:v6 animationDuration:v8, 0.0];
 }
 
 - (void)setVisibleTimeRange:(id)range
@@ -1135,7 +1093,8 @@ LABEL_16:
       [(RCWaveformRenderer *)self->_rendererController timeAtHorizontalOffset:v8];
       v10 = v9;
       desiredTimeDeltaForVisibleTimeRange = self->_desiredTimeDeltaForVisibleTimeRange;
-      [(RCWaveformViewController *)self setVisibleTimeRange:RCTimeRangeMake(v9, v9 + desiredTimeDeltaForVisibleTimeRange)];
+      RCTimeRangeMake();
+      [(RCWaveformViewController *)self setVisibleTimeRange:?];
       if (self->_scrubbing)
       {
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1439,7 +1398,7 @@ LABEL_17:
 {
   if ([(RCWaveformViewController *)self isOverview])
   {
-    beginTime = RCTimeRangeMake(0.0, self->_duration);
+    RCTimeRangeMake();
   }
 
   else
@@ -1800,29 +1759,29 @@ LABEL_17:
   [(RCWaveformRenderer *)self->_rendererController setVisibleTimeRange:self->_visibleTimeRange.beginTime, self->_visibleTimeRange.endTime];
   if (!self->_scrubbing)
   {
-    [(RCWaveformRenderer *)self->_rendererController horizontalOffsetAtTime:self->_visibleTimeRange.beginTime];
-    v6 = RCRoundCoord(v5);
+    v5 = [(RCWaveformRenderer *)self->_rendererController horizontalOffsetAtTime:self->_visibleTimeRange.beginTime];
+    v8 = RCRoundCoord(v5, v6, v7);
     [(RCWaveformScrollView *)self->_scrollView visibleBounds];
-    v10.origin.x = v6;
-    v10.origin.y = v9.origin.y;
-    v10.size.width = v6;
-    v10.size.height = v9.size.height;
-    v7 = CGRectIntersectsRect(v9, v10);
-    if (duration == 0.0 || !v7)
+    v12.origin.x = v8;
+    v12.origin.y = v11.origin.y;
+    v12.size.width = v8;
+    v12.size.height = v11.size.height;
+    v9 = CGRectIntersectsRect(v11, v12);
+    if (duration == 0.0 || !v9)
     {
-      [(RCWaveformScrollView *)self->_scrollView setContentOffset:0 animated:v6, 0.0];
+      [(RCWaveformScrollView *)self->_scrollView setContentOffset:0 animated:v8, 0.0];
     }
 
     else
     {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_26000;
-      v8[3] = &unk_6D7A0;
-      v8[4] = self;
-      *&v8[5] = v6;
-      v8[6] = 0;
-      [UIView animateWithDuration:131076 delay:v8 options:0 animations:duration completion:0.0];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_26000;
+      v10[3] = &unk_6D7A0;
+      v10[4] = self;
+      *&v10[5] = v8;
+      v10[6] = 0;
+      [UIView animateWithDuration:131076 delay:v10 options:0 animations:duration completion:0.0];
     }
   }
 
@@ -1838,8 +1797,9 @@ LABEL_17:
     v8 = v7;
     if (RCTimeRangeDeltaWithUIPrecision(self->_selectedTimeRange.beginTime, self->_selectedTimeRange.endTime) == 0.0)
     {
-      beginTime = RCTimeRangeMake(self->_currentTime, self->_currentTime);
-      endTime = v11;
+      RCTimeRangeMake();
+      beginTime = v11;
+      endTime = v12;
     }
 
     else
@@ -1883,23 +1843,14 @@ LABEL_17:
 
   else
   {
-    desiredTimeDeltaForVisibleTimeRange = self->_desiredTimeDeltaForVisibleTimeRange;
-    if (self->_isCompactView && [(RCWaveformRenderer *)self->_rendererController isRecordWaveform]&& ![(RCWaveformRenderer *)self->_rendererController isPlayBarOnlyMode])
+    if (self->_isCompactView && [(RCWaveformRenderer *)self->_rendererController isRecordWaveform])
     {
-      currentTime = self->_currentTime;
-      v5 = currentTime - desiredTimeDeltaForVisibleTimeRange;
+      [(RCWaveformRenderer *)self->_rendererController isPlayBarOnlyMode];
     }
 
-    else
-    {
-      v4 = self->_currentTime;
-      v5 = v4 - desiredTimeDeltaForVisibleTimeRange * 0.5;
-      currentTime = desiredTimeDeltaForVisibleTimeRange * 0.5 + v4;
-    }
+    RCTimeRangeMake();
 
-    v7 = RCTimeRangeMake(v5, currentTime);
-
-    [(RCWaveformViewController *)self setVisibleTimeRange:v7];
+    [(RCWaveformViewController *)self setVisibleTimeRange:?];
   }
 }
 
@@ -1908,36 +1859,36 @@ LABEL_17:
   rendererController = self->_rendererController;
   viewCopy = view;
   [viewCopy visibleTimeRange];
-  [(RCWaveformRenderer *)rendererController horizontalOffsetAtTime:?];
-  v7 = RCRoundCoord(v6);
-  v8 = self->_rendererController;
+  v6 = [(RCWaveformRenderer *)rendererController horizontalOffsetAtTime:?];
+  v9 = RCRoundCoord(v6, v7, v8);
+  v10 = self->_rendererController;
   [viewCopy visibleTimeRange];
-  v10 = v9;
+  v12 = v11;
 
-  [(RCWaveformRenderer *)v8 horizontalOffsetAtTime:v10];
-  v12 = RCRoundCoord(v11) - v7;
-  if (v12 >= 1.0)
+  v13 = [(RCWaveformRenderer *)v10 horizontalOffsetAtTime:v12];
+  v16 = RCRoundCoord(v13, v14, v15) - v9;
+  if (v16 >= 1.0)
   {
-    v13 = v12;
+    v17 = v16;
   }
 
   else
   {
-    v13 = 1.0;
+    v17 = 1.0;
   }
 
-  v14 = +[RCRecorderStyleProvider sharedStyleProvider];
-  [v14 annotationViewHeight];
-  v16 = v15;
+  v18 = +[RCRecorderStyleProvider sharedStyleProvider];
+  [v18 annotationViewHeight];
+  v20 = v19;
 
-  v17 = 0.0;
-  v18 = v7;
-  v19 = v13;
-  v20 = v16;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v17;
-  result.origin.x = v18;
+  v21 = 0.0;
+  v22 = v9;
+  v23 = v17;
+  v24 = v20;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v21;
+  result.origin.x = v22;
   return result;
 }
 

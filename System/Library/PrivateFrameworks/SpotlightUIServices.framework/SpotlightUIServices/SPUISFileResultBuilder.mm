@@ -172,25 +172,23 @@
 
 - (id)buildButtonItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   openFileProviderItemCommand = [(SPUISFileResultBuilder *)self openFileProviderItemCommand];
   if (openFileProviderItemCommand && ![(SPUISFileResultBuilder *)self isFolder])
   {
     [openFileProviderItemCommand setShouldRevealFile:1];
     v5 = objc_opt_new();
     [v5 setCommand:openFileProviderItemCommand];
-    v9[0] = v5;
-    buildButtonItems = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    buildButtonItems = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = SPUISFileResultBuilder;
-    buildButtonItems = [(SPUISResultBuilder *)&v8 buildButtonItems];
+    v7.receiver = self;
+    v7.super_class = SPUISFileResultBuilder;
+    buildButtonItems = [(SPUISResultBuilder *)&v7 buildButtonItems];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return buildButtonItems;
 }
@@ -345,7 +343,7 @@ LABEL_4:
 
 - (id)buildDescriptions
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if ([(SPUISFileResultBuilder *)self isFolder])
   {
@@ -428,18 +426,16 @@ LABEL_17:
     [v18 addObject:v20];
   }
 
-  if ([v18 count] && (v21 = objc_opt_new(), objc_msgSend(v21, "setFormattedTextPieces:", v18), v21))
+  if (objc_msgSend_count(v18) && (v21 = objc_opt_new(), [v21 setFormattedTextPieces:v18], v21))
   {
-    v25[0] = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -540,24 +536,22 @@ LABEL_17:
 
 - (void)buildThumbnail
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   result = [self result];
   result2 = [self result];
   fileProviderDomainIdentifier = [result2 fileProviderDomainIdentifier];
   result3 = [self result];
   fileProviderIdentifier = [result3 fileProviderIdentifier];
   filePath = [self filePath];
-  v11 = 138413058;
-  v12 = result;
-  v13 = 2112;
-  v14 = fileProviderDomainIdentifier;
-  v15 = 2112;
-  v16 = fileProviderIdentifier;
-  v17 = 2112;
-  v18 = filePath;
-  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "SPUISFileResultBuilder: missing info for SFQuickLookThumbnailImage: %@\nresult.fileProviderDomainIdentifier: %@\nresult.fileProviderIdentifier: %@\nfilePath: %@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138413058;
+  v11 = result;
+  v12 = 2112;
+  v13 = fileProviderDomainIdentifier;
+  v14 = 2112;
+  v15 = fileProviderIdentifier;
+  v16 = 2112;
+  v17 = filePath;
+  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "SPUISFileResultBuilder: missing info for SFQuickLookThumbnailImage: %@\nresult.fileProviderDomainIdentifier: %@\nresult.fileProviderIdentifier: %@\nfilePath: %@", &v10, 0x2Au);
 }
 
 @end

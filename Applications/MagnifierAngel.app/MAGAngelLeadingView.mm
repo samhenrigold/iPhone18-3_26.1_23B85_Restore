@@ -8,22 +8,24 @@
 
 - (_TtC14MagnifierAngel19MAGAngelLeadingView)initWithCoder:(id)coder
 {
-  v5 = self + OBJC_IVAR____TtC14MagnifierAngel19MAGAngelLeadingView_compressedElementSize;
-  *v5 = MAGAngelContentState.hash(into:)(19.0, 19.0);
-  *(v5 + 1) = v6;
-  v7 = self + OBJC_IVAR____TtC14MagnifierAngel19MAGAngelLeadingView_customElementSize;
-  *v7 = MAGAngelContentState.hash(into:)(37.7, 37.7);
-  *(v7 + 1) = v8;
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for MAGAngelLeadingView();
+  v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC14MagnifierAngel19MAGAngelLeadingView_compressedElementSize);
+  MAGAngelContentState.hash(into:)();
+  *v5 = v6;
+  v5[1] = v7;
+  v8 = (&self->super.super.super.isa + OBJC_IVAR____TtC14MagnifierAngel19MAGAngelLeadingView_customElementSize);
+  MAGAngelContentState.hash(into:)();
+  *v8 = v9;
+  v8[1] = v10;
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for MAGAngelLeadingView();
   coderCopy = coder;
-  v10 = [(MAGAngelLeadingView *)&v12 initWithCoder:coderCopy];
+  v12 = [(MAGAngelLeadingView *)&v14 initWithCoder:coderCopy];
 
-  if (v10)
+  if (v12)
   {
   }
 
-  return v10;
+  return v12;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits forLayoutMode:(int64_t)mode

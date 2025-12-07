@@ -9,18 +9,16 @@
 {
   if (*&self->messagingDetails[OBJC_IVAR___BSBrandMessagingDetailsObjcShim_messagingDetails])
   {
-    v2 = *(&self->super.isa + OBJC_IVAR___BSBrandMessagingDetailsObjcShim_messagingDetails);
-    v3 = *&self->messagingDetails[OBJC_IVAR___BSBrandMessagingDetailsObjcShim_messagingDetails];
 
-    v4 = sub_2155DA7DC();
+    v2 = sub_2155DA7DC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (BSBrandMessagingDetailsObjcShim)init

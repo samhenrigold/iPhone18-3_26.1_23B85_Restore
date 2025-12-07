@@ -74,7 +74,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 
@@ -90,7 +89,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    canValidateWithKT = self->_canValidateWithKT;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -164,7 +162,6 @@
     goto LABEL_13;
   }
 
-  v8 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((equalCopy[4] & 1) == 0 || self->_version != *(equalCopy + 6))
@@ -179,29 +176,29 @@
   }
 
   signature = self->_signature;
-  v10 = equalCopy[2];
-  if (signature | v10 && !objc_msgSend_isEqual_(signature, v7, v10))
+  v9 = equalCopy[2];
+  if (signature | v9 && !objc_msgSend_isEqual_(signature, v7, v9))
   {
     goto LABEL_13;
   }
 
   serializedObject = self->_serializedObject;
-  v12 = equalCopy[1];
-  if (serializedObject | v12)
+  v11 = equalCopy[1];
+  if (serializedObject | v11)
   {
-    if (!objc_msgSend_isEqual_(serializedObject, v7, v12))
+    if (!objc_msgSend_isEqual_(serializedObject, v7, v11))
     {
       goto LABEL_13;
     }
   }
 
-  v13 = (equalCopy[4] & 2) == 0;
+  v12 = (equalCopy[4] & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[4] & 2) == 0)
     {
 LABEL_13:
-      v13 = 0;
+      v12 = 0;
       goto LABEL_14;
     }
 
@@ -218,12 +215,12 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_14:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

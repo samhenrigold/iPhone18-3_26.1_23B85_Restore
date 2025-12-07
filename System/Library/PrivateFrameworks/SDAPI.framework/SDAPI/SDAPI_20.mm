@@ -1,618 +1,616 @@
-void ConfidenceParamSet::setStringParameter(ConfidenceParamSet *this, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ConfidenceParamSet::setStringParameter(ConfidenceParamSet *this, int a2, const char *a3)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "string");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "BOOL", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "string");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_17;
     case 16:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_18;
     case 17:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_19;
     case 18:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_20;
     case 19:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_21;
     case 20:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_22;
     case 21:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_23;
     case 22:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_24;
     case 23:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_25;
     case 24:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_26;
     case 25:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_27;
     case 26:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_28;
     case 27:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_29;
     case 28:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_30;
     case 29:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_31;
     case 30:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_32;
     case 31:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_33;
     case 32:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_34;
     case 33:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_35;
     case 34:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_36;
     case 35:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_37;
     case 36:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_38;
     case 37:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_39;
     case 38:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_40;
     case 39:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_41;
     case 40:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_42;
     case 41:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_43;
     case 42:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_44;
     case 43:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_45;
     case 44:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_46;
     case 45:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_47;
     case 46:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_48;
     case 47:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_49;
     case 48:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_50;
     case 49:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_51;
     case 50:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_52;
     case 51:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_53;
     case 52:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_54;
     case 53:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_55;
     case 54:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_56;
     case 55:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_57;
     case 56:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_58;
     case 57:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_59;
     case 58:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_60;
     case 59:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_61;
     case 60:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_62;
     case 61:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_63;
     case 62:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_64;
     case 63:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_65;
     case 64:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_66;
     case 65:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_67;
     case 66:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_68;
     case 67:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_69;
     case 68:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_70;
     case 69:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_71;
     case 70:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_72;
     case 71:
 LABEL_72:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_73;
     case 72:
 LABEL_73:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       goto LABEL_74;
     case 73:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "double", "string", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "string");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "string", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "string");
 }
 
-void ConfidenceParamSet::setEnumParameter(ConfidenceParamSet *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double ConfidenceParamSet::setEnumParameter(ConfidenceParamSet *this, int a2)
 {
-  v8 = a2;
   switch(a2)
   {
     case 1:
-      throwWrongTypeForParamId(1, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(1, "BOOL", "BOOL");
       goto LABEL_3;
     case 2:
 LABEL_3:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_4;
     case 3:
 LABEL_4:
-      throwWrongTypeForParamId(v8, "BOOL", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "BOOL", "BOOL");
       goto LABEL_5;
     case 4:
 LABEL_5:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_6;
     case 5:
 LABEL_6:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_7;
     case 6:
 LABEL_7:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_8;
     case 7:
 LABEL_8:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_9;
     case 8:
 LABEL_9:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_10;
     case 9:
 LABEL_10:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_11;
     case 10:
 LABEL_11:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_12;
     case 11:
 LABEL_12:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_13;
     case 12:
 LABEL_13:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_14;
     case 13:
 LABEL_14:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_15;
     case 14:
 LABEL_15:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_16;
     case 15:
 LABEL_16:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_17;
     case 16:
 LABEL_17:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_18;
     case 17:
 LABEL_18:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_19;
     case 18:
 LABEL_19:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_20;
     case 19:
 LABEL_20:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_21;
     case 20:
 LABEL_21:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_22;
     case 21:
 LABEL_22:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_23;
     case 22:
 LABEL_23:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_24;
     case 23:
 LABEL_24:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_25;
     case 24:
 LABEL_25:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_26;
     case 25:
 LABEL_26:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_27;
     case 26:
 LABEL_27:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_28;
     case 27:
 LABEL_28:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_29;
     case 28:
 LABEL_29:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_30;
     case 29:
 LABEL_30:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_31;
     case 30:
 LABEL_31:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_32;
     case 31:
 LABEL_32:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_33;
     case 32:
 LABEL_33:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_34;
     case 33:
 LABEL_34:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_35;
     case 34:
 LABEL_35:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_36;
     case 35:
 LABEL_36:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_37;
     case 36:
 LABEL_37:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_38;
     case 37:
 LABEL_38:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_39;
     case 38:
 LABEL_39:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_40;
     case 39:
 LABEL_40:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_41;
     case 40:
 LABEL_41:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_42;
     case 41:
 LABEL_42:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_43;
     case 42:
 LABEL_43:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_44;
     case 43:
 LABEL_44:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_45;
     case 44:
 LABEL_45:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_46;
     case 45:
 LABEL_46:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_47;
     case 46:
 LABEL_47:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_48;
     case 47:
 LABEL_48:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_49;
     case 48:
 LABEL_49:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_50;
     case 49:
 LABEL_50:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_51;
     case 50:
 LABEL_51:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_52;
     case 51:
 LABEL_52:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_53;
     case 52:
 LABEL_53:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_54;
     case 53:
 LABEL_54:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_55;
     case 54:
 LABEL_55:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_56;
     case 55:
 LABEL_56:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_57;
     case 56:
 LABEL_57:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_58;
     case 57:
 LABEL_58:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_59;
     case 58:
 LABEL_59:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_60;
     case 59:
 LABEL_60:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_61;
     case 60:
 LABEL_61:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_62;
     case 61:
 LABEL_62:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_63;
     case 62:
 LABEL_63:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_64;
     case 63:
 LABEL_64:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_65;
     case 64:
 LABEL_65:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_66;
     case 65:
 LABEL_66:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_67;
     case 66:
 LABEL_67:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_68;
     case 67:
 LABEL_68:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_69;
     case 68:
 LABEL_69:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_70;
     case 69:
 LABEL_70:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_71;
     case 70:
 LABEL_71:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_72;
     case 71:
 LABEL_72:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_73;
     case 72:
 LABEL_73:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       goto LABEL_74;
     case 73:
 LABEL_74:
-      throwWrongTypeForParamId(v8, "double", "BOOL", a4, a5, a6, a7, a8);
+      throwWrongTypeForParamId(a2, "double", "BOOL");
       break;
     default:
       break;
   }
 
-  throwWrongParamIdValue(v8, "enum", a3, a4, a5, a6, a7, a8);
+  return throwWrongParamIdValue(a2, "enum");
 }
 
 void ConfidenceParamSet::~ConfidenceParamSet(ConfidenceParamSet *this)
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 }
 
 {
   *this = &unk_287528C00;
-  DgnString::~DgnString((this + 8));
+  DgnString::~DgnString(this + 8);
 
   JUMPOUT(0x26672B1B0);
 }
@@ -658,78 +656,78 @@ void sub_26267D048(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject *a2)
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v72 = vdupq_n_s64(1uLL);
-  v71 = "T";
-  v75 = v72;
-  v73 = -1;
-  v74 = "T";
-  v76 = -1;
-  if (TFileObject::verify(a2, &v71, 2, 1))
+  v72 = *MEMORY[0x277D85DE8];
+  v67 = vdupq_n_s64(1uLL);
+  v66 = "T";
+  v70 = v67;
+  v68 = -1;
+  v69 = "T";
+  v71 = -1;
+  if (TFileObject::verify(a2, &v66, 2, 1))
   {
-    std::string::basic_string[abi:ne200100]<0>(&v69, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(&v64, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v70) < 0)
+    if (SHIBYTE(v65) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v69, *(&v69 + 1));
+      std::string::__init_copy_ctor_external(&__p[8], v64, *(&v64 + 1));
     }
 
     else
     {
-      *&__p[8] = v69;
-      v65[0] = v70;
+      *&__p[8] = v64;
+      v60[0] = v65;
     }
 
     *__p = &unk_287528000;
-    if (v65[0] >= 0)
+    if (v60[0] >= 0)
     {
-      v55 = &__p[8];
+      v50 = &__p[8];
     }
 
     else
     {
-      v55 = *&__p[8];
+      v50 = *&__p[8];
     }
 
-    conditionalAssert(v55, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/respellmgr.cpp", 152, v53, v54);
+    conditionalAssert(v50, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/respellmgr.cpp", 152);
     *__p = byte_287529580;
-    if (SHIBYTE(v65[0]) < 0)
+    if (SHIBYTE(v60[0]) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v70) < 0)
+    if (SHIBYTE(v65) < 0)
     {
-      operator delete(v69);
+      operator delete(v64);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v57 = (exception + 1);
+    v52 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v57, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v52, *__p, *&__p[8]);
     }
 
     else
     {
-      v61 = *__p;
+      v56 = *__p;
       exception[3] = *&__p[16];
-      *&v57->__r_.__value_.__l.__data_ = v61;
+      *&v52->__r_.__value_.__l.__data_ = v56;
     }
 
     *exception = &unk_287528000;
   }
 
-  v69 = 0uLL;
-  v70 = 0;
-  std::vector<wchar_t const*>::reserve(&v69, 0x14uLL);
+  v64 = 0uLL;
+  v65 = 0;
+  std::vector<wchar_t const*>::reserve(&v64, 0x14uLL);
   v4 = *(a2 + 3);
   if (v4)
   {
     v5 = 0;
-    v63 = 0;
+    v58 = 0;
     v6 = 0;
     do
     {
@@ -744,7 +742,7 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
         else if (*(v4 + 40) == 2)
         {
           TRegExp::add(*(this + 11), *(v4 + 24), (*(this + 9) - *(this + 8)) >> 3);
-          v63 = 1;
+          v58 = 1;
         }
 
         else
@@ -762,22 +760,22 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
 
           v10 = TAllocator::allocate(this, v9);
           wcscpy(v10, *(v4 + 24));
-          v11 = *(&v69 + 1);
-          if (*(&v69 + 1) >= v70)
+          v11 = *(&v64 + 1);
+          if (*(&v64 + 1) >= v65)
           {
-            v13 = (*(&v69 + 1) - v69) >> 3;
+            v13 = (*(&v64 + 1) - v64) >> 3;
             if ((v13 + 1) >> 61)
             {
               std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
             }
 
-            v14 = (v70 - v69) >> 2;
+            v14 = (v65 - v64) >> 2;
             if (v14 <= v13 + 1)
             {
               v14 = v13 + 1;
             }
 
-            if (v70 - v69 >= 0x7FFFFFFFFFFFFFF8)
+            if (v65 - v64 >= 0x7FFFFFFFFFFFFFF8)
             {
               v15 = 0x1FFFFFFFFFFFFFFFLL;
             }
@@ -789,17 +787,17 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
 
             if (v15)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t const*>>(&v69, v15);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t const*>>(&v64, v15);
             }
 
             *(8 * v13) = v10;
             v12 = 8 * v13 + 8;
-            v16 = (8 * v13 - (*(&v69 + 1) - v69));
-            memcpy(v16, v69, *(&v69 + 1) - v69);
-            v17 = v69;
-            *&v69 = v16;
-            *(&v69 + 1) = v12;
-            v70 = 0;
+            v16 = (8 * v13 - (*(&v64 + 1) - v64));
+            memcpy(v16, v64, *(&v64 + 1) - v64);
+            v17 = v64;
+            *&v64 = v16;
+            *(&v64 + 1) = v12;
+            v65 = 0;
             if (v17)
             {
               operator delete(v17);
@@ -808,11 +806,11 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
 
           else
           {
-            **(&v69 + 1) = v10;
+            **(&v64 + 1) = v10;
             v12 = v11 + 8;
           }
 
-          *(&v69 + 1) = v12;
+          *(&v64 + 1) = v12;
         }
       }
 
@@ -827,103 +825,103 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
     while (v4);
     if (v5)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v67, &byte_262899963);
+      std::string::basic_string[abi:ne200100]<0>(&v62, &byte_262899963);
       *__p = byte_287529580;
-      if (SHIBYTE(v68) < 0)
+      if (SHIBYTE(v63) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p[8], v67, *(&v67 + 1));
+        std::string::__init_copy_ctor_external(&__p[8], v62, *(&v62 + 1));
       }
 
       else
       {
-        *&__p[8] = v67;
-        v65[0] = v68;
+        *&__p[8] = v62;
+        v60[0] = v63;
       }
 
       *__p = &unk_287528000;
-      if (v65[0] >= 0)
+      if (v60[0] >= 0)
       {
-        v58 = &__p[8];
+        v53 = &__p[8];
       }
 
       else
       {
-        v58 = *&__p[8];
+        v53 = *&__p[8];
       }
 
-      conditionalAssert(v58, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/respellmgr.cpp", 197, v18, v19);
+      conditionalAssert(v53, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/respellmgr.cpp", 197);
       *__p = byte_287529580;
-      if (SHIBYTE(v65[0]) < 0)
+      if (SHIBYTE(v60[0]) < 0)
       {
         operator delete(*&__p[8]);
       }
 
-      if (SHIBYTE(v68) < 0)
+      if (SHIBYTE(v63) < 0)
       {
-        operator delete(v67);
+        operator delete(v62);
       }
 
-      v59 = __cxa_allocate_exception(0x20uLL);
+      v54 = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-      *v59 = byte_287529580;
-      v60 = (v59 + 1);
+      *v54 = byte_287529580;
+      v55 = (v54 + 1);
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v60, *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(v55, *__p, *&__p[8]);
       }
 
       else
       {
-        v62 = *__p;
-        v59[3] = *&__p[16];
-        *&v60->__r_.__value_.__l.__data_ = v62;
+        v57 = *__p;
+        v54[3] = *&__p[16];
+        *&v55->__r_.__value_.__l.__data_ = v57;
       }
 
-      *v59 = &unk_287528000;
+      *v54 = &unk_287528000;
     }
   }
 
   else
   {
-    v63 = 0;
+    v58 = 0;
     v6 = 0;
   }
 
-  *__p = v65;
+  *__p = v60;
   *&__p[8] = xmmword_26286B6F0;
-  v66 = 1;
-  v20 = v69;
-  if (*(&v69 + 1) != v69)
+  v61 = 1;
+  v18 = v64;
+  if (*(&v64 + 1) != v64)
   {
-    v21 = 0;
+    v19 = 0;
     do
     {
       *&__p[16] = 0;
-      TCollation::collate((*(this + 12) + 256), *(v20 + 8 * v21), __p);
+      TCollation::collate((*(this + 12) + 256), *(v18 + 8 * v19), __p);
       if ((*&__p[16] + 1) >> 62)
       {
-        v22 = -1;
+        v20 = -1;
       }
 
       else
       {
-        v22 = 4 * (*&__p[16] + 1);
+        v20 = 4 * (*&__p[16] + 1);
       }
 
-      v23 = TAllocator::allocate(this, v22);
+      v21 = TAllocator::allocate(this, v20);
       if (*&__p[16] >= *&__p[8])
       {
-        if (v66)
+        if (v61)
         {
-          LODWORD(v67) = 0;
-          TBuffer<wchar_t>::insert(__p, *&__p[16], &v67, 1uLL);
-          v24 = *__p;
+          LODWORD(v62) = 0;
+          TBuffer<wchar_t>::insert(__p, *&__p[16], &v62, 1uLL);
+          v22 = *__p;
           --*&__p[16];
         }
 
         else
         {
-          v24 = *__p;
+          v22 = *__p;
           if (*&__p[8])
           {
             *(*__p + 4 * *&__p[8] - 4) = 0;
@@ -933,153 +931,151 @@ void TRespellManager::addRespellObject(TRespellManager *this, const TFileObject 
 
       else
       {
-        v24 = *__p;
+        v22 = *__p;
         *(*__p + 4 * *&__p[16]) = 0;
       }
 
-      wcscpy(v23, v24);
-      v25 = *(v69 + 8 * v21);
-      v27 = *(this + 6);
-      v26 = *(this + 7);
-      if (v27 >= v26)
+      wcscpy(v21, v22);
+      v23 = *(v64 + 8 * v19);
+      v25 = *(this + 6);
+      v24 = *(this + 7);
+      if (v25 >= v24)
       {
-        v29 = *(this + 5);
-        v30 = 0xAAAAAAAAAAAAAAABLL * ((v27 - v29) >> 3);
-        v31 = v30 + 1;
-        if (v30 + 1 > 0xAAAAAAAAAAAAAAALL)
+        v27 = *(this + 5);
+        v28 = 0xAAAAAAAAAAAAAAABLL * ((v25 - v27) >> 3);
+        v29 = v28 + 1;
+        if (v28 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
         }
 
-        v32 = 0xAAAAAAAAAAAAAAABLL * ((v26 - v29) >> 3);
-        if (2 * v32 > v31)
+        v30 = 0xAAAAAAAAAAAAAAABLL * ((v24 - v27) >> 3);
+        if (2 * v30 > v29)
         {
-          v31 = 2 * v32;
+          v29 = 2 * v30;
         }
 
-        if (v32 >= 0x555555555555555)
+        if (v30 >= 0x555555555555555)
         {
-          v33 = 0xAAAAAAAAAAAAAAALL;
+          v31 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v33 = v31;
+          v31 = v29;
         }
 
-        if (v33)
+        if (v31)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<TRespellManager::TRespellMap>>(this + 40, v33);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<TRespellManager::TRespellMap>>(this + 40, v31);
         }
 
-        v34 = 24 * v30;
-        *v34 = v25;
-        *(v34 + 8) = v23;
-        *(v34 + 16) = v6;
-        v28 = 24 * v30 + 24;
-        v35 = *(this + 5);
-        v36 = *(this + 6) - v35;
-        v37 = (24 * v30 - v36);
-        memcpy(v37, v35, v36);
-        v38 = *(this + 5);
-        *(this + 5) = v37;
-        *(this + 6) = v28;
+        v32 = 24 * v28;
+        *v32 = v23;
+        *(v32 + 8) = v21;
+        *(v32 + 16) = v6;
+        v26 = 24 * v28 + 24;
+        v33 = *(this + 5);
+        v34 = *(this + 6) - v33;
+        v35 = (24 * v28 - v34);
+        memcpy(v35, v33, v34);
+        v36 = *(this + 5);
+        *(this + 5) = v35;
+        *(this + 6) = v26;
         *(this + 7) = 0;
-        if (v38)
+        if (v36)
         {
-          operator delete(v38);
+          operator delete(v36);
         }
       }
 
       else
       {
-        *v27 = v25;
-        v27[1] = v23;
-        v28 = (v27 + 3);
-        v27[2] = v6;
+        *v25 = v23;
+        v25[1] = v21;
+        v26 = (v25 + 3);
+        v25[2] = v6;
       }
 
-      *(this + 6) = v28;
-      ++v21;
-      v20 = v69;
+      *(this + 6) = v26;
+      ++v19;
+      v18 = v64;
     }
 
-    while (v21 < (*(&v69 + 1) - v69) >> 3);
+    while (v19 < (*(&v64 + 1) - v64) >> 3);
   }
 
-  if (v63)
+  if (v58)
   {
-    v40 = *(this + 9);
-    v39 = *(this + 10);
-    if (v40 >= v39)
+    v38 = *(this + 9);
+    v37 = *(this + 10);
+    if (v38 >= v37)
     {
-      v42 = *(this + 8);
-      v43 = (v40 - v42) >> 3;
-      if ((v43 + 1) >> 61)
+      v40 = *(this + 8);
+      v41 = (v38 - v40) >> 3;
+      if ((v41 + 1) >> 61)
       {
         std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
       }
 
-      v44 = v39 - v42;
-      v45 = v44 >> 2;
-      if (v44 >> 2 <= (v43 + 1))
+      v42 = v37 - v40;
+      v43 = v42 >> 2;
+      if (v42 >> 2 <= (v41 + 1))
       {
-        v45 = v43 + 1;
+        v43 = v41 + 1;
       }
 
-      if (v44 >= 0x7FFFFFFFFFFFFFF8)
+      if (v42 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v46 = 0x1FFFFFFFFFFFFFFFLL;
+        v44 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v46 = v45;
+        v44 = v43;
       }
 
-      if (v46)
+      if (v44)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(this + 64, v46);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(this + 64, v44);
       }
 
-      v47 = (8 * v43);
-      *v47 = v6;
-      v41 = 8 * v43 + 8;
-      v48 = *(this + 8);
-      v49 = *(this + 9) - v48;
-      v50 = v47 - v49;
-      memcpy(v47 - v49, v48, v49);
-      v51 = *(this + 8);
-      *(this + 8) = v50;
-      *(this + 9) = v41;
+      v45 = (8 * v41);
+      *v45 = v6;
+      v39 = 8 * v41 + 8;
+      v46 = *(this + 8);
+      v47 = *(this + 9) - v46;
+      v48 = v45 - v47;
+      memcpy(v45 - v47, v46, v47);
+      v49 = *(this + 8);
+      *(this + 8) = v48;
+      *(this + 9) = v39;
       *(this + 10) = 0;
-      if (v51)
+      if (v49)
       {
-        operator delete(v51);
+        operator delete(v49);
       }
     }
 
     else
     {
-      *v40 = v6;
-      v41 = (v40 + 1);
+      *v38 = v6;
+      v39 = (v38 + 1);
     }
 
-    *(this + 9) = v41;
+    *(this + 9) = v39;
   }
 
-  if (v66 == 1 && *__p != v65 && *__p)
+  if (v61 == 1 && *__p != v60 && *__p)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  if (v69)
+  if (v64)
   {
-    *(&v69 + 1) = v69;
-    operator delete(v69);
+    *(&v64 + 1) = v64;
+    operator delete(v64);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26267DA5C(_Unwind_Exception *a1)
@@ -1285,7 +1281,7 @@ LABEL_5:
               v16 = v86;
               if (v87)
               {
-                *&v86[4 * v87 - 4] = 0;
+                v86[v87 - 1] = 0;
               }
             }
           }
@@ -1293,7 +1289,7 @@ LABEL_5:
           else
           {
             v16 = v86;
-            *&v86[4 * *(&v87 + 1)] = 0;
+            v86[*(&v87 + 1)] = 0;
           }
 
           TCollation::collate((v15 + 256), v16, &v82);
@@ -1377,7 +1373,7 @@ LABEL_5:
                 goto LABEL_45;
               }
 
-              v27 = *(v86 + 1);
+              v27 = v86[1];
               {
                 operator new();
               }
@@ -1401,7 +1397,7 @@ LABEL_45:
                     v30 = v86;
                     if (v87)
                     {
-                      *&v86[4 * v87 - 4] = 0;
+                      v86[v87 - 1] = 0;
                     }
                   }
                 }
@@ -1409,7 +1405,7 @@ LABEL_45:
                 else
                 {
                   v30 = v86;
-                  *&v86[4 * *(&v87 + 1)] = 0;
+                  v86[*(&v87 + 1)] = 0;
                 }
 
                 v31 = *(v22 + v23);
@@ -1516,7 +1512,7 @@ LABEL_70:
               v47 = v86;
               if (v87)
               {
-                *&v86[4 * v87 - 4] = 0;
+                v86[v87 - 1] = 0;
               }
             }
           }
@@ -1524,7 +1520,7 @@ LABEL_70:
           else
           {
             v47 = v86;
-            *&v86[4 * *(&v87 + 1)] = 0;
+            v86[*(&v87 + 1)] = 0;
           }
 
           v7 = TRegExp::match(v46, v47, 3, &v90);
@@ -1616,7 +1612,7 @@ LABEL_70:
       break;
     }
 
-    if (*&v86[4 * *(&v87 + 1) - 4] != 32)
+    if (v86[*(&v87 + 1) - 1] != 32)
     {
       {
         operator new();
@@ -1660,7 +1656,7 @@ LABEL_125:
       break;
     }
 
-    if (*&v86[4 * *(&v87 + 1) - 4] == 45)
+    if (v86[*(&v87 + 1) - 1] == 45)
     {
       v65 = 1;
     }
@@ -1677,7 +1673,7 @@ LABEL_125:
       if (**v63 != 45)
       {
 LABEL_134:
-        if (*&v86[4 * *(&v87 + 1) - 4] != 32)
+        if (v86[*(&v87 + 1) - 1] != 32)
         {
           TBuffer<wchar_t>::insert(&v86, *(&v87 + 1), " ", 1uLL);
         }
@@ -1700,7 +1696,7 @@ LABEL_134:
 
 void sub_26267E994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  MEMORY[0x26672B1B0](v10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0xCE8]) == 1 && STACK[0x8D0] != a10 && STACK[0x8D0] != 0)
   {
     MEMORY[0x26672B1B0]();
@@ -1716,19 +1712,19 @@ void sub_26267E994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<TRegExpMatch>::resize(void *a1, unint64_t a2)
+void std::vector<TRegExpMatch>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<TRegExpMatch>::__append(a1, v4);
+    std::vector<TRegExpMatch>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 24 * a2;
+    result[1] = *result + 24 * a2;
   }
 }
 
@@ -1859,7 +1855,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TRegExpMatch>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t MrecInitLibrary_channel(void)
+void MrecInitLibrary_channel(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_channel_channel();
@@ -1871,15 +1867,15 @@ uint64_t MrecInitLibrary_channel(void)
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughChannel(void)
+void MrecInitLibrarySet_throughChannel(void)
 {
   MrecInitLibrarySet_throughSigproc();
   MrecInitLibrarySet_throughAudiosrc();
 
-  return MrecInitLibrary_channel();
+  MrecInitLibrary_channel();
 }
 
 uint64_t getCwidForIndex(int a1, unsigned int a2)
@@ -1962,117 +1958,117 @@ void TTokenizer::TTokenizer(TTokenizer *this, const TDataManager *a2, TDataManag
   operator new();
 }
 
-uint64_t TTokenizer::freeMemory(TTokenizer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t TTokenizer::freeMemory(TTokenizer *this, uint64_t a2)
 {
-  v6 = *(this + 12);
-  if (*(this + 13) != v6)
+  v3 = *(this + 12);
+  if (*(this + 13) != v3)
   {
-    v7 = 0;
+    v4 = 0;
     do
     {
-      v8 = v7 + 1;
-      if (*(v6 + 8 * v7))
+      v5 = v4 + 1;
+      if (*(v3 + 8 * v4))
       {
-        tknPrintf("Warning: result handle %llu is still alive on tokenizer destruction.\n", a2, a3, a4, a5, v7 + 1);
-        v6 = *(this + 12);
-        v9 = *(v6 + 8 * v7);
-        if (v9)
+        tknPrintf("Warning: result handle %llu is still alive on tokenizer destruction.\n", a2, v4 + 1);
+        v3 = *(this + 12);
+        v6 = *(v3 + 8 * v4);
+        if (v6)
         {
-          if (*(v9 + 344) == 1)
+          if (*(v6 + 344) == 1)
           {
-            v10 = *(v9 + 64);
-            if (v10 != v9 + 88 && v10 != 0)
+            v7 = *(v6 + 64);
+            if (v7 != v6 + 88 && v7 != 0)
             {
               MEMORY[0x26672B1B0]();
             }
           }
 
-          v12 = *(v9 + 24);
-          if (v12)
+          v9 = *(v6 + 24);
+          if (v9)
           {
-            *(v9 + 32) = v12;
-            operator delete(v12);
+            *(v6 + 32) = v9;
+            operator delete(v9);
           }
 
-          v13 = *v9;
-          if (*v9)
+          v10 = *v6;
+          if (*v6)
           {
-            *(v9 + 8) = v13;
-            operator delete(v13);
+            *(v6 + 8) = v10;
+            operator delete(v10);
           }
 
-          MEMORY[0x26672B1B0](v9, 0x1030C404962A615);
-          v6 = *(this + 12);
+          MEMORY[0x26672B1B0](v6, 0x1030C404962A615);
+          v3 = *(this + 12);
         }
       }
 
-      v7 = v8;
+      v4 = v5;
     }
 
-    while (v8 < (*(this + 13) - v6) >> 3);
+    while (v5 < (*(this + 13) - v3) >> 3);
   }
 
-  v14 = *(this + 6);
+  v11 = *(this + 6);
   --*(*(this + 5) + 360);
-  if (v14)
+  if (v11)
   {
-    TDecompounder::~TDecompounder(v14);
+    TDecompounder::~TDecompounder(v11);
     MEMORY[0x26672B1B0]();
   }
 
-  v15 = *(this + 7);
-  if (v15)
+  v12 = *(this + 7);
+  if (v12)
   {
-    TClitics::~TClitics(v15);
+    TClitics::~TClitics(v12);
     MEMORY[0x26672B1B0]();
   }
 
   if (*(this + 8))
   {
-    inited = MrecInitModule_sdpres_sdapi();
-    MEMORY[0x26672B1B0](inited, 0x70C40AF88C34ELL);
+    MrecInitModule_sdpres_sdapi();
+    MEMORY[0x26672B1B0]();
   }
 
-  v17 = *(this + 9);
+  v13 = *(this + 9);
+  if (v13)
+  {
+    TPatternManager::~TPatternManager(v13);
+    MEMORY[0x26672B1B0]();
+  }
+
+  v14 = *(this + 10);
+  if (v14)
+  {
+    TRespellManager::~TRespellManager(v14);
+    MEMORY[0x26672B1B0]();
+  }
+
+  v15 = *(this + 11);
+  if (v15)
+  {
+    TMungeMapManager::~TMungeMapManager(v15);
+    MEMORY[0x26672B1B0]();
+  }
+
+  v16 = *(this + 2);
+  if (v16)
+  {
+    TDataSaver::~TDataSaver(v16);
+    MEMORY[0x26672B1B0]();
+  }
+
+  v17 = *(this + 3);
   if (v17)
   {
-    TPatternManager::~TPatternManager(v17);
-    MEMORY[0x26672B1B0]();
-  }
-
-  v18 = *(this + 10);
-  if (v18)
-  {
-    TRespellManager::~TRespellManager(v18);
-    MEMORY[0x26672B1B0]();
-  }
-
-  v19 = *(this + 11);
-  if (v19)
-  {
-    TMungeMapManager::~TMungeMapManager(v19);
-    MEMORY[0x26672B1B0]();
-  }
-
-  v20 = *(this + 2);
-  if (v20)
-  {
-    TDataSaver::~TDataSaver(v20);
-    MEMORY[0x26672B1B0]();
-  }
-
-  v21 = *(this + 3);
-  if (v21)
-  {
-    (*(*v21 + 8))(v21);
+    (*(*v17 + 8))(v17);
   }
 
   result = *(this + 4);
   if (result)
   {
-    v23 = *(*result + 8);
+    v19 = *(*result + 8);
 
-    return v23();
+    return v19();
   }
 
   return result;
@@ -2092,29 +2088,29 @@ void *TRegisterable<TTokenizer>::~TRegisterable(void *a1)
   return a1;
 }
 
-void TTokenizer::~TTokenizer(TTokenizer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TTokenizer::~TTokenizer(TTokenizer *this, uint64_t a2)
 {
   *this = &unk_2875293D0;
-  TTokenizer::freeMemory(this, a2, a3, a4, a5);
-  v6 = *(this + 12);
-  if (v6)
+  TTokenizer::freeMemory(this, a2);
+  v3 = *(this + 12);
+  if (v3)
   {
-    *(this + 13) = v6;
-    operator delete(v6);
+    *(this + 13) = v3;
+    operator delete(v3);
   }
 
   TRegisterable<TTokenizer>::~TRegisterable(this);
 }
 
 {
-  TTokenizer::~TTokenizer(this, a2, a3, a4, a5);
+  TTokenizer::~TTokenizer(this, a2);
 
   JUMPOUT(0x26672B1B0);
 }
 
 uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
 {
-  v33[19] = *MEMORY[0x277D85DE8];
+  v32[19] = *MEMORY[0x277D85DE8];
   v6 = *(this + 5);
   v7 = (v6 + 72);
   if (*(v6 + 95) < 0)
@@ -2122,15 +2118,15 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
     v7 = *v7;
   }
 
-  TOutputModel::TOutputModel(v26, a2, a3, v7, *(this + 4));
+  TOutputModel::TOutputModel(v25, a2, a3, v7, *(this + 4));
   if (a2)
   {
     TDataManager::setIntVar(a2, "TknVersion", 1);
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
-    TOutputStream::TOutputStream(&v23, &v28, "TknParam", *(this + 5) + 240);
-    TParamManager::save(*(this + 3), &v23, 0);
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v27);
+    TOutputStream::TOutputStream(&v22, &v27, "TknParam", *(this + 5) + 240);
+    TParamManager::save(*(this + 3), &v22, 0);
     std::stringbuf::str();
-    if ((v22 & 0x80u) == 0)
+    if ((v21 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -2140,23 +2136,23 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
       p_p = __p;
     }
 
-    if ((v22 & 0x80u) == 0)
-    {
-      v9 = v22;
-    }
-
-    else
+    if ((v21 & 0x80u) == 0)
     {
       v9 = v21;
     }
 
+    else
+    {
+      v9 = v20;
+    }
+
     (*(*a2 + 48))(a2, "TknParam", p_p, v9);
-    if (v22 < 0)
+    if (v21 < 0)
     {
       operator delete(__p);
     }
 
-    if (v27 == 1)
+    if (v26 == 1)
     {
       v10 = *(this + 2);
       if (v10)
@@ -2165,30 +2161,30 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
       }
     }
 
-    v28 = *MEMORY[0x277D82828];
-    *(&v28 + *(v28 - 3)) = *(MEMORY[0x277D82828] + 24);
-    v29 = (MEMORY[0x277D82878] + 16);
-    if (v32 < 0)
+    v27 = *MEMORY[0x277D82828];
+    *(&v27 + *(v27 - 3)) = *(MEMORY[0x277D82828] + 24);
+    v28 = (MEMORY[0x277D82878] + 16);
+    if (v31 < 0)
     {
-      operator delete(v31);
+      operator delete(v30);
     }
 
-    v29 = (MEMORY[0x277D82868] + 16);
-    std::locale::~locale(v30);
+    v28 = (MEMORY[0x277D82868] + 16);
+    std::locale::~locale(v29);
     std::ostream::~ostream();
-    MEMORY[0x26672B160](v33);
+    MEMORY[0x26672B160](v32);
   }
 
   if (a3)
   {
     TDataManager::setIntVar(a3, "TknVersion", 1);
-    if (v27 >= 2)
+    if (v26 >= 2)
     {
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
-      TOutputStream::TOutputStream(&v23, &v28, "TknParam", *(this + 5) + 240);
-      TParamManager::save(*(this + 3), &v23, 1);
+      std::ostringstream::basic_ostringstream[abi:ne200100](&v27);
+      TOutputStream::TOutputStream(&v22, &v27, "TknParam", *(this + 5) + 240);
+      TParamManager::save(*(this + 3), &v22, 1);
       std::stringbuf::str();
-      if ((v22 & 0x80u) == 0)
+      if ((v21 & 0x80u) == 0)
       {
         v11 = &__p;
       }
@@ -2198,18 +2194,18 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
         v11 = __p;
       }
 
-      if ((v22 & 0x80u) == 0)
-      {
-        v12 = v22;
-      }
-
-      else
+      if ((v21 & 0x80u) == 0)
       {
         v12 = v21;
       }
 
+      else
+      {
+        v12 = v20;
+      }
+
       (*(*a3 + 48))(a3, "TknParam", v11, v12);
-      if (v22 < 0)
+      if (v21 < 0)
       {
         operator delete(__p);
       }
@@ -2220,55 +2216,55 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
         TDataSaver::save(v13, a3);
       }
 
-      v28 = *MEMORY[0x277D82828];
-      *(&v28 + *(v28 - 3)) = *(MEMORY[0x277D82828] + 24);
-      v29 = (MEMORY[0x277D82878] + 16);
-      if (v32 < 0)
+      v27 = *MEMORY[0x277D82828];
+      *(&v27 + *(v27 - 3)) = *(MEMORY[0x277D82828] + 24);
+      v28 = (MEMORY[0x277D82878] + 16);
+      if (v31 < 0)
       {
-        operator delete(v31);
+        operator delete(v30);
       }
 
-      v29 = (MEMORY[0x277D82868] + 16);
-      std::locale::~locale(v30);
+      v28 = (MEMORY[0x277D82868] + 16);
+      std::locale::~locale(v29);
       std::ostream::~ostream();
-      MEMORY[0x26672B160](v33);
+      MEMORY[0x26672B160](v32);
     }
 
     if (!*(this + 2))
     {
       v14 = 0;
+      v22 = 0;
       v23 = 0;
+      v27 = "TknGrammar";
+      v28 = "TknDecompound";
+      v29[0].__locale_ = "TknMungeMap";
+      v29[1].__locale_ = "TknRespellMap";
+      v29[2].__locale_ = "TknPattern";
       v24 = 0;
-      v28 = "TknGrammar";
-      v29 = "TknDecompound";
-      v30[0].__locale_ = "TknMungeMap";
-      v30[1].__locale_ = "TknRespellMap";
-      v30[2].__locale_ = "TknPattern";
-      v25 = 0;
       do
       {
-        v15 = (&v28)[v14];
+        v15 = (&v27)[v14];
         if ((*(**(this + 4) + 40))(*(this + 4), v15, 0, 0))
         {
-          TDataManager::getStringVar(*(this + 4));
-          if (v25 >= 0)
+          TDataManager::getStringVar(*(this + 4), v15, &v22);
+          if (v24 >= 0)
           {
-            v16 = &v23;
+            v16 = &v22;
           }
 
           else
           {
-            v16 = v23;
+            v16 = v22;
           }
 
-          if (v25 >= 0)
+          if (v24 >= 0)
           {
-            v17 = HIBYTE(v25);
+            v17 = HIBYTE(v24);
           }
 
           else
           {
-            v17 = v24;
+            v17 = v23;
           }
 
           (*(*a3 + 48))(a3, v15, v16, v17);
@@ -2278,9 +2274,9 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
       }
 
       while (v14 != 5);
-      if (SHIBYTE(v25) < 0)
+      if (SHIBYTE(v24) < 0)
       {
-        operator delete(v23);
+        operator delete(v22);
       }
     }
   }
@@ -2288,10 +2284,9 @@ uint64_t TTokenizer::save(TTokenizer *this, TDataManager *a2, TDataManager *a3)
   result = *(this + 4);
   if (result)
   {
-    result = (*(*result + 24))(result);
+    return (*(*result + 24))(result);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3063,9 +3058,9 @@ LABEL_13:
   }
 }
 
-void sub_262681DBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22)
+void sub_262681DBC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22)
 {
-  MEMORY[0x26672B1B0](a9, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](a9, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (a20 < 0)
   {
     operator delete(__p);
@@ -3347,33 +3342,33 @@ void sub_262682364(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void TTokenizer::deleteExpensivePaths(TTokenizer *this, TGraph *a2)
 {
-  v88 = 0;
-  v89 = 0;
-  v90 = 0;
-  TGraph::topologicalSort(a2, &v88, 0);
-  TAllocator::TAllocator(v87, 2048);
-  __p = 0;
   v85 = 0;
   v86 = 0;
-  std::vector<unsigned long>::vector[abi:ne200100](v83, (*(a2 + 11) - *(a2 + 10)) >> 3);
-  std::vector<unsigned long>::vector[abi:ne200100](v82, (*(a2 + 11) - *(a2 + 10)) >> 3);
-  memset(v81, 0, sizeof(v81));
-  v4 = v85;
-  if (v85 >= v86)
+  v87 = 0;
+  TGraph::topologicalSort(a2, &v85, 0);
+  TAllocator::TAllocator(v84, 2048);
+  __p = 0;
+  v82 = 0;
+  v83 = 0;
+  std::vector<unsigned long>::vector[abi:ne200100](v80, (*(a2 + 11) - *(a2 + 10)) >> 3);
+  std::vector<unsigned long>::vector[abi:ne200100](v79, (*(a2 + 11) - *(a2 + 10)) >> 3);
+  memset(v78, 0, sizeof(v78));
+  v4 = v82;
+  if (v82 >= v83)
   {
-    v6 = (v85 - __p) >> 3;
+    v6 = (v82 - __p) >> 3;
     if ((v6 + 1) >> 61)
     {
       std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
     }
 
-    v7 = (v86 - __p) >> 2;
+    v7 = (v83 - __p) >> 2;
     if (v7 <= v6 + 1)
     {
       v7 = v6 + 1;
     }
 
-    if (v86 - __p >= 0x7FFFFFFFFFFFFFF8)
+    if (v83 - __p >= 0x7FFFFFFFFFFFFFF8)
     {
       v8 = 0x1FFFFFFFFFFFFFFFLL;
     }
@@ -3388,14 +3383,14 @@ void TTokenizer::deleteExpensivePaths(TTokenizer *this, TGraph *a2)
       std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(&__p, v8);
     }
 
-    *(8 * v6) = v81;
+    *(8 * v6) = v78;
     v5 = 8 * v6 + 8;
-    v9 = (8 * v6 - (v85 - __p));
-    memcpy(v9, __p, v85 - __p);
+    v9 = (8 * v6 - (v82 - __p));
+    memcpy(v9, __p, v82 - __p);
     v10 = __p;
     __p = v9;
-    v85 = v5;
-    v86 = 0;
+    v82 = v5;
+    v83 = 0;
     if (v10)
     {
       operator delete(v10);
@@ -3404,40 +3399,40 @@ void TTokenizer::deleteExpensivePaths(TTokenizer *this, TGraph *a2)
 
   else
   {
-    *v85 = v81;
+    *v82 = v78;
     v5 = (v4 + 8);
   }
 
-  v85 = v5;
+  v82 = v5;
   v11 = *(a2 + 8);
-  *(v83[0] + *(v11 + 40)) = 0;
-  *(v82[0] + *(v11 + 40)) = 1;
-  v77 = 0;
-  v78 = 0;
-  v79 = 0;
-  v80 = 1;
-  v76 = &unk_287523448;
+  *(v80[0] + *(v11 + 40)) = 0;
+  *(v79[0] + *(v11 + 40)) = 1;
+  v74 = 0;
+  v75 = 0;
+  v76 = 0;
+  v77 = 1;
+  v73 = &unk_287523448;
   v12 = *(this + 3);
   ActiveConfigHandle = TParam::getActiveConfigHandle((v12 + 14312));
   v14 = *(v12 + 4 * TParam::getValidConfig((v12 + 14312), ActiveConfigHandle) + 14472);
   v15 = *(this + 3);
   v16 = TParam::getActiveConfigHandle((v15 + 14664));
   v17 = *(v15 + 4 * TParam::getValidConfig((v15 + 14664), v16) + 14824);
-  if ((v89 - v88) >= 9)
+  if ((v86 - v85) >= 9)
   {
     v18 = 1;
     do
     {
-      THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::clear(&v76);
-      v19 = TVertex::getInEdge(v88[v18]);
-      v20 = v82[0];
+      THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::clear(&v73);
+      v19 = TVertex::getInEdge(v85[v18]);
+      v20 = v79[0];
       if (v19)
       {
 LABEL_16:
         v21 = *(*(v19 + 16) + 40);
-        for (i = *(v83[0] + v21); i < v20[v21]; ++i)
+        for (i = *(v80[0] + v21); i < v20[v21]; ++i)
         {
-          v23 = TAllocator::allocate(v87, 24);
+          v23 = TAllocator::allocate(v84, 24);
           v24 = v23;
           v25 = *(__p + i);
           *v23 = v19;
@@ -3448,33 +3443,33 @@ LABEL_16:
           }
 
           v23[2] = v25 + v17;
-          TDecodeLink::computeHistory(v23, v74, v14);
-          if (v74[0])
+          TDecodeLink::computeHistory(v23, v71, v14);
+          if (v71[0])
           {
-            v24[2] += TLexicon::getNGramScore(*(this + 5), *(&v75 + 1), v75, v74[1], v74[0], 0);
+            v24[2] += TLexicon::getNGramScore(*(this + 5), *(&v72 + 1), v72, v71[1], v71[0], 0);
           }
 
-          v91 = *v74;
-          v92 = v75;
-          v93 = 0;
-          THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::find(&v76, &v91, v72);
-          if (v73)
+          v88 = *v71;
+          v89 = v72;
+          v90 = 0;
+          THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::find(&v73, &v88, v69);
+          if (v70)
           {
-            if (v24[2] < *(*(v73 + 40) + 16))
+            if (v24[2] < *(*(v70 + 40) + 16))
             {
-              *(v73 + 40) = v24;
+              *(v70 + 40) = v24;
             }
           }
 
           else
           {
-            v91 = *v74;
-            v92 = v75;
-            v93 = v24;
-            THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::insert(&v76, &v91, v26, v27, v28, &v70);
+            v88 = *v71;
+            v89 = v72;
+            v90 = v24;
+            THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::insert(&v73, &v88, &v67);
           }
 
-          v20 = v82[0];
+          v20 = v79[0];
         }
 
         while (1)
@@ -3492,85 +3487,85 @@ LABEL_16:
         }
       }
 
-      v29 = v85 - __p;
-      v30 = v88[v18];
-      *(v83[0] + *(v30 + 5)) = (v85 - __p) >> 3;
-      v20[*(v30 + 5)] = v79 + (v29 >> 3);
-      std::vector<TState const*>::reserve(&__p, v20[*(v30 + 5)]);
-      if (v78 >= 1)
+      v26 = v82 - __p;
+      v27 = v85[v18];
+      *(v80[0] + *(v27 + 5)) = (v82 - __p) >> 3;
+      v20[*(v27 + 5)] = v76 + (v26 >> 3);
+      std::vector<TState const*>::reserve(&__p, v20[*(v27 + 5)]);
+      if (v75 >= 1)
       {
-        v31 = v77;
-        v32 = &v77[v78];
-        v33 = *v77;
-        if (*v77)
+        v28 = v74;
+        v29 = &v74[v75];
+        v30 = *v74;
+        if (*v74)
         {
 LABEL_36:
-          v36 = v85;
+          v33 = v82;
           do
           {
 LABEL_37:
-            if (v36 >= v86)
+            if (v33 >= v83)
             {
-              v37 = (v36 - __p) >> 3;
-              if ((v37 + 1) >> 61)
+              v34 = (v33 - __p) >> 3;
+              if ((v34 + 1) >> 61)
               {
                 std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
               }
 
-              v38 = (v86 - __p) >> 2;
-              if (v38 <= v37 + 1)
+              v35 = (v83 - __p) >> 2;
+              if (v35 <= v34 + 1)
               {
-                v38 = v37 + 1;
+                v35 = v34 + 1;
               }
 
-              if (v86 - __p >= 0x7FFFFFFFFFFFFFF8)
+              if (v83 - __p >= 0x7FFFFFFFFFFFFFF8)
               {
-                v39 = 0x1FFFFFFFFFFFFFFFLL;
+                v36 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v39 = v38;
+                v36 = v35;
               }
 
-              if (v39)
+              if (v36)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(&__p, v39);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(&__p, v36);
               }
 
-              *(8 * v37) = v33[5];
-              v36 = (8 * v37 + 8);
-              v40 = (8 * v37 - (v85 - __p));
-              memcpy(v40, __p, v85 - __p);
-              v41 = __p;
-              __p = v40;
-              v85 = v36;
-              v86 = 0;
-              if (v41)
+              *(8 * v34) = v30[5];
+              v33 = (8 * v34 + 8);
+              v37 = (8 * v34 - (v82 - __p));
+              memcpy(v37, __p, v82 - __p);
+              v38 = __p;
+              __p = v37;
+              v82 = v33;
+              v83 = 0;
+              if (v38)
               {
-                operator delete(v41);
+                operator delete(v38);
               }
             }
 
             else
             {
-              *v36 = v33[5];
-              v36 += 8;
+              *v33 = v30[5];
+              v33 += 8;
             }
 
-            v85 = v36;
-            v33 = *v33;
+            v82 = v33;
+            v30 = *v30;
           }
 
-          while (v33);
-          v42 = v31 + 1;
-          while (v42 < v32)
+          while (v30);
+          v39 = v28 + 1;
+          while (v39 < v29)
           {
-            v43 = *v42++;
-            v33 = v43;
-            if (v43)
+            v40 = *v39++;
+            v30 = v40;
+            if (v40)
             {
-              v31 = v42 - 1;
+              v28 = v39 - 1;
               goto LABEL_37;
             }
           }
@@ -3578,14 +3573,14 @@ LABEL_37:
 
         else
         {
-          v34 = v77 + 1;
-          while (v34 < v32)
+          v31 = v74 + 1;
+          while (v31 < v29)
           {
-            v35 = *v34++;
-            v33 = v35;
-            if (v35)
+            v32 = *v31++;
+            v30 = v32;
+            if (v32)
             {
-              v31 = v34 - 1;
+              v28 = v31 - 1;
               goto LABEL_36;
             }
           }
@@ -3595,99 +3590,99 @@ LABEL_37:
       ++v18;
     }
 
-    while (v18 < v89 - v88);
+    while (v18 < v86 - v85);
   }
 
-  std::vector<int>::vector[abi:ne200100](v74, (*(a2 + 14) - *(a2 + 13)) >> 3);
-  std::vector<int>::vector[abi:ne200100](&v70, (*(a2 + 11) - *(a2 + 10)) >> 3);
-  v44 = v89;
-  v45 = v70;
-  *(v70 + *(*(v89 - 1) + 5)) = 1;
-  v46 = v88;
-  v47 = v44 - v88;
-  if (v47 != 8)
+  std::vector<int>::vector[abi:ne200100](v71, (*(a2 + 14) - *(a2 + 13)) >> 3);
+  std::vector<int>::vector[abi:ne200100](&v67, (*(a2 + 11) - *(a2 + 10)) >> 3);
+  v41 = v86;
+  v42 = v67;
+  *(v67 + *(*(v86 - 1) + 5)) = 1;
+  v43 = v85;
+  v44 = v41 - v85;
+  if (v44 != 8)
   {
-    v48 = 0;
+    v45 = 0;
     do
     {
-      v49 = *(&v46[~v48] + v47);
-      v50 = *(v49 + 5);
-      if (*(v70 + v50))
+      v46 = *(&v43[~v45] + v44);
+      v47 = *(v46 + 5);
+      if (*(v67 + v47))
       {
-        v51 = *(v83[0] + v50);
-        v52 = *(v82[0] + v50);
-        v53 = 0;
-        v54 = v52 > v51;
-        v55 = v52 - v51;
-        if (v54)
+        v48 = *(v80[0] + v47);
+        v49 = *(v79[0] + v47);
+        v50 = 0;
+        v51 = v49 > v48;
+        v52 = v49 - v48;
+        if (v51)
         {
-          v56 = __p + 8 * v51;
+          v53 = __p + 8 * v48;
           do
           {
-            if (!v53 || *(*v56 + 16) < *(v53 + 16))
+            if (!v50 || *(*v53 + 16) < *(v50 + 16))
             {
-              v53 = *v56;
+              v50 = *v53;
             }
 
-            v56 += 8;
-            --v55;
+            v53 += 8;
+            --v52;
           }
 
-          while (v55);
+          while (v52);
         }
 
-        v57 = TVertex::getInEdge(v49);
-        if (v57)
+        v54 = TVertex::getInEdge(v46);
+        if (v54)
         {
 LABEL_66:
-          v58 = *(*(v57 + 16) + 40);
-          for (j = *(v83[0] + v58); ; ++j)
+          v55 = *(*(v54 + 16) + 40);
+          for (j = *(v80[0] + v55); ; ++j)
           {
-            if (j >= *(v82[0] + v58))
+            if (j >= *(v79[0] + v55))
             {
               goto LABEL_76;
             }
 
-            v60 = *(__p + j);
-            v72[0] = v57;
-            v72[1] = v60;
-            if (v60)
+            v57 = *(__p + j);
+            v69[0] = v54;
+            v69[1] = v57;
+            if (v57)
             {
-              v60 = *(v60 + 16);
+              v57 = *(v57 + 16);
             }
 
-            v73 = v60 + v17;
-            TDecodeLink::computeHistory(v72, &v91, v14);
-            if (v91)
+            v70 = v57 + v17;
+            TDecodeLink::computeHistory(v69, &v88, v14);
+            if (v88)
             {
-              NGramScore = TLexicon::getNGramScore(*(this + 5), *(&v92 + 1), v92, *(&v91 + 1), v91, 0);
-              v62 = v73 + NGramScore;
-              v73 += NGramScore;
+              NGramScore = TLexicon::getNGramScore(*(this + 5), *(&v89 + 1), v89, *(&v88 + 1), v88, 0);
+              v59 = v70 + NGramScore;
+              v70 += NGramScore;
             }
 
             else
             {
-              v62 = v73;
+              v59 = v70;
             }
 
-            if (*(v53 + 16) == v62)
+            if (*(v50 + 16) == v59)
             {
               break;
             }
           }
 
-          *(v74[0] + *(v57 + 40)) = 1;
-          *(v70 + v58) = 1;
+          *(v71[0] + *(v54 + 40)) = 1;
+          *(v67 + v55) = 1;
 LABEL_76:
           while (1)
           {
-            v57 = *v57;
-            if (!v57)
+            v54 = *v54;
+            if (!v54)
             {
               break;
             }
 
-            if ((*(v57 + 32) & 1) == 0)
+            if ((*(v54 + 32) & 1) == 0)
             {
               goto LABEL_66;
             }
@@ -3695,100 +3690,100 @@ LABEL_76:
         }
       }
 
-      ++v48;
-      v46 = v88;
-      v47 = v89 - v88;
+      ++v45;
+      v43 = v85;
+      v44 = v86 - v85;
     }
 
-    while (v48 < v89 - v88 - 1);
-    v45 = v70;
+    while (v45 < v86 - v85 - 1);
+    v42 = v67;
   }
 
-  v63 = v71;
-  if (v71 != v45)
+  v60 = v68;
+  if (v68 != v42)
   {
-    v64 = 0;
+    v61 = 0;
     do
     {
-      if (!v45[v64])
+      if (!v42[v61])
       {
-        v65 = *(*(a2 + 10) + 8 * v64);
-        if ((*(v65 + 32) & 1) == 0)
+        v62 = *(*(a2 + 10) + 8 * v61);
+        if ((*(v62 + 32) & 1) == 0)
         {
-          TGraph::deleteVertex(a2, v65);
-          v45 = v70;
-          v63 = v71;
+          TGraph::deleteVertex(a2, v62);
+          v42 = v67;
+          v60 = v68;
         }
       }
 
-      ++v64;
+      ++v61;
     }
 
-    while (v64 < (v63 - v45) >> 2);
+    while (v61 < (v60 - v42) >> 2);
   }
 
-  v66 = v74[0];
-  v67 = v74[1];
-  if (v74[1] != v74[0])
+  v63 = v71[0];
+  v64 = v71[1];
+  if (v71[1] != v71[0])
   {
-    v68 = 0;
+    v65 = 0;
     do
     {
-      if (!*(v66 + v68))
+      if (!*(v63 + v65))
       {
-        v69 = *(*(a2 + 13) + 8 * v68);
-        if ((*(v69 + 32) & 1) == 0)
+        v66 = *(*(a2 + 13) + 8 * v65);
+        if ((*(v66 + 32) & 1) == 0)
         {
-          TGraph::deleteEdge(a2, v69);
-          v66 = v74[0];
-          v67 = v74[1];
+          TGraph::deleteEdge(a2, v66);
+          v63 = v71[0];
+          v64 = v71[1];
         }
       }
 
-      ++v68;
+      ++v65;
     }
 
-    while (v68 < (v67 - v66) >> 2);
-    v45 = v70;
+    while (v65 < (v64 - v63) >> 2);
+    v42 = v67;
   }
 
-  if (v45)
+  if (v42)
   {
-    v71 = v45;
-    operator delete(v45);
-    v66 = v74[0];
+    v68 = v42;
+    operator delete(v42);
+    v63 = v71[0];
   }
 
-  if (v66)
+  if (v63)
   {
-    v74[1] = v66;
-    operator delete(v66);
+    v71[1] = v63;
+    operator delete(v63);
   }
 
-  THashBase<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,THashMapCompare<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,std::equal_to<TDecodeLink::THistory>>,THashMapFunction<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,THash<TDecodeLink::THistory>>>::~THashBase(&v76);
-  if (v82[0])
+  THashBase<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,THashMapCompare<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,std::equal_to<TDecodeLink::THistory>>,THashMapFunction<std::pair<TDecodeLink::THistory const,TDecodeLink const*>,THash<TDecodeLink::THistory>>>::~THashBase(&v73);
+  if (v79[0])
   {
-    v82[1] = v82[0];
-    operator delete(v82[0]);
+    v79[1] = v79[0];
+    operator delete(v79[0]);
   }
 
-  if (v83[0])
+  if (v80[0])
   {
-    v83[1] = v83[0];
-    operator delete(v83[0]);
+    v80[1] = v80[0];
+    operator delete(v80[0]);
   }
 
   if (__p)
   {
-    v85 = __p;
+    v82 = __p;
     operator delete(__p);
   }
 
-  TAllocator::clear(v87);
-  if (v88)
+  TAllocator::clear(v84);
+  if (v85)
   {
-    v89 = v88;
-    operator delete(v88);
+    v86 = v85;
+    operator delete(v85);
   }
 }
 
@@ -4005,20 +4000,20 @@ void sub_262682EA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TLexiconMatch>::resize(void *a1, unint64_t a2)
+void std::vector<TLexiconMatch>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<TLexiconMatch>::__append(a1, a2 - v2);
+    std::vector<TLexiconMatch>::__append(result, a2 - v2);
   }
 }
 
@@ -4031,10 +4026,10 @@ BOOL sortPruningParams(const TIntParam *a1, const TIntParam *a2)
   return v3 < *(a2 + TParam::getValidConfig(a2, v5) + 40);
 }
 
-uint64_t computeEdgeStat(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4)
+__int32 *computeEdgeStat(__int32 *result, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   *(a4 + 64) = 1;
-  if (*(result + 48) != 6)
+  if (result[12] != 6)
   {
     v5 = *a3;
     if (a3[1] != *a3)
@@ -4043,7 +4038,7 @@ uint64_t computeEdgeStat(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4
       v8 = 0;
       v9 = *(result + 72);
       v10 = a2 + 15760;
-      v11 = *(result + 64);
+      v11 = *(result + 8);
       v12 = a2 + 16816;
       v13 = a2 + 17168;
       v14 = a2 + 17520;
@@ -4465,7 +4460,7 @@ LABEL_8:
       if (*(v12 + 344))
       {
         v18 = 0;
-        TBuffer<char>::insert(v12 + 64, v16, &v18, 1uLL);
+        TBuffer<char>::insert((v12 + 64), v16, &v18, 1uLL);
         --*(v12 + 80);
       }
 
@@ -4477,7 +4472,7 @@ LABEL_8:
 
     else
     {
-      *(*(v12 + 64) + v16) = 0;
+      v16[*(v12 + 64)] = 0;
     }
 
     result = memcpy(a5, *(v12 + 64), *(v12 + 80));
@@ -4611,17 +4606,17 @@ void std::vector<TLexiconMatch>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<TEdgeStat>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TEdgeStat>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TEdgeStat>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TEdgeStat>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_262683840(_Unwind_Exception *exception_object)
@@ -4636,7 +4631,7 @@ void sub_262683840(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TEdgeStat>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TEdgeStat>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -4656,7 +4651,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<TEdgeStat>>(uint64_t 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,false>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,false>(uint64_t result, int8x16_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -4680,13 +4675,13 @@ LABEL_3:
 
     if (v12 == 2)
     {
-      result = (*a3)(*(a2 - 1), v9->i64[0]);
+      result = (*a3)(a2[-1].i64[1], v9->i64[0]);
       if (result)
       {
-        v61 = v9->i64[0];
-        v9->i64[0] = *(a2 - 1);
+        v59 = v9->i64[0];
+        v9->i64[0] = a2[-1].i64[1];
 LABEL_98:
-        *(a2 - 1) = v61;
+        a2[-1].i64[1] = v59;
         return result;
       }
 
@@ -4699,13 +4694,13 @@ LABEL_11:
       if (a5)
       {
 
-        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v9, a2, a3);
+        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v9, a2->i64, a3);
       }
 
       else
       {
 
-        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v9, a2, a3);
+        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v9, a2->i64, a3);
       }
     }
 
@@ -4714,7 +4709,7 @@ LABEL_11:
       if (v9 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,TIntParam const**>(v9->i64, a2, a2, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,TIntParam const**>(v9->i64, a2->i64, a2->i64, a3);
       }
 
       return result;
@@ -4725,25 +4720,25 @@ LABEL_11:
     if (v12 >= 0x81)
     {
       v15 = v14(v8[v13], *v8);
-      v16 = (*a3)(*(a2 - 1), v8[v13]);
+      v16 = (*a3)(a2[-1].i64[1], v8[v13]);
       if (v15)
       {
         v17 = *v8;
         if (v16)
         {
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v17;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v17;
         }
 
         else
         {
           *v8 = v8[v13];
           v8[v13] = v17;
-          if ((*a3)(*(a2 - 1)))
+          if ((*a3)(a2[-1].i64[1]))
           {
             v25 = v8[v13];
-            v8[v13] = *(a2 - 1);
-            *(a2 - 1) = v25;
+            v8[v13] = a2[-1].i64[1];
+            a2[-1].i64[1] = v25;
           }
         }
       }
@@ -4751,8 +4746,8 @@ LABEL_11:
       else if (v16)
       {
         v21 = v8[v13];
-        v8[v13] = *(a2 - 1);
-        *(a2 - 1) = v21;
+        v8[v13] = a2[-1].i64[1];
+        a2[-1].i64[1] = v21;
         if ((*a3)(v8[v13], *v8))
         {
           v22 = *v8;
@@ -4763,25 +4758,25 @@ LABEL_11:
 
       v26 = v13 - 1;
       v27 = (*a3)(v8[v13 - 1], v8[1]);
-      v28 = (*a3)(*(a2 - 2), v8[v13 - 1]);
+      v28 = (*a3)(a2[-1].i64[0], v8[v13 - 1]);
       if (v27)
       {
         v29 = v8[1];
         if (v28)
         {
-          v8[1] = *(a2 - 2);
-          *(a2 - 2) = v29;
+          v8[1] = a2[-1].i64[0];
+          a2[-1].i64[0] = v29;
         }
 
         else
         {
           v8[1] = v8[v26];
           v8[v26] = v29;
-          if ((*a3)(*(a2 - 2)))
+          if ((*a3)(a2[-1].i64[0]))
           {
             v33 = v8[v26];
-            v8[v26] = *(a2 - 2);
-            *(a2 - 2) = v33;
+            v8[v26] = a2[-1].i64[0];
+            a2[-1].i64[0] = v33;
           }
         }
       }
@@ -4789,8 +4784,8 @@ LABEL_11:
       else if (v28)
       {
         v30 = v8[v26];
-        v8[v26] = *(a2 - 2);
-        *(a2 - 2) = v30;
+        v8[v26] = a2[-1].i64[0];
+        a2[-1].i64[0] = v30;
         if ((*a3)(v8[v26], v8[1]))
         {
           v31 = v8[1];
@@ -4801,25 +4796,25 @@ LABEL_11:
 
       v34 = v13 + 1;
       v35 = (*a3)(v8[v13 + 1], v8[2]);
-      v36 = (*a3)(*(a2 - 3), v8[v13 + 1]);
+      v36 = (*a3)(a2[-2].i64[1], v8[v13 + 1]);
       if (v35)
       {
         v37 = v8[2];
         if (v36)
         {
-          v8[2] = *(a2 - 3);
-          *(a2 - 3) = v37;
+          v8[2] = a2[-2].i64[1];
+          a2[-2].i64[1] = v37;
         }
 
         else
         {
           v8[2] = v8[v34];
           v8[v34] = v37;
-          if ((*a3)(*(a2 - 3)))
+          if ((*a3)(a2[-2].i64[1]))
           {
             v40 = v8[v34];
-            v8[v34] = *(a2 - 3);
-            *(a2 - 3) = v40;
+            v8[v34] = a2[-2].i64[1];
+            a2[-2].i64[1] = v40;
           }
         }
       }
@@ -4827,8 +4822,8 @@ LABEL_11:
       else if (v36)
       {
         v38 = v8[v34];
-        v8[v34] = *(a2 - 3);
-        *(a2 - 3) = v38;
+        v8[v34] = a2[-2].i64[1];
+        a2[-2].i64[1] = v38;
         if ((*a3)(v8[v34], v8[2]))
         {
           v39 = v8[2];
@@ -4852,15 +4847,15 @@ LABEL_11:
 
         v8[v26] = v8[v13];
         v8[v13] = v43;
-        v48 = (*a3)(v8[v34]);
+        v47 = (*a3)(v8[v34]);
         v44 = v8[v13];
-        if (v48)
+        if (v47)
         {
-          v47 = v8[v34];
-          v8[v13] = v47;
+          v46 = v8[v34];
+          v8[v13] = v46;
           v8[v34] = v44;
 LABEL_58:
-          v44 = v47;
+          v44 = v46;
         }
       }
 
@@ -4871,23 +4866,22 @@ LABEL_58:
         {
           v8[v13] = v8[v34];
           v8[v34] = v44;
-          v45 = v8[v26];
-          v46 = (*a3)();
+          v45 = (*a3)();
           v44 = v8[v13];
-          if (v46)
+          if (v45)
           {
-            v47 = v8[v26];
+            v46 = v8[v26];
             v8[v26] = v44;
-            v8[v13] = v47;
+            v8[v13] = v46;
             goto LABEL_58;
           }
         }
       }
 
 LABEL_59:
-      v49 = *v8;
+      v48 = *v8;
       *v8 = v44;
-      v8[v13] = v49;
+      v8[v13] = v48;
       if (a5)
       {
         goto LABEL_61;
@@ -4897,7 +4891,7 @@ LABEL_59:
     }
 
     v18 = v14(*v8, v8[v13]);
-    v19 = (*a3)(*(a2 - 1), *v8);
+    v19 = (*a3)(a2[-1].i64[1], *v8);
     if (v18)
     {
       v20 = v8[v13];
@@ -4905,11 +4899,11 @@ LABEL_59:
       {
         v8[v13] = *v8;
         *v8 = v20;
-        if ((*a3)(*(a2 - 1)))
+        if ((*a3)(a2[-1].i64[1]))
         {
           v32 = *v8;
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v32;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v32;
         }
 
 LABEL_38:
@@ -4921,8 +4915,8 @@ LABEL_38:
         goto LABEL_60;
       }
 
-      v8[v13] = *(a2 - 1);
-      *(a2 - 1) = v20;
+      v8[v13] = a2[-1].i64[1];
+      a2[-1].i64[1] = v20;
       if (a5)
       {
         goto LABEL_61;
@@ -4937,8 +4931,8 @@ LABEL_38:
       }
 
       v23 = *v8;
-      *v8 = *(a2 - 1);
-      *(a2 - 1) = v23;
+      *v8 = a2[-1].i64[1];
+      a2[-1].i64[1] = v23;
       if (!(*a3)(*v8, v8[v13]))
       {
         goto LABEL_38;
@@ -4956,26 +4950,26 @@ LABEL_38:
 LABEL_60:
     if (((*a3)(*(v8 - 1), *v8) & 1) == 0)
     {
-      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TIntParam const**,BOOL (*&)(TIntParam const*,TIntParam const*)>(v8, a2, a3);
+      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TIntParam const**,BOOL (*&)(TIntParam const*,TIntParam const*)>(v8, a2->i64, a3);
       v9 = result;
       goto LABEL_66;
     }
 
 LABEL_61:
-    v50 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TIntParam const**,BOOL (*&)(TIntParam const*,TIntParam const*)>(v8, a2, a3);
-    if ((v51 & 1) == 0)
+    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TIntParam const**,BOOL (*&)(TIntParam const*,TIntParam const*)>(v8, a2->i64, a3);
+    if ((v50 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v52 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v8, v50, a3);
-    v9 = (v50 + 1);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v50 + 1, a2, a3);
+    v51 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(v8, v49, a3);
+    v9 = &v49->u64[1];
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(&v49->i64[1], a2, a3);
     if (result)
     {
       a4 = -v11;
-      a2 = v50;
-      if (v52)
+      a2 = v49;
+      if (v51)
       {
         return result;
       }
@@ -4984,11 +4978,11 @@ LABEL_61:
     }
 
     v10 = v11 + 1;
-    if (!v52)
+    if (!v51)
     {
 LABEL_64:
-      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,false>(v8, v50, a3, -v11, a5 & 1);
-      v9 = (v50 + 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,false>(v8, v49, a3, -v11, a5 & 1);
+      v9 = &v49->u64[1];
 LABEL_66:
       a5 = 0;
       a4 = -v11;
@@ -5001,61 +4995,60 @@ LABEL_66:
     if (v12 == 4)
     {
 
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,0>(v9, &v9->i64[1], v9[1].i64, a2 - 1, a3);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,0>(v9, &v9->i64[1], v9[1].i64, &a2[-1].i64[1], a3);
     }
 
     if (v12 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,0>(v9, &v9->i64[1], v9[1].i64, &v9[1].i64[1], a3);
-      result = (*a3)(*(a2 - 1), v9[1].i64[1]);
+      result = (*a3)(a2[-1].i64[1], v9[1].i64[1]);
       if (!result)
       {
         return result;
       }
 
-      v55 = v9[1].i64[1];
-      v9[1].i64[1] = *(a2 - 1);
-      *(a2 - 1) = v55;
+      v54 = v9[1].i64[1];
+      v9[1].i64[1] = a2[-1].i64[1];
+      a2[-1].i64[1] = v54;
       result = (*a3)(v9[1].i64[1], v9[1].i64[0]);
       if (!result)
       {
         return result;
       }
 
-      v56 = v9[1].i64[0];
-      v57 = v9->i64[1];
+      v55 = v9[1].i64[0];
       v9[1].i64[0] = v9[1].i64[1];
-      v9[1].i64[1] = v56;
+      v9[1].i64[1] = v55;
       result = (*a3)();
       if (!result)
       {
         return result;
       }
 
-      v59 = v9->i64[1];
-      v58 = v9[1].i64[0];
-      v60 = v9->i64[0];
-      v9->i64[1] = v58;
-      v9[1].i64[0] = v59;
-      result = (*a3)(v58, v60);
+      v57 = v9->i64[1];
+      v56 = v9[1].i64[0];
+      v58 = v9->i64[0];
+      v9->i64[1] = v56;
+      v9[1].i64[0] = v57;
+      result = (*a3)(v56, v58);
       goto LABEL_91;
     }
 
     goto LABEL_11;
   }
 
-  v53 = (*a3)(v9->i64[1], v9->i64[0]);
-  result = (*a3)(*(a2 - 1), v9->i64[1]);
-  if ((v53 & 1) == 0)
+  v52 = (*a3)(v9->i64[1], v9->i64[0]);
+  result = (*a3)(a2[-1].i64[1], v9->i64[1]);
+  if ((v52 & 1) == 0)
   {
     if (!result)
     {
       return result;
     }
 
-    v62 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
-    *(a2 - 1) = v62;
+    v60 = v9->i64[1];
+    v9->i64[1] = a2[-1].i64[1];
+    a2[-1].i64[1] = v60;
     result = (*a3)(v9->i64[1], v9->i64[0]);
 LABEL_91:
     if (result)
@@ -5066,21 +5059,21 @@ LABEL_91:
     return result;
   }
 
-  v54 = v9->i64[0];
+  v53 = v9->i64[0];
   if (result)
   {
-    v9->i64[0] = *(a2 - 1);
-    *(a2 - 1) = v54;
+    v9->i64[0] = a2[-1].i64[1];
+    a2[-1].i64[1] = v53;
     return result;
   }
 
   v9->i64[0] = v9->i64[1];
-  v9->i64[1] = v54;
-  result = (*a3)(*(a2 - 1));
+  v9->i64[1] = v53;
+  result = (*a3)(a2[-1].i64[1]);
   if (result)
   {
-    v61 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
+    v59 = v9->i64[1];
+    v9->i64[1] = a2[-1].i64[1];
     goto LABEL_98;
   }
 
@@ -5204,7 +5197,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -5390,20 +5383,20 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v15 = (*a3)(a1[1], *a1);
-        v16 = (*a3)(*(a2 - 1), a1[1]);
-        if (v15)
+        v14 = (*a3)(a1[1], *a1);
+        v15 = (*a3)(*(a2 - 1), a1[1]);
+        if (v14)
         {
-          v17 = *a1;
-          if (v16)
+          v16 = *a1;
+          if (v15)
           {
             *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
+            *(a2 - 1) = v16;
             return 1;
           }
 
           *a1 = a1[1];
-          a1[1] = v17;
+          a1[1] = v16;
           if (!(*a3)(*(a2 - 1)))
           {
             return 1;
@@ -5414,15 +5407,15 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           goto LABEL_6;
         }
 
-        if (!v16)
+        if (!v15)
         {
           return 1;
         }
 
-        v22 = a1[1];
+        v21 = a1[1];
         a1[1] = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = (*a3)(a1[1], *a1);
+        *(a2 - 1) = v21;
+        v13 = (*a3)(a1[1], *a1);
         break;
       case 4:
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(TIntParam const*,TIntParam const*),TIntParam const**,0>(a1, a1 + 1, a1 + 2, a2 - 1, a3);
@@ -5443,7 +5436,6 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         }
 
         v9 = a1[2];
-        v10 = a1[1];
         a1[2] = a1[3];
         a1[3] = v9;
         if (!(*a3)())
@@ -5451,18 +5443,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           return 1;
         }
 
-        v12 = a1[1];
-        v11 = a1[2];
-        v13 = *a1;
-        a1[1] = v11;
-        a1[2] = v12;
-        v14 = (*a3)(v11, v13);
+        v11 = a1[1];
+        v10 = a1[2];
+        v12 = *a1;
+        a1[1] = v10;
+        a1[2] = v11;
+        v13 = (*a3)(v10, v12);
         break;
       default:
         goto LABEL_17;
     }
 
-    if (v14)
+    if (v13)
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
@@ -5489,85 +5481,84 @@ LABEL_6:
   }
 
 LABEL_17:
-  v18 = (*a3)(a1[1], *a1);
-  v19 = a1 + 2;
-  v20 = (*a3)(a1[2], a1[1]);
-  if (v18)
+  v17 = (*a3)(a1[1], *a1);
+  v18 = a1 + 2;
+  v19 = (*a3)(a1[2], a1[1]);
+  if (v17)
   {
-    v21 = *a1;
-    if (v20)
+    v20 = *a1;
+    if (v19)
     {
       *a1 = a1[2];
-      a1[2] = v21;
+      a1[2] = v20;
     }
 
     else
     {
-      v25 = a1[2];
+      v23 = a1[2];
       *a1 = a1[1];
-      a1[1] = v21;
-      if ((*a3)(v25))
+      a1[1] = v20;
+      if ((*a3)(v23))
       {
         *(a1 + 1) = vextq_s8(*(a1 + 1), *(a1 + 1), 8uLL);
       }
     }
   }
 
-  else if (v20)
+  else if (v19)
   {
-    v23 = a1[1];
-    v24 = *a1;
+    v22 = a1[1];
     a1[1] = a1[2];
-    a1[2] = v23;
+    a1[2] = v22;
     if ((*a3)())
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
   }
 
-  v26 = a1 + 3;
+  v24 = a1 + 3;
   if (a1 + 3 == a2)
   {
     return 1;
   }
 
-  v27 = 0;
-  v28 = 0;
+  v25 = 0;
+  v26 = 0;
   while (1)
   {
-    if ((*a3)(*v26, *v19))
+    if ((*a3)(*v24, *v18))
     {
-      v29 = *v26;
-      v30 = v27;
+      v27 = *v24;
+      v28 = v25;
       while (1)
       {
-        v31 = a1 + v30;
-        *(a1 + v30 + 24) = *(a1 + v30 + 16);
-        if (v30 == -16)
+        v29 = a1 + v28;
+        *(a1 + v28 + 24) = *(a1 + v28 + 16);
+        if (v28 == -16)
         {
           break;
         }
 
-        v30 -= 8;
-        if (((*a3)(v29, *(v31 + 1)) & 1) == 0)
+        v28 -= 8;
+        if (((*a3)(v27, *(v29 + 1)) & 1) == 0)
         {
-          v32 = (a1 + v30 + 24);
+          v30 = (a1 + v28 + 24);
           goto LABEL_40;
         }
       }
 
-      v32 = a1;
+      v30 = a1;
 LABEL_40:
-      *v32 = v29;
-      if (++v28 == 8)
+      *v30 = v27;
+      if (++v26 == 8)
       {
-        return v26 + 1 == a2;
+        return v24 + 1 == a2;
       }
     }
 
-    v19 = v26;
-    v27 += 8;
-    if (++v26 == a2)
+    v18 = v24;
+    v25 += 8;
+    if (++v24 == a2)
     {
       return 1;
     }
@@ -5784,17 +5775,17 @@ void THashMap<TDecodeLink::THistory,TDecodeLink const*,THash<TDecodeLink::THisto
   JUMPOUT(0x26672B1B0);
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_262684C30(_Unwind_Exception *exception_object)
@@ -5809,7 +5800,7 @@ void sub_262684C30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -5834,71 +5825,71 @@ void (***DgnDelete<FrameTransformer>(void (***result)(void)))(void)
 
 TFileObject *compileAlt(const TFileObject *a1, TFileObject *a2, TLexicon *a3, TAllocator *a4)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if (*(a1 + 10))
   {
     if (TLexicon::checkName(a3, *(a1 + 3), 1, 0xFFFFFFFFFFFFFFFFLL))
     {
       loggableFileObject(a1);
-      v51 = v81[23];
-      v52 = *v81;
+      v41 = v62[23];
+      v42 = *v62;
       loggableUnicode(*(a1 + 3), __p);
-      v57 = v81;
-      if (v51 < 0)
+      v44 = v62;
+      if (v41 < 0)
       {
-        v57 = v52;
+        v44 = v42;
       }
 
       if (__p[23] >= 0)
       {
-        v58 = __p;
+        v45 = __p;
       }
 
       else
       {
-        v58 = *__p;
+        v45 = *__p;
       }
 
-      tknPrintf("Error: %s'%s' is an invalid token name.\n", v53, v54, v55, v56, v57, v58);
+      tknPrintf("Error: %s'%s' is an invalid token name.\n", v43, v44, v45);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      if ((v81[23] & 0x80000000) != 0)
+      if ((v62[23] & 0x80000000) != 0)
       {
-        operator delete(*v81);
+        operator delete(*v62);
       }
 
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-      *v81 = byte_287529580;
+      *v62 = byte_287529580;
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(&v81[8], *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(&v62[8], *__p, *&__p[8]);
       }
 
       else
       {
-        *&v81[8] = *__p;
-        v82 = *&__p[16];
+        *&v62[8] = *__p;
+        v63 = *&__p[16];
       }
 
-      *v81 = &unk_287528000;
-      if (v82 >= 0)
+      *v62 = &unk_287528000;
+      if (v63 >= 0)
       {
-        v71 = &v81[8];
+        v52 = &v62[8];
       }
 
       else
       {
-        v71 = *&v81[8];
+        v52 = *&v62[8];
       }
 
-      conditionalAssert(v71, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 155, v59, v60);
-      *v81 = byte_287529580;
-      if (SHIBYTE(v82) < 0)
+      conditionalAssert(v52, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 155);
+      *v62 = byte_287529580;
+      if (SHIBYTE(v63) < 0)
       {
-        operator delete(*&v81[8]);
+        operator delete(*&v62[8]);
       }
 
       if ((__p[23] & 0x80000000) != 0)
@@ -5907,19 +5898,19 @@ TFileObject *compileAlt(const TFileObject *a1, TFileObject *a2, TLexicon *a3, TA
       }
 
       exception = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v81, &byte_262899963);
+      std::string::basic_string[abi:ne200100]<0>(v62, &byte_262899963);
       *exception = byte_287529580;
-      v73 = (exception + 1);
-      if ((v81[23] & 0x80000000) != 0)
+      v54 = (exception + 1);
+      if ((v62[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v73, *v81, *&v81[8]);
+        std::string::__init_copy_ctor_external(v54, *v62, *&v62[8]);
       }
 
       else
       {
-        v76 = *v81;
-        exception[3] = *&v81[16];
-        *&v73->__r_.__value_.__l.__data_ = v76;
+        v57 = *v62;
+        exception[3] = *&v62[16];
+        *&v54->__r_.__value_.__l.__data_ = v57;
       }
 
       *exception = &unk_287528000;
@@ -5928,159 +5919,159 @@ TFileObject *compileAlt(const TFileObject *a1, TFileObject *a2, TLexicon *a3, TA
     if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(a1 + 3)))
     {
       loggableFileObject(a1);
-      v8 = v81[23];
-      v9 = *v81;
+      v8 = v62[23];
+      v9 = *v62;
       loggableUnicode(*(a1 + 3), __p);
-      v14 = v81;
+      v11 = v62;
       if (v8 < 0)
       {
-        v14 = v9;
+        v11 = v9;
       }
 
       if (__p[23] >= 0)
       {
-        v15 = __p;
+        v12 = __p;
       }
 
       else
       {
-        v15 = *__p;
+        v12 = *__p;
       }
 
-      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v10, v11, v12, v13, v14, v15);
+      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v10, v11, v12);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      if ((v81[23] & 0x80000000) != 0)
+      if ((v62[23] & 0x80000000) != 0)
       {
-        operator delete(*v81);
+        operator delete(*v62);
       }
     }
 
-    v17 = *(a1 + 3);
-    v16 = (a1 + 24);
-    v18 = wcslen(v17);
-    if ((v18 + 1) >> 62)
+    v14 = *(a1 + 3);
+    v13 = (a1 + 24);
+    v15 = wcslen(v14);
+    if ((v15 + 1) >> 62)
     {
-      v19 = -1;
+      v16 = -1;
     }
 
     else
     {
-      v19 = 4 * (v18 + 1);
+      v16 = 4 * (v15 + 1);
     }
 
-    v20 = TAllocator::allocate(a4, v19);
-    wcscpy(v20, *v16);
-    v21 = TAllocator::allocate(a4, 48);
-    *(v21 + 40) = 1;
-    *(v21 + 24) = v20;
-    *(v21 + 32) = 0;
-    *v21 = 0;
-    *(v21 + 8) = "T";
-    *(v21 + 16) = 0;
+    v17 = TAllocator::allocate(a4, v16);
+    wcscpy(v17, *v13);
+    v18 = TAllocator::allocate(a4, 48);
+    *(v18 + 10) = 1;
+    v18[3] = v17;
+    v18[4] = 0;
+    *v18 = 0;
+    v18[1] = "T";
+    v18[2] = 0;
     goto LABEL_56;
   }
 
-  *v81 = &unk_262881E08;
-  *&v81[8] = vdupq_n_s64(1uLL);
-  v82 = -1;
-  if (TFileObject::verify(a1, v81, 1, 0))
+  *v62 = &unk_262881E08;
+  *&v62[8] = vdupq_n_s64(1uLL);
+  v63 = -1;
+  if (TFileObject::verify(a1, v62, 1, 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v77, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v58, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v59) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v77[0], v77[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v58[0], v58[1]);
     }
 
     else
     {
-      *&__p[8] = *v77;
-      v80 = v78;
+      *&__p[8] = *v58;
+      v61 = v59;
     }
 
     *__p = &unk_287528000;
-    if (v80 >= 0)
+    if (v61 >= 0)
     {
-      v65 = &__p[8];
+      v46 = &__p[8];
     }
 
     else
     {
-      v65 = *&__p[8];
+      v46 = *&__p[8];
     }
 
-    conditionalAssert(v65, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 88, v61, v62);
+    conditionalAssert(v46, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 88);
     *__p = byte_287529580;
-    if (SHIBYTE(v80) < 0)
+    if (SHIBYTE(v61) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v59) < 0)
     {
-      operator delete(v77[0]);
+      operator delete(v58[0]);
     }
 
-    v66 = __cxa_allocate_exception(0x20uLL);
+    v47 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v66 = byte_287529580;
-    v67 = (v66 + 1);
+    *v47 = byte_287529580;
+    v48 = (v47 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v67, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v48, *__p, *&__p[8]);
     }
 
     else
     {
-      v74 = *__p;
-      v66[3] = *&__p[16];
-      *&v67->__r_.__value_.__l.__data_ = v74;
+      v55 = *__p;
+      v47[3] = *&__p[16];
+      *&v48->__r_.__value_.__l.__data_ = v55;
     }
 
-    *v66 = &unk_287528000;
+    *v47 = &unk_287528000;
   }
 
-  v22 = 0;
-  v23 = 0;
-  v21 = 0;
-  v24 = *(a1 + 3);
+  v19 = 0;
+  v20 = 0;
+  v18 = 0;
+  v21 = *(a1 + 3);
   do
   {
-    if (TFileObject::verify(v24, 0, 0))
+    if (TFileObject::verify(v21, 0, 0))
     {
       goto LABEL_31;
     }
 
-    if (TLexicon::checkName(a3, *(v24 + 24), 1, 0xFFFFFFFFFFFFFFFFLL))
+    if (TLexicon::checkName(a3, *(v21 + 24), 1, 0xFFFFFFFFFFFFFFFFLL))
     {
-      loggableFileObject(v24);
-      v25 = __p[23];
-      v26 = *__p;
-      loggableUnicode(*(v24 + 24), v77);
-      v31 = __p;
-      if (v25 < 0)
+      loggableFileObject(v21);
+      v22 = __p[23];
+      v23 = *__p;
+      loggableUnicode(*(v21 + 24), v58);
+      v25 = __p;
+      if (v22 < 0)
       {
-        v31 = v26;
+        v25 = v23;
       }
 
-      if (v78 >= 0)
+      if (v59 >= 0)
       {
-        v32 = v77;
+        v26 = v58;
       }
 
       else
       {
-        v32 = v77[0];
+        v26 = v58[0];
       }
 
-      tknPrintf("Error: %s'%s' is an invalid token name.\n", v27, v28, v29, v30, v31, v32);
-      if (SHIBYTE(v78) < 0)
+      tknPrintf("Error: %s'%s' is an invalid token name.\n", v24, v25, v26);
+      if (SHIBYTE(v59) < 0)
       {
-        operator delete(v77[0]);
+        operator delete(v58[0]);
       }
 
       if ((__p[23] & 0x80000000) != 0)
@@ -6089,36 +6080,36 @@ TFileObject *compileAlt(const TFileObject *a1, TFileObject *a2, TLexicon *a3, TA
       }
 
 LABEL_31:
-      v22 = 1;
+      v19 = 1;
       goto LABEL_32;
     }
 
-    if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(v24 + 24)))
+    if (*(getPropCheckTokenExistence() + 8) == 1 && !TLexicon::findHeadClone(a3, *(v21 + 24)))
     {
-      loggableFileObject(v24);
-      v33 = __p[23];
-      v34 = *__p;
-      loggableUnicode(*(v24 + 24), v77);
-      v39 = __p;
-      if (v33 < 0)
+      loggableFileObject(v21);
+      v27 = __p[23];
+      v28 = *__p;
+      loggableUnicode(*(v21 + 24), v58);
+      v30 = __p;
+      if (v27 < 0)
       {
-        v39 = v34;
+        v30 = v28;
       }
 
-      if (v78 >= 0)
+      if (v59 >= 0)
       {
-        v40 = v77;
+        v31 = v58;
       }
 
       else
       {
-        v40 = v77[0];
+        v31 = v58[0];
       }
 
-      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v35, v36, v37, v38, v39, v40);
-      if (SHIBYTE(v78) < 0)
+      tknPrintf("Warning: %s'%s' isn't lexicalized.\n", v29, v30, v31);
+      if (SHIBYTE(v59) < 0)
       {
-        operator delete(v77[0]);
+        operator delete(v58[0]);
       }
 
       if ((__p[23] & 0x80000000) != 0)
@@ -6127,147 +6118,143 @@ LABEL_31:
       }
     }
 
-    v41 = wcslen(*(v24 + 24));
-    if ((v41 + 1) >> 62)
+    v32 = wcslen(*(v21 + 24));
+    if ((v32 + 1) >> 62)
     {
-      v42 = -1;
+      v33 = -1;
     }
 
     else
     {
-      v42 = 4 * (v41 + 1);
+      v33 = 4 * (v32 + 1);
     }
 
-    v43 = TAllocator::allocate(a4, v42);
-    wcscpy(v43, *(v24 + 24));
-    v44 = TAllocator::allocate(a4, 48);
-    *(v44 + 40) = 1;
-    *(v44 + 24) = v43;
-    *(v44 + 32) = 0;
-    *v44 = 0;
-    *(v44 + 8) = "T";
-    *(v44 + 16) = 0;
-    if (v23)
+    v34 = TAllocator::allocate(a4, v33);
+    wcscpy(v34, *(v21 + 24));
+    v35 = TAllocator::allocate(a4, 48);
+    *(v35 + 10) = 1;
+    v35[3] = v34;
+    v35[4] = 0;
+    *v35 = 0;
+    v35[1] = "T";
+    v35[2] = 0;
+    if (v20)
     {
-      *(v23 + 16) = v44;
+      v20[2] = v35;
     }
 
-    if (!v21)
+    if (!v18)
     {
-      v21 = v44;
+      v18 = v35;
     }
 
-    v23 = v44;
+    v20 = v35;
 LABEL_32:
-    v24 = *(v24 + 16);
+    v21 = *(v21 + 16);
   }
 
-  while (v24);
-  if (v22)
+  while (v21);
+  if (v19)
   {
-    std::string::basic_string[abi:ne200100]<0>(v77, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v58, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v59) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v77[0], v77[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v58[0], v58[1]);
     }
 
     else
     {
-      *&__p[8] = *v77;
-      v80 = v78;
+      *&__p[8] = *v58;
+      v61 = v59;
     }
 
     *__p = &unk_287528000;
-    if (v80 >= 0)
+    if (v61 >= 0)
     {
-      v68 = &__p[8];
+      v49 = &__p[8];
     }
 
     else
     {
-      v68 = *&__p[8];
+      v49 = *&__p[8];
     }
 
-    conditionalAssert(v68, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 130, v63, v64);
+    conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 130);
     *__p = byte_287529580;
-    if (SHIBYTE(v80) < 0)
+    if (SHIBYTE(v61) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v59) < 0)
     {
-      operator delete(v77[0]);
+      operator delete(v58[0]);
     }
 
-    v69 = __cxa_allocate_exception(0x20uLL);
+    v50 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v69 = byte_287529580;
-    v70 = (v69 + 1);
+    *v50 = byte_287529580;
+    v51 = (v50 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v70, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v51, *__p, *&__p[8]);
     }
 
     else
     {
-      v75 = *__p;
-      v69[3] = *&__p[16];
-      *&v70->__r_.__value_.__l.__data_ = v75;
+      v56 = *__p;
+      v50[3] = *&__p[16];
+      *&v51->__r_.__value_.__l.__data_ = v56;
     }
 
-    *v69 = &unk_287528000;
+    *v50 = &unk_287528000;
   }
 
-  if (*(v21 + 16))
+  if (v18[2])
   {
-    v45 = TAllocator::allocate(a4, 48);
-    *(v45 + 40) = 0;
-    *(v45 + 24) = v21;
-    *(v45 + 32) = 0;
-    *v45 = 0;
-    *(v45 + 8) = "S";
-    *(v45 + 16) = 0;
-    v21 = v45;
+    v36 = TAllocator::allocate(a4, 48);
+    *(v36 + 10) = 0;
+    v36[3] = v18;
+    v36[4] = 0;
+    *v36 = 0;
+    v36[1] = "S";
+    v36[2] = 0;
+    v18 = v36;
   }
 
 LABEL_56:
-  if (a2)
+  if (!a2)
   {
-    if (!wcscmp(*(a2 + 1), "A"))
-    {
-      v47 = *(a2 + 3);
-      do
-      {
-        v48 = v47;
-        v47 = *(v47 + 16);
-      }
+    return v18;
+  }
 
-      while (v47);
-      *(v48 + 16) = v21;
+  if (!wcscmp(*(a2 + 1), "A"))
+  {
+    v38 = *(a2 + 3);
+    do
+    {
+      v39 = v38;
+      v38 = *(v38 + 16);
     }
 
-    else
-    {
-      *(a2 + 2) = v21;
-      v46 = TAllocator::allocate(a4, 48);
-      *(v46 + 40) = 0;
-      *(v46 + 24) = a2;
-      *(v46 + 32) = 0;
-      *(v46 + 8) = "A";
-      *(v46 + 16) = 0;
-      a2 = v46;
-      *v46 = 0;
-    }
+    while (v38);
+    *(v39 + 16) = v18;
   }
 
   else
   {
-    a2 = v21;
+    *(a2 + 2) = v18;
+    v37 = TAllocator::allocate(a4, 48);
+    *(v37 + 10) = 0;
+    v37[3] = a2;
+    v37[4] = 0;
+    v37[1] = "A";
+    v37[2] = 0;
+    a2 = v37;
+    *v37 = 0;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -6295,7 +6282,7 @@ LABEL_6:
 void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexicon *a3, TAllocator *a4)
 {
   *(this + 1) = 0;
-  v36 = this + 8;
+  v25 = this + 8;
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -6303,7 +6290,7 @@ void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexi
   *this = &unk_287528B98;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  v41 = 0;
+  v30 = 0;
   v6 = *(a2 + 3);
   if (!v6)
   {
@@ -6320,7 +6307,7 @@ void TArrayObject::TArrayObject(TArrayObject *this, const TFileObject *a2, TLexi
         if (!*(this + 2))
         {
 LABEL_25:
-          MEMORY[0x26672AF30](v36, v6[3]);
+          MEMORY[0x26672AF30](v25, v6[3]);
           goto LABEL_33;
         }
       }
@@ -6333,15 +6320,15 @@ LABEL_25:
       loggableFileObject(v6);
       if (__p[23] >= 0)
       {
-        v22 = __p;
+        v16 = __p;
       }
 
       else
       {
-        v22 = *__p;
+        v16 = *__p;
       }
 
-      tknPrintf("Error: %sRedefinition\n", v18, v19, v20, v21, v22);
+      tknPrintf("Error: %sRedefinition\n", v15, v16);
     }
 
     else
@@ -6356,15 +6343,15 @@ LABEL_25:
         loggableFileObject(v6);
         if (__p[23] >= 0)
         {
-          v17 = __p;
+          v14 = __p;
         }
 
         else
         {
-          v17 = *__p;
+          v14 = *__p;
         }
 
-        tknPrintf("Error: %sInvalid attribute\n", v13, v14, v15, v16, v17);
+        tknPrintf("Error: %sInvalid attribute\n", v13, v14);
       }
 
       else
@@ -6374,8 +6361,8 @@ LABEL_25:
           operator new();
         }
 
-        v10 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v9, &v41);
-        if ((v41 & 1) == 0 && v10 >> 4 < 0x271)
+        v10 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v9, &v30);
+        if ((v30 & 1) == 0 && v10 >> 4 < 0x271)
         {
           v11 = v10;
           v12 = *(this + 4);
@@ -6394,15 +6381,15 @@ LABEL_25:
         loggableFileObject(v6);
         if (__p[23] >= 0)
         {
-          v27 = __p;
+          v18 = __p;
         }
 
         else
         {
-          v27 = *__p;
+          v18 = *__p;
         }
 
-        tknPrintf("Error: %sBad index (not an integer or greater than 10000)\n", v23, v24, v25, v26, v27);
+        tknPrintf("Error: %sBad index (not an integer or greater than 10000)\n", v17, v18);
       }
     }
 
@@ -6411,73 +6398,73 @@ LABEL_25:
       operator delete(*__p);
     }
 
-    v41 = 1;
+    v30 = 1;
 LABEL_33:
     v6 = v6[2];
   }
 
   while (v6);
-  if (v41)
+  if (v30)
   {
-    std::string::basic_string[abi:ne200100]<0>(v37, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v26, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v38) < 0)
+    if (SHIBYTE(v27) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v37[0], v37[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v26[0], v26[1]);
     }
 
     else
     {
-      *&__p[8] = *v37;
-      v40 = v38;
+      *&__p[8] = *v26;
+      v29 = v27;
     }
 
     *__p = &unk_287528000;
-    if (v40 >= 0)
+    if (v29 >= 0)
     {
-      v30 = &__p[8];
+      v19 = &__p[8];
     }
 
     else
     {
-      v30 = *&__p[8];
+      v19 = *&__p[8];
     }
 
-    conditionalAssert(v30, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 286, v28, v29);
+    conditionalAssert(v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 286);
     *__p = byte_287529580;
-    if (SHIBYTE(v40) < 0)
+    if (SHIBYTE(v29) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v38) < 0)
+    if (SHIBYTE(v27) < 0)
     {
-      operator delete(v37[0]);
+      operator delete(v26[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v32 = (exception + 1);
+    v21 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v32, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v21, *__p, *&__p[8]);
     }
 
     else
     {
-      v33 = *__p;
+      v22 = *__p;
       exception[3] = *&__p[16];
-      *&v32->__r_.__value_.__l.__data_ = v33;
+      *&v21->__r_.__value_.__l.__data_ = v22;
     }
 
     *exception = &unk_287528000;
   }
 }
 
-void sub_262685B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, void *a22, int a23, __int16 a24, char a25, char a26, int a27, __int16 a28, char a29, char a30)
+void sub_262685B48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, void *a22, int a23, __int16 a24, char a25, char a26, int a27, __int16 a28, char a29, char a30)
 {
-  MEMORY[0x26672B1B0](v32, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v32, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   v34 = *v31;
   if (*v31)
   {
@@ -6494,20 +6481,20 @@ void sub_262685B48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<TFileObject *>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<TFileObject *>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<TFileObject *>::__append(a1, a2 - v3, a3);
+    std::vector<TFileObject *>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -6535,18 +6522,18 @@ uint64_t TArrayObject::checkNoGap(TArrayObject *this, unint64_t a2, unint64_t a3
         }
 
         loggableUnicode(v9, __p);
-        if (v17 >= 0)
+        if (v14 >= 0)
         {
-          v14 = __p;
+          v11 = __p;
         }
 
         else
         {
-          v14 = __p[0];
+          v11 = __p[0];
         }
 
-        tknPrintf("Error: Array '%s' : Attribute '%llu' : Missing declaration\n", v10, v11, v12, v13, v14, v4);
-        if (v17 < 0)
+        tknPrintf("Error: Array '%s' : Attribute '%llu' : Missing declaration\n", v10, v11, v4);
+        if (v14 < 0)
         {
           operator delete(__p[0]);
         }
@@ -6573,11 +6560,11 @@ void sub_262685D5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TDigitObject::TDigitObject(TDigitObject *this, const TFileObject *a2, TLexicon *a3, TAllocator *a4)
+void TDigitObject::TDigitObject(TDigitObject *this, TFileObject **a2, TLexicon *a3, TAllocator *a4)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   *(this + 1) = 0;
-  v27 = this + 8;
+  v22 = this + 8;
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -6585,100 +6572,100 @@ void TDigitObject::TDigitObject(TDigitObject *this, const TFileObject *a2, TLexi
   *this = &unk_287528AA0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  v33 = "0";
-  v34 = vdupq_n_s64(1uLL);
-  v35 = -1;
-  v36 = "1";
-  v37 = v34;
-  v38 = -1;
-  v39 = "2";
-  v40 = v34;
-  v41 = -1;
-  v42 = "3";
-  v43 = v34;
-  v44 = -1;
-  v45 = "4";
-  v46 = v34;
-  v47 = -1;
-  v48 = "5";
-  v49 = v34;
-  v50 = -1;
-  v51 = "6";
-  v52 = v34;
-  v53 = -1;
-  v54 = "7";
-  v55 = v34;
-  v56 = -1;
-  v57 = "8";
-  v58 = 1;
-  v59 = xmmword_26286B690;
-  v60 = "9";
-  v61 = 1;
-  v62 = xmmword_26286B690;
-  v63 = "D";
-  v64 = 3;
-  v65 = xmmword_26286B690;
-  v66 = "T";
-  v67 = 3;
-  v68 = xmmword_26286B690;
-  v69 = "N";
-  v70 = 0;
-  v71 = xmmword_26286B690;
-  v26 = (this + 32);
-  v9 = TFileObject::verify(a2, &v33, 13, 1);
-  v32 = v9;
+  v28 = "0";
+  v29 = vdupq_n_s64(1uLL);
+  v30 = -1;
+  v31 = "1";
+  v32 = v29;
+  v33 = -1;
+  v34 = "2";
+  v35 = v29;
+  v36 = -1;
+  v37 = "3";
+  v38 = v29;
+  v39 = -1;
+  v40 = "4";
+  v41 = v29;
+  v42 = -1;
+  v43 = "5";
+  v44 = v29;
+  v45 = -1;
+  v46 = "6";
+  v47 = v29;
+  v48 = -1;
+  v49 = "7";
+  v50 = v29;
+  v51 = -1;
+  v52 = "8";
+  v53 = 1;
+  v54 = xmmword_26286B690;
+  v55 = "9";
+  v56 = 1;
+  v57 = xmmword_26286B690;
+  v58 = "D";
+  v59 = 3;
+  v60 = xmmword_26286B690;
+  v61 = "T";
+  v62 = 3;
+  v63 = xmmword_26286B690;
+  v64 = "N";
+  v65 = 0;
+  v66 = xmmword_26286B690;
+  v21 = (this + 32);
+  v9 = TFileObject::verify(a2, &v28, 13, 1);
+  v27 = v9;
   if (v9)
   {
-    std::string::basic_string[abi:ne200100]<0>(v28, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v23, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v28[0], v28[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v23[0], v23[1]);
     }
 
     else
     {
-      *&__p[8] = *v28;
-      v31 = v29;
+      *&__p[8] = *v23;
+      v26 = v24;
     }
 
     *__p = &unk_287528000;
-    if (v31 >= 0)
+    if (v26 >= 0)
     {
-      v18 = &__p[8];
+      v13 = &__p[8];
     }
 
     else
     {
-      v18 = *&__p[8];
+      v13 = *&__p[8];
     }
 
-    conditionalAssert(v18, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 422, v14, v15);
+    conditionalAssert(v13, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 422);
     *__p = byte_287529580;
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v28[0]);
+      operator delete(v23[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v20 = (exception + 1);
+    v15 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v20, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v15, *__p, *&__p[8]);
     }
 
     else
     {
-      v24 = *__p;
+      v19 = *__p;
       exception[3] = *&__p[16];
-      *&v20->__r_.__value_.__l.__data_ = v24;
+      *&v15->__r_.__value_.__l.__data_ = v19;
     }
 
     *exception = &unk_287528000;
@@ -6688,13 +6675,13 @@ void TDigitObject::TDigitObject(TDigitObject *this, const TFileObject *a2, TLexi
   *(this + 8) = 0;
   *__p = 0;
   std::vector<TFileObject *>::resize(v8, 0xAuLL, __p);
-  for (i = *(a2 + 3); i; i = *(i + 2))
+  for (i = a2[3]; i; i = *(i + 2))
   {
     v11 = *(i + 1);
     if (!wcscmp(v11, "N"))
     {
-      v32 = TFileObject::verify(i, 0, 0);
-      MEMORY[0x26672AF30](v27, *(i + 3));
+      v27 = TFileObject::verify(i, 0, 0);
+      MEMORY[0x26672AF30](v22, *(i + 3));
     }
 
     else if (!wcscmp(v11, "D"))
@@ -6713,74 +6700,72 @@ void TDigitObject::TDigitObject(TDigitObject *this, const TFileObject *a2, TLexi
         operator new();
       }
 
-      v12 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v11, &v32);
-      *(*v26 + 8 * v12) = compileAlt(i, *(*v26 + 8 * v12), a3, a4);
+      v12 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v11, &v27);
+      *(*v21 + 8 * v12) = compileAlt(i, *(*v21 + 8 * v12), a3, a4);
     }
   }
 
-  if (v32)
+  if (v27)
   {
-    std::string::basic_string[abi:ne200100]<0>(v28, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v23, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v28[0], v28[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v23[0], v23[1]);
     }
 
     else
     {
-      *&__p[8] = *v28;
-      v31 = v29;
+      *&__p[8] = *v23;
+      v26 = v24;
     }
 
     *__p = &unk_287528000;
-    if (v31 >= 0)
+    if (v26 >= 0)
     {
-      v21 = &__p[8];
+      v16 = &__p[8];
     }
 
     else
     {
-      v21 = *&__p[8];
+      v16 = *&__p[8];
     }
 
-    conditionalAssert(v21, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 453, v16, v17);
+    conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 453);
     *__p = byte_287529580;
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v28[0]);
+      operator delete(v23[0]);
     }
 
-    v22 = __cxa_allocate_exception(0x20uLL);
+    v17 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v22 = byte_287529580;
-    v23 = (v22 + 1);
+    *v17 = byte_287529580;
+    v18 = (v17 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v23, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v18, *__p, *&__p[8]);
     }
 
     else
     {
-      v25 = *__p;
-      v22[3] = *&__p[16];
-      *&v23->__r_.__value_.__l.__data_ = v25;
+      v20 = *__p;
+      v17[3] = *&__p[16];
+      *&v18->__r_.__value_.__l.__data_ = v20;
     }
 
-    *v22 = &unk_287528000;
+    *v17 = &unk_287528000;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2626863B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void **a11, void **a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, void *a20, int a21, __int16 a22, char a23, char a24, int a25, __int16 a26, char a27, char a28)
+void sub_2626863B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, void **a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, void *a20, int a21, __int16 a22, char a23, char a24, int a25, __int16 a26, char a27, char a28)
 {
-  MEMORY[0x26672B1B0](v28, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v28, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   v31 = *a11;
   if (*a11)
   {
@@ -6996,29 +6981,29 @@ void sub_26268686C(_Unwind_Exception *a1)
 const char *addSequence(const __int32 **a1, TVertex *a2, TVertex *a3, TGraph *a4, TLexicon *a5, const char *a6, const char *a7, const char *a8)
 {
   v12 = a1;
-  if (wcscmp(a1[1], "S") || (v12 = *(v12 + 3)) != 0)
+  if (wcscmp(a1[1], "S") || (v12 = v12[3]) != 0)
   {
-    while (!wcscmp(*(v12 + 1), "S"))
+    while (!wcscmp(v12[1], "S"))
     {
 LABEL_37:
-      v12 = *(v12 + 2);
+      v12 = v12[2];
       if (!v12)
       {
         return a7;
       }
     }
 
-    v13 = *(v12 + 2);
+    v13 = v12[2];
     v14 = a3;
     v15 = a7;
     if (v13)
     {
-      if (!wcscmp(*(v13 + 8), "S"))
+      if (!wcscmp(*(v13 + 1), "S"))
       {
         do
         {
           v17 = v13;
-          v13 = *(v13 + 16);
+          v13 = *(v13 + 2);
           if (!v13)
           {
             v14 = a3;
@@ -7026,11 +7011,11 @@ LABEL_37:
           }
         }
 
-        while (!wcscmp(*(v13 + 8), "S"));
+        while (!wcscmp(*(v13 + 1), "S"));
         if (a6)
         {
           v28 = 0;
-          v18 = *(v17 + 24);
+          v18 = *(v17 + 3);
           {
             operator new();
           }
@@ -7094,7 +7079,7 @@ LABEL_24:
       v16 = 0;
     }
 
-    v22 = *(v12 + 1);
+    v22 = v12[1];
     if (!wcscmp(v22, "T"))
     {
       addToken(v12, a2, v14, a4, a5);
@@ -7141,9 +7126,9 @@ void sub_262686B98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TRomanObject::TRomanObject(TRomanObject *this, const TFileObject *a2, TLexicon *a3, TAllocator *a4)
+void TRomanObject::TRomanObject(TRomanObject *this, const TFileObject **a2, TLexicon *a3, TAllocator *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   *(this + 1) = 0;
   v7 = this + 8;
   *(this + 4) = 0;
@@ -7153,82 +7138,82 @@ void TRomanObject::TRomanObject(TRomanObject *this, const TFileObject *a2, TLexi
   *this = &unk_287528A50;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  v23 = "I";
-  v24 = vdupq_n_s64(1uLL);
+  v20 = "I";
+  v21 = vdupq_n_s64(1uLL);
+  v22 = -1;
+  v23 = "V";
+  v24 = v21;
   v25 = -1;
-  v26 = "V";
-  v27 = v24;
+  v26 = "X";
+  v27 = v21;
   v28 = -1;
-  v29 = "X";
-  v30 = v24;
+  v29 = "L";
+  v30 = v21;
   v31 = -1;
-  v32 = "L";
-  v33 = v24;
+  v32 = "C";
+  v33 = v21;
   v34 = -1;
-  v35 = "C";
-  v36 = v24;
+  v35 = "D";
+  v36 = v21;
   v37 = -1;
-  v38 = "D";
-  v39 = v24;
+  v38 = "M";
+  v39 = v21;
   v40 = -1;
-  v41 = "M";
-  v42 = v24;
+  v41 = "N";
+  v42 = xmmword_26286B680;
   v43 = -1;
-  v44 = "N";
-  v45 = xmmword_26286B680;
-  v46 = -1;
-  if (TFileObject::verify(a2, &v23, 8, 1))
+  if (TFileObject::verify(a2, &v20, 8, 1))
   {
-    std::string::basic_string[abi:ne200100]<0>(v19, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v16, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v17) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v19[0], v19[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v16[0], v16[1]);
     }
 
     else
     {
-      *&__p[8] = *v19;
-      v22 = v20;
+      *&__p[8] = *v16;
+      v19 = v17;
     }
 
     *__p = &unk_287528000;
-    if (v22 >= 0)
+    if (v19 >= 0)
     {
-      v15 = &__p[8];
+      v12 = &__p[8];
     }
 
     else
     {
-      v15 = *&__p[8];
+      v12 = *&__p[8];
     }
 
-    conditionalAssert(v15, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 594, v13, v14);
+    conditionalAssert(v12, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 594);
     *__p = byte_287529580;
-    if (SHIBYTE(v22) < 0)
+    if (SHIBYTE(v19) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v17) < 0)
     {
-      operator delete(v19[0]);
+      operator delete(v16[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v17 = (exception + 1);
+    v14 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v17, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v14, *__p, *&__p[8]);
     }
 
     else
     {
-      v18 = *__p;
+      v15 = *__p;
       exception[3] = *&__p[16];
-      *&v17->__r_.__value_.__l.__data_ = v18;
+      *&v14->__r_.__value_.__l.__data_ = v15;
     }
 
     *exception = &unk_287528000;
@@ -7236,7 +7221,7 @@ void TRomanObject::TRomanObject(TRomanObject *this, const TFileObject *a2, TLexi
 
   *__p = 0;
   std::vector<TFileObject *>::resize(v8, 7uLL, __p);
-  for (i = *(a2 + 3); i; i = *(i + 2))
+  for (i = a2[3]; i; i = *(i + 2))
   {
     v10 = *(i + 1);
     if (!wcscmp(v10, "N"))
@@ -7250,8 +7235,6 @@ void TRomanObject::TRomanObject(TRomanObject *this, const TFileObject *a2, TLexi
       *(*v8 + 8 * (v11 >> 2)) = compileAlt(i, *(*v8 + 2 * v11), a3, a4);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_262686F54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, void *a17, int a18, __int16 a19, char a20, char a21, int a22, __int16 a23, char a24, char a25)
@@ -7288,7 +7271,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t TRomanObject::build(uint64_t a1, signed int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
+uint64_t TRomanObject::build(uint64_t a1, int *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
 {
   v24 = 0;
   {
@@ -7363,108 +7346,108 @@ void sub_2626871F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a3, TLexicon *a4, TAllocator *a5)
+uint64_t TCountingObject::TCountingObject(uint64_t a1, const TFileObject *a2, char **a3, TLexicon *a4, TAllocator *a5)
 {
   v7 = a2;
-  v119 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   *(a1 + 8) = 0;
-  v74 = a1 + 8;
+  v61 = a1 + 8;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *a1 = &unk_2875277F0;
-  v80 = "E";
-  v81 = xmmword_26286B6D0;
-  v82 = -1;
-  v83 = "I";
-  v84 = xmmword_26286B6D0;
-  v85 = -1;
-  v86 = "N";
-  v87 = xmmword_26286B6D0;
-  v88 = -1;
-  v89 = "Z";
-  v90 = xmmword_26286B6D0;
-  v91 = -1;
-  v92 = "D";
-  v93 = xmmword_26286B680;
-  v94 = -1;
-  v95 = "C";
-  v96 = xmmword_26286B680;
-  v97 = -1;
-  v98 = "C";
-  v99 = xmmword_26286B680;
-  v100 = -1;
-  v101 = "L";
-  v102 = xmmword_26286B6A0;
-  v103 = -1;
-  v104 = "L";
-  v105 = 2;
-  v106 = xmmword_26286B690;
-  v107 = "E";
-  v108 = 2;
-  v109 = xmmword_26286B690;
-  v110 = "E";
-  v111 = 2;
-  v112 = xmmword_26286B690;
-  v113 = "W";
-  v114 = 2;
-  v115 = xmmword_26286B690;
-  v116 = "N";
-  v117 = 0;
-  v118 = xmmword_26286B690;
-  v9 = TFileObject::verify(a2, &v80, 13, 1);
-  v79 = v9;
+  v67 = "E";
+  v68 = xmmword_26286B6D0;
+  v69 = -1;
+  v70 = "I";
+  v71 = xmmword_26286B6D0;
+  v72 = -1;
+  v73 = "N";
+  v74 = xmmword_26286B6D0;
+  v75 = -1;
+  v76 = "Z";
+  v77 = xmmword_26286B6D0;
+  v78 = -1;
+  v79 = "D";
+  v80 = xmmword_26286B680;
+  v81 = -1;
+  v82 = "C";
+  v83 = xmmword_26286B680;
+  v84 = -1;
+  v85 = "C";
+  v86 = xmmword_26286B680;
+  v87 = -1;
+  v88 = "L";
+  v89 = xmmword_26286B6A0;
+  v90 = -1;
+  v91 = "L";
+  v92 = 2;
+  v93 = xmmword_26286B690;
+  v94 = "E";
+  v95 = 2;
+  v96 = xmmword_26286B690;
+  v97 = "E";
+  v98 = 2;
+  v99 = xmmword_26286B690;
+  v100 = "W";
+  v101 = 2;
+  v102 = xmmword_26286B690;
+  v103 = "N";
+  v104 = 0;
+  v105 = xmmword_26286B690;
+  v9 = TFileObject::verify(a2, &v67, 13, 1);
+  v66 = v9;
   if (v9)
   {
-    std::string::basic_string[abi:ne200100]<0>(v75, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v62, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v63) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v75[0], v75[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v62[0], v62[1]);
     }
 
     else
     {
-      *&__p[8] = *v75;
-      v78 = v76;
+      *&__p[8] = *v62;
+      v65 = v63;
     }
 
     *__p = &unk_287528000;
-    if (v78 >= 0)
+    if (v65 >= 0)
     {
-      v60 = &__p[8];
+      v47 = &__p[8];
     }
 
     else
     {
-      v60 = *&__p[8];
+      v47 = *&__p[8];
     }
 
-    conditionalAssert(v60, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 740, v54, v55);
+    conditionalAssert(v47, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 740);
     *__p = byte_287529580;
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v65) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v63) < 0)
     {
-      operator delete(v75[0]);
+      operator delete(v62[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v62 = (exception + 1);
+    v49 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v62, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v49, *__p, *&__p[8]);
     }
 
     else
     {
-      v69 = *__p;
+      v56 = *__p;
       exception[3] = *&__p[16];
-      *&v62->__r_.__value_.__l.__data_ = v69;
+      *&v49->__r_.__value_.__l.__data_ = v56;
     }
 
     *exception = &unk_287528000;
@@ -7479,17 +7462,17 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
   *(a1 + 112) = 0u;
   *(a1 + 128) = 3;
   *(a1 + 136) = 0;
-  v11 = v7[3];
+  v11 = *(v7 + 3);
   if (v11)
   {
-    v72 = v7;
+    v59 = v7;
     v12 = 0;
     while (1)
     {
       v13 = *(v11 + 1);
       if (!wcscmp(v13, "N"))
       {
-        MEMORY[0x26672AF30](v74, *(v11 + 3));
+        MEMORY[0x26672AF30](v61, *(v11 + 3));
       }
 
       else
@@ -7550,59 +7533,59 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
         {
           if (TFileObject::verify(v11, 0, 0))
           {
-            std::string::basic_string[abi:ne200100]<0>(v75, &byte_262899963);
+            std::string::basic_string[abi:ne200100]<0>(v62, &byte_262899963);
             *__p = byte_287529580;
-            if (SHIBYTE(v76) < 0)
+            if (SHIBYTE(v63) < 0)
             {
-              std::string::__init_copy_ctor_external(&__p[8], v75[0], v75[1]);
+              std::string::__init_copy_ctor_external(&__p[8], v62[0], v62[1]);
             }
 
             else
             {
-              *&__p[8] = *v75;
-              v78 = v76;
+              *&__p[8] = *v62;
+              v65 = v63;
             }
 
             *__p = &unk_287528000;
-            if (v78 >= 0)
+            if (v65 >= 0)
             {
-              v66 = &__p[8];
+              v53 = &__p[8];
             }
 
             else
             {
-              v66 = *&__p[8];
+              v53 = *&__p[8];
             }
 
-            conditionalAssert(v66, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 787, v58, v59);
+            conditionalAssert(v53, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 787);
             *__p = byte_287529580;
-            if (SHIBYTE(v78) < 0)
+            if (SHIBYTE(v65) < 0)
             {
               operator delete(*&__p[8]);
             }
 
-            if (SHIBYTE(v76) < 0)
+            if (SHIBYTE(v63) < 0)
             {
-              operator delete(v75[0]);
+              operator delete(v62[0]);
             }
 
-            v67 = __cxa_allocate_exception(0x20uLL);
+            v54 = __cxa_allocate_exception(0x20uLL);
             std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-            *v67 = byte_287529580;
-            v68 = (v67 + 1);
+            *v54 = byte_287529580;
+            v55 = (v54 + 1);
             if ((__p[23] & 0x80000000) != 0)
             {
-              std::string::__init_copy_ctor_external(v68, *__p, *&__p[8]);
+              std::string::__init_copy_ctor_external(v55, *__p, *&__p[8]);
             }
 
             else
             {
-              v71 = *__p;
-              v67[3] = *&__p[16];
-              *&v68->__r_.__value_.__l.__data_ = v71;
+              v58 = *__p;
+              v54[3] = *&__p[16];
+              *&v55->__r_.__value_.__l.__data_ = v58;
             }
 
-            *v67 = &unk_287528000;
+            *v54 = &unk_287528000;
           }
 
           v23 = *(v11 + 3);
@@ -7612,27 +7595,27 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
               operator new();
             }
 
-            v24 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v23, &v79);
+            v24 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v23, &v66);
             *(a1 + 128) = v24;
-            if (v24 - 5 >= 0xFFFFFFFD && v79 != 1)
+            if (v24 - 5 >= 0xFFFFFFFD && v66 != 1)
             {
               goto LABEL_50;
             }
 
             loggableFileObject(v11);
-            v29 = __p;
+            v26 = __p;
             if (__p[23] < 0)
             {
-              v29 = *__p;
+              v26 = *__p;
             }
 
-            tknPrintf("Error: %sValue is out of range, must be 2, 3, 4, or I\n", v25, v26, v27, v28, v29);
+            tknPrintf("Error: %sValue is out of range, must be 2, 3, 4, or I\n", v25, v26);
             if ((__p[23] & 0x80000000) != 0)
             {
               operator delete(*__p);
             }
 
-            v30 = 1;
+            v27 = 1;
             goto LABEL_49;
           }
 
@@ -7689,9 +7672,9 @@ uint64_t TCountingObject::TCountingObject(uint64_t a1, uint64_t a2, uint64_t **a
             Array = TCountingObject::getArray(0, v11, a3);
             *(a1 + 80) = Array;
 LABEL_48:
-            v30 = v79 | (Array == 0);
+            v27 = v66 | (Array == 0);
 LABEL_49:
-            v79 = v30;
+            v66 = v27;
           }
         }
       }
@@ -7700,28 +7683,28 @@ LABEL_50:
       v11 = *(v11 + 2);
       if (!v11)
       {
-        v31 = v12 < 2;
-        v7 = v72;
-        if (!v31)
+        v28 = v12 < 2;
+        v7 = v59;
+        if (!v28)
         {
-          loggableFileObject(v72);
+          loggableFileObject(v59);
           if (__p[23] >= 0)
           {
-            v36 = __p;
+            v30 = __p;
           }
 
           else
           {
-            v36 = *__p;
+            v30 = *__p;
           }
 
-          tknPrintf("Error: %sAttributes EnxAnd, ItaAnd, NldAnd, and ZhoZero are exclusive\n", v32, v33, v34, v35, v36);
+          tknPrintf("Error: %sAttributes EnxAnd, ItaAnd, NldAnd, and ZhoZero are exclusive\n", v29, v30);
           if ((__p[23] & 0x80000000) != 0)
           {
             operator delete(*__p);
           }
 
-          v79 = 1;
+          v66 = 1;
         }
 
         break;
@@ -7730,140 +7713,139 @@ LABEL_50:
   }
 
   *(a1 + 88) = 0;
-  v37 = *(a1 + 32);
-  if (v37)
+  v31 = *(a1 + 32);
+  if (v31)
   {
-    v38 = *(a1 + 40);
-    if (v38)
+    v32 = *(a1 + 40);
+    if (v32)
     {
-      v39 = (((*(v38 + 5) - *(v38 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
-      *(a1 + 88) = v39;
+      v33 = (((*(v32 + 5) - *(v32 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      *(a1 + 88) = v33;
       if (*(a1 + 136) == 1)
       {
-        *(a1 + 88) = v39 - 2;
+        *(a1 + 88) = v33 - 2;
       }
 
-      v40 = TCountingObject::checkChunk(a1, v7, v37, v38);
-      v79 |= v40;
-      v41 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 40));
-      v79 |= v41;
+      v34 = TCountingObject::checkChunk(a1, v7, v31, v32);
+      v66 |= v34;
+      v35 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 40));
+      v66 |= v35;
     }
   }
 
-  v42 = *(a1 + 48);
-  if (v42)
+  v36 = *(a1 + 48);
+  if (v36)
   {
-    v43 = *(a1 + 56);
-    if (v43)
+    v37 = *(a1 + 56);
+    if (v37)
     {
-      v44 = (((*(v43 + 5) - *(v43 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      v38 = (((*(v37 + 5) - *(v37 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
       if (*(a1 + 136))
       {
-        v44 -= 2;
+        v38 -= 2;
       }
 
-      if (v44 >= *(a1 + 88))
+      if (v38 >= *(a1 + 88))
       {
-        v44 = *(a1 + 88);
+        v38 = *(a1 + 88);
       }
 
-      *(a1 + 88) = v44;
-      v45 = TCountingObject::checkChunk(a1, v7, v42, v43);
-      v79 |= v45;
-      v46 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 56));
-      v79 |= v46;
+      *(a1 + 88) = v38;
+      v39 = TCountingObject::checkChunk(a1, v7, v36, v37);
+      v66 |= v39;
+      v40 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 56));
+      v66 |= v40;
     }
   }
 
-  v47 = *(a1 + 64);
-  if (v47)
+  v41 = *(a1 + 64);
+  if (v41)
   {
-    v48 = *(a1 + 72);
-    if (v48)
+    v42 = *(a1 + 72);
+    if (v42)
     {
-      v49 = (((*(v48 + 5) - *(v48 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
+      v43 = (((*(v42 + 5) - *(v42 + 4)) >> 3) / (10 * *(a1 + 128)) + 2) * *(a1 + 128);
       if (*(a1 + 136))
       {
-        v49 -= 2;
+        v43 -= 2;
       }
 
-      if (v49 >= *(a1 + 88))
+      if (v43 >= *(a1 + 88))
       {
-        v49 = *(a1 + 88);
+        v43 = *(a1 + 88);
       }
 
-      *(a1 + 88) = v49;
-      v50 = TCountingObject::checkChunk(a1, v7, v47, v48);
-      v79 |= v50;
-      v51 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 72));
-      v79 |= v51;
+      *(a1 + 88) = v43;
+      v44 = TCountingObject::checkChunk(a1, v7, v41, v42);
+      v66 |= v44;
+      v45 = TCountingObject::checkMagnitude(a1, v7, *(a1 + 72));
+      v66 |= v45;
     }
   }
 
-  if (v79 == 1)
+  if (v66 == 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v75, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v62, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v63) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v75[0], v75[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v62[0], v62[1]);
     }
 
     else
     {
-      *&__p[8] = *v75;
-      v78 = v76;
+      *&__p[8] = *v62;
+      v65 = v63;
     }
 
     *__p = &unk_287528000;
-    if (v78 >= 0)
+    if (v65 >= 0)
     {
-      v63 = &__p[8];
+      v50 = &__p[8];
     }
 
     else
     {
-      v63 = *&__p[8];
+      v50 = *&__p[8];
     }
 
-    conditionalAssert(v63, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 897, v56, v57);
+    conditionalAssert(v50, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 897);
     *__p = byte_287529580;
-    if (SHIBYTE(v78) < 0)
+    if (SHIBYTE(v65) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v63) < 0)
     {
-      operator delete(v75[0]);
+      operator delete(v62[0]);
     }
 
-    v64 = __cxa_allocate_exception(0x20uLL);
+    v51 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v64 = byte_287529580;
-    v65 = (v64 + 1);
+    *v51 = byte_287529580;
+    v52 = (v51 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v65, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v52, *__p, *&__p[8]);
     }
 
     else
     {
-      v70 = *__p;
-      v64[3] = *&__p[16];
-      *&v65->__r_.__value_.__l.__data_ = v70;
+      v57 = *__p;
+      v51[3] = *&__p[16];
+      *&v52->__r_.__value_.__l.__data_ = v57;
     }
 
-    *v64 = &unk_287528000;
+    *v51 = &unk_287528000;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_262687E54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, void *a22, int a23, __int16 a24, char a25, char a26, int a27, __int16 a28, char a29, char a30)
+void sub_262687E54(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, void *a22, int a23, __int16 a24, char a25, char a26, int a27, __int16 a28, char a29, char a30)
 {
-  MEMORY[0x26672B1B0](a10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](a10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   *v30 = a11;
   if (*(v30 + 31) < 0)
   {
@@ -7873,60 +7855,60 @@ void sub_262687E54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TCountingObject::getArray(int a1, const __int32 **this, uint64_t **a3)
+uint64_t TCountingObject::getArray(int a1, const __int32 **this, char **a3)
 {
   if (TFileObject::verify(this, 0, 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v19, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v25) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v24[0], v24[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v19[0], v19[1]);
     }
 
     else
     {
-      *&__p[8] = *v24;
-      v27 = v25;
+      *&__p[8] = *v19;
+      v22 = v20;
     }
 
     *__p = &unk_287528000;
-    if (v27 >= 0)
+    if (v22 >= 0)
     {
-      v20 = &__p[8];
+      v15 = &__p[8];
     }
 
     else
     {
-      v20 = *&__p[8];
+      v15 = *&__p[8];
     }
 
-    conditionalAssert(v20, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 905, v18, v19);
+    conditionalAssert(v15, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/tkn/patternmgr.cpp", 905);
     *__p = byte_287529580;
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v25) < 0)
+    if (SHIBYTE(v20) < 0)
     {
-      operator delete(v24[0]);
+      operator delete(v19[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
     *exception = byte_287529580;
-    v22 = (exception + 1);
+    v17 = (exception + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v22, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v17, *__p, *&__p[8]);
     }
 
     else
     {
-      v23 = *__p;
+      v18 = *__p;
       exception[3] = *&__p[16];
-      *&v22->__r_.__value_.__l.__data_ = v23;
+      *&v17->__r_.__value_.__l.__data_ = v18;
     }
 
     *exception = &unk_287528000;
@@ -7962,7 +7944,7 @@ uint64_t TCountingObject::getArray(int a1, const __int32 **this, uint64_t **a3)
         break;
       }
 
-      ++v5;
+      v5 += 8;
       if (!--v9)
       {
         goto LABEL_10;
@@ -7976,15 +7958,15 @@ LABEL_10:
     loggableFileObject(this);
     if (__p[23] >= 0)
     {
-      v16 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v16 = *__p;
+      v13 = *__p;
     }
 
-    tknPrintf("Error: %sArray name does not exist\n", v12, v13, v14, v15, v16);
+    tknPrintf("Error: %sArray name does not exist\n", v12, v13);
     if ((__p[23] & 0x80000000) != 0)
     {
       operator delete(*__p);
@@ -8037,7 +8019,7 @@ uint64_t TCountingObject::checkChunk(TCountingObject *this, const TFileObject *a
           if (v12 >= (*(a3 + 5) - v14) >> 3 || !*(v14 + 8 * v12))
           {
             loggableFileObject(a2);
-            if (v22 >= 0)
+            if (v19 >= 0)
             {
               p_p = &__p;
             }
@@ -8047,8 +8029,8 @@ uint64_t TCountingObject::checkChunk(TCountingObject *this, const TFileObject *a
               p_p = __p;
             }
 
-            tknPrintf("Error: %sCannot make spoken form for '%llu'\n", v15, v16, v17, v18, p_p, v12);
-            if (v22 < 0)
+            tknPrintf("Error: %sCannot make spoken form for '%llu'\n", v15, p_p, v12);
+            if (v19 < 0)
             {
               operator delete(__p);
             }
@@ -8106,18 +8088,18 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
   else
   {
     loggableFileObject(a2);
-    if (v35 >= 0)
+    if (v23 >= 0)
     {
-      v15 = __p;
+      v12 = __p;
     }
 
     else
     {
-      v15 = __p[0];
+      v12 = __p[0];
     }
 
-    tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v11, v12, v13, v14, v15, 10 * *(this + 16));
-    if (v35 < 0)
+    tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v11, v12, 10 * *(this + 16));
+    if (v23 < 0)
     {
       operator delete(__p[0]);
     }
@@ -8130,26 +8112,26 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
 
   for (i = v9 + 10; i < v8; ++i)
   {
-    v17 = *(this + 16);
-    if (i % (10 * v17))
+    v14 = *(this + 16);
+    if (i % (10 * v14))
     {
-      if (i / 0xA % v17 && *(v7 + 8 * i))
+      if (i / 0xA % v14 && *(v7 + 8 * i))
       {
         if (!v6)
         {
           loggableFileObject(a2);
-          if (v35 >= 0)
+          if (v23 >= 0)
           {
-            v32 = __p;
+            v20 = __p;
           }
 
           else
           {
-            v32 = __p[0];
+            v20 = __p[0];
           }
 
-          tknPrintf("Warning: %sMagnitude '%llu' is not supported\n", v28, v29, v30, v31, v32, i);
-          if (v35 < 0)
+          tknPrintf("Warning: %sMagnitude '%llu' is not supported\n", v19, v20, i);
+          if (v23 < 0)
           {
             operator delete(__p[0]);
           }
@@ -8158,37 +8140,37 @@ uint64_t TCountingObject::checkMagnitude(TCountingObject *this, const TFileObjec
         }
 
         loggableFileObject(a2);
-        if (v35 >= 0)
+        if (v23 >= 0)
         {
-          v22 = __p;
+          v16 = __p;
         }
 
         else
         {
-          v22 = __p[0];
+          v16 = __p[0];
         }
 
-        tknPrintf("Error: %sMagnitude '%llu' is not supported\n", v18, v19, v20, v21, v22, i);
+        tknPrintf("Error: %sMagnitude '%llu' is not supported\n", v15, v16, i);
         goto LABEL_30;
       }
     }
 
-    else if (!*(v7 + 8 * i) && (v8 <= i + 10 * v17 || !*(v7 + 80 * v17 + 8 * i) || *(this + 136) == 1))
+    else if (!*(v7 + 8 * i) && (v8 <= i + 10 * v14 || !*(v7 + 80 * v14 + 8 * i) || *(this + 136) == 1))
     {
       loggableFileObject(a2);
-      if (v35 >= 0)
+      if (v23 >= 0)
       {
-        v27 = __p;
+        v18 = __p;
       }
 
       else
       {
-        v27 = __p[0];
+        v18 = __p[0];
       }
 
-      tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v23, v24, v25, v26, v27, i);
+      tknPrintf("Error: %sMagnitude '%llu' hasn't been specified and is needed\n", v17, v18, i);
 LABEL_30:
-      if (v35 < 0)
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
@@ -8527,7 +8509,7 @@ LABEL_60:
   return result;
 }
 
-unint64_t TCountingObject::build(TCountingObject *a1, __int32 *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
+size_t TCountingObject::build(TCountingObject *a1, __int32 *a2, TVertex *a3, TVertex *a4, TGraph *a5, TLexicon *a6)
 {
   do
   {
@@ -9149,7 +9131,7 @@ LABEL_66:
 
 void sub_262689C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  MEMORY[0x26672B1B0](v16, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v16, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x450]) == 1 && a16 != a9)
   {
     if (a16)
@@ -9161,37 +9143,37 @@ void sub_262689C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned long>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<unsigned long>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long>::__append(a1, a2 - v3, a3);
+    std::vector<unsigned long>::__append(result, a2 - v3, a3);
   }
 }
 
-void std::vector<void const*>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<void const*>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void const*>::__append(a1, a2 - v3, a3);
+    std::vector<void const*>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -9362,9 +9344,9 @@ uint64_t callBackSync(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, TAllo
   return 1;
 }
 
-void sub_26268AF94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26268AF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   if (LOBYTE(STACK[0x420]) == 1)
   {
     callBackSync(va);
@@ -9375,25 +9357,22 @@ void sub_26268AF94(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t callBackLookup(void *a1, unint64_t a2, void *a3, uint64_t a4, TAllocator *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a2 <= 1 && *a1 > 1uLL)
   {
-LABEL_10:
-    v14 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   v8 = a1[1];
   if (!*v8)
   {
-    v14 = 1;
-    goto LABEL_26;
+    return 1;
   }
 
   if (TLexicon::checkName(a3, v8, 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     loggableUnicode(v8, &__p);
-    if (v33 >= 0)
+    if (v29 >= 0)
     {
       p_p = &__p;
     }
@@ -9403,83 +9382,81 @@ LABEL_10:
       p_p = __p;
     }
 
-    tknPrintf("Error: '%s' : Lookup requested for an invalid word name.\n", v9, v10, v11, v12, p_p);
-    if (v33 < 0)
+    tknPrintf("Error: '%s' : Lookup requested for an invalid word name.\n", v9, p_p);
+    if (v29 < 0)
     {
       operator delete(__p);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
-  v15 = TStringParam::get((a4 + 10744));
+  v25 = 0;
+  v26 = 0;
+  v27 = 0;
+  v12 = TStringParam::get((a4 + 10744));
   ActiveConfigHandle = TParam::getActiveConfigHandle((a4 + 16464));
-  v17 = *(a4 + 4 * TParam::getValidConfig((a4 + 16464), ActiveConfigHandle) + 16624);
-  v18 = TParam::getActiveConfigHandle((a4 + 16112));
-  ValidConfig = TParam::getValidConfig((a4 + 16112), v18);
-  TLexicon::findHeadClonesCollated(a3, v8, v15, v17, *(a4 + 4 * ValidConfig + 16272), &v29);
+  v14 = *(a4 + 4 * TParam::getValidConfig((a4 + 16464), ActiveConfigHandle) + 16624);
+  v15 = TParam::getActiveConfigHandle((a4 + 16112));
+  ValidConfig = TParam::getValidConfig((a4 + 16112), v15);
+  TLexicon::findHeadClonesCollated(a3, v8, v12, v14, *(a4 + 4 * ValidConfig + 16272), &v25);
   for (i = 0; i != 1600; i += 16)
   {
     *(&__p + i) = 0;
   }
 
-  v21 = 0;
-  v22 = (v30 - v29) >> 5;
-  v23 = v29 + 16;
-  v24 = 100;
+  v18 = 0;
+  v19 = (v26 - v25) >> 5;
+  v20 = v25 + 16;
+  v21 = 100;
   do
   {
-    if (!v22)
+    if (!v19)
     {
       break;
     }
 
-    if ((*v23 & 0x35) == 0)
+    if ((*v20 & 0x35) == 0)
     {
-      v25 = **(v23 - 2);
-      v26 = &__p + 2 * v21;
-      *v26 = 1;
-      v26[1] = v25;
-      ++v21;
+      v22 = **(v20 - 2);
+      v23 = &__p + 2 * v18;
+      *v23 = 1;
+      v23[1] = v22;
+      ++v18;
     }
 
-    --v22;
-    v23 += 32;
-    --v24;
+    --v19;
+    v20 += 32;
+    --v21;
   }
 
-  while (v24);
-  std::vector<TLexiconMatch>::resize(&v29, 0);
-  if (v21)
+  while (v21);
+  std::vector<TLexiconMatch>::resize(&v25, 0);
+  if (v18)
   {
-    if (v21 == 1)
+    if (v18 == 1)
     {
-      v14 = __p;
+      v11 = __p;
     }
 
     else
     {
-      v14 = callBackSeqAlt(&__p, v21, "A", a3, a5);
+      v11 = callBackSeqAlt(&__p, v18, "A", a3, a5);
     }
   }
 
   else
   {
-    v14 = 1;
+    v11 = 1;
   }
 
-  if (v29)
+  if (v25)
   {
-    v30 = v29;
-    operator delete(v29);
+    v26 = v25;
+    operator delete(v25);
   }
 
-LABEL_26:
-  v27 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v11;
 }
 
 void sub_26268B208(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9656,14 +9633,14 @@ void TPatternManager::~TPatternManager(TPatternManager *this)
   TAllocator::clear((this + 40));
 }
 
-uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TAllocator *a5)
+uint64_t callBackObject(void *a1, unint64_t a2, unint64_t a3, uint64_t a4, TAllocator *a5)
 {
   if (a2 <= 1 && *a1 > 1uLL)
   {
     return 0;
   }
 
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = *v8;
   if (*v8)
   {
@@ -9682,58 +9659,58 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       v9 = v11;
       if (!v11)
       {
-        v18 = *(a1 + 8);
-        if ((*(*a3 + 16))(a3, v18))
+        v15 = a1[1];
+        if ((*(*a3 + 16))(a3, v15, a3, a4))
         {
-          v20 = wcslen(v18);
-          v21 = v20 + 54;
-          if ((v20 + 54) >> 62)
+          v17 = wcslen(v15);
+          v18 = v17 + 54;
+          if ((v17 + 54) >> 62)
           {
-            v22 = -1;
+            v19 = -1;
           }
 
           else
           {
-            v22 = 4 * (v20 + 54);
+            v19 = 4 * (v17 + 54);
           }
 
-          __p = TAllocator::allocate(a5, v22);
-          v26 = v21;
-          v29 = 0;
-          v27 = 0;
+          __p = TAllocator::allocate(a5, v19);
+          v23 = v18;
+          v26 = 0;
+          v24 = 0;
           TBuffer<wchar_t>::insert(&__p, 0, "P", 0x17uLL);
           {
             operator new();
           }
 
           TLocaleInfo::valueToString(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, a3, &__p, 1);
-          TBuffer<wchar_t>::insert(&__p, v27, "", 0xBuLL);
-          v23 = 0;
+          TBuffer<wchar_t>::insert(&__p, v24, "", 0xBuLL);
+          v20 = 0;
             ;
           }
 
-          TBuffer<wchar_t>::insert(&__p, v27, v18, v23 - 1);
-          TBuffer<wchar_t>::insert(&__p, v27, "", 3uLL);
-          if (v27 >= v26)
+          TBuffer<wchar_t>::insert(&__p, v24, v15, v20 - 1);
+          TBuffer<wchar_t>::insert(&__p, v24, "", 3uLL);
+          if (v24 >= v23)
           {
-            if (v29)
+            if (v26)
             {
-              v30 = 0;
-              TBuffer<wchar_t>::insert(&__p, v27--, &v30, 1uLL);
+              v27 = 0;
+              TBuffer<wchar_t>::insert(&__p, v24--, &v27, 1uLL);
             }
 
-            else if (v26)
+            else if (v23)
             {
-              *(__p + v26 - 1) = 0;
+              *(__p + v23 - 1) = 0;
             }
           }
 
           else
           {
-            *(__p + v27) = 0;
+            *(__p + v24) = 0;
           }
 
-          if (v29 == 1 && __p != &v28)
+          if (v26 == 1 && __p != &v25)
           {
             if (__p)
             {
@@ -9746,8 +9723,8 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       }
     }
 
-    loggableUnicode(*(a1 + 8), &__p);
-    if (v27 >= 0)
+    loggableUnicode(a1[1], &__p);
+    if (v24 >= 0)
     {
       p_p = &__p;
     }
@@ -9757,8 +9734,8 @@ uint64_t callBackObject(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, TA
       p_p = __p;
     }
 
-    tknPrintf("Error: ${Counting, Array, Roman}...() : the argument (%s) must be a number\n", v12, v13, v14, v15, p_p);
-    if (SHIBYTE(v27) < 0)
+    tknPrintf("Error: ${Counting, Array, Roman}...() : the argument (%s) must be a number\n", v12, p_p);
+    if (SHIBYTE(v24) < 0)
     {
       operator delete(__p);
     }

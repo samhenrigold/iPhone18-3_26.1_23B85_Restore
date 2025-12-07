@@ -22,10 +22,10 @@
 
 - (id)initInternal
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v33.receiver = self;
-  v33.super_class = CKTapToRadarManager;
-  v2 = [(CKTapToRadarManager *)&v33 init];
+  v34 = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = CKTapToRadarManager;
+  v2 = [(CKTapToRadarManager *)&v32 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -47,27 +47,27 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v17 = objc_msgSend_allKeys(v14, v15, v16, 0);
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v29, v34, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v28, v33, 16);
       if (v19)
       {
         v20 = v19;
-        v21 = *v30;
+        v21 = *v29;
         do
         {
           v22 = 0;
           do
           {
-            if (*v30 != v21)
+            if (*v29 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v29 + 1) + 8 * v22);
+            v23 = *(*(&v28 + 1) + 8 * v22);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -83,7 +83,7 @@
           }
 
           while (v20 != v22);
-          v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v24, &v29, v34, 16);
+          v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v24, &v28, v33, 16);
         }
 
         while (v20);
@@ -91,7 +91,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -232,7 +231,7 @@
 
 - (void)_lockedTriggerTapToRadarWithRequest:(id)request
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v7 = objc_msgSend_alertQueue(self, v5, v6);
   dispatch_assert_queue_V2(v7);
@@ -265,33 +264,33 @@
         v38 = ck_log_facility_ck;
         if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
         {
-          v61 = v38;
-          v64 = objc_msgSend_title(requestCopy, v62, v63);
+          v60 = v38;
+          v63 = objc_msgSend_title(requestCopy, v61, v62);
           *buf = 138412290;
-          *&buf[4] = v64;
-          _os_log_debug_impl(&dword_1883EA000, v61, OS_LOG_TYPE_DEBUG, "Creating a TTR prompt for %@", buf, 0xCu);
+          *&buf[4] = v63;
+          _os_log_debug_impl(&dword_1883EA000, v60, OS_LOG_TYPE_DEBUG, "Creating a TTR prompt for %@", buf, 0xCu);
         }
 
         v41 = objc_msgSend_title(requestCopy, v39, v40);
         objc_msgSend__notePromptAttemptForMessage_(self, v42, v41);
 
         v43 = *MEMORY[0x1E695EE58];
-        v66[0] = @"Tap-To-Radar";
+        v65[0] = @"Tap-To-Radar";
         v44 = *MEMORY[0x1E695EE60];
-        v65[0] = v43;
-        v65[1] = v44;
+        v64[0] = v43;
+        v64[1] = v44;
         v45 = MEMORY[0x1E696AEC0];
         v48 = objc_msgSend_matterhornName(CKContainer, v46, v47);
         v51 = objc_msgSend_title(requestCopy, v49, v50);
         v53 = objc_msgSend_stringWithFormat_(v45, v52, @"A problem has been detected with your %@ account:\n\n%@\n\nWould you mind filing a Radar?", v48, v51);
         v54 = *MEMORY[0x1E695EE78];
-        v66[1] = v53;
-        v66[2] = @"File a Radar";
+        v65[1] = v53;
+        v65[2] = @"File a Radar";
         v55 = *MEMORY[0x1E695EE70];
-        v65[2] = v54;
-        v65[3] = v55;
-        v66[3] = @"Not Now";
-        v57 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v56, v66, v65, 4);
+        v64[2] = v54;
+        v64[3] = v55;
+        v65[3] = @"Not Now";
+        v57 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v56, v65, v64, 4);
 
         v58 = CFUserNotificationCreate(0, 0.0, 3uLL, 0, v57);
         *buf = 0;
@@ -321,15 +320,13 @@
           v37 = objc_msgSend_title(requestCopy, v35, v36);
           *buf = 134218242;
           *&buf[4] = v25;
-          v68 = 2112;
-          v69 = v37;
+          v67 = 2112;
+          v68 = v37;
           _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Not creating a TTR notification because it hasn't been long enough since the last prompt (%0.1fs) for message %@", buf, 0x16u);
         }
       }
     }
   }
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 - (void)triggerTapToRadarWithRequest:(id)request

@@ -19,7 +19,7 @@
 
 - (id)enforcePrivacy:(id)privacy
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   privacyCopy = privacy;
   array = [MEMORY[0x1E695DF70] array];
   v4 = MEMORY[0x1E696AE18];
@@ -40,41 +40,40 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v64 = v11;
+        v62 = v11;
         _os_log_impl(&dword_191750000, v12, OS_LOG_TYPE_INFO, "Filtered objects for bundles with Siri Learning disabled: %@", buf, 0xCu);
       }
     }
   }
 
-  v50 = v7;
+  v48 = v7;
   v13 = [MEMORY[0x1E696AB28] notPredicateWithSubpredicate:v7];
   v14 = [privacyCopy filteredArrayUsingPredicate:v13];
 
-  v60 = 0u;
-  v61 = 0u;
   v58 = 0u;
   v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v16)
   {
     v17 = v16;
-    v57 = *v59;
+    v55 = *v57;
     v18 = 0x1E7366000uLL;
-    v51 = v15;
+    v49 = v15;
     do
     {
       v19 = 0;
-      v52 = v17;
+      v50 = v17;
       do
       {
-        if (*v59 != v57)
+        if (*v57 != v55)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v58 + 1) + 8 * v19);
-        v21 = *(v18 + 1528);
+        v20 = *(*(&v56 + 1) + 8 * v19);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -82,63 +81,63 @@
           stream = [v20 stream];
           name = [stream name];
 
-          v24 = [_CDEventStreams privacyPolicyForEventStreamName:name];
-          if (!v24)
+          v23 = [_CDEventStreams privacyPolicyForEventStreamName:name];
+          if (!v23)
           {
-            v24 = +[_CDPrivacyPolicy sharedPrivacyPolicy];
+            v23 = +[_CDPrivacyPolicy sharedPrivacyPolicy];
           }
 
-          if (![v24 canPersistOnStorage])
+          if (![v23 canPersistOnStorage])
           {
 
             goto LABEL_22;
           }
 
-          [v24 temporalPrecision];
-          v25 = v20;
-          if (v26 != 0.0)
+          [v23 temporalPrecision];
+          v24 = v20;
+          if (v25 != 0.0)
           {
             startDate = [v20 startDate];
             [startDate timeIntervalSinceReferenceDate];
-            v29 = v28;
+            v28 = v27;
 
-            [v24 temporalPrecision];
-            v31 = v30 * floor(v29 / v30);
+            [v23 temporalPrecision];
+            v30 = v29 * floor(v28 / v29);
             endDate = [v20 endDate];
             [endDate timeIntervalSinceReferenceDate];
-            v34 = v33;
+            v33 = v32;
 
-            [v24 temporalPrecision];
-            v36 = v35 * floor(v34 / v35);
-            v54 = *(v18 + 1528);
+            [v23 temporalPrecision];
+            v35 = v34 * floor(v33 / v34);
+            v52 = *(v18 + 1528);
             stream2 = [v20 stream];
             source = [v20 source];
-            v55 = name;
-            v38 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v31];
-            v39 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v36];
+            v53 = name;
+            v37 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v30];
+            v38 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v35];
             value = [v20 value];
             [v20 confidence];
-            v42 = v41;
+            v41 = v40;
             [v20 metadata];
-            v44 = v43 = v18;
-            v25 = [v54 eventWithStream:stream2 source:source startDate:v38 endDate:v39 value:value confidence:v44 metadata:v42];
+            v43 = v42 = v18;
+            v24 = [v52 eventWithStream:stream2 source:source startDate:v37 endDate:v38 value:value confidence:v43 metadata:v41];
 
-            v18 = v43;
-            v17 = v52;
+            v18 = v42;
+            v17 = v50;
 
-            v15 = v51;
-            [v25 setShouldSync:{objc_msgSend(v20, "shouldSync")}];
+            v15 = v49;
+            [v24 setShouldSync:{objc_msgSend(v20, "shouldSync")}];
             uUID = [v20 UUID];
-            [v25 setUUID:uUID];
+            [v24 setUUID:uUID];
 
-            [v25 setCompatibilityVersion:{objc_msgSend(v20, "compatibilityVersion")}];
+            [v24 setCompatibilityVersion:{objc_msgSend(v20, "compatibilityVersion")}];
             timeZone = [v20 timeZone];
-            [v25 setTimeZone:timeZone];
+            [v24 setTimeZone:timeZone];
 
-            name = v55;
+            name = v53;
           }
 
-          v20 = v25;
+          v20 = v24;
         }
 
         if (!v20)
@@ -154,16 +153,15 @@ LABEL_23:
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v17);
   }
 
-  v47 = [array copy];
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = [array copy];
 
-  return v47;
+  return v46;
 }
 
 @end

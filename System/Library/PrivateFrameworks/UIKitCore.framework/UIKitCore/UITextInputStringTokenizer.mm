@@ -267,12 +267,12 @@ LABEL_38:
         [WeakRetained endOfDocument];
       }
       v19 = ;
-      v18 = [positionCopy isEqual:v19];
+      isEqual = objc_msgSend_isEqual_(positionCopy);
     }
 
     else
     {
-      v18 = 0;
+      isEqual = 0;
     }
   }
 
@@ -283,16 +283,16 @@ LABEL_38:
     indexOfBase = [v10 indexOfBase];
     if (v9)
     {
-      v18 = indexOfBase == v15 + v16;
+      isEqual = indexOfBase == v15 + v16;
     }
 
     else
     {
-      v18 = indexOfBase == v15;
+      isEqual = indexOfBase == v15;
     }
   }
 
-  return v18;
+  return isEqual;
 }
 
 - (id)positionFromPosition:(id)position toBoundary:(int64_t)boundary inDirection:(int64_t)direction

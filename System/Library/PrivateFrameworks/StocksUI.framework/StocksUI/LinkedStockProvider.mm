@@ -19,13 +19,13 @@
   swift_unknownObjectRetain();
   contextCopy = context;
   selfCopy = self;
-  sub_220761858(contextCopy, selfCopy, v7);
-  v11 = v10;
+  sub_220761858(contextCopy, selfCopy, v7, v10);
+  v12 = v11;
   _Block_release(v7);
   _Block_release(v7);
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 @end

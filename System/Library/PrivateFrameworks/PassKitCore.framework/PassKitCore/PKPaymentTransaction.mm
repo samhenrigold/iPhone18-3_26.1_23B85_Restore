@@ -1314,18 +1314,14 @@ LABEL_37:
     }
   }
 
-  else
+  else if (([(NSString *)identifier isEqual:?]& 1) == 0)
   {
-    v8 = [(NSString *)identifier isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_312;
-    }
+    goto LABEL_312;
   }
 
   serviceIdentifier = self->_serviceIdentifier;
-  v10 = transactionCopy[5];
-  if (serviceIdentifier && v10)
+  v9 = transactionCopy[5];
+  if (serviceIdentifier && v9)
   {
     if (([(NSString *)serviceIdentifier isEqual:?]& 1) == 0)
     {
@@ -1333,14 +1329,14 @@ LABEL_37:
     }
   }
 
-  else if (serviceIdentifier != v10)
+  else if (serviceIdentifier != v9)
   {
     goto LABEL_312;
   }
 
   paymentHash = self->_paymentHash;
-  v12 = transactionCopy[6];
-  if (paymentHash && v12)
+  v11 = transactionCopy[6];
+  if (paymentHash && v11)
   {
     if (([(NSString *)paymentHash isEqual:?]& 1) == 0)
     {
@@ -1348,14 +1344,14 @@ LABEL_37:
     }
   }
 
-  else if (paymentHash != v12)
+  else if (paymentHash != v11)
   {
     goto LABEL_312;
   }
 
   amount = self->_amount;
-  v14 = transactionCopy[7];
-  if (amount && v14)
+  v13 = transactionCopy[7];
+  if (amount && v13)
   {
     if (([(NSDecimalNumber *)amount isEqual:?]& 1) == 0)
     {
@@ -1363,14 +1359,14 @@ LABEL_37:
     }
   }
 
-  else if (amount != v14)
+  else if (amount != v13)
   {
     goto LABEL_312;
   }
 
   subtotalAmount = self->_subtotalAmount;
-  v16 = transactionCopy[8];
-  if (subtotalAmount && v16)
+  v15 = transactionCopy[8];
+  if (subtotalAmount && v15)
   {
     if (([(NSDecimalNumber *)subtotalAmount isEqual:?]& 1) == 0)
     {
@@ -1378,14 +1374,14 @@ LABEL_37:
     }
   }
 
-  else if (subtotalAmount != v16)
+  else if (subtotalAmount != v15)
   {
     goto LABEL_312;
   }
 
   amountAddedToAuth = self->_amountAddedToAuth;
-  v18 = transactionCopy[10];
-  if (amountAddedToAuth && v18)
+  v17 = transactionCopy[10];
+  if (amountAddedToAuth && v17)
   {
     if (([(NSDecimalNumber *)amountAddedToAuth isEqual:?]& 1) == 0)
     {
@@ -1393,14 +1389,14 @@ LABEL_37:
     }
   }
 
-  else if (amountAddedToAuth != v18)
+  else if (amountAddedToAuth != v17)
   {
     goto LABEL_312;
   }
 
   amounts = self->_amounts;
-  v20 = transactionCopy[11];
-  if (amounts && v20)
+  v19 = transactionCopy[11];
+  if (amounts && v19)
   {
     if (([(NSArray *)amounts isEqual:?]& 1) == 0)
     {
@@ -1408,14 +1404,14 @@ LABEL_37:
     }
   }
 
-  else if (amounts != v20)
+  else if (amounts != v19)
   {
     goto LABEL_312;
   }
 
   plans = self->_plans;
-  v22 = transactionCopy[12];
-  if (plans && v22)
+  v21 = transactionCopy[12];
+  if (plans && v21)
   {
     if (([(NSArray *)plans isEqual:?]& 1) == 0)
     {
@@ -1423,14 +1419,14 @@ LABEL_37:
     }
   }
 
-  else if (plans != v22)
+  else if (plans != v21)
   {
     goto LABEL_312;
   }
 
   currencyCode = self->_currencyCode;
-  v24 = transactionCopy[9];
-  if (currencyCode && v24)
+  v23 = transactionCopy[9];
+  if (currencyCode && v23)
   {
     if (([(NSString *)currencyCode isEqual:?]& 1) == 0)
     {
@@ -1438,14 +1434,14 @@ LABEL_37:
     }
   }
 
-  else if (currencyCode != v24)
+  else if (currencyCode != v23)
   {
     goto LABEL_312;
   }
 
   transactionDate = self->_transactionDate;
-  v26 = transactionCopy[13];
-  if (transactionDate && v26)
+  v25 = transactionCopy[13];
+  if (transactionDate && v25)
   {
     if (([(NSDate *)transactionDate isEqual:?]& 1) == 0)
     {
@@ -1453,14 +1449,14 @@ LABEL_37:
     }
   }
 
-  else if (transactionDate != v26)
+  else if (transactionDate != v25)
   {
     goto LABEL_312;
   }
 
   transactionStatusChangedDate = self->_transactionStatusChangedDate;
-  v28 = transactionCopy[14];
-  if (transactionStatusChangedDate && v28)
+  v27 = transactionCopy[14];
+  if (transactionStatusChangedDate && v27)
   {
     if (([(NSDate *)transactionStatusChangedDate isEqual:?]& 1) == 0)
     {
@@ -1468,14 +1464,14 @@ LABEL_37:
     }
   }
 
-  else if (transactionStatusChangedDate != v28)
+  else if (transactionStatusChangedDate != v27)
   {
     goto LABEL_312;
   }
 
   expirationDate = self->_expirationDate;
-  v30 = transactionCopy[15];
-  if (expirationDate && v30)
+  v29 = transactionCopy[15];
+  if (expirationDate && v29)
   {
     if (([(NSDate *)expirationDate isEqual:?]& 1) == 0)
     {
@@ -1483,14 +1479,14 @@ LABEL_37:
     }
   }
 
-  else if (expirationDate != v30)
+  else if (expirationDate != v29)
   {
     goto LABEL_312;
   }
 
   merchant = self->_merchant;
-  v32 = transactionCopy[16];
-  if (merchant && v32)
+  v31 = transactionCopy[16];
+  if (merchant && v31)
   {
     if (![(PKMerchant *)merchant isEqual:?])
     {
@@ -1498,7 +1494,7 @@ LABEL_37:
     }
   }
 
-  else if (merchant != v32)
+  else if (merchant != v31)
   {
     goto LABEL_312;
   }
@@ -1509,8 +1505,8 @@ LABEL_37:
   }
 
   startStationCode = self->_startStationCode;
-  v34 = transactionCopy[30];
-  if (startStationCode && v34)
+  v33 = transactionCopy[30];
+  if (startStationCode && v33)
   {
     if (([(NSData *)startStationCode isEqual:?]& 1) == 0)
     {
@@ -1518,14 +1514,14 @@ LABEL_37:
     }
   }
 
-  else if (startStationCode != v34)
+  else if (startStationCode != v33)
   {
     goto LABEL_312;
   }
 
   endStationCode = self->_endStationCode;
-  v36 = transactionCopy[34];
-  if (endStationCode && v36)
+  v35 = transactionCopy[34];
+  if (endStationCode && v35)
   {
     if (([(NSData *)endStationCode isEqual:?]& 1) == 0)
     {
@@ -1533,14 +1529,14 @@ LABEL_37:
     }
   }
 
-  else if (endStationCode != v36)
+  else if (endStationCode != v35)
   {
     goto LABEL_312;
   }
 
   startStation = self->_startStation;
-  v38 = transactionCopy[31];
-  if (startStation && v38)
+  v37 = transactionCopy[31];
+  if (startStation && v37)
   {
     if (([(NSString *)startStation isEqual:?]& 1) == 0)
     {
@@ -1548,14 +1544,14 @@ LABEL_37:
     }
   }
 
-  else if (startStation != v38)
+  else if (startStation != v37)
   {
     goto LABEL_312;
   }
 
   endStation = self->_endStation;
-  v40 = transactionCopy[35];
-  if (endStation && v40)
+  v39 = transactionCopy[35];
+  if (endStation && v39)
   {
     if (([(NSString *)endStation isEqual:?]& 1) == 0)
     {
@@ -1563,14 +1559,14 @@ LABEL_37:
     }
   }
 
-  else if (endStation != v40)
+  else if (endStation != v39)
   {
     goto LABEL_312;
   }
 
   cityCode = self->_cityCode;
-  v42 = transactionCopy[29];
-  if (cityCode && v42)
+  v41 = transactionCopy[29];
+  if (cityCode && v41)
   {
     if (([(NSNumber *)cityCode isEqual:?]& 1) == 0)
     {
@@ -1578,7 +1574,7 @@ LABEL_37:
     }
   }
 
-  else if (cityCode != v42)
+  else if (cityCode != v41)
   {
     goto LABEL_312;
   }
@@ -1589,8 +1585,8 @@ LABEL_37:
   }
 
   peerPaymentCounterpartHandle = self->_peerPaymentCounterpartHandle;
-  v44 = transactionCopy[43];
-  if (peerPaymentCounterpartHandle && v44)
+  v43 = transactionCopy[43];
+  if (peerPaymentCounterpartHandle && v43)
   {
     if (([(NSString *)peerPaymentCounterpartHandle isEqual:?]& 1) == 0)
     {
@@ -1598,14 +1594,14 @@ LABEL_37:
     }
   }
 
-  else if (peerPaymentCounterpartHandle != v44)
+  else if (peerPaymentCounterpartHandle != v43)
   {
     goto LABEL_312;
   }
 
   peerPaymentMessageReceivedDate = self->_peerPaymentMessageReceivedDate;
-  v46 = transactionCopy[45];
-  if (peerPaymentMessageReceivedDate && v46)
+  v45 = transactionCopy[45];
+  if (peerPaymentMessageReceivedDate && v45)
   {
     if (([(NSDate *)peerPaymentMessageReceivedDate isEqual:?]& 1) == 0)
     {
@@ -1613,14 +1609,14 @@ LABEL_37:
     }
   }
 
-  else if (peerPaymentMessageReceivedDate != v46)
+  else if (peerPaymentMessageReceivedDate != v45)
   {
     goto LABEL_312;
   }
 
   foreignExchangeInformation = self->_foreignExchangeInformation;
-  v48 = transactionCopy[47];
-  if (foreignExchangeInformation && v48)
+  v47 = transactionCopy[47];
+  if (foreignExchangeInformation && v47)
   {
     if (![(PKPaymentTransactionForeignExchangeInformation *)foreignExchangeInformation isEqual:?])
     {
@@ -1628,14 +1624,14 @@ LABEL_37:
     }
   }
 
-  else if (foreignExchangeInformation != v48)
+  else if (foreignExchangeInformation != v47)
   {
     goto LABEL_312;
   }
 
   fees = self->_fees;
-  v50 = transactionCopy[48];
-  if (fees && v50)
+  v49 = transactionCopy[48];
+  if (fees && v49)
   {
     if (![(PKPaymentTransactionFees *)fees isEqual:?])
     {
@@ -1643,14 +1639,14 @@ LABEL_37:
     }
   }
 
-  else if (fees != v50)
+  else if (fees != v49)
   {
     goto LABEL_312;
   }
 
   primaryFundingSourceAmount = self->_primaryFundingSourceAmount;
-  v52 = transactionCopy[52];
-  if (primaryFundingSourceAmount && v52)
+  v51 = transactionCopy[52];
+  if (primaryFundingSourceAmount && v51)
   {
     if (([(NSDecimalNumber *)primaryFundingSourceAmount isEqual:?]& 1) == 0)
     {
@@ -1658,14 +1654,14 @@ LABEL_37:
     }
   }
 
-  else if (primaryFundingSourceAmount != v52)
+  else if (primaryFundingSourceAmount != v51)
   {
     goto LABEL_312;
   }
 
   primaryFundingSourceCurrencyCode = self->_primaryFundingSourceCurrencyCode;
-  v54 = transactionCopy[53];
-  if (primaryFundingSourceCurrencyCode && v54)
+  v53 = transactionCopy[53];
+  if (primaryFundingSourceCurrencyCode && v53)
   {
     if (([(NSString *)primaryFundingSourceCurrencyCode isEqual:?]& 1) == 0)
     {
@@ -1673,14 +1669,14 @@ LABEL_37:
     }
   }
 
-  else if (primaryFundingSourceCurrencyCode != v54)
+  else if (primaryFundingSourceCurrencyCode != v53)
   {
     goto LABEL_312;
   }
 
   secondaryFundingSourceAmount = self->_secondaryFundingSourceAmount;
-  v56 = transactionCopy[54];
-  if (secondaryFundingSourceAmount && v56)
+  v55 = transactionCopy[54];
+  if (secondaryFundingSourceAmount && v55)
   {
     if (([(NSDecimalNumber *)secondaryFundingSourceAmount isEqual:?]& 1) == 0)
     {
@@ -1688,14 +1684,14 @@ LABEL_37:
     }
   }
 
-  else if (secondaryFundingSourceAmount != v56)
+  else if (secondaryFundingSourceAmount != v55)
   {
     goto LABEL_312;
   }
 
   secondaryFundingSourceCurrencyCode = self->_secondaryFundingSourceCurrencyCode;
-  v58 = transactionCopy[55];
-  if (secondaryFundingSourceCurrencyCode && v58)
+  v57 = transactionCopy[55];
+  if (secondaryFundingSourceCurrencyCode && v57)
   {
     if (([(NSString *)secondaryFundingSourceCurrencyCode isEqual:?]& 1) == 0)
     {
@@ -1703,7 +1699,7 @@ LABEL_37:
     }
   }
 
-  else if (secondaryFundingSourceCurrencyCode != v58)
+  else if (secondaryFundingSourceCurrencyCode != v57)
   {
     goto LABEL_312;
   }
@@ -1714,8 +1710,8 @@ LABEL_37:
   }
 
   secondaryFundingSourceDPANSuffix = self->_secondaryFundingSourceDPANSuffix;
-  v60 = transactionCopy[57];
-  if (secondaryFundingSourceDPANSuffix && v60)
+  v59 = transactionCopy[57];
+  if (secondaryFundingSourceDPANSuffix && v59)
   {
     if (([(NSString *)secondaryFundingSourceDPANSuffix isEqual:?]& 1) == 0)
     {
@@ -1723,14 +1719,14 @@ LABEL_37:
     }
   }
 
-  else if (secondaryFundingSourceDPANSuffix != v60)
+  else if (secondaryFundingSourceDPANSuffix != v59)
   {
     goto LABEL_312;
   }
 
   merchantProvidedDescription = self->_merchantProvidedDescription;
-  v62 = transactionCopy[64];
-  if (merchantProvidedDescription && v62)
+  v61 = transactionCopy[64];
+  if (merchantProvidedDescription && v61)
   {
     if (([(NSString *)merchantProvidedDescription isEqual:?]& 1) == 0)
     {
@@ -1738,14 +1734,14 @@ LABEL_37:
     }
   }
 
-  else if (merchantProvidedDescription != v62)
+  else if (merchantProvidedDescription != v61)
   {
     goto LABEL_312;
   }
 
   merchantProvidedTitle = self->_merchantProvidedTitle;
-  v64 = transactionCopy[63];
-  if (merchantProvidedTitle && v64)
+  v63 = transactionCopy[63];
+  if (merchantProvidedTitle && v63)
   {
     if (([(NSString *)merchantProvidedTitle isEqual:?]& 1) == 0)
     {
@@ -1753,7 +1749,7 @@ LABEL_37:
     }
   }
 
-  else if (merchantProvidedTitle != v64)
+  else if (merchantProvidedTitle != v63)
   {
     goto LABEL_312;
   }
@@ -1763,55 +1759,55 @@ LABEL_37:
     goto LABEL_312;
   }
 
-  v65 = transactionCopy[99];
-  v66 = self->_receiptProviderIdentifier;
-  v67 = v65;
-  v68 = v67;
-  if (v66 == v67)
+  v64 = transactionCopy[99];
+  v65 = self->_receiptProviderIdentifier;
+  v66 = v64;
+  v67 = v66;
+  if (v65 == v66)
   {
   }
 
   else
   {
-    if (!v66 || !v67)
+    if (!v65 || !v66)
     {
       goto LABEL_311;
     }
 
-    v69 = [(NSString *)v66 isEqualToString:v67];
+    isEqualToString = objc_msgSend_isEqualToString_(v65);
 
-    if (!v69)
+    if (!isEqualToString)
     {
       goto LABEL_312;
     }
   }
 
-  v70 = transactionCopy[100];
-  v66 = self->_receiptIdentifier;
-  v71 = v70;
-  v68 = v71;
-  if (v66 == v71)
+  v69 = transactionCopy[100];
+  v65 = self->_receiptIdentifier;
+  v70 = v69;
+  v67 = v70;
+  if (v65 == v70)
   {
   }
 
   else
   {
-    if (!v66 || !v71)
+    if (!v65 || !v70)
     {
       goto LABEL_311;
     }
 
-    v72 = [(NSString *)v66 isEqualToString:v71];
+    v71 = objc_msgSend_isEqualToString_(v65);
 
-    if (!v72)
+    if (!v71)
     {
       goto LABEL_312;
     }
   }
 
   receiptProviderURL = self->_receiptProviderURL;
-  v74 = transactionCopy[101];
-  if (receiptProviderURL && v74)
+  v73 = transactionCopy[101];
+  if (receiptProviderURL && v73)
   {
     if (([(NSURL *)receiptProviderURL isEqual:?]& 1) == 0)
     {
@@ -1819,14 +1815,14 @@ LABEL_37:
     }
   }
 
-  else if (receiptProviderURL != v74)
+  else if (receiptProviderURL != v73)
   {
     goto LABEL_312;
   }
 
   localizedTypeDescription = self->_localizedTypeDescription;
-  v76 = transactionCopy[49];
-  if (localizedTypeDescription && v76)
+  v75 = transactionCopy[49];
+  if (localizedTypeDescription && v75)
   {
     if (([(NSString *)localizedTypeDescription isEqual:?]& 1) == 0)
     {
@@ -1834,7 +1830,7 @@ LABEL_37:
     }
   }
 
-  else if (localizedTypeDescription != v76)
+  else if (localizedTypeDescription != v75)
   {
     goto LABEL_312;
   }
@@ -1845,8 +1841,8 @@ LABEL_37:
   }
 
   bankConnectMetadata = self->_bankConnectMetadata;
-  v78 = transactionCopy[50];
-  if (bankConnectMetadata && v78)
+  v77 = transactionCopy[50];
+  if (bankConnectMetadata && v77)
   {
     if (![(PKPaymentTransactionBankConnectMetadata *)bankConnectMetadata isEqual:?])
     {
@@ -1854,7 +1850,7 @@ LABEL_37:
     }
   }
 
-  else if (bankConnectMetadata != v78)
+  else if (bankConnectMetadata != v77)
   {
     goto LABEL_312;
   }
@@ -1865,8 +1861,8 @@ LABEL_37:
   }
 
   issueReportIdentifier = self->_issueReportIdentifier;
-  v80 = transactionCopy[108];
-  if (issueReportIdentifier && v80)
+  v79 = transactionCopy[108];
+  if (issueReportIdentifier && v79)
   {
     if (([(NSString *)issueReportIdentifier isEqual:?]& 1) == 0)
     {
@@ -1874,14 +1870,14 @@ LABEL_37:
     }
   }
 
-  else if (issueReportIdentifier != v80)
+  else if (issueReportIdentifier != v79)
   {
     goto LABEL_312;
   }
 
   rewards = self->_rewards;
-  v82 = transactionCopy[68];
-  if (rewards && v82)
+  v81 = transactionCopy[68];
+  if (rewards && v81)
   {
     if (![(PKPaymentTransactionRewards *)rewards isEqual:?])
     {
@@ -1889,14 +1885,14 @@ LABEL_37:
     }
   }
 
-  else if (rewards != v82)
+  else if (rewards != v81)
   {
     goto LABEL_312;
   }
 
   rewardsTotalAmount = self->_rewardsTotalAmount;
-  v84 = transactionCopy[65];
-  if (rewardsTotalAmount && v84)
+  v83 = transactionCopy[65];
+  if (rewardsTotalAmount && v83)
   {
     if (([(NSDecimalNumber *)rewardsTotalAmount isEqual:?]& 1) == 0)
     {
@@ -1904,14 +1900,14 @@ LABEL_37:
     }
   }
 
-  else if (rewardsTotalAmount != v84)
+  else if (rewardsTotalAmount != v83)
   {
     goto LABEL_312;
   }
 
   rewardsTotalCurrencyCode = self->_rewardsTotalCurrencyCode;
-  v86 = transactionCopy[66];
-  if (rewardsTotalCurrencyCode && v86)
+  v85 = transactionCopy[66];
+  if (rewardsTotalCurrencyCode && v85)
   {
     if (([(NSString *)rewardsTotalCurrencyCode isEqual:?]& 1) == 0)
     {
@@ -1919,7 +1915,7 @@ LABEL_37:
     }
   }
 
-  else if (rewardsTotalCurrencyCode != v86)
+  else if (rewardsTotalCurrencyCode != v85)
   {
     goto LABEL_312;
   }
@@ -1930,8 +1926,8 @@ LABEL_37:
   }
 
   rewardsInProgress = self->_rewardsInProgress;
-  v88 = transactionCopy[69];
-  if (rewardsInProgress && v88)
+  v87 = transactionCopy[69];
+  if (rewardsInProgress && v87)
   {
     if (![(PKPaymentTransactionRewards *)rewardsInProgress isEqual:?])
     {
@@ -1939,7 +1935,7 @@ LABEL_37:
     }
   }
 
-  else if (rewardsInProgress != v88)
+  else if (rewardsInProgress != v87)
   {
     goto LABEL_312;
   }
@@ -1950,8 +1946,8 @@ LABEL_37:
   }
 
   accountIdentifier = self->_accountIdentifier;
-  v90 = transactionCopy[71];
-  if (accountIdentifier && v90)
+  v89 = transactionCopy[71];
+  if (accountIdentifier && v89)
   {
     if (([(NSString *)accountIdentifier isEqual:?]& 1) == 0)
     {
@@ -1959,14 +1955,14 @@ LABEL_37:
     }
   }
 
-  else if (accountIdentifier != v90)
+  else if (accountIdentifier != v89)
   {
     goto LABEL_312;
   }
 
   altDSID = self->_altDSID;
-  v92 = transactionCopy[72];
-  if (altDSID && v92)
+  v91 = transactionCopy[72];
+  if (altDSID && v91)
   {
     if (([(NSString *)altDSID isEqual:?]& 1) == 0)
     {
@@ -1974,14 +1970,14 @@ LABEL_37:
     }
   }
 
-  else if (altDSID != v92)
+  else if (altDSID != v91)
   {
     goto LABEL_312;
   }
 
   lifecycleIdentifier = self->_lifecycleIdentifier;
-  v94 = transactionCopy[73];
-  if (lifecycleIdentifier && v94)
+  v93 = transactionCopy[73];
+  if (lifecycleIdentifier && v93)
   {
     if (([(NSString *)lifecycleIdentifier isEqual:?]& 1) == 0)
     {
@@ -1989,14 +1985,14 @@ LABEL_37:
     }
   }
 
-  else if (lifecycleIdentifier != v94)
+  else if (lifecycleIdentifier != v93)
   {
     goto LABEL_312;
   }
 
   authNetworkData = self->_authNetworkData;
-  v96 = transactionCopy[74];
-  if (authNetworkData && v96)
+  v95 = transactionCopy[74];
+  if (authNetworkData && v95)
   {
     if (([(NSString *)authNetworkData isEqual:?]& 1) == 0)
     {
@@ -2004,14 +2000,14 @@ LABEL_37:
     }
   }
 
-  else if (authNetworkData != v96)
+  else if (authNetworkData != v95)
   {
     goto LABEL_312;
   }
 
   transactionSourceIdentifier = self->_transactionSourceIdentifier;
-  v98 = transactionCopy[115];
-  if (transactionSourceIdentifier && v98)
+  v97 = transactionCopy[115];
+  if (transactionSourceIdentifier && v97)
   {
     if (([(NSString *)transactionSourceIdentifier isEqual:?]& 1) == 0)
     {
@@ -2019,14 +2015,14 @@ LABEL_37:
     }
   }
 
-  else if (transactionSourceIdentifier != v98)
+  else if (transactionSourceIdentifier != v97)
   {
     goto LABEL_312;
   }
 
   clearingNetworkData = self->_clearingNetworkData;
-  v100 = transactionCopy[75];
-  if (clearingNetworkData && v100)
+  v99 = transactionCopy[75];
+  if (clearingNetworkData && v99)
   {
     if (([(NSString *)clearingNetworkData isEqual:?]& 1) == 0)
     {
@@ -2034,14 +2030,14 @@ LABEL_37:
     }
   }
 
-  else if (clearingNetworkData != v100)
+  else if (clearingNetworkData != v99)
   {
     goto LABEL_312;
   }
 
   questions = self->_questions;
-  v102 = transactionCopy[86];
-  if (questions && v102)
+  v101 = transactionCopy[86];
+  if (questions && v101)
   {
     if (([(NSSet *)questions isEqual:?]& 1) == 0)
     {
@@ -2049,14 +2045,14 @@ LABEL_37:
     }
   }
 
-  else if (questions != v102)
+  else if (questions != v101)
   {
     goto LABEL_312;
   }
 
   cardIdentifier = self->_cardIdentifier;
-  v104 = transactionCopy[76];
-  if (cardIdentifier && v104)
+  v103 = transactionCopy[76];
+  if (cardIdentifier && v103)
   {
     if (([(NSString *)cardIdentifier isEqual:?]& 1) == 0)
     {
@@ -2064,14 +2060,14 @@ LABEL_37:
     }
   }
 
-  else if (cardIdentifier != v104)
+  else if (cardIdentifier != v103)
   {
     goto LABEL_312;
   }
 
   dpanIdentifier = self->_dpanIdentifier;
-  v106 = transactionCopy[77];
-  if (dpanIdentifier && v106)
+  v105 = transactionCopy[77];
+  if (dpanIdentifier && v105)
   {
     if (([(NSString *)dpanIdentifier isEqual:?]& 1) == 0)
     {
@@ -2079,14 +2075,14 @@ LABEL_37:
     }
   }
 
-  else if (dpanIdentifier != v106)
+  else if (dpanIdentifier != v105)
   {
     goto LABEL_312;
   }
 
   panIdentifier = self->_panIdentifier;
-  v108 = transactionCopy[79];
-  if (panIdentifier && v108)
+  v107 = transactionCopy[79];
+  if (panIdentifier && v107)
   {
     if (([(NSString *)panIdentifier isEqual:?]& 1) == 0)
     {
@@ -2094,14 +2090,14 @@ LABEL_37:
     }
   }
 
-  else if (panIdentifier != v108)
+  else if (panIdentifier != v107)
   {
     goto LABEL_312;
   }
 
   isMerchantTokenTransaction = self->_isMerchantTokenTransaction;
-  v110 = transactionCopy[80];
-  if (isMerchantTokenTransaction && v110)
+  v109 = transactionCopy[80];
+  if (isMerchantTokenTransaction && v109)
   {
     if (([(NSNumber *)isMerchantTokenTransaction isEqual:?]& 1) == 0)
     {
@@ -2109,14 +2105,14 @@ LABEL_37:
     }
   }
 
-  else if (isMerchantTokenTransaction != v110)
+  else if (isMerchantTokenTransaction != v109)
   {
     goto LABEL_312;
   }
 
   cardNumberSuffix = self->_cardNumberSuffix;
-  v112 = transactionCopy[81];
-  if (cardNumberSuffix && v112)
+  v111 = transactionCopy[81];
+  if (cardNumberSuffix && v111)
   {
     if (([(NSString *)cardNumberSuffix isEqual:?]& 1) == 0)
     {
@@ -2124,7 +2120,7 @@ LABEL_37:
     }
   }
 
-  else if (cardNumberSuffix != v112)
+  else if (cardNumberSuffix != v111)
   {
     goto LABEL_312;
   }
@@ -2135,8 +2131,8 @@ LABEL_37:
   }
 
   referenceIdentifier = self->_referenceIdentifier;
-  v114 = transactionCopy[82];
-  if (referenceIdentifier && v114)
+  v113 = transactionCopy[82];
+  if (referenceIdentifier && v113)
   {
     if (([(NSString *)referenceIdentifier isEqual:?]& 1) == 0)
     {
@@ -2144,7 +2140,7 @@ LABEL_37:
     }
   }
 
-  else if (referenceIdentifier != v114)
+  else if (referenceIdentifier != v113)
   {
     goto LABEL_312;
   }
@@ -2157,8 +2153,8 @@ LABEL_37:
   if ([(PKPaymentTransaction *)self _supportsServerFundingDescription])
   {
     secondaryFundingSourceDescription = self->_secondaryFundingSourceDescription;
-    v116 = transactionCopy[59];
-    if (secondaryFundingSourceDescription && v116)
+    v115 = transactionCopy[59];
+    if (secondaryFundingSourceDescription && v115)
     {
       if (([(NSString *)secondaryFundingSourceDescription isEqual:?]& 1) == 0)
       {
@@ -2166,38 +2162,38 @@ LABEL_37:
       }
     }
 
-    else if (secondaryFundingSourceDescription != v116)
+    else if (secondaryFundingSourceDescription != v115)
     {
       goto LABEL_312;
     }
   }
 
-  v117 = transactionCopy[102];
-  v66 = self->_barcodeIdentifier;
-  v118 = v117;
-  v68 = v118;
-  if (v66 == v118)
+  v116 = transactionCopy[102];
+  v65 = self->_barcodeIdentifier;
+  v117 = v116;
+  v67 = v117;
+  if (v65 == v117)
   {
   }
 
   else
   {
-    if (!v66 || !v118)
+    if (!v65 || !v117)
     {
       goto LABEL_311;
     }
 
-    v119 = [(NSString *)v66 isEqualToString:v118];
+    v118 = objc_msgSend_isEqualToString_(v65);
 
-    if (!v119)
+    if (!v118)
     {
       goto LABEL_312;
     }
   }
 
   authenticationContext = self->_authenticationContext;
-  v121 = transactionCopy[103];
-  if (authenticationContext && v121)
+  v120 = transactionCopy[103];
+  if (authenticationContext && v120)
   {
     if (![(PKTransactionAuthenticationContext *)authenticationContext isEqual:?])
     {
@@ -2205,22 +2201,22 @@ LABEL_37:
     }
   }
 
-  else if (authenticationContext != v121)
+  else if (authenticationContext != v120)
   {
     goto LABEL_312;
   }
 
-  v122 = transactionCopy[104];
-  v66 = self->_primaryFundingSourceDescription;
-  v123 = v122;
-  v68 = v123;
-  if (v66 != v123)
+  v121 = transactionCopy[104];
+  v65 = self->_primaryFundingSourceDescription;
+  v122 = v121;
+  v67 = v122;
+  if (v65 != v122)
   {
-    if (v66 && v123)
+    if (v65 && v122)
     {
-      v124 = [(NSString *)v66 isEqualToString:v123];
+      v123 = objc_msgSend_isEqualToString_(v65);
 
-      if (!v124)
+      if (!v123)
       {
         goto LABEL_312;
       }
@@ -2235,8 +2231,8 @@ LABEL_311:
 
 LABEL_315:
   nominalAmount = self->_nominalAmount;
-  v128 = transactionCopy[105];
-  if (nominalAmount && v128)
+  v127 = transactionCopy[105];
+  if (nominalAmount && v127)
   {
     if (([(NSDecimalNumber *)nominalAmount isEqual:?]& 1) == 0)
     {
@@ -2244,7 +2240,7 @@ LABEL_315:
     }
   }
 
-  else if (nominalAmount != v128)
+  else if (nominalAmount != v127)
   {
     goto LABEL_312;
   }
@@ -2252,8 +2248,8 @@ LABEL_315:
   if (self->_hasAdditionalOffers == *(transactionCopy + 24))
   {
     awards = self->_awards;
-    v130 = transactionCopy[106];
-    if (awards && v130)
+    v129 = transactionCopy[106];
+    if (awards && v129)
     {
       if (([(NSArray *)awards isEqual:?]& 1) == 0)
       {
@@ -2261,14 +2257,14 @@ LABEL_315:
       }
     }
 
-    else if (awards != v130)
+    else if (awards != v129)
     {
       goto LABEL_312;
     }
 
     amountModifiers = self->_amountModifiers;
-    v132 = transactionCopy[107];
-    if (amountModifiers && v132)
+    v131 = transactionCopy[107];
+    if (amountModifiers && v131)
     {
       if (([(NSArray *)amountModifiers isEqual:?]& 1) == 0)
       {
@@ -2276,14 +2272,14 @@ LABEL_315:
       }
     }
 
-    else if (amountModifiers != v132)
+    else if (amountModifiers != v131)
     {
       goto LABEL_312;
     }
 
     releasedData = self->_releasedData;
-    v134 = transactionCopy[116];
-    if (releasedData && v134)
+    v133 = transactionCopy[116];
+    if (releasedData && v133)
     {
       if (![(PKTransactionReleasedData *)releasedData isEqual:?])
       {
@@ -2291,14 +2287,14 @@ LABEL_315:
       }
     }
 
-    else if (releasedData != v134)
+    else if (releasedData != v133)
     {
       goto LABEL_312;
     }
 
     issuerInstallmentManagementURL = self->_issuerInstallmentManagementURL;
-    v136 = transactionCopy[118];
-    if (issuerInstallmentManagementURL && v136)
+    v135 = transactionCopy[118];
+    if (issuerInstallmentManagementURL && v135)
     {
       if (([(NSURL *)issuerInstallmentManagementURL isEqual:?]& 1) == 0)
       {
@@ -2306,7 +2302,7 @@ LABEL_315:
       }
     }
 
-    else if (issuerInstallmentManagementURL != v136)
+    else if (issuerInstallmentManagementURL != v135)
     {
       goto LABEL_312;
     }
@@ -2314,8 +2310,8 @@ LABEL_315:
     if (self->_isIssuerInstallmentTransaction == *(transactionCopy + 29))
     {
       paymentRewardsRedemption = self->_paymentRewardsRedemption;
-      v138 = transactionCopy[119];
-      if (paymentRewardsRedemption && v138)
+      v137 = transactionCopy[119];
+      if (paymentRewardsRedemption && v137)
       {
         if (![(PKPaymentRewardsRedemption *)paymentRewardsRedemption isEqual:?])
         {
@@ -2323,7 +2319,7 @@ LABEL_315:
         }
       }
 
-      else if (paymentRewardsRedemption != v138)
+      else if (paymentRewardsRedemption != v137)
       {
         goto LABEL_312;
       }
@@ -2331,8 +2327,8 @@ LABEL_315:
       if (self->_recurring == *(transactionCopy + 27))
       {
         associatedStatementIdentifiers = self->_associatedStatementIdentifiers;
-        v140 = transactionCopy[98];
-        if (associatedStatementIdentifiers && v140)
+        v139 = transactionCopy[98];
+        if (associatedStatementIdentifiers && v139)
         {
           if (([(NSArray *)associatedStatementIdentifiers isEqual:?]& 1) == 0)
           {
@@ -2340,14 +2336,14 @@ LABEL_315:
           }
         }
 
-        else if (associatedStatementIdentifiers != v140)
+        else if (associatedStatementIdentifiers != v139)
         {
           goto LABEL_312;
         }
 
         if (self->_interestReassessment == *(transactionCopy + 23))
         {
-          v125 = self->_paymentNetworkIdentifier == transactionCopy[78];
+          v124 = self->_paymentNetworkIdentifier == transactionCopy[78];
           goto LABEL_313;
         }
       }
@@ -2355,10 +2351,10 @@ LABEL_315:
   }
 
 LABEL_312:
-  v125 = 0;
+  v124 = 0;
 LABEL_313:
 
-  return v125;
+  return v124;
 }
 
 - (BOOL)isCloudArchivableDeviceDataEqual:(id)equal
@@ -2601,9 +2597,9 @@ LABEL_77:
 
           if (v37 && v38)
           {
-            v40 = [(NSString *)v37 isEqualToString:v38];
+            isEqualToString = objc_msgSend_isEqualToString_(v37);
 
-            if (!v40)
+            if (!isEqualToString)
             {
               goto LABEL_92;
             }
@@ -3455,16 +3451,16 @@ LABEL_70:
 
     self->_deviceScoreIdentifiersRequired = [firstObject pk_BOOLForKey:@"deviceScoreIdentifiersRequired"];
     v58 = [firstObject pk_encryptedStringForKey:@"secondaryFundingSourceType"];
-    if ([@"bankAccount" isEqualToString:v58])
+    if (objc_msgSend_isEqualToString_(@"bankAccount"))
     {
       v59 = 1;
     }
 
     else
     {
-      v62 = [@"debit" isEqualToString:v58];
+      isEqualToString = objc_msgSend_isEqualToString_(@"debit");
       v59 = 2;
-      if (!v62)
+      if (!isEqualToString)
       {
         v59 = 0;
       }
@@ -4370,13 +4366,13 @@ LABEL_11:
 
         else
         {
-          v13 = 0;
+          isEqualToString = 0;
           if (@"XXX" && v11)
           {
-            v13 = [(__CFString *)v11 isEqualToString:@"XXX"];
+            isEqualToString = objc_msgSend_isEqualToString_(v11);
           }
 
-          if ((v13 & 1) == 0 && v12)
+          if ((isEqualToString & 1) == 0 && v12)
           {
             if ([v49 containsObject:v12])
             {
@@ -4539,7 +4535,7 @@ uint64_t __60__PKPaymentTransaction_transactionAmountsForMultipleAmounts__block_
         amount = [v9 amount];
         currency = [amount currency];
 
-        if (([currency isEqualToString:@"XXX"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(currency) & 1) == 0)
         {
           amount2 = [v9 amount];
           v12Amount = [amount2 amount];
@@ -4773,9 +4769,9 @@ LABEL_24:
           if (v11 != &stru_1F227FD28)
           {
             v12 = v11;
-            v13 = [(__CFString *)v11 isEqualToString:&stru_1F227FD28];
+            isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-            if ((v13 & 1) == 0)
+            if ((isEqualToString & 1) == 0)
             {
               [v3 addObject:v12];
             }

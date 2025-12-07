@@ -11,18 +11,16 @@
 {
   if (*(self + OBJC_IVAR____TtC11ReportCrash23CrashPatternMatchResult_errorMessage + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC11ReportCrash23CrashPatternMatchResult_errorMessage);
-    v3 = *(self + OBJC_IVAR____TtC11ReportCrash23CrashPatternMatchResult_errorMessage + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setErrorMessage:(id)message
@@ -39,7 +37,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC11ReportCrash23CrashPatternMatchResult_errorMessage);
-  v7 = *(self + OBJC_IVAR____TtC11ReportCrash23CrashPatternMatchResult_errorMessage + 8);
   *v6 = v4;
   v6[1] = v5;
 }

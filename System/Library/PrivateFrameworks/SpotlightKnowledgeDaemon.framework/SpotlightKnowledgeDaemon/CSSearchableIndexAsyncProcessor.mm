@@ -7,11 +7,11 @@
 
 - (CSSearchableIndexAsyncProcessor)initWithName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v16.receiver = self;
-  v16.super_class = CSSearchableIndexAsyncProcessor;
-  v6 = [(CSSearchableIndexAsyncProcessor *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = CSSearchableIndexAsyncProcessor;
+  v6 = [(CSSearchableIndexAsyncProcessor *)&v15 init];
   if (v6)
   {
     v7 = dispatch_semaphore_create(4);
@@ -30,13 +30,12 @@
     v13 = v6;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)indexSearchableItemsAsync:(id)async protectionClass:(id)class bundleIdentifier:(id)identifier indexOptions:(int64_t)options completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   asyncCopy = async;
   classCopy = class;
   identifierCopy = identifier;
@@ -51,29 +50,27 @@
       uTF8String = [(NSString *)v17 UTF8String];
 
       *buf = 136315138;
-      v32 = uTF8String;
+      v31 = uTF8String;
       _os_log_impl(&dword_231B25000, v16, OS_LOG_TYPE_INFO, "[%s] Submitting async job to index CSSearchableItem", buf, 0xCu);
     }
   }
 
   serialQueue = self->_serialQueue;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __118__CSSearchableIndexAsyncProcessor_indexSearchableItemsAsync_protectionClass_bundleIdentifier_indexOptions_completion___block_invoke;
-  v25[3] = &unk_27893D838;
-  v25[4] = self;
-  v26 = classCopy;
-  v27 = identifierCopy;
-  v28 = asyncCopy;
-  v29 = completionCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __118__CSSearchableIndexAsyncProcessor_indexSearchableItemsAsync_protectionClass_bundleIdentifier_indexOptions_completion___block_invoke;
+  v24[3] = &unk_27893D838;
+  v24[4] = self;
+  v25 = classCopy;
+  v26 = identifierCopy;
+  v27 = asyncCopy;
+  v28 = completionCopy;
   optionsCopy = options;
   v20 = completionCopy;
   v21 = asyncCopy;
   v22 = identifierCopy;
   v23 = classCopy;
-  dispatch_async(serialQueue, v25);
-
-  v24 = *MEMORY[0x277D85DE8];
+  dispatch_async(serialQueue, v24);
 }
 
 void __118__CSSearchableIndexAsyncProcessor_indexSearchableItemsAsync_protectionClass_bundleIdentifier_indexOptions_completion___block_invoke(uint64_t a1)

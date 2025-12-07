@@ -68,7 +68,7 @@
   host = [(NSURL *)self->_url host];
   safari_highLevelDomainFromHost = [host safari_highLevelDomainFromHost];
 
-  v11 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-."];
+  v11 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
   invertedSet = [v11 invertedSet];
   v13 = [safari_highLevelDomainFromHost componentsSeparatedByCharactersInSet:invertedSet];
 

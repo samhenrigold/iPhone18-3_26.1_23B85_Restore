@@ -11,23 +11,25 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for _UISharedTextureContainerView();
-  return [(UIView *)&v8 initWithFrame:x, y, width, height];
+  type metadata accessor for _UISharedTextureContainerView();
+  v10.receiver = self;
+  v10.super_class = v8;
+  return [(UIView *)&v10 initWithFrame:x, y, width, height];
 }
 
 - (_TtC5UIKitP33_FDF62CE22547DB2BF49759240B89F9C129_UISharedTextureContainerView)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for _UISharedTextureContainerView();
+  type metadata accessor for _UISharedTextureContainerView();
+  v9.receiver = self;
+  v9.super_class = v5;
   coderCopy = coder;
-  v5 = [(UIView *)&v7 initWithCoder:coderCopy];
+  v7 = [(UIView *)&v9 initWithCoder:coderCopy];
 
-  if (v5)
+  if (v7)
   {
   }
 
-  return v5;
+  return v7;
 }
 
 @end

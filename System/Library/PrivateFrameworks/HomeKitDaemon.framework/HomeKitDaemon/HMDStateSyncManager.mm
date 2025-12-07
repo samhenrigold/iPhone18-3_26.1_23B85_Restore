@@ -90,7 +90,7 @@
 
 - (void)_removeDomainFromFetchRetryDomains:(id)domains
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   dispatch_assert_queue_V2(self->_queue);
   fetchRetryDomains = [(HMDStateSyncManager *)self fetchRetryDomains];
@@ -113,11 +113,11 @@
       {
         v13 = HMFGetLogIdentifier();
         fetchRetryTimer = [(HMDStateSyncManager *)selfCopy fetchRetryTimer];
-        v17 = 138543618;
-        v18 = v13;
-        v19 = 2112;
-        v20 = fetchRetryTimer;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Canceling fetchRetryTimer: %@ because no domains to retry", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v13;
+        v18 = 2112;
+        v19 = fetchRetryTimer;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Canceling fetchRetryTimer: %@ because no domains to retry", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -127,8 +127,6 @@
       [(HMDStateSyncManager *)selfCopy setFetchRetryTimer:0];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopPublishingToAllUsersForDomain:(id)domain completion:(id)completion
@@ -144,7 +142,7 @@
 
   residentStatusChannel = [(HMDStateSyncManager *)self residentStatusChannel];
   lastPublishedChangeTokenByDomain2 = [(HMDStateSyncManager *)self lastPublishedChangeTokenByDomain];
-  v12 = [lastPublishedChangeTokenByDomain2 copy];
+  v12 = objc_msgSend_copy(lastPublishedChangeTokenByDomain2);
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __69__HMDStateSyncManager__stopPublishingToAllUsersForDomain_completion___block_invoke;
@@ -158,6 +156,184 @@
 }
 
 void __69__HMDStateSyncManager__stopPublishingToAllUsersForDomain_completion___block_invoke(uint64_t a1, void *a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  if (v3)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = HMFGetLogIdentifier();
+      v8 = *(a1 + 40);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Stopping publishing for domain: %@ failed with error: %@", &v9, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v4);
+  }
+
+  (*(*(a1 + 48) + 16))();
+}
+
+- (void)_stopPublishingToResidentsForDomain:(id)domain completion:(id)completion
+{
+  queue = self->_queue;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(queue);
+  completionCopy[2](completionCopy, 0);
+}
+
+- (void)_publishToAllUsersWithState:(id)state domain:(id)domain completion:(id)completion
+{
+  v34 = *MEMORY[0x277D85DE8];
+  stateCopy = state;
+  domainCopy = domain;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  lastPublishedStateByDomain = [(HMDStateSyncManager *)self lastPublishedStateByDomain];
+  [lastPublishedStateByDomain setObject:stateCopy forKeyedSubscript:domainCopy];
+
+  v12 = [(HMDStateSyncManager *)self _changeTokenForState:stateCopy];
+  v13 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = HMFGetLogIdentifier();
+    *buf = 138543874;
+    v29 = v16;
+    v30 = 2112;
+    v31 = v12;
+    v32 = 2112;
+    v33 = domainCopy;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing changeToken: %@ for domain: %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v13);
+  lastPublishedChangeTokenByDomain = [(HMDStateSyncManager *)selfCopy lastPublishedChangeTokenByDomain];
+  [lastPublishedChangeTokenByDomain setObject:v12 forKeyedSubscript:domainCopy];
+
+  residentStatusChannel = [(HMDStateSyncManager *)selfCopy residentStatusChannel];
+  lastPublishedChangeTokenByDomain2 = [(HMDStateSyncManager *)selfCopy lastPublishedChangeTokenByDomain];
+  v20 = objc_msgSend_copy(lastPublishedChangeTokenByDomain2);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __69__HMDStateSyncManager__publishToAllUsersWithState_domain_completion___block_invoke;
+  v24[3] = &unk_27868A528;
+  v24[4] = selfCopy;
+  v25 = v12;
+  v26 = domainCopy;
+  v27 = completionCopy;
+  v21 = completionCopy;
+  v22 = domainCopy;
+  v23 = v12;
+  [residentStatusChannel publishDomain:1 data:v20 completion:v24];
+}
+
+void __69__HMDStateSyncManager__publishToAllUsersWithState_domain_completion___block_invoke(uint64_t a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  if (v3)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = HMFGetLogIdentifier();
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 48);
+      v10 = 138544130;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Publishing changeToken: %@ for domain: %@ failed with error: %@", &v10, 0x2Au);
+    }
+
+    objc_autoreleasePoolPop(v4);
+  }
+
+  (*(*(a1 + 56) + 16))();
+}
+
+- (void)_publishToResidentsWithState:(id)state domain:(id)domain completion:(id)completion
+{
+  v35 = *MEMORY[0x277D85DE8];
+  stateCopy = state;
+  domainCopy = domain;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  home = [(HMDStateSyncManager *)self home];
+  destinationForEnabledResidents = [home destinationForEnabledResidents];
+  if (destinationForEnabledResidents)
+  {
+    lastPublishedStateByDomain = [(HMDStateSyncManager *)self lastPublishedStateByDomain];
+    [lastPublishedStateByDomain setObject:stateCopy forKeyedSubscript:domainCopy];
+
+    array = [MEMORY[0x277CBEB18] array];
+    v29[0] = @"domain";
+    v29[1] = @"data";
+    v30[0] = domainCopy;
+    v30[1] = stateCopy;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+    [array addObject:v15];
+
+    v27[0] = @"dataByDomains";
+    v16 = objc_msgSend_copy(array);
+    v28[0] = v16;
+    v28[1] = domainCopy;
+    v27[1] = @"domain";
+    v27[2] = @"data";
+    v28[2] = stateCopy;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+
+    v18 = [[HMDRemoteMessage alloc] initWithName:@"HMDStateSyncPublishMessage" qualityOfService:9 destination:destinationForEnabledResidents payload:v17 type:3 timeout:1 secure:300.0 restriction:8];
+    dispatcher = self->_dispatcher;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___block_invoke;
+    v24[3] = &unk_278689358;
+    v24[4] = self;
+    v25 = domainCopy;
+    v26 = completionCopy;
+    [(HMFMessageDispatcher *)dispatcher sendMessage:v18 completionHandler:v24];
+  }
+
+  else
+  {
+    v20 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v23 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v32 = v23;
+      v33 = 2112;
+      v34 = domainCopy;
+      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to publish state to residents for domain: %@, no residents to publish to", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v20);
+    array = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
+    (*(completionCopy + 2))(completionCopy, array);
+  }
+}
+
+void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___block_invoke(uint64_t a1, void *a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -176,193 +352,7 @@ void __69__HMDStateSyncManager__stopPublishingToAllUsersForDomain_completion___b
       v13 = v8;
       v14 = 2112;
       v15 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Stopping publishing for domain: %@ failed with error: %@", &v10, 0x20u);
-    }
-
-    objc_autoreleasePoolPop(v4);
-  }
-
-  (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_stopPublishingToResidentsForDomain:(id)domain completion:(id)completion
-{
-  queue = self->_queue;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(queue);
-  completionCopy[2](completionCopy, 0);
-}
-
-- (void)_publishToAllUsersWithState:(id)state domain:(id)domain completion:(id)completion
-{
-  v35 = *MEMORY[0x277D85DE8];
-  stateCopy = state;
-  domainCopy = domain;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(self->_queue);
-  lastPublishedStateByDomain = [(HMDStateSyncManager *)self lastPublishedStateByDomain];
-  [lastPublishedStateByDomain setObject:stateCopy forKeyedSubscript:domainCopy];
-
-  v12 = [(HMDStateSyncManager *)self _changeTokenForState:stateCopy];
-  v13 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v15 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = HMFGetLogIdentifier();
-    *buf = 138543874;
-    v30 = v16;
-    v31 = 2112;
-    v32 = v12;
-    v33 = 2112;
-    v34 = domainCopy;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing changeToken: %@ for domain: %@", buf, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v13);
-  lastPublishedChangeTokenByDomain = [(HMDStateSyncManager *)selfCopy lastPublishedChangeTokenByDomain];
-  [lastPublishedChangeTokenByDomain setObject:v12 forKeyedSubscript:domainCopy];
-
-  residentStatusChannel = [(HMDStateSyncManager *)selfCopy residentStatusChannel];
-  lastPublishedChangeTokenByDomain2 = [(HMDStateSyncManager *)selfCopy lastPublishedChangeTokenByDomain];
-  v20 = [lastPublishedChangeTokenByDomain2 copy];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __69__HMDStateSyncManager__publishToAllUsersWithState_domain_completion___block_invoke;
-  v25[3] = &unk_27868A528;
-  v25[4] = selfCopy;
-  v26 = v12;
-  v27 = domainCopy;
-  v28 = completionCopy;
-  v21 = completionCopy;
-  v22 = domainCopy;
-  v23 = v12;
-  [residentStatusChannel publishDomain:1 data:v20 completion:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void __69__HMDStateSyncManager__publishToAllUsersWithState_domain_completion___block_invoke(uint64_t a1, void *a2)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = HMFGetLogIdentifier();
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v11 = 138544130;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Publishing changeToken: %@ for domain: %@ failed with error: %@", &v11, 0x2Au);
-    }
-
-    objc_autoreleasePoolPop(v4);
-  }
-
-  (*(*(a1 + 56) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_publishToResidentsWithState:(id)state domain:(id)domain completion:(id)completion
-{
-  v36 = *MEMORY[0x277D85DE8];
-  stateCopy = state;
-  domainCopy = domain;
-  completionCopy = completion;
-  dispatch_assert_queue_V2(self->_queue);
-  home = [(HMDStateSyncManager *)self home];
-  destinationForEnabledResidents = [home destinationForEnabledResidents];
-  if (destinationForEnabledResidents)
-  {
-    lastPublishedStateByDomain = [(HMDStateSyncManager *)self lastPublishedStateByDomain];
-    [lastPublishedStateByDomain setObject:stateCopy forKeyedSubscript:domainCopy];
-
-    array = [MEMORY[0x277CBEB18] array];
-    v30[0] = @"domain";
-    v30[1] = @"data";
-    v31[0] = domainCopy;
-    v31[1] = stateCopy;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-    [array addObject:v15];
-
-    v28[0] = @"dataByDomains";
-    v16 = [array copy];
-    v29[0] = v16;
-    v29[1] = domainCopy;
-    v28[1] = @"domain";
-    v28[2] = @"data";
-    v29[2] = stateCopy;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
-
-    v18 = [[HMDRemoteMessage alloc] initWithName:@"HMDStateSyncPublishMessage" qualityOfService:9 destination:destinationForEnabledResidents payload:v17 type:3 timeout:1 secure:300.0 restriction:8];
-    dispatcher = self->_dispatcher;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___block_invoke;
-    v25[3] = &unk_278689358;
-    v25[4] = self;
-    v26 = domainCopy;
-    v27 = completionCopy;
-    [(HMFMessageDispatcher *)dispatcher sendMessage:v18 completionHandler:v25];
-  }
-
-  else
-  {
-    v20 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      v23 = HMFGetLogIdentifier();
-      *buf = 138543618;
-      v33 = v23;
-      v34 = 2112;
-      v35 = domainCopy;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to publish state to residents for domain: %@, no residents to publish to", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v20);
-    array = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
-    (*(completionCopy + 2))(completionCopy, array);
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___block_invoke(uint64_t a1, void *a2)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = HMFGetLogIdentifier();
-      v8 = *(a1 + 40);
-      v11 = 138543874;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to publish state to residents for domain: %@ error: %@", &v11, 0x20u);
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to publish state to residents for domain: %@ error: %@", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -375,13 +365,11 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
   }
 
   v9();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStateSyncResponse:(id)response domain:(id)domain
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   domainCopy = domain;
   dispatch_assert_queue_V2(self->_queue);
@@ -392,13 +380,13 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
   {
     v11 = HMFGetLogIdentifier();
     shortDescription = [responseCopy shortDescription];
-    v20 = 138543874;
-    v21 = v11;
-    v22 = 2112;
-    v23 = shortDescription;
-    v24 = 2112;
-    v25 = domainCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Handling state sync response: %@ for domain: %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v11;
+    v21 = 2112;
+    v22 = shortDescription;
+    v23 = 2112;
+    v24 = domainCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Handling state sync response: %@ for domain: %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -418,22 +406,20 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = domainCopy;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@No observer registered for domain: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = domainCopy;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@No observer registered for domain: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performSyncForDomains:(id)domains
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   dispatch_assert_queue_V2(self->_queue);
   if (domainsCopy && [domainsCopy count])
@@ -450,9 +436,9 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v45 = v10;
-        v46 = 2112;
-        v47 = domainsCopy;
+        v44 = v10;
+        v45 = 2112;
+        v46 = domainsCopy;
         _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not performing sync for domains: %@ since we are the primary", buf, 0x16u);
       }
 
@@ -472,11 +458,11 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
           v19 = HMFGetLogIdentifier();
           shortDescription = [device shortDescription];
           *buf = 138543874;
-          v45 = v19;
-          v46 = 2112;
-          v47 = domainsCopy;
-          v48 = 2112;
-          v49 = shortDescription;
+          v44 = v19;
+          v45 = 2112;
+          v46 = domainsCopy;
+          v47 = 2112;
+          v48 = shortDescription;
           _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Performing sync for domains: %@ with %@", buf, 0x20u);
         }
 
@@ -486,20 +472,20 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
         device2 = [primaryResident device];
         v24 = [(HMDRemoteDeviceMessageDestination *)v21 initWithTarget:messageTargetUUID device:device2];
 
-        v42 = @"domains";
+        v41 = @"domains";
         allObjects = [domainsCopy allObjects];
-        v43 = allObjects;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v42 = allObjects;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
 
         v27 = [[HMDRemoteMessage alloc] initWithName:@"HMDStateSyncFetchMessage" destination:v24 payload:v26 type:0 timeout:1 secure:60.0];
-        v36 = MEMORY[0x277D85DD0];
-        v37 = 3221225472;
-        v38 = __46__HMDStateSyncManager__performSyncForDomains___block_invoke;
-        v39 = &unk_278688370;
-        v40 = selfCopy2;
-        v41 = domainsCopy;
-        [(HMDRemoteMessage *)v27 setResponseHandler:&v36];
-        [(HMFMessageDispatcher *)selfCopy2->_dispatcher sendMessage:v27, v36, v37, v38, v39, v40];
+        v35 = MEMORY[0x277D85DD0];
+        v36 = 3221225472;
+        v37 = __46__HMDStateSyncManager__performSyncForDomains___block_invoke;
+        v38 = &unk_278688370;
+        v39 = selfCopy2;
+        v40 = domainsCopy;
+        [(HMDRemoteMessage *)v27 setResponseHandler:&v35];
+        [(HMFMessageDispatcher *)selfCopy2->_dispatcher sendMessage:v27, v35, v36, v37, v38, v39];
       }
 
       else
@@ -515,11 +501,11 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
           fireDate = [fetchRetryTimer fireDate];
           [fireDate timeIntervalSinceNow];
           *buf = 138543874;
-          v45 = v31;
-          v46 = 2112;
-          v47 = domainsCopy;
-          v48 = 2048;
-          v49 = v34;
+          v44 = v31;
+          v45 = 2112;
+          v46 = domainsCopy;
+          v47 = 2048;
+          v48 = v34;
           _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Unable to perform sync for domains: %@ as the primary resident for the home has no device. Will retry in %f seconds.", buf, 0x20u);
         }
 
@@ -537,14 +523,12 @@ void __70__HMDStateSyncManager__publishToResidentsWithState_domain_completion___
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v14;
+      v44 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to perform sync, no domain(s) specified", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDStateSyncManager__performSyncForDomains___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -570,7 +554,7 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke(uint64_t a1
 void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     [*(a1 + 40) _startRetryTimerForDomains:*(a1 + 48)];
@@ -587,13 +571,13 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
       [v9 timeIntervalSinceNow];
       v10 = *(v3 + 32);
       *buf = 138544130;
-      v40 = v6;
-      v41 = 2112;
-      v42 = v7;
-      v43 = 2048;
-      v44 = v11;
-      v45 = 2112;
-      v46 = v10;
+      v39 = v6;
+      v40 = 2112;
+      v41 = v7;
+      v42 = 2048;
+      v43 = v11;
+      v44 = 2112;
+      v45 = v10;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform sync for domains: %@. Will retry in %f seconds. Error: %@", buf, 0x2Au);
     }
 
@@ -603,32 +587,32 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
   else
   {
     [*(a1 + 56) hmf_arrayForKey:@"dataByDomains"];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    obj = v37 = 0u;
-    v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    obj = v36 = 0u;
+    v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v12)
     {
       v14 = v12;
-      v33 = *v35;
+      v32 = *v34;
       v15 = @"domain";
       *&v13 = 138543618;
-      v29 = v13;
-      v30 = v1;
+      v28 = v13;
+      v29 = v1;
       do
       {
         v16 = 0;
-        v31 = v14;
+        v30 = v14;
         do
         {
-          if (*v35 != v33)
+          if (*v34 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v34 + 1) + 8 * v16);
-          v18 = [v17 hmf_stringForKey:{v15, v29}];
+          v17 = *(*(&v33 + 1) + 8 * v16);
+          v18 = [v17 hmf_stringForKey:{v15, v28}];
           v19 = [v17 hmf_dataForKey:@"data"];
           v20 = v19;
           if (v18)
@@ -651,19 +635,19 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               v27 = HMFGetLogIdentifier();
-              *buf = v29;
-              v40 = v27;
-              v41 = 2112;
-              v42 = v17;
+              *buf = v28;
+              v39 = v27;
+              v40 = 2112;
+              v41 = v17;
               _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Missing domain or data from response: %@, skipping", buf, 0x16u);
 
-              v24 = v30;
+              v24 = v29;
             }
 
             objc_autoreleasePoolPop(v23);
             v15 = v22;
             v1 = v24;
-            v14 = v31;
+            v14 = v30;
           }
 
           else
@@ -676,19 +660,17 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
         }
 
         while (v14 != v16);
-        v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v14);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithResidentStatusChannel:(id)channel
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   dispatch_assert_queue_V2(self->_queue);
   v5 = objc_autoreleasePoolPush();
@@ -698,9 +680,9 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v8;
-    v32 = 2112;
-    v33 = channelCopy;
+    v30 = v8;
+    v31 = 2112;
+    v32 = channelCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Configuring with ResidentStatusChannel: %@", buf, 0x16u);
   }
 
@@ -713,56 +695,54 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
   v11 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
   v12 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
   dispatcher = selfCopy->_dispatcher;
-  v29[0] = v11;
-  v29[1] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[0] = v11;
+  v28[1] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   [(HMFMessageDispatcher *)dispatcher registerForMessage:@"HMDStateSyncFetchMessage" receiver:selfCopy policies:v14 selector:sel__handleStateSyncFetchMessage_];
 
   if ([(HMDStateSyncManager *)selfCopy isResidentCapable])
   {
     v15 = selfCopy->_dispatcher;
-    v28[0] = v11;
-    v28[1] = v12;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = v11;
+    v27[1] = v12;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     [(HMFMessageDispatcher *)v15 registerForMessage:@"HMDStateSyncPublishMessage" receiver:selfCopy policies:v16 selector:sel__handleStateSyncPublishMessage_];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   stateSyncDelegates = [(HMDStateSyncManager *)selfCopy stateSyncDelegates];
-  v18 = [stateSyncDelegates countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v18 = [stateSyncDelegates countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v24;
+    v20 = *v23;
     do
     {
       v21 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(stateSyncDelegates);
         }
 
-        [*(*(&v23 + 1) + 8 * v21++) didConfigure:selfCopy];
+        [*(*(&v22 + 1) + 8 * v21++) didConfigure:selfCopy];
       }
 
       while (v19 != v21);
-      v19 = [stateSyncDelegates countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v19 = [stateSyncDelegates countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   dispatch_assert_queue_V2(self->_queue);
   fetchRetryTimer = [(HMDStateSyncManager *)self fetchRetryTimer];
@@ -775,9 +755,9 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetch retry timer fired", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetch retry timer fired", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -785,11 +765,9 @@ void __46__HMDStateSyncManager__performSyncForDomains___block_invoke_2(uint64_t 
     [fetchRetryTimer2 suspend];
 
     fetchRetryDomains = [(HMDStateSyncManager *)selfCopy fetchRetryDomains];
-    v12 = [fetchRetryDomains copy];
+    v12 = objc_msgSend_copy(fetchRetryDomains);
     [(HMDStateSyncManager *)selfCopy _performSyncForDomains:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResidentStatusChannelReadyNotification:(id)notification
@@ -813,7 +791,7 @@ void __69__HMDStateSyncManager__handleResidentStatusChannelReadyNotification___b
 
 - (void)_handleStateSyncPublishMessage:(id)message
 {
-  v61[1] = *MEMORY[0x277D85DE8];
+  v60[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   selfCopy = self;
   dispatch_assert_queue_V2(self->_queue);
@@ -826,45 +804,45 @@ void __69__HMDStateSyncManager__handleResidentStatusChannelReadyNotification___b
   }
 
   messagePayload2 = [messageCopy messagePayload];
-  v31 = [messagePayload2 hmf_stringForKey:@"domain"];
+  v30 = [messagePayload2 hmf_stringForKey:@"domain"];
 
-  if (v31)
+  if (v30)
   {
     messagePayload3 = [messageCopy messagePayload];
-    v33 = [messagePayload3 hmf_dataForKey:@"data"];
+    v32 = [messagePayload3 hmf_dataForKey:@"data"];
 
-    if (v33)
+    if (v32)
     {
-      v59[0] = @"domain";
-      v59[1] = @"data";
-      v60[0] = v31;
-      v60[1] = v33;
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
-      v61[0] = v34;
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+      v58[0] = @"domain";
+      v58[1] = @"data";
+      v59[0] = v30;
+      v59[1] = v32;
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+      v60[0] = v33;
+      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
 
 LABEL_2:
-      v45 = messageCopy;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
+      v44 = messageCopy;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       obj = v6;
-      v7 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+      v7 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v49;
+        v9 = *v48;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v49 != v9)
+            if (*v48 != v9)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v48 + 1) + 8 * i);
+            v11 = *(*(&v47 + 1) + 8 * i);
             v12 = [v11 hmf_stringForKey:@"domain"];
             v13 = [v11 hmf_dataForKey:@"data"];
             v14 = objc_autoreleasePoolPush();
@@ -887,9 +865,9 @@ LABEL_2:
               {
                 v19 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v53 = v19;
-                v54 = 2112;
-                v55 = v11;
+                v52 = v19;
+                v53 = 2112;
+                v54 = v11;
                 _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Missing domain or data from publish: %@, skipping", buf, 0x16u);
               }
 
@@ -903,11 +881,11 @@ LABEL_2:
                 v21 = HMFGetLogIdentifier();
                 shortDescription = [v13 shortDescription];
                 *buf = 138543874;
-                v53 = v21;
-                v54 = 2112;
-                v55 = shortDescription;
-                v56 = 2112;
-                v57 = v12;
+                v52 = v21;
+                v53 = 2112;
+                v54 = shortDescription;
+                v55 = 2112;
+                v56 = v12;
                 _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Handling state sync publish: %@ for domain: %@", buf, 0x20u);
               }
 
@@ -930,9 +908,9 @@ LABEL_2:
                 {
                   v28 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v53 = v28;
-                  v54 = 2112;
-                  v55 = v12;
+                  v52 = v28;
+                  v53 = 2112;
+                  v54 = v12;
                   _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@No observer registered for domain: %@", buf, 0x16u);
                 }
 
@@ -941,60 +919,58 @@ LABEL_2:
             }
           }
 
-          v8 = [obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+          v8 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
         }
 
         while (v8);
       }
 
-      messageCopy = v45;
+      messageCopy = v44;
       goto LABEL_26;
     }
 
-    v40 = objc_autoreleasePoolPush();
-    v41 = selfCopy;
-    v42 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v39 = objc_autoreleasePoolPush();
+    v40 = selfCopy;
+    v41 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v43 = HMFGetLogIdentifier();
+      v42 = HMFGetLogIdentifier();
       shortDescription2 = [messageCopy shortDescription];
       *buf = 138543618;
-      v53 = v43;
-      v54 = 2112;
-      v55 = shortDescription2;
-      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Ignoring state sync publish message %@: missing data", buf, 0x16u);
+      v52 = v42;
+      v53 = 2112;
+      v54 = shortDescription2;
+      _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Ignoring state sync publish message %@: missing data", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v40);
+    objc_autoreleasePoolPop(v39);
   }
 
   else
   {
-    v35 = objc_autoreleasePoolPush();
-    v36 = selfCopy;
-    v37 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v34 = objc_autoreleasePoolPush();
+    v35 = selfCopy;
+    v36 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v38 = HMFGetLogIdentifier();
+      v37 = HMFGetLogIdentifier();
       shortDescription3 = [messageCopy shortDescription];
       *buf = 138543618;
-      v53 = v38;
-      v54 = 2112;
-      v55 = shortDescription3;
-      _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Ignoring state sync publish message %@: missing domain", buf, 0x16u);
+      v52 = v37;
+      v53 = 2112;
+      v54 = shortDescription3;
+      _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Ignoring state sync publish message %@: missing domain", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v35);
+    objc_autoreleasePoolPop(v34);
   }
 
 LABEL_26:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStateSyncFetchMessage:(id)message
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dispatch_assert_queue_V2(self->_queue);
   messagePayload = [messageCopy messagePayload];
@@ -1002,7 +978,7 @@ LABEL_26:
 
   if (v6)
   {
-    v38 = messageCopy;
+    v37 = messageCopy;
     remoteSourceDevice = [messageCopy remoteSourceDevice];
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1012,49 +988,49 @@ LABEL_26:
       v11 = HMFGetLogIdentifier();
       shortDescription = [remoteSourceDevice shortDescription];
       *buf = 138543874;
-      v51 = v11;
-      v52 = 2112;
-      v53 = v6;
-      v54 = 2112;
-      v55 = shortDescription;
+      v50 = v11;
+      v51 = 2112;
+      v52 = v6;
+      v53 = 2112;
+      v54 = shortDescription;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Handling fetch request for domains: %@ from device: %@", buf, 0x20u);
     }
 
-    v36 = remoteSourceDevice;
+    v35 = remoteSourceDevice;
 
     objc_autoreleasePoolPop(v8);
     array = [MEMORY[0x277CBEB18] array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v37 = v6;
+    v36 = v6;
     obj = v6;
-    v13 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v13 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v42;
+      v15 = *v41;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v42 != v15)
+          if (*v41 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v41 + 1) + 8 * i);
+          v17 = *(*(&v40 + 1) + 8 * i);
           lastPublishedStateByDomain = [(HMDStateSyncManager *)selfCopy lastPublishedStateByDomain];
           v19 = [lastPublishedStateByDomain objectForKeyedSubscript:v17];
 
           if (v19)
           {
-            v47[0] = @"domain";
-            v47[1] = @"data";
-            v48[0] = v17;
-            v48[1] = v19;
-            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+            v46[0] = @"domain";
+            v46[1] = @"data";
+            v47[0] = v17;
+            v47[1] = v19;
+            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
             [array addObject:v20];
           }
 
@@ -1069,9 +1045,9 @@ LABEL_26:
               HMFGetLogIdentifier();
               v26 = v25 = selfCopy;
               *buf = 138543618;
-              v51 = v26;
-              v52 = 2112;
-              v53 = v17;
+              v50 = v26;
+              v51 = 2112;
+              v52 = v17;
               _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@No cached state for domain: %@, skipping", buf, 0x16u);
 
               selfCopy = v25;
@@ -1082,21 +1058,21 @@ LABEL_26:
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v14 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v14);
     }
 
-    v45 = @"dataByDomains";
-    v27 = [array copy];
-    v46 = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-    messageCopy = v38;
-    [v38 respondWithPayload:v28];
+    v44 = @"dataByDomains";
+    v27 = objc_msgSend_copy(array);
+    v45 = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    messageCopy = v37;
+    [v37 respondWithPayload:v28];
 
-    v29 = v36;
-    v6 = v37;
+    v29 = v35;
+    v6 = v36;
   }
 
   else
@@ -1109,9 +1085,9 @@ LABEL_26:
       v33 = HMFGetLogIdentifier();
       shortDescription2 = [messageCopy shortDescription];
       *buf = 138543618;
-      v51 = v33;
-      v52 = 2112;
-      v53 = shortDescription2;
+      v50 = v33;
+      v51 = 2112;
+      v52 = shortDescription2;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Rejecting state sync fetch request %@: missing domains", buf, 0x16u);
     }
 
@@ -1119,8 +1095,6 @@ LABEL_26:
     v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v29];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -1165,7 +1139,7 @@ LABEL_26:
 
 void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1176,13 +1150,13 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     v7 = *(a1 + 48);
     v8 = *(a1 + 56);
     *buf = 138544130;
-    v27 = v5;
-    v28 = 2112;
-    v29 = v6;
-    v30 = 2112;
-    v31 = v7;
-    v32 = 2112;
-    v33 = v8;
+    v26 = v5;
+    v27 = 2112;
+    v28 = v6;
+    v29 = 2112;
+    v30 = v7;
+    v31 = 2112;
+    v32 = v8;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Status channel observed devices added %@ \nlost %@ \nupdated %@", buf, 0x2Au);
   }
 
@@ -1199,20 +1173,20 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     v15 = [v14 hmf_dictionaryForKey:@"ss"];
 
     v16 = [MEMORY[0x277CBEB58] set];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_52;
-    v24[3] = &unk_27867C228;
-    v24[4] = *(a1 + 32);
-    v25 = v16;
-    v17 = v16;
-    [v15 enumerateKeysAndObjectsUsingBlock:v24];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_54;
-    v23[3] = &unk_278683BA0;
+    v23[2] = __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_52;
+    v23[3] = &unk_27867C228;
     v23[4] = *(a1 + 32);
-    [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
+    v24 = v16;
+    v17 = v16;
+    [v15 enumerateKeysAndObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_54;
+    v22[3] = &unk_278683BA0;
+    v22[4] = *(a1 + 32);
+    [v17 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
   }
 
   else
@@ -1224,19 +1198,17 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v21;
+      v26 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@No State Sync Status present on channel", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_52(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) lastSeenChangeTokensByDomain];
@@ -1252,11 +1224,11 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     if (v13)
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Token for domain: %@ has not changed", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Token for domain: %@ has not changed", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1267,15 +1239,15 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     if (v13)
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138544130;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v6;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Updating token for domain: %@ from %@ to %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v6;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Updating token for domain: %@ from %@ to %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1283,8 +1255,6 @@ void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDo
     v16 = [*(a1 + 32) lastSeenChangeTokensByDomain];
     [v16 setObject:v6 forKeyedSubscript:v5];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __112__HMDStateSyncManager_channel_didObserveNewDomainDataDevices_removedDomainDataDevices_updatedDomainDataDevices___block_invoke_54(uint64_t a1, void *a2)
@@ -1382,7 +1352,7 @@ void __35__HMDStateSyncManager_addDelegate___block_invoke(uint64_t a1)
 
 uint64_t __51__HMDStateSyncManager_unregisterObserverForDomain___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1390,20 +1360,18 @@ uint64_t __51__HMDStateSyncManager_unregisterObserverForDomain___block_invoke(ui
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Unregistering observer for domain: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Unregistering observer for domain: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v7 = [*(a1 + 32) stateSyncObserversByDomain];
   [v7 removeObjectForKey:*(a1 + 40)];
 
-  result = [*(a1 + 32) _removeDomainFromFetchRetryDomains:*(a1 + 40)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _removeDomainFromFetchRetryDomains:*(a1 + 40)];
 }
 
 - (void)registerObserver:(id)observer domain:(id)domain
@@ -1425,7 +1393,7 @@ uint64_t __51__HMDStateSyncManager_unregisterObserverForDomain___block_invoke(ui
 
 void __47__HMDStateSyncManager_registerObserver_domain___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1434,13 +1402,13 @@ void __47__HMDStateSyncManager_registerObserver_domain___block_invoke(uint64_t a
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v20 = 138543874;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Registering observer: %@ for domain: %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v6;
+    v23 = 2112;
+    v24 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Registering observer: %@ for domain: %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1460,11 +1428,11 @@ void __47__HMDStateSyncManager_registerObserver_domain___block_invoke(uint64_t a
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 48);
-      v20 = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Performing sync for domain: %@ because observer was added", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Performing sync for domain: %@ because observer was added", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -1472,8 +1440,6 @@ void __47__HMDStateSyncManager_registerObserver_domain___block_invoke(uint64_t a
     v18 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 48)];
     [v17 _performSyncForDomains:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPublishingForDomain:(id)domain completion:(id)completion
@@ -1495,7 +1461,7 @@ void __47__HMDStateSyncManager_registerObserver_domain___block_invoke(uint64_t a
 
 void __58__HMDStateSyncManager_stopPublishingForDomain_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1503,11 +1469,11 @@ void __58__HMDStateSyncManager_stopPublishingForDomain_completion___block_invoke
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v18 = 138543618;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping publishing for domain: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping publishing for domain: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1537,11 +1503,11 @@ void __58__HMDStateSyncManager_stopPublishingForDomain_completion___block_invoke
     {
       v13 = HMFGetLogIdentifier();
       v14 = *(a1 + 40);
-      v18 = 138543618;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to stop publishing for domain: %@, not configured", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to stop publishing for domain: %@, not configured", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1549,8 +1515,6 @@ void __58__HMDStateSyncManager_stopPublishingForDomain_completion___block_invoke
     v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
     (*(v15 + 16))(v15, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishState:(id)state domain:(id)domain completion:(id)completion
@@ -1575,7 +1539,7 @@ void __58__HMDStateSyncManager_stopPublishingForDomain_completion___block_invoke
 
 void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1584,13 +1548,13 @@ void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uin
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) shortDescription];
     v7 = *(a1 + 48);
-    v26 = 138543874;
-    v27 = v5;
-    v28 = 2112;
-    v29 = v6;
-    v30 = 2112;
-    v31 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing state: %@ for domain: %@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = v5;
+    v27 = 2112;
+    v28 = v6;
+    v29 = 2112;
+    v30 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing state: %@ for domain: %@", &v25, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1625,11 +1589,11 @@ void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uin
       {
         v21 = HMFGetLogIdentifier();
         v22 = *(a1 + 48);
-        v26 = 138543618;
-        v27 = v21;
-        v28 = 2112;
-        v29 = v22;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to publish state for domain: %@, not configured", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v21;
+        v27 = 2112;
+        v28 = v22;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to publish state for domain: %@, not configured", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -1649,9 +1613,9 @@ void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uin
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Attempting to publish on a device that is not a resident in the home", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Attempting to publish on a device that is not a resident in the home", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -1659,8 +1623,6 @@ void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uin
     v11 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(v17 + 16))(v17, v11);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishChangeToken:(id)token domain:(id)domain completion:(id)completion
@@ -1685,7 +1647,7 @@ void __54__HMDStateSyncManager_publishState_domain_completion___block_invoke(uin
 
 void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1695,11 +1657,11 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     *buf = 138543874;
-    v39 = v5;
-    v40 = 2112;
-    v41 = v6;
-    v42 = 2112;
-    v43 = v7;
+    v38 = v5;
+    v39 = 2112;
+    v40 = v6;
+    v41 = 2112;
+    v42 = v7;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Publishing changeToken: %@ for domain: %@", buf, 0x20u);
   }
 
@@ -1720,20 +1682,20 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
 
       v14 = [*(a1 + 32) residentStatusChannel];
       v15 = [*(a1 + 32) lastPublishedChangeTokenByDomain];
-      v16 = [v15 copy];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invoke_46;
-      v35[3] = &unk_27868A528;
-      v34 = *(a1 + 32);
-      v17 = *(&v34 + 1);
+      v16 = objc_msgSend_copy(v15);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invoke_46;
+      v34[3] = &unk_27868A528;
+      v33 = *(a1 + 32);
+      v17 = *(&v33 + 1);
       v18 = *(a1 + 48);
       v19 = *(a1 + 56);
       *&v20 = v18;
       *(&v20 + 1) = v19;
-      v36 = v34;
-      v37 = v20;
-      [v14 publishDomain:1 data:v16 completion:v35];
+      v35 = v33;
+      v36 = v20;
+      [v14 publishDomain:1 data:v16 completion:v34];
     }
 
     else
@@ -1746,9 +1708,9 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
         v29 = HMFGetLogIdentifier();
         v30 = *(a1 + 48);
         *buf = 138543618;
-        v39 = v29;
-        v40 = 2112;
-        v41 = v30;
+        v38 = v29;
+        v39 = 2112;
+        v40 = v30;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to publish change token for domain: %@, not configured", buf, 0x16u);
       }
 
@@ -1770,7 +1732,7 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v24;
+      v38 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Attempting to publish on a device that is not a resident in the home", buf, 0xCu);
     }
 
@@ -1779,13 +1741,11 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
     v11 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(v25 + 16))(v25, v11);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invoke_46(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1797,23 +1757,21 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
-      v11 = 138544130;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Publishing changeToken: %@ for domain: %@ failed with error: %@", &v11, 0x2Au);
+      v10 = 138544130;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Publishing changeToken: %@ for domain: %@ failed with error: %@", &v10, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureDomain:(id)domain scope:(int64_t)scope syncOptions:(int64_t)options completion:(id)completion
@@ -1837,7 +1795,7 @@ void __60__HMDStateSyncManager_publishChangeToken_domain_completion___block_invo
 
 void __68__HMDStateSyncManager_configureDomain_scope_syncOptions_completion___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1878,13 +1836,13 @@ void __68__HMDStateSyncManager_configureDomain_scope_syncOptions_completion___bl
     }
 
     *buf = 138544130;
-    v23 = v5;
-    v24 = 2112;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v8;
-    v28 = 2112;
-    v29 = v10;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
+    v25 = 2112;
+    v26 = v8;
+    v27 = 2112;
+    v28 = v10;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Configuring domain: %@ with scope: %@ syncOptions: %@", buf, 0x2Au);
   }
 
@@ -1904,24 +1862,22 @@ void __68__HMDStateSyncManager_configureDomain_scope_syncOptions_completion___bl
 
   else
   {
-    v16 = objc_autoreleasePoolPush();
-    v17 = *(a1 + 32);
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v15 = objc_autoreleasePoolPush();
+    v16 = *(a1 + 32);
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier();
+      v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v19;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unsupported configuration", buf, 0xCu);
+      v22 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unsupported configuration", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v16);
-    v20 = *(a1 + 48);
-    v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-    (*(v20 + 16))(v20, v21);
+    objc_autoreleasePoolPop(v15);
+    v19 = *(a1 + 48);
+    v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+    (*(v19 + 16))(v19, v20);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
@@ -2016,10 +1972,9 @@ void __68__HMDStateSyncManager_configureDomain_scope_syncOptions_completion___bl
 
 void __34__HMDStateSyncManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_162421;
-  logCategory__hmf_once_v19_162421 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_162421;
+  logCategory__hmf_once_v19_162421 = v0;
 }
 
 @end

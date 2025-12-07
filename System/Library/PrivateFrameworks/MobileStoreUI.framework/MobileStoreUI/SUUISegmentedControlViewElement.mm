@@ -52,11 +52,11 @@
   [(SUUISegmentedControlViewElement *)self _enumerateItemElementsUsingBlock:v4];
 }
 
-uint64_t __70__SUUISegmentedControlViewElement_dispatchEventOfType_forItemAtIndex___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__70__SUUISegmentedControlViewElement_dispatchEventOfType_forItemAtIndex___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
-    result = [a2 dispatchEventOfType:*(result + 40) canBubble:1 isCancelable:1 extraInfo:0 completionBlock:0];
+    result = [a2 dispatchEventOfType:result[5] canBubble:1 isCancelable:1 extraInfo:0 completionBlock:0];
     *a4 = 1;
   }
 
@@ -80,7 +80,7 @@ uint64_t __70__SUUISegmentedControlViewElement_dispatchEventOfType_forItemAtInde
   return v2;
 }
 
-uint64_t __59__SUUISegmentedControlViewElement_initialSelectedItemIndex__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__59__SUUISegmentedControlViewElement_initialSelectedItemIndex__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isSelected];
   if (result)

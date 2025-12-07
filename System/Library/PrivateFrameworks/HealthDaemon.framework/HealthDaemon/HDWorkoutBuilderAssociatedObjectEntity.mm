@@ -52,16 +52,14 @@
 
 id __103__HDWorkoutBuilderAssociatedObjectEntity_associateObject_code_timestamp_withBuilder_transaction_error___block_invoke(uint64_t a1)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v6[0] = @"workout_builder_id";
-  v6[1] = @"object_uuid";
-  v6[2] = @"timestamp";
-  v6[3] = @"type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
+  v5[0] = @"workout_builder_id";
+  v5[1] = @"object_uuid";
+  v5[2] = @"timestamp";
+  v5[3] = @"type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
   v3 = [v1 insertSQLForProperties:v2 shouldReplace:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -121,23 +119,22 @@ uint64_t __101__HDWorkoutBuilderAssociatedObjectEntity_enumerateAssociatedUUIDsF
   return sqlite3_bind_int64(a2, 1, v3);
 }
 
-uint64_t __101__HDWorkoutBuilderAssociatedObjectEntity_enumerateAssociatedUUIDsForBuilder_transaction_error_block___block_invoke_3(uint64_t a1)
+uint64_t __101__HDWorkoutBuilderAssociatedObjectEntity_enumerateAssociatedUUIDsForBuilder_transaction_error_block___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
-  v1 = HKWithAutoreleasePool();
+  v5 = *(a1 + 32);
+  v3 = HKWithAutoreleasePool();
 
-  return v1;
+  return v3;
 }
 
 uint64_t __101__HDWorkoutBuilderAssociatedObjectEntity_enumerateAssociatedUUIDsForBuilder_transaction_error_block___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = MEMORY[0x22AAC6CA0](*(a1 + 40), 0);
-  v6 = *(a1 + 40);
-  v7 = HDSQLiteColumnAsInt64();
-  v8 = (*(v4 + 16))(v4, v5, v7, a2);
+  v3 = *(a1 + 32);
+  v4 = MEMORY[0x22AAC6CA0](*(a1 + 40), 0);
+  v5 = HDSQLiteColumnAsInt64();
+  v6 = (*(v3 + 16))(v3, v4, v5, a2);
 
-  return v8;
+  return v6;
 }
 
 + (BOOL)removeAssociationFromBuilder:(id)builder toUUID:(id)d transaction:(id)transaction error:(id *)error
@@ -167,33 +164,29 @@ uint64_t __101__HDWorkoutBuilderAssociatedObjectEntity_enumerateAssociatedUUIDsF
 uint64_t __96__HDWorkoutBuilderAssociatedObjectEntity_removeAssociationFromBuilder_toUUID_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, [*(a1 + 32) persistentID]);
-  v3 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"workout_builder_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"workout_builder_id";
   v2 = +[(HDHealthEntity *)HDWorkoutBuilderEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"workout_builder_id";
-  v5[1] = @"object_uuid";
-  v5[2] = @"timestamp";
-  v5[3] = @"type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"workout_builder_id";
+  v4[1] = @"object_uuid";
+  v4[2] = @"timestamp";
+  v4[3] = @"type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }

@@ -11,31 +11,30 @@
 
 - (BOOL)setIdentity:(SecIdentityRef)identity
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   result = 0;
   if (identity)
   {
-    v4 = *MEMORY[0x1E697B3D0];
-    v5 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E697B3D0], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], 0}];
-    v6 = SecItemCopyMatching(v5, &result);
-    if (v6)
+    v4 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E697B3D0], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], 0}];
+    v5 = SecItemCopyMatching(v4, &result);
+    if (v5)
     {
-      v7 = v6;
+      v6 = v5;
       p_super = ne_log_obj();
       if (!os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_4;
       }
 
-      v17 = objc_opt_class();
+      v15 = objc_opt_class();
       *buf = 138412546;
-      v21 = v17;
-      v22 = 1024;
-      v23 = v7;
-      v13 = v17;
-      v14 = "%@ failed to find persistent reference for identity. status = %d";
-      v15 = p_super;
-      v16 = 18;
+      v19 = v15;
+      v20 = 1024;
+      v21 = v6;
+      v11 = v15;
+      v12 = "%@ failed to find persistent reference for identity. status = %d";
+      v13 = p_super;
+      v14 = 18;
     }
 
     else
@@ -44,7 +43,7 @@
       {
         p_super = &self->_identityReference->super;
         self->_identityReference = result;
-        v9 = 1;
+        v8 = 1;
         goto LABEL_10;
       }
 
@@ -52,97 +51,96 @@
       if (!os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
 LABEL_4:
-        v9 = 0;
+        v8 = 0;
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v12 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138412290;
-      v21 = v12;
-      v13 = v12;
-      v14 = "%@ found nil persistent reference for identity";
-      v15 = p_super;
-      v16 = 12;
+      v19 = v10;
+      v11 = v10;
+      v12 = "%@ found nil persistent reference for identity";
+      v13 = p_super;
+      v14 = 12;
     }
 
-    _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+    _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
 
     goto LABEL_4;
   }
 
-  v5 = ne_log_obj();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = ne_log_obj();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v21 = objc_opt_class();
-    v18 = v21;
-    _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@ invalid input data for identity", buf, 0xCu);
+    v19 = objc_opt_class();
+    v16 = v19;
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ invalid input data for identity", buf, 0xCu);
   }
 
-  v9 = 0;
+  v8 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v8;
 }
 
 - (BOOL)setTrustedServerCertificates:(NSArray *)certificates
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = certificates;
   v5 = v4;
   result = 0;
   if (v4 && [(NSArray *)v4 count]&& [(NSArray *)v5 count]< 0xB)
   {
-    v10 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], 0}];
+    v9 = [MEMORY[0x1E695DF90] dictionaryWithObjectsAndKeys:{*MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], 0}];
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v11 = v5;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
-    if (v12)
+    v10 = v5;
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v32;
-      v15 = *MEMORY[0x1E697B3D0];
+      v12 = v11;
+      v13 = *v31;
+      v14 = *MEMORY[0x1E697B3D0];
       selfCopy = self;
 LABEL_10:
-      v16 = 0;
+      v15 = 0;
       while (1)
       {
-        if (*v32 != v14)
+        if (*v31 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * v16);
-        v18 = CFGetTypeID(v17);
-        if (v18 != SecCertificateGetTypeID())
+        v16 = *(*(&v30 + 1) + 8 * v15);
+        v17 = CFGetTypeID(v16);
+        if (v17 != SecCertificateGetTypeID())
         {
           break;
         }
 
-        [v10 setObject:v17 forKeyedSubscript:v15];
-        v19 = SecItemCopyMatching(v10, &result);
-        if (v19)
+        [v9 setObject:v16 forKeyedSubscript:v14];
+        v18 = SecItemCopyMatching(v9, &result);
+        if (v18)
         {
-          v25 = v19;
-          v21 = ne_log_obj();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v24 = v18;
+          v20 = ne_log_obj();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            v26 = objc_opt_class();
+            v25 = objc_opt_class();
             *buf = 138412546;
-            v37 = v26;
-            v38 = 1024;
-            v39 = v25;
-            v23 = v26;
-            v24 = "%@ failed to find persistent reference for trusted server certificate. status = %d";
-            v27 = v21;
-            v28 = 18;
+            v36 = v25;
+            v37 = 1024;
+            v38 = v24;
+            v22 = v25;
+            v23 = "%@ failed to find persistent reference for trusted server certificate. status = %d";
+            v26 = v20;
+            v27 = 18;
             goto LABEL_30;
           }
 
@@ -154,33 +152,33 @@ LABEL_26:
 
         if (!result)
         {
-          v21 = ne_log_obj();
-          if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v20 = ne_log_obj();
+          if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_26;
           }
 
-          v29 = objc_opt_class();
+          v28 = objc_opt_class();
           *buf = 138412290;
-          v37 = v29;
-          v23 = v29;
-          v24 = "%@ found nil persistent reference for trusted server certificate";
+          v36 = v28;
+          v22 = v28;
+          v23 = "%@ found nil persistent reference for trusted server certificate";
 LABEL_29:
-          v27 = v21;
-          v28 = 12;
+          v26 = v20;
+          v27 = 12;
 LABEL_30:
-          _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, v24, buf, v28);
+          _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, v23, buf, v27);
 
           goto LABEL_26;
         }
 
         [v6 addObject:?];
         CFRelease(result);
-        if (v13 == ++v16)
+        if (v12 == ++v15)
         {
-          v13 = [(NSArray *)v11 countByEnumeratingWithState:&v31 objects:v40 count:16];
+          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v30 objects:v39 count:16];
           self = selfCopy;
-          if (v13)
+          if (v12)
           {
             goto LABEL_10;
           }
@@ -189,14 +187,14 @@ LABEL_30:
         }
       }
 
-      v21 = ne_log_obj();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = ne_log_obj();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v22 = objc_opt_class();
+        v21 = objc_opt_class();
         *buf = 138412290;
-        v37 = v22;
-        v23 = v22;
-        v24 = "%@ invalid certificate data type";
+        v36 = v21;
+        v22 = v21;
+        v23 = "%@ invalid certificate data type";
         goto LABEL_29;
       }
 
@@ -220,15 +218,14 @@ LABEL_27:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = objc_opt_class();
-      v20 = v37;
+      v36 = objc_opt_class();
+      v19 = v36;
       _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%@ invalid input data for trusted server certificates", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

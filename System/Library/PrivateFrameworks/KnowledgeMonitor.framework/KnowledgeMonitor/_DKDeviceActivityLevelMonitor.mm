@@ -45,7 +45,7 @@
 
 - (void)setLastActivityDate:(id)date
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   date = [MEMORY[0x277CBEAA8] date];
   [dateCopy timeIntervalSinceDate:date];
@@ -94,11 +94,11 @@
       v14 = _log;
       if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412546;
-        v23 = dateCopy;
-        v24 = 2112;
-        v25 = v10;
-        _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, "New last-set date (%@) is earlier than the previous set date (%@). Keeping newer date.", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = dateCopy;
+        v23 = 2112;
+        v24 = v10;
+        _os_log_impl(&dword_22595A000, v14, OS_LOG_TYPE_DEFAULT, "New last-set date (%@) is earlier than the previous set date (%@). Keeping newer date.", &v21, 0x16u);
       }
     }
   }
@@ -108,21 +108,19 @@
     v8 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = dateCopy;
-      _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_DEFAULT, "New active date (%@) is in the future. Ignoring.", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = dateCopy;
+      _os_log_impl(&dword_22595A000, v8, OS_LOG_TYPE_DEFAULT, "New active date (%@) is in the future. Ignoring.", &v21, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v47[4] = *MEMORY[0x277D85DE8];
-  v46.receiver = self;
-  v46.super_class = _DKDeviceActivityLevelMonitor;
-  if ([(_DKMonitor *)&v46 instantMonitorNeedsActivation])
+  v46[4] = *MEMORY[0x277D85DE8];
+  v45.receiver = self;
+  v45.super_class = _DKDeviceActivityLevelMonitor;
+  if ([(_DKMonitor *)&v45 instantMonitorNeedsActivation])
   {
     self->_enabled = 1;
     keyPathForLastUseDate = [MEMORY[0x277CFE338] keyPathForLastUseDate];
@@ -174,27 +172,27 @@
 
     v18 = MEMORY[0x277CFE360];
     keyPathForBacklightOnStatus = [MEMORY[0x277CFE338] keyPathForBacklightOnStatus];
-    v47[0] = keyPathForBacklightOnStatus;
+    v46[0] = keyPathForBacklightOnStatus;
     keyPathForBatteryStateDataDictionary = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
-    v47[1] = keyPathForBatteryStateDataDictionary;
+    v46[1] = keyPathForBatteryStateDataDictionary;
     keyPathForCarplayConnectedStatus = [MEMORY[0x277CFE338] keyPathForCarplayConnectedStatus];
     v22 = self->_keyPathForDeviceToppingOff;
-    v47[2] = keyPathForCarplayConnectedStatus;
-    v47[3] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
+    v46[2] = keyPathForCarplayConnectedStatus;
+    v46[3] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:4];
     v24 = [v18 predicateForChangeAtKeyPaths:v23];
 
     v25 = self->_context;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __38___DKDeviceActivityLevelMonitor_start__block_invoke;
-    v45[3] = &unk_27856F9C8;
-    v45[4] = self;
-    v26 = [MEMORY[0x277CFE350] localNonWakingRegistrationWithIdentifier:@"com.apple.dkc.reducedPerf" contextualPredicate:v24 callback:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __38___DKDeviceActivityLevelMonitor_start__block_invoke;
+    v44[3] = &unk_27856F9C8;
+    v44[4] = self;
+    v26 = [MEMORY[0x277CFE350] localNonWakingRegistrationWithIdentifier:@"com.apple.dkc.reducedPerf" contextualPredicate:v24 callback:v44];
     [(_CDLocalContext *)v25 registerCallback:v26];
 
     block[6] = 0;
-    v44 = 0;
+    v43 = 0;
     if (!IOPMGetUserActivityLevel())
     {
       queue = [(_DKMonitor *)self queue];
@@ -203,7 +201,7 @@
       block[2] = __38___DKDeviceActivityLevelMonitor_start__block_invoke_3;
       block[3] = &unk_27856F588;
       block[4] = self;
-      block[5] = v44;
+      block[5] = v43;
       dispatch_sync(queue, block);
     }
 
@@ -223,12 +221,12 @@
     dispatch_resume(self->_debounceTimer);
     uTF8String = [@"com.apple.coreaudio.borealisTrigger" UTF8String];
     queue3 = [(_DKMonitor *)self queue];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __38___DKDeviceActivityLevelMonitor_start__block_invoke_5;
-    v41[3] = &unk_27856F408;
-    v41[4] = self;
-    notify_register_dispatch(uTF8String, &self->_siriToken, queue3, v41);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __38___DKDeviceActivityLevelMonitor_start__block_invoke_5;
+    v40[3] = &unk_27856F408;
+    v40[4] = self;
+    notify_register_dispatch(uTF8String, &self->_siriToken, queue3, v40);
 
     queue4 = [(_DKMonitor *)self queue];
     self->_userActivityNotificationHandle = IOPMScheduleUserActivityLevelNotificationWithTimeout();
@@ -240,8 +238,6 @@
     bmSource = self->_bmSource;
     self->_bmSource = source;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -327,7 +323,7 @@
 
 - (void)updatePerformanceThrottleStatusWithLevel:(unint64_t)level
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   context = self->_context;
   keyPathForBatteryStateDataDictionary = [MEMORY[0x277CFE338] keyPathForBatteryStateDataDictionary];
   v7 = [(_CDLocalContext *)context objectForKeyedSubscript:keyPathForBatteryStateDataDictionary];
@@ -355,8 +351,8 @@ LABEL_5:
     v16 = _log;
     if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v31[0]) = 0;
-      _os_log_impl(&dword_22595A000, v16, OS_LOG_TYPE_INFO, "Device Topping Off. Reduce perf", v31, 2u);
+      LOWORD(v30[0]) = 0;
+      _os_log_impl(&dword_22595A000, v16, OS_LOG_TYPE_INFO, "Device Topping Off. Reduce perf", v30, 2u);
     }
 
     goto LABEL_5;
@@ -388,17 +384,17 @@ LABEL_7:
   v28 = _log;
   if (os_log_type_enabled(_log, OS_LOG_TYPE_INFO))
   {
-    v31[0] = 67110144;
-    v31[1] = level != 0;
-    v32 = 1024;
-    v33 = v17;
-    v34 = 1024;
-    v35 = bOOLValue3 & 1;
-    v36 = 1024;
-    v37 = bOOLValue4 & 1;
-    v38 = 1024;
-    v39 = v27;
-    _os_log_impl(&dword_22595A000, v28, OS_LOG_TYPE_INFO, "Active: %u | Plugged In : %u | Screen On: %u | CarPlay Active: %u | LIMITS IMPOSED: %u", v31, 0x20u);
+    v30[0] = 67110144;
+    v30[1] = level != 0;
+    v31 = 1024;
+    v32 = v17;
+    v33 = 1024;
+    v34 = bOOLValue3 & 1;
+    v35 = 1024;
+    v36 = bOOLValue4 & 1;
+    v37 = 1024;
+    v38 = v27;
+    _os_log_impl(&dword_22595A000, v28, OS_LOG_TYPE_INFO, "Active: %u | Plugged In : %u | Screen On: %u | CarPlay Active: %u | LIMITS IMPOSED: %u", v30, 0x20u);
   }
 
   if (!self->_limitsInitialized || self->_limitsImposed != v27)
@@ -409,19 +405,16 @@ LABEL_7:
     self->_limitsImposed = v27;
     self->_limitsInitialized = 1;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastActivityDate:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_22595A000, log, OS_LOG_TYPE_DEBUG, "New active date (%@) is not sufficiently newer than the previous date (%@).", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_22595A000, log, OS_LOG_TYPE_DEBUG, "New active date (%@) is not sufficiently newer than the previous date (%@).", &v3, 0x16u);
 }
 
 @end

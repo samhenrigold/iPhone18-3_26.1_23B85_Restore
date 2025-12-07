@@ -353,7 +353,7 @@ void __85__HUMediaAccountUtilities_determineMediaPickerAvailabilityForHomePodPro
 void __85__HUMediaAccountUtilities_determineMediaPickerAvailabilityForHomePodProfiles_inHome___block_invoke_44(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (*(a1 + 56) == 1 && *(a1 + 57) == 1)
+  if (__PAIR64__(*(a1 + 57), *(a1 + 56)) == 0x100000001)
   {
     v4 = [MEMORY[0x277D14400] sharedInstance];
     v5 = *(a1 + 32);

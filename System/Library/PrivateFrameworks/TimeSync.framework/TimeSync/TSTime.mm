@@ -39,7 +39,7 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 - (TSTime)init
 {
   date = [MEMORY[0x277CBEAA8] date];
-  v4 = [(TSTime *)self initWithUTCDate:date];
+  v4 = [(TSTime *)self initWithUTCDate:?];
 
   return v4;
 }
@@ -48,9 +48,9 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 {
   dateCopy = date;
   timeConverter = [objc_opt_class() timeConverter];
-  v6 = [timeConverter taiDateFromUTCDate:dateCopy];
+  v6 = [timeConverter taiDateFromUTCDate:?];
 
-  v7 = [(TSTime *)self initWithTAIDate:v6];
+  v7 = [(TSTime *)self initWithTAIDate:?];
   return v7;
 }
 
@@ -58,25 +58,26 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 {
   dateCopy = date;
   [dateCopy timeIntervalSince1970];
-  v6 = [(TSTime *)self initWithNanosecondsSinceEpoch:(v5 * 1000000000.0)];
-  v7 = v6;
-  if (v6)
+  v5 = [(TSTime *)self initWithNanosecondsSinceEpoch:?];
+  v6 = v5;
+  if (v5)
   {
-    *&v6->_timeTraceable = 257;
+    *&v5->_timeTraceable = 257;
     [dateCopy timeIntervalSince1970];
-    if (v8 < 0.0)
+    if (v7 < 0.0)
     {
 
-      v7 = 0;
+      v6 = 0;
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (TSTime)initWithGPSTime:(id)time
 {
-  result = -[TSTime initWithNanosecondsSinceEpoch:](self, "initWithNanosecondsSinceEpoch:", [time nanosecondsSinceEpoch] + 315964819000000000);
+  [time nanosecondsSinceEpoch];
+  result = [(TSTime *)self initWithNanosecondsSinceEpoch:?];
   if (result)
   {
     *&result->_timeTraceable = 257;
@@ -88,7 +89,8 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 - (TSTime)initWithgPTPTime:(id)time
 {
   timeCopy = time;
-  v5 = -[TSTime initWithNanosecondsSinceEpoch:](self, "initWithNanosecondsSinceEpoch:", [timeCopy nanosecondsSinceEpoch]);
+  [timeCopy nanosecondsSinceEpoch];
+  v5 = [(TSTime *)self initWithNanosecondsSinceEpoch:?];
   if (v5)
   {
     if ([timeCopy isTimeTraceable] && objc_msgSend(timeCopy, "isPTPTimescale") && objc_msgSend(timeCopy, "isFrequencyTraceable"))
@@ -128,7 +130,7 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 {
   timeConverter = [objc_opt_class() timeConverter];
   taiDate = [(TSTime *)self taiDate];
-  v5 = [timeConverter utcDateFromTAIDate:taiDate];
+  v5 = [timeConverter utcDateFromTAIDate:?];
 
   return v5;
 }
@@ -137,20 +139,20 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 {
   if (self->_nanosecondsSinceEpoch < 0x46288542E03FE00)
   {
-    315964819000000000 = 0;
+    v3 = 0;
   }
 
   else
   {
-    315964819000000000 = [[TSGPSTime alloc] initWithNanosecondsSinceEpoch:self->_nanosecondsSinceEpoch - 315964819000000000];
+    v3 = [[TSGPSTime alloc] initWithNanosecondsSinceEpoch:?];
   }
 
-  return 315964819000000000;
+  return v3;
 }
 
 - (TSgPTPTime)gPTPTime
 {
-  v2 = [[TSgPTPTime alloc] initWithNanosecondsSinceEpoch:self->_nanosecondsSinceEpoch onGrandmaster:self->_grandmasterIdentity withLocalPortNumber:self->_localPortNumber ptpTimescale:1 timeTraceable:self->_timeTraceable frequencyTraceable:self->_frequencyTraceable];
+  v2 = [TSgPTPTime initWithNanosecondsSinceEpoch:"initWithNanosecondsSinceEpoch:onGrandmaster:withLocalPortNumber:ptpTimescale:timeTraceable:frequencyTraceable:" onGrandmaster:? withLocalPortNumber:? ptpTimescale:? timeTraceable:? frequencyTraceable:?];
 
   return v2;
 }
@@ -173,7 +175,7 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  result = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   *(result + 4) = self->_nanosecondsSinceEpoch;
   *(result + 2) = self->_grandmasterIdentity;
   *(result + 8) = self->_initedWithgPTP;
@@ -183,7 +185,8 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (([equalCopy isMemberOfClass:objc_opt_class()] & 1) != 0 || -[TSTime isMemberOfClass:](self, "isMemberOfClass:", objc_opt_class()))
+  objc_opt_class();
+  if (([equalCopy isMemberOfClass:?] & 1) != 0 || (objc_opt_class(), -[TSTime isMemberOfClass:](self, "isMemberOfClass:")))
   {
     nanosecondsSinceEpoch = [(TSTime *)self nanosecondsSinceEpoch];
     v6 = nanosecondsSinceEpoch == [equalCopy nanosecondsSinceEpoch];
@@ -204,12 +207,12 @@ uint64_t __23__TSTime_timeConverter__block_invoke()
   nanosecondsSinceEpoch = [(TSTime *)self nanosecondsSinceEpoch];
   if (grandmasterIdentity == -1)
   {
-    [v4 stringWithFormat:@"TAI Time %llu", nanosecondsSinceEpoch, v8];
+    [v4 stringWithFormat:nanosecondsSinceEpoch, v8];
   }
 
   else
   {
-    [v4 stringWithFormat:@"TAI Time %llu GM 0x%016llx", nanosecondsSinceEpoch, self->_grandmasterIdentity];
+    [v4 stringWithFormat:nanosecondsSinceEpoch, self->_grandmasterIdentity];
   }
   v6 = ;
 

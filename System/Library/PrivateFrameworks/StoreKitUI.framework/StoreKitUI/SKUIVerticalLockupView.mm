@@ -163,7 +163,7 @@ void __51__SKUIVerticalLockupView_setPerspectiveTargetView___block_invoke(uint64
   return v18;
 }
 
-uint64_t __73__SKUIVerticalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__73__SKUIVerticalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -690,7 +690,7 @@ LABEL_9:
   v19 = self->_productImageView;
   if (v19)
   {
-    [(UIView *)v19 transform];
+    objc_msgSend_transform(v19);
   }
 
   else
@@ -1205,9 +1205,9 @@ LABEL_27:
 void __51__SKUIVerticalLockupView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v7 = [a2 itmlID];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([*(a1 + 40) count] > a3)
     {
@@ -1223,46 +1223,46 @@ void __51__SKUIVerticalLockupView_viewForElementIdentifier___block_invoke(uint64
 
 - (void)layoutSubviews
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v67.receiver = self;
-  v67.super_class = SKUIVerticalLockupView;
-  [(SKUIVerticalLockupView *)&v67 layoutSubviews];
+  v72 = *MEMORY[0x277D85DE8];
+  v70.receiver = self;
+  v70.super_class = SKUIVerticalLockupView;
+  [(SKUIVerticalLockupView *)&v70 layoutSubviews];
   [(SKUIVerticalLockupView *)self bounds];
-  v58 = v4;
-  v59 = v3;
+  v61 = v4;
+  v62 = v3;
   v6 = v5;
-  v57 = v7;
+  v60 = v7;
   left = self->_contentInset.left;
   right = self->_contentInset.right;
   obj = [(SKUIViewReuseView *)self allExistingViews];
   top = self->_contentInset.top;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
   if (v11)
   {
     v12 = v11;
-    v54 = 0;
+    v57 = 0;
     v13 = v6 - left - right;
-    v14 = *v64;
-    v52 = *MEMORY[0x277CBF3A0];
-    v50 = *(MEMORY[0x277CBF348] + 8);
-    v51 = *MEMORY[0x277CBF348];
-    v53 = *v64;
+    v14 = *v67;
+    v55 = *MEMORY[0x277CBF3A0];
+    v53 = *(MEMORY[0x277CBF348] + 8);
+    v54 = *MEMORY[0x277CBF348];
+    v56 = *v67;
     do
     {
       v15 = 0;
-      v55 = v12;
+      v58 = v12;
       do
       {
-        if (*v64 != v14)
+        if (*v67 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v63 + 1) + 8 * v15);
+        v16 = *(*(&v66 + 1) + 8 * v15);
         v17 = [(NSMapTable *)self->_viewElementViews objectForKey:v16];
         if ([v17 elementType] == 32)
         {
@@ -1295,12 +1295,12 @@ void __51__SKUIVerticalLockupView_viewForElementIdentifier___block_invoke(uint64
             width = v13;
           }
 
-          v22 = v54;
+          v22 = v57;
         }
 
         if ([v17 elementType] == 7)
         {
-          [(UIView *)v16 setFrame:v59, v58, v6, v57];
+          [(UIView *)v16 setFrame:v62, v61, v6, v60];
           [(SKUIVerticalLockupView *)self sendSubviewToBack:v16];
           goto LABEL_51;
         }
@@ -1362,7 +1362,7 @@ void __51__SKUIVerticalLockupView_viewForElementIdentifier___block_invoke(uint64
             goto LABEL_35;
           }
 
-          x = v52;
+          x = v55;
           if (textAlignment == 3)
           {
             goto LABEL_37;
@@ -1399,8 +1399,8 @@ LABEL_35:
             }
 
 LABEL_33:
-            v37 = (v13 - width) * 0.5;
-            x = self->_contentInset.left + floorf(v37);
+            v38 = (v13 - width) * 0.5;
+            x = self->_contentInset.left + floorf(v38);
             goto LABEL_38;
           }
 
@@ -1409,7 +1409,7 @@ LABEL_33:
             goto LABEL_35;
           }
 
-          x = v52;
+          x = v55;
           if (textAlignment == 2)
           {
             goto LABEL_33;
@@ -1417,81 +1417,81 @@ LABEL_33:
         }
 
 LABEL_38:
-        memset(&v62, 0, sizeof(v62));
+        memset(&v65, 0, sizeof(v65));
         if (v16)
         {
-          [(UIView *)v16 transform];
+          objc_msgSend_transform(v16);
         }
 
-        v38 = self->_productImageBoundingSize;
-        if (v38 && v16 == self->_productImageView && ([(SKUISizeValue *)v38 size], y = top + v39 - height, productImageAdjustedWidth = self->_productImageAdjustedWidth, productImageAdjustedWidth > 0.00000011920929) && (v41 = productImageAdjustedWidth / width, v42 = *&self->_productImageViewOriginalTransform.c, *&v60.a = *&self->_productImageViewOriginalTransform.a, *&v60.c = v42, *&v60.tx = *&self->_productImageViewOriginalTransform.tx, CGAffineTransformScale(&v61, &v60, v41, v41), v62 = v61, [(UIView *)v16 setTransform:&v61], v43 = self->_productImageAdjustedWidth, vabdd_f64(v43, width) > 0.00000011920929))
+        v39 = self->_productImageBoundingSize;
+        if (v39 && v16 == self->_productImageView && (v39 = [(SKUISizeValue *)v39 size], y = top + v40 - height, productImageAdjustedWidth = self->_productImageAdjustedWidth, productImageAdjustedWidth > 0.00000011920929) && (v42 = productImageAdjustedWidth / width, v43 = *&self->_productImageViewOriginalTransform.c, *&v63.a = *&self->_productImageViewOriginalTransform.a, *&v63.c = v43, *&v63.tx = *&self->_productImageViewOriginalTransform.tx, CGAffineTransformScale(&v64, &v63, v42, v42), v65 = v64, v39 = [(UIView *)v16 setTransform:&v64], v44 = self->_productImageAdjustedWidth, vabdd_f64(v44, width) > 0.00000011920929))
         {
-          x = x + (v43 - width) * -0.5;
-          width = width * v41;
-          height = height * v41;
-          v60 = v62;
-          CGAffineTransformInvert(&v61, &v60);
-          v70.origin.y = v50;
-          v70.origin.x = v51;
-          v70.size.width = width;
-          v70.size.height = height;
-          v71 = CGRectApplyAffineTransform(v70, &v61);
-          [(UIView *)v16 setBounds:v71.origin.x, v71.origin.y, v71.size.width, v71.size.height];
-          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v59, v58, v6, v57);
-          MidX = CGRectGetMidX(v72);
-          v73.origin.x = x;
-          v73.origin.y = y;
+          x = x + (v44 - width) * -0.5;
+          width = width * v42;
+          height = height * v42;
+          v63 = v65;
+          CGAffineTransformInvert(&v64, &v63);
+          v73.origin.y = v53;
+          v73.origin.x = v54;
           v73.size.width = width;
           v73.size.height = height;
-          [(UIView *)v16 setCenter:MidX, CGRectGetMidY(v73)];
-          v54 = 1;
+          v74 = CGRectApplyAffineTransform(v73, &v64);
+          v45 = [(UIView *)v16 setBounds:v74.origin.x, v74.origin.y, v74.size.width, v74.size.height];
+          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v62, v61, v6, v60, v45, v46);
+          MidX = CGRectGetMidX(v75);
+          v76.origin.x = x;
+          v76.origin.y = y;
+          v76.size.width = width;
+          v76.size.height = height;
+          [(UIView *)v16 setCenter:MidX, CGRectGetMidY(v76)];
+          v57 = 1;
         }
 
         else
         {
           if ((v22 & 1) == 0)
           {
-            v74.origin.x = x;
-            v74.origin.y = y;
-            v74.size.width = width;
-            v74.size.height = height;
-            v75 = CGRectIntegral(v74);
-            x = v75.origin.x;
-            y = v75.origin.y;
-            width = v75.size.width;
-            height = v75.size.height;
+            v77.origin.x = x;
+            v77.origin.y = y;
+            v77.size.width = width;
+            v77.size.height = height;
+            v78 = CGRectIntegral(v77);
+            x = v78.origin.x;
+            y = v78.origin.y;
+            width = v78.size.width;
+            height = v78.size.height;
           }
 
-          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v59, v58, v6, v57);
+          SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x, y, width, height, v62, v61, v6, v60, v39, v36);
           [(UIView *)v16 setFrame:?];
         }
 
-        v76.origin.x = x;
-        v76.origin.y = y;
-        v76.size.width = width;
-        v76.size.height = height;
-        top = CGRectGetMaxY(v76);
-        v45 = [(NSMapTable *)self->_lineSpacings objectForKey:v16];
-        v46 = v45;
-        if (v45)
+        v79.origin.x = x;
+        v79.origin.y = y;
+        v79.size.width = width;
+        v79.size.height = height;
+        top = CGRectGetMaxY(v79);
+        v48 = [(NSMapTable *)self->_lineSpacings objectForKey:v16];
+        v49 = v48;
+        if (v48)
         {
-          [v45 floatValue];
-          top = top + v47;
+          [v48 floatValue];
+          top = top + v50;
         }
 
-        v14 = v53;
-        v12 = v55;
+        v14 = v56;
+        v12 = v58;
 LABEL_51:
 
         ++v15;
       }
 
       while (v12 != v15);
-      v49 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-      v12 = v49;
+      v52 = [obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+      v12 = v52;
     }
 
-    while (v49);
+    while (v52);
   }
 }
 
@@ -1722,24 +1722,24 @@ void __39__SKUIVerticalLockupView_sizeThatFits___block_invoke(uint64_t a1, void 
 
   v18 = style;
 
-  v19 = SKUIViewElementFontWithStyle(v18);
-  if (!v19)
+  v20 = SKUIViewElementFontWithStyle(v18);
+  if (!v20)
   {
-    v19 = SKUIFontForTextStyle(6);
+    v20 = SKUIFontForTextStyle(6, v19);
   }
 
   tintColor = [contextCopy tintColor];
-  v21 = SKUIViewElementPlainColorWithStyle(v18, tintColor);
+  v22 = SKUIViewElementPlainColorWithStyle(v18, tintColor);
 
-  if (!v21)
+  if (!v22)
   {
-    v21 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
+    v22 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
   }
 
   buttonText = [buttonCopy buttonText];
-  v23 = [buttonText attributedStringWithDefaultFont:v19 foregroundColor:v21 style:v18];
+  v24 = [buttonText attributedStringWithDefaultFont:v20 foregroundColor:v22 style:v18];
 
-  return v23;
+  return v24;
 }
 
 + (id)_attributedStringForLabel:(id)label context:(id)context
@@ -1767,12 +1767,12 @@ void __39__SKUIVerticalLockupView_sizeThatFits___block_invoke(uint64_t a1, void 
   v19 = SKUIViewElementAlignmentForStyle(style);
   if (v19)
   {
-    v20 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v19);
+    v21 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v19, v20);
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
   labelViewStyle = [labelCopy labelViewStyle];
@@ -1790,7 +1790,7 @@ void __39__SKUIVerticalLockupView_sizeThatFits___block_invoke(uint64_t a1, void 
 
       else
       {
-        v16 = SKUIFontForTextStyle(5);
+        v16 = SKUIFontForTextStyle(5, v23);
         if (v18)
         {
           goto LABEL_21;
@@ -1812,7 +1812,7 @@ void __39__SKUIVerticalLockupView_sizeThatFits___block_invoke(uint64_t a1, void 
 
       else
       {
-        v16 = SKUIFontForTextStyle(6);
+        v16 = SKUIFontForTextStyle(6, v23);
         if (v18)
         {
           goto LABEL_21;
@@ -1827,9 +1827,9 @@ void __39__SKUIVerticalLockupView_sizeThatFits___block_invoke(uint64_t a1, void 
 
 LABEL_21:
   text = [labelCopy text];
-  v24 = [text attributedStringWithDefaultFont:v16 foregroundColor:v18 textAlignment:v20 style:style];
+  v26 = [text attributedStringWithDefaultFont:v16 foregroundColor:v18 textAlignment:v21 style:style];
 
-  return v24;
+  return v26;
 }
 
 + (double)_bottomInsetForViewElement:(id)element width:(double)width context:(id)context
@@ -2004,6 +2004,66 @@ LABEL_12:
 LABEL_17:
 
   return v15;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIVerticalLockupView initWithFrame:]";
+}
+
++ (void)maximumPerspectiveHeightForSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView maximumPerspectiveHeightForSize:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)_attributedStringForButton:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView _attributedStringForButton:context:]";
+}
+
++ (void)_attributedStringForLabel:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView _attributedStringForLabel:context:]";
+}
+
++ (void)_bottomInsetForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView _bottomInsetForViewElement:width:context:]";
+}
+
++ (void)_topInsetForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIVerticalLockupView _topInsetForViewElement:width:context:]";
 }
 
 @end

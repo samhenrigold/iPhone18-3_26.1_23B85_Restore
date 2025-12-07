@@ -1,9 +1,27 @@
 @interface CCSignalDoneFetchingMergeableDeltas
++ (id)doneFetchingMergeableDeltasMessageFromPeerToPeerMessage:(id)message isReciprocal:(BOOL)reciprocal;
 - (id)dictionaryRepresentation;
 - (id)initFromDictionary:(id)dictionary;
 @end
 
 @implementation CCSignalDoneFetchingMergeableDeltas
+
++ (id)doneFetchingMergeableDeltasMessageFromPeerToPeerMessage:(id)message isReciprocal:(BOOL)reciprocal
+{
+  reciprocalCopy = reciprocal;
+  messageCopy = message;
+  v6 = [CCSignalDoneFetchingMergeableDeltas alloc];
+  syncReason = [messageCopy syncReason];
+  senderDeviceUUID = [messageCopy senderDeviceUUID];
+  protocolVersion = [messageCopy protocolVersion];
+  [messageCopy walltime];
+  v11 = v10;
+
+  v12 = [(CCPeerToPeerMessage *)v6 initWithSyncReason:syncReason senderDeviceUUID:senderDeviceUUID protocolVersion:protocolVersion wallTime:v11];
+  [(CCSignalDoneFetchingMergeableDeltas *)v12 setIsReciprocalRequest:reciprocalCopy];
+
+  return v12;
+}
 
 - (id)initFromDictionary:(id)dictionary
 {

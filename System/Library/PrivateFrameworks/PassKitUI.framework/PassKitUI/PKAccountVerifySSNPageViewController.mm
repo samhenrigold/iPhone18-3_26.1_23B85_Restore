@@ -103,7 +103,7 @@
   [v8 accountServiceCertificatesWithRequest:v6 completion:v10];
 }
 
-uint64_t __63__PKAccountVerifySSNPageViewController_handleNextButtonTapped___block_invoke(uint64_t a1, int a2)
+void *__63__PKAccountVerifySSNPageViewController_handleNextButtonTapped___block_invoke(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) _showSpinner:0];
   if (a2)

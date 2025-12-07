@@ -7,7 +7,7 @@
 
 - (PKSearchResult)initWithEpisodes:(id)episodes shows:(id)shows
 {
-  type metadata accessor for Episode();
+  type metadata accessor for Episode(0);
   v5 = sub_25EA1E718();
   type metadata accessor for Show();
   v6 = sub_25EA1E718();

@@ -7,14 +7,14 @@
 
 + (void)registerTask:(id)task
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v4 = +[_DPLog framework];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     name = [taskCopy name];
     *buf = 138412290;
-    v14 = name;
+    v13 = name;
     _os_log_impl(&dword_22622D000, v4, OS_LOG_TYPE_INFO, "Registered CTS task %@", buf, 0xCu);
   }
 
@@ -25,11 +25,9 @@
   handler[1] = 3221225472;
   handler[2] = __39___DPPeriodicTaskManager_registerTask___block_invoke;
   handler[3] = &unk_27858A930;
-  v12 = taskCopy;
+  v11 = taskCopy;
   v9 = taskCopy;
   xpc_activity_register(uTF8String, v8, handler);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)unregisterTask:(id)task

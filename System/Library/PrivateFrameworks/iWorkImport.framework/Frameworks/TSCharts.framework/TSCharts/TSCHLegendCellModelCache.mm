@@ -59,9 +59,9 @@ LABEL_3:
   selfCopy = 0;
   if (metricsCopy && v22)
   {
-    v291.receiver = self;
-    v291.super_class = TSCHLegendCellModelCache;
-    v28 = [(TSCHLegendCellModelCache *)&v291 init];
+    v290.receiver = self;
+    v290.super_class = TSCHLegendCellModelCache;
+    v28 = [(TSCHLegendCellModelCache *)&v290 init];
     v29 = v28;
     if (!v28)
     {
@@ -71,7 +71,7 @@ LABEL_69:
       goto LABEL_70;
     }
 
-    v288 = v22;
+    v287 = v22;
     v28->_legendCellType = type;
     v28->_seriesIndex = index;
     objc_storeStrong(&v28->_series, v26);
@@ -97,135 +97,135 @@ LABEL_69:
     legendCellType = v29->_legendCellType;
     if (legendCellType)
     {
-      v290 = 0;
+      v289 = 0;
       goto LABEL_13;
     }
 
     badgeType = v29->_badgeType;
     if ((badgeType | 4) != 6)
     {
-      v290 = 0;
+      v289 = 0;
 LABEL_31:
       if (badgeType == 1)
       {
-        v157 = objc_msgSend_seriesType(v26, v69, v70, v71, v72);
-        v162 = objc_msgSend_supportsLineConnectionStyle(v157, v158, v159, v160, v161);
+        v156 = objc_msgSend_seriesType(v26, v69, v70, v71, v72);
+        v161 = objc_msgSend_supportsLineConnectionStyle(v156, v157, v158, v159, v160);
       }
 
       else
       {
-        v162 = 0;
+        v161 = 0;
       }
 
-      v163 = objc_msgSend_intValueForProperty_defaultValue_(v29->_series, v69, v70, v71, v72, 1176, v162);
-      if (v163)
+      v162 = objc_msgSend_intValueForProperty_defaultValue_(v29->_series, v69, v70, v71, v72, 1176, v161);
+      if (v162)
       {
-        v163 = objc_msgSend_intValueForProperty_defaultValue_(v29->_series, v164, v165, v166, v167, 1165, 0);
+        v162 = objc_msgSend_intValueForProperty_defaultValue_(v29->_series, v163, v164, v165, v166, 1165, 0);
       }
 
-      v29->_lineType = v163;
-      v168 = objc_msgSend_seriesType(v29->_series, v164, v165, v166, v167);
-      v173 = objc_msgSend_legendStrokeForSeries_(v168, v169, v170, v171, v172, v29->_series);
-      v178 = objc_msgSend_mutableCopy(v173, v174, v175, v176, v177);
+      v29->_lineType = v162;
+      v167 = objc_msgSend_seriesType(v29->_series, v163, v164, v165, v166);
+      v172 = objc_msgSend_legendStrokeForSeries_(v167, v168, v169, v170, v171, v29->_series);
+      v177 = objc_msgSend_mutableCopy(v172, v173, v174, v175, v176);
 
-      v181 = 4.5;
-      v182 = 5.5;
+      v180 = 4.5;
+      v181 = 5.5;
       if (v29->_badgeType == 1)
       {
-        v183 = 5.5;
+        v182 = 5.5;
       }
 
       else
       {
-        v183 = 4.5;
+        v182 = 4.5;
       }
 
-      if (v178)
+      if (v177)
       {
-        if (objc_msgSend_shouldRender(v178, v179, 4.5, 5.5, v180))
+        if (objc_msgSend_shouldRender(v177, v178, 4.5, 5.5, v179))
         {
-          v184 = v68 / v183;
-          v185 = fmax(v68 / v183, 1.0);
-          objc_msgSend_width(v178, v179, v184, 1.0, v180);
-          if (v181 > v185)
+          v183 = v68 / v182;
+          v184 = fmax(v68 / v182, 1.0);
+          objc_msgSend_width(v177, v178, v183, 1.0, v179);
+          if (v180 > v184)
           {
-            objc_msgSend_setWidth_(v178, v179, v185, v182, v180);
+            objc_msgSend_setWidth_(v177, v178, v184, v181, v179);
           }
         }
       }
 
-      if (v290)
+      if (v289)
       {
-        objc_msgSend_width(v178, v179, v181, v182, v180);
-        objc_msgSend_setWidth_(v178, v187, v186 + v186, v188, v189);
+        objc_msgSend_width(v177, v178, v180, v181, v179);
+        objc_msgSend_setWidth_(v177, v186, v185 + v185, v187, v188);
       }
 
-      objc_storeStrong(&v29->_stroke, v178);
-      shouldRender = objc_msgSend_shouldRender(v29->_stroke, v190, v191, v192, v193);
-      v198 = 0.0;
+      objc_storeStrong(&v29->_stroke, v177);
+      shouldRender = objc_msgSend_shouldRender(v29->_stroke, v189, v190, v191, v192);
+      v197 = 0.0;
       if (shouldRender)
       {
-        objc_msgSend_width(v29->_stroke, v195, 0.0, v196, v197);
+        objc_msgSend_width(v29->_stroke, v194, 0.0, v195, v196);
       }
 
-      v29->_effectiveStrokeWidth = v198;
+      v29->_effectiveStrokeWidth = v197;
 
-      v203 = objc_msgSend_objectValueForProperty_(v29->_series, v199, v200, v201, v202, 1189);
-      v208 = objc_msgSend_mutableCopy(v203, v204, v205, v206, v207);
+      v202 = objc_msgSend_objectValueForProperty_(v29->_series, v198, v199, v200, v201, 1189);
+      v207 = objc_msgSend_mutableCopy(v202, v203, v204, v205, v206);
 
       if (v29->_badgeType == 1)
       {
-        v211 = 5.5;
+        v210 = 5.5;
       }
 
       else
       {
-        v211 = 4.5;
+        v210 = 4.5;
       }
 
-      if (v208)
+      if (v207)
       {
-        if (objc_msgSend_shouldRender(v208, v209, 4.5, 5.5, v210))
+        if (objc_msgSend_shouldRender(v207, v208, 4.5, 5.5, v209))
         {
-          v214 = v68 / v211;
-          v215 = fmax(v68 / v211, 1.0);
-          objc_msgSend_width(v208, v212, v214, 1.0, v213);
-          if (v219 > v215)
+          v213 = v68 / v210;
+          v214 = fmax(v68 / v210, 1.0);
+          objc_msgSend_width(v207, v211, v213, 1.0, v212);
+          if (v218 > v214)
           {
-            objc_msgSend_setWidth_(v208, v216, v215, v217, v218);
+            objc_msgSend_setWidth_(v207, v215, v214, v216, v217);
           }
         }
       }
 
-      objc_storeStrong(&v29->_symbolStroke, v208);
-      v224 = objc_msgSend_shouldRender(v29->_symbolStroke, v220, v221, v222, v223);
-      v228 = 0.0;
-      if (v224)
+      objc_storeStrong(&v29->_symbolStroke, v207);
+      v223 = objc_msgSend_shouldRender(v29->_symbolStroke, v219, v220, v221, v222);
+      v227 = 0.0;
+      if (v223)
       {
-        objc_msgSend_width(v29->_symbolStroke, v225, 0.0, v226, v227);
+        objc_msgSend_width(v29->_symbolStroke, v224, 0.0, v225, v226);
       }
 
-      v29->_effectiveSymbolStrokeWidth = v228;
+      v29->_effectiveSymbolStrokeWidth = v227;
 
-      v233 = objc_msgSend_name(v29->_series, v229, v230, v231, v232);
-      v238 = objc_msgSend_copy(v233, v234, v235, v236, v237);
+      v232 = objc_msgSend_name(v29->_series, v228, v229, v230, v231);
+      v237 = objc_msgSend_copy(v232, v233, v234, v235, v236);
       labelString = v29->_labelString;
-      v29->_labelString = v238;
+      v29->_labelString = v237;
 
       goto LABEL_57;
     }
 
     if (v64)
     {
-      v290 = 0;
+      v289 = 0;
     }
 
     else
     {
       if (badgeType == 6)
       {
-        v156 = objc_msgSend_fill(v29, v69, v70, v71, v72);
-        v290 = v156 != 0;
+        v155 = objc_msgSend_fill(v29, v69, v70, v71, v72);
+        v289 = v155 != 0;
 
         legendCellType = v29->_legendCellType;
 LABEL_13:
@@ -238,28 +238,28 @@ LABEL_13:
           v29->_labelString = v129;
 
           v135 = objc_msgSend_objectValueForProperty_(v29->_series, v131, v132, v133, v134, 1202);
-          v141 = objc_msgSend_color(v135, v136, v137, v138, v139);
-          if (!v141)
+          v140 = objc_msgSend_color(v135, v136, v137, v138);
+          if (!v140)
           {
-            v141 = objc_msgSend_clearColor(MEMORY[0x277D81180], v140, v142, v143, v144);
+            v140 = objc_msgSend_clearColor(MEMORY[0x277D81180], v139, v141, v142, v143);
           }
 
-          v145 = objc_msgSend_strokeWithColor_width_(MEMORY[0x277D803C0], v140, 2.0, v143, v144, v141);
+          v144 = objc_msgSend_strokeWithColor_width_(MEMORY[0x277D803C0], v139, 2.0, v142, v143, v140);
           stroke = v29->_stroke;
-          v29->_stroke = v145;
+          v29->_stroke = v144;
 
           symbolStroke = v29->_symbolStroke;
           v29->_symbolStroke = 0;
 
           *&v29->_symbolType = 0x100000000;
-          v151 = objc_msgSend_shouldRender(v29->_stroke, v148, COERCE_DOUBLE(0x100000000), v149, v150);
-          v155 = 0.0;
-          if (v151)
+          v150 = objc_msgSend_shouldRender(v29->_stroke, v147, COERCE_DOUBLE(0x100000000), v148, v149);
+          v154 = 0.0;
+          if (v150)
           {
-            objc_msgSend_width(v29->_stroke, v152, 0.0, v153, v154);
+            objc_msgSend_width(v29->_stroke, v151, 0.0, v152, v153);
           }
 
-          v29->_effectiveStrokeWidth = v155;
+          v29->_effectiveStrokeWidth = v154;
           v29->_effectiveSymbolStrokeWidth = 0.0;
 
           goto LABEL_57;
@@ -276,74 +276,74 @@ LABEL_13:
 LABEL_57:
           if (labelCopy)
           {
-            v240 = objc_msgSend_copy(labelCopy, v89, v90, v91, v92);
-            v241 = v29->_labelString;
-            v29->_labelString = v240;
+            v239 = objc_msgSend_copy(labelCopy, v89, v90, v91, v92);
+            v240 = v29->_labelString;
+            v29->_labelString = v239;
           }
 
-          v242 = v49;
-          v243 = objc_msgSend_length(v29->_labelString, v89, v90, v91, v92);
-          v249 = objc_msgSend_sharedText(TSCHText, v244, v245, v246, v247);
-          if (v243)
+          v241 = v49;
+          v242 = objc_msgSend_length(v29->_labelString, v89, v90, v91, v92);
+          v248 = objc_msgSend_sharedText(TSCHText, v243, v244, v245, v246);
+          if (v242)
           {
-            v253 = v29->_labelString;
-            v254 = objc_msgSend_paragraphStyle(metricsCopy, v248, v250, v251, v252);
-            objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v249, v255, 0.0, v256, v257, v253, v254, 1, 0, sourceCopy, 0, 0);
-            v259 = v258;
-            v261 = v260;
+            v252 = v29->_labelString;
+            v253 = objc_msgSend_paragraphStyle(metricsCopy, v247, v249, v250, v251);
+            objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v248, v254, 0.0, v255, v256, v252, v253, 1, 0, sourceCopy, 0, 0);
+            v258 = v257;
+            v260 = v259;
           }
 
           else
           {
-            v262 = objc_msgSend_paragraphStyle(metricsCopy, v248, v250, v251, v252);
-            v259 = 0.0;
-            objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v249, v263, 0.0, v264, v265, @" ", v262, 1, 0, sourceCopy, 0, 0);
-            v261 = v266;
+            v261 = objc_msgSend_paragraphStyle(metricsCopy, v247, v249, v250, v251);
+            v258 = 0.0;
+            objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v248, v262, 0.0, v263, v264, @" ", v261, 1, 0, sourceCopy, 0, 0);
+            v260 = v265;
           }
 
-          objc_msgSend_symbolGap(metricsCopy, v267, v268, v269, v270);
-          if (v261 <= v242)
+          objc_msgSend_symbolGap(metricsCopy, v266, v267, v268, v269);
+          if (v260 <= v241)
           {
-            v272 = v242;
+            v271 = v241;
           }
 
           else
           {
-            v272 = v261;
+            v271 = v260;
           }
 
-          v29->_cellSize.width = v259 + v68 + v271;
-          v29->_cellSize.height = v272;
+          v29->_cellSize.width = v258 + v68 + v270;
+          v29->_cellSize.height = v271;
           TSURectWithCenterAndSize();
-          v274 = v273;
-          v276 = v275;
-          v29->_badgeFrame.origin.x = v277;
-          v29->_badgeFrame.origin.y = v278;
-          v29->_badgeFrame.size.width = v273;
-          v29->_badgeFrame.size.height = v275;
+          v273 = v272;
+          v275 = v274;
+          v29->_badgeFrame.origin.x = v276;
+          v29->_badgeFrame.origin.y = v277;
+          v29->_badgeFrame.size.width = v272;
+          v29->_badgeFrame.size.height = v274;
           TSURectWithCenterAndSize();
-          v29->_labelFrame.origin.x = v279;
-          v29->_labelFrame.origin.y = v280;
-          v29->_labelFrame.size.width = v281;
-          v29->_labelFrame.size.height = v282;
-          v22 = v288;
-          if (v290)
+          v29->_labelFrame.origin.x = v278;
+          v29->_labelFrame.origin.y = v279;
+          v29->_labelFrame.size.width = v280;
+          v29->_labelFrame.size.height = v281;
+          v22 = v287;
+          if (v289)
           {
             TSURectWithSize();
-            v274 = v286;
+            v273 = v285;
           }
 
           else
           {
-            v284 = v276 * 0.5;
-            v283 = 0.0;
-            v285 = v276 * 0.5;
+            v283 = v275 * 0.5;
+            v282 = 0.0;
+            v284 = v275 * 0.5;
           }
 
-          v29->_badgeFillFrame.origin.x = v283;
-          v29->_badgeFillFrame.origin.y = v284;
-          v29->_badgeFillFrame.size.width = v274;
-          v29->_badgeFillFrame.size.height = v285;
+          v29->_badgeFillFrame.origin.x = v282;
+          v29->_badgeFillFrame.origin.y = v283;
+          v29->_badgeFillFrame.size.width = v273;
+          v29->_badgeFillFrame.size.height = v284;
 
           goto LABEL_69;
         }
@@ -351,7 +351,7 @@ LABEL_57:
         goto LABEL_30;
       }
 
-      v290 = 1;
+      v289 = 1;
     }
 
 LABEL_30:
@@ -401,7 +401,7 @@ LABEL_70:
     goto LABEL_9;
   }
 
-  if (!v12 || !self->_stroke || (v17 = objc_alloc(MEMORY[0x277D801F8]), objc_msgSend_stroke(self, v18, v19, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_color(v22, v23, v24, v25, v26), v27 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend_initWithColor_(v17, v28, v29, v30, v31, v27), v27, v22, !v5))
+  if (!v12 || !self->_stroke || (v17 = objc_alloc(MEMORY[0x277D801F8]), objc_msgSend_stroke(self, v18, v19, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_color(v22, v23, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend_initWithColor_(v17, v27, v28, v29, v30, v26), v26, v22, !v5))
   {
 LABEL_9:
     v5 = objc_msgSend_objectValueForProperty_(self->_series, v13, v14, v15, v16, 1185);

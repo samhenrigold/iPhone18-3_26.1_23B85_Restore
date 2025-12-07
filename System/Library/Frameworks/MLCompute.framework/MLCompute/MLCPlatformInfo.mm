@@ -1,4 +1,5 @@
 @interface MLCPlatformInfo
++ (BOOL)gpuUsageUnsupportedIncludingLowPower:(BOOL)power;
 + (BOOL)gpuUseMPSGraphConvolution;
 + (BOOL)isAneGraphPartitioningConfigSet;
 + (BOOL)isAnePlistKept;
@@ -39,6 +40,14 @@ uint64_t __34__MLCPlatformInfo_isInternalBuild__block_invoke()
   result = MGGetBoolAnswer();
   isInternalBuild_isInternalBuild = result;
   return result;
+}
+
++ (BOOL)gpuUsageUnsupportedIncludingLowPower:(BOOL)power
+{
+  v3 = [MLCDeviceGPU filteredGPUListIncludingLowPoweredBuiltin:power];
+  v4 = [v3 count] == 0;
+
+  return v4;
 }
 
 + (BOOL)multiGPUUsageUnsupported
@@ -227,7 +236,7 @@ void __30__MLCPlatformInfo_isRNGSeeded__block_invoke()
 
 void __29__MLCPlatformInfo_randomSeed__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = +[MLCPlatformInfo seedEnvVariable];
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v2, "longLongValue")}];
   randomSeed = [v3 longValue];
@@ -236,19 +245,17 @@ void __29__MLCPlatformInfo_randomSeed__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = NSStringFromSelector(*(a1 + 32));
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2048;
-    v10 = randomSeed;
-    _os_log_impl(&dword_238C1D000, v4, OS_LOG_TYPE_INFO, "%@: Random seed requested. Found seed: %ld", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2048;
+    v9 = randomSeed;
+    _os_log_impl(&dword_238C1D000, v4, OS_LOG_TYPE_INFO, "%@: Random seed requested. Found seed: %ld", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setRandomSeedTo:(id)to
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   toCopy = to;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -269,9 +276,9 @@ void __29__MLCPlatformInfo_randomSeed__block_invoke(uint64_t a1)
     {
       v8 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v12 = v8;
-      v13 = 2048;
-      v14 = randomSeed;
+      v11 = v8;
+      v12 = 2048;
+      v13 = randomSeed;
       _os_log_impl(&dword_238C1D000, v7, OS_LOG_TYPE_INFO, "%@: Overwriting the random seed number which has already been set to : %ld", buf, 0x16u);
     }
   }
@@ -279,8 +286,6 @@ void __29__MLCPlatformInfo_randomSeed__block_invoke(uint64_t a1)
   isSeeded = 1;
   randomSeed = [toCopy longValue];
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getRandomSeed
@@ -314,24 +319,24 @@ void __29__MLCPlatformInfo_randomSeed__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __29__MLCPlatformInfo_aneSubType__block_invoke()
+uint64_t __29__MLCPlatformInfo_aneSubType__block_invoke(uint64_t a1)
 {
   if (AppleNeuralEngineLibrary_onceToken_0 != -1)
   {
     __29__MLCPlatformInfo_aneSubType__block_invoke_cold_1();
   }
 
-  if (AppleNeuralEngineLibrary_frameworkLibrary_0 && softLinkClass_ANEDeviceInfo())
+  if (AppleNeuralEngineLibrary_frameworkLibrary_0 && (v1 = softLinkClass_ANEDeviceInfo(a1)) != 0)
   {
-    v0 = [softLinkClass_ANEDeviceInfo() aneSubType];
+    v2 = [softLinkClass_ANEDeviceInfo(v1) aneSubType];
   }
 
   else
   {
-    v0 = [MEMORY[0x277CCACA8] string];
+    v2 = [MEMORY[0x277CCACA8] string];
   }
 
-  aneSubType_aneSubType = v0;
+  aneSubType_aneSubType = v2;
 
   return MEMORY[0x2821F96F8]();
 }
@@ -491,17 +496,15 @@ void __54__MLCPlatformInfo_isAneSaveGraphPartitioningConfigSet__block_invoke(uin
 
 + (void)aneSubTypeVersion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(self);
-  v7 = 138412802;
-  v8 = v5;
-  v9 = 2112;
-  v10 = @"H";
-  v11 = 2112;
-  v12 = a2;
-  _os_log_debug_impl(&dword_238C1D000, a3, OS_LOG_TYPE_DEBUG, "%@: substring %@ is not found in ANE subtype=%@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = v5;
+  v8 = 2112;
+  v9 = @"H";
+  v10 = 2112;
+  v11 = a2;
+  _os_log_debug_impl(&dword_238C1D000, a3, OS_LOG_TYPE_DEBUG, "%@: substring %@ is not found in ANE subtype=%@", &v6, 0x20u);
 }
 
 @end

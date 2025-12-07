@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchTermScorer
 - (float)score;
 - (id)description;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -58,6 +59,17 @@
   return result;
 }
 
+- (int)advanceWithInt:(int)int
+{
+  postingsEnum = self->postingsEnum_;
+  if (!postingsEnum)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneIndexPostingsEnum *)postingsEnum advanceWithInt:*&int];
+}
+
 - (int64_t)cost
 {
   postingsEnum = self->postingsEnum_;
@@ -71,11 +83,10 @@
 
 - (id)description
 {
-  weight = self->super.weight_;
-  v11.receiver = self;
-  v11.super_class = OrgApacheLuceneSearchTermScorer;
-  [(OrgApacheLuceneSearchTermScorer *)&v11 description];
-  return JreStrcat("$@$$C", v3, v4, v5, v6, v7, v8, v9, @"scorer(");
+  v10.receiver = self;
+  v10.super_class = OrgApacheLuceneSearchTermScorer;
+  [(OrgApacheLuceneSearchTermScorer *)&v10 description];
+  return JreStrcat("$@$$C", v2, v3, v4, v5, v6, v7, v8, @"scorer(");
 }
 
 - (void)dealloc

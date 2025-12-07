@@ -74,10 +74,10 @@
 
 - (void)logCompletion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   state = [completionCopy state];
-  v5 = __atxlog_handle_hero();
+  v5 = __atxlog_handle_hero(state);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (state)
   {
@@ -85,19 +85,17 @@
     {
       error = [completionCopy error];
       v8 = [error description];
-      v10 = 136315138;
+      v9 = 136315138;
       uTF8String = [v8 UTF8String];
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Error in receiving events from modeConfigurationUIFlowLogging stream: %s\n", &v10, 0xCu);
+      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Error in receiving events from modeConfigurationUIFlowLogging stream: %s\n", &v9, 0xCu);
     }
   }
 
   else if (v6)
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Received all events from modeConfigurationUIFlowLogging stream\n", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Received all events from modeConfigurationUIFlowLogging stream\n", &v9, 2u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logModeConfigurationUIFlowMetricWithXPCActivity:(id)activity
@@ -135,27 +133,24 @@
 
 void __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlowMetricWithXPCActivity___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  [*(a1 + 32) logCompletion:a2];
+  v6 = [*(a1 + 32) logCompletion:a2];
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v6 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = __atxlog_handle_metrics(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "%@ - XPC Activity deferred, terminating.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "%@ - XPC Activity deferred, terminating.", &v10, 0xCu);
     }
   }
 
   [*(a1 + 40) setBookmark:v5];
   [*(a1 + 32) writeBookmarkToFile:*(a1 + 40)];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlowMetricWithXPCActivity___block_invoke_28(uint64_t a1, void *a2)
@@ -221,51 +216,52 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
 
 - (void)writeBookmarkToFile:(id)file
 {
-  v6 = 0;
-  [file saveBookmarkWithError:&v6];
-  v4 = v6;
+  v7 = 0;
+  [file saveBookmarkWithError:&v7];
+  v4 = v7;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ATXDigestOnboardingAppSelectionMetricsLogger *)self writeBookmarkToFile:v4, v5];
+      [(ATXDigestOnboardingAppSelectionMetricsLogger *)self writeBookmarkToFile:v5, v6];
     }
   }
 }
 
 - (unint64_t)numEntitiesAdded:(id)added
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
   previousEntityIdentifiers = [addedCopy previousEntityIdentifiers];
   v6 = [v4 initWithArray:previousEntityIdentifiers];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   currentEntityIdentifiers = [addedCopy currentEntityIdentifiers];
-  v8 = [currentEntityIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [currentEntityIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(currentEntityIdentifiers);
         }
 
-        v10 += [v6 containsObject:*(*(&v15 + 1) + 8 * i)] ^ 1;
+        v10 += [v6 containsObject:*(*(&v14 + 1) + 8 * i)] ^ 1;
       }
 
-      v9 = [currentEntityIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [currentEntityIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -276,42 +272,41 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (unint64_t)numEntitiesRemoved:(id)removed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
   currentEntityIdentifiers = [removedCopy currentEntityIdentifiers];
   v6 = [v4 initWithArray:currentEntityIdentifiers];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   previousEntityIdentifiers = [removedCopy previousEntityIdentifiers];
-  v8 = [previousEntityIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [previousEntityIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(previousEntityIdentifiers);
         }
 
-        v10 += [v6 containsObject:*(*(&v15 + 1) + 8 * i)] ^ 1;
+        v10 += [v6 containsObject:*(*(&v14 + 1) + 8 * i)] ^ 1;
       }
 
-      v9 = [previousEntityIdentifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [previousEntityIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -322,13 +317,12 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (unint64_t)numSuggestedEntitiesAdded:(id)added
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
   suggestedEntityIdentifiers = [addedCopy suggestedEntityIdentifiers];
@@ -338,34 +332,34 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
   previousEntityIdentifiers = [addedCopy previousEntityIdentifiers];
   v9 = [v7 initWithArray:previousEntityIdentifiers];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   currentEntityIdentifiers = [addedCopy currentEntityIdentifiers];
-  v11 = [currentEntityIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [currentEntityIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(currentEntityIdentifiers);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         if (([v9 containsObject:v16] & 1) == 0)
         {
           v13 += [v6 containsObject:v16];
         }
       }
 
-      v12 = [currentEntityIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [currentEntityIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -376,13 +370,12 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (unint64_t)numSuggestedEntitiesRemoved:(id)removed
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
@@ -401,30 +394,30 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
     v10 = [v9 rankedContactsForMode:v8 options:0];
     v11 = [v4 recommendedAllowedContactsForContactScores:v10];
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v40;
+      v15 = *v39;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v40 != v15)
+          if (*v39 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          identifier = [*(*(&v39 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v38 + 1) + 8 * i) identifier];
           [v5 addObject:identifier];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v14);
@@ -434,29 +427,29 @@ uint64_t __90__ATXModeConfigurationUIFlowMetricLogger_logModeConfigurationUIFlow
   else
   {
     v12 = [v4 recommendedAllowedAppsForMode:v8];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v18 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v18 = [v12 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v44;
+      v20 = *v43;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v44 != v20)
+          if (*v43 != v20)
           {
             objc_enumerationMutation(v12);
           }
 
-          identifier2 = [*(*(&v43 + 1) + 8 * j) identifier];
+          identifier2 = [*(*(&v42 + 1) + 8 * j) identifier];
           [v5 addObject:identifier2];
         }
 
-        v19 = [v12 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v19 = [v12 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v19);
@@ -468,34 +461,34 @@ LABEL_19:
   currentEntityIdentifiers = [removedCopy currentEntityIdentifiers];
   v25 = [v23 initWithArray:currentEntityIdentifiers];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   previousEntityIdentifiers = [removedCopy previousEntityIdentifiers];
-  v27 = [previousEntityIdentifiers countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v27 = [previousEntityIdentifiers countByEnumeratingWithState:&v34 objects:v46 count:16];
   if (v27)
   {
     v28 = v27;
     v29 = 0;
-    v30 = *v36;
+    v30 = *v35;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v36 != v30)
+        if (*v35 != v30)
         {
           objc_enumerationMutation(previousEntityIdentifiers);
         }
 
-        v32 = *(*(&v35 + 1) + 8 * k);
+        v32 = *(*(&v34 + 1) + 8 * k);
         if (([v25 containsObject:v32] & 1) == 0)
         {
           v29 += [v5 containsObject:v32];
         }
       }
 
-      v28 = [previousEntityIdentifiers countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v28 = [previousEntityIdentifiers countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v28);
@@ -506,7 +499,6 @@ LABEL_19:
     v29 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

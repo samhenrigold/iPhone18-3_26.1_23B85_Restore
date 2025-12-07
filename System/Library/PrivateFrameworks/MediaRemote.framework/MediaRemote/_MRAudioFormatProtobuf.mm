@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)renderingModeAsString:(int)string;
+- (id)tierAsString:(int)string;
 - (int)StringAsRenderingMode:(id)mode;
 - (int)StringAsTier:(id)tier;
 - (int)renderingMode;
@@ -64,30 +66,45 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)tierAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769DFD8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsTier:(id)tier
 {
   tierCopy = tier;
-  if ([tierCopy isEqualToString:@"LowBandwidthStereo"])
+  if (objc_msgSend_isEqualToString_(tierCopy))
   {
     v4 = 0;
   }
 
-  else if ([tierCopy isEqualToString:@"HighQualityStereo"])
+  else if (objc_msgSend_isEqualToString_(tierCopy))
   {
     v4 = 1;
   }
 
-  else if ([tierCopy isEqualToString:@"Lossless"])
+  else if (objc_msgSend_isEqualToString_(tierCopy))
   {
     v4 = 2;
   }
 
-  else if ([tierCopy isEqualToString:@"HighResolutionLossless"])
+  else if (objc_msgSend_isEqualToString_(tierCopy))
   {
     v4 = 3;
   }
 
-  else if ([tierCopy isEqualToString:@"Spatial"])
+  else if (objc_msgSend_isEqualToString_(tierCopy))
   {
     v4 = 4;
   }
@@ -205,35 +222,50 @@
   *&self->_has = *&self->_has & 0xFFDF | v3;
 }
 
+- (id)renderingModeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769E000[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRenderingMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"MonoStereo"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"Surround"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"SpatialAudio"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
 
-  else if ([modeCopy isEqualToString:@"DolbyAudio"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 4;
   }
 
-  else if ([modeCopy isEqualToString:@"DolbyAtmos"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 5;
   }
@@ -421,7 +453,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    tier = self->_tier;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -441,7 +472,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  bitrate = self->_bitrate;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -456,7 +486,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  sampleRate = self->_sampleRate;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -471,7 +500,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  bitDepth = self->_bitDepth;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -486,7 +514,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  codec = self->_codec;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -501,7 +528,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  spatialized = self->_spatialized;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -516,12 +542,10 @@ LABEL_8:
   }
 
 LABEL_27:
-  multiChannel = self->_multiChannel;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_9:
-    channelLayout = self->_channelLayout;
     PBDataWriterWriteUint32Field();
   }
 
@@ -543,7 +567,6 @@ LABEL_10:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    renderingMode = self->_renderingMode;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -900,7 +923,6 @@ LABEL_10:
       goto LABEL_55;
     }
 
-    v7 = *(equalCopy + 77);
     if (self->_spatialized)
     {
       if ((*(equalCopy + 77) & 1) == 0)
@@ -928,7 +950,7 @@ LABEL_10:
     }
 
 LABEL_55:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_56;
   }
 
@@ -937,7 +959,6 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v8 = *(equalCopy + 76);
   if (self->_multiChannel)
   {
     if ((*(equalCopy + 76) & 1) == 0)
@@ -989,22 +1010,22 @@ LABEL_31:
     }
   }
 
-  v12 = *(equalCopy + 40);
+  v10 = *(equalCopy + 40);
   if ((*&self->_has & 0x20) != 0)
   {
-    if ((v12 & 0x20) != 0 && self->_renderingMode == *(equalCopy + 14))
+    if ((v10 & 0x20) != 0 && self->_renderingMode == *(equalCopy + 14))
     {
-      v13 = 1;
+      v11 = 1;
       goto LABEL_56;
     }
 
     goto LABEL_55;
   }
 
-  v13 = (v12 & 0x20) == 0;
+  v11 = (v10 & 0x20) == 0;
 LABEL_56:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

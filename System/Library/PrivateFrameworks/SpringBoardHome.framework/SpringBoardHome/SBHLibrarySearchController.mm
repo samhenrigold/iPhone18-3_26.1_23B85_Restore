@@ -141,7 +141,7 @@
   v84.super_class = SBHLibrarySearchController;
   [(SBHLibrarySearchController *)&v84 viewDidLoad];
   view = [(SBHLibrarySearchController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -267,7 +267,7 @@
         }
 
         view3 = [*(*(&v80 + 1) + 8 * i) view];
-        [(UIView *)self->_containerView bounds];
+        objc_msgSend_bounds(self->_containerView);
         [view3 setFrame:?];
       }
 
@@ -300,7 +300,7 @@
 
     v64 = MEMORY[0x1E69AE158];
     v65 = v63;
-    v66 = SBHBundle();
+    v66 = SBHBundle(v65);
     v60 = [v64 materialViewWithRecipeNamed:v65 inBundle:v66 options:0 initialWeighting:0 scaleAdjustment:0.0];
 
     [(SBHLibrarySearchSimplifiedBackgroundView *)v60 setGroupNameBase:@"SBHLibrarySearchControllerBackdropView"];
@@ -334,7 +334,7 @@
   v11.super_class = SBHLibrarySearchController;
   [(SBHLibrarySearchController *)&v11 viewWillLayoutSubviews];
   view = [(SBHLibrarySearchController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
 
@@ -593,7 +593,7 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
 {
   v111 = *MEMORY[0x1E69E9840];
   view = [(SBHLibrarySearchController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -606,7 +606,7 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
 
   view3 = [(SBHIconLibraryTableViewController *)self->_searchResultsController view];
   v15 = self->_scrollView;
-  [(UIView *)v12 bounds];
+  objc_msgSend_bounds(v12);
   v17 = v16;
   v19 = v18;
   v21 = v20;
@@ -680,7 +680,7 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
 
     [view3 frame];
     [(UIView *)v32 setFrame:(v21 - v42) * 0.5, v30 + v38, v42, v40];
-    [(UIView *)v32 bounds];
+    objc_msgSend_bounds(v32);
     [view3 setFrame:?];
 
     v17 = v97;
@@ -785,7 +785,7 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
   v79 = v78;
   v81 = v80;
   headerBlurView = [(SBHIconLibraryTableViewController *)self->_searchResultsController headerBlurView];
-  [headerBlurView bounds];
+  objc_msgSend_bounds(headerBlurView);
   [headerBlurView convertRect:v12 toView:?];
   v84 = v83;
   v86 = v85;
@@ -948,7 +948,7 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
     v10 = v9 + v11 / 3.0;
   }
 
-  [(UIView *)self->_containerView bounds];
+  objc_msgSend_bounds(self->_containerView);
   searchBar = self->_searchBar;
   if (configurationCopy)
   {
@@ -1198,15 +1198,15 @@ uint64_t __72__SBHLibrarySearchController__layoutSearchViewsWithMode_withComplet
   }
 }
 
-uint64_t __89__SBHLibrarySearchController_scrollViewWillEndDragging_withVelocity_targetContentOffset___block_invoke_2(uint64_t result)
+id *__89__SBHLibrarySearchController_scrollViewWillEndDragging_withVelocity_targetContentOffset___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) searchState];
+    result = [result[4] searchState];
     if (!result)
     {
-      v2 = *(v1 + 32);
+      v2 = v1[4];
 
       return [v2 _didDismissSearch];
     }
@@ -1343,7 +1343,7 @@ uint64_t __89__SBHLibrarySearchController_scrollViewWillEndDragging_withVelocity
 - (double)_bottomLayoutInsetForSearchResultsView
 {
   view = [(SBHLibrarySearchController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   _activeSearchConfiguration = [(SBHLibrarySearchController *)self _activeSearchConfiguration];
@@ -1374,7 +1374,7 @@ uint64_t __89__SBHLibrarySearchController_scrollViewWillEndDragging_withVelocity
   searchResultsController = self->_searchResultsController;
   touchCopy = touch;
   view = [(SBHIconLibraryTableViewController *)searchResultsController view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -1458,7 +1458,7 @@ uint64_t __89__SBHLibrarySearchController_scrollViewWillEndDragging_withVelocity
   }
 }
 
-uint64_t __51__SBHLibrarySearchController__dismissPresentation___block_invoke(uint64_t a1)
+void *__51__SBHLibrarySearchController__dismissPresentation___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchState];
   if (!result)
@@ -1493,7 +1493,7 @@ uint64_t __51__SBHLibrarySearchController__dismissPresentation___block_invoke(ui
   else
   {
     searchResultsContainerView = self->_searchResultsContainerView;
-    [(UIView *)self->_containerView bounds];
+    objc_msgSend_bounds(self->_containerView);
     [(UIView *)searchResultsContainerView setFrame:?];
     [(SBHLibrarySearchController *)self bs_beginAppearanceTransitionForChildViewController:self->_searchResultsController toVisible:1 animated:animatedCopy];
     [(UIView *)self->_containerView addSubview:self->_searchResultsContainerView];

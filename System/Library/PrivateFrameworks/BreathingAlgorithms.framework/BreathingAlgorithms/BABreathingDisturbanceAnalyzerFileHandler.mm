@@ -17,7 +17,7 @@
 
 + (void)writeSamplesToJsonFile:(id)file withDateInterval:(id)interval withOutputFilePath:(id)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14[32] = *MEMORY[0x277D85DE8];
   file;
   intervalCopy = interval;
   path;
@@ -30,8 +30,8 @@
   [intervalCopy startDate];
   v8 = [v7 stringFromDate:objc_claimAutoreleasedReturnValue()];
   v9 = v8;
-  uTF8String = [v8 UTF8String];
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(v11);
+  v14[0] = [v8 UTF8String];
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<char const*,char const*,0>(v11, v14);
 }
 
 + (void)writeAnalysisToJsonFile:(BABreathingDisturbanceAnalysis *)file withOutputFilePath:(id)path
@@ -105,7 +105,7 @@
   v96[0] = v23;
   v24 = *(v22 + 8);
   *(v22 + 8) = v97;
-  v97 = v24;
+  v97 = *&v24;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v96);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v97, v96[0]);
@@ -124,7 +124,7 @@
   v94[0] = v29;
   v30 = *(v28 + 8);
   *(v28 + 8) = v95;
-  v95 = v30;
+  v95 = *&v30;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v28);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v94);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v95, v94[0]);
@@ -143,7 +143,7 @@
   v92[0] = v35;
   v36 = *(v34 + 8);
   *(v34 + 8) = v93;
-  v93 = v36;
+  v93 = *&v36;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v34);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v92);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v93, v92[0]);
@@ -162,7 +162,7 @@
   v90[0] = v41;
   v42 = *(v40 + 8);
   *(v40 + 8) = v91;
-  v91 = v42;
+  v91 = *&v42;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v40);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v90);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v91, v90[0]);
@@ -199,7 +199,7 @@
   v86[0] = v52;
   v53 = *(v51 + 8);
   *(v51 + 8) = v87;
-  v87 = v53;
+  v87 = *&v53;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v51);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v86);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v87, v86[0]);
@@ -218,7 +218,7 @@
   v84[0] = v58;
   v59 = *(v57 + 8);
   *(v57 + 8) = v85;
-  v85 = v59;
+  v85 = *&v59;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v57);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v84);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v85, v84[0]);
@@ -237,7 +237,7 @@
   v82[0] = v64;
   v65 = *(v63 + 8);
   *(v63 + 8) = v83;
-  v83 = v65;
+  v83 = *&v65;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v63);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v82);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v83, v82[0]);
@@ -256,7 +256,7 @@
   v80[0] = v70;
   v71 = *(v69 + 8);
   *(v69 + 8) = v81;
-  v81 = v71;
+  v81 = *&v71;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v69);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v80);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v81, v80[0]);
@@ -275,7 +275,7 @@
   v78[0] = v76;
   v77 = *(v75 + 8);
   *(v75 + 8) = v79;
-  v79 = v77;
+  v79 = *&v77;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v75);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v78);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v79, v78[0]);

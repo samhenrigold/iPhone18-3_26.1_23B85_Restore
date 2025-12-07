@@ -1,4 +1,5 @@
 @interface TBTileFetchRequest
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (TBTileFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)handlePreferLocalResponse:(id)response;
@@ -6,6 +7,15 @@
 @end
 
 @implementation TBTileFetchRequest
+
++ (id)fetchRequestWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable
+{
+  cacheableCopy = cacheable;
+  descriptorCopy = descriptor;
+  v9 = [[self alloc] initWithDescriptor:descriptorCopy sourcePolicy:policy cacheable:cacheableCopy];
+
+  return v9;
+}
 
 - (TBTileFetchRequest)initWithDescriptor:(id)descriptor sourcePolicy:(unint64_t)policy cacheable:(BOOL)cacheable
 {
@@ -31,30 +41,34 @@
 - (void)handlePreferLocalResponse:(id)response
 {
   responseCopy = response;
-  if ([responseCopy count])
+  v4 = [responseCopy count];
+  v5 = responseCopy;
+  if (v4)
   {
-    v4 = [responseCopy objectAtIndexedSubscript:0];
+    v6 = [responseCopy objectAtIndexedSubscript:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      created = [v4 created];
+      created = [v6 created];
       [created timeIntervalSinceNow];
-      v7 = v6;
+      v9 = v8;
 
       if (self->userInfo)
       {
         userInfo = [(TBTileFetchRequest *)self userInfo];
-        v9 = [userInfo mutableCopy];
+        v11 = [userInfo mutableCopy];
 
-        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:-v7];
-        [v9 setObject:v10 forKey:@"staleness"];
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:-v9];
+        [v11 setObject:v12 forKey:@"staleness"];
 
-        [(TBTileFetchRequest *)self setUserInfo:v9];
+        [(TBTileFetchRequest *)self setUserInfo:v11];
       }
     }
+
+    v5 = responseCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

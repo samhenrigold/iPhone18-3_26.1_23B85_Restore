@@ -267,7 +267,7 @@ LABEL_21:
 - (void)hideAfterMinimumUptimeWithDismissalHandler:(id)handler
 {
   handlerCopy = handler;
-  v4 = _UIInternalPreferenceUsesDefault_1(&_UIInternalPreference_ModelProgressControllerMinimumUptime, @"ModelProgressControllerMinimumUptime") == 0;
+  v4 = !_UIInternalPreferenceUsesDefault_1(&_UIInternalPreference_ModelProgressControllerMinimumUptime, @"ModelProgressControllerMinimumUptime");
   v5 = handlerCopy;
   if (v4)
   {
@@ -349,9 +349,9 @@ LABEL_21:
     actions = [(UIAlertController *)self->_alertController actions];
     firstObject = [actions firstObject];
     title = [firstObject title];
-    v20 = [title isEqualToString:buttonTitleCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(title);
 
-    v21 = [(NSProgress *)self->_progress isEqual:progressCopy];
+    isEqual = objc_msgSend_isEqual_(self->_progress);
     [(_UIApplicationModalProgressController *)self _setProgress:progressCopy];
     if (self->_dismissalHandler != handlerCopy)
     {
@@ -361,7 +361,7 @@ LABEL_21:
 
     [(UIAlertController *)self->_alertController setTitle:titleCopy];
     [(UIAlertController *)self->_alertController setMessage:messageCopy];
-    if ((v20 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v49[0] = MEMORY[0x1E69E9820];
       v49[1] = 3221225472;
@@ -375,7 +375,7 @@ LABEL_21:
       [(UIAlertController *)alertController _setActions:v24];
     }
 
-    if ((v21 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       v46 = buttonTitleCopy;
       [(UIAlertController *)self->_alertController setContentViewController:0];

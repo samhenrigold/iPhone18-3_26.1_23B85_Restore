@@ -11,7 +11,7 @@
 {
   storage = [self storage];
   documentURL = [storage documentURL];
-  FPPrecheckTCCReadAccess(documentURL);
+  FPPrecheckTCCReadAccess();
 
   [self markSavedConflictAsResolved:1 error:a3];
   v13 = 0;

@@ -163,7 +163,7 @@ LABEL_26:
   v29 = +[STLog blueprint];
   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    sub_10011A59C(error);
+    sub_10011A59C();
   }
 
 LABEL_29:
@@ -221,7 +221,7 @@ LABEL_29:
     v14 = +[STLog blueprint];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10011A604(error);
+      sub_10011A604();
     }
   }
 
@@ -244,7 +244,7 @@ LABEL_29:
     v15 = +[STLog blueprint];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_10011A604(error);
+      sub_10011A604();
     }
 
     goto LABEL_15;
@@ -363,7 +363,7 @@ LABEL_15:
     v19 = +[STLog blueprint];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      sub_10011A66C(error);
+      sub_10011A66C();
     }
   }
 

@@ -52,11 +52,11 @@
 
 - (id)initForErrorStateWithGreenfieldB640Model:(id)model
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   modelCopy = model;
-  v29.receiver = self;
-  v29.super_class = NTKGreenfieldB640ContentViewController;
-  v6 = [(NTKGreenfieldB640ContentViewController *)&v29 initWithTitle:&stru_284110E98 detailText:0 icon:0 contentLayout:3];
+  v27.receiver = self;
+  v27.super_class = NTKGreenfieldB640ContentViewController;
+  v6 = [(NTKGreenfieldB640ContentViewController *)&v27 initWithTitle:&stru_284110E98 detailText:0 icon:0 contentLayout:3];
   v7 = v6;
   if (v6)
   {
@@ -65,27 +65,27 @@
     workQueue = v7->_workQueue;
     v7->_workQueue = v8;
 
-    v27 = 0u;
-    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     watchFaceModels = [(NTKGreenfieldB640Model *)v7->_greenfieldB640Model watchFaceModels];
-    v11 = [watchFaceModels countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v11 = [watchFaceModels countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v26;
+      v13 = *v24;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v26 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(watchFaceModels);
           }
 
-          decodedRecipe = [*(*(&v25 + 1) + 8 * v14) decodedRecipe];
+          decodedRecipe = [*(*(&v23 + 1) + 8 * v14) decodedRecipe];
           watchFace = [decodedRecipe watchFace];
 
           if (!watchFace)
@@ -98,7 +98,7 @@
         }
 
         while (v12 != v14);
-        v12 = [watchFaceModels countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v12 = [watchFaceModels countByEnumeratingWithState:&v23 objects:v28 count:16];
         if (v12)
         {
           continue;
@@ -122,7 +122,7 @@ LABEL_12:
     else
     {
       v7->_state = 1;
-      if (NTKInternalBuild(v20, v21, v22, v23))
+      if (NTKInternalBuild(v20, v21))
       {
         [(BPSWelcomeOptinViewController *)v7 setStyle:2];
       }

@@ -416,7 +416,7 @@ LABEL_52:
 
 - (PPContactNameRecord)initWithCoder:(id)coder
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -426,32 +426,32 @@ LABEL_52:
   {
     [coderCopy decodeDoubleForKey:@"scr"];
     v10 = v9;
-    v32 = [coderCopy decodeInt32ForKey:@"src"];
-    v33 = [coderCopy decodeObjectOfClass:v5 forKey:@"sid"];
-    v30 = [coderCopy decodeInt32ForKey:@"cht"];
-    v31 = [coderCopy decodeObjectOfClass:v5 forKey:@"fnm"];
-    v29 = [coderCopy decodeObjectOfClass:v5 forKey:@"pfn"];
-    v28 = [coderCopy decodeObjectOfClass:v5 forKey:@"mnm"];
-    v27 = [coderCopy decodeObjectOfClass:v5 forKey:@"pmn"];
-    v36 = [coderCopy decodeObjectOfClass:v5 forKey:@"lnm"];
-    v26 = [coderCopy decodeObjectOfClass:v5 forKey:@"pln"];
-    v35 = [coderCopy decodeObjectOfClass:v5 forKey:@"org"];
-    v34 = [coderCopy decodeObjectOfClass:v5 forKey:@"job"];
-    v22 = [coderCopy decodeObjectOfClass:v5 forKey:@"nic"];
+    v31 = [coderCopy decodeInt32ForKey:@"src"];
+    v32 = [coderCopy decodeObjectOfClass:v5 forKey:@"sid"];
+    v29 = [coderCopy decodeInt32ForKey:@"cht"];
+    v30 = [coderCopy decodeObjectOfClass:v5 forKey:@"fnm"];
+    v28 = [coderCopy decodeObjectOfClass:v5 forKey:@"pfn"];
+    v27 = [coderCopy decodeObjectOfClass:v5 forKey:@"mnm"];
+    v26 = [coderCopy decodeObjectOfClass:v5 forKey:@"pmn"];
+    v35 = [coderCopy decodeObjectOfClass:v5 forKey:@"lnm"];
+    v25 = [coderCopy decodeObjectOfClass:v5 forKey:@"pln"];
+    v34 = [coderCopy decodeObjectOfClass:v5 forKey:@"org"];
+    v33 = [coderCopy decodeObjectOfClass:v5 forKey:@"job"];
+    v21 = [coderCopy decodeObjectOfClass:v5 forKey:@"nic"];
     v11 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v25 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v7, v5, 0}];
+    v24 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v7, v5, 0}];
     objc_autoreleasePoolPop(v11);
-    v21 = [coderCopy decodeObjectOfClasses:v25 forKey:@"rel"];
+    v20 = [coderCopy decodeObjectOfClasses:v24 forKey:@"rel"];
     v12 = objc_autoreleasePoolPush();
-    v23 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v6, v5, 0}];
+    v22 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v6, v5, 0}];
     objc_autoreleasePoolPop(v12);
-    v20 = [coderCopy decodeObjectOfClasses:v23 forKey:@"str"];
+    v19 = [coderCopy decodeObjectOfClasses:v22 forKey:@"str"];
     v13 = objc_autoreleasePoolPush();
     v14 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{v6, v5, 0}];
     objc_autoreleasePoolPop(v13);
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"cty"];
-    v16 = [(PPContactNameRecord *)selfCopy initWithIdentifier:v8 score:v32 source:v33 sourceIdentifier:v30 changeType:v31 firstName:v29 phoneticFirstName:v10 middleName:v28 phoneticMiddleName:v27 lastName:v36 phoneticLastName:v26 organizationName:v35 jobTitle:v34 nickname:v22 relatedNames:v21 streetNames:v20 cityNames:v15];
+    v16 = [(PPContactNameRecord *)selfCopy initWithIdentifier:v8 score:v31 source:v32 sourceIdentifier:v29 changeType:v30 firstName:v28 phoneticFirstName:v10 middleName:v27 phoneticMiddleName:v26 lastName:v35 phoneticLastName:v25 organizationName:v34 jobTitle:v33 nickname:v21 relatedNames:v20 streetNames:v19 cityNames:v15];
 
     self = v16;
   }
@@ -462,20 +462,19 @@ LABEL_52:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v38 = coderCopy;
+      v37 = coderCopy;
       _os_log_error_impl(&dword_1A7FD3000, v17, OS_LOG_TYPE_ERROR, "failed to decode identifier from %@", buf, 0xCu);
     }
 
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (unint64_t)hash
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   identifier = [(PPContactNameRecord *)self identifier];
   v4 = [identifier hash];
 
@@ -512,30 +511,30 @@ LABEL_52:
   nickname = [(PPContactNameRecord *)self nickname];
   v27 = [nickname hash] - v25 + 32 * v25;
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   relatedNames = [(PPContactNameRecord *)self relatedNames];
   allKeys = [relatedNames allKeys];
   v30 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v31 = [v30 countByEnumeratingWithState:&v64 objects:v70 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v63 objects:v69 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v65;
+    v33 = *v64;
     do
     {
       v34 = 0;
       do
       {
-        if (*v65 != v33)
+        if (*v64 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v64 + 1) + 8 * v34);
+        v35 = *(*(&v63 + 1) + 8 * v34);
         v36 = objc_autoreleasePoolPush();
         v37 = [v35 hash] - v27 + 32 * v27;
         relatedNames2 = [(PPContactNameRecord *)self relatedNames];
@@ -547,33 +546,33 @@ LABEL_52:
       }
 
       while (v32 != v34);
-      v32 = [v30 countByEnumeratingWithState:&v64 objects:v70 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v63 objects:v69 count:16];
     }
 
     while (v32);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   streetNames = [(PPContactNameRecord *)self streetNames];
-  v41 = [streetNames countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v41 = [streetNames countByEnumeratingWithState:&v59 objects:v68 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v61;
+    v43 = *v60;
     do
     {
       v44 = 0;
       do
       {
-        if (*v61 != v43)
+        if (*v60 != v43)
         {
           objc_enumerationMutation(streetNames);
         }
 
-        v45 = *(*(&v60 + 1) + 8 * v44);
+        v45 = *(*(&v59 + 1) + 8 * v44);
         v46 = objc_autoreleasePoolPush();
         v27 = [v45 hash] - v27 + 32 * v27;
         objc_autoreleasePoolPop(v46);
@@ -581,33 +580,33 @@ LABEL_52:
       }
 
       while (v42 != v44);
-      v42 = [streetNames countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v42 = [streetNames countByEnumeratingWithState:&v59 objects:v68 count:16];
     }
 
     while (v42);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   cityNames = [(PPContactNameRecord *)self cityNames];
-  v48 = [cityNames countByEnumeratingWithState:&v56 objects:v68 count:16];
+  v48 = [cityNames countByEnumeratingWithState:&v55 objects:v67 count:16];
   if (v48)
   {
     v49 = v48;
-    v50 = *v57;
+    v50 = *v56;
     do
     {
       v51 = 0;
       do
       {
-        if (*v57 != v50)
+        if (*v56 != v50)
         {
           objc_enumerationMutation(cityNames);
         }
 
-        v52 = *(*(&v56 + 1) + 8 * v51);
+        v52 = *(*(&v55 + 1) + 8 * v51);
         v53 = objc_autoreleasePoolPush();
         v27 = [v52 hash] - v27 + 32 * v27;
         objc_autoreleasePoolPop(v53);
@@ -615,13 +614,12 @@ LABEL_52:
       }
 
       while (v49 != v51);
-      v49 = [cityNames countByEnumeratingWithState:&v56 objects:v68 count:16];
+      v49 = [cityNames countByEnumeratingWithState:&v55 objects:v67 count:16];
     }
 
     while (v49);
   }
 
-  v54 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

@@ -210,7 +210,7 @@
   v3 = objc_opt_class();
   if (v3)
   {
-    [v3 _defaultButtonMetrics];
+    objc_msgSend__defaultButtonMetrics(v3);
   }
 
   else

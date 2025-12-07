@@ -73,7 +73,7 @@ LABEL_15:
 
 - (id)conditions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   outCount = 0;
   if (([(COConditionBundle *)self isLoaded]& 1) != 0)
   {
@@ -93,9 +93,9 @@ LABEL_15:
 
         v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6[v7]];
 
-        v20 = 0;
-        v12 = [(COConditionBundle *)self classNamed:v9 error:&v20];
-        v8 = v20;
+        v19 = 0;
+        v12 = [(COConditionBundle *)self classNamed:v9 error:&v19];
+        v8 = v19;
         v13 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
         if (v8)
         {
@@ -103,11 +103,11 @@ LABEL_15:
           {
             bundlePath = [(COConditionBundle *)self bundlePath];
             *buf = 138412802;
-            v23 = bundlePath;
-            v24 = 2112;
-            v25 = v9;
-            v26 = 2112;
-            v27 = v8;
+            v22 = bundlePath;
+            v23 = 2112;
+            v24 = v9;
+            v25 = 2112;
+            v26 = v8;
             _os_log_debug_impl(&dword_243E0F000, v10, OS_LOG_TYPE_DEBUG, "Bundle: %@ skipping Class: %@ - %@", buf, 0x20u);
           }
         }
@@ -117,14 +117,14 @@ LABEL_15:
           if (v13)
           {
             [(COConditionBundle *)self bundlePath];
-            v15 = v19 = executablePath;
+            v15 = v18 = executablePath;
             *buf = 138412546;
-            v23 = v15;
-            v24 = 2112;
-            v25 = v9;
+            v22 = v15;
+            v23 = 2112;
+            v24 = v9;
             _os_log_debug_impl(&dword_243E0F000, v10, OS_LOG_TYPE_DEBUG, "Bundle: %@ found COCondition Class: %@", buf, 0x16u);
 
-            executablePath = v19;
+            executablePath = v18;
           }
 
           [array addObject:v12];
@@ -155,20 +155,19 @@ LABEL_17:
 
   v16 = 0;
 LABEL_18:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (Class)classNamed:(id)named error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   if (namedCopy)
   {
-    v24.receiver = self;
-    v24.super_class = COConditionBundle;
-    principalClass = [(COConditionBundle *)&v24 classNamed:namedCopy];
+    v23.receiver = self;
+    v23.super_class = COConditionBundle;
+    principalClass = [(COConditionBundle *)&v23 classNamed:namedCopy];
   }
 
   else
@@ -192,7 +191,7 @@ LABEL_18:
       }
 
       *buf = 138412290;
-      v26 = v14;
+      v25 = v14;
       _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Class: %@ not found", buf, 0xCu);
     }
 
@@ -268,13 +267,12 @@ LABEL_12:
 LABEL_24:
   v21 = v8;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)isRunnable:(id *)runnable
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = [(COConditionBundle *)self objectForInfoDictionaryKey:@"RequiresRootPrivileges"];
   v6 = isNSNumber(v5);
 
@@ -326,34 +324,34 @@ LABEL_24:
   if (v9)
   {
 LABEL_13:
-    v34 = v5;
+    v33 = v5;
     runnableCopy = runnable;
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v9 = v9;
-    v12 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v12 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       v15 = MEMORY[0x277D86220];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v17 = *(*(&v37 + 1) + 8 * i);
+          v17 = *(*(&v36 + 1) + 8 * i);
           v18 = [v9 valueForKey:v17];
-          v36 = 0;
-          v19 = hasEntitlementValue(v17, v18, &v36);
-          v20 = v36;
+          v35 = 0;
+          v19 = hasEntitlementValue(v17, v18, &v35);
+          v20 = v35;
 
           if ((v19 & 1) == 0)
           {
@@ -362,18 +360,18 @@ LABEL_13:
 
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              [(COConditionBundle *)buf isRunnable:v20, &v42];
+              [(COConditionBundle *)buf isRunnable:v20, &buf[4]];
             }
           }
         }
 
-        v13 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v13 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v13);
     }
 
-    v5 = v34;
+    v5 = v33;
     runnable = runnableCopy;
     goto LABEL_24;
   }
@@ -409,73 +407,55 @@ LABEL_34:
 
 LABEL_35:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (void)loadAndReturnError:(void *)a1 .cold.1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundlePath];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_debug_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Loading Bundle %@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_debug_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Loading Bundle %@", &v2, 0xCu);
 }
 
 - (void)loadAndReturnError:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundlePath];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadAndReturnError:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundlePath];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRunnable:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundlePath];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRunnable:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 bundlePath];
+  v6 = [a1 bundlePath];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRunnable:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundlePath];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRunnable:(void *)a3 .cold.4(uint8_t *buf, uint64_t a2, void *a3)
@@ -483,14 +463,6 @@ LABEL_35:
   *buf = 138412290;
   *a3 = a2;
   _os_log_error_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
-}
-
-- (void)isRunnable:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

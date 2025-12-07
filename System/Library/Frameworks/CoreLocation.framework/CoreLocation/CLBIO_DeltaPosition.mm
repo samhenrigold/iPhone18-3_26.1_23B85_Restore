@@ -25,64 +25,66 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [equal isMemberOfClass:objc_opt_class()];
-  if (v5)
+  v5 = objc_opt_class();
+  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+  if (isMemberOfClass)
   {
     X = self->_X;
-    [equal X];
-    if (X == v7 && (Y = self->_Y, [equal Y], Y == v9))
+    objc_msgSend_X(equal, v9, v10, v11);
+    if (X == v16 && (Y = self->_Y, objc_msgSend_Y(equal, v13, v14, v15), Y == v21))
     {
       Z = self->_Z;
-      [equal Z];
-      LOBYTE(v5) = Z == v11;
+      objc_msgSend_Z(equal, v18, v19, v20);
+      LOBYTE(isMemberOfClass) = Z == v23;
     }
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isMemberOfClass) = 0;
     }
   }
 
-  return v5;
+  return isMemberOfClass;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  [(CLBIO_DeltaPosition *)self X];
-  [(CLBIO_DeltaPosition *)self Y];
-  [(CLBIO_DeltaPosition *)self Z];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  objc_msgSend_X(self, v9, v10, v11);
+  objc_msgSend_Y(self, v12, v13, v14);
+  objc_msgSend_Z(self, v15, v16, v17);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithX_Y_Z_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithX_Y_Z_, v18, v19);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [(CLBIO_DeltaPosition *)self X];
-  [coder encodeDouble:@"deltaPositionX" forKey:?];
-  [(CLBIO_DeltaPosition *)self Y];
-  [coder encodeDouble:@"deltaPositionY" forKey:?];
-  [(CLBIO_DeltaPosition *)self Z];
+  objc_msgSend_X(self, a2, coder, v3);
+  objc_msgSend_encodeDouble_forKey_(coder, v6, @"deltaPositionX", v7);
+  objc_msgSend_Y(self, v8, v9, v10);
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"deltaPositionY", v12);
+  objc_msgSend_Z(self, v13, v14, v15);
 
-  [coder encodeDouble:@"deltaPositionZ" forKey:?];
+  objc_msgSend_encodeDouble_forKey_(coder, v16, @"deltaPositionZ", v17);
 }
 
 - (CLBIO_DeltaPosition)initWithCoder:(id)coder
 {
-  v9.receiver = self;
-  v9.super_class = CLBIO_DeltaPosition;
-  v4 = [(CLBIO_DeltaPosition *)&v9 init];
-  if (v4)
+  v15.receiver = self;
+  v15.super_class = CLBIO_DeltaPosition;
+  v6 = [(CLBIO_DeltaPosition *)&v15 init];
+  if (v6)
   {
-    [coder decodeDoubleForKey:@"deltaPositionX"];
-    v4->_X = v5;
-    [coder decodeDoubleForKey:@"deltaPositionY"];
-    v4->_Y = v6;
-    [coder decodeDoubleForKey:@"deltaPositionZ"];
-    v4->_Z = v7;
+    objc_msgSend_decodeDoubleForKey_(coder, v4, @"deltaPositionX", v5);
+    v6->_X = v7;
+    objc_msgSend_decodeDoubleForKey_(coder, v8, @"deltaPositionY", v9);
+    v6->_Y = v10;
+    objc_msgSend_decodeDoubleForKey_(coder, v11, @"deltaPositionZ", v12);
+    v6->_Z = v13;
   }
 
-  return v4;
+  return v6;
 }
 
 @end

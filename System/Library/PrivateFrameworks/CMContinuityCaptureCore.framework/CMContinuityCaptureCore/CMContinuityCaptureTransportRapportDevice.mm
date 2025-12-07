@@ -69,30 +69,31 @@
 {
   v3 = self->_rpCompanionSidebandSessions;
   objc_sync_enter(v3);
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_rpCompanionSidebandSessions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v9 count:16];
+  v5 = [NSMutableArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) invalidate];
+        [*(*(&v9 + 1) + 8 * v7) invalidate];
+        v7 = (v7 + 1);
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v9 count:16];
+      v5 = [NSMutableArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v5);
@@ -137,53 +138,53 @@
   dispatch_async_and_wait(queue, block);
 }
 
-uint64_t __73__CMContinuityCaptureTransportRapportDevice_teardownActiveRapportStreams__block_invoke(uint64_t a1)
+void *__73__CMContinuityCaptureTransportRapportDevice_teardownActiveRapportStreams__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = [*(*(a1 + 32) + 56) allValues];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = [*(*(&v11 + 1) + 8 * v6) stream];
+        v7 = [*(*(&v10 + 1) + 8 * v6) stream];
         [v7 invalidate];
 
-        ++v6;
+        v6 = (v6 + 1);
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+      v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v4);
   }
 
   objc_sync_exit(v2);
-  [*(a1 + 32) willChangeValueForKey:@"activeStreams"];
+  [*(a1 + 32) willChangeValueForKey:?];
   v8 = *(a1 + 32);
   objc_sync_enter(v8);
   [*(*(a1 + 32) + 56) removeAllObjects];
   objc_sync_exit(v8);
 
-  [*(a1 + 32) didChangeValueForKey:@"activeStreams"];
-  [*(a1 + 32) willChangeValueForKey:@"active"];
+  [*(a1 + 32) didChangeValueForKey:?];
+  [*(a1 + 32) willChangeValueForKey:?];
   *(*(a1 + 32) + 88) = 0;
-  return [*(a1 + 32) didChangeValueForKey:@"active"];
+  return [*(a1 + 32) didChangeValueForKey:?];
 }
 
 - (void)addStream:(id)stream
@@ -215,22 +216,22 @@ uint64_t __73__CMContinuityCaptureTransportRapportDevice_teardownActiveRapportSt
 
 void __55__CMContinuityCaptureTransportRapportDevice_addStream___block_invoke(uint64_t a1)
 {
-  v6 = [[CMContinuityCaptureTransportDeviceRapportStream alloc] initWithRapportStream:*(a1 + 32)];
-  [*(a1 + 40) willChangeValueForKey:@"activeStreams"];
+  v6 = [[CMContinuityCaptureTransportDeviceRapportStream alloc] initWithRapportStream:?];
+  [*(a1 + 40) willChangeValueForKey:?];
   v2 = *(a1 + 40);
   objc_sync_enter(v2);
   v3 = [*(*(a1 + 40) + 56) count];
   v4 = *(*(a1 + 40) + 56);
   v5 = [*(a1 + 32) streamID];
-  [v4 setObject:v6 forKeyedSubscript:v5];
+  [v4 setObject:? forKeyedSubscript:?];
 
   objc_sync_exit(v2);
-  [*(a1 + 40) didChangeValueForKey:@"activeStreams"];
+  [*(a1 + 40) didChangeValueForKey:?];
   if (!v3)
   {
-    [*(a1 + 40) willChangeValueForKey:@"active"];
+    [*(a1 + 40) willChangeValueForKey:?];
     *(*(a1 + 40) + 88) = 1;
-    [*(a1 + 40) didChangeValueForKey:@"active"];
+    [*(a1 + 40) didChangeValueForKey:?];
   }
 }
 
@@ -270,7 +271,7 @@ void __58__CMContinuityCaptureTransportRapportDevice_removeStream___block_invoke
   objc_sync_exit(v2);
 
   v4 = [*(a1 + 40) streamID];
-  v5 = [v3 objectForKey:v4];
+  v5 = [v3 objectForKey:?];
 
   if (v5)
   {
@@ -279,15 +280,15 @@ void __58__CMContinuityCaptureTransportRapportDevice_removeStream___block_invoke
     v7 = [*(*(a1 + 32) + 56) count];
     objc_sync_exit(v6);
 
-    [*(a1 + 32) willChangeValueForKey:@"activeStreams"];
+    [*(a1 + 32) willChangeValueForKey:?];
     v8 = *(a1 + 32);
     objc_sync_enter(v8);
     v9 = *(*(a1 + 32) + 56);
     v10 = [*(a1 + 40) streamID];
-    [v9 removeObjectForKey:v10];
+    [v9 removeObjectForKey:?];
 
     objc_sync_exit(v8);
-    [*(a1 + 32) didChangeValueForKey:@"activeStreams"];
+    [*(a1 + 32) didChangeValueForKey:?];
     v11 = *(a1 + 32);
     objc_sync_enter(v11);
     v14 = *(*(a1 + 32) + 56);
@@ -298,10 +299,10 @@ void __58__CMContinuityCaptureTransportRapportDevice_removeStream___block_invoke
       goto LABEL_6;
     }
 
-    [*(a1 + 32) willChangeValueForKey:@"active"];
+    [*(a1 + 32) willChangeValueForKey:?];
 LABEL_5:
     *(*(a1 + 32) + 88) = 0;
-    [*(a1 + 32) didChangeValueForKey:@"active"];
+    [*(a1 + 32) didChangeValueForKey:?];
 LABEL_6:
     v12 = v14;
     goto LABEL_11;
@@ -312,7 +313,7 @@ LABEL_6:
     v13 = *(a1 + 32);
     if (v13[88] == 1)
     {
-      [v13 willChangeValueForKey:@"active"];
+      [v13 willChangeValueForKey:?];
       v14 = v3;
       goto LABEL_5;
     }
@@ -369,7 +370,7 @@ LABEL_11:
   objc_sync_enter(selfCopy);
   v3 = objc_alloc(MEMORY[0x277CBEA60]);
   allValues = [(NSMutableDictionary *)selfCopy->_activeStreams allValues];
-  v5 = [v3 initWithArray:allValues];
+  v5 = [v3 initWithArray:?];
 
   objc_sync_exit(selfCopy);
 
@@ -440,7 +441,7 @@ LABEL_11:
 {
   device = [(CMContinuityCaptureTransportRapportDevice *)self device];
   model = [device model];
-  v4 = CMContinuityCaptureDeviceModelFromModelString();
+  v4 = CMContinuityCaptureDeviceModelFromModelString(model);
 
   return v4;
 }
@@ -605,14 +606,14 @@ LABEL_11:
     _os_log_impl(&dword_242545000, v4, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
-  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:@"deviceStatus"];
-  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:@"deviceStatus"];
-  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:@"usable"];
-  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:@"usable"];
-  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:@"wired"];
-  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:@"wired"];
-  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:@"nearby"];
-  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:@"nearby"];
+  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self willChangeValueForKey:?];
+  [(CMContinuityCaptureTransportRapportDevice *)self didChangeValueForKey:?];
 }
 
 - (void)relayUserDisconnectForTransport:(int64_t)transport reason:(id)reason shieldSessionID:(id)d
@@ -635,16 +636,9 @@ LABEL_11:
 
 void __100__CMContinuityCaptureTransportRapportDevice_relayUserDisconnectForTransport_reason_shieldSessionID___block_invoke(void *a1)
 {
-  v5[0] = @"ContinuityCaptureRapportClientMessageTypeKey";
-  v5[1] = @"ContinuityCaptureRapportClientUserDisconnectReasonKey";
-  v3 = a1[4];
-  v2 = a1[5];
-  v6[0] = &unk_2854ECAE8;
-  v6[1] = v2;
-  v5[2] = @"ContinuityCaptureRapportClientShieldSessionIDKey";
-  v6[2] = a1[6];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  [v3 _relaySidebandMessageType:v4 overTransport:a1[7]];
+  v1 = a1[4];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:@"ContinuityCaptureRapportClientMessageTypeKey" forKeys:@"ContinuityCaptureRapportClientUserDisconnectReasonKey" count:{@"ContinuityCaptureRapportClientShieldSessionIDKey", &unk_2854ECAE8, a1[5], a1[6]}];
+  [v1 _relaySidebandMessageType:? overTransport:?];
 }
 
 - (void)preLaunchShieldUIForTransport:(int64_t)transport data:(id)data
@@ -671,18 +665,17 @@ void __80__CMContinuityCaptureTransportRapportDevice_preLaunchShieldUIForTranspo
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5 = WeakRetained;
+    v4 = WeakRetained;
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v3 setObject:&unk_2854ECB00 forKeyedSubscript:@"ContinuityCaptureRapportClientMessageTypeKey"];
-    v4 = *(a1 + 32);
-    if (v4)
+    [v3 setObject:? forKeyedSubscript:?];
+    if (*(a1 + 32))
     {
-      [v3 setObject:v4 forKeyedSubscript:@"ContinuityCaptureRapportClientShieldLaunchDataKey"];
+      [v3 setObject:? forKeyedSubscript:?];
     }
 
-    [v5 _relaySidebandMessageType:v3 overTransport:*(a1 + 48)];
+    [v4 _relaySidebandMessageType:? overTransport:?];
 
-    WeakRetained = v5;
+    WeakRetained = v4;
   }
 }
 
@@ -706,10 +699,8 @@ void __79__CMContinuityCaptureTransportRapportDevice_relaySkipPlacementStepForTr
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = @"ContinuityCaptureRapportClientMessageTypeKey";
-    v5 = &unk_2854ECB18;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v5 forKeys:&v4 count:1];
-    [WeakRetained _relaySidebandMessageType:v3 overTransport:*(a1 + 40)];
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:@"ContinuityCaptureRapportClientMessageTypeKey" forKeys:&unk_2854ECB18 count:?];
+    [WeakRetained _relaySidebandMessageType:? overTransport:?];
   }
 }
 
@@ -743,42 +734,30 @@ void __62__CMContinuityCaptureTransportRapportDevice_updateSystemState__block_in
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    if ([*(a1 + 32) wired])
+    if ([*(a1 + 32) wired] & 1) != 0 || (objc_msgSend(*(a1 + 32), "wifiP2pActive"))
     {
-      v3 = 2;
+      v3 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543618;
+        v6 = WeakRetained;
+        v7 = 2080;
+        v8 = "[CMContinuityCaptureTransportRapportDevice updateSystemState]_block_invoke";
+        _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ %s: calling _relaySidebandMessageType of ContinuityCaptureRapportSidebandClientMessageTypeUpdateSystemState", buf, 0x16u);
+      }
+
+      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:@"ContinuityCaptureRapportClientMessageTypeKey" forKeys:&unk_2854ECB30 count:?];
+      [WeakRetained _relaySidebandMessageType:? overTransport:?];
     }
 
     else
     {
-      if (([*(a1 + 32) wifiP2pActive] & 1) == 0)
+      v4 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v5 = CMContinuityCaptureLog(2);
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-        {
-          __62__CMContinuityCaptureTransportRapportDevice_updateSystemState__block_invoke_cold_1((a1 + 40));
-        }
-
-        goto LABEL_11;
+        __62__CMContinuityCaptureTransportRapportDevice_updateSystemState__block_invoke_cold_1((a1 + 40));
       }
-
-      v3 = 1;
     }
-
-    v4 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543618;
-      v9 = WeakRetained;
-      v10 = 2080;
-      v11 = "[CMContinuityCaptureTransportRapportDevice updateSystemState]_block_invoke";
-      _os_log_impl(&dword_242545000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %s: calling _relaySidebandMessageType of ContinuityCaptureRapportSidebandClientMessageTypeUpdateSystemState", buf, 0x16u);
-    }
-
-    v6 = @"ContinuityCaptureRapportClientMessageTypeKey";
-    v7 = &unk_2854ECB30;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-    [WeakRetained _relaySidebandMessageType:v5 overTransport:v3];
-LABEL_11:
   }
 }
 
@@ -810,24 +789,24 @@ void __80__CMContinuityCaptureTransportRapportDevice_postEvent_entity_data_forTr
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v8[0] = @"ContinuityCaptureRapportClientMessageTypeKey";
-    v8[1] = @"ContinuityCaptureRapportClientEventNameKey";
+    v8 = @"ContinuityCaptureRapportClientMessageTypeKey";
+    v9 = @"ContinuityCaptureRapportClientEventNameKey";
     v3 = *(a1 + 32);
-    v9[0] = &unk_2854ECB48;
-    v9[1] = v3;
-    v4 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 56), @"ContinuityCaptureRapportClientMessageTypeKey", @"ContinuityCaptureRapportClientEventNameKey", @"ContinuityCaptureRapportClientEventEntityTypeKey"}];
+    v11 = &unk_2854ECB48;
+    v12 = v3;
+    v4 = [MEMORY[0x277CCABB0] numberWithInteger:{@"ContinuityCaptureRapportClientMessageTypeKey", @"ContinuityCaptureRapportClientEventNameKey", @"ContinuityCaptureRapportClientEventEntityTypeKey"}];
     v5 = v4;
-    v8[3] = @"ContinuityCaptureRapportClientEventDataKey";
+    v10 = @"ContinuityCaptureRapportClientEventDataKey";
     v6 = *(a1 + 40);
     if (!v6)
     {
       v6 = MEMORY[0x277CBEC10];
     }
 
-    v9[2] = v4;
-    v9[3] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
-    [WeakRetained _relaySidebandMessageType:v7 overTransport:*(a1 + 64)];
+    v13 = v4;
+    v14 = v6;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    [WeakRetained _relaySidebandMessageType:? overTransport:?];
   }
 }
 
@@ -839,11 +818,11 @@ void __80__CMContinuityCaptureTransportRapportDevice_postEvent_entity_data_forTr
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "+[CMContinuityCaptureTransportRapportDevice queryCameraCapabilitiesFromRemoteDevice:transport:]";
-    v22 = 2114;
-    v23 = deviceCopy;
-    v24 = 1024;
-    v25 = transportCopy;
+    v18 = "+[CMContinuityCaptureTransportRapportDevice queryCameraCapabilitiesFromRemoteDevice:transport:]";
+    v19 = 2114;
+    v20 = deviceCopy;
+    v21 = 1024;
+    v22 = transportCopy;
     _os_log_impl(&dword_242545000, v6, OS_LOG_TYPE_DEFAULT, "%s for device %{public}@ for transport %d", buf, 0x1Cu);
   }
 
@@ -851,27 +830,24 @@ void __80__CMContinuityCaptureTransportRapportDevice_postEvent_entity_data_forTr
   v8 = objc_alloc_init(MEMORY[0x277D44160]);
   v9 = objc_alloc_init(MEMORY[0x277D44170]);
   identifier = [deviceCopy identifier];
-  [v9 setIdentifier:identifier];
+  [v9 setIdentifier:?];
 
-  [v8 setDestinationDevice:v9];
-  [v8 setServiceType:@"com.apple.continuitycapture.sideband"];
+  [v8 setDestinationDevice:?];
+  [v8 setServiceType:?];
   v11 = dispatch_get_global_queue(0, 0);
-  [v8 setDispatchQueue:v11];
+  [v8 setDispatchQueue:?];
 
   objc_initWeak(buf, v8);
   v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFromRemoteDevice_transport___block_invoke;
-  v17 = &unk_278D5C660;
-  objc_copyWeak(&v19, buf);
+  objc_copyWeak(&v16, buf);
   v12 = v7;
-  v18 = v12;
-  [v8 activateWithCompletion:&v14];
+  v15 = v12;
+  [v8 activateWithCompletion:{v14, 3221225472, __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFromRemoteDevice_transport___block_invoke, &unk_278D5C660}];
   v13 = dispatch_time(0, 5000000000);
   dispatch_semaphore_wait(v12, v13);
   [v8 invalidate];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 
@@ -880,15 +856,15 @@ void __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFrom
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v6 = @"ContinuityCaptureRapportClientMessageTypeKey";
-    v7 = &unk_2854ECB60;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-    v4[0] = MEMORY[0x277D85DD0];
-    v4[1] = 3221225472;
-    v4[2] = __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFromRemoteDevice_transport___block_invoke_171;
-    v4[3] = &unk_278D5D990;
-    v5 = *(a1 + 32);
-    [WeakRetained sendEventID:@"ContinuityCaptureSidebandSessionEventID" event:v3 options:0 completion:v4];
+    v9 = @"ContinuityCaptureRapportClientMessageTypeKey";
+    v10 = &unk_2854ECB60;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v4 = MEMORY[0x277D85DD0];
+    v5 = 3221225472;
+    v6 = __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFromRemoteDevice_transport___block_invoke_171;
+    v7 = &unk_278D5D990;
+    v8 = *(a1 + 32);
+    [WeakRetained sendEventID:? event:? options:? completion:?];
   }
 }
 
@@ -910,6 +886,7 @@ void __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFrom
 
 - (void)_relaySidebandMessageType:(id)type overTransport:(int64_t)transport
 {
+  transportCopy = transport;
   typeCopy = type;
   objc_initWeak(location, self);
   v7 = CMContinuityCaptureLog(2);
@@ -917,10 +894,10 @@ void __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFrom
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v37 = 2112;
-    v38 = typeCopy;
-    v39 = 1024;
-    LODWORD(v40) = transport;
+    v32 = 2112;
+    v33 = typeCopy;
+    v34 = 1024;
+    LODWORD(v35) = transportCopy;
     _os_log_impl(&dword_242545000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ relay message %@ for transport %d", buf, 0x1Cu);
   }
 
@@ -931,87 +908,81 @@ void __95__CMContinuityCaptureTransportRapportDevice_queryCameraCapabilitiesFrom
   v10 = objc_alloc_init(MEMORY[0x277D44170]);
   device = [(CMContinuityCaptureTransportRapportDevice *)self device];
   identifier = [device identifier];
-  [v10 setIdentifier:identifier];
+  [v10 setIdentifier:?];
 
-  [v9 setDestinationDevice:v10];
-  [v9 setServiceType:@"com.apple.continuitycapture.sideband"];
-  [v9 setDispatchQueue:self->_sidebandQueue];
-  controlFlags = [v9 controlFlags];
-  v14 = 6;
-  if (transport == 2)
-  {
-    v14 = 0x40000;
-  }
-
-  [v9 setControlFlags:controlFlags | v14];
+  [v9 setDestinationDevice:?];
+  [v9 setServiceType:?];
+  [v9 setDispatchQueue:?];
+  [v9 controlFlags];
+  [v9 setControlFlags:?];
   rpCompanionSidebandSessions = self->_rpCompanionSidebandSessions;
   if (!rpCompanionSidebandSessions)
   {
-    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v17 = self->_rpCompanionSidebandSessions;
-    self->_rpCompanionSidebandSessions = v16;
+    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = self->_rpCompanionSidebandSessions;
+    self->_rpCompanionSidebandSessions = v14;
 
     rpCompanionSidebandSessions = self->_rpCompanionSidebandSessions;
   }
 
-  v18 = rpCompanionSidebandSessions;
-  objc_sync_enter(v18);
-  [(NSMutableArray *)self->_rpCompanionSidebandSessions addObject:v9];
-  objc_sync_exit(v18);
+  v16 = rpCompanionSidebandSessions;
+  objc_sync_enter(v16);
+  [(NSMutableArray *)self->_rpCompanionSidebandSessions addObject:?];
+  objc_sync_exit(v16);
 
-  v19 = CMContinuityCaptureLog(2);
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v17 = CMContinuityCaptureLog(2);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v37 = 2082;
-    v38 = "[CMContinuityCaptureTransportRapportDevice _relaySidebandMessageType:overTransport:]";
-    v39 = 2112;
-    v40 = v9;
-    _os_log_impl(&dword_242545000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s created sideband session %@", buf, 0x20u);
+    v32 = 2082;
+    v33 = "[CMContinuityCaptureTransportRapportDevice _relaySidebandMessageType:overTransport:]";
+    v34 = 2112;
+    v35 = v9;
+    _os_log_impl(&dword_242545000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s created sideband session %@", buf, 0x20u);
   }
 
   objc_initWeak(buf, v9);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke;
-  v32[3] = &unk_278D5D488;
-  objc_copyWeak(&v33, location);
-  objc_copyWeak(&v34, buf);
-  [v9 setInterruptionHandler:v32];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_174;
-  v29[3] = &unk_278D5D488;
-  objc_copyWeak(&v30, location);
-  objc_copyWeak(&v31, buf);
-  [v9 setInvalidationHandler:v29];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_175;
-  v26[3] = &unk_278D5D9E0;
-  v26[4] = self;
-  objc_copyWeak(&v28, buf);
-  v20 = typeCopy;
-  v27 = v20;
-  [v9 activateWithCompletion:v26];
-  v21 = dispatch_time(0, 5000000000);
+  v27[1] = MEMORY[0x277D85DD0];
+  v27[2] = 3221225472;
+  v27[3] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke;
+  v27[4] = &unk_278D5D488;
+  objc_copyWeak(&v28, location);
+  objc_copyWeak(&v29, buf);
+  [v9 setInterruptionHandler:?];
+  v25[1] = MEMORY[0x277D85DD0];
+  v25[2] = 3221225472;
+  v25[3] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_174;
+  v25[4] = &unk_278D5D488;
+  objc_copyWeak(&v26, location);
+  objc_copyWeak(v27, buf);
+  [v9 setInvalidationHandler:?];
+  v23[1] = MEMORY[0x277D85DD0];
+  v23[2] = 3221225472;
+  v23[3] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_175;
+  v23[4] = &unk_278D5D9E0;
+  v23[5] = self;
+  objc_copyWeak(v25, buf);
+  v18 = typeCopy;
+  v24 = v18;
+  [v9 activateWithCompletion:?];
+  v19 = dispatch_time(0, 5000000000);
   sidebandQueue = self->_sidebandQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_180;
   block[3] = &unk_278D5D488;
-  objc_copyWeak(&v24, location);
-  objc_copyWeak(&v25, buf);
-  dispatch_after(v21, sidebandQueue, block);
-  objc_destroyWeak(&v25);
-  objc_destroyWeak(&v24);
+  objc_copyWeak(&v22, location);
+  objc_copyWeak(v23, buf);
+  dispatch_after(v19, sidebandQueue, block);
+  objc_destroyWeak(v23);
+  objc_destroyWeak(&v22);
 
+  objc_destroyWeak(v25);
+  objc_destroyWeak(v27);
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&v28);
-  objc_destroyWeak(&v31);
-  objc_destroyWeak(&v30);
-  objc_destroyWeak(&v34);
-  objc_destroyWeak(&v33);
   objc_destroyWeak(buf);
 
   objc_destroyWeak(location);
@@ -1045,7 +1016,7 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
       dispatch_assert_queue_V2(*(v7 + 10));
       v9 = v8[14];
       objc_sync_enter(v9);
-      [v8[14] removeObject:v6];
+      [v8[14] removeObject:?];
       objc_sync_exit(v9);
     }
   }
@@ -1077,7 +1048,7 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
       dispatch_assert_queue_V2(*(v6 + 10));
       v8 = v7[14];
       objc_sync_enter(v8);
-      [v7[14] removeObject:v5];
+      [v7[14] removeObject:?];
       objc_sync_exit(v8);
     }
   }
@@ -1091,11 +1062,11 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
   {
     v5 = *(a1 + 32);
     *buf = 138543874;
-    v13 = v5;
-    v14 = 2082;
-    v15 = "[CMContinuityCaptureTransportRapportDevice _relaySidebandMessageType:overTransport:]_block_invoke";
-    v16 = 2112;
-    v17 = v3;
+    v17 = v5;
+    v18 = 2082;
+    v19 = "[CMContinuityCaptureTransportRapportDevice _relaySidebandMessageType:overTransport:]_block_invoke";
+    v20 = 2112;
+    v21 = v3;
     _os_log_impl(&dword_242545000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s error %@", buf, 0x20u);
   }
 
@@ -1104,16 +1075,16 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
   {
     v7 = GestaltCopyAnswer();
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v8 setObject:v7 forKeyedSubscript:*MEMORY[0x277D442D8]];
-    [v8 addEntriesFromDictionary:*(a1 + 40)];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_179;
-    v10[3] = &unk_278D5D9B8;
-    v10[4] = *(a1 + 32);
-    v11 = v8;
+    [v8 setObject:? forKeyedSubscript:?];
+    [v8 addEntriesFromDictionary:?];
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_179;
+    v13 = &unk_278D5D9B8;
+    v14 = *(a1 + 32);
+    v15 = v8;
     v9 = v8;
-    [WeakRetained sendEventID:@"ContinuityCaptureSidebandSessionEventID" event:v9 options:0 completion:v10];
+    [WeakRetained sendEventID:v10 event:3221225472 options:__85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_overTransport___block_invoke_179 completion:{&unk_278D5D9B8, v14}];
   }
 }
 
@@ -1162,7 +1133,7 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
     {
       v9 = v7[14];
       objc_sync_enter(v9);
-      [v8[14] removeObject:v6];
+      [v8[14] removeObject:?];
       objc_sync_exit(v9);
     }
   }
@@ -1217,12 +1188,12 @@ void __85__CMContinuityCaptureTransportRapportDevice__relaySidebandMessageType_o
   {
     deviceIdentifier2 = [(CMContinuityCaptureTransportRapportDevice *)self deviceIdentifier];
     uUIDString = [deviceIdentifier2 UUIDString];
-    v9 = [v3 stringWithFormat:@"%@: %@ [%p]", v5, uUIDString, self];
+    v9 = [v3 stringWithFormat:v5, uUIDString, self];
   }
 
   else
   {
-    v9 = [v3 stringWithFormat:@"%@: %@ [%p]", v5, 0, self];
+    v9 = [v3 stringWithFormat:v5, 0, self];
   }
 
   return v9;
@@ -1250,9 +1221,9 @@ void __120__CMContinuityCaptureTransportRapportDevice_synchronizeAudioClockWithS
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _synchronizeAudioClockWithSampleTime:*(a1 + 40) networkTime:*(a1 + 48) clockGrandMasterIdentifier:*(a1 + 56)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _synchronizeAudioClockWithSampleTime:? networkTime:? clockGrandMasterIdentifier:?];
+    WeakRetained = v2;
   }
 }
 
@@ -1261,7 +1232,7 @@ void __120__CMContinuityCaptureTransportRapportDevice_synchronizeAudioClockWithS
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v6 = [(NSMutableDictionary *)selfCopy->_activeStreams objectForKeyedSubscript:identifierCopy];
+  v6 = [(NSMutableDictionary *)selfCopy->_activeStreams objectForKeyedSubscript:?];
   objc_sync_exit(selfCopy);
 
   if (!v6)
@@ -1284,30 +1255,27 @@ void __120__CMContinuityCaptureTransportRapportDevice_synchronizeAudioClockWithS
 {
   objc_initWeak(&location, self);
   dispatch_assert_queue_V2(self->_queue);
-  v21[0] = &unk_2854ECB18;
-  v20[0] = @"ContinuityCaptureSelector";
-  v20[1] = @"ContinuityCaptureArgs";
-  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:time];
-  v19[0] = v9;
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:networkTime];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:identifier];
-  v19[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
-  v21[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v15[6] = &unk_2854ECB18;
+  v15[4] = @"ContinuityCaptureSelector";
+  v15[5] = @"ContinuityCaptureArgs";
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  v15[1] = v6;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  v15[2] = v7;
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  v15[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v15[7] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v14 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __121__CMContinuityCaptureTransportRapportDevice__synchronizeAudioClockWithSampleTime_networkTime_clockGrandMasterIdentifier___block_invoke;
-  v16[3] = &unk_278D5C660;
-  objc_copyWeak(&v18, &location);
-  v15 = v13;
-  v17 = v15;
-  [v14 sendMessage:@"ContinuityCaptureCommand" message:v15 completion:v16];
+  v11 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+  v13 = MEMORY[0x277D85DD0];
+  objc_copyWeak(v15, &location);
+  v12 = v10;
+  v14 = v12;
+  [v11 sendMessage:v13 message:3221225472 completion:{__121__CMContinuityCaptureTransportRapportDevice__synchronizeAudioClockWithSampleTime_networkTime_clockGrandMasterIdentifier___block_invoke, &unk_278D5C660}];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(v15);
   objc_destroyWeak(&location);
 }
 
@@ -1352,9 +1320,9 @@ void __73__CMContinuityCaptureTransportRapportDevice_didCaptureStillImage_entity
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _didCaptureStillImage:*(a1 + 32) entity:*(a1 + 48)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _didCaptureStillImage:? entity:?];
+    WeakRetained = v2;
   }
 }
 
@@ -1363,46 +1331,42 @@ void __73__CMContinuityCaptureTransportRapportDevice_didCaptureStillImage_entity
   imageCopy = image;
   objc_initWeak(&location, self);
   dispatch_assert_queue_V2(self->_queue);
-  v26 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:imageCopy requiringSecureCoding:1 error:&v26];
-  v8 = v26;
-  if (v7)
+  v21 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+  v7 = 0;
+  if (v6)
   {
-    v19[0] = &unk_2854ECB00;
-    v18[0] = @"ContinuityCaptureSelector";
-    v18[1] = @"ContinuityCaptureArgs";
-    v17[0] = v7;
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:entity];
-    v17[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-    v19[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v14[5] = &unk_2854ECB00;
+    v14[3] = @"ContinuityCaptureSelector";
+    v14[4] = @"ContinuityCaptureArgs";
+    v14[1] = v6;
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    v14[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v14[6] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v12 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureData"];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __74__CMContinuityCaptureTransportRapportDevice__didCaptureStillImage_entity___block_invoke;
-    v14[3] = &unk_278D5C660;
-    objc_copyWeak(&v16, &location);
-    v13 = v11;
-    v15 = v13;
-    [v12 sendMessage:@"ContinuityCaptureData" message:v13 completion:v14];
+    v11 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+    v13 = MEMORY[0x277D85DD0];
+    objc_copyWeak(v14, &location);
+    v12 = v10;
+    [v11 sendMessage:v13 message:3221225472 completion:{__74__CMContinuityCaptureTransportRapportDevice__didCaptureStillImage_entity___block_invoke, &unk_278D5C660}];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(v14);
   }
 
   else
   {
-    v13 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
       selfCopy = self;
-      v22 = 2112;
-      v23 = imageCopy;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_error_impl(&dword_242545000, v13, OS_LOG_TYPE_ERROR, "%{public}@ Failed to archive request %@ error %@", buf, 0x20u);
+      v17 = 2112;
+      v18 = imageCopy;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_error_impl(&dword_242545000, v12, OS_LOG_TYPE_ERROR, "%{public}@ Failed to archive request %@ error %@", buf, 0x20u);
     }
   }
 
@@ -1445,13 +1409,9 @@ void __82__CMContinuityCaptureTransportRapportDevice_handleSynchronizeAudioClock
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4[0] = @"ContinuityCaptureSelector";
-    v4[1] = @"ContinuityCaptureArgs";
-    v5[0] = &unk_2854ECB60;
-    v5[1] = &unk_2854ECD48;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
-    v3 = [WeakRetained activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-    [v3 sendMessage:@"ContinuityCaptureCommand" message:v2 completion:&__block_literal_global_21];
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:@"ContinuityCaptureSelector" forKeys:@"ContinuityCaptureArgs" count:{&unk_2854ECB60, &unk_2854ECD48}];
+    v3 = [WeakRetained activeStreamForIdentifier:?];
+    [v3 sendMessage:? message:? completion:?];
   }
 }
 
@@ -1482,44 +1442,33 @@ void __81__CMContinuityCaptureTransportRapportDevice_captureStillImage_entity_co
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v23 = 0;
-    v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v23];
-    v5 = v23;
-    if (v4)
+    v18 = 0;
+    v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+    v4 = 0;
+    if (v3)
     {
-      v16[0] = &unk_2854ECB78;
-      v15[0] = @"ContinuityCaptureSelector";
-      v15[1] = @"ContinuityCaptureArgs";
-      v14[0] = v4;
-      v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-      v14[1] = v6;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-      v16[1] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-      v9 = [WeakRetained activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __81__CMContinuityCaptureTransportRapportDevice_captureStillImage_entity_completion___block_invoke_187;
-      v12[3] = &unk_278D5D1A8;
-      v13 = *(a1 + 40);
-      [v9 sendMessage:@"ContinuityCaptureCommand" message:v8 completion:v12];
+      v6 = [WeakRetained activeStreamForIdentifier:?];
+      v9 = *(a1 + 40);
+      [v6 sendMessage:? message:? completion:?];
     }
 
     else
     {
-      v10 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v7 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 32);
+        v8 = *(a1 + 32);
         *buf = 138543874;
-        v18 = WeakRetained;
-        v19 = 2112;
-        v20 = v11;
-        v21 = 2112;
-        v22 = v5;
-        _os_log_error_impl(&dword_242545000, v10, OS_LOG_TYPE_ERROR, "%{public}@ archivedDataWithRootObject %@ Error %@", buf, 0x20u);
+        v13 = WeakRetained;
+        v14 = 2112;
+        v15 = v8;
+        v16 = 2112;
+        v17 = v4;
+        _os_log_error_impl(&dword_242545000, v7, OS_LOG_TYPE_ERROR, "%{public}@ archivedDataWithRootObject %@ Error %@", buf, 0x20u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -1557,25 +1506,25 @@ void __74__CMContinuityCaptureTransportRapportDevice_enqueueReactionEffect_entit
       v4 = *(a1 + 32);
       v5 = *(a1 + 48);
       *buf = 138543874;
-      v14 = WeakRetained;
-      v15 = 2114;
-      v16 = v4;
-      v17 = 1024;
-      v18 = v5;
+      v16 = WeakRetained;
+      v17 = 2114;
+      v18 = v4;
+      v19 = 1024;
+      v20 = v5;
       _os_log_impl(&dword_242545000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ enqueueReactionEffect %{public}@ entity:%d", buf, 0x1Cu);
     }
 
-    v12[0] = &unk_2854ECB90;
-    v11[0] = @"ContinuityCaptureSelector";
-    v11[1] = @"ContinuityCaptureArgs";
-    v6 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 48), *(a1 + 32)}];
-    v10[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-    v12[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v13 = &unk_2854ECB90;
+    v11 = @"ContinuityCaptureSelector";
+    v12 = @"ContinuityCaptureArgs";
+    v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
+    v10 = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v14 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v9 = [WeakRetained activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-    [v9 sendMessage:@"ContinuityCaptureCommand" message:v8 completion:&__block_literal_global_192];
+    v9 = [WeakRetained activeStreamForIdentifier:?];
+    [v9 sendMessage:? message:? completion:?];
   }
 }
 
@@ -1605,9 +1554,9 @@ void __75__CMContinuityCaptureTransportRapportDevice_setValueForControl_completi
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _setValueForControl:*(a1 + 32) completion:*(a1 + 40)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _setValueForControl:? completion:?];
+    WeakRetained = v2;
   }
 }
 
@@ -1617,39 +1566,39 @@ void __75__CMContinuityCaptureTransportRapportDevice_setValueForControl_completi
   completionCopy = completion;
   objc_initWeak(&location, self);
   dispatch_assert_queue_V2(self->_queue);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __76__CMContinuityCaptureTransportRapportDevice__setValueForControl_completion___block_invoke;
-  v26[3] = &unk_278D5C260;
-  objc_copyWeak(&v28, &location);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __76__CMContinuityCaptureTransportRapportDevice__setValueForControl_completion___block_invoke;
+  v28[3] = &unk_278D5C260;
+  objc_copyWeak(&v30, &location);
   v8 = completionCopy;
-  v27 = v8;
-  v9 = MEMORY[0x245D12020](v26);
-  v25 = 0;
-  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:controlCopy requiringSecureCoding:1 error:&v25];
-  v11 = v25;
+  v29 = v8;
+  v9 = MEMORY[0x245D12020](v28);
+  v27 = 0;
+  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+  v11 = v27;
   if (v10)
   {
-    v18[0] = &unk_2854ECAE8;
-    v17[0] = @"ContinuityCaptureSelector";
-    v17[1] = @"ContinuityCaptureArgs";
+    v19 = &unk_2854ECAE8;
+    v17 = @"ContinuityCaptureSelector";
+    v18 = @"ContinuityCaptureArgs";
     v16 = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-    v18[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v20 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
     v14 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v21 = 2114;
-      v22 = controlCopy;
+      v23 = 2114;
+      v24 = controlCopy;
       _os_log_impl(&dword_242545000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ setValueForControl %{public}@", buf, 0x16u);
     }
 
-    v15 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureControl"];
-    [v15 sendMessage:@"ContinuityCaptureControl" message:v13 completion:v9];
+    v15 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+    [v15 sendMessage:? message:? completion:?];
   }
 
   else
@@ -1659,21 +1608,21 @@ void __75__CMContinuityCaptureTransportRapportDevice_setValueForControl_completi
     {
       *buf = 138543874;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = v11;
       v23 = 2112;
-      v24 = controlCopy;
+      v24 = v11;
+      v25 = 2112;
+      v26 = controlCopy;
       _os_log_error_impl(&dword_242545000, v13, OS_LOG_TYPE_ERROR, "%{public}@ archivedDataWithRootObject Error %@ for control %@", buf, 0x20u);
     }
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
 }
 
 uint64_t __76__CMContinuityCaptureTransportRapportDevice__setValueForControl_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (CMContinityCaptureDebugLogEnabled())
+  if (CMContinityCaptureDebugLogEnabled(a1, a2))
   {
     v4 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1715,61 +1664,56 @@ void __71__CMContinuityCaptureTransportRapportDevice_handleAVCNegotiation_data__
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _handleAVCNegotiation:*(a1 + 48) data:*(a1 + 32)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _handleAVCNegotiation:? data:?];
+    WeakRetained = v2;
   }
 }
 
 - (void)_handleAVCNegotiation:(int64_t)negotiation data:(id)data
 {
+  negotiationCopy = negotiation;
   dataCopy = data;
   objc_initWeak(&location, self);
-  v23[0] = @"ContinuityCaptureSelector";
-  v23[1] = @"ContinuityCaptureArgs";
-  v24[0] = &unk_2854ECBA8;
-  v7 = [MEMORY[0x277CCABB0] numberWithInteger:negotiation];
-  v22[0] = v7;
-  v22[1] = dataCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v24[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v21 = @"ContinuityCaptureSelector";
+  v22 = @"ContinuityCaptureArgs";
+  v23 = &unk_2854ECBA8;
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+  v20 = dataCopy;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v10 = CMContinuityCaptureLog(2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v8 = CMContinuityCaptureLog(2);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy = self;
-    v18 = 2080;
-    v19 = "[CMContinuityCaptureTransportRapportDevice _handleAVCNegotiation:data:]";
-    v20 = 1024;
-    negotiationCopy = negotiation;
-    _os_log_impl(&dword_242545000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ %s for entity %d", buf, 0x1Cu);
+    v15 = 2080;
+    v16 = "[CMContinuityCaptureTransportRapportDevice _handleAVCNegotiation:data:]";
+    v17 = 1024;
+    v18 = negotiationCopy;
+    _os_log_impl(&dword_242545000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %s for entity %d", buf, 0x1Cu);
   }
 
-  v11 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureControl"];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke;
-  v13[3] = &unk_278D5C660;
-  objc_copyWeak(&v15, &location);
-  v12 = v9;
-  v14 = v12;
-  [v11 sendMessage:@"ContinuityCaptureControl" message:v12 completion:v13];
+  v9 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+  v10 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v12, &location);
+  v11 = v7;
+  [v9 sendMessage:v10 message:3221225472 completion:{__72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke, &unk_278D5C660}];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
 void __72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (CMContinityCaptureDebugLogEnabled())
+  if (CMContinityCaptureDebugLogEnabled(v3, v4))
   {
-    v4 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke_cold_1(a1, v3, v4);
+      __72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke_cold_1(a1, v3, v5);
     }
   }
 }
@@ -1803,7 +1747,7 @@ void __75__CMContinuityCaptureTransportRapportDevice_startStream_option_completi
   {
     v4 = WeakRetained;
     v3 = objc_loadWeakRetained((a1 + 48));
-    [v3 _startStream:*(a1 + 32) option:*(a1 + 56) completion:*(a1 + 40)];
+    [v3 _startStream:? option:? completion:?];
 
     WeakRetained = v4;
   }
@@ -1811,6 +1755,7 @@ void __75__CMContinuityCaptureTransportRapportDevice_startStream_option_completi
 
 - (void)_startStream:(id)stream option:(unint64_t)option completion:(id)completion
 {
+  optionCopy = option;
   streamCopy = stream;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -1819,42 +1764,30 @@ void __75__CMContinuityCaptureTransportRapportDevice_startStream_option_completi
   {
     *buf = 138543874;
     selfCopy = self;
-    v26 = 2114;
-    v27 = streamCopy;
-    v28 = 1024;
-    optionCopy = option;
+    v21 = 2114;
+    v22 = streamCopy;
+    v23 = 1024;
+    v24 = optionCopy;
     _os_log_impl(&dword_242545000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ StartStream for configuration %{public}@ option %d", buf, 0x1Cu);
   }
 
-  v23 = 0;
-  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:streamCopy requiringSecureCoding:1 error:&v23];
-  v12 = v23;
+  v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:? requiringSecureCoding:? error:?];
+  v12 = 0;
   if (v11)
   {
-    v22[0] = &unk_2854ECAE8;
-    v21[0] = @"ContinuityCaptureSelector";
-    v21[1] = @"ContinuityCaptureArgs";
-    v20[0] = v11;
-    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:option];
-    v20[1] = v13;
-    v20[2] = &unk_2854ECBC0;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
-    v22[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v16 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __76__CMContinuityCaptureTransportRapportDevice__startStream_option_completion___block_invoke;
-    v18[3] = &unk_278D5D1A8;
-    v19 = completionCopy;
-    [v16 sendMessage:@"ContinuityCaptureCommand" message:v15 completion:v18];
+    v14 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+    v16 = completionCopy;
+    [v14 sendMessage:? message:? completion:?];
   }
 
   else
   {
-    v17 = CMContinuityCaptureLog(2);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CMContinuityCaptureTransportRapportDevice _startStream:option:completion:];
     }
@@ -1888,14 +1821,15 @@ void __74__CMContinuityCaptureTransportRapportDevice_stopStream_option_completio
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _stopStream:*(a1 + 48) option:*(a1 + 56) completion:*(a1 + 32)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _stopStream:? option:? completion:?];
+    WeakRetained = v2;
   }
 }
 
 - (void)_stopStream:(int64_t)stream option:(unint64_t)option completion:(id)completion
 {
+  optionCopy = option;
   completionCopy = completion;
   v9 = CMContinuityCaptureMediaIdentifierFromEntityType(stream);
   dispatch_assert_queue_V2(self->_queue);
@@ -1906,32 +1840,22 @@ void __74__CMContinuityCaptureTransportRapportDevice_stopStream_option_completio
     {
       *buf = 138543874;
       selfCopy = self;
-      v23 = 1024;
+      v20 = 1024;
       streamCopy = stream;
-      v25 = 1024;
-      optionCopy = option;
+      v22 = 1024;
+      v23 = optionCopy;
       _os_log_impl(&dword_242545000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ stopStream for entity %u option %d", buf, 0x18u);
     }
 
-    v19[0] = @"ContinuityCaptureSelector";
-    v19[1] = @"ContinuityCaptureArgs";
-    v20[0] = &unk_2854ECBA8;
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:stream];
-    v18[0] = v11;
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:option];
-    v18[1] = v12;
-    v18[2] = &unk_2854ECBC0;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-    v20[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v15 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v15 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __75__CMContinuityCaptureTransportRapportDevice__stopStream_option_completion___block_invoke;
-    v16[3] = &unk_278D5D1A8;
-    v17 = completionCopy;
-    [v15 sendMessage:@"ContinuityCaptureCommand" message:v14 completion:v16];
+    v12 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = completionCopy;
+    [v12 sendMessage:v13 message:3221225472 completion:{__75__CMContinuityCaptureTransportRapportDevice__stopStream_option_completion___block_invoke, &unk_278D5D1A8}];
   }
 
   else
@@ -1967,9 +1891,9 @@ void __67__CMContinuityCaptureTransportRapportDevice_postEvent_entity_data___blo
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _postEvent:*(a1 + 32) entity:*(a1 + 56) data:*(a1 + 40)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _postEvent:? entity:? data:?];
+    WeakRetained = v2;
   }
 }
 
@@ -1978,17 +1902,17 @@ void __67__CMContinuityCaptureTransportRapportDevice_postEvent_entity_data___blo
   queue = self->_queue;
   eventCopy = event;
   dispatch_assert_queue_V2(queue);
-  v15[0] = &unk_2854ECB48;
-  v14[0] = @"ContinuityCaptureSelector";
-  v14[1] = @"ContinuityCaptureArgs";
-  v9 = [MEMORY[0x277CCABB0] numberWithInteger:{entity, eventCopy}];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-  v15[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v15 = &unk_2854ECB48;
+  v13 = @"ContinuityCaptureSelector";
+  v14 = @"ContinuityCaptureArgs";
+  v8 = [MEMORY[0x277CCABB0] numberWithInteger:eventCopy];
+  v12 = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v16 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v12 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:@"ContinuityCaptureCommand"];
-  [v12 sendMessage:@"ContinuityCaptureCommand" message:v11 completion:&__block_literal_global_199];
+  v11 = [(CMContinuityCaptureTransportRapportDevice *)self activeStreamForIdentifier:?];
+  [v11 sendMessage:? message:? completion:?];
 }
 
 - (CMContinuityCaptureTransportRapportDevice)initWithRapportDevice:(id)device capabilities:(id)capabilities remote:(BOOL)remote
@@ -2023,7 +1947,7 @@ LABEL_20:
     v16 = 1;
   }
 
-  v18 = [v13 initWithUUIDString:idsDeviceIdentifier2];
+  v18 = [v13 initWithUUIDString:?];
   deviceUUID = v12->_deviceUUID;
   v12->_deviceUUID = v18;
 
@@ -2073,7 +1997,7 @@ LABEL_11:
 
   if (v12->_remote)
   {
-    v27 = [[CMContinuityCaptureMagicStateMonitor alloc] initWithDevice:v12];
+    v27 = [[CMContinuityCaptureMagicStateMonitor alloc] initWithDevice:?];
     magicStateMonitor = v12->_magicStateMonitor;
     v12->_magicStateMonitor = v27;
 
@@ -2109,13 +2033,12 @@ void __76__CMContinuityCaptureTransportRapportDevice__setValueForControl_complet
 void __72__CMContinuityCaptureTransportRapportDevice__handleAVCNegotiation_data___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7 = *(a1 + 32);
   OUTLINED_FUNCTION_4_0();
+  v8 = 2112;
+  v9 = v6;
   v10 = 2112;
-  v11 = v8;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_debug_impl(&dword_242545000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ handleAVCNegotiation SendMessage %@ Error %@", v9, 0x20u);
+  v11 = a2;
+  _os_log_debug_impl(&dword_242545000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ handleAVCNegotiation SendMessage %@ Error %@", v7, 0x20u);
 }
 
 - (void)_startStream:option:completion:.cold.1()

@@ -6,12 +6,14 @@
 - (GPBBoolEnumDictionary)initWithValidationFunction:(void *)function rawValues:(const int *)values forKeys:(const BOOL *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addRawEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block;
 - (void)enumerateKeysAndRawValuesUsingBlock:(id)block;
+- (void)setEnum:(int)enum forKey:(BOOL)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
 - (void)setRawValue:(int)value forKey:(BOOL)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
@@ -193,6 +195,19 @@
   }
 }
 
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v7 = *&value;
+  v8 = sub_10031FF38(key->var0, 1, type);
+  v9 = [NSMutableData dataWithLength:GPBComputeEnumSize(2, v7) + v8];
+  v10 = [[GPBCodedOutputStream alloc] initWithData:v9];
+  sub_1003200BC(v10, key->var0, 1, typeCopy);
+  [(GPBCodedOutputStream *)v10 writeEnum:2 value:v7];
+
+  return v9;
+}
+
 - (unint64_t)computeSerializedSizeAsField:(id)field
 {
   v4 = 0;
@@ -299,6 +314,25 @@
     {
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
+  }
+}
+
+- (void)setEnum:(int)enum forKey:(BOOL)key
+{
+  keyCopy = key;
+  v5 = *&enum;
+  if (((self->_validationFunc)(*&enum, a2) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"GPBBoolEnumDictionary: Attempt to set an unknown enum value (%d)", v5];
+  }
+
+  self->_values[keyCopy] = v5;
+  self->_valueSet[keyCopy] = 1;
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
   }
 }
 

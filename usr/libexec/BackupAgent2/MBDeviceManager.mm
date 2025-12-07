@@ -1,4 +1,5 @@
 @interface MBDeviceManager
++ (id)deviceManagerWithCheckinMethod:(int)method;
 - (MBDeviceManager)initWithCheckinMethod:(int)method;
 - (id)_acceptConnectionWithInfo:(id)info;
 - (id)_checkinWithConnectionInfo:(id)info;
@@ -30,6 +31,13 @@
 @end
 
 @implementation MBDeviceManager
+
++ (id)deviceManagerWithCheckinMethod:(int)method
+{
+  v3 = [[MBDeviceManager alloc] initWithCheckinMethod:*&method];
+
+  return v3;
+}
 
 - (MBDeviceManager)initWithCheckinMethod:(int)method
 {
@@ -78,11 +86,10 @@
       *buf = 67109120;
       v18 = 6599;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Listening on port %d", buf, 8u);
-      v16 = 6599;
-      _MBLog();
+      _MBLog(@"Df", "Listening on port %d", 6599);
     }
 
-    v12 = [NSNumber numberWithInt:6599, v16];
+    v12 = [NSNumber numberWithInt:6599];
     v13 = @"DLInfoPortKey";
 LABEL_17:
     [info setValue:v12 forKey:v13];
@@ -96,7 +103,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Checking in with launchd", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Checking in with launchd");
     }
 
     v9 = DLGetListenerSocketFromLaunchd();
@@ -113,11 +120,10 @@ LABEL_17:
       *buf = 67109120;
       v18 = v10;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Listening on launchd socket: %d", buf, 8u);
-      v16 = v10;
-      _MBLog();
+      _MBLog(@"I ", "Listening on launchd socket: %d", v10);
     }
 
-    v12 = [NSNumber numberWithInt:v10, v16];
+    v12 = [NSNumber numberWithInt:v10];
     v13 = @"DLInfoSocketKey";
     goto LABEL_17;
   }
@@ -132,7 +138,7 @@ LABEL_17:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Checking in with lockdown", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Checking in with lockdown");
   }
 
   if (!DLLockdownXPCCheckin())
@@ -146,34 +152,33 @@ LABEL_17:
 
 - (id)_acceptConnectionWithInfo:(id)info
 {
-  v12 = 0;
-  v4 = MBGetDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v10 = 0;
+  v3 = MBGetDefaultLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Creating device connection", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Creating device connection", buf, 2u);
+    _MBLog(@"I ", "Creating device connection");
   }
 
-  v5 = DLCreateDeviceLinkConnectionForDevice();
-  if (v5)
+  v4 = DLCreateDeviceLinkConnectionForDevice();
+  if (v4)
   {
-    return [MBError errorWithCode:100 format:@"Error creating connection: %d %@", v5, v12];
+    return [MBError errorWithCode:100 format:@"Error creating connection: %d %@", v4, v10];
   }
 
-  v7 = MBGetDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v6 = MBGetDefaultLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Waiting for connection from computer", v10, 2u);
-    _MBLog();
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Waiting for connection from computer", v8, 2u);
+    _MBLog(@"I ", "Waiting for connection from computer");
   }
 
-  connection = self->super._connection;
-  v9 = DLWaitForConnection();
-  if (v9)
+  v7 = DLWaitForConnection();
+  if (v7)
   {
-    return [MBError errorWithCode:100 format:@"Error accepting connection: %d %@", v9, v12];
+    return [MBError errorWithCode:100 format:@"Error accepting connection: %d %@", v7, v10];
   }
 
   else
@@ -189,7 +194,7 @@ LABEL_17:
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Running connection", v5, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Running connection");
   }
 
   CFRunLoopRun();
@@ -198,13 +203,13 @@ LABEL_17:
 
 - (id)close
 {
-  v16 = 0;
+  v13 = 0;
   v3 = MBGetDefaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Closing connection", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Closing connection");
   }
 
   v4 = MBGetDefaultLog();
@@ -212,7 +217,7 @@ LABEL_17:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Disconnecting connection", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Disconnecting connection");
   }
 
   error = self->_error;
@@ -221,41 +226,38 @@ LABEL_17:
     [(NSError *)error description];
   }
 
-  connection = self->super._connection;
-  v7 = DLDisconnect();
-  if (v7)
+  v6 = DLDisconnect();
+  if (v6)
   {
-    v8 = v7;
-    v9 = self->super._connection;
+    v7 = v6;
     DLDeleteDeviceLinkConnection();
-    return [MBError errorWithCode:100 format:@"Error disconnecting connection: %d %@", v8, v16];
+    return [MBError errorWithCode:100 format:@"Error disconnecting connection: %d %@", v7, v13];
   }
 
   else
   {
-    v11 = MBGetDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v9 = MBGetDefaultLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Deleting connection", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Deleting connection", buf, 2u);
+      _MBLog(@"I ", "Deleting connection");
     }
 
-    v12 = self->super._connection;
-    v13 = DLDeleteDeviceLinkConnection();
-    if (v13)
+    v10 = DLDeleteDeviceLinkConnection();
+    if (v10)
     {
-      return [MBError errorWithCode:100 format:@"Error deleting connection: %d %@", v13, v16];
+      return [MBError errorWithCode:100 format:@"Error deleting connection: %d %@", v10, v13];
     }
 
     else
     {
-      v14 = MBGetDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v11 = MBGetDefaultLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Connection closed", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Connection closed", buf, 2u);
+        _MBLog(@"I ", "Connection closed");
       }
 
       return 0;
@@ -300,8 +302,7 @@ LABEL_17:
     *buf = 138412290;
     errorCopy = error;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "_stopWithError: %@", buf, 0xCu);
-    errorCopy2 = error;
-    _MBLog();
+    _MBLog(@"E ", "_stopWithError: %@", error);
   }
 
   if (!self->_error)
@@ -319,16 +320,13 @@ LABEL_17:
   {
     *buf = 138412546;
     *&buf[4] = [message objectForKeyedSubscript:@"ErrorCode"];
-    v8 = 2112;
-    v9 = [message objectForKeyedSubscript:@"ErrorDescription"];
+    v7 = 2112;
+    v8 = [message objectForKeyedSubscript:@"ErrorDescription"];
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Sending response message: %@ %@", buf, 0x16u);
-    [message objectForKeyedSubscript:@"ErrorCode"];
-    [message objectForKeyedSubscript:@"ErrorDescription"];
-    _MBLog();
+    _MBLog(@"I ", "Sending response message: %@ %@", [message objectForKeyedSubscript:@"ErrorCode"], objc_msgSend(message, "objectForKeyedSubscript:", @"ErrorDescription"));
   }
 
   *buf = 0;
-  connection = self->super._connection;
   if (DLProcessMessage())
   {
     [(MBDeviceManager *)self _stopWithError:[MBError errorWithCode:100 format:@"Error sending message: %@", *buf]];
@@ -392,7 +390,7 @@ LABEL_17:
       *buf = 138412290;
       callbackCopy = callback;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Computer disconnected: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Computer disconnected: %@", callback);
     }
 
     v6 = 1;
@@ -405,7 +403,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Computer disconnected", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Computer disconnected");
       v6 = 0;
     }
   }
@@ -420,13 +418,12 @@ LABEL_17:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Received message: %@", buf, 0xCu);
-    v7 = v5;
-    _MBLog();
+    _MBLog(@"I ", "Received message: %@", v5);
   }
 
-  if ([v5 isEqualToString:{@"Hello", v7}])
+  if ([v5 isEqualToString:@"Hello"])
   {
     [(MBDeviceManager *)self _handleHelloMessage:callback];
   }
@@ -490,26 +487,26 @@ LABEL_17:
 - (void)_handleHelloMessage:(id)message
 {
   v4 = [message objectForKeyedSubscript:@"SupportedProtocolVersions"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = MBSupportedProtocolVersions();
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v4 containsObject:v10])
         {
           [v10 doubleValue];
@@ -521,7 +518,7 @@ LABEL_17:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v7);
@@ -536,7 +533,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "No common supported protocol version", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "No common supported protocol version");
     }
 
     [(MBDeviceManager *)self _sendResponseMessageWithCode:1 description:@"No common supported protocol version"];
@@ -548,15 +545,14 @@ LABEL_17:
     {
       v16 = self->_protocolVersion;
       *buf = 134217984;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Using protocol version %0.1f", buf, 0xCu);
-      v17 = self->_protocolVersion;
-      _MBLog();
+      _MBLog(@"I ", "Using protocol version %0.1f", self->_protocolVersion);
     }
 
-    v22 = @"ProtocolVersion";
-    v23 = [NSNumber numberWithDouble:self->_protocolVersion, *&v17];
-    [(MBDeviceManager *)self _sendSuccessResponseMessageWithProperties:[NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1]];
+    v21 = @"ProtocolVersion";
+    v22 = [NSNumber numberWithDouble:self->_protocolVersion];
+    [(MBDeviceManager *)self _sendSuccessResponseMessageWithProperties:[NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1]];
   }
 }
 
@@ -571,7 +567,7 @@ LABEL_17:
   {
     *v8 = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Action: Backup", v8, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: Backup");
   }
 
   backup = [(MBDriveBackupEngine *)v5 backup];
@@ -599,7 +595,7 @@ LABEL_17:
   {
     *v8 = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Action: Restore", v8, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: Restore");
   }
 
   restore = [(MBDriveRestoreEngine *)v5 restore];
@@ -656,7 +652,7 @@ LABEL_17:
   {
     *v13 = 0;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Action: Extract", v13, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: Extract");
   }
 
   if ([(MBDeviceTools *)v11 extractWithDomainName:v7 relativePath:v8 error:&v14])
@@ -686,7 +682,7 @@ LABEL_17:
   {
     *v7 = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Action: Info", v7, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: Info");
   }
 
   v6 = [(MBDeviceTools *)v4 infoWithError:&v8];
@@ -712,7 +708,7 @@ LABEL_17:
   {
     *v7 = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Action: List", v7, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: List");
   }
 
   v6 = [(MBDeviceTools *)v4 listWithError:&v8];
@@ -753,7 +749,7 @@ LABEL_17:
   {
     *v11 = 0;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Action: Unback", v11, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Action: Unback");
   }
 
   if ([(MBDeviceTools *)v9 unbackWithError:&v12])
@@ -769,12 +765,12 @@ LABEL_17:
 
 - (void)_enableCloudBackupMessage:(id)message
 {
-  v19 = 0;
+  v17 = 0;
   v4 = [objc_msgSend(message objectForKeyedSubscript:{@"CloudBackupState", "BOOLValue"}];
   if (v4 && ([+[MBManagedPolicy sharedPolicy](MBManagedPolicy "sharedPolicy")] & 1) == 0)
   {
 LABEL_17:
-    v13 = v19;
+    v13 = v17;
 LABEL_18:
     [(MBDeviceManager *)self _sendResponseMessageWithError:v13];
     return;
@@ -789,11 +785,11 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No Apple acount exists", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "No Apple acount exists");
     }
 
     v13 = [MBError errorWithCode:1 format:@"No account exists"];
-    v19 = v13;
+    v17 = v13;
     goto LABEL_18;
   }
 
@@ -807,16 +803,14 @@ LABEL_18:
       accountDescription = [v7 accountDescription];
       provisionedDataclasses = [v7 provisionedDataclasses];
       *buf = 138412546;
-      v21 = accountDescription;
-      v22 = 2112;
-      v23 = provisionedDataclasses;
+      v19 = accountDescription;
+      v20 = 2112;
+      v21 = provisionedDataclasses;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "The account %@ is not provisioned for cloud backup. %@", buf, 0x16u);
-      accountDescription2 = [v7 accountDescription];
-      provisionedDataclasses2 = [v7 provisionedDataclasses];
-      _MBLog();
+      _MBLog(@"Df", "The account %@ is not provisioned for cloud backup. %@", [v7 accountDescription], objc_msgSend(v7, "provisionedDataclasses"));
     }
 
-    v19 = [MBError errorWithCode:1 format:@"The primary account is not provisioned for cloud backup", accountDescription2, provisionedDataclasses2];
+    v17 = [MBError errorWithCode:1 format:@"The primary account is not provisioned for cloud backup"];
     [v5 saveAccount:v7 withCompletionHandler:&stru_1000FD7F8];
     goto LABEL_17;
   }
@@ -835,18 +829,16 @@ LABEL_18:
       v10 = @"Dis";
     }
 
-    accountDescription3 = [v7 accountDescription];
+    accountDescription2 = [v7 accountDescription];
     *buf = 138412546;
-    v21 = v10;
-    v22 = 2112;
-    v23 = accountDescription3;
+    v19 = v10;
+    v20 = 2112;
+    v21 = accountDescription2;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%@abled account %@ for cloud backup", buf, 0x16u);
-    accountDescription2 = v10;
-    provisionedDataclasses2 = [v7 accountDescription];
-    _MBLog();
+    _MBLog(@"I ", "%@abled account %@ for cloud backup", v10, [v7 accountDescription]);
   }
 
-  [v5 saveAccount:v7 withCompletionHandler:{&stru_1000FD7F8, accountDescription2, provisionedDataclasses2}];
+  [v5 saveAccount:v7 withCompletionHandler:&stru_1000FD7F8];
   [(MBDeviceManager *)self _sendSuccessResponseMessage];
 }
 
@@ -857,7 +849,7 @@ LABEL_18:
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Erasing device per request from iTunes", v5, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Erasing device per request from iTunes");
   }
 
   v6[0] = kObliterationTypeKey;

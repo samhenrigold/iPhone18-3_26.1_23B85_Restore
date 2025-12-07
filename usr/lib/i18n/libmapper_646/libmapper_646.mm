@@ -1,75 +1,67 @@
 uint64_t _citrus_mapper_646_mapper_init(uint64_t a1, uint64_t a2, const char *a3, _BYTE *a4, unint64_t a5, uint64_t a6, unint64_t a7)
 {
-  v23 = *MEMORY[0x29EDCA608];
-  if (a7 >= 0x18)
+  v22 = *MEMORY[0x29EDCA608];
+  if (a7 < 0x18)
   {
-    v11 = malloc_type_malloc(0x34uLL, 0x10000403884A0CCuLL);
-    if (v11)
-    {
-      v12 = v11;
-      v11[12] = 1;
-      _citrus_memory_stream_skip_ws();
-      v13 = 0;
-      if (a5 && *a4 == 33)
-      {
-        v13 = 1;
-        v12[12] = 0;
-      }
+    return 22;
+  }
 
-      v14 = a5 - v13;
-      if (a5 < v13)
-      {
-        v14 = 0;
-      }
+  v11 = malloc_type_malloc(0x34uLL, 0x10000403884A0CCuLL);
+  if (!v11)
+  {
+    return *__error();
+  }
 
-      if (v14 + v13 <= a5)
-      {
-        v15 = &a4[v13];
-      }
+  v12 = v11;
+  v11[12] = 1;
+  _citrus_memory_stream_skip_ws();
+  v13 = 0;
+  if (a5 && *a4 == 33)
+  {
+    v13 = 1;
+    v12[12] = 0;
+  }
 
-      else
-      {
-        v15 = 0;
-        LODWORD(v14) = 0;
-      }
+  v14 = a5 - v13;
+  if (a5 < v13)
+  {
+    v14 = 0;
+  }
 
-      snprintf(__str, 0x400uLL, "%s/%.*s", a3, v14, v15);
-      *_citrus_bcs_skip_nonws() = 0;
-      v19 = 0uLL;
-      v16 = _citrus_map_file();
-      if (v16)
-      {
-        v7 = v16;
-      }
-
-      else
-      {
-        v20 = v19;
-        v21 = 0;
-        while (_citrus_memory_stream_getln())
-        {
-          _citrus_bcs_skip_ws_len();
-        }
-
-        _citrus_unmap_file();
-        v7 = 22;
-      }
-
-      free(v12);
-    }
-
-    else
-    {
-      v7 = *__error();
-    }
+  if (v14 + v13 <= a5)
+  {
+    v15 = &a4[v13];
   }
 
   else
   {
+    v15 = 0;
+    LODWORD(v14) = 0;
+  }
+
+  snprintf(__str, 0x400uLL, "%s/%.*s", a3, v14, v15);
+  *_citrus_bcs_skip_nonws() = 0;
+  v18 = 0uLL;
+  v16 = _citrus_map_file();
+  if (v16)
+  {
+    v7 = v16;
+  }
+
+  else
+  {
+    v19 = v18;
+    v20 = 0;
+    while (_citrus_memory_stream_getln())
+    {
+      _citrus_bcs_skip_ws_len();
+    }
+
+    _citrus_unmap_file();
     v7 = 22;
   }
 
-  v17 = *MEMORY[0x29EDCA608];
+  free(v12);
   return v7;
 }
 

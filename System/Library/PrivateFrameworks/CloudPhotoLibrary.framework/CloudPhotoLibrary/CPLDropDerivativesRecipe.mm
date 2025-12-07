@@ -45,22 +45,20 @@
 
 - (NSDictionary)plistDescription
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"changeRecordType";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"changeRecordType";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CPLDropDerivativesRecipe changeType](self, "changeType")}];
-  v11[0] = v3;
-  v10[1] = @"uti";
+  v10[0] = v3;
+  v9[1] = @"uti";
   v4 = [(CPLDropDerivativesRecipe *)self uti];
-  v11[1] = v4;
-  v10[2] = @"sourceResourceType";
+  v10[1] = v4;
+  v9[2] = @"sourceResourceType";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CPLDropDerivativesRecipe sourceResourceType](self, "sourceResourceType")}];
-  v11[2] = v5;
-  v10[3] = @"derivativeResourceTypes";
+  v10[2] = v5;
+  v9[3] = @"derivativeResourceTypes";
   derivativeTypes = [(CPLDropDerivativesRecipe *)self derivativeTypes];
-  v11[3] = derivativeTypes;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = derivativeTypes;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

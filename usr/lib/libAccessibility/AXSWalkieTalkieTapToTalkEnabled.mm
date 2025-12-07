@@ -3,7 +3,7 @@
 
 @implementation AXSWalkieTalkieTapToTalkEnabled
 
-uint64_t ___AXSWalkieTalkieTapToTalkEnabled_block_invoke()
+void *___AXSWalkieTalkieTapToTalkEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

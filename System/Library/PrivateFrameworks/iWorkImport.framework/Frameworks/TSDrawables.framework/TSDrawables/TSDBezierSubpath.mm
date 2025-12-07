@@ -747,7 +747,7 @@ LABEL_10:
 
 - (double)distanceToPoint:(CGPoint)point elementIndex:(unint64_t *)index tValue:(double *)value threshold:(double)threshold
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v10 = objc_msgSend_nodes(self, a2, index);
   v13 = objc_msgSend_count(v10, v11, v12);
 
@@ -765,10 +765,10 @@ LABEL_10:
   v27 = 0.0;
   v28 = 1.79769313e308;
   valueCopy = value;
-  if (v26 < 2 || (v29 = v23, v30 = v24, v31 = threshold * threshold, v32 = 1.79769313e308, v61 = threshold * threshold, threshold * threshold >= 1.79769313e308))
+  if (v26 < 2 || (v29 = v23, v30 = v24, v31 = threshold * threshold, v32 = 1.79769313e308, v65 = threshold * threshold, threshold * threshold >= 1.79769313e308))
   {
     v33 = v18;
-    v57 = 0;
+    v61 = 0;
 LABEL_19:
     if (!index)
     {
@@ -784,8 +784,8 @@ LABEL_19:
     v34 = 2;
     while (1)
     {
-      v63 = v28;
-      v64 = v27;
+      v67 = v28;
+      v68 = v27;
       v35 = objc_msgSend_nodes(self, v21, v22, v32, v31, valueCopy);
       v37 = objc_msgSend_objectAtIndexedSubscript_(v35, v36, (v34 - 1) % v13);
 
@@ -800,43 +800,45 @@ LABEL_19:
       v55 = v54;
       if (TSUNearlyEqualPoints() && TSUNearlyEqualPoints())
       {
-        v65.f64[0] = v29;
-        v65.f64[1] = v30;
-        v66 = v41;
-        v67 = v43;
-        v27 = sub_276667504(v65.f64);
+        v69.f64[0] = v29;
+        v69.f64[1] = v30;
+        v70 = v41;
+        v71 = v43;
+        v56.n128_u64[0] = *&point.x;
+        v57.n128_u64[0] = *&point.y;
+        v27 = sub_276667504(v69.f64, v56, v57, v58, v59);
         TSUMixPoints();
       }
 
       else
       {
-        v65.f64[0] = v29;
-        v65.f64[1] = v30;
-        v66 = v47;
-        v67 = v49;
-        v68 = v53;
-        v69 = v55;
-        v70 = v41;
-        v71 = v43;
-        v27 = sub_2766675CC(&v65, point.x, point.y, 1.0);
-        TSDPointOnCurve(&v65, v27);
+        v69.f64[0] = v29;
+        v69.f64[1] = v30;
+        v70 = v47;
+        v71 = v49;
+        v72 = v53;
+        v73 = v55;
+        v74 = v41;
+        v75 = v43;
+        v27 = sub_2766675CC(&v69, point.x, point.y, 1.0);
+        TSDPointOnCurve(&v69, v27);
       }
 
       TSUDistanceSquared();
-      v28 = v63;
-      if (v56 < v63)
+      v28 = v67;
+      if (v60 < v67)
       {
         v25 = v34 - 2;
       }
 
       else
       {
-        v27 = v64;
+        v27 = v68;
       }
 
-      if (v56 < v63)
+      if (v60 < v67)
       {
-        v28 = v56;
+        v28 = v60;
       }
 
       v33 = v37;
@@ -847,18 +849,18 @@ LABEL_19:
       }
 
       ++v34;
-      v32 = v61;
-      v57 = v33;
+      v32 = v65;
+      v61 = v33;
       v18 = v33;
       v29 = v41;
       v30 = v43;
-      if (v28 <= v61)
+      if (v28 <= v65)
       {
         goto LABEL_19;
       }
     }
 
-    v57 = v33;
+    v61 = v33;
     if (!index)
     {
       goto LABEL_21;
@@ -872,9 +874,9 @@ LABEL_21:
     *valueCopy = v27;
   }
 
-  v58 = sqrt(v28);
+  v62 = sqrt(v28);
 
-  return v58;
+  return v62;
 }
 
 - (id)bezierNodeUnderPoint:(CGPoint)point withTransform:(CGAffineTransform *)transform andTolerance:(double)tolerance returningType:(int64_t *)type
@@ -1163,8 +1165,8 @@ LABEL_17:
 
   objc_msgSend_insertObject_atIndex_(v52, v53, v44, v12);
   objc_msgSend_setNodes_(self, v54, v52);
-  sub_276667338(&v75, v70, 0.0, percentage);
-  sub_276667338(&v75, v65, percentage, 1.0);
+  sub_276667338(0.0, percentage, &v75, v70);
+  sub_276667338(percentage, 1.0, &v75, v65);
   objc_msgSend_setOutControlPoint_(v8, v55, v56, v71, v72);
   objc_msgSend_setInControlPoint_(v44, v57, v58, v73, v74);
   objc_msgSend_setOutControlPoint_(v44, v59, v60, v66, v67);

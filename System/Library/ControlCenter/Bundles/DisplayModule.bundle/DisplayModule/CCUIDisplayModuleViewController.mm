@@ -8,6 +8,7 @@
 - (void)_sliderPresentationValueDidChange:(id)change;
 - (void)_updateBrightnessControlAvailability;
 - (void)_updateBrightnessControlInteractionEnabled;
+- (void)_updateWithCurrentBrightnessAnimated:(BOOL)animated;
 - (void)dealloc;
 - (void)loadView;
 - (void)setCompactContinuousCornerRadius:(double)radius;
@@ -15,7 +16,11 @@
 - (void)setContentRenderingMode:(unint64_t)mode;
 - (void)setGlyphPackageDescription:(id)description;
 - (void)setGlyphState:(id)state;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -101,6 +106,54 @@
   objc_msgSend_animateAlongsideTransition_completion_(coordinatorCopy, v8, v9, 0);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v25.receiver = self;
+  v25.super_class = CCUIDisplayModuleViewController;
+  [(CCUIDisplayModuleViewController *)&v25 viewWillAppear:appear];
+  objc_msgSend__updateBrightnessControlAvailability(self, v4, v5);
+  objc_msgSend__updateWithCurrentBrightnessAnimated_(self, v6, 0);
+  objc_msgSend__updateBrightnessControlInteractionEnabled(self, v7, v8);
+  v11 = objc_msgSend_view(self, v9, v10);
+  v14 = objc_msgSend_window(v11, v12, v13);
+  v17 = objc_msgSend_windowScene(v14, v15, v16);
+  v20 = objc_msgSend_screen(v17, v18, v19);
+
+  v23 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v21, v22);
+  objc_msgSend_addObserver_selector_name_object_(v23, v24, self, sel__noteScreenBrightnessDidChange_, *MEMORY[0x29EDC8208], v20);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = CCUIDisplayModuleViewController;
+  [(CCUIDisplayModuleViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = CCUIDisplayModuleViewController;
+  [(CCUIDisplayModuleViewController *)&v6 viewWillDisappear:disappear];
+  objc_msgSend__updateBrightnessControlInteractionEnabled(self, v4, v5);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = CCUIDisplayModuleViewController;
+  [(CCUIDisplayModuleViewController *)&v9 viewDidDisappear:disappear];
+  v6 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v4, v5);
+  objc_msgSend_removeObserver_name_object_(v6, v7, self, *MEMORY[0x29EDC8208], 0);
+
+  brightnessTransaction = self->_brightnessTransaction;
+  if (brightnessTransaction)
+  {
+    CFRelease(brightnessTransaction);
+    self->_brightnessTransaction = 0;
+  }
+}
+
 - (void)viewWillLayoutSubviews
 {
   v7.receiver = self;
@@ -161,13 +214,11 @@
 
 - (NSArray)containerViewsForPlatterTreatment
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
   objc_msgSend_loadViewIfNeeded(self, a2, v2);
   v6 = objc_msgSend_elasticContentView(self->_sliderView, v4, v5);
-  v11[0] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v7, v11, 1);
-
-  v9 = *MEMORY[0x29EDCA608];
+  v10[0] = v6;
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v7, v10, 1);
 
   return v8;
 }
@@ -219,6 +270,17 @@
   isAppearingOrAppeared = objc_msgSend_bs_isAppearingOrAppeared(self, a2, v2);
 
   MEMORY[0x2A1C70FE8](sliderView, sel_setUserInteractionEnabled_, isAppearingOrAppeared);
+}
+
+- (void)_updateWithCurrentBrightnessAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  sliderView = self->_sliderView;
+  objc_msgSend__backlightLevel(self, a2, animated);
+  objc_msgSend_setValue_animated_(sliderView, v6, animatedCopy);
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  objc_msgSend_currentBrightness(self, v7, v8);
+  objc_msgSend_displayModuleViewController_brightnessDidChange_(WeakRetained, v9, self);
 }
 
 - (void)_sliderEditingDidBegin:(id)begin

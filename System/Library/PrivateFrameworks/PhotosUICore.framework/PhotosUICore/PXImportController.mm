@@ -387,13 +387,13 @@ void __41__PXImportController_sendActionProgress___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __56__PXImportController_setAlreadyImportedItemsSelectable___block_invoke(uint64_t result, uint64_t a2)
+void *__56__PXImportController_setAlreadyImportedItemsSelectable___block_invoke(void *result, uint64_t a2)
 {
-  if (*(a2 + 8) != *(result + 40))
+  if (*(a2 + 8) != result[5])
   {
     v7 = v2;
     v8 = v3;
-    v4 = *(result + 32);
+    v4 = result[4];
     v5 = *(a2 + 16);
     v6[0] = *a2;
     v6[1] = v5;
@@ -490,7 +490,7 @@ void __35__PXImportController_selectedItems__block_invoke(uint64_t a1, _OWORD *a
   v19 = 0u;
   if (dataSource)
   {
-    [dataSource itemIndexPathForItem:itemCopy];
+    objc_msgSend_itemIndexPathForItem_(dataSource);
   }
 
   *buf = v18;
@@ -549,7 +549,7 @@ uint64_t __35__PXImportController_deselectItem___block_invoke(uint64_t a1, void 
     v19 = 0u;
     if (dataSource)
     {
-      [dataSource itemIndexPathForItem:itemCopy];
+      objc_msgSend_itemIndexPathForItem_(dataSource);
     }
 
     *buf = v18;
@@ -596,7 +596,7 @@ uint64_t __33__PXImportController_selectItem___block_invoke(uint64_t a1, void *a
 - (void)setSelected:(BOOL)selected forItems:(id)items
 {
   selectedCopy = selected;
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   selectionManager = [(PXImportController *)self selectionManager];
@@ -606,78 +606,77 @@ uint64_t __33__PXImportController_selectItem___block_invoke(uint64_t a1, void *a
   selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
   v11 = [selectedIndexPaths mutableCopy];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v12 = itemsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
         memset(buf, 0, 32);
         if (dataSource)
         {
-          [dataSource itemIndexPathForItem:v17];
+          objc_msgSend_itemIndexPathForItem_(dataSource);
         }
 
-        v28[0] = *buf;
-        v28[1] = *&buf[16];
+        v27[0] = *buf;
+        v27[1] = *&buf[16];
         if (selectedCopy)
         {
-          [v11 addIndexPath:v28];
+          [v11 addIndexPath:v27];
         }
 
         else
         {
-          [v11 removeIndexPath:v28];
+          [v11 removeIndexPath:v27];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v14);
   }
 
   selectionManager2 = [(PXImportController *)self selectionManager];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __43__PXImportController_setSelected_forItems___block_invoke;
-  v26[3] = &unk_1E7744008;
-  v27 = v11;
-  v19 = v11;
-  [selectionManager2 performChanges:v26];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __43__PXImportController_setSelected_forItems___block_invoke;
+  v25[3] = &unk_1E7744008;
+  v26 = v11;
+  v18 = v11;
+  [selectionManager2 performChanges:v25];
 
   selectionManager3 = [(PXImportController *)self selectionManager];
   selectionSnapshot2 = [selectionManager3 selectionSnapshot];
 
-  v22 = _importControllerLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v21 = _importControllerLog();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v23 = [v12 count];
+    v22 = [v12 count];
     selectedIndexPaths2 = [selectionSnapshot2 selectedIndexPaths];
-    v25 = [selectedIndexPaths2 count];
+    v24 = [selectedIndexPaths2 count];
     *buf = 136315906;
     *&buf[4] = "[PXImportController setSelected:forItems:]";
     *&buf[12] = 1024;
     *&buf[14] = selectedCopy;
     *&buf[18] = 2048;
-    *&buf[20] = v23;
+    *&buf[20] = v22;
     *&buf[28] = 2048;
-    *&buf[30] = v25;
-    _os_log_impl(&dword_1A3C1C000, v22, OS_LOG_TYPE_INFO, "%s: Selected: %d (%lu models) (selected count %lu)", buf, 0x26u);
+    *&buf[30] = v24;
+    _os_log_impl(&dword_1A3C1C000, v21, OS_LOG_TYPE_INFO, "%s: Selected: %d (%lu models) (selected count %lu)", buf, 0x26u);
   }
 }
 
@@ -1810,7 +1809,7 @@ void __64__PXImportController_startInitialBatchOfAssetsTimerWithTimeout___block_
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __54__PXImportController_handleImportSourceModifiedAssets__block_invoke(uint64_t a1)
+void *__54__PXImportController_handleImportSourceModifiedAssets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasLoadedInitialBatchOfAssets];
   if ((result & 1) == 0)

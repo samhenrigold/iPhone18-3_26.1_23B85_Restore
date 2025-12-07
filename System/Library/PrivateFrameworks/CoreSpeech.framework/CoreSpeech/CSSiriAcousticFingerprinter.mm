@@ -82,22 +82,20 @@ void __36__CSSiriAcousticFingerprinter_flush__block_invoke(uint64_t a1)
 
 void __36__CSSiriAcousticFingerprinter_flush__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriAcousticFingerprinter flush]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriAcousticFingerprinter flush]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   [WeakRetained acousticFingerprinter:*(a1 + 32) hasFingerprint:0 duration:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CSSiriAcousticFingerprinter_flush__block_invoke_62(uint64_t a1, void *a2)
@@ -124,7 +122,7 @@ void __36__CSSiriAcousticFingerprinter_flush__block_invoke_62(uint64_t a1, void 
 
 void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) length] / *(*(a1 + 40) + 64);
   v3 = [*(a1 + 40) _convertPCMDataForFingerprinting:*(a1 + 32)];
   v4 = [*(a1 + 40) _service];
@@ -141,50 +139,46 @@ void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "[CSSiriAcousticFingerprinter appendPCMData:]_block_invoke";
-      v15 = 2048;
-      v16 = v7;
+      v13 = "[CSSiriAcousticFingerprinter appendPCMData:]_block_invoke";
+      v14 = 2048;
+      v15 = v7;
       _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s Getting signature for duration %lf", buf, 0x16u);
       v6 = *(a1 + 40);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_58;
-    v12[3] = &unk_2784C5FB8;
-    v12[4] = v6;
-    *&v12[5] = v7;
-    v9 = [v6 _serviceWithErrorHandler:v12];
     v11[0] = MEMORY[0x277D85DD0];
     v11[1] = 3221225472;
-    v11[2] = __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60;
-    v11[3] = &unk_2784C5FE0;
-    v11[4] = *(a1 + 40);
+    v11[2] = __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_58;
+    v11[3] = &unk_2784C5FB8;
+    v11[4] = v6;
     *&v11[5] = v7;
-    [v9 getSignature:v11];
+    v9 = [v6 _serviceWithErrorHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60;
+    v10[3] = &unk_2784C5FE0;
+    v10[4] = *(a1 + 40);
+    *&v10[5] = v7;
+    [v9 getSignature:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_58(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriAcousticFingerprinter appendPCMData:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriAcousticFingerprinter appendPCMData:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   [WeakRetained acousticFingerprinter:*(a1 + 32) hasFingerprint:0 duration:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60(uint64_t a1, void *a2)
@@ -197,7 +191,7 @@ void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60(uint64_t 
 
 - (id)_convertPCMDataForFingerprinting:(id)fingerprinting
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fingerprintingCopy = fingerprinting;
   v5 = fingerprintingCopy;
   if (fingerprintingCopy && self->_fingerprinterConverter)
@@ -215,22 +209,22 @@ void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60(uint64_t 
     inInputDataProcUserData[1] = 3221225472;
     inInputDataProcUserData[2] = __64__CSSiriAcousticFingerprinter__convertPCMDataForFingerprinting___block_invoke;
     inInputDataProcUserData[3] = &unk_2784C5F90;
-    v17 = v7;
-    v16 = v5;
+    v16 = v7;
+    v15 = v5;
     v10 = AudioConverterFillComplexBuffer(fingerprinterConverter, AudioConverterFillComplexBuffer_BlockInvoke, inInputDataProcUserData, &ioOutputDataPacketSize, &outOutputData, 0);
     [v8 setLength:2 * ioOutputDataPacketSize];
     if (v10)
     {
-      v14 = bswap32(v10);
+      v13 = bswap32(v10);
       v11 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v21 = "[CSSiriAcousticFingerprinter _convertPCMDataForFingerprinting:]";
-        v22 = 1042;
-        v23 = 4;
-        v24 = 2082;
-        v25 = &v14;
+        v20 = "[CSSiriAcousticFingerprinter _convertPCMDataForFingerprinting:]";
+        v21 = 1042;
+        v22 = 4;
+        v23 = 2082;
+        v24 = &v13;
         _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s Error during conversion for fingerprinter %{public}.4s", buf, 0x1Cu);
       }
     }
@@ -240,8 +234,6 @@ void __45__CSSiriAcousticFingerprinter_appendPCMData___block_invoke_60(uint64_t 
   {
     v8 = fingerprintingCopy;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -258,7 +250,7 @@ uint64_t __64__CSSiriAcousticFingerprinter__convertPCMDataForFingerprinting___bl
 
 - (void)_configureWithCurrentASBD
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   self->_nextFingerprintSampleNumber = [(CSSiriAcousticFingerprinter *)self _samplesPerInterval];
   v3 = MEMORY[0x277CEF0E8];
   v4 = *MEMORY[0x277CEF0E8];
@@ -292,22 +284,20 @@ uint64_t __64__CSSiriAcousticFingerprinter__convertPCMDataForFingerprinting___bl
     v9 = AudioConverterNew(&self->_sourceASBD, &buf, &self->_fingerprinterConverter);
     if (v9)
     {
-      v12 = bswap32(v9);
+      v11 = bswap32(v9);
       v10 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
       {
-        *v13 = 136315650;
-        v14 = "[CSSiriAcousticFingerprinter _configureWithCurrentASBD]";
-        v15 = 1042;
-        v16 = 4;
-        v17 = 2082;
-        v18 = &v12;
-        _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s Could not make Fingerprinter decoder: %{public}.4s", v13, 0x1Cu);
+        *v12 = 136315650;
+        v13 = "[CSSiriAcousticFingerprinter _configureWithCurrentASBD]";
+        v14 = 1042;
+        v15 = 4;
+        v16 = 2082;
+        v17 = &v11;
+        _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s Could not make Fingerprinter decoder: %{public}.4s", v12, 0x1Cu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setASBD:(AudioStreamBasicDescription *)d
@@ -373,32 +363,30 @@ double __54__CSSiriAcousticFingerprinter_setFingerprintInterval___block_invoke(u
 
 - (void)_connectionInvalidated
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CSSiriAcousticFingerprinter _connectionInvalidated]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSSiriAcousticFingerprinter _connectionInvalidated]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   [(CSSiriAcousticFingerprinter *)self _cleanUpConnection];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectionInterrupted
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[CSSiriAcousticFingerprinter _connectionInterrupted]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSSiriAcousticFingerprinter _connectionInterrupted]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   [(CSSiriAcousticFingerprinter *)self _cleanUpConnection];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_connection

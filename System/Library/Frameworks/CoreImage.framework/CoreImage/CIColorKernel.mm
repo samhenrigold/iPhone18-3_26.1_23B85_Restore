@@ -20,7 +20,7 @@
 + (CIColorKernel)kernelWithString:(NSString *)string
 {
   v15 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -48,20 +48,20 @@
     v6 = 0;
   }
 
-  v10(v9);
+  (v10)(v9);
   return v6;
 }
 
-void __34__CIColorKernel_kernelWithString___block_invoke(uint64_t a1)
+void __34__CIColorKernel_kernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -117,7 +117,7 @@ void __34__CIColorKernel_kernelWithString___block_invoke(uint64_t a1)
   v11 = *MEMORY[0x1E69E9840];
   priv = self->super._priv;
   v5 = *(priv + 4);
-  v6 = ci_logger_api();
+  v6 = ci_logger_api(self, a2);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (v5)
   {
@@ -203,22 +203,23 @@ LABEL_6:
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (callback)
   {
-    v18.origin.x = (*(callback + 2))(callback, 0, extent.origin, *&extent.origin.y, extent.size, *&extent.size.height);
-    v19.origin.x = x;
-    v19.origin.y = y;
-    v19.size.width = width;
-    v19.size.height = height;
-    if (!CGRectEqualToRect(v18, v19))
+    v20.origin.x = (*(callback + 2))(callback, 0, extent.origin, *&extent.origin.y, extent.size, *&extent.size.height);
+    v21.origin.x = x;
+    v21.origin.y = y;
+    v21.size.width = width;
+    v21.size.height = height;
+    v13 = CGRectEqualToRect(v20, v21);
+    if (!v13)
     {
-      v13 = ci_logger_api();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = ci_logger_api(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = 136446210;
-        v16 = "[CIColorKernel applyWithExtent:roiCallback:arguments:options:]";
-        _os_log_impl(&dword_19CC36000, v13, OS_LOG_TYPE_INFO, "%{public}s ignores callback and is not recomended.  Use applyWithExtent:arguments:options: instead.", &v15, 0xCu);
+        v17 = 136446210;
+        v18 = "[CIColorKernel applyWithExtent:roiCallback:arguments:options:]";
+        _os_log_impl(&dword_19CC36000, v15, OS_LOG_TYPE_INFO, "%{public}s ignores callback and is not recomended.  Use applyWithExtent:arguments:options: instead.", &v17, 0xCu);
       }
     }
   }
@@ -232,22 +233,23 @@ LABEL_6:
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (callback)
   {
-    v16.origin.x = (*(callback + 2))(callback, 0, extent.origin, *&extent.origin.y, extent.size, *&extent.size.height);
-    v17.origin.x = x;
-    v17.origin.y = y;
-    v17.size.width = width;
-    v17.size.height = height;
-    if (!CGRectEqualToRect(v16, v17))
+    v18.origin.x = (*(callback + 2))(callback, 0, extent.origin, *&extent.origin.y, extent.size, *&extent.size.height);
+    v19.origin.x = x;
+    v19.origin.y = y;
+    v19.size.width = width;
+    v19.size.height = height;
+    v11 = CGRectEqualToRect(v18, v19);
+    if (!v11)
     {
-      v11 = ci_logger_api();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v13 = ci_logger_api(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v13 = 136446210;
-        v14 = "[CIColorKernel applyWithExtent:roiCallback:arguments:]";
-        _os_log_impl(&dword_19CC36000, v11, OS_LOG_TYPE_INFO, "%{public}s ignores callback and is not recomended.  Use applyWithExtent:arguments: instead.", &v13, 0xCu);
+        v15 = 136446210;
+        v16 = "[CIColorKernel applyWithExtent:roiCallback:arguments:]";
+        _os_log_impl(&dword_19CC36000, v13, OS_LOG_TYPE_INFO, "%{public}s ignores callback and is not recomended.  Use applyWithExtent:arguments: instead.", &v15, 0xCu);
       }
     }
   }
@@ -257,7 +259,7 @@ LABEL_6:
 
 - (id)applyWithExtent:(CGRect)extent arguments:(id)arguments options:(id)options
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (CGRectIsEmpty(extent))
   {
 
@@ -267,74 +269,80 @@ LABEL_6:
   else
   {
     priv = self->super._priv;
-    if ((*(*priv + 16))(priv) == 70)
+    v9 = (*(*priv + 16))(priv);
+    if (v9 == 70)
     {
-      v9 = [arguments count];
-      if (CI::Kernel::num_apply_arguments(priv) == v9)
+      v11 = [arguments count];
+      v12 = CI::Kernel::num_apply_arguments(priv);
+      if (v12 == v11)
       {
-        if (v9 < 1)
+        if (v11 < 1)
         {
 LABEL_28:
           operator new();
         }
 
-        v10 = 0;
+        v14 = 0;
         while (1)
         {
-          if (*(priv + 12) == 1)
+          if (priv[12] == 1)
           {
-            type = CI::KernelArguments::get_type((priv + 17), v10);
+            type = CI::KernelArguments::get_type((priv + 136), v14);
           }
 
-          else if (v10 >= *(priv + 5))
+          else if (v14 >= *(priv + 5))
           {
             type = 0;
           }
 
           else
           {
-            type = *(priv[8] + 4 * v10);
+            type = *(*(priv + 8) + 4 * v14);
           }
 
-          if (*(*priv + 72))(priv) && !priv[4] && (type == 15 || type == 8) && (([arguments objectAtIndexedSubscript:v10], objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_msgSend(arguments, "objectAtIndexedSubscript:", v10), objc_opt_class(), (objc_opt_isKindOfClass())))
+          if (*(*priv + 72))(priv) && !*(priv + 4) && (type == 15 || type == 8) && (([arguments objectAtIndexedSubscript:v14], objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_msgSend(arguments, "objectAtIndexedSubscript:", v14), objc_opt_class(), (objc_opt_isKindOfClass())))
           {
-            CI::Kernel::set_argument_type(priv, v10, 1);
+            CI::Kernel::set_argument_type(priv, v14, 1);
             CI::Kernel::set_half_color_inputs(priv, type == 15);
           }
 
-          else if ((verify_argument_type([arguments objectAtIndexedSubscript:v10], type, 1) & 1) == 0)
+          else
           {
-            v14 = ci_logger_api();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v16 = verify_argument_type([arguments objectAtIndexedSubscript:v14], type, 1);
+            if ((v16 & 1) == 0)
             {
-              v15 = priv[3];
-              v16 = expected_argument_type(type);
-              [arguments objectAtIndexedSubscript:v10];
-              v17 = 136447234;
-              v18 = "[CIColorKernel applyWithExtent:arguments:options:]";
-              v19 = 2082;
-              v20 = v15;
-              v21 = 1024;
-              v22 = v10;
-              v23 = 2082;
-              v24 = v16;
-              v25 = 2114;
-              v26 = [objc_opt_class() description];
-              _os_log_error_impl(&dword_19CC36000, v14, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", &v17, 0x30u);
-            }
+              v20 = ci_logger_api(v16, v17);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              {
+                v21 = *(priv + 3);
+                v22 = expected_argument_type(type);
+                [arguments objectAtIndexedSubscript:v14];
+                v23 = 136447234;
+                v24 = "[CIColorKernel applyWithExtent:arguments:options:]";
+                v25 = 2082;
+                v26 = v21;
+                v27 = 1024;
+                v28 = v14;
+                v29 = 2082;
+                v30 = v22;
+                v31 = 2114;
+                v32 = [objc_opt_class() description];
+                _os_log_error_impl(&dword_19CC36000, v20, OS_LOG_TYPE_ERROR, "%{public}s type mismatch for kernel '%{public}s' parameter %d. %{public}sGot %{public}@.", &v23, 0x30u);
+              }
 
-            return 0;
+              return 0;
+            }
           }
 
-          if ((v9 & 0x7FFFFFFF) == ++v10)
+          if ((v11 & 0x7FFFFFFF) == ++v14)
           {
             goto LABEL_28;
           }
         }
       }
 
-      v13 = ci_logger_api();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v19 = ci_logger_api(v12, v13);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [CIColorKernel applyWithExtent:? arguments:? options:?];
       }
@@ -342,8 +350,8 @@ LABEL_28:
 
     else
     {
-      v12 = ci_logger_api();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = ci_logger_api(v9, v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [CIColorKernel applyWithExtent:arguments:options:];
       }
@@ -394,8 +402,9 @@ LABEL_28:
 - (void)applyWithExtent:(CI::Kernel *)a1 arguments:options:.cold.2(CI::Kernel *a1)
 {
   CI::Kernel::num_apply_arguments(a1);
+  v7 = 136446978;
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_11_0(&dword_19CC36000, v1, v2, "%{public}s argument count mismatch for kernel '%{public}s', expected %d but saw %d.", v3, v4, v5, v6, v7);
 }
 
 - (void)applyWithExtent:arguments:options:.cold.3()

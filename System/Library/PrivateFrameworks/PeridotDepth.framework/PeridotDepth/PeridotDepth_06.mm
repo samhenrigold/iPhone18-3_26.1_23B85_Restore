@@ -132,7 +132,7 @@ void sub_224726A88()
   JUMPOUT(0x224726A34);
 }
 
-void getBackglassInfo(const void **a1)
+void getBackglassInfo(const void ***a1)
 {
   v2 = *(a1 + 23);
   v3 = v2;
@@ -353,7 +353,7 @@ void sub_224726DE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void getNominalExtrinsics(uint64_t a1, const void **a2, __n128 a3)
+void getNominalExtrinsics(uint64_t a1, const void ***a2, __n128 a3)
 {
   {
     getNominalExtrinsics(std::string const&)::R_z_90 = xmmword_2247A4AD0;
@@ -2482,7 +2482,7 @@ CFTypeRef PixelBufferUtils::copyAttachment(CVBufferRef buffer, const __CFString 
   return result;
 }
 
-__CVBuffer *PixelBufferUtils::copyAttachments(__CVBuffer *this, __CVBuffer *a2, CVAttachmentMode a3)
+CFDictionaryRef PixelBufferUtils::copyAttachments(CFDictionaryRef this, __CVBuffer *a2, CVAttachmentMode a3)
 {
   if (this)
   {
@@ -2498,22 +2498,22 @@ __CVBuffer *PixelBufferUtils::copyAttachments(__CVBuffer *this, __CVBuffer *a2, 
   return this;
 }
 
-unint64_t PixelBufferUtils::pixelFormatAsString@<X0>(unint64_t this@<X0>, char *a2@<X8>)
+unint64_t PixelBufferUtils::pixelFormatAsString@<X0>(uint64_t **__return_ptr a1@<X8>, unint64_t this@<X0>)
 {
   if (this == 32)
   {
-    a2[23] = 4;
+    *(a1 + 23) = 4;
     v3 = 1111970369;
     goto LABEL_5;
   }
 
   if (this == 24)
   {
-    a2[23] = 4;
+    *(a1 + 23) = 4;
     v3 = 1196569650;
 LABEL_5:
-    *a2 = v3;
-    a2[4] = 0;
+    *a1 = v3;
+    *(a1 + 4) = 0;
     return this;
   }
 
@@ -2535,27 +2535,27 @@ LABEL_5:
     operator new();
   }
 
-  a2[23] = this;
+  *(a1 + 23) = this;
   if (this)
   {
-    this = memcpy(a2, __s, this);
+    this = memcpy(a1, __s, this);
   }
 
-  a2[v4] = 0;
-  if (a2[23] >= 0)
+  *(a1 + v4) = 0;
+  if (*(a1 + 23) >= 0)
   {
-    v5 = a2;
+    v5 = a1;
   }
 
   else
   {
-    v5 = *a2;
+    v5 = *a1;
   }
 
   if (*v5 <= 31)
   {
-    v18 = a2[23];
-    __p = *a2;
+    v18 = *(a1 + 23);
+    __p = *a1;
     v33[6] = 0;
     v6 = MEMORY[0x277D82890] + 104;
     v33[0] = MEMORY[0x277D82890] + 104;
@@ -2612,8 +2612,8 @@ LABEL_5:
       operator delete(__p);
     }
 
-    *a2 = v20;
-    *(a2 + 2) = v21;
+    *a1 = v20;
+    a1[2] = v21;
     *__s = *v8;
     v16 = v8[9];
     *&__s[*(*__s - 24)] = v8[8];
@@ -2633,7 +2633,7 @@ LABEL_5:
   return this;
 }
 
-void sub_224729928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_224729928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, int a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a18);
   MEMORY[0x22AA53140](a13);
@@ -2745,14 +2745,14 @@ LABEL_29:
   return a1;
 }
 
-void sub_224729C4C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_224729C4C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x22AA52FD0](&a10);
+  MEMORY[0x22AA52FD0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -2796,7 +2796,7 @@ uint64_t PixelBufferUtils::pixelFormatFromString(PixelBufferUtils *this, const c
 
 unint64_t PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *this@<X0>, uint64_t a2@<X8>)
 {
-  result = PixelBufferUtils::pixelFormatAsString(this, a2);
+  result = PixelBufferUtils::pixelFormatAsString(a2, this);
   v4 = *(a2 + 23);
   v5 = v4;
   v6 = *a2;
@@ -2830,7 +2830,7 @@ unint64_t PixelBufferUtils::pixelFormatAsFileExtension@<X0>(PixelBufferUtils *th
   if (v9 < 8)
   {
 LABEL_139:
-    v32 = &v8[v9];
+    v32 = (v8 + v9);
     do
     {
       if (*v10 == 47)
@@ -2838,7 +2838,7 @@ LABEL_139:
         *v10 = 58;
       }
 
-      ++v10;
+      v10 = (v10 + 1);
     }
 
     while (v10 != v32);
@@ -3069,14 +3069,14 @@ LABEL_33:
 
   if ((v9 & 8) == 0)
   {
-    v10 = &v8[v11];
+    v10 = (v8 + v11);
     goto LABEL_139;
   }
 
 LABEL_11:
   v12 = v9 & 0xFFFFFFFFFFFFFFF8;
   v13 = v11 - (v9 & 0xFFFFFFFFFFFFFFF8);
-  v14 = &v8[v11 + 3];
+  v14 = v8 + v11 + 3;
   while (2)
   {
     v15 = vceq_s8(*(v14 - 3), 0x2F2F2F2F2F2F2F2FLL);
@@ -3188,7 +3188,7 @@ LABEL_20:
 
   if (v9 != v12)
   {
-    v10 = &v8[v12];
+    v10 = (v8 + v12);
     goto LABEL_139;
   }
 
@@ -3227,7 +3227,7 @@ LABEL_69:
   if (v21 < 8)
   {
 LABEL_145:
-    v33 = &v20[v21];
+    v33 = (v20 + v21);
     do
     {
       if (*v22 == 46)
@@ -3249,7 +3249,7 @@ LABEL_145:
   }
 
   v23 = v21 & 0xFFFFFFFFFFFFFFF0;
-  v28 = v20 + 7;
+  v28 = (v20 + 7);
   v29.i64[0] = 0x2E2E2E2E2E2E2E2ELL;
   v29.i64[1] = 0x2E2E2E2E2E2E2E2ELL;
   v30 = v21 & 0xFFFFFFFFFFFFFFF0;
@@ -3473,14 +3473,14 @@ LABEL_117:
 
   if ((v21 & 8) == 0)
   {
-    v22 = &v20[v23];
+    v22 = (v20 + v23);
     goto LABEL_145;
   }
 
 LABEL_79:
   v24 = v21 & 0xFFFFFFFFFFFFFFF8;
   v25 = v23 - (v21 & 0xFFFFFFFFFFFFFFF8);
-  v26 = &v20[v23 + 3];
+  v26 = (v23 + v20 + 3);
   while (2)
   {
     v27 = vceq_s8(*(v26 - 3), 0x2E2E2E2E2E2E2E2ELL);
@@ -3592,7 +3592,7 @@ LABEL_88:
 
   if (v21 != v24)
   {
-    v22 = &v20[v24];
+    v22 = (v20 + v24);
     goto LABEL_145;
   }
 
@@ -3855,7 +3855,7 @@ LABEL_30:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v15 >= 0)
     {
       v13 = __p;
@@ -4027,7 +4027,7 @@ LABEL_30:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v15 >= 0)
     {
       v13 = __p;
@@ -4212,7 +4212,7 @@ LABEL_40:
   else
   {
 
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v16 >= 0)
     {
       v14 = __p;
@@ -4355,7 +4355,7 @@ LABEL_34:
   v4 = CVPixelFormatDescriptionGetDescriptionWithPixelFormatType();
   if (!v4)
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v11 >= 0)
     {
       v9 = __p;
@@ -4415,27 +4415,27 @@ void PixelBufferUtils::asVImageBuffer(PixelBufferUtils *this@<X0>, CGRect a2@<0:
   y = a2.origin.y;
   x = a2.origin.x;
   BaseAddress = CVPixelBufferGetBaseAddress(this);
-  v11 = CVPixelBufferGetHeight(this);
-  v12 = CVPixelBufferGetWidth(this);
+  v10 = CVPixelBufferGetHeight(this);
+  v11 = CVPixelBufferGetWidth(this);
   BytesPerRow = CVPixelBufferGetBytesPerRow(this);
   if (!BaseAddress)
   {
     NSLog(&cfstr_SDErrorAsvimag.isa, "asVImageBuffer", 249);
     BytesPerRow = 0;
-    v12 = 0;
     v11 = 0;
+    v10 = 0;
   }
 
-  v15[0] = BaseAddress;
-  v15[1] = v11;
-  v15[2] = v12;
-  v15[3] = BytesPerRow;
+  v14[0] = BaseAddress;
+  v14[1] = v10;
+  v14[2] = v11;
+  v14[3] = BytesPerRow;
   PixelFormatType = CVPixelBufferGetPixelFormatType(this);
-  v16.origin.x = x;
-  v16.origin.y = y;
-  v16.size.width = width;
-  v16.size.height = height;
-  cropVImageBuffer(a3, v15, v16, PixelFormatType, 0);
+  v15.origin.x = x;
+  v15.origin.y = y;
+  v15.size.width = width;
+  v15.size.height = height;
+  cropVImageBuffer(a3, v14, v15, PixelFormatType, 0);
 }
 
 CVPixelBufferRef PixelBufferUtils::createPixelBuffer(size_t width, size_t height, OSType pixelFormatType, int a4)
@@ -4690,7 +4690,7 @@ LABEL_38:
   else
   {
 
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v14 >= 0)
     {
       v12 = __p;
@@ -4774,7 +4774,7 @@ PixelBufferUtils *PixelBufferUtils::uncompressedEquivalentForPixelFormat(PixelBu
 
   else if (PixelBufferUtils::isPixelFormatCompressed(this))
   {
-    PixelBufferUtils::pixelFormatAsString(this, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, this);
     if (v8 >= 0)
     {
       v5 = __p;
@@ -5141,7 +5141,7 @@ LABEL_72:
             }
 
 LABEL_85:
-            PixelBufferUtils::pixelFormatAsString(v16, &__p);
+            PixelBufferUtils::pixelFormatAsString(&__p, v16);
             if ((__p.width & 0x8000000000000000) == 0)
             {
               p_p = &__p;
@@ -5484,7 +5484,7 @@ LABEL_78:
               }
 
 LABEL_101:
-              PixelBufferUtils::pixelFormatAsString(v35, &src);
+              PixelBufferUtils::pixelFormatAsString(&src, v35);
               if ((src.width & 0x8000000000000000) == 0)
               {
                 p_src = &src;
@@ -6430,7 +6430,7 @@ LABEL_272:
               goto LABEL_185;
             }
 
-            PixelBufferUtils::pixelFormatAsString(v22, __p);
+            PixelBufferUtils::pixelFormatAsString(__p, v22);
             if (v110 >= 0)
             {
               v48 = __p;
@@ -6469,7 +6469,7 @@ LABEL_75:
         }
 
 LABEL_146:
-        PixelBufferUtils::pixelFormatAsString(PixelFormatType, &src);
+        PixelBufferUtils::pixelFormatAsString(&src, PixelFormatType);
         if ((src.width & 0x8000000000000000) == 0)
         {
           p_src = &src;
@@ -6620,7 +6620,7 @@ LABEL_207:
       }
 
 LABEL_229:
-      PixelBufferUtils::pixelFormatAsString(v8, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v8);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v59 = &src;
@@ -6701,7 +6701,7 @@ LABEL_208:
         goto LABEL_176;
       }
 
-      PixelBufferUtils::pixelFormatAsString(v8, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v8);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v60 = &src;
@@ -6857,7 +6857,7 @@ LABEL_167:
         return convertColorToGrayscale(pixelBuffer, a2);
       }
 
-      PixelBufferUtils::pixelFormatAsString(v10, &src);
+      PixelBufferUtils::pixelFormatAsString(&src, v10);
       if ((src.width & 0x8000000000000000) == 0)
       {
         v52 = &src;
@@ -7011,7 +7011,7 @@ uint64_t convert4ChannelFormats(__CVBuffer *a1, int a2, __CVBuffer *a3)
   LODWORD(v86.data) = a2;
   HIDWORD(v86.data) = PixelFormatType;
   src.data = &v86;
-  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v86.data);
+  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v86.data, &src);
   v9 = v8[3];
   v10 = *(v8 + 8);
   CVPixelBufferLockBaseAddress(a3, 0);
@@ -7408,7 +7408,7 @@ BOOL YUVFromBGRAPermutes(__CVBuffer *a1, __CVBuffer *a2, __CVBuffer *a3)
   v13 = RGBA_FORMAT_MAP();
   destYp.data = ((v6 << 32) | 0x20);
   pixelBufferOut.data = &destYp;
-  v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v13, destYp.data)[3];
+  v14 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v13, destYp.data, &pixelBufferOut)[3];
   CVPixelBufferLockBaseAddress(a2, 0);
   CVPixelBufferLockBaseAddress(data, 1uLL);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
@@ -7460,7 +7460,7 @@ uint64_t convert4ChannelToPlanar<half,float>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v81.data) = v5;
       HIDWORD(v81.data) = PixelFormatType;
       __p.data = &v81;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v81.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v81.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -7763,7 +7763,7 @@ LABEL_66:
 
     else
     {
-      PixelBufferUtils::pixelFormatAsString(v5, &__p);
+      PixelBufferUtils::pixelFormatAsString(&__p, v5);
       if ((__p.width & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -7786,7 +7786,7 @@ LABEL_66:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -7832,7 +7832,7 @@ uint64_t convert4ChannelToPlanar<float,float>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v51.data) = v5;
       HIDWORD(v51.data) = PixelFormatType;
       __p.data = &v51;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v51.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v51.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -8002,7 +8002,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -8024,7 +8024,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v16 = &__p;
@@ -8070,7 +8070,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,float>(__CVBuffer *a1, __CVBuffer
       LODWORD(v52.data) = v5;
       HIDWORD(v52.data) = PixelFormatType;
       __p.data = &v52;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v52.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v52.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -8247,7 +8247,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -8269,7 +8269,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -8315,7 +8315,7 @@ uint64_t convert4ChannelToPlanar<half,half>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v67.data) = v5;
       HIDWORD(v67.data) = PixelFormatType;
       __p.data = &v67;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v67.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v67.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -8509,7 +8509,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -8531,7 +8531,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v16 = &__p;
@@ -8577,7 +8577,7 @@ uint64_t convert4ChannelToPlanar<float,half>(__CVBuffer *a1, __CVBuffer *a2)
       LODWORD(v120.data) = v5;
       HIDWORD(v120.data) = PixelFormatType;
       __p.data = &v120;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v120.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v120.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -8996,7 +8996,7 @@ LABEL_66:
       return 0;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -9018,7 +9018,7 @@ LABEL_66:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v15 = &__p;
@@ -9064,7 +9064,7 @@ uint64_t convert4ChannelToPlanar<unsigned char,half>(__CVBuffer *a1, __CVBuffer 
       LODWORD(v56.data) = v5;
       HIDWORD(v56.data) = PixelFormatType;
       __p.data = &v56;
-      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v56.data);
+      v8 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v7, v56.data, &__p);
       v9 = v8[3];
       v10 = *(v8 + 8) - 1;
       v11 = 1.0;
@@ -9250,7 +9250,7 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v5, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, v5);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -9272,7 +9272,7 @@ LABEL_46:
 
   else
   {
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, &__p);
+    PixelBufferUtils::pixelFormatAsString(&__p, PixelFormatType);
     if ((__p.width & 0x8000000000000000) == 0)
     {
       v17 = &__p;
@@ -9320,7 +9320,7 @@ uint64_t convertColorToGrayscale(__CVBuffer *a1, __CVBuffer *a2)
     data = pixelBufferOut.data;
   }
 
-  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0, v8))
+  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0))
   {
     CVPixelBufferRelease(data);
     return 0xFFFFFFFFLL;
@@ -9333,40 +9333,40 @@ uint64_t convertColorToGrayscale(__CVBuffer *a1, __CVBuffer *a2)
 
   CVPixelBufferLockBaseAddress(a2, 0);
   memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-  v11 = MEMORY[0x277CBF3A0];
+  v10 = MEMORY[0x277CBF3A0];
   PixelBufferUtils::asVImageBuffer(a2, 0, *MEMORY[0x277CBF3A0], &pixelBufferOut);
   CVPixelBufferLockBaseAddress(data, 1uLL);
   memset(&src, 0, sizeof(src));
-  PixelBufferUtils::asVImageBuffer(data, 0, *v11, &src);
+  PixelBufferUtils::asVImageBuffer(data, 0, *v10, &src);
   PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
-  v13 = PixelFormatType;
+  v12 = PixelFormatType;
   if (PixelFormatType > 1278226535)
   {
     if (PixelFormatType != 1278226536 && PixelFormatType != 1647392359)
     {
 LABEL_15:
-      PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
-      if (v18 >= 0)
+      PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
+      if (v17 >= 0)
       {
-        v15 = __p;
+        v14 = __p;
       }
 
       else
       {
-        v15 = __p[0];
+        v14 = __p[0];
       }
 
-      NSLog(&cfstr_SDErrorPixelFo.isa, "convertColorToGrayscale", 2021, v13, v15);
-      if (v18 < 0)
+      NSLog(&cfstr_SDErrorPixelFo.isa, "convertColorToGrayscale", 2021, v12, v14);
+      if (v17 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v16 = 1;
+      v15 = 1;
       goto LABEL_24;
     }
 
-    v14 = vImageConvert_Planar8toPlanar16F(&src, &pixelBufferOut, 0);
+    v13 = vImageConvert_Planar8toPlanar16F(&src, &pixelBufferOut, 0);
   }
 
   else
@@ -9381,15 +9381,15 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    v14 = vImageConvert_Planar8toPlanarF(&src, &pixelBufferOut, 1.0, 0.0, 0);
+    v13 = vImageConvert_Planar8toPlanarF(&src, &pixelBufferOut, 1.0, 0.0, 0);
   }
 
-  v16 = v14 != 0;
+  v15 = v13 != 0;
 LABEL_24:
   CVPixelBufferUnlockBaseAddress(data, 1uLL);
   CVPixelBufferUnlockBaseAddress(a2, 0);
   CVPixelBufferRelease(data);
-  return v16;
+  return v15;
 }
 
 void sub_224731158(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9441,7 +9441,7 @@ uint64_t convertRGBPlanarFloat(__CVBuffer *a1, __CVBuffer *a2)
     }
 
 LABEL_19:
-    PixelBufferUtils::pixelFormatAsString(PixelFormatType, __p);
+    PixelBufferUtils::pixelFormatAsString(__p, PixelFormatType);
     if (v12 >= 0)
     {
       v10 = __p;
@@ -9540,7 +9540,7 @@ uint64_t convertRGBPlanarHalf(__CVBuffer *a1, __CVBuffer *a2)
   return v10;
 }
 
-uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, int a2, CVPixelBufferRef a3)
+uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, unsigned int a2, CVPixelBufferRef a3)
 {
   v6 = a2 == 1380411457 || a2 == 1380410945;
   data = a3;
@@ -9576,7 +9576,7 @@ uint64_t createBGRAPermutesFromYUV(CVPixelBufferRef pixelBuffer, int a2, CVPixel
   v14 = RGBA_FORMAT_MAP();
   v19 = v8 | 0x2000000000;
   *&v18.Yp_bias = &v19;
-  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14, v19)[3];
+  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned char *,int>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(v14, v19, &v18)[3];
   if ((createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::isConvesionInfoDefined & 1) != 0 || (v18 = *ymmword_2247AA0A8, v16 = vImageConvert_YpCbCrToARGB_GenerateConversion(*MEMORY[0x277CB86E0], &v18, &createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::conversionInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0), createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::isConvesionInfoDefined = 1, !v16))
   {
     v16 = vImageConvert_420Yp8_CbCr8ToARGB8888(&pixelBufferOut, &srcCbCr, &dest, &createBGRAPermutesFromYUV(__CVBuffer *,unsigned int,__CVBuffer *)::conversionInfo, v15, 0xFFu, 0);
@@ -9618,7 +9618,7 @@ uint64_t createRGBPlanarFloatFromBuffer(__CVBuffer *a1, __CVBuffer *a2)
     data = pixelBufferOut.data;
   }
 
-  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0, v8))
+  if (PixelBufferUtils::convertPixelBufferFormat(a1, data, 0))
   {
     CVPixelBufferRelease(data);
     return 0xFFFFFFFFLL;
@@ -9629,38 +9629,38 @@ uint64_t createRGBPlanarFloatFromBuffer(__CVBuffer *a1, __CVBuffer *a2)
     CVPixelBufferLockBaseAddress(data, 1uLL);
     CVPixelBufferLockBaseAddress(a2, 0);
     memset(&pixelBufferOut, 0, sizeof(pixelBufferOut));
-    v11 = MEMORY[0x277CBF3A0];
+    v10 = MEMORY[0x277CBF3A0];
     PixelBufferUtils::asVImageBuffer(data, *MEMORY[0x277CBF3A0], &pixelBufferOut);
     memset(&destA, 0, sizeof(destA));
-    PixelBufferUtils::asVImageBuffer(a2, 0, *v11, &destA);
+    PixelBufferUtils::asVImageBuffer(a2, 0, *v10, &destA);
     memset(&destR, 0, sizeof(destR));
-    PixelBufferUtils::asVImageBuffer(a2, 1, *v11, &destR);
+    PixelBufferUtils::asVImageBuffer(a2, 1, *v10, &destR);
     memset(&destG, 0, sizeof(destG));
-    PixelBufferUtils::asVImageBuffer(a2, 2, *v11, &destG);
-    if (MEMORY[0x22AA53DD0](&v14, pixelBufferOut.height, pixelBufferOut.width, 32, 0))
+    PixelBufferUtils::asVImageBuffer(a2, 2, *v10, &destG);
+    if (MEMORY[0x22AA53DD0](&v13, pixelBufferOut.height, pixelBufferOut.width, 32, 0))
     {
-      v12 = 0xFFFFFFFFLL;
+      v11 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v13 = vImageConvert_ARGBFFFFtoPlanarF(&pixelBufferOut, &destA, &destR, &destG, &v14, 0);
-      free(v14.data);
-      if (v13)
+      v12 = vImageConvert_ARGBFFFFtoPlanarF(&pixelBufferOut, &destA, &destR, &destG, &v13, 0);
+      free(v13.data);
+      if (v12)
       {
-        v12 = 0xFFFFFFFFLL;
+        v11 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v12 = 0;
+        v11 = 0;
       }
     }
 
     CVPixelBufferUnlockBaseAddress(data, 1uLL);
     CVPixelBufferUnlockBaseAddress(a2, 0);
     CVPixelBufferRelease(data);
-    return v12;
+    return v11;
   }
 
   else

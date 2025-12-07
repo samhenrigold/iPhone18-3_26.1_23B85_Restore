@@ -260,7 +260,7 @@ LABEL_11:
   v8 = sub_16FAFC(selfCopy->_postscriptName, &tracking, specCopy);
   if (!v8)
   {
-    if (specCopy && [(NSString *)selfCopy->_fontDesignTrait isEqualToString:UIFontSystemFontDesignSerif])
+    if (specCopy && objc_msgSend_isEqualToString_(selfCopy->_fontDesignTrait))
     {
       v9 = [[TUIFontSpec alloc] initWithOther:selfCopy];
 
@@ -364,7 +364,7 @@ LABEL_14:
     goto LABEL_32;
   }
 
-  if (!v7 || self->_specified != v7->_specified || (postscriptName = self->_postscriptName, postscriptName != v8->_postscriptName) && ![(NSString *)postscriptName isEqualToString:?]|| self->_pointSize != v8->_pointSize || !TUICGFloatIsEqualFloatOrBothNaN(self->_tracking, v8->_tracking) || !TUICGFloatIsEqualFloatOrBothNaN(self->_leading, v8->_leading) || self->_additionalLeading != v8->_additionalLeading || self->_caps != v8->_caps || self->_weight != v8->_weight || *(&self->_specified + 1) != *(&v8->_specified + 1) || (foregroundColor = self->_foregroundColor, foregroundColor != v8->_foregroundColor) && ![(UIColor *)foregroundColor isEqual:?]|| self->_scale != v8->_scale || self->_minPointSize != v8->_minPointSize || self->_maxPointSize != v8->_maxPointSize || (textStyle = self->_textStyle, textStyle != v8->_textStyle) && ![(NSString *)textStyle isEqualToString:?]|| (minContentSize = self->_minContentSize, minContentSize != v8->_minContentSize) && ![(NSString *)minContentSize isEqualToString:?]|| (maxContentSize = self->_maxContentSize, maxContentSize != v8->_maxContentSize) && ![(NSString *)maxContentSize isEqualToString:?]|| (fontFamilyName = self->_fontFamilyName, fontFamilyName != v8->_fontFamilyName) && ![(NSString *)fontFamilyName isEqualToString:?])
+  if (!v7 || self->_specified != v7->_specified || (postscriptName = self->_postscriptName, postscriptName != v8->_postscriptName) && !objc_msgSend_isEqualToString_(postscriptName) || self->_pointSize != v8->_pointSize || !TUICGFloatIsEqualFloatOrBothNaN(self->_tracking, v8->_tracking) || !TUICGFloatIsEqualFloatOrBothNaN(self->_leading, v8->_leading) || self->_additionalLeading != v8->_additionalLeading || self->_caps != v8->_caps || self->_weight != v8->_weight || *(&self->_specified + 1) != *(&v8->_specified + 1) || (foregroundColor = self->_foregroundColor, foregroundColor != v8->_foregroundColor) && ![(UIColor *)foregroundColor isEqual:?]|| self->_scale != v8->_scale || self->_minPointSize != v8->_minPointSize || self->_maxPointSize != v8->_maxPointSize || (textStyle = self->_textStyle, textStyle != v8->_textStyle) && !objc_msgSend_isEqualToString_(textStyle) || (minContentSize = self->_minContentSize, minContentSize != v8->_minContentSize) && !objc_msgSend_isEqualToString_(minContentSize) || (maxContentSize = self->_maxContentSize, maxContentSize != v8->_maxContentSize) && !objc_msgSend_isEqualToString_(maxContentSize) || (fontFamilyName = self->_fontFamilyName, fontFamilyName != v8->_fontFamilyName) && !objc_msgSend_isEqualToString_(fontFamilyName))
   {
     v16 = 0;
     goto LABEL_33;
@@ -378,7 +378,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v16 = [(NSString *)fontDesignTrait isEqualToString:?];
+  v16 = objc_msgSend_isEqualToString_(fontDesignTrait);
 LABEL_33:
 
   return v16;
@@ -787,7 +787,7 @@ LABEL_20:
     maxPointSize = selfCopy->_maxPointSize;
     v10 = [UIFont preferredFontForTextStyle:textStyle compatibleWithTraitCollection:collectionCopy];
     maxContentSize = v6->_maxContentSize;
-    if (maxContentSize && ![(NSString *)maxContentSize isEqualToString:UIContentSizeCategoryUnspecified])
+    if (maxContentSize && (objc_msgSend_isEqualToString_(maxContentSize) & 1) == 0)
     {
       v12 = v6->_textStyle;
       v13 = [UITraitCollection traitCollectionWithPreferredContentSizeCategory:v6->_maxContentSize];
@@ -801,7 +801,7 @@ LABEL_20:
     }
 
     minContentSize = v6->_minContentSize;
-    if (minContentSize && ![(NSString *)minContentSize isEqualToString:UIContentSizeCategoryUnspecified])
+    if (minContentSize && (objc_msgSend_isEqualToString_(minContentSize) & 1) == 0)
     {
       v18 = v6->_textStyle;
       v19 = [UITraitCollection traitCollectionWithPreferredContentSizeCategory:v6->_minContentSize];

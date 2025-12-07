@@ -1,16 +1,8 @@
 @interface (start:Int,end:Int,count:
-- (uint64_t)Int);
 - (unint64_t)Int);
 @end
 
 @implementation (start:Int,end:Int,count:
-
-- (uint64_t)Int)
-{
-  v1 = *self;
-
-  return self;
-}
 
 - (unint64_t)Int)
 {

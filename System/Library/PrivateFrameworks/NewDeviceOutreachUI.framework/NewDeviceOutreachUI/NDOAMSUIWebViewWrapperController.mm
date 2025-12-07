@@ -3,6 +3,7 @@
 - (void)dealloc;
 - (void)loadView;
 - (void)presentationControllerDidDismiss:(id)dismiss;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -73,6 +74,67 @@
   [view2 setFrame:{v5, v7, v9, v11}];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = _NDOLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [NDOAMSUIWebViewWrapperController viewDidDisappear:?];
+  }
+
+  v6 = _NDOLogSystem();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [NDOAMSUIWebViewWrapperController viewDidDisappear:?];
+  }
+
+  v7 = _NDOLogSystem();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [NDOAMSUIWebViewWrapperController viewDidDisappear:?];
+  }
+
+  if (([(NDOAMSUIWebViewWrapperController *)self isBeingDismissed]& 1) == 0)
+  {
+    navigationController = [(NDOAMSUIWebViewWrapperController *)self navigationController];
+    if ([navigationController isBeingDismissed])
+    {
+    }
+
+    else
+    {
+      isMovingFromParentViewController = [(NDOAMSUIWebViewWrapperController *)self isMovingFromParentViewController];
+
+      if (!isMovingFromParentViewController)
+      {
+        goto LABEL_15;
+      }
+    }
+  }
+
+  dismissBlock = [(NDOAMSUIWebViewWrapperController *)self dismissBlock];
+
+  if (dismissBlock)
+  {
+    v11 = _NDOLogSystem();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [(NDOAMSUIWebViewWrapperController *)v11 viewDidDisappear:v12, v13, v14, v15, v16, v17, v18];
+    }
+
+    dismissBlock2 = [(NDOAMSUIWebViewWrapperController *)self dismissBlock];
+    dismissBlock2[2]();
+
+    [(NDOAMSUIWebViewWrapperController *)self setDismissBlock:0];
+  }
+
+LABEL_15:
+  v20.receiver = self;
+  v20.super_class = NDOAMSUIWebViewWrapperController;
+  [(NDOAMSUIWebViewWrapperController *)&v20 viewDidDisappear:disappearCopy];
+}
+
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   dismissBlock = [(NDOAMSUIWebViewWrapperController *)self dismissBlock];
@@ -94,28 +156,24 @@
 
 - (void)viewDidDisappear:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 isBeingDismissed];
-  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v1, v2, "dismissal isBeingDismissed %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 isBeingDismissed];
+  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v1, v2, "dismissal isBeingDismissed %d", v3, v4, v5, v6, v7);
 }
 
 - (void)viewDidDisappear:(void *)a1 .cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 navigationController];
-  [v1 isBeingDismissed];
-  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v2, v3, "dismissal navigationController isBeingDismissed %d", v4, v5, v6, v7, 0);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = [v1 isBeingDismissed];
+  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v2, v3, "dismissal navigationController isBeingDismissed %d", v4, v5, v6, v7, v8);
 }
 
 - (void)viewDidDisappear:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 isMovingFromParentViewController];
-  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v1, v2, "dismissal isMovingFromParentViewController %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 isMovingFromParentViewController];
+  OUTLINED_FUNCTION_0_1(&dword_25BD8D000, v1, v2, "dismissal isMovingFromParentViewController %d", v3, v4, v5, v6, v7);
 }
 
 @end

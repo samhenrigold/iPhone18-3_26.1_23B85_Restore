@@ -27,31 +27,27 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMEmbeddingProtoRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7[0] = @"siri_input_representations";
-  v7[1] = @"temp_model";
-  v8 = @"com.apple.siri.nl.owl";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6[0] = @"siri_input_representations";
+  v6[1] = @"temp_model";
+  v7 = @"com.apple.siri.nl.owl";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -69,13 +65,13 @@
 
 - (id)doEmbedding:(id)embedding
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v52 = "[CDMEmbeddingProtoService doEmbedding:]";
+    v51 = "[CDMEmbeddingProtoService doEmbedding:]";
     _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s Start doEmbedding", buf, 0xCu);
   }
 
@@ -85,7 +81,7 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v52 = "[CDMEmbeddingProtoService doEmbedding:]";
+      v51 = "[CDMEmbeddingProtoService doEmbedding:]";
       _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s CDMEmbeddingProtoService::doEmbedding input: <Redacted>", buf, 0xCu);
     }
   }
@@ -97,47 +93,47 @@
     {
       request = [embeddingCopy request];
       *buf = 136315395;
-      v52 = "[CDMEmbeddingProtoService doEmbedding:]";
-      v53 = 2117;
-      v54 = request;
+      v51 = "[CDMEmbeddingProtoService doEmbedding:]";
+      v52 = 2117;
+      v53 = request;
       _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s CDMEmbeddingProtoService::doEmbedding input: %{sensitive}@", buf, 0x16u);
     }
   }
 
-  v38 = objc_alloc_init(MEMORY[0x1E69D12B8]);
-  v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_embedders, "count")}];
+  v37 = objc_alloc_init(MEMORY[0x1E69D12B8]);
   v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_embedders, "count")}];
+  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_embedders, "count")}];
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v36 = [(NSMutableArray *)self->_embedders count];
+    v35 = [(NSMutableArray *)self->_embedders count];
     *buf = 136315394;
-    v52 = "[CDMEmbeddingProtoService doEmbedding:]";
-    v53 = 2048;
-    v54 = v36;
+    v51 = "[CDMEmbeddingProtoService doEmbedding:]";
+    v52 = 2048;
+    v53 = v35;
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Running doEmbedding for %lu embedders", buf, 0x16u);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = self->_embedders;
-  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v6)
   {
-    v45 = 0;
-    v41 = *v47;
+    v44 = 0;
+    v40 = *v46;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v47 != v41)
+        if (*v46 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v46 + 1) + 8 * i);
+        v8 = *(*(&v45 + 1) + 8 * i);
         v9 = objc_alloc_init(MEMORY[0x1E69D12C0]);
         v10 = objc_alloc_init(MEMORY[0x1E69D12C0]);
         snlpEmbedder = [v8 snlpEmbedder];
@@ -161,10 +157,10 @@
         {
           v20 = v13;
 
-          v45 = v20;
+          v44 = v20;
         }
 
-        [v44 addObject:{v9, v38}];
+        [v43 addObject:{v9, v37}];
         [v10 setEmbeddingDim:{objc_msgSend(v13, "embeddingDim")}];
         subwordEmbeddingTensorOutputs = [v13 subwordEmbeddingTensorOutputs];
         v22 = [subwordEmbeddingTensorOutputs objectAtIndexedSubscript:0];
@@ -175,44 +171,44 @@
         embeddingModelVersion2 = [embeddingConfigItem3 embeddingModelVersion];
         [v10 setEmbeddingVersion:embeddingModelVersion2];
 
-        [v43 addObject:v10];
+        [v42 addObject:v10];
       }
 
-      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v6);
 
-    if (v45)
+    if (v44)
     {
-      tokenChain = [v45 tokenChain];
-      [v38 setTokenChain:tokenChain];
+      tokenChain = [v44 tokenChain];
+      [v37 setTokenChain:tokenChain];
 
-      [v38 setNumToken:{objc_msgSend(v45, "numToken")}];
-      subwordTokenChain = [v45 subwordTokenChain];
-      [v38 setSubwordTokenChain:subwordTokenChain];
+      [v37 setNumToken:{objc_msgSend(v44, "numToken")}];
+      subwordTokenChain = [v44 subwordTokenChain];
+      [v37 setSubwordTokenChain:subwordTokenChain];
 
-      [v38 setNumSubwordToken:{objc_msgSend(v45, "numSubwordToken")}];
-      [v38 setEmbeddingTensorOutputs:v44];
-      [v38 setSubwordEmbeddingTensorOutputs:v43];
-      v28 = [[CDMEmbeddingProtoResponseCommand alloc] initWithResponse:v38 embeddingConfigs:self->_embeddingConfigs];
+      [v37 setNumSubwordToken:{objc_msgSend(v44, "numSubwordToken")}];
+      [v37 setEmbeddingTensorOutputs:v43];
+      [v37 setSubwordEmbeddingTensorOutputs:v42];
+      v28 = [[CDMEmbeddingProtoResponseCommand alloc] initWithResponse:v37 embeddingConfigs:self->_embeddingConfigs];
       v29 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v52 = "[CDMEmbeddingProtoService doEmbedding:]";
+        v51 = "[CDMEmbeddingProtoService doEmbedding:]";
         _os_log_impl(&dword_1DC287000, v29, OS_LOG_TYPE_INFO, "%s CDMEmbeddingProtoService::doEmbedding finished", buf, 0xCu);
       }
 
       v30 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        embeddingTensorOutputs2 = [v38 embeddingTensorOutputs];
+        embeddingTensorOutputs2 = [v37 embeddingTensorOutputs];
         v32 = [embeddingTensorOutputs2 count];
         *buf = 136315394;
-        v52 = "[CDMEmbeddingProtoService doEmbedding:]";
-        v53 = 2048;
-        v54 = v32;
+        v51 = "[CDMEmbeddingProtoService doEmbedding:]";
+        v52 = 2048;
+        v53 = v32;
         _os_log_debug_impl(&dword_1DC287000, v30, OS_LOG_TYPE_DEBUG, "%s CDMEmbeddingProtoService::doEmbedding produced %lu embedding tensors", buf, 0x16u);
       }
 
@@ -225,23 +221,21 @@
   }
 
   self->super.super._serviceState = 3;
-  v28 = [[CDMEmbeddingProtoResponseCommand alloc] initWithResponse:v38 embeddingConfigs:self->_embeddingConfigs];
-  v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No stable embeddings model found. Aborting setup."];
+  v28 = [[CDMEmbeddingProtoResponseCommand alloc] initWithResponse:v37 embeddingConfigs:self->_embeddingConfigs];
+  v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No stable embeddings model found. Aborting setup."];
   v33 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v52 = "[CDMEmbeddingProtoService doEmbedding:]";
-    v53 = 2112;
-    v54 = v45;
+    v51 = "[CDMEmbeddingProtoService doEmbedding:]";
+    v52 = 2112;
+    v53 = v44;
     _os_log_error_impl(&dword_1DC287000, v33, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
   }
 
-  v30 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:2 description:v45];
+  v30 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:2 description:v44];
   [(CDMBaseCommand *)v28 setCmdError:v30];
 LABEL_28:
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -267,14 +261,14 @@ LABEL_28:
 
 - (id)assetsPathURLForModelBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
-  v11 = 0;
+  v10 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v11];
+  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v10];
 
-  if (v6 && (v11 & 1) != 0)
+  if (v6 && (v10 & 1) != 0)
   {
     v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:resourcePath isDirectory:1];
   }
@@ -285,23 +279,21 @@ LABEL_28:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[CDMEmbeddingProtoService assetsPathURLForModelBundle:]";
-      v14 = 2112;
-      v15 = resourcePath;
+      v12 = "[CDMEmbeddingProtoService assetsPathURLForModelBundle:]";
+      v13 = 2112;
+      v14 = resourcePath;
       _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: Embeddings assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)handle:(id)handle
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   request = [handleCopy request];
   text = [request text];
@@ -315,21 +307,21 @@ LABEL_28:
   v7 = CDMLogContext;
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315651;
-    v19 = "[CDMEmbeddingProtoService handle:]";
-    v20 = 2112;
-    v21 = @"embedding";
-    v22 = 2117;
-    v23 = text;
-    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nEmbeddingRequest text: %{sensitive}@", &v18, 0x20u);
+    v17 = 136315651;
+    v18 = "[CDMEmbeddingProtoService handle:]";
+    v19 = 2112;
+    v20 = @"embedding";
+    v21 = 2117;
+    v22 = text;
+    _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nEmbeddingRequest text: %{sensitive}@", &v17, 0x20u);
   }
 
   v8 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315138;
-    v19 = "[CDMEmbeddingProtoService handle:]";
-    _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s calling SiriBERT embedding", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[CDMEmbeddingProtoService handle:]";
+    _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s calling SiriBERT embedding", &v17, 0xCu);
   }
 
   if ([(CDMEmbeddingProtoService *)self getServiceState]!= 2)
@@ -357,22 +349,22 @@ LABEL_11:
   {
     if (v14)
     {
-      v18 = 136315394;
-      v19 = "[CDMEmbeddingProtoService handle:]";
-      v20 = 2112;
-      v21 = @"embedding";
+      v17 = 136315394;
+      v18 = "[CDMEmbeddingProtoService handle:]";
+      v19 = 2112;
+      v20 = @"embedding";
       v15 = "%s [ERR]: [insights-cdm-%@]:\nNo embedders were loaded";
 LABEL_21:
-      _os_log_error_impl(&dword_1DC287000, v13, OS_LOG_TYPE_ERROR, v15, &v18, 0x16u);
+      _os_log_error_impl(&dword_1DC287000, v13, OS_LOG_TYPE_ERROR, v15, &v17, 0x16u);
     }
   }
 
   else if (v14)
   {
-    v18 = 136315394;
-    v19 = "[CDMEmbeddingProtoService handle:]";
-    v20 = 2112;
-    v21 = @"embedding";
+    v17 = 136315394;
+    v18 = "[CDMEmbeddingProtoService handle:]";
+    v19 = 2112;
+    v20 = @"embedding";
     v15 = "%s [ERR]: [insights-cdm-%@]:\n_embedders array is nil";
     goto LABEL_21;
   }
@@ -382,14 +374,12 @@ LABEL_21:
   v11 = 0;
 LABEL_17:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)addEmbeddingModelItemToEmbedders:(id)embedders
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   embeddersCopy = embedders;
   if (embeddersCopy)
   {
@@ -398,9 +388,9 @@ LABEL_17:
     {
       embeddingModelVersion = [embeddersCopy embeddingModelVersion];
       *buf = 136315394;
-      v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-      v47 = 2112;
-      v48 = embeddingModelVersion;
+      v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+      v46 = 2112;
+      v47 = embeddingModelVersion;
       _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Processing embedding config for model %@", buf, 0x16u);
     }
 
@@ -409,9 +399,9 @@ LABEL_17:
     {
       isStableEmbeddingModel = [embeddersCopy isStableEmbeddingModel];
       *buf = 136315394;
-      v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-      v47 = 1024;
-      LODWORD(v48) = isStableEmbeddingModel;
+      v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+      v46 = 1024;
+      LODWORD(v47) = isStableEmbeddingModel;
       _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Is stable model: %d", buf, 0x12u);
     }
 
@@ -438,9 +428,9 @@ LABEL_17:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-          v47 = 2112;
-          v48 = v12;
+          v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+          v46 = 2112;
+          v47 = v12;
           _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Embeddings proto service passing assets path to embeddings orchestrator: %@", buf, 0x16u);
         }
 
@@ -451,9 +441,9 @@ LABEL_17:
         {
           embeddingModelVersion2 = [embeddersCopy embeddingModelVersion];
           *buf = 136315394;
-          v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-          v47 = 2112;
-          v48 = embeddingModelVersion2;
+          v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+          v46 = 2112;
+          v47 = embeddingModelVersion2;
           _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s creating SNLPEmbedder for embeddings model: %@", buf, 0x16u);
         }
 
@@ -474,9 +464,9 @@ LABEL_17:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-        v47 = 2112;
-        v48 = v19;
+        v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+        v46 = 2112;
+        v47 = v19;
         _os_log_impl(&dword_1DC287000, v35, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
       }
 
@@ -496,15 +486,15 @@ LABEL_33:
       configPath = [v19 configPath];
       reformulationPath = [v19 reformulationPath];
       *buf = 136316162;
-      v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
-      v47 = 2112;
-      v48 = srcVocabPath;
-      v49 = 2112;
-      v50 = modelPath;
-      v51 = 2112;
-      v52 = configPath;
-      v53 = 2112;
-      v54 = reformulationPath;
+      v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+      v46 = 2112;
+      v47 = srcVocabPath;
+      v48 = 2112;
+      v49 = modelPath;
+      v50 = 2112;
+      v51 = configPath;
+      v52 = 2112;
+      v53 = reformulationPath;
       _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s SrcVocabPath:%@, Model path:%@, Model config path:%@, Reformulation path:%@", buf, 0x34u);
     }
 
@@ -559,7 +549,7 @@ LABEL_32:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v46 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
+    v45 = "[CDMEmbeddingProtoService addEmbeddingModelItemToEmbedders:]";
     _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, "%s The CDMEmbeddingConfigItem to be used is nil. Fail the setup.", buf, 0xCu);
   }
 
@@ -567,33 +557,31 @@ LABEL_32:
   createSetupResponseCommand = [(CDMEmbeddingProtoService *)self createEmbeddingConfigItemEqualToNilResponse];
 LABEL_35:
 
-  v39 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)getStableEmbeddingModelItem:(id)item
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   itemCopy = item;
-  v4 = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [itemCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(itemCopy);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 isStableEmbeddingModel])
         {
           v4 = v7;
@@ -601,7 +589,7 @@ LABEL_35:
         }
       }
 
-      v4 = [itemCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [itemCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -613,18 +601,16 @@ LABEL_35:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)getSpecificEmbeddingModelItem:(id)item dependentEmbeddingConfigs:(id)configs embeddingVersion:(id)version
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   configsCopy = configs;
   versionCopy = version;
-  v23 = itemCopy;
+  v22 = itemCopy;
   v10 = [itemCopy objectForKey:versionCopy];
 
   v11 = versionCopy;
@@ -633,26 +619,26 @@ LABEL_11:
     v11 = [itemCopy objectForKey:versionCopy];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = configsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
-    v22 = configsCopy;
-    v14 = *v25;
+    v21 = configsCopy;
+    v14 = *v24;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         embeddingModelVersion = [v16 embeddingModelVersion];
         v18 = [embeddingModelVersion rangeOfString:v11] == 0x7FFFFFFFFFFFFFFFLL;
 
@@ -663,7 +649,7 @@ LABEL_11:
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v13)
       {
         continue;
@@ -676,46 +662,44 @@ LABEL_11:
   v19 = 0;
 LABEL_13:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)warmup:(id)warmup
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[CDMEmbeddingProtoService warmup:]";
+    v20 = "[CDMEmbeddingProtoService warmup:]";
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_INFO, "%s Prewarm Embedding models", buf, 0xCu);
   }
 
   if (+[CDMUserDefaultsUtils prewarmModels]&& [(CDMEmbeddingProtoService *)self hasEmbedderOrchestrator])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = self->_embedders;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v15 + 1) + 8 * i) warmup];
+          [*(*(&v14 + 1) + 8 * i) warmup];
         }
 
-        v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -728,7 +712,7 @@ LABEL_13:
     if (os_log_type_enabled(&v5->super.super, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v21 = "[CDMEmbeddingProtoService warmup:]";
+      v20 = "[CDMEmbeddingProtoService warmup:]";
       _os_log_debug_impl(&dword_1DC287000, &v5->super.super, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. Embedding models will not prewarm.", buf, 0xCu);
     }
   }
@@ -738,21 +722,19 @@ LABEL_13:
   serviceName = [(CDMBaseService *)self serviceName];
   v12 = [(CDMWarmupResponseCommand *)v9 initWithServiceState:serviceState serviceName:serviceName];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)setup:(id)setup
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v26 = 136315138;
-    v27 = "[CDMEmbeddingProtoService setup:]";
-    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setup CDMEmbeddingProtoService", &v26, 0xCu);
+    v25 = 136315138;
+    v26 = "[CDMEmbeddingProtoService setup:]";
+    _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setup CDMEmbeddingProtoService", &v25, 0xCu);
   }
 
   dynamicConfig = [setupCopy dynamicConfig];
@@ -771,12 +753,12 @@ LABEL_13:
   v14 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v25 = [getDependentEmbeddingConfigs count];
-    v26 = 136315394;
-    v27 = "[CDMEmbeddingProtoService setup:]";
-    v28 = 2048;
-    v29 = v25;
-    _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s Initialize _embedders array with capacity %lu", &v26, 0x16u);
+    v24 = [getDependentEmbeddingConfigs count];
+    v25 = 136315394;
+    v26 = "[CDMEmbeddingProtoService setup:]";
+    v27 = 2048;
+    v28 = v24;
+    _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s Initialize _embedders array with capacity %lu", &v25, 0x16u);
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(getDependentEmbeddingConfigs, "count")}];
@@ -788,11 +770,11 @@ LABEL_13:
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v26 = 136315394;
-      v27 = "[CDMEmbeddingProtoService setup:]";
-      v28 = 2112;
-      v29 = embeddingVersion;
-      _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s Client Embedding version is not nil and the value is %@.", &v26, 0x16u);
+      v25 = 136315394;
+      v26 = "[CDMEmbeddingProtoService setup:]";
+      v27 = 2112;
+      v28 = embeddingVersion;
+      _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s Client Embedding version is not nil and the value is %@.", &v25, 0x16u);
     }
 
     getEmbeddingVersionDictionary = [(CDMEmbeddingConfigs *)self->_embeddingConfigs getEmbeddingVersionDictionary];
@@ -808,9 +790,9 @@ LABEL_16:
     v21 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v26 = 136315138;
-      v27 = "[CDMEmbeddingProtoService setup:]";
-      _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s Embedding version not found; fallback to stable embedding.", &v26, 0xCu);
+      v25 = 136315138;
+      v26 = "[CDMEmbeddingProtoService setup:]";
+      _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s Embedding version not found; fallback to stable embedding.", &v25, 0xCu);
     }
   }
 
@@ -822,11 +804,11 @@ LABEL_16:
     if (os_log_type_enabled(getEmbeddingVersionDictionary, OS_LOG_TYPE_INFO))
     {
       embeddingModelVersion = [v19 embeddingModelVersion];
-      v26 = 136315394;
-      v27 = "[CDMEmbeddingProtoService setup:]";
-      v28 = 2112;
-      v29 = embeddingModelVersion;
-      _os_log_impl(&dword_1DC287000, getEmbeddingVersionDictionary, OS_LOG_TYPE_INFO, "%s Embeddings model successfully loaded: %@", &v26, 0x16u);
+      v25 = 136315394;
+      v26 = "[CDMEmbeddingProtoService setup:]";
+      v27 = 2112;
+      v28 = embeddingModelVersion;
+      _os_log_impl(&dword_1DC287000, getEmbeddingVersionDictionary, OS_LOG_TYPE_INFO, "%s Embeddings model successfully loaded: %@", &v25, 0x16u);
     }
 
     goto LABEL_16;
@@ -836,24 +818,22 @@ LABEL_16:
   createNoStableEmbeddingsModelFoundResponse = [(CDMEmbeddingProtoService *)self createNoStableEmbeddingsModelFoundResponse];
 LABEL_18:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return createNoStableEmbeddingsModelFoundResponse;
 }
 
 - (id)legacyEmbeddingPaths:(id)paths
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     bundlePath = [pathsCopy bundlePath];
-    v18 = 136315394;
-    v19 = "[CDMEmbeddingProtoService legacyEmbeddingPaths:]";
-    v20 = 2112;
-    v21 = bundlePath;
-    _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Load legacy owl asset from: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CDMEmbeddingProtoService legacyEmbeddingPaths:]";
+    v19 = 2112;
+    v20 = bundlePath;
+    _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Load legacy owl asset from: %@", &v17, 0x16u);
   }
 
   v5 = MEMORY[0x1E696AAE8];
@@ -868,76 +848,68 @@ LABEL_18:
   v13 = [v9 pathForResource:@"reformulations" ofType:@"txt"];
   v14 = [[EmbeddingPaths alloc] initWithSrcVocabPath:v10 modelPath:v11 configPath:v12 reformulationPath:v13];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)createOrchestratorConstructFailureResponse
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to get EmbedderOrchestrator"];
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315394;
-    v10 = "[CDMEmbeddingProtoService createOrchestratorConstructFailureResponse]";
-    v11 = 2112;
-    v12 = v4;
-    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CDMEmbeddingProtoService createOrchestratorConstructFailureResponse]";
+    v10 = 2112;
+    v11 = v4;
+    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v8, 0x16u);
   }
 
   v6 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:4 description:v4];
   [createSetupResponseCommand setCmdError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }
 
 - (id)createEmbeddingsBundleMissingPathResponse
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Not able to find/load all values needed for Embedding model bundle."];
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315394;
-    v10 = "[CDMEmbeddingProtoService createEmbeddingsBundleMissingPathResponse]";
-    v11 = 2112;
-    v12 = v4;
-    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CDMEmbeddingProtoService createEmbeddingsBundleMissingPathResponse]";
+    v10 = 2112;
+    v11 = v4;
+    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v8, 0x16u);
   }
 
   v6 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:3 description:v4];
   [createSetupResponseCommand setCmdError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }
 
 - (id)createNoStableEmbeddingsModelFoundResponse
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No stable embeddings model found. Aborting setup."];
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = 136315394;
-    v10 = "[CDMEmbeddingProtoService createNoStableEmbeddingsModelFoundResponse]";
-    v11 = 2112;
-    v12 = v4;
-    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CDMEmbeddingProtoService createNoStableEmbeddingsModelFoundResponse]";
+    v10 = 2112;
+    v11 = v4;
+    _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", &v8, 0x16u);
   }
 
   v6 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:2 description:v4];
   [createSetupResponseCommand setCmdError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return createSetupResponseCommand;
 }
@@ -967,39 +939,35 @@ LABEL_18:
 
 - (id)createNotReadyForHandleProtoResponse
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     serviceState = self->super.super._serviceState;
-    v9 = 136315394;
-    v10 = "[CDMEmbeddingProtoService createNotReadyForHandleProtoResponse]";
-    v11 = 2048;
-    v12 = serviceState;
-    _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CDMEmbeddingProtoService createNotReadyForHandleProtoResponse]";
+    v10 = 2048;
+    v11 = serviceState;
+    _os_log_impl(&dword_1DC287000, v3, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", &v8, 0x16u);
   }
 
   v5 = objc_alloc_init(CDMEmbeddingProtoResponseCommand);
   v6 = [(CDMEmbeddingProtoService *)self createEmbeddingProtoServiceErrorWithCode:0 description:@"Service not ready to handle requests"];
   [(CDMBaseCommand *)v5 setCmdError:v6];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)createEmbeddingProtoServiceErrorWithCode:(int64_t)code description:(id)description
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v7 = MEMORY[0x1E696ABC0];
   serviceName = [(CDMBaseService *)self serviceName];
-  v13 = *MEMORY[0x1E696A578];
-  v14[0] = descriptionCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = descriptionCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v7 errorWithDomain:serviceName code:code userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

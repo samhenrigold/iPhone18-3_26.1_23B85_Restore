@@ -143,7 +143,6 @@ LABEL_13:
 
   if (errorDetail)
   {
-    errorDetail = self->_errorDetail;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (punchoutUrl)
   {
-    punchoutUrl = self->_punchoutUrl;
     PBDataWriterWriteStringField();
   }
 }

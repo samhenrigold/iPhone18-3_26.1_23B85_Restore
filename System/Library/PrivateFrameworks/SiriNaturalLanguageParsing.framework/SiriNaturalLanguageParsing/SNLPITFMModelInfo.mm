@@ -7,11 +7,11 @@
 
 - (SNLPITFMModelInfo)initWithType:(unint64_t)type loggingComponent:(int)component errorDomain:(id)domain
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v20.receiver = self;
-  v20.super_class = SNLPITFMModelInfo;
-  v10 = [(SNLPITFMModelInfo *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SNLPITFMModelInfo;
+  v10 = [(SNLPITFMModelInfo *)&v19 init];
   v11 = v10;
   if (v10)
   {
@@ -26,9 +26,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v22 = "<UNDEFINED_COMPONENT>";
-        v23 = 2048;
-        v24 = loggingComponent;
+        v21 = "<UNDEFINED_COMPONENT>";
+        v22 = 2048;
+        v23 = loggingComponent;
         _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
       }
 
@@ -45,7 +45,6 @@
     v11->_loggingComponentString = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

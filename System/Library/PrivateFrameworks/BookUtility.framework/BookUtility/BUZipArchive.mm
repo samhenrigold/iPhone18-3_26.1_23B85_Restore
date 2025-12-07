@@ -36,28 +36,29 @@
 
 - (BUZipArchive)initWithOptions:(unint64_t)options
 {
-  v11.receiver = self;
-  v11.super_class = BUZipArchive;
-  v4 = [(BUZipArchive *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = BUZipArchive;
+  v4 = [(BUZipArchive *)&v12 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = BUZipLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = BUZipLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_241DD039C();
     }
 
-    v4->_options = options;
-    v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    entriesMap = v4->_entriesMap;
-    v4->_entriesMap = v6;
+    v5->_options = options;
+    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    entriesMap = v5->_entriesMap;
+    v5->_entriesMap = v7;
 
-    v8 = objc_alloc_init(MEMORY[0x277CBEB40]);
-    entries = v4->_entries;
-    v4->_entries = v8;
+    v9 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    entries = v5->_entries;
+    v5->_entries = v9;
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)hasNonEmptyEntries
@@ -81,7 +82,7 @@
 {
   queueCopy = queue;
   completionCopy = completion;
-  v8 = BUZipLog();
+  v8 = BUZipLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_241DD0424();
@@ -89,43 +90,44 @@
 
   v11 = objc_msgSend_archiveLength(self, v9, v10);
   Channel = objc_msgSend_newArchiveReadChannel(self, v12, v13);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = sub_241DBC908;
-  v33[3] = &unk_278D1D6C8;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_241DBC908;
+  v34[3] = &unk_278D1D6C8;
   v15 = completionCopy;
-  v34 = v15;
-  v16 = MEMORY[0x245D00360](v33);
+  v35 = v15;
+  v16 = MEMORY[0x245D00360](v34);
   v17 = v16;
   if (Channel)
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_241DBC9E8;
-    v29[3] = &unk_278D1D718;
-    v18 = v30;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_241DBC9E8;
+    v30[3] = &unk_278D1D718;
+    v18 = v31;
     v19 = Channel;
-    v30[0] = v19;
-    v30[1] = self;
-    v31 = queueCopy;
-    v32 = v17;
-    v21 = MEMORY[0x245D00360](v29);
-    if (byte_27EC72A18 == 1 && BUIsRunningTests() || (self->_options & 8) != 0)
+    v31[0] = v19;
+    v31[1] = self;
+    v32 = queueCopy;
+    v33 = v17;
+    v20 = MEMORY[0x245D00360](v30);
+    v22 = v20;
+    if (byte_27EC72A18 == 1 && BUIsRunningTests(v20, v21) || (self->_options & 8) != 0)
     {
-      objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(self, v20, v19, 0, 0, 0, 0, v21);
+      objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(self, v21, v19, 0, 0, 0, 0, v22);
     }
 
     else
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = sub_241DBCAFC;
-      v25[3] = &unk_278D1D768;
-      v25[4] = self;
-      v28 = v11 - 22;
-      v26 = v19;
-      v27 = v21;
-      objc_msgSend_readAllFromChannel_offset_length_completion_(BUIOUtils, v22, v26, v11 - 22, 22, v25);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = sub_241DBCAFC;
+      v26[3] = &unk_278D1D768;
+      v26[4] = self;
+      v29 = v11 - 22;
+      v27 = v19;
+      v28 = v22;
+      objc_msgSend_readAllFromChannel_offset_length_completion_(BUIOUtils, v23, v27, v11 - 22, 22, v26);
     }
   }
 
@@ -135,8 +137,8 @@
     block[1] = 3221225472;
     block[2] = sub_241DBCD3C;
     block[3] = &unk_278D1CEC8;
-    v18 = &v24;
-    v24 = v16;
+    v18 = &v25;
+    v25 = v16;
     dispatch_async(queueCopy, block);
   }
 }
@@ -361,7 +363,7 @@ LABEL_11:
   v26 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   channelCopy = channel;
-  v14 = BUZipLog();
+  v14 = BUZipLog(channelCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -1025,8 +1027,8 @@ LABEL_11:
 
     if (v12)
     {
-      v14 = BUZipLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = BUZipLog(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_241DD0728();
       }
@@ -1034,8 +1036,8 @@ LABEL_11:
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(self->_entriesMap, v13, v7, v10);
-      objc_msgSend_addObject_(self->_entries, v15, v7);
+      objc_msgSend_setObject_forKeyedSubscript_(self->_entriesMap, v14, v7, v10);
+      objc_msgSend_addObject_(self->_entries, v16, v7);
     }
   }
 }
@@ -1307,17 +1309,17 @@ LABEL_3:
 
 - (BOOL)extractToURL:(id)l error:(id *)error shouldExtractEntry:(id)entry didExtractEntry:(id)extractEntry
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   lCopy = l;
   entryCopy = entry;
   extractEntryCopy = extractEntry;
-  v62 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v8, v9);
-  v64 = objc_msgSend_path(lCopy, v10, v11);
-  v78 = 0;
-  if (objc_msgSend_fileExistsAtPath_isDirectory_(v62, v12, v64, &v78))
+  v64 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v8, v9);
+  v66 = objc_msgSend_path(lCopy, v10, v11);
+  v80 = 0;
+  if (objc_msgSend_fileExistsAtPath_isDirectory_(v64, v12, v66, &v80))
   {
     v14 = 0;
-    if (v78 != 1)
+    if (v80 != 1)
     {
       v15 = 0;
       v16 = 0;
@@ -1325,95 +1327,95 @@ LABEL_3:
     }
 
 LABEL_5:
-    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = sub_241DC0358;
-    v75[3] = &unk_278D1D568;
-    v19 = v18;
-    v76 = v19;
-    objc_msgSend_enumerateEntriesUsingBlock_(self, v20, v75);
-    objc_msgSend_sortUsingSelector_(v19, v21, sel_compare_);
+    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = sub_241DC0358;
+    v77[3] = &unk_278D1D568;
+    v20 = v19;
+    v78 = v20;
+    objc_msgSend_enumerateEntriesUsingBlock_(self, v21, v77);
+    objc_msgSend_sortUsingSelector_(v20, v22, sel_compare_);
+    v75 = 0u;
+    v76 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    obj = v19;
-    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, &v71, v79, 16);
-    if (v24)
+    obj = v20;
+    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v73, v81, 16);
+    if (v25)
     {
-      v63 = 0;
-      v25 = *v72;
+      v65 = 0;
+      v26 = *v74;
       v15 = 1;
       while (2)
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v72 != v25)
+          if (*v74 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v71 + 1) + 8 * i);
-          v28 = objc_msgSend_entryForName_(self, v23, v27);
-          v30 = objc_msgSend_stringByAppendingPathComponent_(v64, v29, v27);
-          v31 = objc_alloc(MEMORY[0x277CBEBC0]);
-          inited = objc_msgSend_initFileURLWithPath_(v31, v32, v30);
-          if (!entryCopy || entryCopy[2](entryCopy, v28, inited))
+          v28 = *(*(&v73 + 1) + 8 * i);
+          v29 = objc_msgSend_entryForName_(self, v24, v28);
+          v31 = objc_msgSend_stringByAppendingPathComponent_(v66, v30, v28);
+          v32 = objc_alloc(MEMORY[0x277CBEBC0]);
+          inited = objc_msgSend_initFileURLWithPath_(v32, v33, v31);
+          if (!entryCopy || entryCopy[2](entryCopy, v29, inited))
           {
-            v36 = objc_msgSend_length(v27, v33, v34);
-            if (objc_msgSend_characterAtIndex_(v27, v37, v36 - 1) == 47)
+            v37 = objc_msgSend_length(v28, v34, v35);
+            if (objc_msgSend_characterAtIndex_(v28, v38, v37 - 1) == 47)
             {
-              v40 = objc_msgSend_path(inited, v38, v39);
-              v70 = v14;
-              v15 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v62, v41, v40, 1, 0, &v70);
-              v42 = v70;
+              v41 = objc_msgSend_path(inited, v39, v40);
+              v72 = v14;
+              v15 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v64, v42, v41, 1, 0, &v72);
+              v43 = v72;
 
-              if (v42)
+              if (v43)
               {
-                v43 = v42;
+                v44 = v43;
               }
 
               else
               {
-                v43 = v63;
+                v44 = v65;
               }
 
-              v44 = v43;
+              v45 = v44;
 
-              v63 = v44;
-              v14 = v42;
+              v65 = v45;
+              v14 = v43;
             }
 
             else
             {
-              v45 = objc_msgSend_stringByDeletingLastPathComponent(v30, v38, v39);
-              v69 = v14;
-              v15 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v62, v46, v45, 1, 0, &v69);
-              v47 = v69;
+              v46 = objc_msgSend_stringByDeletingLastPathComponent(v31, v39, v40);
+              v71 = v14;
+              v15 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v64, v47, v46, 1, 0, &v71);
+              v48 = v71;
 
-              v68 = 0;
-              v67 = v47;
-              LODWORD(v45) = objc_msgSend_extractFromArchive_destinationURL_error_(v28, v48, self, lCopy, &v67);
-              v14 = v67;
+              v70 = 0;
+              v69 = v48;
+              LODWORD(v46) = objc_msgSend_extractFromArchive_destinationURL_error_(v29, v49, self, lCopy, &v69);
+              v14 = v69;
 
-              if (v45)
+              if (v46)
               {
-                v49 = MEMORY[0x245D00360](extractEntryCopy);
-                v50 = v49;
-                if (v49)
+                v50 = MEMORY[0x245D00360](extractEntryCopy);
+                v51 = v50;
+                if (v50)
                 {
-                  (*(v49 + 16))(v49, v28, inited, &v68);
+                  (*(v50 + 16))(v50, v29, inited, &v70);
                 }
               }
 
               else
               {
-                v50 = v63;
-                v63 = v14;
+                v51 = v65;
+                v65 = v14;
               }
 
-              if (v68)
+              if (v70)
               {
 
                 goto LABEL_31;
@@ -1422,8 +1424,8 @@ LABEL_5:
           }
         }
 
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v71, v79, 16);
-        if (v24)
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v24, &v73, v81, 16);
+        if (v25)
         {
           continue;
         }
@@ -1434,14 +1436,14 @@ LABEL_5:
 
     else
     {
-      v63 = 0;
+      v65 = 0;
       v15 = 1;
     }
 
 LABEL_31:
 
-    v52 = v63;
-    if (v63)
+    v54 = v65;
+    if (v65)
     {
       goto LABEL_32;
     }
@@ -1451,46 +1453,48 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v77 = 0;
-  v17 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v62, v13, v64, 1, 0, &v77);
-  v14 = v77;
+  v79 = 0;
+  v17 = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v64, v13, v66, 1, 0, &v79);
+  v18 = v79;
+  v14 = v18;
   if (v17)
   {
     goto LABEL_5;
   }
 
-  v51 = BUZipLog();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+  v52 = BUZipLog(v18);
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
   {
-    sub_241DD0790(v51);
+    sub_241DD0790(v52);
   }
 
-  v52 = v14;
+  v53 = v14;
+  v54 = v53;
   v15 = 0;
-  v14 = v52;
-  if (!v52)
+  v14 = v53;
+  if (!v53)
   {
     goto LABEL_35;
   }
 
 LABEL_32:
-  v53 = BUZipLog();
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
+  v55 = BUZipLog(v53);
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
   {
     sub_241DD084C();
   }
 
-  v16 = v52;
+  v16 = v54;
 LABEL_36:
   if (error)
   {
-    v54 = v16;
-    v55 = v16;
-    v16 = v54;
-    *error = v54;
+    v56 = v16;
+    v57 = v16;
+    v16 = v56;
+    *error = v56;
   }
 
-  v56 = v16;
+  v58 = v16;
 
   return v15 & 1;
 }

@@ -10,6 +10,7 @@
 - (void)_requestStartAudioStreamProviderWithContext:(id)context secondPassRequest:(id)request startStreamOption:(id)option completion:(id)completion;
 - (void)_reset;
 - (void)_setDeviceIds:(id)ids;
+- (void)_setIsSecondPassing:(BOOL)passing forDeviceId:(id)id;
 - (void)accessorySiriClientBehaviorMonitor:(id)monitor didStartStreamWithContext:(id)context successfully:(BOOL)successfully option:(id)option withEventUUID:(id)d forAccessory:(id)accessory;
 - (void)activationEventNotificationHandler:(id)handler event:(id)event completion:(id)completion;
 - (void)cancelSecondPassRunning;
@@ -572,6 +573,54 @@ LABEL_29:
   v10 = completionCopy;
   v11 = eventCopy;
   dispatch_async(queue, block);
+}
+
+- (void)_setIsSecondPassing:(BOOL)passing forDeviceId:(id)id
+{
+  passingCopy = passing;
+  idCopy = id;
+  if (idCopy)
+  {
+    v7 = [(NSMutableDictionary *)self->_remoraSecondPassRequests objectForKeyedSubscript:idCopy];
+    v8 = v7;
+    if (v7)
+    {
+      [v7 setIsSecondPassRunning:passingCopy];
+      WeakRetained = objc_loadWeakRetained(&self->_secondPassProgressDelegate);
+
+      if (WeakRetained)
+      {
+        if (passingCopy)
+        {
+          accessoryFirstPassGoodnessScores = [(CSVoiceTriggerFirstPassRemora *)self accessoryFirstPassGoodnessScores];
+          v11 = [accessoryFirstPassGoodnessScores objectForKey:idCopy];
+
+          v12 = CSLogCategoryVT;
+          if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+          {
+            v17 = 136315651;
+            v18 = "[CSVoiceTriggerFirstPassRemora _setIsSecondPassing:forDeviceId:]";
+            v19 = 2113;
+            v20 = idCopy;
+            v21 = 2113;
+            v22 = v11;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s First pass signal estimate for device %{private}@: %{private}@", &v17, 0x20u);
+          }
+
+          [v11 doubleValue];
+          v14 = v13;
+          v15 = objc_loadWeakRetained(&self->_secondPassProgressDelegate);
+          [v15 secondPassDidStartForClient:5 deviceId:idCopy withFirstPassEstimate:v14];
+        }
+
+        else
+        {
+          v16 = objc_loadWeakRetained(&self->_secondPassProgressDelegate);
+          [v16 secondPassDidStopForClient:5 deviceId:idCopy];
+        }
+      }
+    }
+  }
 }
 
 - (void)_setDeviceIds:(id)ids

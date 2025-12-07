@@ -84,7 +84,7 @@ LABEL_5:
   bouncyCopy = bouncy;
   trackCopy = track;
   layoutCopy = layout;
-  v21 = layoutCopy;
+  v22 = layoutCopy;
   if (bouncyCopy)
   {
     position = [layoutCopy position];
@@ -97,18 +97,18 @@ LABEL_5:
 
     if (offsetAdjustment)
     {
-      offsetAdjustment2 = [v21 offsetAdjustment];
+      offsetAdjustment2 = [v22 offsetAdjustment];
       [(DRFlockAnimator *)self _runWithoutRetargeting:offsetAdjustment2];
     }
 
     badgeAppeared = [(DRFlockAnimator *)self badgeAppeared];
-    position = [v21 position];
+    position = [v22 position];
     if (!badgeAppeared)
     {
       [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:position];
 
-      v17 = [v21 size];
-      [(DRFlockAnimator *)self _runWithoutRetargeting:v17];
+      v18 = [v22 size];
+      [(DRFlockAnimator *)self _runWithoutRetargeting:v18];
 
       [(DRFlockAnimator *)self setBadgeAppeared:1];
       if (offsetCopy)
@@ -119,9 +119,9 @@ LABEL_5:
 LABEL_14:
       if (trackCopy)
       {
-        offsetAdjustment3 = [v21 offsetAdjustment];
+        offsetAdjustment3 = [v22 offsetAdjustment];
 
-        offset = [v21 offset];
+        offset = [v22 offset];
         if (offsetAdjustment3)
         {
           [(DRFlockAnimator *)self _runAnimatableWithOneToOneTracking:offset];
@@ -135,7 +135,7 @@ LABEL_14:
 
       else
       {
-        offset = [v21 offset];
+        offset = [v22 offset];
         [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:offset];
       }
 
@@ -151,7 +151,8 @@ LABEL_14:
   }
 
 LABEL_8:
-  offset = [v21 offset];
+  offset2 = [v22 offset];
+  offset = offset2;
   if (qword_100063678 != -1)
   {
     sub_100030F90();
@@ -159,21 +160,21 @@ LABEL_8:
 
   if (byte_100063680 == 1)
   {
-    v16 = sub_100020AA4();
+    v17 = sub_100020AA4(offset2);
   }
 
   else
   {
-    v16 = 0.35;
+    v17 = 0.35;
   }
 
-  [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:offset response:v16];
+  [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:offset response:v17];
 LABEL_19:
 
-  v19 = [v21 size];
-  [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:v19];
+  v20 = [v22 size];
+  [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:v20];
 
-  alpha = [v21 alpha];
+  alpha = [v22 alpha];
   [(DRFlockAnimator *)self _runAnimatableWithBouncyAnimation:alpha];
 }
 
@@ -194,7 +195,7 @@ LABEL_19:
 
   if (byte_100063680 == 1)
   {
-    v6 = sub_100020C4C();
+    v6 = sub_100020C4C(animationCopy);
     v5 = v7;
   }
 
@@ -209,15 +210,16 @@ LABEL_19:
 - (void)_runAnimatableWithBouncyAnimation:(id)animation response:(double)response
 {
   animationCopy = animation;
+  v6 = animationCopy;
   if (qword_100063678 != -1)
   {
     sub_100030FB8();
   }
 
-  v6 = 1.0;
+  v7 = 1.0;
   if (byte_100063680 == 1)
   {
-    v6 = sub_100020DF4();
+    v7 = sub_100020DF4(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055BF8);
@@ -226,7 +228,7 @@ LABEL_19:
 
   if (byte_100063680 == 1)
   {
-    v7 = sub_100020F98();
+    v8 = sub_100020F98(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055C58);
@@ -235,12 +237,12 @@ LABEL_19:
 
   else
   {
-    v7 = 0.707106781;
+    v8 = 0.707106781;
   }
 
   if (byte_100063680 == 1)
   {
-    v8 = sub_100021140();
+    v9 = sub_100021140(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055CB8);
@@ -249,38 +251,39 @@ LABEL_19:
 
   else
   {
-    v8 = 0.65;
+    v9 = 0.65;
   }
 
-  v9 = 1.0;
+  v10 = 1.0;
   if (byte_100063680 == 1)
   {
-    v9 = sub_1000212E8();
+    v10 = sub_1000212E8(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055D18);
     }
   }
 
-  v10 = 1.0;
+  v11 = 1.0;
   if (byte_100063680 == 1)
   {
-    v10 = sub_10002148C();
+    v11 = sub_10002148C(animationCopy);
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100020394;
-  v13[3] = &unk_100054B50;
-  v14 = animationCopy;
-  v11 = animationCopy;
-  completionBlock = [v11 completionBlock];
-  [UIView _animateUsingSpringWithDampingRatio:1 response:v13 tracking:completionBlock initialDampingRatio:v6 initialResponse:response dampingRatioSmoothing:v7 responseSmoothing:v8 targetSmoothing:v9 projectionDeceleration:v10 animations:0.0 completion:0.0];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100020394;
+  v14[3] = &unk_100054B50;
+  v15 = v6;
+  v12 = v6;
+  completionBlock = [v12 completionBlock];
+  [UIView _animateUsingSpringWithDampingRatio:1 response:v14 tracking:completionBlock initialDampingRatio:v7 initialResponse:response dampingRatioSmoothing:v8 responseSmoothing:v9 targetSmoothing:v10 projectionDeceleration:v11 animations:0.0 completion:0.0];
 }
 
 - (void)_runAnimatableWithBarelyBouncyAnimation:(id)animation
 {
   animationCopy = animation;
+  v4 = animationCopy;
   if (qword_100063678 != -1)
   {
     sub_100030FCC();
@@ -288,7 +291,7 @@ LABEL_19:
 
   if (byte_100063680 == 1)
   {
-    v4 = sub_100021630();
+    v5 = sub_100021630(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055DD8);
@@ -297,12 +300,12 @@ LABEL_19:
 
   else
   {
-    v4 = 0.80835;
+    v5 = 0.80835;
   }
 
   if (byte_100063680 == 1)
   {
-    v5 = sub_1000217D8();
+    v6 = sub_1000217D8(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055CB8);
@@ -311,33 +314,33 @@ LABEL_19:
 
   else
   {
-    v5 = 0.2109;
+    v6 = 0.2109;
   }
 
-  v6 = 1.0;
+  v7 = 1.0;
   if (byte_100063680 == 1)
   {
-    v6 = sub_1000212E8();
+    v7 = sub_1000212E8(animationCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055D18);
     }
   }
 
-  v7 = 1.0;
+  v8 = 1.0;
   if (byte_100063680 == 1)
   {
-    v7 = sub_10002148C();
+    v8 = sub_10002148C(animationCopy);
   }
 
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_100020614;
-  v10[3] = &unk_100054B50;
-  v11 = animationCopy;
-  v8 = animationCopy;
-  completionBlock = [v8 completionBlock];
-  [UIView _animateUsingSpringWithDampingRatio:1 response:v10 tracking:completionBlock dampingRatioSmoothing:v4 responseSmoothing:v5 targetSmoothing:v6 projectionDeceleration:v7 animations:0.0 completion:0.0];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100020614;
+  v11[3] = &unk_100054B50;
+  v12 = v4;
+  v9 = v4;
+  completionBlock = [v9 completionBlock];
+  [UIView _animateUsingSpringWithDampingRatio:1 response:v11 tracking:completionBlock dampingRatioSmoothing:v5 responseSmoothing:v6 targetSmoothing:v7 projectionDeceleration:v8 animations:0.0 completion:0.0];
 }
 
 - (void)_runAnimatableWithOneToOneTracking:(id)tracking
@@ -357,7 +360,7 @@ LABEL_19:
 
   if (byte_100063680 == 1)
   {
-    v6 = sub_100020C4C();
+    v6 = sub_100020C4C(trackingCopy);
     v5 = v7;
   }
 
@@ -372,45 +375,46 @@ LABEL_19:
 - (void)_runAnimatableWithOneToOneTracking:(id)tracking response:(double)response
 {
   trackingCopy = tracking;
+  v6 = trackingCopy;
   if (qword_100063678 != -1)
   {
     sub_100030FB8();
   }
 
-  v6 = 1.0;
+  v7 = 1.0;
   if (byte_100063680 == 1)
   {
-    v6 = sub_100020DF4();
+    v7 = sub_100020DF4(trackingCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055CB8);
     }
   }
 
-  v7 = 1.0;
+  v8 = 1.0;
   if (byte_100063680 == 1)
   {
-    v7 = sub_1000212E8();
+    v8 = sub_1000212E8(trackingCopy);
     if (qword_100063678 != -1)
     {
       dispatch_once(&qword_100063678, &stru_100055D18);
     }
   }
 
-  v8 = 1.0;
+  v9 = 1.0;
   if (byte_100063680 == 1)
   {
-    v8 = sub_10002148C();
+    v9 = sub_10002148C(trackingCopy);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000208E8;
-  v11[3] = &unk_100054B50;
-  v12 = trackingCopy;
-  v9 = trackingCopy;
-  completionBlock = [v9 completionBlock];
-  [UIView _animateUsingSpringWithDampingRatio:1 response:v11 tracking:completionBlock dampingRatioSmoothing:v6 responseSmoothing:response targetSmoothing:v7 projectionDeceleration:v8 animations:0.0 completion:0.0];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000208E8;
+  v12[3] = &unk_100054B50;
+  v13 = v6;
+  v10 = v6;
+  completionBlock = [v10 completionBlock];
+  [UIView _animateUsingSpringWithDampingRatio:1 response:v12 tracking:completionBlock dampingRatioSmoothing:v7 responseSmoothing:response targetSmoothing:v8 projectionDeceleration:v9 animations:0.0 completion:0.0];
 }
 
 - (void)_runWithoutRetargeting:(id)retargeting

@@ -12,25 +12,25 @@
   dCopy = d;
   if (!dCopy)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNSlideNodeSlideSpecificTableCounter initWithTableInfoUUID:andLinkCount:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNode.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 102, 0, "invalid nil value for '%{public}s'", "tableInfoUUID");
+    v8 = MEMORY[0x277D81150];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideNodeSlideSpecificTableCounter initWithTableInfoUUID:andLinkCount:]"];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideNode.m"];
+    [v8 handleFailureInFunction:v9 file:v10 lineNumber:102 isFatal:0 description:{"invalid nil value for '%{public}s'", "tableInfoUUID"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v19.receiver = self;
-  v19.super_class = KNSlideNodeSlideSpecificTableCounter;
-  v16 = [(KNSlideNodeSlideSpecificTableCounter *)&v19 init];
-  v17 = v16;
-  if (v16)
+  v14.receiver = self;
+  v14.super_class = KNSlideNodeSlideSpecificTableCounter;
+  v11 = [(KNSlideNodeSlideSpecificTableCounter *)&v14 init];
+  v12 = v11;
+  if (v11)
   {
-    objc_storeStrong(&v16->_tableInfoUUID, d);
-    v17->_linkCount = count;
+    objc_storeStrong(&v11->_tableInfoUUID, d);
+    v12->_linkCount = count;
   }
 
-  return v17;
+  return v12;
 }
 
 - (void)decrement
@@ -44,20 +44,20 @@
 
 - (NSString)stringValue
 {
-  v4 = MEMORY[0x277CCACA8];
-  v5 = objc_msgSend_UUIDString(self->_tableInfoUUID, a2, v2);
-  v7 = objc_msgSend_stringWithFormat_(v4, v6, @"%@,%ld", v5, self->_linkCount);
+  v3 = MEMORY[0x277CCACA8];
+  uUIDString = [(NSUUID *)self->_tableInfoUUID UUIDString];
+  v5 = [v3 stringWithFormat:@"%@, %ld", uUIDString, self->_linkCount];
 
-  return v7;
+  return v5;
 }
 
 - (id)description
 {
-  v4 = MEMORY[0x277CCACA8];
-  v5 = objc_msgSend_UUIDString(self->_tableInfoUUID, a2, v2);
-  v7 = objc_msgSend_stringWithFormat_(v4, v6, @"Table Slide Specific Mapping: Table UUID: %@, count: %ld", v5, self->_linkCount);
+  v3 = MEMORY[0x277CCACA8];
+  uUIDString = [(NSUUID *)self->_tableInfoUUID UUIDString];
+  v5 = [v3 stringWithFormat:@"Table Slide Specific Mapping: Table UUID: %@, count: %ld", uUIDString, self->_linkCount];
 
-  return v7;
+  return v5;
 }
 
 @end

@@ -148,19 +148,19 @@ void __82__PXPeopleConfirmationViewController_willLoadMoreSuggestionsForSuggesti
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __85__PXPeopleConfirmationViewController_noMoreSuggestionsAvailableForSuggestionManager___block_invoke(uint64_t a1)
+uint64_t __85__PXPeopleConfirmationViewController_noMoreSuggestionsAvailableForSuggestionManager___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[PXPeopleConfirmationViewController noMoreSuggestionsAvailableForSuggestionManager:]_block_invoke";
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEBUG, "Suggestions UI: %s", &v5, 0xCu);
+    v6 = 136315138;
+    v7 = "[PXPeopleConfirmationViewController noMoreSuggestionsAvailableForSuggestionManager:]_block_invoke";
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEBUG, "Suggestions UI: %s", &v6, 0xCu);
   }
 
-  v3 = [*(a1 + 32) loadingDelayTimer];
-  [v3 invalidate];
+  v4 = [*(a1 + 32) loadingDelayTimer];
+  [v4 invalidate];
 
   [*(a1 + 32) setLoadingDelayTimer:0];
   return [*(a1 + 32) displaySummary];
@@ -520,7 +520,7 @@ void __62__PXPeopleConfirmationViewController_updateViewWithViewState___block_in
   }
 }
 
-uint64_t __51__PXPeopleConfirmationViewController_setViewState___block_invoke(uint64_t a1)
+void *__51__PXPeopleConfirmationViewController_setViewState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) viewState];
   v3 = *(a1 + 40);

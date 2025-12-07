@@ -11,7 +11,7 @@
 
 - (BOOL)enumerateRankedItemsWithError:(id *)error usingBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   calculateItemLimit = [(CESRSpeechItemRanker *)self calculateItemLimit];
   if ([(NSString *)self->_trialContactRankingStrategy isEqualToString:@"PeopleSuggesterTop20"])
@@ -74,15 +74,15 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v36 = 0;
+  v35 = 0;
   if (!v11)
   {
     v15 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      *v27 = 136315138;
-      v28 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
-      _os_log_error_impl(&dword_225EEB000, v15, OS_LOG_TYPE_ERROR, "%s No priors available. Disabling filter", v27, 0xCu);
+      *v26 = 136315138;
+      v27 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
+      _os_log_error_impl(&dword_225EEB000, v15, OS_LOG_TYPE_ERROR, "%s No priors available. Disabling filter", v26, 0xCu);
     }
 
     goto LABEL_20;
@@ -94,11 +94,11 @@ LABEL_13:
     v14 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      *v27 = 136315394;
-      v28 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
-      v29 = 1024;
-      v30 = v12;
-      _os_log_error_impl(&dword_225EEB000, v14, OS_LOG_TYPE_ERROR, "%s Unexpected prior count (%u) Disabling filter", v27, 0x12u);
+      *v26 = 136315394;
+      v27 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
+      v28 = 1024;
+      v29 = v12;
+      _os_log_error_impl(&dword_225EEB000, v14, OS_LOG_TYPE_ERROR, "%s Unexpected prior count (%u) Disabling filter", v26, 0x12u);
     }
 
 LABEL_20:
@@ -107,37 +107,36 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v36 = calculateItemLimit - v11;
-  v21 = *MEMORY[0x277CEF0E8];
+  v35 = calculateItemLimit - v11;
+  v20 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    *v27 = 136315906;
-    v28 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
-    v29 = 1024;
-    v30 = v12;
-    v31 = 1024;
-    v32 = calculateItemLimit;
-    v33 = 1024;
-    v34 = v13;
-    _os_log_impl(&dword_225EEB000, v21, OS_LOG_TYPE_INFO, "%s Received priors for %u contacts with limit: %u allowance: %u", v27, 0x1Eu);
+    *v26 = 136315906;
+    v27 = "[CESRSpeechItemRanker_Contact enumerateRankedItemsWithError:usingBlock:]";
+    v28 = 1024;
+    v29 = v12;
+    v30 = 1024;
+    v31 = calculateItemLimit;
+    v32 = 1024;
+    v33 = v13;
+    _os_log_impl(&dword_225EEB000, v20, OS_LOG_TYPE_INFO, "%s Received priors for %u contacts with limit: %u allowance: %u", v26, 0x1Eu);
   }
 
 LABEL_21:
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __73__CESRSpeechItemRanker_Contact_enumerateRankedItemsWithError_usingBlock___block_invoke;
-  v23[3] = &unk_27857F078;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __73__CESRSpeechItemRanker_Contact_enumerateRankedItemsWithError_usingBlock___block_invoke;
+  v22[3] = &unk_27857F078;
   v16 = v8;
-  v24 = v16;
+  v23 = v16;
   v17 = blockCopy;
-  v25 = v17;
-  v26 = buf;
-  v22.receiver = self;
-  v22.super_class = CESRSpeechItemRanker_Contact;
-  v18 = [(CESRSpeechItemRanker *)&v22 enumerateRankedItemsWithError:error usingBlock:v23];
+  v24 = v17;
+  v25 = buf;
+  v21.receiver = self;
+  v21.super_class = CESRSpeechItemRanker_Contact;
+  v18 = [(CESRSpeechItemRanker *)&v21 enumerateRankedItemsWithError:error usingBlock:v22];
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

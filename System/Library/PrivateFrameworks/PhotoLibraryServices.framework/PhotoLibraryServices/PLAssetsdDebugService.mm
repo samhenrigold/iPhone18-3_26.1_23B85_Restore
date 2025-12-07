@@ -541,21 +541,21 @@ void __98__PLAssetsdDebugService_insertBackgroundResourceJobConfigurationWithBun
 
 - (void)resetBackgroundMigrationClassName:(id)name reply:(id)reply
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   replyCopy = reply;
-  v32 = 0u;
+  v33 = 0u;
   *sel = 0u;
-  v31 = 0u;
+  v32 = 0u;
   enabled = [MEMORY[0x1E69BF350] enabled];
-  LOBYTE(v31) = enabled;
+  LOBYTE(v32) = enabled;
   if (enabled)
   {
     v9 = _os_activity_create(&dword_19BF1F000, "PLXPC Service: resetBackgroundMigrationClassName:reply:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v10 = *(&v31 + 1);
-    *(&v31 + 1) = v9;
+    v10 = *(&v32 + 1);
+    *(&v32 + 1) = v9;
 
-    os_activity_scope_enter(v9, (&v32 + 8));
+    os_activity_scope_enter(v9, (&v33 + 8));
   }
 
   if ([(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization isClientAuthorizedForLibraryUpgrade])
@@ -568,121 +568,130 @@ void __98__PLAssetsdDebugService_insertBackgroundResourceJobConfigurationWithBun
     {
       if (v11)
       {
-        v68 = 0u;
         v69 = 0u;
-        v66 = 0u;
+        v70 = 0u;
         v67 = 0u;
-        v64 = 0u;
+        v68 = 0u;
         v65 = 0u;
-        v62 = 0u;
+        v66 = 0u;
         v63 = 0u;
-        v60 = 0u;
+        v64 = 0u;
         v61 = 0u;
-        v58 = 0u;
+        v62 = 0u;
         v59 = 0u;
-        v56 = 0u;
+        v60 = 0u;
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
-        v52 = 0u;
+        v56 = 0u;
         v53 = 0u;
-        v50 = 0u;
+        v54 = 0u;
         v51 = 0u;
-        v48 = 0u;
+        v52 = 0u;
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v41 = 0u;
-        v39 = 0u;
+        v44 = 0u;
+        v42 = 0u;
         v40 = 0u;
+        v41 = 0u;
         *buf = 0u;
         v14 = PLMigrationGetLog();
-        os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+        v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
         trustedCallerBundleID = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
-        v36 = 138543362;
-        v37 = trustedCallerBundleID;
-        LODWORD(v29) = 12;
-        v16 = _os_log_send_and_compose_impl();
-
-        [v11 logWithMessage:v16 fromCodeLocation:"PLAssetsdDebugService.m" type:{1102, 0, &v36, v29}];
-        if (v16 != buf)
+        if (v15)
         {
-          free(v16);
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v37 = 138543362;
+        v38 = trustedCallerBundleID;
+        v18 = _os_log_send_and_compose_impl(v17, 0, buf, 512, &dword_19BF1F000, v14, 0, "Reseting background migration action from client: %{public}@", &v37, 12);
+
+        [v11 logWithMessage:v18 fromCodeLocation:"PLAssetsdDebugService.m" type:{1102, 0}];
+        if (v18 != buf)
+        {
+          free(v18);
         }
       }
 
       else
       {
-        v20 = PLMigrationGetLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = PLMigrationGetLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           trustedCallerBundleID2 = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
           *buf = 138543362;
           *&buf[4] = trustedCallerBundleID2;
-          _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "Reseting background migration action from client: %{public}@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_DEFAULT, "Reseting background migration action from client: %{public}@", buf, 0xCu);
         }
       }
     }
 
-    v22 = NSClassFromString(nameCopy);
+    v24 = NSClassFromString(nameCopy);
     libraryServicesManager = [(PLAbstractLibraryServicesManagerService *)self libraryServicesManager];
     pathManager = [libraryServicesManager pathManager];
-    v30 = 0;
-    v19 = [PLBackgroundModelMigration resetBackgroundActionClass:v22 pathManager:pathManager error:&v30];
-    v18 = v30;
+    v31 = 0;
+    v21 = [PLBackgroundModelMigration resetBackgroundActionClass:v24 pathManager:pathManager error:&v31];
+    v20 = v31;
   }
 
   else
   {
-    v17 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
-    v35 = @"Client not authorized to perform library migration";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    v18 = [v17 errorWithDomain:*MEMORY[0x1E69BFF48] code:41010 userInfo:v11];
-    v19 = 0;
+    v19 = MEMORY[0x1E696ABC0];
+    v35 = *MEMORY[0x1E696A578];
+    v36 = @"Client not authorized to perform library migration";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v20 = [v19 errorWithDomain:*MEMORY[0x1E69BFF48] code:41010 userInfo:v11];
+    v21 = 0;
   }
 
-  replyCopy[2](replyCopy, v19, v18);
-  if (v31 == 1)
+  replyCopy[2](replyCopy, v21, v20);
+  if (v32 == 1)
   {
-    os_activity_scope_leave((&v32 + 8));
+    os_activity_scope_leave((&v33 + 8));
   }
 
-  if (v32)
+  if (v33)
   {
-    v25 = PLRequestGetLog();
-    v26 = v25;
-    v27 = v32;
-    if ((v32 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v27 = PLRequestGetLog();
+    v28 = v27;
+    v29 = v33;
+    if ((v33 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       Name = sel_getName(sel[1]);
       *buf = 136446210;
       *&buf[4] = Name;
-      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v26, OS_SIGNPOST_INTERVAL_END, v27, "PLXPC Sync", "%{public}s", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v28, OS_SIGNPOST_INTERVAL_END, v29, "PLXPC Sync", "%{public}s", buf, 0xCu);
     }
   }
 }
 
 - (void)backgroundMigrationWithReply:(id)reply
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v30 = 0u;
+  v31 = 0u;
   *sel = 0u;
-  v29 = 0u;
+  v30 = 0u;
   enabled = [MEMORY[0x1E69BF350] enabled];
-  LOBYTE(v29) = enabled;
+  LOBYTE(v30) = enabled;
   if (enabled)
   {
     v6 = _os_activity_create(&dword_19BF1F000, "PLXPC Service: backgroundMigrationWithReply:", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v7 = *(&v29 + 1);
-    *(&v29 + 1) = v6;
+    v7 = *(&v30 + 1);
+    *(&v30 + 1) = v6;
 
-    os_activity_scope_enter(v6, (&v30 + 8));
+    os_activity_scope_enter(v6, (&v31 + 8));
   }
 
   if ([(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization isClientAuthorizedForLibraryUpgrade])
@@ -695,104 +704,113 @@ void __98__PLAssetsdDebugService_insertBackgroundResourceJobConfigurationWithBun
     {
       if (v8)
       {
-        v66 = 0u;
         v67 = 0u;
-        v64 = 0u;
+        v68 = 0u;
         v65 = 0u;
-        v62 = 0u;
+        v66 = 0u;
         v63 = 0u;
-        v60 = 0u;
+        v64 = 0u;
         v61 = 0u;
-        v58 = 0u;
+        v62 = 0u;
         v59 = 0u;
-        v56 = 0u;
+        v60 = 0u;
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
-        v52 = 0u;
+        v56 = 0u;
         v53 = 0u;
-        v50 = 0u;
+        v54 = 0u;
         v51 = 0u;
-        v48 = 0u;
+        v52 = 0u;
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        v44 = 0u;
+        v48 = 0u;
         v45 = 0u;
-        v42 = 0u;
+        v46 = 0u;
         v43 = 0u;
-        v40 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v39 = 0u;
-        v37 = 0u;
+        v42 = 0u;
+        v40 = 0u;
         v38 = 0u;
+        v39 = 0u;
         *buf = 0u;
         v11 = PLMigrationGetLog();
-        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
         trustedCallerBundleID = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
-        v34 = 138543362;
-        v35 = trustedCallerBundleID;
-        LODWORD(v27) = 12;
-        v13 = _os_log_send_and_compose_impl();
-
-        [v8 logWithMessage:v13 fromCodeLocation:"PLAssetsdDebugService.m" type:{1086, 0, &v34, v27}];
-        if (v13 != buf)
+        if (v12)
         {
-          free(v13);
+          v14 = 3;
+        }
+
+        else
+        {
+          v14 = 2;
+        }
+
+        v35 = 138543362;
+        v36 = trustedCallerBundleID;
+        v15 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v11, 0, "Background migration action client: %{public}@", &v35, 12);
+
+        [v8 logWithMessage:v15 fromCodeLocation:"PLAssetsdDebugService.m" type:{1086, 0}];
+        if (v15 != buf)
+        {
+          free(v15);
         }
       }
 
       else
       {
-        v18 = PLMigrationGetLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = PLMigrationGetLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           trustedCallerBundleID2 = [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization trustedCallerBundleID];
           *buf = 138543362;
           *&buf[4] = trustedCallerBundleID2;
-          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Background migration action client: %{public}@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "Background migration action client: %{public}@", buf, 0xCu);
         }
       }
     }
 
     libraryServicesManager = [(PLAbstractLibraryServicesManagerService *)self libraryServicesManager];
     libraryBundle = [libraryServicesManager libraryBundle];
-    v28 = 0;
-    v22 = [PLBackgroundModelMigration migrateBackgroundActionsWithPhotoLibraryBundle:libraryBundle logger:v8 error:&v28 reportProgressUsingBlock:0 continuationHandler:&__block_literal_global_17982];
-    v16 = v28;
+    v29 = 0;
+    v24 = [PLBackgroundModelMigration migrateBackgroundActionsWithPhotoLibraryBundle:libraryBundle logger:v8 error:&v29 reportProgressUsingBlock:0 continuationHandler:&__block_literal_global_17982];
+    v18 = v29;
 
-    v17 = v22 == 1;
+    v19 = v24 == 1;
   }
 
   else
   {
-    v14 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
-    v33 = @"Client not authorized to perform library migration";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v16 = [v14 errorWithDomain:*MEMORY[0x1E69BFF48] code:41010 userInfo:v15];
+    v16 = MEMORY[0x1E696ABC0];
+    v33 = *MEMORY[0x1E696A578];
+    v34 = @"Client not authorized to perform library migration";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v18 = [v16 errorWithDomain:*MEMORY[0x1E69BFF48] code:41010 userInfo:v17];
 
-    v17 = 0;
+    v19 = 0;
   }
 
-  replyCopy[2](replyCopy, v17, v16);
+  replyCopy[2](replyCopy, v19, v18);
 
-  if (v29 == 1)
+  if (v30 == 1)
   {
-    os_activity_scope_leave((&v30 + 8));
+    os_activity_scope_leave((&v31 + 8));
   }
 
-  if (v30)
+  if (v31)
   {
-    v23 = PLRequestGetLog();
-    v24 = v23;
-    v25 = v30;
-    if ((v30 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v25 = PLRequestGetLog();
+    v26 = v25;
+    v27 = v31;
+    if ((v31 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       Name = sel_getName(sel[1]);
       *buf = 136446210;
       *&buf[4] = Name;
-      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v24, OS_SIGNPOST_INTERVAL_END, v25, "PLXPC Sync", "%{public}s", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_19BF1F000, v26, OS_SIGNPOST_INTERVAL_END, v27, "PLXPC Sync", "%{public}s", buf, 0xCu);
     }
   }
 }
@@ -2743,11 +2761,11 @@ void __61__PLAssetsdDebugService_debugSidecarURLsWithObjectURI_reply___block_inv
   (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __61__PLAssetsdDebugService_debugSidecarURLsWithObjectURI_reply___block_invoke_2(uint64_t result, uint64_t a2)
+id *__61__PLAssetsdDebugService_debugSidecarURLsWithObjectURI_reply___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

@@ -290,22 +290,21 @@
   if (self->_shouldShowOtherSection != section)
   {
     self->_shouldShowOtherSection = section;
-    otherHeadphonesGroup = self->_otherHeadphonesGroup;
     otherHeadphonesSwitch = self->_otherHeadphonesSwitch;
     if (section)
     {
-      v8[0] = self->_otherHeadphonesGroup;
-      v8[1] = otherHeadphonesSwitch;
-      v6 = [NSArray arrayWithObjects:v8 count:2];
-      [(HKHealthPrivacyHeadphoneLevelsViewController *)self insertContiguousSpecifiers:v6 afterSpecifier:self->_measureLevelsSwitch animated:1];
+      v7[0] = self->_otherHeadphonesGroup;
+      v7[1] = otherHeadphonesSwitch;
+      v5 = [NSArray arrayWithObjects:v7 count:2];
+      [(HKHealthPrivacyHeadphoneLevelsViewController *)self insertContiguousSpecifiers:v5 afterSpecifier:self->_measureLevelsSwitch animated:1];
     }
 
     else
     {
-      v7[0] = self->_otherHeadphonesGroup;
-      v7[1] = otherHeadphonesSwitch;
-      v6 = [NSArray arrayWithObjects:v7 count:2];
-      [(HKHealthPrivacyHeadphoneLevelsViewController *)self removeContiguousSpecifiers:v6 animated:1];
+      v6[0] = self->_otherHeadphonesGroup;
+      v6[1] = otherHeadphonesSwitch;
+      v5 = [NSArray arrayWithObjects:v6 count:2];
+      [(HKHealthPrivacyHeadphoneLevelsViewController *)self removeContiguousSpecifiers:v5 animated:1];
     }
   }
 }

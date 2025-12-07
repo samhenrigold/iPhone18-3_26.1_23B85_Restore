@@ -80,7 +80,7 @@ void __82___SBKeyboardServiceConnectionListener_listener_didReceiveConnection_wi
   v1 = [v0 remoteProcess];
   [v1 pid];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBKeyboardFocusService: connection <%p> pid: %i was interrupted", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBKeyboardFocusService: connection <%p> pid: %i was interrupted", v4, v5, v6, v7);
 }
 
 void __82___SBKeyboardServiceConnectionListener_listener_didReceiveConnection_withContext___block_invoke_44_cold_1()
@@ -89,7 +89,7 @@ void __82___SBKeyboardServiceConnectionListener_listener_didReceiveConnection_wi
   v1 = [v0 remoteProcess];
   [v1 pid];
   OUTLINED_FUNCTION_2_8();
-  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBKeyboardFocusService: connection <%p> pid: %i was invalidated", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_8(&dword_21ED4E000, v2, v3, "SBKeyboardFocusService: connection <%p> pid: %i was invalidated", v4, v5, v6, v7);
 }
 
 @end

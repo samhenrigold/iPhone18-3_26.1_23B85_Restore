@@ -7,6 +7,7 @@
 + (id)dataFromRecord:(id)record;
 + (id)decodeFromRecord:(id)record;
 + (id)recordsFromBytes:(const void *)bytes length:(unsigned int)length;
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unsigned int *)error;
 - (BOOL)isURIRecord;
 - (NFNdefRecordInternal)init;
 - (NFNdefRecordInternal)initWithCoder:(id)coder;
@@ -207,6 +208,159 @@ LABEL_23:
   NFDataRelease(v7);
 
   return v6;
+}
+
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unsigned int *)error
+{
+  fCopy = f;
+  typeCopy = type;
+  identifierCopy = identifier;
+  payloadCopy = payload;
+  v16 = objc_opt_new();
+  if (objc_msgSend_length(identifierCopy, v17, v18) > 0xFF || (v23 = objc_msgSend_length(typeCopy, v19, v20), fCopy > 7) || v23 >= 0x100)
+  {
+    if (error)
+    {
+      v21 = 0;
+      v22 = 10;
+LABEL_4:
+      *error = v22;
+      goto LABEL_37;
+    }
+
+LABEL_36:
+    v21 = 0;
+    goto LABEL_37;
+  }
+
+  if (objc_msgSend_length(payloadCopy, v24, v25) >= size)
+  {
+    v68 = fCopy;
+    v28 = objc_msgSend_length(payloadCopy, v26, v27) / size;
+    if (objc_msgSend_length(payloadCopy, v29, v30) % size)
+    {
+      v31 = v28 + 1;
+    }
+
+    else
+    {
+      v31 = v28;
+    }
+
+    v69 = v31;
+    if (!v31)
+    {
+      goto LABEL_18;
+    }
+
+    fCopy = v68;
+    if (v31 != 1)
+    {
+      v45 = 0;
+      v46 = 0;
+      v67 = v31 - 1;
+      v66 = (v31 - 1) * size;
+      while (1)
+      {
+        v47 = objc_opt_new();
+        if (!v47)
+        {
+          goto LABEL_34;
+        }
+
+        v49 = v47;
+        if (!v46)
+        {
+          break;
+        }
+
+        if (v67 != v46)
+        {
+          objc_msgSend_setTypeNameFormat_(v47, v48, 6);
+          v55 = v45;
+LABEL_31:
+          sizeCopy = size;
+          goto LABEL_32;
+        }
+
+        objc_msgSend_setChunked_(v47, v48, 1);
+        objc_msgSend_setTypeNameFormat_(v49, v50, 6);
+        v53 = objc_msgSend_length(payloadCopy, v51, v52);
+        v55 = v66;
+        sizeCopy = v53 - v66;
+LABEL_32:
+        v62 = objc_msgSend_subdataWithRange_(payloadCopy, v54, v55, sizeCopy, v66);
+        objc_msgSend_setPayload_(v49, v63, v62);
+
+        objc_msgSend_addObject_(v16, v64, v49);
+        ++v46;
+        v45 += size;
+        if (v69 <= v46)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      objc_msgSend_setChunked_(v47, v48, 1);
+      objc_msgSend_setTypeNameFormat_(v49, v57, v68);
+      objc_msgSend_setType_(v49, v58, typeCopy);
+      if (objc_msgSend_length(identifierCopy, v59, v60))
+      {
+        objc_msgSend_setIdentifier_(v49, v61, identifierCopy, v66);
+      }
+
+      else
+      {
+        objc_msgSend_setIdentifier_(v49, v61, 0, v66);
+      }
+
+      v55 = 0;
+      goto LABEL_31;
+    }
+  }
+
+  v32 = objc_opt_new();
+  if (!v32)
+  {
+LABEL_34:
+    if (error)
+    {
+      v21 = 0;
+      v22 = 34;
+      goto LABEL_4;
+    }
+
+    goto LABEL_36;
+  }
+
+  v35 = v32;
+  v36 = objc_msgSend_length(payloadCopy, v33, v34) < 0x100;
+  objc_msgSend_setShortRecord_(v35, v37, v36);
+  objc_msgSend_setTypeNameFormat_(v35, v38, fCopy);
+  objc_msgSend_setType_(v35, v39, typeCopy);
+  if (objc_msgSend_length(identifierCopy, v40, v41))
+  {
+    objc_msgSend_setIdentifier_(v35, v42, identifierCopy);
+  }
+
+  else
+  {
+    objc_msgSend_setIdentifier_(v35, v42, 0);
+  }
+
+  objc_msgSend_setPayload_(v35, v43, payloadCopy);
+  objc_msgSend_addObject_(v16, v44, v35);
+
+LABEL_18:
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v21 = v16;
+LABEL_37:
+
+  return v21;
 }
 
 - (NFNdefRecordInternal)init
@@ -537,7 +691,7 @@ LABEL_23:
 
 + (id)_decodeTextRecordLanguage:(id)language
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v6 = languageCopy;
   v9 = objc_msgSend_bytes(v6, v7, v8);
@@ -548,7 +702,7 @@ LABEL_23:
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v28 = *(&off_27DA9DE50 + specific);
+      v28 = off_27DA9DE50[specific];
       if (v28)
       {
         Class = object_getClass(self);
@@ -584,13 +738,13 @@ LABEL_23:
       }
 
       *buf = 67109890;
-      v44 = v35;
-      v45 = 2082;
-      v46 = object_getClassName(self);
-      v47 = 2082;
-      v48 = sel_getName(a2);
-      v49 = 1024;
-      v50 = 431;
+      v43 = v35;
+      v44 = 2082;
+      v45 = object_getClassName(self);
+      v46 = 2082;
+      v47 = sel_getName(a2);
+      v48 = 1024;
+      v49 = 431;
       v25 = "%c[%{public}s %{public}s]:%i Invalid language code length; dropping message";
       goto LABEL_23;
     }
@@ -606,20 +760,20 @@ LABEL_29:
     v15 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (v15 < 5)
     {
-      v16 = *(&off_27DA9DE50 + v15);
+      v16 = off_27DA9DE50[v15];
       if (v16)
       {
         v17 = object_getClass(self);
         v18 = class_isMetaClass(v17);
         v19 = object_getClassName(self);
-        v41 = sel_getName(a2);
+        v40 = sel_getName(a2);
         v20 = 45;
         if (v18)
         {
           v20 = 43;
         }
 
-        v16(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v20, v19, v41, 436);
+        v16(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v20, v19, v40, 436);
         v14 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       }
 
@@ -642,13 +796,13 @@ LABEL_29:
       }
 
       *buf = 67109890;
-      v44 = v24;
-      v45 = 2082;
-      v46 = object_getClassName(self);
-      v47 = 2082;
-      v48 = sel_getName(a2);
-      v49 = 1024;
-      v50 = 436;
+      v43 = v24;
+      v44 = 2082;
+      v45 = object_getClassName(self);
+      v46 = 2082;
+      v47 = sel_getName(a2);
+      v48 = 1024;
+      v49 = 436;
       v25 = "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message";
 LABEL_23:
       _os_log_impl(&dword_22EEC4000, v22, OS_LOG_TYPE_ERROR, v25, buf, 0x22u);
@@ -665,14 +819,12 @@ LABEL_24:
   v36 = objc_msgSend_initWithBytes_length_encoding_(v37, v38, (v13 + 1), v12, 1);
 LABEL_26:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v36;
 }
 
 + (id)_decodeTextRecordText:(id)text
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   textCopy = text;
   v6 = textCopy;
   v9 = objc_msgSend_bytes(v6, v7, v8);
@@ -684,7 +836,7 @@ LABEL_26:
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v42 = *(&off_27DA9DE50 + specific);
+      v42 = off_27DA9DE50[specific];
       if (v42)
       {
         Class = object_getClass(self);
@@ -717,13 +869,13 @@ LABEL_26:
         }
 
         *buf = 67109890;
-        v81 = v49;
-        v82 = 2082;
-        v83 = object_getClassName(self);
-        v84 = 2082;
-        v85 = sel_getName(a2);
-        v86 = 1024;
-        v87 = 455;
+        v80 = v49;
+        v81 = 2082;
+        v82 = object_getClassName(self);
+        v83 = 2082;
+        v84 = sel_getName(a2);
+        v85 = 1024;
+        v86 = 455;
         _os_log_impl(&dword_22EEC4000, v15, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", buf, 0x22u);
       }
 
@@ -750,20 +902,20 @@ LABEL_54:
           goto LABEL_54;
         }
 
-        v29 = *(&off_27DA9DE50 + v28);
+        v29 = off_27DA9DE50[v28];
         if (v29)
         {
           v30 = object_getClass(self);
           v31 = class_isMetaClass(v30);
           v32 = object_getClassName(self);
-          v76 = sel_getName(sel);
+          v75 = sel_getName(sel);
           v33 = 45;
           if (v31)
           {
             v33 = 43;
           }
 
-          v29(4, "%c[%{public}s %{public}s]:%i Invalid character found, skipping", v33, v32, v76, 463);
+          v29(4, "%c[%{public}s %{public}s]:%i Invalid character found, skipping", v33, v32, v75, 463);
           v27 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
@@ -785,13 +937,13 @@ LABEL_54:
           v38 = object_getClassName(self);
           v39 = sel_getName(sel);
           *buf = 67109890;
-          v81 = v37;
-          v82 = 2082;
-          v83 = v38;
-          v84 = 2082;
-          v85 = v39;
-          v86 = 1024;
-          v87 = 463;
+          v80 = v37;
+          v81 = 2082;
+          v82 = v38;
+          v83 = 2082;
+          v84 = v39;
+          v85 = 1024;
+          v86 = 463;
           _os_log_impl(&dword_22EEC4000, v35, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid character found, skipping", buf, 0x22u);
         }
       }
@@ -830,20 +982,20 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  v62 = *(&off_27DA9DE50 + v61);
+  v62 = off_27DA9DE50[v61];
   if (v62)
   {
     v63 = object_getClass(self);
     v64 = class_isMetaClass(v63);
     v65 = object_getClassName(self);
-    v78 = sel_getName(sel);
+    v77 = sel_getName(sel);
     v66 = 45;
     if (v64)
     {
       v66 = 43;
     }
 
-    v62(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v66, v65, v78, 470);
+    v62(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v66, v65, v77, 470);
     v60 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
@@ -865,13 +1017,13 @@ LABEL_54:
     v71 = object_getClassName(self);
     v72 = sel_getName(sel);
     *buf = 67109890;
-    v81 = v70;
-    v82 = 2082;
-    v83 = v71;
-    v84 = 2082;
-    v85 = v72;
-    v86 = 1024;
-    v87 = 470;
+    v80 = v70;
+    v81 = 2082;
+    v82 = v71;
+    v83 = 2082;
+    v84 = v72;
+    v85 = 1024;
+    v86 = 470;
     _os_log_impl(&dword_22EEC4000, v68, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", buf, 0x22u);
   }
 
@@ -879,14 +1031,12 @@ LABEL_48:
   v73 = 0;
 LABEL_51:
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return v73;
 }
 
 + (id)_decodeTextRecord:(id)record
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (objc_msgSend_length(recordCopy, v6, v7))
   {
@@ -923,7 +1073,7 @@ LABEL_30:
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v30 = *(&off_27DA9DE50 + specific);
+      v30 = off_27DA9DE50[specific];
       if (v30)
       {
         Class = object_getClass(self);
@@ -956,13 +1106,13 @@ LABEL_30:
         }
 
         *buf = 67109890;
-        v44 = v38;
-        v45 = 2082;
-        v46 = object_getClassName(self);
-        v47 = 2082;
-        v48 = sel_getName(a2);
-        v49 = 1024;
-        v50 = 496;
+        v43 = v38;
+        v44 = 2082;
+        v45 = object_getClassName(self);
+        v46 = 2082;
+        v47 = sel_getName(a2);
+        v48 = 1024;
+        v49 = 496;
         _os_log_impl(&dword_22EEC4000, v36, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid payload encoding; dropping message", buf, 0x22u);
       }
 
@@ -981,20 +1131,20 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v20 = *(&off_27DA9DE50 + v19);
+  v20 = off_27DA9DE50[v19];
   if (v20)
   {
     v21 = object_getClass(self);
     v22 = class_isMetaClass(v21);
     v23 = object_getClassName(self);
-    v41 = sel_getName(a2);
+    v40 = sel_getName(a2);
     v24 = 45;
     if (v22)
     {
       v24 = 43;
     }
 
-    v20(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v24, v23, v41, 485);
+    v20(4, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", v24, v23, v40, 485);
     v18 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
@@ -1014,27 +1164,25 @@ LABEL_34:
     }
 
     *buf = 67109890;
-    v44 = v27;
-    v45 = 2082;
-    v46 = object_getClassName(self);
-    v47 = 2082;
-    v48 = sel_getName(a2);
-    v49 = 1024;
-    v50 = 485;
+    v43 = v27;
+    v44 = 2082;
+    v45 = object_getClassName(self);
+    v46 = 2082;
+    v47 = sel_getName(a2);
+    v48 = 1024;
+    v49 = 485;
     _os_log_impl(&dword_22EEC4000, v10, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message", buf, 0x22u);
   }
 
   v11 = &stru_2843AE380;
 LABEL_31:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)_decodeURIRecord:(id)record
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (objc_msgSend_length(recordCopy, v6, v7) <= 1)
   {
@@ -1042,7 +1190,7 @@ LABEL_31:
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v10 = *(&off_27DA9DE50 + specific);
+      v10 = off_27DA9DE50[specific];
       if (v10)
       {
         Class = object_getClass(self);
@@ -1075,13 +1223,13 @@ LABEL_31:
         }
 
         *buf = 67109890;
-        v98 = v18;
-        v99 = 2082;
-        v100 = object_getClassName(self);
-        v101 = 2082;
-        v102 = sel_getName(a2);
-        v103 = 1024;
-        v104 = 509;
+        v97 = v18;
+        v98 = 2082;
+        v99 = object_getClassName(self);
+        v100 = 2082;
+        v101 = sel_getName(a2);
+        v102 = 1024;
+        v103 = 509;
         v19 = "%c[%{public}s %{public}s]:%i Invalid payload length; dropping message";
         goto LABEL_25;
       }
@@ -1144,20 +1292,20 @@ LABEL_61:
             goto LABEL_61;
           }
 
-          v82 = *(&off_27DA9DE50 + v81);
+          v82 = off_27DA9DE50[v81];
           if (v82)
           {
             v83 = object_getClass(self);
             v84 = class_isMetaClass(v83);
             v85 = object_getClassName(self);
-            v96 = sel_getName(a2);
+            v95 = sel_getName(a2);
             v86 = 45;
             if (v84)
             {
               v86 = 43;
             }
 
-            v82(4, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", v86, v85, v96, 577);
+            v82(4, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", v86, v85, v95, 577);
             v80 = kNFLOG_DISPATCH_SPECIFIC_KEY;
           }
 
@@ -1177,13 +1325,13 @@ LABEL_61:
             }
 
             *buf = 67109890;
-            v98 = v90;
-            v99 = 2082;
-            v100 = object_getClassName(self);
-            v101 = 2082;
-            v102 = sel_getName(a2);
-            v103 = 1024;
-            v104 = 577;
+            v97 = v90;
+            v98 = 2082;
+            v99 = object_getClassName(self);
+            v100 = 2082;
+            v101 = sel_getName(a2);
+            v102 = 1024;
+            v103 = 577;
             _os_log_impl(&dword_22EEC4000, v88, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", buf, 0x22u);
           }
 
@@ -1200,20 +1348,20 @@ LABEL_61:
           goto LABEL_61;
         }
 
-        v72 = *(&off_27DA9DE50 + v71);
+        v72 = off_27DA9DE50[v71];
         if (v72)
         {
           v73 = object_getClass(self);
           v74 = class_isMetaClass(v73);
           v75 = object_getClassName(self);
-          v95 = sel_getName(a2);
+          v94 = sel_getName(a2);
           v76 = 45;
           if (v74)
           {
             v76 = 43;
           }
 
-          v72(4, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", v76, v75, v95, 568);
+          v72(4, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", v76, v75, v94, 568);
           v70 = kNFLOG_DISPATCH_SPECIFIC_KEY;
         }
 
@@ -1233,13 +1381,13 @@ LABEL_61:
           }
 
           *buf = 67109890;
-          v98 = v79;
-          v99 = 2082;
-          v100 = object_getClassName(self);
-          v101 = 2082;
-          v102 = sel_getName(a2);
-          v103 = 1024;
-          v104 = 568;
+          v97 = v79;
+          v98 = 2082;
+          v99 = object_getClassName(self);
+          v100 = 2082;
+          v101 = sel_getName(a2);
+          v102 = 1024;
+          v103 = 568;
           _os_log_impl(&dword_22EEC4000, v53, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid URI; dropping message", buf, 0x22u);
         }
 
@@ -1260,20 +1408,20 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  v31 = *(&off_27DA9DE50 + v30);
+  v31 = off_27DA9DE50[v30];
   if (v31)
   {
     v32 = object_getClass(self);
     v33 = class_isMetaClass(v32);
     v34 = object_getClassName(self);
-    v94 = sel_getName(a2);
+    v93 = sel_getName(a2);
     v35 = 45;
     if (v33)
     {
       v35 = 43;
     }
 
-    v31(4, "%c[%{public}s %{public}s]:%i Invalid payload character; dropping message", v35, v34, v94, 558);
+    v31(4, "%c[%{public}s %{public}s]:%i Invalid payload character; dropping message", v35, v34, v93, 558);
     v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
@@ -1293,13 +1441,13 @@ LABEL_61:
     }
 
     *buf = 67109890;
-    v98 = v38;
-    v99 = 2082;
-    v100 = object_getClassName(self);
-    v101 = 2082;
-    v102 = sel_getName(a2);
-    v103 = 1024;
-    v104 = 558;
+    v97 = v38;
+    v98 = 2082;
+    v99 = object_getClassName(self);
+    v100 = 2082;
+    v101 = sel_getName(a2);
+    v102 = 1024;
+    v103 = 558;
     v19 = "%c[%{public}s %{public}s]:%i Invalid payload character; dropping message";
 LABEL_25:
     _os_log_impl(&dword_22EEC4000, v16, OS_LOG_TYPE_ERROR, v19, buf, 0x22u);
@@ -1309,14 +1457,12 @@ LABEL_26:
   v39 = &stru_2843AE380;
 LABEL_58:
 
-  v91 = *MEMORY[0x277D85DE8];
-
   return v39;
 }
 
 + (id)decodeFromRecord:(id)record
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (objc_msgSend_typeNameFormat(recordCopy, v6, v7) == 1)
   {
@@ -1357,7 +1503,7 @@ LABEL_20:
     specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (specific < 5)
     {
-      v60 = *(&off_27DA9DE50 + specific);
+      v60 = off_27DA9DE50[specific];
       if (v60)
       {
         Class = object_getClass(self);
@@ -1393,13 +1539,13 @@ LABEL_20:
       }
 
       *buf = 67109890;
-      v89 = v68;
-      v90 = 2082;
-      v91 = object_getClassName(self);
-      v92 = 2082;
-      v93 = sel_getName(a2);
-      v94 = 1024;
-      v95 = 592;
+      v88 = v68;
+      v89 = 2082;
+      v90 = object_getClassName(self);
+      v91 = 2082;
+      v92 = sel_getName(a2);
+      v93 = 1024;
+      v94 = 592;
 LABEL_31:
       _os_log_impl(&dword_22EEC4000, v66, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i 0 record type length; unable to decode", buf, 0x22u);
 LABEL_32:
@@ -1433,20 +1579,20 @@ LABEL_32:
     v73 = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     if (v73 < 5)
     {
-      v74 = *(&off_27DA9DE50 + v73);
+      v74 = off_27DA9DE50[v73];
       if (v74)
       {
         v75 = object_getClass(self);
         v76 = class_isMetaClass(v75);
         v77 = object_getClassName(self);
-        v87 = sel_getName(a2);
+        v86 = sel_getName(a2);
         v78 = 45;
         if (v76)
         {
           v78 = 43;
         }
 
-        v74(3, "%c[%{public}s %{public}s]:%i 0 record type length; unable to decode", v78, v77, v87, 605);
+        v74(3, "%c[%{public}s %{public}s]:%i 0 record type length; unable to decode", v78, v77, v86, 605);
         v72 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       }
 
@@ -1469,13 +1615,13 @@ LABEL_32:
       }
 
       *buf = 67109890;
-      v89 = v81;
-      v90 = 2082;
-      v91 = object_getClassName(self);
-      v92 = 2082;
-      v93 = sel_getName(a2);
-      v94 = 1024;
-      v95 = 605;
+      v88 = v81;
+      v89 = 2082;
+      v90 = object_getClassName(self);
+      v91 = 2082;
+      v92 = sel_getName(a2);
+      v93 = 1024;
+      v94 = 605;
       goto LABEL_31;
     }
 
@@ -1487,8 +1633,6 @@ LABEL_34:
   v82 = objc_alloc(MEMORY[0x277CCACA8]);
   v57 = objc_msgSend_initWithFormat_(v82, v83, @"%@", recordCopy);
 LABEL_35:
-
-  v84 = *MEMORY[0x277D85DE8];
 
   return v57;
 }

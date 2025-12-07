@@ -153,42 +153,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUITextFooterSettingsHeaderFooterDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v30.receiver = self;
-  v30.super_class = SKUITextFooterSettingsHeaderFooterDescriptionView;
-  [(SKUITextFooterSettingsHeaderFooterDescriptionView *)&v30 layoutSubviews];
-  v11 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76938]];
-  [(UILabel *)self->_label setFont:v11];
-  [(SKUITextFooterSettingsHeaderFooterDescriptionView *)self bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  [(SKUITextFooterSettingsHeaderFooterDescriptionView *)self layoutMargins];
-  v21 = v20;
-  v23 = v22;
-  v31.origin.x = v13;
-  v31.origin.y = v15;
-  v31.size.width = v17;
-  v31.size.height = v19;
-  v24 = CGRectGetWidth(v31) - v21 - v23;
-  [(UILabel *)self->_label sizeThatFits:v24, 1.0];
-  v26 = v25;
-  [v11 _scaledValueForValue:16.0];
-  v28 = v27;
-  [(UILabel *)self->_label _firstBaselineOffsetFromTop];
-  [(UILabel *)self->_label setFrame:v21, v28 - v29, v24, v26];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFooterSettingsHeaderFooterDescriptionView layoutSubviews]";
 }
 
 + (id)_concatenateTextFromLabelElements:(id)elements
@@ -246,6 +212,42 @@
   [v6 setText:v8];
 
   return v6;
+}
+
++ (void)preferredSizeForSettingsHeaderFooterDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFooterSettingsHeaderFooterDescriptionView preferredSizeForSettingsHeaderFooterDescription:context:]";
+}
+
++ (void)prefetchResourcesForSettingsHeaderFooterDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFooterSettingsHeaderFooterDescriptionView prefetchResourcesForSettingsHeaderFooterDescription:reason:context:]";
+}
+
++ (void)requestLayoutForSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFooterSettingsHeaderFooterDescriptionView requestLayoutForSettingsHeaderFooterDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingsHeaderFooterDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextFooterSettingsHeaderFooterDescriptionView sizeThatFitsWidth:settingsHeaderFooterDescription:context:]";
+}
+
+- (void)reloadWithSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFooterSettingsHeaderFooterDescriptionView reloadWithSettingsHeaderFooterDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextFooterSettingsHeaderFooterDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

@@ -14,13 +14,13 @@
 - (id)groupQuery;
 - (id)initWithConfiguration:(id *)configuration;
 - (id)listeners;
+- (id)q_createRecognitionSessionIfNecessary;
 - (id)q_groupQuery;
 - (id)session;
 - (id)strokeProviderSnapshot;
 - (uint64_t)canSynthesizeDrawingForText:(uint64_t)text;
 - (uint64_t)contentTypeForIntersectedStrokes:(uint64_t)strokes;
 - (uint64_t)didHitHandwritingStroke:(uint64_t)stroke;
-- (uint64_t)q_createRecognitionSessionIfNecessary;
 - (void)_dispatchSyncToRecognitionThreadIfNecessary:(uint64_t)necessary;
 - (void)addListener:(uint64_t)listener;
 - (void)autoRefineQuery:(id)query didUpdateWithQueryItem:(id)item validProviderVersion:(id)version;
@@ -75,11 +75,11 @@
 
 - (PKRecognitionSessionManager)init
 {
-  objc_opt_self();
-  v3 = +[PKRecognitionSessionManagerConfiguration interactiveCanvasConfiguration];
-  v4 = [(PKRecognitionSessionManager *)&self->super.isa initWithConfiguration:v3];
+  v3 = objc_opt_self();
+  v4 = +[(PKRecognitionSessionManagerConfiguration *)v3];
+  v5 = [(PKRecognitionSessionManager *)&self->super.isa initWithConfiguration:v4];
 
-  return v4;
+  return v5;
 }
 
 - (id)initWithConfiguration:(id *)configuration
@@ -670,7 +670,7 @@ void __42__PKRecognitionSessionManager_setDrawing___block_invoke(uint64_t a1)
   }
 }
 
-- (uint64_t)q_createRecognitionSessionIfNecessary
+- (id)q_createRecognitionSessionIfNecessary
 {
   v32 = *MEMORY[0x1E69E9840];
   if (!result)
@@ -679,29 +679,29 @@ void __42__PKRecognitionSessionManager_setDrawing___block_invoke(uint64_t a1)
   }
 
   v1 = result;
-  if (*(result + 48))
+  if (result[6])
   {
     return result;
   }
 
-  uuid = [*(result + 40) uuid];
+  uuid = [result[5] uuid];
   if (uuid)
   {
     v3 = *(v1 + 8);
 
     if (v3 == 1)
     {
-      uuid2 = [*(v1 + 40) uuid];
-      v5 = PKLoadRecognitionSession(uuid2, *(v1 + 192));
-      v6 = *(v1 + 48);
-      *(v1 + 48) = v5;
+      uuid2 = [v1[5] uuid];
+      v5 = PKLoadRecognitionSession(uuid2, v1[24]);
+      v6 = v1[6];
+      v1[6] = v5;
 
       v7 = os_log_create("com.apple.pencilkit", "RecognitionManager");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        uuid3 = [*(v1 + 40) uuid];
+        uuid3 = [v1[5] uuid];
         uniqueCacheFilePath = [uuid3 uniqueCacheFilePath];
-        v10 = *(v1 + 48) != 0;
+        v10 = v1[6] != 0;
         *buf = 138412546;
         *&buf[4] = uniqueCacheFilePath;
         *&buf[12] = 1024;
@@ -709,7 +709,7 @@ void __42__PKRecognitionSessionManager_setDrawing___block_invoke(uint64_t a1)
         _os_log_impl(&dword_1C7CCA000, v7, OS_LOG_TYPE_DEFAULT, "Loading session cache for: %@, success: %{BOOL}d", buf, 0x12u);
       }
 
-      if (!*(v1 + 48))
+      if (!v1[6])
       {
         goto LABEL_10;
       }
@@ -718,16 +718,16 @@ void __42__PKRecognitionSessionManager_setDrawing___block_invoke(uint64_t a1)
     }
   }
 
-  if (!*(v1 + 48))
+  if (!v1[6])
   {
 LABEL_10:
     v11 = [objc_alloc(MEMORY[0x1E6997B78]) initWithMode:0];
-    v12 = *(v1 + 48);
-    *(v1 + 48) = v11;
+    v12 = v1[6];
+    v1[6] = v11;
 
     if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
     {
-      v13 = *(v1 + 48);
+      v13 = v1[6];
       v29 = *MEMORY[0x1E6997AE0];
       v30 = @"! &() + , - . / 0 1 2 3 4 5 6 7 8 9 : = [ \\\\ \\ \\$ \\% \\arccos \\arcsin \\arctan \\ast \\cdot \\circ \\cos \\cosh \\cot \\coth \\csc \\div \\frac \\hline \\lceil \\left( \\left. \\left\\lceil \\left\\lfloor \\left| \\lfloor \\lg \\ln \\log \\pi \\prime \\rceil \\rfloor \\right) \\right. \\right\\rceil \\right\\rfloor \\right| \\sec \\sin \\sinh \\sqrt \\tan \\tanh \\times ] ^ _ a A b B c C d D e E f F g G H h i I j J k K L l m M n N o O p P q Q r R s S t T u U v V w W x X y Y z Z { | } \\begin{array}{lr} \\end{array}";
       v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
@@ -735,32 +735,32 @@ LABEL_10:
     }
   }
 
-  textSynthesizer = [*(v1 + 48) textSynthesizer];
-  v16 = *(v1 + 64);
-  *(v1 + 64) = textSynthesizer;
+  textSynthesizer = [v1[6] textSynthesizer];
+  v16 = v1[8];
+  v1[8] = textSynthesizer;
 
   enabledLocales = [objc_opt_class() enabledLocales];
-  [*(v1 + 48) setPreferredLocales:enabledLocales];
+  [v1[6] setPreferredLocales:enabledLocales];
 
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [*(v1 + 48) textSynthesizerWithLocaleFallbackIsSupported])
+  if ((objc_opt_respondsToSelector() & 1) != 0 && [v1[6] textSynthesizerWithLocaleFallbackIsSupported])
   {
-    textSynthesizerWithLocaleFallback = [*(v1 + 48) textSynthesizerWithLocaleFallback];
-    v19 = *(v1 + 56);
-    *(v1 + 56) = textSynthesizerWithLocaleFallback;
+    textSynthesizerWithLocaleFallback = [v1[6] textSynthesizerWithLocaleFallback];
+    v19 = v1[7];
+    v1[7] = textSynthesizerWithLocaleFallback;
   }
 
-  [*(v1 + 48) setDataSource:v1];
-  if (*(v1 + 48) && !*(v1 + 152))
+  [v1[6] setDataSource:v1];
+  if (v1[6] && !v1[19])
   {
     v20 = objc_alloc_init(PKAutoRefineTaskManager);
-    v21 = *(v1 + 152);
-    *(v1 + 152) = v20;
+    v21 = v1[19];
+    v1[19] = v20;
 
-    WeakRetained = objc_loadWeakRetained((v1 + 208));
-    v23 = *(v1 + 152);
+    WeakRetained = objc_loadWeakRetained(v1 + 26);
+    v23 = v1[19];
     if (v23)
     {
-      objc_storeWeak((v23 + 32), WeakRetained);
+      objc_storeWeak(v23 + 4, WeakRetained);
     }
   }
 
@@ -780,10 +780,10 @@ LABEL_10:
   }
 
   v28 = v25[17];
-  v27 = v25 + 17;
+  v27 = (v25 + 17);
   *v27 = v24;
 
-  return [*(v1 + 48) registerChangeObserver:*v27];
+  return [v1[6] registerChangeObserver:*v27];
 }
 
 - (void)q_needRecognitionUpdateWithCancel:(void *)result

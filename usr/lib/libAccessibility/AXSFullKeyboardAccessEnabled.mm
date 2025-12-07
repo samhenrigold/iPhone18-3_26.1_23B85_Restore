@@ -3,7 +3,7 @@
 
 @implementation AXSFullKeyboardAccessEnabled
 
-uint64_t ___AXSFullKeyboardAccessEnabled_block_invoke()
+void *___AXSFullKeyboardAccessEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

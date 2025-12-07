@@ -76,7 +76,7 @@ void __55__CNPhotoPickerHeaderView_dropInteraction_performDrop___block_invoke(ui
   if (a3)
   {
     v7 = [a3 localizedDescription];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPhotoPickerHeaderView.m", 472, 3, @"Unable to copy data for photo picker header photo drop operation: %@", v8, v9, v10, v11, v7);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPhotoPickerHeaderView.m", 472, 3u, @"Unable to copy data for photo picker header photo drop operation: %@", v8, v9, v10, v11, v7);
   }
 
   else

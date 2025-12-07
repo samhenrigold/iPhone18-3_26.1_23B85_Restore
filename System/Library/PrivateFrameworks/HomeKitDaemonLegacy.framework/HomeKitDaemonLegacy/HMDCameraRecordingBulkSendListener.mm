@@ -23,14 +23,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uUID = [(HMDCameraRecordingBulkSendListener *)self UUID];
   v5 = [v3 initWithName:@"UUID" value:uUID];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -68,16 +66,16 @@
 
 void __76__HMDCameraRecordingBulkSendListener_accessory_didCloseDataStreamWithError___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory did close data stream", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory did close data stream", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -96,13 +94,11 @@ void __76__HMDCameraRecordingBulkSendListener_accessory_didCloseDataStreamWithEr
   [(HMDCameraRecordingBulkSendListener *)*(a1 + 32) _callPendingOpenSessionCallbackWithResult:v7 error:?];
   v9 = [*(a1 + 32) delegate];
   [v9 listenerDidReceiveDataStreamClose:*(a1 + 32)];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callPendingOpenSessionCallbackWithResult:(void *)result error:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   resultCopy = result;
   if (self)
@@ -118,13 +114,13 @@ void __76__HMDCameraRecordingBulkSendListener_accessory_didCloseDataStreamWithEr
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543874;
-        v18 = v14;
-        v19 = 2112;
-        v20 = v5;
-        v21 = 2112;
-        v22 = resultCopy;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Calling pending callback with result: %@ error: %@", &v17, 0x20u);
+        v16 = 138543874;
+        v17 = v14;
+        v18 = 2112;
+        v19 = v5;
+        v20 = 2112;
+        v21 = resultCopy;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Calling pending callback with result: %@ error: %@", &v16, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -132,8 +128,6 @@ void __76__HMDCameraRecordingBulkSendListener_accessory_didCloseDataStreamWithEr
       v10[2](v10, v5, resultCopy);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDidStartListening:(id)listening
@@ -161,16 +155,16 @@ void __76__HMDCameraRecordingBulkSendListener_accessory_didCloseDataStreamWithEr
 
 void __65__HMDCameraRecordingBulkSendListener_accessoryDidStartListening___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory did start listening", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Accessory did start listening", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -187,9 +181,9 @@ void __65__HMDCameraRecordingBulkSendListener_accessoryDidStartListening___block
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v16 = 138543362;
-        v17 = v13;
-        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling pending open bulk send session request", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v13;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling pending open bulk send session request", &v15, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -199,8 +193,6 @@ void __65__HMDCameraRecordingBulkSendListener_accessoryDidStartListening___block
 
   v14 = [*(a1 + 32) delegate];
   [v14 listenerDidReceiveDataStreamStart:*(a1 + 32)];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openBulkSendSessionWithAccessory:(id)accessory callback:(id)callback
@@ -316,12 +308,11 @@ void __80__HMDCameraRecordingBulkSendListener_openBulkSendSessionWithAccessory_c
 
 uint64_t __49__HMDCameraRecordingBulkSendListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_132800;
-  logCategory__hmf_once_v5_132800 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_132800;
+  logCategory__hmf_once_v5_132800 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

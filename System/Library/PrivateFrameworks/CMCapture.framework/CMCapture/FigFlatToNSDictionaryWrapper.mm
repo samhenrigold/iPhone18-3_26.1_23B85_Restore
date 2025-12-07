@@ -2,7 +2,6 @@
 - (BOOL)_ensureFlatDictionaryIsInitialized;
 - (FigFlatToNSDictionaryWrapper)initWithFlatDictionary:(OpaqueFigFlatDictionary *)dictionary keySpec:(OpaqueFigFlatDictionaryKeySpec *)spec;
 - (id)initLazilyWithFlatDictionaryBacking:(void *)backing exportedKeySpec:(void *)spec deallocatorBlock:(id)block;
-- (id)keyEnumerator;
 - (id)objectForKey:(id)key;
 - (uint64_t)arrayForFlatDictionaryArrayDataKey:(uint64_t)key;
 - (unint64_t)count;
@@ -401,19 +400,6 @@ LABEL_28:
   }
 
   return array;
-}
-
-- (id)keyEnumerator
-{
-  if (![(FigFlatToNSDictionaryWrapper *)self _ensureFlatDictionaryIsInitialized])
-  {
-    fig_log_get_emitter();
-    FigDebugAssert3();
-  }
-
-  v3 = [[FigFlatToNSDictionaryWrapperKeyEnumerator alloc] initWithFlatDictionary:self->_flatDictionary];
-
-  return v3;
 }
 
 @end

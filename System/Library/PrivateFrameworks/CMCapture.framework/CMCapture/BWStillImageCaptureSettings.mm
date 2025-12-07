@@ -148,15 +148,15 @@
 {
   if (equal == self)
   {
-    LOBYTE(v18) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
   {
-    v30 = v6;
-    v31 = v5;
-    v32 = v3;
-    v33 = v4;
+    v31 = v6;
+    v32 = v5;
+    v33 = v3;
+    v34 = v4;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -217,17 +217,17 @@
       goto LABEL_25;
     }
 
-    v18 = -[BWFrameStatisticsByPortType isEqual:](self->_frameStatisticsByPortType, "isEqual:", [equal frameStatisticsByPortType]);
-    if (v18)
+    isEqualToString = -[BWFrameStatisticsByPortType isEqual:](self->_frameStatisticsByPortType, "isEqual:", [equal frameStatisticsByPortType]);
+    if (isEqualToString)
     {
       metadata = self->_metadata;
-      if (metadata == [equal metadata] || (v18 = -[BWStillImageCaptureMetadata isEqual:](self->_metadata, "isEqual:", objc_msgSend(equal, "metadata"))) != 0)
+      if (metadata == [equal metadata] || (isEqualToString = -[BWStillImageCaptureMetadata isEqual:](self->_metadata, "isEqual:", objc_msgSend(equal, "metadata"))) != 0)
       {
         streamSelectorDebugInfo = self->_streamSelectorDebugInfo;
-        if (streamSelectorDebugInfo == [equal streamSelectorDebugInfo] || (v18 = -[NSDictionary isEqualToDictionary:](self->_streamSelectorDebugInfo, "isEqualToDictionary:", objc_msgSend(equal, "streamSelectorDebugInfo"))) != 0)
+        if (streamSelectorDebugInfo == [equal streamSelectorDebugInfo] || (isEqualToString = -[NSDictionary isEqualToDictionary:](self->_streamSelectorDebugInfo, "isEqualToDictionary:", objc_msgSend(equal, "streamSelectorDebugInfo"))) != 0)
         {
           captureStreamSettings = self->_captureStreamSettings;
-          if (captureStreamSettings == [equal captureStreamSettings] || (v18 = -[NSArray isEqual:](self->_captureStreamSettings, "isEqual:", objc_msgSend(equal, "captureStreamSettings"))) != 0)
+          if (captureStreamSettings == [equal captureStreamSettings] || (isEqualToString = -[NSArray isEqual:](self->_captureStreamSettings, "isEqual:", objc_msgSend(equal, "captureStreamSettings"))) != 0)
           {
             timeMachineReferenceFrameBracketedCaptureSequenceNumber = self->_timeMachineReferenceFrameBracketedCaptureSequenceNumber;
             if (timeMachineReferenceFrameBracketedCaptureSequenceNumber != [equal timeMachineReferenceFrameBracketedCaptureSequenceNumber])
@@ -237,7 +237,7 @@
 
             if (equal)
             {
-              [equal lastTimeMachinePTS];
+              objc_msgSend_lastTimeMachinePTS(equal);
             }
 
             else
@@ -245,26 +245,26 @@
               memset(&time2, 0, sizeof(time2));
             }
 
-            v28 = *(&self->_timeMachineReferenceFrameBracketedCaptureSequenceNumber + 1);
-            if (CMTimeCompare(&v28, &time2))
+            v29 = *(&self->_timeMachineReferenceFrameBracketedCaptureSequenceNumber + 1);
+            if (CMTimeCompare(&v29, &time2))
             {
               goto LABEL_25;
             }
 
             applicationID = self->_applicationID;
-            if (applicationID == [equal applicationID] || (v18 = -[NSString isEqualToString:](self->_applicationID, "isEqualToString:", objc_msgSend(equal, "applicationID"))) != 0)
+            if (applicationID == [equal applicationID] || (v24 = self->_applicationID, objc_msgSend(equal, "applicationID"), (isEqualToString = objc_msgSend_isEqualToString_(v24)) != 0))
             {
               stillImageRequestTime = self->_stillImageRequestTime;
               if (stillImageRequestTime == [equal stillImageRequestTime])
               {
                 scaleFactor = self->_scaleFactor;
                 [equal scaleFactor];
-                LOBYTE(v18) = scaleFactor == v26;
-                return v18;
+                LOBYTE(isEqualToString) = scaleFactor == v27;
+                return isEqualToString;
               }
 
 LABEL_25:
-              LOBYTE(v18) = 0;
+              LOBYTE(isEqualToString) = 0;
             }
           }
         }
@@ -272,7 +272,7 @@ LABEL_25:
     }
   }
 
-  return v18;
+  return isEqualToString;
 }
 
 - (void)disableAWBReflow
@@ -445,7 +445,7 @@ LABEL_25:
         }
 
         v9 = *(*(&v13 + 1) + 8 * i);
-        if (([objc_msgSend(v9 "portType")] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_([v9 portType]) & 1) == 0)
         {
           [v3 addObject:{objc_msgSend(v9, "portType")}];
         }
@@ -502,38 +502,38 @@ LABEL_25:
 
 - (id)captureStreamSettingsForPortType:(id)type
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   captureStreamSettings = self->_captureStreamSettings;
-  v5 = [(NSArray *)captureStreamSettings countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSArray *)captureStreamSettings countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(captureStreamSettings);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "portType")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 portType]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSArray *)captureStreamSettings countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSArray *)captureStreamSettings countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }

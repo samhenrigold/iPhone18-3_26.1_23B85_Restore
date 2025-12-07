@@ -3,6 +3,8 @@
 - (CARSetupHeadUnitPairingPrompt)initWithKeyIdentifier:(id)identifier;
 - (CARSetupHeadUnitPairingPromptDelegate)delegate;
 - (id)headUnitPairingPromptViewController;
+- (void)_handleDidFinishWithResult:(BOOL)result;
+- (void)_mainQueue_delegateDidFinishWithResult:(BOOL)result;
 - (void)_servicePerform:(id)perform;
 - (void)_setupConnection;
 - (void)_synchronous_servicePerform:(id)perform;
@@ -70,7 +72,7 @@ void __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_in
 
 void __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -88,9 +90,9 @@ void __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_in
         v7 = @"NO";
       }
 
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_242FD5000, v6, OS_LOG_TYPE_DEFAULT, "wantsToPresentHeadUnitPairing: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_242FD5000, v6, OS_LOG_TYPE_DEFAULT, "wantsToPresentHeadUnitPairing: %@", &v8, 0xCu);
     }
   }
 
@@ -102,8 +104,6 @@ void __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_in
       __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_invoke_2_cold_1();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)headUnitPairingPromptViewController
@@ -159,7 +159,7 @@ void __61__CARSetupHeadUnitPairingPrompt_presentHeadUnitPairingPrompt__block_inv
 
 void __61__CARSetupHeadUnitPairingPrompt_presentHeadUnitPairingPrompt__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = CARSetupLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -171,21 +171,19 @@ void __61__CARSetupHeadUnitPairingPrompt_presentHeadUnitPairingPrompt__block_inv
     }
 
     *buf = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v5;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v5;
     _os_log_impl(&dword_242FD5000, v6, OS_LOG_TYPE_DEFAULT, "presentHeadUnitPairingPrompt completed: %{public}@ error: %@", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__CARSetupHeadUnitPairingPrompt_presentHeadUnitPairingPrompt__block_invoke_9;
-  v9[3] = &unk_278D8F6B8;
-  v9[4] = *(a1 + 32);
-  v10 = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__CARSetupHeadUnitPairingPrompt_presentHeadUnitPairingPrompt__block_invoke_9;
+  v8[3] = &unk_278D8F6B8;
+  v8[4] = *(a1 + 32);
+  v9 = a2;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 - (void)invalidate
@@ -283,6 +281,34 @@ void __61__CARSetupHeadUnitPairingPrompt__synchronous_servicePerform___block_inv
   }
 }
 
+- (void)_handleDidFinishWithResult:(BOOL)result
+{
+  resultCopy = result;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = CARSetupLogForCategory(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"declined";
+    if (resultCopy)
+    {
+      v6 = @"accepted";
+    }
+
+    *buf = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_242FD5000, v5, OS_LOG_TYPE_DEFAULT, "head unit pairing prompt was %@", buf, 0xCu);
+  }
+
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __60__CARSetupHeadUnitPairingPrompt__handleDidFinishWithResult___block_invoke;
+  v7[3] = &unk_278D8F798;
+  v8 = resultCopy;
+  v7[4] = self;
+  [(CARSetupHeadUnitPairingPrompt *)self _synchronous_servicePerform:v7];
+  [(CARSetupHeadUnitPairingPrompt *)self _mainQueue_delegateDidFinishWithResult:resultCopy];
+}
+
 void __60__CARSetupHeadUnitPairingPrompt__handleDidFinishWithResult___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 40);
@@ -312,6 +338,23 @@ void __60__CARSetupHeadUnitPairingPrompt__handleDidFinishWithResult___block_invo
   }
 }
 
+- (void)_mainQueue_delegateDidFinishWithResult:(BOOL)result
+{
+  resultCopy = result;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  delegate = [(CARSetupHeadUnitPairingPrompt *)self delegate];
+  if (delegate)
+  {
+    v6 = delegate;
+    if (objc_opt_respondsToSelector())
+    {
+      [v6 headUnitPairingPrompt:self didFinishWithResult:resultCopy];
+    }
+  }
+
+  MEMORY[0x2821F9730]();
+}
+
 - (CARSetupHeadUnitPairingPromptDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -321,29 +364,23 @@ void __60__CARSetupHeadUnitPairingPrompt__handleDidFinishWithResult___block_invo
 
 void __62__CARSetupHeadUnitPairingPrompt_wantsToPresentHeadUnitPairing__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__CARSetupHeadUnitPairingPrompt__servicePerform___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__CARSetupHeadUnitPairingPrompt__handleDidFinishWithResult___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -50,7 +50,7 @@
     v7 = CloudServicesLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10004889C(lCopy, &v10);
+      sub_10004889C();
     }
 
     sqlite3_free(v10);

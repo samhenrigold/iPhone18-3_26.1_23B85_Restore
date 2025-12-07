@@ -2,16 +2,18 @@
 - (WLPairingCodeViewController)initWithPairingCode:(id)code wifiPSK:(id)k ssid:(id)ssid welcomeController:(id)controller;
 - (void)_appleInternalOptionsTapped:(id)tapped;
 - (void)_importLocalContent;
+- (void)_setStashDataLocally:(BOOL)locally;
 - (void)cancel;
 - (void)showActivityIndicatorView;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WLPairingCodeViewController
 
 - (WLPairingCodeViewController)initWithPairingCode:(id)code wifiPSK:(id)k ssid:(id)ssid welcomeController:(id)controller
 {
-  v63[4] = *MEMORY[0x277D85DE8];
+  v62[4] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   kCopy = k;
   ssidCopy = ssid;
@@ -21,13 +23,13 @@
   v14 = MEMORY[0x277D755B8];
   v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v16 = [v14 imageNamed:@"MoveToiOS" inBundle:v15];
-  v62.receiver = self;
-  v62.super_class = WLPairingCodeViewController;
-  v17 = [(WLPairingCodeViewController *)&v62 initWithTitle:v12 detailText:v13 icon:v16 contentLayout:2];
+  v61.receiver = self;
+  v61.super_class = WLPairingCodeViewController;
+  v17 = [(WLPairingCodeViewController *)&v61 initWithTitle:v12 detailText:v13 icon:v16 contentLayout:2];
 
   if (v17)
   {
-    v59 = kCopy;
+    v58 = kCopy;
     objc_storeStrong(&v17->_wifiPSK, k);
     objc_storeStrong(&v17->_ssid, ssid);
     v18 = v17;
@@ -80,22 +82,22 @@
     contentView = [(WLPairingCodeViewController *)v18 contentView];
     [contentView addSubview:v26];
 
-    v50 = MEMORY[0x277CCAAD0];
+    v49 = MEMORY[0x277CCAAD0];
     leadingAnchor = [v26 leadingAnchor];
     contentView2 = [(WLPairingCodeViewController *)v18 contentView];
     leadingAnchor2 = [contentView2 leadingAnchor];
-    v55 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v63[0] = v55;
+    v54 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v62[0] = v54;
     trailingAnchor = [v26 trailingAnchor];
     contentView3 = [(WLPairingCodeViewController *)v18 contentView];
     trailingAnchor2 = [contentView3 trailingAnchor];
-    v51 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v63[1] = v51;
+    v50 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v62[1] = v50;
     bottomAnchor = [v26 bottomAnchor];
     contentView4 = [(WLPairingCodeViewController *)v18 contentView];
     bottomAnchor2 = [contentView4 bottomAnchor];
-    v46 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v63[2] = v46;
+    v45 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v62[2] = v45;
     lastBaselineAnchor = [v26 lastBaselineAnchor];
     contentView5 = [(WLPairingCodeViewController *)v18 contentView];
     topAnchor = [contentView5 topAnchor];
@@ -108,9 +110,9 @@
     }
 
     v38 = [lastBaselineAnchor constraintEqualToAnchor:topAnchor constant:v37];
-    v63[3] = v38;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
-    [v50 activateConstraints:v39];
+    v62[3] = v38;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
+    [v49 activateConstraints:v39];
 
     centerXAnchor = [v26 centerXAnchor];
     contentView6 = [(WLPairingCodeViewController *)v30 contentView];
@@ -119,10 +121,9 @@
     [v43 setActive:1];
 
     v17 = v30;
-    kCopy = v59;
+    kCopy = v58;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -210,6 +211,18 @@ LABEL_6:
   [*(*(a1 + 32) + 1248) setEnabled:1];
 }
 
+- (void)_setStashDataLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  stashDataLocallyHandler = [(WLPairingCodeViewController *)self stashDataLocallyHandler];
+
+  if (stashDataLocallyHandler)
+  {
+    stashDataLocallyHandler2 = [(WLPairingCodeViewController *)self stashDataLocallyHandler];
+    stashDataLocallyHandler2[2](stashDataLocallyHandler2, locallyCopy);
+  }
+}
+
 - (void)_importLocalContent
 {
   importLocalContentHandler = [(WLPairingCodeViewController *)self importLocalContentHandler];
@@ -270,6 +283,33 @@ void __37__WLPairingCodeViewController_cancel__block_invoke(uint64_t a1)
   v3 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v5];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:v3];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = WLPairingCodeViewController;
+  [(OBBaseWelcomeController *)&v10 viewWillDisappear:disappear];
+  viewWillDisappearBlock = [(WLPairingCodeViewController *)self viewWillDisappearBlock];
+
+  if (viewWillDisappearBlock)
+  {
+    viewWillDisappearBlock2 = [(WLPairingCodeViewController *)self viewWillDisappearBlock];
+    viewWillDisappearBlock2[2]();
+  }
+
+  navigationController = [(WLPairingCodeViewController *)self navigationController];
+  transitionCoordinator = [navigationController transitionCoordinator];
+  v8 = [transitionCoordinator viewControllerForKey:*MEMORY[0x277D77230]];
+
+  if (v8 == self && (([(WLPairingCodeViewController *)self isMovingFromParentViewController]& 1) != 0 || [(WLPairingCodeViewController *)self isBeingDismissed]))
+  {
+    viewWillDismissBlock = self->_viewWillDismissBlock;
+    if (viewWillDismissBlock)
+    {
+      viewWillDismissBlock[2]();
+    }
+  }
 }
 
 @end

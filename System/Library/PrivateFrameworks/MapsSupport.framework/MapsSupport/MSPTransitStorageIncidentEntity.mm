@@ -17,46 +17,45 @@
 
 - (MSPTransitStorageIncidentEntity)initWithIncidentEntity:(id)entity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
-  v17.receiver = self;
-  v17.super_class = MSPTransitStorageIncidentEntity;
-  v5 = [(MSPTransitStorageIncidentEntity *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MSPTransitStorageIncidentEntity;
+  v5 = [(MSPTransitStorageIncidentEntity *)&v16 init];
   if (v5)
   {
     -[MSPTransitStorageIncidentEntity setMuid:](v5, "setMuid:", [entityCopy muid]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     nextStopIDs = [entityCopy nextStopIDs];
-    v7 = [nextStopIDs countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v7 = [nextStopIDs countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(nextStopIDs);
           }
 
-          -[MSPTransitStorageIncidentEntity addNextStopsMuids:](v5, "addNextStopsMuids:", [*(*(&v13 + 1) + 8 * v10++) unsignedLongLongValue]);
+          -[MSPTransitStorageIncidentEntity addNextStopsMuids:](v5, "addNextStopsMuids:", [*(*(&v12 + 1) + 8 * v10++) unsignedLongLongValue]);
         }
 
         while (v8 != v10);
-        v8 = [nextStopIDs countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v8 = [nextStopIDs countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -141,26 +140,24 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    muid = self->_muid;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_nextStopsMuids.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_nextStopsMuids.list[v6];
       PBDataWriterWriteUint64Field();
-      toCopy = v8;
-      ++v6;
+      toCopy = v6;
+      ++v5;
     }
 
-    while (v6 < self->_nextStopsMuids.count);
+    while (v5 < self->_nextStopsMuids.count);
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -214,7 +211,6 @@
     goto LABEL_8;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_muid != *(equalCopy + 5))

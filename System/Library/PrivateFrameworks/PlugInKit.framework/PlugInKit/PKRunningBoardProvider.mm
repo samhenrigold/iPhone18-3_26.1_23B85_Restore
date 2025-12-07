@@ -1,9 +1,21 @@
 @interface PKRunningBoardProvider
+- (id)processAssertionWithPID:(int)d flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name;
 - (id)taskStatesForPID:(id)d error:(id *)error;
 - (void)plugInHandshakeComplete;
 @end
 
 @implementation PKRunningBoardProvider
+
+- (id)processAssertionWithPID:(int)d flags:(unsigned int)flags reason:(unsigned int)reason name:(id)name
+{
+  v6 = *&reason;
+  v7 = *&flags;
+  v8 = *&d;
+  nameCopy = name;
+  v10 = [[PKProcessAssertionProxy alloc] initWithPID:v8 flags:v7 reason:v6 name:nameCopy];
+
+  return v10;
+}
 
 - (id)taskStatesForPID:(id)d error:(id *)error
 {

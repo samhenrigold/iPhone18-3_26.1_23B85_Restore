@@ -15,10 +15,12 @@
 - (void)postInitialKVONotificationForObservation:(id)observation keyPath:(id)path;
 - (void)refreshActiveClient;
 - (void)removeObserver:(id)observer forKeyPath:(id)path context:(void *)context;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setDouble:(double)double forKey:(id)key;
 - (void)setFloat:(float)float forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
+- (void)userDefaultsCheckIn:(id)in effectiveUserIdentifier:(unsigned int)identifier;
 @end
 
 @implementation GCRemoteUserDefaultsProxy
@@ -67,9 +69,9 @@
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy objectForKey:];
+      [GCRemoteUserDefaultsProxy objectForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -77,59 +79,61 @@
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_41];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_41];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__7;
-      v17 = __Block_byref_object_dispose__7;
-      v18 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_77;
-      v12[3] = &unk_1E841AFF8;
-      v12[4] = &v13;
-      [v9 objectForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__7;
+      v25 = __Block_byref_object_dispose__7;
+      v26 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_77;
+      v20[3] = &unk_1E841AFF8;
+      v20[4] = &v21;
+      v14 = [v13 objectForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = v14[5];
-      _Block_object_dispose(&v13, 8);
+      v17 = v22[5];
+      _Block_object_dispose(&v21, 8);
 
 LABEL_8:
       goto LABEL_11;
     }
 
-    if (gc_isInternalBuild())
+    v18 = gc_isInternalBuild(v10, v11);
+    if (v18)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v17 = 0;
 LABEL_11:
 
-  return v10;
+  return v17;
 }
 
 void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -143,9 +147,9 @@ void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke(uint64_t a1, vo
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy stringForKey:];
+      [GCRemoteUserDefaultsProxy stringForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -153,59 +157,61 @@ void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke(uint64_t a1, vo
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_80];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_80];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__7;
-      v17 = __Block_byref_object_dispose__7;
-      v18 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __42__GCRemoteUserDefaultsProxy_stringForKey___block_invoke_81;
-      v12[3] = &unk_1E841B020;
-      v12[4] = &v13;
-      [v9 stringForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__7;
+      v25 = __Block_byref_object_dispose__7;
+      v26 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__GCRemoteUserDefaultsProxy_stringForKey___block_invoke_81;
+      v20[3] = &unk_1E841B020;
+      v20[4] = &v21;
+      v14 = [v13 stringForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy stringForKey:];
       }
 
-      v10 = v14[5];
-      _Block_object_dispose(&v13, 8);
+      v17 = v22[5];
+      _Block_object_dispose(&v21, 8);
 
 LABEL_8:
       goto LABEL_11;
     }
 
-    if (gc_isInternalBuild())
+    v18 = gc_isInternalBuild(v10, v11);
+    if (v18)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v17 = 0;
 LABEL_11:
 
-  return v10;
+  return v17;
 }
 
 void __42__GCRemoteUserDefaultsProxy_stringForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -219,9 +225,9 @@ void __42__GCRemoteUserDefaultsProxy_stringForKey___block_invoke(uint64_t a1, vo
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy dataForKey:];
+      [GCRemoteUserDefaultsProxy dataForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -229,59 +235,61 @@ void __42__GCRemoteUserDefaultsProxy_stringForKey___block_invoke(uint64_t a1, vo
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_84];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_84];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__7;
-      v17 = __Block_byref_object_dispose__7;
-      v18 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __40__GCRemoteUserDefaultsProxy_dataForKey___block_invoke_85;
-      v12[3] = &unk_1E841B048;
-      v12[4] = &v13;
-      [v9 dataForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__7;
+      v25 = __Block_byref_object_dispose__7;
+      v26 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __40__GCRemoteUserDefaultsProxy_dataForKey___block_invoke_85;
+      v20[3] = &unk_1E841B048;
+      v20[4] = &v21;
+      v14 = [v13 dataForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy dataForKey:];
       }
 
-      v10 = v14[5];
-      _Block_object_dispose(&v13, 8);
+      v17 = v22[5];
+      _Block_object_dispose(&v21, 8);
 
 LABEL_8:
       goto LABEL_11;
     }
 
-    if (gc_isInternalBuild())
+    v18 = gc_isInternalBuild(v10, v11);
+    if (v18)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v17 = 0;
 LABEL_11:
 
-  return v10;
+  return v17;
 }
 
 void __40__GCRemoteUserDefaultsProxy_dataForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -295,9 +303,9 @@ void __40__GCRemoteUserDefaultsProxy_dataForKey___block_invoke(uint64_t a1, void
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy dictionaryForKey:];
+      [GCRemoteUserDefaultsProxy dictionaryForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -305,59 +313,61 @@ void __40__GCRemoteUserDefaultsProxy_dataForKey___block_invoke(uint64_t a1, void
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_88];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_88];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__7;
-      v17 = __Block_byref_object_dispose__7;
-      v18 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __46__GCRemoteUserDefaultsProxy_dictionaryForKey___block_invoke_89;
-      v12[3] = &unk_1E841B070;
-      v12[4] = &v13;
-      [v9 dictionaryForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__7;
+      v25 = __Block_byref_object_dispose__7;
+      v26 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __46__GCRemoteUserDefaultsProxy_dictionaryForKey___block_invoke_89;
+      v20[3] = &unk_1E841B070;
+      v20[4] = &v21;
+      v14 = [v13 dictionaryForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy dictionaryForKey:];
       }
 
-      v10 = v14[5];
-      _Block_object_dispose(&v13, 8);
+      v17 = v22[5];
+      _Block_object_dispose(&v21, 8);
 
 LABEL_8:
       goto LABEL_11;
     }
 
-    if (gc_isInternalBuild())
+    v18 = gc_isInternalBuild(v10, v11);
+    if (v18)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v17 = 0;
 LABEL_11:
 
-  return v10;
+  return v17;
 }
 
 void __46__GCRemoteUserDefaultsProxy_dictionaryForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -371,9 +381,9 @@ void __46__GCRemoteUserDefaultsProxy_dictionaryForKey___block_invoke(uint64_t a1
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy arrayForKey:];
+      [GCRemoteUserDefaultsProxy arrayForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -381,59 +391,61 @@ void __46__GCRemoteUserDefaultsProxy_dictionaryForKey___block_invoke(uint64_t a1
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_92];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_92];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__7;
-      v17 = __Block_byref_object_dispose__7;
-      v18 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __41__GCRemoteUserDefaultsProxy_arrayForKey___block_invoke_93;
-      v12[3] = &unk_1E841B098;
-      v12[4] = &v13;
-      [v9 arrayForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy__7;
+      v25 = __Block_byref_object_dispose__7;
+      v26 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __41__GCRemoteUserDefaultsProxy_arrayForKey___block_invoke_93;
+      v20[3] = &unk_1E841B098;
+      v20[4] = &v21;
+      v14 = [v13 arrayForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy arrayForKey:];
       }
 
-      v10 = v14[5];
-      _Block_object_dispose(&v13, 8);
+      v17 = v22[5];
+      _Block_object_dispose(&v21, 8);
 
 LABEL_8:
       goto LABEL_11;
     }
 
-    if (gc_isInternalBuild())
+    v18 = gc_isInternalBuild(v10, v11);
+    if (v18)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
   }
 
-  v10 = 0;
+  v17 = 0;
 LABEL_11:
 
-  return v10;
+  return v17;
 }
 
 void __41__GCRemoteUserDefaultsProxy_arrayForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -455,9 +467,9 @@ void __41__GCRemoteUserDefaultsProxy_arrayForKey___block_invoke(uint64_t a1, voi
 
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy BOOLForKey:];
+      [GCRemoteUserDefaultsProxy BOOLForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -465,39 +477,41 @@ void __41__GCRemoteUserDefaultsProxy_arrayForKey___block_invoke(uint64_t a1, voi
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_96];
+      v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_96];
 
-      v12 = 0;
-      v13 = &v12;
-      v14 = 0x2020000000;
-      v15 = 0;
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke_97;
-      v11[3] = &unk_1E841B0C0;
-      v11[4] = &v12;
-      [v9 BOOLForKey:keyCopy withReply:v11];
-      if (gc_isInternalBuild())
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
+      v23 = 0;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke_97;
+      v19[3] = &unk_1E841B0C0;
+      v19[4] = &v20;
+      v14 = [v13 BOOLForKey:keyCopy withReply:v19];
+      isInternalBuild = gc_isInternalBuild(v14, v15);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy BOOLForKey:];
       }
 
-      LOBYTE(agentConnectionEstablished) = *(v13 + 24);
-      _Block_object_dispose(&v12, 8);
+      LOBYTE(agentConnectionEstablished) = *(v21 + 24);
+      _Block_object_dispose(&v20, 8);
     }
 
     else
     {
-      if (!gc_isInternalBuild())
+      v17 = gc_isInternalBuild(v10, v11);
+      if (!v17)
       {
         LOBYTE(agentConnectionEstablished) = 0;
         goto LABEL_11;
       }
 
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(v17);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
@@ -514,10 +528,18 @@ LABEL_11:
 void __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  activeClient = [(GCRemoteUserDefaultsProxy *)self activeClient];
+  [activeClient setBool:boolCopy forKey:keyCopy];
 }
 
 - (double)doubleForKey:(id)key
@@ -528,12 +550,12 @@ void __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke(uint64_t a1, void
   agentConnectionEstablished = [(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished];
   objc_sync_exit(selfCopy);
 
-  v7 = 0.0;
+  v9 = 0.0;
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy doubleForKey:];
+      [GCRemoteUserDefaultsProxy doubleForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -541,38 +563,40 @@ void __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke(uint64_t a1, void
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v10 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_100];
+      v14 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_100];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
-      v16 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke_101;
-      v12[3] = &unk_1E841B0E8;
-      v12[4] = &v13;
-      [v10 doubleForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
+      v24 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke_101;
+      v20[3] = &unk_1E841B0E8;
+      v20[4] = &v21;
+      v15 = [v14 doubleForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v15, v16);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy doubleForKey:];
       }
 
-      v7 = v14[3];
-      _Block_object_dispose(&v13, 8);
+      v9 = v22[3];
+      _Block_object_dispose(&v21, 8);
     }
 
     else
     {
-      if (!gc_isInternalBuild())
+      v18 = gc_isInternalBuild(v11, v12);
+      if (!v18)
       {
         goto LABEL_10;
       }
 
-      v10 = getGCLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v14 = getGCLogger(v18);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
@@ -581,15 +605,15 @@ void __40__GCRemoteUserDefaultsProxy_BOOLForKey___block_invoke(uint64_t a1, void
 
 LABEL_10:
 
-  return v7;
+  return v9;
 }
 
 void __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -608,12 +632,12 @@ void __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke(uint64_t a1, vo
   agentConnectionEstablished = [(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished];
   objc_sync_exit(selfCopy);
 
-  v7 = 0.0;
+  v9 = 0.0;
   if (agentConnectionEstablished)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v7, v8))
     {
-      [GCRemoteUserDefaultsProxy floatForKey:];
+      [GCRemoteUserDefaultsProxy floatForKey:keyCopy];
     }
 
     activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
@@ -621,38 +645,40 @@ void __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke(uint64_t a1, vo
     if (activeClient)
     {
       activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-      v10 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_104_0];
+      v14 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_104_0];
 
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
-      v16 = 0;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __41__GCRemoteUserDefaultsProxy_floatForKey___block_invoke_105;
-      v12[3] = &unk_1E841B110;
-      v12[4] = &v13;
-      [v10 floatForKey:keyCopy withReply:v12];
-      if (gc_isInternalBuild())
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x2020000000;
+      v24 = 0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __41__GCRemoteUserDefaultsProxy_floatForKey___block_invoke_105;
+      v20[3] = &unk_1E841B110;
+      v20[4] = &v21;
+      v15 = [v14 floatForKey:keyCopy withReply:v20];
+      isInternalBuild = gc_isInternalBuild(v15, v16);
+      if (isInternalBuild)
       {
-        getGCLogger();
+        getGCLogger(isInternalBuild);
         objc_claimAutoreleasedReturnValue();
         [GCRemoteUserDefaultsProxy floatForKey:];
       }
 
-      v7 = v14[6];
-      _Block_object_dispose(&v13, 8);
+      v9 = v22[6];
+      _Block_object_dispose(&v21, 8);
     }
 
     else
     {
-      if (!gc_isInternalBuild())
+      v18 = gc_isInternalBuild(v11, v12);
+      if (!v18)
       {
         goto LABEL_10;
       }
 
-      v10 = getGCLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v14 = getGCLogger(v18);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
@@ -661,15 +687,15 @@ void __42__GCRemoteUserDefaultsProxy_doubleForKey___block_invoke(uint64_t a1, vo
 
 LABEL_10:
 
-  return v7;
+  return v9;
 }
 
 void __41__GCRemoteUserDefaultsProxy_floatForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -694,66 +720,68 @@ void __41__GCRemoteUserDefaultsProxy_floatForKey___block_invoke(uint64_t a1, voi
     goto LABEL_10;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v7, v8))
   {
-    [GCRemoteUserDefaultsProxy integerForKey:];
+    [GCRemoteUserDefaultsProxy integerForKey:keyCopy];
   }
 
   activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
 
   if (!activeClient)
   {
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v10, v11);
+    if (isInternalBuild)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v13 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [GCRemoteUserDefaultsProxy objectForKey:];
       }
 
-      v10 = 0;
+      v17 = 0;
       goto LABEL_8;
     }
 
 LABEL_10:
-    v10 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
   activeClient2 = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
-  v9 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_108_0];
+  v13 = [activeClient2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_108_0];
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __43__GCRemoteUserDefaultsProxy_integerForKey___block_invoke_109;
-  v12[3] = &unk_1E841B138;
-  v12[4] = &v13;
-  [v9 integerForKey:keyCopy withReply:v12];
-  if (gc_isInternalBuild())
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __43__GCRemoteUserDefaultsProxy_integerForKey___block_invoke_109;
+  v20[3] = &unk_1E841B138;
+  v20[4] = &v21;
+  v14 = [v13 integerForKey:keyCopy withReply:v20];
+  v16 = gc_isInternalBuild(v14, v15);
+  if (v16)
   {
-    getGCLogger();
+    getGCLogger(v16);
     objc_claimAutoreleasedReturnValue();
     [GCRemoteUserDefaultsProxy integerForKey:];
   }
 
-  v10 = v14[3];
-  _Block_object_dispose(&v13, 8);
+  v17 = v22[3];
+  _Block_object_dispose(&v21, 8);
 LABEL_8:
 
 LABEL_11:
-  return v10;
+  return v17;
 }
 
 void __43__GCRemoteUserDefaultsProxy_integerForKey___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v2, v3))
   {
-    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1();
+    __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(v2);
   }
 }
 
@@ -792,18 +820,19 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v13 = MEMORY[0x1E696A4F0];
+    v15 = MEMORY[0x1E696A4F0];
 LABEL_12:
-    [v10 setObject:null3 forKeyedSubscript:*v13];
+    [v10 setObject:null3 forKeyedSubscript:*v15];
     goto LABEL_13;
   }
 
-  if ([observationCopy options])
+  options = [observationCopy options];
+  if (options)
   {
-    v11 = [(GCRemoteUserDefaultsProxy *)selfCopy objectForKey:pathCopy];
-    if (v11)
+    v13 = [(GCRemoteUserDefaultsProxy *)selfCopy objectForKey:pathCopy];
+    if (v13)
     {
-      [v10 setObject:v11 forKeyedSubscript:*MEMORY[0x1E696A4F0]];
+      [v10 setObject:v13 forKeyedSubscript:*MEMORY[0x1E696A4F0]];
     }
 
     else
@@ -812,18 +841,19 @@ LABEL_12:
       [v10 setObject:null2 forKeyedSubscript:*MEMORY[0x1E696A4F0]];
     }
 
-    if (([observationCopy options] & 2) != 0)
+    options = [observationCopy options];
+    if ((options & 2) != 0)
     {
       null3 = [MEMORY[0x1E695DFB0] null];
-      v13 = MEMORY[0x1E696A500];
+      v15 = MEMORY[0x1E696A500];
       goto LABEL_12;
     }
   }
 
 LABEL_14:
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(options, v12))
   {
-    [GCRemoteUserDefaultsProxy postInitialKVONotificationForObservation:keyPath:];
+    [GCRemoteUserDefaultsProxy postInitialKVONotificationForObservation:observationCopy keyPath:?];
   }
 
   observer = [observationCopy observer];
@@ -834,68 +864,72 @@ LABEL_17:
 
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   pathCopy = path;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  if (gc_isInternalBuild())
+  v13 = objc_sync_enter(selfCopy);
+  isInternalBuild = gc_isInternalBuild(v13, v14);
+  if (isInternalBuild)
   {
-    v18 = getGCLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v26 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412802;
-      v20 = observerCopy;
-      v21 = 2112;
-      v22 = pathCopy;
-      v23 = 2048;
+      v27 = 138412802;
+      v28 = observerCopy;
+      v29 = 2112;
+      v30 = pathCopy;
+      v31 = 2048;
       contextCopy = context;
-      _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_INFO, "GCRemoteUserDefaultsProxy - addObserver:%@ forKeyPath:%@ context:%lu", &v19, 0x20u);
+      _os_log_impl(&dword_1D2CD5000, v26, OS_LOG_TYPE_INFO, "GCRemoteUserDefaultsProxy - addObserver:%@ forKeyPath:%@ context:%lu", &v27, 0x20u);
     }
   }
 
-  v13 = [(NSMutableDictionary *)selfCopy->_observers objectForKeyedSubscript:pathCopy];
-  v14 = [v13 mutableCopy];
+  v16 = [(NSMutableDictionary *)selfCopy->_observers objectForKeyedSubscript:pathCopy];
+  v17 = [v16 mutableCopy];
 
-  if (!v14)
+  if (!v17)
   {
-    v14 = objc_opt_new();
-    if ([(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished])
+    v17 = objc_opt_new();
+    agentConnectionEstablished = [(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished];
+    if (agentConnectionEstablished)
     {
       activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
       [activeClient observeKeyPath:pathCopy];
     }
 
-    if (gc_isInternalBuild())
+    v21 = gc_isInternalBuild(agentConnectionEstablished, v19);
+    if (v21)
     {
-      getGCLogger();
+      getGCLogger(v21);
       objc_claimAutoreleasedReturnValue();
       [GCRemoteUserDefaultsProxy addObserver:forKeyPath:options:context:];
     }
   }
 
-  v16 = [[GCObservation alloc] initWithObserver:observerCopy options:options context:context];
-  [v14 addObject:v16];
-  [(NSMutableDictionary *)selfCopy->_observers setObject:v14 forKeyedSubscript:pathCopy];
-  if (([(GCObservation *)v16 options]& 4) != 0)
+  v22 = [[GCObservation alloc] initWithObserver:observerCopy options:options context:context];
+  [v17 addObject:v22];
+  [(NSMutableDictionary *)selfCopy->_observers setObject:v17 forKeyedSubscript:pathCopy];
+  options = [(GCObservation *)v22 options];
+  if ((options & 4) != 0)
   {
-    [(GCRemoteUserDefaultsProxy *)selfCopy postInitialKVONotificationForObservation:v16 keyPath:pathCopy];
+    options = [(GCRemoteUserDefaultsProxy *)selfCopy postInitialKVONotificationForObservation:v22 keyPath:pathCopy];
   }
 
-  if (gc_isInternalBuild())
+  v25 = gc_isInternalBuild(options, v24);
+  if (v25)
   {
-    getGCLogger();
+    getGCLogger(v25);
     objc_claimAutoreleasedReturnValue();
     [GCRemoteUserDefaultsProxy addObserver:forKeyPath:options:context:];
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer forKeyPath:(id)path context:(void *)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   pathCopy = path;
   selfCopy = self;
@@ -903,64 +937,70 @@ LABEL_17:
   v11 = [(NSMutableDictionary *)selfCopy->_observers objectForKeyedSubscript:pathCopy];
   v12 = [v11 mutableCopy];
 
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v13, v14);
+  if (isInternalBuild)
   {
-    v18 = getGCLogger();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v30 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      *v20 = 138412802;
-      *&v20[4] = observerCopy;
-      v21 = 2112;
-      v22 = pathCopy;
-      v23 = 2048;
+      *v32 = 138412802;
+      *&v32[4] = observerCopy;
+      v33 = 2112;
+      v34 = pathCopy;
+      v35 = 2048;
       contextCopy = context;
-      _os_log_impl(&dword_1D2CD5000, v18, OS_LOG_TYPE_INFO, "GCRemoteUserDefaultsProxy - removeObserver %@ forKeyPath %@ context %lu", v20, 0x20u);
+      _os_log_impl(&dword_1D2CD5000, v30, OS_LOG_TYPE_INFO, "GCRemoteUserDefaultsProxy - removeObserver %@ forKeyPath %@ context %lu", v32, 0x20u);
     }
   }
 
   if (v12)
   {
-    v13 = [[GCObservation alloc] initWithObserver:observerCopy options:0 context:0];
-    if ([v12 containsObject:v13])
+    v17 = [[GCObservation alloc] initWithObserver:observerCopy options:0 context:0];
+    v18 = [v12 containsObject:v17];
+    if (v18)
     {
-      [v12 removeObject:v13];
-      v14 = [v12 count];
+      [v12 removeObject:v17];
+      v20 = [v12 count];
       observers = selfCopy->_observers;
-      if (v14)
+      if (v20)
       {
-        [(NSMutableDictionary *)observers setObject:v12 forKeyedSubscript:pathCopy];
+        v22 = [(NSMutableDictionary *)observers setObject:v12 forKeyedSubscript:pathCopy];
       }
 
       else
       {
         [(NSMutableDictionary *)observers removeObjectForKey:pathCopy];
-        if ([(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished])
+        agentConnectionEstablished = [(GCRemoteUserDefaultsProxy *)selfCopy agentConnectionEstablished];
+        if (agentConnectionEstablished)
         {
           activeClient = [(GCRemoteUserDefaultsProxy *)selfCopy activeClient];
           [activeClient stopObservingKeyPath:pathCopy];
         }
 
-        if (gc_isInternalBuild())
+        v22 = gc_isInternalBuild(agentConnectionEstablished, v27);
+        if (v22)
         {
-          getGCLogger();
+          getGCLogger(v22);
           objc_claimAutoreleasedReturnValue();
           [GCRemoteUserDefaultsProxy removeObserver:forKeyPath:context:];
         }
       }
 
-      if (!gc_isInternalBuild())
+      v29 = gc_isInternalBuild(v22, v23);
+      if (!v29)
       {
         goto LABEL_15;
       }
 
-      v19 = getGCLogger();
-      [GCRemoteUserDefaultsProxy removeObserver:v19 forKeyPath:&selfCopy->_observers context:v20];
+      v31 = getGCLogger(v29);
+      [GCRemoteUserDefaultsProxy removeObserver:v31 forKeyPath:&selfCopy->_observers context:v32];
       goto LABEL_21;
     }
 
-    if (gc_isInternalBuild())
+    v25 = gc_isInternalBuild(v18, v19);
+    if (v25)
     {
-      getGCLogger();
+      getGCLogger(v25);
       objc_claimAutoreleasedReturnValue();
       [GCRemoteUserDefaultsProxy removeObserver:forKeyPath:context:];
 LABEL_21:
@@ -971,70 +1011,128 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (gc_isInternalBuild())
+  v24 = gc_isInternalBuild(isInternalBuild, v16);
+  if (v24)
   {
-    getGCLogger();
+    getGCLogger(v24);
     objc_claimAutoreleasedReturnValue();
     [GCRemoteUserDefaultsProxy removeObserver:forKeyPath:context:];
-    v13 = *v20;
+    v17 = *v32;
     goto LABEL_15;
   }
 
 LABEL_16:
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeUserDefaultsValueForKeyPath:(id)path change:(id)change
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   changeCopy = change;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v9 = [(NSMutableDictionary *)selfCopy->_observers objectForKeyedSubscript:pathCopy];
-  v10 = v9;
-  if (v9 && [v9 count])
+  v11 = v9;
+  if (v9 && (v9 = [v9 count]) != 0)
   {
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v12)
+    v21 = 0u;
+    v12 = v11;
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v13)
     {
-      v13 = *v20;
+      v14 = *v21;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v13)
+          if (*v21 != v14)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          observer = [v15 observer];
-          [observer observeValueForKeyPath:pathCopy ofObject:selfCopy change:changeCopy context:{objc_msgSend(v15, "context")}];
+          v16 = *(*(&v20 + 1) + 8 * i);
+          observer = [v16 observer];
+          [observer observeValueForKeyPath:pathCopy ofObject:selfCopy change:changeCopy context:{objc_msgSend(v16, "context")}];
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
 
-  else if (gc_isInternalBuild())
+  else
   {
-    v18 = getGCLogger();
-    [GCRemoteUserDefaultsProxy observeUserDefaultsValueForKeyPath:v18 change:?];
+    isInternalBuild = gc_isInternalBuild(v9, v10);
+    if (isInternalBuild)
+    {
+      v19 = getGCLogger(isInternalBuild);
+      [GCRemoteUserDefaultsProxy observeUserDefaultsValueForKeyPath:v19 change:?];
+    }
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x1E69E9840];
+}
+
+- (void)userDefaultsCheckIn:(id)in effectiveUserIdentifier:(unsigned int)identifier
+{
+  v4 = *&identifier;
+  inCopy = in;
+  v8 = inCopy;
+  if (inCopy)
+  {
+    if (v4)
+    {
+      selfCopy = self;
+      v10 = objc_sync_enter(selfCopy);
+      isInternalBuild = gc_isInternalBuild(v10, v11);
+      if (isInternalBuild)
+      {
+        getGCLogger(isInternalBuild);
+        objc_claimAutoreleasedReturnValue();
+        [GCRemoteUserDefaultsProxy userDefaultsCheckIn:effectiveUserIdentifier:];
+      }
+
+      clients = selfCopy->_clients;
+      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v4];
+      [(NSMutableDictionary *)clients setObject:v8 forKey:v14];
+
+      v17 = gc_isInternalBuild(v15, v16);
+      if (v17)
+      {
+        getGCLogger(v17);
+        objc_claimAutoreleasedReturnValue();
+        [GCRemoteUserDefaultsProxy userDefaultsCheckIn:effectiveUserIdentifier:];
+      }
+
+      [(GCRemoteUserDefaultsProxy *)selfCopy refreshActiveClient];
+      objc_sync_exit(selfCopy);
+    }
+
+    else
+    {
+      v19 = gc_isInternalBuild(inCopy, v7);
+      if (v19)
+      {
+        [GCRemoteUserDefaultsProxy userDefaultsCheckIn:v19 effectiveUserIdentifier:?];
+      }
+    }
+  }
+
+  else
+  {
+    v18 = gc_isInternalBuild(0, v7);
+    if (v18)
+    {
+      [GCRemoteUserDefaultsProxy userDefaultsCheckIn:v18 effectiveUserIdentifier:?];
+    }
+  }
 }
 
 - (void)refreshActiveClient
@@ -1049,319 +1147,248 @@ LABEL_16:
   *v0 = v1;
 }
 
-- (void)objectForKey:.cold.1()
+- (void)objectForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)objectForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_10_7();
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1()
+void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)stringForKey:.cold.1()
+- (void)stringForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stringForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_10_7();
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (void)dataForKey:.cold.1()
+- (void)dataForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_10_7();
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (void)dictionaryForKey:.cold.1()
+- (void)dictionaryForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dictionaryForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_10_7();
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (void)arrayForKey:.cold.1()
+- (void)arrayForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)arrayForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v2))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
     OUTLINED_FUNCTION_10_7();
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (void)BOOLForKey:.cold.1()
+- (void)BOOLForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)BOOLForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v10 = *MEMORY[0x1E69E9840];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(*v1 + 24);
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v4, v5, v6, v7, v8, 8u);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-- (void)doubleForKey:.cold.1()
+- (void)doubleForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doubleForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v5 = *(*v1 + 24);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)floatForKey:.cold.1()
+- (void)floatForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)floatForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v10 = *(*v1 + 24);
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)integerForKey:.cold.1()
+- (void)integerForKey:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_0();
     _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)integerForKey:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v5 = *(*v1 + 24);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (void)postInitialKVONotificationForObservation:keyPath:.cold.1()
+- (void)postInitialKVONotificationForObservation:(uint64_t)a1 keyPath:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v1, v2, OS_LOG_TYPE_INFO, v3, v4, 0x16u);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:forKeyPath:options:context:.cold.1()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 0xCu);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:forKeyPath:options:context:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_11_3(v3))
+  if (OUTLINED_FUNCTION_11_3(v1))
   {
-    v5 = *v1;
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_0();
-    _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:forKeyPath:context:.cold.1()
@@ -1379,30 +1406,24 @@ void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1()
 - (void)removeObserver:forKeyPath:context:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 0xCu);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)removeObserver:(NSObject *)a1 forKeyPath:(uint64_t *)a2 context:(NSObject *)a3 .cold.3(NSObject *a1, uint64_t *a2, NSObject **a3)
+- (void)removeObserver:(NSObject *)a1 forKeyPath:(uint64_t)a2 context:(NSObject *)a3 .cold.3(NSObject *a1, uint64_t a2, NSObject **a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_11_3(a1))
   {
-    v8 = *a2;
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_5_6();
-    _os_log_debug_impl(v9, v10, v11, v12, v13, 0xCu);
+    _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
   }
 
   *a3 = a1;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:forKeyPath:context:.cold.4()
@@ -1429,48 +1450,41 @@ void __42__GCRemoteUserDefaultsProxy_objectForKey___block_invoke_cold_1()
 - (void)userDefaultsCheckIn:effectiveUserIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_6_4();
-  v1 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v2))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v3, v4, OS_LOG_TYPE_INFO, v5, v6, 0x12u);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0x12u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userDefaultsCheckIn:effectiveUserIdentifier:.cold.2()
 {
   OUTLINED_FUNCTION_6_4();
-  v2 = *MEMORY[0x1E69E9840];
-  if (OUTLINED_FUNCTION_10_6(v3))
+  if (OUTLINED_FUNCTION_10_6(v1))
   {
-    v4 = *v1;
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    _os_log_impl(v5, v6, OS_LOG_TYPE_INFO, v7, v8, 0xCu);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)userDefaultsCheckIn:effectiveUserIdentifier:.cold.3()
-{
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_11_6(v1, v2, v3, v4, v5);
+    _os_log_impl(v2, v3, OS_LOG_TYPE_INFO, v4, v5, 0xCu);
   }
 }
 
-- (void)userDefaultsCheckIn:effectiveUserIdentifier:.cold.4()
+- (void)userDefaultsCheckIn:(uint64_t)a1 effectiveUserIdentifier:.cold.3(uint64_t a1)
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_11_6(v1, v2, v3, v4, v5);
+    OUTLINED_FUNCTION_11_6(v2, v3, v4, v5, v6);
+  }
+}
+
+- (void)userDefaultsCheckIn:(uint64_t)a1 effectiveUserIdentifier:.cold.4(uint64_t a1)
+{
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_11_6(v2, v3, v4, v5, v6);
   }
 }
 

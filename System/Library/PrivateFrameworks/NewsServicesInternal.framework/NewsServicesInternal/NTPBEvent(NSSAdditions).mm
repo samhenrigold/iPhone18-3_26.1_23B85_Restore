@@ -9,12 +9,12 @@
 
 + (id)nss_eventWithIdentifier
 {
-  v0 = objc_opt_new();
+  v1 = objc_opt_new();
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
-  [v0 setAppAnalyticsEventIdentifier:uUIDString];
+  [v1 setAppAnalyticsEventIdentifier:uUIDString];
 
-  return v0;
+  return v1;
 }
 
 - (uint64_t)nss_setStartDate:()NSSAdditions
@@ -44,19 +44,17 @@
 
 - (void)nss_setEndDate:()NSSAdditions .cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unable to calculate the duration of an event without setting the startTimestamp"];
-  v2 = 136315906;
-  v3 = "[NTPBEvent(NSSAdditions) nss_setEndDate:]";
-  v4 = 2080;
-  v5 = "NTPBNewsAnalytics+NSSAdditions.m";
-  v6 = 1024;
-  v7 = 37;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_25BF0A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[NTPBEvent(NSSAdditions) nss_setEndDate:]";
+  v3 = 2080;
+  v4 = "NTPBNewsAnalytics+NSSAdditions.m";
+  v5 = 1024;
+  v6 = 37;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_25BF0A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

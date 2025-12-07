@@ -21,10 +21,10 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  [(_CRLPKStrokeIDWrapper *)self strokeID];
+  objc_msgSend_strokeID(self);
   if (equalCopy)
   {
-    [equalCopy strokeID];
+    objc_msgSend_strokeID(equalCopy);
     v5 = v8;
   }
 
@@ -44,7 +44,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [_CRLPKStrokeIDWrapper allocWithZone:zone];
-  [(_CRLPKStrokeIDWrapper *)self strokeID];
+  objc_msgSend_strokeID(self);
   return [(_CRLPKStrokeIDWrapper *)v4 initWithStrokeID:&v6];
 }
 

@@ -10,16 +10,16 @@
 
 - (CVNLPTokenIDConverter)initWithResource:(id)resource andTokenType:(int)type
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
-  v24.receiver = self;
-  v24.super_class = CVNLPTokenIDConverter;
-  if ([(CVNLPTokenIDConverter *)&v24 init])
+  v23.receiver = self;
+  v23.super_class = CVNLPTokenIDConverter;
+  if ([(CVNLPTokenIDConverter *)&v23 init])
   {
     v10 = objc_msgSend_path(resourceCopy, v7, v8, v9);
     v11 = v10;
     v15 = objc_msgSend_UTF8String(v10, v12, v13, v14);
-    memset(&v23, 0, sizeof(v23));
+    memset(&v22, 0, sizeof(v22));
     v16 = (v15 - 1);
     do
     {
@@ -28,16 +28,15 @@
     }
 
     while (v17);
-    sub_1D9D2B214(&v23, v15, v16);
-    v22 = &unk_1F554E258;
+    sub_1D9D2B214(&v22, v15, v16);
+    v21 = &unk_1F554E258;
 
-    sub_1D9D54E34(&v21, &v22);
-    sub_1D9DB8A38(&v21, type);
+    sub_1D9D54E34(&v20, &v21);
+    sub_1D9DB8A38(&v20, type);
   }
 
   v18 = 0;
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -169,7 +168,7 @@ LABEL_13:
 
 - (BOOL)enumerateTokensForText:(id)text withBlock:(id)block
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   textCopy = text;
   blockCopy = block;
   ptr = self->_vocabTokenizer.__ptr_;
@@ -179,10 +178,10 @@ LABEL_13:
     v13 = objc_msgSend_UTF8String(v9, v10, v11, v12);
     v14 = strlen(v13);
     (*(*ptr + 16))(&__p, ptr, v13, v14, 0);
-    v37 = 0;
+    v36 = 0;
     v15 = __p;
-    v16 = v39;
-    if (v39 != __p)
+    v16 = v38;
+    if (v38 != __p)
     {
       v17 = 0;
       v18 = 0;
@@ -237,17 +236,17 @@ LABEL_10:
         }
 
         v26 = (*(*self->_vocabTokenizer.__ptr_ + 40))(self->_vocabTokenizer.__ptr_, v25, v24);
-        blockCopy[2](blockCopy, v22, v26, &v37);
-        v27 = v37;
+        blockCopy[2](blockCopy, v22, v26, &v36);
+        v27 = v36;
 
         if (v27)
         {
           v30 = __p;
           if (__p)
           {
-            v31 = v39;
+            v31 = v38;
             v28 = __p;
-            if (v39 != __p)
+            if (v38 != __p)
             {
               do
               {
@@ -263,7 +262,7 @@ LABEL_10:
               v28 = __p;
             }
 
-            v39 = v30;
+            v38 = v30;
 LABEL_34:
             operator delete(v28);
           }
@@ -273,11 +272,11 @@ LABEL_34:
 
         ++v18;
         v15 = __p;
-        v16 = v39;
+        v16 = v38;
         v17 += 3;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((v39 - __p) >> 3) > v18);
+      while (0xAAAAAAAAAAAAAAABLL * ((v38 - __p) >> 3) > v18);
     }
 
     if (v15)
@@ -299,7 +298,7 @@ LABEL_34:
         v28 = __p;
       }
 
-      v39 = v15;
+      v38 = v15;
       goto LABEL_34;
     }
 
@@ -312,7 +311,6 @@ LABEL_35:
     v33 = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

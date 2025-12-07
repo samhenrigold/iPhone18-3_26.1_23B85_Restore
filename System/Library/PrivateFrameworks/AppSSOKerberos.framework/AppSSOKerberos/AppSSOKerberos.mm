@@ -1,80 +1,82 @@
-id SO_LOG_SOSmartcard()
+id SO_LOG_SOSmartcard(uint64_t a1)
 {
   if (SO_LOG_SOSmartcard_once != -1)
   {
     SO_LOG_SOSmartcard_cold_1();
   }
 
-  v1 = SO_LOG_SOSmartcard_log;
+  v2 = SO_LOG_SOSmartcard_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOKerberosSettingsManager()
+id SO_LOG_SOKerberosSettingsManager(uint64_t a1)
 {
   if (SO_LOG_SOKerberosSettingsManager_once != -1)
   {
     SO_LOG_SOKerberosSettingsManager_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosSettingsManager_log;
+  v2 = SO_LOG_SOKerberosSettingsManager_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOLDAPHelper()
+id SO_LOG_SOLDAPHelper(uint64_t a1)
 {
   if (SO_LOG_SOLDAPHelper_once != -1)
   {
     SO_LOG_SOLDAPHelper_cold_1();
   }
 
-  v1 = SO_LOG_SOLDAPHelper_log;
+  v2 = SO_LOG_SOLDAPHelper_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-id SO_LOG_SOKerberosServer()
+id SO_LOG_SOKerberosServer(uint64_t a1)
 {
   if (SO_LOG_SOKerberosServer_once != -1)
   {
     SO_LOG_SOKerberosServer_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosServer_log;
+  v2 = SO_LOG_SOKerberosServer_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_240070FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240070FB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id SO_LOG_SOADSiteDiscovery()
+id SO_LOG_SOADSiteDiscovery(uint64_t a1)
 {
   if (SO_LOG_SOADSiteDiscovery_once != -1)
   {
     SO_LOG_SOADSiteDiscovery_cold_1();
   }
 
-  v1 = SO_LOG_SOADSiteDiscovery_log;
+  v2 = SO_LOG_SOADSiteDiscovery_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -84,14 +86,14 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_240071B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_240071B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -104,22 +106,23 @@ void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id SO_LOG_SOKerberosRealmSettings()
+id SO_LOG_SOKerberosRealmSettings(uint64_t a1)
 {
   if (SO_LOG_SOKerberosRealmSettings_once != -1)
   {
     SO_LOG_SOKerberosRealmSettings_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosRealmSettings_log;
+  v2 = SO_LOG_SOKerberosRealmSettings_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -128,64 +131,66 @@ void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0xCu);
 }
 
-id SO_LOG_SOKeychainHelper()
+id SO_LOG_SOKeychainHelper(uint64_t a1)
 {
   if (SO_LOG_SOKeychainHelper_once != -1)
   {
     SO_LOG_SOKeychainHelper_cold_1();
   }
 
-  v1 = SO_LOG_SOKeychainHelper_log;
+  v2 = SO_LOG_SOKeychainHelper_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOKerberosContext()
+id SO_LOG_SOKerberosContext(uint64_t a1)
 {
   if (SO_LOG_SOKerberosContext_once != -1)
   {
     SO_LOG_SOKerberosContext_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosContext_log;
+  v2 = SO_LOG_SOKerberosContext_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id SO_LOG_SOAsynchronousLDAPOperation()
+id SO_LOG_SOAsynchronousLDAPOperation(uint64_t a1)
 {
   if (SO_LOG_SOAsynchronousLDAPOperation_once != -1)
   {
     SO_LOG_SOAsynchronousLDAPOperation_cold_1();
   }
 
-  v1 = SO_LOG_SOAsynchronousLDAPOperation_log;
+  v2 = SO_LOG_SOAsynchronousLDAPOperation_log;
 
-  return v1;
+  return v2;
 }
 
-id SO_LOG_SOKerberosExtensionProcess()
+id SO_LOG_SOKerberosExtensionProcess(uint64_t a1)
 {
   if (SO_LOG_SOKerberosExtensionProcess_once != -1)
   {
     SO_LOG_SOKerberosExtensionProcess_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosExtensionProcess_log;
+  v2 = SO_LOG_SOKerberosExtensionProcess_log;
 
-  return v1;
+  return v2;
 }
 
 void *__getASAuthorizationOperationLogoutSymbolLoc_block_invoke(uint64_t a1)
@@ -199,45 +204,41 @@ void *__getASAuthorizationOperationLogoutSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AuthenticationServicesLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AuthenticationServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AuthenticationServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278C930B0;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AuthenticationServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278C930B0;
+    v5 = 0;
     AuthenticationServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = AuthenticationServicesLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!AuthenticationServicesLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __AuthenticationServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthenticationServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -265,40 +266,42 @@ void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, ui
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-id SO_LOG_SOKerberosHeimdalPluginSettings()
+id SO_LOG_SOKerberosHeimdalPluginSettings(uint64_t a1)
 {
   if (SO_LOG_SOKerberosHeimdalPluginSettings_once != -1)
   {
     SO_LOG_SOKerberosHeimdalPluginSettings_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosHeimdalPluginSettings_log;
+  v2 = SO_LOG_SOKerberosHeimdalPluginSettings_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id SO_LOG_SOKerberosAuthentication()
+id SO_LOG_SOKerberosAuthentication(uint64_t a1)
 {
   if (SO_LOG_SOKerberosAuthentication_once != -1)
   {
     SO_LOG_SOKerberosAuthentication_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosAuthentication_log;
+  v2 = SO_LOG_SOKerberosAuthentication_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
@@ -308,56 +311,50 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_240082690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240082690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t *OUTLINED_FUNCTION_7@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-id SO_LOG_SONetworkIdentity()
+id SO_LOG_SONetworkIdentity(uint64_t a1)
 {
   if (SO_LOG_SONetworkIdentity_once != -1)
   {
     SO_LOG_SONetworkIdentity_cold_1();
   }
 
-  v1 = SO_LOG_SONetworkIdentity_log;
+  v2 = SO_LOG_SONetworkIdentity_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_240083FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_240083FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -370,16 +367,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-id SO_LOG_SOKerberosFileManager()
+id SO_LOG_SOKerberosFileManager(uint64_t a1)
 {
   if (SO_LOG_SOKerberosFileManager_once != -1)
   {
     SO_LOG_SOKerberosFileManager_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosFileManager_log;
+  v2 = SO_LOG_SOKerberosFileManager_log;
 
-  return v1;
+  return v2;
 }
 
 void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -389,29 +386,30 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id SO_LOG_SOKerberosHelper()
+id SO_LOG_SOKerberosHelper(uint64_t a1)
 {
   if (SO_LOG_SOKerberosHelper_once != -1)
   {
     SO_LOG_SOKerberosHelper_cold_1();
   }
 
-  v1 = SO_LOG_SOKerberosHelper_log;
+  v2 = SO_LOG_SOKerberosHelper_log;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_240086AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_240086AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
+  _Block_object_dispose((v24 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -422,16 +420,30 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-id SO_LOG_SODNSSRVQuery()
+id SO_LOG_SODNSSRVQuery(uint64_t a1)
 {
   if (SO_LOG_SODNSSRVQuery_once != -1)
   {
     SO_LOG_SODNSSRVQuery_cold_1();
   }
 
-  v1 = SO_LOG_SODNSSRVQuery_log;
+  v2 = SO_LOG_SODNSSRVQuery_log;
 
-  return v1;
+  return v2;
+}
+
+void sub_240087008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_24008755C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t ndrdata_init(uint64_t a1, uint64_t a2, int a3)
@@ -517,7 +529,7 @@ void free_kerbvalidationinfo(void *a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, int a13, int a14)
+void OUTLINED_FUNCTION_0_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14)
 {
 
   ndrdata_get_uint32(&a10, &a14);
@@ -662,7 +674,6 @@ void ndrdata_get_uint8(uint64_t a1, _BYTE *a2)
         if (*a1 != 1 && *(a1 + 8) != 0)
         {
           *a2 = *v2;
-          v4 = *(a1 + 16) + 1;
           OUTLINED_FUNCTION_0_7(a1);
         }
       }
@@ -699,7 +710,7 @@ uint64_t ndrdata_get_buffer(unsigned int *a1, void *__dst, size_t __n)
   result = 0xFFFFFFFFLL;
   if (__dst && __n)
   {
-    if (&v4[__n] <= &v6[2 * v5])
+    if (&v4[2 * __n] <= &v6[2 * v5])
     {
       v8 = __n;
       memcpy(__dst, v3, __n);

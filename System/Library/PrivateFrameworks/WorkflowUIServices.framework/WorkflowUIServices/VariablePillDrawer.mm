@@ -14,7 +14,7 @@
   iconCopy = icon;
   fontCopy = font;
   tintCopy = tint;
-  v22 = static VariablePillDrawer.draw(name:icon:font:tint:size:state:isAvailable:)(width, height, v16, v18, icon, fontCopy, tintCopy, state, available);
+  v22 = static VariablePillDrawer.draw(name:icon:font:tint:size:state:isAvailable:)(v16, v18, icon, fontCopy, tintCopy, state, width, height, available);
 
   return v22;
 }

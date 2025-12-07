@@ -1,71 +1,68 @@
 uint64_t sub_100001478@<X0>(uint64_t a1@<X8>)
 {
-  v36 = a1;
-  v1 = *(*(sub_100002B48() - 8) + 64);
+  v30 = a1;
+  sub_100002B48();
   __chkstk_darwin();
-  v29[1] = v29 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = *(*(sub_100002A68() - 8) + 64);
+  v23[1] = v23 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100002A68();
   __chkstk_darwin();
-  v4 = *(*(sub_100002B88() - 8) + 64);
+  sub_100002B88();
   __chkstk_darwin();
-  v5 = sub_100002514(&qword_100008278, &qword_100002FC8);
-  v6 = *(v5 - 8);
-  v30 = v5;
-  v31 = v6;
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2 = sub_100002514(&qword_100008278, &qword_100002FC8);
+  v3 = *(v2 - 8);
+  v24 = v2;
+  v25 = v3;
   __chkstk_darwin();
-  v9 = v29 - v8;
-  v10 = sub_100002514(&qword_100008280, &qword_100002FD0);
+  v5 = v23 - v4;
+  v6 = sub_100002514(&qword_100008280, &qword_100002FD0);
+  v7 = *(v6 - 8);
+  v26 = v6;
+  v27 = v7;
+  __chkstk_darwin();
+  v9 = v23 - v8;
+  v10 = sub_100002514(&qword_100008288, qword_100002FD8);
   v11 = *(v10 - 8);
-  v32 = v10;
-  v33 = v11;
-  v12 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v28 = v10;
+  v29 = v11;
   __chkstk_darwin();
-  v14 = v29 - v13;
-  v15 = sub_100002514(&qword_100008288, qword_100002FD8);
-  v16 = *(v15 - 8);
-  v34 = v15;
-  v35 = v16;
-  v17 = (*(v16 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v19 = v29 - v18;
-  v29[0] = qword_100008168;
+  v13 = v23 - v12;
+  v23[0] = qword_100008168;
 
   sub_100002B78();
   sub_100002A58();
   sub_100002B98();
   type metadata accessor for ToggleAirplaneModeStateProvider();
-  v20 = swift_allocObject();
-  *(v20 + 16) = 0;
-  *(v20 + 16) = [objc_allocWithZone(RadiosPreferences) init];
-  v37 = v20;
+  v14 = swift_allocObject();
+  *(v14 + 16) = 0;
+  *(v14 + 16) = [objc_allocWithZone(RadiosPreferences) init];
+  v31 = v14;
   sub_100002B38();
   sub_10000255C();
   sub_100002B58();
   sub_100002B78();
   sub_100002A58();
-  v37 = sub_100002B98();
-  v38 = v21;
-  v22 = sub_1000025B0(&qword_100008298, &qword_100008278, &qword_100002FC8);
-  v23 = sub_1000025F8();
-  v24 = v30;
+  v31 = sub_100002B98();
+  v32 = v15;
+  v16 = sub_1000025B0(&qword_100008298, &qword_100008278, &qword_100002FC8, &protocol conformance descriptor for ControlToggle<A>);
+  v17 = sub_1000025F8();
+  v18 = v24;
   sub_100002AD8();
 
-  (*(v31 + 8))(v9, v24);
-  v37 = v24;
-  v38 = &type metadata for String;
-  v39 = v22;
-  v40 = v23;
+  (*(v25 + 8))(v5, v18);
+  v31 = v18;
+  v32 = &type metadata for String;
+  v33 = v16;
+  v34 = v17;
   OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v26 = v32;
+  v20 = v26;
   sub_100002AF8();
-  (*(v33 + 8))(v14, v26);
-  v37 = v26;
-  v38 = OpaqueTypeConformance2;
+  (*(v27 + 8))(v9, v20);
+  v31 = v20;
+  v32 = OpaqueTypeConformance2;
   swift_getOpaqueTypeConformance2();
-  v27 = v34;
+  v21 = v28;
   sub_100002AE8();
-  return (*(v35 + 8))(v19, v27);
+  return (*(v29 + 8))(v13, v21);
 }
 
 uint64_t sub_1000019F4@<X0>(uint64_t a1@<X8>)
@@ -184,11 +181,10 @@ uint64_t sub_100001D4C()
     }
   }
 
-  v9 = *(v0 + 16);
   sub_100002A28();
-  v10 = *(v0 + 8);
+  v9 = *(v0 + 8);
 
-  return v10();
+  return v9();
 }
 
 unint64_t sub_100001EFC()
@@ -243,12 +239,11 @@ uint64_t sub_1000020D8(uint64_t a1)
 
 uint64_t sub_100002188()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 id sub_10000227C@<X0>(uint64_t a1@<X8>)
@@ -278,14 +273,11 @@ uint64_t sub_1000022F8(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_100002330(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -358,7 +350,6 @@ uint64_t sub_1000024B0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -371,7 +362,6 @@ uint64_t sub_100002514(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -392,7 +382,7 @@ unint64_t sub_10000255C()
   return result;
 }
 
-uint64_t sub_1000025B0(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_1000025B0(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -422,7 +412,7 @@ uint64_t sub_10000264C()
   sub_1000024B0(&qword_100008288, qword_100002FD8);
   sub_1000024B0(&qword_100008280, &qword_100002FD0);
   sub_1000024B0(&qword_100008278, &qword_100002FC8);
-  sub_1000025B0(&qword_100008298, &qword_100008278, &qword_100002FC8);
+  sub_1000025B0(&qword_100008298, &qword_100008278, &qword_100002FC8, &protocol conformance descriptor for ControlToggle<A>);
   sub_1000025F8();
   swift_getOpaqueTypeConformance2();
   swift_getOpaqueTypeConformance2();

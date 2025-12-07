@@ -462,7 +462,7 @@ LABEL_24:
   {
     *v104 = 0;
     _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "nil account", v104, 2u);
-    _MBLog();
+    _MBLog(@"E ", "nil account");
   }
 
 LABEL_25:
@@ -477,12 +477,12 @@ LABEL_25:
   errorsCopy = errors;
   planCopy = plan;
   errorCopy = error;
-  v48 = errorCopy;
+  v47 = errorCopy;
   if (planCopy)
   {
-    v53 = 0;
-    v24 = [planCopy restoreVerificationSummary:&v53];
-    v25 = v53;
+    v52 = 0;
+    v24 = [planCopy restoreVerificationSummary:&v52];
+    v25 = v52;
     if (!v24)
     {
       v26 = iDCopy;
@@ -490,14 +490,13 @@ LABEL_25:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v56 = v25;
+        v55 = v25;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "Could not fetch restore verification summary from plan: %@", buf, 0xCu);
-        v43 = v25;
-        _MBLog();
+        _MBLog(@"F ", "Could not fetch restore verification summary from plan: %@", v25);
       }
 
       iDCopy = v26;
-      errorCopy = v48;
+      errorCopy = v47;
     }
   }
 
@@ -515,8 +514,8 @@ LABEL_25:
 
   [(MBCKStatusRequest *)v28 setSnapshotFormat:format];
   [(MBCKStatusRequest *)v28 setIsRestoringWithFileLists:lists];
-  v44 = iDCopy;
-  v45 = dCopy;
+  v43 = iDCopy;
+  v44 = dCopy;
   if (v24)
   {
     -[MBCKStatusRequest setBackgroundVerificationEnabled:](v28, "setBackgroundVerificationEnabled:", [v24 verifierWasRun]);
@@ -531,30 +530,30 @@ LABEL_25:
   }
 
   v31 = objc_opt_new();
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v32 = errorsCopy;
-  v33 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v50;
+    v35 = *v49;
     do
     {
       for (i = 0; i != v34; i = i + 1)
       {
-        if (*v50 != v35)
+        if (*v49 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = [MBError signatureForError:*(*(&v49 + 1) + 8 * i), v43, v44, v45];
+        v37 = [MBError signatureForError:*(*(&v48 + 1) + 8 * i)];
         [v31 addObject:v37];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v34);
@@ -637,9 +636,9 @@ LABEL_25:
 
 - (id)recordRepresentation
 {
-  v206.receiver = self;
-  v206.super_class = MBCKStatusRequest;
-  recordRepresentation = [(MBCKModel *)&v206 recordRepresentation];
+  v207.receiver = self;
+  v207.super_class = MBCKStatusRequest;
+  recordRepresentation = [(MBCKModel *)&v207 recordRepresentation];
   device = [(MBCKStatusRequest *)self device];
   v5 = [recordRepresentation objectForKeyedSubscript:@"device"];
 
@@ -873,8 +872,8 @@ LABEL_25:
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100182980;
-      v208 = &unk_1003C0320;
-      v209[0] = v168;
+      v209 = &unk_1003C0320;
+      v210[0] = v168;
       v169 = [snapshots indexOfObjectPassingTest:buf];
       if (v169 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -1409,20 +1408,20 @@ LABEL_163:
       *&buf[12] = 2114;
       *&buf[14] = recordName;
       *&buf[22] = 2112;
-      v208 = recordRepresentation;
-      LOWORD(v209[0]) = 2112;
-      *(v209 + 2) = pluginFields;
+      v209 = recordRepresentation;
+      LOWORD(v210[0]) = 2112;
+      *(v210 + 2) = pluginFields;
       _os_log_impl(&_mh_execute_header, v196, OS_LOG_TYPE_DEFAULT, "Saving %{public}@(%{public}@) record:%@, pluginFields:%@", buf, 0x2Au);
     }
 
-    objc_opt_class();
+    v201 = objc_opt_class();
     recordID3 = [recordRepresentation recordID];
     recordName2 = [recordID3 recordName];
     pluginFields2 = [recordRepresentation pluginFields];
-    _MBLog();
+    _MBLog(@"Df", "Saving %{public}@(%{public}@) record:%@, pluginFields:%@", v201, recordName2, recordRepresentation, pluginFields2);
   }
 
-  v203 = recordRepresentation;
+  v205 = recordRepresentation;
   return recordRepresentation;
 }
 

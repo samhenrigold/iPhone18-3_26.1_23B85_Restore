@@ -80,7 +80,7 @@ void __58__SBLegacyVOIPRefreshWakeTracker_beginWakeForApplication___block_invoke
   [v3 setEntity:v6 forLayoutRole:1];
 }
 
-void __58__SBLegacyVOIPRefreshWakeTracker_beginWakeForApplication___block_invoke_3(uint64_t a1, int a2)
+void __58__SBLegacyVOIPRefreshWakeTracker_beginWakeForApplication___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -183,25 +183,25 @@ void __72__SBLegacyVOIPRefreshWakeTracker__createAssertionForAppProcessIdentity_
   BSDispatchMain();
 }
 
-uint64_t __72__SBLegacyVOIPRefreshWakeTracker__createAssertionForAppProcessIdentity___block_invoke_2(uint64_t result)
+void *__72__SBLegacyVOIPRefreshWakeTracker__createAssertionForAppProcessIdentity___block_invoke_2(void *result, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (*(result + 32) == *(*(result + 40) + 8))
+  v10 = *MEMORY[0x277D85DE8];
+  if (result[4] == *(result[5] + 8))
   {
-    v1 = result;
-    v2 = SBLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = result;
+    v3 = SBLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 48);
-      v4 = [*(v1 + 56) localizedFailureReason];
-      v5 = 138543618;
-      v6 = v3;
-      v7 = 2114;
-      v8 = v4;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "SBLegacyVOIPRefreshWakeTracker: keep-alive assertion for %{public}@ invalidated: %{public}@", &v5, 0x16u);
+      v4 = v2[6];
+      v5 = [v2[7] localizedFailureReason];
+      v6 = 138543618;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "SBLegacyVOIPRefreshWakeTracker: keep-alive assertion for %{public}@ invalidated: %{public}@", &v6, 0x16u);
     }
 
-    return [*(v1 + 40) setAppKeepAliveAssertion:0];
+    return [v2[5] setAppKeepAliveAssertion:0];
   }
 
   return result;

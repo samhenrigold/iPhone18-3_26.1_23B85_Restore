@@ -138,17 +138,7 @@ LABEL_11:
           contentItems = [playbackQueue contentItems];
           firstObject = [contentItems firstObject];
 
-          if (!firstObject)
-          {
-            goto LABEL_20;
-          }
-
-          playerPath3 = [result playerPath];
-          client = [playerPath3 client];
-          bundleIdentifier = [client bundleIdentifier];
-          v17 = [bundleIdentifier hasPrefix:@"com.apple."];
-
-          if (v17)
+          if (firstObject && ([result playerPath], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "client"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "bundleIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "hasPrefix:", @"com.apple."), v16, v15, v14, v17))
           {
             v18 = [[ATXContextMediaSuggestionProducer alloc] initWithMediaRemoteContentItem:firstObject destDisplayName:displayName expirationDate:_expirationDate];
             v19 = objc_opt_new();
@@ -176,7 +166,6 @@ LABEL_11:
 
           else
           {
-LABEL_20:
             v19 = MEMORY[0x277CBEBF8];
           }
 

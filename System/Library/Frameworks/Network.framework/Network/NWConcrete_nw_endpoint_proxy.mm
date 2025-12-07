@@ -25,7 +25,7 @@
   v6 = __nwlog_obj();
   *buf = 136446210;
   v18 = "[NWConcrete_nw_endpoint_proxy init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -113,7 +113,7 @@ LABEL_3:
     v27 = __nwlog_obj();
     *buf = 136446210;
     v43 = "[NWConcrete_nw_endpoint_proxy applyWithHandler:toChildren:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -205,7 +205,7 @@ LABEL_66:
     v45 = v14;
     v46 = 2082;
     v47 = "proxy";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -352,7 +352,7 @@ LABEL_41:
     v29 = __nwlog_obj();
     *buf = 136446210;
     v43 = "[NWConcrete_nw_endpoint_proxy applyWithHandler:toChildren:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null applyBlock", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v40 = 0;
@@ -451,7 +451,7 @@ LABEL_43:
     v79 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_endpoint_proxy updatePathWithHandler:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v79, 16, "%{public}s called with null handler", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v114 = 0;
@@ -542,7 +542,7 @@ LABEL_94:
     *&buf[14] = v21;
     *&buf[22] = 2082;
     v120 = "proxy";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v114 = 0;
@@ -1129,43 +1129,43 @@ LABEL_97:
 
 - (void)cancelWithHandler:(id)handler forced:(BOOL)forced
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = handlerCopy;
   if (!handlerCopy)
   {
-    v52 = __nwlog_obj();
+    v51 = __nwlog_obj();
     *buf = 136446210;
-    v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-    v21 = _os_log_send_and_compose_impl();
+    v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v51, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v63 = 0;
-    if (__nwlog_fault(v21, &type, &v63))
+    v62 = 0;
+    if (__nwlog_fault(v21, &type, &v62))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
         v22 = __nwlog_obj();
-        v53 = type;
+        v52 = type;
         if (os_log_type_enabled(v22, type))
         {
           *buf = 136446210;
-          v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v22, v53, "%{public}s called with null handler", buf, 0xCu);
+          v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v22, v52, "%{public}s called with null handler", buf, 0xCu);
         }
 
         goto LABEL_70;
       }
 
-      if (v63 != 1)
+      if (v62 != 1)
       {
         v22 = __nwlog_obj();
-        v57 = type;
+        v56 = type;
         if (os_log_type_enabled(v22, type))
         {
           *buf = 136446210;
-          v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v22, v57, "%{public}s called with null handler, backtrace limit exceeded", buf, 0xCu);
+          v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v22, v56, "%{public}s called with null handler, backtrace limit exceeded", buf, 0xCu);
         }
 
         goto LABEL_70;
@@ -1173,27 +1173,27 @@ LABEL_97:
 
       backtrace_string = __nw_create_backtrace_string();
       v22 = __nwlog_obj();
-      v55 = type;
-      v56 = os_log_type_enabled(v22, type);
+      v54 = type;
+      v55 = os_log_type_enabled(v22, type);
       if (!backtrace_string)
       {
-        if (v56)
+        if (v55)
         {
           *buf = 136446210;
-          v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-          _os_log_impl(&dword_181A37000, v22, v55, "%{public}s called with null handler, no backtrace", buf, 0xCu);
+          v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+          _os_log_impl(&dword_181A37000, v22, v54, "%{public}s called with null handler, no backtrace", buf, 0xCu);
         }
 
         goto LABEL_70;
       }
 
-      if (v56)
+      if (v55)
       {
         *buf = 136446466;
-        v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-        v67 = 2082;
-        v68 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v22, v55, "%{public}s called with null handler, dumping backtrace:%{public}s", buf, 0x16u);
+        v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+        v66 = 2082;
+        v67 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v22, v54, "%{public}s called with null handler, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       free(backtrace_string);
@@ -1265,7 +1265,7 @@ LABEL_54:
       child_timer = self->child_timer;
       if (child_timer)
       {
-        nw_queue_cancel_source(child_timer, v49);
+        nw_queue_cancel_source(child_timer);
         self->child_timer = 0;
       }
 
@@ -1312,8 +1312,8 @@ LABEL_53:
       logging_description = "<NULL>";
     }
 
-    v58 = (v13 + 46);
-    v59 = v16;
+    v57 = (v13 + 46);
+    v58 = v16;
 
     v31 = v14;
     v32 = v31;
@@ -1367,19 +1367,19 @@ LABEL_52:
           os_unfair_lock_unlock(v40 + 28);
 
           *buf = 136447746;
-          v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-          v67 = 2082;
-          v68 = v58;
-          v69 = 2082;
-          v70 = v59;
-          v71 = 2082;
-          v72 = logging_description;
-          v73 = 2082;
-          v74 = v34;
-          v75 = 2082;
-          v76 = v38;
-          v77 = 2114;
-          v78 = v41;
+          v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+          v66 = 2082;
+          v67 = v57;
+          v68 = 2082;
+          v69 = v58;
+          v70 = 2082;
+          v71 = logging_description;
+          v72 = 2082;
+          v73 = v34;
+          v74 = 2082;
+          v75 = v38;
+          v76 = 2114;
+          v77 = v41;
           _os_log_impl(&dword_181A37000, v12, OS_LOG_TYPE_DEBUG, "%{public}s [C%{public}s %{public}s%{public}s %{public}s %{public}s (%{public}@)] ", buf, 0x48u);
 
           goto LABEL_53;
@@ -1404,16 +1404,16 @@ LABEL_52:
   }
 
   *buf = 136446722;
-  v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-  v67 = 2082;
-  v68 = v20;
-  v69 = 2082;
-  v70 = "proxy";
-  v21 = _os_log_send_and_compose_impl();
+  v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+  v66 = 2082;
+  v67 = v20;
+  v68 = 2082;
+  v69 = "proxy";
+  v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
   type = OS_LOG_TYPE_ERROR;
-  v63 = 0;
-  if (!__nwlog_fault(v21, &type, &v63))
+  v62 = 0;
+  if (!__nwlog_fault(v21, &type, &v62))
   {
     goto LABEL_71;
   }
@@ -1437,11 +1437,11 @@ LABEL_52:
       }
 
       *buf = 136446722;
-      v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-      v67 = 2082;
-      v68 = v24;
-      v69 = 2082;
-      v70 = "proxy";
+      v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+      v66 = 2082;
+      v67 = v24;
+      v68 = 2082;
+      v69 = "proxy";
       _os_log_impl(&dword_181A37000, v22, v23, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 0x20u);
     }
 
@@ -1450,7 +1450,7 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  if (v63 != 1)
+  if (v62 != 1)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -1469,11 +1469,11 @@ LABEL_70:
       }
 
       *buf = 136446722;
-      v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-      v67 = 2082;
-      v68 = v30;
-      v69 = 2082;
-      v70 = "proxy";
+      v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+      v66 = 2082;
+      v67 = v30;
+      v68 = 2082;
+      v69 = "proxy";
       _os_log_impl(&dword_181A37000, v22, v29, "%{public}s Handler is in mode %{public}s, expected %{public}s, backtrace limit exceeded", buf, 0x20u);
     }
 
@@ -1501,11 +1501,11 @@ LABEL_70:
       }
 
       *buf = 136446722;
-      v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-      v67 = 2082;
-      v68 = v39;
-      v69 = 2082;
-      v70 = "proxy";
+      v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+      v66 = 2082;
+      v67 = v39;
+      v68 = 2082;
+      v69 = "proxy";
       _os_log_impl(&dword_181A37000, v22, v26, "%{public}s Handler is in mode %{public}s, expected %{public}s, no backtrace", buf, 0x20u);
     }
 
@@ -1525,13 +1525,13 @@ LABEL_70:
     }
 
     *buf = 136446978;
-    v66 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
-    v67 = 2082;
-    v68 = v28;
-    v69 = 2082;
-    v70 = "proxy";
-    v71 = 2082;
-    v72 = v25;
+    v65 = "[NWConcrete_nw_endpoint_proxy cancelWithHandler:forced:]";
+    v66 = 2082;
+    v67 = v28;
+    v68 = 2082;
+    v69 = "proxy";
+    v70 = 2082;
+    v71 = v25;
     _os_log_impl(&dword_181A37000, v22, v26, "%{public}s Handler is in mode %{public}s, expected %{public}s, dumping backtrace:%{public}s", buf, 0x2Au);
   }
 
@@ -1554,7 +1554,7 @@ LABEL_73:
     v213 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "[NWConcrete_nw_endpoint_proxy startWithHandler:]";
-    v214 = _os_log_send_and_compose_impl();
+    v214 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v213, 16, "%{public}s called with null handler", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v271) = 0;
@@ -1649,7 +1649,7 @@ LABEL_307:
     *&buf[14] = v22;
     *&buf[22] = 2082;
     v290 = "proxy";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s Handler is in mode %{public}s, expected %{public}s", buf, 32);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v271) = 0;
@@ -1838,7 +1838,7 @@ LABEL_62:
         if (nw_path_get_vpn_config_uuid(v49, buf, type, 1, 1))
         {
           type[0] = OS_LOG_TYPE_DEFAULT;
-          if (nw_path_voluntary_agent_matches_address(v49, &xmmword_182BD4240))
+          if (nw_path_voluntary_agent_matches_address(v49, &xmmword_182BD4240, type))
           {
             if (type[0] == OS_LOG_TYPE_INFO && nw_endpoint_handler_trigger_agents(v48, 1))
             {
@@ -2047,7 +2047,7 @@ LABEL_126:
         v78 = gLogObj;
         *buf = 136446210;
         *&buf[4] = "nw_pac_resolver_endpoint_is_pac_url";
-        v79 = _os_log_send_and_compose_impl();
+        v79 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v78, 16, "%{public}s nw_get_outstanding_pac_urls failed", buf, 12);
 
         type[0] = OS_LOG_TYPE_ERROR;
         LOBYTE(v271) = 0;
@@ -2131,7 +2131,7 @@ LABEL_124:
       v221 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_pac_resolver_endpoint_is_pac_url";
-      v222 = _os_log_send_and_compose_impl();
+      v222 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v221, 16, "%{public}s called with null endpoint", buf, 12);
 
       type[0] = OS_LOG_TYPE_ERROR;
       LOBYTE(v271) = 0;

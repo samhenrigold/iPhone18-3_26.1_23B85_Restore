@@ -47,7 +47,7 @@ LABEL_10:
         v20 = strdup(name);
         if (!v20)
         {
-          sub_100041274(name, &v25, v30);
+          sub_100041274(name, v25, v30);
         }
       }
 
@@ -55,7 +55,7 @@ LABEL_10:
       v21 = malloc_type_calloc(1uLL, 0x10uLL, 0x8709206FuLL);
       if (!v21)
       {
-        sub_10004135C(&v25, v30);
+        sub_10004135C(v25, v30);
       }
 
       v11 = 0;

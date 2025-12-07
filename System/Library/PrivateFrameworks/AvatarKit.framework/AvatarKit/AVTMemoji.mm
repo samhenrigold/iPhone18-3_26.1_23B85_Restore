@@ -28,7 +28,6 @@
 - (id)skinColor;
 - (id)upperNodesIgnoredByDynamics;
 - (id)wrapDeformedDriverNamed:(id)named forComponentType:(int64_t)type;
-- (void)_addTorsoComponentInstanceIfNeeded;
 - (void)_applyAllColorPresetsForCategory:(int64_t)category;
 - (void)_applyColorPresetForCategory:(int64_t)category colorIndex:(unint64_t)index;
 - (void)_applyMorphVariantsForLazyComponentInstanceOfType:(int64_t)type assetNode:(id)node;
@@ -36,6 +35,7 @@
 - (void)_locked_invalidate;
 - (void)_removeComponent:(id)component;
 - (void)_setAssetSpecificVariantDependenciesEnabled:(BOOL)enabled forPreset:(id)preset dirtyComponents:(unint64_t)components;
+- (void)_setMorphWeight:(float)weight forDependencyVariant:(id)variant ofType:(int64_t)type isAssetSpecific:(BOOL)specific;
 - (void)_setVariantDependenciesEnabled:(BOOL)enabled forPreset:(id)preset dirtyComponents:(unint64_t)components;
 - (void)_updateSkinAO;
 - (void)_updateWithOptions:(unint64_t)options;
@@ -59,7 +59,6 @@
 - (void)setComponentAssetNodeObservationForStickerBlock:(id)block;
 - (void)setInstance:(id)instance forComponentType:(int64_t)type;
 - (void)setPreset:(id)preset forCategory:(int64_t)category animated:(BOOL)animated;
-- (void)setShowsBody:(BOOL)body;
 - (void)setVisibleBodyParts:(unint64_t)parts;
 - (void)unapplyVariantDependenciesForPreset:(id)preset dirtyComponents:(unint64_t)components;
 - (void)updateBodyPoseForSkinnerVariantsWithDirtyComponents:(unint64_t)components;
@@ -91,7 +90,7 @@ void __44__AVTMemoji_neutralMemojiDataRepresentation__block_invoke()
   v0 = +[AVTResourceLocator sharedResourceLocator];
   v3 = [AVTResourceLocator pathForMemojiResource:v0 ofType:? isDirectory:?];
 
-  v1 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3 options:8 error:0];
+  v1 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:? options:? error:?];
   v2 = neutralMemojiDataRepresentation_neutralMemojiData;
   neutralMemojiDataRepresentation_neutralMemojiData = v1;
 }
@@ -116,8 +115,8 @@ void __44__AVTMemoji_neutralMemojiDataRepresentation__block_invoke()
 void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
 {
   v4 = [*(a1 + 32) neutralMemojiDataRepresentation];
-  v1 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:0];
-  v2 = [[AVTMemojiDescriptor alloc] initWithDictionaryRepresentation:v1 error:0 isResettingToDefault:1];
+  v1 = [MEMORY[0x1E696ACB0] JSONObjectWithData:? options:? error:?];
+  v2 = [AVTMemojiDescriptor initWithDictionaryRepresentation:"initWithDictionaryRepresentation:error:isResettingToDefault:" error:? isResettingToDefault:?];
   v3 = neutralMemojiDescriptor_neutralMemojiDescriptor;
   neutralMemojiDescriptor_neutralMemojiDescriptor = v2;
 }
@@ -125,7 +124,7 @@ void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
 + (id)neutralMemoji
 {
   neutralMemojiDescriptor = [self neutralMemojiDescriptor];
-  v3 = [[AVTMemoji alloc] initWithDescriptor:neutralMemojiDescriptor usageIntent:0 error:0];
+  v3 = [AVTMemoji initWithDescriptor:"initWithDescriptor:usageIntent:error:" usageIntent:? error:?];
 
   return v3;
 }
@@ -135,14 +134,14 @@ void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
   neutralMemojiDescriptor = [self neutralMemojiDescriptor];
   if (neutralMemojiDescriptor)
   {
-    v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:40];
+    v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
     for (i = 0; i != 40; ++i)
     {
-      v5 = [neutralMemojiDescriptor presetIdentifierForCategory:i];
+      v5 = [neutralMemojiDescriptor presetIdentifierForCategory:?];
       if (v5)
       {
-        v6 = [MEMORY[0x1E696AD98] numberWithInteger:i];
-        [v3 setObject:v5 forKeyedSubscript:v6];
+        v6 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+        [v3 setObject:? forKeyedSubscript:?];
       }
     }
   }
@@ -169,34 +168,34 @@ void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
 {
   for (i = 0; i != 42; ++i)
   {
-    [(AVTMemoji *)self removeComponentWithType:i];
+    [(AVTMemoji *)self removeComponentWithType:?];
   }
 }
 
 - (void)resetToDefault
 {
-  v3 = +[AVTMemoji neutralMemojiDescriptor];
-  [v3 applyToMemoji:self];
+  v2 = +[AVTMemoji neutralMemojiDescriptor];
+  [v2 applyToMemoji:?];
 }
 
 - (id)newDescriptor
 {
-  v3 = [AVTMemojiDescriptor alloc];
+  v2 = [AVTMemojiDescriptor alloc];
 
-  return [(AVTMemojiDescriptor *)v3 initWithMemoji:self];
+  return [(AVTMemojiDescriptor *)v2 initWithMemoji:?];
 }
 
 - (AVTMemoji)initWithDescriptor:(id)descriptor usageIntent:(unint64_t)intent error:(id *)error
 {
-  v120[1] = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
-  v116.receiver = self;
-  v116.super_class = AVTMemoji;
-  v8 = [(AVTAvatar *)&v116 init];
+  v103.receiver = self;
+  v103.super_class = AVTMemoji;
+  v8 = [(AVTAvatar *)&v103 init];
   v9 = v8;
   if (v8)
   {
-    v100 = descriptorCopy;
+    v99 = descriptorCopy;
     v8->_usageIntent = intent;
     v8->_updateLock._os_unfair_lock_opaque = 0;
     v8->_visibleBodyParts = 1;
@@ -210,7 +209,7 @@ void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
 
     if (v9->_usageIntent == 2)
     {
-      [(AVTAssetResourceCache *)v9->_resourceCache setPolicy:1];
+      [(AVTAssetResourceCache *)v9->_resourceCache setPolicy:?];
     }
 
     v9->_componentDirtyMask = -1;
@@ -219,261 +218,244 @@ void __36__AVTMemoji_neutralMemojiDescriptor__block_invoke(uint64_t a1)
     avatarNode = v9->_avatarNode;
     v9->_avatarNode = node;
 
-    [(VFXNode *)v9->_avatarNode setName:@"avatarNode"];
+    [(VFXNode *)v9->_avatarNode setName:?];
     v16 = objc_alloc_init(MEMORY[0x1E69DF330]);
     headComponentContainer = v9->_headComponentContainer;
     v9->_headComponentContainer = v16;
 
-    [(VFXNode *)v9->_headComponentContainer setName:@"head components"];
+    [(VFXNode *)v9->_headComponentContainer setName:?];
     v18 = objc_alloc_init(MEMORY[0x1E69DF330]);
     bodyComponentContainer = v9->_bodyComponentContainer;
     v9->_bodyComponentContainer = v18;
 
-    [(VFXNode *)v9->_bodyComponentContainer setName:@"body components"];
-    [(VFXNode *)v9->_bodyComponentContainer setHidden:1];
+    [(VFXNode *)v9->_bodyComponentContainer setName:?];
+    [(VFXNode *)v9->_bodyComponentContainer setHidden:?];
     v20 = objc_alloc_init(MEMORY[0x1E69DF330]);
     handsComponentContainer = v9->_handsComponentContainer;
     v9->_handsComponentContainer = v20;
 
-    [(VFXNode *)v9->_handsComponentContainer setName:@"hands components"];
-    [(VFXNode *)v9->_handsComponentContainer setHidden:1];
-    [(VFXNode *)v9->_avatarNode addChildNode:v9->_headComponentContainer];
-    [(VFXNode *)v9->_avatarNode addChildNode:v9->_bodyComponentContainer];
-    v101 = v9;
-    [(VFXNode *)v9->_avatarNode addChildNode:v9->_handsComponentContainer];
-    v22 = [@"main" stringByAppendingPathExtension:@"vfxz-world"];
+    [(VFXNode *)v9->_handsComponentContainer setName:?];
+    [(VFXNode *)v9->_handsComponentContainer setHidden:?];
+    [(VFXNode *)v9->_avatarNode addChildNode:?];
+    [(VFXNode *)v9->_avatarNode addChildNode:?];
+    v100 = v9;
+    [(VFXNode *)v9->_avatarNode addChildNode:?];
+    v22 = [@"main" stringByAppendingPathExtension:?];
     v23 = +[AVTResourceLocator sharedResourceLocator];
     v24 = [(AVTResourceLocator *)v23 urlForMemojiAssetAtPath:1 isDirectory:?];
 
-    v25 = [v24 URLByAppendingPathComponent:v22 isDirectory:0];
-    v115 = 0;
-    v26 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:v25 options:0 error:&v115];
-    v27 = v115;
+    v25 = [v24 URLByAppendingPathComponent:? isDirectory:?];
+    v26 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:? options:? error:?];
+    v27 = 0;
+    v28 = v27;
     if (v27)
     {
-      v28 = avt_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = avt_default_log(v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [AVTMemoji initWithDescriptor:v25 usageIntent:v27 error:?];
+        [AVTMemoji initWithDescriptor:v25 usageIntent:v28 error:?];
       }
     }
 
     childNodes = [v26 childNodes];
-    v30 = [childNodes objectAtIndexedSubscript:0];
+    v31 = [childNodes objectAtIndexedSubscript:?];
 
-    [v30 removeFromParentNode];
-    [v30 enumerateHierarchyUsingBlock:&__block_literal_global_209];
-    v31 = AVTPrecompiledMemojiAssetWithIdentifier(@"eyes_mouth");
-    v32 = [v31 objectForKeyedSubscript:@"specialization settings"];
-    eyesAndTongueSpecializationSettings = v101->_eyesAndTongueSpecializationSettings;
-    v101->_eyesAndTongueSpecializationSettings = v32;
+    [v31 removeFromParentNode];
+    [v31 enumerateHierarchyUsingBlock:?];
+    v32 = AVTPrecompiledMemojiAssetWithIdentifier(@"eyes_mouth");
+    v33 = [v32 objectForKeyedSubscript:?];
+    eyesAndTongueSpecializationSettings = v100->_eyesAndTongueSpecializationSettings;
+    v100->_eyesAndTongueSpecializationSettings = v33;
 
-    if (!v101->_eyesAndTongueSpecializationSettings)
+    if (!v100->_eyesAndTongueSpecializationSettings)
     {
       [AVTMemoji initWithDescriptor:usageIntent:error:];
     }
 
-    v34 = v30;
-    v35 = [v34 childNodeWithName:@"eyelashes" recursively:1];
-    eyelashes = v101->_eyelashes;
-    v101->_eyelashes = v35;
+    v35 = v31;
+    v36 = [v35 childNodeWithName:? recursively:?];
+    eyelashes = v100->_eyelashes;
+    v100->_eyelashes = v36;
 
-    v37 = [v34 childNodeWithName:@"L_eye" recursively:1];
-    v38 = [v34 childNodeWithName:@"R_eye" recursively:1];
-    v98 = v37;
-    v39 = [v37 childNodeWithName:@"L_eye" recursively:0];
-    model = [v39 model];
-    firstMaterial = [model firstMaterial];
-    eyeMaterialLeft = v101->_eyeMaterialLeft;
-    v101->_eyeMaterialLeft = firstMaterial;
-
+    v38 = [v35 childNodeWithName:? recursively:?];
+    v39 = [v35 childNodeWithName:? recursively:?];
     v97 = v38;
-    v43 = [v38 childNodeWithName:@"R_eye" recursively:0];
-    model2 = [v43 model];
+    v40 = [v38 childNodeWithName:? recursively:?];
+    model = [v40 model];
+    firstMaterial = [model firstMaterial];
+    eyeMaterialLeft = v100->_eyeMaterialLeft;
+    v100->_eyeMaterialLeft = firstMaterial;
+
+    v96 = v39;
+    v44 = [v39 childNodeWithName:? recursively:?];
+    model2 = [v44 model];
     firstMaterial2 = [model2 firstMaterial];
-    eyeMaterialRight = v101->_eyeMaterialRight;
-    v101->_eyeMaterialRight = firstMaterial2;
+    eyeMaterialRight = v100->_eyeMaterialRight;
+    v100->_eyeMaterialRight = firstMaterial2;
 
-    [v34 avt_enableSubdivisionOnHierarchyWithQuality:1 animoji:0];
-    objc_storeStrong(&v101->_eyesAndTongue, v30);
-    v99 = v34;
-    [(VFXNode *)v101->_headComponentContainer addChildNode:v34];
-    v47 = +[AVTAssetLibrary sharedAssetLibrary];
-    v48 = [v47 assetWithType:0 identifier:@"head"];
+    [v35 avt_enableSubdivisionOnHierarchyWithQuality:? animoji:?];
+    objc_storeStrong(&v100->_eyesAndTongue, v31);
+    v98 = v35;
+    [(VFXNode *)v100->_headComponentContainer addChildNode:?];
+    v48 = +[AVTAssetLibrary sharedAssetLibrary];
+    v49 = [v48 assetWithType:? identifier:?];
 
-    v49 = [AVTComponent alloc];
-    v96 = v48;
-    v120[0] = v48;
-    v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:1];
-    v51 = [(AVTComponent *)v49 initWithType:0 assets:v50 morphVariant:0 imageVariant:0 materialVariant:0 morphVariantIntensity:0.0 bodyPoseVariantIntensity:0.0 textureAssetPresence:0.0];
+    v50 = [AVTComponent alloc];
+    v95 = v49;
+    v105 = v49;
+    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+    v52 = [AVTComponent initWithType:v50 assets:"initWithType:assets:morphVariant:imageVariant:materialVariant:morphVariantIntensity:bodyPoseVariantIntensity:textureAssetPresence:" morphVariant:? imageVariant:? materialVariant:? morphVariantIntensity:? bodyPoseVariantIntensity:? textureAssetPresence:?];
 
-    [(AVTMemoji *)v101 addComponent:v51 animated:0];
-    v95 = v51;
-    v52 = [[AVTComponentInstance alloc] initWithComponent:v51 assetResourceCache:v101->_resourceCache];
-    [(AVTMemoji *)v101 setInstance:v52 forComponentType:0];
-    assetNode = [(AVTComponentInstance *)v52 assetNode];
-    headNode = v101->_headNode;
-    v101->_headNode = assetNode;
+    [AVTMemoji addComponent:v100 animated:"addComponent:animated:"];
+    v94 = v52;
+    v53 = [AVTComponentInstance initWithComponent:"initWithComponent:assetResourceCache:" assetResourceCache:?];
+    [AVTMemoji setInstance:v100 forComponentType:"setInstance:forComponentType:"];
+    assetNode = [(AVTComponentInstance *)v53 assetNode];
+    headNode = v100->_headNode;
+    v100->_headNode = assetNode;
 
-    [(VFXNode *)v101->_headNode setCastsShadow:1];
-    [(VFXNode *)v101->_headNode setRenderingOrder:-1];
-    [(VFXNode *)v101->_headComponentContainer addChildNode:v101->_headNode];
-    v55 = +[AVTAssetLibrary sharedAssetLibrary];
-    v56 = [v55 assetWithType:34 identifier:@"body"];
+    [(VFXNode *)v100->_headNode setCastsShadow:?];
+    [(VFXNode *)v100->_headNode setRenderingOrder:?];
+    [(VFXNode *)v100->_headComponentContainer addChildNode:?];
+    v56 = +[AVTAssetLibrary sharedAssetLibrary];
+    v57 = [v56 assetWithType:? identifier:?];
 
-    v57 = [AVTComponent alloc];
-    v93 = v56;
-    v119 = v56;
-    v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v119 count:1];
-    v59 = [(AVTComponent *)v57 initWithType:34 assets:v58 morphVariant:0 imageVariant:0 materialVariant:0 morphVariantIntensity:0.0 bodyPoseVariantIntensity:0.0 textureAssetPresence:0.0];
+    v58 = [AVTComponent alloc];
+    v93 = v57;
+    v104 = v57;
+    v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+    v60 = [AVTComponent initWithType:v58 assets:"initWithType:assets:morphVariant:imageVariant:materialVariant:morphVariantIntensity:bodyPoseVariantIntensity:textureAssetPresence:" morphVariant:? imageVariant:? materialVariant:? morphVariantIntensity:? bodyPoseVariantIntensity:? textureAssetPresence:?];
 
-    v92 = v59;
-    [(AVTMemoji *)v101 addComponent:v59 animated:0];
-    v60 = [@"main" stringByAppendingPathExtension:@"vfxz-world"];
-    v61 = +[AVTResourceLocator sharedResourceLocator];
-    v62 = [(AVTResourceLocator *)v61 urlForMemojiAssetAtPath:1 isDirectory:?];
+    v92 = v60;
+    [AVTMemoji addComponent:v100 animated:"addComponent:animated:"];
+    v61 = [@"main" stringByAppendingPathExtension:?];
+    v62 = +[AVTResourceLocator sharedResourceLocator];
+    v63 = [(AVTResourceLocator *)v62 urlForMemojiAssetAtPath:1 isDirectory:?];
 
-    v90 = v62;
-    v91 = v60;
-    v63 = [v62 URLByAppendingPathComponent:v60 isDirectory:0];
-    v114 = 0;
-    v64 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:v63 options:0 error:&v114];
-    v65 = v114;
-    if (v65)
+    v90 = v63;
+    v91 = v61;
+    v64 = [v63 URLByAppendingPathComponent:? isDirectory:?];
+    v65 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:? options:? error:?];
+    v66 = 0;
+    v67 = v66;
+    if (v66)
     {
-      v66 = avt_default_log();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v68 = avt_default_log(v66);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
-        [AVTMemoji initWithDescriptor:v63 usageIntent:v65 error:?];
+        [AVTMemoji initWithDescriptor:v64 usageIntent:v67 error:?];
       }
     }
 
-    v88 = v65;
-    v89 = v63;
-    v94 = v52;
-    v87 = v64;
-    v67 = [v64 childNodeWithName:@"root_JNT" recursively:1];
-    skeletonRootNode = v101->_skeletonRootNode;
-    v101->_skeletonRootNode = v67;
+    v88 = v67;
+    v89 = v64;
+    v87 = v65;
+    v69 = [v65 childNodeWithName:? recursively:?];
+    skeletonRootNode = v100->_skeletonRootNode;
+    v100->_skeletonRootNode = v69;
 
-    [(VFXNode *)v101->_skeletonRootNode removeFromParentNode];
-    [(VFXNode *)v101->_avatarNode addChildNode:v101->_skeletonRootNode];
-    v69 = v101->_headComponentContainer;
-    v112[0] = MEMORY[0x1E69E9820];
-    v112[1] = 3221225472;
-    v112[2] = __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242;
-    v112[3] = &unk_1E7F47B10;
-    v70 = v101;
-    v113 = v70;
-    [(VFXNode *)v69 enumerateChildNodesUsingBlock:v112];
-    v71 = objc_alloc_init(AVTCompositor);
-    v72 = v70[297];
-    v70[297] = v71;
+    [(VFXNode *)v100->_skeletonRootNode removeFromParentNode];
+    [(VFXNode *)v100->_avatarNode addChildNode:?];
+    v71 = v100->_headComponentContainer;
+    v72 = v100;
+    [(VFXNode *)v71 enumerateChildNodesUsingBlock:?];
+    v73 = objc_alloc_init(AVTCompositor);
+    compositor = v72->_compositor;
+    v72->_compositor = v73;
 
-    v70[298] = -1;
-    v103 = +[AVTCompositor propertyNames];
-    v108 = 0u;
-    v109 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    model3 = [(VFXNode *)v101->_headNode model];
+    v72->_compositorComponentDirtyMask = -1;
+    v102 = +[AVTCompositor propertyNames];
+    model3 = [(VFXNode *)v100->_headNode model];
     materials = [model3 materials];
 
     obj = materials;
-    v75 = [materials countByEnumeratingWithState:&v108 objects:v118 count:16];
-    if (v75)
+    v77 = [materials countByEnumeratingWithState:? objects:? count:?];
+    if (v77)
     {
-      v76 = v75;
-      v77 = *v109;
+      v78 = v77;
+      v79 = MEMORY[0];
       do
       {
-        for (i = 0; i != v76; ++i)
+        for (i = 0; i != v78; i = (i + 1))
         {
-          if (*v109 != v77)
+          if (MEMORY[0] != v79)
           {
             objc_enumerationMutation(obj);
           }
 
-          v79 = *(*(&v108 + 1) + 8 * i);
-          v104 = 0u;
-          v105 = 0u;
-          v106 = 0u;
-          v107 = 0u;
-          v80 = v103;
-          v81 = [v80 countByEnumeratingWithState:&v104 objects:v117 count:16];
-          if (v81)
+          v81 = v102;
+          v82 = [v81 countByEnumeratingWithState:? objects:? count:?];
+          if (v82)
           {
-            v82 = v81;
-            v83 = *v105;
+            v83 = v82;
+            v84 = MEMORY[0];
             do
             {
-              for (j = 0; j != v82; ++j)
+              for (j = 0; j != v83; j = (j + 1))
               {
-                if (*v105 != v83)
+                if (MEMORY[0] != v84)
                 {
-                  objc_enumerationMutation(v80);
+                  objc_enumerationMutation(v81);
                 }
 
-                [v70[297] configureMaterial:v79 propertyNamed:*(*(&v104 + 1) + 8 * j) memoji:v70];
+                [AVTCompositor configureMaterial:"configureMaterial:propertyNamed:memoji:" propertyNamed:? memoji:?];
               }
 
-              v82 = [v80 countByEnumeratingWithState:&v104 objects:v117 count:16];
+              v83 = [v81 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v82);
+            while (v83);
           }
         }
 
-        v76 = [obj countByEnumeratingWithState:&v108 objects:v118 count:16];
+        v78 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v76);
+      while (v78);
     }
 
-    [v70 resetToDefault];
-    descriptorCopy = v100;
-    if (v100)
+    [(AVTMemoji *)v72 resetToDefault];
+    descriptorCopy = v99;
+    if (v99)
     {
-      [v100 applyToMemoji:v70];
-      [AVTAvatarMemoryOptimizer optimizeMemoji:v70];
-      [v70 rebuildSpecializationSettings];
-      [v70 _avatarNodeAndHeadNodeAreNowAvailable];
-      v9 = v101;
-      [v70 addCustomBehavioursInHierarchy:v101->_headNode forBodyParts:1];
-      [v70 addCustomBehavioursInHierarchy:v101->_eyesAndTongue forBodyParts:1];
-      [v70 updateBindings];
-      [v70 updateWithOptions:1];
+      [v99 applyToMemoji:?];
+      [AVTAvatarMemoryOptimizer optimizeMemoji:v72];
+      [(AVTMemoji *)v72 rebuildSpecializationSettings];
+      [(AVTAvatar *)v72 _avatarNodeAndHeadNodeAreNowAvailable];
+      v9 = v100;
+      [AVTAvatar addCustomBehavioursInHierarchy:v72 forBodyParts:"addCustomBehavioursInHierarchy:forBodyParts:"];
+      [AVTAvatar addCustomBehavioursInHierarchy:v72 forBodyParts:"addCustomBehavioursInHierarchy:forBodyParts:"];
+      [(AVTAvatar *)v72 updateBindings];
+      [(AVTMemoji *)v72 updateWithOptions:?];
     }
 
     else
     {
-      [v70 rebuildSpecializationSettings];
-      [v70 _avatarNodeAndHeadNodeAreNowAvailable];
-      v9 = v101;
-      [v70 addCustomBehavioursInHierarchy:v101->_headNode forBodyParts:1];
-      [v70 addCustomBehavioursInHierarchy:v101->_eyesAndTongue forBodyParts:1];
-      [v70 updateBindings];
+      [(AVTMemoji *)v72 rebuildSpecializationSettings];
+      [(AVTAvatar *)v72 _avatarNodeAndHeadNodeAreNowAvailable];
+      v9 = v100;
+      [AVTAvatar addCustomBehavioursInHierarchy:v72 forBodyParts:"addCustomBehavioursInHierarchy:forBodyParts:"];
+      [AVTAvatar addCustomBehavioursInHierarchy:v72 forBodyParts:"addCustomBehavioursInHierarchy:forBodyParts:"];
+      [(AVTAvatar *)v72 updateBindings];
     }
   }
 
-  v85 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  v2 = [v4 name];
-  v3 = [v2 hasSuffix:@"_eye"];
+  v3 = a2;
+  v2 = [v3 name];
+  [v2 hasSuffix:?];
 
-  [v4 setCastsShadow:v3];
+  [v3 setCastsShadow:?];
 }
 
 void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 336);
-  v3 = [a2 skinner];
-  [v3 setSkeleton:v2];
+  v2 = [a2 skinner];
+  [v2 setSkeleton:?];
 }
 
 + (id)memoji
@@ -485,59 +467,56 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 
 + (AVTMemoji)memojiWithContentsOfURL:(id)l usageIntent:(unint64_t)intent error:(id *)error
 {
-  v8 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:l options:8 error:0];
-  v9 = [self avatarWithDataRepresentation:v8 usageIntent:intent error:error];
+  v6 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:? options:? error:?];
+  v7 = [self avatarWithDataRepresentation:? usageIntent:? error:?];
 
-  return v9;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   newDescriptor = [(AVTMemoji *)self newDescriptor];
-  [coderCopy encodeObject:newDescriptor forKey:@"descriptor"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (AVTMemoji)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"descriptor"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v6 = [(AVTMemoji *)self initWithDescriptor:v5 usageIntent:0 error:0];
+  v6 = [AVTMemoji initWithDescriptor:"initWithDescriptor:usageIntent:error:" usageIntent:? error:?];
   return v6;
 }
 
 - (id)copyWithUsageIntent:(unint64_t)intent
 {
-  intentCopy = intent;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   usageIntent = self->_usageIntent;
   if (usageIntent != intent && usageIntent != 0)
   {
-    v7 = avt_default_log();
+    v7 = avt_default_log(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_usageIntent;
-      v13 = 134218240;
-      v14 = intentCopy;
-      v15 = 2048;
-      v16 = v8;
-      _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "Can't make a copy with usage intent %lu of a Memoji whose usage intent is %lu", &v13, 0x16u);
+      v12 = 134218240;
+      intentCopy = intent;
+      v14 = 2048;
+      v15 = v8;
+      _os_log_impl(&dword_1BB472000, v7, OS_LOG_TYPE_DEFAULT, "Can't make a copy with usage intent %lu of a Memoji whose usage intent is %lu", &v12, 0x16u);
     }
-
-    intentCopy = self->_usageIntent;
   }
 
-  v9 = [[AVTMemojiDescriptor alloc] initWithMemoji:self];
-  v10 = [objc_alloc(objc_opt_class()) initWithDescriptor:v9 usageIntent:intentCopy error:0];
+  v9 = [[AVTMemojiDescriptor alloc] initWithMemoji:?];
+  v10 = [objc_alloc(objc_opt_class()) initWithDescriptor:? usageIntent:? error:?];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)skinColor
 {
-  v2 = [(AVTMemoji *)self colorPresetForCategory:0];
+  v2 = [(AVTMemoji *)self colorPresetForCategory:?];
   baseColor = [v2 baseColor];
 
   return baseColor;
@@ -545,7 +524,7 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 
 - (id)hairColor
 {
-  v2 = [(AVTMemoji *)self colorPresetForCategory:1];
+  v2 = [(AVTMemoji *)self colorPresetForCategory:?];
   baseColor = [v2 baseColor];
 
   return baseColor;
@@ -553,7 +532,7 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 
 - (id)eyebrowsColor
 {
-  v2 = [(AVTMemoji *)self colorPresetForCategory:8];
+  v2 = [(AVTMemoji *)self colorPresetForCategory:?];
   baseColor = [v2 baseColor];
 
   return baseColor;
@@ -561,7 +540,7 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 
 - (id)facialhairColor
 {
-  v2 = [(AVTMemoji *)self colorPresetForCategory:2];
+  v2 = [(AVTMemoji *)self colorPresetForCategory:?];
   baseColor = [v2 baseColor];
 
   return baseColor;
@@ -569,7 +548,7 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 
 - (id)lipsColor
 {
-  v2 = [(AVTMemoji *)self colorPresetForCategory:10];
+  v2 = [(AVTMemoji *)self colorPresetForCategory:?];
   baseColor = [v2 baseColor];
 
   return baseColor;
@@ -590,7 +569,7 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
 {
   for (i = 0; i != 3; ++i)
   {
-    [(AVTMemoji *)self _applyColorPresetForCategory:category colorIndex:i];
+    [AVTMemoji _applyColorPresetForCategory:"_applyColorPresetForCategory:colorIndex:" colorIndex:?];
   }
 }
 
@@ -602,85 +581,77 @@ void __50__AVTMemoji_initWithDescriptor_usageIntent_error___block_invoke_242(uin
   }
 
   v7 = self->_colorPresets[category];
-  v21 = v7[index];
-  v8 = AVTPresetCategoryToComponentType(category);
-  v9 = [(AVTMemoji *)self componentWithType:v8];
-  v10 = v9;
+  v18 = v7[index];
+  v9 = AVTPresetCategoryToComponentType(category, v8);
+  v10 = [(AVTMemoji *)self componentWithType:?];
+  v11 = v10;
   if (index == 1)
   {
     if (category == 7)
     {
-      if (v21)
+      if (v18)
       {
-        makeMaterial = [(AVTColorPreset *)v21 makeMaterial];
+        makeMaterial = [(AVTColorPreset *)v18 makeMaterial];
         makeMaterial2 = makeMaterial;
-        eyeMaterialLeft = self->_eyeMaterialLeft;
         goto LABEL_11;
       }
 
-      v18 = *v7;
-      makeMaterial2 = [(AVTColorPreset *)v18 makeMaterial];
-      [makeMaterial2 applyToVFXMaterial:self->_eyeMaterialLeft];
+      v15 = *v7;
+      makeMaterial2 = [(AVTColorPreset *)v15 makeMaterial];
+      [makeMaterial2 applyToVFXMaterial:?];
 LABEL_23:
 
+      goto LABEL_26;
+    }
+
+    if (!v10)
+    {
       goto LABEL_27;
     }
 
-    if (!v9)
-    {
-      goto LABEL_28;
-    }
-
-    makeMaterial2 = [(AVTColorPreset *)v21 makeMaterial];
-    v14 = v10;
-    v15 = makeMaterial2;
-    v16 = 1;
-LABEL_26:
-    [v14 setMaterial:v15 atIndex:v16];
-    [(AVTMemoji *)self componentMaterialDidUpdate:v10];
-    goto LABEL_27;
+LABEL_25:
+    makeMaterial2 = [(AVTColorPreset *)v18 makeMaterial];
+    [v11 setMaterial:? atIndex:?];
+    [(AVTMemoji *)self componentMaterialDidUpdate:?];
+    goto LABEL_26;
   }
 
   if (index)
   {
-    if (!v9)
+    if (!v10)
     {
-      goto LABEL_28;
+      goto LABEL_27;
     }
 
-    makeMaterial2 = [(AVTColorPreset *)v21 makeMaterial];
-    v14 = v10;
-    v15 = makeMaterial2;
-    v16 = 2;
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
-  if (!v21)
+  if (!v18)
   {
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   if (category != 7)
   {
-    if (v8 == 28)
+    if (v9 == 28)
     {
-      makeMaterial2 = [(AVTColorPreset *)v21 makeMaterial];
-      [v10 setMaterial:makeMaterial2 atIndex:0];
-      [(AVTMemoji *)self componentMaterialDidUpdate:v10];
-      v17 = [(AVTMemoji *)self componentWithType:34];
-      v18 = v17;
-      if (v17)
+      makeMaterial2 = [(AVTColorPreset *)v18 makeMaterial];
+      [v11 setMaterial:? atIndex:?];
+      [(AVTMemoji *)self componentMaterialDidUpdate:?];
+      v14 = [(AVTMemoji *)self componentWithType:?];
+      v15 = v14;
+      if (v14)
       {
-        [(AVTColorPreset *)v17 setMaterial:makeMaterial2 atIndex:0];
-        [(AVTMemoji *)self componentMaterialDidUpdate:v18];
+        [AVTColorPreset setMaterial:v14 atIndex:"setMaterial:atIndex:"];
+        [(AVTMemoji *)self componentMaterialDidUpdate:?];
       }
 
-      v19 = [(AVTMemoji *)self componentWithType:37];
-      v20 = v19;
-      if (v19)
+      v16 = [(AVTMemoji *)self componentWithType:?];
+      v17 = v16;
+      if (v16)
       {
-        [v19 setMaterial:makeMaterial2 atIndex:0];
-        [(AVTMemoji *)self componentMaterialDidUpdate:v20];
+        [v16 setMaterial:? atIndex:?];
+        [(AVTMemoji *)self componentMaterialDidUpdate:?];
       }
 
       [(AVTCompositor *)self->_compositor skinColorDidChange];
@@ -688,31 +659,26 @@ LABEL_26:
       goto LABEL_23;
     }
 
-    if (!v9)
+    if (!v10)
     {
-      goto LABEL_28;
+      goto LABEL_27;
     }
 
-    makeMaterial2 = [(AVTColorPreset *)v21 makeMaterial];
-    v14 = v10;
-    v15 = makeMaterial2;
-    v16 = 0;
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
-  makeMaterial2 = [(AVTColorPreset *)v21 makeMaterial];
-  [makeMaterial2 applyToVFXMaterial:self->_eyeMaterialRight];
+  makeMaterial2 = [(AVTColorPreset *)v18 makeMaterial];
+  [makeMaterial2 applyToVFXMaterial:?];
   if (!v7[1])
   {
-    eyeMaterialLeft = self->_eyeMaterialLeft;
     makeMaterial = makeMaterial2;
 LABEL_11:
-    [makeMaterial applyToVFXMaterial:eyeMaterialLeft];
+    [makeMaterial applyToVFXMaterial:?];
   }
 
-LABEL_27:
+LABEL_26:
 
-LABEL_28:
+LABEL_27:
 }
 
 - (id)colorPresetForCategory:(int64_t)category
@@ -724,7 +690,7 @@ LABEL_28:
 
   else
   {
-    v3 = avt_default_log();
+    v3 = avt_default_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [AVTMemojiDescriptor presetIdentifierForCategory:];
@@ -745,7 +711,7 @@ LABEL_28:
 
   else
   {
-    v3 = avt_default_log();
+    v3 = avt_default_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [AVTMemojiDescriptor presetIdentifierForCategory:];
@@ -771,7 +737,7 @@ LABEL_28:
 
   else
   {
-    v4 = avt_default_log();
+    v4 = avt_default_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [AVTMemojiDescriptor presetIdentifierForCategory:];
@@ -789,7 +755,7 @@ LABEL_28:
   v9 = presetCopy;
   if (category >= 40)
   {
-    v10 = avt_default_log();
+    v10 = avt_default_log(presetCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [AVTMemojiDescriptor presetIdentifierForCategory:];
@@ -801,10 +767,11 @@ LABEL_17:
 
   if (presetCopy)
   {
-    if ([presetCopy category] != category)
+    category = [presetCopy category];
+    if (category != category)
     {
-      v11 = avt_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = avt_default_log(category);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [AVTMemojiDescriptor setColorPreset:forCategory:colorIndex:];
       }
@@ -814,17 +781,17 @@ LABEL_17:
     {
 LABEL_11:
       os_unfair_lock_lock(&self->_updateLock);
-      v12 = &self->_colorPresets[category][index];
-      if (*v12 != v9)
+      v13 = &self->_colorPresets[category][index];
+      if (*v13 != v9)
       {
-        objc_storeStrong(v12, v9);
-        [(AVTMemoji *)self _applyColorPresetForCategory:category colorIndex:index];
+        objc_storeStrong(v13, v9);
+        [AVTMemoji _applyColorPresetForCategory:"_applyColorPresetForCategory:colorIndex:" colorIndex:?];
         if (index == 1)
         {
-          v13 = AVTPresetCategoryToComponentType(category);
-          if (v13 != 42)
+          v15 = AVTPresetCategoryToComponentType(category, v14);
+          if (v15 != 42)
           {
-            self->_compositorComponentDirtyMask |= 1 << v13;
+            self->_compositorComponentDirtyMask |= 1 << v15;
           }
         }
 
@@ -846,11 +813,12 @@ LABEL_25:
 
   if (index)
   {
-    v9 = [AVTColorPreset fallbackColorPresetForNilPresetAndCategory:category colorIndex:index];
-    if (v9)
+    v16 = [AVTColorPreset fallbackColorPresetForNilPresetAndCategory:"fallbackColorPresetForNilPresetAndCategory:colorIndex:" colorIndex:?];
+    v9 = v16;
+    if (v16)
     {
-      v14 = avt_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = avt_default_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [AVTMemoji setColorPreset:category forCategory:? colorIndex:?];
       }
@@ -877,89 +845,74 @@ LABEL_25:
 
 - (void)addComponent:(id)component animated:(BOOL)animated
 {
-  animatedCopy = animated;
-  v22 = *MEMORY[0x1E69E9840];
   componentCopy = component;
-  v8 = componentCopy;
+  v7 = componentCopy;
   if (componentCopy)
   {
-    v16 = animatedCopy;
-    v9 = self->_components[[componentCopy type]];
-    [(AVTMemoji *)self _removeComponent:v9];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    assets = [v8 assets];
-    v11 = [assets countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v11)
+    v8 = self->_components[[componentCopy type]];
+    [(AVTMemoji *)self _removeComponent:?];
+    assets = [v7 assets];
+    v10 = [assets countByEnumeratingWithState:? objects:? count:?];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v18;
+      v11 = v10;
+      v12 = MEMORY[0];
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; i = (i + 1))
         {
-          if (*v18 != v13)
+          if (MEMORY[0] != v12)
           {
             objc_enumerationMutation(assets);
           }
 
-          [(AVTAssetResourceCache *)self->_resourceCache retainAsset:*(*(&v17 + 1) + 8 * i)];
+          [(AVTAssetResourceCache *)self->_resourceCache retainAsset:?];
         }
 
-        v12 = [assets countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [assets countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v12);
+      while (v11);
     }
 
-    objc_storeStrong(&self->_components[[v8 type]], component);
-    -[AVTMemoji componentDidChangeForType:animated:](self, "componentDidChangeForType:animated:", [v8 type], v16);
+    objc_storeStrong(&self->_components[[v7 type]], component);
+    [v7 type];
+    [AVTMemoji componentDidChangeForType:"componentDidChangeForType:animated:" animated:?];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeComponentWithType:(int64_t)type
 {
-  v5 = [(AVTMemoji *)self componentWithType:?];
-  [(AVTMemoji *)self _removeComponent:v5];
-  [(AVTMemoji *)self componentDidChangeForType:type animated:0];
+  v4 = [(AVTMemoji *)self componentWithType:?];
+  [(AVTMemoji *)self _removeComponent:?];
+  [AVTMemoji componentDidChangeForType:"componentDidChangeForType:animated:" animated:?];
 }
 
 - (void)_removeComponent:(id)component
 {
-  v20 = *MEMORY[0x1E69E9840];
   componentCopy = component;
   v5 = componentCopy;
   if (componentCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
     assets = [componentCopy assets];
-    v7 = [assets countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [assets countByEnumeratingWithState:? objects:? count:?];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = MEMORY[0];
       do
       {
-        v10 = 0;
-        do
+        for (i = 0; i != v8; i = (i + 1))
         {
-          if (*v16 != v9)
+          if (MEMORY[0] != v9)
           {
             objc_enumerationMutation(assets);
           }
 
-          [(AVTAssetResourceCache *)self->_resourceCache releaseAsset:*(*(&v15 + 1) + 8 * v10++)];
+          [(AVTAssetResourceCache *)self->_resourceCache releaseAsset:?];
         }
 
-        while (v8 != v10);
-        v8 = [assets countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [assets countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v8);
@@ -970,8 +923,6 @@ LABEL_25:
     v13 = components[type];
     components[type] = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_locked_invalidate
@@ -980,9 +931,9 @@ LABEL_25:
   {
     self->_needsUpdate = 1;
     avatarNode = [(AVTMemoji *)self avatarNode];
-    renderingOrder = [avatarNode renderingOrder];
-    [avatarNode setRenderingOrder:renderingOrder + 1000];
-    [avatarNode setRenderingOrder:renderingOrder];
+    [avatarNode renderingOrder];
+    [avatarNode setRenderingOrder:?];
+    [avatarNode setRenderingOrder:?];
   }
 }
 
@@ -1006,7 +957,7 @@ LABEL_25:
   self->_compositorComponentDirtyMask |= 1 << [updateCopy type];
   if ([updateCopy type] != 28)
   {
-    -[AVTComponentInstance updateMaterialsWithComponent:](self->_componentInstances[[updateCopy type]], "updateMaterialsWithComponent:", updateCopy);
+    -[AVTComponentInstance updateMaterialsWithComponent:](self->_componentInstances[[updateCopy type]], "updateMaterialsWithComponent:");
   }
 
   if ([updateCopy type] == 2)
@@ -1039,7 +990,7 @@ LABEL_10:
   [MEMORY[0x1E69DF378] lock];
   [(AVTMemoji *)self resetToDefault];
   [MEMORY[0x1E69DF378] begin];
-  [MEMORY[0x1E69DF378] setAnimationDuration:0.75];
+  [MEMORY[0x1E69DF378] setAnimationDuration:?];
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 3221225472;
   v4[2] = __22__AVTMemoji_randomize__block_invoke;
@@ -1057,14 +1008,14 @@ LABEL_10:
 
 - (void)setPreset:(id)preset forCategory:(int64_t)category animated:(BOOL)animated
 {
-  animatedCopy = animated;
   presetCopy = preset;
-  v9 = presetCopy;
+  v8 = presetCopy;
   if (presetCopy)
   {
-    if ([presetCopy category] != category)
+    category = [presetCopy category];
+    if (category != category)
     {
-      v10 = avt_default_log();
+      v10 = avt_default_log(category);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [AVTMemoji setPreset:forCategory:animated:];
@@ -1074,62 +1025,43 @@ LABEL_10:
     os_unfair_lock_lock(&self->_updateLock);
     v11 = [(AVTPresetStore *)&self->_presetStore->super.isa presetForCategory:category];
     v12 = v11;
-    if (v11 == v9 || ([v11 identifier], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, v13, (v15 & 1) != 0))
+    if (v11 == v8 || ([v11 identifier], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:"), v14, v13, (v15 & 1) != 0))
     {
       os_unfair_lock_unlock(&self->_updateLock);
     }
 
     else
     {
-      if ((category - 34) <= 5)
-      {
-        animatedCopy &= ~(0x3Du >> (category - 34));
-      }
-
-      v16 = [(AVTPresetStore *)self->_presetStore setPreset:v9 forCategory:category];
+      v16 = [(AVTPresetStore *)self->_presetStore setPreset:v8 forCategory:category];
       for (i = 0; i != 40; ++i)
       {
         if ((v16 >> i))
         {
           v18 = [(AVTPresetStore *)&self->_presetStore->super.isa resolvedPresetForCategory:?];
-          v19 = v18;
+          v20 = v18;
           if (v18)
           {
             newComponent = [v18 newComponent];
             if (newComponent)
             {
-              if (v19 == v9)
-              {
-                v21 = animatedCopy;
-              }
-
-              else
-              {
-                v21 = 0;
-              }
-
-              [(AVTMemoji *)self addComponent:newComponent animated:v21];
+              [AVTMemoji addComponent:"addComponent:animated:" animated:?];
             }
 
             else
             {
-              v23 = AVTPresetCategoryToComponentType(i);
+              v23 = AVTPresetCategoryToComponentType(i, v21);
               if (v23 > 0x2A || ((1 << v23) & 0x40400000001) == 0)
               {
-                [(AVTMemoji *)self removeComponentWithType:v23];
+                [(AVTMemoji *)self removeComponentWithType:?];
               }
             }
 
-            [(AVTMemoji *)self _applyAllColorPresetsForCategory:i];
+            [(AVTMemoji *)self _applyAllColorPresetsForCategory:?];
           }
 
-          else
+          else if (AVTPresetCategoryToComponentType(i, v19) != 42)
           {
-            v22 = AVTPresetCategoryToComponentType(i);
-            if (v22 != 42)
-            {
-              [(AVTMemoji *)self removeComponentWithType:v22];
-            }
+            [(AVTMemoji *)self removeComponentWithType:?];
           }
         }
       }
@@ -1142,8 +1074,8 @@ LABEL_10:
 - (void)addComponentAssetNode:(id)node toNode:(id)toNode forBodyParts:(unint64_t)parts
 {
   nodeCopy = node;
-  [toNode addChildNode:nodeCopy];
-  [(AVTAvatar *)self addCustomBehavioursInHierarchy:nodeCopy forBodyParts:parts];
+  [toNode addChildNode:?];
+  [AVTAvatar addCustomBehavioursInHierarchy:"addCustomBehavioursInHierarchy:forBodyParts:" forBodyParts:?];
   componentAssetNodeObservationForStickerBlock = self->_componentAssetNodeObservationForStickerBlock;
   if (componentAssetNodeObservationForStickerBlock)
   {
@@ -1155,15 +1087,15 @@ LABEL_10:
 {
   nodeCopy = node;
   componentAssetNodeObservationForStickerBlock = self->_componentAssetNodeObservationForStickerBlock;
-  v8 = nodeCopy;
+  v7 = nodeCopy;
   if (componentAssetNodeObservationForStickerBlock)
   {
     componentAssetNodeObservationForStickerBlock[2](componentAssetNodeObservationForStickerBlock, self, nodeCopy, 1);
-    nodeCopy = v8;
+    nodeCopy = v7;
   }
 
   [nodeCopy removeFromParentNode];
-  [(AVTAvatar *)self removeCustomBehavioursInHierarchy:v8 forBodyParts:parts];
+  [AVTAvatar removeCustomBehavioursInHierarchy:"removeCustomBehavioursInHierarchy:forBodyParts:" forBodyParts:?];
 }
 
 + (double)skinTextureSize
@@ -1184,91 +1116,83 @@ void __28__AVTMemoji_skinTextureSize__block_invoke()
 
 - (CGImage)createSkinCombinedAOImage
 {
-  v31 = *MEMORY[0x1E69E9840];
   +[AVTMemoji skinTextureSize];
   v4 = v3;
   v5 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
   v6 = CGBitmapContextCreate(0, v4, v4, 8uLL, 4 * v4, v5, 5u);
   CGColorSpaceRelease(v5);
   CGContextSetRGBFillColor(v6, 1.0, 1.0, 1.0, 1.0);
-  v32.origin.x = 0.0;
-  v32.origin.y = 0.0;
-  v32.size.width = v4;
-  v32.size.height = v4;
-  CGContextFillRect(v6, v32);
-  v23 = [(AVTMemoji *)self componentWithType:7];
+  v24.origin.x = 0.0;
+  v24.origin.y = 0.0;
+  v24.size.width = v4;
+  v24.size.height = v4;
+  CGContextFillRect(v6, v24);
+  v21 = [(AVTMemoji *)self componentWithType:?];
 
   for (i = 0; i != 42; ++i)
   {
-    if (i != 5 || !v23)
+    if (i != 5 || !v21)
     {
-      v25 = i;
-      v8 = [(AVTMemoji *)self componentWithType:?];
-      v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v24 = v8;
-      assets = [v8 assets];
-      v10 = [assets countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v10)
+      v23 = i;
+      v22 = [(AVTMemoji *)self componentWithType:?];
+      assets = [v22 assets];
+      v9 = [assets countByEnumeratingWithState:? objects:? count:?];
+      if (v9)
       {
-        v11 = v10;
-        v12 = *v27;
+        v10 = v9;
+        v11 = MEMORY[0];
         do
         {
-          for (j = 0; j != v11; ++j)
+          for (j = 0; j != v10; j = (j + 1))
           {
-            if (*v27 != v12)
+            if (MEMORY[0] != v11)
             {
               objc_enumerationMutation(assets);
             }
 
-            ambientOcclusion = [*(*(&v26 + 1) + 8 * j) ambientOcclusion];
+            ambientOcclusion = [*(8 * j) ambientOcclusion];
             if (ambientOcclusion)
             {
-              v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:ambientOcclusion isDirectory:0];
-              v16 = CGImageSourceCreateWithURL(v15, 0);
-              if (v16)
+              v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+              v15 = CGImageSourceCreateWithURL(v14, 0);
+              if (v15)
               {
-                v17 = v16;
-                ImageAtIndex = CGImageSourceCreateImageAtIndex(v16, 0, 0);
+                v16 = v15;
+                ImageAtIndex = CGImageSourceCreateImageAtIndex(v15, 0, 0);
                 if (ImageAtIndex)
                 {
-                  v19 = ImageAtIndex;
+                  v18 = ImageAtIndex;
                   CGContextSetBlendMode(v6, kCGBlendModeDarken);
-                  v33.origin.x = 0.0;
-                  v33.origin.y = 0.0;
-                  v33.size.width = v4;
-                  v33.size.height = v4;
-                  CGContextDrawImage(v6, v33, v19);
-                  CGImageRelease(v19);
+                  v25.origin.x = 0.0;
+                  v25.origin.y = 0.0;
+                  v25.size.width = v4;
+                  v25.size.height = v4;
+                  CGContextDrawImage(v6, v25, v18);
+                  CGImageRelease(v18);
                 }
 
-                CFRelease(v17);
+                CFRelease(v16);
               }
             }
           }
 
-          v11 = [assets countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v10 = [assets countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v11);
+        while (v10);
       }
 
-      i = v25;
+      i = v23;
     }
   }
 
   Image = CGBitmapContextCreateImage(v6);
   CGContextRelease(v6);
-  v21 = *MEMORY[0x1E69E9840];
   return Image;
 }
 
 - (void)updateSkinMaterial:(id)material
 {
-  v48 = *MEMORY[0x1E69E9840];
   materialCopy = material;
   if (!self->_skinAOIsValid)
   {
@@ -1276,120 +1200,98 @@ void __28__AVTMemoji_skinTextureSize__block_invoke()
     self->_skinAOIsValid = 1;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
   model = [(VFXNode *)self->_headNode model];
   materials = [model materials];
 
   obj = materials;
-  v6 = [materials countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v6 = [materials countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
     v7 = v6;
-    v39 = *v44;
-    v8 = @"lips_presence";
+    v33 = MEMORY[0];
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v44 != v39)
+        if (MEMORY[0] != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * v9);
-        v11 = +[AVTResourceLocator sharedResourceLocator];
-        v12 = [AVTResourceLocator pathForMemojiResource:v11 ofType:? inDirectory:? isDirectory:?];
-        multiply = [v10 multiply];
-        [multiply setContents:v12];
+        v9 = *(8 * i);
+        v10 = +[AVTResourceLocator sharedResourceLocator];
+        v11 = [AVTResourceLocator pathForMemojiResource:v10 ofType:? inDirectory:? isDirectory:?];
+        multiply = [v9 multiply];
+        [multiply setContents:?];
 
         facialhairColor = [(AVTMemoji *)self facialhairColor];
-        [v10 setValue:facialhairColor forKey:@"facialhair_color"];
+        [v9 setValue:? forKey:?];
 
         hairColor = [(AVTMemoji *)self hairColor];
-        [v10 setValue:hairColor forKey:@"hair_color"];
+        [v9 setValue:? forKey:?];
 
         lipsColor = [(AVTMemoji *)self lipsColor];
-        [v10 setValue:lipsColor forKey:@"lipstick_color"];
+        [v9 setValue:? forKey:?];
 
         eyebrowsColor = [(AVTMemoji *)self eyebrowsColor];
-        [v10 setValue:eyebrowsColor forKey:@"brow_color"];
+        [v9 setValue:? forKey:?];
 
-        v18 = [(AVTMemoji *)self componentWithType:5];
+        v17 = [(AVTMemoji *)self componentWithType:?];
+        [v17 textureAssetPresence];
+
+        v18 = [(AVTMemoji *)self componentWithType:?];
         [v18 textureAssetPresence];
-        v41 = v19;
 
-        v20 = [(AVTMemoji *)self componentWithType:3];
-        [v20 textureAssetPresence];
-        v40 = v21;
+        v19 = [(AVTMemoji *)self componentWithType:?];
+        [v19 textureAssetPresence];
 
-        v22 = [(AVTMemoji *)self componentWithType:1];
-        [v22 textureAssetPresence];
+        v20 = [(AVTMemoji *)self componentWithType:?];
+        v21 = [v20 materialAtIndex:?];
+        additionalPropertyColors = [v21 additionalPropertyColors];
+        v23 = [additionalPropertyColors objectForKeyedSubscript:?];
 
-        v23 = [(AVTMemoji *)self componentWithType:31];
-        v24 = [v23 materialAtIndex:0];
-        additionalPropertyColors = [v24 additionalPropertyColors];
-        v26 = [additionalPropertyColors objectForKeyedSubscript:@"lips_presence"];
-
-        if (v26)
+        if (v23)
         {
-          v27 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:{COERCE_DOUBLE(__PAIR64__(v40, v41))}];
-          [v10 setValue:v27 forKey:@"hairBeardBrows_presence"];
+          v24 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:?];
+          [v9 setValue:? forKey:?];
 
-          v29 = AVTGetColorComponents(v26, v28);
+          AVTGetColorComponents(v23);
         }
 
         else
         {
-          v30 = [(AVTMemoji *)self colorPresetForCategory:10];
-          [v30 variation];
-
-          v29 = COERCE_DOUBLE(__PAIR64__(v40, v41));
-          v8 = @"hairBeardBrowLips_presence";
+          v25 = [(AVTMemoji *)self colorPresetForCategory:?];
+          [v25 variation];
         }
 
-        v31 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:v29];
-        [v10 setValue:v31 forKey:v8];
+        v26 = [MEMORY[0x1E696B098] avt_valueWithFloat4_usableWithKVCForSCNVector4:?];
+        [v9 setValue:? forKey:?];
 
-        v32 = [(AVTMemoji *)self componentWithType:28];
-        v33 = [v32 materialAtIndex:0];
-        additionalPropertyColors2 = [v33 additionalPropertyColors];
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __32__AVTMemoji_updateSkinMaterial___block_invoke;
-        v42[3] = &unk_1E7F48558;
-        v42[4] = v10;
-        [additionalPropertyColors2 enumerateKeysAndObjectsUsingBlock:v42];
-
-        ++v9;
-        v8 = @"lips_presence";
+        v27 = [(AVTMemoji *)self componentWithType:?];
+        v28 = [v27 materialAtIndex:?];
+        additionalPropertyColors2 = [v28 additionalPropertyColors];
+        [additionalPropertyColors2 enumerateKeysAndObjectsUsingBlock:?];
       }
 
-      while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v7 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __32__AVTMemoji_updateSkinMaterial___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v9 = a2;
   v5 = a3;
-  v6 = [*(a1 + 32) valueForKey:v11];
+  v6 = [*(a1 + 32) valueForKey:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = AVTGetColorComponents(v5, v7);
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x1E696B098] avt_valueWithFloat4:v8];
-    [v9 setValue:v10 forKeyPath:v11];
+    AVTGetColorComponents(v5);
+    v7 = *(a1 + 32);
+    v8 = [MEMORY[0x1E696B098] avt_valueWithFloat4:?];
+    [v7 setValue:? forKeyPath:?];
   }
 }
 
@@ -1399,14 +1301,14 @@ void __32__AVTMemoji_updateSkinMaterial___block_invoke(uint64_t a1, void *a2, vo
   assetImage = [(AVTComponentInstance *)self->_componentInstances[2] assetImage];
   if (assetImage)
   {
-    [(VFXNode *)v14 setHidden:0];
+    [(VFXNode *)v14 setHidden:?];
     model = [(VFXNode *)v14 model];
     firstMaterial = [model firstMaterial];
     transparent = [firstMaterial transparent];
-    [transparent setContents:assetImage];
+    [transparent setContents:?];
 
-    v7 = [(AVTMemoji *)self componentWithType:2];
-    v8 = [v7 materialAtIndex:0];
+    v7 = [(AVTMemoji *)self componentWithType:?];
+    v8 = [v7 materialAtIndex:?];
     v9 = v8;
     if (v8)
     {
@@ -1414,13 +1316,13 @@ void __32__AVTMemoji_updateSkinMaterial___block_invoke(uint64_t a1, void *a2, vo
       model2 = [(VFXNode *)v14 model];
       firstMaterial2 = [model2 firstMaterial];
       diffuse = [firstMaterial2 diffuse];
-      [diffuse setContents:baseColor];
+      [diffuse setContents:?];
     }
   }
 
   else
   {
-    [(VFXNode *)v14 setHidden:1];
+    [(VFXNode *)v14 setHidden:?];
   }
 }
 
@@ -1446,8 +1348,8 @@ void __32__AVTMemoji_updateSkinMaterial___block_invoke(uint64_t a1, void *a2, vo
   assetNode = [(AVTComponentInstance *)self->_componentInstances[v5] assetNode];
   if (assetNode)
   {
-    v25 = self->_colorPresets[v6][0];
-    makeMaterial = [(AVTColorPreset *)v25 makeMaterial];
+    v23 = self->_colorPresets[v6][0];
+    makeMaterial = [(AVTColorPreset *)v23 makeMaterial];
     baseColor = [makeMaterial baseColor];
     v10 = baseColor;
     if (baseColor)
@@ -1457,112 +1359,92 @@ void __32__AVTMemoji_updateSkinMaterial___block_invoke(uint64_t a1, void *a2, vo
 
     else
     {
-      v11 = [MEMORY[0x1E69DC888] colorWithRed:0.803921569 green:0.803921569 blue:0.803921569 alpha:1.0];
+      v11 = [MEMORY[0x1E69DC888] colorWithRed:? green:? blue:? alpha:?];
     }
 
     v12 = v11;
 
     v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
     additionalPropertyColors = [makeMaterial additionalPropertyColors];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __46__AVTMemoji_updateHighlightsForComponentType___block_invoke;
-    v32[3] = &unk_1E7F48558;
-    v15 = v13;
-    v33 = v15;
-    [additionalPropertyColors enumerateKeysAndObjectsUsingBlock:v32];
+    v26 = v13;
+    [additionalPropertyColors enumerateKeysAndObjectsUsingBlock:?];
 
-    v16 = self->_components[v5];
-    v17 = self->_componentInstances[type];
-    v18 = [(AVTPresetStore *)&self->_presetStore->super.isa presetForCategory:v6];
-    identifier = [v18 identifier];
-    v20 = [identifier isEqualToString:@"none"];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __46__AVTMemoji_updateHighlightsForComponentType___block_invoke_2;
-    v26[3] = &unk_1E7F49B50;
-    v31 = v20 ^ 1;
-    v27 = v16;
-    v28 = v17;
-    v29 = v12;
-    v30 = v15;
-    v21 = v15;
-    v22 = v12;
-    v23 = v17;
-    v24 = v16;
-    [assetNode enumerateHierarchyUsingBlock:v26];
+    v15 = self->_components[v5];
+    v16 = self->_componentInstances[type];
+    v17 = [(AVTPresetStore *)&self->_presetStore->super.isa presetForCategory:v6];
+    identifier = [v17 identifier];
+    [identifier isEqualToString:?];
+    v24 = v15;
+    v25 = v12;
+    v19 = v26;
+    v20 = v12;
+    v21 = v16;
+    v22 = v15;
+    [assetNode enumerateHierarchyUsingBlock:?];
   }
 }
 
 void __46__AVTMemoji_updateHighlightsForComponentType___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v7 = [MEMORY[0x1E696B098] avt_valueWithFloat4:{AVTGetColorComponents(a3, v6)}];
-  [*(a1 + 32) setObject:v7 forKeyedSubscript:v5];
+  AVTGetColorComponents(a3);
+  v6 = [MEMORY[0x1E696B098] avt_valueWithFloat4:?];
+  [*(a1 + 32) setObject:? forKeyedSubscript:?];
 }
 
 void __46__AVTMemoji_updateHighlightsForComponentType___block_invoke_2(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
-  v36 = a2;
-  v3 = [v36 model];
+  v32 = a2;
+  v3 = [v32 model];
   v4 = [v3 materials];
 
   if (*(a1 + 64) == 1)
   {
-    v54 = 0uLL;
-    v55 = 0uLL;
-    v52 = 0uLL;
-    v53 = 0uLL;
     v5 = [*(a1 + 32) assets];
-    v6 = [v5 countByEnumeratingWithState:&v52 objects:v59 count:16];
+    v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
     if (v6)
     {
       v7 = v6;
       obj = v4;
-      v8 = *v53;
+      v8 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v53 != v8)
+          if (MEMORY[0] != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v52 + 1) + 8 * i);
-          v11 = [v36 name];
+          v10 = *(8 * i);
+          v11 = [v32 name];
           v12 = [v10 identifier];
-          v13 = [v11 isEqualToString:v12];
+          v13 = [v11 isEqualToString:?];
 
           if (v13)
           {
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
-            v49 = 0u;
             v19 = obj;
-            v20 = [v19 countByEnumeratingWithState:&v48 objects:v58 count:16];
+            v20 = [v19 countByEnumeratingWithState:? objects:? count:?];
             if (v20)
             {
               v21 = v20;
-              v22 = *v49;
+              v22 = MEMORY[0];
               do
               {
-                for (j = 0; j != v21; ++j)
+                for (j = 0; j != v21; j = (j + 1))
                 {
-                  if (*v49 != v22)
+                  if (MEMORY[0] != v22)
                   {
                     objc_enumerationMutation(v19);
                   }
 
-                  v24 = *(*(&v48 + 1) + 8 * j);
-                  v25 = [*(a1 + 40) assetImageForAsset:v10];
+                  v24 = *(8 * j);
+                  v25 = [*(a1 + 40) assetImageForAsset:?];
                   v26 = [v24 emission];
-                  [v26 setContents:v25];
+                  [v26 setContents:?];
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v48 objects:v58 count:16];
+                v21 = [v19 countByEnumeratingWithState:? objects:? count:?];
               }
 
               while (v21);
@@ -1572,7 +1454,7 @@ void __46__AVTMemoji_updateHighlightsForComponentType___block_invoke_2(uint64_t 
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v52 objects:v59 count:16];
+        v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
         if (v7)
         {
           continue;
@@ -1588,146 +1470,116 @@ LABEL_27:
 
   else
   {
-    v46 = 0uLL;
-    v47 = 0uLL;
-    v44 = 0uLL;
-    v45 = 0uLL;
     v5 = v4;
-    v14 = [v5 countByEnumeratingWithState:&v44 objects:v57 count:16];
+    v14 = [v5 countByEnumeratingWithState:? objects:? count:?];
     if (v14)
     {
       v15 = v14;
-      v16 = *v45;
+      v16 = MEMORY[0];
       do
       {
-        for (k = 0; k != v15; ++k)
+        for (k = 0; k != v15; k = (k + 1))
         {
-          if (*v45 != v16)
+          if (MEMORY[0] != v16)
           {
             objc_enumerationMutation(v5);
           }
 
-          v18 = [*(*(&v44 + 1) + 8 * k) emission];
-          [v18 setContents:0];
+          v18 = [*(8 * k) emission];
+          [v18 setContents:?];
         }
 
-        v15 = [v5 countByEnumeratingWithState:&v44 objects:v57 count:16];
+        v15 = [v5 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v15);
     }
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   obja = v4;
-  v27 = [obja countByEnumeratingWithState:&v40 objects:v56 count:16];
+  v27 = [obja countByEnumeratingWithState:? objects:? count:?];
   if (v27)
   {
     v28 = v27;
-    v29 = *v41;
+    v29 = MEMORY[0];
     do
     {
-      for (m = 0; m != v28; ++m)
+      for (m = 0; m != v28; m = (m + 1))
       {
-        if (*v41 != v29)
+        if (MEMORY[0] != v29)
         {
           objc_enumerationMutation(obja);
         }
 
-        v31 = *(*(&v40 + 1) + 8 * m);
-        v32 = *(a1 + 48);
-        v33 = [v31 selfIllumination];
-        [v33 setContents:v32];
+        v31 = [*(8 * m) selfIllumination];
+        [v31 setContents:?];
 
-        v34 = *(a1 + 56);
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __46__AVTMemoji_updateHighlightsForComponentType___block_invoke_3;
-        v39[3] = &unk_1E7F49B28;
-        v39[4] = v31;
-        [v34 enumerateKeysAndObjectsUsingBlock:v39];
+        [*(a1 + 56) enumerateKeysAndObjectsUsingBlock:?];
       }
 
-      v28 = [obja countByEnumeratingWithState:&v40 objects:v56 count:16];
+      v28 = [obja countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v28);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateSkinAO
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__7;
-  v32 = __Block_byref_object_dispose__7;
-  v33 = 0;
-  headNode = self->_headNode;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __26__AVTMemoji__updateSkinAO__block_invoke;
-  v27[3] = &unk_1E7F47DB8;
-  v27[4] = &v28;
-  [(VFXNode *)headNode enumerateHierarchyUsingBlock:v27];
-  [v29[5] setContents:0];
-  LODWORD(v3) = 1.5;
-  [v29[5] setIntensity:v3];
-  v21 = [(AVTMemoji *)self componentWithType:7];
+  v25 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__7;
+  v23 = __Block_byref_object_dispose__7;
+  v24 = 0;
+  [(VFXNode *)self->_headNode enumerateHierarchyUsingBlock:?];
+  [v20[5] setContents:?];
+  [v20[5] setIntensity:?];
+  v17 = [(AVTMemoji *)self componentWithType:?];
 
-  v4 = 0;
-  v5 = 0;
+  v2 = 0;
+  v3 = 0;
   for (i = 0; i != 42; ++i)
   {
-    if (i != 5 || !v21)
+    if (i != 5 || !v17)
     {
-      v7 = [(AVTMemoji *)self componentWithType:i];
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v22 = v7;
-      assets = [v7 assets];
-      v9 = [assets countByEnumeratingWithState:&v23 objects:v34 count:16];
-      if (v9)
+      v18 = [(AVTMemoji *)self componentWithType:?];
+      assets = [v18 assets];
+      v6 = [assets countByEnumeratingWithState:? objects:? count:?];
+      if (v6)
       {
-        v10 = *v24;
+        v7 = MEMORY[0];
         while (2)
         {
-          for (j = 0; j != v9; ++j)
+          for (j = 0; j != v6; j = (j + 1))
           {
-            if (*v24 != v10)
+            if (MEMORY[0] != v7)
             {
               objc_enumerationMutation(assets);
             }
 
-            ambientOcclusion = [*(*(&v23 + 1) + 8 * j) ambientOcclusion];
-            v13 = ambientOcclusion;
+            ambientOcclusion = [*(8 * j) ambientOcclusion];
+            v10 = ambientOcclusion;
             if (ambientOcclusion)
             {
-              v14 = ambientOcclusion;
+              v11 = ambientOcclusion;
 
-              if (v4 > 0)
+              if (v2 > 0)
               {
 
-                v5 = v14;
-                ++v4;
+                v3 = v11;
+                ++v2;
                 goto LABEL_16;
               }
 
-              v5 = v14;
-              ++v4;
+              v3 = v11;
+              ++v2;
             }
           }
 
-          v9 = [assets countByEnumeratingWithState:&v23 objects:v34 count:16];
-          if (v9)
+          v6 = [assets countByEnumeratingWithState:? objects:? count:?];
+          if (v6)
           {
             continue;
           }
@@ -1740,30 +1592,29 @@ LABEL_16:
     }
   }
 
-  if (v4 > 1)
+  if (v2 > 1)
   {
     createSkinCombinedAOImage = [(AVTMemoji *)self createSkinCombinedAOImage];
     self->_combinedAOImage = createSkinCombinedAOImage;
-    v16 = createSkinCombinedAOImage;
+    v13 = createSkinCombinedAOImage;
 
-    v5 = v16;
+    v3 = v13;
   }
 
-  if (v5)
+  if (v3)
   {
-    [v29[5] setContents:v5];
+    [v20[5] setContents:?];
   }
 
   else
   {
-    v17 = +[AVTResourceLocator sharedResourceLocator];
-    v18 = [AVTResourceLocator pathForMemojiResource:v17 ofType:? inDirectory:? isDirectory:?];
+    v14 = +[AVTResourceLocator sharedResourceLocator];
+    v15 = [AVTResourceLocator pathForMemojiResource:v14 ofType:? inDirectory:? isDirectory:?];
 
-    [v29[5] setContents:v18];
+    [v20[5] setContents:?];
   }
 
-  _Block_object_dispose(&v28, 8);
-  v19 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
 }
 
 void __26__AVTMemoji__updateSkinAO__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -1790,7 +1641,7 @@ void __26__AVTMemoji__updateSkinAO__block_invoke(uint64_t a1, void *a2, _BYTE *a
     os_unfair_lock_lock(&self->_updateLock);
     if (self->_needsUpdate)
     {
-      [(AVTMemoji *)self _updateWithOptions:options];
+      [(AVTMemoji *)self _updateWithOptions:?];
       [(AVTMemoji *)self rebuildSpecializationSettings];
     }
 
@@ -1802,9 +1653,9 @@ void __26__AVTMemoji__updateSkinAO__block_invoke(uint64_t a1, void *a2, _BYTE *a
 {
   instanceCopy = instance;
   v7 = self->_componentInstances[type];
-  v8 = AVTAvatarBodyPartForComponentType(type);
+  AVTAvatarBodyPartForComponentType(type);
   assetNode = [(AVTComponentInstance *)v7 assetNode];
-  [(AVTMemoji *)self removeComponentAssetNodeFromParentNode:assetNode forBodyParts:v8];
+  [AVTMemoji removeComponentAssetNodeFromParentNode:"removeComponentAssetNodeFromParentNode:forBodyParts:" forBodyParts:?];
 
   objc_storeStrong(&self->_componentInstances[type], instance);
   if (-[AVTComponentInstance has2DAsset](v7, "has2DAsset") || [instanceCopy has2DAsset])
@@ -1842,32 +1693,32 @@ LABEL_11:
     v5 = self->_components[34];
     if (!v5)
     {
-      v6 = avt_default_log();
+      v6 = avt_default_log(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [AVTMemoji _addTorsoComponentInstanceIfNeeded];
       }
     }
 
-    v7 = [[AVTComponentInstance alloc] initWithComponent:v5 assetResourceCache:self->_resourceCache];
-    [(AVTMemoji *)self setInstance:v7 forComponentType:34];
+    v7 = [AVTComponentInstance initWithComponent:"initWithComponent:assetResourceCache:" assetResourceCache:?];
+    [AVTMemoji setInstance:"setInstance:forComponentType:" forComponentType:?];
     assetNode = [(AVTComponentInstance *)v7 assetNode];
     v9 = self->_torsoNode;
     self->_torsoNode = assetNode;
 
-    [(AVTMemoji *)self addComponentAssetNode:self->_torsoNode toNode:self->_bodyComponentContainer forBodyParts:2];
-    [(AVTAvatar *)self resetPresentationConfigurationBehavioursInHierarchy:self->_torsoNode forBodyParts:2];
-    v10 = [(AVTComponent *)components[28] materialAtIndex:0];
-    [(AVTComponent *)v5 setMaterial:v10 atIndex:0];
-    [(AVTMemoji *)self componentMaterialDidUpdate:v5];
+    [AVTMemoji addComponentAssetNode:"addComponentAssetNode:toNode:forBodyParts:" toNode:? forBodyParts:?];
+    [AVTAvatar resetPresentationConfigurationBehavioursInHierarchy:"resetPresentationConfigurationBehavioursInHierarchy:forBodyParts:" forBodyParts:?];
+    v10 = [(AVTComponent *)components[28] materialAtIndex:?];
+    [AVTComponent setMaterial:v5 atIndex:"setMaterial:atIndex:"];
+    [(AVTMemoji *)self componentMaterialDidUpdate:?];
     bodyComponentContainer = self->_bodyComponentContainer;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __47__AVTMemoji__addTorsoComponentInstanceIfNeeded__block_invoke;
-    v13[3] = &unk_1E7F47B10;
-    v13[4] = self;
-    [(VFXNode *)bodyComponentContainer enumerateChildNodesUsingBlock:v13];
-    [(AVTMemoji *)self _didInstantiateLazyComponentInstanceOfType:34 assetNode:self->_torsoNode];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __47__AVTMemoji__addTorsoComponentInstanceIfNeeded__block_invoke;
+    v16 = &unk_1E7F47B10;
+    selfCopy = self;
+    [(VFXNode *)bodyComponentContainer enumerateChildNodesUsingBlock:?];
+    [AVTMemoji _didInstantiateLazyComponentInstanceOfType:"_didInstantiateLazyComponentInstanceOfType:assetNode:" assetNode:?];
   }
 
   return torsoNode == 0;
@@ -1875,9 +1726,8 @@ LABEL_11:
 
 void __47__AVTMemoji__addTorsoComponentInstanceIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 336);
-  v3 = [a2 skinner];
-  [v3 setSkeleton:v2];
+  v2 = [a2 skinner];
+  [v2 setSkeleton:?];
 }
 
 - (id)_wrapDeformerDriverInfoForComponentType:(int64_t)type
@@ -1918,64 +1768,60 @@ LABEL_9:
 - (id)wrapDeformedDriverNamed:(id)named forComponentType:(int64_t)type
 {
   namedCopy = named;
-  v7 = [(AVTMemoji *)self _wrapDeformerDriverInfoForComponentType:type];
+  v7 = [(AVTMemoji *)self _wrapDeformerDriverInfoForComponentType:?];
   v8 = v7;
   if (v7)
   {
-    v9 = [*(v7 + 8) objectForKeyedSubscript:namedCopy];
+    v9 = [*(v7 + 8) objectForKeyedSubscript:?];
     if (!v9)
     {
-      v10 = [@"main" stringByAppendingPathExtension:@"vfxz-world"];
-      namedCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@.aa", @"drivers", namedCopy];
-      v20 = v10;
-      v12 = [namedCopy stringByAppendingPathComponent:v10];
+      v10 = [@"main" stringByAppendingPathExtension:?];
+      namedCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"drivers", namedCopy];
+      v22 = v10;
+      v12 = [namedCopy stringByAppendingPathComponent:?];
       v13 = +[AVTResourceLocator sharedResourceLocator];
       v14 = [(AVTResourceLocator *)v13 urlForMemojiAssetAtPath:v12 isDirectory:0];
 
-      v22 = 0;
-      v9 = [MEMORY[0x1E69DF388] avt_nodeNamed:namedCopy forWorldAtURL:v14 options:0 error:&v22];
-      v15 = v22;
+      v9 = [MEMORY[0x1E69DF388] avt_nodeNamed:? forWorldAtURL:? options:? error:?];
+      v15 = 0;
+      v16 = v15;
       if (v15)
       {
-        v16 = avt_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = avt_default_log(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [AVTMemoji initWithDescriptor:v14 usageIntent:v15 error:?];
+          [AVTMemoji initWithDescriptor:v14 usageIntent:v16 error:?];
         }
       }
 
       if (!v9)
       {
-        v17 = avt_default_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-        {
-          [AVTMemoji wrapDeformedDriverNamed:forComponentType:];
-        }
-      }
-
-      [v9 setHidden:1];
-      [v9 removeFromParentNode];
-      [(VFXNode *)self->_bodyComponentContainer addChildNode:v9];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __54__AVTMemoji_wrapDeformedDriverNamed_forComponentType___block_invoke;
-      v21[3] = &unk_1E7F47B10;
-      v21[4] = self;
-      [v9 enumerateChildNodesUsingBlock:v21];
-      [v8[1] setObject:v9 forKeyedSubscript:namedCopy];
-      if ([v8[1] count] >= 9)
-      {
-        v18 = avt_default_log();
+        v18 = avt_default_log(v15);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [AVTMemoji wrapDeformedDriverNamed:forComponentType:];
         }
       }
 
-      [(AVTMemoji *)self _didInstantiateLazyComponentInstanceOfType:type assetNode:v9];
+      [v9 setHidden:?];
+      [v9 removeFromParentNode];
+      [(VFXNode *)self->_bodyComponentContainer addChildNode:?];
+      [v9 enumerateChildNodesUsingBlock:?];
+      [v8[1] setObject:? forKeyedSubscript:?];
+      v19 = [v8[1] count];
+      if (v19 >= 9)
+      {
+        v20 = avt_default_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          [AVTMemoji wrapDeformedDriverNamed:forComponentType:];
+        }
+      }
+
+      [AVTMemoji _didInstantiateLazyComponentInstanceOfType:"_didInstantiateLazyComponentInstanceOfType:assetNode:" assetNode:?];
       if (type == 7)
       {
-        [(AVTAvatar *)self updateBindingsOfNode:v9];
+        [(AVTAvatar *)self updateBindingsOfNode:?];
       }
     }
   }
@@ -1990,26 +1836,22 @@ LABEL_9:
 
 void __54__AVTMemoji_wrapDeformedDriverNamed_forComponentType___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 336);
-  v3 = [a2 skinner];
-  [v3 setSkeleton:v2];
+  v2 = [a2 skinner];
+  [v2 setSkeleton:?];
 }
 
 - (void)enumerateActiveWrapDeformerDriversForComponentType:(int64_t)type usingBlock:(id)block
 {
   blockCopy = block;
-  v7 = [(AVTMemoji *)self _wrapDeformerDriverInfoForComponentType:type];
-  v8 = v7;
-  if (v7)
+  v6 = [(AVTMemoji *)self _wrapDeformerDriverInfoForComponentType:?];
+  v7 = v6;
+  if (v6)
   {
-    v9 = v7[2];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __75__AVTMemoji_enumerateActiveWrapDeformerDriversForComponentType_usingBlock___block_invoke;
-    v10[3] = &unk_1E7F49B78;
-    v11 = v7;
-    v12 = blockCopy;
-    [v9 enumerateKeysAndObjectsUsingBlock:v10];
+    v8 = v6[2];
+    v9 = MEMORY[0x1E69E9820];
+    v10 = v6;
+    v11 = blockCopy;
+    [v8 enumerateKeysAndObjectsUsingBlock:{v9, 3221225472, __75__AVTMemoji_enumerateActiveWrapDeformerDriversForComponentType_usingBlock___block_invoke, &unk_1E7F49B78}];
   }
 }
 
@@ -2018,7 +1860,7 @@ void __75__AVTMemoji_enumerateActiveWrapDeformerDriversForComponentType_usingBlo
   v6 = a2;
   if ([a3 unsignedIntegerValue] == 1)
   {
-    v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v6];
+    v5 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:?];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -2030,19 +1872,19 @@ void __75__AVTMemoji_enumerateActiveWrapDeformerDriversForComponentType_usingBlo
   if (v5)
   {
     v7 = v5[1];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke;
-    v25[3] = &unk_1E7F49BA0;
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke;
+    v29 = &unk_1E7F49BA0;
     v8 = v5;
-    v26 = v8;
-    [v7 enumerateKeysAndObjectsUsingBlock:v25];
+    v30 = v8;
+    [v7 enumerateKeysAndObjectsUsingBlock:?];
     v9 = self->_componentInstances[type];
     assetNode = [(AVTComponentInstance *)v9 assetNode];
     v11 = assetNode;
     if (type == 35)
     {
-      [(VFXNode *)self->_bodyComponentContainer convertTransform:self->_skeletonRootNode fromNode:*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48)];
+      [VFXNode convertTransform:"convertTransform:fromNode:" fromNode:?];
       [v11 setTransform:?];
       if ((self->_visibleBodyParts & 2) == 0)
       {
@@ -2052,146 +1894,106 @@ void __75__AVTMemoji_enumerateActiveWrapDeformerDriversForComponentType_usingBlo
 
     else if ((self->_visibleBodyParts & 2) == 0)
     {
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x2020000000;
       v18 = 0;
-      v19 = &v18;
-      v20 = 0x2020000000;
-      v21 = 0;
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_333;
-      v17[3] = &unk_1E7F47DB8;
-      v17[4] = &v18;
-      [assetNode enumerateHierarchyUsingBlock:v17];
-      if (*(v19 + 24) == 1)
+      [assetNode enumerateHierarchyUsingBlock:?];
+      if (*(v16 + 24) == 1)
       {
-        [(AVTMemoji *)self _applyMorphVariantsForLazyComponentInstanceOfType:type assetNode:v11];
+        [AVTMemoji _applyMorphVariantsForLazyComponentInstanceOfType:"_applyMorphVariantsForLazyComponentInstanceOfType:assetNode:" assetNode:?];
       }
 
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v15, 8);
       goto LABEL_10;
     }
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308;
-    v22[3] = &unk_1E7F49BC8;
-    v22[4] = self;
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308;
+    v22 = &unk_1E7F49BC8;
+    selfCopy = self;
     typeCopy = type;
-    v23 = v8;
-    [v11 enumerateHierarchyUsingBlock:v22];
+    v24 = v8;
+    [v11 enumerateHierarchyUsingBlock:?];
 
 LABEL_10:
     v12 = v6[1];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2;
-    v13[3] = &unk_1E7F49BF0;
+    v13 = MEMORY[0x1E69E9820];
     v14 = v8;
-    selfCopy = self;
-    typeCopy2 = type;
-    [v12 enumerateKeysAndObjectsUsingBlock:v13];
+    [v12 enumerateKeysAndObjectsUsingBlock:{v13, 3221225472, __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2, &unk_1E7F49BF0}];
   }
 }
 
 void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   v3 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:?];
   v4 = v3;
-  if (v3 && [v3 unsignedIntegerValue] == 1)
+  if (v3)
   {
-    v5 = &unk_1F39D93E0;
+    [v3 unsignedIntegerValue];
   }
 
-  else
-  {
-    v5 = &unk_1F39D93F8;
-  }
-
-  [*(*(a1 + 32) + 16) setObject:v5 forKeyedSubscript:v6];
+  [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
 }
 
 void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308(uint64_t a1, void *a2)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 model];
 
   if (v4)
   {
-    v5 = [v3 valueForUndefinedKey:@"wrapDeformerDriverName"];
-    if (!v5)
+    v5 = [v3 valueForUndefinedKey:?];
+    if (v5)
     {
-LABEL_22:
-
-      goto LABEL_23;
-    }
-
-    v6 = [*(a1 + 32) wrapDeformedDriverNamed:v5 forComponentType:*(a1 + 48)];
-    if (!v6)
-    {
-      v7 = avt_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = [*(a1 + 32) wrapDeformedDriverNamed:? forComponentType:?];
+      if (!v6)
       {
-        __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308_cold_1();
-      }
-    }
-
-    v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:v5];
-    v9 = v8;
-    if (v8)
-    {
-      v10 = [v8 unsignedIntegerValue];
-      if (v10 == 1003)
-      {
-        v11 = &unk_1F39D9410;
-        goto LABEL_12;
-      }
-
-      if (v10 != 1000)
-      {
-LABEL_13:
-        v12 = [v3 deformers];
-        v13 = [v12 count];
-
-        if (!v13)
+        v7 = avt_default_log(0);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v14 = [v6 childNodeWithName:@"innerLayer" recursively:1];
-          v15 = [v6 childNodeWithName:@"outerLayer" recursively:1];
-          v16 = [v3 valueForUndefinedKey:@"wrapDeformerParameters"];
-          v17 = [objc_alloc(MEMORY[0x1E69DF320]) initWithInnerLayerNode:v14 outerLayerNode:v15 parameters:v16];
-          v22[0] = v17;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-          [v3 setDeformers:v18];
+          __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308_cold_1();
+        }
+      }
 
-          v19 = [v3 morpher];
-          if (v19 && (![v16 bindingMode] || *(a1 + 48) == 7))
-          {
-            [v3 setValue:v19 forUndefinedKey:@"wrapDeformeMorpherBackup"];
-            [v3 setMorpher:0];
-          }
+      v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:?];
+      v9 = v8;
+      if (!v8 || (v10 = [v8 unsignedIntegerValue], v10 == 1003) || v10 == 1000)
+      {
+        [*(*(a1 + 40) + 16) setObject:? forKeyedSubscript:?];
+      }
 
-          v20 = [v3 skinner];
-          if (v20)
-          {
-            [v3 setValue:v20 forUndefinedKey:@"wrapDeformeSkinnerBackup"];
-            [v3 setSkinner:0];
-          }
+      v11 = [v3 deformers];
+      v12 = [v11 count];
+
+      if (!v12)
+      {
+        v13 = [v6 childNodeWithName:? recursively:?];
+        v14 = [v6 childNodeWithName:? recursively:?];
+        v15 = [v3 valueForUndefinedKey:?];
+        v16 = [objc_alloc(MEMORY[0x1E69DF320]) initWithInnerLayerNode:? outerLayerNode:? parameters:?];
+        v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:v20];
+        [v3 setDeformers:?];
+
+        v18 = [v3 morpher];
+        if (v18 && (![v15 bindingMode] || *(a1 + 48) == 7))
+        {
+          [v3 setValue:? forUndefinedKey:?];
+          [v3 setMorpher:?];
         }
 
-        goto LABEL_22;
+        v19 = [v3 skinner];
+        if (v19)
+        {
+          [v3 setValue:? forUndefinedKey:?];
+          [v3 setSkinner:?];
+        }
       }
     }
-
-    v11 = &unk_1F39D9428;
-LABEL_12:
-    [*(*(a1 + 40) + 16) setObject:v11 forKeyedSubscript:v5];
-    goto LABEL_13;
   }
-
-LABEL_23:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_333(uint64_t a1, void *a2)
@@ -2202,18 +2004,18 @@ void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_3
 
   if (v4)
   {
-    [v7 setDeformers:0];
-    v5 = [v7 valueForUndefinedKey:@"wrapDeformeMorpherBackup"];
+    [v7 setDeformers:?];
+    v5 = [v7 valueForUndefinedKey:?];
     if (v5)
     {
-      [v7 setMorpher:v5];
+      [v7 setMorpher:?];
       *(*(*(a1 + 32) + 8) + 24) = 1;
     }
 
-    v6 = [v7 valueForUndefinedKey:@"wrapDeformeSkinnerBackup"];
+    v6 = [v7 valueForUndefinedKey:?];
     if (v6)
     {
-      [v7 setSkinner:v6];
+      [v7 setSkinner:?];
     }
   }
 }
@@ -2222,10 +2024,10 @@ void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2
 {
   v5 = a2;
   v6 = a3;
-  v7 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:v5];
+  v7 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:?];
   if (!v7)
   {
-    v8 = avt_default_log();
+    v8 = avt_default_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2_cold_1();
@@ -2238,7 +2040,6 @@ void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2
     if (v9 == 1002)
     {
       v11 = *(*(a1 + 32) + 16);
-      v12 = &unk_1F39D9458;
       goto LABEL_19;
     }
 
@@ -2247,18 +2048,17 @@ void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2
       goto LABEL_15;
     }
 
-    [*(*(a1 + 32) + 16) setObject:&unk_1F39D9458 forKeyedSubscript:v5];
-    [*(a1 + 40) _willDeactivateLazyComponentInstanceOfType:*(a1 + 48) assetNode:v6];
+    [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
+    [*(a1 + 40) _willDeactivateLazyComponentInstanceOfType:? assetNode:?];
     if (*(*(a1 + 40) + 2416))
     {
-      [*(*(a1 + 32) + 16) setObject:&unk_1F39D9440 forKeyedSubscript:v5];
+      [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
     }
 
 LABEL_14:
     v11 = *(*(a1 + 32) + 16);
-    v12 = &unk_1F39D9440;
 LABEL_19:
-    [v11 setObject:v12 forKeyedSubscript:v5];
+    [v11 setObject:? forKeyedSubscript:?];
     goto LABEL_20;
   }
 
@@ -2269,8 +2069,8 @@ LABEL_19:
 
   if (v9 == 1001)
   {
-    [*(*(a1 + 32) + 16) setObject:&unk_1F39D9458 forKeyedSubscript:v5];
-    [*(a1 + 40) _didActivateLazyComponentInstanceOfType:*(a1 + 48) assetNode:v6];
+    [*(*(a1 + 32) + 16) setObject:? forKeyedSubscript:?];
+    [*(a1 + 40) _didActivateLazyComponentInstanceOfType:? assetNode:?];
     v10 = *(*(a1 + 40) + 2416);
     if (v10)
     {
@@ -2281,8 +2081,8 @@ LABEL_19:
   }
 
 LABEL_15:
-  v13 = avt_default_log();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = avt_default_log(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2_cold_2();
   }
@@ -2292,44 +2092,43 @@ LABEL_20:
 
 - (void)_updateWithOptions:(unint64_t)options
 {
-  v115 = *MEMORY[0x1E69E9840];
   self->_needsUpdate = 0;
   componentDirtyMask = self->_componentDirtyMask;
   optionsCopy = options;
   if (!componentDirtyMask)
   {
-    v33 = 0;
-    v82 = 0;
+    v31 = 0;
+    v72 = 0;
     goto LABEL_68;
   }
 
   if ((componentDirtyMask & 0x400000000) != 0)
   {
     visibleBodyParts = self->_visibleBodyParts;
-    [(VFXNode *)self->_bodyComponentContainer setHidden:(visibleBodyParts & 2) == 0];
+    [(VFXNode *)self->_bodyComponentContainer setHidden:?];
     if ((visibleBodyParts & 2) != 0 && [(AVTMemoji *)self _addTorsoComponentInstanceIfNeeded])
     {
       self->_componentDirtyMask |= 0x800000080uLL;
     }
 
-    [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:35];
-    [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:7];
+    [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:?];
+    [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:?];
     componentDirtyMask = self->_componentDirtyMask;
   }
 
   if ((componentDirtyMask & 0x2000000000) != 0)
   {
     v6 = self->_visibleBodyParts;
-    [(VFXNode *)self->_handsComponentContainer setHidden:(v6 & 4) == 0];
+    [(VFXNode *)self->_handsComponentContainer setHidden:?];
     if ((v6 & 4) != 0)
     {
       [(AVTMemoji *)self _addHandsComponentInstanceIfNeeded];
     }
   }
 
-  v81 = 0;
+  v71 = 0;
   v7 = 0;
-  v78 = 0;
+  v68 = 0;
   do
   {
     if (v7 > 0x25 || ((1 << v7) & 0x2400000001) == 0) && ((self->_componentDirtyMask >> v7))
@@ -2337,10 +2136,10 @@ LABEL_20:
       v8 = AVTBodyRegionForComponentType(v7);
       if (v8 != 1 || self->_torsoNode)
       {
-        v9 = [(AVTMemoji *)self componentWithType:v7];
+        v9 = [(AVTMemoji *)self componentWithType:?];
         if (v9)
         {
-          v10 = [[AVTComponentInstance alloc] initWithComponent:v9 assetResourceCache:self->_resourceCache];
+          v10 = [AVTComponentInstance initWithComponent:"initWithComponent:assetResourceCache:" assetResourceCache:?];
         }
 
         else
@@ -2348,20 +2147,19 @@ LABEL_20:
           v10 = 0;
         }
 
-        [(AVTMemoji *)self setInstance:v10 forComponentType:v7];
+        [AVTMemoji setInstance:"setInstance:forComponentType:" forComponentType:?];
         if (v7 == 35)
         {
           v11 = self->_components[8];
           morphVariant = [(AVTComponent *)v11 morphVariant];
-          v13 = [morphVariant isEqualToString:@"variant_age_child"];
+          v13 = [morphVariant isEqualToString:?];
 
-          v14 = 0.0;
           if (v13)
           {
             [(AVTComponent *)v11 morphVariantIntensity];
           }
 
-          [(AVTComponentInstance *)v10 setSkinnerVariantIntensity:self->_skeletonRootNode skeleton:v14];
+          [AVTComponentInstance setSkinnerVariantIntensity:v10 skeleton:"setSkinnerVariantIntensity:skeleton:"];
         }
 
         assetNode = [(AVTComponentInstance *)v10 assetNode];
@@ -2372,18 +2170,18 @@ LABEL_20:
 
         if (v7 != 28)
         {
-          [(AVTComponentInstance *)v10 updateMaterialsWithComponent:v9];
+          [(AVTComponentInstance *)v10 updateMaterialsWithComponent:?];
         }
 
         if (v8 == 1)
         {
-          [(AVTMemoji *)self addComponentAssetNode:assetNode toNode:self->_bodyComponentContainer forBodyParts:2];
-          [(AVTAvatar *)self resetPresentationConfigurationBehavioursInHierarchy:assetNode forBodyParts:2];
-          v16 = v81;
-          if (!v81)
+          [AVTMemoji addComponentAssetNode:"addComponentAssetNode:toNode:forBodyParts:" toNode:? forBodyParts:?];
+          [AVTAvatar resetPresentationConfigurationBehavioursInHierarchy:"resetPresentationConfigurationBehavioursInHierarchy:forBodyParts:" forBodyParts:?];
+          v15 = v71;
+          if (!v71)
           {
-            v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v81 = v16;
+            v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v71 = v15;
           }
         }
 
@@ -2392,22 +2190,22 @@ LABEL_20:
           if (v8)
           {
 LABEL_35:
-            [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:v7];
+            [(AVTMemoji *)self updateWrapDeformerIsActiveForComponentType:?];
 LABEL_36:
 
             goto LABEL_13;
           }
 
-          [(AVTMemoji *)self addComponentAssetNode:assetNode toNode:self->_headComponentContainer forBodyParts:1];
-          v16 = v78;
-          if (!v78)
+          [AVTMemoji addComponentAssetNode:"addComponentAssetNode:toNode:forBodyParts:" toNode:? forBodyParts:?];
+          v15 = v68;
+          if (!v68)
           {
-            v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v78 = v16;
+            v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v68 = v15;
           }
         }
 
-        [v16 addObject:assetNode];
+        [v15 addObject:?];
         goto LABEL_35;
       }
     }
@@ -2418,172 +2216,145 @@ LABEL_13:
 
   while (v7 != 42);
   [(AVTMemoji *)self updateEyeLashes];
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
-  v106 = 0u;
-  v17 = v78;
-  v18 = [v17 countByEnumeratingWithState:&v105 objects:v114 count:16];
-  if (v18)
+  v16 = v68;
+  v17 = [v16 countByEnumeratingWithState:? objects:? count:?];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v106;
+    v18 = v17;
+    v19 = MEMORY[0];
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; i = (i + 1))
       {
-        if (*v106 != v20)
+        if (MEMORY[0] != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        [(AVTAvatar *)self updateBindingsOfNode:*(*(&v105 + 1) + 8 * i)];
+        [(AVTAvatar *)self updateBindingsOfNode:?];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v105 objects:v114 count:16];
+      v18 = [v16 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v19);
+    while (v18);
   }
 
-  v103 = 0u;
-  v104 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v22 = v81;
-  v23 = [v22 countByEnumeratingWithState:&v101 objects:v113 count:16];
-  if (v23)
+  v21 = v71;
+  v22 = [v21 countByEnumeratingWithState:? objects:? count:?];
+  if (v22)
   {
-    v24 = v23;
-    v25 = *v102;
+    v23 = v22;
+    v24 = MEMORY[0];
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v23; j = (j + 1))
       {
-        if (*v102 != v25)
+        if (MEMORY[0] != v24)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v21);
         }
 
-        [(AVTAvatar *)self updateBindingsOfNode:*(*(&v101 + 1) + 8 * j)];
+        [(AVTAvatar *)self updateBindingsOfNode:?];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v101 objects:v113 count:16];
+      v23 = [v21 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v24);
+    while (v23);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v27 = v17;
-  v28 = [v27 countByEnumeratingWithState:&v97 objects:v112 count:16];
-  if (v28)
+  v26 = v16;
+  v27 = [v26 countByEnumeratingWithState:? objects:? count:?];
+  if (v27)
   {
-    v29 = v28;
-    v30 = *v98;
+    v28 = v27;
+    v29 = MEMORY[0];
     do
     {
-      for (k = 0; k != v29; ++k)
+      for (k = 0; k != v28; k = (k + 1))
       {
-        if (*v98 != v30)
+        if (MEMORY[0] != v29)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v26);
         }
 
-        v32 = *(*(&v97 + 1) + 8 * k);
-        v96[0] = MEMORY[0x1E69E9820];
-        v96[1] = 3221225472;
-        v96[2] = __32__AVTMemoji__updateWithOptions___block_invoke;
-        v96[3] = &unk_1E7F47B10;
-        v96[4] = self;
-        [v32 enumerateHierarchyUsingBlock:v96];
+        [*(8 * k) enumerateHierarchyUsingBlock:?];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v97 objects:v112 count:16];
+      v28 = [v26 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v33 = v22;
-  v34 = [v33 countByEnumeratingWithState:&v92 objects:v111 count:16];
-  if (v34)
+  v31 = v21;
+  v32 = [v31 countByEnumeratingWithState:? objects:? count:?];
+  if (v32)
   {
-    v35 = v34;
-    v36 = *v93;
+    v33 = v32;
+    v34 = MEMORY[0];
     do
     {
-      for (m = 0; m != v35; ++m)
+      for (m = 0; m != v33; m = (m + 1))
       {
-        if (*v93 != v36)
+        if (MEMORY[0] != v34)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v31);
         }
 
-        v38 = *(*(&v92 + 1) + 8 * m);
-        v91[0] = MEMORY[0x1E69E9820];
-        v91[1] = 3221225472;
-        v91[2] = __32__AVTMemoji__updateWithOptions___block_invoke_2;
-        v91[3] = &unk_1E7F47B10;
-        v91[4] = self;
-        [v38 enumerateHierarchyUsingBlock:v91];
+        [*(8 * m) enumerateHierarchyUsingBlock:?];
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v92 objects:v111 count:16];
+      v33 = [v31 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v35);
+    while (v33);
   }
 
-  v82 = v27;
+  v72 = v26;
   if ([(AVTAvatar *)self optimizeForSnapshot])
   {
     assetNode2 = [(AVTComponentInstance *)self->_componentInstances[5] assetNode];
-    [assetNode2 avt_enableSubdivisionOnHierarchyWithQuality:0 animoji:0];
+    [assetNode2 avt_enableSubdivisionOnHierarchyWithQuality:? animoji:?];
 
     assetNode3 = [(AVTComponentInstance *)self->_componentInstances[3] assetNode];
-    [assetNode3 avt_enableSubdivisionOnHierarchyWithQuality:0 animoji:0];
+    [assetNode3 avt_enableSubdivisionOnHierarchyWithQuality:? animoji:?];
   }
 
 LABEL_68:
-  v41 = 0;
+  v38 = 0;
   currentPresetsForVariants = self->_currentPresetsForVariants;
   do
   {
-    [(AVTMemoji *)self unapplyVariantDependenciesForPreset:currentPresetsForVariants[v41++] dirtyComponents:self->_componentDirtyMask];
+    [AVTMemoji unapplyVariantDependenciesForPreset:"unapplyVariantDependenciesForPreset:dirtyComponents:" dirtyComponents:?];
+    v38 += 8;
   }
 
-  while (v41 != 40);
+  while (v38 != 320);
   for (n = 0; n != 40; ++n)
   {
-    v44 = [(AVTPresetStore *)&self->_presetStore->super.isa resolvedPresetForCategory:?];
-    [(AVTMemoji *)self applyVariantDependenciesForPreset:v44 dirtyComponents:self->_componentDirtyMask];
-    v45 = currentPresetsForVariants[n];
-    currentPresetsForVariants[n] = v44;
+    v41 = [(AVTPresetStore *)&self->_presetStore->super.isa resolvedPresetForCategory:?];
+    [AVTMemoji applyVariantDependenciesForPreset:"applyVariantDependenciesForPreset:dirtyComponents:" dirtyComponents:?];
+    v42 = currentPresetsForVariants[n];
+    currentPresetsForVariants[n] = v41;
   }
 
-  v46 = self->_componentDirtyMask;
-  if ((v46 & 0x820) != 0)
+  v43 = self->_componentDirtyMask;
+  if ((v43 & 0x820) != 0)
   {
-    [(AVTMemoji *)self updateHighlightsForComponentType:11];
+    [(AVTMemoji *)self updateHighlightsForComponentType:?];
   }
 
-  v77 = v46;
-  v47 = v82;
-  if ((v46 & 0x1008) != 0)
+  v67 = v43;
+  v44 = v72;
+  if ((v43 & 0x1008) != 0)
   {
-    [(AVTMemoji *)self updateHighlightsForComponentType:12];
+    [(AVTMemoji *)self updateHighlightsForComponentType:?];
   }
 
-  [(AVTMemoji *)self updateSkinMaterial:self->_headComponentContainer];
-  [(AVTCompositor *)self->_compositor componentDidChangeForTypes:self->_compositorComponentDirtyMask];
+  [(AVTMemoji *)self updateSkinMaterial:?];
+  [(AVTCompositor *)self->_compositor componentDidChangeForTypes:?];
   if (optionsCopy)
   {
     componentAnimatedMask = 0;
@@ -2597,112 +2368,96 @@ LABEL_68:
 
   if ((self->_componentDirtyMask & ~componentAnimatedMask) != 0)
   {
-    v49 = 0;
-    v76 = ~componentAnimatedMask;
-    v79 = componentAnimatedMask;
+    v46 = 0;
+    v69 = componentAnimatedMask;
     do
     {
-      if (((1 << v49) & componentAnimatedMask) == 0 && (self->_componentDirtyMask & (1 << v49)) != 0)
+      if (((1 << v46) & componentAnimatedMask) == 0 && (self->_componentDirtyMask & (1 << v46)) != 0)
       {
-        v51 = self->_components[v49];
-        morphVariant2 = [(AVTComponent *)v51 morphVariant];
+        v48 = self->_components[v46];
+        morphVariant2 = [(AVTComponent *)v48 morphVariant];
         if (morphVariant2)
         {
-          v53 = [(AVTMemoji *)self allAssetNodesForComponentType:v49];
-          v87 = 0u;
-          v88 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v54 = [v53 countByEnumeratingWithState:&v87 objects:v110 count:16];
-          if (v54)
+          v50 = [(AVTMemoji *)self allAssetNodesForComponentType:?];
+          v51 = [v50 countByEnumeratingWithState:? objects:? count:?];
+          if (v51)
           {
-            v55 = v54;
-            v56 = *v88;
+            v52 = v51;
+            v53 = MEMORY[0];
             do
             {
-              for (ii = 0; ii != v55; ++ii)
+              for (ii = 0; ii != v52; ii = (ii + 1))
               {
-                if (*v88 != v56)
+                if (MEMORY[0] != v53)
                 {
-                  objc_enumerationMutation(v53);
+                  objc_enumerationMutation(v50);
                 }
 
-                v58 = *(*(&v87 + 1) + 8 * ii);
-                [(AVTComponent *)v51 morphVariantIntensity];
-                [(AVTMemoji *)self updateMorphVariantsInNodeHierarchy:v58 componentType:v49 variant:morphVariant2 weight:?];
+                [(AVTComponent *)v48 morphVariantIntensity];
+                [AVTMemoji updateMorphVariantsInNodeHierarchy:"updateMorphVariantsInNodeHierarchy:componentType:variant:weight:" componentType:? variant:? weight:?];
               }
 
-              v55 = [v53 countByEnumeratingWithState:&v87 objects:v110 count:16];
+              v52 = [v50 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v55);
+            while (v52);
           }
 
-          v47 = v82;
-          componentAnimatedMask = v79;
+          v44 = v72;
+          componentAnimatedMask = v69;
         }
       }
 
-      ++v49;
+      ++v46;
     }
 
-    while (v49 != 42);
-    [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:self->_componentDirtyMask & v76];
+    while (v46 != 42);
+    [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:?];
     componentAnimatedMask = self->_componentAnimatedMask;
   }
 
   if (componentAnimatedMask)
   {
     [MEMORY[0x1E69DF378] begin];
-    [MEMORY[0x1E69DF378] setAnimationDuration:0.25];
+    [MEMORY[0x1E69DF378] setAnimationDuration:?];
     for (jj = 0; jj != 42; ++jj)
     {
-      v60 = self->_componentDirtyMask;
-      v61 = self->_componentAnimatedMask;
-      if ((v60 & (1 << jj)) != 0 && (v61 & (1 << jj)) != 0)
+      if ((self->_componentDirtyMask & (1 << jj)) != 0 && (self->_componentAnimatedMask & (1 << jj)) != 0)
       {
-        v63 = self->_components[jj];
-        morphVariant3 = [(AVTComponent *)v63 morphVariant];
+        v57 = self->_components[jj];
+        morphVariant3 = [(AVTComponent *)v57 morphVariant];
         if (morphVariant3)
         {
-          v65 = [(AVTMemoji *)self allAssetNodesForComponentType:jj];
-          v83 = 0u;
-          v84 = 0u;
-          v85 = 0u;
-          v86 = 0u;
-          v66 = [v65 countByEnumeratingWithState:&v83 objects:v109 count:16];
-          if (v66)
+          v59 = [(AVTMemoji *)self allAssetNodesForComponentType:?];
+          v60 = [v59 countByEnumeratingWithState:? objects:? count:?];
+          if (v60)
           {
-            v67 = v66;
-            v68 = *v84;
+            v61 = v60;
+            v62 = MEMORY[0];
             do
             {
-              for (kk = 0; kk != v67; ++kk)
+              for (kk = 0; kk != v61; kk = (kk + 1))
               {
-                if (*v84 != v68)
+                if (MEMORY[0] != v62)
                 {
-                  objc_enumerationMutation(v65);
+                  objc_enumerationMutation(v59);
                 }
 
-                v70 = *(*(&v83 + 1) + 8 * kk);
-                [(AVTComponent *)v63 morphVariantIntensity];
-                [(AVTMemoji *)self updateMorphVariantsInNodeHierarchy:v70 componentType:jj variant:morphVariant3 weight:?];
+                [(AVTComponent *)v57 morphVariantIntensity];
+                [AVTMemoji updateMorphVariantsInNodeHierarchy:"updateMorphVariantsInNodeHierarchy:componentType:variant:weight:" componentType:? variant:? weight:?];
               }
 
-              v67 = [v65 countByEnumeratingWithState:&v83 objects:v109 count:16];
+              v61 = [v59 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v67);
+            while (v61);
           }
 
-          v47 = v82;
+          v44 = v72;
         }
-
-        v61 = self->_componentAnimatedMask;
-        v60 = self->_componentDirtyMask;
       }
 
-      [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:v60 & v61];
+      [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:?];
     }
 
     [MEMORY[0x1E69DF378] commit];
@@ -2710,17 +2465,16 @@ LABEL_68:
 
   if (![(AVTAvatar *)self optimizeForSnapshot])
   {
-    v71 = self->_componentInstances[5] != 0;
-    v72 = self->_componentInstances[7] && self->_componentInstances[5] != 0;
-    if (((self->_componentInstances[5] != 0) & (v77 >> 5)) != 0 || self->_hairPhysicsShouldIgnoreUpperNodes != v72)
+    v64 = self->_componentInstances[7] && self->_componentInstances[5] != 0;
+    if (((self->_componentInstances[5] != 0) & (v67 >> 5)) != 0 || self->_hairPhysicsShouldIgnoreUpperNodes != v64)
     {
-      self->_hairPhysicsShouldIgnoreUpperNodes = v72;
+      self->_hairPhysicsShouldIgnoreUpperNodes = v64;
       assetNode4 = [(AVTComponentInstance *)self->_componentInstances[5] assetNode];
       if (assetNode4)
       {
         upperNodesIgnoredByDynamics = [(AVTMemoji *)self upperNodesIgnoredByDynamics];
-        [(AVTAvatar *)self removeDynamicsInHierarchy:assetNode4];
-        [(AVTAvatar *)self addDynamicsInHierarchy:assetNode4 ignoringUpperNodes:upperNodesIgnoredByDynamics];
+        [(AVTAvatar *)self removeDynamicsInHierarchy:?];
+        [AVTAvatar addDynamicsInHierarchy:"addDynamicsInHierarchy:ignoringUpperNodes:" ignoringUpperNodes:?];
       }
     }
   }
@@ -2728,22 +2482,18 @@ LABEL_68:
   self->_componentDirtyMask = 0;
   self->_componentAnimatedMask = 0;
   self->_compositorComponentDirtyMask = 0;
-
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 void __32__AVTMemoji__updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 336);
-  v3 = [a2 skinner];
-  [v3 setSkeleton:v2];
+  v2 = [a2 skinner];
+  [v2 setSkeleton:?];
 }
 
 void __32__AVTMemoji__updateWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(*(a1 + 32) + 336);
-  v3 = [a2 skinner];
-  [v3 setSkeleton:v2];
+  v2 = [a2 skinner];
+  [v2 setSkeleton:?];
 }
 
 - (id)upperNodesIgnoredByDynamics
@@ -2752,21 +2502,15 @@ void __32__AVTMemoji__updateWithOptions___block_invoke_2(uint64_t a1, void *a2)
   {
     v3 = v2;
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke;
-    v7[3] = &unk_1E7F47B10;
-    v5 = v4;
-    v8 = v5;
-    [v3 enumerateHierarchyUsingBlock:v7];
+    [v3 enumerateHierarchyUsingBlock:?];
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 void __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke(uint64_t a1, void *a2)
@@ -2776,18 +2520,17 @@ void __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke(uint64_t a1, void
 
   if (v3)
   {
-    [*(a1 + 32) addObject:v4];
+    [*(a1 + 32) addObject:?];
   }
 }
 
 - (id)allBuiltinAssetNodes
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   headNode = self->_headNode;
-  v6[0] = self->_eyesAndTongue;
-  v6[1] = headNode;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  eyesAndTongue = self->_eyesAndTongue;
+  v6 = headNode;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
 
   return v3;
 }
@@ -2795,13 +2538,13 @@ void __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke(uint64_t a1, void
 - (id)_assetNodesForComponentType:(int64_t)type includingBuiltInAssetNodes:(BOOL)nodes includingComponentAssetNode:(BOOL)node
 {
   nodeCopy = node;
-  v25 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  memset(v23, 0, sizeof(v23));
+  v22 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
   if (!nodes)
   {
     goto LABEL_19;
@@ -2814,17 +2557,11 @@ void __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke(uint64_t a1, void
       torsoNode = self->_torsoNode;
       if (torsoNode)
       {
-        v22 = 1;
-        *&v23[0] = torsoNode;
+        v19 = 1;
+        *&v20[0] = torsoNode;
       }
 
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __96__AVTMemoji__assetNodesForComponentType_includingBuiltInAssetNodes_includingComponentAssetNode___block_invoke_2;
-      v17[3] = &unk_1E7F49C18;
-      v17[4] = &v19;
-      v17[5] = v23;
-      [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:35 usingBlock:v17];
+      [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:MEMORY[0x1E69E9820] usingBlock:3221225472, __96__AVTMemoji__assetNodesForComponentType_includingBuiltInAssetNodes_includingComponentAssetNode___block_invoke_2, &unk_1E7F49C18, &v16, v20];
       goto LABEL_19;
     }
 
@@ -2845,13 +2582,7 @@ void __40__AVTMemoji_upperNodesIgnoredByDynamics__block_invoke(uint64_t a1, void
     }
 
 LABEL_18:
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __96__AVTMemoji__assetNodesForComponentType_includingBuiltInAssetNodes_includingComponentAssetNode___block_invoke;
-    v18[3] = &unk_1E7F49C18;
-    v18[4] = &v19;
-    v18[5] = v23;
-    [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:type usingBlock:v18];
+    [AVTMemoji enumerateActiveWrapDeformerDriversForComponentType:"enumerateActiveWrapDeformerDriversForComponentType:usingBlock:" usingBlock:?];
     goto LABEL_19;
   }
 
@@ -2878,8 +2609,8 @@ LABEL_5:
 LABEL_6:
       v9 = *(&self->super.super.isa + v8);
 LABEL_7:
-      v22 = 1;
-      *&v23[0] = v9;
+      v19 = 1;
+      *&v20[0] = v9;
       break;
   }
 
@@ -2890,15 +2621,15 @@ LABEL_19:
     assetNode = [(AVTComponentInstance *)v11 assetNode];
     if (assetNode)
     {
-      v13 = v20[3];
-      v20[3] = v13 + 1;
-      *(v23 + v13) = assetNode;
+      v13 = v17[3];
+      v17[3] = v13 + 1;
+      *(v20 + v13) = assetNode;
     }
   }
 
-  if (v20[3])
+  if (v17[3])
   {
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:?];
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
   }
 
   else
@@ -2906,8 +2637,7 @@ LABEL_19:
     v14 = 0;
   }
 
-  _Block_object_dispose(&v19, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 
   return v14;
 }
@@ -2952,269 +2682,230 @@ uint64_t __96__AVTMemoji__assetNodesForComponentType_includingBuiltInAssetNodes_
   return v4;
 }
 
+- (void)_setMorphWeight:(float)weight forDependencyVariant:(id)variant ofType:(int64_t)type isAssetSpecific:(BOOL)specific
+{
+  variantCopy = variant;
+  v8 = [AVTMemoji _componentInstanceAssetNodesForDependencyOfType:"_componentInstanceAssetNodesForDependencyOfType:isAssetSpecific:" isAssetSpecific:?];
+  v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = MEMORY[0];
+    do
+    {
+      for (i = 0; i != v10; i = (i + 1))
+      {
+        if (MEMORY[0] != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(8 * i);
+        v14 = variantCopy;
+        [v13 enumerateHierarchyUsingBlock:?];
+      }
+
+      v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v10);
+  }
+}
+
 void __73__AVTMemoji__setMorphWeight_forDependencyVariant_ofType_isAssetSpecific___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 morpher];
-  if (v3)
+  v2 = [a2 morpher];
+  if (v2)
   {
-    LODWORD(v4) = *(a1 + 40);
-    v5 = v3;
-    [v3 setWeight:*(a1 + 32) forTargetNamed:v4];
-    v3 = v5;
+    v3 = v2;
+    [v2 setWeight:? forTargetNamed:?];
+    v2 = v3;
   }
 }
 
 - (void)_setVariantDependenciesEnabled:(BOOL)enabled forPreset:(id)preset dirtyComponents:(unint64_t)components
 {
   presetCopy = preset;
-  v9 = AVTPresetCategoryToComponentType([presetCopy category]);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke;
-  v20[3] = &unk_1E7F49C68;
-  v20[5] = components;
-  v20[6] = v9;
-  enabledCopy = enabled;
-  v20[4] = self;
-  [presetCopy enumerateVariantDependenciesOfKind:0 block:v20];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_2;
-  v18[3] = &unk_1E7F49C68;
-  v18[4] = self;
-  v18[5] = components;
-  v18[6] = v9;
-  enabledCopy2 = enabled;
-  [presetCopy enumerateVariantDependenciesOfKind:1 block:v18];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_3;
-  v16[3] = &unk_1E7F49C68;
-  v16[4] = self;
-  v16[5] = components;
-  v16[6] = v9;
-  enabledCopy3 = enabled;
-  [presetCopy enumerateVariantDependenciesOfKind:2 block:v16];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_4;
-  v11[3] = &unk_1E7F49C90;
-  componentsCopy = components;
-  v14 = v9;
-  enabledCopy4 = enabled;
-  v11[4] = self;
-  v12 = presetCopy;
-  v10 = presetCopy;
-  [v10 enumerateVisibilityDependencies:v11];
+  category = [presetCopy category];
+  AVTPresetCategoryToComponentType(category, v7);
+  [presetCopy enumerateVariantDependenciesOfKind:? block:?];
+  [presetCopy enumerateVariantDependenciesOfKind:? block:?];
+  [presetCopy enumerateVariantDependenciesOfKind:? block:?];
+  v8 = presetCopy;
+  [v8 enumerateVisibilityDependencies:?];
 }
 
 void __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke(uint64_t a1, unint64_t a2, void *a3, float a4)
 {
-  v10 = a3;
-  v7 = AVTPresetCategoryToComponentType(a2);
+  v9 = a3;
+  v7 = AVTPresetCategoryToComponentType(a2, v6);
   v8 = *(a1 + 40);
   if ((v8 >> *(a1 + 48)) & 1) != 0 || ((v8 >> v7))
   {
-    v9 = 0.0;
-    if (*(a1 + 56))
-    {
-      *&v9 = a4;
-    }
-
-    [*(a1 + 32) _setMorphWeight:v10 forDependencyVariant:v7 ofType:0 isAssetSpecific:v9];
+    [*(a1 + 32) _setMorphWeight:? forDependencyVariant:? ofType:? isAssetSpecific:?];
   }
 }
 
 void __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_2(uint64_t a1, unint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = AVTPresetCategoryToComponentType(a2);
-  v7 = *(*(a1 + 32) + 384 + 8 * v6);
-  v8 = v7;
-  v9 = *(a1 + 40);
-  if ((v9 >> *(a1 + 48)) & 1) != 0 || ((v9 >> v6))
+  v7 = AVTPresetCategoryToComponentType(a2, v6);
+  v8 = *(*(a1 + 32) + 384 + 8 * v7);
+  v9 = v8;
+  v10 = *(a1 + 40);
+  if ((v10 >> *(a1 + 48)) & 1) != 0 || ((v10 >> v7))
   {
-    memset(v16, 0, sizeof(v16));
-    v10 = [v7 assets];
-    if ([v10 countByEnumeratingWithState:v16 objects:v17 count:16] && objc_msgSend(**(&v16[0] + 1), "is2DAsset"))
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v11 = [v8 assets];
+    if ([v11 countByEnumeratingWithState:? objects:? count:?] && objc_msgSend(**(&v16 + 1), "is2DAsset"))
     {
       if (*(a1 + 56))
       {
-        v11 = v5;
+        v12 = v5;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      v12 = *(a1 + 32);
-      v13 = v11;
-      v14 = [v12 componentInstanceForType:v6];
-      [v14 setImageVariant:v13];
+      v13 = *(a1 + 32);
+      v14 = v12;
+      v15 = [v13 componentInstanceForType:?];
+      [v15 setImageVariant:?];
 
-      *(*(a1 + 32) + 2384) |= 1 << v6;
+      *(*(a1 + 32) + 2384) |= 1 << v7;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_3(uint64_t a1, unint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = AVTPresetCategoryToComponentType(a2);
-  v7 = *(*(a1 + 32) + 384 + 8 * v6);
-  v8 = v7;
-  v9 = *(a1 + 40);
-  if ((v9 >> *(a1 + 48)) & 1) != 0 || ((v9 >> v6))
+  v7 = AVTPresetCategoryToComponentType(a2, v6);
+  v8 = *(*(a1 + 32) + 384 + 8 * v7);
+  v9 = v8;
+  v10 = *(a1 + 40);
+  if ((v10 >> *(a1 + 48)) & 1) != 0 || ((v10 >> v7))
   {
-    memset(v16, 0, sizeof(v16));
-    v10 = [v7 assets];
-    if ([v10 countByEnumeratingWithState:v16 objects:v17 count:16] && objc_msgSend(**(&v16[0] + 1), "is3DAsset"))
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v11 = [v8 assets];
+    if ([v11 countByEnumeratingWithState:? objects:? count:?] && objc_msgSend(**(&v16 + 1), "is3DAsset"))
     {
       if (*(a1 + 56))
       {
-        v11 = v5;
+        v12 = v5;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      v12 = *(a1 + 32);
-      v13 = v11;
-      v14 = [v12 componentInstanceForType:v6];
-      [v14 setMaterialVariant:v13];
+      v13 = *(a1 + 32);
+      v14 = v12;
+      v15 = [v13 componentInstanceForType:?];
+      [v15 setMaterialVariant:?];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AVTMemoji__setVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_4(uint64_t a1, unint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = AVTPresetCategoryToComponentType(a2);
-  v7 = *(*(a1 + 32) + 384 + 8 * v6);
-  v8 = v7;
-  v9 = *(a1 + 48);
-  if ((v9 >> *(a1 + 56)) & 1) != 0 || ((v9 >> v6))
+  v7 = AVTPresetCategoryToComponentType(a2, v6);
+  v8 = *(*(a1 + 32) + 384 + 8 * v7);
+  v9 = v8;
+  v10 = *(a1 + 48);
+  if ((v10 >> *(a1 + 56)) & 1) != 0 || ((v10 >> v7))
   {
-    memset(v16, 0, sizeof(v16));
-    v10 = [v7 assets];
-    if ([v10 countByEnumeratingWithState:v16 objects:v17 count:16] && objc_msgSend(**(&v16[0] + 1), "is3DAsset"))
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v11 = [v8 assets];
+    if ([v11 countByEnumeratingWithState:? objects:? count:?] && objc_msgSend(**(&v16 + 1), "is3DAsset"))
     {
       if (*(a1 + 64))
       {
-        v11 = v5;
+        v12 = v5;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      v12 = *(a1 + 32);
-      v13 = v11;
-      v14 = [v12 componentInstanceForType:v6];
-      [v14 setVisibilityRules:v13 dictatedByCategory:{objc_msgSend(*(a1 + 40), "category")}];
+      v13 = *(a1 + 32);
+      v14 = v12;
+      v15 = [v13 componentInstanceForType:?];
+      [*(a1 + 40) category];
+      [v15 setVisibilityRules:? dictatedByCategory:?];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setAssetSpecificVariantDependenciesEnabled:(BOOL)enabled forPreset:(id)preset dirtyComponents:(unint64_t)components
 {
   presetCopy = preset;
-  v9 = AVTPresetCategoryToComponentType([presetCopy category]);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke;
-  v14[3] = &unk_1E7F49CB8;
-  v14[4] = self;
-  v14[5] = components;
-  v14[6] = v9;
-  enabledCopy = enabled;
-  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:0 block:v14];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_2;
-  v12[3] = &unk_1E7F49CB8;
-  v12[4] = self;
-  v12[5] = components;
-  v12[6] = v9;
-  enabledCopy2 = enabled;
-  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:1 block:v12];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_3;
-  v10[3] = &unk_1E7F49CB8;
-  v10[4] = self;
-  v10[5] = components;
-  v10[6] = v9;
-  enabledCopy3 = enabled;
-  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:2 block:v10];
+  category = [presetCopy category];
+  AVTPresetCategoryToComponentType(category, v7);
+  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:? block:?];
+  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:? block:?];
+  [presetCopy enumerateAssetSpecificVariantDependenciesOfKind:MEMORY[0x1E69E9820] block:3221225472];
 }
 
 void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = *(*(a1 + 32) + 384 + 8 * a2);
   v10 = *(a1 + 40);
   if ((v10 >> *(a1 + 48)) & 1) != 0 || ((v10 >> a2))
   {
-    v23 = v9;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
+    v20 = v9;
     v11 = [v9 assets];
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:? objects:? count:?];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = MEMORY[0];
       while (2)
       {
         v15 = v8;
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v25 != v14)
+          if (MEMORY[0] != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(8 * i);
           v18 = [v17 identifier];
-          v19 = [v18 isEqualToString:v7];
+          v19 = [v18 isEqualToString:?];
 
           if (v19)
           {
             v8 = v15;
             if ([v17 is3DAsset])
             {
-              v20 = 0.0;
-              if (*(a1 + 56))
-              {
-                *&v20 = 1.0;
-              }
-
-              [*(a1 + 32) _setMorphWeight:v15 forDependencyVariant:v22 ofType:1 isAssetSpecific:v20];
+              [*(a1 + 32) _setMorphWeight:? forDependencyVariant:? ofType:? isAssetSpecific:?];
             }
 
-            goto LABEL_16;
+            goto LABEL_14;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
         v8 = v15;
         if (v13)
         {
@@ -3225,47 +2916,45 @@ void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirty
       }
     }
 
-LABEL_16:
+LABEL_14:
 
-    v9 = v23;
+    v9 = v20;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = *(*(a1 + 32) + 384 + 8 * a2);
   v10 = *(a1 + 40);
   if ((v10 >> *(a1 + 48)) & 1) != 0 || ((v10 >> a2))
   {
-    v26 = v9;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v25 = v9;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v11 = [v9 assets];
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:? objects:? count:?];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       while (2)
       {
         v15 = v8;
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * i);
+          v17 = *(*(&v26 + 1) + 8 * i);
           v18 = [v17 identifier];
-          v19 = [v18 isEqualToString:v7];
+          v19 = [v18 isEqualToString:?];
 
           if (v19)
           {
@@ -3284,17 +2973,17 @@ void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirty
 
               v21 = *(a1 + 32);
               v22 = v20;
-              v23 = [v21 componentInstanceForType:v25];
-              [v23 setImageVariant:v22];
+              v23 = [v21 componentInstanceForType:?];
+              [v23 setImageVariant:?];
 
-              *(*(a1 + 32) + 2384) |= 1 << v25;
+              *(*(a1 + 32) + 2384) |= 1 << v24;
             }
 
             goto LABEL_17;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
         v8 = v15;
         if (v13)
         {
@@ -3307,45 +2996,38 @@ void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirty
 
 LABEL_17:
 
-    v9 = v26;
+    v9 = v25;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirtyComponents___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = *(*(a1 + 32) + 384 + 8 * a2);
   v10 = *(a1 + 40);
   if ((v10 >> *(a1 + 48)) & 1) != 0 || ((v10 >> a2))
   {
-    v27 = v9;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
+    v25 = v9;
     v11 = [v9 assets];
-    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:? objects:? count:?];
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = MEMORY[0];
       while (2)
       {
         v15 = v8;
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v29 != v14)
+          if (MEMORY[0] != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * i);
+          v17 = *(8 * i);
           v18 = [v17 identifier];
-          v19 = [v18 isEqualToString:v7];
+          v19 = [v18 isEqualToString:?];
 
           if (v19)
           {
@@ -3365,15 +3047,15 @@ void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirty
 
               v22 = *(a1 + 32);
               v23 = v21;
-              v24 = [v22 componentInstanceForType:v26];
-              [v24 setMaterialVariant:v23];
+              v24 = [v22 componentInstanceForType:?];
+              [v24 setMaterialVariant:?];
             }
 
             goto LABEL_17;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
         v8 = v15;
         if (v13)
         {
@@ -3386,55 +3068,40 @@ void __83__AVTMemoji__setAssetSpecificVariantDependenciesEnabled_forPreset_dirty
 
 LABEL_17:
 
-    v9 = v27;
+    v9 = v25;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyVariantDependenciesForPreset:(id)preset dirtyComponents:(unint64_t)components
 {
   presetCopy = preset;
-  [(AVTMemoji *)self _setVariantDependenciesEnabled:1 forPreset:presetCopy dirtyComponents:components];
-  [(AVTMemoji *)self _setAssetSpecificVariantDependenciesEnabled:1 forPreset:presetCopy dirtyComponents:components];
+  [AVTMemoji _setVariantDependenciesEnabled:"_setVariantDependenciesEnabled:forPreset:dirtyComponents:" forPreset:? dirtyComponents:?];
+  [AVTMemoji _setAssetSpecificVariantDependenciesEnabled:"_setAssetSpecificVariantDependenciesEnabled:forPreset:dirtyComponents:" forPreset:? dirtyComponents:?];
 }
 
 - (void)unapplyVariantDependenciesForPreset:(id)preset dirtyComponents:(unint64_t)components
 {
   presetCopy = preset;
-  [(AVTMemoji *)self _setVariantDependenciesEnabled:0 forPreset:presetCopy dirtyComponents:components];
-  [(AVTMemoji *)self _setAssetSpecificVariantDependenciesEnabled:0 forPreset:presetCopy dirtyComponents:components];
+  [AVTMemoji _setVariantDependenciesEnabled:"_setVariantDependenciesEnabled:forPreset:dirtyComponents:" forPreset:? dirtyComponents:?];
+  [AVTMemoji _setAssetSpecificVariantDependenciesEnabled:"_setAssetSpecificVariantDependenciesEnabled:forPreset:dirtyComponents:" forPreset:? dirtyComponents:?];
 }
 
 - (void)updateMorphVariantsInNodeHierarchy:(id)hierarchy componentType:(int64_t)type variant:(id)variant weight:(float)weight
 {
   hierarchyCopy = hierarchy;
   variantCopy = variant;
-  v12 = AVTComponentTypeToString(type);
-  if (v12)
+  v11 = AVTComponentTypeToString(type);
+  if (v11)
   {
-    v13 = [@"variant_" stringByAppendingString:v12];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_weight___block_invoke;
-    v19[3] = &unk_1E7F47A98;
-    v14 = variantCopy;
-    v20 = v14;
-    weightCopy = weight;
-    v15 = v13;
-    v21 = v15;
-    [hierarchyCopy enumerateHierarchyUsingBlock:v19];
+    v12 = [@"variant_" stringByAppendingString:?];
+    v13 = variantCopy;
+    v14 = v12;
+    [hierarchyCopy enumerateHierarchyUsingBlock:?];
     if (type == 8)
     {
-      v16 = self->_componentInstances[35];
-      v17 = [v14 isEqualToString:@"variant_age_child"];
-      v18 = 0.0;
-      if (v17)
-      {
-        *&v18 = weight;
-      }
-
-      [(AVTComponentInstance *)v16 setSkinnerVariantIntensity:self->_skeletonRootNode skeleton:v18];
+      v15 = self->_componentInstances[35];
+      [v13 isEqualToString:?];
+      [AVTComponentInstance setSkinnerVariantIntensity:v15 skeleton:"setSkinnerVariantIntensity:skeleton:"];
     }
   }
 }
@@ -3443,49 +3110,47 @@ void __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_we
 {
   v3 = [a2 morpher];
   v4 = [v3 targets];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_weight___block_invoke_2;
-  v6[3] = &unk_1E7F49CE0;
-  v7 = *(a1 + 32);
-  v8 = v3;
-  v10 = *(a1 + 48);
-  v9 = *(a1 + 40);
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_weight___block_invoke_2;
+  v9 = &unk_1E7F49CE0;
+  v10 = *(a1 + 32);
+  v11 = v3;
+  v13 = *(a1 + 48);
+  v12 = *(a1 + 40);
   v5 = v3;
-  [v4 enumerateObjectsUsingBlock:v6];
+  [v4 enumerateObjectsUsingBlock:{v6, 3221225472, __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_weight___block_invoke_2, &unk_1E7F49CE0}];
 }
 
 void __77__AVTMemoji_updateMorphVariantsInNodeHierarchy_componentType_variant_weight___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = [a2 name];
-  if ([v7 isEqualToString:*(a1 + 32)])
+  v5 = [a2 name];
+  if ([v5 isEqualToString:?])
   {
-    v6 = *(a1 + 40);
-    LODWORD(v5) = *(a1 + 56);
+    v4 = *(a1 + 40);
   }
 
   else
   {
-    if (![v7 hasPrefix:*(a1 + 48)])
+    if (![v5 hasPrefix:?])
     {
       goto LABEL_6;
     }
 
-    v6 = *(a1 + 40);
-    v5 = 0.0;
+    v4 = *(a1 + 40);
   }
 
-  [v6 setWeight:a3 forTargetAtIndex:v5];
+  [v4 setWeight:? forTargetAtIndex:?];
 LABEL_6:
 }
 
 - (id)effectiveMorphedNodeForTargetName:(id)name
 {
   nameCopy = name;
-  if ([nameCopy hasPrefix:@"variant_"])
+  if ([nameCopy hasPrefix:?])
   {
-    v5 = [nameCopy componentsSeparatedByString:@"_"];
-    v6 = [v5 objectAtIndexedSubscript:1];
+    v5 = [nameCopy componentsSeparatedByString:?];
+    v6 = [v5 objectAtIndexedSubscript:?];
     v7 = AVTPresetCategoryFromString(v6);
     if (v7 <= 0x27)
     {
@@ -3558,7 +3223,7 @@ LABEL_9:
       if (morphVariant)
       {
         [(AVTComponent *)v10 morphVariantIntensity];
-        [(AVTMemoji *)self updateMorphVariantsInNodeHierarchy:nodeCopy componentType:i variant:morphVariant weight:?];
+        [AVTMemoji updateMorphVariantsInNodeHierarchy:"updateMorphVariantsInNodeHierarchy:componentType:variant:weight:" componentType:? variant:? weight:?];
       }
     }
   }
@@ -3568,42 +3233,32 @@ LABEL_9:
     if ((v7 >> j))
     {
       v13 = [(AVTPresetStore *)&self->_presetStore->super.isa resolvedPresetForCategory:?];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __73__AVTMemoji__applyMorphVariantsForLazyComponentInstanceOfType_assetNode___block_invoke;
-      v14[3] = &unk_1E7F49D08;
-      v16 = v8;
-      v15 = nodeCopy;
-      [v13 enumerateVariantDependenciesOfKind:0 block:v14];
+      v14 = nodeCopy;
+      [v13 enumerateVariantDependenciesOfKind:? block:?];
     }
   }
 }
 
 void __73__AVTMemoji__applyMorphVariantsForLazyComponentInstanceOfType_assetNode___block_invoke(uint64_t a1, unint64_t a2, void *a3, float a4)
 {
-  v7 = a3;
-  if ((*(a1 + 40) >> AVTPresetCategoryToComponentType(a2)))
+  v6 = a3;
+  if ((*(a1 + 40) >> AVTPresetCategoryToComponentType(a2, v7)))
   {
     v8 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __73__AVTMemoji__applyMorphVariantsForLazyComponentInstanceOfType_assetNode___block_invoke_2;
-    v9[3] = &unk_1E7F49C40;
-    v11 = a4;
-    v10 = v7;
-    [v8 enumerateHierarchyUsingBlock:v9];
+    v9 = MEMORY[0x1E69E9820];
+    v10 = v6;
+    [v8 enumerateHierarchyUsingBlock:{v9, 3221225472, __73__AVTMemoji__applyMorphVariantsForLazyComponentInstanceOfType_assetNode___block_invoke_2, &unk_1E7F49C40}];
   }
 }
 
 void __73__AVTMemoji__applyMorphVariantsForLazyComponentInstanceOfType_assetNode___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 morpher];
-  if (v3)
+  v2 = [a2 morpher];
+  if (v2)
   {
-    LODWORD(v4) = *(a1 + 40);
-    v5 = v3;
-    [v3 setWeight:*(a1 + 32) forTargetNamed:v4];
-    v3 = v5;
+    v3 = v2;
+    [v2 setWeight:? forTargetNamed:?];
+    v2 = v3;
   }
 }
 
@@ -3619,9 +3274,9 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
     v2 = v6;
     if (v4)
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v4; i = (i + 1))
       {
-        [v6 setWeight:i forTargetAtIndex:0.0];
+        [v6 setWeight:? forTargetAtIndex:?];
         v2 = v6;
       }
     }
@@ -3631,24 +3286,13 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
 - (void)updateMorphVariantsInStickerPropNodeHierarchy:(id)hierarchy
 {
   hierarchyCopy = hierarchy;
-  v4 = [(AVTMemoji *)self componentWithType:8];
+  v4 = [(AVTMemoji *)self componentWithType:?];
   morphVariant = [v4 morphVariant];
   if (morphVariant)
   {
     [v4 morphVariantIntensity];
-    [(AVTMemoji *)self updateMorphVariantsInNodeHierarchy:hierarchyCopy componentType:8 variant:morphVariant weight:?];
+    [AVTMemoji updateMorphVariantsInNodeHierarchy:"updateMorphVariantsInNodeHierarchy:componentType:variant:weight:" componentType:? variant:? weight:?];
   }
-}
-
-- (void)setShowsBody:(BOOL)body
-{
-  v3 = 2;
-  if (!body)
-  {
-    v3 = 0;
-  }
-
-  [(AVTMemoji *)self setVisibleBodyParts:self->_visibleBodyParts & 0xFFFFFFFFFFFFFFFDLL | v3];
 }
 
 - (void)setVisibleBodyParts:(unint64_t)parts
@@ -3682,13 +3326,13 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
     objc_storeStrong(&self->_bodyPose, pose);
     if (v7)
     {
-      [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:-1];
+      [(AVTMemoji *)self updateBodyPoseForSkinnerVariantsWithDirtyComponents:?];
     }
 
     else
     {
       v6 = +[AVTAvatarBodyPose neutralPose];
-      [v6 applyToBodySkeletonWithRootJoint:self->_skeletonRootNode ageBodyPoseVariantIntensity:0.0 shoulderWidthBodyPoseVariantIntensity:0.0];
+      [v6 applyToBodySkeletonWithRootJoint:? ageBodyPoseVariantIntensity:? shoulderWidthBodyPoseVariantIntensity:?];
     }
 
     poseCopy = v7;
@@ -3699,14 +3343,11 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
 {
   if ((components & 0x4000000100) != 0)
   {
-    v11 = [(AVTMemoji *)self componentWithType:8];
-    [v11 bodyPoseVariantIntensity];
-    v6 = v5;
-    v7 = [(AVTMemoji *)self componentWithType:38];
-    [v7 bodyPoseVariantIntensity];
-    LODWORD(v9) = v8;
-    LODWORD(v10) = v6;
-    [(AVTAvatarBodyPose *)self->_bodyPose applyToBodySkeletonWithRootJoint:self->_skeletonRootNode ageBodyPoseVariantIntensity:v10 shoulderWidthBodyPoseVariantIntensity:v9];
+    v6 = [(AVTMemoji *)self componentWithType:?];
+    [v6 bodyPoseVariantIntensity];
+    v5 = [(AVTMemoji *)self componentWithType:?];
+    [v5 bodyPoseVariantIntensity];
+    [AVTAvatarBodyPose applyToBodySkeletonWithRootJoint:"applyToBodySkeletonWithRootJoint:ageBodyPoseVariantIntensity:shoulderWidthBodyPoseVariantIntensity:" ageBodyPoseVariantIntensity:? shoulderWidthBodyPoseVariantIntensity:?];
   }
 }
 
@@ -3730,16 +3371,16 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
     self->_specializationSettings = v10;
   }
 
-  v12 = [(NSDictionary *)v16 objectForKeyedSubscript:@"dynamics"];
-  v13 = [(NSDictionary *)self->_specializationSettings objectForKeyedSubscript:@"dynamics"];
-  if (([v12 isEqualToDictionary:v13] & 1) == 0)
+  v12 = [(NSDictionary *)v16 objectForKeyedSubscript:?];
+  v13 = [(NSDictionary *)self->_specializationSettings objectForKeyedSubscript:?];
+  if (([v12 isEqualToDictionary:?] & 1) == 0)
   {
     [(AVTAvatar *)self physicsSpecializationSettingsDidChange];
   }
 
-  v14 = [(NSDictionary *)v16 objectForKeyedSubscript:@"ARKit disabled blendshapes"];
-  v15 = [(NSDictionary *)self->_specializationSettings objectForKeyedSubscript:@"ARKit disabled blendshapes"];
-  if (([v14 isEqualToArray:v15] & 1) == 0)
+  v14 = [(NSDictionary *)v16 objectForKeyedSubscript:?];
+  v15 = [(NSDictionary *)self->_specializationSettings objectForKeyedSubscript:?];
+  if (([v14 isEqualToArray:?] & 1) == 0)
   {
     [(AVTAvatar *)self disabledBlendshapesSpecializationSettingsDidChange];
   }
@@ -3753,63 +3394,60 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
     componentAssetNodeObservationForStickerBlock = self->_componentAssetNodeObservationForStickerBlock;
     self->_componentAssetNodeObservationForStickerBlock = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, componentAssetNodeObservationForStickerBlock);
   }
 }
 
 - (void)addDerivedNodesMatchingStickerPattern:(id)pattern toArray:(id)array options:(unint64_t)options
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   patternCopy = pattern;
   arrayCopy = array;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v26 = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke;
-  v27 = &unk_1E7F49D30;
-  v28 = &v34;
-  v29 = &v30;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v18 = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke;
+  v19 = &unk_1E7F49D30;
+  v20 = &v26;
+  v21 = &v22;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = patternCopy;
-    v26(v25, v10);
+    v9 = patternCopy;
+    v18(v17, v9);
   }
 
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v10 = patternCopy;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v38 count:16];
+      v9 = patternCopy;
+      v11 = [NSObject countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v11)
       {
-        v12 = *v22;
+        v12 = MEMORY[0];
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v11; i = (i + 1))
           {
-            if (*v22 != v12)
+            if (MEMORY[0] != v12)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v9);
             }
 
-            v26(v25, *(*(&v21 + 1) + 8 * i));
+            v18(v17, *(8 * i));
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v21 objects:v38 count:16];
+          v11 = [NSObject countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:?];
         }
 
         while (v11);
@@ -3818,47 +3456,36 @@ void __66__AVTMemoji__willDeactivateLazyComponentInstanceOfType_assetNode___bloc
 
     else
     {
-      v10 = avt_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = avt_default_log(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [AVTMemoji addDerivedNodesMatchingStickerPattern:toArray:options:];
       }
     }
   }
 
-  if (*(v35 + 24) == 1)
+  if (*(v27 + 24) == 1)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_364;
-    v18[3] = &unk_1E7F49D80;
-    optionsCopy = options;
-    v19 = arrayCopy;
-    [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:35 usingBlock:v18];
-  }
-
-  if (*(v31 + 24) == 1)
-  {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_3;
-    v15[3] = &unk_1E7F49D80;
-    optionsCopy2 = options;
     v16 = arrayCopy;
-    [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:7 usingBlock:v15];
+    [AVTMemoji enumerateActiveWrapDeformerDriversForComponentType:"enumerateActiveWrapDeformerDriversForComponentType:usingBlock:" usingBlock:?];
   }
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v34, 8);
+  if (*(v23 + 24) == 1)
+  {
+    v14 = MEMORY[0x1E69E9820];
+    v15 = arrayCopy;
+    [(AVTMemoji *)self enumerateActiveWrapDeformerDriversForComponentType:v14 usingBlock:3221225472, __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_3, &unk_1E7F49D80];
+  }
 
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
 void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke(uint64_t a1, void *a2)
 {
   v9 = a2;
   v3 = AVTComponentTypeToString(0x23uLL);
-  v4 = [v9 hasPrefix:v3];
+  v4 = [v9 hasPrefix:?];
 
   if (v4)
   {
@@ -3869,7 +3496,7 @@ void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___blo
   else
   {
     v7 = AVTComponentTypeToString(7uLL);
-    v8 = [v9 hasPrefix:v7];
+    v8 = [v9 hasPrefix:?];
 
     v6 = v9;
     if (!v8)
@@ -3886,14 +3513,14 @@ LABEL_6:
 
 void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_364(uint64_t a1, void *a2)
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_2;
-  v4[3] = &unk_1E7F49D58;
+  v4 = MEMORY[0x1E69E9820];
+  v5 = 3221225472;
+  v6 = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_2;
+  v7 = &unk_1E7F49D58;
   v3 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v5 = v3;
-  [a2 enumerateHierarchyUsingBlock:v4];
+  v9 = *(a1 + 40);
+  v8 = v3;
+  [a2 enumerateHierarchyUsingBlock:{v4, 3221225472, __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_2, &unk_1E7F49D58}];
 }
 
 void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_2(uint64_t a1, void *a2)
@@ -3901,20 +3528,20 @@ void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___blo
   v3 = a2;
   if (AVTNodeMatchesHierarchyEnumerationOptions(v3, *(a1 + 40)))
   {
-    [*(a1 + 32) addObject:v3];
+    [*(a1 + 32) addObject:?];
   }
 }
 
 void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_3(uint64_t a1, void *a2)
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_4;
-  v4[3] = &unk_1E7F49D58;
+  v4 = MEMORY[0x1E69E9820];
+  v5 = 3221225472;
+  v6 = __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_4;
+  v7 = &unk_1E7F49D58;
   v3 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v5 = v3;
-  [a2 enumerateHierarchyUsingBlock:v4];
+  v9 = *(a1 + 40);
+  v8 = v3;
+  [a2 enumerateHierarchyUsingBlock:{v4, 3221225472, __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_4, &unk_1E7F49D58}];
 }
 
 void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___block_invoke_4(uint64_t a1, void *a2)
@@ -3922,78 +3549,24 @@ void __67__AVTMemoji_addDerivedNodesMatchingStickerPattern_toArray_options___blo
   v3 = a2;
   if (AVTNodeMatchesHierarchyEnumerationOptions(v3, *(a1 + 40)))
   {
-    [*(a1 + 32) addObject:v3];
+    [*(a1 + 32) addObject:?];
   }
 }
 
 - (void)initWithDescriptor:(void *)a1 usageIntent:(void *)a2 error:.cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [a1 path];
   v4 = [a2 description];
   OUTLINED_FUNCTION_1_9();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setColorPreset:(unint64_t)a1 forCategory:colorIndex:.cold.2(unint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = AVTPresetCategoryToString(a1);
+  v6 = AVTPresetCategoryToString(a1);
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setPreset:forCategory:animated:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_addTorsoComponentInstanceIfNeeded
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)wrapDeformedDriverNamed:forComponentType:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)wrapDeformedDriverNamed:forComponentType:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_308_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __56__AVTMemoji_updateWrapDeformerIsActiveForComponentType___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

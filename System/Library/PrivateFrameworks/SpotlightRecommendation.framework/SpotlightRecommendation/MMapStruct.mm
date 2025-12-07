@@ -84,35 +84,29 @@ LABEL_14:
 
 + (void)mMapStructWithFilepath:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26B806000, v2, v3, "mmap failed. File path=%@ errno:%d(%s)", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26B806000, v1, v2, "mmap failed. File path=%@ errno:%d(%s)", v3, v4, v5, v6);
 }
 
 + (void)mMapStructWithFilepath:.cold.2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26B806000, v2, v3, "fstat failed. MMap process stopped. File path=%@ errno:%d(%s)", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26B806000, v1, v2, "fstat failed. MMap process stopped. File path=%@ errno:%d(%s)", v3, v4, v5, v6);
 }
 
 + (void)mMapStructWithFilepath:.cold.3()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_26B806000, v2, v3, "open file failed. MMap process stopped. File path=%@ errno:%d(%s)", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_26B806000, v1, v2, "open file failed. MMap process stopped. File path=%@ errno:%d(%s)", v3, v4, v5, v6);
 }
 
 @end

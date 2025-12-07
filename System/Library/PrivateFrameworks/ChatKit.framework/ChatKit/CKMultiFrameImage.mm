@@ -855,7 +855,7 @@ LABEL_65:
   return v28;
 }
 
-void __110__CKMultiFrameImage_ASTC_Persistence___writeASTCImagesWithCount_imageProvider_durations_toOutputStream_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __110__CKMultiFrameImage_ASTC_Persistence___writeASTCImagesWithCount_imageProvider_durations_toOutputStream_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   if ([*(a1 + 32) write:a2 maxLength:?] != a4)
   {
@@ -1211,7 +1211,7 @@ LABEL_50:
   return v16 & 1;
 }
 
-uint64_t __129__CKMultiFrameImage_CPBitmap_Persistence__writeCPBitmapImagesWithCount_imageProvider_frameDurations_frameScales_toFileURL_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__129__CKMultiFrameImage_CPBitmap_Persistence__writeCPBitmapImagesWithCount_imageProvider_frameDurations_frameScales_toFileURL_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 doubleValue];
   v9 = *(*(a1 + 32) + 8);

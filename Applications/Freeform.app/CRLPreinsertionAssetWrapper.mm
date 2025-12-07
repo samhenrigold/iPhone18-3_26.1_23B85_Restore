@@ -98,7 +98,7 @@
 
 - (void)createAssetWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -131,7 +131,7 @@
 
 - (id)synchronouslyCreateReadonlyAsset
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = *(&self->super.isa + OBJC_IVAR____TtC8Freeform27CRLPreinsertionAssetWrapper__alreadyInsertedAsset);
@@ -142,7 +142,7 @@
 
   else
   {
-    sub_10000BE14(self + OBJC_IVAR____TtC8Freeform27CRLPreinsertionAssetWrapper__url, v5, &unk_1019F33C0);
+    sub_10000BE14(self + OBJC_IVAR____TtC8Freeform27CRLPreinsertionAssetWrapper__url, v5, &unk_1019F33C0, &unk_101468A60);
     v8 = type metadata accessor for URL();
     v9 = *(v8 - 8);
     result = (*(v9 + 48))(v5, 1, v8);
@@ -166,7 +166,7 @@
 
 - (UTType)type
 {
-  v3 = sub_1005B981C(&unk_1019F8DB0);
+  v3 = sub_1005B981C(&unk_1019F8DB0, &unk_101471FC0);
   __chkstk_darwin(v3 - 8);
   v5 = &v16 - v4;
   selfCopy = self;

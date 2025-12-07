@@ -22,12 +22,12 @@
 
 - (SCWZoneModificationSilo)initWithZoneSchema:(id)schema contents:(id)contents
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   contentsCopy = contents;
-  v33.receiver = self;
-  v33.super_class = SCWZoneModificationSilo;
-  v9 = [(SCWZoneModificationSilo *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = SCWZoneModificationSilo;
+  v9 = [(SCWZoneModificationSilo *)&v32 init];
   v10 = v9;
   if (v9)
   {
@@ -48,27 +48,27 @@
     deletedRecordIDs = v10->_deletedRecordIDs;
     v10->_deletedRecordIDs = v17;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v19 = contentsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v30;
+      v22 = *v29;
       do
       {
         v23 = 0;
         do
         {
-          if (*v30 != v22)
+          if (*v29 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v29 + 1) + 8 * v23);
+          v24 = *(*(&v28 + 1) + 8 * v23);
           originalRecordsByID = [(SCWZoneModificationSilo *)v10 originalRecordsByID];
           recordID = [v24 recordID];
           [originalRecordsByID setObject:v24 forKeyedSubscript:recordID];
@@ -77,14 +77,13 @@
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v21);
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -156,7 +155,7 @@ LABEL_12:
 
 - (void)deleteRecordWithName:(id)name
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = objc_alloc(MEMORY[0x1E695BA70]);
   zoneSchema = [(SCWZoneModificationSilo *)self zoneSchema];
@@ -178,26 +177,26 @@ LABEL_12:
     recordType = [v12 recordType];
     v15 = [zoneSchema2 schemaForRecordType:recordType];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     fieldSchemas = [v15 fieldSchemas];
-    v17 = [fieldSchemas countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v17 = [fieldSchemas countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(fieldSchemas);
           }
 
-          v21 = *(*(&v25 + 1) + 8 * i);
+          v21 = *(*(&v24 + 1) + 8 * i);
           if ([v21 isEncrypted])
           {
             encryptedValues = [v12 encryptedValues];
@@ -212,14 +211,12 @@ LABEL_12:
           }
         }
 
-        v18 = [fieldSchemas countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [fieldSchemas countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v18);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)recordExistsWithName:(id)name
@@ -278,11 +275,10 @@ Class __54__SCWZoneModificationSilo__shouldAssertRecordValidity__block_invoke()
 
 - (void)createOrUpdateRecordWithName:(uint64_t)a1 recordType:modifyBlock:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "record was invalid after modification: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_1DAA3F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "record was invalid after modification: %{public}@", &v1, 0xCu);
 }
 
 @end

@@ -72,7 +72,7 @@
 
 - (NSDate)deviceLastPlayingDate
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
@@ -95,14 +95,14 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v50 = v10;
+    v49 = v10;
     _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v14 = MRGetSharedService();
-  v48 = 0;
-  v15 = MRMediaRemoteServiceGetLastPlayingDateForPlayerSync(v14, v9, &v48);
-  v16 = v48;
+  v47 = 0;
+  v15 = MRMediaRemoteServiceGetLastPlayingDateForPlayerSync(v14, v9, &v47);
+  v16 = v47;
   v17 = MEMORY[0x1E696AEC0];
   v18 = MEMORY[0x1E696AD98];
   [v15 timeIntervalSinceNow];
@@ -124,15 +124,15 @@
         date2 = [MEMORY[0x1E695DF00] date];
         [date2 timeIntervalSinceDate:date];
         *buf = 138544386;
-        v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-        v51 = 2114;
-        v52 = uUIDString;
-        v53 = 2112;
-        v54 = v21;
-        v55 = 2114;
-        v56 = playerPath5;
-        v57 = 2048;
-        v58 = v28;
+        v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+        v50 = 2114;
+        v51 = uUIDString;
+        v52 = 2112;
+        v53 = v21;
+        v54 = 2114;
+        v55 = playerPath5;
+        v56 = 2048;
+        v57 = v28;
         v29 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v30 = v24;
         v31 = 52;
@@ -154,13 +154,13 @@ LABEL_25:
     playerPath5 = [MEMORY[0x1E695DF00] date];
     [playerPath5 timeIntervalSinceDate:date];
     *buf = 138544130;
-    v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-    v51 = 2114;
-    v52 = uUIDString;
-    v53 = 2112;
-    v54 = v21;
-    v55 = 2048;
-    v56 = v38;
+    v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+    v50 = 2114;
+    v51 = uUIDString;
+    v52 = 2112;
+    v53 = v21;
+    v54 = 2048;
+    v55 = v38;
     v39 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     v40 = v24;
     v41 = 42;
@@ -180,15 +180,15 @@ LABEL_24:
         date3 = [MEMORY[0x1E695DF00] date];
         [date3 timeIntervalSinceDate:date];
         *buf = 138544386;
-        v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-        v51 = 2114;
-        v52 = uUIDString;
-        v53 = 2114;
-        v54 = v16;
-        v55 = 2114;
-        v56 = playerPath6;
-        v57 = 2048;
-        v58 = v35;
+        v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+        v50 = 2114;
+        v51 = uUIDString;
+        v52 = 2114;
+        v53 = v16;
+        v54 = 2114;
+        v55 = playerPath6;
+        v56 = 2048;
+        v57 = v35;
         _os_log_error_impl(&dword_1A2860000, v24, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 
 LABEL_31:
@@ -200,13 +200,13 @@ LABEL_31:
       playerPath6 = [MEMORY[0x1E695DF00] date];
       [playerPath6 timeIntervalSinceDate:date];
       *buf = 138544130;
-      v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-      v51 = 2114;
-      v52 = uUIDString;
-      v53 = 2114;
-      v54 = v16;
-      v55 = 2048;
-      v56 = v47;
+      v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+      v50 = 2114;
+      v51 = uUIDString;
+      v52 = 2114;
+      v53 = v16;
+      v54 = 2048;
+      v55 = v46;
       _os_log_error_impl(&dword_1A2860000, v24, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", buf, 0x2Au);
       goto LABEL_31;
     }
@@ -226,11 +226,11 @@ LABEL_31:
     playerPath5 = [MEMORY[0x1E695DF00] date];
     [playerPath5 timeIntervalSinceDate:date];
     *buf = 138543874;
-    v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-    v51 = 2114;
-    v52 = uUIDString;
-    v53 = 2048;
-    v54 = v43;
+    v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+    v50 = 2114;
+    v51 = uUIDString;
+    v52 = 2048;
+    v53 = v43;
     v39 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v40 = v24;
     v41 = 32;
@@ -243,13 +243,13 @@ LABEL_31:
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:date];
     *buf = 138544130;
-    v50 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
-    v51 = 2114;
-    v52 = uUIDString;
-    v53 = 2114;
-    v54 = playerPath5;
-    v55 = 2048;
-    v56 = v37;
+    v49 = @"[MRNowPlayingPlayerResponse deviceLastPlayingDate]";
+    v50 = 2114;
+    v51 = uUIDString;
+    v52 = 2114;
+    v53 = playerPath5;
+    v54 = 2048;
+    v55 = v37;
     v29 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     v30 = v24;
     v31 = 42;
@@ -261,8 +261,6 @@ LABEL_26:
   distantPast = v15;
 LABEL_27:
   v44 = distantPast;
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
@@ -425,7 +423,7 @@ BOOL __40__MRNowPlayingPlayerResponse_repeatMode__block_invoke(uint64_t a1, void
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   shortDictionaryRepresentation = [(MRNowPlayingPlayerResponse *)self shortDictionaryRepresentation];
   v4 = [shortDictionaryRepresentation mutableCopy];
 
@@ -481,27 +479,27 @@ BOOL __40__MRNowPlayingPlayerResponse_repeatMode__block_invoke(uint64_t a1, void
 
   if (supportedCommands)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     supportedCommands2 = [(MRNowPlayingPlayerResponse *)self supportedCommands];
-    v26 = [supportedCommands2 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v26 = [supportedCommands2 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v41;
+      v28 = *v40;
       v29 = MEMORY[0x1E695E118];
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v41 != v28)
+          if (*v40 != v28)
           {
             objc_enumerationMutation(supportedCommands2);
           }
 
-          v31 = *(*(&v40 + 1) + 8 * i);
+          v31 = *(*(&v39 + 1) + 8 * i);
           if ([v31 command] == 133 && objc_msgSend(v31, "isEnabled"))
           {
             [v4 setObject:v29 forKeyedSubscript:@"migrationEnabled"];
@@ -510,7 +508,7 @@ BOOL __40__MRNowPlayingPlayerResponse_repeatMode__block_invoke(uint64_t a1, void
           }
         }
 
-        v27 = [supportedCommands2 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v27 = [supportedCommands2 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v27);
@@ -543,8 +541,6 @@ BOOL __40__MRNowPlayingPlayerResponse_repeatMode__block_invoke(uint64_t a1, void
     v37 = MRMediaRemoteCopyShuffleModeDescription([(MRNowPlayingPlayerResponse *)self shuffleMode]);
     [v4 setObject:v37 forKeyedSubscript:@"shuffleMode"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

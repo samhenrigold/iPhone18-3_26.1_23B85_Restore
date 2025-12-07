@@ -14,7 +14,7 @@
 
 - (id)sortItems:(id)items options:(int64_t)options configurationSet:(int64_t)set
 {
-  sub_100019558(&qword_10011F600);
+  sub_100019558(&qword_10011F600, qword_1000D6120);
   v6 = sub_1000CAED0();
   selfCopy = self;
   v8 = sub_10004B3B4(v6);
@@ -24,7 +24,7 @@
 
 - (id)limitItemsByMinimumItemQuality:(id)quality
 {
-  sub_100019558(&qword_10011F600);
+  sub_100019558(&qword_10011F600, qword_1000D6120);
   sub_1000CAED0();
   selfCopy = self;
   sub_1000C9B10();
@@ -36,7 +36,7 @@
 
 - (id)limitItemsByFlowRate:(id)rate timeInterval:(double)interval publisherCount:(unint64_t)count
 {
-  sub_100019558(&qword_10011F600);
+  sub_100019558(&qword_10011F600, qword_1000D6120);
   sub_1000CAED0();
   selfCopy = self;
   sub_1000C9B00();
@@ -109,7 +109,7 @@
 
   if (v6)
   {
-    sub_10001F934(0, &unk_100121850);
+    sub_10001F934(0, &unk_100121850, NSNumber_ptr);
     v7.super.isa = sub_1000CAC00().super.isa;
   }
 
@@ -123,7 +123,7 @@
 
 - (void)prewarmWithTabiScores:(id)scores configurationSet:(int64_t)set
 {
-  sub_10001F934(0, &unk_100121850);
+  sub_10001F934(0, &unk_100121850, NSNumber_ptr);
   v5 = sub_1000CAC10();
   selfCopy = self;
   sub_10004C734(v5);

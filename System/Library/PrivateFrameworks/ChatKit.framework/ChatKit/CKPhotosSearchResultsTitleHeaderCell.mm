@@ -17,13 +17,13 @@
   if (v3)
   {
     v4 = objc_alloc(MEMORY[0x1E69DCF38]);
-    v5 = CKFrameworkBundle();
+    v5 = CKFrameworkBundle(v4);
     v6 = [v5 localizedStringForKey:@"SEARCH_PHOTOS_ALL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v20[0] = v6;
-    v7 = CKFrameworkBundle();
+    v7 = CKFrameworkBundle(v6);
     v8 = [v7 localizedStringForKey:@"SEARCH_PHOTOS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v20[1] = v8;
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(v8);
     v10 = [v9 localizedStringForKey:@"SEARCH_SCREENSHOTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v20[2] = v10;
     v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];

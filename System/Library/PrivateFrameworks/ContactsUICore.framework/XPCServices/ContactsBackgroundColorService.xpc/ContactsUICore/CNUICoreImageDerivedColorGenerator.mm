@@ -1,4 +1,5 @@
 @interface CNUICoreImageDerivedColorGenerator
++ (id)ciContextWithHighPriority:(BOOL)priority;
 + (id)colorsForImageRef:(CGImage *)ref;
 + (id)colorsForUIImage:(id)image;
 + (id)defaultDarkGrayColors;
@@ -142,7 +143,7 @@ LABEL_27:
 
   else
   {
-    v16 = sub_100001528();
+    v16 = sub_100001528(Height);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_100003690(v16);
@@ -213,6 +214,25 @@ LABEL_27:
   v9 = v8;
 
   return v9;
+}
+
++ (id)ciContextWithHighPriority:(BOOL)priority
+{
+  v7[0] = kCIContextName;
+  v7[1] = kCIContextIntermediateMemoryTarget;
+  v8[0] = @"CNUICoreImageDerivedColorGenerator";
+  v8[1] = &off_100008840;
+  v7[2] = kCIContextPriorityRequestHigh;
+  v3 = [NSNumber numberWithBool:priority];
+  v8[2] = v3;
+  v8[3] = &__kCFBooleanTrue;
+  v7[3] = kCIContextLossyCompressedIntermediates;
+  v7[4] = kCIContextCacheIntermediates;
+  v8[4] = &__kCFBooleanFalse;
+  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:5];
+  v5 = [CIContext contextWithOptions:v4];
+
+  return v5;
 }
 
 + (id)defaultGrayColors

@@ -20,25 +20,25 @@
   intValue = [(NSNumber *)[(GKInterface *)self index] intValue];
   if ([(GKInterface *)self bsdName])
   {
-    uTF8String = [[(NSString *)[(GKInterface *)self bsdName] description] UTF8String];
+    v5 = [objc_msgSend_description(-[GKInterface bsdName](self "bsdName"))];
   }
 
   else
   {
-    uTF8String = "<nil>";
+    v5 = "<nil>";
   }
 
   if ([(GKInterface *)self type])
   {
-    uTF8String2 = [[(NSString *)[(GKInterface *)self type] description] UTF8String];
+    v6 = [objc_msgSend_description(-[GKInterface type](self "type"))];
   }
 
   else
   {
-    uTF8String2 = "<nil>";
+    v6 = "<nil>";
   }
 
-  return [v3 stringWithFormat:@"GKInterface [%p] index [%d] bsdName [%s] type [%s] priority [%d]", self, intValue, uTF8String, uTF8String2, -[GKInterface priority](self, "priority")];
+  return [v3 stringWithFormat:@"GKInterface [%p] index [%d] bsdName [%s] type [%s] priority [%d]", self, intValue, v5, v6, -[GKInterface priority](self, "priority")];
 }
 
 + (id)interfaceWithInterfaceIndex:(id)index
@@ -52,53 +52,43 @@
 
 + (id)bsdNameForIndex:(id)index
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([index intValue] < 1)
   {
-    result = @"GKInterfaceBSDNameNone";
+    return @"GKInterfaceBSDNameNone";
   }
 
-  else
+  memset(v7, 170, sizeof(v7));
+  if (if_indextoname([index intValue], v7))
   {
-    memset(v8, 170, sizeof(v8));
-    if (if_indextoname([index intValue], v8))
-    {
-      result = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
-    }
+    return [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+  }
 
-    else
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      if (VRTraceGetErrorLogLevelForModule() >= 3)
-      {
-        v5 = VRTraceErrorLogLevelToCSTR();
-        v6 = *MEMORY[0x277CE5818];
-        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
-        {
-          [(GKInterface *)v5 bsdNameForIndex:index, v6];
-        }
-      }
-
-      result = 0;
+      [(GKInterface *)v5 bsdNameForIndex:index, v6];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (void)bsdNameForIndex:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = 136315906;
-  v6 = a1;
-  v7 = 2080;
-  v8 = "+[GKInterface bsdNameForIndex:]";
-  v9 = 1024;
-  v10 = 70;
-  v11 = 1024;
-  v12 = [a2 intValue];
-  _os_log_error_impl(&dword_24E50C000, a3, OS_LOG_TYPE_ERROR, " [%s] %s:%d failed for interface index %d", &v5, 0x22u);
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = a1;
+  v6 = 2080;
+  v7 = "+[GKInterface bsdNameForIndex:]";
+  v8 = 1024;
+  v9 = 70;
+  v10 = 1024;
+  v11 = [a2 intValue];
+  _os_log_error_impl(&dword_24E50C000, a3, OS_LOG_TYPE_ERROR, " [%s] %s:%d failed for interface index %d", &v4, 0x22u);
 }
 
 @end

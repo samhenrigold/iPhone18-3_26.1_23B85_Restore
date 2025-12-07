@@ -172,7 +172,6 @@ LABEL_24:
 
   objc_storeStrong(&v45, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v50;
 
   return v16;

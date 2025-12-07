@@ -52,7 +52,7 @@
 
 - (void)removeAllPairingsForCallbackQueue:()HMMTRPairing vendorMetadataStore:completionHandler:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -63,25 +63,23 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v14;
+    v23 = v14;
     _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Remove all pairings: Collecting fabrics table list", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __103__MTRBaseDevice_HMMTRPairing__removeAllPairingsForCallbackQueue_vendorMetadataStore_completionHandler___block_invoke;
-  v19[3] = &unk_2786F1010;
-  v19[4] = selfCopy;
-  v20 = v8;
-  v21 = v9;
-  v22 = v10;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __103__MTRBaseDevice_HMMTRPairing__removeAllPairingsForCallbackQueue_vendorMetadataStore_completionHandler___block_invoke;
+  v18[3] = &unk_2786F1010;
+  v18[4] = selfCopy;
+  v19 = v8;
+  v20 = v9;
+  v21 = v10;
   v15 = v9;
   v16 = v10;
   v17 = v8;
-  [selfCopy fetchCurrentFabricIndexWithCallbackQueue:v17 completionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [selfCopy fetchCurrentFabricIndexWithCallbackQueue:v17 completionHandler:v18];
 }
 
 - (void)updateFabricLabel:()HMMTRPairing callbackQueue:completionHandler:
@@ -103,6 +101,36 @@
 
 - (void)fetchCurrentFabricIndexWithCallbackQueue:()HMMTRPairing completionHandler:
 {
+  v20 = *MEMORY[0x277D85DE8];
+  v6 = a3;
+  v7 = a4;
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v17 = v11;
+    v18 = 2112;
+    v19 = selfCopy;
+    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Getting current fabric index: %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  v12 = [selfCopy _retrieveFabricClusterWithQueue:v6];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __90__MTRBaseDevice_HMMTRPairing__fetchCurrentFabricIndexWithCallbackQueue_completionHandler___block_invoke;
+  v14[3] = &unk_2786F0F48;
+  v14[4] = selfCopy;
+  v15 = v7;
+  v13 = v7;
+  [v12 readAttributeCurrentFabricIndexWithCompletionHandler:v14];
+}
+
+- (void)unpairDevice:()HMMTRPairing completionHandler:
+{
   v21 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
@@ -116,59 +144,25 @@
     v18 = v11;
     v19 = 2112;
     v20 = selfCopy;
-    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Getting current fabric index: %@", buf, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v8);
-  v12 = [selfCopy _retrieveFabricClusterWithQueue:v6];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __90__MTRBaseDevice_HMMTRPairing__fetchCurrentFabricIndexWithCallbackQueue_completionHandler___block_invoke;
-  v15[3] = &unk_2786F0F48;
-  v15[4] = selfCopy;
-  v16 = v7;
-  v13 = v7;
-  [v12 readAttributeCurrentFabricIndexWithCompletionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unpairDevice:()HMMTRPairing completionHandler:
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v6 = a3;
-  v7 = a4;
-  v8 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-  {
-    v11 = HMFGetLogIdentifier();
-    *buf = 138543618;
-    v19 = v11;
-    v20 = 2112;
-    v21 = selfCopy;
     _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Attempting to unpair device: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __62__MTRBaseDevice_HMMTRPairing__unpairDevice_completionHandler___block_invoke;
-  v15[3] = &unk_2786F0F20;
-  v16 = v6;
-  v17 = v7;
-  v15[4] = selfCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__MTRBaseDevice_HMMTRPairing__unpairDevice_completionHandler___block_invoke;
+  v14[3] = &unk_2786F0F20;
+  v15 = v6;
+  v16 = v7;
+  v14[4] = selfCopy;
   v12 = v6;
   v13 = v7;
-  [selfCopy fetchCurrentFabricIndexWithCallbackQueue:v12 completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [selfCopy fetchCurrentFabricIndexWithCallbackQueue:v12 completionHandler:v14];
 }
 
 - (void)_removeFabricWithIndex:()HMMTRPairing callbackQueue:completionHandler:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -179,9 +173,9 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v8;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Attempting to remove fabric index: %@", buf, 0x16u);
   }
 
@@ -189,21 +183,19 @@
   v15 = [selfCopy _retrieveFabricClusterWithQueue:v9];
   v16 = objc_alloc_init(MEMORY[0x277CD5470]);
   [v16 setFabricIndex:v8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __86__MTRBaseDevice_HMMTRPairing___removeFabricWithIndex_callbackQueue_completionHandler___block_invoke;
-  v19[3] = &unk_2786F0EF8;
-  v19[4] = selfCopy;
-  v20 = v10;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __86__MTRBaseDevice_HMMTRPairing___removeFabricWithIndex_callbackQueue_completionHandler___block_invoke;
+  v18[3] = &unk_2786F0EF8;
+  v18[4] = selfCopy;
+  v19 = v10;
   v17 = v10;
-  [v15 removeFabricWithParams:v16 completionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v15 removeFabricWithParams:v16 completionHandler:v18];
 }
 
 - (void)removePairing:()HMMTRPairing callbackQueue:vendorMetadataStore:completionHandler:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -215,29 +207,27 @@
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v17;
-    v30 = 2112;
-    v31 = v10;
+    v28 = v17;
+    v29 = 2112;
+    v30 = v10;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Remove pairing: Iterating over fabrics table list to find FabricIndex for pairing %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __97__MTRBaseDevice_HMMTRPairing__removePairing_callbackQueue_vendorMetadataStore_completionHandler___block_invoke;
-  v23[3] = &unk_2786F0ED0;
-  v26 = v11;
-  v27 = v13;
-  v23[4] = selfCopy;
-  v24 = v12;
-  v25 = v10;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __97__MTRBaseDevice_HMMTRPairing__removePairing_callbackQueue_vendorMetadataStore_completionHandler___block_invoke;
+  v22[3] = &unk_2786F0ED0;
+  v25 = v11;
+  v26 = v13;
+  v22[4] = selfCopy;
+  v23 = v12;
+  v24 = v10;
   v18 = v11;
   v19 = v10;
   v20 = v12;
   v21 = v13;
-  [selfCopy fetchFabricDescriptorsWithCallbackQueue:v18 filtered:0 completionHandler:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [selfCopy fetchFabricDescriptorsWithCallbackQueue:v18 filtered:0 completionHandler:v22];
 }
 
 - (id)_retrieveFabricClusterWithQueue:()HMMTRPairing

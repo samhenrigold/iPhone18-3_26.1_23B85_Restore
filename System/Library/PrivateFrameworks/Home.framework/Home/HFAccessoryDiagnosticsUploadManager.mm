@@ -104,7 +104,7 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
 
 - (void)uploadDiagnosticLogUsingItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (([itemCopy isEligibleForUpload] & 1) == 0)
   {
@@ -130,9 +130,9 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
       metadata2 = [itemCopy metadata];
       uploadDestination = [metadata2 uploadDestination];
       *buf = 138412546;
-      v20 = filename3;
-      v21 = 2112;
-      v22 = uploadDestination;
+      v19 = filename3;
+      v20 = 2112;
+      v21 = uploadDestination;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Accessory Diagnostics upload requested for log %@  to URL %@", buf, 0x16u);
     }
   }
@@ -144,8 +144,6 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
   {
     [(HFAccessoryDiagnosticsUploadManager *)self _submitNextPendingLog];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fileURLForIdentifier:(id)identifier
@@ -185,7 +183,7 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
 
 - (void)_submitNextPendingLog
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   _nextFilenameIdentifierToProcess = [(HFAccessoryDiagnosticsUploadManager *)self _nextFilenameIdentifierToProcess];
   if (_nextFilenameIdentifierToProcess)
   {
@@ -200,30 +198,30 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v30 = snapshotPath;
-        v31 = 2112;
-        v32 = hf_serviceURLWithParameters;
+        v29 = snapshotPath;
+        v30 = 2112;
+        v31 = hf_serviceURLWithParameters;
         _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Preparing to upload %@ to %@", buf, 0x16u);
       }
 
       lastPathComponent = [snapshotPath lastPathComponent];
       v10 = NSTemporaryDirectory();
-      v27 = lastPathComponent;
+      v26 = lastPathComponent;
       v11 = [v10 stringByAppendingPathComponent:lastPathComponent];
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v26 = defaultManager;
+      v25 = defaultManager;
       if ([defaultManager fileExistsAtPath:v11])
       {
-        v25 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v28 = 0;
-        v13 = [defaultManager copyItemAtPath:snapshotPath toPath:v11 error:&v28];
-        v14 = v28;
-        v25 = v14;
+        v27 = 0;
+        v13 = [defaultManager copyItemAtPath:snapshotPath toPath:v11 error:&v27];
+        v14 = v27;
+        v24 = v14;
         if ((v13 & 1) == 0)
         {
           v15 = v14;
@@ -231,11 +229,11 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
-            v30 = snapshotPath;
-            v31 = 2112;
-            v32 = v11;
-            v33 = 2112;
-            v34 = v15;
+            v29 = snapshotPath;
+            v30 = 2112;
+            v31 = v11;
+            v32 = 2112;
+            v33 = v15;
             _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Copying %@ to %@ failed:%@", buf, 0x20u);
           }
         }
@@ -267,34 +265,30 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "No pending logs to upload.", buf, 2u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addToPendingUploads:(id)uploads
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   uploadsCopy = uploads;
   v5 = HFLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     pendingIdentifiers = [(HFAccessoryDiagnosticsUploadManager *)self pendingIdentifiers];
-    v9 = 138412546;
-    v10 = uploadsCopy;
-    v11 = 2048;
-    v12 = [pendingIdentifiers count];
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Adding log:%@ to Accessory Diagnostics upload service pending queue %lu.", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = uploadsCopy;
+    v10 = 2048;
+    v11 = [pendingIdentifiers count];
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Adding log:%@ to Accessory Diagnostics upload service pending queue %lu.", &v8, 0x16u);
   }
 
   pendingIdentifiers2 = [(HFAccessoryDiagnosticsUploadManager *)self pendingIdentifiers];
   [pendingIdentifiers2 addObject:uploadsCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_didPreviouslySubmitLog:(id)log
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   logCopy = log;
   pendingIdentifiers = [(HFAccessoryDiagnosticsUploadManager *)self pendingIdentifiers];
   v6 = [pendingIdentifiers containsObject:logCopy];
@@ -304,11 +298,11 @@ void __52__HFAccessoryDiagnosticsUploadManager_sharedManager__block_invoke()
     v7 = HFLogForCategory(1uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = logCopy;
+      v15 = 138412290;
+      v16 = logCopy;
       v8 = "Previously submitted. Pending identifiers contains log: %@";
 LABEL_10:
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v8, &v16, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, v8, &v15, 0xCu);
     }
   }
 
@@ -322,8 +316,8 @@ LABEL_10:
       v7 = HFLogForCategory(1uLL);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = logCopy;
+        v15 = 138412290;
+        v16 = logCopy;
         v8 = "Previously submitted. Failed identifiers contains log: %@";
         goto LABEL_10;
       }
@@ -343,8 +337,8 @@ LABEL_10:
       v7 = HFLogForCategory(1uLL);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = logCopy;
+        v15 = 138412290;
+        v16 = logCopy;
         v8 = "Previously submitted. Uploaded identifiers contains log: %@";
         goto LABEL_10;
       }
@@ -354,7 +348,6 @@ LABEL_10:
   v13 = 1;
 LABEL_12:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -370,7 +363,7 @@ LABEL_12:
 
 void __76__HFAccessoryDiagnosticsUploadManager__failAttemptToUploadCurrentIdentifier__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pendingIdentifiers];
   v3 = [v2 firstObject];
 
@@ -389,15 +382,13 @@ void __76__HFAccessoryDiagnosticsUploadManager__failAttemptToUploadCurrentIdenti
     v8 = HFLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Attempting next upload after failure to upload:%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Attempting next upload after failure to upload:%@", &v9, 0xCu);
     }
   }
 
   [*(a1 + 32) _submitNextPendingLog];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finalizeHandlingOfIdentifier:(id)identifier
@@ -435,24 +426,23 @@ uint64_t __69__HFAccessoryDiagnosticsUploadManager__finalizeHandlingOfIdentifier
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   v8 = HFLogForCategory(1uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = challengeCopy;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Received auth challenge:%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = challengeCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Received auth challenge:%@", &v9, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, 1, 0);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if (sent == send)
   {
@@ -460,23 +450,21 @@ uint64_t __69__HFAccessoryDiagnosticsUploadManager__finalizeHandlingOfIdentifier
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       taskDescription = [taskCopy taskDescription];
-      v15 = 138412546;
-      v16 = taskDescription;
-      v17 = 2048;
+      v14 = 138412546;
+      v15 = taskDescription;
+      v16 = 2048;
       sentCopy = sent;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Finished uploading task %@ of size:%lld", &v15, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Finished uploading task %@ of size:%lld", &v14, 0x16u);
     }
 
     taskDescription2 = [taskCopy taskDescription];
     [(HFAccessoryDiagnosticsUploadManager *)self _finalizeHandlingOfIdentifier:taskDescription2];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(id)session
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   pendingIdentifiers = [(HFAccessoryDiagnosticsUploadManager *)self pendingIdentifiers];
   v6 = [pendingIdentifiers count];
@@ -487,8 +475,8 @@ uint64_t __69__HFAccessoryDiagnosticsUploadManager__finalizeHandlingOfIdentifier
   {
     if (v8)
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Finished uploading task in background. Submitting next identifier.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Finished uploading task in background. Submitting next identifier.", &v12, 2u);
     }
 
     _nextFilenameIdentifierToProcess = [(HFAccessoryDiagnosticsUploadManager *)self _nextFilenameIdentifierToProcess];
@@ -501,23 +489,21 @@ uint64_t __69__HFAccessoryDiagnosticsUploadManager__finalizeHandlingOfIdentifier
     {
       configuration = [sessionCopy configuration];
       identifier = [configuration identifier];
-      v13 = 138412546;
-      v14 = sessionCopy;
-      v15 = 2112;
-      v16 = identifier;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Did finish all events for background url session:%@ identifier:%@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = sessionCopy;
+      v14 = 2112;
+      v15 = identifier;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Did finish all events for background url session:%@ identifier:%@", &v12, 0x16u);
     }
 
     _nextFilenameIdentifierToProcess = [(HFAccessoryDiagnosticsUploadManager *)self backgroundUrlSessionCompletionHandler];
     _nextFilenameIdentifierToProcess[2]();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   objc_opt_class();
@@ -540,13 +526,13 @@ uint64_t __69__HFAccessoryDiagnosticsUploadManager__finalizeHandlingOfIdentifier
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       taskDescription = [taskCopy taskDescription];
-      v18 = 138412546;
-      v19 = taskDescription;
-      v20 = 2112;
+      v17 = 138412546;
+      v18 = taskDescription;
+      v19 = 2112;
       statusCode = errorCopy;
       v14 = "Unable to complete task:%@ with error:%@";
 LABEL_16:
-      _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, v14, &v18, 0x16u);
+      _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, v14, &v17, 0x16u);
 
       goto LABEL_10;
     }
@@ -560,9 +546,9 @@ LABEL_16:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       taskDescription = [taskCopy taskDescription];
-      v18 = 138412546;
-      v19 = taskDescription;
-      v20 = 2048;
+      v17 = 138412546;
+      v18 = taskDescription;
+      v19 = 2048;
       statusCode = [v11 statusCode];
       v14 = "Unable to complete task:%@ with statusCode:%ld";
       goto LABEL_16;
@@ -574,37 +560,34 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v16 = HFLogForCategory(1uLL);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = HFLogForCategory(1uLL);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     taskDescription2 = [taskCopy taskDescription];
-    v18 = 138412546;
-    v19 = taskDescription2;
-    v20 = 2048;
+    v17 = 138412546;
+    v18 = taskDescription2;
+    v19 = 2048;
     statusCode = [v11 statusCode];
-    _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Did complete task:%@ with response:%ld", &v18, 0x16u);
+    _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Did complete task:%@ with response:%ld", &v17, 0x16u);
   }
 
 LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   v7 = HFLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = sessionCopy;
-    v11 = 2112;
-    v12 = errorCopy;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Session %@ Did Become Invalid with error:%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = sessionCopy;
+    v10 = 2112;
+    v11 = errorCopy;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Session %@ Did Become Invalid with error:%@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isValidFilenameIdentifier:(id)identifier
@@ -670,7 +653,7 @@ LABEL_11:
 
 - (void)_updatePreviousLogIdentifiers:(id)identifiers forKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   keyCopy = key;
   date = [MEMORY[0x277CBEAA8] date];
@@ -685,61 +668,59 @@ LABEL_11:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = keyCopy;
-    v23 = 2048;
-    v24 = [identifiersCopy count];
+    v21 = keyCopy;
+    v22 = 2048;
+    v23 = [identifiersCopy count];
     _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Begin update for previous identifiers with key: %@ with count: %lu", buf, 0x16u);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __76__HFAccessoryDiagnosticsUploadManager__updatePreviousLogIdentifiers_forKey___block_invoke;
-  v18[3] = &unk_277DF56F8;
-  v18[4] = self;
-  v19 = date;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __76__HFAccessoryDiagnosticsUploadManager__updatePreviousLogIdentifiers_forKey___block_invoke;
+  v17[3] = &unk_277DF56F8;
+  v17[4] = self;
+  v18 = date;
   v13 = array;
-  v20 = v13;
+  v19 = v13;
   v14 = date;
-  [identifiersCopy enumerateObjectsUsingBlock:v18];
+  [identifiersCopy enumerateObjectsUsingBlock:v17];
   v15 = HFLogForCategory(1uLL);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [v13 count];
     *buf = 138412546;
-    v22 = keyCopy;
-    v23 = 2048;
-    v24 = v16;
+    v21 = keyCopy;
+    v22 = 2048;
+    v23 = v16;
     _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Finish update for previous identifiers with key: %@ with count: %lu", buf, 0x16u);
   }
 
   [identifiersCopy removeAllObjects];
   [identifiersCopy addObjectsFromArray:v13];
   [standardUserDefaults setObject:v13 forKey:keyCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HFAccessoryDiagnosticsUploadManager__updatePreviousLogIdentifiers_forKey___block_invoke(id *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] fileURLForIdentifier:v3];
-  v15 = 0;
-  v5 = *MEMORY[0x277CBE7C0];
   v14 = 0;
-  v6 = [v4 getResourceValue:&v15 forKey:v5 error:&v14];
-  v7 = v15;
-  v8 = v14;
+  v5 = *MEMORY[0x277CBE7C0];
+  v13 = 0;
+  v6 = [v4 getResourceValue:&v14 forKey:v5 error:&v13];
+  v7 = v14;
+  v8 = v13;
   if (v6 && ([a1[5] timeIntervalSinceDate:v7], v9 < 864000.0))
   {
     v10 = HFLogForCategory(1uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v3;
-      v18 = 2112;
-      v19 = v7;
+      v16 = v3;
+      v17 = 2112;
+      v18 = v7;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "NOT purging %@ with date = %@", buf, 0x16u);
     }
 
@@ -752,9 +733,9 @@ void __76__HFAccessoryDiagnosticsUploadManager__updatePreviousLogIdentifiers_for
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v3;
-      v18 = 2112;
-      v19 = v7;
+      v16 = v3;
+      v17 = 2112;
+      v18 = v7;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Purging expired identifier %@ with date = %@", buf, 0x16u);
     }
 
@@ -762,35 +743,31 @@ void __76__HFAccessoryDiagnosticsUploadManager__updatePreviousLogIdentifiers_for
     v12 = [a1[4] diagnosticItems];
     [v12 removeObjectForKey:v3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUpLocalFilesForIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [(HFAccessoryDiagnosticsUploadManager *)self filePathForIdentifier:identifier];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if ([defaultManager fileExistsAtPath:v3])
   {
-    v8 = 0;
-    [defaultManager removeItemAtPath:v3 error:&v8];
-    v5 = v8;
+    v7 = 0;
+    [defaultManager removeItemAtPath:v3 error:&v7];
+    v5 = v7;
     if (v5)
     {
       v6 = HFLogForCategory(1uLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v10 = v3;
-        v11 = 2112;
-        v12 = v5;
+        v9 = v3;
+        v10 = 2112;
+        v11 = v5;
         _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Failure to clean up file:%@ with error:%@", buf, 0x16u);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

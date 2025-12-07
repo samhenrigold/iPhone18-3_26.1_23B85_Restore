@@ -5,6 +5,7 @@
 - (void)authenticateToBusinessWithCompletion:(id)completion;
 - (void)authenticateToBusinessWithSuccess:(id)success failure:(id)failure;
 - (void)checkVersionWithClientName:(id)name edamVersionMajor:(signed __int16)major edamVersionMinor:(signed __int16)minor completion:(id)completion;
+- (void)checkVersionWithClientName:(id)name edamVersionMajor:(signed __int16)major edamVersionMinor:(signed __int16)minor success:(id)success failure:(id)failure;
 - (void)fetchBootstrapInfoWithLocale:(id)locale completion:(id)completion;
 - (void)fetchNoteStoreURLWithCompletion:(id)completion;
 - (void)fetchPremiumInfoWithCompletion:(id)completion;
@@ -215,6 +216,23 @@ uint64_t __64__ENUserStoreClient_getBootstrapInfoWithLocale_success_failure___bl
   {
     return (*(*(a1 + 32) + 16))();
   }
+}
+
+- (void)checkVersionWithClientName:(id)name edamVersionMajor:(signed __int16)major edamVersionMinor:(signed __int16)minor success:(id)success failure:(id)failure
+{
+  minorCopy = minor;
+  majorCopy = major;
+  successCopy = success;
+  failureCopy = failure;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __98__ENUserStoreClient_checkVersionWithClientName_edamVersionMajor_edamVersionMinor_success_failure___block_invoke;
+  v16[3] = &unk_278C1A838;
+  v17 = successCopy;
+  v18 = failureCopy;
+  v14 = failureCopy;
+  v15 = successCopy;
+  [(ENUserStoreClient *)self checkVersionWithClientName:name edamVersionMajor:majorCopy edamVersionMinor:minorCopy completion:v16];
 }
 
 uint64_t __98__ENUserStoreClient_checkVersionWithClientName_edamVersionMajor_edamVersionMinor_success_failure___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)

@@ -108,7 +108,7 @@
 - (void)offerVehicleDisambiguationIfNeeded
 {
   selfCopy = self;
-  sub_1002849B0();
+  sub_1002849B0(selfCopy, v2);
 }
 
 - (void)resignTopContextInChromeViewController:(id)controller withAnimation:(id)animation
@@ -314,13 +314,13 @@
 
   if (automaticSharingContacts)
   {
-    sub_100014C84(0, &unk_101911D50);
+    sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     selfCopy = automaticSharingContacts;
   }
 
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -350,13 +350,13 @@
 {
   if (items)
   {
-    sub_100014C84(0, &qword_1019167D0);
+    sub_100014C84(0, &qword_1019167D0, off_1015F64E8);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   if (groups)
   {
-    sub_100014C84(0, &unk_101916D70);
+    sub_100014C84(0, &unk_101916D70, off_1015F64F0);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

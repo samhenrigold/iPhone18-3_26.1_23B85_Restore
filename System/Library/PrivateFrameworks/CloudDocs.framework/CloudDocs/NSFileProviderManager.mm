@@ -39,44 +39,44 @@ uint64_t __73__NSFileProviderManager_BRAdditions__br_getFPDomainForAccount_withE
 
 BOOL __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
   v4 = [MEMORY[0x1E69672F8] synchronousSharedConnectionProxy];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke_2;
-  v14[3] = &unk_1E7A14748;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke_2;
+  v13[3] = &unk_1E7A14748;
   v5 = *(a1 + 32);
-  v14[4] = *(a1 + 40);
-  v14[5] = &v15;
-  [v4 getDomainsForProviderIdentifier:v5 completionHandler:v14];
+  v13[4] = *(a1 + 40);
+  v13[5] = &v14;
+  [v4 getDomainsForProviderIdentifier:v5 completionHandler:v13];
 
-  v6 = v16[5];
+  v6 = v15[5];
   if (v6)
   {
     v7 = brc_bread_crumbs("+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]_block_invoke", 196);
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v13 = "(passed to caller)";
+      v12 = "(passed to caller)";
       *buf = 136315906;
-      v22 = "+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]_block_invoke";
-      v23 = 2080;
+      v21 = "+[NSFileProviderManager(BRAdditions) br_getFPDomainsForProviderIdentifier:withError:]_block_invoke";
+      v22 = 2080;
       if (!a2)
       {
-        v13 = "(ignored by caller)";
+        v12 = "(ignored by caller)";
       }
 
-      v24 = v13;
-      v25 = 2112;
-      v26 = v6;
-      v27 = 2112;
-      v28 = v7;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v6;
+      v26 = 2112;
+      v27 = v7;
       _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -87,10 +87,9 @@ BOOL __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifi
     *a2 = v6;
   }
 
-  v10 = v16[5] == 0;
-  _Block_object_dispose(&v15, 8);
+  v10 = v15[5] == 0;
+  _Block_object_dispose(&v14, 8);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -137,21 +136,12 @@ LABEL_10:
 LABEL_11:
 }
 
-void __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_1AE2A9000, v0, v1, "[ERROR] couldn't get existing domains: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void __85__NSFileProviderManager_BRAdditions__br_getFPDomainsForProviderIdentifier_withError___block_invoke_2_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] existing domains failed with provider not found%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] existing domains failed with provider not found%@", &v2, 0xCu);
 }
 
 @end

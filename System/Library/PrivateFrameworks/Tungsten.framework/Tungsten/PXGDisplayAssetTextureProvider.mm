@@ -84,7 +84,7 @@
   v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  [(PXGTextureProvider *)self interactionState];
+  objc_msgSend_interactionState(self, a2);
   v3 = 1;
   requestIDsInTargetRect = [(PXGTextureProvider *)self requestIDsInTargetRect];
   v5 = 1;
@@ -130,7 +130,7 @@ void __61__PXGDisplayAssetTextureProvider_didFinishRequestingTextures__block_inv
   dispatch_async(v2, block);
 }
 
-uint64_t __61__PXGDisplayAssetTextureProvider_didFinishRequestingTextures__block_invoke_2(uint64_t a1)
+void *__61__PXGDisplayAssetTextureProvider_didFinishRequestingTextures__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _processThumbnailRequestsOnRequestQueue:0];
   if (*(a1 + 48) == 1)
@@ -520,7 +520,7 @@ LABEL_30:
         v75 = date;
         if (pixelBufferSource)
         {
-          [pixelBufferSource preferredTransform];
+          objc_msgSend_preferredTransform(pixelBufferSource);
         }
 
         else
@@ -529,7 +529,7 @@ LABEL_30:
         }
 
         v80 = v33;
-        v36 = _PXGRotatedImageWithTransform(v33);
+        v36 = _PXGRotatedImageWithTransform(v33, &v83);
 
         displayAsset2 = [sessionCopy displayAsset];
         if ([displayAsset2 playbackStyle] == 3)
@@ -566,7 +566,7 @@ LABEL_30:
         v56 = pixelBufferSource2;
         if (pixelBufferSource2)
         {
-          [pixelBufferSource2 preferredTransform];
+          objc_msgSend_preferredTransform(pixelBufferSource2);
         }
 
         else
@@ -575,7 +575,7 @@ LABEL_30:
         }
 
         CGAffineTransformInvert(&v83, &v82);
-        v79 = _PXGRotatedImageWithTransform(v54);
+        v79 = _PXGRotatedImageWithTransform(v54, &v83);
 
         date = v75;
         if (!self->_workQueue_crossfadeRenderContext)
@@ -688,7 +688,7 @@ void __94__PXGDisplayAssetTextureProvider__workQueue_cleanupTextureStreamingSess
     v14 = pixelBufferSource2;
     if (pixelBufferSource2)
     {
-      [pixelBufferSource2 preferredTransform];
+      objc_msgSend_preferredTransform(pixelBufferSource2);
     }
 
     else
@@ -965,7 +965,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  [(PXGTextureProvider *)self interactionState];
+  objc_msgSend_interactionState(self);
   v33 = v69;
   if (typeCopy != 1)
   {
@@ -1277,21 +1277,16 @@ void __103__PXGDisplayAssetTextureProvider__workQueue_provideCGImage_options_adj
 
     if (cacheCopy)
     {
-      v24 = orientationCopy;
       result = [(PXGAssetImageCache *)self->_imageCache cacheCGImage:result orientation:orientationCopy isDegraded:bOOLValue forRequestID:d];
     }
 
-    else
-    {
-      v24 = orientationCopy;
-    }
-
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    -[PXGDisplayAssetTextureProvider _defaultStillImageTextureProcessingOptionsForAsset:orientation:applyCleanAperture:](self, "_defaultStillImageTextureProcessingOptionsForAsset:orientation:applyCleanAperture:", assetCopy, v24, [stateCopy applyCleanApertureCrop]);
-    v26[0] = v27;
-    v26[1] = v28;
-    [(PXGDisplayAssetTextureProvider *)self _workQueue_provideCGImage:result options:v26 adjustment:adjustmentCopy isDegraded:bOOLValue forRequestID:d];
+    [stateCopy applyCleanApertureCrop];
+    objc_msgSend__defaultStillImageTextureProcessingOptionsForAsset_orientation_applyCleanAperture_(self);
+    v25[0] = v26;
+    v25[1] = v27;
+    [(PXGDisplayAssetTextureProvider *)self _workQueue_provideCGImage:result options:v25 adjustment:adjustmentCopy isDegraded:bOOLValue forRequestID:d];
   }
 }
 
@@ -1516,14 +1511,14 @@ void __149__PXGDisplayAssetTextureProvider__workQueue_performDeferredImageReques
     [stateCopy screenScale];
     v16 = v15;
     [stateCopy screenMaxHeadroom];
-    v66 = v17;
+    v64 = v17;
     useLowMemoryDecode = [stateCopy useLowMemoryDecode];
     adjustment = [stateCopy adjustment];
     presentationStyles = [stateCopy presentationStyles];
     observer = [stateCopy observer];
     mediaProvider = [stateCopy mediaProvider];
     v22 = +[PXTungstenSettings sharedInstance];
-    v80 = mediaProvider;
+    v78 = mediaProvider;
     [mediaProvider masterThumbnailSize];
     if (v23 >= v24)
     {
@@ -1548,13 +1543,13 @@ void __149__PXGDisplayAssetTextureProvider__workQueue_performDeferredImageReques
     if ([v22 simulateSomeAssetsInCloud] && 0xCCCCCCCCCCCCCCCDLL * objc_msgSend(assetCopy, "thumbnailIndex") <= 0x3333333333333333)
     {
       [observer observeIsInCloud:1 forDisplayAsset:assetCopy];
-LABEL_69:
+LABEL_68:
 
-      goto LABEL_70;
+      goto LABEL_69;
     }
 
-    v70 = v26;
-    v72 = v12;
+    v68 = v26;
+    v70 = v12;
     if (adjustment)
     {
       [adjustment requestSizeForProposedTargetSize:{v12, *&v14}];
@@ -1598,15 +1593,15 @@ LABEL_69:
 
     if (adjustment)
     {
-      v78 = [adjustment contentModeForProposedContentMode:1];
+      v76 = [adjustment contentModeForProposedContentMode:1];
     }
 
     else
     {
-      v78 = 1;
+      v76 = 1;
     }
 
-    v77 = v22;
+    v75 = v22;
     if ((presentationStyles & 4) != 0)
     {
       representsBurst = [assetCopy representsBurst];
@@ -1620,45 +1615,39 @@ LABEL_69:
     }
 
     preferMipmaps = [(PXGTextureProvider *)self preferMipmaps];
-    v76 = observer;
+    v74 = observer;
     v37 = [[_PXGMediaRequest alloc] initWithAsset:assetCopy observer:observer postProcessOptions:v36];
     [(_PXGMediaRequest *)v37 setAdjustment:adjustment];
-    v103[0] = 0;
-    v102 = 0;
-    v101 = 0;
-    if ([(PXGAssetImageCache *)self->_imageCache getCachedImage:v103 withOrientation:&v101 outIsDegraded:&v102 forAsset:assetCopy targetSize:v78 contentMode:v6 forRequestID:v12, v29])
+    v101[0] = 0;
+    v100 = 0;
+    v99 = 0;
+    if ([(PXGAssetImageCache *)self->_imageCache getCachedImage:v101 withOrientation:&v99 outIsDegraded:&v100 forAsset:assetCopy targetSize:v76 contentMode:v6 forRequestID:v12, v29])
     {
       if (representsBurst)
       {
         v38 = v16;
-        [(PXGDisplayAssetTextureProvider *)self _workQueue_handleResult:v103[0] orientation:PXImageOrientationFromCGImagePropertyOrientation() info:0 targetSize:v37 screenScale:v6 mediaRequest:stateCopy textureRequestID:v12 sharedState:v29, v16];
+        [(PXGDisplayAssetTextureProvider *)self _workQueue_handleResult:v101[0] orientation:PXImageOrientationFromCGImagePropertyOrientation() info:0 targetSize:v37 screenScale:v6 mediaRequest:stateCopy textureRequestID:v12 sharedState:v29, v16];
       }
 
       else
       {
         location = 0u;
-        v100 = 0u;
-        v41 = v101;
+        v98 = 0u;
         if (stateCopy)
         {
-          applyCleanApertureCrop = [stateCopy applyCleanApertureCrop];
-        }
-
-        else
-        {
-          applyCleanApertureCrop = 1;
+          [stateCopy applyCleanApertureCrop];
         }
 
         v38 = v16;
-        [(PXGDisplayAssetTextureProvider *)self _defaultStillImageTextureProcessingOptionsForAsset:assetCopy orientation:v41 applyCleanAperture:applyCleanApertureCrop];
-        v98[0] = location;
-        v98[1] = v100;
-        [(PXGDisplayAssetTextureProvider *)self _workQueue_provideCGImage:v103[0] options:v98 adjustment:adjustment isDegraded:v102 forRequestID:v6];
+        objc_msgSend__defaultStillImageTextureProcessingOptionsForAsset_orientation_applyCleanAperture_(self);
+        v96[0] = location;
+        v96[1] = v98;
+        [(PXGDisplayAssetTextureProvider *)self _workQueue_provideCGImage:v101[0] options:v96 adjustment:adjustment isDegraded:v100 forRequestID:v6];
       }
 
       PXCGImageGetSizeWithOrientation();
-      v39 = v43;
-      v40 = v44;
+      v39 = v41;
+      v40 = v42;
     }
 
     else
@@ -1671,109 +1660,109 @@ LABEL_69:
     [(_PXGMediaRequest *)v37 setBestReceivedSize:v39, v40];
     if (v39 >= v12 && v40 >= v29)
     {
-LABEL_68:
+LABEL_67:
 
-      observer = v76;
-      v22 = v77;
-      goto LABEL_69;
+      observer = v74;
+      v22 = v75;
+      goto LABEL_68;
     }
 
-    v45 = v70 * v25;
+    v43 = v68 * v25;
     objc_initWeak(&location, self);
-    v93[0] = MEMORY[0x277D85DD0];
-    v93[1] = 3221225472;
-    v93[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke;
-    v93[3] = &unk_2782A8368;
-    objc_copyWeak(v96, &location);
-    v96[1] = *&v72;
-    v96[2] = v14;
-    v96[3] = *&v38;
-    v71 = v37;
-    v94 = v71;
-    v97 = v6;
-    v46 = stateCopy;
-    v95 = v46;
-    v73 = MEMORY[0x21CEE40A0](v93);
-    v64 = wantsSingleHighQualityDelivery;
-    if (v32 < v45)
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke;
+    v91[3] = &unk_2782A8368;
+    objc_copyWeak(v94, &location);
+    v94[1] = *&v70;
+    v94[2] = v14;
+    v94[3] = *&v38;
+    v69 = v37;
+    v92 = v69;
+    v95 = v6;
+    v44 = stateCopy;
+    v93 = v44;
+    v71 = MEMORY[0x21CEE40A0](v91);
+    v62 = wantsSingleHighQualityDelivery;
+    if (v32 < v43)
     {
-      v47 = (v32 > v25) & ~wantsSingleHighQualityDelivery;
+      v45 = (v32 > v25) & ~wantsSingleHighQualityDelivery;
     }
 
     else
     {
-      v47 = 0;
+      v45 = 0;
     }
 
-    v48 = v47 == 1 && -[PXGTextureProvider lowMemoryMode](self, "lowMemoryMode") && [v77 inLowMemoryModePreferMasterThumb] && !-[PXGTextureProvider allowLargerImagesDuringScrollingInLowMemoryMode](self, "allowLargerImagesDuringScrollingInLowMemoryMode") || v32 < v25;
-    if ([(PXGTextureProvider *)self lowMemoryMode]&& ([(PXGTextureProvider *)self interactionState], v92 == 1))
+    v46 = v45 == 1 && -[PXGTextureProvider lowMemoryMode](self, "lowMemoryMode") && [v75 inLowMemoryModePreferMasterThumb] && !-[PXGTextureProvider allowLargerImagesDuringScrollingInLowMemoryMode](self, "allowLargerImagesDuringScrollingInLowMemoryMode") || v32 < v25;
+    if ([(PXGTextureProvider *)self lowMemoryMode]&& (objc_msgSend_interactionState(self), v90 == 1))
     {
-      v49 = -[PXGDisplayAssetTextureProvider _requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:](self, "_requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:", 2, representsBurst | preferMipmaps, [v46 intent], useLowMemoryDecode);
-      if (v48)
+      v47 = -[PXGDisplayAssetTextureProvider _requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:](self, "_requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:", 2, representsBurst | preferMipmaps, [v44 intent], useLowMemoryDecode);
+      if (v46)
       {
         v12 = v25;
         v29 = v25;
       }
 
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke_2;
-      v89[3] = &unk_2782A8390;
-      v75 = v90;
-      objc_copyWeak(v90, &location);
-      v89[4] = assetCopy;
-      v90[1] = *&v12;
-      v90[2] = *&v29;
-      v90[3] = v78;
-      v50 = v49;
-      v89[5] = v50;
-      v89[7] = v73;
-      v91 = v6;
-      v89[6] = v80;
-      v51 = MEMORY[0x21CEE40A0](v89);
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke_2;
+      v87[3] = &unk_2782A8390;
+      v73 = v88;
+      objc_copyWeak(v88, &location);
+      v87[4] = assetCopy;
+      v88[1] = *&v12;
+      v88[2] = *&v29;
+      v88[3] = v76;
+      v48 = v47;
+      v87[5] = v48;
+      v87[7] = v71;
+      v89 = v6;
+      v87[6] = v78;
+      v49 = MEMORY[0x21CEE40A0](v87);
       workQueue_deferredImageRequestBlocksByTextureID = self->_workQueue_deferredImageRequestBlocksByTextureID;
-      v53 = [MEMORY[0x277CCABB0] numberWithInt:v6];
-      [(NSMutableDictionary *)workQueue_deferredImageRequestBlocksByTextureID setObject:v51 forKeyedSubscript:v53];
-      v79 = v51;
-      v69 = 0;
-      v54 = v89;
+      v51 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+      [(NSMutableDictionary *)workQueue_deferredImageRequestBlocksByTextureID setObject:v49 forKeyedSubscript:v51];
+      v77 = v49;
+      v67 = 0;
+      v52 = v87;
     }
 
     else
     {
-      if (!v47)
+      if (!v45)
       {
-        intent = [v46 intent];
-        if (v64)
+        intent = [v44 intent];
+        if (v62)
         {
-          v62 = 2;
+          v60 = 2;
         }
 
         else
         {
-          v62 = 0;
+          v60 = 0;
         }
 
-        v50 = [(PXGDisplayAssetTextureProvider *)self _requestOptionsForUseCase:v62 forDrawing:representsBurst | preferMipmaps intent:intent useLowMemoryDecode:useLowMemoryDecode];
-        [v50 setPreferHDR:v66 > 1.0];
-        [v50 setTargetHDRHeadroom:v66];
-        v56 = [v80 requestCGImageForAsset:assetCopy targetSize:v78 contentMode:v50 options:v73 resultHandler:{v12, v29}];
-        goto LABEL_61;
+        v48 = [(PXGDisplayAssetTextureProvider *)self _requestOptionsForUseCase:v60 forDrawing:representsBurst | preferMipmaps intent:intent useLowMemoryDecode:useLowMemoryDecode];
+        [v48 setPreferHDR:v64 > 1.0];
+        [v48 setTargetHDRHeadroom:v64];
+        v54 = [v78 requestCGImageForAsset:assetCopy targetSize:v76 contentMode:v48 options:v71 resultHandler:{v12, v29}];
+        goto LABEL_60;
       }
 
-      v50 = -[PXGDisplayAssetTextureProvider _requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:](self, "_requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:", 2, representsBurst | preferMipmaps, [v46 intent], useLowMemoryDecode);
-      v55 = [v80 requestCGImageForAsset:assetCopy targetSize:v78 contentMode:v50 options:v73 resultHandler:{v25, v25}];
-      v56 = v55;
-      if (v48)
+      v48 = -[PXGDisplayAssetTextureProvider _requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:](self, "_requestOptionsForUseCase:forDrawing:intent:useLowMemoryDecode:", 2, representsBurst | preferMipmaps, [v44 intent], useLowMemoryDecode);
+      v53 = [v78 requestCGImageForAsset:assetCopy targetSize:v76 contentMode:v48 options:v71 resultHandler:{v25, v25}];
+      v54 = v53;
+      if (v46)
       {
-LABEL_61:
+LABEL_60:
 
-        if (!-[_PXGMediaRequest gotAnyResult](v71, "gotAnyResult") && [assetCopy thumbnailIndex] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(assetCopy, "isInCloud"))
+        if (!-[_PXGMediaRequest gotAnyResult](v69, "gotAnyResult") && [assetCopy thumbnailIndex] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(assetCopy, "isInCloud"))
         {
-          [v76 observeIsInCloud:1 forDisplayAsset:assetCopy];
+          [v74 observeIsInCloud:1 forDisplayAsset:assetCopy];
         }
 
-        if (v56)
+        if (v54)
         {
           cancelationQueue = self->_cancelationQueue;
           block[0] = MEMORY[0x277D85DD0];
@@ -1781,52 +1770,52 @@ LABEL_61:
           block[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke_4;
           block[3] = &unk_2782A83B8;
           selfCopy = self;
-          v84 = v56;
-          v82 = v80;
-          v85 = v6;
+          v82 = v54;
+          v80 = v78;
+          v83 = v6;
           dispatch_async(cancelationQueue, block);
         }
 
-        objc_destroyWeak(v96);
+        objc_destroyWeak(v94);
         objc_destroyWeak(&location);
-        goto LABEL_68;
+        goto LABEL_67;
       }
 
-      v69 = v55;
-      v86[0] = MEMORY[0x277D85DD0];
-      v86[1] = 3221225472;
-      v86[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke_3;
-      v86[3] = &unk_2782A8390;
-      v75 = v87;
-      objc_copyWeak(v87, &location);
-      v86[4] = assetCopy;
-      v87[1] = *&v12;
-      v87[2] = *&v29;
-      v87[3] = v78;
-      v50 = v50;
-      v86[5] = v50;
-      v86[7] = v73;
-      v88 = v6;
-      v86[6] = v80;
-      v57 = MEMORY[0x21CEE40A0](v86);
-      v58 = self->_workQueue_deferredImageRequestBlocksByTextureID;
-      v53 = [MEMORY[0x277CCABB0] numberWithInt:v6];
-      [(NSMutableDictionary *)v58 setObject:v57 forKeyedSubscript:v53];
-      v79 = v57;
-      v54 = v86;
+      v67 = v53;
+      v84[0] = MEMORY[0x277D85DD0];
+      v84[1] = 3221225472;
+      v84[2] = __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke_3;
+      v84[3] = &unk_2782A8390;
+      v73 = v85;
+      objc_copyWeak(v85, &location);
+      v84[4] = assetCopy;
+      v85[1] = *&v12;
+      v85[2] = *&v29;
+      v85[3] = v76;
+      v48 = v48;
+      v84[5] = v48;
+      v84[7] = v71;
+      v86 = v6;
+      v84[6] = v78;
+      v55 = MEMORY[0x21CEE40A0](v84);
+      v56 = self->_workQueue_deferredImageRequestBlocksByTextureID;
+      v51 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+      [(NSMutableDictionary *)v56 setObject:v55 forKeyedSubscript:v51];
+      v77 = v55;
+      v52 = v84;
     }
 
-    v65 = v54 + 5;
-    v67 = v54 + 4;
-    v59 = v54 + 7;
-    v60 = v54 + 6;
+    v63 = v52 + 5;
+    v65 = v52 + 4;
+    v57 = v52 + 7;
+    v58 = v52 + 6;
 
-    objc_destroyWeak(v75);
-    v56 = v69;
-    goto LABEL_61;
+    objc_destroyWeak(v73);
+    v54 = v67;
+    goto LABEL_60;
   }
 
-LABEL_70:
+LABEL_69:
 }
 
 void __104__PXGDisplayAssetTextureProvider__workQueue_performRequestForDisplayAsset_textureRequestID_sharedState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -2330,7 +2319,7 @@ void __85__PXGDisplayAssetTextureProvider__providePlaceholdersForRequestIDs_plac
   dispatch_async(workQueue, block);
 }
 
-uint64_t __297__PXGDisplayAssetTextureProvider__requestQueue_requestTexturesForSpritesInRange_observer_textureRequestIDs_displayAssetFetchResult_presentationStyles_targetSize_screenScale_screenMaxHeadroom_adjustment_intent_cannotBeSatisfiedWithThumbnail_useLowMemoryDecode_applyCleanApertureCrop_mediaProvider___block_invoke(uint64_t a1)
+void *__297__PXGDisplayAssetTextureProvider__requestQueue_requestTexturesForSpritesInRange_observer_textureRequestIDs_displayAssetFetchResult_presentationStyles_targetSize_screenScale_screenMaxHeadroom_adjustment_intent_cannotBeSatisfiedWithThumbnail_useLowMemoryDecode_applyCleanApertureCrop_mediaProvider___block_invoke(uint64_t a1)
 {
   if (*(a1 + 168) == 1)
   {
@@ -2930,9 +2919,9 @@ void __100__PXGDisplayAssetTextureProvider_requestTexturesForSpritesInRange_geom
   }
 
   v8 = videoAllowedAtOrBelowSpeedForLowSpec;
-  [(PXGTextureProvider *)self interactionState];
-  [(PXGDisplayAssetTextureProvider *)self setVideoRequestsAllowed:v14 <= v8];
-  [(PXGTextureProvider *)self interactionState];
+  objc_msgSend_interactionState(self);
+  [(PXGDisplayAssetTextureProvider *)self setVideoRequestsAllowed:v14[0] <= v8];
+  objc_msgSend_interactionState(self);
   v9 = v13;
   if (v13 != change->var7)
   {
@@ -2965,7 +2954,7 @@ void __100__PXGDisplayAssetTextureProvider_requestTexturesForSpritesInRange_geom
   [defaultMediaProvider enumerateAvailableThumbnailDataFormats:v9];
 }
 
-uint64_t __57__PXGDisplayAssetTextureProvider_registerImageDataSpecs___block_invoke(uint64_t a1, uint64_t a2)
+void *__57__PXGDisplayAssetTextureProvider_registerImageDataSpecs___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   v5 = *(a2 + 16);

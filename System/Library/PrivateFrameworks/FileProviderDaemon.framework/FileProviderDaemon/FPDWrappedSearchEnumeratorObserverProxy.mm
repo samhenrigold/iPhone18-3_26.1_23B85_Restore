@@ -73,10 +73,10 @@ void __69__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingUpToPage___b
   [v7 finishEnumeratingWithError:v6];
 }
 
-void __70__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingWithError___block_invoke(uint64_t a1)
+void __70__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __70__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingWithError___block_invoke_cold_1(a1);
   }
@@ -84,35 +84,26 @@ void __70__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingWithError___
 
 void __69__FPDWrappedSearchEnumeratorObserverProxy_didEnumerateSearchResults___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingUpToPage___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FPDWrappedSearchEnumeratorObserverProxy_finishEnumeratingWithError___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(a1) fp_prettyDescription];
+  v1 = [OUTLINED_FUNCTION_8(a1) fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

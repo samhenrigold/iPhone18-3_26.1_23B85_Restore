@@ -10,6 +10,7 @@
 - (BOOL)startFieldDetectMode;
 - (BOOL)startWiredMode;
 - (BOOL)suspendWithInfo:(id)info;
+- (_NFContactlessPaymentSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode hostCardEmulationSupport:(BOOL)support;
 - (id)_authorize:(id)_authorize;
 - (id)_switchToBestGroupMemberOfHead:(id)head forField:(id)field;
 - (id)preloadApplets;
@@ -35,6 +36,7 @@
 - (void)handleExpressModeStarted;
 - (void)handleExpressModeTimeout;
 - (void)handleFelicaStateEvent:(id)event appletAID:(id)d;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleFieldNotification:(id)notification;
 - (void)handleFieldReset;
 - (void)handlePendingServerRequest;
@@ -55,6 +57,19 @@
 @end
 
 @implementation _NFContactlessPaymentSession
+
+- (_NFContactlessPaymentSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode hostCardEmulationSupport:(BOOL)support
+{
+  v8.receiver = self;
+  v8.super_class = _NFContactlessPaymentSession;
+  result = [(_NFXPCSession *)&v8 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode];
+  if (result)
+  {
+    result->_hostCardEmulationSupport = support;
+  }
+
+  return result;
+}
 
 - (void)cleanup
 {
@@ -113,7 +128,7 @@
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", buf, 0x22u);
     }
 
-    sub_10026449C();
+    sub_10026449C(NFSecureElementWrapper);
     self->_deferredAuthRequested = 0;
     [(_NFContactlessSession *)self setDeferredActivationApplet:0];
     [(NFTimer *)self->_deferredAuthTimer stopTimer];
@@ -1585,7 +1600,7 @@ LABEL_25:
         v38 = 43;
       }
 
-      v34(3, "%c[%{public}s %{public}s]:%i Failed to disable eSE always on", v38, v37, v47, 985, buf, *v49, *&v49[16]);
+      v34(3, "%c[%{public}s %{public}s]:%i Failed to disable eSE always on", v38, v37, v47, 985, buf, *v49, *&v49[8], *&v49[16], *&v49[24]);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -2876,7 +2891,7 @@ LABEL_36:
     }
   }
 
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   kdebug_trace();
   v42 = NFSharedSignpostLog();
   if (os_signpost_enabled(v42))
@@ -3313,6 +3328,121 @@ LABEL_47:
 LABEL_40:
 
   return v44;
+}
+
+- (void)handleFieldChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  kdebug_trace();
+  v6 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v6))
+  {
+    v7 = @"OFF";
+    if (changedCopy)
+    {
+      v7 = @"ON";
+    }
+
+    *buf = 138412290;
+    *v30 = v7;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NFTRACE_FIELD_DETECT", "field %@", buf, 0xCu);
+  }
+
+  expressModeManager = [(_NFXPCSession *)self expressModeManager];
+  if (expressModeManager)
+  {
+    v9 = expressModeManager[181];
+
+    if (v9 == 1)
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        v11 = Logger;
+        Class = object_getClass(self);
+        isMetaClass = class_isMetaClass(Class);
+        ClassName = object_getClassName(self);
+        Name = sel_getName(a2);
+        v15 = 45;
+        if (isMetaClass)
+        {
+          v15 = 43;
+        }
+
+        v11(4, "%c[%{public}s %{public}s]:%i express mode in progress", v15, ClassName, Name, 1354);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v16 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v17 = object_getClass(self);
+        if (class_isMetaClass(v17))
+        {
+          v18 = 43;
+        }
+
+        else
+        {
+          v18 = 45;
+        }
+
+        v19 = object_getClassName(self);
+        v20 = sel_getName(a2);
+        *buf = 67109890;
+        *v30 = v18;
+        *&v30[4] = 2082;
+        *&v30[6] = v19;
+        v31 = 2082;
+        v32 = v20;
+        v33 = 1024;
+        v34 = 1354;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i express mode in progress", buf, 0x22u);
+      }
+
+      goto LABEL_23;
+    }
+  }
+
+  if (!changedCopy)
+  {
+    if (![(_NFContactlessSession *)self plasticCardMode])
+    {
+      activeApplet = [(_NFContactlessSession *)self activeApplet];
+      if (activeApplet)
+      {
+        v22 = activeApplet;
+        activeApplet2 = [(_NFContactlessSession *)self activeApplet];
+        isTypeF = [activeApplet2 isTypeF];
+
+        if (isTypeF)
+        {
+          [(_NFContactlessPaymentSession *)self _fireFelicaTransactionEndEvent];
+          transactionStartEvent = self->_transactionStartEvent;
+          self->_transactionStartEvent = 0;
+        }
+      }
+    }
+
+    if (self->_deferredAuthRequested)
+    {
+      v16 = +[_NFHardwareManager sharedHardwareManager];
+      [v16 restartDiscovery];
+LABEL_23:
+    }
+  }
+
+  if (!self->_fieldPresent)
+  {
+    fieldNotification = self->_fieldNotification;
+    self->_fieldNotification = 0;
+  }
+
+  self->_fieldPresent = changedCopy;
+  v28.receiver = self;
+  v28.super_class = _NFContactlessPaymentSession;
+  [(_NFContactlessSession *)&v28 handleFieldChanged:changedCopy];
 }
 
 - (void)handleFieldNotification:(id)notification

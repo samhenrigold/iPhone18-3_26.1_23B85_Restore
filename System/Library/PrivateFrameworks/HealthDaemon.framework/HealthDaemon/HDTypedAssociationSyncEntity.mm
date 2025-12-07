@@ -275,16 +275,16 @@ void __107__HDTypedAssociationSyncEntity_generateSyncObjectsForSession_syncAncho
 
 + (int64_t)nextSyncAnchorWithSession:(id)session startSyncAnchor:(int64_t)anchor profile:(id)profile error:(id *)error
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   sessionCopy = session;
   v12 = [(HDTypedAssociationSyncEntity *)self _syncPredicateForSession:sessionCopy];
   v13 = [MEMORY[0x277D10B60] isNotNullPredicateWithProperty:@"child_id_objects.uuid"];
   v14 = [MEMORY[0x277D10B60] isNotNullPredicateWithProperty:@"parent_id_objects.uuid"];
   v15 = MEMORY[0x277D10B20];
-  v23[0] = v13;
-  v23[1] = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = v13;
+  v22[1] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v17 = [v15 predicateMatchingAllPredicates:v16];
 
   v18 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v17 otherPredicate:v12];
@@ -292,7 +292,6 @@ void __107__HDTypedAssociationSyncEntity_generateSyncObjectsForSession_syncAncho
   database = [profileCopy database];
 
   v20 = [(HDHealthEntity *)HDAssociationEntity nextSyncAnchorWithStartAnchor:anchor predicate:v18 session:sessionCopy healthDatabase:database error:error];
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

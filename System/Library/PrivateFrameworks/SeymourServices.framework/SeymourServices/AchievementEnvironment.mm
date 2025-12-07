@@ -9,12 +9,10 @@
 
 - (NSString)modalityIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC15SeymourServices22AchievementEnvironment_modalityIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC15SeymourServices22AchievementEnvironment_modalityIdentifier + 8);
 
-  v4 = sub_22766BFD0();
+  v2 = sub_22766BFD0();
 
-  return v4;
+  return v2;
 }
 
 - (id)numberOfWorkoutsOver5MinutesForModality:(id)modality

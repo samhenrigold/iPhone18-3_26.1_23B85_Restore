@@ -339,10 +339,10 @@ LABEL_53:
   v31[0] = 0uLL;
   LOWORD(v31[1]) = 256;
   geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::deallocateStorage(v31);
-  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((v3 + 224), 0x10001u) = 0;
-  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((v3 + 224), 0x10000u) = 0;
-  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((v3 + 224), 0x10051u) = 0;
-  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[]((v3 + 224), 0x10045u) = 2;
+  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](v3 + 112, 0x10001u) = 0;
+  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](v3 + 112, 0x10000u) = 0;
+  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](v3 + 112, 0x10051u) = 0;
+  *geo::intern_linear_map<gss::StyleAttribute,unsigned short,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::operator[](v3 + 112, 0x10045u) = 2;
   *(v3 + 31) = -1;
   *(v3 + 32) = 0;
   *(v3 + 33) = 0;
@@ -707,7 +707,7 @@ LABEL_90:
                               goto LABEL_108;
                             }
 
-                            for (ii = *(v27 + 2); ii; ii = *(ii + 2))
+                            for (ii = v27[2]; ii; ii = ii[2])
                             {
                               v27 = ii;
                             }

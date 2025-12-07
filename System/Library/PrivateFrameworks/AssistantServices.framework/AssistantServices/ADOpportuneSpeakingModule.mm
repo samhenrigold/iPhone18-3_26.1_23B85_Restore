@@ -164,16 +164,17 @@
     v7 = *v18;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      v8 = 0;
+      do
       {
         if (*v18 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_typeMap objectForKey:v9];
-        v11 = [(NSMutableDictionary *)self->_modelMap objectForKey:v10];
+        v9 = *(*(&v17 + 1) + 8 * v8);
+        v10 = objc_msgSend_objectForKey_(self->_typeMap);
+        v11 = objc_msgSend_objectForKey_(self->_modelMap);
         integerValue = [v9 integerValue];
         if ((integerValue - 2) >= 2)
         {
@@ -195,8 +196,11 @@
             self->_executionModelType = 0;
           }
         }
+
+        v8 = v8 + 1;
       }
 
+      while (v6 != v8);
       v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
@@ -333,7 +337,7 @@ LABEL_8:
         {
           typeMap = self->_typeMap;
           v11 = [NSNumber numberWithInteger:i];
-          v12 = [(NSMutableDictionary *)typeMap objectForKey:v11];
+          v12 = objc_msgSend_objectForKey_(typeMap);
 
           if (!v12)
           {
@@ -352,7 +356,7 @@ LABEL_8:
       {
         v13 = self->_typeMap;
         v14 = [NSNumber numberWithInteger:1];
-        v15 = [(NSMutableDictionary *)v13 objectForKey:v14];
+        v15 = objc_msgSend_objectForKey_(v13);
 
         if (!v15)
         {
@@ -389,7 +393,7 @@ LABEL_8:
     [_remoteOSMService recordFeedbackOfType:1 forSpeakableId:speakableIdentifier];
   }
 
-  v6 = [(NSMutableDictionary *)self->_modelMap objectForKey:self->_executionModelIdentifier];
+  v6 = objc_msgSend_objectForKey_(self->_modelMap);
   [v6 recordFeedbackOfType:1 forSpeakable:speakableCopy];
 }
 
@@ -403,7 +407,7 @@ LABEL_8:
     [_remoteOSMService recordFeedbackOfType:2 forSpeakableId:speakableIdentifier];
   }
 
-  v6 = [(NSMutableDictionary *)self->_modelMap objectForKey:self->_executionModelIdentifier];
+  v6 = objc_msgSend_objectForKey_(self->_modelMap);
   [v6 recordFeedbackOfType:2 forSpeakable:speakableCopy];
 }
 
@@ -517,7 +521,7 @@ LABEL_8:
 {
   errorCopy = error;
   speakableIdentifier = [(AFOpportuneSpeakable *)self->_currentSpeakable speakableIdentifier];
-  v8 = [(NSMutableDictionary *)self->_handlersBySpeakableID objectForKey:speakableIdentifier];
+  v8 = objc_msgSend_objectForKey_(self->_handlersBySpeakableID);
   v9 = v8;
   if (v8)
   {

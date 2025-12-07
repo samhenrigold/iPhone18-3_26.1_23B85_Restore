@@ -19,7 +19,7 @@
 
 - (void)processDataInResponse:(id)response withCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   objc_opt_class();
@@ -29,7 +29,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = responseCopy;
+      v18 = responseCopy;
       _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_ERROR, "WARNING: Invalid response (%@).  Skipping...", buf, 0xCu);
     }
 
@@ -41,18 +41,16 @@
   [WeakRetained transaction:self willProcessResponseData:v8];
 
   v11 = [[SBKSyncResponseDataKeyEnumerator alloc] initWithResponseData:v8];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __66__SBKSyncTransaction_processDataInResponse_withCompletionHandler___block_invoke;
-  v15[3] = &unk_279D22FB0;
-  v15[4] = self;
-  v16 = v8;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__SBKSyncTransaction_processDataInResponse_withCompletionHandler___block_invoke;
+  v14[3] = &unk_279D22FB0;
+  v14[4] = self;
+  v15 = v8;
+  v16 = handlerCopy;
   v12 = v8;
   v13 = handlerCopy;
-  [(SBKSyncResponseDataKeyEnumerator *)v11 enumerateKeysInResponseForTransaction:self completionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(SBKSyncResponseDataKeyEnumerator *)v11 enumerateKeysInResponseForTransaction:self completionBlock:v14];
 }
 
 uint64_t __66__SBKSyncTransaction_processDataInResponse_withCompletionHandler___block_invoke(void *a1)

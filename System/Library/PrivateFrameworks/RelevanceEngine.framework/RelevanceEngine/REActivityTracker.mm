@@ -96,7 +96,7 @@
 
 - (void)withdrawObject:(id)object
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = [(NSMapTable *)self->_activitiesByObject objectForKey:objectCopy];
 
@@ -106,26 +106,26 @@
     if ([v12 count])
     {
       RERaiseInternalException(*MEMORY[0x277CBE660], @"Object %@ is still being tracked by activity tracker %@", v13, v14, v15, v16, v17, v18, objectCopy);
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v19 = v12;
-      v20 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v29;
+        v22 = *v28;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v29 != v22)
+            if (*v28 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v28 + 1) + 8 * i);
+            v24 = *(*(&v27 + 1) + 8 * i);
             v25 = [v19 countForObject:v24];
             if (v25)
             {
@@ -140,7 +140,7 @@
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v21);
@@ -154,8 +154,6 @@
   {
     RERaiseInternalException(*MEMORY[0x277CBE660], @"Object %@ is not being tracked by activity tracker %@", v6, v7, v8, v9, v10, v11, objectCopy);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginActivity:(id)activity forObject:(id)object

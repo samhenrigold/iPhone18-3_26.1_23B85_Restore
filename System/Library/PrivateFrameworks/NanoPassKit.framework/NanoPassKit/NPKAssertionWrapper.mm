@@ -39,29 +39,28 @@
 
 - (BOOL)invalidateAssertionExpected:(BOOL)expected
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assertion = self->_assertion;
   if (assertion)
   {
     if (!expected)
     {
-      v5 = pk_General_log();
+      v5 = pk_General_log(self);
       v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
       if (v6)
       {
-        v7 = pk_General_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = pk_General_log(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = self->_assertion;
-          v14 = 138412290;
-          v15 = v8;
-          _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected invalidation of assertion:%@", &v14, 0xCu);
+          v9 = self->_assertion;
+          v13 = 138412290;
+          v14 = v9;
+          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Unexpected invalidation of assertion:%@", &v13, 0xCu);
         }
       }
     }
 
-    v9 = self->_assertion;
     (*(self->_assertionInvalidator + 2))();
     v10 = self->_assertion;
     self->_assertion = 0;
@@ -70,9 +69,7 @@
     self->_assertionInvalidator = 0;
   }
 
-  result = assertion != 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return assertion != 0;
 }
 
 - (id)description

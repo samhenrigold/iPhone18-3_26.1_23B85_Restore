@@ -466,34 +466,35 @@ LABEL_8:
   optionsCopy = options;
   if (![(THApplePubAssetPlugin *)self isDeviceSupported])
   {
-    if (![(THApplePubAssetPlugin *)self isDeviceSupported])
+    isDeviceSupported = [(THApplePubAssetPlugin *)self isDeviceSupported];
+    if ((isDeviceSupported & 1) == 0)
     {
       if (error)
       {
-        v26 = [infoCopy url];
-        v27 = [NSDictionary dictionaryWithObject:v26 forKey:AssetEngineErrorAssetURLUserInfoKey];
+        v33 = [infoCopy url];
+        v34 = [NSDictionary dictionaryWithObject:v33 forKey:AssetEngineErrorAssetURLUserInfoKey];
 
-        *error = [NSError errorWithDomain:AssetEngineErrorDomain code:1003 userInfo:v27];
+        *error = [NSError errorWithDomain:AssetEngineErrorDomain code:1003 userInfo:v34];
       }
 
-      v28 = THBundle();
-      v29 = [v28 localizedStringForKey:@"Device not supported" value:&stru_471858 table:0];
-      v30 = THBundle();
-      v31 = [v30 localizedStringForKey:@"This document can only be experienced on iPad." value:&stru_471858 table:0];
-      v14 = [UIAlertController alertControllerWithTitle:v29 message:v31 preferredStyle:1];
+      v35 = THBundle(isDeviceSupported, v32);
+      v36 = [v35 localizedStringForKey:@"Device not supported" value:&stru_471858 table:0];
+      v38 = THBundle(v36, v37);
+      v39 = [v38 localizedStringForKey:@"This document can only be experienced on iPad." value:&stru_471858 table:0];
+      v14 = [UIAlertController alertControllerWithTitle:v36 message:v39 preferredStyle:1];
 
-      v32 = THBundle();
-      v33 = [v32 localizedStringForKey:@"OK" value:&stru_471858 table:0];
-      v34 = [UIAlertAction actionWithTitle:v33 style:1 handler:0];
-      [v14 addAction:v34];
+      v42 = THBundle(v40, v41);
+      v43 = [v42 localizedStringForKey:@"OK" value:&stru_471858 table:0];
+      v44 = [UIAlertAction actionWithTitle:v43 style:1 handler:0];
+      [v14 addAction:v44];
 
       [(THApplePubAssetPlugin *)self presentAlertController:v14 options:optionsCopy animated:1];
-      v25 = 0;
+      v30 = 0;
       goto LABEL_18;
     }
 
 LABEL_8:
-    v25 = 0;
+    v30 = 0;
     goto LABEL_19;
   }
 
@@ -506,27 +507,28 @@ LABEL_8:
   [descriptionCopy setIsPreorderBook:{objc_msgSend(v14, "BOOLValue")}];
   requiredVersion = [descriptionCopy requiredVersion];
   v16 = requiredVersion;
-  if (!requiredVersion || ([requiredVersion floatValue], v17 <= 2.2))
+  if (!requiredVersion || (v17 = [requiredVersion floatValue], v19 <= 2.2))
   {
-    if ([descriptionCopy containsUnknownContentVersions])
+    containsUnknownContentVersions = [descriptionCopy containsUnknownContentVersions];
+    if (containsUnknownContentVersions)
     {
-      v46 = THBundle();
-      v35 = [v46 localizedStringForKey:@"New Features" value:&stru_471858 table:0];
-      v36 = THBundle();
-      [v36 localizedStringForKey:@"This book has new interactive features. For the best reading experience value:you’ll need to update Apple Books." table:{&stru_471858, 0}];
-      v37 = v48 = v16;
-      v38 = [UIAlertController alertControllerWithTitle:v35 message:v37 preferredStyle:1];
+      v61 = THBundle(containsUnknownContentVersions, v46);
+      v47 = [v61 localizedStringForKey:@"New Features" value:&stru_471858 table:0];
+      v49 = THBundle(v47, v48);
+      [v49 localizedStringForKey:@"This book has new interactive features. For the best reading experience value:you’ll need to update Apple Books." table:{&stru_471858, 0}];
+      v50 = v63 = v16;
+      v51 = [UIAlertController alertControllerWithTitle:v47 message:v50 preferredStyle:1];
 
-      v39 = THBundle();
-      v40 = [v39 localizedStringForKey:@"OK" value:&stru_471858 table:0];
-      v41 = [UIAlertAction actionWithTitle:v40 style:1 handler:0];
-      [v38 addAction:v41];
+      v54 = THBundle(v52, v53);
+      v55 = [v54 localizedStringForKey:@"OK" value:&stru_471858 table:0];
+      v56 = [UIAlertAction actionWithTitle:v55 style:1 handler:0];
+      [v51 addAction:v56];
 
-      v16 = v48;
-      [(THApplePubAssetPlugin *)self presentAlertController:v38 options:optionsCopy animated:1];
+      v16 = v63;
+      [(THApplePubAssetPlugin *)self presentAlertController:v51 options:optionsCopy animated:1];
     }
 
-    v25 = [(THApplePubAssetPlugin *)self viewControllerForAsset:infoCopy bookDescription:descriptionCopy options:0];
+    v30 = [(THApplePubAssetPlugin *)self viewControllerForAsset:infoCopy bookDescription:descriptionCopy options:0];
     if (!error)
     {
       goto LABEL_17;
@@ -535,31 +537,31 @@ LABEL_8:
     goto LABEL_15;
   }
 
-  v45 = THBundle();
-  v18 = [v45 localizedStringForKey:@"New Features" value:&stru_471858 table:0];
-  v19 = THBundle();
-  [v19 localizedStringForKey:@"This book has new interactive features. To open it value:you’ll need to update Apple Books." table:{&stru_471858, 0}];
-  v20 = v47 = v16;
-  v21 = [UIAlertController alertControllerWithTitle:v18 message:v20 preferredStyle:1];
+  v60 = THBundle(v17, v18);
+  v20 = [v60 localizedStringForKey:@"New Features" value:&stru_471858 table:0];
+  v22 = THBundle(v20, v21);
+  [v22 localizedStringForKey:@"This book has new interactive features. To open it value:you’ll need to update Apple Books." table:{&stru_471858, 0}];
+  v23 = v62 = v16;
+  v24 = [UIAlertController alertControllerWithTitle:v20 message:v23 preferredStyle:1];
 
-  v22 = THBundle();
-  v23 = [v22 localizedStringForKey:@"OK" value:&stru_471858 table:0];
-  v24 = [UIAlertAction actionWithTitle:v23 style:1 handler:0];
-  [v21 addAction:v24];
+  v27 = THBundle(v25, v26);
+  v28 = [v27 localizedStringForKey:@"OK" value:&stru_471858 table:0];
+  v29 = [UIAlertAction actionWithTitle:v28 style:1 handler:0];
+  [v24 addAction:v29];
 
-  v16 = v47;
-  [(THApplePubAssetPlugin *)self presentAlertController:v21 options:optionsCopy animated:1];
+  v16 = v62;
+  [(THApplePubAssetPlugin *)self presentAlertController:v24 options:optionsCopy animated:1];
 
-  v25 = 0;
+  v30 = 0;
   if (error)
   {
 LABEL_15:
-    if (!v25)
+    if (!v30)
     {
-      v42 = [infoCopy url];
-      v43 = [NSDictionary dictionaryWithObject:v42 forKey:AssetEngineErrorAssetURLUserInfoKey];
+      v57 = [infoCopy url];
+      v58 = [NSDictionary dictionaryWithObject:v57 forKey:AssetEngineErrorAssetURLUserInfoKey];
 
-      *error = [NSError errorWithDomain:AssetEngineErrorDomain code:1000 userInfo:v43];
+      *error = [NSError errorWithDomain:AssetEngineErrorDomain code:1000 userInfo:v58];
     }
   }
 
@@ -568,7 +570,7 @@ LABEL_17:
 LABEL_18:
 LABEL_19:
 
-  return v25;
+  return v30;
 }
 
 - (void)presentAlertController:(id)controller options:(id)options animated:(BOOL)animated

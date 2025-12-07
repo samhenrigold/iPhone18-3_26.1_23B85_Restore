@@ -12,6 +12,7 @@
 - (id)_localizedLongWarningStringsForClient:(unint64_t)client;
 - (id)_localizedShortDescriptionOfMultipleIssuesWithFullDescriptivePhrase:(BOOL)phrase;
 - (id)_localizedShortDescriptionOfSingleIssueWithFullDescriptivePhrase:(BOOL)phrase;
+- (id)_localizedShortDescriptionWithFullDescriptivePhrase:(BOOL)phrase shouldDescribeMultipleIssues:(BOOL)issues;
 - (id)localizedLongDescriptionForClient:(unint64_t)client;
 - (int64_t)compare:(id)compare;
 - (unint64_t)hashForUserAcknowlegement;
@@ -121,6 +122,22 @@
   v3 = +[WBSFeatureAvailability isPasswordsAppInstalled]^ 1;
 
   return [(WBSPasswordWarning *)self _localizedShortDescriptionWithFullDescriptivePhrase:0 shouldDescribeMultipleIssues:v3];
+}
+
+- (id)_localizedShortDescriptionWithFullDescriptivePhrase:(BOOL)phrase shouldDescribeMultipleIssues:(BOOL)issues
+{
+  if (issues)
+  {
+    [(WBSPasswordWarning *)self _localizedShortDescriptionOfMultipleIssuesWithFullDescriptivePhrase:phrase];
+  }
+
+  else
+  {
+    [(WBSPasswordWarning *)self _localizedShortDescriptionOfSingleIssueWithFullDescriptivePhrase:phrase];
+  }
+  v4 = ;
+
+  return v4;
 }
 
 - (id)_localizedShortDescriptionOfMultipleIssuesWithFullDescriptivePhrase:(BOOL)phrase

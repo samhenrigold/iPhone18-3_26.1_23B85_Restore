@@ -1,5 +1,6 @@
 @interface PSOrchestrator_v2
 - (PSOrchestrator_v2)initWithQueue:(id)queue withBuilder:(id)builder withGSTManager:(id)manager;
+- (PSOrchestrator_v2)initWithQueue:(id)queue withBuilder:(id)builder withGSTManager:(id)manager isSessionForLocalReplay:(BOOL)replay withSystemPulseRate:(id)rate;
 - (id)applyPolicyConstraints:(id)constraints withDesiredStride:(id)stride;
 - (id)getDefaultResourceFrequency:(id)frequency;
 - (unint64_t)offsetForGraph:(id)graph withFrequency:(unint64_t)frequency;
@@ -373,7 +374,7 @@ LABEL_31:
 
 - (void)pulseRateWillChangeForSyncID:(unint64_t)d atFrameID:(unint64_t)iD frequency:(unint64_t)frequency increment:(unint64_t)increment msgFrameNumber:(unint64_t)number
 {
-  v13 = sub_100013BF4();
+  v13 = sub_100013BF4(self, a2);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 134219008;
@@ -554,21 +555,21 @@ LABEL_31:
 
   [(PSOrchestrator_v2 *)self addedGraphs:0 removedGraphs:v6];
   builder2 = [(PSOrchestrator_v2 *)self builder];
-  v13 = 0;
-  v8 = [builder2 removeGraphsWithIDs:v6 error:&v13];
-  v9 = v13;
+  v15 = 0;
+  v8 = [builder2 removeGraphsWithIDs:v6 error:&v15];
+  v9 = v15;
 
   if ((v8 & 1) == 0)
   {
-    v10 = sub_100013BF4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100013BF4(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = [v9 description];
+      v13 = [v9 description];
       *buf = 136315394;
-      v15 = "[PSOrchestrator_v2(PSSG) execSessionRemoved:]";
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: builder removeGraphsWithIDs call failed with: %@", buf, 0x16u);
+      v17 = "[PSOrchestrator_v2(PSSG) execSessionRemoved:]";
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: builder removeGraphsWithIDs call failed with: %@", buf, 0x16u);
     }
   }
 
@@ -1014,7 +1015,7 @@ LABEL_31:
           v46 = name2;
           v47 = 2112;
           v48 = v11;
-          _os_log_unreliable_impl();
+          _os_log_unreliable_impl(&_mh_execute_header, v23, 0, "root resource are from different MSGs for Graph %@, MSGIDs are %@", &v45, 22);
         }
       }
 
@@ -1244,6 +1245,50 @@ LABEL_31:
   v13 = [(PSOrchestrator_v2 *)self initWithQueue:queueCopy withBuilder:builderCopy withGSTManager:managerCopy isSessionForLocalReplay:0 withSystemPulseRate:v12];
 
   return v13;
+}
+
+- (PSOrchestrator_v2)initWithQueue:(id)queue withBuilder:(id)builder withGSTManager:(id)manager isSessionForLocalReplay:(BOOL)replay withSystemPulseRate:(id)rate
+{
+  replayCopy = replay;
+  queueCopy = queue;
+  builderCopy = builder;
+  managerCopy = manager;
+  rateCopy = rate;
+  v26.receiver = self;
+  v26.super_class = PSOrchestrator_v2;
+  v16 = [(PSOrchestrator_v2 *)&v26 init];
+  v17 = v16;
+  if (v16)
+  {
+    [(PSOrchestrator_v2 *)v16 setIsSessionForLocalReplay:replayCopy];
+    [(PSOrchestrator_v2 *)v17 setQueue:queueCopy];
+    v18 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator_v2 *)v17 setResourceState:v18];
+
+    v19 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator_v2 *)v17 setGraphState:v19];
+
+    v20 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator_v2 *)v17 setPolicyRequests:v20];
+
+    [(PSOrchestrator_v2 *)v17 setBuilder:builderCopy];
+    [(PSOrchestrator_v2 *)v17 setGstManager:managerCopy];
+    [(PSOrchestrator_v2 *)v17 setNotifier:0];
+    v21 = os_log_create("com.apple.polaris", "orchestrator");
+    [(PSOrchestrator_v2 *)v17 setLog:v21];
+
+    [(PSOrchestrator_v2 *)v17 setSystemPulseRate:rateCopy];
+    v22 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator_v2 *)v17 setMSGMode:v22];
+
+    v23 = objc_alloc_init(NSMutableDictionary);
+    [(PSOrchestrator_v2 *)v17 setMSGResources:v23];
+
+    v24 = objc_alloc_init(PSOrchestratorStatisticsDelegate);
+    [(PSOrchestrator_v2 *)v17 setStatisticsDelegate:v24];
+  }
+
+  return v17;
 }
 
 - (void)setMSGState:(id)state withMode:(id)mode startingframeID:(id)d
@@ -1535,7 +1580,7 @@ LABEL_20:
           v54 = v6;
           v55 = 2112;
           v56 = v21;
-          _os_log_unreliable_impl();
+          _os_log_unreliable_impl(&_mh_execute_header, v22, 0, "desired stride for %@ is %@", &v53, 22);
         }
 
         requestedStrideToProvider = [v8 requestedStrideToProvider];
@@ -1568,7 +1613,7 @@ LABEL_20:
             strideChangeFrameID2 = [v8 strideChangeFrameID];
             v53 = v44;
             v54 = strideChangeFrameID2;
-            _os_log_unreliable_impl();
+            _os_log_unreliable_impl(&_mh_execute_header, v30, 0, "resource stride change Frameid is %@", &v53, 12);
           }
 
           v32 = objc_alloc_init(PSResourceDesiredState);
@@ -1594,7 +1639,7 @@ LABEL_20:
               {
                 v53 = v44;
                 v54 = v47;
-                _os_log_unreliable_impl();
+                _os_log_unreliable_impl(&_mh_execute_header, v39, 0, "Wanted at unspecified stride: %@", &v53, 12);
               }
             }
 
@@ -1608,7 +1653,7 @@ LABEL_20:
                 v54 = desiredStride2;
                 v55 = 2112;
                 v56 = v47;
-                _os_log_unreliable_impl();
+                _os_log_unreliable_impl(&_mh_execute_header, v39, 0, "Wanted at stride %@: %@", &v53, 22);
               }
             }
 
@@ -1622,7 +1667,7 @@ LABEL_20:
             {
               v53 = v44;
               v54 = v47;
-              _os_log_unreliable_impl();
+              _os_log_unreliable_impl(&_mh_execute_header, v39, 0, "No longer wanted: %@", &v53, 12);
             }
           }
 
@@ -1742,23 +1787,13 @@ LABEL_20:
 
                 if ([v17 state])
                 {
-                  if (![v7 isPessimistic])
-                  {
-                    goto LABEL_16;
-                  }
-
-                  guaranteedStrideChangeNotification = [v17 guaranteedStrideChangeNotification];
-                  requestedFrequencyToProvider = [v17 requestedFrequencyToProvider];
-                  v20 = [guaranteedStrideChangeNotification objectForKeyedSubscript:requestedFrequencyToProvider];
-
-                  if (v20)
+                  if ([v7 isPessimistic] && (objc_msgSend(v17, "guaranteedStrideChangeNotification"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "requestedFrequencyToProvider"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "objectForKeyedSubscript:", v19), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v20))
                   {
                     providerFrequency = [v17 providerFrequency];
                   }
 
                   else
                   {
-LABEL_16:
                     providerFrequency = [v17 requestedFrequencyToProvider];
                   }
 

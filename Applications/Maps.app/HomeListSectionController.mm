@@ -48,7 +48,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100540354();
+  LOBYTE(self) = sub_100540354(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -63,7 +63,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10053F21C(viewCopy);
+  sub_10053F21C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

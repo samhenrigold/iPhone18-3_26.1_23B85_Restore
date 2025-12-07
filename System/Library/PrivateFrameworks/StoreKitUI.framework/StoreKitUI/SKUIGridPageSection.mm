@@ -116,7 +116,7 @@
               v18 = *(*(&v30 + 1) + 8 * i);
               if (v18)
               {
-                [*(*(&v30 + 1) + 8 * i) lockupStyle];
+                objc_msgSend_lockupStyle(*(*(&v30 + 1) + 8 * i));
                 v19 = v29;
               }
 
@@ -569,7 +569,7 @@ void __60__SKUIGridPageSection_collectionViewDidTapVideoAtIndexPath___block_invo
     v20 = pageComponent2;
     if (pageComponent2)
     {
-      [pageComponent2 lockupStyle];
+      objc_msgSend_lockupStyle(pageComponent2);
       v21 = v30;
     }
 
@@ -992,7 +992,7 @@ void __51__SKUIGridPageSection_artworkRequest_didLoadImage___block_invoke_2(uint
 
 - (void)mediaView:(id)view playbackStateDidChange:(int64_t)change
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   context = [(SKUIStorePageSection *)self context];
   collectionView = [context collectionView];
@@ -1020,32 +1020,32 @@ void __51__SKUIGridPageSection_artworkRequest_didLoadImage___block_invoke_2(uint
       if ([metricsController canRecordEventWithType:*MEMORY[0x277D6A488]])
       {
         v27 = objc_alloc_init(MEMORY[0x277D69BA8]);
-        v28 = SKUIMetricsMediaEventTypeForPlaybackState(change);
-        [v27 setMediaEventType:v28];
+        v29 = SKUIMetricsMediaEventTypeForPlaybackState(change, v28);
+        [v27 setMediaEventType:v29];
 
         pageComponent = [(SKUIStorePageSection *)self pageComponent];
         children = [pageComponent children];
-        v31 = [children objectAtIndex:{objc_msgSend(v23, "item")}];
+        v32 = [children objectAtIndex:{objc_msgSend(v23, "item")}];
 
-        v32 = [metricsController locationWithPageComponent:pageComponent];
-        v33 = [metricsController locationWithPageComponent:v31];
-        v34 = v33;
-        if (v32 && v33)
+        v33 = [metricsController locationWithPageComponent:pageComponent];
+        v34 = [metricsController locationWithPageComponent:v32];
+        v35 = v34;
+        if (v33 && v34)
         {
-          v39[0] = v33;
-          v39[1] = v32;
-          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
-          [v27 setLocationWithEventLocations:v35];
+          v40[0] = v34;
+          v40[1] = v33;
+          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+          [v27 setLocationWithEventLocations:v36];
         }
 
-        mediaIdentifier = [v31 mediaIdentifier];
+        mediaIdentifier = [v32 mediaIdentifier];
         if (mediaIdentifier)
         {
-          v37 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
-          [v27 setItemIdentifier:v37];
+          v38 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
+          [v27 setItemIdentifier:v38];
         }
 
-        mediaURLString = [v31 mediaURLString];
+        mediaURLString = [v32 mediaURLString];
         [v27 setMediaURL:mediaURLString];
 
         [metricsController recordEvent:v27];
@@ -1598,7 +1598,7 @@ LABEL_6:
 
     if (lockupCopy)
     {
-      [lockupCopy lockupStyle];
+      objc_msgSend_lockupStyle(lockupCopy);
     }
 
     IsHorizontal = SKUILockupLayoutStyleIsHorizontal(0);
@@ -1840,10 +1840,10 @@ void __55__SKUIGridPageSection__enumerateVisibleItemsWithBlock___block_invoke(ui
   v9 = v8 + 42.0;
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
     if (!SKUILockupLayoutStyleIsHorizontal(v12))
     {
-      [lockupCopy lockupStyle];
+      objc_msgSend_lockupStyle(lockupCopy);
       if ((v11 & 4) != 0)
       {
         v9 = v9 + 41.0;
@@ -2022,8 +2022,8 @@ LABEL_9:
   v12 = colorScheme;
   if (colorScheme)
   {
-    primaryTextColor = [colorScheme primaryTextColor];
-    [v10 setSeparatorColor:primaryTextColor];
+    v13 = objc_msgSend_primaryTextColor(colorScheme);
+    [v10 setSeparatorColor:v13];
   }
 
   layout = [v10 layout];
@@ -2339,7 +2339,7 @@ LABEL_13:
   {
     if (v13)
     {
-      [v13 lockupStyle];
+      objc_msgSend_lockupStyle(v13);
 
       if ((v38 & 2) != 0)
       {
@@ -2408,7 +2408,7 @@ LABEL_13:
   layout = [cellCopy layout];
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   [layout setLayoutStyle:0];
@@ -2478,7 +2478,7 @@ LABEL_13:
   [layout setImageBoundingSize:{self->_lockupImageBoundingSize.width, self->_lockupImageBoundingSize.height}];
   if (lockupCopy)
   {
-    [lockupCopy lockupStyle];
+    objc_msgSend_lockupStyle(lockupCopy);
   }
 
   [layout setLayoutStyle:0];

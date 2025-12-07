@@ -7,10 +7,11 @@
 - (float)volume;
 - (id)_onSerialQueue_localOutputDevice;
 - (id)_onSerialQueue_performOperationForOutputDeviceUID:(int)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:;
-- (id)_performOperationForOutputDeviceUID:(uint64_t)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:;
+- (id)_performOperationForOutputDeviceUID:(int)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:;
 - (id)adjustVolume:(int64_t)volume outputDeviceUID:(id)d details:(id)details;
 - (id)debugDescription;
 - (id)description;
+- (id)muteVolume:(BOOL)volume outputDeviceUID:(id)d details:(id)details;
 - (id)outputDevices;
 - (id)setVolume:(float)volume outputDeviceUID:(id)d details:(id)details;
 - (id)uniqueIdentifier;
@@ -46,35 +47,34 @@
 
 - (id)outputDevices
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = __Block_byref_object_copy__9;
-  v10 = __Block_byref_object_dispose__9;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__9;
+  v8 = __Block_byref_object_dispose__9;
   outputDevices = [(MRAVOutputContext *)self->_outputContext outputDevices];
-  serialQueue = self->_serialQueue;
   msv_dispatch_sync_on_queue();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v4;
+  return v2;
 }
 
 void __42__MROutputContextController_outputDevices__block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v2 = [(MROutputContextController *)*(a1 + 32) _onSerialQueue_localOutputDevice];
   v3 = v2;
   if (v2)
   {
     v4 = *(*(*(a1 + 40) + 8) + 40);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __42__MROutputContextController_outputDevices__block_invoke_2;
-    v13[3] = &unk_1E769B6F8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __42__MROutputContextController_outputDevices__block_invoke_2;
+    v12[3] = &unk_1E769B6F8;
     v5 = v2;
-    v14 = v5;
-    v6 = [v4 msv_map:v13];
+    v13 = v5;
+    v6 = [v4 msv_map:v12];
     v7 = *(*(a1 + 40) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
@@ -83,16 +83,14 @@ void __42__MROutputContextController_outputDevices__block_invoke(uint64_t a1)
     {
       if ([*(a1 + 32) isLocalDeviceDesignatedGroupLeader])
       {
-        v15[0] = v5;
-        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+        v14[0] = v5;
+        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
         v10 = *(*(a1 + 40) + 8);
         v11 = *(v10 + 40);
         *(v10 + 40) = v9;
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_onSerialQueue_localOutputDevice
@@ -203,7 +201,7 @@ void *__42__MROutputContextController_outputDevices__block_invoke_2(uint64_t a1,
   v5 = [v3 uid];
   v6 = [v4 uid];
   v7 = v4;
-  if ([v5 isEqualToString:v6])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v7 = *(a1 + 32);
   }
@@ -236,7 +234,7 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
 
 - (void)_inititalizeVolume
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -247,26 +245,26 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
     v5 = *(self + 56);
     *(self + 56) = v4;
 
-    v36 = 0u;
-    v37 = 0u;
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     outputDevices = [*(self + 24) outputDevices];
-    v7 = [outputDevices countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v7 = [outputDevices countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v32;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v32 != v9)
           {
             objc_enumerationMutation(outputDevices);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v31 + 1) + 8 * i);
           if ([v11 isVolumeControlAvailable])
           {
             v12 = [v11 uid];
@@ -285,45 +283,41 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
           }
         }
 
-        v8 = [outputDevices countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v8 = [outputDevices countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v8);
     }
 
     v18 = *(self + 64);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __47__MROutputContextController__inititalizeVolume__block_invoke;
-    v33[3] = &unk_1E769D010;
-    v33[4] = self;
-    MRMediaRemoteGetMediaPlaybackVolume(v18, v33);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __47__MROutputContextController__inititalizeVolume__block_invoke;
+    v30[3] = &unk_1E769D010;
+    v30[4] = self;
+    MRMediaRemoteGetMediaPlaybackVolume(v18, v30);
     v19 = +[MROrigin localOrigin];
     v20 = *(self + 64);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __47__MROutputContextController__inititalizeVolume__block_invoke_306;
-    v32[3] = &unk_1E769D038;
-    v32[4] = self;
-    MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(v19, v20, v32);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __47__MROutputContextController__inititalizeVolume__block_invoke_306;
+    v29[3] = &unk_1E769D038;
+    v29[4] = self;
+    MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(v19, v20, v29);
 
-    v21 = *(self + 64);
     OUTLINED_FUNCTION_16();
-    v28 = 3221225472;
-    v29 = __47__MROutputContextController__inititalizeVolume__block_invoke_308;
-    v30 = &unk_1E769D060;
+    v25 = 3221225472;
+    v26 = __47__MROutputContextController__inititalizeVolume__block_invoke_308;
+    v27 = &unk_1E769D060;
     selfCopy = self;
-    MRMediaRemoteGetSystemVolumeMuted(v22, v27);
-    v23 = *(self + 64);
+    MRMediaRemoteGetSystemVolumeMuted(v21, v24);
     OUTLINED_FUNCTION_1_0();
-    v26[1] = 3221225472;
-    v26[2] = __47__MROutputContextController__inititalizeVolume__block_invoke_310;
-    v26[3] = &unk_1E769A228;
-    v26[4] = self;
-    dispatch_async(v24, v26);
+    v23[1] = 3221225472;
+    v23[2] = __47__MROutputContextController__inititalizeVolume__block_invoke_310;
+    v23[3] = &unk_1E769A228;
+    v23[4] = self;
+    dispatch_async(v22, v23);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerNotifications
@@ -348,71 +342,61 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
 
 - (void)_onSerialQueue_reevaluateGroupVolumeControlCapabilities
 {
-  if (self)
+  if (result)
   {
-    dispatch_assert_queue_V2(*(self + 64));
-    _onSerialQueue_calculateMasterVolumeCapabilities = [(MROutputContextController *)self _onSerialQueue_calculateMasterVolumeCapabilities];
-    if (_onSerialQueue_calculateMasterVolumeCapabilities != *(self + 36))
+    dispatch_assert_queue_V2(*(result + 64));
+    _onSerialQueue_calculateMasterVolumeCapabilities = [(MROutputContextController *)result _onSerialQueue_calculateMasterVolumeCapabilities];
+    if (_onSerialQueue_calculateMasterVolumeCapabilities != *(result + 36))
     {
-      *(self + 36) = _onSerialQueue_calculateMasterVolumeCapabilities;
-      v3 = *(self + 36);
-      v4 = OUTLINED_FUNCTION_35();
+      *(result + 36) = _onSerialQueue_calculateMasterVolumeCapabilities;
+      v3 = OUTLINED_FUNCTION_35();
 
-      [(MROutputContextDataSource *)v4 notifyVolumeCapabilitiesDidChange:v5 outputDevice:v6];
+      [(MROutputContextDataSource *)v3 notifyVolumeCapabilitiesDidChange:v4 outputDevice:v5];
     }
   }
 }
 
 - (uint64_t)_onSerialQueue_calculateMasterVolumeCapabilities
 {
-  v39 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    dispatch_assert_queue_V2(self[8]);
-    outputDevices = [(dispatch_queue_t *)self outputDevices];
-    v4 = OUTLINED_FUNCTION_13_0(outputDevices, v3);
-    if (v4)
-    {
-      v12 = v4;
-      LODWORD(v13) = 0;
-      OUTLINED_FUNCTION_32(v4, v5, v6, v7, v8, v9, v10, v11, v26, v28, v30);
-      do
-      {
-        v22 = 0;
-        do
-        {
-          OUTLINED_FUNCTION_14_0(volumeCapabilities, v15, v16, v17, v18, v19, v20, v21, v27, v29, v31);
-          if (!v23)
-          {
-            objc_enumerationMutation(self);
-          }
+    return 0;
+  }
 
-          volumeCapabilities = [*(v29 + 8 * v22) volumeCapabilities];
-          v13 = volumeCapabilities | v13;
-          ++v22;
+  dispatch_assert_queue_V2(self[8]);
+  outputDevices = [(dispatch_queue_t *)self outputDevices];
+  v10 = OUTLINED_FUNCTION_13_0(outputDevices, v3, v4, v5, v6, v7, v8, v9, v24, v26, v28, v30, v32, v34, v36, v38, v40);
+  if (v10)
+  {
+    v11 = v10;
+    LODWORD(v12) = 0;
+    OUTLINED_FUNCTION_32();
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        OUTLINED_FUNCTION_14_0();
+        if (!v14)
+        {
+          objc_enumerationMutation(self);
         }
 
-        while (v12 != v22);
-        volumeCapabilities = OUTLINED_FUNCTION_12_0(volumeCapabilities, v15, v16, v17, v18, v19, v20, v21, v27, v29, v31, v32, v33, v34, v35, v36, v37, v38);
-        v12 = volumeCapabilities;
+        volumeCapabilities = [*(v27 + 8 * i) volumeCapabilities];
+        v12 = volumeCapabilities | v12;
       }
 
-      while (volumeCapabilities);
+      v11 = OUTLINED_FUNCTION_12_0(volumeCapabilities, v16, v17, v18, v19, v20, v21, v22, v25, v27, v29, v31, v33, v35, v37, v39, v41);
     }
 
-    else
-    {
-      v13 = 0;
-    }
+    while (v11);
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v12;
 }
 
 - (void)_onSerialQueue_reevaluateGroupVolume
@@ -422,14 +406,14 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
     dispatch_assert_queue_V2(*(self + 64));
     if ((*(self + 36) & 2) != 0)
     {
-      _onSerialQueue_calculateMasterVolume = [(MROutputContextController *)self _onSerialQueue_calculateMasterVolume];
-      v5 = OUTLINED_FUNCTION_36(_onSerialQueue_calculateMasterVolume);
-      if (!(v7 ^ v8 | v6))
+      [(MROutputContextController *)self _onSerialQueue_calculateMasterVolume];
+      OUTLINED_FUNCTION_36();
+      if (!(v6 ^ v7 | v5))
       {
-        *(self + v4) = v5;
-        v9 = *(self + *(v3 + 3416));
+        *(self + v3) = v4;
+        v8 = *(self + *(v2 + 3416));
 
-        [(MROutputContextDataSource *)self notifyVolumeDidChange:v9 outputDevice:?];
+        [(MROutputContextDataSource *)self notifyVolumeDidChange:v8 outputDevice:?];
       }
     }
   }
@@ -437,181 +421,156 @@ void __58__MROutputContextController_sharedOutputContextController__block_invoke
 
 - (void)_onSerialQueue_reevaluateGroupVolumeMuted
 {
-  if (self)
+  if (result)
   {
-    dispatch_assert_queue_V2(*(self + 64));
-    _onSerialQueue_calculateGroupVolumeMuted = [(MROutputContextController *)self _onSerialQueue_calculateGroupVolumeMuted];
-    if (_onSerialQueue_calculateGroupVolumeMuted != *(self + 40))
+    dispatch_assert_queue_V2(*(result + 64));
+    _onSerialQueue_calculateGroupVolumeMuted = [(MROutputContextController *)result _onSerialQueue_calculateGroupVolumeMuted];
+    if (_onSerialQueue_calculateGroupVolumeMuted != *(result + 40))
     {
-      *(self + 40) = _onSerialQueue_calculateGroupVolumeMuted;
-      v3 = *(self + 40);
-      v4 = OUTLINED_FUNCTION_35();
+      *(result + 40) = _onSerialQueue_calculateGroupVolumeMuted;
+      v3 = OUTLINED_FUNCTION_35();
 
-      [(MROutputContextDataSource *)v4 notifyVolumeMutedDidChange:v5 outputDevice:v6];
+      [(MROutputContextDataSource *)v3 notifyVolumeMutedDidChange:v4 outputDevice:v5];
     }
   }
 }
 
 - (uint64_t)_onSerialQueue_calculateGroupVolumeMuted
 {
-  v39 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    dispatch_assert_queue_V2(self[8]);
-    outputDevices = [(dispatch_queue_t *)self outputDevices];
-    v4 = OUTLINED_FUNCTION_13_0(outputDevices, v3);
-    v12 = v4;
-    if (v4)
-    {
-      v13 = 0;
-      OUTLINED_FUNCTION_32(v4, v5, v6, v7, v8, v9, v10, v11, v26, v28, v30);
-      do
-      {
-        v22 = 0;
-        do
-        {
-          OUTLINED_FUNCTION_14_0(isVolumeMuted, v15, v16, v17, v18, v19, v20, v21, v27, v29, v31);
-          if (!v23)
-          {
-            objc_enumerationMutation(self);
-          }
+    return 0;
+  }
 
-          isVolumeMuted = [*(v29 + 8 * v22) isVolumeMuted];
-          v13 |= isVolumeMuted;
-          ++v22;
+  dispatch_assert_queue_V2(self[8]);
+  outputDevices = [(dispatch_queue_t *)self outputDevices];
+  v10 = OUTLINED_FUNCTION_13_0(outputDevices, v3, v4, v5, v6, v7, v8, v9, v23, v25, v27, v29, v31, v33, v35, v37, v39);
+  if (v10)
+  {
+    v11 = 0;
+    OUTLINED_FUNCTION_32();
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        OUTLINED_FUNCTION_14_0();
+        if (!v13)
+        {
+          objc_enumerationMutation(self);
         }
 
-        while (v12 != v22);
-        isVolumeMuted = OUTLINED_FUNCTION_12_0(isVolumeMuted, v15, v16, v17, v18, v19, v20, v21, v27, v29, v31, v32, v33, v34, v35, v36, v37, v38);
-        v12 = isVolumeMuted;
+        isVolumeMuted = [*(v26 + 8 * i) isVolumeMuted];
+        v11 |= isVolumeMuted;
       }
 
-      while (isVolumeMuted);
-      v12 = v13 & 1;
+      v10 = OUTLINED_FUNCTION_12_0(isVolumeMuted, v15, v16, v17, v18, v19, v20, v21, v24, v26, v28, v30, v32, v34, v36, v38, v40);
     }
+
+    while (v10);
+    v10 = v11 & 1;
   }
 
-  else
-  {
-    v12 = 0;
-  }
-
-  v24 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v10;
 }
 
-uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke(uint64_t result, float a2)
+void *__47__MROutputContextController__inititalizeVolume__block_invoke(void *result, float a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ((*(*(result + 32) + 41) & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  if ((*(result[4] + 41) & 1) == 0)
   {
     v3 = result;
     v4 = _MRLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(v3 + 32);
-      v6 = objc_opt_class();
-      v7 = *(v3 + 32);
-      v11 = 138543874;
+      v5 = objc_opt_class();
+      v6 = v3[4];
+      v9 = 138543874;
+      v10 = v5;
+      v11 = 2048;
       v12 = v6;
       v13 = 2048;
-      v14 = v7;
-      v15 = 2048;
-      v16 = a2;
-      v8 = v6;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volume with %f", &v11, 0x20u);
+      v14 = a2;
+      v7 = v5;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volume with %f", &v9, 0x20u);
     }
 
-    *&v9 = a2;
-    result = [*(v3 + 32) setLocalVolume:v9];
+    *&v8 = a2;
+    return [v3[4] setLocalVolume:v8];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (float)_onSerialQueue_calculateMasterVolume
 {
-  v42 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    dispatch_assert_queue_V2(self[8]);
-    outputDevices = [(dispatch_queue_t *)self outputDevices];
-    v4 = OUTLINED_FUNCTION_13_0(outputDevices, v3);
-    if (v4)
+    return 0.0;
+  }
+
+  dispatch_assert_queue_V2(self[8]);
+  outputDevices = [(dispatch_queue_t *)self outputDevices];
+  v10 = OUTLINED_FUNCTION_13_0(outputDevices, v3, v4, v5, v6, v7, v8, v9, v27, v29, v31, v33, v35, v37, v39, v41, v43);
+  if (v10)
+  {
+    v11 = v10;
+    OUTLINED_FUNCTION_32();
+    v12 = 0.0;
+    do
     {
-      v12 = v4;
-      OUTLINED_FUNCTION_32(v4, v5, v6, v7, v8, v9, v10, v11, v29, v31, v33);
-      v21 = 0.0;
-      do
+      for (i = 0; i != v11; ++i)
       {
-        v22 = 0;
-        do
+        OUTLINED_FUNCTION_14_0();
+        if (!v14)
         {
-          OUTLINED_FUNCTION_14_0(volume, v14, v15, v16, v17, v18, v19, v20, v30, v32, v34);
-          if (!v23)
-          {
-            objc_enumerationMutation(self);
-          }
-
-          v24 = *(v32 + 8 * v22);
-          volume = [v24 volume];
-          if (v21 <= v25)
-          {
-            volume = [v24 volume];
-            v21 = v26;
-          }
-
-          ++v22;
+          objc_enumerationMutation(self);
         }
 
-        while (v12 != v22);
-        volume = OUTLINED_FUNCTION_12_0(volume, v14, v15, v16, v17, v18, v19, v20, v30, v32, v34, v35, v36, v37, v38, v39, v40, v41);
-        v12 = volume;
+        v15 = *(v30 + 8 * i);
+        volume = [v15 volume];
+        if (v12 <= v24)
+        {
+          volume = [v15 volume];
+          v12 = v25;
+        }
       }
 
-      while (volume);
+      v11 = OUTLINED_FUNCTION_12_0(volume, v17, v18, v19, v20, v21, v22, v23, v28, v30, v32, v34, v36, v38, v40, v42, v44);
     }
 
-    else
-    {
-      v21 = 0.0;
-    }
+    while (v11);
   }
 
   else
   {
-    v21 = 0.0;
+    v12 = 0.0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v12;
 }
 
 - (unsigned)volumeControlCapabilities
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (float)volume
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[6];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[6];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 float __35__MROutputContextController_volume__block_invoke(uint64_t a1)
@@ -649,15 +608,14 @@ void __40__MROutputContextController_description__block_invoke(uint64_t a1)
 
 - (BOOL)isVolumeMuted
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 void __45__MROutputContextController_uniqueIdentifier__block_invoke(uint64_t a1)
@@ -670,42 +628,40 @@ void __45__MROutputContextController_uniqueIdentifier__block_invoke(uint64_t a1)
 
 - (id)uniqueIdentifier
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__9;
-  v9 = __Block_byref_object_dispose__9;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__9;
+  v8 = __Block_byref_object_dispose__9;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (id)description
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__9;
-  v9 = __Block_byref_object_dispose__9;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__9;
+  v8 = __Block_byref_object_dispose__9;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (MROutputContextController)initWithOutputContext:(id)context
 {
   contextCopy = context;
-  v12.receiver = self;
-  v12.super_class = MROutputContextController;
-  v6 = [(MROutputContextController *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = MROutputContextController;
+  v6 = [(MROutputContextController *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -715,7 +671,7 @@ void __45__MROutputContextController_uniqueIdentifier__block_invoke(uint64_t a1)
     serialQueue = v7->_serialQueue;
     v7->_serialQueue = v10;
 
-    [(MROutputContextDataSource *)v7 setShouldLog:MRProcessIsMediaRemoteDaemon()];
+    [(MROutputContextDataSource *)v7 setShouldLog:MRProcessIsMediaRemoteDaemon(v12, v13)];
     [(MROutputContextController *)v7 _inititalizeVolume];
     [(MROutputContextController *)v7 _registerNotifications];
   }
@@ -735,18 +691,17 @@ void __45__MROutputContextController_uniqueIdentifier__block_invoke(uint64_t a1)
 
 - (id)debugDescription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__9;
-  v9 = __Block_byref_object_dispose__9;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__9;
+  v8 = __Block_byref_object_dispose__9;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
@@ -804,7 +759,7 @@ void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
   dispatch_sync(serialQueue, v7);
 }
 
-- (id)_performOperationForOutputDeviceUID:(uint64_t)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:
+- (id)_performOperationForOutputDeviceUID:(int)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:
 {
   v10 = a2;
   capabilitiesCopy = capabilities;
@@ -812,34 +767,33 @@ void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
   deviceOperationCopy = deviceOperation;
   if (self)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__9;
-    v25 = __Block_byref_object_dispose__9;
-    v26 = 0;
-    v14 = *(self + 64);
-    v17 = v10;
-    v18 = capabilitiesCopy;
-    v19 = operationCopy;
-    v20 = deviceOperationCopy;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__9;
+    v24 = __Block_byref_object_dispose__9;
+    v25 = 0;
+    v16 = v10;
+    v17 = capabilitiesCopy;
+    v18 = operationCopy;
+    v19 = deviceOperationCopy;
     msv_dispatch_sync_on_queue();
-    v15 = v22[5];
+    v14 = v21[5];
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)setVolume:(float)volume outputDeviceUID:(id)d details:(id)details
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   v10 = [MEMORY[0x1E695DF00] now];
@@ -862,7 +816,7 @@ void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
 
   else
   {
-    volume = [v13 initWithFormat:@"<%@:%p> endpoint=%@ -> volume=%lf", volumeCopy, v14, self, uniqueIdentifier, volume, v46];
+    volume = [v13 initWithFormat:@"<%@:%p> endpoint=%@ -> volume=%lf", volumeCopy, v14, self, uniqueIdentifier, volume, v45];
   }
 
   v19 = volume;
@@ -880,29 +834,29 @@ void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v59 = v22;
+    v58 = v22;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke;
-  v56[3] = &__block_descriptor_36_e5_v8__0l;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke;
+  v55[3] = &__block_descriptor_36_e5_v8__0l;
   volumeCopy2 = volume;
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke_2;
-  v53[3] = &unk_1E769CE28;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke_2;
+  v52[3] = &unk_1E769CE28;
   volumeCopy3 = volume;
-  v54 = detailsCopy;
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke_3;
-  v50[3] = &unk_1E769CF28;
+  v53 = detailsCopy;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __63__MROutputContextController_setVolume_outputDeviceUID_details___block_invoke_3;
+  v49[3] = &unk_1E769CF28;
   volumeCopy4 = volume;
-  v24 = v54;
-  v51 = v24;
-  v25 = [(MROutputContextController *)self _performOperationForOutputDeviceUID:dCopy withCapabilities:2 systemOperation:v56 deviceOperation:v53 groupOperation:v50];
+  v24 = v53;
+  v50 = v24;
+  v25 = [(MROutputContextController *)self _performOperationForOutputDeviceUID:dCopy withCapabilities:2 systemOperation:v55 deviceOperation:v52 groupOperation:v49];
   v26 = _MRLogForCategory(0xAuLL);
   v27 = v26;
   if (v25)
@@ -916,16 +870,16 @@ void __45__MROutputContextController_debugDescription__block_invoke(uint64_t a1)
         date = [MEMORY[0x1E695DF00] date];
         [date timeIntervalSinceDate:v10];
         *buf = 138544386;
-        v59 = v12;
-        v60 = 2114;
+        v58 = v12;
+        v59 = 2114;
         v29 = requestID2;
         selfCopy = requestID2;
-        v62 = 2114;
+        v61 = 2114;
         selfCopy2 = v25;
-        v64 = 2114;
-        v65 = v19;
-        v66 = 2048;
-        v67 = v30;
+        v63 = 2114;
+        v64 = v19;
+        v65 = 2048;
+        v66 = v30;
         v31 = "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds";
         v32 = v27;
         v33 = 52;
@@ -940,14 +894,14 @@ LABEL_28:
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSinceDate:v10];
       *buf = 138544130;
-      v59 = v12;
-      v60 = 2114;
+      v58 = v12;
+      v59 = 2114;
       v29 = requestID3;
       selfCopy = requestID3;
-      v62 = 2114;
+      v61 = 2114;
       selfCopy2 = v25;
-      v64 = 2048;
-      v65 = v45;
+      v63 = 2048;
+      v64 = v44;
       v31 = "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds";
       v32 = v27;
       v33 = 42;
@@ -962,10 +916,10 @@ LABEL_28:
 
     v41 = objc_opt_class();
     *buf = 138543874;
-    v59 = v41;
-    v60 = 2048;
+    v58 = v41;
+    v59 = 2048;
     selfCopy = self;
-    v62 = 2114;
+    v61 = 2114;
     selfCopy2 = self;
     requestID4 = v41;
     _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Existing State: %{public}@", buf, 0x20u);
@@ -984,13 +938,13 @@ LABEL_28:
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:v10];
     *buf = 138544130;
-    v59 = v12;
-    v60 = 2114;
+    v58 = v12;
+    v59 = 2114;
     selfCopy = requestID4;
-    v62 = 2114;
+    v61 = 2114;
     selfCopy2 = v19;
-    v64 = 2048;
-    v65 = v37;
+    v63 = 2048;
+    v64 = v37;
     v38 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     v39 = v27;
     v40 = 42;
@@ -1007,10 +961,10 @@ LABEL_28:
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:v10];
     *buf = 138543874;
-    v59 = v12;
-    v60 = 2114;
+    v58 = v12;
+    v59 = 2114;
     selfCopy = requestID4;
-    v62 = 2048;
+    v61 = 2048;
     selfCopy2 = v42;
     v38 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v39 = v27;
@@ -1022,14 +976,12 @@ LABEL_28:
 LABEL_23:
 LABEL_24:
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)adjustVolume:(int64_t)volume outputDeviceUID:(id)d details:(id)details
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   v10 = [MEMORY[0x1E695DF00] now];
@@ -1052,7 +1004,7 @@ LABEL_24:
 
   else
   {
-    v18 = [v13 initWithFormat:@"<%@:%p> endpoint=%@ -> adjustment=%@", v14, self, uniqueIdentifier, v16, v46];
+    v18 = [v13 initWithFormat:@"<%@:%p> endpoint=%@ -> adjustment=%@", v14, self, uniqueIdentifier, v16, v45];
   }
 
   v19 = v18;
@@ -1070,29 +1022,29 @@ LABEL_24:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v56 = v22;
+    v55 = v22;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke;
-  v54[3] = &__block_descriptor_40_e5_v8__0l;
-  v54[4] = volume;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke_2;
-  v51[3] = &unk_1E769CF50;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke;
+  v53[3] = &__block_descriptor_40_e5_v8__0l;
+  v53[4] = volume;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke_2;
+  v50[3] = &unk_1E769CF50;
   volumeCopy = volume;
-  v52 = detailsCopy;
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke_3;
-  v48[3] = &unk_1E769CF78;
+  v51 = detailsCopy;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __66__MROutputContextController_adjustVolume_outputDeviceUID_details___block_invoke_3;
+  v47[3] = &unk_1E769CF78;
   volumeCopy2 = volume;
-  v24 = v52;
-  v49 = v24;
-  v25 = [(MROutputContextController *)self _performOperationForOutputDeviceUID:dCopy withCapabilities:4 systemOperation:v54 deviceOperation:v51 groupOperation:v48];
+  v24 = v51;
+  v48 = v24;
+  v25 = [(MROutputContextController *)self _performOperationForOutputDeviceUID:dCopy withCapabilities:4 systemOperation:v53 deviceOperation:v50 groupOperation:v47];
   v26 = _MRLogForCategory(0xAuLL);
   v27 = v26;
   if (v25)
@@ -1106,15 +1058,15 @@ LABEL_24:
         date = [MEMORY[0x1E695DF00] date];
         [date timeIntervalSinceDate:v10];
         *buf = 138544386;
-        v56 = v12;
-        v57 = 2114;
+        v55 = v12;
+        v56 = 2114;
         selfCopy = requestID2;
-        v59 = 2114;
+        v58 = 2114;
         selfCopy2 = v25;
-        v61 = 2114;
-        v62 = v19;
-        v63 = 2048;
-        v64 = v30;
+        v60 = 2114;
+        v61 = v19;
+        v62 = 2048;
+        v63 = v30;
         v31 = "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds";
         v32 = v27;
         v33 = 52;
@@ -1129,13 +1081,13 @@ LABEL_28:
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSinceDate:v10];
       *buf = 138544130;
-      v56 = v12;
-      v57 = 2114;
+      v55 = v12;
+      v56 = 2114;
       selfCopy = requestID2;
-      v59 = 2114;
+      v58 = 2114;
       selfCopy2 = v25;
-      v61 = 2048;
-      v62 = v45;
+      v60 = 2048;
+      v61 = v44;
       v31 = "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds";
       v32 = v27;
       v33 = 42;
@@ -1150,10 +1102,10 @@ LABEL_28:
 
     v41 = objc_opt_class();
     *buf = 138543874;
-    v56 = v41;
-    v57 = 2048;
+    v55 = v41;
+    v56 = 2048;
     selfCopy = self;
-    v59 = 2114;
+    v58 = 2114;
     selfCopy2 = self;
     requestID3 = v41;
     _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Existing State: %{public}@", buf, 0x20u);
@@ -1172,13 +1124,13 @@ LABEL_28:
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:v10];
     *buf = 138544130;
-    v56 = v12;
-    v57 = 2114;
+    v55 = v12;
+    v56 = 2114;
     selfCopy = requestID3;
-    v59 = 2114;
+    v58 = 2114;
     selfCopy2 = v19;
-    v61 = 2048;
-    v62 = v37;
+    v60 = 2048;
+    v61 = v37;
     v38 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     v39 = v27;
     v40 = 42;
@@ -1195,10 +1147,10 @@ LABEL_28:
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:v10];
     *buf = 138543874;
-    v56 = v12;
-    v57 = 2114;
+    v55 = v12;
+    v56 = 2114;
     selfCopy = requestID3;
-    v59 = 2048;
+    v58 = 2048;
     selfCopy2 = v42;
     v38 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v39 = v27;
@@ -1210,9 +1162,193 @@ LABEL_28:
 LABEL_23:
 LABEL_24:
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v25;
+}
+
+- (id)muteVolume:(BOOL)volume outputDeviceUID:(id)d details:(id)details
+{
+  volumeCopy = volume;
+  v64 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  detailsCopy = details;
+  v10 = [MEMORY[0x1E695DF00] now];
+  v11 = @"outputContextController.muteOutputDeviceVolume";
+  if (!dCopy)
+  {
+    v11 = @"outputContextController.muteVolume";
+  }
+
+  v12 = v11;
+  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v14 = objc_opt_class();
+  uniqueIdentifier = [(MROutputContextController *)self uniqueIdentifier];
+  v16 = uniqueIdentifier;
+  if (dCopy)
+  {
+    volumeCopy = [v13 initWithFormat:@"<%@:%p> endpont=%@, outputDevice=%@ -> mute=%u", v14, self, uniqueIdentifier, dCopy, volumeCopy];
+  }
+
+  else
+  {
+    volumeCopy = [v13 initWithFormat:@"<%@:%p> endpoint=%@ -> mute=%u", v14, self, uniqueIdentifier, volumeCopy, v44];
+  }
+
+  v18 = volumeCopy;
+
+  v19 = objc_alloc(MEMORY[0x1E696AD60]);
+  requestID = [detailsCopy requestID];
+  v21 = [v19 initWithFormat:@"%@<%@>", v12, requestID];
+
+  if (v18)
+  {
+    [(__CFString *)v21 appendFormat:@" for %@", v18];
+  }
+
+  v22 = _MRLogForCategory(0xAuLL);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v55 = v21;
+    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
+  }
+
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __64__MROutputContextController_muteVolume_outputDeviceUID_details___block_invoke;
+  v52[3] = &__block_descriptor_33_e5_v8__0l;
+  v53 = volumeCopy;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __64__MROutputContextController_muteVolume_outputDeviceUID_details___block_invoke_2;
+  v49[3] = &unk_1E769CEB8;
+  v51 = volumeCopy;
+  v50 = detailsCopy;
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __64__MROutputContextController_muteVolume_outputDeviceUID_details___block_invoke_3;
+  v46[3] = &unk_1E769CFC0;
+  v48 = volumeCopy;
+  v23 = v50;
+  v47 = v23;
+  v24 = [(MROutputContextController *)self _performOperationForOutputDeviceUID:dCopy withCapabilities:8 systemOperation:v52 deviceOperation:v49 groupOperation:v46];
+  v25 = _MRLogForCategory(0xAuLL);
+  v26 = v25;
+  if (v24)
+  {
+    v27 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+    if (v18)
+    {
+      if (v27)
+      {
+        requestID2 = [v23 requestID];
+        date = [MEMORY[0x1E695DF00] date];
+        [date timeIntervalSinceDate:v10];
+        *buf = 138544386;
+        v55 = v12;
+        v56 = 2114;
+        selfCopy = requestID2;
+        v58 = 2114;
+        selfCopy2 = v24;
+        v60 = 2114;
+        v61 = v18;
+        v62 = 2048;
+        v63 = v29;
+        v30 = "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds";
+        v31 = v26;
+        v32 = 52;
+LABEL_28:
+        _os_log_error_impl(&dword_1A2860000, v31, OS_LOG_TYPE_ERROR, v30, buf, v32);
+      }
+    }
+
+    else if (v27)
+    {
+      requestID2 = [v23 requestID];
+      date = [MEMORY[0x1E695DF00] date];
+      [date timeIntervalSinceDate:v10];
+      *buf = 138544130;
+      v55 = v12;
+      v56 = 2114;
+      selfCopy = requestID2;
+      v58 = 2114;
+      selfCopy2 = v24;
+      v60 = 2048;
+      v61 = v43;
+      v30 = "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds";
+      v31 = v26;
+      v32 = 42;
+      goto LABEL_28;
+    }
+
+    v26 = _MRLogForCategory(0);
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_24;
+    }
+
+    v40 = objc_opt_class();
+    *buf = 138543874;
+    v55 = v40;
+    v56 = 2048;
+    selfCopy = self;
+    v58 = 2114;
+    selfCopy2 = self;
+    requestID3 = v40;
+    _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Existing State: %{public}@", buf, 0x20u);
+    goto LABEL_23;
+  }
+
+  v33 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  if (v18)
+  {
+    if (!v33)
+    {
+      goto LABEL_24;
+    }
+
+    requestID3 = [v23 requestID];
+    date2 = [MEMORY[0x1E695DF00] date];
+    [date2 timeIntervalSinceDate:v10];
+    *buf = 138544130;
+    v55 = v12;
+    v56 = 2114;
+    selfCopy = requestID3;
+    v58 = 2114;
+    selfCopy2 = v18;
+    v60 = 2048;
+    v61 = v36;
+    v37 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
+    v38 = v26;
+    v39 = 42;
+  }
+
+  else
+  {
+    if (!v33)
+    {
+      goto LABEL_24;
+    }
+
+    requestID3 = [v23 requestID];
+    date2 = [MEMORY[0x1E695DF00] date];
+    [date2 timeIntervalSinceDate:v10];
+    *buf = 138543874;
+    v55 = v12;
+    v56 = 2114;
+    selfCopy = requestID3;
+    v58 = 2048;
+    selfCopy2 = v41;
+    v37 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
+    v38 = v26;
+    v39 = 32;
+  }
+
+  _os_log_impl(&dword_1A2860000, v38, OS_LOG_TYPE_DEFAULT, v37, buf, v39);
+
+LABEL_23:
+LABEL_24:
+
+  return v24;
 }
 
 - (void)modifyTopologyWithRequest:(id)request completion:(id)completion
@@ -1448,7 +1584,7 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
 
 - (void)setLocalVolumeControlCapabilities:(unsigned int)capabilities
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (-[MROutputContextDataSource shouldLog](self, "shouldLog") || (+[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 verboseOutputContextDataSourceLogging], v5, v6))
   {
     v7 = _MRLogForCategory(0);
@@ -1457,13 +1593,13 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
       v8 = objc_opt_class();
       v9 = v8;
       v10 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(capabilities);
-      *&v23 = 5.8383e-34;
-      v24 = v8;
-      v25 = 2048;
+      *&v22 = 5.8383e-34;
+      v23 = v8;
+      v24 = 2048;
       selfCopy = self;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolumeCapabilities changed to <%@>", &v23, 0x20u);
+      v26 = 2112;
+      v27 = v10;
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolumeCapabilities changed to <%@>", &v22, 0x20u);
     }
   }
 
@@ -1483,71 +1619,69 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     self->_localVolumeControlCapabilitiesInitialized = 1;
     self->_localVolumeControlCapabilities = capabilities;
     _onSerialQueue_localOutputDevice = [(MROutputContextController *)self _onSerialQueue_localOutputDevice];
-    v15 = _onSerialQueue_localOutputDevice;
+    v14 = _onSerialQueue_localOutputDevice;
     if (_onSerialQueue_localOutputDevice)
     {
       volumeCapabilities = [_onSerialQueue_localOutputDevice volumeCapabilities];
       if (volumeCapabilities != self->_localVolumeControlCapabilities)
       {
         [MROutputContextController setLocalVolumeControlCapabilities:];
-        volumeCapabilities = v23;
+        volumeCapabilities = v22;
       }
 
-      [(MROutputContextDataSource *)self notifyVolumeCapabilitiesDidChange:volumeCapabilities outputDevice:v15];
+      [(MROutputContextDataSource *)self notifyVolumeCapabilitiesDidChange:volumeCapabilities outputDevice:v14];
       [(MROutputContextController *)self _onSerialQueue_reevaluateGroupVolumeControlCapabilities];
-      v17 = self->_localVolumeControlCapabilities;
-      if ((v17 & 2) != 0 && (localVolumeControlCapabilities & 2) == 0 && self->_localVolumeInitialized)
+      v16 = self->_localVolumeControlCapabilities;
+      if ((v16 & 2) != 0 && (localVolumeControlCapabilities & 2) == 0 && self->_localVolumeInitialized)
       {
-        [v15 volume];
-        v19 = v18;
+        [v14 volume];
+        v18 = v17;
         localVolume = self->_localVolume;
-        if (vabds_f32(v19, localVolume) >= 0.00000011921)
+        if (vabds_f32(v18, localVolume) >= 0.00000011921)
         {
           [MROutputContextController setLocalVolumeControlCapabilities:];
-          localVolume = *&v23;
+          localVolume = *&v22;
         }
 
-        [(MROutputContextDataSource *)self notifyVolumeDidChange:v15 outputDevice:localVolume];
-        v17 = self->_localVolumeControlCapabilities;
+        [(MROutputContextDataSource *)self notifyVolumeDidChange:v14 outputDevice:localVolume];
+        v16 = self->_localVolumeControlCapabilities;
       }
 
-      if ((v17 & 8) != 0 && (localVolumeControlCapabilities & 8) == 0 && self->_localVolumeMutedInitialized)
+      if ((v16 & 8) != 0 && (localVolumeControlCapabilities & 8) == 0 && self->_localVolumeMutedInitialized)
       {
-        isVolumeMuted = [v15 isVolumeMuted];
+        isVolumeMuted = [v14 isVolumeMuted];
         localVolumeMuted = self->_localVolumeMuted;
         if (localVolumeMuted != isVolumeMuted)
         {
           [MROutputContextController setLocalVolumeControlCapabilities:];
-          localVolumeMuted = v23;
+          localVolumeMuted = v22;
         }
 
-        [(MROutputContextDataSource *)self notifyVolumeMutedDidChange:v15 outputDevice:?];
+        [(MROutputContextDataSource *)self notifyVolumeMutedDidChange:v14 outputDevice:?];
       }
 
       [(MROutputContextController *)self _onSerialQueue_reevaluateGroupVolume];
       [(MROutputContextController *)self _onSerialQueue_reevaluateGroupVolumeMuted];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalVolume:(float)volume
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (-[MROutputContextDataSource shouldLog](self, "shouldLog") || (+[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 verboseOutputContextDataSourceLogging], v6, v7))
   {
     v8 = _MRLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 138543874;
-      *&v17[4] = objc_opt_class();
-      *&v17[12] = 2048;
-      *&v17[14] = self;
-      *&v17[22] = 2048;
+      *v16 = 138543874;
+      *&v16[4] = objc_opt_class();
+      *&v16[12] = 2048;
+      *&v16[14] = self;
+      *&v16[22] = 2048;
       volumeCopy = volume;
-      v9 = *&v17[4];
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolume changed to <%f>", v17, 0x20u);
+      v9 = *&v16[4];
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolume changed to <%f>", v16, 0x20u);
     }
   }
 
@@ -1556,7 +1690,7 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     v8 = _MRLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [MROutputContextController setLocalVolume:];
+      [(MROutputContextController *)self setLocalVolume:volume];
     }
   }
 
@@ -1567,7 +1701,7 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     p_localVolume = &self->_localVolume;
     self->_localVolume = volume;
     _onSerialQueue_localOutputDevice = [(MROutputContextController *)self _onSerialQueue_localOutputDevice];
-    v13 = _onSerialQueue_localOutputDevice;
+    v12 = _onSerialQueue_localOutputDevice;
     if (_onSerialQueue_localOutputDevice)
     {
       if ([_onSerialQueue_localOutputDevice volumeCapabilities] != self->_localVolumeControlCapabilities)
@@ -1575,31 +1709,29 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
         [(MROutputContextController *)a2 setLocalVolume:?];
       }
 
-      if (([v13 volumeCapabilities] & 2) != 0)
+      if (([v12 volumeCapabilities] & 2) != 0)
       {
-        [v13 volume];
-        v15 = v14;
-        v16 = *p_localVolume;
-        if (vabds_f32(v15, *p_localVolume) >= 0.00000011921)
+        [v12 volume];
+        v14 = v13;
+        v15 = *p_localVolume;
+        if (vabds_f32(v14, *p_localVolume) >= 0.00000011921)
         {
           [MROutputContextController setLocalVolume:];
-          v16 = *v17;
+          v15 = *v16;
         }
 
-        [(MROutputContextDataSource *)self notifyVolumeDidChange:v13 outputDevice:v16];
+        [(MROutputContextDataSource *)self notifyVolumeDidChange:v12 outputDevice:v15];
       }
 
       [(MROutputContextController *)self _onSerialQueue_reevaluateGroupVolume];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocalVolumeMuted:(BOOL)muted
 {
   mutedCopy = muted;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (-[MROutputContextDataSource shouldLog](self, "shouldLog") || (+[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 verboseOutputContextDataSourceLogging], v5, v6))
   {
     v7 = _MRLogForCategory(0);
@@ -1607,19 +1739,19 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     {
       v8 = objc_opt_class();
       v9 = @"NO";
-      *v17 = 138543874;
-      *&v17[4] = v8;
+      *v16 = 138543874;
+      *&v16[4] = v8;
       if (mutedCopy)
       {
         v9 = @"YES";
       }
 
-      *&v17[12] = 2048;
-      *&v17[14] = self;
-      *&v17[22] = 2112;
-      v18 = v9;
+      *&v16[12] = 2048;
+      *&v16[14] = self;
+      *&v16[22] = 2112;
+      v17 = v9;
       v10 = v8;
-      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolumeMuted changed to <%@>", v17, 0x20u);
+      _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Observed localVolumeMuted changed to <%@>", v16, 0x20u);
     }
   }
 
@@ -1628,7 +1760,7 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     v7 = _MRLogForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [MROutputContextController setLocalVolumeMuted:];
+      [(MROutputContextController *)self setLocalVolumeMuted:mutedCopy];
     }
   }
 
@@ -1638,12 +1770,12 @@ void __79__MROutputContextController__handlePredictedOutputDeviceDidChangeNotifi
     self->_localVolumeMutedInitialized = 1;
     self->_localVolumeMuted = mutedCopy;
     _onSerialQueue_localOutputDevice = [(MROutputContextController *)self _onSerialQueue_localOutputDevice];
-    v13 = _onSerialQueue_localOutputDevice;
+    v12 = _onSerialQueue_localOutputDevice;
     if (!_onSerialQueue_localOutputDevice)
     {
-LABEL_13:
+LABEL_12:
 
-      goto LABEL_11;
+      return;
     }
 
     volumeCapabilities = [_onSerialQueue_localOutputDevice volumeCapabilities];
@@ -1651,34 +1783,31 @@ LABEL_13:
     {
       if ((volumeCapabilities & 8) != 0)
       {
-LABEL_16:
-        isVolumeMuted = [v13 isVolumeMuted];
+LABEL_15:
+        isVolumeMuted = [v12 isVolumeMuted];
         localVolumeMuted = self->_localVolumeMuted;
         if (localVolumeMuted != isVolumeMuted)
         {
           [MROutputContextController setLocalVolumeMuted:];
-          localVolumeMuted = v17[0];
+          localVolumeMuted = v16[0];
         }
 
-        [(MROutputContextDataSource *)self notifyVolumeMutedDidChange:v13 outputDevice:?];
+        [(MROutputContextDataSource *)self notifyVolumeMutedDidChange:v12 outputDevice:?];
       }
     }
 
     else
     {
       [MROutputContextController setLocalVolumeMuted:];
-      if ((v17[0] & 8) != 0)
+      if ((v16[0] & 8) != 0)
       {
-        goto LABEL_16;
+        goto LABEL_15;
       }
     }
 
     [(MROutputContextController *)self _onSerialQueue_reevaluateGroupVolumeMuted];
-    goto LABEL_13;
+    goto LABEL_12;
   }
-
-LABEL_11:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__MROutputContextController__onSerialQueue_isLocalOutputDevice___block_invoke(uint64_t a1, void *a2)
@@ -1691,74 +1820,70 @@ uint64_t __64__MROutputContextController__onSerialQueue_isLocalOutputDevice___bl
   return v5;
 }
 
-uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke_306(uint64_t result, uint64_t a2)
+void *__47__MROutputContextController__inititalizeVolume__block_invoke_306(void *result, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ((*(*(result + 32) + 42) & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  if ((*(result[4] + 42) & 1) == 0)
   {
     v3 = result;
     v4 = _MRLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(v3 + 32);
-      v6 = objc_opt_class();
-      v7 = *(v3 + 32);
-      v8 = v6;
-      v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(a2);
-      v11 = 138543874;
+      v5 = objc_opt_class();
+      v6 = v3[4];
+      v7 = v5;
+      v8 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(a2);
+      v9 = 138543874;
+      v10 = v5;
+      v11 = 2048;
       v12 = v6;
-      v13 = 2048;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volumeCapabilities with %@", &v11, 0x20u);
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volumeCapabilities with %@", &v9, 0x20u);
     }
 
-    result = [*(v3 + 32) setLocalVolumeControlCapabilities:a2];
+    return [v3[4] setLocalVolumeControlCapabilities:a2];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke_308(uint64_t result, uint64_t a2)
+void *__47__MROutputContextController__inititalizeVolume__block_invoke_308(void *result, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ((*(*(result + 32) + 72) & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  if ((*(result[4] + 72) & 1) == 0)
   {
     v3 = result;
     v4 = _MRLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(v3 + 32);
-      v6 = objc_opt_class();
-      v7 = *(v3 + 32);
-      v8 = @"NO";
-      v11 = 138543874;
-      v12 = v6;
+      v5 = objc_opt_class();
+      v6 = v3[4];
+      v7 = @"NO";
+      v9 = 138543874;
+      v10 = v5;
       if (a2)
       {
-        v8 = @"YES";
+        v7 = @"YES";
       }
 
-      v13 = 2048;
+      v11 = 2048;
+      v12 = v6;
+      v13 = 2112;
       v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v9 = v6;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volumeMuted with %@", &v11, 0x20u);
+      v8 = v5;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Initializing volumeMuted with %@", &v9, 0x20u);
     }
 
-    result = [*(v3 + 32) setLocalVolumeMuted:a2];
+    return [v3[4] setLocalVolumeMuted:a2];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)_onSerialQueue_performOperationForOutputDeviceUID:(int)d withCapabilities:(void *)capabilities systemOperation:(void *)operation deviceOperation:(void *)deviceOperation groupOperation:
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v11 = a2;
   capabilitiesCopy = capabilities;
   operationCopy = operation;
@@ -1771,7 +1896,7 @@ uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke_308(ui
   dispatch_assert_queue_V2(*(self + 64));
   if (!v11)
   {
-    OUTLINED_FUNCTION_37(36);
+    OUTLINED_FUNCTION_37();
     if (v21)
     {
       v26 = 36;
@@ -1785,11 +1910,11 @@ uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke_308(ui
         if ([outputDevices count] <= 1)
         {
           OUTLINED_FUNCTION_16();
-          v33 = 3221225472;
-          v34 = __143__MROutputContextController__onSerialQueue_performOperationForOutputDeviceUID_withCapabilities_systemOperation_deviceOperation_groupOperation___block_invoke;
-          v35 = &unk_1E769CDC0;
+          v32 = 3221225472;
+          v33 = __143__MROutputContextController__onSerialQueue_performOperationForOutputDeviceUID_withCapabilities_systemOperation_deviceOperation_groupOperation___block_invoke;
+          v34 = &unk_1E769CDC0;
           selfCopy = self;
-          v24 = [outputDevices msv_firstWhere:v32];
+          v24 = [outputDevices msv_firstWhere:v31];
 
           if (v24)
           {
@@ -1805,7 +1930,7 @@ uint64_t __47__MROutputContextController__inititalizeVolume__block_invoke_308(ui
         goto LABEL_37;
       }
 
-      OUTLINED_FUNCTION_37(80);
+      OUTLINED_FUNCTION_37();
       if (!v21)
       {
         capabilitiesCopy[2]();
@@ -1824,13 +1949,13 @@ LABEL_37:
   v13 = [self outputDevicesForUID:v11];
   if ([v13 count])
   {
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
-    v29 = v13;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v28 = v13;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (!v15)
     {
       Error = 0;
@@ -1839,20 +1964,20 @@ LABEL_37:
 
     v16 = v15;
     Error = 0;
-    v18 = *v38;
+    v18 = *v37;
     while (1)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v37 + 1) + 8 * i);
+        v20 = *(*(&v36 + 1) + 8 * i);
         if ([(MROutputContextController *)self _onSerialQueue_isLocalOutputDevice:v20])
         {
-          OUTLINED_FUNCTION_37(80);
+          OUTLINED_FUNCTION_37();
           if (!v21)
           {
             capabilitiesCopy[2]();
@@ -1871,12 +1996,12 @@ LABEL_37:
         Error = v22;
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (!v16)
       {
 LABEL_32:
 
-        v13 = v29;
+        v13 = v28;
         goto LABEL_33;
       }
     }
@@ -1884,7 +2009,7 @@ LABEL_32:
 
   if ([self isOutputContextEmpty] && objc_msgSend(self, "isLocalDeviceDesignatedGroupLeader"))
   {
-    OUTLINED_FUNCTION_37(80);
+    OUTLINED_FUNCTION_37();
     if (!v21)
     {
       capabilitiesCopy[2]();
@@ -1904,7 +2029,6 @@ LABEL_32:
 LABEL_33:
 
 LABEL_40:
-  v27 = *MEMORY[0x1E69E9840];
 
   return Error;
 }
@@ -1967,27 +2091,27 @@ void __129__MROutputContextController__performOperationForOutputDeviceUID_withCa
 
 void __95__MROutputContextController__handleOutputDeviceVolumeControlCapabilitiesDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"MRAVOutputContextOutputDeviceUserInfoKey"];
 
   if (([(MROutputContextController *)*(a1 + 40) _onSerialQueue_isLocalOutputDevice:v3]& 1) == 0)
   {
-    v5 = [*(a1 + 32) userInfo];
-    v6 = [v5 objectForKeyedSubscript:@"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey"];
-    v7 = [v6 intValue];
+    v4 = [*(a1 + 32) userInfo];
+    v5 = [v4 objectForKeyedSubscript:@"MRAVOutputContextVolumeControlCapabilitiesUserInfoKey"];
+    v6 = [v5 intValue];
 
     if (v3)
     {
-      [(MROutputContextDataSource *)*(a1 + 40) notifyVolumeCapabilitiesDidChange:v7 outputDevice:v3];
-      if ((v7 & 2) != 0)
+      [(MROutputContextDataSource *)*(a1 + 40) notifyVolumeCapabilitiesDidChange:v6 outputDevice:v3];
+      if ((v6 & 2) != 0)
       {
-        v16 = *(a1 + 40);
+        v15 = *(a1 + 40);
         [v3 volume];
-        [(MROutputContextDataSource *)v16 notifyVolumeDidChange:v3 outputDevice:v17];
+        [(MROutputContextDataSource *)v15 notifyVolumeDidChange:v3 outputDevice:v16];
       }
 
-      if ((v7 & 8) != 0)
+      if ((v6 & 8) != 0)
       {
         -[MROutputContextDataSource notifyVolumeMutedDidChange:outputDevice:](*(a1 + 40), [v3 isVolumeMuted], v3);
       }
@@ -1995,67 +2119,65 @@ void __95__MROutputContextController__handleOutputDeviceVolumeControlCapabilitie
 
     else
     {
-      v8 = [*(a1 + 40) outputDevices];
-      v9 = [v8 countByEnumeratingWithState:v20 objects:v22 count:16];
-      if (v9)
+      v7 = [*(a1 + 40) outputDevices];
+      v8 = [v7 countByEnumeratingWithState:v19 objects:v21 count:16];
+      if (v8)
       {
-        v10 = v9;
-        v11 = *v21;
+        v9 = v8;
+        v10 = *v20;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v11)
+            if (*v20 != v10)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            v13 = *(v20[1] + 8 * i);
-            -[MROutputContextDataSource notifyVolumeCapabilitiesDidChange:outputDevice:](*(a1 + 40), [v13 volumeCapabilities], v13);
-            if (([v13 volumeCapabilities] & 2) != 0)
+            v12 = *(v19[1] + 8 * i);
+            -[MROutputContextDataSource notifyVolumeCapabilitiesDidChange:outputDevice:](*(a1 + 40), [v12 volumeCapabilities], v12);
+            if (([v12 volumeCapabilities] & 2) != 0)
             {
-              v14 = *(a1 + 40);
-              [v13 volume];
-              [(MROutputContextDataSource *)v14 notifyVolumeDidChange:v13 outputDevice:v15];
+              v13 = *(a1 + 40);
+              [v12 volume];
+              [(MROutputContextDataSource *)v13 notifyVolumeDidChange:v12 outputDevice:v14];
             }
 
-            if (([v13 volumeCapabilities] & 8) != 0)
+            if (([v12 volumeCapabilities] & 8) != 0)
             {
-              -[MROutputContextDataSource notifyVolumeMutedDidChange:outputDevice:](*(a1 + 40), [v13 isVolumeMuted], v13);
+              -[MROutputContextDataSource notifyVolumeMutedDidChange:outputDevice:](*(a1 + 40), [v12 isVolumeMuted], v12);
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:v20 objects:v22 count:16];
+          v9 = [v7 countByEnumeratingWithState:v19 objects:v21 count:16];
         }
 
-        while (v10);
+        while (v9);
       }
     }
 
     [(MROutputContextController *)*(a1 + 40) _onSerialQueue_reevaluateGroupVolumeControlCapabilities];
-    v18 = *(a1 + 40);
-    v19 = *(v18 + 36);
-    if ((v19 & 2) != 0)
+    v17 = *(a1 + 40);
+    v18 = *(v17 + 36);
+    if ((v18 & 2) != 0)
     {
-      [(MROutputContextController *)v18 _onSerialQueue_reevaluateGroupVolume];
-      v18 = *(a1 + 40);
-      if ((*(v18 + 36) & 8) == 0)
+      [(MROutputContextController *)v17 _onSerialQueue_reevaluateGroupVolume];
+      v17 = *(a1 + 40);
+      if ((*(v17 + 36) & 8) == 0)
       {
         goto LABEL_2;
       }
     }
 
-    else if ((v19 & 8) == 0)
+    else if ((v18 & 8) == 0)
     {
       goto LABEL_2;
     }
 
-    [(MROutputContextController *)v18 _onSerialQueue_reevaluateGroupVolumeMuted];
+    [(MROutputContextController *)v17 _onSerialQueue_reevaluateGroupVolumeMuted];
   }
 
 LABEL_2:
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MROutputContextController__handleOutputDeviceVolumeDidChangeNotification___block_invoke(uint64_t a1)
@@ -2104,15 +2226,15 @@ void __81__MROutputContextController__handleOutputDeviceVolumeMutedDidChangeNoti
 {
   OUTLINED_FUNCTION_40();
   v2 = [OUTLINED_FUNCTION_5_2(v1) userInfo];
-  v12 = [v2 objectForKeyedSubscript:@"MRAVOutputContextOutputDeviceUserInfoKey"];
+  v11 = [v2 objectForKeyedSubscript:@"MRAVOutputContextOutputDeviceUserInfoKey"];
 
-  if (([(MROutputContextController *)*(v0 + 40) _onSerialQueue_isLocalOutputDevice:v12]& 1) == 0)
+  if (([(MROutputContextController *)*(v0 + 40) _onSerialQueue_isLocalOutputDevice:v11]& 1) == 0)
   {
     v3 = [*(v0 + 32) userInfo];
     v4 = [v3 objectForKeyedSubscript:@"MRAVOutputContextVolumeMutedUserInfoKey"];
     v5 = [v4 BOOLValue];
 
-    v6 = [v12 uid];
+    v6 = [v11 uid];
     if (v6)
     {
       v7 = [*(*(v0 + 40) + 56) objectForKey:v6];
@@ -2120,7 +2242,6 @@ void __81__MROutputContextController__handleOutputDeviceVolumeMutedDidChangeNoti
 
       if (v5 != v8)
       {
-        v9 = *(*(v0 + 40) + 56);
         [MEMORY[0x1E696AD98] numberWithBool:v5];
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_29() setObject:? forKey:?];
@@ -2132,9 +2253,9 @@ void __81__MROutputContextController__handleOutputDeviceVolumeMutedDidChangeNoti
     else if (v5)
     {
 LABEL_6:
-      if (([v12 volumeCapabilities] & 8) != 0)
+      if (([v11 volumeCapabilities] & 8) != 0)
       {
-        [(MROutputContextDataSource *)*(v0 + 40) notifyVolumeMutedDidChange:v5 outputDevice:v12];
+        [(MROutputContextDataSource *)*(v0 + 40) notifyVolumeMutedDidChange:v5 outputDevice:v11];
         [(MROutputContextController *)*(v0 + 40) _onSerialQueue_reevaluateGroupVolumeMuted];
       }
     }
@@ -2151,41 +2272,39 @@ void __66__MROutputContextController__handleOutputDeviceAddedNotification___bloc
   v4 = [v3 uid];
   if (v4)
   {
-    v5 = *(*(v1 + 40) + 48);
-    v6 = MEMORY[0x1E696AD98];
+    v5 = MEMORY[0x1E696AD98];
     [v3 volume];
-    [v6 numberWithFloat:?];
+    [v5 numberWithFloat:?];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_29() setObject:? forKey:?];
 
-    v7 = *(*(v1 + 40) + 56);
-    v8 = MEMORY[0x1E696AD98];
+    v6 = MEMORY[0x1E696AD98];
     [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v3, "isVolumeMuted")}];
     objc_claimAutoreleasedReturnValue();
     [OUTLINED_FUNCTION_29() setObject:? forKey:?];
   }
 
-  v9 = [*(v1 + 40) outputDevices];
-  v10 = [v9 mr_allOutputDevices];
+  v7 = [*(v1 + 40) outputDevices];
+  v8 = [v7 mr_allOutputDevices];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_2();
-  v15 = __66__MROutputContextController__handleOutputDeviceAddedNotification___block_invoke_2;
-  v16 = &unk_1E769CDC0;
-  v17 = v3;
-  v11 = v3;
-  v12 = [v10 msv_firstWhere:v14];
+  v13 = __66__MROutputContextController__handleOutputDeviceAddedNotification___block_invoke_2;
+  v14 = &unk_1E769CDC0;
+  v15 = v3;
+  v9 = v3;
+  v10 = [v8 msv_firstWhere:v12];
 
-  if (v12)
+  if (v10)
   {
-    v13 = v12;
+    v11 = v10;
   }
 
   else
   {
-    v13 = v11;
+    v11 = v9;
   }
 
-  [(MROutputContextDataSource *)*(v1 + 40) notifyOutputDeviceAdded:v13];
+  [(MROutputContextDataSource *)*(v1 + 40) notifyOutputDeviceAdded:v11];
   [(MROutputContextController *)*(v1 + 40) _onSerialQueue_reevaluateGroupVolumeControlCapabilities];
   [(MROutputContextController *)*(v1 + 40) _onSerialQueue_reevaluateGroupVolume];
 }
@@ -2247,12 +2366,15 @@ void __47__MROutputContextController__inititalizeVolume__block_invoke_310(uint64
 
 - (void)setLocalVolumeControlCapabilities:(uint64_t)a1 .cold.1(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = objc_opt_class();
-  v11 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(a2);
-  OUTLINED_FUNCTION_23(&dword_1A2860000, v4, v5, "<%{public}@: %p> Observed localVolumeCapabilities changed to <%@>", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = objc_opt_class();
+  v5 = v4;
+  v6 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(a2);
+  *v13 = 138543874;
+  *&v13[4] = v4;
+  *&v13[12] = 2048;
+  *&v13[14] = a1;
+  *&v13[22] = 2112;
+  OUTLINED_FUNCTION_23(&dword_1A2860000, v7, v8, "<%{public}@: %p> Observed localVolumeCapabilities changed to <%@>", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], v6);
 }
 
 - (void)setLocalVolumeControlCapabilities:.cold.2()
@@ -2291,13 +2413,15 @@ void __47__MROutputContextController__inititalizeVolume__block_invoke_310(uint64
   OUTLINED_FUNCTION_39();
 }
 
-- (void)setLocalVolume:.cold.1()
+- (void)setLocalVolume:(uint64_t)a1 .cold.1(uint64_t a1, float a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_23(&dword_1A2860000, v1, v2, "<%{public}@: %p> Observed localVolume changed to <%f>", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  *v11 = 138543874;
+  *&v11[4] = objc_opt_class();
+  *&v11[12] = 2048;
+  *&v11[14] = a1;
+  *&v11[22] = 2048;
+  v4 = *&v11[4];
+  OUTLINED_FUNCTION_23(&dword_1A2860000, v5, v6, "<%{public}@: %p> Observed localVolume changed to <%f>", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], a2);
 }
 
 - (void)setLocalVolume:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
@@ -2318,13 +2442,23 @@ void __47__MROutputContextController__inititalizeVolume__block_invoke_310(uint64
   OUTLINED_FUNCTION_39();
 }
 
-- (void)setLocalVolumeMuted:.cold.1()
+- (void)setLocalVolumeMuted:(uint64_t)a1 .cold.1(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_23(&dword_1A2860000, v1, v2, "<%{public}@: %p> Observed localVolumeMuted changed to <%@>", v3, v4, v5, v6, 2u);
+  v4 = objc_opt_class();
+  v5 = @"NO";
+  *v13 = 138543874;
+  *&v13[4] = v4;
+  if (a2)
+  {
+    v5 = @"YES";
+  }
 
-  v7 = *MEMORY[0x1E69E9840];
+  *&v13[12] = 2048;
+  *&v13[14] = a1;
+  *&v13[22] = 2112;
+  v14 = v5;
+  v6 = v4;
+  OUTLINED_FUNCTION_23(&dword_1A2860000, v7, v8, "<%{public}@: %p> Observed localVolumeMuted changed to <%@>", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], v14);
 }
 
 - (void)setLocalVolumeMuted:.cold.2()

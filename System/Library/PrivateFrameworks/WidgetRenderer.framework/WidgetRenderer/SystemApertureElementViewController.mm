@@ -59,32 +59,32 @@
 - (NSURL)launchURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECC09EC0, &qword_1DAED7970);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1DAE54BBC(v6);
+  sub_1DAE54BBC(v5);
 
-  v8 = sub_1DAECDBFC();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1DAECDBFC();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1DAECDB8C();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1DAECDB8C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (UIColor)keyColor
 {
   selfCopy = self;
-  v3 = sub_1DAE54D9C();
+  sub_1DAE54D9C();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)invalidate
@@ -124,18 +124,17 @@
 {
   v4 = sub_1DAECDA2C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1DAECD9EC();
   selfCopy = self;
-  sub_1DAE57210(v8);
+  sub_1DAE57210(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_1DAD674D4(0, &qword_1ECC09EA0, 0x1E698E508);
-  v10 = sub_1DAED1E6C();
+  v9 = sub_1DAED1E6C();
 
-  return v10;
+  return v9;
 }
 
 - (void)_updateWithFrameSpecifier:(id)specifier completion:(id)completion

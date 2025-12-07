@@ -12,7 +12,7 @@
   swift_unknownObjectRetain();
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  return AudioVisualizationLayer.init(layer:)(&v4);
+  return AudioVisualizationLayer.init(layer:)(v4);
 }
 
 - (CGRect)bounds

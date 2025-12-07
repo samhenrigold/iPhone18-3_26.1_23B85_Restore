@@ -37,26 +37,26 @@
   {
     v5 = MEMORY[0x277CBFF20];
     v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
-    v18 = 0;
-    v7 = [v5 modelWithContentsOfURL:v6 error:&v18];
-    v8 = v18;
+    v19 = 0;
+    v7 = [v5 modelWithContentsOfURL:v6 error:&v19];
+    v8 = v19;
 
     if (v8)
     {
-      v9 = __atxlog_handle_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_default(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(_ATXScoreInterpreterCoreMLModel *)nameCopy coreMLModelForCoreMLModelName:v8, v9];
+        [(_ATXScoreInterpreterCoreMLModel *)nameCopy coreMLModelForCoreMLModelName:v8, v10];
       }
     }
   }
 
   else
   {
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(_ATXScoreInterpreterCoreMLModel *)v8 coreMLModelForCoreMLModelName:v10, v11, v12, v13, v14, v15, v16];
+      [(_ATXScoreInterpreterCoreMLModel *)v8 coreMLModelForCoreMLModelName:v11, v12, v13, v14, v15, v16, v17];
     }
 
     v7 = 0;
@@ -113,68 +113,68 @@
 - (double)predictionForEvaluatedFeatures:(id)features withOutputIndexedSubscript:(int64_t)subscript
 {
   featuresCopy = features;
-  v43 = 0;
-  v44[0] = &v43;
-  v44[1] = 0x3032000000;
-  v44[2] = __Block_byref_object_copy__44;
-  v44[3] = __Block_byref_object_dispose__44;
   v45 = 0;
+  v46[0] = &v45;
+  v46[1] = 0x3032000000;
+  v46[2] = __Block_byref_object_copy__44;
+  v46[3] = __Block_byref_object_dispose__44;
+  v47 = 0;
   v7 = objc_alloc(MEMORY[0x277CBFED0]);
-  v8 = (v44[0] + 40);
-  obj = *(v44[0] + 40);
+  v8 = (v46[0] + 40);
+  obj = *(v46[0] + 40);
   v9 = [v7 initWithDictionary:featuresCopy error:&obj];
   objc_storeStrong(v8, obj);
-  if (*(v44[0] + 40))
+  if (*(v46[0] + 40))
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(_ATXScoreInterpreterCoreMLModel *)v44 predictionForEvaluatedFeatures:v10 withOutputIndexedSubscript:v11, v12, v13, v14, v15, v16];
+      [(_ATXScoreInterpreterCoreMLModel *)v46 predictionForEvaluatedFeatures:v11 withOutputIndexedSubscript:v12, v13, v14, v15, v16, v17];
     }
 
-    v17 = -31337.0;
+    v18 = -31337.0;
   }
 
   else
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__44;
-    v40 = __Block_byref_object_dispose__44;
-    v41 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy__44;
+    v42 = __Block_byref_object_dispose__44;
+    v43 = 0;
     lock = self->_lock;
-    v29 = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __93___ATXScoreInterpreterCoreMLModel_predictionForEvaluatedFeatures_withOutputIndexedSubscript___block_invoke;
-    v32 = &unk_27859BB00;
-    v34 = &v36;
-    v33 = v9;
-    v35 = &v43;
-    [(_PASLock *)lock runWithLockAcquired:&v29];
-    if (*(v44[0] + 40))
+    v31 = MEMORY[0x277D85DD0];
+    v32 = 3221225472;
+    v33 = __93___ATXScoreInterpreterCoreMLModel_predictionForEvaluatedFeatures_withOutputIndexedSubscript___block_invoke;
+    v34 = &unk_27859BB00;
+    v36 = &v38;
+    v35 = v9;
+    v37 = &v45;
+    v20 = [(_PASLock *)lock runWithLockAcquired:&v31];
+    if (*(v46[0] + 40))
     {
-      v19 = __atxlog_handle_default();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = __atxlog_handle_default(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(_ATXScoreInterpreterCoreMLModel *)v44 predictionForEvaluatedFeatures:v19 withOutputIndexedSubscript:v20, v21, v22, v23, v24, v25];
+        [(_ATXScoreInterpreterCoreMLModel *)v46 predictionForEvaluatedFeatures:v21 withOutputIndexedSubscript:v22, v23, v24, v25, v26, v27];
       }
 
-      v17 = -31337.0;
+      v18 = -31337.0;
     }
 
     else
     {
-      v26 = [v37[5] featureValueForName:{self->_coreMLModelOutputName, v29, v30, v31, v32}];
-      [_ATXScoreInterpreterCoreMLModel scoreForOutputValue:v26 outputIndexedSubscript:subscript];
-      v17 = v27;
+      v28 = [v39[5] featureValueForName:{self->_coreMLModelOutputName, v31, v32, v33, v34}];
+      [_ATXScoreInterpreterCoreMLModel scoreForOutputValue:v28 outputIndexedSubscript:subscript];
+      v18 = v29;
     }
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
-  _Block_object_dispose(&v43, 8);
-  return v17;
+  _Block_object_dispose(&v45, 8);
+  return v18;
 }
 
 + (double)scoreForOutputValue:(id)value outputIndexedSubscript:(int64_t)subscript
@@ -223,7 +223,7 @@
   }
 
 LABEL_8:
-  v14 = __atxlog_handle_default();
+  v14 = __atxlog_handle_default(type);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [(_ATXScoreInterpreterCoreMLModel *)v7 scoreForOutputValue:v14 outputIndexedSubscript:v15, v16, v17, v18, v19, v20];
@@ -237,43 +237,33 @@ LABEL_14:
 
 + (void)coreMLModelForCoreMLModelName:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "error initializing %@ model: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)coreMLModelForCoreMLModelName:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a1, a3, "error finding %@ model in assets", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "error initializing %@ model: %@", &v3, 0x16u);
 }
 
 - (void)predictionForEvaluatedFeatures:(uint64_t)a3 withOutputIndexedSubscript:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - Error in initializing MLDictionaryFeatureProvider: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - Error in initializing MLDictionaryFeatureProvider: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)predictionForEvaluatedFeatures:(uint64_t)a3 withOutputIndexedSubscript:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - Error in predictionFromFeatures: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - Error in predictionFromFeatures: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)scoreForOutputValue:(uint64_t)a3 outputIndexedSubscript:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - No valid outputType found for %ld", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ScoreInterpreter - CoreMLModel - No valid outputType found for %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

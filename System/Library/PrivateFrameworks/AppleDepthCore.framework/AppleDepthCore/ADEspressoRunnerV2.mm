@@ -502,14 +502,14 @@ LABEL_38:
     {
       v19 = CVPixelBufferGetPixelFormatType(*buffer);
       v20 = buf;
-      PixelBufferUtils::pixelFormatAsString(v19, buf);
+      PixelBufferUtils::pixelFormatAsString(buf, v19);
       if (v37 < 0)
       {
         v20 = *buf;
       }
 
       v21 = CVPixelBufferGetPixelFormatType(*outputBuffer);
-      PixelBufferUtils::pixelFormatAsString(v21, __p);
+      PixelBufferUtils::pixelFormatAsString(__p, v21);
       if (v29 >= 0)
       {
         v22 = __p;
@@ -835,7 +835,7 @@ LABEL_33:
 
 - (int64_t)registerPixelBufferPtr:(__CVBuffer *)ptr forDescriptor:(id)descriptor forSurfacePort:(e5rt_io_port *)port
 {
-  v25 = *MEMORY[0x277D85DE8];
+  *&v24[17] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   if (descriptorCopy)
   {
@@ -845,7 +845,7 @@ LABEL_33:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "e5rt_io_port_retain_surface_desc failed";
+        *v24 = "e5rt_io_port_retain_surface_desc failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -855,7 +855,7 @@ LABEL_33:
       }
 
       *buf = 136315138;
-      v24 = last_error_message;
+      *v24 = last_error_message;
       v10 = MEMORY[0x277D86220];
 LABEL_25:
       _os_log_error_impl(&dword_240463000, v10, OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
@@ -870,7 +870,7 @@ LABEL_26:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "e5rt_surface_desc_get_width failed";
+        *v24 = "e5rt_surface_desc_get_width failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -880,7 +880,7 @@ LABEL_26:
       }
 
       *buf = 136315138;
-      v24 = v12;
+      *v24 = v12;
       v10 = MEMORY[0x277D86220];
       goto LABEL_25;
     }
@@ -891,7 +891,7 @@ LABEL_26:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "e5rt_surface_desc_get_height failed";
+        *v24 = "e5rt_surface_desc_get_height failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -901,7 +901,7 @@ LABEL_26:
       }
 
       *buf = 136315138;
-      v24 = v13;
+      *v24 = v13;
       v10 = MEMORY[0x277D86220];
       goto LABEL_25;
     }
@@ -912,7 +912,7 @@ LABEL_26:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "e5rt_surface_desc_get_format failed";
+        *v24 = "e5rt_surface_desc_get_format failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -922,7 +922,7 @@ LABEL_26:
       }
 
       *buf = 136315138;
-      v24 = v14;
+      *v24 = v14;
       v10 = MEMORY[0x277D86220];
       goto LABEL_25;
     }
@@ -933,14 +933,14 @@ LABEL_26:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "e5rt_surface_desc_get_custom_row_strides failed";
+        *v24 = "e5rt_surface_desc_get_custom_row_strides failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = v16;
+        *v24 = v16;
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
       }
 
@@ -964,7 +964,7 @@ LABEL_33:
           v21 = name;
           uTF8String = [name UTF8String];
           *buf = 136315138;
-          v24 = uTF8String;
+          *v24 = uTF8String;
           _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed allocating CVPixelBuffer for %s", buf, 0xCu);
         }
 
@@ -1047,7 +1047,7 @@ LABEL_27:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      PixelBufferUtils::pixelFormatAsString(PixelFormat, buf);
+      PixelBufferUtils::pixelFormatAsString(buf, PixelFormat);
       v13 = v15 >= 0 ? buf : *buf;
       *v16 = 67109378;
       *&v16[4] = 0;
@@ -1548,16 +1548,16 @@ LABEL_36:
 
 - (ADEspressoRunnerV2)initWithPath:(id)path forEngine:(unint64_t)engine configurationName:(id)name
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   nameCopy = name;
-  v51 = 335679304;
-  v52 = 0u;
+  v52 = 335679304;
   v53 = 0u;
+  v54 = 0u;
   kdebug_trace();
-  v50.receiver = self;
-  v50.super_class = ADEspressoRunnerV2;
-  v9 = [(ADEspressoRunnerV2 *)&v50 init];
+  v51.receiver = self;
+  v51.super_class = ADEspressoRunnerV2;
+  v9 = [(ADEspressoRunnerV2 *)&v51 init];
   if (!v9)
   {
     goto LABEL_68;
@@ -1580,11 +1580,11 @@ LABEL_36:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = pathCopy;
+    v56 = pathCopy;
     _os_log_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "loading network from: %@", buf, 0xCu);
   }
 
-  v49 = 0;
+  v50 = 0;
   dummyOperations = v9->_dummyOperations;
   v9->_dummyOperations = 0;
 
@@ -1596,14 +1596,14 @@ LABEL_36:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = "e5rt_program_library_create failed";
+      v56 = "e5rt_program_library_create failed";
       _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = last_error_message;
+      v56 = last_error_message;
       _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
     }
 
@@ -1616,7 +1616,7 @@ LABEL_36:
   {
     v15 = v9->_functionName;
     *buf = 138412290;
-    v55 = v15;
+    v56 = v15;
     _os_log_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Espresso runner requested function: %@", buf, 0xCu);
   }
 
@@ -1631,7 +1631,7 @@ LABEL_36:
     {
       uTF8String = [(NSString *)v9->_networkVersionString UTF8String];
       *buf = 136315138;
-      v55 = uTF8String;
+      v56 = uTF8String;
       _os_log_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "network version: %s", buf, 0xCu);
     }
 
@@ -1640,12 +1640,12 @@ LABEL_36:
     ops = v9->_ops;
     v9->_ops = v21;
 
-    v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
+    v46 = 0u;
     obj = v9->_ops;
-    v23 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v60 count:16];
+    v23 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v61 count:16];
     if (!v23)
     {
 LABEL_40:
@@ -1655,7 +1655,7 @@ LABEL_40:
         allObjects = [v20 allObjects];
         v30 = [allObjects componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v55 = v30;
+        v56 = v30;
         _os_log_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "network backend is: %@", buf, 0xCu);
       }
 
@@ -1665,17 +1665,17 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    v24 = *v45;
+    v24 = *v46;
 LABEL_25:
     v25 = 0;
     while (1)
     {
-      if (*v45 != v24)
+      if (*v46 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v26 = *(*(&v44 + 1) + 8 * v25);
+      v26 = *(*(&v45 + 1) + 8 * v25);
       v27 = [v26 objectForKeyedSubscript:@"ComputeBackend"];
       [v20 addObject:v27];
       if (engine <= 2)
@@ -1698,7 +1698,7 @@ LABEL_38:
 
       if (v23 == ++v25)
       {
-        v23 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v60 count:16];
+        v23 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v61 count:16];
         if (v23)
         {
           goto LABEL_25;
@@ -1728,26 +1728,26 @@ LABEL_37:
 LABEL_43:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v37 = [v26 objectForKeyedSubscript:@"OpName"];
+        v38 = [v26 objectForKeyedSubscript:@"OpName"];
         ADCommonUtils::espressoEngineAsString(engine, __p);
-        if (v43 >= 0)
+        if (v44 >= 0)
         {
-          v38 = __p;
+          v39 = __p;
         }
 
         else
         {
-          v38 = __p[0];
+          v39 = __p[0];
         }
 
         *buf = 138412802;
-        v55 = v37;
-        v56 = 2112;
-        v57 = v27;
-        v58 = 2080;
-        v59 = v38;
+        v56 = v38;
+        v57 = 2112;
+        v58 = v27;
+        v59 = 2080;
+        v60 = v39;
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "op '%@' backend (%@) does not match requested engine (%s)", buf, 0x20u);
-        if (v43 < 0)
+        if (v44 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1764,14 +1764,14 @@ LABEL_43:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v55 = "e5rt_program_library_get_function_metadata failed";
+    v56 = "e5rt_program_library_get_function_metadata failed";
     _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v55 = v16;
+    v56 = v16;
     _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
   }
 
@@ -1783,20 +1783,20 @@ LABEL_46:
   }
 
 LABEL_48:
-  if (v49 && e5rt_program_library_release())
+  if (v50 && e5rt_program_library_release())
   {
     v31 = e5rt_get_last_error_message();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = "e5rt_program_library_release failed";
+      v56 = "e5rt_program_library_release failed";
       _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v55 = v31;
+      v56 = v31;
       _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
     }
 
@@ -1814,7 +1814,7 @@ LABEL_48:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v55 = "e5rt_execution_stream_operation_create_precompiled_compute_operation failed";
+        v56 = "e5rt_execution_stream_operation_create_precompiled_compute_operation failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -1824,23 +1824,23 @@ LABEL_48:
       }
 
       *buf = 136315138;
-      v55 = v32;
+      v56 = v32;
       v33 = MEMORY[0x277D86220];
       goto LABEL_78;
     }
 
     if (ADDebugUtilsADVerboseLogsEnabled == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      createOperationInputsOutputsDescription(v9->_operation);
+      createOperationInputsOutputsDescription(v9->_operation, v34);
     }
 
     if (e5rt_execution_stream_create())
     {
-      v34 = e5rt_get_last_error_message();
+      v35 = e5rt_get_last_error_message();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v55 = "e5rt_execution_stream_create failed";
+        v56 = "e5rt_execution_stream_create failed";
         _os_log_error_impl(&dword_240463000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -1850,7 +1850,7 @@ LABEL_48:
       }
 
       *buf = 136315138;
-      v55 = v34;
+      v56 = v35;
       v33 = MEMORY[0x277D86220];
 LABEL_78:
       _os_log_error_impl(&dword_240463000, v33, OS_LOG_TYPE_ERROR, "E5RT operation failed with message = %s", buf, 0xCu);
@@ -1858,16 +1858,16 @@ LABEL_78:
     }
 
 LABEL_68:
-    v35 = v9;
+    v36 = v9;
     goto LABEL_69;
   }
 
 LABEL_67:
-  v35 = 0;
+  v36 = 0;
 LABEL_69:
-  InstrumentsTraceGuard::~InstrumentsTraceGuard(&v51);
+  InstrumentsTraceGuard::~InstrumentsTraceGuard(&v52);
 
-  return v35;
+  return v36;
 }
 
 @end

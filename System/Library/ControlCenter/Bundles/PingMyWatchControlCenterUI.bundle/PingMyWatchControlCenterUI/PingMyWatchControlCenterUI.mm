@@ -1,13 +1,13 @@
-id pmw_log()
+id pmw_log(uint64_t a1)
 {
   if (qword_81F8 != -1)
   {
     sub_175C();
   }
 
-  v1 = qword_81F0;
+  v2 = qword_81F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_CB4(id a1)
@@ -38,8 +38,8 @@ void sub_DDC(uint64_t a1)
 
 void sub_F84(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  if ([objc_opt_class() isPingMyWatchSupported])
+  v1 = [objc_opt_class() isPingMyWatchSupported];
+  if (v1)
   {
     v6 = 0;
     v7 = &v6;
@@ -65,7 +65,7 @@ void sub_F84(uint64_t a1)
 
   else
   {
-    v4 = pmw_log();
+    v4 = pmw_log(v1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v5[0]) = 0;
@@ -74,16 +74,29 @@ void sub_F84(uint64_t a1)
   }
 }
 
-void sub_10AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10C4(id a1, BOOL a2)
 {
-  va_start(va, a7);
+  v2 = a2;
+  v3 = pmw_log(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = [NSNumber numberWithBool:v2];
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "PMWControlCenterModule: Completed ping my watch, played: %@", &v5, 0xCu);
+  }
+}
+
+void sub_1298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -123,7 +136,7 @@ Class sub_13EC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -143,7 +156,6 @@ LABEL_4:
 
 uint64_t sub_1530(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_8208 = result;
   return result;
@@ -173,7 +185,7 @@ Class sub_15A4(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -193,7 +205,6 @@ LABEL_4:
 
 uint64_t sub_16E8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_8218 = result;
   return result;

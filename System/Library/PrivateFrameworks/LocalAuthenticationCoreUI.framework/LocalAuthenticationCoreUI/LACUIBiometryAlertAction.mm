@@ -1,5 +1,6 @@
 @interface LACUIBiometryAlertAction
 + (id)actionWithType:(int64_t)type title:(id)title handler:(id)handler;
++ (id)actionWithType:(int64_t)type title:(id)title shouldDismissAlert:(BOOL)alert handler:(id)handler;
 - (LACUIBiometryAlertAction)initWithType:(int64_t)type title:(id)title shouldDismissAlert:(BOOL)alert handler:(id)handler;
 - (NSString)axIdentifier;
 @end
@@ -13,6 +14,16 @@
   v9 = [objc_opt_class() actionWithType:type title:titleCopy shouldDismissAlert:1 handler:handlerCopy];
 
   return v9;
+}
+
++ (id)actionWithType:(int64_t)type title:(id)title shouldDismissAlert:(BOOL)alert handler:(id)handler
+{
+  alertCopy = alert;
+  handlerCopy = handler;
+  titleCopy = title;
+  v11 = [objc_alloc(objc_opt_class()) initWithType:type title:titleCopy shouldDismissAlert:alertCopy handler:handlerCopy];
+
+  return v11;
 }
 
 - (LACUIBiometryAlertAction)initWithType:(int64_t)type title:(id)title shouldDismissAlert:(BOOL)alert handler:(id)handler

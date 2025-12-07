@@ -32,7 +32,7 @@
   controllerCopy = controller;
   selfCopy = self;
   PhotosSearchResultViewController.present(_:animated:completion:)(controllerCopy, animated, v8, v9);
-  sub_1A3C33378(v8);
+  sub_1A3C33378(v8, v9);
 }
 
 - (void)swift_scrollViewControllerDidScroll:(id)scroll

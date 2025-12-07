@@ -25,33 +25,32 @@
 
 - (FMDRepairDeviceResult)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = FMDRepairDeviceResult;
-  v5 = [(FMDRepairDeviceResult *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FMDRepairDeviceResult;
+  v5 = [(FMDRepairDeviceResult *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"eligibleDevices"];
     eligibleDevices = v5->_eligibleDevices;
     v5->_eligibleDevices = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"devicesInRepairMode"];
     devicesInRepairMode = v5->_devicesInRepairMode;
     v5->_devicesInRepairMode = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

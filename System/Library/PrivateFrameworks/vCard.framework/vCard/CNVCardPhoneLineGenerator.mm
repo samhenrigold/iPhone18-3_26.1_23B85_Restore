@@ -41,14 +41,14 @@
 
 - (id)standardLabelsForLabel:(id)label
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   if ([labelCopy isEqualToString:@"_$!<Work>!$_"])
   {
-    v20[0] = @"WORK";
-    v20[1] = @"VOICE";
+    v19[0] = @"WORK";
+    v19[1] = @"VOICE";
     v4 = MEMORY[0x277CBEA60];
-    v5 = v20;
+    v5 = v19;
 LABEL_9:
     v6 = 2;
 LABEL_10:
@@ -58,38 +58,38 @@ LABEL_10:
 
   if ([labelCopy isEqualToString:@"_$!<Home>!$_"])
   {
-    v19[0] = @"HOME";
-    v19[1] = @"VOICE";
-    v4 = MEMORY[0x277CBEA60];
-    v5 = v19;
-    goto LABEL_9;
-  }
-
-  if ([labelCopy isEqualToString:@"_$!<Other>!$_"])
-  {
-    v18[0] = @"OTHER";
+    v18[0] = @"HOME";
     v18[1] = @"VOICE";
     v4 = MEMORY[0x277CBEA60];
     v5 = v18;
     goto LABEL_9;
   }
 
-  if ([labelCopy isEqualToString:@"_$!<Mobile>!$_"])
+  if ([labelCopy isEqualToString:@"_$!<Other>!$_"])
   {
-    v17[0] = @"CELL";
+    v17[0] = @"OTHER";
     v17[1] = @"VOICE";
     v4 = MEMORY[0x277CBEA60];
     v5 = v17;
     goto LABEL_9;
   }
 
-  if ([labelCopy isEqualToString:@"iPhone"])
+  if ([labelCopy isEqualToString:@"_$!<Mobile>!$_"])
   {
-    v16[0] = @"IPHONE";
-    v16[1] = @"CELL";
-    v16[2] = @"VOICE";
+    v16[0] = @"CELL";
+    v16[1] = @"VOICE";
     v4 = MEMORY[0x277CBEA60];
     v5 = v16;
+    goto LABEL_9;
+  }
+
+  if ([labelCopy isEqualToString:@"iPhone"])
+  {
+    v15[0] = @"IPHONE";
+    v15[1] = @"CELL";
+    v15[2] = @"VOICE";
+    v4 = MEMORY[0x277CBEA60];
+    v5 = v15;
 LABEL_18:
     v6 = 3;
     goto LABEL_10;
@@ -97,19 +97,19 @@ LABEL_18:
 
   if ([labelCopy isEqualToString:@"Apple Watch"])
   {
-    v15[0] = @"APPLEWATCH";
-    v15[1] = @"CELL";
-    v15[2] = @"VOICE";
+    v14[0] = @"APPLEWATCH";
+    v14[1] = @"CELL";
+    v14[2] = @"VOICE";
     v4 = MEMORY[0x277CBEA60];
-    v5 = v15;
+    v5 = v14;
     goto LABEL_18;
   }
 
   if ([labelCopy isEqualToString:@"_$!<Main>!$_"])
   {
-    v14 = @"MAIN";
+    v13 = @"MAIN";
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v14;
+    v5 = &v13;
 LABEL_21:
     v6 = 1;
     goto LABEL_10;
@@ -117,43 +117,41 @@ LABEL_21:
 
   if ([labelCopy isEqualToString:@"_$!<WorkFAX>!$_"])
   {
-    v13[0] = @"WORK";
-    v13[1] = @"FAX";
-    v4 = MEMORY[0x277CBEA60];
-    v5 = v13;
-    goto LABEL_9;
-  }
-
-  if ([labelCopy isEqualToString:@"_$!<HomeFAX>!$_"])
-  {
-    v12[0] = @"HOME";
+    v12[0] = @"WORK";
     v12[1] = @"FAX";
     v4 = MEMORY[0x277CBEA60];
     v5 = v12;
     goto LABEL_9;
   }
 
-  if ([labelCopy isEqualToString:@"_$!<OtherFAX>!$_"])
+  if ([labelCopy isEqualToString:@"_$!<HomeFAX>!$_"])
   {
-    v11[0] = @"OTHER";
+    v11[0] = @"HOME";
     v11[1] = @"FAX";
     v4 = MEMORY[0x277CBEA60];
     v5 = v11;
     goto LABEL_9;
   }
 
+  if ([labelCopy isEqualToString:@"_$!<OtherFAX>!$_"])
+  {
+    v10[0] = @"OTHER";
+    v10[1] = @"FAX";
+    v4 = MEMORY[0x277CBEA60];
+    v5 = v10;
+    goto LABEL_9;
+  }
+
   if ([labelCopy isEqualToString:@"_$!<Pager>!$_"])
   {
-    v10 = @"PAGER";
+    v9 = @"PAGER";
     v4 = MEMORY[0x277CBEA60];
-    v5 = &v10;
+    v5 = &v9;
     goto LABEL_21;
   }
 
   v7 = 0;
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

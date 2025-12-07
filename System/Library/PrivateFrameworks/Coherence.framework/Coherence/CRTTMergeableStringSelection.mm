@@ -10,20 +10,18 @@
 
 - (void)updateTopoIDRange:(TopoIDRange *)range toNewRangeID:(TopoIDRange *)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   begin = self->_selectionRanges.__begin_;
   for (i = self->_selectionRanges.__end_; begin != i; begin += 6)
   {
-    Coherence_namespace::updateTopoID(begin, &range->charID, d, &v10);
-    v8 = v10;
-    begin[2] = v11;
+    Coherence_namespace::updateTopoID(&v9, begin, &range->charID, d);
+    v8 = v9;
+    begin[2] = v10;
     *begin = v8;
-    Coherence_namespace::updateTopoID((begin + 3), &range->charID, d, &v10);
-    *(begin + 3) = v10;
-    begin[5] = v11;
+    Coherence_namespace::updateTopoID(&v9, (begin + 3), &range->charID, d);
+    *(begin + 3) = v9;
+    begin[5] = v10;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

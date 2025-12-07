@@ -36,8 +36,8 @@
   title = [labelCopy title];
   [textLabel setText:title];
 
-  v7 = PKOBKListTextFieldCellLabelFont();
-  [textLabel setFont:v7];
+  v8 = PKOBKListTextFieldCellLabelFont(v7);
+  [textLabel setFont:v8];
 
   systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
   [textLabel setTextColor:systemGrayColor];
@@ -46,7 +46,7 @@
   alingment = [labelCopy alingment];
   if (alingment == 1)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
@@ -56,39 +56,39 @@
       goto LABEL_6;
     }
 
-    v10 = 1;
+    v11 = 1;
   }
 
-  [textLabel setTextAlignment:v10];
+  [textLabel setTextAlignment:v11];
 LABEL_6:
   buttonTitle = [labelCopy buttonTitle];
-  v12 = [buttonTitle length];
+  v13 = [buttonTitle length];
   button = self->_button;
-  if (v12)
+  if (v13)
   {
     if (!button)
     {
-      v14 = MEMORY[0x1E69DC740];
-      v15 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38]);
-      v16 = [v14 pkui_plainConfigurationWithTitle:buttonTitle font:v15];
+      v15 = MEMORY[0x1E69DC740];
+      v16 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC38]);
+      v17 = [v15 pkui_plainConfigurationWithTitle:buttonTitle font:v16];
 
       objc_initWeak(&location, self);
-      v17 = MEMORY[0x1E69DC628];
-      v23 = MEMORY[0x1E69E9820];
-      v24 = 3221225472;
-      v25 = __64__PKPaymentSetupLabelFieldCell__updateDisplayForFieldTypeLabel___block_invoke;
-      v26 = &unk_1E8010A60;
-      objc_copyWeak(&v27, &location);
-      v18 = [v17 actionWithHandler:&v23];
-      v19 = [MEMORY[0x1E69DC738] buttonWithConfiguration:v16 primaryAction:{v18, v23, v24, v25, v26}];
-      v20 = self->_button;
-      self->_button = v19;
+      v18 = MEMORY[0x1E69DC628];
+      v24 = MEMORY[0x1E69E9820];
+      v25 = 3221225472;
+      v26 = __64__PKPaymentSetupLabelFieldCell__updateDisplayForFieldTypeLabel___block_invoke;
+      v27 = &unk_1E8010A60;
+      objc_copyWeak(&v28, &location);
+      v19 = [v18 actionWithHandler:&v24];
+      v20 = [MEMORY[0x1E69DC738] buttonWithConfiguration:v17 primaryAction:{v19, v24, v25, v26, v27}];
+      v21 = self->_button;
+      self->_button = v20;
 
       [(UIButton *)self->_button setConfigurationUpdateHandler:&__block_literal_global_137];
       contentView = [(PKPaymentSetupLabelFieldCell *)self contentView];
       [contentView addSubview:self->_button];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&location);
     }
   }
@@ -96,7 +96,7 @@ LABEL_6:
   else
   {
     [(UIButton *)button removeFromSuperview];
-    v22 = self->_button;
+    v23 = self->_button;
     self->_button = 0;
   }
 }

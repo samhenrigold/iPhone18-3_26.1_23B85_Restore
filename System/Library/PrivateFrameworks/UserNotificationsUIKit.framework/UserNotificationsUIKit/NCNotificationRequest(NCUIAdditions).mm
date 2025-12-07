@@ -5,7 +5,7 @@
 - (BOOL)hasOnlySingleTextInputAction;
 - (id)defaultEnvironmentActions;
 - (id)minimalEnvironmentActions;
-- (uint64_t)showsTextInputOnAppearance;
+- (void)showsTextInputOnAppearance;
 @end
 
 @implementation NCNotificationRequest(NCUIAdditions)
@@ -17,17 +17,17 @@
     +[NCNotificationRequest(NCUIAdditions) requesterIdentifier];
   }
 
-  v1 = requesterIdentifier___requesterIdentifier_0;
+  v2 = requesterIdentifier___requesterIdentifier_0;
 
-  return v1;
+  return v2;
 }
 
-- (uint64_t)showsTextInputOnAppearance
+- (void)showsTextInputOnAppearance
 {
   result = [self hasOnlySingleTextInputAction];
   if (result)
   {
-    return [self hasAttachments] ^ 1;
+    return ([self hasAttachments] ^ 1);
   }
 
   return result;

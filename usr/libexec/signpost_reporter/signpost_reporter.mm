@@ -1,4 +1,4 @@
-double sub_100001C70()
+double sub_100001C70(uint64_t a1, uint64_t a2)
 {
   if (qword_100019E70 != -1)
   {
@@ -74,34 +74,34 @@ void sub_100001DE0(void *a1)
 {
   if (a1)
   {
+    v34 = 0u;
+    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
     v1 = [a1 executablePathToStallAggregation];
     v2 = [v1 objectEnumerator];
 
-    v3 = [v2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (!v3)
     {
       goto LABEL_40;
     }
 
     v5 = v3;
-    v6 = *v31;
+    v6 = *v33;
     *&v4 = 138412290;
-    v29 = v4;
+    v31 = v4;
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * v7);
+        v8 = *(*(&v32 + 1) + 8 * v7);
         v9 = [v8 processExecutablePath];
 
         if (v9)
@@ -109,19 +109,20 @@ void sub_100001DE0(void *a1)
           v11 = [v8 processExecutablePath];
           v12 = sub_1000038A0(v11);
 
-          if ((sub_100003BAC(v12, v13) & 1) == 0)
+          v14 = sub_100003BAC(v12, v13);
+          if ((v14 & 1) == 0)
           {
             if (!v12)
             {
               goto LABEL_32;
             }
 
-            v15 = sub_100002620();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v16 = sub_100002620(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v29;
-              v38 = v12;
-              _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Skipping non-internal bundle ID %@.", buf, 0xCu);
+              *buf = v31;
+              v40 = v12;
+              _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Skipping non-internal bundle ID %@.", buf, 0xCu);
             }
 
             goto LABEL_30;
@@ -132,89 +133,58 @@ void sub_100001DE0(void *a1)
             goto LABEL_24;
           }
 
-          v14 = [v8 longCommitStats];
-          if (v14)
+          v15 = [v8 longCommitStats];
+          if (v15 || ([v8 longTransactionLifetimeStats], (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "longTransactionLifetimeStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "longResponsibleFrameLifetimeStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "responsibleGlitchStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "glitchStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "responsibleFirstFrameGlitchStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "firstFrameGlitchStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "responsibleNonFirstFrameNonSkipGlitchStats"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
           {
-            goto LABEL_19;
-          }
-
-          v14 = [v8 longTransactionLifetimeStats];
-          if (v14)
-          {
-            goto LABEL_19;
-          }
-
-          v14 = [v8 longTransactionLifetimeStats];
-          if (v14)
-          {
-            goto LABEL_19;
-          }
-
-          v14 = [v8 longResponsibleFrameLifetimeStats];
-          if (v14)
-          {
-            goto LABEL_19;
-          }
-
-          v14 = [v8 responsibleGlitchStats];
-          if (v14)
-          {
-            goto LABEL_19;
-          }
-
-          v14 = [v8 glitchStats];
-          if (v14 || ([v8 responsibleFirstFrameGlitchStats], (v14 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "firstFrameGlitchStats"), (v14 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v8, "responsibleNonFirstFrameNonSkipGlitchStats"), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
-          {
-LABEL_19:
 
 LABEL_20:
-            v15 = +[NSMutableDictionary dictionary];
-            [v15 setObject:v12 forKeyedSubscript:@"BundleID"];
-            v16 = [v8 longCommitStats];
-            sub_1000022D8(@"Commit", v16, v15);
+            v16 = +[NSMutableDictionary dictionary];
+            [v16 setObject:v12 forKeyedSubscript:@"BundleID"];
+            v17 = [v8 longCommitStats];
+            sub_1000022D8(@"Commit", v17, v16);
 
-            v17 = [v8 longTransactionLifetimeStats];
-            sub_1000022D8(@"TransactionLifetime", v17, v15);
+            v18 = [v8 longTransactionLifetimeStats];
+            sub_1000022D8(@"TransactionLifetime", v18, v16);
 
-            v18 = [v8 longHIDLatencyStats];
-            sub_1000022D8(@"HIDLatency", v18, v15);
+            v19 = [v8 longHIDLatencyStats];
+            sub_1000022D8(@"HIDLatency", v19, v16);
 
-            v19 = [v8 longResponsibleFrameLifetimeStats];
-            sub_1000022D8(@"FrameLifetime", v19, v15);
+            v20 = [v8 longResponsibleFrameLifetimeStats];
+            sub_1000022D8(@"FrameLifetime", v20, v16);
 
-            v20 = [v8 responsibleGlitchStats];
-            sub_1000022D8(@"GlitchLongPole", v20, v15);
+            v21 = [v8 responsibleGlitchStats];
+            sub_1000022D8(@"GlitchLongPole", v21, v16);
 
-            v21 = [v8 glitchStats];
-            sub_1000022D8(@"GlitchContributor", v21, v15);
+            v22 = [v8 glitchStats];
+            sub_1000022D8(@"GlitchContributor", v22, v16);
 
-            v22 = [v8 responsibleFirstFrameGlitchStats];
-            sub_1000022D8(@"FirstFrameGlitchLongPole", v22, v15);
+            v23 = [v8 responsibleFirstFrameGlitchStats];
+            sub_1000022D8(@"FirstFrameGlitchLongPole", v23, v16);
 
-            v23 = [v8 firstFrameGlitchStats];
-            sub_1000022D8(@"FirstFrameGlitchContributor", v23, v15);
+            v24 = [v8 firstFrameGlitchStats];
+            sub_1000022D8(@"FirstFrameGlitchContributor", v24, v16);
 
-            v24 = [v8 responsibleNonFirstFrameNonSkipGlitchStats];
-            sub_1000022D8(@"NonFirstFrameNonSkipGlitchLongPole", v24, v15);
+            v25 = [v8 responsibleNonFirstFrameNonSkipGlitchStats];
+            sub_1000022D8(@"NonFirstFrameNonSkipGlitchLongPole", v25, v16);
 
-            v25 = [v8 responsibleNonFirstFrameNonSkipPerceivedGlitchStats];
-            sub_1000022D8(@"NonFirstFrameNonSkipPerceivedGlitchLongPole", v25, v15);
+            v26 = [v8 responsibleNonFirstFrameNonSkipPerceivedGlitchStats];
+            sub_1000022D8(@"NonFirstFrameNonSkipPerceivedGlitchLongPole", v26, v16);
 
-            v26 = sub_100002620();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+            v28 = sub_100002620(v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
             {
-              sub_10000BE04(v35, v15);
+              sub_10000BE04(v37, v16);
             }
 
-            j__AnalyticsSendEvent();
+            j__AnalyticsSendEvent(@"com.apple.performance.ca_stall_stats", v16);
 LABEL_30:
 
             goto LABEL_32;
           }
 
-          v27 = [v8 responsibleNonFirstFrameNonSkipPerceivedGlitchStats];
+          v29 = [v8 responsibleNonFirstFrameNonSkipPerceivedGlitchStats];
 
-          if (v27)
+          if (v29)
           {
             goto LABEL_20;
           }
@@ -222,13 +192,14 @@ LABEL_30:
 
         else
         {
-          if (sub_100003BAC(0, v10))
+          v14 = sub_100003BAC(0, v10);
+          if (v14)
           {
 LABEL_24:
-            v15 = sub_100002620();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v16 = sub_100002620(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              sub_10000BE60(v36, v8);
+              sub_10000BE60(v38, v8);
             }
 
             v12 = 0;
@@ -244,16 +215,16 @@ LABEL_32:
       }
 
       while (v5 != v7);
-      v28 = [v2 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      v5 = v28;
-      if (!v28)
+      v30 = [v2 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v5 = v30;
+      if (!v30)
       {
         goto LABEL_40;
       }
     }
   }
 
-  v2 = sub_100002620();
+  v2 = sub_100002620(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10000BEBC(v2);
@@ -359,16 +330,16 @@ void sub_100002608(id a1)
   qword_100019EA8 = &off_100016958;
 }
 
-id sub_100002620()
+id sub_100002620(uint64_t a1)
 {
   if (qword_100019EB8 != -1)
   {
     sub_10000BF50();
   }
 
-  v1 = qword_100019EC0;
+  v2 = qword_100019EC0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002664(id a1)
@@ -378,10 +349,11 @@ void sub_100002664(id a1)
   _objc_release_x1();
 }
 
-void sub_100003234(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003234(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sub_10000325C(void *a1, uint64_t a2)
@@ -411,15 +383,15 @@ uint64_t sub_10000325C(void *a1, uint64_t a2)
 
           v11 = qword_100019ED8;
 LABEL_25:
-          v27 = [v11 containsObject:v10];
+          v29 = [v11 containsObject:v10];
 
           goto LABEL_26;
         }
 
-        v28 = [v4 category];
-        v29 = [v28 isEqualToString:@"requests"];
+        v30 = [v4 category];
+        v31 = [v30 isEqualToString:@"requests"];
 
-        if (v29)
+        if (v31)
         {
           v10 = [v4 name];
           if (qword_100019EF0 != -1)
@@ -431,10 +403,10 @@ LABEL_25:
           goto LABEL_25;
         }
 
-        v30 = [v4 category];
-        v31 = [v30 isEqualToString:@"library"];
+        v32 = [v4 category];
+        v33 = [v32 isEqualToString:@"library"];
 
-        if (v31)
+        if (v33)
         {
           v10 = [v4 name];
           if (qword_100019F00 != -1)
@@ -453,34 +425,36 @@ LABEL_25:
     }
   }
 
-  if (sub_100003478(v4))
+  v12 = sub_100003478(v4);
+  if (v12)
   {
-    v12 = sub_1000035A8();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_1000035A8(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000C06C(v12, v13, v14, v15, v16, v17, v18, v19);
+      sub_10000C06C(v13, v14, v15, v16, v17, v18, v19, v20);
     }
   }
 
   else
   {
-    if (!sub_1000036B4(v4))
+    v21 = sub_1000036B4(v4);
+    if (!v21)
     {
-      v27 = 0;
+      v29 = 0;
       goto LABEL_26;
     }
 
-    v12 = sub_1000035A8();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_1000035A8(v21);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000C034(v12, v20, v21, v22, v23, v24, v25, v26);
+      sub_10000C034(v13, v22, v23, v24, v25, v26, v27, v28);
     }
   }
 
-  v27 = 1;
+  v29 = 1;
 LABEL_26:
 
-  return v27;
+  return v29;
 }
 
 BOOL sub_100003478(void *a1)
@@ -535,31 +509,32 @@ BOOL sub_100003478(void *a1)
   return v9;
 }
 
-id sub_1000035A8()
+id sub_1000035A8(uint64_t a1)
 {
   if (qword_100019F08 != -1)
   {
     sub_10000C0F4();
   }
 
-  v1 = qword_100019F10;
+  v2 = qword_100019F10;
 
-  return v1;
+  return v2;
 }
 
 id sub_1000035F0(void *a1)
 {
   v1 = sub_1000036B4(a1);
+  v2 = v1;
   if (v1)
   {
-    v2 = sub_1000035A8();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = sub_1000035A8(v1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000C108(v2, v3, v4, v5, v6, v7, v8, v9);
+      sub_10000C108(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  return v1;
+  return v2;
 }
 
 void sub_100003644(id a1)
@@ -697,7 +672,7 @@ LABEL_3:
           [qword_100019F18 setObject:v16 forKeyedSubscript:v2];
 
           v5 = [v14 bundleIdentifier];
-          v17 = sub_100002620();
+          v17 = sub_100002620(v5);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             sub_10000C154(v5, v2, v17);
@@ -750,14 +725,14 @@ void sub_100003B6C(id a1)
   _objc_release_x1();
 }
 
-void *sub_100003BAC(void *a1, const char *a2)
+void *sub_100003BAC(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 hasPrefix:@"com.apple."];
+    return [result hasPrefix:@"com.apple."];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t sub_100004094(void *a1)
@@ -901,109 +876,116 @@ void sub_100004928(id a1, OS_xpc_object *a2)
   state = xpc_activity_get_state(v2);
   if (state == 2)
   {
-    if (xpc_activity_should_defer(v2) && xpc_activity_set_state(v2, 3))
+    if (xpc_activity_should_defer(v2))
     {
-      v6 = sub_100002620();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = xpc_activity_set_state(v2, 3);
+      if (v7)
       {
-        LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deferred signpost_reporter\n", &buf, 2u);
-      }
+        v6 = sub_100002620(v7);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(buf.f_bsize) = 0;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deferred signpost_reporter\n", &buf, 2u);
+        }
 
-      goto LABEL_13;
+        goto LABEL_13;
+      }
     }
 
-    v79 = v2;
-    if (os_variant_has_internal_diagnostics())
+    v88 = v2;
+    has_internal_diagnostics = os_variant_has_internal_diagnostics();
+    if (has_internal_diagnostics)
     {
-      v7 = sub_100002620();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100002620(has_internal_diagnostics);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Reporting based on os_variant result", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Reporting based on os_variant result", &buf, 2u);
       }
 
-      v8 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v9 = dispatch_queue_create("signpost_reporter configuration observing queue", 0);
-      v10 = dispatch_semaphore_create(0);
-      v106 = 0;
-      v107 = &v106;
-      v108 = 0x2020000000;
-      LOBYTE(v109) = 0;
-      v11 = objc_alloc_init(AnalyticsConfigurationObserver);
-      v12 = [SignpostReporterConfigObserverDelegate alloc];
+      v12 = dispatch_queue_create("signpost_reporter configuration observing queue", 0);
+      v13 = dispatch_semaphore_create(0);
+      v115 = 0;
+      v116 = &v115;
+      v117 = 0x2020000000;
+      LOBYTE(v118) = 0;
+      v14 = objc_alloc_init(AnalyticsConfigurationObserver);
+      v15 = [SignpostReporterConfigObserverDelegate alloc];
       *&buf.f_bsize = _NSConcreteStackBlock;
       buf.f_blocks = 3221225472;
       buf.f_bfree = sub_1000077EC;
       buf.f_bavail = &unk_100014A98;
-      buf.f_ffree = &v106;
-      v13 = v10;
-      buf.f_files = v13;
-      v14 = [(SignpostReporterConfigObserverDelegate *)v12 initWithCallbackBlock:&buf];
-      [v11 setConfigurationObserverDelegate:v14 queue:v9];
-      [v11 startObservingConfigurationType:@"com.apple.performance.signpost_reporter_tasking"];
-      v15 = dispatch_time(0, 5000000000);
-      if (dispatch_semaphore_wait(v13, v15))
+      buf.f_ffree = &v115;
+      v16 = v13;
+      buf.f_files = v16;
+      v17 = [(SignpostReporterConfigObserverDelegate *)v15 initWithCallbackBlock:&buf];
+      [v14 setConfigurationObserverDelegate:v17 queue:v12];
+      [v14 startObservingConfigurationType:@"com.apple.performance.signpost_reporter_tasking"];
+      v18 = dispatch_time(0, 5000000000);
+      v19 = dispatch_semaphore_wait(v16, v18);
+      if (v19)
       {
-        v16 = sub_100002620();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_100002620(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          *v98 = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Not reporting based on not being tasked-on by CoreAnalytics (Timeout waiting for config)", v98, 2u);
+          *v107 = 0;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Not reporting based on not being tasked-on by CoreAnalytics (Timeout waiting for config)", v107, 2u);
         }
 
-        v8 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v8 = *(v107 + 24);
+        v11 = *(v116 + 24);
       }
 
-      _Block_object_dispose(&v106, 8);
+      _Block_object_dispose(&v115, 8);
     }
 
-    byte_100019F58 = v8 & 1;
-    v17 = sub_100002620();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    byte_100019F58 = v11 & 1;
+    v21 = sub_100002620(v10);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       buf.f_bsize = 138412802;
       if (byte_100019F58)
       {
-        v18 = @"Enabled";
+        v22 = @"Enabled";
       }
 
       else
       {
-        v18 = @"Disabled";
+        v22 = @"Disabled";
       }
 
-      *&buf.f_iosize = v18;
+      *&buf.f_iosize = v22;
       WORD2(buf.f_blocks) = 2112;
       *(&buf.f_blocks + 6) = @"Enabled";
       HIWORD(buf.f_bfree) = 2112;
       buf.f_bavail = @"Enabled";
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "os_signpost CA Telemetry: %@, aggregation CA telemetry: %@, CAMetalLayer CA telemetry: %@", &buf, 0x20u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "os_signpost CA Telemetry: %@, aggregation CA telemetry: %@, CAMetalLayer CA telemetry: %@", &buf, 0x20u);
     }
 
-    if (sub_10000585C())
+    v23 = sub_10000585C();
+    if (v23)
     {
-      v19 = sub_100002620();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100002620(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Bailing due to cookie file", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Bailing due to cookie file", &buf, 2u);
       }
 
       sub_1000058F4();
       goto LABEL_74;
     }
 
-    v20 = +[NSFileManager defaultManager];
+    v25 = +[NSFileManager defaultManager];
     if (sub_10000585C())
     {
 
@@ -1011,243 +993,247 @@ LABEL_74:
       goto LABEL_75;
     }
 
-    v21 = [v20 createFileAtPath:@"/var/run/signpost_reporter_running" contents:0 attributes:0];
-    v22 = sub_100002620();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-    if (!v21)
+    v26 = [v25 createFileAtPath:@"/var/run/signpost_reporter_running" contents:0 attributes:0];
+    v27 = v26;
+    v28 = sub_100002620(v26);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+    if (!v27)
     {
-      if (v23)
+      if (v29)
       {
         LOWORD(buf.f_bsize) = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Could not create cookie file", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Could not create cookie file", &buf, 2u);
       }
 
       goto LABEL_74;
     }
 
-    if (v23)
+    if (v29)
     {
       LOWORD(buf.f_bsize) = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Created cookie file", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Created cookie file", &buf, 2u);
     }
 
-    v70 = mach_continuous_time();
+    v79 = mach_continuous_time();
     val = objc_alloc_init(SignpostSupportObjectExtractor);
     if (byte_100019F58 != 1)
     {
-      v25 = 0;
-      v26 = 0;
-      v66 = 0;
-      v69 = 0;
-      v74 = 0;
+      v31 = 0;
+      v32 = 0;
+      v75 = 0;
+      v78 = 0;
+      v83 = 0;
 LABEL_51:
-      v30 = +[SignpostWorkflowResponsiveness allWorkflows];
-      v31 = [[SignpostAggregationAccumulator alloc] initWithIncludeRawIntervals:0];
-      v32 = [[SSCAMetalLayerClientSessionAccumulator alloc] initWithIncludeTimelines:0];
-      v33 = sub_100002620();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = +[SignpostWorkflowResponsiveness allWorkflows];
+      v38 = [[SignpostAggregationAccumulator alloc] initWithIncludeRawIntervals:0];
+      v39 = [[SSCAMetalLayerClientSessionAccumulator alloc] initWithIncludeTimelines:0];
+      v40 = sub_100002620(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         buf.f_bsize = 138412290;
-        *&buf.f_iosize = v26;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Boot disk type: %@", &buf, 0xCu);
+        *&buf.f_iosize = v32;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Boot disk type: %@", &buf, 0xCu);
       }
 
-      v106 = _NSConcreteStackBlock;
-      v107 = 3221225472;
-      v108 = sub_100005D10;
-      v109 = &unk_100014980;
-      v68 = v31;
-      v110 = v68;
-      v34 = v74;
-      v111 = v34;
-      v35 = v30;
-      v112 = v35;
-      v36 = v25;
-      v114 = v36;
-      v37 = v32;
-      v113 = v37;
-      [val setIntervalCompletionProcessingBlock:&v106];
-      *v98 = _NSConcreteStackBlock;
-      v99 = 3221225472;
-      v100 = sub_100005E88;
-      v101 = &unk_1000149A8;
-      v38 = v34;
-      v102 = v38;
-      v39 = v35;
-      v103 = v39;
-      v73 = v36;
-      v105 = v73;
-      v40 = v37;
-      v104 = v40;
-      [val setEmitEventProcessingBlock:v98];
-      v94[0] = _NSConcreteStackBlock;
-      v94[1] = 3221225472;
-      v94[2] = sub_100005FE4;
-      v94[3] = &unk_1000149D0;
-      v75 = v38;
-      v95 = v75;
-      v72 = v39;
-      v96 = v72;
-      v67 = v40;
-      v97 = v67;
-      [val setDeviceRebootProcessingBlock:v94];
+      v115 = _NSConcreteStackBlock;
+      v116 = 3221225472;
+      v117 = sub_100005D10;
+      v118 = &unk_100014980;
+      v77 = v38;
+      v119 = v77;
+      v41 = v83;
+      v120 = v41;
+      v42 = v37;
+      v121 = v42;
+      v43 = v31;
+      v123 = v43;
+      v44 = v39;
+      v122 = v44;
+      [val setIntervalCompletionProcessingBlock:&v115];
+      *v107 = _NSConcreteStackBlock;
+      v108 = 3221225472;
+      v109 = sub_100005E88;
+      v110 = &unk_1000149A8;
+      v45 = v41;
+      v111 = v45;
+      v46 = v42;
+      v112 = v46;
+      v82 = v43;
+      v114 = v82;
+      v47 = v44;
+      v113 = v47;
+      [val setEmitEventProcessingBlock:v107];
+      v103[0] = _NSConcreteStackBlock;
+      v103[1] = 3221225472;
+      v103[2] = sub_100005FE4;
+      v103[3] = &unk_1000149D0;
+      v84 = v45;
+      v104 = v84;
+      v81 = v46;
+      v105 = v81;
+      v76 = v47;
+      v106 = v76;
+      [val setDeviceRebootProcessingBlock:v103];
 
       if (byte_100019F58 == 1)
       {
-        v92[0] = _NSConcreteStackBlock;
-        v92[1] = 3221225472;
-        v92[2] = sub_1000060F8;
-        v92[3] = &unk_1000149F8;
-        v93 = v73;
-        [val setAnimationIntervalCompletionProcessingBlock:v92];
-        v89[0] = _NSConcreteStackBlock;
-        v89[1] = 3221225472;
-        v89[2] = sub_100006120;
-        v89[3] = &unk_100014A20;
-        v90 = v75;
-        v91 = v72;
-        [val setBeginEventProcessingBlock:v89];
+        v101[0] = _NSConcreteStackBlock;
+        v101[1] = 3221225472;
+        v101[2] = sub_1000060F8;
+        v101[3] = &unk_1000149F8;
+        v102 = v82;
+        [val setAnimationIntervalCompletionProcessingBlock:v101];
+        v98[0] = _NSConcreteStackBlock;
+        v98[1] = 3221225472;
+        v98[2] = sub_100006120;
+        v98[3] = &unk_100014A20;
+        v99 = v84;
+        v100 = v81;
+        [val setBeginEventProcessingBlock:v98];
         [val setBuildSkyLightAnimationCompositeIntervalTimelines:0];
-        v41 = [val intervalBuilder];
-        [v41 setMaximumAnimationIntervalProcessingDuration:60.0];
+        v48 = [val intervalBuilder];
+        [v48 setMaximumAnimationIntervalProcessingDuration:60.0];
       }
 
-      v85 = 0;
-      v86 = &v85;
-      v87 = 0x2020000000;
-      v88 = 0;
-      v42 = [NSDate dateWithTimeIntervalSinceNow:-86400.0];
-      v43 = +[NSDate date];
-      v44 = dispatch_queue_create("signpost_reporter defer polling queue", 0);
-      v45 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v44);
-      v46 = qword_100019F40;
-      qword_100019F40 = v45;
+      v94 = 0;
+      v95 = &v94;
+      v96 = 0x2020000000;
+      v97 = 0;
+      v49 = [NSDate dateWithTimeIntervalSinceNow:-86400.0];
+      v50 = +[NSDate date];
+      v51 = dispatch_queue_create("signpost_reporter defer polling queue", 0);
+      v52 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v51);
+      v53 = qword_100019F40;
+      qword_100019F40 = v52;
 
       dispatch_source_set_timer(qword_100019F40, 0, 0x9502F900uLL, 0x9502F900uLL);
       objc_initWeak(&buf, val);
-      v47 = qword_100019F40;
+      v54 = qword_100019F40;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_100006230;
       handler[3] = &unk_100014A48;
-      v48 = v79;
-      v82 = v48;
-      objc_copyWeak(&v84, &buf);
-      v83 = &v85;
-      dispatch_source_set_event_handler(v47, handler);
+      v55 = v88;
+      v91 = v55;
+      objc_copyWeak(&v93, &buf);
+      v92 = &v94;
+      dispatch_source_set_event_handler(v54, handler);
       dispatch_resume(qword_100019F40);
-      objc_destroyWeak(&v84);
+      objc_destroyWeak(&v93);
 
       objc_destroyWeak(&buf);
-      v80 = 0;
-      LOBYTE(v47) = [val processLogArchiveWithPath:0 startDate:v42 endDate:v43 errorOut:&v80];
-      v71 = v80;
-      if ((v47 & 1) == 0)
+      v89 = 0;
+      LOBYTE(v54) = [val processLogArchiveWithPath:0 startDate:v49 endDate:v50 errorOut:&v89];
+      v56 = v89;
+      v80 = v56;
+      if ((v54 & 1) == 0)
       {
-        v49 = sub_100002620();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_100002620(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
-          v50 = [v71 localizedDescription];
+          v58 = [v80 localizedDescription];
           buf.f_bsize = 138412290;
-          *&buf.f_iosize = v50;
-          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Failed to process signpost data due to error: %@", &buf, 0xCu);
+          *&buf.f_iosize = v58;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Failed to process signpost data due to error: %@", &buf, 0xCu);
         }
       }
 
-      v51 = mach_continuous_time();
+      v59 = mach_continuous_time();
       if (qword_100019F98 != -1)
       {
         sub_10000C43C();
       }
 
-      v52 = *&qword_100019FA0 * (v51 - v70);
-      v53 = qword_100019F30;
+      v60 = *&qword_100019FA0 * (v59 - v79);
+      v61 = qword_100019F30;
       *&buf.f_bsize = _NSConcreteStackBlock;
       buf.f_blocks = 3221225472;
       buf.f_bfree = sub_10000633C;
       buf.f_bavail = &unk_100014A70;
-      v54 = v68;
-      buf.f_files = v54;
-      v55 = v67;
-      buf.f_ffree = v55;
-      v56 = v69;
-      buf.f_fsid = v56;
-      v76 = v75;
-      *&buf.f_owner = v76;
-      *&buf.f_mntonname[16] = v52;
-      v57 = val;
-      *&buf.f_mntonname[8] = &v85;
-      vala = v57;
-      *&buf.f_flags = v57;
+      v62 = v77;
+      buf.f_files = v62;
+      v63 = v76;
+      buf.f_ffree = v63;
+      v64 = v78;
+      buf.f_fsid = v64;
+      v85 = v84;
+      *&buf.f_owner = v85;
+      *&buf.f_mntonname[16] = v60;
+      v65 = val;
+      *&buf.f_mntonname[8] = &v94;
+      vala = v65;
+      *&buf.f_flags = v65;
       *buf.f_fstypename = 0;
-      v58 = v42;
-      *&buf.f_fstypename[8] = v58;
-      v59 = v43;
-      *buf.f_mntonname = v59;
-      dispatch_sync(v53, &buf);
+      v66 = v49;
+      *&buf.f_fstypename[8] = v66;
+      v67 = v50;
+      *buf.f_mntonname = v67;
+      dispatch_sync(v61, &buf);
       sub_1000058F4();
-      if (v48)
+      if (v55)
       {
-        if (*(v86 + 24))
+        if (*(v95 + 24))
         {
-          v60 = 3;
+          v68 = 3;
         }
 
         else
         {
-          v60 = 5;
+          v68 = 5;
         }
 
-        v61 = xpc_activity_set_state(v48, v60);
-        v62 = sub_100002620();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        v69 = xpc_activity_set_state(v55, v68);
+        v70 = v69;
+        v71 = sub_100002620(v69);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
-          v63 = "Unable";
-          if (v61)
+          v72 = "Unable";
+          if (v70)
           {
-            v63 = "Able";
+            v72 = "Able";
           }
 
-          if (*(v86 + 24))
+          if (*(v95 + 24))
           {
-            v64 = "deferred";
+            v73 = "deferred";
           }
 
           else
           {
-            v64 = "done";
+            v73 = "done";
           }
 
-          *v119 = 136315394;
-          v120 = v63;
-          v121 = 2080;
-          v122 = v64;
-          _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%s to mark activity as %s", v119, 0x16u);
+          *v128 = 136315394;
+          v129 = v72;
+          v130 = 2080;
+          v131 = v73;
+          _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "%s to mark activity as %s", v128, 0x16u);
         }
       }
 
-      _Block_object_dispose(&v85, 8);
+      _Block_object_dispose(&v94, 8);
       goto LABEL_74;
     }
 
     if (sub_100001DD8())
     {
-      v74 = objc_alloc_init(SignpostCAStallAggregationBuilder);
-      LODWORD(v24) = dword_100019C98;
-      [v74 setMaxDurationSec:v24];
+      v83 = objc_alloc_init(SignpostCAStallAggregationBuilder);
+      LODWORD(v30) = dword_100019C98;
+      [v83 setMaxDurationSec:v30];
     }
 
     else
     {
-      v74 = 0;
+      v83 = 0;
     }
 
-    v27 = objc_alloc_init(SignpostReporterObjectFilter);
+    v33 = objc_alloc_init(SignpostReporterObjectFilter);
     bzero(&buf, 0x878uLL);
-    if (statfs("/", &buf))
+    v34 = statfs("/", &buf);
+    if (v34)
     {
-      v28 = sub_100002620();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      v35 = sub_100002620(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
 LABEL_48:
         sub_10000C388();
@@ -1256,12 +1242,12 @@ LABEL_48:
 
     else
     {
-      v29 = [NSString stringWithCString:buf.f_fstypename encoding:4];
-      v28 = sub_100002620();
-      v65 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
-      if (v29)
+      v36 = [NSString stringWithCString:buf.f_fstypename encoding:4];
+      v35 = sub_100002620(v36);
+      v74 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
+      if (v36)
       {
-        if (v65)
+        if (v74)
         {
           sub_10000C3C8();
         }
@@ -1269,34 +1255,34 @@ LABEL_48:
         goto LABEL_50;
       }
 
-      if (v65)
+      if (v74)
       {
         goto LABEL_48;
       }
     }
 
-    v29 = 0;
+    v36 = 0;
 LABEL_50:
 
-    v115[0] = _NSConcreteStackBlock;
-    v115[1] = 3221225472;
-    v115[2] = sub_1000059D0;
-    v115[3] = &unk_100014958;
-    v69 = v27;
-    v116 = v69;
-    v66 = v29;
-    v117 = v66;
-    v118 = @"SSD";
-    v25 = objc_retainBlock(v115);
+    v124[0] = _NSConcreteStackBlock;
+    v124[1] = 3221225472;
+    v124[2] = sub_1000059D0;
+    v124[3] = &unk_100014958;
+    v78 = v33;
+    v125 = v78;
+    v75 = v36;
+    v126 = v75;
+    v127 = @"SSD";
+    v31 = objc_retainBlock(v124);
 
-    v26 = @"SSD";
+    v32 = @"SSD";
     goto LABEL_51;
   }
 
   v5 = state;
   if (state)
   {
-    v6 = sub_100002620();
+    v6 = sub_100002620(state);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       buf.f_bsize = 134217984;
@@ -1307,7 +1293,7 @@ LABEL_50:
 
   else
   {
-    v6 = sub_100002620();
+    v6 = sub_100002620(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.f_bsize) = 0;
@@ -1331,18 +1317,19 @@ void sub_100005814(id a1)
 id sub_10000585C()
 {
   v0 = +[NSFileManager defaultManager];
-  v4 = 0;
-  v1 = [v0 fileExistsAtPath:@"/var/run/signpost_reporter_running" isDirectory:&v4];
-  if (v1 && v4 == 1)
+  v5 = 0;
+  v1 = [v0 fileExistsAtPath:@"/var/run/signpost_reporter_running" isDirectory:&v5];
+  v2 = v1;
+  if (v1 && v5 == 1)
   {
-    v2 = sub_100002620();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = sub_100002620(v1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       sub_10000C464();
     }
   }
 
-  return v1;
+  return v2;
 }
 
 void sub_1000058F4()
@@ -1353,7 +1340,7 @@ void sub_1000058F4()
     v6 = 0;
     v1 = [v0 removeItemAtPath:@"/var/run/signpost_reporter_running" error:&v6];
     v2 = v6;
-    v3 = sub_100002620();
+    v3 = sub_100002620(v2);
     v4 = v3;
     if (v1)
     {
@@ -1402,7 +1389,7 @@ void sub_1000059D0(uint64_t a1, void *a2)
 
     else
     {
-      v8 = sub_100002620();
+      v8 = sub_100002620(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         sub_10000C560(v3);
@@ -1420,18 +1407,19 @@ void sub_100005B0C()
 
   if (++qword_100019F80 >= 0xA)
   {
-    v0 = *&qword_100019F68 * (mach_continuous_time() - qword_100019F78);
-    if (v0 < *&dword_100019F70)
+    v0 = mach_continuous_time();
+    v1 = *&qword_100019F68 * (v0 - qword_100019F78);
+    if (v1 < *&dword_100019F70)
     {
-      v1 = (*&dword_100019F70 - v0);
-      v2 = sub_100002620();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+      v2 = (*&dword_100019F70 - v1);
+      v3 = sub_100002620(v0);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         sub_10000C64C();
       }
 
-      usleep(v1);
-      qword_100019F88 += v1;
+      usleep(v2);
+      qword_100019F88 += v2;
       ++qword_100019F90;
     }
 
@@ -1445,17 +1433,16 @@ void sub_100005BFC(uint64_t a1)
   v2 = [*(a1 + 32) subsystem];
   v3 = [*(a1 + 32) category];
   v4 = [*(a1 + 32) name];
-  v10[0] = @"sp";
-  v10[1] = v2;
-  v10[2] = v3;
-  v10[3] = v4;
+  v9[0] = @"sp";
+  v9[1] = v2;
+  v9[2] = v3;
+  v9[3] = v4;
   v5 = v2;
   v6 = v3;
-  v7 = [NSArray arrayWithObjects:v10 count:4];
+  v7 = [NSArray arrayWithObjects:v9 count:4];
 
   v8 = [v7 componentsJoinedByString:@"__"];
 
-  v9 = *(a1 + 40);
   AnalyticsSendEvent();
 }
 
@@ -1633,635 +1620,637 @@ uint64_t sub_100006120(uint64_t a1, void *a2)
 void sub_100006230(uint64_t a1)
 {
   should_defer = xpc_activity_should_defer(*(a1 + 32));
-  v3 = sub_100002620();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (should_defer)
+  v3 = should_defer;
+  v4 = sub_100002620(should_defer);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Trying to stop in-flight reporting work.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Trying to stop in-flight reporting work.", buf, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained stopProcessing];
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v3 = sub_100002620();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100002620(v7);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
-      v6 = "Concluding processing due to deferral request";
-      v7 = &v8;
+      v10 = 0;
+      v8 = "Concluding processing due to deferral request";
+      v9 = &v10;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
-    *v9 = 0;
-    v6 = "Deferral not requested, continuing.";
-    v7 = v9;
+    *v11 = 0;
+    v8 = "Deferral not requested, continuing.";
+    v9 = v11;
     goto LABEL_8;
   }
 }
 
 void sub_10000633C(uint64_t a1)
 {
-  v146 = *(a1 + 32);
-  if (v146)
+  v1 = *(a1 + 32);
+  v155 = v1;
+  if (v1)
   {
-    v1 = sub_100002620();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = sub_100002620(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v2 = [v146 signatureToAccumulatorEntry];
+      v3 = [v155 signatureToAccumulatorEntry];
       *buf = 134217984;
-      v182 = [v2 count];
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Accumulated information on %llu aggregations", buf, 0xCu);
+      v191 = [v3 count];
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Accumulated information on %llu aggregations", buf, 0xCu);
     }
 
-    v218 = 0u;
-    v219 = 0u;
-    v216 = 0u;
-    v217 = 0u;
-    v3 = [v146 signatureToAccumulatorEntry];
-    v4 = [v3 allValues];
+    v227 = 0u;
+    v228 = 0u;
+    v225 = 0u;
+    v226 = 0u;
+    v4 = [v155 signatureToAccumulatorEntry];
+    v5 = [v4 allValues];
 
-    v5 = [v4 countByEnumeratingWithState:&v216 objects:buf count:16];
-    if (v5)
+    v6 = [v5 countByEnumeratingWithState:&v225 objects:buf count:16];
+    if (v6)
     {
-      v6 = *v217;
+      v7 = *v226;
       do
       {
-        for (i = 0; i != v5; i = i + 1)
+        for (i = 0; i != v6; i = i + 1)
         {
-          if (*v217 != v6)
+          if (*v226 != v7)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v216 + 1) + 8 * i);
-          v9 = [v8 accumulatedAggregation];
-          if ([v9 telemetryEnabled])
+          v9 = *(*(&v225 + 1) + 8 * i);
+          v10 = [v9 accumulatedAggregation];
+          v11 = [v10 telemetryEnabled];
+          if (v11)
           {
-            v10 = [v9 _coreAnalyticsEventPayloadDictionary];
-            v11 = sub_100002620();
-            v12 = v11;
-            if (v10)
+            v12 = [v10 _coreAnalyticsEventPayloadDictionary];
+            v13 = sub_100002620(v12);
+            v14 = v13;
+            if (v12)
             {
-              if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
               {
-                v13 = [v8 aggregationSignature];
-                LODWORD(v215[0]) = 138412290;
-                *(v215 + 4) = v13;
-                _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Submitting CA event payload for %@", v215, 0xCu);
+                v15 = [v9 aggregationSignature];
+                LODWORD(v224[0]) = 138412290;
+                *(v224 + 4) = v15;
+                _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Submitting CA event payload for %@", v224, 0xCu);
               }
 
-              v12 = [v9 _coreAnalyticsEventName];
+              v14 = [v10 _coreAnalyticsEventName];
               AnalyticsSendEvent();
             }
 
-            else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
-              sub_10000C6C0(v179, v9, &v180, v12);
+              sub_10000C6C0(v188, v10, &v189, v14);
             }
           }
 
           else
           {
-            v10 = sub_100002620();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+            v12 = sub_100002620(v11);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = [v8 aggregationSignature];
-              LODWORD(v215[0]) = 138412290;
-              *(v215 + 4) = v14;
-              _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ is not telemetry enabled", v215, 0xCu);
+              v16 = [v9 aggregationSignature];
+              LODWORD(v224[0]) = 138412290;
+              *(v224 + 4) = v16;
+              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ is not telemetry enabled", v224, 0xCu);
             }
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v216 objects:buf count:16];
+        v6 = [v5 countByEnumeratingWithState:&v225 objects:buf count:16];
       }
 
-      while (v5);
+      while (v6);
     }
   }
 
-  v15 = *(a1 + 40);
-  v16 = v15;
-  if (v15)
+  v17 = *(a1 + 40);
+  v18 = v17;
+  if (v17)
   {
-    v17 = [v15 coreAnalyticsEvents];
-    v18 = sub_100002620();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = [v17 coreAnalyticsEvents];
+    v20 = sub_100002620(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v17 count];
-      v20 = [v16 processingErrors];
-      v21 = [v20 count];
+      v21 = [v19 count];
+      v22 = [v18 processingErrors];
+      v23 = [v22 count];
       *buf = 134218240;
-      v182 = v19;
-      v183 = 2048;
-      v184 = v21;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Reporting information on %llu CAMetalLayer clients with %llu errors encountered", buf, 0x16u);
+      v191 = v21;
+      v192 = 2048;
+      v193 = v23;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Reporting information on %llu CAMetalLayer clients with %llu errors encountered", buf, 0x16u);
     }
 
-    v218 = 0u;
-    v219 = 0u;
-    v216 = 0u;
-    v217 = 0u;
-    v22 = v17;
-    v23 = [v22 countByEnumeratingWithState:&v216 objects:buf count:16];
-    if (v23)
+    v227 = 0u;
+    v228 = 0u;
+    v225 = 0u;
+    v226 = 0u;
+    v24 = v19;
+    v25 = [v24 countByEnumeratingWithState:&v225 objects:buf count:16];
+    if (v25)
     {
-      v24 = *v217;
+      v26 = *v226;
       do
       {
-        for (j = 0; j != v23; j = j + 1)
+        for (j = 0; j != v25; ++j)
         {
-          if (*v217 != v24)
+          if (*v226 != v26)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v24);
           }
 
-          v26 = *(*(&v216 + 1) + 8 * j);
-          v27 = +[SSCAMetalLayerClientSessionAccumulator coreAnalyticsEventName];
+          v28 = +[SSCAMetalLayerClientSessionAccumulator coreAnalyticsEventName];
           AnalyticsSendEvent();
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v216 objects:buf count:16];
+        v25 = [v24 countByEnumeratingWithState:&v225 objects:buf count:16];
       }
 
-      while (v23);
+      while (v25);
     }
 
-    v214[0] = @"ErrorCount";
-    v28 = [v16 processingErrors];
-    v29 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v28 count]);
-    *&v215[0] = v29;
-    v214[1] = @"CAMetalLayerSessionCount";
-    v30 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v22 count]);
-    *(&v215[0] + 1) = v30;
-    v31 = [NSDictionary dictionaryWithObjects:v215 forKeys:v214 count:2];
+    v223[0] = @"ErrorCount";
+    v29 = [v18 processingErrors];
+    v30 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v29 count]);
+    *&v224[0] = v30;
+    v223[1] = @"CAMetalLayerSessionCount";
+    v31 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v24 count]);
+    *(&v224[0] + 1) = v31;
+    v32 = [NSDictionary dictionaryWithObjects:v224 forKeys:v223 count:2];
 
-    v32 = +[SSCAMetalLayerClientSessionAccumulator coreAnalyticsProcessingMetadataName];
+    v33 = +[SSCAMetalLayerClientSessionAccumulator coreAnalyticsProcessingMetadataName];
     AnalyticsSendEvent();
   }
 
-  v34 = *(a1 + 48);
-  v33 = *(a1 + 56);
-  v35 = *(a1 + 104);
-  v142 = [*(a1 + 64) processedEventCount];
-  v141 = *(*(*(a1 + 96) + 8) + 24);
-  v144 = *(a1 + 72);
-  if (v144)
+  v35 = *(a1 + 48);
+  v34 = *(a1 + 56);
+  v36 = *(a1 + 104);
+  v151 = [*(a1 + 64) processedEventCount];
+  v150 = *(*(*(a1 + 96) + 8) + 24);
+  v153 = *(a1 + 72);
+  if (v153)
   {
-    v143 = 0;
-    v36 = @"log archive end";
-    v37 = @"log archive begin";
+    v152 = 0;
+    v37 = @"log archive end";
+    v38 = @"log archive begin";
   }
 
   else
   {
-    v37 = [NSDateFormatter localizedStringFromDate:*(a1 + 80) dateStyle:1 timeStyle:2];
+    v38 = [NSDateFormatter localizedStringFromDate:*(a1 + 80) dateStyle:1 timeStyle:2];
     if (*(a1 + 72))
     {
-      v143 = 0;
-      v36 = @"log archive end";
+      v152 = 0;
+      v37 = @"log archive end";
     }
 
     else
     {
-      v36 = [NSDateFormatter localizedStringFromDate:*(a1 + 88) dateStyle:1 timeStyle:2];
-      v143 = 1;
+      v37 = [NSDateFormatter localizedStringFromDate:*(a1 + 88) dateStyle:1 timeStyle:2];
+      v152 = 1;
     }
   }
 
-  v149 = v34;
-  v147 = v33;
-  v140 = v37;
-  v145 = v37;
-  v38 = v36;
+  v158 = v35;
+  v156 = v34;
+  v149 = v38;
+  v154 = v38;
+  v39 = v37;
   if (byte_100019F58 == 1)
   {
-    v139 = v38;
-    v175 = 0;
-    v176 = &v175;
-    v177 = 0x2020000000;
-    v178 = 0;
-    v174[0] = _NSConcreteStackBlock;
-    v174[1] = 3221225472;
-    v174[2] = sub_100007C58;
-    v174[3] = &unk_100014B00;
-    v174[4] = &v175;
-    v39 = objc_retainBlock(v174);
-    v40 = sub_100002620();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v148 = v39;
+    v184 = 0;
+    v185 = &v184;
+    v186 = 0x2020000000;
+    v187 = 0;
+    v183[0] = _NSConcreteStackBlock;
+    v183[1] = 3221225472;
+    v183[2] = sub_100007C58;
+    v183[3] = &unk_100014B00;
+    v183[4] = &v184;
+    v40 = objc_retainBlock(v183);
+    v41 = sub_100002620(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = [v149 allInspectedSignpostObjectsAggregation];
-      v42 = [v41 totalCount];
+      v42 = [v158 allInspectedSignpostObjectsAggregation];
+      v43 = [v42 totalCount];
       *buf = 134217984;
-      v182 = v42;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "**************\nTotal signpost object count: %llu", buf, 0xCu);
+      v191 = v43;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "**************\nTotal signpost object count: %llu", buf, 0xCu);
     }
 
-    v43 = [v149 allInspectedSignpostObjectsAggregation];
-    v44 = [v43 keysInDescendingCountOrder];
+    v44 = [v158 allInspectedSignpostObjectsAggregation];
+    v45 = [v44 keysInDescendingCountOrder];
 
-    v176[3] = 0;
-    v170 = 0u;
+    v185[3] = 0;
+    v179 = 0u;
+    v180 = 0u;
+    v181 = 0u;
+    v182 = 0u;
+    v46 = v45;
+    v47 = [v46 countByEnumeratingWithState:&v179 objects:&v225 count:16];
+    v48 = v37;
+    if (v47)
+    {
+      v49 = *v180;
+      do
+      {
+        for (k = 0; k != v47; k = k + 1)
+        {
+          if (*v180 != v49)
+          {
+            objc_enumerationMutation(v46);
+          }
+
+          v51 = *(*(&v179 + 1) + 8 * k);
+          v52 = [v158 allInspectedSignpostObjectsAggregation];
+          (v40[2])(v40, v51, v52, @"AllInspected");
+        }
+
+        v37 = v48;
+        v47 = [v46 countByEnumeratingWithState:&v179 objects:&v225 count:16];
+      }
+
+      while (v47);
+    }
+
+    v54 = sub_100002620(v53);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    {
+      v55 = [v158 telemetryReportedAggregation];
+      v56 = [v55 totalCount];
+      *buf = 134217984;
+      v191 = v56;
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "**************\nReported signpost object count: %llu", buf, 0xCu);
+    }
+
+    v57 = [v158 telemetryReportedAggregation];
+    v58 = [v57 keysInDescendingCountOrder];
+
+    v185[3] = 0;
+    v175 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    v178 = 0u;
+    v59 = v58;
+    v60 = [v59 countByEnumeratingWithState:&v175 objects:v224 count:16];
+    if (v60)
+    {
+      v61 = *v176;
+      do
+      {
+        for (m = 0; m != v60; m = m + 1)
+        {
+          if (*v176 != v61)
+          {
+            objc_enumerationMutation(v59);
+          }
+
+          v63 = *(*(&v175 + 1) + 8 * m);
+          v64 = [v158 telemetryReportedAggregation];
+          (v40[2])(v40, v63, v64, @"Reported");
+        }
+
+        v37 = v48;
+        v60 = [v59 countByEnumeratingWithState:&v175 objects:v224 count:16];
+      }
+
+      while (v60);
+    }
+
+    v66 = sub_100002620(v65);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+    {
+      v67 = [v158 telemetryReportedEventsAggregation];
+      v68 = [v67 totalCount];
+      *buf = 134217984;
+      v191 = v68;
+      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "**************\nReported signpost event count: %llu", buf, 0xCu);
+    }
+
+    v69 = [v158 telemetryReportedEventsAggregation];
+    v70 = [v69 keysInDescendingCountOrder];
+
+    v185[3] = 0;
     v171 = 0u;
     v172 = 0u;
     v173 = 0u;
-    v45 = v44;
-    v46 = [v45 countByEnumeratingWithState:&v170 objects:&v216 count:16];
-    v47 = v36;
-    if (v46)
+    v174 = 0u;
+    v71 = v70;
+    v72 = [v71 countByEnumeratingWithState:&v171 objects:v223 count:16];
+    if (v72)
     {
-      v48 = *v171;
+      v73 = *v172;
       do
       {
-        for (k = 0; k != v46; k = k + 1)
+        for (n = 0; n != v72; n = n + 1)
         {
-          if (*v171 != v48)
+          if (*v172 != v73)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v71);
           }
 
-          v50 = *(*(&v170 + 1) + 8 * k);
-          v51 = [v149 allInspectedSignpostObjectsAggregation];
-          (v39[2])(v39, v50, v51, @"AllInspected");
+          v75 = *(*(&v171 + 1) + 8 * n);
+          v76 = [v158 telemetryReportedEventsAggregation];
+          (v40[2])(v40, v75, v76, @"ReportedEvents");
         }
 
-        v36 = v47;
-        v46 = [v45 countByEnumeratingWithState:&v170 objects:&v216 count:16];
+        v37 = v48;
+        v72 = [v71 countByEnumeratingWithState:&v171 objects:v223 count:16];
       }
 
-      while (v46);
+      while (v72);
     }
 
-    v52 = sub_100002620();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v78 = sub_100002620(v77);
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
     {
-      v53 = [v149 telemetryReportedAggregation];
-      v54 = [v53 totalCount];
+      v79 = [v158 telemetryNotReportedFailedSCFilterAggregation];
+      v80 = [v79 totalCount];
       *buf = 134217984;
-      v182 = v54;
-      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "**************\nReported signpost object count: %llu", buf, 0xCu);
+      v191 = v80;
+      _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "**************\nSubsystem/category filtered signpost object count: %llu", buf, 0xCu);
     }
 
-    v55 = [v149 telemetryReportedAggregation];
-    v56 = [v55 keysInDescendingCountOrder];
+    v81 = [v158 telemetryNotReportedFailedSCFilterAggregation];
+    v82 = [v81 keysInDescendingCountOrder];
 
-    v176[3] = 0;
-    v166 = 0u;
+    v185[3] = 0;
     v167 = 0u;
     v168 = 0u;
     v169 = 0u;
-    v57 = v56;
-    v58 = [v57 countByEnumeratingWithState:&v166 objects:v215 count:16];
-    if (v58)
+    v170 = 0u;
+    v83 = v82;
+    v84 = [v83 countByEnumeratingWithState:&v167 objects:v222 count:16];
+    if (v84)
     {
-      v59 = *v167;
+      v85 = *v168;
       do
       {
-        for (m = 0; m != v58; m = m + 1)
+        for (ii = 0; ii != v84; ii = ii + 1)
         {
-          if (*v167 != v59)
+          if (*v168 != v85)
           {
-            objc_enumerationMutation(v57);
+            objc_enumerationMutation(v83);
           }
 
-          v61 = *(*(&v166 + 1) + 8 * m);
-          v62 = [v149 telemetryReportedAggregation];
-          (v39[2])(v39, v61, v62, @"Reported");
+          v87 = *(*(&v167 + 1) + 8 * ii);
+          v88 = [v158 telemetryNotReportedFailedSCFilterAggregation];
+          (v40[2])(v40, v87, v88, @"SubsystemCategoryFiltered");
         }
 
-        v36 = v47;
-        v58 = [v57 countByEnumeratingWithState:&v166 objects:v215 count:16];
+        v37 = v48;
+        v84 = [v83 countByEnumeratingWithState:&v167 objects:v222 count:16];
       }
 
-      while (v58);
+      while (v84);
     }
 
-    v63 = sub_100002620();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v90 = sub_100002620(v89);
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
     {
-      v64 = [v149 telemetryReportedEventsAggregation];
-      v65 = [v64 totalCount];
+      v91 = [v158 telemetryNotReportedDurationThresholdAggregation];
+      v92 = [v91 totalCount];
       *buf = 134217984;
-      v182 = v65;
-      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "**************\nReported signpost event count: %llu", buf, 0xCu);
+      v191 = v92;
+      _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "**************\nDuration filtered signpost object count: %llu", buf, 0xCu);
     }
 
-    v66 = [v149 telemetryReportedEventsAggregation];
-    v67 = [v66 keysInDescendingCountOrder];
+    v93 = [v158 telemetryNotReportedDurationThresholdAggregation];
+    v94 = [v93 keysInDescendingCountOrder];
 
-    v176[3] = 0;
-    v162 = 0u;
+    v185[3] = 0;
     v163 = 0u;
     v164 = 0u;
     v165 = 0u;
-    v68 = v67;
-    v69 = [v68 countByEnumeratingWithState:&v162 objects:v214 count:16];
-    if (v69)
+    v166 = 0u;
+    v95 = v94;
+    v96 = [v95 countByEnumeratingWithState:&v163 objects:v221 count:16];
+    if (v96)
     {
-      v70 = *v163;
+      v97 = *v164;
       do
       {
-        for (n = 0; n != v69; n = n + 1)
+        for (jj = 0; jj != v96; jj = jj + 1)
         {
-          if (*v163 != v70)
+          if (*v164 != v97)
           {
-            objc_enumerationMutation(v68);
+            objc_enumerationMutation(v95);
           }
 
-          v72 = *(*(&v162 + 1) + 8 * n);
-          v73 = [v149 telemetryReportedEventsAggregation];
-          (v39[2])(v39, v72, v73, @"ReportedEvents");
+          v99 = *(*(&v163 + 1) + 8 * jj);
+          v100 = [v158 telemetryNotReportedDurationThresholdAggregation];
+          (v40[2])(v40, v99, v100, @"DurationThresholdFiltered");
         }
 
-        v36 = v47;
-        v69 = [v68 countByEnumeratingWithState:&v162 objects:v214 count:16];
+        v37 = v48;
+        v96 = [v95 countByEnumeratingWithState:&v163 objects:v221 count:16];
       }
 
-      while (v69);
+      while (v96);
     }
 
-    v74 = sub_100002620();
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+    v102 = sub_100002620(v101);
+    if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
     {
-      v75 = [v149 telemetryNotReportedFailedSCFilterAggregation];
-      v76 = [v75 totalCount];
+      v103 = [v158 telemetryNotReportedFailedStringAllowlistAggregation];
+      v104 = [v103 totalCount];
       *buf = 134217984;
-      v182 = v76;
-      _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "**************\nSubsystem/category filtered signpost object count: %llu", buf, 0xCu);
+      v191 = v104;
+      _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "**************\nString allowlist filtered signpost object count: %llu", buf, 0xCu);
     }
 
-    v77 = [v149 telemetryNotReportedFailedSCFilterAggregation];
-    v78 = [v77 keysInDescendingCountOrder];
+    v105 = [v158 telemetryNotReportedFailedStringAllowlistAggregation];
+    v106 = [v105 keysInDescendingCountOrder];
 
-    v176[3] = 0;
-    v158 = 0u;
+    v185[3] = 0;
     v159 = 0u;
     v160 = 0u;
     v161 = 0u;
-    v79 = v78;
-    v80 = [v79 countByEnumeratingWithState:&v158 objects:v213 count:16];
-    if (v80)
+    v162 = 0u;
+    v107 = v106;
+    v108 = [v107 countByEnumeratingWithState:&v159 objects:v220 count:16];
+    if (v108)
     {
-      v81 = *v159;
+      v109 = *v160;
       do
       {
-        for (ii = 0; ii != v80; ii = ii + 1)
+        for (kk = 0; kk != v108; kk = kk + 1)
         {
-          if (*v159 != v81)
+          if (*v160 != v109)
           {
-            objc_enumerationMutation(v79);
+            objc_enumerationMutation(v107);
           }
 
-          v83 = *(*(&v158 + 1) + 8 * ii);
-          v84 = [v149 telemetryNotReportedFailedSCFilterAggregation];
-          (v39[2])(v39, v83, v84, @"SubsystemCategoryFiltered");
+          v111 = *(*(&v159 + 1) + 8 * kk);
+          v112 = [v158 telemetryNotReportedFailedStringAllowlistAggregation];
+          (v40[2])(v40, v111, v112, @"StringWhitelistFiltered");
         }
 
-        v36 = v47;
-        v80 = [v79 countByEnumeratingWithState:&v158 objects:v213 count:16];
+        v37 = v48;
+        v108 = [v107 countByEnumeratingWithState:&v159 objects:v220 count:16];
       }
 
-      while (v80);
+      while (v108);
     }
 
-    v85 = sub_100002620();
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+    v113 = +[NSMutableDictionary dictionary];
+    *&v114 = v36;
+    v115 = [NSNumber numberWithFloat:v114];
+    [v113 setObject:v115 forKeyedSubscript:@"ProcessingDurationInSeconds"];
+
+    v116 = [NSNumber numberWithUnsignedLongLong:v151];
+    [v113 setObject:v116 forKeyedSubscript:@"LogObjectsProcessed"];
+
+    v117 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalReportedAnimationCount]);
+    [v113 setObject:v117 forKeyedSubscript:@"AnimationsReported"];
+
+    v118 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalReportedIntervalCount]);
+    [v113 setObject:v118 forKeyedSubscript:@"IntervalsReported"];
+
+    v119 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalReportedEventCount]);
+    [v113 setObject:v119 forKeyedSubscript:@"EventsReported"];
+
+    v120 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalUnreportedAnimationCount]);
+    [v113 setObject:v120 forKeyedSubscript:@"AnimationsNotReported"];
+
+    v121 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalUnreportedIntervalCount]);
+    [v113 setObject:v121 forKeyedSubscript:@"IntervalsNotReported"];
+
+    v122 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v158 totalUnreportedEventCount]);
+    [v113 setObject:v122 forKeyedSubscript:@"EventsNotReported"];
+
+    v123 = [NSNumber numberWithBool:v150];
+    [v113 setObject:v123 forKeyedSubscript:@"WasInterrupted"];
+
+    v124 = AnalyticsSendEvent();
+    v125 = sub_100002620(v124);
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
     {
-      v86 = [v149 telemetryNotReportedDurationThresholdAggregation];
-      v87 = [v86 totalCount];
-      *buf = 134217984;
-      v182 = v87;
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "**************\nDuration filtered signpost object count: %llu", buf, 0xCu);
-    }
-
-    v88 = [v149 telemetryNotReportedDurationThresholdAggregation];
-    v89 = [v88 keysInDescendingCountOrder];
-
-    v176[3] = 0;
-    v154 = 0u;
-    v155 = 0u;
-    v156 = 0u;
-    v157 = 0u;
-    v90 = v89;
-    v91 = [v90 countByEnumeratingWithState:&v154 objects:v212 count:16];
-    if (v91)
-    {
-      v92 = *v155;
-      do
-      {
-        for (jj = 0; jj != v91; jj = jj + 1)
-        {
-          if (*v155 != v92)
-          {
-            objc_enumerationMutation(v90);
-          }
-
-          v94 = *(*(&v154 + 1) + 8 * jj);
-          v95 = [v149 telemetryNotReportedDurationThresholdAggregation];
-          (v39[2])(v39, v94, v95, @"DurationThresholdFiltered");
-        }
-
-        v36 = v47;
-        v91 = [v90 countByEnumeratingWithState:&v154 objects:v212 count:16];
-      }
-
-      while (v91);
-    }
-
-    v96 = sub_100002620();
-    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
-    {
-      v97 = [v149 telemetryNotReportedFailedStringAllowlistAggregation];
-      v98 = [v97 totalCount];
-      *buf = 134217984;
-      v182 = v98;
-      _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "**************\nString allowlist filtered signpost object count: %llu", buf, 0xCu);
-    }
-
-    v99 = [v149 telemetryNotReportedFailedStringAllowlistAggregation];
-    v100 = [v99 keysInDescendingCountOrder];
-
-    v176[3] = 0;
-    v150 = 0u;
-    v151 = 0u;
-    v152 = 0u;
-    v153 = 0u;
-    v101 = v100;
-    v102 = [v101 countByEnumeratingWithState:&v150 objects:v211 count:16];
-    if (v102)
-    {
-      v103 = *v151;
-      do
-      {
-        for (kk = 0; kk != v102; kk = kk + 1)
-        {
-          if (*v151 != v103)
-          {
-            objc_enumerationMutation(v101);
-          }
-
-          v105 = *(*(&v150 + 1) + 8 * kk);
-          v106 = [v149 telemetryNotReportedFailedStringAllowlistAggregation];
-          (v39[2])(v39, v105, v106, @"StringWhitelistFiltered");
-        }
-
-        v36 = v47;
-        v102 = [v101 countByEnumeratingWithState:&v150 objects:v211 count:16];
-      }
-
-      while (v102);
-    }
-
-    v107 = +[NSMutableDictionary dictionary];
-    *&v108 = v35;
-    v109 = [NSNumber numberWithFloat:v108];
-    [v107 setObject:v109 forKeyedSubscript:@"ProcessingDurationInSeconds"];
-
-    v110 = [NSNumber numberWithUnsignedLongLong:v142];
-    [v107 setObject:v110 forKeyedSubscript:@"LogObjectsProcessed"];
-
-    v111 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalReportedAnimationCount]);
-    [v107 setObject:v111 forKeyedSubscript:@"AnimationsReported"];
-
-    v112 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalReportedIntervalCount]);
-    [v107 setObject:v112 forKeyedSubscript:@"IntervalsReported"];
-
-    v113 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalReportedEventCount]);
-    [v107 setObject:v113 forKeyedSubscript:@"EventsReported"];
-
-    v114 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalUnreportedAnimationCount]);
-    [v107 setObject:v114 forKeyedSubscript:@"AnimationsNotReported"];
-
-    v115 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalUnreportedIntervalCount]);
-    [v107 setObject:v115 forKeyedSubscript:@"IntervalsNotReported"];
-
-    v116 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v149 totalUnreportedEventCount]);
-    [v107 setObject:v116 forKeyedSubscript:@"EventsNotReported"];
-
-    v117 = [NSNumber numberWithBool:v141];
-    [v107 setObject:v117 forKeyedSubscript:@"WasInterrupted"];
-
-    AnalyticsSendEvent();
-    v118 = sub_100002620();
-    if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
-    {
-      v137 = [v149 totalReportedEventCount];
-      v136 = [v149 totalUnreportedEventCount];
-      v135 = [v149 totalReportedIntervalCount];
-      v134 = COERCE_DOUBLE([v149 totalUnreportedIntervalCount]);
-      v133 = [v149 totalReportedAnimationCount];
-      v132 = [v149 totalUnreportedAnimationCount];
-      v138 = [v149 telemetryNotReportedFailedSCFilterAggregation];
-      v119 = [v138 totalCount];
-      v120 = [v149 telemetryNotReportedDurationThresholdAggregation];
-      v121 = [v120 totalCount];
-      v122 = [v149 telemetryNotReportedFailedStringAllowlistAggregation];
-      v123 = [v122 totalCount];
-      v124 = [v149 telemetryDisabledAggregation];
-      v125 = [v124 totalCount];
+      v146 = [v158 totalReportedEventCount];
+      v145 = [v158 totalUnreportedEventCount];
+      v144 = [v158 totalReportedIntervalCount];
+      v143 = COERCE_DOUBLE([v158 totalUnreportedIntervalCount]);
+      v142 = [v158 totalReportedAnimationCount];
+      v141 = [v158 totalUnreportedAnimationCount];
+      v147 = [v158 telemetryNotReportedFailedSCFilterAggregation];
+      v126 = [v147 totalCount];
+      v127 = [v158 telemetryNotReportedDurationThresholdAggregation];
+      v128 = [v127 totalCount];
+      v129 = [v158 telemetryNotReportedFailedStringAllowlistAggregation];
+      v130 = [v129 totalCount];
+      v131 = [v158 telemetryDisabledAggregation];
+      v132 = [v131 totalCount];
       *buf = 134221570;
-      v126 = "";
-      v182 = v137;
-      v183 = 2048;
-      if (v141)
+      v133 = "";
+      v191 = v146;
+      v192 = 2048;
+      if (v150)
       {
-        v126 = " (Interrupted by deferral)";
+        v133 = " (Interrupted by deferral)";
       }
 
-      v184 = v136;
-      v185 = 2048;
-      v186 = v135;
-      v187 = 2048;
-      v188 = v134;
-      v189 = 2048;
-      v190 = v133;
-      v191 = 2048;
-      v192 = v132;
-      v193 = 2048;
-      v194 = v119;
-      v195 = 2048;
-      v196 = v121;
-      v197 = 2048;
-      v198 = v123;
-      v199 = 2048;
-      v200 = v125;
-      v201 = 2048;
-      v202 = v142;
-      v203 = 2048;
-      v204 = v35;
-      v205 = 2112;
-      v206 = v145;
-      v207 = 2112;
-      v208 = v139;
-      v209 = 2080;
-      v210 = v126;
-      _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "Done processing %llu reported and %llu unreported events, %llu reported and %llu unreported intervals and %llu reported and %llu unreported animations (%llu blocklisted, %llu too short, %llu allowlisted, %llu telemetry not enabled) from %llu log events in %.2fs between %@ and %@%s\n", buf, 0x98u);
+      v193 = v145;
+      v194 = 2048;
+      v195 = v144;
+      v196 = 2048;
+      v197 = v143;
+      v198 = 2048;
+      v199 = v142;
+      v200 = 2048;
+      v201 = v141;
+      v202 = 2048;
+      v203 = v126;
+      v204 = 2048;
+      v205 = v128;
+      v206 = 2048;
+      v207 = v130;
+      v208 = 2048;
+      v209 = v132;
+      v210 = 2048;
+      v211 = v151;
+      v212 = 2048;
+      v213 = v36;
+      v214 = 2112;
+      v215 = v154;
+      v216 = 2112;
+      v217 = v148;
+      v218 = 2080;
+      v219 = v133;
+      _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "Done processing %llu reported and %llu unreported events, %llu reported and %llu unreported intervals and %llu reported and %llu unreported animations (%llu blocklisted, %llu too short, %llu allowlisted, %llu telemetry not enabled) from %llu log events in %.2fs between %@ and %@%s\n", buf, 0x98u);
 
-      v36 = v47;
+      v37 = v48;
     }
 
     if (qword_100019F90)
     {
-      v127 = sub_100002620();
-      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+      v135 = sub_100002620(v134);
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v182 = qword_100019F90;
-        v183 = 2048;
-        v184 = qword_100019F88;
-        _os_log_impl(&_mh_execute_header, v127, OS_LOG_TYPE_DEFAULT, "Throttled %llu times for a total of %llu usec", buf, 0x16u);
+        v191 = qword_100019F90;
+        v192 = 2048;
+        v193 = qword_100019F88;
+        _os_log_impl(&_mh_execute_header, v135, OS_LOG_TYPE_DEFAULT, "Throttled %llu times for a total of %llu usec", buf, 0x16u);
       }
     }
 
-    if (v147)
+    if (v156)
     {
-      v128 = [v147 stallAggregationSnapshot];
-      sub_100001DE0(v128);
+      v136 = [v156 stallAggregationSnapshot];
+      sub_100001DE0(v136);
     }
 
-    _Block_object_dispose(&v175, 8);
-    v38 = v139;
+    _Block_object_dispose(&v184, 8);
+    v39 = v148;
   }
 
-  if (v143)
+  if (v152)
   {
   }
 
-  if (!v144)
+  if (!v153)
   {
   }
 
-  v129 = sub_100002620();
-  if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+  v138 = sub_100002620(v137);
+  if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
   {
-    v130 = *(a1 + 104);
+    v139 = *(a1 + 104);
     if (byte_100019F58)
     {
-      v131 = @"Enabled";
+      v140 = @"Enabled";
     }
 
     else
     {
-      v131 = @"Disabled";
+      v140 = @"Disabled";
     }
 
     *buf = 138413058;
-    v182 = v131;
-    v183 = 2112;
-    v184 = @"Enabled";
-    v185 = 2112;
-    v186 = @"Enabled";
-    v187 = 2048;
-    v188 = v130;
-    _os_log_impl(&_mh_execute_header, v129, OS_LOG_TYPE_DEFAULT, "Processing for:\n\tos_signpost CA telemetry: %@\n\tAggregation CA telemetry: %@\n\tCAMetalLayer CA telemetry: %@ took %.2f seconds", buf, 0x2Au);
+    v191 = v140;
+    v192 = 2112;
+    v193 = @"Enabled";
+    v194 = 2112;
+    v195 = @"Enabled";
+    v196 = 2048;
+    v197 = v139;
+    _os_log_impl(&_mh_execute_header, v138, OS_LOG_TYPE_DEFAULT, "Processing for:\n\tos_signpost CA telemetry: %@\n\tAggregation CA telemetry: %@\n\tCAMetalLayer CA telemetry: %@ took %.2f seconds", buf, 0x2Au);
   }
 }
 
@@ -2271,97 +2260,101 @@ void sub_1000077EC(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   v7 = v5;
   v8 = v6;
-  if (([(__CFString *)v8 isEqualToString:@"com.apple.performance.signpost_reporter_tasking"]& 1) != 0)
+  v9 = [(__CFString *)v8 isEqualToString:@"com.apple.performance.signpost_reporter_tasking"];
+  if (v9)
   {
     if (v7)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v9 = [v7 objectForKeyedSubscript:@"TaskedOn"];
-        if (v9)
+        v11 = [v7 objectForKeyedSubscript:@"TaskedOn"];
+        if (v11)
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v12 = objc_opt_isKindOfClass();
+          if (v12)
           {
-            v10 = [v9 BOOLValue];
-            v11 = sub_100002620();
-            v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-            if (v10)
+            v13 = [v11 BOOLValue];
+            v14 = v13;
+            v15 = sub_100002620(v13);
+            v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+            if (v14)
             {
-              if (v12)
+              if (v16)
               {
-                LOWORD(v18) = 0;
-                _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Reporting based on being tasked-on by CoreAnalytics", &v18, 2u);
+                LOWORD(v22) = 0;
+                _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Reporting based on being tasked-on by CoreAnalytics", &v22, 2u);
               }
 
-              v13 = 1;
+              v17 = 1;
               goto LABEL_28;
             }
 
-            if (v12)
+            if (v16)
             {
-              v18 = 138412290;
-              v19 = @"TaskedOn";
-              v17 = "Not reporting based on not being tasked-on by CoreAnalytics ('%@' is false)";
+              v22 = 138412290;
+              v23 = @"TaskedOn";
+              v21 = "Not reporting based on not being tasked-on by CoreAnalytics ('%@' is false)";
               goto LABEL_26;
             }
 
 LABEL_27:
-            v13 = 0;
+            v17 = 0;
 LABEL_28:
 
             goto LABEL_19;
           }
 
-          v11 = sub_100002620();
-          if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v15 = sub_100002620(v12);
+          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_27;
           }
 
-          v18 = 138412290;
-          v19 = @"TaskedOn";
-          v17 = "Not reporting since not tasked-on by CoreAnalytics (Wrong value class for class for %@)";
+          v22 = 138412290;
+          v23 = @"TaskedOn";
+          v21 = "Not reporting since not tasked-on by CoreAnalytics (Wrong value class for class for %@)";
         }
 
         else
         {
-          v11 = sub_100002620();
-          if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v15 = sub_100002620(0);
+          if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_27;
           }
 
-          v18 = 138412290;
-          v19 = @"TaskedOn";
-          v17 = "Not reporting since is not tasked-on by CoreAnalytics (nil value for %@ key)";
+          v22 = 138412290;
+          v23 = @"TaskedOn";
+          v21 = "Not reporting since is not tasked-on by CoreAnalytics (nil value for %@ key)";
         }
 
 LABEL_26:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v17, &v18, 0xCu);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v21, &v22, 0xCu);
         goto LABEL_27;
       }
 
-      v9 = sub_100002620();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002620(isKindOfClass);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v18) = 0;
-        v14 = "Not reporting based on not being tasked-on by CoreAnalytics (Non-NSDictionary configuration object)";
+        LOWORD(v22) = 0;
+        v18 = "Not reporting based on not being tasked-on by CoreAnalytics (Non-NSDictionary configuration object)";
         goto LABEL_16;
       }
     }
 
     else
     {
-      v9 = sub_100002620();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002620(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v18) = 0;
-        v14 = "Not reporting based on not being tasked-on by CoreAnalytics (nil configuration object)";
+        LOWORD(v22) = 0;
+        v18 = "Not reporting based on not being tasked-on by CoreAnalytics (nil configuration object)";
 LABEL_16:
-        v15 = v9;
-        v16 = 2;
+        v19 = v11;
+        v20 = 2;
         goto LABEL_17;
       }
     }
@@ -2369,44 +2362,44 @@ LABEL_16:
 
   else
   {
-    v9 = sub_100002620();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002620(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v8;
-      v14 = "Not reporting based on not being tasked-on by CoreAnalytics (unexpected type string: '%@')";
-      v15 = v9;
-      v16 = 12;
+      v22 = 138412290;
+      v23 = v8;
+      v18 = "Not reporting based on not being tasked-on by CoreAnalytics (unexpected type string: '%@')";
+      v19 = v11;
+      v20 = 12;
 LABEL_17:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, &v18, v16);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, &v22, v20);
     }
   }
 
-  v13 = 0;
+  v17 = 0;
 LABEL_19:
 
-  *(*(*(a1 + 40) + 8) + 24) = v13;
+  *(*(*(a1 + 40) + 8) + 24) = v17;
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
 void sub_100007AEC(id a1)
 {
   info = 0;
-  mach_timebase_info(&info);
-  LODWORD(v2) = info.denom;
-  LODWORD(v1) = info.numer;
-  *&qword_100019F68 = v1 / v2 / 1000.0;
+  v1 = mach_timebase_info(&info);
+  LODWORD(v3) = info.denom;
+  LODWORD(v2) = info.numer;
+  *&qword_100019F68 = v2 / v3 / 1000.0;
   dword_100019F70 = 1207182336;
-  v3 = sub_100002620();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100002620(v1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v6 = 0x40FE848000000000;
-    v7 = 2048;
-    v8 = 125000.0 / *&qword_100019F68;
-    v9 = 1024;
-    v10 = 10;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%f us, %f mach time units per quantum of %u reported events", buf, 0x1Cu);
+    v7 = 0x40FE848000000000;
+    v8 = 2048;
+    v9 = 125000.0 / *&qword_100019F68;
+    v10 = 1024;
+    v11 = 10;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%f us, %f mach time units per quantum of %u reported events", buf, 0x1Cu);
   }
 
   qword_100019F78 = mach_continuous_time();
@@ -2429,60 +2422,60 @@ void sub_100007C58(uint64_t a1, void *a2, void *a3, void *a4)
   sub_100005B0C();
   if (*(*(*(a1 + 32) + 8) + 24) > 4uLL)
   {
-    v17 = sub_100002620();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002620(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [v7 description];
-      v24 = [v8 aggregationDictionary];
-      v25 = [v24 objectForKeyedSubscript:v7];
+      v25 = [v7 description];
+      v26 = [v8 aggregationDictionary];
+      v27 = [v26 objectForKeyedSubscript:v7];
       *buf = 138412546;
-      *&buf[4] = v23;
+      *&buf[4] = v25;
       *&buf[12] = 2048;
-      *&buf[14] = [v25 unsignedLongLongValue];
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@:\t%llu (Count not reported)", buf, 0x16u);
+      *&buf[14] = [v27 unsignedLongLongValue];
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@:\t%llu (Count not reported)", buf, 0x16u);
     }
   }
 
   else
   {
-    v28[0] = @"Subsystem";
-    v10 = v7;
-    v27 = v8;
-    v11 = v8;
-    v26 = v9;
-    v12 = v9;
-    v13 = [v10 subsystem];
-    *buf = v13;
-    v28[1] = @"Category";
-    v14 = [v10 category];
-    *&buf[8] = v14;
-    v28[2] = @"Count";
-    v15 = [v11 aggregationDictionary];
+    v30[0] = @"Subsystem";
+    v11 = v7;
+    v29 = v8;
+    v12 = v8;
+    v28 = v9;
+    v13 = v9;
+    v14 = [v11 subsystem];
+    *buf = v14;
+    v30[1] = @"Category";
+    v15 = [v11 category];
+    *&buf[8] = v15;
+    v30[2] = @"Count";
+    v16 = [v12 aggregationDictionary];
 
-    v16 = [v15 objectForKeyedSubscript:v10];
+    v17 = [v16 objectForKeyedSubscript:v11];
 
-    v28[3] = @"Classification";
-    *&buf[16] = v16;
-    v30 = v12;
-    v17 = [NSDictionary dictionaryWithObjects:buf forKeys:v28 count:4];
+    v30[3] = @"Classification";
+    *&buf[16] = v17;
+    v32 = v13;
+    v18 = [NSDictionary dictionaryWithObjects:buf forKeys:v30 count:4];
 
-    AnalyticsSendEvent();
-    v18 = sub_100002620();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = AnalyticsSendEvent();
+    v20 = sub_100002620(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v10 description];
-      v20 = [v11 aggregationDictionary];
-      v21 = [v20 objectForKeyedSubscript:v10];
-      v22 = [v21 unsignedLongLongValue];
+      v21 = [v11 description];
+      v22 = [v12 aggregationDictionary];
+      v23 = [v22 objectForKeyedSubscript:v11];
+      v24 = [v23 unsignedLongLongValue];
       *buf = 138412546;
-      *&buf[4] = v19;
+      *&buf[4] = v21;
       *&buf[12] = 2048;
-      *&buf[14] = v22;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@:\t%llu (Count reported to CoreAnalytics)", buf, 0x16u);
+      *&buf[14] = v24;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@:\t%llu (Count reported to CoreAnalytics)", buf, 0x16u);
     }
 
-    v9 = v26;
-    v8 = v27;
+    v9 = v28;
+    v8 = v29;
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
@@ -2491,7 +2484,6 @@ void sub_100007C58(uint64_t a1, void *a2, void *a3, void *a4)
 uint64_t sub_100008DE0()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_name);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_name + 8);
 
   return v1;
 }
@@ -2499,7 +2491,6 @@ uint64_t sub_100008DE0()
 uint64_t sub_100008E1C()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_targetSelector);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_targetSelector + 8);
 
   return v1;
 }
@@ -2507,7 +2498,6 @@ uint64_t sub_100008E1C()
 uint64_t sub_100008E68()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName + 8);
 
   return v1;
 }
@@ -2515,7 +2505,6 @@ uint64_t sub_100008E68()
 uint64_t sub_100008EB4()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_targetClassName);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_targetClassName + 8);
 
   return v1;
 }
@@ -2523,7 +2512,6 @@ uint64_t sub_100008EB4()
 uint64_t sub_100008EF0()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType + 8);
 
   return v1;
 }
@@ -2531,7 +2519,6 @@ uint64_t sub_100008EF0()
 uint64_t sub_100008F3C()
 {
   v1 = *(v0 + OBJC_IVAR___NSFESelEvent_processName);
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_processName + 8);
 
   return v1;
 }
@@ -2541,6 +2528,143 @@ unint64_t sub_100008F78()
   result = sub_10000B698(&_swiftEmptyArrayStorage);
   qword_100019FB0 = result;
   return result;
+}
+
+uint64_t sub_100009008()
+{
+  v1 = 7104878;
+  _StringGuts.grow(_:)(125);
+  swift_getObjectType();
+  v2._countAndFlagsBits = _typeName(_:qualified:)();
+  String.append(_:)(v2);
+
+  v3._countAndFlagsBits = 8250;
+  v3._object = 0xE200000000000000;
+  String.append(_:)(v3);
+  String.append(_:)(*(v0 + OBJC_IVAR___NSFESelEvent_name));
+  v4._countAndFlagsBits = 0x7365636F7270202CLL;
+  v4._object = 0xEF203A656D614E73;
+  String.append(_:)(v4);
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_processName + 8))
+  {
+    v5 = *(v0 + OBJC_IVAR___NSFESelEvent_processName);
+    v6 = *(v0 + OBJC_IVAR___NSFESelEvent_processName + 8);
+  }
+
+  else
+  {
+    v6 = 0xE300000000000000;
+    v5 = 7104878;
+  }
+
+  v7._countAndFlagsBits = v5;
+  v7._object = v6;
+  String.append(_:)(v7);
+
+  v8._countAndFlagsBits = 0x7463656C6573202CLL;
+  v8._object = 0xEC000000203A726FLL;
+  String.append(_:)(v8);
+  String.append(_:)(*(v0 + OBJC_IVAR___NSFESelEvent_targetSelector));
+  v9._object = 0x8000000100011AF0;
+  v9._countAndFlagsBits = 0xD000000000000012;
+  String.append(_:)(v9);
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_bannedSelector))
+  {
+    v10 = 1702195828;
+  }
+
+  else
+  {
+    v10 = 0x65736C6166;
+  }
+
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_bannedSelector))
+  {
+    v11 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v11 = 0xE500000000000000;
+  }
+
+  v12 = v11;
+  String.append(_:)(*&v10);
+
+  v13._countAndFlagsBits = 0x6D614E79656B202CLL;
+  v13._object = 0xEB00000000203A65;
+  String.append(_:)(v13);
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_keyName + 8))
+  {
+    v14 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName);
+    v15 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName + 8);
+  }
+
+  else
+  {
+    v15 = 0xE300000000000000;
+    v14 = 7104878;
+  }
+
+  v16._countAndFlagsBits = v14;
+  v16._object = v15;
+  String.append(_:)(v16);
+
+  v17._countAndFlagsBits = 0x4E7373616C63202CLL;
+  v17._object = 0xED0000203A656D61;
+  String.append(_:)(v17);
+  String.append(_:)(*(v0 + OBJC_IVAR___NSFESelEvent_targetClassName));
+  v18._countAndFlagsBits = 0x6E7275746572202CLL;
+  v18._object = 0xEE00203A65707954;
+  String.append(_:)(v18);
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_returnType + 8))
+  {
+    v1 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType);
+    v19 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType + 8);
+  }
+
+  else
+  {
+    v19 = 0xE300000000000000;
+  }
+
+  v20._countAndFlagsBits = v1;
+  v20._object = v19;
+  String.append(_:)(v20);
+
+  v21._countAndFlagsBits = 0x3A4B46567369202CLL;
+  v21._object = 0xE900000000000020;
+  String.append(_:)(v21);
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_isVFK))
+  {
+    v22 = 1702195828;
+  }
+
+  else
+  {
+    v22 = 0x65736C6166;
+  }
+
+  if (*(v0 + OBJC_IVAR___NSFESelEvent_isVFK))
+  {
+    v23 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v23 = 0xE500000000000000;
+  }
+
+  v24 = v23;
+  String.append(_:)(*&v22);
+
+  v25._countAndFlagsBits = 0x70795479656B202CLL;
+  v25._object = 0xEB00000000203A65;
+  String.append(_:)(v25);
+  v26._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v26);
+
+  return 0;
 }
 
 unsigned __int8 *sub_1000093C8(void *a1)
@@ -2593,7 +2717,7 @@ LABEL_16:
     goto LABEL_15;
   }
 
-  v94 = ObjectType;
+  v86 = ObjectType;
   v17 = v16;
   v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v20 = v19;
@@ -2622,156 +2746,152 @@ LABEL_16:
   v32 = &v2[OBJC_IVAR___NSFESelEvent_processName];
   *v32 = v28;
   v32[1] = v30;
-  v98 = v18;
-  v99 = v20;
-  v96 = 124;
-  v97 = 0xE100000000000000;
+  v90 = v18;
+  v91 = v20;
+  v88 = 124;
+  v89 = 0xE100000000000000;
   sub_100009ECC();
   v33 = StringProtocol.components<A>(separatedBy:)();
 
   v34 = *v25;
   v35 = v25[1];
-  if ((*v25 != 0x655364656E6E6142 || v35 != 0xE90000000000006CLL) && (v36 = *v25, v37 = v25[1], (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0) || v33[2] != 4)
+  if ((*v25 != 0x655364656E6E6142 || v35 != 0xE90000000000006CLL) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v33[2] != 4)
   {
     if ((v34 != 0x6E754643564BLL || v35 != 0xE600000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v33[2] != 5)
     {
-
-      v57 = v25[1];
-
-      v58 = v32[1];
 
       goto LABEL_16;
     }
 
     v2[OBJC_IVAR___NSFESelEvent_bannedSelector] = 0;
     v2[OBJC_IVAR___NSFESelEvent_isVFK] = 1;
-    v47 = v33[5];
-    v48 = &v2[OBJC_IVAR___NSFESelEvent_targetSelector];
-    *v48 = v33[4];
+    v43 = v33[5];
+    v44 = &v2[OBJC_IVAR___NSFESelEvent_targetSelector];
+    *v44 = v33[4];
+    v44[1] = v43;
+    v45 = v33[7];
+    v46 = &v2[OBJC_IVAR___NSFESelEvent_keyName];
+    *v46 = v33[6];
+    v46[1] = v45;
+    v47 = v33[9];
+    v48 = &v2[OBJC_IVAR___NSFESelEvent_targetClassName];
+    *v48 = v33[8];
     v48[1] = v47;
-    v49 = v33[7];
-    v50 = &v2[OBJC_IVAR___NSFESelEvent_keyName];
-    *v50 = v33[6];
-    v50[1] = v49;
-    v51 = v33[9];
-    v52 = &v2[OBJC_IVAR___NSFESelEvent_targetClassName];
-    *v52 = v33[8];
-    v52[1] = v51;
-    v53 = v33[10];
-    v54 = v33[11];
-    if (!v53 && v54 == 0xE000000000000000 || (v55 = v33[10], v56 = v33[11], (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+    v49 = v33[10];
+    v50 = v33[11];
+    if (!v49 && v50 == 0xE000000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      v53 = 0;
-      v54 = 0;
+      v49 = 0;
+      v50 = 0;
     }
 
     else
     {
     }
 
-    v87 = &v2[OBJC_IVAR___NSFESelEvent_returnType];
-    *v87 = v53;
-    v87[1] = v54;
-    v88 = v33[12];
-    v89 = v33[13];
+    v79 = &v2[OBJC_IVAR___NSFESelEvent_returnType];
+    *v79 = v49;
+    v79[1] = v50;
+    v80 = v33[12];
+    v81 = v33[13];
 
-    v90 = sub_100009BCC(v88, v89);
-    if (v91)
+    v82 = sub_100009BCC(v80, v81);
+    if (v83)
     {
-      v86 = 0;
+      v78 = 0;
     }
 
     else
     {
-      v86 = v90;
+      v78 = v82;
     }
 
     goto LABEL_105;
   }
 
   v2[OBJC_IVAR___NSFESelEvent_bannedSelector] = 1;
-  v38 = &v2[OBJC_IVAR___NSFESelEvent_keyName];
-  *v38 = 0;
-  v38[1] = 0;
+  v36 = &v2[OBJC_IVAR___NSFESelEvent_keyName];
+  *v36 = 0;
+  v36[1] = 0;
   v2[OBJC_IVAR___NSFESelEvent_isVFK] = 0;
-  v39 = v33[5];
-  v40 = &v2[OBJC_IVAR___NSFESelEvent_targetSelector];
-  *v40 = v33[4];
+  v37 = v33[5];
+  v38 = &v2[OBJC_IVAR___NSFESelEvent_targetSelector];
+  *v38 = v33[4];
+  v38[1] = v37;
+  v39 = v33[7];
+  v40 = &v2[OBJC_IVAR___NSFESelEvent_targetClassName];
+  *v40 = v33[6];
   v40[1] = v39;
-  v41 = v33[7];
-  v42 = &v2[OBJC_IVAR___NSFESelEvent_targetClassName];
-  *v42 = v33[6];
-  v42[1] = v41;
-  v43 = v33[8];
-  v44 = v33[9];
-  if (!v43 && v44 == 0xE000000000000000 || (v45 = v33[8], v46 = v33[9], (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  v41 = v33[8];
+  v42 = v33[9];
+  if (!v41 && v42 == 0xE000000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v43 = 0;
-    v44 = 0;
+    v41 = 0;
+    v42 = 0;
   }
 
   else
   {
   }
 
-  v59 = &v2[OBJC_IVAR___NSFESelEvent_returnType];
-  *v59 = v43;
-  v59[1] = v44;
-  v61 = v33[10];
-  v60 = v33[11];
+  v51 = &v2[OBJC_IVAR___NSFESelEvent_returnType];
+  *v51 = v41;
+  v51[1] = v42;
+  v53 = v33[10];
+  v52 = v33[11];
 
-  v62 = HIBYTE(v60) & 0xF;
-  v63 = v61 & 0xFFFFFFFFFFFFLL;
-  if ((v60 & 0x2000000000000000) != 0)
+  v54 = HIBYTE(v52) & 0xF;
+  v55 = v53 & 0xFFFFFFFFFFFFLL;
+  if ((v52 & 0x2000000000000000) != 0)
   {
-    v64 = HIBYTE(v60) & 0xF;
+    v56 = HIBYTE(v52) & 0xF;
   }
 
   else
   {
-    v64 = v61 & 0xFFFFFFFFFFFFLL;
+    v56 = v53 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v64)
+  if (!v56)
   {
 
-    v86 = 0;
+    v78 = 0;
 LABEL_105:
-    v65 = v94;
+    v57 = v86;
 LABEL_106:
-    *&v2[OBJC_IVAR___NSFESelEvent_keyType] = v86;
-    v95.receiver = v2;
-    v95.super_class = v65;
-    v92 = objc_msgSendSuper2(&v95, "init");
+    *&v2[OBJC_IVAR___NSFESelEvent_keyType] = v78;
+    v87.receiver = v2;
+    v87.super_class = v57;
+    v84 = objc_msgSendSuper2(&v87, "init");
 
-    return v92;
+    return v84;
   }
 
-  if ((v60 & 0x1000000000000000) != 0)
+  if ((v52 & 0x1000000000000000) != 0)
   {
-    v67 = sub_10000A650(v61, v60, 10);
-    v85 = v93;
+    v59 = sub_10000A650(v53, v52, 10);
+    v77 = v85;
 
-    v65 = v94;
+    v57 = v86;
 LABEL_98:
-    if (v85)
+    if (v77)
     {
-      v86 = 0;
+      v78 = 0;
     }
 
     else
     {
-      v86 = v67;
+      v78 = v59;
     }
 
     goto LABEL_106;
   }
 
-  if ((v60 & 0x2000000000000000) == 0)
+  if ((v52 & 0x2000000000000000) == 0)
   {
-    if ((v61 & 0x1000000000000000) != 0)
+    if ((v53 & 0x1000000000000000) != 0)
     {
-      result = ((v60 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      result = ((v52 & 0xFFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
@@ -2779,41 +2899,41 @@ LABEL_98:
       result = _StringObject.sharedUTF8.getter();
     }
 
-    v65 = v94;
-    v66 = *result;
-    if (v66 == 43)
+    v57 = v86;
+    v58 = *result;
+    if (v58 == 43)
     {
-      if (v63 >= 1)
+      if (v55 >= 1)
       {
-        v62 = v63 - 1;
-        if (v63 != 1)
+        v54 = v55 - 1;
+        if (v55 != 1)
         {
-          v67 = 0;
+          v59 = 0;
           if (result)
           {
-            v74 = result + 1;
+            v66 = result + 1;
             while (1)
             {
-              v75 = *v74 - 48;
-              if (v75 > 9)
+              v67 = *v66 - 48;
+              if (v67 > 9)
               {
                 goto LABEL_96;
               }
 
-              v76 = 10 * v67;
-              if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+              v68 = 10 * v59;
+              if ((v59 * 10) >> 64 != (10 * v59) >> 63)
               {
                 goto LABEL_96;
               }
 
-              v67 = v76 + v75;
-              if (__OFADD__(v76, v75))
+              v59 = v68 + v67;
+              if (__OFADD__(v68, v67))
               {
                 goto LABEL_96;
               }
 
-              ++v74;
-              if (!--v62)
+              ++v66;
+              if (!--v54)
               {
                 goto LABEL_97;
               }
@@ -2829,35 +2949,35 @@ LABEL_98:
       goto LABEL_112;
     }
 
-    if (v66 != 45)
+    if (v58 != 45)
     {
-      if (v63)
+      if (v55)
       {
-        v67 = 0;
+        v59 = 0;
         if (result)
         {
           while (1)
           {
-            v80 = *result - 48;
-            if (v80 > 9)
+            v72 = *result - 48;
+            if (v72 > 9)
             {
               goto LABEL_96;
             }
 
-            v81 = 10 * v67;
-            if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+            v73 = 10 * v59;
+            if ((v59 * 10) >> 64 != (10 * v59) >> 63)
             {
               goto LABEL_96;
             }
 
-            v67 = v81 + v80;
-            if (__OFADD__(v81, v80))
+            v59 = v73 + v72;
+            if (__OFADD__(v73, v72))
             {
               goto LABEL_96;
             }
 
             ++result;
-            if (!--v63)
+            if (!--v55)
             {
               goto LABEL_88;
             }
@@ -2868,42 +2988,42 @@ LABEL_98:
       }
 
 LABEL_96:
-      v67 = 0;
-      LOBYTE(v62) = 1;
+      v59 = 0;
+      LOBYTE(v54) = 1;
       goto LABEL_97;
     }
 
-    if (v63 >= 1)
+    if (v55 >= 1)
     {
-      v62 = v63 - 1;
-      if (v63 != 1)
+      v54 = v55 - 1;
+      if (v55 != 1)
       {
-        v67 = 0;
+        v59 = 0;
         if (result)
         {
-          v68 = result + 1;
+          v60 = result + 1;
           while (1)
           {
-            v69 = *v68 - 48;
-            if (v69 > 9)
+            v61 = *v60 - 48;
+            if (v61 > 9)
             {
               goto LABEL_96;
             }
 
-            v70 = 10 * v67;
-            if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+            v62 = 10 * v59;
+            if ((v59 * 10) >> 64 != (10 * v59) >> 63)
             {
               goto LABEL_96;
             }
 
-            v67 = v70 - v69;
-            if (__OFSUB__(v70, v69))
+            v59 = v62 - v61;
+            if (__OFSUB__(v62, v61))
             {
               goto LABEL_96;
             }
 
-            ++v68;
-            if (!--v62)
+            ++v60;
+            if (!--v54)
             {
               goto LABEL_97;
             }
@@ -2911,10 +3031,10 @@ LABEL_96:
         }
 
 LABEL_88:
-        LOBYTE(v62) = 0;
+        LOBYTE(v54) = 0;
 LABEL_97:
-        LOBYTE(v96) = v62;
-        v85 = v62;
+        LOBYTE(v88) = v54;
+        v77 = v54;
 
         goto LABEL_98;
       }
@@ -2930,39 +3050,39 @@ LABEL_112:
     goto LABEL_113;
   }
 
-  v98 = v61;
-  v99 = v60 & 0xFFFFFFFFFFFFFFLL;
-  if (v61 != 43)
+  v90 = v53;
+  v91 = v52 & 0xFFFFFFFFFFFFFFLL;
+  if (v53 != 43)
   {
-    v65 = v94;
-    if (v61 != 45)
+    v57 = v86;
+    if (v53 != 45)
     {
-      if (v62)
+      if (v54)
       {
-        v67 = 0;
-        v82 = &v98;
+        v59 = 0;
+        v74 = &v90;
         while (1)
         {
-          v83 = *v82 - 48;
-          if (v83 > 9)
+          v75 = *v74 - 48;
+          if (v75 > 9)
           {
             break;
           }
 
-          v84 = 10 * v67;
-          if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+          v76 = 10 * v59;
+          if ((v59 * 10) >> 64 != (10 * v59) >> 63)
           {
             break;
           }
 
-          v67 = v84 + v83;
-          if (__OFADD__(v84, v83))
+          v59 = v76 + v75;
+          if (__OFADD__(v76, v75))
           {
             break;
           }
 
-          v82 = (v82 + 1);
-          if (!--v62)
+          v74 = (v74 + 1);
+          if (!--v54)
           {
             goto LABEL_97;
           }
@@ -2972,34 +3092,34 @@ LABEL_112:
       goto LABEL_96;
     }
 
-    if (v62)
+    if (v54)
     {
-      if (--v62)
+      if (--v54)
       {
-        v67 = 0;
-        v71 = &v98 + 1;
+        v59 = 0;
+        v63 = &v90 + 1;
         while (1)
         {
-          v72 = *v71 - 48;
-          if (v72 > 9)
+          v64 = *v63 - 48;
+          if (v64 > 9)
           {
             break;
           }
 
-          v73 = 10 * v67;
-          if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+          v65 = 10 * v59;
+          if ((v59 * 10) >> 64 != (10 * v59) >> 63)
           {
             break;
           }
 
-          v67 = v73 - v72;
-          if (__OFSUB__(v73, v72))
+          v59 = v65 - v64;
+          if (__OFSUB__(v65, v64))
           {
             break;
           }
 
-          ++v71;
-          if (!--v62)
+          ++v63;
+          if (!--v54)
           {
             goto LABEL_97;
           }
@@ -3012,35 +3132,35 @@ LABEL_112:
     goto LABEL_111;
   }
 
-  v65 = v94;
-  if (v62)
+  v57 = v86;
+  if (v54)
   {
-    if (--v62)
+    if (--v54)
     {
-      v67 = 0;
-      v77 = &v98 + 1;
+      v59 = 0;
+      v69 = &v90 + 1;
       while (1)
       {
-        v78 = *v77 - 48;
-        if (v78 > 9)
+        v70 = *v69 - 48;
+        if (v70 > 9)
         {
           break;
         }
 
-        v79 = 10 * v67;
-        if ((v67 * 10) >> 64 != (10 * v67) >> 63)
+        v71 = 10 * v59;
+        if ((v59 * 10) >> 64 != (10 * v59) >> 63)
         {
           break;
         }
 
-        v67 = v79 + v78;
-        if (__OFADD__(v79, v78))
+        v59 = v71 + v70;
+        if (__OFADD__(v71, v70))
         {
           break;
         }
 
-        ++v77;
-        if (!--v62)
+        ++v69;
+        if (!--v54)
         {
           goto LABEL_97;
         }
@@ -3055,7 +3175,7 @@ LABEL_113:
   return result;
 }
 
-uint64_t sub_100009BCC(uint64_t result, unint64_t a2)
+unint64_t sub_100009BCC(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -3397,85 +3517,62 @@ unint64_t sub_100009F20()
   *(inited + 16) = xmmword_10000EE30;
   strcpy((inited + 32), "bannedSelector");
   *(inited + 47) = -18;
-  v2 = *(v0 + OBJC_IVAR___NSFESelEvent_bannedSelector);
   *(inited + 48) = Bool._bridgeToObjectiveC()();
   *(inited + 56) = 0x6D614E7373616C63;
   *(inited + 64) = 0xE900000000000065;
-  v3 = *(v0 + OBJC_IVAR___NSFESelEvent_targetClassName);
-  v4 = *(v0 + OBJC_IVAR___NSFESelEvent_targetClassName + 8);
   *(inited + 72) = String._bridgeToObjectiveC()();
   *(inited + 80) = 0x4B46567369;
   *(inited + 88) = 0xE500000000000000;
-  v5 = *(v0 + OBJC_IVAR___NSFESelEvent_isVFK);
   *(inited + 96) = Bool._bridgeToObjectiveC()();
   *(inited + 104) = 0x656D614E79656BLL;
   *(inited + 112) = 0xE700000000000000;
-  if (*(v0 + OBJC_IVAR___NSFESelEvent_keyName + 8))
-  {
-    v6 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName);
-    v7 = *(v0 + OBJC_IVAR___NSFESelEvent_keyName + 8);
-  }
 
-  v8 = String._bridgeToObjectiveC()();
+  v1 = String._bridgeToObjectiveC()();
 
-  *(inited + 120) = v8;
+  *(inited + 120) = v1;
   *(inited + 128) = 0x4E737365636F7270;
   *(inited + 136) = 0xEB00000000656D61;
-  if (*(v0 + OBJC_IVAR___NSFESelEvent_processName + 8))
-  {
-    v9 = *(v0 + OBJC_IVAR___NSFESelEvent_processName);
-    v10 = *(v0 + OBJC_IVAR___NSFESelEvent_processName + 8);
-  }
 
-  v11 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  *(inited + 144) = v11;
+  *(inited + 144) = v2;
   *(inited + 152) = 0x79546E7275746572;
   *(inited + 160) = 0xEA00000000006570;
-  if (*(v0 + OBJC_IVAR___NSFESelEvent_returnType + 8))
-  {
-    v12 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType);
-    v13 = *(v0 + OBJC_IVAR___NSFESelEvent_returnType + 8);
-  }
 
-  v14 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *(inited + 168) = v14;
+  *(inited + 168) = v3;
   *(inited + 176) = 0x726F7463656C6573;
   *(inited + 184) = 0xE800000000000000;
-  v15 = *(v0 + OBJC_IVAR___NSFESelEvent_targetSelector);
-  v16 = *(v0 + OBJC_IVAR___NSFESelEvent_targetSelector + 8);
   *(inited + 192) = String._bridgeToObjectiveC()();
   *(inited + 200) = 0x6570795479656BLL;
   *(inited + 208) = 0xE700000000000000;
-  v17 = *(v0 + OBJC_IVAR___NSFESelEvent_keyType);
   *(inited + 216) = Int._bridgeToObjectiveC()();
-  v18 = sub_10000B7A0(inited);
+  v4 = sub_10000B7A0(inited);
   swift_setDeallocating();
   sub_10000ABDC(&qword_100019E10, &qword_10000EE68);
   swift_arrayDestroy();
-  return v18;
+  return v4;
 }
 
 Class sub_10000A1E4(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     sub_10000BCD4();
-    v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v5.super.isa = 0;
+    v4.super.isa = 0;
   }
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 id sub_10000A2A4()
@@ -3502,12 +3599,11 @@ unint64_t sub_10000A414(uint64_t a1)
 
 unint64_t sub_10000A458(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_10000A598(a1, a2, v6);
+  return sub_10000A598(a1, a2, v4);
 }
 
 unint64_t sub_10000A4D0(uint64_t a1, uint64_t a2)
@@ -3574,7 +3670,7 @@ unsigned __int8 *sub_10000A650(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = sub_10000AC24();
+    v6 = sub_10000AC24(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -4080,7 +4176,6 @@ uint64_t sub_10000ABDC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4088,22 +4183,35 @@ uint64_t sub_10000ABDC(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_10000AC24()
+uint64_t sub_10000AC24(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = sub_10000ACA4(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = sub_10000ACA4(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t sub_10000ACA4(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = sub_10000ADFC(v9, 0), v12 = sub_10000AE70(v14, v11 + 32, v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -4111,32 +4219,8 @@ uint64_t sub_10000ACA4(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = &_swiftEmptyArrayStorage;
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = sub_10000ADFC(v9, 0);
-  v12 = sub_10000AE70(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -4331,7 +4415,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t sub_10000B090(unsigned __int16 a1, uint64_t a2, uint64_t a3)
+unint64_t sub_10000B090(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -4364,151 +4448,147 @@ uint64_t sub_10000B090(unsigned __int16 a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_10000B10C(uint64_t a1, char a2)
+Swift::Int sub_10000B10C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   sub_10000ABDC(&qword_100019E48, "$A");
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v35 = v2;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v20 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v23 = v20 | (v9 << 6);
-      v24 = *(v5 + 48) + 40 * v23;
-      if (a2)
+      v19 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v22 = v19 | (v8 << 6);
+      v23 = *(v5 + 48) + 40 * v22;
+      if (v4)
       {
-        v25 = *v24;
-        v26 = *(v24 + 16);
-        v39 = *(v24 + 32);
+        v24 = *v23;
+        v25 = *(v23 + 16);
+        v38 = *(v23 + 32);
+        v36 = v24;
         v37 = v25;
-        v38 = v26;
       }
 
       else
       {
-        sub_10000BD20(v24, &v37);
+        sub_10000BD20(v23, &v36);
       }
 
-      v27 = *(*(v5 + 56) + v23);
-      result = AnyHashable._rawHashValue(seed:)(*(v8 + 40));
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v26 = *(*(v5 + 56) + v22);
+      result = AnyHashable._rawHashValue(seed:)(*(v7 + 40));
+      v27 = -1 << *(v7 + 32);
+      v28 = result & ~v27;
+      v29 = v28 >> 6;
+      if (((-1 << v28) & ~*(v14 + 8 * (v28 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v30 = 0;
+        v31 = (63 - v27) >> 6;
+        while (++v29 != v31 || (v30 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v32 = v29 == v31;
+          if (v29 == v31)
           {
-            v30 = 0;
+            v29 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v30 |= v32;
+          v33 = *(v14 + 8 * v29);
+          if (v33 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v33)) + (v29 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_38:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = *(v8 + 48) + 40 * v16;
+      v15 = __clz(__rbit64((-1 << v28) & ~*(v14 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = *(v7 + 48) + 40 * v15;
+      v17 = v36;
       v18 = v37;
-      v19 = v38;
-      *(v17 + 32) = v39;
-      *v17 = v18;
-      *(v17 + 16) = v19;
-      *(*(v8 + 56) + v16) = v27;
-      ++*(v8 + 16);
+      *(v16 + 32) = v38;
+      *v16 = v17;
+      *(v16 + 16) = v18;
+      *(*(v7 + 56) + v15) = v26;
+      ++*(v7 + 16);
     }
 
-    v21 = v9;
+    v20 = v8;
     while (1)
     {
-      v9 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v8 = v20 + 1;
+      if (__OFADD__(v20, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_36;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v22 = v10[v9];
-      ++v21;
-      if (v22)
+      v21 = v9[v8];
+      ++v20;
+      if (v21)
       {
-        v20 = __clz(__rbit64(v22));
-        v13 = (v22 - 1) & v22;
-        goto LABEL_17;
+        v19 = __clz(__rbit64(v21));
+        v12 = (v21 - 1) & v21;
+        goto LABEL_15;
       }
     }
 
-    if (a2)
+    if (v4)
     {
-      v35 = 1 << *(v5 + 32);
-      if (v35 >= 64)
+      v34 = 1 << *(v5 + 32);
+      if (v34 >= 64)
       {
-        bzero((v5 + 64), ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+        bzero((v5 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
       }
 
       else
       {
-        *v10 = -1 << v35;
+        *v9 = -1 << v34;
       }
 
       *(v5 + 16) = 0;
     }
 
-    v3 = v36;
+    v3 = v35;
   }
 
   else
   {
   }
 
-  *v3 = v8;
+  *v3 = v7;
   return result;
 }
 
@@ -4549,9 +4629,8 @@ LABEL_8:
   }
 
   sub_10000B10C(result, a3 & 1);
-  v17 = *v4;
   result = sub_10000A414(a2);
-  if ((v14 & 1) != (v18 & 1))
+  if ((v14 & 1) != (v17 & 1))
   {
 LABEL_16:
     result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -4567,26 +4646,26 @@ LABEL_16:
   }
 
 LABEL_11:
-  result = sub_10000BD20(a2, v25);
+  result = sub_10000BD20(a2, v24);
   v16[(v10 >> 6) + 8] |= 1 << v10;
-  v19 = v16[6] + 40 * v10;
-  v20 = v26;
-  v21 = v25[1];
-  *v19 = v25[0];
-  *(v19 + 16) = v21;
-  *(v19 + 32) = v20;
+  v18 = v16[6] + 40 * v10;
+  v19 = v25;
+  v20 = v24[1];
+  *v18 = v24[0];
+  *(v18 + 16) = v20;
+  *(v18 + 32) = v19;
   *(v16[7] + v10) = a1 & 1;
-  v22 = v16[2];
-  v23 = __OFADD__(v22, 1);
-  v24 = v22 + 1;
-  if (v23)
+  v21 = v16[2];
+  v22 = __OFADD__(v21, 1);
+  v23 = v21 + 1;
+  if (v22)
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  v16[2] = v24;
+  v16[2] = v23;
   return result;
 }
 

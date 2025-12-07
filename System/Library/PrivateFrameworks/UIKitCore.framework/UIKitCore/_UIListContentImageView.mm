@@ -25,7 +25,7 @@
     if (self->_hadStroke)
     {
       v12 = layer;
-      v10 = +[UIColor blackColor];
+      v10 = objc_msgSend_blackColor(UIColor);
       [v12 setBorderColor:{objc_msgSend(v10, "CGColor")}];
 
       [v12 setBorderWidth:0.0];

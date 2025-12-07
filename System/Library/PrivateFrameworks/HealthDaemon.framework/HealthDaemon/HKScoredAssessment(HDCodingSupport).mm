@@ -6,7 +6,7 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -51,11 +51,11 @@
       v14 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v17 = v14;
-        v19 = 138412290;
-        v20 = objc_opt_class();
-        v18 = v20;
-        _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Class: %@ must conform to _HKScoredRiskAssessment:", &v19, 0xCu);
+        v16 = v14;
+        v18 = 138412290;
+        v19 = objc_opt_class();
+        v17 = v19;
+        _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Class: %@ must conform to _HKScoredRiskAssessment:", &v18, 0xCu);
       }
     }
 
@@ -69,7 +69,6 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

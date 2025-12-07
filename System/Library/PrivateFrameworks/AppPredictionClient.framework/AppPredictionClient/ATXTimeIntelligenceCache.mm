@@ -18,7 +18,7 @@
     v4 = [appPredictionCacheDirectory stringByAppendingPathComponent:@"TimeIntelligence"];
 
     v5 = objc_alloc(MEMORY[0x1E698AFF0]);
-    v6 = __atxlog_handle_time_intelligence();
+    v6 = __atxlog_handle_time_intelligence(v5);
     v7 = [v5 initWithCacheFilePath:v4 loggingHandle:v6 debugName:@"Time Intelligence"];
     [(ATXTimeIntelligenceCache *)v2 setCache:v7];
   }

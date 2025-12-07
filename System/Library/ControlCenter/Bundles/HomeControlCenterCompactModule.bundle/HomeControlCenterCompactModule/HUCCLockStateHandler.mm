@@ -38,36 +38,24 @@
 
 - (BOOL)isDeviceUnlocked
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = HFLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8[0]) = 0;
-    _os_log_impl(&dword_29C988000, v2, OS_LOG_TYPE_DEFAULT, "Checking if device is unlocked", v8, 2u);
+    LOWORD(v7[0]) = 0;
+    _os_log_impl(&dword_29C988000, v2, OS_LOG_TYPE_DEFAULT, "Checking if device is unlocked", v7, 2u);
   }
 
   v3 = MKBGetDeviceLockState();
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = v3;
-    _os_log_impl(&dword_29C988000, v4, OS_LOG_TYPE_DEFAULT, "Lock state is %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = v3;
+    _os_log_impl(&dword_29C988000, v4, OS_LOG_TYPE_DEFAULT, "Lock state is %d", v7, 8u);
   }
 
-  if (v3)
-  {
-    v5 = v3 == 3;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  result = v5;
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return !v3 || v3 == 3;
 }
 
 - (BOOL)_isAccessAllowedForCurrentLockState
@@ -153,20 +141,18 @@
 
 - (void)_updateAccessAllowedForLockState
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   _isAccessAllowedForCurrentLockState = [(HUCCLockStateHandler *)self _isAccessAllowedForCurrentLockState];
   v4 = HFLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = _isAccessAllowedForCurrentLockState;
-    _os_log_impl(&dword_29C988000, v4, OS_LOG_TYPE_DEFAULT, "Access allowed for current lock state is %d, updating delegate", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = _isAccessAllowedForCurrentLockState;
+    _os_log_impl(&dword_29C988000, v4, OS_LOG_TYPE_DEFAULT, "Access allowed for current lock state is %d, updating delegate", v6, 8u);
   }
 
   delegate = [(HUCCLockStateHandler *)self delegate];
   [delegate lockStateWasUpdated:_isAccessAllowedForCurrentLockState];
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (HUCCLockStateHandlerDelegate)delegate

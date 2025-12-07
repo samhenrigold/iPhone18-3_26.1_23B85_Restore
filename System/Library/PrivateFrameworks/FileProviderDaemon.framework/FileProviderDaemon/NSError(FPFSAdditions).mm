@@ -55,19 +55,17 @@ LABEL_13:
 
 + (id)fp_nonEvictableChildrenErrorWithFD:()FPFSAdditions trashIno:busyIno:
 {
-  v8 = *MEMORY[0x1E69E9840];
-  bzero(v7, 0x400uLL);
+  v12 = *MEMORY[0x1E69E9840];
+  bzero(v11, 0x400uLL);
   fpfs_fgetpath();
-  v0 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v7 isDirectory:1 relativeToURL:0];
-  v6 = objc_opt_new();
-  v1 = v6;
-  v2 = v0;
+  v5 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v11 isDirectory:1 relativeToURL:0];
+  v10 = objc_opt_new();
+  v6 = v10;
+  v7 = v5;
   fpfs_fopendir();
-  v3 = FPNonEvictableChildrenError();
+  v8 = FPNonEvictableChildrenError();
 
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
+  return v8;
 }
 
 - (id)fp_protectionClassBehindError
@@ -124,24 +122,24 @@ LABEL_13:
 
 + (id)fp_errorForDataProtectionClass:()FPFSAdditions
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (a3 == 2)
   {
-    v10 = @"dataProtectionClass";
-    v11 = *MEMORY[0x1E695DAE0];
+    v9 = @"dataProtectionClass";
+    v10 = *MEMORY[0x1E695DAE0];
     v3 = MEMORY[0x1E695DF20];
-    v4 = &v11;
-    v5 = &v10;
+    v4 = &v10;
+    v5 = &v9;
     goto LABEL_5;
   }
 
   if (a3 == 1)
   {
-    v12 = @"dataProtectionClass";
-    v13[0] = *MEMORY[0x1E695DAD8];
+    v11 = @"dataProtectionClass";
+    v12[0] = *MEMORY[0x1E695DAD8];
     v3 = MEMORY[0x1E695DF20];
-    v4 = v13;
-    v5 = &v12;
+    v4 = v12;
+    v5 = &v11;
 LABEL_5:
     v6 = [v3 dictionaryWithObjects:v4 forKeys:v5 count:1];
     goto LABEL_7;
@@ -150,8 +148,6 @@ LABEL_5:
   v6 = 0;
 LABEL_7:
   v7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

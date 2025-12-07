@@ -1,4 +1,27 @@
-void ADAM::MediaExposureWriter::MediaExposureWriter(uint64_t a1, uint64_t a2, __int128 *a3)
+uint64_t ADAM::Writer::Writer(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
+{
+  *a1 = &unk_2A1DEE8D8;
+  *(a1 + 8) = a2;
+  if (*(a3 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 16), *a3, *(a3 + 1));
+  }
+
+  else
+  {
+    v6 = *a3;
+    *(a1 + 32) = *(a3 + 2);
+    *(a1 + 16) = v6;
+  }
+
+  *(a1 + 40) = a4;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0;
+  return a1;
+}
+
+void ADAM::MediaExposureWriter::MediaExposureWriter(uint64_t a1, uint64_t a2, char *a3)
 {
   v4 = *MEMORY[0x29EDCA608];
   v3 = ADAM::Writer::Writer(a1, a2, a3, 1);
@@ -140,24 +163,24 @@ void sub_296C58D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(a13 + 40) = 0;
   if (v14)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v15 = *(a13 + 32);
   *(a13 + 32) = 0;
   if (v15)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v15 + 8))(v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v16 = *a11;
   *a11 = 0;
   if (v16)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v16 + 8))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x29C260F00](a13, 0x1020C402B6F3058);
+  MEMORY[0x29C260F00](a13, 0x1020C402B6F3058, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -194,93 +217,77 @@ void *std::unique_ptr<rtaid::DependencyInjection>::~unique_ptr[abi:ne200100](voi
   return a1;
 }
 
-uint64_t AudioIssueDetectorSetNodeFormat(unint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4)
+uint64_t AudioIssueDetectorSetNodeFormat(unint64_t a1, uint64_t a2, uint64_t a3, double *a4, uint64_t a5)
 {
+  v5 = a5;
   if (AudioDSPAnalysisEnabled())
   {
-    if (*(a2 + 23) >= 0)
-    {
-      v8 = *(a2 + 23);
-    }
-
-    else
-    {
-      v7 = *a2;
-      v8 = a2[1];
-    }
-
-    v10 = *a4;
-    v11 = a4[1];
-    v12 = *(a4 + 4);
     return RealTimeAudioIssueDetectorSetNodeFormat();
   }
 
-  else
-  {
-    SingletonManagerInstance();
+  SingletonManagerInstance();
 
-    return rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1);
-  }
+  return rtaid::Manager::SetNodeFormatWithDirectionOnDetector(a1, a2, a3, 0, a4, v5);
 }
 
 uint64_t AudioIssueDetectorRemoveNode(unint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (!AudioDSPAnalysisEnabled())
   {
     SingletonManagerInstance();
     std::mutex::lock(&SingletonManagerInstance(void)::sInstance);
-    v5 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
-    if (v5)
+    v4 = std::__hash_table<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,std::shared_ptr<rtaid::Detector>>>>::find<long long>(a1);
+    if (v4)
     {
-      v7 = v5[3];
-      v6 = v5[4];
-      if (v6)
+      v6 = v4[3];
+      v5 = v4[4];
+      if (v5)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      if (v7)
+      if (v6)
       {
-        v8 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v7 + 8), a2);
-        if (v8)
+        v7 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v6 + 8), a2);
+        if (v7)
         {
-          v9 = v8;
+          v8 = v7;
           {
             rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
           }
 
-          v10 = rtaid::get_log(void)::rtaid_os_log;
+          v9 = rtaid::get_log(void)::rtaid_os_log;
           if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = v9[3];
-            v12 = (v11 + 8);
-            if (*(v11 + 31) < 0)
+            v10 = v8[3];
+            v11 = (v10 + 8);
+            if (*(v10 + 31) < 0)
             {
-              v12 = *v12;
+              v11 = *v11;
             }
 
-            v16 = 136316674;
-            v17 = "Detector.cpp";
-            v18 = 1024;
-            v19 = 165;
-            v20 = 1040;
-            v21 = 15;
-            v22 = 2080;
-            v23 = "rtaid::Detector]";
-            v24 = 2048;
-            v25 = v7;
-            v26 = 2080;
-            v27 = v12;
-            v28 = 1024;
-            v29 = a2;
-            _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] Removing node %s with nodeID %d", &v16, 0x3Cu);
+            v14 = 136316674;
+            v15 = "Detector.cpp";
+            v16 = 1024;
+            v17 = 165;
+            v18 = 1040;
+            v19 = 15;
+            v20 = 2080;
+            v21 = "rtaid::Detector]";
+            v22 = 2048;
+            v23 = v6;
+            v24 = 2080;
+            v25 = v11;
+            v26 = 1024;
+            v27 = a2;
+            _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] Removing node %s with nodeID %d", &v14, 0x3Cu);
           }
 
-          std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::remove(&v16, (v7 + 8), v9);
-          std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>>>>::~unique_ptr[abi:ne200100](&v16);
-          v13 = 0;
-          if (!v6)
+          std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::remove(&v14, (v6 + 8), v8);
+          std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,void *>>>>::~unique_ptr[abi:ne200100](&v14);
+          v12 = 0;
+          if (!v5)
           {
             goto LABEL_20;
           }
@@ -288,8 +295,8 @@ uint64_t AudioIssueDetectorRemoveNode(unint64_t a1, uint64_t a2)
 
         else
         {
-          v13 = 4294967294;
-          if (!v6)
+          v12 = 4294967294;
+          if (!v5)
           {
             goto LABEL_20;
           }
@@ -298,26 +305,23 @@ uint64_t AudioIssueDetectorRemoveNode(unint64_t a1, uint64_t a2)
         goto LABEL_19;
       }
 
-      v13 = 0xFFFFFFFFLL;
-      if (v6)
+      v12 = 0xFFFFFFFFLL;
+      if (v5)
       {
 LABEL_19:
-        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v5);
       }
     }
 
     else
     {
-      v13 = 0xFFFFFFFFLL;
+      v12 = 0xFFFFFFFFLL;
     }
 
 LABEL_20:
     std::mutex::unlock(&SingletonManagerInstance(void)::sInstance);
-    v14 = *MEMORY[0x29EDCA608];
-    return v13;
+    return v12;
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 
   return MEMORY[0x2A1C5F570](a1, a2);
 }
@@ -455,16 +459,16 @@ void ADAM::MicLevelWriter::~MicLevelWriter(ADAM::MicLevelWriter *this)
 
 uint64_t ADAM::MicLevelWriter::write(uint64_t a1, float *a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = objc_autoreleasePoolPush();
   v5 = v4;
   if (a2)
   {
-    v17 = a2[1];
-    v18 = *(a1 + 88);
-    v6.f64[0] = __exp10(*a2 * 0.1) * v17;
-    v6.f64[1] = v17;
-    v7 = vaddq_f64(v6, v18);
+    v16 = a2[1];
+    v17 = *(a1 + 88);
+    v6.f64[0] = __exp10(*a2 * 0.1) * v16;
+    v6.f64[1] = v16;
+    v7 = vaddq_f64(v6, v17);
     *(a1 + 88) = v7;
     if (v7.f64[1] <= 0.0999998808)
     {
@@ -476,9 +480,9 @@ uint64_t ADAM::MicLevelWriter::write(uint64_t a1, float *a2)
       log(v7.f64[0] / v7.f64[1]);
       *(a1 + 88) = 0;
       *(a1 + 96) = 0;
+      v18 = 0;
       v19 = 0;
       v20 = 0;
-      v21 = 0;
       ADAM::AudioDataAnalysisManager::instance(v8);
       ADAM::AudioDataAnalysisManager::getServerDelegates(__p, 0x6D69636Cu);
       v9 = __p[0];
@@ -490,23 +494,23 @@ uint64_t ADAM::MicLevelWriter::write(uint64_t a1, float *a2)
 
         if (v12)
         {
-          std::vector<ADAMServerDelegate * {__weak}>::push_back[abi:ne200100](&v19, v9);
+          std::vector<ADAMServerDelegate * {__weak}>::push_back[abi:ne200100](&v18, v9);
         }
 
         ++v9;
       }
 
-      v22[0].__loc_.__locale_ = __p;
-      std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](v22);
-      if (v20 != v19)
+      v21[0].__loc_.__locale_ = __p;
+      std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](v21);
+      if (v19 != v18)
       {
-        v14 = [objc_loadWeakRetained(v19) getClientName];
+        v14 = [objc_loadWeakRetained(v18) getClientName];
         v15 = v14;
         [v14 UTF8String];
-        std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v22, "com.apple\\.([a-z]+)\\.miclevel");
+        std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](v21, "com.apple\\.([a-z]+)\\.miclevel");
       }
 
-      __p[0] = &v19;
+      __p[0] = &v18;
       std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](__p);
       objc_autoreleasePoolPop(v5);
     }
@@ -516,17 +520,16 @@ uint64_t ADAM::MicLevelWriter::write(uint64_t a1, float *a2)
     {
       *(a1 + 72) = 0;
       (*(*result + 40))(result);
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
     objc_autoreleasePoolPop(v4);
-    result = 1684108321;
+    return 1684108321;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -579,33 +582,32 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   MEMORY[0x29C260B70](exception, 16);
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = v5 - v6;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = v4 - v5;
+  if (v4 == v5)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = 42 * ((v5 - v6) >> 3) - 1;
+    v7 = 42 * ((v4 - v5) >> 3) - 1;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40) + v9;
-  if (v8 == v10)
+  v8 = a1[4];
+  v9 = a1[5] + v8;
+  if (v7 == v9)
   {
-    if (v9 < 0x2A)
+    if (v8 < 0x2A)
     {
-      v11 = *(a1 + 24);
-      v12 = &v11[-*a1];
-      if (v7 < v12)
+      v10 = a1[3];
+      v11 = v10 - *a1;
+      if (v6 < v11)
       {
-        if (v11 != v5)
+        if (v10 != v4)
         {
           operator new();
         }
@@ -613,53 +615,53 @@ __n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
         operator new();
       }
 
-      if (v11 == *a1)
+      if (v10 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12 >> 2;
+        v12 = v11 >> 2;
       }
 
-      v19 = a1;
-      std::allocator<std::__state<char> *>::allocate_at_least[abi:ne200100](v13);
+      v18 = a1;
+      std::allocator<std::__state<char> *>::allocate_at_least[abi:ne200100](v12);
     }
 
-    *(a1 + 32) = v9 - 42;
-    *&v18 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v18);
-    v6 = *(a1 + 8);
-    v10 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v8 - 42;
+    *&v17 = *v5;
+    a1[1] = (v5 + 8);
+    std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v17);
+    v5 = a1[1];
+    v9 = a1[5] + a1[4];
   }
 
-  v14 = *&v6[8 * (v10 / 0x2A)] - 4032 * (v10 / 0x2A) + 96 * v10;
-  v15 = *(a2 + 16);
-  *v14 = *a2;
-  *(v14 + 16) = v15;
-  *(v14 + 40) = 0;
-  *(v14 + 48) = 0;
-  *(v14 + 32) = 0;
-  *(v14 + 32) = *(a2 + 32);
-  *(v14 + 48) = *(a2 + 48);
+  v13 = *&v5[8 * (v9 / 0x2A)] - 4032 * (v9 / 0x2A) + 96 * v9;
+  v14 = *(a2 + 16);
+  *v13 = *a2;
+  *(v13 + 16) = v14;
+  *(v13 + 40) = 0;
+  *(v13 + 48) = 0;
+  *(v13 + 32) = 0;
+  *(v13 + 32) = *(a2 + 32);
+  *(v13 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v14 + 56) = 0;
-  *(v14 + 64) = 0;
-  *(v14 + 72) = 0;
+  *(v13 + 56) = 0;
+  *(v13 + 64) = 0;
+  *(v13 + 72) = 0;
   result = *(a2 + 56);
-  *(v14 + 56) = result;
-  *(v14 + 72) = *(a2 + 72);
+  *(v13 + 56) = result;
+  *(v13 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v17 = *(a2 + 80);
-  *(v14 + 85) = *(a2 + 85);
-  *(v14 + 80) = v17;
-  ++*(a1 + 40);
+  v16 = *(a2 + 80);
+  *(v13 + 85) = *(a2 + 85);
+  *(v13 + 80) = v16;
+  ++a1[5];
   return result;
 }
 
@@ -799,14 +801,13 @@ LABEL_17:
   return a1;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -826,42 +827,40 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::allocator<std::__state<char> *>::allocate_at_least[abi:ne200100](v11);
@@ -873,18 +872,17 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17>()
@@ -1123,7 +1121,7 @@ LABEL_26:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(this);
         v19 = this->__marked_count_;
         ++this->__open_count_;
-        v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, v11 + 1, a3);
+        v20 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, (v11 + 1), a3);
         if (v20 == a3 || (v11 = v20, *v20 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -1424,7 +1422,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -1457,7 +1455,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
       {
         if (*(a4 + 23) < 0)
         {
-          *(a4 + 8) = 1;
+          a4[1] = 1;
           a4 = *a4;
         }
 
@@ -1488,7 +1486,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_e
     {
       if (*(a4 + 23) < 0)
       {
-        *(a4 + 8) = 1;
+        a4[1] = 1;
         a4 = *a4;
       }
 
@@ -1808,11 +1806,11 @@ LABEL_39:
   return v7;
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -1839,7 +1837,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:
   std::vector<std::pair<char,char>>::push_back[abi:ne200100](v6, v7);
 }
 
-void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, _WORD *a2)
+void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2732,7 +2730,7 @@ void sub_296C5CD14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2745,14 +2743,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2967,7 +2965,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -2977,17 +2974,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -3223,38 +3220,37 @@ void (__cdecl ***std::__match_any_but_newline<char>::~__match_any_but_newline(vo
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -3265,8 +3261,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -3277,20 +3273,20 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * (v11 + v13 - 2);
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * (v10 + v12 - 2);
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
 
   operator delete(begin);
@@ -3500,7 +3496,7 @@ CFStringRef *ADAM::copyDeviceInfo(CFStringRef *result, CFStringRef *a2)
 
 void ADAM::logDeviceInfo(uint64_t a1)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
     dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
@@ -3511,7 +3507,7 @@ void ADAM::logDeviceInfo(uint64_t a1)
     v2 = *ADAM::ADAMLogScope(void)::scope;
     if (!v2)
     {
-      goto LABEL_18;
+      return;
     }
   }
 
@@ -3549,27 +3545,24 @@ void ADAM::logDeviceInfo(uint64_t a1)
 
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v11 = 136316930;
-    v12 = "ADAMUtil.cpp";
-    v13 = 1024;
-    v14 = 138;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v4;
-    v23 = 2048;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device { name: %@  manufacture: %@ model: %@ UUID: %@ device flag: %0llx volume curve: %@ }", &v11, 0x4Eu);
+    v10 = 136316930;
+    v11 = "ADAMUtil.cpp";
+    v12 = 1024;
+    v13 = 138;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v4;
+    v22 = 2048;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device { name: %@  manufacture: %@ model: %@ UUID: %@ device flag: %0llx volume curve: %@ }", &v10, 0x4Eu);
   }
-
-LABEL_18:
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t ADAM::haeMeasurementEnabled(ADAM *this, char a2)
@@ -3719,7 +3712,7 @@ id ADAM::getSensorkitEntitlements(ADAM *this)
 
 void ___ZN4ADAM24getSensorkitEntitlementsEv_block_invoke()
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v0 = SecTaskCreateFromSelf(*MEMORY[0x29EDB8ED8]);
   if (v0)
   {
@@ -3757,15 +3750,15 @@ LABEL_30:
 
 LABEL_31:
         CFRelease(v1);
-        goto LABEL_32;
+        return;
       }
 
       *buf = 136315650;
-      v15 = "ADAMUtil.cpp";
-      v16 = 1024;
-      v17 = 380;
-      v18 = 2112;
-      v19 = ADAM::getSensorkitEntitlements(void)::skEntitlements;
+      v14 = "ADAMUtil.cpp";
+      v15 = 1024;
+      v16 = 380;
+      v17 = 2112;
+      v18 = ADAM::getSensorkitEntitlements(void)::skEntitlements;
       v7 = "%25s:%-5d SK entitlements %@";
       v8 = v4;
       v9 = 28;
@@ -3799,15 +3792,15 @@ LABEL_31:
       }
 
       *buf = 136316162;
-      v15 = "ADAMUtil.cpp";
-      v16 = 1024;
-      v17 = 378;
-      v18 = 2112;
-      v19 = ADAM::getSensorkitEntitlements(void)::skEntitlements;
-      v20 = 2112;
-      v21 = @"com.apple.sensorkit.writer.allow";
-      v22 = 2112;
-      v23 = error;
+      v14 = "ADAMUtil.cpp";
+      v15 = 1024;
+      v16 = 378;
+      v17 = 2112;
+      v18 = ADAM::getSensorkitEntitlements(void)::skEntitlements;
+      v19 = 2112;
+      v20 = @"com.apple.sensorkit.writer.allow";
+      v21 = 2112;
+      v22 = error;
       v7 = "%25s:%-5d Unexpected value %@ for %@ entitlement: %@";
       v8 = v4;
       v9 = 48;
@@ -3827,7 +3820,7 @@ LABEL_31:
     v5 = *ADAM::ADAMLogScope(void)::scope;
     if (!v5)
     {
-      goto LABEL_32;
+      return;
     }
   }
 
@@ -3840,14 +3833,11 @@ LABEL_31:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "ADAMUtil.cpp";
-    v16 = 1024;
-    v17 = 385;
+    v14 = "ADAMUtil.cpp";
+    v15 = 1024;
+    v16 = 385;
     _os_log_impl(&dword_296C34000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d NULL value returned from SecTaskCreateFromSelf", buf, 0x12u);
   }
-
-LABEL_32:
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void ___ZN4ADAM30hasEntitlementForSensorkitSiriEv_block_invoke(ADAM *a1)
@@ -3890,6 +3880,14 @@ void ___ZN4ADAM20isProcessCorespeechdEv_block_invoke()
   v1 = [MEMORY[0x29EDBA0B0] processInfo];
   v0 = [v1 processName];
   ADAM::isProcessCorespeechd(void)::isCorespeechd = [v0 isEqualToString:@"corespeechd"];
+}
+
+uint64_t ___ZN5rtaid20ConfigurationManager23GetDefaultConfigurationEv_block_invoke()
+{
+  v2 = 0;
+  std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(&rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig, 0, &v2);
+  v1 = 4;
+  return std::__tree<rtaid::AnalyzerType>::__emplace_unique_key_args<rtaid::AnalyzerType,rtaid::AnalyzerType>(&rtaid::ConfigurationManager::GetDefaultConfiguration(void)::sDefaultConfig, 4u, &v1);
 }
 
 void std::__tree_node_destructor<std::allocator<std::__tree_node<std::map<rtaid::AnalyzerType,unsigned int>,void *>>>::operator()[abi:ne200100](char a1, void **a2)
@@ -4091,38 +4089,38 @@ uint64_t std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::
 
 uint64_t rtaid::CaulkSPIImplementation::SetMessagePerform(uint64_t result, uint64_t a2)
 {
-  v13[3] = *MEMORY[0x29EDCA608];
+  v12[3] = *MEMORY[0x29EDCA608];
   v2 = *(result + 24);
   for (i = *(result + 32); v2 != i; ++v2)
   {
     v5 = *v2;
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v10, a2);
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v11, v10);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v9, a2);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::__value_func[abi:ne200100](v10, v9);
     v6 = v5 + 24;
-    if ((v5 + 24) != v11)
+    if ((v5 + 24) != v10)
     {
-      v7 = v12;
+      v7 = v11;
       v8 = *(v5 + 48);
-      if (v12 == v11)
+      if (v11 == v10)
       {
         if (v8 == v6)
         {
-          (*(*v12 + 24))();
-          (*(*v12 + 32))(v12);
-          v12 = 0;
-          (*(**(v5 + 48) + 24))(*(v5 + 48), v11);
+          (*(*v11 + 24))();
+          (*(*v11 + 32))(v11);
+          v11 = 0;
+          (*(**(v5 + 48) + 24))(*(v5 + 48), v10);
           (*(**(v5 + 48) + 32))(*(v5 + 48));
           *(v5 + 48) = 0;
-          v12 = v11;
-          (*(v13[0] + 24))(v13, v5 + 24);
-          (*(v13[0] + 32))(v13);
+          v11 = v10;
+          (*(v12[0] + 24))(v12, v5 + 24);
+          (*(v12[0] + 32))(v12);
         }
 
         else
         {
-          (*(*v12 + 24))();
-          (*(*v12 + 32))(v12);
-          v12 = *(v5 + 48);
+          (*(*v11 + 24))();
+          (*(*v11 + 32))(v11);
+          v11 = *(v5 + 48);
         }
 
         *(v5 + 48) = v6;
@@ -4130,24 +4128,23 @@ uint64_t rtaid::CaulkSPIImplementation::SetMessagePerform(uint64_t result, uint6
 
       else if (v8 == v6)
       {
-        (*(*v8 + 24))(*(v5 + 48), v11);
+        (*(*v8 + 24))(*(v5 + 48), v10);
         (*(**(v5 + 48) + 32))(*(v5 + 48));
-        *(v5 + 48) = v12;
-        v12 = v11;
+        *(v5 + 48) = v11;
+        v11 = v10;
       }
 
       else
       {
-        v12 = *(v5 + 48);
+        v11 = *(v5 + 48);
         *(v5 + 48) = v7;
       }
     }
 
-    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v11);
-    result = std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v10);
+    std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v10);
+    result = std::__function::__value_func<void ()(rtaid::IssueDictionary const&)>::~__value_func[abi:ne200100](v9);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4404,16 +4401,16 @@ void ADAM::AudioDataAnalysisManager::AudioDataAnalysisManager(ADAM::AudioDataAna
   qword_2A18A51C0 = 0;
   caulk::semaphore::semaphore(&unk_2A18A51C8);
   byte_2A18A51D8 = 0;
-  qword_2A18A51E0 = 0;
+  qword_2A18A51E0[0] = 0;
   unk_2A18A5220 = 0u;
   *&qword_2A18A5230 = 0u;
   *&qword_2A18A5240 = 0u;
   operator new();
 }
 
-void sub_296C60E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_296C60E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  (*(*v11 + 8))(v11);
+  (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
   a10 = v10;
   std::vector<std::unique_ptr<ADAM::AnalysisNodeBase>>::__destroy_vector::operator()[abi:ne200100](&a10);
   v13 = MEMORY[0x29C260F00](v10, 0x10A2C40C815ADB6);
@@ -4516,7 +4513,7 @@ LABEL_19:
   }
 
   v26 = &v25;
-  if ((*(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 144), v3) + 20) & 1) == 0)
+  if ((*(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 144), v3, &v26) + 20) & 1) == 0)
   {
     goto LABEL_32;
   }
@@ -4611,7 +4608,7 @@ LABEL_19:
   }
 
   v26 = &v25;
-  *(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 144), v25) + 20) = 0;
+  *(std::__hash_table<std::__hash_value_type<unsigned int,BOOL>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,BOOL>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,BOOL>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v5 + 144), v25, &v26) + 20) = 0;
   v9 = 1;
 LABEL_33:
   std::mutex::unlock((v5 + 184));
@@ -4672,27 +4669,25 @@ void ADAM::AudioDataAnalysisManager::getServerDelegates(uint64_t a1, unsigned in
   std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](&v20);
 }
 
-void sub_296C6146C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296C6146C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
-  std::mutex::unlock((v8 + 24));
+  std::mutex::unlock((v13 + 24));
   _Block_object_dispose(va, 8);
-  *(v9 - 64) = v7;
-  std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100]((v9 - 64));
+  *(v14 - 64) = v12;
+  std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100]((v14 - 64));
   _Unwind_Resume(a1);
 }
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4768,10 +4763,10 @@ void ___ZN4ADAM24AudioDataAnalysisManager18getServerDelegatesE25ADAMAudioDataAna
   objc_destroyWeak(&location);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,NSMutableArray * {__strong}>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,NSMutableArray * {__strong}>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,NSMutableArray * {__strong}>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,NSMutableArray * {__strong}>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t ***a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4781,27 +4776,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -4833,7 +4828,7 @@ id ADAM::get_log(ADAM *this)
 
 uint64_t ADAM::Analyzer::MicLevelBuffer::analyze(uint64_t a1, uint64_t a2, float *a3, _OWORD *a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     if (ADAM::Analyzer::MicLevelBuffer::isDataValid(ADAM::UnionDataPtr)const::errCnt++)
@@ -4847,7 +4842,7 @@ LABEL_5:
       }
 
       ADAM::Analyzer::MicLevelBuffer::isDataValid(ADAM::UnionDataPtr)const::errCnt = v10;
-      goto LABEL_21;
+      return v5;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -4871,11 +4866,11 @@ LABEL_5:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315394;
-      v18 = "MicLevelBuffer.cpp";
-      v19 = 1024;
-      v20 = 59;
-      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d energyDB data ptr is null? (sampled every 3k)", &v17, 0x12u);
+      v16 = 136315394;
+      v17 = "MicLevelBuffer.cpp";
+      v18 = 1024;
+      v19 = 59;
+      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d energyDB data ptr is null? (sampled every 3k)", &v16, 0x12u);
     }
 
     goto LABEL_5;
@@ -4894,7 +4889,7 @@ LABEL_5:
       v11 = *ADAM::ADAMLogScope(void)::scope;
       if (!*ADAM::ADAMLogScope(void)::scope)
       {
-        goto LABEL_21;
+        return v5;
       }
     }
 
@@ -4907,15 +4902,15 @@ LABEL_5:
     {
       v13 = *a3;
       v14 = a3[1];
-      v17 = 136315906;
-      v18 = "MicLevelBuffer.cpp";
-      v19 = 1024;
-      v20 = 68;
-      v21 = 2048;
-      v22 = v13;
-      v23 = 2048;
-      v24 = v14;
-      _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid Mic Level data { dB: %.2f, duration: %.2f}", &v17, 0x26u);
+      v16 = 136315906;
+      v17 = "MicLevelBuffer.cpp";
+      v18 = 1024;
+      v19 = 68;
+      v20 = 2048;
+      v21 = v13;
+      v22 = 2048;
+      v23 = v14;
+      _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid Mic Level data { dB: %.2f, duration: %.2f}", &v16, 0x26u);
     }
   }
 
@@ -4934,14 +4929,12 @@ LABEL_5:
     *(a1 + 112) = 1;
   }
 
-LABEL_21:
-  v15 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
 uint64_t ADAM::Analyzer::EnvironmentExposureBuffer::analyze(uint64_t a1, uint64_t a2, float *a3, _OWORD *a4)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     if (ADAM::Analyzer::EnvironmentExposureBuffer::isDataValid(ADAM::UnionDataPtr)const::errCnt++)
@@ -4955,7 +4948,7 @@ LABEL_18:
       }
 
       ADAM::Analyzer::EnvironmentExposureBuffer::isDataValid(ADAM::UnionDataPtr)const::errCnt = v12;
-      goto LABEL_30;
+      return v9;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -4979,11 +4972,11 @@ LABEL_18:
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315394;
-      v24 = "EnvironmentExposureBuffer.cpp";
-      v25 = 1024;
-      v26 = 61;
-      _os_log_impl(&dword_296C34000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d env spl data ptr is null? (sampled every 3k)", &v23, 0x12u);
+      v22 = 136315394;
+      v23 = "EnvironmentExposureBuffer.cpp";
+      v24 = 1024;
+      v25 = 61;
+      _os_log_impl(&dword_296C34000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d env spl data ptr is null? (sampled every 3k)", &v22, 0x12u);
     }
 
     goto LABEL_18;
@@ -5020,7 +5013,7 @@ LABEL_18:
       v10 = *ADAM::ADAMLogScope(void)::scope;
       if (!*ADAM::ADAMLogScope(void)::scope)
       {
-        goto LABEL_30;
+        return v9;
       }
     }
 
@@ -5034,28 +5027,26 @@ LABEL_18:
       v13 = *a3;
       v14 = a3[1];
       v15 = a3[2];
-      v23 = 136316162;
-      v24 = "EnvironmentExposureBuffer.cpp";
-      v25 = 1024;
-      v26 = 74;
-      v27 = 2048;
-      v28 = v13;
-      v29 = 2048;
-      v30 = v14;
-      v31 = 2048;
-      v32 = v15;
-      _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid EVE data { dBA: %.2f, duration: %.2f, period: %.2f}", &v23, 0x30u);
+      v22 = 136316162;
+      v23 = "EnvironmentExposureBuffer.cpp";
+      v24 = 1024;
+      v25 = 74;
+      v26 = 2048;
+      v27 = v13;
+      v28 = 2048;
+      v29 = v14;
+      v30 = 2048;
+      v31 = v15;
+      _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid EVE data { dBA: %.2f, duration: %.2f, period: %.2f}", &v22, 0x30u);
     }
   }
 
-LABEL_30:
-  v21 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
 uint64_t ADAM::Analyzer::EnvironmentSoundClassAnalyzer::analyze(uint64_t a1, uint64_t a2, void *a3, _OWORD *a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     if (ADAM::Analyzer::EnvironmentSoundClassAnalyzer::isDataValid(ADAM::UnionDataPtr)const::errCnt++)
@@ -5069,7 +5060,7 @@ LABEL_9:
       }
 
       ADAM::Analyzer::EnvironmentSoundClassAnalyzer::isDataValid(ADAM::UnionDataPtr)const::errCnt = v8;
-      goto LABEL_21;
+      return v5;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -5093,11 +5084,11 @@ LABEL_9:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315394;
-      v17 = "EnvironmentExposureBuffer.cpp";
-      v18 = 1024;
-      v19 = 124;
-      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d env sound class data ptr is null? (sampled every 3k)", &v16, 0x12u);
+      v15 = 136315394;
+      v16 = "EnvironmentExposureBuffer.cpp";
+      v17 = 1024;
+      v18 = 124;
+      _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d env sound class data ptr is null? (sampled every 3k)", &v15, 0x12u);
     }
 
     goto LABEL_9;
@@ -5131,7 +5122,7 @@ LABEL_9:
       v6 = *ADAM::ADAMLogScope(void)::scope;
       if (!*ADAM::ADAMLogScope(void)::scope)
       {
-        goto LABEL_21;
+        return v5;
       }
     }
 
@@ -5143,24 +5134,22 @@ LABEL_9:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v13 = *a3;
-      v16 = 136315650;
-      v17 = "EnvironmentExposureBuffer.cpp";
-      v18 = 1024;
-      v19 = 131;
-      v20 = 2048;
-      v21 = v13;
-      _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid EnvSense Class  { ClassBitSet: %.2llu }", &v16, 0x1Cu);
+      v15 = 136315650;
+      v16 = "EnvironmentExposureBuffer.cpp";
+      v17 = 1024;
+      v18 = 131;
+      v19 = 2048;
+      v20 = v13;
+      _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid EnvSense Class  { ClassBitSet: %.2llu }", &v15, 0x1Cu);
     }
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
 void rtaid::Detector::checkAndFlushState(rtaid::Detector *this, int a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   for (i = *(this + 3); i; i = *i)
   {
     rtaid::Detector::checkAndResetAnalyzers(this, i + 3);
@@ -5182,15 +5171,15 @@ void rtaid::Detector::checkAndFlushState(rtaid::Detector *this, int a2)
       }
 
       *buf = 136316162;
-      v15 = "DetectorNode.cpp";
-      v16 = 1024;
-      v17 = 158;
-      v18 = 1040;
-      v19 = 19;
-      v20 = 2080;
-      v21 = "rtaid::DetectorNode]";
-      v22 = 2048;
-      v23 = v5;
+      v14 = "DetectorNode.cpp";
+      v15 = 1024;
+      v16 = 158;
+      v17 = 1040;
+      v18 = 19;
+      v19 = 2080;
+      v20 = "rtaid::DetectorNode]";
+      v21 = 2048;
+      v22 = v5;
       v7 = v6;
       v8 = "[%s:%-5d %.*s:%p] reset";
     }
@@ -5208,15 +5197,15 @@ void rtaid::Detector::checkAndFlushState(rtaid::Detector *this, int a2)
       }
 
       *buf = 136316162;
-      v15 = "DetectorNode.cpp";
-      v16 = 1024;
-      v17 = 164;
-      v18 = 1040;
-      v19 = 19;
-      v20 = 2080;
-      v21 = "rtaid::DetectorNode]";
-      v22 = 2048;
-      v23 = v5;
+      v14 = "DetectorNode.cpp";
+      v15 = 1024;
+      v16 = 164;
+      v17 = 1040;
+      v18 = 19;
+      v19 = 2080;
+      v20 = "rtaid::DetectorNode]";
+      v21 = 2048;
+      v22 = v5;
       v7 = v9;
       v8 = "[%s:%-5d %.*s:%p] flush";
     }
@@ -5226,23 +5215,26 @@ void rtaid::Detector::checkAndFlushState(rtaid::Detector *this, int a2)
 
   if (a2)
   {
+    if ((explicit & 1) == 0)
     {
-      rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
+      {
+        rtaid::get_log(void)::rtaid_os_log = os_log_create("com.apple.coreaudio", "aid");
+      }
     }
 
     v11 = rtaid::get_log(void)::rtaid_os_log;
     if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
     {
       *buf = 136316162;
-      v15 = "Detector.cpp";
-      v16 = 1024;
-      v17 = 103;
-      v18 = 1040;
-      v19 = 15;
-      v20 = 2080;
-      v21 = "rtaid::Detector]";
-      v22 = 2048;
-      v23 = this;
+      v14 = "Detector.cpp";
+      v15 = 1024;
+      v16 = 103;
+      v17 = 1040;
+      v18 = 15;
+      v19 = 2080;
+      v20 = "rtaid::Detector]";
+      v21 = 2048;
+      v22 = this;
       v12 = "[%s:%-5d %.*s:%p] reset";
 LABEL_23:
       _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_INFO, v12, buf, 0x2Cu);
@@ -5259,24 +5251,22 @@ LABEL_23:
     if (os_log_type_enabled(rtaid::get_log(void)::rtaid_os_log, OS_LOG_TYPE_INFO))
     {
       *buf = 136316162;
-      v15 = "Detector.cpp";
-      v16 = 1024;
-      v17 = 107;
-      v18 = 1040;
-      v19 = 15;
-      v20 = 2080;
-      v21 = "rtaid::Detector]";
-      v22 = 2048;
-      v23 = this;
+      v14 = "Detector.cpp";
+      v15 = 1024;
+      v16 = 107;
+      v17 = 1040;
+      v18 = 15;
+      v19 = 2080;
+      v20 = "rtaid::Detector]";
+      v21 = 2048;
+      v22 = this;
       v12 = "[%s:%-5d %.*s:%p] flush";
       goto LABEL_23;
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t *rtaid::Detector::ResetTelephonyRMSState(uint64_t *this)
+uint64_t **rtaid::Detector::ResetTelephonyRMSState(uint64_t **this)
 {
   for (; this; this = *this)
   {
@@ -5311,7 +5301,7 @@ uint64_t *rtaid::Detector::ResetTelephonyRMSState(uint64_t *this)
   return this;
 }
 
-void rtaid::Detector::NodeBook::~NodeBook(rtaid::DetectorNode **this)
+void rtaid::Detector::NodeBook::~NodeBook(std::__shared_weak_count ***this)
 {
   v2 = *this;
   *this = 0;
@@ -5490,7 +5480,7 @@ uint64_t ADAM::SensorKitWriter::isEnabled(ADAM::SensorKitWriter *this)
 
 uint64_t ADAM::SensorKitWriter::write(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v99 = *MEMORY[0x29EDCA608];
+  v98 = *MEMORY[0x29EDCA608];
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
     dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
@@ -5518,17 +5508,17 @@ uint64_t ADAM::SensorKitWriter::write(uint64_t a1, unsigned int *a2, uint64_t a3
     v10 = *(a1 + 72);
     v11 = *(a3 + 72);
     *buf = 136316418;
-    v94 = "SensorKitWriter.mm";
-    v95 = 1024;
-    v96 = 270;
-    v97 = 1024;
-    *v98 = v8;
-    *&v98[4] = 1024;
-    *&v98[6] = v9;
-    *&v98[10] = 2048;
-    *&v98[12] = v10;
-    *&v98[20] = 2048;
-    *&v98[22] = v11;
+    v93 = "SensorKitWriter.mm";
+    v94 = 1024;
+    v95 = 270;
+    v96 = 1024;
+    *v97 = v8;
+    *&v97[4] = 1024;
+    *&v97[6] = v9;
+    *&v97[10] = 2048;
+    *&v97[12] = v10;
+    *&v97[20] = 2048;
+    *&v97[22] = v11;
     _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d size: %u, frames: %u mSelf: %p, last batch: %lld", buf, 0x32u);
   }
 
@@ -5582,11 +5572,11 @@ LABEL_18:
       {
         v19 = *(a3 + 64);
         *buf = 136315650;
-        v94 = "SensorKitWriter.mm";
-        v95 = 1024;
-        v96 = 113;
-        v97 = 1024;
-        *v98 = v19;
+        v93 = "SensorKitWriter.mm";
+        v94 = 1024;
+        v95 = 113;
+        v96 = 1024;
+        *v97 = v19;
         _os_log_impl(&dword_296C34000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Allocating AVAudioPCMBuffer of %d frames", buf, 0x18u);
       }
 
@@ -5636,9 +5626,9 @@ LABEL_28:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v94 = "SensorKitWriter.mm";
-          v95 = 1024;
-          v96 = 280;
+          v93 = "SensorKitWriter.mm";
+          v94 = 1024;
+          v95 = 280;
           _os_log_impl(&dword_296C34000, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to create a AVAudioPCMBuffer", buf, 0x12u);
         }
 
@@ -5715,17 +5705,17 @@ LABEL_53:
             if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316418;
-              v94 = "SensorKitWriter.mm";
-              v95 = 1024;
-              v96 = 290;
-              v97 = 1040;
-              *v98 = 21;
-              *&v98[4] = 2080;
-              *&v98[6] = "ADAM::SensorKitWriter]";
-              *&v98[14] = 2048;
-              *&v98[16] = a1;
-              *&v98[24] = 2048;
-              *&v98[26] = v39;
+              v93 = "SensorKitWriter.mm";
+              v94 = 1024;
+              v95 = 290;
+              v96 = 1040;
+              *v97 = 21;
+              *&v97[4] = 2080;
+              *&v97[6] = "ADAM::SensorKitWriter]";
+              *&v97[14] = 2048;
+              *&v97[16] = a1;
+              *&v97[24] = 2048;
+              *&v97[26] = v39;
               _os_log_impl(&dword_296C34000, v61, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] not sending telephony audio to Speech and SoundAnalysis due to length of audio : %f", buf, 0x36u);
             }
 
@@ -5760,7 +5750,7 @@ LABEL_141:
 LABEL_142:
 
         objc_autoreleasePoolPop(context);
-        goto LABEL_143;
+        return v17;
       }
 
       v40 = *(*(a1 + 88) + 8);
@@ -5774,11 +5764,11 @@ LABEL_142:
         v41 = *(a1 + 24);
       }
 
-      v42 = &v89;
-      std::string::basic_string[abi:ne200100](&v89, v41 + 1);
-      if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v42 = &v88;
+      std::string::basic_string[abi:ne200100](&v88, v41 + 1);
+      if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v42 = v89.__r_.__value_.__r.__words[0];
+        v42 = v88.__r_.__value_.__r.__words[0];
       }
 
       if (v41)
@@ -5797,35 +5787,35 @@ LABEL_142:
       }
 
       *(&v42->__r_.__value_.__l.__data_ + v41) = 95;
-      std::to_string(&v88, *(*(a1 + 88) + 40));
-      if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::to_string(&v87, *(*(a1 + 88) + 40));
+      if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v44 = &v88;
+        v44 = &v87;
       }
 
       else
       {
-        v44 = v88.__r_.__value_.__r.__words[0];
+        v44 = v87.__r_.__value_.__r.__words[0];
       }
 
-      if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v88.__r_.__value_.__r.__words[2]);
+        size = HIBYTE(v87.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        size = v88.__r_.__value_.__l.__size_;
+        size = v87.__r_.__value_.__l.__size_;
       }
 
-      v46 = std::string::append(&v89, v44, size);
+      v46 = std::string::append(&v88, v44, size);
       v47 = *&v46->__r_.__value_.__l.__data_;
-      v91 = v46->__r_.__value_.__r.__words[2];
+      v90 = v46->__r_.__value_.__r.__words[2];
       *__p = v47;
       v46->__r_.__value_.__l.__size_ = 0;
       v46->__r_.__value_.__r.__words[2] = 0;
       v46->__r_.__value_.__r.__words[0] = 0;
-      if (v91 >= 0)
+      if (v90 >= 0)
       {
         v48 = __p;
       }
@@ -5835,7 +5825,7 @@ LABEL_142:
         v48 = __p[0];
       }
 
-      v86 = v40;
+      v85 = v40;
       if (ADAM::isProcessCorespeechd(void)::once != -1)
       {
         dispatch_once(&ADAM::isProcessCorespeechd(void)::once, &__block_literal_global_51);
@@ -5843,28 +5833,28 @@ LABEL_142:
 
       if (ADAM::isProcessCorespeechd(void)::isCorespeechd == 1)
       {
-        v85 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"/private/var/mobile/Documents/Logs/CoreSpeech/ADAM-%s.caf", v48];
+        v84 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"/private/var/mobile/Documents/Logs/CoreSpeech/ADAM-%s.caf", v48];
       }
 
       else
       {
         v50 = objc_alloc(MEMORY[0x29EDBA0F8]);
         v51 = NSTemporaryDirectory();
-        v85 = [v50 initWithFormat:@"%@ADAM-%s.caf", v51, v48];
+        v84 = [v50 initWithFormat:@"%@ADAM-%s.caf", v51, v48];
       }
 
-      v84 = [objc_alloc(MEMORY[0x29EDB8E70]) initWithString:v85];
+      v83 = [objc_alloc(MEMORY[0x29EDB8E70]) initWithString:v84];
       v52 = MEMORY[0x29EDB8E00];
-      v53 = [v86 settings];
+      v53 = [v85 settings];
       v54 = [v52 dictionaryWithDictionary:v53];
 
       [v54 setObject:&unk_2A1DF0AA0 forKey:*MEMORY[0x29EDB8000]];
       v55 = objc_alloc(MEMORY[0x29EDB8010]);
-      v56 = [v86 commonFormat];
-      v92 = 0;
-      v57 = [v55 initForWriting:v84 settings:v54 commonFormat:v56 interleaved:1 error:&v92];
-      v83 = v92;
-      if (v83)
+      v56 = [v85 commonFormat];
+      v91 = 0;
+      v57 = [v55 initForWriting:v83 settings:v54 commonFormat:v56 interleaved:1 error:&v91];
+      v82 = v91;
+      if (v82)
       {
         if (ADAM::ADAMLogScope(void)::once != -1)
         {
@@ -5880,19 +5870,19 @@ LABEL_142:
 LABEL_108:
 
 LABEL_109:
-            if (SHIBYTE(v91) < 0)
+            if (SHIBYTE(v90) < 0)
             {
               operator delete(__p[0]);
+            }
+
+            if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v87.__r_.__value_.__l.__data_);
             }
 
             if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(v88.__r_.__value_.__l.__data_);
-            }
-
-            if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v89.__r_.__value_.__l.__data_);
             }
 
             ++*(*(a1 + 88) + 40);
@@ -5939,11 +5929,11 @@ LABEL_136:
               }
 
               *buf = 136315650;
-              v94 = "SensorKitWriter.mm";
-              v95 = 1024;
-              v96 = 101;
-              v97 = 2112;
-              *v98 = v70;
+              v93 = "SensorKitWriter.mm";
+              v94 = 1024;
+              v95 = 101;
+              v96 = 2112;
+              *v97 = v70;
               v73 = "%25s:%-5d failed to write audio buffer: %@";
               v74 = v71;
               v75 = OS_LOG_TYPE_ERROR;
@@ -5978,13 +5968,13 @@ LABEL_136:
               }
 
               *buf = 136315906;
-              v94 = "SensorKitWriter.mm";
-              v95 = 1024;
-              v96 = 105;
-              v97 = 2112;
-              *v98 = v69;
-              *&v98[8] = 2112;
-              *&v98[10] = v68;
+              v93 = "SensorKitWriter.mm";
+              v94 = 1024;
+              v95 = 105;
+              v96 = 2112;
+              *v97 = v69;
+              *&v97[8] = 2112;
+              *&v97[10] = v68;
               v73 = "%25s:%-5d Wrote audio buffer %@ to file %@";
               v74 = v71;
               v75 = OS_LOG_TYPE_INFO;
@@ -6005,17 +5995,17 @@ LABEL_136:
         v63 = v58;
         if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
-          v64 = [MEMORY[0x29EDBA070] numberWithBool:{objc_msgSend(v86, "isInterleaved")}];
+          v64 = [MEMORY[0x29EDBA070] numberWithBool:{objc_msgSend(v85, "isInterleaved")}];
           *buf = 136316162;
-          v94 = "SensorKitWriter.mm";
-          v95 = 1024;
-          v96 = 75;
-          v97 = 2112;
-          *v98 = v83;
-          *&v98[8] = 2112;
-          *&v98[10] = v54;
-          *&v98[18] = 2112;
-          *&v98[20] = v64;
+          v93 = "SensorKitWriter.mm";
+          v94 = 1024;
+          v95 = 75;
+          v96 = 2112;
+          *v97 = v82;
+          *&v97[8] = 2112;
+          *&v97[10] = v54;
+          *&v97[18] = 2112;
+          *&v97[20] = v64;
           _os_log_impl(&dword_296C34000, v63, OS_LOG_TYPE_ERROR, "%25s:%-5d failed to initialize output file: %@, settings: %@, format interleaved: %@", buf, 0x30u);
         }
 
@@ -6049,15 +6039,15 @@ LABEL_136:
         v63 = v60;
         if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
         {
-          v67 = [MEMORY[0x29EDBA070] numberWithBool:{objc_msgSend(v86, "isInterleaved")}];
+          v67 = [MEMORY[0x29EDBA070] numberWithBool:{objc_msgSend(v85, "isInterleaved")}];
           *buf = 136315906;
-          v94 = "SensorKitWriter.mm";
-          v95 = 1024;
-          v96 = 81;
-          v97 = 2112;
-          *v98 = v85;
-          *&v98[8] = 2112;
-          *&v98[10] = v67;
+          v93 = "SensorKitWriter.mm";
+          v94 = 1024;
+          v95 = 81;
+          v96 = 2112;
+          *v97 = v84;
+          *&v97[8] = 2112;
+          *&v97[10] = v67;
           _os_log_impl(&dword_296C34000, v63, OS_LOG_TYPE_INFO, "%25s:%-5d Created output file: %@, format interleaved: %@", buf, 0x26u);
         }
 
@@ -6070,10 +6060,7 @@ LABEL_136:
     }
   }
 
-  v17 = 0;
-LABEL_143:
-  v81 = *MEMORY[0x29EDCA608];
-  return v17;
+  return 0;
 }
 
 void sub_296C66C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
@@ -6096,7 +6083,7 @@ void sub_296C66C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6108,16 +6095,16 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK27AudioStreamBasicDescription_block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = atomic_load((*(v4 + 88) + 44));
@@ -6128,19 +6115,19 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
   v6 = ADAM::get_log(void)::adam_os_log;
   if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136316418;
-    v12 = "SensorKitWriter.mm";
-    v13 = 1024;
-    v14 = 194;
-    v15 = 1040;
-    v16 = 21;
-    v17 = 2080;
-    v18 = "ADAM::SensorKitWriter]";
-    v19 = 2048;
-    v20 = v4;
-    v21 = 1024;
-    v22 = v5;
-    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Inside sound analysis writer's completion handler, expectedCount: %d", &v11, 0x32u);
+    v10 = 136316418;
+    v11 = "SensorKitWriter.mm";
+    v12 = 1024;
+    v13 = 194;
+    v14 = 1040;
+    v15 = 21;
+    v16 = 2080;
+    v17 = "ADAM::SensorKitWriter]";
+    v18 = 2048;
+    v19 = v4;
+    v20 = 1024;
+    v21 = v5;
+    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Inside sound analysis writer's completion handler, expectedCount: %d", &v10, 0x32u);
   }
 
   v7 = v5;
@@ -6154,17 +6141,17 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
     v9 = ADAM::get_log(void)::adam_os_log;
     if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136316162;
-      v12 = "SensorKitWriter.mm";
-      v13 = 1024;
-      v14 = 205;
-      v15 = 1040;
-      v16 = 21;
-      v17 = 2080;
-      v18 = "ADAM::SensorKitWriter]";
-      v19 = 2048;
-      v20 = v4;
-      _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v11, 0x2Cu);
+      v10 = 136316162;
+      v11 = "SensorKitWriter.mm";
+      v12 = 1024;
+      v13 = 205;
+      v14 = 1040;
+      v15 = 21;
+      v16 = 2080;
+      v17 = "ADAM::SensorKitWriter]";
+      v18 = 2048;
+      v19 = v4;
+      _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v10, 0x2Cu);
     }
 
     goto LABEL_13;
@@ -6179,30 +6166,28 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
     v8 = ADAM::get_log(void)::adam_os_log;
     if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136316162;
-      v12 = "SensorKitWriter.mm";
-      v13 = 1024;
-      v14 = 199;
-      v15 = 1040;
-      v16 = 21;
-      v17 = 2080;
-      v18 = "ADAM::SensorKitWriter]";
-      v19 = 2048;
-      v20 = v4;
-      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v11, 0x2Cu);
+      v10 = 136316162;
+      v11 = "SensorKitWriter.mm";
+      v12 = 1024;
+      v13 = 199;
+      v14 = 1040;
+      v15 = 21;
+      v16 = 2080;
+      v17 = "ADAM::SensorKitWriter]";
+      v18 = 2048;
+      v19 = v4;
+      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v10, 0x2Cu);
     }
 
     v7 = 1;
 LABEL_13:
     ADAM::SensorKitWriter::SensorKitWriter(unsigned long long,std::string const&,AudioStreamBasicDescription const&)::$_0::operator()<char const*,int>((a1 + 40), v3, "Sound Analysis", v7);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEERK27AudioStreamBasicDescription_block_invoke_7(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = atomic_load((*(v4 + 88) + 44));
@@ -6213,19 +6198,19 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
   v6 = ADAM::get_log(void)::adam_os_log;
   if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136316418;
-    v12 = "SensorKitWriter.mm";
-    v13 = 1024;
-    v14 = 223;
-    v15 = 1040;
-    v16 = 21;
-    v17 = 2080;
-    v18 = "ADAM::SensorKitWriter]";
-    v19 = 2048;
-    v20 = v4;
-    v21 = 1024;
-    v22 = v5;
-    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Inside speech writer's completion handler, expectedCount: %d", &v11, 0x32u);
+    v10 = 136316418;
+    v11 = "SensorKitWriter.mm";
+    v12 = 1024;
+    v13 = 223;
+    v14 = 1040;
+    v15 = 21;
+    v16 = 2080;
+    v17 = "ADAM::SensorKitWriter]";
+    v18 = 2048;
+    v19 = v4;
+    v20 = 1024;
+    v21 = v5;
+    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Inside speech writer's completion handler, expectedCount: %d", &v10, 0x32u);
   }
 
   v7 = v5;
@@ -6239,17 +6224,17 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
     v9 = ADAM::get_log(void)::adam_os_log;
     if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136316162;
-      v12 = "SensorKitWriter.mm";
-      v13 = 1024;
-      v14 = 234;
-      v15 = 1040;
-      v16 = 21;
-      v17 = 2080;
-      v18 = "ADAM::SensorKitWriter]";
-      v19 = 2048;
-      v20 = v4;
-      _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v11, 0x2Cu);
+      v10 = 136316162;
+      v11 = "SensorKitWriter.mm";
+      v12 = 1024;
+      v13 = 234;
+      v14 = 1040;
+      v15 = 21;
+      v16 = 2080;
+      v17 = "ADAM::SensorKitWriter]";
+      v18 = 2048;
+      v19 = v4;
+      _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v10, 0x2Cu);
     }
 
     goto LABEL_13;
@@ -6264,30 +6249,28 @@ void ___ZN4ADAM15SensorKitWriterC2EyRKNSt3__112basic_stringIcNS1_11char_traitsIc
     v8 = ADAM::get_log(void)::adam_os_log;
     if (os_log_type_enabled(ADAM::get_log(void)::adam_os_log, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136316162;
-      v12 = "SensorKitWriter.mm";
-      v13 = 1024;
-      v14 = 228;
-      v15 = 1040;
-      v16 = 21;
-      v17 = 2080;
-      v18 = "ADAM::SensorKitWriter]";
-      v19 = 2048;
-      v20 = v4;
-      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v11, 0x2Cu);
+      v10 = 136316162;
+      v11 = "SensorKitWriter.mm";
+      v12 = 1024;
+      v13 = 228;
+      v14 = 1040;
+      v15 = 21;
+      v16 = 2080;
+      v17 = "ADAM::SensorKitWriter]";
+      v18 = 2048;
+      v19 = v4;
+      _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEBUG, "[%s:%-5d %.*s:%p] Calling destroy self", &v10, 0x2Cu);
     }
 
     v7 = 1;
 LABEL_13:
     ADAM::SensorKitWriter::SensorKitWriter(unsigned long long,std::string const&,AudioStreamBasicDescription const&)::$_0::operator()<char const*,int>((a1 + 40), v3, "Speech Analysis", v7);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void ADAM::SensorKitWriter::SensorKitWriter(unsigned long long,std::string const&,AudioStreamBasicDescription const&)::$_0::operator()<char const*,int>(uint64_t *a1, void *a2, uint64_t a3, int a4)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v7 = a2;
   v8 = *a1;
   {
@@ -6300,27 +6283,27 @@ void ADAM::SensorKitWriter::SensorKitWriter(unsigned long long,std::string const
     v10 = *(v8 + 88);
     v12 = *(v10 + 24);
     v11 = *(v10 + 32);
-    v15 = 136317442;
-    v16 = "SensorKitWriter.mm";
-    v17 = 1024;
-    v18 = 176;
-    v19 = 1040;
-    v20 = 21;
-    v21 = 2080;
-    v22 = "ADAM::SensorKitWriter]";
-    v23 = 2048;
-    v24 = v8;
-    v25 = 2080;
-    v26 = a3;
-    v27 = 2112;
-    v28 = v7;
-    v29 = 2048;
-    v30 = v12;
-    v31 = 2048;
-    v32 = v11;
-    v33 = 1024;
-    v34 = a4;
-    _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] %s writer completed with err: %@ SN writer: %p, Speech writer: %p, completionValue: %d", &v15, 0x5Au);
+    v14 = 136317442;
+    v15 = "SensorKitWriter.mm";
+    v16 = 1024;
+    v17 = 176;
+    v18 = 1040;
+    v19 = 21;
+    v20 = 2080;
+    v21 = "ADAM::SensorKitWriter]";
+    v22 = 2048;
+    v23 = v8;
+    v24 = 2080;
+    v25 = a3;
+    v26 = 2112;
+    v27 = v7;
+    v28 = 2048;
+    v29 = v12;
+    v30 = 2048;
+    v31 = v11;
+    v32 = 1024;
+    v33 = a4;
+    _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_DEFAULT, "[%s:%-5d %.*s:%p] %s writer completed with err: %@ SN writer: %p, Speech writer: %p, completionValue: %d", &v14, 0x5Au);
   }
 
   std::mutex::lock(&ADAM::Writer::getAsyncMutex(void)::sAsyncMutex);
@@ -6333,15 +6316,12 @@ void ADAM::SensorKitWriter::SensorKitWriter(unsigned long long,std::string const
   }
 
   std::mutex::unlock(&ADAM::Writer::getAsyncMutex(void)::sAsyncMutex);
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t *std::optional<CA::AudioBuffersDeprecated>::~optional(uint64_t *a1)
+uint64_t std::optional<CA::AudioBuffersDeprecated>::~optional(uint64_t a1)
 {
   if (*(a1 + 8) == 1)
   {
-    v2 = *a1;
     ExtendedAudioBufferList_Destroy();
   }
 
@@ -6453,7 +6433,7 @@ double ADAM::Analyzer::PCMBuffer::reset(ADAM::Analyzer::PCMBuffer *this)
 
 uint64_t ADAM::Analyzer::PCMBuffer::analyze(ADAM *this, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
-  v50[2] = *MEMORY[0x29EDCA608];
+  v49[2] = *MEMORY[0x29EDCA608];
   v8 = (this + 120);
   if (*(this + 15))
   {
@@ -6463,7 +6443,7 @@ uint64_t ADAM::Analyzer::PCMBuffer::analyze(ADAM *this, uint64_t a2, _DWORD *a3,
   v16 = 560100710;
   if (*(this + 192) != 1)
   {
-    goto LABEL_45;
+    return v16;
   }
 
   ADAM::allocAudioBufferList((this + 120), this + 16, *(this + 44), *(this + 43));
@@ -6487,22 +6467,22 @@ uint64_t ADAM::Analyzer::PCMBuffer::analyze(ADAM *this, uint64_t a2, _DWORD *a3,
     else
     {
       v22 = MEMORY[0x29EDCA988];
-      v32 = MEMORY[0x29EDCA988];
+      v31 = MEMORY[0x29EDCA988];
     }
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = **v8;
-      v34 = *(*v8 + 2);
-      v44 = 136315906;
-      v45 = "PCMBuffer.cpp";
-      v46 = 1024;
-      v47 = 111;
-      v48 = 1024;
-      *v49 = v33;
-      *&v49[4] = 2048;
-      *&v49[6] = v34;
-      _os_log_impl(&dword_296C34000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d PCMBuffer allocated anumBuffers: %u, buffer location: %p", &v44, 0x22u);
+      v32 = **v8;
+      v33 = *(*v8 + 2);
+      v43 = 136315906;
+      v44 = "PCMBuffer.cpp";
+      v45 = 1024;
+      v46 = 111;
+      v47 = 1024;
+      *v48 = v32;
+      *&v48[4] = 2048;
+      *&v48[6] = v33;
+      _os_log_impl(&dword_296C34000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d PCMBuffer allocated anumBuffers: %u, buffer location: %p", &v43, 0x22u);
     }
 
 LABEL_2:
@@ -6570,34 +6550,34 @@ LABEL_72:
                 *(this + 112) = 1;
               }
 
-              goto LABEL_45;
+              return v16;
             }
           }
 
           else
           {
             v15 = MEMORY[0x29EDCA988];
-            v38 = MEMORY[0x29EDCA988];
+            v37 = MEMORY[0x29EDCA988];
           }
 
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v39 = *(*(this + 15) + 12);
-            v40 = *(this + 24);
-            v41 = *(this + 5);
-            v44 = 136316418;
-            v45 = "PCMBuffer.cpp";
-            v46 = 1024;
-            v47 = 59;
-            v48 = 2048;
-            *v49 = a2;
-            *&v49[8] = 1024;
-            *&v49[10] = v39;
-            *&v49[14] = 1024;
-            *&v49[16] = v40;
-            LOWORD(v50[0]) = 2048;
-            *(v50 + 2) = v41;
-            _os_log_impl(&dword_296C34000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d nodeID: %llx size: %u total frames: %u timestamp: %llu", &v44, 0x32u);
+            v38 = *(*(this + 15) + 12);
+            v39 = *(this + 24);
+            v40 = *(this + 5);
+            v43 = 136316418;
+            v44 = "PCMBuffer.cpp";
+            v45 = 1024;
+            v46 = 59;
+            v47 = 2048;
+            *v48 = a2;
+            *&v48[8] = 1024;
+            *&v48[10] = v38;
+            *&v48[14] = 1024;
+            *&v48[16] = v39;
+            LOWORD(v49[0]) = 2048;
+            *(v49 + 2) = v40;
+            _os_log_impl(&dword_296C34000, v15, OS_LOG_TYPE_DEBUG, "%25s:%-5d nodeID: %llx size: %u total frames: %u timestamp: %llu", &v43, 0x32u);
           }
 
           goto LABEL_71;
@@ -6605,9 +6585,9 @@ LABEL_72:
 
         v16 = 1718444833;
         v17 = &ADAM::Analyzer::PCMBuffer::verifyInvariants(unsigned long long,AudioBufferList const*)const::errCnt;
-        v31 = ADAM::Analyzer::PCMBuffer::verifyInvariants(unsigned long long,AudioBufferList const*)const::errCnt;
+        v30 = ADAM::Analyzer::PCMBuffer::verifyInvariants(unsigned long long,AudioBufferList const*)const::errCnt;
         v19 = ++ADAM::Analyzer::PCMBuffer::verifyInvariants(unsigned long long,AudioBufferList const*)const::errCnt;
-        if (v31)
+        if (v30)
         {
           goto LABEL_42;
         }
@@ -6629,7 +6609,7 @@ LABEL_72:
         else
         {
           v20 = MEMORY[0x29EDCA988];
-          v42 = MEMORY[0x29EDCA988];
+          v41 = MEMORY[0x29EDCA988];
         }
 
         if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -6637,13 +6617,13 @@ LABEL_72:
           goto LABEL_40;
         }
 
-        v43 = *(this + 23);
-        v44 = 136315650;
-        v45 = "PCMBuffer.cpp";
-        v46 = 1024;
-        v47 = 91;
-        v48 = 2048;
-        *v49 = v43;
+        v42 = *(this + 23);
+        v43 = 136315650;
+        v44 = "PCMBuffer.cpp";
+        v45 = 1024;
+        v46 = 91;
+        v47 = 2048;
+        *v48 = v42;
         v27 = "%25s:%-5d %llx: num buffers mismatch";
         goto LABEL_39;
       }
@@ -6671,23 +6651,23 @@ LABEL_72:
         else
         {
           v24 = MEMORY[0x29EDCA988];
-          v36 = MEMORY[0x29EDCA988];
+          v35 = MEMORY[0x29EDCA988];
         }
 
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v37 = *(this + 23);
-          v44 = 136316162;
-          v45 = "PCMBuffer.cpp";
-          v46 = 1024;
-          v47 = 83;
-          v48 = 2048;
-          *v49 = v37;
-          *&v49[8] = 2048;
-          *&v49[10] = a2;
-          *&v49[18] = 2048;
-          v50[0] = v8;
-          _os_log_impl(&dword_296C34000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d Different nodeIDs not supported by PCM buffer: %llx(c), %llx(n) ABL: %p", &v44, 0x30u);
+          v36 = *(this + 23);
+          v43 = 136316162;
+          v44 = "PCMBuffer.cpp";
+          v45 = 1024;
+          v46 = 83;
+          v47 = 2048;
+          *v48 = v36;
+          *&v48[8] = 2048;
+          *&v48[10] = a2;
+          *&v48[18] = 2048;
+          v49[0] = v8;
+          _os_log_impl(&dword_296C34000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d Different nodeIDs not supported by PCM buffer: %llx(c), %llx(n) ABL: %p", &v43, 0x30u);
         }
 
         goto LABEL_41;
@@ -6732,15 +6712,15 @@ LABEL_41:
         }
 
         v26 = *(this + 23);
-        v44 = 136315650;
-        v45 = "PCMBuffer.cpp";
-        v46 = 1024;
-        v47 = 75;
-        v48 = 2048;
-        *v49 = v26;
+        v43 = 136315650;
+        v44 = "PCMBuffer.cpp";
+        v45 = 1024;
+        v46 = 75;
+        v47 = 2048;
+        *v48 = v26;
         v27 = "%25s:%-5d %llx: PCM Buffer not configured";
 LABEL_39:
-        _os_log_impl(&dword_296C34000, v20, OS_LOG_TYPE_ERROR, v27, &v44, 0x1Cu);
+        _os_log_impl(&dword_296C34000, v20, OS_LOG_TYPE_ERROR, v27, &v43, 0x1Cu);
         goto LABEL_40;
       }
     }
@@ -6752,35 +6732,33 @@ LABEL_42:
     }
 
     *v17 = v19;
-    goto LABEL_45;
+    return v16;
   }
 
   if (ADAM::ADAMLogScope(void)::scope)
   {
-    v30 = *ADAM::ADAMLogScope(void)::scope;
-    if (!v30)
+    v29 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v29)
     {
-      goto LABEL_45;
+      return v16;
     }
   }
 
   else
   {
-    v30 = MEMORY[0x29EDCA988];
-    v35 = MEMORY[0x29EDCA988];
+    v29 = MEMORY[0x29EDCA988];
+    v34 = MEMORY[0x29EDCA988];
   }
 
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    v44 = 136315394;
-    v45 = "PCMBuffer.cpp";
-    v46 = 1024;
-    v47 = 107;
-    _os_log_impl(&dword_296C34000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d PCMBuffer failed to allocate buffer", &v44, 0x12u);
+    v43 = 136315394;
+    v44 = "PCMBuffer.cpp";
+    v45 = 1024;
+    v46 = 107;
+    _os_log_impl(&dword_296C34000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d PCMBuffer failed to allocate buffer", &v43, 0x12u);
   }
 
-LABEL_45:
-  v28 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -6826,7 +6804,7 @@ double ADAM::Analyzer::LoudnessAnalyzer::reset(ADAM::Analyzer::LoudnessAnalyzer 
 
 uint64_t ADAM::Analyzer::LoudnessAnalyzer::analyze(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     v8 = ADAM::Analyzer::LoudnessAnalyzer::isDataValid(ADAM::UnionDataPtr)const::errCnt;
@@ -6841,7 +6819,7 @@ LABEL_31:
       }
 
       ADAM::Analyzer::LoudnessAnalyzer::isDataValid(ADAM::UnionDataPtr)const::errCnt = v9;
-      goto LABEL_34;
+      return v6;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -6869,9 +6847,9 @@ LABEL_30:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "LoudnessAnalyzer.cpp";
-      v28 = 1024;
-      v29 = 114;
+      v26 = "LoudnessAnalyzer.cpp";
+      v27 = 1024;
+      v28 = 114;
       _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d HAE SPL data ptr is null? (sampled every 3k)", buf, 0x12u);
     }
 
@@ -6889,19 +6867,19 @@ LABEL_30:
     *(a1 + 96) = v17;
     *(a1 + 48) = v15;
     *(a1 + 64) = v16;
-    v25 = *(a3 + 16);
-    v18.f64[0] = __exp10(*a3 * 0.1) * v25;
-    v18.f64[1] = v25;
-    v24 = vaddq_f64(v18, *(a1 + 136));
-    *(a1 + 136) = v24;
-    v19.f64[0] = __exp10(*(a3 + 4) * 0.1) * v25;
-    v19.f64[1] = v25;
+    v24 = *(a3 + 16);
+    v18.f64[0] = __exp10(*a3 * 0.1) * v24;
+    v18.f64[1] = v24;
+    v23 = vaddq_f64(v18, *(a1 + 136));
+    *(a1 + 136) = v23;
+    v19.f64[0] = __exp10(*(a3 + 4) * 0.1) * v24;
+    v19.f64[1] = v24;
     *(a1 + 152) = vaddq_f64(v19, *(a1 + 152));
-    v20.f64[0] = __exp10(*(a3 + 8) * 0.1) * v25;
-    v20.f64[1] = v25;
+    v20.f64[0] = __exp10(*(a3 + 8) * 0.1) * v24;
+    v20.f64[1] = v24;
     *(a1 + 168) = vaddq_f64(v20, *(a1 + 168));
     *(a1 + 128) = *(a3 + 12);
-    if (v24.f64[1] >= *(a1 + 184))
+    if (v23.f64[1] >= *(a1 + 184))
     {
       ADAM::Analyzer::LoudnessAnalyzer::popDose(a1);
       v6 = 0;
@@ -6910,7 +6888,7 @@ LABEL_30:
 
     else
     {
-      v6 = 0;
+      return 0;
     }
   }
 
@@ -6927,7 +6905,7 @@ LABEL_30:
       v7 = *ADAM::ADAMLogScope(void)::scope;
       if (!v7)
       {
-        goto LABEL_34;
+        return v6;
       }
     }
 
@@ -6942,19 +6920,17 @@ LABEL_30:
       v12 = *a3;
       v13 = *(a3 + 16);
       *buf = 136315906;
-      v27 = "LoudnessAnalyzer.cpp";
-      v28 = 1024;
-      v29 = 124;
-      v30 = 2048;
-      v31 = v12;
-      v32 = 2048;
-      v33 = v13;
+      v26 = "LoudnessAnalyzer.cpp";
+      v27 = 1024;
+      v28 = 124;
+      v29 = 2048;
+      v30 = v12;
+      v31 = 2048;
+      v32 = v13;
       _os_log_impl(&dword_296C34000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid HAE data { dBA: %.2f, duration: %.2f }", buf, 0x26u);
     }
   }
 
-LABEL_34:
-  v22 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -6983,7 +6959,7 @@ float ADAM::Analyzer::LoudnessAnalyzer::popDose(ADAM::Analyzer::LoudnessAnalyzer
 
 void ADAM::Analyzer::LoudnessAnalyzer::flush(ADAM::Analyzer::LoudnessAnalyzer *this)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   if (*(this + 18) > 0.0)
   {
     ADAM::Analyzer::LoudnessAnalyzer::popDose(this);
@@ -6999,7 +6975,7 @@ void ADAM::Analyzer::LoudnessAnalyzer::flush(ADAM::Analyzer::LoudnessAnalyzer *t
       v2 = *ADAM::ADAMLogScope(void)::scope;
       if (!v2)
       {
-        goto LABEL_11;
+        return;
       }
     }
 
@@ -7011,52 +6987,47 @@ void ADAM::Analyzer::LoudnessAnalyzer::flush(ADAM::Analyzer::LoudnessAnalyzer *t
 
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v5 = 136315394;
-      v6 = "LoudnessAnalyzer.cpp";
-      v7 = 1024;
-      v8 = 90;
-      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d LoudnessAnalyzer needs to be flushed", &v5, 0x12u);
+      v4 = 136315394;
+      v5 = "LoudnessAnalyzer.cpp";
+      v6 = 1024;
+      v7 = 90;
+      _os_log_impl(&dword_296C34000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d LoudnessAnalyzer needs to be flushed", &v4, 0x12u);
     }
   }
-
-LABEL_11:
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void *ADAM::BoolParamInfo::BoolParamInfo(void *a1, uint64_t a2, unsigned __int8 a3, __int128 *a4)
 {
-  v7[4] = *MEMORY[0x29EDCA608];
-  v7[1] = a3;
-  v7[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-  ADAM::Parameters::ParamInfo::ParamInfo(a1, a2, v7, a4);
-  std::any::reset[abi:ne200100](v7);
+  v6[4] = *MEMORY[0x29EDCA608];
+  v6[1] = a3;
+  v6[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
+  ADAM::Parameters::ParamInfo::ParamInfo(a1, a2, v6, a4);
+  std::any::reset[abi:ne200100](v6);
   *a1 = &unk_2A1DEE608;
-  v5 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C6B1AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C6B1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *ADAM::FloatParamInfo::FloatParamInfo(void *a1, uint64_t a2, __int128 *a3, float a4)
+void *ADAM::FloatParamInfo::FloatParamInfo(void *a1, uint64_t a2, float a3, __int128 *a4)
 {
-  v7[4] = *MEMORY[0x29EDCA608];
-  v7[1] = LODWORD(a4);
-  v7[0] = std::__any_imp::_SmallHandler<float>::__handle[abi:ne200100];
-  ADAM::Parameters::ParamInfo::ParamInfo(a1, a2, v7, a3);
-  std::any::reset[abi:ne200100](v7);
+  v6[4] = *MEMORY[0x29EDCA608];
+  v6[1] = LODWORD(a3);
+  v6[0] = std::__any_imp::_SmallHandler<float>::__handle[abi:ne200100];
+  ADAM::Parameters::ParamInfo::ParamInfo(a1, a2, v6, a4);
+  std::any::reset[abi:ne200100](v6);
   *a1 = &unk_2A1DEE638;
-  v5 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C6B260(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C6B260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::any::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7129,9 +7100,9 @@ void std::vector<std::shared_ptr<ADAM::Parameters::ParamInfo>>::__destroy_vector
 
 void ADAM::Parameters::SettingsChanged(ADAM::Parameters *this, __CFNotificationCenter **a2, void *a3, const __CFString *a4, void *a5, const __CFDictionary *a6)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v16 = a3;
-  v6 = [v16 isEqualToString:*MEMORY[0x29EDBFAB8]];
+  v20 = *MEMORY[0x29EDCA608];
+  v15 = a3;
+  v6 = [v15 isEqualToString:*MEMORY[0x29EDBFAB8]];
   if (!v6)
   {
     ADAM::Parameters::instance(v6);
@@ -7165,8 +7136,8 @@ LABEL_9:
       *&buf[4] = "ADAMParameters.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 162;
-      v19 = 2112;
-      v20 = v8;
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d ADAM re-loading wired device status is headphone: %@", buf, 0x1Cu);
     }
   }
@@ -7183,9 +7154,9 @@ LABEL_9:
 
   v12 = *(ADAM::Parameters::instance(void)::gParams + 192);
   v13 = (v12 + 16);
-  v17[1] = v11;
-  v17[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-  if (v17 != (v12 + 16))
+  v16[1] = v11;
+  v16[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
+  if (v16 != (v12 + 16))
   {
     v14 = *v13;
     if (*v13)
@@ -7193,8 +7164,8 @@ LABEL_9:
       *buf = 0;
       *&buf[8] = 0;
       v14(2, v12 + 16, buf, 0, 0);
-      v17[0](2, v17, v13, 0, 0);
-      (*buf)(2, buf, v17, 0, 0);
+      v16[0](2, v16, v13, 0, 0);
+      (*buf)(2, buf, v16, 0, 0);
       std::any::reset[abi:ne200100](buf);
     }
 
@@ -7202,14 +7173,13 @@ LABEL_9:
     {
       *(v12 + 24) = v11;
       *(v12 + 16) = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-      v17[0] = 0;
+      v16[0] = 0;
     }
   }
 
-  std::any::reset[abi:ne200100](v17);
+  std::any::reset[abi:ne200100](v16);
 
 LABEL_20:
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t (**std::any::reset[abi:ne200100](uint64_t (**result)(void, void, void, void, void)))(void, void, void, void, void)
@@ -7269,10 +7239,10 @@ void sub_296C6B7E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ADAM::FloatParamInfo::ReadDefaultsValue(ADAM::FloatParamInfo *this)
+void ADAM::FloatParamInfo::ReadDefaultsValue(CFStringRef *this)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  v2 = CFPreferencesCopyAppValue(*(this + 1), @"com.apple.coreaudio");
+  v21 = *MEMORY[0x29EDCA608];
+  v2 = CFPreferencesCopyAppValue(this[1], @"com.apple.coreaudio");
   valuePtr = 0.0;
   if (!v2)
   {
@@ -7310,7 +7280,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v21 = 0u;
+  v20 = 0u;
   memset(buffer, 0, sizeof(buffer));
   CFStringGetCString(v3, buffer, 64, 0x600u);
   v7 = sscanf(buffer, "%lf", &valuePtr) == 1;
@@ -7323,12 +7293,12 @@ LABEL_12:
   }
 
 LABEL_13:
-  v9 = *(this + 6);
+  v9 = this[6];
   *buffer = 0;
   *&buffer[8] = 0;
   if (v9)
   {
-    v9(1, this + 48, buffer, 0, 0);
+    (v9)(1, this + 6, buffer, 0, 0);
   }
 
 LABEL_15:
@@ -7344,7 +7314,7 @@ LABEL_15:
     v10 = *ADAM::ADAMLogScope(void)::scope;
     if (!v10)
     {
-      goto LABEL_29;
+      return;
     }
   }
 
@@ -7357,7 +7327,7 @@ LABEL_15:
   v12 = v10;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(this + 1);
+    v13 = this[1];
     v14 = std::any_cast[abi:ne200100]<float>(this + 2);
     if (!v14)
     {
@@ -7371,7 +7341,7 @@ LABEL_15:
       v16 = "invalid";
     }
 
-    v17 = (this + 80);
+    v17 = this + 10;
     if (*(this + 103) < 0)
     {
       v17 = *v17;
@@ -7387,32 +7357,28 @@ LABEL_15:
     *&buffer[30] = v15;
     *&buffer[38] = 2080;
     *&buffer[40] = v16;
-    LOWORD(v21) = 2080;
-    *(&v21 + 2) = v17;
+    LOWORD(v20) = 2080;
+    *(&v20 + 2) = v17;
     _os_log_impl(&dword_296C34000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ADAM Parameter: {'%@', %.2f, %s} %s", buffer, 0x3Au);
   }
-
-LABEL_29:
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 unint64_t *std::any::operator=[abi:ne200100](unint64_t *a1, void (**a2)(uint64_t))
 {
-  v5[8] = *MEMORY[0x29EDCA608];
-  v5[0] = 0;
-  v5[1] = 0;
+  v4[8] = *MEMORY[0x29EDCA608];
+  v4[0] = 0;
+  v4[1] = 0;
   if (*a2)
   {
     (*a2)(1);
   }
 
-  if (v5 != a1 && *a1 != 0)
+  if (v4 != a1 && *a1 != 0)
   {
-    (*a1)(2, a1, v5, 0, 0);
+    (*a1)(2, a1, v4, 0, 0);
   }
 
-  std::any::reset[abi:ne200100](v5);
-  v3 = *MEMORY[0x29EDCA608];
+  std::any::reset[abi:ne200100](v4);
   return a1;
 }
 
@@ -7435,7 +7401,7 @@ void std::__shared_ptr_pointer<ADAM::BoolParamInfo  *>::~__shared_ptr_pointer(st
 
 void ADAM::BoolParamInfo::ReadDefaultsValue(ADAM::BoolParamInfo *this)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v2 = CFPreferencesCopyAppValue(*(this + 1), @"com.apple.coreaudio");
   valuePtr = 0;
   if (!v2)
@@ -7462,7 +7428,7 @@ LABEL_6:
 
   if (v4 == CFStringGetTypeID())
   {
-    v24 = 0u;
+    v23 = 0u;
     memset(buffer, 0, sizeof(buffer));
     CFStringGetCString(v3, buffer, 64, 0x600u);
     if (sscanf(buffer, "%d", &valuePtr) == 1)
@@ -7472,21 +7438,21 @@ LABEL_6:
       goto LABEL_10;
     }
 
-    v18 = buffer[0];
+    v17 = buffer[0];
     if (buffer[0])
     {
-      v19 = &buffer[1];
+      v18 = &buffer[1];
       do
       {
-        *(v19 - 1) = __tolower(v18);
-        v20 = *v19++;
-        v18 = v20;
+        *(v18 - 1) = __tolower(v17);
+        v19 = *v18++;
+        v17 = v19;
       }
 
-      while (v20);
+      while (v19);
     }
 
-    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v21 = *&buffer[4] == 101) : (v21 = 0), v21))
+    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v20 = *&buffer[4] == 101) : (v20 = 0), v20))
     {
       v6 = 0;
     }
@@ -7535,7 +7501,7 @@ LABEL_18:
     v9 = *ADAM::ADAMLogScope(void)::scope;
     if (!v9)
     {
-      goto LABEL_35;
+      return;
     }
   }
 
@@ -7587,13 +7553,10 @@ LABEL_18:
     *&buffer[30] = v14;
     *&buffer[38] = 2080;
     *&buffer[40] = v15;
-    LOWORD(v24) = 2080;
-    *(&v24 + 2) = v16;
+    LOWORD(v23) = 2080;
+    *(&v23 + 2) = v16;
     _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ADAM Parameter: {'%@', %s, %s} %s", buffer, 0x3Au);
   }
-
-LABEL_35:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296C6CC64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -7618,7 +7581,7 @@ void sub_296C6CC64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 float ADAM::Parameters::GetHAELiveUIAccumulationPeriodInSec(ADAM::Parameters *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   Param = ADAM::Parameters::GetParamValue<float>(9u);
   if (Param <= 0.0 || Param > 10.0)
   {
@@ -7632,9 +7595,7 @@ float ADAM::Parameters::GetHAELiveUIAccumulationPeriodInSec(ADAM::Parameters *th
       v3 = *ADAM::ADAMLogScope(void)::scope;
       if (!v3)
       {
-LABEL_14:
-        Param = 1.0;
-        goto LABEL_15;
+        return 1.0;
       }
     }
 
@@ -7646,20 +7607,18 @@ LABEL_14:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ADAMParameters.cpp";
-      v9 = 1024;
-      v10 = 152;
-      v11 = 2048;
-      v12 = Param;
-      _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid Accumulation Period in Seconds for HAE: %.2f, default to 1.0s", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ADAMParameters.cpp";
+      v8 = 1024;
+      v9 = 152;
+      v10 = 2048;
+      v11 = Param;
+      _os_log_impl(&dword_296C34000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid Accumulation Period in Seconds for HAE: %.2f, default to 1.0s", &v6, 0x1Cu);
     }
 
-    goto LABEL_14;
+    return 1.0;
   }
 
-LABEL_15:
-  v5 = *MEMORY[0x29EDCA608];
   return Param;
 }
 
@@ -7695,7 +7654,7 @@ _DWORD *ADAM::BufferNodePCM::pop(_DWORD *this)
 
 uint64_t ADAM::BufferNodePCM::read(uint64_t a1, int *a2, _OWORD *a3)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v5 = *(a1 + 160);
   if (*a2 == *v5)
   {
@@ -7738,7 +7697,7 @@ uint64_t ADAM::BufferNodePCM::read(uint64_t a1, int *a2, _OWORD *a3)
 
     else
     {
-      v13 = 1701670945;
+      return 1701670945;
     }
   }
 
@@ -7755,7 +7714,7 @@ uint64_t ADAM::BufferNodePCM::read(uint64_t a1, int *a2, _OWORD *a3)
       v18 = *ADAM::ADAMLogScope(void)::scope;
       if (!v18)
       {
-        goto LABEL_18;
+        return v13;
       }
     }
 
@@ -7769,31 +7728,29 @@ uint64_t ADAM::BufferNodePCM::read(uint64_t a1, int *a2, _OWORD *a3)
     {
       v20 = *a2;
       v21 = **(a1 + 160);
-      v24 = 136315906;
-      v25 = "ADAMRingBuffer.cpp";
-      v26 = 1024;
-      v27 = 63;
-      v28 = 1024;
-      v29 = v20;
-      v30 = 1024;
-      v31 = v21;
-      _os_log_impl(&dword_296C34000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioRingBuffer process error format does not match: outABL.mNumBuffers:%u expected:%u", &v24, 0x1Eu);
+      v23 = 136315906;
+      v24 = "ADAMRingBuffer.cpp";
+      v25 = 1024;
+      v26 = 63;
+      v27 = 1024;
+      v28 = v20;
+      v29 = 1024;
+      v30 = v21;
+      _os_log_impl(&dword_296C34000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioRingBuffer process error format does not match: outABL.mNumBuffers:%u expected:%u", &v23, 0x1Eu);
     }
   }
 
-LABEL_18:
-  v22 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t ADAM::BufferNodePCM::process(_DWORD **a1, __int128 *a2, _OWORD *a3)
 {
   v3 = a1;
-  v42 = *MEMORY[0x29EDCA608];
-  v32 = *a2;
-  v33 = *(a2 + 2);
-  v4 = v32;
-  if (v32 != *a1[20])
+  v41 = *MEMORY[0x29EDCA608];
+  v31 = *a2;
+  v32 = *(a2 + 2);
+  v4 = v31;
+  if (v31 != *a1[20])
   {
     v8 = ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt;
     v9 = ++ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt;
@@ -7806,8 +7763,7 @@ LABEL_30:
       }
 
       ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt = v9;
-      result = 1718444833;
-      goto LABEL_41;
+      return 1718444833;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -7836,20 +7792,20 @@ LABEL_29:
     {
       v28 = *v3[20];
       *buf = 136315906;
-      v35 = "ADAMRingBuffer.cpp";
-      v36 = 1024;
-      v37 = 32;
-      v38 = 1024;
-      v39 = v32;
-      v40 = 1024;
-      v41 = v28;
+      v34 = "ADAMRingBuffer.cpp";
+      v35 = 1024;
+      v36 = 32;
+      v37 = 1024;
+      v38 = v31;
+      v39 = 1024;
+      v40 = v28;
       _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioRingBuffer process error format does not match: inABL.mNumBuffers:%u expected:%u", buf, 0x1Eu);
     }
 
     goto LABEL_29;
   }
 
-  if (HIDWORD(v32) > *(a1 + 46))
+  if (HIDWORD(v31) > *(a1 + 46))
   {
     v5 = ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt;
     v6 = ++ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt;
@@ -7862,8 +7818,7 @@ LABEL_38:
       }
 
       ADAM::AudioRingBuffer::write(AudioBufferList const&,ADAM::Metadata const&)::errCnt = v6;
-      result = 1819436833;
-      goto LABEL_41;
+      return 1819436833;
     }
 
     if (ADAM::ADAMLogScope(void)::once != -1)
@@ -7892,13 +7847,13 @@ LABEL_37:
     {
       v30 = *(v3 + 46);
       *buf = 136315906;
-      v35 = "ADAMRingBuffer.cpp";
-      v36 = 1024;
-      v37 = 37;
-      v38 = 1024;
-      v39 = HIDWORD(v32);
-      v40 = 1024;
-      v41 = v30;
+      v34 = "ADAMRingBuffer.cpp";
+      v35 = 1024;
+      v36 = 37;
+      v37 = 1024;
+      v38 = HIDWORD(v31);
+      v39 = 1024;
+      v40 = v30;
       _os_log_impl(&dword_296C34000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioRingBuffer process error incoming size: %u, blksz: %u", buf, 0x1Eu);
     }
 
@@ -7909,134 +7864,123 @@ LABEL_37:
   v12 = *(a1 + 47);
   if (*(a1 + 44) == v12)
   {
-    result = 1718971425;
+    return 1718971425;
   }
 
-  else
+  v15 = (v11 + 1) % v12;
+  if (v31)
   {
-    v15 = (v11 + 1) % v12;
-    if (v32)
+    v16 = &v32;
+    v17 = 4;
+    do
     {
-      v16 = &v33;
-      v17 = 4;
-      do
-      {
-        a1 = memcpy((*&v3[20][v17] + (*(v3 + 46) * v11)), *v16, *(v16 - 1));
-        v16 += 2;
-        v17 += 4;
-        --v4;
-      }
-
-      while (v4);
+      a1 = memcpy((*&v3[20][v17] + (*(v3 + 46) * v11)), *v16, *(v16 - 1));
+      v16 += 2;
+      v17 += 4;
+      --v4;
     }
 
-    v18 = &v3[29][20 * v11];
-    *v18 = *a3;
-    v19 = a3[1];
-    v20 = a3[2];
-    v21 = a3[4];
-    v18[3] = a3[3];
-    v18[4] = v21;
-    v18[1] = v19;
-    v18[2] = v20;
-    *(v3 + 42) = v15;
-    atomic_fetch_add(v3 + 44, 1u);
-    v22 = &v3[4][6 * *(v3 + 14)];
-    *(v22 + 8) = v3[2];
-    *(v22 + 16) = 4;
-    ADAM::AudioDataAnalysisManager::instance(a1);
-    v23 = qword_2A18A51E0[0];
-    atomic_store(qword_2A18A51E0[0], v22);
-    v24 = v23;
-    atomic_compare_exchange_strong(qword_2A18A51E0, &v24, v22);
-    if (v24 != v23)
-    {
-      v25 = v24;
-      do
-      {
-        atomic_store(v24, v22);
-        atomic_compare_exchange_strong(qword_2A18A51E0, &v25, v22);
-        v26 = v25 == v24;
-        v24 = v25;
-      }
-
-      while (!v26);
-    }
-
-    caulk::semaphore::signal(&unk_2A18A51C8);
-    result = 0;
-    *(v3 + 14) = (*(v3 + 14) + 1) % *(v3 + 7);
+    while (v4);
   }
 
-LABEL_41:
-  v31 = *MEMORY[0x29EDCA608];
+  v18 = &v3[29][20 * v11];
+  *v18 = *a3;
+  v19 = a3[1];
+  v20 = a3[2];
+  v21 = a3[4];
+  v18[3] = a3[3];
+  v18[4] = v21;
+  v18[1] = v19;
+  v18[2] = v20;
+  *(v3 + 42) = v15;
+  atomic_fetch_add(v3 + 44, 1u);
+  v22 = &v3[4][6 * *(v3 + 14)];
+  *(v22 + 8) = v3[2];
+  *(v22 + 16) = 4;
+  ADAM::AudioDataAnalysisManager::instance(a1);
+  v23 = qword_2A18A51E0[0];
+  atomic_store(qword_2A18A51E0[0], v22);
+  v24 = v23;
+  atomic_compare_exchange_strong(qword_2A18A51E0, &v24, v22);
+  if (v24 != v23)
+  {
+    v25 = v24;
+    do
+    {
+      atomic_store(v24, v22);
+      atomic_compare_exchange_strong(qword_2A18A51E0, &v25, v22);
+      v26 = v25 == v24;
+      v24 = v25;
+    }
+
+    while (!v26);
+  }
+
+  caulk::semaphore::signal(&unk_2A18A51C8);
+  result = 0;
+  *(v3 + 14) = (*(v3 + 14) + 1) % *(v3 + 7);
   return result;
 }
 
 void ADAM::BufferNodePCM::reset(ADAM::BufferNodePCM *this)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  if (atomic_load(this + 44))
-  {
-    v3 = -50500;
-    while (1)
-    {
-      v3 += 500;
-      if (!v3)
-      {
-        break;
-      }
-
-      usleep(0x1F4u);
-      if (!atomic_load(this + 44))
-      {
-        goto LABEL_5;
-      }
-    }
-
-    if (ADAM::ADAMLogScope(void)::once != -1)
-    {
-      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-    }
-
-    if (ADAM::ADAMLogScope(void)::scope)
-    {
-      v5 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v5)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    else
-    {
-      v5 = MEMORY[0x29EDCA988];
-      v6 = MEMORY[0x29EDCA988];
-    }
-
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = *(this + 2);
-      v9 = 136315650;
-      v10 = "ADAMBufferNodes.cpp";
-      v11 = 1024;
-      v12 = 46;
-      v13 = 2048;
-      v14 = v7;
-      _os_log_impl(&dword_296C34000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v9, 0x1Cu);
-    }
-  }
-
-  else
+  v14 = *MEMORY[0x29EDCA608];
+  if (!atomic_load(this + 44))
   {
 LABEL_5:
     *(this + 42) = 0;
     *(this + 43) = 0;
     *(this + 44) = 0;
+    return;
   }
 
-LABEL_15:
-  v8 = *MEMORY[0x29EDCA608];
+  v3 = -50500;
+  while (1)
+  {
+    v3 += 500;
+    if (!v3)
+    {
+      break;
+    }
+
+    usleep(0x1F4u);
+    if (!atomic_load(this + 44))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (ADAM::ADAMLogScope(void)::once != -1)
+  {
+    dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+  }
+
+  if (ADAM::ADAMLogScope(void)::scope)
+  {
+    v5 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v5)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v5 = MEMORY[0x29EDCA988];
+    v6 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    v7 = *(this + 2);
+    v8 = 136315650;
+    v9 = "ADAMBufferNodes.cpp";
+    v10 = 1024;
+    v11 = 46;
+    v12 = 2048;
+    v13 = v7;
+    _os_log_impl(&dword_296C34000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Session: %llx Failed to flush ring buffer, Timedout", &v8, 0x1Cu);
+  }
 }
 
 void ADAM::BufferNodeDescriptorPCM::~BufferNodeDescriptorPCM(void **this)
@@ -8090,7 +8034,7 @@ uint64_t AudioDataAnalysisManagerReset(ADAM::AudioDataAnalysisManager *a1)
   return result;
 }
 
-uint64_t AudioDataAnalysisManagerUpdateReportingSessions(ADAM::AudioDataAnalysisManager *a1, const __CFDictionary ***a2)
+uint64_t AudioDataAnalysisManagerUpdateReportingSessions(ADAM::AudioDataAnalysisManager *a1, uint64_t **a2)
 {
   ADAM::AudioDataAnalysisManager::instance(a1);
   ClientSessionMananger = ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1);
@@ -8103,7 +8047,7 @@ uint64_t AudioDataAnalysisManagerUpdateReportingSessions(ADAM::AudioDataAnalysis
   return 0;
 }
 
-uint64_t AudioDataAnalysisManagerCreateNodeSPL(ADAM::AudioDataAnalysisManager *a1, unsigned int a2)
+uint64_t AudioDataAnalysisManagerCreateNodeSPL(ADAM::AudioDataAnalysisManager *a1, unsigned int a2, void *a3)
 {
   ADAM::AudioDataAnalysisManager::instance(a1);
   ClientSessionMananger = ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1);
@@ -8120,7 +8064,7 @@ uint64_t AudioDataAnalysisManagerCreateNodeSPL(ADAM::AudioDataAnalysisManager *a
   return 1852400673;
 }
 
-uint64_t AudioDataAnalysisManagerCreateNodeMicLevel(ADAM::AudioDataAnalysisManager *a1, unsigned int a2)
+uint64_t AudioDataAnalysisManagerCreateNodeMicLevel(ADAM::AudioDataAnalysisManager *a1, unsigned int a2, void *a3)
 {
   ADAM::AudioDataAnalysisManager::instance(a1);
   ClientSessionMananger = ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1);
@@ -8163,7 +8107,7 @@ uint64_t AudioDataAnalysisManagerRemoveNode(ADAM::AudioDataAnalysisManager *a1, 
 
 uint64_t AudioDataAnalysisManagerProcessSPL(unint64_t a1, unsigned int a2, _OWORD *a3, float a4, float a5, float a6, float a7, float a8)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v16 = 1634625825;
   ADAM::AudioDataAnalysisManager::instance(a1);
   if (byte_2A18A51D8 == 1)
@@ -8185,20 +8129,20 @@ uint64_t AudioDataAnalysisManagerProcessSPL(unint64_t a1, unsigned int a2, _OWOR
             *buf = *a3;
             *&buf[16] = v20;
             v21 = a3[3];
-            v29 = a3[2];
-            v30 = v21;
-            v31 = xmmword_296C79980;
-            *v27 = a4;
-            *&v27[1] = a5;
-            *&v27[2] = a6;
-            *&v27[3] = a7;
-            *&v27[4] = a8;
-            v16 = (*(*v19[3] + 16))(v19[3], v27, buf);
+            v28 = a3[2];
+            v29 = v21;
+            v30 = xmmword_296C79980;
+            *v26 = a4;
+            *&v26[1] = a5;
+            *&v26[2] = a6;
+            *&v26[3] = a7;
+            *&v26[4] = a8;
+            return (*(*v19[3] + 16))(v19[3], v26, buf);
           }
 
           else
           {
-            v16 = 1852400673;
+            return 1852400673;
           }
         }
       }
@@ -8224,7 +8168,7 @@ uint64_t AudioDataAnalysisManagerProcessSPL(unint64_t a1, unsigned int a2, _OWOR
         v22 = *ADAM::ADAMLogScope(void)::scope;
         if (!v22)
         {
-          goto LABEL_18;
+          return v16;
         }
       }
 
@@ -8248,14 +8192,109 @@ uint64_t AudioDataAnalysisManagerProcessSPL(unint64_t a1, unsigned int a2, _OWOR
     }
   }
 
-LABEL_18:
-  v25 = *MEMORY[0x29EDCA608];
   return v16;
+}
+
+void sub_296C6E638(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 buf, __int16 a14, __int16 a15, __int128 a16, uint64_t a17)
+{
+  if (a2)
+  {
+    v20 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v21 = ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      v22 = ++ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      if (!v21)
+      {
+        v23 = v20;
+        if (ADAM::ADAMLogScope(void)::once != -1)
+        {
+          dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+        }
+
+        v24 = CALog::LogObjIfEnabled(ADAM::ADAMLogScope(void)::scope);
+        v25 = v24;
+        if (v24)
+        {
+          v26 = v24;
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            v27 = (*(*v23 + 16))(v23);
+            LODWORD(buf) = 136316162;
+            *(&buf + 4) = "AudioDataAnalysisManager.cpp";
+            WORD6(buf) = 1024;
+            *(&buf + 14) = 322;
+            a15 = 2048;
+            WORD2(a16) = 2048;
+            *(&a16 + 6) = v18 | (v17 << 32);
+            HIWORD(a16) = 2080;
+            a17 = v27;
+            _os_log_impl(&dword_296C34000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d Exception %p, session %llx, %s", &buf, 0x30u);
+          }
+        }
+
+        v22 = ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      }
+
+      if (v22 > 0xBB7)
+      {
+        v22 = 0;
+      }
+
+      ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt = v22;
+      __cxa_end_catch();
+    }
+
+    else
+    {
+      v28 = ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      v29 = ++ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      if (!v28)
+      {
+        if (ADAM::ADAMLogScope(void)::once != -1)
+        {
+          dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+        }
+
+        v30 = CALog::LogObjIfEnabled(ADAM::ADAMLogScope(void)::scope);
+        v31 = v30;
+        if (v30)
+        {
+          v32 = v30;
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          {
+            *(&buf + 4) = "AudioDataAnalysisManager.cpp";
+            WORD6(buf) = 1024;
+            LODWORD(buf) = 136315906;
+            *(&buf + 14) = 324;
+            a15 = 2048;
+            WORD2(a16) = 2048;
+            *(&a16 + 6) = v18 | (v17 << 32);
+            _os_log_impl(&dword_296C34000, v32, OS_LOG_TYPE_ERROR, "%25s:%-5d Exception %p, session %llx", &buf, 0x26u);
+          }
+        }
+
+        v29 = ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt;
+      }
+
+      if (v29 > 0xBB7)
+      {
+        v29 = 0;
+      }
+
+      ADAM::AudioDataAnalysisManager::processSPL(unsigned long long,unsigned int,float,float,float,float,float,AudioTimeStamp const&)::errCnt = v29;
+      __cxa_end_catch();
+    }
+
+    JUMPOUT(0x296C6E5CCLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t AudioDataAnalysisManagerProcessMicLevel(unint64_t a1, unsigned int a2, _OWORD *a3, float a4, float a5)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v10 = 1634625825;
   ADAM::AudioDataAnalysisManager::instance(a1);
   if (byte_2A18A51D8 == 1)
@@ -8276,23 +8315,23 @@ uint64_t AudioDataAnalysisManagerProcessMicLevel(unint64_t a1, unsigned int a2, 
             *buf = *a3;
             *&buf[16] = v13;
             v14 = a3[3];
-            v23 = a3[2];
-            v24 = v14;
-            v25 = xmmword_296C79980;
-            *v21 = a4;
-            *&v21[1] = a5;
+            v22 = a3[2];
+            v23 = v14;
+            v24 = xmmword_296C79980;
+            *v20 = a4;
+            *&v20[1] = a5;
             v15 = std::__hash_table<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,rtaid::Detector::NodeBook>>>::find<unsigned int>((v12 + 16), a2);
             if (!v15)
             {
               std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
             }
 
-            v10 = (*(*v15[3] + 16))(v15[3], v21, buf);
+            return (*(*v15[3] + 16))(v15[3], v20, buf);
           }
 
           else
           {
-            v10 = 1852400673;
+            return 1852400673;
           }
         }
       }
@@ -8318,7 +8357,7 @@ uint64_t AudioDataAnalysisManagerProcessMicLevel(unint64_t a1, unsigned int a2, 
         v16 = *ADAM::ADAMLogScope(void)::scope;
         if (!v16)
         {
-          goto LABEL_19;
+          return v10;
         }
       }
 
@@ -8342,158 +8381,248 @@ uint64_t AudioDataAnalysisManagerProcessMicLevel(unint64_t a1, unsigned int a2, 
     }
   }
 
-LABEL_19:
-  v19 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
-uint64_t AudioDataAnalysisManagerSetDeviceInfo(ADAM::AudioDataAnalysisManager *a1, uint64_t a2)
+void sub_296C6EB04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, __int128 a14, uint64_t a15)
 {
-  v39 = *MEMORY[0x29EDCA608];
-  ADAM::AudioDataAnalysisManager::instance(a1);
-  ClientSessionMananger = ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1);
-  if (ClientSessionMananger)
+  if (a2)
   {
-    v5 = 561017453;
-    if (*a2)
+    v18 = __cxa_begin_catch(a1);
+    if (a2 == 2)
     {
-      v6 = ClientSessionMananger;
-      ADAM::releaseADAMDeviceInfo(ClientSessionMananger + 248);
-      ADAM::copyDeviceInfo(a2, (v6 + 248));
-      ADAM::logDeviceInfo(v6 + 248);
-      v7 = objc_autoreleasePoolPush();
-      v8 = *(v6 + 248);
-      if (v8)
+      v19 = ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
+      v20 = ++ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
+      if (!v19)
       {
-        if ((*(v6 + 280) & 4) != 0)
+        v21 = v18;
+        if (ADAM::ADAMLogScope(void)::once != -1)
         {
-          Copy = @"Codec";
+          dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
         }
 
-        else
+        v22 = CALog::LogObjIfEnabled(ADAM::ADAMLogScope(void)::scope);
+        v23 = v22;
+        if (v22)
         {
-          Copy = CFStringCreateCopy(0, v8);
-          if (!Copy)
+          v24 = v22;
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_32;
+            v25 = (*(*v21 + 16))(v21);
+            LODWORD(buf) = 136316162;
+            *(&buf + 4) = "AudioDataAnalysisManager.cpp";
+            WORD6(buf) = 1024;
+            *(&buf + 14) = 421;
+            a13 = 2048;
+            WORD2(a14) = 2048;
+            *(&a14 + 6) = v16 | (v15 << 32);
+            HIWORD(a14) = 2080;
+            a15 = v25;
+            _os_log_impl(&dword_296C34000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d MicLevel Exception %p, session %llx, %s", &buf, 0x30u);
           }
         }
 
-        v11 = *(v6 + 272);
-        if (v11)
-        {
-          v12 = [v11 copy];
-        }
-
-        else
-        {
-          v12 = &stru_2A1DEEE38;
-        }
-
-        v14 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:*(v6 + 280) & 2];
-        v15 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:*(a2 + 32) & 0x10];
-        v17 = *(v6 + 288);
-        if (v17)
-        {
-          v18 = CFDictionaryCreateCopy(0, v17);
-          v19 = [(__CFDictionary *)v18 objectForKey:@"ScalarVolume74"];
-          v20 = v19;
-          if (v19)
-          {
-            [v19 floatValue];
-            v22 = v21;
-          }
-
-          else
-          {
-            v22 = -1.0;
-          }
-
-          v24 = [(__CFDictionary *)v18 objectForKey:@"ScalarVolume80"];
-          v25 = v24;
-          if (v24)
-          {
-            [v24 floatValue];
-            v23 = v26;
-          }
-
-          else
-          {
-            v23 = -1.0;
-          }
-        }
-
-        else
-        {
-          v18 = 0;
-          v22 = -1.0;
-          v23 = -1.0;
-        }
-
-        v27 = MEMORY[0x29EDB8DC0];
-        *&v16 = v22;
-        v28 = [MEMORY[0x29EDBA070] numberWithFloat:v16];
-        *&v29 = v23;
-        v30 = [MEMORY[0x29EDBA070] numberWithFloat:v29];
-        v31 = [v27 dictionaryWithObjectsAndKeys:{Copy, *MEMORY[0x29EDC1500], v14, *MEMORY[0x29EDC1510], v15, *MEMORY[0x29EDC1508], v12, *MEMORY[0x29EDC14F8], v28, *MEMORY[0x29EDC1518], v30, *MEMORY[0x29EDC1520], 0}];
-
-        v32 = [MEMORY[0x29EDC1528] sharedInstance];
-        [v32 deviceSessionCreated:v31 SessionID:*(v6 + 8)];
-
-        v5 = 0;
-        goto LABEL_32;
+        v20 = ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
       }
 
-      Copy = 0;
-LABEL_32:
-
-      objc_autoreleasePoolPop(v7);
-      goto LABEL_33;
-    }
-
-    if (ADAM::ADAMLogScope(void)::once != -1)
-    {
-      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-    }
-
-    if (ADAM::ADAMLogScope(void)::scope)
-    {
-      v10 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v10)
+      if (v20 > 0xBB7)
       {
-        goto LABEL_33;
+        v20 = 0;
       }
+
+      ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt = v20;
+      __cxa_end_catch();
     }
 
     else
     {
-      v10 = MEMORY[0x29EDCA988];
-      v13 = MEMORY[0x29EDCA988];
+      v26 = ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
+      v27 = ++ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
+      if (!v26)
+      {
+        if (ADAM::ADAMLogScope(void)::once != -1)
+        {
+          dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+        }
+
+        v28 = CALog::LogObjIfEnabled(ADAM::ADAMLogScope(void)::scope);
+        v29 = v28;
+        if (v28)
+        {
+          v30 = v28;
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            *(&buf + 4) = "AudioDataAnalysisManager.cpp";
+            WORD6(buf) = 1024;
+            LODWORD(buf) = 136315906;
+            *(&buf + 14) = 423;
+            a13 = 2048;
+            WORD2(a14) = 2048;
+            *(&a14 + 6) = v16 | (v15 << 32);
+            _os_log_impl(&dword_296C34000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d MicLevel Exception %p, session %llx", &buf, 0x26u);
+          }
+        }
+
+        v27 = ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt;
+      }
+
+      if (v27 > 0xBB7)
+      {
+        v27 = 0;
+      }
+
+      ADAM::AudioDataAnalysisManager::processMicLevel(unsigned long long,unsigned int,float,float,AudioTimeStamp const&)::errCnt = v27;
+      __cxa_end_catch();
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    JUMPOUT(0x296C6EA90);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t AudioDataAnalysisManagerSetDeviceInfo(ADAM::AudioDataAnalysisManager *a1, uint64_t a2)
+{
+  v38 = *MEMORY[0x29EDCA608];
+  ADAM::AudioDataAnalysisManager::instance(a1);
+  ClientSessionMananger = ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1);
+  if (!ClientSessionMananger)
+  {
+    return 561211748;
+  }
+
+  v5 = 561017453;
+  if (*a2)
+  {
+    v6 = ClientSessionMananger;
+    ADAM::releaseADAMDeviceInfo(ClientSessionMananger + 248);
+    ADAM::copyDeviceInfo(a2, (v6 + 248));
+    ADAM::logDeviceInfo(v6 + 248);
+    v7 = objc_autoreleasePoolPush();
+    v8 = *(v6 + 248);
+    if (v8)
     {
-      *buf = 136315394;
-      v36 = "ADAMClientSessionManager.cpp";
-      v37 = 1024;
-      v38 = 121;
-      _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Device name invalid", buf, 0x12u);
+      if ((*(v6 + 280) & 4) != 0)
+      {
+        Copy = @"Codec";
+      }
+
+      else
+      {
+        Copy = CFStringCreateCopy(0, v8);
+        if (!Copy)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      v11 = *(v6 + 272);
+      if (v11)
+      {
+        v12 = [v11 copy];
+      }
+
+      else
+      {
+        v12 = &stru_2A1DEEE38;
+      }
+
+      v14 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:*(v6 + 280) & 2];
+      v15 = [MEMORY[0x29EDBA070] numberWithUnsignedLongLong:*(a2 + 32) & 0x10];
+      v17 = *(v6 + 288);
+      if (v17)
+      {
+        v18 = CFDictionaryCreateCopy(0, v17);
+        v19 = [(__CFDictionary *)v18 objectForKey:@"ScalarVolume74"];
+        v20 = v19;
+        if (v19)
+        {
+          [v19 floatValue];
+          v22 = v21;
+        }
+
+        else
+        {
+          v22 = -1.0;
+        }
+
+        v24 = [(__CFDictionary *)v18 objectForKey:@"ScalarVolume80"];
+        v25 = v24;
+        if (v24)
+        {
+          [v24 floatValue];
+          v23 = v26;
+        }
+
+        else
+        {
+          v23 = -1.0;
+        }
+      }
+
+      else
+      {
+        v18 = 0;
+        v22 = -1.0;
+        v23 = -1.0;
+      }
+
+      v27 = MEMORY[0x29EDB8DC0];
+      *&v16 = v22;
+      v28 = [MEMORY[0x29EDBA070] numberWithFloat:v16];
+      *&v29 = v23;
+      v30 = [MEMORY[0x29EDBA070] numberWithFloat:v29];
+      v31 = [v27 dictionaryWithObjectsAndKeys:{Copy, *MEMORY[0x29EDC1500], v14, *MEMORY[0x29EDC1510], v15, *MEMORY[0x29EDC1508], v12, *MEMORY[0x29EDC14F8], v28, *MEMORY[0x29EDC1518], v30, *MEMORY[0x29EDC1520], 0}];
+
+      v32 = [MEMORY[0x29EDC1528] sharedInstance];
+      [v32 deviceSessionCreated:v31 SessionID:*(v6 + 8)];
+
+      v5 = 0;
+      goto LABEL_32;
+    }
+
+    Copy = 0;
+LABEL_32:
+
+    objc_autoreleasePoolPop(v7);
+    return v5;
+  }
+
+  if (ADAM::ADAMLogScope(void)::once != -1)
+  {
+    dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+  }
+
+  if (ADAM::ADAMLogScope(void)::scope)
+  {
+    v10 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v10)
+    {
+      return v5;
     }
   }
 
   else
   {
-    v5 = 561211748;
+    v10 = MEMORY[0x29EDCA988];
+    v13 = MEMORY[0x29EDCA988];
   }
 
-LABEL_33:
-  v33 = *MEMORY[0x29EDCA608];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v35 = "ADAMClientSessionManager.cpp";
+    v36 = 1024;
+    v37 = 121;
+    _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Device name invalid", buf, 0x12u);
+  }
+
   return v5;
 }
 
 uint64_t AudioDataAnalysisManagerRegisterDeviceInfo(ADAM::AudioDataAnalysisManager *a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   ADAM::AudioDataAnalysisManager::instance(a1);
   if (ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1))
   {
@@ -8533,13 +8662,13 @@ uint64_t AudioDataAnalysisManagerRegisterDeviceInfo(ADAM::AudioDataAnalysisManag
             v12 = *a2;
             v13 = *(a2 + 24);
             *buf = 136315906;
-            v26 = "ADAMClientSessionManager.cpp";
-            v27 = 1024;
-            v28 = 203;
-            v29 = 2112;
-            v30 = v12;
-            v31 = 2112;
-            v32 = v13;
+            v25 = "ADAMClientSessionManager.cpp";
+            v26 = 1024;
+            v27 = 203;
+            v28 = 2112;
+            v29 = v12;
+            v30 = 2112;
+            v31 = v13;
             _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device { name: %@  UUID: %@ }", buf, 0x26u);
           }
 
@@ -8579,7 +8708,7 @@ LABEL_32:
 LABEL_43:
 
           objc_autoreleasePoolPop(v14);
-          goto LABEL_48;
+          return v6;
         }
 
         if (ADAM::ADAMLogScope(void)::scope)
@@ -8587,7 +8716,7 @@ LABEL_43:
           v9 = *ADAM::ADAMLogScope(void)::scope;
           if (!v9)
           {
-            goto LABEL_48;
+            return v6;
           }
         }
 
@@ -8600,9 +8729,9 @@ LABEL_43:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v26 = "ADAMClientSessionManager.cpp";
-          v27 = 1024;
-          v28 = 199;
+          v25 = "ADAMClientSessionManager.cpp";
+          v26 = 1024;
+          v27 = 199;
           _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Device UID invalid", buf, 0x12u);
         }
       }
@@ -8619,7 +8748,7 @@ LABEL_43:
           v9 = *ADAM::ADAMLogScope(void)::scope;
           if (!v9)
           {
-            goto LABEL_48;
+            return v6;
           }
         }
 
@@ -8632,9 +8761,9 @@ LABEL_43:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v26 = "ADAMClientSessionManager.cpp";
-          v27 = 1024;
-          v28 = 193;
+          v25 = "ADAMClientSessionManager.cpp";
+          v26 = 1024;
+          v27 = 193;
           _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Device name invalid", buf, 0x12u);
         }
       }
@@ -8652,7 +8781,7 @@ LABEL_43:
         v9 = *ADAM::ADAMLogScope(void)::scope;
         if (!v9)
         {
-          goto LABEL_48;
+          return v6;
         }
       }
 
@@ -8665,135 +8794,125 @@ LABEL_43:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v26 = "ADAMClientSessionManager.cpp";
-        v27 = 1024;
-        v28 = 187;
+        v25 = "ADAMClientSessionManager.cpp";
+        v26 = 1024;
+        v27 = 187;
         _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Registration is only for USBC devices", buf, 0x12u);
       }
     }
 
-    goto LABEL_48;
+    return v6;
   }
 
-  v6 = 561211748;
-LABEL_48:
-  v23 = *MEMORY[0x29EDCA608];
-  return v6;
+  return 561211748;
 }
 
 uint64_t AudioDataAnalysisManagerSetDeviceConnectionState(ADAM::AudioDataAnalysisManager *a1, uint64_t a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   ADAM::AudioDataAnalysisManager::instance(a1);
-  if (ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1))
+  if (!ADAM::AudioDataAnalysisManager::getClientSessionMananger(&ADAM::AudioDataAnalysisManager::instance(void)::gAdam, a1))
   {
-    if (*(a2 + 24))
-    {
-      v6 = [MEMORY[0x29EDC1528] sharedInstance];
-      if ([v6 isUSBCPort])
-      {
-        v7 = *(a2 + 32);
+    return 561211748;
+  }
 
-        if ((v7 & 2) != 0)
+  if (*(a2 + 24))
+  {
+    v6 = [MEMORY[0x29EDC1528] sharedInstance];
+    if ([v6 isUSBCPort])
+    {
+      v7 = *(a2 + 32);
+
+      if ((v7 & 2) != 0)
+      {
+        if (ADAM::ADAMLogScope(void)::once != -1)
         {
-          if (ADAM::ADAMLogScope(void)::once != -1)
-          {
-            dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-          }
-
-          if (ADAM::ADAMLogScope(void)::scope)
-          {
-            v8 = *ADAM::ADAMLogScope(void)::scope;
-            if (!v8)
-            {
-LABEL_27:
-              v15 = objc_autoreleasePoolPush();
-              Copy = CFStringCreateCopy(0, *(a2 + 24));
-              v17 = [MEMORY[0x29EDC1528] sharedInstance];
-              [v17 setDeviceConnectionState:Copy isConnected:a3];
-
-              objc_autoreleasePoolPop(v15);
-              goto LABEL_28;
-            }
-          }
-
-          else
-          {
-            v8 = MEMORY[0x29EDCA988];
-            v12 = MEMORY[0x29EDCA988];
-          }
-
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-          {
-            v13 = "disconnected";
-            v21 = "ADAMClientSessionManager.cpp";
-            v22 = 1024;
-            v14 = *(a2 + 24);
-            v20 = 136315906;
-            if (a3)
-            {
-              v13 = "connected";
-            }
-
-            v23 = 242;
-            v24 = 2112;
-            v25 = v14;
-            v26 = 2080;
-            v27 = v13;
-            _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device { UUID: %@ is %s}", &v20, 0x26u);
-          }
-
-          goto LABEL_27;
+          dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
         }
-      }
 
-      else
-      {
-      }
+        if (ADAM::ADAMLogScope(void)::scope)
+        {
+          v8 = *ADAM::ADAMLogScope(void)::scope;
+          if (!v8)
+          {
+LABEL_27:
+            v15 = objc_autoreleasePoolPush();
+            Copy = CFStringCreateCopy(0, *(a2 + 24));
+            v17 = [MEMORY[0x29EDC1528] sharedInstance];
+            [v17 setDeviceConnectionState:Copy isConnected:a3];
 
-LABEL_28:
-      v9 = 0;
-      goto LABEL_29;
-    }
+            objc_autoreleasePoolPop(v15);
+            return 0;
+          }
+        }
 
-    if (ADAM::ADAMLogScope(void)::once != -1)
-    {
-      dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
-    }
+        else
+        {
+          v8 = MEMORY[0x29EDCA988];
+          v12 = MEMORY[0x29EDCA988];
+        }
 
-    v9 = 561017453;
-    if (ADAM::ADAMLogScope(void)::scope)
-    {
-      v10 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v10)
-      {
-        goto LABEL_29;
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = "disconnected";
+          v20 = "ADAMClientSessionManager.cpp";
+          v21 = 1024;
+          v14 = *(a2 + 24);
+          v19 = 136315906;
+          if (a3)
+          {
+            v13 = "connected";
+          }
+
+          v22 = 242;
+          v23 = 2112;
+          v24 = v14;
+          v25 = 2080;
+          v26 = v13;
+          _os_log_impl(&dword_296C34000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device { UUID: %@ is %s}", &v19, 0x26u);
+        }
+
+        goto LABEL_27;
       }
     }
 
     else
     {
-      v10 = MEMORY[0x29EDCA988];
-      v11 = MEMORY[0x29EDCA988];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    return 0;
+  }
+
+  if (ADAM::ADAMLogScope(void)::once != -1)
+  {
+    dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
+  }
+
+  v9 = 561017453;
+  if (ADAM::ADAMLogScope(void)::scope)
+  {
+    v10 = *ADAM::ADAMLogScope(void)::scope;
+    if (!v10)
     {
-      v20 = 136315394;
-      v21 = "ADAMClientSessionManager.cpp";
-      v22 = 1024;
-      v23 = 235;
-      _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Device UID invalid", &v20, 0x12u);
+      return v9;
     }
   }
 
   else
   {
-    v9 = 561211748;
+    v10 = MEMORY[0x29EDCA988];
+    v11 = MEMORY[0x29EDCA988];
   }
 
-LABEL_29:
-  v18 = *MEMORY[0x29EDCA608];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v19 = 136315394;
+    v20 = "ADAMClientSessionManager.cpp";
+    v21 = 1024;
+    v22 = 235;
+    _os_log_impl(&dword_296C34000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Device UID invalid", &v19, 0x12u);
+  }
+
   return v9;
 }
 
@@ -8947,7 +9066,7 @@ void ADAM::AudioBufferWriter::~AudioBufferWriter(ADAM::AudioBufferWriter *this)
 }
 
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *this = &unk_2A1DEE778;
   v2 = (*(**(this + 11) + 56))(*(this + 11));
   v3 = strlen(v2);
@@ -8962,7 +9081,7 @@ void ADAM::AudioBufferWriter::~AudioBufferWriter(ADAM::AudioBufferWriter *this)
     operator new();
   }
 
-  v13 = v3;
+  v12 = v3;
   if (v3)
   {
     memmove(&__dst, v2, v3);
@@ -9000,24 +9119,24 @@ void ADAM::AudioBufferWriter::~AudioBufferWriter(ADAM::AudioBufferWriter *this)
   {
     v8 = *(this + 1);
     p_dst = &__dst;
-    if (v13 < 0)
+    if (v12 < 0)
     {
       p_dst = __dst;
     }
 
     *buf = 136315906;
-    v15 = "FileWriter.cpp";
-    v16 = 1024;
-    v17 = 44;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2080;
-    v21 = p_dst;
+    v14 = "FileWriter.cpp";
+    v15 = 1024;
+    v16 = 44;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2080;
+    v20 = p_dst;
     _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session %llx: AudioBufferWriter destroyed: %s", buf, 0x26u);
   }
 
 LABEL_20:
-  if (v13 < 0)
+  if (v12 < 0)
   {
     operator delete(__dst);
   }
@@ -9030,7 +9149,6 @@ LABEL_20:
   }
 
   ADAM::Writer::~Writer(this);
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_296C6FEDC(_Unwind_Exception *a1, int a2)
@@ -9045,7 +9163,7 @@ void sub_296C6FEDC(_Unwind_Exception *a1, int a2)
 
 uint64_t ADAM::AudioBufferWriter::write(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v5 = (*(**(a1 + 88) + 24))(*(a1 + 88), *(a3 + 64), a2, 1);
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
@@ -9077,19 +9195,19 @@ uint64_t ADAM::AudioBufferWriter::write(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     v10 = *(a1 + 96) * *(a3 + 64);
-    v14 = 136316418;
-    v15 = "FileWriter.cpp";
-    v16 = 1024;
-    v17 = 35;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2080;
-    v21 = v9;
-    v22 = 1024;
-    v23 = v10;
-    v24 = 1024;
-    v25 = v5;
-    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session %llx: AudioBufferWriter [%s] wrote %u bytes; err: %d", &v14, 0x32u);
+    v13 = 136316418;
+    v14 = "FileWriter.cpp";
+    v15 = 1024;
+    v16 = 35;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2080;
+    v20 = v9;
+    v21 = 1024;
+    v22 = v10;
+    v23 = 1024;
+    v24 = v5;
+    _os_log_impl(&dword_296C34000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d Session %llx: AudioBufferWriter [%s] wrote %u bytes; err: %d", &v13, 0x32u);
   }
 
 LABEL_12:
@@ -9100,7 +9218,6 @@ LABEL_12:
     (*(*v11 + 40))(v11);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -9137,13 +9254,12 @@ void ADAM::BinaryFileWriter::~BinaryFileWriter(ADAM::BinaryFileWriter *this)
 
 uint64_t ADAM::BinaryFileWriter::write(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a3 + 64);
   std::ostream::write();
-  v5 = *(a1 + 72);
-  if (v5)
+  v4 = *(a1 + 72);
+  if (v4)
   {
     *(a1 + 72) = 0;
-    (*(*v5 + 40))(v5);
+    (*(*v4 + 40))(v4);
   }
 
   return 0;
@@ -9182,25 +9298,20 @@ void ADAM::CsvFileWriter::~CsvFileWriter(ADAM::CsvFileWriter *this)
 
 uint64_t ADAM::CsvFileWriter::write(uint64_t a1, float *a2)
 {
-  v40 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
+  v34 = *MEMORY[0x29EDCA608];
+  v4 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ", ", 2);
   v5 = std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ", ", 2);
-  v6 = *(a2 + 1);
+  v6 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", ", 2);
   v7 = std::ostream::operator<<();
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", ", 2);
-  v8 = *(a2 + 2);
-  v9 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ", ", 2);
-  v10 = *(a2 + 3);
-  v11 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ", ", 2);
-  v12 = *(a2 + 4);
-  v13 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "\n", 1);
-  v14 = ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
-  v15 = ++ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
-  if (!v14)
+  v8 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "\n", 1);
+  v9 = ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
+  v10 = ++ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
+  if (!v9)
   {
     if (ADAM::ADAMLogScope(void)::once != -1)
     {
@@ -9209,63 +9320,62 @@ uint64_t ADAM::CsvFileWriter::write(uint64_t a1, float *a2)
 
     if (ADAM::ADAMLogScope(void)::scope)
     {
-      v16 = *ADAM::ADAMLogScope(void)::scope;
-      if (!v16)
+      v11 = *ADAM::ADAMLogScope(void)::scope;
+      if (!v11)
       {
 LABEL_11:
-        v15 = ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
+        v10 = ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt;
         goto LABEL_12;
       }
     }
 
     else
     {
-      v16 = MEMORY[0x29EDCA988];
-      v17 = MEMORY[0x29EDCA988];
+      v11 = MEMORY[0x29EDCA988];
+      v12 = MEMORY[0x29EDCA988];
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v18 = *a2;
-      v19 = a2[1];
-      v20 = a2[2];
-      v21 = a2[3];
-      v22 = a2[4];
-      v26 = 136316674;
-      v27 = "FileWriter.cpp";
-      v28 = 1024;
-      v29 = 86;
+      v13 = *a2;
+      v14 = a2[1];
+      v15 = a2[2];
+      v16 = a2[3];
+      v17 = a2[4];
+      v20 = 136316674;
+      v21 = "FileWriter.cpp";
+      v22 = 1024;
+      v23 = 86;
+      v24 = 2048;
+      v25 = v13;
+      v26 = 2048;
+      v27 = v14;
+      v28 = 2048;
+      v29 = v15;
       v30 = 2048;
-      v31 = v18;
+      v31 = v16;
       v32 = 2048;
-      v33 = v19;
-      v34 = 2048;
-      v35 = v20;
-      v36 = 2048;
-      v37 = v21;
-      v38 = 2048;
-      v39 = v22;
-      _os_log_impl(&dword_296C34000, v16, OS_LOG_TYPE_INFO, "%25s:%-5d dBA/dBC/LKFS/VolumeGain/Duration: %f, %f, %f, %f, %f", &v26, 0x44u);
+      v33 = v17;
+      _os_log_impl(&dword_296C34000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d dBA/dBC/LKFS/VolumeGain/Duration: %f, %f, %f, %f, %f", &v20, 0x44u);
     }
 
     goto LABEL_11;
   }
 
 LABEL_12:
-  if (v15 > 0x63)
+  if (v10 > 0x63)
   {
-    v15 = 0;
+    v10 = 0;
   }
 
-  ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v15;
-  v23 = *(a1 + 72);
-  if (v23)
+  ADAM::CsvFileWriter::write(ADAM::UnionDataPtr,ADAM::Metadata const&)::errCnt = v10;
+  v18 = *(a1 + 72);
+  if (v18)
   {
     *(a1 + 72) = 0;
-    (*(*v23 + 40))(v23);
+    (*(*v18 + 40))(v18);
   }
 
-  v24 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -9300,24 +9410,22 @@ void ADAM::HAENotificationFileWriter::~HAENotificationFileWriter(ADAM::HAENotifi
   ADAM::Writer::~Writer(this);
 }
 
-uint64_t ADAM::HAENotificationFileWriter::write(uint64_t a1, int *a2)
+uint64_t ADAM::HAENotificationFileWriter::write(uint64_t a1, float *a2)
 {
-  v4 = *a2;
-  v5 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " ", 1);
-  v6 = a2[4];
-  v7 = std::ostream::operator<<();
-  std::ios_base::getloc((v7 + *(*v7 - 24)));
-  v8 = std::locale::use_facet(&v11, MEMORY[0x29EDC93D0]);
-  (v8->__vftable[2].~facet_0)(v8, 10);
-  std::locale::~locale(&v11);
+  v3 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, " ", 1);
+  v4 = std::ostream::operator<<();
+  std::ios_base::getloc((v4 + *(*v4 - 24)));
+  v5 = std::locale::use_facet(&v8, MEMORY[0x29EDC93D0]);
+  (v5->__vftable[2].~facet_0)(v5, 10);
+  std::locale::~locale(&v8);
   std::ostream::put();
   std::ostream::flush();
-  v9 = *(a1 + 72);
-  if (v9)
+  v6 = *(a1 + 72);
+  if (v6)
   {
     *(a1 + 72) = 0;
-    (*(*v9 + 40))(v9);
+    (*(*v6 + 40))(v6);
   }
 
   return 0;
@@ -9338,7 +9446,7 @@ void *___Z16NewAudioCapturer20AudioCapturerOptionsPKcS1_jPK27AudioStreamBasicDes
   return result;
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[58] = 0;
   v4 = MEMORY[0x29EDC9560] + 64;
@@ -9355,11 +9463,6 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2)
   *a1 = v8;
   a1[52] = v4;
   MEMORY[0x29C260C10](a1 + 1);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
   if (!std::filebuf::open())
   {
     std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
@@ -9377,7 +9480,7 @@ void sub_296C70ADC(_Unwind_Exception *a1)
 
 uint64_t ADAM::HAENotificationFileWriter::HAENotificationFileWriter(uint64_t a1, uint64_t a2, __int128 *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = ADAM::Writer::Writer(a1, a2, a3, 0);
   *v5 = &unk_2A1DEE838;
   v6 = v5 + 11;
@@ -9389,12 +9492,12 @@ uint64_t ADAM::HAENotificationFileWriter::HAENotificationFileWriter(uint64_t a1,
   v7->__r_.__value_.__l.__size_ = 0;
   v7->__r_.__value_.__r.__words[2] = 0;
   v7->__r_.__value_.__r.__words[0] = 0;
-  if (SBYTE3(v17) < 0)
+  if (SBYTE3(v16) < 0)
   {
     operator delete(*__p);
   }
 
-  std::ofstream::basic_ofstream((a1 + 112), v6);
+  std::ofstream::basic_ofstream((a1 + 112), v6, 16);
   if (ADAM::ADAMLogScope(void)::once != -1)
   {
     dispatch_once(&ADAM::ADAMLogScope(void)::once, &__block_literal_global_107);
@@ -9405,7 +9508,7 @@ uint64_t ADAM::HAENotificationFileWriter::HAENotificationFileWriter(uint64_t a1,
     v9 = *ADAM::ADAMLogScope(void)::scope;
     if (!v9)
     {
-      goto LABEL_14;
+      return a1;
     }
   }
 
@@ -9424,17 +9527,15 @@ uint64_t ADAM::HAENotificationFileWriter::HAENotificationFileWriter(uint64_t a1,
 
     *__p = 136315906;
     *&__p[4] = "FileWriter.cpp";
-    v14 = 1024;
-    v15 = 98;
-    v16 = 2048;
-    v17 = a2;
-    v18 = 2080;
-    v19 = v6;
+    v13 = 1024;
+    v14 = 98;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2080;
+    v18 = v6;
     _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d Session %llx: Created HAE Notification File Writer: %s", __p, 0x26u);
   }
 
-LABEL_14:
-  v11 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
@@ -9469,7 +9570,7 @@ void ADAM::AnalysisFrameworkWriter::~AnalysisFrameworkWriter(ADAM::AnalysisFrame
 
 uint64_t ADAM::AnalysisFrameworkWriter::write(uint64_t a1, float *a2, uint64_t a3)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   if (!*(a1 + 88))
   {
     operator new();
@@ -9507,13 +9608,13 @@ LABEL_16:
           }
 
           ADAM::AnalysisFrameworkWriter::writeMediaSPLDataToDelegates(ADAM::SPLData const*,ADAM::Metadata const&)::errCnt = v8;
+          v43 = 0;
           v44 = 0;
           v45 = 0;
-          v46 = 0;
           ADAM::AudioDataAnalysisManager::instance(v6);
-          ADAM::AudioDataAnalysisManager::getServerDelegates(&v51, 0x68616574u);
-          p_isa = &v51->isa;
-          v13 = v52;
+          ADAM::AudioDataAnalysisManager::getServerDelegates(&v50, 0x68616574u);
+          p_isa = &v50->isa;
+          v13 = v51;
           while (p_isa != v13)
           {
             WeakRetained = objc_loadWeakRetained(p_isa);
@@ -9521,7 +9622,7 @@ LABEL_16:
 
             if (v15)
             {
-              std::vector<ADAMServerDelegate * {__weak}>::push_back[abi:ne200100](&v44, p_isa);
+              std::vector<ADAMServerDelegate * {__weak}>::push_back[abi:ne200100](&v43, p_isa);
             }
 
             ++p_isa;
@@ -9553,9 +9654,9 @@ LABEL_34:
               }
 
               ADAM::AnalysisFrameworkWriter::getClientDelegates(ADAMAudioDataAnalysisType)const::errCnt = v17;
-              *buf = &v51;
+              *buf = &v50;
               std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](buf);
-              v51 = @"_ADAFMetadataKeyIsLoud";
+              v50 = @"_ADAFMetadataKeyIsLoud";
               *&v24 = *a2;
               v25 = [MEMORY[0x29EDBA070] numberWithBool:{*a2 >= 85.0, v24}];
               v26 = v25;
@@ -9567,27 +9668,27 @@ LABEL_34:
 
               *buf = v25;
               *&buf[8] = v27;
-              v52 = @"_ADAFMetadataKeyDeviceID";
-              v53 = @"_ADAFMetadataKeyHAEDataForGauge";
+              v51 = @"_ADAFMetadataKeyDeviceID";
+              v52 = @"_ADAFMetadataKeyHAEDataForGauge";
               v28 = MEMORY[0x29EDBA070];
               v29 = a2[4];
               {
-                if (v42)
+                if (v41)
                 {
-                  ADAM::Parameters::instance(v42);
+                  ADAM::Parameters::instance(v41);
                 }
               }
               v30 = ;
               *&buf[16] = v30;
-              v31 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:buf forKeys:&v51 count:3];
+              v31 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:buf forKeys:&v50 count:3];
 
               v32 = objc_alloc(MEMORY[0x29EDBFAC0]);
               v33 = [MEMORY[0x29EDBA070] numberWithDouble:*a2];
               v34 = ADAM::getSampleDateInterval(*(a3 + 8), a2[4]);
               v35 = [v32 initAudioSampleWithType:1751213428 data:v33 dateInterval:v34 metadata:v31];
 
-              v36 = v44;
-              v37 = v45;
+              v36 = v43;
+              v37 = v44;
               while (v36 != v37)
               {
                 v38 = objc_loadWeakRetained(v36);
@@ -9596,8 +9697,8 @@ LABEL_34:
                 ++v36;
               }
 
-              v47 = &v44;
-              std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](&v47);
+              v46 = &v43;
+              std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](&v46);
               goto LABEL_43;
             }
           }
@@ -9620,8 +9721,8 @@ LABEL_34:
             *&buf[14] = 87;
             *&buf[18] = 2080;
             *&buf[20] = v23;
-            v49 = 2048;
-            v50 = v45 - v44;
+            v48 = 2048;
+            v49 = v44 - v43;
             _os_log_impl(&dword_296C34000, v20, OS_LOG_TYPE_INFO, "%25s:%-5d number of delegates for %s : %lu", buf, 0x26u);
           }
 
@@ -9644,8 +9745,8 @@ LABEL_34:
         *&buf[14] = 54;
         *&buf[18] = 2080;
         *&buf[20] = "writeMediaSPLDataToDelegates";
-        v49 = 2048;
-        v50 = v11;
+        v48 = 2048;
+        v49 = v11;
         _os_log_impl(&dword_296C34000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d %s : %.2f", buf, 0x26u);
       }
 
@@ -9661,273 +9762,5 @@ LABEL_43:
     (*(*v39 + 40))(v39);
   }
 
-  v40 = *MEMORY[0x29EDCA608];
   return 0;
-}
-
-void sub_296C7169C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
-{
-
-  a12 = &a9;
-  std::vector<ADAMServerDelegate * {__weak}>::__destroy_vector::operator()[abi:ne200100](&a12);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN5rtaid14GetClientIDMapEv_block_invoke()
-{
-  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) || !*rtaid::GetClientIDMap(void)::gClientIDMap || (v0 = **rtaid::GetClientIDMap(void)::gClientIDMap) == 0)
-  {
-LABEL_14:
-    operator new();
-  }
-
-  v1 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  while (1)
-  {
-    v2 = v0[1];
-    if (!v2)
-    {
-      break;
-    }
-
-    if (v1.u32[0] > 1uLL)
-    {
-      if (v2 < *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-      {
-        goto LABEL_14;
-      }
-
-      v3 = v2 % *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
-    }
-
-    else
-    {
-      v3 = v2 & (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1);
-    }
-
-    if (v3)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_13:
-    v0 = *v0;
-    if (!v0)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (*(v0 + 4))
-  {
-    goto LABEL_13;
-  }
-
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(1);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(2);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[3]>(3);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(4);
-  std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[5]>(5);
-  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-  {
-    goto LABEL_32;
-  }
-
-  v4 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = 6;
-    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 6uLL)
-    {
-      v5 = 6u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
-    }
-  }
-
-  else
-  {
-    v5 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 6;
-  }
-
-  v6 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_32:
-    operator new();
-  }
-
-  while (2)
-  {
-    v8 = v7[1];
-    if (v8 != 6)
-    {
-      if (v4.u32[0] > 1uLL)
-      {
-        if (v8 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-        {
-          v8 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
-        }
-      }
-
-      else
-      {
-        v8 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
-      }
-
-      if (v8 != v5)
-      {
-        goto LABEL_32;
-      }
-
-      goto LABEL_31;
-    }
-
-    if (*(v7 + 4) != 6)
-    {
-LABEL_31:
-      v7 = *v7;
-      if (!v7)
-      {
-        goto LABEL_32;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  if (!*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-  {
-    goto LABEL_50;
-  }
-
-  v9 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
-  {
-    v10 = 7;
-    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 7uLL)
-    {
-      v10 = 7u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
-    }
-  }
-
-  else
-  {
-    v10 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 7;
-  }
-
-  v11 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
-  {
-LABEL_50:
-    operator new();
-  }
-
-  while (2)
-  {
-    v13 = v12[1];
-    if (v13 != 7)
-    {
-      if (v9.u32[0] > 1uLL)
-      {
-        if (v13 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-        {
-          v13 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
-        }
-      }
-
-      else
-      {
-        v13 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
-      }
-
-      if (v13 != v10)
-      {
-        goto LABEL_50;
-      }
-
-      goto LABEL_49;
-    }
-
-    if (*(v12 + 4) != 7)
-    {
-LABEL_49:
-      v12 = *v12;
-      if (!v12)
-      {
-        goto LABEL_50;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v14 = vcnt_s8(*(&rtaid::GetClientIDMap(void)::gClientIDMap + 8));
-  v14.i16[0] = vaddlv_u8(v14);
-  if (v14.u32[0] > 1uLL)
-  {
-    v15 = 8;
-    if (*(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) <= 8uLL)
-    {
-      v15 = 8u % DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap);
-    }
-  }
-
-  else
-  {
-    v15 = (DWORD2(rtaid::GetClientIDMap(void)::gClientIDMap) - 1) & 8;
-  }
-
-  v16 = *(rtaid::GetClientIDMap(void)::gClientIDMap + 8 * v15);
-  if (!v16 || (v17 = *v16) == 0)
-  {
-LABEL_66:
-    operator new();
-  }
-
-  while (2)
-  {
-    v18 = v17[1];
-    if (v18 != 8)
-    {
-      if (v14.u32[0] > 1uLL)
-      {
-        if (v18 >= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1))
-        {
-          v18 %= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1);
-        }
-      }
-
-      else
-      {
-        v18 &= *(&rtaid::GetClientIDMap(void)::gClientIDMap + 1) - 1;
-      }
-
-      if (v18 != v15)
-      {
-        goto LABEL_66;
-      }
-
-      goto LABEL_65;
-    }
-
-    if (*(v17 + 4) != 8)
-    {
-LABEL_65:
-      v17 = *v17;
-      if (!v17)
-      {
-        goto LABEL_66;
-      }
-
-      continue;
-    }
-
-    return std::__hash_table<std::__hash_value_type<rtaid::ClientID,std::string>,std::__unordered_map_hasher<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::hash<rtaid::ClientID>,std::equal_to<rtaid::ClientID>,true>,std::__unordered_map_equal<rtaid::ClientID,std::__hash_value_type<rtaid::ClientID,std::string>,std::equal_to<rtaid::ClientID>,std::hash<rtaid::ClientID>,true>,std::allocator<std::__hash_value_type<rtaid::ClientID,std::string>>>::__emplace_unique_key_args<rtaid::ClientID,rtaid::ClientID,char const(&)[4]>(10);
-  }
 }

@@ -5,7 +5,7 @@ Swift::Int sub_1300()
   return sub_2FF8();
 }
 
-Swift::Int sub_136C()
+Swift::Int sub_136C(uint64_t a1)
 {
   sub_2FD8();
   sub_2FE8(0);
@@ -119,11 +119,9 @@ LABEL_8:
 
 char *sub_1618(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_1664(a1, a2);
+  v3 = sub_1664(a1, a2);
   sub_1794(&off_4400);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_1664(uint64_t a1, unint64_t a2)
@@ -223,7 +221,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -237,15 +234,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_18F4(result, v12, 1, v3);
+  result = sub_18F4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -260,15 +257,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -277,12 +274,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -392,229 +389,220 @@ char *sub_18F4(char *result, int64_t a2, char a3, char *a4)
 
 NSObject *sub_19E8(uint64_t a1)
 {
-  v84 = sub_2EA8();
-  v2 = *(v84 - 8);
-  v3 = *(v2 + 64);
-  (__chkstk_darwin)();
-  v91 = &v80 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2EE8();
-  v90 = *(v5 - 8);
-  v6 = *(v90 + 64);
-  v7 = (__chkstk_darwin)();
-  v88 = &v80 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v89 = &v80 - v9;
-  v10 = sub_2E68();
-  v97 = *(v10 - 8);
-  v98 = v10;
-  v11 = *(v97 + 64);
+  v75 = sub_2EA8();
+  v2 = *(v75 - 8);
+  __chkstk_darwin(v75);
+  v82 = &v71 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2EE8();
+  v81 = *(v4 - 8);
+  v5 = __chkstk_darwin(v4);
+  v79 = &v71 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v80 = &v71 - v7;
+  v8 = sub_2E68();
+  v88 = *(v8 - 8);
+  v89 = v8;
+  __chkstk_darwin(v8);
+  v86 = &v71 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = sub_2E78();
+  v85 = *(v87 - 8);
+  v10 = __chkstk_darwin(v87);
+  v83 = &v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v95 = &v80 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v96 = sub_2E78();
-  v94 = *(v96 - 8);
-  v13 = *(v94 + 64);
-  v14 = __chkstk_darwin(v96);
-  v92 = &v80 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v93 = &v80 - v16;
-  v17 = sub_2EC8();
-  v104 = *(v17 - 8);
-  v105 = v17;
-  v18 = *(v104 + 64);
-  __chkstk_darwin(v17);
-  v102 = &v80 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v103 = sub_2ED8();
-  v101 = *(v103 - 8);
-  v20 = *(v101 + 64);
-  v21 = __chkstk_darwin(v103);
-  v99 = &v80 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v21);
-  v100 = &v80 - v23;
-  v24 = sub_2E38();
-  v111 = *(v24 - 8);
-  v112 = v24;
-  v25 = *(v111 + 64);
-  __chkstk_darwin(v24);
-  v109 = &v80 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v110 = sub_2E48();
-  v108 = *(v110 - 8);
-  v27 = *(v108 + 64);
-  v28 = __chkstk_darwin(v110);
-  v106 = &v80 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v28);
-  v107 = &v80 - v30;
-  v31 = sub_2E88();
-  v32 = *(v31 - 8);
-  v33 = *(v32 + 64);
-  v34 = __chkstk_darwin(v31);
-  v87 = &v80 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = __chkstk_darwin(v34);
-  v115 = &v80 - v37;
-  __chkstk_darwin(v36);
-  v39 = &v80 - v38;
+  v84 = &v71 - v12;
+  v13 = sub_2EC8();
+  v95 = *(v13 - 8);
+  v96 = v13;
+  __chkstk_darwin(v13);
+  v93 = &v71 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v94 = sub_2ED8();
+  v92 = *(v94 - 8);
+  v15 = __chkstk_darwin(v94);
+  v90 = &v71 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v91 = &v71 - v17;
+  v18 = sub_2E38();
+  v102 = *(v18 - 8);
+  v103 = v18;
+  __chkstk_darwin(v18);
+  v100 = &v71 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = sub_2E48();
+  v99 = *(v101 - 8);
+  v20 = __chkstk_darwin(v101);
+  v97 = &v71 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v20);
+  v98 = &v71 - v22;
+  v23 = sub_2E88();
+  v24 = *(v23 - 8);
+  v25 = __chkstk_darwin(v23);
+  v78 = &v71 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = __chkstk_darwin(v25);
+  v106 = &v71 - v28;
+  __chkstk_darwin(v27);
+  v30 = &v71 - v29;
   if (qword_8098 != -1)
   {
     swift_once();
   }
 
-  v40 = sub_2F18();
-  v41 = sub_27E8(v40, static Logger.siriHomeCommunicationUIPlugin);
-  v113 = *(v32 + 16);
-  v114 = a1;
-  v113(v39, a1, v31);
-  v85 = v41;
-  v42 = sub_2EF8();
-  v43 = sub_2F48();
-  if (os_log_type_enabled(v42, v43))
+  v31 = sub_2F18();
+  v32 = sub_27E8(v31, static Logger.siriHomeCommunicationUIPlugin);
+  v104 = *(v24 + 16);
+  v105 = a1;
+  v104(v30, a1, v23);
+  v76 = v32;
+  v33 = sub_2EF8();
+  v34 = sub_2F48();
+  if (os_log_type_enabled(v33, v34))
   {
-    v44 = swift_slowAlloc();
-    v83 = v2;
-    v45 = v44;
-    v81 = swift_slowAlloc();
-    v117 = v81;
-    *v45 = 136315138;
-    sub_28C0(&qword_8148, &type metadata accessor for HomeCommunicationSnippetModel);
-    v46 = sub_2F88();
-    v82 = v5;
-    v48 = v47;
-    v86 = *(v32 + 8);
-    v86(v39, v31);
-    v49 = sub_1440(v46, v48, &v117);
-    v5 = v82;
+    v35 = swift_slowAlloc();
+    v74 = v2;
+    v36 = v35;
+    v72 = swift_slowAlloc();
+    v108 = v72;
+    *v36 = 136315138;
+    sub_28C0(&qword_8148, &type metadata accessor for HomeCommunicationSnippetModel, &protocol conformance descriptor for HomeCommunicationSnippetModel);
+    v37 = sub_2F88();
+    v73 = v4;
+    v39 = v38;
+    v77 = *(v24 + 8);
+    v77(v30, v23);
+    v40 = sub_1440(v37, v39, &v108);
+    v4 = v73;
 
-    *(v45 + 4) = v49;
-    _os_log_impl(&dword_0, v42, v43, "#HomeCommunicationUIPlugin getting snippet for %s", v45, 0xCu);
-    sub_2874(v81);
+    *(v36 + 4) = v40;
+    _os_log_impl(&dword_0, v33, v34, "#HomeCommunicationUIPlugin getting snippet for %s", v36, 0xCu);
+    sub_2874(v72);
 
-    v2 = v83;
+    v2 = v74;
   }
 
   else
   {
 
-    v86 = *(v32 + 8);
-    v86(v39, v31);
+    v77 = *(v24 + 8);
+    v77(v30, v23);
   }
 
-  v50 = v114;
-  v51 = v115;
-  v52 = v31;
-  v53 = v31;
-  v54 = v113;
-  v113(v115, v114, v53);
-  v55 = (*(v32 + 88))(v51, v52);
-  if (v55 == enum case for HomeCommunicationSnippetModel.appLaunch(_:))
+  v41 = v105;
+  v42 = v106;
+  v43 = v23;
+  v44 = v23;
+  v45 = v104;
+  v104(v106, v105, v44);
+  v46 = (*(v24 + 88))(v42, v43);
+  if (v46 == enum case for HomeCommunicationSnippetModel.appLaunch(_:))
   {
-    (*(v32 + 96))(v51, v52);
-    v57 = v107;
-    v56 = v108;
-    v58 = v110;
-    (*(v108 + 32))(v107, v51, v110);
-    (*(v56 + 16))(v106, v57, v58);
-    v59 = v109;
+    (*(v24 + 96))(v42, v43);
+    v48 = v98;
+    v47 = v99;
+    v49 = v101;
+    (*(v99 + 32))(v98, v42, v101);
+    (*(v47 + 16))(v97, v48, v49);
+    v50 = v100;
     sub_2E28();
-    sub_28C0(&qword_8168, &type metadata accessor for HomeAppLaunchView);
-    v60 = v112;
-    v61 = sub_2F28();
-    v62 = v111;
+    sub_28C0(&qword_8168, &type metadata accessor for HomeAppLaunchView, &protocol conformance descriptor for HomeAppLaunchView);
+    v51 = v103;
+    v52 = sub_2F28();
+    v53 = v102;
 LABEL_12:
-    (*(v62 + 8))(v59, v60);
-    (*(v56 + 8))(v57, v58);
-    return v61;
+    (*(v53 + 8))(v50, v51);
+    (*(v47 + 8))(v48, v49);
+    return v52;
   }
 
-  if (v55 == enum case for HomeCommunicationSnippetModel.carPlayIntercomControl(_:))
+  if (v46 == enum case for HomeCommunicationSnippetModel.carPlayIntercomControl(_:))
   {
-    (*(v32 + 96))(v51, v52);
-    v57 = v100;
-    v56 = v101;
-    v58 = v103;
-    (*(v101 + 32))(v100, v51, v103);
-    (*(v56 + 16))(v99, v57, v58);
-    v59 = v102;
+    (*(v24 + 96))(v42, v43);
+    v48 = v91;
+    v47 = v92;
+    v49 = v94;
+    (*(v92 + 32))(v91, v42, v94);
+    (*(v47 + 16))(v90, v48, v49);
+    v50 = v93;
     sub_2EB8();
-    sub_28C0(&qword_8160, &type metadata accessor for CarPlayIntercomControlView);
-    v60 = v105;
-    v61 = sub_2F28();
-    v62 = v104;
+    sub_28C0(&qword_8160, &type metadata accessor for CarPlayIntercomControlView, &protocol conformance descriptor for CarPlayIntercomControlView);
+    v51 = v96;
+    v52 = sub_2F28();
+    v53 = v95;
     goto LABEL_12;
   }
 
-  if (v55 == enum case for HomeCommunicationSnippetModel.homeDisambiguation(_:))
+  if (v46 == enum case for HomeCommunicationSnippetModel.homeDisambiguation(_:))
   {
-    (*(v32 + 96))(v51, v52);
-    v56 = v94;
-    v57 = v93;
-    v58 = v96;
-    (*(v94 + 32))(v93, v51, v96);
-    (*(v56 + 16))(v92, v57, v58);
-    v59 = v95;
+    (*(v24 + 96))(v42, v43);
+    v47 = v85;
+    v48 = v84;
+    v49 = v87;
+    (*(v85 + 32))(v84, v42, v87);
+    (*(v47 + 16))(v83, v48, v49);
+    v50 = v86;
     sub_2E58();
-    sub_28C0(&qword_8158, &type metadata accessor for HomeDisambiguationView);
-    v60 = v98;
-    v61 = sub_2F28();
-    v62 = v97;
+    sub_28C0(&qword_8158, &type metadata accessor for HomeDisambiguationView, &protocol conformance descriptor for HomeDisambiguationView);
+    v51 = v89;
+    v52 = sub_2F28();
+    v53 = v88;
     goto LABEL_12;
   }
 
-  if (v55 == enum case for HomeCommunicationSnippetModel.sendAnnouncementNeedsValue(_:))
+  if (v46 == enum case for HomeCommunicationSnippetModel.sendAnnouncementNeedsValue(_:))
   {
-    (*(v32 + 96))(v51, v52);
-    v64 = v90;
-    v65 = v89;
-    (*(v90 + 32))(v89, v51, v5);
-    (*(v64 + 16))(v88, v65, v5);
-    v66 = v91;
+    (*(v24 + 96))(v42, v43);
+    v55 = v81;
+    v56 = v80;
+    (*(v81 + 32))(v80, v42, v4);
+    (*(v55 + 16))(v79, v56, v4);
+    v57 = v82;
     sub_2E98();
-    sub_28C0(&qword_8150, &type metadata accessor for SendAnnouncementView);
-    v67 = v84;
-    v61 = sub_2F28();
-    (*(v2 + 8))(v66, v67);
-    (*(v64 + 8))(v65, v5);
+    sub_28C0(&qword_8150, &type metadata accessor for SendAnnouncementView, &protocol conformance descriptor for SendAnnouncementView);
+    v58 = v75;
+    v52 = sub_2F28();
+    (*(v2 + 8))(v57, v58);
+    (*(v55 + 8))(v56, v4);
   }
 
   else
   {
-    v68 = v87;
-    v54(v87, v50, v52);
-    v61 = sub_2EF8();
-    v69 = sub_2F58();
-    if (os_log_type_enabled(v61, v69))
+    v59 = v78;
+    v45(v78, v41, v43);
+    v52 = sub_2EF8();
+    v60 = sub_2F58();
+    if (os_log_type_enabled(v52, v60))
     {
-      v70 = swift_slowAlloc();
-      v71 = swift_slowAlloc();
-      v117 = v71;
-      *v70 = 136315138;
-      sub_28C0(&qword_8148, &type metadata accessor for HomeCommunicationSnippetModel);
-      v72 = sub_2F88();
-      v73 = v52;
-      v75 = v74;
-      v76 = v68;
-      v77 = v86;
-      v86(v76, v73);
-      v78 = sub_1440(v72, v75, &v117);
-      v52 = v73;
+      v61 = swift_slowAlloc();
+      v62 = swift_slowAlloc();
+      v108 = v62;
+      *v61 = 136315138;
+      sub_28C0(&qword_8148, &type metadata accessor for HomeCommunicationSnippetModel, &protocol conformance descriptor for HomeCommunicationSnippetModel);
+      v63 = sub_2F88();
+      v64 = v43;
+      v66 = v65;
+      v67 = v59;
+      v68 = v77;
+      v77(v67, v64);
+      v69 = sub_1440(v63, v66, &v108);
+      v43 = v64;
 
-      *(v70 + 4) = v78;
-      _os_log_impl(&dword_0, v61, v69, "#HomeCommunicationUIPlugin unknown snippet model %s. Throwing.", v70, 0xCu);
-      sub_2874(v71);
+      *(v61 + 4) = v69;
+      _os_log_impl(&dword_0, v52, v60, "#HomeCommunicationUIPlugin unknown snippet model %s. Throwing.", v61, 0xCu);
+      sub_2874(v62);
     }
 
     else
     {
 
-      v79 = v68;
-      v77 = v86;
-      v86(v79, v52);
+      v70 = v59;
+      v68 = v77;
+      v77(v70, v43);
     }
 
     sub_2820();
-    v116 = swift_allocError();
+    v107 = swift_allocError();
     swift_willThrow();
-    v77(v115, v52);
+    v68(v106, v43);
   }
 
-  return v61;
+  return v52;
 }
 
 uint64_t sub_27E8(uint64_t a1, uint64_t a2)
@@ -653,7 +641,7 @@ uint64_t sub_2874(void *a1)
   }
 }
 
-uint64_t sub_28C0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_28C0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -679,7 +667,6 @@ uint64_t sub_2964(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -816,16 +803,16 @@ uint64_t sub_2B20()
   return sub_2F08();
 }
 
-uint64_t sub_2BC0(void *a1, uint64_t a2)
+uint64_t sub_2BC0(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_2F18();
+  v4 = sub_2F18();
 
-  return sub_27E8(v3, a2);
+  return sub_27E8(v4, a2);
 }
 
 uint64_t sub_2C38()
@@ -836,30 +823,27 @@ uint64_t sub_2C38()
   return sub_2F08();
 }
 
-uint64_t sub_2CDC@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_2CDC@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_2F18();
-  v6 = sub_27E8(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_2F18();
+  v7 = sub_27E8(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t *sub_2D84(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

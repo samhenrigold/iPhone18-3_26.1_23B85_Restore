@@ -132,19 +132,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBBoolValue *)self hasValue])
   {
-    value = self->_value;
     PBDataWriterWriteBOOLField();
   }
 
   valueMetadata = [(_INPBBoolValue *)self valueMetadata];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBBoolValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 

@@ -33,42 +33,42 @@
 
 - (void)_enumerateObservers:(id)observers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   observersQueue = self->_observersQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__PXConcreteAVResourceReclamationController__enumerateObservers___block_invoke;
   block[3] = &unk_279A29078;
   block[4] = self;
-  block[5] = &v16;
+  block[5] = &v15;
   dispatch_sync(observersQueue, block);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v6 = v17[5];
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v6 = v16[5];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if (*(*(&v11 + 1) + 8 * v9))
+        if (*(*(&v10 + 1) + 8 * v9))
         {
           observersCopy[2](observersCopy);
         }
@@ -77,22 +77,18 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 }
 
 uint64_t __65__PXConcreteAVResourceReclamationController__enumerateObservers___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) allObjects];
 
   return MEMORY[0x2821F96F8]();
 }

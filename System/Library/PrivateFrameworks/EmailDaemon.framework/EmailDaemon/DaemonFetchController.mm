@@ -8,6 +8,8 @@
 - (void)downloadMessageBodiesWithCompletion:(id)completion;
 - (void)fetchSchedulerDidTrigger:(id)trigger;
 - (void)performFetchForOTC;
+- (void)performFetchOfType:(int)type;
+- (void)performFetchOfType:(int)type accountIds:(id)ids;
 - (void)resetPushStateWithCompletion:(id)completion;
 - (void)setSuppressedContexts:(id)contexts;
 @end
@@ -114,6 +116,21 @@
   v11 = v5;
   v9 = v5;
   dispatch_after(v8, self, block);
+}
+
+- (void)performFetchOfType:(int)type
+{
+  v3 = *&type;
+  v4 = +[AutoFetchController sharedController];
+  [v4 fetchNow:v3];
+}
+
+- (void)performFetchOfType:(int)type accountIds:(id)ids
+{
+  v4 = *&type;
+  v6 = [ids ef_map:&stru_100156A98];
+  v5 = +[AutoFetchController sharedController];
+  [v5 fetchNow:v4 withAccounts:v6];
 }
 
 - (void)downloadMessageBodiesWithCompletion:(id)completion

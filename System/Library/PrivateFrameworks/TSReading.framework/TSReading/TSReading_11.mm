@@ -15,12 +15,12 @@ double *new_tristrip(void *a1, uint64_t a2, double a3, double a4)
   *(*v7 + 16) = 0;
   v10 = *v7;
   *v10 = 1;
-  v11 = (v10 + 2);
+  v11 = v10 + 2;
   do
   {
     v12 = v11;
     v13 = *v11;
-    v11 = (*v11 + 2);
+    v11 = (*v11 + 16);
   }
 
   while (v13);
@@ -53,7 +53,7 @@ char *create_contour_bboxes(int *a1)
     {
       v9 = &result[32 * v5];
       *v9 = v7;
-      v9[1] = v8;
+      *(v9 + 1) = v8;
       v10 = (v6 + 16 * v5);
       v11 = *v10;
       if (v11 >= 1)
@@ -68,26 +68,26 @@ char *create_contour_bboxes(int *a1)
           v17 = *(v12 - 1);
           if (v17 < v16)
           {
-            *v9->i64 = v17;
+            *v9 = v17;
             v16 = v17;
           }
 
           v18 = *v12;
           if (*v12 < v13)
           {
-            *&v9->i64[1] = v18;
+            *(v9 + 1) = v18;
             v13 = v18;
           }
 
           if (v17 > v15)
           {
-            *v9[1].i64 = v17;
+            *(v9 + 2) = v17;
             v15 = v17;
           }
 
           if (v18 > v14)
           {
-            *&v9[1].i64[1] = v18;
+            *(v9 + 3) = v18;
             v14 = v18;
           }
 
@@ -385,7 +385,7 @@ void sub_26C8DAFEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::push_back[abi:nn200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:nn200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -434,7 +434,7 @@ void std::vector<double>::push_back[abi:nn200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -530,66 +530,58 @@ uint64_t TSDOrthoPathCost::operator<(unsigned __int8 *a1, unsigned __int8 *a2)
   return v14 == v15 || v14 < v15;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> addPointToXYs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void addPointToXYs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = a2;
-  std::__tree<long>::__emplace_unique_key_args<long,long const&>(a3, &v6);
-  std::__tree<long>::__emplace_unique_key_args<long,long const&>(a4, &v5);
+  v6 = a1;
+  std::__tree<long>::__emplace_unique_key_args<long,long const&>(a3, &v6, &v6);
+  std::__tree<long>::__emplace_unique_key_args<long,long const&>(a4, &v5, &v5);
 }
 
-uint64_t shapeAnchorInDirection(__int128 *a1, uint64_t a2)
+void shapeAnchorInDirection(__int128 *a1, uint64_t a2)
 {
   if (a2 > 1)
   {
     if (a2 == 2)
     {
-      v11 = a1[1];
-      v12 = *a1;
-      v13 = v11;
-      MinX = TSDIntRectGetMinX(&v12);
+      v5 = a1[1];
+      v6 = *a1;
+      v7 = v5;
+      TSDIntRectGetMinX(&v6);
+      goto LABEL_11;
     }
 
-    else
+    if (a2 == 3)
     {
-      if (a2 != 3)
-      {
-        return 0;
-      }
+      v3 = a1[1];
+      v6 = *a1;
+      v7 = v3;
+      TSDIntRectGetMaxX(&v6);
+      goto LABEL_11;
+    }
+  }
 
-      v6 = a1[1];
-      v12 = *a1;
-      v13 = v6;
-      MinX = TSDIntRectGetMaxX(&v12);
+  else
+  {
+    if (!a2)
+    {
+      v4 = a1[1];
+      v6 = *a1;
+      v7 = v4;
+      TSDIntRectGetMaxY(&v6);
+      goto LABEL_11;
     }
 
-    v10 = *(a1 + 5);
-    return TSDIntPointMake(MinX, v10);
+    if (a2 == 1)
+    {
+      v2 = a1[1];
+      v6 = *a1;
+      v7 = v2;
+      TSDIntRectGetMinY(&v6);
+LABEL_11:
+      TSDIntPointMake();
+    }
   }
-
-  if (!a2)
-  {
-    v3 = *(a1 + 4);
-    v9 = a1[1];
-    v12 = *a1;
-    v13 = v9;
-    MaxY = TSDIntRectGetMaxY(&v12);
-    goto LABEL_10;
-  }
-
-  if (a2 != 1)
-  {
-    return 0;
-  }
-
-  v3 = *(a1 + 4);
-  v4 = a1[1];
-  v12 = *a1;
-  v13 = v4;
-  MaxY = TSDIntRectGetMinY(&v12);
-LABEL_10:
-  v10 = MaxY;
-  MinX = v3;
-  return TSDIntPointMake(MinX, v10);
 }
 
 uint64_t insertShapeEdgeNodes(uint64_t a1, uint64_t *a2, __int128 *a3, int a4)
@@ -609,22 +601,22 @@ uint64_t insertShapeEdgeNodes(uint64_t a1, uint64_t *a2, __int128 *a3, int a4)
   do
   {
     v9 = a3[1];
-    v22 = *a3;
-    v23 = v9;
+    v23 = *a3;
+    v24 = v9;
     v10 = *a2;
     v11 = a2[1];
     v12 = a2;
-    if (TSDIntRectContainsPoint(&v22, *a2, v11))
+    if (TSDIntRectContainsPoint(&v23, *a2, v11))
     {
       do
       {
         v12 = v12[v6 + 2];
         v13 = a3[1];
-        v22 = *a3;
-        v23 = v13;
+        v23 = *a3;
+        v24 = v13;
       }
 
-      while (TSDIntRectContainsPoint(&v22, *v12, v12[1]));
+      while (TSDIntRectContainsPoint(&v23, *v12, v12[1]));
       v10 = *v12;
       v11 = v12[1];
     }
@@ -634,28 +626,29 @@ uint64_t insertShapeEdgeNodes(uint64_t a1, uint64_t *a2, __int128 *a3, int a4)
       v12 = a2;
     }
 
-    v14 = shapeAnchorInDirection(a3, v6);
-    v16 = v15;
-    result = TSDIntPointEquals(v14, v15, v10, v11);
+    shapeAnchorInDirection(a3, v6);
+    v15 = v14;
+    v17 = v16;
+    result = TSDIntPointEquals(v14, v16, v10, v11);
     if ((result & 1) == 0)
     {
-      v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v27 &= 0x80u;
-      *&v22 = v14;
-      *(&v22 + 1) = v16;
-      std::vector<TSDOrthoGraphPoint>::push_back[abi:nn200100](a1, &v22);
-      v18 = *(a1 + 8);
+      v25 = 0u;
+      v28 &= 0x80u;
+      *&v23 = v15;
+      *(&v23 + 1) = v17;
+      std::vector<TSDOrthoGraphPoint>::push_back[abi:nn200100](a1, &v23);
+      v19 = *(a1 + 8);
       result = TSDDirectionOpposite(v6);
-      *(v18 - 72 + 8 * v6) = v12;
-      v19 = &v12[result];
-      v20 = v19[2];
-      *(v18 - 72 + 8 * result) = v20;
-      *(v20 + 8 * v6 + 16) = v18 - 88;
-      v19[2] = v18 - 88;
-      v12 = (v18 - 88);
+      *(v19 - 72 + 8 * v6) = v12;
+      v20 = &v12[result];
+      v21 = v20[2];
+      *(v19 - 72 + 8 * result) = v21;
+      *(v21 + 8 * v6 + 16) = v19 - 88;
+      v20[2] = v19 - 88;
+      v12 = (v19 - 88);
     }
 
     *(v12 + 80) = v7 | v12[10] & 0xBD;
@@ -755,35 +748,33 @@ void sub_26C8DC938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<TSDOrthoGraphPoint>::reserve(void *result, unint64_t a2)
+void std::vector<TSDOrthoGraphPoint>::reserve(void *a1, unint64_t a2)
 {
-  if (0x2E8BA2E8BA2E8BA3 * ((result[2] - *result) >> 3) < a2)
+  if (0x2E8BA2E8BA2E8BA3 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x2E8BA2E8BA2E8BBLL)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<TSDOrthoGraphPoint>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<TSDOrthoGraphPoint>>(a1, a2);
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
-void std::vector<TSDOrthoGraphPoint *>::resize(void *a1, unint64_t a2)
+void std::vector<TSDOrthoGraphPoint *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<TSDOrthoGraphPoint *>::__append(a1, a2 - v2);
+    std::vector<TSDOrthoGraphPoint *>::__append(result, a2 - v2);
   }
 }
 
@@ -908,30 +899,30 @@ void sub_26C8DCC58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t pathByAddingGraphPoint(uint64_t **a1, uint64_t *a2)
+_OWORD *pathByAddingGraphPoint(uint64_t **a1, uint64_t *a2, unint64_t a3, int a4)
 {
   if (a2)
   {
     TSDIntOrthogonalDistance(**a1, (*a1)[1], *a2, a2[1]);
-    v4 = a1;
+    v6 = a1;
     do
     {
-      if (*v4 == a2)
+      if (*v6 == a2)
       {
         break;
       }
 
-      v4 = v4[3];
+      v6 = v6[3];
     }
 
-    while (v4);
+    while (v6);
     operator new();
   }
 
   return 0;
 }
 
-uint64_t extendInDirection(uint64_t result, uint64_t a2, uint64_t a3)
+_OWORD *extendInDirection(_OWORD *result, unint64_t a2, uint64_t a3)
 {
   *(result + 176) |= 2u;
   do
@@ -941,7 +932,7 @@ uint64_t extendInDirection(uint64_t result, uint64_t a2, uint64_t a3)
       break;
     }
 
-    result = pathByAddingGraphPoint(result, *(*result + 8 * a2 + 16));
+    result = pathByAddingGraphPoint(result, *(*result + 8 * a2 + 16), a2, 1);
   }
 
   while (result);
@@ -1191,41 +1182,41 @@ void std::vector<TSDOrthoPathNode *>::push_back[abi:nn200100](uint64_t a1, void 
   *(a1 + 8) = v6;
 }
 
-void *std::__tree<long>::__emplace_unique_key_args<long,long const&>(uint64_t a1, uint64_t *a2)
+void *std::__tree<long>::__emplace_unique_key_args<long,long const&>(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -1446,56 +1437,56 @@ uint64_t std::__sift_up[abi:nn200100]<std::_ClassicAlgPolicy,BOOL (*&)(TSDOrthoP
   return result;
 }
 
-void sub_26C8E4B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26C8E4B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<objc_object  {objcproto19TSWPStorageObserver}*>::__emplace_unique_key_args<objc_object  {objcproto19TSWPStorageObserver},objc_object  {objcproto19TSWPStorageObserver} const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<objc_object  {objcproto19TSWPStorageObserver}*>::__emplace_unique_key_args<objc_object  {objcproto19TSWPStorageObserver},objc_object  {objcproto19TSWPStorageObserver} const&>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -1545,20 +1536,20 @@ void sub_26C8F1258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_26C8F4584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C8F4584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void TSWPLayoutColumnChore::TSWPLayoutColumnChore(uint64_t a1, void *a2, void *a3, void *a4, int a5, uint64_t a6, uint64_t a7)
+void TSWPLayoutColumnChore::TSWPLayoutColumnChore(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8)
 {
-  TSWPLayoutChore::TSWPLayoutChore(a1, a2, a3, a4, a6, a5, a6, a7, 0);
+  TSWPLayoutChore::TSWPLayoutChore(a1, a2, a3, a4, a6, a5, a6, a7, 0, 0);
 }
 
 {
-  TSWPLayoutColumnChore::TSWPLayoutColumnChore(a1, a2, a3, a4, a5, a6, a7);
+  TSWPLayoutColumnChore::TSWPLayoutColumnChore(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 
 void TSWPLayoutColumnChore::~TSWPLayoutColumnChore(TSWPLayoutColumnChore *this)
@@ -1568,7 +1559,7 @@ void TSWPLayoutColumnChore::~TSWPLayoutColumnChore(TSWPLayoutColumnChore *this)
   JUMPOUT(0x26D6A9A30);
 }
 
-uint64_t TSWPLayoutColumnChore::layoutColumnsIntoTarget(uint64_t a1, void *a2, unint64_t a3, uint64_t a4, void *a5)
+void *TSWPLayoutColumnChore::layoutColumnsIntoTarget(uint64_t a1, void *a2, char *a3, uint64_t a4, void *a5)
 {
   *(a1 + 2056) = a2;
   v10 = [objc_msgSend(a2 "columns")];
@@ -1626,17 +1617,17 @@ uint64_t TSWPLineStylingCTState::TSWPLineStylingCTState(uint64_t a1, void *a2, v
   {
     v12 = v11++;
     v13 = [a3 characterAtIndex:v10];
-    v14 = v13;
+    v15 = v13;
     if (v6 & 1) == 0 && v11 <= 1 && (IsWhitespaceCharacter(v13))
     {
       v11 = v12;
       goto LABEL_15;
     }
 
-    if ((v6 & 1) == 0 && v14 == 65532)
+    if ((v6 & 1) == 0 && v15 == 65532)
     {
-      v15 = [a3 attachmentAtCharIndex:v10];
-      if ([v15 isDrawable] && objc_msgSend(v15, "isAnchored"))
+      v16 = [a3 attachmentAtCharIndex:v10];
+      if ([v16 isDrawable] && objc_msgSend(v16, "isAnchored"))
       {
         v11 = v12;
       }
@@ -1644,7 +1635,7 @@ uint64_t TSWPLineStylingCTState::TSWPLineStylingCTState(uint64_t a1, void *a2, v
       goto LABEL_15;
     }
 
-    if (IsParagraphBreakingCharacter(v14))
+    if (IsParagraphBreakingCharacter(v15, v14))
     {
       break;
     }
@@ -1667,15 +1658,15 @@ LABEL_15:
 LABEL_17:
     *(a1 + 16) = v9;
     *(a1 + 24) = v7;
-    v16 = v7 + v9;
+    v17 = v7 + v9;
     goto LABEL_20;
   }
 
 LABEL_19:
-  v16 = 0;
+  v17 = 0;
   *(a1 + 16) = xmmword_26CA637B0;
 LABEL_20:
-  *(a1 + 32) = v16;
+  *(a1 + 32) = v17;
   return a1;
 }
 
@@ -1942,9 +1933,9 @@ uint64_t TSWPLineStylingLayoutState::prepareForLayoutIteration(uint64_t this)
   return this;
 }
 
-void sub_26C8FC8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C8FC8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1983,9 +1974,9 @@ void TSWPEnumerateWordsInStringWithBlock(CFStringRef string, CFRange range, CFLo
   }
 }
 
-void sub_26C8FEB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C8FEB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2037,17 +2028,17 @@ void TSWPParagraphAttributeArray::release(TSWPParagraphAttributeArray *this, con
   }
 }
 
-void TSWPParagraphAttributeArray::adoptStylesheetWithMapper(TSWPAttributeArray *a1, uint64_t a2, void *a3)
+void TSWPParagraphAttributeArray::adoptStylesheetWithMapper(TSWPAttributeArray *result, uint64_t a2, void *a3)
 {
-  if (a1->var1 == 8)
+  if (result->var1 == 8)
   {
-    if (a1->var2)
+    if (result->var2)
     {
       v6 = 0;
       v7 = 8;
       do
       {
-        v8 = *(a1->var4 + v7);
+        v8 = *(result->var4 + v7);
         if (v8)
         {
           if (objc_opt_respondsToSelector())
@@ -2060,20 +2051,20 @@ void TSWPParagraphAttributeArray::adoptStylesheetWithMapper(TSWPAttributeArray *
         v7 += 16;
       }
 
-      while (v6 < a1->var2);
+      while (v6 < result->var2);
     }
   }
 
-  else if ((*(a1->var0 + 3))(a1))
+  else if ((*(result->var0 + 3))(result, a2))
   {
-    var2 = a1->var2;
+    var2 = result->var2;
     if (var2)
     {
       v10 = 0;
       v11 = 8;
       do
       {
-        var4 = a1->var4;
+        var4 = result->var4;
         v13 = *(var4 + v11);
         if (v13)
         {
@@ -2089,8 +2080,8 @@ void TSWPParagraphAttributeArray::adoptStylesheetWithMapper(TSWPAttributeArray *
             [v15 handleFailureInFunction:v16 file:v17 lineNumber:103 description:{@"Bad style mapping [%@ %p] -> [%@ %p]", v19, v13, NSStringFromClass(v20), v14}];
           }
 
-          TSWPAttributeArray::replaceObjectForAttributeIndex(a1, v14, v10, 0, 0);
-          var2 = a1->var2;
+          TSWPAttributeArray::replaceObjectForAttributeIndex(result, v14, v10, 0, 0);
+          var2 = result->var2;
         }
 
         ++v10;
@@ -2111,7 +2102,7 @@ unint64_t TSWPParagraphAttributeArray::paragraphRangeForCharRange(TSWPParagraphA
   if (length)
   {
     v7 = location + length;
-    if (v7 != v5 || (IsParagraphBreakingCharacter([this->var5 characterAtIndex:v5 - 1]) & 1) == 0)
+    if (v7 != v5 || (v8 = [this->var5 characterAtIndex:v5 - 1], (IsParagraphBreakingCharacter(v8, v9) & 1) == 0))
     {
       v5 = v7 - 1;
     }
@@ -2487,7 +2478,7 @@ void TSWPParagraphAttributeArray::willReplaceCharactersInRangeWithString(TSWPPar
   if (a4 && a1->var1 != 8)
   {
     v11 = (a2.location + a2.length);
-    v12 = [a1->var5 paragraphIndexAtCharIndex:a2.location + a2.length];
+    v12 = [a1->var5 paragraphIndexAtCharIndex:{a2.location + a2.length, a3}];
     a1 = (v12 + 1 >= v10->var2 ? TSWPAttributeArray::characterCount(v10) : [v10->var5 textRangeForParagraphAtIndex:?] - 1);
     v10->var7 = a1 == v11;
     if (a1 == v11)
@@ -2495,7 +2486,7 @@ void TSWPParagraphAttributeArray::willReplaceCharactersInRangeWithString(TSWPPar
       var5 = v10->var5;
       if (var5)
       {
-        [var5 paragraphEnumeratorAtCharIndex:location + length styleProvider:0];
+        objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(var5);
       }
 
       else
@@ -2520,7 +2511,7 @@ void TSWPParagraphAttributeArray::willReplaceCharactersInRangeWithString(TSWPPar
     v16 = v10;
     if (v10->var1)
     {
-      a1 = [v10->var5 attributeArrayForKind:0];
+      a1 = [v10->var5 attributeArrayForKind:{0, a3}];
       v16 = a1;
     }
 
@@ -2610,25 +2601,25 @@ BOOL TSWPParagraphAttributeArray::isParagraphBreakSparse(TSWPParagraphAttributeA
   return v8 != TSWPAttributeArray::charIndexForAttributeIndex(a3, a2);
 }
 
-unint64_t TSWPParagraphAttributeArray::adjustCharIndexForCharRangeWithString(TSWPAttributeArray *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t TSWPParagraphAttributeArray::adjustCharIndexForCharRangeWithString(TSWPAttributeArray *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v10 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, a3);
-  if (v10 == 0x7FFFFFFFFFFFFFFFLL)
+  v11 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, a3);
+  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   if (a6 != a4)
   {
-    TSWPAttributeArray::adjustCharIndexStartingAtAttributeIndex(a1, a2, v11 + 1, a6 - a4);
+    TSWPAttributeArray::adjustCharIndexStartingAtAttributeIndex(a1, a2, v12 + 1, a6 - a4);
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t TSWPParagraphAttributeArray::didReplaceCharactersInRangeWithString(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -2658,11 +2649,11 @@ uint64_t TSWPParagraphAttributeArray::didReplaceCharactersInRangeWithString(uint
 
 float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttributeArray *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6, TSWPStorageTransaction *a7)
 {
-  if (((*(a1->var0 + 21))(a1) & 1) == 0)
+  if (((*(a1->var0 + 21))(a1, a2, a3) & 1) == 0)
   {
-    v13 = [MEMORY[0x277D6C290] currentHandler];
-    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"virtual void TSWPParagraphAttributeArray::insertAttributesForMarkers(NSRange, NSUInteger, TSWPAttributeIndex, markerArray &, TSWPStorageTransaction *)"}];
-    [v13 handleFailureInFunction:v14 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPParagraphAttributeArray.mm"), 304, @"insertAttributesForMarkers: we should not be in this method without objects or starts."}];
+    v14 = [MEMORY[0x277D6C290] currentHandler];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"virtual void TSWPParagraphAttributeArray::insertAttributesForMarkers(NSRange, NSUInteger, TSWPAttributeIndex, markerArray &, TSWPStorageTransaction *)"}];
+    [v14 handleFailureInFunction:v15 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPParagraphAttributeArray.mm"), 304, @"insertAttributesForMarkers: we should not be in this method without objects or starts."}];
   }
 
   var1 = a1->var1;
@@ -2670,26 +2661,26 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
   {
     if (var1 == 8)
     {
-      v34 = *a6;
-      v33 = a6[1];
-      if (*a6 != v33)
+      v37 = *a6;
+      v36 = a6[1];
+      if (*a6 != v36)
       {
-        v35 = a2 + 1;
+        v38 = a2 + 1;
         do
         {
-          if (*(v34 + 8) == 4)
+          if (*(v37 + 8) == 4)
           {
             ++a5;
-            v55 = v35 + *v34;
-            v56 = 0;
-            TSWPAttributeArray::insertAttribute(a1, &v55, a5, 0, a7);
-            v33 = a6[1];
+            v60 = v38 + *v37;
+            v61 = 0;
+            TSWPAttributeArray::insertAttribute(a1, &v60, a5, 0, a7);
+            v36 = a6[1];
           }
 
-          v34 += 16;
+          v37 += 16;
         }
 
-        while (v34 != v33);
+        while (v37 != v36);
       }
     }
 
@@ -2697,7 +2688,7 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
     {
       for (i = *a6; i != a6[1]; i += 16)
       {
-        if (IsParagraphBreakingCharacter(*(i + 8)))
+        if (IsParagraphBreakingCharacter(*(i + 8), v13))
         {
           var2 = a1[1].var2;
           if (var2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -2711,25 +2702,25 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
             {
               if (a4)
               {
-                v47 = a2 + *i + 1;
+                v52 = a2 + *i + 1;
                 if (a2 + *i != 0x7FFFFFFFFFFFFFFELL)
                 {
                   var5 = a1->var5;
                   if (var5)
                   {
-                    v49 = a6[1];
-                    if (v49 == *a6 || *(v49 - 16) != a4 - 1)
+                    v54 = a6[1];
+                    if (v54 == *a6 || *(v54 - 16) != a4 - 1)
                     {
-                      v50 = 0;
+                      v55 = 0;
                     }
 
                     else
                     {
-                      v50 = IsParagraphBreakingCharacter(*(v49 - 8));
+                      v55 = IsParagraphBreakingCharacter(*(v54 - 8), v13);
                       var5 = a1->var5;
                     }
 
-                    [var5 setListStart:0 forCharRange:v47 undoTransaction:{a2 + a4 - v47 + v50, a7}];
+                    [var5 setListStart:0 forCharRange:v52 undoTransaction:{a2 + a4 - v52 + v55, a7}];
                   }
                 }
               }
@@ -2743,23 +2734,23 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
 
     else if (var1 == 18 && a1[1].var2 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v18 = [a1->var5 writingDirectionForParagraphAtParIndex:?];
-      v19 = *a6;
+      v19 = [a1->var5 writingDirectionForParagraphAtParIndex:?];
+      v21 = *a6;
       if (*a6 != a6[1])
       {
-        v20 = v18;
-        v21 = a2 + 1;
+        v22 = v19;
+        v23 = a2 + 1;
         do
         {
-          if (IsParagraphBreakingCharacter(*(v19 + 8)))
+          if (IsParagraphBreakingCharacter(*(v21 + 8), v20))
           {
-            [a1->var5 setParagraphWritingDirection:v20 forCharRange:v21 + *v19 undoTransaction:{1, a7}];
+            [a1->var5 setParagraphWritingDirection:v22 forCharRange:v23 + *v21 undoTransaction:{1, a7}];
           }
 
-          v19 += 16;
+          v21 += 16;
         }
 
-        while (v19 != a6[1]);
+        while (v21 != a6[1]);
       }
     }
   }
@@ -2770,68 +2761,68 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
     {
       if (a1[1].var2 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v36 = [a1->var5 paragraphLevelAtParIndex:?];
-        v37 = *a6;
+        v39 = [a1->var5 paragraphLevelAtParIndex:?];
+        v41 = *a6;
         if (*a6 != a6[1])
         {
-          v38 = v36;
-          v39 = a2 + 1;
+          v42 = v39;
+          v43 = a2 + 1;
           do
           {
-            if (IsParagraphBreakingCharacter(*(v37 + 8)))
+            if (IsParagraphBreakingCharacter(*(v41 + 8), v40))
             {
-              [a1->var5 setParagraphLevel:v38 forCharRange:v39 + *v37 undoTransaction:{1, a7}];
+              [a1->var5 setParagraphLevel:v42 forCharRange:v43 + *v41 undoTransaction:{1, a7}];
             }
 
-            v37 += 16;
+            v41 += 16;
           }
 
-          while (v37 != a6[1]);
+          while (v41 != a6[1]);
         }
       }
     }
 
     else if (var1 == 2)
     {
-      if (a4 && *&a1[1].var1 != 0x7FFFFFFFFFFFFFFFLL && (v16 = a1->var5) != 0)
+      if (a4 && *&a1[1].var1 != 0x7FFFFFFFFFFFFFFFLL && (v17 = a1->var5) != 0)
       {
-        v17 = [objc_msgSend(v16 "stylesheet")];
-        if (!v17)
+        v18 = [objc_msgSend(v17 "stylesheet")];
+        if (!v18)
         {
-          v17 = [objc_msgSend(a1->var5 "stylesheet")];
+          v18 = [objc_msgSend(a1->var5 "stylesheet")];
         }
 
-        if ([a1->var5 listStyleAtCharIndex:*&a1[1].var1 effectiveRange:0] != v17)
+        if ([a1->var5 listStyleAtCharIndex:*&a1[1].var1 effectiveRange:0] != v18)
         {
-          [a1->var5 setListStyle:v17 forCharRange:*&a1[1].var1 undoTransaction:{a2 + a4 - *&a1[1].var1, a7}];
+          [a1->var5 setListStyle:v18 forCharRange:*&a1[1].var1 undoTransaction:{a2 + a4 - *&a1[1].var1, a7}];
         }
       }
 
       else
       {
-        v41 = a1[1].var2;
-        if (v41 != 0x7FFFFFFFFFFFFFFFLL)
+        v45 = a1[1].var2;
+        if (v45 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v42 = [a1->var5 listStyleAtParIndex:v41 effectiveRange:0];
-          v43 = *a6;
+          v46 = [a1->var5 listStyleAtParIndex:v45 effectiveRange:0];
+          v48 = *a6;
           if (*a6 != a6[1])
           {
-            v44 = v42;
-            v45 = a2 + 1;
+            v49 = v46;
+            v50 = a2 + 1;
             do
             {
-              if (IsParagraphBreakingCharacter(*(v43 + 8)))
+              if (IsParagraphBreakingCharacter(*(v48 + 8), v47))
               {
                 ++a5;
-                v55 = v45 + *v43;
-                v56 = v44;
-                TSWPAttributeArray::insertAttribute(a1, &v55, a5, 0, a7);
+                v60 = v50 + *v48;
+                v61 = v49;
+                TSWPAttributeArray::insertAttribute(a1, &v60, a5, 0, a7);
               }
 
-              v43 += 16;
+              v48 += 16;
             }
 
-            while (v43 != a6[1]);
+            while (v48 != a6[1]);
           }
         }
       }
@@ -2840,72 +2831,72 @@ float64x2_t TSWPParagraphAttributeArray::insertAttributesForMarkers(TSWPAttribut
 
   else
   {
-    v54 = [a1->var5 isInInit];
-    v53 = [objc_msgSend(a1->var5 "documentRoot")];
-    v22 = *a6;
+    v59 = [a1->var5 isInInit];
+    v58 = [objc_msgSend(a1->var5 "documentRoot")];
+    v25 = *a6;
     if (*a6 != a6[1])
     {
-      v23 = 0;
-      v24 = a2 + 1;
+      v26 = 0;
+      v27 = a2 + 1;
       do
       {
-        if (IsParagraphBreakingCharacter(*(v22 + 8)))
+        if (IsParagraphBreakingCharacter(*(v25 + 8), v24))
         {
-          v25 = v24 + *v22;
-          if (!v23)
+          v28 = v27 + *v25;
+          if (!v26)
           {
-            v26 = a1[1].var2;
+            v29 = a1[1].var2;
             var4 = a1->var4;
-            if (v26 == 0x7FFFFFFFFFFFFFFFLL)
+            if (v29 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v23 = *(var4 + 2 * a5 + 1);
-              v28 = v24 + *v22;
+              v26 = *(var4 + 2 * a5 + 1);
+              v31 = v27 + *v25;
             }
 
             else
             {
-              v23 = *(var4 + 2 * v26 + 1);
-              v28 = TSWPAttributeArray::charIndexForAttributeIndex(a1, v26);
+              v26 = *(var4 + 2 * v29 + 1);
+              v31 = TSWPAttributeArray::charIndexForAttributeIndex(a1, v29);
             }
 
-            if (!(v54 & 1 | ((a1[1].var0 & 1) == 0) | v53 & 1))
+            if (!(v59 & 1 | ((a1[1].var0 & 1) == 0) | v58 & 1))
             {
-              v29 = [v23 followingParagraphStyle];
-              if (v29 && v29 != v23)
+              v32 = [v26 followingParagraphStyle];
+              if (v32 && v32 != v26)
               {
-                v31 = v29;
+                v34 = v32;
                 if (*&a1[1].var1 == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  *&a1[1].var1 = v28;
-                  v32 = [a1->var5 attributeArrayForKind:2];
-                  if (v32)
+                  *&a1[1].var1 = v31;
+                  v35 = [a1->var5 attributeArrayForKind:2];
+                  if (v35)
                   {
-                    *(v32 + 64) = *&a1[1].var1;
+                    *(v35 + 64) = *&a1[1].var1;
                   }
                 }
 
-                v23 = v31;
+                v26 = v34;
               }
             }
           }
 
           ++a5;
-          v55 = v25;
-          v56 = v23;
-          TSWPAttributeArray::insertAttribute(a1, &v55, a5, 0, a7);
+          v60 = v28;
+          v61 = v26;
+          TSWPAttributeArray::insertAttribute(a1, &v60, a5, 0, a7);
         }
 
-        v22 += 16;
+        v25 += 16;
       }
 
-      while (v22 != a6[1]);
+      while (v25 != a6[1]);
     }
   }
 
   LOBYTE(a1[1].var0) = 0;
-  v51.f64[0] = NAN;
-  v51.f64[1] = NAN;
-  result = vnegq_f64(v51);
+  v56.f64[0] = NAN;
+  v56.f64[1] = NAN;
+  result = vnegq_f64(v56);
   *&a1[1].var1 = result;
   return result;
 }
@@ -3324,7 +3315,7 @@ BOOL TSWPTopicNumberHints::operator==(uint64_t a1, void *a2)
   return 0;
 }
 
-BOOL TSWPTopicNumberHints::equivalentState(TSWPTopicNumberHints *this, const TSWPTopicNumberHints *a2)
+uint64_t TSWPTopicNumberHints::equivalentState(TSWPTopicNumberHints *this, const TSWPTopicNumberHints *a2)
 {
   if (this->_numbersForListStyle.__tree_.__size_ == a2->_numbersForListStyle.__tree_.__size_)
   {
@@ -3759,7 +3750,7 @@ LABEL_17:
     *v24 = a4;
     v24[1] = a5;
     *&v29 = &v33;
-    v25 = (std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(this, &v33) + 5);
+    v25 = std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(this, &v33, &std::piecewise_construct, &v29) + 5;
     if (v25 != &__p)
     {
       std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(v25, __p, v31, (v31 - __p) >> 4);
@@ -3792,11 +3783,11 @@ void sub_26C903208(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *TSWPTopicNumberHints::unarchiveSetEntriesForListStyle(uint64_t a1, unint64_t a2, __int128 **a3)
+uint64_t *TSWPTopicNumberHints::unarchiveSetEntriesForListStyle(uint64_t a1, uint64_t a2, __int128 **a3)
 {
-  v5[0] = a2;
-  v5[2] = v5;
-  result = (std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(a1, v5) + 5);
+  v5 = a2;
+  v6 = &v5;
+  result = std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(a1, &v5, &std::piecewise_construct, &v6) + 5;
   if (result != a3)
   {
     return std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(result, *a3, a3[1], a3[1] - *a3);
@@ -3818,7 +3809,7 @@ TSWPTopicNumberHints *TSWPTopicNumberHints::backUpByOneParagraph(TSWPTopicNumber
   return this;
 }
 
-TSWPTopicNumberHints *TSWPTopicNumberHints::advanceToCharIndex(TSWPTopicNumberHints *this, NSUInteger a2, TSWPStorage *a3)
+TSWPTopicNumberHints *TSWPTopicNumberHints::advanceToCharIndex(TSWPTopicNumberHints *this, unint64_t a2, TSWPStorage *a3)
 {
   if (this->_validThroughCharIndex == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -3832,84 +3823,55 @@ TSWPTopicNumberHints *TSWPTopicNumberHints::advanceToCharIndex(TSWPTopicNumberHi
 
   if (a3 && validThroughCharIndex < a2)
   {
-    if ([(TSWPStorage *)a3 length]<= a2)
-    {
-      v7 = a2;
-    }
-
-    else
-    {
-      v7 = a2 + 1;
-    }
-
-    if (validThroughCharIndex <= v7)
-    {
-      v8 = v7;
-    }
-
-    else
-    {
-      v8 = validThroughCharIndex;
-    }
-
-    if (validThroughCharIndex >= v7)
-    {
-      v9 = v7;
-    }
-
-    else
-    {
-      v9 = validThroughCharIndex;
-    }
-
-    [(TSWPStorage *)a3 paragraphEnumeratorForCharRange:v9 styleProvider:v8 - v9, this->_styleProvider];
+    [(TSWPStorage *)a3 length];
+    objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_(a3);
     charIndex = this->_charIndex;
-    if (charIndex == TSWPParagraphEnumerator::paragraphTextRange(&v20) && !TSWPParagraphEnumerator::isLastParagraph(&v20))
+    if (charIndex == TSWPParagraphEnumerator::paragraphTextRange(&v17) && !TSWPParagraphEnumerator::isLastParagraph(&v17))
     {
-      TSWPParagraphEnumerator::operator++(&v20);
+      TSWPParagraphEnumerator::operator++(&v17);
     }
 
-    v11 = TSWPParagraphEnumerator::paragraphTextRange(&v20);
-    if (v11 + v12 < [(TSWPStorage *)a3 length])
+    v8 = TSWPParagraphEnumerator::paragraphTextRange(&v17);
+    if (v8 + v9 < [(TSWPStorage *)a3 length])
     {
       while (1)
       {
-        if (TSWPParagraphEnumerator::paragraphTextRange(&v20) >= a2)
+        if (TSWPParagraphEnumerator::paragraphTextRange(&v17) >= a2)
         {
-          TSWPParagraphEnumerator::paragraphTextRange(&v20);
-          if (v13)
+          TSWPParagraphEnumerator::paragraphTextRange(&v17);
+          if (v10)
           {
             break;
           }
         }
 
-        v14 = TSWPParagraphEnumerator::paragraphLevel(&v20);
-        v15 = TSWPParagraphEnumerator::paragraphListStyle(&v20);
+        v11 = TSWPParagraphEnumerator::paragraphLevel(&v17);
+        v12 = TSWPParagraphEnumerator::paragraphListStyle(&v17);
         objc_opt_class();
-        TSWPParagraphEnumerator::attachmentOrFootnoteAtCharIndex(&v20, 0);
-        v16 = TSUDynamicCast();
-        if (-[TSWPListStyle effectiveTypeForLevel:](v15, "effectiveTypeForLevel:", v14) == 3 && ([v16 isPartitioned] & 1) == 0)
+        TSWPParagraphEnumerator::attachmentOrFootnoteAtCharIndex(&v17, 0);
+        v13 = TSUDynamicCast();
+        if (-[TSWPListStyle effectiveTypeForLevel:](v12, "effectiveTypeForLevel:", v11) == 3 && ([v13 isPartitioned] & 1) == 0)
         {
-          TopicNumberForList = TSWPParagraphEnumerator::paragraphListStart(&v20);
+          TopicNumberForList = TSWPParagraphEnumerator::paragraphListStart(&v17);
           if (!TopicNumberForList)
           {
-            TopicNumberForList = TSWPTopicNumberHints::nextTopicNumberForList(this, v15, v14);
+            TopicNumberForList = TSWPTopicNumberHints::nextTopicNumberForList(this, v12, v11);
           }
 
-          v18 = TSWPParagraphEnumerator::paragraphTextRange(&v20);
-          TSWPTopicNumberHints::setTopicNumberForList(this, v15, v14, TopicNumberForList, v18);
+          v15 = TSWPParagraphEnumerator::paragraphTextRange(&v17);
+          TSWPTopicNumberHints::setTopicNumberForList(this, v12, v11, TopicNumberForList, v15);
         }
 
-        if (TSWPParagraphEnumerator::isLastParagraph(&v20))
+        if (TSWPParagraphEnumerator::isLastParagraph(&v17))
         {
           break;
         }
 
-        TSWPParagraphEnumerator::operator++(&v20);
+        TSWPParagraphEnumerator::operator++(&v17);
       }
     }
 
-    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v20);
+    TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v17);
   }
 
   return TSWPTopicNumberHints::setCharIndexAndValidCharIndex(this, this->_charIndex, a2);
@@ -3960,20 +3922,20 @@ void std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNum
   }
 }
 
-uint64_t **std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__tree_node<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__tree_node<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
-    if (v6[1])
+    if (*(v6 + 8))
     {
-      v8 = v6[1];
+      v8 = *(v6 + 8);
     }
 
     else
@@ -3994,7 +3956,7 @@ uint64_t **std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTo
         {
           v15[0] = v8 + 4;
           v15[1] = v8 + 5;
-          std::pair<TSWPListStyle const*&,std::vector<TSWPTopicNumberEntry> &>::operator=[abi:nn200100]<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>,0>(v15, (v9 + 4));
+          std::pair<TSWPListStyle const*&,std::vector<TSWPTopicNumberEntry> &>::operator=[abi:nn200100]<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>,0>(v15, v9 + 4);
           std::__tree<unsigned long>::__node_insert_multi(v5, v14);
           v14 = v13;
           if (v13)
@@ -4049,26 +4011,26 @@ uint64_t **std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTo
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_multi<std::pair<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>> const&>();
+    std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_multi<std::pair<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>> const&>(v5);
   }
 
   return result;
 }
 
-void sub_26C903754(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C903754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::pair<TSWPListStyle const*&,std::vector<TSWPTopicNumberEntry> &>::operator=[abi:nn200100]<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>,0>(uint64_t a1, uint64_t a2)
+void **std::pair<TSWPListStyle const*&,std::vector<TSWPTopicNumberEntry> &>::operator=[abi:nn200100]<TSWPListStyle const* const,std::vector<TSWPTopicNumberEntry>,0>(void **a1, void *a2)
 {
   **a1 = *a2;
-  v3 = *(a1 + 8);
-  if (v3 != (a2 + 8))
+  v3 = a1[1];
+  if (v3 != a2 + 1)
   {
-    std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(v3, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 4);
+    std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(v3, a2[1], a2[2], (a2[2] - a2[1]) >> 4);
   }
 
   return a1;
@@ -4106,7 +4068,7 @@ void sub_26C903924(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<TSWPTopicNumberEntry>::__init_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TSWPTopicNumberEntry>::__init_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4171,7 +4133,7 @@ BOOL std::__equal_to::operator()[abi:nn200100]<std::pair<TSWPListStyle const* co
   return result;
 }
 
-char *std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
+char *std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTopicNumberEntry*,TSWPTopicNumberEntry*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4251,8 +4213,7 @@ char *std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTo
       do
       {
         v17 = *v13++;
-        *v16 = v17;
-        v16 += 16;
+        *v16++ = v17;
         v15 += 16;
       }
 
@@ -4265,16 +4226,16 @@ char *std::vector<TSWPTopicNumberEntry>::__assign_with_size[abi:nn200100]<TSWPTo
   return result;
 }
 
-uint64_t std::vector<TSWPTopicNumberEntry>::__emplace_back_slow_path<TSWPTopicNumberEntry const&>(uint64_t a1, _OWORD *a2)
+__int128 *std::vector<TSWPTopicNumberEntry>::__emplace_back_slow_path<TSWPTopicNumberEntry const&>(__int128 **a1, _OWORD *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 60)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v3)
   {
     v3 = v6 >> 3;
@@ -4302,7 +4263,7 @@ uint64_t std::vector<TSWPTopicNumberEntry>::__emplace_back_slow_path<TSWPTopicNu
   v12 = 16 * v2 + 16;
   v13 = 0;
   std::vector<TSWPTopicNumberEntry>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -4359,41 +4320,41 @@ __int128 **std::vector<TSWPTopicNumberEntry>::__swap_out_circular_buffer(__int12
   return result;
 }
 
-void *std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::__map_value_compare<TSWPListStyle const*,std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>,std::less<TSWPListStyle const*>,true>,std::allocator<std::__value_type<TSWPListStyle const*,std::vector<TSWPTopicNumberEntry>>>>::__emplace_unique_key_args<TSWPListStyle const*,std::piecewise_construct_t const&,std::tuple<TSWPListStyle const* const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -4697,57 +4658,57 @@ LABEL_12:
   return v5;
 }
 
-void sub_26C906AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C906AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<unsigned long,TSWPFontHeightCacheEntry>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,TSWPFontHeightCacheEntry>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,TSWPFontHeightCacheEntry>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,TSWPFontHeightCacheEntry>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,TSWPFontHeightCacheEntry>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,TSWPFontHeightCacheEntry>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void sub_26C908024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C908024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4883,7 +4844,7 @@ uint64_t TSWPParagraphEnumerator::paragraphStyle(TSWPParagraphEnumerator *this, 
   return [var1 paragraphStyleAtParIndex:? effectiveRange:?];
 }
 
-NSUInteger TSWPParagraphEnumerator::paragraphTextRange(TSWPParagraphEnumerator *this)
+uint64_t TSWPParagraphEnumerator::paragraphTextRange(TSWPParagraphEnumerator *this)
 {
   result = TSWPAttributeArray::rangeForAttributeIndex([this->var0 attributeArrayForKind:0], this->var4);
   v3 = result;
@@ -4936,7 +4897,7 @@ uint64_t TSWPParagraphEnumerator::attachmentOrFootnoteAtCharIndex(TSWPParagraphE
   return [var0 attachmentOrFootnoteAtCharIndex:v6];
 }
 
-uint64_t TSWPParagraphEnumerator::paragraphLevel(TSWPParagraphEnumerator *this)
+void *TSWPParagraphEnumerator::paragraphLevel(TSWPParagraphEnumerator *this)
 {
   var2 = this->var2;
   if (var2 >= this->var3)
@@ -5029,16 +4990,16 @@ void *TSWPParagraphEnumerator::paragraphHasListLabel(TSWPParagraphEnumerator *th
   return result;
 }
 
-void sub_26C913804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C913804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26C917634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C917634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5180,10 +5141,10 @@ void TSWPLineFragment::TSWPLineFragment(TSWPLineFragment *this)
   *(this + 22) = 0u;
   *(this + 23) = 0u;
   *(this + 48) = 0;
-  *(this + 10) = unk_26CA66FE8;
+  *(this + 10) = *&gZeroHeightInfo[48];
   *(this + 11) = 0u;
-  *(this + 8) = unk_26CA66FC8;
-  *(this + 9) = xmmword_26CA66FD8;
+  *(this + 8) = *&gZeroHeightInfo[16];
+  *(this + 9) = *&gZeroHeightInfo[32];
   *(this + 26) = 0;
   *(this + 27) = 0;
   *(this + 408) = 0u;
@@ -5194,7 +5155,7 @@ void TSWPLineFragment::TSWPLineFragment(TSWPLineFragment *this)
   *(this + 2) = xmmword_26CA66AD0;
   *(this + 3) = v2;
   *(this + 6) = v1;
-  *(this + 7) = gZeroHeightInfo;
+  *(this + 7) = *gZeroHeightInfo;
   *(this + 4) = v1;
   *(this + 5) = v2;
   *(this + 57) = 0;
@@ -5226,10 +5187,10 @@ void TSWPLineFragment::TSWPLineFragment(TSWPLineFragment *this)
   *(this + 22) = 0u;
   *(this + 23) = 0u;
   *(this + 48) = 0;
-  *(this + 10) = unk_26CA66FE8;
+  *(this + 10) = *&gZeroHeightInfo[48];
   *(this + 11) = 0u;
-  *(this + 8) = unk_26CA66FC8;
-  *(this + 9) = xmmword_26CA66FD8;
+  *(this + 8) = *&gZeroHeightInfo[16];
+  *(this + 9) = *&gZeroHeightInfo[32];
   *(this + 26) = 0;
   *(this + 27) = 0;
   *(this + 408) = 0u;
@@ -5240,7 +5201,7 @@ void TSWPLineFragment::TSWPLineFragment(TSWPLineFragment *this)
   *(this + 2) = xmmword_26CA66AD0;
   *(this + 3) = v2;
   *(this + 6) = v1;
-  *(this + 7) = gZeroHeightInfo;
+  *(this + 7) = *gZeroHeightInfo;
   *(this + 4) = v1;
   *(this + 5) = v2;
   *(this + 57) = 0;
@@ -5530,7 +5491,7 @@ double TSWPLineFragment::baselineShiftFromRunAttributes(TSWPLineFragment *this, 
   return v5;
 }
 
-NSUInteger TSWPLineFragment::rectsForLineRange@<X0>(TSWPLineFragment *this@<X0>, _NSRange a2@<0:X1, 8:X2>, NSArray **a3@<X6>, char a4@<W3>, char a5@<W4>, int a6@<W5>, void *a7@<X8>)
+void *TSWPLineFragment::rectsForLineRange@<X0>(TSWPLineFragment *this@<X0>, _NSRange a2@<0:X1, 8:X2>, NSArray **a3@<X6>, char a4@<W3>, char a5@<W4>, int a6@<W5>, void *a7@<X8>)
 {
   length = a2.length;
   location = a2.location;
@@ -5944,7 +5905,7 @@ void sub_26C91D614(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double TSWPLineFragment::wpOffsetForCharIndex(TSWPLineFragment *this, unint64_t a2, BOOL a3, char a4, double *a5)
+double TSWPLineFragment::wpOffsetForCharIndex(TSWPLineFragment *this, unint64_t a2, uint64_t a3, char a4, double *a5)
 {
   v9 = *this;
   v10 = *(this + 1);
@@ -6189,31 +6150,31 @@ LABEL_56:
   return v25;
 }
 
-void TSWPLineFragment::fillWritingDirectionRuns(uint64_t *a1, uint64_t *a2)
+void TSWPLineFragment::fillWritingDirectionRuns(uint64_t *result, uint64_t *a2)
 {
   v2 = a2;
   v91 = *MEMORY[0x277D85DE8];
-  v4 = a1[24];
-  if (a1[25] != v4 && (*(a1 + 25) & 0x40) == 0)
+  v4 = result[24];
+  if (result[25] != v4 && (*(result + 25) & 0x40) == 0)
   {
     v5 = *v4;
-    if (!a1[23])
+    if (!result[23])
     {
       v6 = [MEMORY[0x277D6C290] currentHandler];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void TSWPLineFragment::fillWritingDirectionRuns(vector<TSWPLFWritingDirectionRun> &) const"];
       [v6 handleFailureInFunction:v7 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"), 1973, @"invalid nil value for '%s'", "_textSource"}];
     }
 
-    if (!a1[64])
+    if (!result[64])
     {
       v8 = [MEMORY[0x277D6C290] currentHandler];
       v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void TSWPLineFragment::fillWritingDirectionRuns(vector<TSWPLFWritingDirectionRun> &) const"];
       [v8 handleFailureInFunction:v9 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"), 1974, @"invalid nil value for '%s'", "_paragraphString"}];
     }
 
-    v78 = a1[28];
-    v79 = a1[29];
-    v74 = *(a1 + 6);
+    v78 = result[28];
+    v79 = result[29];
+    v74 = *(result + 6);
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
@@ -6261,19 +6222,19 @@ void TSWPLineFragment::fillWritingDirectionRuns(uint64_t *a1, uint64_t *a2)
           Status = CTRunGetStatus(v13);
           if (v82)
           {
-            v81 = (*(a1 + 25) & 0x10) == 0;
+            v81 = (*(result + 25) & 0x10) == 0;
           }
 
-          TSWPComposedCharacterAtIndexForTextSource(StringRange.location, a1[23]);
+          TSWPComposedCharacterAtIndexForTextSource(StringRange.location, result[23]);
           v18 = TSWPGetBidiClass();
           v19 = v18;
           v20 = v18 == 3;
           if (v18 == 3 && StringRange.location != 0)
           {
-            v22 = a1[64];
+            v22 = result[64];
             location = CTRunGetStringRange(v13).location;
             v24 = CFStringGetRangeOfComposedCharactersAtIndex(v22, location - 1).location;
-            TSWPComposedCharacterAtIndexForTextSource(v24, a1[23]);
+            TSWPComposedCharacterAtIndexForTextSource(v24, result[23]);
             v25 = TSWPGetBidiClass() != 0;
             goto LABEL_26;
           }
@@ -6312,7 +6273,7 @@ LABEL_26:
           {
             for (j = 0; j != GlyphCount; ++j)
             {
-              v28 = [a1[23] charIndexMappedToStorage:buffer[0][j]];
+              v28 = [result[23] charIndexMappedToStorage:buffer[0][j]];
               if (v28 >= v11)
               {
                 v29 = v11;
@@ -6395,8 +6356,8 @@ LABEL_49:
     v35 = 0;
     do
     {
-      v36 = *a1;
-      v37 = a1[1] + *a1;
+      v36 = *result;
+      v37 = result[1] + *result;
       v38 = (v32 + 40 * v34);
       v39 = *v38;
       v40 = v38[1];
@@ -6836,29 +6797,29 @@ LABEL_70:
         {
           if ((v58 & 0x1000) != 0)
           {
-            v59 = 16;
+            v59 = 2;
           }
 
           else
           {
-            v59 = 24;
+            v59 = 3;
           }
 
-          v60 = *(v53 + v59 + v55 * 16);
+          v60 = v53->n128_f64[v59 + v55 / 8];
           if (v56)
           {
-            v61 = LOBYTE(v53[v55 + 3]);
-            if (v61 == LOBYTE(v53[v55 + 7]) || (v58 & 0x1000) == 0)
+            v61 = v53[v55 / 0x10 + 3].n128_u8[0];
+            if (v61 == v53[v55 / 0x10 + 7].n128_u8[0] || (v58 & 0x1000) == 0)
             {
-              v63 = 80;
+              v63 = 10;
             }
 
             else
             {
-              v63 = 88;
+              v63 = 11;
             }
 
-            v17.n128_u64[0] = *(&v53[v55] + v63);
+            v17.n128_u64[0] = v53[v55 / 0x10].n128_u64[v63];
           }
 
           else
@@ -6866,12 +6827,12 @@ LABEL_70:
             *&v73 = 0;
             v17.n128_f64[0] = CTLineGetOffsetForStringIndex(line, [*(this + 23) charIndexMappedFromStorage:v18], &v73);
             v58 = *(this + 6);
-            if ((v58 & 0x1000) != 0 && LOBYTE(v53[v55 + 3]))
+            if ((v58 & 0x1000) != 0 && v53[v55 / 0x10 + 3].n128_u8[0])
             {
               v17.n128_f64[0] = *&v73;
             }
 
-            LOBYTE(v61) = v53[v55 + 3];
+            LOBYTE(v61) = v53[v55 / 0x10 + 3].n128_u8[0];
             v53 = *(this + 61);
           }
 
@@ -6886,16 +6847,16 @@ LABEL_70:
             v65 = v17.n128_f64[0];
           }
 
-          v66 = &v53[v55];
+          v66 = &v53[v55 / 0x10];
           if (v64)
           {
             v17.n128_f64[0] = v60;
           }
 
-          *(v66 + 4) = v65;
-          *(v66 + 5) = v17.n128_u64[0];
+          v66[2].n128_f64[0] = v65;
+          v66[2].n128_u64[1] = v17.n128_u64[0];
           --v56;
-          v55 += 4;
+          v55 += 64;
           --v57;
         }
 
@@ -7307,27 +7268,27 @@ uint64_t TSWPLineFragment::GetFakeContext(TSWPLineFragment *this)
   return TSWPLineFragment::GetFakeContext(void)::sFakeContext;
 }
 
-CGContextRef ___ZN16TSWPLineFragment14GetFakeContextEv_block_invoke()
+CGContextRef ___ZN16TSWPLineFragment14GetFakeContextEv_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = TSUDeviceRGBColorSpace();
-  result = CGBitmapContextCreate(0, 1uLL, 1uLL, 8uLL, 4uLL, v0, 5u);
+  v2 = TSUDeviceRGBColorSpace();
+  result = CGBitmapContextCreate(0, 1uLL, 1uLL, 8uLL, 4uLL, v2, 5u);
   TSWPLineFragment::GetFakeContext(void)::sFakeContext = result;
   return result;
 }
 
 double TSWPLineFragment::glyphRectForLineRange(TSWPLineFragment *this, _NSRange a2, TSWPStorage *a3, int a4)
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CBF398];
   v6 = *(MEMORY[0x277CBF398] + 8);
   v7 = *(MEMORY[0x277CBF398] + 16);
   v8 = *(MEMORY[0x277CBF398] + 24);
   v9 = *(this + 4) + *(this + 5);
-  v79 = v9 + TSWPLineFragment::baselineAdjustAtCharIndex(a2.location, [(TSWPStorage *)a3 storage], a3, 0, [(TSWPStorage *)a3 scaleTextPercent]);
+  v72 = v9 + TSWPLineFragment::baselineAdjustAtCharIndex(a2.location, [(TSWPStorage *)a3 storage], a3, 0, [(TSWPStorage *)a3 scaleTextPercent]);
   v10 = *(this + 31);
-  v80 = this;
-  v71 = *(this + 32);
-  if (v10 == v71)
+  v73 = this;
+  v64 = *(this + 32);
+  if (v10 == v64)
   {
     goto LABEL_98;
   }
@@ -7337,54 +7298,54 @@ double TSWPLineFragment::glyphRectForLineRange(TSWPLineFragment *this, _NSRange 
   {
     v13 = v10[3];
     v12 = v10[4];
-    v14 = *(v80 + 23);
+    v14 = *(v73 + 23);
     if (!v14)
     {
       v15 = [MEMORY[0x277D6C290] currentHandler];
       v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGRect TSWPLineFragment::glyphRectForLineRange(NSRange, TSWPColumn *, BOOL) const"}];
       [v15 handleFailureInFunction:v16 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"), 631, @"invalid nil value for '%s'", "_textSource"}];
-      v14 = *(v80 + 23);
+      v14 = *(v73 + 23);
     }
 
-    v108.location = [v14 charRangeMappedFromStorage:{a2.location, a2.length}];
-    v108.length = v17;
-    v99.location = v13;
-    v99.length = v12;
-    v18 = NSIntersectionRange(v99, v108);
+    v101.location = [v14 charRangeMappedFromStorage:{a2.location, a2.length}];
+    v101.length = v17;
+    v92.location = v13;
+    v92.length = v12;
+    v18 = NSIntersectionRange(v92, v101);
     if (v18.length)
     {
       obj = CTLineGetGlyphRuns(*v10);
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      v77 = [(__CFArray *)obj countByEnumeratingWithState:&v92 objects:v97 count:16];
-      if (v77)
+      v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v70 = [(__CFArray *)obj countByEnumeratingWithState:&v85 objects:v90 count:16];
+      if (v70)
       {
-        v75 = *v93;
+        v68 = *v86;
         do
         {
-          for (i = 0; i != v77; ++i)
+          for (i = 0; i != v70; ++i)
           {
-            if (*v93 != v75)
+            if (*v86 != v68)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v92 + 1) + 8 * i);
+            v20 = *(*(&v85 + 1) + 8 * i);
             GlyphCount = CTRunGetGlyphCount(v20);
             std::vector<long>::vector[abi:ne200100](&buffer, GlyphCount);
-            v100.location = 0;
-            v100.length = GlyphCount;
-            CTRunGetStringIndices(v20, v100, *&buffer.x);
+            v93.location = 0;
+            v93.length = GlyphCount;
+            CTRunGetStringIndices(v20, v93, *&buffer.x);
             std::vector<unsigned short>::vector[abi:ne200100](&ascent, GlyphCount);
-            v101.location = 0;
-            v101.length = GlyphCount;
-            CTRunGetGlyphs(v20, v101, *&ascent.width);
+            v94.location = 0;
+            v94.length = GlyphCount;
+            CTRunGetGlyphs(v20, v94, *&ascent.width);
             CTRunGetStringRange(v20);
-            v102.location = 0;
-            v102.length = 1;
-            CTRunGetPositions(v20, v102, &v89);
+            v95.location = 0;
+            v95.length = 1;
+            CTRunGetPositions(v20, v95, &v82);
             if (GlyphCount >= 1)
             {
               for (j = 0; j != GlyphCount; ++j)
@@ -7400,39 +7361,39 @@ double TSWPLineFragment::glyphRectForLineRange(TSWPLineFragment *this, _NSRange 
                     TSWPLineFragment::glyphRectForLineRange();
                   }
 
-                  v109.location = j;
-                  v109.length = 1;
-                  ImageBounds = CTRunGetImageBounds(v20, TSWPLineFragment::GetFakeContext(void)::sFakeContext, v109);
+                  v102.location = j;
+                  v102.length = 1;
+                  ImageBounds = CTRunGetImageBounds(v20, TSWPLineFragment::GetFakeContext(void)::sFakeContext, v102);
                   x = ImageBounds.origin.x;
                   y = ImageBounds.origin.y;
                   width = ImageBounds.size.width;
                   height = ImageBounds.size.height;
-                  memset(&v88, 0, sizeof(v88));
-                  CGAffineTransformMakeTranslation(&v88, *(v80 + 6) + *(v10 + 1), v79 + *(v10 + 2));
-                  v86 = v88;
-                  CGAffineTransformRotate(&v87, &v86, -1.57079633);
-                  v88 = v87;
-                  v86 = v87;
-                  CGAffineTransformScale(&v87, &v86, 1.0, -1.0);
-                  v88 = v87;
-                  v112.origin.x = x;
-                  v112.origin.y = y;
-                  v112.size.width = width;
-                  v112.size.height = height;
-                  v113 = CGRectApplyAffineTransform(v112, &v87);
-                  v123.origin.x = v113.origin.x;
-                  v123.size.width = v113.size.width;
-                  v123.size.height = v113.size.height;
-                  v123.origin.y = v113.origin.y - v89.x;
-                  v113.origin.x = v5;
-                  v113.origin.y = v6;
-                  v113.size.width = v7;
-                  v113.size.height = v8;
-                  v114 = CGRectUnion(v113, v123);
-                  v5 = v114.origin.x;
-                  v6 = v114.origin.y;
-                  v7 = v114.size.width;
-                  v8 = v114.size.height;
+                  memset(&v81, 0, sizeof(v81));
+                  CGAffineTransformMakeTranslation(&v81, *(v73 + 6) + *(v10 + 1), v72 + *(v10 + 2));
+                  v79 = v81;
+                  CGAffineTransformRotate(&v80, &v79, -1.57079633);
+                  v81 = v80;
+                  v79 = v80;
+                  CGAffineTransformScale(&v80, &v79, 1.0, -1.0);
+                  v81 = v80;
+                  v105.origin.x = x;
+                  v105.origin.y = y;
+                  v105.size.width = width;
+                  v105.size.height = height;
+                  v106 = CGRectApplyAffineTransform(v105, &v80);
+                  v116.origin.x = v106.origin.x;
+                  v116.size.width = v106.size.width;
+                  v116.size.height = v106.size.height;
+                  v116.origin.y = v106.origin.y - v82.x;
+                  v106.origin.x = v5;
+                  v106.origin.y = v6;
+                  v106.size.width = v7;
+                  v106.size.height = v8;
+                  v107 = CGRectUnion(v106, v116);
+                  v5 = v107.origin.x;
+                  v6 = v107.origin.y;
+                  v7 = v107.size.width;
+                  v8 = v107.size.height;
                 }
               }
             }
@@ -7450,10 +7411,10 @@ double TSWPLineFragment::glyphRectForLineRange(TSWPLineFragment *this, _NSRange 
             }
           }
 
-          v77 = [(__CFArray *)obj countByEnumeratingWithState:&v92 objects:v97 count:16];
+          v70 = [(__CFArray *)obj countByEnumeratingWithState:&v85 objects:v90 count:16];
         }
 
-        while (v77);
+        while (v70);
       }
 
       v11 = 1;
@@ -7462,11 +7423,11 @@ double TSWPLineFragment::glyphRectForLineRange(TSWPLineFragment *this, _NSRange 
     v10 += 6;
   }
 
-  while (v10 != v71);
+  while (v10 != v64);
   if ((v11 & 1) == 0)
   {
 LABEL_98:
-    if (*(v80 + 25) != *(v80 + 24))
+    if (*(v73 + 25) != *(v73 + 24))
     {
       if (TSWPLineFragment::GetFakeContext(void)::onceToken != -1)
       {
@@ -7474,7 +7435,7 @@ LABEL_98:
       }
 
       CGContextSetTextPosition(TSWPLineFragment::GetFakeContext(void)::sFakeContext, 0.0, 0.0);
-      v30 = *(v80 + 25) - *(v80 + 24);
+      v30 = *(v73 + 25) - *(v73 + 24);
       if (v30)
       {
         v31 = 0xAAAAAAAAAAAAAAABLL * (v30 >> 4);
@@ -7482,22 +7443,22 @@ LABEL_98:
         do
         {
           --v31;
-          v32 = *(v80 + 24) + 48 * v31;
-          v88.a = *v32;
-          *&v88.b = *(v32 + 8);
-          *&v88.d = *(v32 + 24);
-          LODWORD(v88.ty) = *(v32 + 40);
-          cf = v88.a;
-          if (*&v88.a)
+          v32 = *(v73 + 24) + 48 * v31;
+          v81.a = *v32;
+          *&v81.b = *(v32 + 8);
+          *&v81.d = *(v32 + 24);
+          LODWORD(v81.ty) = *(v32 + 40);
+          cf = v81.a;
+          if (*&v81.a)
           {
-            CFRetain(*&v88.a);
+            CFRetain(*&v81.a);
           }
 
           if (v31)
           {
             location = a2.location;
             length = a2.length;
-            if (!NSIntersectionRange(a2, *(&v88 + 24)).length)
+            if (!NSIntersectionRange(a2, *(&v81 + 24)).length)
             {
               goto LABEL_89;
             }
@@ -7507,95 +7468,95 @@ LABEL_98:
           {
             location = a2.location;
             length = a2.length;
-            if (*(v80 + 24))
+            if (*(v73 + 24))
             {
-              v119.origin.x = v5;
-              v119.origin.y = v6;
-              v119.size.width = v7;
-              v119.size.height = v8;
-              v120 = CGRectUnion(v119, *(v80 + 48));
-              v5 = v120.origin.x;
-              v6 = v120.origin.y;
-              v7 = v120.size.width;
-              v8 = v120.size.height;
+              v112.origin.x = v5;
+              v112.origin.y = v6;
+              v112.size.width = v7;
+              v112.size.height = v8;
+              v113 = CGRectUnion(v112, *(v73 + 48));
+              v5 = v113.origin.x;
+              v6 = v113.origin.y;
+              v7 = v113.size.width;
+              v8 = v113.size.height;
               goto LABEL_89;
             }
           }
 
-          v84 = 0u;
-          v85 = 0u;
-          v82 = 0u;
-          v83 = 0u;
+          v77 = 0u;
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
           GlyphRuns = CTLineGetGlyphRuns(*&cf);
-          v35 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v82 objects:v96 count:16];
+          v35 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v75 objects:v89 count:16];
           if (!v35)
           {
             goto LABEL_89;
           }
 
-          v76 = *v83;
+          v69 = *v76;
           do
           {
             v36 = 0;
             obja = v35;
             do
             {
-              if (*v83 != v76)
+              if (*v76 != v69)
               {
                 objc_enumerationMutation(GlyphRuns);
               }
 
-              v78 = v36;
-              v37 = *(*(&v82 + 1) + 8 * v36);
+              v71 = v36;
+              v37 = *(*(&v75 + 1) + 8 * v36);
               v38 = CTRunGetGlyphCount(v37);
               if ((v38 - 65537) <= 0xFFFFFFFFFFFEFFFFLL)
               {
-                v64 = [MEMORY[0x277D6C290] currentHandler];
-                v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGRect TSWPLineFragment::glyphRectForLineRange(NSRange, TSWPColumn *, BOOL) const"}];
-                [v64 handleFailureInFunction:v65 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"), 701, @"bad glyph count: %ld", v38}];
+                v57 = [MEMORY[0x277D6C290] currentHandler];
+                v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGRect TSWPLineFragment::glyphRectForLineRange(NSRange, TSWPColumn *, BOOL) const"}];
+                [v57 handleFailureInFunction:v58 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"), 701, @"bad glyph count: %ld", v38}];
                 goto LABEL_89;
               }
 
-              std::vector<long>::vector[abi:ne200100](&v87, v38);
-              v103.location = 0;
-              v103.length = v38;
-              CTRunGetStringIndices(v37, v103, *&v87.a);
-              std::vector<unsigned short>::vector[abi:ne200100](&v86, v38);
-              v104.location = 0;
-              v104.length = v38;
-              CTRunGetGlyphs(v37, v104, *&v86.a);
+              std::vector<long>::vector[abi:ne200100](&v80, v38);
+              v96.location = 0;
+              v96.length = v38;
+              CTRunGetStringIndices(v37, v96, *&v80.a);
+              std::vector<unsigned short>::vector[abi:ne200100](&v79, v38);
+              v97.location = 0;
+              v97.length = v38;
+              CTRunGetGlyphs(v37, v97, *&v79.a);
               Status = CTRunGetStatus(v37);
-              v105.location = 0;
-              v105.length = 1;
-              CTRunGetPositions(v37, v105, &buffer);
+              v98.location = 0;
+              v98.length = 1;
+              CTRunGetPositions(v37, v98, &buffer);
               v40 = 0.0;
-              if ((*(v80 + 25) & 0x20) != 0)
+              if ((*(v73 + 25) & 0x20) != 0)
               {
                 if ((Status & 4) != 0)
                 {
                   Attributes = CTRunGetAttributes(v37);
                   Value = CFDictionaryGetValue(Attributes, key);
-                  CTFontGetVerticalTranslationsForGlyphs(Value, *&v86.a, &ascent, 1);
+                  CTFontGetVerticalTranslationsForGlyphs(Value, *&v79.a, &ascent, 1);
                   buffer.x = ascent.height - buffer.y;
                 }
 
                 else
                 {
                   ascent.width = 0.0;
-                  v89.x = 0.0;
+                  v82.x = 0.0;
                   leading = 0.0;
-                  v106.location = 0;
-                  v106.length = 0;
-                  CTRunGetTypographicBounds(v37, v106, &ascent.width, &v89.x, &leading);
-                  v40 = (ascent.width - v89.x) * 0.5;
+                  v99.location = 0;
+                  v99.length = 0;
+                  CTRunGetTypographicBounds(v37, v99, &ascent.width, &v82.x, &leading);
+                  v40 = (ascent.width - v82.x) * 0.5;
                 }
               }
 
               v43 = 0;
-              v44 = v79 + v40;
+              v44 = v72 + v40;
               do
               {
-                if (!*(v80 + 23))
+                if (!*(v73 + 23))
                 {
                   v45 = [MEMORY[0x277D6C290] currentHandler];
                   v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGRect TSWPLineFragment::glyphRectForLineRange(NSRange, TSWPColumn *, BOOL) const"}];
@@ -7604,7 +7565,7 @@ LABEL_98:
 
                 if (v31)
                 {
-                  a = v86.a;
+                  a = v79.a;
 LABEL_57:
                   if (*(*&a + 2 * v43) == -1)
                   {
@@ -7618,44 +7579,44 @@ LABEL_57:
                     length = a2.length;
                   }
 
-                  v110.location = v43;
-                  v110.length = 1;
-                  v115 = CTRunGetImageBounds(v37, TSWPLineFragment::GetFakeContext(void)::sFakeContext, v110);
-                  v124.size.width = v115.size.width;
-                  v124.size.height = v115.size.height;
-                  v124.origin.x = v115.origin.x + buffer.x + *(v80 + 6) + v88.b;
-                  v124.origin.y = v44 - v115.origin.y - v115.size.height + v88.c;
-                  v115.origin.x = v5;
-                  v115.origin.y = v6;
-                  v115.size.width = v7;
-                  v115.size.height = v8;
-                  v116 = CGRectUnion(v115, v124);
+                  v103.location = v43;
+                  v103.length = 1;
+                  v108 = CTRunGetImageBounds(v37, TSWPLineFragment::GetFakeContext(void)::sFakeContext, v103);
+                  v117.size.width = v108.size.width;
+                  v117.size.height = v108.size.height;
+                  v117.origin.x = v108.origin.x + buffer.x + *(v73 + 6) + v81.b;
+                  v117.origin.y = v44 - v108.origin.y - v108.size.height + v81.c;
+                  v108.origin.x = v5;
+                  v108.origin.y = v6;
+                  v108.size.width = v7;
+                  v108.size.height = v8;
+                  v109 = CGRectUnion(v108, v117);
 LABEL_61:
-                  v5 = v116.origin.x;
-                  v6 = v116.origin.y;
-                  v7 = v116.size.width;
-                  v8 = v116.size.height;
+                  v5 = v109.origin.x;
+                  v6 = v109.origin.y;
+                  v7 = v109.size.width;
+                  v8 = v109.size.height;
                   goto LABEL_67;
                 }
 
-                v48 = [*(v80 + 23) charIndexMappedToStorage:*(*&v87.a + 8 * v43)];
+                v48 = [*(v73 + 23) charIndexMappedToStorage:*(*&v80.a + 8 * v43)];
                 if (v48 >= location && v48 - location < length)
                 {
-                  a = v86.a;
-                  if ((*(v80 + 24) & 4) == 0 || [*(v80 + 23) characterAtIndex:*(*&v87.a + 8 * v43)] != 65532)
+                  a = v79.a;
+                  if ((*(v73 + 24) & 4) == 0 || [*(v73 + 23) characterAtIndex:*(*&v80.a + 8 * v43)] != 65532)
                   {
                     goto LABEL_57;
                   }
 
-                  v50 = [*(v80 + 23) attachmentAtCharIndex:*(*&v87.a + 8 * v43)];
+                  v50 = [*(v73 + 23) attachmentAtCharIndex:*(*&v80.a + 8 * v43)];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v51 = *(v80 + 46);
-                    v52 = *(v80 + 47);
+                    v51 = *(v73 + 46);
+                    v52 = *(v73 + 47);
                     if (v51 != v52)
                     {
-                      while (*(v51 + 24) != *(*&v87.a + 8 * v43))
+                      while (*(v51 + 24) != *(*&v80.a + 8 * v43))
                       {
                         v51 += 32;
                         if (v51 == v52)
@@ -7664,21 +7625,17 @@ LABEL_61:
                         }
                       }
 
-                      v53 = *(v51 + 8);
-                      v54 = *(v51 + 16);
-                      v55 = [*v51 size];
-                      v57.n128_u64[0] = v56;
-                      v59.n128_u64[0] = v58;
-                      v60.n128_u64[0] = v53;
-                      v126.origin.x = TSDRectWithOriginAndSize(v55, v60, v54, v57, v59);
-                      v126.origin.y = v61;
-                      v126.size.width = v62;
-                      v126.size.height = v63;
-                      v118.origin.x = v5;
-                      v118.origin.y = v6;
-                      v118.size.width = v7;
-                      v118.size.height = v8;
-                      v116 = CGRectUnion(v118, v126);
+                      [*v51 size];
+                      TSDRectWithOriginAndSize();
+                      v119.origin.x = v53;
+                      v119.origin.y = v54;
+                      v119.size.width = v55;
+                      v119.size.height = v56;
+                      v111.origin.x = v5;
+                      v111.origin.y = v6;
+                      v111.size.width = v7;
+                      v111.size.height = v8;
+                      v109 = CGRectUnion(v111, v119);
                       goto LABEL_61;
                     }
                   }
@@ -7686,18 +7643,18 @@ LABEL_61:
                   else if ([v50 isDrawable] && (objc_msgSend(v50, "isAnchored") & 1) == 0)
                   {
                     ascent = *MEMORY[0x277CBF3A8];
-                    v107.location = v43;
-                    v107.length = 1;
-                    CTRunGetAdvances(v37, v107, &ascent);
-                    v125.size.height = *(v80 + 15);
-                    v125.size.width = ascent.width;
-                    v125.origin.x = buffer.x + *(v80 + 6) + v88.b;
-                    v125.origin.y = v44 - v125.size.height + v88.c;
-                    v117.origin.x = v5;
-                    v117.origin.y = v6;
-                    v117.size.width = v7;
-                    v117.size.height = v8;
-                    v116 = CGRectUnion(v117, v125);
+                    v100.location = v43;
+                    v100.length = 1;
+                    CTRunGetAdvances(v37, v100, &ascent);
+                    v118.size.height = *(v73 + 15);
+                    v118.size.width = ascent.width;
+                    v118.origin.x = buffer.x + *(v73 + 6) + v81.b;
+                    v118.origin.y = v44 - v118.size.height + v81.c;
+                    v110.origin.x = v5;
+                    v110.origin.y = v6;
+                    v110.size.width = v7;
+                    v110.size.height = v8;
+                    v109 = CGRectUnion(v110, v118);
                     goto LABEL_61;
                   }
                 }
@@ -7707,23 +7664,23 @@ LABEL_67:
               }
 
               while (v43 != v38);
-              if (*&v86.a)
+              if (*&v79.a)
               {
-                v86.b = v86.a;
-                operator delete(*&v86.a);
+                v79.b = v79.a;
+                operator delete(*&v79.a);
               }
 
-              if (*&v87.a)
+              if (*&v80.a)
               {
-                v87.b = v87.a;
-                operator delete(*&v87.a);
+                v80.b = v80.a;
+                operator delete(*&v80.a);
               }
 
-              v36 = v78 + 1;
+              v36 = v71 + 1;
             }
 
-            while ((v78 + 1) != obja);
-            v35 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v82 objects:v96 count:16];
+            while ((v71 + 1) != obja);
+            v35 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v75 objects:v89 count:16];
           }
 
           while (v35);
@@ -7741,17 +7698,17 @@ LABEL_89:
 
   if (a4)
   {
-    v121.origin.x = v5;
-    v121.origin.y = v6;
-    v121.size.width = v7;
-    v121.size.height = v8;
-    if (!CGRectIsEmpty(v121))
+    v114.origin.x = v5;
+    v114.origin.y = v6;
+    v114.size.width = v7;
+    v114.size.height = v8;
+    if (!CGRectIsEmpty(v114))
     {
-      v122.origin.x = v5;
-      v122.origin.y = v6;
-      v122.size.width = v7;
-      v122.size.height = v8;
-      *&v5 = CGRectInset(v122, -1.0, -1.0);
+      v115.origin.x = v5;
+      v115.origin.y = v6;
+      v115.size.width = v7;
+      v115.size.height = v8;
+      *&v5 = CGRectInset(v115, -1.0, -1.0);
     }
   }
 
@@ -7907,7 +7864,7 @@ void TSWPLineFragment::emphasisMarkRectForLineRange(TSWPLineFragment *this, _NSR
   }
 }
 
-BOOL TSWPLineFragment::requiresGlyphVectorsForHeightMeasurement(TSWPLineFragment *this)
+uint64_t TSWPLineFragment::requiresGlyphVectorsForHeightMeasurement(TSWPLineFragment *this)
 {
   if ((*(this + 24) & 0x80) != 0 || *(this + 29) != *(this + 28))
   {
@@ -7967,13 +7924,13 @@ double TSWPLineFragment::labelTextPosition(TSWPLineFragment *this)
 
   if ((*(v2 + 64) & 0xFFFFFFFE) != 2)
   {
-    v6 = [MEMORY[0x277D6C290] currentHandler];
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGPoint TSWPLineFragment::labelTextPosition() const"];
-    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"];
-    v9 = @"Text position only applies to text and numbers.";
+    v5 = [MEMORY[0x277D6C290] currentHandler];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGPoint TSWPLineFragment::labelTextPosition() const"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"];
+    v8 = @"Text position only applies to text and numbers.";
+    v9 = v5;
     v10 = v6;
-    v11 = v7;
-    v12 = 992;
+    v11 = 992;
     goto LABEL_9;
   }
 
@@ -7981,13 +7938,12 @@ double TSWPLineFragment::labelTextPosition(TSWPLineFragment *this)
   v1 = v4;
   if ((*(this + 25) & 0x20) == 0)
   {
-    v5 = TSWPListLabel::labelFont(v2);
-    if (v5)
+    if (TSWPListLabel::labelFont(v2))
     {
       if (*(v2 + 64) == 2)
       {
-        memset(v16, 0, sizeof(v16));
-        TSWPFontHeightInfoForFont(v5, v16);
+        memset(v15, 0, sizeof(v15));
+        TSWPFontHeightInfoForFont(v15);
       }
 
       return v1;
@@ -7998,23 +7954,23 @@ double TSWPLineFragment::labelTextPosition(TSWPLineFragment *this)
       return v1;
     }
 
-    v14 = [MEMORY[0x277D6C290] currentHandler];
-    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGPoint TSWPLineFragment::labelTextPosition() const"];
-    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"];
-    v9 = @"No label font but we need to render something";
+    v13 = [MEMORY[0x277D6C290] currentHandler];
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGPoint TSWPLineFragment::labelTextPosition() const"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPLineFragment.mm"];
+    v8 = @"No label font but we need to render something";
+    v9 = v13;
     v10 = v14;
-    v11 = v15;
-    v12 = 968;
+    v11 = 968;
 LABEL_9:
-    [v10 handleFailureInFunction:v11 file:v8 lineNumber:v12 description:v9];
+    [v9 handleFailureInFunction:v10 file:v7 lineNumber:v11 description:v8];
     return v1;
   }
 
   if (*(v2 + 81) == 1)
   {
-    *&v16[0] = 0;
-    CTLineGetTypographicBounds(*(v2 + 16), v16, 0, 0);
-    return v1 + *v16;
+    *&v15[0] = 0;
+    CTLineGetTypographicBounds(*(v2 + 16), v15, 0, 0);
+    return v1 + *v15;
   }
 
   return v1;
@@ -8206,20 +8162,20 @@ double TSWPLineFragment::wpOffsetForCharIndexForVisualSelection(TSWPLineFragment
 
       else
       {
-        v35 = [*(this + 23) characterAtIndex:{objc_msgSend(*(this + 23), "charIndexMappedFromStorage:", a2)}];
-        v36 = v35;
-        v37 = IsParagraphBreakingCharacter(v35);
-        if (v36 == 8232 || v37)
+        v36 = [*(this + 23) characterAtIndex:{objc_msgSend(*(this + 23), "charIndexMappedFromStorage:", a2)}];
+        v37 = v36;
+        v39 = IsParagraphBreakingCharacter(v36, v38);
+        if (v37 == 8232 || v39)
         {
-          if (v36 > 0xC || ((1 << v36) & 0x1030) == 0)
+          if (v37 > 0xC || ((1 << v37) & 0x1030) == 0)
           {
-            v38 = 7.0;
+            v40 = 7.0;
             if ((v4 & 0x1000) != 0)
             {
-              v38 = -7.0;
+              v40 = -7.0;
             }
 
-            v14 = v38 + *(v11 + 8);
+            v14 = v40 + *(v11 + 8);
             goto LABEL_52;
           }
 
@@ -8289,18 +8245,18 @@ LABEL_52:
     {
       v29 = [*(this + 23) characterAtIndex:{objc_msgSend(*(this + 23), "charIndexMappedFromStorage:", a2)}];
       v30 = v29;
-      v31 = IsParagraphBreakingCharacter(v29);
-      if (v30 == 8232 || v31 != 0)
+      v32 = IsParagraphBreakingCharacter(v29, v31);
+      if (v30 == 8232 || v32 != 0)
       {
         if (v30 > 0xC || ((1 << v30) & 0x1030) == 0)
         {
-          v34 = 7.0;
+          v35 = 7.0;
           if ((v4 & 0x1000) != 0)
           {
-            v34 = -7.0;
+            v35 = -7.0;
           }
 
-          v14 = v28 + v34 + v27;
+          v14 = v28 + v35 + v27;
           goto LABEL_52;
         }
 
@@ -8339,7 +8295,7 @@ CFIndex TSWPLineFragment::glyphCount(TSWPLineFragment *this)
 
 double TSWPLineFragment::wpOffsetForGlyphIndex(TSWPLineFragment *this, unint64_t a2, int a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = *(this + 6);
   v5 = *(this + 24);
   if (*(this + 25) != v5 && CTLineGetGlyphCount(*v5))
@@ -8356,31 +8312,31 @@ double TSWPLineFragment::wpOffsetForGlyphIndex(TSWPLineFragment *this, unint64_t
     v12 = 0.0;
     if (*(this + 25) != v11)
     {
-      v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
+      v39 = 0u;
       GlyphRuns = CTLineGetGlyphRuns(*v11);
-      v14 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v14 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v14)
       {
         v15 = v14;
-        v33 = v11;
-        v34 = v4;
+        v34 = v11;
+        v35 = v4;
         v16 = 0;
-        v17 = *v38;
+        v17 = *v39;
         while (2)
         {
           v18 = 0;
           v19 = v16;
           do
           {
-            if (*v38 != v17)
+            if (*v39 != v17)
             {
               objc_enumerationMutation(GlyphRuns);
             }
 
-            v20 = *(*(&v37 + 1) + 8 * v18);
+            v20 = *(*(&v38 + 1) + 8 * v18);
             GlyphCount = CTRunGetGlyphCount(v20);
             v22 = GlyphCount;
             if ((GlyphCount - 65537) <= 0xFFFFFFFFFFFEFFFFLL)
@@ -8395,38 +8351,38 @@ double TSWPLineFragment::wpOffsetForGlyphIndex(TSWPLineFragment *this, unint64_t
             if (GlyphCount + v19 > a2)
             {
               v26 = a2 - v19;
-              v43.location = v26;
-              v43.length = 1;
-              TypographicBounds = CTRunGetTypographicBounds(v20, v43, 0, 0, 0);
               v44.location = v26;
               v44.length = 1;
-              CTRunGetPositions(v20, v44, &buffer);
-              if (a3 == (v34 & 0x1000) >> 12)
+              TypographicBounds = CTRunGetTypographicBounds(v20, v44, 0, 0, 0);
+              v45.location = v26;
+              v45.length = 1;
+              CTRunGetPositions(v20, v45, &buffer);
+              if (a3 == (v35 & 0x1000) >> 12)
               {
-                v12 = TypographicBounds + buffer.x + *(v33 + 1);
+                v12 = TypographicBounds + buffer.x + *(v34 + 1);
                 TypographicBounds = -TypographicBounds;
               }
 
               else
               {
-                v12 = buffer.x + *(v33 + 1);
+                v12 = buffer.x + *(v34 + 1);
               }
 
               if ((a3 & 1) == 0)
               {
-                v35 = 0;
-                v45.location = v26;
-                v45.length = 1;
-                CTRunGetStringIndices(v20, v45, &v35);
-                v28 = [*(this + 23) characterAtIndex:v35];
+                v36 = 0;
+                v46.location = v26;
+                v46.length = 1;
+                CTRunGetStringIndices(v20, v46, &v36);
+                v28 = [*(this + 23) characterAtIndex:v36];
                 v29 = v28;
-                v30 = IsParagraphBreakingCharacter(v28);
-                if (v29 == 8232 || v30)
+                v31 = IsParagraphBreakingCharacter(v28, v30);
+                if (v29 == 8232 || v31)
                 {
                   if (v29 <= 0xC && ((1 << v29) & 0x1030) != 0)
                   {
                     v12 = 0.0;
-                    if ((v34 & 0x1000) == 0)
+                    if ((v35 & 0x1000) == 0)
                     {
                       v12 = *(this + 8);
                     }
@@ -8434,13 +8390,13 @@ double TSWPLineFragment::wpOffsetForGlyphIndex(TSWPLineFragment *this, unint64_t
 
                   else
                   {
-                    v31 = 7.0;
-                    if ((v34 & 0x1000) != 0)
+                    v32 = 7.0;
+                    if ((v35 & 0x1000) != 0)
                     {
-                      v31 = -7.0;
+                      v32 = -7.0;
                     }
 
-                    v12 = v12 + v31 + TypographicBounds;
+                    v12 = v12 + v32 + TypographicBounds;
                   }
                 }
               }
@@ -8453,7 +8409,7 @@ double TSWPLineFragment::wpOffsetForGlyphIndex(TSWPLineFragment *this, unint64_t
           }
 
           while (v15 != v18);
-          v15 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v15 = [(__CFArray *)GlyphRuns countByEnumeratingWithState:&v38 objects:v42 count:16];
           if (v15)
           {
             continue;
@@ -8680,7 +8636,7 @@ const void *TSWPLineFragment::fontAtCharIndex(TSWPLineFragment *this, unint64_t 
   return v21;
 }
 
-void TSWPLineFragment::wpOffsetForInsertionPoint(TSWPLineFragment *this, unint64_t a2, BOOL a3, int a4, char a5)
+void TSWPLineFragment::wpOffsetForInsertionPoint(TSWPLineFragment *this, char *a2, BOOL a3, BOOL a4, char a5)
 {
   v22 = a3;
   v7 = TSWPLineFragment::glyphIndexForInsertionPoint(this, a2, &v22, a4);
@@ -8752,7 +8708,7 @@ LABEL_9:
   }
 }
 
-uint64_t TSWPLineFragment::glyphIndexForInsertionPoint(TSWPLineFragment *this, unint64_t a2, BOOL *a3, int a4)
+uint64_t TSWPLineFragment::glyphIndexForInsertionPoint(TSWPLineFragment *this, char *a2, BOOL *a3, int a4)
 {
   if (![*(this + 23) length])
   {
@@ -8770,8 +8726,8 @@ uint64_t TSWPLineFragment::glyphIndexForInsertionPoint(TSWPLineFragment *this, u
     v11 = TSWPLineFragment::writingDirectionForCharIndex(this, v13);
   }
 
-  v14 = v12 + v10;
-  if (v12 + v10 == a2 && *a3)
+  v14 = &v10[v12];
+  if (&v10[v12] == a2 && *a3)
   {
     if (!a4)
     {
@@ -8884,7 +8840,7 @@ LABEL_39:
   return TSWPLineFragment::visualIndexForCharIndex(this, a2);
 }
 
-uint64_t TSWPLineFragment::writingDirectionForCharIndex(TSWPLineFragment *this, uint64_t a2)
+void *TSWPLineFragment::writingDirectionForCharIndex(TSWPLineFragment *this, uint64_t a2)
 {
   v28 = *MEMORY[0x277D85DE8];
   v2 = *(this + 6);
@@ -8896,7 +8852,7 @@ uint64_t TSWPLineFragment::writingDirectionForCharIndex(TSWPLineFragment *this, 
   v5 = *(this + 1) + *this;
   if (v5 == a2 || (v2 & 0x800) != 0 && v5 - 1 == a2)
   {
-    return (v2 >> 12) & 1;
+    return ((v2 >> 12) & 1);
   }
 
   v7 = *(this + 23);
@@ -8935,7 +8891,7 @@ uint64_t TSWPLineFragment::writingDirectionForCharIndex(TSWPLineFragment *this, 
       v18 = *v24;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v17; i = i + 1)
         {
           if (*v24 != v18)
           {
@@ -8946,7 +8902,7 @@ uint64_t TSWPLineFragment::writingDirectionForCharIndex(TSWPLineFragment *this, 
           StringRange = CTRunGetStringRange(v20);
           if (v11 >= StringRange.location && v11 - StringRange.location < StringRange.length)
           {
-            return CTRunGetStatus(v20) & 1;
+            return (CTRunGetStatus(v20) & 1);
           }
         }
 
@@ -9540,22 +9496,20 @@ void sub_26C921E50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<TSWPLFCharIndexData>::reserve(void *result, unint64_t a2)
+void std::vector<TSWPLFCharIndexData>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 6)
+  if (a2 > (a1[2] - *a1) >> 6)
   {
     if (!(a2 >> 58))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TSWPLFCharIndexData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TSWPLFCharIndexData>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void TSWPLineFragment::fillCharIndicesAndOffsets(uint64_t a1, char **a2)
+void TSWPLineFragment::fillCharIndicesAndOffsets(uint64_t a1, void **a2)
 {
   if (*(a1 + 200) != *(a1 + 192) && (*(a1 + 25) & 0x40) == 0)
   {
@@ -9579,8 +9533,8 @@ void TSWPLineFragment::fillCharIndicesAndOffsets(uint64_t a1, char **a2)
     v7 = *(a1 + 24);
     if ((v7 & 0x200000) != 0)
     {
-      *&v9 = *(a1 + 8) + *a1;
-      *(&v9 + 1) = 1;
+      v9.n128_u64[0] = *(a1 + 8) + *a1;
+      v9.n128_u64[1] = 1;
       v8 = *(a1 + 48);
       if ((v7 & 0x1000) != 0)
       {
@@ -9733,7 +9687,7 @@ void sub_26C922214(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 *std::vector<TSWPLFCharIndexData>::insert(void *a1, __n128 *__src, unint64_t a3)
+char *std::vector<TSWPLFCharIndexData>::insert(char **a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -9772,7 +9726,7 @@ __n128 *std::vector<TSWPLFCharIndexData>::insert(void *a1, __n128 *__src, unint6
     }
 
     v36 = 0;
-    v37 = (v18 << 6);
+    v37 = v18 << 6;
     v38 = (v18 << 6);
     std::__split_buffer<TSWPLFCharIndexData>::emplace_back<TSWPLFCharIndexData const&>(&v36, a3);
     v22 = v37;
@@ -9782,7 +9736,7 @@ __n128 *std::vector<TSWPLFCharIndexData>::insert(void *a1, __n128 *__src, unint6
     *&v38 = v38 + a1[1] - v4;
     a1[1] = v4;
     v25 = v4 - v23;
-    v26 = v24 - (v4 - v23);
+    v26 = &v24[-(v4 - v23)];
     memcpy(v26, v23, v25);
     v27 = *a1;
     *a1 = v26;
@@ -9803,18 +9757,18 @@ __n128 *std::vector<TSWPLFCharIndexData>::insert(void *a1, __n128 *__src, unint6
   else if (__src == v6)
   {
     v19 = *a3;
-    v20 = *(a3 + 16);
-    v21 = *(a3 + 48);
-    v6[2] = *(a3 + 32);
-    v6[3] = v21;
+    v20 = a3[1];
+    v21 = a3[3];
+    *(v6 + 32) = a3[2];
+    *(v6 + 48) = v21;
     *v6 = v19;
-    v6[1] = v20;
-    a1[1] = v6 + 4;
+    *(v6 + 16) = v20;
+    a1[1] = (v6 + 64);
   }
 
   else
   {
-    v8 = __src + 4;
+    v8 = __src + 64;
     if (v6 < 0x40)
     {
       v9 = a1[1];
@@ -9822,38 +9776,38 @@ __n128 *std::vector<TSWPLFCharIndexData>::insert(void *a1, __n128 *__src, unint6
 
     else
     {
-      v9 = v6 + 4;
-      v10 = v6[-4];
-      v11 = v6[-3];
-      v12 = v6[-1];
-      v6[2] = v6[-2];
-      v6[3] = v12;
+      v9 = v6 + 64;
+      v10 = *(v6 - 64);
+      v11 = *(v6 - 48);
+      v12 = *(v6 - 16);
+      *(v6 + 32) = *(v6 - 32);
+      *(v6 + 48) = v12;
       *v6 = v10;
-      v6[1] = v11;
+      *(v6 + 16) = v11;
     }
 
     a1[1] = v9;
     if (v6 != v8)
     {
-      memmove(&__src[4], __src, v6 - v8);
+      memmove(__src + 64, __src, v6 - v8);
       v9 = a1[1];
     }
 
     v29 = v9 <= a3 || v4 > a3;
-    v30 = 64;
+    v30 = 4;
     if (v29)
     {
       v30 = 0;
     }
 
-    v31 = (a3 + v30);
+    v31 = &a3[v30];
     v32 = *v31;
-    v33 = v31[1];
-    v34 = v31[3];
-    v4[2] = v31[2];
-    v4[3] = v34;
+    v33 = *(v31 + 1);
+    v34 = *(v31 + 3);
+    *(v4 + 2) = *(v31 + 2);
+    *(v4 + 3) = v34;
     *v4 = v32;
-    v4[1] = v33;
+    *(v4 + 1) = v33;
   }
 
   return v4;

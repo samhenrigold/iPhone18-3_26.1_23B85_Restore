@@ -4,6 +4,9 @@
 - (HAPAuthSession)initWithRole:(int64_t)role instanceId:(id)id delegate:(id)delegate;
 - (HAPAuthSessionDelegate)delegate;
 - (id)logIdentifier;
+- (void)_handleAuthExchangeData:(id)data withHeader:(BOOL)header;
+- (void)_handleTokenResponse:(id)response withHeader:(BOOL)header;
+- (void)_handleTokenUpdateResponse:(id)response withHeader:(BOOL)header;
 - (void)_reportAuthFailure;
 - (void)_resetSession;
 - (void)_sendTokenRequest;
@@ -46,6 +49,60 @@
   v9 = [v3 stringWithFormat:@"%@ %@", v4, identifier];
 
   return v9;
+}
+
+- (void)_handleTokenUpdateResponse:(id)response withHeader:(BOOL)header
+{
+  headerCopy = header;
+  v22 = *MEMORY[0x277D85DE8];
+  responseCopy = response;
+  if ([HAPProtocolMessages parseTokenUpdateResponse:responseCopy expectedTID:[(HAPAuthSession *)self currentTID] withHeader:headerCopy])
+  {
+    delegate = [(HAPAuthSession *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate2 = [(HAPAuthSession *)self delegate];
+      provisionUUID = [(HAPAuthSession *)self provisionUUID];
+      token1 = [(HAPAuthSession *)self token1];
+      [delegate2 authSession:self confirmUUID:provisionUUID token:token1];
+    }
+
+    else
+    {
+      v16 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = HMFGetLogIdentifier();
+        v20 = 138543362;
+        v21 = v19;
+        _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement confirmUUID:token:", &v20, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v16);
+      [(HAPAuthSession *)selfCopy _resetSession];
+    }
+  }
+
+  else
+  {
+    v12 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = HMFGetLogIdentifier();
+      v20 = 138543362;
+      v21 = v15;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed parsing token update response", &v20, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v12);
+    [(HAPAuthSession *)selfCopy2 _reportAuthFailure];
+  }
 }
 
 - (BOOL)getToken:(id *)token uuid:(id *)uuid
@@ -104,11 +161,11 @@ void __32__HAPAuthSession_getToken_uuid___block_invoke(void *a1)
 
 - (void)_sendTokenUpdateRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v18 = 0;
+  v17 = 0;
   instanceId = [(HAPAuthSession *)self instanceId];
-  v6 = [HAPProtocolMessages constructTokenUpdateRequest:instanceId token:requestCopy outTID:&v18];
+  v6 = [HAPProtocolMessages constructTokenUpdateRequest:instanceId token:requestCopy outTID:&v17];
 
   if (!v6)
   {
@@ -119,7 +176,7 @@ void __32__HAPAuthSession_getToken_uuid___block_invoke(void *a1)
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v15;
+      v19 = v15;
       v16 = "%{public}@Failed constructing token request";
 LABEL_10:
       _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
@@ -133,7 +190,7 @@ LABEL_11:
   }
 
   [(HAPAuthSession *)self setToken1:requestCopy];
-  [(HAPAuthSession *)self setCurrentTID:v18];
+  [(HAPAuthSession *)self setCurrentTID:v17];
   [(HAPAuthSession *)self setCurrentState:8];
   delegate = [(HAPAuthSession *)self delegate];
   v8 = objc_opt_respondsToSelector();
@@ -148,7 +205,7 @@ LABEL_11:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v15;
+      v19 = v15;
       v16 = "%{public}@[HAPAuthSession] Delegate does not implement sendAuthExchangeData:";
       goto LABEL_10;
     }
@@ -160,9 +217,9 @@ LABEL_11:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v6;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Sending Token Update Request: %@", buf, 0x16u);
   }
 
@@ -171,7 +228,6 @@ LABEL_11:
   [delegate2 authSession:selfCopy2 sendAuthExchangeData:v6];
 
 LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTokenUpdateRequest:(id)request
@@ -188,12 +244,97 @@ LABEL_12:
   dispatch_async(workQueue, v7);
 }
 
+- (void)_handleTokenResponse:(id)response withHeader:(BOOL)header
+{
+  headerCopy = header;
+  v33 = *MEMORY[0x277D85DE8];
+  responseCopy = response;
+  v7 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = HMFGetLogIdentifier();
+    v11 = @"No";
+    *buf = 138543874;
+    v28 = v10;
+    v29 = 2112;
+    if (headerCopy)
+    {
+      v11 = @"Yes";
+    }
+
+    v30 = responseCopy;
+    v31 = 2112;
+    v32 = v11;
+    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Received Token Response: %@ withHeader: %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v7);
+  v25 = 0;
+  v26 = 0;
+  v12 = [HAPProtocolMessages parseTokenResponse:responseCopy expectedTID:[(HAPAuthSession *)selfCopy currentTID] withHeader:headerCopy outToken:&v26 outUUID:&v25];
+  v13 = v26;
+  v14 = v25;
+  if (!v12)
+  {
+    v20 = objc_autoreleasePoolPush();
+    v21 = selfCopy;
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v23 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v28 = v23;
+      v24 = "%{public}@Failed to parse token response";
+LABEL_12:
+      _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, v24, buf, 0xCu);
+    }
+
+LABEL_13:
+
+    objc_autoreleasePoolPop(v20);
+    [(HAPAuthSession *)v21 _reportAuthFailure];
+    goto LABEL_14;
+  }
+
+  [(HAPAuthSession *)selfCopy setCurrentState:5];
+  [(HAPAuthSession *)selfCopy setToken1:v13];
+  [(HAPAuthSession *)selfCopy setProvisionUUID:v14];
+  delegate = [(HAPAuthSession *)selfCopy delegate];
+  v16 = objc_opt_respondsToSelector();
+
+  if ((v16 & 1) == 0)
+  {
+    v20 = objc_autoreleasePoolPush();
+    v21 = selfCopy;
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v23 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v28 = v23;
+      v24 = "%{public}@Delegate does not implement validateUUID:token:";
+      goto LABEL_12;
+    }
+
+    goto LABEL_13;
+  }
+
+  delegate2 = [(HAPAuthSession *)selfCopy delegate];
+  provisionUUID = [(HAPAuthSession *)selfCopy provisionUUID];
+  token1 = [(HAPAuthSession *)selfCopy token1];
+  [delegate2 authSession:selfCopy validateUUID:provisionUUID token:token1];
+
+LABEL_14:
+}
+
 - (void)_sendTokenRequest
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v22 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0;
   instanceId = [(HAPAuthSession *)self instanceId];
-  v4 = [HAPProtocolMessages constructTokenRequest:instanceId outTID:&v22];
+  v4 = [HAPProtocolMessages constructTokenRequest:instanceId outTID:&v21];
 
   if (!v4)
   {
@@ -204,7 +345,7 @@ LABEL_12:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v15;
+      v23 = v15;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed constructing token request", buf, 0xCu);
     }
 
@@ -214,7 +355,7 @@ LABEL_12:
   }
 
   [(HAPAuthSession *)self setCurrentState:4];
-  [(HAPAuthSession *)self setCurrentTID:v22];
+  [(HAPAuthSession *)self setCurrentTID:v21];
   v5 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v7 = HMFGetOSLogHandle();
@@ -222,9 +363,9 @@ LABEL_12:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v4;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v4;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Sending Token Request: %@", buf, 0x16u);
   }
 
@@ -241,7 +382,7 @@ LABEL_12:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v20;
+      v23 = v20;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement sendAuthExchangeData:", buf, 0xCu);
     }
 
@@ -256,7 +397,6 @@ LABEL_12:
   [delegate2 authSession:selfCopy2 sendAuthExchangeData:v4];
 
 LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)continueAuthAfterValidation:(BOOL)validation
@@ -273,7 +413,7 @@ LABEL_13:
 
 void __46__HAPAuthSession_continueAuthAfterValidation___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(a1 + 32);
   if (v2 == 1)
@@ -283,40 +423,90 @@ void __46__HAPAuthSession_continueAuthAfterValidation___block_invoke(uint64_t a1
 
     if (v5)
     {
-      v16 = [*(a1 + 32) delegate];
+      v13 = [*(a1 + 32) delegate];
       v6 = *(a1 + 32);
       v7 = [v6 provisionUUID];
       v8 = [*(a1 + 32) token1];
-      [v16 authSession:v6 authenticateUUID:v7 token:v8];
-
-      v9 = *MEMORY[0x277D85DE8];
+      [v13 authSession:v6 authenticateUUID:v7 token:v8];
     }
 
     else
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = *(a1 + 32);
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v9 = objc_autoreleasePoolPush();
+      v10 = *(a1 + 32);
+      v11 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = HMFGetLogIdentifier();
+        v12 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v18 = v14;
-        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement authenticateUUID:token1:token2:", buf, 0xCu);
+        v15 = v12;
+        _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement authenticateUUID:token1:token2:", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v11);
+      objc_autoreleasePoolPop(v9);
       [*(a1 + 32) _reportAuthFailure];
-      v15 = *MEMORY[0x277D85DE8];
     }
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     [v3 _reportAuthFailure];
   }
+}
+
+- (void)_handleAuthExchangeData:(id)data withHeader:(BOOL)header
+{
+  headerCopy = header;
+  v16 = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  currentState = [(HAPAuthSession *)self currentState];
+  if (currentState <= 9)
+  {
+    if (((1 << currentState) & 0x2EC) != 0)
+    {
+LABEL_3:
+      v8 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v11 = HMFGetLogIdentifier();
+        v12 = 138543618;
+        v13 = v11;
+        v14 = 2048;
+        currentState2 = [(HAPAuthSession *)selfCopy currentState];
+        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unhandled state: %tu", &v12, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v8);
+      goto LABEL_6;
+    }
+
+    if (currentState == 4)
+    {
+      [(HAPAuthSession *)self _handleTokenResponse:dataCopy withHeader:headerCopy];
+      goto LABEL_6;
+    }
+
+    if (currentState == 8)
+    {
+      [(HAPAuthSession *)self _handleTokenUpdateResponse:dataCopy withHeader:headerCopy];
+      goto LABEL_6;
+    }
+  }
+
+  if (!currentState)
+  {
+    goto LABEL_3;
+  }
+
+  if (currentState == 1)
+  {
+    [(HAPAuthSession *)self _sendTokenRequest];
+  }
+
+LABEL_6:
 }
 
 - (void)handleAuthExchangeData:(id)data withHeader:(BOOL)header
@@ -347,7 +537,7 @@ void __46__HAPAuthSession_continueAuthAfterValidation___block_invoke(uint64_t a1
 
 - (void)_reportAuthFailure
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(HAPAuthSession *)self _resetSession];
   delegate = [(HAPAuthSession *)self delegate];
   v4 = objc_opt_respondsToSelector();
@@ -357,73 +547,67 @@ void __46__HAPAuthSession_continueAuthAfterValidation___block_invoke(uint64_t a1
     delegate2 = [(HAPAuthSession *)self delegate];
     v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:17 userInfo:0];
     [delegate2 authSession:self authComplete:v5];
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
+    v6 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier();
+      v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement authComplete:", buf, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement authComplete:", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v7);
-    v11 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v6);
   }
 }
 
 - (void)_resetSession
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(HAPAuthSession *)self setToken2:0];
   [(HAPAuthSession *)self setToken1:0];
   role = [(HAPAuthSession *)self role];
   if (role == 1)
   {
-    v7 = *MEMORY[0x277D85DE8];
     selfCopy2 = self;
-    v6 = 2;
+    v5 = 2;
     goto LABEL_5;
   }
 
   if (!role)
   {
-    v4 = *MEMORY[0x277D85DE8];
     selfCopy2 = self;
-    v6 = 1;
+    v5 = 1;
 LABEL_5:
 
-    [(HAPAuthSession *)selfCopy2 setCurrentState:v6];
+    [(HAPAuthSession *)selfCopy2 setCurrentState:v5];
     return;
   }
 
-  v8 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
   selfCopy3 = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2048;
+    v9 = HMFGetLogIdentifier();
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2048;
     role2 = [(HAPAuthSession *)selfCopy3 role];
-    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Invalid auth session role: %tu", &v13, 0x16u);
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Invalid auth session role: %tu", &v10, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v6);
 }
 
 - (HAPAuthSession)initWithRole:(int64_t)role instanceId:(id)id delegate:(id)delegate
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   idCopy = id;
   delegateCopy = delegate;
   v11 = delegateCopy;
@@ -431,9 +615,9 @@ LABEL_5:
   {
     if ([delegateCopy conformsToProtocol:&unk_283EAD308])
     {
-      v30.receiver = self;
-      v30.super_class = HAPAuthSession;
-      v12 = [(HAPAuthSession *)&v30 init];
+      v29.receiver = self;
+      v29.super_class = HAPAuthSession;
+      v12 = [(HAPAuthSession *)&v29 init];
       v13 = v12;
       if (v12)
       {
@@ -462,7 +646,7 @@ LABEL_5:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v27;
+        v31 = v27;
         _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_ERROR, "%{public}@Delegate must confirm to the HAPAuthSessionDelegate protocol", buf, 0xCu);
       }
 
@@ -483,7 +667,7 @@ LABEL_5:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v22;
+      v31 = v22;
       _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@A valid delegate is required.", buf, 0xCu);
     }
 
@@ -491,7 +675,6 @@ LABEL_5:
     v23 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -509,7 +692,6 @@ LABEL_5:
 
 uint64_t __29__HAPAuthSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v18 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

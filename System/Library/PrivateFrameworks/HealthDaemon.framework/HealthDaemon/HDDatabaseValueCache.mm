@@ -38,7 +38,7 @@
     cache = v7->_cache;
     v7->_cache = v8;
 
-    v10 = [nameCopy copy];
+    v10 = objc_msgSend_copy(nameCopy);
     name = v7->_name;
     v7->_name = v10;
 

@@ -1,8 +1,11 @@
 @interface AWDNWDeviceReport
 - (BOOL)isEqual:(id)equal;
+- (id)cellularModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)motionStateAsString:(int)string;
+- (id)thermalPressureAsString:(int)string;
 - (int)StringAsCellularMode:(id)mode;
 - (int)StringAsMotionState:(id)state;
 - (int)StringAsThermalPressure:(id)pressure;
@@ -265,6 +268,19 @@
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
 }
 
+- (id)motionStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE329A0[string];
+  }
+}
+
 - (int)StringAsMotionState:(id)state
 {
   if ([state isEqualToString:@"NW_DEVICE_MOTION_STATE_UNKNOWN"])
@@ -326,6 +342,66 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
+}
+
+- (id)thermalPressureAsString:(int)string
+{
+  if (string > 9)
+  {
+    if (string <= 29)
+    {
+      if (string == 10)
+      {
+        return @"NW_DEVICE_THERMAL_PRESSURE_LIGHT";
+      }
+
+      if (string == 20)
+      {
+        return @"NW_DEVICE_THERMAL_PRESSURE_MODERATE";
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 30:
+          return @"NW_DEVICE_THERMAL_PRESSURE_HEAVY";
+        case 40:
+          return @"NW_DEVICE_THERMAL_PRESSURE_TRAPPING";
+        case 50:
+          return @"NW_DEVICE_THERMAL_PRESSURE_SLEEPING";
+      }
+    }
+  }
+
+  else if (string <= 1)
+  {
+    if (!string)
+    {
+      return @"NW_DEVICE_THERMAL_PRESSURE_NOMINAL";
+    }
+
+    if (string == 1)
+    {
+      return @"NW_DEVICE_THERMAL_PRESSURE_MODERATE_MAC";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 2:
+        return @"NW_DEVICE_THERMAL_PRESSURE_HEAVY_MAC";
+      case 3:
+        return @"NW_DEVICE_THERMAL_PRESSURE_TRAPPING_MAC";
+      case 4:
+        return @"NW_DEVICE_THERMAL_PRESSURE_SLEEPING_MAC";
+    }
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsThermalPressure:(id)pressure
@@ -409,6 +485,19 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFF7F | v3);
+}
+
+- (id)cellularModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE329D0[string];
+  }
 }
 
 - (int)StringAsCellularMode:(id)mode
@@ -777,7 +866,6 @@ LABEL_66:
   has = self->_has;
   if ((*&has & 0x10) != 0)
   {
-    batteryPercentage = self->_batteryPercentage;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -797,7 +885,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  batteryCurrentCapacity = self->_batteryCurrentCapacity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -812,7 +899,6 @@ LABEL_4:
   }
 
 LABEL_25:
-  batteryMaximumCapacity = self->_batteryMaximumCapacity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -827,7 +913,6 @@ LABEL_5:
   }
 
 LABEL_26:
-  batteryDesignCapacity = self->_batteryDesignCapacity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -842,7 +927,6 @@ LABEL_6:
   }
 
 LABEL_27:
-  batteryAbsoluteCapacity = self->_batteryAbsoluteCapacity;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -857,7 +941,6 @@ LABEL_7:
   }
 
 LABEL_28:
-  batteryVoltage = self->_batteryVoltage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -872,7 +955,6 @@ LABEL_8:
   }
 
 LABEL_29:
-  batteryTimeRemaining = self->_batteryTimeRemaining;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -887,7 +969,6 @@ LABEL_9:
   }
 
 LABEL_30:
-  batteryExternalPowerIsConnected = self->_batteryExternalPowerIsConnected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -902,7 +983,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  batteryIsCharging = self->_batteryIsCharging;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -917,7 +997,6 @@ LABEL_11:
   }
 
 LABEL_32:
-  batteryFullyCharged = self->_batteryFullyCharged;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -932,7 +1011,6 @@ LABEL_12:
   }
 
 LABEL_33:
-  batteryAtWarnLevel = self->_batteryAtWarnLevel;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -947,7 +1025,6 @@ LABEL_13:
   }
 
 LABEL_34:
-  batteryAtCriticalLevel = self->_batteryAtCriticalLevel;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -962,7 +1039,6 @@ LABEL_14:
   }
 
 LABEL_35:
-  devicePluggedIn = self->_devicePluggedIn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -977,7 +1053,6 @@ LABEL_15:
   }
 
 LABEL_36:
-  deviceScreenOn = self->_deviceScreenOn;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -992,7 +1067,6 @@ LABEL_16:
   }
 
 LABEL_37:
-  motionState = self->_motionState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1007,12 +1081,10 @@ LABEL_17:
   }
 
 LABEL_38:
-  thermalPressure = self->_thermalPressure;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_18:
-    cellularMode = self->_cellularMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1636,7 +1708,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v8 = *(equal + 62);
     if (self->_batteryExternalPowerIsConnected)
     {
       if ((*(equal + 62) & 1) == 0)
@@ -1663,7 +1734,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v9 = *(equal + 64);
     if (self->_batteryIsCharging)
     {
       if ((*(equal + 64) & 1) == 0)
@@ -1690,7 +1760,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v10 = *(equal + 63);
     if (self->_batteryFullyCharged)
     {
       if ((*(equal + 63) & 1) == 0)
@@ -1717,7 +1786,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v11 = *(equal + 61);
     if (self->_batteryAtWarnLevel)
     {
       if ((*(equal + 61) & 1) == 0)
@@ -1744,7 +1812,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v12 = *(equal + 60);
     if (self->_batteryAtCriticalLevel)
     {
       if ((*(equal + 60) & 1) == 0)
@@ -1771,7 +1838,6 @@ LABEL_19:
       goto LABEL_110;
     }
 
-    v13 = *(equal + 65);
     if (self->_devicePluggedIn)
     {
       if ((*(equal + 65) & 1) == 0)
@@ -1795,7 +1861,6 @@ LABEL_19:
   {
     if ((v7 & 0x10000) != 0)
     {
-      v14 = *(equal + 66);
       if (self->_deviceScreenOn)
       {
         if ((*(equal + 66) & 1) == 0)

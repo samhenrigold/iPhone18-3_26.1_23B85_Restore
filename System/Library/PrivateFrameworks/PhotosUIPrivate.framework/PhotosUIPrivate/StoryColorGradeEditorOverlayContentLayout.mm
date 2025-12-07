@@ -44,7 +44,7 @@
 
 - (CGSize)layout:(id)layout estimatedContentSizeForSublayoutAtIndex:(int64_t)index referenceSize:(CGSize)size
 {
-  CGSizeMake(layout);
+  CGSizeMake();
   result.height = v6;
   result.width = v5;
   return result;

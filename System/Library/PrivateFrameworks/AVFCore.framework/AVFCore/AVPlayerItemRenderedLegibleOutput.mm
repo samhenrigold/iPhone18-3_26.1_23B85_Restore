@@ -37,14 +37,14 @@
 {
   height = size.height;
   width = size.width;
-  v9.receiver = self;
-  v9.super_class = AVPlayerItemRenderedLegibleOutput;
-  v7 = [(AVPlayerItemOutput *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = AVPlayerItemRenderedLegibleOutput;
+  v7 = [(AVPlayerItemOutput *)&v10 init];
   if (v7)
   {
     v7->_delegateStorage = objc_alloc_init(AVWeakReferencingDelegateStorage);
     v7->_dependencyFactory = factory;
-    v7->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemrenderedlegibleoutput.ivars");
+    v7->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemrenderedlegibleoutput.ivars", v8);
     v7->_videoDisplaySize.width = width;
     v7->_videoDisplaySize.height = height;
     v7->_suppressesPlayerRendering = 0;

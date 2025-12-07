@@ -9,15 +9,13 @@
 - (uint64_t)_recordPassesEligibilityChecks:()RBLaunchChecks;
 - (uint64_t)_requiresPreflightCheck;
 - (void)_applicationRecordForLaunchCheck;
-- (void)_passesEligibilityCheck;
-- (void)_requiresPreflightCheck;
 @end
 
 @implementation RBSLaunchContext(RBLaunchChecks)
 
 - (uint64_t)_requiresPreflightCheck
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   _sharedPreflightManager = [self _sharedPreflightManager];
   if (_sharedPreflightManager)
   {
@@ -52,8 +50,8 @@ LABEL_5:
 
           *buf = 138543618;
           selfCopy2 = self;
-          v37 = 2114;
-          v38 = v8;
+          v36 = 2114;
+          v37 = v8;
           _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "preflightManager for %{public}@ -> %{public}@", buf, 0x16u);
         }
 
@@ -76,36 +74,36 @@ LABEL_5:
       }
 
       v9 = bundleIdentifier;
-      v34 = 0;
-      v11 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v34];
-      v5 = v34;
+      v33 = 0;
+      v11 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v33];
+      v5 = v33;
       if (v11)
       {
-        v26 = v11;
-        v27 = v9;
-        v29 = identity;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
+        v25 = v11;
+        v26 = v9;
+        v28 = identity;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         obj = [v11 identities];
-        v12 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v12 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v31;
+          v14 = *v30;
 LABEL_19:
           v15 = 0;
           while (1)
           {
-            if (*v31 != v14)
+            if (*v30 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v30 + 1) + 8 * v15);
+            v16 = *(*(&v29 + 1) + 8 * v15);
             personaUniqueString = [v16 personaUniqueString];
-            personaString = [v29 personaString];
+            personaString = [v28 personaString];
             v19 = [personaUniqueString isEqualToString:personaString];
 
             if (v19)
@@ -115,7 +113,7 @@ LABEL_19:
 
             if (v13 == ++v15)
             {
-              v13 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+              v13 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
               if (v13)
               {
                 goto LABEL_19;
@@ -132,23 +130,23 @@ LABEL_19:
             goto LABEL_32;
           }
 
-          identity = v29;
-          v11 = v26;
-          v21 = v27;
+          identity = v28;
+          v11 = v25;
+          v21 = v26;
           goto LABEL_34;
         }
 
 LABEL_25:
 
 LABEL_32:
-        v11 = v26;
-        identities = [v26 identities];
+        v11 = v25;
+        identities = [v25 identities];
         firstObject = [identities firstObject];
 
-        identity = v29;
+        identity = v28;
         if (firstObject)
         {
-          v21 = v27;
+          v21 = v26;
 LABEL_34:
 
           v5 = firstObject;
@@ -156,7 +154,7 @@ LABEL_34:
         }
 
         v23 = rbs_process_log();
-        v9 = v27;
+        v9 = v26;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [RBSLaunchContext(RBLaunchChecks) _requiresPreflightCheck];
@@ -194,7 +192,6 @@ LABEL_42:
   v6 = 0;
 LABEL_43:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -205,9 +202,9 @@ LABEL_43:
     [RBSLaunchContext(RBLaunchChecks) _sharedPreflightManager];
   }
 
-  v1 = _sharedPreflightManager_preflightManager;
+  v2 = _sharedPreflightManager_preflightManager;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)_passesEligibilityCheck
@@ -322,7 +319,7 @@ LABEL_14:
 
 - (BOOL)_deviceIsEligibleForDomain:()RBLaunchChecks bundleID:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -334,20 +331,20 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v22 = unsignedLongLongValue;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = personaString;
+      v21 = unsignedLongLongValue;
+      v22 = 2112;
+      v23 = v6;
+      v24 = 2112;
+      v25 = personaString;
       _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_DEFAULT, "Making eligibility query with domain: %llu, bundle ID: %@, persona: %@", buf, 0x20u);
     }
 
     v11 = objc_alloc(MEMORY[0x277D36CB0]);
     identity2 = [self identity];
     personaString2 = [identity2 personaString];
-    v20 = 0;
-    v14 = [v11 initWithDomain:unsignedLongLongValue bundleID:v6 persona:personaString2 error:&v20];
-    v15 = v20;
+    v19 = 0;
+    v14 = [v11 initWithDomain:unsignedLongLongValue bundleID:v6 persona:personaString2 error:&v19];
+    v15 = v19;
 
     if (v14)
     {
@@ -377,7 +374,6 @@ LABEL_14:
     v16 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -448,7 +444,7 @@ LABEL_8:
 
 - (uint64_t)_launchAllowedBySystemState:()RBLaunchChecks error:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v6 = a3;
   preventLaunch = [v6 preventLaunch];
   preventLaunchPredicates = [v6 preventLaunchPredicates];
@@ -459,13 +455,13 @@ LABEL_8:
   {
     executablePath = [v10 executablePath];
     *buf = 67109890;
-    *v41 = preventLaunch;
-    *&v41[4] = 2114;
-    *&v41[6] = executablePath;
-    v42 = 2114;
-    v43 = preventLaunchPredicates;
-    v44 = 2114;
-    v45 = allowLaunchPredicates;
+    *v40 = preventLaunch;
+    *&v40[4] = 2114;
+    *&v40[6] = executablePath;
+    v41 = 2114;
+    v42 = preventLaunchPredicates;
+    v43 = 2114;
+    v44 = allowLaunchPredicates;
     _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_DEFAULT, "Checking PreventLaunch: global:%d exPath:%{public}@ predicates:%{public}@ allow:%{public}@", buf, 0x26u);
   }
 
@@ -474,32 +470,32 @@ LABEL_8:
 LABEL_16:
     if ([allowLaunchPredicates count])
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       allowLaunchPredicates2 = [v6 allowLaunchPredicates];
-      v18 = [allowLaunchPredicates2 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [allowLaunchPredicates2 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v18)
       {
-        v20 = *v31;
+        v20 = *v30;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v31 != v20)
+            if (*v30 != v20)
             {
               objc_enumerationMutation(allowLaunchPredicates2);
             }
 
-            v22 = *(*(&v30 + 1) + 8 * i);
+            v22 = *(*(&v29 + 1) + 8 * i);
             if ([v22 matchesProcess:v10])
             {
               v23 = rbs_process_log();
               if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                *v41 = v22;
+                *v40 = v22;
                 _os_log_impl(&dword_262485000, v23, OS_LOG_TYPE_DEFAULT, "PreventLaunch overriden by Predicate: %{public}@", buf, 0xCu);
               }
 
@@ -508,7 +504,7 @@ LABEL_16:
             }
           }
 
-          v18 = [allowLaunchPredicates2 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v18 = [allowLaunchPredicates2 countByEnumeratingWithState:&v29 objects:v37 count:16];
           if (v18)
           {
             continue;
@@ -552,33 +548,33 @@ LABEL_29:
 
   if ([preventLaunchPredicates count])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     preventLaunchPredicates2 = [v6 preventLaunchPredicates];
-    v14 = [preventLaunchPredicates2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v14 = [preventLaunchPredicates2 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v35;
+      v16 = *v34;
       while (2)
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v35 != v16)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(preventLaunchPredicates2);
           }
 
-          if ([*(*(&v34 + 1) + 8 * j) matchesProcess:v10])
+          if ([*(*(&v33 + 1) + 8 * j) matchesProcess:v10])
           {
 
             goto LABEL_16;
           }
         }
 
-        v15 = [preventLaunchPredicates2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v15 = [preventLaunchPredicates2 countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v15)
         {
           continue;
@@ -592,42 +588,23 @@ LABEL_29:
   v18 = 1;
 LABEL_34:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v18;
-}
-
-- (void)_requiresPreflightCheck
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Skipping preflight as %{public}@ has no bundle ID", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deviceIsEligibleForDomain:()RBLaunchChecks bundleID:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_4(&dword_262485000, a2, a3, "failure getting eligibility info for domain %qu with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_4(&dword_262485000, a2, a3, "failure getting eligibility info for domain %qu with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_applicationRecordForLaunchCheck
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Could not get bundle ID from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_passesEligibilityCheck
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_2(&dword_262485000, v0, v1, "Could not find LS record for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_3();
+  OUTLINED_FUNCTION_4(&dword_262485000, v0, v1, "Could not create LSApplicationRecord from bundleID %@: %@");
 }
 
 @end

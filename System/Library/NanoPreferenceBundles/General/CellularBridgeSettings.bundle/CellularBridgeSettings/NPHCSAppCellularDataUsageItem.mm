@@ -6,6 +6,7 @@
 - (NPHCSAppCellularDataUsageItem)initWithCTAppDataUsageItem:(id)item;
 - (id)chinaSKUWirelessDataOptionForCellularSetup:(BOOL)setup;
 - (void)setDisplayName:(id)name;
+- (void)setUsagePoliciesForCellular:(BOOL)cellular;
 - (void)setUsagePoliciesForCellular:(BOOL)cellular andWifi:(BOOL)wifi;
 @end
 
@@ -126,11 +127,30 @@
   }
 }
 
+- (void)setUsagePoliciesForCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  v5 = nph_general_log(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    bundleID = [(NPHCSAppCellularDataUsageItem *)self bundleID];
+    v7 = 136315650;
+    v8 = "[NPHCSAppCellularDataUsageItem setUsagePoliciesForCellular:]";
+    v9 = 2112;
+    v10 = bundleID;
+    v11 = 1024;
+    v12 = cellularCopy;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%s setting: %@, %i", &v7, 0x1Cu);
+  }
+
+  [(NPHCSAppCellularDataUsageItem *)self setUsagePoliciesForCellular:cellularCopy andWifi:1];
+}
+
 - (void)setUsagePoliciesForCellular:(BOOL)cellular andWifi:(BOOL)wifi
 {
   wifiCopy = wifi;
   cellularCopy = cellular;
-  v7 = nph_general_log();
+  v7 = nph_general_log(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [(NPHCSAppCellularDataUsageItem *)self bundleID];

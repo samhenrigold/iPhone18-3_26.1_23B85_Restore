@@ -69,29 +69,27 @@ void __68__ATXComplicationSuggestionCache_writeComplicationsModularSetCache___bl
 
   if (v8)
   {
-    v9 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = v8;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Error while writing modular complication set cache: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Error while writing modular complication set cache: %@", buf, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v11 = a1[5];
-    v9 = v3[1];
-    v3[1] = v11;
-    v10 = 1;
+    v12 = a1[5];
+    v10 = v3[1];
+    v3[1] = v12;
+    v11 = 1;
   }
 
-  *(*(a1[6] + 8) + 24) = v10;
+  *(*(a1[6] + 8) + 24) = v11;
   objc_autoreleasePoolPop(v4);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)writeComplicationsLandscapeModularSetCache:(id)cache
@@ -131,29 +129,27 @@ void __77__ATXComplicationSuggestionCache_writeComplicationsLandscapeModularSetC
 
   if (v8)
   {
-    v9 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = v8;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Error while writing complication landscape modular set cache: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Error while writing complication landscape modular set cache: %@", buf, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v11 = a1[5];
-    v9 = v3[1];
-    v3[1] = v11;
-    v10 = 1;
+    v12 = a1[5];
+    v10 = v3[1];
+    v3[1] = v12;
+    v11 = 1;
   }
 
-  *(*(a1[6] + 8) + 24) = v10;
+  *(*(a1[6] + 8) + 24) = v11;
   objc_autoreleasePoolPop(v4);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)writeComplicationsInlineSetCache:(id)cache
@@ -193,29 +189,27 @@ void __67__ATXComplicationSuggestionCache_writeComplicationsInlineSetCache___blo
 
   if (v8)
   {
-    v9 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = v8;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Error while writing complication inline set cache: %@", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Error while writing complication inline set cache: %@", buf, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v11 = a1[5];
-    v9 = v3[3];
-    v3[3] = v11;
-    v10 = 1;
+    v12 = a1[5];
+    v10 = v3[3];
+    v3[3] = v12;
+    v11 = 1;
   }
 
-  *(*(a1[6] + 8) + 24) = v10;
+  *(*(a1[6] + 8) + 24) = v11;
   objc_autoreleasePoolPop(v4);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchModularSetComplicationDescriptors
@@ -265,28 +259,26 @@ void __72__ATXComplicationSuggestionCache_fetchModularSetComplicationDescriptors
 
     if (v11)
     {
-      v13 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_lock_screen(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v20 = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Error while reading complication set 1 cache: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Error while reading complication set 1 cache: %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEBF8];
+      v15 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v14 = [v3[1] copy];
+      v15 = [v3[1] copy];
     }
 
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchInlineSetComplicationDescriptors
@@ -336,28 +328,26 @@ void __71__ATXComplicationSuggestionCache_fetchInlineSetComplicationDescriptors_
 
     if (v11)
     {
-      v13 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_lock_screen(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v20 = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Error while reading complication inline set cache: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Error while reading complication inline set cache: %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEBF8];
+      v15 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v14 = [v3[3] copy];
+      v15 = [v3[3] copy];
     }
 
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchLandscapeModularSetComplicationDescriptors
@@ -407,28 +397,26 @@ void __81__ATXComplicationSuggestionCache_fetchLandscapeModularSetComplicationDe
 
     if (v11)
     {
-      v13 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_lock_screen(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v20 = v11;
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Error while reading landscape modular complication set cache: %@", buf, 0xCu);
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Error while reading landscape modular complication set cache: %@", buf, 0xCu);
       }
 
-      v14 = MEMORY[0x277CBEBF8];
+      v15 = MEMORY[0x277CBEBF8];
     }
 
     else
     {
-      v14 = [v3[2] copy];
+      v15 = [v3[2] copy];
     }
 
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v16 = *(*(a1 + 40) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_writeComplicationsCache:(id)cache path:(id)path withError:(id *)error
@@ -437,7 +425,7 @@ void __81__ATXComplicationSuggestionCache_fetchLandscapeModularSetComplicationDe
   pathCopy = path;
   cacheCopy = cache;
   v10 = [v7 alloc];
-  v11 = __atxlog_handle_lock_screen();
+  v11 = __atxlog_handle_lock_screen(v10);
   v12 = [v10 initWithCacheFilePath:pathCopy loggingHandle:v11 debugName:@"complications"];
 
   LOBYTE(error) = [v12 storeSecureCodedObject:cacheCopy error:error];
@@ -448,7 +436,7 @@ void __81__ATXComplicationSuggestionCache_fetchLandscapeModularSetComplicationDe
 {
   pathCopy = path;
   v6 = objc_alloc(MEMORY[0x277CEBC68]);
-  v7 = __atxlog_handle_lock_screen();
+  v7 = __atxlog_handle_lock_screen(v6);
   v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"complications"];
 
   v9 = objc_autoreleasePoolPush();

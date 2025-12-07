@@ -8,22 +8,22 @@
 
 + (BOOL)shouldCollectTrainingDataForObjective:(unint64_t)objective language:(id)language
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v7 = [self _modelsAvailabeForMode:0 objective:objective language:languageCopy];
-  v8 = [v7 count];
-  if (v8 && [v7 count] >= 2)
+  v8 = objc_msgSend_count(v7);
+  if (v8 && objc_msgSend_count(v7) >= 2)
   {
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = 134218498;
+      v11 = 134218498;
       objectiveCopy = objective;
-      v14 = 2112;
-      v15 = languageCopy;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "Multiple model names specified to turn on data collection (objective: %lu, language: %@, models: %@.", &v12, 0x20u);
+      v13 = 2112;
+      v14 = languageCopy;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "Multiple model names specified to turn on data collection (objective: %lu, language: %@, models: %@.", &v11, 0x20u);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -32,7 +32,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8 != 0;
 }
 
@@ -78,14 +77,14 @@
 
 + (void)loadBinaryClassificationModelFromMobileAssetForObjective:(unint64_t)objective language:(id)language withBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   blockCopy = block;
   v10 = objc_autoreleasePoolPush();
   v11 = [self _modelsAvailabeForMode:1 objective:objective language:languageCopy];
-  if ([v11 count]< 2)
+  if (objc_msgSend_count(v11) < 2)
   {
-    if ([v11 count]== 1)
+    if (objc_msgSend_count(v11) == 1)
     {
       firstObject = [v11 firstObject];
       v14 = [SGBinaryClassificationModel modelFromMobileAssetForName:firstObject language:languageCopy];
@@ -99,13 +98,13 @@
         v15 = sgLogHandle();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
-          v17 = 134218498;
+          v16 = 134218498;
           objectiveCopy3 = objective;
-          v19 = 2112;
-          v20 = languageCopy;
-          v21 = 2112;
-          v22 = firstObject;
-          _os_log_fault_impl(&dword_231E60000, v15, OS_LOG_TYPE_FAULT, "Failed to load model (objective: %lu, langauge: %@, name: %@)", &v17, 0x20u);
+          v18 = 2112;
+          v19 = languageCopy;
+          v20 = 2112;
+          v21 = firstObject;
+          _os_log_fault_impl(&dword_231E60000, v15, OS_LOG_TYPE_FAULT, "Failed to load model (objective: %lu, langauge: %@, name: %@)", &v16, 0x20u);
         }
 
         if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -121,11 +120,11 @@ LABEL_18:
       firstObject = sgLogHandle();
       if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 134218242;
+        v16 = 134218242;
         objectiveCopy3 = objective;
-        v19 = 2112;
-        v20 = languageCopy;
-        _os_log_debug_impl(&dword_231E60000, firstObject, OS_LOG_TYPE_DEBUG, "No prediction model specified for objective %lu, language: %@", &v17, 0x16u);
+        v18 = 2112;
+        v19 = languageCopy;
+        _os_log_debug_impl(&dword_231E60000, firstObject, OS_LOG_TYPE_DEBUG, "No prediction model specified for objective %lu, language: %@", &v16, 0x16u);
       }
     }
   }
@@ -135,13 +134,13 @@ LABEL_18:
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v17 = 134218498;
+      v16 = 134218498;
       objectiveCopy3 = objective;
-      v19 = 2112;
-      v20 = languageCopy;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_fault_impl(&dword_231E60000, v12, OS_LOG_TYPE_FAULT, "More than one prediction model specified for objective %lu, language: %@, models: %@", &v17, 0x20u);
+      v18 = 2112;
+      v19 = languageCopy;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_fault_impl(&dword_231E60000, v12, OS_LOG_TYPE_FAULT, "More than one prediction model specified for objective %lu, language: %@, models: %@", &v16, 0x20u);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -151,7 +150,6 @@ LABEL_18:
   }
 
   objc_autoreleasePoolPop(v10);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

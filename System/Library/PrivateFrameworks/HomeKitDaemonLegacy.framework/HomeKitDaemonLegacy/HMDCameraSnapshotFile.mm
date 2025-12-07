@@ -77,12 +77,12 @@
 
 - (NSData)idsData
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA90];
   filePath = [(HMDCameraSnapshotFile *)self filePath];
-  v17 = 0;
-  v5 = [v3 dataWithContentsOfFile:filePath options:2 error:&v17];
-  v6 = v17;
+  v16 = 0;
+  v5 = [v3 dataWithContentsOfFile:filePath options:2 error:&v16];
+  v6 = v16;
 
   if (v5)
   {
@@ -104,11 +104,11 @@
       v13 = HMFGetLogIdentifier();
       filePath2 = [(HMDCameraSnapshotFile *)selfCopy filePath];
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = filePath2;
-      v22 = 2112;
-      v23 = v6;
+      v18 = v13;
+      v19 = 2112;
+      v20 = filePath2;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to get snapshot data from file at path %@: %@", buf, 0x20u);
     }
 
@@ -116,42 +116,38 @@
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   filePath = [(HMDCameraSnapshotFile *)self filePath];
   v5 = [v3 initWithName:@"File Path" value:filePath];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   dateCaptured = [(HMDCameraSnapshotFile *)self dateCaptured];
   v8 = [v6 initWithName:@"Date Captured" value:dateCaptured];
-  v19[1] = v8;
+  v18[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = MEMORY[0x277CCABB0];
   [(HMDCameraSnapshotFile *)self aspectRatio];
   v11 = [v10 numberWithDouble:?];
   v12 = [v9 initWithName:@"Aspect Ratio" value:v11];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   slotIdentifier = [(HMDCameraSnapshotFile *)self slotIdentifier];
   v15 = [v13 initWithName:@"Slot" value:slotIdentifier];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }
 
 - (void)dealloc
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -159,7 +155,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v6;
+    v30 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating HMDCameraSnapshotFile", buf, 0xCu);
   }
 
@@ -189,18 +185,18 @@
         v16 = HMFGetLogIdentifier();
         filePath2 = [(HMDCameraSnapshotFile *)v14 filePath];
         *buf = 138543618;
-        v31 = v16;
-        v32 = 2112;
-        v33 = filePath2;
+        v30 = v16;
+        v31 = 2112;
+        v32 = filePath2;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Deleting snapshot file at %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
       filePath3 = [(HMDCameraSnapshotFile *)v14 filePath];
-      v29 = 0;
-      v20 = [defaultManager2 removeItemAtPath:filePath3 error:&v29];
-      v21 = v29;
+      v28 = 0;
+      v20 = [defaultManager2 removeItemAtPath:filePath3 error:&v28];
+      v21 = v28;
 
       if ((v20 & 1) == 0)
       {
@@ -212,11 +208,11 @@
           v25 = HMFGetLogIdentifier();
           filePath4 = [(HMDCameraSnapshotFile *)v23 filePath];
           *buf = 138543874;
-          v31 = v25;
-          v32 = 2112;
-          v33 = filePath4;
-          v34 = 2112;
-          v35 = v21;
+          v30 = v25;
+          v31 = 2112;
+          v32 = filePath4;
+          v33 = 2112;
+          v34 = v21;
           _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to delete snapshot file at %@: %@", buf, 0x20u);
         }
 
@@ -225,15 +221,14 @@
     }
   }
 
-  v28.receiver = selfCopy;
-  v28.super_class = HMDCameraSnapshotFile;
-  [(HMDCameraSnapshotFile *)&v28 dealloc];
-  v27 = *MEMORY[0x277D85DE8];
+  v27.receiver = selfCopy;
+  v27.super_class = HMDCameraSnapshotFile;
+  [(HMDCameraSnapshotFile *)&v27 dealloc];
 }
 
 - (HMDCameraSnapshotFile)initWithDirectory:(id)directory idsData:(id)data error:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   dataCopy = data;
   if (!directoryCopy)
@@ -251,9 +246,9 @@ LABEL_31:
 
   v11 = MEMORY[0x277CCAAC8];
   v12 = getIDSSessionOptionsAllowedClasses();
-  v40 = 0;
-  v13 = [v11 unarchivedObjectOfClasses:v12 fromData:v10 error:&v40];
-  v14 = v40;
+  v39 = 0;
+  v13 = [v11 unarchivedObjectOfClasses:v12 fromData:v10 error:&v39];
+  v14 = v39;
 
   if (v13)
   {
@@ -270,7 +265,7 @@ LABEL_31:
       v17 = 0;
     }
 
-    v39 = v17;
+    v38 = v17;
 
     if (v16)
     {
@@ -291,16 +286,16 @@ LABEL_31:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v34 = v38 = v32;
+          v34 = v37 = v32;
           *buf = 138543874;
-          v42 = v34;
-          v43 = 2112;
-          v44 = v18;
-          v45 = 2112;
-          v46 = v20;
+          v41 = v34;
+          v42 = 2112;
+          v43 = v18;
+          v44 = 2112;
+          v45 = v20;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to create snapshot file from IDS data: either date captured %@ or image data %@ is missing", buf, 0x20u);
 
-          v32 = v38;
+          v32 = v37;
         }
 
         objc_autoreleasePoolPop(v32);
@@ -316,7 +311,7 @@ LABEL_31:
         }
       }
 
-      v35 = v39;
+      v35 = v38;
     }
 
     else
@@ -329,11 +324,11 @@ LABEL_31:
         v29 = HMFGetLogIdentifier();
         v30 = objc_opt_class();
         *buf = 138543874;
-        v42 = v29;
-        v43 = 2112;
-        v44 = v15;
-        v45 = 2112;
-        v46 = v30;
+        v41 = v29;
+        v42 = 2112;
+        v43 = v15;
+        v44 = 2112;
+        v45 = v30;
         v31 = v30;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to create snapshot file from IDS data: decoded object is not a dictionary: %@ (%@)", buf, 0x20u);
       }
@@ -350,7 +345,7 @@ LABEL_31:
         v22 = 0;
       }
 
-      v35 = v39;
+      v35 = v38;
     }
   }
 
@@ -363,9 +358,9 @@ LABEL_31:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v25;
-      v43 = 2112;
-      v44 = v14;
+      v41 = v25;
+      v42 = 2112;
+      v43 = v14;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create snapshot file from IDS data: failed to unarchive allowed IDS session options from relay data: %@", buf, 0x16u);
     }
 
@@ -383,13 +378,12 @@ LABEL_31:
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (HMDCameraSnapshotFile)initWithFilePath:(id)path dateCaptured:(id)captured error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   capturedCopy = captured;
   if (!pathCopy)
@@ -405,9 +399,9 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v25 = 0;
-  v11 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:2 error:&v25];
-  v12 = v25;
+  v24 = 0;
+  v11 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:2 error:&v24];
+  v12 = v24;
   if (v11)
   {
     v13 = HMDCameraAspectRatioForImageData(v11);
@@ -427,9 +421,9 @@ LABEL_19:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v27 = v22;
-        v28 = 2112;
-        v29 = pathCopy;
+        v26 = v22;
+        v27 = 2112;
+        v28 = pathCopy;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Failed to find aspect ratio for snapshot file at path: %@", buf, 0x16u);
       }
 
@@ -456,11 +450,11 @@ LABEL_19:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v27 = v18;
-      v28 = 2112;
-      v29 = pathCopy;
-      v30 = 2112;
-      v31 = v12;
+      v26 = v18;
+      v27 = 2112;
+      v28 = pathCopy;
+      v29 = 2112;
+      v30 = v12;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to read snapshot data from file at path %@: %@", buf, 0x20u);
     }
 
@@ -478,18 +472,17 @@ LABEL_19:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (HMDCameraSnapshotFile)initWithDirectory:(id)directory imageData:(id)data videoResolution:(id)resolution dateCaptured:(id)captured error:(id *)error
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   dataCopy = data;
   resolutionCopy = resolution;
   capturedCopy = captured;
-  v101 = directoryCopy;
+  v100 = directoryCopy;
   if (!directoryCopy)
   {
     _HMFPreconditionFailure();
@@ -538,11 +531,11 @@ LABEL_64:
           HMFGetLogIdentifier();
           v30 = v29 = v21;
           *buf = 138543874;
-          v103 = v30;
-          v104 = 2048;
-          v105 = *&Width;
-          v106 = 2048;
-          v107 = *&Height;
+          v102 = v30;
+          v103 = 2048;
+          v104 = *&Width;
+          v105 = 2048;
+          v106 = *&Height;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Image has width: %lu, height: %lu", buf, 0x20u);
 
           v21 = v29;
@@ -555,7 +548,7 @@ LABEL_64:
         v33 = v32 = v21;
         unsignedIntegerValue = [v33 unsignedIntegerValue];
 
-        v96 = v32;
+        v95 = v32;
         imageHeight = [v32 imageHeight];
         unsignedIntegerValue2 = [imageHeight unsignedIntegerValue];
 
@@ -567,7 +560,7 @@ LABEL_64:
           {
             v39 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v103 = v39;
+            v102 = v39;
             _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Given image data matches the expected resolution", buf, 0xCu);
           }
 
@@ -591,18 +584,18 @@ LABEL_64:
             if (v64)
             {
               v65 = v64;
-              v111.origin.x = 0.0;
-              v111.origin.y = 0.0;
-              v111.size.width = v58;
-              v111.size.height = v59;
-              CGContextDrawImage(v64, v111, image);
+              v110.origin.x = 0.0;
+              v110.origin.y = 0.0;
+              v110.size.width = v58;
+              v110.size.height = v59;
+              CGContextDrawImage(v64, v110, image);
               v66 = CGBitmapContextCreateImage(v65);
               CGContextRelease(v65);
               if (v66)
               {
-                v94 = objc_alloc_init(MEMORY[0x277CBEB28]);
-                v67 = CGImageDestinationCreateWithData(v94, *MEMORY[0x277CC20C8], 1uLL, 0);
-                v93 = v66;
+                v93 = objc_alloc_init(MEMORY[0x277CBEB28]);
+                v67 = CGImageDestinationCreateWithData(v93, *MEMORY[0x277CC20C8], 1uLL, 0);
+                v92 = v66;
                 if (v67)
                 {
                   v68 = v67;
@@ -614,36 +607,36 @@ LABEL_64:
                   v72 = v71;
                   if (v69)
                   {
-                    v21 = v96;
+                    v21 = v95;
                     error = errorCopy;
                     if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
                     {
                       v73 = HMFGetLogIdentifier();
-                      v74 = [(__CFData *)v94 length];
+                      v74 = [(__CFData *)v93 length];
                       *buf = 138544130;
-                      v103 = v73;
-                      v104 = 2048;
-                      v105 = v58;
-                      v106 = 2048;
-                      v107 = v59;
-                      v108 = 2048;
-                      v109 = v74;
+                      v102 = v73;
+                      v103 = 2048;
+                      v104 = v58;
+                      v105 = 2048;
+                      v106 = v59;
+                      v107 = 2048;
+                      v108 = v74;
                       _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_INFO, "%{public}@Resized to JPEG image of width: %lf, height: %lf, byte count: %lu", buf, 0x2Au);
                     }
 
                     objc_autoreleasePoolPop(v70);
-                    v40 = v94;
+                    v40 = v93;
                   }
 
                   else
                   {
-                    v21 = v96;
+                    v21 = v95;
                     error = errorCopy;
                     if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
                     {
-                      v91 = HMFGetLogIdentifier();
+                      v90 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      v103 = v91;
+                      v102 = v90;
                       _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_ERROR, "%{public}@Failed to finalize destination", buf, 0xCu);
                     }
 
@@ -658,26 +651,26 @@ LABEL_64:
 
                 else
                 {
-                  v88 = objc_autoreleasePoolPush();
-                  v89 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+                  v87 = objc_autoreleasePoolPush();
+                  v88 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
                   {
-                    v90 = HMFGetLogIdentifier();
+                    v89 = HMFGetLogIdentifier();
                     *buf = 138543362;
-                    v103 = v90;
-                    _os_log_impl(&dword_2531F8000, v89, OS_LOG_TYPE_ERROR, "%{public}@Failed to create image destination", buf, 0xCu);
+                    v102 = v89;
+                    _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_ERROR, "%{public}@Failed to create image destination", buf, 0xCu);
                   }
 
-                  objc_autoreleasePoolPop(v88);
+                  objc_autoreleasePoolPop(v87);
                   v40 = 0;
-                  v21 = v96;
+                  v21 = v95;
                   error = errorCopy;
                   v78 = image;
                   self = selfCopy;
                 }
 
                 v52 = height;
-                CFRelease(v93);
+                CFRelease(v92);
 
                 goto LABEL_40;
               }
@@ -690,7 +683,7 @@ LABEL_64:
           {
             v77 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v103 = v77;
+            v102 = v77;
             _os_log_impl(&dword_2531F8000, v76, OS_LOG_TYPE_ERROR, "%{public}@Failed to create resized image", buf, 0xCu);
           }
 
@@ -698,7 +691,7 @@ LABEL_64:
           v40 = 0;
         }
 
-        v21 = v96;
+        v21 = v95;
         error = errorCopy;
         v78 = image;
         self = selfCopy;
@@ -714,7 +707,7 @@ LABEL_40:
       {
         v55 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v103 = v55;
+        v102 = v55;
         _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@Failed to create image", buf, 0xCu);
       }
 
@@ -733,7 +726,7 @@ LABEL_40:
       {
         v51 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v103 = v51;
+        v102 = v51;
         _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Failed to create image source", buf, 0xCu);
       }
 
@@ -787,16 +780,16 @@ LABEL_45:
       if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v100 = v16;
+        v99 = v16;
         v85 = v84 = resolutionCopy;
         *buf = 138543618;
-        v103 = v85;
-        v104 = 2112;
-        v105 = *&v19;
+        v102 = v85;
+        v103 = 2112;
+        v104 = *&v19;
         _os_log_impl(&dword_2531F8000, v83, OS_LOG_TYPE_ERROR, "%{public}@Failed to write snapshot data to file at path: %@", buf, 0x16u);
 
         resolutionCopy = v84;
-        v16 = v100;
+        v16 = v99;
       }
 
       objc_autoreleasePoolPop(v82);
@@ -824,9 +817,9 @@ LABEL_17:
     HMFGetLogIdentifier();
     v46 = v45 = error;
     *buf = 138543618;
-    v103 = v46;
-    v104 = 2112;
-    v105 = *&v19;
+    v102 = v46;
+    v103 = 2112;
+    v104 = *&v19;
     _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine aspect ratio for snapshot file at path: %@", buf, 0x16u);
 
     error = v45;
@@ -846,7 +839,6 @@ LABEL_17:
 
 LABEL_53:
 
-  v86 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -932,11 +924,11 @@ LABEL_9:
   v11 = [(HMDCameraSnapshotFile *)&v19 init];
   if (v11)
   {
-    v12 = [pathCopy copy];
+    v12 = objc_msgSend_copy(pathCopy);
     filePath = v11->_filePath;
     v11->_filePath = v12;
 
-    v14 = [v10 copy];
+    v14 = objc_msgSend_copy(v10);
     dateCaptured = v11->_dateCaptured;
     v11->_dateCaptured = v14;
 
@@ -960,17 +952,16 @@ LABEL_9:
 
 uint64_t __36__HMDCameraSnapshotFile_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v23_75978;
-  logCategory__hmf_once_v23_75978 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v23_75978;
+  logCategory__hmf_once_v23_75978 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)snapshotFileCopiedFromFilePath:(id)path toDirectory:(id)directory dateCaptured:(id)captured error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   directoryCopy = directory;
   capturedCopy = captured;
@@ -994,9 +985,9 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v24 = 0;
-  v14 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:2 error:&v24];
-  v15 = v24;
+  v23 = 0;
+  v14 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:2 error:&v23];
+  v15 = v23;
   if (v14)
   {
     v16 = [[HMDCameraSnapshotFile alloc] initWithDirectory:directoryCopy imageData:v14 videoResolution:0 dateCaptured:v13 error:error];
@@ -1011,11 +1002,11 @@ LABEL_16:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v26 = v20;
-      v27 = 2112;
-      v28 = pathCopy;
-      v29 = 2112;
-      v30 = v15;
+      v25 = v20;
+      v26 = 2112;
+      v27 = pathCopy;
+      v28 = 2112;
+      v29 = v15;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to read snapshot data from file at path %@: %@", buf, 0x20u);
     }
 
@@ -1032,8 +1023,6 @@ LABEL_16:
       v16 = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

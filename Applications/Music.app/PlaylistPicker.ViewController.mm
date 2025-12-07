@@ -65,23 +65,23 @@
 
 - (int64_t)numberOfSectionsInCollectionView:(id)view
 {
-  v5 = type metadata accessor for PlaylistPicker.Mode(0);
-  __chkstk_darwin(v5);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10047AAB4(self + OBJC_IVAR____TtCO5Music14PlaylistPicker14ViewController_context, v7, type metadata accessor for PlaylistPicker.Mode);
+  type metadata accessor for PlaylistPicker.Mode(0);
+  __chkstk_darwin();
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10047AAB4(self + OBJC_IVAR____TtCO5Music14PlaylistPicker14ViewController_context, v6, type metadata accessor for PlaylistPicker.Mode);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   viewCopy = view;
   selfCopy = self;
-  sub_10047AB30(v7, type metadata accessor for PlaylistPicker.Mode);
-  v11 = &unk_10109B360;
+  sub_10047AB30(v6, type metadata accessor for PlaylistPicker.Mode);
+  v10 = &unk_10109B360;
   if (EnumCaseMultiPayload != 1)
   {
-    v11 = &unk_10109B338;
+    v10 = &unk_10109B338;
   }
 
-  v12 = *v11;
+  v11 = *v10;
 
-  return v12;
+  return v11;
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
@@ -97,7 +97,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -111,20 +111,20 @@
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
 {
-  v7 = sub_10010FC20(&qword_101191468);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v21 - v8;
-  v10 = type metadata accessor for IndexPath();
-  v11 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10010FC20(&qword_101191468, &qword_100ECE470);
+  __chkstk_darwin();
+  v8 = &v20 - v7;
+  v9 = type metadata accessor for IndexPath();
+  v10 = *(v9 - 8);
+  __chkstk_darwin();
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = OBJC_IVAR____TtCO5Music14PlaylistPicker14ViewController_headerRegistration;
+  v13 = OBJC_IVAR____TtCO5Music14PlaylistPicker14ViewController_headerRegistration;
   swift_beginAccess();
-  sub_1000089F8(self + v14, v9, &qword_101191468);
-  v15 = sub_10010FC20(&unk_101191158);
-  v16 = *(v15 - 8);
-  result = (*(v16 + 48))(v9, 1, v15);
+  sub_1000089F8(self + v13, v8, &qword_101191468, &qword_100ECE470);
+  v14 = sub_10010FC20(&unk_101191158, &qword_100ECE278);
+  v15 = *(v14 - 8);
+  result = (*(v15 + 48))(v8, 1, v14);
   if (result == 1)
   {
     __break(1u);
@@ -132,15 +132,15 @@
 
   else
   {
-    sub_100009F78(0, &unk_101184790);
+    sub_100009F78(0, &unk_101184790, UICollectionViewListCell_ptr);
     viewCopy = view;
     selfCopy = self;
-    v20 = UICollectionView.dequeueConfiguredReusableSupplementary<A>(using:for:)();
+    v19 = UICollectionView.dequeueConfiguredReusableSupplementary<A>(using:for:)();
 
-    (*(v11 + 8))(v13, v10);
-    (*(v16 + 8))(v9, v15);
+    (*(v10 + 8))(v12, v9);
+    (*(v15 + 8))(v8, v14);
 
-    return v20;
+    return v19;
   }
 
   return result;
@@ -150,7 +150,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -165,7 +165,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;

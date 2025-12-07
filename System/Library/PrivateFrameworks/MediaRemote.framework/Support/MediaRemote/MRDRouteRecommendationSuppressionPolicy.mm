@@ -9,18 +9,16 @@
 {
   if (*(self + OBJC_IVAR___MRDRouteRecommendationSuppressionPolicy_reason + 8))
   {
-    v2 = *(self + OBJC_IVAR___MRDRouteRecommendationSuppressionPolicy_reason);
-    v3 = *(self + OBJC_IVAR___MRDRouteRecommendationSuppressionPolicy_reason + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (MRDRouteRecommendationSuppressionPolicy)init

@@ -10,7 +10,7 @@
 - (id)scheduledEventsForClientIdentifier:(id)identifier error:(id *)error;
 - (void)_queue_enqueueMaintenanceNotifyAndScheduleWithReason:(uint64_t)reason;
 - (void)_queue_processDueEventsWithCompletion:(uint64_t)completion;
-- (void)_queue_setNeedsMaintenanceNotifyAndSchedule:(uint64_t)schedule;
+- (void)_queue_setNeedsMaintenanceNotifyAndSchedule:(uint64_t)result;
 - (void)_queue_updateProtectedDataObserverStateIfRequired;
 - (void)addAlarm:(id)alarm;
 - (void)checkForDueEventsImmediatelyWithCompletion:(id)completion;
@@ -142,20 +142,20 @@ void __52__HDRestorableAlarmScheduler_profileDidBecomeReady___block_invoke(uint6
   [(HDRestorableAlarmScheduler *)v2 _queue_enqueueMaintenanceNotifyAndScheduleWithReason:?];
 }
 
-- (void)_queue_setNeedsMaintenanceNotifyAndSchedule:(uint64_t)schedule
+- (void)_queue_setNeedsMaintenanceNotifyAndSchedule:(uint64_t)result
 {
-  if (schedule)
+  if (result)
   {
-    dispatch_assert_queue_V2(*(schedule + 16));
-    *(schedule + 42) = a2;
+    dispatch_assert_queue_V2(*(result + 16));
+    *(result + 42) = a2;
 
-    [(HDRestorableAlarmScheduler *)schedule _queue_updateProtectedDataObserverStateIfRequired];
+    [(HDRestorableAlarmScheduler *)result _queue_updateProtectedDataObserverStateIfRequired];
   }
 }
 
 - (void)_queue_enqueueMaintenanceNotifyAndScheduleWithReason:(uint64_t)reason
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (reason)
   {
@@ -168,8 +168,8 @@ void __52__HDRestorableAlarmScheduler_profileDidBecomeReady___block_invoke(uint6
       {
         *buf = 138543618;
         reasonCopy2 = reason;
-        v23 = 2114;
-        v24 = v3;
+        v22 = 2114;
+        v23 = v3;
         _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Skipping maintenance operation with reason %{public}@ as we're already waiting on one", buf, 0x16u);
       }
     }
@@ -181,25 +181,25 @@ void __52__HDRestorableAlarmScheduler_profileDidBecomeReady___block_invoke(uint6
       v5 = objc_opt_class();
       v6 = NSStringFromClass(v5);
       v7 = *(reason + 16);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke;
-      v17[3] = &unk_278617620;
-      objc_copyWeak(&v19, &location);
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke;
+      v16[3] = &unk_278617620;
+      objc_copyWeak(&v18, &location);
       v8 = v3;
-      v18 = v8;
-      v9 = [HDMaintenanceOperation maintenanceOperationWithName:v6 queue:v7 synchronousBlock:v17];
+      v17 = v8;
+      v9 = [HDMaintenanceOperation maintenanceOperationWithName:v6 queue:v7 synchronousBlock:v16];
 
       WeakRetained = objc_loadWeakRetained((reason + 8));
       database = [WeakRetained database];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke_2;
-      v15[3] = &unk_278613920;
-      v15[4] = reason;
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke_2;
+      v14[3] = &unk_278613920;
+      v14[4] = reason;
       v12 = v9;
-      v16 = v12;
-      [database performWhenDataProtectedByFirstUnlockIsAvailable:v15];
+      v15 = v12;
+      [database performWhenDataProtectedByFirstUnlockIsAvailable:v14];
 
       _HKInitializeLogging();
       v13 = HKLogInfrastructure();
@@ -207,44 +207,40 @@ void __52__HDRestorableAlarmScheduler_profileDidBecomeReady___block_invoke(uint6
       {
         *buf = 138543618;
         reasonCopy2 = reason;
-        v23 = 2114;
-        v24 = v8;
+        v22 = 2114;
+        v23 = v8;
         _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ Enqueued maintenance operation with reason %{public}@", buf, 0x16u);
       }
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDRestorableAlarmScheduler__startObservingSignificantTimeChangeNotification__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = WeakRetained;
+    v3 = WeakRetained;
     dispatch_assert_queue_V2(WeakRetained[2]);
     _HKInitializeLogging();
     v2 = HKLogInfrastructure();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v6 = v4;
+      v5 = v3;
       _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ received significant time change notification", buf, 0xCu);
     }
 
-    dispatch_assert_queue_V2(v4[2]);
-    *(v4 + 42) = 1;
-    [(HDRestorableAlarmScheduler *)v4 _queue_updateProtectedDataObserverStateIfRequired];
-    [(HDRestorableAlarmScheduler *)v4 _queue_enqueueMaintenanceNotifyAndScheduleWithReason:?];
-    WeakRetained = v4;
+    dispatch_assert_queue_V2(v3[2]);
+    *(v3 + 42) = 1;
+    [(HDRestorableAlarmScheduler *)v3 _queue_updateProtectedDataObserverStateIfRequired];
+    [(HDRestorableAlarmScheduler *)v3 _queue_enqueueMaintenanceNotifyAndScheduleWithReason:?];
+    WeakRetained = v3;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
@@ -285,7 +281,7 @@ void __78__HDRestorableAlarmScheduler__startObservingSignificantTimeChangeNotifi
 
 void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v2 = *(a1 + 32);
   if (WeakRetained)
@@ -298,9 +294,9 @@ void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndSchedule
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v8 = WeakRetained;
-        v9 = 2112;
-        v10 = v2;
+        v7 = WeakRetained;
+        v8 = 2112;
+        v9 = v2;
         _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Processing due events with maintenance operation reason %@", buf, 0x16u);
       }
 
@@ -310,21 +306,19 @@ void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndSchedule
     else
     {
       _HKInitializeLogging();
-      v5 = HKLogInfrastructure();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v4 = HKLogInfrastructure();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v8 = WeakRetained;
-        v9 = 2112;
-        v10 = v2;
-        _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Skipping maintenance operation with reason %@ since no longer needed", buf, 0x16u);
+        v7 = WeakRetained;
+        v8 = 2112;
+        v9 = v2;
+        _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Skipping maintenance operation with reason %@ since no longer needed", buf, 0x16u);
       }
     }
 
     *(WeakRetained + 41) = 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndScheduleWithReason___block_invoke_2(uint64_t a1)
@@ -337,7 +331,7 @@ void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndSchedule
 
 - (void)_queue_processDueEventsWithCompletion:(uint64_t)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (completion)
   {
@@ -351,19 +345,17 @@ void __83__HDRestorableAlarmScheduler__queue_enqueueMaintenanceNotifyAndSchedule
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Received system alert to check for due alarms", buf, 0xCu);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v9 = __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___block_invoke;
-    v10 = &unk_2786200A8;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v8 = __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___block_invoke;
+    v9 = &unk_2786200A8;
     completionCopy2 = completion;
-    v12 = v3;
+    v11 = v3;
     v5 = *(completion + 16);
-    v6 = v8;
+    v6 = v7;
     dispatch_assert_queue_V2(v5);
-    (v9)(v6, *(completion + 44));
+    (v8)(v6, *(completion + 44));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HDRestorableAlarmScheduler__queue_beginReceivingSystemEventsIfNecessary__block_invoke(uint64_t a1)
@@ -374,7 +366,7 @@ void __74__HDRestorableAlarmScheduler__queue_beginReceivingSystemEventsIfNecessa
 
 void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
   v2 = *(a1 + 32);
   if (v2)
@@ -404,42 +396,42 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
     v7 = v6;
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__146;
-    v35 = __Block_byref_object_dispose__146;
-    v36 = 0;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
     v30 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__146;
+    v34 = __Block_byref_object_dispose__146;
+    v35 = 0;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 0;
     v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
+    v21 = 0;
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v41 = __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke;
-    v42 = &unk_2786273E0;
+    v40 = __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke;
+    v41 = &unk_2786273E0;
     v9 = v7;
-    v43 = v9;
-    v44 = v2;
-    v46 = &v23;
-    v47 = &v27;
+    v42 = v9;
+    v43 = v2;
+    v45 = &v22;
+    v46 = &v26;
     v10 = v8;
-    v45 = v10;
-    v48 = &v31;
+    v44 = v10;
+    v47 = &v30;
     v11 = [(HDRestorableAlarmScheduler *)v2 _enumerateAllAlarmEventsWithError:&buf enumerationHandler:?];
-    v12 = v22;
+    v12 = v21;
     if (v11)
     {
-      v13 = *(v24 + 24);
+      v13 = *(v23 + 24);
       dispatch_assert_queue_V2(*(v2 + 16));
       *(v2 + 43) = v13;
       [(HDRestorableAlarmScheduler *)v2 _queue_updateProtectedDataObserverStateIfRequired];
-      if (*(v28 + 24) == 1)
+      if (*(v27 + 24) == 1)
       {
         if ((*(v2 + 45) & 1) == 0)
         {
@@ -448,9 +440,9 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
           v14 = HKLogInfrastructure();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *v37 = 138543362;
-            *&v37[4] = v2;
-            _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Registered for on-wrist updates", v37, 0xCu);
+            *v36 = 138543362;
+            *&v36[4] = v2;
+            _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Registered for on-wrist updates", v36, 0xCu);
           }
         }
       }
@@ -460,16 +452,16 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
         *(v2 + 45) = 0;
       }
 
-      *v37 = MEMORY[0x277D85DD0];
-      *&v37[8] = 3221225472;
-      *&v37[16] = __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke_325;
-      v38 = &unk_278627408;
-      v39 = v2;
-      [v10 enumerateKeysAndObjectsUsingBlock:v37];
-      if (v32[5])
+      *v36 = MEMORY[0x277D85DD0];
+      *&v36[8] = 3221225472;
+      *&v36[16] = __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke_325;
+      v37 = &unk_278627408;
+      v38 = v2;
+      [v10 enumerateKeysAndObjectsUsingBlock:v36];
+      if (v31[5])
       {
         v18 = [v2 systemScheduler];
-        [v18 setNextFireDate:v32[5] isUserVisible:0];
+        [v18 setNextFireDate:v31[5] isUserVisible:0];
       }
 
       else
@@ -489,11 +481,11 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
         v15 = HKLogInfrastructure();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          *v37 = 138543618;
-          *&v37[4] = v2;
-          *&v37[12] = 2114;
-          *&v37[14] = v12;
-          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@ Failed to enumerate due events: %{public}@", v37, 0x16u);
+          *v36 = 138543618;
+          *&v36[4] = v2;
+          *&v36[12] = 2114;
+          *&v36[14] = v12;
+          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@ Failed to enumerate due events: %{public}@", v36, 0x16u);
         }
       }
 
@@ -505,10 +497,10 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
       }
     }
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v26, 8);
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   else
@@ -523,8 +515,6 @@ void __68__HDRestorableAlarmScheduler__queue_processDueEventsWithCompletion___bl
   {
     (*(v20 + 16))(v20, v11, v19);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke(void *a1, void *a2)
@@ -623,7 +613,7 @@ uint64_t __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndSche
 
 void __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndScheduleNextFireDateWithError___block_invoke_325(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(*(a1 + 32) + 32) objectForKey:v5];
@@ -640,17 +630,15 @@ void __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndSchedule
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543874;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ No client found with identifier %{public}@. Skipping notifying for due events: %{public}@", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ No client found with identifier %{public}@. Skipping notifying for due events: %{public}@", &v11, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAlarm:(id)alarm
@@ -669,7 +657,7 @@ void __94__HDRestorableAlarmScheduler__queue_notifyClientsOfDueEventsAndSchedule
 
 void __39__HDRestorableAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   v3 = [*(a1 + 40) clientIdentifier];
   v4 = [v2 objectForKey:v3];
@@ -680,14 +668,14 @@ void __39__HDRestorableAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
     v5 = HKLogInfrastructure();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 32);
-      v18 = [*(a1 + 40) clientIdentifier];
+      v16 = *(a1 + 32);
+      v17 = [*(a1 + 40) clientIdentifier];
       *buf = 138543874;
-      v20 = v17;
-      v21 = 2114;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v4;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      v22 = 2114;
+      v23 = v4;
       _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@ Client identifier conflict detected for %{public}@. Replacing client %{public}@", buf, 0x20u);
     }
   }
@@ -699,9 +687,9 @@ void __39__HDRestorableAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
     *buf = 138543618;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v8;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v8;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Registering alarm: %{public}@", buf, 0x16u);
   }
 
@@ -715,8 +703,6 @@ void __39__HDRestorableAlarmScheduler_addAlarm___block_invoke(uint64_t a1)
   v14 = [*(a1 + 40) clientIdentifier];
   v15 = [v12 stringWithFormat:@"Alarm %@ added", v14];
   [(HDRestorableAlarmScheduler *)v13 _queue_enqueueMaintenanceNotifyAndScheduleWithReason:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAlarm:(id)alarm
@@ -742,7 +728,7 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 
 - (BOOL)scheduleEvents:(id)events error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
@@ -750,20 +736,19 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = eventsCopy;
+    v15 = 2114;
+    v16 = eventsCopy;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduling events %{public}@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __51__HDRestorableAlarmScheduler_scheduleEvents_error___block_invoke;
-  v12[3] = &unk_278616048;
-  v13 = eventsCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__HDRestorableAlarmScheduler_scheduleEvents_error___block_invoke;
+  v11[3] = &unk_278616048;
+  v12 = eventsCopy;
   v8 = eventsCopy;
-  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v12];
+  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -793,7 +778,7 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
 
 - (BOOL)removeEvents:(id)events error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
@@ -801,26 +786,25 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = eventsCopy;
+    v15 = 2114;
+    v16 = eventsCopy;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing events %{public}@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__HDRestorableAlarmScheduler_removeEvents_error___block_invoke;
-  v12[3] = &unk_278616048;
-  v13 = eventsCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__HDRestorableAlarmScheduler_removeEvents_error___block_invoke;
+  v11[3] = &unk_278616048;
+  v12 = eventsCopy;
   v8 = eventsCopy;
-  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v12];
+  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)removeAllEventsWithClientIdentifier:(id)identifier error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   _HKInitializeLogging();
   v7 = HKLogInfrastructure();
@@ -828,26 +812,25 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
   {
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = identifierCopy;
+    v15 = 2114;
+    v16 = identifierCopy;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing all events with client identifier: %{public}@", buf, 0x16u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __72__HDRestorableAlarmScheduler_removeAllEventsWithClientIdentifier_error___block_invoke;
-  v12[3] = &unk_278616048;
-  v13 = identifierCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __72__HDRestorableAlarmScheduler_removeAllEventsWithClientIdentifier_error___block_invoke;
+  v11[3] = &unk_278616048;
+  v12 = identifierCopy;
   v8 = identifierCopy;
-  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v12];
+  v9 = [(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)replaceAllScheduledEventsWithClientIdentifier:(id)identifier newEvents:(id)events error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   eventsCopy = events;
   _HKInitializeLogging();
@@ -856,25 +839,25 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
   {
     *buf = 138543874;
     selfCopy = self;
-    v24 = 2114;
-    v25 = identifierCopy;
-    v26 = 2114;
-    v27 = eventsCopy;
+    v23 = 2114;
+    v24 = identifierCopy;
+    v25 = 2114;
+    v26 = eventsCopy;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Replace all scheduled events with client identifier %{public}@ with events %{public}@", buf, 0x20u);
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __92__HDRestorableAlarmScheduler_replaceAllScheduledEventsWithClientIdentifier_newEvents_error___block_invoke;
-  v18[3] = &unk_278615D40;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __92__HDRestorableAlarmScheduler_replaceAllScheduledEventsWithClientIdentifier_newEvents_error___block_invoke;
+  v17[3] = &unk_278615D40;
   v12 = identifierCopy;
-  v19 = v12;
+  v18 = v12;
   v13 = v11;
-  v20 = v13;
+  v19 = v13;
   v14 = eventsCopy;
-  v21 = v14;
-  if ([(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v18])
+  v20 = v14;
+  if ([(HDRestorableAlarmScheduler *)self _performWriteTransactionAndFireEventsWithError:error block:v17])
   {
     v15 = [[HDAlarmEventChanges alloc] initWithOldEvents:v13 scheduledEvents:v14];
   }
@@ -883,8 +866,6 @@ void __42__HDRestorableAlarmScheduler_removeAlarm___block_invoke(uint64_t a1)
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1060,31 +1041,31 @@ uint64_t __51__HDRestorableAlarmScheduler_diagnosticDescription__block_invoke(ui
 
 void __51__HDRestorableAlarmScheduler_diagnosticDescription__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) addObject:@"\tClients"];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = [*(*(a1 + 40) + 32) objectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 32);
         v8 = MEMORY[0x277CCACA8];
-        v9 = [*(*(&v12 + 1) + 8 * v6) diagnosticDescription];
+        v9 = [*(*(&v11 + 1) + 8 * v6) diagnosticDescription];
         v10 = [v8 stringWithFormat:@"\t\t%@", v9];
         [v7 addObject:v10];
 
@@ -1092,13 +1073,11 @@ void __51__HDRestorableAlarmScheduler_diagnosticDescription__block_invoke_2(uint
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

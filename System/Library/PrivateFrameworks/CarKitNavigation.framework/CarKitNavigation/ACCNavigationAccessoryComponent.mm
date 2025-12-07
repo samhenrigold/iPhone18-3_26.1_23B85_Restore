@@ -11,27 +11,26 @@ void __62__ACCNavigationAccessoryComponent_CarPlay__CP_ignoreMaxLength__block_in
 
   if (v1)
   {
-    CP_ignoreMaxLength_ignoreMaxLength = [v1 BOOLValue];
-    v2 = CarNavLogging();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = [v1 BOOLValue];
+    CP_ignoreMaxLength_ignoreMaxLength = v2;
+    v3 = CarNavLogging(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       if (CP_ignoreMaxLength_ignoreMaxLength)
       {
-        v3 = @"YES";
+        v4 = @"YES";
       }
 
       else
       {
-        v3 = @"NO";
+        v4 = @"NO";
       }
 
       v5 = 138543362;
-      v6 = v3;
-      _os_log_impl(&dword_224A23000, v2, OS_LOG_TYPE_DEFAULT, "ignoreMaxLength set to %{public}@", &v5, 0xCu);
+      v6 = v4;
+      _os_log_impl(&dword_224A23000, v3, OS_LOG_TYPE_DEFAULT, "ignoreMaxLength set to %{public}@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

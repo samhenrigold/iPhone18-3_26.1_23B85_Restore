@@ -28,67 +28,66 @@
       [ARMemoryPressureMonitor init];
     }
 
-    v7 = ARShouldUseLogTypeError_internalOSVersion_4;
-    v8 = _ARLogGeneral_1();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError_internalOSVersion_4;
+    v9 = _ARLogGeneral_1(v5);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *location = 138543618;
-        *&location[4] = v11;
+        *&location[4] = v12;
         v22 = 2048;
         v23 = v2;
-        v12 = "%{public}@ <%p>: Failed to create the dispatch source for monitoring memory pressure.";
-        v13 = v9;
-        v14 = OS_LOG_TYPE_ERROR;
+        v13 = "%{public}@ <%p>: Failed to create the dispatch source for monitoring memory pressure.";
+        v14 = v10;
+        v15 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-        _os_log_impl(&dword_23D391000, v13, v14, v12, location, 0x16u);
+        _os_log_impl(&dword_23D391000, v14, v15, v13, location, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15 = objc_opt_class();
-      v11 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v12 = NSStringFromClass(v16);
       *location = 138543618;
-      *&location[4] = v11;
+      *&location[4] = v12;
       v22 = 2048;
       v23 = v2;
-      v12 = "Error: %{public}@ <%p>: Failed to create the dispatch source for monitoring memory pressure.";
-      v13 = v9;
-      v14 = OS_LOG_TYPE_INFO;
+      v13 = "Error: %{public}@ <%p>: Failed to create the dispatch source for monitoring memory pressure.";
+      v14 = v10;
+      v15 = OS_LOG_TYPE_INFO;
       goto LABEL_12;
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
   objc_initWeak(location, v2);
-  v5 = *(v2 + 1);
+  v6 = *(v2 + 1);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __31__ARMemoryPressureMonitor_init__block_invoke;
   handler[3] = &unk_278BCBB68;
   objc_copyWeak(&v19, location);
-  dispatch_source_set_event_handler(v5, handler);
+  dispatch_source_set_event_handler(v6, handler);
   dispatch_activate(*(v2 + 1));
   objc_destroyWeak(&v19);
   objc_destroyWeak(location);
 LABEL_4:
-  v6 = v2;
+  v7 = v2;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 void __31__ARMemoryPressureMonitor_init__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -124,7 +123,7 @@ LABEL_9:
       }
 
       v12 = ARShouldUseLogTypeError_internalOSVersion_4;
-      v13 = _ARLogGeneral_1();
+      v13 = _ARLogGeneral_1(data);
       v6 = v13;
       if (v12 == 1)
       {
@@ -137,10 +136,10 @@ LABEL_18:
 
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
-        v21 = 138543618;
-        v22 = v15;
-        v23 = 2048;
-        v24 = v4;
+        v20 = 138543618;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v4;
         v16 = "%{public}@: Received an unexpected memory pressure condition value: %lu";
         v17 = v6;
         v18 = OS_LOG_TYPE_ERROR;
@@ -153,18 +152,18 @@ LABEL_18:
           goto LABEL_18;
         }
 
-        v20 = objc_opt_class();
-        v15 = NSStringFromClass(v20);
-        v21 = 138543618;
-        v22 = v15;
-        v23 = 2048;
-        v24 = v4;
+        v19 = objc_opt_class();
+        v15 = NSStringFromClass(v19);
+        v20 = 138543618;
+        v21 = v15;
+        v22 = 2048;
+        v23 = v4;
         v16 = "Error: %{public}@: Received an unexpected memory pressure condition value: %lu";
         v17 = v6;
         v18 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_23D391000, v17, v18, v16, &v21, 0x16u);
+      _os_log_impl(&dword_23D391000, v17, v18, v16, &v20, 0x16u);
 
       goto LABEL_18;
     }
@@ -195,8 +194,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

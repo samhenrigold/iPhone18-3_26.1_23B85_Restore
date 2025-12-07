@@ -63,35 +63,7 @@
     mutexQueue = v6->_mutexQueue;
     v6->_mutexQueue = v11;
 
-    if (!v6->_mutexQueue)
-    {
-      goto LABEL_10;
-    }
-
-    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v14 = dispatch_queue_create("com.apple.corewifi.SC-service-event", v13);
-    eventQueue = v6->_eventQueue;
-    v6->_eventQueue = v14;
-
-    if (!v6->_eventQueue)
-    {
-      goto LABEL_10;
-    }
-
-    v16 = *MEMORY[0x1E695E480];
-    v17 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-service", 0);
-    v6->_prefsRef = v17;
-    if (!v17)
-    {
-      goto LABEL_10;
-    }
-
-    context.version = 0;
-    memset(&context.retain, 0, 24);
-    context.info = v6;
-    v18 = SCDynamicStoreCreate(v16, @"com.apple.corewifi.SC-service", sub_1E0C92A58, &context);
-    v6->_storeRef = v18;
-    if (v18 && SCDynamicStoreSetDisconnectCallBack())
+    if (v6->_mutexQueue && (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v13 = objc_claimAutoreleasedReturnValue(), v14 = dispatch_queue_create("com.apple.corewifi.SC-service-event", v13), eventQueue = v6->_eventQueue, v6->_eventQueue = v14, eventQueue, v13, v6->_eventQueue) && (v16 = *MEMORY[0x1E695E480], v17 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-service", 0), (v6->_prefsRef = v17) != 0) && (context.version = 0, memset(&context.retain, 0, 24), context.info = v6, v18 = SCDynamicStoreCreate(v16, @"com.apple.corewifi.SC-service", sub_1E0C92A58, &context), (v6->_storeRef = v18) != 0) && SCDynamicStoreSetDisconnectCallBack())
     {
       v19 = v6->_mutexQueue;
       block[0] = MEMORY[0x1E69E9820];
@@ -106,7 +78,6 @@
 
     else
     {
-LABEL_10:
       v7 = 0;
     }
   }
@@ -286,7 +257,7 @@ LABEL_20:
 
 - (void)__refreshNotificationKeys
 {
-  v19[5] = *MEMORY[0x1E69E9840];
+  v18[5] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695E480];
   NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(*MEMORY[0x1E695E480], *MEMORY[0x1E69822E8], *MEMORY[0x1E69822E0], 0);
   if (NetworkServiceEntity)
@@ -303,7 +274,7 @@ LABEL_20:
 LABEL_20:
         CFRelease(v5);
 
-        goto LABEL_21;
+        return;
       }
 
       v9 = v8;
@@ -342,12 +313,12 @@ LABEL_20:
         goto LABEL_11;
       }
 
-      v19[0] = v9;
-      v19[1] = v10;
-      v19[2] = v11;
-      v19[3] = v12;
-      v19[4] = v13;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:5];
+      v18[0] = v9;
+      v18[1] = v10;
+      v18[2] = v11;
+      v18[3] = v12;
+      v18[4] = v13;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:5];
     }
 
     else
@@ -394,9 +365,6 @@ LABEL_11:
     CFRelease(v9);
     goto LABEL_12;
   }
-
-LABEL_21:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)__refreshServiceID

@@ -68,53 +68,46 @@
 
 - (id)managedBusForDevice:(id)device
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   busesInternal = [(CoreRCManager *)self busesInternal];
-  v5 = [(NSMutableSet *)busesInternal countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = [(NSMutableSet *)busesInternal countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v13;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
 LABEL_3:
-    v8 = 0;
-    while (1)
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
     {
-      if (*v13 != v7)
+      objc_enumerationMutation(busesInternal);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([objc_msgSend(v9 "uniqueID")])
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [(NSMutableSet *)busesInternal countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
-        objc_enumerationMutation(busesInternal);
+        goto LABEL_3;
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([objc_msgSend(v9 "uniqueID")])
-      {
-        break;
-      }
-
-      if (v6 == ++v8)
-      {
-        v6 = [(NSMutableSet *)busesInternal countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_9;
-      }
+      return 0;
     }
   }
-
-  else
-  {
-LABEL_9:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
 }
 
 - (id)managedDeviceEquivalentTo:(id)to
@@ -126,7 +119,7 @@ LABEL_9:
 
 - (void)addBus:(id)bus
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!bus)
   {
     [(CoreRCManager *)a2 addBus:?];
@@ -134,11 +127,11 @@ LABEL_9:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v6 = 138412546;
+    v5 = 138412546;
     selfCopy = self;
-    v8 = 2112;
+    v7 = 2112;
     busCopy = bus;
-    _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ addBus: %@", &v6, 0x16u);
+    _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ addBus: %@", &v5, 0x16u);
   }
 
   [bus setManager:self];
@@ -146,7 +139,6 @@ LABEL_9:
   [(NSMutableSet *)[(CoreRCManager *)self busesInternal] addObject:bus];
   [(CoreRCManager *)self notifyDelegateAddBus:bus];
   [bus didAddToManager:self];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDelegateAddBus:(id)bus

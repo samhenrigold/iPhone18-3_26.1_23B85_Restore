@@ -17,23 +17,22 @@
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (*&self->_has)
   {
-    eventType = self->_eventType;
-    v5 = SIReflectionInferClassFromEventType();
-    if (v5)
+    v4 = SIReflectionInferClassFromEventType();
+    if (v4)
     {
-      v6 = NSStringFromClass(v5);
-      [dictionary setObject:v6 forKey:@"eventType"];
+      v5 = NSStringFromClass(v4);
+      [dictionary setObject:v5 forKey:@"eventType"];
     }
 
     if (self->_eventData)
     {
       [(SISchemaClientAnyEvent *)self eventType];
       eventData = [(SISchemaClientAnyEvent *)self eventData];
-      v8 = SIReflectionHydrateProtoFromEventTypeAndData();
+      v7 = SIReflectionHydrateProtoFromEventTypeAndData();
 
-      if (v8)
+      if (v7)
       {
-        dictionaryRepresentation = [v8 dictionaryRepresentation];
+        dictionaryRepresentation = [v7 dictionaryRepresentation];
         [dictionary setObject:dictionaryRepresentation forKey:@"eventData"];
       }
     }
@@ -82,7 +81,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_eventType != *(equalCopy + 4))
@@ -94,24 +92,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   eventData = self->_eventData;
   if (eventData | *(equalCopy + 1))
   {
-    v7 = [(NSData *)eventData isEqual:?];
+    v6 = [(NSData *)eventData isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -151,18 +149,17 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_eventData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

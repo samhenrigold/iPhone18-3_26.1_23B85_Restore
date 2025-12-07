@@ -97,17 +97,18 @@
   encryptedValues = [v9 encryptedValues];
   [encryptedValues setObject:data forKeyedSubscript:@"EncryptedData"];
 
-  ASLoggingInitialize();
-  if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG))
+  ASLoggingInitialize(v13, v14);
+  v15 = os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG);
+  if (v15)
   {
     [_HKFitnessFriendWorkout(CloudKitCodingSupport) recordWithZoneID:recordEncryptionType:];
   }
 
-  ASLoggingInitialize();
-  v13 = ASLogCloudKit;
+  ASLoggingInitialize(v15, v16);
+  v17 = ASLogCloudKit;
   if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG))
   {
-    [_HKFitnessFriendWorkout(CloudKitCodingSupport) recordWithZoneID:v13 recordEncryptionType:self];
+    [_HKFitnessFriendWorkout(CloudKitCodingSupport) recordWithZoneID:v17 recordEncryptionType:self];
   }
 
   return v9;
@@ -117,61 +118,62 @@
 {
   v6 = a3;
   v7 = a4;
-  if (_ASCloudKitSchemaVersionForRecord(v6) == 2)
+  v8 = _ASCloudKitSchemaVersionForRecord(v6);
+  if (v8 == 2)
   {
     encryptedValues = [v6 encryptedValues];
-    v9 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v11 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = 0;
+      v12 = 0;
     }
 
-    if (v10)
+    if (v12)
     {
-      v12 = [[ASCodableCloudKitWorkout alloc] initWithData:v10];
-      v11 = [self fitnessFriendWorkoutWithCodableWorkout:v12 friendUUID:v7];
+      v16 = [[ASCodableCloudKitWorkout alloc] initWithData:v12];
+      v13 = [self fitnessFriendWorkoutWithCodableWorkout:v16 friendUUID:v7];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v14, v15);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[_HKFitnessFriendWorkout(CloudKitCodingSupport) fitnessFriendWorkoutWithRecord:friendUUID:];
       }
 
-      v11 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v8, v9);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[_HKFitnessFriendWorkout(CloudKitCodingSupport) fitnessFriendWorkoutWithRecord:friendUUID:];
     }
 
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 + (id)_fitnessFriendWorkoutWithCodableWorkout:()CloudKitCodingSupport friendUUID:
 {
   v5 = a3;
   v6 = MEMORY[0x277CCAD78];
-  v51 = a4;
+  v55 = a4;
   sample = [v5 sample];
   uuid = [sample uuid];
-  v54 = [v6 hk_UUIDWithData:uuid];
+  v58 = [v6 hk_UUIDWithData:uuid];
 
   type = [v5 type];
   v9 = MEMORY[0x277CBEAA8];
@@ -233,18 +235,18 @@
     v27 = MEMORY[0x277CCD7E8];
     v28 = _HKWorkoutCanonicalDistanceUnit();
     [v5 totalDistanceInCanonicalUnit];
-    v55 = [v27 quantityWithUnit:v28 doubleValue:?];
+    v59 = [v27 quantityWithUnit:v28 doubleValue:?];
   }
 
   else
   {
-    v55 = 0;
+    v59 = 0;
   }
 
-  v57 = v11;
-  v52 = v17;
-  v53 = v14;
-  v56 = v23;
+  v61 = v11;
+  v56 = v17;
+  v57 = v14;
+  v60 = v23;
   goalType = [v5 goalType];
   if ([v5 hasGoalInCanonicalUnit])
   {
@@ -260,7 +262,7 @@
   }
 
   isIndoorWorkout = [v5 isIndoorWorkout];
-  v47 = MEMORY[0x277CCDDD0];
+  v51 = MEMORY[0x277CCDDD0];
   [v5 duration];
   v34 = v33;
   bundleID = [v5 bundleID];
@@ -270,30 +272,32 @@
   v39 = [v5 amm];
   seymourCatalogWorkoutIdentifier = [v5 seymourCatalogWorkoutIdentifier];
   seymourMediaType = [v5 seymourMediaType];
-  BYTE1(v46) = isIndoorWorkout;
-  LOBYTE(v46) = isWatchWorkout;
-  v49 = v31;
-  v42 = [v47 fitnessFriendworkoutWithActivityType:type friendUUID:v51 startDate:v57 endDate:v53 duration:v52 totalActiveEnergyBurned:v56 totalBasalEnergyBurned:v34 totalDistance:v55 goalType:goalType goal:v31 bundleID:bundleID isWatchWorkout:v46 isIndoorWorkout:deviceManufacturer deviceManufacturer:deviceModel deviceModel:v39 amm:seymourCatalogWorkoutIdentifier seymourCatalogWorkoutIdentifier:seymourMediaType seymourMediaType:?];
+  BYTE1(v50) = isIndoorWorkout;
+  LOBYTE(v50) = isWatchWorkout;
+  v53 = v31;
+  v42 = [v51 fitnessFriendworkoutWithActivityType:type friendUUID:v55 startDate:v61 endDate:v57 duration:v56 totalActiveEnergyBurned:v60 totalBasalEnergyBurned:v34 totalDistance:v59 goalType:goalType goal:v31 bundleID:bundleID isWatchWorkout:v50 isIndoorWorkout:deviceManufacturer deviceManufacturer:deviceModel deviceModel:v39 amm:seymourCatalogWorkoutIdentifier seymourCatalogWorkoutIdentifier:seymourMediaType seymourMediaType:?];
 
-  [v42 _setUUID:v54];
+  [v42 _setUUID:v58];
   [v42 workoutActivityType];
-  if ((_HKWorkoutActivityTypeIsValid() & 1) == 0)
+  IsValid = _HKWorkoutActivityTypeIsValid();
+  if ((IsValid & 1) == 0)
   {
-    [v42 setWorkoutActivityType:3000];
+    IsValid = [v42 setWorkoutActivityType:3000];
   }
 
-  ASLoggingInitialize();
-  v43 = ASLogCloudKit;
-  if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG))
+  ASLoggingInitialize(IsValid, v44);
+  v45 = ASLogCloudKit;
+  v46 = os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG);
+  if (v46)
   {
-    [_HKFitnessFriendWorkout(CloudKitCodingSupport) _fitnessFriendWorkoutWithCodableWorkout:v43 friendUUID:v42];
+    [_HKFitnessFriendWorkout(CloudKitCodingSupport) _fitnessFriendWorkoutWithCodableWorkout:v45 friendUUID:v42];
   }
 
-  ASLoggingInitialize();
-  v44 = ASLogCloudKit;
+  ASLoggingInitialize(v46, v47);
+  v48 = ASLogCloudKit;
   if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_DEBUG))
   {
-    [_HKFitnessFriendWorkout(CloudKitCodingSupport) _fitnessFriendWorkoutWithCodableWorkout:v44 friendUUID:v42];
+    [_HKFitnessFriendWorkout(CloudKitCodingSupport) _fitnessFriendWorkoutWithCodableWorkout:v48 friendUUID:v42];
   }
 
   [v42 goalType];
@@ -307,24 +311,19 @@
 
 - (void)recordWithZoneID:()CloudKitCodingSupport recordEncryptionType:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_6() bundleID];
   [a2 isWatchWorkout];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fitnessFriendWorkoutWithRecord:()CloudKitCodingSupport friendUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fitnessFriendWorkoutWithRecord:()CloudKitCodingSupport friendUUID:.cold.2()
@@ -336,27 +335,21 @@
 
 + (void)_fitnessFriendWorkoutWithCodableWorkout:()CloudKitCodingSupport friendUUID:.cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_6() UUID];
-  v12 = [a2 friendUUID];
+  v11 = [a2 friendUUID];
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_fitnessFriendWorkoutWithCodableWorkout:()CloudKitCodingSupport friendUUID:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_6() bundleID];
   [a2 isWatchWorkout];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -145,7 +145,7 @@ void __47__FBSSystemAppProxy_checkoutProxyWithEndpoint___block_invoke_2(uint64_t
   return v2;
 }
 
-void __54__FBSSystemAppProxy_systemApplicationBundleIdentifier__block_invoke_2(uint64_t a1, uint64_t a2)
+void __54__FBSSystemAppProxy_systemApplicationBundleIdentifier__block_invoke_2(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
@@ -173,28 +173,32 @@ void __54__FBSSystemAppProxy_systemApplicationBundleIdentifier__block_invoke_2(u
 
 void __46__FBSSystemAppProxy_isPasscodeLockedOrBlocked__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = v3;
-  if (v3)
+  Class = a2;
+  v4 = Class;
+  if (Class)
   {
-    v5 = xpc_dictionary_get_value(v3, "result-BOOL");
-    v6 = v5;
-    if (v5 && object_getClass(v5) == MEMORY[0x1E69E9E58])
+    Class = xpc_dictionary_get_value(Class, "result-BOOL");
+    v5 = Class;
+    if (Class)
     {
-      *(*(*(a1 + 40) + 8) + 24) = xpc_BOOL_get_value(v6);
-      goto LABEL_9;
+      Class = object_getClass(Class);
+      if (Class == MEMORY[0x1E69E9E58])
+      {
+        *(*(*(a1 + 40) + 8) + 24) = xpc_BOOL_get_value(v5);
+        goto LABEL_9;
+      }
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = FBLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v6 = FBLogCommon(Class);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __46__FBSSystemAppProxy_isPasscodeLockedOrBlocked__block_invoke_cold_1();
+    __46__FBSSystemAppProxy_isPasscodeLockedOrBlocked__block_invoke_cold_1(a1, v6);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -283,7 +287,7 @@ void __44__FBSSystemAppProxy_sendActions_withResult___block_invoke_2(uint64_t a1
   applicationCopy = application;
   descriptionCopy = description;
   completionCopy = completion;
-  v15 = FBLogCommon();
+  v15 = FBLogCommon(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -333,7 +337,7 @@ void __89__FBSSystemAppProxy_terminateApplication_forReason_andReport_withDescri
   v32 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   completionCopy = completion;
-  v14 = FBLogCommon();
+  v14 = FBLogCommon(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = objc_opt_class();
@@ -403,10 +407,10 @@ void __94__FBSSystemAppProxy_terminateApplicationGroup_forReason_andReport_withD
 - (void)setKeyboardFocusApplication:(int)application deferringToken:(id)token completion:(id)completion
 {
   completionCopy = completion;
-  v7 = FBLogCommon();
+  v7 = FBLogCommon(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [FBSSystemAppProxy setKeyboardFocusApplication:deferringToken:completion:];
+    [FBSSystemAppProxy setKeyboardFocusApplication:v7 deferringToken:? completion:?];
   }
 
   if (completionCopy)
@@ -454,36 +458,36 @@ void __94__FBSSystemAppProxy_terminateApplicationGroup_forReason_andReport_withD
 
     v17 = MEMORY[0x1E696ABC0];
     v18 = *MEMORY[0x1E696A798];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke;
-    v27[3] = &unk_1E76BF650;
-    v28 = descriptionCopy;
-    v29 = replyCopy;
-    v30 = value;
-    v14 = [v17 bs_errorWithDomain:v18 code:value configuration:v27];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke;
+    v28[3] = &unk_1E76BF650;
+    v29 = descriptionCopy;
+    v30 = replyCopy;
+    v31 = value;
+    v14 = [v17 bs_errorWithDomain:v18 code:value configuration:v28];
   }
 
   else
   {
     v15 = MEMORY[0x1E696ABC0];
     v16 = *MEMORY[0x1E696A798];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke_2;
-    v24[3] = &unk_1E76BE2F8;
-    v25 = descriptionCopy;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke_2;
+    v25[3] = &unk_1E76BE2F8;
+    v26 = descriptionCopy;
     selfCopy = self;
-    v14 = [v15 bs_errorWithDomain:v16 code:64 configuration:v24];
-    v12 = v25;
+    v14 = [v15 bs_errorWithDomain:v16 code:64 configuration:v25];
+    v12 = v26;
   }
 
 LABEL_8:
 
   if (v14)
   {
-    v19 = FBLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = FBLogCommon(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [FBSSystemAppProxy _handleTerminationReply:v14 targetDescription:? withCompletion:?];
     }
@@ -492,13 +496,13 @@ LABEL_8:
   if (completionCopy)
   {
     clientCallbackQueue = [(FBSSystemAppProxy *)self clientCallbackQueue];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke_26;
-    v21[3] = &unk_1E76BD750;
-    v23 = completionCopy;
-    v22 = v14;
-    dispatch_async(clientCallbackQueue, v21);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __78__FBSSystemAppProxy__handleTerminationReply_targetDescription_withCompletion___block_invoke_26;
+    v22[3] = &unk_1E76BD750;
+    v24 = completionCopy;
+    v23 = v14;
+    dispatch_async(clientCallbackQueue, v22);
   }
 }
 
@@ -645,18 +649,18 @@ void __80__FBSSystemAppProxy__sendMessageType_withMessage_withReplyHandler_waitF
   _bs_set_crash_log_message();
 }
 
-void __46__FBSSystemAppProxy_isPasscodeLockedOrBlocked__block_invoke_cold_1()
+void __46__FBSSystemAppProxy_isPasscodeLockedOrBlocked__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)setKeyboardFocusApplication:deferringToken:completion:.cold.1()
+- (void)setKeyboardFocusApplication:(uint64_t)a1 deferringToken:(uint64_t)a2 completion:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)_handleTerminationReply:(uint64_t)a1 targetDescription:(void *)a2 withCompletion:.cold.1(uint64_t a1, void *a2)

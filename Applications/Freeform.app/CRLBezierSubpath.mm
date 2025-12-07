@@ -1210,8 +1210,8 @@ LABEL_22:
 
   [v32 insertObject:v30 atIndex:v9];
   [(CRLBezierSubpath *)self setNodes:v32];
-  sub_100404958(&v45, v40, 0.0, percentage);
-  sub_100404958(&v45, v35, percentage, 1.0);
+  sub_100404958(0.0, percentage, &v45, v40);
+  sub_100404958(percentage, 1.0, &v45, v35);
   [v7 setOutControlPoint:{v41, v42}];
   [v30 setInControlPoint:{v43, v44}];
   [v30 setOutControlPoint:{v36, v37}];
@@ -2064,8 +2064,8 @@ LABEL_22:
           v171 = sub_10011F31C(v167, v169, v170);
           if (sub_100120084(v171, v172) > 4.0)
           {
-            sub_100404958(buf, v279, 0.0, 0.5);
-            sub_100404958(buf, v274, 0.5, 1.0);
+            sub_100404958(0.0, 0.5, buf, v279);
+            sub_100404958(0.5, 1.0, buf, v274);
             [v145 setOutControlPoint:{v280, v281}];
             [v148 setInControlPoint:{v277, v278}];
             v276 = [CRLBezierNode bezierNodeWithPoint:v284 inControlPoint:v285 outControlPoint:v282, v283, v275, v276];

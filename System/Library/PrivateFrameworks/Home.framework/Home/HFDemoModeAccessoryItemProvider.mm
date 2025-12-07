@@ -36,8 +36,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFDemoModeAccessoryItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -112,16 +112,14 @@ void __46__HFDemoModeAccessoryItemProvider_reloadItems__block_invoke_2(uint64_t 
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFDemoModeAccessoryItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v8[1] = @"service";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFDemoModeAccessoryItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v7[1] = @"service";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

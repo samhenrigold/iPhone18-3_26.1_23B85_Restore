@@ -125,12 +125,12 @@ uint64_t __24__MXSource_sharedSource__block_invoke(uint64_t a1)
 
 void __33__MXSource__startListenClientXPC__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) MXSourceLogHandle];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Initializing XPC Listener", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Initializing XPC Listener", &v9, 2u);
   }
 
   v3 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.metrickitsource.xpc"];
@@ -140,9 +140,9 @@ void __33__MXSource__startListenClientXPC__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) xpcListener];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_258D6F000, v4, OS_LOG_TYPE_DEFAULT, "XPC Listener: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_258D6F000, v4, OS_LOG_TYPE_DEFAULT, "XPC Listener: %@", &v9, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -151,8 +151,6 @@ void __33__MXSource__startListenClientXPC__block_invoke(uint64_t a1)
 
   v8 = [*(a1 + 32) xpcListener];
   [v8 resume];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -173,22 +171,20 @@ void __33__MXSource__startListenClientXPC__block_invoke(uint64_t a1)
 
 uint64_t __47__MXSource_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) MXSourceLogHandle];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 40) processIdentifier];
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Received connection request from %d\n", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_258D6F000, v2, OS_LOG_TYPE_DEFAULT, "Received connection request from %d\n", v5, 8u);
   }
 
   [*(a1 + 32) _setupExportedInterfaceForConnection:*(a1 + 40)];
   [*(a1 + 32) _setupRemoteInterfaceForConnection:*(a1 + 40)];
   [*(a1 + 32) _setupHandlersForConnection:*(a1 + 40)];
-  result = [*(a1 + 40) resume];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) resume];
 }
 
 - (void)_setupExportedInterfaceForConnection:(id)connection
@@ -249,32 +245,28 @@ uint64_t __47__MXSource_listener_shouldAcceptNewConnection___block_invoke(uint64
 
 void __40__MXSource__setupHandlersForConnection___block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) MXSourceLogHandle];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     v2 = [MEMORY[0x277CCAE80] currentConnection];
-    v4[0] = 67109120;
-    v4[1] = [v2 processIdentifier];
-    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d interrupted\n", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = [v2 processIdentifier];
+    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d interrupted\n", v3, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __40__MXSource__setupHandlersForConnection___block_invoke_28(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) MXSourceLogHandle];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     v2 = [MEMORY[0x277CCAE80] currentConnection];
-    v4[0] = 67109120;
-    v4[1] = [v2 processIdentifier];
-    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d invalidated\n", v4, 8u);
+    v3[0] = 67109120;
+    v3[1] = [v2 processIdentifier];
+    _os_log_impl(&dword_258D6F000, v1, OS_LOG_TYPE_INFO, "Connection to %d invalidated\n", v3, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeMetricDataWithPayload:(id)payload
@@ -426,46 +418,36 @@ void __42__MXSource_deliverSamplePayloadForClient___block_invoke(uint64_t a1)
 
 - (void)writeMetricDataWithPayload:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 sourceIDString];
   v3 = [a1 metrics];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeDiagnosticDataWithPayload:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a1 sourceIDString];
   v3 = [a1 metrics];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MXSource_deliverSamplePayloadForClient___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [*(*a1 + 16) bundleIDFromPid:{objc_msgSend(*(a2 + 40), "processIdentifier")}];
+  v7 = [*(*a1 + 16) bundleIDFromPid:{objc_msgSend(*(a2 + 40), "processIdentifier")}];
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MXSource_deliverSamplePayloadForClient___block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_258D6F000, a2, OS_LOG_TYPE_DEBUG, "Commencing sample delivery per request from DTServiceHub for: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_258D6F000, a2, OS_LOG_TYPE_DEBUG, "Commencing sample delivery per request from DTServiceHub for: %@", &v3, 0xCu);
 }
 
 @end

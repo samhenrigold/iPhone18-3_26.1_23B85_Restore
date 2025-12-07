@@ -73,30 +73,34 @@
   if (v8)
   {
     v11 = swift_allocObject();
-    *(v11 + 16) = v8;
+    v11[2] = v8;
     v8 = sub_1BD1B6FEC;
-    if (!v10)
+    if (v10)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  if (v9)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v10;
-    v10 = sub_1BD7F612C;
+      v12 = swift_allocObject();
+      v12[2] = v10;
+      v10 = sub_1BD7F612C;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v11 = 0;
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v12 = 0;
+LABEL_6:
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD7F5A00(controller, v8, v11);
-  sub_1BD0D4744(v10);
-  sub_1BD0D4744(v8);
+  sub_1BD0D4744(v10, v12, v14, v15, v16, v17, v18, v19);
+  sub_1BD0D4744(v8, v11, v20, v21, v22, v23, v24, v25);
 }
 
 - (void)presentPassphraseViewController:(id)controller completionHandler:(id)handler reply:(id)reply
@@ -107,30 +111,34 @@ LABEL_5:
   if (v8)
   {
     v11 = swift_allocObject();
-    *(v11 + 16) = v8;
+    v11[2] = v8;
     v8 = sub_1BD1B6B00;
-    if (!v10)
+    if (v10)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  if (v9)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v10;
-    v10 = sub_1BD3CD5AC;
+      v12 = swift_allocObject();
+      v12[2] = v10;
+      v10 = sub_1BD3CD5AC;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v11 = 0;
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v12 = 0;
+LABEL_6:
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD7F5CF8(controller, v8, v11);
-  sub_1BD0D4744(v10);
-  sub_1BD0D4744(v8);
+  sub_1BD0D4744(v10, v12, v14, v15, v16, v17, v18, v19);
+  sub_1BD0D4744(v8, v11, v20, v21, v22, v23, v24, v25);
 }
 
 - (void)dismissPasscodeViewController

@@ -283,27 +283,21 @@ LABEL_18:
 
 - (void)setApplicationPath:(id)path
 {
-  v4 = [path copy];
-  applicationPath = self->_applicationPath;
-  self->_applicationPath = v4;
+  self->_applicationPath = [path copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v4;
+  self->_bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setEncodedTypedValue:(id)value
 {
-  v4 = [value copy];
-  encodedTypedValue = self->_encodedTypedValue;
-  self->_encodedTypedValue = v4;
+  self->_encodedTypedValue = [value copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -30,7 +30,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100010C78();
+  v3 = sub_100010C78(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10006378C(v3);
@@ -148,7 +148,7 @@
     }
 
     self->_invalidateDone = 1;
-    v8 = sub_100010C78();
+    v8 = sub_100010C78(invalidationHandler);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -166,31 +166,33 @@
   {
     if (self->_deviceFoundHandler)
     {
-      if (([foundCopy statusFlags] & 0x40000000) != 0)
+      statusFlags = [foundCopy statusFlags];
+      if ((statusFlags & 0x40000000) != 0)
       {
-        v6 = sub_100010C78();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_100010C78(statusFlags);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 138412546;
-          v9 = idsDeviceIdentifier;
-          v10 = 2112;
-          v11 = @"CompanionAuthentication";
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FoundDevice, device=%@, type=%@", &v8, 0x16u);
+          v10 = 138412546;
+          v11 = idsDeviceIdentifier;
+          v12 = 2112;
+          v13 = @"CompanionAuthentication";
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FoundDevice, device=%@, type=%@", &v10, 0x16u);
         }
 
         goto LABEL_13;
       }
 
-      if (([foundCopy statusFlags] & 0x200000) != 0)
+      statusFlags2 = [foundCopy statusFlags];
+      if ((statusFlags2 & 0x200000) != 0)
       {
-        v6 = sub_100010C78();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_100010C78(statusFlags2);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 138412546;
-          v9 = idsDeviceIdentifier;
-          v10 = 2112;
-          v11 = @"LegacyAppSignIn";
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FoundDevice, device=%@, type=%@", &v8, 0x16u);
+          v10 = 138412546;
+          v11 = idsDeviceIdentifier;
+          v12 = 2112;
+          v13 = @"LegacyAppSignIn";
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FoundDevice, device=%@, type=%@", &v10, 0x16u);
         }
 
 LABEL_13:
@@ -203,17 +205,17 @@ LABEL_13:
 
   else
   {
-    v7 = sub_100010C78();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sub_100010C78(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10006385C(foundCopy, v7);
+      sub_10006385C(foundCopy, v9);
     }
   }
 }
 
 - (void)_startDiscoveryTimer
 {
-  v3 = sub_100010C78();
+  v3 = sub_100010C78(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

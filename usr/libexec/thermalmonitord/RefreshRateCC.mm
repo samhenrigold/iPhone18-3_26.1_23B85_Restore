@@ -1,5 +1,7 @@
 @interface RefreshRateCC
 - (RefreshRateCC)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)defaultAction;
 - (void)initRefreshRateTable:(__CFArray *)table;
@@ -158,6 +160,62 @@ LABEL_8:
   v3.receiver = self;
   v3.super_class = RefreshRateCC;
   return [(ComponentControl *)&v3 numberOfFields];
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v8.receiver = self;
+  v8.super_class = RefreshRateCC;
+  if ([(ComponentControl *)&v8 numberOfFields]<= index)
+  {
+    v6.receiver = self;
+    v6.super_class = RefreshRateCC;
+    if ([(ComponentControl *)&v6 numberOfFields]== v3)
+    {
+      return @"RefreshRate - fps";
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v7.receiver = self;
+    v7.super_class = RefreshRateCC;
+    return [(ComponentControl *)&v7 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v8.receiver = self;
+  v8.super_class = RefreshRateCC;
+  if ([(ComponentControl *)&v8 numberOfFields]<= index)
+  {
+    v6.receiver = self;
+    v6.super_class = RefreshRateCC;
+    if ([(ComponentControl *)&v6 numberOfFields]== v3)
+    {
+      return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", self->refreshRateLevelDown[2]);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v7.receiver = self;
+    v7.super_class = RefreshRateCC;
+    return [(ComponentControl *)&v7 copyFieldCurrentValueForIndex:v3];
+  }
 }
 
 @end

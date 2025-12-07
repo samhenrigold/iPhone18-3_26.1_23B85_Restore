@@ -1,6 +1,7 @@
 @interface AUPasscodeDecoder
 + (AudioComponentDescription)getAUDesc;
 + (void)registerAU;
+- (AUPasscodeDecoder)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error;
 - (BOOL)allocateRenderResourcesAndReturnError:(id *)error;
 - (id).cxx_construct;
 - (id)internalRenderBlock;
@@ -32,13 +33,63 @@ uint64_t __31__AUPasscodeDecoder_registerAU__block_invoke()
 {
   v0 = MEMORY[0x277CEFD18];
   v1 = objc_opt_class();
-  +[AUPasscodeDecoder getAUDesc];
+  objc_msgSend_getAUDesc(AUPasscodeDecoder);
   return [v0 registerSubclass:v1 asComponentDescription:v3 name:@"AUPasscodeDecoder" version:1];
+}
+
+- (AUPasscodeDecoder)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v23 = *description;
+  v20.receiver = self;
+  v20.super_class = AUPasscodeDecoder;
+  v5 = [(AUAudioUnit *)&v20 initWithComponentDescription:&v23 options:*&options error:error];
+  if (v5)
+  {
+    v6 = [objc_alloc(MEMORY[0x277CB83A8]) initStandardFormatWithSampleRate:1 channels:48000.0];
+    BufferedAudioBus::init((v5 + 592), v6, 8);
+    v7 = [objc_alloc(MEMORY[0x277CEFD20]) initWithFormat:v6 error:0];
+    v8 = *(v5 + 79);
+    *(v5 + 79) = v7;
+
+    v9 = objc_alloc(MEMORY[0x277CEFD28]);
+    v22 = *(v5 + 74);
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v11 = [v9 initWithAudioUnit:v5 busType:1 busses:v10];
+    v12 = *(v5 + 80);
+    *(v5 + 80) = v11;
+
+    v13 = objc_alloc(MEMORY[0x277CEFD28]);
+    v21 = *(v5 + 79);
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v15 = [v13 initWithAudioUnit:v5 busType:2 busses:v14];
+    v16 = *(v5 + 81);
+    *(v5 + 81) = v15;
+
+    v17 = *(v5 + 82);
+    v18 = *(v5 + 83) - v17;
+    if (v18 > 0x107)
+    {
+      if (v18 != 264)
+      {
+        *(v5 + 83) = v17 + 264;
+      }
+    }
+
+    else
+    {
+      std::vector<signed char>::__append(v5 + 82, 264 - v18);
+    }
+
+    operator new();
+  }
+
+  return 0;
 }
 
 - (BOOL)allocateRenderResourcesAndReturnError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   codecConfig = [(AUPasscodeDecoder *)self codecConfig];
 
   if (!codecConfig)
@@ -91,12 +142,12 @@ LABEL_15:
       v20 = v19;
       LOBYTE(v20) = 0;
       *error = v19;
-      goto LABEL_41;
+      return v20;
     }
 
 LABEL_40:
     LOBYTE(v20) = 0;
-    goto LABEL_41;
+    return v20;
   }
 
   format6 = [*(self + 74) format];
@@ -124,105 +175,105 @@ LABEL_40:
   format8 = [v23 format];
   [format8 sampleRate];
   v26 = v25;
-  v52 = 0;
-  v53.__r_.__value_.__r.__words[0] = &v52;
-  v27 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v52);
+  v51 = 0;
+  v52.__r_.__value_.__r.__words[0] = &v51;
+  v27 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v51, &std::piecewise_construct, &v52);
   v28 = (v27 + 5);
-  HIDWORD(v60.__r_.__value_.__r.__words[1]) = 0;
-  LODWORD(v60.__r_.__value_.__r.__words[1]) = (v26 + 0.5);
-  v60.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-  if (&v60 != (v27 + 5))
+  HIDWORD(v59.__r_.__value_.__r.__words[1]) = 0;
+  LODWORD(v59.__r_.__value_.__r.__words[1]) = (v26 + 0.5);
+  v59.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
+  if (&v59 != (v27 + 5))
   {
     v29 = *v28;
     if (*v28)
     {
-      *&v53.__r_.__value_.__l.__data_ = 0uLL;
-      v29(2, v28, &v53, 0, 0);
-      (v60.__r_.__value_.__l.__data_)(2, &v60, v28, 0, 0);
-      (v53.__r_.__value_.__l.__data_)(2, &v53, &v60, 0, 0);
-      std::any::reset[abi:ne200100](&v53);
+      *&v52.__r_.__value_.__l.__data_ = 0uLL;
+      v29(2, v28, &v52, 0, 0);
+      (v59.__r_.__value_.__l.__data_)(2, &v59, v28, 0, 0);
+      (v52.__r_.__value_.__l.__data_)(2, &v52, &v59, 0, 0);
+      std::any::reset[abi:ne200100](&v52);
     }
 
     else
     {
       *(v27 + 12) = (v26 + 0.5);
       v27[5] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-      v60.__r_.__value_.__r.__words[0] = 0;
+      v59.__r_.__value_.__r.__words[0] = 0;
     }
   }
 
-  std::any::reset[abi:ne200100](&v60);
+  std::any::reset[abi:ne200100](&v59);
 
-  v52 = 1;
-  v53.__r_.__value_.__r.__words[0] = &v52;
-  v30 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v52);
+  v51 = 1;
+  v52.__r_.__value_.__r.__words[0] = &v51;
+  v30 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v51, &std::piecewise_construct, &v52);
   v31 = (v30 + 5);
   v32 = *(self + 196);
-  v60.__r_.__value_.__l.__size_ = v32;
-  v60.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-  if (&v60 != (v30 + 5))
+  v59.__r_.__value_.__l.__size_ = v32;
+  v59.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
+  if (&v59 != (v30 + 5))
   {
     v33 = *v31;
     if (*v31)
     {
-      *&v53.__r_.__value_.__l.__data_ = 0uLL;
-      v33(2, v31, &v53, 0, 0);
-      (v60.__r_.__value_.__l.__data_)(2, &v60, v31, 0, 0);
-      (v53.__r_.__value_.__l.__data_)(2, &v53, &v60, 0, 0);
-      std::any::reset[abi:ne200100](&v53);
+      *&v52.__r_.__value_.__l.__data_ = 0uLL;
+      v33(2, v31, &v52, 0, 0);
+      (v59.__r_.__value_.__l.__data_)(2, &v59, v31, 0, 0);
+      (v52.__r_.__value_.__l.__data_)(2, &v52, &v59, 0, 0);
+      std::any::reset[abi:ne200100](&v52);
     }
 
     else
     {
       *(v30 + 12) = v32;
       v30[5] = std::__any_imp::_SmallHandler<unsigned int>::__handle[abi:ne200100];
-      v60.__r_.__value_.__r.__words[0] = 0;
+      v59.__r_.__value_.__r.__words[0] = 0;
     }
   }
 
-  std::any::reset[abi:ne200100](&v60);
+  std::any::reset[abi:ne200100](&v59);
   v34 = [*(self + 80) objectAtIndexedSubscript:0];
   format9 = [v34 format];
   isInterleaved2 = [format9 isInterleaved];
-  v52 = 2;
-  v53.__r_.__value_.__r.__words[0] = &v52;
-  v37 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v52);
+  v51 = 2;
+  v52.__r_.__value_.__r.__words[0] = &v51;
+  v37 = std::__tree<std::__value_type<unsigned int,std::any>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::any>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::any>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(self + 760, &v51, &std::piecewise_construct, &v52);
   v38 = (v37 + 5);
-  v60.__r_.__value_.__l.__size_ = isInterleaved2;
-  v60.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-  if (&v60 != (v37 + 5))
+  v59.__r_.__value_.__l.__size_ = isInterleaved2;
+  v59.__r_.__value_.__r.__words[0] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
+  if (&v59 != (v37 + 5))
   {
     v39 = *v38;
     if (*v38)
     {
-      *&v53.__r_.__value_.__l.__data_ = 0uLL;
-      v39(2, v38, &v53, 0, 0);
-      (v60.__r_.__value_.__l.__data_)(2, &v60, v38, 0, 0);
-      (v53.__r_.__value_.__l.__data_)(2, &v53, &v60, 0, 0);
-      std::any::reset[abi:ne200100](&v53);
+      *&v52.__r_.__value_.__l.__data_ = 0uLL;
+      v39(2, v38, &v52, 0, 0);
+      (v59.__r_.__value_.__l.__data_)(2, &v59, v38, 0, 0);
+      (v52.__r_.__value_.__l.__data_)(2, &v52, &v59, 0, 0);
+      std::any::reset[abi:ne200100](&v52);
     }
 
     else
     {
       *(v37 + 48) = isInterleaved2;
       v37[5] = std::__any_imp::_SmallHandler<BOOL>::__handle[abi:ne200100];
-      v60.__r_.__value_.__r.__words[0] = 0;
+      v59.__r_.__value_.__r.__words[0] = 0;
     }
   }
 
-  std::any::reset[abi:ne200100](&v60);
+  std::any::reset[abi:ne200100](&v59);
 
   codecConfig4 = [(AUPasscodeDecoder *)self codecConfig];
-  [APCCodecFactory createDecoderWithConfig:codecConfig4 apcConfig:self + 760 error:error];
-  v41 = v53.__r_.__value_.__r.__words[0];
-  v53.__r_.__value_.__r.__words[0] = 0;
+  objc_msgSend_createDecoderWithConfig_apcConfig_error_(APCCodecFactory);
+  v41 = v52.__r_.__value_.__r.__words[0];
+  v52.__r_.__value_.__r.__words[0] = 0;
   v42 = *(self + 73);
   *(self + 73) = v41;
   if (v42)
   {
     (*(*v42 + 8))(v42);
-    v43 = v53.__r_.__value_.__r.__words[0];
-    v53.__r_.__value_.__r.__words[0] = 0;
+    v43 = v52.__r_.__value_.__r.__words[0];
+    v52.__r_.__value_.__r.__words[0] = 0;
     if (v43)
     {
       (*(*v43 + 8))(v43);
@@ -240,53 +291,51 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v51.receiver = self;
-  v51.super_class = AUPasscodeDecoder;
-  LODWORD(v20) = [(AUAudioUnit *)&v51 allocateRenderResourcesAndReturnError:error];
+  v50.receiver = self;
+  v50.super_class = AUPasscodeDecoder;
+  LODWORD(v20) = [(AUAudioUnit *)&v50 allocateRenderResourcesAndReturnError:error];
   if (v20)
   {
-    std::string::__init(&v60, "AUPasscodeDecoder messenger", 0x1BuLL);
+    std::string::__init(&v59, "AUPasscodeDecoder messenger", 0x1BuLL);
     v45 = caulk::concurrent::messenger::shared_logging_priority(v44);
     v46 = v45;
     if (*(v45 + 52))
     {
-      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v53, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
-        v54 = 1;
-        v49 = *(v46 + 48);
-        v55 = *(v46 + 32);
-        v56 = v49;
-        v57 = 1;
+        std::string::__init_copy_ctor_external(&v52, v59.__r_.__value_.__l.__data_, v59.__r_.__value_.__l.__size_);
+        v53 = 1;
+        v48 = *(v46 + 48);
+        v54 = *(v46 + 32);
+        v55 = v48;
+        v56 = 1;
+        v57 = 0;
         v58 = 0;
-        v59 = 0;
-        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v60.__r_.__value_.__l.__data_);
+          operator delete(v59.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        v53 = v60;
-        v54 = 1;
+        v52 = v59;
+        v53 = 1;
         v47 = *(v45 + 48);
-        v55 = *(v45 + 32);
-        v56 = v47;
-        v57 = 1;
+        v54 = *(v45 + 32);
+        v55 = v47;
+        v56 = 1;
+        v57 = 0;
         v58 = 0;
-        v59 = 0;
       }
 
-      v52 = 1;
+      v51 = 1;
       std::make_unique[abi:ne200100]<caulk::concurrent::messenger,caulk::concurrent::messenger::thread_strategy,caulk::thread::attributes const&,0>();
     }
 
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-LABEL_41:
-  v48 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -360,7 +409,7 @@ uint64_t __40__AUPasscodeDecoder_internalRenderBlock__block_invoke(uint64_t a1, 
           v18 = *v16;
           v16 += 2;
           *v17 = v18;
-          v17 += 2;
+          v17 += 4;
           --v15;
         }
 

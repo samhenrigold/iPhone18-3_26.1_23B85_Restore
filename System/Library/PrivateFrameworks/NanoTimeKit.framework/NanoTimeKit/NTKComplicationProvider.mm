@@ -730,9 +730,9 @@ void __63__NTKComplicationProvider_isComplicationAvailable_forFamilies___block_i
   [v7 enumerateBundlesForComplicationFamily:v6 device:v8 withBlock:v11];
 }
 
-uint64_t __63__NTKComplicationProvider_isComplicationAvailable_forFamilies___block_invoke_2(void *a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__63__NTKComplicationProvider_isComplicationAvailable_forFamilies___block_invoke_2(void *a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [a2 isEqualToString:a1[4]];
+  result = [a2 isEqualToString:{a1[4], a4}];
   if ((result & 1) == 0)
   {
     v8 = a1[6];

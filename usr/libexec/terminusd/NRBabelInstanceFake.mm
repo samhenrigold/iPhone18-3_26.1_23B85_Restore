@@ -41,13 +41,13 @@
     if (IsLevelEnabled)
     {
       v23 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v23, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelInstanceFake initWithName:]"", 3978);
     }
 
     nameCopy2 = _os_log_pack_size();
     v8 = (&v26 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
-    v24 = *__error();
-    v25 = _os_log_pack_fill();
+    v24 = __error();
+    v25 = _os_log_pack_fill(v8, nameCopy2, *v24, &_mh_execute_header, "%{public}s [super init] failed");
     *v25 = 136446210;
     *(v25 + 4) = "[NRBabelInstanceFake initWithName:]";
     sub_1000CB9A8();
@@ -83,7 +83,7 @@ LABEL_3:
     }
 
     v19 = v13;
-    _NRLogWithArgs();
+    _NRLogWithArgs(v10, 1, "%s%.30s:%-4d created fake instance %@ with routerID %@", ", "[NRBabelInstanceFake initWithName:]"", 3984, v9, v13);
   }
 
   return v8;

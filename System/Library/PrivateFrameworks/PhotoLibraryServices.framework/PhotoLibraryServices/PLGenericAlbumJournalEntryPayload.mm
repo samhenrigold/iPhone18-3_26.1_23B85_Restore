@@ -37,7 +37,7 @@
   {
     v18.receiver = self;
     v18.super_class = PLGenericAlbumJournalEntryPayload;
-    v11 = [(PLManagedObjectJournalEntryPayload *)&v18 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
+    isEqualToString = [(PLManagedObjectJournalEntryPayload *)&v18 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
     goto LABEL_3;
   }
 
@@ -59,9 +59,9 @@ LABEL_11:
   }
 
 LABEL_2:
-  v11 = [dictionaryValueCopy isEqualToString:valueCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(dictionaryValueCopy);
 LABEL_3:
-  LOBYTE(v12) = v11;
+  LOBYTE(v12) = isEqualToString;
 LABEL_12:
 
   return v12;
@@ -220,7 +220,7 @@ LABEL_12:
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"customKeyAsset"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
 

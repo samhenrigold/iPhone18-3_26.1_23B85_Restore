@@ -266,32 +266,32 @@ NSLock *__49__NSLinguisticTagger_initWithTagSchemes_options___block_invoke()
     return 0;
   }
 
-  v4 = @"TokenType";
-  if (([@"TokenType" isEqualToString:scheme] & 1) == 0)
+  v3 = @"TokenType";
+  if ((objc_msgSend_isEqualToString_(@"TokenType") & 1) == 0)
   {
-    v4 = @"LexicalClass";
-    if (([@"LexicalClass" isEqualToString:scheme] & 1) == 0)
+    v3 = @"LexicalClass";
+    if ((objc_msgSend_isEqualToString_(@"LexicalClass") & 1) == 0)
     {
-      v4 = @"NameType";
-      if (([@"NameType" isEqualToString:scheme] & 1) == 0)
+      v3 = @"NameType";
+      if ((objc_msgSend_isEqualToString_(@"NameType") & 1) == 0)
       {
-        v4 = @"NameTypeOrLexicalClass";
-        if (([@"NameTypeOrLexicalClass" isEqualToString:scheme] & 1) == 0)
+        v3 = @"NameTypeOrLexicalClass";
+        if ((objc_msgSend_isEqualToString_(@"NameTypeOrLexicalClass") & 1) == 0)
         {
-          v4 = @"Lemma";
-          if (([@"Lemma" isEqualToString:scheme] & 1) == 0)
+          v3 = @"Lemma";
+          if ((objc_msgSend_isEqualToString_(@"Lemma") & 1) == 0)
           {
-            v4 = @"Language";
-            if (([@"Language" isEqualToString:scheme] & 1) == 0)
+            v3 = @"Language";
+            if ((objc_msgSend_isEqualToString_(@"Language") & 1) == 0)
             {
-              v4 = @"Script";
-              if (([@"Script" isEqualToString:scheme] & 1) == 0)
+              v3 = @"Script";
+              if ((objc_msgSend_isEqualToString_(@"Script") & 1) == 0)
               {
-                v4 = @"PossibleClasses";
-                if (([@"PossibleClasses" isEqualToString:scheme] & 1) == 0)
+                v3 = @"PossibleClasses";
+                if ((objc_msgSend_isEqualToString_(@"PossibleClasses") & 1) == 0)
                 {
-                  v4 = @"InternalClass";
-                  if (![@"InternalClass" isEqualToString:scheme])
+                  v3 = @"InternalClass";
+                  if (!objc_msgSend_isEqualToString_(@"InternalClass"))
                   {
                     return 0;
                   }
@@ -304,7 +304,7 @@ NSLock *__49__NSLinguisticTagger_initWithTagSchemes_options___block_invoke()
     }
   }
 
-  return v4;
+  return v3;
 }
 
 + (BOOL)supportsLanguage:(id)language
@@ -809,13 +809,13 @@ LABEL_14:
 
 - (NSArray)possibleTagsAtIndex:(NSUInteger)charIndex scheme:(NSString *)tagScheme tokenRange:(NSRangePointer)tokenRange sentenceRange:(NSRangePointer)sentenceRange scores:(NSArray *)scores
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   LODWORD(v7) = 1.0;
   v15 = [NSNumber numberWithFloat:v7];
   if ([(NSString *)self->_string length]<= charIndex)
   {
-    v112 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@: Range or index out of bounds", _NSMethodExceptionProem(self, a2)), 0}];
-    objc_exception_throw(v112);
+    v115 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@: Range or index out of bounds", _NSMethodExceptionProem(self, a2)), 0}];
+    objc_exception_throw(v115);
   }
 
   v16 = [(NSLinguisticTagger *)self _tagSchemeForScheme:tagScheme];
@@ -825,22 +825,22 @@ LABEL_14:
   }
 
   v17 = v16;
-  v119 = v15;
-  v120 = tokenRange;
+  v122 = v15;
+  v123 = tokenRange;
+  v127 = 0;
+  v126 = 0;
+  v125 = 0;
   v124 = 0;
-  v123 = 0;
-  v122 = 0;
-  v121 = 0;
-  v18 = [(NSLinguisticTagger *)self _tokenDataForParagraphAtIndex:charIndex paragraphRange:&v123 tagScheme:v16];
+  v18 = [(NSLinguisticTagger *)self _tokenDataForParagraphAtIndex:charIndex paragraphRange:&v126 tagScheme:v16];
   bytes = [v18 bytes];
   v20 = [v18 length] >> 4;
-  v21 = v123;
-  v22 = v124;
-  v23 = sentenceRangeAtIndexInTokens(charIndex, v123, v124, bytes, v20, &v121);
-  v25 = v21 + *(bytes + 16 * v121);
+  v21 = v126;
+  v22 = v127;
+  v23 = sentenceRangeAtIndexInTokens(charIndex, v126, v127, bytes, v20, &v124);
+  v25 = v21 + *(bytes + 16 * v124);
   if (v25 > charIndex)
   {
-    v118 = scores;
+    v121 = scores;
     v26 = v25 - v23;
     if (v17 == @"NameType" || v17 == @"LexicalClass" || v17 == @"NameTypeOrLexicalClass" || v17 == @"PossibleClasses" || v17 == @"InternalClass")
     {
@@ -867,21 +867,21 @@ LABEL_14:
     goto LABEL_23;
   }
 
-  v38 = v122;
-  if (v121 >= v122 + v121)
+  v38 = v125;
+  if (v124 >= v125 + v124)
   {
     v34 = 0;
     v26 = 0;
     v33 = 0;
 LABEL_48:
-    p_location = &v120->location;
+    p_location = &v123->location;
     goto LABEL_49;
   }
 
-  v118 = scores;
-  v117 = sentenceRange;
-  v39 = (bytes + 16 * v121);
-  v40 = v121 + 1;
+  v121 = scores;
+  v120 = sentenceRange;
+  v39 = (bytes + 16 * v124);
+  v40 = v124 + 1;
   while (1)
   {
     v41 = *v39;
@@ -929,18 +929,18 @@ LABEL_48:
         v33 = 0;
         v26 = v47;
         v34 = v42;
-        sentenceRange = v117;
+        sentenceRange = v120;
 LABEL_23:
-        p_location = &v120->location;
+        p_location = &v123->location;
 LABEL_24:
         if (v32 && !v33)
         {
           v36 = v23;
           v37 = v24;
           v33 = [MEMORY[0x1E695DEC8] arrayWithObject:v32];
-          if (v118)
+          if (v121)
           {
-            *v118 = [MEMORY[0x1E695DEC8] arrayWithObject:v119];
+            *v121 = [MEMORY[0x1E695DEC8] arrayWithObject:v122];
           }
 
           v24 = v37;
@@ -959,7 +959,7 @@ LABEL_24:
     if (!--v38)
     {
       v33 = 0;
-      sentenceRange = v117;
+      sentenceRange = v120;
       goto LABEL_48;
     }
   }
@@ -969,8 +969,8 @@ LABEL_24:
   {
     string = self->_string;
     orthographyArray = self->_orthographyArray;
-    v116 = v24;
-    v115 = v23;
+    v119 = v24;
+    v118 = v23;
     if (v17 == @"TokenType")
     {
       v32 = @"Word";
@@ -1056,19 +1056,19 @@ LABEL_117:
         case 0x10:
         case 0x12:
         case 0x54:
-          v110 = @"Conjunction";
+          v113 = @"Conjunction";
           goto LABEL_257;
         case 0x11:
         case 0x1D:
         case 0x53:
-          v110 = @"Number";
+          v113 = @"Number";
           goto LABEL_257;
         case 0x13:
         case 0x14:
         case 0x15:
         case 0x16:
         case 0x50:
-          v110 = @"Determiner";
+          v113 = @"Determiner";
           goto LABEL_257;
         case 0x17:
         case 0x23:
@@ -1079,17 +1079,17 @@ LABEL_117:
         case 0x41:
         case 0x42:
         case 0x4F:
-          v110 = @"Pronoun";
+          v113 = @"Pronoun";
           goto LABEL_257;
         case 0x19:
         case 0x52:
-          v110 = @"Preposition";
+          v113 = @"Preposition";
           goto LABEL_257;
         case 0x1A:
         case 0x1B:
         case 0x1C:
         case 0x4D:
-          v110 = @"Adjective";
+          v113 = @"Adjective";
           goto LABEL_257;
         case 0x22:
         case 0x2B:
@@ -1097,7 +1097,7 @@ LABEL_117:
         case 0x30:
         case 0x31:
         case 0x51:
-          v110 = @"Particle";
+          v113 = @"Particle";
           goto LABEL_257;
         case 0x28:
         case 0x29:
@@ -1105,11 +1105,11 @@ LABEL_117:
         case 0x2D:
         case 0x2E:
         case 0x4E:
-          v110 = @"Adverb";
+          v113 = @"Adverb";
           goto LABEL_257;
         case 0x32:
         case 0x55:
-          v110 = @"Interjection";
+          v113 = @"Interjection";
           goto LABEL_257;
         case 0x34:
         case 0x35:
@@ -1125,17 +1125,17 @@ LABEL_117:
         case 0x3F:
         case 0x40:
         case 0x4C:
-          v110 = @"Verb";
+          v113 = @"Verb";
           goto LABEL_257;
         case 0x56:
-          v110 = @"Classifier";
+          v113 = @"Classifier";
           goto LABEL_257;
         case 0x57:
-          v110 = @"Idiom";
+          v113 = @"Idiom";
 LABEL_257:
           if (v17 != @"NameType")
           {
-            v32 = v110;
+            v32 = v113;
           }
 
           break;
@@ -1149,7 +1149,7 @@ LABEL_157:
         v70 = orthographyArray;
         v71 = [orthographyArray count];
         v72 = malloc_type_malloc(2 * *(v39 + 2), 0x1000040BDFB0063uLL);
-        v113 = string;
+        v116 = string;
         if (v72)
         {
           v73 = v72;
@@ -1182,7 +1182,7 @@ LABEL_157:
           }
         }
 
-        p_location = &v120->location;
+        p_location = &v123->location;
         if (v74 == 2)
         {
           allScripts = [v76 allScripts];
@@ -1222,33 +1222,33 @@ LABEL_157:
 
         if (v17 == @"Lemma")
         {
-          v94 = [v76 dominantLanguageForScript:v78];
-          v95 = [(__CFString *)v94 isEqual:@"ja"];
-          v96 = v21 + *v39;
-          if (v95)
+          v96 = [v76 dominantLanguageForScript:v78];
+          v97 = [(__CFString *)v96 isEqual:@"ja"];
+          v99 = v21 + *v39;
+          if (v97)
           {
-            v97 = [(NSString *)v113 substringWithRange:v96 + *(v39 + 8), *(v39 + 9)];
+            v100 = [(NSString *)v116 substringWithRange:v99 + *(v39 + 8), *(v39 + 9)];
           }
 
           else
           {
-            v99 = *(v39 + 2);
-            LXLemmatizer = getLXLemmatizer(v94);
-            v101 = v99;
-            p_location = &v120->location;
-            v97 = lemmatizerLemmaForStringWithCategory(LXLemmatizer, [(NSString *)v113 substringWithRange:v96, v101], *(v39 + 3));
+            v102 = *(v39 + 2);
+            LXLemmatizer = getLXLemmatizer(v96, v98);
+            v104 = v102;
+            p_location = &v123->location;
+            v100 = lemmatizerLemmaForStringWithCategory(LXLemmatizer, [(NSString *)v116 substringWithRange:v99, v104], *(v39 + 3));
           }
 
-          v32 = v97;
+          v32 = v100;
           goto LABEL_215;
         }
 
         if (v17 == @"Language")
         {
-          v98 = [v76 dominantLanguageForScript:v78];
-          if (v98)
+          v101 = [v76 dominantLanguageForScript:v78];
+          if (v101)
           {
-            v32 = v98;
+            v32 = v101;
           }
 
           else
@@ -1272,82 +1272,83 @@ LABEL_157:
 
         v80 = *v39;
         v81 = *(v39 + 2);
-        v82 = getLXLemmatizer([v76 dominantLanguageForScript:v78]);
-        if (v82)
+        v82 = [v76 dominantLanguageForScript:v78];
+        v84 = getLXLemmatizer(v82, v83);
+        if (v84)
         {
-          v83 = v82;
+          v85 = v84;
           dictionary = [MEMORY[0x1E695DF90] dictionary];
-          lemmatizerAddTagsForString(v83, [(NSString *)v113 substringWithRange:v21 + v80, v81], dictionary);
-          v85 = [dictionary keysSortedByValueUsingComparator:&__block_literal_global_619];
-          v86 = v85;
+          lemmatizerAddTagsForString(v85, [(NSString *)v116 substringWithRange:v21 + v80, v81], dictionary);
+          v87 = [dictionary keysSortedByValueUsingComparator:&__block_literal_global_619];
+          v88 = v87;
           if (v17 != @"PossibleClasses")
           {
-            v114 = [MEMORY[0x1E695DEC8] arrayWithArray:v85];
+            v117 = [MEMORY[0x1E695DEC8] arrayWithArray:v87];
             array = [MEMORY[0x1E695DF70] array];
-            v131 = 0u;
-            v132 = 0u;
-            v133 = 0u;
             v134 = 0u;
-            v88 = [v86 countByEnumeratingWithState:&v131 objects:v130 count:16];
-            if (v88)
+            v135 = 0u;
+            v136 = 0u;
+            v137 = 0u;
+            v90 = [v88 countByEnumeratingWithState:&v134 objects:v133 count:16];
+            if (v90)
             {
-              v89 = v88;
-              v90 = 0;
-              v91 = *v132;
+              v91 = v90;
+              v92 = 0;
+              v93 = *v135;
               do
               {
-                for (i = 0; i != v89; ++i)
+                for (i = 0; i != v91; ++i)
                 {
-                  if (*v132 != v91)
+                  if (*v135 != v93)
                   {
-                    objc_enumerationMutation(v86);
+                    objc_enumerationMutation(v88);
                   }
 
-                  v90 += [objc_msgSend(dictionary objectForKey:{*(*(&v131 + 1) + 8 * i)), "integerValue"}];
+                  v92 += [objc_msgSend(dictionary objectForKey:{*(*(&v134 + 1) + 8 * i)), "integerValue"}];
                 }
 
-                v89 = [v86 countByEnumeratingWithState:&v131 objects:v130 count:16];
+                v91 = [v88 countByEnumeratingWithState:&v134 objects:v133 count:16];
               }
 
-              while (v89);
-              v93 = v90;
+              while (v91);
+              v95 = v92;
             }
 
             else
             {
-              v93 = 0.0;
+              v95 = 0.0;
             }
 
-            v128 = 0u;
+            v131 = 0u;
+            v132 = 0u;
             v129 = 0u;
-            v126 = 0u;
-            v127 = 0u;
-            v105 = [v86 countByEnumeratingWithState:&v126 objects:v125 count:16];
-            if (v105)
+            v130 = 0u;
+            v108 = [v88 countByEnumeratingWithState:&v129 objects:v128 count:16];
+            if (v108)
             {
-              v106 = v105;
-              v107 = *v127;
+              v109 = v108;
+              v110 = *v130;
               do
               {
-                for (j = 0; j != v106; ++j)
+                for (j = 0; j != v109; ++j)
                 {
-                  if (*v127 != v107)
+                  if (*v130 != v110)
                   {
-                    objc_enumerationMutation(v86);
+                    objc_enumerationMutation(v88);
                   }
 
-                  *&v109 = [objc_msgSend(dictionary objectForKey:{*(*(&v126 + 1) + 8 * j)), "integerValue"}] / v93;
-                  [array addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v109)}];
+                  *&v112 = [objc_msgSend(dictionary objectForKey:{*(*(&v129 + 1) + 8 * j)), "integerValue"}] / v95;
+                  [array addObject:{+[NSNumber numberWithFloat:](NSNumber, "numberWithFloat:", v112)}];
                 }
 
-                v106 = [v86 countByEnumeratingWithState:&v126 objects:v125 count:16];
+                v109 = [v88 countByEnumeratingWithState:&v129 objects:v128 count:16];
               }
 
-              while (v106);
+              while (v109);
             }
 
-            v103 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
-            if (v114)
+            v106 = [MEMORY[0x1E695DEC8] arrayWithArray:array];
+            if (v117)
             {
               v33 = [MEMORY[0x1E695DEC8] arrayWithArray:?];
             }
@@ -1357,73 +1358,73 @@ LABEL_157:
               v33 = 0;
             }
 
-            sentenceRange = v117;
-            p_location = &v120->location;
+            sentenceRange = v120;
+            p_location = &v123->location;
             goto LABEL_216;
           }
 
-          v32 = [v85 componentsJoinedByString:@"/"];
+          v32 = [v87 componentsJoinedByString:@"/"];
         }
 
         else
         {
-          p_location = &v120->location;
+          p_location = &v123->location;
           if (v17 != @"PossibleClasses")
           {
             goto LABEL_215;
           }
 
-          v102 = *(v39 + 3);
-          if ((v102 & 0xFFFFFFFFFFFFFFFBLL) == 0x43 || (v102 - 30) <= 0x2D && ((1 << (v102 - 30)) & 0x2CC000000003) != 0)
+          v105 = *(v39 + 3);
+          if ((v105 & 0xFFFFFFFFFFFFFFFBLL) == 0x43 || (v105 - 30) <= 0x2D && ((1 << (v105 - 30)) & 0x2CC000000003) != 0)
           {
             v32 = @"Noun";
             goto LABEL_215;
           }
 
-          if ((v102 & 0xFE) == 0x20)
+          if ((v105 & 0xFE) == 0x20)
           {
             v32 = @"Noun";
           }
 
           else
           {
-            v111 = v102 - 16;
-            if (v111 > 0x47u)
+            v114 = v105 - 16;
+            if (v114 > 0x47u)
             {
               v32 = @"OtherWord";
             }
 
             else
             {
-              v32 = off_1E69F7350[v111];
+              v32 = off_1E69F7350[v114];
             }
           }
         }
       }
 
-      p_location = &v120->location;
+      p_location = &v123->location;
 LABEL_215:
-      v103 = 0;
+      v106 = 0;
       v33 = 0;
-      sentenceRange = v117;
+      sentenceRange = v120;
 LABEL_216:
-      if (v118)
+      if (v121)
       {
-        if (v103)
+        if (v106)
         {
-          v104 = v103;
+          v107 = v106;
         }
 
         else
         {
-          v104 = MEMORY[0x1E695E0F0];
+          v107 = MEMORY[0x1E695E0F0];
         }
 
-        *v118 = [MEMORY[0x1E695DEC8] arrayWithArray:v104];
+        *v121 = [MEMORY[0x1E695DEC8] arrayWithArray:v107];
       }
 
-      v24 = v116;
-      v23 = v115;
+      v24 = v119;
+      v23 = v118;
       goto LABEL_24;
     }
 
@@ -1441,10 +1442,10 @@ LABEL_154:
     goto LABEL_157;
   }
 
-  p_location = &v120->location;
+  p_location = &v123->location;
   if ((v50 - 2) > 0xB)
   {
-    sentenceRange = v117;
+    sentenceRange = v120;
     if (v50 == 1)
     {
       v33 = 0;
@@ -1464,7 +1465,7 @@ LABEL_154:
     goto LABEL_111;
   }
 
-  sentenceRange = v117;
+  sentenceRange = v120;
   if (v17 == @"TokenType")
   {
     goto LABEL_150;
@@ -1495,7 +1496,7 @@ LABEL_154:
         v33 = 0;
       }
 
-      sentenceRange = v117;
+      sentenceRange = v120;
       v24 = v54;
       v23 = v53;
       goto LABEL_24;
@@ -1636,7 +1637,7 @@ LABEL_49:
   return v13;
 }
 
-uint64_t __61__NSLinguisticTagger_tagsInRange_scheme_options_tokenRanges___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4)
+void *__61__NSLinguisticTagger_tagsInRange_scheme_options_tokenRanges___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -1775,7 +1776,7 @@ void __74__NSLinguisticTagger_enumerateTagsInRange_unit_scheme_options_usingBloc
   return array;
 }
 
-uint64_t __66__NSLinguisticTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4)
+void *__66__NSLinguisticTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -1956,7 +1957,7 @@ uint64_t __66__NSLinguisticTagger_tagsInRange_unit_scheme_options_tokenRanges___
         return 0;
       }
 
-      v15 = [@"no" isEqualToString:lowercaseString] ^ 1;
+      v15 = objc_msgSend_isEqualToString_(@"no") ^ 1;
     }
 
     else
@@ -3357,9 +3358,9 @@ LABEL_127:
     if (v82)
     {
       v86 = [v82 dominantLanguageForScript:@"Latn"];
-      if (([v86 isEqualToString:@"en"] & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"fr") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"de") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"es") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"it") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"pt") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"nl") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"ko") & 1) == 0 && (objc_msgSend(v86, "isEqualToString:", @"ru") & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0 && (objc_msgSend_isEqualToString_(v86) & 1) == 0)
       {
-        [v86 isEqualToString:@"tr"];
+        objc_msgSend_isEqualToString_(v86);
       }
     }
 
@@ -3478,7 +3479,7 @@ LABEL_7:
   v18 = xmmword_181406480;
   if (v13 <= index || (v14 = [self->_tokenArray objectAtIndex:index effectiveRange:&v18]) == 0 || (v15 = v14, objc_msgSend(v14, "isEqual:", objc_msgSend(MEMORY[0x1E695DFB0], "null"))))
   {
-    [(NSLinguisticTagger *)self _tokenizeParagraphAtIndex:index requireLemmas:lemmasCopy requirePartsOfSpeech:speechCopy requireNamedEntities:entitiesCopy, v18];
+    [(NSLinguisticTagger *)self _tokenizeParagraphAtIndex:index requireLemmas:lemmasCopy requirePartsOfSpeech:speechCopy requireNamedEntities:entitiesCopy, v18.location, v18.length];
     v16 = [self->_tokenArray objectAtIndex:index effectiveRange:&v18];
     if ([v16 isEqual:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}])
     {

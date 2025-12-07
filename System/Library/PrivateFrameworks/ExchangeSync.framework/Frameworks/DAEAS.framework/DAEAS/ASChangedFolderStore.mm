@@ -148,10 +148,10 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = ASChangedFolderStore;
-  [(ASItem *)&v17 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = ASChangedFolderStore;
+  [(ASItem *)&v16 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState >= 2)
   {
@@ -172,23 +172,21 @@
         if (!syncKey)
         {
           [(ASItem *)self setParsingState:3];
-          v14 = DALoggingwithCategory();
-          v15 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v14, v15))
+          v13 = DALoggingwithCategory();
+          v14 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v13, v14))
           {
             syncKey2 = [(ASChangedFolderStore *)self syncKey];
             *buf = 67109378;
-            v19 = 1;
-            v20 = 2112;
-            v21 = syncKey2;
-            _os_log_impl(&dword_24A0AC000, v14, v15, "We received a happy value for status (%d), but syncKey %@ is missing", buf, 0x12u);
+            v18 = 1;
+            v19 = 2112;
+            v20 = syncKey2;
+            _os_log_impl(&dword_24A0AC000, v13, v14, "We received a happy value for status (%d), but syncKey %@ is missing", buf, 0x12u);
           }
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

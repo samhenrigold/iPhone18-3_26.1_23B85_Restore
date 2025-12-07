@@ -311,9 +311,9 @@
 
 - (void)renderWithMeshRenderLabelInfo:(id)info
 {
-  v298 = *MEMORY[0x277D85DE8];
+  v286 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v227 = objc_msgSend_renderer(infoCopy, v5, v6, v7, v8);
+  v215 = objc_msgSend_renderer(infoCopy, v5, v6, v7, v8);
   if (!self->_atlas)
   {
     v13 = MEMORY[0x277D81150];
@@ -324,51 +324,51 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
   }
 
-  v226 = objc_msgSend_label(v227, v9, v10, v11, v12);
+  v214 = objc_msgSend_label(v215, v9, v10, v11, v12);
   atlas = self->_atlas;
   if (atlas)
   {
-    objc_msgSend_positionForLabel_(atlas, v28, v29, v30, v31, v226);
-    v33 = v287;
+    objc_msgSend_positionForLabel_(atlas, v29, v30, v31);
+    v33 = v275;
   }
 
   else
   {
     v33 = 0;
-    v287 = 0;
-    v286 = 0;
+    v275 = 0;
+    v274 = 0;
   }
 
-  if (v226)
+  if (v214)
   {
-    objc_msgSend_clampedLabelSampledSize(v226, v28, v29, v30, v31);
+    objc_msgSend_clampedLabelSampledSize(v214, v29, v30, v31);
   }
 
   else
   {
-    v285 = 0;
+    v273 = 0;
   }
 
   v34 = self->_atlas;
   if (v34)
   {
-    objc_msgSend_textureSizeAtIndex_(v34, v28, v29, v30, v31, v33);
+    objc_msgSend_textureSizeAtIndex_(v34, v29, v30, v31);
   }
 
   else
   {
-    v284 = 0;
+    v272 = 0;
   }
 
-  v223 = objc_msgSend_p_vertexResourceAtIndex_createIfAbsent_(self, v28, v29, v30, v31, v33, 1);
-  v224 = objc_msgSend_p_texcoordResourceAtIndex_createIfAbsent_(self, v35, v36, v37, v38, v33, 1);
+  v211 = objc_msgSend_p_vertexResourceAtIndex_createIfAbsent_(self, v28, v29, v30, v31, v33, 1);
+  v212 = objc_msgSend_p_texcoordResourceAtIndex_createIfAbsent_(self, v35, v36, v37, v38, v33, 1);
   v43 = objc_msgSend_externalAttribute(infoCopy, v39, v40, v41, v42);
   isValid = objc_msgSend_isValid(v43, v44, v45, v46, v47);
 
   if (isValid)
   {
     v53 = objc_msgSend_externalAttribute(infoCopy, v49, v50, v51, v52);
-    v225 = objc_msgSend_p_resourceForExternalLabelAttribute_index_createIfAbsent_(self, v54, v55, v56, v57, v53, v33, 1);
+    v213 = objc_msgSend_p_resourceForExternalLabelAttribute_index_createIfAbsent_(self, v54, v55, v56, v57, v53, v33, 1);
   }
 
   else
@@ -383,69 +383,41 @@
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74, v75, v76);
     }
 
-    v225 = 0;
+    v213 = 0;
   }
 
-  v228 = sub_27618C648(v223);
-  v78 = sub_27618C374(v224);
-  if (v225)
+  v216 = sub_27618C648(v211);
+  v77 = sub_27618C374(v212);
+  if (v213)
   {
-    v82 = sub_27621B498(v225);
-  }
-
-  else
-  {
-    v82 = 0;
-  }
-
-  v296 = 0u;
-  v297 = 0u;
-  v294 = 0u;
-  v295 = 0u;
-  v292 = 0u;
-  v293 = 0u;
-  v291 = 0u;
-  if (infoCopy)
-  {
-    objc_msgSend_translation(infoCopy, v77, 0.0, v79, v80);
-    v83 = v263;
-    LODWORD(v84) = v264;
+    v81 = sub_27621B498(v213);
   }
 
   else
   {
-    v264 = 0;
-    v263 = 0;
-    v83 = 0;
-    v84 = 0.0;
+    v81 = 0;
   }
 
-  v267 = 0;
-  v266 = 0;
-  v265 = 1065353216;
-  v268 = 1065353216;
-  v269 = 0;
-  v270 = 0;
-  v85 = 0;
-  v86 = vmul_f32(v83, 0);
-  v87 = vrev64_s32(v86);
-  v86.f32[0] = vaddv_f32(v86);
-  *v81.i32 = *&v84 * 0.0;
-  *&v84 = (*&v84 + v86.f32[0]) + 0.0;
-  v88 = COERCE_DOUBLE(vadd_f32(vadd_f32(vadd_f32(v83, v87), vdup_lane_s32(v81, 0)), 0));
-  v271 = 1065353216;
-  v272 = v88;
-  v273 = LODWORD(v84);
-  v274 = (v86.f32[0] + *v81.i32) + 1.0;
+  v284 = 0u;
+  v285 = 0u;
+  v282 = 0u;
+  v283 = 0u;
+  v280 = 0u;
+  v281 = 0u;
+  v279 = 0u;
   if (infoCopy)
   {
-    objc_msgSend_offset(infoCopy, v77, 0.0, v88, v84);
-    v85 = v252;
+    objc_msgSend_translation(infoCopy, 0.0, v78, v79);
+    v82 = v251;
+    LODWORD(v83) = v252;
   }
 
   else
   {
     v252 = 0;
+    v251 = 0;
+    v82 = 0;
+    v83 = 0.0;
   }
 
   v255 = 0;
@@ -454,237 +426,265 @@
   v256 = 1065353216;
   v257 = 0;
   v258 = 0;
-  v89 = vmul_f32(v85, 0);
+  v84 = 0;
+  v85 = vmul_f32(v82, 0);
+  v86 = vrev64_s32(v85);
+  v85.f32[0] = vaddv_f32(v85);
+  *v80.i32 = *&v83 * 0.0;
+  *&v83 = (*&v83 + v85.f32[0]) + 0.0;
+  v87 = COERCE_DOUBLE(vadd_f32(vadd_f32(vadd_f32(v82, v86), vdup_lane_s32(v80, 0)), 0));
   v259 = 1065353216;
-  v260 = vadd_f32(vadd_f32(v85, vrev64_s32(v89)), 0);
-  v261 = vaddv_f32(v89) + 0.0;
-  v262 = v261 + 1.0;
-  *&v90 = sub_2761558A0(&v265, &v253, v275).u64[0];
-  objc_msgSend_rotation(infoCopy, v91, v90, v92, v93);
-  v95 = __sincosf_stret(v94 * 0.017453);
-  v96 = (1.0 - v95.__cosval) * 0.0;
-  v97 = v95.__cosval + (v96 * 0.0);
-  v98 = (v96 * 0.0) + 0.0;
-  v99 = v95.__sinval + v98;
-  v100 = v96 + 0.0;
-  v101 = v100 - (v95.__sinval * 0.0);
-  v102 = v98 - v95.__sinval;
-  v103 = v100 + (v95.__sinval * 0.0);
-  v104 = ((1.0 - v95.__cosval) * 0.0) + 0.0;
-  v105 = v104 + (v95.__sinval * 0.0);
-  v106 = v104 - (v95.__sinval * 0.0);
-  v107 = v95.__cosval + (1.0 - v95.__cosval);
-  v108 = (v97 * 0.0) + (v99 * 0.0);
-  v250[0] = (v101 * 0.0) + (v97 + (v99 * 0.0));
-  v250[1] = ((v97 * 0.0) + v99) + (v101 * 0.0);
-  v250[2] = v101 + v108;
-  v250[3] = (v101 * 0.0) + v108;
-  v109 = (v97 * 0.0) + (v102 * 0.0);
-  v250[4] = ((v97 * 0.0) + v102) + (v103 * 0.0);
-  v250[5] = (v103 * 0.0) + (v97 + (v102 * 0.0));
-  v250[6] = v103 + v109;
-  v250[7] = (v103 * 0.0) + v109;
-  v110 = (v105 * 0.0) + (v106 * 0.0);
-  v250[8] = (v107 * 0.0) + (v105 + (v106 * 0.0));
-  v250[9] = (v107 * 0.0) + (v106 + (v105 * 0.0));
-  v250[10] = v107 + v110;
-  v250[11] = (v107 * 0.0) + v110;
-  v251 = xmmword_2764D5F20;
-  *&v112 = sub_2761558A0(v275, v250, v276).u64[0];
+  v260 = v87;
+  v261 = LODWORD(v83);
+  v262 = (v85.f32[0] + *v80.i32) + 1.0;
   if (infoCopy)
   {
-    objc_msgSend_alignmentOffset(infoCopy, v111, v112, v113, v114);
-    v115 = v239;
+    objc_msgSend_offset(infoCopy, 0.0, v87, v83);
+    v84 = v240;
   }
 
   else
   {
-    v239 = 0;
-    v115 = 0;
+    v240 = 0;
   }
 
-  v116 = vmul_f32(v115, 0);
-  v240 = 1065353216;
+  v243 = 0;
   v242 = 0;
-  v241 = 0;
-  v243 = 1065353216;
-  v244 = 0;
+  v241 = 1065353216;
+  v244 = 1065353216;
   v245 = 0;
-  v246 = 1065353216;
-  v247 = vadd_f32(vadd_f32(v115, vrev64_s32(v116)), 0);
-  v248 = vaddv_f32(v116) + 0.0;
-  v249 = v248 + 1.0;
-  *&v118 = sub_2761558A0(v276, &v240, &__p).u64[0];
+  v246 = 0;
+  v88 = vmul_f32(v84, 0);
+  v247 = 1065353216;
+  v248 = vadd_f32(vadd_f32(v84, vrev64_s32(v88)), 0);
+  v249 = vaddv_f32(v88) + 0.0;
+  v250 = v249 + 1.0;
+  *&v89 = sub_2761558A0(&v253, &v241, v263).u64[0];
+  objc_msgSend_rotation(infoCopy, v89, v90, v91);
+  v93 = __sincosf_stret(v92 * 0.017453);
+  v94 = (1.0 - v93.__cosval) * 0.0;
+  v95 = v93.__cosval + (v94 * 0.0);
+  v96 = (v94 * 0.0) + 0.0;
+  v97 = v93.__sinval + v96;
+  v98 = v94 + 0.0;
+  v99 = v98 - (v93.__sinval * 0.0);
+  v100 = v96 - v93.__sinval;
+  v101 = v98 + (v93.__sinval * 0.0);
+  v102 = ((1.0 - v93.__cosval) * 0.0) + 0.0;
+  v103 = v102 + (v93.__sinval * 0.0);
+  v104 = v102 - (v93.__sinval * 0.0);
+  v105 = v93.__cosval + (1.0 - v93.__cosval);
+  v106 = (v95 * 0.0) + (v97 * 0.0);
+  v238[0] = (v99 * 0.0) + (v95 + (v97 * 0.0));
+  v238[1] = ((v95 * 0.0) + v97) + (v99 * 0.0);
+  v238[2] = v99 + v106;
+  v238[3] = (v99 * 0.0) + v106;
+  v107 = (v95 * 0.0) + (v100 * 0.0);
+  v238[4] = ((v95 * 0.0) + v100) + (v101 * 0.0);
+  v238[5] = (v101 * 0.0) + (v95 + (v100 * 0.0));
+  v238[6] = v101 + v107;
+  v238[7] = (v101 * 0.0) + v107;
+  v108 = (v103 * 0.0) + (v104 * 0.0);
+  v238[8] = (v105 * 0.0) + (v103 + (v104 * 0.0));
+  v238[9] = (v105 * 0.0) + (v104 + (v103 * 0.0));
+  v238[10] = v105 + v108;
+  v238[11] = (v105 * 0.0) + v108;
+  v239 = xmmword_2764D5F20;
+  *&v109 = sub_2761558A0(v263, v238, v264).u64[0];
   if (infoCopy)
   {
-    objc_msgSend_scale(infoCopy, v117, v118, *v119.i64, v120);
-    v119.i32[0] = v232;
-    v121 = v233;
+    objc_msgSend_alignmentOffset(infoCopy, v109, v110, v111);
+    v112 = v227;
   }
 
   else
   {
-    v121 = 0;
-    v119.i32[0] = 0;
+    v227 = 0;
+    v112 = 0;
   }
 
-  v234[0] = v119.i32[0];
-  *&v234[1] = *v119.i32 * 0.0;
-  *&v234[2] = *v119.i32 * 0.0;
-  *&v234[3] = *v119.i32 * 0.0;
-  *v119.i8 = vmul_f32(v121, 0);
-  v235 = vzip1_s32(*v119.i8, v121);
-  v236 = vzip1q_s32(v119, v119);
-  v237 = vzip2_s32(v121, *v119.i8);
-  v238 = xmmword_2764D5F20;
-  v122 = sub_2761558A0(&__p, v234, &v277);
-  v123.i64[0] = v277.i64[0];
-  v124 = vmul_f32(v278, 0);
-  *v125.i8 = vadd_f32(*v277.f32, v124);
-  v126.i32[0] = vdup_lane_s32(v124, 1).u32[0];
-  *v127.i8 = v280;
-  *v128.i8 = v282;
-  v129 = vadd_f32(v282, vmla_f32(vmla_f32(v124, 0, *v277.f32), 0, v280));
-  v130 = v283 + (((v279 * 0.0) + (v277.f32[2] * 0.0)) + (v281 * 0.0));
-  *&v295 = v129;
-  *(&v295 + 2) = v130;
-  *(&v295 + 3) = v282.f32[0] + (*v125.i32 + (v280.f32[0] * 0.0));
-  *v125.i32 = v277.f32[2] + v279;
-  v131 = vuzp2q_s32(v123, vzip1q_s32(v123, v123));
-  v131.i32[1] = v277.i32[2];
-  *&v126.u32[2] = v278;
-  v126.f32[1] = v279 * 0.0;
-  v132 = vuzp2q_s32(v127, vzip1q_s32(v127, v127));
-  v132.f32[1] = v281;
-  v133 = vmlaq_f32(vaddq_f32(v131, v126), 0, v132);
-  v134 = vuzp2q_s32(v128, vzip1q_s32(v128, v128));
-  v134.f32[1] = v283;
-  *v122.f32 = vmla_f32(v278, 0, *v277.f32);
-  v135 = vextq_s8(v122, v127, 0xCuLL);
-  v135.f32[0] = v281;
-  v135.f32[3] = v281;
-  v136 = vextq_s8(vextq_s8(v125, v125, 4uLL), v122, 0xCuLL);
-  v136.f32[3] = v279 + (v277.f32[2] * 0.0);
-  v137 = vextq_s8(v136, v128, 0xCuLL);
-  v137.f32[0] = v283;
-  v137.f32[3] = v283;
-  v296 = vaddq_f32(v134, v133);
-  v297 = vaddq_f32(v137, vmlaq_f32(v136, 0, v135));
-  *v135.f32 = vcvt_f32_s32(v284);
-  *v125.i8 = vdiv_f32(vcvt_f32_s32(v286), *v135.f32);
-  *&v294 = v125.i64[0];
-  *(&v294 + 1) = 0x3F80000000000000;
-  *v137.f32 = vdiv_f32(vcvt_f32_s32(vadd_s32(v285, v286)), *v135.f32);
-  *&v293 = __PAIR64__(v125.u32[1], v137.u32[0]);
-  *(&v293 + 1) = 0x3F80000000000000;
-  *&v292 = v137.i64[0];
-  *(&v292 + 1) = 0x3F80000000000000;
-  v125.i32[1] = v137.i32[1];
-  *&v291 = v125.i64[0];
-  *(&v291 + 1) = 0x3F80000000000000;
-  v139 = objc_msgSend_pipeline(v227, v138, 0.0078125, *v137.i64, *&v293);
-  v140 = v139 == 0;
-
-  if (v140)
+  v113 = vmul_f32(v112, 0);
+  v228 = 1065353216;
+  v230 = 0;
+  v229 = 0;
+  v231 = 1065353216;
+  v232 = 0;
+  v233 = 0;
+  v234 = 1065353216;
+  v235 = vadd_f32(vadd_f32(v112, vrev64_s32(v113)), 0);
+  v236 = vaddv_f32(v113) + 0.0;
+  v237 = v236 + 1.0;
+  *&v114 = sub_2761558A0(v264, &v228, &__p).u64[0];
+  if (infoCopy)
   {
-    v145 = MEMORY[0x277D81150];
-    v146 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v141, v142, v143, v144, "[TSCH3DLabelsAtlasMeshRenderer renderWithMeshRenderLabelInfo:]");
-    v151 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v147, v148, v149, v150, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v145, v152, v153, v154, v155, v146, v151, 495, 0, "invalid nil value for '%{public}s'", "renderer.pipeline");
-
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v156, v157, v158, v159);
+    objc_msgSend_scale(infoCopy, v114, *v115.i64, v116);
+    v115.i32[0] = v220;
+    v117 = v221;
   }
 
-  v160 = objc_msgSend_pipeline(v227, v141, v142, v143, v144);
-  objc_msgSend_superSamples(v160, v161, v162, v163, v164);
-  v229 = v165;
+  else
+  {
+    v117 = 0;
+    v115.i32[0] = 0;
+  }
 
-  v230 = vsub_f32(vmul_n_f32(vrndm_f32(vadd_f32(vdiv_f32(v129, vdup_lane_s32(v229, 0)), 0x3F0000003F000000)), *v229.i32), v129);
+  v222[0] = v115.i32[0];
+  *&v222[1] = *v115.i32 * 0.0;
+  *&v222[2] = *v115.i32 * 0.0;
+  *&v222[3] = *v115.i32 * 0.0;
+  *v115.i8 = vmul_f32(v117, 0);
+  v223 = vzip1_s32(*v115.i8, v117);
+  v224 = vzip1q_s32(v115, v115);
+  v225 = vzip2_s32(v117, *v115.i8);
+  v226 = xmmword_2764D5F20;
+  v118 = sub_2761558A0(&__p, v222, &v265);
+  v119.i64[0] = v265.i64[0];
+  v120 = vmul_f32(v266, 0);
+  *v121.i8 = vadd_f32(*v265.f32, v120);
+  v122.i32[0] = vdup_lane_s32(v120, 1).u32[0];
+  *v123.i8 = v268;
+  *v124.i8 = v270;
+  v125 = vadd_f32(v270, vmla_f32(vmla_f32(v120, 0, *v265.f32), 0, v268));
+  v126 = v271 + (((v267 * 0.0) + (v265.f32[2] * 0.0)) + (v269 * 0.0));
+  *&v283 = v125;
+  *(&v283 + 2) = v126;
+  *(&v283 + 3) = v270.f32[0] + (*v121.i32 + (v268.f32[0] * 0.0));
+  *v121.i32 = v265.f32[2] + v267;
+  v127 = vuzp2q_s32(v119, vzip1q_s32(v119, v119));
+  v127.i32[1] = v265.i32[2];
+  *&v122.u32[2] = v266;
+  v122.f32[1] = v267 * 0.0;
+  v128 = vuzp2q_s32(v123, vzip1q_s32(v123, v123));
+  v128.f32[1] = v269;
+  v129 = vmlaq_f32(vaddq_f32(v127, v122), 0, v128);
+  v130 = vuzp2q_s32(v124, vzip1q_s32(v124, v124));
+  v130.f32[1] = v271;
+  *v118.f32 = vmla_f32(v266, 0, *v265.f32);
+  v131 = vextq_s8(v118, v123, 0xCuLL);
+  v131.f32[0] = v269;
+  v131.f32[3] = v269;
+  v132 = vextq_s8(vextq_s8(v121, v121, 4uLL), v118, 0xCuLL);
+  v132.f32[3] = v267 + (v265.f32[2] * 0.0);
+  v133 = vextq_s8(v132, v124, 0xCuLL);
+  v133.f32[0] = v271;
+  v133.f32[3] = v271;
+  v284 = vaddq_f32(v130, v129);
+  v285 = vaddq_f32(v133, vmlaq_f32(v132, 0, v131));
+  *v131.f32 = vcvt_f32_s32(v272);
+  *v121.i8 = vdiv_f32(vcvt_f32_s32(v274), *v131.f32);
+  *&v282 = v121.i64[0];
+  *(&v282 + 1) = 0x3F80000000000000;
+  *v133.f32 = vdiv_f32(vcvt_f32_s32(vadd_s32(v273, v274)), *v131.f32);
+  *&v281 = __PAIR64__(v121.u32[1], v133.u32[0]);
+  *(&v281 + 1) = 0x3F80000000000000;
+  *&v280 = v133.i64[0];
+  *(&v280 + 1) = 0x3F80000000000000;
+  v121.i32[1] = v133.i32[1];
+  *&v279 = v121.i64[0];
+  *(&v279 + 1) = 0x3F80000000000000;
+  v135 = objc_msgSend_pipeline(v215, v134, 0.0078125, *v133.i64, *&v281);
+  v136 = v135 == 0;
+
+  if (v136)
+  {
+    v141 = MEMORY[0x277D81150];
+    v142 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v137, v138, v139, v140, "[TSCH3DLabelsAtlasMeshRenderer renderWithMeshRenderLabelInfo:]");
+    v147 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v143, v144, v145, v146, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v141, v148, v149, v150, v151, v142, v147, 495, 0, "invalid nil value for '%{public}s'", "renderer.pipeline");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v152, v153, v154, v155);
+  }
+
+  v156 = objc_msgSend_pipeline(v215, v137, v138, v139, v140);
+  objc_msgSend_superSamples(v156, v157, v158, v159, v160);
+  v217 = v161;
+
+  v218 = vsub_f32(vmul_n_f32(vrndm_f32(vadd_f32(vdiv_f32(v125, vdup_lane_s32(v217, 0)), 0x3F0000003F000000)), *v217.i32), v125);
+  v162 = 0.0 - v126;
   if (byte_280A46430 == 1)
   {
-    v166 = objc_opt_class();
-    v167 = NSStringFromSelector(a2);
-    v168 = MEMORY[0x277CCACA8];
-    v222 = v230.f32[0];
-    sub_276152FD4("vec3(%f, %f, %f)", v169, v170, v171, v172, v173, v174, v175, SLOBYTE(v222));
+    v163 = objc_opt_class();
+    v164 = NSStringFromSelector(a2);
+    v165 = MEMORY[0x277CCACA8];
+    sub_276152FD4(&__p, "vec3(%f, %f, %f)", v218.f32[0], v218.f32[1], v162);
     if (__p_8[15] >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v168, v176, v177, v178, v179, &__p);
+      objc_msgSend_stringWithUTF8String_(v165, v166, v167, v168, v169, &__p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v168, v176, v177, v178, v179, __p);
+      objc_msgSend_stringWithUTF8String_(v165, v166, v167, v168, v169, __p);
     }
-    v180 = ;
+    v170 = ;
     if ((__p_8[15] & 0x80000000) != 0)
     {
       operator delete(__p);
     }
 
-    NSLog(&cfstr_PAlign.isa, v166, self, v167, v180);
+    NSLog(&cfstr_PAlign.isa, v163, self, v164, v170);
   }
 
-  v181 = 0;
+  v171 = 0;
   __p = 0;
   *&__p_8[8] = 0u;
   *__p_8 = xmmword_2764D6880;
-  v290 = xmmword_2764D6700;
+  v278 = xmmword_2764D6700;
   do
   {
-    v182 = *&__p_8[v181 - 8];
-    v183 = (&v295 + 12 * v182);
-    v184 = (0.0 - v130) + v183[1].f32[0];
-    *v276[0].f32 = vadd_f32(v230, *v183);
-    v276[0].f32[2] = v184;
-    sub_2761C14E8(v228, v276);
-    sub_276161E1C(v78, &v291 + 4 * v182);
-    if (v82)
+    v172 = *&__p_8[v171 - 8];
+    v173 = (&v283 + 12 * v172);
+    v174 = v162 + v173[1].f32[0];
+    *v264[0].f32 = vadd_f32(v218, *v173);
+    v264[0].f32[2] = v174;
+    sub_2761C14E8(v216, v264);
+    sub_276161E1C(v77, &v279 + 4 * v172);
+    if (v81)
     {
-      v189 = objc_msgSend_externalAttribute(infoCopy, v185, v186, v187, v188);
-      v194 = objc_msgSend_isValid(v189, v190, v191, v192, v193);
+      v179 = objc_msgSend_externalAttribute(infoCopy, v175, v176, v177, v178);
+      v184 = objc_msgSend_isValid(v179, v180, v181, v182, v183);
 
-      if ((v194 & 1) == 0)
+      if ((v184 & 1) == 0)
       {
-        v199 = MEMORY[0x277D81150];
-        v200 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v195, v196, v197, v198, "[TSCH3DLabelsAtlasMeshRenderer renderWithMeshRenderLabelInfo:]");
-        v205 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v201, v202, v203, v204, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v199, v206, v207, v208, v209, v200, v205, 514, 0, "have ext array with invalid external attribs");
+        v189 = MEMORY[0x277D81150];
+        v190 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v185, v186, v187, v188, "[TSCH3DLabelsAtlasMeshRenderer renderWithMeshRenderLabelInfo:]");
+        v195 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v191, v192, v193, v194, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DLabelsRenderer.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v189, v196, v197, v198, v199, v190, v195, 514, 0, "have ext array with invalid external attribs");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v210, v211, v212, v213);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v200, v201, v202, v203);
       }
 
-      v214 = objc_msgSend_externalAttribute(infoCopy, v195, v196, v197, v198);
-      v219 = v214;
-      if (v214)
+      v204 = objc_msgSend_externalAttribute(infoCopy, v185, v186, v187, v188);
+      v208 = v204;
+      if (v204)
       {
-        objc_msgSend_value(v214, v215, v216, v217, v218);
-      }
-
-      else
-      {
-        v276[0].i64[0] = 0;
-      }
-
-      v220 = v82[1];
-      if (v220 >= v82[2])
-      {
-        v221 = sub_2761ADBFC(v82, v276);
+        objc_msgSend_value(v204, v205, v206, v207);
       }
 
       else
       {
-        *v220 = v276[0].i64[0];
-        v221 = (v220 + 1);
+        v264[0].i64[0] = 0;
       }
 
-      v82[1] = v221;
+      v209 = v81[1];
+      if (v209 >= v81[2])
+      {
+        v210 = sub_2761ADBFC(v81, v264);
+      }
+
+      else
+      {
+        *v209 = v264[0].i64[0];
+        v210 = (v209 + 1);
+      }
+
+      v81[1] = v210;
     }
 
-    v181 += 8;
+    v171 += 8;
   }
 
-  while (v181 != 48);
+  while (v171 != 48);
 }
 
 @end

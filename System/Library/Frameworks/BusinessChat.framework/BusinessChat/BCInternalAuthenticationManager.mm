@@ -61,7 +61,7 @@
 
 void __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -75,9 +75,9 @@ void __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke(uint6
     else
     {
       v30 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v54 = *MEMORY[0x277CCA450];
-      v55[0] = @"Unable to access credentials";
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+      v53 = *MEMORY[0x277CCA450];
+      v54[0] = @"Unable to access credentials";
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
       v8 = [v30 initWithDomain:@"com.apple.icloud.messages.business.internalAuthentication" code:0 userInfo:v31];
     }
 
@@ -89,26 +89,26 @@ void __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke(uint6
   v9 = [*(a1 + 32) authenticationRequest];
   v10 = [v9 retrieve];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v47;
+    v14 = *v46;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v47 != v14)
+        if (*v46 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v46 + 1) + 8 * i);
+        v16 = *(*(&v45 + 1) + 8 * i);
         v17 = [v5 objectForKey:v16];
         if (v17)
         {
@@ -116,7 +116,7 @@ void __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke(uint6
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v13);
@@ -196,8 +196,8 @@ void __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke(uint6
       v28 = LogCategory_Daemon();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        *v50 = 0;
-        _os_log_error_impl(&dword_236EA0000, v28, OS_LOG_TYPE_ERROR, "BCInternalAuthenticationManager: Error fetching serial number", v50, 2u);
+        *v49 = 0;
+        _os_log_error_impl(&dword_236EA0000, v28, OS_LOG_TYPE_ERROR, "BCInternalAuthenticationManager: Error fetching serial number", v49, 2u);
       }
 
       v29 = @"Unknown";
@@ -247,13 +247,13 @@ LABEL_43:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v52 = v8;
+    v51 = v8;
     _os_log_debug_impl(&dword_236EA0000, v37, OS_LOG_TYPE_DEBUG, "BCInternalAuthenticationManager: Retrieved credentials %@", buf, 0xCu);
   }
 
-  v45 = 0;
-  v38 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v8 options:1 error:&v45];
-  v39 = v45;
+  v44 = 0;
+  v38 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v8 options:1 error:&v44];
+  v39 = v44;
   if (v39)
   {
     (*(*(a1 + 40) + 16))();
@@ -263,16 +263,15 @@ LABEL_43:
   {
     v40 = [*(a1 + 32) authenticationRequest];
     v41 = [v40 responseEncryptionKey];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke_30;
-    v43[3] = &unk_278A0E8F0;
-    v44 = *(a1 + 40);
-    [BCCryptor encryptData:v38 key:v41 completion:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __52__BCInternalAuthenticationManager_fetchCredentials___block_invoke_30;
+    v42[3] = &unk_278A0E8F0;
+    v43 = *(a1 + 40);
+    [BCCryptor encryptData:v38 key:v41 completion:v42];
   }
 
 LABEL_54:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)username

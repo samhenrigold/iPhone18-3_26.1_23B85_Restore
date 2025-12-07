@@ -732,50 +732,51 @@ void __26__VUIImageView__loadImage__block_invoke(uint64_t a1, void *a2, void *a3
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v10 = WeakRetained;
   if (v7)
   {
     [v7 setEnableCache:1];
-    v10 = [v7 uiImage];
+    v11 = [v7 uiImage];
   }
 
   else
   {
     if (a4)
     {
-      v11 = VUICDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = VUICDefaultLogObject(WeakRetained);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __26__VUIImageView__loadImage__block_invoke_cold_1(WeakRetained, v8, v11);
+        __26__VUIImageView__loadImage__block_invoke_cold_1(v10, v8, v12);
       }
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __26__VUIImageView__loadImage__block_invoke_28;
-  v16[3] = &unk_279E21180;
-  objc_copyWeak(&v20, (a1 + 40));
-  v12 = WeakRetained;
-  v17 = v12;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __26__VUIImageView__loadImage__block_invoke_28;
+  v17[3] = &unk_279E21180;
+  objc_copyWeak(&v21, (a1 + 40));
   v13 = v10;
   v18 = v13;
-  v21 = a4;
-  v14 = v8;
+  v14 = v11;
   v19 = v14;
-  v15 = MEMORY[0x2743B7C30](v16);
+  v22 = a4;
+  v15 = v8;
+  v20 = v15;
+  v16 = MEMORY[0x2743B7C30](v17);
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
-    v15[2](v15);
+    v16[2](v16);
   }
 
   else
   {
-    dispatch_async(MEMORY[0x277D85CD0], v15);
+    dispatch_async(MEMORY[0x277D85CD0], v16);
   }
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v21);
 }
 
 void __26__VUIImageView__loadImage__block_invoke_28(uint64_t a1)

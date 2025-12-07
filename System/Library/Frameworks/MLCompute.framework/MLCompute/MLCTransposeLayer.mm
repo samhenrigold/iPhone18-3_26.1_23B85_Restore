@@ -100,7 +100,7 @@ LABEL_16:
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -132,11 +132,11 @@ LABEL_16:
       tensorAllocationSizeInBytes3 = [descriptor3 tensorAllocationSizeInBytes];
       descriptor4 = [tensorCopy descriptor];
       *buf = 138412802;
-      v35 = v25;
-      v36 = 2048;
-      *v37 = tensorAllocationSizeInBytes3;
-      *&v37[8] = 2048;
-      *&v37[10] = [descriptor4 tensorAllocationSizeInBytes];
+      v34 = v25;
+      v35 = 2048;
+      *v36 = tensorAllocationSizeInBytes3;
+      *&v36[8] = 2048;
+      *&v36[10] = [descriptor4 tensorAllocationSizeInBytes];
       _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%@: invalid result tensor size. sourceSize=%lu : resultSize=%lu", buf, 0x20u);
 
 LABEL_13:
@@ -158,11 +158,11 @@ LABEL_17:
     {
       v25 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v35 = v25;
-      v36 = 1024;
-      *v37 = dataType;
-      *&v37[4] = 2112;
-      *&v37[6] = deviceCopy;
+      v34 = v25;
+      v35 = 1024;
+      *v36 = dataType;
+      *&v36[4] = 2112;
+      *&v36[6] = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%@: transpose layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
       goto LABEL_13;
     }
@@ -188,12 +188,11 @@ LABEL_17:
   computeEngine2 = [deviceCopy computeEngine];
   v24 = [computeEngine2 compileLayerDeviceOps:v22 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v33.receiver = self;
-  v33.super_class = MLCTransposeLayer;
-  [(MLCLayer *)&v33 bindDevice:deviceCopy deviceOps:v22];
+  v32.receiver = self;
+  v32.super_class = MLCTransposeLayer;
+  [(MLCLayer *)&v32 bindDevice:deviceCopy deviceOps:v22];
 LABEL_18:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -355,57 +354,42 @@ LABEL_18:
 
 - (void)initWithDimensions:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDimensions:(const char *)a1 .cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resultSizeFromSourceSize:(const char *)a1 dimension:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resultTensorFromSources:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

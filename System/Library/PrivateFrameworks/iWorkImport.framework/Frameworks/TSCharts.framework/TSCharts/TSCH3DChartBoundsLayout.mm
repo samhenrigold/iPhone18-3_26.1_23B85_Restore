@@ -99,21 +99,21 @@
 {
   v6 = v2;
   v7 = objc_msgSend_camera(self->_bounds, a2, v3, v4, v5);
-  v12 = v7;
+  v11 = v7;
   if (v7)
   {
-    objc_msgSend_viewport(v7, v8, v9, v10, v11);
-    v13 = vsub_s32(v16, v15);
+    objc_msgSend_viewport(v7, v8, v9, v10);
+    v12 = vsub_s32(v15, v14);
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  *v6 = v13;
+  *v6 = v12;
 
-  return v14;
+  return v13;
 }
 
 - (void)setContainingViewport:(tvec2<int>)viewport
@@ -287,54 +287,54 @@ LABEL_5:
   layoutInPage = self->_bodyLayoutInPage;
   objc_msgSend_setBodyLayoutInPage_(v91, v92, *&layoutInPage._min, v93, v94, &layoutInPage);
   v95 = self->_getBounds;
-  objc_msgSend_containingViewport(self, v96, v97, v98, v99);
+  objc_msgSend_containingViewport(self, v96, v97, v98);
   layoutInPage._min = 0;
-  layoutInPage._max = vcvt_f32_s32(v132);
-  objc_msgSend_setContainingViewport_(v95, v100, *&layoutInPage._max, v101, v102, &layoutInPage);
-  objc_msgSend_setLabelsMode_(self->_getBounds, v103, v104, v105, v106, v6);
-  objc_msgSend_run(self->_getBounds, v107, v108, v109, v110);
-  v115 = self->_getBounds;
-  if (!v115)
+  layoutInPage._max = vcvt_f32_s32(v131);
+  objc_msgSend_setContainingViewport_(v95, v99, *&layoutInPage._max, v100, v101, &layoutInPage);
+  objc_msgSend_setLabelsMode_(self->_getBounds, v102, v103, v104, v105, v6);
+  objc_msgSend_run(self->_getBounds, v106, v107, v108, v109);
+  v114 = self->_getBounds;
+  if (!v114)
   {
-    v116 = MEMORY[0x277D81150];
-    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v111, v112, v113, v114, "[TSCH3DChartBoundsLayout p_projectedBoundsWithLabelsMode:]");
-    v122 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v118, v119, v120, v121, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartResizer.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v116, v123, v124, v125, v126, v117, v122, 750, 0, "invalid nil value for '%{public}s'", "_getBounds");
+    v115 = MEMORY[0x277D81150];
+    v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, v111, v112, v113, "[TSCH3DChartBoundsLayout p_projectedBoundsWithLabelsMode:]");
+    v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v117, v118, v119, v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartResizer.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v115, v122, v123, v124, v125, v116, v121, 750, 0, "invalid nil value for '%{public}s'", "_getBounds");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v127, v128, v129, v130);
-    v115 = self->_getBounds;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v126, v127, v128, v129);
+    v114 = self->_getBounds;
   }
 
-  return objc_msgSend_spaces(v115, v111, v112, v113, v114);
+  return objc_msgSend_spaces(v114, v110, v111, v112, v113);
 }
 
 - (id)debugBounds
 {
-  v100 = *MEMORY[0x277D85DE8];
-  v94 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
-  objc_msgSend_appendString_(v94, v5, v6, v7, v8, @"\n");
+  v92 = *MEMORY[0x277D85DE8];
+  v86 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
+  objc_msgSend_appendString_(v86, v5, v6, v7, v8, @"\n");
   v13 = objc_msgSend_scene(self, v9, v10, v11, v12);
   v18 = objc_msgSend_debugObjects(v13, v14, v15, v16, v17);
 
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   obj = v18;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, v20, v21, v22, &v95, v99, 16);
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, v20, v21, v22, &v87, v91, 16);
   if (v24)
   {
-    v28 = *v96;
+    v28 = *v88;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v96 != v28)
+        if (*v88 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v95 + 1) + 8 * i);
+        v30 = *(*(&v87 + 1) + 8 * i);
         v31 = objc_msgSend_scene(self, v23, v25, v26, v27);
         v36 = objc_msgSend_clone(v31, v32, v33, v34, v35);
 
@@ -353,18 +353,18 @@ LABEL_5:
         }
 
         v73 = objc_opt_class();
-        v78 = objc_msgSend_bounds(v49, v74, v75, v76, v77);
-        v86 = sub_276165634(v78, v79, v80, v81, v82, v83, v84, v85);
-        objc_msgSend_appendFormat_(v94, v87, v88, v89, v90, @"%@: %@\n", v73, v86);
+        v77 = objc_msgSend_bounds(v49, v74, v75, v76);
+        v78 = sub_276165634(v77);
+        objc_msgSend_appendFormat_(v86, v79, v80, v81, v82, @"%@: %@\n", v73, v78);
       }
 
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, v25, v26, v27, &v95, v99, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, v25, v26, v27, &v87, v91, 16);
     }
 
     while (v24);
   }
 
-  return v94;
+  return v86;
 }
 
 - (box<glm::detail::tvec2<float>>)layoutInPage

@@ -1,6 +1,7 @@
 @interface MTScheduler
 + (id)globalAsyncSchedulerWithPriority:(unsigned int)priority;
 + (id)serialSchedulerForObject:(id)object;
++ (id)serialSchedulerForObject:(id)object priority:(unsigned int)priority;
 + (id)serialSchedulerWithName:(id)name;
 + (id)serialSchedulerWithName:(id)name priority:(unsigned int)priority;
 + (id)serialSchedulerWithQueue:(id)queue;
@@ -40,6 +41,15 @@
   v5 = [self serialSchedulerWithName:v4];
 
   return v5;
+}
+
++ (id)serialSchedulerForObject:(id)object priority:(unsigned int)priority
+{
+  v4 = *&priority;
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.%@.serial", objc_opt_class()];
+  v7 = [self serialSchedulerWithName:v6 priority:v4];
+
+  return v7;
 }
 
 + (id)globalAsyncSchedulerWithPriority:(unsigned int)priority

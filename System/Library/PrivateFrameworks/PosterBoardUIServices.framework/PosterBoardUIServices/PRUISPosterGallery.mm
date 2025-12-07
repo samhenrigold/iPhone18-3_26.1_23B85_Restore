@@ -130,7 +130,7 @@
   creationDate = [(PRUISPosterGalleryMetadata *)self->_metadata creationDate];
   if (!creationDate)
   {
-    v3 = PRUISLogChannels();
+    v3 = PRUISLogChannels(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;

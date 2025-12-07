@@ -13,9 +13,9 @@
   eventStore = self->_eventStore;
   if (!eventStore)
   {
-    v5 = objc_msgSend__ca_eventStoreWithError_(MEMORY[0x277CC5A40], a2, 0, v2);
-    v6 = self->_eventStore;
-    self->_eventStore = v5;
+    v4 = objc_msgSend__ca_eventStoreWithError_(MEMORY[0x277CC5A40], a2, 0);
+    v5 = self->_eventStore;
+    self->_eventStore = v4;
 
     eventStore = self->_eventStore;
   }
@@ -37,28 +37,28 @@
 - (void)performWithCompletion:(id)completion
 {
   completionCopy = completion;
-  sub_2334B11EC();
-  sub_2334B11EC();
-  v5 = qword_27DE0DD38;
+  sub_2334B11EC(completionCopy, v5);
+  sub_2334B11EC(v6, v7);
+  v8 = qword_27DE0DD38;
   if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
   {
-    sub_2334B4C94(v5);
+    sub_2334B4C94(v8);
   }
 
-  v6 = *MEMORY[0x277CEF0D8];
+  v9 = *MEMORY[0x277CEF0D8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
   {
-    sub_2334B4D24(v6);
+    sub_2334B4D24(v9);
   }
 
-  v10 = objc_msgSend_identifier(self, v7, v8, v9);
-  v16 = objc_msgSend__validateEvent_(self, v11, v10, v12);
+  v12 = objc_msgSend_identifier(self, v10, v11);
+  v16 = objc_msgSend__validateEvent_(self, v13, v12);
   if (!v16)
   {
-    v16 = objc_msgSend__deleteEvent_(self, v13, v10, v15);
+    v16 = objc_msgSend__deleteEvent_(self, v14, v12);
   }
 
-  v17 = objc_msgSend_dictionary(v16, v13, v14, v15);
+  v17 = objc_msgSend_dictionary(v16, v14, v15);
   completionCopy[2](completionCopy, v17);
 }
 
@@ -66,150 +66,152 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = objc_msgSend_identifier(eventCopy, v4, v5, v6);
+    v8 = objc_msgSend_identifier(eventCopy, v6, v7);
 
-    if (v7)
+    if (v8)
     {
-      v8 = 0;
+      v11 = 0;
       goto LABEL_15;
     }
 
-    sub_2334B11EC();
+    sub_2334B11EC(v9, v10);
+    v15 = qword_27DE0DD38;
+    if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
+    {
+      sub_2334B4F5C(v15);
+    }
+
+    v16 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
+    {
+      sub_2334B4FEC(v16);
+    }
+
+    v14 = @"No Event ID was specified";
+  }
+
+  else
+  {
+    sub_2334B11EC(isKindOfClass, v6);
     v12 = qword_27DE0DD38;
     if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B4F5C(v12);
+      sub_2334B4DC8(v12, self, eventCopy);
     }
 
     v13 = *MEMORY[0x277CEF0D8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B4FEC(v13);
+      sub_2334B4E90(v13, self, eventCopy);
     }
 
-    v11 = @"No Event ID was specified";
+    v14 = @"Expected SACalendarEvent object.";
   }
 
-  else
-  {
-    sub_2334B11EC();
-    v9 = qword_27DE0DD38;
-    if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
-    {
-      sub_2334B4DC8(v9);
-    }
-
-    v10 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
-    {
-      sub_2334B4E90(v10);
-    }
-
-    v11 = @"Expected SACalendarEvent object.";
-  }
-
-  v14 = objc_alloc(MEMORY[0x277D47208]);
-  v8 = objc_msgSend_initWithReason_(v14, v15, v11, v16);
+  v17 = objc_alloc(MEMORY[0x277D47208]);
+  v11 = objc_msgSend_initWithReason_(v17, v18, v14);
 LABEL_15:
 
-  return v8;
+  return v11;
 }
 
 - (id)_deleteEvent:(id)event
 {
   eventCopy = event;
-  v8 = objc_msgSend_identifier(eventCopy, v5, v6, v7);
+  v7 = objc_msgSend_identifier(eventCopy, v5, v6);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v9, v8, v11);
+    v10 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v8, v7);
 
-    v8 = v12;
+    v7 = v10;
   }
 
-  v13 = objc_msgSend_eventStore(self, v9, v10, v11);
-  v15 = objc_msgSend__eventWithURI_checkValid_(v13, v14, v8, 1);
+  v11 = objc_msgSend_eventStore(self, v8, v9);
+  v13 = objc_msgSend__eventWithURI_checkValid_(v11, v12, v7, 1);
 
-  if (!v15)
+  if (!v13)
   {
-    sub_2334B11EC();
-    v43 = qword_27DE0DD38;
+    sub_2334B11EC(v14, v15);
+    v39 = qword_27DE0DD38;
     if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B5360(v43);
+      sub_2334B5360(v39);
     }
 
-    v44 = *MEMORY[0x277CEF0D8];
+    v40 = *MEMORY[0x277CEF0D8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B53F0(v44);
+      sub_2334B53F0(v40);
     }
 
-    v45 = objc_alloc(MEMORY[0x277D47208]);
-    v48 = objc_msgSend_initWithReason_(v45, v46, @"Event not found", v47);
+    v41 = objc_alloc(MEMORY[0x277D47208]);
+    v43 = objc_msgSend_initWithReason_(v41, v42, @"Event not found");
     goto LABEL_21;
   }
 
-  if ((objc_msgSend_isEditable(v15, v16, v17, v18) & 1) == 0)
+  isEditable = objc_msgSend_isEditable(v13, v15, v16);
+  if ((isEditable & 1) == 0)
   {
-    sub_2334B11EC();
-    v49 = qword_27DE0DD38;
+    sub_2334B11EC(isEditable, v18);
+    v44 = qword_27DE0DD38;
     if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B5090(v49);
+      sub_2334B5090(v44);
     }
 
-    v50 = *MEMORY[0x277CEF0D8];
+    v45 = *MEMORY[0x277CEF0D8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B5120(v50);
+      sub_2334B5120(v45);
     }
 
-    v51 = objc_alloc(MEMORY[0x277D47208]);
-    v48 = objc_msgSend_initWithReason_(v51, v52, @"Can't delete a read only event.", v53);
+    v46 = objc_alloc(MEMORY[0x277D47208]);
+    v43 = objc_msgSend_initWithReason_(v46, v47, @"Can't delete a read only event.");
 LABEL_21:
-    v42 = v48;
+    v38 = v43;
     goto LABEL_24;
   }
 
-  v22 = objc_msgSend_includeRecurrences(eventCopy, v19, v20, v21);
-  v26 = objc_msgSend_BOOLValue(v22, v23, v24, v25);
+  v20 = objc_msgSend_includeRecurrences(eventCopy, v18, v19);
+  v23 = objc_msgSend_BOOLValue(v20, v21, v22);
 
-  v30 = objc_msgSend_eventStore(self, v27, v28, v29);
-  v55 = 0;
-  objc_msgSend_removeEvent_span_commit_error_(v30, v31, v15, v26, 1, &v55);
-  v32 = v55;
+  v26 = objc_msgSend_eventStore(self, v24, v25);
+  v49 = 0;
+  objc_msgSend_removeEvent_span_commit_error_(v26, v27, v13, v23, 1, &v49);
+  v28 = v49;
 
-  if (v32)
+  if (v28)
   {
-    sub_2334B11EC();
-    v33 = qword_27DE0DD38;
+    sub_2334B11EC(v29, v30);
+    v31 = qword_27DE0DD38;
     if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B51C4(v33, self, v32);
+      sub_2334B51C4(v31, self, v28);
     }
 
-    v34 = *MEMORY[0x277CEF0D8];
+    v32 = *MEMORY[0x277CEF0D8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B5294(v34, self, v32);
+      sub_2334B5294(v32, self, v28);
     }
 
-    v35 = objc_alloc(MEMORY[0x277D47208]);
-    v39 = objc_msgSend_localizedDescription(v32, v36, v37, v38);
-    v42 = objc_msgSend_initWithReason_(v35, v40, v39, v41);
+    v33 = objc_alloc(MEMORY[0x277D47208]);
+    v36 = objc_msgSend_localizedDescription(v28, v34, v35);
+    v38 = objc_msgSend_initWithReason_(v33, v37, v36);
   }
 
   else
   {
-    v42 = objc_alloc_init(MEMORY[0x277D472B0]);
+    v38 = objc_alloc_init(MEMORY[0x277D472B0]);
   }
 
 LABEL_24:
 
-  return v42;
+  return v38;
 }
 
 @end

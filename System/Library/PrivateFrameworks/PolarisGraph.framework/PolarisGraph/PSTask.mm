@@ -74,65 +74,63 @@
 
 - (id)description
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"...<%@: %@>", objc_opt_class(), self->_name];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v4 = self->_inputs;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 appendFormat:@"\n%@", *(*(&v20 + 1) + 8 * i)];
+        [v3 appendFormat:@"\n%@", *(*(&v19 + 1) + 8 * i)];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v6);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = self->_outputs;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v3 appendFormat:@"\n%@", *(*(&v16 + 1) + 8 * j)];
+        [v3 appendFormat:@"\n%@", *(*(&v15 + 1) + 8 * j)];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -147,31 +145,31 @@
 
 - (void)addInput:(id)input
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if ([inputCopy type] != 3)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = self->_inputs;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v14 + 1) + 8 * v9) type] == 3)
+          if ([*(*(&v13 + 1) + 8 * v9) type] == 3)
           {
             [PSTask addInput:?];
           }
@@ -180,7 +178,7 @@
         }
 
         while (v7 != v9);
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -190,15 +188,11 @@
   v10 = [(NSArray *)self->_inputs arrayByAddingObject:inputCopy];
   inputs = self->_inputs;
   self->_inputs = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOutput:(id)output
 {
-  v4 = [(NSArray *)self->_outputs arrayByAddingObject:output];
-  outputs = self->_outputs;
-  self->_outputs = v4;
+  self->_outputs = [(NSArray *)self->_outputs arrayByAddingObject:output];
 
   MEMORY[0x2821F96F8]();
 }
@@ -225,9 +219,7 @@
 
 - (void)removeAllInputs
 {
-  v3 = objc_opt_new();
-  inputs = self->_inputs;
-  self->_inputs = v3;
+  self->_inputs = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -270,9 +262,10 @@
 
         else
         {
-          if (([v14 isEqual:@"ANE"] & 1) == 0)
+          v16 = [v14 isEqual:@"ANE"];
+          if ((v16 & 1) == 0)
           {
-            v18 = PSLogInstance();
+            v18 = PSLogInstance(v16);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               [(PSTask(Espresso) *)v14 setComputeAgentsForEspressoOps:v9, v18];
@@ -285,8 +278,8 @@
           v15 = 2;
         }
 
-        v16 = [PSSegment segmentWithName:v13 computeAgent:v15];
-        [v4 addObject:v16];
+        v17 = [PSSegment segmentWithName:v13 computeAgent:v15];
+        [v4 addObject:v17];
       }
 
       v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
@@ -296,32 +289,31 @@
   }
 
   [(PSTask *)self setSegments:v4];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)addInput:(char *)a1 .cold.1(char **a1)
+- (void)addInput:(char *)a1 .cold.1(char **a1)
 {
   v20 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Synced inputs must be registered last, after all Wait/Pull/PullOptional resources.");
-  v2 = __PSGraphLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Synced inputs must be registered last, after all Wait/Pull/PullOptional resources.");
+  v3 = __PSGraphLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_7_0();
     v19 = 244;
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d Synced inputs must be registered last, after all Wait/Pull/PullOptional resources.", v5, v6, v7, v8, v18[0]);
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v4, v5, "%s:%d Synced inputs must be registered last, after all Wait/Pull/PullOptional resources.", v6, v7, v8, v9);
   }
 
-  v9 = OSLogFlushBuffers();
-  if (v9)
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v10 = v9;
-    v11 = __PSGraphLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v11 = v10;
+    v12 = __PSGraphLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_7_0();
-      v19 = v10;
-      OUTLINED_FUNCTION_1(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v18);
+      v19 = v11;
+      OUTLINED_FUNCTION_1(&dword_25EC85000, v13, v14, "%s() failed to flush buffers with error code: %d", v18);
     }
   }
 
@@ -330,8 +322,8 @@
     OUTLINED_FUNCTION_4();
   }
 
-  v14 = OUTLINED_FUNCTION_0();
-  return [(PSTask(Espresso) *)v14 setComputeAgentsForEspressoOps:v15, v16];
+  v15 = OUTLINED_FUNCTION_0();
+  [(PSTask(Espresso) *)v15 setComputeAgentsForEspressoOps:v16, v17];
 }
 
 @end

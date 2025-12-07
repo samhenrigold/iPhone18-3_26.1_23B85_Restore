@@ -26,44 +26,45 @@
     [CUINamedVectorSVGImage rasterizeImageUsingScaleFactor:forTargetSize:];
   }
 
-  name = [(CUINamedLookup *)self name];
-  _CUILog(3, "[CUINamedVectorImage (%@)]", v9, v10, v11, v12, v13, v14, name);
+  _CUILog(3, "[CUINamedVectorImage (%@)]", [(CUINamedLookup *)self name], *&factor, *&width, *&height);
   [(CUINamedVectorSVGImage *)self svgDocument];
   CGSVGDocumentGetCanvasSize();
-  v16 = v15;
-  v18 = v17;
-  v19 = floor(width * factor);
-  v20 = floor(height * factor);
-  if ([(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey] themeDisplayGamut]&& CGSVGDocumentContainsWideGamutContent())
+  v9 = v8;
+  v11 = v10;
+  v12 = floor(width * factor);
+  v13 = floor(height * factor);
+  themeDisplayGamut = [(CUIRenditionKey *)[(CUINamedLookup *)self renditionKey] themeDisplayGamut];
+  if (themeDisplayGamut && (themeDisplayGamut = CGSVGDocumentContainsWideGamutContent(), themeDisplayGamut))
   {
-    v21 = 4097;
-    v22 = 8;
-    v23 = 16;
-    DisplayP3 = _CUIColorSpaceGetDisplayP3();
+    v16 = 4097;
+    v17 = 8;
+    v18 = 16;
+    DisplayP3 = _CUIColorSpaceGetDisplayP3(themeDisplayGamut, v15);
   }
 
   else
   {
-    v21 = 8193;
-    v22 = 4;
-    v23 = 8;
-    DisplayP3 = _CUIColorSpaceGetSRGB();
+    v16 = 8193;
+    v17 = 4;
+    v18 = 8;
+    DisplayP3 = _CUIColorSpaceGetSRGB(themeDisplayGamut, v15);
   }
 
-  v27 = CUICGBitmapContextCreate(v19, v20, v23, (v19 * v22), DisplayP3, v21, v25, v26);
-  if (v27)
+  v20 = DisplayP3;
+  v21 = CUICGBitmapContextCreate(v12, v13, v18, (v12 * v17), DisplayP3, v16);
+  if (v21)
   {
-    v34 = v27;
-    CGContextScaleCTM(v27, v19 / v16, v20 / v18);
+    v22 = v21;
+    CGContextScaleCTM(v21, v12 / v9, v13 / v11);
     CGContextDrawSVGDocument();
-    Image = CGBitmapContextCreateImage(v34);
-    CFRelease(v34);
+    Image = CGBitmapContextCreateImage(v22);
+    CFRelease(v22);
     return Image;
   }
 
   else
   {
-    _CUILog(4, "CoreUI: %s couldn't create bitmapContext for %s (%fx%f) colorSpace:'%@' [pdfsize:%fx%f scale:%f bpc:%zd bpp:%zd bitmapInfo:%zd]", v28, v29, v30, v31, v32, v33, "[CUINamedVectorSVGImage rasterizeImageUsingScaleFactor:forTargetSize:]");
+    _CUILog(4, "CoreUI: %s couldn't create bitmapContext for %s (%fx%f) colorSpace:'%@' [pdfsize:%fx%f scale:%f bpc:%zd bpp:%zd bitmapInfo:%zd]", "[CUINamedVectorSVGImage rasterizeImageUsingScaleFactor:forTargetSize:]", *&v12, *&v13, v20, *&v9, *&v11, *&factor, v18, v17, v16);
     return 0;
   }
 }

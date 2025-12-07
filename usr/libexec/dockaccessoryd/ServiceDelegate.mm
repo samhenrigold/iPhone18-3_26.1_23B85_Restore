@@ -10,9 +10,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_100136364(connectionCopy);
+  v10 = sub_100136364(connectionCopy, v9);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (_TtC14dockaccessoryd15ServiceDelegate)init

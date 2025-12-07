@@ -9,7 +9,7 @@ void sub_100002414(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_100002454(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_100005368();
+  v3 = sub_100005368(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -26,7 +26,7 @@ void sub_100002454(uint64_t a1)
 void sub_100002504(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_100005368();
+  v3 = sub_100005368(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -51,7 +51,7 @@ void sub_100002890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1000028CC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_100005368();
+  v3 = sub_100005368(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -68,7 +68,7 @@ void sub_1000028CC(uint64_t a1)
 void sub_10000297C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = sub_100005368();
+  v3 = sub_100005368(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -109,12 +109,13 @@ void sub_100003848(uint64_t a1)
 void sub_100003954(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_100005368();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100005368(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10000BE50(a1, v4, v5);
+      sub_10000BE50(a1, v5, v6);
     }
   }
 
@@ -140,7 +141,7 @@ void sub_10000411C(uint64_t a1, int a2)
 
   else
   {
-    v6 = sub_100005368();
+    v6 = sub_100005368(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_10000BED8();
@@ -150,16 +151,16 @@ void sub_10000411C(uint64_t a1, int a2)
   }
 }
 
-id sub_100005368()
+id sub_100005368(uint64_t a1)
 {
   if (qword_10001EE08 != -1)
   {
     sub_10000C0A4();
   }
 
-  v1 = qword_10001EE00;
+  v2 = qword_10001EE00;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000053AC(id a1)
@@ -176,9 +177,9 @@ void sub_100005434(id a1)
   _objc_release_x1();
 }
 
-void sub_1000059A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000059A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -205,8 +206,8 @@ void sub_100007040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   objc_destroyWeak(&a52);
   objc_destroyWeak(&a57);
   objc_destroyWeak(&a62);
-  objc_destroyWeak(&a67);
-  objc_destroyWeak(&a72);
+  objc_destroyWeak(&a65);
+  objc_destroyWeak(&a66);
   objc_destroyWeak(&STACK[0x200]);
   _Unwind_Resume(a1);
 }
@@ -214,20 +215,21 @@ void sub_100007040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000070C4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100005368();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100005368(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
-      v6 = 2048;
-      v7 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: <%p> pause button pressed", &v4, 0x16u);
+      v5 = 136315394;
+      v6 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s: <%p> pause button pressed", &v5, 0x16u);
     }
 
-    v3 = [WeakRetained delegate];
-    [v3 contentViewDidSelectPauseButton:WeakRetained];
+    v4 = [v2 delegate];
+    [v4 contentViewDidSelectPauseButton:v2];
   }
 }
 
@@ -238,7 +240,7 @@ void sub_10000717C(uint64_t a1, void *a2)
   v5 = WeakRetained;
   if (WeakRetained && (*(WeakRetained + 41) & 1) == 0)
   {
-    v6 = sub_100005368();
+    v6 = sub_100005368(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -287,25 +289,26 @@ void sub_10000739C(uint64_t a1)
 void sub_1000073E0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100005368();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100005368(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke_3";
-      v8 = 2048;
-      v9 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: <%p> favorites button pressed", &v6, 0x16u);
+      v7 = 136315394;
+      v8 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke_3";
+      v9 = 2048;
+      v10 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s: <%p> favorites button pressed", &v7, 0x16u);
     }
 
-    v3 = [WeakRetained delegate];
-    v4 = objc_opt_respondsToSelector();
+    v4 = [v2 delegate];
+    v5 = objc_opt_respondsToSelector();
 
-    if (v4)
+    if (v5)
     {
-      v5 = [WeakRetained delegate];
-      [v5 contentViewDidSelectFavoritesButton:WeakRetained];
+      v6 = [v2 delegate];
+      [v6 contentViewDidSelectFavoritesButton:v2];
     }
   }
 }
@@ -313,40 +316,42 @@ void sub_1000073E0(uint64_t a1)
 void sub_1000074C8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100005368();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100005368(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
-      v6 = 2048;
-      v7 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: <%p> disconnect button pressed", &v4, 0x16u);
+      v5 = 136315394;
+      v6 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s: <%p> disconnect button pressed", &v5, 0x16u);
     }
 
-    v3 = [WeakRetained delegate];
-    [v3 contentViewDidSelectDisconnectButton:WeakRetained];
+    v4 = [v2 delegate];
+    [v4 contentViewDidSelectDisconnectButton:v2];
   }
 }
 
 void sub_100007580(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100005368();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100005368(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315394;
-      v5 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
-      v6 = 2048;
-      v7 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: <%p> skip button pressed", &v4, 0x16u);
+      v5 = 136315394;
+      v6 = "[ContinuityCaptureShieldUIContentView initWithFrame:]_block_invoke";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s: <%p> skip button pressed", &v5, 0x16u);
     }
 
-    v3 = [WeakRetained delegate];
-    [v3 contentViewDidSelectSkipButton:WeakRetained];
+    v4 = [v2 delegate];
+    [v4 contentViewDidSelectSkipButton:v2];
   }
 }
 
@@ -413,7 +418,7 @@ void sub_100009064(uint64_t a1)
 
 id sub_100009DEC(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -429,7 +434,7 @@ id sub_100009DEC(uint64_t a1)
 
 id sub_100009E84(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -446,7 +451,7 @@ id sub_100009E84(uint64_t a1)
 void sub_10000A354(id a1, BSActionResponse *a2)
 {
   v2 = a2;
-  v3 = sub_100005368();
+  v3 = sub_100005368(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(BSActionResponse *)v2 error];
@@ -463,7 +468,7 @@ void sub_10000A354(id a1, BSActionResponse *a2)
 
 void sub_10000A420(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -482,19 +487,20 @@ void sub_10000A420(uint64_t a1)
 void sub_10000A620(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100005368();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100005368(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 136315394;
-      v4 = "[ContinuityCaptureShieldUIBaseViewController disconnectSession]_block_invoke";
-      v5 = 2112;
-      v6 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s:  %@ disconnect timeout", &v3, 0x16u);
+      v4 = 136315394;
+      v5 = "[ContinuityCaptureShieldUIBaseViewController disconnectSession]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s:  %@ disconnect timeout", &v4, 0x16u);
     }
 
-    [WeakRetained tearDownShield];
+    [v2 tearDownShield];
   }
 }
 
@@ -570,7 +576,7 @@ void sub_10000B664(uint64_t a1, void *a2)
 
 id sub_10000B700(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -589,7 +595,7 @@ id sub_10000B700(uint64_t a1)
 
 id sub_10000B7A4(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_10000C1EC(a1, v2);
@@ -600,7 +606,7 @@ id sub_10000B7A4(uint64_t a1)
 
 id sub_10000B7F8(uint64_t a1)
 {
-  v2 = sub_100005368();
+  v2 = sub_100005368(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -700,17 +706,16 @@ void sub_10000C0CC(uint64_t a1, uint64_t a2)
 
 void sub_10000C144(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *(a1 + 24);
-  v7 = UIApplicationSceneDeactivationReasonMaskDescriptionComponents();
-  v8 = 136315906;
-  v9 = "[ContinuityCaptureShieldUIPauseSceneComponent _scene:willTransitionToActivationState:withReasonsMask:]";
-  v10 = 2048;
-  v11 = a1;
-  v12 = 2048;
-  v13 = a2;
-  v14 = 2112;
-  v15 = v7;
-  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "%s: <%p> state:%zu deactivationReasons:%@", &v8, 0x2Au);
+  v6 = UIApplicationSceneDeactivationReasonMaskDescriptionComponents();
+  v7 = 136315906;
+  v8 = "[ContinuityCaptureShieldUIPauseSceneComponent _scene:willTransitionToActivationState:withReasonsMask:]";
+  v9 = 2048;
+  v10 = a1;
+  v11 = 2048;
+  v12 = a2;
+  v13 = 2112;
+  v14 = v6;
+  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "%s: <%p> state:%zu deactivationReasons:%@", &v7, 0x2Au);
 }
 
 void sub_10000C1EC(uint64_t a1, NSObject *a2)

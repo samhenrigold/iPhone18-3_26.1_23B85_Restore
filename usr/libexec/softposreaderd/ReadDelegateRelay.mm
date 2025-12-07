@@ -13,11 +13,10 @@
 
 - (void)onSuccessWithTransactionData:(id)data
 {
-  v5 = *self->completion;
-  v4 = *&self->completion[8];
+  v4 = *self->completion;
   dataCopy = data;
 
-  v5(data, 0);
+  v4(data, 0);
 }
 
 @end

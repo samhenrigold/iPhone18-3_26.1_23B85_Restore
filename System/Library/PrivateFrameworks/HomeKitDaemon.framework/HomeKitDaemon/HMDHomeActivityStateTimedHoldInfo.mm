@@ -9,21 +9,20 @@
 
 - (id)attributeDescriptions
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HMDHomeActivityStateTimedHoldInfo;
-  attributeDescriptions = [(HMDHomeActivityStateHoldInfo *)&v12 attributeDescriptions];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMDHomeActivityStateTimedHoldInfo;
+  attributeDescriptions = [(HMDHomeActivityStateHoldInfo *)&v11 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   endDate = [(HMDHomeActivityStateTimedHoldInfo *)self endDate];
   v7 = [v5 initWithName:@"End Date" value:endDate];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v4 addObjectsFromArray:v8];
 
-  v9 = [v4 copy];
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = objc_msgSend_copy(v4);
 
   return v9;
 }

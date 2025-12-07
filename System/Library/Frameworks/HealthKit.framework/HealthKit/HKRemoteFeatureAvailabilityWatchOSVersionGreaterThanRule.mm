@@ -33,7 +33,7 @@
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource watchOSVersion];
+    objc_msgSend_watchOSVersion(dataSource);
   }
 
   else
@@ -49,17 +49,17 @@ LABEL_12:
     return v5;
   }
 
-  [(HKRemoteFeatureAvailabilityWatchOSVersionGreaterThanRule *)self targetVersion];
+  objc_msgSend_targetVersion(self);
   IsUnknown = HKNSOperatingSystemVersionIsUnknown(v10);
 
   if (!IsUnknown)
   {
-    [(HKRemoteFeatureAvailabilityWatchOSVersionGreaterThanRule *)self targetVersion];
+    objc_msgSend_targetVersion(self);
     dataSource2 = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
     v4 = dataSource2;
     if (dataSource2)
     {
-      [dataSource2 watchOSVersion];
+      objc_msgSend_watchOSVersion(dataSource2);
     }
 
     else

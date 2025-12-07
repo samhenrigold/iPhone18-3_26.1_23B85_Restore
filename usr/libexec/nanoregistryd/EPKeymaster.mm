@@ -127,13 +127,13 @@
     goto LABEL_2;
   }
 
-  v16 = [EPKeychain retrieveKeyWithName:self->_name keychainGroup:@"com.apple.nanoregistry.migration"];
-  if (v16)
+  v18 = [EPKeychain retrieveKeyWithName:self->_name keychainGroup:@"com.apple.nanoregistry.migration"];
+  if (v18)
   {
-    v5 = v16;
+    v5 = v18;
     if (keyCopy)
     {
-      [EPKeychain storeKeyWithData:v16 name:self->_name keychainGroup:@"com.apple.nanoregistry.migration2"];
+      [EPKeychain storeKeyWithData:v18 name:self->_name keychainGroup:@"com.apple.nanoregistry.migration2"];
     }
 
 LABEL_2:
@@ -170,13 +170,13 @@ LABEL_4:
 
         if ((v12 & 1) == 0)
         {
-          v13 = sub_1000034AC();
-          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+          v14 = sub_1000034AC(v13);
+          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
-          if (v14)
+          if (v15)
           {
-            v15 = sub_1000034AC();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v17 = sub_1000034AC(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               sub_100104FF4();
             }
@@ -230,12 +230,12 @@ LABEL_4:
         v10 = nr_daemon_log();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = sub_1000FDEB0(v7);
-          sHA256Data = [v29 SHA256Data];
+          v33 = sub_1000FDEB0(v7);
+          sHA256Data = [v33 SHA256Data];
           v12 = [sHA256Data base64EncodedStringWithOptions:0];
           v13 = [v12 substringToIndex:6];
           *buf = 138412290;
-          v33 = v13;
+          v37 = v13;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPKeymaster: Retrieved key, digest %@", buf, 0xCu);
         }
 
@@ -265,22 +265,23 @@ LABEL_14:
 
     else if (v6)
     {
-      if ([EPKeychain newKeysWithName:self->_name])
+      v16 = [EPKeychain newKeysWithName:self->_name];
+      if (v16)
       {
         self->_triedToCreateKey = 1;
       }
 
       else
       {
-        v19 = sub_1000034AC();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+        v22 = sub_1000034AC(v16);
+        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
 
-        if (v20)
+        if (v23)
         {
-          v21 = sub_1000034AC();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v25 = sub_1000034AC(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            sub_100105028(&self->_name);
+            sub_100105028();
           }
         }
 
@@ -293,33 +294,33 @@ LABEL_14:
 
     else
     {
-      v15 = sub_1000034AC();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v17 = sub_1000034AC(v15);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-      if (v16)
+      if (v18)
       {
-        v17 = sub_1000034AC();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = sub_1000034AC(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           name = self->_name;
           *buf = 138412290;
-          v33 = name;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPKeyMaster: Not allowed to create key %@", buf, 0xCu);
+          v37 = name;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPKeyMaster: Not allowed to create key %@", buf, 0xCu);
         }
       }
     }
 
-    v22 = self->_keyDistributionUnlockAssertion;
+    v26 = self->_keyDistributionUnlockAssertion;
     self->_keyDistributionUnlockAssertion = 0;
   }
 
 LABEL_31:
   if (self->_noKey)
   {
-    v30 = NSLocalizedDescriptionKey;
-    v31 = @"Can't create key";
-    v23 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    error = [NSError errorWithDomain:@"com.apple.nanoregistry" code:555 userInfo:v23];
+    v34 = NSLocalizedDescriptionKey;
+    v35 = @"Can't create key";
+    v27 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    error = [NSError errorWithDomain:@"com.apple.nanoregistry" code:555 userInfo:v27];
 
     [(EPResourceManager *)self setAvailability:2 withError:error];
     clientUnlockAssertion = self->_clientUnlockAssertion;
@@ -331,15 +332,15 @@ LABEL_33:
 
   if (!self->_keyDistributionUnlockAssertion && self->_triedToCreateKey)
   {
-    v26 = self->_clientUnlockAssertion;
-    if (v26)
+    v30 = self->_clientUnlockAssertion;
+    if (v30)
     {
-      if ([(EPResource *)v26 availability]== 1)
+      if ([(EPResource *)v30 availability]== 1)
       {
         selfCopy2 = self;
-        v28 = 1;
+        v32 = 1;
 LABEL_42:
-        [(EPResourceManager *)selfCopy2 setAvailability:v28 withError:0];
+        [(EPResourceManager *)selfCopy2 setAvailability:v32 withError:0];
         return;
       }
 
@@ -352,7 +353,7 @@ LABEL_42:
     }
 
     selfCopy2 = self;
-    v28 = 0;
+    v32 = 0;
     goto LABEL_42;
   }
 }

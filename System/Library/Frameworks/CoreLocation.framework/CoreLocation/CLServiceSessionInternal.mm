@@ -1,4 +1,5 @@
 @interface CLServiceSessionInternal
++ (id)sessionWithLocationManager:(id)manager type:(int)type queue:(id)queue handler:(id)handler;
 - (CLServiceSessionInternal)initWithLocationManager:(id)manager serviceSessionType:(int)type queue:(id)queue handler:(id)p_info;
 - (void)createConnection;
 - (void)dealloc;
@@ -13,16 +14,25 @@
 
 @implementation CLServiceSessionInternal
 
++ (id)sessionWithLocationManager:(id)manager type:(int)type queue:(id)queue handler:(id)handler
+{
+  v8 = *&type;
+  v10 = [CLServiceSessionInternal alloc];
+  v12 = objc_msgSend_initWithLocationManager_serviceSessionType_queue_handler_(v10, v11, manager, v8, queue, handler);
+  objc_msgSend_addIdentifiableClient_(manager, v13, v12, v14);
+  return v12;
+}
+
 - (CLServiceSessionInternal)initWithLocationManager:(id)manager serviceSessionType:(int)type queue:(id)queue handler:(id)p_info
 {
   LODWORD(v8) = type;
-  v37 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = CLServiceSessionInternal;
-  v11 = [(CLServiceSessionInternal *)&v24 init];
+  v43 = *MEMORY[0x1E69E9840];
+  v30.receiver = self;
+  v30.super_class = CLServiceSessionInternal;
+  v11 = [(CLServiceSessionInternal *)&v30 init];
   if (!v11)
   {
-    goto LABEL_16;
+    return v11;
   }
 
   if (!queue)
@@ -34,36 +44,36 @@
     }
 
     v8 = CLLocationManagerInternal.info;
-    v18 = qword_1ED519090;
+    v27 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "queue";
-      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:queue cannot be nil while creating ExplicitServiceSession, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v32 = 0;
+      v33 = 2082;
+      v34 = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "queue";
+      _os_log_impl(&dword_19B873000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:queue cannot be nil while creating ExplicitServiceSession, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
       }
     }
 
-    v19 = qword_1ED519090;
+    v28 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "queue";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "queue cannot be nil while creating ExplicitServiceSession", "{msg%{public}.0s:queue cannot be nil while creating ExplicitServiceSession, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v32 = 0;
+      v33 = 2082;
+      v34 = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "queue";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "queue cannot be nil while creating ExplicitServiceSession", "{msg%{public}.0s:queue cannot be nil while creating ExplicitServiceSession, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
@@ -74,20 +84,17 @@
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "queue";
+      v32 = 0;
+      v33 = 2082;
+      v34 = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "queue";
       _os_log_impl(&dword_19B873000, &v11->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:queue cannot be nil while creating ExplicitServiceSession, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v21 = 98;
-    v22 = "[CLServiceSessionInternal initWithLocationManager:serviceSessionType:queue:handler:]";
-    v20 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLServiceSessionInternal.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLServiceSessionInternal.mm", 98, "[CLServiceSessionInternal initWithLocationManager:serviceSessionType:queue:handler:]");
     __break(1u);
     goto LABEL_28;
   }
@@ -104,23 +111,23 @@ LABEL_28:
   v13 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = NSStringFromSelector(a2);
+    v17 = NSStringFromSelector(a2);
     *buf = 68290050;
-    v26 = 0;
-    v27 = 2082;
-    v28 = "";
-    v29 = 2082;
-    v30 = "activity";
-    v31 = 2114;
-    v32 = v14;
-    v33 = 2050;
-    v34 = v11;
-    v35 = 2050;
+    v32 = 0;
+    v33 = 2082;
+    v34 = "";
+    v35 = 2082;
+    v36 = "activity";
+    v37 = 2114;
+    v38 = v17;
+    v39 = 2050;
+    v40 = v11;
+    v41 = 2050;
     managerCopy = manager;
     _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLServiceSession #serviceSession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, manager:%{public}p}", buf, 0x3Au);
   }
 
-  if (([manager isMasquerading] & 1) == 0)
+  if ((objc_msgSend_isMasquerading(manager, v14, v15, v16) & 1) == 0)
   {
     if ((sub_19B8B8818() & 1) == 0)
     {
@@ -140,9 +147,10 @@ LABEL_28:
     }
   }
 
-  [(CLServiceSessionInternal *)v11 setIsValid:1];
-  v11->_silo = [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:queue];
-  [(CLServiceSessionInternal *)v11 setManager:manager];
+  objc_msgSend_setIsValid_(v11, v18, 1, v19);
+  v21 = objc_alloc(MEMORY[0x1E69AD360]);
+  v11->_silo = objc_msgSend_initWithUnderlyingQueue_(v21, v22, queue, v23);
+  objc_msgSend_setManager_(v11, v24, manager, v25);
   v11->_sessionType = v8;
   if (p_info)
   {
@@ -150,8 +158,6 @@ LABEL_28:
   }
 
   os_activity_scope_leave(&state);
-LABEL_16:
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -164,68 +170,67 @@ LABEL_16:
   v5[3] = &unk_1E753CF38;
   v5[4] = self;
   v5[5] = token;
-  [(CLDispatchSilo *)silo async:v5, storageToken];
+  objc_msgSend_async_(silo, a2, v5, storageToken);
 }
 
 - (void)tearDown
 {
-  [(CLLocationManager *)[(CLServiceSessionInternal *)self manager] removeIdentifiableClient:self];
-  [(CLServiceSessionInternal *)self setIdentityToken:0];
-  [(CLServiceSessionInternal *)self setStorageToken:0];
+  v5 = objc_msgSend_manager(self, a2, v2, v3);
+  objc_msgSend_removeIdentifiableClient_(v5, v6, self, v7);
+  objc_msgSend_setIdentityToken_(self, v8, 0, v9);
+  objc_msgSend_setStorageToken_(self, v10, 0, v11);
   _Block_release(self->_clientCallback);
   self->_clientCallback = 0;
-  [(CLServiceSessionInternal *)self setManager:0];
+  objc_msgSend_setManager_(self, v12, 0, v13);
 
   self->_silo = 0;
 }
 
 - (void)invalidate
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if ([(CLServiceSessionInternal *)self isValid])
+  v26 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_isValid(self, a2, v2, v3))
   {
-    v4 = _os_activity_create(&dword_19B873000, "CL: CLServiceSession #serviceSession", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v4, &state);
+    v6 = _os_activity_create(&dword_19B873000, "CL: CLServiceSession #serviceSession", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v6, &state);
 
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
     }
 
-    v5 = qword_1ED519090;
+    v7 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = NSStringFromSelector(a2);
+      v10 = NSStringFromSelector(a2);
       *buf = 68289794;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 2082;
-      v16 = "activity";
-      v17 = 2114;
-      v18 = v6;
-      v19 = 2050;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "activity";
+      v22 = 2114;
+      v23 = v10;
+      v24 = 2050;
       selfCopy = self;
-      _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLServiceSession #serviceSession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
+      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLServiceSession #serviceSession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
     }
 
-    [(CLServiceSessionInternal *)self setIsValid:0];
+    objc_msgSend_setIsValid_(self, v8, 0, v9);
     silo = self->_silo;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_19B942864;
-    v9[3] = &unk_1E753CC90;
-    v9[4] = self;
-    [(CLDispatchSilo *)silo async:v9];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_19B942864;
+    v14[3] = &unk_1E753CC90;
+    v14[4] = self;
+    objc_msgSend_async_(silo, v12, v14, v13);
     os_activity_scope_leave(&state);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLServiceSession #serviceSession", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -237,45 +242,44 @@ LABEL_16:
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v8 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2082;
-    v19 = "activity";
-    v20 = 2114;
-    v21 = v6;
-    v22 = 2050;
+    v23 = 0;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2082;
+    v27 = "activity";
+    v28 = 2114;
+    v29 = v8;
+    v30 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLServiceSession #serviceSession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
-  [(CLServiceSessionInternal *)self setIsValid:0];
+  objc_msgSend_setIsValid_(self, v6, 0, v7);
   locationdConnection = self->_locationdConnection;
   self->_locationdConnection = 0;
-  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", self];
+  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v10, @"%p", v11, self);
   silo = self->_silo;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_19B942AB4;
-  v12[3] = &unk_1E753CFB0;
-  v12[4] = v8;
-  v12[5] = locationdConnection;
-  [(CLDispatchSilo *)silo async:v12];
-  [(CLServiceSessionInternal *)self tearDown];
-  v11.receiver = self;
-  v11.super_class = CLServiceSessionInternal;
-  [(CLServiceSessionInternal *)&v11 dealloc];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_19B942AB4;
+  v20[3] = &unk_1E753CFB0;
+  v20[4] = v12;
+  v20[5] = locationdConnection;
+  objc_msgSend_async_(silo, v14, v20, v15);
+  objc_msgSend_tearDown(self, v16, v17, v18);
+  v19.receiver = self;
+  v19.super_class = CLServiceSessionInternal;
+  [(CLServiceSessionInternal *)&v19 dealloc];
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)manageConnection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLServiceSession #serviceSession", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v4, &v8);
+  os_activity_scope_enter(v4, &v16);
 
   if (qword_1ED519088 != -1)
   {
@@ -285,91 +289,89 @@ LABEL_16:
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v10 = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2082;
-    v14 = "activity";
-    v15 = 2114;
-    v16 = v6;
-    v17 = 2050;
+    v18 = 0;
+    v19 = 2082;
+    v20 = "";
+    v21 = 2082;
+    v22 = "activity";
+    v23 = 2114;
+    v24 = v9;
+    v25 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLServiceSession #serviceSession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
-  [(CLDispatchSilo *)self->_silo assertInside];
-  if ([(CLServiceSessionInternal *)self identityToken]&& [(CLServiceSessionInternal *)self isValid])
+  objc_msgSend_assertInside(self->_silo, v6, v7, v8);
+  if (objc_msgSend_identityToken(self, v10, v11, v12) && (objc_msgSend_isValid(self, v13, v14, v15) & 1) != 0)
   {
-    [(CLServiceSessionInternal *)self createConnection];
+    objc_msgSend_createConnection(self, v13, v14, v15);
   }
 
   else
   {
-    [(CLServiceSessionInternal *)self destroyConnection];
+    objc_msgSend_destroyConnection(self, v13, v14, v15);
   }
 
-  os_activity_scope_leave(&v8);
-  v7 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v16);
 }
 
 - (void)createConnection
 {
-  v4 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  objc_msgSend_assertInside(self->_silo, a2, v2, v3);
   if (!self->_locationdConnection)
   {
     operator new();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)destroyConnection
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v52 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, v2, v3);
   if (self->_locationdConnection)
   {
-    if ([(CLServiceSessionInternal *)self identityToken]&& ![(CLServiceSessionInternal *)self isValid])
+    if (objc_msgSend_identityToken(self, v5, v6, v7) && (objc_msgSend_isValid(self, v8, v9, v10) & 1) == 0)
     {
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
       }
 
-      v3 = qword_1ED519090;
+      v11 = qword_1ED519090;
       if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
       {
+        v15 = objc_msgSend_identityToken(self, v12, v13, v14);
         *buf = 68289538;
         *&buf[4] = 0;
-        v12[0] = 2082;
-        *&v12[1] = "";
-        v13 = 2082;
-        uTF8String = [(NSString *)[(CLServiceSessionInternal *)self identityToken] UTF8String];
-        v15 = 2050;
+        v47[0] = 2082;
+        *&v47[1] = "";
+        v48 = 2082;
+        v49 = objc_msgSend_UTF8String(v15, v16, v17, v18);
+        v50 = 2050;
         selfCopy4 = self;
-        _os_log_impl(&dword_19B873000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession destroyUponDisconnection(DIC), identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+        _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession destroyUponDisconnection(DIC), identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
         if (qword_1ED519088 != -1)
         {
           dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
         }
       }
 
-      v4 = qword_1ED519090;
+      v19 = qword_1ED519090;
       if (os_signpost_enabled(qword_1ED519090))
       {
-        uTF8String2 = [(NSString *)[(CLServiceSessionInternal *)self identityToken] UTF8String];
+        v23 = objc_msgSend_identityToken(self, v20, v21, v22);
+        v27 = objc_msgSend_UTF8String(v23, v24, v25, v26);
         *buf = 68289538;
         *&buf[4] = 0;
-        v12[0] = 2082;
-        *&v12[1] = "";
-        v13 = 2082;
-        uTF8String = uTF8String2;
-        v15 = 2050;
+        v47[0] = 2082;
+        *&v47[1] = "";
+        v48 = 2082;
+        v49 = v27;
+        v50 = 2050;
         selfCopy4 = self;
-        _os_signpost_emit_with_name_impl(&dword_19B873000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession destroyUponDisconnection(DIC)", "{msg%{public}.0s:#serviceSession destroyUponDisconnection(DIC), identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+        _os_signpost_emit_with_name_impl(&dword_19B873000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession destroyUponDisconnection(DIC)", "{msg%{public}.0s:#serviceSession destroyUponDisconnection(DIC), identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
       }
 
       sub_19B943C68();
@@ -383,47 +385,47 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
     }
 
-    v7 = qword_1ED519090;
+    v29 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
+      v33 = objc_msgSend_identityToken(self, v30, v31, v32);
       *buf = 68289538;
       *&buf[4] = 0;
-      v12[0] = 2082;
-      *&v12[1] = "";
-      v13 = 2082;
-      uTF8String = [(NSString *)[(CLServiceSessionInternal *)self identityToken] UTF8String];
-      v15 = 2050;
+      v47[0] = 2082;
+      *&v47[1] = "";
+      v48 = 2082;
+      v49 = objc_msgSend_UTF8String(v33, v34, v35, v36);
+      v50 = 2050;
       selfCopy4 = self;
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession invalidated and destroyed connection, identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession invalidated and destroyed connection, identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
       }
     }
 
-    v8 = qword_1ED519090;
+    v37 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
-      uTF8String3 = [(NSString *)[(CLServiceSessionInternal *)self identityToken] UTF8String];
+      v41 = objc_msgSend_identityToken(self, v38, v39, v40);
+      v45 = objc_msgSend_UTF8String(v41, v42, v43, v44);
       *buf = 68289538;
       *&buf[4] = 0;
-      v12[0] = 2082;
-      *&v12[1] = "";
-      v13 = 2082;
-      uTF8String = uTF8String3;
-      v15 = 2050;
+      v47[0] = 2082;
+      *&v47[1] = "";
+      v48 = 2082;
+      v49 = v45;
+      v50 = 2050;
       selfCopy4 = self;
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession invalidated and destroyed connection", "{msg%{public}.0s:#serviceSession invalidated and destroyed connection, identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#serviceSession invalidated and destroyed connection", "{msg%{public}.0s:#serviceSession invalidated and destroyed connection, identityToken:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessage:(shared_ptr<CLConnectionMessage>)message
 {
   var0 = message.var0;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = _os_activity_create(&dword_19B873000, "CL: CLBackgroundActivitySession #backgroundActivitySession", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v6, &state);
 
@@ -448,80 +450,81 @@ LABEL_16:
     }
 
     *buf = 68290050;
-    v21 = 0;
-    v22 = 2082;
-    v23 = "";
-    v24 = 2082;
-    v25 = "activity";
-    v26 = 2114;
-    v27 = v8;
-    v28 = 2050;
+    v22 = 0;
+    v23 = 2082;
+    v24 = "";
+    v25 = 2082;
+    v26 = "activity";
+    v27 = 2114;
+    v28 = v8;
+    v29 = 2050;
     selfCopy = self;
-    v30 = 2082;
-    v31 = v10;
+    v31 = 2082;
+    v32 = v10;
     _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLBackgroundActivitySession #backgroundActivitySession, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, message:%{public, location:escape_only}s}", buf, 0x3Au);
   }
 
   v11 = CLConnectionMessage::name(*var0);
   if (*(v11 + 23) < 0 && *(v11 + 8) == 31)
   {
-    v12 = **v11 == 0x656E6E6F434C436BLL && *(*v11 + 8) == 0x73654D6E6F697463;
-    v13 = v12 && *(*v11 + 16) == 0x6761694465676173;
-    if (v13 && *(*v11 + 23) == 0x73636974736F6E67)
+    v14 = **v11 == 0x656E6E6F434C436BLL && *(*v11 + 8) == 0x73654D6E6F697463;
+    v15 = v14 && *(*v11 + 16) == 0x6761694465676173;
+    if (v15 && *(*v11 + 23) == 0x73636974736F6E67)
     {
-      v15 = *(var0 + 1);
-      v17 = *var0;
-      v18 = v15;
-      if (v15)
+      v17 = *(var0 + 1);
+      v18 = *var0;
+      v19 = v17;
+      if (v17)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      [(CLServiceSessionInternal *)self handleMessageDiagnostics:&v17];
-      if (v18)
+      objc_msgSend_handleMessageDiagnostics_(self, v12, &v18, v13);
+      if (v19)
       {
-        sub_19B8750F8(v18);
+        sub_19B8750F8(v19);
       }
     }
   }
 
   os_activity_scope_leave(&state);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessageDiagnostics:(shared_ptr<CLConnectionMessage>)diagnostics
 {
   var0 = diagnostics.var0;
-  v18 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside:diagnostics.var0];
-  if ([(CLServiceSessionInternal *)self isValid]&& self->_clientCallback)
+  v31 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, diagnostics.var0, diagnostics.var1);
+  if (objc_msgSend_isValid(self, v5, v6, v7) && self->_clientCallback)
   {
-    v5 = *var0;
-    v6 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-    v7 = [objc_msgSend(CLConnectionMessage::getDictionaryOfClasses(v5 v6)];
+    v8 = *var0;
+    v9 = MEMORY[0x1E695DFD8];
+    v10 = objc_opt_class();
+    v13 = objc_msgSend_setWithObjects_(v9, v11, v10, v12, 0);
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(v8, v13);
+    v17 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v15, @"kCLConnectionMessageDiagnosticsKey", v16);
+    v21 = objc_msgSend_unsignedLongValue(v17, v18, v19, v20);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6D480);
     }
 
-    v8 = qword_1ED519090;
+    v22 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289538;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2050;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2050;
       selfCopy = self;
-      v16 = 1026;
-      v17 = v7;
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession handleMessageDiagnostics, self:%{public}p, diagnosticMask:%{public}d}", buf, 0x22u);
+      v29 = 1026;
+      v30 = v21;
+      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#serviceSession handleMessageDiagnostics, self:%{public}p, diagnosticMask:%{public}d}", buf, 0x22u);
     }
 
     (*(self->_clientCallback + 2))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

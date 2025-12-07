@@ -26,7 +26,7 @@
   v8 = objc_alloc_init(OADStroke);
   if (managerCopy)
   {
-    [managerCopy strokeFgColor];
+    objc_msgSend_strokeFgColor(managerCopy);
   }
 
   else
@@ -52,7 +52,7 @@
       {
         if (managerCopy)
         {
-          [managerCopy strokeBgColor];
+          objc_msgSend_strokeBgColor(managerCopy);
         }
 
         else

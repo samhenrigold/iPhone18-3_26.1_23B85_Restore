@@ -8,8 +8,10 @@
 - (int)proximityDetectionMode;
 - (void)callCenterObserver:(id)observer callChanged:(id)changed;
 - (void)dealloc;
+- (void)proximitySensorObserver:(id)observer didChangeCovered:(BOOL)covered;
 - (void)routesChangedForRouteController:(id)controller;
 - (void)setInterfaceOrientationPortrait:(BOOL)portrait;
+- (void)setProximityDetectionMode:(int)mode;
 - (void)setProximitySensorCovered:(BOOL)covered;
 - (void)setProximitySensorEnabled:(BOOL)enabled;
 - (void)updateProximitySensorState;
@@ -35,22 +37,22 @@
 
   if (!_TUIsInternalInstall() || (+[NSUserDefaults tu_defaults](NSUserDefaults, "tu_defaults"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 BOOLForKey:@"ForceDisableCallProximity"], v4, (v5 & 1) == 0))
   {
-    if ([(CSDProximityController *)self isInterfaceOrientationPortrait]|| [(CSDProximityController *)self isProximitySensorCovered])
+    if ([(CSDProximityController *)self isInterfaceOrientationPortrait]|| (v7 = [(CSDProximityController *)self isProximitySensorCovered], v7))
     {
       callCenterObserver = [(CSDProximityController *)self callCenterObserver];
       callContainer = [callCenterObserver callContainer];
-      v9 = [callContainer anyCallPassesTest:&stru_10061A178];
+      v10 = [callContainer anyCallPassesTest:&stru_10061A178];
 
-      if (v9)
+      if (v10)
       {
-        pickedRoute = sub_100004778();
+        pickedRoute = sub_100004778(v11);
         if (os_log_type_enabled(pickedRoute, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          v11 = "Proximity detection should be disabled; video call exists";
+          LOWORD(v31) = 0;
+          v13 = "Proximity detection should be disabled; video call exists";
 LABEL_16:
-          v23 = pickedRoute;
-          v24 = 2;
+          v27 = pickedRoute;
+          v28 = 2;
           goto LABEL_17;
         }
       }
@@ -59,9 +61,9 @@ LABEL_16:
       {
         callCenterObserver2 = [(CSDProximityController *)self callCenterObserver];
         callContainer2 = [callCenterObserver2 callContainer];
-        v14 = [callContainer2 anyCallPassesTest:&stru_10061A198];
+        v16 = [callContainer2 anyCallPassesTest:&stru_10061A198];
 
-        if (v14)
+        if (v16)
         {
           routeController = [(CSDProximityController *)self routeController];
           pickedRoute = [routeController pickedRoute];
@@ -69,10 +71,10 @@ LABEL_16:
           isReceiver = [pickedRoute isReceiver];
           isSpeaker = [pickedRoute isSpeaker];
           voiceOverRunningDeterminationHandler = [(CSDProximityController *)self voiceOverRunningDeterminationHandler];
-          v19 = voiceOverRunningDeterminationHandler[2]();
+          v22 = voiceOverRunningDeterminationHandler[2]();
 
           voiceOverTouchShouldRouteToSpeakerDeterminationHandler = [(CSDProximityController *)self voiceOverTouchShouldRouteToSpeakerDeterminationHandler];
-          v21 = voiceOverTouchShouldRouteToSpeakerDeterminationHandler[2]();
+          v24 = voiceOverTouchShouldRouteToSpeakerDeterminationHandler[2]();
 
           brailleScreenInputDeterminationHandler = [(CSDProximityController *)self brailleScreenInputDeterminationHandler];
           LOBYTE(voiceOverTouchShouldRouteToSpeakerDeterminationHandler) = brailleScreenInputDeterminationHandler[2]();
@@ -84,33 +86,33 @@ LABEL_16:
 
           else
           {
-            v6 = isReceiver | isSpeaker & v19 & v21;
+            v6 = isReceiver | isSpeaker & v22 & v24;
           }
 
-          v26 = sub_100004778();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v30 = sub_100004778(v26);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = 67110144;
+            v31 = 67110144;
             isProximitySensorCovered = v6 & 1;
-            v29 = 1024;
-            isInterfaceOrientationPortrait = isReceiver;
-            v31 = 1024;
-            v32 = isSpeaker;
             v33 = 1024;
-            v34 = v19;
+            isInterfaceOrientationPortrait = isReceiver;
             v35 = 1024;
-            v36 = v21;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Proximity detection should be %d since isReceiver: %d, isSpeaker: %d, isVoiceOverRunning: %d, shouldAutoSelectRouteWithVoiceOver: %d", &v27, 0x20u);
+            v36 = isSpeaker;
+            v37 = 1024;
+            v38 = v22;
+            v39 = 1024;
+            v40 = v24;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Proximity detection should be %d since isReceiver: %d, isSpeaker: %d, isVoiceOverRunning: %d, shouldAutoSelectRouteWithVoiceOver: %d", &v31, 0x20u);
           }
 
           goto LABEL_19;
         }
 
-        pickedRoute = sub_100004778();
+        pickedRoute = sub_100004778(v17);
         if (os_log_type_enabled(pickedRoute, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          v11 = "Proximity detection should be disabled; eligible audio call does not exist";
+          LOWORD(v31) = 0;
+          v13 = "Proximity detection should be disabled; eligible audio call does not exist";
           goto LABEL_16;
         }
       }
@@ -118,18 +120,18 @@ LABEL_16:
 
     else
     {
-      pickedRoute = sub_100004778();
+      pickedRoute = sub_100004778(v7);
       if (os_log_type_enabled(pickedRoute, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 67109376;
+        v31 = 67109376;
         isProximitySensorCovered = [(CSDProximityController *)self isProximitySensorCovered];
-        v29 = 1024;
+        v33 = 1024;
         isInterfaceOrientationPortrait = [(CSDProximityController *)self isInterfaceOrientationPortrait];
-        v11 = "Proximity detection should be disabled; isInterfaceOrientationPortrait: %d, isProximitySensorCovered: %d";
-        v23 = pickedRoute;
-        v24 = 14;
+        v13 = "Proximity detection should be disabled; isInterfaceOrientationPortrait: %d, isProximitySensorCovered: %d";
+        v27 = pickedRoute;
+        v28 = 14;
 LABEL_17:
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v11, &v27, v24);
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v13, &v31, v28);
       }
     }
 
@@ -156,48 +158,48 @@ LABEL_19:
   queue = [(CSDProximityController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24[0] = 67109120;
-    v24[1] = [(CSDProximityController *)self isProximitySensorCovered];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Handling proximity sensor covered changed to %d", v24, 8u);
+    v27[0] = 67109120;
+    v27[1] = [(CSDProximityController *)self isProximitySensorCovered];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Handling proximity sensor covered changed to %d", v27, 8u);
   }
 
   voiceOverRunningDeterminationHandler = [(CSDProximityController *)self voiceOverRunningDeterminationHandler];
-  v6 = voiceOverRunningDeterminationHandler[2]();
+  v7 = voiceOverRunningDeterminationHandler[2]();
 
-  if (v6)
+  if (v7)
   {
     callCenterObserver = [(CSDProximityController *)self callCenterObserver];
     callContainer = [callCenterObserver callContainer];
-    v9 = [callContainer anyCallPassesTest:&stru_10061A1B8];
+    v10 = [callContainer anyCallPassesTest:&stru_10061A1B8];
 
-    if (v9)
+    if (v10)
     {
       voiceOverTouchShouldRouteToSpeakerDeterminationHandler = [(CSDProximityController *)self voiceOverTouchShouldRouteToSpeakerDeterminationHandler];
-      v11 = voiceOverTouchShouldRouteToSpeakerDeterminationHandler[2]();
+      v12 = voiceOverTouchShouldRouteToSpeakerDeterminationHandler[2]();
 
       if ([(CSDProximityController *)self isProximitySensorCovered])
       {
         routeController = [(CSDProximityController *)self routeController];
         pickedRoute = [routeController pickedRoute];
-        v14 = [pickedRoute isSpeaker] & v11;
+        v15 = [pickedRoute isSpeaker] & v12;
 
-        if (v14 == 1)
+        if (v15 == 1)
         {
-          v15 = sub_100004778();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100004778(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v24[0]) = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "VoiceOver is enabled and the proximity sensor is covered, changing the audio route from speaker to receiver.", v24, 2u);
+            LOWORD(v27[0]) = 0;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "VoiceOver is enabled and the proximity sensor is covered, changing the audio route from speaker to receiver.", v27, 2u);
           }
 
           routeController2 = [(CSDProximityController *)self routeController];
           routeController3 = [(CSDProximityController *)self routeController];
           receiverRoute = [routeController3 receiverRoute];
 LABEL_15:
-          v23 = receiverRoute;
+          v26 = receiverRoute;
           [routeController2 pickRoute:receiverRoute];
 
           return;
@@ -208,15 +210,15 @@ LABEL_15:
       {
         routeController4 = [(CSDProximityController *)self routeController];
         pickedRoute2 = [routeController4 pickedRoute];
-        v21 = [pickedRoute2 isReceiver] & v11;
+        v23 = [pickedRoute2 isReceiver] & v12;
 
-        if (v21 == 1)
+        if (v23 == 1)
         {
-          v22 = sub_100004778();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v25 = sub_100004778(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v24[0]) = 0;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "VoiceOver is enabled and the proximity sensor is uncovered, changing the audio route from receiver to speaker.", v24, 2u);
+            LOWORD(v27[0]) = 0;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "VoiceOver is enabled and the proximity sensor is uncovered, changing the audio route from receiver to speaker.", v27, 2u);
           }
 
           routeController2 = [(CSDProximityController *)self routeController];
@@ -407,6 +409,20 @@ LABEL_13:
   return self->_proximityDetectionMode;
 }
 
+- (void)setProximityDetectionMode:(int)mode
+{
+  v3 = *&mode;
+  queue = [(CSDProximityController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (self->_proximityDetectionMode != v3)
+  {
+    self->_proximityDetectionMode = v3;
+    proximityChangeHandler = [(CSDProximityController *)self proximityChangeHandler];
+    proximityChangeHandler[2](proximityChangeHandler, v3);
+  }
+}
+
 - (void)setProximitySensorCovered:(BOOL)covered
 {
   coveredCopy = covered;
@@ -454,14 +470,30 @@ LABEL_13:
   v5 = [(CSDProximityController *)self queue:observer];
   dispatch_assert_queue_V2(v5);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating proximity sensor state; calls changed.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Updating proximity sensor state; calls changed.", v8, 2u);
   }
 
   [(CSDProximityController *)self updateProximitySensorState];
+}
+
+- (void)proximitySensorObserver:(id)observer didChangeCovered:(BOOL)covered
+{
+  coveredCopy = covered;
+  queue = [(CSDProximityController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updating proximity sensor state; sensor covered changed.", v9, 2u);
+  }
+
+  [(CSDProximityController *)self setProximitySensorCovered:coveredCopy];
 }
 
 - (void)routesChangedForRouteController:(id)controller

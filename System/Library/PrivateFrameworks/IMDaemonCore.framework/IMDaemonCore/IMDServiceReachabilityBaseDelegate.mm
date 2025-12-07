@@ -78,10 +78,10 @@
 
   if (!registeredSIMIDs)
   {
-    sub_22B7DB918();
-    v4 = sub_22B7DB8F8();
-
-    registeredSIMIDs = v4;
+    v4 = sub_22B7DB918();
+    v5 = sub_22B7DB8F8();
+    v4, v6, v7, v8, v9, v10, v11, v12, v14, v15;
+    registeredSIMIDs = v5;
   }
 
   return registeredSIMIDs;
@@ -100,7 +100,9 @@
     if (!internalName)
     {
       sub_22B7DB6A8();
+      v8 = v7;
       internalName = sub_22B7DB678();
+      v8, v9, v10, v11, v12, v13, v14, v15, v16, v17;
     }
 
     return internalName;
@@ -116,22 +118,25 @@
 
 - (id)phoneNumberOnSubscriptionWithSIMID:(id)d
 {
-  sub_22B7DB6A8();
-  selfCopy = self;
-  sub_22B7C7E44();
+  v4 = sub_22B7DB6A8();
   v6 = v5;
+  selfCopy = self;
+  sub_22B7C7E44(v4, v6);
+  v9 = v8;
 
-  if (v6)
+  v6, v10, v11, v12, v13, v14, v15, v16, v26, v28;
+  if (v9)
   {
-    v7 = sub_22B7DB678();
+    v17 = sub_22B7DB678();
+    v9, v18, v19, v20, v21, v22, v23, v24, v27, v29;
   }
 
   else
   {
-    v7 = 0;
+    v17 = 0;
   }
 
-  return v7;
+  return v17;
 }
 
 - (NSArray)phoneNumbersOfActiveSubscriptions
@@ -145,13 +150,19 @@
   {
     phoneNumbersOfActiveSubscriptions = [ctSubscriptionInfo phoneNumbersOfActiveSubscriptions];
 
-    sub_22B7DB918();
+    v8 = sub_22B7DB918();
     selfCopy = phoneNumbersOfActiveSubscriptions;
   }
 
-  v8 = sub_22B7DB8F8();
+  else
+  {
+    v8 = MEMORY[0x277D84F90];
+  }
 
-  return v8;
+  v9 = sub_22B7DB8F8();
+  v8, v10, v11, v12, v13, v14, v15, v16, v18, v19;
+
+  return v9;
 }
 
 - (BOOL)hasValidDowngradeRequestForHandleID:(id)d
@@ -240,6 +251,8 @@
   selfCopy = self;
   LOBYTE(v10) = sub_22B7C7C04(v7, v9, v10, v12, contextCopy);
 
+  v9, v15, v16, v17, v18, v19, v20, v21, v30, v32;
+  v12, v22, v23, v24, v25, v26, v27, v28, v31, v33;
   return v10 & 1;
 }
 

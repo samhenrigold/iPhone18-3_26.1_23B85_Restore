@@ -41,7 +41,7 @@
     {
       if (v5)
       {
-        [v5 imageQuad];
+        objc_msgSend_imageQuad(v5);
       }
 
       else

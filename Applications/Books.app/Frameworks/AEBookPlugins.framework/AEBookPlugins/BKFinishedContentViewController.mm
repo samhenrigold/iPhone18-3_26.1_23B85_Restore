@@ -190,22 +190,23 @@
 - (void)updateButtonTitle
 {
   im_isCompactWidth = [(BKFinishedContentViewController *)self im_isCompactWidth];
-  v4 = AEBundle();
-  v5 = v4;
-  if (im_isCompactWidth)
+  v4 = im_isCompactWidth;
+  v5 = AEBundle(im_isCompactWidth);
+  v6 = v5;
+  if (v4)
   {
-    v6 = @"Finished";
+    v7 = @"Finished";
   }
 
   else
   {
-    v6 = @"Mark as Finished";
+    v7 = @"Mark as Finished";
   }
 
-  v8 = [v4 localizedStringForKey:v6 value:&stru_1E7188 table:0];
+  v9 = [v5 localizedStringForKey:v7 value:&stru_1E7188 table:0];
 
   finishedButton = [(BKFinishedContentViewController *)self finishedButton];
-  [finishedButton setTitle:v8 forState:0];
+  [finishedButton setTitle:v9 forState:0];
 }
 
 - (void)updateButtonAppearance

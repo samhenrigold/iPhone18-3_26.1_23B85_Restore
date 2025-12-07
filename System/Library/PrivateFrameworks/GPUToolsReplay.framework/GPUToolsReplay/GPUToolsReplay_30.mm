@@ -1,3054 +1,3 @@
-void AccelerationStructureViewerServer::Renderer::requestQueryRays(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
-{
-  v86 = *MEMORY[0x277D85DE8];
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy__9206;
-  v83 = __Block_byref_object_dispose__9207;
-  v84 = [*(a1 + 24) newBufferWithBytes:a4 length:48 * a5 options:0];
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__9206;
-  v77 = __Block_byref_object_dispose__9207;
-  v78 = [*(a1 + 24) newBufferWithLength:416 * a5 options:0];
-  std::mutex::lock((a1 + 48));
-  v71 = *(a1 + 16992);
-  v72 = *(a1 + 17008);
-  v57 = *(a1 + 17016);
-  memcpy(__dst, (a1 + 17024), sizeof(__dst));
-  v9 = *(a1 + 17576);
-  std::mutex::unlock((a1 + 48));
-  v10 = AccelerationStructureViewerServer::Renderer::reserveUniformBufferIndex(a1, v9);
-  if (v10 != 3)
-  {
-    v14 = v10;
-    v15 = [*(a1 + 17608 + 8 * v10) contents];
-    *v15 = v71;
-    *(v15 + 16) = v72;
-    *(v15 + 24) = v57;
-    memcpy((v15 + 32), __dst, 0x1B0uLL);
-    v16 = *(a1 + 17640);
-    if (!v16)
-    {
-      goto LABEL_15;
-    }
-
-    v17 = v57 | (HIDWORD(v57) << 32);
-    v18 = a1 + 17640;
-    do
-    {
-      v19 = *(v16 + 32);
-      v20 = v19 >= v17;
-      v21 = v19 < v17;
-      if (v20)
-      {
-        v18 = v16;
-      }
-
-      v16 = *(v16 + 8 * v21);
-    }
-
-    while (v16);
-    if (v18 == a1 + 17640)
-    {
-LABEL_15:
-      v24 = 0;
-    }
-
-    else
-    {
-      v22 = *(v18 + 32);
-      v23 = v18 + 40;
-      if (v17 >= v22)
-      {
-        v24 = v23;
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-    }
-
-    v25 = *(a1 + 8);
-    Intersector = AccelerationStructureViewerServer::Renderer::getIntersector(a1, 4, v24);
-    if (*(Intersector + 32))
-    {
-      v27 = *(a1 + 16840);
-      if (v27)
-      {
-        (*(*v27 + 48))(v27, a1, a2, a3, 0, 0);
-      }
-
-      v28 = v80[5];
-      v80[5] = 0;
-
-      v29 = v74[5];
-      v74[5] = 0;
-
-      v30 = a1;
-      v31 = v14;
-LABEL_48:
-      AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v30, v31, v9);
-      goto LABEL_49;
-    }
-
-    v32 = Intersector;
-    v55 = v9;
-    v56 = a2;
-    v58 = a3;
-    v33 = [*(a1 + 17568) commandBufferWithDescriptor:*(a1 + 17552)];
-    [v33 setLabel:@"ASVS Metal Intersector"];
-    v54 = v33;
-    v34 = [v33 computeCommandEncoder];
-    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"ASVS Metal Intersector '%@'", &stru_2860BD438];
-    [v34 setLabel:v35];
-
-    [v34 setComputePipelineState:v32[1]];
-    [v34 setBuffer:*(a1 + 17608 + 8 * v14) offset:0 atIndex:1];
-    v36 = *(a1 + 17736);
-    if (v36)
-    {
-      [v34 setAccelerationStructure:v36 atBufferIndex:2];
-    }
-
-    v68 = 0u;
-    v69 = 0u;
-    v67 = 0u;
-    v66 = 0u;
-    v37 = *(a1 + 17744);
-    v38 = [v37 countByEnumeratingWithState:&v66 objects:v85 count:16];
-    if (v38)
-    {
-      v39 = v38;
-      v40 = *v67;
-      do
-      {
-        for (i = 0; i != v39; ++i)
-        {
-          if (*v67 != v40)
-          {
-            objc_enumerationMutation(v37);
-          }
-
-          [v34 useResource:*(*(&v66 + 1) + 8 * i) usage:1];
-        }
-
-        v39 = [v37 countByEnumeratingWithState:&v66 objects:v85 count:16];
-      }
-
-      while (v39);
-    }
-
-    v42 = v32[3];
-    if (v42)
-    {
-      [v34 setIntersectionFunctionTable:v42 atBufferIndex:3];
-    }
-
-    else
-    {
-      v43 = v32[2];
-      if (!v43)
-      {
-LABEL_34:
-        v53 = v32;
-        [v34 setBuffer:v80[5] offset:0 atIndex:4];
-        [v34 setBuffer:v74[5] offset:0 atIndex:5];
-        [v34 setBuffer:*(a1 + 17752) offset:0 atIndex:6];
-        v44 = v25[23];
-        if (v25[24] != v44)
-        {
-          v45 = 0;
-          v46 = 0;
-          do
-          {
-            [v34 useResource:*(v44 + v45 + 24) usage:1];
-            [v34 useResource:*(v44 + v45 + 40) usage:1];
-            [v34 useResource:*(v44 + v45 + 56) usage:1];
-            v47 = *(v44 + v45 + 72);
-            if (v47)
-            {
-              [v34 useResource:v47 usage:1];
-            }
-
-            v48 = *(v44 + v45 + 88);
-            if (v48)
-            {
-              [v34 useResource:v48 usage:1];
-            }
-
-            v49 = *(v44 + v45 + 104);
-            if (v49)
-            {
-              [v34 useResource:v49 usage:1];
-            }
-
-            v50 = *(v44 + v45 + 152);
-            if (v50)
-            {
-              [v34 useResource:v50 usage:1];
-            }
-
-            v51 = *(v44 + v45 + 168);
-            if (v51)
-            {
-              [v34 useResource:v51 usage:1];
-            }
-
-            ++v46;
-            v44 = v25[23];
-            v45 += 184;
-          }
-
-          while (v46 < 0xD37A6F4DE9BD37A7 * ((v25[24] - v44) >> 3));
-        }
-
-        [v34 waitForFence:*(a1 + 17528)];
-        v64 = a5;
-        v65 = vdupq_n_s64(1uLL);
-        v62 = [v53[1] maxTotalThreadsPerThreadgroup];
-        v63 = v65;
-        [v34 dispatchThreads:&v64 threadsPerThreadgroup:&v62];
-        [v34 updateFence:*(a1 + 17528)];
-        [v34 endEncoding];
-
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = ___ZN33AccelerationStructureViewerServer8Renderer16requestQueryRaysE15ASVQueryRayTypeyP6ASVRayj_block_invoke;
-        v59[3] = &unk_2796590A8;
-        v59[6] = a1;
-        v59[7] = v58;
-        v60 = v56;
-        v61 = a5;
-        v59[4] = &v73;
-        v59[5] = &v79;
-        [v54 addCompletedHandler:v59];
-        [v54 commit];
-
-        v30 = a1;
-        v31 = v14;
-        v9 = v55;
-        goto LABEL_48;
-      }
-
-      [v34 setVisibleFunctionTable:v43 atBufferIndex:3];
-    }
-
-    (*(*v25 + 104))(v25, v34);
-    goto LABEL_34;
-  }
-
-  v11 = *(a1 + 16840);
-  if (v11)
-  {
-    (*(*v11 + 48))(v11, a1, a2, a3, 0, 0);
-  }
-
-  v12 = v80[5];
-  v80[5] = 0;
-
-  v13 = v74[5];
-  v74[5] = 0;
-
-LABEL_49:
-  _Block_object_dispose(&v73, 8);
-
-  _Block_object_dispose(&v79, 8);
-  v52 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __Block_byref_object_copy__9206(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t AccelerationStructureViewerServer::Renderer::reserveUniformBufferIndex(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
-  std::mutex::lock((a1 + 48));
-  v4 = 0;
-  v5 = a1 + 17520;
-  while ((*(v5 + v4) & 1) != 0)
-  {
-    if (++v4 == 3)
-    {
-      dispatch_semaphore_signal(v3);
-      LOBYTE(v4) = -1;
-      goto LABEL_6;
-    }
-  }
-
-  *(v5 + v4) = 1;
-LABEL_6:
-  std::mutex::unlock((a1 + 48));
-
-  return v4;
-}
-
-uint64_t AccelerationStructureViewerServer::Renderer::getIntersector(uint64_t a1, int a2, unint64_t a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  std::mutex::lock((a1 + 48));
-  v6 = *(a1 + 17696);
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-  v7 = (a1 + 17696);
-  do
-  {
-    v8 = *(v6 + 8);
-    if (v8 >= a2)
-    {
-      if (v8 <= a2)
-      {
-        v9 = v6[5];
-        v10 = v9 >= a3;
-        v11 = v9 < a3;
-        if (v10)
-        {
-          v7 = v6;
-        }
-
-        v6 += v11;
-      }
-
-      else
-      {
-        v7 = v6;
-      }
-    }
-
-    else
-    {
-      ++v6;
-    }
-
-    v6 = *v6;
-  }
-
-  while (v6);
-  if (v7 == (a1 + 17696) || (v12 = *(v7 + 8), v12 > a2) || v12 >= a2 && v7[5] > a3)
-  {
-LABEL_14:
-    v13 = *(a1 + 8);
-    operator new();
-  }
-
-  v14 = v7[6];
-  std::mutex::unlock((a1 + 48));
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
-}
-
-void AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(uint64_t a1, unsigned int a2, void *a3)
-{
-  if (a2 != 3)
-  {
-    dsema = a3;
-    std::mutex::lock((a1 + 48));
-    *(a1 + a2 + 17520) = 0;
-    std::mutex::unlock((a1 + 48));
-    dispatch_semaphore_signal(dsema);
-  }
-}
-
-void ___ZN33AccelerationStructureViewerServer8Renderer16requestQueryRaysE15ASVQueryRayTypeyP6ASVRayj_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  v3 = dispatch_get_global_queue(0, 0);
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = ___ZN33AccelerationStructureViewerServer8Renderer16requestQueryRaysE15ASVQueryRayTypeyP6ASVRayj_block_invoke_2;
-  block[3] = &unk_279659080;
-  v4 = *(a1 + 56);
-  v8 = v2;
-  v9 = v4;
-  v5 = *(a1 + 68);
-  v10 = *(a1 + 64);
-  v11 = v5;
-  v7 = *(a1 + 32);
-  dispatch_async(v3, block);
-}
-
-void ___ZN33AccelerationStructureViewerServer8Renderer16requestQueryRaysE15ASVQueryRayTypeyP6ASVRayj_block_invoke_2(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  v3 = *(v2 + 16840);
-  if (v3)
-  {
-    (*(*v3 + 48))(v3, v2, *(a1 + 64), *(a1 + 56), [*(*(*(a1 + 32) + 8) + 40) contents], *(a1 + 68));
-  }
-
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
-
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = 0;
-}
-
-id **std::unique_ptr<AccelerationStructureViewerServer::Intersector>::~unique_ptr[abi:nn200100](id **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-
-    MEMORY[0x2530332C0](v2, 0x1080C40EC4B14DALL);
-  }
-
-  return a1;
-}
-
-BOOL AccelerationStructureViewerServer::Renderer::requestSample()
-{
-  v0 = MEMORY[0x28223BE20]();
-  v193 = *MEMORY[0x277D85DE8];
-  v2 = v1;
-  v3 = objc_autoreleasePoolPush();
-  v146 = 0;
-  v147 = &v146;
-  v148 = 0x3032000000;
-  v149 = __Block_byref_object_copy__9206;
-  v150 = __Block_byref_object_dispose__9207;
-  v151 = 0;
-  std::mutex::lock((v0 + 48));
-  if (!*(v0 + 17712))
-  {
-    if (!*(v0 + 17752))
-    {
-      goto LABEL_34;
-    }
-
-    if (*(v0 + 16840))
-    {
-      v36 = atomic_load((v0 + 40));
-      v37 = atomic_load((v0 + 32));
-      if (v36 >= v37 + 32)
-      {
-        goto LABEL_34;
-      }
-    }
-  }
-
-  v4 = 120;
-  while (*(v0 + v4) >= *(v0 + 17512))
-  {
-    v4 += 8;
-    if (v4 == 376)
-    {
-      atomic_store(0, (v0 + 17544));
-      break;
-    }
-  }
-
-  if (*(v0 + 16996) && *(v0 + 16840))
-  {
-    objc_storeStrong(v147 + 5, *(v0 + 17576));
-    std::mutex::unlock((v0 + 48));
-    v5 = AccelerationStructureViewerServer::Renderer::reserveUniformBufferIndex(v0, v147[5]);
-    if (v5 != 3)
-    {
-      v6 = v5;
-      Current = CFAbsoluteTimeGetCurrent();
-      std::mutex::lock((v0 + 48));
-      v128 = *(v0 + 112);
-      v116 = *(v0 + 16840);
-      v114 = *(v0 + 16849);
-      v115 = *(v0 + 17504);
-      v8 = *(v0 + 16852);
-      v139 = *(v0 + 16856);
-      v135 = *(v0 + 16880);
-      v136 = *(v0 + 16864);
-      v133 = *(v0 + 16912);
-      v134 = *(v0 + 16896);
-      v126 = *(v0 + 16944);
-      v127 = *(v0 + 16928);
-      v131 = *(v0 + 16976);
-      v132 = *(v0 + 16960);
-      v119 = *(v0 + 16992);
-      v9 = *(v0 + 16996);
-      v10 = *(v0 + 16997);
-      *&v192[15] = *(v0 + 17012);
-      *v192 = v10;
-      v129 = *(v0 + 17016);
-      v11 = *(v0 + 17024);
-      v118 = *(v0 + 17025);
-      v120 = *(v0 + 17033);
-      v122 = *(v0 + 17034);
-      v123 = *(v0 + 17035);
-      v117 = *(v0 + 17036);
-      v12 = *(v0 + 17040);
-      v124 = *(v0 + 17045);
-      v125 = *(v0 + 17044);
-      memcpy(v191, (v0 + 17046), sizeof(v191));
-      memcpy(v145, (v0 + 8632), sizeof(v145));
-      memcpy(__dst, (v0 + 440), sizeof(__dst));
-      std::mutex::unlock((v0 + 48));
-      v13 = v9 - 1;
-      v14 = v9 - 1 + v139.i32[0];
-      if (v14 < v9)
-      {
-        goto LABEL_78;
-      }
-
-      v15 = v13 + v139.i32[1];
-      if (v13 + v139.i32[1] < v9)
-      {
-        goto LABEL_78;
-      }
-
-      v16 = *(v0 + 17584 + 8 * v6);
-      if (!v16)
-      {
-        goto LABEL_78;
-      }
-
-      v113 = v11;
-      v17 = [v16 contents];
-      if (!v17)
-      {
-        goto LABEL_78;
-      }
-
-      v19 = v17;
-      v112 = v14 / v9;
-      v17[1].i32[0] = v8;
-      *v18.i32 = v9;
-      v20 = vdup_lane_s32(v18, 0);
-      v111 = v15 / v9;
-      v17[2] = vdiv_f32(v20, vcvt_f32_u32(v139));
-      ++v17->i32[0];
-      v21 = CFAbsoluteTimeGetCurrent();
-      v22 = 0;
-      v23 = v9 * v9;
-      v24 = v19->i32[0] % (v9 * v9);
-      if (v9 * v9 <= 1)
-      {
-        v25 = 1;
-      }
-
-      else
-      {
-        v25 = v23;
-      }
-
-      v26 = 1.79769313e308;
-      do
-      {
-        if (v21 - *&v145[v22] > 1.0 && __dst[v22] < v26)
-        {
-          v26 = __dst[v22];
-          LOWORD(v24) = v22;
-        }
-
-        ++v22;
-      }
-
-      while (v25 != v22);
-      v27 = v24;
-      do
-      {
-        if (v21 - *&v145[v24] >= 1.0)
-        {
-          break;
-        }
-
-        v24 = (v24 + 1) % v23;
-      }
-
-      while (v24 != v27);
-      v28 = v24;
-      v19->i32[1] = v24;
-      *v19[8].f32 = v127;
-      *v19[10].f32 = v126;
-      *v19[12].f32 = v132;
-      *v19[14].f32 = v131;
-      v194.columns[1] = v135;
-      v194.columns[0] = v136;
-      v194.columns[3] = v133;
-      v194.columns[2] = v134;
-      v195 = __invert_f4(v194);
-      v29 = 0;
-      *v19[24].f32 = v195;
-      v30 = *v19[8].f32;
-      v31 = *v19[10].f32;
-      v32 = *v19[12].f32;
-      v33 = *v19[14].f32;
-      v152 = v136;
-      v153 = v135;
-      v154 = v134;
-      v155 = v133;
-      do
-      {
-        *&v173[v29] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v152 + v29))), v31, *&v152.f32[v29 / 4], 1), v32, *(&v152 + v29), 2), v33, *(&v152 + v29), 3);
-        v29 += 16;
-      }
-
-      while (v29 != 64);
-      v196 = *v173;
-      *v19[16].f32 = *v173;
-      *v19[18].f32 = v196.columns[1];
-      *v19[20].f32 = v196.columns[2];
-      *v19[22].f32 = v196.columns[3];
-      *v19[32].f32 = __invert_f4(v196);
-      v34 = vdivq_f32(v131, v132);
-      v19[3].i32[0] = v34.i32[2];
-      v19[3].f32[1] = vmuls_lane_f32(v132.f32[2], v34, 2) / (v132.f32[2] + 1.0);
-      if (v9 <= 7)
-      {
-        v35 = v139;
-        if (v9 == 2)
-        {
-          v41 = v24;
-          v42 = &ASVDither2x2;
-        }
-
-        else
-        {
-          if (v9 != 4)
-          {
-            goto LABEL_44;
-          }
-
-          v41 = v24;
-          v42 = &ASVDither4x4;
-        }
-      }
-
-      else
-      {
-        v35 = v139;
-        if (v9 == 8)
-        {
-          v41 = v24;
-          v42 = &ASVDither8x8;
-        }
-
-        else
-        {
-          if (v9 != 16)
-          {
-            if (v9 == 32)
-            {
-              v28 = ASVDither32x32[v24];
-            }
-
-LABEL_44:
-            v43.f32[0] = (v28 % v9);
-            v43.f32[1] = (v28 / v9);
-            v19[4] = v20;
-            v19[5] = v43;
-            v44.i64[0] = v35.u32[0];
-            v44.i64[1] = v35.u32[1];
-            __asm { FMOV            V1.2D, #1.0 }
-
-            v19[6] = vcvt_f32_f64(vdivq_f64(_Q1, vcvtq_f64_u64(v44)));
-            v50 = [*(v0 + 17608 + 8 * v6) contents];
-            *v50 = v119;
-            *(v50 + 4) = v9;
-            *(v50 + 5) = *v192;
-            *(v50 + 20) = *&v192[15];
-            *(v50 + 24) = v129;
-            *(v50 + 32) = v113;
-            *(v50 + 33) = v118;
-            *(v50 + 41) = v120;
-            *(v50 + 42) = v122;
-            *(v50 + 43) = v123;
-            *(v50 + 44) = v117;
-            *(v50 + 48) = v12;
-            *(v50 + 52) = v125;
-            *(v50 + 53) = v124;
-            memcpy((v50 + 54), v191, 0x19AuLL);
-            v51 = *(v0 + 17640);
-            if (v51)
-            {
-              v52 = v129 | (HIDWORD(v129) << 32);
-              v53 = v0 + 17640;
-              do
-              {
-                v54 = *(v51 + 32);
-                _CF = v54 >= v52;
-                v55 = v54 < v52;
-                if (_CF)
-                {
-                  v53 = v51;
-                }
-
-                v51 = *(v51 + 8 * v55);
-              }
-
-              while (v51);
-              v56 = v128;
-              if (v53 == v0 + 17640)
-              {
-                v59 = 0;
-              }
-
-              else
-              {
-                v57 = *(v53 + 32);
-                v58 = v53 + 40;
-                if (v52 >= v57)
-                {
-                  v59 = v58;
-                }
-
-                else
-                {
-                  v59 = 0;
-                }
-              }
-            }
-
-            else
-            {
-              v59 = 0;
-              v56 = v128;
-            }
-
-            if (v56 < 3)
-            {
-              if (*(v0 + 17536))
-              {
-LABEL_61:
-                v121 = (v0 + 17536);
-                if ((v113 & 1) == 0)
-                {
-                  v130 = 1;
-                  v60 = 3;
-                  goto LABEL_72;
-                }
-
-                Intersector = AccelerationStructureViewerServer::Renderer::getIntersector(v0, 2, v59);
-                v62 = v0 + 17656;
-                v63 = v0;
-                v64 = 3;
-LABEL_67:
-                v65 = AccelerationStructureViewerServer::Renderer::getIntersector(v63, v64, v62);
-                if (!v65)
-                {
-                  goto LABEL_78;
-                }
-
-                v66 = v65;
-                v130 = 1;
-LABEL_73:
-                if (Intersector)
-                {
-                  if (*(Intersector + 32))
-                  {
-                    if (v116 && (v115 & 1) == 0)
-                    {
-                      (*(*v116 + 80))();
-                      std::mutex::lock((v0 + 48));
-                      *(v0 + 17504) = 1;
-                      std::mutex::unlock((v0 + 48));
-                    }
-
-                    goto LABEL_78;
-                  }
-
-                  if (v115 && v116)
-                  {
-                    (*(*v116 + 88))(v116, v0);
-                    std::mutex::lock((v0 + 48));
-                    *(v0 + 17504) = 0;
-                    std::mutex::unlock((v0 + 48));
-                    goto LABEL_83;
-                  }
-
-                  if (*(Intersector + 8))
-                  {
-LABEL_83:
-                    v173[0] = 0;
-                    v187 = 0u;
-                    v188 = 0u;
-                    v189 = 0u;
-                    v190 = 0;
-                    v67 = v125;
-                    if (v125 <= 1)
-                    {
-                      v67 = 1;
-                    }
-
-                    v173[16] = v67;
-                    v68 = v124;
-                    if (v124 <= 1)
-                    {
-                      v68 = 1;
-                    }
-
-                    v173[17] = v68;
-                    memcpy(&v173[24], &v191[2], 0x198uLL);
-                    *&v173[4] = v12;
-                    v173[1] = v113 & 1;
-                    *&v173[8] = atomic_fetch_add((v0 + 40), 1uLL);
-                    v174 = v9;
-                    v175 = v114;
-                    v176 = v24;
-                    v177 = v8;
-                    v178 = v139;
-                    v179 = v136;
-                    v180 = v135;
-                    v181 = v134;
-                    v182 = v133;
-                    v183 = v127;
-                    v184 = v126;
-                    v185 = v132;
-                    v186 = v131;
-                    v69 = [MEMORY[0x277CD7050] texture2DDescriptorWithPixelFormat:70 width:v112 height:v111 mipmapped:0];
-                    [v69 setPixelFormat:55];
-                    [v69 setStorageMode:2];
-                    [v69 setUsage:3];
-                    v70 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                    v71 = *(&v187 + 1);
-                    *(&v187 + 1) = v70;
-
-                    [*(&v187 + 1) setLabel:@"ASVBVH-PreviousDepth"];
-                    if (v130)
-                    {
-                      if (v123)
-                      {
-                        v72 = 113;
-                      }
-
-                      else
-                      {
-                        v72 = 123;
-                      }
-
-                      [v69 setPixelFormat:v72];
-                      [v69 setUsage:3];
-                      [v69 setStorageMode:2];
-                      v73 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                      v74 = v188;
-                      *&v188 = v73;
-
-                      [v188 setLabel:@"ASVBVH-Traversals"];
-                    }
-
-                    else
-                    {
-                      v75 = v188;
-                      *&v188 = 0;
-                    }
-
-                    if (v128 < 0xB)
-                    {
-                      [v69 setPixelFormat:123];
-                      [v69 setStorageMode:2];
-                      [v69 setUsage:3];
-                      v81 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                      v82 = *(&v188 + 1);
-                      *(&v188 + 1) = v81;
-
-                      [*(&v188 + 1) setLabel:@"ASVBVH-Hit"];
-                      if (v128 >= 3 && (v122 & 1) != 0)
-                      {
-                        [v69 setPixelFormat:123];
-                        [v69 setStorageMode:2];
-                        [v69 setUsage:3];
-                        v83 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                        v84 = v189;
-                        *&v189 = v83;
-
-                        [v189 setLabel:@"ASVBVH-Data"];
-                      }
-
-                      else
-                      {
-                        v85 = v189;
-                        *&v189 = 0;
-                      }
-                    }
-
-                    else
-                    {
-                      if (v173[16] != 1)
-                      {
-                        if (v123)
-                        {
-                          v76 = 125;
-                        }
-
-                        else
-                        {
-                          v76 = 90;
-                        }
-
-                        [v69 setPixelFormat:v76];
-                        [v69 setStorageMode:2];
-                        [v69 setUsage:3];
-                        v77 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                        v78 = *(&v189 + 1);
-                        *(&v189 + 1) = v77;
-
-                        [*(&v189 + 1) setLabel:@"ASVBVH-Material"];
-                      }
-
-                      if (v173[17] != 1)
-                      {
-                        [v69 setPixelFormat:13];
-                        [v69 setStorageMode:2];
-                        [v69 setUsage:3];
-                        v79 = [*(v0 + 24) newTextureWithDescriptor:v69];
-                        v80 = v190;
-                        v190 = v79;
-
-                        [v190 setLabel:@"ASVBVH-SelectionMask"];
-                      }
-                    }
-
-                    std::mutex::lock((v0 + 48));
-                    *(v0 + 2 * (v173[8] & 0x1F) + 376) = v24;
-                    *(v0 + 8632 + 8 * v24) = CFAbsoluteTimeGetCurrent();
-                    std::mutex::unlock((v0 + 48));
-                    if ((*Intersector - 2) >= 4)
-                    {
-                      if (*Intersector >= 2u)
-                      {
-                        v38 = 0;
-LABEL_150:
-
-                        AccelerationStructureViewer::Sample::~Sample(v173);
-                        goto LABEL_36;
-                      }
-
-                      v88 = *(v0 + 8);
-                      v89 = [v2 commandBufferWithDescriptor:*(v0 + 17552)];
-                      [v89 setLabel:@"ASVS Generic Intersector"];
-                      v140 = v89;
-                      v90 = [v89 computeCommandEncoder];
-                      v91 = MEMORY[0x277CCACA8];
-                      [*(Intersector + 8) label];
-                      v93 = v92 = Intersector;
-                      v94 = [v91 stringWithFormat:@"ASV BVH HeatMap '%@'", v93];
-                      [v90 setLabel:v94];
-
-                      [v90 setComputePipelineState:*(v92 + 8)];
-                      [v90 setTexture:*(&v187 + 1) atIndex:1];
-                      [v90 setTexture:v188 atIndex:2];
-                      [v90 setTexture:*(&v188 + 1) atIndex:3];
-                      [v90 setTexture:v189 atIndex:4];
-                      [v90 setTexture:*(&v189 + 1) atIndex:5];
-                      [v90 setTexture:v190 atIndex:6];
-                      [v90 setBuffer:*(v0 + 17584 + 8 * v6) offset:0 atIndex:0];
-                      [v90 setBuffer:*(v0 + 17608 + 8 * v6) offset:0 atIndex:1];
-                      v95 = *(v0 + 17736);
-                      if (v95)
-                      {
-                        [v90 setAccelerationStructure:v95 atBufferIndex:3];
-                      }
-
-                      v137 = v69;
-                      v96 = *(v92 + 16);
-                      if (v96)
-                      {
-                        [v90 setVisibleFunctionTable:v96 atBufferIndex:4];
-                        (*(*v88 + 104))(v88, v90);
-                      }
-
-                      [v90 setBuffer:*(v0 + 17752) offset:0 atIndex:5];
-                      v97 = v88[23];
-                      if (v88[24] != v97)
-                      {
-                        v98 = 0;
-                        v99 = 0;
-                        do
-                        {
-                          [v90 useResource:*(v97 + v98 + 24) usage:1];
-                          [v90 useResource:*(v97 + v98 + 40) usage:1];
-                          [v90 useResource:*(v97 + v98 + 56) usage:1];
-                          v100 = *(v97 + v98 + 72);
-                          if (v100)
-                          {
-                            [v90 useResource:v100 usage:1];
-                          }
-
-                          v101 = *(v97 + v98 + 88);
-                          if (v101)
-                          {
-                            [v90 useResource:v101 usage:1];
-                          }
-
-                          v102 = *(v97 + v98 + 104);
-                          if (v102)
-                          {
-                            [v90 useResource:v102 usage:1];
-                          }
-
-                          v103 = *(v97 + v98 + 152);
-                          if (v103)
-                          {
-                            [v90 useResource:v103 usage:1];
-                          }
-
-                          v104 = *(v97 + v98 + 168);
-                          if (v104)
-                          {
-                            [v90 useResource:v104 usage:1];
-                          }
-
-                          ++v99;
-                          v97 = v88[23];
-                          v98 += 184;
-                        }
-
-                        while (v99 < 0xD37A6F4DE9BD37A7 * ((v88[24] - v97) >> 3));
-                      }
-
-                      v152.i64[0] = v112;
-                      v152.i64[1] = v111;
-                      v38 = 1;
-                      v153.i64[0] = 1;
-                      v142 = vdupq_n_s64(8uLL);
-                      v143 = 1;
-                      [v90 dispatchThreads:&v152 threadsPerThreadgroup:&v142];
-                      [v90 endEncoding];
-
-                      AccelerationStructureViewer::Sample::Sample(v156, v173);
-                      v86 = v140;
-                      AccelerationStructureViewerServer::Renderer::commitSample(v0, v6, v156, v140, v147[5], Current);
-                      AccelerationStructureViewer::Sample::~Sample(v156);
-                      v69 = v137;
-LABEL_149:
-
-                      goto LABEL_150;
-                    }
-
-                    v86 = [v2 commandBufferWithDescriptor:*(v0 + 17552)];
-                    [v86 setLabel:@"ASVS Metal Intersector"];
-                    if (*(v0 + 17536))
-                    {
-                      if (v113)
-                      {
-                        AccelerationStructureViewer::Sample::Sample(v172, v173);
-                        v87 = AccelerationStructureViewerServer::Renderer::metalIntersectorPass(v0, v6, v172, v86, v66, v50, 0, 0);
-                        AccelerationStructureViewer::Sample::~Sample(v172);
-                        if (!v87)
-                        {
-                          AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v0, v6, v147[5]);
-                          v38 = 0;
-                          goto LABEL_149;
-                        }
-                      }
-
-                      else
-                      {
-                        v87 = 0;
-                      }
-
-                      AccelerationStructureViewer::Sample::Sample(v171, v173);
-                      v141 = v86;
-                      v109 = AccelerationStructureViewerServer::Renderer::metalIntersectorPass(v0, v6, v171, v86, Intersector, v50, 1, 1);
-                      AccelerationStructureViewer::Sample::~Sample(v171);
-                      v38 = v109 != 0;
-                      if (v109)
-                      {
-                        if (*Intersector == 3 || (v113 & 1) != 0)
-                        {
-                          v138 = v69;
-                          if ((v113 & 1) == 0)
-                          {
-                            v110 = v109;
-
-                            v87 = v110;
-                          }
-
-                          v160[0] = MEMORY[0x277D85DD0];
-                          v160[1] = 3321888768;
-                          v160[2] = ___ZN33AccelerationStructureViewerServer8Renderer13requestSampleEPU26objcproto15MTLCommandQueue11objc_object_block_invoke;
-                          v160[3] = &unk_2860BC520;
-                          v166 = v0;
-                          AccelerationStructureViewer::Sample::Sample(v161, v173);
-                          v162 = v2;
-                          v87 = v87;
-                          v163 = v87;
-                          v169 = v6;
-                          v167 = v50;
-                          v164 = v109;
-                          v168 = Current;
-                          v165 = &v146;
-                          [v141 addCompletedHandler:v160];
-                          [v141 commit];
-
-                          AccelerationStructureViewer::Sample::~Sample(v161);
-                          v69 = v138;
-                        }
-
-                        else
-                        {
-                          if (v87 != v109)
-                          {
-                            AccelerationStructureViewerServer::Profiler::finishSkipFrame(*v121, v109);
-                          }
-
-                          AccelerationStructureViewer::Sample::Sample(v170, v173);
-                          AccelerationStructureViewerServer::Renderer::commitSample(v0, v6, v170, v141, v147[5], Current);
-                          AccelerationStructureViewer::Sample::~Sample(v170);
-                        }
-                      }
-
-                      else
-                      {
-                        AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v0, v6, v147[5]);
-                      }
-
-                      v86 = v141;
-                      goto LABEL_149;
-                    }
-
-                    AccelerationStructureViewer::Sample::Sample(v159, v173);
-                    v105 = Intersector;
-                    v106 = v86;
-                    v107 = AccelerationStructureViewerServer::Renderer::metalIntersectorPass(v0, v6, v159, v86, v105, v50, 1, v130 & v113 ^ 1);
-                    AccelerationStructureViewer::Sample::~Sample(v159);
-                    if (v107)
-                    {
-                      if ((v130 & v113) == 0)
-                      {
-LABEL_133:
-                        AccelerationStructureViewer::Sample::Sample(v157, v173);
-                        AccelerationStructureViewerServer::Renderer::commitSample(v0, v6, v157, v106, v147[5], Current);
-                        AccelerationStructureViewer::Sample::~Sample(v157);
-                        v38 = 1;
-LABEL_144:
-
-                        v86 = v106;
-                        goto LABEL_149;
-                      }
-
-                      AccelerationStructureViewer::Sample::Sample(v158, v173);
-                      v108 = AccelerationStructureViewerServer::Renderer::metalIntersectorPass(v0, v6, v158, v106, v66, v50, 0, 1);
-                      AccelerationStructureViewer::Sample::~Sample(v158);
-                      if (v108)
-                      {
-
-                        goto LABEL_133;
-                      }
-                    }
-
-                    AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v0, v6, v147[5]);
-                    v38 = 0;
-                    goto LABEL_144;
-                  }
-                }
-
-LABEL_78:
-                AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v0, v6, v147[5]);
-                goto LABEL_35;
-              }
-            }
-
-            else
-            {
-              if (*(v0 + 17536))
-              {
-                if ((v120 & 1) == 0)
-                {
-                  v121 = (v0 + 17536);
-                  v130 = 0;
-                  v60 = 2;
-LABEL_72:
-                  Intersector = AccelerationStructureViewerServer::Renderer::getIntersector(v0, v60, v59);
-                  v66 = 0;
-                  goto LABEL_73;
-                }
-
-                goto LABEL_61;
-              }
-
-              if ((v120 & 1) == 0)
-              {
-                v121 = (v0 + 17536);
-                v130 = 0;
-                goto LABEL_71;
-              }
-            }
-
-            v121 = (v0 + 17536);
-            if (v113)
-            {
-              Intersector = AccelerationStructureViewerServer::Renderer::getIntersector(v0, 2, v59);
-              v62 = v0 + 17656;
-              v63 = v0;
-              v64 = 5;
-              goto LABEL_67;
-            }
-
-            v130 = 1;
-LABEL_71:
-            v60 = 5;
-            goto LABEL_72;
-          }
-
-          v41 = v24;
-          v42 = &ASVDither16x16;
-        }
-      }
-
-      v28 = v42[v41];
-      goto LABEL_44;
-    }
-  }
-
-  else
-  {
-LABEL_34:
-    std::mutex::unlock((v0 + 48));
-  }
-
-LABEL_35:
-  v38 = 0;
-LABEL_36:
-  _Block_object_dispose(&v146, 8);
-
-  objc_autoreleasePoolPop(v3);
-  v39 = *MEMORY[0x277D85DE8];
-  return v38;
-}
-
-void *AccelerationStructureViewer::Sample::Sample(void *a1, uint64_t a2)
-{
-  memcpy(a1, a2, 0x240uLL);
-  v4 = *(a2 + 600);
-  if (v4)
-  {
-    if (v4 == a2 + 576)
-    {
-      a1[75] = a1 + 72;
-      (*(**(a2 + 600) + 24))(*(a2 + 600));
-    }
-
-    else
-    {
-      a1[75] = (*(*v4 + 16))(v4);
-    }
-  }
-
-  else
-  {
-    a1[75] = 0;
-  }
-
-  a1[76] = *(a2 + 608);
-  a1[77] = *(a2 + 616);
-  a1[78] = *(a2 + 624);
-  a1[79] = *(a2 + 632);
-  a1[80] = *(a2 + 640);
-  a1[81] = *(a2 + 648);
-  return a1;
-}
-
-id AccelerationStructureViewerServer::Renderer::metalIntersectorPass(void *a1, unsigned int a2, uint64_t a3, void *a4, uint64_t a5, _DWORD *a6, int a7, int a8)
-{
-  v141[7] = *MEMORY[0x277D85DE8];
-  v14 = a4;
-  v119 = a1[1];
-  v15 = [v14 computeCommandEncoder];
-  v16 = MEMORY[0x277CCACA8];
-  v17 = [*(a5 + 8) label];
-  v18 = [v16 stringWithFormat:@"ASVS Metal Intersector '%@'", v17];
-  [v15 setLabel:v18];
-
-  v122 = a3;
-  v123 = v14;
-  v121 = a2;
-  if (*a5 == 3)
-  {
-    v117 = *(a1[2192] + 8);
-    [*(a5 + 8) maxTotalThreadsPerThreadgroup];
-    v19 = a1[2192];
-    v115 = a2;
-    v112 = v15;
-    v20 = (3 * *(a3 + 440) * *(a3 + 444)) / *(v19 + 8);
-    a6[2] = [*(a3 + 608) width];
-    a6[3] = [*(a3 + 608) height];
-    v21 = [*(a3 + 608) width];
-    a6[4] = [*(a3 + 608) height] * v21;
-    a6[5] = v20;
-    v22 = 4 * *(v19 + 8) * v20;
-    v113 = v19 + 112;
-    v23 = *(v19 + 112 + 8 * a2);
-    if (!v23 || [v23 length] < v22)
-    {
-      v24 = [*v19 newBufferWithLength:v22 options:0];
-      v25 = *(v113 + 8 * a2);
-      *(v113 + 8 * a2) = v24;
-    }
-
-    std::mutex::lock((v19 + 320));
-    if (*(v19 + 432))
-    {
-      ++*(v19 + 436);
-      std::mutex::unlock((v19 + 320));
-      v139 = 0;
-      memset(v138.__cv_.__opaque, 0, sizeof(v138.__cv_.__opaque));
-      v138.__cv_.__sig = 1018212795;
-      v140 = 0u;
-      memset(v141, 0, 24);
-      operator new();
-    }
-
-    v36 = *v19;
-    v37 = *(v19 + 760);
-    *(v19 + 760) = 0;
-
-    v38 = *(v19 + 752);
-    *(v19 + 752) = 0;
-
-    GRCReleaseAllCounterSourceGroup();
-    context = objc_autoreleasePoolPush();
-    v39 = GRCCopyAllCounterSourceGroup();
-    v40 = *(v19 + 752);
-    *(v19 + 752) = v39;
-
-    v41 = *(v19 + 752);
-    if (!v41 || ![v41 count])
-    {
-      goto LABEL_85;
-    }
-
-    v109 = [*(v19 + 752) firstObject];
-    v42 = [v109 sourceList];
-    v43 = *(v19 + 760);
-    *(v19 + 760) = v42;
-
-    v44 = *(v19 + 760);
-    if (!v44 || ![v44 count])
-    {
-LABEL_84:
-
-LABEL_85:
-      objc_autoreleasePoolPop(context);
-LABEL_86:
-
-      NSLog(&cfstr_UnableToStartS.isa);
-      v101 = *(v113 + 8 * v115);
-      *(v113 + 8 * v115) = 0;
-
-      std::mutex::unlock((v19 + 320));
-      [v112 endEncoding];
-      v99 = 0;
-      goto LABEL_87;
-    }
-
-    v108 = v36;
-    obj = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
-    v128 = 0u;
-    v129 = 0u;
-    v130 = 0u;
-    v131 = 0u;
-    location = (v19 + 760);
-    v45 = *(v19 + 760);
-    v46 = [v45 countByEnumeratingWithState:&v128 objects:&v138 count:16];
-    if (v46)
-    {
-      v47 = v46;
-      v48 = *v129;
-      while (2)
-      {
-        for (i = 0; i != v47; ++i)
-        {
-          if (*v129 != v48)
-          {
-            objc_enumerationMutation(v45);
-          }
-
-          v50 = *(*(&v128 + 1) + 8 * i);
-          if (![v50 ringBufferNum])
-          {
-            v100 = v45;
-            goto LABEL_81;
-          }
-
-          v51 = [v50 name];
-          v52 = [v51 containsString:@"APS_USC"];
-
-          if (v52)
-          {
-            [obj addObject:v50];
-            *(v19 + 848) = [obj count] - 1;
-          }
-        }
-
-        v47 = [v45 countByEnumeratingWithState:&v128 objects:&v138 count:16];
-        if (v47)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    v14 = v123;
-    if ([obj count])
-    {
-      objc_storeStrong(location, obj);
-      *(v19 + 768) = [v109 sampleMarker];
-      v136[0] = @"RingBufferSizeInKB";
-      v136[1] = @"SyncDrainMode";
-      v137[0] = &unk_2860D69C8;
-      v137[1] = &unk_2860D69E0;
-      v136[2] = @"SystemTimePeriod";
-      v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v19 + 808)];
-      v136[3] = @"ProfileControl";
-      v137[2] = v53;
-      v137[3] = &unk_2860D6358;
-      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:4];
-      v55 = *(v19 + 824);
-      *(v19 + 824) = v54;
-
-      v56 = [MEMORY[0x277CBEB18] arrayWithCapacity:1];
-      v57 = *(v19 + 832);
-      *(v19 + 832) = v56;
-
-      v58 = *(v19 + 832);
-      v59 = MEMORY[0x277D0AF30];
-      v134[0] = @"TileTracing";
-      v134[1] = @"ESLInstTracing";
-      v135[0] = &unk_2860D69F8;
-      v135[1] = &unk_2860D69F8;
-      v134[2] = @"CountPeriod";
-      v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v19 + 812)];
-      v135[2] = v60;
-      v134[3] = @"PulsePeriod";
-      v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v19 + 816)];
-      v135[3] = v61;
-      v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:4];
-      v63 = [v59 selectWithName:@"KickTracing" options:v62];
-      [v58 addObject:v63];
-
-      agxps_load_counter_obfuscation_map("/AppleInternal/Library/AGX/AGXRawCounterMapping.csv");
-      v64 = agxps_counter_deobfuscate_name("_bc236dcf3744edf6bcf329ae47088528b35ea5e0beac601cf6781545eb2327cc");
-      v65 = agxps_counter_deobfuscate_name("_dc9d2c02b3df41ad60f6512a3823b2d0f9b735ae9c41650c4396bac13a7a3c5e");
-      v66 = [MEMORY[0x277CBEB18] arrayWithCapacity:20];
-      v67 = *(v19 + 840);
-      *(v19 + 840) = v66;
-
-      v68 = 0;
-      v133[0] = v64;
-      v133[1] = v65;
-      do
-      {
-        v69 = *(v19 + 840);
-        v70 = MEMORY[0x277D0AF28];
-        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:v133[v68]];
-        v72 = [v70 selectWithName:v71 options:0];
-        [v69 addObject:v72];
-
-        ++v68;
-      }
-
-      while (v68 != 2);
-      [v109 setOptions:&unk_2860D6380];
-      v73 = [*(v19 + 760) objectAtIndexedSubscript:*(v19 + 848)];
-      if ([v73 requestTriggers:*(v19 + 832) firstErrorIndex:0])
-      {
-        v133[0] = 0;
-        v14 = v123;
-        if ([v73 requestCounters:*(v19 + 840) firstErrorIndex:v133])
-        {
-          [v73 setOptions:*(v19 + 824)];
-          if ([v73 setEnabled:1])
-          {
-
-            v36 = v108;
-            if ([*location count])
-            {
-              [*(v19 + 760) objectAtIndexedSubscript:0];
-
-              objc_autoreleasePoolPop(context);
-              if (AccelerationStructureViewerServer::Profiler::startAPSStreaming(*(v19 + 752)))
-              {
-                *(v19 + 608) = *(v19 + 600);
-                std::vector<AccelerationStructureViewerServer::APSUSCChunkCollector>::resize((v19 + 600), *(v19 + 8));
-                atomic_store(0, (v19 + 776));
-                atomic_store(0, (v19 + 784));
-                *(v19 + 432) = 1;
-                v74 = [*(v19 + 760) objectAtIndexedSubscript:0];
-                v75 = *(v19 + 8);
-                if (v75 / 10 <= 1)
-                {
-                  v76 = 1;
-                }
-
-                else
-                {
-                  v76 = v75 / 10;
-                }
-
-                if (v76 == 1)
-                {
-                  v77 = *(v19 + 8);
-                }
-
-                v78 = v74;
-                operator new();
-              }
-
-              goto LABEL_86;
-            }
-
-            goto LABEL_83;
-          }
-
-          v100 = v73;
-          v106 = [v73 name];
-          NSLog(&cfstr_FailErrorWhile_5.isa, v106);
-        }
-
-        else
-        {
-          v100 = v73;
-          v105 = v133[0];
-          v106 = [*(v19 + 840) objectAtIndexedSubscript:v133[0]];
-          NSLog(&cfstr_FailErrorWhile_4.isa, v105, v106);
-        }
-      }
-
-      else
-      {
-        v100 = v73;
-        v104 = [v73 name];
-        NSLog(&cfstr_FailErrorWhile.isa, v104);
-
-LABEL_81:
-        v14 = v123;
-      }
-
-      v36 = v108;
-    }
-
-LABEL_83:
-
-    goto LABEL_84;
-  }
-
-  v26 = [*(a3 + 608) width];
-  v116 = [*(a3 + 608) height];
-  v118 = [*(a5 + 8) threadExecutionWidth];
-  v27 = [*(a5 + 8) maxTotalThreadsPerThreadgroup];
-  v28 = [*(a5 + 8) threadExecutionWidth];
-  v29 = a1[2192];
-  v114 = v27 / v28;
-  v30 = a1;
-  if (v29)
-  {
-    v31 = v15;
-    std::mutex::lock((v29 + 320));
-    v32 = v119;
-    if (*(v29 + 432) == 1 && !*(v29 + 436))
-    {
-      AccelerationStructureViewerServer::Profiler::stopAPSStreaming(v29, *v29);
-    }
-
-    else
-    {
-      LODWORD(v138.__cv_.__sig) = [v31 globalTraceObjectID];
-      std::mutex::lock((v29 + 624));
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v29 + 688), v138.__cv_.__sig);
-      std::mutex::unlock((v29 + 624));
-    }
-
-    std::mutex::unlock((v29 + 320));
-
-    a3 = v122;
-    v33 = a7;
-    v34 = a8;
-    v35 = v26;
-  }
-
-  else
-  {
-    v33 = a7;
-    v34 = a8;
-    v35 = v26;
-    v32 = v119;
-  }
-
-  if (a1[2192])
-  {
-    [v15 waitForFence:a1[2191]];
-  }
-
-  if (v33)
-  {
-    [v15 setTexture:*(a3 + 608) atIndex:1];
-    [v15 setTexture:*(a3 + 624) atIndex:3];
-    [v15 setTexture:*(a3 + 632) atIndex:4];
-    [v15 setTexture:*(a3 + 640) atIndex:5];
-    v79 = *(a3 + 648);
-  }
-
-  else
-  {
-    [v15 setTexture:0 atIndex:1];
-    [v15 setTexture:0 atIndex:3];
-    [v15 setTexture:0 atIndex:4];
-    [v15 setTexture:0 atIndex:5];
-    v79 = 0;
-  }
-
-  [v15 setTexture:v79 atIndex:6];
-  if (v34)
-  {
-    v80 = *(a3 + 616);
-  }
-
-  else
-  {
-    v80 = 0;
-  }
-
-  v81 = a5;
-  [v15 setTexture:v80 atIndex:2];
-  v82 = &v30[v121];
-  [v15 setBuffer:v82[2198] offset:0 atIndex:0];
-  [v15 setBuffer:v82[2201] offset:0 atIndex:1];
-  v83 = v30[2217];
-  if (v83)
-  {
-    [v15 setAccelerationStructure:v83 atBufferIndex:2];
-  }
-
-  [v15 setBuffer:v30[2219] offset:0 atIndex:9];
-  v84 = *(v32 + 184);
-  if (*(v32 + 192) != v84)
-  {
-    v85 = 0;
-    v86 = 0;
-    do
-    {
-      [v15 useResource:*(v84 + v85 + 24) usage:1];
-      [v15 useResource:*(v84 + v85 + 40) usage:1];
-      [v15 useResource:*(v84 + v85 + 56) usage:1];
-      v87 = *(v84 + v85 + 72);
-      if (v87)
-      {
-        [v15 useResource:v87 usage:1];
-      }
-
-      v88 = *(v84 + v85 + 88);
-      if (v88)
-      {
-        [v15 useResource:v88 usage:1];
-      }
-
-      v89 = *(v84 + v85 + 104);
-      if (v89)
-      {
-        [v15 useResource:v89 usage:1];
-      }
-
-      v90 = *(v84 + v85 + 152);
-      if (v90)
-      {
-        [v15 useResource:v90 usage:1];
-      }
-
-      v91 = *(v84 + v85 + 168);
-      if (v91)
-      {
-        [v15 useResource:v91 usage:1];
-      }
-
-      ++v86;
-      v84 = *(v32 + 184);
-      v85 += 184;
-    }
-
-    while (v86 < 0xD37A6F4DE9BD37A7 * ((*(v32 + 192) - v84) >> 3));
-  }
-
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
-  v125 = 0u;
-  v92 = v30[2218];
-  v93 = [v92 countByEnumeratingWithState:&v124 objects:v132 count:16];
-  if (v93)
-  {
-    v94 = v93;
-    v95 = *v125;
-    do
-    {
-      for (j = 0; j != v94; ++j)
-      {
-        if (*v125 != v95)
-        {
-          objc_enumerationMutation(v92);
-        }
-
-        [v15 useResource:*(*(&v124 + 1) + 8 * j) usage:1];
-      }
-
-      v94 = [v92 countByEnumeratingWithState:&v124 objects:v132 count:16];
-    }
-
-    while (v94);
-  }
-
-  v97 = *(v81 + 24);
-  if (v97)
-  {
-    [v15 setIntersectionFunctionTable:v97 atBufferIndex:3];
-    if (*(v81 + 24))
-    {
-      (*(*v30[1] + 104))(v30[1], v15);
-    }
-  }
-
-  v98 = v30[2192];
-  if (v98)
-  {
-    [v15 setBuffer:*(v98 + 16) offset:0 atIndex:7];
-  }
-
-  [v15 setComputePipelineState:*(v81 + 8)];
-  v138.__cv_.__sig = v35;
-  *v138.__cv_.__opaque = v116;
-  *&v138.__cv_.__opaque[8] = 1;
-  *&v128 = v118;
-  *(&v128 + 1) = v114;
-  *&v129 = 1;
-  [v15 dispatchThreads:&v138 threadsPerThreadgroup:&v128];
-  if (v30[2192])
-  {
-    [v15 updateFence:v30[2191]];
-  }
-
-  [v15 endEncoding];
-  v99 = v15;
-  v14 = v123;
-LABEL_87:
-
-  v102 = *MEMORY[0x277D85DE8];
-
-  return v99;
-}
-
-void AccelerationStructureViewerServer::Renderer::commitSample(void *a1, char a2, uint64_t a3, void *a4, void *a5, double a6)
-{
-  v26[11] = *MEMORY[0x277D85DE8];
-  v11 = a4;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__9206;
-  v19 = __Block_byref_object_dispose__9207;
-  v12 = a5;
-  v20 = v12;
-  if (v11)
-  {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3321888768;
-    v21[2] = ___ZN33AccelerationStructureViewerServer8Renderer12commitSampleEhN27AccelerationStructureViewer6SampleEdPU27objcproto16MTLCommandBuffer11objc_objectPU32objcproto21OS_dispatch_semaphore8NSObject_block_invoke;
-    v21[3] = &unk_2860BC590;
-    v23[11] = a1;
-    v24 = a2;
-    AccelerationStructureViewer::Sample::Sample(v22, a3);
-    v23[12] = *&a6;
-    v23[10] = &v15;
-    [v11 addCompletedHandler:v21];
-    [v11 commit];
-
-    v13 = v23;
-  }
-
-  else
-  {
-    AccelerationStructureViewer::Sample::Sample(v25, a3);
-    AccelerationStructureViewerServer::Renderer::completeSample(a1, a2, v25, v16[5], a6);
-
-    v13 = v26;
-  }
-
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v13);
-  _Block_object_dispose(&v15, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ___ZN33AccelerationStructureViewerServer8Renderer13requestSampleEPU26objcproto15MTLCommandQueue11objc_object_block_invoke(uint64_t a1)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 720);
-  v3 = dispatch_get_global_queue(0, 0);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3321888768;
-  v10[2] = ___ZN33AccelerationStructureViewerServer8Renderer13requestSampleEPU26objcproto15MTLCommandQueue11objc_object_block_invoke_2;
-  v10[3] = &unk_2860BC4E8;
-  v15 = v2;
-  AccelerationStructureViewer::Sample::Sample(v11, a1 + 32);
-  v4 = *(a1 + 688);
-  v5 = *(a1 + 696);
-  v18 = *(a1 + 744);
-  v16 = *(a1 + 728);
-  *&v6 = *(a1 + 704);
-  *(&v6 + 1) = *(a1 + 712);
-  v17 = *(a1 + 736);
-  *&v7 = v4;
-  *(&v7 + 1) = v5;
-  v13 = v7;
-  v14 = v6;
-  dispatch_async(v3, v10);
-
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v12);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t __destroy_helper_block_a16_32c42_ZTSN27AccelerationStructureViewer6SampleE(id *a1)
-{
-
-  return std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100]((a1 + 76));
-}
-
-uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-void ___ZN33AccelerationStructureViewerServer8Renderer13requestSampleEPU26objcproto15MTLCommandQueue11objc_object_block_invoke_2(uint64_t a1)
-{
-  v158 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 720);
-  AccelerationStructureViewer::Sample::Sample(v151, a1 + 32);
-  v3 = v2[2192];
-  v4 = *(a1 + 696);
-  v5 = *(a1 + 744);
-  v130 = *(a1 + 728);
-  v6 = *(a1 + 688);
-  v7 = v4;
-  std::mutex::lock((v3 + 320));
-  --*(v3 + 436);
-  std::mutex::unlock((v3 + 320));
-  v8 = [v7 globalTraceObjectID];
-  __lk.__m_ = (v3 + 624);
-  __lk.__owns_ = 1;
-  std::mutex::lock((v3 + 624));
-  v9 = *(v3 + 736);
-  if (!v9)
-  {
-    goto LABEL_9;
-  }
-
-  v10 = (v3 + 736);
-  v11 = v3 + 736;
-  do
-  {
-    v12 = *(v9 + 32);
-    v13 = v12 >= v8;
-    v14 = v12 < v8;
-    if (v13)
-    {
-      v11 = v9;
-    }
-
-    v9 = *(v9 + 8 * v14);
-  }
-
-  while (v9);
-  if (v11 == v10 || *(v11 + 32) > v8)
-  {
-LABEL_9:
-    NSLog(&cfstr_MissingRayColl.isa);
-    v15 = 0;
-    goto LABEL_10;
-  }
-
-  v126 = v7;
-  v140 = 0;
-  v141 = &v140;
-  v142 = 0x4012000000;
-  v143 = __Block_byref_object_copy__9845;
-  v144 = __Block_byref_object_dispose__9846;
-  v145 = &unk_24DB95716;
-  v146 = *(v11 + 40);
-  v19 = *(v11 + 48);
-  v147 = v19;
-  if (v19)
-  {
-    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v127 = v6;
-  v125 = v2;
-  mach_timebase_info(&info);
-  v123 = mach_absolute_time();
-  v21 = v141[6];
-  v20 = v141[7];
-  if (v20)
-  {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v124 = v20;
-  v22 = 0;
-  v23 = 0;
-LABEL_20:
-  v128 = v23;
-  v24 = v141[6];
-  v25.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_ + 500000000;
-  while (*(v3 + 432) == 1)
-  {
-    if (*(v21 + 89))
-    {
-      break;
-    }
-
-    v26 = atomic_load((v21 + 48));
-    if (v26 >= *(v21 + 56))
-    {
-      break;
-    }
-
-    if (std::chrono::steady_clock::now().__d_.__rep_ >= v25.__d_.__rep_)
-    {
-      goto LABEL_39;
-    }
-
-    v27 = v5;
-    v28.__d_.__rep_ = v25.__d_.__rep_ - std::chrono::steady_clock::now().__d_.__rep_;
-    if (v28.__d_.__rep_ >= 1)
-    {
-      std::chrono::steady_clock::now();
-      v29.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-      if (v29.__d_.__rep_)
-      {
-        if (v29.__d_.__rep_ < 1)
-        {
-          if (v29.__d_.__rep_ >= 0xFFDF3B645A1CAC09)
-          {
-            goto LABEL_33;
-          }
-
-          v30 = 0x8000000000000000;
-        }
-
-        else
-        {
-          if (v29.__d_.__rep_ > 0x20C49BA5E353F7)
-          {
-            v30 = 0x7FFFFFFFFFFFFFFFLL;
-            goto LABEL_34;
-          }
-
-LABEL_33:
-          v30 = 1000 * v29.__d_.__rep_;
-LABEL_34:
-          if (v30 > (v28.__d_.__rep_ ^ 0x7FFFFFFFFFFFFFFFLL))
-          {
-            v31.__d_.__rep_ = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_37:
-            std::condition_variable::__do_timed_wait(v24, &__lk, v31);
-            std::chrono::steady_clock::now();
-            goto LABEL_38;
-          }
-        }
-      }
-
-      else
-      {
-        v30 = 0;
-      }
-
-      v31.__d_.__rep_ = v30 + v28.__d_.__rep_;
-      goto LABEL_37;
-    }
-
-LABEL_38:
-    v5 = v27;
-    if (std::chrono::steady_clock::now().__d_.__rep_ >= v25.__d_.__rep_)
-    {
-LABEL_39:
-      if (*(v3 + 432) == 1 && (*(v21 + 89) & 1) == 0)
-      {
-        v32 = atomic_load((v21 + 48));
-        if (v32 < *(v21 + 56))
-        {
-          v23 = atomic_load((v21 + 48));
-          if (v128 && v23 == v128)
-          {
-            if (*(v3 + 32) == 1)
-            {
-              NSLog(&cfstr_NoNewRaysLlu.isa, v128);
-            }
-
-            *(v141[6] + 89) = 1;
-          }
-
-          else
-          {
-            if (++v22 != 10)
-            {
-              goto LABEL_20;
-            }
-
-            if (*(v3 + 32) == 1)
-            {
-              NSLog(&cfstr_TimedOut.isa);
-            }
-
-            *(v141[6] + 89) = 1;
-          }
-        }
-      }
-
-      break;
-    }
-  }
-
-  v33 = *v10;
-  if (!*v10)
-  {
-    goto LABEL_61;
-  }
-
-  v34 = (v3 + 736);
-  v35 = *v10;
-  do
-  {
-    v36 = *(v35 + 8);
-    v13 = v36 >= v8;
-    v37 = v36 < v8;
-    if (v13)
-    {
-      v34 = v35;
-    }
-
-    v35 = v35[v37];
-  }
-
-  while (v35);
-  if (v34 == v10 || *(v34 + 8) > v8)
-  {
-LABEL_61:
-    NSLog(&cfstr_MissingRayColl_0.isa);
-    goto LABEL_62;
-  }
-
-  v58 = v34[1];
-  if (v58)
-  {
-    do
-    {
-      v59 = v58;
-      v58 = *v58;
-    }
-
-    while (v58);
-  }
-
-  else
-  {
-    v81 = v34;
-    do
-    {
-      v59 = v81[2];
-      v106 = *v59 == v81;
-      v81 = v59;
-    }
-
-    while (!v106);
-  }
-
-  if (*(v3 + 728) == v34)
-  {
-    *(v3 + 728) = v59;
-  }
-
-  --*(v3 + 744);
-  v82 = *v34;
-  v83 = v34;
-  if (*v34)
-  {
-    v84 = v34[1];
-    if (v84)
-    {
-      do
-      {
-        v83 = v84;
-        v84 = *v84;
-      }
-
-      while (v84);
-      goto LABEL_122;
-    }
-
-    v83 = v34;
-LABEL_125:
-    v86 = 0;
-    v85 = v83[2];
-    v82[2] = v85;
-  }
-
-  else
-  {
-LABEL_122:
-    v82 = v83[1];
-    if (v82)
-    {
-      goto LABEL_125;
-    }
-
-    v85 = v83[2];
-    v86 = 1;
-  }
-
-  v87 = *v85;
-  if (*v85 == v83)
-  {
-    *v85 = v82;
-    if (v83 == v33)
-    {
-      v87 = 0;
-      v33 = v82;
-    }
-
-    else
-    {
-      v87 = v85[1];
-    }
-  }
-
-  else
-  {
-    v85[1] = v82;
-  }
-
-  v88 = *(v83 + 24);
-  if (v83 != v34)
-  {
-    v89 = v34[2];
-    v83[2] = v89;
-    v89[*v89 != v34] = v83;
-    v90 = *v34;
-    *v83 = *v34;
-    v90[2] = v83;
-    v91 = v34[1];
-    v83[1] = v91;
-    if (v91)
-    {
-      *(v91 + 2) = v83;
-    }
-
-    *(v83 + 24) = *(v34 + 24);
-    if (v33 == v34)
-    {
-      v33 = v83;
-    }
-  }
-
-  if (!v33 || !v88)
-  {
-    goto LABEL_189;
-  }
-
-  if (!v86)
-  {
-    *(v82 + 24) = 1;
-    goto LABEL_189;
-  }
-
-  while (2)
-  {
-    v92 = v87[2];
-    v93 = *v92;
-    v94 = *(v87 + 24);
-    if (*v92 != v87)
-    {
-      if ((v87[3] & 1) == 0)
-      {
-        *(v87 + 24) = 1;
-        *(v92 + 24) = 0;
-        v95 = v92[1];
-        v96 = *v95;
-        v92[1] = *v95;
-        if (v96)
-        {
-          *(v96 + 16) = v92;
-        }
-
-        v97 = v92[2];
-        v95[2] = v97;
-        v97[*v97 != v92] = v95;
-        *v95 = v92;
-        v92[2] = v95;
-        if (v33 == *v87)
-        {
-          v33 = v87;
-        }
-
-        v87 = *(*v87 + 1);
-      }
-
-      v98 = *v87;
-      if (*v87 && *(v98 + 24) != 1)
-      {
-        v99 = v87[1];
-        if (v99 && (v99[3] & 1) == 0)
-        {
-LABEL_175:
-          v98 = v87;
-        }
-
-        else
-        {
-          *(v98 + 24) = 1;
-          *(v87 + 24) = 0;
-          v107 = v98[1];
-          *v87 = v107;
-          if (v107)
-          {
-            v107[2] = v87;
-          }
-
-          v108 = v87[2];
-          v98[2] = v108;
-          v108[*v108 != v87] = v98;
-          v98[1] = v87;
-          v87[2] = v98;
-          v99 = v87;
-        }
-
-        v109 = v98[2];
-        *(v98 + 24) = *(v109 + 24);
-        *(v109 + 24) = 1;
-        *(v99 + 24) = 1;
-        v110 = *(v109 + 8);
-        v111 = *v110;
-        *(v109 + 8) = *v110;
-        if (v111)
-        {
-          *(v111 + 16) = v109;
-        }
-
-        v112 = *(v109 + 16);
-        v110[2] = v112;
-        v112[*v112 != v109] = v110;
-        *v110 = v109;
-        goto LABEL_188;
-      }
-
-      v99 = v87[1];
-      if (v99 && *(v99 + 24) != 1)
-      {
-        goto LABEL_175;
-      }
-
-      *(v87 + 24) = 0;
-      v100 = v87[2];
-      if (v100 == v33 || (v100[3] & 1) == 0)
-      {
-        goto LABEL_169;
-      }
-
-      goto LABEL_167;
-    }
-
-    if ((v87[3] & 1) == 0)
-    {
-      *(v87 + 24) = 1;
-      *(v92 + 24) = 0;
-      v101 = *(v93 + 8);
-      *v92 = v101;
-      if (v101)
-      {
-        *(v101 + 16) = v92;
-      }
-
-      v102 = v92[2];
-      *(v93 + 16) = v102;
-      v102[*v102 != v92] = v93;
-      *(v93 + 8) = v92;
-      v92[2] = v93;
-      v103 = v87[1];
-      if (v33 == v103)
-      {
-        v33 = v87;
-      }
-
-      v87 = *v103;
-    }
-
-    v104 = *v87;
-    if (*v87 && *(v104 + 24) != 1)
-    {
-      goto LABEL_184;
-    }
-
-    v105 = v87[1];
-    if (!v105 || *(v105 + 24) == 1)
-    {
-      *(v87 + 24) = 0;
-      v100 = v87[2];
-      v106 = *(v100 + 24) != 1 || v100 == v33;
-      if (v106)
-      {
-LABEL_169:
-        *(v100 + 24) = 1;
-        goto LABEL_189;
-      }
-
-LABEL_167:
-      v87 = *(v100[2] + (*v100[2] == v100));
-      continue;
-    }
-
-    break;
-  }
-
-  if (v104 && (v104[3] & 1) == 0)
-  {
-LABEL_184:
-    v105 = v87;
-    goto LABEL_185;
-  }
-
-  *(v105 + 24) = 1;
-  *(v87 + 24) = 0;
-  v113 = *v105;
-  v87[1] = *v105;
-  if (v113)
-  {
-    *(v113 + 16) = v87;
-  }
-
-  v114 = v87[2];
-  v105[2] = v114;
-  v114[*v114 != v87] = v105;
-  *v105 = v87;
-  v87[2] = v105;
-  v104 = v87;
-LABEL_185:
-  v109 = v105[2];
-  *(v105 + 24) = *(v109 + 24);
-  *(v109 + 24) = 1;
-  *(v104 + 24) = 1;
-  v110 = *v109;
-  v115 = *(*v109 + 8);
-  *v109 = v115;
-  if (v115)
-  {
-    *(v115 + 16) = v109;
-  }
-
-  v116 = *(v109 + 16);
-  v110[2] = v116;
-  v116[*v116 != v109] = v110;
-  v110[1] = v109;
-LABEL_188:
-  *(v109 + 16) = v110;
-LABEL_189:
-  v117 = v34[6];
-  if (v117)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v117);
-  }
-
-  operator delete(v34);
-LABEL_62:
-  v38 = mach_absolute_time();
-  v39 = (v3 + 776);
-  if (atomic_load((v3 + 776)))
-  {
-    v41 = v38;
-    atomic_fetch_add((v3 + 784), *(v141[6] + 56));
-    v42 = mach_absolute_time();
-    v43 = atomic_load((v3 + 784));
-    v44 = atomic_load(v39);
-    numer = info.numer;
-    denom = info.denom;
-    v47 = atomic_load((v3 + 792));
-    v49 = info.numer;
-    v48 = info.denom;
-    atomic_store(v41, (v3 + 792));
-    v50 = v141;
-    atomic_store(*(v141[6] + 56), (v3 + 800));
-    if (*(v3 + 32) == 1)
-    {
-      v51 = ((v42 - v44) * numer / denom) / 1000000000.0;
-      v52 = ((v41 - v123) * numer / denom) / 1000000000.0;
-      v53 = ((v41 - v47) * v49 / v48) / 1000000000.0;
-      if (*(v3 + 584) == *(v3 + 576))
-      {
-        v55 = 0;
-      }
-
-      else
-      {
-        v54 = 0;
-        v55 = 0;
-        v56 = 0;
-        v57 = 40;
-        do
-        {
-          std::mutex::lock((*(v3 + 552) + v54));
-          v55 += *(*(v3 + 576) + v57);
-          std::mutex::unlock((*(v3 + 552) + v54));
-          ++v56;
-          v54 += 64;
-          v57 += 48;
-        }
-
-        while (v56 < 0xAAAAAAAAAAAAAAABLL * ((*(v3 + 584) - *(v3 + 576)) >> 4));
-        v50 = v141;
-      }
-
-      NSLog(&cfstr_RaysLluTimeFFR.isa, *(v50[6] + 56), *&v53, *(v50[6] + 56) / v53, v43, *&v51, v43 / v51, *&v52, v55);
-      if (*(v3 + 584) != *(v3 + 576))
-      {
-        v60 = 0;
-        v61 = 0;
-        do
-        {
-          v62 = [*(v3 + 64 + 8 * v5) contents];
-          v63 = *(*(v141[6] + 64) + v60) + 1;
-          if (v63 != *(v62 + 4 * v61 + 4))
-          {
-            NSLog(&cfstr_WarningUscZuEx.isa, v61, *(v62 + 4 * v61 + 4), v63);
-          }
-
-          ++v61;
-          v60 += 32;
-        }
-
-        while (v61 < 0xAAAAAAAAAAAAAAABLL * ((*(v3 + 584) - *(v3 + 576)) >> 4));
-      }
-    }
-  }
-
-  else
-  {
-    atomic_store(mach_absolute_time(), v39);
-    atomic_store(0, (v3 + 784));
-  }
-
-  v64 = v141[6];
-  if (*(v64 + 89) != 1)
-  {
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-      __lk.__owns_ = 0;
-      v15 = [v127 commandBufferWithDescriptor:*(v3 + 24)];
-      [v15 setLabel:@"AtomicHeatMap"];
-      v74 = [v15 computeCommandEncoderWithDispatchType:1];
-      [v74 setLabel:@"AtomicHeatMap"];
-      [v74 setComputePipelineState:*(v3 + 48)];
-      [v74 setTexture:v153 atIndex:0];
-      if (*(v141[6] + 72) != *(v141[6] + 64))
-      {
-        v75 = 0;
-        v76 = 0;
-        do
-        {
-          [v74 setBuffer:*(v3 + 112 + 8 * v5) offset:v75 * *(v130 + 20) atIndex:0];
-          [v74 setBuffer:*(*(v141[6] + 64) + 8 * v75 + 16) offset:0 atIndex:1];
-          v138 = *(*(v141[6] + 64) + 8 * v75) - 1;
-          [v74 setBytes:&v138 length:8 atIndex:2];
-          v77 = v141[6];
-          v78 = *(v77 + 64);
-          v79 = *(v78 + 8 * v75);
-          if (v79 >= 2 && v79 < *(v78 + 8 * v75 + 8))
-          {
-            v131 = v79 - 1;
-            v129 = vdupq_n_s64(1uLL);
-            v132 = v129;
-            v136 = [*(v3 + 48) maxTotalThreadsPerThreadgroup];
-            v137 = v129;
-            [v74 dispatchThreads:&v131 threadsPerThreadgroup:&v136];
-            v77 = v141[6];
-            v78 = *(v77 + 64);
-          }
-
-          ++v76;
-          v80 = (*(v77 + 72) - v78) >> 5;
-          if (v80 >= 0x64)
-          {
-            v80 = 100;
-          }
-
-          v75 += 4;
-        }
-
-        while (v76 < v80);
-      }
-
-      [v74 endEncoding];
-      v131 = MEMORY[0x277D85DD0];
-      v132.i64[0] = 3221225472;
-      v132.i64[1] = ___ZN33AccelerationStructureViewerServer8Profiler11finishFrameEPU26objcproto15MTLCommandQueue11objc_objectPU35objcproto24MTLComputeCommandEncoder11objc_objectmP18ASVSRenderSettingsPN27AccelerationStructureViewer6SampleE_block_invoke;
-      v133 = &unk_279659190;
-      v134 = &v140;
-      v135 = v3;
-      [v15 addCompletedHandler:&v131];
-
-      v2 = v125;
-      goto LABEL_106;
-    }
-
-    goto LABEL_192;
-  }
-
-  v65 = atomic_load((v64 + 48));
-  v66 = v141;
-  v67 = v141[7];
-  v68 = *(v141[6] + 56);
-  v141[6] = 0;
-  v66[7] = 0;
-  v2 = v125;
-  if (v67)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v67);
-  }
-
-  v7 = v126;
-  if (!__lk.__owns_)
-  {
-LABEL_192:
-    std::__throw_system_error(1, "unique_lock::unlock: not locked");
-    AccelerationStructureViewerServer::Renderer::completeSample(v118, v119, v120, v121, v122);
-    return;
-  }
-
-  std::mutex::unlock(__lk.__m_);
-  __lk.__owns_ = 0;
-  if (*(v3 + 32) == 1)
-  {
-    NSLog(&cfstr_CollectorIsDam.isa, v65, v68);
-  }
-
-  if (v65 + 1 > 1)
-  {
-    v15 = 0;
-    goto LABEL_108;
-  }
-
-  if (*(v3 + 584) == *(v3 + 576))
-  {
-LABEL_89:
-    if (*(v3 + 32) == 1)
-    {
-      NSLog(&cfstr_CollectorIsVer.isa);
-    }
-
-    std::mutex::lock((v3 + 320));
-    v7 = v126;
-    v73 = v124;
-    if (*(v3 + 432) == 1 && !*(v3 + 436))
-    {
-      AccelerationStructureViewerServer::Profiler::stopAPSStreaming(v3, *v3);
-    }
-
-    std::mutex::unlock((v3 + 320));
-    v15 = 0;
-    if (v124)
-    {
-      goto LABEL_109;
-    }
-  }
-
-  else
-  {
-    v69 = 0;
-    v70 = 0;
-    v71 = 40;
-    while (1)
-    {
-      std::mutex::lock((*(v3 + 552) + v69));
-      v72 = *(*(v3 + 576) + v71);
-      std::mutex::unlock((*(v3 + 552) + v69));
-      if (v72)
-      {
-        break;
-      }
-
-      ++v70;
-      v69 += 64;
-      v71 += 48;
-      if (v70 >= 0xAAAAAAAAAAAAAAABLL * ((*(v3 + 584) - *(v3 + 576)) >> 4))
-      {
-        goto LABEL_89;
-      }
-    }
-
-    v15 = 0;
-LABEL_106:
-    v7 = v126;
-LABEL_108:
-    v73 = v124;
-    if (v124)
-    {
-LABEL_109:
-      std::__shared_weak_count::__release_shared[abi:nn200100](v73);
-    }
-  }
-
-  _Block_object_dispose(&v140, 8);
-  if (v147)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v147);
-  }
-
-  v6 = v127;
-LABEL_10:
-  if (__lk.__owns_)
-  {
-    std::mutex::unlock(__lk.__m_);
-  }
-
-  v16 = *(a1 + 704);
-  if (*(a1 + 696) != v16)
-  {
-    AccelerationStructureViewerServer::Profiler::finishSkipFrame(v2[2192], v16);
-  }
-
-  v17 = *(a1 + 744);
-  AccelerationStructureViewer::Sample::Sample(v149, v151);
-  AccelerationStructureViewerServer::Renderer::commitSample(v2, v17, v149, v15, *(*(*(a1 + 712) + 8) + 40), *(a1 + 736));
-
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v150);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v152);
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-void AccelerationStructureViewerServer::Renderer::completeSample(void *a1, char a2, uint64_t a3, void *a4, double a5)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v9 = a4;
-  v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x3032000000;
-  v13[3] = __Block_byref_object_copy__9206;
-  v13[4] = __Block_byref_object_dispose__9207;
-  v14 = v9;
-  v10 = dispatch_get_global_queue(0, 0);
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3321888768;
-  block[2] = ___ZN33AccelerationStructureViewerServer8Renderer14completeSampleEhN27AccelerationStructureViewer6SampleEdPU32objcproto21OS_dispatch_semaphore8NSObject_block_invoke;
-  block[3] = &unk_2860BC558;
-  v17[11] = a1;
-  v18 = a2;
-  v17[10] = v13;
-  v11 = v9;
-  AccelerationStructureViewer::Sample::Sample(v16, a3);
-  v17[12] = *&a5;
-  dispatch_async(v10, block);
-
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v17);
-  _Block_object_dispose(v13, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ___ZN33AccelerationStructureViewerServer8Renderer12commitSampleEhN27AccelerationStructureViewer6SampleEdPU27objcproto16MTLCommandBuffer11objc_objectPU32objcproto21OS_dispatch_semaphore8NSObject_block_invoke(uint64_t a1)
-{
-  v7[11] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 696);
-  v3 = *(a1 + 712);
-  AccelerationStructureViewer::Sample::Sample(v6, a1 + 32);
-  AccelerationStructureViewerServer::Renderer::completeSample(v2, v3, v6, *(*(*(a1 + 688) + 8) + 40), *(a1 + 704));
-
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void ___ZN33AccelerationStructureViewerServer8Renderer14completeSampleEhN27AccelerationStructureViewer6SampleEdPU32objcproto21OS_dispatch_semaphore8NSObject_block_invoke(uint64_t a1)
-{
-  v22[11] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 696);
-  if (*(v2 + 16840))
-  {
-    *(v2 + 8 * (*(a1 + 40) & 0x1FLL) + 120) = CFAbsoluteTimeGetCurrent();
-    v3 = *(v2 + 16840);
-    AccelerationStructureViewer::Sample::Sample(v21, a1 + 32);
-    (*(*v3 + 40))(v3, v2, v21);
-
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v22);
-    std::mutex::lock((v2 + 48));
-    Current = CFAbsoluteTimeGetCurrent();
-    if (*(v2 + 16832))
-    {
-      goto LABEL_26;
-    }
-
-    v5 = Current - *(a1 + 704);
-    v6 = 1.0 / v5;
-    v7 = *(v2 + 16824);
-    v8 = 1.0 / v7;
-    if (v6 < 30.0 || v8 < 30.0)
-    {
-      v10 = *(v2 + 16996);
-      LOBYTE(v11) = 2 * v10;
-    }
-
-    else
-    {
-      if (v6 <= 180.0 || v8 <= 180.0)
-      {
-        *(v2 + 16992) = 0;
-        v17 = (v2 + 16996);
-        LOBYTE(v11) = *(v2 + 16996);
-LABEL_21:
-        if (v11 > 0x10u)
-        {
-          v19 = 16;
-LABEL_25:
-          *v17 = v19;
-          goto LABEL_26;
-        }
-
-        if (v11 <= 7u)
-        {
-          v19 = 8;
-          goto LABEL_25;
-        }
-
-LABEL_26:
-        std::mutex::unlock((v2 + 48));
-        AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v2, *(a1 + 712), *(*(*(a1 + 688) + 8) + 40));
-        v20 = *MEMORY[0x277D85DE8];
-        return;
-      }
-
-      v10 = *(v2 + 16996);
-      v11 = v10 >> 1;
-    }
-
-    v18 = *(v2 + 16992) + 1;
-    *(v2 + 16992) = v18;
-    v17 = (v2 + 16996);
-    if (v18 <= 4 * v10)
-    {
-      LOBYTE(v11) = v10;
-    }
-
-    else
-    {
-      *(v2 + 16996) = v11;
-      *(v2 + 16992) = 0;
-    }
-
-    goto LABEL_21;
-  }
-
-  v12 = *(a1 + 712);
-  v13 = *(*(*(a1 + 688) + 8) + 40);
-  v14 = *MEMORY[0x277D85DE8];
-  v15 = *(a1 + 696);
-
-  AccelerationStructureViewerServer::Renderer::releaseUniformBufferIndex(v15, v12, v13);
-}
-
-void AccelerationStructureViewerServer::Renderer::acknowledge(AccelerationStructureViewerServer::Renderer *this, unint64_t a2, char a3)
-{
-  std::mutex::lock((this + 48));
-  v6 = this + 376;
-  v7 = a2 & 0x1F;
-  v8 = *(this + v7 + 188);
-  if (v8 > 0x3FF)
-  {
-    if (a3)
-    {
-      goto LABEL_14;
-    }
-
-    Current = CFAbsoluteTimeGetCurrent();
-  }
-
-  else
-  {
-    v9 = this + 8 * v8;
-    *(v9 + 1079) = 0;
-    *&v6[2 * v7] = 1024;
-    if (a3)
-    {
-      goto LABEL_14;
-    }
-
-    Current = CFAbsoluteTimeGetCurrent();
-    *(v9 + 55) = Current;
-  }
-
-  v11 = atomic_load(this + 4);
-  if (v11 < a2)
-  {
-    v12 = 0;
-    do
-    {
-      v13 = *&v6[2 * (v11 & 0x1F)];
-      if (v13 <= 0x3FF)
-      {
-        *(this + v13 + 1079) = 0;
-        *&v6[2 * (v11 & 0x1F)] = 1024;
-      }
-
-      if (a2 - 1 == v11)
-      {
-        break;
-      }
-
-      ++v11;
-    }
-
-    while (v12++ < 0x1F);
-    *(this + 2103) = (Current - *(this + v7 + 15)) * 0.5;
-    atomic_store(a2, this + 4);
-  }
-
-LABEL_14:
-
-  std::mutex::unlock((this + 48));
-}
-
-void AccelerationStructureViewerServer::Renderer::capture(AccelerationStructureViewerServer::Renderer *this, uint64_t a2)
-{
-  v2 = a2;
-  NSLog(&cfstr_RequestingCapt.isa, a2);
-  std::mutex::lock((this + 48));
-  *(this + 2214) = v2;
-
-  std::mutex::unlock((this + 48));
-}
-
-void AccelerationStructureViewerServer::Renderer::requestGBVH(AccelerationStructureViewerServer::Renderer *this, uint64_t a2)
-{
-  v4 = [MEMORY[0x277CCAA00] defaultManager];
-  v5 = NSTemporaryDirectory();
-  v6 = MEMORY[0x277CCACA8];
-  v7 = [MEMORY[0x277CCAD78] UUID];
-  v8 = [v7 UUIDString];
-  v9 = [v6 stringWithFormat:@"%@.mtlas", v8];
-  v10 = [v5 stringByAppendingPathComponent:v9];
-
-  v11 = *(this + 1);
-  std::mutex::lock((this + 48));
-  memcpy(__dst, this + 16992, sizeof(__dst));
-  v12 = *(this + 1058);
-  v13 = *(this + 1060);
-  v22[6] = *(this + 1059);
-  v22[7] = v13;
-  v22[8] = *(this + 1061);
-  v14 = *(this + 1054);
-  v15 = *(this + 1056);
-  v22[2] = *(this + 1055);
-  v22[3] = v15;
-  v22[4] = *(this + 1057);
-  v22[5] = v12;
-  v22[0] = *(this + 1053);
-  v22[1] = v14;
-  std::mutex::unlock((this + 48));
-  v20 = 0;
-  LOBYTE(v7) = writeAccelerationStructureToGBVH5Path(v11, v22, __dst, v10, &v20);
-  v16 = v20;
-  if (v7)
-  {
-    v19 = v16;
-    v17 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v10 options:2 error:&v19];
-    v18 = v19;
-
-    (*(**(this + 2105) + 32))(*(this + 2105), a2, v17, v18);
-    [v4 removeItemAtPath:v10 error:0];
-
-    v16 = v18;
-  }
-
-  else
-  {
-    [v4 removeItemAtPath:v10 error:0];
-    (*(**(this + 2105) + 32))(*(this + 2105), a2, 0, v16);
-  }
-}
-
-BOOL AccelerationStructureViewerServer::Renderer::writeGBVHToFile(AccelerationStructureViewerServer::Renderer *this, NSString *a2)
-{
-  v2 = *(this + 1);
-  v4 = 0;
-  return writeAccelerationStructureToGBVH5Path(v2, 0, 0, a2, &v4);
-}
-
-void AccelerationStructureViewerServer::Renderer::setVersion(uint64_t a1, unint64_t a2)
-{
-  if (a2 >= 0xD)
-  {
-    v3 = 13;
-  }
-
-  else
-  {
-    v3 = a2;
-  }
-
-  std::mutex::lock((a1 + 48));
-  *(a1 + 112) = v3;
-  v4 = *(a1 + 16840);
-  std::mutex::unlock((a1 + 48));
-  if (v4)
-  {
-    (*(*v4 + 72))(v4, v3);
-  }
-
-  NSLog(&cfstr_AsvserverToUse.isa, v3);
-}
-
-void AccelerationStructureViewerServer::Renderer::setIntersectionHints(uint64_t a1, const void *a2)
-{
-  std::mutex::lock((a1 + 48));
-  *(a1 + 17505) = 1;
-  memcpy((a1 + 17016), a2, 0x1B8uLL);
-
-  std::mutex::unlock((a1 + 48));
-}
-
-void AccelerationStructureViewerServer::Renderer::setTransform(uint64_t a1, float32x4_t *a2)
-{
-  v4 = a1 + 0x4000;
-  std::mutex::lock((a1 + 48));
-  *(v4 + 1121) = 1;
-  v5 = (a1 + 16848);
-  if (memcmp(a2, (a1 + 16848), 0x90uLL))
-  {
-    if (a2->u8[0] != *v5 || a2->u16[1] != *(v4 + 466) || ((v6 = a2->f32[1], v7 = *(v4 + 468), v8 = v7 + -0.001, v9 = v7 + 0.001, v6 >= v8) ? (v10 = v6 > v9) : (v10 = 1), v10 || a2->i32[2] != *(v4 + 472) || a2->i32[3] != *(v4 + 476) || (v11.i64[0] = 0x3400000034000000, v11.i64[1] = 0x3400000034000000, (vminvq_u32(vandq_s8(vandq_s8(vcgeq_f32(v11, vabdq_f32(a2[2], *(a1 + 16880))), vcgeq_f32(v11, vabdq_f32(a2[1], *(a1 + 16864)))), vandq_s8(vcgeq_f32(v11, vabdq_f32(a2[3], *(a1 + 16896))), vcgeq_f32(v11, vabdq_f32(a2[4], *(a1 + 16912)))))) & 0x80000000) == 0) || (vminvq_u32(vandq_s8(vandq_s8(vcgeq_f32(v11, vabdq_f32(a2[6], *(a1 + 16944))), vcgeq_f32(v11, vabdq_f32(a2[5], *(a1 + 16928)))), vandq_s8(vcgeq_f32(v11, vabdq_f32(a2[7], *(a1 + 16960))), vcgeq_f32(v11, vabdq_f32(a2[8], *(a1 + 16976)))))) & 0x80000000) == 0))
-    {
-      *(a1 + 17512) = CFAbsoluteTimeGetCurrent();
-      atomic_store(1u, (v4 + 1160));
-    }
-  }
-
-  *v5 = *a2;
-  v12 = a2[1];
-  v13 = a2[2];
-  v14 = a2[4];
-  *(a1 + 16896) = a2[3];
-  *(a1 + 16912) = v14;
-  *(a1 + 16864) = v12;
-  *(a1 + 16880) = v13;
-  v15 = a2[5];
-  v16 = a2[6];
-  v17 = a2[8];
-  *(a1 + 16960) = a2[7];
-  *(a1 + 16976) = v17;
-  *(a1 + 16928) = v15;
-  *(a1 + 16944) = v16;
-  v18 = *v5;
-  if (*v5)
-  {
-    *(v4 + 612) = v18;
-    v18 = 1;
-  }
-
-  *(v4 + 448) = v18;
-  v19 = *(v4 + 1122);
-  v20 = *(a1 + 16840);
-  *(v4 + 1122) = 0;
-  v21 = *(a1 + 17472);
-  v23 = *(a1 + 17456);
-  v24 = v21;
-  v25 = *(a1 + 17488);
-  std::mutex::unlock((a1 + 48));
-  if (v19 == 1)
-  {
-    if (v20)
-    {
-      v22[1] = v24;
-      v22[2] = v25;
-      v22[0] = v23;
-      (*(*v20 + 24))(v20, a1, v22);
-    }
-  }
-}
-
-void AccelerationStructureViewerServer::Renderer::setResolver(uint64_t a1, uint64_t a2)
-{
-  std::mutex::lock((a1 + 48));
-  *(a1 + 16840) = a2;
-
-  std::mutex::unlock((a1 + 48));
-}
-
-void AccelerationStructureViewerServer::Renderer::~Renderer(AccelerationStructureViewerServer::Renderer *this)
-{
-  AccelerationStructureViewerServer::Renderer::~Renderer(this);
-
-  JUMPOUT(0x2530332C0);
-}
-
-{
-  *this = &unk_2860BC470;
-  v2 = *(this + 2197);
-  v3 = *(this + 2197);
-  *(this + 2197) = 0;
-
-  v4 = 3;
-  do
-  {
-    dispatch_semaphore_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
-    --v4;
-  }
-
-  while (v4);
-  std::mutex::lock((this + 48));
-  std::__tree<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>>>::destroy(*(this + 2205));
-  *(this + 2204) = this + 17640;
-  *(this + 17640) = 0u;
-  std::__tree<std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>,std::__map_value_compare<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>,std::less<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>>,true>,std::allocator<std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>>>::destroy(*(this + 2212));
-  *(this + 2211) = this + 17696;
-  *(this + 1106) = 0u;
-  if (*(this + 2192))
-  {
-    std::unique_ptr<AccelerationStructureViewerServer::Profiler>::reset[abi:nn200100](this + 2192, 0);
-  }
-
-  std::mutex::unlock((this + 48));
-  v5 = 3;
-  do
-  {
-    dispatch_semaphore_signal(v2);
-    --v5;
-  }
-
-  while (v5);
-
-  std::__tree<std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>,std::__map_value_compare<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>,std::less<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>>,true>,std::allocator<std::__value_type<std::pair<AccelerationStructureViewerServer::IntersectorType,AccelerationStructureViewer::IntersectionFunctionTable *>,std::unique_ptr<AccelerationStructureViewerServer::Intersector>>>>::destroy(*(this + 2212));
-  std::__tree<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>>>::destroy(*(this + 2205));
-  for (i = 0; i != -24; i -= 8)
-  {
-  }
-
-  for (j = 0; j != -24; j -= 8)
-  {
-  }
-
-  std::unique_ptr<AccelerationStructureViewerServer::Profiler>::reset[abi:nn200100](this + 2192, 0);
-  std::mutex::~mutex((this + 48));
-}
-
 void std::__tree<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,AccelerationStructureViewer::IntersectionFunctionTable>>>::destroy(void *a1)
 {
   if (a1)
@@ -3072,7 +21,7 @@ void std::__tree<std::__value_type<std::pair<AccelerationStructureViewerServer::
   }
 }
 
-uint64_t *std::unique_ptr<AccelerationStructureViewerServer::Profiler>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
+id **std::unique_ptr<AccelerationStructureViewerServer::Profiler>::reset[abi:nn200100](id **result, id *a2)
 {
   v2 = *result;
   *result = a2;
@@ -3310,7 +259,6 @@ void ___ZN33AccelerationStructureViewerServer8Renderer13setDataSourceEPNS_10Data
       *(v7 + 24) = v8;
       v9 = *(v4 + 16);
       v10 = *(v4 + 8);
-      v16 = *(v4 + 16);
       v11 = *v6;
       if (!*v6)
       {
@@ -3638,7 +586,7 @@ BOOL writeAccelerationStructureToGBVH5Path(void *a1, char *a2, uint64_t a3, void
 
 void ___Z37writeAccelerationStructureToGBVH5PathPN33AccelerationStructureViewerServer10DataSourceEP18ASVCameraTransformP18ASVSRenderSettingsP8NSStringPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *a2;
   if (a2[1] != *a2)
@@ -3672,11 +620,11 @@ void ___Z37writeAccelerationStructureToGBVH5PathPN33AccelerationStructureViewerS
       *(v11 + 24 * v7 + 20) = v9[3];
       v16 = *(a1 + 48);
       v17 = *(a1 + 32);
-      v19[0] = &unk_2860BC5D0;
-      v19[1] = v17;
-      v19[3] = v19;
-      (*(*v16 + 112))(v16, v9, v19);
-      std::__function::__value_func<void ()(unsigned long,BOOL,objc_object  {objcproto11MTLFunction}*,AccelerationStructureViewer::IntersectionFunction *)>::~__value_func[abi:nn200100](v19);
+      v18[0] = &unk_2860BC5D0;
+      v18[1] = v17;
+      v18[3] = v18;
+      (*(*v16 + 112))(v16, v9, v18);
+      std::__function::__value_func<void ()(unsigned long,BOOL,objc_object  {objcproto11MTLFunction}*,AccelerationStructureViewer::IntersectionFunction *)>::~__value_func[abi:nn200100](v18);
       v7 = v8;
       v6 = *a2;
       ++v8;
@@ -3684,8 +632,6 @@ void ___Z37writeAccelerationStructureToGBVH5PathPN33AccelerationStructureViewerS
 
     while (v7 < (a2[1] - *a2) >> 5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 float float2matrix(float *a1, simd_float4x4 *a2)
@@ -3852,7 +798,7 @@ void AccelerationStructureViewerServer::DataSource::generateItems(AccelerationSt
   v2 = objc_autoreleasePoolPush();
   v3 = *(this + 23);
   v4 = *(this + 24);
-  v246 = this;
+  v236 = this;
   context = v2;
   if (v4 != v3)
   {
@@ -3935,7 +881,7 @@ LABEL_18:
   if (v4 != v3)
   {
     v14 = 0;
-    v241 = (v246 + 16);
+    v231 = (v236 + 16);
     while (1)
     {
       v15 = v3 + 184 * v14;
@@ -3947,7 +893,7 @@ LABEL_18:
       }
 
       v18 = *(v17 + v16 + 8);
-      v242 = v14;
+      v232 = v14;
       if (v18 > 1)
       {
         break;
@@ -3960,7 +906,7 @@ LABEL_18:
           goto LABEL_240;
         }
 
-        v243 = v17 + v16;
+        v233 = v17 + v16;
         v19 = *(v15 + 32);
         v20 = ([*(v15 + 24) contents] + v19);
         v21 = malloc_type_calloc(v20[6], 0x18uLL, 0x1000040504FFAC1uLL);
@@ -3979,10 +925,10 @@ LABEL_18:
         }
 
         while (v24 <= [*(v15 + 56) length]);
-        v248 = (v15 + 16);
-        std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 12, *(v15 + 16))[3] = v21;
-        memset(&v247, 0, sizeof(v247));
-        std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v247, v20[7]);
+        v238 = (v15 + 16);
+        std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 24, *(v15 + 16), &v238)[3] = v21;
+        memset(&v237, 0, sizeof(v237));
+        std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v237, v20[7]);
         v25 = *(v15 + 72);
         if (v25)
         {
@@ -3997,7 +943,7 @@ LABEL_18:
             v32 = 0;
             v33 = 0;
             v34 = v20[3];
-            begin = v247.__begin_;
+            begin = v237.__begin_;
             v36 = 36;
             while (1)
             {
@@ -4047,68 +993,67 @@ LABEL_43:
 
           v32 = 0;
 LABEL_146:
-          v134 = malloc_type_calloc(v32 + 1, 4uLL, 0x100004052888210uLL);
+          v133 = malloc_type_calloc(v32 + 1, 4uLL, 0x100004052888210uLL);
           if (v20[6])
           {
-            v135 = 0;
-            v136 = v20[3];
+            v134 = 0;
+            v135 = v20[3];
             do
             {
-              if (v136)
+              if (v135)
               {
-                if (v136 == 1)
+                if (v135 == 1)
                 {
-                  v137 = v135 + 1;
-                  if (*(v15 + 80) + 16 * (v135 + 1) <= v29)
+                  v136 = v134 + 1;
+                  if (*(v15 + 80) + 16 * (v134 + 1) <= v29)
                   {
-                    v138 = *(v27 + 16 * v135 + 4);
+                    v137 = *(v27 + 16 * v134 + 4);
                     goto LABEL_154;
                   }
                 }
 
                 else
                 {
-                  v137 = v135 + 1;
+                  v136 = v134 + 1;
                 }
               }
 
               else
               {
-                v137 = v135 + 1;
-                if (*(v15 + 80) + 48 * (v135 + 1) <= v29)
+                v136 = v134 + 1;
+                if (*(v15 + 80) + 48 * (v134 + 1) <= v29)
                 {
-                  v138 = *(v27 + 48 * v135 + 40);
+                  v137 = *(v27 + 48 * v134 + 40);
 LABEL_154:
-                  if (v32 >= v138)
+                  if (v32 >= v137)
                   {
-                    v134[v138] = v135;
+                    v133[v137] = v134;
                   }
                 }
               }
 
-              v135 = v137;
+              v134 = v136;
             }
 
-            while (v137 < v20[6]);
+            while (v136 < v20[6]);
           }
 
-          v248 = (v15 + 16);
-          std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 7, *(v15 + 16))[3] = v134;
+          v238 = (v15 + 16);
+          std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 14, *(v15 + 16), &v238)[3] = v133;
         }
 
-        v139 = *(v15 + 88);
-        if (v139)
+        v138 = *(v15 + 88);
+        if (v138)
         {
-          v140 = *(v15 + 96);
-          [v139 contents];
+          [v138 contents];
           if (v20[7])
           {
-            v141 = v20[3];
-            if (v141 != 2)
+            v139 = v20[3];
+            if (v139 != 2)
             {
-              if (v141 != 1)
+              if (v139 != 1)
               {
-                if (!v141)
+                if (!v139)
                 {
                   operator new();
                 }
@@ -4126,7 +1071,7 @@ LABEL_154:
         goto LABEL_237;
       }
 
-      v243 = v17 + v16;
+      v233 = v17 + v16;
       v63 = *(v15 + 32);
       v64 = ([*(v15 + 24) contents] + v63);
       v65 = malloc_type_calloc(v64[6], 0x18uLL, 0x1000040504FFAC1uLL);
@@ -4161,32 +1106,21 @@ LABEL_154:
             v80 = (v76 + 48 * v75);
             v81 = v80[1];
             v82 = *v80 + v81;
-            if (v82 <= v77)
+            if (v82 <= v77 && v82 > v81)
             {
-              v84 = v82 > v81;
-              v83 = *v80 < 0;
-            }
-
-            else
-            {
-              v84 = 0;
-            }
-
-            if (v84)
-            {
-              v85 = v81 + 1;
-              v86 = &v65[24 * v81];
+              v84 = v81 + 1;
+              v85 = &v65[24 * v81];
               do
               {
-                v87 = *(v80 + 3);
-                *(v86 + 2) = *(v80 + 7);
-                *v86 = v87;
-                v86 += 24;
-                v88 = v85 >= *v80 + v80[1] || v85 >= v77;
-                ++v85;
+                v86 = *(v80 + 3);
+                *(v85 + 2) = *(v80 + 7);
+                *v85 = v86;
+                v85 += 24;
+                v87 = v84 >= *v80 + v80[1] || v84 >= v77;
+                ++v84;
               }
 
-              while (!v88);
+              while (!v87);
             }
           }
 
@@ -4196,136 +1130,135 @@ LABEL_154:
         while (v78 < v64[5]);
       }
 
-      v248 = (v15 + 16);
-      std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 12, *(v15 + 16))[3] = v65;
-      memset(&v247, 0, sizeof(v247));
-      std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v247, v64[7]);
-      v89 = *(v15 + 72);
-      if (v89)
+      v238 = (v15 + 16);
+      std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 24, *(v15 + 16), &v238)[3] = v65;
+      memset(&v237, 0, sizeof(v237));
+      std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v237, v64[7]);
+      v88 = *(v15 + 72);
+      if (v88)
       {
-        v90 = *(v15 + 80);
-        v91 = [v89 contents] + v90;
-        v92 = [*(v15 + 72) length];
-        v93 = v92;
-        v94 = v64[6];
-        if (v94)
+        v89 = *(v15 + 80);
+        v90 = [v88 contents] + v89;
+        v91 = [*(v15 + 72) length];
+        v92 = v91;
+        v93 = v64[6];
+        if (v93)
         {
+          v94 = 0;
           v95 = 0;
           v96 = 0;
-          v97 = 0;
-          v98 = v64[3];
-          v99 = v247.__begin_;
-          v100 = 36;
+          v97 = v64[3];
+          v98 = v237.__begin_;
+          v99 = 36;
           while (1)
           {
-            if (v98 == 1)
+            if (v97 == 1)
             {
-              if (v95 + *(v15 + 80) + 16 <= v92)
+              if (v94 + *(v15 + 80) + 16 <= v91)
               {
-                v103 = *(v91 + v95);
-                if (v103 < v64[7])
+                v102 = *(v90 + v94);
+                if (v102 < v64[7])
                 {
-                  ++v99[v103];
+                  ++v98[v102];
                 }
 
-                v102 = v91 + 16 * v97;
+                v101 = v90 + 16 * v96;
                 goto LABEL_105;
               }
             }
 
-            else if (!v98 && v100 + *(v15 + 80) + 12 <= v92)
+            else if (!v97 && v99 + *(v15 + 80) + 12 <= v91)
             {
-              v101 = *(v91 + v100);
-              if (v101 < v64[7])
+              v100 = *(v90 + v99);
+              if (v100 < v64[7])
               {
-                ++v99[v101];
+                ++v98[v100];
               }
 
-              v102 = v91 + v100;
+              v101 = v90 + v99;
 LABEL_105:
-              v104 = *(v102 + 4);
-              if (v96 <= v104)
+              v103 = *(v101 + 4);
+              if (v95 <= v103)
               {
-                v96 = v104;
+                v95 = v103;
               }
 
-              v94 = v64[6];
+              v93 = v64[6];
             }
 
-            ++v97;
-            v100 += 48;
-            v95 += 16;
-            if (v97 >= v94)
+            ++v96;
+            v99 += 48;
+            v94 += 16;
+            if (v96 >= v93)
             {
               goto LABEL_192;
             }
           }
         }
 
-        v96 = 0;
+        v95 = 0;
 LABEL_192:
-        v150 = malloc_type_calloc(v96 + 1, 4uLL, 0x100004052888210uLL);
+        v147 = malloc_type_calloc(v95 + 1, 4uLL, 0x100004052888210uLL);
         if (v64[6])
         {
-          v151 = 0;
-          v152 = v64[3];
+          v148 = 0;
+          v149 = v64[3];
           do
           {
-            if (v152)
+            if (v149)
             {
-              if (v152 == 1)
+              if (v149 == 1)
               {
-                v153 = v151 + 1;
-                if (*(v15 + 80) + 16 * (v151 + 1) <= v93)
+                v150 = v148 + 1;
+                if (*(v15 + 80) + 16 * (v148 + 1) <= v92)
                 {
-                  v154 = *(v91 + 16 * v151 + 4);
+                  v151 = *(v90 + 16 * v148 + 4);
                   goto LABEL_200;
                 }
               }
 
               else
               {
-                v153 = v151 + 1;
+                v150 = v148 + 1;
               }
             }
 
             else
             {
-              v153 = v151 + 1;
-              if (*(v15 + 80) + 48 * (v151 + 1) <= v93)
+              v150 = v148 + 1;
+              if (*(v15 + 80) + 48 * (v148 + 1) <= v92)
               {
-                v154 = *(v91 + 48 * v151 + 40);
+                v151 = *(v90 + 48 * v148 + 40);
 LABEL_200:
-                if (v96 >= v154)
+                if (v95 >= v151)
                 {
-                  v150[v154] = v151;
+                  v147[v151] = v148;
                 }
               }
             }
 
-            v151 = v153;
+            v148 = v150;
           }
 
-          while (v153 < v64[6]);
+          while (v150 < v64[6]);
         }
 
-        v248 = (v15 + 16);
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 7, *(v15 + 16))[3] = v150;
+        v238 = (v15 + 16);
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 14, *(v15 + 16), &v238)[3] = v147;
       }
 
-      v155 = *(v15 + 88);
-      if (v155)
+      v152 = *(v15 + 88);
+      if (v152)
       {
-        v156 = *(v15 + 96);
-        [v155 contents];
+        [v152 contents];
         if (v64[7])
         {
-          v157 = v64[3];
-          if (v157 != 2)
+          v153 = v64[3];
+          if (v153 != 2)
           {
-            if (v157 != 1)
+            if (v153 != 1)
             {
-              if (!v157)
+              if (!v153)
               {
                 operator new();
               }
@@ -4341,12 +1274,12 @@ LABEL_200:
       }
 
 LABEL_237:
-      if (v247.__begin_)
+      if (v237.__begin_)
       {
-        operator delete(v247.__begin_);
+        operator delete(v237.__begin_);
       }
 
-      v18 = *(v243 + 8);
+      v18 = *(v233 + 8);
 LABEL_240:
       if (v18 > 1)
       {
@@ -4354,66 +1287,64 @@ LABEL_240:
         {
           if (v18 == 3)
           {
-            v171 = *(v15 + 32);
-            v172 = [*(v15 + 24) contents] + v171;
-            if ((*(v172 + 8) | 2) == 3)
+            v163 = *(v15 + 32);
+            v164 = [*(v15 + 24) contents] + v163;
+            if ((*(v164 + 8) | 2) == 3)
             {
-              v173 = *(v15 + 64);
               [*(v15 + 56) contents];
-              v174 = *(v15 + 160);
               [*(v15 + 152) contents];
-              if (*(v172 + 20))
+              if (*(v164 + 20))
               {
                 operator new();
               }
 
-              v175 = *(v246 + 1);
-              if (v175 != v241)
+              v165 = *(v236 + 1);
+              if (v165 != v231)
               {
                 do
                 {
-                  v176 = v175[5];
-                  v177 = v175[6];
-                  v178 = 126 - 2 * __clz((v177 - v176) >> 3);
-                  if (v177 == v176)
+                  v166 = v165[5];
+                  v167 = v165[6];
+                  v168 = 126 - 2 * __clz((v167 - v166) >> 3);
+                  if (v167 == v166)
                   {
-                    v179 = 0;
+                    v169 = 0;
                   }
 
                   else
                   {
-                    v179 = v178;
+                    v169 = v168;
                   }
 
-                  std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(v176, v177, v179, 1);
-                  v180 = v175[1];
-                  if (v180)
+                  std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(v166, v167, v169, 1);
+                  v170 = v165[1];
+                  if (v170)
                   {
                     do
                     {
-                      v181 = v180;
-                      v180 = *v180;
+                      v171 = v170;
+                      v170 = *v170;
                     }
 
-                    while (v180);
+                    while (v170);
                   }
 
                   else
                   {
                     do
                     {
-                      v181 = v175[2];
-                      v182 = *v181 == v175;
-                      v175 = v181;
+                      v171 = v165[2];
+                      v172 = *v171 == v165;
+                      v165 = v171;
                     }
 
-                    while (!v182);
+                    while (!v172);
                   }
 
-                  v175 = v181;
+                  v165 = v171;
                 }
 
-                while (v181 != v241);
+                while (v171 != v231);
               }
             }
           }
@@ -4421,41 +1352,41 @@ LABEL_240:
           goto LABEL_316;
         }
 
-        v188 = *(v15 + 32);
-        v189 = ([*(v15 + 24) contents] + v188);
-        if ((v189[2] | 2) == 2)
+        v178 = *(v15 + 32);
+        v179 = ([*(v15 + 24) contents] + v178);
+        if ((v179[2] | 2) == 2)
         {
-          v190 = *(v15 + 64);
-          v191 = [*(v15 + 56) contents];
-          v192 = v189[2] == 2 ? v189[9] : 1;
-          if (v189[5])
+          v180 = *(v15 + 64);
+          v181 = [*(v15 + 56) contents];
+          v182 = v179[2] == 2 ? v179[9] : 1;
+          if (v179[5])
           {
-            v220 = 0;
-            v245 = v191 + v190;
-            v221 = v192 * v189[6];
+            v210 = 0;
+            v235 = v181 + v180;
+            v211 = v182 * v179[6];
             while (1)
             {
-              v222 = v220 + 1;
-              v223 = *(v15 + 64) + 60 * (v220 + 1);
-              if (v223 > [*(v15 + 56) length])
+              v212 = v210 + 1;
+              v213 = *(v15 + 64) + 60 * (v210 + 1);
+              if (v213 > [*(v15 + 56) length])
               {
                 goto LABEL_316;
               }
 
-              v224 = (v245 + 60 * v220);
-              v225 = *v224;
-              if (v225 <= v189[6])
+              v214 = (v235 + 60 * v210);
+              v215 = *v214;
+              if (v215 <= v179[6])
               {
-                v226 = *(v224 + 1);
-                if (v225 + v226 > v226)
+                v216 = *(v214 + 1);
+                if (v215 + v216 > v216)
                 {
                   break;
                 }
               }
 
 LABEL_315:
-              v220 = v222;
-              if (v222 >= v189[5])
+              v210 = v212;
+              if (v212 >= v179[5])
               {
                 goto LABEL_316;
               }
@@ -4463,54 +1394,54 @@ LABEL_315:
 
             while (2)
             {
-              if (v189[2] == 2)
+              if (v179[2] == 2)
               {
-                v227 = v189[9];
+                v217 = v179[9];
               }
 
               else
               {
-                v227 = 1;
+                v217 = 1;
               }
 
-              v228 = v227 * v226;
-              v229 = *(v15 + 80);
-              v230 = [*(v15 + 72) contents];
-              if (v228 > v221)
+              v218 = v217 * v216;
+              v219 = *(v15 + 80);
+              v220 = [*(v15 + 72) contents];
+              if (v218 > v211)
               {
                 goto LABEL_315;
               }
 
-              v231 = v230 + v229;
-              v232 = v189[3];
-              if (v232 != 1)
+              v221 = v220 + v219;
+              v222 = v179[3];
+              if (v222 != 1)
               {
-                if (!v232)
+                if (!v222)
                 {
-                  v233 = (v231 + 48 * v228 + 36);
+                  v223 = (v221 + 48 * v218 + 36);
 LABEL_312:
-                  v234 = *v233;
-                  v247.__begin_ = 0;
-                  v248 = &v247;
-                  v235 = std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 32, 0);
-                  if (v234 < (v235[6] - v235[5]) >> 3)
+                  v224 = *v223;
+                  v237.__begin_ = 0;
+                  v238 = &v237;
+                  v225 = std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 4, 0, &v238);
+                  if (v224 < (v225[6] - v225[5]) >> 3)
                   {
-                    v248 = (v15 + 16);
-                    v236 = *(std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 32, *(v15 + 16))[5] + 8 * v234);
-                    v237 = v236[21];
-                    v236[20] = fminf(v236[20], v224[3]);
-                    v236[21] = fminf(v237, v224[4]);
-                    v238 = v236[23];
-                    v236[22] = fminf(v236[22], v224[5]);
-                    v236[23] = fmaxf(v238, v224[6]);
-                    v239 = v236[25];
-                    v236[24] = fmaxf(v236[24], v224[7]);
-                    v236[25] = fmaxf(v239, v224[8]);
+                    v238 = (v15 + 16);
+                    v226 = *(std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 4, *(v15 + 16), &v238)[5] + 8 * v224);
+                    v227 = v226[21];
+                    v226[20] = fminf(v226[20], v214[3]);
+                    v226[21] = fminf(v227, v214[4]);
+                    v228 = v226[23];
+                    v226[22] = fminf(v226[22], v214[5]);
+                    v226[23] = fmaxf(v228, v214[6]);
+                    v229 = v226[25];
+                    v226[24] = fmaxf(v226[24], v214[7]);
+                    v226[25] = fmaxf(v229, v214[8]);
                   }
                 }
 
-                v226 = v228 + 1;
-                if (v228 + 1 >= *v224 + *(v224 + 1))
+                v216 = v218 + 1;
+                if (v218 + 1 >= *v214 + *(v214 + 1))
                 {
                   goto LABEL_315;
                 }
@@ -4521,7 +1452,7 @@ LABEL_312:
               break;
             }
 
-            v233 = (v231 + 16 * v228);
+            v223 = (v221 + 16 * v218);
             goto LABEL_312;
           }
         }
@@ -4533,67 +1464,64 @@ LABEL_312:
         {
           if (v18 == 1)
           {
-            v166 = *(v15 + 32);
-            v167 = [*(v15 + 24) contents] + v166;
-            if ((*(v167 + 8) | 2) == 3)
+            v161 = *(v15 + 32);
+            v162 = [*(v15 + 24) contents] + v161;
+            if ((*(v162 + 8) | 2) == 3)
             {
-              v168 = *(v15 + 64);
               [*(v15 + 56) contents];
-              v169 = *(v15 + 152);
-              v170 = *(v15 + 160);
-              [v169 contents];
-              if (*(v167 + 20))
+              [*(v15 + 152) contents];
+              if (*(v162 + 20))
               {
                 operator new();
               }
 
-              v193 = *(v246 + 1);
-              if (v193 != v241)
+              v183 = *(v236 + 1);
+              if (v183 != v231)
               {
                 do
                 {
-                  v194 = v193[5];
-                  v195 = v193[6];
-                  v196 = 126 - 2 * __clz((v195 - v194) >> 3);
-                  if (v195 == v194)
+                  v184 = v183[5];
+                  v185 = v183[6];
+                  v186 = 126 - 2 * __clz((v185 - v184) >> 3);
+                  if (v185 == v184)
                   {
-                    v197 = 0;
+                    v187 = 0;
                   }
 
                   else
                   {
-                    v197 = v196;
+                    v187 = v186;
                   }
 
-                  std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(v194, v195, v197, 1);
-                  v198 = v193[1];
-                  if (v198)
+                  std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(v184, v185, v187, 1);
+                  v188 = v183[1];
+                  if (v188)
                   {
                     do
                     {
-                      v199 = v198;
-                      v198 = *v198;
+                      v189 = v188;
+                      v188 = *v188;
                     }
 
-                    while (v198);
+                    while (v188);
                   }
 
                   else
                   {
                     do
                     {
-                      v199 = v193[2];
-                      v182 = *v199 == v193;
-                      v193 = v199;
+                      v189 = v183[2];
+                      v172 = *v189 == v183;
+                      v183 = v189;
                     }
 
-                    while (!v182);
+                    while (!v172);
                   }
 
-                  v193 = v199;
+                  v183 = v189;
                 }
 
-                while (v199 != v241);
+                while (v189 != v231);
               }
             }
           }
@@ -4601,94 +1529,94 @@ LABEL_312:
           goto LABEL_316;
         }
 
-        v183 = *(v15 + 32);
-        v184 = ([*(v15 + 24) contents] + v183);
-        if ((v184[2] | 2) == 2)
+        v173 = *(v15 + 32);
+        v174 = ([*(v15 + 24) contents] + v173);
+        if ((v174[2] | 2) == 2)
         {
-          v185 = *(v15 + 64);
-          v186 = [*(v15 + 56) contents];
-          v187 = v184[2] == 2 ? v184[9] : 1;
-          if (v184[5])
+          v175 = *(v15 + 64);
+          v176 = [*(v15 + 56) contents];
+          v177 = v174[2] == 2 ? v174[9] : 1;
+          if (v174[5])
           {
-            v200 = 0;
-            v244 = v186 + v185;
-            v201 = v187 * v184[6];
+            v190 = 0;
+            v234 = v176 + v175;
+            v191 = v177 * v174[6];
             do
             {
-              v202 = v200 + 1;
-              v203 = *(v15 + 64) + 48 * (v200 + 1);
-              if (v203 > [*(v15 + 56) length])
+              v192 = v190 + 1;
+              v193 = *(v15 + 64) + 48 * (v190 + 1);
+              if (v193 > [*(v15 + 56) length])
               {
                 break;
               }
 
-              v204 = (v244 + 48 * v200);
-              v205 = *v204;
-              if (v205 <= v184[6])
+              v194 = (v234 + 48 * v190);
+              v195 = *v194;
+              if (v195 <= v174[6])
               {
-                v206 = *(v204 + 1);
-                if (v205 + v206 > v206)
+                v196 = *(v194 + 1);
+                if (v195 + v196 > v196)
                 {
                   while (1)
                   {
-                    if (v184[2] == 2)
+                    if (v174[2] == 2)
                     {
-                      v207 = v184[9];
+                      v197 = v174[9];
                     }
 
                     else
                     {
-                      v207 = 1;
+                      v197 = 1;
                     }
 
-                    v208 = v207 * v206;
-                    v209 = *(v15 + 80);
-                    v210 = [*(v15 + 72) contents];
-                    if (v208 > v201)
+                    v198 = v197 * v196;
+                    v199 = *(v15 + 80);
+                    v200 = [*(v15 + 72) contents];
+                    if (v198 > v191)
                     {
                       goto LABEL_296;
                     }
 
-                    v211 = v210 + v209;
-                    v212 = v184[3];
-                    if (v212 == 1)
+                    v201 = v200 + v199;
+                    v202 = v174[3];
+                    if (v202 == 1)
                     {
                       break;
                     }
 
-                    if (!v212)
+                    if (!v202)
                     {
-                      v213 = (v211 + 48 * v208 + 36);
+                      v203 = (v201 + 48 * v198 + 36);
                       goto LABEL_293;
                     }
 
 LABEL_295:
-                    v206 = v208 + 1;
-                    if (v208 + 1 >= *v204 + *(v204 + 1))
+                    v196 = v198 + 1;
+                    if (v198 + 1 >= *v194 + *(v194 + 1))
                     {
                       goto LABEL_296;
                     }
                   }
 
-                  v213 = (v211 + 16 * v208);
+                  v203 = (v201 + 16 * v198);
 LABEL_293:
-                  v214 = *v213;
-                  v247.__begin_ = 0;
-                  v248 = &v247;
-                  v215 = std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 32, 0);
-                  if (v214 < (v215[6] - v215[5]) >> 3)
+                  v204 = *v203;
+                  v237.__begin_ = 0;
+                  v238 = &v237;
+                  v205 = std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 4, 0, &v238);
+                  if (v204 < (v205[6] - v205[5]) >> 3)
                   {
-                    v248 = (v15 + 16);
-                    v216 = *(std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 32, *(v15 + 16))[5] + 8 * v214);
-                    v217 = v216[21];
-                    v216[20] = fminf(v216[20], v204[3]);
-                    v216[21] = fminf(v217, v204[4]);
-                    v218 = v216[23];
-                    v216[22] = fminf(v216[22], v204[5]);
-                    v216[23] = fmaxf(v218, v204[6]);
-                    v219 = v216[25];
-                    v216[24] = fmaxf(v216[24], v204[7]);
-                    v216[25] = fmaxf(v219, v204[8]);
+                    v238 = (v15 + 16);
+                    v206 = *(std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 4, *(v15 + 16), &v238)[5] + 8 * v204);
+                    v207 = v206[21];
+                    v206[20] = fminf(v206[20], v194[3]);
+                    v206[21] = fminf(v207, v194[4]);
+                    v208 = v206[23];
+                    v206[22] = fminf(v206[22], v194[5]);
+                    v206[23] = fmaxf(v208, v194[6]);
+                    v209 = v206[25];
+                    v206[24] = fmaxf(v206[24], v194[7]);
+                    v206[25] = fmaxf(v209, v194[8]);
                   }
 
                   goto LABEL_295;
@@ -4696,18 +1624,18 @@ LABEL_293:
               }
 
 LABEL_296:
-              v200 = v202;
+              v190 = v192;
             }
 
-            while (v202 < v184[5]);
+            while (v192 < v174[5]);
           }
         }
       }
 
 LABEL_316:
-      v14 = v242 + 1;
-      v3 = *(v246 + 23);
-      if (v242 + 1 >= 0xD37A6F4DE9BD37A7 * ((*(v246 + 24) - v3) >> 3))
+      v14 = v232 + 1;
+      v3 = *(v236 + 23);
+      if (v232 + 1 >= 0xD37A6F4DE9BD37A7 * ((*(v236 + 24) - v3) >> 3))
       {
         goto LABEL_317;
       }
@@ -4720,7 +1648,7 @@ LABEL_316:
         goto LABEL_240;
       }
 
-      v243 = v17 + v16;
+      v233 = v17 + v16;
       v41 = *(v15 + 32);
       v42 = ([*(v15 + 24) contents] + v41);
       v43 = malloc_type_calloc(v42[6], 0x18uLL, 0x1000040504FFAC1uLL);
@@ -4739,10 +1667,10 @@ LABEL_316:
       }
 
       while (v46 <= [*(v15 + 56) length]);
-      v248 = (v15 + 16);
-      std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 12, *(v15 + 16))[3] = v43;
-      memset(&v247, 0, sizeof(v247));
-      std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v247, v42[7]);
+      v238 = (v15 + 16);
+      std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 24, *(v15 + 16), &v238)[3] = v43;
+      memset(&v237, 0, sizeof(v237));
+      std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v237, v42[7]);
       v47 = *(v15 + 72);
       if (v47)
       {
@@ -4757,7 +1685,7 @@ LABEL_316:
           v54 = 0;
           v55 = 0;
           v56 = v42[3];
-          v57 = v247.__begin_;
+          v57 = v237.__begin_;
           v58 = 36;
           while (1)
           {
@@ -4807,68 +1735,67 @@ LABEL_66:
 
         v54 = 0;
 LABEL_169:
-        v142 = malloc_type_calloc(v54 + 1, 4uLL, 0x100004052888210uLL);
+        v140 = malloc_type_calloc(v54 + 1, 4uLL, 0x100004052888210uLL);
         if (v42[6])
         {
-          v143 = 0;
-          v144 = v42[3];
+          v141 = 0;
+          v142 = v42[3];
           do
           {
-            if (v144)
+            if (v142)
             {
-              if (v144 == 1)
+              if (v142 == 1)
               {
-                v145 = v143 + 1;
-                if (*(v15 + 80) + 16 * (v143 + 1) <= v51)
+                v143 = v141 + 1;
+                if (*(v15 + 80) + 16 * (v141 + 1) <= v51)
                 {
-                  v146 = *(v49 + 16 * v143 + 4);
+                  v144 = *(v49 + 16 * v141 + 4);
                   goto LABEL_177;
                 }
               }
 
               else
               {
-                v145 = v143 + 1;
+                v143 = v141 + 1;
               }
             }
 
             else
             {
-              v145 = v143 + 1;
-              if (*(v15 + 80) + 48 * (v143 + 1) <= v51)
+              v143 = v141 + 1;
+              if (*(v15 + 80) + 48 * (v141 + 1) <= v51)
               {
-                v146 = *(v49 + 48 * v143 + 40);
+                v144 = *(v49 + 48 * v141 + 40);
 LABEL_177:
-                if (v54 >= v146)
+                if (v54 >= v144)
                 {
-                  v142[v146] = v143;
+                  v140[v144] = v141;
                 }
               }
             }
 
-            v143 = v145;
+            v141 = v143;
           }
 
-          while (v145 < v42[6]);
+          while (v143 < v42[6]);
         }
 
-        v248 = (v15 + 16);
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 7, *(v15 + 16))[3] = v142;
+        v238 = (v15 + 16);
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 14, *(v15 + 16), &v238)[3] = v140;
       }
 
-      v147 = *(v15 + 88);
-      if (v147)
+      v145 = *(v15 + 88);
+      if (v145)
       {
-        v148 = *(v15 + 96);
-        [v147 contents];
+        [v145 contents];
         if (v42[7])
         {
-          v149 = v42[3];
-          if (v149 != 2)
+          v146 = v42[3];
+          if (v146 != 2)
           {
-            if (v149 != 1)
+            if (v146 != 1)
             {
-              if (!v149)
+              if (!v146)
               {
                 operator new();
               }
@@ -4886,7 +1813,7 @@ LABEL_177:
       goto LABEL_237;
     }
 
-    v243 = v17 + v16;
+    v233 = v17 + v16;
     v69 = *(v15 + 32);
     v70 = ([*(v15 + 24) contents] + v69);
     v71 = malloc_type_calloc(v70[6], 0x18uLL, 0x1000040504FFAC1uLL);
@@ -4904,188 +1831,176 @@ LABEL_177:
 
     if (v70[5])
     {
-      v105 = 0;
-      v106 = v73 + v72;
-      v107 = v74 * v70[6];
+      v104 = 0;
+      v105 = v73 + v72;
+      v106 = v74 * v70[6];
       do
       {
-        v108 = v105 + 1;
-        v109 = *(v15 + 64) + 60 * (v105 + 1);
-        if (v109 > [*(v15 + 56) length])
+        v107 = v104 + 1;
+        v108 = *(v15 + 64) + 60 * (v104 + 1);
+        if (v108 > [*(v15 + 56) length])
         {
           break;
         }
 
         if ((v70[2] | 2) == 2)
         {
-          v110 = (v106 + 60 * v105);
-          v111 = v110[1];
-          v112 = *v110 + v111;
-          if (v112 <= v107)
+          v109 = (v105 + 60 * v104);
+          v110 = v109[1];
+          v111 = *v109 + v110;
+          if (v111 <= v106 && v111 > v110)
           {
-            v113 = v112 > v111;
-            v83 = *v110 < 0;
-          }
-
-          else
-          {
-            v113 = 0;
-          }
-
-          if (v113)
-          {
-            v114 = v111 + 1;
-            v115 = &v71[24 * v111];
+            v113 = v110 + 1;
+            v114 = &v71[24 * v110];
             do
             {
-              v116 = *(v110 + 3);
-              *(v115 + 2) = *(v110 + 7);
-              *v115 = v116;
-              v115 += 24;
-              v117 = v114 >= *v110 + v110[1] || v114 >= v107;
-              ++v114;
+              v115 = *(v109 + 3);
+              *(v114 + 2) = *(v109 + 7);
+              *v114 = v115;
+              v114 += 24;
+              v116 = v113 >= *v109 + v109[1] || v113 >= v106;
+              ++v113;
             }
 
-            while (!v117);
+            while (!v116);
           }
         }
 
-        ++v105;
+        ++v104;
       }
 
-      while (v108 < v70[5]);
+      while (v107 < v70[5]);
     }
 
-    v248 = (v15 + 16);
-    std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 12, *(v15 + 16))[3] = v71;
-    memset(&v247, 0, sizeof(v247));
-    std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v247, v70[7]);
-    v118 = *(v15 + 72);
-    if (v118)
+    v238 = (v15 + 16);
+    std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 24, *(v15 + 16), &v238)[3] = v71;
+    memset(&v237, 0, sizeof(v237));
+    std::vector<AccelerationStructureViewer::IntersectionFunctionTag>::resize(&v237, v70[7]);
+    v117 = *(v15 + 72);
+    if (v117)
     {
-      v119 = *(v15 + 80);
-      v120 = [v118 contents] + v119;
-      v121 = [*(v15 + 72) length];
-      v122 = v121;
-      v123 = v70[6];
-      if (v123)
+      v118 = *(v15 + 80);
+      v119 = [v117 contents] + v118;
+      v120 = [*(v15 + 72) length];
+      v121 = v120;
+      v122 = v70[6];
+      if (v122)
       {
+        v123 = 0;
         v124 = 0;
         v125 = 0;
-        v126 = 0;
-        v127 = v70[3];
-        v128 = v247.__begin_;
-        v129 = 36;
+        v126 = v70[3];
+        v127 = v237.__begin_;
+        v128 = 36;
         while (1)
         {
-          if (v127 == 1)
+          if (v126 == 1)
           {
-            if (v124 + *(v15 + 80) + 16 <= v121)
+            if (v123 + *(v15 + 80) + 16 <= v120)
             {
-              v132 = *(v120 + v124);
-              if (v132 < v70[7])
+              v131 = *(v119 + v123);
+              if (v131 < v70[7])
               {
-                ++v128[v132];
+                ++v127[v131];
               }
 
-              v131 = v120 + 16 * v126;
+              v130 = v119 + 16 * v125;
               goto LABEL_140;
             }
           }
 
-          else if (!v127 && v129 + *(v15 + 80) + 12 <= v121)
+          else if (!v126 && v128 + *(v15 + 80) + 12 <= v120)
           {
-            v130 = *(v120 + v129);
-            if (v130 < v70[7])
+            v129 = *(v119 + v128);
+            if (v129 < v70[7])
             {
-              ++v128[v130];
+              ++v127[v129];
             }
 
-            v131 = v120 + v129;
+            v130 = v119 + v128;
 LABEL_140:
-            v133 = *(v131 + 4);
-            if (v125 <= v133)
+            v132 = *(v130 + 4);
+            if (v124 <= v132)
             {
-              v125 = v133;
+              v124 = v132;
             }
 
-            v123 = v70[6];
+            v122 = v70[6];
           }
 
-          ++v126;
-          v129 += 48;
-          v124 += 16;
-          if (v126 >= v123)
+          ++v125;
+          v128 += 48;
+          v123 += 16;
+          if (v125 >= v122)
           {
             goto LABEL_215;
           }
         }
       }
 
-      v125 = 0;
+      v124 = 0;
 LABEL_215:
-      v158 = malloc_type_calloc(v125 + 1, 4uLL, 0x100004052888210uLL);
+      v154 = malloc_type_calloc(v124 + 1, 4uLL, 0x100004052888210uLL);
       if (v70[6])
       {
-        v159 = 0;
-        v160 = v70[3];
+        v155 = 0;
+        v156 = v70[3];
         do
         {
-          if (v160)
+          if (v156)
           {
-            if (v160 == 1)
+            if (v156 == 1)
             {
-              v161 = v159 + 1;
-              if (*(v15 + 80) + 16 * (v159 + 1) <= v122)
+              v157 = v155 + 1;
+              if (*(v15 + 80) + 16 * (v155 + 1) <= v121)
               {
-                v162 = *(v120 + 16 * v159 + 4);
+                v158 = *(v119 + 16 * v155 + 4);
                 goto LABEL_223;
               }
             }
 
             else
             {
-              v161 = v159 + 1;
+              v157 = v155 + 1;
             }
           }
 
           else
           {
-            v161 = v159 + 1;
-            if (*(v15 + 80) + 48 * (v159 + 1) <= v122)
+            v157 = v155 + 1;
+            if (*(v15 + 80) + 48 * (v155 + 1) <= v121)
             {
-              v162 = *(v120 + 48 * v159 + 40);
+              v158 = *(v119 + 48 * v155 + 40);
 LABEL_223:
-              if (v125 >= v162)
+              if (v124 >= v158)
               {
-                v158[v162] = v159;
+                v154[v158] = v155;
               }
             }
           }
 
-          v159 = v161;
+          v155 = v157;
         }
 
-        while (v161 < v70[6]);
+        while (v157 < v70[6]);
       }
 
-      v248 = (v15 + 16);
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v246 + 7, *(v15 + 16))[3] = v158;
+      v238 = (v15 + 16);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v236 + 14, *(v15 + 16), &v238)[3] = v154;
     }
 
-    v163 = *(v15 + 88);
-    if (v163)
+    v159 = *(v15 + 88);
+    if (v159)
     {
-      v164 = *(v15 + 96);
-      [v163 contents];
+      [v159 contents];
       if (v70[7])
       {
-        v165 = v70[3];
-        if (v165 != 2)
+        v160 = v70[3];
+        if (v160 != 2)
         {
-          if (v165 != 1)
+          if (v160 != 1)
           {
-            if (!v165)
+            if (!v160)
             {
               operator new();
             }
@@ -5154,7 +2069,7 @@ uint64_t std::vector<AccelerationStructureViewer::Property>::__emplace_back_slow
   *(v7 + 104) = 0;
   *(v7 + 112) = 0;
   *(v7 + 96) = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>(v7 + 96, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:nn200100]<NSString * {__strong}*,NSString * {__strong}*>((v7 + 96), *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
   v12 = v7 + 120;
   v13 = *(a1 + 8);
   v14 = v7 + *a1 - v13;
@@ -5172,10 +2087,10 @@ uint64_t std::vector<AccelerationStructureViewer::Property>::__emplace_back_slow
   return v12;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t **std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Instance *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t ***a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -5185,34 +2100,34 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void std::vector<AccelerationStructureViewer::Instance *>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<AccelerationStructureViewer::Instance *>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -5274,10 +2189,10 @@ void std::vector<AccelerationStructureViewer::Instance *>::push_back[abi:nn20010
   *(a1 + 8) = v5;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t a2)
+uint64_t *std::__tree<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::vector<AccelerationStructureViewer::Geometry *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t **a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -5287,43 +2202,43 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(unint64_t result, uint64_t *a2, uint64_t a3, char a4)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,void AccelerationStructureViewerServer::DataSource::generateAccelerationStructureItems<MTLGenericBVHInstanceLeafNode_v5>(AccelerationStructureViewerServer::AccelerationStructure *)::{lambda(AccelerationStructureViewer::Instance const*,AccelerationStructureViewer::Instance const*)#1} &,AccelerationStructureViewer::Instance**,false>(uint64_t *result, char *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
-  v8 = a2 - 1;
+  v8 = (a2 - 8);
   v9 = v7;
   while (1)
   {
     v7 = v9;
-    v10 = a2 - v9;
+    v10 = (a2 - v9) >> 3;
     if (v10 <= 2)
     {
       if (v10 < 2)
@@ -5355,10 +2270,10 @@ LABEL_2:
     {
       v82 = v9 + 1;
       v83 = v9[1];
-      v84 = v9 + 2;
+      v84 = (v9 + 2);
       v85 = v9[2];
       v86 = *v9;
-      v87 = v83[5];
+      v87 = *(v83 + 40);
       v88 = *(*v9 + 40);
       v89 = *(v85 + 40);
       if (v87 >= v88)
@@ -5406,7 +2321,7 @@ LABEL_167:
       }
 
 LABEL_176:
-      if (*(*v8 + 40) < v83[5])
+      if (*(*v8 + 40) < *(v83 + 40))
       {
         *v84 = *v8;
         *v8 = v83;
@@ -5438,7 +2353,7 @@ LABEL_176:
 LABEL_10:
     if (v10 <= 23)
     {
-      v92 = v9 + 1;
+      v92 = (v9 + 1);
       v94 = v9 == a2 || v92 == a2;
       if (a4)
       {
@@ -5507,7 +2422,7 @@ LABEL_128:
             *v137 = v134;
           }
 
-          v92 = v7 + 1;
+          v92 = (v7 + 1);
         }
 
         while (v7 + 1 != a2);
@@ -5615,7 +2530,8 @@ LABEL_128:
           }
 
           while (v113 <= ((v10 - 2) >> 1));
-          if (v117 == --a2)
+          a2 -= 8;
+          if (v117 == a2)
           {
             *v117 = v114;
           }
@@ -5993,7 +2909,7 @@ LABEL_79:
 
       if (v52 >= *(*v8 + 40))
       {
-        v67 = v9 + 1;
+        v67 = (v9 + 1);
         do
         {
           v9 = v67;
@@ -6002,7 +2918,7 @@ LABEL_79:
             break;
           }
 
-          ++v67;
+          v67 += 8;
         }
 
         while (v52 >= *(*v9 + 40));
@@ -6466,32 +3382,32 @@ LABEL_35:
   return v33 + 1 == a2;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,_MTLAxisAlignedBoundingBox *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6499,72 +3415,72 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int *>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6572,60 +3488,60 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void AccelerationStructureViewerServer::DataSource::getAccelerationStructureChildren(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+void AccelerationStructureViewerServer::DataSource::getAccelerationStructureChildren(void *a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v10 = a6;
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  v11 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>((a1 + 136), a2);
+  v11 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(a1 + 17, a2);
   if (!v11)
   {
     v20 = @"You can't have children of children";
     goto LABEL_27;
   }
 
-  v12 = *(a1 + 184) + 184 * *(v11 + 6);
+  v12 = a1[23] + 184 * *(v11 + 6);
   v13 = *(v12 + 8);
   if (v13 != 4 && v13 != 2)
   {
@@ -6715,12 +3631,12 @@ LABEL_29:
   }
 }
 
-uint64_t AccelerationStructureViewerServer::DataSource::populateInstanceCount(uint64_t a1, unint64_t a2, uint64_t a3, AccelerationStructureViewer::Filter *a4)
+void *AccelerationStructureViewerServer::DataSource::populateInstanceCount(uint64_t a1, unint64_t a2, uint64_t a3, AccelerationStructureViewer::Filter *a4)
 {
   *(a3 + 68) = xmmword_24DA8BB50;
   *(a3 + 84) = 0x80000000800000;
   v7 = *(a1 + 16);
-  result = a1 + 16;
+  result = (a1 + 16);
   v6 = v7;
   if (!v7)
   {
@@ -6974,7 +3890,7 @@ void AccelerationStructureViewerServer::DataSource::getPrimitiveChildren(void *a
   v12 = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(a1 + 17, a2);
   if (!v12)
   {
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   v13 = a1[23] + 184 * *(v12 + 6);
@@ -7046,7 +3962,7 @@ LABEL_19:
   v21 = a1[13];
   if (!*&v21)
   {
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   v22 = vcnt_s8(v21);
@@ -7068,17 +3984,16 @@ LABEL_19:
   v24 = *(a1[12] + 8 * v23);
   if (!v24 || (v25 = *v24) == 0)
   {
-LABEL_37:
+LABEL_36:
     __p = 0;
-    v34 = 0;
-    v35 = 0;
+    v30 = 0;
+    v31 = 0;
     v27 = ASVErrorWithCode(4u, @"Invalid acceleration structure");
     v11[2](v11, &__p, v27);
 
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
-  v32 = v15 + v14;
   while (1)
   {
     v26 = v25[1];
@@ -7102,67 +4017,64 @@ LABEL_37:
 
     if (v26 != v23)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
-LABEL_36:
+LABEL_35:
     v25 = *v25;
     if (!v25)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
   }
 
   if (v25[2] != a2)
   {
-    goto LABEL_36;
+    goto LABEL_35;
   }
 
   if (!i || !v25)
   {
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
-  if (a4 < *(v32 + 24) && i[3])
+  if (a4 < *(v15 + v14 + 24) && i[3])
   {
-    v29 = *(v13 + 96);
     [*(v13 + 88) contents];
-    v36 = 0;
-    v37 = 0;
-    v38 = 0;
-    v30 = *(v13 + 80);
+    v32 = 0;
+    v33 = 0;
+    v34 = 0;
     [*(v13 + 72) contents];
     if (a4 < a4 + a5)
     {
-      v31 = *(v32 + 12);
       operator new();
     }
 
-    v11[2](v11, &v36, 0);
-    v28 = v36;
-    if (v36)
+    v11[2](v11, &v32, 0);
+    v28 = v32;
+    if (v32)
     {
-      v37 = v36;
-LABEL_40:
+      v33 = v32;
+LABEL_39:
       operator delete(v28);
     }
 
-    goto LABEL_41;
-  }
-
-  v34 = 0;
-  v35 = 0;
-  __p = 0;
-  v11[2](v11, &__p, 0);
-LABEL_38:
-  v28 = __p;
-  if (__p)
-  {
-    v34 = __p;
     goto LABEL_40;
   }
 
-LABEL_41:
+  v30 = 0;
+  v31 = 0;
+  __p = 0;
+  v11[2](v11, &__p, 0);
+LABEL_37:
+  v28 = __p;
+  if (__p)
+  {
+    v30 = __p;
+    goto LABEL_39;
+  }
+
+LABEL_40:
 }
 
 void AccelerationStructureViewerServer::DataSource::getGeometryChildren(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, AccelerationStructureViewer::Filter *a5, void *a6)
@@ -7636,28 +4548,8 @@ uint64_t AccelerationStructureViewerServer::Profiler::gpuForDevice(void *a1)
 {
   v1 = [a1 acceleratorPort];
   v2 = GRCCopyAllCounterSourceGroup();
-  if (![v2 count])
+  if (![v2 count] || (objc_msgSend(v2, "firstObject"), v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_opt_respondsToSelector(), v3, (v4 & 1) == 0) || (v5 = MEMORY[0x277CBEB38], objc_msgSend(v2, "firstObject"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "features"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", @"ConstantAGX_CoreConfig"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "dictionaryWithDictionary:", v8), CFProperty = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !CFProperty))
   {
-    goto LABEL_4;
-  }
-
-  v3 = [v2 firstObject];
-  v4 = objc_opt_respondsToSelector();
-
-  if ((v4 & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = MEMORY[0x277CBEB38];
-  v6 = [v2 firstObject];
-  v7 = [v6 features];
-  v8 = [v7 objectForKeyedSubscript:@"ConstantAGX_CoreConfig"];
-  CFProperty = [v5 dictionaryWithDictionary:v8];
-
-  if (!CFProperty)
-  {
-LABEL_4:
     CFProperty = IORegistryEntryCreateCFProperty(v1, @"GPUConfigurationVariable", 0, 0);
   }
 
@@ -7679,7 +4571,7 @@ LABEL_4:
       {
 
         v13 = @"B1";
-        LODWORD(v11) = 16;
+        v11 = 16;
 LABEL_29:
         v12 = @"P";
         goto LABEL_39;
@@ -7699,12 +4591,12 @@ LABEL_29:
         }
 
         v13 = @"A0";
-        LODWORD(v11) = 16;
+        v11 = 16;
         goto LABEL_39;
       }
 
       v13 = @"B0";
-      LODWORD(v11) = 16;
+      v11 = 16;
     }
 
     else
@@ -7730,7 +4622,7 @@ LABEL_29:
       {
 
         v13 = @"B0";
-        LODWORD(v11) = 15;
+        v11 = 15;
         v12 = @"M";
         goto LABEL_39;
       }
@@ -7739,7 +4631,7 @@ LABEL_29:
       {
 
         v13 = @"B1";
-        LODWORD(v11) = 15;
+        v11 = 15;
         goto LABEL_29;
       }
 
@@ -7768,14 +4660,14 @@ LABEL_29:
             v13 = @"B0";
           }
 
-          LODWORD(v11) = 15;
+          v11 = 15;
         }
 
         else
         {
 
           v13 = @"B0";
-          LODWORD(v11) = 15;
+          v11 = 15;
           v12 = @"S";
         }
 
@@ -7783,7 +4675,7 @@ LABEL_29:
       }
 
       v13 = @"C0";
-      LODWORD(v11) = 15;
+      v11 = 15;
     }
 
     v12 = @"G";
@@ -7841,7 +4733,7 @@ LABEL_39:
     v33 = v32;
     if (v32)
     {
-      v34 = agxps_gpu_create(v11, v31, [v32 unsignedIntegerValue]);
+      v34 = agxps_gpu_create(v11, v31, [v32 unsignedIntegerValue], 0);
     }
 
     else
@@ -8147,24 +5039,24 @@ uint64_t AccelerationStructureViewerServer::Profiler::startAPSStreaming(void *a1
   return v2;
 }
 
-uint64_t *std::vector<AccelerationStructureViewerServer::APSUSCChunkCollector>::resize(uint64_t *result, unint64_t a2)
+void std::vector<AccelerationStructureViewerServer::APSUSCChunkCollector>::resize(uint64_t *a1, unint64_t a2)
 {
-  v3 = *result;
-  v2 = result[1];
-  v4 = v2 - *result;
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = v2 - *a1;
   v5 = 0xE0D0D6AAD8DA6A1BLL * (v4 >> 3);
   v6 = a2 - v5;
   if (a2 <= v5)
   {
     if (a2 < v5)
     {
-      result[1] = v3 + 196760 * a2;
+      a1[1] = v3 + 196760 * a2;
     }
   }
 
   else
   {
-    v7 = result[2];
+    v7 = a1[2];
     if (0xE0D0D6AAD8DA6A1BLL * ((v7 - v2) >> 3) < v6)
     {
       if (a2 <= 0x5544751E275DLL)
@@ -8222,10 +5114,8 @@ uint64_t *std::vector<AccelerationStructureViewerServer::APSUSCChunkCollector>::
     }
 
     while (v11);
-    result[1] = v10;
+    a1[1] = v10;
   }
-
-  return result;
 }
 
 uint64_t *std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,AccelerationStructureViewerServer::Profiler::initAPSStreaming(objc_object  {objcproto9MTLDevice}*)::$_0>,std::default_delete<AccelerationStructureViewerServer::Profiler::initAPSStreaming(objc_object  {objcproto9MTLDevice}*)::$_0>>::~unique_ptr[abi:nn200100](uint64_t *a1)
@@ -8356,7 +5246,7 @@ uint64_t std::__thread_proxy[abi:nn200100]<std::tuple<std::unique_ptr<std::__thr
 
 void AccelerationStructureViewerServer::Profiler::parserWorker(uint64_t a1, uint64_t a2, void *a3)
 {
-  v191 = *MEMORY[0x277D85DE8];
+  v190 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (*(a1 + 32) == 1)
   {
@@ -8366,28 +5256,28 @@ void AccelerationStructureViewerServer::Profiler::parserWorker(uint64_t a1, uint
   v5 = AccelerationStructureViewerServer::Profiler::gpuForDevice(v4);
   if (agxps_gpu_is_valid(v5))
   {
-    v136 = v4;
-    v187 = 0u;
-    v188 = 0u;
-    v185 = 0u;
+    v135 = v4;
     v186 = 0u;
-    memset(v184, 0, sizeof(v184));
-    agxps_aps_descriptor_create(v184);
-    v184[0] = v5;
-    LODWORD(v184[1]) = *(a1 + 816);
-    *(&v184[1] + 4) = *(a1 + 808);
-    v184[3] = 4096;
-    LODWORD(v185) = 0;
-    v189[0] = xmmword_279659138;
-    v189[1] = *off_279659148;
-    v190 = "C648A066B5DF92C6610FB4DD77453469B226FC0B0B2903FDA7E76C7AD03011AC";
-    *(&v186 + 1) = v189;
-    *&v187 = 5;
-    v183 = 0u;
-    memset(v182, 0, sizeof(v182));
+    v187 = 0u;
+    v184 = 0u;
+    v185 = 0u;
+    memset(v183, 0, sizeof(v183));
+    agxps_aps_descriptor_create(v183);
+    v183[0] = v5;
+    LODWORD(v183[1]) = *(a1 + 816);
+    *(&v183[1] + 4) = *(a1 + 808);
+    v183[3] = 4096;
+    LODWORD(v184) = 0;
+    v188[0] = xmmword_279659138;
+    v188[1] = *off_279659148;
+    v189 = "C648A066B5DF92C6610FB4DD77453469B226FC0B0B2903FDA7E76C7AD03011AC";
+    *(&v185 + 1) = v188;
+    *&v186 = 5;
+    v182 = 0u;
+    memset(v181, 0, sizeof(v181));
     if (*(a1 + 432) == 1)
     {
-      v138 = (a1 + 736);
+      v137 = (a1 + 736);
       v6 = -1;
       while (2)
       {
@@ -8476,17 +5366,17 @@ LABEL_27:
           v17 = (v12 + 48 * v10);
           v18 = (*(v17->i64[1] + ((v17[2].i64[0] >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v17[2].i64[0] & 0x7F));
           v19 = v18[1];
-          v180 = *v18;
-          v181 = v19;
+          v179 = *v18;
+          v180 = v19;
           v17[2] = vaddq_s64(v17[2], xmmword_24DA8BC20);
           std::deque<AccelerationStructureViewerServer::APSRawChunk>::__maybe_remove_front_spare[abi:nn200100](v17);
           std::mutex::unlock((*(a1 + 552) + (v10 << 6)));
-          v139 = WORD1(v180);
-          v137 = *(a1 + 600);
-          v20 = (v137 + 196760 * WORD1(v180));
-          if (v180 == 1)
+          v138 = WORD1(v179);
+          v136 = *(a1 + 600);
+          v20 = (v136 + 196760 * WORD1(v179));
+          if (v179 == 1)
           {
-            if (*(&v180 + 1))
+            if (*(&v179 + 1))
             {
               agxps_aps_parser_destroy(*v20);
             }
@@ -8496,7 +5386,7 @@ LABEL_27:
             v20[9] = 0;
             *(v20 + 12293) = 0u;
             *(v20 + 12294) = 0u;
-            v21 = agxps_aps_parser_create(v184);
+            v21 = agxps_aps_parser_create(v183);
             *v20 = v21;
             if (*(a1 + 32) == 1 && !v21)
             {
@@ -8504,26 +5394,26 @@ LABEL_27:
             }
           }
 
-          v22 = v181;
-          if (*(a1 + 32) == 1 && (!v181 || !*(&v181 + 1)))
+          v22 = v180;
+          if (*(a1 + 32) == 1 && (!v180 || !*(&v180 + 1)))
           {
-            NSLog(&cfstr_ChunkIsNullptr.isa, v181);
+            NSLog(&cfstr_ChunkIsNullptr.isa, v180);
           }
 
-          v179 = 0;
-          v23 = agxps_aps_parser_parse(*v20, v22, *(&v22 + 1), 6, &v179);
-          if (v179)
+          v178 = 0;
+          v23 = agxps_aps_parser_parse(*v20, v22, *(&v22 + 1), 6, &v178);
+          if (v178)
           {
-            NSLog(&cfstr_AnErrorDOccurr.isa, v179, *(&v180 + 1), v139);
+            NSLog(&cfstr_AnErrorDOccurr.isa, v178, *(&v179 + 1), v138);
           }
 
           if (!v23 && *(a1 + 32) == 1)
           {
-            NSLog(&cfstr_ChunkLluOfUscD.isa, *(&v180 + 1), v139);
+            NSLog(&cfstr_ChunkLluOfUscD.isa, *(&v179 + 1), v138);
           }
 
           counter_num = agxps_aps_profile_data_get_counter_num(v23);
-          if (v23 && counter_num && !v179)
+          if (v23 && counter_num && !v178)
           {
             if (*(v20 + 2) == -1)
             {
@@ -8542,29 +5432,29 @@ LABEL_27:
               }
 
               *(v20 + 6) = counter_index;
-              v154 = *(v20 + 2);
+              v153 = *(v20 + 2);
             }
 
             else
             {
-              v154 = *(v20 + 2);
+              v153 = *(v20 + 2);
               counter_index = *(v20 + 6);
             }
 
-            v155 = *(v20 + 3);
-            v156 = *(v20 + 4);
+            v154 = *(v20 + 3);
+            v155 = *(v20 + 4);
             v26 = *(v20 + 49180);
             v27 = *(v20 + 5);
             v28 = v20[24591];
+            v176 = 0u;
             v177 = 0u;
-            v178 = 0u;
             __p = 0u;
             std::mutex::lock((a1 + 624));
             v29 = 0;
             if (v26 && v28)
             {
-              v30 = *v138;
-              if (!*v138)
+              v30 = *v137;
+              if (!*v137)
               {
                 goto LABEL_66;
               }
@@ -8584,11 +5474,11 @@ LABEL_27:
               }
 
               while (v30);
-              if (v31 != v138 && v26 >= *(v31 + 32))
+              if (v31 != v137 && v26 >= *(v31 + 32))
               {
                 v34 = *(v31 + 40);
                 v29 = *(v31 + 48);
-                v144 = v28;
+                v143 = v28;
                 if (v29)
                 {
                   atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8601,51 +5491,51 @@ LABEL_66:
                 v29 = 0;
                 v34 = 0;
                 v26 = 0;
-                v144 = 0;
+                v143 = 0;
               }
             }
 
             else
             {
-              v144 = v28;
+              v143 = v28;
               v34 = 0;
             }
 
-            v147 = v26;
-            v143 = v29;
+            v146 = v26;
+            v142 = v29;
             kicks_num = agxps_aps_profile_data_get_kicks_num(v23);
-            v158 = v23;
+            v157 = v23;
             if (kicks_num)
             {
               v36 = kicks_num;
-              v146 = 0;
+              v145 = 0;
               v37 = 0;
               v38 = 0;
-              v150 = -1;
+              v149 = -1;
               while (1)
               {
-                v175 = 0;
-                if (!agxps_aps_profile_data_get_kick_software_id(v23, &v175, v38, 1) || !agxps_aps_profile_data_get_kick_start(v23, &v174, v38, 1))
+                v174 = 0;
+                if (!agxps_aps_profile_data_get_kick_software_id(v23, &v174, v38, 1) || !agxps_aps_profile_data_get_kick_start(v23, &v173, v38, 1))
                 {
                   goto LABEL_100;
                 }
 
                 __dst = 0;
-                if (!agxps_aps_profile_data_get_usc_timestamps(v23, &__dst, HIDWORD(v174), 1))
+                if (!agxps_aps_profile_data_get_usc_timestamps(v23, &__dst, HIDWORD(v173), 1))
                 {
                   goto LABEL_98;
                 }
 
-                v39 = HIDWORD(v175);
-                v40 = *v138;
-                if (*v138)
+                v39 = HIDWORD(v174);
+                v40 = *v137;
+                if (*v137)
                 {
                   v41 = a1 + 736;
                   do
                   {
                     v42 = *(v40 + 32);
-                    v15 = v42 >= HIDWORD(v175);
-                    v43 = v42 < HIDWORD(v175);
+                    v15 = v42 >= HIDWORD(v174);
+                    v43 = v42 < HIDWORD(v174);
                     if (v15)
                     {
                       v41 = v40;
@@ -8655,40 +5545,40 @@ LABEL_66:
                   }
 
                   while (v40);
-                  if (v41 != v138 && *(v41 + 32) <= HIDWORD(v175))
+                  if (v41 != v137 && *(v41 + 32) <= HIDWORD(v174))
                   {
                     break;
                   }
                 }
 
-                if (std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>((a1 + 688), HIDWORD(v175)))
+                if (std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>((a1 + 688), HIDWORD(v174)))
                 {
                   if (!((v34 != 0) | v37 & 1))
                   {
-                    if (v143)
+                    if (v142)
                     {
-                      std::__shared_weak_count::__release_shared[abi:nn200100](v143);
+                      std::__shared_weak_count::__release_shared[abi:nn200100](v142);
                     }
 
                     v34 = 0;
                     v37 = 1;
-                    v143 = 0;
-                    v144 = __dst;
+                    v142 = 0;
+                    v143 = __dst;
                     goto LABEL_99;
                   }
 
-                  v170.n128_u64[0] = __dst;
-                  v170.n128_u32[2] = v39;
+                  v169.n128_u64[0] = __dst;
+                  v169.n128_u32[2] = v39;
+                  v170 = 0;
                   v171 = 0;
-                  v172 = 0;
                   goto LABEL_91;
                 }
 
 LABEL_98:
-                v39 = v147;
+                v39 = v146;
 LABEL_99:
-                v147 = v39;
-                v23 = v158;
+                v146 = v39;
+                v23 = v157;
 LABEL_100:
                 if (++v38 == v36)
                 {
@@ -8698,7 +5588,7 @@ LABEL_100:
 
               if (!((v34 != 0) | v37 & 1))
               {
-                v153 = counter_index;
+                v152 = counter_index;
                 v49 = v27;
                 v34 = *(v41 + 40);
                 v50 = *(v41 + 48);
@@ -8707,16 +5597,16 @@ LABEL_100:
                   atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v143)
+                if (v142)
                 {
-                  std::__shared_weak_count::__release_shared[abi:nn200100](v143);
+                  std::__shared_weak_count::__release_shared[abi:nn200100](v142);
                 }
 
                 v37 = 0;
-                v143 = v50;
-                v144 = __dst;
+                v142 = v50;
+                v143 = __dst;
                 v27 = v49;
-                counter_index = v153;
+                counter_index = v152;
                 goto LABEL_99;
               }
 
@@ -8727,111 +5617,111 @@ LABEL_100:
                 atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              v170.n128_u64[0] = __dst;
-              v170.n128_u32[2] = v39;
-              v171 = v45;
-              v172 = v44;
+              v169.n128_u64[0] = __dst;
+              v169.n128_u32[2] = v39;
+              v170 = v45;
+              v171 = v44;
 LABEL_91:
-              std::deque<std::pair<unsigned long long,std::pair<unsigned int,std::shared_ptr<AccelerationStructureViewerServer::APSRayCollector>>>>::push_back(&__p, &v170);
-              if (v172)
+              std::deque<std::pair<unsigned long long,std::pair<unsigned int,std::shared_ptr<AccelerationStructureViewerServer::APSRayCollector>>>>::push_back(&__p, &v169);
+              if (v171)
               {
-                std::__shared_weak_count::__release_shared[abi:nn200100](v172);
+                std::__shared_weak_count::__release_shared[abi:nn200100](v171);
               }
 
-              v46 = v150;
-              v47 = v150 == -1;
-              if (v150 == -1)
+              v46 = v149;
+              v47 = v149 == -1;
+              if (v149 == -1)
               {
                 v46 = __dst;
               }
 
-              v150 = v46;
-              v48 = v146;
+              v149 = v46;
+              v48 = v145;
               if (v47)
               {
                 v48 = v39;
               }
 
-              v146 = v48;
+              v145 = v48;
               goto LABEL_98;
             }
 
-            v146 = 0;
-            v150 = -1;
+            v145 = 0;
+            v149 = -1;
 LABEL_108:
             std::mutex::unlock((a1 + 624));
-            v170.n128_u64[0] = 0;
+            v169.n128_u64[0] = 0;
+            v173 = 0;
             v174 = 0;
-            v175 = 0;
-            if (v154 != -1)
+            if (v153 != -1)
             {
-              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v170, v154);
-              agxps_aps_profile_data_get_counter_values_by_index(v23, &v175, v154);
-              agxps_aps_profile_data_get_counter_group_metadata_by_index(v23, &v174, v154);
+              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v169, v153);
+              agxps_aps_profile_data_get_counter_values_by_index(v23, &v174, v153);
+              agxps_aps_profile_data_get_counter_group_metadata_by_index(v23, &v173, v153);
             }
 
             __dst = 0;
-            v168 = 0;
-            v169 = 0;
-            v166 = 0;
             v167 = 0;
-            v164 = 0;
+            v168 = 0;
             v165 = 0;
-            v162 = 0;
+            v166 = 0;
             v163 = 0;
+            v164 = 0;
+            v161 = 0;
+            v162 = 0;
             v51 = v34;
-            if (v155 != -1)
+            if (v154 != -1)
             {
-              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &__dst, v155);
+              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &__dst, v154);
               if (__dst)
               {
-                agxps_aps_profile_data_get_counter_values_by_index(v23, &v169, v155);
-                agxps_aps_profile_data_get_counter_group_metadata_by_index(v23, &v162, v155);
+                agxps_aps_profile_data_get_counter_values_by_index(v23, &v168, v154);
+                agxps_aps_profile_data_get_counter_group_metadata_by_index(v23, &v161, v154);
               }
             }
 
-            if (v156 != -1)
+            if (v155 != -1)
             {
-              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v168, v156);
-              if (v168)
+              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v167, v155);
+              if (v167)
               {
-                agxps_aps_profile_data_get_counter_values_by_index(v23, &v167, v156);
+                agxps_aps_profile_data_get_counter_values_by_index(v23, &v166, v155);
               }
             }
 
             if (v27 != -1)
             {
-              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v166, v27);
-              if (v166)
+              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v165, v27);
+              if (v165)
               {
-                agxps_aps_profile_data_get_counter_values_by_index(v23, &v165, v27);
+                agxps_aps_profile_data_get_counter_values_by_index(v23, &v164, v27);
               }
             }
 
             if (counter_index != -1)
             {
-              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v164, counter_index);
-              if (v164)
+              agxps_aps_profile_data_get_counter_values_num_by_index(v23, &v163, counter_index);
+              if (v163)
               {
-                agxps_aps_profile_data_get_counter_values_by_index(v23, &v163, counter_index);
+                agxps_aps_profile_data_get_counter_values_by_index(v23, &v162, counter_index);
               }
             }
 
-            v52 = v168;
-            if (v168 >= v170.n128_u64[0])
+            v52 = v167;
+            if (v167 >= v169.n128_u64[0])
             {
-              v52 = v170.n128_u64[0];
+              v52 = v169.n128_u64[0];
             }
 
-            v170.n128_u64[0] = v52;
-            if (v166 >= __dst)
+            v169.n128_u64[0] = v52;
+            if (v165 >= __dst)
             {
               v53 = __dst;
             }
 
             else
             {
-              v53 = v166;
+              v53 = v165;
             }
 
             __dst = v53;
@@ -8843,24 +5733,24 @@ LABEL_108:
               v57 = v20 + 24593;
               while (1)
               {
-                v58 = *(v175 + 8 * v56);
-                v59 = *(v167 + 8 * v56);
-                v161 = 0;
-                v60 = v150;
-                if ((agxps_aps_profile_data_get_usc_timestamps(v158, &v161, *(v174 + 8 * v56 + 4), 1) & 1) == 0 && *(a1 + 32) == 1)
+                v58 = *(v174 + 8 * v56);
+                v59 = *(v166 + 8 * v56);
+                v160 = 0;
+                v60 = v149;
+                if ((agxps_aps_profile_data_get_usc_timestamps(v157, &v160, *(v173 + 8 * v56 + 4), 1) & 1) == 0 && *(a1 + 32) == 1)
                 {
                   NSLog(&cfstr_UnableToGetInt.isa);
                 }
 
-                v61 = v161;
-                if (!v161)
+                v61 = v160;
+                if (!v160)
                 {
                   v61 = (v20[24586] + *(a1 + 812)) % 0xFFFFF;
-                  v161 = v61;
+                  v160 = v61;
                 }
 
                 v20[24586] = v61;
-                v149 = v56;
+                v148 = v56;
                 if (!v51)
                 {
                   if (!v58)
@@ -8871,26 +5761,26 @@ LABEL_108:
                   goto LABEL_190;
                 }
 
-                v148 = v58;
-                if (v161 < v150)
+                v147 = v58;
+                if (v160 < v149)
                 {
-                  v62 = v150;
-                  v63 = v146;
-                  v64 = v144;
+                  v62 = v149;
+                  v63 = v145;
+                  v64 = v143;
                   goto LABEL_158;
                 }
 
-                if (!*(&v178 + 1))
+                if (!*(&v177 + 1))
                 {
                   break;
                 }
 
-                v141 = v59;
+                v140 = v59;
                 v65 = *(&__p + 1);
-                v66 = v178;
-                v67 = v178 >> 7;
-                v68 = v178 & 0x7F;
-                v69 = *(*(&__p + 1) + 8 * (v178 >> 7)) + 32 * v68;
+                v66 = v177;
+                v67 = v177 >> 7;
+                v68 = v177 & 0x7F;
+                v69 = *(*(&__p + 1) + 8 * (v177 >> 7)) + 32 * v68;
                 v71 = *(v69 + 16);
                 v70 = *(v69 + 24);
                 if (v70)
@@ -8899,13 +5789,13 @@ LABEL_108:
                   atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                if (v143)
+                if (v142)
                 {
-                  std::__shared_weak_count::__release_shared[abi:nn200100](v143);
+                  std::__shared_weak_count::__release_shared[abi:nn200100](v142);
                   v65 = *(&__p + 1);
-                  v66 = v178;
-                  v67 = v178 >> 7;
-                  v68 = v178 & 0x7F;
+                  v66 = v177;
+                  v67 = v177 >> 7;
+                  v68 = v177 & 0x7F;
                 }
 
                 v72 = *(v65[v67] + 4 * v68 + 3);
@@ -8914,17 +5804,17 @@ LABEL_108:
                   std::__shared_weak_count::__release_shared[abi:nn200100](v72);
                 }
 
-                v73 = *(&v178 + 1) - 1;
+                v73 = *(&v177 + 1) - 1;
                 v74 = v66 + 1;
-                *&v178 = v66 + 1;
-                --*(&v178 + 1);
+                *&v177 = v66 + 1;
+                --*(&v177 + 1);
                 if ((v66 + 1) >= 0x100)
                 {
                   v75 = *v65++;
                   operator delete(v75);
                   v74 = v66 - 127;
                   *(&__p + 1) = v65;
-                  *&v178 = v66 - 127;
+                  *&v177 = v66 - 127;
                 }
 
                 if (v73)
@@ -8951,42 +5841,42 @@ LABEL_108:
                 }
 
                 v51 = v71;
-                v64 = v150;
-                v80 = v146;
+                v64 = v149;
+                v80 = v145;
                 if (v70)
                 {
-                  v145 = v63;
+                  v144 = v63;
                   v81 = v62;
                   v82 = v70;
 LABEL_156:
                   std::__shared_weak_count::__release_shared[abi:nn200100](v82);
-                  v143 = v70;
-                  v147 = v80;
-                  v59 = v141;
+                  v142 = v70;
+                  v146 = v80;
+                  v59 = v140;
                   v62 = v81;
-                  v63 = v145;
+                  v63 = v144;
                   goto LABEL_158;
                 }
 
-                v143 = 0;
-                v147 = v146;
-                v59 = v141;
+                v142 = 0;
+                v146 = v145;
+                v59 = v140;
 LABEL_158:
-                if (v148)
+                if (v147)
                 {
                   if (v51)
                   {
-                    if (v161 >= v64)
+                    if (v160 >= v64)
                     {
-                      v152 = v62;
-                      v142 = v59;
-                      v84 = v148;
+                      v151 = v62;
+                      v141 = v59;
+                      v84 = v147;
                       do
                       {
                         add = atomic_fetch_add((v51 + 48), 1uLL);
                         if (add < *(v51 + 56))
                         {
-                          v86 = (*(v51 + 64) + 32 * WORD1(v180));
+                          v86 = (*(v51 + 64) + 32 * WORD1(v179));
                           v87 = *v86;
                           v88 = v86[1];
                           if (*v86 != -1 && v87 >= v88)
@@ -9020,29 +5910,29 @@ LABEL_158:
 
                         else if (add >= v92 && *(a1 + 32) == 1)
                         {
-                          NSLog(&cfstr_RayCollectorIs.isa, add, v92, WORD1(v180), a2, v147, v63);
+                          NSLog(&cfstr_RayCollectorIs.isa, add, v92, WORD1(v179), a2, v146, v63);
                         }
 
                         --v84;
                       }
 
                       while (v84);
-                      v144 = v64;
-                      v146 = v63;
-                      v60 = v152;
-                      v59 = v142;
+                      v143 = v64;
+                      v145 = v63;
+                      v60 = v151;
+                      v59 = v141;
                     }
 
                     else
                     {
-                      if (!WORD1(v180) && *(a1 + 32) == 1)
+                      if (!WORD1(v179) && *(a1 + 32) == 1)
                       {
-                        v151 = v62;
-                        NSLog(&cfstr_DHasnTStartedY.isa, v147, v148);
-                        v144 = v64;
-                        v58 = v148;
-                        v146 = v63;
-                        v60 = v151;
+                        v150 = v62;
+                        NSLog(&cfstr_DHasnTStartedY.isa, v146, v147);
+                        v143 = v64;
+                        v58 = v147;
+                        v145 = v63;
+                        v60 = v150;
 LABEL_190:
                         v20[24592] += v58;
                         *v57 = 0;
@@ -9050,21 +5940,21 @@ LABEL_190:
                         goto LABEL_191;
                       }
 
-                      v144 = v64;
-                      v146 = v63;
+                      v143 = v64;
+                      v145 = v63;
                       v60 = v62;
                     }
 
-                    v58 = v148;
+                    v58 = v147;
                     goto LABEL_190;
                   }
 
-                  v83 = v147;
-                  v146 = v63;
-                  v144 = v64;
-                  v58 = v148;
+                  v83 = v146;
+                  v145 = v63;
+                  v143 = v64;
+                  v58 = v147;
 LABEL_166:
-                  if (WORD1(v180) || *(a1 + 32) != 1)
+                  if (WORD1(v179) || *(a1 + 32) != 1)
                   {
                     v51 = 0;
                     v60 = v62;
@@ -9077,12 +5967,12 @@ LABEL_166:
                     v51 = 0;
                   }
 
-                  v147 = v83;
+                  v146 = v83;
                   goto LABEL_190;
                 }
 
-                v144 = v64;
-                v146 = v63;
+                v143 = v64;
+                v145 = v63;
                 v60 = v62;
 LABEL_191:
                 if (v59)
@@ -9090,20 +5980,20 @@ LABEL_191:
                   *(v20 + 49187) += v59;
                 }
 
-                v150 = v60;
+                v149 = v60;
                 if (v55 < __dst + v54)
                 {
                   v93 = 4 - 8 * v54 + 8 * v55;
                   v94 = v51;
                   while (1)
                   {
-                    v160 = 0;
+                    v159 = 0;
                     if (v55 >= v54)
                     {
-                      if (v163)
+                      if (v162)
                       {
                         v99 = -8 * v54;
-                        v97 = (&v163[v55])[-v54];
+                        v97 = (&v162[v55])[-v54];
                       }
 
                       else
@@ -9112,14 +6002,14 @@ LABEL_191:
                         v99 = -8 * v54;
                       }
 
-                      v95 = *(v169 + v99 + 8 * v55);
-                      v96 = *(v165 + v99 + 8 * v55);
-                      if ((agxps_aps_profile_data_get_usc_timestamps(v158, &v160, *(v162 + v93), 1) & 1) == 0 && *(a1 + 32) == 1)
+                      v95 = *(v168 + v99 + 8 * v55);
+                      v96 = *(v164 + v99 + 8 * v55);
+                      if ((agxps_aps_profile_data_get_usc_timestamps(v157, &v159, *(v161 + v93), 1) & 1) == 0 && *(a1 + 32) == 1)
                       {
                         NSLog(&cfstr_UnableToGetCou.isa);
                       }
 
-                      v98 = v160;
+                      v98 = v159;
                     }
 
                     else
@@ -9128,24 +6018,24 @@ LABEL_191:
                       v96 = v20[v55 + 16394];
                       v97 = v20[v55 + 20490];
                       v98 = v20[v55 + 10];
-                      v160 = v98;
+                      v159 = v98;
                     }
 
                     v100 = *(a1 + 812);
                     if (!v98)
                     {
                       v98 = (v20[24587] + v100) % 0xFFFFF;
-                      v160 = v98;
+                      v159 = v98;
                       if (*(a1 + 32) == 1)
                       {
                         NSLog(&cfstr_PatchingMissin.isa);
                         v100 = *(a1 + 812);
-                        v98 = v160;
+                        v98 = v159;
                       }
                     }
 
-                    v15 = v161 >= v100;
-                    v101 = v161 - v100;
+                    v15 = v160 >= v100;
+                    v101 = v160 - v100;
                     if (!v15)
                     {
                       v101 = 0;
@@ -9174,21 +6064,21 @@ LABEL_191:
                 }
 
 LABEL_213:
-                v56 = v149 + 1;
-                if (v149 + 1 >= v170.n128_u64[0])
+                v56 = v148 + 1;
+                if (v148 + 1 >= v169.n128_u64[0])
                 {
                   v53 = __dst;
                   goto LABEL_217;
                 }
               }
 
-              if (!v143)
+              if (!v142)
               {
+                v142 = 0;
                 v143 = 0;
-                v144 = 0;
                 v83 = 0;
+                v145 = 0;
                 v146 = 0;
-                v147 = 0;
                 v51 = 0;
                 v62 = -1;
                 v60 = -1;
@@ -9200,20 +6090,20 @@ LABEL_213:
                 goto LABEL_166;
               }
 
-              v141 = v59;
+              v140 = v59;
               v70 = 0;
               v51 = 0;
               v80 = 0;
-              v145 = 0;
+              v144 = 0;
               v64 = 0;
               v81 = -1;
-              v82 = v143;
+              v82 = v142;
               goto LABEL_156;
             }
 
 LABEL_217:
-            *(v20 + 49180) = v147;
-            v20[24591] = v144;
+            *(v20 + 49180) = v146;
+            v20[24591] = v143;
             v103 = v53 + v54 - v55;
             if (v53 + v54 <= v55)
             {
@@ -9240,16 +6130,16 @@ LABEL_217:
                 do
                 {
                   v113 = __dst - v103;
-                  v20[v111 + 12298] = *(v169 + 8 * (__dst - v103) + v111 * 8);
-                  v20[v111 + 16394] = *(v165 + 8 * (v166 - v103) + v111 * 8);
-                  v114 = v163;
-                  if (v163)
+                  v20[v111 + 12298] = *(v168 + 8 * (__dst - v103) + v111 * 8);
+                  v20[v111 + 16394] = *(v164 + 8 * (v165 - v103) + v111 * 8);
+                  v114 = v162;
+                  if (v162)
                   {
-                    v114 = (&v163[v164 - v103])[v111];
+                    v114 = (&v162[v163 - v103])[v111];
                   }
 
                   v20[v111 + 20490] = v114;
-                  agxps_aps_profile_data_get_usc_timestamps(v158, &v20[v111 + 10], *(v162 + 8 * v113 + v111 * 8 + 4), 1);
+                  agxps_aps_profile_data_get_usc_timestamps(v157, &v20[v111 + 10], *(v161 + 8 * v113 + v111 * 8 + 4), 1);
                   ++v111;
                   --v112;
                 }
@@ -9260,7 +6150,7 @@ LABEL_217:
               else
               {
                 v105 = 0;
-                v106 = v137 + 8 * v55 + 196760 * v139;
+                v106 = v136 + 8 * v55 + 196760 * v138;
                 do
                 {
                   v107 = &v20[v105 + 16394];
@@ -9274,20 +6164,20 @@ LABEL_217:
                 while (v104 != v105);
                 if (v104 < v103)
                 {
-                  v108 = v137 + 8 * v54 + 196760 * v139 - 8 * v55;
+                  v108 = v136 + 8 * v54 + 196760 * v138 - 8 * v55;
                   v109 = 4;
                   do
                   {
-                    *(v108 + 98384 + v109 - 4) = *(v169 + v109 - 4);
-                    *(v108 + 131152 + v109 - 4) = *(v165 + v109 - 4);
-                    v110 = v163;
-                    if (v163)
+                    *(v108 + 98384 + v109 - 4) = *(v168 + v109 - 4);
+                    *(v108 + 131152 + v109 - 4) = *(v164 + v109 - 4);
+                    v110 = v162;
+                    if (v162)
                     {
-                      v110 = *(v163 + v109 - 4);
+                      v110 = *(v162 + v109 - 4);
                     }
 
                     *(v108 + 163920 + v109 - 4) = v110;
-                    agxps_aps_profile_data_get_usc_timestamps(v158, (v108 + v109 + 76), *(v162 + v109), 1);
+                    agxps_aps_profile_data_get_usc_timestamps(v157, (v108 + v109 + 76), *(v161 + v109), 1);
                     v109 += 8;
                     --v53;
                   }
@@ -9298,16 +6188,16 @@ LABEL_217:
             }
 
             v115 = *(&__p + 1);
-            v116 = v177;
+            v116 = v176;
             v117 = *(&__p + 1);
-            v118 = v177 - *(&__p + 1);
-            if (v177 != *(&__p + 1))
+            v118 = v176 - *(&__p + 1);
+            if (v176 != *(&__p + 1))
             {
-              v119 = (*(&__p + 1) + 8 * (v178 >> 7));
+              v119 = (*(&__p + 1) + 8 * (v177 >> 7));
               v120 = *v119;
-              v121 = *v119 + 32 * (v178 & 0x7F);
-              v122 = *(*(&__p + 1) + (((*(&v178 + 1) + v178) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * ((*(&v178 + 1) + v178) & 0x7F);
-              v117 = v177;
+              v121 = *v119 + 32 * (v177 & 0x7F);
+              v122 = *(*(&__p + 1) + (((*(&v177 + 1) + v177) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * ((*(&v177 + 1) + v177) & 0x7F);
+              v117 = v176;
               if (v121 != v122)
               {
                 do
@@ -9362,13 +6252,13 @@ LABEL_217:
               operator delete(__p);
             }
 
-            if (v143)
+            if (v142)
             {
-              std::__shared_weak_count::__release_shared[abi:nn200100](v143);
+              std::__shared_weak_count::__release_shared[abi:nn200100](v142);
             }
           }
 
-          else if (v179)
+          else if (v178)
           {
             NSLog(&cfstr_ChunkHadAnErro.isa);
           }
@@ -9378,40 +6268,40 @@ LABEL_217:
             NSLog(&cfstr_ChunkIsNotOpaq.isa);
           }
 
-          if (v183.i64[1] < 0x80uLL)
+          if (v182.i64[1] < 0x80uLL)
           {
-            std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(v182, &v180);
+            std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(v181, &v179);
           }
 
           else
           {
             std::mutex::lock((a1 + 440));
-            v127 = v183.i64[0];
+            v127 = v182.i64[0];
             do
             {
-              v128 = v182[1];
-              std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(a1 + 504, *(v182[1] + ((v127 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v127 & 0x7F));
-              v129 = vaddq_s64(v183, xmmword_24DA8BC20);
-              v183 = v129;
+              v128 = v181[1];
+              std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((a1 + 504), *(v181[1] + ((v127 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v127 & 0x7F));
+              v129 = vaddq_s64(v182, xmmword_24DA8BC20);
+              v182 = v129;
               v127 = v129.i64[0];
               if (v129.i64[0] >= 0x100uLL)
               {
-                v159 = v129.i64[1];
+                v158 = v129.i64[1];
                 operator delete(*v128);
-                v129.i64[1] = v159;
+                v129.i64[1] = v158;
                 v127 -= 128;
-                v182[1] = v128 + 1;
-                v183.i64[0] = v127;
+                v181[1] = (v128 + 1);
+                v182.i64[0] = v127;
               }
             }
 
             while (v129.i64[1]);
-            std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(a1 + 504, &v180);
+            std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((a1 + 504), &v179);
             std::mutex::unlock((a1 + 440));
           }
 
-          v130 = WORD1(v180);
-          std::mutex::lock((*(a1 + 552) + (WORD1(v180) << 6)));
+          v130 = WORD1(v179);
+          std::mutex::lock((*(a1 + 552) + (WORD1(v179) << 6)));
           ++v20[4];
           std::mutex::unlock((*(a1 + 552) + (v130 << 6)));
           v6 = -1;
@@ -9430,25 +6320,25 @@ LABEL_217:
     }
 
 LABEL_265:
-    if (v183.i64[1])
+    if (v182.i64[1])
     {
-      v131 = v183.i64[0];
-      v132 = v182[1];
+      v131 = v182.i64[0];
+      v132 = v181[1];
       do
       {
         free((*(v132 + ((v131 >> 4) & 0xFFFFFFFFFFFFFF8)))[4 * (v131 & 0x7F) + 2]);
-        v133 = vaddq_s64(v183, xmmword_24DA8BC20);
-        v183 = v133;
+        v133 = vaddq_s64(v182, xmmword_24DA8BC20);
+        v182 = v133;
         v131 = v133.i64[0];
         if (v133.i64[0] >= 0x100uLL)
         {
           v134 = *v132++;
-          v157 = v133.i64[1];
+          v156 = v133.i64[1];
           operator delete(v134);
-          v133.i64[1] = v157;
+          v133.i64[1] = v156;
           v131 -= 128;
-          v182[1] = v132;
-          v183.i64[0] = v131;
+          v181[1] = v132;
+          v182.i64[0] = v131;
         }
       }
 
@@ -9460,135 +6350,131 @@ LABEL_265:
       NSLog(&cfstr_ParserWorkerIs.isa);
     }
 
-    std::deque<AccelerationStructureViewerServer::APSRawChunk>::~deque[abi:nn200100](v182);
-    v4 = v136;
+    std::deque<AccelerationStructureViewerServer::APSRawChunk>::~deque[abi:nn200100](v181);
+    v4 = v135;
   }
 
   else
   {
     NSLog(&cfstr_TheAcceleratio.isa);
   }
-
-  v135 = *MEMORY[0x277D85DE8];
 }
 
-__n128 std::deque<std::pair<unsigned long long,std::pair<unsigned int,std::shared_ptr<AccelerationStructureViewerServer::APSRayCollector>>>>::push_back(uint64_t a1, __n128 *a2)
+__n128 std::deque<std::pair<unsigned long long,std::pair<unsigned int,std::shared_ptr<AccelerationStructureViewerServer::APSRayCollector>>>>::push_back(unint64_t *a1, __n128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = 16 * (v5 - v6) - 1;
+    v6 = 16 * (v4 - v5) - 1;
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40) + v8;
-  if (v7 == v9)
+  v7 = a1[4];
+  v8 = a1[5] + v7;
+  if (v6 == v8)
   {
-    if (v8 < 0x80)
+    if (v7 < 0x80)
     {
-      v10 = *(a1 + 24);
-      v11 = v10 - *a1;
-      if (v5 - v6 < v11)
+      v9 = a1[3];
+      v10 = v9 - *a1;
+      if (v4 - v5 < v10)
       {
         operator new();
       }
 
-      v12 = v11 >> 2;
-      if (v10 == *a1)
+      v11 = v10 >> 2;
+      if (v9 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12;
+        v12 = v11;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v13);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
     }
 
-    *(a1 + 32) = v8 - 128;
-    v16 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<GTMMappedBuffer::UsedBlock *>::emplace_back<GTMMappedBuffer::UsedBlock *&>(a1, &v16);
-    v6 = *(a1 + 8);
-    v9 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v7 - 128;
+    v15 = *v5;
+    a1[1] = (v5 + 1);
+    std::__split_buffer<GTMMappedBuffer::UsedBlock *>::emplace_back<GTMMappedBuffer::UsedBlock *&>(a1, &v15);
+    v5 = a1[1];
+    v8 = a1[5] + a1[4];
   }
 
-  v14 = (*&v6[(v9 >> 4) & 0xFFFFFFFFFFFFFF8] + 32 * (v9 & 0x7F));
-  v14->n128_u64[0] = a2->n128_u64[0];
-  v14->n128_u32[2] = a2->n128_u32[2];
+  v13 = (*(v5 + ((v8 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v8 & 0x7F));
+  v13->n128_u64[0] = a2->n128_u64[0];
+  v13->n128_u32[2] = a2->n128_u32[2];
   result = a2[1];
-  v14[1] = result;
+  v13[1] = result;
   a2[1].n128_u64[0] = 0;
   a2[1].n128_u64[1] = 0;
-  ++*(a1 + 40);
+  ++a1[5];
   return result;
 }
 
-__n128 std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = 16 * (v5 - v6) - 1;
+    v6 = 16 * (v4 - v5) - 1;
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 40) + v8;
-  if (v7 == v9)
+  v7 = a1[4];
+  v8 = a1[5] + v7;
+  if (v6 == v8)
   {
-    if (v8 < 0x80)
+    if (v7 < 0x80)
     {
-      v10 = *(a1 + 24);
-      v11 = v10 - *a1;
-      if (v5 - v6 < v11)
+      v9 = a1[3];
+      v10 = v9 - *a1;
+      if (v4 - v5 < v10)
       {
         operator new();
       }
 
-      v12 = v11 >> 2;
-      if (v10 == *a1)
+      v11 = v10 >> 2;
+      if (v9 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12;
+        v12 = v11;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v13);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
     }
 
-    *(a1 + 32) = v8 - 128;
-    v17 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<GTMMappedBuffer::UsedBlock *>::emplace_back<GTMMappedBuffer::UsedBlock *&>(a1, &v17);
-    v6 = *(a1 + 8);
-    v9 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v7 - 128;
+    v16 = *v5;
+    a1[1] = (v5 + 1);
+    std::__split_buffer<GTMMappedBuffer::UsedBlock *>::emplace_back<GTMMappedBuffer::UsedBlock *&>(a1, &v16);
+    v5 = a1[1];
+    v8 = a1[5] + a1[4];
   }
 
-  v14 = (*&v6[(v9 >> 4) & 0xFFFFFFFFFFFFFF8] + 32 * (v9 & 0x7F));
+  v13 = (*(v5 + ((v8 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v8 & 0x7F));
   result = *a2;
-  v16 = *(a2 + 16);
-  *v14 = *a2;
-  v14[1] = v16;
-  ++*(a1 + 40);
+  v15 = *(a2 + 16);
+  *v13 = *a2;
+  v13[1] = v15;
+  ++a1[5];
   return result;
 }
 
@@ -9651,7 +6537,7 @@ void AccelerationStructureViewerServer::Profiler::accumulationWorker(uint64_t a1
                     v36 = 0u;
                     *__dst = 0u;
                     __dst[0] = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-                    std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(a1 + 504, &v36);
+                    std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((a1 + 504), &v36);
                     v24 = *(a1 + 544);
                   }
 
@@ -9683,7 +6569,7 @@ void AccelerationStructureViewerServer::Profiler::accumulationWorker(uint64_t a1
                   *(*(a1 + 600) + 196760 * v7 + 40) = 0;
                   v23 += v28;
                   std::mutex::lock((*(a1 + 552) + (v7 << 6)));
-                  std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(*(a1 + 576) + 48 * v7, &v36);
+                  std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((*(a1 + 576) + 48 * v7), &v36);
                   std::mutex::unlock((*(a1 + 552) + (v7 << 6)));
                   v21 = v38;
                 }
@@ -9705,7 +6591,7 @@ void AccelerationStructureViewerServer::Profiler::accumulationWorker(uint64_t a1
                     v36 = 0u;
                     *__dst = 0u;
                     __dst[0] = malloc_type_malloc(0x1000uLL, 0x100004077774924uLL);
-                    std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(a1 + 504, &v36);
+                    std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((a1 + 504), &v36);
                     v12 = *(a1 + 544);
                   }
 
@@ -9766,7 +6652,7 @@ void AccelerationStructureViewerServer::Profiler::accumulationWorker(uint64_t a1
                   v20 = WORD1(v36);
                   *(*(a1 + 600) + 196760 * WORD1(v36) + 40) = 0;
                   std::mutex::lock((*(a1 + 552) + (v20 << 6)));
-                  std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back(*(a1 + 576) + 48 * v20, &v36);
+                  std::deque<AccelerationStructureViewerServer::APSRawChunk>::push_back((*(a1 + 576) + 48 * v20), &v36);
                   std::mutex::unlock((*(a1 + 552) + (v20 << 6)));
                   v21 = v38;
                 }
@@ -9835,4 +6721,2987 @@ LABEL_48:
   {
     NSLog(&cfstr_AccumulationWo.isa);
   }
+}
+
+void AccelerationStructureViewerServer::Profiler::finishSkipFrame(uint64_t a1, void *a2)
+{
+  v3 = [a2 globalTraceObjectID];
+  std::mutex::lock((a1 + 624));
+  v4 = (a1 + 688);
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>((a1 + 688), v3);
+  if (v5)
+  {
+    v6 = *(a1 + 696);
+    v7 = v5[1];
+    v8 = vcnt_s8(v6);
+    v8.i16[0] = vaddlv_u8(v8);
+    if (v8.u32[0] > 1uLL)
+    {
+      if (v7 >= *&v6)
+      {
+        v7 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v7 &= *&v6 - 1;
+    }
+
+    v9 = *(*v4 + 8 * v7);
+    do
+    {
+      v10 = v9;
+      v9 = *v9;
+    }
+
+    while (v9 != v5);
+    if (v10 == (a1 + 704))
+    {
+      goto LABEL_19;
+    }
+
+    v11 = v10[1];
+    if (v8.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v7)
+    {
+LABEL_19:
+      if (!*v5)
+      {
+        goto LABEL_20;
+      }
+
+      v12 = *(*v5 + 8);
+      if (v8.u32[0] > 1uLL)
+      {
+        if (v12 >= *&v6)
+        {
+          v12 %= *&v6;
+        }
+      }
+
+      else
+      {
+        v12 &= *&v6 - 1;
+      }
+
+      if (v12 != v7)
+      {
+LABEL_20:
+        *(*v4 + 8 * v7) = 0;
+      }
+    }
+
+    v13 = *v5;
+    if (*v5)
+    {
+      v14 = *(v13 + 8);
+      if (v8.u32[0] > 1uLL)
+      {
+        if (v14 >= *&v6)
+        {
+          v14 %= *&v6;
+        }
+      }
+
+      else
+      {
+        v14 &= *&v6 - 1;
+      }
+
+      if (v14 != v7)
+      {
+        *(*v4 + 8 * v14) = v10;
+        v13 = *v5;
+      }
+    }
+
+    *v10 = v13;
+    *v5 = 0;
+    --*(a1 + 712);
+    operator delete(v5);
+  }
+
+  std::mutex::unlock((a1 + 624));
+}
+
+void std::vector<AccelerationStructureViewerServer::APSUSCRayCollector>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v6 = v4 - 4;
+
+        v4 = v6;
+      }
+
+      while (v6 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::__shared_ptr_emplace<AccelerationStructureViewerServer::APSRayCollector>::__on_zero_shared(uint64_t a1)
+{
+  v2 = (a1 + 88);
+  std::vector<AccelerationStructureViewerServer::APSUSCRayCollector>::__destroy_vector::operator()[abi:nn200100](&v2);
+
+  std::condition_variable::~condition_variable((a1 + 24));
+}
+
+void std::__shared_ptr_emplace<AccelerationStructureViewerServer::APSRayCollector>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_2860BC710;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x2530332C0);
+}
+
+__n128 __Block_byref_object_copy__9845(__n128 *a1, __n128 *a2)
+{
+  result = a2[3];
+  a1[3] = result;
+  a2[3] = 0uLL;
+  return result;
+}
+
+void __Block_byref_object_dispose__9846(uint64_t a1)
+{
+  v1 = *(a1 + 56);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v1);
+  }
+}
+
+void ___ZN33AccelerationStructureViewerServer8Profiler11finishFrameEPU26objcproto15MTLCommandQueue11objc_objectPU35objcproto24MTLComputeCommandEncoder11objc_objectmP18ASVSRenderSettingsPN27AccelerationStructureViewer6SampleE_block_invoke(uint64_t a1)
+{
+  v2 = dispatch_get_global_queue(0, 0);
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = ___ZN33AccelerationStructureViewerServer8Profiler11finishFrameEPU26objcproto15MTLCommandQueue11objc_objectPU35objcproto24MTLComputeCommandEncoder11objc_objectmP18ASVSRenderSettingsPN27AccelerationStructureViewer6SampleE_block_invoke_2;
+  v3[3] = &unk_279659168;
+  v4 = *(a1 + 32);
+  dispatch_async(v2, v3);
+}
+
+void ___ZN33AccelerationStructureViewerServer8Profiler11finishFrameEPU26objcproto15MTLCommandQueue11objc_objectPU35objcproto24MTLComputeCommandEncoder11objc_objectmP18ASVSRenderSettingsPN27AccelerationStructureViewer6SampleE_block_invoke_2(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  std::mutex::lock((v2 + 136));
+  v3 = *(v2 + 8);
+  if (v3)
+  {
+    for (i = 0; i < v3; ++i)
+    {
+      v5 = *(*(*(*(a1 + 32) + 8) + 48) + 64) + 32 * i;
+      v7 = *(v5 + 16);
+      v6 = (v5 + 16);
+      if (v7)
+      {
+        v8 = *(v2 + 208);
+        v9 = *(v2 + 216);
+        if (v9 == v8)
+        {
+          v10 = 0;
+        }
+
+        else
+        {
+          v10 = ((v9 - v8) << 6) - 1;
+        }
+
+        v11 = *(v2 + 232);
+        if (v10 == *(v2 + 240) + v11)
+        {
+          v12 = v11 >= 0x200;
+          v13 = v11 - 512;
+          if (!v12)
+          {
+            v14 = *(v2 + 224);
+            v15 = *(v2 + 200);
+            if (v9 - v8 < (v14 - v15))
+            {
+              operator new();
+            }
+
+            if (v14 == v15)
+            {
+              v16 = 1;
+            }
+
+            else
+            {
+              v16 = (v14 - v15) >> 2;
+            }
+
+            std::__allocate_at_least[abi:nn200100]<std::allocator<NSString * {__strong}>>(v16);
+          }
+
+          *(v2 + 232) = v13;
+          v22 = *v8;
+          *(v2 + 208) = v8 + 8;
+          std::__split_buffer<objc_object  {objcproto9MTLBuffer}* {__strong}*>::emplace_back<objc_object  {objcproto9MTLBuffer}* {__strong}&>((v2 + 200), &v22);
+          v8 = *(v2 + 208);
+          v9 = *(v2 + 216);
+        }
+
+        if (v9 == v8)
+        {
+          v18 = 0;
+        }
+
+        else
+        {
+          v17 = *(v2 + 240) + *(v2 + 232);
+          v18 = (*&v8[(v17 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v17 & 0x1FF));
+        }
+
+        *v18 = *v6;
+        ++*(v2 + 240);
+        v19 = *v6;
+        *v6 = 0;
+
+        v3 = *(v2 + 8);
+      }
+    }
+  }
+
+  std::mutex::unlock((v2 + 136));
+  v20 = *(*(a1 + 32) + 8);
+  v21 = *(v20 + 56);
+  *(v20 + 48) = 0;
+  *(v20 + 56) = 0;
+  if (v21)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+  }
+}
+
+void std::__split_buffer<objc_object  {objcproto9MTLBuffer}* {__strong}*>::emplace_back<objc_object  {objcproto9MTLBuffer}* {__strong}&>(unint64_t *a1, void *a2)
+{
+  v4 = a1[2];
+  if (v4 == a1[3])
+  {
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
+    {
+      if (v4 == *a1)
+      {
+        v11 = 1;
+      }
+
+      else
+      {
+        v11 = &v4[-*a1] >> 2;
+      }
+
+      std::__allocate_at_least[abi:nn200100]<std::allocator<NSString * {__strong}>>(v11);
+    }
+
+    v7 = ((v6 >> 3) + 1) / -2;
+    v8 = ((v6 >> 3) + 1) / 2;
+    v9 = &v5[-8 * v8];
+    v10 = v4 - v5;
+    if (v4 != v5)
+    {
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
+    }
+
+    v4 = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
+  }
+
+  *v4 = *a2;
+  a1[2] += 8;
+}
+
+uint64_t non-virtual thunk toAccelerationStructureViewerServer::Server::teardown(AccelerationStructureViewerServer::Server *this, Sampler *a2, NSError *a3)
+{
+  result = *(this + 2);
+  if (result)
+  {
+    *(this + 2) = 0;
+    return (*(*result + 40))(result, this - 8, a3);
+  }
+
+  return result;
+}
+
+void *AccelerationStructureViewerServer::Server::resume(void *this, Sampler *a2)
+{
+  if (this[5] >= 7uLL)
+  {
+    v4 = this;
+    this = this[3];
+    if (this)
+    {
+      v6 = v2;
+      v7 = v3;
+      v5 = 12;
+      return (*(*this + 32))(this, v4, 0, 0, &v5, 1);
+    }
+  }
+
+  return this;
+}
+
+void non-virtual thunk toAccelerationStructureViewerServer::Server::pause(uint64_t this, Sampler *a2, NSError *a3)
+{
+  if (*(this + 32) >= 7uLL)
+  {
+    AccelerationStructureViewerServer::Server::replyQueryable(this - 8, 11, -1, 0, a3);
+  }
+}
+
+void AccelerationStructureViewerServer::Server::replyQueryable(uint64_t a1, char a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v9 = a5;
+  if (!a4)
+  {
+    operator new();
+  }
+
+  v10 = *(a1 + 40);
+  v21[0] = &unk_2860BB6A8;
+  v21[1] = v10;
+  v22 = 0;
+  (*(*a4 + 16))(a4, v21);
+  v11 = v22;
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  std::vector<unsigned char>::__append(&v18, v22 + 9);
+  v12 = v18;
+  v13[1] = *(a1 + 40);
+  v13[0] = &unk_2860BB6F0;
+  v14 = 0;
+  v15 = 0;
+  v16 = v18 + 9;
+  v17 = v11;
+  (*(*a4 + 16))(a4, v13);
+  if (v15 || v14 != v17)
+  {
+    operator new();
+  }
+
+  *v12 = a2;
+  *(v12 + 1) = a3;
+  (*(**(a1 + 24) + 32))(*(a1 + 24), a1, 0, 0, v12, v11 + 9);
+  if (v18)
+  {
+    v19 = v18;
+    operator delete(v18);
+  }
+}
+
+uint64_t AccelerationStructureViewerServer::Server::setVersion(uint64_t a1, uint64_t a2)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    v4 = 0;
+    v5 = a2;
+    return (*(*result + 32))(result, a1, 0, 0, &v4, 9);
+  }
+
+  return result;
+}
+
+void AccelerationStructureViewerServer::Server::receiveQueryRays(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6)
+{
+  if (*(a1 + 40) >= 0xBuLL && *(a1 + 24))
+  {
+    v11 = 400 * a6;
+    v12 = malloc_type_malloc(v11 + 17, 0x100004075806E5BuLL);
+    v13 = v12;
+    *v12 = 17;
+    *(v12 + 1) = a3 == 1;
+    *(v12 + 5) = a4;
+    *(v12 + 13) = a6;
+    if (a6)
+    {
+      v14 = 0;
+      v15 = v12;
+      do
+      {
+        v16 = v15 + 405;
+        v23 = *(a5 + v14 + 336);
+        v24 = *(a5 + v14 + 352);
+        v25 = *(a5 + v14 + 368);
+        v26 = *(a5 + v14 + 384);
+        v19 = *(a5 + v14 + 272);
+        v20 = *(a5 + v14 + 288);
+        v21 = *(a5 + v14 + 304);
+        v22 = *(a5 + v14 + 320);
+        v17 = *(a5 + v14 + 408);
+        v41 = *(a5 + v14 + 240);
+        v42 = *(a5 + v14 + 256);
+        v39 = *(a5 + v14 + 208);
+        v40 = *(a5 + v14 + 224);
+        v37 = *(a5 + v14 + 176);
+        v38 = *(a5 + v14 + 192);
+        v35 = *(a5 + v14 + 144);
+        v36 = *(a5 + v14 + 160);
+        v33 = *(a5 + v14 + 112);
+        v34 = *(a5 + v14 + 128);
+        v31 = *(a5 + v14 + 80);
+        v32 = *(a5 + v14 + 96);
+        v29 = *(a5 + v14 + 48);
+        v30 = *(a5 + v14 + 64);
+        v27 = *(a5 + v14 + 16);
+        v28 = *(a5 + v14 + 32);
+        v18 = *(a5 + v14 + 400);
+        *(v15 + 17) = *(a5 + v14 + 8);
+        *(v15 + 213) = v39;
+        *(v15 + 229) = v40;
+        *(v15 + 245) = v41;
+        *(v15 + 261) = v42;
+        *(v15 + 149) = v35;
+        *(v15 + 165) = v36;
+        *(v15 + 181) = v37;
+        *(v15 + 197) = v38;
+        *(v15 + 85) = v31;
+        *(v15 + 101) = v32;
+        *(v15 + 117) = v33;
+        *(v15 + 133) = v34;
+        *(v15 + 21) = v27;
+        *(v15 + 37) = v28;
+        *(v15 + 53) = v29;
+        *(v15 + 69) = v30;
+        *(v15 + 341) = v23;
+        *(v15 + 357) = v24;
+        *(v15 + 373) = v25;
+        *(v15 + 389) = v26;
+        *(v15 + 277) = v19;
+        *(v15 + 293) = v20;
+        *(v15 + 309) = v21;
+        *(v15 + 325) = v22;
+        *(v15 + 405) = v18;
+        v14 += 416;
+        v15 += 400;
+        *(v16 + 2) = v17;
+      }
+
+      while (416 * a6 != v14);
+    }
+
+    (*(**(a1 + 24) + 32))(*(a1 + 24), a1, 0, 0, v12, v11 + 17);
+
+    free(v13);
+  }
+}
+
+void AccelerationStructureViewerServer::Server::receiveSample(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v328 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 40);
+  if (v7 <= 8)
+  {
+    v8 = 16;
+  }
+
+  else
+  {
+    v8 = 256;
+  }
+
+  v9 = [*(a3 + 608) width];
+  v10 = v8 - 1;
+  if (*(a1 + 40) >= 6uLL)
+  {
+    v11 = ((v8 - ((4 * v9) & (v8 - 1))) & (v8 - 1)) + 4 * v9;
+  }
+
+  else
+  {
+    v11 = 4 * v9;
+  }
+
+  v12 = 16 * [*(a3 + 608) width];
+  v13 = 16 * [*(a3 + 624) width];
+  v14 = 16 * [*(a3 + 632) width];
+  v15 = 4 * [*(a3 + 640) width];
+  v16 = [*(a3 + 648) width];
+  v17 = *(a1 + 40);
+  v18 = ((v8 - (v14 & v10)) & v10) + v14;
+  v19 = ((v8 - (v15 & v10)) & v10) + v15;
+  v20 = ((v8 - (v16 & v10)) & v10) + v16;
+  if (v17 >= 9)
+  {
+    v21 = ((v8 - (v13 & v10)) & v10) + v13;
+  }
+
+  else
+  {
+    v20 = v16;
+    v19 = v15;
+    v18 = v14;
+    v21 = v13;
+  }
+
+  if (v17 >= 9)
+  {
+    v22 = ((v8 - (v12 & v10)) & v10) + v12;
+  }
+
+  else
+  {
+    v22 = v12;
+  }
+
+  if (!v17 || !*(a1 + 24))
+  {
+    goto LABEL_31;
+  }
+
+  if (v17 >= 3)
+  {
+    v115 = v22;
+    if (v17 <= 0xA)
+    {
+      if (v17 != 10)
+      {
+        if (v17 <= 7)
+        {
+          v24 = 0;
+          v23 = 0;
+          if (v17 <= 4)
+          {
+            v37 = 172;
+          }
+
+          else
+          {
+            v37 = 176;
+          }
+        }
+
+        else
+        {
+          v24 = 0;
+          v23 = 0;
+          v37 = 177;
+        }
+
+LABEL_42:
+        v107 = v21;
+        v108 = v19;
+        v109 = v20;
+        v103 = v18;
+        v3 = *(a3 + 4);
+        v49 = *(a3 + 608);
+        if (v49)
+        {
+          v50 = v8 - (v37 & (v8 - 1));
+          v44 = v37 + v50;
+          v37 = v44 + [v49 height] * v11;
+          v51 = 1;
+        }
+
+        else
+        {
+          v50 = 0;
+          v51 = 0;
+          v44 = 0;
+        }
+
+        v105 = v11;
+        v52 = *(a3 + 616);
+        if (v52)
+        {
+          v51 |= 2u;
+          v53 = v8 - (v37 & (v8 - 1));
+          v116 = v37 + v53;
+          v37 = v116 + [v52 height] * v115;
+        }
+
+        else
+        {
+          v53 = 0;
+          v116 = 0;
+        }
+
+        v54 = *(a1 + 40);
+        v112 = v53;
+        v113 = v50;
+        if (v54 < 0xB)
+        {
+          v58 = *(a3 + 624);
+          if (v58)
+          {
+            v59 = [v58 height];
+            v51 |= 4u;
+            v60 = v8 - (v37 & (v8 - 1));
+            v114 = v37 + v60;
+            v37 = v114 + v59 * v107;
+            v54 = *(a1 + 40);
+          }
+
+          else
+          {
+            v60 = 0;
+            v114 = 0;
+          }
+
+          v111 = v60;
+          if (v54 >= 8 && (v62 = *(a3 + 632)) != 0)
+          {
+            v63 = [v62 height];
+            v101 = 0;
+            v102 = 0;
+            v104 = v51 | 8;
+            v64 = v8 - (v37 & (v8 - 1));
+            v98 = v37 + v64;
+            v37 = v98 + v63 * v103;
+            v110 = v64;
+          }
+
+          else
+          {
+            v104 = v51;
+            v110 = 0;
+            v101 = 0;
+            v102 = 0;
+            v98 = 0;
+          }
+        }
+
+        else
+        {
+          v55 = *(a3 + 640);
+          if (v55)
+          {
+            v56 = [v55 height];
+            v51 |= 4u;
+            v57 = v8 - (v37 & (v8 - 1));
+            v101 = v37 + v57;
+            v37 = v101 + v56 * v108;
+          }
+
+          else
+          {
+            v57 = 0;
+            v101 = 0;
+          }
+
+          v111 = v57;
+          v61 = *(a3 + 648);
+          if (v61)
+          {
+            v98 = 0;
+            v114 = 0;
+            v104 = v51 | 8;
+            v110 = v8 - (v37 & (v8 - 1));
+            v102 = v37 + v110;
+            v37 = v102 + [v61 height] * v109;
+          }
+
+          else
+          {
+            v104 = v51;
+            v110 = 0;
+            v102 = 0;
+            v98 = 0;
+            v114 = 0;
+          }
+        }
+
+        goto LABEL_62;
+      }
+
+      v24 = 0;
+      v23 = 0;
+      v37 = 180;
+    }
+
+    else
+    {
+      if (*(a3 + 16) >= 7u)
+      {
+        v23 = 0;
+      }
+
+      else
+      {
+        v23 = *(a3 + 16);
+      }
+
+      if (*(a3 + 17) >= 7u)
+      {
+        v24 = 0;
+      }
+
+      else
+      {
+        v24 = *(a3 + 17);
+      }
+
+      v95 = *(a3 + 24);
+      v25 = *(a3 + 240);
+      v324 = *(a3 + 224);
+      v325 = v25;
+      v26 = *(a3 + 272);
+      v326 = *(a3 + 256);
+      v327 = v26;
+      v27 = *(a3 + 176);
+      v320 = *(a3 + 160);
+      v321 = v27;
+      v28 = *(a3 + 208);
+      v322 = *(a3 + 192);
+      v323 = v28;
+      v29 = *(a3 + 112);
+      v316 = *(a3 + 96);
+      v317 = v29;
+      v30 = *(a3 + 144);
+      v318 = *(a3 + 128);
+      v319 = v30;
+      v31 = *(a3 + 48);
+      v312 = *(a3 + 32);
+      v313 = v31;
+      v32 = *(a3 + 80);
+      v314 = *(a3 + 64);
+      v315 = v32;
+      v33 = *(a3 + 368);
+      v308 = *(a3 + 352);
+      v309 = v33;
+      v34 = *(a3 + 400);
+      v310 = *(a3 + 384);
+      v311 = v34;
+      v35 = *(a3 + 304);
+      v304 = *(a3 + 288);
+      v305 = v35;
+      v36 = *(a3 + 336);
+      v306 = *(a3 + 320);
+      v307 = v36;
+      v4 = *(a3 + 416);
+      v37 = 582;
+      v94 = *(a3 + 424);
+    }
+
+    v99 = *(a3 + 434);
+    v100 = *(a3 + 1);
+    goto LABEL_42;
+  }
+
+  v38 = *(a3 + 608);
+  if (!v38 || !*(a3 + 616) || !*(a3 + 624))
+  {
+LABEL_31:
+    v48 = *(**(a1 + 32) + 88);
+
+    v48();
+    return;
+  }
+
+  v108 = v19;
+  v109 = v20;
+  v103 = v18;
+  v105 = v11;
+  v39 = [v38 height] * v11;
+  v115 = v22;
+  v40 = [*(a3 + 616) height] * v22;
+  v41 = [*(a3 + 624) height];
+  v101 = 0;
+  v102 = 0;
+  v98 = 0;
+  v42 = v8 - (v39 & v10);
+  v43 = v8 - (v40 & v10);
+  if (v7 <= 8)
+  {
+    v44 = 192;
+  }
+
+  else
+  {
+    v44 = 256;
+  }
+
+  v45 = v39 + v44;
+  v24 = 0;
+  v46 = v45 + v42;
+  v47 = v40 + v43;
+  v23 = 0;
+  v116 = v46;
+  v114 = v46 + v47;
+  v107 = v21;
+  v37 = v46 + v47 + v41 * v21;
+  v110 = v46 + v47;
+  v111 = v46 + v47;
+  v112 = v46 + v47;
+  v113 = v46 + v47;
+LABEL_62:
+  v117 = 0;
+  v118 = &v117;
+  v119 = 0x3032000000;
+  v120 = __Block_byref_object_copy__9879;
+  v121 = __Block_byref_object_dispose__9880;
+  v122 = *(a1 + 80);
+  dispatch_semaphore_wait(v122, 0xFFFFFFFFFFFFFFFFLL);
+  v65 = 0;
+  while (1)
+  {
+    v66 = a1 + 8 * v65;
+    if (!dispatch_semaphore_wait(*(v66 + 88), 0))
+    {
+      break;
+    }
+
+    if (++v65 == 4)
+    {
+      dispatch_semaphore_signal(v118[5]);
+      (*(**(a1 + 32) + 88))(*(a1 + 32), *(a3 + 8), 1);
+      goto LABEL_84;
+    }
+  }
+
+  v97 = v24;
+  v106 = v44;
+  v68 = *(v66 + 120);
+  v67 = (v66 + 120);
+  v69 = v68;
+  v70 = v69;
+  v96 = v23;
+  if (!v69 || [v69 length] < v37)
+  {
+    v71 = [*(a1 + 48) newBufferWithLength:v37 options:0];
+
+    objc_storeStrong(v67, v71);
+    v70 = v71;
+  }
+
+  v72 = [*(a1 + 56) commandBufferWithDescriptor:*(a1 + 64)];
+  [v72 setLabel:@"ASVServer"];
+  v73 = [v72 blitCommandEncoder];
+  v74 = *(a3 + 608);
+  if (v74)
+  {
+    v169 = 0uLL;
+    *&v170 = 0;
+    v75 = [v74 width];
+    v76 = [*(a3 + 608) height];
+    *&v158 = v75;
+    *(&v158 + 1) = v76;
+    *&v159 = 1;
+    [v73 copyFromTexture:v74 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v106 destinationBytesPerRow:v105 destinationBytesPerImage:{objc_msgSend(*(a3 + 608), "height") * v105}];
+  }
+
+  v77 = *(a3 + 616);
+  if (v77)
+  {
+    v169 = 0uLL;
+    *&v170 = 0;
+    v78 = [v77 width];
+    v79 = [*(a3 + 616) height];
+    *&v158 = v78;
+    *(&v158 + 1) = v79;
+    *&v159 = 1;
+    [v73 copyFromTexture:v77 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v116 destinationBytesPerRow:v115 destinationBytesPerImage:{objc_msgSend(*(a3 + 616), "height") * v115}];
+  }
+
+  v80 = *(a1 + 40);
+  if (v80 < 0xB)
+  {
+    v87 = *(a3 + 624);
+    if (v87)
+    {
+      v169 = 0uLL;
+      *&v170 = 0;
+      v88 = [v87 width];
+      v89 = [*(a3 + 624) height];
+      *&v158 = v88;
+      *(&v158 + 1) = v89;
+      *&v159 = 1;
+      [v73 copyFromTexture:v87 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v114 destinationBytesPerRow:v107 destinationBytesPerImage:{objc_msgSend(*(a3 + 624), "height") * v107}];
+      v80 = *(a1 + 40);
+    }
+
+    if (v80 >= 8)
+    {
+      v90 = *(a3 + 632);
+      if (v90)
+      {
+        v169 = 0uLL;
+        *&v170 = 0;
+        v91 = [v90 width];
+        v92 = [*(a3 + 632) height];
+        *&v158 = v91;
+        *(&v158 + 1) = v92;
+        *&v159 = 1;
+        [v73 copyFromTexture:v90 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v98 destinationBytesPerRow:v103 destinationBytesPerImage:{objc_msgSend(*(a3 + 632), "height") * v103}];
+      }
+    }
+  }
+
+  else
+  {
+    v81 = *(a3 + 640);
+    if (v81)
+    {
+      v169 = 0uLL;
+      *&v170 = 0;
+      v82 = [v81 width];
+      v83 = [*(a3 + 640) height];
+      *&v158 = v82;
+      *(&v158 + 1) = v83;
+      *&v159 = 1;
+      [v73 copyFromTexture:v81 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v101 destinationBytesPerRow:v108 destinationBytesPerImage:{objc_msgSend(*(a3 + 640), "height") * v108}];
+    }
+
+    v84 = *(a3 + 648);
+    if (v84)
+    {
+      v169 = 0uLL;
+      *&v170 = 0;
+      v85 = [v84 width];
+      v86 = [*(a3 + 648) height];
+      *&v158 = v85;
+      *(&v158 + 1) = v86;
+      *&v159 = 1;
+      [v73 copyFromTexture:v84 sourceSlice:0 sourceLevel:0 sourceOrigin:&v169 sourceSize:&v158 toBuffer:v70 destinationOffset:v102 destinationBytesPerRow:v109 destinationBytesPerImage:{objc_msgSend(*(a3 + 648), "height") * v109}];
+    }
+  }
+
+  [v73 endEncoding];
+  v178[0] = MEMORY[0x277D85DD0];
+  v178[1] = 3321888768;
+  v178[2] = ___ZN33AccelerationStructureViewerServer6Server13receiveSampleEPN27AccelerationStructureViewer7SamplerENS1_6SampleE_block_invoke;
+  v178[3] = &unk_2860BC8A0;
+  v183 = a1;
+  v184 = v65;
+  v185 = v37;
+  v181 = v70;
+  *&v197[15] = *(v177 + 15);
+  v195 = v175;
+  v196 = v176;
+  *v197 = v177[0];
+  v191 = v171;
+  v192 = v172;
+  v193 = v173;
+  v194 = v174;
+  v189 = v169;
+  v190 = v170;
+  v198 = v104;
+  v199 = v113;
+  v200 = v112;
+  v201 = v111;
+  v202 = v167;
+  v203 = v168;
+  v204 = v3;
+  v205 = v110;
+  v206 = v99;
+  v207 = v100;
+  v208 = v96;
+  v209 = v97;
+  v210 = v95;
+  v213 = v314;
+  v214 = v315;
+  v211 = v312;
+  v212 = v313;
+  v217 = v318;
+  v218 = v319;
+  v215 = v316;
+  v216 = v317;
+  v221 = v322;
+  v222 = v323;
+  v219 = v320;
+  v220 = v321;
+  v225 = v326;
+  v226 = v327;
+  v223 = v324;
+  v224 = v325;
+  v231 = v308;
+  v232 = v309;
+  v233 = v310;
+  v234 = v311;
+  v227 = v304;
+  v228 = v305;
+  v229 = v306;
+  v230 = v307;
+  v235 = v4;
+  v236 = v94;
+  v243 = v164;
+  v244 = v165;
+  *v245 = v166[0];
+  *&v245[15] = *(v166 + 15);
+  v239 = v160;
+  v240 = v161;
+  v241 = v162;
+  v242 = v163;
+  v237 = v158;
+  v238 = v159;
+  v246 = v104;
+  v247 = v113;
+  v248 = v112;
+  v249 = v111;
+  v250 = v156;
+  v251 = v157;
+  v252 = v3;
+  v253 = v110;
+  v254 = v99;
+  v255 = v100;
+  v262 = v153;
+  v263 = v154;
+  *v264 = v155[0];
+  *&v264[15] = *(v155 + 15);
+  v258 = v149;
+  v259 = v150;
+  v260 = v151;
+  v261 = v152;
+  v256 = v147;
+  v257 = v148;
+  v265 = v104;
+  v266 = v113;
+  v267 = v112;
+  v268 = v111;
+  v269 = v145;
+  v270 = v146;
+  v271 = v3;
+  v272 = v110;
+  v279 = v142;
+  v280 = v143;
+  *v281 = v144[0];
+  *&v281[15] = *(v144 + 15);
+  v275 = v138;
+  v276 = v139;
+  v277 = v140;
+  v278 = v141;
+  v273 = v136;
+  v274 = v137;
+  v282 = v104;
+  v283 = v113;
+  v284 = v112;
+  v285 = v111;
+  v286 = v134;
+  v287 = v135;
+  v288 = v3;
+  v295 = v131;
+  v296 = v132;
+  *v297 = v133[0];
+  *&v297[15] = *(v133 + 15);
+  v291 = v127;
+  v292 = v128;
+  v293 = v129;
+  v294 = v130;
+  v289 = v125;
+  v290 = v126;
+  v298 = v104;
+  v299 = v113;
+  v300 = v112;
+  v301 = v111;
+  v302 = v123;
+  v303 = v124;
+  v93 = v70;
+  AccelerationStructureViewer::Sample::Sample(v179, a3);
+  v186 = v106;
+  v187 = v116;
+  v188 = v114;
+  v182 = &v117;
+  [v72 addCompletedHandler:v178];
+  [v72 commit];
+
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v180);
+LABEL_84:
+  _Block_object_dispose(&v117, 8);
+}
+
+uint64_t __Block_byref_object_copy__9879(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server13receiveSampleEPN27AccelerationStructureViewer7SamplerENS1_6SampleE_block_invoke(uint64_t a1)
+{
+  v80 = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 704);
+  v3 = dispatch_get_global_queue(0, 0);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3321888768;
+  v24[2] = ___ZN33AccelerationStructureViewerServer6Server13receiveSampleEPN27AccelerationStructureViewer7SamplerENS1_6SampleE_block_invoke_2;
+  v24[3] = &unk_2860BC868;
+  v29 = v2;
+  v30 = *(a1 + 712);
+  v31 = *(a1 + 720);
+  v27 = *(a1 + 688);
+  memcpy(v34, (a1 + 752), sizeof(v34));
+  v4 = *(a1 + 1478);
+  v43 = *(a1 + 1462);
+  v44 = v4;
+  v45 = *(a1 + 1494);
+  v46 = *(a1 + 1510);
+  v5 = *(a1 + 1414);
+  v39 = *(a1 + 1398);
+  v40 = v5;
+  v6 = *(a1 + 1446);
+  v41 = *(a1 + 1430);
+  v42 = v6;
+  v7 = *(a1 + 1350);
+  v35 = *(a1 + 1334);
+  v36 = v7;
+  v8 = *(a1 + 1382);
+  v37 = *(a1 + 1366);
+  v38 = v8;
+  v9 = *(a1 + 1658);
+  v55 = *(a1 + 1642);
+  v56 = v9;
+  v57 = *(a1 + 1674);
+  v10 = *(a1 + 1594);
+  v51 = *(a1 + 1578);
+  v52 = v10;
+  v11 = *(a1 + 1626);
+  v53 = *(a1 + 1610);
+  v54 = v11;
+  v12 = *(a1 + 1530);
+  v47 = *(a1 + 1514);
+  v48 = v12;
+  v13 = *(a1 + 1562);
+  v49 = *(a1 + 1546);
+  v50 = v13;
+  v58 = *(a1 + 1690);
+  v14 = *(a1 + 1835);
+  v67 = *(a1 + 1819);
+  v68 = v14;
+  v69 = *(a1 + 1851);
+  v15 = *(a1 + 1771);
+  v63 = *(a1 + 1755);
+  v64 = v15;
+  v16 = *(a1 + 1803);
+  v65 = *(a1 + 1787);
+  v66 = v16;
+  v17 = *(a1 + 1707);
+  v59 = *(a1 + 1691);
+  v60 = v17;
+  v18 = *(a1 + 1739);
+  v61 = *(a1 + 1723);
+  v62 = v18;
+  v19 = *(a1 + 2011);
+  v78 = *(a1 + 1995);
+  *v79 = v19;
+  *&v79[12] = *(a1 + 2023);
+  v20 = *(a1 + 1947);
+  v74 = *(a1 + 1931);
+  v75 = v20;
+  v21 = *(a1 + 1979);
+  v76 = *(a1 + 1963);
+  v77 = v21;
+  v22 = *(a1 + 1883);
+  v70 = *(a1 + 1867);
+  v71 = v22;
+  v23 = *(a1 + 1915);
+  v72 = *(a1 + 1899);
+  v73 = v23;
+  AccelerationStructureViewer::Sample::Sample(v25, a1 + 32);
+  v32 = *(a1 + 728);
+  v33 = *(a1 + 736);
+  v28 = *(a1 + 696);
+  dispatch_async(v3, v24);
+
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:nn200100](v26);
+}
+
+intptr_t ___ZN33AccelerationStructureViewerServer6Server13receiveSampleEPN27AccelerationStructureViewer7SamplerENS1_6SampleE_block_invoke_2(uint64_t a1)
+{
+  v2 = *(a1 + 704);
+  v3 = *(v2 + 40);
+  if (v3 < 3)
+  {
+    v7 = [*(a1 + 688) contents];
+    *v7 = 1;
+    *(v7 + 1) = *(a1 + 40);
+    *(v7 + 157) = *(a1 + 464);
+    *(v7 + 158) = *(a1 + 466);
+    *(v7 + 9) = *(a1 + 468);
+    *(v7 + 141) = [*(a1 + 640) width];
+    *(v7 + 145) = [*(a1 + 640) height];
+    *(v7 + 149) = *(a1 + 472);
+    *(v7 + 153) = *(a1 + 476);
+    v8 = *(a1 + 496);
+    v9 = *(a1 + 512);
+    v10 = *(a1 + 528);
+    *(v7 + 13) = *(a1 + 480);
+    *(v7 + 29) = v8;
+    *(v7 + 45) = v9;
+    *(v7 + 61) = v10;
+    v11 = *(a1 + 560);
+    v12 = *(a1 + 576);
+    v13 = *(a1 + 592);
+    *(v7 + 77) = *(a1 + 544);
+    *(v7 + 93) = v11;
+    *(v7 + 109) = v12;
+    *(v7 + 125) = v13;
+    *(v7 + 159) = vaddq_s64(*(a1 + 728), vdupq_n_s64(0xFFFFFFFFFFFFFF49));
+    *(v7 + 175) = *(a1 + 744) - 183;
+    v14 = *(v2 + 24);
+    if (!v14)
+    {
+      goto LABEL_58;
+    }
+
+    v15 = *(*v14 + 32);
+    goto LABEL_57;
+  }
+
+  v4 = *(a1 + 712);
+  v5 = *(v2 + 152 + 8 * v4);
+  if (v3 <= 0xA)
+  {
+    v16 = 177;
+    v17 = 172;
+    if (v3 > 4)
+    {
+      v17 = 176;
+    }
+
+    if (v3 <= 7)
+    {
+      v16 = v17;
+    }
+
+    if (v3 == 10)
+    {
+      v6 = 180;
+    }
+
+    else
+    {
+      v6 = v16;
+    }
+  }
+
+  else
+  {
+    v6 = 582;
+  }
+
+  v18 = *(a1 + 720);
+  if (v5 && *(v2 + 8 * v4 + 216) >= v18)
+  {
+    v20 = *(a1 + 720);
+  }
+
+  else
+  {
+    v5 = malloc_type_malloc(*(a1 + 720), 0x100004077774924uLL);
+    v19 = *(a1 + 712);
+    *(v2 + 152 + 8 * v19) = v5;
+    v20 = *(a1 + 720);
+    *(v2 + 8 * v19 + 216) = v20;
+    v4 = *(a1 + 712);
+  }
+
+  v21 = v18 - v6;
+  v22 = *(v2 + 184 + 8 * v4);
+  if (!v22)
+  {
+    v23 = compression_encode_scratch_buffer_size(*(v2 + 72));
+    v22 = malloc_type_malloc(v23, 0x100004077774924uLL);
+    *(v2 + 184 + 8 * *(a1 + 712)) = v22;
+    v20 = *(a1 + 720);
+  }
+
+  v24 = compression_encode_buffer(v5 + v6, v20 - v6, ([*(a1 + 688) contents] + v6), v21, v22, *(v2 + 72));
+  if (*(v2 + 72) && v24)
+  {
+    v25 = *(v2 + 40);
+    if (v25 >= 0xB)
+    {
+      memcpy(v5, (a1 + 752), 0x246uLL);
+      goto LABEL_44;
+    }
+
+    if (v25 == 10)
+    {
+      v37 = *(a1 + 1334);
+      v38 = *(a1 + 1350);
+      v39 = *(a1 + 1382);
+      v5[2] = *(a1 + 1366);
+      v5[3] = v39;
+      *v5 = v37;
+      v5[1] = v38;
+      v40 = *(a1 + 1398);
+      v41 = *(a1 + 1414);
+      v42 = *(a1 + 1446);
+      v5[6] = *(a1 + 1430);
+      v5[7] = v42;
+      v5[4] = v40;
+      v5[5] = v41;
+      v43 = *(a1 + 1462);
+      v44 = *(a1 + 1478);
+      v45 = *(a1 + 1494);
+      *(v5 + 44) = *(a1 + 1510);
+    }
+
+    else
+    {
+      if (v25 < 8)
+      {
+        if (v25 < 5)
+        {
+          v79 = *(a1 + 1867);
+          v80 = *(a1 + 1899);
+          v5[1] = *(a1 + 1883);
+          v5[2] = v80;
+          *v5 = v79;
+          v81 = *(a1 + 1915);
+          v82 = *(a1 + 1931);
+          v83 = *(a1 + 1963);
+          v5[5] = *(a1 + 1947);
+          v5[6] = v83;
+          v5[3] = v81;
+          v5[4] = v82;
+          v71 = *(a1 + 1979);
+          v72 = *(a1 + 1995);
+          v73 = *(a1 + 2011);
+          *(v5 + 156) = *(a1 + 2023);
+        }
+
+        else
+        {
+          v66 = *(a1 + 1691);
+          v67 = *(a1 + 1723);
+          v5[1] = *(a1 + 1707);
+          v5[2] = v67;
+          *v5 = v66;
+          v68 = *(a1 + 1739);
+          v69 = *(a1 + 1755);
+          v70 = *(a1 + 1787);
+          v5[5] = *(a1 + 1771);
+          v5[6] = v70;
+          v5[3] = v68;
+          v5[4] = v69;
+          v71 = *(a1 + 1803);
+          v72 = *(a1 + 1819);
+          v73 = *(a1 + 1835);
+          v5[10] = *(a1 + 1851);
+        }
+
+        v5[8] = v72;
+        v5[9] = v73;
+        v5[7] = v71;
+LABEL_44:
+        v84 = *(v2 + 72);
+        if (v84 > 2048)
+        {
+          if (v84 == 2818)
+          {
+            v85 = 5;
+            goto LABEL_53;
+          }
+
+          if (v84 == 2049)
+          {
+            v85 = 3;
+            goto LABEL_53;
+          }
+        }
+
+        else
+        {
+          if (v84 == 256)
+          {
+            v85 = 2;
+            goto LABEL_53;
+          }
+
+          if (v84 == 774)
+          {
+            v85 = 4;
+LABEL_53:
+            *(v5 + 163) = v85;
+          }
+        }
+
+        *(v5 + 164) = v21;
+        goto LABEL_55;
+      }
+
+      v52 = *(a1 + 1514);
+      v53 = *(a1 + 1530);
+      v54 = *(a1 + 1562);
+      v5[2] = *(a1 + 1546);
+      v5[3] = v54;
+      *v5 = v52;
+      v5[1] = v53;
+      v55 = *(a1 + 1578);
+      v56 = *(a1 + 1594);
+      v57 = *(a1 + 1626);
+      v5[6] = *(a1 + 1610);
+      v5[7] = v57;
+      v5[4] = v55;
+      v5[5] = v56;
+      v43 = *(a1 + 1642);
+      v44 = *(a1 + 1658);
+      v45 = *(a1 + 1674);
+      *(v5 + 176) = *(a1 + 1690);
+    }
+
+    v5[9] = v44;
+    v5[10] = v45;
+    v5[8] = v43;
+    goto LABEL_44;
+  }
+
+  v26 = [*(a1 + 688) contents];
+  v5 = v26;
+  v27 = *(v2 + 40);
+  if (v27 < 0xB)
+  {
+    if (v27 == 10)
+    {
+      v28 = *(a1 + 1334);
+      v29 = *(a1 + 1350);
+      v30 = *(a1 + 1382);
+      v26[2] = *(a1 + 1366);
+      v26[3] = v30;
+      *v26 = v28;
+      v26[1] = v29;
+      v31 = *(a1 + 1398);
+      v32 = *(a1 + 1414);
+      v33 = *(a1 + 1446);
+      v26[6] = *(a1 + 1430);
+      v26[7] = v33;
+      v26[4] = v31;
+      v26[5] = v32;
+      v34 = *(a1 + 1462);
+      v35 = *(a1 + 1478);
+      v36 = *(a1 + 1494);
+      *(v26 + 44) = *(a1 + 1510);
+    }
+
+    else
+    {
+      if (v27 < 8)
+      {
+        if (v27 < 5)
+        {
+          v74 = *(a1 + 1867);
+          v75 = *(a1 + 1899);
+          v26[1] = *(a1 + 1883);
+          v26[2] = v75;
+          *v26 = v74;
+          v76 = *(a1 + 1915);
+          v77 = *(a1 + 1931);
+          v78 = *(a1 + 1963);
+          v26[5] = *(a1 + 1947);
+          v26[6] = v78;
+          v26[3] = v76;
+          v26[4] = v77;
+          v63 = *(a1 + 1979);
+          v64 = *(a1 + 1995);
+          v65 = *(a1 + 2011);
+          *(v26 + 156) = *(a1 + 2023);
+        }
+
+        else
+        {
+          v58 = *(a1 + 1691);
+          v59 = *(a1 + 1723);
+          v26[1] = *(a1 + 1707);
+          v26[2] = v59;
+          *v26 = v58;
+          v60 = *(a1 + 1739);
+          v61 = *(a1 + 1755);
+          v62 = *(a1 + 1787);
+          v26[5] = *(a1 + 1771);
+          v26[6] = v62;
+          v26[3] = v60;
+          v26[4] = v61;
+          v63 = *(a1 + 1803);
+          v64 = *(a1 + 1819);
+          v65 = *(a1 + 1835);
+          v26[10] = *(a1 + 1851);
+        }
+
+        v26[8] = v64;
+        v26[9] = v65;
+        v26[7] = v63;
+        goto LABEL_41;
+      }
+
+      v46 = *(a1 + 1514);
+      v47 = *(a1 + 1530);
+      v48 = *(a1 + 1562);
+      v26[2] = *(a1 + 1546);
+      v26[3] = v48;
+      *v26 = v46;
+      v26[1] = v47;
+      v49 = *(a1 + 1578);
+      v50 = *(a1 + 1594);
+      v51 = *(a1 + 1626);
+      v26[6] = *(a1 + 1610);
+      v26[7] = v51;
+      v26[4] = v49;
+      v26[5] = v50;
+      v34 = *(a1 + 1642);
+      v35 = *(a1 + 1658);
+      v36 = *(a1 + 1674);
+      *(v26 + 176) = *(a1 + 1690);
+    }
+
+    v26[9] = v35;
+    v26[10] = v36;
+    v26[8] = v34;
+  }
+
+  else
+  {
+    memcpy(v26, (a1 + 752), 0x246uLL);
+  }
+
+LABEL_41:
+  *(v5 + 163) = 1;
+  *(v5 + 164) = v21;
+LABEL_55:
+  *v5 = 1;
+  *(v5 + 1) = *(a1 + 40);
+  *(v5 + 157) = *(a1 + 464);
+  *(v5 + 158) = *(a1 + 466);
+  *(v5 + 9) = *(a1 + 468);
+  *(v5 + 141) = [*(a1 + 640) width];
+  *(v5 + 145) = [*(a1 + 640) height];
+  *(v5 + 149) = *(a1 + 472);
+  *(v5 + 153) = *(a1 + 476);
+  v86 = *(a1 + 496);
+  v87 = *(a1 + 512);
+  v88 = *(a1 + 528);
+  *(v5 + 13) = *(a1 + 480);
+  *(v5 + 29) = v86;
+  *(v5 + 45) = v87;
+  *(v5 + 61) = v88;
+  v89 = *(a1 + 560);
+  v90 = *(a1 + 576);
+  v91 = *(a1 + 592);
+  *(v5 + 77) = *(a1 + 544);
+  *(v5 + 93) = v89;
+  *(v5 + 109) = v90;
+  *(v5 + 125) = v91;
+  v92 = *(v2 + 24);
+  if (!v92)
+  {
+    goto LABEL_58;
+  }
+
+  v15 = *(*v92 + 32);
+LABEL_57:
+  v15();
+LABEL_58:
+  dispatch_semaphore_signal(*(v2 + 8 * *(a1 + 712) + 88));
+  v93 = *(*(*(a1 + 696) + 8) + 40);
+
+  return dispatch_semaphore_signal(v93);
+}
+
+void AccelerationStructureViewerServer::Server::receiveGBVH(AccelerationStructureViewerServer::Server *this, uint64_t a2, NSData *a3, NSError *a4)
+{
+  v7 = a3;
+  v8 = a4;
+  v9 = v8;
+  if (*(this + 5) >= 0xDuLL && *(this + 3))
+  {
+    if (v8)
+    {
+      operator new();
+    }
+
+    v10 = [(NSData *)v7 length];
+    v11 = malloc_type_malloc(v10 + 10, 0x100004080B1215BuLL);
+    *v11 = 20;
+    *(v11 + 1) = a2;
+    v11[9] = 0;
+    memcpy(v11 + 10, [(NSData *)v7 bytes], [(NSData *)v7 length]);
+    (*(**(this + 3) + 32))(*(this + 3), this, 0, 0, v11, v10 + 10);
+    free(v11);
+  }
+}
+
+uint64_t AccelerationStructureViewerServer::Server::setSamplerProperties(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (*(result + 24))
+  {
+    v3 = *(result + 40);
+    if (v3 >= 5)
+    {
+      operator new();
+    }
+
+    if (v3 >= 2)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  return result;
+}
+
+void non-virtual thunk toAccelerationStructureViewerServer::Server::~Server(AccelerationStructureViewerServer::Server *this)
+{
+  AccelerationStructureViewerServer::Server::~Server((this - 8));
+
+  JUMPOUT(0x2530332C0);
+}
+
+{
+  AccelerationStructureViewerServer::Server::~Server((this - 8));
+}
+
+void AccelerationStructureViewerServer::Server::~Server(AccelerationStructureViewerServer::Server *this)
+{
+  *this = &unk_2860BC748;
+  *(this + 1) = &unk_2860BC7E8;
+  *(this + 3) = 0;
+  v2 = *(this + 10);
+  v3 = *(this + 10);
+  *(this + 10) = 0;
+
+  v4 = 4;
+  do
+  {
+    dispatch_semaphore_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
+    --v4;
+  }
+
+  while (v4);
+  v5 = 4;
+  do
+  {
+    dispatch_semaphore_signal(v2);
+    --v5;
+  }
+
+  while (v5);
+
+  v6 = -32;
+  do
+  {
+    v7 = (this + v6);
+    v8 = *(this + v6 + 120);
+    *(this + v6 + 120) = 0;
+
+    v9 = *(this + v6 + 152);
+    v7[19] = 0;
+
+    free(*(this + v6 + 184));
+    free(*(this + v6 + 216));
+    v7[23] = 0;
+    v7[27] = 0;
+    v6 += 8;
+  }
+
+  while (v6);
+  for (i = 144; i != 112; i -= 8)
+  {
+  }
+
+  do
+  {
+
+    i -= 8;
+  }
+
+  while (i != 80);
+}
+
+{
+  AccelerationStructureViewerServer::Server::~Server(this);
+
+  JUMPOUT(0x2530332C0);
+}
+
+uint64_t AccelerationStructureViewerServer::Server::teardown(AccelerationStructureViewerServer::Server *this, Sampler *a2, NSError *a3)
+{
+  result = *(this + 3);
+  if (result)
+  {
+    *(this + 3) = 0;
+    return (*(*result + 40))();
+  }
+
+  return result;
+}
+
+void AccelerationStructureViewerServer::Server::pause(AccelerationStructureViewerServer::Server *this, Sampler *a2, NSError *a3)
+{
+  if (*(this + 5) >= 7uLL)
+  {
+    AccelerationStructureViewerServer::Server::replyQueryable(this, 11, -1, 0, a3);
+  }
+}
+
+void AccelerationStructureViewerServer::Server::recv(AccelerationStructureViewerServer::Server *this, char *a2, uint64_t a3, __n128 a4)
+{
+  v105 = *MEMORY[0x277D85DE8];
+  v6 = this;
+  switch(*a2)
+  {
+    case 0:
+      v7 = *(this + 4);
+      if (!v7)
+      {
+        return;
+      }
+
+      v8 = 13;
+      if (*(a2 + 1) < 0xDuLL)
+      {
+        v8 = *(a2 + 1);
+      }
+
+      *(v6 + 5) = v8;
+      v9 = *(*v7 + 40);
+
+LABEL_18:
+      v9(a4);
+      return;
+    case 1:
+    case 13:
+      return;
+    case 2:
+      v36 = *(this + 4);
+      if (!v36)
+      {
+        return;
+      }
+
+      v37 = a2[1];
+      v38 = a2[2] != 0;
+      a4.n128_u32[0] = *(a2 + 3);
+      v39 = vmovl_u8(a4.n128_u64[0]).u64[0];
+      v40 = vceq_s16(v39, 0x1000100010001);
+      v41 = vceq_s16(v39, 0x2000200020002);
+      a4.n128_u64[0] = vsub_s16(vand_s8(v41, 0x2000200020002), vbic_s8(v40, v41));
+      v42 = a2[7];
+      if (v42 == 2)
+      {
+        v43 = 2;
+      }
+
+      else
+      {
+        v43 = v42 == 1;
+      }
+
+      v44 = a2[8];
+      v45 = a2[9];
+      v46 = *(this + 5);
+      if (v46 < 2)
+      {
+        v49 = 0;
+        if (v46 == 1)
+        {
+          v48 = 0;
+          v52 = 0;
+          LOBYTE(v53) = 0;
+          LOBYTE(v54) = 0;
+          v47 = *(a2 + 10);
+LABEL_86:
+          v51 = -1;
+          v50 = 1;
+          goto LABEL_97;
+        }
+
+        v47 = 0;
+        v48 = 0;
+LABEL_85:
+        v52 = 0;
+        LOBYTE(v53) = 0;
+        LOBYTE(v54) = 0;
+        goto LABEL_86;
+      }
+
+      v47 = *(a2 + 10);
+      v48 = *(a2 + 14);
+      v49 = 0;
+      if (v46 == 2)
+      {
+        goto LABEL_85;
+      }
+
+      v50 = a2[18];
+      if (v46 < 4)
+      {
+        v52 = 0;
+        LOBYTE(v53) = 0;
+        LOBYTE(v54) = 0;
+        v51 = -1;
+      }
+
+      else
+      {
+        v51 = *(a2 + 19);
+        if (v46 == 4 || (v49 = *(a2 + 23), v46 < 8))
+        {
+          v52 = 0;
+          LOBYTE(v53) = 0;
+          LOBYTE(v54) = 0;
+        }
+
+        else
+        {
+          v52 = a2[27];
+          v53 = a2[28];
+          if (v53 >= 7)
+          {
+            LOBYTE(v53) = 0;
+          }
+
+          v54 = a2[29];
+          if (v54 >= 7)
+          {
+            LOBYTE(v54) = 0;
+          }
+
+          LODWORD(a3) = *(a2 + 30);
+          v55 = *(a2 + 370);
+          v101 = *(a2 + 354);
+          v102 = v55;
+          v56 = *(a2 + 402);
+          v103 = *(a2 + 386);
+          v104 = v56;
+          v57 = *(a2 + 306);
+          v97 = *(a2 + 290);
+          v98 = v57;
+          v58 = *(a2 + 338);
+          v99 = *(a2 + 322);
+          v100 = v58;
+          *&__src[49] = *(a2 + 226);
+          *&__src[53] = *(a2 + 242);
+          v59 = *(a2 + 274);
+          *&__src[57] = *(a2 + 258);
+          v4 = *(a2 + 418);
+          LODWORD(v6) = *(a2 + 426);
+          *&__src[61] = v59;
+          *&__src[33] = *(a2 + 162);
+          *&__src[37] = *(a2 + 178);
+          *&__src[41] = *(a2 + 194);
+          *&__src[45] = *(a2 + 210);
+          *&__src[17] = *(a2 + 98);
+          *&__src[21] = *(a2 + 114);
+          *&__src[25] = *(a2 + 130);
+          *&__src[29] = *(a2 + 146);
+          *&__src[1] = *(a2 + 34);
+          *&__src[5] = *(a2 + 50);
+          *&__src[9] = *(a2 + 66);
+          *&__src[13] = *(a2 + 82);
+        }
+      }
+
+LABEL_97:
+      v91.__locale_ = __PAIR64__(v48, v47);
+      LOBYTE(v92) = v37;
+      BYTE1(v92) = v38;
+      *(&v92 + 2) = vuzp1_s8(a4.n128_u64[0], a4.n128_u64[0]).u32[0];
+      BYTE6(v92) = v43;
+      HIBYTE(v92) = v44;
+      LOBYTE(v93) = v45;
+      BYTE1(v93) = v50;
+      WORD1(v93) = v52;
+      *(&v93 + 4) = __PAIR64__(v49, v51);
+      BYTE12(v93) = v53;
+      BYTE13(v93) = v54;
+      LODWORD(v94[0]) = a3;
+      memcpy(v94 + 4, __src, 0x104uLL);
+      *&v94[37] = v99;
+      *&v94[39] = v100;
+      *&v94[33] = v97;
+      *&v94[35] = v98;
+      *&v94[45] = v103;
+      *&v94[47] = v104;
+      *&v94[41] = v101;
+      *&v94[43] = v102;
+      v94[49] = v4;
+      v95 = v6;
+      (*(*v36 + 32))(v36, &v91);
+      return;
+    case 3:
+      v25 = *(this + 4);
+      if (v25)
+      {
+        v26 = *(a2 + 1);
+        v27 = *(a2 + 14);
+        v28 = *(a2 + 30);
+        v29 = *(a2 + 46);
+        v30 = *(a2 + 62);
+        v31 = *(a2 + 78);
+        v32 = *(a2 + 94);
+        v33 = *(a2 + 110);
+        v34 = *(a2 + 126);
+        LOBYTE(v91.__locale_) = a2[5];
+        WORD1(v91.__locale_) = 0;
+        HIDWORD(v91.__locale_) = v26;
+        v92 = *(a2 + 6);
+        v93 = v27;
+        *v94 = v28;
+        *&v94[2] = v29;
+        *&v94[4] = v30;
+        *&v94[6] = v31;
+        *&v94[8] = v32;
+        *&v94[10] = v33;
+        *&v94[12] = v34;
+        (*(*v25 + 24))(v25, &v91, a3);
+      }
+
+      return;
+    case 4:
+      v19 = *(this + 4);
+      if (v19)
+      {
+        v20 = *(*v19 + 88);
+
+        v20(a4);
+      }
+
+      return;
+    case 7:
+      operator new();
+    case 9:
+      if (*(this + 5) < 0xDuLL)
+      {
+        goto LABEL_74;
+      }
+
+      v14 = *(a2 + 1);
+      v91.__locale_ = 0;
+      v92 = a2 + 3;
+      *&v93 = a3 - 3;
+      BYTE8(v93) = 0;
+      LOWORD(v97) = 0;
+      v15 = AccelerationStructureViewer::DataSourceQueryBlobDecoder::decode(&v91, &v97);
+      v16 = v15;
+      if (v97 != 14)
+      {
+        if (v15)
+        {
+          (*(*v15 + 8))(v15);
+        }
+
+        goto LABEL_74;
+      }
+
+      if (!v15)
+      {
+LABEL_74:
+        v69 = ASVErrorWithCode(5u, @"properties is missing");
+        AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, -1, 0, v69);
+
+        return;
+      }
+
+      v21 = *(*(v6 + 4) + 8);
+      if (!v21)
+      {
+        v65 = v15[1];
+        v66 = ASVErrorWithCode(5u, @"id<MTLAccelerationStructure> is missing");
+        AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, v65, 0, v66);
+
+LABEL_94:
+        (*(*v16 + 8))(v16);
+        return;
+      }
+
+      v23 = v15[3];
+      v22 = v15[4];
+      v91.__locale_ = &unk_2860BC948;
+      v94[0] = 0;
+      v93 = 0uLL;
+      LOBYTE(v92) = 0;
+      v24 = v15[5];
+      if (v24)
+      {
+        LOBYTE(v92) = *(v24 + 8);
+        if (&v91 != v24)
+        {
+          std::vector<AccelerationStructureViewer::FilterToken>::__assign_with_size[abi:nn200100]<AccelerationStructureViewer::FilterToken*,AccelerationStructureViewer::FilterToken*>(&v93, *(v24 + 16), *(v24 + 24), 0xAAAAAAAAAAAAAAABLL * ((*(v24 + 24) - *(v24 + 16)) >> 3));
+        }
+      }
+
+      if (v14 > 3)
+      {
+        if (v14 > 5)
+        {
+          if (v14 != 6)
+          {
+            if (v14 == 7)
+            {
+              v71 = v16[2];
+              v78[0] = MEMORY[0x277D85DD0];
+              v78[1] = 3221225472;
+              v78[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_4_33;
+              v78[3] = &__block_descriptor_48_e28_v24__0__NSData_8__NSError_16l;
+              v78[4] = v6;
+              v78[5] = v16;
+              (*(*v21 + 56))(v21, v71, v23, v22, v78);
+            }
+
+            goto LABEL_93;
+          }
+
+          v74 = v16[2];
+          v75 = v16[6];
+          AccelerationStructureViewer::Filter::Filter(v80, &v91);
+          v79[0] = MEMORY[0x277D85DD0];
+          v79[1] = 3221225472;
+          v79[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_3_32;
+          v79[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+          v79[4] = v6;
+          v79[5] = v16;
+          (*(*v21 + 48))(v21, v74, v75, v23, v22, v80, v79);
+          v80[0] = &unk_2860BC948;
+          v73 = &v81;
+          goto LABEL_92;
+        }
+
+        if (v14 == 4)
+        {
+          v72 = v16[2];
+          v68 = v83;
+          AccelerationStructureViewer::Filter::Filter(v83, &v91);
+          v82[0] = MEMORY[0x277D85DD0];
+          v82[1] = 3221225472;
+          v82[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_2_31;
+          v82[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+          v82[4] = v6;
+          v82[5] = v16;
+          (*(*v21 + 40))(v21, v72, v23, v22, v83, v82);
+          v83[0] = &unk_2860BC948;
+        }
+
+        else
+        {
+          v67 = v16[2];
+          v68 = v77;
+          AccelerationStructureViewer::Filter::Filter(v77, &v91);
+          v76[0] = MEMORY[0x277D85DD0];
+          v76[1] = 3221225472;
+          v76[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_5;
+          v76[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+          v76[4] = v6;
+          v76[5] = v16;
+          (*(*v21 + 64))(v21, v67, v23, v22, v77, v76);
+          v77[0] = &unk_2860BC948;
+        }
+      }
+
+      else
+      {
+        if (v14 <= 1)
+        {
+          if (v14)
+          {
+            v89[0] = MEMORY[0x277D85DD0];
+            v89[1] = 3221225472;
+            v89[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_2;
+            v89[3] = &__block_descriptor_48_e240_v40__0_vector_AccelerationStructureViewer::IntersectionFunctionTable__std::allocator_AccelerationStructureViewer::IntersectionFunctionTable_____IntersectionFunctionTable___IntersectionFunctionTable___IntersectionFunctionTable__8__NSError_32l;
+            v89[4] = v6;
+            v89[5] = v16;
+            (*(*v21 + 16))(v21, v89);
+          }
+
+          else
+          {
+            v90[0] = MEMORY[0x277D85DD0];
+            v90[1] = 3221225472;
+            v90[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke;
+            v90[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+            v90[4] = v6;
+            v90[5] = v16;
+            (*(*v21 + 32))(v21, v90);
+          }
+
+          goto LABEL_93;
+        }
+
+        if (v14 == 2)
+        {
+          v86[0] = MEMORY[0x277D85DD0];
+          v86[1] = 3321888768;
+          v86[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_3;
+          v86[3] = &__block_descriptor_112_a8_72c42_ZTSN27AccelerationStructureViewer6FilterE_e240_v40__0_vector_AccelerationStructureViewer::IntersectionFunctionTable__std::allocator_AccelerationStructureViewer::IntersectionFunctionTable_____IntersectionFunctionTable___IntersectionFunctionTable___IntersectionFunctionTable__8__NSError_32l;
+          v86[4] = v6;
+          v86[5] = v16;
+          v86[6] = v21;
+          v86[7] = v23;
+          v86[8] = v22;
+          AccelerationStructureViewer::Filter::Filter(&v87, &v91);
+          (*(*v21 + 16))(v21, v86);
+          v87 = &unk_2860BC948;
+          v73 = &v88;
+          goto LABEL_92;
+        }
+
+        v70 = v16[2];
+        v68 = v85;
+        AccelerationStructureViewer::Filter::Filter(v85, &v91);
+        v84[0] = MEMORY[0x277D85DD0];
+        v84[1] = 3221225472;
+        v84[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_30;
+        v84[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+        v84[4] = v6;
+        v84[5] = v16;
+        (*(*v21 + 72))(v21, v70, v23, v22, v85, v84);
+        v85[0] = &unk_2860BC948;
+      }
+
+      v73 = v68 + 2;
+LABEL_92:
+      *&v97 = v73;
+      std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::operator()[abi:nn200100](&v97);
+LABEL_93:
+      v91.__locale_ = &unk_2860BC948;
+      *&v97 = &v93;
+      std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::operator()[abi:nn200100](&v97);
+      goto LABEL_94;
+    case 10:
+      v17 = a2[1];
+      if (v17 > 5)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        v18 = dword_24DA91EF4[v17];
+      }
+
+      if (v18 != *(this + 18))
+      {
+        v61 = 4;
+        do
+        {
+          dispatch_semaphore_wait(*(v6 + 10), 0xFFFFFFFFFFFFFFFFLL);
+          --v61;
+        }
+
+        while (v61);
+        *(v6 + 18) = v18;
+        v62 = v6 + 184;
+        do
+        {
+          free(*&v62[v61]);
+          *&v62[v61] = 0;
+          v61 += 8;
+        }
+
+        while (v61 != 32);
+        v63 = 4;
+        do
+        {
+          dispatch_semaphore_signal(*(v6 + 10));
+          --v63;
+        }
+
+        while (v63);
+      }
+
+      return;
+    case 14:
+      v10 = *(a2 + 1);
+      v11 = *(a2 + 13);
+      v12 = *(a2 + 21);
+      v13 = *(this + 4);
+      LODWORD(v92) = *(a2 + 9);
+      v91.__locale_ = v10;
+      DWORD2(v93) = v12;
+      *&v93 = v11;
+      v94[0] = *(a2 + 25);
+      (*(*v13 + 72))(v13, &v91, a3);
+      return;
+    case 15:
+      v9 = *(**(this + 4) + 80);
+
+      goto LABEL_18;
+    case 16:
+      v35 = *(a2 + 13);
+      if (40 * v35 + 17 == a3)
+      {
+        if (v35)
+        {
+          operator new();
+        }
+
+        (*(**(this + 4) + 104))(*(this + 4), *(a2 + 1) == 1, *(a2 + 5), 0, 0);
+      }
+
+      return;
+    case 18:
+      if (*(a2 + 1) != -1)
+      {
+        operator new();
+      }
+
+      memcpy(0, a2 + 5, 0xFFFFFFFFuLL);
+      MEMORY[0xFFFFFFFF] = 0;
+      v64 = [MEMORY[0x277CCACA8] stringWithCString:0 encoding:30];
+      (*(**(v6 + 4) + 48))(*(v6 + 4), v64);
+
+      operator delete(0);
+      return;
+    case 19:
+      v9 = *(**(this + 4) + 56);
+
+      goto LABEL_18;
+    default:
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>("ASVPacket - type '", 18);
+      LOBYTE(v91.__locale_) = *a2;
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v91, 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>("' is invalid", 12);
+      std::ios_base::getloc((MEMORY[0x277D82678] + *(*MEMORY[0x277D82678] - 24)));
+      v60 = std::locale::use_facet(&v91, MEMORY[0x277D82680]);
+      (v60->__vftable[2].~facet_0)(v60, 10);
+      std::locale::~locale(&v91);
+      std::ostream::put();
+      std::ostream::flush();
+      return;
+  }
+}
+
+id *std::vector<AccelerationStructureViewer::FilterToken>::__assign_with_size[abi:nn200100]<AccelerationStructureViewer::FilterToken*,AccelerationStructureViewer::FilterToken*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v8 = a1[2];
+  v9 = *a1;
+  if (0xAAAAAAAAAAAAAAABLL * ((v8 - *a1) >> 3) < a4)
+  {
+    if (v9)
+    {
+      v10 = a1[1];
+      v11 = *a1;
+      if (v10 != v9)
+      {
+        v12 = v10 - 24;
+        v13 = (v10 - 24);
+        v14 = (v10 - 24);
+        do
+        {
+          v15 = *v14;
+          v14 -= 3;
+          (*v15)(v13);
+          v12 -= 24;
+          v16 = v13 == v9;
+          v13 = v14;
+        }
+
+        while (!v16);
+        v11 = *a1;
+      }
+
+      a1[1] = v9;
+      operator delete(v11);
+      v8 = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      a1[2] = 0;
+    }
+
+    if (a4 <= 0xAAAAAAAAAAAAAAALL)
+    {
+      v17 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
+      v18 = 2 * v17;
+      if (2 * v17 <= a4)
+      {
+        v18 = a4;
+      }
+
+      if (v17 >= 0x555555555555555)
+      {
+        v19 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v19 = v18;
+      }
+
+      std::vector<AccelerationStructureViewer::FilterToken>::__vallocate[abi:nn200100](a1, v19);
+    }
+
+    std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+  }
+
+  v20 = a1[1] - v9;
+  if (0xAAAAAAAAAAAAAAABLL * (v20 >> 3) >= a4)
+  {
+    result = std::__copy_impl::operator()[abi:nn200100]<AccelerationStructureViewer::FilterToken *,AccelerationStructureViewer::FilterToken *,AccelerationStructureViewer::FilterToken *>(a2, a3, v9);
+    v22 = result;
+    v23 = a1[1];
+    if (v23 != result)
+    {
+      v24 = v23 - 3;
+      v25 = v23 - 3;
+      v26 = v23 - 3;
+      do
+      {
+        v27 = *v26;
+        v26 -= 3;
+        result = (*v27)(v25);
+        v24 -= 3;
+        v16 = v25 == v22;
+        v25 = v26;
+      }
+
+      while (!v16);
+    }
+
+    a1[1] = v22;
+  }
+
+  else
+  {
+    std::__copy_impl::operator()[abi:nn200100]<AccelerationStructureViewer::FilterToken *,AccelerationStructureViewer::FilterToken *,AccelerationStructureViewer::FilterToken *>(a2, a2 + v20, v9);
+
+    return std::vector<AccelerationStructureViewer::FilterToken>::__construct_at_end<AccelerationStructureViewer::FilterToken*,AccelerationStructureViewer::FilterToken*>(a1, a2 + v20, a3);
+  }
+
+  return result;
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_2(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  v14 = &unk_2860BB738;
+  *__p = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = *a2;
+  if (*a2 != a2[1])
+  {
+    v8 = 0;
+    do
+    {
+      if (v8 >= v16)
+      {
+        v9 = (v8 - __p[0]) >> 3;
+        if ((v9 + 1) >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v10 = (v16 - __p[0]) >> 2;
+        if (v10 <= v9 + 1)
+        {
+          v10 = v9 + 1;
+        }
+
+        if (v16 - __p[0] >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v11 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v11 = v10;
+        }
+
+        if (v11)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v11);
+        }
+
+        *(8 * v9) = v7;
+        v8 = (8 * v9 + 8);
+        v12 = (8 * v9 - (__p[1] - __p[0]));
+        memcpy(v12, __p[0], __p[1] - __p[0]);
+        v13 = __p[0];
+        __p[0] = v12;
+        __p[1] = v8;
+        *&v16 = 0;
+        if (v13)
+        {
+          operator delete(v13);
+        }
+      }
+
+      else
+      {
+        *v8 = v7;
+        v8 += 8;
+      }
+
+      __p[1] = v8;
+      v7 += 32;
+    }
+
+    while (v7 != a2[1]);
+  }
+
+  AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, *(*(a1 + 40) + 8), &v14, v5);
+  AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v14);
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_3(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  if (v5)
+  {
+    AccelerationStructureViewerServer::Server::replyQueryable(*(a1 + 32), 8, *(*(a1 + 40) + 8), 0, v5);
+  }
+
+  else
+  {
+    v7 = *a2;
+    v8 = *(a1 + 40);
+    v9 = *(v8 + 16);
+    while (1)
+    {
+      if (v7 == a2[1])
+      {
+        v10 = *(v8 + 8);
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"id<MTLIntersectionFunctionTable> 0x%llx does not exist", v9];
+        v12 = ASVErrorWithCode(6u, v11);
+        AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, v10, 0, v12);
+
+        goto LABEL_12;
+      }
+
+      if (*(v7 + 16) == v9)
+      {
+        break;
+      }
+
+      v7 += 32;
+    }
+
+    v14 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    v15 = *(a1 + 64);
+    v20 = &unk_2860BC948;
+    v21 = *(a1 + 80);
+    memset(v22, 0, sizeof(v22));
+    v17 = *(a1 + 88);
+    v16 = *(a1 + 96);
+    if (v16 != v17)
+    {
+      v18 = 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 3);
+      if (v18 < 0xAAAAAAAAAAAAAABLL)
+      {
+        std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewer::FilterToken>>(v18);
+      }
+
+      std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+    }
+
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_4;
+    v19[3] = &__block_descriptor_48_e21_v24__0_v8__NSError_16l;
+    v19[4] = v6;
+    v19[5] = v8;
+    (*(*v14 + 24))(v14, v7, v13, v15, &v20, v19);
+    v20 = &unk_2860BC948;
+    v23 = v22;
+    std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::operator()[abi:nn200100](&v23);
+  }
+
+LABEL_12:
+}
+
+AccelerationStructureViewer::Filter *AccelerationStructureViewer::Filter::Filter(AccelerationStructureViewer::Filter *this, const AccelerationStructureViewer::Filter *a2)
+{
+  *this = &unk_2860BC948;
+  v2 = *(a2 + 8);
+  *(this + 2) = 0;
+  *(this + 8) = v2;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 3);
+  if (v4 != v3)
+  {
+    std::vector<AccelerationStructureViewer::FilterToken>::__vallocate[abi:nn200100](this + 2, 0xAAAAAAAAAAAAAAABLL * ((v4 - v3) >> 3));
+  }
+
+  return this;
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_30(uint64_t a1, uint64_t **a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  v16 = &unk_2860BB738;
+  *__p = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = *a2;
+  if (*a2 != a2[1])
+  {
+    v8 = 0;
+    do
+    {
+      v9 = *v7;
+      if (v8 >= v18)
+      {
+        v10 = (v8 - __p[0]) >> 3;
+        if ((v10 + 1) >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v11 = (v18 - __p[0]) >> 2;
+        if (v11 <= v10 + 1)
+        {
+          v11 = v10 + 1;
+        }
+
+        if (v18 - __p[0] >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v12 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        if (v12)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
+        }
+
+        v13 = (8 * v10);
+        *v13 = v9;
+        v8 = (8 * v10 + 8);
+        v14 = v13 - (__p[1] - __p[0]);
+        memcpy(v14, __p[0], __p[1] - __p[0]);
+        v15 = __p[0];
+        __p[0] = v14;
+        __p[1] = v8;
+        *&v18 = 0;
+        if (v15)
+        {
+          operator delete(v15);
+        }
+      }
+
+      else
+      {
+        *v8++ = v9;
+      }
+
+      __p[1] = v8;
+      ++v7;
+    }
+
+    while (v7 != a2[1]);
+  }
+
+  AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, *(*(a1 + 40) + 8), &v16, v5);
+  AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v16);
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_2_31(uint64_t a1, uint64_t **a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  v16 = &unk_2860BB738;
+  *__p = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = *a2;
+  if (*a2 != a2[1])
+  {
+    v8 = 0;
+    do
+    {
+      v9 = *v7;
+      if (v8 >= v18)
+      {
+        v10 = (v8 - __p[0]) >> 3;
+        if ((v10 + 1) >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v11 = (v18 - __p[0]) >> 2;
+        if (v11 <= v10 + 1)
+        {
+          v11 = v10 + 1;
+        }
+
+        if (v18 - __p[0] >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v12 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        if (v12)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
+        }
+
+        v13 = (8 * v10);
+        *v13 = v9;
+        v8 = (8 * v10 + 8);
+        v14 = v13 - (__p[1] - __p[0]);
+        memcpy(v14, __p[0], __p[1] - __p[0]);
+        v15 = __p[0];
+        __p[0] = v14;
+        __p[1] = v8;
+        *&v18 = 0;
+        if (v15)
+        {
+          operator delete(v15);
+        }
+      }
+
+      else
+      {
+        *v8++ = v9;
+      }
+
+      __p[1] = v8;
+      ++v7;
+    }
+
+    while (v7 != a2[1]);
+  }
+
+  AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, *(*(a1 + 40) + 8), &v16, v5);
+  AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v16);
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_3_32(uint64_t a1, uint64_t **a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  v16 = &unk_2860BB738;
+  *__p = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = *a2;
+  if (*a2 != a2[1])
+  {
+    v8 = 0;
+    do
+    {
+      v9 = *v7;
+      if (v8 >= v18)
+      {
+        v10 = (v8 - __p[0]) >> 3;
+        if ((v10 + 1) >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v11 = (v18 - __p[0]) >> 2;
+        if (v11 <= v10 + 1)
+        {
+          v11 = v10 + 1;
+        }
+
+        if (v18 - __p[0] >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v12 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        if (v12)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
+        }
+
+        v13 = (8 * v10);
+        *v13 = v9;
+        v8 = (8 * v10 + 8);
+        v14 = v13 - (__p[1] - __p[0]);
+        memcpy(v14, __p[0], __p[1] - __p[0]);
+        v15 = __p[0];
+        __p[0] = v14;
+        __p[1] = v8;
+        *&v18 = 0;
+        if (v15)
+        {
+          operator delete(v15);
+        }
+      }
+
+      else
+      {
+        *v8++ = v9;
+      }
+
+      __p[1] = v8;
+      ++v7;
+    }
+
+    while (v7 != a2[1]);
+  }
+
+  AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, *(*(a1 + 40) + 8), &v16, v5);
+  AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v16);
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_4_33(uint64_t a1, void *a2, void *a3)
+{
+  v4 = *(a1 + 32);
+  v5 = *(*(a1 + 40) + 8);
+  memset(v13, 0, sizeof(v13));
+  v6 = a3;
+  v7 = a2;
+  v8 = [v7 length];
+  if (v8 == -9)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    std::vector<unsigned char>::__append(v13, v8 + 9);
+    v9 = v13[0];
+  }
+
+  memcpy(v9 + 9, [v7 bytes], objc_msgSend(v7, "length"));
+  *v9 = 8;
+  *(v9 + 1) = v5;
+  v10 = *(v4 + 24);
+  v11 = [v7 length];
+  v12 = *(*v10 + 32);
+
+  v12(v10, v4, 0, 0, v9, v11 + 9);
+
+  operator delete(v9);
+}
+
+void ___ZN33AccelerationStructureViewerServer6Server4recvEPvm_block_invoke_5(uint64_t a1, uint64_t **a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 32);
+  v16 = &unk_2860BB738;
+  *__p = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = *a2;
+  if (*a2 != a2[1])
+  {
+    v8 = 0;
+    do
+    {
+      v9 = *v7;
+      if (v8 >= v18)
+      {
+        v10 = (v8 - __p[0]) >> 3;
+        if ((v10 + 1) >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v11 = (v18 - __p[0]) >> 2;
+        if (v11 <= v10 + 1)
+        {
+          v11 = v10 + 1;
+        }
+
+        if (v18 - __p[0] >= 0x7FFFFFFFFFFFFFF8)
+        {
+          v12 = 0x1FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        if (v12)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<AccelerationStructureViewerServer::AccelerationStructure *>>(v12);
+        }
+
+        v13 = (8 * v10);
+        *v13 = v9;
+        v8 = (8 * v10 + 8);
+        v14 = v13 - (__p[1] - __p[0]);
+        memcpy(v14, __p[0], __p[1] - __p[0]);
+        v15 = __p[0];
+        __p[0] = v14;
+        __p[1] = v8;
+        *&v18 = 0;
+        if (v15)
+        {
+          operator delete(v15);
+        }
+      }
+
+      else
+      {
+        *v8++ = v9;
+      }
+
+      __p[1] = v8;
+      ++v7;
+    }
+
+    while (v7 != a2[1]);
+  }
+
+  AccelerationStructureViewerServer::Server::replyQueryable(v6, 8, *(*(a1 + 40) + 8), &v16, v5);
+  AccelerationStructureViewer::DataSourceArray::~DataSourceArray(&v16);
+}
+
+uint64_t std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(uint64_t a1, uint64_t a2)
+{
+  v4 = MEMORY[0x277D82678];
+  MEMORY[0x2530330D0](v18, MEMORY[0x277D82678]);
+  if (v18[0] == 1)
+  {
+    v5 = v4 + *(*v4 - 24);
+    v6 = *(v5 + 5);
+    v7 = a1 + a2;
+    if ((*(v5 + 2) & 0xB0) == 0x20)
+    {
+      v8 = a1 + a2;
+    }
+
+    else
+    {
+      v8 = a1;
+    }
+
+    v9 = *(v5 + 36);
+    if (v9 == -1)
+    {
+      std::ios_base::getloc((v4 + *(*v4 - 24)));
+      v10 = std::locale::use_facet(&__b, MEMORY[0x277D82680]);
+      v9 = (v10->__vftable[2].~facet_0)(v10, 32);
+      std::locale::~locale(&__b);
+      *(v5 + 36) = v9;
+      if (!v6)
+      {
+LABEL_28:
+        std::ios_base::clear((v4 + *(*v4 - 24)), *(v4 + *(*v4 - 24) + 32) | 5);
+        return MEMORY[0x2530330E0](v18);
+      }
+    }
+
+    else if (!v6)
+    {
+      goto LABEL_28;
+    }
+
+    v11 = *(v5 + 3);
+    v12 = v11 <= a2;
+    v13 = v11 - a2;
+    if (v12)
+    {
+      v14 = 0;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    if (v8 - a1 >= 1 && (*(*v6 + 96))(v6, a1, v8 - a1) != v8 - a1)
+    {
+      goto LABEL_28;
+    }
+
+    if (v14 >= 1)
+    {
+      if (v14 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+      }
+
+      if (v14 >= 0x17)
+      {
+        operator new();
+      }
+
+      v20 = v14;
+      memset(&__b, v9, v14);
+      *(&__b.__locale_ + v14) = 0;
+      if (v20 >= 0)
+      {
+        p_b = &__b;
+      }
+
+      else
+      {
+        p_b = __b.__locale_;
+      }
+
+      v16 = (*(*v6 + 96))(v6, p_b, v14);
+      if (v20 < 0)
+      {
+        operator delete(__b.__locale_);
+      }
+
+      if (v16 != v14)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    if (v7 - v8 >= 1 && (*(*v6 + 96))(v6, v8, v7 - v8) != v7 - v8)
+    {
+      goto LABEL_28;
+    }
+
+    *(v5 + 3) = 0;
+  }
+
+  return MEMORY[0x2530330E0](v18);
+}
+
+void __destroy_helper_block_a8_72c42_ZTSN27AccelerationStructureViewer6FilterE(uint64_t a1)
+{
+  *(a1 + 72) = &unk_2860BC948;
+  v1 = (a1 + 88);
+  std::vector<AccelerationStructureViewer::FilterToken>::__destroy_vector::operator()[abi:nn200100](&v1);
+}
+
+void *__copy_helper_block_a8_72c42_ZTSN27AccelerationStructureViewer6FilterE(void *result, uint64_t a2)
+{
+  v2 = *(a2 + 80);
+  result[11] = 0;
+  result[9] = &unk_2860BC948;
+  *(result + 80) = v2;
+  result[12] = 0;
+  result[13] = 0;
+  v3 = *(a2 + 88);
+  v4 = *(a2 + 96);
+  if (v4 != v3)
+  {
+    std::vector<AccelerationStructureViewer::FilterToken>::__vallocate[abi:nn200100](result + 11, 0xAAAAAAAAAAAAAAABLL * ((v4 - v3) >> 3));
+  }
+
+  return result;
 }

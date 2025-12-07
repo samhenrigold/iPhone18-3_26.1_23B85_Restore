@@ -105,7 +105,7 @@
 - (NSArray)accessories
 {
   _sSo27HeaderLibraryItemControllerC14MobileSafariUIE11accessoriesSaySo15UICellAccessoryCGvg_0();
-  sub_2159F7DA8(0, &qword_27CA7E310);
+  sub_2159F7DA8(0, &qword_27CA7E310, 0x277D75240);
   v2 = sub_215A705D0();
 
   return v2;

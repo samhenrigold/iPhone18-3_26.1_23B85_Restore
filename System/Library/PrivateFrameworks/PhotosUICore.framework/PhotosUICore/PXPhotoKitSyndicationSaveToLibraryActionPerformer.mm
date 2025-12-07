@@ -168,107 +168,107 @@ void __74__PXPhotoKitSyndicationSaveToLibraryActionPerformer_performBackgroundTa
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-void __74__PXPhotoKitSyndicationSaveToLibraryActionPerformer_performBackgroundTask__block_invoke_2(uint64_t a1)
+void __74__PXPhotoKitSyndicationSaveToLibraryActionPerformer_performBackgroundTask__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 56);
-  v3 = PLSyndicationUIGetLog();
-  v4 = v3;
-  if (v2 == 1)
+  v38 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 56);
+  v4 = PLSyndicationUIGetLog();
+  v5 = v4;
+  if (v3 == 1)
   {
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v5 = [*(a1 + 32) count];
+    v6 = [*(a1 + 32) count];
     *buf = 134217984;
-    v34 = v5;
-    v6 = "SyndicationSaveActionPerformer: All %ld assets saved";
-    v7 = v4;
-    v8 = OS_LOG_TYPE_DEFAULT;
-    v9 = 12;
+    v35 = v6;
+    v7 = "SyndicationSaveActionPerformer: All %ld assets saved";
+    v8 = v5;
+    v9 = OS_LOG_TYPE_DEFAULT;
+    v10 = 12;
   }
 
   else
   {
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
 
-    v10 = [*(a1 + 32) count];
-    v11 = *(a1 + 40);
+    v11 = [*(a1 + 32) count];
+    v12 = *(a1 + 40);
     *buf = 134218242;
-    v34 = v10;
-    v35 = 2112;
-    v36 = v11;
-    v6 = "SyndicationSaveActionPerformer: All %ld assets did not save. Error: %@";
-    v7 = v4;
-    v8 = OS_LOG_TYPE_ERROR;
-    v9 = 22;
+    v35 = v11;
+    v36 = 2112;
+    v37 = v12;
+    v7 = "SyndicationSaveActionPerformer: All %ld assets did not save. Error: %@";
+    v8 = v5;
+    v9 = OS_LOG_TYPE_ERROR;
+    v10 = 22;
   }
 
-  _os_log_impl(&dword_1A3C1C000, v7, v8, v6, buf, v9);
+  _os_log_impl(&dword_1A3C1C000, v8, v9, v7, buf, v10);
 LABEL_7:
 
   [*(a1 + 48) completeBackgroundTaskWithSuccess:*(a1 + 56) error:*(a1 + 40)];
   if (*(a1 + 56) == 1)
   {
-    v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
+    v28 = 0u;
     obj = *(a1 + 32);
-    v12 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
-    if (v12)
+    v13 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = 0;
-      v15 = *v27;
-      v16 = *MEMORY[0x1E6991E20];
-      v17 = *MEMORY[0x1E6991E18];
+      v14 = v13;
+      v15 = 0;
+      v16 = *v28;
+      v17 = *MEMORY[0x1E6991E20];
+      v18 = *MEMORY[0x1E6991E18];
 LABEL_10:
-      v18 = 0;
-      if (v14 <= 9)
+      v19 = 0;
+      if (v15 <= 9)
       {
-        v19 = 9;
+        v20 = 9;
       }
 
       else
       {
-        v19 = v14;
+        v20 = v15;
       }
 
       while (1)
       {
-        if (*v27 != v15)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v26 + 1) + v18);
-        v21 = MEMORY[0x1E6991F28];
-        v30[0] = v16;
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        v30[1] = v17;
-        v31[0] = v23;
-        v31[1] = v20;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
-        [v21 sendEvent:@"com.apple.photos.CPAnalytics.syndicatedAssetsSaved" withPayload:v24];
+        v21 = *(*(&v27 + 1) + v19);
+        v22 = MEMORY[0x1E6991F28];
+        v31[0] = v17;
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
+        v31[1] = v18;
+        v32[0] = v24;
+        v32[1] = v21;
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+        [v22 sendEvent:@"com.apple.photos.CPAnalytics.syndicatedAssetsSaved" withPayload:v25];
 
-        if (v19 == v14)
+        if (v20 == v15)
         {
           break;
         }
 
-        ++v14;
-        v18 += 8;
-        if (!--v13)
+        ++v15;
+        v19 += 8;
+        if (!--v14)
         {
-          v13 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
-          if (v13)
+          v14 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+          if (v14)
           {
             goto LABEL_10;
           }

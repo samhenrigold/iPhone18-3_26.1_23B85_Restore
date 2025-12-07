@@ -20,36 +20,33 @@
 {
   v3 = sub_1C1B944A8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_1C1B0C774(v7);
+  sub_1C1B0C774(v6);
 
-  v9 = sub_1C1B94478();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_1C1B94478();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (void)setVideoURL:(id)l
 {
   v4 = sub_1C1AC1F08(&qword_1EBF07AC8, &qword_1C1B9CED0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v15 - v6;
-  v8 = sub_1C1B944A8();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v13 - v5;
+  v7 = sub_1C1B944A8();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C1B94488();
-  (*(v9 + 32))(v7, v12, v8);
-  (*(v9 + 56))(v7, 0, 1, v8);
-  v13 = OBJC_IVAR___APPCVideoRepresentation____lazy_storage___videoURL;
+  (*(v8 + 32))(v6, v10, v7);
+  (*(v8 + 56))(v6, 0, 1, v7);
+  v11 = OBJC_IVAR___APPCVideoRepresentation____lazy_storage___videoURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C1B0CFC4(v7, &self->APPCContentRepresentation_opaque[v13]);
+  sub_1C1B0CFC4(v6, &self->APPCContentRepresentation_opaque[v11]);
   swift_endAccess();
 }
 
@@ -62,18 +59,16 @@
   var0 = videoSize.var0;
   selfCopy = self;
   v23 = sub_1C1B944A8();
-  v24 = *(*(v23 - 8) + 64);
   MEMORY[0x1EEE9AC00](v23 - 8);
-  v26 = &selfCopy - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = sub_1C1B945F8();
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v27 - 8);
-  v30 = &selfCopy - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = &selfCopy - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = sub_1C1B945F8();
+  MEMORY[0x1EEE9AC00](v26 - 8);
+  v28 = &selfCopy - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C1B945D8();
   sub_1C1B94488();
   actionCopy = action;
   dataCopy = data;
-  return sub_1C1B0D724(v30, type, positionCopy, v26, sizeCopy, enabledCopy, unbranded, connectionType, duration, threshold, bitrate, var0, var1, strength, action, data);
+  return sub_1C1B0D724(v28, type, positionCopy, v25, sizeCopy, enabledCopy, unbranded, connectionType, duration, threshold, bitrate, var0, var1, strength, action, data);
 }
 
 @end

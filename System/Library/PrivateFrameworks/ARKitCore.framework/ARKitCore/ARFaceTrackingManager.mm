@@ -27,16 +27,16 @@ void __35__ARFaceTrackingManager_initialize__block_invoke()
 
 - (ARFaceTrackingManager)initWithMaximumNumberOfTrackedFaces:(int64_t)faces options:(id)options
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (![ARFaceTrackingManager isSupported:faces])
   {
     selfCopy = 0;
     goto LABEL_8;
   }
 
-  v19.receiver = self;
-  v19.super_class = ARFaceTrackingManager;
-  v6 = [(ARFaceTrackingManager *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = ARFaceTrackingManager;
+  v6 = [(ARFaceTrackingManager *)&v20 init];
   if (!v6)
   {
     goto LABEL_6;
@@ -44,7 +44,7 @@ void __35__ARFaceTrackingManager_initialize__block_invoke()
 
   dispatch_semaphore_wait(s_faceTrackingSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   ++s_instanceCount;
-  if (s_faceTracking || (v11 = CVAFaceTrackingCreate()) == 0)
+  if (s_faceTracking || (v11 = CVAFaceTrackingCreate(), (v12 = v11) == 0))
   {
     dispatch_semaphore_signal(s_faceTrackingSemaphore);
     v6->_maximumNumberOfTrackedFaces = faces;
@@ -66,36 +66,36 @@ LABEL_6:
     [ARFaceTrackingManager initWithMaximumNumberOfTrackedFaces:options:];
   }
 
-  v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v13 = _ARLogGeneral();
-  v14 = v13;
-  if (v12 == 1)
+  v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v14 = _ARLogGeneral(v11);
+  v15 = v14;
+  if (v13 == 1)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138543874;
-      v21 = v16;
-      v22 = 2048;
-      v23 = v6;
-      v24 = 1024;
-      v25 = v11;
-      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating face kit instance: %i", buf, 0x1Cu);
+      v22 = v17;
+      v23 = 2048;
+      v24 = v6;
+      v25 = 1024;
+      v26 = v12;
+      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error creating face kit instance: %i", buf, 0x1Cu);
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
     *buf = 138543874;
-    v21 = v18;
-    v22 = 2048;
-    v23 = v6;
-    v24 = 1024;
-    v25 = v11;
-    _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating face kit instance: %i", buf, 0x1Cu);
+    v22 = v19;
+    v23 = 2048;
+    v24 = v6;
+    v25 = 1024;
+    v26 = v12;
+    _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error creating face kit instance: %i", buf, 0x1Cu);
   }
 
   dispatch_semaphore_signal(s_faceTrackingSemaphore);
@@ -133,19 +133,20 @@ LABEL_8:
 
 + (BOOL)isSupported
 {
-  if (ARRGBFaceTrackingEnabled())
+  v2 = ARRGBFaceTrackingEnabled(self, a2);
+  if (v2)
   {
     return 1;
   }
 
-  return ARPearlCameraSupported();
+  return ARPearlCameraSupported(v2, v3);
 }
 
 - (id)processData:(id)data
 {
   v53 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   kdebug_trace();
   v46 = 0;
   v47 = &v46;
@@ -247,7 +248,7 @@ LABEL_8:
 
   if (v22)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     kdebug_trace();
   }
 
@@ -283,44 +284,46 @@ intptr_t __37__ARFaceTrackingManager_processData___block_invoke(uint64_t a1, voi
 
 void __37__ARFaceTrackingManager_processData___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 objectForKeyedSubscript:*MEMORY[0x1E698C038]];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v7];
+    v9 = v8;
 LABEL_5:
-    v11 = _ARLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _ARLogGeneral(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = *(a1 + 32);
-      v25 = 138543875;
-      v26 = v13;
-      v27 = 2048;
-      v28 = v14;
-      v29 = 2113;
-      v30 = v8;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking anchor with ID = %{private}@", &v25, 0x20u);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = *(a1 + 32);
+      v27 = 138543875;
+      v28 = v15;
+      v29 = 2048;
+      v30 = v16;
+      v31 = 2113;
+      v32 = v9;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking anchor with ID = %{private}@", &v27, 0x20u);
     }
 
-    v15 = [[ARFaceTrackingData alloc] initWithTrackingData:v6 anchorIdentifier:v8];
-    [*(a1 + 40) addObject:v15];
-    v16 = [*(a1 + 40) count];
-    *a4 = v16 > [*(a1 + 32) maximumNumberOfTrackedFaces];
+    v17 = [[ARFaceTrackingData alloc] initWithTrackingData:v6 anchorIdentifier:v9];
+    [*(a1 + 40) addObject:v17];
+    v18 = [*(a1 + 40) count];
+    *a4 = v18 > [*(a1 + 32) maximumNumberOfTrackedFaces];
 
     goto LABEL_8;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = v7;
-    v25 = [v9 intValue];
-    v10 = [MEMORY[0x1E695DEF0] dataWithBytes:&v25 length:4];
-    v8 = [MEMORY[0x1E696AFB0] ar_UUIDWithData:v10];
+    v11 = v7;
+    v27 = [v11 intValue];
+    v12 = [MEMORY[0x1E695DEF0] dataWithBytes:&v27 length:4];
+    v9 = [MEMORY[0x1E696AFB0] ar_UUIDWithData:v12];
 
     goto LABEL_5;
   }
@@ -330,34 +333,34 @@ LABEL_5:
     __37__ARFaceTrackingManager_processData___block_invoke_2_cold_1();
   }
 
-  v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v18 = _ARLogGeneral();
-  v8 = v18;
-  if (v17 == 1)
+  v19 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v20 = _ARLogGeneral(isKindOfClass);
+  v9 = v20;
+  if (v19 == 1)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      v21 = *(a1 + 32);
-      v25 = 138543618;
-      v26 = v20;
-      v27 = 2048;
-      v28 = v21;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Encountered invalid face ID", &v25, 0x16u);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = *(a1 + 32);
+      v27 = 138543618;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v23;
+      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Encountered invalid face ID", &v27, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = *(a1 + 32);
-    v25 = 138543618;
-    v26 = v23;
-    v27 = 2048;
-    v28 = v24;
-    _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Encountered invalid face ID", &v25, 0x16u);
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = *(a1 + 32);
+    v27 = 138543618;
+    v28 = v25;
+    v29 = 2048;
+    v30 = v26;
+    _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Encountered invalid face ID", &v27, 0x16u);
   }
 
 LABEL_8:
@@ -376,7 +379,7 @@ LABEL_8:
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
   v8 = __71__ARFaceTrackingManager_faceTrackingOptionsFromImageData_withCallback___block_invoke_2(v7, dataCopy);
   memset(&v43, 0, sizeof(v43));
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   CMTimeMakeWithSeconds(&v43, v9, 1000000000);
   time = v43;
   v10 = CMTimeCopyAsDictionary(&time, 0);

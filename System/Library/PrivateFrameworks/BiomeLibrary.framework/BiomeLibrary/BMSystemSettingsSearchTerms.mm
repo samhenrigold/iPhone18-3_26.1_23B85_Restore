@@ -69,26 +69,26 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   searchTerm = [(BMSystemSettingsSearchTerms *)self searchTerm];
   _searchResultsClickedOnJSONArray = [(BMSystemSettingsSearchTerms *)self _searchResultsClickedOnJSONArray];
-  v10[0] = @"searchTerm";
+  v9[0] = @"searchTerm";
   null = searchTerm;
   if (!searchTerm)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"searchResultsClickedOn";
-  v11[0] = null;
+  v9[1] = @"searchResultsClickedOn";
+  v10[0] = null;
   null2 = _searchResultsClickedOnJSONArray;
   if (!_searchResultsClickedOnJSONArray)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (_searchResultsClickedOnJSONArray)
   {
     if (searchTerm)
@@ -107,52 +107,49 @@ LABEL_12:
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_searchResultsClickedOnJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   searchResultsClickedOn = [(BMSystemSettingsSearchTerms *)self searchResultsClickedOn];
-  v5 = [searchResultsClickedOn countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [searchResultsClickedOn countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(searchResultsClickedOn);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [searchResultsClickedOn countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [searchResultsClickedOn countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMSystemSettingsSearchTerms)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"searchTerm"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -165,10 +162,10 @@ LABEL_7:
         v22 = objc_alloc(MEMORY[0x1E696ABC0]);
         v23 = p_isa;
         v24 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
+        v57 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"searchTerm"];
-        v59[0] = v9;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+        v58[0] = v9;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
         v25 = [v22 initWithDomain:v24 code:2 userInfo:v12];
         v8 = 0;
         p_isa = 0;
@@ -192,40 +189,40 @@ LABEL_7:
   null = [MEMORY[0x1E695DFB0] null];
   v11 = [v9 isEqual:null];
 
-  v45 = v7;
+  v44 = v7;
   if (v11)
   {
-    v41 = p_isa;
-    v42 = v8;
-    v43 = dictionaryCopy;
+    v40 = p_isa;
+    v41 = v8;
+    v42 = dictionaryCopy;
     selfCopy2 = self;
 
     v9 = 0;
 LABEL_9:
     v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v9 = v9;
-    v13 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v13 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (!v13)
     {
       goto LABEL_19;
     }
 
     v14 = v13;
-    v15 = *v48;
+    v15 = *v47;
 LABEL_11:
     v16 = 0;
     while (1)
     {
-      if (*v48 != v15)
+      if (*v47 != v15)
       {
         objc_enumerationMutation(v9);
       }
 
-      v17 = *(*(&v47 + 1) + 8 * v16);
+      v17 = *(*(&v46 + 1) + 8 * v16);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -235,48 +232,48 @@ LABEL_11:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        dictionaryCopy = v43;
+        dictionaryCopy = v42;
         self = selfCopy2;
-        v7 = v45;
-        v26 = v41;
-        if (!v41)
+        v7 = v44;
+        v26 = v40;
+        if (!v40)
         {
           goto LABEL_33;
         }
 
         v27 = objc_alloc(MEMORY[0x1E696ABC0]);
         v28 = *MEMORY[0x1E698F240];
-        v51 = *MEMORY[0x1E696A578];
+        v50 = *MEMORY[0x1E696A578];
         v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"searchResultsClickedOn"];
-        v52 = v18;
+        v51 = v18;
         v29 = MEMORY[0x1E695DF20];
-        v30 = &v52;
-        v31 = &v51;
+        v30 = &v51;
+        v31 = &v50;
         goto LABEL_28;
       }
 
       v18 = v17;
       v19 = [BMSystemSettingsSearchTermsSearchResultClickedOn alloc];
-      v46 = 0;
-      v20 = [(BMSystemSettingsSearchTermsSearchResultClickedOn *)v19 initWithJSONDictionary:v18 error:&v46];
-      v21 = v46;
+      v45 = 0;
+      v20 = [(BMSystemSettingsSearchTermsSearchResultClickedOn *)v19 initWithJSONDictionary:v18 error:&v45];
+      v21 = v45;
       if (v21)
       {
         v32 = v21;
-        if (v41)
+        if (v40)
         {
           v34 = v21;
-          *v41 = v32;
+          *v40 = v32;
         }
 
-        dictionaryCopy = v43;
+        dictionaryCopy = v42;
         self = selfCopy2;
-        v7 = v45;
+        v7 = v44;
 LABEL_32:
 
 LABEL_33:
         p_isa = 0;
-        v8 = v42;
+        v8 = v41;
         goto LABEL_34;
       }
 
@@ -284,7 +281,7 @@ LABEL_33:
 
       if (v14 == ++v16)
       {
-        v14 = [v9 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v14 = [v9 countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v14)
         {
           goto LABEL_11;
@@ -292,61 +289,61 @@ LABEL_33:
 
 LABEL_19:
 
-        v8 = v42;
-        self = [(BMSystemSettingsSearchTerms *)selfCopy2 initWithSearchTerm:v42 searchResultsClickedOn:v12];
+        v8 = v41;
+        self = [(BMSystemSettingsSearchTerms *)selfCopy2 initWithSearchTerm:v41 searchResultsClickedOn:v12];
         p_isa = &self->super.super.isa;
-        dictionaryCopy = v43;
-        v7 = v45;
+        dictionaryCopy = v42;
+        v7 = v44;
 LABEL_34:
 
         goto LABEL_35;
       }
     }
 
-    dictionaryCopy = v43;
+    dictionaryCopy = v42;
     self = selfCopy2;
-    v7 = v45;
-    v26 = v41;
-    if (!v41)
+    v7 = v44;
+    v26 = v40;
+    if (!v40)
     {
       goto LABEL_33;
     }
 
     v27 = objc_alloc(MEMORY[0x1E696ABC0]);
     v28 = *MEMORY[0x1E698F240];
-    v53 = *MEMORY[0x1E696A578];
+    v52 = *MEMORY[0x1E696A578];
     v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"searchResultsClickedOn"];
-    v54 = v18;
+    v53 = v18;
     v29 = MEMORY[0x1E695DF20];
-    v30 = &v54;
-    v31 = &v53;
+    v30 = &v53;
+    v31 = &v52;
 LABEL_28:
     v32 = [v29 dictionaryWithObjects:v30 forKeys:v31 count:1];
     v33 = v28;
-    v7 = v45;
+    v7 = v44;
     *v26 = [v27 initWithDomain:v33 code:2 userInfo:v32];
     goto LABEL_32;
   }
 
   if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v41 = p_isa;
-    v42 = v8;
-    v43 = dictionaryCopy;
+    v40 = p_isa;
+    v41 = v8;
+    v42 = dictionaryCopy;
     selfCopy2 = self;
     goto LABEL_9;
   }
 
   if (p_isa)
   {
-    v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v38 = p_isa;
-    v39 = *MEMORY[0x1E698F240];
-    v56 = *MEMORY[0x1E696A578];
+    v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v37 = p_isa;
+    v38 = *MEMORY[0x1E698F240];
+    v55 = *MEMORY[0x1E696A578];
     v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"searchResultsClickedOn"];
-    v57 = v12;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-    *v38 = [v37 initWithDomain:v39 code:2 userInfo:v40];
+    v56 = v12;
+    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    *v37 = [v36 initWithDomain:v38 code:2 userInfo:v39];
 
     p_isa = 0;
     goto LABEL_34;
@@ -355,7 +352,6 @@ LABEL_28:
 LABEL_35:
 
 LABEL_36:
-  v35 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -370,45 +366,43 @@ LABEL_36:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_searchTerm)
   {
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_searchResultsClickedOn;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
         [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -557,39 +551,35 @@ LABEL_27:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"searchTerm" number:1 type:13 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"searchResultsClickedOn" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"searchTerm" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"searchResultsClickedOn_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_29915];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __38__BMSystemSettingsSearchTerms_columns__block_invoke(uint64_t a1, void *a2)
+id __38__BMSystemSettingsSearchTerms_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _searchResultsClickedOnJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _searchResultsClickedOnJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

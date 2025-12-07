@@ -21,15 +21,13 @@
   v5 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, bytes);
-  v0 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:4];
+  v1 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:4];
   for (i = 0; i != 32; i += 8)
   {
-    [v0 appendFormat:@"%.1u", *&bytes[i] % 0xAuLL];
+    [v1 appendFormat:@"%.1u", *&bytes[i] % 0xAuLL];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
-
-  return v0;
+  return v1;
 }
 
 @end

@@ -7,6 +7,7 @@
 - (BOOL)accessoryConnectionFiltered:(id)filtered withFilter:(id)filter;
 - (BOOL)accessoryEndpointFiltered:(id)filtered withFilter:(id)filter forConnection:(id)connection;
 - (BOOL)configStreamCategoriesRequest:(id)request connection:(id)connection withReply:(id)reply;
+- (BOOL)configStreamPropertyRequest:(unsigned __int8)request forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection withReply:(id)reply;
 - (BOOL)registerDelegate:(id)delegate;
 - (BOOL)registerDelegate:(id)delegate withFilter:(id)filter;
 - (BOOL)registerDelegate:(id)delegate withIdentifier:(id)identifier;
@@ -19,11 +20,13 @@
 - (int)accessoryEndpointProtocolType:(id)type connection:(id)connection;
 - (int)accessoryEndpointTransportType:(id)type connection:(id)connection;
 - (int)getInterceptCountForEndpoint:(id)endpoint connection:(id)connection;
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties;
 - (void)accessoryConnectionDetached:(id)detached;
 - (void)accessoryConnectionInfoPropertyChanged:(id)changed properties:(id)properties;
 - (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
 - (void)accessoryEndpointDetached:(id)detached forConnection:(id)connection;
 - (void)accessoryEndpointInfoPropertyChanged:(id)changed properties:(id)properties forConnection:(id)connection;
+- (void)accessoryEndpointUpdate:(id)update protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
 - (void)accessoryEndpointsForConnection:(id)connection withReply:(id)reply;
 - (void)accessoryInfoForConnection:(id)connection withReply:(id)reply;
 - (void)accessoryInfoForEndpoint:(id)endpoint connection:(id)connection withReply:(id)reply;
@@ -33,7 +36,10 @@
 - (void)beginVendorKeyErase:(id)erase withReply:(id)reply;
 - (void)cancelUserKeyErase:(id)erase withReply:(id)reply;
 - (void)cancelVendorKeyErase:(id)erase withReply:(id)reply;
+- (void)configStreamCategoriesResponse:(id)response forEndpoint:(id)endpoint connection:(id)connection success:(BOOL)success;
 - (void)configStreamCategoryListReady:(id)ready connection:(id)connection;
+- (void)configStreamPropertyResponse:(unsigned __int8)response forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection value:(id)value success:(BOOL)success;
+- (void)configStreamPropertySetValue:(id)value forProperty:(unsigned __int8)property forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection;
 - (void)connectToServer;
 - (void)continueUserKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply;
 - (void)continueVendorKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply;
@@ -44,6 +50,7 @@
 - (void)getPrivateNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply;
 - (void)getPublicNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply;
 - (void)handleInterceptData:(id)data forEndpoint:(id)endpoint connection:(id)connection;
+- (void)interceptIncomingNTimes:(int)times forEndpoint:(id)endpoint connection:(id)connection;
 - (void)notifyDelegateOfServerDisconnectAndCleanup;
 - (void)provisionAccessoryForFindMy:(id)my withReply:(id)reply;
 - (void)resetPairingInformation:(id)information withReply:(id)reply;
@@ -76,11 +83,11 @@ uint64_t __35__ACCConnectionInfo_sharedInstance__block_invoke()
 
 - (ACCConnectionInfo)init
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   init_logging();
-  v24.receiver = self;
-  v24.super_class = ACCConnectionInfo;
-  v3 = [(ACCConnectionInfo *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = ACCConnectionInfo;
+  v3 = [(ACCConnectionInfo *)&v23 init];
   if (v3)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -133,28 +140,27 @@ uint64_t __35__ACCConnectionInfo_sharedInstance__block_invoke()
     {
       v19 = v3->_providerUID;
       *buf = 138412290;
-      v26 = v19;
+      v25 = v19;
       _os_log_impl(&dword_221CB0000, v17, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo init, _providerUID=%@", buf, 0xCu);
     }
 
     objc_initWeak(buf, v3);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __25__ACCConnectionInfo_init__block_invoke;
-    v22[3] = &unk_278486228;
-    objc_copyWeak(&v23, buf);
-    accessoryServer_registerAvailabilityChangedHandlerForServiceEntry("com.apple.accessories.connection-info-server.availability-changed", v22, 1u);
-    objc_destroyWeak(&v23);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __25__ACCConnectionInfo_init__block_invoke;
+    v21[3] = &unk_278486228;
+    objc_copyWeak(&v22, buf);
+    accessoryServer_registerAvailabilityChangedHandlerForServiceEntry("com.apple.accessories.connection-info-server.availability-changed", v21, 1);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v4 = gNumLogObjects < 8;
@@ -183,9 +189,9 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v20[0] = 67109120;
-    v20[1] = a2;
-    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_DEFAULT, "Server availability changed! State: %d", v20, 8u);
+    v19[0] = 67109120;
+    v19[1] = a2;
+    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_DEFAULT, "Server availability changed! State: %d", v19, 8u);
   }
 
   if (a2)
@@ -228,8 +234,8 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "Trying to connect to server...", v20, 2u);
+        LOWORD(v19[0]) = 0;
+        _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "Trying to connect to server...", v19, 2u);
       }
 
       v14 = objc_loadWeakRetained((a1 + 32));
@@ -256,8 +262,8 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v20[0]) = 0;
-        _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "No delegate, will not connect to server...", v20, 2u);
+        LOWORD(v19[0]) = 0;
+        _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "No delegate, will not connect to server...", v19, 2u);
       }
     }
 
@@ -265,8 +271,6 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
     v18 = [v17 serverConnectionLock];
     [v18 unlock];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -329,14 +333,14 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
 - (id)copyLocalizedAccessoryNameFromDaemon:(id)daemon
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   daemonCopy = daemon;
-  v21 = 0;
-  v22[0] = &v21;
-  v22[1] = 0x3032000000;
-  v22[2] = __Block_byref_object_copy_;
-  v22[3] = __Block_byref_object_dispose_;
-  v23 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
   [(ACCConnectionInfo *)self connectToServer];
   serverConnection = [(ACCConnectionInfo *)self serverConnection];
   if (!serverConnection || ([(ACCConnectionInfo *)self remoteObject], v6 = objc_claimAutoreleasedReturnValue(), v7 = v6 == 0, v6, serverConnection, v7))
@@ -359,7 +363,7 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ACCConnectionInfo *)daemonCopy copyLocalizedAccessoryNameFromDaemon:v22];
+      [ACCConnectionInfo copyLocalizedAccessoryNameFromDaemon:];
     }
   }
 
@@ -367,15 +371,15 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
   {
     serverConnection2 = [(ACCConnectionInfo *)self serverConnection];
     v9 = [serverConnection2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_20];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke_21;
-    v18[3] = &unk_278486270;
-    v19 = daemonCopy;
-    v20 = &v21;
-    [v9 copyLocalizedAccessoryName:v19 withReply:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke_21;
+    v17[3] = &unk_278486270;
+    v18 = daemonCopy;
+    v19 = &v20;
+    [v9 copyLocalizedAccessoryName:v18 withReply:v17];
 
-    v10 = v19;
+    v10 = v18;
   }
 
   if (gLogObjects && gNumLogObjects >= 8)
@@ -396,18 +400,17 @@ void __25__ACCConnectionInfo_init__block_invoke(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(v22[0] + 40);
+    v14 = v21[5];
     *buf = 138412546;
-    v25 = daemonCopy;
-    v26 = 2112;
-    v27 = v14;
+    v27 = daemonCopy;
+    v28 = 2112;
+    v29 = v14;
     _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "from daemon, localize: name: %@ -> %@", buf, 0x16u);
   }
 
-  v15 = *(v22[0] + 40);
-  _Block_object_dispose(&v21, 8);
+  v15 = v21[5];
+  _Block_object_dispose(&v20, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -448,7 +451,7 @@ void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke
 
 void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke_21(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (gLogObjects)
   {
@@ -479,23 +482,21 @@ void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_INFO, "copyLocalizedAccessoryName got response: %@ -> %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_221CB0000, v6, OS_LOG_TYPE_INFO, "copyLocalizedAccessoryName got response: %@ -> %@", &v10, 0x16u);
   }
 
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v3;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerDelegate:(id)delegate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if (gLogObjects)
   {
@@ -526,11 +527,11 @@ void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v24 = 138412546;
-    v25 = WeakRetained;
-    v26 = 2112;
-    v27 = delegateCopy;
-    _os_log_impl(&dword_221CB0000, v7, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = WeakRetained;
+    v25 = 2112;
+    v26 = delegateCopy;
+    _os_log_impl(&dword_221CB0000, v7, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@", &v23, 0x16u);
   }
 
   [(NSLock *)self->_serverConnectionLock lock];
@@ -562,8 +563,8 @@ void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Delegate set, trying to connect to server...", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "Delegate set, trying to connect to server...", &v23, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -607,15 +608,14 @@ void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v24, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v23, 2u);
       }
     }
   }
 
   [(NSLock *)self->_serverConnectionLock unlock];
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -656,7 +656,7 @@ void __38__ACCConnectionInfo_registerDelegate___block_invoke(uint64_t a1, void *
 
 - (BOOL)registerDelegate:(id)delegate withIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   identifierCopy = identifier;
   if (gLogObjects)
@@ -688,13 +688,13 @@ void __38__ACCConnectionInfo_registerDelegate___block_invoke(uint64_t a1, void *
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegateForIdentifier);
-    v27 = 138412802;
-    v28 = WeakRetained;
-    v29 = 2112;
-    v30 = delegateCopy;
-    v31 = 2112;
-    v32 = identifierCopy;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@ withIdentifier %@", &v27, 0x20u);
+    v26 = 138412802;
+    v27 = WeakRetained;
+    v28 = 2112;
+    v29 = delegateCopy;
+    v30 = 2112;
+    v31 = identifierCopy;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@ withIdentifier %@", &v26, 0x20u);
   }
 
   if (identifierCopy)
@@ -724,8 +724,8 @@ void __38__ACCConnectionInfo_registerDelegate___block_invoke(uint64_t a1, void *
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "Delegate set, trying to connect to server...", &v27, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "Delegate set, trying to connect to server...", &v26, 2u);
       }
 
       serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -769,8 +769,8 @@ void __38__ACCConnectionInfo_registerDelegate___block_invoke(uint64_t a1, void *
 
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v27, 2u);
+          LOWORD(v26) = 0;
+          _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v26, 2u);
         }
       }
     }
@@ -778,7 +778,6 @@ void __38__ACCConnectionInfo_registerDelegate___block_invoke(uint64_t a1, void *
     [(NSLock *)self->_serverConnectionLock unlock];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return identifierCopy != 0;
 }
 
@@ -819,7 +818,7 @@ void __53__ACCConnectionInfo_registerDelegate_withIdentifier___block_invoke(uint
 
 - (BOOL)registerDelegate:(id)delegate withFilter:(id)filter
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   filterCopy = filter;
   if (gLogObjects)
@@ -852,15 +851,15 @@ void __53__ACCConnectionInfo_registerDelegate_withIdentifier___block_invoke(uint
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     accessoryFilterDictionary = self->_accessoryFilterDictionary;
-    v28 = 138413058;
-    v29 = WeakRetained;
-    v30 = 2112;
-    v31 = delegateCopy;
-    v32 = 2112;
-    v33 = accessoryFilterDictionary;
-    v34 = 2112;
-    v35 = filterCopy;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@, withFilter %@ -> %@", &v28, 0x2Au);
+    v27 = 138413058;
+    v28 = WeakRetained;
+    v29 = 2112;
+    v30 = delegateCopy;
+    v31 = 2112;
+    v32 = accessoryFilterDictionary;
+    v33 = 2112;
+    v34 = filterCopy;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo registerDelegate %@ -> %@, withFilter %@ -> %@", &v27, 0x2Au);
   }
 
   [(NSLock *)self->_serverConnectionLock lock];
@@ -893,8 +892,8 @@ void __53__ACCConnectionInfo_registerDelegate_withIdentifier___block_invoke(uint
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "Delegate and Filter set, trying to connect to server...", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "Delegate and Filter set, trying to connect to server...", &v27, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -938,15 +937,14 @@ void __53__ACCConnectionInfo_registerDelegate_withIdentifier___block_invoke(uint
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_221CB0000, v16, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_221CB0000, v16, OS_LOG_TYPE_DEFAULT, "Delegate unset...", &v27, 2u);
       }
     }
   }
 
   [(NSLock *)self->_serverConnectionLock unlock];
 
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -987,19 +985,17 @@ void __49__ACCConnectionInfo_registerDelegate_withFilter___block_invoke(uint64_t
 
 - (void)notifyDelegateOfServerDisconnectAndCleanup
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((self + 24));
   OUTLINED_FUNCTION_2();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_debug_impl(&dword_221CB0000, a3, OS_LOG_TYPE_DEBUG, "notifyDelegateOfServerDisconnectAndCleanup _delegate=%@ tmpConnectionList=%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_debug_impl(&dword_221CB0000, a3, OS_LOG_TYPE_DEBUG, "notifyDelegateOfServerDisconnectAndCleanup _delegate=%@ tmpConnectionList=%@", v6, 0x16u);
 }
 
 - (void)connectToServer
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (accessoryServer_isServerAvailableForServiceEntry(1u))
@@ -1045,21 +1041,21 @@ void __49__ACCConnectionInfo_registerDelegate_withFilter___block_invoke(uint64_t
       [serverConnection4 setExportedObject:selfCopy];
 
       objc_initWeak(buf, selfCopy);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __36__ACCConnectionInfo_connectToServer__block_invoke;
-      v48[3] = &unk_278486298;
-      objc_copyWeak(&v49, buf);
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __36__ACCConnectionInfo_connectToServer__block_invoke;
+      v47[3] = &unk_278486298;
+      objc_copyWeak(&v48, buf);
       serverConnection5 = [(ACCConnectionInfo *)selfCopy serverConnection];
-      [serverConnection5 setInvalidationHandler:v48];
+      [serverConnection5 setInvalidationHandler:v47];
 
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __36__ACCConnectionInfo_connectToServer__block_invoke_173;
-      v46[3] = &unk_278486298;
-      objc_copyWeak(&v47, buf);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __36__ACCConnectionInfo_connectToServer__block_invoke_173;
+      v45[3] = &unk_278486298;
+      objc_copyWeak(&v46, buf);
       serverConnection6 = [(ACCConnectionInfo *)selfCopy serverConnection];
-      [serverConnection6 setInterruptionHandler:v46];
+      [serverConnection6 setInterruptionHandler:v45];
 
       if (gLogObjects && gNumLogObjects >= 8)
       {
@@ -1079,15 +1075,15 @@ void __49__ACCConnectionInfo_registerDelegate_withFilter___block_invoke(uint64_t
 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v45 = 0;
-        _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "resuming ConnectionInfo XPC connection", v45, 2u);
+        *v44 = 0;
+        _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "resuming ConnectionInfo XPC connection", v44, 2u);
       }
 
       serverConnection7 = [(ACCConnectionInfo *)selfCopy serverConnection];
       [serverConnection7 resume];
 
-      objc_destroyWeak(&v47);
-      objc_destroyWeak(&v49);
+      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v48);
       objc_destroyWeak(buf);
     }
   }
@@ -1122,7 +1118,7 @@ void __49__ACCConnectionInfo_registerDelegate_withFilter___block_invoke(uint64_t
   {
     remoteObject = [(ACCConnectionInfo *)selfCopy remoteObject];
     *buf = 138412290;
-    v51 = remoteObject;
+    v50 = remoteObject;
     _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_DEFAULT, "self.remoteObject = %@", buf, 0xCu);
   }
 
@@ -1256,8 +1252,6 @@ void __49__ACCConnectionInfo_registerDelegate_withFilter___block_invoke(uint64_t
   }
 
   objc_sync_exit(selfCopy);
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ACCConnectionInfo_connectToServer__block_invoke(uint64_t a1)
@@ -1522,9 +1516,97 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
   return v19;
 }
 
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties
+{
+  v8 = *&type;
+  attachedCopy = attached;
+  infoCopy = info;
+  propertiesCopy = properties;
+  [(NSLock *)self->_listLock lock];
+  v10 = [(NSMutableDictionary *)self->_connectionList objectForKey:attachedCopy];
+  if (!v10)
+  {
+    v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(NSMutableDictionary *)self->_connectionList setObject:v10 forKey:attachedCopy];
+  }
+
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+  [v10 setObject:v11 forKey:@"connectionType"];
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (WeakRetained && (v13 = WeakRetained, [v10 objectForKey:@"Legacy"], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, !v14))
+  {
+    [v10 setObject:MEMORY[0x277CBEC38] forKey:@"Legacy"];
+    v15 = 1;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = objc_loadWeakRetained(&self->_delegateForIdentifier);
+  v27 = v10;
+  if (v16 && (v17 = v16, [v10 objectForKey:{self->_identifier, v10}], v18 = objc_claimAutoreleasedReturnValue(), v18, v17, !v18))
+  {
+    [v10 setObject:MEMORY[0x277CBEC38] forKey:self->_identifier];
+    v19 = 1;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  [(NSLock *)self->_listLock unlock];
+  v20 = 1;
+  do
+  {
+    v21 = v20;
+    if (v20)
+    {
+      v22 = objc_loadWeakRetained(&self->_delegate);
+      accessoryFilterDictionary = self->_accessoryFilterDictionary;
+      v24 = v15;
+    }
+
+    else
+    {
+      v22 = objc_loadWeakRetained(&self->_delegateForIdentifier);
+      accessoryFilterDictionary = 0;
+      v24 = v19;
+    }
+
+    v25 = accessoryFilterDictionary;
+    if (v22)
+    {
+      v26 = [(ACCConnectionInfo *)self accessoryConnectionFiltered:attachedCopy withFilter:v25];
+      if (v24)
+      {
+        if (!v26)
+        {
+          if (objc_opt_respondsToSelector())
+          {
+            [v22 accessoryConnectionAttached:attachedCopy type:v8];
+          }
+
+          if (objc_opt_respondsToSelector())
+          {
+            [v22 accessoryConnectionAttached:attachedCopy type:v8 info:infoCopy properties:propertiesCopy];
+          }
+        }
+      }
+    }
+
+    v20 = 0;
+  }
+
+  while ((v21 & 1) != 0);
+}
+
 - (void)accessoryConnectionDetached:(id)detached
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   if (self->_accessoryFilterDictionary)
   {
@@ -1538,32 +1620,32 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
 
   [(NSLock *)self->_listLock lock];
   v6 = [(NSMutableDictionary *)self->_connectionList objectForKey:detachedCopy];
-  v23 = v6;
+  v22 = v6;
   if (v6)
   {
     [v6 objectForKey:@"endpointList"];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v7 = v31 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v7 = v30 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(NSMutableDictionary *)self->_endpointList removeObjectForKey:*(*(&v28 + 1) + 8 * i)];
+          [(NSMutableDictionary *)self->_endpointList removeObjectForKey:*(*(&v27 + 1) + 8 * i)];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
@@ -1597,29 +1679,29 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
       if (objc_opt_respondsToSelector())
       {
         v16 = v5;
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v17 = v7;
-        v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v25;
+          v20 = *v24;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v25 != v20)
+              if (*v24 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              [WeakRetained accessoryEndpointDetached:*(*(&v24 + 1) + 8 * j) forConnection:detachedCopy];
+              [WeakRetained accessoryEndpointDetached:*(*(&v23 + 1) + 8 * j) forConnection:detachedCopy];
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v19);
@@ -1638,8 +1720,6 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
   }
 
   while ((v13 & 1) != 0);
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection
@@ -1805,6 +1885,72 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
   while ((v15 & 1) != 0);
 }
 
+- (void)accessoryEndpointUpdate:(id)update protocol:(int)protocol properties:(id)properties forConnection:(id)connection
+{
+  v8 = *&protocol;
+  updateCopy = update;
+  propertiesCopy = properties;
+  connectionCopy = connection;
+  [(NSLock *)self->_listLock lock];
+  v12 = [(NSMutableDictionary *)self->_connectionList objectForKey:connectionCopy];
+  v13 = v12;
+  if (v12 && ([v12 objectForKey:@"endpointList"], (v14 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v23 = v14;
+    if ([v14 containsObject:updateCopy])
+    {
+      v15 = [(NSMutableDictionary *)self->_endpointList objectForKey:updateCopy];
+      if (v15)
+      {
+        v16 = v15;
+        v17 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+        [v16 setObject:v17 forKey:@"protocolType"];
+      }
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  [(NSLock *)self->_listLock unlock];
+  v18 = 1;
+  do
+  {
+    v19 = v18;
+    if (v18)
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      accessoryFilterDictionary = self->_accessoryFilterDictionary;
+    }
+
+    else
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_delegateForIdentifier);
+      accessoryFilterDictionary = 0;
+    }
+
+    v22 = accessoryFilterDictionary;
+    if (WeakRetained && ![(ACCConnectionInfo *)self accessoryEndpointFiltered:updateCopy withFilter:v22 forConnection:connectionCopy])
+    {
+      if (objc_opt_respondsToSelector())
+      {
+        [WeakRetained accessoryEndpointUpdate:updateCopy protocol:v8 forConnection:connectionCopy];
+      }
+
+      if (objc_opt_respondsToSelector())
+      {
+        [WeakRetained accessoryEndpointUpdate:updateCopy protocol:v8 properties:propertiesCopy forConnection:connectionCopy];
+      }
+    }
+
+    v18 = 0;
+  }
+
+  while ((v19 & 1) != 0);
+}
+
 - (void)accessoryConnectionInfoPropertyChanged:(id)changed properties:(id)properties
 {
   changedCopy = changed;
@@ -1919,7 +2065,7 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
 
 - (void)configStreamCategoryListReady:(id)ready connection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   connectionCopy = connection;
   if (gLogObjects)
@@ -1951,13 +2097,13 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained(&self->_configStreamDelegate);
-    v18 = 138412802;
-    v19 = connectionCopy;
-    v20 = 2112;
-    v21 = readyCopy;
-    v22 = 2112;
-    v23 = WeakRetained;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamCategoryListReady: %@ - %@, _configStreamDelegate %@", &v18, 0x20u);
+    v17 = 138412802;
+    v18 = connectionCopy;
+    v19 = 2112;
+    v20 = readyCopy;
+    v21 = 2112;
+    v22 = WeakRetained;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamCategoryListReady: %@ - %@, _configStreamDelegate %@", &v17, 0x20u);
   }
 
   v12 = objc_loadWeakRetained(&self->_configStreamDelegate);
@@ -1973,13 +2119,129 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
       [v16 configStreamCategoryListReady:readyCopy connection:connectionCopy];
     }
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)configStreamCategoriesResponse:(id)response forEndpoint:(id)endpoint connection:(id)connection success:(BOOL)success
+{
+  successCopy = success;
+  v26 = *MEMORY[0x277D85DE8];
+  responseCopy = response;
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  if (gLogObjects)
+  {
+    v13 = gNumLogObjects < 8;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if (v13)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportPlugin initWithDelegate:];
+    }
+
+    v15 = MEMORY[0x277D86220];
+    v14 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v15 = *(gLogObjects + 56);
+  }
+
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v18 = 138413058;
+    v19 = connectionCopy;
+    v20 = 2112;
+    v21 = endpointCopy;
+    v22 = 1024;
+    v23 = successCopy;
+    v24 = 2112;
+    v25 = responseCopy;
+    _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamCategoriesResponse: %@ - %@, success %d, categories %@", &v18, 0x26u);
+  }
+
+  v16 = _Block_copy(self->_configStreamGetResponseHandler);
+  configStreamGetResponseHandler = self->_configStreamGetResponseHandler;
+  self->_configStreamGetResponseHandler = 0;
+
+  if (v16)
+  {
+    (*(v16 + 2))(v16, endpointCopy, connectionCopy, 0, 0, 0, responseCopy, successCopy);
+  }
+}
+
+- (void)configStreamPropertyResponse:(unsigned __int8)response forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection value:(id)value success:(BOOL)success
+{
+  successCopy = success;
+  categoryCopy = category;
+  responseCopy = response;
+  v34 = *MEMORY[0x277D85DE8];
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  valueCopy = value;
+  if (gLogObjects)
+  {
+    v17 = gNumLogObjects < 8;
+  }
+
+  else
+  {
+    v17 = 1;
+  }
+
+  if (v17)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportPlugin initWithDelegate:];
+    }
+
+    v19 = MEMORY[0x277D86220];
+    v18 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v19 = *(gLogObjects + 56);
+  }
+
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v22 = 138413570;
+    v23 = connectionCopy;
+    v24 = 2112;
+    v25 = endpointCopy;
+    v26 = 1024;
+    v27 = categoryCopy;
+    v28 = 1024;
+    v29 = responseCopy;
+    v30 = 1024;
+    v31 = successCopy;
+    v32 = 2112;
+    v33 = valueCopy;
+    _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamPropertyResponse: %@ - %@, cat 0x%x, prop %d, success %d, val %@", &v22, 0x32u);
+  }
+
+  v20 = _Block_copy(self->_configStreamGetResponseHandler);
+  configStreamGetResponseHandler = self->_configStreamGetResponseHandler;
+  self->_configStreamGetResponseHandler = 0;
+
+  if (v20)
+  {
+    v20[2](v20, endpointCopy, connectionCopy, categoryCopy, responseCopy, valueCopy, 0, successCopy);
+  }
 }
 
 - (void)accessoryEndpointsForConnection:(id)connection withReply:(id)reply
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   replyCopy = reply;
   if (replyCopy)
@@ -2019,13 +2281,11 @@ void __36__ACCConnectionInfo_connectToServer__block_invoke_180(uint64_t a1, void
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = connectionCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryEndpointsForConnection: %@, ERROR: called with no reply block!!!", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = connectionCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryEndpointsForConnection: %@, ERROR: called with no reply block!!!", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ACCConnectionInfo_accessoryEndpointsForConnection_withReply___block_invoke(uint64_t a1, void *a2)
@@ -2065,7 +2325,7 @@ void __63__ACCConnectionInfo_accessoryEndpointsForConnection_withReply___block_i
 
 - (void)accessoryInfoForConnection:(id)connection withReply:(id)reply
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   replyCopy = reply;
   if (replyCopy)
@@ -2105,13 +2365,11 @@ void __63__ACCConnectionInfo_accessoryEndpointsForConnection_withReply___block_i
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = connectionCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryInfoForConnection: %@, ERROR: called with no reply block!!!", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = connectionCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryInfoForConnection: %@, ERROR: called with no reply block!!!", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ACCConnectionInfo_accessoryInfoForConnection_withReply___block_invoke(uint64_t a1, void *a2)
@@ -2151,7 +2409,7 @@ void __58__ACCConnectionInfo_accessoryInfoForConnection_withReply___block_invoke
 
 - (void)accessoryInfoForEndpoint:(id)endpoint connection:(id)connection withReply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   connectionCopy = connection;
   replyCopy = reply;
@@ -2192,15 +2450,13 @@ void __58__ACCConnectionInfo_accessoryInfoForConnection_withReply___block_invoke
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = endpointCopy;
-      v18 = 2112;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryInfoForEndpoint: %@ connection: %@, ERROR: called with no reply block!!!", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = endpointCopy;
+      v17 = 2112;
+      v18 = connectionCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryInfoForEndpoint: %@ connection: %@, ERROR: called with no reply block!!!", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ACCConnectionInfo_accessoryInfoForEndpoint_connection_withReply___block_invoke(uint64_t a1, void *a2)
@@ -2359,7 +2615,7 @@ void __61__ACCConnectionInfo_accessoryInfoForEndpointSync_connection___block_inv
 
 - (void)accessoryProperty:(id)property forConnection:(id)connection withReply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   connectionCopy = connection;
   replyCopy = reply;
@@ -2400,15 +2656,13 @@ void __61__ACCConnectionInfo_accessoryInfoForEndpointSync_connection___block_inv
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = propertyCopy;
-      v18 = 2112;
-      v19 = connectionCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryProperty: %@ forConnection: %@, ERROR: called with no reply block!!!", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = propertyCopy;
+      v17 = 2112;
+      v18 = connectionCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryProperty: %@ forConnection: %@, ERROR: called with no reply block!!!", &v15, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ACCConnectionInfo_accessoryProperty_forConnection_withReply___block_invoke(uint64_t a1, void *a2)
@@ -2448,7 +2702,7 @@ void __63__ACCConnectionInfo_accessoryProperty_forConnection_withReply___block_i
 
 - (void)accessoryProperty:(id)property forEndpoint:(id)endpoint connection:(id)connection withReply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   endpointCopy = endpoint;
   connectionCopy = connection;
@@ -2490,17 +2744,15 @@ void __63__ACCConnectionInfo_accessoryProperty_forConnection_withReply___block_i
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412802;
-      v20 = propertyCopy;
-      v21 = 2112;
-      v22 = endpointCopy;
-      v23 = 2112;
-      v24 = connectionCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryPropery: %@ forEndpoint: %@ connection: %@, ERROR: called with no reply block!!!", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = propertyCopy;
+      v20 = 2112;
+      v21 = endpointCopy;
+      v22 = 2112;
+      v23 = connectionCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo accessoryPropery: %@ forEndpoint: %@ connection: %@, ERROR: called with no reply block!!!", &v18, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __72__ACCConnectionInfo_accessoryProperty_forEndpoint_connection_withReply___block_invoke(uint64_t a1, void *a2)
@@ -2540,7 +2792,7 @@ void __72__ACCConnectionInfo_accessoryProperty_forEndpoint_connection_withReply_
 
 - (BOOL)configStreamCategoriesRequest:(id)request connection:(id)connection withReply:(id)reply
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   connectionCopy = connection;
   replyCopy = reply;
@@ -2572,39 +2824,39 @@ void __72__ACCConnectionInfo_accessoryProperty_forEndpoint_connection_withReply_
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v29 = _Block_copy(replyCopy);
-    v30 = _Block_copy(self->_configStreamGetResponseHandler);
+    v28 = _Block_copy(replyCopy);
+    v29 = _Block_copy(self->_configStreamGetResponseHandler);
     *buf = 138413058;
-    v37 = connectionCopy;
-    v38 = 2112;
-    v39 = requestCopy;
-    v40 = 2048;
-    *v41 = v29;
-    *&v41[8] = 2048;
-    v42 = v30;
+    v36 = connectionCopy;
+    v37 = 2112;
+    v38 = requestCopy;
+    v39 = 2048;
+    *v40 = v28;
+    *&v40[8] = 2048;
+    v41 = v29;
     _os_log_debug_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEBUG, "ACCConnectionInfo configStreamCategoriesRequest: [%@ : %@], responseHandler %p, _configStreamGetResponseHandler %p", buf, 0x2Au);
   }
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   if (requestCopy && connectionCopy && replyCopy && !self->_configStreamGetResponseHandler)
   {
-    v25 = _Block_copy(replyCopy);
+    v24 = _Block_copy(replyCopy);
     configStreamGetResponseHandler = self->_configStreamGetResponseHandler;
-    self->_configStreamGetResponseHandler = v25;
+    self->_configStreamGetResponseHandler = v24;
 
-    *(v33 + 24) = 1;
+    *(v32 + 24) = 1;
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __72__ACCConnectionInfo_configStreamCategoriesRequest_connection_withReply___block_invoke;
-    v31[3] = &unk_278486310;
-    v31[4] = self;
-    v31[5] = &v32;
-    v28 = [serverConnection remoteObjectProxyWithErrorHandler:v31];
-    [v28 configStreamCategoriesRequest:requestCopy connection:connectionCopy];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __72__ACCConnectionInfo_configStreamCategoriesRequest_connection_withReply___block_invoke;
+    v30[3] = &unk_278486310;
+    v30[4] = self;
+    v30[5] = &v31;
+    v27 = [serverConnection remoteObjectProxyWithErrorHandler:v30];
+    [v27 configStreamCategoriesRequest:requestCopy connection:connectionCopy];
   }
 
   else
@@ -2629,13 +2881,13 @@ void __72__ACCConnectionInfo_accessoryProperty_forEndpoint_connection_withReply_
     {
       v16 = self->_configStreamGetResponseHandler != 0;
       *buf = 138413058;
-      v37 = requestCopy;
-      v38 = 2112;
-      v39 = connectionCopy;
-      v40 = 1024;
-      *v41 = replyCopy != 0;
-      *&v41[4] = 1024;
-      *&v41[6] = v16;
+      v36 = requestCopy;
+      v37 = 2112;
+      v38 = connectionCopy;
+      v39 = 1024;
+      *v40 = replyCopy != 0;
+      *&v40[4] = 1024;
+      *&v40[6] = v16;
       _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo configStreamCategoriesRequest: %@ connection: %@, ERROR: called with no endpoint/connectionUUID/responseHandler(%d) or pending requestReply(%d)!!!", buf, 0x22u);
     }
   }
@@ -2659,33 +2911,32 @@ void __72__ACCConnectionInfo_accessoryProperty_forEndpoint_connection_withReply_
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v19 = self->_configStreamGetResponseHandler != 0;
-    v20 = *(v33 + 24);
+    v20 = *(v32 + 24);
     *buf = 138413314;
-    v37 = connectionCopy;
-    v38 = 2112;
-    v39 = requestCopy;
-    v40 = 1024;
-    *v41 = replyCopy != 0;
-    *&v41[4] = 1024;
-    *&v41[6] = v19;
-    LOWORD(v42) = 1024;
-    *(&v42 + 2) = v20;
+    v36 = connectionCopy;
+    v37 = 2112;
+    v38 = requestCopy;
+    v39 = 1024;
+    *v40 = replyCopy != 0;
+    *&v40[4] = 1024;
+    *&v40[6] = v19;
+    LOWORD(v41) = 1024;
+    *(&v41 + 2) = v20;
     _os_log_impl(&dword_221CB0000, v17, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamCategoriesRequest: [%@ : %@], responseHandler(%d), _configStreamGetResponseHandler(%d), sendSuccess %d", buf, 0x28u);
   }
 
-  v21 = *(v33 + 24);
+  v21 = *(v32 + 24);
   if (((replyCopy != 0) & (v21 ^ 1)) == 1)
   {
     v22 = self->_configStreamGetResponseHandler;
     self->_configStreamGetResponseHandler = 0;
 
     (*(replyCopy + 2))(replyCopy, requestCopy, connectionCopy, 0, 0, 0, 0, 0);
-    LOBYTE(v21) = *(v33 + 24);
+    LOBYTE(v21) = *(v32 + 24);
   }
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21 & 1;
 }
 
@@ -2730,6 +2981,170 @@ void __72__ACCConnectionInfo_configStreamCategoriesRequest_connection_withReply_
   *(*(*(a1 + 40) + 8) + 24) = 0;
 }
 
+- (BOOL)configStreamPropertyRequest:(unsigned __int8)request forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection withReply:(id)reply
+{
+  categoryCopy = category;
+  requestCopy = request;
+  v46 = *MEMORY[0x277D85DE8];
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  replyCopy = reply;
+  if (gLogObjects)
+  {
+    v15 = gNumLogObjects < 8;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportPlugin initWithDelegate:];
+    }
+
+    v17 = MEMORY[0x277D86220];
+    v16 = MEMORY[0x277D86220];
+  }
+
+  else
+  {
+    v17 = *(gLogObjects + 56);
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    v33 = _Block_copy(replyCopy);
+    v32 = _Block_copy(self->_configStreamGetResponseHandler);
+    *buf = 138413570;
+    *v40 = connectionCopy;
+    *&v40[8] = 2112;
+    *v41 = endpointCopy;
+    *&v41[8] = 1024;
+    *v42 = categoryCopy;
+    *&v42[4] = 1024;
+    *&v42[6] = requestCopy;
+    v43 = 2048;
+    *v44 = v33;
+    *&v44[8] = 2048;
+    v45 = v32;
+    _os_log_debug_impl(&dword_221CB0000, v17, OS_LOG_TYPE_DEBUG, "ACCConnectionInfo configStreamPropertyRequest: [%@ : %@], categoryID 0x%x, propertyID %u, responseHandler %p, _configStreamGetResponseHandler %p", buf, 0x36u);
+  }
+
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  if (endpointCopy && connectionCopy && replyCopy && !self->_configStreamGetResponseHandler)
+  {
+    v28 = _Block_copy(replyCopy);
+    configStreamGetResponseHandler = self->_configStreamGetResponseHandler;
+    self->_configStreamGetResponseHandler = v28;
+
+    *(v36 + 24) = 1;
+    serverConnection = [(ACCConnectionInfo *)self serverConnection];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __94__ACCConnectionInfo_configStreamPropertyRequest_forCategory_forEndpoint_connection_withReply___block_invoke;
+    v34[3] = &unk_278486310;
+    v34[4] = self;
+    v34[5] = &v35;
+    v31 = [serverConnection remoteObjectProxyWithErrorHandler:v34];
+    [v31 configStreamPropertyRequest:requestCopy forCategory:categoryCopy forEndpoint:endpointCopy connection:connectionCopy];
+  }
+
+  else
+  {
+    if (gLogObjects && gNumLogObjects >= 8)
+    {
+      v18 = *(gLogObjects + 56);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportPlugin initWithDelegate:];
+      }
+
+      v18 = MEMORY[0x277D86220];
+      v19 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = self->_configStreamGetResponseHandler != 0;
+      *buf = 67110402;
+      *v40 = requestCopy;
+      *&v40[4] = 1024;
+      *&v40[6] = categoryCopy;
+      *v41 = 2112;
+      *&v41[2] = endpointCopy;
+      *v42 = 2112;
+      *&v42[2] = connectionCopy;
+      v43 = 1024;
+      *v44 = replyCopy != 0;
+      *&v44[4] = 1024;
+      *&v44[6] = v20;
+      _os_log_impl(&dword_221CB0000, v18, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo requestConfigStreamProperty: %u forCateogry: %u forEndpoint: %@ connection: %@, ERROR: called with no endpoint/connectionUUID/responseHandler(%d) or pending requestReply(%d)!!!", buf, 0x2Eu);
+    }
+  }
+
+  if (gLogObjects && gNumLogObjects >= 8)
+  {
+    v21 = *(gLogObjects + 56);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [ACCTransportPlugin initWithDelegate:];
+    }
+
+    v21 = MEMORY[0x277D86220];
+    v22 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
+    v23 = self->_configStreamGetResponseHandler != 0;
+    v24 = *(v36 + 24);
+    *buf = 138413826;
+    *v40 = connectionCopy;
+    *&v40[8] = 2112;
+    *v41 = endpointCopy;
+    *&v41[8] = 1024;
+    *v42 = categoryCopy;
+    *&v42[4] = 1024;
+    *&v42[6] = requestCopy;
+    v43 = 1024;
+    *v44 = replyCopy != 0;
+    *&v44[4] = 1024;
+    *&v44[6] = v23;
+    LOWORD(v45) = 1024;
+    *(&v45 + 2) = v24;
+    _os_log_impl(&dword_221CB0000, v21, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamPropertyRequest: [%@ : %@], categoryID 0x%x, propertyID %u, responseHandler(%d), _configStreamGetResponseHandler(%d), sendSuccess %d", buf, 0x34u);
+  }
+
+  v25 = *(v36 + 24);
+  if (((replyCopy != 0) & (v25 ^ 1)) == 1)
+  {
+    v26 = self->_configStreamGetResponseHandler;
+    self->_configStreamGetResponseHandler = 0;
+
+    (*(replyCopy + 2))(replyCopy, endpointCopy, connectionCopy, categoryCopy, requestCopy, 0, 0, 0);
+    LOBYTE(v25) = *(v36 + 24);
+  }
+
+  _Block_object_dispose(&v35, 8);
+
+  return v25 & 1;
+}
+
 void __94__ACCConnectionInfo_configStreamPropertyRequest_forCategory_forEndpoint_connection_withReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -2769,6 +3184,97 @@ void __94__ACCConnectionInfo_configStreamPropertyRequest_forCategory_forEndpoint
   *(v7 + 104) = 0;
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
+}
+
+- (void)configStreamPropertySetValue:(id)value forProperty:(unsigned __int8)property forCategory:(unsigned __int16)category forEndpoint:(id)endpoint connection:(id)connection
+{
+  categoryCopy = category;
+  propertyCopy = property;
+  v29 = *MEMORY[0x277D85DE8];
+  valueCopy = value;
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  v15 = connectionCopy;
+  if (gLogObjects)
+  {
+    v16 = gNumLogObjects <= 7;
+  }
+
+  else
+  {
+    v16 = 1;
+  }
+
+  v17 = !v16;
+  if (endpointCopy && connectionCopy)
+  {
+    if (v17)
+    {
+      v18 = *(gLogObjects + 56);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportPlugin initWithDelegate:];
+      }
+
+      v18 = MEMORY[0x277D86220];
+      v21 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      v23 = 138413314;
+      *v24 = v15;
+      *&v24[8] = 2112;
+      *v25 = endpointCopy;
+      *&v25[8] = 1024;
+      *v26 = categoryCopy;
+      *&v26[4] = 1024;
+      *&v26[6] = propertyCopy;
+      v27 = 2112;
+      v28 = valueCopy;
+      _os_log_impl(&dword_221CB0000, v18, OS_LOG_TYPE_INFO, "ACCConnectionInfo configStreamPropertySetValue: [%@ : %@], categoryID 0x%x, propertyID %u, value %@", &v23, 0x2Cu);
+    }
+
+    serverConnection = [(ACCConnectionInfo *)self serverConnection];
+    v22 = [serverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_223];
+    [v22 configStreamPropertySetValue:valueCopy forProperty:propertyCopy forCategory:categoryCopy forEndpoint:endpointCopy connection:v15];
+  }
+
+  else
+  {
+    if (v17)
+    {
+      serverConnection = *(gLogObjects + 56);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [ACCTransportPlugin initWithDelegate:];
+      }
+
+      serverConnection = MEMORY[0x277D86220];
+      v20 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = 67109890;
+      *v24 = propertyCopy;
+      *&v24[4] = 1024;
+      *&v24[6] = categoryCopy;
+      *v25 = 2112;
+      *&v25[2] = endpointCopy;
+      *v26 = 2112;
+      *&v26[2] = v15;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo requestConfigStreamProperty: %u forCateogry: %u forEndpoint: %@ connection: %@, ERROR: called with no endpoint/connectionUUID!!!", &v23, 0x22u);
+    }
+  }
 }
 
 void __97__ACCConnectionInfo_configStreamPropertySetValue_forProperty_forCategory_forEndpoint_connection___block_invoke(uint64_t a1, void *a2)
@@ -2996,6 +3502,20 @@ void __66__ACCConnectionInfo_accessoryPropertySync_forEndpoint_connection___bloc
   return intValue;
 }
 
+- (void)interceptIncomingNTimes:(int)times forEndpoint:(id)endpoint connection:(id)connection
+{
+  v6 = *&times;
+  endpointCopy = endpoint;
+  connectionCopy = connection;
+  v9 = [(NSMutableDictionary *)self->_endpointList objectForKey:endpointCopy];
+  if (v9)
+  {
+    serverConnection = [(ACCConnectionInfo *)self serverConnection];
+    v11 = [serverConnection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_233];
+    [v11 interceptIncomingNTimes:v6 forEndpoint:endpointCopy connection:connectionCopy];
+  }
+}
+
 void __68__ACCConnectionInfo_interceptIncomingNTimes_forEndpoint_connection___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -3147,7 +3667,7 @@ void __53__ACCConnectionInfo_sendData_forEndpoint_connection___block_invoke(uint
 
 - (void)getAccessoryUserName:(id)name withReply:(id)reply
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   replyCopy = reply;
   if (replyCopy)
@@ -3187,13 +3707,11 @@ void __53__ACCConnectionInfo_sendData_forEndpoint_connection___block_invoke(uint
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = nameCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getAccessoryUserName: %@ endpoint, ERROR: called with no reply block!!!", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = nameCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getAccessoryUserName: %@ endpoint, ERROR: called with no reply block!!!", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACCConnectionInfo_getAccessoryUserName_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3233,7 +3751,7 @@ void __52__ACCConnectionInfo_getAccessoryUserName_withReply___block_invoke(uint6
 
 - (void)setAccessoryUserName:(id)name forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   endpointCopy = endpoint;
   replyCopy = reply;
@@ -3269,9 +3787,9 @@ void __52__ACCConnectionInfo_getAccessoryUserName_withReply___block_invoke(uint6
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = nameCopy;
-      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setAccessoryUserName:%@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = nameCopy;
+      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setAccessoryUserName:%@", &v19, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -3299,15 +3817,13 @@ void __52__ACCConnectionInfo_getAccessoryUserName_withReply___block_invoke(uint6
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = nameCopy;
-      v22 = 2112;
-      v23 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setAccessoryUserName:%@ %@ endpoint, ERROR: called with no reply block!!!", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = nameCopy;
+      v21 = 2112;
+      v22 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setAccessoryUserName:%@ %@ endpoint, ERROR: called with no reply block!!!", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ACCConnectionInfo_setAccessoryUserName_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3347,7 +3863,7 @@ void __64__ACCConnectionInfo_setAccessoryUserName_forEndpoint_withReply___block_
 
 - (void)provisionAccessoryForFindMy:(id)my withReply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   myCopy = my;
   replyCopy = reply;
   v8 = replyCopy;
@@ -3382,8 +3898,8 @@ void __64__ACCConnectionInfo_setAccessoryUserName_forEndpoint_withReply___block_
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo provisionAccessoryForFindMy:withReply:", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo provisionAccessoryForFindMy:withReply:", &v21, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -3415,7 +3931,7 @@ void __64__ACCConnectionInfo_setAccessoryUserName_forEndpoint_withReply___block_
 
     if (os_log_type_enabled(serverConnection2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v17 = "ACCConnectionInfo provisionAccessoryForFindMy:withReply: !self.serverConnection";
       v18 = serverConnection2;
       v19 = 2;
@@ -3443,19 +3959,17 @@ void __64__ACCConnectionInfo_setAccessoryUserName_forEndpoint_withReply___block_
 
     if (os_log_type_enabled(serverConnection2, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = myCopy;
+      v21 = 138412290;
+      v22 = myCopy;
       v17 = "ACCConnectionInfo provisionAccessoryForFindMy: %@ endpoint, ERROR: called with no reply block!!!";
       v18 = serverConnection2;
       v19 = 12;
 LABEL_32:
-      _os_log_impl(&dword_221CB0000, v18, OS_LOG_TYPE_DEFAULT, v17, &v22, v19);
+      _os_log_impl(&dword_221CB0000, v18, OS_LOG_TYPE_DEFAULT, v17, &v21, v19);
     }
   }
 
 LABEL_33:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ACCConnectionInfo_provisionAccessoryForFindMy_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3495,7 +4009,7 @@ void __59__ACCConnectionInfo_provisionAccessoryForFindMy_withReply___block_invok
 
 - (void)getPairingStatus:(id)status withReply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   replyCopy = reply;
   v8 = replyCopy;
@@ -3531,20 +4045,20 @@ void __59__ACCConnectionInfo_provisionAccessoryForFindMy_withReply___block_invok
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = statusCopy;
+      v20 = statusCopy;
       _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPairingStatus: %@ endpoint", buf, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
     v15 = [serverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_248];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249;
-    v18[3] = &unk_2784863B0;
-    v19 = v8;
-    [v15 getPairingStatus:statusCopy withReply:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249;
+    v17[3] = &unk_2784863B0;
+    v18 = v8;
+    [v15 getPairingStatus:statusCopy withReply:v17];
 
-    v12 = v19;
+    v12 = v18;
   }
 
   else
@@ -3568,12 +4082,10 @@ void __59__ACCConnectionInfo_provisionAccessoryForFindMy_withReply___block_invok
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = statusCopy;
+      v20 = statusCopy;
       _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPairingStatus: %@ endpoint, ERROR: called with no reply block!!!", buf, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3613,7 +4125,7 @@ void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke(uint64_t 
 
 void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (gLogObjects)
   {
@@ -3643,18 +4155,17 @@ void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249(uint6
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = a2;
-    _os_log_impl(&dword_221CB0000, v8, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPairingStatus: reply %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = a2;
+    _os_log_impl(&dword_221CB0000, v8, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPairingStatus: reply %d", v9, 8u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetPairingInformation:(id)information withReply:(id)reply
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   replyCopy = reply;
   v8 = replyCopy;
@@ -3689,9 +4200,9 @@ void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249(uint6
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = informationCopy;
-      _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo resetPairingInformation: %@ endpoint", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = informationCopy;
+      _os_log_impl(&dword_221CB0000, v11, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo resetPairingInformation: %@ endpoint", &v16, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -3719,13 +4230,11 @@ void __48__ACCConnectionInfo_getPairingStatus_withReply___block_invoke_249(uint6
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = informationCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo resetPairingInformation: %@ endpoint, ERROR: called with no reply block!!!", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = informationCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo resetPairingInformation: %@ endpoint, ERROR: called with no reply block!!!", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ACCConnectionInfo_resetPairingInformation_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3765,7 +4274,7 @@ void __55__ACCConnectionInfo_resetPairingInformation_withReply___block_invoke(ui
 
 - (void)getPrivateNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   endpointCopy = endpoint;
   replyCopy = reply;
@@ -3801,9 +4310,9 @@ void __55__ACCConnectionInfo_resetPairingInformation_withReply___block_invoke(ui
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = valuesCopy;
-      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPrivateNVMKeyValues: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = valuesCopy;
+      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPrivateNVMKeyValues: %@", &v19, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -3831,13 +4340,11 @@ void __55__ACCConnectionInfo_resetPairingInformation_withReply___block_invoke(ui
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPrivateNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPrivateNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACCConnectionInfo_getPrivateNVMKeyValues_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3877,7 +4384,7 @@ void __66__ACCConnectionInfo_getPrivateNVMKeyValues_forEndpoint_withReply___bloc
 
 - (void)setPrivateNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   endpointCopy = endpoint;
   replyCopy = reply;
@@ -3913,9 +4420,9 @@ void __66__ACCConnectionInfo_getPrivateNVMKeyValues_forEndpoint_withReply___bloc
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = valuesCopy;
-      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPrivateNVMKeyValues: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = valuesCopy;
+      _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPrivateNVMKeyValues: %@", &v19, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -3943,13 +4450,11 @@ void __66__ACCConnectionInfo_getPrivateNVMKeyValues_forEndpoint_withReply___bloc
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPrivateNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPrivateNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACCConnectionInfo_setPrivateNVMKeyValues_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -3989,7 +4494,7 @@ void __66__ACCConnectionInfo_setPrivateNVMKeyValues_forEndpoint_withReply___bloc
 
 - (void)getPublicNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   endpointCopy = endpoint;
   replyCopy = reply;
@@ -4026,20 +4531,20 @@ void __66__ACCConnectionInfo_setPrivateNVMKeyValues_forEndpoint_withReply___bloc
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = valuesCopy;
+      v23 = valuesCopy;
       _os_log_impl(&dword_221CB0000, v14, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPublicNVMKeyValues: %@", buf, 0xCu);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
     v18 = [serverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_258];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block_invoke_259;
-    v21[3] = &unk_2784863D8;
-    v22 = v11;
-    [v18 getPublicNVMKeyValues:valuesCopy forEndpoint:endpointCopy withReply:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block_invoke_259;
+    v20[3] = &unk_2784863D8;
+    v21 = v11;
+    [v18 getPublicNVMKeyValues:valuesCopy forEndpoint:endpointCopy withReply:v20];
 
-    v15 = v22;
+    v15 = v21;
   }
 
   else
@@ -4063,12 +4568,10 @@ void __66__ACCConnectionInfo_setPrivateNVMKeyValues_forEndpoint_withReply___bloc
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = endpointCopy;
+      v23 = endpointCopy;
       _os_log_impl(&dword_221CB0000, v15, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo getPublicNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", buf, 0xCu);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4108,7 +4611,7 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
 void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block_invoke_259(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (gLogObjects)
@@ -4139,9 +4642,9 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = v5 != 0;
-    _os_log_impl(&dword_221CB0000, v9, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPublicNVMKeyValues: hasDict:%d", &v16, 8u);
+    v15 = 67109120;
+    LODWORD(v16) = v5 != 0;
+    _os_log_impl(&dword_221CB0000, v9, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPublicNVMKeyValues: hasDict:%d", &v15, 8u);
   }
 
   if (gLogObjects)
@@ -4175,9 +4678,9 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v5;
-      _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPublicNVMKeyValues: dict:%@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v5;
+      _os_log_impl(&dword_221CB0000, v12, OS_LOG_TYPE_DEFAULT, "AccConnectionInfo: getPublicNVMKeyValues: dict:%@", &v15, 0xCu);
     }
   }
 
@@ -4206,12 +4709,11 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
   }
 
   (*(*(a1 + 32) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPublicNVMKeyValues:(id)values forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   endpointCopy = endpoint;
   replyCopy = reply;
@@ -4243,9 +4745,9 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = valuesCopy;
-    _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = valuesCopy;
+    _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: %@", &v21, 0xCu);
   }
 
   if (gLogObjects)
@@ -4279,8 +4781,8 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_221CB0000, v16, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: reply", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_221CB0000, v16, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: reply", &v21, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -4308,13 +4810,11 @@ void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo setPublicNVMKeyValues: %@ endpoint, ERROR: called with no reply block!!!", &v21, 0xCu);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ACCConnectionInfo_setPublicNVMKeyValues_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4354,7 +4854,7 @@ void __65__ACCConnectionInfo_setPublicNVMKeyValues_forEndpoint_withReply___block
 
 - (void)beginVendorKeyErase:(id)erase withReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   replyCopy = reply;
   if (gLogObjects)
@@ -4385,8 +4885,8 @@ void __65__ACCConnectionInfo_setPublicNVMKeyValues_forEndpoint_withReply___block
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase", &v18, 2u);
   }
 
   if (gLogObjects)
@@ -4420,8 +4920,8 @@ void __65__ACCConnectionInfo_setPublicNVMKeyValues_forEndpoint_withReply___block
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase: reply", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase: reply", &v18, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -4449,13 +4949,11 @@ void __65__ACCConnectionInfo_setPublicNVMKeyValues_forEndpoint_withReply___block
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = eraseCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = eraseCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ACCConnectionInfo_beginVendorKeyErase_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4495,7 +4993,7 @@ void __51__ACCConnectionInfo_beginVendorKeyErase_withReply___block_invoke(uint64
 
 - (void)continueVendorKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   signatureCopy = signature;
   nonceCopy = nonce;
@@ -4529,8 +5027,8 @@ void __51__ACCConnectionInfo_beginVendorKeyErase_withReply___block_invoke(uint64
 
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v28) = 0;
-    _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase", &v28, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase", &v27, 2u);
   }
 
   if (gLogObjects)
@@ -4564,8 +5062,8 @@ void __51__ACCConnectionInfo_beginVendorKeyErase_withReply___block_invoke(uint64
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_221CB0000, v22, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase: reply", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_221CB0000, v22, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase: reply", &v27, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -4593,13 +5091,11 @@ void __51__ACCConnectionInfo_beginVendorKeyErase_withReply___block_invoke(uint64
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v27, 0xCu);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __98__ACCConnectionInfo_continueVendorKeyErase_withSignature_andAccessoryNonce_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4639,7 +5135,7 @@ void __98__ACCConnectionInfo_continueVendorKeyErase_withSignature_andAccessoryNo
 
 - (void)cancelVendorKeyErase:(id)erase withReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   replyCopy = reply;
   if (gLogObjects)
@@ -4670,8 +5166,8 @@ void __98__ACCConnectionInfo_continueVendorKeyErase_withSignature_andAccessoryNo
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase", &v18, 2u);
   }
 
   if (gLogObjects)
@@ -4705,8 +5201,8 @@ void __98__ACCConnectionInfo_continueVendorKeyErase_withSignature_andAccessoryNo
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase: reply", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase: reply", &v18, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -4734,13 +5230,11 @@ void __98__ACCConnectionInfo_continueVendorKeyErase_withSignature_andAccessoryNo
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = eraseCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = eraseCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelVendorKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACCConnectionInfo_cancelVendorKeyErase_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4780,7 +5274,7 @@ void __52__ACCConnectionInfo_cancelVendorKeyErase_withReply___block_invoke(uint6
 
 - (void)beginUserKeyErase:(id)erase withReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   replyCopy = reply;
   if (gLogObjects)
@@ -4811,8 +5305,8 @@ void __52__ACCConnectionInfo_cancelVendorKeyErase_withReply___block_invoke(uint6
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase", &v18, 2u);
   }
 
   if (gLogObjects)
@@ -4846,8 +5340,8 @@ void __52__ACCConnectionInfo_cancelVendorKeyErase_withReply___block_invoke(uint6
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase: reply", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase: reply", &v18, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -4875,13 +5369,11 @@ void __52__ACCConnectionInfo_cancelVendorKeyErase_withReply___block_invoke(uint6
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = eraseCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = eraseCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo beginUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ACCConnectionInfo_beginUserKeyErase_withReply___block_invoke(uint64_t a1, void *a2)
@@ -4921,7 +5413,7 @@ void __49__ACCConnectionInfo_beginUserKeyErase_withReply___block_invoke(uint64_t
 
 - (void)continueUserKeyErase:(id)erase withSignature:(id)signature andAccessoryNonce:(id)nonce forEndpoint:(id)endpoint withReply:(id)reply
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   signatureCopy = signature;
   nonceCopy = nonce;
@@ -4955,8 +5447,8 @@ void __49__ACCConnectionInfo_beginUserKeyErase_withReply___block_invoke(uint64_t
 
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v28) = 0;
-    _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase", &v28, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&dword_221CB0000, v19, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase", &v27, 2u);
   }
 
   if (gLogObjects)
@@ -4990,8 +5482,8 @@ void __49__ACCConnectionInfo_beginUserKeyErase_withReply___block_invoke(uint64_t
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_221CB0000, v22, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase: reply", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_221CB0000, v22, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase: reply", &v27, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -5019,13 +5511,11 @@ void __49__ACCConnectionInfo_beginUserKeyErase_withReply___block_invoke(uint64_t
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = endpointCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = endpointCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo continueUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v27, 0xCu);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __96__ACCConnectionInfo_continueUserKeyErase_withSignature_andAccessoryNonce_forEndpoint_withReply___block_invoke(uint64_t a1, void *a2)
@@ -5065,7 +5555,7 @@ void __96__ACCConnectionInfo_continueUserKeyErase_withSignature_andAccessoryNonc
 
 - (void)cancelUserKeyErase:(id)erase withReply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eraseCopy = erase;
   replyCopy = reply;
   if (gLogObjects)
@@ -5096,8 +5586,8 @@ void __96__ACCConnectionInfo_continueUserKeyErase_withSignature_andAccessoryNonc
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase", &v19, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_221CB0000, v10, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase", &v18, 2u);
   }
 
   if (gLogObjects)
@@ -5131,8 +5621,8 @@ void __96__ACCConnectionInfo_continueUserKeyErase_withSignature_andAccessoryNonc
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase: reply", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase: reply", &v18, 2u);
     }
 
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
@@ -5160,13 +5650,11 @@ void __96__ACCConnectionInfo_continueUserKeyErase_withSignature_andAccessoryNonc
 
     if (os_log_type_enabled(serverConnection, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = eraseCopy;
-      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = eraseCopy;
+      _os_log_impl(&dword_221CB0000, serverConnection, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo cancelUserKeyErase: %@ endpoint, ERROR: called with no reply block!!!", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ACCConnectionInfo_cancelUserKeyErase_withReply___block_invoke(uint64_t a1, void *a2)
@@ -5206,7 +5694,7 @@ void __50__ACCConnectionInfo_cancelUserKeyErase_withReply___block_invoke(uint64_
 
 - (void)copyUserPrivateKey:(id)key withReply:(id)reply
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   replyCopy = reply;
   if (gLogObjects)
@@ -5245,14 +5733,14 @@ void __50__ACCConnectionInfo_cancelUserKeyErase_withReply___block_invoke(uint64_
   {
     serverConnection = [(ACCConnectionInfo *)self serverConnection];
     v12 = [serverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_276];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __50__ACCConnectionInfo_copyUserPrivateKey_withReply___block_invoke_277;
-    v16[3] = &unk_278486400;
-    v17 = replyCopy;
-    [v12 copyUserPrivateKey:keyCopy withReply:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __50__ACCConnectionInfo_copyUserPrivateKey_withReply___block_invoke_277;
+    v15[3] = &unk_278486400;
+    v16 = replyCopy;
+    [v12 copyUserPrivateKey:keyCopy withReply:v15];
 
-    v13 = v17;
+    v13 = v16;
   }
 
   else
@@ -5276,12 +5764,10 @@ void __50__ACCConnectionInfo_cancelUserKeyErase_withReply___block_invoke(uint64_
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = keyCopy;
+      v18 = keyCopy;
       _os_log_impl(&dword_221CB0000, v13, OS_LOG_TYPE_DEFAULT, "ACCConnectionInfo copyUserPrivateKey: %@ endpoint, ERROR: called with no reply block!!!", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ACCConnectionInfo_copyUserPrivateKey_withReply___block_invoke(uint64_t a1, void *a2)
@@ -5379,42 +5865,34 @@ void __50__ACCConnectionInfo_copyUserPrivateKey_withReply___block_invoke_277(uin
   return WeakRetained;
 }
 
-- (void)copyLocalizedAccessoryNameFromDaemon:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
+- (void)copyLocalizedAccessoryNameFromDaemon:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_2();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_221CB0000, v4, OS_LOG_TYPE_ERROR, "No serverConnection, cannot localize: name: %@ -> %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_221CB0000, v1, OS_LOG_TYPE_ERROR, "No serverConnection, cannot localize: name: %@ -> %@", v2, 0x16u);
 }
 
 void __58__ACCConnectionInfo_copyLocalizedAccessoryNameFromDaemon___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ACCConnectionInfo_provisionAccessoryForFindMy_withReply___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ACCConnectionInfo_getPublicNVMKeyValues_forEndpoint_withReply___block_invoke_259_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -99,28 +99,9 @@ id __83__ATXSuggestedPagesContactsWidgetDataSource_provideWidgetsForPageType_env
   v4 = [v3 displayName];
   v5 = [v4 length];
 
-  if (!v5)
+  if (v5 && ([v3 cnContactId], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "length"), v6, v7) && (objc_msgSend(v3, "scoreMetadata"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "score"), v10 = v9, objc_msgSend(*(*(a1 + 32) + 8), "minScoreForModeAffinityContactsWidgetSuggestions"), v12 = v11, v8, v10 >= v12))
   {
-    goto LABEL_4;
-  }
-
-  v6 = [v3 cnContactId];
-  v7 = [v6 length];
-
-  if (!v7)
-  {
-    goto LABEL_4;
-  }
-
-  v8 = [v3 scoreMetadata];
-  [v8 score];
-  v10 = v9;
-  [*(*(a1 + 32) + 8) minScoreForModeAffinityContactsWidgetSuggestions];
-  v12 = v11;
-
-  if (v10 >= v12)
-  {
-    if (*(a1 + 56) == 8 || (v16 = *(a1 + 40), [v3 cnContactId], v17 = objc_claimAutoreleasedReturnValue(), LOBYTE(v16) = objc_msgSend(v16, "containsObject:", v17), v17, (v16 & 1) != 0))
+    if (*(a1 + 56) == 8 || (v15 = *(a1 + 40), [v3 cnContactId], v16 = objc_claimAutoreleasedReturnValue(), LOBYTE(v15) = objc_msgSend(v15, "containsObject:", v16), v16, (v15 & 1) != 0))
     {
       [*(a1 + 48) addObject:v3];
       v18 = [v3 displayName];
@@ -133,7 +114,7 @@ id __83__ATXSuggestedPagesContactsWidgetDataSource_provideWidgetsForPageType_env
 
     else
     {
-      v18 = __atxlog_handle_modes();
+      v18 = __atxlog_handle_modes(v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v20 = [v3 cnContactId];
@@ -148,18 +129,15 @@ id __83__ATXSuggestedPagesContactsWidgetDataSource_provideWidgetsForPageType_env
 
   else
   {
-LABEL_4:
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)_createMediumContactsWidgetForPeople:(id)people entities:(id)entities
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   peopleCopy = people;
   v9 = [peopleCopy count];
@@ -177,9 +155,9 @@ LABEL_4:
   v11 = [peopleCopy subarrayWithRange:{0, -[ATXSuggestedPagesTunableConstants numberOfContactsForMediumWidget](self->_suggestedPagesTunableConstants, "numberOfContactsForMediumWidget")}];
 
   v12 = objc_alloc(MEMORY[0x277D42030]);
-  v20 = @"people";
-  v21[0] = v11;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = @"people";
+  v20[0] = v11;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v14 = [v12 initWithTypeName:@"com.apple.PeopleViewService.SelectPerson-iOS.SelectPeopleIntent" parameters:v13];
 
   createIntent = [v14 createIntent];
@@ -198,7 +176,7 @@ LABEL_4:
 
   else
   {
-    v17 = __atxlog_handle_modes();
+    v17 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [ATXSuggestedPagesContactsWidgetDataSource _createMediumContactsWidgetForPeople:v17 entities:?];
@@ -206,8 +184,6 @@ LABEL_4:
 
     v16 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -231,30 +207,28 @@ LABEL_4:
 
   if (v10)
   {
-    v11 = objc_alloc_init(MEMORY[0x277CEB5B0]);
-    [v11 setIntent:v10];
-    [v11 setSize:0];
-    [v11 setWidgetKind:@"SingleContactWidget_iOS"];
-    [v11 setExtensionBundleId:@"com.apple.PeopleViewService.PeopleWidget-iOS"];
-    [v11 setAppBundleId:@"com.apple.PeopleViewService"];
-    [v11 setScore:0.5];
-    [v11 setPredictionSource:@"Contacts Heuristic"];
+    v12 = objc_alloc_init(MEMORY[0x277CEB5B0]);
+    [v12 setIntent:v10];
+    [v12 setSize:0];
+    [v12 setWidgetKind:@"SingleContactWidget_iOS"];
+    [v12 setExtensionBundleId:@"com.apple.PeopleViewService.PeopleWidget-iOS"];
+    [v12 setAppBundleId:@"com.apple.PeopleViewService"];
+    [v12 setScore:0.5];
+    [v12 setPredictionSource:@"Contacts Heuristic"];
   }
 
   else
   {
-    v12 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_modes(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      [ATXSuggestedPagesContactsWidgetDataSource _createMediumContactsWidgetForPeople:v12 entities:?];
+      [ATXSuggestedPagesContactsWidgetDataSource _createMediumContactsWidgetForPeople:v13 entities:?];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (void)_createMediumContactsWidgetForPeople:(uint64_t)a1 entities:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

@@ -20,12 +20,12 @@ void ____ServiceRemovedCallback_block_invoke(uint64_t a1)
 
   v5 = v4;
   CFRelease(*(a1 + 40));
-  v6 = _gc_log_hid();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _gc_log_hid(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = 134217984;
     v10 = [v5 unsignedLongLongValue];
-    _os_log_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_INFO, "HID Service Removed: serviceID='%#010llx'", &v9, 0xCu);
+    _os_log_impl(&dword_1D2C3B000, v7, OS_LOG_TYPE_INFO, "HID Service Removed: serviceID='%#010llx'", &v9, 0xCu);
   }
 
   if ([*(*v2 + 64) gc_member:v5])
@@ -35,14 +35,12 @@ void ____ServiceRemovedCallback_block_invoke(uint64_t a1)
 
   else
   {
-    v7 = _gc_log_hid();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _gc_log_hid(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       ____ServiceRemovedCallback_block_invoke_cold_2(v5);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ____ServiceRemovedCallback_block_invoke_cold_1()
@@ -58,10 +56,9 @@ void ____ServiceRemovedCallback_block_invoke_cold_1()
 
 void ____ServiceRemovedCallback_block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [a1 unsignedLongLongValue];
-  OUTLINED_FUNCTION_3_0(&dword_1D2C3B000, v1, v2, "#NOTE Un-tracked HID Service Removed: serviceID='%#010llx'", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 unsignedLongLongValue];
+  OUTLINED_FUNCTION_3_0(&dword_1D2C3B000, v1, v2, "#NOTE Un-tracked HID Service Removed: serviceID='%#010llx'", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

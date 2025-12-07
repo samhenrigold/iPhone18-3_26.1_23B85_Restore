@@ -187,7 +187,6 @@ LABEL_27:
 
           v25 = objc_opt_class();
           v24 = NSStringFromClass(v25);
-          v26 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_26:
 
@@ -216,22 +215,21 @@ LABEL_26:
 LABEL_34:
   if (!*&v6[*v9])
   {
-    v30 = 1;
+    v28 = 1;
     goto LABEL_38;
   }
 
 LABEL_35:
-  v27 = objc_opt_class();
-  v10 = NSStringFromClass(v27);
-  v28 = *&v6[*v9];
-  v29 = CCInvalidBufferErrorForMessage();
+  v26 = objc_opt_class();
+  v10 = NSStringFromClass(v26);
+  v27 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_36:
-  v30 = 0;
+  v28 = 0;
 LABEL_38:
 
-  return v30;
+  return v28;
 }
 
 - (CCFindMyDeviceOwner)initWithFirstName:(id)name lastName:(id)lastName error:(id *)error

@@ -6,6 +6,7 @@
 + (id)summarizeActivityStream:(id)stream;
 + (int64_t)_getMotionTypeFromCMMotionActivity:(id)activity;
 - (ATXMotion)initWithMotionType:(int64_t)type stationary:(BOOL)stationary canPredictClipsGivenRecentMotion:(BOOL)motion;
+- (id)initFromCMMotionActivity:(id)activity canPredictClipsGivenRecentMotion:(BOOL)motion;
 - (id)print;
 @end
 
@@ -24,6 +25,26 @@
   }
 
   return result;
+}
+
+- (id)initFromCMMotionActivity:(id)activity canPredictClipsGivenRecentMotion:(BOOL)motion
+{
+  motionCopy = motion;
+  activityCopy = activity;
+  v7 = [ATXMotion _getMotionTypeFromCMMotionActivity:activityCopy];
+  if (activityCopy)
+  {
+    stationary = [activityCopy stationary];
+  }
+
+  else
+  {
+    stationary = 1;
+  }
+
+  v9 = [(ATXMotion *)self initWithMotionType:v7 stationary:stationary canPredictClipsGivenRecentMotion:motionCopy];
+
+  return v9;
 }
 
 + (id)_getMotionStringFromCMMotionActivity:(id)activity
@@ -162,85 +183,86 @@ uint64_t __37__ATXMotion_summarizeActivityStream___block_invoke_2(uint64_t a1, v
 {
   v27 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  if (![streamCopy count])
+  v5 = [streamCopy count];
+  if (!v5)
   {
     goto LABEL_6;
   }
 
-  v5 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_hero(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
     v23[2] = __46__ATXMotion_canPredictClipsForActivityStream___block_invoke;
     v23[3] = &__block_descriptor_40_e26__16__0__CMMotionActivity_8l;
     v23[4] = self;
-    v6 = [streamCopy _pas_mappedArrayWithTransform:v23];
+    v7 = [streamCopy _pas_mappedArrayWithTransform:v23];
     *buf = 138412290;
-    v26 = v6;
-    _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "Current motion activities: %@", buf, 0xCu);
+    v26 = v7;
+    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "Current motion activities: %@", buf, 0xCu);
   }
 
-  v7 = [streamCopy objectAtIndexedSubscript:{objc_msgSend(streamCopy, "count") - 1}];
-  v8 = [ATXMotion _getMotionTypeFromCMMotionActivity:v7];
+  v8 = [streamCopy objectAtIndexedSubscript:{objc_msgSend(streamCopy, "count") - 1}];
+  v9 = [ATXMotion _getMotionTypeFromCMMotionActivity:v8];
 
-  if (v8 == 3)
+  if (v9 == 3)
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
   {
 LABEL_6:
-    v10 = [streamCopy count];
     v11 = [streamCopy count];
-    if (v10 >= 2)
+    v12 = [streamCopy count];
+    if (v11 >= 2)
     {
-      v12 = 2;
+      v13 = 2;
     }
 
     else
     {
-      v12 = v11;
+      v13 = v12;
     }
 
-    if (v10 >= 2)
+    if (v11 >= 2)
     {
-      v13 = v11 - 2;
+      v14 = v12 - 2;
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    [streamCopy subarrayWithRange:{v13, v12}];
+    [streamCopy subarrayWithRange:{v14, v13}];
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v14 = v22 = 0u;
-    v9 = [v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v9)
+    v15 = v22 = 0u;
+    v10 = [v15 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v10)
     {
-      v15 = *v20;
+      v16 = *v20;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v15)
+          if (*v20 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
           if (([ATXMotion _getMotionTypeFromCMMotionActivity:*(*(&v19 + 1) + 8 * i), v19]& 0xFFFFFFFFFFFFFFFBLL) == 0)
           {
-            LOBYTE(v9) = 1;
+            LOBYTE(v10) = 1;
             goto LABEL_22;
           }
         }
 
-        v9 = [v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
-        if (v9)
+        v10 = [v15 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        if (v10)
         {
           continue;
         }
@@ -252,49 +274,46 @@ LABEL_6:
 LABEL_22:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 uint64_t __46__ATXMotion_canPredictClipsForActivityStream___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() _getMotionTypeFromCMMotionActivity:v4];
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = [objc_opt_class() _getMotionTypeFromCMMotionActivity:v2];
 
-  return [v5 getMotionStringFromMotionType:v7];
+  return [v3 getMotionStringFromMotionType:v4];
 }
 
 + (id)findMostCommonAndRecent:(id)recent identityFunc:(id)func
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   recentCopy = recent;
   funcCopy = func;
   v7 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = recentCopy;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v25 = 0;
+    v24 = 0;
     v10 = 0;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = funcCopy[2](funcCopy, *(*(&v29 + 1) + 8 * i));
+        v13 = funcCopy[2](funcCopy, *(*(&v28 + 1) + 8 * i));
         v14 = [v7 objectForKeyedSubscript:v13];
         v15 = [v14 integerValue] + 1;
 
@@ -305,12 +324,12 @@ uint64_t __46__ATXMotion_canPredictClipsForActivityStream___block_invoke(uint64_
         {
           v17 = v13;
 
-          v25 = v17;
+          v24 = v17;
           v10 = v15;
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v9);
@@ -318,21 +337,19 @@ uint64_t __46__ATXMotion_canPredictClipsForActivityStream___block_invoke(uint64_
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __50__ATXMotion_findMostCommonAndRecent_identityFunc___block_invoke;
-  v26[3] = &unk_279AB8D70;
-  v27 = v25;
-  v28 = funcCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __50__ATXMotion_findMostCommonAndRecent_identityFunc___block_invoke;
+  v25[3] = &unk_279AB8D70;
+  v26 = v24;
+  v27 = funcCopy;
   v18 = funcCopy;
-  v19 = v25;
-  v20 = [obj indexesOfObjectsPassingTest:v26];
+  v19 = v24;
+  v20 = [obj indexesOfObjectsPassingTest:v25];
   v21 = [obj objectsAtIndexes:v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

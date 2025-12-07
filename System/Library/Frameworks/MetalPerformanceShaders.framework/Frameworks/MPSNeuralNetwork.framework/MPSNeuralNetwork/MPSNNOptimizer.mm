@@ -15,7 +15,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0xE6, @"[%@ initWithDevice:] is not allowed. Please use initializers that are not marked NS_UNAVAILABLE.", v5, v6, v7, v8);
   }
 
   return 0;
@@ -86,9 +86,9 @@
 
 - (MPSNNOptimizer)initWithCoder:(id)coder device:(id)device
 {
-  v56.receiver = self;
-  v56.super_class = MPSNNOptimizer;
-  v5 = [(MPSKernel *)&v56 initWithCoder:coder device:device];
+  v60.receiver = self;
+  v60.super_class = MPSNNOptimizer;
+  v5 = [(MPSKernel *)&v60 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -116,7 +116,7 @@
   {
     v55 = objc_opt_class();
     NSStringFromClass(v55);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNOptimizers.mm", 0x135, @"[%@ initWithCoder:device:] Unsupported file version. Could not init object.", v56, v57, v58, v59);
   }
 
   return 0;

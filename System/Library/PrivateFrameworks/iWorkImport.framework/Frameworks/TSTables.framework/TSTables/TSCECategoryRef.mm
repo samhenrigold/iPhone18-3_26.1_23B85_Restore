@@ -116,32 +116,32 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    v48 = 1;
+    v39 = 1;
   }
 
   else if (equalCopy)
   {
     objc_opt_class();
     v6 = TSUDynamicCast();
-    v11 = v6;
-    if (v6 && self->_columnUid._lower == objc_msgSend_columnUid(v6, v7, v8, v9, v10) && self->_columnUid._upper == v12 && self->_absoluteGroupUid._lower == objc_msgSend_absoluteGroupUid(v11, v12, v13, v14, v15) && self->_absoluteGroupUid._upper == v16 && (aggType = self->_aggType, aggType == objc_msgSend_type(v11, v16, v17, v18, v19)) && (groupLevel = self->_groupLevel, groupLevel == objc_msgSend_groupLevel(v11, v21, v22, v23, v24)) && (aggrIndexLevel = self->_aggrIndexLevel, aggrIndexLevel == objc_msgSend_aggrIndexLevel(v11, v26, v27, v28, v29)) && self->_groupByUid._lower == objc_msgSend_groupByUid(v11, v31, v32, v33, v34) && self->_groupByUid._upper == v35 && self->_preserveFlags._flags == objc_msgSend_preserveFlags(v11, v35, v36, v37, v38) && self->_relativeGroupUid._lower == objc_msgSend_relativeGroupUid(v11, v39, v40, v41, v42) && self->_relativeGroupUid._upper == v43)
+    v10 = v6;
+    if (v6 && self->_columnUid._lower == objc_msgSend_columnUid(v6, v7, v8, v9) && self->_columnUid._upper == v11 && self->_absoluteGroupUid._lower == objc_msgSend_absoluteGroupUid(v10, v11, v12, v13) && self->_absoluteGroupUid._upper == v14 && (aggType = self->_aggType, aggType == objc_msgSend_type(v10, v14, v15, v16)) && (groupLevel = self->_groupLevel, groupLevel == objc_msgSend_groupLevel(v10, v18, v19, v20)) && (aggrIndexLevel = self->_aggrIndexLevel, aggrIndexLevel == objc_msgSend_aggrIndexLevel(v10, v22, v23, v24)) && self->_groupByUid._lower == objc_msgSend_groupByUid(v10, v26, v27, v28) && self->_groupByUid._upper == v29 && self->_preserveFlags._flags == objc_msgSend_preserveFlags(v10, v29, v30, v31) && self->_relativeGroupUid._lower == objc_msgSend_relativeGroupUid(v10, v32, v33, v34) && self->_relativeGroupUid._upper == v35)
     {
       options = self->_options;
-      v48 = options == objc_msgSend_options(v11, v43, v44, v45, v46);
+      v39 = options == objc_msgSend_options(v10, v35, v36, v37);
     }
 
     else
     {
-      v48 = 0;
+      v39 = 0;
     }
   }
 
   else
   {
-    v48 = 0;
+    v39 = 0;
   }
 
-  return v48;
+  return v39;
 }
 
 - (BOOL)isValid
@@ -166,12 +166,12 @@
     return 1;
   }
 
-  return objc_msgSend_refersToPivotTable(self, a2, v2, v3, v4) && ((objc_msgSend_refersToPivotTableRows(self, v7, v8, v9, v10) & 1) != 0 || (objc_msgSend_refersToPivotTableColumns(self, v11, v12, v13, v14) & 1) != 0);
+  return objc_msgSend_refersToPivotTable(self, a2, v2, v3) && ((objc_msgSend_refersToPivotTableRows(self, v6, v7, v8) & 1) != 0 || (objc_msgSend_refersToPivotTableColumns(self, v9, v10, v11) & 1) != 0);
 }
 
 - (TSKUIDStruct)pivotTableUid
 {
-  if (objc_msgSend_refersToPivotTable(self, a2, v2, v3, v4))
+  if (objc_msgSend_refersToPivotTable(self, a2, v2, v3))
   {
     lower = self->_groupByUid._lower;
     upper = self->_groupByUid._upper;
@@ -205,28 +205,28 @@
 
 - (id)copyAndReplaceGroupUIDs:(const TSKUIDStruct *)ds
 {
-  v6 = objc_msgSend_copy(self, a2, ds, v3, v4);
-  objc_msgSend_setAbsoluteGroupUid_(v6, v7, ds->_lower, ds->_upper, v8);
-  return v6;
+  v5 = objc_msgSend_copy(self, a2, ds, v3);
+  objc_msgSend_setAbsoluteGroupUid_(v5, v6, ds->_lower, ds->_upper);
+  return v5;
 }
 
 - (void)setAsAbsoluteWithGroupUid:(const TSKUIDStruct *)uid
 {
-  objc_msgSend_setAbsoluteGroupUid_(self, a2, uid->_lower, uid->_upper, v3);
-  objc_msgSend_setRelativeGroupUid_(self, v5, 0, 0, v6);
+  objc_msgSend_setAbsoluteGroupUid_(self, a2, uid->_lower, uid->_upper);
+  objc_msgSend_setRelativeGroupUid_(self, v4, 0, 0);
   self->_preserveFlags._flags |= 2u;
 }
 
 - (BOOL)isBadRef
 {
-  if (!self->_absoluteGroupUid._lower && !self->_absoluteGroupUid._upper && !self->_relativeGroupUid._lower && !self->_relativeGroupUid._upper || (objc_msgSend_isRelativeAncestorGroupUid_(TSCECategoryRef, a2, &self->_absoluteGroupUid, v2, v3) & 1) != 0)
+  if (!self->_absoluteGroupUid._lower && !self->_absoluteGroupUid._upper && !self->_relativeGroupUid._lower && !self->_relativeGroupUid._upper || (objc_msgSend_isRelativeAncestorGroupUid_(TSCECategoryRef, a2, &self->_absoluteGroupUid, v2) & 1) != 0)
   {
     return 1;
   }
 
   if (self->_relativeGroupUid._lower || self->_relativeGroupUid._upper)
   {
-    return objc_msgSend_isRelativeAncestorGroupUid_(TSCECategoryRef, v5, &self->_relativeGroupUid, v6, v7) ^ 1;
+    return objc_msgSend_isRelativeAncestorGroupUid_(TSCECategoryRef, v4, &self->_relativeGroupUid, v5) ^ 1;
   }
 
   return 0;
@@ -234,29 +234,29 @@
 
 - (BOOL)convertToBadRef
 {
-  if (objc_msgSend_isBadRef(self, a2, v2, v3, v4))
+  if (objc_msgSend_isBadRef(self, a2, v2, v3))
   {
     return 0;
   }
 
   lower = self->_absoluteGroupUid._lower;
   upper = self->_absoluteGroupUid._upper;
-  objc_msgSend_setAbsoluteGroupUid_(self, v6, self->_relativeGroupUid._lower, self->_relativeGroupUid._upper, v7);
-  objc_msgSend_setRelativeGroupUid_(self, v11, lower, upper, v12);
+  objc_msgSend_setAbsoluteGroupUid_(self, v5, self->_relativeGroupUid._lower, self->_relativeGroupUid._upper);
+  objc_msgSend_setRelativeGroupUid_(self, v9, lower, upper);
 
-  return objc_msgSend_isBadRef(self, v13, v14, v15, v16);
+  return objc_msgSend_isBadRef(self, v10, v11, v12);
 }
 
 - (BOOL)restoreFromBadRef
 {
-  isBadRef = objc_msgSend_isBadRef(self, a2, v2, v3, v4);
+  isBadRef = objc_msgSend_isBadRef(self, a2, v2, v3);
   if (isBadRef)
   {
     lower = self->_absoluteGroupUid._lower;
     upper = self->_absoluteGroupUid._upper;
-    objc_msgSend_setAbsoluteGroupUid_(self, v7, self->_relativeGroupUid._lower, self->_relativeGroupUid._upper, v8);
-    objc_msgSend_setRelativeGroupUid_(self, v11, lower, upper, v12);
-    LOBYTE(isBadRef) = objc_msgSend_isBadRef(self, v13, v14, v15, v16) ^ 1;
+    objc_msgSend_setAbsoluteGroupUid_(self, v6, self->_relativeGroupUid._lower, self->_relativeGroupUid._upper);
+    objc_msgSend_setRelativeGroupUid_(self, v9, lower, upper);
+    LOBYTE(isBadRef) = objc_msgSend_isBadRef(self, v10, v11, v12) ^ 1;
   }
 
   return isBadRef;
@@ -269,25 +269,25 @@
     goto LABEL_5;
   }
 
-  v5 = *&uid;
+  v4 = *&uid;
   if (uid >= 7)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "+[TSCECategoryRef relativeAncestorGroupUid:]", v3, v4);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECategoryRef.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 300, 0, "levelsUp of %d is too large.", v5);
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "+[TSCECategoryRef relativeAncestorGroupUid:]", v3);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCECategoryRef.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 300, 0, "levelsUp of %d is too large.", v4);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
 LABEL_5:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_6;
   }
 
-  v6 = uid | 0xF4240u;
+  v5 = uid | 0xF4240u;
 LABEL_6:
-  v18 = v6;
-  result._upper = v18;
-  result._lower = v6;
+  v15 = v5;
+  result._upper = v15;
+  result._lower = v5;
   return result;
 }
 

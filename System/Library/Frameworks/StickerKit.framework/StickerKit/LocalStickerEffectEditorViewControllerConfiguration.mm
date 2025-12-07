@@ -11,12 +11,12 @@
 
 - (NSUUID)stickerIdentifier
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC10StickerKit51LocalStickerEffectEditorViewControllerConfiguration_stickerIdentifier;
   swift_beginAccess();
-  sub_19A60F0CC(self + v6, v5, &qword_1EAFCD800);
+  sub_19A60F0CC(self + v6, v5, &qword_1EAFCD800, &qword_19A7BCE60);
   v7 = sub_19A7A8F64();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -33,7 +33,7 @@
 
 - (void)setStickerIdentifier:(id)identifier
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   if (identifier)
@@ -70,9 +70,9 @@
 - (_TtC10StickerKit51LocalStickerEffectEditorViewControllerConfiguration)initWithBSXPCCoder:(id)coder
 {
   swift_unknownObjectRetain();
-  v4 = sub_19A745B74(coder);
+  v5 = sub_19A745B74(coder, v4);
   swift_unknownObjectRelease();
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
@@ -95,14 +95,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = sub_19A74172C(v8);
+  v7 = sub_19A74172C(v9, v5);
 
-  sub_19A5F2B54(v8, &unk_1EAFCD750);
-  return v6 & 1;
+  sub_19A5F2B54(v9, &unk_1EAFCD750, &unk_19A7B87D0);
+  return v7 & 1;
 }
 
 @end

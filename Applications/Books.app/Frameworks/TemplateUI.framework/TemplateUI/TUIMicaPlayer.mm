@@ -79,7 +79,7 @@
     LODWORD(v15) = 1.0;
     [(TUIMicaPlayer *)v14 setPreferredPlaybackSpeed:v15];
     [(TUIMicaPlayer *)v14 setRetinaScale:scale];
-    [layerCopy duration];
+    objc_msgSend_duration(layerCopy);
     [(TUIMicaPlayer *)v14 setDocumentDuration:?];
     [(CALayer *)v14->_rootLayer setDuration:INFINITY];
   }

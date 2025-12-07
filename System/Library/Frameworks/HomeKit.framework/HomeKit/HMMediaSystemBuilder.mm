@@ -46,7 +46,7 @@
 
 - (void)legacyHandleResultingMediaSystem:(id)system
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   home = [(HMMediaSystemBuilder *)self home];
   if (home)
@@ -61,11 +61,11 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v10;
-        v21 = 2112;
-        v22 = systemCopy;
-        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Merging resulting media system: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v10;
+        v20 = 2112;
+        v21 = systemCopy;
+        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Merging resulting media system: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -93,20 +93,18 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle resulting media system due to no home", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle resulting media system due to no home", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleResultingMediaSystem:(id)system
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -114,11 +112,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v8;
-    v25 = 2112;
-    v26 = systemCopy;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling resulting media system: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v8;
+    v24 = 2112;
+    v25 = systemCopy;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling resulting media system: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -154,9 +152,9 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v23 = 138543362;
-        v24 = v20;
-        _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@QFA is not enabled", &v23, 0xCu);
+        v22 = 138543362;
+        v23 = v20;
+        _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@QFA is not enabled", &v22, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -172,20 +170,18 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v16;
-      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed handle resulting media system due to no home", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v16;
+      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed handle resulting media system due to no home", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resultingMediaSystemFromResponse:(id)response error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v7 = [responseCopy hmf_dictionaryForKey:kMediaSystemCodingKey];
   if (v7)
@@ -206,11 +202,11 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v7;
-        _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to create media system from system payload: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v7;
+        _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to create media system from system payload: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -229,11 +225,11 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = responseCopy;
-      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media system payload in response: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = responseCopy;
+      _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get media system payload in response: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -249,14 +245,12 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)_callCompletion:(id)completion builderSessionID:(id)d error:(id)error response:(id)response
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dCopy = d;
   errorCopy = error;
@@ -268,9 +262,9 @@
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v43 = v17;
-    v44 = 2112;
-    v45 = dCopy;
+    v42 = v17;
+    v43 = 2112;
+    v44 = dCopy;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Received response for Builder-Session-ID: %@", buf, 0x16u);
   }
 
@@ -290,9 +284,9 @@
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v43 = v23;
-        v44 = 2112;
-        v45 = errorCopy;
+        v42 = v23;
+        v43 = 2112;
+        v44 = errorCopy;
         _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Builder message responded with error: %@", buf, 0x16u);
       }
 
@@ -304,9 +298,9 @@
 
     else
     {
-      v41 = 0;
-      v30 = [(HMMediaSystemBuilder *)selfCopy resultingMediaSystemFromResponse:responseCopy error:&v41];
-      errorCopy = v41;
+      v40 = 0;
+      v30 = [(HMMediaSystemBuilder *)selfCopy resultingMediaSystemFromResponse:responseCopy error:&v40];
+      errorCopy = v40;
       if (v30)
       {
         [(HMMediaSystemBuilder *)selfCopy handleResultingMediaSystem:v30];
@@ -336,9 +330,9 @@
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v39;
-          v44 = 2112;
-          v45 = responseCopy;
+          v42 = v39;
+          v43 = 2112;
+          v44 = responseCopy;
           _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to get resulting media system from response: %@", buf, 0x16u);
         }
 
@@ -359,21 +353,19 @@
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v43 = v29;
-      v44 = 2112;
-      v45 = dCopy;
+      v42 = v29;
+      v43 = 2112;
+      v44 = dCopy;
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to get matching builder session ID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_commitWithCompletionHandler:(id)handler
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   builderSessionID = [(HMMediaSystemBuilder *)self builderSessionID];
 
@@ -386,7 +378,7 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v74 = v9;
+      v73 = v9;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@There is already a builder session ID in progress, cannot submit another commit", buf, 0xCu);
     }
 
@@ -404,39 +396,39 @@
 
     [(HMMediaSystemBuilder *)self setBuilderSessionID:uUIDString];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v61 = uUIDString;
+    v60 = uUIDString;
     [dictionary setObject:uUIDString forKeyedSubscript:kMediaSystemBuilderSessionIDKey];
     configuredName = [(HMMediaSystemBuilder *)self configuredName];
     [dictionary setObject:configuredName forKeyedSubscript:kMediaSystemConfiguredNameCodingKey];
 
     mediaSystemUUID = [(HMMediaSystemBuilder *)self mediaSystemUUID];
     uUIDString2 = [mediaSystemUUID UUIDString];
-    v62 = dictionary;
+    v61 = dictionary;
     [dictionary setObject:uUIDString2 forKeyedSubscript:kMediaSystemUUIDCodingKey];
 
     array = [MEMORY[0x1E695DF70] array];
     v19 = [MEMORY[0x1E695DFA8] set];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
     obj = [(HMMediaSystemBuilder *)self components];
-    v20 = [(__CFString *)obj countByEnumeratingWithState:&v69 objects:v81 count:16];
+    v20 = [(__CFString *)obj countByEnumeratingWithState:&v68 objects:v80 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v70;
-      v60 = handlerCopy;
+      v22 = *v69;
+      v59 = handlerCopy;
 LABEL_7:
       v23 = 0;
       while (1)
       {
-        if (*v70 != v22)
+        if (*v69 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v69 + 1) + 8 * v23);
+        v24 = *(*(&v68 + 1) + 8 * v23);
         uuid2 = [(__CFString *)v24 copy];
         serialize = [uuid2 serialize];
         [array addObject:serialize];
@@ -459,22 +451,22 @@ LABEL_7:
             v39 = HMFGetLogIdentifier();
             components = [(HMMediaSystemBuilder *)selfCopy2 components];
             *buf = 138543874;
-            v74 = v39;
-            v75 = 2112;
-            v76 = v24;
-            v77 = 2112;
-            v78 = components;
+            v73 = v39;
+            v74 = 2112;
+            v75 = v24;
+            v76 = 2112;
+            v77 = components;
             _os_log_impl(&dword_19BB39000, v35, OS_LOG_TYPE_ERROR, "%{public}@Builder session does not have unique accessory UUID for component %@ in components: %@", buf, 0x20u);
           }
 
           v37 = 3;
 LABEL_24:
-          handlerCopy = v60;
-          context = v61;
+          handlerCopy = v59;
+          context = v60;
 
           objc_autoreleasePoolPop(context);
           v41 = [MEMORY[0x1E696ABC0] hmErrorWithCode:v37];
-          [(HMMediaSystemBuilder *)self _callCompletion:v60 builderSessionID:v61 error:v41 response:MEMORY[0x1E695E0F8]];
+          [(HMMediaSystemBuilder *)self _callCompletion:v59 builderSessionID:v60 error:v41 response:MEMORY[0x1E695E0F8]];
           v42 = obj;
           goto LABEL_29;
         }
@@ -483,8 +475,8 @@ LABEL_24:
 
         if (v21 == ++v23)
         {
-          v21 = [(__CFString *)obj countByEnumeratingWithState:&v69 objects:v81 count:16];
-          handlerCopy = v60;
+          v21 = [(__CFString *)obj countByEnumeratingWithState:&v68 objects:v80 count:16];
+          handlerCopy = v59;
           if (v21)
           {
             goto LABEL_7;
@@ -501,9 +493,9 @@ LABEL_24:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v74 = v36;
-        v75 = 2112;
-        v76 = v24;
+        v73 = v36;
+        v74 = 2112;
+        v75 = v24;
         _os_log_impl(&dword_19BB39000, v35, OS_LOG_TYPE_ERROR, "%{public}@Builder session could not get accessory UUID for component %@", buf, 0x16u);
       }
 
@@ -514,8 +506,8 @@ LABEL_24:
 
 LABEL_14:
 
-    v29 = v62;
-    [v62 setObject:array forKeyedSubscript:kMediaSystemComponentsCodingKey];
+    v29 = v61;
+    [v61 setObject:array forKeyedSubscript:kMediaSystemComponentsCodingKey];
     mediaSystem = [(HMMediaSystemBuilder *)self mediaSystem];
     v31 = &kUpdateMediaSystemRequest;
     if (!mediaSystem)
@@ -542,22 +534,22 @@ LABEL_14:
     v44 = objc_autoreleasePoolPush();
     selfCopy4 = self;
     v46 = HMFGetOSLogHandle();
-    context = v61;
+    context = v60;
     if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       v47 = HMFGetLogIdentifier();
       uUIDString3 = [uuid2 UUIDString];
       *buf = 138544130;
-      v74 = v47;
-      v75 = 2112;
-      v76 = obja;
-      v77 = 2112;
-      v78 = uUIDString3;
-      v79 = 2112;
-      v80 = v62;
+      v73 = v47;
+      v74 = 2112;
+      v75 = obja;
+      v76 = 2112;
+      v77 = uUIDString3;
+      v78 = 2112;
+      v79 = v61;
       _os_log_impl(&dword_19BB39000, v46, OS_LOG_TYPE_INFO, "%{public}@Committing the media system builder with message: %@, targetUUID: %@, payload: %@", buf, 0x2Au);
 
-      v29 = v62;
+      v29 = v61;
     }
 
     objc_autoreleasePoolPop(v44);
@@ -572,16 +564,16 @@ LABEL_14:
     v54 = _Block_copy(handlerCopy);
     [pendingRequests addMediaSystemBuilder:selfCopy4 andCompletionBlock:v54 forIdentifier:identifier];
 
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke;
-    v65[3] = &unk_1E754E0A8;
-    v66 = pendingRequests;
-    v67 = identifier;
-    v68 = v61;
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke;
+    v64[3] = &unk_1E754E0A8;
+    v65 = pendingRequests;
+    v66 = identifier;
+    v67 = v60;
     v55 = identifier;
     v41 = pendingRequests;
-    [uuid setResponseHandler:v65];
+    [uuid setResponseHandler:v64];
     context3 = [(HMMediaSystemBuilder *)selfCopy4 context];
     messageDispatcher = [context3 messageDispatcher];
     [messageDispatcher sendMessage:uuid];
@@ -589,10 +581,8 @@ LABEL_14:
     v42 = obja;
 LABEL_29:
 
-    delegateCaller = v62;
+    delegateCaller = v61;
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -608,7 +598,7 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
 
 - (void)commitWithCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMMediaSystemBuilder *)self context];
   if (context)
@@ -625,7 +615,7 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
       block[2] = __52__HMMediaSystemBuilder_commitWithCompletionHandler___block_invoke;
       block[3] = &unk_1E754E458;
       block[4] = self;
-      v19 = handlerCopy;
+      v18 = handlerCopy;
       dispatch_async(queue, block);
     }
 
@@ -638,7 +628,7 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v22 = v15;
+        v21 = v15;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to commit due to no reference to home", buf, 0xCu);
       }
 
@@ -662,16 +652,14 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2080;
-      v24 = "[HMMediaSystemBuilder commitWithCompletionHandler:]";
+      v21 = v11;
+      v22 = 2080;
+      v23 = "[HMMediaSystemBuilder commitWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setComponents:(id)components
@@ -720,7 +708,7 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
 
 - (void)addPeerAccessoryBeforeSetupSession:(id)session role:(id)role
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   roleCopy = role;
   home = [(HMMediaSystemBuilder *)self home];
@@ -750,13 +738,13 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
     {
       v21 = HMFGetLogIdentifier();
       v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(roleCopy, "type")}];
-      v36 = 138543874;
-      v37 = v21;
-      v38 = 2112;
-      v39 = sessionCopy;
-      v40 = 2112;
-      v41 = v22;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Adding media system hints for peer accessory %@ role %@", &v36, 0x20u);
+      v35 = 138543874;
+      v36 = v21;
+      v37 = 2112;
+      v38 = sessionCopy;
+      v39 = 2112;
+      v40 = v22;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Adding media system hints for peer accessory %@ role %@", &v35, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -780,20 +768,18 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       v34 = HMFGetLogIdentifier();
-      v36 = 138543362;
-      v37 = v34;
-      _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Home manager is unexpectedly nil", &v36, 0xCu);
+      v35 = 138543362;
+      v36 = v34;
+      _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Home manager is unexpectedly nil", &v35, 0xCu);
     }
 
     objc_autoreleasePoolPop(v31);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -802,9 +788,9 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
     v6 = HMFGetLogIdentifier();
     builderSessionID = [(HMMediaSystemBuilder *)selfCopy builderSessionID];
     *buf = 138543618;
-    v25 = v6;
-    v26 = 2112;
-    v27 = builderSessionID;
+    v24 = v6;
+    v25 = 2112;
+    v26 = builderSessionID;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Removing media system hints when deallocating this builder %@", buf, 0x16u);
   }
 
@@ -835,17 +821,16 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v21;
+      v24 = v21;
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Home manager is unexpectedly nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
   }
 
-  v23.receiver = selfCopy;
-  v23.super_class = HMMediaSystemBuilder;
-  [(HMMediaSystemBuilder *)&v23 dealloc];
-  v22 = *MEMORY[0x1E69E9840];
+  v22.receiver = selfCopy;
+  v22.super_class = HMMediaSystemBuilder;
+  [(HMMediaSystemBuilder *)&v22 dealloc];
 }
 
 - (HMMediaSystemBuilder)initWithHome:(id)home setupSessionIdentifier:(id)identifier
@@ -940,17 +925,16 @@ void __53__HMMediaSystemBuilder__commitWithCompletionHandler___block_invoke(uint
 
 uint64_t __35__HMMediaSystemBuilder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v33_54064;
-  logCategory__hmf_once_v33_54064 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v33_54064;
+  logCategory__hmf_once_v33_54064 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)isStereoPairingSupportedForAccessories:(id)accessories
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   accessoriesCopy = accessories;
   if ([accessoriesCopy count] == 2)
   {
@@ -959,28 +943,28 @@ uint64_t __35__HMMediaSystemBuilder_logCategory__block_invoke()
 
     v7 = [MEMORY[0x1E695DFA8] set];
     v8 = [MEMORY[0x1E695DFA8] set];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = accessoriesCopy;
-    v9 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v9 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v44;
+      v11 = *v43;
       selfCopy = self;
-      v41 = accessoriesCopy;
+      v40 = accessoriesCopy;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * v12);
+        v13 = *(*(&v42 + 1) + 8 * v12);
         if (![HMMediaSystemBuilder supportsMediaSystem:v13])
         {
           goto LABEL_31;
@@ -1006,9 +990,9 @@ LABEL_4:
             {
               v37 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v48 = v37;
-              v49 = 2112;
-              v50 = serialNumber;
+              v47 = v37;
+              v48 = 2112;
+              v49 = serialNumber;
               _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@Accessories are not supported for stereo pair as they have same serial number: %@", buf, 0x16u);
             }
 
@@ -1017,7 +1001,7 @@ LABEL_30:
 
 LABEL_31:
             v24 = 0;
-            accessoriesCopy = v41;
+            accessoriesCopy = v40;
             goto LABEL_32;
           }
 
@@ -1028,9 +1012,9 @@ LABEL_31:
 
         if (v10 == ++v12)
         {
-          v10 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+          v10 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
           self = selfCopy;
-          accessoriesCopy = v41;
+          accessoriesCopy = v40;
           if (v10)
           {
             goto LABEL_4;
@@ -1047,9 +1031,9 @@ LABEL_31:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v32;
-        v49 = 2112;
-        v50 = obj;
+        v47 = v32;
+        v48 = 2112;
+        v49 = obj;
         _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Accessories are not supported for stereo pair as they are not unique accessories: %@", buf, 0x16u);
       }
 
@@ -1071,11 +1055,11 @@ LABEL_14:
         v22 = v21 = accessoriesCopy;
         v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:supportedStereoPairVersions];
         *buf = 138543874;
-        v48 = v22;
-        v49 = 2112;
-        v50 = obj;
-        v51 = 2112;
-        v52 = v23;
+        v47 = v22;
+        v48 = 2112;
+        v49 = obj;
+        v50 = 2112;
+        v51 = v23;
         _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Stereo pairing versions are supported for accessories: %@ stereo pair version: %@", buf, 0x20u);
 
         accessoriesCopy = v21;
@@ -1091,9 +1075,9 @@ LABEL_14:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v33;
-        v49 = 2112;
-        v50 = obj;
+        v47 = v33;
+        v48 = 2112;
+        v49 = obj;
         _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Stereo pairing versions are not supported for accessories: %@", buf, 0x16u);
       }
 
@@ -1113,9 +1097,9 @@ LABEL_32:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v28;
-      v49 = 2112;
-      v50 = accessoriesCopy;
+      v47 = v28;
+      v48 = 2112;
+      v49 = accessoriesCopy;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Stereo pairing is not supported due wrong number of components: %@", buf, 0x16u);
     }
 
@@ -1123,20 +1107,19 @@ LABEL_32:
     v24 = 0;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 + (BOOL)supportsMediaSystem:(id)system
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   if ([self canSupportMediaSystem:systemCopy])
   {
     v5 = objc_alloc(MEMORY[0x1E69A2A60]);
-    *v16 = *MEMORY[0x1E69A29B8];
-    *&v16[16] = *(MEMORY[0x1E69A29B8] + 16);
-    v6 = [v5 initWithOperatingSystemVersion:v16];
+    *v15 = *MEMORY[0x1E69A29B8];
+    *&v15[16] = *(MEMORY[0x1E69A29B8] + 16);
+    v6 = [v5 initWithOperatingSystemVersion:v15];
     softwareVersion = [systemCopy softwareVersion];
     v8 = [softwareVersion isAtLeastVersion:v6];
 
@@ -1149,13 +1132,13 @@ LABEL_32:
       {
         v12 = HMFGetLogIdentifier();
         softwareVersion2 = [systemCopy softwareVersion];
-        *v16 = 138543874;
-        *&v16[4] = v12;
-        *&v16[12] = 2112;
-        *&v16[14] = systemCopy;
-        *&v16[22] = 2112;
-        v17 = softwareVersion2;
-        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Does not support media system due to accessory: %@ software version: %@", v16, 0x20u);
+        *v15 = 138543874;
+        *&v15[4] = v12;
+        *&v15[12] = 2112;
+        *&v15[14] = systemCopy;
+        *&v15[22] = 2112;
+        v16 = softwareVersion2;
+        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Does not support media system due to accessory: %@ software version: %@", v15, 0x20u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -1167,13 +1150,12 @@ LABEL_32:
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (BOOL)canSupportMediaSystem:(id)system
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   systemCopy = system;
   category = [systemCopy category];
   categoryType = [category categoryType];
@@ -1188,19 +1170,18 @@ LABEL_32:
     {
       v11 = HMFGetLogIdentifier();
       category2 = [systemCopy category];
-      v15 = 138543874;
-      v16 = v11;
-      v17 = 2112;
-      v18 = systemCopy;
-      v19 = 2112;
-      v20 = category2;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Returning no since category does not support stereo for accessory: %@ category: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v11;
+      v16 = 2112;
+      v17 = systemCopy;
+      v18 = 2112;
+      v19 = category2;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Returning no since category does not support stereo for accessory: %@ category: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -61,7 +61,7 @@
 
   if (dword_100022820 <= 50 && (dword_100022820 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000D57C();
+    sub_10000D57C(lCopy);
   }
 
   absoluteString = [lCopy absoluteString];
@@ -71,36 +71,36 @@
   {
     if (dword_100022820 <= 50 && (dword_100022820 != -1 || _LogCategory_Initialize()))
     {
-      sub_10000D614();
+      sub_10000D614(lCopy);
     }
 
 LABEL_23:
-    v9 = 0;
+    v11 = 0;
     v6 = 0;
     v7 = 0;
     goto LABEL_24;
   }
 
-  v11 = 0;
-  v7 = [NSKeyedArchiver archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v11];
-  v8 = v11;
+  v13 = 0;
+  v7 = [NSKeyedArchiver archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v13];
+  v8 = v13;
   if (v8)
   {
-    v9 = v8;
+    v11 = v8;
     if (dword_100022820 <= 50 && (dword_100022820 != -1 || _LogCategory_Initialize()))
     {
-      sub_10000D5D8();
+      sub_10000D5D8(v11, v9, v10);
     }
   }
 
   else
   {
-    v12 = @"setupPayload";
-    v13 = v7;
-    v10 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    [APUIAirPlaySetupFlowLauncher launchAirPlaySetupFlowWithUserInfo:v10];
+    v14 = @"setupPayload";
+    v15 = v7;
+    v12 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    [APUIAirPlaySetupFlowLauncher launchAirPlaySetupFlowWithUserInfo:v12];
 
-    v9 = 0;
+    v11 = 0;
   }
 
 LABEL_24:
@@ -109,14 +109,20 @@ LABEL_24:
 - (BOOL)_setupAssistantEnabled
 {
   IsFeatureEnabled = 0;
-  if (!APSRemoteConfigGetShared() || !APSRemoteConfigGetBooleanIfPresent())
+  if (APSRemoteConfigGetShared() && APSRemoteConfigGetBooleanIfPresent())
+  {
+    v3 = "remotely";
+  }
+
+  else
   {
     IsFeatureEnabled = APSSettingsIsFeatureEnabled();
+    v3 = "locally";
   }
 
   if (dword_100022820 <= 50 && (dword_100022820 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000D690(&IsFeatureEnabled);
+    sub_10000D690(&IsFeatureEnabled, v3, v2);
   }
 
   return IsFeatureEnabled != 0;

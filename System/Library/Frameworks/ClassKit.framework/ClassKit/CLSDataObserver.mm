@@ -39,19 +39,19 @@
 
 - (CLSDataObserver)initWithQuerySpecification:(id)specification error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   specificationCopy = specification;
-  v46.receiver = self;
-  v46.super_class = CLSDataObserver;
-  v8 = [(CLSDataObserver *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = CLSDataObserver;
+  v8 = [(CLSDataObserver *)&v45 init];
   v11 = objc_msgSend_predicate(specificationCopy, v9, v10);
 
   if (v11)
   {
     v14 = objc_msgSend_predicate(specificationCopy, v12, v13);
-    v45 = 0;
-    v16 = objc_msgSend_cls_normalizedPredicate_error_(v14, v15, v8, &v45);
-    v17 = v45;
+    v44 = 0;
+    v16 = objc_msgSend_cls_normalizedPredicate_error_(v14, v15, v8, &v44);
+    v17 = v44;
 
     if (v16)
     {
@@ -76,13 +76,13 @@
         v20 = CLSLogDefault;
         if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_ERROR))
         {
-          v41 = v20;
-          v44 = objc_msgSend_debugDescription(v17, v42, v43);
+          v40 = v20;
+          v43 = objc_msgSend_debugDescription(v17, v41, v42);
           *buf = 138412546;
-          v48 = v16;
-          v49 = 2112;
-          v50 = v44;
-          _os_log_error_impl(&dword_236F71000, v41, OS_LOG_TYPE_ERROR, "initWithQuerySpecification: bad predicate:%@ error:%@", buf, 0x16u);
+          v47 = v16;
+          v48 = 2112;
+          v49 = v43;
+          _os_log_error_impl(&dword_236F71000, v40, OS_LOG_TYPE_ERROR, "initWithQuerySpecification: bad predicate:%@ error:%@", buf, 0x16u);
         }
       }
 
@@ -130,7 +130,6 @@
   v21 = v8;
 LABEL_16:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -239,7 +238,7 @@ LABEL_16:
 
 - (void)clientRemote_itemChanged:(unint64_t)changed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_changeTag(self, a2, changed);
   objc_msgSend_setChangeTag_(self, v6, changed);
   if (self->_dataChanged)
@@ -252,19 +251,17 @@ LABEL_16:
     v7 = CLSLogDefault;
     if (os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412802;
+      v8 = 138412802;
       selfCopy = self;
-      v11 = 2048;
-      v12 = v5;
-      v13 = 2048;
+      v10 = 2048;
+      v11 = v5;
+      v12 = 2048;
       changedCopy = changed;
-      _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "Calling dataChanged for CLSDataObserver: %@, old changeTag: %lu, new changeTag: %lu", &v9, 0x20u);
+      _os_log_debug_impl(&dword_236F71000, v7, OS_LOG_TYPE_DEBUG, "Calling dataChanged for CLSDataObserver: %@, old changeTag: %lu, new changeTag: %lu", &v8, 0x20u);
     }
 
     (*(self->_dataChanged + 2))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientRemote_entitiesChangedAdded:(id)added updated:(id)updated deleted:(id)deleted

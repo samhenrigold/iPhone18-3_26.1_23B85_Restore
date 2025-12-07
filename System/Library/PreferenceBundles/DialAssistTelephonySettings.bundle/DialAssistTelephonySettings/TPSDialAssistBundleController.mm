@@ -58,24 +58,29 @@
 
 - (BOOL)isHidden
 {
-  v7.receiver = self;
-  v7.super_class = TPSDialAssistBundleController;
-  if (![(TPSDialAssistBundleController *)&v7 isHidden]&& (+[UIApplication isRunningInStoreDemoMode]& 1) == 0)
+  v9.receiver = self;
+  v9.super_class = TPSDialAssistBundleController;
+  isHidden = [(TPSDialAssistBundleController *)&v9 isHidden];
+  if ((isHidden & 1) == 0)
   {
-    v2 = +[UIDevice currentDevice];
-    userInterfaceIdiom = [v2 userInterfaceIdiom];
-
-    if (userInterfaceIdiom != &dword_0 + 1)
+    isHidden = +[UIApplication isRunningInStoreDemoMode];
+    if ((isHidden & 1) == 0)
     {
-      return 0;
+      v4 = +[UIDevice currentDevice];
+      userInterfaceIdiom = [v4 userInterfaceIdiom];
+
+      if (userInterfaceIdiom != &dword_0 + 1)
+      {
+        return 0;
+      }
     }
   }
 
-  v4 = TPSDialAssistLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSDialAssistLog(isHidden, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Hiding TPSDialAssist settings row from view", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Hiding TPSDialAssist settings row from view", v8, 2u);
   }
 
   return 1;
@@ -172,19 +177,19 @@
 {
   onCopy = on;
   specifierCopy = specifier;
-  v8 = TPSDialAssistLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TPSDialAssistLog(specifierCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     bOOLValue = [onCopy BOOLValue];
-    v10 = @"Disabling";
+    v11 = @"Disabling";
     if (bOOLValue)
     {
-      v10 = @"Enabling";
+      v11 = @"Enabling";
     }
 
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ dial assist", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = v11;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%@ dial assist", &v13, 0xCu);
   }
 
   parentListController = [(TPSDialAssistBundleController *)self parentListController];

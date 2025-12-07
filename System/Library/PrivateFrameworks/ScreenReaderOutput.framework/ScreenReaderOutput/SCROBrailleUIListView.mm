@@ -593,35 +593,35 @@ LABEL_54:
 
 - (id)visualRepresentation
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v39 = +[SCROBrailleUIView visibleView];
+  v45 = *MEMORY[0x277D85DE8];
+  v38 = +[SCROBrailleUIView visibleView];
 
-  v40 = objc_opt_new();
+  v39 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = [(SCROBrailleUIListView *)self items];
-  v3 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v3 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v38 = *v42;
+    v37 = *v41;
     do
     {
       v6 = 0;
-      v36 = v5;
+      v35 = v5;
       do
       {
-        if (*v42 != v38)
+        if (*v41 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v41 + 1) + 8 * v6);
+        v7 = *(*(&v40 + 1) + 8 * v6);
         brailleLabel = [v7 brailleLabel];
-        if (v39 == self && v5 == -[SCROBrailleUIListView focusedIndex](self, "focusedIndex") && [v7 isInline])
+        if (v38 == self && v5 == -[SCROBrailleUIListView focusedIndex](self, "focusedIndex") && [v7 isInline])
         {
           mEMORY[0x277CF3318] = [MEMORY[0x277CF3318] sharedModel];
           displayedBraille = [mEMORY[0x277CF3318] displayedBraille];
@@ -709,22 +709,21 @@ LABEL_18:
           }
         }
 
-        [v40 addObject:v16];
+        [v39 addObject:v16];
         ++v5;
 
         ++v6;
       }
 
       while (v4 != v6);
-      v5 = v36 + v4;
-      v4 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v5 = v35 + v4;
+      v4 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v4);
   }
 
-  v33 = [[SCROBrailleUIVisualRepresentation alloc] initWithLines:v40 focusedIndex:[(SCROBrailleUIListView *)self focusedIndex] isList:1];
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = [[SCROBrailleUIVisualRepresentation alloc] initWithLines:v39 focusedIndex:[(SCROBrailleUIListView *)self focusedIndex] isList:1];
 
   return v33;
 }

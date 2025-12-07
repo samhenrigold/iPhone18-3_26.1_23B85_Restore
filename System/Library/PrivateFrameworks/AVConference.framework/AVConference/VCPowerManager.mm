@@ -216,7 +216,7 @@ uint64_t __43__VCPowerManager_registerForThermalEvents___block_invoke_2(uint64_t
   }
 }
 
-uint64_t __45__VCPowerManager_unregisterForThermalEvents___block_invoke(uint64_t a1)
+void *__45__VCPowerManager_unregisterForThermalEvents___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] array];
@@ -283,7 +283,8 @@ LABEL_13:
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 32) + 32) removeObject:*(*(&v15 + 1) + 8 * v13++)];
+        [*(*(a1 + 32) + 32) removeObject:*(*(&v15 + 1) + 8 * v13)];
+        v13 = v13 + 1;
       }
 
       while (v11 != v13);
@@ -310,7 +311,7 @@ LABEL_13:
   dispatch_async(delegateQueue, block);
 }
 
-uint64_t __55__VCPowerManager_notifyDelegatesDidChangeThermalLevel___block_invoke(uint64_t a1)
+void *__55__VCPowerManager_notifyDelegatesDidChangeThermalLevel___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v11 = 0u;
@@ -339,7 +340,7 @@ uint64_t __55__VCPowerManager_notifyDelegatesDidChangeThermalLevel___block_invok
           [v7 didChangeThermalLevel:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -366,7 +367,7 @@ uint64_t __55__VCPowerManager_notifyDelegatesDidChangeThermalLevel___block_invok
   dispatch_async(delegateQueue, block);
 }
 
-uint64_t __55__VCPowerManager_notifyDelegatesDidEnableLowPowerMode___block_invoke(uint64_t a1)
+void *__55__VCPowerManager_notifyDelegatesDidEnableLowPowerMode___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v11 = 0u;
@@ -395,7 +396,7 @@ uint64_t __55__VCPowerManager_notifyDelegatesDidEnableLowPowerMode___block_invok
           [v7 didEnableLowPowerMode:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

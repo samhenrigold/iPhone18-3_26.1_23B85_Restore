@@ -178,45 +178,42 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 8) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_payload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    messageType = self->_messageType;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_senderID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    useProxy = self->_useProxy;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -235,34 +232,32 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  awdlCacheID = self->_awdlCacheID;
   PBDataWriterWriteUint32Field();
-  toCopy = v11;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_14:
-    aksSessionID = self->_aksSessionID;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_15:
   if (self->_encryptedPayload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_authTag)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_nonce)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -439,7 +434,6 @@ LABEL_9:
     goto LABEL_43;
   }
 
-  v5 = *(equalCopy + 88);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 88) & 8) == 0 || self->_version != *(equalCopy + 20))
@@ -469,7 +463,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 88);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0 || self->_messageType != *(equalCopy + 10))
@@ -494,7 +487,6 @@ LABEL_9:
     has = self->_has;
   }
 
-  v11 = *(equalCopy + 88);
   if ((has & 0x10) == 0)
   {
     if ((*(equalCopy + 88) & 0x10) == 0)
@@ -503,7 +495,7 @@ LABEL_9:
     }
 
 LABEL_43:
-    v16 = 0;
+    v12 = 0;
     goto LABEL_44;
   }
 
@@ -512,7 +504,6 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  v12 = *(equalCopy + 84);
   if (self->_useProxy)
   {
     if ((*(equalCopy + 84) & 1) == 0)
@@ -571,17 +562,17 @@ LABEL_21:
   nonce = self->_nonce;
   if (nonce | *(equalCopy + 6))
   {
-    v16 = [(NSData *)nonce isEqual:?];
+    v12 = [(NSData *)nonce isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v12 = 1;
   }
 
 LABEL_44:
 
-  return v16;
+  return v12;
 }
 
 - (unint64_t)hash

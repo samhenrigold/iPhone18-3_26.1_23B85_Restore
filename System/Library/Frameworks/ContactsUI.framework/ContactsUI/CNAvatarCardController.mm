@@ -129,7 +129,7 @@
 - (void)retrieveActions
 {
   v3 = *MEMORY[0x1E6996530];
-  contacts = [(CNAvatarCardController *)self contacts];
+  orbActionsController3 = objc_msgSend_contacts(self, a2);
   if (((*(v3 + 16))(v3) & 1) == 0)
   {
     orbActionsController = [(CNAvatarCardController *)self orbActionsController];
@@ -142,8 +142,8 @@
     orbActionsController2 = [(CNAvatarCardController *)self orbActionsController];
     [orbActionsController2 reloadMenuItems];
 
-    contacts = [(CNAvatarCardController *)self orbActionsController];
-    currentAvailableMenuItems = [contacts currentAvailableMenuItems];
+    orbActionsController3 = [(CNAvatarCardController *)self orbActionsController];
+    currentAvailableMenuItems = [orbActionsController3 currentAvailableMenuItems];
     [(CNAvatarCardController *)self updateWithMenuItems:currentAvailableMenuItems];
   }
 }
@@ -257,7 +257,7 @@ LABEL_11:
     if (!sourceView)
     {
 LABEL_7:
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNAvatarCardController.m", 445, 3, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v5, v6, v7, v8, sourceView);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNAvatarCardController.m", 445, 3u, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v5, v6, v7, v8, sourceView);
       v11 = 0;
       goto LABEL_8;
     }
@@ -351,8 +351,8 @@ void __60__CNAvatarCardController_dismissAnimated_completionHandler___block_invo
 
 - (void)showContact
 {
-  contacts = [(CNAvatarCardController *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2);
+  firstObject = [v3 firstObject];
 
   if (firstObject)
   {
@@ -502,35 +502,35 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  contacts = [(CNAvatarCardController *)self contacts];
+  v8 = objc_msgSend_contacts(self);
   headerView2 = [(CNAvatarCardController *)self headerView];
-  contacts2 = [headerView2 contacts];
+  v10 = objc_msgSend_contacts(headerView2);
 
-  if (contacts != contacts2)
+  if (v8 != v10)
   {
     headerView3 = [(CNAvatarCardController *)self headerView];
-    headerView = [(CNAvatarCardController *)self contacts];
+    headerView = objc_msgSend_contacts(self);
     [headerView3 updateWithContacts:headerView];
     goto LABEL_5;
   }
 
 LABEL_6:
-  contacts3 = [(CNAvatarCardController *)self contacts];
-  [(CNAvatarCardController *)self setupActionsForContacts:contacts3];
+  v11 = objc_msgSend_contacts(self);
+  [(CNAvatarCardController *)self setupActionsForContacts:v11];
 }
 
 - (BOOL)hasActions
 {
-  contacts = [(CNAvatarCardController *)self contacts];
-  firstObject = [contacts firstObject];
+  v3 = objc_msgSend_contacts(self, a2);
+  firstObject = [v3 firstObject];
 
   if (!firstObject)
   {
     return 0;
   }
 
-  contacts2 = [(CNAvatarCardController *)self contacts];
-  firstObject2 = [contacts2 firstObject];
+  v5 = objc_msgSend_contacts(self);
+  firstObject2 = [v5 firstObject];
   v7 = [CNQuickActionsManager hasActionsForContact:firstObject2];
 
   return v7;
@@ -589,7 +589,7 @@ LABEL_6:
 
     if (!v19)
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNAvatarCardController.m", 251, 3, @"Error fetching contact: %@", v21, v22, v23, v24, v20);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNAvatarCardController.m", 251, 3u, @"Error fetching contact: %@", v21, v22, v23, v24, v20);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -660,8 +660,8 @@ uint64_t __64__CNAvatarCardController_refetchContactsMatching_storeProvider___bl
   v25 = *MEMORY[0x1E69E9840];
   matchingCopy = matching;
   v5 = [matchingCopy count];
-  contacts = [(CNAvatarCardController *)self contacts];
-  v7 = [contacts count];
+  v6 = objc_msgSend_contacts(self);
+  v7 = [v6 count];
 
   if (v5 == v7)
   {
@@ -670,8 +670,8 @@ uint64_t __64__CNAvatarCardController_refetchContactsMatching_storeProvider___bl
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    contacts2 = [(CNAvatarCardController *)self contacts];
-    v10 = [contacts2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = objc_msgSend_contacts(self);
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
@@ -682,14 +682,14 @@ uint64_t __64__CNAvatarCardController_refetchContactsMatching_storeProvider___bl
         {
           if (*v21 != v12)
           {
-            objc_enumerationMutation(contacts2);
+            objc_enumerationMutation(v9);
           }
 
           allLinkedIdentifiers = [*(*(&v20 + 1) + 8 * i) allLinkedIdentifiers];
           [v8 addObjectsFromArray:allLinkedIdentifiers];
         }
 
-        v11 = [contacts2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -765,8 +765,8 @@ id __38__CNAvatarCardController_setContacts___block_invoke()
 
 - (CNContact)contact
 {
-  contacts = [(CNAvatarCardController *)self contacts];
-  firstObject = [contacts firstObject];
+  v2 = objc_msgSend_contacts(self, a2);
+  firstObject = [v2 firstObject];
 
   return firstObject;
 }
@@ -788,8 +788,8 @@ id __38__CNAvatarCardController_setContacts___block_invoke()
   if (!headerView)
   {
     v4 = [CNContactOrbHeaderViewController alloc];
-    contacts = [(CNAvatarCardController *)self contacts];
-    v6 = [(CNContactOrbHeaderViewController *)v4 initWithContacts:contacts];
+    v5 = objc_msgSend_contacts(self);
+    v6 = [(CNContactOrbHeaderViewController *)v4 initWithContacts:v5];
     [(CNAvatarCardController *)self setOrbHeaderViewController:v6];
 
     orbHeaderViewController = [(CNAvatarCardController *)self orbHeaderViewController];
@@ -808,8 +808,8 @@ id __38__CNAvatarCardController_setContacts___block_invoke()
   if (!orbHeaderViewController)
   {
     v4 = [CNContactOrbHeaderViewController alloc];
-    contacts = [(CNAvatarCardController *)self contacts];
-    v6 = [(CNContactOrbHeaderViewController *)v4 initWithContacts:contacts];
+    v5 = objc_msgSend_contacts(self);
+    v6 = [(CNContactOrbHeaderViewController *)v4 initWithContacts:v5];
     [(CNAvatarCardController *)self setOrbHeaderViewController:v6];
 
     orbHeaderViewController = [(CNAvatarCardController *)self orbHeaderViewController];

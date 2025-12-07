@@ -428,7 +428,7 @@ LABEL_8:
 
 - (uint64_t)locateSideCarServerZone:()BRCItemAdditions sessionContext:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v6 = a4;
   recordName = [self recordName];
   v8 = [recordName substringFromIndex:{objc_msgSend(@"ppm_", "length") - 1}];
@@ -442,45 +442,45 @@ LABEL_8:
   if ([v13 count])
   {
     v14 = [[BRCItemID alloc] initWithUUIDString:v11];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     serverReadWriteDatabaseFacade = [v6 serverReadWriteDatabaseFacade];
     v16 = [serverReadWriteDatabaseFacade zoneIDsEnumeratorForItemWithItemID:v14];
 
-    v17 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v29 = a3;
-      v30 = v14;
-      v19 = *v32;
+      v28 = a3;
+      v29 = v14;
+      v19 = *v31;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v32 != v19)
+          if (*v31 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v31 + 1) + 8 * i);
-          if ([v13 containsObject:{v21, v29}])
+          v21 = *(*(&v30 + 1) + 8 * i);
+          if ([v13 containsObject:{v21, v28}])
           {
             zoneAppRetriever2 = [v6 zoneAppRetriever];
             v24 = [zoneAppRetriever2 serverZoneByRowID:v21];
             asSharedZone = [v24 asSharedZone];
 
             v26 = asSharedZone;
-            *v29 = asSharedZone;
+            *v28 = asSharedZone;
 
             v22 = 1;
             goto LABEL_12;
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v18)
         {
           continue;
@@ -491,7 +491,7 @@ LABEL_8:
 
       v22 = 0;
 LABEL_12:
-      v14 = v30;
+      v14 = v29;
     }
 
     else
@@ -505,13 +505,11 @@ LABEL_12:
     v22 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 + (void)newFromSqliteValue:()BRCItemAdditions .cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -520,15 +518,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (void)newFromSqliteStatement:()BRCItemAdditions atIndex:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -537,15 +532,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brc_appLibraryRootZoneName
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -554,15 +546,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brc_appLibraryDocumentsZoneName
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -571,33 +560,20 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 UTF8String];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: attempt to extract an itemID from '%s'%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Corrupt side car file%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: attempt to extract an itemID from '%s'%@", v3, v4, v5, v6);
 }
 
 - (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.3()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -606,15 +582,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.4()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -623,15 +596,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.5()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -640,15 +610,12 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_itemIDWithLibraryRowID:()BRCItemAdditions zoneAppRetriever:.cold.6()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -657,20 +624,16 @@ LABEL_12:
   {
     OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)brc_itemType
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
   [v0 UTF8String];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: attempt to extract an itemType from '%s'%@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] UNREACHABLE: attempt to extract an itemType from '%s'%@", v3, v4, v5, v6);
 }
 
 @end

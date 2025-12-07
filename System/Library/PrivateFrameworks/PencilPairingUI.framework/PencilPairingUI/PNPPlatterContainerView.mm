@@ -233,7 +233,8 @@
     v16 = v23;
     v18 = v24;
     v20 = v25;
-    [(PNPPlatterContainerView *)self _dismissedTransformForEdge:[(PNPPlatterContainerView *)self edge]];
+    [(PNPPlatterContainerView *)self edge];
+    objc_msgSend__dismissedTransformForEdge_(self);
     [(PNPPlatterContainerView *)self _dismissedAlphaForEdge:[(PNPPlatterContainerView *)self edge]];
     v21 = v26;
   }

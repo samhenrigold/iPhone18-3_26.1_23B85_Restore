@@ -32,29 +32,7 @@
   v25.receiver = self;
   v25.super_class = WBSNetscapeBookmarkFileWriter;
   v8 = [(WBSNetscapeBookmarkFileWriter *)&v25 init];
-  v9 = v8;
-  if (!v8)
-  {
-    goto LABEL_11;
-  }
-
-  objc_storeStrong(&v8->_fileHandle, handle);
-  v10 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  indentation = v9->_indentation;
-  v9->_indentation = v10;
-
-  if (![(WBSNetscapeBookmarkFileWriter *)v9 _writeString:@"<!DOCTYPE NETSCAPE-Bookmark-file-1>\n" error:error])
-  {
-    goto LABEL_11;
-  }
-
-  v12 = MEMORY[0x1E695DF58];
-  currentLocale = [MEMORY[0x1E695DF58] currentLocale];
-  languageCode = [currentLocale languageCode];
-  v15 = [v12 characterDirectionForLanguage:languageCode];
-
-  v16 = v15 == 2 ? @"<HTML dir=rtl>\n" : @"<HTML>\n";
-  if ([(WBSNetscapeBookmarkFileWriter *)v9 _writeString:v16 error:error]&& [(WBSNetscapeBookmarkFileWriter *)v9 _writeString:@"<META HTTP-EQUIV=Content-Type CONTENT=text/html; charset=UTF-8>\n" error:error])
+  if (v8 && (objc_storeStrong(&v8->_fileHandle, handle), v10 = objc_alloc_init(MEMORY[0x1E696AD60]), indentation = v9->_indentation, v9->_indentation = v10, indentation, -[WBSNetscapeBookmarkFileWriter _writeString:error:](v9, "_writeString:error:", @"<!DOCTYPE NETSCAPE-Bookmark-file-1>\n", error)) && ((v12 = MEMORY[0x1E695DF58], [MEMORY[0x1E695DF58] currentLocale], v13 = v9 = v8;
   {
     v17 = _WBSLocalizedString(@"Bookmarks (exported bookmarks HTML title)", &_WBSLocalizableStringsBundleOnceToken, &_WBSLocalizableStringsBundle);
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<TITLE>%@</TITLE>\n", v17];
@@ -85,7 +63,6 @@
 
   else
   {
-LABEL_11:
     v23 = 0;
   }
 
@@ -96,41 +73,7 @@ LABEL_11:
 {
   folderCopy = folder;
   identifierCopy = identifier;
-  if (folderCopy)
-  {
-    if (![(WBSNetscapeBookmarkFileWriter *)self _writeString:self->_indentation error:error])
-    {
-      goto LABEL_10;
-    }
-
-    if (![(WBSNetscapeBookmarkFileWriter *)self _writeString:@"<DT><H3" error:error])
-    {
-      goto LABEL_10;
-    }
-
-    if (identifierCopy)
-    {
-      identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@" id=%@", identifierCopy];
-      v11 = [(WBSNetscapeBookmarkFileWriter *)self _writeString:identifierCopy error:error];
-
-      if (!v11)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v12 = MEMORY[0x1E696AEC0];
-    v13 = escapeHTML(folderCopy);
-    v14 = [v12 stringWithFormat:@">%@</H3>\n", v13];
-    v15 = [(WBSNetscapeBookmarkFileWriter *)self _writeString:v14 error:error];
-
-    if (!v15)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if ([(WBSNetscapeBookmarkFileWriter *)self _writeString:self->_indentation error:error]&& [(WBSNetscapeBookmarkFileWriter *)self _writeString:@"<DL><p>\n" error:error])
+  if ((!folderCopy || -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", self->_indentation, error) && -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", @"<DT><H3", error) && (!identifierCopy || ([MEMORY[0x1E696AEC0] stringWithFormat:@" id=%@", identifierCopy], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", v10, error), v10, v11)) && (v12 = MEMORY[0x1E696AEC0], escapeHTML(folderCopy), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "stringWithFormat:", @">%@</H3>\n", v13), v14 = objc_claimAutoreleasedReturnValue(), v15 = -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", v14, error), v14, v13, v15)) && -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", self->_indentation, error) && -[WBSNetscapeBookmarkFileWriter _writeString:error:](self, "_writeString:error:", @"<DL><p>\n", error))
   {
     [(NSMutableString *)self->_indentation appendString:@"\t"];
     v16 = 1;
@@ -138,7 +81,6 @@ LABEL_11:
 
   else
   {
-LABEL_10:
     v16 = 0;
   }
 

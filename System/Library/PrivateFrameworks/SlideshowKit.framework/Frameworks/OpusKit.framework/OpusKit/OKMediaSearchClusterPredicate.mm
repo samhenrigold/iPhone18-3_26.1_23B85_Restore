@@ -262,7 +262,7 @@ LABEL_43:
   return v6;
 }
 
-uint64_t __61__OKMediaSearchClusterPredicate_evaluateItems_progressBlock___block_invoke(uint64_t a1, void *a2)
+void *__61__OKMediaSearchClusterPredicate_evaluateItems_progressBlock___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)

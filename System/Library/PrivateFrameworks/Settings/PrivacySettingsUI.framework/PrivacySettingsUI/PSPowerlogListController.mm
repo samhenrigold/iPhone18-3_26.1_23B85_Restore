@@ -7,29 +7,29 @@
 
 - (id)specifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = PSPowerlogListController;
-  specifiers = [(PSListItemsController *)&v14 specifiers];
+  v15 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = PSPowerlogListController;
+  specifiers = [(PSListItemsController *)&v13 specifiers];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [specifiers countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v3 = [specifiers countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(specifiers);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 cellType])
         {
           [v7 setCellType:2];
@@ -38,13 +38,11 @@
         }
       }
 
-      v4 = [specifiers countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v4 = [specifiers countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return specifiers;
 }

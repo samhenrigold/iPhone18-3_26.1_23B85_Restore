@@ -10,7 +10,7 @@
 
 - (BOOL)shouldSampleFromConfigForProductType:(int64_t)type language:(id)language
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   if (languageCopy)
   {
@@ -47,13 +47,13 @@
         {
           v20 = v19;
           [v17 floatValue];
-          v26 = 136315650;
-          v27 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
-          v28 = 2048;
-          v29 = v21;
-          v30 = 1024;
-          v31 = v18;
-          _os_log_debug_impl(&dword_225EEB000, v20, OS_LOG_TYPE_DEBUG, "%s Sampled with sampling rate = %lf, sampled result = %d", &v26, 0x1Cu);
+          v25 = 136315650;
+          v26 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
+          v27 = 2048;
+          v28 = v21;
+          v29 = 1024;
+          v30 = v18;
+          _os_log_debug_impl(&dword_225EEB000, v20, OS_LOG_TYPE_DEBUG, "%s Sampled with sampling rate = %lf, sampled result = %d", &v25, 0x1Cu);
         }
       }
 
@@ -62,9 +62,9 @@
         v23 = *MEMORY[0x277CEF0E8];
         if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
         {
-          v26 = 136315138;
-          v27 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
-          _os_log_debug_impl(&dword_225EEB000, v23, OS_LOG_TYPE_DEBUG, "%s No Sampling Rate Returned", &v26, 0xCu);
+          v25 = 136315138;
+          v26 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
+          _os_log_debug_impl(&dword_225EEB000, v23, OS_LOG_TYPE_DEBUG, "%s No Sampling Rate Returned", &v25, 0xCu);
         }
 
         LOBYTE(v18) = 1;
@@ -78,9 +78,9 @@
       v22 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
       {
-        v26 = 136315138;
-        v27 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
-        _os_log_debug_impl(&dword_225EEB000, v22, OS_LOG_TYPE_DEBUG, "%s No Sampling Config Available", &v26, 0xCu);
+        v25 = 136315138;
+        v26 = "[CESRAudioSamplingConfigManager shouldSampleFromConfigForProductType:language:]";
+        _os_log_debug_impl(&dword_225EEB000, v22, OS_LOG_TYPE_DEBUG, "%s No Sampling Config Available", &v25, 0xCu);
       }
 
       LOBYTE(v18) = 1;
@@ -92,13 +92,12 @@
     LOBYTE(v18) = 1;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)_createConfigFromProductType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (type)
   {
     if (type != 1)
@@ -119,11 +118,11 @@
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315394;
-    v14 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
-    v15 = 2112;
-    v16 = v3;
-    _os_log_debug_impl(&dword_225EEB000, v5, OS_LOG_TYPE_DEBUG, "%s Loading Sampling Config for Factor Name: %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_225EEB000, v5, OS_LOG_TYPE_DEBUG, "%s Loading Sampling Config for Factor Name: %@", &v12, 0x16u);
   }
 
   v6 = objc_alloc_init(MEMORY[0x277CDCE98]);
@@ -135,13 +134,13 @@
   {
     if (v9)
     {
-      v13 = 136315650;
-      v14 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
-      v15 = 2112;
-      v16 = v3;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_debug_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEBUG, "%s File Path for Factor Name: %@ is %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
+      v14 = 2112;
+      v15 = v3;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_debug_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEBUG, "%s File Path for Factor Name: %@ is %@", &v12, 0x20u);
     }
 
     v10 = [[CESRAudioSamplingConfig alloc] initWithConfigPath:v7];
@@ -151,18 +150,17 @@
   {
     if (v9)
     {
-      v13 = 136315394;
-      v14 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
-      v15 = 2112;
-      v16 = v3;
-      _os_log_debug_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEBUG, "%s No File Path for Factor Name: %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[CESRAudioSamplingConfigManager _createConfigFromProductType:]";
+      v14 = 2112;
+      v15 = v3;
+      _os_log_debug_impl(&dword_225EEB000, v8, OS_LOG_TYPE_DEBUG, "%s No File Path for Factor Name: %@", &v12, 0x16u);
     }
 
     v10 = 0;
   }
 
 LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

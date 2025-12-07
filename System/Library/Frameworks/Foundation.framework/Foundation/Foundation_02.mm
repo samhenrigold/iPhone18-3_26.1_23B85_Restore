@@ -9,17 +9,17 @@ void sub_180784D70(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _NSXPCSerializationDecodeTypedObjCValuesFromArray(void *a1, uint64_t *a2, unsigned __int8 *a3, _DWORD *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t *a8, uint64_t a9, uint64_t a10)
+void _NSXPCSerializationDecodeTypedObjCValuesFromArray(void *a1, uint64_t *a2, unsigned __int8 *a3, int *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t *a8, void *a9, uint64_t a10)
 {
-  v55 = *MEMORY[0x1E69E9840];
-  result = _xpc_skipAttributesOfType(a3);
-  v20 = *result;
+  v61 = *MEMORY[0x1E69E9840];
+  v17 = _xpc_skipAttributesOfType(a3);
+  v20 = *v17;
   if (v20 > 0x52)
   {
-    v18 = result;
-    if (*result <= 0x68u)
+    v18 = v17;
+    if (*v17 <= 0x68u)
     {
-      if (*result > 0x62u)
+      if (*v17 > 0x62u)
       {
         if (v20 != 99)
         {
@@ -27,70 +27,70 @@ uint64_t _NSXPCSerializationDecodeTypedObjCValuesFromArray(void *a1, uint64_t *a
           {
             if (v20 == 102)
             {
-              v54 = 0;
+              v60 = 0;
               v21 = *a8;
               if (*a8 <= a8[1] && v21 < a2[1])
               {
-                v53 = *a8;
-                LODWORD(v54) = *(*a2 + v21) & 0xF0;
+                v59 = *a8;
+                LODWORD(v60) = *(*a2 + v21) & 0xF0;
                 if (a5 > 3)
                 {
-                  result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 floatValue:v19)];
+                  [(NSNumber *)_NSXPCSerializationNumberForObject(a2 floatValue:v19)];
                   *a4 = v22;
-                  return result;
+                  return;
                 }
 
                 goto LABEL_117;
               }
 
 LABEL_116:
-              v50 = MEMORY[0x1E695DF30];
-              v51 = @"NSInvalidUnarchiveOperationException";
-              v52 = @"Expected to find entry in array of NSInvocation arguments but there were no entries";
+              v56 = MEMORY[0x1E695DF30];
+              v57 = @"NSInvalidUnarchiveOperationException";
+              v58 = @"Expected to find entry in array of NSInvocation arguments but there were no entries";
               goto LABEL_118;
             }
 
             goto LABEL_122;
           }
 
-          v54 = 0;
-          v34 = *a8;
-          if (*a8 > a8[1] || v34 >= a2[1])
+          v60 = 0;
+          v37 = *a8;
+          if (*a8 > a8[1] || v37 >= a2[1])
           {
             goto LABEL_116;
           }
 
-          v53 = *a8;
-          LODWORD(v54) = *(*a2 + v34) & 0xF0;
+          v59 = *a8;
+          LODWORD(v60) = *(*a2 + v37) & 0xF0;
           if (a5 > 7)
           {
-            result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 doubleValue:v19)];
-            *a4 = v35;
-            return result;
+            [(NSNumber *)_NSXPCSerializationNumberForObject(a2 doubleValue:v19)];
+            *a4 = v38;
+            return;
           }
 
 LABEL_117:
-          v50 = MEMORY[0x1E695DF30];
-          v51 = @"NSInvalidUnarchiveOperationException";
-          v52 = @"Size of available buffer is not big enough to hold the decoded data";
+          v56 = MEMORY[0x1E695DF30];
+          v57 = @"NSInvalidUnarchiveOperationException";
+          v58 = @"Size of available buffer is not big enough to hold the decoded data";
           goto LABEL_118;
         }
 
-        v54 = 0;
-        v37 = *a8;
-        if (*a8 > a8[1] || v37 >= a2[1])
+        v60 = 0;
+        v41 = *a8;
+        if (*a8 > a8[1] || v41 >= a2[1])
         {
           goto LABEL_116;
         }
 
-        v53 = *a8;
-        LODWORD(v54) = *(*a2 + v37) & 0xF0;
+        v59 = *a8;
+        LODWORD(v60) = *(*a2 + v41) & 0xF0;
         if (!a5)
         {
           goto LABEL_117;
         }
 
-        result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 charValue:v19)];
+        v36 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 charValue:v19)];
         goto LABEL_75;
       }
 
@@ -98,33 +98,33 @@ LABEL_117:
       {
         if (v20 == 91)
         {
-          return _xpc_walkDataStructure(a1, 0, a2, result, a3, a4, a5, 0, a9, a10, a7, a8);
+          goto LABEL_42;
         }
 
         goto LABEL_122;
       }
 
-      v54 = 0;
-      v40 = *a8;
-      if (*a8 > a8[1] || v40 >= a2[1])
+      v60 = 0;
+      v44 = *a8;
+      if (*a8 > a8[1] || v44 >= a2[1])
       {
         goto LABEL_116;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v40) & 0xF0;
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v44) & 0xF0;
       if (a5 <= 1)
       {
         goto LABEL_117;
       }
 
-      result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedShortValue:v19)];
+      v40 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedShortValue:v19)];
 LABEL_88:
-      *a4 = result;
-      return result;
+      *a4 = v40;
+      return;
     }
 
-    if (*result > 0x70u)
+    if (*v17 > 0x70u)
     {
       if (v20 != 113)
       {
@@ -132,49 +132,51 @@ LABEL_88:
         {
           if (v20 == 123)
           {
-            return _xpc_walkDataStructure(a1, 0, a2, result, a3, a4, a5, 0, a9, a10, a7, a8);
+LABEL_42:
+            _xpc_walkDataStructure(a1, 0, a2, v17, a3, a4, a5, 0, a9, a10, a7, a8);
+            return;
           }
 
 LABEL_122:
-          v52 = [NSString stringWithFormat:@"decodeDataAt:ofObjCType: undecodable type (%s)", v18, a3];
-          v50 = MEMORY[0x1E695DF30];
-          v51 = *MEMORY[0x1E695D920];
+          v58 = [NSString stringWithFormat:@"decodeDataAt:ofObjCType: undecodable type (%s)", v18, a3];
+          v56 = MEMORY[0x1E695DF30];
+          v57 = *MEMORY[0x1E695D920];
           goto LABEL_118;
         }
 
-        v54 = 0;
-        v36 = *a8;
-        if (*a8 > a8[1] || v36 >= a2[1])
+        v60 = 0;
+        v39 = *a8;
+        if (*a8 > a8[1] || v39 >= a2[1])
         {
           goto LABEL_116;
         }
 
-        v53 = *a8;
-        LODWORD(v54) = *(*a2 + v36) & 0xF0;
+        v59 = *a8;
+        LODWORD(v60) = *(*a2 + v39) & 0xF0;
         if (a5 <= 1)
         {
           goto LABEL_117;
         }
 
-        result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 shortValue:v19)];
+        v40 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 shortValue:v19)];
         goto LABEL_88;
       }
 
-      v54 = 0;
-      v38 = *a8;
-      if (*a8 > a8[1] || v38 >= a2[1])
+      v60 = 0;
+      v42 = *a8;
+      if (*a8 > a8[1] || v42 >= a2[1])
       {
         goto LABEL_116;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v38) & 0xF0;
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v42) & 0xF0;
       if (a5 <= 7)
       {
         goto LABEL_117;
       }
 
-      result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 longLongValue:v19)];
+      v24 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 longLongValue:v19)];
       goto LABEL_101;
     }
 
@@ -185,45 +187,45 @@ LABEL_122:
         goto LABEL_122;
       }
 
-      v54 = 0;
-      v30 = *a8;
-      if (*a8 > a8[1] || v30 >= a2[1])
+      v60 = 0;
+      v32 = *a8;
+      if (*a8 > a8[1] || v32 >= a2[1])
       {
         goto LABEL_116;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v30) & 0xF0;
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v32) & 0xF0;
       if (a5 <= 7)
       {
         goto LABEL_117;
       }
 
-      result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 longValue:v19)];
+      v24 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 longValue:v19)];
       goto LABEL_101;
     }
 
-    v54 = 0;
-    v41 = *a8;
-    if (*a8 > a8[1] || v41 >= a2[1])
+    v60 = 0;
+    v45 = *a8;
+    if (*a8 > a8[1] || v45 >= a2[1])
     {
       goto LABEL_116;
     }
 
-    v53 = *a8;
-    LODWORD(v54) = *(*a2 + v41) & 0xF0;
+    v59 = *a8;
+    LODWORD(v60) = *(*a2 + v45) & 0xF0;
     if (a5 <= 3)
     {
       goto LABEL_117;
     }
 
-    result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 intValue:v19)];
+    v46 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 intValue:v19)];
     goto LABEL_106;
   }
 
-  if (*result <= 0x41u)
+  if (*v17 <= 0x41u)
   {
-    if (*result > 0x39u)
+    if (*v17 > 0x39u)
     {
       if (v20 != 58)
       {
@@ -232,54 +234,55 @@ LABEL_122:
           goto LABEL_122;
         }
 
-        v54 = 0;
-        v31 = *a8;
-        if (*a8 > a8[1] || v31 >= a2[1])
+        v60 = 0;
+        v33 = *a8;
+        if (*a8 > a8[1] || v33 >= a2[1])
         {
-          v50 = MEMORY[0x1E695DF30];
-          v51 = @"NSInvalidUnarchiveOperationException";
-          v52 = @"Expected to find entry in array for an object but there was no entry";
+          v56 = MEMORY[0x1E695DF30];
+          v57 = @"NSInvalidUnarchiveOperationException";
+          v58 = @"Expected to find entry in array for an object but there was no entry";
           goto LABEL_118;
         }
 
-        v53 = *a8;
-        LODWORD(v54) = *(*a2 + v31) & 0xF0;
+        v59 = *a8;
+        LODWORD(v60) = *(*a2 + v33) & 0xF0;
         if (a5 <= 7)
         {
           goto LABEL_117;
         }
 
-        v32 = [a1 _decodeObjectOfClasses:a10 atObject:&v53];
-        v29 = v32;
-        *a4 = v32;
+        v34 = [a1 _decodeObjectOfClasses:a10 atObject:&v59];
+        v31 = v34;
+        *a4 = v34;
         if (!a9)
         {
-          return v32;
+          v53 = v34;
+          return;
         }
 
-        v28 = a9;
-        return [v28 _addAttachedObject:v29];
+        v30 = a9;
+        goto LABEL_56;
       }
 
-      v54 = 0;
-      v44 = *a8;
-      if (*a8 > a8[1] || v44 >= a2[1])
+      v60 = 0;
+      v49 = *a8;
+      if (*a8 > a8[1] || v49 >= a2[1])
       {
-        v50 = MEMORY[0x1E695DF30];
-        v51 = @"NSInvalidUnarchiveOperationException";
-        v52 = @"Expected to find SEL entry in array of NSInvocation arguments but there were no entries";
+        v56 = MEMORY[0x1E695DF30];
+        v57 = @"NSInvalidUnarchiveOperationException";
+        v58 = @"Expected to find SEL entry in array of NSInvocation arguments but there were no entries";
         goto LABEL_118;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v44) & 0xF0;
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v49) & 0xF0;
       if (a5 <= 7)
       {
         goto LABEL_117;
       }
 
-      v45 = _NSXPCSerializationASCIIStringForObject(a2, &v53);
-      result = sel_registerName(v45);
+      v50 = _NSXPCSerializationASCIIStringForObject(a2, &v59);
+      v24 = sel_registerName(v50);
     }
 
     else
@@ -291,9 +294,9 @@ LABEL_122:
           goto LABEL_122;
         }
 
-        v54 = 0;
-        v24 = *a8;
-        if (*a8 > a8[1] || v24 >= a2[1])
+        v60 = 0;
+        v25 = *a8;
+        if (*a8 > a8[1] || v25 >= a2[1])
         {
           goto LABEL_116;
         }
@@ -303,102 +306,104 @@ LABEL_122:
           goto LABEL_117;
         }
 
-        if (v24 && *(*a2 + v24) == 176)
+        if (v25 && *(*a2 + v25) == 176)
         {
           goto LABEL_112;
         }
 
-        _getLastByteOfValueIncludingMarker(a2, v24, a8);
-        v25 = *a8 + 1;
-        v26 = *a8 == -1;
-        *a8 = v25;
-        if (v26 << 63 >> 63 != v26)
+        _getLastByteOfValueIncludingMarker(a2, v25, a8);
+        v26 = *a8 + 1;
+        v27 = *a8 == -1;
+        *a8 = v26;
+        if (v27 << 63 >> 63 != v27)
         {
-          v50 = MEMORY[0x1E695DF30];
-          v51 = @"NSInvalidUnarchiveOperationException";
-          v52 = @"Unexpected EoF while decoding pointer";
+          v56 = MEMORY[0x1E695DF30];
+          v57 = @"NSInvalidUnarchiveOperationException";
+          v58 = @"Unexpected EoF while decoding pointer";
 LABEL_118:
-          objc_exception_throw([v50 exceptionWithName:v51 reason:v52 userInfo:0]);
+          objc_exception_throw([v56 exceptionWithName:v57 reason:v58 userInfo:0]);
         }
 
-        if (a8[1] < v25 || a2[1] <= v25)
+        if (a8[1] < v26 || a2[1] <= v26)
         {
-          v50 = MEMORY[0x1E695DF30];
-          v51 = @"NSInvalidUnarchiveOperationException";
-          v52 = @"Missing data after non-null entry";
+          v56 = MEMORY[0x1E695DF30];
+          v57 = @"NSInvalidUnarchiveOperationException";
+          v58 = @"Missing data after non-null entry";
           goto LABEL_118;
         }
 
-        v53 = v25;
-        LODWORD(v54) = *(*a2 + v25) & 0xF0;
-        result = _NSXPCSerializationDataForObject(a2, &v53);
-        if (!result || (v27 = result, (result = [result length]) == 0))
+        v59 = v26;
+        LODWORD(v60) = *(*a2 + v26) & 0xF0;
+        v28 = _NSXPCSerializationDataForObject(a2, &v59);
+        if (!v28 || (v29 = v28, ![v28 length]))
         {
 LABEL_112:
           *a4 = 0;
-          return result;
+          return;
         }
 
         if (!a9)
         {
-          v48 = [v27 length];
-          v49 = malloc_type_malloc(v48 + 1, 0x100004077774924uLL);
-          result = [v27 getBytes:v49 length:v48];
-          *a4 = v49;
-          v49[v48] = 0;
-          return result;
+          v54 = [v29 length];
+          v55 = malloc_type_malloc(v54 + 1, 0x100004077774924uLL);
+          [v29 getBytes:v55 length:v54];
+          *a4 = v55;
+          v55[v54] = 0;
+          return;
         }
 
-        *a4 = [v27 bytes];
-        v28 = a9;
-        v29 = v27;
-        return [v28 _addAttachedObject:v29];
+        *a4 = [v29 bytes];
+        v30 = a9;
+        v31 = v29;
+LABEL_56:
+        [v30 _addAttachedObject:v31];
+        return;
       }
 
-      v54 = 0;
-      v42 = *a8;
-      if (*a8 > a8[1] || v42 >= a2[1])
+      v60 = 0;
+      v47 = *a8;
+      if (*a8 > a8[1] || v47 >= a2[1])
       {
         goto LABEL_116;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v42) & 0xF0;
-      v43 = _NSXPCSerializationASCIIStringForObject(a2, &v53);
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v47) & 0xF0;
+      v48 = _NSXPCSerializationASCIIStringForObject(a2, &v59);
       if (a5 <= 7)
       {
         goto LABEL_117;
       }
 
-      result = objc_lookUpClass(v43);
+      v24 = objc_lookUpClass(v48);
     }
 
 LABEL_101:
-    *a4 = result;
-    return result;
+    *a4 = v24;
+    return;
   }
 
-  if (*result > 0x48u)
+  if (*v17 > 0x48u)
   {
     if (v20 != 73)
     {
       if (v20 == 76)
       {
-        v54 = 0;
-        v39 = *a8;
-        if (*a8 > a8[1] || v39 >= a2[1])
+        v60 = 0;
+        v43 = *a8;
+        if (*a8 > a8[1] || v43 >= a2[1])
         {
           goto LABEL_116;
         }
 
-        v53 = *a8;
-        LODWORD(v54) = *(*a2 + v39) & 0xF0;
+        v59 = *a8;
+        LODWORD(v60) = *(*a2 + v43) & 0xF0;
         if (a5 <= 7)
         {
           goto LABEL_117;
         }
 
-        result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedLongValue:v19)];
+        v24 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedLongValue:v19)];
       }
 
       else
@@ -408,75 +413,75 @@ LABEL_101:
           goto LABEL_122;
         }
 
-        v54 = 0;
+        v60 = 0;
         v23 = *a8;
         if (*a8 > a8[1] || v23 >= a2[1])
         {
           goto LABEL_116;
         }
 
-        v53 = *a8;
-        LODWORD(v54) = *(*a2 + v23) & 0xF0;
+        v59 = *a8;
+        LODWORD(v60) = *(*a2 + v23) & 0xF0;
         if (a5 <= 7)
         {
           goto LABEL_117;
         }
 
-        result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedLongLongValue:v19)];
+        v24 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedLongLongValue:v19)];
       }
 
       goto LABEL_101;
     }
 
-    v54 = 0;
-    v46 = *a8;
-    if (*a8 > a8[1] || v46 >= a2[1])
+    v60 = 0;
+    v51 = *a8;
+    if (*a8 > a8[1] || v51 >= a2[1])
     {
       goto LABEL_116;
     }
 
-    v53 = *a8;
-    LODWORD(v54) = *(*a2 + v46) & 0xF0;
+    v59 = *a8;
+    LODWORD(v60) = *(*a2 + v51) & 0xF0;
     if (a5 <= 3)
     {
       goto LABEL_117;
     }
 
-    result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedIntValue:v19)];
+    v46 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedIntValue:v19)];
 LABEL_106:
-    *a4 = result;
-    return result;
+    *a4 = v46;
+    return;
   }
 
   if (v20 != 66)
   {
     if (v20 == 67)
     {
-      v54 = 0;
-      v33 = *a8;
-      if (*a8 > a8[1] || v33 >= a2[1])
+      v60 = 0;
+      v35 = *a8;
+      if (*a8 > a8[1] || v35 >= a2[1])
       {
         goto LABEL_116;
       }
 
-      v53 = *a8;
-      LODWORD(v54) = *(*a2 + v33) & 0xF0;
+      v59 = *a8;
+      LODWORD(v60) = *(*a2 + v35) & 0xF0;
       if (!a5)
       {
         goto LABEL_117;
       }
 
-      result = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedCharValue:v19)];
+      v36 = [(NSNumber *)_NSXPCSerializationNumberForObject(a2 unsignedCharValue:v19)];
 LABEL_75:
-      *a4 = result;
-      return result;
+      *a4 = v36;
+      return;
     }
 
     goto LABEL_122;
   }
 
-  v47 = *a8;
-  if (*a8 > a8[1] || v47 >= a2[1])
+  v52 = *a8;
+  if (*a8 > a8[1] || v52 >= a2[1])
   {
     goto LABEL_116;
   }
@@ -486,13 +491,12 @@ LABEL_75:
     goto LABEL_117;
   }
 
-  if (v47)
+  if (v52)
   {
-    LOBYTE(v47) = *(*a2 + v47) == 176;
+    LOBYTE(v52) = *(*a2 + v52) == 176;
   }
 
-  *a4 = v47;
-  return result;
+  *a4 = v52;
 }
 
 uint64_t _setAllowedClass(uint64_t result, uint64_t a2)
@@ -513,7 +517,7 @@ uint64_t _setAllowedClass(uint64_t result, uint64_t a2)
   return result;
 }
 
-void *_NSXPCSerializationAddInvocationArgumentsArray(void *a1, void *a2, _BYTE *a3, uint64_t *a4, int a5)
+void *_NSXPCSerializationAddInvocationArgumentsArray(void *a1, void *a2, void *a3, uint64_t *a4, int a5)
 {
   LODWORD(v5) = a5;
   v19[1] = *MEMORY[0x1E69E9840];
@@ -607,9 +611,9 @@ uint64_t _NSXPCSerializationCreateObjectInDictionaryForASCIIKey(uint64_t *a1, vo
   return v8 & 1;
 }
 
-void sub_1807859FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1807859FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -951,14 +955,14 @@ uint64_t _NSXPCSerializationASCIIStringForObject(uint64_t *a1, unint64_t *a2)
   return 0;
 }
 
-void *_NSXPCSerializationIterateArrayObject(void *result, void *a2, uint64_t a3)
+uint64_t _NSXPCSerializationIterateArrayObject(uint64_t result, void *a2, uint64_t a3)
 {
   v15[1] = *MEMORY[0x1E69E9840];
   v3 = *a2 + 8;
   if (((*a2 >= 0xFFFFFFFFFFFFFFF8) << 63) >> 63 == *a2 >= 0xFFFFFFFFFFFFFFF8)
   {
     v4 = result;
-    v5 = result[1];
+    v5 = *(result + 8);
     if (v5 > v3)
     {
       v6 = *(*result + *a2 + 1);
@@ -1268,7 +1272,7 @@ id @objc static NSTimeZone._current()(uint64_t a1, uint64_t a2, void (*a3)(id *_
   return v5;
 }
 
-id closure #1 in TimeZoneCache.bridgedDefault.getter@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+id closure #1 in TimeZoneCache.bridgedDefault.getter@<X0>(uint64_t *a1@<X0>, uint64_t **a2@<X8>)
 {
   v3 = a1[9];
   if (v3)
@@ -1307,8 +1311,8 @@ id closure #1 in TimeZoneCache.bridgedDefault.getter@<X0>(uint64_t *a1@<X0>, voi
       v10 = objc_allocWithZone(v9);
       v11 = &v10[OBJC_IVAR____NSSwiftTimeZone_timeZone];
       *v11 = v8;
-      *(v11 + 1) = v7;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd);
+      v11[1] = v7;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMd, &_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA16_NSSwiftTimeZoneC0C0V_GMR);
       v12 = swift_allocObject();
       *(v12 + 32) = 0;
       *(v12 + 16) = xmmword_18122E880;
@@ -1697,7 +1701,7 @@ LABEL_98:
   return result;
 }
 
-uint64_t _NSAttributeDictionaryClass()
+Class _NSAttributeDictionaryClass()
 {
   result = attributeDictionaryClass;
   if (!attributeDictionaryClass)
@@ -1773,7 +1777,7 @@ LABEL_10:
   return v7;
 }
 
-uint64_t normalizedPath(void *a1)
+void *normalizedPath(void *a1)
 {
   v2 = @"/private/preboot/Cryptexes/OS/";
   if (([a1 hasPrefix:@"/private/preboot/Cryptexes/OS/"] & 1) == 0)
@@ -1892,7 +1896,7 @@ LABEL_63:
       v181[5] = MEMORY[0x1E69E6158];
       v181[2] = 0xD000000000000026;
       v181[3] = 0x800000018147E7F0;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
       v48 = static _DictionaryStorage.allocate(capacity:)();
       outlined init with copy of (String, Any)(v181, &v178);
 
@@ -2406,7 +2410,7 @@ LABEL_162:
           v177[5] = MEMORY[0x1E69E6158];
           v177[2] = 0xD00000000000001FLL;
           v177[3] = 0x80000001814878A0;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
           v105 = static _DictionaryStorage.allocate(capacity:)();
           outlined init with copy of (String, Any)(v177, &v178);
 
@@ -2655,7 +2659,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
   v29 = swift_allocObject();
   v30 = _objc_isTaggedPointer(@"NSDebugDescription");
   v31 = @"NSDebugDescription";
@@ -2777,7 +2781,7 @@ LABEL_197:
   v29[9] = MEMORY[0x1E69E6158];
   v29[6] = 0xD000000000000027;
   v29[7] = 0x80000001814878C0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
   v131 = static _DictionaryStorage.allocate(capacity:)();
   outlined init with copy of (String, Any)((v29 + 4), &v178);
   swift_setDeallocating();
@@ -3144,12 +3148,12 @@ uint64_t _NSXPCSerializationTypeForReference(void *a1, unint64_t a2)
   }
 }
 
-void type metadata accessor for NSRunLoopMode(uint64_t a1, unint64_t *a2)
+void type metadata accessor for NSRunLoopMode(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -3820,7 +3824,7 @@ void _NSInitializePlatform()
   }
 }
 
-void __NSSetCStringCharToUnichar(uint64_t (*a1)(uint64_t a1))
+void __NSSetCStringCharToUnichar(uint64_t (*a1)())
 {
   if (_NSCStringCharToUnicharTable)
   {
@@ -3878,7 +3882,7 @@ void __NSSetCStringCharToUnichar(uint64_t (*a1)(uint64_t a1))
         v6[3] = v15;
         do
         {
-          *(v6 + v16) = a1(v16);
+          *(v6 + v16) = (a1)(v16);
           ++v16;
         }
 
@@ -3917,7 +3921,7 @@ LABEL_9:
   if (!*(v6 + 16))
   {
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = xmmword_181218E20;
     *(v6 + 32) = v9;
@@ -4172,7 +4176,7 @@ objc_class *_NSToDoAtProcessStart()
   return result;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -4254,6 +4258,264 @@ LABEL_20:
   return result;
 }
 
+{
+  v4 = MEMORY[0x1865CB200]();
+  if (!v4)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v5 = v4;
+  v6 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs6UInt16V_Tt1gq5(v4, 0);
+
+  v7 = specialized Sequence._copySequenceContents(initializing:)(v9, (v6 + 4), v5, a1, a2);
+
+  if (v7 != v5)
+  {
+    __break(1u);
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v6;
+}
+
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v4 = a2 >> 62;
+  if ((a2 >> 62) > 1)
+  {
+    if (v4 != 2)
+    {
+      return MEMORY[0x1E69E7CC0];
+    }
+
+    v7 = *(a1 + 16);
+    v6 = *(a1 + 24);
+    v5 = v6 - v7;
+    if (__OFSUB__(v6, v7))
+    {
+LABEL_45:
+      __break(1u);
+      goto LABEL_46;
+    }
+
+    if (!v5)
+    {
+      return MEMORY[0x1E69E7CC0];
+    }
+  }
+
+  else
+  {
+    if (!v4)
+    {
+      v5 = BYTE6(a2);
+      if (!BYTE6(a2))
+      {
+        return MEMORY[0x1E69E7CC0];
+      }
+
+      goto LABEL_8;
+    }
+
+    v12 = HIDWORD(a1) - a1;
+    if (__OFSUB__(HIDWORD(a1), a1))
+    {
+LABEL_46:
+      __break(1u);
+      goto LABEL_47;
+    }
+
+    v5 = v12;
+    if (!v12)
+    {
+      return MEMORY[0x1E69E7CC0];
+    }
+  }
+
+LABEL_8:
+  result = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1g5(v5, 0);
+  if (v4 == 2)
+  {
+    if (*(a1 + 16) == *(a1 + 24))
+    {
+LABEL_11:
+      v9 = result;
+      if (v4 == 2)
+      {
+        v10 = 0;
+        v11 = *(a1 + 16);
+      }
+
+      else
+      {
+        v10 = 0;
+        v11 = a1;
+      }
+
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    if (v4 != 1)
+    {
+      if ((a2 & 0xFF000000000000) == 0)
+      {
+        v9 = result;
+        v11 = 0;
+        v10 = 0;
+        goto LABEL_40;
+      }
+
+      *&__src[0] = a1;
+      if (v5 >= BYTE6(a2))
+      {
+        v10 = BYTE6(a2);
+      }
+
+      else
+      {
+        v10 = v5;
+      }
+
+      WORD4(__src[0]) = a2;
+      BYTE10(__src[0]) = BYTE2(a2);
+      BYTE11(__src[0]) = BYTE3(a2);
+      BYTE12(__src[0]) = BYTE4(a2);
+      BYTE13(__src[0]) = BYTE5(a2);
+      v9 = result;
+      memcpy(result + 4, __src, v10);
+      v20 = 0;
+LABEL_39:
+      v15 = __OFADD__(v20, v10);
+      v11 = v20 + v10;
+      if (v15)
+      {
+LABEL_44:
+        __break(1u);
+        goto LABEL_45;
+      }
+
+LABEL_40:
+      outlined copy of Data._Representation(a1, a2);
+      Data.Iterator.init(_:at:)(a1, a2, v11, __src);
+      v25[0] = __src[0];
+      v25[1] = __src[1];
+      v25[2] = __src[2];
+      v25[3] = __src[3];
+      outlined destroy of Data.Iterator(v25);
+      if (v10 == v5)
+      {
+        return v9;
+      }
+
+      __break(1u);
+      goto LABEL_44;
+    }
+
+    if (a1 == a1 >> 32)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  if (v4 == 2)
+  {
+    v13 = *(a1 + 16);
+    v14 = *(a1 + 24);
+    v15 = __OFSUB__(v14, v13);
+    v16 = v14 - v13;
+    if (v15)
+    {
+LABEL_47:
+      __break(1u);
+      goto LABEL_48;
+    }
+
+    if (v5 >= v16)
+    {
+      v10 = v16;
+    }
+
+    else
+    {
+      v10 = v5;
+    }
+
+    v17 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v17)
+    {
+      v18 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v15 = __OFSUB__(v13, v18);
+      v19 = v13 - v18;
+      if (v15)
+      {
+LABEL_50:
+        __break(1u);
+LABEL_51:
+        __break(1u);
+      }
+
+      v9 = result;
+      memcpy(result + 4, (v17 + v19), v10);
+      v20 = *(a1 + 16);
+      goto LABEL_39;
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+    v21 = HIDWORD(a1) - a1;
+    if (__OFSUB__(HIDWORD(a1), a1))
+    {
+LABEL_48:
+      __break(1u);
+LABEL_49:
+      __break(1u);
+      goto LABEL_50;
+    }
+
+    if (v5 >= v21)
+    {
+      v10 = v21;
+    }
+
+    else
+    {
+      v10 = v5;
+    }
+
+    v20 = a1;
+    if (a1 > a1 >> 32)
+    {
+      goto LABEL_49;
+    }
+
+    v22 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x10);
+    if (v22)
+    {
+      v23 = *((a2 & 0x3FFFFFFFFFFFFFFFLL) + 0x28);
+      v15 = __OFSUB__(a1, v23);
+      v24 = a1 - v23;
+      if (v15)
+      {
+        goto LABEL_51;
+      }
+
+      v9 = result;
+      memcpy(result + 4, (v22 + v24), v10);
+      goto LABEL_39;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
 uint64_t _NSDefaultCStringEncoding()
 {
   SystemEncoding = CFStringGetSystemEncoding();
@@ -4294,7 +4556,7 @@ id one-time initialization function for _shared()
 id _NSSwiftProcessInfo.init()()
 {
   ObjectType = swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA19_NSSwiftProcessInfoC0C0V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA19_NSSwiftProcessInfoC0C0V_GMd, &_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA19_NSSwiftProcessInfoC0C0V_GMR);
   v2 = swift_allocObject();
   *(v2 + 76) = 0;
   *(v2 + 16) = 1;
@@ -4322,14 +4584,14 @@ uint64_t one-time initialization function for processInfo()
 {
   type metadata accessor for _ProcessInfo();
   v0 = swift_allocObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA12_ProcessInfoC0C0V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCyAA12_ProcessInfoC0C0V_GMd, "x9'");
   v1 = swift_allocObject();
   *(v1 + 24) = 0;
   *(v1 + 32) = 0;
   *(v1 + 16) = 0;
   *(v1 + 40) = 0;
   *(v0 + 16) = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCySSSg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11LockedStateV7_Buffer33_5DF18145B0159EAD96B3D87D9CD90006LLCySSSg_GMd, "~9'");
   result = swift_allocObject();
   *(result + 16) = 0;
   *(result + 24) = 0;
@@ -4407,23 +4669,25 @@ LABEL_27:
   if (v8 >> 14 >= result >> 14)
   {
     v10 = String.subscript.getter();
-    MEMORY[0x1865CAE80](v10);
+    v11 = MEMORY[0x1865CAE80](v10);
+    v13 = v12;
 
     if (!issetugid() && getenv("CFFIXED_USER_HOME"))
     {
 
-      v14 = String.init(cString:)();
+      v17 = String.init(cString:)();
       goto LABEL_26;
     }
 
-    v11 = specialized static Platform.homeDirectory(forUserName:)();
-    v13 = v12;
+    v14 = specialized static Platform.homeDirectory(forUserName:)(v11, v13);
+    v16 = v15;
 
-    if (v13)
+    if (v16)
     {
-      v14 = v11;
+      v17 = v14;
+      v18 = v16;
 LABEL_26:
-      String.standardizingPath.getter(v14);
+      String.standardizingPath.getter(v17, v18);
 
       goto LABEL_27;
     }
@@ -4431,9 +4695,9 @@ LABEL_26:
 LABEL_23:
 
 LABEL_28:
-    v15 = String._standardizingPath.getter();
+    v19 = String._standardizingPath.getter();
 
-    return v15;
+    return v19;
   }
 
   __break(1u);
@@ -5173,9 +5437,9 @@ LABEL_138:
   return 0;
 }
 
-uint64_t one-time initialization function for _automountPrefixes()
+void *one-time initialization function for _automountPrefixes()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySays5UInt8VGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySays5UInt8VGGMd, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_18121D6B0;
   *(v0 + 32) = specialized _copyCollectionToContiguousArray<A>(_:)(0xD000000000000017, 0x8000000181486800);
@@ -5195,7 +5459,7 @@ void *one-time initialization function for _automountExclusionList()
 
 uint64_t closure #1 in variable initialization expression of static String._automountExclusionList()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySays5UInt8VGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySays5UInt8VGGMd, &_ss23_ContiguousArrayStorageCySays5UInt8VGGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1812DAA70;
   *(v0 + 32) = specialized _copyCollectionToContiguousArray<A>(_:)(0x6163696C7070412FLL, 0xED0000736E6F6974);
@@ -5415,7 +5679,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5493,7 +5757,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation7JSONMapC5ValueOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation7JSONMapC5ValueOGMd, &_ss23_ContiguousArrayStorageCy10Foundation7JSONMapC5ValueOGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -5566,7 +5830,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySsGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySsGMd, &_ss23_ContiguousArrayStorageCySsGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5644,7 +5908,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVySWGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVySWGGMd, &_ss23_ContiguousArrayStorageCys5SliceVySWGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5722,7 +5986,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation12URLQueryItemVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5800,7 +6064,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd, &_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5878,7 +6142,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -5956,7 +6220,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypXpGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypXpGMd, &_ss23_ContiguousArrayStorageCyypXpGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6034,7 +6298,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS10FoundationE17LocalizationValueV14FormatArgumentVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS10FoundationE17LocalizationValueV14FormatArgumentVGMd, &_ss23_ContiguousArrayStorageCySS10FoundationE17LocalizationValueV14FormatArgumentVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6106,7 +6370,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySJGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySJGMd, &_ss23_ContiguousArrayStorageCySJGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6184,7 +6448,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd, &_ss23_ContiguousArrayStorageCySdGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6262,7 +6526,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys8DurationV10FoundationE15TimeFormatStyleV10AttributedV16PatternComponentVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys8DurationV10FoundationE15TimeFormatStyleV10AttributedV16PatternComponentVGMd, &_ss23_ContiguousArrayStorageCys8DurationV10FoundationE15TimeFormatStyleV10AttributedV16PatternComponentVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6340,7 +6604,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation18PresentationIntentV0F4TypeVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation18PresentationIntentV0F4TypeVGMd, &_ss23_ContiguousArrayStorageCy10Foundation18PresentationIntentV0F4TypeVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6418,7 +6682,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6496,7 +6760,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys8DurationV10FoundationE16UnitsFormatStyleV4UnitVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys8DurationV10FoundationE16UnitsFormatStyleV4UnitVGMd, &_ss23_ContiguousArrayStorageCys8DurationV10FoundationE16UnitsFormatStyleV4UnitVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6568,7 +6832,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySS5IndexVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySS5IndexVGGMd, &_ss23_ContiguousArrayStorageCySnySS5IndexVGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6646,7 +6910,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8Dispatch0D4DataV10FoundationE6RegionVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8Dispatch0D4DataV10FoundationE6RegionVGMd, &_ss23_ContiguousArrayStorageCy8Dispatch0D4DataV10FoundationE6RegionVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6718,7 +6982,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVy8Dispatch0E4DataV10FoundationE6RegionVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVy8Dispatch0E4DataV10FoundationE6RegionVGGMd, &_ss23_ContiguousArrayStorageCys5SliceVy8Dispatch0E4DataV10FoundationE6RegionVGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6790,7 +7054,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys6UInt16VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys6UInt16VGMd, &_ss23_ContiguousArrayStorageCys6UInt16VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -6862,7 +7126,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySny19CollectionsInternal9BigStringV5IndexVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySny19CollectionsInternal9BigStringV5IndexVGGMd, &_ss23_ContiguousArrayStorageCySny19CollectionsInternal9BigStringV5IndexVGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -6940,7 +7204,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleV15NumberingSystemVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7018,7 +7282,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation10MorphologyV7PronounVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation10MorphologyV7PronounVGMd, &_ss23_ContiguousArrayStorageCy10Foundation10MorphologyV7PronounVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7096,7 +7360,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DateVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DateVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4DateVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7174,7 +7438,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14DateComponentsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14DateComponentsVGMd, &_ss23_ContiguousArrayStorageCy10Foundation14DateComponentsVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -7246,7 +7510,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7325,7 +7589,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation22ICUNumberFormatterBaseC17AttributePositionVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation22ICUNumberFormatterBaseC17AttributePositionVGMd, &_ss23_ContiguousArrayStorageCy10Foundation22ICUNumberFormatterBaseC17AttributePositionVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -7397,7 +7661,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV22AttributeRunBoundariesOGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7475,7 +7739,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPys6UInt16VGSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySPys6UInt16VGSgGMd, &_ss23_ContiguousArrayStorageCySPys6UInt16VGSgGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7553,7 +7817,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentO9component_Si5valuetGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentO9component_Si5valuetGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentO9component_Si5valuetGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7631,7 +7895,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo5iovecVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo5iovecVGMd, &_ss23_ContiguousArrayStorageCySo5iovecVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7709,7 +7973,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV010_AttributeC0VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV010_AttributeC0VGMd, &_ss23_ContiguousArrayStorageCy10Foundation16AttributedStringV010_AttributeC0VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7787,7 +8051,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMd, &_ss23_ContiguousArrayStorageCy10Foundation6LocaleVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7865,7 +8129,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation3URLV8TemplateV10ExpressionV7ElementVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation3URLV8TemplateV10ExpressionV7ElementVGMd, &_ss23_ContiguousArrayStorageCy10Foundation3URLV8TemplateV10ExpressionV7ElementVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7943,7 +8207,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DataVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DataVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4DataVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8021,7 +8285,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo20NSNotificationCenterC10FoundationE13NotificationsC19NotificationWrapperVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo20NSNotificationCenterC10FoundationE13NotificationsC19NotificationWrapperVGMd, &_ss23_ContiguousArrayStorageCySo20NSNotificationCenterC10FoundationE13NotificationsC19NotificationWrapperVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8093,7 +8357,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVySRys5UInt8VGGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5SliceVySRys5UInt8VGGGMd, &_ss23_ContiguousArrayStorageCys5SliceVySRys5UInt8VGGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8171,7 +8435,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8249,7 +8513,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8384,7 +8648,7 @@ id _NSSearchPathsForDirectoryInDomain(uint64_t a1, __int16 a2, char a3)
   return v5;
 }
 
-void *specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, void (*a3)(const char **__return_ptr, void *))
+void *specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, void *))
 {
   v65[4] = *MEMORY[0x1E69E9840];
   started = sysdir_start_search_path_enumeration_private();
@@ -8659,7 +8923,7 @@ LABEL_54:
       v44 = v43;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v6 = swift_allocObject();
     v45 = _swift_stdlib_malloc_size(v6);
     v47 = v45 - 32;
@@ -8736,7 +9000,7 @@ LABEL_79:
   return result;
 }
 
-unint64_t closure #1 in _DarwinSearchPaths(for:in:expandTilde:)@<X0>(uint64_t *a1@<X0>, char a2@<W1>, unint64_t *a3@<X8>)
+unint64_t closure #1 in _DarwinSearchPaths(for:in:expandTilde:)@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -8809,20 +9073,21 @@ LABEL_28:
   if (v10 >> 14 >= result >> 14)
   {
     v15 = String.subscript.getter();
-    MEMORY[0x1865CAE80](v15);
+    v16 = MEMORY[0x1865CAE80](v15);
+    v18 = v17;
 
     if (!issetugid() && getenv("CFFIXED_USER_HOME"))
     {
-      v16 = String.init(cString:)();
+      v19 = String.init(cString:)();
       goto LABEL_27;
     }
 
-    v16 = specialized static Platform.homeDirectory(forUserName:)();
-    if (v17)
+    v19 = specialized static Platform.homeDirectory(forUserName:)(v16, v18);
+    if (v20)
     {
 LABEL_27:
-      v12 = String.standardizingPath.getter(v16, v17);
-      v14 = v18;
+      v12 = String.standardizingPath.getter(v19, v20);
+      v14 = v21;
 
       goto LABEL_28;
     }
@@ -9048,9 +9313,9 @@ void sub_18078DF34(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NSKeyValueShareableObservationInfoNSHTIsEqual(CFArrayRef *a1, CFArrayRef *a2)
+BOOL NSKeyValueShareableObservationInfoNSHTIsEqual(CFArrayRef *a1, CFArrayRef *a2)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   if (a1 != a2)
   {
     if (object_getClass(a1) != qword_1ED43F650 && object_getClass(a2) != qword_1ED43F650)
@@ -9082,79 +9347,79 @@ uint64_t NSKeyValueShareableObservationInfoNSHTIsEqual(CFArrayRef *a1, CFArrayRe
           }
 
           v8 = 8 * v7;
-          MEMORY[0x1EEE9AC00](v5);
-          v10 = &v71 - v9;
-          v73 = 0;
+          v9 = MEMORY[0x1EEE9AC00](v5);
+          v11 = &v74 - v10;
+          v76 = 0;
           if (Count >= 0x101)
           {
-            v10 = _CFCreateArrayStorage();
-            v11 = v10;
+            v11 = _CFCreateArrayStorage();
+            v12 = v11;
           }
 
           else
           {
-            v11 = 0;
+            v12 = 0;
           }
 
-          v28 = [(__CFArray *)a1[1] getObjects:v10 range:0, Count];
-          MEMORY[0x1EEE9AC00](v28);
-          v29 = &v71 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v30 = 0;
-          v72 = 0;
+          v31 = [(__CFArray *)a1[1] getObjects:v11 range:0, Count, v9];
+          MEMORY[0x1EEE9AC00](v31);
+          v32 = &v74 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v33 = 0;
+          v75 = 0;
           if (Count < 0x101)
           {
-            v31 = v29;
+            v34 = v32;
           }
 
           else
           {
-            v30 = _CFCreateArrayStorage();
-            v31 = v30;
+            v33 = _CFCreateArrayStorage();
+            v34 = v33;
           }
 
-          [(__CFArray *)a2[1] getObjects:v31 range:0, Count];
+          [(__CFArray *)a2[1] getObjects:v34 range:0, Count];
           if (Count)
           {
-            if (*v10 == *v31)
+            if (*v11 == *v34)
             {
-              v58 = 1;
+              v61 = 1;
               do
               {
-                v59 = v58;
-                if (Count == v58)
+                v62 = v61;
+                if (Count == v61)
                 {
                   break;
                 }
 
-                v60 = *&v10[8 * v58];
-                v61 = v31[v58++];
+                v63 = *&v11[8 * v61];
+                v64 = v34[v61++];
               }
 
-              while (v60 == v61);
-              v16 = v59 >= Count;
+              while (v63 == v64);
+              v17 = v62 >= Count;
             }
 
             else
             {
-              v16 = 0;
+              v17 = 0;
             }
           }
 
           else
           {
-            v16 = 1;
+            v17 = 1;
           }
 
-          free(v30);
-          v62 = v11;
+          free(v33);
+          v65 = v12;
           goto LABEL_98;
         }
 
 LABEL_101:
-        v65 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
-        v66 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v65 userInfo:0];
-        CFRelease(v65);
-        objc_exception_throw(v66);
+        v68 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
+        v69 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v68 userInfo:0];
+        CFRelease(v68);
+        objc_exception_throw(v69);
       }
 
       return 0;
@@ -9163,30 +9428,30 @@ LABEL_101:
     Class = object_getClass(a1);
     if (Class == qword_1ED43F650)
     {
-      v13 = a2;
+      v14 = a2;
     }
 
     else
-    {
-      v13 = a1;
-    }
-
-    if (Class == qword_1ED43F650)
     {
       v14 = a1;
     }
 
-    else
+    if (Class == qword_1ED43F650)
     {
-      v14 = a2;
+      v15 = a1;
     }
 
-    v15 = v14[2];
-    if (*(v14 + 8) == 1)
+    else
     {
-      if (v15)
+      v15 = a2;
+    }
+
+    v16 = v15[2];
+    if (*(v15 + 8) == 1)
+    {
+      if (v16)
       {
-        Count = [*(v15 + 1) count];
+        Count = [*(v16 + 1) count];
       }
 
       else
@@ -9194,83 +9459,83 @@ LABEL_101:
         Count = 0;
       }
 
-      v23 = [(__CFArray *)v13[1] count];
-      if (v23 == Count + 1)
+      v25 = [(__CFArray *)v14[1] count];
+      if (v25 == Count + 1)
       {
         if (Count >> 60)
         {
           goto LABEL_101;
         }
 
-        v24 = v23;
+        v26 = v25;
         if (Count <= 1)
         {
-          v25 = 1;
+          v27 = 1;
         }
 
         else
         {
-          v25 = Count;
+          v27 = Count;
         }
 
-        MEMORY[0x1EEE9AC00](v25);
-        v27 = &v71 - v26;
-        v73 = 0;
+        v28 = MEMORY[0x1EEE9AC00](v27);
+        v30 = &v74 - v29;
+        v76 = 0;
         if (Count >= 0x101)
         {
-          v27 = _CFCreateArrayStorage();
-          v22 = v27;
+          v30 = _CFCreateArrayStorage();
+          v24 = v30;
         }
 
         else
         {
-          v22 = 0;
+          v24 = 0;
         }
 
-        v49 = v14[2];
-        if (v49)
+        v52 = v15[2];
+        if (v52)
         {
-          [*(v49 + 1) getObjects:v27 range:{0, Count}];
+          [*(v52 + 1) getObjects:v30 range:{0, Count, v28}];
         }
 
-        if (v24 >> 60)
+        if (v26 >> 60)
         {
-          v67 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v24);
-          v68 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v67 userInfo:0];
-          CFRelease(v67);
-          objc_exception_throw(v68);
+          v70 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v28, v26);
+          v71 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v70 userInfo:0];
+          CFRelease(v70);
+          objc_exception_throw(v71);
         }
 
-        if (v24 <= 1)
+        if (v26 <= 1)
         {
-          v50 = 1;
+          v53 = 1;
         }
 
         else
         {
-          v50 = v24;
+          v53 = v26;
         }
 
-        MEMORY[0x1EEE9AC00](v50);
-        v52 = &v71 - v51;
-        v53 = 0;
-        v72 = 0;
-        if (v24 >= 0x101)
+        MEMORY[0x1EEE9AC00](v53);
+        v55 = &v74 - v54;
+        v56 = 0;
+        v75 = 0;
+        if (v26 >= 0x101)
         {
-          v53 = _CFCreateArrayStorage();
-          v52 = v53;
+          v56 = _CFCreateArrayStorage();
+          v55 = v56;
         }
 
-        [(__CFArray *)v13[1] getObjects:v52 range:0, v24];
+        [(__CFArray *)v14[1] getObjects:v55 range:0, v26];
         if (Count)
         {
-          v54 = Count;
-          v55 = v52;
-          while (*v27 == *v55)
+          v57 = Count;
+          v58 = v55;
+          while (*v30 == *v58)
           {
-            v55 += 8;
-            v27 += 8;
-            if (!--v54)
+            v58 += 8;
+            v30 += 8;
+            if (!--v57)
             {
               goto LABEL_79;
             }
@@ -9280,147 +9545,147 @@ LABEL_101:
         else
         {
 LABEL_79:
-          v56 = *&v52[8 * Count];
-          if (*(v56 + 16) == v14[4] && v14[5] == (*(v56 + 40) >> 4) && *(v56 + 24) == v14[6])
+          v59 = *&v55[8 * Count];
+          if (*(v59 + 16) == v15[4] && v15[5] == (*(v59 + 40) >> 4) && *(v59 + 24) == v15[6])
           {
-            v57 = (*(v56 + 41) & 1) != 0 ? *(v56 + 32) : 0;
-            if (v57 == v14[7])
+            v60 = (*(v59 + 41) & 1) != 0 ? *(v59 + 32) : 0;
+            if (v60 == v15[7])
             {
-              v16 = *(v56 + 8) == v14[3];
+              v17 = *(v59 + 8) == v15[3];
               goto LABEL_96;
             }
           }
         }
 
-        v16 = 0;
+        v17 = 0;
 LABEL_96:
-        v63 = v53;
+        v66 = v56;
         goto LABEL_97;
       }
     }
 
     else
     {
-      Count = CFArrayGetCount(*(v15 + 1));
-      v17 = CFArrayGetCount(v13[1]);
-      if (v17 == Count - 1)
+      Count = CFArrayGetCount(*(v16 + 1));
+      v18 = CFArrayGetCount(v14[1]);
+      if (v18 == Count - 1)
       {
         if (Count >> 60)
         {
           goto LABEL_101;
         }
 
-        v18 = v17;
+        v19 = v18;
         if (Count <= 1)
         {
-          v19 = 1;
+          v20 = 1;
         }
 
         else
         {
-          v19 = Count;
+          v20 = Count;
         }
 
-        MEMORY[0x1EEE9AC00](v19);
-        v21 = &v71 - v20;
-        v73 = 0;
+        v21 = MEMORY[0x1EEE9AC00](v20);
+        v23 = &v74 - v22;
+        v76 = 0;
         if (Count >= 0x101)
         {
-          v21 = _CFCreateArrayStorage();
-          v22 = v21;
+          v23 = _CFCreateArrayStorage();
+          v24 = v23;
         }
 
         else
         {
-          v22 = 0;
+          v24 = 0;
         }
 
-        [*(v14[2] + 1) getObjects:v21 range:{0, Count}];
-        if (v18 >> 60)
+        [*(v15[2] + 1) getObjects:v23 range:{0, Count, v21}];
+        if (v19 >> 60)
         {
-          v69 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v18);
-          v70 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v69 userInfo:0];
-          CFRelease(v69);
-          objc_exception_throw(v70);
+          v72 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v19);
+          v73 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v72 userInfo:0];
+          CFRelease(v72);
+          objc_exception_throw(v73);
         }
 
-        if (v18 <= 1)
+        if (v19 <= 1)
         {
-          v32 = 1;
+          v35 = 1;
         }
 
         else
         {
-          v32 = v18;
+          v35 = v19;
         }
 
-        MEMORY[0x1EEE9AC00](v32);
-        v34 = &v71 - v33;
-        v35 = 0;
-        v72 = 0;
-        if (v18 >= 0x101)
+        MEMORY[0x1EEE9AC00](v35);
+        v37 = &v74 - v36;
+        v38 = 0;
+        v75 = 0;
+        if (v19 >= 0x101)
         {
-          v35 = _CFCreateArrayStorage();
-          v34 = v35;
+          v38 = _CFCreateArrayStorage();
+          v37 = v38;
         }
 
-        [(__CFArray *)v13[1] getObjects:v34 range:0, v18];
-        v36 = v14[9];
-        if (v36)
+        [(__CFArray *)v14[1] getObjects:v37 range:0, v19];
+        v39 = v15[9];
+        if (v39)
         {
-          v37 = v14[9];
-          v38 = v21;
-          v39 = v34;
-          while (*v38 == *v39)
+          v40 = v15[9];
+          v41 = v23;
+          v42 = v37;
+          while (*v41 == *v42)
           {
-            v39 += 8;
-            v38 += 8;
-            v37 = (v37 - 1);
-            if (!v37)
+            v42 += 8;
+            v41 += 8;
+            v40 = (v40 - 1);
+            if (!v40)
             {
               goto LABEL_58;
             }
           }
 
-          v16 = 0;
+          v17 = 0;
         }
 
         else
         {
 LABEL_58:
-          if (Count + ~v36)
+          if (Count + ~v39)
           {
-            v40 = &v21[8 * v36 + 8];
-            v41 = &v34[8 * v36];
-            v42 = Count - v36 - 2;
+            v43 = &v23[8 * v39 + 8];
+            v44 = &v37[8 * v39];
+            v45 = Count - v39 - 2;
             do
             {
-              v44 = *v40;
-              v40 += 8;
-              v43 = v44;
-              v46 = *v41;
-              v41 += 8;
-              v45 = v46;
-              v48 = v42-- != 0;
-              v16 = v43 == v45;
+              v47 = *v43;
+              v43 += 8;
+              v46 = v47;
+              v49 = *v44;
+              v44 += 8;
+              v48 = v49;
+              v51 = v45-- != 0;
+              v17 = v46 == v48;
             }
 
-            while (v43 == v45 && v48);
+            while (v46 == v48 && v51);
           }
 
           else
           {
-            v16 = 1;
+            v17 = 1;
           }
         }
 
-        v63 = v35;
+        v66 = v38;
 LABEL_97:
-        free(v63);
-        v62 = v22;
+        free(v66);
+        v65 = v24;
 LABEL_98:
-        free(v62);
-        return v16;
+        free(v65);
+        return v17;
       }
     }
 
@@ -9430,9 +9695,9 @@ LABEL_98:
   return 1;
 }
 
-void *_qfqp2_scan_bytes(char *a1, int a2)
+void *_qfqp2_scan_bytes(char *a1, unsigned int a2)
 {
-  v4 = a2 + 2;
+  v4 = (a2 + 2);
   v5 = malloc_type_malloc(v4, 0x8636E7A1uLL);
   if (!v5)
   {
@@ -9555,513 +9820,4 @@ LABEL_9:
 LABEL_7:
   yy_buffer_stack_max = v2;
   return result;
-}
-
-void _qfqp2_delete_buffer(void **a1)
-{
-  if (a1)
-  {
-    if (yy_buffer_stack)
-    {
-      v2 = *yy_buffer_stack;
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    if (v2 == a1)
-    {
-      *yy_buffer_stack = 0;
-    }
-
-    if (*(a1 + 10))
-    {
-      free(a1[1]);
-    }
-
-    free(a1);
-  }
-}
-
-void yydestruct(int a1, id *a2)
-{
-  switch(a1)
-  {
-    case 39:
-    case 87:
-    case 88:
-    case 90:
-    case 91:
-    case 92:
-    case 93:
-    case 94:
-    case 95:
-    case 96:
-    case 97:
-    case 98:
-    case 100:
-    case 101:
-    case 102:
-    case 103:
-    case 104:
-    case 105:
-    case 106:
-    case 107:
-    case 108:
-    case 109:
-    case 110:
-    case 111:
-    case 112:
-    case 113:
-    case 114:
-    case 115:
-    case 116:
-    case 117:
-    case 118:
-    case 119:
-    case 120:
-    case 121:
-    case 122:
-    case 123:
-    case 124:
-    case 125:
-    case 126:
-    case 127:
-    case 128:
-    case 129:
-    case 130:
-
-      break;
-    case 40:
-    case 41:
-    case 42:
-    case 43:
-      free(*a2);
-      break;
-    default:
-      return;
-  }
-}
-
-NSKeyPathExpression *CreateKVCExpression(uint64_t a1)
-{
-  v1 = [[NSKeyPathSpecifierExpression alloc] initWithObject:a1];
-  v2 = [[NSKeyPathExpression alloc] initWithKeyPath:v1];
-
-  return v2;
-}
-
-NSKeyPathExpression *ResolvePredicateArgument(void *a1, void *a2)
-{
-  v68[1] = *MEMORY[0x1E69E9840];
-  if (![a1 length])
-  {
-    v59 = MEMORY[0x1E695DF30];
-    v60 = *MEMORY[0x1E695D930];
-    v61 = @"Illegal argument conversion character";
-    goto LABEL_80;
-  }
-
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = a2[4];
-  a2[4] = v6 + 1;
-  v7 = [a1 characterAtIndex:0];
-  v8 = 0;
-  v68[0] = 0;
-  for (i = 1; ; ++i)
-  {
-    if (v7 <= 0x6Bu)
-    {
-      if (v7 == 104)
-      {
-        v10 = -1;
-        goto LABEL_8;
-      }
-
-      if (v7 != 76)
-      {
-        goto LABEL_11;
-      }
-
-LABEL_10:
-      v7 = [a1 characterAtIndex:i];
-      v8 = 2;
-      goto LABEL_11;
-    }
-
-    if (v7 != 108)
-    {
-      break;
-    }
-
-    v10 = 1;
-LABEL_8:
-    v8 += v10;
-    v7 = [a1 characterAtIndex:i];
-  }
-
-  if (v7 == 113)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_11:
-  if (v4)
-  {
-    v11 = [v4 count];
-    if (v6 < 0 || v6 + 1 > v11)
-    {
-      v59 = MEMORY[0x1E695DF30];
-      v60 = *MEMORY[0x1E695D930];
-      v61 = @"Insufficient arguments for conversion characters specified in format string.";
-    }
-
-    else
-    {
-      v12 = [v4 objectAtIndex:v6];
-      v67 = v12;
-      switch(v7)
-      {
-        case '@':
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            goto LABEL_15;
-          }
-
-          return v67;
-        case 'A':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-        case 'O':
-        case 'S':
-        case 'U':
-        case 'X':
-        case 'a':
-        case 'c':
-        case 'd':
-        case 'e':
-        case 'f':
-        case 'g':
-        case 'i':
-        case 'o':
-        case 'p':
-        case 's':
-        case 'u':
-        case 'x':
-LABEL_15:
-          v13 = [NSConstantValueExpression alloc];
-          v14 = v67;
-          goto LABEL_16;
-        case 'B':
-        case 'H':
-        case 'I':
-        case 'J':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'P':
-        case 'Q':
-        case 'R':
-        case 'T':
-        case 'V':
-        case 'W':
-        case 'Y':
-        case 'Z':
-        case '[':
-        case '\\':
-        case ']':
-        case '^':
-        case '_':
-        case 'b':
-        case 'h':
-        case 'j':
-        case 'k':
-        case 'l':
-        case 'm':
-        case 'n':
-        case 'q':
-        case 'r':
-        case 't':
-        case 'v':
-        case 'w':
-          goto LABEL_81;
-        case 'K':
-
-          return CreateKVCExpression(v12);
-        default:
-          if (v7 == 37)
-          {
-            v13 = [NSConstantValueExpression alloc];
-            v14 = @"%";
-LABEL_16:
-
-            return [(NSConstantValueExpression *)v13 initWithObject:v14];
-          }
-
-LABEL_81:
-          v62 = MEMORY[0x1E695DF30];
-          v63 = *MEMORY[0x1E695D930];
-          v61 = [NSString stringWithFormat:@"Unrecognized conversion specifier '%c' in format string.", v7];
-          v59 = v62;
-          v60 = v63;
-          break;
-      }
-    }
-
-LABEL_80:
-    objc_exception_throw([v59 exceptionWithName:v60 reason:v61 userInfo:0]);
-  }
-
-  switch(v7)
-  {
-    case '@':
-      v43 = (*v5)++;
-      v44 = *v43;
-      if (objc_opt_isKindOfClass())
-      {
-        KVCExpression = v44;
-        goto LABEL_74;
-      }
-
-      v35 = [NSConstantValueExpression alloc];
-      v36 = v44;
-      goto LABEL_73;
-    case 'A':
-    case 'E':
-    case 'F':
-    case 'G':
-    case 'a':
-    case 'e':
-    case 'f':
-    case 'g':
-      if (v8 == 2 || v8 == 1)
-      {
-        v23 = [NSNumber alloc];
-        v24 = (*v5)++;
-        v19 = [(NSNumber *)v23 initWithDouble:*v24];
-        goto LABEL_32;
-      }
-
-      if (!v8)
-      {
-        v16 = [NSNumber alloc];
-        v17 = (*v5)++;
-        v18 = *v17;
-        *&v18 = *v17;
-        v19 = [(NSNumber *)v16 initWithFloat:v18];
-        goto LABEL_32;
-      }
-
-      v20 = 0;
-      goto LABEL_33;
-    case 'B':
-    case 'H':
-    case 'I':
-    case 'J':
-    case 'L':
-    case 'M':
-    case 'N':
-    case 'Q':
-    case 'R':
-    case 'T':
-    case 'V':
-    case 'W':
-    case 'Y':
-    case 'Z':
-    case '[':
-    case '\\':
-    case ']':
-    case '^':
-    case '_':
-    case 'b':
-    case 'h':
-    case 'j':
-    case 'k':
-    case 'l':
-    case 'm':
-    case 'n':
-    case 'q':
-    case 'r':
-    case 't':
-    case 'v':
-    case 'w':
-      goto LABEL_82;
-    case 'C':
-      v38 = [NSNumber alloc];
-      v39 = (*v5)++;
-      v32 = [(NSNumber *)v38 initWithShort:*v39];
-      goto LABEL_66;
-    case 'D':
-    case 'd':
-    case 'i':
-      v20 = 0;
-      if (v8 < 0)
-      {
-        if (v8 == -2)
-        {
-          v57 = [NSNumber alloc];
-          v58 = (*v5)++;
-          v19 = [(NSNumber *)v57 initWithChar:*v58];
-        }
-
-        else
-        {
-          if (v8 != -1)
-          {
-            goto LABEL_33;
-          }
-
-          v33 = [NSNumber alloc];
-          v34 = (*v5)++;
-          v19 = [(NSNumber *)v33 initWithShort:*v34];
-        }
-      }
-
-      else if (v8 == 2)
-      {
-        v53 = [NSNumber alloc];
-        v54 = (*v5)++;
-        v19 = [(NSNumber *)v53 initWithLongLong:*v54];
-      }
-
-      else if (v8 == 1)
-      {
-        v55 = [NSNumber alloc];
-        v56 = (*v5)++;
-        v19 = [(NSNumber *)v55 initWithLong:*v56];
-      }
-
-      else
-      {
-        if (v8)
-        {
-          goto LABEL_33;
-        }
-
-        v27 = [NSNumber alloc];
-        v28 = (*v5)++;
-        v19 = [(NSNumber *)v27 initWithInt:*v28];
-      }
-
-      goto LABEL_32;
-    case 'K':
-      v41 = (*v5)++;
-      v68[0] = *v41;
-      KVCExpression = CreateKVCExpression(v68[0]);
-      goto LABEL_74;
-    case 'O':
-    case 'U':
-    case 'X':
-    case 'o':
-    case 'u':
-    case 'x':
-      v20 = 0;
-      if ((v8 & 0x80000000) == 0)
-      {
-        if (v8 == 2)
-        {
-          v47 = [NSNumber alloc];
-          v48 = (*v5)++;
-          v19 = [(NSNumber *)v47 initWithUnsignedLongLong:*v48];
-        }
-
-        else if (v8 == 1)
-        {
-          v49 = [NSNumber alloc];
-          v50 = (*v5)++;
-          v19 = [(NSNumber *)v49 initWithUnsignedLong:*v50];
-        }
-
-        else
-        {
-          if (v8)
-          {
-            goto LABEL_33;
-          }
-
-          v21 = [NSNumber alloc];
-          v22 = (*v5)++;
-          v19 = [(NSNumber *)v21 initWithUnsignedInt:*v22];
-        }
-
-        goto LABEL_32;
-      }
-
-      if (v8 == -2)
-      {
-        v51 = [NSNumber alloc];
-        v52 = (*v5)++;
-        v19 = [(NSNumber *)v51 initWithUnsignedChar:*v52];
-        goto LABEL_32;
-      }
-
-      if (v8 == -1)
-      {
-        v29 = [NSNumber alloc];
-        v30 = (*v5)++;
-        v19 = [(NSNumber *)v29 initWithUnsignedShort:*v30];
-LABEL_32:
-        v20 = v19;
-        v68[0] = v19;
-      }
-
-LABEL_33:
-      v25 = [[NSConstantValueExpression alloc] initWithObject:v20];
-
-LABEL_34:
-      v26 = 0;
-LABEL_67:
-
-      return v25;
-    case 'P':
-      v37 = (*v5)++;
-      v68[0] = *v37;
-      v32 = CFStringCreateWithPascalString(*MEMORY[0x1E695E4A8], v68[0], 0x8000100u);
-      goto LABEL_66;
-    case 'S':
-    case 's':
-      v31 = (*v5)++;
-      v68[0] = *v31;
-      v32 = [[NSString alloc] initWithFormat:@"%s", v68[0]];
-      goto LABEL_66;
-    case 'c':
-      v45 = [NSNumber alloc];
-      v46 = (*v5)++;
-      v32 = [(NSNumber *)v45 initWithChar:*v46];
-      goto LABEL_66;
-    case 'p':
-      v40 = (*v5)++;
-      v68[0] = *v40;
-      v32 = [NSValue value:v68 withObjCType:"^v"];
-LABEL_66:
-      v26 = v32;
-      v25 = [[NSConstantValueExpression alloc] initWithObject:v32];
-      goto LABEL_67;
-    default:
-      if (v7 != 37)
-      {
-LABEL_82:
-        v64 = v7;
-        v65 = MEMORY[0x1E695DF30];
-        v66 = *MEMORY[0x1E695D930];
-        v61 = [NSString stringWithFormat:@"Unrecognized conversion specifier '%c' in format string.", v64];
-        v59 = v65;
-        v60 = v66;
-        goto LABEL_80;
-      }
-
-      v35 = [NSConstantValueExpression alloc];
-      v36 = @"%";
-LABEL_73:
-      KVCExpression = [(NSConstantValueExpression *)v35 initWithObject:v36];
-LABEL_74:
-      v25 = KVCExpression;
-      goto LABEL_34;
-  }
 }

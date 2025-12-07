@@ -5,6 +5,7 @@
 + (id)sharedManager;
 + (id)userNotificationForType:(int64_t)type deviceName:(id)name;
 + (unsigned)randomNumberWithDigitCount:(unsigned __int8)count;
+- (BOOL)handleInputCharacter:(unsigned __int16)character forUserAuthorizationRequest:(id)request error:(id *)error;
 - (BOOL)removeAllUserAuthorizationRequests:(id *)requests;
 - (BOOL)removeUserAuthorizationRequest:(id)request error:(id *)error;
 - (HIDRMUIUserAuthorizationManager)init;
@@ -221,17 +222,17 @@ LABEL_14:
 
 void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v21 = [v3 responseReceived];
+    v19 = [v3 responseReceived];
+    v20 = 1024;
+    v21 = [v3 notificationCancelled];
     v22 = 1024;
-    v23 = [v3 notificationCancelled];
-    v24 = 1024;
-    v25 = [v3 notificationDismissed];
+    v23 = [v3 notificationDismissed];
     _os_log_impl(&dword_250977000, v4, OS_LOG_TYPE_DEFAULT, "userNotification.responseReceived: %d, notificationCancelled: %d, notificationDismissed: %d", buf, 0x14u);
   }
 
@@ -258,9 +259,9 @@ void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___
 
       v10 = [MEMORY[0x277CC1E80] defaultWorkspace];
       v11 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.PrivacyAndSecurity"];
-      v19 = 0;
-      [v10 openSensitiveURL:v11 withOptions:0 error:&v19];
-      v12 = v19;
+      v17 = 0;
+      [v10 openSensitiveURL:v11 withOptions:0 error:&v17];
+      v12 = v17;
 
       if (v12)
       {
@@ -283,14 +284,11 @@ void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___
 
     if (v16)
     {
-      v17 = *(a1 + 32);
       v12 = [objc_opt_class() userNotificationForType:1 deviceName:0];
       [v12 presentNotification];
 LABEL_16:
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (HIDRMUIUserAuthorizationManager)init
@@ -318,24 +316,24 @@ LABEL_16:
 
 - (void)addUserAuthorizationRequest:(id)request completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v38[3] = 7;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = __Block_byref_object_copy_;
-  v36[4] = __Block_byref_object_dispose_;
-  v37 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v37[3] = 7;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy_;
+  v35[4] = __Block_byref_object_dispose_;
+  v36 = 0;
   v8 = [(HIDRMUIUserAuthorizationManager *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v45 = requestCopy;
+    v44 = requestCopy;
     _os_log_impl(&dword_250977000, v8, OS_LOG_TYPE_DEFAULT, "Adding user authorization request... (authorizationRequest: %@)", buf, 0xCu);
   }
 
@@ -366,13 +364,13 @@ LABEL_16:
       v18 = [v16 digitsArrayFromNumber:v17];
 
       v19 = objc_alloc_init(MEMORY[0x277CCA9D8]);
-      v42 = 0x2862DB518;
-      v43 = v18;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = 0x2862DB518;
+      v42 = v18;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       [v19 setUserInfo:v20];
 
-      v41 = v19;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+      v40 = v19;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
       [v13 setExtensionItems:v21];
 
       [v14 setPairingCodeDigits:v18];
@@ -392,29 +390,29 @@ LABEL_16:
     }
 
     objc_initWeak(buf, self);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke;
-    v31[3] = &unk_2796A3148;
-    objc_copyWeak(v35, buf);
-    v31[4] = self;
-    v33 = v36;
-    v32 = requestCopy;
-    v34 = v38;
-    v35[1] = v10;
-    [v13 presentNotificationWithResponseHandler:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke;
+    v30[3] = &unk_2796A3148;
+    objc_copyWeak(v34, buf);
+    v30[4] = self;
+    v32 = v35;
+    v31 = requestCopy;
+    v33 = v37;
+    v34[1] = v10;
+    [v13 presentNotificationWithResponseHandler:v30];
 
-    objc_destroyWeak(v35);
+    objc_destroyWeak(v34);
     objc_destroyWeak(buf);
   }
 
   else
   {
     v24 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
+    v38 = *MEMORY[0x277CCA450];
     v25 = HIDRMUIErrorStringFromCode(1001);
-    v40 = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     v13 = [v24 errorWithDomain:@"HIDRMUIErrorDomain" code:1001 userInfo:v26];
 
     v27 = [(HIDRMUIUserAuthorizationManager *)self log];
@@ -428,15 +426,13 @@ LABEL_16:
     completionCopy[2](completionCopy, 7, v13);
   }
 
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(v38, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v37, 8);
 }
 
 void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -460,11 +456,11 @@ void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completio
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v59 = [v5 responseReceived];
-      v60 = 1024;
-      v61 = [v5 notificationCancelled];
-      v62 = 1024;
-      v63 = [v5 notificationDismissed];
+      v56 = [v5 responseReceived];
+      v57 = 1024;
+      v58 = [v5 notificationCancelled];
+      v59 = 1024;
+      v60 = [v5 notificationDismissed];
       _os_log_impl(&dword_250977000, v9, OS_LOG_TYPE_DEFAULT, "userNotification.responseReceived: %d, notificationCancelled: %d, notificationDismissed: %d", buf, 0x14u);
     }
 
@@ -503,44 +499,44 @@ LABEL_19:
     {
       if ([v15 pairingStatus] == 2)
       {
-        v20 = *(*(a1 + 56) + 8);
-        v21 = 3;
+        v19 = *(*(a1 + 56) + 8);
+        v20 = 3;
       }
 
       else
       {
-        v26 = [v15 pairingStatus];
-        v20 = *(*(a1 + 56) + 8);
-        if (v26 != 3)
+        v25 = [v15 pairingStatus];
+        v19 = *(*(a1 + 56) + 8);
+        if (v25 != 3)
         {
-          *(v20 + 24) = 0;
+          *(v19 + 24) = 0;
           goto LABEL_44;
         }
 
-        v21 = 4;
+        v20 = 4;
       }
 
       goto LABEL_43;
     }
 
-    v22 = *(a1 + 72);
-    if (v22 == 3)
+    v21 = *(a1 + 72);
+    if (v21 == 3)
     {
       if ([v5 responseReceived])
       {
-        v27 = [v5 buttons];
-        v28 = [v27 lastObject];
-        v29 = [v28 selected];
+        v26 = [v5 buttons];
+        v27 = [v26 lastObject];
+        v28 = [v27 selected];
 
-        if (v29)
+        if (v28)
         {
-          v20 = *(*(a1 + 56) + 8);
-          v21 = 5;
+          v19 = *(*(a1 + 56) + 8);
+          v20 = 5;
           goto LABEL_43;
         }
       }
 
-      if (![v5 responseReceived] || (objc_msgSend(v5, "buttons"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "firstObject"), v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "selected"), v34, v33, !v35))
+      if (![v5 responseReceived] || (objc_msgSend(v5, "buttons"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "firstObject"), v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "selected"), v33, v32, !v34))
       {
         if (![v5 notificationCancelled])
         {
@@ -553,26 +549,26 @@ LABEL_19:
 
     else
     {
-      if (v22)
+      if (v21)
       {
         goto LABEL_44;
       }
 
       if ([v5 responseReceived])
       {
-        v23 = [v5 buttons];
-        v24 = [v23 lastObject];
-        v25 = [v24 selected];
+        v22 = [v5 buttons];
+        v23 = [v22 lastObject];
+        v24 = [v23 selected];
 
-        if (v25)
+        if (v24)
         {
-          v20 = *(*(a1 + 56) + 8);
-          v21 = 2;
+          v19 = *(*(a1 + 56) + 8);
+          v20 = 2;
           goto LABEL_43;
         }
       }
 
-      if (![v5 responseReceived] || (objc_msgSend(v5, "buttons"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "firstObject"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "selected"), v31, v30, !v32))
+      if (![v5 responseReceived] || (objc_msgSend(v5, "buttons"), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "firstObject"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "selected"), v30, v29, !v31))
       {
         if (![v5 notificationCancelled])
         {
@@ -585,36 +581,35 @@ LABEL_41:
           goto LABEL_44;
         }
 
-        v20 = *(*(a1 + 56) + 8);
-        v21 = 1;
+        v19 = *(*(a1 + 56) + 8);
+        v20 = 1;
 LABEL_43:
-        *(v20 + 24) = v21;
+        *(v19 + 24) = v20;
 LABEL_44:
-        v36 = *(*(*(a1 + 56) + 8) + 24);
-        if (v36 > 3)
+        v35 = *(*(*(a1 + 56) + 8) + 24);
+        if (v35 > 3)
         {
-          if (v36 == 4 || v36 == 6)
+          if (v35 == 4 || v35 == 6)
           {
-            v39 = *(a1 + 32);
-            v40 = objc_opt_class();
-            v41 = [*(a1 + 40) deviceName];
-            v18 = [v40 userNotificationForType:1 deviceName:v41];
+            v38 = objc_opt_class();
+            v39 = [*(a1 + 40) deviceName];
+            v18 = [v38 userNotificationForType:1 deviceName:v39];
 
             [v18 presentNotification];
             if (WeakRetained)
             {
-              v42 = WeakRetained[2];
-              objc_sync_enter(v42);
+              v40 = WeakRetained[2];
+              objc_sync_enter(v40);
               [WeakRetained[2] removeObjectForKey:*(a1 + 40)];
-              objc_sync_exit(v42);
+              objc_sync_exit(v40);
             }
 
-            v43 = [v15 completionHandler];
+            v41 = [v15 completionHandler];
 
-            if (v43)
+            if (v41)
             {
-              v44 = [v15 completionHandler];
-              v44[2](v44, *(*(*(a1 + 56) + 8) + 24), *(*(*(a1 + 48) + 8) + 40));
+              v42 = [v15 completionHandler];
+              v42[2](v42, *(*(*(a1 + 56) + 8) + 24), *(*(*(a1 + 48) + 8) + 40));
             }
 
             goto LABEL_17;
@@ -623,45 +618,44 @@ LABEL_44:
 
         else
         {
-          if (v36 == 2)
+          if (v35 == 2)
           {
             [v15 setPairingStatus:0];
-            v47 = *(a1 + 32);
-            v48 = objc_opt_class();
-            v49 = [*(a1 + 40) deviceName];
-            v18 = [v48 userNotificationForType:2 deviceName:v49];
+            v45 = objc_opt_class();
+            v46 = [*(a1 + 40) deviceName];
+            v18 = [v45 userNotificationForType:2 deviceName:v46];
 
             [v15 setUserNotification:v18];
-            v50 = [v18 responseHandler];
-            v54[0] = MEMORY[0x277D85DD0];
-            v54[1] = 3221225472;
-            v54[2] = __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke_67;
-            v54[3] = &unk_2796A3120;
-            v54[4] = WeakRetained;
-            v51 = *(a1 + 40);
-            v52 = *(a1 + 56);
-            v56 = v50;
-            v57 = v52;
-            v55 = v51;
-            v53 = v50;
-            [v18 presentNotificationWithResponseHandler:v54];
+            v47 = [v18 responseHandler];
+            v51[0] = MEMORY[0x277D85DD0];
+            v51[1] = 3221225472;
+            v51[2] = __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke_67;
+            v51[3] = &unk_2796A3120;
+            v51[4] = WeakRetained;
+            v48 = *(a1 + 40);
+            v49 = *(a1 + 56);
+            v53 = v47;
+            v54 = v49;
+            v52 = v48;
+            v50 = v47;
+            [v18 presentNotificationWithResponseHandler:v51];
 
             goto LABEL_17;
           }
 
-          if (v36 == 3)
+          if (v35 == 3)
           {
             if (WeakRetained)
             {
-              v37 = WeakRetained[2];
-              objc_sync_enter(v37);
+              v36 = WeakRetained[2];
+              objc_sync_enter(v36);
               [WeakRetained[2] removeObjectForKey:*(a1 + 40)];
-              objc_sync_exit(v37);
+              objc_sync_exit(v36);
             }
 
-            v38 = [v15 completionHandler];
+            v37 = [v15 completionHandler];
 
-            if (v38)
+            if (v37)
             {
               goto LABEL_16;
             }
@@ -672,15 +666,15 @@ LABEL_44:
 
         if (WeakRetained)
         {
-          v45 = WeakRetained[2];
-          objc_sync_enter(v45);
+          v43 = WeakRetained[2];
+          objc_sync_enter(v43);
           [WeakRetained[2] removeObjectForKey:*(a1 + 40)];
-          objc_sync_exit(v45);
+          objc_sync_exit(v43);
         }
 
-        v46 = [v15 completionHandler];
+        v44 = [v15 completionHandler];
 
-        if (v46)
+        if (v44)
         {
           goto LABEL_16;
         }
@@ -689,8 +683,8 @@ LABEL_44:
       }
     }
 
-    v20 = *(*(a1 + 56) + 8);
-    v21 = 6;
+    v19 = *(*(a1 + 56) + 8);
+    v20 = 6;
     goto LABEL_43;
   }
 
@@ -712,8 +706,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke_67(void *a1, void *a2, void *a3)
@@ -754,24 +746,24 @@ void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completio
 
 - (BOOL)removeUserAuthorizationRequest:(id)request error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [(HIDRMUIUserAuthorizationManager *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = requestCopy;
+    v26 = requestCopy;
     _os_log_impl(&dword_250977000, v7, OS_LOG_TYPE_DEFAULT, "Removing user authorization request... (authorizationRequest: %@)", buf, 0xCu);
   }
 
   if (!requestCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     v16 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     v9 = HIDRMUIErrorStringFromCode(1001);
-    v23 = v9;
-    completionHandler2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v17 = [v16 errorWithDomain:@"HIDRMUIErrorDomain" code:1001 userInfo:{completionHandler2, v22}];
+    v22 = v9;
+    completionHandler2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v17 = [v16 errorWithDomain:@"HIDRMUIErrorDomain" code:1001 userInfo:{completionHandler2, v21}];
 LABEL_11:
     v14 = v17;
     v15 = 0;
@@ -786,11 +778,11 @@ LABEL_11:
 
   if (!v9)
   {
-    v21 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25 = @"Authorization request not found.";
-    completionHandler2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v17 = [v21 errorWithDomain:@"HIDRMUIErrorDomain" code:1002 userInfo:completionHandler2];
+    v20 = MEMORY[0x277CCA9B8];
+    v23 = *MEMORY[0x277CCA450];
+    v24 = @"Authorization request not found.";
+    completionHandler2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v17 = [v20 errorWithDomain:@"HIDRMUIErrorDomain" code:1002 userInfo:completionHandler2];
     goto LABEL_11;
   }
 
@@ -825,57 +817,258 @@ LABEL_13:
     *error = v14;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)removeAllUserAuthorizationRequests:(id *)requests
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   userAuthorizationRequests = [(HIDRMUIUserAuthorizationManager *)self userAuthorizationRequests];
   v5 = [(HIDRMUIUserAuthorizationManager *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = [userAuthorizationRequests count];
+    v20 = [userAuthorizationRequests count];
     _os_log_impl(&dword_250977000, v5, OS_LOG_TYPE_DEFAULT, "Removing all user authorization requests... (authRequests.count: %lu)", buf, 0xCu);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = userAuthorizationRequests;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
-        v14 = 0;
-        [(HIDRMUIUserAuthorizationManager *)self removeUserAuthorizationRequest:v11 error:&v14];
+        v11 = *(*(&v14 + 1) + 8 * v10);
+        v13 = 0;
+        [(HIDRMUIUserAuthorizationManager *)self removeUserAuthorizationRequest:v11 error:&v13];
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
+- (BOOL)handleInputCharacter:(unsigned __int16)character forUserAuthorizationRequest:(id)request error:(id *)error
+{
+  characterCopy = character;
+  v69 = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  v9 = [(HIDRMUIUserAuthorizationManager *)self log];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109378;
+    *&buf[4] = characterCopy;
+    LOWORD(v67) = 2112;
+    *(&v67 + 2) = requestCopy;
+    _os_log_impl(&dword_250977000, v9, OS_LOG_TYPE_INFO, "Handling input character '%C'... (authorizationRequest: %@)", buf, 0x12u);
+  }
+
+  v10 = self->_authRequests;
+  objc_sync_enter(v10);
+  v11 = [(NSMutableDictionary *)self->_authRequests objectForKey:requestCopy];
+  objc_sync_exit(v10);
+
+  if (v11)
+  {
+    userNotification = [v11 userNotification];
+    v13 = userNotification == 0;
+
+    if (!v13)
+    {
+      if (![requestCopy requiresPairing] || objc_msgSend(v11, "pairingStatus") != 1)
+      {
+        v37 = [(HIDRMUIUserAuthorizationManager *)self log];
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        {
+          [HIDRMUIUserAuthorizationManager handleInputCharacter:characterCopy forUserAuthorizationRequest:v37 error:?];
+        }
+
+        goto LABEL_35;
+      }
+
+      v57 = 0;
+      *buf = 0;
+      *&v67 = buf;
+      *(&v67 + 1) = 0x2020000000;
+      v68 = 0;
+      if ([objc_opt_class() digitFromCharacter:characterCopy digit:&v57])
+      {
+        pairingCodeDigitsEntered = [v11 pairingCodeDigitsEntered];
+        objc_sync_enter(pairingCodeDigitsEntered);
+        pairingCodeDigitsEntered2 = [v11 pairingCodeDigitsEntered];
+        v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v57];
+        [pairingCodeDigitsEntered2 addObject:v16];
+
+        pairingCodeDigitsEntered3 = [v11 pairingCodeDigitsEntered];
+        v18 = [pairingCodeDigitsEntered3 copy];
+
+        objc_sync_exit(pairingCodeDigitsEntered);
+        pairingCodeDigits = [v11 pairingCodeDigits];
+        objc_sync_enter(pairingCodeDigits);
+        pairingCodeDigits2 = [v11 pairingCodeDigits];
+        v21 = [pairingCodeDigits2 copy];
+
+        objc_sync_exit(pairingCodeDigits);
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __90__HIDRMUIUserAuthorizationManager_handleInputCharacter_forUserAuthorizationRequest_error___block_invoke;
+        v54[3] = &unk_2796A3170;
+        v22 = v21;
+        v55 = v22;
+        v56 = buf;
+        [v18 enumerateObjectsUsingBlock:v54];
+
+        if ((*(v67 + 24) & 1) == 0)
+        {
+          v23 = [(HIDRMUIUserAuthorizationManager *)self log];
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+          {
+            *v64 = 0;
+            _os_log_impl(&dword_250977000, v23, OS_LOG_TYPE_INFO, "Sending correct digit notification to extension...", v64, 2u);
+          }
+
+          defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
+          v25 = objc_opt_class();
+          v26 = NSStringFromClass(v25);
+          v60 = 0x2862DB4B8;
+          v61 = 0x2862DB4D8;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+          [defaultCenter postNotificationName:0x2862DB498 object:v26 userInfo:v27];
+
+          pairingCodeDigits3 = [v11 pairingCodeDigits];
+          v29 = [pairingCodeDigits3 count];
+          pairingCodeDigitsEntered4 = [v11 pairingCodeDigitsEntered];
+          if (v29 == [pairingCodeDigitsEntered4 count])
+          {
+            pairingCodeDigits4 = [v11 pairingCodeDigits];
+            pairingCodeDigitsEntered5 = [v11 pairingCodeDigitsEntered];
+            v33 = [pairingCodeDigits4 isEqualToArray:pairingCodeDigitsEntered5];
+
+            if (!v33)
+            {
+LABEL_34:
+              _Block_object_dispose(buf, 8);
+LABEL_35:
+              v36 = 1;
+              goto LABEL_36;
+            }
+
+            [v11 setPairingStatus:2];
+            pairingCodeDigits3 = [v11 userNotification];
+            [pairingCodeDigits3 dismissNotification];
+LABEL_33:
+
+            goto LABEL_34;
+          }
+
+LABEL_32:
+
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+        v38 = [(HIDRMUIUserAuthorizationManager *)self log];
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        {
+          *v64 = 67109120;
+          v65 = characterCopy;
+          _os_log_impl(&dword_250977000, v38, OS_LOG_TYPE_INFO, "Invalid character! (character: '%C')", v64, 8u);
+        }
+
+        *(v67 + 24) = 1;
+      }
+
+      v39 = [(HIDRMUIUserAuthorizationManager *)self log];
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      {
+        pairingCodeDigits5 = [v11 pairingCodeDigits];
+        pairingCodeDigitsEntered6 = [v11 pairingCodeDigitsEntered];
+        [(HIDRMUIUserAuthorizationManager *)pairingCodeDigits5 handleInputCharacter:pairingCodeDigitsEntered6 forUserAuthorizationRequest:v64 error:v39];
+      }
+
+      [v11 setPairingFailureCount:{objc_msgSend(v11, "pairingFailureCount") + 1}];
+      if ([v11 pairingFailureCount] >= 3)
+      {
+        v42 = [(HIDRMUIUserAuthorizationManager *)self log];
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        {
+          [HIDRMUIUserAuthorizationManager handleInputCharacter:v42 forUserAuthorizationRequest:? error:?];
+        }
+
+        [v11 setPairingStatus:3];
+        pairingCodeDigits3 = [v11 userNotification];
+        [pairingCodeDigits3 dismissNotification];
+        goto LABEL_33;
+      }
+
+      pairingCodeDigitsEntered7 = [v11 pairingCodeDigitsEntered];
+      objc_sync_enter(pairingCodeDigitsEntered7);
+      pairingCodeDigitsEntered8 = [v11 pairingCodeDigitsEntered];
+      [pairingCodeDigitsEntered8 removeAllObjects];
+
+      objc_sync_exit(pairingCodeDigitsEntered7);
+      v45 = [objc_opt_class() randomNumberWithDigitCount:4];
+      v46 = objc_opt_class();
+      v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v45];
+      pairingCodeDigits3 = [v46 digitsArrayFromNumber:v47];
+
+      [v11 setPairingCodeDigits:pairingCodeDigits3];
+      v48 = [(HIDRMUIUserAuthorizationManager *)self log];
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      {
+        *v53 = 0;
+        _os_log_impl(&dword_250977000, v48, OS_LOG_TYPE_INFO, "Sending pairing failure notification to extension...", v53, 2u);
+      }
+
+      pairingCodeDigitsEntered4 = [MEMORY[0x277CCA9A0] defaultCenter];
+      v49 = objc_opt_class();
+      v50 = NSStringFromClass(v49);
+      v62[0] = 0x2862DB4B8;
+      v62[1] = 0x2862DB518;
+      v63[0] = 0x2862DB4F8;
+      v63[1] = pairingCodeDigits3;
+      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
+      [pairingCodeDigitsEntered4 postNotificationName:0x2862DB498 object:v50 userInfo:v51];
+
+      goto LABEL_32;
+    }
+  }
+
+  if (error)
+  {
+    v34 = MEMORY[0x277CCA9B8];
+    v58 = *MEMORY[0x277CCA450];
+    v59 = @"Authorization request not found.";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    *error = [v34 errorWithDomain:@"HIDRMUIErrorDomain" code:1002 userInfo:v35];
+  }
+
+  v36 = 0;
+LABEL_36:
+
+  return v36;
 }
 
 void __90__HIDRMUIUserAuthorizationManager_handleInputCharacter_forUserAuthorizationRequest_error___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
@@ -917,16 +1110,14 @@ LABEL_5:
 
 void __38__HIDRMUIUserAuthorizationManager_log__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v10 bundleIdentifier];
-  v4 = [v3 UTF8String];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = os_log_create(v4, [v7 UTF8String]);
-  v9 = log_log;
-  log_log = v8;
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [v7 bundleIdentifier];
+  v2 = [v1 UTF8String];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = os_log_create(v2, [v4 UTF8String]);
+  v6 = log_log;
+  log_log = v5;
 }
 
 - (OS_os_log)log
@@ -936,30 +1127,11 @@ void __38__HIDRMUIUserAuthorizationManager_log__block_invoke(uint64_t a1)
   return [v2 log];
 }
 
-+ (void)userNotificationForType:deviceName:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_250977000, v0, v1, "Invalid notification type! (notificationType: %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 buttons];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_250977000, v2, v3, "userNotification.buttons: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_250977000, v0, v1, "Error opening settings pane! (error: %@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_250977000, v2, v3, "userNotification.buttons: %@", v4, v5, v6, v7);
 }
 
 - (void)addUserAuthorizationRequest:(os_log_t)log completion:.cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -969,31 +1141,19 @@ void __70__HIDRMUIUserAuthorizationManager_userNotificationForType_deviceName___
   _os_log_error_impl(&dword_250977000, log, OS_LOG_TYPE_ERROR, "Invalid authorization request! (authorizationRequest.class: %@)", buf, 0xCu);
 }
 
-void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_250977000, v0, v1, "Error presenting user notification! (error_int: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __74__HIDRMUIUserAuthorizationManager_addUserAuthorizationRequest_completion___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 buttons];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_250977000, v2, v3, "userNotification.buttons: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_250977000, v2, v3, "userNotification.buttons: %@", v4, v5, v6, v7);
 }
 
 - (void)handleInputCharacter:(unsigned __int16)a1 forUserAuthorizationRequest:(NSObject *)a2 error:.cold.1(unsigned __int16 a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_250977000, a2, OS_LOG_TYPE_DEBUG, "Not in pairing flow, ignoring input character! (character: '%C')", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_250977000, a2, OS_LOG_TYPE_DEBUG, "Not in pairing flow, ignoring input character! (character: '%C')", v2, 8u);
 }
 
 - (void)handleInputCharacter:(uint8_t *)buf forUserAuthorizationRequest:(os_log_t)log error:.cold.2(void *a1, void *a2, uint8_t *buf, os_log_t log)

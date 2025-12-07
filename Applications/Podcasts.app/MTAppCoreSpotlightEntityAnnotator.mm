@@ -50,7 +50,7 @@
   {
     v13 = episode;
     EpisodeEntity.init(model:)();
-    sub_10034C4A0(&qword_100580AF0, &type metadata accessor for EpisodeEntity);
+    sub_10034C4A0(&qword_100580AF0, &type metadata accessor for EpisodeEntity, &protocol conformance descriptor for EpisodeEntity);
     CSSearchableItem.associateAppEntity<A>(_:priority:)();
 
     (*(v7 + 8))(v9, v6);

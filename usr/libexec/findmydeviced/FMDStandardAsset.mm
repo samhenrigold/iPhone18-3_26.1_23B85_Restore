@@ -36,16 +36,20 @@
   {
     v4 = [NSData alloc];
     fileURL = [(FMDStandardAsset *)self fileURL];
-    v9 = 0;
-    v3 = [v4 initWithContentsOfURL:fileURL options:0 error:&v9];
-    v6 = v9;
+    v10 = 0;
+    v3 = [v4 initWithContentsOfURL:fileURL options:0 error:&v10];
+    v6 = v10;
 
-    if (v6 && ([v6 fm_isFileNotFoundError] & 1) == 0)
+    if (v6)
     {
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      fm_isFileNotFoundError = [v6 fm_isFileNotFoundError];
+      if ((fm_isFileNotFoundError & 1) == 0)
       {
-        sub_10022C29C(self, v6, v7);
+        v8 = sub_100002880(fm_isFileNotFoundError);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          sub_10022C29C(self, v6, v8);
+        }
       }
     }
   }

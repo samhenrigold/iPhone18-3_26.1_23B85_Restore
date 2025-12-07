@@ -18,7 +18,7 @@
 {
   v38[38] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphNonMaximumSuppressionOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphNonMaximumSuppressionOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphNonMaximumSuppressionOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphNonMaximumSuppressionOps.mm");
   v11 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::SampleGridOp>(table, builder, __p, 0x3Eu, nameCopy);
   if (v31 < 0)
   {
@@ -77,7 +77,7 @@ LABEL_8:
   mlir::OperationState::OperationState(v38, v11, v24);
   mlir::mps::NonMaximumSuppressionOp::build(builder, v38, v20, v21, v15, v18, v19, *(&self->_perClassSuppression + 4), coordinateMode, 0);
   v26 = mlir::OpBuilder::create(builder, v38);
-  v27 = *(v26[6] + 16);
+  v27 = *(*(v26 + 6) + 16);
   mlir::OperationState::~OperationState(v38);
   if (v27 != &mlir::detail::TypeIDResolver<mlir::mps::NonMaximumSuppressionOp,void>::id)
   {

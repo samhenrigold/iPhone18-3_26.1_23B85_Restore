@@ -54,8 +54,7 @@
 LABEL_141:
     MEMORY[0x1E69E5920](selfCopy);
     selfCopy = 0;
-    v103 = 0;
-    goto LABEL_142;
+    return 0;
   }
 
   v95.receiver = selfCopy;
@@ -531,10 +530,7 @@ LABEL_141:
     }
   }
 
-  v103 = selfCopy;
-LABEL_142:
-  *MEMORY[0x1E69E9840];
-  return v103;
+  return selfCopy;
 }
 
 CFTypeID __49__CBDisplayModuleHIDiOS_initWithDevice_andQueue___block_invoke(uint64_t a1, void *a2)
@@ -646,7 +642,6 @@ CFTypeID __49__CBDisplayModuleHIDiOS_initWithDevice_andQueue___block_invoke(uint
   v10.receiver = selfCopy;
   v10.super_class = CBDisplayModuleHIDiOS;
   [(CBModule *)&v10 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)start
@@ -874,7 +869,6 @@ CFTypeID __49__CBDisplayModuleHIDiOS_initWithDevice_andQueue___block_invoke(uint
     _os_log_debug_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEBUG, "key=%@ property=%@ result=%d", v13, 0x1Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -937,7 +931,6 @@ CFTypeID __49__CBDisplayModuleHIDiOS_initWithDevice_andQueue___block_invoke(uint
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "data=%@ result=%d", v9, 0x12u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1004,7 +997,6 @@ CFTypeID __49__CBDisplayModuleHIDiOS_initWithDevice_andQueue___block_invoke(uint
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "data=%@ result=%d", v11, 0x12u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1342,7 +1334,6 @@ void __44__CBDisplayModuleHIDiOS_setNits_withPeriod___block_invoke_2(uint64_t a1
   }
 
   *(*(a1 + 32) + 120) = 0;
-  *MEMORY[0x1E69E9840];
 }
 
 void __44__CBDisplayModuleHIDiOS_setNits_withPeriod___block_invoke_46(uint64_t a1)
@@ -1405,8 +1396,6 @@ void __44__CBDisplayModuleHIDiOS_setNits_withPeriod___block_invoke_46(uint64_t a
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "setting %f nits over %fs", v7, 0x16u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getNits:(float *)nits
@@ -1593,44 +1582,43 @@ void __44__CBDisplayModuleHIDiOS_setNits_withPeriod___block_invoke_46(uint64_t a
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v34 & 1;
 }
 
 - (id)copyPropertyInternalForKey:(id)key
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v26 = a2;
+  v25 = a2;
   keyCopy = key;
   newDisplayBrightnessData = 0;
   if ([key isEqualToString:@"StatusInfo"])
   {
-    v23 = [CBStatusInfoHelper copyStatusInfoFor:selfCopy];
-    if (v23)
+    v22 = [CBStatusInfoHelper copyStatusInfoFor:selfCopy];
+    if (v22)
     {
-      newDisplayBrightnessData = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v23, @"CBDisplayModuleHIDiOS", 0}];
+      newDisplayBrightnessData = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v22, @"CBDisplayModuleHIDiOS", 0}];
     }
 
-    MEMORY[0x1E69E5920](v23);
+    MEMORY[0x1E69E5920](v22);
   }
 
   else
   {
     if ([keyCopy isEqualToString:@"DisplayBrightness2"])
     {
-      v20 = objc_alloc(MEMORY[0x1E696AD98]);
+      v19 = objc_alloc(MEMORY[0x1E696AD98]);
       *&v3 = selfCopy->_currentNits;
       [(CBDisplayModuleHIDiOS *)selfCopy getUserBrightnessForNits:v3];
-      newDisplayBrightnessData = [v20 initWithFloat:?];
+      newDisplayBrightnessData = [v19 initWithFloat:?];
       goto LABEL_31;
     }
 
     if ([keyCopy isEqualToString:@"DisplayBrightnessLinear"])
     {
-      v19 = objc_alloc(MEMORY[0x1E696AD98]);
+      v18 = objc_alloc(MEMORY[0x1E696AD98]);
       [(CBDisplayModuleHIDiOS *)selfCopy getLinearBrightness];
-      newDisplayBrightnessData = [v19 initWithFloat:?];
+      newDisplayBrightnessData = [v18 initWithFloat:?];
       goto LABEL_31;
     }
 
@@ -1729,19 +1717,17 @@ LABEL_31:
     logHandle = inited;
   }
 
-  v22 = logHandle;
-  v21 = 0;
+  v21 = logHandle;
+  v20 = 0;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    log = v22;
-    *type = v21;
-    buf = v28;
-    __os_log_helper_16_2_2_8_64_8_64(v28, keyCopy, newDisplayBrightnessData);
+    log = v21;
+    *type = v20;
+    buf = v27;
+    __os_log_helper_16_2_2_8_64_8_64(v27, keyCopy, newDisplayBrightnessData);
     _os_log_impl(&dword_1DE8E5000, log, type[0], "key=%@ result=%@", buf, 0x16u);
   }
 
-  v13 = newDisplayBrightnessData;
-  *MEMORY[0x1E69E9840];
   return newDisplayBrightnessData;
 }
 

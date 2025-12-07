@@ -3,6 +3,7 @@
 - (BOOL)_eligibleToScheduleUpdate;
 - (BOOL)_internalInitWithSeed:(id)seed scopedToConnection:(id)connection error:(id *)error;
 - (BOOL)_limitedConcurrency_doRetryingInstallOperationForPlaceholder:(BOOL)placeholder installTargetURL:(id)l retries:(unint64_t)retries error:(id *)error installAttemptBlock:(id)block;
+- (BOOL)_onQueue_acquireTerminationAssertionWithPredicate:(id)predicate description:(id)description terminationResistance:(unsigned __int8)resistance allowLaunchPredicate:(id)launchPredicate error:(id *)error;
 - (BOOL)_onQueue_internal_cancelForReason:(id)reason client:(unint64_t)client needsLSDatabaseSync:(BOOL *)sync error:(id *)error;
 - (BOOL)_onQueue_isPlaceholderUnnecessary;
 - (BOOL)_onQueue_scheduleUpdate;
@@ -50,6 +51,7 @@
 - (id)_createPowerAssertion;
 - (id)_limitedConcurrency_fetchInstallingProgress;
 - (id)_limitedConcurrency_fetchLSProgressForPhase:(unint64_t)phase appRecord:(id)record;
+- (id)_limitedConcurrency_installApplication:(id)application isPlaceholder:(BOOL)placeholder options:(id)options hasStagedUpdateWithIdentifier:(id)identifier retries:(unint64_t)retries error:(id *)error;
 - (id)_onQueue_fetchInstallOptionsWithError:(id *)error;
 - (id)_onQueue_fetchMetadataFromInstalledAppForOffloadWithError:(id *)error;
 - (id)_onQueue_localizedAppName;
@@ -105,6 +107,7 @@
 - (void)_onQueue_fireObserversForClient:(id)client;
 - (void)_onQueue_gizmoInstallForInstallOptions:(id)options appAssetAtPath:(id)path;
 - (void)_onQueue_handleAppAssetPromiseCancellationWhenRestoringWithReason:(id)reason client:(unint64_t)client;
+- (void)_onQueue_handleAssertionAcquisitionFailureForPlaceholder:(BOOL)placeholder withError:(id)error;
 - (void)_onQueue_handleCancelForInstallFailure:(id)failure;
 - (void)_onQueue_installPlaceholder;
 - (void)_onQueue_internal_saveState;
@@ -207,6 +210,7 @@
 - (void)setImportance:(unint64_t)importance;
 - (void)setInitialODRAssetPromises:(id)promises;
 - (void)setInstallOptionsPromise:(id)promise;
+- (void)setIsPaused:(BOOL)paused;
 - (void)setIsPaused:(BOOL)paused completion:(id)completion;
 - (void)setIsTracked:(BOOL)tracked;
 - (void)setNeedsPostProcessing:(BOOL)processing;
@@ -1463,17 +1467,17 @@ LABEL_108:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v28 = sub_10004BA80;
-        v29 = sub_10004BA90;
-        v30 = 0;
+        v27 = sub_10004BA80;
+        v28 = sub_10004BA90;
+        v29 = 0;
         accessQueue = [appAssetPromise2 accessQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_10004E9CC;
         block[3] = &unk_100101268;
-        v22 = buf;
+        v21 = buf;
         v11 = appAssetPromise2;
-        v21 = v11;
+        v20 = v11;
         dispatch_sync(accessQueue, block);
 
         v12 = +[LSApplicationWorkspace defaultWorkspace];
@@ -1484,40 +1488,39 @@ LABEL_108:
           v14 = sub_1000031B0(off_100121958);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *v23 = 136315394;
-            v24 = "[IXSCoordinatedAppInstall _onQueue_isPlaceholderUnnecessary]";
-            v25 = 2112;
-            v26 = bundleID;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: Not installing placeholder because the app %@ is already installed for the current user for some persona", v23, 0x16u);
+            *v22 = 136315394;
+            v23 = "[IXSCoordinatedAppInstall _onQueue_isPlaceholderUnnecessary]";
+            v24 = 2112;
+            v25 = bundleID;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: Not installing placeholder because the app %@ is already installed for the current user for some persona", v22, 0x16u);
           }
         }
 
         else
         {
-          v15 = *(*&buf[8] + 40);
-          v16 = MobileInstallationRegisterPlaceholderForReference();
+          v15 = MobileInstallationRegisterPlaceholderForReference();
           v14 = 0;
 
-          if (v16)
+          if (v15)
           {
-            v17 = sub_1000031B0(off_100121958);
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v16 = sub_1000031B0(off_100121958);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              v18 = *(*&buf[8] + 40);
-              *v23 = 136315394;
-              v24 = "[IXSCoordinatedAppInstall _onQueue_isPlaceholderUnnecessary]";
-              v25 = 2112;
-              v26 = v18;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s: Successfully registered placeholder for %@", v23, 0x16u);
+              v17 = *(*&buf[8] + 40);
+              *v22 = 136315394;
+              v23 = "[IXSCoordinatedAppInstall _onQueue_isPlaceholderUnnecessary]";
+              v24 = 2112;
+              v25 = v17;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s: Successfully registered placeholder for %@", v22, 0x16u);
             }
           }
 
           else
           {
-            v17 = sub_1000031B0(off_100121958);
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v16 = sub_1000031B0(off_100121958);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              sub_1000A077C(&buf[8]);
+              sub_1000A077C();
             }
           }
         }
@@ -1763,6 +1766,78 @@ LABEL_41:
   [v9 runAsyncForIdentity:identity description:descriptionCopy operation:v12];
 }
 
+- (BOOL)_onQueue_acquireTerminationAssertionWithPredicate:(id)predicate description:(id)description terminationResistance:(unsigned __int8)resistance allowLaunchPredicate:(id)launchPredicate error:(id *)error
+{
+  resistanceCopy = resistance;
+  launchPredicateCopy = launchPredicate;
+  descriptionCopy = description;
+  predicateCopy = predicate;
+  internalQueue = [(IXSCoordinatedAppInstall *)self internalQueue];
+  dispatch_assert_queue_V2(internalQueue);
+
+  v16 = [[RBSTerminateContext alloc] initWithExplanation:descriptionCopy];
+  [v16 setMaximumTerminationResistance:resistanceCopy];
+  v17 = [RBSTerminationAssertion alloc];
+  if (launchPredicateCopy)
+  {
+    v18 = [v17 initWithPredicate:predicateCopy context:v16 allowLaunch:launchPredicateCopy];
+  }
+
+  else
+  {
+    v18 = [v17 initWithPredicate:predicateCopy context:v16];
+  }
+
+  v19 = v18;
+
+  if (resistanceCopy == 50 || (-[IXSCoordinatedAppInstall identity](self, "identity"), v20 = objc_claimAutoreleasedReturnValue(), [v20 bundleID], v21 = objc_claimAutoreleasedReturnValue(), v22 = sub_10003B2E0(v21, 1), v21, v20, !v22))
+  {
+    [v19 addObserver:self];
+    [(IXSCoordinatedAppInstall *)self setTermAssertion:v19];
+    v31 = 0;
+    v27 = [v19 acquireWithError:&v31];
+    v26 = v31;
+    if (v27)
+    {
+      v28 = 1;
+      [(IXSCoordinatedAppInstall *)self setExpectTermAssertionCallback:1];
+      goto LABEL_14;
+    }
+
+    v23 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000A08F4();
+    }
+  }
+
+  else
+  {
+    v23 = [NSError errorWithDomain:PKPlugInKitErrorDomain code:14 userInfo:0];
+    v24 = RBSRequestErrorDomain;
+    v32 = NSUnderlyingErrorKey;
+    v33 = v23;
+    v25 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v26 = [NSError errorWithDomain:v24 code:5 userInfo:v25];
+  }
+
+  if (error)
+  {
+    v29 = v26;
+    v28 = 0;
+    *error = v26;
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+LABEL_14:
+
+  return v28;
+}
+
 - (void)_onQueue_convertTerminationAssertionToAllowExtensionLaunch
 {
   internalQueue = [(IXSCoordinatedAppInstall *)self internalQueue];
@@ -1862,6 +1937,211 @@ LABEL_13:
 
     [(IXSCoordinatedAppInstall *)self _onQueue_doInstall];
   }
+}
+
+- (void)_onQueue_handleAssertionAcquisitionFailureForPlaceholder:(BOOL)placeholder withError:(id)error
+{
+  placeholderCopy = placeholder;
+  errorCopy = error;
+  internalQueue = [(IXSCoordinatedAppInstall *)self internalQueue];
+  dispatch_assert_queue_V2(internalQueue);
+
+  if ([(IXSCoordinatedAppInstall *)self importance]== 3)
+  {
+    [(IXSCoordinatedAppInstall *)self setTermAssertion:0];
+    v8 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000A0A78();
+    }
+
+    v10 = sub_1000405FC("[IXSCoordinatedAppInstall _onQueue_handleAssertionAcquisitionFailureForPlaceholder:withError:]", 1857, @"IXErrorDomain", 0x13uLL, errorCopy, 0, @"Cancelling %@ because we failed to acquire a termination assertion even after retrying", v9, self);
+    [(IXSCoordinatedAppInstall *)self _onQueue_internal_cancelForReason:v10 client:15];
+    goto LABEL_36;
+  }
+
+  identity = [(IXSCoordinatedAppInstall *)self identity];
+  bundleID = [identity bundleID];
+  v13 = 1;
+  v14 = sub_10003B2E0(bundleID, 1);
+
+  if (v14)
+  {
+    v15 = 20;
+  }
+
+  else
+  {
+    v15 = 900;
+  }
+
+  userInfo = [errorCopy userInfo];
+  v10 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
+
+  domain = [errorCopy domain];
+  if ([domain isEqualToString:RBSRequestErrorDomain])
+  {
+    v13 = [errorCopy code] != 5;
+  }
+
+  if (!v10)
+  {
+    goto LABEL_22;
+  }
+
+  domain2 = [v10 domain];
+  if (([domain2 isEqualToString:PKPlugInKitErrorDomain] & 1) == 0)
+  {
+
+LABEL_22:
+    [(IXSCoordinatedAppInstall *)self setFirstAppExtensionBusyTime:0];
+    goto LABEL_23;
+  }
+
+  code = [v10 code];
+
+  v20 = code != 14 || v13;
+  if (v20)
+  {
+    goto LABEL_22;
+  }
+
+  firstAppExtensionBusyTime = [(IXSCoordinatedAppInstall *)self firstAppExtensionBusyTime];
+
+  if (firstAppExtensionBusyTime)
+  {
+    firstAppExtensionBusyTime2 = [(IXSCoordinatedAppInstall *)self firstAppExtensionBusyTime];
+    [firstAppExtensionBusyTime2 timeIntervalSinceNow];
+    v24 = v23;
+
+    if (v24 <= -v15)
+    {
+      v25 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315650;
+        v52 = "[IXSCoordinatedAppInstall _onQueue_handleAssertionAcquisitionFailureForPlaceholder:withError:]";
+        v53 = 2112;
+        selfCopy3 = self;
+        v55 = 2048;
+        *v56 = fabs(v24);
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s: Failed to get termination assertion for %@ because an app extension was busy for %f seconds; transitioning to a critical termination assertion", buf, 0x20u);
+      }
+
+      [(IXSCoordinatedAppInstall *)self _onQueue_acquireAssertionForPlaceholder:placeholderCopy forceAcquisition:1];
+      goto LABEL_36;
+    }
+  }
+
+  else
+  {
+    v41 = +[NSDate date];
+    [(IXSCoordinatedAppInstall *)self setFirstAppExtensionBusyTime:v41];
+
+    v42 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315906;
+      v52 = "[IXSCoordinatedAppInstall _onQueue_handleAssertionAcquisitionFailureForPlaceholder:withError:]";
+      v53 = 2112;
+      selfCopy3 = self;
+      v55 = 1024;
+      *v56 = v15;
+      *&v56[4] = 2112;
+      *&v56[6] = errorCopy;
+      _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%s: Failed to get termination assertion for %@ because an app extension was busy; will continue with installation anyway if this happens for over %d seconds : %@", buf, 0x26u);
+    }
+
+    identity2 = [(IXSCoordinatedAppInstall *)self identity];
+    v44 = [identity2 description];
+    sub_100014350(@"IXErrorDomain", @"TerminationAssertionError", @"TerminationAssertionErrorPluginBusyTimeout", v44);
+  }
+
+LABEL_23:
+  [(IXSCoordinatedAppInstall *)self setTermAssertion:0];
+  _onQueue_assertionRetrySeconds = [(IXSCoordinatedAppInstall *)self _onQueue_assertionRetrySeconds];
+  if (_onQueue_assertionRetrySeconds == -1)
+  {
+    v28 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000A09F8();
+    }
+
+    v30 = sub_1000405FC("[IXSCoordinatedAppInstall _onQueue_handleAssertionAcquisitionFailureForPlaceholder:withError:]", 1905, @"IXErrorDomain", 0x13uLL, errorCopy, 0, @"Cancelling %@ because we failed to acquire a termination assertion", v29, self);
+    [(IXSCoordinatedAppInstall *)self _onQueue_internal_cancelForReason:v30 client:15];
+  }
+
+  else
+  {
+    v27 = _onQueue_assertionRetrySeconds;
+    [(IXSCoordinatedAppInstall *)self setAssertionRetryCount:[(IXSCoordinatedAppInstall *)self assertionRetryCount]+ 1];
+    if (placeholderCopy)
+    {
+      [(IXSCoordinatedAppInstall *)self setPlaceholderInstallState:5];
+    }
+
+    else
+    {
+      [(IXSCoordinatedAppInstall *)self setAppInstallState:5];
+    }
+
+    [(IXSCoordinatedAppInstall *)self _onQueue_saveState];
+    v31 = sub_1000031B0(off_100121958);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v52 = "[IXSCoordinatedAppInstall _onQueue_handleAssertionAcquisitionFailureForPlaceholder:withError:]";
+      v53 = 2112;
+      selfCopy3 = self;
+      v55 = 2048;
+      *v56 = v27;
+      *&v56[8] = 2112;
+      *&v56[10] = errorCopy;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%s: Failed to get assertion for %@; will retry in %lld seconds (%@)", buf, 0x2Au);
+    }
+
+    internalQueue2 = [(IXSCoordinatedAppInstall *)self internalQueue];
+    v33 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, internalQueue2);
+
+    v34 = dispatch_time(0, 1000000000 * v27);
+    dispatch_source_set_timer(v33, v34, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+    handler[0] = _NSConcreteStackBlock;
+    handler[1] = 3221225472;
+    handler[2] = sub_100050058;
+    handler[3] = &unk_100102920;
+    v48 = v33;
+    selfCopy4 = self;
+    v50 = placeholderCopy;
+    v35 = v33;
+    dispatch_source_set_event_handler(v35, handler);
+    if (placeholderCopy)
+    {
+      v36 = @"-for-placeholder";
+    }
+
+    else
+    {
+      v36 = &stru_100105BA0;
+    }
+
+    identity3 = [(IXSCoordinatedAppInstall *)self identity];
+    uniqueIdentifier = [identity3 uniqueIdentifier];
+    v39 = [NSString stringWithFormat:@"com.apple.InstallCoordination.retry-acquire-assertion%@.%@", v36, uniqueIdentifier];
+
+    [v39 UTF8String];
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = nullsub_13;
+    v45[3] = &unk_1001010A0;
+    v46 = os_transaction_create();
+    v40 = v46;
+    dispatch_source_set_cancel_handler(v35, v45);
+    [(IXSCoordinatedAppInstall *)self setAssertionRetryTimer:v35];
+    dispatch_resume(v35);
+  }
+
+LABEL_36:
 }
 
 - (void)_onQueue_acquireAssertionForPlaceholder:(BOOL)placeholder forceAcquisition:(BOOL)acquisition
@@ -2282,6 +2562,93 @@ LABEL_38:
   }
 
   return v25;
+}
+
+- (id)_limitedConcurrency_installApplication:(id)application isPlaceholder:(BOOL)placeholder options:(id)options hasStagedUpdateWithIdentifier:(id)identifier retries:(unint64_t)retries error:(id *)error
+{
+  placeholderCopy = placeholder;
+  applicationCopy = application;
+  optionsCopy = options;
+  identifierCopy = identifier;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = sub_10004BA80;
+  v50 = sub_10004BA90;
+  v51 = 0;
+  v15 = +[LSApplicationWorkspace defaultWorkspace];
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_10005138C;
+  v45[3] = &unk_1001010A0;
+  v45[4] = self;
+  v16 = objc_retainBlock(v45);
+  v44 = 0;
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_10005146C;
+  v37[3] = &unk_100102998;
+  v43 = placeholderCopy;
+  v37[4] = self;
+  v17 = v15;
+  v38 = v17;
+  v18 = identifierCopy;
+  v39 = v18;
+  v19 = v16;
+  v41 = v19;
+  v20 = optionsCopy;
+  v40 = v20;
+  v42 = &v46;
+  LODWORD(identifier) = [(IXSCoordinatedAppInstall *)self _limitedConcurrency_doRetryingInstallOperationForPlaceholder:placeholderCopy installTargetURL:applicationCopy retries:retries error:&v44 installAttemptBlock:v37];
+  v34 = v44;
+  if (identifier)
+  {
+    v21 = v47[5];
+  }
+
+  else
+  {
+    v22 = objc_alloc_init(LSOperationRequestContext);
+    v23 = [NSNumber numberWithUnsignedInt:geteuid()];
+    [v22 setTargetUserID:v23];
+
+    identity = [(IXSCoordinatedAppInstall *)self identity];
+    bundleID = [identity bundleID];
+    v36 = 0;
+    v26 = [v17 sendNotificationOfType:3 forApplicationWithBundleIdentifier:bundleID requestContext:v22 error:&v36];
+    v27 = v36;
+
+    if ((v26 & 1) == 0)
+    {
+      v28 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        identity2 = [(IXSCoordinatedAppInstall *)self identity];
+        bundleID2 = [identity2 bundleID];
+        *buf = 136315650;
+        v53 = "[IXSCoordinatedAppInstall _limitedConcurrency_installApplication:isPlaceholder:options:hasStagedUpdateWithIdentifier:retries:error:]";
+        v54 = 2112;
+        v55 = bundleID2;
+        v56 = 2112;
+        v57 = v27;
+        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s: Failed to send LSApplicationNotificationTypeInstallDidFail notification for %@ : %@", buf, 0x20u);
+      }
+
+      v27 = 0;
+    }
+
+    if (error)
+    {
+      v29 = v34;
+      *error = v34;
+    }
+
+    v21 = 0;
+  }
+
+  _Block_object_dispose(&v46, 8);
+
+  return v21;
 }
 
 - (void)_finishPlaceholderInstallAtURL:(id)l result:(BOOL)result recordPromise:(id)promise error:(id)error
@@ -3368,39 +3735,38 @@ LABEL_40:
 
   _createPowerAssertion = [(IXSCoordinatedAppInstall *)self _createPowerAssertion];
   [(IXSCoordinatedAppInstall *)self setAppInstallState:6];
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = sub_10004BA80;
+  v22[4] = sub_10004BA90;
   v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_10004BA80;
-  v27 = sub_10004BA90;
-  v28 = 0;
   accessQueue = [referenceCopy accessQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100054908;
   block[3] = &unk_100101268;
-  v22 = &v23;
+  v21 = v22;
   v8 = referenceCopy;
-  v21 = v8;
+  v20 = v8;
   dispatch_sync(accessQueue, block);
 
-  v9 = v24[5];
-  v19 = 0;
-  v10 = MIFinalizeReferenceForInstalledAppWithError();
-  v11 = 0;
+  v18 = 0;
+  v9 = MIFinalizeReferenceForInstalledAppWithError();
+  v10 = 0;
   accessQueue2 = [v8 accessQueue];
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_100054954;
-  v17 = &unk_1001010A0;
-  v13 = v8;
-  v18 = v13;
-  dispatch_sync(accessQueue2, &v14);
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_100054954;
+  v16 = &unk_1001010A0;
+  v12 = v8;
+  v17 = v12;
+  dispatch_sync(accessQueue2, &v13);
 
-  [(IXSCoordinatedAppInstall *)self _finishAppInstallAtURL:0 result:v10 != 0 recordPromise:v10 error:v11, v14, v15, v16, v17];
+  [(IXSCoordinatedAppInstall *)self _finishAppInstallAtURL:0 result:v9 != 0 recordPromise:v9 error:v10, v13, v14, v15, v16];
   [_createPowerAssertion invalidate];
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 - (id)stageUpdateFromAppAsset:(id)asset options:(id)options retries:(unint64_t)retries error:(id *)error
@@ -3472,18 +3838,8 @@ LABEL_12:
   {
     targetGizmoPairingID = [(IXSCoordinatedAppInstall *)self targetGizmoPairingID];
     _createPowerAssertion = [(IXSCoordinatedAppInstall *)self _createPowerAssertion];
-    if (targetGizmoPairingID)
+    if (targetGizmoPairingID || (+[NRPairedDeviceRegistry sharedInstance](NRPairedDeviceRegistry, "sharedInstance"), v11 = objc_claimAutoreleasedReturnValue(), [v11 getActivePairedDevice], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "valueForProperty:", NRDevicePropertyPairingID), targetGizmoPairingID = objc_claimAutoreleasedReturnValue(), v12, v11, targetGizmoPairingID))
     {
-      goto LABEL_5;
-    }
-
-    v11 = +[NRPairedDeviceRegistry sharedInstance];
-    getActivePairedDevice = [v11 getActivePairedDevice];
-    targetGizmoPairingID = [getActivePairedDevice valueForProperty:NRDevicePropertyPairingID];
-
-    if (targetGizmoPairingID)
-    {
-LABEL_5:
       v13 = +[IXFileManager defaultManager];
       v14 = [v13 diskUsageForURL:pathCopy];
 
@@ -4302,51 +4658,60 @@ LABEL_6:
 
   bundleID2 = [promiseCopy bundleID];
   uniqueIdentifier = [promiseCopy uniqueIdentifier];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   if ([bundleID isEqualToString:bundleID2])
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x3032000000;
-    v40 = sub_10004BA80;
-    v41 = sub_10004BA90;
-    v42 = 0;
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_100057828;
-    v31[3] = &unk_100102AB0;
-    v34 = &v37;
-    v31[4] = self;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = sub_10004BA80;
+    v42 = sub_10004BA90;
+    v43 = 0;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100057828;
+    v32[3] = &unk_100102AB0;
+    v35 = &v38;
+    v32[4] = self;
     v11 = promiseCopy;
-    v32 = v11;
-    v35 = &v43;
-    v36 = state;
-    v33 = uniqueIdentifier;
-    [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v31];
-    v13 = *(v44 + 6);
+    v33 = v11;
+    v36 = &v44;
+    v37 = state;
+    v34 = uniqueIdentifier;
+    [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v32];
+    v13 = *(v45 + 6);
     if (v13)
     {
       if (v13 != 1)
       {
         if (v13 != 2)
         {
-          block[5] = 0;
-          v53 = 0u;
+          v31 = 0;
           v54 = 0u;
-          v52 = 0u;
+          v55 = 0u;
+          v53 = 0u;
           memset(buf, 0, sizeof(buf));
-          os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-          v24 = *(v44 + 6);
-          v47 = 136315394;
-          v48 = "[IXSCoordinatedAppInstall setPlaceholderPromise:]";
-          v49 = 1024;
-          v50 = v24;
-          _os_log_send_and_compose_impl();
-          v25 = _os_crash_msg();
-          sub_1000A1814(v25);
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            v24 = 3;
+          }
+
+          else
+          {
+            v24 = 2;
+          }
+
+          v25 = *(v45 + 6);
+          v48 = 136315394;
+          v49 = "[IXSCoordinatedAppInstall setPlaceholderPromise:]";
+          v50 = 1024;
+          v51 = v25;
+          _os_log_send_and_compose_impl(v24, &v31, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v48, 18);
+          _os_crash_msg();
+          sub_1000A1814();
         }
 
         v14 = sub_1000405FC("[IXSCoordinatedAppInstall setPlaceholderPromise:]", 3800, @"IXErrorDomain", 0x1AuLL, 0, 0, @"Placeholder promise not needed because existing placeholder promise was already used.", v12, v26);
@@ -4356,7 +4721,7 @@ LABEL_6:
 
     else
     {
-      v20 = v38[5];
+      v20 = v39[5];
       if (v20)
       {
         accessQueue = [v20 accessQueue];
@@ -4364,7 +4729,7 @@ LABEL_6:
         block[1] = 3221225472;
         block[2] = sub_1000578D8;
         block[3] = &unk_1001014E8;
-        block[4] = &v37;
+        block[4] = &v38;
         dispatch_sync(accessQueue, block);
       }
 
@@ -4396,7 +4761,7 @@ LABEL_6:
       [(IXSCoordinatedAppInstall *)self _onQueue_checkState];
     }
 
-    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
@@ -4414,7 +4779,7 @@ LABEL_6:
     sub_100057754(promiseCopy, v19, 15);
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
 }
 
 - (IXSOwnedDataPromise)appAssetPromise
@@ -4448,32 +4813,32 @@ LABEL_6:
   effectiveIntent = [(IXSCoordinatedAppInstall *)self effectiveIntent];
   state = [(IXSCoordinatedAppInstall *)self state];
   uniqueIdentifier = [promiseCopy uniqueIdentifier];
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10004BA80;
+  v41 = sub_10004BA90;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_10004BA80;
-  v40 = sub_10004BA90;
-  v41 = 0;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100057F2C;
-  v28[3] = &unk_100102AD8;
-  v31 = &v36;
-  v28[4] = self;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100057F2C;
+  v29[3] = &unk_100102AD8;
+  v32 = &v37;
+  v29[4] = self;
   v11 = promiseCopy;
-  v29 = v11;
-  v32 = &v42;
-  v33 = effectiveIntent;
-  v35 = actionsCopy;
-  v34 = state;
+  v30 = v11;
+  v33 = &v43;
+  v34 = effectiveIntent;
+  v36 = actionsCopy;
+  v35 = state;
   v12 = uniqueIdentifier;
-  v30 = v12;
-  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v28];
-  v14 = *(v43 + 6);
+  v31 = v12;
+  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v29];
+  v14 = *(v44 + 6);
   if (v14 > 1)
   {
     if (v14 == 2)
@@ -4510,26 +4875,35 @@ LABEL_6:
     if (v14 != 1)
     {
 LABEL_22:
-      block[5] = 0;
-      v52 = 0u;
+      v28 = 0;
       v53 = 0u;
-      v51 = 0u;
+      v54 = 0u;
+      v52 = 0u;
       memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      v21 = *(v43 + 6);
-      v46 = 136315394;
-      v47 = "[IXSCoordinatedAppInstall _internal_setAppAssetPromise:performExternalActions:]";
-      v48 = 1024;
-      v49 = v21;
-      _os_log_send_and_compose_impl();
-      v22 = _os_crash_msg();
-      sub_1000A1814(v22);
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
+      v22 = *(v44 + 6);
+      v47 = 136315394;
+      v48 = "[IXSCoordinatedAppInstall _internal_setAppAssetPromise:performExternalActions:]";
+      v49 = 1024;
+      v50 = v22;
+      _os_log_send_and_compose_impl(v21, &v28, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v47, 18);
+      _os_crash_msg();
+      sub_1000A1814();
     }
   }
 
   else
   {
-    v16 = v37[5];
+    v16 = v38[5];
     if (v16)
     {
       accessQueue = [v16 accessQueue];
@@ -4537,7 +4911,7 @@ LABEL_22:
       block[1] = 3221225472;
       block[2] = sub_100058008;
       block[3] = &unk_1001014E8;
-      block[4] = &v36;
+      block[4] = &v37;
       dispatch_sync(accessQueue, block);
     }
 
@@ -4572,8 +4946,8 @@ LABEL_22:
     }
   }
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 - (void)_internal_setAppAssetPromise:(id)promise
@@ -4710,15 +5084,24 @@ LABEL_22:
       v90 = 0u;
       v88 = 0u;
       memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      v36 = *(v78 + 6);
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v36 = 3;
+      }
+
+      else
+      {
+        v36 = 2;
+      }
+
+      v37 = *(v78 + 6);
       v83 = 136315394;
       v84 = "[IXSCoordinatedAppInstall setInitialODRAssetPromises:]";
       v85 = 1024;
-      v86 = v36;
-      _os_log_send_and_compose_impl();
-      v37 = _os_crash_msg();
-      sub_1000A1814(v37);
+      v86 = v37;
+      _os_log_send_and_compose_impl(v36, &v53, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v83, 18);
+      _os_crash_msg();
+      sub_1000A1814();
     }
 
     v10 = sub_1000405FC("[IXSCoordinatedAppInstall setInitialODRAssetPromises:]", 4009, @"IXErrorDomain", 0x1AuLL, 0, 0, @"Not processing attempt to set initial ODR asset promises because those that were set were already complete and this coordinator is past the point of waiting for them.", v8, v38);
@@ -4903,50 +5286,59 @@ LABEL_22:
 
   state = [(IXSCoordinatedAppInstall *)self state];
   uniqueIdentifier = [promiseCopy uniqueIdentifier];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_10004BA80;
+  v35 = sub_10004BA90;
   v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_10004BA80;
-  v34 = sub_10004BA90;
-  v35 = 0;
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_1000592E8;
-  v24[3] = &unk_100102AB0;
-  v27 = &v30;
-  v24[4] = self;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_1000592E8;
+  v25[3] = &unk_100102AB0;
+  v28 = &v31;
+  v25[4] = self;
   v8 = promiseCopy;
-  v25 = v8;
-  v28 = &v36;
-  v29 = state;
+  v26 = v8;
+  v29 = &v37;
+  v30 = state;
   v9 = uniqueIdentifier;
-  v26 = v9;
-  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v24];
-  v11 = *(v37 + 6);
+  v27 = v9;
+  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v25];
+  v11 = *(v38 + 6);
   if (v11)
   {
     if (v11 != 1)
     {
       if (v11 != 2)
       {
-        block[5] = 0;
-        v46 = 0u;
+        v24 = 0;
         v47 = 0u;
-        v45 = 0u;
+        v48 = 0u;
+        v46 = 0u;
         memset(buf, 0, sizeof(buf));
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        v17 = *(v37 + 6);
-        v40 = 136315394;
-        v41 = "[IXSCoordinatedAppInstall setUserDataPromise:]";
-        v42 = 1024;
-        v43 = v17;
-        _os_log_send_and_compose_impl();
-        v18 = _os_crash_msg();
-        sub_1000A1814(v18);
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        v18 = *(v38 + 6);
+        v41 = 136315394;
+        v42 = "[IXSCoordinatedAppInstall setUserDataPromise:]";
+        v43 = 1024;
+        v44 = v18;
+        _os_log_send_and_compose_impl(v17, &v24, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v41, 18);
+        _os_crash_msg();
+        sub_1000A1814();
       }
 
       v12 = sub_1000405FC("[IXSCoordinatedAppInstall setUserDataPromise:]", 4099, @"IXErrorDomain", 0x1AuLL, 0, 0, @"Not processing attempt to set user data promise because it was already complete and this coordinator is past the point of waiting for it.", v10, v19);
@@ -4956,7 +5348,7 @@ LABEL_22:
 
   else
   {
-    v13 = v31[5];
+    v13 = v32[5];
     if (v13)
     {
       accessQueue = [v13 accessQueue];
@@ -4964,7 +5356,7 @@ LABEL_22:
       block[1] = 3221225472;
       block[2] = sub_100059398;
       block[3] = &unk_1001014E8;
-      block[4] = &v30;
+      block[4] = &v31;
       dispatch_sync(accessQueue, block);
     }
 
@@ -4996,8 +5388,8 @@ LABEL_22:
     [(IXSCoordinatedAppInstall *)self _onQueue_checkState];
   }
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 - (IXSPromisedOutOfBandTransfer)deviceSecurityPromise
@@ -5028,48 +5420,57 @@ LABEL_22:
   dispatch_assert_queue_V2(internalQueue);
 
   state = [(IXSCoordinatedAppInstall *)self state];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_10004BA80;
+  v32 = sub_10004BA90;
   v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_10004BA80;
-  v31 = sub_10004BA90;
-  v32 = 0;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_1000598F8;
-  v22[3] = &unk_100102B28;
-  v24 = &v27;
-  v22[4] = self;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1000598F8;
+  v23[3] = &unk_100102B28;
+  v25 = &v28;
+  v23[4] = self;
   v7 = promiseCopy;
-  v23 = v7;
-  v25 = &v33;
-  v26 = state;
-  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v22];
-  v9 = *(v34 + 6);
+  v24 = v7;
+  v26 = &v34;
+  v27 = state;
+  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v23];
+  v9 = *(v35 + 6);
   if (v9)
   {
     if (v9 != 1)
     {
       if (v9 != 2)
       {
-        block[5] = 0;
-        v43 = 0u;
+        v22 = 0;
         v44 = 0u;
-        v42 = 0u;
+        v45 = 0u;
+        v43 = 0u;
         memset(buf, 0, sizeof(buf));
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        v15 = *(v34 + 6);
-        v37 = 136315394;
-        v38 = "[IXSCoordinatedAppInstall setDeviceSecurityPromise:]";
-        v39 = 1024;
-        v40 = v15;
-        _os_log_send_and_compose_impl();
-        v16 = _os_crash_msg();
-        sub_1000A1814(v16);
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v15 = 3;
+        }
+
+        else
+        {
+          v15 = 2;
+        }
+
+        v16 = *(v35 + 6);
+        v38 = 136315394;
+        v39 = "[IXSCoordinatedAppInstall setDeviceSecurityPromise:]";
+        v40 = 1024;
+        v41 = v16;
+        _os_log_send_and_compose_impl(v15, &v22, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v38, 18);
+        _os_crash_msg();
+        sub_1000A1814();
       }
 
       v10 = sub_1000405FC("[IXSCoordinatedAppInstall setDeviceSecurityPromise:]", 4177, @"IXErrorDomain", 0x1AuLL, 0, 0, @"Not processing attempt to set device security promise because it was already complete and this coordinator is past the point of waiting for it.", v8, v17);
@@ -5079,7 +5480,7 @@ LABEL_22:
 
   else
   {
-    v11 = v28[5];
+    v11 = v29[5];
     if (v11)
     {
       accessQueue = [v11 accessQueue];
@@ -5087,7 +5488,7 @@ LABEL_22:
       block[1] = 3221225472;
       block[2] = sub_1000599B0;
       block[3] = &unk_1001014E8;
-      block[4] = &v27;
+      block[4] = &v28;
       dispatch_sync(accessQueue, block);
     }
 
@@ -5119,8 +5520,8 @@ LABEL_22:
     [(IXSCoordinatedAppInstall *)self _onQueue_checkState];
   }
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 - (IXSPromisedOutOfBandTransfer)preparationPromise
@@ -5246,30 +5647,30 @@ LABEL_22:
 
   effectiveIntent = [(IXSCoordinatedAppInstall *)self effectiveIntent];
   state = [(IXSCoordinatedAppInstall *)self state];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_10004BA80;
+  v36 = sub_10004BA90;
   v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_10004BA80;
-  v35 = sub_10004BA90;
-  v36 = 0;
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_10005A490;
-  v24[3] = &unk_100102B50;
-  v26 = &v31;
-  v24[4] = self;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_10005A490;
+  v25[3] = &unk_100102B50;
+  v27 = &v32;
+  v25[4] = self;
   v10 = promiseCopy;
-  v25 = v10;
-  v27 = &v37;
-  v28 = effectiveIntent;
-  v30 = actionsCopy;
-  v29 = state;
-  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v24];
-  v12 = *(v38 + 6);
+  v26 = v10;
+  v28 = &v38;
+  v29 = effectiveIntent;
+  v31 = actionsCopy;
+  v30 = state;
+  [(IXSCoordinatedAppInstall *)self _runWithExternalPropertyLock:v25];
+  v12 = *(v39 + 6);
   if (v12 > 1)
   {
     if (v12 == 2)
@@ -5295,26 +5696,35 @@ LABEL_22:
     if (v12 != 1)
     {
 LABEL_19:
-      block[5] = 0;
-      v47 = 0u;
+      v24 = 0;
       v48 = 0u;
-      v46 = 0u;
+      v49 = 0u;
+      v47 = 0u;
       memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      v18 = *(v38 + 6);
-      v41 = 136315394;
-      v42 = "[IXSCoordinatedAppInstall _internal_setInstallOptionsPromise:performExternalActions:]";
-      v43 = 1024;
-      v44 = v18;
-      _os_log_send_and_compose_impl();
-      v19 = _os_crash_msg();
-      sub_1000A1814(v19);
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v19 = *(v39 + 6);
+      v42 = 136315394;
+      v43 = "[IXSCoordinatedAppInstall _internal_setInstallOptionsPromise:performExternalActions:]";
+      v44 = 1024;
+      v45 = v19;
+      _os_log_send_and_compose_impl(v18, &v24, buf, 80, &_mh_execute_header, &_os_log_default, 16, "%s: Unknown reason: %d", &v42, 18);
+      _os_crash_msg();
+      sub_1000A1814();
     }
   }
 
   else
   {
-    v14 = v32[5];
+    v14 = v33[5];
     if (v14)
     {
       accessQueue = [v14 accessQueue];
@@ -5322,7 +5732,7 @@ LABEL_19:
       block[1] = 3221225472;
       block[2] = sub_10005A570;
       block[3] = &unk_1001014E8;
-      block[4] = &v31;
+      block[4] = &v32;
       dispatch_sync(accessQueue, block);
     }
 
@@ -5357,8 +5767,8 @@ LABEL_19:
     }
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 - (void)_internal_setInstallOptionsPromise:(id)promise
@@ -5923,6 +6333,15 @@ LABEL_19:
   dispatch_assert_queue_V2(internalQueue);
 
   return self->_isPaused;
+}
+
+- (void)setIsPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  internalQueue = [(IXSCoordinatedAppInstall *)self internalQueue];
+  dispatch_assert_queue_V2(internalQueue);
+
+  [(IXSCoordinatedAppInstall *)self setIsPaused:pausedCopy completion:0];
 }
 
 - (void)setIsPaused:(BOOL)paused completion:(id)completion
@@ -8887,7 +9306,7 @@ LABEL_8:
     {
       if ([(IXSCoordinatedAppInstall *)self placeholderInstallState]== 7)
       {
-        v55 = sub_10003FB30();
+        v55 = sub_10003FB30(7);
         identity4 = [(IXSCoordinatedAppInstall *)self identity];
         publishedInstallProgress = [v55 initiateProgressForIdentity:identity4];
 
@@ -9525,25 +9944,25 @@ LABEL_8:
 - (BOOL)_validateLocationForPromise:(id)promise error:(id *)error
 {
   promiseCopy = promise;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_10004BA80;
-  v28 = sub_10004BA90;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10004BA80;
+  v27 = sub_10004BA90;
+  v28 = 0;
   accessQueue = [promiseCopy accessQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000672EC;
   block[3] = &unk_100101268;
-  v23 = &v24;
+  v22 = &v23;
   v8 = promiseCopy;
-  v22 = v8;
+  v21 = v8;
   dispatch_sync(accessQueue, block);
 
   identity = [(IXSCoordinatedAppInstall *)self identity];
   location = [identity location];
-  v11 = [v25[5] isEqual:location];
+  v11 = [v24[5] isEqual:location];
   if (v11)
   {
     v12 = 0;
@@ -9555,24 +9974,23 @@ LABEL_8:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       name = [v8 name];
-      v19 = v25[5];
+      v19 = v24[5];
       *buf = 136316418;
-      v31 = "[IXSCoordinatedAppInstall(IPCMethods) _validateLocationForPromise:error:]";
-      v32 = 2112;
-      v33 = name;
-      v34 = 2112;
-      v35 = v19;
-      v36 = 2112;
-      v37 = identity;
-      v38 = 2112;
-      v39 = location;
-      v40 = 2112;
-      v41 = 0;
+      v30 = "[IXSCoordinatedAppInstall(IPCMethods) _validateLocationForPromise:error:]";
+      v31 = 2112;
+      v32 = name;
+      v33 = 2112;
+      v34 = v19;
+      v35 = 2112;
+      v36 = identity;
+      v37 = 2112;
+      v38 = location;
+      v39 = 2112;
+      v40 = 0;
       _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s: Failed to set %@ promise with location %@ on a coordinator for app identity %@ targeting location %@  : %@", buf, 0x3Eu);
     }
 
     name2 = [v8 name];
-    v20 = v25[5];
     v12 = sub_1000405FC("[IXSCoordinatedAppInstall(IPCMethods) _validateLocationForPromise:error:]", 7256, @"IXErrorDomain", 0x3BuLL, 0, 0, @"Failed to set %@ promise with location %@ on a coordinator for app identity %@ targeting location %@ ", v15, name2);
 
     if (error)
@@ -9582,7 +10000,7 @@ LABEL_8:
     }
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
   return v11;
 }
 

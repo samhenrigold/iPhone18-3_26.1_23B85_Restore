@@ -381,9 +381,9 @@
 
   if (v8 && focusedIndexPath)
   {
-    v9 = [focusedIndexPath isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(focusedIndexPath, v8, v8);
 
-    if (v9)
+    if (isEqual)
     {
       goto LABEL_10;
     }

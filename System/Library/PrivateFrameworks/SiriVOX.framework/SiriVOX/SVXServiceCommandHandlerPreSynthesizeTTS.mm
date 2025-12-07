@@ -84,24 +84,22 @@ void __93__SVXServiceCommandHandlerPreSynthesizeTTS_handleCommand_withContext_ta
 
 void __93__SVXServiceCommandHandlerPreSynthesizeTTS_handleCommand_withContext_taskTracker_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 type] == 4)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v5 = v3;
-      v6 = [v2 error];
-      v7 = 136315394;
-      v8 = "[SVXServiceCommandHandlerPreSynthesizeTTS handleCommand:withContext:taskTracker:completion:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v6;
-      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s PreSynthesis failed: %@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 error];
+      v6 = 136315394;
+      v7 = "[SVXServiceCommandHandlerPreSynthesizeTTS handleCommand:withContext:taskTracker:completion:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s PreSynthesis failed: %@", &v6, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXServiceCommandHandlerPreSynthesizeTTS)initWithSpeechSynthesizer:(id)synthesizer speechSynthesisUtils:(id)utils

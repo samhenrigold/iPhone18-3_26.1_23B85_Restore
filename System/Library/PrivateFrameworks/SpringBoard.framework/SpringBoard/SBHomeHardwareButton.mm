@@ -1043,13 +1043,14 @@ LABEL_15:
   if (assertionCopy)
   {
     v5 = assertionCopy;
-    if (objc_opt_respondsToSelector())
+    assertionCopy = objc_opt_respondsToSelector();
+    if (assertionCopy)
     {
-      [(NSMutableSet *)self->_hintSuppressionAssertions addObject:v5];
+      assertionCopy = [(NSMutableSet *)self->_hintSuppressionAssertions addObject:v5];
     }
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](assertionCopy);
 }
 
 - (void)removeHintSuppressionAssertion:(id)assertion
@@ -1058,13 +1059,14 @@ LABEL_15:
   if (assertionCopy)
   {
     v5 = assertionCopy;
-    if (objc_opt_respondsToSelector())
+    assertionCopy = objc_opt_respondsToSelector();
+    if (assertionCopy)
     {
-      [(NSMutableSet *)self->_hintSuppressionAssertions removeObject:v5];
+      assertionCopy = [(NSMutableSet *)self->_hintSuppressionAssertions removeObject:v5];
     }
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](assertionCopy);
 }
 
 - (void)addLongPressDurationAssertion:(id)assertion

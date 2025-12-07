@@ -12,10 +12,9 @@
 
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.cloudkit.sharingsupport.pre";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v5, 1);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.cloudkit.sharingsupport.pre";
+  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v4, 1);
 
   return v2;
 }
@@ -32,10 +31,9 @@
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.cloudkit.sharingsupport.pre";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v5, 1);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.cloudkit.sharingsupport.pre";
+  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v4, 1);
 
   return v2;
 }

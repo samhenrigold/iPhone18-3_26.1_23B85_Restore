@@ -499,8 +499,6 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  version = self->_version;
-  v25 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_nanoRegistryData)
   {
@@ -510,17 +508,15 @@ LABEL_30:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    homeButtonHapticKind = self->_homeButtonHapticKind;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
-  v8 = v25;
+  v5 = toCopy;
   if ((has & 4) != 0)
   {
-    deviceAnalyticsOptIn = self->_deviceAnalyticsOptIn;
     PBDataWriterWriteUint32Field();
-    v8 = v25;
+    v5 = toCopy;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -539,9 +535,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  appAnalyticsOptIn = self->_appAnalyticsOptIn;
   PBDataWriterWriteUint32Field();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -555,9 +550,8 @@ LABEL_8:
   }
 
 LABEL_40:
-  locationServicesOptIn = self->_locationServicesOptIn;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -571,9 +565,8 @@ LABEL_9:
   }
 
 LABEL_41:
-  findMyiPhoneOptIn = self->_findMyiPhoneOptIn;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x4000) == 0)
   {
@@ -587,9 +580,8 @@ LABEL_10:
   }
 
 LABEL_42:
-  siriOptIn = self->_siriOptIn;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -603,9 +595,8 @@ LABEL_11:
   }
 
 LABEL_43:
-  screenTimeEnabled = self->_screenTimeEnabled;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -619,9 +610,8 @@ LABEL_12:
   }
 
 LABEL_44:
-  autoUpdateEnabled = self->_autoUpdateEnabled;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -635,69 +625,64 @@ LABEL_13:
   }
 
 LABEL_45:
-  didSeeTrueTonePane = self->_didSeeTrueTonePane;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   if (*&self->_has)
   {
 LABEL_14:
-    userInterfaceStyleMode = self->_userInterfaceStyleMode;
     PBDataWriterWriteInt64Field();
-    v8 = v25;
+    v5 = toCopy;
   }
 
 LABEL_15:
   if (self->_walletData)
   {
     PBDataWriterWriteDataField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x10) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x10) != 0)
   {
-    autoDownloadEnabled = self->_autoDownloadEnabled;
     PBDataWriterWriteBOOLField();
-    v8 = v25;
-    v10 = self->_has;
+    v5 = toCopy;
+    v6 = self->_has;
   }
 
-  if ((v10 & 0x2000) != 0)
+  if ((v6 & 0x2000) != 0)
   {
-    siriDataSharingOptIn = self->_siriDataSharingOptIn;
     PBDataWriterWriteBOOLField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
   if (self->_universalData)
   {
     PBDataWriterWriteDataField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
   if (self->_seedEnrollmentProgram)
   {
     PBDataWriterWriteStringField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
   if (self->_seedEnrollmentAssetAudience)
   {
     PBDataWriterWriteStringField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
-  v13 = self->_has;
-  if ((v13 & 0x200) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x200) != 0)
   {
-    messagesContactsPresented = self->_messagesContactsPresented;
     PBDataWriterWriteBOOLField();
-    v8 = v25;
-    v13 = self->_has;
-    if ((v13 & 0x800) == 0)
+    v5 = toCopy;
+    v7 = self->_has;
+    if ((v7 & 0x800) == 0)
     {
 LABEL_29:
-      if ((v13 & 0x1000) == 0)
+      if ((v7 & 0x1000) == 0)
       {
         goto LABEL_31;
       }
@@ -711,28 +696,26 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  settingsContactsPresented = self->_settingsContactsPresented;
   PBDataWriterWriteBOOLField();
-  v8 = v25;
+  v5 = toCopy;
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_30:
-    settingsDataUsagePresented = self->_settingsDataUsagePresented;
     PBDataWriterWriteBOOLField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
 LABEL_31:
   if (self->_seedEnrollmentCatalogID)
   {
     PBDataWriterWriteStringField();
-    v8 = v25;
+    v5 = toCopy;
   }
 
   if (self->_actionButtonData)
   {
     PBDataWriterWriteDataField();
-    v8 = v25;
+    v5 = toCopy;
   }
 }
 
@@ -1262,7 +1245,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v8 = *(equalCopy + 100);
     if (self->_locationServicesOptIn)
     {
       if ((*(equalCopy + 100) & 1) == 0)
@@ -1289,7 +1271,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v9 = *(equalCopy + 99);
     if (self->_findMyiPhoneOptIn)
     {
       if ((*(equalCopy + 99) & 1) == 0)
@@ -1316,7 +1297,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v10 = *(equalCopy + 106);
     if (self->_siriOptIn)
     {
       if ((*(equalCopy + 106) & 1) == 0)
@@ -1343,7 +1323,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v11 = *(equalCopy + 102);
     if (self->_screenTimeEnabled)
     {
       if ((*(equalCopy + 102) & 1) == 0)
@@ -1370,7 +1349,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v12 = *(equalCopy + 97);
     if (self->_autoUpdateEnabled)
     {
       if ((*(equalCopy + 97) & 1) == 0)
@@ -1397,7 +1375,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v13 = *(equalCopy + 98);
     if (self->_didSeeTrueTonePane)
     {
       if ((*(equalCopy + 98) & 1) == 0)
@@ -1441,15 +1418,14 @@ LABEL_20:
     has = self->_has;
   }
 
-  v15 = *(equalCopy + 54);
+  v9 = *(equalCopy + 54);
   if ((has & 0x10) != 0)
   {
-    if ((v15 & 0x10) == 0)
+    if ((v9 & 0x10) == 0)
     {
       goto LABEL_121;
     }
 
-    v20 = *(equalCopy + 96);
     if (self->_autoDownloadEnabled)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -1464,7 +1440,7 @@ LABEL_20:
     }
   }
 
-  else if ((v15 & 0x10) != 0)
+  else if ((v9 & 0x10) != 0)
   {
     goto LABEL_121;
   }
@@ -1476,7 +1452,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v21 = *(equalCopy + 105);
     if (self->_siriDataSharingOptIn)
     {
       if ((*(equalCopy + 105) & 1) == 0)
@@ -1520,7 +1495,6 @@ LABEL_20:
     }
   }
 
-  v19 = *(equalCopy + 54);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 54) & 0x200) == 0)
@@ -1528,7 +1502,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v22 = *(equalCopy + 101);
     if (self->_messagesContactsPresented)
     {
       if ((*(equalCopy + 101) & 1) == 0)
@@ -1555,7 +1528,6 @@ LABEL_20:
       goto LABEL_121;
     }
 
-    v23 = *(equalCopy + 103);
     if (self->_settingsContactsPresented)
     {
       if ((*(equalCopy + 103) & 1) == 0)
@@ -1583,7 +1555,7 @@ LABEL_20:
     }
 
 LABEL_121:
-    v26 = 0;
+    v15 = 0;
     goto LABEL_122;
   }
 
@@ -1592,7 +1564,6 @@ LABEL_121:
     goto LABEL_121;
   }
 
-  v28 = *(equalCopy + 104);
   if (self->_settingsDataUsagePresented)
   {
     if ((*(equalCopy + 104) & 1) == 0)
@@ -1616,17 +1587,17 @@ LABEL_116:
   actionButtonData = self->_actionButtonData;
   if (actionButtonData | *(equalCopy + 2))
   {
-    v26 = [(NSData *)actionButtonData isEqual:?];
+    v15 = [(NSData *)actionButtonData isEqual:?];
   }
 
   else
   {
-    v26 = 1;
+    v15 = 1;
   }
 
 LABEL_122:
 
-  return v26;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -2074,23 +2045,24 @@ LABEL_30:
   universalData = [(BYBackupMetadata *)self universalData];
   v6 = [v4 initWithData:universalData];
 
-  if (SASExpressSettingsReadFrom())
+  v7 = SASExpressSettingsReadFrom();
+  if (v7)
   {
-    v7 = v3;
+    v8 = v3;
   }
 
   else
   {
-    v8 = _BYLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _BYLoggingFacility(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(BYBackupMetadata(SetupAssistantSupport) *)v8 expressSettings];
+      [(BYBackupMetadata(SetupAssistantSupport) *)v9 expressSettings];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

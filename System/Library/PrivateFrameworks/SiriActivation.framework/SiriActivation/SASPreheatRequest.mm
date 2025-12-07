@@ -40,29 +40,27 @@
 
 - (id)description
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v20.receiver = self;
-  v20.super_class = SASPreheatRequest;
-  v4 = [(SASPreheatRequest *)&v20 description];
+  v19.receiver = self;
+  v19.super_class = SASPreheatRequest;
+  v4 = [(SASPreheatRequest *)&v19 description];
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_requestSource];
   v7 = [v5 initWithFormat:@"requestSource = %@", v6];
-  v21[0] = v7;
+  v20[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E696AEC0]);
   configuration = self->_configuration;
   v10 = SASPreheatConfigurationGetName(configuration);
   v11 = [v8 initWithFormat:@"configuration = %ld (%@)", configuration, v10];
-  v21[1] = v11;
+  v20[1] = v11;
   v12 = objc_alloc(MEMORY[0x1E696AEC0]);
   v13 = [(NSUUID *)self->_activationReferenceIdentifier description];
   v14 = [v12 initWithFormat:@"activationReferenceIdentifier = %@", v13];
-  v21[2] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v16 = [v15 componentsJoinedByString:{@", "}];
   v17 = [v3 initWithFormat:@"%@ {%@}", v4, v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

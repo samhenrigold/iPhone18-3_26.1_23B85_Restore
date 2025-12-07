@@ -182,7 +182,7 @@ void __35__SBScreenLongevityController_init__block_invoke_2(uint64_t a1)
   if (self->_enabled != enabled)
   {
     self->_enabled = enabled;
-    v4 = SBLogScreenLongevityController();
+    v4 = SBLogScreenLongevityController(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       enabled = self->_enabled;
@@ -217,49 +217,51 @@ void __42__SBScreenLongevityController_setEnabled___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 28) == 1)
   {
-    if ([*(v2 + 64) isValid])
+    v3 = [*(v2 + 64) isValid];
+    if (v3)
     {
-      v3 = SBLogScreenLongevityController();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = SBLogScreenLongevityController(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         __42__SBScreenLongevityController_setEnabled___block_invoke_cold_4();
       }
 
       [*(*(a1 + 32) + 64) invalidate];
-      v4 = *(a1 + 32);
-      v5 = *(v4 + 64);
-      *(v4 + 64) = 0;
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 64);
+      *(v5 + 64) = 0;
 LABEL_25:
 
       return;
     }
 
-    v8 = objc_opt_new();
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 64);
-    *(v9 + 64) = v8;
+    v10 = objc_opt_new();
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 64);
+    *(v11 + 64) = v10;
 
     [*(*(a1 + 32) + 64) setDelegate:?];
-    v11 = *(*(a1 + 32) + 64);
+    v13 = *(*(a1 + 32) + 64);
 
-    [v11 start];
+    [v13 start];
   }
 
   else
   {
-    v6 = [v2 _isDimmed];
-    v7 = *(a1 + 32);
-    if (v6)
+    v7 = [v2 _isDimmed];
+    v8 = *(a1 + 32);
+    if (v7)
     {
-      if ([*(v7 + 72) isValid])
+      v9 = [*(v8 + 72) isValid];
+      if (v9)
       {
         [*(*(a1 + 32) + 72) invalidate];
       }
 
       else
       {
-        v14 = SBLogScreenLongevityController();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v17 = SBLogScreenLongevityController(v9);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           __42__SBScreenLongevityController_setEnabled___block_invoke_cold_3();
         }
@@ -270,35 +272,37 @@ LABEL_25:
 
     else
     {
-      if ([*(v7 + 64) isValid])
+      v14 = [*(v8 + 64) isValid];
+      if (v14)
       {
         [*(*(a1 + 32) + 64) invalidate];
-        v12 = *(a1 + 32);
-        v13 = *(v12 + 64);
-        *(v12 + 64) = 0;
+        v15 = *(a1 + 32);
+        v16 = *(v15 + 64);
+        *(v15 + 64) = 0;
       }
 
       else
       {
-        v15 = SBLogScreenLongevityController();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v18 = SBLogScreenLongevityController(v14);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           __42__SBScreenLongevityController_setEnabled___block_invoke_cold_1();
         }
       }
 
-      if ([*(*(a1 + 32) + 72) isValid])
+      v19 = [*(*(a1 + 32) + 72) isValid];
+      if (v19)
       {
-        v16 = SBLogScreenLongevityController();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = SBLogScreenLongevityController(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           __42__SBScreenLongevityController_setEnabled___block_invoke_cold_2();
         }
 
         [*(*(a1 + 32) + 72) invalidate];
-        v17 = *(a1 + 32);
-        v5 = *(v17 + 72);
-        *(v17 + 72) = 0;
+        v21 = *(a1 + 32);
+        v6 = *(v21 + 72);
+        *(v21 + 72) = 0;
         goto LABEL_25;
       }
     }
@@ -315,79 +319,79 @@ LABEL_25:
 
 - (BOOL)_shouldEnable
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (![(SBScreenLongevitySettings *)self->_settings overrideEnablement])
   {
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
     isAutoDimAllowed = [mEMORY[0x277D262A0] isAutoDimAllowed];
 
-    v7 = _AXSAttentionAwarenessFeaturesEnabled();
+    v8 = _AXSAttentionAwarenessFeaturesEnabled();
     _hasCameraAttributions = [(SBScreenLongevityController *)self _hasCameraAttributions];
     _isAutoLockSetToNever = [(SBScreenLongevityController *)self _isAutoLockSetToNever];
     ignoreAutoLockSetToNever = [(SBScreenLongevitySettings *)self->_settings ignoreAutoLockSetToNever];
-    v4 = +[SBMediaController sharedInstance];
-    isPlaying = [v4 isPlaying];
-    playingMediaType = [v4 playingMediaType];
-    v12 = playingMediaType;
+    v5 = +[SBMediaController sharedInstance];
+    isPlaying = [v5 isPlaying];
+    playingMediaType = [v5 playingMediaType];
+    v13 = playingMediaType;
     if (playingMediaType)
     {
-      v22 = [playingMediaType isEqual:*MEMORY[0x277D27CB8]] ^ 1;
+      v23 = [playingMediaType isEqual:*MEMORY[0x277D27CB8]] ^ 1;
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    v13 = v7 == 0;
-    v14 = +[SBIdleTimerService sharedInstance];
-    isDisabledByMediaPlayback = [v14 isDisabledByMediaPlayback];
+    v14 = v8 == 0;
+    v15 = +[SBIdleTimerService sharedInstance];
+    isDisabledByMediaPlayback = [v15 isDisabledByMediaPlayback];
 
-    v15 = +[SBIdleTimerGlobalCoordinator sharedInstance];
-    isIdleTimerDisabled = [v15 isIdleTimerDisabled];
+    v16 = +[SBIdleTimerGlobalCoordinator sharedInstance];
+    isIdleTimerDisabled = [v16 isIdleTimerDisabled];
 
     isUnderAutoDimThreshold = [(SBScreenLongevityController *)self isUnderAutoDimThreshold];
-    v17 = isUnderAutoDimThreshold;
-    enablement = 0;
-    if (!v13 && (isAutoDimAllowed & 1) != 0 && !_hasCameraAttributions && (_isAutoLockSetToNever || ignoreAutoLockSetToNever))
+    v18 = isUnderAutoDimThreshold;
+    v4 = 0;
+    if (!v14 && (isAutoDimAllowed & 1) != 0 && !_hasCameraAttributions && (_isAutoLockSetToNever || ignoreAutoLockSetToNever))
     {
-      if ((isPlaying & ~v22 | isDisabledByMediaPlayback))
+      if ((isPlaying & ~v23 | isDisabledByMediaPlayback))
       {
-        enablement = 0;
+        v4 = 0;
       }
 
       else
       {
-        enablement = isIdleTimerDisabled & !isUnderAutoDimThreshold;
+        v4 = isIdleTimerDisabled & (isUnderAutoDimThreshold ^ 1);
       }
     }
 
-    if (self->_enabled != enablement || [(SBScreenLongevitySettings *)self->_settings noisyLogging])
+    if (self->_enabled != v4 || (isUnderAutoDimThreshold = [(SBScreenLongevitySettings *)self->_settings noisyLogging], isUnderAutoDimThreshold))
     {
-      v18 = SBLogScreenLongevityController();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = SBLogScreenLongevityController(isUnderAutoDimThreshold);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67111424;
-        v25 = enablement;
-        v26 = 1024;
-        v27 = isAutoDimAllowed;
-        v28 = 1024;
-        v29 = _hasCameraAttributions;
-        v30 = 1024;
-        v31 = _isAutoLockSetToNever;
-        v32 = 1024;
-        v33 = ignoreAutoLockSetToNever;
-        v34 = 1024;
-        v35 = isPlaying;
-        v36 = 1024;
-        v37 = v22;
-        v38 = 1024;
-        v39 = isDisabledByMediaPlayback;
-        v40 = 1024;
-        v41 = isIdleTimerDisabled;
-        v42 = 1024;
-        v43 = v17;
-        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "shouldEnable=%{BOOL}u, isDeviceAllowedByManagedConfiguration=%{BOOL}u, isCameraInUse=%{BOOL}u, isAutoLockDisabled=%{BOOL}u, shouldIgnoreAutoLockDisable=%{BOOL}u, isMediaNowPlaying=%{BOOL}u, isProbablyAudioOnly=%{BOOL}u, isIdleTimerDisabledByMediaPlayback=%{BOOL}u, isIdleTimerOffForAnyReason=%{BOOL}u isAutoDimThresholdPassed=%{BOOL}u", buf, 0x3Eu);
+        v26 = v4;
+        v27 = 1024;
+        v28 = isAutoDimAllowed;
+        v29 = 1024;
+        v30 = _hasCameraAttributions;
+        v31 = 1024;
+        v32 = _isAutoLockSetToNever;
+        v33 = 1024;
+        v34 = ignoreAutoLockSetToNever;
+        v35 = 1024;
+        v36 = isPlaying;
+        v37 = 1024;
+        v38 = v23;
+        v39 = 1024;
+        v40 = isDisabledByMediaPlayback;
+        v41 = 1024;
+        v42 = isIdleTimerDisabled;
+        v43 = 1024;
+        v44 = v18;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "shouldEnable=%{BOOL}u, isDeviceAllowedByManagedConfiguration=%{BOOL}u, isCameraInUse=%{BOOL}u, isAutoLockDisabled=%{BOOL}u, shouldIgnoreAutoLockDisable=%{BOOL}u, isMediaNowPlaying=%{BOOL}u, isProbablyAudioOnly=%{BOOL}u, isIdleTimerDisabledByMediaPlayback=%{BOOL}u, isIdleTimerOffForAnyReason=%{BOOL}u isAutoDimThresholdPassed=%{BOOL}u", buf, 0x3Eu);
       }
     }
 
@@ -395,25 +399,26 @@ LABEL_25:
   }
 
   enablement = [(SBScreenLongevitySettings *)self->_settings enablement];
-  if (self->_enabled != enablement || [(SBScreenLongevitySettings *)self->_settings noisyLogging])
+  v4 = enablement;
+  if (self->_enabled != enablement || (enablement = [(SBScreenLongevitySettings *)self->_settings noisyLogging], enablement))
   {
-    v4 = SBLogScreenLongevityController();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogScreenLongevityController(enablement);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v25 = enablement;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "shouldEnable=%{BOOL}u from override", buf, 8u);
+      v26 = v4;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "shouldEnable=%{BOOL}u from override", buf, 8u);
     }
 
 LABEL_20:
   }
 
-  return enablement;
+  return v4;
 }
 
 - (void)_mediaNowPlayingChanged
 {
-  v3 = SBLogScreenLongevityController();
+  v3 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -425,7 +430,7 @@ LABEL_20:
 
 - (void)_screenBacklightStateChanged
 {
-  v3 = SBLogScreenLongevityController();
+  v3 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -458,7 +463,7 @@ LABEL_20:
 
 void __83__SBScreenLongevityController__beginMonitoringAttentionAwarenessFeaturesEnablement__block_invoke(uint64_t a1)
 {
-  v2 = SBLogScreenLongevityController();
+  v2 = SBLogScreenLongevityController(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -550,7 +555,7 @@ void __37__SBScreenLongevityController__undim__block_invoke(uint64_t a1)
 {
   dimmingCopy = dimming;
   v7 = *MEMORY[0x277D85DE8];
-  v5 = SBLogScreenLongevityController();
+  v5 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -678,7 +683,7 @@ LABEL_7:
 
 - (void)activityDidChangeForSensorActivityDataProvider:(id)provider
 {
-  v4 = SBLogScreenLongevityController();
+  v4 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -698,7 +703,7 @@ LABEL_7:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __45__SBScreenLongevityController__startDimTimer__block_invoke(uint64_t a1)
+void *__45__SBScreenLongevityController__startDimTimer__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) isValid];
   if ((result & 1) == 0)
@@ -731,7 +736,7 @@ uint64_t __45__SBScreenLongevityController__startDimTimer__block_invoke(uint64_t
 {
   v9 = *MEMORY[0x277D85DE8];
   attentionCopy = attention;
-  v5 = SBLogScreenLongevityController();
+  v5 = SBLogScreenLongevityController(attentionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -833,65 +838,67 @@ LABEL_7:
 
 void __57__SBScreenLongevityController_dimTimerDidExpireForTimer___block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 64) isValid])
+  v2 = [*(*(a1 + 32) + 64) isValid];
+  if (v2)
   {
-    v2 = SBLogScreenLongevityController();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogScreenLongevityController(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Dim timer remains valid after expire", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Dim timer remains valid after expire", buf, 2u);
     }
 
     [*(*(a1 + 32) + 64) invalidate];
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 64);
-  *(v3 + 64) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 64);
+  *(v4 + 64) = 0;
 
-  if ([*(*(a1 + 32) + 72) isValid])
+  v6 = [*(*(a1 + 32) + 72) isValid];
+  if (v6)
   {
-    v5 = SBLogScreenLongevityController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = SBLogScreenLongevityController(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __57__SBScreenLongevityController_dimTimerDidExpireForTimer___block_invoke_cold_1();
     }
 
     [*(*(a1 + 32) + 72) invalidate];
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 72);
-    *(v6 + 72) = 0;
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 72);
+    *(v8 + 72) = 0;
   }
 
   if (!*(*(a1 + 32) + 72))
   {
-    v8 = SBLogScreenLongevityController();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogScreenLongevityController(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Start undim timer", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Start undim timer", buf, 2u);
     }
 
     objc_initWeak(buf, *(a1 + 32));
     [*(*(a1 + 32) + 72) invalidate];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 72);
-    *(v9 + 72) = 0;
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 72);
+    *(v11 + 72) = 0;
 
-    v11 = MEMORY[0x277CBEBB8];
+    v13 = MEMORY[0x277CBEBB8];
     [*(*(a1 + 32) + 8) undimFaceDetectionInterval];
-    v13 = v12;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __57__SBScreenLongevityController_dimTimerDidExpireForTimer___block_invoke_48;
-    v17[3] = &unk_2783AA438;
-    objc_copyWeak(&v18, buf);
-    v14 = [v11 scheduledTimerWithTimeInterval:1 repeats:v17 block:v13];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 72);
-    *(v15 + 72) = v14;
+    v15 = v14;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __57__SBScreenLongevityController_dimTimerDidExpireForTimer___block_invoke_48;
+    v19[3] = &unk_2783AA438;
+    objc_copyWeak(&v20, buf);
+    v16 = [v13 scheduledTimerWithTimeInterval:1 repeats:v19 block:v15];
+    v17 = *(a1 + 32);
+    v18 = *(v17 + 72);
+    *(v17 + 72) = v16;
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 }
@@ -923,7 +930,7 @@ void __57__SBScreenLongevityController_dimTimerDidExpireForTimer___block_invoke_
 
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
 {
-  v5 = SBLogScreenLongevityController();
+  v5 = SBLogScreenLongevityController(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

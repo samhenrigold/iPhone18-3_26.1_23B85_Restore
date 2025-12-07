@@ -1791,7 +1791,7 @@ LABEL_11:
 
   else
   {
-    [(_UIKeyboardIndirectTextSelectionGestureState *)stateCopy translation];
+    objc_msgSend_translation(stateCopy);
     [(_UIKeyboardTextSelectionInteraction *)self boundedTranslation:?];
     v6 = v5;
     v8 = v7;

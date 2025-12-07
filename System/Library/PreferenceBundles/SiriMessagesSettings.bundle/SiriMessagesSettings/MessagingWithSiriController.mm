@@ -44,16 +44,16 @@
   enabledCopy = enabled;
   specifierCopy = specifier;
   selfCopy = self;
-  sub_1A5C();
+  sub_1A5C(enabledCopy);
 }
 
 - (id)getMessageWithoutConfEnabledWithSpecifier:(id)specifier
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_1EA0().super.super.isa;
+  v6 = sub_1EA0(selfCopy);
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -70,8 +70,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_2110(appear);
+  sub_2110(appearCopy);
 }
 
 - (void)setMessageWithoutConfHeadphonesEnabled:(id)enabled specifier:(id)specifier
@@ -86,9 +87,9 @@
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_2868(selfCopy).super.super.isa;
+  v6 = sub_2868(selfCopy);
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (void)setMessageWithoutConfCarPlayEnabled:(id)enabled specifier:(id)specifier
@@ -103,25 +104,24 @@
 {
   specifierCopy = specifier;
   selfCopy = self;
-  v6.super.super.isa = sub_2B0C(selfCopy).super.super.isa;
+  v6 = sub_2B0C(selfCopy);
 
-  return v6.super.super.isa;
+  return v6;
 }
 
 - (void)tableView:(id)view didEndDisplayingCell:(id)cell forRowAtIndexPath:(id)path
 {
   v8 = sub_21CC4();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin();
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB4();
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
   sub_46C4(viewCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)handleURL:(NSDictionary *)l withCompletion:(id)completion
@@ -141,45 +141,42 @@
 {
   v6 = sub_21CC4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB4();
   viewCopy = view;
   selfCopy = self;
   sub_5A8C(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
   v8 = sub_21CC4();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB4();
   viewCopy = view;
   selfCopy = self;
-  sub_6190(viewCopy, style, v12);
+  sub_6190(viewCopy, style, v11);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (BOOL)tableView:(id)view canEditRowAtIndexPath:(id)path
 {
   v6 = sub_21CC4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21CB4();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_6F6C();
+  LOBYTE(self) = sub_6F6C(selfCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 

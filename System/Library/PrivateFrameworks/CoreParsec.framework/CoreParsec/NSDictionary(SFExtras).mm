@@ -272,7 +272,7 @@
 
 - (id)sf_asTableRowCardSection:()SFExtras
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self parsec_numberForKey:@"row_type"];
   integerValue = [v5 integerValue];
@@ -295,12 +295,12 @@ LABEL_18:
         [v7 setAlignmentSchema:sf_asTableAlignmentSchema];
 
         v18 = [self parsec_arrayForKey:@"value"];
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __51__NSDictionary_SFExtras__sf_asTableRowCardSection___block_invoke;
-        v27[3] = &unk_1E7AC5F00;
-        v28 = v4;
-        v19 = [v18 parsec_mapObjectsUsingBlock:v27];
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __51__NSDictionary_SFExtras__sf_asTableRowCardSection___block_invoke;
+        v26[3] = &unk_1E7AC5F00;
+        v27 = v4;
+        v19 = [v18 parsec_mapObjectsUsingBlock:v26];
         [v7 setData:v19];
 
         v20 = [self parsec_stringForKey:@"tab_group_id"];
@@ -377,7 +377,7 @@ LABEL_11:
   }
 
   *buf = 134217984;
-  v30 = integerValue;
+  v29 = integerValue;
   v9 = "unknown table row card section row type: %ld";
   v10 = v12;
   v11 = 12;
@@ -386,8 +386,6 @@ LABEL_26:
 LABEL_14:
   v13 = 0;
 LABEL_22:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -659,7 +657,7 @@ LABEL_22:
 
 - (id)sf_asMediaOffer:()SFExtras
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69CA240];
   v5 = a3;
   v6 = objc_alloc_init(v4);
@@ -676,8 +674,8 @@ LABEL_22:
   v11 = v10;
   if (v10)
   {
-    v22[0] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     [v6 setStoreIdentifiers:v12];
   }
 
@@ -690,8 +688,8 @@ LABEL_22:
   if (v13)
   {
     v14 = objc_alloc_init(MEMORY[0x1E69CA320]);
-    v21 = v13;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+    v20 = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
     [v14 setUrls:v15];
 
     offerIdentifier = [v6 offerIdentifier];
@@ -713,7 +711,6 @@ LABEL_22:
   v18 = [self sf_imageForKey:@"image" reply:v5];
 
   [v6 setImage:v18];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1181,18 +1178,18 @@ LABEL_22:
 
 - (void)sf_baseCardSection:()SFExtras reply:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [self parsec_URLForKey:@"url"];
   v9 = [self parsec_arrayForKey:@"punchouts"];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __51__NSDictionary_SFExtras__sf_baseCardSection_reply___block_invoke;
-  v32[3] = &unk_1E7AC5F68;
-  v32[4] = v8;
-  v32[5] = self;
-  v10 = [v9 parsec_mapObjectsUsingBlock:v32];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __51__NSDictionary_SFExtras__sf_baseCardSection_reply___block_invoke;
+  v31[3] = &unk_1E7AC5F68;
+  v31[4] = v8;
+  v31[5] = self;
+  v10 = [v9 parsec_mapObjectsUsingBlock:v31];
   [v6 setPunchoutOptions:v10];
 
   v11 = [self parsec_stringForKey:@"punchout_picker_label"];
@@ -1207,8 +1204,8 @@ LABEL_22:
   if (!v14 && v8)
   {
     v15 = objc_alloc_init(MEMORY[0x1E69CA320]);
-    v34[0] = v8;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+    v33[0] = v8;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
     [v15 setUrls:v16];
 
     v17 = [self parsec_stringForKey:@"action_target_id"];
@@ -1223,8 +1220,8 @@ LABEL_22:
     }
 
     [v15 setActionTarget:v18];
-    v33 = v15;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    v32 = v15;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
     [v6 setPunchoutOptions:v19];
   }
 
@@ -1273,8 +1270,6 @@ LABEL_11:
       [v6 setNextCard:v28];
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sf_asSuggestion:()SFExtras
@@ -1504,7 +1499,7 @@ LABEL_10:
 
 - (id)sf_asActionItem:()SFExtras
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69C9E68];
   v5 = a3;
   v6 = objc_alloc_init(v4);
@@ -1546,8 +1541,8 @@ LABEL_10:
     v17 = [self parsec_stringForKey:@"action_target_id"];
     [v15 setActionTarget:v17];
 
-    v31[0] = v12;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+    v30[0] = v12;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
     [v15 setUrls:v16];
   }
 
@@ -1590,8 +1585,6 @@ LABEL_6:
 
   v28 = [self parsec_URLForKey:@"message_url"];
   [v6 setMessageURL:v28];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1823,7 +1816,7 @@ LABEL_7:
 
 - (id)sf_asSearchResult:()SFExtras factory:
 {
-  v131[1] = *MEMORY[0x1E69E9840];
+  v130[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   selfCopy = self;
   createResultObject = [a4 createResultObject];
@@ -1837,7 +1830,7 @@ LABEL_7:
     [createResultObject setType:{objc_msgSend(v10, "intValue")}];
   }
 
-  v126 = v10;
+  v125 = v10;
   v11 = [selfCopy parsec_stringForKey:@"type"];
   [createResultObject setDomainName:v11];
 
@@ -1856,7 +1849,7 @@ LABEL_7:
   v17 = [selfCopy parsec_numberForKey:@"title_maxlines"];
   [v15 setMaxLines:{objc_msgSend(v17, "integerValue")}];
 
-  v125 = v15;
+  v124 = v15;
   [createResultObject setTitle:v15];
   v18 = [selfCopy parsec_stringForKey:@"secondary_title"];
   [createResultObject setSecondaryTitle:v18];
@@ -1876,13 +1869,13 @@ LABEL_7:
   [createResultObject setSecondaryTitleImage:v22];
 
   v23 = [selfCopy parsec_arrayForKey:@"descriptions"];
-  v129[0] = MEMORY[0x1E69E9820];
-  v129[1] = 3221225472;
-  v129[2] = __52__NSDictionary_SFExtras__sf_asSearchResult_factory___block_invoke;
-  v129[3] = &unk_1E7AC5F00;
+  v128[0] = MEMORY[0x1E69E9820];
+  v128[1] = 3221225472;
+  v128[2] = __52__NSDictionary_SFExtras__sf_asSearchResult_factory___block_invoke;
+  v128[3] = &unk_1E7AC5F00;
   v24 = v6;
-  v130 = v24;
-  v25 = [v23 parsec_mapAndFilterObjectsUsingBlock:v129];
+  v129 = v24;
+  v25 = [v23 parsec_mapAndFilterObjectsUsingBlock:v128];
   [createResultObject setDescriptions:v25];
 
   v26 = [selfCopy parsec_stringForKey:@"footnote"];
@@ -1910,7 +1903,7 @@ LABEL_7:
   v34 = [v31 parsec_stringForKey:@"bottom_text"];
   [createResultObject setAuxiliaryBottomText:v34];
 
-  v124 = v31;
+  v123 = v31;
   [createResultObject setAuxiliaryBottomTextColor:{objc_msgSend(v31, "sf_textColorForKey:", @"bottom_text_color"}];
   v35 = [selfCopy parsec_dictionaryForKey:@"action_button"];
   v36 = [v35 sf_asActionItem:v24];
@@ -1935,7 +1928,7 @@ LABEL_7:
     [createResultObject setMapsData:parsec_base64DecodedData];
   }
 
-  v123 = v41;
+  v122 = v41;
   v43 = MEMORY[0x1E695DFF8];
   v44 = [selfCopy parsec_stringForKey:@"more_url"];
   v45 = [v43 URLWithString:v44];
@@ -1967,12 +1960,12 @@ LABEL_7:
   v54 = [selfCopy parsec_stringForKey:@"card_url"];
   v55 = [selfCopy parsec_arrayForKey:@"card_sections"];
   v56 = [selfCopy parsec_arrayForKey:@"row_sections"];
-  v118 = [selfCopy parsec_dictionaryForKey:@"zkw_topic"];
-  v57 = [v118 objectForKeyedSubscript:@"topic"];
+  v117 = [selfCopy parsec_dictionaryForKey:@"zkw_topic"];
+  v57 = [v117 objectForKeyedSubscript:@"topic"];
   sf_asTopic = [v57 sf_asTopic];
   [createResultObject setNormalizedTopic:sf_asTopic];
 
-  v119 = v56;
+  v118 = v56;
   if ([v56 count])
   {
     v59 = objc_alloc_init(MEMORY[0x1E69C9F00]);
@@ -2020,11 +2013,11 @@ LABEL_12:
   }
 
 LABEL_13:
-  v122 = v53;
+  v121 = v53;
   v64 = [selfCopy parsec_stringForKey:@"pb_compact_tophit"];
   parsec_base64DecodedData2 = [v64 parsec_base64DecodedData];
 
-  v128 = parsec_base64DecodedData2;
+  v127 = parsec_base64DecodedData2;
   if (parsec_base64DecodedData2)
   {
     v66 = [objc_alloc(MEMORY[0x1E69CA5E0]) initWithData:parsec_base64DecodedData2];
@@ -2038,7 +2031,7 @@ LABEL_13:
   v68 = [selfCopy parsec_stringForKey:@"pb_tophit"];
   parsec_base64DecodedData3 = [v68 parsec_base64DecodedData];
 
-  v127 = parsec_base64DecodedData3;
+  v126 = parsec_base64DecodedData3;
   if (parsec_base64DecodedData3)
   {
     v70 = [objc_alloc(MEMORY[0x1E69CA5E0]) initWithData:parsec_base64DecodedData3];
@@ -2069,7 +2062,7 @@ LABEL_13:
     }
   }
 
-  v121 = v54;
+  v120 = v54;
   v77 = [selfCopy parsec_stringForKey:@"url"];
   v78 = [selfCopy parsec_dictionaryForKey:@"app"];
   if ([v77 length])
@@ -2084,7 +2077,7 @@ LABEL_13:
     }
   }
 
-  v120 = v55;
+  v119 = v55;
   v81 = [selfCopy parsec_stringForKey:@"application_bundle_id"];
   [createResultObject setApplicationBundleIdentifier:v81];
 
@@ -2149,8 +2142,8 @@ LABEL_13:
 
     punchout = objc_alloc_init(MEMORY[0x1E69CA320]);
     v100 = [createResultObject url];
-    v131[0] = v100;
-    v101 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:1];
+    v130[0] = v100;
+    v101 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:1];
     [punchout setUrls:v101];
 
     [createResultObject setPunchout:punchout];
@@ -2206,8 +2199,6 @@ LABEL_39:
     sf_asResultEntity = [v113 sf_asResultEntity];
     [createResultObject setResultEntity:sf_asResultEntity];
   }
-
-  v116 = *MEMORY[0x1E69E9840];
 
   return createResultObject;
 }

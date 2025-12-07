@@ -54,39 +54,35 @@
 
 - (id)tags
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   experiment = [(TRIExperimentBaseTask *)self experiment];
   taskTag = [experiment taskTag];
-  v10[0] = taskTag;
+  v9[0] = taskTag;
   experiment2 = [(TRIExperimentBaseTask *)self experiment];
   experimentId = [experiment2 experimentId];
-  v10[1] = experimentId;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[1] = experimentId;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
   return v7;
 }
 
 - (id)nextTasksForRunStatus:(int)status
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (status == 3)
   {
     experiment = [(TRIExperimentBaseTask *)self experiment];
     experimentId = [experiment experimentId];
     experiment2 = [(TRIExperimentBaseTask *)self experiment];
     v7 = +[TRIDeactivateTreatmentTask taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:](TRIDeactivateTreatmentTask, "taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:", experimentId, [experiment2 deploymentId], 0, 23, 0);
-    v11[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -326,10 +322,7 @@ void *__32__TRIExperimentBaseTask_metrics__block_invoke(uint64_t a1, uint64_t a2
   result = *(a2 + 8);
   if (result)
   {
-    v4 = [result copy];
-    v5 = *(*(a1 + 32) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(a1 + 32) + 8) + 40) = [result copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -375,10 +368,7 @@ uint64_t __35__TRIExperimentBaseTask_dimensions__block_invoke(uint64_t result, u
   if (*(a2 + 16))
   {
     v2 = result;
-    v3 = [*(*(*(result + 32) + 8) + 40) arrayByAddingObjectsFromArray:?];
-    v4 = *(*(v2 + 32) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(v2 + 32) + 8) + 40) = [*(*(*(result + 32) + 8) + 40) arrayByAddingObjectsFromArray:?];
 
     return MEMORY[0x2821F96F8]();
   }

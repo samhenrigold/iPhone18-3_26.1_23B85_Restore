@@ -43,24 +43,24 @@
   v12 = [BYExpressCloudSettings privacyBundleForIdentifier:@"com.apple.onboarding.locationservices"];
   [v4 setLocationServicesPrivacyBundle:v12];
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
   v13 = getAFPreferencesClass_softClass_3;
-  v51 = getAFPreferencesClass_softClass_3;
+  v52 = getAFPreferencesClass_softClass_3;
   if (!getAFPreferencesClass_softClass_3)
   {
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __getAFPreferencesClass_block_invoke_3;
-    v46 = &unk_1E7D02730;
-    v47 = &v48;
-    __getAFPreferencesClass_block_invoke_3(&v43);
-    v13 = v49[3];
+    v44 = MEMORY[0x1E69E9820];
+    v45 = 3221225472;
+    v46 = __getAFPreferencesClass_block_invoke_3;
+    v47 = &unk_1E7D02730;
+    v48 = &v49;
+    __getAFPreferencesClass_block_invoke_3(&v44);
+    v13 = v50[3];
   }
 
   v14 = v13;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
   sharedPreferences = [v13 sharedPreferences];
   [v4 setSiriOptIn:{objc_msgSend(sharedPreferences, "assistantIsEnabled")}];
 
@@ -87,46 +87,46 @@
     [v4 setScreenTimeEnabled:{objc_msgSend(_isScreenTimeEnabled, "BOOLValue")}];
   }
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
   v23 = getPKPassLibraryClass_softClass_1;
-  v51 = getPKPassLibraryClass_softClass_1;
+  v52 = getPKPassLibraryClass_softClass_1;
   if (!getPKPassLibraryClass_softClass_1)
   {
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __getPKPassLibraryClass_block_invoke_1;
-    v46 = &unk_1E7D02730;
-    v47 = &v48;
-    __getPKPassLibraryClass_block_invoke_1(&v43);
-    v23 = v49[3];
+    v44 = MEMORY[0x1E69E9820];
+    v45 = 3221225472;
+    v46 = __getPKPassLibraryClass_block_invoke_1;
+    v47 = &unk_1E7D02730;
+    v48 = &v49;
+    __getPKPassLibraryClass_block_invoke_1(&v44);
+    v23 = v50[3];
   }
 
   v24 = v23;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
   sharedInstance = [v23 sharedInstance];
   backupMetadata = [sharedInstance backupMetadata];
   [v4 setWalletData:backupMetadata];
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
   v27 = getNRMigratorClass_softClass_1;
-  v51 = getNRMigratorClass_softClass_1;
+  v52 = getNRMigratorClass_softClass_1;
   if (!getNRMigratorClass_softClass_1)
   {
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __getNRMigratorClass_block_invoke_1;
-    v46 = &unk_1E7D02730;
-    v47 = &v48;
-    __getNRMigratorClass_block_invoke_1(&v43);
-    v27 = v49[3];
+    v44 = MEMORY[0x1E69E9820];
+    v45 = 3221225472;
+    v46 = __getNRMigratorClass_block_invoke_1;
+    v47 = &unk_1E7D02730;
+    v48 = &v49;
+    __getNRMigratorClass_block_invoke_1(&v44);
+    v27 = v50[3];
   }
 
   v28 = v27;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
   sharedMigrator = [v27 sharedMigrator];
   migrationConsentRequestData = [sharedMigrator migrationConsentRequestData];
   [v4 setWatchMigrationData:migrationConsentRequestData];
@@ -139,24 +139,24 @@
     [v4 setDisplayZoomOption:{objc_msgSend(_displayZoomOption, "intValue")}];
   }
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2050000000;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2050000000;
   v33 = getUIDeviceClass_softClass_0;
-  v51 = getUIDeviceClass_softClass_0;
+  v52 = getUIDeviceClass_softClass_0;
   if (!getUIDeviceClass_softClass_0)
   {
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __getUIDeviceClass_block_invoke_0;
-    v46 = &unk_1E7D02730;
-    v47 = &v48;
-    __getUIDeviceClass_block_invoke_0(&v43);
-    v33 = v49[3];
+    v44 = MEMORY[0x1E69E9820];
+    v45 = 3221225472;
+    v46 = __getUIDeviceClass_block_invoke_0;
+    v47 = &unk_1E7D02730;
+    v48 = &v49;
+    __getUIDeviceClass_block_invoke_0(&v44);
+    v33 = v50[3];
   }
 
   v34 = v33;
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
   currentDevice = [v33 currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
@@ -176,10 +176,10 @@
   mEMORY[0x1E696EE70]2 = [MEMORY[0x1E696EE70] sharedInstance];
   [v4 setStolenDeviceProtectionStrictModeEnabled:{objc_msgSend(mEMORY[0x1E696EE70]2, "isFeatureStrictModeEnabled")}];
 
-  v41 = _BYLoggingFacility();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  v42 = _BYLoggingFacility(v41);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    [(BYExpressCloudSettings *)v4 createExpressSettingsWithQueue:v41];
+    [(BYExpressCloudSettings *)v4 createExpressSettingsWithQueue:v42];
   }
 
   return v4;
@@ -288,19 +288,20 @@
 void __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _BYLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _BYLoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke_cold_1(v5);
+      __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke_cold_1(v6, v7);
     }
   }
 
-  v7 = [MEMORY[0x1E696AD98] numberWithInt:a2 == 1];
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v8 = [MEMORY[0x1E696AD98] numberWithInt:a2 == 1];
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
@@ -352,21 +353,22 @@ void __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke(uint64_t a1, ui
 void __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _BYLoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _BYLoggingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke_cold_1(v5);
+      __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke_cold_1(v6, v7);
     }
   }
 
   else
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:a2 == 2];
-    v8 = *(*(a1 + 40) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:a2 == 2];
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -519,53 +521,44 @@ void __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke(uint64_t a1
 
 + (void)createExpressSettingsWithQueue:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "Created express settings %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B862F000, a2, OS_LOG_TYPE_DEBUG, "Created express settings %@", &v2, 0xCu);
 }
 
-void __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke_cold_1(void *a1)
+void __42__BYExpressCloudSettings__isFindMyEnabled__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = _BYIsInternalInstall();
-  if ((v9 & 1) == 0)
+  v3 = a1;
+  v10 = _BYIsInternalInstall(a1, a2);
+  if ((v10 & 1) == 0)
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v1 = [a1 domain];
-    v12 = v1;
-    v13 = [a1 code];
-    a1 = [v10 stringWithFormat:@"<Error domain: %@, code %ld>"];
+    v11 = MEMORY[0x1E696AEC0];
+    v2 = [v3 domain];
+    v3 = [v11 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
   }
 
-  OUTLINED_FUNCTION_0_2(&dword_1B862F000, v3, v4, "Failed to retrieve Find My state: %{public}@", v5, v6, v7, v8, v12, v13, 2u);
-  if (!v9)
+  OUTLINED_FUNCTION_0_2(&dword_1B862F000, v4, v5, "Failed to retrieve Find My state: %{public}@", v6, v7, v8, v9, v12, v13);
+  if (!v10)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke_cold_1(void *a1)
+void __46__BYExpressCloudSettings__isScreenTimeEnabled__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = _BYIsInternalInstall();
-  if ((v9 & 1) == 0)
+  v3 = a1;
+  v10 = _BYIsInternalInstall(a1, a2);
+  if ((v10 & 1) == 0)
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v1 = [a1 domain];
-    v12 = v1;
-    v13 = [a1 code];
-    a1 = [v10 stringWithFormat:@"<Error domain: %@, code %ld>"];
+    v11 = MEMORY[0x1E696AEC0];
+    v2 = [v3 domain];
+    v3 = [v11 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
   }
 
-  OUTLINED_FUNCTION_0_2(&dword_1B862F000, v3, v4, "Failed to retrieve Screen Time state: %{public}@", v5, v6, v7, v8, v12, v13, 2u);
-  if (!v9)
+  OUTLINED_FUNCTION_0_2(&dword_1B862F000, v4, v5, "Failed to retrieve Screen Time state: %{public}@", v6, v7, v8, v9, v12, v13);
+  if (!v10)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

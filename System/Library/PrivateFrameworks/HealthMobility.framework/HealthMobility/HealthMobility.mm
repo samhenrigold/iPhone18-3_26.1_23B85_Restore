@@ -9,22 +9,20 @@ id HKMobilityAllWalkingSteadinessNotificationCategories()
 
 id HKMobilityWalkingSteadinessInitialNotificationCategories()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MobilityAppPlugin.WalkingSteadinessInitial.VeryLow";
-  v3[1] = @"MobilityAppPlugin.WalkingSteadinessInitial.Low";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MobilityAppPlugin.WalkingSteadinessInitial.VeryLow";
+  v2[1] = @"MobilityAppPlugin.WalkingSteadinessInitial.Low";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
 
 id HKMobilityWalkingSteadinessRepeatNotificationCategories()
 {
-  v3[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MobilityAppPlugin.WalkingSteadinessRepeat.VeryLow";
-  v3[1] = @"MobilityAppPlugin.WalkingSteadinessRepeat.Low";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MobilityAppPlugin.WalkingSteadinessRepeat.VeryLow";
+  v2[1] = @"MobilityAppPlugin.WalkingSteadinessRepeat.Low";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:2];
 
   return v0;
 }
@@ -42,7 +40,7 @@ uint64_t HKMobilityNotificationCategoryForWalkingSteadinessEventValue(uint64_t a
   }
 }
 
-const char *HMMobilityLogCategoryForCategory(unint64_t a1)
+const char *HMMobilityLogCategoryForCategory(unint64_t a1, uint64_t a2)
 {
   if (a1 >= 0xF)
   {
@@ -77,22 +75,22 @@ id HMMobilityLogForCategory(unint64_t a1)
   return v2;
 }
 
-void __HMMobilityLogForCategory_block_invoke()
+void __HMMobilityLogForCategory_block_invoke(uint64_t a1, uint64_t a2)
 {
   for (i = 0; i != 15; ++i)
   {
-    v1 = HMMobilityLogCategoryForCategory(i);
-    v2 = os_log_create("com.apple.health.Mobility", v1);
-    v3 = HMMobilityLogForCategory_logObjects[i];
-    HMMobilityLogForCategory_logObjects[i] = v2;
+    v3 = HMMobilityLogCategoryForCategory(i, a2);
+    v4 = os_log_create("com.apple.health.Mobility", v3);
+    v5 = HMMobilityLogForCategory_logObjects[i];
+    HMMobilityLogForCategory_logObjects[i] = v4;
   }
 }
 
-void sub_251954688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_251954688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -103,35 +101,35 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25195494C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25195494C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_251954BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_251954BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_251954E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_251954E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2519550F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2519550F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -224,10 +222,11 @@ LABEL_10:
   return v3;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 __CFString *HKMobilityNotificationIdentifierForCategory(void *a1)
@@ -258,12 +257,4 @@ __CFString *HKMobilityNotificationIdentifierForCategory(void *a1)
   }
 
   return v4;
-}
-
-void HKMobilityLocalizedNotificationDuringPregnancyBodyForCategory_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_251952000, v0, v1, "[UNNotificationRequest+HKMobility] Unable to localize notification body prefix for category: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }

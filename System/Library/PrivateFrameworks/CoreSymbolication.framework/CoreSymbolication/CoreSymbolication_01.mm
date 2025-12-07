@@ -1,33 +1,3 @@
-_DWORD *std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SourceInfo> &,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,std::__identity>(_DWORD *a1, _DWORD *a2, unsigned int *a3, uint64_t a4)
-{
-  v4 = a1;
-  if (a2 != a1)
-  {
-    v7 = a2 - a1;
-    do
-    {
-      v8 = &v4[v7 >> 1];
-      v9 = *(*a4 + 56) + *(*a4 + 40);
-      v11 = *v8;
-      v10 = v8 + 1;
-      if (FlatbufferSymbols::SourceInfo::KeyCompareLessThan((v9 - *a3), (v9 - v11)))
-      {
-        v7 >>= 1;
-      }
-
-      else
-      {
-        v4 = v10;
-        v7 += ~(v7 >> 1);
-      }
-    }
-
-    while (v7);
-  }
-
-  return v4;
-}
-
 unsigned int *std::__half_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SourceInfo> &,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *,flatbuffers::Offset<FlatbufferSymbols::SourceInfo> *>(unsigned int *__src, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *__dst, uint64_t a6)
 {
   if (__src != a2)
@@ -169,7 +139,7 @@ _DWORD *std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbu
   return a1;
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Symbol> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol>>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Symbol> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol>>(unsigned int *a1, unsigned int *a2, uint64_t *a3)
 {
   v6 = a2 - a1;
   if (v6 < 129)
@@ -223,17 +193,17 @@ void sub_1D96F96C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(unsigned int *a1, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(unsigned int *result, unsigned int *a2, uint64_t *a3, unint64_t a4, unsigned int *a5, uint64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(*a3 + 56) + *(*a3 + 40);
-      if (FlatbufferSymbols::InlineSymbol::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *a1)))
+      if (FlatbufferSymbols::InlineSymbol::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *result)))
       {
-        v10 = *a1;
-        *a1 = *(a2 - 1);
+        v10 = *result;
+        *result = *(a2 - 1);
         *(a2 - 1) = v10;
       }
     }
@@ -241,34 +211,34 @@ void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImp
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::InlineSymbol> &,flatbuffers::Offset<FlatbufferSymbols::InlineSymbol> *>(result, a2, a3);
     }
   }
 }
 
-unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(unsigned int *result, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5)
+unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Symbol> &,flatbuffers::Offset<FlatbufferSymbols::Symbol> *>(unsigned int *result, unsigned int *a2, uint64_t *a3, unint64_t a4, unsigned int *a5)
 {
   if (a4)
   {
@@ -315,7 +285,7 @@ unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBu
   return result;
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section>>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section>>(unsigned int *a1, unsigned int *a2, uint64_t *a3)
 {
   v6 = a2 - a1;
   if (v6 < 129)
@@ -369,17 +339,17 @@ void sub_1D96F9B04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *a1, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *result, unsigned int *a2, uint64_t *a3, unint64_t a4, unsigned int *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(*a3 + 56) + *(*a3 + 40);
-      if (FlatbufferSymbols::Section::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *a1)))
+      if (FlatbufferSymbols::Section::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *result)))
       {
-        v10 = *a1;
-        *a1 = *(a2 - 1);
+        v10 = *result;
+        *result = *(a2 - 1);
         *(a2 - 1) = v10;
       }
     }
@@ -387,40 +357,40 @@ void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImp
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, a2, a3);
     }
   }
 }
 
-unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *result, unsigned int *a2, uint64_t a3)
+BOOL std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(_BOOL8 result, unsigned int *a2, uint64_t a3)
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = result + 1;
-    if (result + 1 != a2)
+    v5 = (result + 4);
+    if ((result + 4) != a2)
     {
       v7 = 0;
       v8 = result;
@@ -446,7 +416,7 @@ unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuf
             v14 = *(*a3 + 56) + *(*a3 + 40);
             result = FlatbufferSymbols::Section::KeyCompareLessThan((v14 - v12), (v14 - *(v4 + v13 - 4)));
             v13 -= 4;
-            if ((result & 1) == 0)
+            if (!result)
             {
               v15 = (v4 + v13 + 4);
               goto LABEL_10;
@@ -516,7 +486,7 @@ unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBu
   return result;
 }
 
-unsigned int *std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
+BOOL std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(_BOOL8 result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
 {
   if (result == a2)
   {
@@ -584,7 +554,7 @@ LABEL_16:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(unsigned int *result, char *a2, char *a3, uint64_t *a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -593,7 +563,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
     {
       if (v9 <= a8 || a5 <= a8)
       {
-        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, a2, a3, a4, a5, v9, a7);
+        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, a2, a3, a4, a5, v9, a7);
         return;
       }
 
@@ -607,7 +577,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       while (1)
       {
         v17 = *(*a4 + 56) + *(*a4 + 40);
-        if (FlatbufferSymbols::Section::KeyCompareLessThan((v17 - *a2), (v17 - a1[v16])))
+        if (FlatbufferSymbols::Section::KeyCompareLessThan((v17 - *a2), (v17 - result[v16])))
         {
           break;
         }
@@ -623,32 +593,32 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       v18 = a5 - v16;
       v33 = a3;
       v34 = a8;
-      v32 = &a1[v15 / 0xFFFFFFFFFFFFFFFCLL];
+      v32 = &result[v15 / 0xFFFFFFFFFFFFFFFCLL];
       if (a5 - v16 >= v9)
       {
         if (a5 - 1 == v16)
         {
-          v30 = a1[v16];
-          a1[v16] = *a2;
+          v30 = result[v16];
+          result[v16] = *a2;
           *a2 = v30;
           return;
         }
 
         v22 = v18 / 2;
-        v23 = &a1[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
+        v23 = &result[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
         v36 = *a4;
         v37 = 0;
-        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section>>(a2, v23, a3 - a2, &v36);
+        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section>>(a2, v23, (a3 - a2) >> 2, &v36);
         v21 = v23;
-        v19 = v20 - a2;
+        v19 = (v20 - a2) >> 2;
       }
 
       else
       {
         v19 = v9 / 2;
-        v20 = &a2[v9 / 2];
-        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section>,std::__identity>(&a1[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
-        v22 = (v21 - a1 + v15) >> 2;
+        v20 = &a2[4 * (v9 / 2)];
+        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section>,std::__identity>(&result[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
+        v22 = (v21 - result + v15) >> 2;
       }
 
       v24 = a5 - v22 - v16;
@@ -679,7 +649,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       a5 = v24;
       v9 = v25;
       a2 = v20;
-      a1 = v29;
+      result = v29;
     }
 
     while (v25);
@@ -1051,7 +1021,7 @@ _DWORD *std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbu
   return a1;
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry>>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry>>(unsigned int *a1, unsigned int *a2, uint64_t *a3)
 {
   v6 = a2 - a1;
   if (v6 < 129)
@@ -1105,17 +1075,17 @@ void sub_1D96FA930(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *a1, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *result, unsigned int *a2, uint64_t *a3, unint64_t a4, unsigned int *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(*a3 + 56) + *(*a3 + 40);
-      if (FlatbufferSymbols::SymbolNameEntry::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *a1)))
+      if (FlatbufferSymbols::SymbolNameEntry::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *result)))
       {
-        v10 = *a1;
-        *a1 = *(a2 - 1);
+        v10 = *result;
+        *result = *(a2 - 1);
         *(a2 - 1) = v10;
       }
     }
@@ -1123,40 +1093,40 @@ void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImp
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(result, a2, a3);
     }
   }
 }
 
-unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *result, unsigned int *a2, uint64_t a3)
+BOOL std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(_BOOL8 result, unsigned int *a2, uint64_t a3)
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = result + 1;
-    if (result + 1 != a2)
+    v5 = (result + 4);
+    if ((result + 4) != a2)
     {
       v7 = 0;
       v8 = result;
@@ -1182,7 +1152,7 @@ unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuf
             v14 = *(*a3 + 56) + *(*a3 + 40);
             result = FlatbufferSymbols::SymbolNameEntry::KeyCompareLessThan((v14 - v12), (v14 - *(v4 + v13 - 4)));
             v13 -= 4;
-            if ((result & 1) == 0)
+            if (!result)
             {
               v15 = (v4 + v13 + 4);
               goto LABEL_10;
@@ -1252,7 +1222,7 @@ unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBu
   return result;
 }
 
-unsigned int *std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
+BOOL std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(_BOOL8 result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
 {
   if (result == a2)
   {
@@ -1320,7 +1290,7 @@ LABEL_16:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(unsigned int *result, char *a2, char *a3, uint64_t *a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -1329,7 +1299,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
     {
       if (v9 <= a8 || a5 <= a8)
       {
-        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(a1, a2, a3, a4, a5, v9, a7);
+        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *>(result, a2, a3, a4, a5, v9, a7);
         return;
       }
 
@@ -1343,7 +1313,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       while (1)
       {
         v17 = *(*a4 + 56) + *(*a4 + 40);
-        if (FlatbufferSymbols::SymbolNameEntry::KeyCompareLessThan((v17 - *a2), (v17 - a1[v16])))
+        if (FlatbufferSymbols::SymbolNameEntry::KeyCompareLessThan((v17 - *a2), (v17 - result[v16])))
         {
           break;
         }
@@ -1359,32 +1329,32 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       v18 = a5 - v16;
       v33 = a3;
       v34 = a8;
-      v32 = &a1[v15 / 0xFFFFFFFFFFFFFFFCLL];
+      v32 = &result[v15 / 0xFFFFFFFFFFFFFFFCLL];
       if (a5 - v16 >= v9)
       {
         if (a5 - 1 == v16)
         {
-          v30 = a1[v16];
-          a1[v16] = *a2;
+          v30 = result[v16];
+          result[v16] = *a2;
           *a2 = v30;
           return;
         }
 
         v22 = v18 / 2;
-        v23 = &a1[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
+        v23 = &result[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
         v36 = *a4;
         v37 = 0;
-        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry>>(a2, v23, a3 - a2, &v36);
+        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry>>(a2, v23, (a3 - a2) >> 2, &v36);
         v21 = v23;
-        v19 = v20 - a2;
+        v19 = (v20 - a2) >> 2;
       }
 
       else
       {
         v19 = v9 / 2;
-        v20 = &a2[v9 / 2];
-        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,std::__identity>(&a1[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
-        v22 = (v21 - a1 + v15) >> 2;
+        v20 = &a2[4 * (v9 / 2)];
+        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::SymbolNameEntry> &,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry> *,flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,std::__identity>(&result[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
+        v22 = (v21 - result + v15) >> 2;
       }
 
       v24 = a5 - v22 - v16;
@@ -1415,7 +1385,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       a5 = v24;
       v9 = v25;
       a2 = v20;
-      a1 = v29;
+      result = v29;
     }
 
     while (v25);
@@ -1792,9 +1762,9 @@ _DWORD *std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbu
   return a1;
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Segment> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment>>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::Segment> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment>>(unsigned int *a1, char *a2, uint64_t *a3)
 {
-  v6 = a2 - a1;
+  v6 = (a2 - a1) >> 2;
   if (v6 < 129)
   {
     v12 = 0;
@@ -1804,7 +1774,7 @@ void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::O
   else
   {
     v7 = MEMORY[0x1E69E5398];
-    v8 = a2 - a1;
+    v8 = (a2 - a1) >> 2;
     while (1)
     {
       v9 = operator new(4 * v8, v7);
@@ -1846,17 +1816,17 @@ void sub_1D96FB774(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(unsigned int *a1, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(unsigned int *result, char *a2, uint64_t *a3, unint64_t a4, unsigned int *a5, uint64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(*a3 + 56) + *(*a3 + 40);
-      if (FlatbufferSymbols::Section::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *a1)))
+      if (FlatbufferSymbols::Section::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *result)))
       {
-        v10 = *a1;
-        *a1 = *(a2 - 1);
+        v10 = *result;
+        *result = *(a2 - 1);
         *(a2 - 1) = v10;
       }
     }
@@ -1864,34 +1834,34 @@ void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImp
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Section> &,flatbuffers::Offset<FlatbufferSymbols::Section> *>(result, a2, a3);
     }
   }
 }
 
-unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(unsigned int *result, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5)
+unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::Segment> &,flatbuffers::Offset<FlatbufferSymbols::Segment> *>(unsigned int *result, char *a2, uint64_t *a3, unint64_t a4, unsigned int *a5)
 {
   if (a4)
   {
@@ -1938,7 +1908,7 @@ unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBu
   return result;
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo>>(unsigned int *a1, unsigned int *a2, uint64_t a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo>>(unsigned int *a1, unsigned int *a2, uint64_t *a3)
 {
   v6 = a2 - a1;
   if (v6 < 129)
@@ -1992,17 +1962,17 @@ void sub_1D96FBBB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *a1, unsigned int *a2, uint64_t a3, unint64_t a4, unsigned int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *result, unsigned int *a2, uint64_t *a3, unint64_t a4, unsigned int *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(*a3 + 56) + *(*a3 + 40);
-      if (FlatbufferSymbols::TranslatedImageInfo::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *a1)))
+      if (FlatbufferSymbols::TranslatedImageInfo::KeyCompareLessThan((v9 - *(a2 - 1)), (v9 - *result)))
       {
-        v10 = *a1;
-        *a1 = *(a2 - 1);
+        v10 = *result;
+        *result = *(a2 - 1);
         *(a2 - 1) = v10;
       }
     }
@@ -2010,40 +1980,40 @@ void std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImp
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(result, a2, a3);
     }
   }
 }
 
-unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *result, unsigned int *a2, uint64_t a3)
+BOOL std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(_BOOL8 result, unsigned int *a2, uint64_t a3)
 {
   if (result != a2)
   {
     v4 = result;
-    v5 = result + 1;
-    if (result + 1 != a2)
+    v5 = (result + 4);
+    if ((result + 4) != a2)
     {
       v7 = 0;
       v8 = result;
@@ -2069,7 +2039,7 @@ unsigned int *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,flatbuf
             v14 = *(*a3 + 56) + *(*a3 + 40);
             result = FlatbufferSymbols::TranslatedImageInfo::KeyCompareLessThan((v14 - v12), (v14 - *(v4 + v13 - 4)));
             v13 -= 4;
-            if ((result & 1) == 0)
+            if (!result)
             {
               v15 = (v4 + v13 + 4);
               goto LABEL_10;
@@ -2139,7 +2109,7 @@ unsigned int *std::__stable_sort_move<std::_ClassicAlgPolicy,flatbuffers::FlatBu
   return result;
 }
 
-unsigned int *std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
+BOOL std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(_BOOL8 result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, uint64_t a6)
 {
   if (result == a2)
   {
@@ -2207,7 +2177,7 @@ LABEL_16:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(unsigned int *result, char *a2, char *a3, uint64_t *a4, uint64_t a5, uint64_t a6, unsigned int *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -2216,7 +2186,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
     {
       if (v9 <= a8 || a5 <= a8)
       {
-        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(a1, a2, a3, a4, a5, v9, a7);
+        std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *>(result, a2, a3, a4, a5, v9, a7);
         return;
       }
 
@@ -2230,7 +2200,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       while (1)
       {
         v17 = *(*a4 + 56) + *(*a4 + 40);
-        if (FlatbufferSymbols::TranslatedImageInfo::KeyCompareLessThan((v17 - *a2), (v17 - a1[v16])))
+        if (FlatbufferSymbols::TranslatedImageInfo::KeyCompareLessThan((v17 - *a2), (v17 - result[v16])))
         {
           break;
         }
@@ -2246,32 +2216,32 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       v18 = a5 - v16;
       v33 = a3;
       v34 = a8;
-      v32 = &a1[v15 / 0xFFFFFFFFFFFFFFFCLL];
+      v32 = &result[v15 / 0xFFFFFFFFFFFFFFFCLL];
       if (a5 - v16 >= v9)
       {
         if (a5 - 1 == v16)
         {
-          v30 = a1[v16];
-          a1[v16] = *a2;
+          v30 = result[v16];
+          result[v16] = *a2;
           *a2 = v30;
           return;
         }
 
         v22 = v18 / 2;
-        v23 = &a1[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
+        v23 = &result[v18 / 2 + v15 / 0xFFFFFFFFFFFFFFFCLL];
         v36 = *a4;
         v37 = 0;
-        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo>>(a2, v23, a3 - a2, &v36);
+        v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo>,std::__identity,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo>>(a2, v23, (a3 - a2) >> 2, &v36);
         v21 = v23;
-        v19 = v20 - a2;
+        v19 = (v20 - a2) >> 2;
       }
 
       else
       {
         v19 = v9 / 2;
-        v20 = &a2[v9 / 2];
-        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo>,std::__identity>(&a1[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
-        v22 = (v21 - a1 + v15) >> 2;
+        v20 = &a2[4 * (v9 / 2)];
+        v21 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderImpl<false>::TableKeyComparator<FlatbufferSymbols::TranslatedImageInfo> &,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo> *,flatbuffers::Offset<FlatbufferSymbols::TranslatedImageInfo>,std::__identity>(&result[v15 / 0xFFFFFFFFFFFFFFFCLL], a2, v20, a4);
+        v22 = (v21 - result + v15) >> 2;
       }
 
       v24 = a5 - v22 - v16;
@@ -2302,7 +2272,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,flatbuffers::FlatBufferBuilderI
       a5 = v24;
       v9 = v25;
       a2 = v20;
-      a1 = v29;
+      result = v29;
     }
 
     while (v25);
@@ -2694,10 +2664,10 @@ uint64_t flatbuffers::FlatBufferBuilderImpl<false>::CreateSharedString(uint64_t 
   v9 = *(a1 + 48);
   v5 = std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::find<flatbuffers::Offset<flatbuffers::String>>(*(a1 + 120), &v9);
   v6 = *(a1 + 120);
-  if (v6 + 8 == v5)
+  if (v6 + 1 == v5)
   {
     v7 = &v9;
-    std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__emplace_unique_key_args<flatbuffers::Offset<flatbuffers::String>,flatbuffers::Offset<flatbuffers::String> const&>(v6, &v9);
+    std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__emplace_unique_key_args<flatbuffers::Offset<flatbuffers::String>,flatbuffers::Offset<flatbuffers::String> const&>(v6, &v9, &v9);
   }
 
   else
@@ -2710,7 +2680,7 @@ uint64_t flatbuffers::FlatBufferBuilderImpl<false>::CreateSharedString(uint64_t 
   return *v7;
 }
 
-uint64_t flatbuffers::FlatBufferBuilderImpl<false>::CreateStringImpl(void *a1, void *a2, size_t a3)
+uint64_t flatbuffers::FlatBufferBuilderImpl<false>::CreateStringImpl(uint64_t *a1, void *a2, size_t a3)
 {
   flatbuffers::FlatBufferBuilderImpl<false>::PreAlign<unsigned int>(a1, a3 + 1);
   flatbuffers::vector_downward<unsigned int>::fill(a1, 1uLL);
@@ -2807,15 +2777,15 @@ uint64_t std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatB
   return a4;
 }
 
-uint64_t std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__emplace_unique_key_args<flatbuffers::Offset<flatbuffers::String>,flatbuffers::Offset<flatbuffers::String> const&>(uint64_t a1, unsigned int *a2)
+uint64_t std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__emplace_unique_key_args<flatbuffers::Offset<flatbuffers::String>,flatbuffers::Offset<flatbuffers::String> const&>(uint64_t **a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__find_equal<flatbuffers::Offset<flatbuffers::String>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__find_equal<flatbuffers::Offset<flatbuffers::String>>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<flatbuffers::Offset<flatbuffers::String>,flatbuffers::FlatBufferBuilderImpl<false>::StringOffsetCompare,std::allocator<flatbuffers::Offset<flatbuffers::String>>>::__find_equal<flatbuffers::Offset<flatbuffers::String>>(uint64_t a1, void *a2, unsigned int *a3)
@@ -2940,7 +2910,7 @@ unint64_t CSRangeIntersectionRange(unint64_t a1, uint64_t a2, unint64_t a3, uint
 
 uint64_t CSRangeOfDyldSharedCacheInCurrentProcess()
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     CSRangeOfDyldSharedCacheInCurrentProcess_cold_1();
   }
@@ -2961,14 +2931,14 @@ uint64_t __CSRangeOfDyldSharedCacheInCurrentProcess_block_invoke()
   return result;
 }
 
-uint64_t CSRangeOfDyldSharedCacheInTask()
+uint64_t CSRangeOfDyldSharedCacheInTask(uint64_t a1)
 {
   base_address = dyld_process_create_for_task();
   if (base_address)
   {
-    v1 = dyld_process_snapshot_create_for_process();
+    v2 = dyld_process_snapshot_create_for_process();
     dyld_process_dispose();
-    if (v1)
+    if (v2)
     {
       if (!dyld_process_snapshot_get_shared_cache())
       {
@@ -2990,53 +2960,65 @@ uint64_t CSRangeOfDyldSharedCacheInTask()
   return base_address;
 }
 
-unint64_t CSRegionGetRange(uint64_t a1, uint64_t a2)
+unint64_t CSRegionGetRange(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v18[0] = a1;
-  v18[1] = a2;
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v27[0] = a1;
+  v27[1] = a2;
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 7 || (v4 = (a1 & 0xFFFFFFFFFFFFFFF8), *((a1 & 0xFFFFFFFFFFFFFFF8) + 64) != *((a1 & 0xFFFFFFFFFFFFFFF8) + 56)) || (v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)), (*(*v5 + 24))(v5) == 1) || (v6 = CSCppSymbolOwner::data(v4), (*(*v6 + 24))(v6) == 2))
+  if (v3 == 7)
   {
-    result = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
-    v8 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+    return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  v5 = (a1 & 0xFFFFFFFFFFFFFFF8);
+  if (*((a1 & 0xFFFFFFFFFFFFFFF8) + 64) != *((a1 & 0xFFFFFFFFFFFFFFF8) + 56))
+  {
+    return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  if ((*(*v6 + 24))(v6) == 1)
+  {
+    return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  v9 = CSCppSymbolOwner::data(v5, v7, v8);
+  if ((*(*v9 + 24))(v9) == 2)
+  {
+    return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  v13 = CSCppSymbolOwner::data(v5, v10, v11);
+  if ((*(*v13 + 24))(v13) == 4)
+  {
+    v26[0] = v27;
+    return CSRegionGetRange::$_2::operator()<TMMapRegionImpl<Pointer64>>(v26, (a2 & 0xFFFFFFFFFFFFFFFCLL), v15);
   }
 
   else
   {
-    v9 = CSCppSymbolOwner::data(v4);
-    if ((*(*v9 + 24))(v9) == 4)
+    v16 = CSCppSymbolOwner::data(v5, v14, v15);
+    if ((*(*v16 + 24))(v16) != 5)
     {
-      v17[0] = v18;
-      return CSRegionGetRange::$_2::operator()<TMMapRegionImpl<Pointer64>>(v17, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+      std::ostringstream::basic_ostringstream[abi:ne200100](v26);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+      v21 = CSCppSymbolOwner::data(v5, v19, v20);
+      v22 = (*(*v21 + 24))(v21);
+      MEMORY[0x1DA7365E0](v18, v22);
+      std::ostringstream::str[abi:ne200100](v26, &v25);
+      Exception::Exception(v24, &v25);
+      exception = __cxa_allocate_exception(0x20uLL);
+      Exception::Exception(exception, v24);
     }
 
-    else
-    {
-      v10 = CSCppSymbolOwner::data(v4);
-      if ((*(*v10 + 24))(v10) != 5)
-      {
-        std::ostringstream::basic_ostringstream[abi:ne200100](v17);
-        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v12 = CSCppSymbolOwner::data(v4);
-        v13 = (*(*v12 + 24))(v12);
-        MEMORY[0x1DA7365E0](v11, v13);
-        std::ostringstream::str[abi:ne200100](v17, &v16);
-        Exception::Exception(v15, &v16);
-        exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v15);
-      }
-
-      v17[0] = v18;
-      return CSRegionGetRange::$_3::operator()<FlatbufferSymbols::Section const>(v17, (a2 & 0xFFFFFFFFFFFFFFFCLL));
-    }
+    v26[0] = v27;
+    return CSRegionGetRange::$_3::operator()<FlatbufferSymbols::Section const>(v26, (a2 & 0xFFFFFFFFFFFFFFFCLL), v17);
   }
-
-  return result;
 }
 
 void sub_1D96FD0F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -3051,67 +3033,51 @@ void sub_1D96FD0F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-unint64_t CSRegionGetRange::$_2::operator()<TMMapRegionImpl<Pointer64>>(void **a1, unint64_t *a2)
+unint64_t CSRegionGetRange::$_2::operator()<TMMapRegionImpl<Pointer64>>(void **a1, unint64_t *a2, BOOL a3)
 {
-  v3 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8));
+  v4 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
   v6 = 0;
-  if (!TMMapSymbolOwnerData::convert_archive_address_to_real_address(v3, *a2, &v6))
+  if (TMMapSymbolOwnerData::convert_archive_address_to_real_address(v4, *a2, &v6))
   {
-    return 0;
-  }
-
-  result = v6;
-  v5 = a2[1];
-  return result;
-}
-
-uint64_t CSRegionGetRange::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t a1, int *a2)
-{
-  v4 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8));
-  if (FlatbufferSymbolOwnerData::has_artificial_sections(v4))
-  {
-    v5 = (*(*a1 + 8) & 0xFFFFFFFFFFFFFFFCLL);
-    v8 = *v5;
-    v7 = (v5 + 1);
-    v6 = v8;
-LABEL_3:
-    v9 = *v7;
-    goto LABEL_12;
-  }
-
-  v10 = (a2 - *a2);
-  v11 = *v10;
-  if (v11 < 7)
-  {
-    v6 = -1;
+    return v6;
   }
 
   else
   {
-    if (v10[3])
+    return 0;
+  }
+}
+
+uint64_t CSRegionGetRange::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t a1, int *a2, BOOL a3)
+{
+  v5 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  if (FlatbufferSymbolOwnerData::has_artificial_sections(v5))
+  {
+    v6 = *(*(*a1 + 8) & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  else
+  {
+    v7 = (a2 - *a2);
+    v8 = *v7;
+    if (v8 < 7)
     {
-      v6 = *(a2 + v10[3]);
+      v6 = -1;
+    }
+
+    else if (v7[3])
+    {
+      v6 = *(a2 + v7[3]);
     }
 
     else
     {
       v6 = -1;
     }
-
-    if (v11 >= 9)
-    {
-      v12 = v10[4];
-      if (v12)
-      {
-        v7 = (a2 + v12);
-        goto LABEL_3;
-      }
-    }
   }
 
-LABEL_12:
-  result = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v4, v6);
-  if ((v14 & 1) == 0)
+  result = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v5, v6);
+  if ((v10 & 1) == 0)
   {
     return 0;
   }
@@ -3119,64 +3085,64 @@ LABEL_12:
   return result;
 }
 
-const char *CSRegionGetName(uint64_t a1, uint64_t a2)
+const char *CSRegionGetName(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v17[0] = a1;
-  v17[1] = a2;
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v27[0] = a1;
+  v27[1] = a2;
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 7)
+  if (v3 == 7)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
   }
 
-  v4 = (a1 & 0xFFFFFFFFFFFFFFF8);
+  v5 = (a1 & 0xFFFFFFFFFFFFFFF8);
   if (*((a1 & 0xFFFFFFFFFFFFFFF8) + 64) != *((a1 & 0xFFFFFFFFFFFFFFF8) + 56))
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  if ((*(*v5 + 24))(v5) == 1)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  if ((*(*v6 + 24))(v6) == 1)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
   }
 
-  v6 = CSCppSymbolOwner::data(v4);
-  if ((*(*v6 + 24))(v6) == 2)
+  v9 = CSCppSymbolOwner::data(v5, v7, v8);
+  if ((*(*v9 + 24))(v9) == 2)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
   }
 
-  v8 = CSCppSymbolOwner::data(v4);
-  if ((*(*v8 + 24))(v8) == 4)
+  v13 = CSCppSymbolOwner::data(v5, v10, v11);
+  if ((*(*v13 + 24))(v13) == 4)
   {
-    v16[0] = v17;
-    return CSRegionGetName::$_2::operator()<TMMapRegionImpl<Pointer64>>(v16, a2 & 0xFFFFFFFFFFFFFFFCLL);
+    v26[0] = v27;
+    return CSRegionGetName::$_2::operator()<TMMapRegionImpl<Pointer64>>(v26, a2 & 0xFFFFFFFFFFFFFFFCLL, v15);
   }
 
   else
   {
-    v9 = CSCppSymbolOwner::data(v4);
-    if ((*(*v9 + 24))(v9) != 5)
+    v16 = CSCppSymbolOwner::data(v5, v14, v15);
+    if ((*(*v16 + 24))(v16) != 5)
     {
-      std::ostringstream::basic_ostringstream[abi:ne200100](v16);
-      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-      v11 = CSCppSymbolOwner::data(v4);
-      v12 = (*(*v11 + 24))(v11);
-      MEMORY[0x1DA7365E0](v10, v12);
-      std::ostringstream::str[abi:ne200100](v16, &v15);
-      Exception::Exception(v14, &v15);
+      std::ostringstream::basic_ostringstream[abi:ne200100](v26);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+      v21 = CSCppSymbolOwner::data(v5, v19, v20);
+      v22 = (*(*v21 + 24))(v21);
+      MEMORY[0x1DA7365E0](v18, v22);
+      std::ostringstream::str[abi:ne200100](v26, &v25);
+      Exception::Exception(v24, &v25);
       exception = __cxa_allocate_exception(0x20uLL);
-      Exception::Exception(exception, v14);
+      Exception::Exception(exception, v24);
     }
 
-    v16[0] = v17;
-    return CSRegionGetName::$_3::operator()<FlatbufferSymbols::Section const>(v16, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+    v26[0] = v27;
+    return CSRegionGetName::$_3::operator()<FlatbufferSymbols::Section const>(v26, (a2 & 0xFFFFFFFFFFFFFFFCLL), v17);
   }
 }
 
@@ -3192,20 +3158,20 @@ void sub_1D96FD47C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const char *CSRegionGetName::$_2::operator()<TMMapRegionImpl<Pointer64>>(void **a1, uint64_t a2)
+const char *CSRegionGetName::$_2::operator()<TMMapRegionImpl<Pointer64>>(void **a1, uint64_t a2, BOOL a3)
 {
-  v3 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8));
-  v4 = v3[11];
-  v5 = *(v4 + 16);
-  v6.i64[0] = v5;
-  v6.i64[1] = HIDWORD(v5);
-  v7 = v6;
-  v7.i32[1] = v6.i32[0];
-  v7.i32[3] = *(v4 + 24);
-  v8 = v4 + *(a2 + 16) + *(v4 + 80) + vaddlvq_u32(vmulq_s32(v7, xmmword_1D97E0550)) + (32 * *(v4 + 8)) + (24 * *(v4 + 12)) + *(v4 + 88) + 96;
-  if ((*(*v3 + 72))(v3, v8))
+  v4 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v5 = v4[11];
+  v6 = *(v5 + 16);
+  v7.i64[0] = v6;
+  v7.i64[1] = HIDWORD(v6);
+  v8 = v7;
+  v8.i32[1] = v7.i32[0];
+  v8.i32[3] = *(v5 + 24);
+  v9 = v5 + *(a2 + 16) + *(v5 + 80) + vaddlvq_u32(vmulq_s32(v8, xmmword_1D97E0550)) + (32 * *(v5 + 8)) + (24 * *(v5 + 12)) + *(v5 + 88) + 96;
+  if ((*(*v4 + 72))(v4, v9))
   {
-    return v8;
+    return v9;
   }
 
   else
@@ -3214,18 +3180,18 @@ const char *CSRegionGetName::$_2::operator()<TMMapRegionImpl<Pointer64>>(void **
   }
 }
 
-uint64_t CSRegionGetName::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t a1, int *a2)
+uint64_t CSRegionGetName::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t a1, int *a2, BOOL a3)
 {
-  v4 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8));
-  if (FlatbufferSymbolOwnerData::has_artificial_sections(v4))
+  v5 = CSCppSymbolOwner::data((**a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  if (FlatbufferSymbolOwnerData::has_artificial_sections(v5))
   {
     return *((*(*a1 + 8) & 0xFFFFFFFFFFFFFFFCLL) + 16);
   }
 
-  v6 = (a2 - *a2);
-  if (*v6 >= 5u && (v7 = v6[2]) != 0)
+  v7 = (a2 - *a2);
+  if (*v7 >= 5u && (v8 = v7[2]) != 0)
   {
-    return a2 + v7 + *(a2 + v7) + 4;
+    return a2 + v8 + *(a2 + v8) + 4;
   }
 
   else
@@ -3234,15 +3200,17 @@ uint64_t CSRegionGetName::$_3::operator()<FlatbufferSymbols::Section const>(uint
   }
 }
 
-uint64_t CSRegionGetSymbolicator(uint64_t a1, char a2)
+uint64_t CSRegionGetSymbolicator(char a1, char a2)
 {
-  if (!(a1 & 7 | (8 * (a2 & 3))))
+  if (a1 & 7 | (8 * (a2 & 3)))
+  {
+    return 2;
+  }
+
+  else
   {
     return 0;
   }
-
-  v2 = *((a1 & 0xFFFFFFFFFFFFFFF8) + 8);
-  return 2;
 }
 
 uint64_t CSRegionGetSymbolOwner(char a1, char a2)
@@ -3258,10 +3226,10 @@ uint64_t CSRegionGetSymbolOwner(char a1, char a2)
   }
 }
 
-uint64_t CSRegionForeachSymbol(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CSRegionForeachSymbol(uint64_t a1, uint64_t a2, _BOOL8 a3)
 {
-  *&v26 = a1;
-  *(&v26 + 1) = a2;
+  *&v27 = a1;
+  *(&v27 + 1) = a2;
   v3 = a1 & 7 | (8 * (a2 & 3));
   if (!v3)
   {
@@ -3269,48 +3237,44 @@ uint64_t CSRegionForeachSymbol(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = (a1 & 0xFFFFFFFFFFFFFFF8);
-  if (v3 == 7 || *(v6 + 8) != *(v6 + 7) || (v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)), (*(*v7 + 24))(v7) == 1) || (v8 = CSCppSymbolOwner::data(v6), (*(*v8 + 24))(v8) == 2))
+  if (v3 == 7 || *(v6 + 8) != *(v6 + 7) || (v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3), (*(*v7 + 24))(v7) == 1) || (v8 = CSCppSymbolOwner::data(v6, a2, a3), (*(*v8 + 24))(v8) == 2))
   {
-    v9 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-    v10 = CSCppSymbolOwner::data(v6);
-    v11 = *v9;
-    v12 = v9[1];
-    v13 = *(*v10 + 128);
+    v9 = *(*CSCppSymbolOwner::data(v6, a2, a3) + 128);
 
-    return v13();
+    return v9();
   }
 
   else
   {
-    v15 = CSCppSymbolOwner::data(v6);
-    if ((*(*v15 + 24))(v15) == 4)
+    v11 = CSCppSymbolOwner::data(v6, a2, a3);
+    if ((*(*v11 + 24))(v11) == 4)
     {
-      v23 = &v26;
-      v24 = a3;
-      v25 = v26;
-      return CSRegionForeachSymbol::$_2::operator()<TMMapRegionImpl<Pointer64>>(&v23, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+      v24 = &v27;
+      v25 = a3;
+      v26 = v27;
+      return CSRegionForeachSymbol::$_2::operator()<TMMapRegionImpl<Pointer64>>(&v24, (a2 & 0xFFFFFFFFFFFFFFFCLL), v13);
     }
 
     else
     {
-      v16 = CSCppSymbolOwner::data(v6);
-      if ((*(*v16 + 24))(v16) != 5)
+      v14 = CSCppSymbolOwner::data(v6, v12, v13);
+      if ((*(*v14 + 24))(v14) != 5)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
-        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v18 = CSCppSymbolOwner::data(v6);
-        v19 = (*(*v18 + 24))(v18);
-        MEMORY[0x1DA7365E0](v17, v19);
-        std::ostringstream::str[abi:ne200100](&v23, &v22);
-        Exception::Exception(v21, &v22);
+        std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
+        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v19 = CSCppSymbolOwner::data(v6, v17, v18);
+        v20 = (*(*v19 + 24))(v19);
+        MEMORY[0x1DA7365E0](v16, v20);
+        std::ostringstream::str[abi:ne200100](&v24, &v23);
+        Exception::Exception(v22, &v23);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v21);
+        Exception::Exception(exception, v22);
       }
 
-      v23 = &v26;
-      v24 = a3;
-      v25 = v26;
-      return CSRegionForeachSymbol::$_3::operator()<FlatbufferSymbols::Section const>(&v23, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+      v24 = &v27;
+      v25 = a3;
+      v26 = v27;
+      return CSRegionForeachSymbol::$_3::operator()<FlatbufferSymbols::Section const>(&v24, (a2 & 0xFFFFFFFFFFFFFFFCLL), v15);
     }
   }
 }
@@ -3327,47 +3291,47 @@ void sub_1D96FD8D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSRegionForeachSymbol::$_2::operator()<TMMapRegionImpl<Pointer64>>(uint64_t **a1, void *a2)
+uint64_t CSRegionForeachSymbol::$_2::operator()<TMMapRegionImpl<Pointer64>>(uint64_t **a1, void *a2, BOOL a3)
 {
-  v4 = **a1;
-  v5 = CSCppSymbolOwner::data((v4 & 0xFFFFFFFFFFFFFFF8));
-  v6 = a2[1];
-  if ((v6 + *a2) > 0xFFFFFFFE)
+  v5 = **a1;
+  v6 = CSCppSymbolOwner::data((v5 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = a2[1];
+  if ((v7 + *a2) > 0xFFFFFFFE)
   {
     return 0;
   }
 
-  v7 = *a2 | (v6 << 32);
-  v8 = a1[1];
+  v8 = *a2 | (v7 << 32);
+  v9 = a1[1];
 
-  return TMMapSymbolOwnerData::symbols_in_archive_address_range(v5, v4 & 0xFFFFFFFFFFFFFFF8, v7, v8);
+  return TMMapSymbolOwnerData::symbols_in_archive_address_range(v6, v5 & 0xFFFFFFFFFFFFFFF8, v8, v9);
 }
 
-uint64_t CSRegionForeachSymbol::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t **a1, int *a2)
+uint64_t CSRegionForeachSymbol::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t **a1, int *a2, BOOL a3)
 {
-  v4 = **a1;
-  v5 = CSCppSymbolOwner::data((v4 & 0xFFFFFFFFFFFFFFF8));
-  if (FlatbufferSymbolOwnerData::has_artificial_sections(v5))
+  v5 = **a1;
+  v6 = CSCppSymbolOwner::data((v5 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  if (FlatbufferSymbolOwnerData::has_artificial_sections(v6))
   {
-    Range = CSRegionGetRange(a1[2], a1[3]);
-    v8 = v7;
+    Range = CSRegionGetRange(a1[2], a1[3], v7);
+    v10 = v9;
   }
 
   else
   {
-    v9 = (a2 - *a2);
-    v10 = *v9;
-    if (v10 < 7)
+    v11 = (a2 - *a2);
+    v12 = *v11;
+    if (v12 < 7)
     {
-      v8 = 0;
+      v10 = 0;
       Range = -1;
     }
 
     else
     {
-      if (v9[3])
+      if (v11[3])
       {
-        Range = *(a2 + v9[3]);
+        Range = *(a2 + v11[3]);
       }
 
       else
@@ -3375,33 +3339,33 @@ uint64_t CSRegionForeachSymbol::$_3::operator()<FlatbufferSymbols::Section const
         Range = -1;
       }
 
-      if (v10 >= 9 && (v11 = v9[4]) != 0)
+      if (v12 >= 9 && (v13 = v11[4]) != 0)
       {
-        v8 = *(a2 + v11);
+        v10 = *(a2 + v13);
       }
 
       else
       {
-        v8 = 0;
+        v10 = 0;
       }
     }
   }
 
-  v12 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v5, Range);
-  if ((v13 & 1) == 0)
+  v14 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v6, Range);
+  if ((v15 & 1) == 0)
   {
     return 0;
   }
 
-  v14 = a1[1];
+  v16 = a1[1];
 
-  return FlatbufferSymbolOwnerData::symbols_in_address_range(v5, v4 & 0xFFFFFFFFFFFFFFF8, v12, v8, v14);
+  return FlatbufferSymbolOwnerData::symbols_in_address_range(v6, v5 & 0xFFFFFFFFFFFFFFF8, v14, v10, v16);
 }
 
-unint64_t CSRegionForeachSourceInfo(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t CSRegionForeachSourceInfo(uint64_t a1, uint64_t a2, _BOOL8 a3)
 {
-  v25[0] = a1;
-  v25[1] = a2;
+  v26[0] = a1;
+  v26[1] = a2;
   v3 = a1 & 7 | (8 * (a2 & 3));
   if (!v3)
   {
@@ -3409,46 +3373,42 @@ unint64_t CSRegionForeachSourceInfo(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = (a1 & 0xFFFFFFFFFFFFFFF8);
-  if (v3 == 7 || *(v6 + 8) != *(v6 + 7) || (v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)), (*(*v7 + 24))(v7) == 1) || (v8 = CSCppSymbolOwner::data(v6), (*(*v8 + 24))(v8) == 2))
+  if (v3 == 7 || *(v6 + 8) != *(v6 + 7) || (v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3), (*(*v7 + 24))(v7) == 1) || (v8 = CSCppSymbolOwner::data(v6, a2, a3), (*(*v8 + 24))(v8) == 2))
   {
-    v9 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-    v10 = CSCppSymbolOwner::data(v6);
-    v11 = *v9;
-    v12 = v9[1];
-    v13 = *(*v10 + 152);
+    v9 = *(*CSCppSymbolOwner::data(v6, a2, a3) + 152);
 
-    return v13();
+    return v9();
   }
 
   else
   {
-    v15 = CSCppSymbolOwner::data(v6);
-    if ((*(*v15 + 24))(v15) == 4)
+    v11 = CSCppSymbolOwner::data(v6, a2, a3);
+    if ((*(*v11 + 24))(v11) == 4)
     {
-      v23 = v25;
-      v24 = a3;
-      return CSRegionForeachSourceInfo::$_2::operator()<TMMapRegionImpl<Pointer64>>(&v23, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+      v24 = v26;
+      v25 = a3;
+      return CSRegionForeachSourceInfo::$_2::operator()<TMMapRegionImpl<Pointer64>>(&v24, (a2 & 0xFFFFFFFFFFFFFFFCLL), v13);
     }
 
     else
     {
-      v16 = CSCppSymbolOwner::data(v6);
-      if ((*(*v16 + 24))(v16) != 5)
+      v14 = CSCppSymbolOwner::data(v6, v12, v13);
+      if ((*(*v14 + 24))(v14) != 5)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
-        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v18 = CSCppSymbolOwner::data(v6);
-        v19 = (*(*v18 + 24))(v18);
-        MEMORY[0x1DA7365E0](v17, v19);
-        std::ostringstream::str[abi:ne200100](&v23, &v22);
-        Exception::Exception(v21, &v22);
+        std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
+        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v19 = CSCppSymbolOwner::data(v6, v17, v18);
+        v20 = (*(*v19 + 24))(v19);
+        MEMORY[0x1DA7365E0](v16, v20);
+        std::ostringstream::str[abi:ne200100](&v24, &v23);
+        Exception::Exception(v22, &v23);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v21);
+        Exception::Exception(exception, v22);
       }
 
-      v23 = v25;
-      v24 = a3;
-      return CSRegionForeachSourceInfo::$_3::operator()<FlatbufferSymbols::Section const>(&v23, (a2 & 0xFFFFFFFFFFFFFFFCLL));
+      v24 = v26;
+      v25 = a3;
+      return CSRegionForeachSourceInfo::$_3::operator()<FlatbufferSymbols::Section const>(&v24, (a2 & 0xFFFFFFFFFFFFFFFCLL), v15);
     }
   }
 }
@@ -3465,58 +3425,58 @@ void sub_1D96FDD00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-unint64_t CSRegionForeachSourceInfo::$_2::operator()<TMMapRegionImpl<Pointer64>>(uint64_t **a1, void *a2)
+unint64_t CSRegionForeachSourceInfo::$_2::operator()<TMMapRegionImpl<Pointer64>>(uint64_t **a1, void *a2, BOOL a3)
 {
-  v4 = **a1;
-  v5 = CSCppSymbolOwner::data((v4 & 0xFFFFFFFFFFFFFFF8));
-  v6 = a2[1];
-  if ((v6 + *a2) > 0xFFFFFFFE)
+  v5 = **a1;
+  v6 = CSCppSymbolOwner::data((v5 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = a2[1];
+  if ((v7 + *a2) > 0xFFFFFFFE)
   {
     return 0;
   }
 
-  v7 = *a2 | (v6 << 32);
-  v8 = a1[1];
+  v8 = *a2 | (v7 << 32);
+  v9 = a1[1];
 
-  return TMMapSymbolOwnerData::source_infos_in_archive_address_range(v5, v4 & 0xFFFFFFFFFFFFFFF8, v7, v8);
+  return TMMapSymbolOwnerData::source_infos_in_archive_address_range(v6, v5 & 0xFFFFFFFFFFFFFFF8, v8, v9);
 }
 
-uint64_t CSRegionForeachSourceInfo::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t **a1, int *a2)
+uint64_t CSRegionForeachSourceInfo::$_3::operator()<FlatbufferSymbols::Section const>(uint64_t **a1, int *a2, BOOL a3)
 {
-  v4 = **a1;
-  v5 = CSCppSymbolOwner::data((v4 & 0xFFFFFFFFFFFFFFF8));
-  v6 = v5;
-  v7 = (a2 - *a2);
-  if (*v7 >= 7u && (v8 = v7[3]) != 0)
+  v5 = **a1;
+  v6 = CSCppSymbolOwner::data((v5 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = v6;
+  v8 = (a2 - *a2);
+  if (*v8 >= 7u && (v9 = v8[3]) != 0)
   {
-    v9 = *(a2 + v8);
+    v10 = *(a2 + v9);
   }
 
   else
   {
-    v9 = -1;
+    v10 = -1;
   }
 
-  v10 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v5, v9);
-  if ((v11 & 1) == 0)
+  v11 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v6, v10);
+  if ((v12 & 1) == 0)
   {
     return 0;
   }
 
-  v12 = (a2 - *a2);
-  if (*v12 >= 9u && (v13 = v12[4]) != 0)
+  v13 = (a2 - *a2);
+  if (*v13 >= 9u && (v14 = v13[4]) != 0)
   {
-    v14 = *(a2 + v13);
+    v15 = *(a2 + v14);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v16 = a1[1];
+  v17 = a1[1];
 
-  return FlatbufferSymbolOwnerData::source_infos_in_address_range(v6, v4 & 0xFFFFFFFFFFFFFFF8, v10, v14, v16);
+  return FlatbufferSymbolOwnerData::source_infos_in_address_range(v7, v5 & 0xFFFFFFFFFFFFFFF8, v11, v15, v17);
 }
 
 uint64_t CSSegmentForeachSection(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3526,155 +3486,129 @@ uint64_t CSSegmentForeachSection(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  Range = CSRegionGetRange(a1, a2);
+  Range = CSRegionGetRange(a1, a2, a3);
 
-  return CSCppSymbolOwner::sections_in_address_range(a1 & 0xFFFFFFFFFFFFFFF8, Range, v5, a3);
+  return CSCppSymbolOwner::sections_in_address_range((a1 & 0xFFFFFFFFFFFFFFF8), Range, v5, a3);
 }
 
-unint64_t CSSectionGetSegment(uint64_t a1, uint64_t a2)
+unint64_t CSSectionGetSegment(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  Range = CSRegionGetRange(a1, a2);
+  Range = CSRegionGetRange(a1, a2, a3);
   return CSSymbolOwnerGetSegmentWithAddress(3, a1 & 0xFFFFFFFFFFFFFFF8, Range);
 }
 
-uint64_t CSSourceInfoGetRange(uint64_t a1, uint64_t a2)
+uint64_t CSSourceInfoGetRange(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 5)
+  if (v3 == 5)
   {
-    v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v8 = (*(*v7 + 24))(v7);
-    if (v8 != 4)
+    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v11 = (*(*v10 + 24))(v10);
+    if (v11 != 4)
     {
-      if (v8 == 2)
+      if (v11 == 2)
       {
-LABEL_12:
-        result = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
-        v11 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
-        return result;
+        return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
       }
 
-      if (v8 != 1)
+      if (v11 != 1)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](v36);
-        v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v27 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v28 = (*(*v27 + 24))(v27);
-        MEMORY[0x1DA7365E0](v26, v28);
-        std::ostringstream::str[abi:ne200100](v36, &v35);
-        Exception::Exception(v34, &v35);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v34);
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v23 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v21, v22);
+        v24 = (*(*v23 + 24))(v23);
+        MEMORY[0x1DA7365E0](v20, v24);
+        std::ostringstream::str[abi:ne200100](v34, &v33);
+        Exception::Exception(v32, &v33);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v34);
+        Exception::Exception(exception, v32);
       }
 
-LABEL_11:
-      result = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 4);
-      return result;
+      return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
     }
+
+    goto LABEL_18;
+  }
+
+  if (v3 != 6)
+  {
+    return 0;
+  }
+
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
+  {
+    if (v7 != 1)
+    {
+      if (v7 != 2)
+      {
+LABEL_25:
+        std::ostringstream::basic_ostringstream[abi:ne200100](v34);
+        v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v29 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v27, v28);
+        v30 = (*(*v29 + 24))(v29);
+        MEMORY[0x1DA7365E0](v26, v30);
+        std::ostringstream::str[abi:ne200100](v34, &v33);
+        Exception::Exception(v32, &v33);
+        v31 = __cxa_allocate_exception(0x20uLL);
+        Exception::Exception(v31, v32);
+      }
+
+      return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+    }
+
+    return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  }
+
+  if (v7 == 4)
+  {
+LABEL_18:
+    v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+    v34[0] = 0;
+    if (TMMapSymbolOwnerData::convert_archive_address_to_real_address(v18, *(a2 & 0xFFFFFFFFFFFFFFFCLL), v34))
+    {
+      return v34[0];
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  if (v7 != 5)
+  {
+    goto LABEL_25;
+  }
+
+  v13 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+  v15 = (v13 - *v13);
+  if (*v15 >= 0xDu && (v16 = v15[6]) != 0)
+  {
+    v17 = *(v13 + v16);
   }
 
   else
   {
-    if (v2 != 6)
-    {
-      return 0;
-    }
-
-    v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v6 = (*(*v5 + 24))(v5);
-    if (v6 <= 3)
-    {
-      if (v6 != 1)
-      {
-        if (v6 != 2)
-        {
-LABEL_32:
-          std::ostringstream::basic_ostringstream[abi:ne200100](v36);
-          v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-          v31 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          v32 = (*(*v31 + 24))(v31);
-          MEMORY[0x1DA7365E0](v30, v32);
-          std::ostringstream::str[abi:ne200100](v36, &v35);
-          Exception::Exception(v34, &v35);
-          v33 = __cxa_allocate_exception(0x20uLL);
-          Exception::Exception(v33, v34);
-        }
-
-        goto LABEL_12;
-      }
-
-      goto LABEL_11;
-    }
-
-    if (v6 != 4)
-    {
-      if (v6 != 5)
-      {
-        goto LABEL_32;
-      }
-
-      v12 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v14 = (v12 - *v12);
-      if (*v14 >= 0xDu && (v15 = v14[6]) != 0)
-      {
-        v16 = *(v12 + v15);
-      }
-
-      else
-      {
-        v16 = -1;
-      }
-
-      result = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v13, v16);
-      if (v22)
-      {
-        v23 = (v12 - *v12);
-        if (*v23 >= 0xFu)
-        {
-          v24 = v23[7];
-          if (v24)
-          {
-            v25 = *(v12 + v24);
-          }
-        }
-
-        return result;
-      }
-
-      return 0;
-    }
+    v17 = -1;
   }
 
-  v17 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-  v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v36[0] = 0;
-  v19 = TMMapSymbolOwnerData::convert_archive_address_to_real_address(v18, *v17, v36);
-  v20 = v19 == 0;
-  if (v19)
+  result = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v14, v17);
+  if ((v19 & 1) == 0)
   {
-    result = v36[0];
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  if (!v20)
-  {
-    v21 = v17[1];
+    return 0;
   }
 
   return result;
@@ -3692,117 +3626,117 @@ void sub_1D96FE244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const char *CSSourceInfoGetPath(uint64_t a1, uint64_t a2)
+const char *CSSourceInfoGetPath(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 5)
+  if (v3 == 5)
   {
-    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v10 = (*(*v9 + 24))(v9);
-    switch(v10)
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v13 = (*(*v12 + 24))(v12);
+    switch(v13)
     {
       case 4:
-        v13 = a2 & 0xFFFFFFFFFFFFFFFCLL;
-        v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        if ((*(v13 + 8) & 0x80000000) != 0)
+        v18 = a2 & 0xFFFFFFFFFFFFFFFCLL;
+        v19 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+        if ((*(v18 + 8) & 0x80000000) != 0)
         {
-          v20 = *(v14 + 88);
-          v21 = *(v20 + 16);
-          v22.i64[0] = v21;
-          v22.i64[1] = HIDWORD(v21);
-          v23 = v22;
-          v23.i32[1] = v22.i32[0];
-          v23.i32[3] = *(v20 + 24);
-          v7 = v20 + *(v13 + 24) + *(v20 + 80) + vaddlvq_u32(vmulq_s32(v23, xmmword_1D97E0550)) + (32 * *(v20 + 8)) + (24 * *(v20 + 12)) + *(v20 + 88) + 96;
+          v25 = *(v19 + 88);
+          v26 = *(v25 + 16);
+          v27.i64[0] = v26;
+          v27.i64[1] = HIDWORD(v26);
+          v28 = v27;
+          v28.i32[1] = v27.i32[0];
+          v28.i32[3] = *(v25 + 24);
+          v10 = v25 + *(v18 + 24) + *(v25 + 80) + vaddlvq_u32(vmulq_s32(v28, xmmword_1D97E0550)) + (32 * *(v25 + 8)) + (24 * *(v25 + 12)) + *(v25 + 88) + 96;
         }
 
         else
         {
-          v7 = 0;
+          v10 = 0;
         }
 
-        v15 = "<No path>";
+        v20 = "<No path>";
         goto LABEL_29;
       case 2:
-        v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
+        v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
         break;
       case 1:
-        v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
+        v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
         break;
       default:
-        std::ostringstream::basic_ostringstream[abi:ne200100](v34);
-        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v25 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v26 = (*(*v25 + 24))(v25);
-        MEMORY[0x1DA7365E0](v24, v26);
-        std::ostringstream::str[abi:ne200100](v34, &v33);
-        Exception::Exception(v32, &v33);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v43);
+        v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v32 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v30, v31);
+        v33 = (*(*v32 + 24))(v32);
+        MEMORY[0x1DA7365E0](v29, v33);
+        std::ostringstream::str[abi:ne200100](v43, &v42);
+        Exception::Exception(v41, &v42);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v32);
+        Exception::Exception(exception, v41);
     }
 
 LABEL_22:
-    v15 = "<Invalid path>";
+    v20 = "<Invalid path>";
 LABEL_29:
-    if (v7)
+    if (v10)
     {
-      return v7;
+      return v10;
     }
 
     else
     {
-      return v15;
+      return v20;
     }
   }
 
-  if (v2 != 6)
+  if (v3 != 6)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+      v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
       goto LABEL_22;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
+      v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
       goto LABEL_22;
     }
 
 LABEL_34:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v34);
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v29 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v30 = (*(*v29 + 24))(v29);
-    MEMORY[0x1DA7365E0](v28, v30);
-    std::ostringstream::str[abi:ne200100](v34, &v33);
-    Exception::Exception(v32, &v33);
-    v31 = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(v31, v32);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v43);
+    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v38 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v36, v37);
+    v39 = (*(*v38 + 24))(v38);
+    MEMORY[0x1DA7365E0](v35, v39);
+    std::ostringstream::str[abi:ne200100](v43, &v42);
+    Exception::Exception(v41, &v42);
+    v40 = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(v40, v41);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v16 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 88);
-    v17 = *(v16 + 16);
-    v18.i64[0] = v17;
-    v18.i64[1] = HIDWORD(v17);
-    v19 = v18;
-    v19.i32[1] = v18.i32[0];
-    v19.i32[3] = *(v16 + 24);
-    result = CSCppMMapSourceInfo::path((a2 & 0xFFFFFFFFFFFFFFFCLL), v16 + *(v16 + 80) + vaddlvq_u32(vmulq_s32(v19, xmmword_1D97E0550)) + (32 * *(v16 + 8)) + (24 * *(v16 + 12)) + *(v16 + 88) + 96);
+    v21 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9) + 88);
+    v22 = *(v21 + 16);
+    v23.i64[0] = v22;
+    v23.i64[1] = HIDWORD(v22);
+    v24 = v23;
+    v24.i32[1] = v23.i32[0];
+    v24.i32[3] = *(v21 + 24);
+    result = CSCppMMapSourceInfo::path((a2 & 0xFFFFFFFFFFFFFFFCLL), v21 + *(v21 + 80) + vaddlvq_u32(vmulq_s32(v24, xmmword_1D97E0550)) + (32 * *(v21 + 8)) + (24 * *(v21 + 12)) + *(v21 + 88) + 96);
     if (!result)
     {
       return "<Invalid path>";
@@ -3811,15 +3745,15 @@ LABEL_34:
 
   else
   {
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_34;
     }
 
-    v11 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-    if (*v11 >= 5u && (v12 = v11[2]) != 0)
+    v16 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+    if (*v16 >= 5u && (v17 = v16[2]) != 0)
     {
-      return ((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12 + *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12) + 4);
+      return ((a2 & 0xFFFFFFFFFFFFFFFCLL) + v17 + *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v17) + 4);
     }
 
     else
@@ -3843,24 +3777,24 @@ void sub_1D96FE670(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
+const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 5)
+  if (v3 == 5)
   {
-    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v10 = (*(*v9 + 24))(v9);
-    if (v10 != 4)
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v13 = (*(*v12 + 24))(v12);
+    if (v13 != 4)
     {
-      if (v10 == 2)
+      if (v13 == 2)
       {
-        v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
-        if (v7)
+        v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
+        if (v10)
         {
           goto LABEL_29;
         }
@@ -3868,21 +3802,21 @@ const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
 
       else
       {
-        if (v10 != 1)
+        if (v13 != 1)
         {
-          std::ostringstream::basic_ostringstream[abi:ne200100](v34);
-          v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-          v25 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          v26 = (*(*v25 + 24))(v25);
-          MEMORY[0x1DA7365E0](v24, v26);
-          std::ostringstream::str[abi:ne200100](v34, &v33);
-          Exception::Exception(v32, &v33);
+          std::ostringstream::basic_ostringstream[abi:ne200100](v43);
+          v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+          v32 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v30, v31);
+          v33 = (*(*v32 + 24))(v32);
+          MEMORY[0x1DA7365E0](v29, v33);
+          std::ostringstream::str[abi:ne200100](v43, &v42);
+          Exception::Exception(v41, &v42);
           exception = __cxa_allocate_exception(0x20uLL);
-          Exception::Exception(exception, v32);
+          Exception::Exception(exception, v41);
         }
 
-        v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
-        if (v7)
+        v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
+        if (v10)
         {
           goto LABEL_29;
         }
@@ -3891,23 +3825,23 @@ const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
       return "<Invalid path>";
     }
 
-    v13 = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    if ((*(v13 + 8) & 0x80000000) == 0)
+    v18 = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    v19 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    if ((*(v18 + 8) & 0x80000000) == 0)
     {
       return "<No path>";
     }
 
-    v19 = *(v14 + 88);
-    v20 = *(v19 + 16);
-    v21.i64[0] = v20;
-    v21.i64[1] = HIDWORD(v20);
-    v22 = v21;
-    v22.i32[1] = v21.i32[0];
-    v22.i32[3] = *(v19 + 24);
-    v23 = v19 + *(v13 + 24) + *(v19 + 80) + vaddlvq_u32(vmulq_s32(v22, xmmword_1D97E0550)) + (32 * *(v19 + 8)) + (24 * *(v19 + 12)) + *(v19 + 88);
-    v7 = (v23 + 96);
-    if (v23 == -96)
+    v24 = *(v19 + 88);
+    v25 = *(v24 + 16);
+    v26.i64[0] = v25;
+    v26.i64[1] = HIDWORD(v25);
+    v27 = v26;
+    v27.i32[1] = v26.i32[0];
+    v27.i32[3] = *(v24 + 24);
+    v28 = v24 + *(v18 + 24) + *(v24 + 80) + vaddlvq_u32(vmulq_s32(v27, xmmword_1D97E0550)) + (32 * *(v24 + 8)) + (24 * *(v24 + 12)) + *(v24 + 88);
+    v10 = (v28 + 96);
+    if (v28 == -96)
     {
       return "<No path>";
     }
@@ -3915,19 +3849,19 @@ const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
     goto LABEL_29;
   }
 
-  if (v2 != 6)
+  if (v3 != 6)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
-      if (!v7)
+      v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+      if (!v10)
       {
         return "<Invalid filename>";
       }
@@ -3935,10 +3869,10 @@ const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
       goto LABEL_29;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
-      if (!v7)
+      v10 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
+      if (!v10)
       {
         return "<Invalid filename>";
       }
@@ -3947,31 +3881,31 @@ const char *CSSourceInfoGetFilename(uint64_t a1, uint64_t a2)
     }
 
 LABEL_33:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v34);
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v29 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v30 = (*(*v29 + 24))(v29);
-    MEMORY[0x1DA7365E0](v28, v30);
-    std::ostringstream::str[abi:ne200100](v34, &v33);
-    Exception::Exception(v32, &v33);
-    v31 = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(v31, v32);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v43);
+    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v38 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v36, v37);
+    v39 = (*(*v38 + 24))(v38);
+    MEMORY[0x1DA7365E0](v35, v39);
+    std::ostringstream::str[abi:ne200100](v43, &v42);
+    Exception::Exception(v41, &v42);
+    v40 = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(v40, v41);
   }
 
-  if (v6 != 4)
+  if (v7 != 4)
   {
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_33;
     }
 
-    v11 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-    if (*v11 >= 5u)
+    v16 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+    if (*v16 >= 5u)
     {
-      v12 = v11[2];
-      if (v12)
+      v17 = v16[2];
+      if (v17)
       {
-        v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12 + *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12) + 4);
+        v10 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + v17 + *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v17) + 4);
         goto LABEL_29;
       }
     }
@@ -3979,22 +3913,22 @@ LABEL_33:
     return "<No path>";
   }
 
-  v15 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 88);
-  v16 = *(v15 + 16);
-  v17.i64[0] = v16;
-  v17.i64[1] = HIDWORD(v16);
-  v18 = v17;
-  v18.i32[1] = v17.i32[0];
-  v18.i32[3] = *(v15 + 24);
-  v7 = CSCppMMapSourceInfo::path((a2 & 0xFFFFFFFFFFFFFFFCLL), v15 + *(v15 + 80) + vaddlvq_u32(vmulq_s32(v18, xmmword_1D97E0550)) + (32 * *(v15 + 8)) + (24 * *(v15 + 12)) + *(v15 + 88) + 96);
-  if (!v7)
+  v20 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9) + 88);
+  v21 = *(v20 + 16);
+  v22.i64[0] = v21;
+  v22.i64[1] = HIDWORD(v21);
+  v23 = v22;
+  v23.i32[1] = v22.i32[0];
+  v23.i32[3] = *(v20 + 24);
+  v10 = CSCppMMapSourceInfo::path((a2 & 0xFFFFFFFFFFFFFFFCLL), v20 + *(v20 + 80) + vaddlvq_u32(vmulq_s32(v23, xmmword_1D97E0550)) + (32 * *(v20 + 8)) + (24 * *(v20 + 12)) + *(v20 + 88) + 96);
+  if (!v10)
   {
     return "<Invalid filename>";
   }
 
 LABEL_29:
 
-  return filename_from_path(v7);
+  return filename_from_path(v10);
 }
 
 void sub_1D96FEAB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -4009,36 +3943,36 @@ void sub_1D96FEAB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSourceInfoGetLineNumber(uint64_t a1, uint64_t a2)
+uint64_t CSSourceInfoGetLineNumber(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 5)
+  if (v3 == 5)
   {
-    v8 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v9 = (*(*v8 + 24))(v8);
-    if (v9 != 4)
+    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v10 = (*(*v9 + 24))(v9);
+    if (v10 != 4)
     {
-      if (v9 == 2)
+      if (v10 == 2)
       {
         return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 56);
       }
 
-      if (v9 != 1)
+      if (v10 != 1)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](v22);
-        v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v14 = (*(*v13 + 24))(v13);
-        MEMORY[0x1DA7365E0](v12, v14);
-        std::ostringstream::str[abi:ne200100](v22, &v21);
-        Exception::Exception(v20, &v21);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v27);
+        v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+        v17 = (*(*v16 + 24))(v16);
+        MEMORY[0x1DA7365E0](v13, v17);
+        std::ostringstream::str[abi:ne200100](v27, &v26);
+        Exception::Exception(v25, &v26);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v20);
+        Exception::Exception(exception, v25);
       }
 
       return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
@@ -4052,55 +3986,55 @@ uint64_t CSSourceInfoGetLineNumber(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (v2 != 6)
+  if (v3 != 6)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 > 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 > 3)
   {
-    if (v6 == 4)
+    if (v7 == 4)
     {
       return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 12);
     }
 
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_25;
     }
 
-    v10 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-    if (*v10 >= 9u)
+    v11 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+    if (*v11 >= 9u)
     {
-      v11 = v10[4];
-      if (v11)
+      v12 = v11[4];
+      if (v12)
       {
-        return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
+        return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12);
       }
     }
 
     return 0;
   }
 
-  if (v6 != 1)
+  if (v7 != 1)
   {
-    if (v6 == 2)
+    if (v7 == 2)
     {
       return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 24);
     }
 
 LABEL_25:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
-    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v18 = (*(*v17 + 24))(v17);
-    MEMORY[0x1DA7365E0](v16, v18);
-    std::ostringstream::str[abi:ne200100](v22, &v21);
-    Exception::Exception(v20, &v21);
-    v19 = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(v19, v20);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v27);
+    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v22 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v20, v21);
+    v23 = (*(*v22 + 24))(v22);
+    MEMORY[0x1DA7365E0](v19, v23);
+    std::ostringstream::str[abi:ne200100](v27, &v26);
+    Exception::Exception(v25, &v26);
+    v24 = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(v24, v25);
   }
 
   return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
@@ -4118,63 +4052,63 @@ void sub_1D96FEDCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSourceInfoGetColumn(uint64_t a1, uint64_t a2)
+uint64_t CSSourceInfoGetColumn(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 != 5)
+  if (v3 != 5)
   {
-    if (v2 == 6)
+    if (v3 == 6)
     {
-      v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v6 = (*(*v5 + 24))(v5);
-      if (v6 <= 3)
+      v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+      v7 = (*(*v6 + 24))(v6);
+      if (v7 <= 3)
       {
-        if (v6 == 1)
+        if (v7 == 1)
         {
-          v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-          return v7 & 0x7FFFFFFF;
+          v8 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+          return v8 & 0x7FFFFFFF;
         }
 
-        if (v6 == 2)
+        if (v7 == 2)
         {
-          v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-          return v7 & 0x7FFFFFFF;
+          v8 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+          return v8 & 0x7FFFFFFF;
         }
 
 LABEL_26:
-        std::ostringstream::basic_ostringstream[abi:ne200100](v23);
-        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v19 = (*(*v18 + 24))(v18);
-        MEMORY[0x1DA7365E0](v17, v19);
-        std::ostringstream::str[abi:ne200100](v23, &v22);
-        Exception::Exception(v21, &v22);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v28);
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v23 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v21, v22);
+        v24 = (*(*v23 + 24))(v23);
+        MEMORY[0x1DA7365E0](v20, v24);
+        std::ostringstream::str[abi:ne200100](v28, &v27);
+        Exception::Exception(v26, &v27);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v21);
+        Exception::Exception(exception, v26);
       }
 
-      if (v6 == 4)
+      if (v7 == 4)
       {
         return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 16);
       }
 
-      if (v6 != 5)
+      if (v7 != 5)
       {
         goto LABEL_26;
       }
 
-      v11 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-      if (*v11 >= 0xBu)
+      v12 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+      if (*v12 >= 0xBu)
       {
-        v12 = v11[5];
-        if (v12)
+        v13 = v12[5];
+        if (v13)
         {
-          return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12);
+          return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v13);
         }
       }
     }
@@ -4182,9 +4116,9 @@ LABEL_26:
     return 0;
   }
 
-  v8 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v9 = (*(*v8 + 24))(v8);
-  if (v9 == 4)
+  v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v10 = (*(*v9 + 24))(v9);
+  if (v10 == 4)
   {
     if ((*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8) & 0x80000000) != 0)
     {
@@ -4194,22 +4128,22 @@ LABEL_26:
     return 0;
   }
 
-  if (v9 == 2)
+  if (v10 == 2)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 60);
   }
 
-  if (v9 != 1)
+  if (v10 != 1)
   {
-    std::ostringstream::basic_ostringstream[abi:ne200100](v23);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v23, &v22);
-    Exception::Exception(v21, &v22);
-    v16 = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(v16, v21);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v28);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v28, &v27);
+    Exception::Exception(v26, &v27);
+    v19 = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(v19, v26);
   }
 
   return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 52);
@@ -4227,15 +4161,17 @@ void sub_1D96FF0E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSourceInfoGetSymbolicator(uint64_t a1, char a2)
+uint64_t CSSourceInfoGetSymbolicator(char a1, char a2)
 {
-  if (!(a1 & 7 | (8 * (a2 & 3))))
+  if (a1 & 7 | (8 * (a2 & 3)))
+  {
+    return 2;
+  }
+
+  else
   {
     return 0;
   }
-
-  v2 = *((a1 & 0xFFFFFFFFFFFFFFF8) + 8);
-  return 2;
 }
 
 uint64_t CSSourceInfoGetSymbolOwner(char a1, char a2)
@@ -4251,84 +4187,84 @@ uint64_t CSSourceInfoGetSymbolOwner(char a1, char a2)
   }
 }
 
-uint64_t CSSourceInfoGetRegion(uint64_t a1, uint64_t a2)
+uint64_t CSSourceInfoGetRegion(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  Range = CSSourceInfoGetRange(a1, a2);
+  Range = CSSourceInfoGetRange(a1, a2, a3);
   return CSSymbolOwnerGetSectionWithAddress(3, a1 & 0xFFFFFFFFFFFFFFF8, Range);
 }
 
-uint64_t CSSourceInfoGetSymbol(uint64_t a1, uint64_t a2)
+uint64_t CSSourceInfoGetSymbol(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  if (v2 == 5)
+  if (v3 == 5)
   {
-    v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v8 = (*(*v7 + 24))(v7);
-    if (v8 != 4)
+    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v11 = (*(*v10 + 24))(v10);
+    if (v11 != 4)
     {
-      if (v8 == 2)
+      if (v11 == 2)
       {
 LABEL_12:
-        v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v10 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
-        return (*(*v9 + 136))(v9, a1 & 0xFFFFFFFFFFFFFFF8, v10);
+        v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+        v13 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+        return (*(*v12 + 136))(v12, a1 & 0xFFFFFFFFFFFFFFF8, v13);
       }
 
-      if (v8 != 1)
+      if (v11 != 1)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](v31);
-        v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v22 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v23 = (*(*v22 + 24))(v22);
-        MEMORY[0x1DA7365E0](v21, v23);
-        std::ostringstream::str[abi:ne200100](v31, &v30);
-        Exception::Exception(v29, &v30);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v38);
+        v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v27 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v25, v26);
+        v28 = (*(*v27 + 24))(v27);
+        MEMORY[0x1DA7365E0](v24, v28);
+        std::ostringstream::str[abi:ne200100](v38, &v37);
+        Exception::Exception(v36, &v37);
         exception = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(exception, v29);
+        Exception::Exception(exception, v36);
       }
 
 LABEL_11:
-      v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v10 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
-      return (*(*v9 + 136))(v9, a1 & 0xFFFFFFFFFFFFFFF8, v10);
+      v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+      v13 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+      return (*(*v12 + 136))(v12, a1 & 0xFFFFFFFFFFFFFFF8, v13);
     }
 
     goto LABEL_19;
   }
 
-  if (v2 != 6)
+  if (v3 != 6)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 != 1)
+    if (v7 != 1)
     {
-      if (v6 != 2)
+      if (v7 != 2)
       {
 LABEL_25:
-        std::ostringstream::basic_ostringstream[abi:ne200100](v31);
-        v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-        v26 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        v27 = (*(*v26 + 24))(v26);
-        MEMORY[0x1DA7365E0](v25, v27);
-        std::ostringstream::str[abi:ne200100](v31, &v30);
-        Exception::Exception(v29, &v30);
-        v28 = __cxa_allocate_exception(0x20uLL);
-        Exception::Exception(v28, v29);
+        std::ostringstream::basic_ostringstream[abi:ne200100](v38);
+        v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+        v33 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v31, v32);
+        v34 = (*(*v33 + 24))(v33);
+        MEMORY[0x1DA7365E0](v30, v34);
+        std::ostringstream::str[abi:ne200100](v38, &v37);
+        Exception::Exception(v36, &v37);
+        v35 = __cxa_allocate_exception(0x20uLL);
+        Exception::Exception(v35, v36);
       }
 
       goto LABEL_12;
@@ -4337,36 +4273,36 @@ LABEL_25:
     goto LABEL_11;
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
 LABEL_19:
-    v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    return TMMapSymbolOwnerData::symbol_for_archive_address(v18, (a1 & 0xFFFFFFFFFFFFFFF8), *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+    v21 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+    return TMMapSymbolOwnerData::symbol_for_archive_address(v21, (a1 & 0xFFFFFFFFFFFFFFF8), *(a2 & 0xFFFFFFFFFFFFFFFCLL));
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_25;
   }
 
-  v12 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-  v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v14 = v13;
-  v15 = (v12 - *v12);
-  if (*v15 >= 0xDu && (v16 = v15[6]) != 0)
+  v15 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
+  v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+  v17 = v16;
+  v18 = (v15 - *v15);
+  if (*v18 >= 0xDu && (v19 = v18[6]) != 0)
   {
-    v17 = *(v12 + v16);
+    v20 = *(v15 + v19);
   }
 
   else
   {
-    v17 = -1;
+    v20 = -1;
   }
 
-  v19 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v13, v17);
-  if (v20)
+  v22 = FlatbufferSymbolOwnerData::convertVMAddressToSlidAddress(v16, v20);
+  if (v23)
   {
-    return FlatbufferSymbolOwnerData::symbol_for_address(v14, (a1 & 0xFFFFFFFFFFFFFFF8), v19);
+    return FlatbufferSymbolOwnerData::symbol_for_address(v17, (a1 & 0xFFFFFFFFFFFFFFF8), v22);
   }
 
   return 0;
@@ -4384,80 +4320,71 @@ void sub_1D96FF4EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-unint64_t CSSymbolGetRange(uint64_t a1, uint64_t a2)
+unint64_t CSSymbolGetRange(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v4 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v5 = (*(*v4 + 24))(v4);
-  if (v5 <= 3)
+  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v6 = (*(*v5 + 24))(v5);
+  if (v6 > 3)
   {
-    if (v5 != 1)
+    if (v6 != 4)
     {
-      if (v5 == 2)
+      if (v6 != 5)
       {
-        v6 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-        CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-        result = *v6;
-        v8 = v6[1];
-        return result;
+        goto LABEL_16;
       }
 
-LABEL_17:
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
-      v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-      v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v17 = (*(*v16 + 24))(v16);
-      MEMORY[0x1DA7365E0](v15, v17);
-      std::ostringstream::str[abi:ne200100](&v21, &v20);
-      Exception::Exception(v19, &v20);
-      exception = __cxa_allocate_exception(0x20uLL);
-      Exception::Exception(exception, v19);
+      v20[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+      v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v7, v8);
+      v11 = FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(v20);
+      FlatbufferSymbolOwnerData::convertVMAddressRangeToSlidAddressRange(v10, v11, v13, &v22);
+      if (v23)
+      {
+        return v22;
+      }
+
+      else
+      {
+        return 0;
+      }
     }
 
-    v11 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-    CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    result = *v11;
-    goto LABEL_12;
-  }
-
-  if (v5 == 4)
-  {
-    v11 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v21 = 0;
-    if (TMMapSymbolOwnerData::convert_archive_address_to_real_address(v12, *v11, &v21))
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v7, v8);
+    v22 = 0;
+    if (TMMapSymbolOwnerData::convert_archive_address_to_real_address(v12, *(a2 & 0xFFFFFFFFFFFFFFFCLL), &v22))
     {
-      result = v21;
-LABEL_12:
-      v13 = v11[1];
-      return result;
+      return v22;
     }
 
     return 0;
   }
 
-  if (v5 != 5)
+  if (v6 != 1)
   {
-    goto LABEL_17;
+    if (v6 == 2)
+    {
+      CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v7, v8);
+      return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+    }
+
+LABEL_16:
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](&v22, &v21);
+    Exception::Exception(v20, &v21);
+    exception = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(exception, v20);
   }
 
-  v19[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-  v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v10 = FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(v19);
-  FlatbufferSymbolOwnerData::convertVMAddressRangeToSlidAddressRange(v9, v10, v14, &v21);
-  if (v22)
-  {
-    return v21;
-  }
-
-  else
-  {
-    return 0;
-  }
+  CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v7, v8);
+  return *(a2 & 0xFFFFFFFFFFFFFFFCLL);
 }
 
 void sub_1D96FF75C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -4472,64 +4399,64 @@ void sub_1D96FF75C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolGetFlags(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolGetFlags(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
       TRawSymbol<Pointer32>::is_objc_method(a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return atomic_load_explicit(v7, memory_order_acquire);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return atomic_load_explicit(v8, memory_order_acquire);
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
       TRawSymbol<Pointer64>::is_objc_method(a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return atomic_load_explicit(v7, memory_order_acquire);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return atomic_load_explicit(v8, memory_order_acquire);
     }
 
 LABEL_16:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v15);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v11 = (*(*v10 + 24))(v10);
-    MEMORY[0x1DA7365E0](v9, v11);
-    std::ostringstream::str[abi:ne200100](v15, &v14);
-    Exception::Exception(v13, &v14);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+    v14 = (*(*v13 + 24))(v13);
+    MEMORY[0x1DA7365E0](v10, v14);
+    std::ostringstream::str[abi:ne200100](v18, &v17);
+    Exception::Exception(v16, &v17);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v13);
+    Exception::Exception(exception, v16);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_16;
   }
 
-  if (v2 == 10)
+  if (v3 == 10)
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::flags(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::flags(v18);
   }
 
   else
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::flags(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::flags(v18);
   }
 }
 
@@ -4545,86 +4472,86 @@ void sub_1D96FF950(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const char *CSSymbolGetName(uint64_t a1, uint64_t a2)
+const char *CSSymbolGetName(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
       if (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20), memory_order_acquire) == 2048 || (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20), memory_order_acquire) & 0x1C000) != 0)
       {
-        v7 = TRawSymbol<Pointer32>::_resolve_name(a2 & 0xFFFFFFFFFFFFFFFCLL);
+        v10 = TRawSymbol<Pointer32>::_resolve_name(a2 & 0xFFFFFFFFFFFFFFFCLL, 0, 0);
         goto LABEL_18;
       }
 
       return 0;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
       if (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28), memory_order_acquire) == 2048 || (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28), memory_order_acquire) & 0x1C000) != 0)
       {
-        v7 = TRawSymbol<Pointer64>::_resolve_name(a2 & 0xFFFFFFFFFFFFFFFCLL);
+        v10 = TRawSymbol<Pointer64>::_resolve_name(a2 & 0xFFFFFFFFFFFFFFFCLL, 0, 0);
 LABEL_18:
-        v13 = v7;
-        v14 = 0;
+        v18 = v10;
+        v19 = 0;
 LABEL_36:
-        if ((v14 & 1) == 0 && v13)
+        if ((v19 & 1) == 0 && v18)
         {
-          v27 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          if (!(*(*v27 + 72))(v27, v13))
+          v32 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+          if (!(*(*v32 + 72))(v32, v18))
           {
             return 0;
           }
         }
 
-        return v13;
+        return v18;
       }
 
       return 0;
     }
 
 LABEL_41:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v34);
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v29 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v30 = (*(*v29 + 24))(v29);
-    MEMORY[0x1DA7365E0](v28, v30);
-    std::ostringstream::str[abi:ne200100](v34, &v33);
-    Exception::Exception(v32, &v33);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v41);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v36 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v34, v35);
+    v37 = (*(*v36 + 24))(v36);
+    MEMORY[0x1DA7365E0](v33, v37);
+    std::ostringstream::str[abi:ne200100](v41, &v40);
+    Exception::Exception(v39, &v40);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v32);
+    Exception::Exception(exception, v39);
   }
 
-  if (v6 != 4)
+  if (v7 != 4)
   {
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_41;
     }
 
-    if (v2 == 10)
+    if (v3 == 10)
     {
-      v34[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      if (!FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v34))
+      v41[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
+      if (!FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v41, v8))
       {
-        v8 = v34[0];
-        v9 = (v34[0] - *v34[0]);
-        if (*v9 < 0xBu || (v10 = v9[5]) == 0)
+        v13 = v41[0];
+        v14 = (v41[0] - *v41[0]);
+        if (*v14 < 0xBu || (v15 = v14[5]) == 0)
         {
-          v11 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          v12 = FlatbufferSymbolOwnerData::demangledNameForSymbol(v11, v34[0]);
+          v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+          v17 = FlatbufferSymbolOwnerData::demangledNameForSymbol(v16, v41[0]);
 LABEL_35:
-          v13 = v12;
-          v14 = 1;
+          v18 = v17;
+          v19 = 1;
           goto LABEL_36;
         }
 
@@ -4634,54 +4561,54 @@ LABEL_35:
 
     else
     {
-      v34[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      if (!FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v34))
+      v41[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
+      if (!FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v41, v8))
       {
-        v8 = v34[0];
-        v24 = (v34[0] - *v34[0]);
-        if (*v24 < 0xBu || (v10 = v24[5]) == 0)
+        v13 = v41[0];
+        v29 = (v41[0] - *v41[0]);
+        if (*v29 < 0xBu || (v15 = v29[5]) == 0)
         {
-          v26 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          v12 = FlatbufferSymbolOwnerData::demangledNameForSymbol(v26, v34[0]);
+          v31 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+          v17 = FlatbufferSymbolOwnerData::demangledNameForSymbol(v31, v41[0]);
           goto LABEL_35;
         }
 
 LABEL_30:
-        v14 = 0;
-        v13 = v8 + v10 + *(v8 + v10) + 4;
+        v19 = 0;
+        v18 = v13 + v15 + *(v13 + v15) + 4;
         goto LABEL_36;
       }
     }
 
-    v14 = 0;
-    v13 = 0;
+    v19 = 0;
+    v18 = 0;
     goto LABEL_36;
   }
 
-  v15 = a2 & 0xFFFFFFFFFFFFFFFCLL;
-  v16 = *(v15 + 8);
-  if (v16 != 2048 && (v16 & 0x1C000) == 0)
+  v20 = a2 & 0xFFFFFFFFFFFFFFFCLL;
+  v21 = *(v20 + 8);
+  if (v21 != 2048 && (v21 & 0x1C000) == 0)
   {
     return 0;
   }
 
-  v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v19 = *(v15 + 12);
-  if (v19)
+  v23 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+  v24 = *(v20 + 12);
+  if (v24)
   {
-    v14 = 0;
-    v20 = *(v18 + 88);
-    v21 = *(v20 + 16);
-    v22.i64[0] = v21;
-    v22.i64[1] = HIDWORD(v21);
-    v23 = v22;
-    v23.i32[1] = v22.i32[0];
-    v23.i32[3] = *(v20 + 24);
-    v13 = v20 + v19 + *(v20 + 80) + vaddlvq_u32(vmulq_s32(v23, xmmword_1D97E0550)) + (32 * *(v20 + 8)) + (24 * *(v20 + 12)) + *(v20 + 88) + 96;
+    v19 = 0;
+    v25 = *(v23 + 88);
+    v26 = *(v25 + 16);
+    v27.i64[0] = v26;
+    v27.i64[1] = HIDWORD(v26);
+    v28 = v27;
+    v28.i32[1] = v27.i32[0];
+    v28.i32[3] = *(v25 + 24);
+    v18 = v25 + v24 + *(v25 + 80) + vaddlvq_u32(vmulq_s32(v28, xmmword_1D97E0550)) + (32 * *(v25 + 8)) + (24 * *(v25 + 12)) + *(v25 + 88) + 96;
     goto LABEL_36;
   }
 
-  return TMMapSymbolOwnerData::demangledNameForSymbol(v18, v15);
+  return TMMapSymbolOwnerData::demangledNameForSymbol(v23, v20);
 }
 
 void sub_1D96FFD04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -4696,105 +4623,105 @@ void sub_1D96FFD04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(int **a1)
+BOOL FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(void *a1, uint64_t a2)
 {
-  v1 = (*a1 - **a1);
-  if (*v1 < 0x11u)
+  v2 = (*a1 - **a1);
+  if (*v2 < 0x11u)
   {
     return !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_sparse(a1);
   }
 
-  v2 = v1[8];
-  if (!v2)
+  v3 = v2[8];
+  if (!v3)
   {
     return !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_sparse(a1);
   }
 
-  v3 = *(*a1 + v2);
-  v4 = v3;
-  v5 = v3 & 0xE00;
-  return v4 != 0x2000 && v5 == 0 && !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_sparse(a1);
+  v4 = *(*a1 + v3);
+  v5 = v4;
+  v6 = v4 & 0xE00;
+  return v5 != 0x2000 && v6 == 0 && !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_sparse(a1);
 }
 
-BOOL FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(int **a1)
+BOOL FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(void *a1, uint64_t a2)
 {
-  v1 = (*a1 - **a1);
-  if (*v1 < 0x13u)
+  v2 = (*a1 - **a1);
+  if (*v2 < 0x13u)
   {
     return !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_sparse(a1);
   }
 
-  v2 = v1[9];
-  if (!v2)
+  v3 = v2[9];
+  if (!v3)
   {
     return !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_sparse(a1);
   }
 
-  v3 = *(*a1 + v2);
-  v4 = v3;
-  v5 = v3 & 0xE00;
-  return v4 != 0x2000 && v5 == 0 && !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_sparse(a1);
+  v4 = *(*a1 + v3);
+  v5 = v4;
+  v6 = v4 & 0xE00;
+  return v5 != 0x2000 && v6 == 0 && !FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_sparse(a1);
 }
 
-char *CSSymbolGetMangledName(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolGetMangledName(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
       if (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20), memory_order_acquire) != 2048 && (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20), memory_order_acquire) & 0x1C000) == 0)
       {
         return 0;
       }
 
-      v7 = TRawSymbol<Pointer32>::_resolve_mangled_name<TRawSymbol<Pointer32>::PersistentMangledName>(a2 & 0xFFFFFFFFFFFFFFFCLL);
+      v10 = TRawSymbol<Pointer32>::_resolve_mangled_name<TRawSymbol<Pointer32>::PersistentMangledName>(a2 & 0xFFFFFFFFFFFFFFFCLL);
 LABEL_16:
-      v8 = v7;
+      v13 = v10;
       goto LABEL_27;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
       if (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28), memory_order_acquire) != 2048 && (atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28), memory_order_acquire) & 0x1C000) == 0)
       {
         return 0;
       }
 
-      v7 = TRawSymbol<Pointer64>::_resolve_mangled_name<TRawSymbol<Pointer64>::PersistentMangledName>(a2 & 0xFFFFFFFFFFFFFFFCLL);
+      v10 = TRawSymbol<Pointer64>::_resolve_mangled_name<TRawSymbol<Pointer64>::PersistentMangledName>(a2 & 0xFFFFFFFFFFFFFFFCLL);
       goto LABEL_16;
     }
 
 LABEL_33:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v26);
-    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v21 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v22 = (*(*v21 + 24))(v21);
-    MEMORY[0x1DA7365E0](v20, v22);
-    std::ostringstream::str[abi:ne200100](v26, &v25);
-    Exception::Exception(v24, &v25);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v33);
+    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v28 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v26, v27);
+    v29 = (*(*v28 + 24))(v28);
+    MEMORY[0x1DA7365E0](v25, v29);
+    std::ostringstream::str[abi:ne200100](v33, &v32);
+    Exception::Exception(v31, &v32);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v24);
+    Exception::Exception(exception, v31);
   }
 
-  if (v6 != 4)
+  if (v7 != 4)
   {
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_33;
     }
 
-    if (v2 == 10)
+    if (v3 == 10)
     {
-      v26[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      if (FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v26))
+      v33[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+      if (FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v33, v8))
       {
         goto LABEL_26;
       }
@@ -4802,22 +4729,22 @@ LABEL_33:
 
     else
     {
-      v26[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      if (FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v26))
+      v33[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+      if (FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v33, v8))
       {
 LABEL_26:
-        v8 = 0;
+        v13 = 0;
         goto LABEL_27;
       }
     }
 
-    v16 = (v26[0] - *v26[0]);
-    if (*v16 >= 9u)
+    v21 = (v33[0] - *v33[0]);
+    if (*v21 >= 9u)
     {
-      v17 = v16[4];
-      if (v17)
+      v22 = v21[4];
+      if (v22)
       {
-        v8 = v26[0] + v17 + *(v26[0] + v17) + 4;
+        v13 = v33[0] + v22 + *(v33[0] + v22) + 4;
         goto LABEL_27;
       }
     }
@@ -4825,31 +4752,31 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v9 = a2 & 0xFFFFFFFFFFFFFFFCLL;
-  v10 = *(v9 + 8);
-  if (v10 != 2048 && (v10 & 0x1C000) == 0)
+  v14 = a2 & 0xFFFFFFFFFFFFFFFCLL;
+  v15 = *(v14 + 8);
+  if (v15 != 2048 && (v15 & 0x1C000) == 0)
   {
     return 0;
   }
 
-  v12 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 88);
-  v13 = *(v12 + 16);
-  v14.i64[0] = v13;
-  v14.i64[1] = HIDWORD(v13);
-  v15 = v14;
-  v15.i32[1] = v14.i32[0];
-  v15.i32[3] = *(v12 + 24);
-  v8 = (v12 + *(v9 + 16) + *(v12 + 80) + vaddlvq_u32(vmulq_s32(v15, xmmword_1D97E0550)) + (32 * *(v12 + 8)) + (24 * *(v12 + 12)) + *(v12 + 88) + 96);
+  v17 = *(CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9) + 88);
+  v18 = *(v17 + 16);
+  v19.i64[0] = v18;
+  v19.i64[1] = HIDWORD(v18);
+  v20 = v19;
+  v20.i32[1] = v19.i32[0];
+  v20.i32[3] = *(v17 + 24);
+  v13 = v17 + *(v14 + 16) + *(v17 + 80) + vaddlvq_u32(vmulq_s32(v20, xmmword_1D97E0550)) + (32 * *(v17 + 8)) + (24 * *(v17 + 12)) + *(v17 + 88) + 96;
 LABEL_27:
-  if (!v8)
+  if (!v13)
   {
     return 0;
   }
 
-  v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  if ((*(*v18 + 72))(v18, v8))
+  v23 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+  if ((*(*v23 + 72))(v23, v13))
   {
-    return v8;
+    return v13;
   }
 
   else
@@ -4870,79 +4797,79 @@ void sub_1D97000D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsFunction(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsFunction(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
       goto LABEL_13;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_13:
-      explicit = atomic_load_explicit(v7, memory_order_acquire);
+      explicit = atomic_load_explicit(v8, memory_order_acquire);
       return explicit & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     return explicit & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
 LABEL_17:
-    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
+    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
     return explicit & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
       goto LABEL_17;
     }
@@ -4963,79 +4890,79 @@ void sub_1D97002D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsDyldStub(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsDyldStub(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
       goto LABEL_13;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_13:
-      explicit = atomic_load_explicit(v7, memory_order_acquire);
+      explicit = atomic_load_explicit(v8, memory_order_acquire);
       return (explicit >> 1) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     return (explicit >> 1) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
 LABEL_17:
-    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
+    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
     return (explicit >> 1) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
       goto LABEL_17;
     }
@@ -5056,41 +4983,41 @@ void sub_1D97004D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsObjcMethod(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsObjcMethod(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 > 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 > 3)
   {
-    if (v6 == 4)
+    if (v7 == 4)
     {
-      v11 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     }
 
     else
     {
-      if (v6 != 5)
+      if (v7 != 5)
       {
         goto LABEL_23;
       }
 
-      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-      v9 = *v8;
-      if (v2 == 10)
+      v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+      v10 = *v9;
+      if (v3 == 10)
       {
-        if (v9 < 0x11)
+        if (v10 < 0x11)
         {
           return 0;
         }
 
-        v10 = v8[8];
-        if (!v10)
+        v11 = v9[8];
+        if (!v11)
         {
           return 0;
         }
@@ -5098,42 +5025,42 @@ uint64_t CSSymbolIsObjcMethod(uint64_t a1, uint64_t a2)
 
       else
       {
-        if (v9 < 0x13)
+        if (v10 < 0x13)
         {
           return 0;
         }
 
-        v10 = v8[9];
-        if (!v10)
+        v11 = v9[9];
+        if (!v11)
         {
           return 0;
         }
       }
 
-      v11 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
+      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
     }
 
-    return (v11 >> 2) & 1;
+    return (v12 >> 2) & 1;
   }
 
-  if (v6 != 1)
+  if (v7 != 1)
   {
-    if (v6 == 2)
+    if (v7 == 2)
     {
 
       return TRawSymbol<Pointer64>::is_objc_method(a2 & 0xFFFFFFFFFFFFFFFCLL);
     }
 
 LABEL_23:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v14 = (*(*v13 + 24))(v13);
-    MEMORY[0x1DA7365E0](v12, v14);
-    std::ostringstream::str[abi:ne200100](v18, &v17);
-    Exception::Exception(v16, &v17);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v16);
+    Exception::Exception(exception, v19);
   }
 
   return TRawSymbol<Pointer32>::is_objc_method(a2 & 0xFFFFFFFFFFFFFFFCLL);
@@ -5191,79 +5118,79 @@ uint64_t TRawSymbol<Pointer64>::is_objc_method(uint64_t a1)
   return (atomic_load_explicit(v1, memory_order_acquire) >> 2) & 1;
 }
 
-uint64_t CSSymbolIsExternal(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsExternal(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
       goto LABEL_13;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_13:
-      explicit = atomic_load_explicit(v7, memory_order_acquire);
+      explicit = atomic_load_explicit(v8, memory_order_acquire);
       return (explicit >> 4) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     return (explicit >> 4) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
-    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10) >> 3) & 1;
+    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11) >> 3) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
-      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10) >> 3) & 1;
+      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11) >> 3) & 1;
     }
   }
 
@@ -5282,76 +5209,76 @@ void sub_1D9700C48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsAlias(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsAlias(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 9) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 9) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 9) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 9) & 1;
     }
 
 LABEL_19:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v14 = (*(*v13 + 24))(v13);
-    MEMORY[0x1DA7365E0](v12, v14);
-    std::ostringstream::str[abi:ne200100](v18, &v17);
-    Exception::Exception(v16, &v17);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v16);
+    Exception::Exception(exception, v19);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9) >> 1) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_19;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
-    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10) >> 4) & 1;
+    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11) >> 4) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
-      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10) >> 4) & 1;
+      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11) >> 4) & 1;
     }
   }
 
@@ -5370,76 +5297,76 @@ void sub_1D9700E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsDeduplicated(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsDeduplicated(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 11) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 11) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 11) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 11) & 1;
     }
 
 LABEL_19:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v14 = (*(*v13 + 24))(v13);
-    MEMORY[0x1DA7365E0](v12, v14);
-    std::ostringstream::str[abi:ne200100](v18, &v17);
-    Exception::Exception(v16, &v17);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v16);
+    Exception::Exception(exception, v19);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9) >> 3) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_19;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
-    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 5) & 1;
+    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 5) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
-      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 5) & 1;
+      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 5) & 1;
     }
   }
 
@@ -5458,79 +5385,79 @@ void sub_1D970105C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsPrivateExternal(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsPrivateExternal(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
       goto LABEL_13;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_13:
-      explicit = atomic_load_explicit(v7, memory_order_acquire);
+      explicit = atomic_load_explicit(v8, memory_order_acquire);
       return (explicit >> 5) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     return (explicit >> 5) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
 LABEL_17:
-    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
+    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
     return (explicit >> 5) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
       goto LABEL_17;
     }
@@ -5551,85 +5478,85 @@ void sub_1D970125C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsArm(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsArm(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 > 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 > 3)
   {
-    if (v6 == 4)
+    if (v7 == 4)
     {
       explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
       goto LABEL_19;
     }
 
-    if (v6 != 5)
+    if (v7 != 5)
     {
       goto LABEL_22;
     }
 
-    v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-    v10 = *v9;
-    if (v2 == 10)
+    v10 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+    v11 = *v10;
+    if (v3 == 10)
     {
-      if (v10 < 0x11 || (v11 = v9[8]) == 0)
+      if (v11 < 0x11 || (v12 = v10[8]) == 0)
       {
 LABEL_21:
-        v13 = 0;
-        return v13 ^ 1u;
+        v14 = 0;
+        return v14 ^ 1u;
       }
     }
 
     else
     {
-      if (v10 < 0x13)
+      if (v11 < 0x13)
       {
         goto LABEL_21;
       }
 
-      v11 = v9[9];
-      if (!v11)
+      v12 = v10[9];
+      if (!v12)
       {
         goto LABEL_21;
       }
     }
 
-    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
+    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v12);
     goto LABEL_19;
   }
 
-  if (v6 == 1)
+  if (v7 == 1)
   {
-    v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+    v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
     goto LABEL_14;
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
 LABEL_22:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v20);
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v15 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v16 = (*(*v15 + 24))(v15);
-    MEMORY[0x1DA7365E0](v14, v16);
-    std::ostringstream::str[abi:ne200100](v20, &v19);
-    Exception::Exception(v18, &v19);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v23);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v18 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v16, v17);
+    v19 = (*(*v18 + 24))(v18);
+    MEMORY[0x1DA7365E0](v15, v19);
+    std::ostringstream::str[abi:ne200100](v23, &v22);
+    Exception::Exception(v21, &v22);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v18);
+    Exception::Exception(exception, v21);
   }
 
-  v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_14:
-  explicit = atomic_load_explicit(v7, memory_order_acquire);
+  explicit = atomic_load_explicit(v8, memory_order_acquire);
 LABEL_19:
-  v13 = (explicit >> 6) & 1;
-  return v13 ^ 1u;
+  v14 = (explicit >> 6) & 1;
+  return v14 ^ 1u;
 }
 
 void sub_1D9701468(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -5644,79 +5571,79 @@ void sub_1D9701468(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsThumb(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsThumb(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
       goto LABEL_13;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_13:
-      explicit = atomic_load_explicit(v7, memory_order_acquire);
+      explicit = atomic_load_explicit(v8, memory_order_acquire);
       return (explicit >> 6) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
     return (explicit >> 6) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
 LABEL_17:
-    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
+    explicit = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
     return (explicit >> 6) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
       goto LABEL_17;
     }
@@ -5737,64 +5664,64 @@ void sub_1D9701668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsOmitFramePointer(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsOmitFramePointer(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 7) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 7) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 7) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 7) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
-    return v12 >> 7;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+    return v13 >> 7;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -5802,14 +5729,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10);
-      return v12 >> 7;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11);
+      return v13 >> 7;
     }
   }
 
@@ -5828,64 +5755,64 @@ void sub_1D970186C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsKnownLength(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsKnownLength(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 8) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 8) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 8) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 8) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9);
-    return v12 & 1;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9);
+    return v13 & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -5893,14 +5820,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1);
-      return v12 & 1;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1);
+      return v13 & 1;
     }
   }
 
@@ -5919,70 +5846,70 @@ void sub_1D9701A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL CSSymbolIsUnnamed(uint64_t a1, uint64_t a2)
+BOOL CSSymbolIsUnnamed(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 > 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 > 3)
   {
-    if (v6 == 4)
+    if (v7 == 4)
     {
-      v9 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
-      return (v9 & 0x1C000) == 0 && v9 != 2048;
+      v11 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+      return (v11 & 0x1C000) == 0 && v11 != 2048;
     }
 
-    if (v6 == 5)
+    if (v7 == 5)
     {
-      if (v2 == 10)
+      if (v3 == 10)
       {
-        v17[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-        return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v17);
+        v21[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+        return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_unnamed(v21, v8);
       }
 
       else
       {
-        v17[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-        return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v17);
+        v21[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+        return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_unnamed(v21, v8);
       }
     }
 
     goto LABEL_22;
   }
 
-  if (v6 == 1)
+  if (v7 == 1)
   {
-    v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+    v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
     goto LABEL_11;
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
 LABEL_22:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v13 = (*(*v12 + 24))(v12);
-    MEMORY[0x1DA7365E0](v11, v13);
-    std::ostringstream::str[abi:ne200100](v17, &v16);
-    Exception::Exception(v15, &v16);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v15);
+    Exception::Exception(exception, v19);
   }
 
-  v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
 LABEL_11:
-  if (atomic_load_explicit(v7, memory_order_acquire) == 2048)
+  if (atomic_load_explicit(v9, memory_order_acquire) == 2048)
   {
     return 0;
   }
 
-  return (atomic_load_explicit(v7, memory_order_acquire) & 0x1C000) == 0;
+  return (atomic_load_explicit(v9, memory_order_acquire) & 0x1C000) == 0;
 }
 
 void sub_1D9701C7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -5997,15 +5924,17 @@ void sub_1D9701C7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolGetSymbolicator(uint64_t a1, char a2)
+uint64_t CSSymbolGetSymbolicator(char a1, char a2)
 {
-  if (!(a1 & 7 | (8 * (a2 & 3))))
+  if (a1 & 7 | (8 * (a2 & 3)))
+  {
+    return 2;
+  }
+
+  else
   {
     return 0;
   }
-
-  v2 = *((a1 & 0xFFFFFFFFFFFFFFF8) + 8);
-  return 2;
 }
 
 uint64_t CSSymbolGetSymbolOwner(char a1, char a2)
@@ -6021,25 +5950,25 @@ uint64_t CSSymbolGetSymbolOwner(char a1, char a2)
   }
 }
 
-uint64_t CSSymbolGetSection(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolGetSection(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  Range = CSSymbolGetRange(a1, a2);
+  Range = CSSymbolGetRange(a1, a2, a3);
   return CSSymbolOwnerGetSectionWithAddress(3, a1 & 0xFFFFFFFFFFFFFFF8, Range);
 }
 
-unint64_t CSSymbolGetSegment(uint64_t a1, uint64_t a2)
+unint64_t CSSymbolGetSegment(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  Range = CSSymbolGetRange(a1, a2);
+  Range = CSSymbolGetRange(a1, a2, a3);
   return CSCppSymbolOwner::segment_at_address(a1 & 0xFFFFFFFFFFFFFFF8, Range);
 }
 
@@ -6050,66 +5979,52 @@ unint64_t CSSymbolForeachSourceInfo(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
   v7 = (*(*v6 + 24))(v6);
   if (v7 <= 3)
   {
-    if (v7 == 1)
+    if (v7 == 1 || v7 == 2)
     {
-      v14 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v15 = *v14;
-      v16 = v14[1];
-      goto LABEL_10;
+      v12 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9) + 152);
+
+      return v12();
     }
 
-    if (v7 == 2)
-    {
-      v8 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-      v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v10 = *v8;
-      v11 = v8[1];
-LABEL_10:
-      v17 = *(*v9 + 152);
-
-      return v17();
-    }
-
-LABEL_19:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v28);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v23 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v24 = (*(*v23 + 24))(v23);
-    MEMORY[0x1DA7365E0](v22, v24);
-    std::ostringstream::str[abi:ne200100](v28, &v27);
-    Exception::Exception(v26, &v27);
+LABEL_18:
+    std::ostringstream::basic_ostringstream[abi:ne200100](v25);
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v20 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v18, v19);
+    v21 = (*(*v20 + 24))(v20);
+    MEMORY[0x1DA7365E0](v17, v21);
+    std::ostringstream::str[abi:ne200100](v25, &v24);
+    Exception::Exception(v23, &v24);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v26);
+    Exception::Exception(exception, v23);
   }
 
   if (v7 != 4)
   {
     if (v7 != 5)
     {
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
-    v26[0] = (a2 & 0xFFFFFFFFFFFFFFFCLL);
-    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v13 = FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(v26);
-    FlatbufferSymbolOwnerData::convertVMAddressRangeToSlidAddressRange(v12, v13, v21, v28);
-    if (v29 == 1)
+    v23[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+    v11 = FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(v23);
+    FlatbufferSymbolOwnerData::convertVMAddressRangeToSlidAddressRange(v10, v11, v16, v25);
+    if (v26 == 1)
     {
-      return FlatbufferSymbolOwnerData::source_infos_in_address_range(v12, a1 & 0xFFFFFFFFFFFFFFF8, v28[0], v28[1], a3);
+      return FlatbufferSymbolOwnerData::source_infos_in_address_range(v10, a1 & 0xFFFFFFFFFFFFFFF8, v25[0], v25[1], a3);
     }
 
     return 0;
   }
 
-  v19 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v20 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
+  v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v8, v9);
+  v15 = *(a2 & 0xFFFFFFFFFFFFFFFCLL);
 
-  return TMMapSymbolOwnerData::source_infos_in_archive_address_range(v19, a1 & 0xFFFFFFFFFFFFFFF8, v20, a3);
+  return TMMapSymbolOwnerData::source_infos_in_archive_address_range(v14, a1 & 0xFFFFFFFFFFFFFFF8, v15, a3);
 }
 
 void sub_1D9702034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -6124,88 +6039,88 @@ void sub_1D9702034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolForeachInlineRange(uint64_t a1, char a2)
+uint64_t CSSymbolForeachInlineRange(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v2 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 176);
+  v3 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3) + 176);
 
-  return v2();
+  return v3();
 }
 
-uint64_t CSSymbolForeachInlineRangeAtDepth(uint64_t a1, char a2, int a3)
+uint64_t CSSymbolForeachInlineRangeAtDepth(uint64_t a1, uint64_t a2, _BOOL4 a3)
 {
   if (a3 < 0 || !(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v3 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 184);
+  v3 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3) + 184);
 
   return v3();
 }
 
-uint64_t CSSymbolIsNList(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsNList(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 25) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 25) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 25) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 25) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
-    return (v12 >> 1) & 1;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
+    return (v13 >> 1) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -6213,14 +6128,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1);
-      return (v12 >> 1) & 1;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1);
+      return (v13 >> 1) & 1;
     }
   }
 
@@ -6239,64 +6154,64 @@ void sub_1D970236C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsDwarf(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsDwarf(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 26) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 26) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 26) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 26) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
-    return (v12 >> 2) & 1;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
+    return (v13 >> 2) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -6304,14 +6219,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1);
-      return (v12 >> 2) & 1;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1);
+      return (v13 >> 2) & 1;
     }
   }
 
@@ -6330,64 +6245,64 @@ void sub_1D9702574(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsDebugMap(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsDebugMap(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 27) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 27) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 27) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 27) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
-    return (v12 >> 3) & 1;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
+    return (v13 >> 3) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -6395,14 +6310,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1);
-      return (v12 >> 3) & 1;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1);
+      return (v13 >> 3) & 1;
     }
   }
 
@@ -6421,64 +6336,64 @@ void sub_1D970277C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsFunctionStarts(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsFunctionStarts(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 28) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 28) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 28) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 28) & 1;
     }
 
 LABEL_20:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v19);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v14 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v15 = (*(*v14 + 24))(v14);
-    MEMORY[0x1DA7365E0](v13, v15);
-    std::ostringstream::str[abi:ne200100](v19, &v18);
-    Exception::Exception(v17, &v18);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v22);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v17 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v15, v16);
+    v18 = (*(*v17 + 24))(v17);
+    MEMORY[0x1DA7365E0](v14, v18);
+    std::ostringstream::str[abi:ne200100](v22, &v21);
+    Exception::Exception(v20, &v21);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v17);
+    Exception::Exception(exception, v20);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
-    return (v12 >> 4) & 1;
+    v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 11);
+    return (v13 >> 4) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_20;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
@@ -6486,14 +6401,14 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
 LABEL_17:
-      v12 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1);
-      return (v12 >> 4) & 1;
+      v13 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1);
+      return (v13 >> 4) & 1;
     }
   }
 
@@ -6512,44 +6427,44 @@ void sub_1D9702984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsMerged(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsMerged(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v4 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v5 = (*(*v4 + 24))(v4);
-  if (v5 <= 3)
+  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v6 = (*(*v5 + 24))(v5);
+  if (v6 <= 3)
   {
-    if (v5 == 1)
+    if (v6 == 1)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 29) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 29) & 1;
     }
 
-    if (v5 == 2)
+    if (v6 == 2)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 29) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 29) & 1;
     }
 
 LABEL_12:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v14);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v10 = (*(*v9 + 24))(v9);
-    MEMORY[0x1DA7365E0](v8, v10);
-    std::ostringstream::str[abi:ne200100](v14, &v13);
-    Exception::Exception(v12, &v13);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v10, v11);
+    v13 = (*(*v12 + 24))(v12);
+    MEMORY[0x1DA7365E0](v9, v13);
+    std::ostringstream::str[abi:ne200100](v17, &v16);
+    Exception::Exception(v15, &v16);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v12);
+    Exception::Exception(exception, v15);
   }
 
-  if (v5 != 4)
+  if (v6 != 4)
   {
-    if (v5 != 5)
+    if (v6 != 5)
     {
       goto LABEL_12;
     }
@@ -6572,76 +6487,76 @@ void sub_1D9702B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsNameSourceNList(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsNameSourceNList(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 14) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 14) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 14) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 14) & 1;
     }
 
 LABEL_19:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v14 = (*(*v13 + 24))(v13);
-    MEMORY[0x1DA7365E0](v12, v14);
-    std::ostringstream::str[abi:ne200100](v18, &v17);
-    Exception::Exception(v16, &v17);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v16);
+    Exception::Exception(exception, v19);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9) >> 6) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_19;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
-    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 1) & 1;
+    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 1) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
-      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 1) & 1;
+      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 1) & 1;
     }
   }
 
@@ -6660,62 +6575,62 @@ void sub_1D9702D50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsNameSourceDwarf(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsNameSourceDwarf(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 15) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 15) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 15) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 15) & 1;
     }
 
 LABEL_16:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v15);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v11 = (*(*v10 + 24))(v10);
-    MEMORY[0x1DA7365E0](v9, v11);
-    std::ostringstream::str[abi:ne200100](v15, &v14);
-    Exception::Exception(v13, &v14);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+    v14 = (*(*v13 + 24))(v13);
+    MEMORY[0x1DA7365E0](v10, v14);
+    std::ostringstream::str[abi:ne200100](v18, &v17);
+    Exception::Exception(v16, &v17);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v13);
+    Exception::Exception(exception, v16);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 9) >> 7;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_16;
   }
 
-  if (v2 == 10)
+  if (v3 == 10)
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_name_source_dwarf(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_name_source_dwarf(v18);
   }
 
   else
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_name_source_dwarf(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_name_source_dwarf(v18);
   }
 }
 
@@ -6731,44 +6646,44 @@ void sub_1D9702F3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsNameSourceDwarfMIPSLinkage(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsNameSourceDwarfMIPSLinkage(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v4 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v5 = (*(*v4 + 24))(v4);
-  if (v5 <= 3)
+  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v6 = (*(*v5 + 24))(v5);
+  if (v6 <= 3)
   {
-    if (v5 == 1)
+    if (v6 == 1)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 16) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 16) & 1;
     }
 
-    if (v5 == 2)
+    if (v6 == 2)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 16) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 16) & 1;
     }
 
 LABEL_12:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v14);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v10 = (*(*v9 + 24))(v9);
-    MEMORY[0x1DA7365E0](v8, v10);
-    std::ostringstream::str[abi:ne200100](v14, &v13);
-    Exception::Exception(v12, &v13);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v10, v11);
+    v13 = (*(*v12 + 24))(v12);
+    MEMORY[0x1DA7365E0](v9, v13);
+    std::ostringstream::str[abi:ne200100](v17, &v16);
+    Exception::Exception(v15, &v16);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v12);
+    Exception::Exception(exception, v15);
   }
 
-  if (v5 != 4)
+  if (v6 != 4)
   {
-    if (v5 != 5)
+    if (v6 != 5)
     {
       goto LABEL_12;
     }
@@ -6791,76 +6706,76 @@ void sub_1D970317C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsMangledNameSourceNList(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsMangledNameSourceNList(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 19) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 19) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 19) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 19) & 1;
     }
 
 LABEL_19:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v14 = (*(*v13 + 24))(v13);
-    MEMORY[0x1DA7365E0](v12, v14);
-    std::ostringstream::str[abi:ne200100](v18, &v17);
-    Exception::Exception(v16, &v17);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v21);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v16 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v14, v15);
+    v17 = (*(*v16 + 24))(v16);
+    MEMORY[0x1DA7365E0](v13, v17);
+    std::ostringstream::str[abi:ne200100](v21, &v20);
+    Exception::Exception(v19, &v20);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v16);
+    Exception::Exception(exception, v19);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 10) >> 3) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_19;
   }
 
-  v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-  v9 = *v8;
-  if (v2 != 10)
+  v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+  v10 = *v9;
+  if (v3 != 10)
   {
-    if (v9 < 0x13)
+    if (v10 < 0x13)
     {
       return 0;
     }
 
-    v10 = v8[9];
-    if (!v10)
+    v11 = v9[9];
+    if (!v11)
     {
       return 0;
     }
 
-    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 1) & 1;
+    return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 1) & 1;
   }
 
-  if (v9 >= 0x11)
+  if (v10 >= 0x11)
   {
-    v10 = v8[8];
-    if (v10)
+    v11 = v9[8];
+    if (v11)
     {
-      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v10 + 1) >> 1) & 1;
+      return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + v11 + 1) >> 1) & 1;
     }
   }
 
@@ -6879,62 +6794,62 @@ void sub_1D9703388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL CSSymbolIsMangledNameSourceDwarf(uint64_t a1, uint64_t a2)
+BOOL CSSymbolIsMangledNameSourceDwarf(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 <= 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 <= 3)
   {
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 20) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 20) & 1;
     }
 
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v7, memory_order_acquire) >> 20) & 1;
+      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v8, memory_order_acquire) >> 20) & 1;
     }
 
 LABEL_16:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v15);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v10 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v11 = (*(*v10 + 24))(v10);
-    MEMORY[0x1DA7365E0](v9, v11);
-    std::ostringstream::str[abi:ne200100](v15, &v14);
-    Exception::Exception(v13, &v14);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v18);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v13 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v11, v12);
+    v14 = (*(*v13 + 24))(v13);
+    MEMORY[0x1DA7365E0](v10, v14);
+    std::ostringstream::str[abi:ne200100](v18, &v17);
+    Exception::Exception(v16, &v17);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v13);
+    Exception::Exception(exception, v16);
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
     return (*((a2 & 0xFFFFFFFFFFFFFFFCLL) + 10) >> 4) & 1;
   }
 
-  if (v6 != 5)
+  if (v7 != 5)
   {
     goto LABEL_16;
   }
 
-  if (v2 == 10)
+  if (v3 == 10)
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_name_source_dwarf(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::is_name_source_dwarf(v18);
   }
 
   else
   {
-    v15[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
-    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_name_source_dwarf(v15);
+    v18[0] = a2 & 0xFFFFFFFFFFFFFFFCLL;
+    return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::is_name_source_dwarf(v18);
   }
 }
 
@@ -6950,44 +6865,44 @@ void sub_1D9703574(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSSymbolIsMangledNameSourceDwarfMIPSLinkage(uint64_t a1, uint64_t a2)
+uint64_t CSSymbolIsMangledNameSourceDwarfMIPSLinkage(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v4 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v5 = (*(*v4 + 24))(v4);
-  if (v5 <= 3)
+  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v6 = (*(*v5 + 24))(v5);
+  if (v6 <= 3)
   {
-    if (v5 == 1)
+    if (v6 == 1)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 21) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 21) & 1;
     }
 
-    if (v5 == 2)
+    if (v6 == 2)
     {
-      v6 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
-      return (atomic_load_explicit(v6, memory_order_acquire) >> 21) & 1;
+      v7 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) + 28);
+      return (atomic_load_explicit(v7, memory_order_acquire) >> 21) & 1;
     }
 
 LABEL_12:
-    std::ostringstream::basic_ostringstream[abi:ne200100](v14);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-    v9 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v10 = (*(*v9 + 24))(v9);
-    MEMORY[0x1DA7365E0](v8, v10);
-    std::ostringstream::str[abi:ne200100](v14, &v13);
-    Exception::Exception(v12, &v13);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+    v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v10, v11);
+    v13 = (*(*v12 + 24))(v12);
+    MEMORY[0x1DA7365E0](v9, v13);
+    std::ostringstream::str[abi:ne200100](v17, &v16);
+    Exception::Exception(v15, &v16);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v12);
+    Exception::Exception(exception, v15);
   }
 
-  if (v5 != 4)
+  if (v6 != 4)
   {
-    if (v5 != 5)
+    if (v6 != 5)
     {
       goto LABEL_12;
     }
@@ -7010,62 +6925,62 @@ void sub_1D9703734(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL CSSymbolHasInlinedSourceInfo(uint64_t a1, uint64_t a2)
+BOOL CSSymbolHasInlinedSourceInfo(uint64_t a1, uint64_t a2, BOOL a3)
 {
-  v2 = a1 & 7 | (8 * (a2 & 3));
-  if (!v2)
+  v3 = a1 & 7 | (8 * (a2 & 3));
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-  v6 = (*(*v5 + 24))(v5);
-  if (v6 > 3)
+  v6 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3);
+  v7 = (*(*v6 + 24))(v6);
+  if (v7 > 3)
   {
-    if (v6 == 4)
+    if (v7 == 4)
     {
       return *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 8) >> 31;
     }
 
-    if (v6 != 5)
+    if (v7 != 5)
     {
 LABEL_21:
-      std::ostringstream::basic_ostringstream[abi:ne200100](v17);
-      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-      v12 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-      v13 = (*(*v12 + 24))(v12);
-      MEMORY[0x1DA7365E0](v11, v13);
-      std::ostringstream::str[abi:ne200100](v17, &v16);
-      Exception::Exception(v15, &v16);
+      std::ostringstream::basic_ostringstream[abi:ne200100](v20);
+      v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+      v15 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), v13, v14);
+      v16 = (*(*v15 + 24))(v15);
+      MEMORY[0x1DA7365E0](v12, v16);
+      std::ostringstream::str[abi:ne200100](v20, &v19);
+      Exception::Exception(v18, &v19);
       exception = __cxa_allocate_exception(0x20uLL);
-      Exception::Exception(exception, v15);
+      Exception::Exception(exception, v18);
     }
 
-    if (v2 == 10)
+    if (v3 == 10)
     {
-      v8 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
-      if (*v8 >= 0xDu)
+      v9 = ((a2 & 0xFFFFFFFFFFFFFFFCLL) - *(a2 & 0xFFFFFFFFFFFFFFFCLL));
+      if (*v9 >= 0xDu)
       {
-        v9 = v8[6] == 0;
-        return !v9;
+        v10 = v9[6] == 0;
+        return !v10;
       }
     }
 
     return 0;
   }
 
-  if (v6 == 1)
+  if (v7 == 1)
   {
     if ((atomic_load_explicit(((a2 & 0xFFFFFFFFFFFFFFFCLL) + 20), memory_order_acquire) & 0x80000000) != 0)
     {
-      v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
+      v8 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 40);
       goto LABEL_17;
     }
 
     return 0;
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
     goto LABEL_21;
   }
@@ -7075,10 +6990,10 @@ LABEL_21:
     return 0;
   }
 
-  v7 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
+  v8 = *((a2 & 0xFFFFFFFFFFFFFFFCLL) + 48);
 LABEL_17:
-  v9 = v7 == 0;
-  return !v9;
+  v10 = v8 == 0;
+  return !v10;
 }
 
 void sub_1D9703938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -7093,15 +7008,15 @@ void sub_1D9703938(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CSSymbolReleaseMemory(uint64_t a1, uint64_t a2)
+void CSSymbolReleaseMemory(uint64_t result, uint64_t a2, BOOL a3)
 {
-  if (a1 & 7 | (8 * (a2 & 3)))
+  if (result & 7 | (8 * (a2 & 3)))
   {
-    v4 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-    v5 = (*(*v4 + 24))(v4);
-    if ((v5 - 4) >= 2)
+    v5 = CSCppSymbolOwner::data((result & 0xFFFFFFFFFFFFFFF8), a2, a3);
+    v6 = (*(*v5 + 24))(v5);
+    if ((v6 - 4) >= 2)
     {
-      if (v5 == 2)
+      if (v6 == 2)
       {
 
         TRawSymbol<Pointer64>::release_memory(a2 & 0xFFFFFFFFFFFFFFFCLL);
@@ -7109,17 +7024,17 @@ void CSSymbolReleaseMemory(uint64_t a1, uint64_t a2)
 
       else
       {
-        if (v5 != 1)
+        if (v6 != 1)
         {
-          std::ostringstream::basic_ostringstream[abi:ne200100](v12);
-          v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
-          v7 = CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8));
-          v8 = (*(*v7 + 24))(v7);
-          MEMORY[0x1DA7365E0](v6, v8);
-          std::ostringstream::str[abi:ne200100](v12, &v11);
-          Exception::Exception(v10, &v11);
+          std::ostringstream::basic_ostringstream[abi:ne200100](v15);
+          v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "Unhandled CSCppSymbolOwnerData type_id: ", 40);
+          v10 = CSCppSymbolOwner::data((result & 0xFFFFFFFFFFFFFFF8), v8, v9);
+          v11 = (*(*v10 + 24))(v10);
+          MEMORY[0x1DA7365E0](v7, v11);
+          std::ostringstream::str[abi:ne200100](v15, &v14);
+          Exception::Exception(v13, &v14);
           exception = __cxa_allocate_exception(0x20uLL);
-          Exception::Exception(exception, v10);
+          Exception::Exception(exception, v13);
         }
 
         TRawSymbol<Pointer32>::release_memory(a2 & 0xFFFFFFFFFFFFFFFCLL);
@@ -7194,48 +7109,33 @@ void TRawSymbol<Pointer64>::release_memory(uint64_t a1)
   atomic_store(explicit & 0xFFBDFFFF, (a1 + 28));
 }
 
-uint64_t CSSymbolForeachDeduplicatedSymbolVariant(uint64_t a1, char a2)
+uint64_t CSSymbolForeachDeduplicatedSymbolVariant(uint64_t a1, uint64_t a2, BOOL a3)
 {
   if (!(a1 & 7 | (8 * (a2 & 3))))
   {
     return 0;
   }
 
-  v2 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8)) + 192);
+  v3 = *(*CSCppSymbolOwner::data((a1 & 0xFFFFFFFFFFFFFFF8), a2, a3) + 192);
 
-  return v2();
+  return v3();
 }
 
-uint64_t FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(char **a1)
+uint64_t FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::range(void *a1)
 {
-  v1 = *a1;
-  v2 = &(*a1)[-**a1];
-  v3 = *v2;
-  if (v3 < 5)
+  v1 = (*a1 - **a1);
+  v2 = *v1;
+  if (v2 < 5)
   {
     return -1;
   }
 
-  if (*(v2 + 2))
+  if (v1[2])
   {
-    result = *&v1[*(v2 + 2)];
+    return *(*a1 + v1[2]);
   }
 
-  else
-  {
-    result = -1;
-  }
-
-  if (v3 >= 7)
-  {
-    v5 = *(v2 + 3);
-    if (v5)
-    {
-      v6 = *&v1[v5];
-    }
-  }
-
-  return result;
+  return -1;
 }
 
 uint64_t FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::flags(void *a1)
@@ -7281,13 +7181,13 @@ uint64_t FlatbufferSymbolAdapterImpl<FlatbufferSymbols::Symbol>::flags(void *a1)
   return FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::convertFBSFlagsToCSFlagsImpl<std::tuple<FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<1u,(FlatbufferSymbols::SymbolFlags)1>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<2u,(FlatbufferSymbols::SymbolFlags)2>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<4u,(FlatbufferSymbols::SymbolFlags)4>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<16u,(FlatbufferSymbols::SymbolFlags)8>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<512u,(FlatbufferSymbols::SymbolFlags)16>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<32u,(FlatbufferSymbols::SymbolFlags)32>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<64u,(FlatbufferSymbols::SymbolFlags)64>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<128u,(FlatbufferSymbols::SymbolFlags)128>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<256u,(FlatbufferSymbols::SymbolFlags)256>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<33554432u,(FlatbufferSymbols::SymbolFlags)512>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<16384u,(FlatbufferSymbols::SymbolFlags)512>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<524288u,(FlatbufferSymbols::SymbolFlags)512>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<67108864u,(FlatbufferSymbols::SymbolFlags)1024>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<32768u,(FlatbufferSymbols::SymbolFlags)1024>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<1048576u,(FlatbufferSymbols::SymbolFlags)1024>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<134217728u,(FlatbufferSymbols::SymbolFlags)2048>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<268435456u,(FlatbufferSymbols::SymbolFlags)4096>,FlatbufferSymbolAdapterImpl<FlatbufferSymbols::InlineSymbol>::FlagConversion<2048u,(FlatbufferSymbols::SymbolFlags)8192>>,0ul,1ul,2ul,3ul,4ul,5ul,6ul,7ul,8ul,9ul,10ul,11ul,12ul,13ul,14ul,15ul,16ul,17ul>(a1, v3);
 }
 
-uint64_t TRawSymbol<Pointer32>::_resolve_name(uint64_t a1)
+uint64_t TRawSymbol<Pointer32>::_resolve_name(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (atomic_load_explicit((a1 + 20), memory_order_acquire) != 2048 && (atomic_load_explicit((a1 + 20), memory_order_acquire) & 0x20000) == 0)
   {
-    v2[0] = 0;
-    v2[1] = v2;
-    v2[2] = 0x2000000000;
+    v4[0] = 0;
+    v4[1] = v4;
+    v4[2] = 0x2000000000;
     operator new();
   }
 
@@ -7376,13 +7276,13 @@ atomic_uint *volatile *___ZN10TRawSymbolI9Pointer32E13_resolve_nameEPPcPm_block_
   return result;
 }
 
-uint64_t TRawSymbol<Pointer64>::_resolve_name(uint64_t a1)
+uint64_t TRawSymbol<Pointer64>::_resolve_name(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (atomic_load_explicit((a1 + 28), memory_order_acquire) != 2048 && (atomic_load_explicit((a1 + 28), memory_order_acquire) & 0x20000) == 0)
   {
-    v2[0] = 0;
-    v2[1] = v2;
-    v2[2] = 0x2000000000;
+    v4[0] = 0;
+    v4[1] = v4;
+    v4[2] = 0x2000000000;
     operator new();
   }
 
@@ -7533,7 +7433,7 @@ LABEL_9:
   }
 
 LABEL_12:
-  v12 = *(*(*(v4 + 4) + 8) + 24);
+  v12 = *(*(*(v4 + 32) + 8) + 24);
 
   return CSCppBitLock::set_bits(v12, v11);
 }
@@ -7627,7 +7527,7 @@ LABEL_9:
   }
 
 LABEL_12:
-  v12 = *(*(*(v4 + 4) + 8) + 24);
+  v12 = *(*(*(v4 + 32) + 8) + 24);
 
   return CSCppBitLock::set_bits(v12, v11);
 }
@@ -7862,7 +7762,7 @@ _DWORD *FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddres
     v10 = result;
     v11 = result + 1;
     v13 = result + 1;
-    v12 = (result + (4 * *result) + 4);
+    v12 = result + (4 * *result) + 4;
     FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>>(&v13, &v12, a5, a6, &v14);
     if (v14 == (v11 + (4 * *v10)))
     {
@@ -7911,7 +7811,7 @@ _DWORD *FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddres
     v10 = result;
     v11 = result + 1;
     v13 = result + 1;
-    v12 = (result + (4 * *result) + 4);
+    v12 = result + (4 * *result) + 4;
     FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>(&v13, &v12, a5, a6, &v14);
     if (v14 == (v11 + (4 * *v10)))
     {
@@ -8366,7 +8266,7 @@ void sub_1D970566C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, uint64_t **a4@<X8>)
+void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(__int128 **a1@<X0>, __int128 **a2@<X1>, char a3@<W2>, __n128 **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8427,7 +8327,7 @@ void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbuffe
         break;
       }
 
-      v23 = v20[2];
+      v23 = v20[1].n128_u64[0];
       while (1)
       {
         if (v23 && (v24 = (v23 - *v23), *v24 >= 5u) && (v25 = v24[2]) != 0)
@@ -8440,10 +8340,10 @@ void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbuffe
           v26 = 0;
         }
 
-        v27 = v19[3];
+        v27 = v19[1].n128_u64[1];
         if (!v27)
         {
-          v27 = v19[2];
+          v27 = v19[1].n128_u64[0];
         }
 
         if (!strncmp(v26, v27, 0x10uLL))
@@ -8461,17 +8361,17 @@ void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbuffe
           break;
         }
 
-        v19 += 4;
+        v19 += 2;
         if (v19 == i)
         {
           goto LABEL_41;
         }
       }
 
-      v28 = *v20;
-      v30 = *v19;
-      v29 = v19[1];
-      v31 = *v20 - *v19;
+      v28 = v20->n128_u64[0];
+      v30 = v19->n128_u64[0];
+      v29 = v19->n128_u64[1];
+      v31 = v20->n128_u64[0] - v19->n128_u64[0];
       v33 = a4[1];
       v32 = a4[2];
       if (v33 >= v32)
@@ -8524,24 +8424,24 @@ void create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbuffe
 
       else
       {
-        *v33 = v30;
-        v33[1] = v29;
-        v34 = (v33 + 3);
-        v33[2] = v31;
+        v33->n128_u64[0] = v30;
+        v33->n128_u64[1] = v29;
+        v34 = (v33 + 24);
+        v33[1].n128_u64[0] = v31;
       }
 
       a4[1] = v34;
       a3 |= v28 != v30;
-      v19 += 4;
+      v19 += 2;
 LABEL_40:
-      v20 += 3;
+      v20 = (v20 + 24);
     }
 
 LABEL_41:
     if (a3)
     {
       v43 = a4[1];
-      v44 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v43 - *a4));
+      v44 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v43 - *a4) >> 3));
       if (v43 == *a4)
       {
         v45 = 0;
@@ -8596,7 +8496,7 @@ void sub_1D9705AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void create_segment_relocation_deltas<Pointer64,CSCppFlatbufferRelocation,CSCppSegmentRange>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, uint64_t **a4@<X8>)
+void create_segment_relocation_deltas<Pointer64,CSCppFlatbufferRelocation,CSCppSegmentRange>(__int128 **a1@<X0>, __int128 **a2@<X1>, char a3@<W2>, __n128 **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8659,10 +8559,10 @@ void create_segment_relocation_deltas<Pointer64,CSCppFlatbufferRelocation,CSCppS
           goto LABEL_38;
         }
 
-        v22 = v20[3];
+        v22 = v20[1].n128_u64[1];
         if (!v22)
         {
-          v22 = v20[2];
+          v22 = v20[1].n128_u64[0];
         }
 
         v23 = (*(v19 + 2) + *(*(v19 + 2) - **(v19 + 2) + 4));
@@ -8676,7 +8576,7 @@ void create_segment_relocation_deltas<Pointer64,CSCppFlatbufferRelocation,CSCppS
           break;
         }
 
-        v19 += 24;
+        v19 = (v19 + 24);
 LABEL_19:
         if (v19 == v47)
         {
@@ -8684,19 +8584,19 @@ LABEL_19:
         }
       }
 
-      v24 = v20[3];
+      v24 = v20[1].n128_u64[1];
       if (!v24)
       {
-        v24 = v20[2];
+        v24 = v20[1].n128_u64[0];
       }
 
       if (!is_relocation_skippable(v24))
       {
 LABEL_24:
-        v25 = *v20;
+        v25 = v20->n128_u64[0];
         v27 = *v19;
         v26 = *(v19 + 1);
-        v28 = *v20 - *v19;
+        v28 = v20->n128_u64[0] - *v19;
         v30 = a4[1];
         v29 = a4[2];
         if (v30 >= v29)
@@ -8734,7 +8634,7 @@ LABEL_24:
           *v37 = v27;
           v37[1] = v26;
           v37[2] = v28;
-          v31 = v37 + 3;
+          v31 = (v37 + 3);
           v38 = (v37 - v33);
           memcpy(v37 - v33, v32, v33);
           v39 = *a4;
@@ -8749,18 +8649,18 @@ LABEL_24:
 
         else
         {
-          *v30 = v27;
-          v30[1] = v26;
-          v31 = v30 + 3;
-          v30[2] = v28;
+          v30->n128_u64[0] = v27;
+          v30->n128_u64[1] = v26;
+          v31 = (v30 + 24);
+          v30[1].n128_u64[0] = v28;
         }
 
         a4[1] = v31;
         a3 |= v25 != v27;
-        v19 += 24;
+        v19 = (v19 + 24);
       }
 
-      v20 += 4;
+      v20 += 2;
       goto LABEL_19;
     }
 
@@ -8768,7 +8668,7 @@ LABEL_38:
     if (a3)
     {
       v40 = a4[1];
-      v41 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v40 - *a4));
+      v41 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v40 - *a4) >> 3));
       if (v40 == *a4)
       {
         v42 = 0;
@@ -9191,7 +9091,7 @@ uint64_t FlatbufferSymbolOwnerData::symbols_for_name_with_deferred_demangler(uin
   return 1;
 }
 
-uint64_t FlatbufferSymbolOwnerData::symbol_for_name(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t FlatbufferSymbolOwnerData::symbol_for_name(uint64_t a1, CSCppSymbolOwner *a2, const char *a3, uint64_t a4)
 {
   v8 = *(a1 + 88);
   if (!v8)
@@ -9199,14 +9099,14 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_name(uint64_t a1, uint64_t a2, co
     return FlatbufferSymbolOwnerData::symbols_for_name_with_deferred_demangler(a1, a2, a3, a4, 0);
   }
 
-  v34 = 0;
-  v35 = FlatbufferSymbols::Segment::symbol_demangled_name_lookup;
-  v36 = 0;
-  v37 = a2;
-  v38 = a4;
-  v39 = a3;
-  v40 = 0;
-  v41 = &v34;
+  v26 = 0;
+  v27 = FlatbufferSymbols::Segment::symbol_demangled_name_lookup;
+  v28 = 0;
+  v29 = a2;
+  v30 = a4;
+  v31 = a3;
+  v32 = 0;
+  v33 = &v26;
   v9 = (v8 - *v8);
   if (*v9 < 9u)
   {
@@ -9231,53 +9131,42 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_name(uint64_t a1, uint64_t a2, co
   {
     v14 = v11[1];
     ++v11;
-    v15 = v35;
-    v16 = (v11 + v14 + (v36 >> 1));
-    if (v36)
+    v15 = v27;
+    v16 = (v11 + v14 + (v28 >> 1));
+    if (v28)
     {
-      v15 = *(*v16 + v35);
+      v15 = *(*v16 + v27);
     }
 
     v17 = v15(v16);
-    if (v17 && ((v40 & 1) != 0 || !*v41))
+    if (v17 && ((v32 & 1) != 0 || !*v33))
     {
       v19 = *v17;
       v18 = v17 + 1;
-      v44 = v18 + (4 * v19);
-      v45 = v18;
-      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v45, &v44, &v39, &v42);
-      v21 = v42;
-      v20 = v43;
-      v22 = v43 - v42;
-      v23 = v43 - v42 + 3;
-      if (v43 - v42 >= 0)
+      v36 = v18 + (4 * v19);
+      v37 = v18;
+      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v37, &v36, &v31, &v34);
+      v21 = v34;
+      v20 = v35;
+      v22 = v35 - v34;
+      v23 = v35 - v34 + 3;
+      if (v35 - v34 >= 0)
       {
-        v23 = v43 - v42;
+        v23 = v35 - v34;
       }
 
-      *v41 += v23 >> 2;
-      if (v40 == 1)
+      *v33 += v23 >> 2;
+      if (v32 == 1)
       {
         if (v21 != v20)
         {
           v24 = v21;
           do
           {
-            v25 = *v21;
-            v26 = v25 - *(v21 + v25);
-            if (*(v21 + v26) >= 7u)
+            if (v30)
             {
-              v27 = *(v21 + v26 + 6);
-              if (v27)
-              {
-                v28 = v24 + v25 + v27 + *(v21 + v25 + v27);
-              }
-            }
-
-            if (v38)
-            {
-              (*(v38 + 16))();
-              v20 = v43;
+              (*(v30 + 16))();
+              v20 = v35;
             }
 
             ++v21;
@@ -9288,30 +9177,16 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_name(uint64_t a1, uint64_t a2, co
         }
       }
 
-      else if ((v22 & 0xFFFFFFFFFFFFFFFCLL) == 4)
+      else if ((v22 & 0xFFFFFFFFFFFFFFFCLL) == 4 && v30)
       {
-        v29 = (v21 + *v21);
-        v30 = (v29 - *v29);
-        if (*v30 >= 7u)
-        {
-          v31 = v30[3];
-          if (v31)
-          {
-            v32 = v29 + v31 + *(v29 + v31);
-          }
-        }
-
-        if (v38)
-        {
-          (*(v38 + 16))();
-        }
+        (*(v30 + 16))();
       }
     }
   }
 
   while (v11 != v13);
-  result = v34;
-  if (!v34)
+  result = v26;
+  if (!v26)
   {
     return FlatbufferSymbolOwnerData::symbols_for_name_with_deferred_demangler(a1, a2, a3, a4, 0);
   }
@@ -9333,83 +9208,52 @@ uint64_t FlatbufferSymbols::Segment::symbol_demangled_name_lookup(FlatbufferSymb
   }
 }
 
-uint64_t FlatbufferSymbolOwnerData::symbols_for_name(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4)
+uint64_t FlatbufferSymbolOwnerData::symbols_for_name(uint64_t a1, CSCppSymbolOwner *a2, const char *a3, uint64_t a4)
 {
   v8 = *(a1 + 88);
-  if (!v8)
-  {
-    goto LABEL_31;
-  }
-
-  v35 = 0;
-  v36 = FlatbufferSymbols::Segment::symbol_demangled_name_lookup;
-  v37 = 0;
-  v38 = a2;
-  v39 = a4;
-  v40 = a3;
-  v41 = 1;
-  v42 = &v35;
-  v9 = (v8 - *v8);
-  if (*v9 < 9u)
-  {
-    goto LABEL_31;
-  }
-
-  v10 = v9[4];
-  if (v10 && (v11 = (v8 + v10 + *(v8 + v10)), v12 = (4 * *v11), v12))
+  if (v8 && (v27 = 0, v28 = FlatbufferSymbols::Segment::symbol_demangled_name_lookup, v29 = 0, v30 = a2, v31 = a4, v32 = a3, v33 = 1, v34 = &v27, v9 = (v8 - *v8), *v9 >= 9u) && (v10 = v9[4]) != 0 && (v11 = (v8 + v10 + *(v8 + v10)), v12 = (4 * *v11), v12))
   {
     v13 = (v11 + v12);
     do
     {
       v14 = v11[1];
       ++v11;
-      v15 = v36;
-      v16 = (v11 + v14 + (v37 >> 1));
-      if (v37)
+      v15 = v28;
+      v16 = (v11 + v14 + (v29 >> 1));
+      if (v29)
       {
-        v15 = *(*v16 + v36);
+        v15 = *(*v16 + v28);
       }
 
       v17 = v15(v16);
-      if (v17 && ((v41 & 1) != 0 || !*v42))
+      if (v17 && ((v33 & 1) != 0 || !*v34))
       {
         v19 = *v17;
         v18 = v17 + 1;
-        v45 = v18 + (4 * v19);
-        v46 = v18;
-        std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v46, &v45, &v40, &v43);
-        v21 = v43;
-        v20 = v44;
-        v22 = v44 - v43;
-        v23 = v44 - v43 + 3;
-        if (v44 - v43 >= 0)
+        v37 = v18 + (4 * v19);
+        v38 = v18;
+        std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v38, &v37, &v32, &v35);
+        v21 = v35;
+        v20 = v36;
+        v22 = v36 - v35;
+        v23 = v36 - v35 + 3;
+        if (v36 - v35 >= 0)
         {
-          v23 = v44 - v43;
+          v23 = v36 - v35;
         }
 
-        *v42 += v23 >> 2;
-        if (v41 == 1)
+        *v34 += v23 >> 2;
+        if (v33 == 1)
         {
           if (v21 != v20)
           {
             v24 = v21;
             do
             {
-              v25 = *v21;
-              v26 = v25 - *(v21 + v25);
-              if (*(v21 + v26) >= 7u)
+              if (v31)
               {
-                v27 = *(v21 + v26 + 6);
-                if (v27)
-                {
-                  v28 = v24 + v25 + v27 + *(v21 + v25 + v27);
-                }
-              }
-
-              if (v39)
-              {
-                (*(v39 + 16))();
-                v20 = v44;
+                (*(v31 + 16))();
+                v20 = v36;
               }
 
               ++v21;
@@ -9420,38 +9264,23 @@ uint64_t FlatbufferSymbolOwnerData::symbols_for_name(uint64_t a1, uint64_t a2, c
           }
         }
 
-        else if ((v22 & 0xFFFFFFFFFFFFFFFCLL) == 4)
+        else if ((v22 & 0xFFFFFFFFFFFFFFFCLL) == 4 && v31)
         {
-          v29 = (v21 + *v21);
-          v30 = (v29 - *v29);
-          if (*v30 >= 7u)
-          {
-            v31 = v30[3];
-            if (v31)
-            {
-              v32 = v29 + v31 + *(v29 + v31);
-            }
-          }
-
-          if (v39)
-          {
-            (*(v39 + 16))();
-          }
+          (*(v31 + 16))();
         }
       }
     }
 
     while (v11 != v13);
-    v33 = v35;
+    v25 = v27;
   }
 
   else
   {
-LABEL_31:
-    v33 = 0;
+    v25 = 0;
   }
 
-  return FlatbufferSymbolOwnerData::symbols_for_name_with_deferred_demangler(a1, a2, a3, a4, 1) + v33;
+  return FlatbufferSymbolOwnerData::symbols_for_name_with_deferred_demangler(a1, a2, a3, a4, 1) + v25;
 }
 
 uint64_t FlatbufferSymbolOwnerData::symbols_for_mangled_name(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4)
@@ -9462,14 +9291,14 @@ uint64_t FlatbufferSymbolOwnerData::symbols_for_mangled_name(uint64_t a1, uint64
     return 0;
   }
 
-  v30 = 0;
-  v31 = FlatbufferSymbols::Segment::symbol_asm_name_lookup;
-  v32 = 0;
-  v33 = a2;
-  v34 = a4;
-  v35 = a3;
-  v36 = 1;
-  v37 = &v30;
+  v22 = 0;
+  v23 = FlatbufferSymbols::Segment::symbol_asm_name_lookup;
+  v24 = 0;
+  v25 = a2;
+  v26 = a4;
+  v27 = a3;
+  v28 = 1;
+  v29 = &v22;
   v5 = (v4 - *v4);
   if (*v5 < 9u)
   {
@@ -9494,53 +9323,42 @@ uint64_t FlatbufferSymbolOwnerData::symbols_for_mangled_name(uint64_t a1, uint64
   {
     v10 = v7[1];
     ++v7;
-    v11 = v31;
-    v12 = (v7 + v10 + (v32 >> 1));
-    if (v32)
+    v11 = v23;
+    v12 = (v7 + v10 + (v24 >> 1));
+    if (v24)
     {
-      v11 = *(*v12 + v31);
+      v11 = *(*v12 + v23);
     }
 
     v13 = v11(v12);
-    if (v13 && ((v36 & 1) != 0 || !*v37))
+    if (v13 && ((v28 & 1) != 0 || !*v29))
     {
       v15 = *v13;
       v14 = v13 + 1;
-      v40 = v14 + (4 * v15);
-      v41 = v14;
-      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v41, &v40, &v35, &v38);
-      v17 = v38;
-      v16 = v39;
-      v18 = v39 - v38;
-      v19 = v39 - v38 + 3;
-      if (v39 - v38 >= 0)
+      v32 = v14 + (4 * v15);
+      v33 = v14;
+      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v33, &v32, &v27, &v30);
+      v17 = v30;
+      v16 = v31;
+      v18 = v31 - v30;
+      v19 = v31 - v30 + 3;
+      if (v31 - v30 >= 0)
       {
-        v19 = v39 - v38;
+        v19 = v31 - v30;
       }
 
-      *v37 += v19 >> 2;
-      if (v36 == 1)
+      *v29 += v19 >> 2;
+      if (v28 == 1)
       {
         if (v17 != v16)
         {
           v20 = v17;
           do
           {
-            v21 = *v17;
-            v22 = v21 - *(v17 + v21);
-            if (*(v17 + v22) >= 7u)
+            if (v26)
             {
-              v23 = *(v17 + v22 + 6);
-              if (v23)
-              {
-                v24 = v20 + v21 + v23 + *(v17 + v21 + v23);
-              }
-            }
-
-            if (v34)
-            {
-              (*(v34 + 16))();
-              v16 = v39;
+              (*(v26 + 16))();
+              v16 = v31;
             }
 
             ++v17;
@@ -9551,29 +9369,15 @@ uint64_t FlatbufferSymbolOwnerData::symbols_for_mangled_name(uint64_t a1, uint64
         }
       }
 
-      else if ((v18 & 0xFFFFFFFFFFFFFFFCLL) == 4)
+      else if ((v18 & 0xFFFFFFFFFFFFFFFCLL) == 4 && v26)
       {
-        v25 = (v17 + *v17);
-        v26 = (v25 - *v25);
-        if (*v26 >= 7u)
-        {
-          v27 = v26[3];
-          if (v27)
-          {
-            v28 = v25 + v27 + *(v25 + v27);
-          }
-        }
-
-        if (v34)
-        {
-          (*(v34 + 16))();
-        }
+        (*(v26 + 16))();
       }
     }
   }
 
   while (v7 != v9);
-  return v30;
+  return v22;
 }
 
 uint64_t FlatbufferSymbols::Segment::symbol_asm_name_lookup(FlatbufferSymbols::Segment *this)
@@ -9598,14 +9402,14 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_mangled_name(uint64_t a1, uint64_
     return 0;
   }
 
-  v30 = 0;
-  v31 = FlatbufferSymbols::Segment::symbol_asm_name_lookup;
-  v32 = 0;
-  v33 = a2;
-  v34 = a4;
-  v35 = a3;
-  v36 = 0;
-  v37 = &v30;
+  v22 = 0;
+  v23 = FlatbufferSymbols::Segment::symbol_asm_name_lookup;
+  v24 = 0;
+  v25 = a2;
+  v26 = a4;
+  v27 = a3;
+  v28 = 0;
+  v29 = &v22;
   v5 = (v4 - *v4);
   if (*v5 < 9u)
   {
@@ -9630,53 +9434,42 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_mangled_name(uint64_t a1, uint64_
   {
     v10 = v7[1];
     ++v7;
-    v11 = v31;
-    v12 = (v7 + v10 + (v32 >> 1));
-    if (v32)
+    v11 = v23;
+    v12 = (v7 + v10 + (v24 >> 1));
+    if (v24)
     {
-      v11 = *(*v12 + v31);
+      v11 = *(*v12 + v23);
     }
 
     v13 = v11(v12);
-    if (v13 && ((v36 & 1) != 0 || !*v37))
+    if (v13 && ((v28 & 1) != 0 || !*v29))
     {
       v15 = *v13;
       v14 = v13 + 1;
-      v40 = v14 + (4 * v15);
-      v41 = v14;
-      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v41, &v40, &v35, &v38);
-      v17 = v38;
-      v16 = v39;
-      v18 = v39 - v38;
-      v19 = v39 - v38 + 3;
-      if (v39 - v38 >= 0)
+      v32 = v14 + (4 * v15);
+      v33 = v14;
+      std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>(&v33, &v32, &v27, &v30);
+      v17 = v30;
+      v16 = v31;
+      v18 = v31 - v30;
+      v19 = v31 - v30 + 3;
+      if (v31 - v30 >= 0)
       {
-        v19 = v39 - v38;
+        v19 = v31 - v30;
       }
 
-      *v37 += v19 >> 2;
-      if (v36 == 1)
+      *v29 += v19 >> 2;
+      if (v28 == 1)
       {
         if (v17 != v16)
         {
           v20 = v17;
           do
           {
-            v21 = *v17;
-            v22 = v21 - *(v17 + v21);
-            if (*(v17 + v22) >= 7u)
+            if (v26)
             {
-              v23 = *(v17 + v22 + 6);
-              if (v23)
-              {
-                v24 = v20 + v21 + v23 + *(v17 + v21 + v23);
-              }
-            }
-
-            if (v34)
-            {
-              (*(v34 + 16))();
-              v16 = v39;
+              (*(v26 + 16))();
+              v16 = v31;
             }
 
             ++v17;
@@ -9687,29 +9480,15 @@ uint64_t FlatbufferSymbolOwnerData::symbol_for_mangled_name(uint64_t a1, uint64_
         }
       }
 
-      else if ((v18 & 0xFFFFFFFFFFFFFFFCLL) == 4)
+      else if ((v18 & 0xFFFFFFFFFFFFFFFCLL) == 4 && v26)
       {
-        v25 = (v17 + *v17);
-        v26 = (v25 - *v25);
-        if (*v26 >= 7u)
-        {
-          v27 = v26[3];
-          if (v27)
-          {
-            v28 = v25 + v27 + *(v25 + v27);
-          }
-        }
-
-        if (v34)
-        {
-          (*(v34 + 16))();
-        }
+        (*(v26 + 16))();
       }
     }
   }
 
   while (v7 != v9);
-  return v30;
+  return v22;
 }
 
 uint64_t FlatbufferSymbolOwnerData::symbols_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
@@ -9788,6 +9567,296 @@ uint64_t FlatbufferSymbolOwnerData::symbols_in_address_range(uint64_t a1, uint64
                   }
 
                   v5 = v31;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    v7 += 3;
+  }
+
+  while (v7 != v8);
+  return v11;
+}
+
+uint64_t FlatbufferSymbolOwnerData::symbol_for_address(FlatbufferSymbolOwnerData *this, CSCppSymbolOwner *a2, unint64_t a3)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3802000000;
+  v9 = __Block_byref_object_copy__2;
+  v11 = 0;
+  v12 = 0;
+  v10 = __Block_byref_object_dispose__2;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZN25FlatbufferSymbolOwnerData18symbol_for_addressEP16CSCppSymbolOwnery_block_invoke;
+  v5[3] = &unk_1E8583530;
+  v5[4] = &v6;
+  v5[5] = this;
+  FlatbufferSymbolOwnerData::symbols_in_address_range(this, a2, a3, 1, v5);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
+  return v3;
+}
+
+void sub_1D9707284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+__n128 __Block_byref_object_copy__2(uint64_t a1, uint64_t a2)
+{
+  result = *(a2 + 40);
+  *(a1 + 40) = result;
+  return result;
+}
+
+BOOL ___ZN25FlatbufferSymbolOwnerData18symbol_for_addressEP16CSCppSymbolOwnery_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = CSIsNull(a2, a3);
+  v7 = (a3 & 0xFFFFFFFFFFFFFFFCLL);
+  if (result)
+  {
+    v7 = 0;
+  }
+
+  v8 = (v7 - *v7);
+  if (*v8 < 0x13u || (v9 = v8[9]) == 0 || (*(v7 + v9) & 0x10) == 0)
+  {
+    v10 = *(*(a1 + 32) + 8);
+    *(v10 + 40) = a2;
+    *(v10 + 48) = a3;
+  }
+
+  return result;
+}
+
+uint64_t FlatbufferSymbolOwnerData::source_infos(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 88);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = (v3 - *v3);
+  if (*v4 < 9u)
+  {
+    return 0;
+  }
+
+  v5 = v4[4];
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = *(v3 + v5);
+  v7 = (v3 + v5 + v6);
+  v8 = (4 * *v7);
+  if (!v8)
+  {
+    return 0;
+  }
+
+  v10 = 0;
+  v38 = v7 + v8;
+  v11 = v7 + 3;
+  v12 = v3 + v6 + v5 + 12;
+  do
+  {
+    v15 = v7[1];
+    v14 = (v7 + 1);
+    v13 = v15;
+    v16 = &v14[v15];
+    v17 = &v16[-*v16];
+    v41 = v11;
+    v42 = v14;
+    v40 = v12;
+    if (*v17 >= 0xBu)
+    {
+      v18 = *(v17 + 5);
+      if (v18)
+      {
+        v19 = &v16[v18];
+        v20 = *&v16[v18];
+        v21 = &v19[v20];
+        v22 = (4 * *&v19[v20]);
+        if (v22)
+        {
+          v23 = &v21[v22];
+          v24 = v11 + v13 + v18 + v20;
+          v25 = v12 + v13 + v20 + v18;
+          v39 = &v21[v22];
+          do
+          {
+            v27 = *(v21 + 1);
+            v21 += 4;
+            v26 = v27;
+            v28 = &v21[v27];
+            v29 = &v28[-*v28];
+            if (*v29 >= 0xDu && (v30 = *(v29 + 6)) != 0)
+            {
+              v31 = &v28[v30];
+              v32 = *&v28[v30];
+              v33 = *&v31[v32];
+              v34 = 4 * v33;
+              if (v34)
+              {
+                v35 = &v24[v26 + v30 + v32];
+                v36 = (v25 + v26 + v32 + v30);
+                do
+                {
+                  if (a3)
+                  {
+                    (*(a3 + 16))(a3, a2 | 6, &v35[*v36]);
+                  }
+
+                  v35 += 4;
+                  ++v36;
+                  v34 -= 4;
+                }
+
+                while (v34);
+                v23 = v39;
+              }
+            }
+
+            else
+            {
+              v33 = 0;
+            }
+
+            v10 += v33;
+            v24 += 4;
+            v25 += 4;
+          }
+
+          while (v21 != v23);
+        }
+      }
+    }
+
+    v11 = v41 + 1;
+    v12 = v40 + 4;
+    v7 = v42;
+  }
+
+  while (v42 != v38);
+  return v10;
+}
+
+uint64_t FlatbufferSymbolOwnerData::source_infos_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a3 == -1)
+  {
+    return 0;
+  }
+
+  v5 = a1;
+  v7 = *(a1 + 136);
+  v8 = *(a1 + 144);
+  v6 = (a1 + 136);
+  if (v7 == v8)
+  {
+    return 0;
+  }
+
+  v11 = 0;
+  v12 = a4 + a3;
+  do
+  {
+    v13 = *v7;
+    if (*v7 < v12)
+    {
+      v14 = v7[1] + v13;
+      if (a3 < v14)
+      {
+        v15 = v13 <= a3 ? a3 : *v7;
+        v16 = v12 >= v14 ? v7[1] + v13 : v12;
+        v17 = v16 - v15;
+        if (v16 != v15)
+        {
+          v44 = 0;
+          if (TThreadsafeAddressRelocator<Pointer64>::relocate(v6, v15, &v44))
+          {
+            v37 = v44;
+            v18 = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::SymbolOwner,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::Segment>,unsigned int> const* (FlatbufferSymbols::SymbolOwner::*)(void)const,FlatbufferSymbols::Segment const*>(v5, *(v5 + 88), FlatbufferSymbols::SymbolOwner::segments, 0, v44, v17);
+            if (v18)
+            {
+              v19 = (v18 - *v18);
+              if (*v19 >= 0xBu)
+              {
+                v20 = v19[5];
+                if (v20)
+                {
+                  v33 = v6;
+                  v21 = (v18 + v20 + *(v18 + v20));
+                  v44 = v21 + 1;
+                  v43 = (v21 + (4 * *v21) + 4);
+                  FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>(&v44, &v43, v37, v17, &v40);
+                  v23 = v40;
+                  v22 = v41;
+                  if (v40 != v41)
+                  {
+                    v35 = v17;
+                    v36 = v5;
+                    v34 = v41;
+                    do
+                    {
+                      v24 = (v23 + *v23);
+                      v25 = (v24 - *v24);
+                      if (*v25 >= 0xDu && (v26 = v25[6]) != 0)
+                      {
+                        v27 = (v24 + v26 + *(v24 + v26));
+                        v43 = v27 + 1;
+                        v42 = v27 + (4 * *v27) + 4;
+                        FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>>(&v43, &v42, v37, v17, &v44);
+                        v28 = v44;
+                        v29 = v45;
+                        v38 = v45 - v44 + (v45 - v44 < 0 ? 3uLL : 0);
+                        if (v45 != v44)
+                        {
+                          v30 = v44;
+                          do
+                          {
+                            if (a5)
+                            {
+                              (*(a5 + 16))(a5, a2 | 6, v28 + *v30);
+                            }
+
+                            ++v30;
+                            ++v28;
+                          }
+
+                          while (v30 != v29);
+                        }
+
+                        v31 = v38 >> 2;
+                        v17 = v35;
+                        v5 = v36;
+                        v22 = v34;
+                      }
+
+                      else
+                      {
+                        v31 = 0;
+                      }
+
+                      v11 += v31;
+                      ++v23;
+                    }
+
+                    while (v23 != v22);
+                  }
+
+                  v6 = v33;
                 }
               }
             }

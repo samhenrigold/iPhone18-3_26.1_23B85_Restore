@@ -1271,7 +1271,7 @@ void __40__PDFAKAnnotationAdaptor__syncQuadding___block_invoke(uint64_t a1, void
   {
     v19 = pointsCopy;
     akAnnotation = [(PDFAKAnnotationAdaptor *)self akAnnotation];
-    AKArrowAnnotationClass();
+    AKArrowAnnotationClass(akAnnotation);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1305,7 +1305,7 @@ void __40__PDFAKAnnotationAdaptor__syncQuadding___block_invoke(uint64_t a1, void
 {
   stylesCopy = styles;
   akAnnotation = [(PDFAKAnnotationAdaptor *)self akAnnotation];
-  AKArrowAnnotationClass();
+  AKArrowAnnotationClass(akAnnotation);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1401,14 +1401,15 @@ void __40__PDFAKAnnotationAdaptor__syncQuadding___block_invoke(uint64_t a1, void
   labelCopy = label;
   akAnnotation = [(PDFAKAnnotationAdaptor *)self akAnnotation];
   pdfAnnotation = [(PDFAKAnnotationAdaptor *)self pdfAnnotation];
-  if ([pdfAnnotation isMarkupAnnotation])
+  isMarkupAnnotation = [pdfAnnotation isMarkupAnnotation];
+  if (isMarkupAnnotation)
   {
     [akAnnotation setAuthor:labelCopy];
   }
 
   else
   {
-    AKTextFieldAnnotationClass();
+    AKTextFieldAnnotationClass(isMarkupAnnotation);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -2241,68 +2242,82 @@ LABEL_18:
     goto LABEL_3;
   }
 
-  if ([subtypeCopy isEqualToString:@"/FreeText"])
+  v9 = [subtypeCopy isEqualToString:@"/FreeText"];
+  if (v9)
   {
-    AKTextBoxAnnotationClass();
-  }
-
-  else if ([subtypeCopy isEqualToString:@"/Line"])
-  {
-    AKArrowAnnotationClass();
-  }
-
-  else if ([subtypeCopy isEqualToString:@"/Square"])
-  {
-    AKRectAnnotationClass();
-  }
-
-  else if ([subtypeCopy isEqualToString:@"/Circle"])
-  {
-    AKOvalAnnotationClass();
+    AKTextBoxAnnotationClass(v9);
   }
 
   else
   {
-    if ([subtypeCopy isEqualToString:@"/Highlight"] || objc_msgSend(subtypeCopy, "isEqualToString:", @"/Underline") || objc_msgSend(subtypeCopy, "isEqualToString:", @"/StrikeOut"))
+    v10 = [subtypeCopy isEqualToString:@"/Line"];
+    if (v10)
     {
-      goto LABEL_3;
+      AKArrowAnnotationClass(v10);
     }
 
-    if ([subtypeCopy isEqualToString:@"/Ink"] || (objc_msgSend(subtypeCopy, "isEqualToString:", @"/Stamp") & 1) != 0 || objc_msgSend(subtypeCopy, "isEqualToString:", @"/SN"))
+    else
     {
-      AKImageAnnotationClass();
-      goto LABEL_12;
-    }
-
-    if ([subtypeCopy isEqualToString:@"/Popup"] || objc_msgSend(subtypeCopy, "isEqualToString:", @"/Redact"))
-    {
-      goto LABEL_3;
-    }
-
-    if (![subtypeCopy isEqualToString:@"/Widget"])
-    {
-      if (![subtypeCopy isEqualToString:@"/Redact"])
+      v11 = [subtypeCopy isEqualToString:@"/Square"];
+      if (v11)
       {
-        NSLog(&cfstr_SUnhandledAnno.isa, "+[PDFAKAnnotationAdaptor _akAnnotationInstanceForPDFAnnotationSubtype:withOptionalWidgetFieldType:]", subtypeCopy);
+        AKRectAnnotationClass(v11);
       }
 
-      goto LABEL_3;
-    }
+      else
+      {
+        v12 = [subtypeCopy isEqualToString:@"/Circle"];
+        if (v12)
+        {
+          AKOvalAnnotationClass(v12);
+        }
 
-    if (![self _akAnnotationSubclassForWidgetFieldType:typeCopy])
-    {
+        else
+        {
+          if ([subtypeCopy isEqualToString:@"/Highlight"] || objc_msgSend(subtypeCopy, "isEqualToString:", @"/Underline") || objc_msgSend(subtypeCopy, "isEqualToString:", @"/StrikeOut"))
+          {
+            goto LABEL_3;
+          }
+
+          v15 = [subtypeCopy isEqualToString:@"/Ink"];
+          if (v15 || (v15 = [subtypeCopy isEqualToString:@"/Stamp"], (v15 & 1) != 0) || (v15 = objc_msgSend(subtypeCopy, "isEqualToString:", @"/SN"), v15))
+          {
+            AKImageAnnotationClass(v15);
+            goto LABEL_12;
+          }
+
+          if ([subtypeCopy isEqualToString:@"/Popup"] || objc_msgSend(subtypeCopy, "isEqualToString:", @"/Redact"))
+          {
+            goto LABEL_3;
+          }
+
+          if (![subtypeCopy isEqualToString:@"/Widget"])
+          {
+            if (![subtypeCopy isEqualToString:@"/Redact"])
+            {
+              NSLog(&cfstr_SUnhandledAnno.isa, "+[PDFAKAnnotationAdaptor _akAnnotationInstanceForPDFAnnotationSubtype:withOptionalWidgetFieldType:]", subtypeCopy);
+            }
+
+            goto LABEL_3;
+          }
+
+          if (![self _akAnnotationSubclassForWidgetFieldType:typeCopy])
+          {
 LABEL_3:
-      null = [MEMORY[0x1E695DFB0] null];
-      goto LABEL_13;
+            null = [MEMORY[0x1E695DFB0] null];
+            goto LABEL_13;
+          }
+        }
+      }
     }
   }
 
 LABEL_12:
   null = objc_opt_new();
 LABEL_13:
-  v9 = null;
+  v13 = null;
 
-  return v9;
+  return v13;
 }
 
 + (id)_pdfAnnotationInstanceForAKAnnotation:(id)annotation
@@ -2310,27 +2325,30 @@ LABEL_13:
   annotationCopy = annotation;
   v4 = [PDFAnnotation alloc];
   v5 = [(PDFAnnotation *)v4 initWithBounds:&stru_1F416DF70 forType:0 withProperties:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-  AKTextBoxAnnotationClass();
+  AKTextBoxAnnotationClass(v5);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v6 = &PDFAnnotationSubtypeFreeText;
+    v7 = &PDFAnnotationSubtypeFreeText;
 LABEL_5:
-    [(PDFAnnotation *)v5 setValue:*v6 forAnnotationKey:@"/Subtype"];
+    [(PDFAnnotation *)v5 setValue:*v7 forAnnotationKey:@"/Subtype"];
     goto LABEL_6;
   }
 
-  AKRectAnnotationClass();
+  AKRectAnnotationClass(isKindOfClass);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v8 = objc_opt_isKindOfClass();
+  if (v8)
   {
-    v6 = &PDFAnnotationSubtypeSquare;
+    v7 = &PDFAnnotationSubtypeSquare;
     goto LABEL_5;
   }
 
-  AKRedactionRectAnnotationClass();
+  AKRedactionRectAnnotationClass(v8);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v11 = objc_opt_isKindOfClass();
+  if (v11)
   {
     [(PDFAnnotation *)v5 setValue:@"/Square" forAnnotationKey:@"/Subtype"];
     if (GetDefaultsWriteHighlightRedactions())
@@ -2341,39 +2359,44 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  AKOvalAnnotationClass();
+  AKOvalAnnotationClass(v11);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v12 = objc_opt_isKindOfClass();
+  if (v12)
   {
-    v6 = &PDFAnnotationSubtypeCircle;
+    v7 = &PDFAnnotationSubtypeCircle;
     goto LABEL_5;
   }
 
-  AKArrowShapeAnnotationClass();
+  AKArrowShapeAnnotationClass(v12);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v13 = objc_opt_isKindOfClass();
+  if (v13)
   {
     goto LABEL_18;
   }
 
-  AKArrowAnnotationClass();
+  AKArrowAnnotationClass(v13);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v14 = objc_opt_isKindOfClass();
+  if (v14)
   {
-    v6 = &PDFAnnotationSubtypeLine;
+    v7 = &PDFAnnotationSubtypeLine;
     goto LABEL_5;
   }
 
-  AKDoodleAnnotationClass();
+  AKDoodleAnnotationClass(v14);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v15 = objc_opt_isKindOfClass();
+  if (v15)
   {
     goto LABEL_18;
   }
 
-  AKInkAnnotationClass();
+  AKInkAnnotationClass(v15);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v16 = objc_opt_isKindOfClass();
+  if (v16)
   {
     [(PDFAnnotation *)v5 setValue:@"/Square" forAnnotationKey:@"/Subtype"];
     displayName = objc_alloc_init(PDFBorder);
@@ -2390,18 +2413,20 @@ LABEL_24:
     goto LABEL_6;
   }
 
-  AKLoupeAnnotationClass();
+  AKLoupeAnnotationClass(v16);
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (AKThoughtBubbleAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKSpeechBubbleAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKTriangleAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKPolygonAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKStarAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKHeartAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKBorderMaskAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()) || (AKImageAnnotationClass(), objc_opt_class(), (objc_opt_isKindOfClass()))
+  v19 = objc_opt_isKindOfClass();
+  if (v19 & 1) != 0 || (AKThoughtBubbleAnnotationClass(v19), objc_opt_class(), v20 = objc_opt_isKindOfClass(), (v20) || (AKSpeechBubbleAnnotationClass(v20), objc_opt_class(), v21 = objc_opt_isKindOfClass(), (v21) || (AKTriangleAnnotationClass(v21), objc_opt_class(), v22 = objc_opt_isKindOfClass(), (v22) || (AKPolygonAnnotationClass(v22), objc_opt_class(), v23 = objc_opt_isKindOfClass(), (v23) || (AKStarAnnotationClass(v23), objc_opt_class(), v24 = objc_opt_isKindOfClass(), (v24) || (AKHeartAnnotationClass(v24), objc_opt_class(), v25 = objc_opt_isKindOfClass(), (v25) || (AKBorderMaskAnnotationClass(v25), objc_opt_class(), v26 = objc_opt_isKindOfClass(), (v26) || (AKImageAnnotationClass(v26), objc_opt_class(), v27 = objc_opt_isKindOfClass(), (v27))
   {
 LABEL_18:
-    v6 = &PDFAnnotationSubtypeStamp;
+    v7 = &PDFAnnotationSubtypeStamp;
     goto LABEL_5;
   }
 
-  AKSignatureAnnotationClass();
+  AKSignatureAnnotationClass(v27);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v28 = objc_opt_isKindOfClass();
+  if (v28)
   {
     [(PDFAnnotation *)v5 setValue:@"/SN" forAnnotationKey:@"/Subtype"];
     displayName = [annotationCopy displayName];
@@ -2414,7 +2439,7 @@ LABEL_18:
     goto LABEL_24;
   }
 
-  AKCropAnnotationClass();
+  AKCropAnnotationClass(v28);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

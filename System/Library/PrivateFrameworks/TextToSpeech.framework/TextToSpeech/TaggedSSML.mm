@@ -8,14 +8,12 @@
 
 - (NSArray)ssmlSnippets
 {
-  v3 = OBJC_IVAR____TtC12TextToSpeech10TaggedSSML_ssmlSnippets;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for VoiceTaggedSSMLSnippet();
 
-  v5 = sub_1A957C4B8();
+  v2 = sub_1A957C4B8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setSsmlSnippets:(id)snippets
@@ -24,7 +22,6 @@
   v4 = sub_1A957C4C8();
   v5 = OBJC_IVAR____TtC12TextToSpeech10TaggedSSML_ssmlSnippets;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

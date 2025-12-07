@@ -1,8 +1,8 @@
-void sub_1000007A8(uint64_t a1)
+void sub_1000007A8(os_unfair_lock_s *a1)
 {
-  os_unfair_lock_lock((a1 + 32));
+  os_unfair_lock_lock(a1 + 8);
   sub_1000007F4(a1);
-  os_unfair_lock_unlock((a1 + 32));
+  os_unfair_lock_unlock(a1 + 8);
 
   sub_1000008FC(a1);
 }
@@ -80,19 +80,12 @@ void sub_1000008FC(void *a1)
   }
 }
 
-uint64_t sub_100000A00(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return _objc_release_x1();
-}
-
 void sub_100000A0C(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
   string = xpc_dictionary_get_string(v3, "ds_name");
-  v6 = sub_100000BFC();
+  v6 = sub_100000BFC(string);
   v7 = qword_10000C028;
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_INFO))
   {
@@ -151,7 +144,7 @@ void sub_100000A0C(void *a1, void *a2)
   xpc_dictionary_send_reply();
 }
 
-uint64_t sub_100000BFC()
+uint64_t sub_100000BFC(uint64_t a1)
 {
   os_unfair_lock_lock(&dword_10000C018);
   pointer = xpc_dictionary_get_pointer();
@@ -164,7 +157,7 @@ void sub_100000C48(void *a1, void *a2)
   v3 = a2;
   v4 = a1;
   string = xpc_dictionary_get_string(v4, "ds_name");
-  v6 = sub_100000BFC();
+  v6 = sub_100000BFC(string);
   v7 = qword_10000C028;
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_INFO))
   {
@@ -282,7 +275,6 @@ void sub_100000F9C(void *a1, void *a2)
 
     else
     {
-      v6 = a2[6];
       readonly = xpc_shmem_create_readonly();
       xpc_dictionary_set_value(xdict, "ds_ool_data", readonly);
     }
@@ -304,10 +296,9 @@ id sub_100001060(uint64_t a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "ds_name", (a1 + 104));
-  v3 = *(a1 + 72);
-  v4 = xpc_event_publisher_fire_with_reply_sync();
+  v3 = xpc_event_publisher_fire_with_reply_sync();
 
-  return v4;
+  return v3;
 }
 
 void sub_1000010D4(uint64_t a1)
@@ -410,22 +401,22 @@ void sub_1000013B4(uint64_t a1)
 
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002D90(a1);
+    sub_100002D90();
   }
 
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002E14(a1);
+    sub_100002E14();
   }
 
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002E98(a1);
+    sub_100002E98();
   }
 
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002F04(a1);
+    sub_100002F04();
   }
 
   v2 = qword_10000C028;
@@ -436,7 +427,7 @@ void sub_1000013B4(uint64_t a1)
 
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_DEBUG))
   {
-    sub_100003008(a1);
+    sub_100003008();
   }
 }
 
@@ -727,33 +718,32 @@ void sub_100001EC8(id a1, int a2)
   }
 }
 
-uint64_t sub_100001F10(uint64_t a1)
+uint64_t sub_100001F10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = xpc_mach_send_copy_right();
-  if (v2 - 1 <= 0xFFFFFFFD)
+  v4 = xpc_mach_send_copy_right();
+  if (v4 - 1 <= 0xFFFFFFFD)
   {
-    v3 = v2;
-    v4 = xpc_pipe_create_from_port();
-    v5 = *(a1 + 32);
-    v6 = xpc_pipe_simpleroutine();
-    if (v6)
+    v5 = v4;
+    v6 = xpc_pipe_create_from_port();
+    v7 = xpc_pipe_simpleroutine();
+    if (v7)
     {
-      v7 = v6;
-      v8 = qword_10000C028;
+      v8 = v7;
+      v9 = qword_10000C028;
       if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 40) + 104;
-        v11 = 136315650;
-        v12 = v10;
-        v13 = 1024;
-        v14 = v3;
-        v15 = 1024;
-        v16 = v7;
-        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[%s] Unable to send invalidation to client %#x: %d", &v11, 0x18u);
+        v11 = *(a1 + 40) + 104;
+        v12 = 136315650;
+        v13 = v11;
+        v14 = 1024;
+        v15 = v5;
+        v16 = 1024;
+        v17 = v8;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "[%s] Unable to send invalidation to client %#x: %d", &v12, 0x18u);
       }
     }
 
-    mach_port_deallocate(mach_task_self_, v3);
+    mach_port_deallocate(mach_task_self_, v5);
   }
 
   return 1;
@@ -834,12 +824,12 @@ void sub_10000224C(void *a1, int a2)
   v3 = a1;
   reply = xpc_dictionary_create_reply(v3);
   string = xpc_dictionary_get_string(v3, "ds_name");
-  v6 = sub_100000BFC();
+  v6 = sub_100000BFC(string);
   v7 = qword_10000C028;
   if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v14 = string;
+    v13 = string;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "[%s] Requesting datastore data", buf, 0xCu);
   }
 
@@ -864,9 +854,8 @@ void sub_10000224C(void *a1, int a2)
           sub_100003280();
         }
 
-        v10 = *(v6 + 8);
-        v11 = reply;
-        v12 = v8;
+        v10 = reply;
+        v11 = v8;
         xpc_dictionary_handoff_reply();
 
         goto LABEL_14;
@@ -875,7 +864,7 @@ void sub_10000224C(void *a1, int a2)
       if (os_log_type_enabled(qword_10000C028, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v14 = string;
+        v13 = string;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[%s] Datastore not populated but soft demand request - returning ENODATA", buf, 0xCu);
       }
 
@@ -941,7 +930,7 @@ void sub_1000025D0(uint64_t a1, void *a2)
 
         reply = xpc_dictionary_create_reply(v10);
 
-        v14 = sub_100000BFC();
+        v14 = sub_100000BFC(string);
         if (v14)
         {
           sub_100000EDC(v14);
@@ -975,7 +964,7 @@ void sub_1000025D0(uint64_t a1, void *a2)
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "[%s] Publisher gone - relinquishing datastore", &v16, 0xCu);
     }
 
-    v7 = sub_100000BFC();
+    v7 = sub_100000BFC(context);
     if (v7)
     {
       if ((*(v7 + 64) & 1) == 0)
@@ -1007,12 +996,11 @@ uint64_t sub_10000283C(uint64_t a1)
   sub_100000F9C(*(a1 + 32), *(a1 + 48));
   xpc_array_append_value(*(*(a1 + 48) + 56), *(a1 + 40));
   os_unfair_lock_unlock((*(a1 + 48) + 32));
-  v2 = *(a1 + 32);
 
   return xpc_dictionary_send_reply();
 }
 
-uint64_t sub_1000028A8(uint64_t a1)
+uint64_t sub_1000028A8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   value = xpc_pointer_get_value();
   if (!value)
@@ -1020,27 +1008,29 @@ uint64_t sub_1000028A8(uint64_t a1)
     return 1;
   }
 
-  v3 = value;
+  v5 = value;
   if (*(value + 72) != *(a1 + 40))
   {
     return 1;
   }
 
   result = 0;
-  *(*(*(a1 + 32) + 8) + 24) = v3;
+  *(*(*(a1 + 32) + 8) + 24) = v5;
   return result;
 }
 
-void sub_100002900(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002900(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100002934(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002934(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000295C(uint64_t a1, void *a2)
@@ -1069,34 +1059,6 @@ void sub_100002AFC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100002D90(uint64_t a1)
-{
-  *(a1 + 64);
-  sub_100002950();
-  sub_100002934(&_mh_execute_header, v1, v2, "\tchecked in    = %s", v3, v4, v5, v6, v7);
-}
-
-void sub_100002E14(uint64_t a1)
-{
-  *(a1 + 80);
-  sub_100002950();
-  sub_100002934(&_mh_execute_header, v1, v2, "\tds_type       = %s", v3, v4, v5, v6, v7);
-}
-
-void sub_100002E98(uint64_t a1)
-{
-  v1 = *(a1 + 88);
-  sub_100002950();
-  sub_100002934(&_mh_execute_header, v2, v3, "\tmax_size      = %llu", v4, v5, v6, v7, v8);
-}
-
-void sub_100002F04(uint64_t a1)
-{
-  v1 = *(a1 + 96);
-  sub_100002950();
-  sub_100002934(&_mh_execute_header, v2, v3, "\tentitlement   = %s", v4, v5, v6, v7, v8);
-}
-
 void sub_100002F70(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 56);
@@ -1104,11 +1066,4 @@ void sub_100002F70(uint64_t a1, void *a2)
   xpc_array_get_count(v2);
   sub_100002928();
   _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "\t#subscribers  = %zu", v4, 0xCu);
-}
-
-void sub_100003008(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  sub_100002950();
-  sub_100002934(&_mh_execute_header, v2, v3, "\tdata_size     = %zu\n", v4, v5, v6, v7, v8);
 }

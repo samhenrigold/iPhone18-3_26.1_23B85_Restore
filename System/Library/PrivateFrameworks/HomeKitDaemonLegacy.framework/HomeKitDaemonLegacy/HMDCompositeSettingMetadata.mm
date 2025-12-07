@@ -29,7 +29,7 @@ LABEL_7:
   v12 = [(HMDCompositeSettingMetadata *)&v18 init];
   if (v12)
   {
-    v13 = [pathCopy copy];
+    v13 = objc_msgSend_copy(pathCopy);
     keyPath = v12->_keyPath;
     v12->_keyPath = v13;
 

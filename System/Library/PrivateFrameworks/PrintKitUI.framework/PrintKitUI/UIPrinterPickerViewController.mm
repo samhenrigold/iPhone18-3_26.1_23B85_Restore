@@ -158,19 +158,19 @@ LABEL_10:
   [MEMORY[0x277D75D18] animateWithDuration:v10 animations:v9 completion:v8];
 }
 
-uint64_t __47__UIPrinterPickerViewController__presentWindow__block_invoke_2(uint64_t result, int a2)
+void *__47__UIPrinterPickerViewController__presentWindow__block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (*(v3 + 1058) == 1)
     {
       v4 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v4 removeObserver:*(v2 + 32) name:*MEMORY[0x277D772D8] object:0];
+      [v4 removeObserver:v2[4] name:*MEMORY[0x277D772D8] object:0];
 
-      *(*(v2 + 32) + 1058) = 0;
-      v3 = *(v2 + 32);
+      *(v2[4] + 1058) = 0;
+      v3 = v2[4];
     }
 
     v5 = *(v3 + 1000);

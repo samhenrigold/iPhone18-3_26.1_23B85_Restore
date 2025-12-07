@@ -57,7 +57,7 @@
 
 - (BOOL)promptedAssessment:(id *)assessment featureStatus:(id)status error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v9 = *MEMORY[0x277CCBEA0];
   v10 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CCBEA0]];
@@ -65,9 +65,9 @@
 
   if (areAllRequirementsSatisfied)
   {
-    v32 = 0;
-    v12 = [(HDMHPeriodicPromptedAssessmentsManager *)self _promptedAssessmentEligibilityStartDateWithFeatureStatus:statusCopy error:&v32];
-    v13 = v32;
+    v31 = 0;
+    v12 = [(HDMHPeriodicPromptedAssessmentsManager *)self _promptedAssessmentEligibilityStartDateWithFeatureStatus:statusCopy error:&v31];
+    v13 = v31;
     v14 = v12 != 0;
     _HKInitializeLogging();
     v15 = *MEMORY[0x277CCC2F0];
@@ -79,9 +79,9 @@
         v17 = v15;
         v18 = objc_opt_class();
         *buf = 138543618;
-        v34 = v18;
-        v35 = 2114;
-        v36 = v12;
+        v33 = v18;
+        v34 = 2114;
+        v35 = v12;
         v19 = v18;
         _os_log_impl(&dword_258977000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Next periodic prompted assessment due date: %{public}@", buf, 0x16u);
       }
@@ -131,16 +131,15 @@
       v27 = [statusCopy objectForKeyedSubscript:v9];
       unsatisfiedRequirementIdentifiersDescription = [v27 unsatisfiedRequirementIdentifiersDescription];
       *buf = 138543618;
-      v34 = v25;
-      v35 = 2114;
-      v36 = unsatisfiedRequirementIdentifiersDescription;
+      v33 = v25;
+      v34 = 2114;
+      v35 = unsatisfiedRequirementIdentifiersDescription;
       _os_log_impl(&dword_258977000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] Periodic assessments not supported due to: %{public}@", buf, 0x16u);
     }
 
     v14 = 1;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -433,38 +432,36 @@ LABEL_12:
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    *v9 = 138543362;
-    *&v9[4] = objc_opt_class();
-    v7 = *&v9[4];
-    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples added", v9, 0xCu);
+    *v8 = 138543362;
+    *&v8[4] = objc_opt_class();
+    v7 = *&v8[4];
+    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples added", v8, 0xCu);
   }
 
-  [(HDMHPeriodicPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentUpdate];
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDMHPeriodicPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentUpdate:*v8];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    *v9 = 138543362;
-    *&v9[4] = objc_opt_class();
-    v7 = *&v9[4];
-    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples removed", v9, 0xCu);
+    *v8 = 138543362;
+    *&v8[4] = objc_opt_class();
+    v7 = *&v8[4];
+    _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed samples removed", v8, 0xCu);
   }
 
-  [(HDMHPeriodicPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentUpdate];
-  v8 = *MEMORY[0x277D85DE8];
+  [(HDMHPeriodicPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentUpdate:*v8];
 }
 
 - (HDProfile)profile
@@ -476,16 +473,14 @@ LABEL_12:
 
 - (void)promptedAssessment:(void *)a1 featureStatus:(uint64_t)a2 error:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_258977000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining eligibility start date: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_258977000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining eligibility start date: %{public}@", &v6, 0x16u);
 }
 
 @end

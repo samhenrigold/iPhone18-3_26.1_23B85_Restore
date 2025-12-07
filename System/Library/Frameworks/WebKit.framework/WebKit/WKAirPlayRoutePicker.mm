@@ -26,7 +26,7 @@
     v20 = __Block_byref_object_dispose__8;
     v22 = [objc_alloc(off_1ED63B788()) initWithName:@"WebKit - HTML media element showing AirPlay route picker"];
     [v17[6] setDiscoveryMode:3];
-    if ([_MergedGlobals_34() instancesRespondToSelector:sel_setSortByIsVideoRoute_])
+    if ([(objc_class *)_MergedGlobals_34() instancesRespondToSelector:sel_setSortByIsVideoRoute_])
     {
       v11 = [objc_alloc(_MergedGlobals_34()) init];
       [v11 setSortByIsVideoRoute:videoCopy];

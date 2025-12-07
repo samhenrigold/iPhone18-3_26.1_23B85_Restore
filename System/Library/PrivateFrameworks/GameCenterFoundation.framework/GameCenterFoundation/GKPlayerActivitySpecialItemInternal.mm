@@ -20,26 +20,24 @@
   return v3;
 }
 
-void __62__GKPlayerActivitySpecialItemInternal_secureCodedPropertyKeys__block_invoke()
+void __62__GKPlayerActivitySpecialItemInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"activityType";
-  v4[0] = objc_opt_class();
-  v3[1] = @"message";
-  v4[1] = objc_opt_class();
-  v3[2] = @"alternateMessage";
-  v4[2] = objc_opt_class();
-  v3[3] = @"sfSymbol";
-  v4[3] = objc_opt_class();
-  v3[4] = @"timeStamp";
-  v4[4] = objc_opt_class();
-  v3[5] = @"instrumentationKey";
-  v4[5] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_225;
-  secureCodedPropertyKeys_sSecureCodedKeys_225 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"activityType";
+  v5[0] = objc_opt_class();
+  v4[1] = @"message";
+  v5[1] = objc_opt_class();
+  v4[2] = @"alternateMessage";
+  v5[2] = objc_opt_class();
+  v4[3] = @"sfSymbol";
+  v5[3] = objc_opt_class();
+  v4[4] = @"timeStamp";
+  v5[4] = objc_opt_class();
+  v4[5] = @"instrumentationKey";
+  v5[5] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:6];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_225;
+  secureCodedPropertyKeys_sSecureCodedKeys_225 = v2;
 }
 
 - (GKPlayerActivitySpecialItemInternal)initWithDictionary:(id)dictionary
@@ -100,14 +98,12 @@ void __62__GKPlayerActivitySpecialItemInternal_secureCodedPropertyKeys__block_in
 
 void __56__GKPlayerActivitySpecialItemInternal_typeToConstantMap__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = &unk_283B33328;
-  v4[0] = @"ADD_FRIENDS";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = &unk_283B33328;
+  v3[0] = @"ADD_FRIENDS";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = typeToConstantMap_typeToConstMap_240;
   typeToConstantMap_typeToConstMap_240 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)constantToTypeMap
@@ -124,14 +120,12 @@ void __56__GKPlayerActivitySpecialItemInternal_typeToConstantMap__block_invoke()
 
 void __56__GKPlayerActivitySpecialItemInternal_constantToTypeMap__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"ADD_FRIENDS";
-  v4[0] = &unk_283B33328;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"ADD_FRIENDS";
+  v3[0] = &unk_283B33328;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = constantToTypeMap_constToTypeMap_244;
   constantToTypeMap_constToTypeMap_244 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

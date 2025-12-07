@@ -15,13 +15,7 @@ void gpusLoadTransformFeedbackBuffers(uint64_t a1)
   while (1)
   {
     v4 = *(*(a1 + 40) + v3 + 376);
-    if (!v4)
-    {
-      goto LABEL_9;
-    }
-
-    v5 = **(v4 + 8);
-    if (!**(v4 + 8))
+    if (!v4 || !**(v4 + 8))
     {
       goto LABEL_9;
     }
@@ -101,8 +95,9 @@ uint64_t gldDestroyBuffer(void *a1, void *a2)
   return 0;
 }
 
-uint64_t gldDestroyMemoryPlugin(uint64_t a1, _OWORD *a2)
+uint64_t gldDestroyMemoryPlugin(uint64_t a1, uint64_t *a2)
 {
+  v4 = *a2;
   if (*a2)
   {
     if (*(a1 + 288))
@@ -110,11 +105,10 @@ uint64_t gldDestroyMemoryPlugin(uint64_t a1, _OWORD *a2)
       pthread_mutex_lock((a1 + 48));
     }
 
-    gpusWaitResource();
-    v4 = *a2;
+    gpusWaitResource(v4, 0);
     IOAccelResourceRelease();
     *a2 = 0u;
-    a2[1] = 0u;
+    *(a2 + 1) = 0u;
     if (*(a1 + 288))
     {
       pthread_mutex_unlock((a1 + 48));
@@ -147,16 +141,16 @@ uint64_t gldUnbindBuffer(uint64_t result, uint64_t a2)
   return result;
 }
 
-void gldRestoreBufferData(uint64_t a1, void *a2)
+void gldRestoreBufferData(uint64_t a1, void *a2, int a3)
 {
-  v2 = a2[2];
-  if (!v2)
+  v3 = a2[2];
+  if (!v3)
   {
     return;
   }
 
-  v3 = *(v2 + 8);
-  if (!v3)
+  v4 = *(v3 + 8);
+  if (!v4)
   {
     return;
   }
@@ -164,27 +158,27 @@ void gldRestoreBufferData(uint64_t a1, void *a2)
   if (*(a1 + 288))
   {
     pthread_mutex_lock((a1 + 48));
-    v2 = a2[2];
-    v3 = *(v2 + 8);
+    v3 = a2[2];
+    v4 = *(v3 + 8);
   }
 
-  v6 = *(v2 + 16);
-  v7 = *v2;
-  CFRetain(*v2);
+  v7 = *(v3 + 16);
+  v8 = *v3;
+  CFRetain(*v3);
   if (*(a1 + 288))
   {
     pthread_mutex_unlock((a1 + 48));
   }
 
-  if (v3)
+  if (v4)
   {
-    v8 = *(v3 + 260);
-    if (v8 == 128)
+    v9 = *(v4 + 260);
+    if (v9 == 128)
     {
-      v9 = *v6;
-      if ((v6[6] & 1 & ~v9) != 0)
+      v10 = *v7;
+      if ((v7[6] & 1 & ~v10) != 0)
       {
-        *v6 = v6[6] & 1 | v9;
+        *v7 = v7[6] & 1 | v10;
       }
 
       if (!*(*a2 + 29))
@@ -195,9 +189,9 @@ void gldRestoreBufferData(uint64_t a1, void *a2)
       goto LABEL_16;
     }
 
-    if (v8 == 192)
+    if (v9 == 192)
     {
-      if (v6[6] & ~*v6)
+      if (v7[6] & ~*v7)
       {
         IOAccelResourcePageoff();
         goto LABEL_17;
@@ -210,27 +204,22 @@ LABEL_16:
 
 LABEL_17:
 
-  CFRelease(v7);
+  CFRelease(v8);
 }
 
 uint64_t gpusGetKernelBufferResource(void *a1, uint64_t a2, int a3, unint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, int a8, uint64_t a9)
 {
-  v17 = *(a2 + 16);
-  if (v17)
+  v16 = *(a2 + 16);
+  if (!v16)
   {
-    v18 = *v17;
+    v23 = 0;
+    gldCreateMemoryPlugin(a1, &v23);
+    v16 = v23;
+    *(a2 + 16) = v23;
   }
 
-  else
-  {
-    v27 = 0;
-    gldCreateMemoryPlugin(a1, &v27);
-    v17 = v27;
-    *(a2 + 16) = v27;
-  }
-
-  *v17 = 0u;
-  *(v17 + 1) = 0u;
+  *v16 = 0u;
+  v16[1] = 0u;
   *(a9 + 80) = a4;
   *(a9 + 88) = a7;
   *(a9 + 64) = a5;
@@ -239,40 +228,38 @@ uint64_t gpusGetKernelBufferResource(void *a1, uint64_t a2, int a3, unint64_t a4
   *(a9 + 32) = 16777473;
   if (a7 >= a4)
   {
-    v19 = a4;
+    v17 = a4;
   }
 
   else
   {
-    v19 = a7;
+    v17 = a7;
   }
 
-  *(a9 + 8) = v19;
+  *(a9 + 8) = v17;
   *(a9 + 10) = 65537;
   *(a9 + 16) = a4;
   *a9 = a3;
   *(a9 + 4) = a8;
-  v20 = a1[5];
-  v21 = *(a1[1] + 552);
-  v22 = IOAccelResourceCreate();
-  **(a2 + 16) = v22;
-  if (v22)
+  v18 = IOAccelResourceCreate();
+  **(a2 + 16) = v18;
+  if (v18)
   {
     ClientShared = IOAccelResourceGetClientShared();
-    v24 = *(a2 + 16);
-    *(v24 + 8) = ClientShared;
-    v25 = 1;
-    *(*(v24 + 16) + 28) = 1;
+    v20 = *(a2 + 16);
+    *(v20 + 8) = ClientShared;
+    v21 = 1;
+    *(*(v20 + 16) + 28) = 1;
     *(*(a2 + 16) + 24) = IOAccelResourceGetDataBytes();
   }
 
   else
   {
-    v25 = 0;
+    v21 = 0;
   }
 
   IOAccelResourceRelease();
-  return v25;
+  return v21;
 }
 
 uint64_t gldCreateMemoryPlugin(void *a1, void *a2)
@@ -531,14 +518,14 @@ LABEL_20:
   }
 }
 
-uint64_t gldGetBufferAllocationIdentifiers(uint64_t result, _DWORD *a2)
+uint64_t gldGetBufferAllocationIdentifiers(uint64_t result, _DWORD *a2, uint64_t a3)
 {
   *a2 = 0;
-  v2 = *(result + 16);
-  if (v2)
+  v3 = *(result + 16);
+  if (v3)
   {
-    result = *v2;
-    if (*v2)
+    result = *v3;
+    if (*v3)
     {
       return IOAccelResourceCreateAllocationIdentifierSet();
     }
@@ -687,8 +674,6 @@ uint64_t gpumCompTestFence(void *a1, uint64_t a2)
 
   if (!*(a1[141] + 16 * *(a2 + 16)))
   {
-    v5 = *(a1[1] + 584);
-    v6 = a1[139];
     v2 = IOAccelDeviceTestEvent();
     *(a2 + 20) = v2;
     return v2;
@@ -709,15 +694,13 @@ uint64_t gpumCompFinishFence(void *a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1[1] + 584);
-  v5 = a1[139];
-  v6 = IOAccelDeviceTestEvent();
-  if ((v6 & 0xFE) == 0)
+  v4 = IOAccelDeviceTestEvent();
+  if ((v4 & 0xFE) == 0)
   {
-    v6 = 1;
+    v4 = 1;
   }
 
-  *(a2 + 20) = v6;
+  *(a2 + 20) = v4;
   return 1;
 }
 
@@ -740,7 +723,7 @@ BOOL gpumCompGetFenceStatus(void *a1, uint64_t a2, int *a3)
   return result;
 }
 
-uint64_t gldCreateQueue(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+uint64_t gldCreateQueue(uint64_t a1, char **a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a1 + 8);
   v8 = *v7;
@@ -756,43 +739,35 @@ uint64_t gldCreateQueue(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
   v9[2] = a1;
   v9[3] = a4;
   *(v9 + 8) = 0;
-  v11 = *(a1 + 40);
-  v12 = IOAccelCLContextCreate();
-  *(v10 + 40) = v12;
-  if (!v12)
+  v11 = IOAccelCLContextCreate();
+  *(v10 + 40) = v11;
+  if (!v11)
   {
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   *(v10 + 1104) = 0;
-  if (MEMORY[0x25302F030](v12, v10 + 1104, v10 + 1112))
+  if (MEMORY[0x25302F030](v11, v10 + 1104, v10 + 1112) || MEMORY[0x25302F020](*(v10 + 40), v10 + 1136, v10 + 1152, v10 + 1120, v10 + 1128))
   {
-LABEL_19:
+LABEL_18:
     IOAccelCLContextRelease();
-LABEL_20:
+LABEL_19:
     malloc_zone_free(*(v8 + 232), v10);
     return 10015;
   }
 
-  if (MEMORY[0x25302F020](*(v10 + 40), v10 + 1136, v10 + 1152, v10 + 1120, v10 + 1128))
-  {
-LABEL_18:
-    v24 = *(v10 + 40);
-    goto LABEL_19;
-  }
-
   pthread_mutex_lock((a1 + 48));
-  v13 = *(v10 + 1128);
-  *(v10 + 1168) = v13 >> 6;
-  v14 = 24 * (v13 >> 6);
-  v15 = (v10 + 1184);
-  *(v10 + 1200) = v14;
-  *(v10 + 1192) = v14;
+  v12 = *(v10 + 1128);
+  *(v10 + 1168) = v12 >> 6;
+  v13 = 24 * (v12 >> 6);
+  v14 = (v10 + 1184);
+  *(v10 + 1200) = v13;
+  *(v10 + 1192) = v13;
   *(v10 + 1208) = -2001041176;
   *(v10 + 1212) = 0;
   *(v10 + 1240) = -1;
-  v16 = MEMORY[0x277D85F48];
-  if (vm_allocate(*MEMORY[0x277D85F48], (v10 + 1184), v14, 1))
+  v15 = MEMORY[0x277D85F48];
+  if (vm_allocate(*MEMORY[0x277D85F48], (v10 + 1184), v13, 1))
   {
 LABEL_17:
     pthread_mutex_unlock((a1 + 48));
@@ -800,46 +775,45 @@ LABEL_17:
   }
 
   *(v10 + 1144) = *(v10 + 1184);
-  v17 = (v10 + 1176);
+  v16 = (v10 + 1176);
   if (gldCreateBuffer(a1, (v10 + 1176), v10 + 1184, v10 + 1240))
   {
-    v18 = *v16;
-    v19 = *(v10 + 1184);
-    v20 = *(v10 + 1200);
+    v17 = *v15;
+    v18 = *(v10 + 1184);
+    v19 = *(v10 + 1200);
 LABEL_16:
-    MEMORY[0x25302F430](v18, v19, v20);
+    MEMORY[0x25302F430](v17, v18, v19);
     goto LABEL_17;
   }
 
-  v21 = *(*v17)[1];
-  v22 = (v7[40])(a1);
-  v23 = *v17;
-  if (!v22)
+  v20 = (v7[40])(a1);
+  v21 = *v16;
+  if (!v20)
   {
-    gldDestroyBuffer(a1, v23);
-    v18 = *v16;
-    v19 = *(v10 + 1184);
+    gldDestroyBuffer(a1, v21);
+    v17 = *v15;
+    v18 = *(v10 + 1184);
 LABEL_15:
-    v20 = *(v10 + 1192);
+    v19 = *(v10 + 1192);
     goto LABEL_16;
   }
 
-  **(v23 + 8) = 0;
+  **(v21 + 8) = 0;
   *(v10 + 1084) = 16;
   if (gpusQueueSubmitDataBuffers(v10))
   {
-    if (*v17)
+    if (*v16)
     {
-      gldDestroyBuffer(a1, *v17);
+      gldDestroyBuffer(a1, *v16);
     }
 
-    v19 = *v15;
-    if (!*v15)
+    v18 = *v14;
+    if (!*v14)
     {
       goto LABEL_17;
     }
 
-    v18 = *v16;
+    v17 = *v15;
     goto LABEL_15;
   }
 
@@ -855,7 +829,7 @@ LABEL_15:
 
 uint64_t gpusQueueSubmitDataBuffers(uint64_t a1)
 {
-  v16 = 0;
+  v15 = 0;
   if (*(a1 + 1084))
   {
     v2 = 0;
@@ -872,7 +846,7 @@ uint64_t gpusQueueSubmitDataBuffers(uint64_t a1)
     while (v2 < *(a1 + 1084));
   }
 
-  v4 = MEMORY[0x25302F070](*(a1 + 40), *(a1 + 1072), a1 + 1076, &v16);
+  v4 = MEMORY[0x25302F070](*(a1 + 40), *(a1 + 1072), a1 + 1076, &v15);
   if (!v4)
   {
     if ((*(a1 + 1076) & 0x20000000) != 0)
@@ -882,7 +856,7 @@ uint64_t gpusQueueSubmitDataBuffers(uint64_t a1)
 
     else
     {
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_10;
       }
@@ -910,7 +884,6 @@ LABEL_10:
       *v8 = DataBytes + DataSize - 128;
       v8[1] = v11;
       v8[2] = IOAccelResourceGetClientShared();
-      v12 = *(a1 + 40);
       IOAccelContextAddResource();
       *(v8 + 44) = 0x100000000;
       ++v7;
@@ -921,11 +894,11 @@ LABEL_10:
   }
 
   *(a1 + 1072) = 0;
-  v13 = *(a1 + 1104);
-  v14 = *v13;
-  *(v13 + 2) = 131328;
-  *(a1 + 1096) = &v13[v14 - 28];
-  *(a1 + 1088) = v13 + 6;
+  v12 = *(a1 + 1104);
+  v13 = *v12;
+  *(v12 + 2) = 131328;
+  *(a1 + 1096) = &v12[v13 - 28];
+  *(a1 + 1088) = v12 + 6;
   return v4;
 }
 
@@ -934,12 +907,11 @@ uint64_t gldDestroyQueue(void *a1)
   (*(a1[1] + 56))();
   gldDestroyBuffer(a1[2], a1[147]);
   MEMORY[0x25302F430](*MEMORY[0x277D85F48], a1[148], a1[149]);
-  v2 = a1[5];
   IOAccelCLContextRelease();
-  v3 = a1[145];
-  if (v3)
+  v2 = a1[145];
+  if (v2)
   {
-    malloc_zone_free(*(*a1 + 232), v3);
+    malloc_zone_free(*(*a1 + 232), v2);
   }
 
   malloc_zone_free(*(*a1 + 232), a1);
@@ -1018,7 +990,7 @@ uint64_t gldDestroyKernel(void *a1, uint64_t a2, void *a3)
 
 uint64_t gpusComputeSubmitDataBuffers(uint64_t a1)
 {
-  v17 = 0;
+  v16 = 0;
   if (*(a1 + 1076))
   {
     v2 = 0;
@@ -1035,7 +1007,7 @@ uint64_t gpusComputeSubmitDataBuffers(uint64_t a1)
     while (v2 < *(a1 + 1076));
   }
 
-  v4 = MEMORY[0x25302F070](*(a1 + 32), *(a1 + 1064), a1 + 1068, &v17);
+  v4 = MEMORY[0x25302F070](*(a1 + 32), *(a1 + 1064), a1 + 1068, &v16);
   if (v4)
   {
     v5 = *(*(a1 + 8) + 504);
@@ -1044,17 +1016,17 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v16 = *(a1 + 1068);
-  if ((v16 & 0x68000000) != 0)
+  v15 = *(a1 + 1068);
+  if ((v15 & 0x68000000) != 0)
   {
-    if ((v16 & 0x8000000) != 0)
+    if ((v15 & 0x8000000) != 0)
     {
       v5 = *(*(a1 + 8) + 504);
       goto LABEL_6;
     }
   }
 
-  else if (v17)
+  else if (v16)
   {
     v5 = *(*(a1 + 8) + 504);
     goto LABEL_6;
@@ -1077,7 +1049,6 @@ LABEL_7:
       *v8 = DataBytes + DataSize - 128;
       v8[1] = v11;
       v8[2] = IOAccelResourceGetClientShared();
-      v12 = *(a1 + 32);
       IOAccelContextAddResource();
       *(v8 + 44) = 0x100000000;
       ++v7;
@@ -1088,11 +1059,11 @@ LABEL_7:
   }
 
   *(a1 + 1064) = 0;
-  v13 = *(a1 + 1096);
-  v14 = *v13;
-  *(v13 + 2) = 131328;
-  *(a1 + 1088) = &v13[v14 - 28];
-  *(a1 + 1080) = v13 + 6;
+  v12 = *(a1 + 1096);
+  v13 = *v12;
+  *(v12 + 2) = 131328;
+  *(a1 + 1088) = &v12[v13 - 28];
+  *(a1 + 1080) = v12 + 6;
   return v4;
 }
 
@@ -1111,7 +1082,6 @@ uint64_t gpusComputeGetDataBuffer(uint64_t a1, uint64_t a2)
     *(v5 + 48) = DataBytes + DataSize - 128;
     *(v5 + 56) = v8;
     *(v5 + 64) = IOAccelResourceGetClientShared();
-    v9 = *(a1 + 32);
     IOAccelContextAddResource();
     ++*(v5 + 96);
   }
@@ -1134,7 +1104,6 @@ uint64_t gpusQueueGetDataBuffer(uint64_t a1, uint64_t a2)
     *(v5 + 56) = DataBytes + DataSize - 128;
     *(v5 + 64) = v8;
     *(v5 + 72) = IOAccelResourceGetClientShared();
-    v9 = *(a1 + 40);
     IOAccelContextAddResource();
     ++*(v5 + 104);
   }
@@ -1152,97 +1121,97 @@ uint64_t gldCreateContext(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint6
   {
     v15 = *(a3 + 52);
     v16 = *(v12 + 149);
-    if ((v16 & v15) == 0 || (v15 & ~v16) != 0)
+    if ((v16 & v15) != 0 && (v15 & ~v16) == 0)
+    {
+      v17 = malloc_type_zone_calloc(*(v13 + 232), 1uLL, *(v13 + 80), 0x5EE7D508uLL);
+      if (!v17)
+      {
+        abort();
+      }
+
+      v18 = v17;
+      __CFSetLastAllocationEventName();
+      v19 = IOAccelGLContextCreate();
+      v18[8] = v19;
+      if (v19)
+      {
+        v18[271] = 0;
+        if (MEMORY[0x25302F170](v19, v18 + 271, v18 + 272) || MEMORY[0x25302F160](v18[8], v18 + 275, v18 + 276, v18 + 273, v18 + 274) || (v18[278] = v18[274] >> 6, *(v18 + 537) = 16, v18[1] = v12, gpusSubmitDataBuffers(v18)))
+        {
+          IOAccelGLContextRelease();
+          malloc_zone_free(*(v13 + 232), v18);
+          return 10015;
+        }
+
+        else
+        {
+          pthread_mutex_lock((a1 + 48));
+          v20 = *(a1 + 292) + 1;
+          *(a1 + 292) = v20;
+          if (v20 >= 3)
+          {
+            *(a1 + 288) = 1;
+            glgSetTakeLock();
+          }
+
+          pthread_mutex_unlock((a1 + 48));
+          *(v18 + 20) = *(a1 + 296);
+          v18[11] = v12[98];
+          v18[277] = __abort_malloc_zone_calloc_0(*(v13 + 232), (v18[278] >> 3) & 0x1FFFFFFFFFFFFFFCLL);
+          if ((MEMORY[0xFFFFFC020] & 0x20) != 0)
+          {
+            v21 = 64;
+          }
+
+          else if ((MEMORY[0xFFFFFC020] & 0x40) != 0)
+          {
+            v21 = 0x80;
+          }
+
+          else
+          {
+            v21 = 32;
+          }
+
+          *(v18 + 72) = v21;
+          v18[19] = glgCreateProcessor();
+          *v18 = v13;
+          v18[1] = v12;
+          v18[2] = a1;
+          v18[3] = a5;
+          v18[5] = a6;
+          *(v18 + 2366) = 1;
+          *(v18 + 2363) = 1;
+          *(v18 + 28) = 3;
+          (v12[4])(v18, a3);
+          if ((v18[10] & 0x80) != 0)
+          {
+            v22 = 1;
+          }
+
+          else
+          {
+            v22 = 3;
+          }
+
+          *(a4 + 120) = v22;
+          (v12[32])(v18, a4, a3);
+          result = 0;
+          v18[4] = a4;
+          *a2 = v18;
+        }
+      }
+
+      else
+      {
+        return 10004;
+      }
+    }
+
+    else
     {
       return 10006;
     }
-
-    v17 = malloc_type_zone_calloc(*(v13 + 232), 1uLL, *(v13 + 80), 0x5EE7D508uLL);
-    if (!v17)
-    {
-      abort();
-    }
-
-    v18 = v17;
-    __CFSetLastAllocationEventName();
-    v19 = *(a1 + 40);
-    v20 = IOAccelGLContextCreate();
-    v18[8] = v20;
-    if (!v20)
-    {
-      return 10004;
-    }
-
-    v18[271] = 0;
-    if (MEMORY[0x25302F170](v20, v18 + 271, v18 + 272))
-    {
-LABEL_12:
-      IOAccelGLContextRelease();
-      malloc_zone_free(*(v13 + 232), v18);
-      return 10015;
-    }
-
-    if (MEMORY[0x25302F160](v18[8], v18 + 275, v18 + 276, v18 + 273, v18 + 274) || (v18[278] = v18[274] >> 6, *(v18 + 537) = 16, v18[1] = v12, gpusSubmitDataBuffers(v18)))
-    {
-      v21 = v18[8];
-      goto LABEL_12;
-    }
-
-    pthread_mutex_lock((a1 + 48));
-    v22 = *(a1 + 292) + 1;
-    *(a1 + 292) = v22;
-    if (v22 >= 3)
-    {
-      *(a1 + 288) = 1;
-      v23 = *(a1 + 32);
-      glgSetTakeLock();
-    }
-
-    pthread_mutex_unlock((a1 + 48));
-    *(v18 + 20) = *(a1 + 296);
-    v18[11] = v12[98];
-    v18[277] = __abort_malloc_zone_calloc_0(*(v13 + 232), (v18[278] >> 3) & 0x1FFFFFFFFFFFFFFCLL);
-    if ((MEMORY[0xFFFFFC020] & 0x20) != 0)
-    {
-      v24 = 64;
-    }
-
-    else if ((MEMORY[0xFFFFFC020] & 0x40) != 0)
-    {
-      v24 = 0x80;
-    }
-
-    else
-    {
-      v24 = 32;
-    }
-
-    *(v18 + 72) = v24;
-    v18[19] = glgCreateProcessor();
-    *v18 = v13;
-    v18[1] = v12;
-    v18[2] = a1;
-    v18[3] = a5;
-    v18[5] = a6;
-    *(v18 + 2366) = 1;
-    *(v18 + 2363) = 1;
-    *(v18 + 28) = 3;
-    (v12[4])(v18, a3);
-    if ((v18[10] & 0x80) != 0)
-    {
-      v25 = 1;
-    }
-
-    else
-    {
-      v25 = 3;
-    }
-
-    *(a4 + 120) = v25;
-    (v12[32])(v18, a4, a3);
-    result = 0;
-    v18[4] = a4;
-    *a2 = v18;
   }
 
   return result;
@@ -1261,7 +1230,7 @@ void *__abort_malloc_zone_calloc_0(malloc_zone_t *a1, size_t size)
 
 uint64_t gpusSubmitDataBuffers(uint64_t a1)
 {
-  v15 = 0;
+  v14 = 0;
   if (*(a1 + 2148))
   {
     v2 = 0;
@@ -1278,7 +1247,7 @@ uint64_t gpusSubmitDataBuffers(uint64_t a1)
     while (v2 < *(a1 + 2148));
   }
 
-  v4 = MEMORY[0x25302F1C0](*(a1 + 64), *(a1 + 2136), a1 + 2140, &v15 + 4, &v15, a1 + 2144);
+  v4 = MEMORY[0x25302F1C0](*(a1 + 64), *(a1 + 2136), a1 + 2140, &v14 + 4, &v14, a1 + 2144);
   if (v4)
   {
     v5 = *(*(a1 + 8) + 504);
@@ -1287,10 +1256,10 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v14 = *(a1 + 2140);
-  if ((v14 & 0x6C000000) != 0)
+  v13 = *(a1 + 2140);
+  if ((v13 & 0x6C000000) != 0)
   {
-    if ((v14 & 0x8000000) != 0)
+    if ((v13 & 0x8000000) != 0)
     {
       *(a1 + 76) = 2;
       if (!no_crash_upon_reset && !*(a1 + 77))
@@ -1300,13 +1269,13 @@ LABEL_6:
       }
     }
 
-    else if ((v14 & 0x20000000) != 0)
+    else if ((v13 & 0x20000000) != 0)
     {
       *(a1 + 76) = 1;
     }
   }
 
-  else if (HIDWORD(v15))
+  else if (HIDWORD(v14))
   {
     v5 = *(*(a1 + 8) + 504);
     goto LABEL_6;
@@ -1327,7 +1296,6 @@ LABEL_7:
       *(v8 - 44) = DataBytes + IOAccelResourceGetDataSize() - 128;
       *(v8 - 36) = *(v8 - 52);
       *(v8 - 28) = IOAccelResourceGetClientShared();
-      v10 = *(a1 + 64);
       IOAccelContextAddResource();
       *v8 = 0x100000000;
       v8 += 8;
@@ -1338,11 +1306,11 @@ LABEL_7:
   }
 
   *(a1 + 2136) = 0;
-  v11 = *(a1 + 2168);
-  v12 = *v11;
-  *(v11 + 2) = 131328;
-  *(a1 + 2160) = &v11[v12 - 28];
-  *(a1 + 2152) = v11 + 6;
+  v10 = *(a1 + 2168);
+  v11 = *v10;
+  *(v10 + 2) = 131328;
+  *(a1 + 2160) = &v10[v11 - 28];
+  *(a1 + 2152) = v10 + 6;
   return v4;
 }
 
@@ -1370,48 +1338,45 @@ uint64_t gldDestroyContext(void *a1)
     }
   }
 
-  gpuiReleaseDrawable(a1);
+  gpuiReleaseDrawable();
   (*(a1[1] + 40))(a1);
-  v5 = a1[19];
   glgDestroyProcessor();
-  v6 = a1[8];
   IOAccelGLContextRelease();
-  v7 = a1[277];
-  if (v7)
+  v5 = a1[277];
+  if (v5)
   {
-    malloc_zone_free(*(*a1 + 232), v7);
+    malloc_zone_free(*(*a1 + 232), v5);
   }
 
-  v8 = *a1;
+  v6 = *a1;
   if (*(*a1 + 231) && a1[103])
   {
     gpuiDestroyQueryBufferClientAlloc(a1);
     malloc_zone_free(*(*a1 + 232), a1[103]);
-    v8 = *a1;
+    v6 = *a1;
   }
 
-  v9 = a1[280];
-  if (v9)
+  v7 = a1[280];
+  if (v7)
   {
-    malloc_zone_free(*(v8 + 232), v9);
-    v8 = *a1;
+    malloc_zone_free(*(v6 + 232), v7);
+    v6 = *a1;
   }
 
-  v10 = a1[102];
-  if (v10)
+  v8 = a1[102];
+  if (v8)
   {
-    malloc_zone_free(*(v8 + 232), v10);
-    v8 = *a1;
+    malloc_zone_free(*(v6 + 232), v8);
+    v6 = *a1;
   }
 
-  malloc_zone_free(*(v8 + 232), a1);
+  malloc_zone_free(*(v6 + 232), a1);
   return 0;
 }
 
 void gldReclaimContext(uint64_t a1)
 {
   (*(*(a1 + 8) + 472))();
-  v2 = *(a1 + 64);
 
   JUMPOUT(0x25302F180);
 }
@@ -1429,7 +1394,6 @@ uint64_t gpusGetDataBuffer(uint64_t a1, uint64_t a2)
     *(v5 + 1120) = DataBytes + IOAccelResourceGetDataSize() - 128;
     *(v5 + 1128) = *(v5 + 1112);
     *(v5 + 1136) = IOAccelResourceGetClientShared();
-    v7 = *(a1 + 64);
     IOAccelContextAddResource();
     ++*(v5 + 1168);
   }
@@ -1437,7 +1401,7 @@ uint64_t gpusGetDataBuffer(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t gpumCreateDevice(void *a1, int a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t))
+uint64_t gpumCreateDevice(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t))
 {
   v8 = *(a4 + 216);
   v9 = *(a4 + 208);
@@ -1534,23 +1498,23 @@ void gldClearFence(uint64_t a1, uint64_t a2)
 
 uint64_t gpulAllocFenceIndexOnQueue(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
-  v5 = 0;
-  v6 = MEMORY[0x277D85F48];
-  v7 = *(a1 + 1168);
-  v8 = v7 >> 5;
-  if ((v7 >> 5))
+  v4 = 0;
+  v5 = MEMORY[0x277D85F48];
+  v6 = *(a1 + 1168);
+  v7 = v6 >> 5;
+  if ((v6 >> 5))
   {
-    v9 = 0;
-    v10 = (v7 >> 5);
+    v8 = 0;
+    v9 = (v6 >> 5);
     while (1)
     {
-      v5 = *(*(a1 + 1160) + 4 * v9);
-      if (v5 != -1)
+      v4 = *(*(a1 + 1160) + 4 * v8);
+      if (v4 != -1)
       {
         break;
       }
 
-      if (v10 == ++v9)
+      if (v9 == ++v8)
       {
         goto LABEL_8;
       }
@@ -1559,29 +1523,29 @@ uint64_t gpulAllocFenceIndexOnQueue(uint64_t a1, _DWORD *a2, uint64_t a3)
 
   else
   {
-    LODWORD(v9) = 0;
+    LODWORD(v8) = 0;
   }
 
-  if (v9 == v8)
+  if (v8 == v7)
   {
 LABEL_8:
     if (!MEMORY[0x25302F020](*(a1 + 40), a1 + 1136, a1 + 1152, a1 + 1120, a1 + 1128))
     {
       address = 0;
-      v11 = *(a1 + 1128);
-      *(a1 + 1168) = v11 >> 6;
-      v12 = (v11 >> 9) & 0x7FFFFFFFFFFFFCLL;
-      v13 = malloc_type_zone_realloc(*(*a1 + 232), *(a1 + 1160), v12, 0x5361369AuLL);
-      if (!v13)
+      v10 = *(a1 + 1128);
+      *(a1 + 1168) = v10 >> 6;
+      v11 = (v10 >> 9) & 0x7FFFFFFFFFFFFCLL;
+      v12 = malloc_type_zone_realloc(*(*a1 + 232), *(a1 + 1160), v11, 0x5361369AuLL);
+      if (!v12)
       {
         abort();
       }
 
-      *(a1 + 1160) = v13;
-      bzero(&v13[v12 >> 1], v12 >> 1);
-      if (!vm_allocate(*v6, &address, 24 * *(a1 + 1168), 1))
+      *(a1 + 1160) = v12;
+      bzero(&v12[v11 >> 1], v11 >> 1);
+      if (!vm_allocate(*v5, &address, 24 * *(a1 + 1168), 1))
       {
-        gpusFinishQueueResourceUsingFlushFunc(a1, **(*(a1 + 1176) + 16), 0, a3);
+        gpusFinishQueueResourceUsingFlushFunc();
       }
     }
 
@@ -1592,15 +1556,15 @@ LABEL_8:
   {
     for (i = 0; i != 32; ++i)
     {
-      if (((v5 >> i) & 1) == 0)
+      if (((v4 >> i) & 1) == 0)
       {
         break;
       }
     }
 
     result = 1;
-    *(*(a1 + 1160) + 4 * v9) |= 1 << i;
-    *a2 = i + 32 * v9;
+    *(*(a1 + 1160) + 4 * v8) |= 1 << i;
+    *a2 = i + 32 * v8;
   }
 
   return result;
@@ -1787,14 +1751,11 @@ uint64_t gldFinishFenceOnQueue(uint64_t a1, uint64_t a2)
     }
 
     (*(*(v4 + 8) + 480))(*(a2 + 8));
-    v5 = *(a2 + 16);
   }
 
-  v6 = *(*(v4 + 8) + 584);
-  v7 = *(v4 + 1120);
-  v8 = IOAccelDeviceTestEvent();
-  *(a2 + 20) = v8;
-  if (!v8)
+  v5 = IOAccelDeviceTestEvent();
+  *(a2 + 20) = v5;
+  if (!v5)
   {
     MEMORY[0x25302EFE0](*(v4 + 40), *(a2 + 16));
     *(a2 + 20) = 1;
@@ -1816,13 +1777,11 @@ uint64_t gldGetFenceStatus(uint64_t a1, uint64_t a2)
     return 3;
   }
 
-  v4 = *a2;
   if (*a2)
   {
-    if (!*(v4[275] + 16 * *(a2 + 16)))
+    if (!*(*(*a2 + 2200) + 16 * *(a2 + 16)))
     {
-      v5 = v4 + 273;
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
     return 0;
@@ -1834,18 +1793,15 @@ uint64_t gldGetFenceStatus(uint64_t a1, uint64_t a2)
     return 3;
   }
 
-  if (*(v4[142] + 16 * *(a2 + 16)))
+  if (*(*(v4 + 1136) + 16 * *(a2 + 16)))
   {
     return 0;
   }
 
-  v5 = v4 + 140;
-LABEL_11:
-  v6 = *(v4[1] + 584);
-  v7 = *v5;
-  v8 = IOAccelDeviceTestEvent();
-  *(a2 + 20) = v8;
-  if (v8)
+LABEL_10:
+  v5 = IOAccelDeviceTestEvent();
+  *(a2 + 20) = v5;
+  if (v5)
   {
     return 3;
   }
@@ -1868,8 +1824,6 @@ uint64_t gpuiTestFence(uint64_t a1, void *a2, int a3)
   if (!*(*(*a2 + 2200) + 16 * *(a2 + 4)))
   {
 LABEL_6:
-    v7 = *(*(v5 + 8) + 584);
-    v8 = *(v5 + 2184);
     LOBYTE(v3) = IOAccelDeviceTestEvent();
     *(a2 + 20) = v3;
     return v3;
@@ -1879,7 +1833,6 @@ LABEL_6:
   if (a3 && v5 == a1)
   {
     (*(*(v5 + 8) + 472))(*a2, 2);
-    v6 = *(a2 + 4);
     goto LABEL_6;
   }
 
@@ -1904,29 +1857,26 @@ uint64_t gpuiFlushFence(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t gpuiFinishFence(uint64_t result, uint64_t a2)
+uint64_t gpuiFinishFence(uint64_t result, void *a2)
 {
   if (!*(a2 + 20))
   {
     v3 = *a2;
-    if (*(*(*a2 + 2200) + 16 * *(a2 + 16)))
+    if (*(*(*a2 + 2200) + 16 * *(a2 + 4)))
     {
       if (v3 != result)
       {
         return result;
       }
 
-      (*(v3[1] + 472))(*a2, 2);
-      v4 = *(a2 + 16);
+      (*(*(v3 + 8) + 472))(*a2, 2);
     }
 
-    v5 = *(v3[1] + 584);
-    v6 = v3[273];
     result = IOAccelDeviceTestEvent();
     *(a2 + 20) = result;
     if (!result)
     {
-      result = MEMORY[0x25302F110](v3[8], *(a2 + 16));
+      result = MEMORY[0x25302F110](*(v3 + 64), *(a2 + 4));
       *(a2 + 20) = 1;
     }
   }
@@ -1934,22 +1884,20 @@ uint64_t gpuiFinishFence(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t gpuiWaitForFence(uint64_t result, uint64_t a2)
+void gpuiWaitForFence(uint64_t result, uint64_t *a2)
 {
   if (!*(a2 + 20))
   {
     v3 = *a2;
     if (*a2)
     {
-      if (!*(v3[275] + 16 * *(a2 + 16)))
+      if (!*(*(v3 + 2200) + 16 * *(a2 + 4)))
       {
-        v4 = *(*(result + 8) + 584);
-        v5 = v3[273];
-        result = IOAccelDeviceTestEvent();
-        *(a2 + 20) = result;
-        if (!result)
+        v4 = IOAccelDeviceTestEvent();
+        *(a2 + 20) = v4;
+        if (!v4)
         {
-          result = MEMORY[0x25302F110](v3[8], *(a2 + 16));
+          MEMORY[0x25302F110](*(v3 + 64), *(a2 + 4));
 LABEL_10:
           *(a2 + 20) = 1;
         }
@@ -1958,34 +1906,30 @@ LABEL_10:
 
     else
     {
-      v6 = *(a2 + 8);
-      if (v6)
+      v5 = a2[1];
+      if (v5)
       {
-        if (!*(v6[142] + 16 * *(a2 + 16)))
+        if (!*(*(v5 + 1136) + 16 * *(a2 + 4)))
         {
-          v7 = *(*(result + 8) + 584);
-          v8 = v6[140];
-          result = IOAccelDeviceTestEvent();
-          *(a2 + 20) = result;
-          if (!result)
+          v6 = IOAccelDeviceTestEvent();
+          *(a2 + 20) = v6;
+          if (!v6)
           {
-            result = MEMORY[0x25302EFE0](v6[5], *(a2 + 16));
+            MEMORY[0x25302EFE0](*(v5 + 40), *(a2 + 4));
             goto LABEL_10;
           }
         }
       }
     }
   }
-
-  return result;
 }
 
 uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(uint64_t *, unint64_t, void, void))
 {
-  v85 = 0;
+  v84 = 0;
   v4 = a3;
-  v87 = 0;
   v86 = 0;
+  v85 = 0;
   LOWORD(v6) = 0;
   v7 = 0;
   v8 = 0;
@@ -1994,9 +1938,9 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
   v11 = 0;
   v12 = 0;
   v13 = 0;
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  v88 = *(a3 + 220);
+  v87 = *(a3 + 220);
   v14 = 16777212;
   v15 = 1280;
   v16 = a2;
@@ -2015,10 +1959,10 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
       switch(v17)
       {
         case '3':
-          LODWORD(v85) = 1;
+          LODWORD(v84) = 1;
           goto LABEL_60;
         case '4':
-          HIDWORD(v85) = 1;
+          HIDWORD(v84) = 1;
           goto LABEL_60;
         case '5':
           v15 |= 4u;
@@ -2030,11 +1974,11 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
           v25 = *v18;
           if (*v18 < 0)
           {
-            goto LABEL_71;
+            return 10008;
           }
 
           v18 = v16 + 2;
-          HIDWORD(v86) = v25;
+          HIDWORD(v85) = v25;
           goto LABEL_60;
         case '8':
           v6 = *v18;
@@ -2043,7 +1987,7 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
             goto LABEL_49;
           }
 
-          goto LABEL_71;
+          return 10008;
         case '9':
           v15 |= 0x800u;
           goto LABEL_60;
@@ -2083,7 +2027,7 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
         case 'W':
         case 'X':
         case 'Y':
-          goto LABEL_141;
+          return v19;
         case 'L':
           v15 |= 8u;
           goto LABEL_60;
@@ -2095,7 +2039,7 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
           goto LABEL_60;
         case 'T':
           v18 = v16 + 2;
-          v88 &= v16[1];
+          v87 &= v16[1];
           goto LABEL_60;
         case 'Z':
           v15 |= 0x2000u;
@@ -2106,7 +2050,7 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
             v26 = *v18;
             if (*v18 < 0)
             {
-              goto LABEL_71;
+              return 10008;
             }
 
             v18 = v16 + 2;
@@ -2120,15 +2064,13 @@ uint64_t gpumChoosePixelFormat(char **a1, int *a2, uint64_t a3, uint64_t (*a4)(u
           {
             if (v17 != 14)
             {
-              goto LABEL_141;
+              return v19;
             }
 
             v23 = *v18;
             if (*v18 < 0)
             {
-LABEL_71:
-              v19 = 10008;
-              goto LABEL_141;
+              return 10008;
             }
 
             v18 = v16 + 2;
@@ -2153,7 +2095,7 @@ LABEL_71:
           v24 = *v18;
           if (*v18 < 0)
           {
-            goto LABEL_71;
+            return 10008;
           }
 
           v18 = v16 + 2;
@@ -2168,7 +2110,7 @@ LABEL_71:
           v22 = *v18;
           if (*v18 < 0)
           {
-            goto LABEL_71;
+            return 10008;
           }
 
           v18 = v16 + 2;
@@ -2181,10 +2123,10 @@ LABEL_71:
 
       else if (v17 == 7)
       {
-        LODWORD(v86) = *v18;
+        LODWORD(v85) = *v18;
         if (*v18 < 0)
         {
-          goto LABEL_71;
+          return 10008;
         }
 
 LABEL_49:
@@ -2195,13 +2137,13 @@ LABEL_49:
       {
         if (v17 != 8)
         {
-          goto LABEL_141;
+          return v19;
         }
 
         v20 = *v18;
         if (*v18 < 0)
         {
-          goto LABEL_71;
+          return 10008;
         }
 
         v18 = v16 + 2;
@@ -2218,12 +2160,12 @@ LABEL_49:
     {
       if (v17 == 5)
       {
-        v21 = v87 | 8;
+        v21 = v86 | 8;
       }
 
       else
       {
-        v21 = v87 | 2;
+        v21 = v86 | 2;
       }
     }
 
@@ -2233,28 +2175,27 @@ LABEL_49:
       {
         if (v17 != 4)
         {
-          goto LABEL_141;
+          return v19;
         }
 
         goto LABEL_60;
       }
 
-      v21 = v87 | 0x18;
+      v21 = v86 | 0x18;
     }
 
-    v87 = v21;
+    v86 = v21;
 LABEL_60:
     v16 = v18;
     if (v18 - a2 > 192)
     {
-      v19 = 10000;
-      goto LABEL_141;
+      return 10000;
     }
   }
 
-  v80 = v15;
-  v83 = gpulGLIBitsGE(v11);
-  v82 = gpulGLIBitsGE(v10);
+  v79 = v15;
+  v82 = gpulGLIBitsGE(v11);
+  v81 = gpulGLIBitsGE(v10);
   v28 = v13 < 9 && v9 < 33;
   v29 = v14 & 0x3F0FFFFC;
   if (!v28)
@@ -2290,7 +2231,7 @@ LABEL_60:
 
   if (v9 <= 0x10)
   {
-    v32 = v80;
+    v32 = v79;
     if (v9 <= 8)
     {
       if (v9)
@@ -2314,7 +2255,7 @@ LABEL_60:
   {
     v30 = 1073725440;
 LABEL_78:
-    v32 = v80;
+    v32 = v79;
   }
 
   if (v13 <= 0x20)
@@ -2391,8 +2332,8 @@ LABEL_78:
     v35 = 0x80000000;
   }
 
-  v81 = v35;
-  if (HIDWORD(v86))
+  v80 = v35;
+  if (HIDWORD(v85))
   {
     v36 = v6;
   }
@@ -2402,8 +2343,8 @@ LABEL_78:
     v36 = 0;
   }
 
-  v79 = v36;
-  if (HIDWORD(v86))
+  v78 = v36;
+  if (HIDWORD(v85))
   {
     v37 = v7;
   }
@@ -2413,7 +2354,7 @@ LABEL_78:
     v37 = 0;
   }
 
-  if (HIDWORD(v86))
+  if (HIDWORD(v85))
   {
     v38 = v31;
   }
@@ -2427,83 +2368,83 @@ LABEL_78:
   if (*(v4 + 216))
   {
     v40 = 0;
-    v75 = 0;
+    v74 = 0;
     ptr = 0;
     v41 = v29 & 0x3FFFFFFC & v30 & v33;
     v42 = v32 | v39;
-    v78 = v32 | v39 | 0x200;
-    v74 = v4;
+    v77 = v32 | v39 | 0x200;
+    v73 = v4;
     do
     {
       v43 = *(v4 + 208) + *(v4 + 64) * v40;
-      v44 = *(v43 + 596) & v88;
+      v44 = *(v43 + 596) & v87;
       if (v44)
       {
         v45 = 0;
-        LODWORD(v27) = *(v43 + 596) & v88;
+        LODWORD(v27) = *(v43 + 596) & v87;
         v46 = vcnt_s8(*&v27);
         v46.i16[0] = vaddlv_u8(v46);
         v47 = v46.i32[0];
-        v77 = v40;
+        v76 = v40;
         v48 = (v40 << 24) + 0x1000000;
         v49 = 1;
         while (1)
         {
+          v88 = 0;
           v89 = 0;
-          v90 = 0;
-          v91 = v42;
-          v92 = v87;
-          v93 = v41;
+          v90 = v42;
+          v91 = v86;
+          v92 = v41;
+          v93 = v80;
           v94 = v81;
           v95 = v82;
-          v96 = v83;
-          v97 = 0;
-          v98 = v86;
-          v99 = WORD2(v86);
-          v100 = v79;
-          v101 = v37;
-          v102 = v38;
+          v96 = 0;
+          v97 = v85;
+          v98 = WORD2(v85);
+          v99 = v78;
+          v100 = v37;
+          v101 = v38;
+          v102 = 0;
           v103 = 0;
-          v104 = 0;
-          v105 = v88;
+          v104 = v87;
           if (v45)
           {
-            v92 = v87 & 0xFFFFFFEF;
+            v91 = v86 & 0xFFFFFFEF;
           }
 
           if (v47 >= 2)
           {
-            v91 = v78;
+            v90 = v77;
           }
 
-          v90 = *(v43 + 780) | v48;
-          v105 = v44;
-          v50 = a4(&v89, v43, v85, HIDWORD(v85));
+          v89 = *(v43 + 780) | v48;
+          v104 = v44;
+          v50 = a4(&v88, v43, v84, HIDWORD(v84));
           if (v50)
           {
             break;
           }
 
-          v51 = *&v49 & ((v92 & 0x10) >> 4);
+          v51 = *&v49 & ((v91 & 0x10) >> 4);
           v45 = 1;
           v49 = 0;
           if ((v51 & 1) == 0)
           {
-            v4 = v74;
-            v40 = v77;
+            v4 = v73;
+            v40 = v76;
             goto LABEL_135;
           }
         }
 
-        v52 = (v50 + v75);
-        v53 = malloc_type_zone_malloc(*(v74 + 232), 56 * v52, 0x1EE5DEDuLL);
+        v52 = (v50 + v74);
+        v53 = malloc_type_zone_malloc(*(v73 + 232), 56 * v52, 0x1EE5DEDuLL);
         if (!v53)
         {
           abort();
         }
 
-        v40 = v77;
-        if (v75 < 1)
+        v40 = v76;
+        if (v74 < 1)
         {
           v61 = 0;
           v57 = v52;
@@ -2511,7 +2452,7 @@ LABEL_78:
 
         else
         {
-          v54 = v75;
+          v54 = v74;
           v55 = v53 + 56;
           v56 = ptr;
           v57 = v52;
@@ -2532,19 +2473,19 @@ LABEL_78:
           }
 
           while (v54);
-          v61 = v75;
+          v61 = v74;
         }
 
-        v4 = v74;
+        v4 = v73;
         v62 = v61;
         if (v61 < v57)
         {
-          v63 = v61 - v75;
+          v63 = v61 - v74;
           v64 = &v53[56 * v62 + 56];
           v65 = v57 - v62;
           do
           {
-            v66 = &v89 + 7 * v63;
+            v66 = &v88 + 7 * v63;
             v67 = *(v66 + 1);
             v27 = *(v66 + 2);
             v68 = v66[6];
@@ -2566,7 +2507,7 @@ LABEL_78:
         if (ptr)
         {
           v69 = v53;
-          malloc_zone_free(*(v74 + 232), ptr);
+          malloc_zone_free(*(v73 + 232), ptr);
           ptr = v69;
         }
 
@@ -2575,7 +2516,7 @@ LABEL_78:
           ptr = v53;
         }
 
-        v75 = v57;
+        v74 = v57;
       }
 
 LABEL_135:
@@ -2585,7 +2526,7 @@ LABEL_135:
     while (v40 < *(v4 + 216));
     v70 = a1;
     v71 = ptr;
-    if (ptr && v75 <= 0)
+    if (ptr && v74 <= 0)
     {
       malloc_zone_free(*(v4 + 232), ptr);
       v71 = 0;
@@ -2600,8 +2541,6 @@ LABEL_135:
 
   v19 = 0;
   *v70 = v71;
-LABEL_141:
-  v72 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2831,27 +2770,22 @@ uint64_t gpulCheckForFramebufferIOSurfaceChanges(uint64_t result, void *a2)
   v2 = *(*a2 + 200);
   if (v2)
   {
-    v4 = result;
     do
     {
-      v5 = __clz(__rbit32(v2));
-      v6 = **(a2[1] + 8 * v5);
-      if ((*v6 & 0x800) != 0)
+      v4 = __clz(__rbit32(v2));
+      if ((***(a2[1] + 8 * v4) & 0x800) != 0)
       {
-        v7 = *(v6 + 256);
-        v8 = *(*(v4 + 8) + 772);
-        v9 = *(v6 + 250);
-        result = IOSurfaceBindAccel();
+        v5 = IOSurfaceBindAccel();
       }
 
-      v10 = 1 << v5 == v2;
-      v2 ^= 1 << v5;
+      v6 = 1 << v4 == v2;
+      v2 ^= 1 << v4;
     }
 
-    while (!v10);
+    while (!v6);
   }
 
-  return result;
+  return v5;
 }
 
 uint64_t gldUpdateDrawFramebuffer(uint64_t a1, int a2)
@@ -2941,11 +2875,11 @@ uint64_t gldPopulateRendererInfo(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void gpumInitializeIOData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, void (*a8)(uint64_t))
+void gpumInitializeIOData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, void (*a8)(uint64_t, uint64_t))
 {
   v9 = 0;
   v10 = 0;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a7 = a4;
   *(a7 + 8) = a5;
   *(a7 + 220) = a3;
@@ -2954,9 +2888,9 @@ void gpumInitializeIOData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_
   do
   {
     v11 = 1 << v9;
-    v24[v9 + 64] = 0;
-    v24[v9 + 32] = 0;
-    v24[v9] = 0;
+    v23[v9 + 64] = 0;
+    v23[v9 + 32] = 0;
+    v23[v9] = 0;
     v12 = v10;
     if (((1 << v9) & a3) != 0)
     {
@@ -2967,7 +2901,7 @@ void gpumInitializeIOData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_
       }
 
       v14 = 0;
-      while (v24[v14 + 64] != v13)
+      while (v23[v14 + 64] != v13)
       {
         if (v10 == ++v14)
         {
@@ -2978,14 +2912,14 @@ void gpumInitializeIOData(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_
       if ((v14 & 0x80000000) != 0)
       {
 LABEL_11:
-        v24[v10++ + 64] = v13;
-        v24[v12 + 32] |= v11;
+        v23[v10++ + 64] = v13;
+        v23[v12 + 32] |= v11;
       }
 
       else
       {
-        v24[v14 + 32] |= v11;
-        ++v24[v14];
+        v23[v14 + 32] |= v11;
+        ++v23[v14];
       }
     }
 
@@ -2993,7 +2927,7 @@ LABEL_11:
   }
 
   while (v9 != 32);
-  a8(a7);
+  a8(a7, a2);
   if (v10)
   {
     v15 = v10;
@@ -3011,9 +2945,9 @@ LABEL_11:
       v19 = &v17[*(a7 + 64) * v18];
       *(v19 + 194) = v18;
       *v19 = a7;
-      *(v19 + 148) = v24[v18 + 64];
-      *(v19 + 149) = v24[v18 + 32];
-      *(v19 + 150) = v24[v18];
+      *(v19 + 148) = v23[v18 + 64];
+      *(v19 + 149) = v23[v18 + 32];
+      *(v19 + 150) = v23[v18];
       v20 = IOAccelDeviceCreateWithAPIProperty();
       if (!v20)
       {
@@ -3047,8 +2981,6 @@ LABEL_11:
   {
     gpumInitializeIOData_cold_1();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void gpumTerminateIOData(uint64_t a1)
@@ -3061,7 +2993,6 @@ void gpumTerminateIOData(uint64_t a1)
     {
       v5 = &v2[*(a1 + 64) * i];
       (*(a1 + 24))(v5);
-      v6 = *(v5 + 73);
       IOAccelDeviceRelease();
       *(v5 + 73) = 0;
     }
@@ -3107,16 +3038,16 @@ uint64_t gldSetInteger(uint64_t a1, int a2, int *a3)
 
     if (a2 == 666)
     {
-      v9 = *(a1 + 144);
+      v7 = *(a1 + 144);
       result = 0;
       if (*a3)
       {
-        v8 = v9 & 0xFFFFFDFF;
+        v6 = v7 & 0xFFFFFDFF;
       }
 
       else
       {
-        v8 = v9 | 0x200;
+        v6 = v7 | 0x200;
       }
     }
 
@@ -3125,26 +3056,26 @@ uint64_t gldSetInteger(uint64_t a1, int a2, int *a3)
       if (a2 != 667)
       {
 LABEL_31:
-        v17 = *(*(a1 + 8) + 496);
+        v15 = *(*(a1 + 8) + 496);
 LABEL_45:
 
-        return v17();
+        return v15();
       }
 
-      v7 = *(a1 + 144);
+      v5 = *(a1 + 144);
       result = 0;
       if (*a3)
       {
-        v8 = v7 & 0xFFDFFFFF;
+        v6 = v5 & 0xFFDFFFFF;
       }
 
       else
       {
-        v8 = v7 | 0x200000;
+        v6 = v5 | 0x200000;
       }
     }
 
-    *(a1 + 144) = v8;
+    *(a1 + 144) = v6;
     return result;
   }
 
@@ -3159,8 +3090,6 @@ LABEL_45:
 
     if (a2 == 321)
     {
-      v4 = *(a1 + 64);
-      v5 = *a3;
       IOAccelContextSetBackgroundRendering();
       return 0;
     }
@@ -3180,7 +3109,7 @@ LABEL_45:
     goto LABEL_31;
   }
 
-  v10 = *a3;
+  v8 = *a3;
   if (!*a3)
   {
     result = 0;
@@ -3188,27 +3117,27 @@ LABEL_45:
     return result;
   }
 
-  if (v10 == 1)
+  if (v8 == 1)
   {
-    v18 = *(a1 + 2148);
-    if (!v18)
+    v16 = *(a1 + 2148);
+    if (!v16)
     {
       return 0;
     }
 
-    for (i = 0; i < v18; ++i)
+    for (i = 0; i < v16; ++i)
     {
-      v20 = a1 + 1112 + (i << 6);
-      v21 = *v20;
-      if (*v20 < *(v20 + 16))
+      v18 = a1 + 1112 + (i << 6);
+      v19 = *v18;
+      if (*v18 < *(v18 + 16))
       {
         do
         {
-          *v21++ = random();
+          *v19++ = random();
         }
 
-        while (v21 < *(v20 + 16));
-        v18 = *(a1 + 2148);
+        while (v19 < *(v18 + 16));
+        v16 = *(a1 + 2148);
       }
 
       result = 0;
@@ -3217,9 +3146,9 @@ LABEL_45:
 
   else
   {
-    if (v10 != 2)
+    if (v8 != 2)
     {
-      v17 = *(*(a1 + 8) + 496);
+      v15 = *(*(a1 + 8) + 496);
       goto LABEL_45;
     }
 
@@ -3228,26 +3157,26 @@ LABEL_45:
       return 0;
     }
 
-    v11 = 0;
+    v9 = 0;
     do
     {
-      v12 = (a1 + 1112 + (v11 << 6));
-      v13 = ((v12[2] - *v12) >> 2);
-      v14 = random();
+      v10 = (a1 + 1112 + (v9 << 6));
+      v11 = ((v10[2] - *v10) >> 2);
+      v12 = random();
       do
       {
-        v15 = v14;
-        v14 >>= 1;
+        v13 = v12;
+        v12 >>= 1;
       }
 
-      while (v15 > v13);
-      v16 = random();
+      while (v13 > v11);
+      v14 = random();
       result = 0;
-      *(*v12 + 4 * v15) = v16;
-      ++v11;
+      *(*v10 + 4 * v13) = v14;
+      ++v9;
     }
 
-    while (v11 < *(a1 + 2148));
+    while (v9 < *(a1 + 2148));
   }
 
   return result;
@@ -3348,8 +3277,9 @@ LABEL_24:
   return result;
 }
 
-uint64_t gpusPixelBytes(int a1, int a2)
+uint64_t gpusPixelBytes(uint64_t a1, int a2)
 {
+  v2 = a1;
   result = 1;
   if (a2 > 33633)
   {
@@ -3375,7 +3305,7 @@ uint64_t gpusPixelBytes(int a1, int a2)
         return 4;
       }
 
-      return 2 * gpulComponents(a1);
+      return 2 * gpulComponents(v2);
     }
 
     if (a2 > 33638)
@@ -3419,34 +3349,34 @@ LABEL_29:
 LABEL_27:
     if (!a2)
     {
-      if (a1 <= 37807)
+      if (v2 <= 37807)
       {
         result = 8;
-        if (a1 > 36282)
+        if (v2 > 36282)
         {
-          if ((a1 - 37488) > 9)
+          if ((v2 - 37488) > 9)
           {
-            if ((a1 - 36283) < 2)
+            if ((v2 - 36283) < 2)
             {
               return result;
             }
           }
 
-          else if (((1 << (a1 - 112)) & 0xF3) != 0)
+          else if (((1 << (v2 - 112)) & 0xF3) != 0)
           {
             return result;
           }
         }
 
-        else if (a1 > 35411)
+        else if (v2 > 35411)
         {
-          if ((a1 - 35412) < 4 || (a1 - 35420) >= 4 && (a1 - 35840) < 4)
+          if ((v2 - 35412) < 4 || (v2 - 35420) >= 4 && (v2 - 35840) < 4)
           {
             return result;
           }
         }
 
-        else if ((a1 - 33776) < 2)
+        else if ((v2 - 33776) < 2)
         {
           return result;
         }
@@ -3461,12 +3391,12 @@ LABEL_27:
 
   if (((1 << a2) & 0x70) != 0)
   {
-    return 4 * gpulComponents(a1);
+    return 4 * gpulComponents(v2);
   }
 
   if (((1 << a2) & 0x80C) != 0)
   {
-    return 2 * gpulComponents(a1);
+    return 2 * gpulComponents(v2);
   }
 
   if (((1 << a2) & 3) == 0)
@@ -3474,23 +3404,23 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v4 = a1 - 101;
-  if ((a1 - 35429) > 0xF)
+  v4 = v2 - 101;
+  if ((v2 - 35429) > 0xF)
   {
-    if ((a1 - 37883) < 3)
+    if ((v2 - 37883) < 3)
     {
       return result;
     }
 
-    if (a1 == 37902 || (a1 - 37875) < 6)
+    if (v2 == 37902 || (v2 - 37875) < 6)
     {
       return 2;
     }
 
-    if ((a1 - 37903) >= 2)
+    if ((v2 - 37903) >= 2)
     {
 
-      return gpulComponents(a1);
+      return gpulComponents(v2);
     }
 
     return 4;
@@ -3596,7 +3526,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t gpusRowBytes(int a1, int a2, int a3)
+uint64_t gpusRowBytes(uint64_t a1, int a2, int a3)
 {
   if (!a2)
   {
@@ -3814,7 +3744,7 @@ LABEL_27:
   }
 }
 
-uint64_t gpusPixelSettings(int a1, int a2, int a3, int a4, int *a5, _DWORD *a6, _DWORD *a7, int *a8, char a9)
+uint64_t gpusPixelSettings(uint64_t a1, int a2, int a3, int a4, int *a5, _DWORD *a6, _DWORD *a7, int *a8, char a9)
 {
   result = gpusPixelBytes(a1, a2);
   *a6 = result;
@@ -4078,10 +4008,7 @@ uint64_t gldObjectPurgeable(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
         a1[269] = v17 + 3;
         *v17 = 197888;
         v17[1] = (a1[141] - a1[139]) >> 2;
-        v18 = a1[8];
-        v19 = *(a3 + 24);
         IOAccelContextAddResource();
-        v20 = *(a3 + 24);
         IOAccelResourceRelease();
         *(a3 + 24) = 0;
         *(a3 + 32) = 0;
@@ -4097,23 +4024,21 @@ uint64_t gldObjectPurgeable(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t
 
       else
       {
-        v30 = a1[269];
-        if ((v30 + 16) > a1[270])
+        v22 = a1[269];
+        if ((v22 + 16) > a1[270])
         {
           (*(v9 + 472))(a1, 2);
-          v30 = a1[269];
+          v22 = a1[269];
         }
 
-        a1[269] = v30 + 16;
-        *v30 = 263168;
-        *(v30 + 4) = (a1[141] - a1[139]) >> 2;
-        v31 = a1[8];
-        v32 = *(a3 + 24);
+        a1[269] = v22 + 16;
+        *v22 = 263168;
+        *(v22 + 4) = (a1[141] - a1[139]) >> 2;
         IOAccelContextAddResource();
-        *(v30 + 14) = 0;
-        v33 = *(v8 + 260);
-        *(v30 + 13) = (v33 & 0x40) != 0;
-        *(v30 + 12) = (v33 & 0x80) == 0 || !v5;
+        *(v22 + 14) = 0;
+        v23 = *(v8 + 260);
+        *(v22 + 13) = (v23 & 0x40) != 0;
+        *(v22 + 12) = (v23 & 0x80) == 0 || !v5;
         LODWORD(result) = 35354;
       }
 
@@ -4142,7 +4067,7 @@ LABEL_13:
   }
 
   v12 = *(a3 + 16);
-  if (!v12 || (v13 = v12[1]) == 0)
+  if (!v12 || (v13 = *(v12 + 8)) == 0)
   {
     v16 = **a3 == 0;
     goto LABEL_13;
@@ -4157,25 +4082,21 @@ LABEL_13:
 
   else if (a4 == 35353)
   {
-    v21 = a1[269];
-    if ((v21 + 3) > a1[270])
+    v18 = a1[269];
+    if ((v18 + 3) > a1[270])
     {
       (*(v14 + 472))(a1, 2);
-      v21 = a1[269];
-      v12 = *(a3 + 16);
+      v18 = a1[269];
     }
 
-    a1[269] = v21 + 3;
-    *v21 = 197888;
-    v21[1] = (a1[141] - a1[139]) >> 2;
-    v22 = a1[8];
-    v23 = *v12;
+    a1[269] = v18 + 3;
+    *v18 = 197888;
+    v18[1] = (a1[141] - a1[139]) >> 2;
     IOAccelContextAddResource();
-    v24 = **(a3 + 16);
     IOAccelResourceRelease();
-    v25 = *(a3 + 16);
-    *v25 = 0u;
-    v25[1] = 0u;
+    v19 = *(a3 + 16);
+    *v19 = 0u;
+    v19[1] = 0u;
     (*(a1[1] + 152))(a1[2]);
     malloc_zone_free(*(*a1 + 232), *(a3 + 16));
     *(a3 + 16) = 0;
@@ -4187,24 +4108,21 @@ LABEL_13:
   {
     if ((*(v13 + 260) & 0xF) == 0)
     {
-      v26 = a1[269];
-      if ((v26 + 16) > a1[270])
+      v20 = a1[269];
+      if ((v20 + 16) > a1[270])
       {
         (*(v14 + 472))(a1, 2);
-        v26 = a1[269];
-        v12 = *(a3 + 16);
+        v20 = a1[269];
       }
 
-      a1[269] = v26 + 16;
-      *v26 = 263168;
-      *(v26 + 4) = (a1[141] - a1[139]) >> 2;
-      v27 = a1[8];
-      v28 = *v12;
+      a1[269] = v20 + 16;
+      *v20 = 263168;
+      *(v20 + 4) = (a1[141] - a1[139]) >> 2;
       IOAccelContextAddResource();
-      *(v26 + 14) = 0;
-      v29 = *(v13 + 260);
-      *(v26 + 13) = (v29 & 0x40) != 0;
-      *(v26 + 12) = (v29 & 0x80) == 0 || !v5;
+      *(v20 + 14) = 0;
+      v21 = *(v13 + 260);
+      *(v20 + 13) = (v21 & 0x40) != 0;
+      *(v20 + 12) = (v21 & 0x80) == 0 || !v5;
     }
 
     result = 35355;
@@ -4235,7 +4153,7 @@ uint64_t gldObjectUnpurgeable(void *a1, int a2, uint64_t a3, int a4, _DWORD *a5)
     {
       if (v9)
       {
-        v10 = v9[2];
+        v10 = *(v9 + 16);
         if (v10)
         {
           *(v10 + 29) = 0;
@@ -4245,28 +4163,25 @@ uint64_t gldObjectUnpurgeable(void *a1, int a2, uint64_t a3, int a4, _DWORD *a5)
       goto LABEL_25;
     }
 
-    v21 = v9[1];
-    *a5 = (*(v21 + 260) & 0xFFFFFFBF) == 0;
-    v22 = a1[1];
-    v13 = *(v22 + 536);
+    v19 = *(v9 + 8);
+    *a5 = (*(v19 + 260) & 0xFFFFFFBF) == 0;
+    v20 = a1[1];
+    v13 = *(v20 + 536);
     if (!v13)
     {
-      if ((*(v21 + 260) & 0xF) == 0)
+      if ((*(v19 + 260) & 0xF) == 0)
       {
-        v23 = v9[2];
+        v21 = *(v9 + 16);
         v14 = a1[269];
         if ((v14 + 16) > a1[270])
         {
-          (*(v22 + 472))(a1, 2);
+          (*(v20 + 472))(a1, 2);
           v14 = a1[269];
-          v9 = *(a3 + 16);
         }
 
         a1[269] = v14 + 16;
         *v14 = 263168;
         *(v14 + 4) = (a1[141] - a1[139]) >> 2;
-        v24 = a1[8];
-        v25 = *v9;
         IOAccelContextAddResource();
         *(v14 + 12) = 0;
         if (a4 == 35355)
@@ -4277,15 +4192,15 @@ uint64_t gldObjectUnpurgeable(void *a1, int a2, uint64_t a3, int a4, _DWORD *a5)
             (*(a1[1] + 472))(a1, 2);
           }
 
-          v26 = *v23;
-          if ((*(v21 + 260) & 0x40) != 0)
+          v22 = *v21;
+          if ((*(v19 + 260) & 0x40) != 0)
           {
-            v26 |= v23[6];
+            v22 |= v21[6];
           }
 
-          v19 = v26 == 0;
+          v17 = v22 == 0;
 LABEL_42:
-          if (v19)
+          if (v17)
           {
             return 35356;
           }
@@ -4348,8 +4263,6 @@ LABEL_25:
         a1[269] = v14 + 16;
         *v14 = 263168;
         *(v14 + 4) = (a1[141] - a1[139]) >> 2;
-        v15 = a1[8];
-        v16 = *(a3 + 24);
         IOAccelContextAddResource();
         *(v14 + 12) = 0;
         if (a4 == 35355)
@@ -4360,27 +4273,27 @@ LABEL_25:
             (*(a1[1] + 472))(a1, 2);
           }
 
-          v17 = *(*a3 + 211);
+          v15 = *(*a3 + 211);
           if (!*(*a3 + 211))
           {
             return 35356;
           }
 
-          v18 = 0;
+          v16 = 0;
           do
           {
-            v18 |= *v8;
+            v16 |= *v8;
             if ((*(v11 + 260) & 0x40) != 0)
             {
-              v18 |= v8[6];
+              v16 |= v8[6];
             }
 
             ++v8;
-            --v17;
+            --v15;
           }
 
-          while (v17);
-          v19 = v18 == 0;
+          while (v15);
+          v17 = v16 == 0;
           goto LABEL_42;
         }
 
@@ -4468,9 +4381,8 @@ LABEL_11:
       v15 = 32;
     }
 
-    v17 = *v13;
     *(v13 + 2) = 0;
-    v18 = v13 + 16;
+    v17 = v13 + 16;
     *(v13 + 1) = 0;
     *(v13 + 6) = 0;
     *(v13 + 11) = 0;
@@ -4483,86 +4395,81 @@ LABEL_11:
     *(v13 + 34) = 65537;
     *(v13 + 5) = 0;
     *(v13 + 6) = v16;
-    v19 = *(*(a1 + 16) + 40);
-    v20 = *(*(a1 + 8) + 552);
-    v21 = IOAccelResourceCreate();
-    *v14 = v21;
+    v18 = IOAccelResourceCreate();
+    *v14 = v18;
     v14[1] = IOAccelResourceGetClientShared();
-    *(*v18 + 28) = 1;
+    *(*v17 + 28) = 1;
     IOAccelResourceRelease();
-    if (!v21)
+    if (!v18)
     {
       malloc_zone_free(*(*a1 + 232), ptr);
-      v35 = 0;
+      v30 = 0;
       result = 10016;
       goto LABEL_36;
     }
 
-    v22 = *v14;
     DataBytes = IOAccelResourceGetDataBytes();
-    v24 = DataBytes;
-    v25 = *(a1 + 2232);
-    if (v25 && DataBytes)
+    v20 = DataBytes;
+    v21 = *(a1 + 2232);
+    if (v21 && DataBytes)
     {
-      v26 = *(a1 + 824);
-      if (v26)
+      v22 = *(a1 + 824);
+      if (v22)
       {
-        if (*(v26[2] + 24) != 1)
+        if (*(*(v22 + 16) + 24) != 1)
         {
           (*(*(a1 + 8) + 472))(a1, 2);
-          v26 = *(a1 + 824);
         }
 
-        v27 = *v26;
         IOAccelResourceFinishEvent();
-        v25 = *(a1 + 2232);
+        v21 = *(a1 + 2232);
       }
 
-      memcpy(v24, v25, *(a1 + 2248));
+      memcpy(v20, v21, *(a1 + 2248));
     }
 
-    v28 = *(a1 + 824);
-    if (v28)
+    v23 = *(a1 + 824);
+    if (v23)
     {
-      if (*v28)
+      if (*v23)
       {
         gpuiDestroyQueryBufferClientAlloc(a1);
-        v28 = *(a1 + 824);
+        v23 = *(a1 + 824);
       }
 
-      malloc_zone_free(*(*a1 + 232), v28);
+      malloc_zone_free(*(*a1 + 232), v23);
     }
 
     *(a1 + 824) = v14;
-    *(a1 + 2232) = v24;
+    *(a1 + 2232) = v20;
     *(a1 + 2252) = v15;
     *(a1 + 2248) = v16;
     (*(*(a1 + 8) + 224))(a1);
-    v29 = *(a1 + 2252);
-    v30 = v29 >> 3;
-    v31 = *(a1 + 2240);
-    v32 = *(*a1 + 232);
-    if (v31)
+    v24 = *(a1 + 2252);
+    v25 = v24 >> 3;
+    v26 = *(a1 + 2240);
+    v27 = *(*a1 + 232);
+    if (v26)
     {
-      v33 = malloc_type_zone_realloc(v32, v31, v30, 0x5361369AuLL);
-      if (!v33)
+      v28 = malloc_type_zone_realloc(v27, v26, v25, 0x5361369AuLL);
+      if (!v28)
       {
         goto LABEL_37;
       }
 
-      *(a1 + 2240) = v33;
-      bzero(&v33[v29 >> 4], v29 >> 4);
+      *(a1 + 2240) = v28;
+      bzero(&v28[v24 >> 4], v24 >> 4);
     }
 
     else
     {
-      v34 = malloc_type_zone_calloc(v32, 1uLL, v30, 0x5EE7D508uLL);
-      if (!v34)
+      v29 = malloc_type_zone_calloc(v27, 1uLL, v25, 0x5EE7D508uLL);
+      if (!v29)
       {
         goto LABEL_37;
       }
 
-      *(a1 + 2240) = v34;
+      *(a1 + 2240) = v29;
     }
   }
 
@@ -4583,11 +4490,11 @@ LABEL_5:
 
   result = 0;
   *(*(a1 + 2240) + 4 * v9) |= 1 << i;
-  v38 = i + 32 * v9;
-  v35 = ptr;
-  ptr[2] = v38;
+  v33 = i + 32 * v9;
+  v30 = ptr;
+  ptr[2] = v33;
 LABEL_36:
-  *a2 = v35;
+  *a2 = v30;
   return result;
 }
 
@@ -4626,7 +4533,7 @@ uint64_t gpumGetQueryInfo(uint64_t a1, _DWORD *a2, uint64_t a3, void *a4, void (
 
     else
     {
-      a5(a1, *(*(a1 + 40) + 520), 11);
+      (a5)(a1, *(*(a1 + 40) + 520), 11, a4);
       *(v14 + 4) = 11;
       *(a1 + 800) = v14;
       v15 = a2[1];
@@ -4665,7 +4572,7 @@ uint64_t gpumGetQueryInfo(uint64_t a1, _DWORD *a2, uint64_t a3, void *a4, void (
     if (v12 <= 9)
     {
       v16 = a7;
-      a6(a1, a2, a2[1]);
+      (a6)(a1, a2, a2[1], a4, a5);
       a7 = v16;
       a2[1] = 12;
       *(a1 + 8 * v12 + 712) = 0;
@@ -4747,6 +4654,7 @@ uint64_t gldReadFramebufferData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     v17 = **(a10 + 8);
     if (v17)
     {
+      v22 = a8;
       v18 = *(a1 + 16);
       if (*(v18 + 288))
       {
@@ -4766,6 +4674,7 @@ uint64_t gldReadFramebufferData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
         pthread_mutex_unlock((v19 + 48));
       }
 
+      a8 = v22;
       if (v17)
       {
         return 0;
@@ -4775,7 +4684,7 @@ uint64_t gldReadFramebufferData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
 
   v21 = *(*(a1 + 8) + 448);
 
-  return v21(a1, a2, a3, a4, a5, a6, a7);
+  return v21(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 uint64_t gldCreateSampler(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -4849,9 +4758,9 @@ uint64_t gldDestroySampler(void *a1, void *a2)
   return 0;
 }
 
-uint64_t gpusLoadCurrentSamplers(uint64_t result, unsigned __int16 a2)
+void *gpusLoadCurrentSamplers(void *result, unsigned __int16 a2)
 {
-  v2 = *(result + 24);
+  v2 = result[3];
   if (!*(v2 + 12724))
   {
     return result;
@@ -4860,10 +4769,10 @@ uint64_t gpusLoadCurrentSamplers(uint64_t result, unsigned __int16 a2)
   v3 = result;
   v4 = 0;
   v5 = a2;
-  v6 = *(result + 16);
-  v7 = result + 976;
-  v8 = result + 456;
-  v18 = a2;
+  v6 = result[2];
+  v7 = result + 122;
+  v8 = result + 57;
+  v17 = a2;
   do
   {
     if (!v5)
@@ -4871,7 +4780,7 @@ uint64_t gpusLoadCurrentSamplers(uint64_t result, unsigned __int16 a2)
       goto LABEL_22;
     }
 
-    v19 = v4;
+    v18 = v4;
     v9 = 16 * v4;
     do
     {
@@ -4880,73 +4789,72 @@ uint64_t gpusLoadCurrentSamplers(uint64_t result, unsigned __int16 a2)
       v12 = *(v3[5] + 8 * v11 + 720);
       if (!v12)
       {
-        if (!*(v8 + 8 * v11))
+        if (!v8[v11])
         {
           v12 = 0;
           goto LABEL_18;
         }
 
         v12 = 0;
-        *(v7 + 4 * v11) = 0;
-        v15 = 1;
+        *(v7 + v11) = 0;
+        v14 = 1;
         goto LABEL_17;
       }
 
-      v13 = **(v12 + 8);
-      v14 = *(v12 + 16);
-      if (*(v7 + 4 * v11) == v14)
+      v13 = *(v12 + 16);
+      if (*(v7 + v11) == v13)
       {
-        v15 = **(v12 + 8);
+        v14 = **(v12 + 8);
       }
 
       else
       {
-        v15 = 1;
+        v14 = 1;
       }
 
       if (**(v12 + 8))
       {
-        v16 = *(v6 + 320) + 1;
-        *(v6 + 320) = v16;
-        *(v12 + 16) = v16;
+        v15 = *(v6 + 320) + 1;
+        *(v6 + 320) = v15;
+        *(v12 + 16) = v15;
         result = (*(v3[1] + 312))(v6, v12);
         if (result)
         {
           **(v12 + 8) = 0;
-          v14 = *(v12 + 16);
+          v13 = *(v12 + 16);
           goto LABEL_12;
         }
 
         v12 = 0;
-        *(v7 + 4 * v11) = 0;
-        v15 = *(v8 + 8 * v11) != 0;
-        if (!*(v8 + 8 * v11))
+        *(v7 + v11) = 0;
+        v14 = v8[v11] != 0;
+        if (!v8[v11])
         {
           goto LABEL_18;
         }
 
 LABEL_17:
-        result = (*(v3[1] + 384))(v3, v12, v10 + v9, v15);
+        result = (*(v3[1] + 384))(v3, v12, v10 + v9, v14);
         goto LABEL_18;
       }
 
 LABEL_12:
-      *(v7 + 4 * v11) = v14;
-      if (v15)
+      *(v7 + v11) = v13;
+      if (v14)
       {
         goto LABEL_17;
       }
 
 LABEL_18:
-      *(v8 + 8 * v11) = v12;
-      v17 = 1 << v10 == v5;
+      v8[v11] = v12;
+      v16 = 1 << v10 == v5;
       v5 ^= 1 << v10;
     }
 
-    while (!v17);
+    while (!v16);
     v2 = v3[3];
-    v5 = v18;
-    v4 = v19;
+    v5 = v17;
+    v4 = v18;
 LABEL_22:
     ++v4;
   }
@@ -4958,66 +4866,63 @@ LABEL_22:
 uint64_t gldCreateShareGroup(void *a1, void *a2, uint64_t a3)
 {
   *a2 = 0;
-  v6 = a1[73];
-  v7 = IOAccelSharedCreate();
-  if (!v7)
+  v6 = IOAccelSharedCreate();
+  if (!v6)
   {
     return 10015;
   }
 
-  v8 = v7;
-  v9 = malloc_type_zone_calloc(*(*a1 + 232), 1uLL, *(*a1 + 72), 0x5EE7D508uLL);
-  if (!v9)
+  v7 = v6;
+  v8 = malloc_type_zone_calloc(*(*a1 + 232), 1uLL, *(*a1 + 72), 0x5EE7D508uLL);
+  if (!v8)
   {
     abort();
   }
 
-  v10 = v9;
-  *v9 = *a1;
-  *(v9 + 1) = a1;
-  *(v9 + 2) = a3;
-  *(v9 + 5) = v8;
-  *(v9 + 74) = *(a1 + 191);
-  pthread_mutex_init((v9 + 48), 0);
-  v10[288] = 0;
-  *(v10 + 73) = 1;
-  *(v10 + 75) = 0;
-  *(v10 + 4) = glgCreateProcessor();
-  (a1[2])(v10, 0);
+  v9 = v8;
+  *v8 = *a1;
+  *(v8 + 1) = a1;
+  *(v8 + 2) = a3;
+  *(v8 + 5) = v7;
+  *(v8 + 74) = *(a1 + 191);
+  pthread_mutex_init((v8 + 48), 0);
+  v9[288] = 0;
+  *(v9 + 73) = 1;
+  *(v9 + 75) = 0;
+  *(v9 + 4) = glgCreateProcessor();
+  (a1[2])(v9, 0);
   result = 10020;
-  if (*(v10 + 75) != 10020)
+  if (*(v9 + 75) != 10020)
   {
     result = 0;
-    *a2 = v10;
+    *a2 = v9;
   }
 
   return result;
 }
 
-uint64_t gldDestroyShareGroup(uint64_t a1)
+uint64_t gldDestroyShareGroup(char *a1)
 {
   for (i = 0; i != 88; i += 8)
   {
-    v3 = a1 + i;
-    v4 = *(a1 + i + 112);
+    v3 = &a1[i];
+    v4 = *&a1[i + 112];
     if (v4)
     {
       gpusDestroyZeroTexture(a1, v4);
-      *(v3 + 112) = 0;
+      *(v3 + 14) = 0;
     }
 
-    v5 = *(v3 + 200);
+    v5 = *(v3 + 25);
     if (v5)
     {
       gpusDestroyZeroTexture(a1, v5);
-      *(v3 + 200) = 0;
+      *(v3 + 25) = 0;
     }
   }
 
-  (*(*(a1 + 8) + 24))(a1);
-  v6 = *(a1 + 40);
+  (*(*(a1 + 1) + 24))(a1);
   IOAccelSharedRelease();
-  v7 = *(a1 + 32);
   glgDestroyProcessor();
   pthread_mutex_destroy((a1 + 48));
   malloc_zone_free(*(*a1 + 232), a1);
@@ -5273,17 +5178,6 @@ uint64_t gldFinishContext(uint64_t a1)
   return result;
 }
 
-void gpusFinishQueueResourceUsingFlushFunc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (!a4)
-  {
-    v4 = *(*(a1 + 8) + 480);
-  }
-
-  v5 = *(a1 + 40);
-  JUMPOUT(0x25302EFF0);
-}
-
 uint64_t gldTestObject(uint64_t a1, int a2, int a3, int a4, void *a5)
 {
   if (a2 > 1)
@@ -5295,16 +5189,15 @@ uint64_t gldTestObject(uint64_t a1, int a2, int a3, int a4, void *a5)
         return 0;
       }
 
-      v7 = a5[2];
-      if (v7)
+      v6 = a5[2];
+      if (v6)
       {
-        v5 = *v7;
+        v5 = *v6;
         if (a4)
         {
 LABEL_5:
           if (v5)
           {
-            v6 = *(a1 + 64);
             JUMPOUT(0x25302F1D0);
           }
 
@@ -5385,7 +5278,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t gldFinishObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t gldFinishObject(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   if (a2 <= 1)
   {
@@ -5397,7 +5290,7 @@ uint64_t gldFinishObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 
     if (a2 == 1)
     {
-      if (!*(a4 + 24))
+      if (!a4[3])
       {
         return 0;
       }
@@ -5412,7 +5305,7 @@ uint64_t gldFinishObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   {
     if (a2 == 3)
     {
-      v4 = *(a4 + 16);
+      v4 = a4[2];
       if (!v4 || !*v4)
       {
         return 0;
@@ -5429,7 +5322,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t gldWaitForObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t gldWaitForObject(uint64_t a1, int a2, int a3, uint64_t *a4)
 {
   if (a2 > 1)
   {
@@ -5440,7 +5333,7 @@ uint64_t gldWaitForObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
         return 10010;
       }
 
-      v5 = *(a4 + 16);
+      v5 = a4[2];
       if (v5)
       {
         result = *v5;
@@ -5467,7 +5360,7 @@ uint64_t gldWaitForObject(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
     return 10010;
   }
 
-  result = *(a4 + 24);
+  result = a4[3];
   if (result)
   {
 LABEL_10:
@@ -5515,7 +5408,6 @@ uint64_t gldModifyTexture(uint64_t a1, void *a2)
     v6 = a2[4];
     if (v6 && (*(v6 + 260) & 0x8F) == 0x80)
     {
-      v7 = *v3;
       IOAccelResourceRelease();
       *v3 = 0;
       v3[1] = 0;
@@ -5531,7 +5423,7 @@ uint64_t gldModifyTexture(uint64_t a1, void *a2)
   return 0;
 }
 
-uint64_t gldLoadTexture(uint64_t a1, uint64_t a2)
+BOOL gldLoadTexture(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 8);
   v3 = *(v2 + 20);
@@ -5653,8 +5545,7 @@ uint64_t gpulDeleteKernelTexture(uint64_t a1)
         *(a1 + 24) = 0u;
       }
 
-      gpusWaitResource();
-      v6 = *v3;
+      gpusWaitResource(result, 0);
       result = IOAccelResourceRelease();
       *v3 = 0;
       v3[4] = 0;
@@ -5669,8 +5560,7 @@ uint64_t gpulDeleteKernelTexture(uint64_t a1)
   while (v2 != 16);
   if (*(a1 + 24))
   {
-    v7 = *(a1 + 24);
-    gpusWaitResource();
+    gpusWaitResource(*(a1 + 24), 0);
     result = IOAccelResourceRelease();
     *(a1 + 40) = 0u;
     *(a1 + 24) = 0u;
@@ -5903,7 +5793,7 @@ LABEL_41:
   return result;
 }
 
-uint64_t gpumRestoreTextureData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, void *, uint64_t, uint64_t))
+uint64_t gpumRestoreTextureData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t (*a6)(uint64_t, void *, uint64_t, uint64_t))
 {
   if (*(a1 + 288))
   {
@@ -5914,52 +5804,49 @@ uint64_t gpumRestoreTextureData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4,
   v11 = a2[5];
   if ((*(v12 + 260) | 0x80) != 0xC0)
   {
-    v14 = (v11 + 2 * a3);
-    v15 = v14[6];
-    v16 = *v14;
-    if ((v15 & ~v16 & (1 << a4)) != 0)
+    v13 = (v11 + 2 * a3);
+    v14 = v13[6];
+    v15 = *v13;
+    if ((v14 & ~v15 & (1 << a4)) != 0)
     {
-      *(v11 + 2 * a3) = v15 & (1 << a4) | v16;
+      *(v11 + 2 * a3) = v14 & (1 << a4) | v15;
     }
 
-    v17 = a2[3];
     IOAccelResourceFinishEvent();
     goto LABEL_9;
   }
 
   if (((1 << a4) & *(v11 + 2 * a3 + 12) & ~*(v11 + 2 * a3)) != 0)
   {
-    v13 = a2[3];
     IOAccelResourcePageoff();
 LABEL_9:
-    v18 = *(v12 + 260);
+    v16 = *(v12 + 260);
     goto LABEL_10;
   }
 
-  v21 = a2[3];
   IOAccelResourceFinishEvent();
-  v18 = *(v12 + 260);
-  if (v18 == 192)
+  v16 = *(v12 + 260);
+  if (v16 == 192)
   {
     if ((*(a1 + 296) & 0x80) != 0)
     {
-      v22 = *a2 + 480 * a3 + 32 * a4;
-      v23 = gpusRowBytes(*(v22 + 280), *(v22 + 282), *(v22 + 276));
-      gpusFlushMemoryForIn(*(v22 + 288), *(v22 + 278) * v23 * *(v22 + 272));
+      v19 = *a2 + 480 * a3 + 32 * a4;
+      v20 = gpusRowBytes(*(v19 + 280), *(v19 + 282), *(v19 + 276));
+      gpusFlushMemoryForIn(*(v19 + 288), *(v19 + 278) * v20 * *(v19 + 272));
     }
 
     goto LABEL_9;
   }
 
 LABEL_10:
-  if ((v18 | 0x40) == 0x40)
+  if ((v16 | 0x40) == 0x40)
   {
-    v19 = a6(a1, a2, a3, a4);
+    v17 = a6(a1, a2, a3, a4);
   }
 
   else
   {
-    v19 = 0;
+    v17 = 0;
   }
 
   if (*(a1 + 288))
@@ -5967,17 +5854,17 @@ LABEL_10:
     pthread_mutex_unlock((a1 + 48));
   }
 
-  return v19;
+  return v17;
 }
 
-uint64_t gpumReadTextureData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t gpumReadTextureData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (*(a1 + 288))
   {
     pthread_mutex_lock((a1 + 48));
   }
 
-  v16 = a9(a1, a2, a3, a4, a5, a6, a7);
+  v16 = a9(a1, a2, a3, a4, a5, a6, a7, a8);
   if (*(a1 + 288))
   {
     pthread_mutex_unlock((a1 + 48));
@@ -5991,7 +5878,7 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
   v3 = a2;
   *(result + 140) &= ~a2;
   v4 = *(result + 24);
-  v37 = *(result + 16);
+  v31 = *(result + 16);
   if (!*(v4 + 12724))
   {
     return result;
@@ -6001,8 +5888,8 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
   v6 = result;
   v7 = 0;
   v8 = result + 200;
-  v40 = result + 848;
-  v36 = a2;
+  v34 = result + 848;
+  v30 = a2;
   do
   {
     if (!v3)
@@ -6010,13 +5897,13 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
       goto LABEL_58;
     }
 
-    v41 = 16 * v7;
-    v39 = v7;
+    v35 = 16 * v7;
+    v33 = v7;
     do
     {
       v9 = __clz(__rbit32(v3));
       v10 = 1 << v9;
-      v11 = v9 + v41;
+      v11 = v9 + v35;
       v12 = *(v5 + 8 * v7) >> (4 * v9);
       v13 = v12 & 0xF;
       if (v13 > 0xA)
@@ -6028,7 +5915,7 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
         }
 
         v14 = 0;
-        *(v40 + 4 * v11) = 0;
+        *(v34 + 4 * v11) = 0;
         goto LABEL_52;
       }
 
@@ -6037,7 +5924,7 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
       {
         v15 = *(v14 + 8);
         v16 = *(v15 + 20);
-        v17 = *(v40 + 4 * v11);
+        v17 = *(v34 + 4 * v11);
         if (v17 == *(v14 + 56))
         {
           v18 = *(v15 + 20);
@@ -6056,15 +5943,11 @@ uint64_t gpusLoadCurrentTextures(uint64_t result, unsigned __int16 a2, uint64_t 
             {
               v5 = a3;
 LABEL_35:
-              v7 = v39;
+              v7 = v33;
 LABEL_42:
-              *(v40 + 4 * v11) = *(v14 + 56);
-              v31 = *v14;
+              *(v34 + 4 * v11) = *(v14 + 56);
               if ((**v14 & 0x800) != 0)
               {
-                v32 = *(v31 + 32);
-                v33 = *(*(v6 + 8) + 772);
-                v34 = v31[125];
                 result = IOSurfaceBindAccel();
               }
 
@@ -6083,24 +5966,22 @@ LABEL_53:
           v26 = *v15;
           if (*v15)
           {
-            v27 = **(v26 + 8);
             if (!**(v26 + 8))
             {
               goto LABEL_40;
             }
 
-            result = (*(*(v6 + 8) + 320))(v37, v26, **(v26 + 8));
+            result = (*(*(v6 + 8) + 320))(v31, v26, **(v26 + 8));
             if (result)
             {
               **(v26 + 8) = 0;
 LABEL_40:
-              v28 = *(v37 + 316) + 1;
-              *(v37 + 316) = v28;
-              *(v14 + 56) = v28;
-              v29 = *(v14 + 8) + 8;
+              v27 = *(v31 + 316) + 1;
+              *(v31 + 316) = v27;
+              *(v14 + 56) = v27;
               result = (*(*(v6 + 8) + 296))();
               v5 = a3;
-              v7 = v39;
+              v7 = v33;
               if (result)
               {
                 goto LABEL_41;
@@ -6116,20 +5997,20 @@ LABEL_40:
         else
         {
           v19 = *v14;
-          if ((v10 & *(*(v6 + 24) + 2 * v39 + 12720)) == 0 || *(v19 + 2))
+          if ((v10 & *(*(v6 + 24) + 2 * v33 + 12720)) == 0 || *(v19 + 2))
           {
             v20 = v19[2];
             v21 = v20 == 6402 || v20 == 34041;
             v22 = v21;
             v23 = v12 & 0xF;
-            v24 = v37 + 112 + 88 * v22;
+            v24 = v31 + 112 + 88 * v22;
             v14 = *(v24 + 8 * v23);
             if (!v14)
             {
-              result = gpusCreateZeroTexture(v37, v22, v13);
+              result = gpusCreateZeroTexture(v31, v22, v13);
               v14 = result;
               *(v24 + 8 * v23) = result;
-              v17 = *(v40 + 4 * v11);
+              v17 = *(v34 + 4 * v11);
             }
 
             v16 = *(*(v14 + 8) + 20);
@@ -6151,22 +6032,22 @@ LABEL_40:
             goto LABEL_35;
           }
 
-          v25 = *(v37 + 316) + 1;
-          *(v37 + 316) = v25;
+          v25 = *(v31 + 316) + 1;
+          *(v31 + 316) = v25;
           *(v14 + 56) = v25;
           result = (*(*(v6 + 8) + 296))();
           if (result)
           {
-            v7 = v39;
+            v7 = v33;
 LABEL_41:
-            v30 = *(v14 + 8);
-            *(v30 + 13) = 0;
-            *(v30 + 8) = 0;
+            v28 = *(v14 + 8);
+            *(v28 + 13) = 0;
+            *(v28 + 8) = 0;
             goto LABEL_42;
           }
         }
 
-        v7 = v39;
+        v7 = v33;
       }
 
       else
@@ -6182,7 +6063,7 @@ LABEL_46:
       }
 
       *(v6 + 140) |= 1 << v11;
-      *(v40 + 4 * v11) = 0;
+      *(v34 + 4 * v11) = 0;
       if (!*(v8 + 8 * v11))
       {
         goto LABEL_55;
@@ -6200,7 +6081,7 @@ LABEL_55:
 
     while (!v21);
     v4 = *(v6 + 24);
-    v3 = v36;
+    v3 = v30;
 LABEL_58:
     ++v7;
   }
@@ -6435,13 +6316,15 @@ LABEL_38:
 
 uint64_t gldModifyTexSubImage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  v17 = *(a2 + 8);
-  v18 = *(v17 + 20);
-  if (*(v17 + 20) || a13 && **(a13 + 8))
+  v18 = a9;
+  v17 = HIDWORD(a9);
+  v19 = *(a2 + 8);
+  v20 = *(v19 + 20);
+  if (*(v19 + 20) || a13 && **(a13 + 8))
   {
-    if (((*(*a2 + 2 * a3 + 228) & *(v17 + 2 * a3 + 8)) >> a4))
+    if (((*(*a2 + 2 * a3 + 228) & *(v19 + 2 * a3 + 8)) >> a4))
     {
-      if (!*(v17 + 20))
+      if (!*(v19 + 20))
       {
         goto LABEL_22;
       }
@@ -6449,57 +6332,67 @@ uint64_t gldModifyTexSubImage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
       return 0;
     }
 
-    v19 = *(a1 + 16);
-    if (*(v19 + 288))
+    v29 = a5;
+    v30 = a6;
+    v31 = a7;
+    v32 = a8;
+    v21 = *(a1 + 16);
+    if (*(v21 + 288))
     {
-      pthread_mutex_lock((v19 + 48));
-      v18 = *(*(a2 + 8) + 20);
+      pthread_mutex_lock((v21 + 48));
+      v20 = *(*(a2 + 8) + 20);
     }
 
-    if (v18)
+    if (v20)
     {
-      v21 = *(a1 + 8);
-      v20 = *(a1 + 16);
-      v22 = *(v20 + 316) + 1;
-      *(v20 + 316) = v22;
-      *(a2 + 56) = v22;
-      if (!(*(v21 + 296))())
+      v23 = *(a1 + 8);
+      v22 = *(a1 + 16);
+      v24 = *(v22 + 316) + 1;
+      *(v22 + 316) = v24;
+      *(a2 + 56) = v24;
+      if (!(*(v23 + 296))())
       {
         goto LABEL_18;
       }
 
-      v23 = *(a2 + 8);
-      *(v23 + 13) = 0;
-      *(v23 + 8) = 0;
+      v25 = *(a2 + 8);
+      *(v25 + 13) = 0;
+      *(v25 + 8) = 0;
     }
 
     if (a13 && **(a13 + 8))
     {
       if ((*(*(a1 + 8) + 320))(*(a1 + 16), a13))
       {
-        v18 = 0;
+        v20 = 0;
         **(a13 + 8) = 0;
       }
 
       else
       {
-        v18 = 1;
+        v20 = 1;
       }
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
 LABEL_18:
-    v24 = *(a1 + 16);
-    if (*(v24 + 288))
+    v26 = *(a1 + 16);
+    if (*(v26 + 288))
     {
-      pthread_mutex_unlock((v24 + 48));
+      pthread_mutex_unlock((v26 + 48));
     }
 
-    if (!v18)
+    a7 = v31;
+    a8 = v32;
+    a5 = v29;
+    a6 = v30;
+    v17 = HIDWORD(a9);
+    v18 = a9;
+    if (!v20)
     {
       goto LABEL_22;
     }
@@ -6508,9 +6401,9 @@ LABEL_18:
   }
 
 LABEL_22:
-  v26 = *(*(a1 + 8) + 392);
+  v28 = *(*(a1 + 8) + 392);
 
-  return v26(a1, a2, a3, a4);
+  return v28(a1, a2, a3, a4, a5, a6, a7, a8, __PAIR64__(v17, v18), a10, a11, a12, a13);
 }
 
 uint64_t gldCopyTexSubImage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -6731,109 +6624,107 @@ LABEL_8:
 uint64_t gpusGetKernelTexture(uint64_t a1, void *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, unsigned int a7, unsigned int a8, uint64_t a9, unsigned int a10, int a11, int a12, uint64_t a13)
 {
   v14 = a2;
-  v16 = a9;
-  v17 = a2[3];
-  v18 = *a2;
-  v19 = *(*a2 + 208);
-  v20 = (*(*a2 + 194) >> v19) | (*(*a2 + 194) >> v19 == 0);
-  v21 = (*(*a2 + 196) >> v19) | (*(*a2 + 196) >> v19 == 0);
-  v22 = (*(*a2 + 198) >> v19) | (*(*a2 + 198) >> v19 == 0);
-  if (!v19)
+  v15 = a9;
+  v16 = a2[3];
+  v17 = *a2;
+  v18 = *(*a2 + 208);
+  v19 = (*(*a2 + 194) >> v18) | (*(*a2 + 194) >> v18 == 0);
+  v20 = (*(*a2 + 196) >> v18) | (*(*a2 + 196) >> v18 == 0);
+  v21 = (*(*a2 + 198) >> v18) | (*(*a2 + 198) >> v18 == 0);
+  if (!v18)
   {
-    LOWORD(v20) = *(*a2 + 194);
-    LOWORD(v21) = *(*a2 + 196);
-    LOWORD(v22) = *(*a2 + 198);
+    LOWORD(v19) = *(*a2 + 194);
+    LOWORD(v20) = *(*a2 + 196);
+    LOWORD(v21) = *(*a2 + 198);
   }
 
   *(a2 + 3) = 0u;
   *(a2 + 5) = 0u;
-  if (!a6 && v17)
+  if (!a6 && v16)
   {
-    v35 = a8;
-    v23 = a4;
-    v24 = a7;
-    v25 = a5;
-    v36 = v20;
-    v26 = v21;
-    v34 = v22;
+    v32 = a8;
+    v22 = a4;
+    v23 = a7;
+    v24 = a5;
+    v33 = v19;
+    v25 = v20;
+    v31 = v21;
     IOAccelResourceRelease();
-    LOWORD(v22) = v34;
-    LOWORD(v21) = v26;
-    LOWORD(v20) = v36;
-    a5 = v25;
-    v16 = a9;
+    LOWORD(v21) = v31;
+    LOWORD(v20) = v25;
+    LOWORD(v19) = v33;
+    a5 = v24;
+    v15 = a9;
     v14 = a2;
-    a7 = v24;
-    a4 = v23;
-    a8 = v35;
+    a7 = v23;
+    a4 = v22;
+    a8 = v32;
   }
 
-  if (a6 || !v16)
+  if (a6 || !v15)
   {
-    if (a6 && v16)
+    if (a6 && v15)
     {
-      v27 = 192;
+      v26 = 192;
     }
 
     else
     {
-      if (v16)
+      if (v15)
       {
-        v28 = 1;
+        v27 = 1;
       }
 
       else
       {
-        v28 = a6 == 0;
+        v27 = a6 == 0;
       }
 
-      if (v28)
+      if (v27)
       {
-        v27 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v27 = 128;
+        v26 = 128;
       }
     }
   }
 
   else
   {
-    v27 = 64;
+    v26 = 64;
   }
 
   *(a13 + 64) = a5;
   *(a13 + 72) = a6;
-  *(a13 + 80) = v16;
+  *(a13 + 80) = v15;
   *(a13 + 88) = a7;
-  *(a13 + 32) = *(v18 + 211);
-  *(a13 + 33) = *(v18 + 209);
-  *(a13 + 34) = v19;
-  *(a13 + 8) = v20;
-  *(a13 + 10) = v21;
-  *(a13 + 12) = v22;
-  *a13 = v27;
+  *(a13 + 32) = *(v17 + 211);
+  *(a13 + 33) = *(v17 + 209);
+  *(a13 + 34) = v18;
+  *(a13 + 8) = v19;
+  *(a13 + 10) = v20;
+  *(a13 + 12) = v21;
+  *a13 = v26;
   *(a13 + 4) = a12;
   *(a13 + 35) = a4;
   *(a13 + 16) = a10;
   *(a13 + 24) = a8;
-  v29 = *(a1 + 40);
-  v30 = *(*(a1 + 8) + 552);
-  v31 = IOAccelResourceCreate();
-  if (!v31)
+  v28 = IOAccelResourceCreate();
+  if (!v28)
   {
     return 0;
   }
 
-  v14[3] = v31;
+  v14[3] = v28;
   v14[4] = IOAccelResourceGetClientShared();
-  v32 = 1;
+  v29 = 1;
   *(v14[5] + 28) = 1;
   v14[6] = IOAccelResourceGetDataBytes();
   IOAccelResourceRelease();
-  return v32;
+  return v29;
 }
 
 uint64_t gldGetTextureAllocationIdentifiers(uint64_t a1, unsigned int *a2, uint64_t a3)
@@ -6900,7 +6791,6 @@ uint64_t gpusReleaseAccumIOSurface(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 204))
   {
-    v3 = *(a2 + 176);
     result = IOAccelResourceRelease();
     *(a2 + 176) = 0;
   }
@@ -6911,7 +6801,7 @@ uint64_t gpusReleaseAccumIOSurface(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t gpusGetKernelTextureIOSurface(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5)
+uint64_t gpusGetKernelTextureIOSurface(uint64_t a1, uint64_t *a2, int a3, int a4, uint64_t a5)
 {
   v5 = *a2;
   v6 = *(*a2 + 196);
@@ -6937,99 +6827,95 @@ uint64_t gpusGetKernelTextureIOSurface(uint64_t a1, uint64_t a2, int a3, int a4,
 
   v12 = a4;
   v13 = a3;
-  v15 = a1;
-  v38 = v6;
-  v39 = v9;
-  v37 = v7;
-  v16 = 0;
-  v17 = (v5 + 48);
-  v18 = -1;
+  v32 = v6;
+  v33 = v9;
+  v31 = v7;
+  v15 = 0;
+  v16 = (v5 + 48);
+  v17 = -1;
   do
   {
-    if (v10 == v17[v16])
+    if (v10 == v16[v15])
     {
-      v18 = v16;
+      v17 = v15;
     }
 
-    ++v16;
+    ++v15;
   }
 
-  while (v16 != 4);
-  v19 = (a2 + 24);
-  v20 = *(a2 + 24);
-  if (v20)
+  while (v15 != 4);
+  v18 = a2 + 3;
+  v19 = a2[3];
+  if (v19)
   {
-    v21 = 0;
-    v22 = (a2 + 80);
-    v23 = a2 + 64;
+    v20 = 0;
+    v21 = a2 + 10;
+    v22 = a2 + 8;
     while (1)
     {
-      v24 = *v22;
-      if (*v22)
+      v23 = *v21;
+      if (*v21)
       {
-        if (!v17[v21])
+        if (!v16[v20])
         {
           goto LABEL_15;
         }
 
-        if (IOSurfaceGetID(v17[v21]) != *(v23 + 4 * v21))
+        if (IOSurfaceGetID(v16[v20]) != *(v22 + v20))
         {
           break;
         }
       }
 
 LABEL_21:
+      ++v20;
       ++v21;
-      ++v22;
-      if (v21 == 4)
+      if (v20 == 4)
       {
-        v15 = a1;
         v13 = a3;
         v12 = a4;
-        if (*a5 != 130 || *(a5 + 68) != *(v5 + 248) || *(a5 + 72) != *(v5 + 250) || *(a5 + 76) != a3 || *(a5 + 32) != *(v5 + 211) || *(a5 + 33) != *(v5 + 209) || *(a5 + 34) != *(v5 + 208) || *(a5 + 35) != a4 || v39 != *(a5 + 8) || v38 != *(a5 + 10) || v37 != *(a5 + 12))
+        if (*a5 != 130 || *(a5 + 68) != *(v5 + 248) || *(a5 + 72) != *(v5 + 250) || *(a5 + 76) != a3 || *(a5 + 32) != *(v5 + 211) || *(a5 + 33) != *(v5 + 209) || *(a5 + 34) != *(v5 + 208) || *(a5 + 35) != a4 || v33 != *(a5 + 8) || v32 != *(a5 + 10) || v31 != *(a5 + 12))
         {
-          if (*(a2 + 204))
+          if (*(a2 + 51))
           {
-            v26 = *(a2 + 176);
             IOAccelResourceRelease();
-            *(a2 + 176) = 0;
+            a2[22] = 0;
           }
 
-          *(a2 + 204) = 0;
-          *(a2 + 184) = 0;
-          *(a2 + 192) = 0;
+          *(a2 + 51) = 0;
+          a2[23] = 0;
+          a2[24] = 0;
         }
 
         goto LABEL_36;
       }
     }
 
-    v24 = *v22;
+    v23 = *v21;
 LABEL_15:
-    if (v24 == *(a2 + 176))
+    if (v23 == a2[22])
     {
-      *(a2 + 204) = 1;
+      *(a2 + 51) = 1;
     }
 
     else
     {
-      gpusWaitResource();
-      v25 = *v22;
+      gpusWaitResource(v23, 0);
       IOAccelResourceRelease();
-      v24 = *v22;
+      v23 = *v21;
     }
 
-    if (v24 == v20)
+    if (v23 == v19)
     {
-      *v19 = 0;
-      *(a2 + 32) = 0;
-      *(a2 + 40) = 0;
+      *v18 = 0;
+      a2[4] = 0;
+      a2[5] = 0;
     }
 
-    *v22 = 0;
-    v22[4] = 0;
-    v22[8] = 0;
-    *(v23 + 4 * v21) = 0;
+    *v21 = 0;
+    v21[4] = 0;
+    v21[8] = 0;
+    *(v22 + v20) = 0;
     goto LABEL_21;
   }
 
@@ -7040,42 +6926,40 @@ LABEL_36:
   *(a5 + 32) = *(v5 + 211);
   *(a5 + 33) = *(v5 + 209);
   *(a5 + 34) = *(v5 + 208);
-  *(a5 + 8) = v39;
-  *(a5 + 10) = v38;
-  *(a5 + 12) = v37;
+  *(a5 + 8) = v33;
+  *(a5 + 10) = v32;
+  *(a5 + 12) = v31;
   *(a5 + 35) = v12;
   *a5 = 130;
-  v27 = 64;
-  for (i = a2 + 144; ; i += 8)
+  v24 = 64;
+  for (i = a2 + 18; ; ++i)
   {
-    if (!*v17 || *(i - 64))
+    if (!*v16 || *(i - 8))
     {
       goto LABEL_41;
     }
 
-    *(a5 + 64) = IOSurfaceGetID(*v17);
-    v29 = *(v15 + 40);
-    v30 = *(*(v15 + 8) + 552);
-    v31 = IOAccelResourceCreate();
-    if (!v31)
+    *(a5 + 64) = IOSurfaceGetID(*v16);
+    v26 = IOAccelResourceCreate();
+    if (!v26)
     {
       break;
     }
 
-    *(i - 64) = v31;
-    *(i - 32) = IOAccelResourceGetClientShared();
-    *(a2 + v27) = *(a5 + 64);
+    *(i - 8) = v26;
+    *(i - 4) = IOAccelResourceGetClientShared();
+    *(a2 + v24) = *(a5 + 64);
 LABEL_41:
-    ++v17;
-    v27 += 4;
-    if (v27 == 80)
+    ++v16;
+    v24 += 4;
+    if (v24 == 80)
     {
-      v32 = *(a2 + 112 + 8 * v18);
-      *(a2 + 24) = *(a2 + 80 + 8 * v18);
-      *(a2 + 32) = v32;
-      *(a2 + 40) = *(a2 + 144 + 8 * v18);
-      *(a2 + 48) = 0;
-      *(a2 + 216) = v18;
+      v27 = a2[v17 + 14];
+      a2[3] = a2[v17 + 10];
+      a2[4] = v27;
+      a2[5] = a2[v17 + 18];
+      a2[6] = 0;
+      *(a2 + 54) = v17;
       return 1;
     }
   }
@@ -7156,10 +7040,8 @@ void *gpusLoadCurrentVertexArray(void *result)
     v4 = *(v2 + 976);
     if (v4)
     {
-      v5 = **(v4 + 8);
       if (**(v4 + 8))
       {
-        v6 = **(v4 + 8);
         result = (*(*(result[2] + 8) + 320))();
         if (!result)
         {
@@ -7173,62 +7055,62 @@ void *gpusLoadCurrentVertexArray(void *result)
 
   if (v3)
   {
-    v7 = *v3;
-    v8 = *(v3[1] + 272);
-    v9 = *(v3 + 9);
-    if (*(v1 + 277) == v9)
+    v5 = *v3;
+    v6 = *(v3[1] + 272);
+    v7 = *(v3 + 9);
+    if (*(v1 + 277) == v7)
     {
-      v10 = *(v3[1] + 272);
+      v8 = *(v3[1] + 272);
     }
 
     else
     {
-      v10 = -1;
+      v8 = -1;
     }
 
+    if (v6)
+    {
+      v10 = v1[1];
+      v9 = v1[2];
+      v11 = *(v9 + 328) + 1;
+      *(v9 + 328) = v11;
+      *(v3 + 9) = v11;
+      result = (*(v10 + 272))();
+      v7 = *(v3 + 9);
+    }
+
+    *(v1 + 277) = v7;
     if (v8)
     {
-      v12 = v1[1];
-      v11 = v1[2];
-      v13 = *(v11 + 328) + 1;
-      *(v11 + 328) = v13;
-      *(v3 + 9) = v13;
-      result = (*(v12 + 272))();
-      v9 = *(v3 + 9);
+      result = (*(v1[1] + 344))(v1, v3, v8);
     }
 
-    *(v1 + 277) = v9;
-    if (v10)
+    v12 = *(v5 + 768);
+    if ((*(v1[4] + 25) < 0 || v12) && (v12 & ~*(v5 + 776)) == 0)
     {
-      result = (*(v1[1] + 344))(v1, v3, v10);
-    }
-
-    v14 = *(v7 + 768);
-    if ((*(v1[4] + 25) < 0 || v14) && (v14 & ~*(v7 + 776)) == 0)
-    {
-      v16 = *(v1[1] + 280);
-      if (v16)
+      v14 = *(v1[1] + 280);
+      if (v14)
       {
-        v17 = v3[1];
-        v18 = *(v17 + 264);
-        if (v18 != 128)
+        v15 = v3[1];
+        v16 = *(v15 + 264);
+        if (v16 != 128)
         {
-          v19 = *(v3 + 8);
-          if (*(v1 + 276) == v19)
+          v17 = *(v3 + 8);
+          if (*(v1 + 276) == v17)
           {
-            v15 = *(v17 + 264);
+            v13 = *(v15 + 264);
           }
 
           else
           {
-            v15 = -1;
+            v13 = -1;
           }
 
-          if (!v18)
+          if (!v16)
           {
 LABEL_46:
-            *(v1 + 276) = v19;
-            if (!v15)
+            *(v1 + 276) = v17;
+            if (!v13)
             {
               goto LABEL_22;
             }
@@ -7236,93 +7118,91 @@ LABEL_46:
             goto LABEL_21;
           }
 
-          v20 = v1[2];
-          v21 = *(v20 + 324) + 1;
-          *(v20 + 324) = v21;
-          v22 = v3[2];
-          *(v3 + 8) = v21;
-          v33 = v22;
-          v32 = v3[3];
-          v34 = v32 | v8;
-          v35 = v22 | v18;
-          if (((v22 | v18) & 0x10) == 0)
+          v18 = v1[2];
+          v19 = *(v18 + 324) + 1;
+          *(v18 + 324) = v19;
+          v20 = v3[2];
+          *(v3 + 8) = v19;
+          v29 = v20;
+          v28 = v3[3];
+          v30 = v28 | v6;
+          v31 = v20 | v16;
+          if (((v20 | v16) & 0x10) == 0)
           {
             goto LABEL_44;
           }
 
-          v23 = *v3;
-          if ((v35 & 4) == 0)
+          v21 = *v3;
+          if ((v31 & 4) == 0)
           {
 LABEL_38:
-            v27 = *(v23 + 768) & v35;
-            if (v27)
+            v24 = *(v21 + 768) & v31;
+            if (v24)
             {
               do
               {
-                v28 = __clz(__rbit64(v27));
-                v29 = *(v3[1] + 8 * v28 - 128);
-                v30 = **(v29 + 8);
-                if (**(v29 + 8))
+                v25 = __clz(__rbit64(v24));
+                v26 = *(v3[1] + 8 * v25 - 128);
+                if (**(v26 + 8))
                 {
-                  result = (*(*(v20 + 8) + 320))(v20, *(v3[1] + 8 * v28 - 128), **(v29 + 8));
+                  result = (*(*(v18 + 8) + 320))(v18, *(v3[1] + 8 * v25 - 128), **(v26 + 8));
                   if (!result)
                   {
                     goto LABEL_48;
                   }
 
-                  **(v29 + 8) = 0;
+                  **(v26 + 8) = 0;
                 }
 
-                v31 = 1 << v28 == v27;
-                v27 ^= 1 << v28;
+                v27 = 1 << v25 == v24;
+                v24 ^= 1 << v25;
               }
 
-              while (!v31);
+              while (!v27);
             }
 
 LABEL_44:
-            result = v16(v1[2], v3, v35, v34);
+            result = v14(v1[2], v3, v31, v30);
             if (result)
             {
-              v15 |= v33;
-              v10 |= v32;
+              v13 |= v29;
+              v8 |= v28;
               v3[2] = 0;
               v3[3] = 0;
               *(v3[1] + 264) = 0;
               *(v3[1] + 272) = 0;
-              v19 = *(v3 + 8);
+              v17 = *(v3 + 8);
               goto LABEL_46;
             }
 
 LABEL_48:
-            v3[2] = v35;
-            v3[3] = v34;
+            v3[2] = v31;
+            v3[3] = v30;
             *(v3[1] + 264) = 128;
             *(v3[1] + 272) = 0;
             goto LABEL_17;
           }
 
-          v24 = *(v17 + 256);
-          if (v24)
+          v22 = *(v15 + 256);
+          if (v22)
           {
-            v25 = **(v24 + 8);
-            if (!**(v24 + 8))
+            if (!**(v22 + 8))
             {
 LABEL_35:
-              v26 = 1;
+              v23 = 1;
 LABEL_37:
-              *(v3 + 40) = v26;
+              *(v3 + 40) = v23;
               goto LABEL_38;
             }
 
-            if ((*(*(v20 + 8) + 320))(v20, v24, **(v24 + 8)))
+            if ((*(*(v18 + 8) + 320))(v18, v22, **(v22 + 8)))
             {
-              **(v24 + 8) = 0;
+              **(v22 + 8) = 0;
               goto LABEL_35;
             }
           }
 
-          v26 = 0;
+          v23 = 0;
           goto LABEL_37;
         }
       }
@@ -7334,19 +7214,19 @@ LABEL_17:
   *(v1 + 276) = 0;
   if (v1[101])
   {
-    v10 = -1;
+    v8 = -1;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  v15 = v10;
-  if (v10)
+  v13 = v8;
+  if (v8)
   {
 LABEL_21:
-    result = (*(v1[1] + 368))(v1, v3, v15, v10);
+    result = (*(v1[1] + 368))(v1, v3, v13, v8);
   }
 
 LABEL_22:

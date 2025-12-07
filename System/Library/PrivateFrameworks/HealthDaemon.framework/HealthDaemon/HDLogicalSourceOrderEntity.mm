@@ -17,43 +17,38 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"logical_source";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"logical_source";
   v2 = +[(HDHealthEntity *)HDLogicalSourceEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)indices
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
   v4 = *MEMORY[0x277D10A40];
-  v11[0] = @"data_type";
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = @"data_type";
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v6 = [v2 initWithEntity:v3 name:@"data_type" columns:v5];
 
-  v10 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
 
   return v7;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"data_type";
-  v5[1] = @"logical_source";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"data_type";
+  v4[1] = @"logical_source";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -268,39 +263,37 @@ uint64_t __102__HDLogicalSourceOrderEntity_saveOrderedLogicalSourceIDs_type_user
 
 void __102__HDLogicalSourceOrderEntity_saveOrderedLogicalSourceIDs_type_userOrdered_syncIdentity_profile_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(v3 + 2))(v3, [*(*(&v10 + 1) + 8 * v8++) longLongValue], *(a1 + 56), 0, *(a1 + 48), *(a1 + 40));
+        (*(v3 + 2))(v3, [*(*(&v9 + 1) + 8 * v8++) longLongValue], *(a1 + 56), 0, *(a1 + 48), *(a1 + 40));
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)enumerateOrderedLogicalSourceIDsForType:(id)type transaction:(id)transaction error:(id *)error block:(id)block
@@ -334,11 +327,10 @@ void __102__HDLogicalSourceOrderEntity_saveOrderedLogicalSourceIDs_type_userOrde
 id __94__HDLogicalSourceOrderEntity_enumerateOrderedLogicalSourceIDsForType_transaction_error_block___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@ = ? ORDER BY %@ ASC", @"logical_source", @"user_preferred", @"modification_date", v3, @"data_type", *MEMORY[0x277D10A40], 0];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@ = ? ORDER BY %@ ASC", @"logical_source", @"user_preferred", @"modification_date", v2, @"data_type", *MEMORY[0x277D10A40], 0];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __94__HDLogicalSourceOrderEntity_enumerateOrderedLogicalSourceIDsForType_transaction_error_block___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -448,18 +440,18 @@ uint64_t __70__HDLogicalSourceOrderEntity_sourceIDsWithDataType_transaction_erro
 
 void __83__HDLogicalSourceOrderEntity_sourceIDsWithDataType_unorderedIDs_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sqlite3_bind_int64(a2, 1, *(a1 + 40));
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     v8 = 2;
     do
     {
@@ -467,31 +459,29 @@ void __83__HDLogicalSourceOrderEntity_sourceIDsWithDataType_unorderedIDs_transac
       v10 = v8;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = v10 + 1;
-        sqlite3_bind_int64(a2, v10++, [*(*(&v12 + 1) + 8 * v9++) longLongValue]);
+        sqlite3_bind_int64(a2, v10++, [*(*(&v11 + 1) + 8 * v9++) longLongValue]);
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __83__HDLogicalSourceOrderEntity_sourceIDsWithDataType_unorderedIDs_transaction_error___block_invoke_3(uint64_t a1)
+uint64_t __83__HDLogicalSourceOrderEntity_sourceIDsWithDataType_unorderedIDs_transaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:v2];
-  [v3 addObject:v4];
+  v3 = HDSQLiteColumnAsInt64();
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:v3];
+  [v4 addObject:v5];
 
   return 1;
 }
@@ -593,13 +583,12 @@ id __87__HDLogicalSourceOrderEntity_enumerateOrderedSourceIDsForType_transaction
 {
   v1 = MEMORY[0x277CCACA8];
   v2 = *MEMORY[0x277D10A40];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() disambiguatedDatabaseTable];
-  v5 = +[(HDSQLiteSchemaEntity *)HDLogicalSourceEntity];
-  v6 = +[(HDSQLiteSchemaEntity *)HDSourceEntity];
-  v7 = [v1 stringWithFormat:@"SELECT s.%@, o.%@, o.%@ FROM %@ o JOIN %@ l ON o.%@ = l.%@ JOIN %@ s ON l.%@ = s.%@ WHERE o.%@ = ? ORDER BY o.%@ ASC, s.%@ ASC", v2, @"user_preferred", @"modification_date", v4, v5, @"logical_source", v2, v6, v2, @"logical_source_id", @"data_type", v2, @"uuid", 0];
+  v3 = [objc_opt_class() disambiguatedDatabaseTable];
+  v4 = +[(HDSQLiteSchemaEntity *)HDLogicalSourceEntity];
+  v5 = +[(HDSQLiteSchemaEntity *)HDSourceEntity];
+  v6 = [v1 stringWithFormat:@"SELECT s.%@, o.%@, o.%@ FROM %@ o JOIN %@ l ON o.%@ = l.%@ JOIN %@ s ON l.%@ = s.%@ WHERE o.%@ = ? ORDER BY o.%@ ASC, s.%@ ASC", v2, @"user_preferred", @"modification_date", v3, v4, @"logical_source", v2, v5, v2, @"logical_source_id", @"data_type", v2, @"uuid", 0];
 
-  return v7;
+  return v6;
 }
 
 uint64_t __87__HDLogicalSourceOrderEntity_enumerateOrderedSourceIDsForType_transaction_error_block___block_invoke_3(uint64_t a1, uint64_t a2)

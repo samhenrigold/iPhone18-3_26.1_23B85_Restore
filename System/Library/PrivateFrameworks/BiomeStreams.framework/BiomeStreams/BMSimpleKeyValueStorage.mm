@@ -102,10 +102,7 @@
 
 uint64_t __44__BMSimpleKeyValueStorage_fetchValueForKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _fetchValueForKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _fetchValueForKey:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -211,11 +208,11 @@ LABEL_11:
 
 - (void)storeDictionary:(id)dictionary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v16 = 0;
-  v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v15];
+  v6 = v15;
   if (v6)
   {
     v7 = v6;
@@ -224,11 +221,11 @@ LABEL_11:
     {
       v9 = [MEMORY[0x1E698E9C8] privacyURLToString:self->_url];
       *buf = 138412802;
-      v18 = dictionaryCopy;
-      v19 = 2114;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v7;
+      v17 = dictionaryCopy;
+      v18 = 2114;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v7;
       v10 = "Failed to archive dictionary:%@ at path:%{public}@ error:%@";
 LABEL_7:
       _os_log_error_impl(&dword_1848EE000, v8, OS_LOG_TYPE_ERROR, v10, buf, 0x20u);
@@ -241,9 +238,9 @@ LABEL_7:
 
   fileManager = self->_fileManager;
   path = [(NSURL *)self->_url path];
-  v15 = 0;
-  v13 = [(BMFileManager *)fileManager replaceFileAtPath:path withData:v5 protection:0xFFFFFFFFLL flags:0 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v13 = [(BMFileManager *)fileManager replaceFileAtPath:path withData:v5 protection:0xFFFFFFFFLL flags:0 error:&v14];
+  v7 = v14;
 
   if (v13)
   {
@@ -252,19 +249,17 @@ LABEL_7:
     {
       v9 = [MEMORY[0x1E698E9C8] privacyURLToString:self->_url];
       *buf = 138412802;
-      v18 = dictionaryCopy;
-      v19 = 2114;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v7;
+      v17 = dictionaryCopy;
+      v18 = 2114;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v7;
       v10 = "Failed to store dictionary:%@ at path:%{public}@ error:%@";
       goto LABEL_7;
     }
 
 LABEL_8:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -11,9 +11,9 @@
     +[NSCharacterSet(SubjectParser) ec_prefixDelimiterCharacterSet];
   }
 
-  v1 = ec_prefixDelimiterCharacterSet_prefixDelimiterCharacterSet;
+  v2 = ec_prefixDelimiterCharacterSet_prefixDelimiterCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

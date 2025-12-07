@@ -31,34 +31,34 @@
     }
 
     v7 = CVAFaceTrackingCreate();
+    v8 = v7;
     if (v7)
     {
-      v8 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __VGLogSharedInstance(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v14 = v7;
-        _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, " Error initializing FaceKit: %d ", buf, 8u);
+        v14 = v8;
+        _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Error initializing FaceKit: %d ", buf, 8u);
       }
     }
 
     else if ([(VGFaceKitTracker *)v5 loadFaceKitSemantics]&& [(VGFaceKitTracker *)v5 loadQuadFaceKitSemantics])
     {
-      v9 = v5;
+      v10 = v5;
 LABEL_15:
 
       goto LABEL_16;
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_15;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_16:
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
@@ -91,35 +91,35 @@ LABEL_16:
 
 - (id)buildInputDictionaryWithCaptureData:(id)data callback:(id)callback
 {
-  v59[2] = *MEMORY[0x277D85DE8];
+  v58[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   callbackCopy = callback;
-  v58[0] = *MEMORY[0x277CECEA8];
+  v57[0] = *MEMORY[0x277CECEA8];
   v7 = [MEMORY[0x277CBEA60] vg_arrayWithRowMajorNumbersFromFloat3x3:{*MEMORY[0x277D860B0], *(MEMORY[0x277D860B0] + 16), *(MEMORY[0x277D860B0] + 32)}];
-  v58[1] = *MEMORY[0x277CECEE8];
-  v59[0] = v7;
-  v59[1] = &unk_2880F5D58;
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+  v57[1] = *MEMORY[0x277CECEE8];
+  v58[0] = v7;
+  v58[1] = &unk_2880F5D58;
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
 
-  v55 = *MEMORY[0x277CECE88];
-  v8 = v55;
+  v54 = *MEMORY[0x277CECE88];
+  v8 = v54;
   v9 = MEMORY[0x277CBEA60];
   [dataCopy videoIntrinsics];
   v10 = [v9 vg_arrayWithRowMajorNumbersFromFloat3x3:?];
-  v56 = *MEMORY[0x277CECE58];
-  v11 = v56;
-  v57[0] = v10;
-  v57[1] = v46;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v55 count:2];
+  v55 = *MEMORY[0x277CECE58];
+  v11 = v55;
+  v56[0] = v10;
+  v56[1] = v45;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v54 count:2];
 
-  v53[0] = v8;
+  v52[0] = v8;
   v12 = MEMORY[0x277CBEA60];
   [dataCopy depthIntrinsics];
   v13 = [v12 vg_arrayWithRowMajorNumbersFromFloat3x3:?];
-  v53[1] = v11;
-  v54[0] = v13;
-  v54[1] = v46;
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  v52[1] = v11;
+  v53[0] = v13;
+  v53[1] = v45;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
   if (self->_options.useInternalFaceDetector)
   {
@@ -143,15 +143,15 @@ LABEL_16:
     faceID = [face2 faceID];
   }
 
-  v61.origin.x = v18;
-  v61.origin.y = v17;
-  v61.size.width = v15;
-  v61.size.height = v16;
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v61);
-  v51[0] = *MEMORY[0x277CECEC8];
+  v60.origin.x = v18;
+  v60.origin.y = v17;
+  v60.size.width = v15;
+  v60.size.height = v16;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v60);
+  v50[0] = *MEMORY[0x277CECEC8];
   if (dataCopy)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
   }
 
   else
@@ -161,76 +161,73 @@ LABEL_16:
 
   v26 = CMTimeCopyAsDictionary(&time, 0);
   v27 = *MEMORY[0x277CECDC0];
-  v52[0] = v26;
-  v52[1] = v44;
+  v51[0] = v26;
+  v51[1] = v43;
   v28 = *MEMORY[0x277CECDD0];
-  v51[1] = v27;
-  v51[2] = v28;
+  v50[1] = v27;
+  v50[2] = v28;
   yuvRectified = [dataCopy yuvRectified];
   v30 = *MEMORY[0x277CECDC8];
-  v52[2] = yuvRectified;
-  v52[3] = v43;
+  v51[2] = yuvRectified;
+  v51[3] = v42;
   v31 = *MEMORY[0x277CECDE8];
-  v51[3] = v30;
-  v51[4] = v31;
+  v50[3] = v30;
+  v50[4] = v31;
   depth = [dataCopy depth];
   v33 = *MEMORY[0x277CECE08];
-  v52[4] = depth;
-  v52[5] = &unk_2880F5CC8;
+  v51[4] = depth;
+  v51[5] = &unk_2880F5CC8;
   v34 = *MEMORY[0x277CECE68];
   v35 = MEMORY[0x277CBEC38];
-  v51[5] = v33;
-  v51[6] = v34;
-  v52[6] = MEMORY[0x277CBEC38];
-  v51[7] = *MEMORY[0x277CECDB8];
+  v50[5] = v33;
+  v50[6] = v34;
+  v51[6] = MEMORY[0x277CBEC38];
+  v50[7] = *MEMORY[0x277CECDB8];
   v36 = MEMORY[0x2743B9AA0](callbackCopy);
-  v52[7] = v36;
-  v51[8] = *MEMORY[0x277CECE30];
-  v48[0] = *MEMORY[0x277CECE18];
+  v51[7] = v36;
+  v50[8] = *MEMORY[0x277CECE30];
+  v47[0] = *MEMORY[0x277CECE18];
   v37 = [MEMORY[0x277CCABB0] numberWithInteger:faceID];
-  v48[1] = *MEMORY[0x277CECE28];
-  v49[0] = v37;
-  v49[1] = DictionaryRepresentation;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
-  v50 = v38;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-  v51[9] = *MEMORY[0x277CECD98];
-  v52[8] = v39;
-  v52[9] = v35;
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:10];
-
-  v41 = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277CECE28];
+  v48[0] = v37;
+  v48[1] = DictionaryRepresentation;
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v49 = v38;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v50[9] = *MEMORY[0x277CECD98];
+  v51[8] = v39;
+  v51[9] = v35;
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:10];
 
   return v40;
 }
 
 - (BOOL)processWithCaptureData:(id)data callback:(id)callback
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   callbackCopy = callback;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __52__VGFaceKitTracker_processWithCaptureData_callback___block_invoke;
-  v16[3] = &unk_279E28E58;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __52__VGFaceKitTracker_processWithCaptureData_callback___block_invoke;
+  v15[3] = &unk_279E28E58;
   v8 = callbackCopy;
-  v17 = v8;
-  v9 = MEMORY[0x2743B9AA0](v16);
+  v16 = v8;
+  v9 = MEMORY[0x2743B9AA0](v15);
   v10 = [(VGFaceKitTracker *)self buildInputDictionaryWithCaptureData:dataCopy callback:v9];
-  faceKit = self->_faceKit;
-  v12 = CVAFaceTrackingProcess();
-  if (v12)
+  v11 = CVAFaceTrackingProcess();
+  v12 = v11;
+  if (v11)
   {
-    v13 = __VGLogSharedInstance();
+    v13 = __VGLogSharedInstance(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, " Error running face kit: %d ", buf, 8u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12 == 0;
 }
 

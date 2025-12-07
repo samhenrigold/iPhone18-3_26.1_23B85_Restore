@@ -18,11 +18,11 @@
 
 - (_BlastDoorLPSharingMetadataWrapper)initWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPSharingMetadataWrapper;
-  v5 = [(_BlastDoorLPSharingMetadataWrapper *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPSharingMetadataWrapper;
+  v5 = [(_BlastDoorLPSharingMetadataWrapper *)&v10 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeObjectOfClass:objc_opt_class() forKey:@"metadata"];
@@ -34,7 +34,6 @@
     v8 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -51,11 +50,10 @@
 {
   objc_storeStrong(&self->_metadata, metadata);
   metadataCopy = metadata;
-  metadata = self->_metadata;
   objc_opt_class();
-  LOBYTE(metadata) = objc_opt_isKindOfClass();
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  self->_hasCompletedFetch = (metadata & 1) == 0;
+  self->_hasCompletedFetch = (isKindOfClass & 1) == 0;
 }
 
 @end

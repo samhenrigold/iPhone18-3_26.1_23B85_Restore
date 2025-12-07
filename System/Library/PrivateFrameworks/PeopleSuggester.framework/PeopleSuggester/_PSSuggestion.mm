@@ -109,7 +109,7 @@ LABEL_8:
 
 + (id)suggestionForBundleID:(id)d derivedIntentIdentifier:(id)identifier knowledgeStore:(id)store contactResolver:(id)resolver reason:(id)reason reasonType:(id)type
 {
-  v89[2] = *MEMORY[0x1E69E9840];
+  v88[2] = *MEMORY[0x1E69E9840];
   dCopy = d;
   identifierCopy = identifier;
   storeCopy = store;
@@ -118,7 +118,7 @@ LABEL_8:
   typeCopy = type;
   v17 = MEMORY[0x1E69979D0];
   derivedIntentIdentifier = [MEMORY[0x1E6997990] derivedIntentIdentifier];
-  v75 = identifierCopy;
+  v74 = identifierCopy;
   v19 = [v17 predicateForObjectsWithMetadataKey:derivedIntentIdentifier andStringValue:identifierCopy];
 
   v20 = MEMORY[0x1E69979D0];
@@ -127,21 +127,21 @@ LABEL_8:
   v23 = [v20 predicateForEventsWithSourceID:intentsSourceID bundleID:dCopy];
 
   v24 = MEMORY[0x1E696AB28];
-  v73 = v19;
-  v89[0] = v19;
-  v89[1] = v23;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+  v72 = v19;
+  v88[0] = v19;
+  v88[1] = v23;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:2];
   v26 = [v24 andPredicateWithSubpredicates:v25];
 
   v27 = [MEMORY[0x1E69979D0] startDateSortDescriptorAscending:0];
   v28 = MEMORY[0x1E6997968];
   appIntentsStream = [MEMORY[0x1E69979E8] appIntentsStream];
-  v88 = appIntentsStream;
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
-  v70 = v27;
-  v87 = v27;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
-  v71 = v26;
+  v87 = appIntentsStream;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
+  v69 = v27;
+  v86 = v27;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
+  v70 = v26;
   v32 = [v28 eventQueryWithPredicate:v26 eventStreams:v30 offset:0 limit:1 sortDescriptors:v31];
 
   v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSSuggestion.m"];
@@ -149,12 +149,12 @@ LABEL_8:
   [v32 setClientName:v34];
 
   [v32 setTracker:&__block_literal_global_267];
-  v81 = 0;
-  v35 = [storeCopy executeQuery:v32 error:&v81];
-  v72 = v23;
-  v68 = v81;
-  v69 = v35;
-  if (v68)
+  v80 = 0;
+  v35 = [storeCopy executeQuery:v32 error:&v80];
+  v71 = v23;
+  v67 = v80;
+  v68 = v35;
+  if (v67)
   {
     v36 = +[_PSLogging knnChannel];
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
@@ -163,17 +163,17 @@ LABEL_8:
     }
 
     v37 = 0;
-    v38 = v73;
+    v38 = v72;
     v39 = reasonCopy;
     v40 = v22;
-    v41 = v75;
+    v41 = v74;
   }
 
   else
   {
     firstObject = [v35 firstObject];
     v36 = firstObject;
-    v67 = storeCopy;
+    v66 = storeCopy;
     if (firstObject)
     {
       interaction = [firstObject interaction];
@@ -181,74 +181,74 @@ LABEL_8:
       v43 = v40 = v22;
       if (v43 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v63 = v43;
-        v64 = v40;
+        v62 = v43;
+        v63 = v40;
         v44 = v43;
         v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
         v79 = 0u;
-        v80 = 0u;
-        v65 = v44;
+        v64 = v44;
         recipients = [v44 recipients];
-        v47 = [recipients countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v47 = [recipients countByEnumeratingWithState:&v76 objects:v81 count:16];
         if (v47)
         {
           v48 = v47;
-          v49 = *v78;
+          v49 = *v77;
           do
           {
             for (i = 0; i != v48; ++i)
             {
-              if (*v78 != v49)
+              if (*v77 != v49)
               {
                 objc_enumerationMutation(recipients);
               }
 
-              v51 = [_PSRecipient recipientForINPerson:*(*(&v77 + 1) + 8 * i) contactResolver:resolverCopy];
+              v51 = [_PSRecipient recipientForINPerson:*(*(&v76 + 1) + 8 * i) contactResolver:resolverCopy];
               if (v51)
               {
                 [v45 addObject:v51];
               }
             }
 
-            v48 = [recipients countByEnumeratingWithState:&v77 objects:v82 count:16];
+            v48 = [recipients countByEnumeratingWithState:&v76 objects:v81 count:16];
           }
 
           while (v48);
         }
 
         v52 = [_PSSuggestion alloc];
-        speakableGroupName = [v65 speakableGroupName];
+        speakableGroupName = [v64 speakableGroupName];
         spokenPhrase = [speakableGroupName spokenPhrase];
         v53 = [v45 copy];
-        keyImage = [v65 keyImage];
-        v41 = v75;
+        keyImage = [v64 keyImage];
+        v41 = v74;
         v39 = reasonCopy;
         v55 = v52;
-        v40 = v64;
-        v37 = [(_PSSuggestion *)v55 initWithBundleID:v64 conversationIdentifier:0 groupName:spokenPhrase recipients:v53 derivedIntentIdentifier:v75 image:keyImage reason:reasonCopy reasonType:typeCopy score:0];
+        v40 = v63;
+        v37 = [(_PSSuggestion *)v55 initWithBundleID:v63 conversationIdentifier:0 groupName:spokenPhrase recipients:v53 derivedIntentIdentifier:v74 image:keyImage reason:reasonCopy reasonType:typeCopy score:0];
 
-        v56 = v65;
+        v56 = v64;
         v57 = interaction;
-        v38 = v73;
-        v43 = v63;
+        v38 = v72;
+        v43 = v62;
       }
 
       else
       {
         v58 = +[_PSLogging knnChannel];
-        v41 = v75;
+        v41 = v74;
         if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v84 = v36;
+          v83 = v36;
           _os_log_impl(&dword_1B5ED1000, v58, OS_LOG_TYPE_INFO, "Could not retrieve send message intent from _DKEvent: %@", buf, 0xCu);
         }
 
         v37 = 0;
         v56 = v58;
-        v38 = v73;
+        v38 = v72;
         v39 = reasonCopy;
         v57 = interaction;
       }
@@ -261,29 +261,27 @@ LABEL_8:
       if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v84 = v22;
-        v85 = 2112;
-        v41 = v75;
-        v86 = v75;
+        v83 = v22;
+        v84 = 2112;
+        v41 = v74;
+        v85 = v74;
         _os_log_impl(&dword_1B5ED1000, v57, OS_LOG_TYPE_INFO, "No intent with bundleID: %@, derived identifier: %@", buf, 0x16u);
         v37 = 0;
-        v38 = v73;
+        v38 = v72;
         v39 = reasonCopy;
       }
 
       else
       {
         v37 = 0;
-        v38 = v73;
+        v38 = v72;
         v39 = reasonCopy;
-        v41 = v75;
+        v41 = v74;
       }
     }
 
-    storeCopy = v67;
+    storeCopy = v66;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
@@ -399,32 +397,32 @@ LABEL_8:
 
 - (unint64_t)hash
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   recipients = [(_PSSuggestion *)self recipients];
-  v4 = [recipients countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [recipients countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v15;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(recipients);
         }
 
-        identifier = [*(*(&v14 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v12 + 1) + 8 * i) identifier];
         v6 ^= [identifier hash];
       }
 
-      v5 = [recipients countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [recipients countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -436,9 +434,7 @@ LABEL_8:
   }
 
   v10 = [(NSString *)self->_conversationIdentifier hash];
-  v11 = [(NSString *)self->_groupName hash];
-  v12 = *MEMORY[0x1E69E9840];
-  return v10 ^ v6 ^ v11;
+  return v10 ^ v6 ^ [(NSString *)self->_groupName hash];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -454,128 +450,66 @@ LABEL_8:
   {
     v6 = v5;
     conversationIdentifier = [(_PSSuggestion *)self conversationIdentifier];
-    if (conversationIdentifier)
+    if (conversationIdentifier && (v8 = conversationIdentifier, -[_PSSuggestion conversationIdentifier](v6, "conversationIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9) && (-[_PSSuggestion conversationIdentifier](self, "conversationIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), -[_PSSuggestion conversationIdentifier](v6, "conversationIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v10 isEqualToString:v11], v11, v10, !v12) || (-[_PSSuggestion groupName](self, "groupName"), (v13 = objc_claimAutoreleasedReturnValue()) != 0) && (v14 = v13, -[_PSSuggestion groupName](v6, "groupName"), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15) && (-[_PSSuggestion groupName](self, "groupName"), v16 = objc_claimAutoreleasedReturnValue(), -[_PSSuggestion groupName](v6, "groupName"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, !v18) || (-[_PSSuggestion bundleID](self, "bundleID"), (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, -[_PSSuggestion bundleID](v6, "bundleID"), v21 = objc_claimAutoreleasedReturnValue(), v21, v20, v21) && (-[_PSSuggestion bundleID](self, "bundleID"), v22 = objc_claimAutoreleasedReturnValue(), -[_PSSuggestion bundleID](v6, "bundleID"), v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v22, "isEqualToString:", v23), v23, v22, !v24) || (-[_PSSuggestion recipients](v6, "recipients"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "count"), -[_PSSuggestion recipients](self, "recipients"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "count"), v27, v25, v26 != v28))
     {
-      v8 = conversationIdentifier;
-      conversationIdentifier2 = [(_PSSuggestion *)v6 conversationIdentifier];
-
-      if (conversationIdentifier2)
-      {
-        conversationIdentifier3 = [(_PSSuggestion *)self conversationIdentifier];
-        conversationIdentifier4 = [(_PSSuggestion *)v6 conversationIdentifier];
-        v12 = [conversationIdentifier3 isEqualToString:conversationIdentifier4];
-
-        if (!v12)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-
-    groupName = [(_PSSuggestion *)self groupName];
-    if (groupName)
-    {
-      v14 = groupName;
-      groupName2 = [(_PSSuggestion *)v6 groupName];
-
-      if (groupName2)
-      {
-        groupName3 = [(_PSSuggestion *)self groupName];
-        groupName4 = [(_PSSuggestion *)v6 groupName];
-        v18 = [groupName3 isEqualToString:groupName4];
-
-        if (!v18)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-
-    bundleID = [(_PSSuggestion *)self bundleID];
-    if (bundleID)
-    {
-      v20 = bundleID;
-      bundleID2 = [(_PSSuggestion *)v6 bundleID];
-
-      if (bundleID2)
-      {
-        bundleID3 = [(_PSSuggestion *)self bundleID];
-        bundleID4 = [(_PSSuggestion *)v6 bundleID];
-        v24 = [bundleID3 isEqualToString:bundleID4];
-
-        if (!v24)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-
-    recipients = [(_PSSuggestion *)v6 recipients];
-    v26 = [recipients count];
-    recipients2 = [(_PSSuggestion *)self recipients];
-    v28 = [recipients2 count];
-
-    if (v26 != v28)
-    {
-LABEL_28:
       v54 = 0;
     }
 
     else
     {
       v29 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      recipients3 = [(_PSSuggestion *)self recipients];
-      v31 = [recipients3 count];
+      recipients = [(_PSSuggestion *)self recipients];
+      v31 = [recipients count];
 
       if (v31)
       {
         v32 = 0;
         do
         {
-          recipients4 = [(_PSSuggestion *)self recipients];
-          v34 = [recipients4 objectAtIndexedSubscript:v32];
+          recipients2 = [(_PSSuggestion *)self recipients];
+          v34 = [recipients2 objectAtIndexedSubscript:v32];
           handle = [v34 handle];
 
           if (handle)
           {
-            recipients5 = [(_PSSuggestion *)self recipients];
-            v37 = [recipients5 objectAtIndexedSubscript:v32];
+            recipients3 = [(_PSSuggestion *)self recipients];
+            v37 = [recipients3 objectAtIndexedSubscript:v32];
             handle2 = [v37 handle];
             [v29 addObject:handle2];
           }
 
           ++v32;
-          recipients6 = [(_PSSuggestion *)self recipients];
-          v40 = [recipients6 count];
+          recipients4 = [(_PSSuggestion *)self recipients];
+          v40 = [recipients4 count];
         }
 
         while (v40 > v32);
       }
 
       v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      recipients7 = [(_PSSuggestion *)v6 recipients];
-      v43 = [recipients7 count];
+      recipients5 = [(_PSSuggestion *)v6 recipients];
+      v43 = [recipients5 count];
 
       if (v43)
       {
         v44 = 0;
         do
         {
-          recipients8 = [(_PSSuggestion *)v6 recipients];
-          v46 = [recipients8 objectAtIndexedSubscript:v44];
+          recipients6 = [(_PSSuggestion *)v6 recipients];
+          v46 = [recipients6 objectAtIndexedSubscript:v44];
           handle3 = [v46 handle];
 
           if (handle3)
           {
-            recipients9 = [(_PSSuggestion *)v6 recipients];
-            v49 = [recipients9 objectAtIndexedSubscript:v44];
+            recipients7 = [(_PSSuggestion *)v6 recipients];
+            v49 = [recipients7 objectAtIndexedSubscript:v44];
             handle4 = [v49 handle];
             [v41 addObject:handle4];
           }
 
           ++v44;
-          recipients10 = [(_PSSuggestion *)v6 recipients];
-          v52 = [recipients10 count];
+          recipients8 = [(_PSSuggestion *)v6 recipients];
+          v52 = [recipients8 count];
         }
 
         while (v52 > v44);
@@ -609,14 +543,6 @@ LABEL_28:
   v5 = [v3 isEqual:reason];
 
   return v5;
-}
-
-+ (void)suggestionForBundleID:derivedIntentIdentifier:knowledgeStore:contactResolver:reason:reasonType:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, v0, v1, "Error retrieving intent: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

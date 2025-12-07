@@ -72,7 +72,7 @@ LABEL_10:
     v13 = sub_10007685C(format);
     v14 = [NSString stringWithFormat:@"Invalid format type '%@' for value of class '%@'", v13, objc_opt_class()];
 
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = sub_10007FAFC(0);
@@ -290,7 +290,7 @@ LABEL_62:
       goto LABEL_67;
     default:
 LABEL_67:
-      v26 = sub_10007FAA0();
+      v26 = sub_10007FAA0(0);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = sub_10007FAFC(0);
@@ -376,7 +376,7 @@ LABEL_18:
         }
 
 LABEL_47:
-        v19 = sub_10007FAA0();
+        v19 = sub_10007FAA0(0);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           v20 = sub_10007FAFC(0);
@@ -508,7 +508,7 @@ LABEL_53:
     goto LABEL_47;
   }
 
-  v14 = sub_10007FAA0();
+  v14 = sub_10007FAA0(0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = sub_10007FAFC(0);

@@ -790,38 +790,38 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
 - (BOOL)_displayAndCheckForDrawable:(BOOL)drawable withCompletion:(id)completion
 {
   drawableCopy = drawable;
-  v101 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   context = objc_autoreleasePoolPush();
   [(CLKUIMetalQuadView *)self _updateDrawableSizeIfNecessary];
   v6 = CACurrentMediaTime();
   v7 = objc_opt_new();
-  v93 = 0u;
-  v94 = 0u;
   v95 = 0u;
   v96 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   v8 = self->_quads;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v93 objects:v100 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v95 objects:v102 count:16];
   if (v9)
   {
-    v10 = *v94;
+    v10 = *v96;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v94 != v10)
+        if (*v96 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v93 + 1) + 8 * i);
+        v12 = *(*(&v95 + 1) + 8 * i);
         if ([v12 prepareForTime:v6])
         {
           [v7 addObject:v12];
         }
       }
 
-      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v93 objects:v100 count:16];
+      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v95 objects:v102 count:16];
     }
 
     while (v9);
@@ -832,56 +832,56 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
     commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
     v14 = MEMORY[0x1E696AEC0];
     debugIdentifier = [(CLKUIQuadView *)self debugIdentifier];
-    v61 = [v14 stringWithFormat:@"FaceDisplay-%@", debugIdentifier];
+    v63 = [v14 stringWithFormat:@"FaceDisplay-%@", debugIdentifier];
 
-    [CLKUIMetalResourceManager addCompletedErrorCheckToCommandBuffer:commandBuffer forCase:v61];
+    [CLKUIMetalResourceManager addCompletedErrorCheckToCommandBuffer:commandBuffer forCase:v63];
     [(UIImageView *)self->_snapshotView setHidden:1];
     [(UIImageView *)self->_snapshotView setImage:0];
     if (completionCopy)
     {
-      v91[0] = MEMORY[0x1E69E9820];
-      v91[1] = 3221225472;
-      v91[2] = __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke;
-      v91[3] = &unk_1E7FF8958;
-      v92 = completionCopy;
-      [commandBuffer addScheduledHandler:v91];
+      v93[0] = MEMORY[0x1E69E9820];
+      v93[1] = 3221225472;
+      v93[2] = __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke;
+      v93[3] = &unk_1E7FF8958;
+      v94 = completionCopy;
+      [commandBuffer addScheduledHandler:v93];
     }
 
     if ([(CLKUIQuadView *)self singleBufferMode])
     {
       objc_initWeak(location, self);
-      v89[0] = MEMORY[0x1E69E9820];
-      v89[1] = 3221225472;
-      v89[2] = __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke_2;
-      v89[3] = &unk_1E7FF89A8;
-      objc_copyWeak(&v90, location);
-      [commandBuffer addCompletedHandler:v89];
-      objc_destroyWeak(&v90);
+      v91[0] = MEMORY[0x1E69E9820];
+      v91[1] = 3221225472;
+      v91[2] = __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke_2;
+      v91[3] = &unk_1E7FF89A8;
+      objc_copyWeak(&v92, location);
+      [commandBuffer addCompletedHandler:v91];
+      objc_destroyWeak(&v92);
       objc_destroyWeak(location);
     }
 
+    v89 = 0u;
+    v90 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
     v16 = v7;
-    v17 = [v16 countByEnumeratingWithState:&v85 objects:v99 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v87 objects:v101 count:16];
     if (v17)
     {
-      v18 = *v86;
+      v18 = *v88;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v86 != v18)
+          if (*v88 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v85 + 1) + 8 * j) performOffscreenPassesWithCommandBuffer:commandBuffer];
+          [*(*(&v87 + 1) + 8 * j) performOffscreenPassesWithCommandBuffer:commandBuffer];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v85 objects:v99 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v87 objects:v101 count:16];
       }
 
       while (v17);
@@ -890,34 +890,34 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
     if (drawableCopy && (*(self + 552) & 2) == 0 && ([(CAMetalLayer *)self->_metalLayer isDrawableAvailable]& 1) == 0)
     {
       [commandBuffer commit];
+      v85 = 0u;
+      v86 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v81 = 0u;
-      v82 = 0u;
       date = v16;
-      v52 = [date countByEnumeratingWithState:&v81 objects:v98 count:16];
-      if (v52)
+      v54 = [date countByEnumeratingWithState:&v83 objects:v100 count:16];
+      if (v54)
       {
-        v53 = *v82;
+        v55 = *v84;
         do
         {
-          for (k = 0; k != v52; ++k)
+          for (k = 0; k != v54; ++k)
           {
-            if (*v82 != v53)
+            if (*v84 != v55)
             {
               objc_enumerationMutation(date);
             }
 
-            [*(*(&v81 + 1) + 8 * k) renderFailedForReason:0];
+            [*(*(&v83 + 1) + 8 * k) renderFailedForReason:0];
           }
 
-          v52 = [date countByEnumeratingWithState:&v81 objects:v98 count:16];
+          v54 = [date countByEnumeratingWithState:&v83 objects:v100 count:16];
         }
 
-        while (v52);
+        while (v54);
       }
 
-      v62 = 0;
+      v64 = 0;
       goto LABEL_63;
     }
 
@@ -925,32 +925,32 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
     nextDrawable = [(CAMetalLayer *)self->_metalLayer nextDrawable];
     date2 = [MEMORY[0x1E695DF00] date];
     [date2 timeIntervalSinceDate:date];
-    v62 = nextDrawable != 0;
+    v64 = nextDrawable != 0;
     if (!nextDrawable)
     {
       [commandBuffer commit];
+      v81 = 0u;
+      v82 = 0u;
       v79 = 0u;
       v80 = 0u;
-      v77 = 0u;
-      v78 = 0u;
       v22 = v16;
-      v24 = [v22 countByEnumeratingWithState:&v77 objects:v97 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v79 objects:v99 count:16];
       if (v24)
       {
-        v25 = *v78;
+        v25 = *v80;
         do
         {
           for (m = 0; m != v24; ++m)
           {
-            if (*v78 != v25)
+            if (*v80 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            [*(*(&v77 + 1) + 8 * m) renderFailedForReason:1];
+            [*(*(&v79 + 1) + 8 * m) renderFailedForReason:1];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v77 objects:v97 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v79 objects:v99 count:16];
         }
 
         while (v24);
@@ -992,9 +992,9 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
     {
       v30 = self->_aplPipelineState;
       texture3 = [nextDrawable texture];
-      v76 = v30;
-      v58 = _CLKUIComputeTextureAPL(texture3, commandBuffer, &v76);
-      v32 = v76;
+      v78 = v30;
+      v60 = _CLKUIComputeTextureAPL(texture3, commandBuffer, &v78);
+      v32 = v78;
 
       aplPipelineState = self->_aplPipelineState;
       self->_aplPipelineState = v32;
@@ -1003,27 +1003,27 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
       _getDimmingPipelineState = [(CLKUIMetalQuadView *)self _getDimmingPipelineState];
       computeCommandEncoder = [commandBuffer computeCommandEncoder];
       [computeCommandEncoder setComputePipelineState:_getDimmingPipelineState];
+      v76 = 0u;
+      v77 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
       *location = 0u;
       aplFilterAmount = self->_aplFilterAmount;
-      *&v75 = self->_maxAPL;
-      *(&v75 + 1) = aplFilterAmount;
+      *&v77 = self->_maxAPL;
+      *(&v77 + 1) = aplFilterAmount;
       currentDevice = [MEMORY[0x1E695B4F8] currentDevice];
       *&v38 = CLKUINativeToAPLCoeff(currentDevice);
-      v74 = v38;
+      v76 = v38;
 
-      v39 = sRGBtoNative();
-      LODWORD(location[1]) = v40;
-      DWORD2(v72) = v41;
-      location[0] = *&v39;
-      *&v72 = v42;
-      DWORD2(v73) = v43;
-      *&v73 = v44;
+      v41 = sRGBtoNative(v39, v40);
+      LODWORD(location[1]) = v42;
+      DWORD2(v74) = v43;
+      location[0] = *&v41;
+      *&v74 = v44;
+      DWORD2(v75) = v45;
+      *&v75 = v46;
       [computeCommandEncoder setBytes:location length:80 atIndex:2];
-      [computeCommandEncoder setBuffer:v58 offset:0 atIndex:1];
+      [computeCommandEncoder setBuffer:v60 offset:0 atIndex:1];
       texture4 = [nextDrawable texture];
       [computeCommandEncoder setTexture:texture4 atIndex:0];
 
@@ -1034,13 +1034,13 @@ void __44__CLKUIMetalQuadView_prewarmWithCompletion___block_invoke(uint64_t a1)
       texture6 = [nextDrawable texture];
 
       LODWORD(v34) = [texture6 height];
-      v70[0] = (threadExecutionWidth + width - 1) / threadExecutionWidth;
-      v70[1] = (maxTotalThreadsPerThreadgroup / threadExecutionWidth + v34 - 1) / (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
-      v70[2] = 1;
-      v69[0] = threadExecutionWidth;
-      v69[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-      v69[2] = 1;
-      [computeCommandEncoder dispatchThreadgroups:v70 threadsPerThreadgroup:v69];
+      v72[0] = (threadExecutionWidth + width - 1) / threadExecutionWidth;
+      v72[1] = (maxTotalThreadsPerThreadgroup / threadExecutionWidth + v34 - 1) / (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
+      v72[2] = 1;
+      v71[0] = threadExecutionWidth;
+      v71[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+      v71[2] = 1;
+      [computeCommandEncoder dispatchThreadgroups:v72 threadsPerThreadgroup:v71];
       [computeCommandEncoder endEncoding];
     }
 
@@ -1058,17 +1058,17 @@ LABEL_63:
     aBlock[1] = 3221225472;
     aBlock[2] = __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke_3;
     aBlock[3] = &unk_1E7FF89D0;
-    v49 = commandBuffer;
-    v67 = v49;
-    v68 = nextDrawable;
-    v50 = _Block_copy(aBlock);
-    [v49 commit];
+    v51 = commandBuffer;
+    v69 = v51;
+    v70 = nextDrawable;
+    v52 = _Block_copy(aBlock);
+    [v51 commit];
     currentPhase = [MEMORY[0x1E6979518] currentPhase];
     if (currentPhase)
     {
       if (currentPhase == 1)
       {
-        v50[2](v50);
+        v52[2](v52);
 LABEL_61:
 
         goto LABEL_62;
@@ -1080,16 +1080,16 @@ LABEL_61:
       }
     }
 
-    [MEMORY[0x1E6979518] addCommitHandler:v50 forPhase:1];
+    [MEMORY[0x1E6979518] addCommitHandler:v52 forPhase:1];
     goto LABEL_61;
   }
 
   completionCopy[2]();
-  v62 = 0;
+  v64 = 0;
 LABEL_64:
 
   objc_autoreleasePoolPop(context);
-  return v62;
+  return v64;
 }
 
 uint64_t __65__CLKUIMetalQuadView__displayAndCheckForDrawable_withCompletion___block_invoke_2(uint64_t a1)

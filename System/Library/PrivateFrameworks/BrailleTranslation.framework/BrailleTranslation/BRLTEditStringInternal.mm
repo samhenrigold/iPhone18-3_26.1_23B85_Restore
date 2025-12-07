@@ -15,12 +15,10 @@
 
 - (NSString)string
 {
-  v2 = *(self + OBJC_IVAR___BRLTEditStringInternal_string);
-  v3 = *(self + OBJC_IVAR___BRLTEditStringInternal_string + 8);
 
-  v4 = sub_241E357E4();
+  v2 = sub_241E357E4();
 
-  return v4;
+  return v2;
 }
 
 - (id)appending:(id)appending

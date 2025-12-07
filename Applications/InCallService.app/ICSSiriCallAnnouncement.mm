@@ -25,7 +25,7 @@
 
 - (void)pause
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -42,7 +42,7 @@
 
 - (void)start
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -132,7 +132,7 @@
 
 - (void)stop
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -165,7 +165,7 @@
 
 - (void)didStartSpeaking
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -185,26 +185,26 @@
 - (void)didFinishSpeakingWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "", v11, 2u);
   }
 
   if (errorCopy)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100254444(errorCopy, v6);
+      sub_100254444(errorCopy, v7);
     }
   }
 
   delegate = [(ICSAnnouncement *)self delegate];
-  v8 = objc_opt_respondsToSelector();
+  v9 = objc_opt_respondsToSelector();
 
-  if (v8)
+  if (v9)
   {
     delegate2 = [(ICSAnnouncement *)self delegate];
     [delegate2 announcementDidFinish:self];

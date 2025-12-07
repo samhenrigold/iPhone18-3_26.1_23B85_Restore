@@ -33,25 +33,29 @@
         v13 = *v22;
         while (2)
         {
-          for (i = 0; i != v12; ++i)
+          v14 = 0;
+          do
           {
             if (*v22 != v13)
             {
               objc_enumerationMutation(viewControllers);
             }
 
-            mathDictionary = [*(*(&v21 + 1) + 8 * i) mathDictionary];
+            mathDictionary = [*(*(&v21 + 1) + 8 * v14) mathDictionary];
             v16 = [mathDictionary isEqualToDictionary:v3];
 
             if (v16)
             {
 
-              _AXLogWithFacility();
+              _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to expand the same math expression more than once.  Ignoring repeated requests.");
               v5 = v20;
               goto LABEL_14;
             }
+
+            ++v14;
           }
 
+          while (v12 != v14);
           v12 = [viewControllers countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v12)
           {

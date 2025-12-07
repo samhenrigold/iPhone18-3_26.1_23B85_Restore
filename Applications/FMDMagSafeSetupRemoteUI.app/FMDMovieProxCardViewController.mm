@@ -3,7 +3,9 @@
 - (FMDMovieProxCardViewController)initWithMovieURL:(id)l adjustmentsURL:(id)rL movieDimensions:(CGSize)dimensions productHeight:(double)height;
 - (void)fadeInAuxiliaryViewsOverDuration:(double)duration delay:(double)delay completion:(id)completion;
 - (void)setAuxiliaryViewsAlpha:(double)alpha;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FMDMovieProxCardViewController
@@ -107,6 +109,32 @@
   v49[9] = v22;
   v23 = [NSArray arrayWithObjects:v49 count:10];
   [NSLayoutConstraint activateConstraints:v23];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = FMDMovieProxCardViewController;
+  [(FMDMovieProxCardViewController *)&v6 viewWillAppear:appear];
+  movieView = [(FMDMovieProxCardViewController *)self movieView];
+  player = [movieView player];
+  [player play];
+
+  [(FMDMovieProxCardViewController *)self setAuxiliaryViewsAlpha:0.0];
+  [(FMDMovieProxCardViewController *)self fadeInAuxiliaryViewsOverDuration:0 delay:1.5 completion:0.5];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = FMDMovieProxCardViewController;
+  [(FMDMovieProxCardViewController *)&v7 viewDidDisappear:disappear];
+  movieView = [(FMDMovieProxCardViewController *)self movieView];
+  player = [movieView player];
+  [player pause];
+
+  movieView2 = [(FMDMovieProxCardViewController *)self movieView];
+  [movieView2 setPlayer:0];
 }
 
 - (void)fadeInAuxiliaryViewsOverDuration:(double)duration delay:(double)delay completion:(id)completion

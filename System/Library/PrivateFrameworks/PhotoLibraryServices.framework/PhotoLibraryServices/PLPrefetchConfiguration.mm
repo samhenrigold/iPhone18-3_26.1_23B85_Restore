@@ -190,7 +190,7 @@
 
     if (lowercaseString)
     {
-      if ([lowercaseString isEqualToString:@"medium"])
+      if (objc_msgSend_isEqualToString_(lowercaseString))
       {
         v5 = &unk_1F0FBC0B8;
 LABEL_9:
@@ -200,13 +200,13 @@ LABEL_9:
         goto LABEL_10;
       }
 
-      if ([lowercaseString isEqualToString:@"fullsize"])
+      if (objc_msgSend_isEqualToString_(lowercaseString))
       {
         v5 = &unk_1F0FBC0D0;
         goto LABEL_9;
       }
 
-      if ([lowercaseString isEqualToString:@"original"])
+      if (objc_msgSend_isEqualToString_(lowercaseString))
       {
         v5 = &unk_1F0FBC0E8;
         goto LABEL_9;

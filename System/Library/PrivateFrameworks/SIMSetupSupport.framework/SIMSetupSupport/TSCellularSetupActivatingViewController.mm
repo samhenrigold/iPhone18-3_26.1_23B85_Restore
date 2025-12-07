@@ -1,12 +1,26 @@
 @interface TSCellularSetupActivatingViewController
+- (TSCellularSetupActivatingViewController)initWithPlans:(id)plans skip:(BOOL)skip;
 - (TSCellularSetupActivatingViewController)initWithTitle:(id)title details:(id)details symbolName:(id)name plans:(id)plans skip:(BOOL)skip;
 - (TSCellularSetupActivatingViewController)initWithTransferOutPlan:(id)plan;
 - (TSSIMSetupFlowDelegate)delegate;
 - (void)setTransferStarted;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSCellularSetupActivatingViewController
+
+- (TSCellularSetupActivatingViewController)initWithPlans:(id)plans skip:(BOOL)skip
+{
+  skipCopy = skip;
+  v6 = MEMORY[0x277CCA8D8];
+  plansCopy = plans;
+  v8 = [v6 bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"ACTIVATE_SPINNER_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+
+  v10 = [(TSCellularSetupActivatingViewController *)self initWithTitle:&stru_28753DF48 details:v9 symbolName:0 plans:plansCopy skip:skipCopy];
+  return v10;
+}
 
 - (TSCellularSetupActivatingViewController)initWithTitle:(id)title details:(id)details symbolName:(id)name plans:(id)plans skip:(BOOL)skip
 {
@@ -16,29 +30,39 @@
   v20.receiver = self;
   v20.super_class = TSCellularSetupActivatingViewController;
   v13 = [(OBTableWelcomeController *)&v20 initWithTitle:title detailText:details symbolName:name adoptTableViewScrollView:0];
+  v14 = v13;
   if (v13)
   {
-    v14 = !skipCopy && [plansCopy count] < 2;
-    v13->_needShow = v14;
-    v15 = _TSLogDomain();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (skipCopy)
     {
-      needShow = v13->_needShow;
-      v17 = [plansCopy count];
+      v15 = 0;
+    }
+
+    else
+    {
+      v13 = [plansCopy count];
+      v15 = v13 < 2;
+    }
+
+    v14->_needShow = v15;
+    v16 = _TSLogDomain(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      needShow = v14->_needShow;
+      v18 = [plansCopy count];
       *buf = 67109890;
       v22 = needShow;
       v23 = 1024;
       v24 = skipCopy;
       v25 = 2048;
-      v26 = v17;
+      v26 = v18;
       v27 = 2080;
       v28 = "[TSCellularSetupActivatingViewController initWithTitle:details:symbolName:plans:skip:]";
-      _os_log_impl(&dword_262AA8000, v15, OS_LOG_TYPE_DEFAULT, "show : %{BOOL}d, skip : %{BOOL} d, count : %lu @%s", buf, 0x22u);
+      _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "show : %{BOOL}d, skip : %{BOOL} d, count : %lu @%s", buf, 0x22u);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (TSCellularSetupActivatingViewController)initWithTransferOutPlan:(id)plan
@@ -70,6 +94,14 @@
   v14 = [(TSCellularSetupActivatingViewController *)self initWithTitle:v7 details:v13 symbolName:@"antenna.radiowaves.left.and.right" plans:0 skip:0];
 
   return v14;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSCellularSetupActivatingViewController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(OBWelcomeController *)self _showButtonTraySpinnerWithBusyText:&stru_28753DF48];
 }
 
 - (void)viewDidLoad

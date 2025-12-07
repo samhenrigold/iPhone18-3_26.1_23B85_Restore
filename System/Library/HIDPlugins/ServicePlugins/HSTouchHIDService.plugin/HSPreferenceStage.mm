@@ -92,7 +92,7 @@ LABEL_3:
     {
       [v7 addStageObserver:self];
       objc_initWeak(&location, v7);
-      std::__hash_table<HSStage  {objcproto15HSPreferencable}* {__weak},HSUtil::ObjectHasher,std::equal_to<HSStage  {objcproto15HSPreferencable}* {__weak}>,std::allocator<HSStage  {objcproto15HSPreferencable}* {__weak}>>::__emplace_unique_key_args<HSStage  {objcproto15HSPreferencable}* {__weak},HSStage  {objcproto15HSPreferencable}* {__weak}>(&p_state->prefStages.__table_.__bucket_list_.__ptr_, &location);
+      std::__hash_table<HSStage  {objcproto15HSPreferencable}* {__weak},HSUtil::ObjectHasher,std::equal_to<HSStage  {objcproto15HSPreferencable}* {__weak}>,std::allocator<HSStage  {objcproto15HSPreferencable}* {__weak}>>::__emplace_unique_key_args<HSStage  {objcproto15HSPreferencable}* {__weak},HSStage  {objcproto15HSPreferencable}* {__weak}>(&p_state->prefStages.__table_.__bucket_list_.__ptr_, &location, &location);
       objc_destroyWeak(&location);
     }
   }

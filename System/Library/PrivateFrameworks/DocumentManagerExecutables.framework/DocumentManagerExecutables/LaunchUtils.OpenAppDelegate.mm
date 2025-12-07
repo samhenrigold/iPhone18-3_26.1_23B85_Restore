@@ -9,7 +9,7 @@
 
 - (void)openResourceOperation:(id)operation didFinishCopyingResource:(id)resource
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v15 - v9;
   if (resource)
@@ -29,7 +29,7 @@
   selfCopy = self;
   specialized LaunchUtils.OpenAppDelegate.openResourceOperation(_:didFinishCopyingResource:)(operation, v10);
 
-  outlined destroy of CharacterSet?(v10, &_s10Foundation3URLVSgMd);
+  outlined destroy of CharacterSet?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 }
 
 - (void)openResourceOperationDidComplete:(id)complete

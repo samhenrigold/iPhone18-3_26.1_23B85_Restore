@@ -1,8 +1,8 @@
 @interface UIViewController(SafeAppearancePropagation)
 - (id)_ccui_childViewControllersForAppearancePropagation;
-- (uint64_t)ccui_safelyEndAppearanceTransition;
 - (void)ccui_safelyBeginAppearanceTransition:()SafeAppearancePropagation animated:;
 - (void)ccui_safelyBeginAppearanceTransitionForChildViewControllers:()SafeAppearancePropagation animated:;
+- (void)ccui_safelyEndAppearanceTransition;
 - (void)ccui_safelyEndAppearanceTransitionForChildViewControllers;
 @end
 
@@ -39,7 +39,7 @@
   }
 }
 
-- (uint64_t)ccui_safelyEndAppearanceTransition
+- (void)ccui_safelyEndAppearanceTransition
 {
   [self bs_endAppearanceTransition];
   result = [self ccui_shouldPropagateAppearanceCalls];

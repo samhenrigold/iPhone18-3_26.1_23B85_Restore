@@ -617,7 +617,7 @@
   v41 = 0u;
   if (mapView)
   {
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
   }
 
   if ([(IOSBasedChromeViewController *)self shouldUseModernMap])
@@ -1821,7 +1821,7 @@ LABEL_16:
   if (mapView)
   {
     v4 = mapView;
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
 
     if (v6 == 1)
     {
@@ -2070,7 +2070,7 @@ LABEL_18:
       v20 = mapView3;
       if (mapView3)
       {
-        [mapView3 _cartographicConfiguration];
+        objc_msgSend__cartographicConfiguration(mapView3);
         v21 = v26 != 0;
       }
 
@@ -2283,7 +2283,7 @@ LABEL_12:
   v5 = mapView;
   if (mapView)
   {
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
   }
 
   else
@@ -4605,7 +4605,7 @@ LABEL_63:
   v30 = mapView3;
   if (mapView3)
   {
-    [mapView3 _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView3);
 
     if (v37 == 1)
     {

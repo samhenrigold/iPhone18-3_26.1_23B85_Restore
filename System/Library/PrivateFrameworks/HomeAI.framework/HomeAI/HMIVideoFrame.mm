@@ -46,7 +46,7 @@
 
   else
   {
-    v16 = [HMIFaceprint initWithUUID:data:modelUUID:faceCropUUID:];
+    [HMIFaceprint initWithUUID:data:modelUUID:faceCropUUID:];
     return [(HMIVideoFrame *)v16 initWithPixelBuffer:v17 presentationTimeStamp:v18, v19];
   }
 }
@@ -73,9 +73,9 @@
 
 - (HMIVideoFrame)initWithSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-  CMSampleBufferGetPresentationTimeStamp(&v7, buffer);
-  return [(HMIVideoFrame *)self initWithPixelBuffer:ImageBuffer presentationTimeStamp:&v7];
+  CMSampleBufferGetImageBuffer(buffer);
+  CMSampleBufferGetPresentationTimeStamp(&v6, buffer);
+  return [HMIVideoFrame initWithPixelBuffer:"initWithPixelBuffer:presentationTimeStamp:" presentationTimeStamp:?];
 }
 
 - (id)redactedCopy
@@ -83,36 +83,30 @@
   v3 = objc_alloc(objc_opt_class());
   data = [MEMORY[0x277CBEA90] data];
   [(HMIVideoFrame *)self size];
-  v6 = v5;
-  v8 = v7;
-  [(HMIVideoFrame *)self presentationTimeStamp];
-  v9 = [v3 initWithJPEGData:data size:v11 presentationTimeStamp:{v6, v8}];
+  [v7 presentationTimeStamp];
+  v5 = [v3 initWithJPEGData:? size:? presentationTimeStamp:?];
 
-  return v9;
+  return v5;
 }
 
 - (id)base64Encoded
 {
   data = [(HMIVideoFrame *)self data];
-  v3 = [data base64EncodedStringWithOptions:32];
+  v3 = [data base64EncodedStringWithOptions:?];
 
   return v3;
 }
 
 - (id)compressedFrameWithScale:(double)scale quality:(double)quality error:(id *)error
 {
-  v8 = scale <= 0.0;
-  v7 = 1.0;
-  v8 = v8 || scale > 1.0;
-  if (v8)
+  if (scale <= 0.0 || scale > 1.0)
   {
     [HMIVideoFrame compressedFrameWithScale:quality:error:];
 LABEL_31:
-    v25 = [HMIVideoFrame compressedFrameWithScale:quality:error:];
-    return [(HMIVideoFrame *)v25 pixelBufferFrameWithError:v26, v27];
+    v19 = [HMIVideoFrame compressedFrameWithScale:quality:error:];
+    return [(HMIVideoFrame *)v19 pixelBufferFrameWithError:v20, v21];
   }
 
-  qualityCopy = quality;
   if (quality <= 0.0 || quality > 1.0)
   {
     goto LABEL_31;
@@ -123,25 +117,20 @@ LABEL_31:
   {
     if (!store)
     {
-      *&v7 = scale;
-      *&quality = quality;
-      v14 = [HMIVisionUtilities createJPEGDataFromPixelBuffer:self->_pixelBuffer scale:error encodeQuality:v7 error:quality];
-      if (v14)
+      v11 = [HMIVisionUtilities createJPEGDataFromPixelBuffer:"createJPEGDataFromPixelBuffer:scale:encodeQuality:error:" scale:? encodeQuality:? error:?];
+      if (v11)
       {
-        Size = HMICVPixelBufferGetSize(self->_pixelBuffer);
-        v28 = v16;
-        v29 = Size;
-        CGAffineTransformMakeScale(&v32, scale, scale);
-        v30 = vmlaq_n_f64(vmulq_n_f64(*&v32.c, v28), *&v32.a, v29);
-        v17 = objc_alloc(objc_opt_class());
-        *&v32.a = *&self->_presentationTimeStamp.value;
-        *&v32.c = self->_presentationTimeStamp.epoch;
-        v5 = [v17 initWithJPEGData:v14 size:&v32 presentationTimeStamp:*&v30];
+        HMICVPixelBufferGetSize(self->_pixelBuffer);
+        CGAffineTransformMakeScale(&v22, scale, scale);
+        v12 = objc_alloc(objc_opt_class());
+        *&v22.a = *&self->_presentationTimeStamp.value;
+        *&v22.c = self->_presentationTimeStamp.epoch;
+        p_isa = [v12 initWithJPEGData:? size:? presentationTimeStamp:?];
       }
 
       else
       {
-        v5 = 0;
+        p_isa = 0;
       }
     }
 
@@ -157,34 +146,32 @@ LABEL_31:
   {
     if ([(NSData *)self->_data length])
     {
-      v19 = [(HMIVideoFrame *)self pixelBufferFrameWithError:error];
-      v20 = v19;
-      if (v19)
+      v14 = [(HMIVideoFrame *)self pixelBufferFrameWithError:?];
+      v15 = v14;
+      if (v14)
       {
-        v5 = [v19 compressedFrameWithScale:error quality:scale error:qualityCopy];
+        p_isa = [v14 compressedFrameWithScale:? quality:? error:?];
       }
 
       else
       {
-        v5 = 0;
+        p_isa = 0;
       }
 
       goto LABEL_27;
     }
 
-    CGAffineTransformMakeScale(&v32, scale, scale);
-    v31 = vmlaq_n_f64(vmulq_n_f64(*&v32.c, self->_size.height), *&v32.a, self->_size.width);
-    v22 = objc_alloc(objc_opt_class());
-    data = self->_data;
-    *&v32.a = *&self->_presentationTimeStamp.value;
-    *&v32.c = self->_presentationTimeStamp.epoch;
-    selfCopy = [v22 initWithJPEGData:data size:&v32 presentationTimeStamp:*&v31];
+    CGAffineTransformMakeScale(&v22, scale, scale);
+    v17 = objc_alloc(objc_opt_class());
+    *&v22.a = *&self->_presentationTimeStamp.value;
+    *&v22.c = self->_presentationTimeStamp.epoch;
+    selfCopy = [v17 initWithJPEGData:? size:? presentationTimeStamp:?];
   }
 
-  v5 = selfCopy;
+  p_isa = &selfCopy->super.super.isa;
 LABEL_27:
 
-  return v5;
+  return p_isa;
 }
 
 - (id)pixelBufferFrameWithError:(id *)error
@@ -196,14 +183,14 @@ LABEL_27:
 
   else
   {
-    v6 = [HMIVisionUtilities createPixelBufferFromImageData:self->_data error:error];
-    if (v6)
+    v5 = [HMIVisionUtilities createPixelBufferFromImageData:"createPixelBufferFromImageData:error:" error:?];
+    if (v5)
     {
-      v7 = v6;
-      v8 = objc_alloc(objc_opt_class());
-      [(HMIVideoFrame *)self presentationTimeStamp];
-      selfCopy = [v8 initWithPixelBuffer:v7 presentationTimeStamp:v10];
-      CVPixelBufferRelease(v7);
+      v6 = v5;
+      v7 = objc_alloc(objc_opt_class());
+      [v9 presentationTimeStamp];
+      selfCopy = [v7 initWithPixelBuffer:? presentationTimeStamp:?];
+      CVPixelBufferRelease(v6);
     }
 
     else
@@ -220,12 +207,11 @@ LABEL_27:
   data = self->_data;
   if (!data)
   {
-    v11 = 0;
-    v4 = [(HMIVideoFrame *)self compressedFrameWithScale:&v11 quality:1.0 error:1.0];
-    v5 = v11;
+    v4 = [HMIVideoFrame compressedFrameWithScale:"compressedFrameWithScale:quality:error:" quality:? error:?];
+    v5 = 0;
     if (!v4)
     {
-      v10 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"HMIVideoFrame failed to create compressed representation." userInfo:0];
+      v10 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
       objc_exception_throw(v10);
     }
 
@@ -242,21 +228,20 @@ LABEL_27:
 
 - (void)printWithHeight:(unint64_t)height
 {
-  heightCopy = height;
   [(HMIVideoFrame *)self size];
 
-  [(HMIVideoFrame *)self printWithScale:heightCopy / v5];
+  [(HMIVideoFrame *)self printWithScale:?];
 }
 
 - (void)printWithScale:(double)scale
 {
-  v8 = [(HMIVideoFrame *)self compressedFrameWithScale:0 quality:fmax(fmin(scale error:1.0), 0.1), 1.0];
+  v8 = [HMIVideoFrame compressedFrameWithScale:"compressedFrameWithScale:quality:error:" quality:? error:?];
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   data = [v8 data];
-  v5 = [data base64EncodedDataWithOptions:1];
-  v6 = [v3 initWithData:v5 encoding:4];
+  v5 = [data base64EncodedDataWithOptions:?];
+  v6 = [v3 initWithData:? encoding:?];
 
-  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"\x1B]1337File=inline=1;preserveAspectRatio=1:%@\a", v6];;
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:v6];
   fprintf(*MEMORY[0x277D85E08], "%s\n", [v7 UTF8String]);
 }
 
@@ -275,7 +260,7 @@ LABEL_27:
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_store == 1)
   {
     v3 = @"Data (JPEG)";
@@ -291,16 +276,16 @@ LABEL_27:
   v6 = [v4 alloc];
   presentationTimeStamp = self->_presentationTimeStamp;
   v7 = HMICMTimeDescription(&presentationTimeStamp);
-  v8 = [v6 initWithName:@"Presentation Time Stamp" value:v7];
-  v16[0] = v8;
+  v8 = [v6 initWithName:? value:?];
+  v16 = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = HMICGSizeDescription(self->_size.width, self->_size.height);
-  v11 = [v9 initWithName:@"Size" value:v10];
-  v16[1] = v11;
-  v12 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:@"Store" value:v5];
+  v11 = [v9 initWithName:? value:?];
+  v17 = v11;
+  v12 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:? value:?];
 
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v18 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   return v13;
 }
@@ -308,31 +293,29 @@ LABEL_27:
 - (HMIVideoFrame)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v22 = 0uLL;
-  v23 = 0;
+  v14 = 0uLL;
+  v15 = 0;
   v5 = NSStringFromSelector(sel_presentationTimeStamp);
   if (coderCopy)
   {
-    [coderCopy decodeCMTimeForKey:v5];
+    [&v14 decodeCMTimeForKey:?];
   }
 
   else
   {
-    v22 = 0uLL;
-    v23 = 0;
+    v14 = 0uLL;
+    v15 = 0;
   }
 
-  v6 = objc_opt_class();
-  v7 = NSStringFromSelector(sel_surface);
-  v8 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
+  objc_opt_class();
+  v6 = NSStringFromSelector(sel_surface);
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  if (v8)
+  if (v7)
   {
     pixelBufferOut = 0;
-    CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v8, 0, &pixelBufferOut);
-    v19 = v22;
-    v20 = v23;
-    v9 = [(HMIVideoFrame *)self initWithPixelBuffer:pixelBufferOut presentationTimeStamp:&v19];
+    CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v7, 0, &pixelBufferOut);
+    v8 = [(HMIVideoFrame *)self initWithPixelBuffer:v14 presentationTimeStamp:v15];
     if (pixelBufferOut)
     {
       CFRelease(pixelBufferOut);
@@ -341,41 +324,33 @@ LABEL_27:
 
   else
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromSelector(sel_data);
-    v12 = [coderCopy decodeObjectOfClass:v10 forKey:v11];
+    objc_opt_class();
+    v9 = NSStringFromSelector(sel_data);
+    v10 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-    v13 = NSStringFromSelector(sel_size);
-    [coderCopy decodeSizeForKey:v13];
-    v15 = v14;
-    v17 = v16;
+    v11 = NSStringFromSelector(sel_size);
+    [coderCopy decodeSizeForKey:?];
 
-    v19 = v22;
-    v20 = v23;
-    v9 = [(HMIVideoFrame *)self initWithJPEGData:v12 size:&v19 presentationTimeStamp:v15, v17];
+    v8 = [(HMIVideoFrame *)self initWithJPEGData:v14 size:v15 presentationTimeStamp:?];
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   v5 = NSStringFromSelector(sel_presentationTimeStamp);
-  presentationTimeStamp = self->_presentationTimeStamp;
-  [coderCopy encodeCMTime:&presentationTimeStamp forKey:v5];
+  [coderCopy encodeCMTime:*&self->_presentationTimeStamp.value forKey:self->_presentationTimeStamp.epoch];
 
   store = self->_store;
   if (store == 1)
   {
-    data = self->_data;
-    v11 = NSStringFromSelector(sel_data);
-    [coderCopy encodeObject:data forKey:v11];
+    v10 = NSStringFromSelector(sel_data);
+    [coderCopy encodeObject:? forKey:?];
 
-    width = self->_size.width;
-    height = self->_size.height;
     v8 = NSStringFromSelector(sel_size);
-    [coderCopy encodeSize:v8 forKey:{width, height}];
+    [coderCopy encodeSize:? forKey:?];
 LABEL_6:
 
     goto LABEL_7;
@@ -386,13 +361,13 @@ LABEL_6:
     v7 = CVPixelBufferGetIOSurface(self->_pixelBuffer);
     if (!v7)
     {
-      v14 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"HMIVideoFrame pixel buffer is not backed by an IOSurface" userInfo:0];
-      objc_exception_throw(v14);
+      v11 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
+      objc_exception_throw(v11);
     }
 
     v8 = v7;
     v9 = NSStringFromSelector(sel_surface);
-    [coderCopy encodeObject:v8 forKey:v9];
+    [coderCopy encodeObject:? forKey:?];
 
     goto LABEL_6;
   }

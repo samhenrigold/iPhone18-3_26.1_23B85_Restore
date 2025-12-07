@@ -8,6 +8,7 @@
 - (void)controller:(id)controller didLoadResponse:(id)response;
 - (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to;
 - (void)onQueue_controller:(id)queue_controller didLoadResponse:(id)response retry:(BOOL)retry;
+- (void)onQueue_setLastPlaybackState:(unsigned int)state bundleIdentifier:(id)identifier forEndpoint:(id)endpoint;
 - (void)setup;
 @end
 
@@ -107,6 +108,142 @@
   }
 
   return unsignedIntValue;
+}
+
+- (void)onQueue_setLastPlaybackState:(unsigned int)state bundleIdentifier:(id)identifier forEndpoint:(id)endpoint
+{
+  v6 = *&state;
+  identifierCopy = identifier;
+  endpointCopy = endpoint;
+  uniqueIdentifier = [(MRDNowPlayingStateMonitor *)endpointCopy uniqueIdentifier];
+
+  if (uniqueIdentifier)
+  {
+    queue = [(MRDNowPlayingStateMonitor *)self queue];
+    dispatch_assert_queue_V2(queue);
+
+    v12 = [(MRDNowPlayingStateMonitor *)self onQueue_lastPlaybackStateForEndpoint:endpointCopy];
+    v13 = [NSNumber numberWithUnsignedInt:v6];
+    lastPlaybackStates = [(MRDNowPlayingStateMonitor *)self lastPlaybackStates];
+    uniqueIdentifier2 = [(MRDNowPlayingStateMonitor *)endpointCopy uniqueIdentifier];
+    [lastPlaybackStates setObject:v13 forKeyedSubscript:uniqueIdentifier2];
+
+    if (v12 != v6)
+    {
+      v16 = _MRLogForCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = MRMediaRemoteCopyPlaybackStateDescription();
+        v18 = MRMediaRemoteCopyPlaybackStateDescription();
+        *buf = 138412802;
+        selfCopy = endpointCopy;
+        v40 = 2112;
+        v41 = v17;
+        v42 = 2112;
+        v43 = v18;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[MRDRRC].NPM updated stored playback state for %@ from %@ to %@", buf, 0x20u);
+      }
+    }
+
+    if ((v6 - 2) >= 2)
+    {
+      if (v6 == 1)
+      {
+        v19 = 1;
+        v20 = 1;
+      }
+
+      else
+      {
+        v19 = 0;
+        v20 = 0;
+      }
+    }
+
+    else
+    {
+      v19 = v12 == 1;
+      v20 = 2 * (v12 == 1);
+    }
+
+    v21 = [MRSystemMediaBundles systemMediaBundleIDForBundleID:identifierCopy type:1];
+    v23 = [MRIRRoute routeWithEndpoint:endpointCopy];
+    v24 = _MRLogForCategory();
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+    if (v12 == v6 || !v19)
+    {
+      if (v25)
+      {
+        v31 = MRMediaRemoteCopyPlaybackStateDescription();
+        v32 = MRMediaRemoteCopyPlaybackStateDescription();
+        *buf = 138413058;
+        selfCopy = endpointCopy;
+        v40 = 2112;
+        v41 = v31;
+        v42 = 2112;
+        v43 = v32;
+        v44 = 2112;
+        v45 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[MRDRRC].NPM Not publishing event, endpoint: %@, storedPreviousState: %@, currentState: %@, bundleIdentifier: %@", buf, 0x2Au);
+      }
+    }
+
+    else
+    {
+      if (v25)
+      {
+        v26 = MRMediaRemoteCopyPlaybackStateDescription();
+        v27 = MRMediaRemoteCopyPlaybackStateDescription();
+        *buf = 138413570;
+        selfCopy = endpointCopy;
+        v40 = 2112;
+        v41 = v26;
+        v42 = 2112;
+        v43 = v27;
+        v44 = 2112;
+        v45 = v21;
+        v46 = 2112;
+        v47 = identifierCopy;
+        v48 = 2048;
+        v49 = v20;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[MRDRRC].NPM Publishing event, endpoint: %@, storedPreviousState: %@, currentState: %@, bundleIdentifier: %@ (was %@), event: %ld", buf, 0x3Eu);
+      }
+
+      delegate = [(MRDNowPlayingStateMonitor *)self delegate];
+      v29 = objc_opt_respondsToSelector();
+
+      if (v29)
+      {
+        delegateQueue = [(MRDNowPlayingStateMonitor *)self delegateQueue];
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_10019B01C;
+        block[3] = &unk_1004BFC38;
+        block[4] = self;
+        v34 = v23;
+        v35 = endpointCopy;
+        v36 = v21;
+        v37 = v20;
+        dispatch_async(delegateQueue, block);
+      }
+    }
+  }
+
+  else
+  {
+    v21 = _MRLogForCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      uniqueIdentifier3 = [(MRDNowPlayingStateMonitor *)endpointCopy uniqueIdentifier];
+      *buf = 138412802;
+      selfCopy = self;
+      v40 = 2112;
+      v41 = endpointCopy;
+      v42 = 2112;
+      v43 = uniqueIdentifier3;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[MRDRRC].NPM %@ - endpoint ID is nil, ignoring - %@ (%@)", buf, 0x20u);
+    }
+  }
 }
 
 - (void)controller:(id)controller didFailWithError:(id)error

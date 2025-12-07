@@ -118,50 +118,42 @@ LABEL_6:
   {
     if (!index)
     {
-      v42 = objc_msgSend_URLByAppendingPathComponent_(networkCopy, v24, @"decoder_opt.espresso.net", v26);
+      v33 = objc_msgSend_URLByAppendingPathComponent_(networkCopy, v24, @"decoder_opt.espresso.net", v26);
 
-      v47 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v44, v45, v46);
-      v51 = objc_msgSend_path(v42, v48, v49, v50);
-      v54 = objc_msgSend_fileExistsAtPath_(v47, v52, v51, v53);
+      v38 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v35, v36, v37);
+      v42 = objc_msgSend_path(v33, v39, v40, v41);
+      v45 = objc_msgSend_fileExistsAtPath_(v38, v43, v42, v44);
 
-      if (v54)
+      if (v45)
       {
-        decoderPlan = self->_decoderPlan;
-        v59 = objc_msgSend_path(v42, v55, v56, v57);
-        v60 = v59;
-        objc_msgSend_UTF8String(v60, v61, v62, v63);
-        LODWORD(decoderPlan) = espresso_plan_add_network();
+        v49 = objc_msgSend_path(v33, v46, v47, v48);
+        v50 = v49;
+        objc_msgSend_UTF8String(v50, v51, v52, v53);
+        v54 = espresso_plan_add_network();
 
-        if (decoderPlan)
+        if (v54)
         {
           exception = __cxa_allocate_exception(0x10uLL);
-          v111 = self->_decoderPlan;
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(exception, v112);
+          std::runtime_error::runtime_error(exception, v81);
           __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        v64 = self->_decoderPlan;
         if (espresso_plan_build())
         {
-          v113 = __cxa_allocate_exception(0x10uLL);
-          v114 = self->_decoderPlan;
+          v82 = __cxa_allocate_exception(0x10uLL);
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(v113, v115);
-          __cxa_throw(v113, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          std::runtime_error::runtime_error(v82, v83);
+          __cxa_throw(v82, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        plan = self->_decoderNet.plan;
-        v66 = *&self->_decoderNet.network_index;
         p_decoderInputNames = &self->_decoderInputNames;
-        p_decoderNet = &self->_decoderNet;
         if (c_network_get_input_names())
         {
-          v116 = __cxa_allocate_exception(0x10uLL);
-          v117 = self->_decoderPlan;
+          v84 = __cxa_allocate_exception(0x10uLL);
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(v116, v118);
-          __cxa_throw(v116, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          std::runtime_error::runtime_error(v84, v85);
+          __cxa_throw(v84, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         begin = p_decoderInputNames->__begin_;
@@ -179,61 +171,61 @@ LABEL_6:
 
               else
               {
-                v70 = *begin;
-                v139 = *(begin + 2);
-                *__p = v70;
+                v58 = *begin;
+                v100 = *(begin + 2);
+                *__p = v58;
               }
 
-              v71 = HIBYTE(v139);
-              if (v139 >= 0)
+              v59 = HIBYTE(v100);
+              if (v100 >= 0)
               {
-                v72 = __p;
-              }
-
-              else
-              {
-                v72 = __p[0];
-              }
-
-              if (v139 >= 0)
-              {
-                v73 = SHIBYTE(v139);
+                v60 = __p;
               }
 
               else
               {
-                v73 = __p[1];
+                v60 = __p[0];
               }
 
-              if (v73 >= 5)
+              if (v100 >= 0)
               {
-                v74 = v72 + v73;
-                v75 = v72;
+                v61 = SHIBYTE(v100);
+              }
+
+              else
+              {
+                v61 = __p[1];
+              }
+
+              if (v61 >= 5)
+              {
+                v62 = v60 + v61;
+                v63 = v60;
                 do
                 {
-                  v76 = memchr(v75, 95, v73 - 4);
-                  if (!v76)
+                  v64 = memchr(v63, 95, v61 - 4);
+                  if (!v64)
                   {
                     break;
                   }
 
-                  if (*v76 == 1767863135 && v76[4] == 110)
+                  if (*v64 == 1767863135 && v64[4] == 110)
                   {
-                    if (v76 != v74 && v76 - v72 != -1)
+                    if (v64 != v62 && v64 - v60 != -1)
                     {
-                      v78 = (v74 - 3);
-                      v79 = v74 - 3 - v72;
-                      if (v79 <= 0x7FFFFFFFFFFFFFF7)
+                      v66 = (v62 - 3);
+                      v67 = v62 - 3 - v60;
+                      if (v67 <= 0x7FFFFFFFFFFFFFF7)
                       {
-                        if (v79 <= 0x16)
+                        if (v67 <= 0x16)
                         {
-                          v137 = v79;
-                          if (v78 != v72)
+                          v98 = v67;
+                          if (v66 != v60)
                           {
-                            memmove(&__dst, v72, v79);
+                            memmove(&__dst, v60, v67);
                           }
 
-                          *(&__dst + v79) = 0;
+                          *(&__dst + v67) = 0;
                           operator new();
                         }
 
@@ -246,14 +238,14 @@ LABEL_6:
                     break;
                   }
 
-                  v75 = (v76 + 1);
-                  v73 = v74 - v75;
+                  v63 = (v64 + 1);
+                  v61 = v62 - v63;
                 }
 
-                while (v74 - v75 >= 5);
+                while (v62 - v63 >= 5);
               }
 
-              if (v71 < 0)
+              if (v59 < 0)
               {
                 break;
               }
@@ -273,195 +265,159 @@ LABEL_6:
         }
 
 LABEL_51:
-        v80 = p_decoderNet->plan;
-        v81 = *&self->_decoderNet.network_index;
         if (espresso_network_bind_buffer())
         {
-          v119 = __cxa_allocate_exception(0x10uLL);
-          v120 = self->_decoderPlan;
+          v86 = __cxa_allocate_exception(0x10uLL);
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(v119, v121);
-          __cxa_throw(v119, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          std::runtime_error::runtime_error(v86, v87);
+          __cxa_throw(v86, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        v82 = p_decoderNet->plan;
-        v83 = *&self->_decoderNet.network_index;
         if (espresso_network_bind_buffer())
         {
-          v122 = __cxa_allocate_exception(0x10uLL);
-          v123 = self->_decoderPlan;
+          v88 = __cxa_allocate_exception(0x10uLL);
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(v122, v124);
-          __cxa_throw(v122, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          std::runtime_error::runtime_error(v88, v89);
+          __cxa_throw(v88, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
-        v84 = p_decoderNet->plan;
-        v85 = *&self->_decoderNet.network_index;
         if (espresso_network_bind_buffer())
         {
-          v125 = __cxa_allocate_exception(0x10uLL);
-          v126 = self->_decoderPlan;
+          v90 = __cxa_allocate_exception(0x10uLL);
           espresso_plan_get_error_info();
-          std::runtime_error::runtime_error(v125, v127);
-          __cxa_throw(v125, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          std::runtime_error::runtime_error(v90, v91);
+          __cxa_throw(v90, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
 
         if (0xAAAAAAAAAAAAAAABLL * ((self->_decoderInputNames.__end_ - self->_decoderInputNames.__begin_) >> 3) >= 5)
         {
-          v86 = p_decoderNet->plan;
-          v87 = *&self->_decoderNet.network_index;
-          if (espresso_network_bind_buffer())
-          {
-            v128 = __cxa_allocate_exception(0x10uLL);
-            v129 = self->_decoderPlan;
-            espresso_plan_get_error_info();
-            std::runtime_error::runtime_error(v128, v130);
-            __cxa_throw(v128, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-          }
-
-          v88 = p_decoderNet->plan;
-          v89 = *&self->_decoderNet.network_index;
-          if (espresso_network_bind_buffer())
-          {
-            v131 = __cxa_allocate_exception(0x10uLL);
-            v132 = self->_decoderPlan;
-            espresso_plan_get_error_info();
-            std::runtime_error::runtime_error(v131, v133);
-            __cxa_throw(v131, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-          }
-
-          v90 = p_decoderNet->plan;
-          v91 = *&self->_decoderNet.network_index;
           if (espresso_network_bind_buffer())
           {
             v92 = __cxa_allocate_exception(0x10uLL);
-            v93 = self->_decoderPlan;
             espresso_plan_get_error_info();
-            std::runtime_error::runtime_error(v92, v94);
+            std::runtime_error::runtime_error(v92, v93);
             __cxa_throw(v92, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          }
+
+          if (espresso_network_bind_buffer())
+          {
+            v94 = __cxa_allocate_exception(0x10uLL);
+            espresso_plan_get_error_info();
+            std::runtime_error::runtime_error(v94, v95);
+            __cxa_throw(v94, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          }
+
+          if (espresso_network_bind_buffer())
+          {
+            v68 = __cxa_allocate_exception(0x10uLL);
+            espresso_plan_get_error_info();
+            std::runtime_error::runtime_error(v68, v69);
+            __cxa_throw(v68, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
         }
 
         goto LABEL_8;
       }
 
-      v12 = v42;
+      v12 = v33;
     }
 
-    v43 = 0;
+    v34 = 0;
     goto LABEL_19;
   }
 
-  v27 = self->_decoderPlan;
-  v28 = objc_msgSend_path(v12, v24, v25, v26);
-  v29 = v28;
-  objc_msgSend_UTF8String(v29, v30, v31, v32);
-  v33 = &self->_decoderNet;
-  v34 = espresso_plan_add_network();
+  v27 = objc_msgSend_path(v12, v24, v25, v26);
+  v28 = v27;
+  objc_msgSend_UTF8String(v28, v29, v30, v31);
+  v32 = espresso_plan_add_network();
 
-  if (v34)
+  if (v32)
   {
-    v95 = __cxa_allocate_exception(0x10uLL);
-    v96 = self->_decoderPlan;
+    v70 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v95, v97);
-    __cxa_throw(v95, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v70, v71);
+    __cxa_throw(v70, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v35 = self->_decoderPlan;
   if (espresso_plan_build())
   {
-    v98 = __cxa_allocate_exception(0x10uLL);
-    v99 = self->_decoderPlan;
+    v72 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v98, v100);
-    __cxa_throw(v98, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v72, v73);
+    __cxa_throw(v72, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v36 = v33->plan;
-  v37 = *&self->_decoderNet.network_index;
   if (espresso_network_bind_buffer())
   {
-    v101 = __cxa_allocate_exception(0x10uLL);
-    v102 = self->_decoderPlan;
+    v74 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v101, v103);
-    __cxa_throw(v101, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v74, v75);
+    __cxa_throw(v74, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v38 = v33->plan;
-  v39 = *&self->_decoderNet.network_index;
   if (espresso_network_bind_buffer())
   {
-    v104 = __cxa_allocate_exception(0x10uLL);
-    v105 = self->_decoderPlan;
+    v76 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v104, v106);
-    __cxa_throw(v104, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v76, v77);
+    __cxa_throw(v76, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v40 = v33->plan;
-  v41 = *&self->_decoderNet.network_index;
   if (espresso_network_bind_buffer())
   {
-    v107 = __cxa_allocate_exception(0x10uLL);
-    v108 = self->_decoderPlan;
+    v78 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v107, v109);
-    __cxa_throw(v107, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v78, v79);
+    __cxa_throw(v78, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v42 = v12;
+  v33 = v12;
 LABEL_8:
 
-  v43 = 1;
+  v34 = 1;
 LABEL_19:
 
-  return v43;
+  return v34;
 }
 
 - (void)buildNetworkForSequenceLength:(unint64_t)length imageFeatures:(id)features
 {
-  v8 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   if (0xAAAAAAAAAAAAAAABLL * ((self->_decoderInputNames.__end_ - self->_decoderInputNames.__begin_) >> 3) >= 5)
   {
-    decoderPlan = self->_decoderPlan;
     espresso_plan_build_clean();
     operator new();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyInputState:(id)state
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   stateCopy = state;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(stateCopy, v5, &v75, v80, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(stateCopy, v5, &v74, v79, 16);
   if (v6)
   {
-    v7 = *v76;
+    v7 = *v75;
     selfCopy = self;
-    v68 = stateCopy;
-    v66 = *v76;
+    v67 = stateCopy;
+    v65 = *v75;
     do
     {
       v8 = 0;
-      v69 = v6;
+      v68 = v6;
       do
       {
-        if (*v76 != v7)
+        if (*v75 != v7)
         {
           objc_enumerationMutation(stateCopy);
         }
 
-        v71 = v8;
-        v9 = *(*(&v75 + 1) + 8 * v8);
+        v70 = v8;
+        v9 = *(*(&v74 + 1) + 8 * v8);
         v10 = v9;
         v14 = objc_msgSend_UTF8String(v9, v11, v12, v13);
         v15 = strlen(v14);
@@ -485,7 +441,7 @@ LABEL_19:
         __dst.__r_.__value_.__s.__data_[v16] = 0;
         v17 = std::string::append(&__dst, "_in");
         v20 = *&v17->__r_.__value_.__l.__data_;
-        v74 = v17->__r_.__value_.__r.__words[2];
+        v73 = v17->__r_.__value_.__r.__words[2];
         *__p = v20;
         v17->__r_.__value_.__l.__size_ = 0;
         v17->__r_.__value_.__r.__words[2] = 0;
@@ -495,13 +451,13 @@ LABEL_19:
           operator delete(__dst.__r_.__value_.__l.__data_);
         }
 
-        v70 = objc_msgSend_objectForKey_(stateCopy, v18, v9, v19);
+        v69 = objc_msgSend_objectForKey_(stateCopy, v18, v9, v19);
         v21 = 0;
         p_stateInputEspressoBuffersShape = &self->_stateInputEspressoBuffersShape;
         left = p_stateInputEspressoBuffersShape->__tree_.__end_node_.__left_;
         p_end_node = &p_stateInputEspressoBuffersShape->__tree_.__end_node_;
         v24 = left;
-        v72 = 1;
+        v71 = 1;
         if (!left)
         {
 LABEL_40:
@@ -510,8 +466,8 @@ LABEL_40:
 
         while (1)
         {
-          v26 = v74 >= 0 ? HIBYTE(v74) : __p[1];
-          v27 = v74 >= 0 ? __p : __p[0];
+          v26 = v73 >= 0 ? HIBYTE(v73) : __p[1];
+          v27 = v73 >= 0 ? __p : __p[0];
           while (1)
           {
             while (1)
@@ -600,9 +556,9 @@ LABEL_82:
             operator new();
           }
 
-          if (v74 >= 0)
+          if (v73 >= 0)
           {
-            v39 = HIBYTE(v74);
+            v39 = HIBYTE(v73);
           }
 
           else
@@ -610,7 +566,7 @@ LABEL_82:
             v39 = __p[1];
           }
 
-          if (v74 >= 0)
+          if (v73 >= 0)
           {
             v40 = __p;
           }
@@ -698,7 +654,7 @@ LABEL_82:
             }
           }
 
-          v72 *= *(v42[7] + 8 * v21++);
+          v71 *= *(v42[7] + 8 * v21++);
           if (!v24)
           {
             goto LABEL_40;
@@ -706,55 +662,53 @@ LABEL_82:
         }
 
         self = selfCopy;
-        stateCopy = v68;
-        v7 = v66;
-        if (v72)
+        stateCopy = v67;
+        v7 = v65;
+        if (v71)
         {
           __dst.__r_.__value_.__r.__words[0] = __p;
-          v54 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p);
-          if (v72 > (v54[8] - v54[7]) >> 2)
+          v54 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p, &unk_1D9DDE63A, &__dst);
+          if (v71 > (v54[8] - v54[7]) >> 2)
           {
             __dst.__r_.__value_.__r.__words[0] = __p;
-            v55 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p);
+            v55 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p, &unk_1D9DDE63A, &__dst);
             v56 = v55[7];
             v57 = (v55[8] - v56) >> 2;
-            if (v72 <= v57)
+            if (v71 <= v57)
             {
-              if (v72 < v57)
+              if (v71 < v57)
               {
-                v55[8] = v56 + 4 * v72;
+                v55[8] = v56 + 4 * v71;
               }
             }
 
             else
             {
-              sub_1D9DAA550((v55 + 7), v72 - v57);
+              sub_1D9DAA550((v55 + 7), v71 - v57);
             }
           }
 
           __dst.__r_.__value_.__r.__words[0] = __p;
-          v58 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p)[7];
-          v59 = v70;
-          v63 = objc_msgSend_bytes(v70, v60, v61, v62);
-          memcpy(v58, v63, 4 * v72);
+          v58 = sub_1D9D90464(&selfCopy->_stateInputEspressoBuffers, __p, &unk_1D9DDE63A, &__dst)[7];
+          v59 = v69;
+          v63 = objc_msgSend_bytes(v69, v60, v61, v62);
+          memcpy(v58, v63, 4 * v71);
         }
 
-        if (SHIBYTE(v74) < 0)
+        if (SHIBYTE(v73) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v8 = v71 + 1;
+        v8 = v70 + 1;
       }
 
-      while (v71 + 1 != v69);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v64, &v75, v80, 16);
+      while (v70 + 1 != v68);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v67, v64, &v74, v79, 16);
     }
 
     while (v6);
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyOutputState:(id)state
@@ -843,11 +797,11 @@ LABEL_97:
       *(__p + v8) = 7235935;
       v67 = __p;
       v10 = selfCopy;
-      v11 = *(sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p)[7] + 8);
+      v11 = *(sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p, &v67)[7] + 8);
       v67 = __p;
-      v12 = *(sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p)[7] + 16);
+      v12 = *(sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p, &v67)[7] + 16);
       v67 = __p;
-      v59 = *sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p)[7];
+      v59 = *sub_1D9DB8880(&selfCopy->_stateInputEspressoBuffersShape, __p, &v67)[7];
       v14 = v12 * (v11 + 1) * v59;
       if (v14)
       {
@@ -1504,7 +1458,7 @@ LABEL_3:
   {
     do
     {
-      self = sub_1D9DB7C50(retstr, &retstr->__tree_.__end_node_, &left[1].__tree_.__end_node_.__left_);
+      self = sub_1D9DB7C50(retstr, &retstr->__tree_.__end_node_, &left[1].__tree_.__end_node_.__left_, &left[1].__tree_.__end_node_);
       begin_node = left->__tree_.__end_node_.__left_;
       if (begin_node)
       {
@@ -1558,7 +1512,7 @@ LABEL_3:
   {
     do
     {
-      self = sub_1D9DB7C50(retstr, &retstr->__tree_.__end_node_, &left[1].__tree_.__end_node_.__left_);
+      self = sub_1D9DB7C50(retstr, &retstr->__tree_.__end_node_, &left[1].__tree_.__end_node_.__left_, &left[1].__tree_.__end_node_);
       begin_node = left->__tree_.__end_node_.__left_;
       if (begin_node)
       {
@@ -1614,17 +1568,17 @@ LABEL_3:
     {
       if (p_end_node->__left_)
       {
-        v5 = p_end_node + 1;
+        v6 = p_end_node + 1;
       }
 
       else
       {
-        v5 = p_end_node;
+        v6 = p_end_node;
       }
 
-      if (!v5->__left_)
+      if (!v6->__left_)
       {
-        sub_1D9DB8660();
+        sub_1D9DB8660(v10, retstr, &left[1].__tree_.__end_node_);
       }
 
       begin_node = left->__tree_.__end_node_.__left_;
@@ -1644,11 +1598,11 @@ LABEL_3:
         do
         {
           size = left->__tree_.__size_;
-          v8 = size->__tree_.__begin_node_ == left;
+          v9 = size->__tree_.__begin_node_ == left;
           left = size;
         }
 
-        while (!v8);
+        while (!v9);
       }
 
       left = size;
@@ -1686,7 +1640,8 @@ LABEL_3:
         v9 = v6;
       }
 
-      p_left = &v9->__left_;
+      v36 = &self->_stateInputEspressoBuffersShape;
+      v38 = v9;
       if (v9)
       {
         v10 = v9[2].__left_;
@@ -1698,19 +1653,19 @@ LABEL_3:
             *v10 = 0;
             while (1)
             {
-              v34 = *(v10 + 1);
-              if (!v34)
+              v35 = *(v10 + 1);
+              if (!v35)
               {
                 break;
               }
 
               do
               {
-                v10 = v34;
-                v34 = *v34;
+                v10 = v35;
+                v35 = *v35;
               }
 
-              while (v34);
+              while (v35);
             }
           }
 
@@ -1729,7 +1684,7 @@ LABEL_3:
           }
         }
 
-        v35 = v10;
+        v37 = v10;
         if (begin_node != p_end_node)
         {
           while (1)
@@ -1740,167 +1695,168 @@ LABEL_3:
               sub_1D9D64204(&v9[7], begin_node[7].__left_, begin_node[8].__left_, (begin_node[8].__left_ - begin_node[7].__left_) >> 3);
             }
 
-            v12 = v8->__left_;
-            v13 = &p_stateInputEspressoBuffersShape->__tree_.__end_node_;
+            v12 = v38;
+            v13 = v8->__left_;
             v14 = &p_stateInputEspressoBuffersShape->__tree_.__end_node_;
+            p_left = &p_stateInputEspressoBuffersShape->__tree_.__end_node_.__left_;
             if (!v8->__left_)
             {
               break;
             }
 
-            v15 = *(p_left + 55);
-            if (v15 >= 0)
+            v16 = *(v38 + 55);
+            if (v16 >= 0)
             {
-              v16 = *(p_left + 55);
+              v17 = *(v38 + 55);
             }
 
             else
             {
-              v16 = p_left[5];
+              v17 = v38[5];
             }
 
-            if (v15 >= 0)
+            if (v16 >= 0)
             {
-              v17 = p_left + 4;
+              v18 = v38 + 4;
             }
 
             else
             {
-              v17 = p_left[4];
+              v18 = v38[4];
             }
 
             do
             {
               while (1)
               {
-                v13 = v12;
-                v20 = v12[4].__left_;
-                v18 = v12 + 4;
-                v19 = v20;
-                left_high = SHIBYTE(v18[2].__left_);
+                v14 = v13;
+                v21 = v13[4].__left_;
+                v19 = v13 + 4;
+                v20 = v21;
+                left_high = SHIBYTE(v19[2].__left_);
                 if (left_high >= 0)
                 {
-                  v22 = HIBYTE(v18[2].__left_);
+                  v23 = HIBYTE(v19[2].__left_);
                 }
 
                 else
                 {
-                  v22 = v18[1].__left_;
+                  v23 = v19[1].__left_;
                 }
 
                 if (left_high >= 0)
                 {
-                  v23 = v18;
+                  v24 = v19;
                 }
 
                 else
                 {
-                  v23 = v19;
+                  v24 = v20;
                 }
 
-                if (v22 >= v16)
+                if (v23 >= v17)
                 {
-                  v24 = v16;
+                  v25 = v17;
                 }
 
                 else
                 {
-                  v24 = v22;
+                  v25 = v23;
                 }
 
-                v25 = memcmp(v17, v23, v24);
-                v26 = v16 < v22;
-                if (v25)
+                v26 = memcmp(v18, v24, v25);
+                v27 = v17 < v23;
+                if (v26)
                 {
-                  v26 = v25 < 0;
+                  v27 = v26 < 0;
                 }
 
-                if (!v26)
+                if (!v27)
                 {
                   break;
                 }
 
-                v12 = v13->__left_;
-                v14 = v13;
-                if (!v13->__left_)
+                v13 = v14->__left_;
+                p_left = &v14->__left_;
+                if (!v14->__left_)
                 {
                   goto LABEL_36;
                 }
               }
 
-              v12 = v13[1].__left_;
+              v13 = v14[1].__left_;
             }
 
-            while (v12);
-            *p_left = 0;
-            p_left[1] = 0;
-            p_left[2] = v13;
-            v13[1].__left_ = p_left;
-            v27 = *p_stateInputEspressoBuffersShape->__tree_.__begin_node_;
-            if (v27)
+            while (v13);
+            *v38 = 0;
+            v12[1] = 0;
+            v12[2] = v14;
+            v14[1].__left_ = v12;
+            v28 = *p_stateInputEspressoBuffersShape->__tree_.__begin_node_;
+            if (v28)
             {
               goto LABEL_37;
             }
 
 LABEL_38:
-            sub_1D9D1312C(p_stateInputEspressoBuffersShape->__tree_.__end_node_.__left_, p_left);
+            sub_1D9D1312C(p_stateInputEspressoBuffersShape->__tree_.__end_node_.__left_, v12);
             ++p_stateInputEspressoBuffersShape->__tree_.__size_;
-            v9 = v35;
-            p_left = v35;
-            if (v35)
+            v9 = v37;
+            v38 = v37;
+            if (v37)
             {
-              v10 = *(v35 + 2);
+              v10 = *(v37 + 2);
               if (v10)
               {
-                v28 = *v10;
-                if (*v10 == v35)
+                v29 = *v10;
+                if (*v10 == v37)
                 {
                   *v10 = 0;
                   while (1)
                   {
-                    v32 = *(v10 + 1);
-                    if (!v32)
+                    v33 = *(v10 + 1);
+                    if (!v33)
                     {
                       break;
                     }
 
                     do
                     {
-                      v10 = v32;
-                      v32 = *v32;
+                      v10 = v33;
+                      v33 = *v33;
                     }
 
-                    while (v32);
+                    while (v33);
                   }
                 }
 
                 else
                 {
-                  for (*(v10 + 1) = 0; v28; v28 = *(v10 + 1))
+                  for (*(v10 + 1) = 0; v29; v29 = *(v10 + 1))
                   {
                     do
                     {
-                      v10 = v28;
-                      v28 = *v28;
+                      v10 = v29;
+                      v29 = *v29;
                     }
 
-                    while (v28);
+                    while (v29);
                   }
                 }
               }
 
-              v35 = v10;
-              v29 = begin_node[1].__left_;
-              if (v29)
+              v37 = v10;
+              v30 = begin_node[1].__left_;
+              if (v30)
               {
                 do
                 {
 LABEL_47:
-                  v30 = v29;
-                  v29 = v29->__left_;
+                  v31 = v30;
+                  v30 = v30->__left_;
                 }
 
-                while (v29);
+                while (v30);
                 goto LABEL_51;
               }
             }
@@ -1908,8 +1864,8 @@ LABEL_47:
             else
             {
               v10 = 0;
-              v29 = begin_node[1].__left_;
-              if (v29)
+              v30 = begin_node[1].__left_;
+              if (v30)
               {
                 goto LABEL_47;
               }
@@ -1917,17 +1873,17 @@ LABEL_47:
 
             do
             {
-              v30 = begin_node[2].__left_;
-              v31 = v30->__left_ == begin_node;
-              begin_node = v30;
+              v31 = begin_node[2].__left_;
+              v32 = v31->__left_ == begin_node;
+              begin_node = v31;
             }
 
-            while (!v31);
+            while (!v32);
 LABEL_51:
             if (v9)
             {
-              begin_node = v30;
-              if (v30 != p_end_node)
+              begin_node = v31;
+              if (v31 != p_end_node)
               {
                 continue;
               }
@@ -1937,22 +1893,22 @@ LABEL_51:
           }
 
 LABEL_36:
-          *p_left = 0;
-          p_left[1] = 0;
-          p_left[2] = v13;
-          v14->__left_ = p_left;
-          v27 = *p_stateInputEspressoBuffersShape->__tree_.__begin_node_;
-          if (!v27)
+          *v38 = 0;
+          v12[1] = 0;
+          v12[2] = v14;
+          *p_left = v12;
+          v28 = *p_stateInputEspressoBuffersShape->__tree_.__begin_node_;
+          if (!v28)
           {
             goto LABEL_38;
           }
 
 LABEL_37:
-          p_stateInputEspressoBuffersShape->__tree_.__begin_node_ = v27;
+          p_stateInputEspressoBuffersShape->__tree_.__begin_node_ = v28;
           goto LABEL_38;
         }
 
-        v30 = begin_node;
+        v31 = begin_node;
 LABEL_62:
         sub_1D9DB87A4(v9);
         if (v10)
@@ -1968,15 +1924,15 @@ LABEL_62:
 
       else
       {
-        v30 = begin_node;
+        v31 = begin_node;
       }
 
-      begin_node = v30;
+      begin_node = v31;
     }
 
     if (begin_node != p_end_node)
     {
-      sub_1D9DB8660();
+      sub_1D9DB8660(&v36, p_stateInputEspressoBuffersShape, &begin_node[4]);
     }
   }
 }

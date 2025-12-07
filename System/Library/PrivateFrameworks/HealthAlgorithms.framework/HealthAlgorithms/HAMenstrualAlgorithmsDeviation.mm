@@ -7,11 +7,11 @@
 
 - (HAMenstrualAlgorithmsDeviation)initWithCoder:(id)coder
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = HAMenstrualAlgorithmsDeviation;
-  v5 = [(HAMenstrualAlgorithmsDeviation *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HAMenstrualAlgorithmsDeviation;
+  v5 = [(HAMenstrualAlgorithmsDeviation *)&v16 init];
   if (v5)
   {
     v6 = NSStringFromSelector(sel_julianDayOfWindowStart);
@@ -21,10 +21,10 @@
     v5->_julianDayOfAnalysisWindowEnd = [coderCopy decodeInt32ForKey:v7];
 
     v8 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
     v10 = [v8 setWithArray:v9];
 
     v11 = NSStringFromSelector(sel_metricsForCoreAnalytics);
@@ -35,7 +35,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

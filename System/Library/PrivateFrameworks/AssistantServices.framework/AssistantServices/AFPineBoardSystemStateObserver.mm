@@ -42,72 +42,68 @@
 
 - (void)_handlePineBoardStateChange:(int64_t)change
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   pineBoardSystemState = self->_pineBoardSystemState;
   if (pineBoardSystemState != change)
   {
     self->_pineBoardSystemState = change;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v6 = self->_listeners;
-    v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v13 + 1) + 8 * v10);
+          v11 = *(*(&v12 + 1) + 8 * v10);
           if (objc_opt_respondsToSelector())
           {
-            [v11 pineBoardSystemStateObserver:self pineBoardStateDidChangeFrom:pineBoardSystemState to:{self->_pineBoardSystemState, v13}];
+            [v11 pineBoardSystemStateObserver:self pineBoardStateDidChangeFrom:pineBoardSystemState to:{self->_pineBoardSystemState, v12}];
           }
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingPineBoardSystemState
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[AFPineBoardSystemStateObserver _startObservingPineBoardSystemState]";
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[AFPineBoardSystemStateObserver _startObservingPineBoardSystemState]";
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s ", &v3, 0xCu);
     v2 = AFSiriLogContextDaemon;
   }
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[AFPineBoardSystemStateObserver _startObservingPineBoardSystemState]";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s PineBoard is not available", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[AFPineBoardSystemStateObserver _startObservingPineBoardSystemState]";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s PineBoard is not available", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeListener:(id)listener

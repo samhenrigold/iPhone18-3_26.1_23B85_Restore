@@ -17,7 +17,7 @@
 
 - (id)errorUserInfoForRoutePickerErrorCode:(int64_t)code involvedRouteName:(id)name
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -28,7 +28,7 @@
   {
     if (((1 << code) & 0xD8) != 0)
     {
-      v23[0] = *MEMORY[0x277CCA470];
+      v22[0] = *MEMORY[0x277CCA470];
       v7 = MEMORY[0x277CCACA8];
       v8 = WFLocalizedString(@"Failed to Hand Off Music Between “%@” and “%@”");
       sourceRouteDescriptor = [(WFHandOffPlaybackAction *)self sourceRouteDescriptor];
@@ -36,11 +36,11 @@
       destinationRouteDescriptor = [(WFHandOffPlaybackAction *)self destinationRouteDescriptor];
       routeName2 = [destinationRouteDescriptor routeName];
       v13 = [v7 localizedStringWithFormat:v8, routeName, routeName2];
-      v24[0] = v13;
-      v23[1] = *MEMORY[0x277CCA450];
+      v23[0] = v13;
+      v22[1] = *MEMORY[0x277CCA450];
       v14 = WFLocalizedString(@"Couldn't hand off music between specified devices.");
-      v24[1] = v14;
-      self = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v23[1] = v14;
+      self = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
 LABEL_13:
       goto LABEL_14;
@@ -48,33 +48,33 @@ LABEL_13:
 
     if (code == 5)
     {
-      v27[0] = *MEMORY[0x277CCA470];
+      v26[0] = *MEMORY[0x277CCA470];
       v20 = MEMORY[0x277CCACA8];
       v8 = WFLocalizedString(@"Could Not Connect To “%@”");
       sourceRouteDescriptor = [v20 localizedStringWithFormat:v8, nameCopy];
-      v28[0] = sourceRouteDescriptor;
-      v27[1] = *MEMORY[0x277CCA450];
+      v27[0] = sourceRouteDescriptor;
+      v26[1] = *MEMORY[0x277CCA450];
       routeName = WFLocalizedString(@"It took too long to connect to the specified device.");
-      v28[1] = routeName;
+      v27[1] = routeName;
       v16 = MEMORY[0x277CBEAC0];
-      v17 = v28;
-      v18 = v27;
+      v17 = v27;
+      v18 = v26;
       goto LABEL_12;
     }
 
     if (code == 8)
     {
-      v25[0] = *MEMORY[0x277CCA470];
+      v24[0] = *MEMORY[0x277CCA470];
       v15 = MEMORY[0x277CCACA8];
       v8 = WFLocalizedString(@"Device “%@” Is Not Playing Music");
       sourceRouteDescriptor = [v15 localizedStringWithFormat:v8, nameCopy];
-      v26[0] = sourceRouteDescriptor;
-      v25[1] = *MEMORY[0x277CCA450];
+      v25[0] = sourceRouteDescriptor;
+      v24[1] = *MEMORY[0x277CCA450];
       routeName = WFLocalizedString(@"The specified device is not playing any music.");
-      v26[1] = routeName;
+      v25[1] = routeName;
       v16 = MEMORY[0x277CBEAC0];
-      v17 = v26;
-      v18 = v25;
+      v17 = v25;
+      v18 = v24;
 LABEL_12:
       self = [v16 dictionaryWithObjects:v17 forKeys:v18 count:2];
       goto LABEL_13;
@@ -83,23 +83,21 @@ LABEL_12:
 
   if (code < 3)
   {
-    v29[0] = *MEMORY[0x277CCA470];
+    v28[0] = *MEMORY[0x277CCA470];
     v19 = MEMORY[0x277CCACA8];
     v8 = WFLocalizedString(@"Could Not Find “%@”");
     sourceRouteDescriptor = [v19 localizedStringWithFormat:v8, nameCopy];
-    v30[0] = sourceRouteDescriptor;
-    v29[1] = *MEMORY[0x277CCA450];
+    v29[0] = sourceRouteDescriptor;
+    v28[1] = *MEMORY[0x277CCA450];
     routeName = WFLocalizedString(@"Hand Off Playback failed because the specified device could not be found.");
-    v30[1] = routeName;
+    v29[1] = routeName;
     v16 = MEMORY[0x277CBEAC0];
-    v17 = v30;
-    v18 = v29;
+    v17 = v29;
+    v18 = v28;
     goto LABEL_12;
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -183,7 +181,7 @@ LABEL_14:
 
 void __96__WFHandOffPlaybackAction_askForUserSpecificationOfMissingRouteWithRoutePicker_completionBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = *(a1 + 32);
   v8 = a2;
@@ -197,16 +195,16 @@ void __96__WFHandOffPlaybackAction_askForUserSpecificationOfMissingRouteWithRout
     v14 = getWFGeneralLogObject();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v21 = 136315906;
-      v22 = "WFEnforceClass";
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2114;
-      v26 = objc_opt_class();
-      v27 = 2114;
-      v28 = v11;
-      v15 = v26;
-      _os_log_impl(&dword_23DE30000, v14, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v21, 0x2Au);
+      v20 = 136315906;
+      v21 = "WFEnforceClass";
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2114;
+      v25 = objc_opt_class();
+      v26 = 2114;
+      v27 = v11;
+      v15 = v25;
+      _os_log_impl(&dword_23DE30000, v14, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v20, 0x2Au);
     }
 
     v13 = 0;
@@ -228,8 +226,6 @@ void __96__WFHandOffPlaybackAction_askForUserSpecificationOfMissingRouteWithRout
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v19, v6, v16, v17, v18);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)findInvokingHomePodEndpointWithRoutePicker:(id)picker completionBlock:(id)block

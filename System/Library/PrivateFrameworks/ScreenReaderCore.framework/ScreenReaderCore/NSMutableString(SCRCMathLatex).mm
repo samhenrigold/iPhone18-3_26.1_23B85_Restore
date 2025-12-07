@@ -1,10 +1,10 @@
 @interface NSMutableString(SCRCMathLatex)
-- (uint64_t)addMathIndicators;
+- (void)addMathIndicators;
 @end
 
 @implementation NSMutableString(SCRCMathLatex)
 
-- (uint64_t)addMathIndicators
+- (void)addMathIndicators
 {
   result = [self length];
   if (result)

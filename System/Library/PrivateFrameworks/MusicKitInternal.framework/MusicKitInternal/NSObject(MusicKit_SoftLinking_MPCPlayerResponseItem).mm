@@ -82,15 +82,15 @@
 
 - (double)musicKit_playerResponseItem_elapsedTime
 {
-  [self _durationSnapshot];
+  objc_msgSend__durationSnapshot(self, a2);
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-  v2 = v6 + (v1 - v4) * v7;
-  if (v2 >= v5)
+  v3 = v7 + (v2 - v5) * v8;
+  if (v3 >= v6)
   {
-    v2 = v5;
+    v3 = v6;
   }
 
-  return fmax(v2, 0.0);
+  return fmax(v3, 0.0);
 }
 
 - (uint64_t)musicKit_playerResponseItem_isPlaceholder

@@ -24,36 +24,36 @@
 
 - (BOOL)parametersExistInValidCombinationsForParameters:(id)parameters andValidCombinations:(id)combinations
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   combinationsCopy = combinations;
   v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:parametersCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allKeys = [combinationsCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
-    v10 = *v15;
+    v10 = *v14;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        if ([*(*(&v14 + 1) + 8 * i) isEqualToSet:v7])
+        if ([*(*(&v13 + 1) + 8 * i) isEqualToSet:v7])
         {
           LOBYTE(v9) = 1;
           goto LABEL_11;
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         continue;
@@ -65,7 +65,6 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -101,7 +100,7 @@ LABEL_11:
 
 - (void)preferredAppForIntentName:(id)name andParameterCombination:(id)combination skipAppSchemaCheck:(BOOL)check callback:(id)callback
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   combinationCopy = combination;
   callbackCopy = callback;
@@ -124,25 +123,25 @@ LABEL_11:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v50 = __Block_byref_object_copy_;
-    v51 = __Block_byref_object_dispose_;
-    v52 = 0;
+    v49 = __Block_byref_object_copy_;
+    v50 = __Block_byref_object_dispose_;
+    v51 = 0;
     v18 = +[ATXIntentToAppBundleIdCache sharedInstance];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke;
-    v41[3] = &unk_278C3CAB8;
-    v47 = buf;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke;
+    v40[3] = &unk_278C3CAB8;
+    v46 = buf;
     v19 = v17;
-    v42 = v19;
+    v41 = v19;
     checkCopy = check;
     v20 = v14;
-    v43 = v20;
+    v42 = v20;
     selfCopy = self;
-    v45 = combinationCopy;
+    v44 = combinationCopy;
     v21 = v16;
-    v46 = v21;
-    [v18 fetchBundleIdsForIntent:v21 completionHandler:v41];
+    v45 = v21;
+    [v18 fetchBundleIdsForIntent:v21 completionHandler:v40];
 
     if ([MEMORY[0x277D425A0] waitForSemaphore:v19 timeoutSeconds:1.0] == 1 || !objc_msgSend(v20, "count"))
     {
@@ -157,38 +156,38 @@ LABEL_11:
 
     else
     {
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x3032000000;
-      v38 = __Block_byref_object_copy_;
-      v39 = __Block_byref_object_dispose_;
-      v40 = 0;
-      v31 = BiomeLibrary();
-      v24 = [v31 App];
-      intent = [v24 Intent];
-      v26 = [intent atx_publisherWithStartDate:0 endDate:0 maxEvents:0 lastN:0 reversed:1];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke_25;
-      v32[3] = &unk_278C3CB00;
-      v27 = v20;
-      v33 = v27;
-      v34 = &v35;
-      v28 = [v26 sinkWithCompletion:&__block_literal_global shouldContinue:v32];
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x3032000000;
+      v37 = __Block_byref_object_copy_;
+      v38 = __Block_byref_object_dispose_;
+      v39 = 0;
+      v30 = BiomeLibrary();
+      v23 = [v30 App];
+      intent = [v23 Intent];
+      v25 = [intent atx_publisherWithStartDate:0 endDate:0 maxEvents:0 lastN:0 reversed:1];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke_25;
+      v31[3] = &unk_278C3CB00;
+      v26 = v20;
+      v32 = v26;
+      v33 = &v34;
+      v27 = [v25 sinkWithCompletion:&__block_literal_global shouldContinue:v31];
 
-      v29 = v36[5];
-      v30 = v29;
-      if (!v29)
+      v28 = v35[5];
+      v29 = v28;
+      if (!v28)
       {
-        v30 = [v27 objectAtIndexedSubscript:0];
+        v29 = [v26 objectAtIndexedSubscript:0];
       }
 
-      (*(callbackCopy + 2))(callbackCopy, v30, 0);
-      if (!v29)
+      (*(callbackCopy + 2))(callbackCopy, v29, 0);
+      if (!v28)
       {
       }
 
-      _Block_object_dispose(&v35, 8);
+      _Block_object_dispose(&v34, 8);
     }
 
     _Block_object_dispose(buf, 8);
@@ -198,13 +197,11 @@ LABEL_11:
   {
     (*(callbackCopy + 2))(callbackCopy, 0, 0);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -215,31 +212,31 @@ void __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParamete
     goto LABEL_21;
   }
 
-  v19 = v6;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v18 = v6;
   v21 = 0u;
-  v8 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v8 = [v5 countByEnumeratingWithState:&v19 objects:v26 count:16];
   if (!v8)
   {
     goto LABEL_19;
   }
 
   v9 = v8;
-  v10 = *v21;
+  v10 = *v20;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * i);
-      v26 = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v12 = *(*(&v19 + 1) + 8 * i);
+      v25 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
       CanLearnFromApp = ATXHeuristicCanLearnFromApp(v13);
 
       if (CanLearnFromApp)
@@ -257,7 +254,7 @@ void __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParamete
           if (v17)
           {
             *buf = 138412290;
-            v25 = v12;
+            v24 = v12;
             _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_INFO, "Bundle ID %@ supports intent, adding it to candidate for user app preference.", buf, 0xCu);
           }
 
@@ -269,22 +266,20 @@ LABEL_13:
         if (v17)
         {
           *buf = 138412290;
-          v25 = v12;
+          v24 = v12;
           _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_INFO, "Bundle ID %@ supports intent, but it does not support the specific parameter combination we want to predict.", buf, 0xCu);
         }
       }
     }
 
-    v9 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
+    v9 = [v5 countByEnumeratingWithState:&v19 objects:v26 count:16];
   }
 
   while (v9);
 LABEL_19:
   dispatch_semaphore_signal(*(a1 + 32));
-  v7 = v19;
+  v7 = v18;
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke_23(uint64_t a1, void *a2)
@@ -323,13 +318,11 @@ uint64_t __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andPara
 
 void __112__ATXUserAppPreferenceDataSource_preferredAppForIntentName_andParameterCombination_skipAppSchemaCheck_callback___block_invoke_23_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Could not scan intent stream to determine most recently donated intent: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Could not scan intent stream to determine most recently donated intent: %@", &v4, 0xCu);
 }
 
 @end

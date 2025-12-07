@@ -26,9 +26,9 @@
 
 - (id)destinationImageDescriptorForSourceImages:(id)images sourceStates:(id)states forKernel:(id)kernel suggestedDescriptor:(id)descriptor
 {
-  v147.receiver = self;
-  v147.super_class = MPSCNNConvolutionState;
-  v9 = [(MPSState *)&v147 destinationImageDescriptorForSourceImages:images sourceStates:states forKernel:kernel suggestedDescriptor:descriptor];
+  v155.receiver = self;
+  v155.super_class = MPSCNNConvolutionState;
+  v9 = [(MPSState *)&v155 destinationImageDescriptorForSourceImages:images sourceStates:states forKernel:kernel suggestedDescriptor:descriptor];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -37,13 +37,13 @@
       objc_msgSend_count(images, v10, v11, v12, v13, v14, v15, v16);
       if (!objc_msgSend_count(images, v17, v18, v19, v20, v21, v22, v23) && MTLReportFailureTypeEnabled())
       {
-        v140 = objc_opt_class();
-        v141 = NSStringFromClass(v140);
-        MTLReportFailure();
+        v144 = objc_opt_class();
+        v149 = NSStringFromClass(v144);
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x31C, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor:]\n\tError: at least one source image are expected for a MPSCNNConvolutionTranspose.\n", v145, v146, v147, v148);
       }
 
       kernelWidth = self->_kernelWidth;
-      if (kernelWidth == objc_msgSend_kernelWidth(kernel, v24, v25, v26, v27, v28, v29, v30, v141))
+      if (kernelWidth == objc_msgSend_kernelWidth(kernel, v24, v25, v26, v27, v28, v29, v30, v149))
       {
         objc_msgSend_kernelHeight(kernel, v32, v33, v34, v35, v36, v37, v38);
       }
@@ -57,17 +57,17 @@
           v123 = NSStringFromClass(v122);
           v131 = objc_msgSend_kernelWidth(kernel, v124, v125, v126, v127, v128, v129, v130);
           v139 = objc_msgSend_kernelHeight(kernel, v132, v133, v134, v135, v136, v137, v138);
-          v144 = self->_kernelWidth;
+          v152 = self->_kernelWidth;
           kernelHeight = self->_kernelHeight;
-          v142 = v131;
-          v143 = v139;
-          v141 = v123;
-          MTLReportFailure();
+          v150 = v131;
+          v151 = v139;
+          v149 = v123;
+          MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x321, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor:]\n\t Error: kernelSize mismatch, filter kernelSize is %lu x %lu state has kernelSize %lu x %lu", v140, v141, v142, v143);
         }
       }
     }
 
-    objc_msgSend_setWidth_(v9, v10, self->_originalConvolutionSourceWidth, v12, v13, v14, v15, v16, v141, v142, v143, v144, kernelHeight);
+    objc_msgSend_setWidth_(v9, v10, self->_originalConvolutionSourceWidth, v12, v13, v14, v15, v16, v149, v150, v151, v152, kernelHeight);
     objc_msgSend_setHeight_(v9, v48, self->_originalConvolutionSourceHeight, v49, v50, v51, v52, v53);
     v61 = objc_msgSend_outputFeatureChannels(kernel, v54, v55, v56, v57, v58, v59, v60);
     objc_msgSend_setFeatureChannels_(v9, v62, v61, v63, v64, v65, v66, v67);
@@ -104,10 +104,10 @@
     v101 = (v100 >> 63) + v99;
     v102 = (v100 >> 63) & v98;
     objc_msgSend_offset(kernel, v91, v92, v93, v94, v95, v96, v97);
-    v146[0] = v88;
-    v146[1] = v101;
-    v146[2] = v146[5];
-    objc_msgSend_setOffset_(kernel, v103, v146, v104, v105, v106, v107, v108);
+    v154[0] = v88;
+    v154[1] = v101;
+    v154[2] = v154[5];
+    objc_msgSend_setOffset_(kernel, v103, v154, v104, v105, v106, v107, v108);
     objc_msgSend_setKernelOffsetX_(kernel, v109, v89 + v86, v110, v111, v112, v113, v114);
     objc_msgSend_setKernelOffsetY_(kernel, v115, v102 + v100, v116, v117, v118, v119, v120);
   }

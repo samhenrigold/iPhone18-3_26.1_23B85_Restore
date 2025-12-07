@@ -69,13 +69,13 @@ LABEL_7:
 LABEL_8:
   selfCopy = self;
   sub_10050ADC0(v11, title, v13, subtitle, v10, v15, margin);
-  sub_1000245E0(v10);
+  sub_1000245E0(v10, v15);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_10050B968();
+  sub_10050B968(selfCopy);
 }
 
 - (void)didTapButton
@@ -83,11 +83,12 @@ LABEL_8:
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC10FitnessApp25ActivityTileSectionHeader_buttonAction);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC10FitnessApp25ActivityTileSectionHeader_buttonAction];
     selfCopy = self;
-    sub_10000B210(v2);
+    sub_10000B210(v2, v3);
     v2(1);
 
-    sub_1000245E0(v2);
+    sub_1000245E0(v2, v3);
   }
 }
 

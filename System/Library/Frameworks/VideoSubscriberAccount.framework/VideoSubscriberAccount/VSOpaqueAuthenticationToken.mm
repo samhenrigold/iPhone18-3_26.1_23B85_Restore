@@ -42,51 +42,54 @@
   v5 = [(VSOpaqueAuthenticationToken *)self init];
   if (v5)
   {
-    v31 = 0;
-    v6 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:0 format:0 error:&v31];
-    v7 = v31;
+    v35 = 0;
+    v6 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:0 format:0 error:&v35];
+    v7 = v35;
+    v8 = v7;
     if (v6)
     {
-      v8 = v6;
+      v9 = v6;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v9 = MEMORY[0x277CBEAD8];
-          v10 = *MEMORY[0x277CBE660];
-          v11 = objc_opt_class();
-          v12 = NSStringFromClass(v11);
-          [v9 raise:v10 format:{@"Unexpectedly, plist was %@, instead of NSDictionary.", v12}];
+          v11 = MEMORY[0x277CBEAD8];
+          v12 = *MEMORY[0x277CBE660];
+          v13 = objc_opt_class();
+          v14 = NSStringFromClass(v13);
+          [v11 raise:v12 format:{@"Unexpectedly, plist was %@, instead of NSDictionary.", v14}];
         }
 
-        v13 = v8;
-        v14 = [v13 objectForKey:@"expirationDate"];
-        v15 = v14;
-        if (v14)
+        v15 = v9;
+        v16 = [v15 objectForKey:@"expirationDate"];
+        v17 = v16;
+        if (v16)
         {
-          v16 = v14;
+          v18 = v16;
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v19 = objc_opt_isKindOfClass();
+          if (v19)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v29 = MEMORY[0x277CBEAD8];
-              v17 = *MEMORY[0x277CBE660];
-              v18 = objc_opt_class();
-              v19 = NSStringFromClass(v18);
-              [v29 raise:v17 format:{@"Unexpectedly, expirationDate was %@, instead of NSDate.", v19}];
+              v33 = MEMORY[0x277CBEAD8];
+              v20 = *MEMORY[0x277CBE660];
+              v21 = objc_opt_class();
+              v22 = NSStringFromClass(v21);
+              [v33 raise:v20 format:{@"Unexpectedly, expirationDate was %@, instead of NSDate.", v22}];
             }
 
-            [(VSOpaqueAuthenticationToken *)v5 setExpirationDate:v16];
+            [(VSOpaqueAuthenticationToken *)v5 setExpirationDate:v18];
           }
 
           else
           {
-            v20 = VSErrorLogObject();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v23 = VSErrorLogObject(v19);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               [VSOpaqueAuthenticationToken initWithSerializedData:];
             }
@@ -95,38 +98,39 @@
 
         else
         {
-          v16 = VSErrorLogObject();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v18 = VSErrorLogObject(0);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [VSOpaqueAuthenticationToken initWithSerializedData:];
           }
         }
 
-        v21 = [v13 objectForKey:@"body"];
-        v22 = v21;
-        if (v21)
+        v24 = [v15 objectForKey:@"body"];
+        v25 = v24;
+        if (v24)
         {
-          v23 = v21;
+          v26 = v24;
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v27 = objc_opt_isKindOfClass();
+          if (v27)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v30 = MEMORY[0x277CBEAD8];
-              v28 = *MEMORY[0x277CBE660];
-              v24 = objc_opt_class();
-              v25 = NSStringFromClass(v24);
-              [v30 raise:v28 format:{@"Unexpectedly, body was %@, instead of NSString.", v25}];
+              v34 = MEMORY[0x277CBEAD8];
+              v32 = *MEMORY[0x277CBE660];
+              v28 = objc_opt_class();
+              v29 = NSStringFromClass(v28);
+              [v34 raise:v32 format:{@"Unexpectedly, body was %@, instead of NSString.", v29}];
             }
 
-            [(VSOpaqueAuthenticationToken *)v5 setBody:v23];
+            [(VSOpaqueAuthenticationToken *)v5 setBody:v26];
           }
 
           else
           {
-            v26 = VSErrorLogObject();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v30 = VSErrorLogObject(v27);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               [VSOpaqueAuthenticationToken initWithSerializedData:];
             }
@@ -135,8 +139,8 @@
 
         else
         {
-          v23 = VSErrorLogObject();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v26 = VSErrorLogObject(0);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             [VSOpaqueAuthenticationToken initWithSerializedData:];
           }
@@ -145,8 +149,8 @@
 
       else
       {
-        v13 = VSErrorLogObject();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = VSErrorLogObject(isKindOfClass);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [VSOpaqueAuthenticationToken initWithSerializedData:];
         }
@@ -155,8 +159,8 @@
 
     else
     {
-      v8 = VSErrorLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = VSErrorLogObject(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [VSOpaqueAuthenticationToken initWithSerializedData:];
       }
@@ -195,13 +199,14 @@
   body = [(VSOpaqueAuthenticationToken *)self body];
   [v3 setObject:body forKey:@"body"];
 
-  v12 = 0;
-  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:100 options:0 error:&v12];
-  v9 = v12;
+  v13 = 0;
+  v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:v3 format:100 options:0 error:&v13];
+  v9 = v13;
+  v10 = v9;
   if (!v8)
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [VSOpaqueAuthenticationToken serializedData];
     }

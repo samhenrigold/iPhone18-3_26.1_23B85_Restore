@@ -34,10 +34,10 @@
 
 + (id)sectionForHeaderView:(id)view
 {
-  v4 = type metadata accessor for Header();
+  v4 = type metadata accessor for Header(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA34F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA34F8, &qword_1DA273D70);
   v7 = swift_dynamicCastClass();
   if (v7)
   {
@@ -61,7 +61,7 @@
 + (unint64_t)headerTypeForHeaderView:(id)view
 {
   viewCopy = view;
-  v4 = sub_1DA2344C4();
+  v4 = sub_1DA2344C4(viewCopy);
 
   return v4;
 }

@@ -11,6 +11,7 @@
 - (void)tonePickerViewController:(id)controller selectedToneWithIdentifier:(id)identifier;
 - (void)tonePickerViewController:(id)controller willPresentVibrationPickerViewController:(id)viewController;
 - (void)vibrationPickerViewController:(id)controller selectedVibrationWithIdentifier:(id)identifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -129,6 +130,81 @@
   [(SHSToneController *)self setTitle:name];
 
   [(SHSToneController *)self _insertTonePickerView];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v33.receiver = self;
+  v33.super_class = SHSToneController;
+  [(SHSToneController *)&v33 viewDidAppear:appear];
+  array = [MEMORY[0x277CBEB18] array];
+  shs_rootPaneComponent = [MEMORY[0x277CCAEB8] shs_rootPaneComponent];
+  [array addObject:shs_rootPaneComponent];
+
+  parentViewController = [(SHSToneController *)self parentViewController];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  v8 = MEMORY[0x277CCAEB8];
+  if (isKindOfClass)
+  {
+    parentController = [(SHSToneController *)self parentController];
+    specifier = [parentController specifier];
+    specifier6 = [v8 shs_localizedPathComponentForTonePickerSpecifier:specifier];
+
+    if (specifier6)
+    {
+      [array addObject:specifier6];
+    }
+
+    v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+    specifier2 = [(SHSToneController *)self specifier];
+    name = [specifier2 name];
+    currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+    SHS_BundleForSoundsAndHapticsSettingsFramework(currentLocale);
+    v16 = v32 = array;
+    bundleURL = [v16 bundleURL];
+    v18 = [v12 initWithKey:&stru_28772CD00 defaultValue:name table:0 locale:currentLocale bundleURL:bundleURL];
+
+    v19 = MEMORY[0x277CBEBC0];
+    v20 = MEMORY[0x277CCACA8];
+    parentController2 = [(SHSToneController *)self parentController];
+    specifier3 = [parentController2 specifier];
+    identifier = [specifier3 identifier];
+    specifier4 = [(SHSToneController *)self specifier];
+    identifier2 = [specifier4 identifier];
+    v26 = [v20 stringWithFormat:@"settings-navigation://com.apple.Settings.Sounds/%@/%@", identifier, identifier2];
+    v27 = [v19 URLWithString:v26];
+
+    array = v32;
+  }
+
+  else
+  {
+    specifier5 = [(SHSToneController *)self specifier];
+    v18 = [v8 shs_localizedPathComponentForTonePickerSpecifier:specifier5];
+
+    if (!v18)
+    {
+      v29 = SHSLogForCategory(0);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        [(SHSToneController *)self viewDidAppear:v29];
+      }
+    }
+
+    v30 = MEMORY[0x277CBEBC0];
+    v31 = MEMORY[0x277CCACA8];
+    specifier6 = [(SHSToneController *)self specifier];
+    parentController2 = [specifier6 identifier];
+    specifier3 = [v31 stringWithFormat:@"settings-navigation://com.apple.Settings.Sounds/%@", parentController2];
+    v27 = [v30 URLWithString:specifier3];
+  }
+
+  if ([(SHSToneController *)self isMemberOfClass:objc_opt_class()]&& v18)
+  {
+    [(SHSToneController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.sound" title:v18 localizedNavigationComponents:array deepLink:v27];
+  }
 }
 
 - (void)_insertTonePickerView
@@ -312,15 +388,13 @@ void __69__SHSToneController__handleAlertOverridePolicyDidChangeNotification___b
 
 - (void)viewDidAppear:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 specifier];
-  v5 = 136315394;
-  v6 = "[SHSToneController viewDidAppear:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_265896000, a2, OS_LOG_TYPE_ERROR, "%s shs_localizedPathComponentForTonePickerSpecifier returned nil for specifier: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[SHSToneController viewDidAppear:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_265896000, a2, OS_LOG_TYPE_ERROR, "%s shs_localizedPathComponentForTonePickerSpecifier returned nil for specifier: %@", &v4, 0x16u);
 }
 
 @end

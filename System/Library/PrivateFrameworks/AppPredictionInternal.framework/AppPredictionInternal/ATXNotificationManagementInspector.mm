@@ -6,8 +6,12 @@
 - (id)fetchNotificationsFromDbFromStartDate:(id)date endDate:(id)endDate;
 - (id)fetchNotificationsFromFileData:(id)data outError:(id *)error;
 - (id)fetchNotificationsFromSource:(id)source startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error;
+- (id)fetchSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error;
 - (id)fetchSerializedMissedNotificationRankingFromFileData:(id)data modeString:(id)string outError:(id *)error;
+- (id)fetchSerializedMissedNotificationRankingFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error;
 - (id)fetchSerializedNotificationDigestFromFileData:(id)data digestTimeString:(id)string outError:(id *)error;
+- (id)fetchSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error;
+- (id)fetchSerializedNotificationsFromSource:(id)source startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error;
 - (id)logAndCreateErrorForString:(id)string;
 @end
 
@@ -150,28 +154,119 @@ void __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigest
 
 void __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromFileData_digestTimeString_outError___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v7, 0xCu);
-  }
-
   v6 = *MEMORY[0x277D85DE8];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
+  }
 }
 
 void __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromFileData_digestTimeString_outError___block_invoke_57(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromFileData_digestTimeString_outError___block_invoke_57_cold_1(a1);
   }
+}
+
+- (id)fetchSerializedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error
+{
+  messagesCopy = messages;
+  sourceCopy = source;
+  stringCopy = string;
+  dateCopy = date;
+  endDateCopy = endDate;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__67;
+  v54 = __Block_byref_object_dispose__67;
+  v55 = 0;
+  v49 = 0;
+  v18 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromSource:sourceCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v49];
+  objc_storeStrong(&v55, v49);
+  if (error && (v19 = v51[5]) != 0)
+  {
+    v20 = 0;
+    *error = v19;
+  }
+
+  else
+  {
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__67;
+    v47 = __Block_byref_object_dispose__67;
+    v48 = 0;
+    v35 = [(ATXNotificationManagementInspector *)self constructStacksForNotifications:v18];
+    v34 = stringCopy;
+    v21 = objc_alloc(MEMORY[0x277CEB6F8]);
+    v22 = +[ATXNotificationDigestRankerServer sharedInstance];
+    v23 = [v21 initWithDigestRankerClient:v22];
+
+    v24 = dispatch_semaphore_create(0);
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke;
+    v39[3] = &unk_27859EE80;
+    v41 = &v50;
+    v42 = &v43;
+    v25 = v24;
+    v40 = v25;
+    [v23 generateDigestForNotificationArrays:v35 reply:v39];
+    v26 = *MEMORY[0x277CEBB30];
+    v37[4] = self;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke_2;
+    v38[3] = &unk_278596BB8;
+    v38[4] = self;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke_60;
+    v37[3] = &unk_278596BB8;
+    [MEMORY[0x277D425A0] waitForSemaphore:v25 timeoutSeconds:v38 onAcquire:v37 onTimeout:v26];
+    if (error && (v27 = v51[5]) != 0)
+    {
+      v20 = 0;
+      *error = v27;
+    }
+
+    else
+    {
+      v28 = MEMORY[0x277CCAAA0];
+      jsonRepresentation = [v44[5] jsonRepresentation];
+      v30 = v51;
+      obj = v51[5];
+      v31 = [v28 dataWithJSONObject:jsonRepresentation options:1 error:&obj];
+      objc_storeStrong(v30 + 5, obj);
+
+      if (error && (v32 = v51[5]) != 0)
+      {
+        v20 = 0;
+        *error = v32;
+      }
+
+      else
+      {
+        v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v31 encoding:4];
+      }
+    }
+
+    _Block_object_dispose(&v43, 8);
+    stringCopy = v34;
+  }
+
+  _Block_object_dispose(&v50, 8);
+
+  return v20;
 }
 
 void __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -199,28 +294,65 @@ void __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigest
 
 void __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v7, 0xCu);
-  }
-
   v6 = *MEMORY[0x277D85DE8];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
+  }
 }
 
 void __146__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromSource_digestTimeString_startDate_endDate_shouldInferMessages_outError___block_invoke_60(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromFileData_digestTimeString_outError___block_invoke_57_cold_1(a1);
   }
+}
+
+- (id)fetchSerializedAppGroupedNotificationDigestFromSource:(id)source digestTimeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error
+{
+  v10 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromSource:source startDate:date endDate:endDate shouldInferMessages:messages outError:error];
+  if (*error)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v12 = objc_opt_new();
+    v13 = [(ATXNotificationManagementInspector *)self constructStacksGroupedByAppForNotifications:v10];
+    v14 = [v12 createDigestForAppGroupedNotificationStacks:v13 maxGlobalMarqueeGroups:2 maxAppMarqueeGroups:2 outError:error];
+
+    if (*error)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v15 = MEMORY[0x277CCAAA0];
+      jsonRepresentation = [v14 jsonRepresentation];
+      v17 = [v15 dataWithJSONObject:jsonRepresentation options:1 error:error];
+
+      if (*error)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v17 encoding:4];
+      }
+    }
+  }
+
+  return v11;
 }
 
 - (id)fetchSerializedMissedNotificationRankingFromFileData:(id)data modeString:(id)string outError:(id *)error
@@ -338,28 +470,120 @@ void __111__ATXNotificationManagementInspector_fetchSerializedMissedNotification
 
 void __111__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromFileData_modeString_outError___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v7, 0xCu);
-  }
-
   v6 = *MEMORY[0x277D85DE8];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
+  }
 }
 
 void __111__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromFileData_modeString_outError___block_invoke_63(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __111__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromFileData_modeString_outError___block_invoke_63_cold_1(a1);
   }
+}
+
+- (id)fetchSerializedMissedNotificationRankingFromSource:(id)source modeString:(id)string startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error
+{
+  messagesCopy = messages;
+  sourceCopy = source;
+  stringCopy = string;
+  dateCopy = date;
+  endDateCopy = endDate;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__67;
+  v55 = __Block_byref_object_dispose__67;
+  v56 = 0;
+  v50 = 0;
+  v18 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromSource:sourceCopy startDate:dateCopy endDate:endDateCopy shouldInferMessages:messagesCopy outError:&v50];
+  objc_storeStrong(&v56, v50);
+  if (error && (v19 = v52[5]) != 0)
+  {
+    v20 = 0;
+    *error = v19;
+  }
+
+  else
+  {
+    v35 = [(ATXNotificationManagementInspector *)self constructStacksForNotifications:v18];
+    v36 = stringCopy;
+    v21 = objc_alloc(MEMORY[0x277CEB6F8]);
+    v22 = +[ATXNotificationDigestRankerServer sharedInstance];
+    v23 = [v21 initWithDigestRankerClient:v22];
+
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__67;
+    v48 = __Block_byref_object_dispose__67;
+    v49 = 0;
+    v24 = dispatch_semaphore_create(0);
+    v25 = ATXStringToMode();
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke;
+    v40[3] = &unk_27859EEA8;
+    v42 = &v51;
+    v43 = &v44;
+    v26 = v24;
+    v41 = v26;
+    [v23 generateMissedNotificationRankingForNotificationArrays:v35 atxMode:v25 reply:v40];
+    v27 = *MEMORY[0x277CEBB30];
+    v38[4] = self;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke_2;
+    v39[3] = &unk_278596BB8;
+    v39[4] = self;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke_64;
+    v38[3] = &unk_278596BB8;
+    [MEMORY[0x277D425A0] waitForSemaphore:v26 timeoutSeconds:v39 onAcquire:v38 onTimeout:v27];
+    if (error && (v28 = v52[5]) != 0)
+    {
+      v20 = 0;
+      *error = v28;
+    }
+
+    else
+    {
+      v29 = MEMORY[0x277CCAAA0];
+      jsonRepresentation = [v45[5] jsonRepresentation];
+      v31 = v52;
+      obj = v52[5];
+      v32 = [v29 dataWithJSONObject:jsonRepresentation options:1 error:&obj];
+      objc_storeStrong(v31 + 5, obj);
+
+      if (error && (v33 = v52[5]) != 0)
+      {
+        v20 = 0;
+        *error = v33;
+      }
+
+      else
+      {
+        v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v32 encoding:4];
+      }
+    }
+
+    _Block_object_dispose(&v44, 8);
+    stringCopy = v36;
+  }
+
+  _Block_object_dispose(&v51, 8);
+
+  return v20;
 }
 
 void __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -387,28 +611,35 @@ void __147__ATXNotificationManagementInspector_fetchSerializedMissedNotification
 
 void __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v7, 0xCu);
-  }
-
   v6 = *MEMORY[0x277D85DE8];
+  v1 = __atxlog_handle_default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2263AA000, v1, OS_LOG_TYPE_DEFAULT, "Successfully acquired semaphore in %@", &v4, 0xCu);
+  }
 }
 
 void __147__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromSource_modeString_startDate_endDate_shouldInferMessages_outError___block_invoke_64(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __111__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromFileData_modeString_outError___block_invoke_63_cold_1(a1);
   }
+}
+
+- (id)fetchSerializedNotificationsFromSource:(id)source startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error
+{
+  v8 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromSource:source startDate:date endDate:endDate shouldInferMessages:messages outError:?];
+  v9 = [v8 _pas_mappedArrayWithTransform:&__block_literal_global_155];
+  v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:1 error:error];
+  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v10 encoding:4];
+
+  return v11;
 }
 
 - (id)fetchNotificationsFromFileData:(id)data outError:(id *)error
@@ -440,7 +671,7 @@ id __78__ATXNotificationManagementInspector_fetchNotificationsFromFileData_outEr
 - (id)fetchNotificationsFromSource:(id)source startDate:(id)date endDate:(id)endDate shouldInferMessages:(BOOL)messages outError:(id *)error
 {
   messagesCopy = messages;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   dateCopy = date;
   endDateCopy = endDate;
@@ -468,9 +699,9 @@ id __78__ATXNotificationManagementInspector_fetchNotificationsFromFileData_outEr
   v18 = distantFuture;
   if ([sourceCopy isEqualToString:@"biome"])
   {
-    v42 = 0;
-    v19 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromBiomeFromStartDate:v16 endDate:v18 outError:&v42];
-    v20 = v42;
+    v41 = 0;
+    v19 = [(ATXNotificationManagementInspector *)self fetchNotificationsFromBiomeFromStartDate:v16 endDate:v18 outError:&v41];
+    v20 = v41;
     if (!error)
     {
       goto LABEL_15;
@@ -503,32 +734,32 @@ LABEL_14:
 LABEL_15:
   if (messagesCopy)
   {
-    v34 = v18;
-    v35 = v16;
-    v36 = dateCopy;
-    v37 = sourceCopy;
+    v33 = v18;
+    v34 = v16;
+    v35 = dateCopy;
+    v36 = sourceCopy;
     v22 = [MEMORY[0x277CBEB98] setWithArray:&unk_283A58910];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v33 = v19;
+    v32 = v19;
     v23 = v19;
-    v24 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v39;
+      v26 = *v38;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v39 != v26)
+          if (*v38 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v38 + 1) + 8 * i);
+          v28 = *(*(&v37 + 1) + 8 * i);
           bundleID = [v28 bundleID];
           v30 = [v22 containsObject:bundleID];
 
@@ -538,20 +769,18 @@ LABEL_15:
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v25);
     }
 
-    dateCopy = v36;
-    sourceCopy = v37;
-    v18 = v34;
-    v16 = v35;
-    v19 = v33;
+    dateCopy = v35;
+    sourceCopy = v36;
+    v18 = v33;
+    v16 = v34;
+    v19 = v32;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -560,23 +789,21 @@ LABEL_15:
 {
   v11[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = __atxlog_handle_default(stringCopy);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [ATXNotificationManagementInspector logAndCreateErrorForString:];
+    [ATXNotificationManagementInspector logAndCreateErrorForString:?];
   }
 
-  v5 = *MEMORY[0x277CCA460];
+  v6 = *MEMORY[0x277CCA460];
   v10[0] = *MEMORY[0x277CCA068];
-  v10[1] = v5;
+  v10[1] = v6;
   v11[0] = stringCopy;
   v11[1] = stringCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXNotificationManagementInspector" code:1 userInfo:v6];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATXNotificationManagementInspector" code:1 userInfo:v7];
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (id)fetchNotificationsFromBiomeFromStartDate:(id)date endDate:(id)endDate outError:(id *)error
@@ -626,7 +853,7 @@ void __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromSta
   v3 = a2;
   if ([v3 state] == 1)
   {
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromStartDate_endDate_outError___block_invoke_cold_1(a1, v3);
@@ -679,29 +906,29 @@ BOOL __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromSta
 
 - (id)constructStacksForNotifications:(id)notifications
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = notificationsCopy;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = MEMORY[0x277CCACA8];
         bundleID = [v9 bundleID];
         threadID = [v9 threadID];
@@ -719,15 +946,13 @@ BOOL __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromSta
         [v16 addObject:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
 
   allValues = [v4 allValues];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
@@ -764,28 +989,28 @@ BOOL __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromSta
 
         if (bundleID)
         {
-          v14 = [v4 objectForKeyedSubscript:bundleID];
+          v15 = [v4 objectForKeyedSubscript:bundleID];
 
-          if (!v14)
+          if (!v15)
           {
-            v15 = objc_opt_new();
-            [v4 setObject:v15 forKeyedSubscript:bundleID];
+            v16 = objc_opt_new();
+            [v4 setObject:v16 forKeyedSubscript:bundleID];
           }
 
-          v16 = [v4 objectForKeyedSubscript:bundleID];
-          [v16 addObject:v11];
+          v17 = [v4 objectForKeyedSubscript:bundleID];
+          [v17 addObject:v11];
         }
 
         else
         {
-          v16 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v17 = __atxlog_handle_notification_management(v14);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            v17 = objc_opt_class();
-            v18 = NSStringFromClass(v17);
+            v18 = objc_opt_class();
+            v19 = NSStringFromClass(v18);
             *buf = v22;
-            v28 = v18;
-            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "[%@] Missing bundle ID for stack", buf, 0xCu);
+            v28 = v19;
+            _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "[%@] Missing bundle ID for stack", buf, 0xCu);
           }
         }
       }
@@ -798,54 +1023,44 @@ BOOL __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromSta
 
   allValues = [v4 allValues];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return allValues;
 }
 
 void __110__ATXNotificationManagementInspector_fetchSerializedNotificationDigestFromFileData_digestTimeString_outError___block_invoke_57_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2_9(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_2_9(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v4, v5, "%@ - timed out trying to get digest", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v3, v4, "%@ - timed out trying to get digest", v5, v6, v7, v8);
 }
 
 void __111__ATXNotificationManagementInspector_fetchSerializedMissedNotificationRankingFromFileData_modeString_outError___block_invoke_63_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v2 = OUTLINED_FUNCTION_2_9(a1);
-  v3 = NSStringFromClass(v2);
+  v1 = OUTLINED_FUNCTION_2_9(a1);
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v4, v5, "%@ - timed out trying to get missed notification ranking", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_2263AA000, v3, v4, "%@ - timed out trying to get missed notification ranking", v5, v6, v7, v8);
 }
 
-- (void)logAndCreateErrorForString:.cold.1()
+- (void)logAndCreateErrorForString:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "[%@] Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "[%@] Error: %@", v5, v6, v7, v8);
 }
 
 void __96__ATXNotificationManagementInspector_fetchNotificationsFromBiomeFromStartDate_endDate_outError___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_2_9(a1);
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 error];
-  v14 = [v6 localizedDescription];
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v7, v8, "[%@] Failed to fetch Biome events with error %@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_2_9(a1);
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 error];
+  v6 = [v5 localizedDescription];
+  *v13 = 138412546;
+  *&v13[4] = v4;
+  *&v13[12] = 2112;
+  *&v13[14] = v6;
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v7, v8, "[%@] Failed to fetch Biome events with error %@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 @end

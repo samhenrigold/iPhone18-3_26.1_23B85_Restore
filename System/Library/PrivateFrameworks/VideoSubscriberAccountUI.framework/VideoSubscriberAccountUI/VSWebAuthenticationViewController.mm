@@ -14,7 +14,11 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)setCancellationAllowed:(BOOL)allowed;
 - (void)setViewModel:(id)model;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
 - (void)webView:(id)view didFinishNavigation:(id)navigation;
@@ -69,7 +73,7 @@
 
 - (void)_sendMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   webView = [(VSWebAuthenticationViewController *)self webView];
   v6 = VSScriptMessageDispatchInjection(messageCopy);
@@ -77,24 +81,22 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = messageCopy;
+    v12 = messageCopy;
     _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Will inject message to web: %@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __50__VSWebAuthenticationViewController__sendMessage___block_invoke;
-  v10[3] = &unk_279E1A3C0;
-  v11 = messageCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__VSWebAuthenticationViewController__sendMessage___block_invoke;
+  v9[3] = &unk_279E1A3C0;
+  v10 = messageCopy;
   v8 = messageCopy;
-  [webView evaluateJavaScript:v6 completionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [webView evaluateJavaScript:v6 completionHandler:v9];
 }
 
 void __50__VSWebAuthenticationViewController__sendMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -102,9 +104,9 @@ void __50__VSWebAuthenticationViewController__sendMessage___block_invoke(uint64_
     v7 = VSDefaultLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Result of message injection: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Result of message injection: %@", &v10, 0xCu);
     }
   }
 
@@ -121,12 +123,10 @@ void __50__VSWebAuthenticationViewController__sendMessage___block_invoke(uint64_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Did inject message: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Did inject message: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retrieveMessages
@@ -162,7 +162,7 @@ void __50__VSWebAuthenticationViewController__sendMessage___block_invoke(uint64_
 
 void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -183,93 +183,93 @@ LABEL_4:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = v5;
+      v8 = v5;
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if ((isKindOfClass & 1) == 0)
       {
-        v11 = *MEMORY[0x277CBE660];
-        v12 = MEMORY[0x277CBEAD8];
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        [v12 raise:v11 format:{@"Unexpectedly, VSForceUnwrapNullable(result) was %@, instead of NSString.", v14}];
+        v10 = *MEMORY[0x277CBE660];
+        v11 = MEMORY[0x277CBEAD8];
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
+        [v11 raise:v10 format:{@"Unexpectedly, VSForceUnwrapNullable(result) was %@, instead of NSString.", v13}];
       }
 
-      v7 = [v9 dataUsingEncoding:4];
+      v7 = [v8 dataUsingEncoding:4];
       if (v7)
       {
-        v38 = 0;
-        v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v38];
-        v16 = v38;
-        if (v15)
+        v37 = 0;
+        v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:&v37];
+        v15 = v37;
+        if (v14)
         {
-          v17 = v15;
+          v16 = v14;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v33 = v5;
+            v32 = v5;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v18 = MEMORY[0x277CBEAD8];
-              v19 = *MEMORY[0x277CBE660];
-              v20 = objc_opt_class();
-              v21 = NSStringFromClass(v20);
-              [v18 raise:v19 format:{@"Unexpectedly, messages was %@, instead of NSArray.", v21}];
+              v17 = MEMORY[0x277CBEAD8];
+              v18 = *MEMORY[0x277CBE660];
+              v19 = objc_opt_class();
+              v20 = NSStringFromClass(v19);
+              [v17 raise:v18 format:{@"Unexpectedly, messages was %@, instead of NSArray.", v20}];
             }
 
-            v22 = v17;
+            v21 = v16;
+            v33 = 0u;
             v34 = 0u;
             v35 = 0u;
             v36 = 0u;
-            v37 = 0u;
-            v23 = [v22 countByEnumeratingWithState:&v34 objects:v39 count:16];
-            if (v23)
+            v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
+            if (v22)
             {
-              v24 = v23;
-              v30 = v17;
+              v23 = v22;
+              v29 = v16;
+              v30 = v14;
               v31 = v15;
-              v32 = v16;
-              v25 = *v35;
+              v24 = *v34;
               do
               {
-                for (i = 0; i != v24; ++i)
+                for (i = 0; i != v23; ++i)
                 {
-                  if (*v35 != v25)
+                  if (*v34 != v24)
                   {
-                    objc_enumerationMutation(v22);
+                    objc_enumerationMutation(v21);
                   }
 
-                  v27 = VSScriptMessageForValueFromContextWithOrigin(*(*(&v34 + 1) + 8 * i), *(a1 + 32));
-                  if (v27)
+                  v26 = VSScriptMessageForValueFromContextWithOrigin(*(*(&v33 + 1) + 8 * i), *(a1 + 32));
+                  if (v26)
                   {
-                    v28 = [*(a1 + 40) viewModel];
-                    v29 = [v28 messagesFromWeb];
-                    [v29 addMessage:v27];
+                    v27 = [*(a1 + 40) viewModel];
+                    v28 = [v27 messagesFromWeb];
+                    [v28 addMessage:v26];
                   }
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v34 objects:v39 count:16];
+                v23 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
               }
 
-              while (v24);
-              v16 = v32;
-              v5 = v33;
-              v17 = v30;
+              while (v23);
               v15 = v31;
+              v5 = v32;
+              v16 = v29;
+              v14 = v30;
             }
 
             else
             {
-              v5 = v33;
+              v5 = v32;
             }
           }
 
           else
           {
-            v22 = VSErrorLogObject();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v21 = VSErrorLogObject();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_2();
             }
@@ -278,8 +278,8 @@ LABEL_4:
 
         else
         {
-          v17 = VSErrorLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v16 = VSErrorLogObject();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_3();
           }
@@ -288,8 +288,8 @@ LABEL_4:
 
       else
       {
-        v16 = VSErrorLogObject();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = VSErrorLogObject();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_4();
         }
@@ -300,8 +300,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessages:(id)messages
@@ -320,7 +318,7 @@ LABEL_5:
 
 void __51__VSWebAuthenticationViewController__sendMessages___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -350,43 +348,43 @@ void __51__VSWebAuthenticationViewController__sendMessages___block_invoke(uint64
         v14 = [v11 host];
         [(VSScriptSecurityOrigin *)v12 setHost:v14];
 
-        v23 = v11;
+        v22 = v11;
         v15 = [v11 port];
         -[VSScriptSecurityOrigin setPort:](v12, "setPort:", [v15 integerValue]);
 
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v16 = *(a1 + 32);
-        v17 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v25;
+          v19 = *v24;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v25 != v19)
+              if (*v24 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v24 + 1) + 8 * i);
+              v21 = *(*(&v23 + 1) + 8 * i);
               if (VSShouldSendScriptMessageToContextWithOrigin(v21, v12))
               {
                 [*(a1 + 40) _sendMessage:v21];
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
           }
 
           while (v18);
         }
 
-        v11 = v23;
+        v11 = v22;
       }
 
       else
@@ -417,8 +415,6 @@ void __51__VSWebAuthenticationViewController__sendMessages___block_invoke(uint64
       __51__VSWebAuthenticationViewController__sendMessages___block_invoke_cold_3();
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingViewModel:(id)model
@@ -509,7 +505,7 @@ void __65__VSWebAuthenticationViewController_webView_didFinishNavigation___block
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   request = [action request];
   v9 = [request URL];
@@ -520,9 +516,9 @@ void __65__VSWebAuthenticationViewController_webView_didFinishNavigation___block
   {
     if (v12)
     {
-      v15 = 138412290;
-      v16 = request;
-      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Web view will *not* load request: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = request;
+      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Web view will *not* load request: %@", &v14, 0xCu);
     }
 
     [(VSWebAuthenticationViewController *)self _retrieveMessages];
@@ -533,17 +529,15 @@ void __65__VSWebAuthenticationViewController_webView_didFinishNavigation___block
   {
     if (v12)
     {
-      v15 = 138412290;
-      v16 = request;
-      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Web view will load request %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = request;
+      _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Web view will load request %@", &v14, 0xCu);
     }
 
     v13 = 1;
   }
 
   handlerCopy[2](handlerCopy, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCancellationAllowed:(BOOL)allowed
@@ -695,6 +689,38 @@ void __65__VSWebAuthenticationViewController_webView_didFinishNavigation___block
   VSAuthenticationViewControllerViewDidLoad(self);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSWebAuthenticationViewController;
+  [(VSWebAuthenticationViewController *)&v4 viewWillAppear:appear];
+  VSAuthenticationViewControllerViewWillAppear(self);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSWebAuthenticationViewController;
+  [(VSWebAuthenticationViewController *)&v4 viewDidAppear:appear];
+  VSAuthenticationViewControllerViewDidAppear(self);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSWebAuthenticationViewController;
+  [(VSWebAuthenticationViewController *)&v4 viewWillDisappear:disappear];
+  VSAuthenticationViewControllerViewWillDisappear(self);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSWebAuthenticationViewController;
+  [(VSWebAuthenticationViewController *)&v4 viewDidDisappear:disappear];
+  VSAuthenticationViewControllerViewDidDisappear(self);
+}
+
 - (VSAuthenticationViewControllerDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -711,11 +737,9 @@ void __50__VSWebAuthenticationViewController__sendMessage___block_invoke_cold_1(
 
 void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_2()
@@ -727,11 +751,9 @@ void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_col
 
 void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__VSWebAuthenticationViewController__retrieveMessages__block_invoke_cold_4()
@@ -750,11 +772,9 @@ void __51__VSWebAuthenticationViewController__sendMessages___block_invoke_cold_1
 
 void __51__VSWebAuthenticationViewController__sendMessages___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__VSWebAuthenticationViewController__sendMessages___block_invoke_cold_3()
@@ -766,11 +786,9 @@ void __51__VSWebAuthenticationViewController__sendMessages___block_invoke_cold_3
 
 void __65__VSWebAuthenticationViewController_webView_didFinishNavigation___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -140,9 +140,9 @@
 
 - (void)layoutSubviews
 {
-  v30.receiver = self;
-  v30.super_class = NTKTimerRichComplicationBaseCircularView;
-  [(NTKTimerRichComplicationBaseCircularView *)&v30 layoutSubviews];
+  v29.receiver = self;
+  v29.super_class = NTKTimerRichComplicationBaseCircularView;
+  [(NTKTimerRichComplicationBaseCircularView *)&v29 layoutSubviews];
   contentView = [(NTKTimerRichComplicationBaseCircularView *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -150,36 +150,35 @@
   v9 = v8;
   v11 = v10;
 
-  dialDiameter = self->_layoutConstants.dialDiameter;
   device = [(NTKTimerRichComplicationBaseCircularView *)self device];
   CLKSizeCenteredInRectForDevice();
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
 
-  [(NTKRichComplicationDialView *)self->_backgroundDial setFrame:v15, v17, v19, v21];
-  [(NTKRichComplicationDialView *)self->_foregroundDial setFrame:v15, v17, v19, v21];
+  [(NTKRichComplicationDialView *)self->_backgroundDial setFrame:v14, v16, v18, v20];
+  [(NTKRichComplicationDialView *)self->_foregroundDial setFrame:v14, v16, v18, v20];
   [(CLKUIColoringLabel *)self->_timerLabel sizeToFit];
   [(CLKUIColoringLabel *)self->_timerLabel frame];
-  v24 = v23;
-  if (v22 >= self->_layoutConstants.timerLabelMaxWidth)
+  v23 = v22;
+  if (v21 >= self->_layoutConstants.timerLabelMaxWidth)
   {
     timerLabelMaxWidth = self->_layoutConstants.timerLabelMaxWidth;
   }
 
   else
   {
-    timerLabelMaxWidth = v22;
+    timerLabelMaxWidth = v21;
   }
 
   timerLabelBottom = self->_layoutConstants.timerLabelBottom;
   font = [(CLKUIColoringLabel *)self->_timerLabel font];
   [font ascender];
-  *&v28 = timerLabelBottom - v28;
-  v29 = ceilf(*&v28);
+  *&v27 = timerLabelBottom - v27;
+  v28 = ceilf(*&v27);
 
-  [(CLKUIColoringLabel *)self->_timerLabel setFrame:(v9 - timerLabelMaxWidth) * 0.5, v29, timerLabelMaxWidth, v24];
+  [(CLKUIColoringLabel *)self->_timerLabel setFrame:(v9 - timerLabelMaxWidth) * 0.5, v28, timerLabelMaxWidth, v23];
   [(UIImageView *)self->_timerImageView setFrame:v5, v7, v9, v11];
 }
 

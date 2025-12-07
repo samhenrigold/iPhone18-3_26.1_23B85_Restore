@@ -48,6 +48,7 @@
 - (void)_disableCloudPhotos;
 - (void)_emitNavigationEvent;
 - (void)_enableCloudPhotosIgnoringStorageLimits:(BOOL)limits;
+- (void)_enableCloudPhotosWithExitModeWarningIgnoringStorageLimits:(BOOL)limits;
 - (void)_enableKeepOriginalsWithNonLocalResourceInfo:(id)info;
 - (void)_filterAndConfigureSpecifiers:(id *)specifiers isAsync:(BOOL *)async;
 - (void)_formatKeepOriginalsAndOptimizeSpecifiers;
@@ -67,7 +68,11 @@
 - (void)_setupSharedLibrarySettings;
 - (void)_showSpinnerForDuration:(double)duration withText:(id)text;
 - (void)_showStorageOptions;
+- (void)_updateAccountCloudPhotoFooterTextAnimated:(BOOL)animated;
+- (void)_updateCloudPhotoFooterTextAnimated:(BOOL)animated;
 - (void)_updateDiagnoseSpecifier;
+- (void)_updateKeepOriginals:(BOOL)originals;
+- (void)_updateKeepOriginalsFooterTextAnimated:(BOOL)animated;
 - (void)_updatePhotosCloudSpace:(id)space error:(id)error;
 - (void)_updateSharedLibrarySpecifiersAnimated:(BOOL)animated;
 - (void)_updateSpecifiersForCPLEnablementChange;
@@ -96,7 +101,11 @@
 - (void)shouldShowPhotoLibraryInSearchWasToggled:(id)toggled specifier:(id)specifier;
 - (void)statusDidChange:(id)change;
 - (void)updateDiagnoseButtonName:(id)name enabled:(BOOL)enabled;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SettingsBaseController
@@ -666,11 +675,64 @@ LABEL_7:
   [v4 present];
 }
 
+- (void)_updateKeepOriginalsFooterTextAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  systemPhotoLibrary = [(SettingsBaseController *)self systemPhotoLibrary];
+  v8 = sub_5530([systemPhotoLibrary isKeepOriginalsEnabled], self->_isCPLInExitMode);
+
+  v6 = [(SettingsBaseController *)self specifierForID:@"iCloudKeepOriginalsGroup"];
+  v7 = v6;
+  if (v6)
+  {
+    [v6 setProperty:v8 forKey:PSFooterTextGroupKey];
+    [(SettingsBaseController *)self reloadSpecifier:v7 animated:animatedCopy];
+  }
+}
+
 - (void)_continueWithoutStoragePurchase:(id)purchase
 {
   [(ICQUICloudStorageOffersManager *)self->_offersManager cancelLoad];
 
   [(SettingsBaseController *)self _enableCloudPhotosWithExitModeWarningIgnoringStorageLimits:1];
+}
+
+- (void)_updateAccountCloudPhotoFooterTextAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [(SettingsBaseController *)self specifierForID:@"iCloudPhotosAccountTitleGroup"];
+  if (v5)
+  {
+    v9 = v5;
+    [(SettingsBaseController *)self beginUpdates];
+    isCPLInExitMode = self->_isCPLInExitMode;
+    cloudPhotosEnabled = self->_cloudPhotosEnabled;
+    systemPhotoLibrary = [(SettingsBaseController *)self systemPhotoLibrary];
+    sub_57A0(v9, isCPLInExitMode, cloudPhotosEnabled, [systemPhotoLibrary isKeepOriginalsEnabled], -[SettingsBaseController _daysUntilExit](self, "_daysUntilExit"), (*(self + 195) >> 1) & 1, self);
+
+    [(SettingsBaseController *)self reloadSpecifier:v9 animated:animatedCopy];
+    [(SettingsBaseController *)self endUpdates];
+    v5 = v9;
+  }
+}
+
+- (void)_updateCloudPhotoFooterTextAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [(SettingsBaseController *)self specifierForID:@"iCloudPhotosTitleGroup"];
+  if (v5)
+  {
+    v9 = v5;
+    [(SettingsBaseController *)self beginUpdates];
+    isCPLInExitMode = self->_isCPLInExitMode;
+    cloudPhotosEnabled = self->_cloudPhotosEnabled;
+    systemPhotoLibrary = [(SettingsBaseController *)self systemPhotoLibrary];
+    sub_57A0(v9, isCPLInExitMode, cloudPhotosEnabled, [systemPhotoLibrary isKeepOriginalsEnabled], -[SettingsBaseController _daysUntilExit](self, "_daysUntilExit"), (*(self + 195) >> 1) & 1, self);
+
+    [(SettingsBaseController *)self reloadSpecifier:v9 animated:animatedCopy];
+    [(SettingsBaseController *)self endUpdates];
+    v5 = v9;
+  }
 }
 
 - (void)_updateSharedLibrarySpecifiersAnimated:(BOOL)animated
@@ -841,6 +903,28 @@ LABEL_7:
 
   v13 = v8;
   PLCanEnableCloudPhotoLibraryForAccount();
+}
+
+- (void)_enableCloudPhotosWithExitModeWarningIgnoringStorageLimits:(BOOL)limits
+{
+  if (self->_isCPLInExitMode)
+  {
+    v7 = v3;
+    v8 = v4;
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_7480;
+    v5[3] = &unk_2CF18;
+    v5[4] = self;
+    limitsCopy = limits;
+    [(SettingsBaseController *)self _presentAlertExitModeBeforeCPLEnableWithCompletion:v5];
+  }
+
+  else
+  {
+
+    [(SettingsBaseController *)self _enableCloudPhotosIgnoringStorageLimits:limits];
+  }
 }
 
 - (id)_personID
@@ -2328,6 +2412,20 @@ LABEL_16:
   [(SettingsBaseController *)self reloadSpecifierID:@"TransferGroup"];
 }
 
+- (void)_updateKeepOriginals:(BOOL)originals
+{
+  originalsCopy = originals;
+  systemPhotoLibrary = [(SettingsBaseController *)self systemPhotoLibrary];
+  [systemPhotoLibrary setKeepOriginalsEnabled:originalsCopy];
+
+  [(SettingsBaseController *)self _updateAccountCloudPhotoFooterTextAnimated:1];
+  [(SettingsBaseController *)self _updateCloudPhotoFooterTextAnimated:1];
+  [(SettingsBaseController *)self beginUpdates];
+  [(SettingsBaseController *)self _formatKeepOriginalsAndOptimizeSpecifiers];
+
+  [(SettingsBaseController *)self endUpdates];
+}
+
 - (void)runPhotosRebuild:(id)rebuild
 {
   rebuildCopy = rebuild;
@@ -2418,7 +2516,7 @@ LABEL_16:
     v11 = @"PHOTOS_DIAGNOSE_RUN";
   }
 
-  [(SettingsBaseController *)self updateDiagnoseButtonName:v11 enabled:changeCopy == 0, *v16, *&v16[16]];
+  [(SettingsBaseController *)self updateDiagnoseButtonName:v11 enabled:changeCopy == 0, *v16, *&v16[8]];
 }
 
 - (void)updateDiagnoseButtonName:(id)name enabled:(BOOL)enabled
@@ -2855,6 +2953,72 @@ LABEL_17:
   }
 
   return v15;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(NSXPCConnection *)self->_diagnoseServiceConnection invalidate];
+  diagnoseServiceConnection = self->_diagnoseServiceConnection;
+  self->_diagnoseServiceConnection = 0;
+
+  v6.receiver = self;
+  v6.super_class = SettingsBaseController;
+  [(SettingsBaseController *)&v6 viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(CPLStatus *)self->_cplStatus setDelegate:0];
+  cplStatus = self->_cplStatus;
+  self->_cplStatus = 0;
+
+  [(SettingsBaseController *)self _hideDisplayedSpinner];
+  v6.receiver = self;
+  v6.super_class = SettingsBaseController;
+  [(SettingsBaseController *)&v6 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SettingsBaseController;
+  [(SettingsBaseController *)&v4 viewDidAppear:appear];
+  [(SettingsBaseController *)self _emitNavigationEvent];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = PLUIGetLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v9 = objc_opt_class();
+    v10 = 2048;
+    selfCopy = self;
+    v6 = v9;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "<%@: %p> View will appear", buf, 0x16u);
+  }
+
+  v7.receiver = self;
+  v7.super_class = SettingsBaseController;
+  [(SettingsBaseController *)&v7 viewWillAppear:appearCopy];
+  if (self->_viewHasAppearedBefore)
+  {
+    [(SettingsBaseController *)self reloadSpecifiers];
+  }
+
+  else
+  {
+    self->_viewHasAppearedBefore = 1;
+  }
+
+  if (self->_refreshQuotaStorageOnViewWillAppear && (*(self + 195) & 2) != 0)
+  {
+    [(SettingsBaseController *)self _getPhotosCloudSpaceInBytes];
+  }
 }
 
 - (void)_setupSharedLibrarySettings

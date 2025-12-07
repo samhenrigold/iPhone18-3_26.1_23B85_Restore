@@ -22,31 +22,31 @@
 
 + (id)_avtui_dictionaryByIndexingObjectsInArray:()AvatarUI by:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v5;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     v11 = *MEMORY[0x277CBE658];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = v6[2](v6, v13);
         if (!v14)
         {
@@ -63,14 +63,13 @@
         [dictionary setObject:v13 forKeyedSubscript:v14];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v16 = [dictionary copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

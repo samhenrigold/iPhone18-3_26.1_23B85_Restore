@@ -385,7 +385,7 @@
                 v30 = v28;
               }
 
-              v31 = WTF::fastMalloc((8 * v30));
+              v31 = WTF::fastMalloc(v28, (8 * v30));
               self->_managedTextSelectionViews.m_capacity = v30;
               self->_managedTextSelectionViews.m_buffer = v31;
               WTF::VectorMover<false,WTF::WeakObjCPtr<UIView>>::move(v29, &v29[v27], v31);
@@ -688,22 +688,22 @@ LABEL_108:
   }
 }
 
-uint64_t __60__WKTextInteractionWrapper_prepareToMoveSelectionContainer___block_invoke(uint64_t result, void *a2, uint64_t a3)
+void **__60__WKTextInteractionWrapper_prepareToMoveSelectionContainer___block_invoke(void **result, void *a2, uint64_t a3)
 {
   v4 = result;
-  if (*(result + 48) == a2)
+  if (result[6] == a2)
   {
-    v6 = 32;
+    v6 = 4;
     goto LABEL_6;
   }
 
   result = [objc_msgSend(objc_msgSend(a2 "layer")];
-  if (result & 1) != 0 || (result = [*(v4 + 64) containsObject:a2], (result) || *(v4 + 72) == 1 && (result = objc_msgSend(a2, "conformsToProtocol:", &unk_1F11B3730), result))
+  if (result & 1) != 0 || (result = [v4[8] containsObject:a2], (result) || *(v4 + 72) == 1 && (result = objc_msgSend(a2, "conformsToProtocol:", &unk_1F11B3730), result))
   {
     ++a3;
-    v6 = 40;
+    v6 = 5;
 LABEL_6:
-    v7 = *(*(v4 + v6) + 8);
+    v7 = *(v4[v6] + 1);
     *(v7 + 48) = a3;
     *(v7 + 56) = 1;
   }

@@ -882,21 +882,21 @@ void __237__PXZoomablePhotosLayoutSpec_initWithExtendedTraitCollection_options_a
   [v2 addObject:v3];
 }
 
-void __237__PXZoomablePhotosLayoutSpec_initWithExtendedTraitCollection_options_availableThumbnailSizes_gridStyle_itemAspectRatio_userDefaults_forceSaliency_preferredUserInterfaceStyle_additionalAspectFitEdgeMargins_overrideDefaultNumberOfColumns___block_invoke_3(uint64_t a1, double a2)
+void __237__PXZoomablePhotosLayoutSpec_initWithExtendedTraitCollection_options_availableThumbnailSizes_gridStyle_itemAspectRatio_userDefaults_forceSaliency_preferredUserInterfaceStyle_additionalAspectFitEdgeMargins_overrideDefaultNumberOfColumns___block_invoke_3(uint64_t a1, double a2, double a3)
 {
   if (*(a1 + 48) != 1 && (PXSizeIsNull() & 1) == 0 && (PXSizeIsNull() & 1) == 0)
   {
-    v4 = *(a1 + 72);
+    v5 = *(a1 + 72);
     [*(a1 + 32) displayScale];
-    v6 = vcvtpd_s64_f64(v4 * v5 / a2) | 1;
-    v7 = [*(a1 + 40) lastObject];
-    v8 = [v7 integerValue];
+    v7 = vcvtpd_s64_f64(v5 * v6 / a2) | 1;
+    v8 = [*(a1 + 40) lastObject];
+    v9 = [v8 integerValue];
 
-    if (v6 > v8)
+    if (v7 > v9)
     {
-      v9 = *(a1 + 40);
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-      [v9 addObject:v10];
+      v10 = *(a1 + 40);
+      v11 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+      [v10 addObject:v11];
     }
   }
 }

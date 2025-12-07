@@ -1,6 +1,6 @@
 @interface NSIndexPath(UIKitInternalAdditions)
 - (__CFString)_ui_shortDescription;
-- (uint64_t)ui_getSectionIndex:()UIKitInternalAdditions itemIndex:;
+- (void)ui_getSectionIndex:()UIKitInternalAdditions itemIndex:;
 @end
 
 @implementation NSIndexPath(UIKitInternalAdditions)
@@ -52,7 +52,7 @@
   return v4;
 }
 
-- (uint64_t)ui_getSectionIndex:()UIKitInternalAdditions itemIndex:
+- (void)ui_getSectionIndex:()UIKitInternalAdditions itemIndex:
 {
   v13 = *MEMORY[0x1E69E9840];
   if (!a3)

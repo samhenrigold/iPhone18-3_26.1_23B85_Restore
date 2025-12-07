@@ -143,7 +143,7 @@ LABEL_11:
   {
     silentCopy = silent;
     self->_ringerSilent = silent;
-    v8 = SBLogRingerHUD();
+    v8 = SBLogRingerHUD(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -180,7 +180,7 @@ LABEL_11:
   pressCopy = press;
   animatedCopy = animated;
   v17 = *MEMORY[0x277D85DE8];
-  v9 = SBLogRingerHUD();
+  v9 = SBLogRingerHUD(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134218496;

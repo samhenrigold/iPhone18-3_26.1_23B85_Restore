@@ -147,14 +147,15 @@
 {
   connectionCopy = connection;
   tokenCopy = token;
+  v8 = tokenCopy;
   if (self->_pushConnection == connectionCopy && (_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_100009A78();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_100009A78(tokenCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_1000033B4();
       sub_10000AF80();
-      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
+      _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
     }
   }
 }
@@ -168,7 +169,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100009A78();
+      v10 = sub_100009A78(messageCopy);
       if (sub_1000033C0(v10))
       {
         topic = [v9 topic];
@@ -177,7 +178,7 @@
         v13 = topic2;
         v14 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&_mh_execute_header, v13, v14, v12, v33, 0xCu);
+        _os_log_impl(&_mh_execute_header, v13, v14, v12, v35, 0xCu);
 LABEL_36:
 
         goto LABEL_37;
@@ -192,56 +193,59 @@ LABEL_36:
   if (self->_pushConnection == connectionCopy)
   {
     topic2 = [messageCopy topic];
-    topic = [v9 userInfo];
+    userInfo = [v9 userInfo];
+    topic = userInfo;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_100009A78();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = sub_100009A78(userInfo);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        *v33 = 138412802;
-        *&v33[4] = topic2;
+        *v35 = 138412802;
+        *&v35[4] = topic2;
         sub_1000033B4();
-        *&v33[14] = topic;
-        v34 = v16;
-        v35 = connectionCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Received incoming message for topic %@ info %@ for APSConnection %@", v33, 0x20u);
+        *&v35[14] = topic;
+        v36 = v17;
+        v37 = connectionCopy;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Received incoming message for topic %@ info %@ for APSConnection %@", v35, 0x20u);
       }
     }
 
-    v17 = +[NSDate date];
+    v18 = [NSDate date:*v35];
     lastPushNotificationDate = self->_lastPushNotificationDate;
-    self->_lastPushNotificationDate = v17;
+    self->_lastPushNotificationDate = v18;
 
     topic3 = [v9 topic];
     lastPushTopic = self->_lastPushTopic;
     self->_lastPushTopic = topic3;
 
-    if (self->_lastStartOfPushNotificationBurst && ([(NSDate *)self->_lastPushNotificationDate timeIntervalSinceDate:?], v21 <= 10.0) && [(NSDate *)self->_lastStartOfPushNotificationBurst compare:self->_lastPushNotificationDate]!= 1)
+    if (self->_lastStartOfPushNotificationBurst && ([(NSDate *)self->_lastPushNotificationDate timeIntervalSinceDate:?], v22 <= 10.0) && [(NSDate *)self->_lastStartOfPushNotificationBurst compare:self->_lastPushNotificationDate]!= 1)
     {
-      v22 = self->_countOfPushNotificationBurst + 1;
+      v23 = self->_countOfPushNotificationBurst + 1;
     }
 
     else
     {
       objc_storeStrong(&self->_lastStartOfPushNotificationBurst, self->_lastPushNotificationDate);
-      v22 = 1;
+      v23 = 1;
     }
 
-    self->_countOfPushNotificationBurst = v22;
+    self->_countOfPushNotificationBurst = v23;
     lastPushNotification = self->_lastPushNotification;
     self->_lastPushNotification = 0;
 
     if (topic)
     {
-      v24 = [CKNotification notificationFromRemoteNotificationDictionary:topic];
-      v25 = self->_lastPushNotification;
-      self->_lastPushNotification = v24;
+      v25 = [CKNotification notificationFromRemoteNotificationDictionary:topic];
+      v26 = self->_lastPushNotification;
+      self->_lastPushNotification = v25;
     }
 
-    if (self->_lastPushNotification)
+    v27 = self->_lastPushNotification;
+    if (v27)
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v28 = objc_opt_class();
+      v27 = NSStringFromClass(v28);
+      v29 = v27;
       if (!topic2)
       {
         goto LABEL_31;
@@ -250,26 +254,27 @@ LABEL_36:
 
     else
     {
-      v27 = @"push notification of unknown kind";
+      v29 = @"push notification of unknown kind";
       if (!topic2)
       {
         goto LABEL_31;
       }
     }
 
-    if ([(NSArray *)self->_pushTopics containsObject:topic2])
+    v27 = [(NSArray *)self->_pushTopics containsObject:topic2];
+    if (v27)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v28 = sub_100009A78();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v30 = sub_100009A78(v27);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
-          userInfo = [v9 userInfo];
-          *v33 = 138412546;
-          *&v33[4] = v27;
+          userInfo2 = [v9 userInfo];
+          *v35 = 138412546;
+          *&v35[4] = v29;
           sub_1000033B4();
-          *&v33[14] = v30;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "Received %@ %@", v33, 0x16u);
+          *&v35[14] = v32;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Received %@ %@", v35, 0x16u);
         }
       }
 
@@ -286,12 +291,12 @@ LABEL_36:
           goto LABEL_35;
         }
 
-        WeakRetained = sub_100009A78();
+        WeakRetained = sub_100009A78(v27);
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
         {
-          userInfo2 = [v9 userInfo];
+          userInfo3 = [v9 userInfo];
           sub_10000AF90();
-          _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_ERROR, "Invalid CloudKit push notification %@", v33, 0xCu);
+          _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_ERROR, "Invalid CloudKit push notification %@", v35, 0xCu);
         }
       }
 
@@ -306,14 +311,14 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    WeakRetained = sub_100009A78();
+    WeakRetained = sub_100009A78(v27);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 138412546;
-      *&v33[4] = v27;
+      *v35 = 138412546;
+      *&v35[4] = v29;
       sub_1000033B4();
-      *&v33[14] = topic2;
-      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "Discarding unexpected %@ with topic %@", v33, 0x16u);
+      *&v35[14] = topic2;
+      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "Discarding unexpected %@ with topic %@", v35, 0x16u);
     }
 
 LABEL_34:
@@ -323,7 +328,7 @@ LABEL_34:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    topic2 = sub_100009A78();
+    topic2 = sub_100009A78(messageCopy);
     if (os_log_type_enabled(topic2, OS_LOG_TYPE_DEFAULT))
     {
       topic = [v9 topic];
@@ -346,20 +351,21 @@ LABEL_38:
   tokenCopy = token;
   topicCopy = topic;
   identifierCopy = identifier;
+  v14 = identifierCopy;
   if (self->_pushConnection == connectionCopy && (_CPLSilentLogging & 1) == 0)
   {
-    v14 = sub_100009A78();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = sub_100009A78(identifierCopy);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138413058;
-      v17 = tokenCopy;
+      v17 = 138413058;
+      v18 = tokenCopy;
       sub_1000033B4();
-      v18 = topicCopy;
-      v19 = v15;
-      v20 = identifierCopy;
-      v21 = v15;
-      v22 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Received token %@ for topic %@ with identifier %@ for APSConnection %@", &v16, 0x2Au);
+      v19 = topicCopy;
+      v20 = v16;
+      v21 = v14;
+      v22 = v16;
+      v23 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Received token %@ for topic %@ with identifier %@ for APSConnection %@", &v17, 0x2Au);
     }
   }
 }

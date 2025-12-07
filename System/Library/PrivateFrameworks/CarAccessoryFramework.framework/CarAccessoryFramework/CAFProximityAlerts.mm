@@ -8,6 +8,7 @@
 - (CAFProximityAlertCharacteristic)proximityAlertRearRightCharacteristic;
 - (unsigned)proximityAlertRearLeft;
 - (unsigned)proximityAlertRearRight;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -139,6 +140,56 @@
   v3 = proximityAlertRearRightCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000051000003"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    proximityAlertRearLeftCharacteristic = [(CAFProximityAlerts *)self proximityAlertRearLeftCharacteristic];
+    uniqueIdentifier2 = [proximityAlertRearLeftCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers proximityAlertsService:self didUpdateProximityAlertRearLeft:{-[CAFProximityAlerts proximityAlertRearLeft](self, "proximityAlertRearLeft")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000051000004"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  proximityAlertRearRightCharacteristic = [(CAFProximityAlerts *)self proximityAlertRearRightCharacteristic];
+  uniqueIdentifier4 = [proximityAlertRearRightCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers proximityAlertsService:self didUpdateProximityAlertRearRight:{-[CAFProximityAlerts proximityAlertRearRight](self, "proximityAlertRearRight")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFProximityAlerts;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForProximityAlertRearLeft

@@ -8,7 +8,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_1002EE5D4();
+  sub_1002EE5D4(selfCopy);
 }
 
 - (_TtC6FindMy21FMActionAndInfoButton)initWithFrame:(CGRect)frame

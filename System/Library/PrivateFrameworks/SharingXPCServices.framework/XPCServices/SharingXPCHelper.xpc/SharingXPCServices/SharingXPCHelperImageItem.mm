@@ -122,11 +122,21 @@
 
 - (id)description
 {
-  self->_imageData;
-  imageTitle = self->_imageTitle;
-  NSAppendPrintF();
+  v5 = 0;
+  if (self->_imageData)
+  {
+    v2 = @"has";
+  }
 
-  return 0;
+  else
+  {
+    v2 = @"does not have";
+  }
+
+  NSAppendPrintF(&v5, "SharingXPCHelperImageItem for %{private}@ %@ imageData", self->_imageTitle, v2);
+  v3 = v5;
+
+  return v3;
 }
 
 @end

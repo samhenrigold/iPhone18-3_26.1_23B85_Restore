@@ -37,7 +37,7 @@
 
 + (BOOL)isValidKeyValidator:(id)validator receiversIdentity:(id)identity sendersIdentity:(id)sendersIdentity error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   validatorCopy = validator;
   identityCopy = identity;
   sendersIdentityCopy = sendersIdentity;
@@ -45,13 +45,14 @@
   v13 = v12;
   v14 = [validatorCopy length];
   validatorLength = [self validatorLength];
+  v16 = validatorLength;
   if (v14 == validatorLength)
   {
-    v16 = [validatorCopy subdataWithRange:{0, 2}];
-    v52 = [validatorCopy subdataWithRange:{2, 2}];
-    v51 = [validatorCopy subdataWithRange:{4, 2}];
-    v53 = [validatorCopy subdataWithRange:{6, 1}];
-    if (!+[NGMProtocolVersion isVersionSupported:](NGMProtocolVersion, "isVersionSupported:", *[v53 bytes]))
+    v17 = [validatorCopy subdataWithRange:{0, 2}];
+    v54 = [validatorCopy subdataWithRange:{2, 2}];
+    v53 = [validatorCopy subdataWithRange:{4, 2}];
+    v55 = [validatorCopy subdataWithRange:{6, 1}];
+    if (!+[NGMProtocolVersion isVersionSupported:](NGMProtocolVersion, "isVersionSupported:", *[v55 bytes]))
     {
       MPLogAndAssignError(900, error, @"Discarding this payload because of bad NGM version.");
 LABEL_42:
@@ -61,59 +62,59 @@ LABEL_42:
 
     signingKey = [sendersIdentityCopy signingKey];
     dataRepresentation = [signingKey dataRepresentation];
-    v50 = [dataRepresentation subdataWithRange:{rangeOnPublicKey, v13}];
+    v52 = [dataRepresentation subdataWithRange:{rangeOnPublicKey, v13}];
 
-    v48 = [v16 isEqualToData:v50];
+    v50 = [v17 isEqualToData:v52];
     deviceSigningKey = [identityCopy deviceSigningKey];
     publicKey = [deviceSigningKey publicKey];
     dataRepresentation2 = [publicKey dataRepresentation];
-    v49 = [dataRepresentation2 subdataWithRange:{rangeOnPublicKey, v13}];
+    v51 = [dataRepresentation2 subdataWithRange:{rangeOnPublicKey, v13}];
 
-    v47 = [v52 isEqualToData:v49];
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x2020000000;
-    v68 = 0;
+    v49 = [v54 isEqualToData:v51];
+    v67 = 0;
+    v68 = &v67;
+    v69 = 0x2020000000;
+    v70 = 0;
     devicePrekeys = [identityCopy devicePrekeys];
     LODWORD(deviceSigningKey) = [devicePrekeys count] == 0;
 
     if (deviceSigningKey)
     {
-      v36 = MessageProtectionLog();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = MessageProtectionLog(v24);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        if (v48)
+        if (v50)
         {
-          v40 = &stru_283F0C6E8;
+          v42 = &stru_283F0C6E8;
         }
 
         else
         {
-          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The sender signing key's was incorrect. Found bytes: %@, expected %@ . \n", v50, v16];
+          v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The sender signing key's was incorrect. Found bytes: %@, expected %@ . \n", v52, v17];
         }
 
-        if (v47)
+        if (v49)
         {
-          v44 = &stru_283F0C6E8;
+          v46 = &stru_283F0C6E8;
         }
 
         else
         {
-          v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The receiver's signing key was incorrect. Found bytes: %@, expected %@. \n", v49, v52];
+          v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The receiver's signing key was incorrect. Found bytes: %@, expected %@. \n", v51, v54];
         }
 
         *buf = 138412802;
-        v70 = v40;
-        v71 = 2112;
-        v72 = v44;
+        v72 = v42;
         v73 = 2112;
-        v74 = @"No prekeys were found on the device";
-        _os_log_error_impl(&dword_22B404000, v36, OS_LOG_TYPE_ERROR, "While checking the key validator, we found the following issues: \n %@%@%@", buf, 0x20u);
-        if ((v47 & 1) == 0)
+        v74 = v46;
+        v75 = 2112;
+        v76 = @"No prekeys were found on the device";
+        _os_log_error_impl(&dword_22B404000, v39, OS_LOG_TYPE_ERROR, "While checking the key validator, we found the following issues: \n %@%@%@", buf, 0x20u);
+        if ((v49 & 1) == 0)
         {
         }
 
-        if ((v48 & 1) == 0)
+        if ((v50 & 1) == 0)
         {
         }
       }
@@ -124,30 +125,30 @@ LABEL_42:
 
     array = [MEMORY[0x277CBEB18] array];
     devicePrekeys2 = [identityCopy devicePrekeys];
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke;
-    v59[3] = &unk_2786FDD80;
-    v63 = rangeOnPublicKey;
-    v64 = v13;
-    v25 = array;
-    v60 = v25;
-    v26 = v51;
-    v61 = v26;
-    v62 = &v65;
-    [devicePrekeys2 enumerateObjectsUsingBlock:v59];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke;
+    v61[3] = &unk_2786FDD80;
+    v65 = rangeOnPublicKey;
+    v66 = v13;
+    v27 = array;
+    v62 = v27;
+    v28 = v53;
+    v63 = v28;
+    v64 = &v67;
+    [devicePrekeys2 enumerateObjectsUsingBlock:v61];
 
     string = [MEMORY[0x277CCAB68] string];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_21;
-    v56[3] = &unk_2786FDDA8;
-    v28 = string;
-    v57 = v28;
-    v29 = v25;
-    v58 = v29;
-    [v29 enumerateObjectsUsingBlock:v56];
-    if ((v48 & v47) == 1 && *(v66 + 24) == 1)
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_21;
+    v58[3] = &unk_2786FDDA8;
+    v30 = string;
+    v59 = v30;
+    v31 = v27;
+    v60 = v31;
+    v32 = [v31 enumerateObjectsUsingBlock:v58];
+    if ((v50 & v49) == 1 && *(v68 + 24) == 1)
     {
       if (!error || !*error)
       {
@@ -155,167 +156,166 @@ LABEL_42:
       }
 
       code = [*error code];
-      v31 = [*error description];
-      MPLogAndAssignError(code + 10000, error, v31);
+      v34 = [*error description];
+      MPLogAndAssignError(code + 10000, error, v34);
       goto LABEL_37;
     }
 
-    v32 = MessageProtectionLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v35 = MessageProtectionLog(v32);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      if (v48)
+      if (v50)
       {
-        v46 = &stru_283F0C6E8;
+        v48 = &stru_283F0C6E8;
       }
 
       else
       {
-        v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The sender signing key's was incorrect. Found bytes: %@, expected %@ . \n", v50, v16];
+        v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The sender signing key's was incorrect. Found bytes: %@, expected %@ . \n", v52, v17];
       }
 
-      if (v47)
-      {
-        v41 = &stru_283F0C6E8;
-      }
-
-      else
-      {
-        v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The receiver's signing key was incorrect. Found bytes: %@, expected %@. \n", v49, v52];
-      }
-
-      v42 = *(v66 + 24);
-      v45 = v41;
-      if (v42)
+      if (v49)
       {
         v43 = &stru_283F0C6E8;
       }
 
       else
       {
-        v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ No prekey was found that matches the one in the validator (%@). Was it already deleted? Prekeys on device are: %@. \n", v26, v28];
-        v41 = v45;
+        v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ The receiver's signing key was incorrect. Found bytes: %@, expected %@. \n", v51, v54];
+      }
+
+      v44 = *(v68 + 24);
+      v47 = v43;
+      if (v44)
+      {
+        v45 = &stru_283F0C6E8;
+      }
+
+      else
+      {
+        v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"❌ No prekey was found that matches the one in the validator (%@). Was it already deleted? Prekeys on device are: %@. \n", v28, v30];
+        v43 = v47;
       }
 
       *buf = 138412802;
-      v70 = v46;
-      v71 = 2112;
-      v72 = v41;
+      v72 = v48;
       v73 = 2112;
       v74 = v43;
-      _os_log_error_impl(&dword_22B404000, v32, OS_LOG_TYPE_ERROR, "While checking the key validator, we found the following issues: \n %@%@%@", buf, 0x20u);
-      if ((v42 & 1) == 0)
+      v75 = 2112;
+      v76 = v45;
+      _os_log_error_impl(&dword_22B404000, v35, OS_LOG_TYPE_ERROR, "While checking the key validator, we found the following issues: \n %@%@%@", buf, 0x20u);
+      if ((v44 & 1) == 0)
       {
       }
 
-      if ((v47 & 1) == 0)
+      if ((v49 & 1) == 0)
       {
       }
 
-      if ((v48 & 1) == 0)
+      if ((v50 & 1) == 0)
       {
       }
     }
 
-    if (((v48 | v47) & 1) != 0 || *(v66 + 24) == 1)
+    if (((v50 | v49) & 1) != 0 || *(v68 + 24) == 1)
     {
-      v33 = *(v66 + 24);
-      if (v47)
+      v36 = *(v68 + 24);
+      if (v49)
       {
-        if ((v33 | v48))
+        if ((v36 | v50))
         {
-          if (*(v66 + 24))
+          if (*(v68 + 24))
           {
-            if (v48)
+            if (v50)
             {
-              v34 = 806;
+              v37 = 806;
             }
 
             else
             {
-              v34 = 801;
+              v37 = 801;
             }
 
-            if (v48)
+            if (v50)
             {
-              v35 = @"Unhandled key validator case.";
+              v38 = @"Unhandled key validator case.";
             }
 
             else
             {
-              v35 = @"The sender key is incorrect.";
+              v38 = @"The sender key is incorrect.";
             }
           }
 
           else
           {
-            v35 = @"The receiver's encryption key is incorrect.";
-            v34 = 804;
+            v38 = @"The receiver's encryption key is incorrect.";
+            v37 = 804;
           }
 
           goto LABEL_39;
         }
 
-        v37 = @"encryption key";
+        v40 = @"encryption key";
       }
 
       else
       {
-        if (*(v66 + 24))
+        if (*(v68 + 24))
         {
-          v34 = 803;
+          v37 = 803;
         }
 
         else
         {
-          v34 = 802;
+          v37 = 802;
         }
 
-        if (*(v66 + 24))
+        if (*(v68 + 24))
         {
-          v35 = @"The receiver's signing key is incorrect.";
+          v38 = @"The receiver's signing key is incorrect.";
         }
 
         else
         {
-          v35 = @"Receiver's keys are incorrect.";
+          v38 = @"Receiver's keys are incorrect.";
         }
 
-        if (v48 & 1 | ((v33 & 1) == 0))
+        if (v50 & 1 | ((v36 & 1) == 0))
         {
           goto LABEL_39;
         }
 
-        v37 = @"signing key";
+        v40 = @"signing key";
       }
 
-      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"The receiver's %@ and sender's identity keys are incorrect.", v37];
-      MPLogAndAssignError(805, error, v31);
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"The receiver's %@ and sender's identity keys are incorrect.", v40];
+      MPLogAndAssignError(805, error, v34);
 LABEL_37:
 
 LABEL_40:
 LABEL_41:
-      _Block_object_dispose(&v65, 8);
+      _Block_object_dispose(&v67, 8);
 
       goto LABEL_42;
     }
 
-    v35 = @"Sender and receiver's keys are incorrect.";
-    v34 = 800;
+    v38 = @"Sender and receiver's keys are incorrect.";
+    v37 = 800;
 LABEL_39:
-    MPLogAndAssignError(v34, error, v35);
+    MPLogAndAssignError(v37, error, v38);
     goto LABEL_40;
   }
 
-  v16 = MessageProtectionLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = MessageProtectionLog(validatorLength);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [NGMKeyValidator isValidKeyValidator:v16 receiversIdentity:? sendersIdentity:? error:?];
+    [NGMKeyValidator isValidKeyValidator:v17 receiversIdentity:? sendersIdentity:? error:?];
   }
 
 LABEL_43:
 
-  v38 = *MEMORY[0x277D85DE8];
-  return v14 == validatorLength;
+  return v14 == v16;
 }
 
 void __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -337,21 +337,21 @@ void __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity
 
   else
   {
-    v10 = MessageProtectionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MessageProtectionLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_cold_1(v10);
+      __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_cold_1(v11);
     }
   }
 }
 
-void __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_21(uint64_t a1, void *a2, uint64_t a3)
+void __79__NGMKeyValidator_isValidKeyValidator_receiversIdentity_sendersIdentity_error___block_invoke_21(uint64_t a1, void *a2, _BYTE *a3)
 {
   v4 = MEMORY[0x277CCACA8];
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   v7 = a2;
-  if ([v6 count] - 1 == a3)
+  if (([v6 count] - 1) == a3)
   {
     v8 = &stru_283F0C6E8;
   }

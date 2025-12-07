@@ -1,5 +1,6 @@
 @interface SBIconViewInvertColorsAccessibility
 - (BOOL)accessibilityIgnoresInvertColors;
+- (id)_contextMenuInteraction:(id)interaction previewForIconWithConfigurationOptions:(unint64_t)options highlighted:(BOOL)highlighted;
 @end
 
 @implementation SBIconViewInvertColorsAccessibility
@@ -28,6 +29,17 @@
   }
 
   return isKindOfClass & 1;
+}
+
+- (id)_contextMenuInteraction:(id)interaction previewForIconWithConfigurationOptions:(unint64_t)options highlighted:(BOOL)highlighted
+{
+  v8.receiver = self;
+  v8.super_class = SBIconViewInvertColorsAccessibility;
+  v5 = [(SBIconViewInvertColorsAccessibility *)&v8 _contextMenuInteraction:interaction previewForIconWithConfigurationOptions:options highlighted:highlighted];
+  view = [v5 view];
+  [view setAccessibilityIgnoresInvertColors:1];
+
+  return v5;
 }
 
 @end

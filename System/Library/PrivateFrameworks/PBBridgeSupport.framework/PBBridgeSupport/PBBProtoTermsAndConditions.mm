@@ -313,39 +313,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_26;
-  }
-
-  license = self->_license;
-  if (license | equalCopy[6])
-  {
-    if (![(NSData *)license isEqual:?])
-    {
-      goto LABEL_26;
-    }
-  }
-
-  multiterms = self->_multiterms;
-  if (multiterms | equalCopy[8] && ![(NSData *)multiterms isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  warranty = self->_warranty;
-  if (warranty | equalCopy[11] && ![(NSData *)warranty isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  licenseLabel = self->_licenseLabel;
-  if (licenseLabel | equalCopy[7] && ![(NSString *)licenseLabel isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  if (((warrantyLabel = self->_warrantyLabel, !(warrantyLabel | equalCopy[12])) || [(NSString *)warrantyLabel isEqual:?]) && ((agreeDialogTitle = self->_agreeDialogTitle, !(agreeDialogTitle | equalCopy[2])) || [(NSString *)agreeDialogTitle isEqual:?]) && ((agreeDialogText = self->_agreeDialogText, !(agreeDialogText | equalCopy[1])) || [(NSString *)agreeDialogText isEqual:?]) && ((agreeLabel = self->_agreeLabel, !(agreeLabel | equalCopy[3])) || [(NSString *)agreeLabel isEqual:?]) && ((cancelLabel = self->_cancelLabel, !(cancelLabel | equalCopy[4])) || [(NSString *)cancelLabel isEqual:?]) && ((disagreeLabel = self->_disagreeLabel, !(disagreeLabel | equalCopy[5])) || [(NSString *)disagreeLabel isEqual:?]) && ((serverTerms = self->_serverTerms, !(serverTerms | equalCopy[9])) || [(NSData *)serverTerms isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((license = self->_license, !(license | equalCopy[6])) || -[NSData isEqual:](license, "isEqual:")) && ((multiterms = self->_multiterms, !(multiterms | equalCopy[8])) || -[NSData isEqual:](multiterms, "isEqual:")) && ((warranty = self->_warranty, !(warranty | equalCopy[11])) || -[NSData isEqual:](warranty, "isEqual:")) && ((licenseLabel = self->_licenseLabel, !(licenseLabel | equalCopy[7])) || -[NSString isEqual:](licenseLabel, "isEqual:")) && ((warrantyLabel = self->_warrantyLabel, !(warrantyLabel | equalCopy[12])) || -[NSString isEqual:](warrantyLabel, "isEqual:")) && ((agreeDialogTitle = self->_agreeDialogTitle, !(agreeDialogTitle | equalCopy[2])) || -[NSString isEqual:](agreeDialogTitle, "isEqual:")) && ((agreeDialogText = self->_agreeDialogText, !(agreeDialogText | equalCopy[1])) || -[NSString isEqual:](agreeDialogText, "isEqual:")) && ((agreeLabel = self->_agreeLabel, !(agreeLabel | equalCopy[3])) || -[NSString isEqual:](agreeLabel, "isEqual:")) && ((cancelLabel = self->_cancelLabel, !(cancelLabel | equalCopy[4])) || -[NSString isEqual:](cancelLabel, "isEqual:")) && ((disagreeLabel = self->_disagreeLabel, !(disagreeLabel | equalCopy[5])) || -[NSString isEqual:](disagreeLabel, "isEqual:")) && ((serverTerms = self->_serverTerms, !(serverTerms | equalCopy[9])) || -[NSData isEqual:](serverTerms, "isEqual:")))
   {
     userAgent = self->_userAgent;
     if (userAgent | equalCopy[10])
@@ -361,7 +329,6 @@
 
   else
   {
-LABEL_26:
     v17 = 0;
   }
 

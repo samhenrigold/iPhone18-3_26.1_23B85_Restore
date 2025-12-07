@@ -1,8 +1,12 @@
 @interface WiFiAnalyticsAWDWiFiDPSEpilogue
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
+- (id)afterRecommendedActionAsString:(int)string;
+- (id)beforeActionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)studyTypeAsString:(int)string;
 - (int)StringAsAction:(id)action;
 - (int)StringAsAfterRecommendedAction:(id)action;
 - (int)StringAsBeforeAction:(id)action;
@@ -53,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)beforeActionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E830EB78[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsBeforeAction:(id)action
@@ -112,6 +131,86 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string > 15)
+  {
+    if (string > 63)
+    {
+      if (string == 64)
+      {
+        v4 = @"kSymptomsdDPSWatchdog";
+
+        return v4;
+      }
+
+      if (string == 128)
+      {
+        v4 = @"kSymptomsdDPSReassoc";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 16)
+      {
+        v4 = @"kNoneNoFastWatchdogBudget";
+
+        return v4;
+      }
+
+      if (string == 32)
+      {
+        v4 = @"kUserChanged";
+
+        return v4;
+      }
+    }
+
+LABEL_36:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 3)
+  {
+    if (string == 4)
+    {
+      v4 = @"kFastDPSWatchdog";
+
+      return v4;
+    }
+
+    if (string == 8)
+    {
+      v4 = @"kNoneNoFullWatchdogBudget";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (string)
+  {
+    if (string == 2)
+    {
+      v4 = @"kFullWatchdog";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  v4 = @"kNone";
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -191,6 +290,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)afterRecommendedActionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E830EB78[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAfterRecommendedAction:(id)action
@@ -285,6 +399,29 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)studyTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"kDPEStudyTypeSymptomsDps";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"kDPEStudyTypeDataStall";
+  }
+
+  return v4;
+}
+
 - (int)StringAsStudyType:(id)type
 {
   typeCopy = type;
@@ -348,7 +485,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if (has)
@@ -498,30 +635,30 @@ LABEL_36:
   if ([(NSMutableArray *)self->_associationChanges count])
   {
     v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_associationChanges, "count")}];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v15 = self->_associationChanges;
-    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v46;
+      v18 = *v45;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v46 != v18)
+          if (*v45 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          dictionaryRepresentation2 = [*(*(&v45 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v44 + 1) + 8 * i) dictionaryRepresentation];
           [v14 addObject:dictionaryRepresentation2];
         }
 
-        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v17);
@@ -540,8 +677,8 @@ LABEL_36:
   v23 = self->_has;
   if ((v23 & 4) != 0)
   {
-    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_actionIntVal];
-    [dictionary setObject:v38 forKey:@"actionIntVal"];
+    v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_actionIntVal];
+    [dictionary setObject:v37 forKey:@"actionIntVal"];
 
     v23 = self->_has;
     if ((v23 & 0x20) == 0)
@@ -566,21 +703,21 @@ LABEL_51:
   {
     if (studyType == 1)
     {
-      v40 = @"kDPEStudyTypeSymptomsDps";
+      v39 = @"kDPEStudyTypeSymptomsDps";
     }
 
     else
     {
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", self->_studyType];
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", self->_studyType];
     }
   }
 
   else
   {
-    v40 = @"kDPEStudyTypeDataStall";
+    v39 = @"kDPEStudyTypeDataStall";
   }
 
-  [dictionary setObject:v40 forKey:@"studyType"];
+  [dictionary setObject:v39 forKey:@"studyType"];
 
   if ((*&self->_has & 0x40) != 0)
   {
@@ -607,30 +744,30 @@ LABEL_53:
   if ([(NSMutableArray *)self->_accessPointInfos count])
   {
     v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_accessPointInfos, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v30 = self->_accessPointInfos;
-    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v41 objects:v49 count:16];
+    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v40 objects:v48 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v42;
+      v33 = *v41;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v42 != v33)
+          if (*v41 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          dictionaryRepresentation6 = [*(*(&v41 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v40 + 1) + 8 * j) dictionaryRepresentation];
           [v29 addObject:dictionaryRepresentation6];
         }
 
-        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v32);
@@ -639,19 +776,16 @@ LABEL_53:
     [dictionary setObject:v29 forKey:@"accessPointInfo"];
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -671,7 +805,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  beforeAction = self->_beforeAction;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -686,12 +819,10 @@ LABEL_4:
   }
 
 LABEL_35:
-  action = self->_action;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    afterRecommendedAction = self->_afterRecommendedAction;
     PBDataWriterWriteInt32Field();
   }
 
@@ -701,33 +832,32 @@ LABEL_6:
     PBDataWriterWriteSubmessage();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v7 = self->_associationChanges;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v8)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_associationChanges;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v32;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v10)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_qDpsStats)
@@ -735,16 +865,15 @@ LABEL_6:
     PBDataWriterWriteSubmessage();
   }
 
-  v13 = self->_has;
-  if ((v13 & 4) != 0)
+  v11 = self->_has;
+  if ((v11 & 4) != 0)
   {
-    actionIntVal = self->_actionIntVal;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((v13 & 0x20) == 0)
+    v11 = self->_has;
+    if ((v11 & 0x20) == 0)
     {
 LABEL_19:
-      if ((v13 & 0x40) == 0)
+      if ((v11 & 0x40) == 0)
       {
         goto LABEL_21;
       }
@@ -758,12 +887,10 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  studyType = self->_studyType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_20:
-    isAssociatedAtStudyEnd = self->_isAssociatedAtStudyEnd;
     PBDataWriterWriteBOOLField();
   }
 
@@ -778,36 +905,33 @@ LABEL_21:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v15 = self->_accessPointInfos;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v16)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = self->_accessPointInfos;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v13)
   {
-    v17 = v16;
-    v18 = *v28;
+    v14 = v13;
+    v15 = *v18;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v14; ++j)
       {
-        if (*v28 != v18)
+        if (*v18 != v15)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v27 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v17);
+    while (v14);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -948,7 +1072,7 @@ LABEL_18:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1003,30 +1127,30 @@ LABEL_6:
   v9 = *(v6 + 56);
   *(v6 + 56) = v8;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = self->_associationChanges;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v35 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v34 + 1) + 8 * i) copyWithZone:zone];
         [v6 addAssociationChanges:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
@@ -1077,36 +1201,35 @@ LABEL_17:
   v22 = *(v6 + 64);
   *(v6 + 64) = v21;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v23 = self->_accessPointInfos;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v31 + 1) + 8 * j) copyWithZone:{zone, v31}];
+        v28 = [*(*(&v30 + 1) + 8 * j) copyWithZone:{zone, v30}];
         [v6 addAccessPointInfo:v28];
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v25);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1118,7 +1241,6 @@ LABEL_17:
     goto LABEL_47;
   }
 
-  v5 = *(equalCopy + 100);
   if (*&self->_has)
   {
     if ((*(equalCopy + 100) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -1195,7 +1317,6 @@ LABEL_17:
     }
   }
 
-  v9 = *(equalCopy + 100);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 100) & 4) == 0 || self->_actionIntVal != *(equalCopy + 7))
@@ -1230,7 +1351,7 @@ LABEL_17:
     }
 
 LABEL_47:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_48;
   }
 
@@ -1239,7 +1360,6 @@ LABEL_47:
     goto LABEL_47;
   }
 
-  v15 = *(equalCopy + 96);
   if (self->_isAssociatedAtStudyEnd)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -1272,17 +1392,17 @@ LABEL_40:
   accessPointInfos = self->_accessPointInfos;
   if (accessPointInfos | *(equalCopy + 2))
   {
-    v13 = [(NSMutableArray *)accessPointInfos isEqual:?];
+    v11 = [(NSMutableArray *)accessPointInfos isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v11 = 1;
   }
 
 LABEL_48:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -1384,7 +1504,7 @@ LABEL_17:
 
 - (void)mergeFrom:(id)from
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 100);
@@ -1450,29 +1570,29 @@ LABEL_6:
     [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self setChanges:?];
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v9 = *(v5 + 5);
-  v10 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self addAssociationChanges:*(*(&v31 + 1) + 8 * i)];
+        [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self addAssociationChanges:*(*(&v30 + 1) + 8 * i)];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v11);
@@ -1556,35 +1676,33 @@ LABEL_31:
     [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self setDiscoveredPeerInfo:?];
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v21 = *(v5 + 2);
-  v22 = [v21 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self addAccessPointInfo:*(*(&v27 + 1) + 8 * j), v27];
+        [(WiFiAnalyticsAWDWiFiDPSEpilogue *)self addAccessPointInfo:*(*(&v26 + 1) + 8 * j), v26];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

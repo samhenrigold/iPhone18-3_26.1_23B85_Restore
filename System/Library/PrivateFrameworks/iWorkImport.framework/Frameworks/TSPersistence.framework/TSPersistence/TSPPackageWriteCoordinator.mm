@@ -2,6 +2,7 @@
 - (BOOL)componentWriter:(id)writer object:(id)object belongsToCopiedComponent:(id)component;
 - (BOOL)didWriteComponentWithIdentifier:(int64_t)identifier wasCopied:(BOOL *)copied componentReadVersion:(unint64_t *)version;
 - (BOOL)didWriteObject:(id)object claimingComponent:(id *)component componentReadVersion:(unint64_t *)version;
+- (BOOL)enqueueComponent:(id)component rootObjectOrNil:(id)nil forceArchive:(BOOL)archive isWastefullyEnqueueing:(BOOL)enqueueing isWeakReference:(BOOL)reference referencingComponent:(id)referencingComponent referencedObject:(id)object hasArchiverAccessLock:(BOOL)self0;
 - (BOOL)isComponentPersisted:(id)persisted;
 - (BOOL)shouldArchiveComponent:(id)component checkForceArchive:(BOOL)archive;
 - (BOOL)shouldCopyComponentOfObject:(id)object;
@@ -9,6 +10,7 @@
 - (BOOL)wasObjectPersistedWithIdentifier:(int64_t)identifier;
 - (TSPObjectContainer)objectContainer;
 - (TSPPackageWriteCoordinator)init;
+- (TSPPackageWriteCoordinator)initWithContext:(id)context archiverClass:(Class)class archiverFlags:(char)flags documentRevision:(id)revision saveToken:(unint64_t)token packageIdentifier:(unsigned __int8)identifier fileFormatVersion:(unint64_t)version preferredPackageType:(int64_t)self0 metadataObject:(id)self1 packageWriteCoordinator:(id)self2 captureSnapshots:(BOOL)self3;
 - (id).cxx_construct;
 - (id)componentForObjectIdentifier:(int64_t)identifier objectOrNil:(id)nil componentReadVersion:(unint64_t *)version;
 - (id)componentWriter:(id)writer locatorForClaimingComponent:(id)component;
@@ -25,7 +27,9 @@
 - (int64_t)updateDelayedObjectsSetForWrittenComponentInfo:(WrittenComponentInfo *)info componentIdentifier:(int64_t)identifier withObject:(id)object canDelayObjects:(BOOL)objects;
 - (unint64_t)writeRootObject:(id)object withPackageWriter:(id)writer saveOperationState:(id)state error:(id *)error;
 - (void)addDataFinalizeHandlerForSuccessfulSave:(id)save;
+- (void)addDelayedObject:(id)object forComponentRootObject:(id)rootObject claimingComponent:(id)component isDelayedObjectReferencedByObjectContainer:(BOOL)container completion:(id)completion;
 - (void)addDelayedObjectToObjectContainer:(id)container referencingComponent:(id)component forWastefullyEnqueuedComponent:(id)enqueuedComponent componentRootObject:(id)object;
+- (void)archiveComponent:(id)component locator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive rootObject:(id)object withPackageWriter:(id)writer;
 - (void)attemptDocumentRecovery;
 - (void)calculateExternalReferences;
 - (void)componentWriter:(id)writer canSkipArchivingStronglyReferencedObject:(id)object fromComponentRootObject:(id)rootObject completion:(id)completion;
@@ -73,6 +77,144 @@
   objc_exception_throw(v13);
 }
 
+- (TSPPackageWriteCoordinator)initWithContext:(id)context archiverClass:(Class)class archiverFlags:(char)flags documentRevision:(id)revision saveToken:(unint64_t)token packageIdentifier:(unsigned __int8)identifier fileFormatVersion:(unint64_t)version preferredPackageType:(int64_t)self0 metadataObject:(id)self1 packageWriteCoordinator:(id)self2 captureSnapshots:(BOOL)self3
+{
+  identifierCopy = identifier;
+  flagsCopy = flags;
+  contextCopy = context;
+  revisionCopy = revision;
+  objectCopy = object;
+  coordinatorCopy = coordinator;
+  v96.receiver = self;
+  v96.super_class = TSPPackageWriteCoordinator;
+  v19 = [(TSPPackageWriteCoordinator *)&v96 init];
+  v20 = v19;
+  if (v19)
+  {
+    objc_storeWeak(&v19->_context, contextCopy);
+    v20->_packageIdentifier = identifierCopy;
+    objc_storeStrong(&v20->_documentRevision, revision);
+    v20->_fileFormatVersion = version;
+    v20->_saveToken = token;
+    v20->_preferredPackageType = type;
+    objc_storeStrong(&v20->_metadataObject, object);
+    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v22 = dispatch_queue_create("TSPPackageWriteCoordinator.Completion", v21);
+    completionQueue = v20->_completionQueue;
+    v20->_completionQueue = v22;
+
+    v24 = dispatch_group_create();
+    completionGroup = v20->_completionGroup;
+    v20->_completionGroup = v24;
+
+    v26 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v27 = dispatch_queue_create("TSPPackageWriteCoordinator.ComponentAndObjects", v26);
+    accessQueue = v20->_accessQueue;
+    v20->_accessQueue = v27;
+
+    v29 = objc_opt_new();
+    packageLocatorSet = v20->_packageLocatorSet;
+    v20->_packageLocatorSet = v29;
+
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v31, @"Document");
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v32, @"Support");
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v33, @"Metadata");
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v34, @"ObjectContainer");
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v35, @"DocumentMetadata");
+    objc_msgSend_addObject_(v20->_packageLocatorSet, v36, @"SupportMetadata");
+    v37 = [TSPObjectContainer alloc];
+    v39 = objc_msgSend_initWithContext_packageIdentifier_(v37, v38, contextCopy, identifierCopy);
+    objectContainer = v20->_objectContainer;
+    v20->_objectContainer = v39;
+
+    v20->_objectContainerIdentifier = objc_msgSend_objectIdentifierForPackageIdentifier_(TSPObjectContainer, v41, identifierCopy);
+    v42 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v43 = dispatch_queue_create("TSPPackageWriteCoordinator.ModifyObject", v42);
+    modifyObjectQueue = v20->_modifyObjectQueue;
+    v20->_modifyObjectQueue = v43;
+
+    v45 = objc_alloc(MEMORY[0x277CCAA50]);
+    v47 = objc_msgSend_initWithOptions_capacity_(v45, v46, 512, 0);
+    modifiedObjectsDuringWrite = v20->_modifiedObjectsDuringWrite;
+    v20->_modifiedObjectsDuringWrite = v47;
+
+    v20->_captureSnapshots = snapshots;
+    v49 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v50 = dispatch_queue_create("TSPPackageWriteCoordinator.ExternalLazyReferences", v49);
+    externalLazyReferencesQueue = v20->_externalLazyReferencesQueue;
+    v20->_externalLazyReferencesQueue = v50;
+
+    v52 = objc_alloc_init(TSPComponentExternalReferenceMap);
+    externalLazyReferencesMap = v20->_externalLazyReferencesMap;
+    v20->_externalLazyReferencesMap = v52;
+
+    v54 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v55 = dispatch_queue_create("TSPPackageWriteCoordinator.ExternalReferences", v54);
+    externalReferenceQueue = v20->_externalReferenceQueue;
+    v20->_externalReferenceQueue = v55;
+
+    v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    externalReferenceBlocks = v20->_externalReferenceBlocks;
+    v20->_externalReferenceBlocks = v57;
+
+    v59 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v60 = dispatch_queue_create("TSPPackageWriteCoordinator.Metadata", v59);
+    metadataQueue = v20->_metadataQueue;
+    v20->_metadataQueue = v60;
+
+    v62 = objc_alloc(MEMORY[0x277CCAA50]);
+    v64 = objc_msgSend_initWithOptions_capacity_(v62, v63, 512, 0);
+    referencedDatas = v20->_referencedDatas;
+    v20->_referencedDatas = v64;
+
+    v66 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    dataFinalizeHandlers = v20->_dataFinalizeHandlers;
+    v20->_dataFinalizeHandlers = v66;
+
+    v20->_packageWriterErrorLock._os_unfair_lock_opaque = 0;
+    __dmb(0xBu);
+    if (!coordinatorCopy)
+    {
+      v74 = [TSPObjectReferenceMap alloc];
+      v76 = objc_msgSend_initWithContext_delegate_(v74, v75, contextCopy, v20);
+      objectReferenceMap = v20->_objectReferenceMap;
+      v20->_objectReferenceMap = v76;
+
+      v78 = [TSPArchiverManager alloc];
+      v80 = objc_msgSend_initWithDelegate_archiverClass_archiverFlags_(v78, v79, v20, class, flagsCopy);
+      archiverManager = v20->_archiverManager;
+      v20->_archiverManager = v80;
+
+      v82 = objc_opt_new();
+      objc_msgSend_addObject_(v82, v83, @"Document");
+      objc_msgSend_addObject_(v82, v84, @"Support");
+      objc_msgSend_addObject_(v82, v85, @"Metadata");
+      objc_msgSend_addObject_(v82, v86, @"ObjectContainer");
+      objc_msgSend_addObject_(v82, v87, @"DocumentMetadata");
+      objc_msgSend_addObject_(v82, v88, @"SupportMetadata");
+      v94 = 1;
+      v95 = 1;
+      sub_276A99A70(&v20->_componentPropertiesSnapshot, &qword_276C11CF0, &v94);
+    }
+
+    objc_storeStrong(&v20->_archiverManager, coordinatorCopy[11]);
+    v70 = objc_msgSend_copy(coordinatorCopy[14], v68, v69);
+    knownComponentLocators = v20->_knownComponentLocators;
+    v20->_knownComponentLocators = v70;
+
+    v72 = coordinatorCopy[17];
+    if (v72)
+    {
+      v73 = *(v72 + 26);
+      v94 = *(v72 + 12);
+      v95 = v73;
+      sub_276A99A70(&v20->_componentPropertiesSnapshot, v72 + 2, &v94);
+    }
+  }
+
+  return v20;
+}
+
 - (void)dealloc
 {
   objc_msgSend_stop(self->_archiverManager, a2, v2);
@@ -107,9 +249,9 @@
   coordinatorCopy = coordinator;
   if (self->_packageIdentifier != 1)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should not set support package write coordinator when not writing the document package.", "[TSPPackageWriteCoordinator setSupportPackageWriteCoordinator:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 480);
     v7 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPPackageWriteCoordinator setSupportPackageWriteCoordinator:]", "[TSPPackageWriteCoordinator setSupportPackageWriteCoordinator:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 480);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPPackageWriteCoordinator setSupportPackageWriteCoordinator:]");
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v9, v11, 480, 1, "Should not set support package write coordinator when not writing the document package.");
 
@@ -296,9 +438,9 @@
   v7 = coordinatorCopy;
   if (self->_packageIdentifier != 1)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d This method should only be called for the document package write coordinator.", "[TSPPackageWriteCoordinator didFinishWritingWithSupportPackageWriteCoordinator:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 784);
     v20 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPPackageWriteCoordinator didFinishWritingWithSupportPackageWriteCoordinator:]", "[TSPPackageWriteCoordinator didFinishWritingWithSupportPackageWriteCoordinator:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 784);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[TSPPackageWriteCoordinator didFinishWritingWithSupportPackageWriteCoordinator:]");
     v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v22, v24, 784, 1, "This method should only be called for the document package write coordinator.");
 
@@ -352,7 +494,7 @@
 
 - (void)updateObjectContextForSuccessfulSaveWithPackageWriter:(id)writer packageURL:(id)l allDataIdentifiers:(id)identifiers
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   writerCopy = writer;
   lCopy = l;
   identifiersCopy = identifiers;
@@ -384,13 +526,13 @@
   block[3] = &unk_27A6E5E70;
   block[4] = self;
   v22 = writerCopy;
-  v44 = v22;
+  v43 = v22;
   v23 = lCopy;
-  v45 = v23;
+  v44 = v23;
   v24 = WeakRetained;
-  v46 = v24;
+  v45 = v24;
   v25 = identifiersCopy;
-  v47 = v25;
+  v46 = v25;
   dispatch_sync(modifyObjectQueue, block);
   while (self->_writtenLazyReferences.c.__size_)
   {
@@ -401,36 +543,34 @@
     sub_276A99BB8(&self->_writtenLazyReferences);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v31 = self->_dataFinalizeHandlers;
-  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v39, v48, 16);
+  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v38, v47, 16);
   if (v33)
   {
-    v34 = *v40;
+    v34 = *v39;
     do
     {
       v35 = 0;
       do
       {
-        if (*v40 != v34)
+        if (*v39 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        (*(*(*(&v39 + 1) + 8 * v35++) + 16))();
+        (*(*(*(&v38 + 1) + 8 * v35++) + 16))();
       }
 
       while (v33 != v35);
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v36, &v39, v48, 16);
+      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v36, &v38, v47, 16);
     }
 
     while (v33);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateWrittenObjectsWithBlock:(id)block
@@ -529,9 +669,9 @@
 
 - (void)forceArchivingComponentIdentifier:(int64_t)identifier
 {
-  v3[0] = identifier;
-  v3[2] = v3;
-  *(sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, v3) + 25) = 1;
+  identifierCopy = identifier;
+  v4 = &identifierCopy;
+  *(sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &identifierCopy, &unk_276C16A90, &v4) + 25) = 1;
 }
 
 - (void)enqueueRootObjectImpl:(id)impl forceArchive:(BOOL)archive isAddingDelayedObjectReferencedByObjectContainer:(BOOL)container completion:(id)completion
@@ -549,20 +689,20 @@
     }
   }
 
-  v32[0] = objc_msgSend_tsp_identifier(implCopy, v12, v13);
-  v17 = sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, v32);
+  v32 = objc_msgSend_tsp_identifier(implCopy, v12, v13);
+  v17 = sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, &v32);
   v18 = v17;
   if (!v17)
   {
-    v32[2] = v32;
-    if (*(sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, v32) + 24) == 1)
+    v33 = &v32;
+    if (*(sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &v32, &unk_276C16A90, &v33) + 24) == 1)
     {
       if (!archiveCopy)
       {
         goto LABEL_23;
       }
 
-      if (v32[0] == self->_objectContainerIdentifier)
+      if (v32 == self->_objectContainerIdentifier)
       {
         goto LABEL_14;
       }
@@ -618,7 +758,7 @@ LABEL_14:
 
   if ((v20 & 1) != 0 && archiveCopy)
   {
-    objc_msgSend_forceArchivingComponentIdentifier_(self, v19, v32[0]);
+    objc_msgSend_forceArchivingComponentIdentifier_(self, v19, v32);
     goto LABEL_16;
   }
 
@@ -654,6 +794,118 @@ LABEL_20:
   }
 
 LABEL_21:
+}
+
+- (BOOL)enqueueComponent:(id)component rootObjectOrNil:(id)nil forceArchive:(BOOL)archive isWastefullyEnqueueing:(BOOL)enqueueing isWeakReference:(BOOL)reference referencingComponent:(id)referencingComponent referencedObject:(id)object hasArchiverAccessLock:(BOOL)self0
+{
+  referenceCopy = reference;
+  enqueueingCopy = enqueueing;
+  archiveCopy = archive;
+  nilCopy = nil;
+  if (!atomic_load(&self->_accessQueueSuspendCount))
+  {
+    v19 = atomic_load(&self->_didWriteRootObject);
+    if ((v19 & 1) == 0)
+    {
+      dispatch_assert_queue_V2(self->_accessQueue);
+    }
+  }
+
+  if (!component)
+  {
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "[TSPPackageWriteCoordinator enqueueComponent:rootObjectOrNil:forceArchive:isWastefullyEnqueueing:isWeakReference:referencingComponent:referencedObject:hasArchiverAccessLock:]");
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v24, v21, v23, 1051, 0, "invalid nil value for '%{public}s'", "component");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26);
+  }
+
+  if (nilCopy)
+  {
+    v47 = nilCopy;
+  }
+
+  else
+  {
+    v47 = objc_msgSend_rootObject(component, v16, v17);
+    if (!v47)
+    {
+      if ((objc_msgSend_isComponentPersisted_(self, v27, component) & 1) == 0)
+      {
+        v32 = MEMORY[0x277D81150];
+        v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPPackageWriteCoordinator enqueueComponent:rootObjectOrNil:forceArchive:isWastefullyEnqueueing:isWeakReference:referencingComponent:referencedObject:hasArchiverAccessLock:]");
+        v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+        v38 = objc_msgSend_locator(component, v36, v37);
+        v41 = objc_msgSend_identifier(component, v39, v40);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v42, v33, v35, 1057, 0, "Component root object should not be nil for component [%{public}@-%llu]. Make sure to have a strong reference to the root object before writing its component.", v38, v41);
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44);
+        atomic_store(0, &self->_writeSuccess);
+        goto LABEL_22;
+      }
+
+      v47 = 0;
+    }
+  }
+
+  v30 = objc_msgSend_identifier(component, v27, v28);
+  v58 = v30;
+  if (archiveCopy)
+  {
+    objc_msgSend_forceArchivingComponentIdentifier_(self, v29, v30);
+  }
+
+  if (objc_msgSend_shouldEnqueueComponent_(self, v29, component))
+  {
+LABEL_12:
+    componentCopy = component;
+    v47;
+    v50 = enqueueingCopy;
+    v51 = 1;
+    v52[0] = 0;
+    *(v52 + 7) = 0;
+    v53 = 0;
+    v54 = 0;
+    v55 = 0;
+    v56 = 0u;
+    memset(v57, 0, 25);
+    memset(&v57[32], 0, 64);
+    sub_276A99EC0(&self->_writtenComponents);
+  }
+
+  if (archiveCopy)
+  {
+    if (v58 == self->_objectContainerIdentifier)
+    {
+      goto LABEL_12;
+    }
+
+    if (UnsafePointer != -1)
+    {
+      sub_276BD5DDC();
+      if (!enqueueingCopy)
+      {
+        goto LABEL_18;
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  if (enqueueingCopy)
+  {
+LABEL_17:
+    LOBYTE(v46) = lock;
+    objc_msgSend_enqueueReferencedObject_referencingComponent_isWeakReference_forWastefullyEnqueuedComponent_componentRootObject_componentInfo_hasArchiverAccessLock_(self, v31, object, referencingComponent, referenceCopy, component, v47, 0, v46);
+  }
+
+LABEL_18:
+  componentCopy = &v58;
+  *(sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &v58, &unk_276C16A90, &componentCopy) + 24) = 1;
+
+LABEL_22:
+  return 0;
 }
 
 - (void)enqueueReferencedObject:(id)object referencingComponent:(id)component isWeakReference:(BOOL)reference forWastefullyEnqueuedComponent:(id)enqueuedComponent componentRootObject:(id)rootObject componentInfo:(WrittenComponentInfo *)info hasArchiverAccessLock:(BOOL)lock
@@ -797,12 +1049,12 @@ LABEL_9:
     }
 
     v12 = begin_node[5].__left_;
-    v11 = *(v12 + 40);
+    v11 = v12[5];
     sub_276A9A35C(&begin_node[5], v12);
     if (v11)
     {
-      v49[0] = objc_msgSend_identifier(v11, v13, v14);
-      v15 = sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, v49);
+      v49 = objc_msgSend_identifier(v11, v13, v14);
+      v15 = sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, &v49);
       v17 = v15;
       if (!v15)
       {
@@ -819,18 +1071,18 @@ LABEL_9:
       }
 
       v18 = v15[4];
-      v49[2] = v49;
-      v21 = sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, v49);
+      v50 = &v49;
+      v21 = sub_276A99C8C(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &v49, &unk_276C16A90, &v50);
       v10 = *(v21 + 25);
       *(v17 + 41) = 0;
-      if (v49[0] == self->_objectContainerIdentifier)
+      if (v49 == self->_objectContainerIdentifier)
       {
         if (atomic_exchange(&self->_didWriteObjectContainer, 1u))
         {
           v22 = MEMORY[0x277D81150];
           v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSPPackageWriteCoordinator nextComponentAndRootObjectForComponentWriteWithCompletion:]");
           v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v26, v23, v25, 1285, 0, "Object container with identifier %llu was not enqueued, however we think it was written. Something really wrong has happened.", v49[0]);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v26, v23, v25, 1285, 0, "Object container with identifier %llu was not enqueued, however we think it was written. Something really wrong has happened.", v49);
 
           objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28);
 LABEL_19:
@@ -1386,6 +1638,123 @@ LABEL_88:
   _Block_object_dispose(&v170, 8);
 }
 
+- (void)archiveComponent:(id)component locator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive rootObject:(id)object withPackageWriter:(id)writer
+{
+  archiveCopy = archive;
+  componentCopy = component;
+  locatorCopy = locator;
+  objectCopy = object;
+  writerCopy = writer;
+  dispatch_assert_queue_V2(self->_accessQueue);
+  if (locatorCopy && objectCopy)
+  {
+    v78 = writerCopy;
+    WeakRetained = objc_loadWeakRetained(&self->_context);
+    v79 = WeakRetained;
+    v21 = objc_msgSend_context(objectCopy, v19, v20);
+
+    if (v21 == WeakRetained)
+    {
+      writerCopy = v78;
+      v40 = objc_msgSend_newComponentWriteChannelWithPackageLocator_compressionAlgorithm_storeOutsideObjectArchive_(v78, v22, locatorCopy, algorithm, archiveCopy);
+      if (v40)
+      {
+        v76 = v40;
+        v41 = objc_msgSend_identifier(componentCopy, v38, v39) == 2;
+        v42 = [TSPObjectReferenceMap alloc];
+        v43 = objc_loadWeakRetained(&self->_context);
+        v77 = objc_msgSend_initWithContext_delegate_(v42, v44, v43, 0);
+
+        writerCopy = v78;
+        v45 = [TSPComponentWriter alloc];
+        v75 = objc_msgSend_initWithComponent_locator_rootObject_delegate_mode_packageIdentifier_objectReferenceMapOrNil_writeChannel_archiverManager_(v45, v46, componentCopy, locatorCopy, objectCopy, self, 0, self->_packageIdentifier, v77, v40, self->_archiverManager);
+        WeakRetained = v79;
+        v74 = objc_msgSend_progress(v78, v47, v48);
+        if (v74)
+        {
+          v51 = objc_msgSend_originalPackage(v78, v49, v50);
+          v54 = objc_msgSend_locator(componentCopy, v52, v53);
+          isStoredOutsideObjectArchive = objc_msgSend_isStoredOutsideObjectArchive(componentCopy, v55, v56);
+          v59 = objc_msgSend_packageEntryInfoForComponentLocator_isStoredOutsideObjectArchive_(v51, v58, v54, isStoredOutsideObjectArchive);
+          v62 = objc_msgSend_encodedLength(v59, v60, v61);
+
+          writerCopy = v78;
+          WeakRetained = v79;
+        }
+
+        else
+        {
+          v62 = 0;
+        }
+
+        dispatch_group_enter(self->_completionGroup);
+        dispatch_suspend(self->_accessQueue);
+        atomic_fetch_add(&self->_accessQueueSuspendCount, 1uLL);
+        if (atomic_exchange(&self->_currentComponentWriterPointer, v75))
+        {
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Current component writer should not be set.", "[TSPPackageWriteCoordinator archiveComponent:locator:compressionAlgorithm:storeOutsideObjectArchive:rootObject:withPackageWriter:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 1633);
+          v68 = MEMORY[0x277D81150];
+          v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, "[TSPPackageWriteCoordinator archiveComponent:locator:compressionAlgorithm:storeOutsideObjectArchive:rootObject:withPackageWriter:]");
+          v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v73, v70, v72, 1633, 1, "Current component writer should not be set.");
+
+          TSUCrashBreakpoint();
+          abort();
+        }
+
+        completionQueue = self->_completionQueue;
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = sub_276A90A80;
+        v80[3] = &unk_27A6E6050;
+        v81 = v76;
+        selfCopy = self;
+        v64 = v77;
+        v83 = v64;
+        v90 = v41;
+        v84 = componentCopy;
+        v85 = writerCopy;
+        v86 = locatorCopy;
+        v65 = v75;
+        v87 = v65;
+        v66 = v74;
+        v88 = v66;
+        v89 = v62;
+        objc_msgSend_writeWithCompletionQueue_completion_(v65, v67, completionQueue, v80);
+
+        v40 = v76;
+      }
+
+      else
+      {
+        atomic_store(0, &self->_writeSuccess);
+      }
+    }
+
+    else
+    {
+      v23 = MEMORY[0x277D81150];
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSPPackageWriteCoordinator archiveComponent:locator:compressionAlgorithm:storeOutsideObjectArchive:rootObject:withPackageWriter:]");
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v31 = objc_msgSend_tsp_identifier(objectCopy, v29, v30);
+      v34 = objc_msgSend_context(objectCopy, v32, v33);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v35, v24, v26, 1598, 0, "Attempting to save object [%{public}@-%llu] from context %p into a document from context %p.", v28, v31, v34, v79);
+
+      WeakRetained = v79;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37);
+      atomic_store(0, &self->_writeSuccess);
+      writerCopy = v78;
+    }
+  }
+
+  else
+  {
+    atomic_store(0, &self->_writeSuccess);
+  }
+}
+
 - (void)writeExternalReferences:(id)references andUpdateLazyReferences:(id)lazyReferences withPackageWriter:(id)writer forComponent:(id)component locator:(id)locator
 {
   componentCopy = component;
@@ -1491,7 +1860,7 @@ LABEL_9:
     {
       v16 = objc_msgSend_identifier(componentCopy, v12, v13);
       v17 = &v16;
-      v14 = *(sub_276A9AFE0(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &v16) + 25);
+      v14 = *(sub_276A9AFE0(&self->_componentProperties.__table_.__bucket_list_.__ptr_, &v16, &unk_276C16A90, &v17) + 25);
     }
   }
 
@@ -1584,9 +1953,9 @@ LABEL_9:
     v17 = sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, &v32);
     if (!v17)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Object was written by a component that was not written. How could that be?", "[TSPPackageWriteCoordinator componentForObjectIdentifier:objectOrNil:componentReadVersion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2133);
       v26 = MEMORY[0x277D81150];
-      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPPackageWriteCoordinator componentForObjectIdentifier:objectOrNil:componentReadVersion:]", "[TSPPackageWriteCoordinator componentForObjectIdentifier:objectOrNil:componentReadVersion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2133);
+      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSPPackageWriteCoordinator componentForObjectIdentifier:objectOrNil:componentReadVersion:]");
       v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v31, v28, v30, 2133, 1, "Object was written by a component that was not written. How could that be?");
 
@@ -1949,11 +2318,92 @@ LABEL_9:
   return v17;
 }
 
+- (void)addDelayedObject:(id)object forComponentRootObject:(id)rootObject claimingComponent:(id)component isDelayedObjectReferencedByObjectContainer:(BOOL)container completion:(id)completion
+{
+  containerCopy = container;
+  objectCopy = object;
+  rootObjectCopy = rootObject;
+  componentCopy = component;
+  completionCopy = completion;
+  if (!atomic_load(&self->_accessQueueSuspendCount))
+  {
+    v19 = atomic_load(&self->_didWriteRootObject);
+    if ((v19 & 1) == 0)
+    {
+      dispatch_assert_queue_V2(self->_accessQueue);
+    }
+  }
+
+  if (rootObjectCopy)
+  {
+    v20 = objc_msgSend_tsp_identifier(rootObjectCopy, v15, v16);
+    v49 = v20;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = sub_276A96698;
+    aBlock[3] = &unk_27A6E6318;
+    aBlock[4] = self;
+    v47 = v20;
+    v21 = objectCopy;
+    v44 = v21;
+    v45 = componentCopy;
+    v48 = containerCopy;
+    v46 = completionCopy;
+    v24 = _Block_copy(aBlock);
+    if (v20 == self->_objectContainerIdentifier)
+    {
+      v25 = 1;
+    }
+
+    else
+    {
+      v40 = objc_msgSend_tsp_component(rootObjectCopy, v22, v23);
+      if (v40)
+      {
+        v41 = objc_msgSend_tsp_component(v21, v38, v39);
+        v25 = v41 != v40;
+      }
+
+      else
+      {
+        v25 = 1;
+      }
+    }
+
+    if (sub_2769ABC64(&self->_writtenComponents.__table_.__bucket_list_.__ptr_, &v49) == 0 || v25)
+    {
+      objc_msgSend_enqueueRootObjectImpl_forceArchive_isAddingDelayedObjectReferencedByObjectContainer_completion_(self, v42, rootObjectCopy, v25, containerCopy, v24);
+    }
+
+    else
+    {
+      v24[2](v24, 1);
+    }
+  }
+
+  else
+  {
+    v26 = MEMORY[0x277D81150];
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPPackageWriteCoordinator addDelayedObject:forComponentRootObject:claimingComponent:isDelayedObjectReferencedByObjectContainer:completion:]");
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+    v30 = objc_opt_class();
+    v31 = NSStringFromClass(v30);
+    v34 = objc_msgSend_tsp_identifier(objectCopy, v32, v33);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v35, v27, v29, 2518, 0, "Object [%{public}@-%llu] cannot be delayed because the component root object is nil.", v31, v34);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37);
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0);
+    }
+  }
+}
+
 - (int64_t)updateDelayedObjectsSetForWrittenComponentInfo:(WrittenComponentInfo *)info componentIdentifier:(int64_t)identifier withObject:(id)object canDelayObjects:(BOOL)objects
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_tsp_identifier(object, a2, info);
-  sub_276A9B214();
+  v8 = objc_msgSend_tsp_identifier(object, a2, info);
+  sub_276A9B214(&self->_delayedObjects, &v8, &identifierCopy);
 }
 
 - (id)componentWriter:(id)writer wantsExplicitComponentRootObjectForObject:(id)object archiverOrNil:(id)nil claimingComponent:(id)component hasArchiverAccessLock:(BOOL)lock
@@ -1970,9 +2420,9 @@ LABEL_9:
   v15 = atomic_load(&self->_currentComponentWriterPointer);
   if (v15 != writer)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", a2, "[TSPPackageWriteCoordinator componentWriter:wantsExplicitComponentRootObjectForObject:archiverOrNil:claimingComponent:hasArchiverAccessLock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2666);
     v23 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageWriteCoordinator componentWriter:wantsExplicitComponentRootObjectForObject:archiverOrNil:claimingComponent:hasArchiverAccessLock:]", "[TSPPackageWriteCoordinator componentWriter:wantsExplicitComponentRootObjectForObject:archiverOrNil:claimingComponent:hasArchiverAccessLock:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2666);
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageWriteCoordinator componentWriter:wantsExplicitComponentRootObjectForObject:archiverOrNil:claimingComponent:hasArchiverAccessLock:]");
     v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v25, v27, 2666, 1, "Unexpected current component writer.");
 
@@ -2002,9 +2452,9 @@ LABEL_9:
   v15 = atomic_load(&self->_currentComponentWriterPointer);
   if (v15 != writer)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", "[TSPPackageWriteCoordinator componentWriter:canSkipArchivingStronglyReferencedObject:fromComponentRootObject:completion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2672);
     v23 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageWriteCoordinator componentWriter:canSkipArchivingStronglyReferencedObject:fromComponentRootObject:completion:]", "[TSPPackageWriteCoordinator componentWriter:canSkipArchivingStronglyReferencedObject:fromComponentRootObject:completion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2672);
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageWriteCoordinator componentWriter:canSkipArchivingStronglyReferencedObject:fromComponentRootObject:completion:]");
     v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v25, v27, 2672, 1, "Unexpected current component writer.");
 
@@ -2044,9 +2494,9 @@ LABEL_9:
   v9 = atomic_load(&self->_currentComponentWriterPointer);
   if (v9 != objectsCopy)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", "[TSPPackageWriteCoordinator componentWriterWantsDelayedObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2694);
     v17 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPPackageWriteCoordinator componentWriterWantsDelayedObjects:]", "[TSPPackageWriteCoordinator componentWriterWantsDelayedObjects:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2694);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPPackageWriteCoordinator componentWriterWantsDelayedObjects:]");
     v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v19, v21, 2694, 1, "Unexpected current component writer.");
 
@@ -2091,9 +2541,9 @@ LABEL_9:
   v14 = atomic_load(&self->_currentComponentWriterPointer);
   if (v14 != writerCopy)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", "[TSPPackageWriteCoordinator componentWriter:wantsComponentOfObject:componentReadVersion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2708);
     v19 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPPackageWriteCoordinator componentWriter:wantsComponentOfObject:componentReadVersion:]", "[TSPPackageWriteCoordinator componentWriter:wantsComponentOfObject:componentReadVersion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2708);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSPPackageWriteCoordinator componentWriter:wantsComponentOfObject:componentReadVersion:]");
     v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v21, v23, 2708, 1, "Unexpected current component writer.");
 
@@ -2123,9 +2573,9 @@ LABEL_9:
   v12 = atomic_load(&self->_currentComponentWriterPointer);
   if (v12 != writerCopy)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", "[TSPPackageWriteCoordinator componentWriter:locatorForClaimingComponent:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2718);
     v17 = MEMORY[0x277D81150];
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPPackageWriteCoordinator componentWriter:locatorForClaimingComponent:]", "[TSPPackageWriteCoordinator componentWriter:locatorForClaimingComponent:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2718);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPPackageWriteCoordinator componentWriter:locatorForClaimingComponent:]");
     v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v19, v21, 2718, 1, "Unexpected current component writer.");
 
@@ -2167,9 +2617,9 @@ LABEL_9:
   v14 = atomic_load(&self->_currentComponentWriterPointer);
   if (v14 != writerCopy)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected current component writer.", "[TSPPackageWriteCoordinator componentWriter:object:belongsToCopiedComponent:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2725);
     v34 = MEMORY[0x277D81150];
-    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSPPackageWriteCoordinator componentWriter:object:belongsToCopiedComponent:]", "[TSPPackageWriteCoordinator componentWriter:object:belongsToCopiedComponent:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm", 2725);
+    v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSPPackageWriteCoordinator componentWriter:object:belongsToCopiedComponent:]");
     v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v39, v36, v38, 2725, 1, "Unexpected current component writer.");
 

@@ -93,7 +93,7 @@
   if (!hudContext || [(HUDContext *)hudContext hasHudRenderContextInvalidated])
   {
     v4 = objc_autoreleasePoolPush();
-    v5 = sub_100004800();
+    v5 = sub_100004800(v4);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100004D28;
@@ -113,34 +113,35 @@
   v10 = [contextCopy decodeStringForKey:v9];
 
   remoteProcess = [connectionCopy remoteProcess];
-  v12 = sub_10000A9AC();
+  v12 = sub_10000A9AC(remoteProcess);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v21 = connectionCopy;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = remoteProcess;
+    v22 = connectionCopy;
+    v23 = 2112;
+    v24 = v10;
+    v25 = 2112;
+    v26 = remoteProcess;
     _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "received connection %p with identifier %@ from %@", buf, 0x20u);
   }
 
-  if ([remoteProcess hasEntitlement:@"com.apple.HangHUD"])
+  v13 = [remoteProcess hasEntitlement:@"com.apple.HangHUD"];
+  if (v13)
   {
-    v14 = _NSConcreteStackBlock;
-    v15 = 3221225472;
-    v16 = sub_100004FB4;
-    v17 = &unk_1000309E0;
-    v18 = v10;
+    v15 = _NSConcreteStackBlock;
+    v16 = 3221225472;
+    v17 = sub_100004FB4;
+    v18 = &unk_1000309E0;
+    v19 = v10;
     selfCopy = self;
-    [connectionCopy configureConnection:&v14];
+    [connectionCopy configureConnection:&v15];
     [connectionCopy activate];
   }
 
   else
   {
-    v13 = sub_10000A9AC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_10000A9AC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000186E4();
     }
@@ -153,21 +154,23 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v8 = sub_10000A9AC();
+  v8 = sub_10000A9AC(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100018758(infoCopy);
   }
 
-  if (!sub_1000178F8())
+  v9 = sub_1000178F8();
+  if (!v9)
   {
-    v10 = [infoCopy mutableCopy];
+    v11 = [infoCopy mutableCopy];
     if ([infoCopy count])
     {
-      if ([v10 count])
+      v12 = [v11 count];
+      if (v12)
       {
-        v11 = +[HUDContextUpdater sharedInstance];
-        [v11 addHUDContents:v10];
+        v13 = +[HUDContextUpdater sharedInstance];
+        [v13 addHUDContents:v11];
       }
 
       if (self->_areProcessTerminationsMonitored)
@@ -178,24 +181,24 @@
 
     else
     {
-      v12 = sub_10000A9AC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = sub_10000A9AC(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         sub_1000187E4();
       }
 
-      v13 = +[HUDContextUpdater sharedInstance];
-      [v13 saveClearHUDRequest];
+      v15 = +[HUDContextUpdater sharedInstance];
+      [v15 saveClearHUDRequest];
     }
 
-    v14 = sub_10000A9AC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = sub_10000A9AC(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       sub_100018864();
     }
 
-    v15 = +[HUDContextUpdater sharedInstance];
-    [v15 forceUpdate];
+    v17 = +[HUDContextUpdater sharedInstance];
+    [v17 forceUpdate];
 
 LABEL_18:
     completionCopy[2](completionCopy, 0);
@@ -203,8 +206,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v9 = sub_10000A9AC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = sub_10000A9AC(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000188A4();
   }
@@ -217,7 +220,7 @@ LABEL_19:
 {
   recordCopy = record;
   completionCopy = completion;
-  v8 = sub_10000A9AC();
+  v8 = sub_10000A9AC(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100018940(recordCopy);
@@ -228,14 +231,14 @@ LABEL_19:
 
   if (!self->_areProcessTerminationsMonitored)
   {
-    v10 = sub_10000A9AC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10000A9AC(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_1000189CC();
     }
 
-    v11 = +[HUDContextUpdater sharedInstance];
-    [v11 forceUpdate];
+    v12 = +[HUDContextUpdater sharedInstance];
+    [v12 forceUpdate];
   }
 
   completionCopy[2](completionCopy, 0);
@@ -245,7 +248,7 @@ LABEL_19:
 {
   configurationCopy = configuration;
   completionCopy = completion;
-  v8 = sub_10000A9AC();
+  v8 = sub_10000A9AC(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100018A0C();
@@ -258,9 +261,10 @@ LABEL_19:
   processTerminationsFiltering = [configurationCopy processTerminationsFiltering];
   [v10 setFilteringConfiguration:processTerminationsFiltering];
 
-  self->_areProcessTerminationsMonitored = [configurationCopy areProcessTerminationsMonitored];
-  v12 = sub_100002F0C();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  areProcessTerminationsMonitored = [configurationCopy areProcessTerminationsMonitored];
+  self->_areProcessTerminationsMonitored = areProcessTerminationsMonitored;
+  v13 = sub_100002F0C(areProcessTerminationsMonitored);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_100018A8C(configurationCopy);
   }
@@ -282,7 +286,7 @@ LABEL_19:
 {
   completionCopy = completion;
   statesCopy = states;
-  v8 = sub_10000A9AC();
+  v8 = sub_10000A9AC(statesCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100018B28();
@@ -331,19 +335,19 @@ LABEL_19:
 - (void)clearHUDWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002F0C();
+  v5 = sub_100002F0C(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100018BA8();
   }
 
-  v6 = sub_100004800();
+  v7 = sub_100004800(v6);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000057B0;
   block[3] = &unk_100030668;
   block[4] = self;
-  dispatch_sync(v6, block);
+  dispatch_sync(v7, block);
 
   completionCopy[2](completionCopy, 0);
 }

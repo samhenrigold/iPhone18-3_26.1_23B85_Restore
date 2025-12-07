@@ -7,12 +7,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR____TtC19SeymourAwardsPlugin26SeymourTemplateAssetSource_identifier);
-  v3 = *(self + OBJC_IVAR____TtC19SeymourAwardsPlugin26SeymourTemplateAssetSource_identifier + 8);
 
-  v4 = sub_233981694();
+  v2 = sub_233981694();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC19SeymourAwardsPlugin26SeymourTemplateAssetSource)init

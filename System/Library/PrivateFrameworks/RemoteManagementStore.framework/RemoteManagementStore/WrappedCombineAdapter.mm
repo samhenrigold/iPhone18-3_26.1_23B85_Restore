@@ -3,6 +3,7 @@
 - (void)allDeclarationKeysForScope:(int64_t)scope completionHandler:(id)handler;
 - (void)applyCombinedConfiguration:(id)configuration declarationKeys:(id)keys scope:(int64_t)scope completionHandler:(id)handler;
 - (void)beginProcessingConfigurationsForScope:(int64_t)scope completionHandler:(id)handler;
+- (void)endProcessingConfigurations:(BOOL)configurations scope:(int64_t)scope completionHandler:(id)handler;
 - (void)removeCombinedConfigurationForScope:(int64_t)scope completionHandler:(id)handler;
 @end
 
@@ -48,6 +49,41 @@
       v13 = v14;
 
       handlerCopy[2](handlerCopy, v13);
+    }
+
+    else
+    {
+      handlerCopy[2](handlerCopy, 0);
+    }
+  }
+}
+
+- (void)endProcessingConfigurations:(BOOL)configurations scope:(int64_t)scope completionHandler:(id)handler
+{
+  configurationsCopy = configurations;
+  handlerCopy = handler;
+  wrappedAdapter = [(WrappedCombineAdapter *)self wrappedAdapter];
+  v10 = objc_opt_respondsToSelector();
+
+  wrappedAdapter2 = [(WrappedCombineAdapter *)self wrappedAdapter];
+  v12 = wrappedAdapter2;
+  if (v10)
+  {
+    [wrappedAdapter2 endProcessingConfigurations:configurationsCopy scope:scope completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    v13 = objc_opt_respondsToSelector();
+
+    if (v13)
+    {
+      wrappedAdapter3 = [(WrappedCombineAdapter *)self wrappedAdapter];
+      v16 = 0;
+      [wrappedAdapter3 endProcessingConfigurations:configurationsCopy scope:scope error:&v16];
+      v15 = v16;
+
+      handlerCopy[2](handlerCopy, v15);
     }
 
     else

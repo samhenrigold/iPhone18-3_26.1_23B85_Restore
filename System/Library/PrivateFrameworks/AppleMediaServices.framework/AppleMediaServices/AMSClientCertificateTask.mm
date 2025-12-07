@@ -92,7 +92,7 @@ void __69__AMSClientCertificateTask_performClientCertChainRequestWithAccount___b
   *(v1 + 40) = 0;
 }
 
-void __69__AMSClientCertificateTask_performClientCertChainRequestWithAccount___block_invoke_3(uint64_t a1, void *a2)
+void __69__AMSClientCertificateTask_performClientCertChainRequestWithAccount___block_invoke_3(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;

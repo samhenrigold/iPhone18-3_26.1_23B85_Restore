@@ -10,29 +10,29 @@
   languageCodeCopy = languageCode;
   incomingLanguageCodeCopy = incomingLanguageCode;
   handleCopy = handle;
-  v31.receiver = self;
-  v31.super_class = IMAutomaticTranslationIndicatorChatItem;
-  v18 = [(IMChatItem *)&v31 _initWithItem:0];
-  if (v18)
+  v24.receiver = self;
+  v24.super_class = IMAutomaticTranslationIndicatorChatItem;
+  v16 = [(IMChatItem *)&v24 _initWithItem:0];
+  if (v16)
   {
-    v19 = objc_msgSend_copy(codeCopy, v16, v17);
-    v20 = *(v18 + 8);
-    *(v18 + 8) = v19;
+    v17 = [codeCopy copy];
+    v18 = *(v16 + 8);
+    *(v16 + 8) = v17;
 
-    v23 = objc_msgSend_copy(languageCodeCopy, v21, v22);
-    v24 = *(v18 + 9);
-    *(v18 + 9) = v23;
+    v19 = [languageCodeCopy copy];
+    v20 = *(v16 + 9);
+    *(v16 + 9) = v19;
 
-    v27 = objc_msgSend_copy(incomingLanguageCodeCopy, v25, v26);
-    v28 = *(v18 + 10);
-    *(v18 + 10) = v27;
+    v21 = [incomingLanguageCodeCopy copy];
+    v22 = *(v16 + 10);
+    *(v16 + 10) = v21;
 
-    objc_storeStrong(v18 + 11, handle);
-    *(v18 + 56) = text;
-    objc_msgSend__setGUID_(v18, v29, @"at:");
+    objc_storeStrong(v16 + 11, handle);
+    *(v16 + 56) = text;
+    [v16 _setGUID:@"at:"];
   }
 
-  return v18;
+  return v16;
 }
 
 @end

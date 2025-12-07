@@ -765,35 +765,35 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditGetFontAttrFromAttribut
 
 + (id)_axAuditFindElementsNotSupportingDynamicText:(id)text
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   textCopy = text;
   weakToStrongObjectsMapTable = [MEMORY[0x1E696AD18] weakToStrongObjectsMapTable];
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v5 = textCopy;
-  v6 = [v5 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v54;
-    v44 = *MEMORY[0x1E69DDC68];
-    v40 = *v54;
+    v8 = *v50;
+    v40 = *MEMORY[0x1E69DDC68];
+    v36 = *v50;
     selfCopy = self;
     do
     {
       v9 = 0;
-      v42 = v7;
+      v38 = v7;
       do
       {
-        if (*v54 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v53 + 1) + 8 * v9);
-        v11 = [v5 objectForKey:{v10, v35, v36, v37, v38, v39}];
+        v10 = *(*(&v49 + 1) + 8 * v9);
+        v11 = [v5 objectForKey:v10];
         v12 = [v11 count];
 
         if (v12 >= 2)
@@ -824,22 +824,22 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditGetFontAttrFromAttribut
             string = 0;
           }
 
-          v45 = string;
-          v46 = v9;
-          v15 = v44;
+          v41 = string;
+          v42 = v9;
+          v15 = v40;
           array = [MEMORY[0x1E695DF70] array];
-          v49 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v52 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          v48 = 0u;
           _axAuditGetAllFontSizes = [self _axAuditGetAllFontSizes];
-          v18 = [_axAuditGetAllFontSizes countByEnumeratingWithState:&v49 objects:v57 count:16];
-          v48 = array;
+          v18 = [_axAuditGetAllFontSizes countByEnumeratingWithState:&v45 objects:v53 count:16];
+          v44 = array;
           if (v18)
           {
             v19 = v18;
-            v47 = 0;
-            v20 = *v50;
+            v43 = 0;
+            v20 = *v46;
             v21 = 0.0;
             v22 = 0.0;
             v23 = 0.0;
@@ -849,12 +849,12 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditGetFontAttrFromAttribut
               v25 = v22;
               do
               {
-                if (*v50 != v20)
+                if (*v46 != v20)
                 {
                   objc_enumerationMutation(_axAuditGetAllFontSizes);
                 }
 
-                v26 = *(*(&v49 + 1) + 8 * v24);
+                v26 = *(*(&v45 + 1) + 8 * v24);
                 v27 = [v5 objectForKey:v10];
                 v28 = [v27 objectForKey:v26];
 
@@ -880,8 +880,8 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditGetFontAttrFromAttribut
 
                     if (v30 <= v25)
                     {
-                      [v48 addObject:v26];
-                      v47 = 1;
+                      [v44 addObject:v26];
+                      v43 = 1;
                     }
                   }
 
@@ -897,23 +897,23 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditGetFontAttrFromAttribut
               }
 
               while (v19 != v24);
-              v19 = [_axAuditGetAllFontSizes countByEnumeratingWithState:&v49 objects:v57 count:16];
+              v19 = [_axAuditGetAllFontSizes countByEnumeratingWithState:&v45 objects:v53 count:16];
             }
 
             while (v19);
 
             if (v21 < v23)
             {
-              v8 = v40;
+              v8 = v36;
               self = selfCopy;
-              v7 = v42;
-              string = v45;
-              array = v48;
-              if ((v47 & 1) == 0)
+              v7 = v38;
+              string = v41;
+              array = v44;
+              if ((v43 & 1) == 0)
               {
 LABEL_39:
 
-                v9 = v46;
+                v9 = v42;
 LABEL_40:
 
                 goto LABEL_41;
@@ -922,32 +922,28 @@ LABEL_40:
 LABEL_36:
               [weakToStrongObjectsMapTable setObject:array forKey:v10];
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0 || ([self _axAuditGetTextFromObject:v10], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "length"), v32, array = v48, v33))
+              if ((objc_opt_isKindOfClass() & 1) == 0 || ([self _axAuditGetTextFromObject:v10], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "length"), v32, array = v44, v33))
               {
-                [array componentsJoinedByString:{@", "}];
-                v39 = v38 = string;
-                v36 = @"AX Audit: Element: %@, with text: %@, does not support these font sizes:%@";
-                v37 = v10;
-                LOBYTE(v35) = 1;
-                _AXLogWithFacility();
+                v35 = [array componentsJoinedByString:{@", "}];
+                _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: Element: %@, with text: %@, does not support these font sizes:%@");
 
-                array = v48;
+                array = v44;
               }
 
               goto LABEL_39;
             }
 
-            v8 = v40;
+            v8 = v36;
             self = selfCopy;
-            v7 = v42;
-            string = v45;
-            array = v48;
+            v7 = v38;
+            string = v41;
+            array = v44;
           }
 
           else
           {
 
-            string = v45;
+            string = v41;
           }
 
           [array insertObject:v15 atIndex:0];
@@ -959,7 +955,7 @@ LABEL_41:
       }
 
       while (v9 != v7);
-      v7 = [v5 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v7);
@@ -990,8 +986,7 @@ LABEL_41:
 
     else
     {
-      LOBYTE(v18) = 1;
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: %s: Could not find existing entry for element: %@");
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       [dictionary setObject:v10 forKeyedSubscript:fontCopy];
       v14 = dictionaryCopy;
@@ -1378,7 +1373,7 @@ LABEL_19:
 
 + (id)_axAuditContrastDetectionForSwiftUIView:(id)view
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   if ([self _axAuditSwiftUIViewHasText:viewCopy])
   {
@@ -1386,21 +1381,21 @@ LABEL_19:
     v6 = v5;
     if (v5)
     {
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x3032000000;
-      v24 = __Block_byref_object_copy__1;
-      v25 = __Block_byref_object_dispose__1;
-      v26 = 0;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x3032000000;
+      v23 = __Block_byref_object_copy__1;
+      v24 = __Block_byref_object_dispose__1;
+      v25 = 0;
       v7 = [v5 length];
       v8 = *MEMORY[0x1E69DB650];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwiftUIView___block_invoke;
-      v20[3] = &unk_1E78AAA88;
-      v20[4] = &v21;
-      [v6 enumerateAttribute:v8 inRange:0 options:v7 usingBlock:{0, v20}];
-      if (v22[5])
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwiftUIView___block_invoke;
+      v19[3] = &unk_1E78AAA88;
+      v19[4] = &v20;
+      [v6 enumerateAttribute:v8 inRange:0 options:v7 usingBlock:{0, v19}];
+      if (v21[5])
       {
         v9 = [UIViewAuditIssuesAccessibility _axAuditHexValueForColor:?];
       }
@@ -1424,15 +1419,14 @@ LABEL_19:
         v14 = 0;
       }
 
-      LOBYTE(v19) = 1;
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: SwiftUI view %@ has an unknown contrast issue type.");
       string = [v6 string];
       string2 = [v6 string];
       v17 = [UIAccessibilityAuditUtilities dictionaryWithAXAuditIssue:4001 element:viewCopy additionalInfo:0 identifier:string foregroundColor:v9 backgroundColor:0 fontSize:v14 elementRect:0 text:string2];
-      v27[0] = v17;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v26[0] = v17;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
 
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
     }
 
     else
@@ -1543,25 +1537,25 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwi
 + (id)_axAuditFindDescendantInaccessibleElements:(id)elements honorsGroups:(BOOL)groups
 {
   groupsCopy = groups;
-  v115 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
   array = [MEMORY[0x1E695DF70] array];
   v6 = MEMORY[0x1E695DF70];
-  v92 = elementsCopy;
+  v88 = elementsCopy;
   subviews = [elementsCopy subviews];
   v8 = [v6 arrayWithArray:subviews];
 
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
-  v93 = v8;
+  v89 = v8;
   if ([v8 count])
   {
     v10 = 0;
     v11 = !groupsCopy;
     do
     {
-      firstObject = [v93 firstObject];
-      [v93 removeObjectAtIndex:0];
+      firstObject = [v89 firstObject];
+      [v89 removeObjectAtIndex:0];
       if (([firstObject accessibilityElementsHidden] & 1) == 0)
       {
         [firstObject bounds];
@@ -1609,33 +1603,33 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwi
 
           if (([firstObject isAccessibilityElement] & 1) == 0)
           {
-            v109 = 0u;
-            v110 = 0u;
-            v107 = 0u;
-            v108 = 0u;
+            v105 = 0u;
+            v106 = 0u;
+            v103 = 0u;
+            v104 = 0u;
             subviews3 = [firstObject subviews];
-            v27 = [subviews3 countByEnumeratingWithState:&v107 objects:v114 count:16];
+            v27 = [subviews3 countByEnumeratingWithState:&v103 objects:v110 count:16];
             if (v27)
             {
               v28 = v27;
-              v29 = *v108;
+              v29 = *v104;
               do
               {
                 for (i = 0; i != v28; ++i)
                 {
-                  if (*v108 != v29)
+                  if (*v104 != v29)
                   {
                     objc_enumerationMutation(subviews3);
                   }
 
-                  v31 = *(*(&v107 + 1) + 8 * i);
-                  if (([v93 containsObject:v31] & 1) == 0)
+                  v31 = *(*(&v103 + 1) + 8 * i);
+                  if (([v89 containsObject:v31] & 1) == 0)
                   {
-                    [v93 addObject:v31];
+                    [v89 addObject:v31];
                   }
                 }
 
-                v28 = [subviews3 countByEnumeratingWithState:&v107 objects:v114 count:16];
+                v28 = [subviews3 countByEnumeratingWithState:&v103 objects:v110 count:16];
               }
 
               while (v28);
@@ -1644,7 +1638,7 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwi
         }
       }
 
-      if (![v93 count])
+      if (![v89 count])
       {
         break;
       }
@@ -1654,39 +1648,39 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwi
   }
 
   indexSet = [MEMORY[0x1E696AD50] indexSet];
-  v90 = [array2 count];
-  if (v90)
+  v86 = [array2 count];
+  if (v86)
   {
-    for (j = 0; j != v90; ++j)
+    for (j = 0; j != v86; ++j)
     {
-      v105 = 0u;
-      v106 = 0u;
-      v103 = 0u;
-      v104 = 0u;
+      v101 = 0u;
+      v102 = 0u;
+      v99 = 0u;
+      v100 = 0u;
       v34 = array3;
-      v35 = [v34 countByEnumeratingWithState:&v103 objects:v113 count:16];
+      v35 = [v34 countByEnumeratingWithState:&v99 objects:v109 count:16];
       if (v35)
       {
-        v36 = *v104;
+        v36 = *v100;
         while (2)
         {
           for (k = 0; k != v35; ++k)
           {
-            if (*v104 != v36)
+            if (*v100 != v36)
             {
               objc_enumerationMutation(v34);
             }
 
-            v38 = *(*(&v103 + 1) + 8 * k);
+            v38 = *(*(&v99 + 1) + 8 * k);
             v39 = [array2 objectAtIndex:j];
             [v38 bounds];
-            [v38 convertRect:v92 toView:?];
+            [v38 convertRect:v88 toView:?];
             v41 = v40;
             v43 = v42;
             v45 = v44;
             v47 = v46;
             [v39 bounds];
-            [v39 convertRect:v92 toView:?];
+            [v39 convertRect:v88 toView:?];
             v49 = v48;
             v51 = v50;
             v53 = v52;
@@ -1698,15 +1692,15 @@ void __81__UIApplicationAuditIssuesAccessibility__axAuditContrastDetectionForSwi
 
             else
             {
-              v117.origin.x = v41;
-              v117.origin.y = v43;
-              v117.size.width = v45;
-              v117.size.height = v47;
-              v118.origin.x = v49;
-              v118.origin.y = v51;
-              v118.size.width = v53;
-              v118.size.height = v55;
-              v57 = CGRectIntersectsRect(v117, v118);
+              v113.origin.x = v41;
+              v113.origin.y = v43;
+              v113.size.width = v45;
+              v113.size.height = v47;
+              v114.origin.x = v49;
+              v114.origin.y = v51;
+              v114.size.width = v53;
+              v114.size.height = v55;
+              v57 = CGRectIntersectsRect(v113, v114);
 
               if (v57)
               {
@@ -1729,7 +1723,7 @@ LABEL_56:
             }
           }
 
-          v35 = [v34 countByEnumeratingWithState:&v103 objects:v113 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v99 objects:v109 count:16];
           if (v35)
           {
             continue;
@@ -1750,76 +1744,73 @@ LABEL_57:
   }
 
   [array2 removeObjectsAtIndexes:indexSet];
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
-  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   obj = array2;
-  v88 = [obj countByEnumeratingWithState:&v99 objects:v112 count:16];
-  if (v88)
+  v84 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
+  if (v84)
   {
-    v87 = *v100;
+    v83 = *v96;
     do
     {
-      for (m = 0; m != v88; ++m)
+      for (m = 0; m != v84; ++m)
       {
-        if (*v100 != v87)
+        if (*v96 != v83)
         {
           objc_enumerationMutation(obj);
         }
 
-        v66 = *(*(&v99 + 1) + 8 * m);
-        v67 = [UIViewAuditIssuesAccessibility _axAuditTextCandidateForView:v66, v80];
+        v66 = *(*(&v95 + 1) + 8 * m);
+        v67 = [UIViewAuditIssuesAccessibility _axAuditTextCandidateForView:v66];
         v68 = MEMORY[0x1E696B098];
         [v66 bounds];
-        [v66 convertRect:v92 toView:?];
+        [v66 convertRect:v88 toView:?];
         v69 = [v68 valueWithCGRect:?];
         if ([v67 count])
         {
-          v89 = v67;
-          v91 = m;
-          v97 = 0u;
-          v98 = 0u;
-          v95 = 0u;
-          v96 = 0u;
+          v85 = v67;
+          v87 = m;
+          v93 = 0u;
+          v94 = 0u;
+          v91 = 0u;
+          v92 = 0u;
           v70 = v67;
-          v71 = [v70 countByEnumeratingWithState:&v95 objects:v111 count:16];
+          v71 = [v70 countByEnumeratingWithState:&v91 objects:v107 count:16];
           if (v71)
           {
             v72 = v71;
-            v73 = *v96;
+            v73 = *v92;
             do
             {
               for (n = 0; n != v72; ++n)
               {
-                if (*v96 != v73)
+                if (*v92 != v73)
                 {
                   objc_enumerationMutation(v70);
                 }
 
-                v75 = *(*(&v95 + 1) + 8 * n);
-                v76 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", 1007, v82, v83];
-                [v75 setObject:v76 forKey:@"AXAuditIssueTypeKey"];
+                v75 = *(*(&v91 + 1) + 8 * n);
+                1007 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", 1007];
+                [v75 setObject:1007 forKey:@"AXAuditIssueTypeKey"];
 
                 [v75 setObject:v69 forKey:@"AXAuditIssueElementRectKey"];
                 [v75 setObject:v66 forKey:@"AXAuditIssueElementKey"];
                 v77 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v75];
                 [array addObject:v77];
 
-                v82 = @"AX Audit: Element: %@ is inaccessible and has text.";
-                v83 = v66;
-                LOBYTE(v81) = 1;
-                _AXLogWithFacility();
+                _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: Element: %@ is inaccessible and has text.");
               }
 
-              v72 = [v70 countByEnumeratingWithState:&v95 objects:v111 count:{16, v81, @"AX Audit: Element: %@ is inaccessible and has text.", v66}];
+              v72 = [v70 countByEnumeratingWithState:&v91 objects:v107 count:16];
             }
 
             while (v72);
           }
 
-          v67 = v89;
-          m = v91;
+          v67 = v85;
+          m = v87;
         }
 
         else
@@ -1827,17 +1818,14 @@ LABEL_57:
           v78 = [UIAccessibilityAuditUtilities dictionaryWithAXAuditIssue:1006 element:v66 additionalInfo:0 identifier:0 foregroundColor:0 backgroundColor:0 fontSize:0 elementRect:v69 text:0];
           [array addObject:v78];
 
-          v82 = @"AX Audit: Element: %@ is inaccessible.";
-          v83 = v66;
-          LOBYTE(v80) = 1;
-          _AXLogWithFacility();
+          _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AX Audit: Element: %@ is inaccessible.");
         }
       }
 
-      v88 = [obj countByEnumeratingWithState:&v99 objects:v112 count:16];
+      v84 = [obj countByEnumeratingWithState:&v95 objects:v108 count:16];
     }
 
-    while (v88);
+    while (v84);
   }
 
   return array;

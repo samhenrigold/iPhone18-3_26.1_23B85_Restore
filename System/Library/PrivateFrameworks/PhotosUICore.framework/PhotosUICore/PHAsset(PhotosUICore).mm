@@ -6,6 +6,8 @@
 + (void)px_generateResourceFilesForAssets:()PhotosUICore completionHandler:;
 - (BOOL)px_containsSearchContextualVideoThumbnailsDebugOnly;
 - (BOOL)px_isSyndicationPhotoLibraryAsset;
+- (PXDebugValueList)px_curationDebugValues;
+- (PXDebugValueList)px_searchDebugValues;
 - (__CFString)_deferredProcessingStringWithEnum:()PhotosUICore;
 - (__CFString)_ocrStrings;
 - (__CFString)_qrCodeStrings;
@@ -23,19 +25,14 @@
 - (id)px_adjustmentUuid;
 - (id)px_coreDataBrowserURL;
 - (id)px_curationDebugString;
-- (id)px_curationDebugValues;
 - (id)px_debugStringForValueList:()PhotosUICore;
 - (id)px_detailedDebugDescriptionInLibrary:()PhotosUICore;
 - (id)px_navigationURLQueryItemWithPrefix:()PhotosUICore;
 - (id)px_navigationURLWithContainerCollection:()PhotosUICore;
 - (id)px_searchDebugString;
-- (id)px_searchDebugValues;
 - (id)px_singleLineMailingAddress;
 - (id)px_slHighlightWithError:()PhotosUICore;
 - (id)stringMinutesTimeRangeFromTimeRange:()PhotosUICore;
-- (uint64_t)px_canAddLike;
-- (uint64_t)px_canLoadSyndicationAttributionInfo;
-- (uint64_t)px_containsPotentiallySensitiveContent;
 - (uint64_t)px_currentVariationType;
 - (uint64_t)px_displayType;
 - (uint64_t)px_isContentPreviewable;
@@ -47,6 +44,9 @@
 - (uint64_t)px_wasSavedThroughExternalApp;
 - (uint64_t)px_wasSavedThroughSyndication;
 - (void)px_addLikeWithCompletionHandler:()PhotosUICore;
+- (void)px_canAddLike;
+- (void)px_canLoadSyndicationAttributionInfo;
+- (void)px_containsPotentiallySensitiveContent;
 - (void)px_removeLikeWithCompletionHandler:()PhotosUICore;
 @end
 
@@ -105,7 +105,7 @@ LABEL_7:
   [PXSharedAlbumsUtilities setLikedTo:1 forAssets:v5 completionHandler:v4, selfCopy, v7];
 }
 
-- (uint64_t)px_canAddLike
+- (void)px_canAddLike
 {
   result = [self px_isSharedAlbumAsset];
   if (result)
@@ -117,7 +117,7 @@ LABEL_7:
     commentProperties2 = [self commentProperties];
     v7 = [commentProperties2 likeCount] + commentCount;
 
-    return v7 < maxCommentsPerAsset;
+    return (v7 < maxCommentsPerAsset);
   }
 
   return result;
@@ -348,7 +348,7 @@ LABEL_16:
           v17 = objc_alloc(MEMORY[0x1E696AD60]);
           v18 = 4 * a4;
           v19 = (4 * a4) | 2;
-          v20 = objc_msgSend(@"(\n"), "stringByPaddingToLength:withString:startingAtIndex:", v19, CFSTR(" "), 0;
+          v20 = objc_msgSend(@"(\n"), "stringByPaddingToLength:withString:startingAtIndex:", v19, @" ", 0;
           v21 = [v17 initWithString:v20];
 
           v22 = [@" \n"];
@@ -484,7 +484,7 @@ LABEL_19:
   return v21;
 }
 
-- (id)px_searchDebugValues
+- (PXDebugValueList)px_searchDebugValues
 {
   v2 = objc_opt_new();
   photoLibrary = [self photoLibrary];
@@ -1324,7 +1324,7 @@ LABEL_19:
 
 - (BOOL)px_containsSearchContextualVideoThumbnailsDebugOnly
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!PFOSVariantHasInternalUI() || ![self isVideo])
   {
     return 0;
@@ -1332,38 +1332,38 @@ LABEL_19:
 
   photoLibrary = [self photoLibrary];
   localIdentifier = [self localIdentifier];
-  v11 = 0;
-  v4 = [photoLibrary searchDebugInformationForAssetLocalIdentifier:localIdentifier redacted:0 error:&v11];
-  v5 = v11;
+  v12 = 0;
+  v5 = [photoLibrary searchDebugInformationForAssetLocalIdentifier:localIdentifier redacted:0 error:&v12];
+  v6 = v12;
 
-  v6 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69BF048]];
-  if (v5)
+  v7 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69BF048]];
+  if (v6)
   {
-    v7 = PLUIGetLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PLUIGetLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       uuid = [self uuid];
       *buf = 138412546;
-      v13 = uuid;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_1A3C1C000, v7, OS_LOG_TYPE_ERROR, "Error determining if current asset uuid %@ contains contextual video thumbnails – %@", buf, 0x16u);
+      v14 = uuid;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_1A3C1C000, v8, OS_LOG_TYPE_ERROR, "Error determining if current asset uuid %@ contains contextual video thumbnails – %@", buf, 0x16u);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
     objc_opt_class();
-    v9 = 0;
-    if ((objc_opt_isKindOfClass() & 1) == 0 && v6)
+    v10 = 0;
+    if ((objc_opt_isKindOfClass() & 1) == 0 && v7)
     {
-      v9 = [v6 count] != 0;
+      v10 = [v7 count] != 0;
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)px_searchDebugString
@@ -2103,7 +2103,7 @@ LABEL_31:
   return v7;
 }
 
-- (id)px_curationDebugValues
+- (PXDebugValueList)px_curationDebugValues
 {
   if (px_curationDebugValues_onceToken != -1)
   {
@@ -2493,7 +2493,7 @@ LABEL_31:
   [v23 addValueWithLabel:@"Live Sticker Suggestion" doubleValue:v123];
   if (mediaAnalysisProperties)
   {
-    [mediaAnalysisProperties bestKeyFrameTime];
+    objc_msgSend_bestKeyFrameTime(mediaAnalysisProperties);
   }
 
   else
@@ -2504,7 +2504,7 @@ LABEL_31:
   [v23 addValueWithLabel:@"Best Key Frame Time" doubleValue:CMTimeGetSeconds(time)];
   if (mediaAnalysisProperties)
   {
-    [mediaAnalysisProperties bestVideoTimeRange];
+    objc_msgSend_bestVideoTimeRange(mediaAnalysisProperties);
   }
 
   else
@@ -2518,7 +2518,7 @@ LABEL_31:
 
   if (mediaAnalysisProperties)
   {
-    [mediaAnalysisProperties animatedStickerTimeRange];
+    objc_msgSend_animatedStickerTimeRange(mediaAnalysisProperties);
   }
 
   else
@@ -3360,7 +3360,7 @@ LABEL_19:
   return v2;
 }
 
-- (uint64_t)px_canLoadSyndicationAttributionInfo
+- (void)px_canLoadSyndicationAttributionInfo
 {
   [self fetchPropertySetsIfNeeded];
   if (([self px_isSyndicatedAsset] & 1) != 0 || (result = objc_msgSend(self, "px_wasSavedThroughSyndication"), result))
@@ -3449,7 +3449,7 @@ LABEL_19:
   return v2;
 }
 
-- (uint64_t)px_containsPotentiallySensitiveContent
+- (void)px_containsPotentiallySensitiveContent
 {
   result = [MEMORY[0x1E6978AB0] sensitiveContentAnalysisEnabled];
   if (result)

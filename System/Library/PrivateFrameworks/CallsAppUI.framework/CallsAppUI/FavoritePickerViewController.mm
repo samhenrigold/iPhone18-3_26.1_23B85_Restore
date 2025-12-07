@@ -60,10 +60,10 @@
   entryCopy = entry;
   selfCopy = self;
   sub_1CFC9FF18();
-  swift_unknownObjectRelease();
-  sub_1CFC2B178();
+  v8 = swift_unknownObjectRelease();
+  sub_1CFC2B178(v8, entryCopy);
 
-  __swift_destroy_boxed_opaque_existential_1Tm(v8);
+  __swift_destroy_boxed_opaque_existential_1Tm(v9);
 }
 
 @end

@@ -11,6 +11,13 @@ void sub_100000F14(id a1, NSData *a2, NSError *a3)
   }
 }
 
+void sub_100001604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10000165C(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -96,9 +103,9 @@ LABEL_5:
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -111,22 +118,26 @@ void sub_100001B08(uint64_t a1, void *a2)
   [*(a1 + 40) invalidate];
 }
 
-void sub_100001B70(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001B70(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_100001B8C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001B8C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100001BAC(void *a1)
 {
   v1 = [a1 debugDescription];
-  sub_100001B8C(&_mh_execute_header, v2, v3, "taptoradar error %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_100001B8C(&_mh_execute_header, v2, v3, "taptoradar error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100001C34(void *a1, uint8_t *buf, os_log_t log)
@@ -146,5 +157,7 @@ void sub_100001CFC(uint64_t a1, NSObject *a2)
 void sub_100001D74(void *a1)
 {
   v1 = [a1 debugDescription];
-  sub_100001B8C(&_mh_execute_header, v2, v3, "searchd diagnose error %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  sub_100001B8C(&_mh_execute_header, v2, v3, "searchd diagnose error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }

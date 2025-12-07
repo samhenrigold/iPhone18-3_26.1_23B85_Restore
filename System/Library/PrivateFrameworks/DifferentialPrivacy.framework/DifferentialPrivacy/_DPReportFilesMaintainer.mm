@@ -133,29 +133,29 @@
 
 + (BOOL)retireFiles:(id)files toDirectory:(id)directory
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   directoryCopy = directory;
   [MEMORY[0x277CCAA00] defaultManager];
-  v27 = v34 = 0;
-  v28 = directoryCopy;
-  if (([v27 fileExistsAtPath:directoryCopy isDirectory:&v34] & 1) == 0)
+  v26 = v33 = 0;
+  v27 = directoryCopy;
+  if (([v26 fileExistsAtPath:directoryCopy isDirectory:&v33] & 1) == 0)
   {
     obj = +[_DPLog daemon];
     if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
     {
-      [_DPReportFilesMaintainer retireFiles:directoryCopy toDirectory:&v34];
+      +[_DPReportFilesMaintainer retireFiles:toDirectory:];
     }
 
     goto LABEL_19;
   }
 
-  if ((v34 & 1) == 0)
+  if ((v33 & 1) == 0)
   {
     obj = +[_DPLog daemon];
     if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
     {
-      [_DPReportFilesMaintainer retireFiles:directoryCopy toDirectory:&v34];
+      +[_DPReportFilesMaintainer retireFiles:toDirectory:];
     }
 
 LABEL_19:
@@ -163,65 +163,65 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = filesCopy;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v41 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v24 = filesCopy;
-    v9 = *v31;
-    v25 = 1;
+    v23 = filesCopy;
+    v9 = *v30;
+    v24 = 1;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         absoluteString = [v11 absoluteString];
         lastPathComponent = [absoluteString lastPathComponent];
 
-        v14 = [v28 stringByAppendingPathComponent:lastPathComponent];
+        v14 = [v27 stringByAppendingPathComponent:lastPathComponent];
         v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14 isDirectory:0];
         path = [v11 path];
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         v18 = [defaultManager attributesOfItemAtPath:path error:0];
         [v18 fileSize];
 
-        v29 = 0;
-        LOBYTE(defaultManager) = [v27 moveItemAtURL:v11 toURL:v15 error:&v29];
-        v19 = v29;
+        v28 = 0;
+        LOBYTE(defaultManager) = [v26 moveItemAtURL:v11 toURL:v15 error:&v28];
+        v19 = v28;
         if ((defaultManager & 1) == 0)
         {
           v20 = +[_DPLog daemon];
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v36 = v11;
-            v37 = 2112;
-            v38 = v15;
-            v39 = 2112;
-            v40 = v19;
+            v35 = v11;
+            v36 = 2112;
+            v37 = v15;
+            v38 = 2112;
+            v39 = v19;
             _os_log_debug_impl(&dword_22622D000, v20, OS_LOG_TYPE_DEBUG, "moveItemAtURL:%@ toURL:%@ failed with error %@", buf, 0x20u);
           }
 
-          v25 = 0;
+          v24 = 0;
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v40 count:16];
     }
 
     while (v8);
-    filesCopy = v24;
-    v21 = v25;
+    filesCopy = v23;
+    v21 = v24;
   }
 
   else
@@ -231,7 +231,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21 & 1;
 }
 
@@ -260,24 +259,6 @@ LABEL_20:
   v6 = [_DPPeriodicTask taskWithName:nameCopy period:kSecondsIn24Hours handler:v5];
 
   [_DPPeriodicTaskManager registerTask:v6];
-}
-
-+ (void)retireFiles:(uint64_t)a1 toDirectory:(unsigned __int8 *)a2 .cold.1(uint64_t a1, unsigned __int8 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_22622D000, v3, v4, "fileExistsAtPath:isDirectory: failed for %@ ; isDirectory=%d");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)retireFiles:(uint64_t)a1 toDirectory:(unsigned __int8 *)a2 .cold.2(uint64_t a1, unsigned __int8 *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_22622D000, v3, v4, "fileExistsAtPath:isDirectory: was successful for %@ ; isDirectory=%d");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

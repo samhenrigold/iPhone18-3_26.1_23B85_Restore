@@ -178,7 +178,7 @@
     self->_didNotifyFirstFrameRendered = 1;
     if (dword_1001BE738 <= 50 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE738, "[BroadwayCardView notifyObserversWithCommandBuffer:]", 50, "%s first frame rendered", "[BroadwayCardView notifyObserversWithCommandBuffer:]");
     }
   }
 
@@ -204,7 +204,7 @@
   {
     if (dword_1001BE738 <= 50 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE738, "[BroadwayCardView notifyObserversWithCommandBuffer:]", 50, "%s last frame rendered", "[BroadwayCardView notifyObserversWithCommandBuffer:]");
     }
 
     self->_didNotifyLastFrameRendered = 1;
@@ -256,7 +256,7 @@
 - (void)renderer:(id)renderer updateAtTime:(double)time
 {
   rendererCopy = renderer;
-  v6 = rendererCopy;
+  v7 = rendererCopy;
   if (!self->_textureCache)
   {
     device = [rendererCopy device];
@@ -264,46 +264,54 @@
   }
 
   currentItem = [(AVPlayer *)self->_videoPlayer currentItem];
-  v9 = currentItem;
-  memset(&v18[1], 0, sizeof(CMTime));
+  v10 = currentItem;
+  memset(&v22[1], 0, sizeof(CMTime));
   if (currentItem)
   {
-    [currentItem currentTime];
+    objc_msgSend_currentTime(currentItem);
   }
 
   videoOutput = self->_videoOutput;
-  v18[0] = v18[1];
-  v11 = [(AVPlayerItemVideoOutput *)videoOutput hasNewPixelBufferForItemTime:v18];
+  v22[0] = v22[1];
+  v12 = [(AVPlayerItemVideoOutput *)videoOutput hasNewPixelBufferForItemTime:v22];
   if (dword_1001BE738 <= 10 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    timeCopy = time;
+    v14 = timeCopy;
+    v15 = "no";
+    if (v12)
+    {
+      v15 = "yes";
+    }
+
+    LogPrintF(&dword_1001BE738, "[BroadwayCardView renderer:updateAtTime:]", 10, "%s time:%f, hasNewPixelBuffer:%s", "[BroadwayCardView renderer:updateAtTime:]", v14, v15);
   }
 
-  if (v11)
+  if (v12)
   {
-    v18[0] = kCMTimeInvalid;
-    v12 = self->_videoOutput;
-    time = v18[1];
-    v13 = [(AVPlayerItemVideoOutput *)v12 copyPixelBufferForItemTime:&time itemTimeForDisplay:v18];
-    if (v13)
+    v22[0] = kCMTimeInvalid;
+    v16 = self->_videoOutput;
+    time = v22[1];
+    v17 = [(AVPlayerItemVideoOutput *)v16 copyPixelBufferForItemTime:&time itemTimeForDisplay:v22];
+    if (v17)
     {
-      v14 = v13;
-      self->_textureWidth = CVPixelBufferGetWidth(v13);
-      Height = CVPixelBufferGetHeight(v14);
+      v18 = v17;
+      self->_textureWidth = CVPixelBufferGetWidth(v17);
+      Height = CVPixelBufferGetHeight(v18);
       self->_textureHeight = Height;
-      if (!CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self->_textureCache, v14, 0, MTLPixelFormatBGRA8Unorm_sRGB, self->_textureWidth, Height, 0, &self->_texture))
+      if (!CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, self->_textureCache, v18, 0, MTLPixelFormatBGRA8Unorm_sRGB, self->_textureWidth, Height, 0, &self->_texture))
       {
-        v16 = CVMetalTextureGetTexture(self->_texture);
-        if (v16)
+        v20 = CVMetalTextureGetTexture(self->_texture);
+        if (v20)
         {
-          [(SCNMaterialProperty *)self->_videoMaterialProperty setContents:v16];
-          time = v18[0];
+          [(SCNMaterialProperty *)self->_videoMaterialProperty setContents:v20];
+          time = v22[0];
           self->_videoCurrentFrame = (CMTimeGetSeconds(&time) * self->_videoFrameRate);
-          [v6 setSceneTime:?];
+          [v7 setSceneTime:?];
         }
       }
 
-      CFRelease(v14);
+      CFRelease(v18);
     }
   }
 }
@@ -339,7 +347,7 @@
   v11 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -385,7 +393,7 @@
   else if (dword_1001BE738 <= 90 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
   {
     path = [rLCopy path];
-    LogPrintF();
+    LogPrintF(&dword_1001BE738, "[BroadwayCardView setVideoURL:sceneURL:]", 90, "%s failed to load SceneKit scene from %@ (%@)", "[BroadwayCardView setVideoURL:sceneURL:]", path, v14);
   }
 }
 
@@ -405,9 +413,9 @@
 
 - (BroadwayCardView)initWithCoder:(id)coder
 {
-  v43.receiver = self;
-  v43.super_class = BroadwayCardView;
-  v3 = [(BroadwayCardView *)&v43 initWithCoder:coder];
+  v41.receiver = self;
+  v41.super_class = BroadwayCardView;
+  v3 = [(BroadwayCardView *)&v41 initWithCoder:coder];
   if (v3)
   {
     v4 = +[UIColor clearColor];
@@ -456,21 +464,19 @@
 
     device = [(SCNView *)v3->_sceneView device];
     v24 = [NSBundle bundleForClass:objc_opt_class()];
-    v42 = 0;
-    v25 = [device newDefaultLibraryWithBundle:v24 error:&v42];
-    v26 = v42;
+    v40 = 0;
+    v25 = [device newDefaultLibraryWithBundle:v24 error:&v40];
+    v26 = v40;
     library = v3->_library;
     v3->_library = v25;
 
     if (!v3->_library && v26 && dword_1001BE738 <= 90 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
     {
-      v36 = "[BroadwayCardView initWithCoder:]";
-      v37 = v26;
-      LogPrintF();
+      LogPrintF(&dword_1001BE738, "[BroadwayCardView initWithCoder:]", 90, "%s failed to load Metal library (%@)", "[BroadwayCardView initWithCoder:]", v26);
     }
 
-    v41 = 0x1000000;
-    v28 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:1 height:1 mipmapped:0, v36, v37];
+    v39 = 0x1000000;
+    v28 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:1 height:1 mipmapped:0];
     [v28 setUsage:1];
     device2 = [(SCNView *)v3->_sceneView device];
     v30 = [device2 newTextureWithDescriptor:v28];
@@ -478,10 +484,10 @@
     v3->_blackTexture = v30;
 
     v32 = v3->_blackTexture;
-    memset(v38, 0, sizeof(v38));
-    v39 = vdupq_n_s64(1uLL);
-    v40 = 1;
-    [(MTLTexture *)v32 replaceRegion:v38 mipmapLevel:0 withBytes:&v41 bytesPerRow:4];
+    memset(v36, 0, sizeof(v36));
+    v37 = vdupq_n_s64(1uLL);
+    v38 = 1;
+    [(MTLTexture *)v32 replaceRegion:v36 mipmapLevel:0 withBytes:&v39 bytesPerRow:4];
     v33 = [SCNMaterialProperty materialPropertyWithContents:v3->_blackTexture];
     videoMaterialProperty = v3->_videoMaterialProperty;
     v3->_videoMaterialProperty = v33;

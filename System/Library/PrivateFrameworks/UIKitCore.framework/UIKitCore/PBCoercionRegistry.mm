@@ -155,9 +155,9 @@ void __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_
     if (v14)
     {
       v15 = [v14 domain];
-      v16 = [v15 isEqualToString:*MEMORY[0x1E69BC840]];
+      isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-      if ((v16 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         v17 = PBCannotLoadRepresentationError();
 
@@ -189,7 +189,7 @@ id __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_13
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  if (([*(a1 + 32) isEqualToString:*off_1E70EC940] & 1) == 0 && !objc_msgSend(*(a1 + 32), "isEqualToString:", *off_1E70ECAE8))
+  if ((objc_msgSend_isEqualToString_(*(a1 + 32)) & 1) == 0 && !objc_msgSend_isEqualToString_(*(a1 + 32)))
   {
     if (v11)
     {
@@ -258,9 +258,9 @@ LABEL_14:
   if (v19)
   {
     v25 = [v19 domain];
-    v26 = [v25 isEqualToString:*MEMORY[0x1E69BC840]];
+    isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-    if ((v26 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v27 = PBCannotInstantiateObjectOfClassError();
 
@@ -306,17 +306,17 @@ id __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_14
   return v10;
 }
 
-void __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_15(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+void __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_15(void *a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
   v8 = a5;
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 32);
+  v9 = a1[6];
+  v10 = a1[4];
   v11 = *(v9 + 16);
   v12 = a4;
   v13 = a3;
   v14 = v11(v9, v10);
-  v15 = PBUTIForNSAttributedStringDocumentType(*(a1 + 32));
-  v16 = PBUTIForNSAttributedStringDocumentType(*(a1 + 40));
+  v15 = PBUTIForNSAttributedStringDocumentType(a1[4]);
+  v16 = PBUTIForNSAttributedStringDocumentType(a1[5]);
   v17 = objc_opt_class();
   v25 = 0;
   v18 = (v14)[2](v14, v17, v15, v13, v12, &v25);
@@ -325,8 +325,8 @@ void __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_
   v20 = v19;
   if (v18)
   {
-    v21 = (*(*(a1 + 56) + 16))();
-    v22 = PBUTIForNSAttributedStringDocumentType(*(a1 + 40));
+    v21 = (*(a1[7] + 16))();
+    v22 = PBUTIForNSAttributedStringDocumentType(a1[5]);
     v23[0] = MEMORY[0x1E69E9820];
     v23[1] = 3221225472;
     v23[2] = __57__PBCoercionRegistry_UIKit__uikit_registerExtraCoercions__block_invoke_16;

@@ -20,9 +20,11 @@
 - (void)clearState:(id *)state;
 - (void)configure:(id)configure;
 - (void)configureFromNetwork:(id)network;
+- (void)fetchBatchQueries:(id)queries userInitiated:(BOOL)initiated responseHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)fetchBatchQuery:(id)query uuid:(id)uuid userInitiated:(BOOL)initiated completionHandler:(id)handler;
 - (void)fetchConfigBag:(id)bag completionHandler:(id)handler;
 - (void)fetchConsistencyProof:(id)proof uuid:(id)uuid completionHandler:(id)handler;
+- (void)fetchMessage:(id)message uri:(id)uri uuid:(id)uuid application:(id)application userInitiated:(BOOL)initiated completionHandler:(id)handler;
 - (void)fetchPublicKeys:(id)keys completionHandler:(id)handler;
 - (void)fetchQuery:(id)query uuid:(id)uuid userInitiated:(BOOL)initiated completionHandler:(id)handler;
 - (void)fetchRevisionLogInclusionProof:(id)proof uuid:(id)uuid completionHandler:(id)handler;
@@ -412,6 +414,49 @@
   [(KTLogClient *)self configure:v16];
 }
 
+- (void)fetchMessage:(id)message uri:(id)uri uuid:(id)uuid application:(id)application userInitiated:(BOOL)initiated completionHandler:(id)handler
+{
+  initiatedCopy = initiated;
+  uuidCopy = uuid;
+  applicationCopy = application;
+  handlerCopy = handler;
+  uriCopy = uri;
+  messageCopy = message;
+  v19 = [KTLogNetworkRequest alloc];
+  data = [messageCopy data];
+
+  v21 = [(KTLogNetworkRequest *)v19 initPOSTWithURL:uriCopy data:data uuid:uuidCopy application:applicationCopy];
+  [v21 setAdditionalHeaders:&off_10033D700];
+  v22 = [(KTLogClient *)self shouldUseReversePush:initiatedCopy];
+  [v21 setAuthenticated:1];
+  [v21 setUseReversePush:v22];
+  if (initiatedCopy)
+  {
+    +[TransparencySettings defaultNetworkTimeout];
+  }
+
+  else
+  {
+    +[TransparencySettings backgroundNetworkTimeout];
+  }
+
+  [v21 setTimeout:?];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1001FBF90;
+  v26[3] = &unk_1003296B0;
+  v31 = v22;
+  v26[4] = self;
+  v27 = applicationCopy;
+  v28 = uuidCopy;
+  v29 = handlerCopy;
+  v30 = +[KTMachTime currentMachTime];
+  v23 = handlerCopy;
+  v24 = uuidCopy;
+  v25 = applicationCopy;
+  [(TransparencyLogClient *)self fetchRequest:v21 completionHandler:v26];
+}
+
 - (void)fetchBatchQuery:(id)query uuid:(id)uuid userInitiated:(BOOL)initiated completionHandler:(id)handler
 {
   v13[0] = _NSConcreteStackBlock;
@@ -427,6 +472,100 @@
   v11 = queryCopy;
   v12 = handlerCopy;
   [(KTLogClient *)self configure:v13];
+}
+
+- (void)fetchBatchQueries:(id)queries userInitiated:(BOOL)initiated responseHandler:(id)handler completionHandler:(id)completionHandler
+{
+  initiatedCopy = initiated;
+  queriesCopy = queries;
+  handlerCopy = handler;
+  completionHandlerCopy = completionHandler;
+  v12 = dispatch_group_create();
+  v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  queue = dispatch_queue_create("com.apple.transparencyd.batchQueue", v13);
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  obj = queriesCopy;
+  v14 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v41;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v41 != v16)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v33 = *(*(&v40 + 1) + 8 * v17);
+        v18 = +[NSUUID UUID];
+        if (qword_10039CBC8 != -1)
+        {
+          sub_10025DA7C();
+        }
+
+        v19 = qword_10039CBD0;
+        if (os_log_type_enabled(qword_10039CBD0, OS_LOG_TYPE_DEFAULT))
+        {
+          v20 = v19;
+          [v33 uriArray];
+          v21 = v12;
+          v22 = v15;
+          v23 = v16;
+          selfCopy = self;
+          v25 = initiatedCopy;
+          v27 = v26 = handlerCopy;
+          *buf = 138543874;
+          v45 = v18;
+          v46 = 2160;
+          v47 = 1752392040;
+          v48 = 2112;
+          v49 = v27;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Fetching batch query response with fetchId %{public}@ for uris %{mask.hash}@", buf, 0x20u);
+
+          handlerCopy = v26;
+          initiatedCopy = v25;
+          self = selfCopy;
+          v16 = v23;
+          v15 = v22;
+          v12 = v21;
+        }
+
+        dispatch_group_enter(v12);
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_1001FCE30;
+        v36[3] = &unk_100329720;
+        v39 = handlerCopy;
+        v37 = v18;
+        v38 = v12;
+        v28 = v18;
+        [(KTLogClient *)self fetchBatchQuery:v33 uuid:v28 userInitiated:initiatedCopy completionHandler:v36];
+
+        v17 = v17 + 1;
+      }
+
+      while (v15 != v17);
+      v15 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
+    }
+
+    while (v15);
+  }
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1001FCE7C;
+  block[3] = &unk_10031BCC0;
+  v35 = completionHandlerCopy;
+  v29 = completionHandlerCopy;
+  dispatch_group_notify(v12, queue, block);
 }
 
 - (void)fetchQuery:(id)query uuid:(id)uuid userInitiated:(BOOL)initiated completionHandler:(id)handler

@@ -20,7 +20,7 @@
   self->pifLogSubDirectory[OBJC_IVAR___AirpodsLogCollectorController_failureEncountered] = 0;
   self->pifLogSubDirectory[OBJC_IVAR___AirpodsLogCollectorController_filesSkippedWithParsingErrors] = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AirpodsLogCollectorController();
+  v5.super_class = type metadata accessor for AirpodsLogCollectorController(0);
   return [(AirpodsLogCollectorController *)&v5 init];
 }
 

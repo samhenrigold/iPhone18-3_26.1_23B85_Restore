@@ -3,6 +3,7 @@
 - (id)_serializedBundles;
 - (id)disabledLockScreenBundles;
 - (void)_synchronizeLockScreenPreferences;
+- (void)setLockScreenEnabled:(BOOL)enabled bundleId:(id)id;
 @end
 
 @implementation ASFLockScreenSuggestionManager
@@ -67,6 +68,26 @@ uint64_t __48__ASFLockScreenSuggestionManager_sharedInstance__block_invoke()
   v5 = v4;
 
   return v5;
+}
+
+- (void)setLockScreenEnabled:(BOOL)enabled bundleId:(id)id
+{
+  enabledCopy = enabled;
+  disabledLockScreenBundleIds = self->_disabledLockScreenBundleIds;
+  idCopy = id;
+  if (enabledCopy)
+  {
+    [(NSMutableSet *)disabledLockScreenBundleIds removeObject:idCopy];
+  }
+
+  else
+  {
+    [(NSMutableSet *)disabledLockScreenBundleIds addObject:idCopy];
+  }
+
+  [(ASFLockScreenSuggestionManager *)self _synchronizeLockScreenPreferences];
+  notify_post("com.apple.duetexpertd.prefschanged");
+  [ASFAssistantMetrics didDetailToggle:@"appinlockscreen" bundleId:idCopy on:enabledCopy];
 }
 
 - (void)_synchronizeLockScreenPreferences

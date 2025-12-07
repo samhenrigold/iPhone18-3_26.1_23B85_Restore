@@ -16,9 +16,9 @@
 
 - (PSPowerManager)initWithgsm:(ps_gsm_s *)withgsm
 {
-  v12.receiver = self;
-  v12.super_class = PSPowerManager;
-  v4 = [(PSPowerManager *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = PSPowerManager;
+  v4 = [(PSPowerManager *)&v14 init];
   v5 = v4;
   if (v4)
   {
@@ -31,11 +31,11 @@
     if (systemPowerPort && v5->_systemPowerNotifier)
     {
       IONotificationPortSetDispatchQueue(systemPowerPort, v5->_notificationQueue);
-      v9 = sub_100013BF4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100013BF4(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11[0] = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PolarisD IOPM initialized.", v11, 2u);
+        v13[0] = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PolarisD IOPM initialized.", v13, 2u);
       }
     }
 
@@ -94,7 +94,7 @@
     return *(&off_100028F38 + activity);
   }
 
-  v5 = sub_100013BF4();
+  v5 = sub_100013BF4(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = 134217984;
@@ -110,31 +110,29 @@
   resolvedUserActivity = [(PSPowerManager *)self resolvedUserActivity];
   if (resolvedUserActivity != self->_user_activity.previous)
   {
-    v4 = resolvedUserActivity;
+    v5 = resolvedUserActivity;
     switch(resolvedUserActivity)
     {
-      case 0uLL:
+      case 0:
 LABEL_7:
-        self->_user_activity.previous = v4;
+        self->_user_activity.previous = v5;
         return;
-      case 1uLL:
+      case 1:
         ps_liveness_server_pause_liveness();
-        pssg_server = self->_pssg_server;
         ps_sysgraph_send_user_is_inactive_notification();
         goto LABEL_7;
-      case 2uLL:
+      case 2:
         ps_liveness_server_resume_liveness();
-        v5 = self->_pssg_server;
         ps_sysgraph_send_user_is_active_notification();
         goto LABEL_7;
     }
 
-    v7 = sub_100013BF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = sub_100013BF4(resolvedUserActivity, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
-      v9 = v4;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Unexpected activity level: %lu", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Unexpected activity level: %lu", &v7, 0xCu);
     }
   }
 }

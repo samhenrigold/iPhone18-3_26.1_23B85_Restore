@@ -322,7 +322,7 @@
     {
       objc_opt_class();
       v32 = MEMORY[0x1E69B7600];
-      v33 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+      v33 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
       v34 = ICDynamicCast();
       isList = [v34 isList];
 
@@ -340,7 +340,7 @@
 
   if (!v18 && !v19 && !v30)
   {
-    v38 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+    v38 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
     if (v38)
     {
@@ -412,7 +412,7 @@ LABEL_21:
       if (styleCopy)
       {
         v59 = MEMORY[0x1E69B7600];
-        v60 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+        v60 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
         v61 = [v58 mutableCopy];
         v37 = v61;
         if (v60)
@@ -548,7 +548,7 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
   if (documentCopy)
   {
     v10 = MEMORY[0x1E69B7600];
-    v11 = [paragraphCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(paragraphCopy);
     v12 = [MEMORY[0x1E69B78C0] paragraphStyleNamed:3];
     v13 = [v12 mutableCopy];
 
@@ -579,11 +579,11 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
   attributeCopy = attribute;
   attributesCopy = attributes;
   toAttributesCopy = toAttributes;
-  v10 = [attributesCopy objectForKeyedSubscript:attributeCopy];
+  v10 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
   if (v10)
   {
-    v11 = [attributesCopy objectForKeyedSubscript:attributeCopy];
+    v11 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     [toAttributesCopy setObject:v11 forKeyedSubscript:attributeCopy];
   }
 
@@ -600,26 +600,25 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
   attributesCopy = attributes;
   toAttributesCopy = toAttributes;
   v7 = *MEMORY[0x1E69DB688];
-  v8 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
   if (v8)
   {
-    v9 = [attributesCopy objectForKeyedSubscript:v7];
+    v9 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v10 = [v9 mutableCopy];
 
-    v11 = MEMORY[0x1E69B7600];
-    v12 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
-    if (!v12 || (v13 = v12, objc_opt_class(), [attributesCopy objectForKeyedSubscript:*v11], v14 = objc_claimAutoreleasedReturnValue(), ICDynamicCast(), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "style"), v15, v14, v13, v16 == 3))
+    v11 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    if (!v11 || (v12 = v11, objc_opt_class(), objc_msgSend_objectForKeyedSubscript_(attributesCopy), v13 = objc_claimAutoreleasedReturnValue(), ICDynamicCast(), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 style], v14, v13, v12, v15 == 3))
     {
       [v10 paragraphSpacing];
-      v18 = v17;
+      v17 = v16;
       [objc_opt_class() attachmentParagraphSpacing];
-      if (v18 == v19)
+      if (v17 == v18)
       {
         [v10 paragraphSpacingBefore];
-        v21 = v20;
+        v20 = v19;
         [objc_opt_class() attachmentParagraphSpacingBefore];
-        if (v21 == v22)
+        if (v20 == v21)
         {
           [objc_opt_class() bodyParagraphSpacing];
           [v10 setParagraphSpacing:?];
@@ -629,8 +628,8 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
       }
     }
 
-    v23 = [v10 copy];
-    [toAttributesCopy setObject:v23 forKeyedSubscript:v7];
+    v22 = [v10 copy];
+    [toAttributesCopy setObject:v22 forKeyedSubscript:v7];
   }
 
   else
@@ -681,13 +680,13 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
 - (void)addBIToStyle:(id)style
 {
   styleCopy = style;
-  v3 = [styleCopy objectForKeyedSubscript:*MEMORY[0x1E69B75E8]];
+  v3 = objc_msgSend_objectForKeyedSubscript_(styleCopy);
   v4 = v3;
   if (v3)
   {
     intValue = [v3 intValue];
     v6 = *MEMORY[0x1E69DB648];
-    v7 = [styleCopy objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+    v7 = objc_msgSend_objectForKeyedSubscript_(styleCopy);
     v8 = [MEMORY[0x1E69B7890] convertFont:v7 toBold:intValue & 1 toItalic:(intValue >> 1) & 1];
     v9 = v8;
     if (v8)
@@ -709,49 +708,49 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
 
 - (id)styleForModelAttributes:(id)attributes contentSizeCategory:(id)category
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   categoryCopy = category;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   allowedAttributesForStyle = [MEMORY[0x1E69B7898] allowedAttributesForStyle];
-  v127 = 0u;
-  v128 = 0u;
-  v129 = 0u;
-  v130 = 0u;
+  v120 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   v8 = attributesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v127 objects:v131 count:16];
-  v126 = v6;
+  v9 = [v8 countByEnumeratingWithState:&v120 objects:v124 count:16];
+  v119 = v6;
   if (v9)
   {
     v10 = v9;
-    v11 = *v128;
+    v11 = *v121;
     v12 = *MEMORY[0x1E69DB688];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v128 != v11)
+        if (*v121 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v127 + 1) + 8 * i);
+        v14 = *(*(&v120 + 1) + 8 * i);
         if ([allowedAttributesForStyle containsObject:v14])
         {
-          if ([v14 isEqualToString:v12] && (objc_msgSend(v8, "objectForKeyedSubscript:", v14), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v15, (isKindOfClass & 1) != 0))
+          if ([v14 isEqualToString:v12] && (objc_msgSend_objectForKeyedSubscript_(v8), v15 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v15, (isKindOfClass & 1) != 0))
           {
-            v17 = [v8 objectForKeyedSubscript:v14];
+            v17 = objc_msgSend_objectForKeyedSubscript_(v8);
             v18 = *MEMORY[0x1E69B7600];
-            v6 = v126;
-            v19 = v126;
+            v6 = v119;
+            v19 = v119;
             v20 = v17;
           }
 
           else
           {
-            v17 = [v8 objectForKeyedSubscript:v14];
-            v6 = v126;
-            v19 = v126;
+            v17 = objc_msgSend_objectForKeyedSubscript_(v8);
+            v6 = v119;
+            v19 = v119;
             v20 = v17;
             v18 = v14;
           }
@@ -760,18 +759,18 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v127 objects:v131 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v120 objects:v124 count:16];
     }
 
     while (v10);
   }
 
   v21 = [MEMORY[0x1E69DB878] ic_preferredFontForBodyTextWithContentSizeCategory:categoryCopy isForPrint:{-[ICTTTextController isForPrint](self, "isForPrint")}];
-  v123 = *MEMORY[0x1E69DB648];
+  v116 = *MEMORY[0x1E69DB648];
   [v6 setObject:v21 forKeyedSubscript:?];
 
   v22 = MEMORY[0x1E69B7600];
-  v23 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+  v23 = objc_msgSend_objectForKeyedSubscript_(v6);
   if (!v23)
   {
     bodyAttributes = [(ICTTTextController *)self bodyAttributes];
@@ -781,7 +780,7 @@ void __124__ICTTTextController_typingAttributesForRange_forSelectionChange_forSe
     v28 = [MEMORY[0x1E69B78C0] paragraphStyleNamed:3];
     [v6 setObject:v28 forKeyedSubscript:*v22];
 
-    v24 = [v6 objectForKeyedSubscript:*v22];
+    v24 = objc_msgSend_objectForKeyedSubscript_(v6);
     alignment = 4;
     writingDirection = -1;
     goto LABEL_39;
@@ -858,10 +857,10 @@ LABEL_34:
 LABEL_35:
   [(ICTTTextController *)self addBIToStyle:v6];
   v30 = *MEMORY[0x1E69DB688];
-  v31 = [v6 objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+  v31 = objc_msgSend_objectForKeyedSubscript_(v6);
   if (v31)
   {
-    v32 = [v6 objectForKeyedSubscript:v30];
+    v32 = objc_msgSend_objectForKeyedSubscript_(v6);
     v33 = v6;
     v34 = [v32 mutableCopy];
   }
@@ -884,17 +883,17 @@ LABEL_39:
   if ([(ICTTTextController *)self keepNSTextTableAttributes])
   {
     v36 = *MEMORY[0x1E69DB688];
-    v37 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+    v37 = objc_msgSend_objectForKeyedSubscript_(v8);
     textBlocks = [v37 textBlocks];
     v39 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_27];
     v40 = [textBlocks filteredArrayUsingPredicate:v39];
 
     if ([v40 count])
     {
-      v41 = [v126 objectForKeyedSubscript:v36];
+      v41 = objc_msgSend_objectForKeyedSubscript_(v119);
       if (v41)
       {
-        [v126 objectForKeyedSubscript:v36];
+        objc_msgSend_objectForKeyedSubscript_(v119);
         v43 = v42 = v24;
         ic_mutableDefaultParagraphStyle = [v43 mutableCopy];
 
@@ -908,71 +907,68 @@ LABEL_39:
 
       [ic_mutableDefaultParagraphStyle setTextBlocks:v40];
       v45 = [ic_mutableDefaultParagraphStyle copy];
-      [v126 setObject:v45 forKeyedSubscript:v36];
+      [v119 setObject:v45 forKeyedSubscript:v36];
     }
   }
 
-  v46 = MEMORY[0x1E69B7620];
-  v47 = v126;
-  v48 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B7620]];
+  v46 = v119;
+  v47 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  v49 = MEMORY[0x1E69DB758];
-  if (v48)
+  v48 = MEMORY[0x1E69DB758];
+  if (v47)
   {
-    v50 = [v126 objectForKeyedSubscript:*v46];
-    [v126 setObject:v50 forKeyedSubscript:*v49];
+    v49 = objc_msgSend_objectForKeyedSubscript_(v119);
+    [v119 setObject:v49 forKeyedSubscript:*v48];
   }
 
   else
   {
-    v51 = *MEMORY[0x1E69DB758];
-    v52 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69DB758]];
+    v50 = *MEMORY[0x1E69DB758];
+    v51 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-    if (v52)
+    if (v51)
     {
-      [v126 removeObjectForKey:v51];
+      [v119 removeObjectForKey:v50];
     }
   }
 
-  v53 = MEMORY[0x1E69B7608];
-  v54 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B7608]];
+  v52 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  v55 = MEMORY[0x1E69DB6B8];
-  if (v54)
+  v53 = MEMORY[0x1E69DB6B8];
+  if (v52)
   {
-    v56 = MEMORY[0x1E696AD98];
-    v57 = [v126 objectForKeyedSubscript:*v53];
-    v58 = [v56 numberWithInteger:{objc_msgSend(v57, "BOOLValue")}];
-    [v126 setObject:v58 forKeyedSubscript:*v55];
+    v54 = MEMORY[0x1E696AD98];
+    v55 = objc_msgSend_objectForKeyedSubscript_(v119);
+    v56 = [v54 numberWithInteger:{objc_msgSend(v55, "BOOLValue")}];
+    [v119 setObject:v56 forKeyedSubscript:*v53];
 
     selfCopy2 = self;
   }
 
   else
   {
-    v60 = *MEMORY[0x1E69DB6B8];
-    v61 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69DB6B8]];
+    v58 = *MEMORY[0x1E69DB6B8];
+    v59 = objc_msgSend_objectForKeyedSubscript_(v119);
 
     selfCopy2 = self;
-    if (v61)
+    if (v59)
     {
-      [v126 removeObjectForKey:v60];
+      [v119 removeObjectForKey:v58];
     }
   }
 
-  v62 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69DB670]];
-  v63 = MEMORY[0x1E69DB650];
-  if (v62)
+  v60 = objc_msgSend_objectForKeyedSubscript_(v119);
+  v61 = MEMORY[0x1E69DB650];
+  if (v60)
   {
-    v64 = v62;
-    v65 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+    v62 = v60;
+    v63 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-    if (!v65)
+    if (!v63)
     {
-      v69 = *MEMORY[0x1E6999A70];
-      v70 = [v126 objectForKeyedSubscript:*MEMORY[0x1E6999A70]];
+      v67 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-      if (!v70 || (objc_opt_class(), [v126 objectForKeyedSubscript:v69], v71 = objc_claimAutoreleasedReturnValue(), ICDynamicCast(), v72 = objc_claimAutoreleasedReturnValue(), v71, objc_msgSend(v72, "coreResult"), LOBYTE(v71) = DDShouldUseLightLinksForResult(), v72, (v71 & 1) == 0))
+      if (!v67 || (objc_opt_class(), objc_msgSend_objectForKeyedSubscript_(v119), v68 = objc_claimAutoreleasedReturnValue(), ICDynamicCast(), v69 = objc_claimAutoreleasedReturnValue(), v68, [v69 coreResult], LOBYTE(v68) = DDShouldUseLightLinksForResult(), v69, (v68 & 1) == 0))
       {
         tintColor = [MEMORY[0x1E69DC888] tintColor];
         goto LABEL_65;
@@ -980,47 +976,45 @@ LABEL_39:
     }
   }
 
-  v66 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B7948]];
+  v64 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  if (v66)
+  if (v64)
   {
     tintColor = [MEMORY[0x1E69DC888] ICHashtagUnconfirmedColor];
 LABEL_65:
-    v74 = tintColor;
-    [v126 setObject:tintColor forKeyedSubscript:*v63];
+    v71 = tintColor;
+    [v119 setObject:tintColor forKeyedSubscript:*v61];
 
     goto LABEL_66;
   }
 
-  v68 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B7958]];
+  v66 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  if (v68)
+  if (v66)
   {
     tintColor = [MEMORY[0x1E69DC888] ICMentionUnconfirmedColor];
     goto LABEL_65;
   }
 
-  v73 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B7910]];
+  v70 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  if (v73)
+  if (v70)
   {
     tintColor = [MEMORY[0x1E69DC888] ICLinkAcceleratorUnconfirmedColor];
     goto LABEL_65;
   }
 
-  v114 = MEMORY[0x1E69B75D8];
-  v115 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+  v109 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  if (!v115)
+  if (!v109)
   {
-    v118 = MEMORY[0x1E69B75F0];
-    v119 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69B75F0]];
+    v112 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-    if (v119)
+    if (v112)
     {
-      v120 = [v126 objectForKeyedSubscript:*v118];
+      v113 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-      [MEMORY[0x1E69DC888] colorWithCGColor:v120];
+      [MEMORY[0x1E69DC888] colorWithCGColor:v113];
     }
 
     else
@@ -1033,13 +1027,13 @@ LABEL_65:
 
   if (ICInternalSettingsIsEmphasisEnabled())
   {
-    [v126 setObject:*MEMORY[0x1E69DB700] forKeyedSubscript:*MEMORY[0x1E69DB6F8]];
-    v116 = [v8 objectForKeyedSubscript:*v114];
-    [v116 intValue];
+    [v119 setObject:*MEMORY[0x1E69DB700] forKeyedSubscript:*MEMORY[0x1E69DB6F8]];
+    v110 = objc_msgSend_objectForKeyedSubscript_(v8);
+    [v110 intValue];
 
     ICEmphasisColorTypeForTag();
-    v117 = ICNSTextHighlightColorSchemeForEmphasisColorType();
-    [v126 setObject:v117 forKeyedSubscript:*MEMORY[0x1E69DB6F0]];
+    v111 = ICNSTextHighlightColorSchemeForEmphasisColorType();
+    [v119 setObject:v111 forKeyedSubscript:*MEMORY[0x1E69DB6F0]];
 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1050,56 +1044,55 @@ LABEL_65:
   }
 
 LABEL_66:
-  v75 = [v126 objectForKeyedSubscript:*v63];
-  [v126 setObject:v75 forKeyedSubscript:*MEMORY[0x1E69B7960]];
+  v72 = objc_msgSend_objectForKeyedSubscript_(v119);
+  [v119 setObject:v72 forKeyedSubscript:*MEMORY[0x1E69B7960]];
 
-  v76 = *MEMORY[0x1E69DB600];
-  v77 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69DB600]];
+  v73 = *MEMORY[0x1E69DB600];
+  v74 = objc_msgSend_objectForKeyedSubscript_(v8);
+
+  if (v74)
+  {
+    v75 = objc_msgSend_objectForKeyedSubscript_(v8);
+    [v119 setObject:v75 forKeyedSubscript:v73];
+  }
+
+  v76 = *MEMORY[0x1E69B7928];
+  v77 = objc_msgSend_objectForKeyedSubscript_(v8);
 
   if (v77)
   {
-    v78 = [v8 objectForKeyedSubscript:v76];
-    [v126 setObject:v78 forKeyedSubscript:v76];
+    v78 = objc_msgSend_objectForKeyedSubscript_(v8);
+    [v119 setObject:v78 forKeyedSubscript:v76];
   }
 
-  v79 = *MEMORY[0x1E69B7928];
-  v80 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7928]];
+  v79 = MEMORY[0x1E69B7920];
+  v80 = objc_msgSend_objectForKeyedSubscript_(v8);
 
   if (v80)
   {
-    v81 = [v8 objectForKeyedSubscript:v79];
-    [v126 setObject:v81 forKeyedSubscript:v79];
+    v81 = objc_msgSend_objectForKeyedSubscript_(v8);
+    [v119 setObject:v81 forKeyedSubscript:*v79];
   }
 
-  v82 = MEMORY[0x1E69B7920];
-  v83 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7920]];
-
-  if (v83)
+  v82 = objc_msgSend_objectForKeyedSubscript_(v8);
+  v83 = v82;
+  if (v82)
   {
-    v84 = [v8 objectForKeyedSubscript:*v82];
-    [v126 setObject:v84 forKeyedSubscript:*v82];
-  }
-
-  v85 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B75E0]];
-  v86 = v85;
-  if (v85)
-  {
-    [v85 pointSize];
-    if (v87 != INFINITY)
+    [v82 pointSize];
+    if (v84 != INFINITY)
     {
-      v88 = [v86 nativeFontForStyle:objc_msgSend(v24 contentSizeCategory:"style") isForPrint:{categoryCopy, -[ICTTTextController isForPrint](selfCopy2, "isForPrint")}];
-      [v126 setObject:v88 forKeyedSubscript:v123];
+      v85 = [v83 nativeFontForStyle:objc_msgSend(v24 contentSizeCategory:"style") isForPrint:{categoryCopy, -[ICTTTextController isForPrint](selfCopy2, "isForPrint")}];
+      [v119 setObject:v85 forKeyedSubscript:v116];
 
-      [(ICTTTextController *)selfCopy2 addBIToStyle:v126];
+      [(ICTTTextController *)selfCopy2 addBIToStyle:v119];
     }
   }
 
-  v89 = MEMORY[0x1E69B7610];
-  v90 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7610]];
-  if (v90)
+  v86 = objc_msgSend_objectForKeyedSubscript_(v8);
+  if (v86)
   {
-    v91 = [v8 objectForKeyedSubscript:*v89];
-    integerValue = [v91 integerValue];
+    v87 = objc_msgSend_objectForKeyedSubscript_(v8);
+    integerValue = [v87 integerValue];
   }
 
   else
@@ -1107,11 +1100,11 @@ LABEL_66:
     integerValue = 0;
   }
 
-  v93 = [v126 objectForKeyedSubscript:v123];
-  [v93 pointSize];
-  v95 = v94;
+  v89 = objc_msgSend_objectForKeyedSubscript_(v119);
+  [v89 pointSize];
+  v91 = v90;
 
-  if (v86 || !integerValue)
+  if (v83 || !integerValue)
   {
     if (!integerValue)
     {
@@ -1121,25 +1114,24 @@ LABEL_66:
 
   else
   {
-    v96 = [v126 objectForKeyedSubscript:v123];
-    [v96 pointSize];
-    v98 = v97;
+    v92 = objc_msgSend_objectForKeyedSubscript_(v119);
+    [v92 pointSize];
+    v94 = v93;
     +[ICTTTextController superscriptScaleFactor];
-    v100 = [v96 fontWithSize:v98 * v99];
-    [v126 setObject:v100 forKeyedSubscript:v123];
+    v96 = [v92 fontWithSize:v94 * v95];
+    [v119 setObject:v96 forKeyedSubscript:v116];
   }
 
-  v101 = [MEMORY[0x1E696AD98] numberWithDouble:round(integerValue * 0.2 * v95)];
-  [v126 setObject:v101 forKeyedSubscript:*MEMORY[0x1E69DB610]];
+  v97 = [MEMORY[0x1E696AD98] numberWithDouble:round(integerValue * 0.2 * v91)];
+  [v119 setObject:v97 forKeyedSubscript:*MEMORY[0x1E69DB610]];
 
 LABEL_83:
-  v102 = *MEMORY[0x1E69DB5F8];
-  v103 = [v126 objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+  v98 = objc_msgSend_objectForKeyedSubscript_(v119);
 
-  if (v103)
+  if (v98)
   {
-    v104 = [v126 objectForKeyedSubscript:v102];
-    if ([v104 conformsToProtocol:&unk_1F4FC5D80] && (objc_msgSend(MEMORY[0x1E69B7888], "isInlineAttachment:", v104) & 1) == 0)
+    v99 = objc_msgSend_objectForKeyedSubscript_(v119);
+    if ([v99 conformsToProtocol:&unk_1F4FC5D80] && (objc_msgSend(MEMORY[0x1E69B7888], "isInlineAttachment:", v99) & 1) == 0)
     {
       ic_mutableDefaultParagraphStyle2 = [MEMORY[0x1E69DB7D0] ic_mutableDefaultParagraphStyle];
       [objc_opt_class() attachmentParagraphSpacing];
@@ -1148,10 +1140,10 @@ LABEL_83:
       [ic_mutableDefaultParagraphStyle2 setParagraphSpacingBefore:?];
       [ic_mutableDefaultParagraphStyle2 setBaseWritingDirection:writingDirection];
       [ic_mutableDefaultParagraphStyle2 setAlignment:alignment];
-      v106 = [ic_mutableDefaultParagraphStyle2 copy];
-      [v126 setObject:v106 forKeyedSubscript:*MEMORY[0x1E69DB688]];
+      v101 = [ic_mutableDefaultParagraphStyle2 copy];
+      [v119 setObject:v101 forKeyedSubscript:*MEMORY[0x1E69DB688]];
 
-      v47 = v126;
+      v46 = v119;
     }
   }
 
@@ -1163,21 +1155,21 @@ LABEL_83:
   }
 
   zoomController2 = [(ICTTTextController *)selfCopy2 zoomController];
-  v109 = [zoomController2 zoomFontInAttributes:v47];
+  v104 = [zoomController2 zoomFontInAttributes:v46];
 
   if ([(ICTTTextController *)selfCopy2 disableSingleLineA])
   {
-    v110 = [v109 objectForKey:v123];
+    v105 = [v104 objectForKey:v116];
 
-    if (v110)
+    if (v105)
     {
-      v111 = [v109 objectForKeyedSubscript:v123];
-      ic_fontWithoutSingleLineA = [v111 ic_fontWithoutSingleLineA];
-      [v109 setObject:ic_fontWithoutSingleLineA forKeyedSubscript:v123];
+      v106 = objc_msgSend_objectForKeyedSubscript_(v104);
+      ic_fontWithoutSingleLineA = [v106 ic_fontWithoutSingleLineA];
+      [v104 setObject:ic_fontWithoutSingleLineA forKeyedSubscript:v116];
     }
   }
 
-  return v109;
+  return v104;
 }
 
 uint64_t __66__ICTTTextController_styleForModelAttributes_contentSizeCategory___block_invoke(uint64_t a1, void *a2)
@@ -1338,12 +1330,12 @@ uint64_t __66__ICTTTextController_styleForModelAttributes_contentSizeCategory___
   _Block_object_dispose(&v41, 8);
 }
 
-void __75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributedString___block_invoke(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
+void __75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributedString___block_invoke(uint64_t a1, void *a2, char *a3, uint64_t a4)
 {
   v31[2] = *MEMORY[0x1E69E9840];
   v18 = a2;
-  v7 = a3 + a4;
-  if (a3 < a3 + a4)
+  v7 = &a3[a4];
+  if (a3 < &a3[a4])
   {
     v19 = *MEMORY[0x1E696A550];
     v20 = *MEMORY[0x1E69DB648];
@@ -1390,7 +1382,7 @@ void __75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributedStri
       _Block_object_dispose(&v23, 8);
       _Block_object_dispose(&v27, 8);
       objc_autoreleasePoolPop(v8);
-      a3 = v10 + v11;
+      a3 = (v10 + v11);
     }
 
     while (a3 < v7);
@@ -1407,7 +1399,7 @@ uint64_t __75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributed
   return result;
 }
 
-uint64_t __75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributedString___block_invoke_3(uint64_t a1, void *a2)
+void *__75__ICTTTextController_guessFontSizeThresholdsForTTStylesInAttributedString___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 pointSize];
@@ -1550,8 +1542,7 @@ void __81__ICTTTextController_indentsForIndividualParagraphHeadIndentsInAttribut
   v12 = v11;
 
   v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v155 = *MEMORY[0x1E69DB648];
-  v14 = [attributesCopy objectForKeyedSubscript:?];
+  v14 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   v15 = v14;
   v16 = MEMORY[0x1E69B7600];
   if (filterAttributesCopy && v14)
@@ -1583,10 +1574,10 @@ void __81__ICTTTextController_indentsForIndividualParagraphHeadIndentsInAttribut
     [v13 setObject:v29 forKeyedSubscript:*v16];
 
 LABEL_11:
-    v165 = 0;
-    v164 = 0;
-    [MEMORY[0x1E69B7890] font:v15 isBold:&v165 + 1 isItalic:&v165 isMonospace:&v164];
-    if (v165)
+    v162 = 0;
+    v161 = 0;
+    [MEMORY[0x1E69B7890] font:v15 isBold:&v162 + 1 isItalic:&v162 isMonospace:&v161];
+    if (v162)
     {
       v30 = 2;
     }
@@ -1596,8 +1587,8 @@ LABEL_11:
       v30 = 0;
     }
 
-    v31 = v30 | HIBYTE(v165);
-    if (v164 == 1)
+    v31 = v30 | HIBYTE(v162);
+    if (v161 == 1)
     {
       v32 = [MEMORY[0x1E69B78C0] paragraphStyleNamed:4];
       [v13 setObject:v32 forKeyedSubscript:*v16];
@@ -1619,11 +1610,11 @@ LABEL_11:
   }
 
   v21 = MEMORY[0x1E69B75E8];
-  v22 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B75E8]];
+  v22 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
   if (v22)
   {
-    v23 = [attributesCopy objectForKeyedSubscript:*v21];
+    v23 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     v24 = *v21;
 LABEL_18:
     [v13 setObject:v23 forKeyedSubscript:v24];
@@ -1631,11 +1622,11 @@ LABEL_18:
 
 LABEL_19:
   CopyWithAlpha = *MEMORY[0x1E69DB758];
-  v34 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB758]];
+  v34 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   if (v34)
   {
     v35 = v34;
-    CopyWithAlpha = [attributesCopy objectForKeyedSubscript:CopyWithAlpha];
+    CopyWithAlpha = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     integerValue = [CopyWithAlpha integerValue];
 
     if (integerValue)
@@ -1644,12 +1635,11 @@ LABEL_19:
     }
   }
 
-  v37 = *MEMORY[0x1E69DB6B8];
-  v38 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB6B8]];
-  if (v38)
+  v37 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+  if (v37)
   {
-    v39 = v38;
-    CopyWithAlpha = [attributesCopy objectForKeyedSubscript:v37];
+    v38 = v37;
+    CopyWithAlpha = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     integerValue2 = [CopyWithAlpha integerValue];
 
     if (integerValue2)
@@ -1658,73 +1648,73 @@ LABEL_19:
     }
   }
 
-  v41 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB6F8]];
+  v40 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  v42 = MEMORY[0x1E69B75D8];
-  if (v41)
+  v41 = MEMORY[0x1E69B75D8];
+  if (v40)
   {
-    v43 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB6F0]];
+    v42 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
     CopyWithAlpha = ICEmphasisColorTypeForNSTextHighlightColorScheme();
 
-    v44 = [MEMORY[0x1E696AD98] numberWithInteger:CopyWithAlpha];
+    v43 = [MEMORY[0x1E696AD98] numberWithInteger:CopyWithAlpha];
   }
 
   else
   {
-    v45 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+    v44 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-    if (!v45)
+    if (!v44)
     {
       goto LABEL_30;
     }
 
-    v44 = [attributesCopy objectForKeyedSubscript:*v42];
+    v43 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   }
 
-  v46 = v44;
-  [v13 setObject:v44 forKeyedSubscript:*v42];
+  v45 = v43;
+  [v13 setObject:v43 forKeyedSubscript:*v41];
 
 LABEL_30:
   if (!filterAttributesCopy)
   {
-    v47 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
-    if (v47)
+    v46 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    if (v46)
     {
       CopyWithAlpha = [MEMORY[0x1E69DC888] preferredDefaultFontColor];
-      v48 = [v47 isEqual:CopyWithAlpha];
+      v47 = [v46 isEqual:CopyWithAlpha];
 
-      if ((v48 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
-        CopyWithAlpha = CGColorCreateCopyWithAlpha([v47 CGColor], 1.0);
+        CopyWithAlpha = CGColorCreateCopyWithAlpha([v46 CGColor], 1.0);
         [v13 setObject:CopyWithAlpha forKeyedSubscript:*MEMORY[0x1E69B75F0]];
         CGColorRelease(CopyWithAlpha);
       }
     }
   }
 
-  v49 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E6999A70]];
+  v48 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
   selfCopy = self;
-  if (!v49 || ([attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7970]], (CopyWithAlpha = objc_claimAutoreleasedReturnValue()) != 0))
+  if (!v48 || (objc_msgSend_objectForKeyedSubscript_(attributesCopy), (CopyWithAlpha = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v50 = *MEMORY[0x1E69DB670];
-    v51 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB670]];
+    v49 = *MEMORY[0x1E69DB670];
+    v50 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-    if (v49)
+    if (v48)
     {
     }
 
-    if (v51)
+    if (v50)
     {
-      v52 = [attributesCopy objectForKeyedSubscript:v50];
-      [v13 setObject:v52 forKeyedSubscript:v50];
+      v51 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+      [v13 setObject:v51 forKeyedSubscript:v49];
 
-      v53 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB650]];
-      [v53 CGColor];
+      v52 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+      [v52 CGColor];
       tintColor = [MEMORY[0x1E69DC888] tintColor];
       [tintColor CGColor];
-      v55 = ICCGColorEquivalentToColor();
+      v54 = ICCGColorEquivalentToColor();
 
-      if (v55)
+      if (v54)
       {
         [v13 setObject:0 forKeyedSubscript:*MEMORY[0x1E69B75F0]];
       }
@@ -1735,155 +1725,154 @@ LABEL_30:
   {
   }
 
-  v56 = MEMORY[0x1E69B7610];
-  v57 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B7610]];
+  v55 = MEMORY[0x1E69B7610];
+  v56 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  if (v57)
+  if (v56)
   {
-    v58 = [attributesCopy objectForKeyedSubscript:*v56];
-    [v13 setObject:v58 forKeyedSubscript:*v56];
+    v57 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v57 forKeyedSubscript:*v55];
   }
 
-  v59 = *MEMORY[0x1E69DB778];
-  v60 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB778]];
+  v58 = *MEMORY[0x1E69DB778];
+  v59 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  v61 = selfCopy;
-  v62 = MEMORY[0x1E69B7600];
-  if (v60)
+  v60 = selfCopy;
+  v61 = MEMORY[0x1E69B7600];
+  if (v59)
   {
-    v63 = [attributesCopy objectForKeyedSubscript:v59];
-    [v13 setObject:v63 forKeyedSubscript:v59];
+    v62 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v62 forKeyedSubscript:v58];
   }
 
-  v64 = *MEMORY[0x1E69DB5F8];
-  v65 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+  v63 = *MEMORY[0x1E69DB5F8];
+  v64 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  if (v65)
+  if (v64)
   {
-    v66 = [attributesCopy objectForKeyedSubscript:v64];
-    [v13 setObject:v66 forKeyedSubscript:v64];
+    v65 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v65 forKeyedSubscript:v63];
   }
 
-  v67 = *MEMORY[0x1E69DB5F0];
-  v68 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB5F0]];
+  v66 = *MEMORY[0x1E69DB5F0];
+  v67 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  if (v68)
+  if (v67)
   {
-    v69 = [attributesCopy objectForKeyedSubscript:v67];
-    [v13 setObject:v69 forKeyedSubscript:v67];
+    v68 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v68 forKeyedSubscript:v66];
   }
 
-  v70 = MEMORY[0x1E69B75F8];
-  v71 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69B75F8]];
+  v69 = MEMORY[0x1E69B75F8];
+  v70 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  if (v71)
+  if (v70)
   {
-    v72 = [attributesCopy objectForKeyedSubscript:*v70];
-    [v13 setObject:v72 forKeyedSubscript:*v70];
+    v71 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v71 forKeyedSubscript:*v69];
   }
 
-  v156 = stringCopy;
-  v73 = [attributesCopy objectForKeyedSubscript:*v62];
+  v153 = stringCopy;
+  v72 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  if (v73)
+  if (v72)
   {
-    v74 = [attributesCopy objectForKeyedSubscript:*v62];
-    [v13 setObject:v74 forKeyedSubscript:*v62];
+    v73 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    [v13 setObject:v73 forKeyedSubscript:*v61];
   }
 
-  v75 = *MEMORY[0x1E69DB688];
-  v76 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+  v74 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-  v159 = v15;
-  if (v76)
+  v156 = v15;
+  if (v74)
   {
-    v77 = [attributesCopy objectForKeyedSubscript:v75];
-    v78 = [attributesCopy objectForKeyedSubscript:*v62];
-    todo = [v78 mutableCopy];
+    v75 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    v76 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+    todo = [v76 mutableCopy];
 
-    textLists = [v77 textLists];
+    textLists = [v75 textLists];
     if ([textLists count])
     {
       isList = [todo isList];
 
       if ((isList & 1) == 0)
       {
-        textLists2 = [v77 textLists];
+        textLists2 = [v75 textLists];
         lastObject = [textLists2 lastObject];
 
-        v84 = lastObject;
+        v82 = lastObject;
         markerFormat = [lastObject markerFormat];
         if ([markerFormat containsString:@"{hyphen}"])
         {
-          v86 = MEMORY[0x1E69B78B8];
-          v87 = 101;
+          v84 = MEMORY[0x1E69B78B8];
+          v85 = 101;
         }
 
         else
         {
           if ([markerFormat containsString:@"{decimal}"])
           {
-            v88 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:102];
+            v86 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:102];
 
-            if ([v84 startingItemNumber] < 1)
+            if ([v82 startingItemNumber] < 1)
             {
               startingItemNumber = 0;
             }
 
             else
             {
-              startingItemNumber = [v84 startingItemNumber];
+              startingItemNumber = [v82 startingItemNumber];
             }
 
-            [v88 setStartingItemNumber:startingItemNumber];
+            [v86 setStartingItemNumber:startingItemNumber];
             goto LABEL_87;
           }
 
-          if ([markerFormat containsString:@"{check}"] & 1) != 0 || (objc_msgSend(v84, "markerTextAttachment"), v154 = v84, v103 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v103, v84 = v154, (isKindOfClass))
+          if ([markerFormat containsString:@"{check}"] & 1) != 0 || (objc_msgSend(v82, "markerTextAttachment"), v152 = v82, v101 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v101, v82 = v152, (isKindOfClass))
           {
-            v88 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:103];
+            v86 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:103];
 
-            v105 = [attributesCopy objectForKeyedSubscript:v37];
+            v103 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
 
-            if (!v105)
+            if (!v103)
             {
               goto LABEL_87;
             }
 
-            todo = [v88 todo];
+            todo = [v86 todo];
             [todo todoWithDone:1];
-            v107 = v106 = v84;
-            [v88 setTodo:v107];
+            v105 = v104 = v82;
+            [v86 setTodo:v105];
 
-            v84 = v106;
+            v82 = v104;
 LABEL_61:
 
 LABEL_87:
-            textLists3 = [v77 textLists];
-            [v88 setIndent:{objc_msgSend(textLists3, "count") - 1}];
+            textLists3 = [v75 textLists];
+            [v86 setIndent:{objc_msgSend(textLists3, "count") - 1}];
 
-            [v88 setNeedsListCleanup:1];
-            todo = v88;
-            v61 = selfCopy;
+            [v86 setNeedsListCleanup:1];
+            todo = v86;
+            v60 = selfCopy;
 LABEL_88:
-            v62 = MEMORY[0x1E69B7600];
+            v61 = MEMORY[0x1E69B7600];
             if (todo)
             {
-              [todo setAlignment:{objc_msgSend(v77, "alignment")}];
-              [todo setWritingDirection:{objc_msgSend(v77, "baseWritingDirection")}];
-              v111 = [todo copy];
-              [v13 setObject:v111 forKeyedSubscript:*v62];
+              [todo setAlignment:{objc_msgSend(v75, "alignment")}];
+              [todo setWritingDirection:{objc_msgSend(v75, "baseWritingDirection")}];
+              v109 = [todo copy];
+              [v13 setObject:v109 forKeyedSubscript:*v61];
             }
 
-            v15 = v159;
+            v15 = v156;
             goto LABEL_91;
           }
 
-          v86 = MEMORY[0x1E69B78B8];
-          v87 = 100;
+          v84 = MEMORY[0x1E69B78B8];
+          v85 = 100;
         }
 
-        v88 = [v86 paragraphStyleNamed:v87];
+        v86 = [v84 paragraphStyleNamed:v85];
         goto LABEL_61;
       }
     }
@@ -1892,35 +1881,35 @@ LABEL_88:
     {
     }
 
-    [v77 headIndent];
-    if (v89 <= 0.0)
+    [v75 headIndent];
+    if (v87 <= 0.0)
     {
-      if ([v156 length])
+      if ([stringCopy length])
       {
-        v92 = [v156 length] != 1;
-        v93 = [v156 attribute:*MEMORY[0x1E696A7D0] atIndex:v92 effectiveRange:0];
-        if ([v93 intentKind] == 6)
+        v90 = [stringCopy length] != 1;
+        v91 = [stringCopy attribute:*MEMORY[0x1E696A7D0] atIndex:v90 effectiveRange:0];
+        if ([v91 intentKind] == 6)
         {
-          v94 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:3];
+          v92 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:3];
 
-          v95 = 0;
-          if (v93)
+          v93 = 0;
+          if (v91)
           {
             do
             {
-              ++v95;
-              parentIntent = [v93 parentIntent];
+              ++v93;
+              parentIntent = [v91 parentIntent];
 
-              v93 = parentIntent;
+              v91 = parentIntent;
             }
 
             while (parentIntent);
           }
 
-          [v94 setBlockQuoteLevel:v95];
-          v93 = 0;
-          todo = v94;
-          v61 = selfCopy;
+          [v92 setBlockQuoteLevel:v93];
+          v91 = 0;
+          todo = v92;
+          v60 = selfCopy;
         }
       }
     }
@@ -1929,8 +1918,8 @@ LABEL_88:
     {
       if ([(ICTTTextController *)selfCopy defaultTabInterval])
       {
-        [v77 headIndent];
-        unsignedIntegerValue = vcvtpd_u64_f64(fabs(v90 / [(ICTTTextController *)selfCopy defaultTabInterval]));
+        [v75 headIndent];
+        unsignedIntegerValue = vcvtpd_u64_f64(fabs(v88 / [(ICTTTextController *)selfCopy defaultTabInterval]));
       }
 
       else
@@ -1940,67 +1929,67 @@ LABEL_88:
         if (indentForHeadIndent)
         {
           indentForHeadIndent2 = [(ICTTTextController *)selfCopy indentForHeadIndent];
-          v100 = MEMORY[0x1E696AD98];
-          [v77 headIndent];
-          v101 = [v100 numberWithDouble:?];
-          v102 = [indentForHeadIndent2 objectForKeyedSubscript:v101];
-          unsignedIntegerValue = [v102 unsignedIntegerValue];
+          v98 = MEMORY[0x1E696AD98];
+          [v75 headIndent];
+          v99 = [v98 numberWithDouble:?];
+          v100 = objc_msgSend_objectForKeyedSubscript_(indentForHeadIndent2);
+          unsignedIntegerValue = [v100 unsignedIntegerValue];
 
-          v61 = selfCopy;
+          v60 = selfCopy;
         }
 
         else
         {
-          v108 = os_log_create("com.apple.notes", "UI");
-          if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+          v106 = os_log_create("com.apple.notes", "UI");
+          if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
           {
-            [ICTTTextController modelForStyleAttributes:v108 filterAttributes:? pasteboardAttributedString:?];
+            [ICTTTextController modelForStyleAttributes:v106 filterAttributes:? pasteboardAttributedString:?];
           }
 
           unsignedIntegerValue = 0;
         }
       }
 
-      v109 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:3];
+      v107 = [MEMORY[0x1E69B78B8] paragraphStyleNamed:3];
 
-      [v109 setIndent:unsignedIntegerValue];
-      todo = v109;
+      [v107 setIndent:unsignedIntegerValue];
+      todo = v107;
     }
 
     goto LABEL_88;
   }
 
 LABEL_91:
-  v112 = [attributesCopy objectForKeyedSubscript:v75];
-  v113 = [v13 objectForKeyedSubscript:*v62];
-  v114 = v113;
-  if (filterAttributesCopy && v112)
+  v110 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
+  v111 = objc_msgSend_objectForKeyedSubscript_(v13);
+  v112 = v111;
+  if (filterAttributesCopy && v110)
   {
-    if (v113)
+    if (v111)
     {
-      alignment = [v113 alignment];
+      alignment = [v111 alignment];
       if (alignment == *MEMORY[0x1E69B7638])
       {
 LABEL_102:
-        writingDirection = [v114 writingDirection];
-        if (writingDirection == [v112 baseWritingDirection])
+        writingDirection = [v112 writingDirection];
+        if (writingDirection == [v110 baseWritingDirection])
         {
           goto LABEL_110;
         }
 
-        v121 = [v114 mutableCopy];
+        v119 = [v112 mutableCopy];
 LABEL_106:
-        v122 = v121;
+        v120 = v119;
 
-        [v122 setWritingDirection:{objc_msgSend(v112, "baseWritingDirection")}];
-        alignment2 = [v122 alignment];
-        if (alignment2 == *MEMORY[0x1E69B7640] || (v124 = [v122 alignment], v124 == *MEMORY[0x1E69B7648]))
+        [v120 setWritingDirection:{objc_msgSend(v110, "baseWritingDirection")}];
+        alignment2 = [v120 alignment];
+        if (alignment2 == *MEMORY[0x1E69B7640] || (v122 = [v120 alignment], v122 == *MEMORY[0x1E69B7648]))
         {
-          [v122 setAlignment:*MEMORY[0x1E69B7638]];
+          [v120 setAlignment:*MEMORY[0x1E69B7638]];
         }
 
-        v125 = [v122 copy];
-        [v13 setObject:v125 forKeyedSubscript:*v62];
+        v123 = [v120 copy];
+        [v13 setObject:v123 forKeyedSubscript:*v61];
 
 LABEL_110:
         if (filterAttributesCopy)
@@ -2011,28 +2000,28 @@ LABEL_110:
         goto LABEL_111;
       }
 
-      v116 = [v114 mutableCopy];
+      v114 = [v112 mutableCopy];
     }
 
     else
     {
-      alignment3 = [v112 alignment];
+      alignment3 = [v110 alignment];
       if (alignment3 == *MEMORY[0x1E69B7638])
       {
         goto LABEL_104;
       }
 
-      v116 = objc_alloc_init(MEMORY[0x1E69B78B8]);
+      v114 = objc_alloc_init(MEMORY[0x1E69B78B8]);
     }
 
-    v118 = v116;
+    v116 = v114;
 
-    [v118 setAlignment:*MEMORY[0x1E69B7638]];
-    v119 = [v118 copy];
+    [v116 setAlignment:*MEMORY[0x1E69B7638]];
+    v117 = [v116 copy];
 
-    [v13 setObject:v119 forKeyedSubscript:*v62];
-    v114 = v119;
-    if (v119)
+    [v13 setObject:v117 forKeyedSubscript:*v61];
+    v112 = v117;
+    if (v117)
     {
       goto LABEL_102;
     }
@@ -2040,26 +2029,26 @@ LABEL_110:
 
   else
   {
-    if (!v112)
+    if (!v110)
     {
       goto LABEL_110;
     }
 
-    if (v113)
+    if (v111)
     {
       goto LABEL_102;
     }
   }
 
 LABEL_104:
-  if ([v112 baseWritingDirection] != -1)
+  if ([v110 baseWritingDirection] != -1)
   {
-    v121 = objc_alloc_init(MEMORY[0x1E69B78B8]);
-    v114 = 0;
+    v119 = objc_alloc_init(MEMORY[0x1E69B78B8]);
+    v112 = 0;
     goto LABEL_106;
   }
 
-  v114 = 0;
+  v112 = 0;
   if (filterAttributesCopy)
   {
     goto LABEL_147;
@@ -2068,78 +2057,78 @@ LABEL_104:
 LABEL_111:
   if (v15)
   {
-    v126 = [(ICTTTextController *)v61 styleForModelAttributes:v13];
-    v127 = [v126 objectForKeyedSubscript:v155];
+    v124 = [(ICTTTextController *)v60 styleForModelAttributes:v13];
+    v125 = objc_msgSend_objectForKeyedSubscript_(v124);
     [v15 pointSize];
-    if (v128 <= 0.0 || ([v15 pointSize], v129 == INFINITY))
+    if (v126 <= 0.0 || ([v15 pointSize], v127 == INFINITY))
     {
-      v130 = v127;
+      v128 = v125;
     }
 
     else
     {
-      v130 = v15;
+      v128 = v15;
     }
 
-    [v130 pointSize];
-    v132 = v131;
-    fontName = [v127 fontName];
+    [v128 pointSize];
+    v130 = v129;
+    fontName = [v125 fontName];
     fontName2 = [v15 fontName];
-    v135 = [fontName isEqualToString:fontName2];
+    v133 = [fontName isEqualToString:fontName2];
 
-    [v127 pointSize];
-    v137 = round(v136);
-    v138 = round(v132);
-    if ((v135 & 1) != 0 || !v114)
+    [v125 pointSize];
+    v135 = round(v134);
+    v136 = round(v130);
+    if ((v133 & 1) != 0 || !v112)
     {
 LABEL_137:
-      if (v135 && v137 == v138)
+      if (v133 && v135 == v136)
       {
 LABEL_146:
 
-        v15 = v159;
+        v15 = v156;
         goto LABEL_147;
       }
 
 LABEL_139:
-      v145 = [v13 objectForKeyedSubscript:*MEMORY[0x1E69B75E8]];
-      integerValue3 = [v145 integerValue];
+      v143 = objc_msgSend_objectForKeyedSubscript_(v13);
+      integerValue3 = [v143 integerValue];
 
-      v147 = objc_alloc(MEMORY[0x1E69B7890]);
-      if (v135)
+      v145 = objc_alloc(MEMORY[0x1E69B7890]);
+      if (v133)
       {
         fontName3 = 0;
       }
 
       else
       {
-        fontName3 = [v159 fontName];
+        fontName3 = [v156 fontName];
       }
 
-      v149 = 0.0;
-      if (v137 != v138)
+      v147 = 0.0;
+      if (v135 != v136)
       {
-        [v159 pointSize];
-        v149 = v150 / v12;
+        [v156 pointSize];
+        v147 = v148 / v12;
       }
 
-      v151 = [v147 initWithName:fontName3 size:integerValue3 hints:v149];
-      [v13 setObject:v151 forKeyedSubscript:*MEMORY[0x1E69B75E0]];
+      v149 = [v145 initWithName:fontName3 size:integerValue3 hints:v147];
+      [v13 setObject:v149 forKeyedSubscript:*MEMORY[0x1E69B75E0]];
 
-      if ((v135 & 1) == 0)
+      if ((v133 & 1) == 0)
       {
       }
 
       goto LABEL_146;
     }
 
-    if (![v114 isHeader])
+    if (![v112 isHeader])
     {
-      LOBYTE(v135) = 0;
+      LOBYTE(v133) = 0;
       goto LABEL_139;
     }
 
-    style = [v114 style];
+    style = [v112 style];
     if (style == 2)
     {
       ic_preferredFontForSubheadingText = [MEMORY[0x1E69DB878] ic_preferredFontForSubheadingText];
@@ -2164,24 +2153,24 @@ LABEL_139:
       ic_preferredFontForSubheadingText = ;
     }
 
-    v141 = ic_preferredFontForSubheadingText;
-    v163 = 0;
-    v162 = 0;
-    v161 = 0;
+    v139 = ic_preferredFontForSubheadingText;
     v160 = 0;
-    [MEMORY[0x1E69B7890] font:v15 isBold:&v163 isItalic:&v162 isMonospace:&v161];
-    [MEMORY[0x1E69B7890] font:v141 isBold:&v162 + 1 isItalic:&v161 + 1 isMonospace:&v160];
+    v159 = 0;
+    v158 = 0;
+    v157 = 0;
+    [MEMORY[0x1E69B7890] font:v15 isBold:&v160 isItalic:&v159 isMonospace:&v158];
+    [MEMORY[0x1E69B7890] font:v139 isBold:&v159 + 1 isItalic:&v158 + 1 isMonospace:&v157];
     familyName = [v15 familyName];
-    familyName2 = [v127 familyName];
-    if ([familyName isEqualToString:familyName2] && v163 == HIBYTE(v162))
+    familyName2 = [v125 familyName];
+    if ([familyName isEqualToString:familyName2] && v160 == HIBYTE(v159))
     {
-      v158 = v162;
-      v144 = HIBYTE(v161);
+      v155 = v159;
+      v142 = HIBYTE(v158);
 
-      if (v158 == v144)
+      if (v155 == v142)
       {
         [v13 removeObjectForKey:*MEMORY[0x1E69B75E8]];
-        v135 = 1;
+        v133 = 1;
 LABEL_136:
 
         goto LABEL_137;
@@ -2192,12 +2181,12 @@ LABEL_136:
     {
     }
 
-    v135 = 0;
+    v133 = 0;
     goto LABEL_136;
   }
 
 LABEL_147:
-  v152 = v13;
+  v150 = v13;
 
   return v13;
 }

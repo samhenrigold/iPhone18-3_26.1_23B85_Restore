@@ -240,7 +240,7 @@ LABEL_40:
       }
 
       memset(&v66, 0, sizeof(v66));
-      [v10 minFrameDuration];
+      objc_msgSend_minFrameDuration(v10);
       if ([(AXMTVideoCapturer *)self _backlightIsOff])
       {
         v41 = 1.0;
@@ -802,7 +802,7 @@ LABEL_27:
     v19 = _captureDevice4;
     if (_captureDevice4)
     {
-      [_captureDevice4 activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(_captureDevice4);
     }
 
     else
@@ -821,7 +821,7 @@ LABEL_27:
         v31 = _captureDevice5;
         if (_captureDevice5)
         {
-          [_captureDevice5 activeVideoMinFrameDuration];
+          objc_msgSend_activeVideoMinFrameDuration(_captureDevice5);
         }
 
         else
@@ -835,7 +835,7 @@ LABEL_27:
         v28 = _captureDevice6;
         if (_captureDevice6)
         {
-          [_captureDevice6 activeVideoMaxFrameDuration];
+          objc_msgSend_activeVideoMaxFrameDuration(_captureDevice6);
         }
 
         else

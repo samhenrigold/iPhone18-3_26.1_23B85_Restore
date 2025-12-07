@@ -10,31 +10,30 @@
 
 - (HFPrimaryStateIconDescriptor)initWithIdentifier:(id)identifier primaryState:(int64_t)state
 {
-  v14[10] = *MEMORY[0x277D85DE8];
+  v13[10] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v13.receiver = self;
-  v13.super_class = HFPrimaryStateIconDescriptor;
-  v8 = [(HFPrimaryStateIconDescriptor *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = HFPrimaryStateIconDescriptor;
+  v8 = [(HFPrimaryStateIconDescriptor *)&v12 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_identifier, identifier);
     v9->_primaryState = state;
-    v14[0] = @"HFImageIconIdentifierAppleTVRegular";
-    v14[1] = @"HFImageIconIdentifierAppleTVSmall";
-    v14[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
-    v14[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
-    v14[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
-    v14[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
-    v14[6] = @"HFCAPackageIconIdentifierAirport";
-    v14[7] = @"HFImageIconIdentifierGeneric";
-    v14[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
-    v14[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
+    v13[0] = @"HFImageIconIdentifierAppleTVRegular";
+    v13[1] = @"HFImageIconIdentifierAppleTVSmall";
+    v13[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
+    v13[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
+    v13[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
+    v13[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
+    v13[6] = @"HFCAPackageIconIdentifierAirport";
+    v13[7] = @"HFImageIconIdentifierGeneric";
+    v13[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
+    v13[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:10];
     v9->_shouldForceLTR = [v10 containsObject:identifierCopy];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

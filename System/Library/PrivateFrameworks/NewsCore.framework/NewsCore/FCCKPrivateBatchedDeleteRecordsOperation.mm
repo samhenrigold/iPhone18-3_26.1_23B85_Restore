@@ -36,27 +36,26 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   database = [(FCCKPrivateBatchedDeleteRecordsOperation *)self database];
 
   if (!database && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"modify operation must have a database"];
-    v9 = 136315906;
-    v10 = "[FCCKPrivateBatchedDeleteRecordsOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCCKPrivateBatchedDeleteRecordsOperation.m";
-    v13 = 1024;
-    v14 = 46;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"modify operation must have a database"];
+    v8 = 136315906;
+    v9 = "[FCCKPrivateBatchedDeleteRecordsOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCCKPrivateBatchedDeleteRecordsOperation.m";
+    v12 = 1024;
+    v13 = 46;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   database2 = [(FCCKPrivateBatchedDeleteRecordsOperation *)self database];
   v5 = database2 != 0;
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -77,7 +76,7 @@
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -88,10 +87,10 @@
     {
       v7 = MEMORY[0x1E696ABC0];
       v8 = *MEMORY[0x1E695B740];
-      v15 = *MEMORY[0x1E695B798];
+      v14 = *MEMORY[0x1E695B798];
       resultErrorsByRecordID2 = [(FCCKPrivateBatchedDeleteRecordsOperation *)self resultErrorsByRecordID];
-      v16[0] = resultErrorsByRecordID2;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = resultErrorsByRecordID2;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       errorCopy = [v7 errorWithDomain:v8 code:2 userInfo:v10];
     }
 
@@ -109,8 +108,6 @@
     resultDeletedRecordIDs = [(FCCKPrivateBatchedDeleteRecordsOperation *)self resultDeletedRecordIDs];
     (deleteRecordsCompletionBlock2)[2](deleteRecordsCompletionBlock2, resultDeletedRecordIDs, errorCopy);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueModifying
@@ -143,35 +140,35 @@
 
 void __62__FCCKPrivateBatchedDeleteRecordsOperation__continueModifying__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v26 = a2;
+  v31 = *MEMORY[0x1E69E9840];
+  v25 = a2;
   v5 = a3;
   if ([v5 fc_isCKErrorWithCode:27])
   {
-    v25 = a1;
+    v24 = a1;
     v6 = [*(a1 + 32) remainingBatchesOfRecordIDsToDelete];
     v7 = [v6 copy];
     [v6 removeAllObjects];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = *v27;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v26 + 1) + 8 * i);
           v14 = [v13 count] >> 1;
           v15 = [v13 subarrayWithRange:{0, v14}];
           v16 = [v13 subarrayWithRange:{v14, objc_msgSend(v13, "count") - v14}];
@@ -179,13 +176,13 @@ void __62__FCCKPrivateBatchedDeleteRecordsOperation__continueModifying__block_in
           [v6 addObject:v16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v10);
     }
 
-    [*(v25 + 32) _continueModifying];
+    [*(v24 + 32) _continueModifying];
   }
 
   else if (v5 && [v5 code] != 2)
@@ -195,10 +192,10 @@ void __62__FCCKPrivateBatchedDeleteRecordsOperation__continueModifying__block_in
 
   else
   {
-    if (v26)
+    if (v25)
     {
       v17 = [*(a1 + 32) resultDeletedRecordIDs];
-      [v17 addObjectsFromArray:v26];
+      [v17 addObjectsFromArray:v25];
     }
 
     v18 = [*(a1 + 32) remainingBatchesOfRecordIDsToDelete];
@@ -221,8 +218,6 @@ void __62__FCCKPrivateBatchedDeleteRecordsOperation__continueModifying__block_in
 
     [*(a1 + 32) _continueModifying];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

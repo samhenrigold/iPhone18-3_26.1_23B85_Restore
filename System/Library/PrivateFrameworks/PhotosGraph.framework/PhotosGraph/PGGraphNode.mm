@@ -2,6 +2,8 @@
 - (BOOL)isEqualToNode:(id)node;
 - (MANodeFilter)entityFilter;
 - (PGGraphNode)init;
+- (PGGraphNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)keywordDescription;
 - (id)propertyForKey:(id)key;
 - (id)shortDescription;
@@ -19,7 +21,7 @@
 
 - (id)propertyForKey:(id)key
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = +[PGLogging sharedLogging];
   loggingConnection = [v5 loggingConnection];
@@ -27,14 +29,12 @@
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = objc_opt_class();
+    v11 = objc_opt_class();
   }
 
-  v10.receiver = self;
-  v10.super_class = PGGraphNode;
-  v7 = [(MANode *)&v10 propertyForKey:keyCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = PGGraphNode;
+  v7 = [(MANode *)&v9 propertyForKey:keyCopy];
 
   return v7;
 }
@@ -123,27 +123,27 @@ LABEL_11:
 
 - (MANodeFilter)entityFilter
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   propertyDictionary = [(MANode *)self propertyDictionary];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [&unk_284485478 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v4 = [&unk_284485478 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v18 != v6)
+      if (*v17 != v6)
       {
         objc_enumerationMutation(&unk_284485478);
       }
 
-      v8 = *(*(&v17 + 1) + 8 * v7);
+      v8 = *(*(&v16 + 1) + 8 * v7);
       v9 = [propertyDictionary objectForKeyedSubscript:v8];
 
       if (v9)
@@ -153,7 +153,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [&unk_284485478 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v5 = [&unk_284485478 countByEnumeratingWithState:&v16 objects:v22 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -163,10 +163,10 @@ LABEL_3:
       }
     }
 
-    v21 = v8;
+    v20 = v8;
     v10 = [propertyDictionary objectForKeyedSubscript:v8];
-    v22 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v21 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
 
     if (v11)
     {
@@ -181,9 +181,37 @@ LABEL_12:
   label = [(PGGraphNode *)self label];
   v14 = [v12 initWithLabel:label domain:-[PGGraphNode domain](self properties:{"domain"), v11}];
 
-  v15 = *MEMORY[0x277D85DE8];
+  return v14;
+}
+
+- (PGGraphNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  if (*MEMORY[0x277D22CA8] != weight)
+  {
+    __assert_rtn("[PGGraphNode initWithLabel:domain:weight:properties:]", "PGGraphNode.m", 306, "weight == kMAElementDefaultWeight");
+  }
+
+  v13 = propertiesCopy;
+  LODWORD(v12) = *MEMORY[0x277D22CA8];
+  v14 = [(PGGraphNode *)self initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy, v12];
 
   return v14;
+}
+
+- (PGGraphNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  LODWORD(v11) = *MEMORY[0x277D22CA8];
+  v14.receiver = self;
+  v14.super_class = PGGraphNode;
+  v12 = [(MANode *)&v14 initWithLabel:labelCopy domain:domainCopy weight:propertiesCopy properties:v11];
+  v13 = PGMethodNotImplentedException(v12, a2);
+  objc_exception_throw(v13);
 }
 
 - (PGGraphNode)init

@@ -9,34 +9,36 @@
 
 + (id)actionWithDictionary:(id)dictionary appContext:(id)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   contextCopy = context;
   v8 = [dictionaryCopy vui_stringForKey:@"actionRef"];
   v9 = [dictionaryCopy vui_dictionaryForKey:@"contextData"];
+  v10 = v9;
   if (v8)
   {
-    if (([v8 isEqualToString:@"actionRefBuy"] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefGet") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefPreorder") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefRent") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefRentWatchNow") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefComplete") & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", @"actionRefUpdate") & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"actionRefSubscribe"))
+    v11 = [v8 isEqualToString:@"actionRefBuy"];
+    if (v11 & 1) != 0 || (v11 = [v8 isEqualToString:@"actionRefGet"], (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefPreorder"), (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefRent"), (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefRentWatchNow"), (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefComplete"), (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefUpdate"), (v11) || (v11 = objc_msgSend(v8, "isEqualToString:", @"actionRefSubscribe"), v11))
     {
       if (contextCopy)
       {
-        v10 = [[VUIActionCommerceTransaction alloc] initWithActionRef:v8 contextData:v9 appContext:contextCopy];
+        v12 = [[VUIActionCommerceTransaction alloc] initWithActionRef:v8 contextData:v10 appContext:contextCopy];
 LABEL_12:
-        v11 = v10;
+        v13 = v12;
 LABEL_20:
-        v12 = [dictionaryCopy vui_dictionaryForKey:@"success"];
-        v14 = [dictionaryCopy vui_dictionaryForKey:@"failure"];
-        v15 = [self actionWithDictionary:v12 appContext:contextCopy];
-        [(VUIAction *)v11 setSuccessAction:v15];
+        v14 = [dictionaryCopy vui_dictionaryForKey:@"success"];
+        v16 = [dictionaryCopy vui_dictionaryForKey:@"failure"];
+        v17 = [self actionWithDictionary:v14 appContext:contextCopy];
+        [(VUIAction *)v13 setSuccessAction:v17];
 
-        v16 = [self actionWithDictionary:v14 appContext:contextCopy];
-        [(VUIAction *)v11 setFailureAction:v16];
+        v18 = [self actionWithDictionary:v16 appContext:contextCopy];
+        [(VUIAction *)v13 setFailureAction:v18];
 
         goto LABEL_21;
       }
 
-      v13 = VUIDefaultLogObject();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = VUIDefaultLogObject(v11);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
@@ -46,16 +48,17 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-      v11 = 0;
+      v13 = 0;
       goto LABEL_20;
     }
 
-    if (([v8 isEqualToString:@"actionRefPlay"] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"actionRefRedownload"))
+    v20 = [v8 isEqualToString:@"actionRefPlay"];
+    if ((v20 & 1) != 0 || (v20 = [v8 isEqualToString:@"actionRefRedownload"], v20))
     {
       if (!contextCopy)
       {
-        v13 = VUIDefaultLogObject();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = VUIDefaultLogObject(v20);
+        if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_18;
         }
@@ -63,16 +66,17 @@ LABEL_19:
         goto LABEL_17;
       }
 
-      v18 = VUIActionPlay;
+      v21 = VUIActionPlay;
       goto LABEL_28;
     }
 
-    if ([v8 isEqualToString:@"actionRefPlaylist"])
+    v22 = [v8 isEqualToString:@"actionRefPlaylist"];
+    if (v22)
     {
       if (!contextCopy)
       {
-        v13 = VUIDefaultLogObject();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = VUIDefaultLogObject(v22);
+        if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_18;
         }
@@ -80,37 +84,37 @@ LABEL_19:
         goto LABEL_17;
       }
 
-      v18 = VUIActionPlaylist;
+      v21 = VUIActionPlaylist;
       goto LABEL_28;
     }
 
     if ([v8 isEqualToString:@"actionRefDownload"])
     {
-      v18 = VUIActionDownload;
+      v21 = VUIActionDownload;
       goto LABEL_28;
     }
 
     if ([v8 isEqualToString:@"actionRefNavigate"])
     {
-      v10 = [[VUIActionNavigate alloc] initWithActionDataSource:dictionaryCopy appContext:contextCopy];
+      v12 = [[VUIActionNavigate alloc] initWithActionDataSource:dictionaryCopy appContext:contextCopy];
       goto LABEL_12;
     }
 
     if ([v8 isEqualToString:@"actionRefAppPunchout"])
     {
-      v18 = VUIActionAppPunchout;
+      v21 = VUIActionAppPunchout;
       goto LABEL_28;
     }
 
     if ([v8 isEqualToString:@"actionRefPunchout"])
     {
-      v18 = VUIActionPunchout;
+      v21 = VUIActionPunchout;
       goto LABEL_28;
     }
 
     if ([v8 isEqualToString:@"actionRefPromise"])
     {
-      v18 = VUIActionPromise;
+      v21 = VUIActionPromise;
       goto LABEL_28;
     }
 
@@ -121,27 +125,27 @@ LABEL_19:
 
     if ([v8 isEqualToString:@"actionRefShareMediaItem"])
     {
-      v10 = [[VUIActionShareSheet alloc] initWithContextData:v9 sourceView:0];
+      v12 = [[VUIActionShareSheet alloc] initWithContextData:v10 sourceView:0];
       goto LABEL_12;
     }
 
     if ([v8 isEqualToString:@"actionRefUpdateUpNext"])
     {
-      v19 = VUIActionUpdateUpNext;
+      v23 = VUIActionUpdateUpNext;
       goto LABEL_53;
     }
 
     if ([v8 isEqualToString:@"actionRefMarkAsWatched"])
     {
-      v19 = VUIActionMarkedAsWatched;
+      v23 = VUIActionMarkedAsWatched;
       goto LABEL_53;
     }
 
     if ([v8 isEqualToString:@"actionRefRemoveFromPlayHistory"])
     {
-      v20 = [VUIActionRemoveFromPlayHistory alloc];
-      v21 = v9;
-      v22 = 0;
+      v24 = [VUIActionRemoveFromPlayHistory alloc];
+      v25 = v10;
+      v26 = 0;
     }
 
     else
@@ -150,21 +154,22 @@ LABEL_19:
       {
         if ([v8 isEqualToString:@"actionRefUpdateMusic"])
         {
-          v19 = VUIActionUpdateMusic;
+          v23 = VUIActionUpdateMusic;
         }
 
         else
         {
-          if ([v8 isEqualToString:@"actionRefAlert"])
+          v27 = [v8 isEqualToString:@"actionRefAlert"];
+          if (v27)
           {
             if (contextCopy)
             {
-              v10 = [[VUIActionAlert alloc] initWithContextData:v9 appContext:contextCopy controllerClass:objc_opt_class()];
+              v12 = [[VUIActionAlert alloc] initWithContextData:v10 appContext:contextCopy controllerClass:objc_opt_class()];
               goto LABEL_12;
             }
 
-            v13 = VUIDefaultLogObject();
-            if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v15 = VUIDefaultLogObject(v27);
+            if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_18;
             }
@@ -174,18 +179,19 @@ LABEL_19:
 
           if ([v8 isEqualToString:@"actionRefLocationPrompt"])
           {
-            v18 = VUIActionLocationPrompt;
+            v21 = VUIActionLocationPrompt;
             goto LABEL_28;
           }
 
           if (![v8 isEqualToString:@"actionRefUpdateSportsFavorite"])
           {
-            if ([v8 isEqualToString:@"actionRefGdprProceed"])
+            v28 = [v8 isEqualToString:@"actionRefGdprProceed"];
+            if (v28)
             {
               if (!contextCopy)
               {
-                v13 = VUIDefaultLogObject();
-                if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+                v15 = VUIDefaultLogObject(v28);
+                if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_18;
                 }
@@ -193,63 +199,64 @@ LABEL_19:
                 goto LABEL_17;
               }
 
-              v18 = VUIActionTypeGDPR;
+              v21 = VUIActionTypeGDPR;
             }
 
             else
             {
               if ([v8 isEqualToString:@"actionRefSystemSettings"])
               {
-                v19 = VUIActionSystemSettings;
+                v23 = VUIActionSystemSettings;
                 goto LABEL_53;
               }
 
               if ([v8 isEqualToString:@"actionRefARQLPreview"])
               {
-                v19 = VUIActionARQLPreview;
+                v23 = VUIActionARQLPreview;
                 goto LABEL_53;
               }
 
               if ([v8 isEqualToString:@"actionRefBundleOffer"])
               {
-                v18 = VUIActionBundleOffer;
+                v21 = VUIActionBundleOffer;
                 goto LABEL_28;
               }
 
               if ([v8 isEqualToString:@"actionRefActivateCarrierOffer"])
               {
-                v19 = VUIActionActivateCarrierOffer;
+                v23 = VUIActionActivateCarrierOffer;
                 goto LABEL_53;
               }
 
               if ([v8 isEqualToString:@"actionRefLeaveGroupSession"])
               {
-                v10 = objc_alloc_init(VUIActionLeaveGroupSession);
+                v12 = objc_alloc_init(VUIActionLeaveGroupSession);
                 goto LABEL_12;
               }
 
               if ([v8 isEqualToString:@"actionRefSearchRAC"])
               {
-                v19 = VUIActionSearchRAC;
+                v23 = VUIActionSearchRAC;
                 goto LABEL_53;
               }
 
-              if (![v8 isEqualToString:@"actionRefOpenWebLink"])
+              v29 = [v8 isEqualToString:@"actionRefOpenWebLink"];
+              if (!v29)
               {
                 if (![v8 isEqualToString:@"actionRefAskToBuy"])
                 {
-                  v10 = [_TtC8VideosUI8VideosUI vuiSwiftAction:dictionaryCopy appContext:contextCopy];
+                  v12 = [_TtC8VideosUI8VideosUI vuiSwiftAction:dictionaryCopy appContext:contextCopy];
                   goto LABEL_12;
                 }
 
-                v19 = VUIActionAskToBuy;
+                v23 = VUIActionAskToBuy;
                 goto LABEL_53;
               }
 
               if (!contextCopy)
               {
-                v13 = VUIDefaultLogObject();
-                if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+                v15 = VUIDefaultLogObject(v29);
+                if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_18;
                 }
@@ -257,43 +264,43 @@ LABEL_19:
                 goto LABEL_17;
               }
 
-              v18 = VUIActionOpenWebLink;
+              v21 = VUIActionOpenWebLink;
             }
 
 LABEL_28:
-            v10 = [[v18 alloc] initWithContextData:v9 appContext:contextCopy];
+            v12 = [[v21 alloc] initWithContextData:v10 appContext:contextCopy];
             goto LABEL_12;
           }
 
-          v19 = VUIActionUpdateSportsFavorite;
+          v23 = VUIActionUpdateSportsFavorite;
         }
 
 LABEL_53:
-        v10 = [[v19 alloc] initWithContextData:v9];
+        v12 = [[v23 alloc] initWithContextData:v10];
         goto LABEL_12;
       }
 
-      v20 = [VUIActionRemoveFromPlayHistory alloc];
-      v21 = v9;
-      v22 = 1;
+      v24 = [VUIActionRemoveFromPlayHistory alloc];
+      v25 = v10;
+      v26 = 1;
     }
 
-    v10 = [(VUIActionRemoveFromPlayHistory *)v20 initWithContextData:v21 isContinueWatching:v22];
+    v12 = [(VUIActionRemoveFromPlayHistory *)v24 initWithContextData:v25 isContinueWatching:v26];
     goto LABEL_12;
   }
 
-  v12 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = 0;
-    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIApplicationAction: Unknown action type %@", &v23, 0xCu);
+    v30 = 138412290;
+    v31 = 0;
+    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "VUIApplicationAction: Unknown action type %@", &v30, 0xCu);
   }
 
-  v11 = 0;
+  v13 = 0;
 LABEL_21:
 
-  return v11;
+  return v13;
 }
 
 - (void)performWithTargetResponder:(id)responder completionHandler:(id)handler

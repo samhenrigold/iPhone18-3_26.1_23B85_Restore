@@ -17,6 +17,7 @@
 - (id)automationElements;
 - (unint64_t)accessibilityTraits;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 @end
 
 @implementation PUAlbumListCellContentViewAccessibility
@@ -82,6 +83,18 @@
   v2 = [(PUAlbumListCellContentViewAccessibility *)self _accessibilityViewAncestorIsKindOf:objc_opt_class()];
 
   return v2 == 0;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  v7.receiver = self;
+  v7.super_class = PUAlbumListCellContentViewAccessibility;
+  [(PUAlbumListCellContentViewAccessibility *)&v7 setEditing:editing animated:animated];
+  v5 = [(PUAlbumListCellContentViewAccessibility *)self safeValueForKey:@"_titleTextField"];
+  v6 = accessibilityPULocalizedString(@"album.name");
+  [v5 setAccessibilityLabel:v6];
+
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -179,23 +192,21 @@
 
 - (id)accessibilityCustomActions
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   if ([(PUAlbumListCellContentViewAccessibility *)self _axShowsDeleteButton])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityPULocalizedString(@"rename.action");
     v5 = [v3 initWithName:v4 target:self selector:sel__axRenameAlbumAction];
 
-    v9[0] = v5;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -345,37 +356,37 @@
 {
   y = test.y;
   x = test.x;
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   if (UIAccessibilityIsVoiceOverRunning())
   {
-    v23.receiver = self;
-    v23.super_class = PUAlbumListCellContentViewAccessibility;
-    selfCopy = [(PUAlbumListCellContentViewAccessibility *)&v23 _accessibilityHitTest:eventCopy withEvent:x, y];
+    v22.receiver = self;
+    v22.super_class = PUAlbumListCellContentViewAccessibility;
+    selfCopy = [(PUAlbumListCellContentViewAccessibility *)&v22 _accessibilityHitTest:eventCopy withEvent:x, y];
   }
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     automationElements = [(PUAlbumListCellContentViewAccessibility *)self automationElements];
-    v10 = [automationElements countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v10 = [automationElements countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(automationElements);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           [(PUAlbumListCellContentViewAccessibility *)self convertPoint:v14 toView:x, y];
           v15 = [v14 _accessibilityHitTest:eventCopy withEvent:?];
           if (v15)
@@ -386,7 +397,7 @@
           }
         }
 
-        v11 = [automationElements countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [automationElements countByEnumeratingWithState:&v18 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -401,8 +412,6 @@
 
   v16 = selfCopy;
 LABEL_14:
-
-  v17 = *MEMORY[0x29EDCA608];
 
   return v16;
 }

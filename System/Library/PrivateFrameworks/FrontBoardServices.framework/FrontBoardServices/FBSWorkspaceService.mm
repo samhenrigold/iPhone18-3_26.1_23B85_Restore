@@ -86,7 +86,7 @@
 
 - (void)sendActions:(id)actions completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   completionCopy = completion;
   v9 = actionsCopy;
@@ -99,10 +99,11 @@
     }
   }
 
-  if ([v9 count])
+  v10 = [v9 count];
+  if (v10)
   {
-    v10 = FBLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = FBLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(FBSWorkspaceServiceTarget *)self->_target identifier];
       if (self->_identifier)
@@ -117,43 +118,44 @@
 
       fbs_singleLineDescriptionOfBSActions = [v9 fbs_singleLineDescriptionOfBSActions];
       *buf = 138543874;
-      v20 = identifier;
-      v21 = 2114;
-      v22 = identifier;
-      v23 = 2114;
-      v24 = fbs_singleLineDescriptionOfBSActions;
-      _os_log_impl(&dword_1A2DBB000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending action(s) to workspace %{public}@: %{public}@", buf, 0x20u);
+      v21 = identifier;
+      v22 = 2114;
+      v23 = identifier;
+      v24 = 2114;
+      v25 = fbs_singleLineDescriptionOfBSActions;
+      _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending action(s) to workspace %{public}@: %{public}@", buf, 0x20u);
     }
   }
 
   target = self->_target;
-  v15 = self->_identifier;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __46__FBSWorkspaceService_sendActions_completion___block_invoke;
-  v17[3] = &unk_1E76BDD00;
-  v17[4] = self;
-  v18 = completionCopy;
-  v16 = completionCopy;
-  [(FBSWorkspaceServiceTarget *)target sendActions:v9 toWorkspaceID:v15 completion:v17];
+  v16 = self->_identifier;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __46__FBSWorkspaceService_sendActions_completion___block_invoke;
+  v18[3] = &unk_1E76BDD00;
+  v18[4] = self;
+  v19 = completionCopy;
+  v17 = completionCopy;
+  [(FBSWorkspaceServiceTarget *)target sendActions:v9 toWorkspaceID:v16 completion:v18];
 }
 
 void __46__FBSWorkspaceService_sendActions_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = FBLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = FBLogCommon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__FBSWorkspaceService_sendActions_completion___block_invoke_cold_1(a1, v5, v6);
+      __46__FBSWorkspaceService_sendActions_completion___block_invoke_cold_1(a1, v6, v7);
     }
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, a2, v5);
+    (*(v8 + 16))(v8, a2, v6);
   }
 }
 
@@ -201,7 +203,7 @@ void __46__FBSWorkspaceService_sendActions_completion___block_invoke(uint64_t a1
 
   else
   {
-    v7 = FBLogCommon();
+    v7 = FBLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(FBSWorkspaceService(SynchronousLocalSupport) *)v7 localServiceWithIdentifier:v8, v9, v10, v11, v12, v13, v14];
@@ -215,15 +217,14 @@ void __46__FBSWorkspaceService_sendActions_completion___block_invoke(uint64_t a1
 
 - (void)_initWithTarget:(char *)a1 identifier:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"target != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"target != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -232,15 +233,14 @@ void __46__FBSWorkspaceService_sendActions_completion___block_invoke(uint64_t a1
 
 - (void)sendActions:(char *)a1 completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSSetClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSSetClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

@@ -1,7 +1,6 @@
 @interface OrgApacheLuceneStoreIOContext
 + (void)initialize;
 - (BOOL)isEqual:(id)equal;
-- (id)description;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
@@ -121,15 +120,6 @@ LABEL_17:
 LABEL_6:
   LOBYTE(v6) = 0;
   return v6;
-}
-
-- (id)description
-{
-  readOnce = self->readOnce_;
-  flushInfo = self->flushInfo_;
-  mergeInfo = self->mergeInfo_;
-  context = self->context_;
-  return JreStrcat("$@$@$@$ZC", a2, v2, v3, v4, v5, v6, v7, @"IOContext [context=");
 }
 
 - (void)dealloc

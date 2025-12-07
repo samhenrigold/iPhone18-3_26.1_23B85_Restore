@@ -59,7 +59,7 @@
     v5 = MEMORY[0x1E696AAB0];
     paymentSetupField2 = [(PKPaymentSetupFieldCell *)self paymentSetupField];
     displayString = [paymentSetupField2 displayString];
-    v8 = PKOBKListTextFieldCellTextFieldFont();
+    v8 = PKOBKListTextFieldCellTextFieldFont(displayString);
     tertiaryLabelColor = [v5 pkui_attriutedStringWithString:displayString font:v8 paragraphStyle:0];
 
     [configuration setAttributedTitle:tertiaryLabelColor];
@@ -231,78 +231,79 @@ void __70__PKPaymentSetupMenuPickerFieldCell__updateDisplayForFieldTypePicker___
 
 - (void)layoutSubviews
 {
-  v44.receiver = self;
-  v44.super_class = PKPaymentSetupMenuPickerFieldCell;
-  [(PKPaymentSetupFieldCell *)&v44 layoutSubviews];
+  v45.receiver = self;
+  v45.super_class = PKPaymentSetupMenuPickerFieldCell;
+  [(PKPaymentSetupFieldCell *)&v45 layoutSubviews];
   textLabel = [(PKPaymentSetupMenuPickerFieldCell *)self textLabel];
   contentView = [(PKPaymentSetupMenuPickerFieldCell *)self contentView];
   [contentView bounds];
   v6 = v5;
-  v43 = v7;
+  v44 = v7;
   v9 = v8;
   v11 = v10;
   [textLabel frame];
   [(UIButton *)self->_button sizeThatFits:v9, v11];
   [contentView bounds];
   _shouldReverseLayoutDirection = [(PKPaymentSetupMenuPickerFieldCell *)self _shouldReverseLayoutDirection];
-  PKOBKListInlineCellContentEdgeInsets();
-  if (_shouldReverseLayoutDirection)
+  v13 = _shouldReverseLayoutDirection;
+  PKOBKListInlineCellContentEdgeInsets(_shouldReverseLayoutDirection);
+  if (v13)
   {
-    v17 = v16;
+    v18 = v17;
   }
 
   else
   {
-    v17 = v14;
+    v18 = v15;
   }
 
-  v18 = v9 - (v16 + v14);
-  [textLabel sizeThatFits:{v18, v11 - (v13 + v15), *&v13}];
-  v20 = v19;
+  v19 = v9 - (v17 + v15);
+  [textLabel sizeThatFits:{v19, v11 - (v14 + v16), *&v14}];
+  v21 = v20;
   traitCollection = [(PKPaymentSetupMenuPickerFieldCell *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
-  v24 = 0.0;
+  v25 = 0.0;
   if (!IsAccessibilityCategory)
   {
     [(PKPaymentSetupFieldCell *)self minimumTextLabelWidth];
   }
 
-  v25 = v6 + v17;
-  v26 = fmin(fmax(v20, v24), v18 + -122.0);
+  v26 = v6 + v18;
+  v27 = fmin(fmax(v21, v25), v19 + -122.0);
   UIRectCenteredYInRect();
-  v41 = v28;
-  v42 = v27;
-  v30 = v29;
+  v42 = v29;
+  v43 = v28;
+  v31 = v30;
   UIRectCenteredYInRect();
-  v33 = v31;
   v34 = v32;
-  if (_shouldReverseLayoutDirection)
+  v35 = v33;
+  if (v13)
   {
-    v45.size.height = v39;
-    v45.origin.y = v43 + v40;
-    v45.origin.x = v25;
-    v45.size.width = v18;
-    MaxX = CGRectGetMaxX(v45);
-    v36 = MaxX - v26;
-    [textLabel setFrame:{MaxX - v26, v33, v26, v34}];
-    v37 = v36 - v30;
-    v38 = -22.0;
+    v46.size.height = v40;
+    v46.origin.y = v44 + v41;
+    v46.origin.x = v26;
+    v46.size.width = v19;
+    MaxX = CGRectGetMaxX(v46);
+    v37 = MaxX - v27;
+    [textLabel setFrame:{MaxX - v27, v34, v27, v35}];
+    v38 = v37 - v31;
+    v39 = -22.0;
   }
 
   else
   {
-    [textLabel setFrame:{v25, v31, v26, v32}];
-    v46.origin.x = v25;
-    v46.origin.y = v33;
-    v46.size.width = v26;
-    v46.size.height = v34;
-    v37 = CGRectGetMaxX(v46);
-    v38 = 22.0;
+    [textLabel setFrame:{v26, v32, v27, v33}];
+    v47.origin.x = v26;
+    v47.origin.y = v34;
+    v47.size.width = v27;
+    v47.size.height = v35;
+    v38 = CGRectGetMaxX(v47);
+    v39 = 22.0;
   }
 
-  [(UIButton *)self->_button setFrame:v37 + v38, v42, v30, v41];
+  [(UIButton *)self->_button setFrame:v38 + v39, v43, v31, v42];
 }
 
 @end

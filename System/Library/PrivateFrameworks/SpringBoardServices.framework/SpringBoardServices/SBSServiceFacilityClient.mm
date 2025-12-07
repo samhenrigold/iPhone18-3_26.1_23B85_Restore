@@ -77,9 +77,10 @@
 
 uint64_t __52__SBSServiceFacilityClient_checkOutClientWithClass___block_invoke()
 {
-  __sharedServiceClients = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  __sharedServiceClients = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 void __52__SBSServiceFacilityClient_checkOutClientWithClass___block_invoke_2(uint64_t a1, void *a2)

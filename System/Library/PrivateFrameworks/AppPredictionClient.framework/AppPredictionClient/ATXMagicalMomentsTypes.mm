@@ -339,7 +339,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v7 = __atxlog_handle_pmm();
+  v7 = __atxlog_handle_pmm(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [ATXMagicalMomentsTypes stringForMMEventType:v7];

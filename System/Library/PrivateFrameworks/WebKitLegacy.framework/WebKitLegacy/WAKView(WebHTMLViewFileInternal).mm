@@ -1,10 +1,10 @@
 @interface WAKView(WebHTMLViewFileInternal)
-- (uint64_t)_web_addDescendentWebHTMLViewsToArray:()WebHTMLViewFileInternal;
+- (void)_web_addDescendentWebHTMLViewsToArray:()WebHTMLViewFileInternal;
 @end
 
 @implementation WAKView(WebHTMLViewFileInternal)
 
-- (uint64_t)_web_addDescendentWebHTMLViewsToArray:()WebHTMLViewFileInternal
+- (void)_web_addDescendentWebHTMLViewsToArray:()WebHTMLViewFileInternal
 {
   v15 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -35,7 +35,7 @@
         }
 
         [v9 _web_addDescendentWebHTMLViewsToArray:a3];
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);

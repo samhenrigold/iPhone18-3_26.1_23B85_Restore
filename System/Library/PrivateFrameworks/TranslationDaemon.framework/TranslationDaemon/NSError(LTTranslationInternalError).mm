@@ -74,17 +74,15 @@
 
 + (id)lt_offlineTTSErrorWithError:()LTTranslationInternalError
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   lt_bundle = [self lt_bundle];
   v6 = [lt_bundle localizedStringForKey:@"OFFLINE_TTS_FAILURE_ERROR_DESCRIPTION" value:&stru_284834138 table:0];
-  v11 = *MEMORY[0x277CCA7E8];
-  v12[0] = v4;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA7E8];
+  v11[0] = v4;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   v8 = [self lt_internalErrorWithCode:7 description:v6 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

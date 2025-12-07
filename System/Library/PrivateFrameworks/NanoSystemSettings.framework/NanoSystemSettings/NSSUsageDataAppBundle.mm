@@ -1,6 +1,7 @@
 @interface NSSUsageDataAppBundle
 - (NSSUsageDataAppBundle)initWithName:(id)name bundleIdentifier:(id)identifier bundleVersion:(id)version vendor:(id)vendor size:(id)size supportsPurge:(BOOL)purge;
 - (id)mergeWith:(id)with;
+- (id)withSize:(id)size purge:(BOOL)purge;
 @end
 
 @implementation NSSUsageDataAppBundle
@@ -27,6 +28,15 @@
   }
 
   return v19;
+}
+
+- (id)withSize:(id)size purge:(BOOL)purge
+{
+  purgeCopy = purge;
+  sizeCopy = size;
+  v7 = [[NSSUsageDataAppBundle alloc] initWithName:self->_name bundleIdentifier:self->_bundleIdentifier bundleVersion:self->_bundleVersion vendor:self->_vendor size:sizeCopy supportsPurge:purgeCopy];
+
+  return v7;
 }
 
 - (id)mergeWith:(id)with

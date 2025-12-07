@@ -14,9 +14,9 @@ void ___UITabBarControllerWantsNavigationBarExtensionForFloatingTabBar_block_inv
   }
 
   v1 = _UIMainBundleIdentifier();
-  v2 = [v1 isEqualToString:@"com.apple.DocumentManagerUICore.Service"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if (v2)
+  if (isEqualToString)
   {
     _UITabBarControllerWantsNavigationBarExtensionForFloatingTabBar_wantsNavigationBarExtensionForFloatingTabBar = _UIDocumentViewControllerWantsUIPDocumentLanding();
   }

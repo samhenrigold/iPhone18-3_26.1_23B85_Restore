@@ -16,43 +16,42 @@
 - (NSDate)expirationDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC43838, &unk_1DB513310);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v20 - v8;
-  v10 = *(&self->super.isa + OBJC_IVAR____TtC7JetCore8ProxyBag_bag);
+  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v19 - v7;
+  v9 = *(&self->super.isa + OBJC_IVAR____TtC7JetCore8ProxyBag_bag);
   selfCopy = self;
-  expirationDate = [v10 expirationDate];
+  expirationDate = [v9 expirationDate];
   if (expirationDate)
   {
-    v13 = expirationDate;
+    v12 = expirationDate;
     sub_1DB509DB0();
 
-    v14 = sub_1DB509DD0();
-    (*(*(v14 - 8) + 56))(v6, 0, 1, v14);
+    v13 = sub_1DB509DD0();
+    (*(*(v13 - 8) + 56))(v5, 0, 1, v13);
   }
 
   else
   {
-    v14 = sub_1DB509DD0();
-    (*(*(v14 - 8) + 56))(v6, 1, 1, v14);
+    v13 = sub_1DB509DD0();
+    (*(*(v13 - 8) + 56))(v5, 1, 1, v13);
   }
 
-  sub_1DB35EA44(v6, v9);
+  sub_1DB35EA44(v5, v8);
 
   sub_1DB509DD0();
-  v15 = *(v14 - 8);
-  v16 = (*(v15 + 48))(v9, 1, v14);
-  v17 = 0;
-  if (v16 != 1)
+  v14 = *(v13 - 8);
+  v15 = (*(v14 + 48))(v8, 1, v13);
+  v16 = 0;
+  if (v15 != 1)
   {
-    v18 = sub_1DB509D40();
-    (*(v15 + 8))(v9, v14);
-    v17 = v18;
+    v17 = sub_1DB509D40();
+    (*(v14 + 8))(v8, v13);
+    v16 = v17;
   }
 
-  return v17;
+  return v16;
 }
 
 - (id)arrayForKey:(id)key

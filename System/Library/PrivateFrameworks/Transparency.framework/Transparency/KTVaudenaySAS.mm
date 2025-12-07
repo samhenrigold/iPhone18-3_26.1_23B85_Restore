@@ -112,30 +112,13 @@
 - (BOOL)setInitiatorUndisclosedRandom:(id)random
 {
   randomCopy = random;
-  if ([(KTVaudenaySAS *)self initiator])
+  if (-[KTVaudenaySAS initiator](self, "initiator") || (-[KTVaudenaySAS sentUndisclosedRandom](self, "sentUndisclosedRandom"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[KTVaudenaySAS sentUndisclosedRandom](self, "sentUndisclosedRandom"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isEqual:randomCopy], v7, v6, !v8))
   {
-    goto LABEL_5;
-  }
-
-  sentUndisclosedRandom = [(KTVaudenaySAS *)self sentUndisclosedRandom];
-  if (!sentUndisclosedRandom)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = sentUndisclosedRandom;
-  sentUndisclosedRandom2 = [(KTVaudenaySAS *)self sentUndisclosedRandom];
-  v8 = [sentUndisclosedRandom2 isEqual:randomCopy];
-
-  if (!v8)
-  {
-LABEL_5:
     v10 = 0;
   }
 
   else
   {
-LABEL_4:
     v9 = [MEMORY[0x1E695DEF0] dataWithData:randomCopy];
     [(KTVaudenaySAS *)self setSentUndisclosedRandom:v9];
 
@@ -205,7 +188,7 @@ LABEL_9:
 
 - (id)shortAuthenticationString
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   initiatorInfo = [(KTVaudenaySAS *)self initiatorInfo];
   if (!initiatorInfo)
   {
@@ -234,20 +217,19 @@ LABEL_10:
   if (!acceptorRandom)
   {
 LABEL_11:
-    v51 = 0;
+    v44 = 0;
     goto LABEL_12;
   }
 
   config = [(KTVaudenaySAS *)self config];
-  v10 = *([config di] + 8);
+  [config di];
   config2 = [(KTVaudenaySAS *)self config];
-  v12 = v10 + *([config2 di] + 16) + 19;
+  [config2 di];
   config3 = [(KTVaudenaySAS *)self config];
-  v14 = [config3 di];
-  v59 = &v59;
-  v15 = ((v12 | 7) + *(v14 + 8)) & 0xFFFFFFFFFFFFFFF8;
-  MEMORY[0x1EEE9AC00](v14);
-  bzero(&v59 - v16, v17);
+  v12 = [config3 di];
+  v48 = &v48;
+  MEMORY[0x1EEE9AC00](v12);
+  bzero(&v48 - v13, v14);
   data = [MEMORY[0x1E695DF88] data];
   config4 = [(KTVaudenaySAS *)self config];
   digestPrefix = [config4 digestPrefix];
@@ -275,10 +257,10 @@ LABEL_11:
   [data mutableBytes];
   cc_clear();
   initiatorInfo2 = [(KTVaudenaySAS *)self initiatorInfo];
-  v62 = bswap32([initiatorInfo2 length]);
+  v51 = bswap32([initiatorInfo2 length]);
 
   acceptorInfo2 = [(KTVaudenaySAS *)self acceptorInfo];
-  v61 = bswap32([acceptorInfo2 length]);
+  v50 = bswap32([acceptorInfo2 length]);
 
   config7 = [(KTVaudenaySAS *)self config];
   [config7 di];
@@ -304,50 +286,48 @@ LABEL_11:
   [acceptorInfo4 bytes];
   cchmac_update();
 
-  v36 = objc_alloc(MEMORY[0x1E695DF88]);
+  v33 = objc_alloc(MEMORY[0x1E695DF88]);
   config11 = [(KTVaudenaySAS *)self config];
-  v38 = [v36 initWithLength:{*objc_msgSend(config11, "di")}];
+  v35 = [v33 initWithLength:{*objc_msgSend(config11, "di")}];
 
   config12 = [(KTVaudenaySAS *)self config];
-  v40 = [config12 di];
-  if (v38)
+  [config12 di];
+  if (v35)
   {
-    [v38 mutableBytes];
+    [v35 mutableBytes];
     cchmac_final();
 
     config13 = [(KTVaudenaySAS *)self config];
-    v42 = *([config13 di] + 8);
+    [config13 di];
     config14 = [(KTVaudenaySAS *)self config];
-    v44 = v42 + *([config14 di] + 16) + 19;
+    [config14 di];
     config15 = [(KTVaudenaySAS *)self config];
-    v46 = *([config15 di] + 8);
+    [config15 di];
     cc_clear();
 
-    v47 = bswap64(*[v38 bytes]);
+    v40 = bswap64(*[v35 bytes]);
     config16 = [(KTVaudenaySAS *)self config];
-    v49 = v47 % [config16 shortCodeMod10];
+    v42 = v40 % [config16 shortCodeMod10];
 
-    v50 = MEMORY[0x1E696AEC0];
+    v43 = MEMORY[0x1E696AEC0];
     config12 = [(KTVaudenaySAS *)self config];
-    v51 = [v50 stringWithFormat:@"%0.*llu", objc_msgSend(config12, "shortCodeLength"), v49];
+    v44 = [v43 stringWithFormat:@"%0.*llu", objc_msgSend(config12, "shortCodeLength"), v42];
   }
 
   else
   {
-    v54 = *(v40 + 8);
     config17 = [(KTVaudenaySAS *)self config];
-    v56 = v54 + *([config17 di] + 16) + 19;
+    [config17 di];
     config18 = [(KTVaudenaySAS *)self config];
-    v58 = *([config18 di] + 8);
+    [config18 di];
     cc_clear();
 
-    v51 = 0;
+    v44 = 0;
   }
 
 LABEL_12:
-  v52 = *MEMORY[0x1E69E9840];
 
-  return v51;
+  return v44;
 }
 
 @end

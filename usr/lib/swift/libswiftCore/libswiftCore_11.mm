@@ -1,757 +1,6 @@
-void *swift::runtime::SwiftTLSContext::get(swift::runtime::SwiftTLSContext *this)
-{
-  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  result = *(StatusReg + 800);
-  if (!result)
-  {
-    v4 = 100;
-    context[0] = &v4;
-    context[1] = swift::runtime::SwiftTLSContext::get(void)::$_0::__invoke;
-    if (swift::runtime::SwiftTLSContext::get(void)::token != -1)
-    {
-      dispatch_once_f(&swift::runtime::SwiftTLSContext::get(void)::token, context, swift::tls_init_once(long &,unsigned long,void (*)(void *))::{lambda(void *)#1}::__invoke);
-    }
-
-    result = swift_slowAlloc(0x10, 7uLL);
-    *result = 0;
-    result[1] = 0;
-    *(StatusReg + 800) = result;
-  }
-
-  return result;
-}
-
-uint64_t swift::tls_init_once(long &,unsigned long,void (*)(void *))::{lambda(void *)#1}::__invoke()
-{
-  result = pthread_key_init_np();
-  if (result)
-  {
-    swift::threading::fatal("tls_init_once() failed to set destructor", v1, v2, v3);
-  }
-
-  return result;
-}
-
-void swift::runtime::SwiftTLSContext::get(void)::$_0::__invoke(void *a1)
-{
-  if (a1)
-  {
-    a1;
-  }
-}
-
-os_log_t swift::runtime::trace::setupLogs(swift::runtime::trace *this, void *a2)
-{
-  swift::runtime::trace::TracingEnabled = 1;
-  result = os_log_create("com.apple.swift", "SectionScan");
-  swift::runtime::trace::ScanLog = result;
-  return result;
-}
-
-void swift::addImageAccessibleFunctionsBlockCallbackUnsafe(swift *this, unint64_t a2, char *a3)
-{
-  if (a2)
-  {
-    v3 = a2;
-    v4 = &a3[a2];
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = 0;
-  }
-
-  v22 = v3;
-  v23 = v4;
-  os_unfair_lock_lock(&unk_1EA79EAF8);
-  v5 = qword_1EA79EAF0;
-  if (qword_1EA79EAF0)
-  {
-    v6 = *qword_1EA79EAF0;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = qword_1EA79EAF0;
-  if (v6 >= qword_1EA79EAE0)
-  {
-    if (2 * v6 <= 0x10)
-    {
-      v8 = 16;
-    }
-
-    else
-    {
-      v8 = 2 * v6;
-    }
-
-    v9 = malloc_type_malloc((32 * (v8 >> 1)) | 8, 0x1000040504FFAC1uLL);
-    if (!v9)
-    {
-      swift::hashable_support::findHashableBaseTypeOfHashableType();
-    }
-
-    v7 = v9;
-    *v9 = 0;
-    if (v5)
-    {
-      if (v6)
-      {
-        v10 = v9 + 1;
-        v11 = (v5 + 8);
-        v12 = v9 + 2;
-        v13 = v5 + 16;
-        v14 = v6;
-        do
-        {
-          *v10 = *v11;
-          v15 = v11[1];
-          v11 += 2;
-          v10[1] = v15;
-          v10 += 2;
-          v12 += 2;
-          v13 += 16;
-          --v14;
-        }
-
-        while (v14);
-      }
-
-      atomic_store(v6, v9);
-      v16 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-      *v16 = qword_1EA79EB00;
-      v16[1] = v5;
-      qword_1EA79EB00 = v16;
-    }
-
-    qword_1EA79EAE0 = v8;
-    atomic_store(v7, &qword_1EA79EAF0);
-  }
-
-  v7[2 * v6 + 1] = v22;
-  v7[2 * v6 + 2] = v23;
-  atomic_store(v6 + 1, v7);
-  __dmb(0xBu);
-  if (!qword_1EA79EAE8)
-  {
-    v17 = qword_1EA79EB00;
-    if (qword_1EA79EB00)
-    {
-      do
-      {
-        v19 = *v17;
-        v18 = v17[1];
-        v20 = -1;
-        do
-        {
-          v21 = atomic_load(v18);
-          ++v20;
-        }
-
-        while (v20 < v21);
-        free(v18);
-        free(v17);
-        v17 = v19;
-      }
-
-      while (v19);
-    }
-
-    qword_1EA79EB00 = 0;
-  }
-
-  os_unfair_lock_unlock(&unk_1EA79EAF8);
-}
-
-void swift::addImageAccessibleFunctionsBlockCallback(swift *this, unint64_t a2, char *a3)
-{
-  if (qword_1EA79EB08 == -1)
-  {
-  }
-
-  else
-  {
-    v4 = a3;
-    v5 = a2;
-    swift::addImageAccessibleFunctionsBlockCallback(this);
-    a2 = v5;
-    a3 = v4;
-  }
-
-  swift::addImageAccessibleFunctionsBlockCallbackUnsafe(this, a2, a3);
-}
-
-uint64_t swift::Lazy<anonymous namespace::AccessibleFunctionsState>::defaultInitCallback(uint64_t a1)
-{
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *(a1 + 64) = 0;
-  return swift::initializeAccessibleFunctionsLookup(a1);
-}
-
-int *swift_findAccessibleFunction(const void *a1, size_t a2)
-{
-  v88 = *MEMORY[0x1E69E9840];
-  if (qword_1EA79EB08 != -1)
-  {
-    v70 = a2;
-    v71 = a1;
-    swift::addImageAccessibleFunctionsBlockCallback(a1);
-    a1 = v71;
-    a2 = v70;
-  }
-
-  v85 = a1;
-  v86 = a2;
-  if (swift::runtime::environment::initializeToken != -1)
-  {
-    swift::runtime::bincompat::checkBinCompatEnvironmentVariable();
-  }
-
-  if (swift::runtime::environment::SWIFT_DUMP_ACCESSIBLE_FUNCTIONS_variable == 1 && swift_findAccessibleFunction::dumpAccessibleFunctionsToken != -1)
-  {
-    swift_findAccessibleFunction_cold_3();
-  }
-
-  do
-  {
-    explicit = atomic_load_explicit(&qword_1EA79EAC0, memory_order_acquire);
-    v3 = atomic_load_explicit(&qword_1EA79EAC8, memory_order_acquire);
-    v4 = atomic_load_explicit(&dword_1EA79EABC, memory_order_acquire);
-  }
-
-  while (explicit != atomic_load_explicit(&qword_1EA79EAC0, memory_order_acquire));
-  if (explicit)
-  {
-    v5 = v3 == 0;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (!v5 && v4 != 0)
-  {
-    if (v7)
-    {
-      if (*(v7 + 16))
-      {
-        v8 = *(v7 + 16);
-      }
-
-      else
-      {
-        v8 = 0;
-      }
-
-      return v8;
-    }
-  }
-
-  v9 = v85;
-  v10 = v86;
-  if (qword_1ED426550 != -1)
-  {
-    swift_findAccessibleFunction_cold_4();
-  }
-
-  if (swift::runtime::trace::tracingReady(void)::{lambda(void)#1}::operator() const(void)::TheLazy == 1 && !_os_trace_lazy_init_completed_4swift())
-  {
-    goto LABEL_30;
-  }
-
-  if (swift::runtime::trace::LogsToken != -1)
-  {
-    swift::_searchConformancesByMangledTypeName();
-  }
-
-  if (swift::runtime::trace::TracingEnabled == 1)
-  {
-    v11 = os_signpost_id_generate(swift::runtime::trace::ScanLog);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v12 = swift::runtime::trace::ScanLog;
-      if (os_signpost_enabled(swift::runtime::trace::ScanLog))
-      {
-        *buf = 68157954;
-        *&buf[4] = v10;
-        *&buf[8] = 2080;
-        *&buf[10] = v9;
-        _os_signpost_emit_with_name_impl(&swift_runtimeSupportsNoncopyableTypes, v12, OS_SIGNPOST_INTERVAL_BEGIN, v11, "section_scan", "accessible function scan for '%.*s'", buf, 0x12u);
-      }
-    }
-  }
-
-  else
-  {
-LABEL_30:
-    v11 = 0;
-  }
-
-  atomic_fetch_add_explicit(&qword_1EA79EAE8, 1uLL, memory_order_acquire);
-  v13 = qword_1EA79EAF0;
-  if (qword_1EA79EAF0 && (v14 = atomic_load_explicit(qword_1EA79EAF0, memory_order_acquire)) != 0)
-  {
-    v15 = (v13 + 8);
-    v16 = v13 + 8 + 16 * v14;
-    while (1)
-    {
-      v8 = *v15 ? *v15 : 0;
-      v17 = v15[1];
-      if (!v17)
-      {
-        break;
-      }
-
-      v18 = v15[1];
-      if (v8 != v17)
-      {
-        goto LABEL_42;
-      }
-
-LABEL_34:
-      v15 += 2;
-      if (v15 == v16)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    v18 = 0;
-    if (!v8)
-    {
-      goto LABEL_34;
-    }
-
-LABEL_42:
-    v19 = v8;
-    while (1)
-    {
-      SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v19 + *v8, v3);
-      if (v3 == v10 && (!v10 || !memcmp(SymbolicMangledNameStringRef, v9, v10)))
-      {
-        break;
-      }
-
-      v8 += 5;
-      v19 += 5;
-      if (v8 == v18)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v21 = swift::runtime::trace::ScanLog;
-      if (os_signpost_enabled(swift::runtime::trace::ScanLog))
-      {
-        *buf = 134217984;
-        *&buf[4] = v19;
-        _os_signpost_emit_with_name_impl(&swift_runtimeSupportsNoncopyableTypes, v21, OS_SIGNPOST_INTERVAL_END, v11, "section_scan", "result=%p", buf, 0xCu);
-      }
-    }
-
-    atomic_fetch_add_explicit(&qword_1EA79EAE8, 0xFFFFFFFFFFFFFFFFLL, memory_order_release);
-    v23 = v85;
-    v22 = v86;
-    *buf = v85;
-    *&buf[8] = v86;
-    os_unfair_lock_lock(&unk_1EA79EAD0);
-    v24 = qword_1EA79EAC8;
-    v77 = qword_1EA79EAC8 & 3;
-    v25 = v77 == 0;
-    if ((qword_1EA79EAC8 & 0xFFFFFFFFFFFFFFFCLL) == 0)
-    {
-      v25 = 1;
-    }
-
-    v78 = v25;
-    v79 = qword_1EA79EAC8 & 0xFFFFFFFFFFFFFFFCLL;
-    if (v25)
-    {
-      v26 = 4;
-    }
-
-    else
-    {
-      v26 = *(qword_1EA79EAC8 & 0xFFFFFFFFFFFFFFFCLL);
-    }
-
-    v81 = v26;
-    v28 = dword_1EA79EABC;
-    v29 = qword_1EA79EAC0;
-    v30 = qword_1EA79EAC0 + 8;
-    if (qword_1EA79EAC0)
-    {
-      v31 = qword_1EA79EAC0 + 8;
-    }
-
-    else
-    {
-      v31 = 0;
-    }
-
-    {
-      __dmb(0xBu);
-      {
-        v33 = qword_1EA79EAD8;
-        if (qword_1EA79EAD8)
-        {
-          do
-          {
-            v34 = *v33;
-            free(v33[1]);
-            free(v33);
-            v33 = v34;
-          }
-
-          while (v34);
-        }
-
-        goto LABEL_145;
-      }
-
-      goto LABEL_146;
-    }
-
-    v83 = v31;
-    v80 = v24;
-    size = v22;
-    v76 = v29;
-    v73 = (v28 + 1);
-    __src = v23;
-    if ((1 << v81) / ((1 << v81) - v73) < 4)
-    {
-      v40 = v24;
-    }
-
-    else
-    {
-      v35 = (v81 + 1);
-      v84 = v81;
-      if (v35 >= 0x11)
-      {
-        v36 = 4;
-      }
-
-      else
-      {
-        v36 = 2;
-      }
-
-      if (v35 < 9)
-      {
-        v37 = 1;
-      }
-
-      else
-      {
-        v37 = v36;
-      }
-
-      v38 = malloc_type_calloc(2 << v81, v37, 0x48DDA4AEuLL);
-      if (!v38)
-      {
-        swift::hashable_support::findHashableBaseTypeOfHashableType();
-      }
-
-      v39 = v31;
-      v72 = v28;
-      if (v37 != 1)
-      {
-        if (v37 == 4)
-        {
-          v37 = 3;
-        }
-
-        else
-        {
-          v37 = 2;
-        }
-      }
-
-      v40 = v37 | v38;
-      *v38 = v81 + 1;
-      if (v81)
-      {
-        v41 = ~(-2 << v81);
-        v42 = v24 & 3;
-        v43 = v79;
-        if (!v77)
-        {
-          v43 = 0;
-        }
-
-        v82 = v43;
-        v44 = v40 & 3;
-        if ((v40 & 3) != 0)
-        {
-          v45 = v38 & 0xFFFFFFFFFFFFFFFCLL;
-        }
-
-        else
-        {
-          v45 = 0;
-        }
-
-        for (i = 1; !(i >> v84); ++i)
-        {
-          if (v42 > 1)
-          {
-            if (v42 == 2)
-            {
-              LODWORD(v47) = *(v82 + 2 * i);
-              if (*(v82 + 2 * i))
-              {
-                goto LABEL_101;
-              }
-            }
-
-            else
-            {
-              LODWORD(v47) = *(v82 + 4 * i);
-              if (v47)
-              {
-LABEL_101:
-                for (j = __swift::__runtime::llvm::hash_value(*(v39 + 24 * (v47 - 1)), *(v39 + 24 * (v47 - 1) + 8)); ; j = v50 + 1)
-                {
-                  v50 = j & v41;
-                  if ((j & v41) != 0)
-                  {
-                    if ((v40 & 3) > 1)
-                    {
-                      LODWORD(v49) = v44 == 2 ? *(v45 + 2 * v50) : *(v45 + 4 * v50);
-                    }
-
-                    else if ((v40 & 3) != 0)
-                    {
-                      LODWORD(v49) = *(v45 + v50);
-                    }
-
-                    else
-                    {
-                      v49 = (v40 >> (4 * v50)) & 0xF;
-                    }
-
-                    if (!v49)
-                    {
-                      break;
-                    }
-                  }
-                }
-
-                if (v44 == 3)
-                {
-                  *(v45 + 4 * v50) = v47;
-                  v39 = v83;
-                  v42 = v80 & 3;
-                }
-
-                else
-                {
-                  v39 = v83;
-                  v42 = v80 & 3;
-                  if (v44 == 2)
-                  {
-                    *(v45 + 2 * v50) = v47;
-                  }
-
-                  else
-                  {
-                    *(v45 + v50) = v47;
-                  }
-                }
-              }
-            }
-          }
-
-          else if (v42)
-          {
-            LODWORD(v47) = *(v82 + i);
-            if (*(v82 + i))
-            {
-              goto LABEL_101;
-            }
-          }
-
-          else
-          {
-            v47 = (v80 >> (4 * i)) & 0xF;
-            if (v47)
-            {
-              goto LABEL_101;
-            }
-          }
-        }
-      }
-
-      atomic_store(v40, &qword_1EA79EAC8);
-      if (!v78)
-      {
-        v51 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-        v39 = v83;
-        *v51 = qword_1EA79EAD8;
-        v51[1] = v79;
-        qword_1EA79EAD8 = v51;
-      }
-
-      v28 = v72;
-    }
-
-    v52 = v76;
-    v53 = v32;
-    if (!v76 || v28 >= *v76)
-    {
-      v54 = v28 + (v28 >> 2);
-      v55 = v28;
-      if (v54 <= v28 + 1)
-      {
-        v54 = v28 + 1;
-      }
-
-      v28 = malloc_good_size(24 * v54 + 8);
-      v56 = malloc_type_malloc(v28, 0x1070040D224386BuLL);
-      if (!v56)
-      {
-        swift::hashable_support::findHashableBaseTypeOfHashableType();
-      }
-
-      v52 = v56;
-      *v56 = (v28 - 8) / 0x18;
-      LODWORD(v28) = v55;
-      if (v76)
-      {
-        if (v55)
-        {
-          v57 = v56 + 2;
-          v58 = v56 + 6;
-          v59 = v76 + 6;
-          v60 = v55;
-          do
-          {
-            *v57 = *v30;
-            v61 = *(v30 + 16);
-            v30 += 24;
-            *(v57 + 2) = v61;
-            v57 += 6;
-            v58 += 6;
-            v59 += 6;
-            --v60;
-          }
-
-          while (v60);
-        }
-
-        v62 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-        *v62 = qword_1EA79EAD8;
-        v62[1] = v76;
-        qword_1EA79EAD8 = v62;
-      }
-
-      atomic_store(v52, &qword_1EA79EAC0);
-    }
-
-    v63 = (v52 + 24 * v28);
-    v63[3] = v19;
-    v64 = malloc_type_malloc(size, 0x100004077774924uLL);
-    memcpy(v64, __src, size);
-    v63[1] = v64;
-    v63[2] = size;
-    atomic_store(v73, &dword_1EA79EABC);
-    if ((v40 & 3) > 1)
-    {
-      if ((v40 & 3) == 2)
-      {
-        v65 = v40 & 0xFFFFFFFFFFFFFFFCLL;
-        if ((v40 & 3) == 0)
-        {
-          v65 = 0;
-        }
-
-        atomic_store(v73, (v65 + 2 * v53));
-      }
-
-      else
-      {
-        v66 = v40 & 0xFFFFFFFFFFFFFFFCLL;
-        if ((v40 & 3) == 0)
-        {
-          v66 = 0;
-        }
-
-        atomic_store(v73, (v66 + 4 * v53));
-      }
-    }
-
-    else if ((v40 & 3) != 0)
-    {
-      atomic_store(v73, ((v40 & 0xFFFFFFFFFFFFFFFCLL) + v53));
-    }
-
-    else
-    {
-      atomic_store((v73 << (4 * v53)) | v40, &qword_1EA79EAC8);
-    }
-
-    __dmb(0xBu);
-    {
-      v67 = qword_1EA79EAD8;
-      if (qword_1EA79EAD8)
-      {
-        do
-        {
-          v68 = *v67;
-          free(v67[1]);
-          free(v67);
-          v67 = v68;
-        }
-
-        while (v68);
-      }
-
-LABEL_145:
-      qword_1EA79EAD8 = 0;
-    }
-
-LABEL_146:
-    os_unfair_lock_unlock(&unk_1EA79EAD0);
-  }
-
-  else
-  {
-LABEL_54:
-    atomic_fetch_add_explicit(&qword_1EA79EAE8, 0xFFFFFFFFFFFFFFFFLL, memory_order_release);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v27 = swift::runtime::trace::ScanLog;
-      if (os_signpost_enabled(swift::runtime::trace::ScanLog))
-      {
-        *buf = 134217984;
-        *&buf[4] = 0;
-        _os_signpost_emit_with_name_impl(&swift_runtimeSupportsNoncopyableTypes, v27, OS_SIGNPOST_INTERVAL_END, v11, "section_scan", "result=%p", buf, 0xCu);
-      }
-    }
-
-    return 0;
-  }
-
-  return v8;
-}
-
 size_t _dumpAccessibleFunctionRecords(uint64_t a1)
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   if (qword_1EA79EB08 != -1)
   {
     swift::addImageAccessibleFunctionsBlockCallback(a1);
@@ -767,7 +16,7 @@ size_t _dumpAccessibleFunctionRecords(uint64_t a1)
     if (explicit)
     {
       v5 = (v3 + 8);
-      v12 = &v5[2 * explicit];
+      v9 = &v5[2 * explicit];
       do
       {
         if (*v5)
@@ -790,30 +39,20 @@ size_t _dumpAccessibleFunctionRecords(uint64_t a1)
           v7 = 0;
         }
 
-        v13 = v5;
+        v10 = v5;
         if (v6 != v7)
         {
-          SymbolicMangledNameStringRef = swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v6 + *v6, v2);
-          v14 = 0;
-          v15 = 0x101010101010101;
-          v16 = 1;
-          v17 = 0;
-          v18 = 16843009;
-          v19 = 1;
-          v20 = 256;
-          v21 = 1;
-          v22 = 0;
-          v23 = 0;
-          v24[0] = &unk_1EEEAA698;
-          v24[1] = swift::Demangle::__runtime::genericParameterName;
-          v24[3] = v24;
-          swift::Demangle::__runtime::demangleSymbolAsString(SymbolicMangledNameStringRef, v9, &v14, v10);
+          swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(v6 + *v6, v2);
+          v11[0] = &unk_1EEEAA698;
+          v11[1] = swift::Demangle::__runtime::genericParameterName;
+          v11[3] = v11;
+          swift::Demangle::__runtime::demangleSymbolAsString();
         }
 
         v5 += 2;
       }
 
-      while (v13 + 2 != v12);
+      while (v10 + 2 != v9);
     }
   }
 
@@ -840,7 +79,7 @@ uint64_t (*__tsan_on_initialize())(void)
 char *_swift_backtrace_demangle(swift::Demangle::__runtime *a1, const char *a2, void *a3, uint64_t *a4)
 {
   v5 = a3;
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   if (a3 && !a4)
   {
     return 0;
@@ -848,20 +87,20 @@ char *_swift_backtrace_demangle(swift::Demangle::__runtime *a1, const char *a2, 
 
   if (swift::Demangle::__runtime::isSwiftSymbol(a1, a2))
   {
-    v17 = 1;
-    v19 = 1;
-    v20 = 0;
-    v21 = 1;
+    v16 = 1;
+    v18 = 1;
+    v19 = 0;
+    v20 = 1;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
-    v24[0] = &unk_1EEEAA698;
-    v24[1] = swift::Demangle::__runtime::genericParameterName;
-    v24[3] = v24;
+    v23[0] = &unk_1EEEAA698;
+    v23[1] = swift::Demangle::__runtime::genericParameterName;
+    v23[3] = v23;
     *outlen = 257;
     *&outlen[2] = 0;
     *&outlen[5] = 0;
-    v18 = 0x101000001010101;
-    swift::Demangle::__runtime::demangleSymbolAsString(a1, a2, outlen, v9);
+    v17 = 0x101000001010101;
+    swift::Demangle::__runtime::demangleSymbolAsString();
   }
 
   if (a2 < 2)
@@ -876,43 +115,43 @@ char *_swift_backtrace_demangle(swift::Demangle::__runtime *a1, const char *a2, 
 
   *outlen = 0;
   status[0] = 0;
-  v10 = __cxa_demangle(a1, 0, outlen, status);
-  if (!v10)
+  v9 = __cxa_demangle(a1, 0, outlen, status);
+  if (!v9)
   {
     return 0;
   }
 
   if (a4)
   {
-    v11 = *a4;
+    v10 = *a4;
     *a4 = *outlen;
-    v12 = v11 - 1;
+    v11 = v10 - 1;
   }
 
   else
   {
-    v12 = -1;
+    v11 = -1;
   }
 
   if (!v5)
   {
-    return v10;
+    return v9;
   }
 
-  if (*outlen - 1 >= v12)
+  if (*outlen - 1 >= v11)
   {
-    v13 = v12;
+    v12 = v11;
   }
 
   else
   {
-    v13 = *outlen - 1;
+    v12 = *outlen - 1;
   }
 
-  v14 = v10;
-  memcpy(v5, v10, v13);
-  *(v5 + v13) = 0;
-  free(v14);
+  v13 = v9;
+  memcpy(v5, v9, v12);
+  *(v5 + v12) = 0;
+  free(v13);
   return v5;
 }
 
@@ -924,7 +163,7 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
   __src[1] = a4;
   if (a2 == 6)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "enable", 6uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "enable", 6))
     {
       return;
     }
@@ -934,7 +173,7 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
 
   if (a2 == 8)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "demangle", 8uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "demangle", 8))
     {
       return;
     }
@@ -944,7 +183,7 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
 
   if (a2 == 11)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "interactive", 0xBuLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "interactive", 0xB))
     {
       return;
     }
@@ -954,7 +193,7 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
 
   if (a2 == 5)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "color", 5uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "color", 5))
     {
       return;
     }
@@ -964,14 +203,14 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
 
   if (a2 == 7)
   {
-    if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "timeout", 7uLL))
+    if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "timeout", 7))
     {
       a2 = v27;
       goto LABEL_16;
     }
 
     v24 = *__src;
-    if (__src[1] == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4uLL))
+    if (__src[1] == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4))
     {
       dword_1ED412CB4 = 0;
       return;
@@ -994,7 +233,7 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
     {
       if (v7 == 1)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "s", 1uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "s", 1))
         {
           goto LABEL_200;
         }
@@ -1007,13 +246,13 @@ void anonymous namespace::_swift_processBacktracingSetting(unsigned __int8 *a1, 
         goto LABEL_71;
       }
 
-      if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "seconds", 7uLL))
+      if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "seconds", 7))
       {
         v7 = v23;
 LABEL_71:
         if (v7 == 1)
         {
-          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "m", 1uLL))
+          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "m", 1))
           {
             goto LABEL_199;
           }
@@ -1026,13 +265,13 @@ LABEL_71:
           goto LABEL_77;
         }
 
-        if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "minutes", 7uLL))
+        if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "minutes", 7))
         {
           v7 = v23;
 LABEL_77:
           if (v7 == 1)
           {
-            if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "h", 1uLL))
+            if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "h", 1))
             {
 LABEL_82:
               v6 *= 3600;
@@ -1042,7 +281,7 @@ LABEL_82:
             v7 = v23;
           }
 
-          if (v7 != 5 || __swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "hours", 5uLL))
+          if (v7 != 5 || __swift::__runtime::llvm::StringRef::compare_insensitive(&v22, "hours", 5))
           {
             return;
           }
@@ -1063,12 +302,12 @@ LABEL_200:
 LABEL_16:
   if (a2 == 6)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "unwind", 6uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "unwind", 6))
     {
       v8 = __src[1];
       if (__src[1] == 4)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4))
         {
           _swift_backtraceSettings = 0;
           return;
@@ -1077,7 +316,7 @@ LABEL_16:
         v8 = __src[1];
         if (__src[1] == 4)
         {
-          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "fast", 4uLL))
+          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "fast", 4))
           {
             _swift_backtraceSettings = 1;
             return;
@@ -1087,7 +326,7 @@ LABEL_16:
         }
       }
 
-      if (v8 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "precise", 7uLL))
+      if (v8 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "precise", 7))
       {
         _swift_backtraceSettings = 2;
       }
@@ -1105,7 +344,7 @@ LABEL_16:
 
   if (a2 == 8)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "sanitize", 8uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "sanitize", 8))
     {
       return;
     }
@@ -1115,12 +354,12 @@ LABEL_16:
 
   if (a2 == 6)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "preset", 6uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "preset", 6))
     {
       v9 = __src[1];
       if (__src[1] == 4)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4))
         {
           dword_1ED412CD0 = -1;
           return;
@@ -1131,7 +370,7 @@ LABEL_16:
 
       if (v9 == 8)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "friendly", 8uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "friendly", 8))
         {
           dword_1ED412CD0 = 0;
           return;
@@ -1142,7 +381,7 @@ LABEL_16:
 
       if (v9 == 6)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "medium", 6uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "medium", 6))
         {
           dword_1ED412CD0 = 1;
           return;
@@ -1151,7 +390,7 @@ LABEL_16:
         v9 = __src[1];
       }
 
-      if (v9 == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "full", 4uLL))
+      if (v9 == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "full", 4))
       {
         dword_1ED412CD0 = 2;
       }
@@ -1169,12 +408,12 @@ LABEL_16:
 
   if (a2 == 7)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "threads", 7uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "threads", 7))
     {
       v10 = __src[1];
       if (__src[1] == 3)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3))
         {
           dword_1ED412CB8 = 0;
           return;
@@ -1183,7 +422,7 @@ LABEL_16:
         v10 = __src[1];
       }
 
-      if (v10 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "crashed", 7uLL))
+      if (v10 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "crashed", 7))
       {
         dword_1ED412CB8 = 1;
       }
@@ -1201,12 +440,12 @@ LABEL_16:
 
   if (a2 == 9)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "registers", 9uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "registers", 9))
     {
       v11 = __src[1];
       if (__src[1] == 4)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4))
         {
           dword_1ED412CBC = 0;
           return;
@@ -1217,7 +456,7 @@ LABEL_16:
 
       if (v11 == 3)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3))
         {
           dword_1ED412CBC = 1;
           return;
@@ -1226,7 +465,7 @@ LABEL_16:
         v11 = __src[1];
       }
 
-      if (v11 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "crashed", 7uLL))
+      if (v11 == 7 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "crashed", 7))
       {
         dword_1ED412CBC = 2;
         return;
@@ -1249,12 +488,12 @@ LABEL_132:
     goto LABEL_34;
   }
 
-  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "images", 6uLL))
+  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "images", 6))
   {
     v12 = __src[1];
     if (__src[1] == 4)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4))
       {
         dword_1ED412CC0 = 0;
         return;
@@ -1265,7 +504,7 @@ LABEL_132:
 
     if (v12 == 3)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "all", 3))
       {
         dword_1ED412CC0 = 1;
         return;
@@ -1274,7 +513,7 @@ LABEL_132:
       v12 = __src[1];
     }
 
-    if (v12 == 9 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "mentioned", 9uLL))
+    if (v12 == 9 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "mentioned", 9))
     {
       dword_1ED412CC0 = 2;
       return;
@@ -1287,10 +526,10 @@ LABEL_132:
 LABEL_34:
   if (a2 == 5)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "limit", 5uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "limit", 5))
     {
       LODWORD(v24) = 0;
-      if (__src[1] == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4uLL))
+      if (__src[1] == 4 && !__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "none", 4))
       {
         dword_1ED412CC4 = -1;
       }
@@ -1316,7 +555,7 @@ LABEL_34:
 
   if (a2 == 3)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "top", 3uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "top", 3))
     {
       LODWORD(v24) = 0;
       if ((__swift::__runtime::llvm::StringRef::getAsInteger<int>(__src, 0, &v24) & 1) != 0 || (v24 & 0x80000000) != 0)
@@ -1340,7 +579,7 @@ LABEL_34:
 
   if (a2 == 5)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "cache", 5uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "cache", 5))
     {
       return;
     }
@@ -1350,12 +589,12 @@ LABEL_34:
 
   if (a2 == 9)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "output-to", 9uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "output-to", 9))
     {
       v17 = __src[1];
       if (__src[1] == 4)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "auto", 4))
         {
           dword_1ED412CD8 = -1;
           return;
@@ -1366,7 +605,7 @@ LABEL_34:
 
       if (v17 == 6)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "stdout", 6uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "stdout", 6))
         {
           dword_1ED412CD8 = 0;
           return;
@@ -1375,7 +614,7 @@ LABEL_34:
         v17 = __src[1];
         if (__src[1] == 6)
         {
-          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "stderr", 6uLL))
+          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "stderr", 6))
           {
             dword_1ED412CD8 = 2;
             return;
@@ -1404,7 +643,7 @@ LABEL_34:
 
   if (a2 == 11)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "symbolicate", 0xBuLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "symbolicate", 0xB))
     {
       return;
     }
@@ -1415,7 +654,7 @@ LABEL_34:
   if (a2 != 6)
   {
 LABEL_52:
-    if (a2 != 8 || __swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "warnings", 8uLL))
+    if (a2 != 8 || __swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "warnings", 8))
     {
       if ((byte_1ED412CE0 & 1) == 0)
       {
@@ -1428,7 +667,7 @@ LABEL_52:
     v21 = __src[1];
     if (__src[1] == 10)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "suppressed", 0xAuLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "suppressed", 0xA))
       {
         goto LABEL_198;
       }
@@ -1438,7 +677,7 @@ LABEL_52:
 
     if (v21 == 8)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "disabled", 8uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "disabled", 8))
       {
         goto LABEL_198;
       }
@@ -1451,13 +690,13 @@ LABEL_52:
       goto LABEL_181;
     }
 
-    if (__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "off", 3uLL))
+    if (__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "off", 3))
     {
       v21 = __src[1];
 LABEL_181:
       if (v21 == 7)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "enabled", 7uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "enabled", 7))
         {
           goto LABEL_204;
         }
@@ -1465,7 +704,7 @@ LABEL_181:
         v21 = __src[1];
       }
 
-      if (v21 != 2 || __swift::__runtime::llvm::StringRef::compare_insensitive(__src, "on", 2uLL))
+      if (v21 != 2 || __swift::__runtime::llvm::StringRef::compare_insensitive(__src, "on", 2))
       {
         if ((byte_1ED412CE0 & 1) == 0)
         {
@@ -1485,7 +724,7 @@ LABEL_198:
     return;
   }
 
-  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "format", 6uLL))
+  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v26, "format", 6))
   {
     a2 = v27;
     goto LABEL_52;
@@ -1494,7 +733,7 @@ LABEL_198:
   v20 = __src[1];
   if (__src[1] == 4)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "text", 4uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "text", 4))
     {
       dword_1ED412CE4 = 0;
       return;
@@ -1503,7 +742,7 @@ LABEL_198:
     v20 = __src[1];
     if (__src[1] == 4)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "json", 4uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(__src, "json", 4))
       {
         dword_1ED412CE4 = 1;
         return;
@@ -1522,7 +761,7 @@ uint64_t anonymous namespace::parseOnOffTty(unsigned __int8 *a1, uint64_t a2)
   v5 = a2;
   if (a2 == 2)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2))
     {
       return 1;
     }
@@ -1532,7 +771,7 @@ uint64_t anonymous namespace::parseOnOffTty(unsigned __int8 *a1, uint64_t a2)
 
   if (a2 == 4)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4))
     {
       return 1;
     }
@@ -1545,7 +784,7 @@ uint64_t anonymous namespace::parseOnOffTty(unsigned __int8 *a1, uint64_t a2)
     goto LABEL_10;
   }
 
-  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3uLL))
+  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3))
   {
     return 1;
   }
@@ -1555,7 +794,7 @@ LABEL_10:
   if (a2 == 1)
   {
     v2 = 1;
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1))
     {
       return v2;
     }
@@ -1564,7 +803,7 @@ LABEL_10:
     if (v5 == 1)
     {
       v2 = 1;
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1))
       {
         return v2;
       }
@@ -1573,7 +812,7 @@ LABEL_10:
       if (v5 == 1)
       {
         v2 = 1;
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1))
         {
           return v2;
         }
@@ -1585,7 +824,7 @@ LABEL_10:
 
   if (a2 == 3)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "tty", 3uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "tty", 3))
     {
       return 2;
     }
@@ -1595,7 +834,7 @@ LABEL_10:
 
   if (a2 == 4)
   {
-    return 2 * (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "auto", 4uLL) == 0);
+    return 2 * (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "auto", 4) == 0);
   }
 
   else
@@ -1610,7 +849,7 @@ BOOL anonymous namespace::parseBoolean(unsigned __int8 *a1, uint64_t a2)
   v5 = a2;
   if (a2 == 2)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2))
     {
       return 1;
     }
@@ -1620,7 +859,7 @@ BOOL anonymous namespace::parseBoolean(unsigned __int8 *a1, uint64_t a2)
 
   if (a2 == 4)
   {
-    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4uLL))
+    if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4))
     {
       return 1;
     }
@@ -1633,7 +872,7 @@ BOOL anonymous namespace::parseBoolean(unsigned __int8 *a1, uint64_t a2)
     goto LABEL_10;
   }
 
-  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3uLL))
+  if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3))
   {
     return 1;
   }
@@ -1646,19 +885,19 @@ LABEL_10:
   }
 
   v2 = 1;
-  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1uLL))
+  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1))
   {
     if (v5 == 1)
     {
       v2 = 1;
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1))
       {
         return v2;
       }
 
       if (v5 == 1)
       {
-        return __swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1uLL) == 0;
+        return __swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1) == 0;
       }
     }
 
@@ -1688,10 +927,10 @@ uint64_t __swift::__runtime::llvm::StringRef::trim(void *a1, unsigned __int8 *a2
   return v10[0];
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::getAsInteger<int>(uint64_t a1, __swift::__runtime::llvm::StringRef *a2, _DWORD *a3)
+uint64_t __swift::__runtime::llvm::StringRef::getAsInteger<int>(void *a1, __swift::__runtime::llvm::StringRef *a2, _DWORD *a3)
 {
   v5 = 0;
-  if (__swift::__runtime::llvm::getAsSignedInteger(*a1, *(a1 + 8), a2, &v5) || v5 != v5)
+  if (__swift::__runtime::llvm::getAsSignedInteger(*a1, a1[1], a2, &v5) || v5 != v5)
   {
     return 1;
   }
@@ -1710,7 +949,7 @@ uint64_t anonymous namespace::parseSymbolication(unsigned __int8 *a1, uint64_t a
 LABEL_4:
     if (a2 == 4)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "true", 4))
       {
         return 2;
       }
@@ -1720,7 +959,7 @@ LABEL_4:
 
     if (a2 == 3)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "yes", 3))
       {
         return 2;
       }
@@ -1730,7 +969,7 @@ LABEL_4:
 
     if (a2 == 1)
     {
-      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1uLL))
+      if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "y", 1))
       {
         return 2;
       }
@@ -1738,7 +977,7 @@ LABEL_4:
       a2 = v5;
       if (v5 == 1)
       {
-        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1uLL))
+        if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "t", 1))
         {
           return 2;
         }
@@ -1746,7 +985,7 @@ LABEL_4:
         a2 = v5;
         if (v5 == 1)
         {
-          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1uLL))
+          if (!__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "1", 1))
           {
             return 2;
           }
@@ -1761,11 +1000,11 @@ LABEL_4:
       return 0;
     }
 
-    if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "full", 4uLL))
+    if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "full", 4))
     {
       if (v5 == 4)
       {
-        return __swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "fast", 4uLL) == 0;
+        return __swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "fast", 4) == 0;
       }
 
       return 0;
@@ -1775,7 +1014,7 @@ LABEL_4:
   }
 
   v2 = 2;
-  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2uLL))
+  if (__swift::__runtime::llvm::StringRef::compare_insensitive(&v4, "on", 2))
   {
     a2 = v5;
     goto LABEL_4;
@@ -1976,7 +1215,7 @@ unint64_t _swift_formatUnsigned(unint64_t result, unsigned __int8 *a2)
   return result;
 }
 
-unint64_t swift::SwiftError::getType(swift::SwiftError *this, const void *a2)
+char *swift::SwiftError::getType(swift::SwiftError *this, const void *a2)
 {
   Class = swift::_swift_getClass(this, a2);
   if (qword_1ED426570 != -1)
@@ -1996,7 +1235,7 @@ unint64_t swift::SwiftError::getType(swift::SwiftError *this, const void *a2)
   return swift_getObjCClassMetadata(v4);
 }
 
-uint64_t swift::getNSErrorClass(swift *this)
+uint64_t swift::getNSErrorClass(swift *this, uint64_t a2)
 {
   if (qword_1ED426560 != -1)
   {
@@ -2099,7 +1338,7 @@ unint64_t swift::SwiftError::getHashableConformance(swift::SwiftError *this, con
 
     if (!explicit)
     {
-      result = swift_conformsToProtocolCommon(*(this + 5), &protocol descriptor for Hashable);
+      result = swift_conformsToProtocolCommon(*(this + 5), &protocol descriptor for Hashable.Flags);
       v9 = 0;
       if (result)
       {
@@ -2315,7 +1554,7 @@ atomic_ullong *_swift_stdlib_bridgeErrorToNSError(atomic_ullong *a1, const void 
   return a1;
 }
 
-unint64_t swift::SwiftError::getErrorConformance(swift::SwiftError *this, const void *a2)
+char *swift::SwiftError::getErrorConformance(char **this, const void *a2)
 {
   Class = swift::_swift_getClass(this, a2);
   if (qword_1ED426570 != -1)
@@ -2327,17 +1566,17 @@ unint64_t swift::SwiftError::getErrorConformance(swift::SwiftError *this, const 
 
   if (Class == getSwiftNativeNSErrorClass(void)::$_0::operator() const(void)::TheLazy)
   {
-    return *(this + 6);
+    return this[6];
   }
 
   gotLoadHelper_x19___sSo10CFErrorRefas5Error10FoundationMc(v4);
-  v5 = *(this + 462);
+  v5 = this[462];
   CanonicalTypeMetadata = swift::TargetProtocolConformanceDescriptor<swift::InProcess>::getCanonicalTypeMetadata(v5);
 
   return swift::_getWitnessTable(v5, CanonicalTypeMetadata, 0);
 }
 
-unint64_t swift_getErrorValue(void *a1, void *a2, unint64_t *a3)
+unint64_t swift_getErrorValue(swift *a1, swift **a2, unint64_t *a3)
 {
   Class = swift::_swift_getClass(a1, a2);
   if (qword_1ED426570 != -1)
@@ -2349,7 +1588,7 @@ unint64_t swift_getErrorValue(void *a1, void *a2, unint64_t *a3)
 
   if (Class == getSwiftNativeNSErrorClass(void)::$_0::operator() const(void)::TheLazy)
   {
-    ObjCClassMetadata = a1[5];
+    ObjCClassMetadata = *(a1 + 5);
   }
 
   else
@@ -2369,8 +1608,8 @@ unint64_t swift_getErrorValue(void *a1, void *a2, unint64_t *a3)
 
   if (v10 == getSwiftNativeNSErrorClass(void)::$_0::operator() const(void)::TheLazy)
   {
-    *a3 = (a1 + *(*(a1[5] - 8) + 80) + 72) & ~*(*(a1[5] - 8) + 80);
-    result = a1[6];
+    *a3 = (a1 + *(*(*(a1 + 5) - 8) + 80) + 72) & ~*(*(*(a1 + 5) - 8) + 80);
+    result = *(a1 + 6);
   }
 
   else
@@ -2378,7 +1617,7 @@ unint64_t swift_getErrorValue(void *a1, void *a2, unint64_t *a3)
     *a2 = a1;
     *a3 = a2;
     gotLoadHelper_x20___sSo10CFErrorRefas5Error10FoundationMc(v11);
-    v12 = a1[462];
+    v12 = *(a1 + 462);
     CanonicalTypeMetadata = swift::TargetProtocolConformanceDescriptor<swift::InProcess>::getCanonicalTypeMetadata(v12);
     result = swift::_getWitnessTable(v12, CanonicalTypeMetadata, 0);
   }
@@ -2387,7 +1626,7 @@ unint64_t swift_getErrorValue(void *a1, void *a2, unint64_t *a3)
   return result;
 }
 
-uint64_t swift::tryDynamicCastNSErrorObjectToValue(uint64_t a1, void *a2, swift *a3, uint64_t a4)
+uint64_t swift::tryDynamicCastNSErrorObjectToValue(uint64_t a1, void *a2, Class *a3, unint64_t a4)
 {
   v22 = a1;
   if (qword_1ED426560 == -1)
@@ -2465,7 +1704,7 @@ LABEL_3:
   return swift_dynamicCast(v7, &v22, ExistentialTypeMetadata, a3, v6);
 }
 
-uint64_t swift::tryDynamicCastNSErrorToValue(void *a1, uint64_t *a2, uint64_t *a3, swift *a4, uint64_t a5)
+uint64_t swift::tryDynamicCastNSErrorToValue(void *a1, uint64_t *a2, unint64_t *a3, Class *a4, unint64_t a5)
 {
   v5 = *a3;
   if (*a3 > 0x7FF)
@@ -2491,7 +1730,7 @@ Class swift::getNSErrorClass(void)::$_0::operator() const(void)::{lambda(void *)
   return result;
 }
 
-unint64_t swift::getNSErrorMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(unint64_t *a1)
+char *swift::getNSErrorMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(char **a1, uint64_t a2)
 {
   if (qword_1ED426560 != -1)
   {
@@ -2503,26 +1742,26 @@ unint64_t swift::getNSErrorMetadata(void)::$_0::operator() const(void)::{lambda(
   return result;
 }
 
-objc_class *getSwiftNativeNSErrorClass(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(objc_class **a1)
+objc_class *getSwiftNativeNSErrorClass(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(objc_class **a1, uint64_t a2)
 {
   if (qword_1ED426560 != -1)
   {
     [(__SwiftNativeNSError *)a1 classForCoder];
   }
 
-  v2 = swift::getNSErrorClass(void)::$_0::operator() const(void)::TheLazy;
+  v3 = swift::getNSErrorClass(void)::$_0::operator() const(void)::TheLazy;
   result = objc_opt_class();
-  v4 = result;
-  if (v2)
+  v5 = result;
+  if (v3)
   {
-    result = class_setSuperclass(result, v2);
+    result = class_setSuperclass(result, v3);
   }
 
-  *a1 = v4;
+  *a1 = v5;
   return result;
 }
 
-uint64_t _swift_stdlib_bridgeErrorToNSError::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+void *_swift_stdlib_bridgeErrorToNSError::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(void *a1)
 {
   result = [(objc_class *)objc_lookUpClass("NSDictionary") dictionary];
   *a1 = result;
@@ -2594,7 +1833,7 @@ LABEL_5:
   return object_getClass(Class);
 }
 
-unint64_t swift_getObjectType(unint64_t a1)
+char *swift_getObjectType(unint64_t a1)
 {
   if ((a1 & 0x8000000000000000) != 0)
   {
@@ -2607,23 +1846,23 @@ unint64_t swift_getObjectType(unint64_t a1)
 
   else
   {
-    result = *a1 & 0x7FFFFFFFFFFFF8;
+    result = (*a1 & 0x7FFFFFFFFFFFF8);
     if (result)
     {
 LABEL_5:
-      while ((*(result + 32) & 2) != 0)
+      while ((result[32] & 2) != 0)
       {
-        if (*(result + 64))
+        if (*(result + 8))
         {
           return result;
         }
 
-        if (!*(result + 8))
+        if (!*(result + 1))
         {
           break;
         }
 
-        result = *(result + 8);
+        result = *(result + 1);
       }
     }
   }
@@ -2867,14 +2106,14 @@ unint64_t swift_bridgeObjectRetain(unint64_t result)
 
     else
     {
-      return (result & 0xFFFFFFFFFFFFFF8);
+      return result & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x1(int a1, unint64_t a2)
+unint64_t swift_bridgeObjectRetain_x1(int a1, unint64_t a2)
 {
   result = a2;
   if ((a2 & 0x8000000000000000) == 0)
@@ -2887,14 +2126,14 @@ atomic_ullong *swift_bridgeObjectRetain_x1(int a1, unint64_t a2)
     else
     {
 
-      return (a2 & 0xFFFFFFFFFFFFFF8);
+      return a2 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x2(int a1, int a2, unint64_t a3)
+unint64_t swift_bridgeObjectRetain_x2(int a1, int a2, unint64_t a3)
 {
   result = a3;
   if ((a3 & 0x8000000000000000) == 0)
@@ -2907,14 +2146,14 @@ atomic_ullong *swift_bridgeObjectRetain_x2(int a1, int a2, unint64_t a3)
     else
     {
 
-      return (a3 & 0xFFFFFFFFFFFFFF8);
+      return a3 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x3(int a1, int a2, int a3, unint64_t a4)
+unint64_t swift_bridgeObjectRetain_x3(int a1, int a2, int a3, unint64_t a4)
 {
   result = a4;
   if ((a4 & 0x8000000000000000) == 0)
@@ -2927,14 +2166,14 @@ atomic_ullong *swift_bridgeObjectRetain_x3(int a1, int a2, int a3, unint64_t a4)
     else
     {
 
-      return (a4 & 0xFFFFFFFFFFFFFF8);
+      return a4 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x4(int a1, int a2, int a3, int a4, unint64_t a5)
+unint64_t swift_bridgeObjectRetain_x4(int a1, int a2, int a3, int a4, unint64_t a5)
 {
   result = a5;
   if ((a5 & 0x8000000000000000) == 0)
@@ -2947,14 +2186,14 @@ atomic_ullong *swift_bridgeObjectRetain_x4(int a1, int a2, int a3, int a4, unint
     else
     {
 
-      return (a5 & 0xFFFFFFFFFFFFFF8);
+      return a5 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x5(int a1, int a2, int a3, int a4, int a5, unint64_t a6)
+unint64_t swift_bridgeObjectRetain_x5(int a1, int a2, int a3, int a4, int a5, unint64_t a6)
 {
   result = a6;
   if ((a6 & 0x8000000000000000) == 0)
@@ -2967,14 +2206,14 @@ atomic_ullong *swift_bridgeObjectRetain_x5(int a1, int a2, int a3, int a4, int a
     else
     {
 
-      return (a6 & 0xFFFFFFFFFFFFFF8);
+      return a6 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x6(int a1, int a2, int a3, int a4, int a5, int a6, unint64_t a7)
+unint64_t swift_bridgeObjectRetain_x6(int a1, int a2, int a3, int a4, int a5, int a6, unint64_t a7)
 {
   result = a7;
   if ((a7 & 0x8000000000000000) == 0)
@@ -2987,14 +2226,14 @@ atomic_ullong *swift_bridgeObjectRetain_x6(int a1, int a2, int a3, int a4, int a
     else
     {
 
-      return (a7 & 0xFFFFFFFFFFFFFF8);
+      return a7 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x7(int a1, int a2, int a3, int a4, int a5, int a6, int a7, unint64_t a8)
+unint64_t swift_bridgeObjectRetain_x7(int a1, int a2, int a3, int a4, int a5, int a6, int a7, unint64_t a8)
 {
   result = a8;
   if ((a8 & 0x8000000000000000) == 0)
@@ -3007,14 +2246,14 @@ atomic_ullong *swift_bridgeObjectRetain_x7(int a1, int a2, int a3, int a4, int a
     else
     {
 
-      return (a8 & 0xFFFFFFFFFFFFFF8);
+      return a8 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x8@<X0>(unint64_t a1@<X8>)
+unint64_t swift_bridgeObjectRetain_x8@<X0>(unint64_t a1@<X8>)
 {
   result = a1;
   if ((a1 & 0x8000000000000000) == 0)
@@ -3027,14 +2266,14 @@ atomic_ullong *swift_bridgeObjectRetain_x8@<X0>(unint64_t a1@<X8>)
     else
     {
 
-      return (a1 & 0xFFFFFFFFFFFFFF8);
+      return a1 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x9()
+uint64_t swift_bridgeObjectRetain_x9()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3047,14 +2286,14 @@ atomic_ullong *swift_bridgeObjectRetain_x9()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x10()
+uint64_t swift_bridgeObjectRetain_x10()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3067,14 +2306,14 @@ atomic_ullong *swift_bridgeObjectRetain_x10()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x11()
+uint64_t swift_bridgeObjectRetain_x11()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3087,14 +2326,14 @@ atomic_ullong *swift_bridgeObjectRetain_x11()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x12()
+uint64_t swift_bridgeObjectRetain_x12()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3107,14 +2346,14 @@ atomic_ullong *swift_bridgeObjectRetain_x12()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x13()
+uint64_t swift_bridgeObjectRetain_x13()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3127,14 +2366,14 @@ atomic_ullong *swift_bridgeObjectRetain_x13()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x14()
+uint64_t swift_bridgeObjectRetain_x14()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3147,14 +2386,14 @@ atomic_ullong *swift_bridgeObjectRetain_x14()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x15()
+uint64_t swift_bridgeObjectRetain_x15()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3167,14 +2406,14 @@ atomic_ullong *swift_bridgeObjectRetain_x15()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x19()
+uint64_t swift_bridgeObjectRetain_x19()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3187,14 +2426,14 @@ atomic_ullong *swift_bridgeObjectRetain_x19()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x20()
+uint64_t swift_bridgeObjectRetain_x20()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3207,14 +2446,14 @@ atomic_ullong *swift_bridgeObjectRetain_x20()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x21()
+uint64_t swift_bridgeObjectRetain_x21()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3227,14 +2466,14 @@ atomic_ullong *swift_bridgeObjectRetain_x21()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x22()
+uint64_t swift_bridgeObjectRetain_x22()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3247,14 +2486,14 @@ atomic_ullong *swift_bridgeObjectRetain_x22()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x23()
+uint64_t swift_bridgeObjectRetain_x23()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3267,14 +2506,14 @@ atomic_ullong *swift_bridgeObjectRetain_x23()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x24()
+uint64_t swift_bridgeObjectRetain_x24()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3287,14 +2526,14 @@ atomic_ullong *swift_bridgeObjectRetain_x24()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x25()
+uint64_t swift_bridgeObjectRetain_x25()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3307,14 +2546,14 @@ atomic_ullong *swift_bridgeObjectRetain_x25()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x26()
+uint64_t swift_bridgeObjectRetain_x26()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3327,14 +2566,14 @@ atomic_ullong *swift_bridgeObjectRetain_x26()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x27()
+uint64_t swift_bridgeObjectRetain_x27()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3347,14 +2586,14 @@ atomic_ullong *swift_bridgeObjectRetain_x27()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
   return result;
 }
 
-atomic_ullong *swift_bridgeObjectRetain_x28()
+uint64_t swift_bridgeObjectRetain_x28()
 {
   result = v0;
   if ((v0 & 0x8000000000000000) == 0)
@@ -3367,7 +2606,7 @@ atomic_ullong *swift_bridgeObjectRetain_x28()
     else
     {
 
-      return (v0 & 0xFFFFFFFFFFFFFF8);
+      return v0 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
@@ -4209,7 +3448,7 @@ atomic_ullong **swift_unknownObjectUnownedTakeAssign(atomic_ullong **result, ato
   return result;
 }
 
-BOOL swift_unknownObjectUnownedIsEqual(const void **a1, id a2, const char *a3, char *a4)
+BOOL swift_unknownObjectUnownedIsEqual(void **a1, id a2, const char *a3, char *a4)
 {
   v4 = *a1;
   if (!*a1)
@@ -4813,7 +4052,7 @@ id *swift_unknownObjectWeakCopyAssign(id *this, id *a2)
 
       if (v5)
       {
-        v20 = v5 | 1;
+        v20 = (v5 | 1);
       }
 
       else
@@ -4895,14 +4134,14 @@ Class *swift_dynamicCastTypeToObjCProtocolUnconditional(Class *cls, uint64_t a2,
     if (v7 != 1024)
     {
 LABEL_9:
-      swift::nameForMetadata(&v21, cls, 1);
-      v8 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
-      v9 = v21.__r_.__value_.__r.__words[0];
+      swift::nameForMetadata(cls, 1, v21);
+      v8 = v22;
+      v9 = v21[0];
       v10 = *a3;
       Name = protocol_getName(v10);
       if (v8 >= 0)
       {
-        v13 = &v21;
+        v13 = v21;
       }
 
       else
@@ -4933,14 +4172,14 @@ LABEL_14:
 LABEL_15:
     if (([(objc_class *)v6 conformsToProtocol:*a3]& 1) == 0)
     {
-      swift::nameForMetadata(&v21, cls, 1);
-      v15 = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
-      v16 = v21.__r_.__value_.__r.__words[0];
+      swift::nameForMetadata(cls, 1, v21);
+      v15 = v22;
+      v16 = v21[0];
       v17 = *a3;
       v18 = protocol_getName(v17);
       if (v15 >= 0)
       {
-        v20 = &v21;
+        v20 = v21;
       }
 
       else
@@ -4969,7 +4208,7 @@ void sub_18026043C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *swift_dynamicCastTypeToObjCProtocolConditional(uint64_t *a1, uint64_t a2, void *a3)
+unint64_t *swift_dynamicCastTypeToObjCProtocolConditional(unint64_t *a1, uint64_t a2, void *a3)
 {
   v4 = a2;
   v6 = 0;
@@ -5212,7 +4451,7 @@ uint64_t swift_isUniquelyReferenced_nonNull(unint64_t a1)
 
   if ((*((*a1 & 0x7FFFFFFFFFFFF8) + 0x20) & 2) == 0 || (*((*a1 & 0x7FFFFFFFFFFFF8) + 0x28) & 2) == 0)
   {
-    return MEMORY[0x1EEE66B30]();
+    return MEMORY[0x1EEE66B30](a1);
   }
 
   v2 = *(a1 + 8);
@@ -5277,7 +4516,7 @@ uint64_t swift_isUniquelyReferenced(uint64_t a1)
 
   if ((*((*a1 & 0x7FFFFFFFFFFFF8) + 0x20) & 2) == 0 || (*((*a1 & 0x7FFFFFFFFFFFF8) + 0x28) & 2) == 0)
   {
-    return MEMORY[0x1EEE66B30]();
+    return MEMORY[0x1EEE66B30](a1);
   }
 
   v1 = *(a1 + 8);
@@ -5394,32 +4633,28 @@ uint64_t swift_isEscapingClosureAtFileLocation(uint64_t result, const char *a2, 
       return 0;
     }
 
-    v22[3] = v6;
-    v22[4] = v7;
+    v20[3] = v6;
+    v20[4] = v7;
     v16 = "closure argument passed as @noescape to Objective-C has escaped";
     if (!a6)
     {
       v16 = "closure argument was escaped in withoutActuallyEscaping block";
     }
 
-    v22[0] = 0;
+    v20[0] = 0;
     v17 = 63;
     if (!a6)
     {
       v17 = 61;
     }
 
-    swift_asprintf(v22, "%.*s: file %.*s, line %u, column %u \n", v17, v16, a3, a2, a4, a5);
+    swift_asprintf(v20, "%.*s: file %.*s, line %u, column %u \n", v17, v16, a3, a2, a4, a5);
     swift::printCurrentBacktrace(2);
     shouldReportFatalErrorsToDebugger = _swift_shouldReportFatalErrorsToDebugger();
-    v19 = v22[0];
+    v19 = v20[0];
     if (shouldReportFatalErrorsToDebugger)
     {
-      memset(&v20[2], 0, 48);
-      v21 = 0;
-      v20[0] = xmmword_1E69EB0D0;
-      v20[1] = *&off_1E69EB0E0;
-      _swift_reportToDebugger(1, v22[0], v20);
+      _swift_reportToDebugger();
     }
 
     swift_reportError(1, v19);
@@ -5506,8 +4741,8 @@ void swift_objc_swift3ImplicitObjCEntrypoint(void *a1, const char *a2, const cha
         LODWORD(v8) = 0x7FFFFFFF;
       }
 
-      v37 = 0;
-      v38 = 0;
+      v29 = 0;
+      v30 = 0;
       v17 = objc_opt_class();
       Name = class_getName(v17);
       v28 = sel_getName(v9);
@@ -5517,30 +4752,12 @@ void swift_objc_swift3ImplicitObjCEntrypoint(void *a1, const char *a2, const cha
         v18 = 43;
       }
 
-      swift_asprintf(&v38, "implicit Objective-C entrypoint %c[%s %s] is deprecated and will be removed in Swift 4", v18, Name, v28);
-      swift_asprintf(&v37, "%*s", v8, v10);
-      v19 = v37;
-      v36[0] = v37;
-      v36[1] = v12;
-      v36[2] = v11;
-      v36[3] = v12;
-      v36[4] = v11;
-      v36[5] = "@objc ";
-      v35[0] = "add '@objc' to expose this Swift declaration to Objective-C";
-      v35[1] = 1;
-      v35[2] = v36;
-      v29[0] = 2;
-      v29[1] = "implicit-objc-entrypoint";
-      v29[2] = 0;
-      v29[3] = 1;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0;
-      v33 = 1;
-      v34 = v35;
-      v20 = v38;
-      _swift_reportToDebugger(v16 == swift::fatalError, v38, v29);
-      (v16)(v13, "*** %s:%zu:%zu: %s; add explicit '@objc' to the declaration to emit the Objective-C entrypoint in Swift 4 and suppress this message\n", v19, v12, v11, v20);
+      swift_asprintf(&v30, "implicit Objective-C entrypoint %c[%s %s] is deprecated and will be removed in Swift 4", v18, Name, v28);
+      swift_asprintf(&v29, "%*s", v8, v10);
+      v19 = v29;
+      v20 = v30;
+      _swift_reportToDebugger();
+      v16(v13, "*** %s:%zu:%zu: %s; add explicit '@objc' to the declaration to emit the Objective-C entrypoint in Swift 4 and suppress this message\n", v19, v12, v11, v20);
       free(v20);
       free(v19);
     }
@@ -5587,24 +4804,24 @@ uint64_t swift::getRootSuperclass(swift *this)
   return swift::getRootSuperclass(void)::SwiftObjectClass;
 }
 
-atomic_ullong *swift_dynamicCastObjCClass(atomic_ullong *result, uint64_t a2)
+atomic_ullong *swift_dynamicCastObjCClass(atomic_ullong *a1, uint64_t a2)
 {
   if (swift_dynamicCastObjCClass::Override == 1)
   {
-    return swift_dynamicCastObjCClassImpl(result, a2);
+    return swift_dynamicCastObjCClassImpl(a1, a2);
   }
 
   if (swift_dynamicCastObjCClass::Override)
   {
-    return swift_dynamicCastObjCClass::Override(result, a2, swift_dynamicCastObjCClassImpl);
+    return swift_dynamicCastObjCClass::Override(a1, a2, swift_dynamicCastObjCClassImpl);
   }
 
-  return swift_dynamicCastObjCClassSlow(result, a2);
+  return swift_dynamicCastObjCClassSlow(a1, a2);
 }
 
 atomic_ullong *swift_dynamicCastObjCClassImpl(atomic_ullong *result, uint64_t a2)
 {
-  v7 = result;
+  v8 = result;
   if (result)
   {
     v3 = result;
@@ -5614,14 +4831,14 @@ atomic_ullong *swift_dynamicCastObjCClassImpl(atomic_ullong *result, uint64_t a2
       return v3;
     }
 
-    else if (swift::getNSErrorClass(isKindOfClass) == a2 || objc_opt_class() == a2)
+    else if (swift::getNSErrorClass(isKindOfClass, v5) == a2 || objc_opt_class() == a2)
     {
       Class = object_getClass(v3);
       ObjCClassMetadata = swift_getObjCClassMetadata(Class);
       result = swift::findErrorWitness(ObjCClassMetadata);
       if (result)
       {
-        return swift::dynamicCastValueToNSError(&v7, ObjCClassMetadata, result, 2);
+        return swift::dynamicCastValueToNSError(&v8, ObjCClassMetadata, result, 2);
       }
     }
 
@@ -5641,7 +4858,7 @@ atomic_ullong *swift_dynamicCastObjCClassSlow(swift *a1, uint64_t a2)
   {
     swift_dynamicCastObjCClass::Override = Override_dynamicCastObjCClass;
 
-    return (Override_dynamicCastObjCClass)(a1, a2, swift_dynamicCastObjCClassImpl);
+    return Override_dynamicCastObjCClass(a1, a2, swift_dynamicCastObjCClassImpl);
   }
 
   else
@@ -5652,24 +4869,24 @@ atomic_ullong *swift_dynamicCastObjCClassSlow(swift *a1, uint64_t a2)
   }
 }
 
-atomic_ullong *swift_dynamicCastObjCClassUnconditional(atomic_ullong *result, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+atomic_ullong *swift_dynamicCastObjCClassUnconditional(atomic_ullong *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (swift_dynamicCastObjCClassUnconditional::Override == 1)
   {
-    return swift_dynamicCastObjCClassUnconditionalImpl(result, a2);
+    return swift_dynamicCastObjCClassUnconditionalImpl(a1, a2);
   }
 
   if (swift_dynamicCastObjCClassUnconditional::Override)
   {
-    return swift_dynamicCastObjCClassUnconditional::Override(result, a2, a3, a4, a5, swift_dynamicCastObjCClassUnconditionalImpl);
+    return swift_dynamicCastObjCClassUnconditional::Override(a1, a2, a3, a4, a5, swift_dynamicCastObjCClassUnconditionalImpl);
   }
 
-  return swift_dynamicCastObjCClassUnconditionalSlow(result, a2, a3, a4, a5);
+  return swift_dynamicCastObjCClassUnconditionalSlow(a1, a2, a3, a4, a5);
 }
 
 atomic_ullong *swift_dynamicCastObjCClassUnconditionalImpl(atomic_ullong *result, Class *a2)
 {
-  v10 = result;
+  v11 = result;
   if (result)
   {
     v3 = result;
@@ -5681,13 +4898,13 @@ atomic_ullong *swift_dynamicCastObjCClassUnconditionalImpl(atomic_ullong *result
 
     else
     {
-      if (swift::getNSErrorClass(isKindOfClass) != a2 && objc_opt_class() != a2 || (v5 = object_getClass(v3), ObjCClassMetadata = swift_getObjCClassMetadata(v5), (ErrorWitness = swift::findErrorWitness(ObjCClassMetadata)) == 0))
+      if (swift::getNSErrorClass(isKindOfClass, v5) != a2 && objc_opt_class() != a2 || (v6 = object_getClass(v3), ObjCClassMetadata = swift_getObjCClassMetadata(v6), (ErrorWitness = swift::findErrorWitness(ObjCClassMetadata)) == 0))
       {
         Class = object_getClass(v3);
-        swift::swift_dynamicCastFailure(Class, a2, 0, v9);
+        swift::swift_dynamicCastFailure(Class, a2, 0, v10);
       }
 
-      return swift::dynamicCastValueToNSError(&v10, ObjCClassMetadata, ErrorWitness, 2);
+      return swift::dynamicCastValueToNSError(&v11, ObjCClassMetadata, ErrorWitness, 2);
     }
   }
 
@@ -5701,7 +4918,7 @@ atomic_ullong *swift_dynamicCastObjCClassUnconditionalSlow(swift *a1, Class *a2,
   {
     swift_dynamicCastObjCClassUnconditional::Override = Override_dynamicCastObjCClassUnconditional;
 
-    return (Override_dynamicCastObjCClassUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastObjCClassUnconditionalImpl);
+    return Override_dynamicCastObjCClassUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastObjCClassUnconditionalImpl);
   }
 
   else
@@ -5712,7 +4929,7 @@ atomic_ullong *swift_dynamicCastObjCClassUnconditionalSlow(swift *a1, Class *a2,
   }
 }
 
-uint64_t swift_dynamicCastObjCClassMetatype(void *a1, uint64_t a2)
+swift *swift_dynamicCastObjCClassMetatype(void *a1, uint64_t a2)
 {
   v3 = swift_dynamicCastObjCClassMetatype::Override;
   if (swift_dynamicCastObjCClassMetatype::Override == 1)
@@ -5754,7 +4971,7 @@ void *swift_dynamicCastObjCClassMetatypeImpl(void *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_dynamicCastObjCClassMetatypeSlow(swift *a1, uint64_t a2)
+swift *swift_dynamicCastObjCClassMetatypeSlow(swift *a1, uint64_t a2)
 {
   Override_dynamicCastObjCClassMetatype = swift::getOverride_dynamicCastObjCClassMetatype(a1);
   if (Override_dynamicCastObjCClassMetatype)
@@ -5779,12 +4996,12 @@ uint64_t swift_dynamicCastObjCClassMetatypeSlow(swift *a1, uint64_t a2)
   }
 }
 
-uint64_t swift_dynamicCastObjCClassMetatypeUnconditional(Class *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+swift *swift_dynamicCastObjCClassMetatypeUnconditional(Class *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = swift_dynamicCastObjCClassMetatypeUnconditional::Override;
   if (swift_dynamicCastObjCClassMetatypeUnconditional::Override == 1)
   {
-    if (([(Class *)a1 isSubclassOfClass:a2]& 1) == 0)
+    if (([(Class *)a1 isSubclassOfClass:a2, a4, a5]& 1) == 0)
     {
       swift::swift_dynamicCastFailure(a1, a2, 0, v8);
     }
@@ -5815,7 +5032,7 @@ Class *swift_dynamicCastObjCClassMetatypeUnconditionalImpl(Class *a1, Class *a2)
   return a1;
 }
 
-uint64_t swift_dynamicCastObjCClassMetatypeUnconditionalSlow(swift *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+swift *swift_dynamicCastObjCClassMetatypeUnconditionalSlow(swift *a1, Class *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   Override_dynamicCastObjCClassMetatypeUnconditional = swift::getOverride_dynamicCastObjCClassMetatypeUnconditional(a1);
   if (Override_dynamicCastObjCClassMetatypeUnconditional)
@@ -5855,14 +5072,14 @@ swift *swift_dynamicCastForeignClassMetatype(swift *result, uint64_t a2)
   return result;
 }
 
-uint64_t swift_dynamicCastForeignClassMetatypeSlow(swift *a1, uint64_t a2)
+swift *swift_dynamicCastForeignClassMetatypeSlow(swift *a1, uint64_t a2)
 {
   Override_dynamicCastForeignClassMetatype = swift::getOverride_dynamicCastForeignClassMetatype(a1);
   if (Override_dynamicCastForeignClassMetatype)
   {
     swift_dynamicCastForeignClassMetatype::Override = Override_dynamicCastForeignClassMetatype;
 
-    return (Override_dynamicCastForeignClassMetatype)(a1, a2, swift_dynamicCastForeignClassMetatypeImpl);
+    return Override_dynamicCastForeignClassMetatype(a1, a2, swift_dynamicCastForeignClassMetatypeImpl);
   }
 
   else
@@ -5890,14 +5107,14 @@ swift *swift_dynamicCastForeignClassMetatypeUnconditional(swift *result, uint64_
   return result;
 }
 
-uint64_t swift_dynamicCastForeignClassMetatypeUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+swift *swift_dynamicCastForeignClassMetatypeUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   Override_dynamicCastForeignClassMetatypeUnconditional = swift::getOverride_dynamicCastForeignClassMetatypeUnconditional(a1);
   if (Override_dynamicCastForeignClassMetatypeUnconditional)
   {
     swift_dynamicCastForeignClassMetatypeUnconditional::Override = Override_dynamicCastForeignClassMetatypeUnconditional;
 
-    return (Override_dynamicCastForeignClassMetatypeUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastForeignClassMetatypeUnconditionalImpl);
+    return Override_dynamicCastForeignClassMetatypeUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastForeignClassMetatypeUnconditionalImpl);
   }
 
   else
@@ -5925,14 +5142,14 @@ swift *swift_dynamicCastForeignClass(swift *result, uint64_t a2)
   return result;
 }
 
-uint64_t swift_dynamicCastForeignClassSlow(swift *a1, uint64_t a2)
+swift *swift_dynamicCastForeignClassSlow(swift *a1, uint64_t a2)
 {
   Override_dynamicCastForeignClass = swift::getOverride_dynamicCastForeignClass(a1);
   if (Override_dynamicCastForeignClass)
   {
     swift_dynamicCastForeignClass::Override = Override_dynamicCastForeignClass;
 
-    return (Override_dynamicCastForeignClass)(a1, a2, swift_dynamicCastForeignClassImpl);
+    return Override_dynamicCastForeignClass(a1, a2, swift_dynamicCastForeignClassImpl);
   }
 
   else
@@ -5960,14 +5177,14 @@ swift *swift_dynamicCastForeignClassUnconditional(swift *result, uint64_t a2, ui
   return result;
 }
 
-uint64_t swift_dynamicCastForeignClassUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+swift *swift_dynamicCastForeignClassUnconditionalSlow(swift *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   Override_dynamicCastForeignClassUnconditional = swift::getOverride_dynamicCastForeignClassUnconditional(a1);
   if (Override_dynamicCastForeignClassUnconditional)
   {
     swift_dynamicCastForeignClassUnconditional::Override = Override_dynamicCastForeignClassUnconditional;
 
-    return (Override_dynamicCastForeignClassUnconditional)(a1, a2, a3, a4, a5, swift_dynamicCastForeignClassUnconditionalImpl);
+    return Override_dynamicCastForeignClassUnconditional(a1, a2, a3, a4, a5, swift_dynamicCastForeignClassUnconditionalImpl);
   }
 
   else
@@ -5984,7 +5201,7 @@ uint64_t objcSupportsLazyRealization(void)::$_0::operator() const(void)::{lambda
   return result;
 }
 
-unint64_t swift::getNSObjectMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(unint64_t *a1)
+char *swift::getNSObjectMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(char **a1)
 {
   v2 = objc_opt_class();
   result = swift_getObjCClassMetadata(v2);
@@ -5992,7 +5209,7 @@ unint64_t swift::getNSObjectMetadata(void)::$_0::operator() const(void)::{lambda
   return result;
 }
 
-unint64_t swift::getNSStringMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(unint64_t *a1)
+char *swift::getNSStringMetadata(void)::$_0::operator() const(void)::{lambda(void *)#1}::__invoke(char **a1)
 {
   v2 = objc_lookUpClass("NSString");
   result = swift_getObjCClassMetadata(v2);
@@ -6007,7 +5224,7 @@ uint64_t swift::hashable_support::getNSStringHashableConformance(void)::$_0::ope
     swift::getNSStringMetadata(a1);
   }
 
-  result = swift_conformsToProtocolCommon(swift::getNSStringMetadata(void)::$_0::operator() const(void)::TheLazy, &protocol descriptor for Hashable);
+  result = swift_conformsToProtocolCommon(swift::getNSStringMetadata(void)::$_0::operator() const(void)::TheLazy, &protocol descriptor for Hashable.Flags);
   *a1 = result;
   return result;
 }
@@ -6019,35 +5236,35 @@ uint64_t swift::getRootSuperclass(void)::$_0::__invoke(uint64_t *a1)
   return result;
 }
 
-void *std::__hash_table<objc_class *,std::hash<objc_class *>,std::equal_to<objc_class *>,std::allocator<objc_class *>>::__emplace_unique_key_args<objc_class *,objc_class * const&>(void *a1, void *a2)
+void *std::__hash_table<objc_class *,std::hash<objc_class *>,std::equal_to<objc_class *>,std::allocator<objc_class *>>::__emplace_unique_key_args<objc_class *,objc_class * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = HIDWORD(*a2);
-  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) ^ ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = HIDWORD(*a2);
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) ^ ((0x9DDFEA08EB382D69 * (v2 ^ (v3 >> 47) ^ v3)) >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -6055,49 +5272,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_11:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_11;
   }
 
-  return v9;
+  return v10;
 }
 
 unint64_t SwiftValueHeader::cacheHashableEquatableConformance(SwiftValueHeader *this)
 {
-  v2 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable);
+  v2 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable.Flags);
   if (v2)
   {
     v3 = v2;
@@ -6106,7 +5323,7 @@ unint64_t SwiftValueHeader::cacheHashableEquatableConformance(SwiftValueHeader *
 
   else
   {
-    v5 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Equatable);
+    v5 = swift_conformsToProtocolCommon(*this, protocol descriptor for Equatable);
     v3 = v5 | 1;
     if (v5)
     {
@@ -6141,7 +5358,7 @@ unint64_t SwiftValueHeader::getHashableBaseType(atomic_ullong *this)
   explicit = atomic_load_explicit(this + 1, memory_order_acquire);
   if (!explicit)
   {
-    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable);
+    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable.Flags);
     if (v3)
     {
       v4 = v3;
@@ -6150,7 +5367,7 @@ unint64_t SwiftValueHeader::getHashableBaseType(atomic_ullong *this)
 
     else
     {
-      v6 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Equatable);
+      v6 = swift_conformsToProtocolCommon(*this, protocol descriptor for Equatable);
       v4 = v6 | 1;
       if (v6)
       {
@@ -6196,7 +5413,7 @@ unint64_t SwiftValueHeader::getEquatableBaseType(atomic_ullong *this)
   explicit = atomic_load_explicit(this + 1, memory_order_acquire);
   if (!explicit)
   {
-    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable);
+    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable.Flags);
     if (v3)
     {
       v4 = v3;
@@ -6205,7 +5422,7 @@ unint64_t SwiftValueHeader::getEquatableBaseType(atomic_ullong *this)
 
     else
     {
-      v6 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Equatable);
+      v6 = swift_conformsToProtocolCommon(*this, protocol descriptor for Equatable);
       v4 = v6 | 1;
       if (v6)
       {
@@ -6243,7 +5460,7 @@ unint64_t SwiftValueHeader::getHashableConformance(atomic_ullong *this)
   explicit = atomic_load_explicit(this + 2, memory_order_acquire);
   if (!explicit)
   {
-    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable);
+    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable.Flags);
     if (v3)
     {
       explicit = v3;
@@ -6252,7 +5469,7 @@ unint64_t SwiftValueHeader::getHashableConformance(atomic_ullong *this)
 
     else
     {
-      v5 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Equatable);
+      v5 = swift_conformsToProtocolCommon(*this, protocol descriptor for Equatable);
       explicit = v5 | 1;
       if (v5)
       {
@@ -6297,7 +5514,7 @@ unint64_t SwiftValueHeader::getEquatableConformance(atomic_ullong *this)
   explicit = atomic_load_explicit(this + 2, memory_order_acquire);
   if (!explicit)
   {
-    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable);
+    v3 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Hashable.Flags);
     if (v3)
     {
       explicit = v3;
@@ -6306,7 +5523,7 @@ unint64_t SwiftValueHeader::getEquatableConformance(atomic_ullong *this)
 
     else
     {
-      v5 = swift_conformsToProtocolCommon(*this, &protocol descriptor for Equatable);
+      v5 = swift_conformsToProtocolCommon(*this, protocol descriptor for Equatable);
       explicit = v5 | 1;
       if (v5)
       {
@@ -6517,22 +5734,22 @@ uint64_t anonymous namespace::error(_anonymous_namespace_ *this, const char *a2,
   return asl_log(0, 0, 3, "%s", __str);
 }
 
-void __swift::__runtime::llvm::report_fatal_error(char *a1)
+void __swift::__runtime::llvm::report_fatal_error(__swift::__runtime::llvm *a1, uint64_t a2, BOOL a3, uint64_t a4, unsigned int a5)
 {
-  if (a1[23] < 0)
+  if (*(a1 + 23) < 0)
   {
     a1 = *a1;
   }
 
-  __swift::__runtime::llvm::report_fatal_error(a1, 0);
+  __swift::__runtime::llvm::report_fatal_error(a1, 0, a3, a4, a5);
 }
 
 void __swift::__runtime::llvm::report_fatal_error(const void *a1, const void *a2)
 {
-  v3[0] = a1;
-  v3[1] = a2;
-  __swift::__runtime::llvm::StringRef::str(v3, v2);
-  __swift::__runtime::llvm::report_fatal_error(v2);
+  v6[0] = a1;
+  v6[1] = a2;
+  __swift::__runtime::llvm::StringRef::str(v6, v5);
+  __swift::__runtime::llvm::report_fatal_error(v5, 0, v2, v3, v4);
 }
 
 void __swift::__runtime::llvm::llvm_unreachable_internal(__swift::__runtime::llvm *this, const char *a2, const char *a3)
@@ -6580,7 +5797,7 @@ void *__swift::__runtime::llvm::SmallPtrSetImplBase::shrink_and_clear(void **thi
   return memset(v5, 255, v6);
 }
 
-const void **__swift::__runtime::llvm::SmallPtrSetImplBase::insert_imp_big(__swift::__runtime::llvm::SmallPtrSetImplBase *this, char *a2)
+char **__swift::__runtime::llvm::SmallPtrSetImplBase::insert_imp_big(__swift::__runtime::llvm::SmallPtrSetImplBase *this, char *a2)
 {
   v2 = *(this + 5);
   v3 = *(this + 4);
@@ -6770,7 +5987,7 @@ LABEL_9:
   *(this + 20) = (*(this + 5) - *(this + 6));
 }
 
-const void **__swift::__runtime::llvm::SmallPtrSetImplBase::FindBucketFor(__swift::__runtime::llvm::SmallPtrSetImplBase *this, char *a2)
+char **__swift::__runtime::llvm::SmallPtrSetImplBase::FindBucketFor(__swift::__runtime::llvm::SmallPtrSetImplBase *this, char *a2)
 {
   v2 = *(this + 4) - 1;
   v3 = *(this + 1);
@@ -6945,7 +6162,7 @@ double __swift::__runtime::llvm::SmallPtrSetImplBase::MoveHelper(uint64_t a1, in
   else
   {
     *(a1 + 8) = v3;
-    a3[1] = v4;
+    *(a3 + 1) = v4;
   }
 
   result = a3[2];
@@ -7058,7 +6275,7 @@ double __swift::__runtime::llvm::SmallPtrSetImplBase::MoveFrom(uint64_t a1, int 
   else
   {
     *(a1 + 8) = v7;
-    a3[1] = v8;
+    *(a3 + 1) = v8;
   }
 
   result = a3[2];
@@ -7463,7 +6680,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::compare_insensitive(unsigned __int8 **a1, unsigned __int8 *a2, unint64_t a3)
+uint64_t __swift::__runtime::llvm::StringRef::compare_insensitive(unsigned __int8 **a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v3 = a1[1];
   if (a3 >= v3)
@@ -7595,7 +6812,7 @@ BOOL __swift::__runtime::llvm::StringRef::starts_with_insensitive(unsigned __int
   return result;
 }
 
-BOOL __swift::__runtime::llvm::StringRef::ends_with_insensitive(void *a1, unsigned __int8 *a2, unint64_t a3)
+BOOL __swift::__runtime::llvm::StringRef::ends_with_insensitive(void *a1, unsigned __int8 *a2, uint64_t a3)
 {
   v3 = a1[1];
   if (v3 < a3)
@@ -7953,7 +7170,7 @@ unsigned __int8 **__swift::__runtime::llvm::StringRef::upper@<X0>(unsigned __int
   return this;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find(uint64_t *a1, unsigned __int8 *a2, size_t a3, unint64_t a4)
+uint64_t __swift::__runtime::llvm::StringRef::find(uint64_t *a1, char *a2, size_t a3, unint64_t a4)
 {
   v30 = *MEMORY[0x1E69E9840];
   v5 = a1[1];
@@ -8049,7 +7266,7 @@ LABEL_13:
 
   v16 = v12 & 0xFFFFFFFFFFFFFFFELL;
   v17 = v12 & 0xFFFFFFFE;
-  v24 = a2 + 1;
+  v24 = (a2 + 1);
   v25 = v12 & 0xFFFFFFFFFFFFFFFELL;
   do
   {
@@ -8094,7 +7311,7 @@ LABEL_15:
   return &v22[-v10];
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find_insensitive(void *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t __swift::__runtime::llvm::StringRef::find_insensitive(void *a1, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   v4 = a1[1];
   if (v4 >= a4)
@@ -8202,7 +7419,7 @@ unint64_t __swift::__runtime::llvm::StringRef::rfind_insensitive(__swift::__runt
   return -1;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::rfind(uint64_t *a1, const void *a2, size_t a3)
+unint64_t __swift::__runtime::llvm::StringRef::rfind(uint64_t *a1, const void *a2, size_t a3)
 {
   v3 = a1[1];
   v4 = v3 - a3;
@@ -8326,7 +7543,7 @@ uint64_t __swift::__runtime::llvm::StringRef::rfind_insensitive(uint64_t *a1, un
   return -1;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find_first_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t __swift::__runtime::llvm::StringRef::find_first_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -8370,7 +7587,7 @@ unint64_t __swift::__runtime::llvm::StringRef::find_first_not_of(__swift::__runt
   return a3;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find_first_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t __swift::__runtime::llvm::StringRef::find_first_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -8395,7 +7612,7 @@ uint64_t __swift::__runtime::llvm::StringRef::find_first_not_of(void *a1, unsign
   return a4;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find_last_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t __swift::__runtime::llvm::StringRef::find_last_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -8453,7 +7670,7 @@ unint64_t __swift::__runtime::llvm::StringRef::find_last_not_of(__swift::__runti
   return -1;
 }
 
-uint64_t __swift::__runtime::llvm::StringRef::find_last_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t __swift::__runtime::llvm::StringRef::find_last_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -8486,7 +7703,7 @@ uint64_t __swift::__runtime::llvm::StringRef::find_last_not_of(void *a1, unsigne
   return -1;
 }
 
-_OWORD *__swift::__runtime::llvm::StringRef::split(_OWORD *result, uint64_t a2, unsigned __int8 *a3, size_t a4, int a5, int a6)
+_OWORD *__swift::__runtime::llvm::StringRef::split(_OWORD *result, uint64_t a2, char *a3, size_t a4, int a5, int a6)
 {
   v21 = *result;
   if (a5)
@@ -8592,7 +7809,7 @@ LABEL_19:
       goto LABEL_24;
     }
 
-    v15 = result - v7;
+    v15 = (result - v7);
     if (result - v7 == -1)
     {
       goto LABEL_24;
@@ -8602,7 +7819,7 @@ LABEL_19:
     {
       if (v8 >= v15)
       {
-        v11 = result - v7;
+        v11 = (result - v7);
       }
 
       else
@@ -8623,9 +7840,9 @@ LABEL_19:
       ++*(a2 + 8);
     }
 
-    if (v8 >= v15 + 1)
+    if (v8 >= (v15 + 1))
     {
-      v14 = v15 + 1;
+      v14 = (v15 + 1);
     }
 
     else
@@ -8960,7 +8177,7 @@ LABEL_8:
   return 1;
 }
 
-unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_range_impl<char const>(void *a1, uint64_t a2)
+unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_range_impl<char const>(__swift::__runtime::llvm::hashing::detail *a1, uint64_t a2)
 {
   v2 = a2;
   {
@@ -8977,15 +8194,15 @@ unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_range_impl<cha
     v7 = __ROR8__(__swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed ^ 0xB492B66FBE98F273, 49);
     v8 = __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed ^ (__swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed >> 47);
     v9 = __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed ^ (((0x9DDFEA08EB382D69 * (v8 ^ (0xB492B66FBE98F273 * __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed))) ^ __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed) >> 47) ^ (0x9DDFEA08EB382D69 * (v8 ^ (0xB492B66FBE98F273 * __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed)));
-    v10 = a1[1];
-    v12 = a1[6];
-    v11 = a1[7];
+    v10 = *(a1 + 1);
+    v12 = *(a1 + 6);
+    v11 = *(a1 + 7);
     v13 = v7 + __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed + v10;
-    v14 = a1[5];
+    v14 = *(a1 + 5);
     v15 = v14 + v7 - 0x4B6D499041670D8DLL * __ROR8__(v12 + __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed - 0x4B6D499041670D8DLL * __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed, 42);
     v16 = *a1 - 0x6D8ED9027DD26057 * __swift::__runtime::llvm::hashing::detail::get_execution_seed(void)::seed;
-    v18 = a1[2];
-    v17 = a1[3];
+    v18 = *(a1 + 2);
+    v17 = *(a1 + 3);
     v19 = v16 + v10 + v18;
     v20 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v9) ^ ((0x9DDFEA08EB382D69 * v9) >> 47));
     v21 = __ROR8__(v8 - 0x622015F714C7D297 * (v6 ^ (v6 >> 47)), 33);
@@ -8993,7 +8210,7 @@ unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_range_impl<cha
     v23 = __ROR8__(v19, 44) + v16 + __ROR8__(v22 + v8 + v16 + v17, 21);
     v24 = 0xB492B66FBE98F273 * v21;
     v25 = v19 + v17;
-    v26 = v20 + a1[4] - 0x4B6D499041670D8DLL * v21;
+    v26 = v20 + *(a1 + 4) - 0x4B6D499041670D8DLL * v21;
     v27 = v14 + v12 + v26;
     v28 = __ROR8__(v15 + v18 + v11 + v26, 21) + v26 + __ROR8__(v27, 44);
     v29 = v27 + v11;
@@ -9005,7 +8222,7 @@ unint64_t __swift::__runtime::llvm::hashing::detail::hash_combine_range_impl<cha
 
     else
     {
-      v32 = a1 + 15;
+      v32 = (a1 + 120);
       do
       {
         v33 = *(v32 - 6);
@@ -9081,7 +8298,7 @@ void swift::Demangle::__runtime::Context::~Context(swift::Demangle::__runtime::C
   }
 }
 
-unsigned int *swift::Demangle::__runtime::Context::demangleSymbolAsNode(swift::Demangle::__runtime::NodeFactory **a1, _WORD *a2, unint64_t a3)
+swift::Demangle::__runtime::Node *swift::Demangle::__runtime::Context::demangleSymbolAsNode(swift::Demangle::__runtime::NodeFactory **a1, _WORD *a2, unint64_t a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a2, a3);
@@ -9129,7 +8346,7 @@ uint64_t swift::Demangle::__runtime::Context::demangleTypeAsNode(uint64_t *a1, u
   return v4;
 }
 
-void swift::Demangle::__runtime::Context::demangleSymbolAsString(swift::Demangle::__runtime::NodeFactory **a1@<X0>, _WORD *a2@<X1>, unint64_t a3@<X2>, swift::Demangle::__runtime::Node *a4@<X3>, uint64_t a5@<X8>)
+void swift::Demangle::__runtime::Context::demangleSymbolAsString(swift::Demangle::__runtime::NodeFactory **a1@<X0>, _WORD *a2@<X1>, size_t a3@<X2>, swift::Demangle::__runtime::Node *a4@<X3>, uint64_t a5@<X8>)
 {
   v21 = *MEMORY[0x1E69E9840];
   ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a2, a3);
@@ -9202,7 +8419,7 @@ LABEL_34:
   }
 
 LABEL_8:
-  swift::Demangle::__runtime::nodeToString(v12, a4, v13, __p);
+  swift::Demangle::__runtime::nodeToString(__p, v12, a4, v13);
   v15 = HIBYTE(v19);
   v16 = HIBYTE(v19);
   if (v19 < 0)
@@ -9342,7 +8559,7 @@ LABEL_31:
   }
 
 LABEL_5:
-  swift::Demangle::__runtime::nodeToString(v11, a4, v10, __p);
+  swift::Demangle::__runtime::nodeToString(__p, v11, a4, v10);
   v12 = HIBYTE(v15);
   v13 = HIBYTE(v15);
   if (v15 < 0)
@@ -9394,7 +8611,7 @@ LABEL_29:
   }
 }
 
-BOOL swift::Demangle::__runtime::Context::isThunkSymbol(uint64_t *a1, char *a2, unint64_t a3)
+BOOL swift::Demangle::__runtime::Context::isThunkSymbol(uint64_t *a1, char *a2, size_t a3)
 {
   v3 = a3;
   v22 = *MEMORY[0x1E69E9840];
@@ -9530,7 +8747,7 @@ LABEL_54:
   return 0;
 }
 
-void swift::Demangle::__runtime::Context::getThunkTarget(uint64_t *a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, _OWORD *a4@<X8>)
+void swift::Demangle::__runtime::Context::getThunkTarget(uint64_t *a1@<X0>, std::string::size_type a2@<X1>, char *a3@<X2>, _OWORD *a4@<X8>)
 {
   v4 = a3;
   v37[0] = a2;
@@ -9551,12 +8768,12 @@ void swift::Demangle::__runtime::Context::getThunkTarget(uint64_t *a1@<X0>, uint
       v11 = v4;
     }
 
-    v12 = (a2 + v11);
+    v12 = a2 + v11;
     v13 = &v4[-v11];
     v14 = v13 - 3;
     if (v13 >= 3)
     {
-      if (*v12 == 16720 && v12[2] == 95)
+      if (*v12 == 16720 && *(v12 + 2) == 95)
       {
         if (v14 <= 0x7FFFFFFFFFFFFFF7)
         {
@@ -9568,7 +8785,7 @@ void swift::Demangle::__runtime::Context::getThunkTarget(uint64_t *a1@<X0>, uint
           *(a4 + 23) = v14;
           if (v13 != 3)
           {
-            memmove(a4, v12 + 3, v14);
+            memmove(a4, (v12 + 3), v14);
           }
 
           *(a4 + v14) = 0;
@@ -9591,7 +8808,7 @@ void swift::Demangle::__runtime::Context::getThunkTarget(uint64_t *a1@<X0>, uint
           *(a4 + 23) = v32;
           if (v13 != 4)
           {
-            memmove(a4, v12 + 4, v32);
+            memmove(a4, (v12 + 4), v32);
           }
 
           *(a4 + v32) = 0;
@@ -9674,7 +8891,7 @@ LABEL_43:
       HIBYTE(v35) = v13 - v16;
       if (v13 >= 3)
       {
-        memmove(&__p, &v12[v16], v17);
+        memmove(&__p, (v12 + v16), v17);
       }
 
       *(&__p + v17) = 0;
@@ -9806,4 +9023,693 @@ LABEL_75:
   }
 
   *(v31 + v29 - 1) = 99;
+}
+
+uint64_t swift::Demangle::__runtime::Context::hasSwiftCallingConvention(swift::Demangle::__runtime::NodeFactory **a1, _WORD *a2, unint64_t a3)
+{
+  v16 = *MEMORY[0x1E69E9840];
+  ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a2, a3);
+  v7 = *a1;
+  if (ManglingPrefixLength)
+  {
+    v15 = 0;
+    v8 = swift::Demangle::__runtime::Demangler::demangleSymbol(v7, a2, a3, v14);
+    if (v15 == v14)
+    {
+      (*(*v15 + 32))(v15);
+      if (!v8)
+      {
+        return 0;
+      }
+
+      goto LABEL_8;
+    }
+
+    if (v15)
+    {
+      (*(*v15 + 40))();
+      if (!v8)
+      {
+        return 0;
+      }
+
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v8 = swift::Demangle::__runtime::demangleOldSymbolAsNode(a2, a3, v7);
+  }
+
+  if (!v8)
+  {
+    return 0;
+  }
+
+LABEL_8:
+  if (*(v8 + 16) != 101)
+  {
+    return 0;
+  }
+
+  v9 = *(v8 + 18);
+  if ((v9 - 1) >= 2)
+  {
+    if (v9 != 5 || !*(v8 + 8))
+    {
+      return 0;
+    }
+
+    v8 = *v8;
+  }
+
+  result = 0;
+  v11 = *(*v8 + 16);
+  if (v11 <= 0x8F)
+  {
+    v13 = v11 > 0xA || ((1 << v11) & 0x640) == 0;
+    if (v13 && v11 != 91)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    v12 = v11 - 208 > 0x38 || ((1 << (v11 + 48)) & 0x100020000000001) == 0;
+    if (v12 && v11 != 144 && v11 != 174)
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+unint64_t swift::Demangle::__runtime::Context::getModuleName@<X0>(swift::Demangle::__runtime::Node **a1@<X0>, _WORD *a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a2, a3);
+  v9 = *a1;
+  if (!ManglingPrefixLength)
+  {
+    result = swift::Demangle::__runtime::demangleOldSymbolAsNode(a2, a3, v9);
+    v11 = result;
+    goto LABEL_7;
+  }
+
+  v22 = 0;
+  v11 = swift::Demangle::__runtime::Demangler::demangleSymbol(v9, a2, a3, v21);
+  result = v22;
+  if (v22 != v21)
+  {
+    if (v22)
+    {
+      result = (*(*v22 + 40))();
+      if (v11)
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    if (v11)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_8;
+  }
+
+  result = (*(*v22 + 32))(v22);
+  if (!v11)
+  {
+LABEL_8:
+    *a4 = 0;
+    a4[1] = 0;
+    a4[2] = 0;
+    return result;
+  }
+
+  while (1)
+  {
+LABEL_15:
+    v15 = v11 + 16;
+    v14 = *(v11 + 16);
+    if (v14 > 0xF2)
+    {
+      if (v14 == 243 || v14 == 247)
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_27;
+    }
+
+    if (v14 == 101)
+    {
+      v16 = *(v11 + 18);
+      v17 = v11;
+      if ((v16 - 1) >= 2)
+      {
+        if (v16 == 5)
+        {
+          v18 = *v11;
+          v17 = *v11;
+          goto LABEL_35;
+        }
+
+        v17 = 0;
+      }
+
+      if (v16 == 1)
+      {
+        v15 = v11 + 8;
+        goto LABEL_39;
+      }
+
+      if (v16 == 2)
+      {
+        goto LABEL_39;
+      }
+
+      if (v16 != 5)
+      {
+        v15 = 0;
+LABEL_39:
+        while (v17 != v15)
+        {
+          v11 = *v17;
+          result = swift::Demangle::__runtime::isFunctionAttr(*(*v17 + 16));
+          if ((result & 1) == 0)
+          {
+            goto LABEL_14;
+          }
+
+          ++v17;
+        }
+
+        goto LABEL_8;
+      }
+
+      v18 = *v11;
+LABEL_35:
+      v15 = v18 + 8 * *(v11 + 8);
+      goto LABEL_39;
+    }
+
+    if (v14 == 163)
+    {
+      break;
+    }
+
+LABEL_27:
+    if (swift::Demangle::__runtime::isSpecialized(v11, v10))
+    {
+      result = swift::Demangle::__runtime::getUnspecialized(v21, v11, *a1);
+      if (LODWORD(v21[0]))
+      {
+        goto LABEL_8;
+      }
+
+      v11 = v22;
+      goto LABEL_14;
+    }
+
+    result = swift::Demangle::__runtime::isContext();
+    if (!result)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_12:
+    v13 = *(v11 + 18);
+    if ((v13 - 1) >= 2)
+    {
+      if (v13 != 5 || !*(v11 + 8))
+      {
+        goto LABEL_8;
+      }
+
+      v11 = *v11;
+    }
+
+    v11 = *v11;
+LABEL_14:
+    if (!v11)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v19 = *v11;
+  if (!*v11)
+  {
+    goto LABEL_8;
+  }
+
+  v20 = *(v11 + 8);
+  if (v20 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  if (v20 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a4 + 23) = v20;
+  if (v20)
+  {
+    result = memmove(a4, v19, v20);
+  }
+
+  *(a4 + v20) = 0;
+  return result;
+}
+
+void swift::Demangle::__runtime::failAssert(swift::Demangle::__runtime *this, char *a2, swift::Demangle::__runtime *a3, swift::Demangle::__runtime::Node *a4, const char *a5)
+{
+  NodeTreeAsString = swift::Demangle::__runtime::getNodeTreeAsString(&v13, a3);
+  if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v12 = &v13;
+  }
+
+  else
+  {
+    v12 = v13.__r_.__value_.__r.__words[0];
+  }
+
+  swift::Demangle::__runtime::fatal(0, "%s:%u: assertion failed for Node %p: %s\n%s:%u: Node %p is:\n%s\n", v9, v10, NodeTreeAsString, this, a2, a3, a4, this, a2, a3, v12);
+}
+
+uint64_t swift::Demangle::__runtime::isFunctionAttr(int a1)
+{
+  v1 = a1 - 55;
+  result = 1;
+  switch(v1)
+  {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 5:
+    case 6:
+    case 7:
+    case 24:
+    case 33:
+    case 34:
+    case 38:
+    case 39:
+    case 40:
+    case 42:
+    case 43:
+    case 98:
+    case 115:
+    case 119:
+    case 125:
+    case 126:
+    case 213:
+    case 235:
+    case 245:
+    case 246:
+    case 278:
+    case 287:
+    case 288:
+    case 289:
+    case 291:
+    case 292:
+    case 299:
+    case 316:
+    case 317:
+      return result;
+    default:
+      result = 0;
+      break;
+  }
+
+  return result;
+}
+
+_BYTE *swift::Demangle::__runtime::makeSymbolicMangledNameStringRef(_BYTE *this, const char *a2)
+{
+  if (this)
+  {
+    v2 = *this;
+    if (*this)
+    {
+      v3 = this;
+      do
+      {
+        if (v2 >= 0x18)
+        {
+          v4 = 8 * ((v2 & 0xF8) == 24);
+        }
+
+        else
+        {
+          v4 = 4;
+        }
+
+        v5 = &v3[v4];
+        v6 = v5[1];
+        v3 = v5 + 1;
+        v2 = v6;
+      }
+
+      while (v6);
+    }
+  }
+
+  return this;
+}
+
+uint64_t swift::Demangle::__runtime::getManglingPrefixLength(uint64_t a1, unint64_t a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 3)
+  {
+    if (a2 != 1 && (*a1 == 21284 || *a1 == 29476 || *a1 == 25892))
+    {
+      return 2;
+    }
+
+    return 0;
+  }
+
+  if (*a1 == 21599 && *(a1 + 2) == 48)
+  {
+    return 3;
+  }
+
+  if (*a1 != 21284)
+  {
+    if (*a1 == 9311 && *(a1 + 2) == 83)
+    {
+      return 3;
+    }
+
+    if (*a1 != 29476)
+    {
+      if (*a1 == 9311 && *(a1 + 2) == 115)
+      {
+        return 3;
+      }
+
+      if (*a1 != 25892)
+      {
+        if (*a1 != 9311 || *(a1 + 2) != 101)
+        {
+          if (a2 >= 0xE && *a1 == 0x74666977735F5F40 && *(a1 + 6) == 0x5F6F7263616D7466)
+          {
+            return 14;
+          }
+
+          return 0;
+        }
+
+        return 3;
+      }
+    }
+  }
+
+  return 2;
+}
+
+uint64_t swift::Demangle::__runtime::isSwiftSymbol(swift::Demangle::__runtime *this, const char *a2)
+{
+  if (!this)
+  {
+    v3 = 0;
+    return swift::Demangle::__runtime::getManglingPrefixLength(this, v3) != 0;
+  }
+
+  v2 = this;
+  v3 = strlen(this);
+  if (v3 < 2)
+  {
+    this = v2;
+    return swift::Demangle::__runtime::getManglingPrefixLength(this, v3) != 0;
+  }
+
+  this = v2;
+  if (*v2 != 21599)
+  {
+    return swift::Demangle::__runtime::getManglingPrefixLength(this, v3) != 0;
+  }
+
+  return 1;
+}
+
+BOOL swift::Demangle::__runtime::isObjCSymbol(uint64_t a1, unint64_t a2)
+{
+  ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a1, a2);
+  if (a2 < ManglingPrefixLength)
+  {
+    ManglingPrefixLength = a2;
+  }
+
+  if (a2 - ManglingPrefixLength < 2)
+  {
+    return 0;
+  }
+
+  if (*(ManglingPrefixLength + a1) == 28499)
+  {
+    return 1;
+  }
+
+  return *(ManglingPrefixLength + a1) == 17235;
+}
+
+unint64_t swift::Demangle::__runtime::dropSwiftManglingPrefix(uint64_t a1, unint64_t a2)
+{
+  ManglingPrefixLength = swift::Demangle::__runtime::getManglingPrefixLength(a1, a2);
+  if (a2 < ManglingPrefixLength)
+  {
+    ManglingPrefixLength = a2;
+  }
+
+  return ManglingPrefixLength + a1;
+}
+
+uint64_t swift::Demangle::__runtime::isAlias(uint64_t a1, uint64_t a2)
+{
+  v51 = *MEMORY[0x1E69E9840];
+  v11[1] = 0;
+  v11[2] = 0;
+  v12 = 0;
+  v13 = 2400;
+  v14 = 0;
+  v15 = 0;
+  v50 = 0;
+  v11[0] = &unk_1EEEADB90;
+  v16 = 0;
+  v17 = 0;
+  v18 = 0;
+  v19 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v48 = 0;
+  v10 = 0;
+  v2 = swift::Demangle::__runtime::Demangler::demangleType(v11, a1, a2, v9);
+  if (!v2)
+  {
+    goto LABEL_11;
+  }
+
+  while (1)
+  {
+    v3 = *(v2 + 16);
+    if (v3 != 243)
+    {
+      break;
+    }
+
+    v4 = *(v2 + 18);
+    if ((v4 - 1) >= 2)
+    {
+      if (v4 != 5 || !*(v2 + 8))
+      {
+        goto LABEL_11;
+      }
+
+      v2 = *v2;
+    }
+
+    v2 = *v2;
+    if (!v2)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  if (v3 == 245)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+LABEL_11:
+    v5 = 0;
+  }
+
+  if (v10 == v9)
+  {
+    (*(*v10 + 32))(v10);
+  }
+
+  else if (v10)
+  {
+    (*(*v10 + 40))();
+  }
+
+  v11[0] = &unk_1EEEADB90;
+  if (v50 == &v49)
+  {
+    (*(*v50 + 32))(v50);
+  }
+
+  else if (v50)
+  {
+    (*(*v50 + 40))();
+  }
+
+  v11[0] = &unk_1EEEADB68;
+  v6 = v12;
+  if (v12)
+  {
+    do
+    {
+      v7 = *v6;
+      free(v6);
+      v6 = v7;
+    }
+
+    while (v7);
+  }
+
+  if (v14)
+  {
+    *(v14 + 48) = 0;
+  }
+
+  return v5;
+}
+
+uint64_t swift::Demangle::__runtime::Demangler::demangleType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v7 = *(a4 + 24);
+  if (v7)
+  {
+    if (v7 == a4)
+    {
+      v23 = v22;
+      (*(*v7 + 24))(v7, v22);
+    }
+
+    else
+    {
+      v23 = *(a4 + 24);
+      *(a4 + 24) = 0;
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  swift::Demangle::__runtime::Demangler::DemangleInitRAII::DemangleInitRAII(v24, a1, a2, a3, v22);
+  if (v23 == v22)
+  {
+    (*(*v23 + 32))(v23);
+  }
+
+  else if (v23)
+  {
+    (*(*v23 + 40))();
+  }
+
+  v12 = *(a1 + 64);
+  while (1)
+  {
+    v13 = *(a1 + 72);
+    if (v13 >= v12 || v13 >= *(a1 + 64) || !*(*(a1 + 56) + v13))
+    {
+      break;
+    }
+
+    v14 = swift::Demangle::__runtime::Demangler::demangleOperator(a1, v8, v9, v10, v11);
+    if (!v14)
+    {
+      goto LABEL_21;
+    }
+
+    v21 = v14;
+    swift::Demangle::__runtime::Vector<swift::Demangle::__runtime::Node *>::push_back((a1 + 88), &v21, a1);
+  }
+
+  v15 = *(a1 + 96);
+  if (!v15)
+  {
+LABEL_21:
+    v17 = 0;
+    goto LABEL_22;
+  }
+
+  v16 = *(a1 + 88);
+  v17 = *(v16 + 8 * (v15 - 1));
+  *(a1 + 96) = v15 - 1;
+  if (v15 != 1)
+  {
+    v18 = v15 - 2;
+    v19 = *(v16 + 8 * v18);
+    *(a1 + 96) = v18;
+    if (v19)
+    {
+      v17 = 0;
+    }
+  }
+
+LABEL_22:
+  swift::Demangle::__runtime::Demangler::DemangleInitRAII::~DemangleInitRAII(v24);
+  return v17;
 }

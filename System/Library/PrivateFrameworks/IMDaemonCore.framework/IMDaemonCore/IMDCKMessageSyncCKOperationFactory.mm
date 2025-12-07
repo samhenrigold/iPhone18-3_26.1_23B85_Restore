@@ -39,12 +39,12 @@
 
 - (id)fetchMessageZoneChangesCKOperationUsingToken:(id)token zoneID:(id)d resultsLimit:(unint64_t)limit operationGroupName:(id)name activity:(id)activity
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   nameCopy = name;
   activityCopy = activity;
-  v28 = tokenCopy;
+  v27 = tokenCopy;
   v16 = [(IMDCKMessageSyncCKOperationFactory *)self _messageFetchRecordZoneChangesOptionsDictionaryUsingToken:tokenCopy zoneID:dCopy resultsLimit:limit];
   v17 = objc_alloc(MEMORY[0x277CBC3B8]);
   v18 = IMSingleObjectArray();
@@ -68,21 +68,19 @@
       group = [v19 group];
       name = [group name];
       *buf = 138412546;
-      v30 = operationID;
-      v31 = 2112;
-      v32 = name;
+      v29 = operationID;
+      v30 = 2112;
+      v31 = name;
       _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Created fetch message operation ID %@ operationGroupName %@", buf, 0x16u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)saveMessagesCKOperationUsingRecordsToSave:(id)save operationGroupName:(id)name activity:(id)activity
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   nameCopy = name;
   activityCopy = activity;
@@ -104,22 +102,20 @@
       operationID = [v11 operationID];
       group = [v11 group];
       name = [group name];
-      v20 = 138412546;
-      v21 = operationID;
-      v22 = 2112;
-      v23 = name;
-      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Created modify message operation ID %@ operationGroupName %@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = operationID;
+      v21 = 2112;
+      v22 = name;
+      _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Created modify message operation ID %@ operationGroupName %@", &v19, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)deleteMessageCKOperationUsingRecordIDstoDelete:(id)delete
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   deleteCopy = delete;
   v4 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:0 recordIDsToDelete:deleteCopy];
   [v4 setAtomic:0];
@@ -137,20 +133,18 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       operationID = [v4 operationID];
-      v11 = 138412290;
-      v12 = operationID;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created deleted message operation ID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = operationID;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created deleted message operation ID %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)deleteRecoverableMessageCKOperationUsingRecordIDstoDelete:(id)delete
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   deleteCopy = delete;
   v4 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:0 recordIDsToDelete:deleteCopy];
   [v4 setAtomic:0];
@@ -168,20 +162,18 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       operationID = [v4 operationID];
-      v11 = 138412290;
-      v12 = operationID;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created recoverable deleted message operation ID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = operationID;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Created recoverable deleted message operation ID %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)fetchArchivedRecordsOperationWithSyncToken:(id)token zoneID:(id)d activity:(id)activity
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   activityCopy = activity;
@@ -203,15 +195,13 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       operationID = [v16 operationID];
-      v21 = 138412546;
-      v22 = operationID;
-      v23 = 2112;
-      v24 = dCopy;
-      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Created fetched archived operation ID %@ using zone id %@", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = operationID;
+      v22 = 2112;
+      v23 = dCopy;
+      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Created fetched archived operation ID %@ using zone id %@", &v20, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

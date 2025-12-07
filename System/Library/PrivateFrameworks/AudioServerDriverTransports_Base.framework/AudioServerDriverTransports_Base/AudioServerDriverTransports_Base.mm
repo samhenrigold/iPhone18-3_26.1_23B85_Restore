@@ -6,7 +6,7 @@ void ASDTSystemPowerInterestCallback(void *a1, unsigned int a2, uint64_t a3, voi
   objc_autoreleasePoolPop(v7);
 }
 
-uint64_t ASDTBaseLogType()
+uint64_t ASDTBaseLogType(uint64_t a1, uint64_t a2)
 {
   if (ASDTBaseLogType_onceToken != -1)
   {
@@ -42,8 +42,8 @@ uint64_t anonymous namespace::GetEntryForPath(_anonymous_namespace_ *this, const
   mainPort = 0;
   if (!this)
   {
-    v5 = ASDTBaseLogType();
-    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v7 = ASDTBaseLogType(0, a2);
+    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -52,10 +52,11 @@ uint64_t anonymous namespace::GetEntryForPath(_anonymous_namespace_ *this, const
     return 0;
   }
 
-  if (MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort))
+  v3 = MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort);
+  if (v3)
   {
-    v3 = ASDTBaseLogType();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    v5 = ASDTBaseLogType(v3, v4);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -78,15 +79,15 @@ CFTypeRef ASDT::IORegistry::GetObjectForKey(ASDT::IORegistry *this, _anonymous_n
       v8 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], this, 0x8000100u);
       if (v8)
       {
-        v9 = v8;
+        v10 = v8;
         CFProperty = IORegistryEntryCreateCFProperty(v6, v8, v7, 0);
-        CFRelease(v9);
+        CFRelease(v10);
         IOObjectRelease(v6);
         return CFProperty;
       }
 
-      v13 = ASDTBaseLogType();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = ASDTBaseLogType(0, v9);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         ASDT::IORegistry::GetObjectForKey();
       }
@@ -97,10 +98,10 @@ CFTypeRef ASDT::IORegistry::GetObjectForKey(ASDT::IORegistry *this, _anonymous_n
 
   else
   {
-    v12 = ASDTBaseLogType();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = ASDTBaseLogType(this, a2);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IORegistry::GetObjectForKey(this, a2, v12);
+      ASDT::IORegistry::GetObjectForKey(this, a2, v13);
     }
   }
 
@@ -112,26 +113,24 @@ BOOL ASDT::IORegistry::GetUInt32tForKey(UInt8 *this, ASDT::IORegistry *a2, _anon
   v25 = *MEMORY[0x277D85DE8];
   if (!this)
   {
-    v11 = ASDTBaseLogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(0, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       ASDT::IORegistry::GetUInt32tForKey();
     }
 
-    goto LABEL_8;
+    return 0;
   }
 
   ObjectForKey = ASDT::IORegistry::GetObjectForKey(a2, a3, a3);
   if (!ObjectForKey)
   {
-LABEL_8:
-    v10 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   v8 = ObjectForKey;
   Length = CFDataGetLength(ObjectForKey);
-  v10 = Length > 3;
+  v11 = Length > 3;
   if (Length > 3)
   {
     v26.location = 0;
@@ -141,9 +140,9 @@ LABEL_8:
 
   else
   {
-    v12 = Length;
-    v13 = ASDTBaseLogType();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v13 = Length;
+    v14 = ASDTBaseLogType(Length, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v17 = 136315906;
       v18 = "GetUInt32tForKey";
@@ -152,15 +151,13 @@ LABEL_8:
       v21 = 2080;
       v22 = a2;
       v23 = 2048;
-      v24 = v12;
-      _os_log_error_impl(&dword_241659000, v13, OS_LOG_TYPE_ERROR, "%s: %s/%s invalid data length: %ld", &v17, 0x2Au);
+      v24 = v13;
+      _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "%s: %s/%s invalid data length: %ld", &v17, 0x2Au);
     }
   }
 
   CFRelease(v8);
-LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 os_log_t __ASDTBaseLogType_block_invoke()
@@ -174,18 +171,18 @@ os_log_t __ASDTBaseLogType_block_invoke()
   return result;
 }
 
-uint64_t ASDT::Exclaves::StatusTracker::StatusTracker(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t ASDT::Exclaves::StatusTracker::StatusTracker(uint64_t a1, __int128 *a2, uint64_t a3, unsigned __int16 *a4)
 {
   *a1 = &unk_28534D848;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 8), *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external((a1 + 8), *a2, *(a2 + 1));
   }
 
   else
   {
     v5 = *a2;
-    *(a1 + 24) = *(a2 + 16);
+    *(a1 + 24) = *(a2 + 2);
     *(a1 + 8) = v5;
   }
 
@@ -331,10 +328,10 @@ void ASDT::Exclaves::StatusTracker::Reset(ASDT::Exclaves::StatusTracker *this)
 
 BOOL ASDT::Exclaves::StatusTracker::Push(uint64_t a1, __int128 *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (atomic_exchange((a1 + 1280), *(a2 + 9) | (*(a2 + 8) << 32)) == (*(a2 + 9) | (*(a2 + 8) << 32)))
   {
-    goto LABEL_8;
+    return 1;
   }
 
   v4 = *(a1 + 1256);
@@ -349,9 +346,7 @@ LABEL_7:
     *(v4 + 32) = v9;
     *(v4 + 48) = v10;
     caulk::concurrent::messenger::enqueue((a1 + 1264), v4);
-LABEL_8:
-    result = 1;
-    goto LABEL_9;
+    return 1;
   }
 
   v5 = atomic_exchange_explicit((a1 + 1192), 0, memory_order_acquire);
@@ -372,36 +367,34 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  v13 = ASDTBaseLogType();
-  result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v12 = ASDTBaseLogType(a1, 0);
+  result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    v14 = (a1 + 8);
+    v13 = (a1 + 8);
     if (*(a1 + 31) < 0)
     {
-      v14 = *v14;
+      v13 = *v13;
     }
 
-    v15 = ASDT::Exclaves::Sensor::StatusString(*(a2 + 8));
-    v17 = *(a2 + 1);
-    v16 = *(a2 + 2);
-    v18 = *a2;
-    v19 = 136316162;
-    v20 = v14;
-    v21 = 2080;
-    v22 = v15;
-    v23 = 2048;
-    v24 = v17;
-    v25 = 2048;
-    v26 = v16;
-    v27 = 2048;
-    v28 = v18;
-    _os_log_error_impl(&dword_241659000, v13, OS_LOG_TYPE_ERROR, "StatusTracker(%s): No messages available to push update for %s at %lluns, mat: %llu, sample: %llu", &v19, 0x34u);
-    result = 0;
+    v14 = ASDT::Exclaves::Sensor::StatusString(*(a2 + 8));
+    v16 = *(a2 + 1);
+    v15 = *(a2 + 2);
+    v17 = *a2;
+    v18 = 136316162;
+    v19 = v13;
+    v20 = 2080;
+    v21 = v14;
+    v22 = 2048;
+    v23 = v16;
+    v24 = 2048;
+    v25 = v15;
+    v26 = 2048;
+    v27 = v17;
+    _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "StatusTracker(%s): No messages available to push update for %s at %lluns, mat: %llu, sample: %llu", &v18, 0x34u);
+    return 0;
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -436,19 +429,18 @@ void ASDT::Exclaves::StatusTracker::Process(ASDT::Exclaves::StatusTracker *this,
   v13 = *(this + 2900);
   if (v13 && (*(this + 10 * (v13 + v12) + 331) | (*(this + 10 * (v13 + v12) + 330) << 32)) == (v6 | (v7 << 32)))
   {
-    v14 = *MEMORY[0x277D85DE8];
 
     std::mutex::unlock((this + 11528));
   }
 
   else
   {
-    v15 = this + 40 * (v13 + v12 + 1);
-    *(v15 + 161) = v4;
-    *(v15 + 162) = v5;
-    *(v15 + 1304) = v20;
-    *(v15 + 330) = v7;
-    *(v15 + 331) = v6;
+    v14 = this + 40 * (v13 + v12 + 1);
+    *(v14 + 161) = v4;
+    *(v14 + 162) = v5;
+    *(v14 + 1304) = v20;
+    *(v14 + 330) = v7;
+    *(v14 + 331) = v6;
     if (v13 == 256)
     {
       *(this + 2901) = v12 + 1;
@@ -460,52 +452,50 @@ void ASDT::Exclaves::StatusTracker::Process(ASDT::Exclaves::StatusTracker *this,
     }
 
     std::mutex::unlock((this + 11528));
-    v16 = ASDTBaseLogType();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = ASDTBaseLogType(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = (this + 8);
+      v18 = (this + 8);
       if (*(this + 31) < 0)
       {
-        v17 = *v17;
+        v18 = *v18;
       }
 
       *buf = 136315906;
-      v22 = v17;
+      v22 = v18;
       v23 = 2080;
       v24 = ASDT::Exclaves::Sensor::StatusString(v7);
       v25 = 2048;
       v26 = v5;
       v27 = 2048;
       v28 = v4;
-      _os_log_impl(&dword_241659000, v16, OS_LOG_TYPE_DEFAULT, "StatusTracker(%s): %s; time: %lluns, sample: %llu", buf, 0x2Au);
+      _os_log_impl(&dword_241659000, v17, OS_LOG_TYPE_DEFAULT, "StatusTracker(%s): %s; time: %lluns, sample: %llu", buf, 0x2Au);
     }
 
-    v18 = *(this + 1449);
-    if (v18)
+    v19 = *(this + 1449);
+    if (v19)
     {
-      (*(v18 + 16))();
+      (*(v19 + 16))();
     }
-
-    v19 = *MEMORY[0x277D85DE8];
   }
 }
 
-void ASDT::Exclaves::StatusTracker::Pop(ASDT::Exclaves::StatusTracker *this@<X0>, unsigned int a2@<W1>, const void **a3@<X8>)
+void ASDT::Exclaves::StatusTracker::Pop(const void **__return_ptr a1@<X8>, ASDT::Exclaves::StatusTracker *this@<X0>, unsigned int a3@<W1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (!a2)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (!a3)
   {
-    a2 = *(this + 2900);
+    a3 = *(this + 2900);
   }
 
-  v5 = a2;
-  std::vector<ASDT::Exclaves::StatusTracker::Update>::reserve(a3, a2);
+  v5 = a3;
+  std::vector<ASDT::Exclaves::StatusTracker::Update>::reserve(a1, a3);
   std::mutex::lock((this + 11528));
-  v6 = *a3;
-  v7 = a3[1];
-  v8 = 0xCCCCCCCCCCCCCCCDLL * ((v7 - *a3) >> 3);
+  v6 = *a1;
+  v7 = a1[1];
+  v8 = 0xCCCCCCCCCCCCCCCDLL * ((v7 - *a1) >> 3);
   if (v8 < v5)
   {
     v9 = *(this + 2900);
@@ -519,7 +509,7 @@ void ASDT::Exclaves::StatusTracker::Pop(ASDT::Exclaves::StatusTracker *this@<X0>
       v10 = *(this + 2901) + 1;
       *(this + 2901) = v10;
       v11 = this + 40 * v10 + 1288;
-      v12 = a3[2];
+      v12 = a1[2];
       if (v7 >= v12)
       {
         v15 = v8 + 1;
@@ -546,7 +536,7 @@ void ASDT::Exclaves::StatusTracker::Pop(ASDT::Exclaves::StatusTracker *this@<X0>
 
         if (v17)
         {
-          std::allocator<ASDT::Exclaves::StatusTracker::Update>::allocate_at_least[abi:ne200100](a3, v17);
+          std::allocator<ASDT::Exclaves::StatusTracker::Update>::allocate_at_least[abi:ne200100](a1, v17);
         }
 
         v18 = 40 * v8;
@@ -556,17 +546,17 @@ void ASDT::Exclaves::StatusTracker::Pop(ASDT::Exclaves::StatusTracker *this@<X0>
         *v18 = v19;
         *(v18 + 16) = v20;
         v21 = v7 - v6;
-        v7 = 40 * v8 + 40;
+        v7 = (40 * v8 + 40);
         v22 = (40 * v8 - v21);
         memcpy((v18 - v21), v6, v21);
-        v23 = *a3;
-        *a3 = v22;
-        a3[1] = v7;
-        a3[2] = 0;
+        v23 = *a1;
+        *a1 = v22;
+        a1[1] = v7;
+        a1[2] = 0;
         if (v23)
         {
           operator delete(v23);
-          v6 = *a3;
+          v6 = *a1;
         }
 
         else
@@ -579,13 +569,13 @@ void ASDT::Exclaves::StatusTracker::Pop(ASDT::Exclaves::StatusTracker *this@<X0>
       {
         v13 = *v11;
         v14 = *(v11 + 1);
-        *(v7 + 32) = *(v11 + 4);
+        *(v7 + 4) = *(v11 + 4);
         *v7 = v13;
-        *(v7 + 16) = v14;
-        v7 += 40;
+        v7[1] = v14;
+        v7 = (v7 + 40);
       }
 
-      a3[1] = v7;
+      a1[1] = v7;
       v9 = *(this + 2900) - 1;
       *(this + 2900) = v9;
       v8 = 0xCCCCCCCCCCCCCCCDLL * ((v7 - v6) >> 3);
@@ -609,20 +599,17 @@ void sub_24165D0DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<ASDT::Exclaves::StatusTracker::Update>::reserve(void *result, unint64_t a2)
+void std::vector<ASDT::Exclaves::StatusTracker::Update>::reserve(void *a1, unint64_t a2)
 {
-  if (0xCCCCCCCCCCCCCCCDLL * ((result[2] - *result) >> 3) < a2)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x666666666666667)
     {
-      v2 = result[1] - *result;
-      std::allocator<ASDT::Exclaves::StatusTracker::Update>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<ASDT::Exclaves::StatusTracker::Update>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<ASDT::Exclaves::StatusTracker::Update>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t ASDT::Exclaves::StatusTracker::GetCount(ASDT::Exclaves::StatusTracker *this)
@@ -721,7 +708,7 @@ ASDT::IOUserClient *ASDT::IOUserClient::IOUserClient(ASDT::IOUserClient *this)
   return ASDT::IOUserClient::IOUserClient(this, 0, 0);
 }
 
-ASDT::IOUserClient *ASDT::IOUserClient::IOUserClient(ASDT::IOUserClient *this, unsigned int a2, unsigned int a3)
+ASDT::IOUserClient *ASDT::IOUserClient::IOUserClient(ASDT::IOUserClient *this, int a2, int a3)
 {
   *this = &unk_28534D900;
   *(this + 2) = a2;
@@ -807,23 +794,23 @@ ASDT::IOUserClient *ASDT::IOUserClient::IOUserClient(ASDT::IOUserClient *this, u
   return this;
 }
 
-void sub_24165D9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_24165D9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   applesauce::CF::StringRef::~StringRef(va);
-  std::shared_mutex::~shared_mutex[abi:ne200100]((v9 + 8));
-  v13 = *v11;
-  *v11 = 0;
-  if (v13)
+  std::shared_mutex::~shared_mutex[abi:ne200100]((v16 + 8));
+  v20 = *v18;
+  *v18 = 0;
+  if (v20)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v20 + 8))(v20);
   }
 
-  applesauce::CF::DictionaryRef::~DictionaryRef(v9);
-  ASDT::IOConnect::~IOConnect((v8 + 40));
-  if (*(v8 + 39) < 0)
+  applesauce::CF::DictionaryRef::~DictionaryRef(v16);
+  ASDT::IOConnect::~IOConnect((v15 + 40));
+  if (*(v15 + 39) < 0)
   {
-    operator delete(*v10);
+    operator delete(*v17);
   }
 
   _Unwind_Resume(a1);
@@ -882,7 +869,7 @@ double applesauce::CF::StringRef_proxy::convert_or@<D0>(const __CFString ***a1@<
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -896,13 +883,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1009,24 +996,24 @@ void sub_24165DE6C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__n128 ASDT::IOUserClient::MoveDataMembers(ASDT::IOUserClient *this, __n128 *a2)
+__n128 ASDT::IOUserClient::MoveDataMembers(__n128 *this, __n128 *a2)
 {
   ASDT::IOUserClient::Clear(this);
-  *(this + 145) = a2[9].n128_u8[1];
-  *(this + 2) = a2->n128_u32[2];
-  if (*(this + 39) < 0)
+  this[9].n128_u8[1] = a2[9].n128_u8[1];
+  this->n128_u32[2] = a2->n128_u32[2];
+  if (this[2].n128_i8[7] < 0)
   {
-    operator delete(*(this + 2));
+    operator delete(this[1].n128_u64[0]);
   }
 
   v4 = a2[1];
-  *(this + 4) = a2[2].n128_u64[0];
-  *(this + 1) = v4;
+  this[2].n128_u64[0] = a2[2].n128_u64[0];
+  this[1] = v4;
   a2[2].n128_u8[7] = 0;
   a2[1].n128_u8[0] = 0;
-  v5 = *(this + 17);
+  v5 = this[8].n128_u64[1];
   v6 = a2[8].n128_u64[1];
-  *(this + 17) = v6;
+  this[8].n128_u64[1] = v6;
   if (v6)
   {
     CFRetain(v6);
@@ -1037,14 +1024,14 @@ __n128 ASDT::IOUserClient::MoveDataMembers(ASDT::IOUserClient *this, __n128 *a2)
     CFRelease(v5);
   }
 
-  *(this + 144) = a2[9].n128_u8[0];
-  *(this + 23) = a2[11].n128_u64[1];
-  *(this + 96) = a2[12].n128_u16[0];
-  ASDT::IOConnect::operator=(this + 40, &a2[2].n128_i64[1]);
+  this[9].n128_u8[0] = a2[9].n128_u8[0];
+  this[11].n128_u64[1] = a2[11].n128_u64[1];
+  this[12].n128_u16[0] = a2[12].n128_u16[0];
+  ASDT::IOConnect::operator=(&this[2].n128_i64[1], &a2[2].n128_i64[1]);
   v7 = a2[9].n128_u64[1];
   a2[9].n128_u64[1] = 0;
-  v8 = *(this + 19);
-  *(this + 19) = v7;
+  v8 = this[9].n128_u64[1];
+  this[9].n128_u64[1] = v7;
   if (v8)
   {
     (*(*v8 + 8))(v8);
@@ -1081,8 +1068,8 @@ __n128 ASDT::IOUserClient::MoveDataMembers(ASDT::IOUserClient *this, __n128 *a2)
   a2[11].n128_u64[1] = 0;
   a2[12].n128_u16[0] = 0;
   result = a2[10];
-  *(this + 10) = result;
-  *(this + 44) = a2[11].n128_u32[0];
+  this[10] = result;
+  this[11].n128_u32[0] = a2[11].n128_u32[0];
   a2[11].n128_u32[0] = 0;
   a2[10].n128_u64[0] = 0;
   a2[10].n128_u64[1] = 0;
@@ -1222,11 +1209,12 @@ uint64_t ASDT::IOUserClient::GetIOObjectRefCount(uint64_t this)
 {
   if (this)
   {
-    v2 = 0;
-    if (MEMORY[0x245CECB50](*MEMORY[0x277D85F48], this, 0, &v2))
+    v4 = 0;
+    v1 = MEMORY[0x245CECB50](*MEMORY[0x277D85F48], this, 0, &v4);
+    if (v1)
     {
-      v1 = ASDTBaseLogType();
-      this = os_log_type_enabled(v1, OS_LOG_TYPE_ERROR);
+      v3 = ASDTBaseLogType(v1, v2);
+      this = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
       if (this)
       {
         ASDT::IOUserClient::GetIOObjectRefCount();
@@ -1236,7 +1224,7 @@ uint64_t ASDT::IOUserClient::GetIOObjectRefCount(uint64_t this)
 
     else
     {
-      return v2;
+      return v4;
     }
   }
 
@@ -1344,7 +1332,7 @@ LABEL_11:
 
   std::__shared_mutex_base::unlock_shared(v4);
   v10 = 0;
-  ASDT::IOUserClient::CacheProperties(this, &v7);
+  ASDT::IOUserClient::CacheProperties(&v7, this);
   v5 = *(this + 17);
   *a2 = v5;
   if (v5)
@@ -1358,10 +1346,11 @@ LABEL_11:
   }
 }
 
-void sub_24165E7DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_24165E7DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  applesauce::CF::DictionaryRef::~DictionaryRef(v11);
-  std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](&a11);
+  va_start(va, a10);
+  applesauce::CF::DictionaryRef::~DictionaryRef(v10);
+  std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -1384,11 +1373,11 @@ uint64_t ASDT::IOUserClient::CacheNeedsUpdate(ASDT::IOUserClient *this)
   return v1 & 1;
 }
 
-void ASDT::IOUserClient::CacheProperties(ASDT::IOUserClient *this@<X0>, uint64_t a2@<X8>)
+void ASDT::IOUserClient::CacheProperties(std::__shared_mutex_base **__return_ptr a1@<X8>, ASDT::IOUserClient *this@<X0>)
 {
   v3 = (this + 200);
-  *a2 = v3;
-  *(a2 + 8) = 1;
+  *a1 = v3;
+  *(a1 + 8) = 1;
   std::__shared_mutex_base::lock(v3);
   if ((*(this + 145) & 1) == 0)
   {
@@ -1398,15 +1387,15 @@ void ASDT::IOUserClient::CacheProperties(ASDT::IOUserClient *this@<X0>, uint64_t
       if (*(this + 144) == 1)
       {
         ASDT::IOUserClient::CopyProperties(v4, &cf);
-        v5 = cf;
+        v6 = cf;
         if (cf)
         {
-          v6 = *(this + 17);
+          v7 = *(this + 17);
           *(this + 17) = cf;
-          CFRetain(v5);
-          if (v6)
+          CFRetain(v6);
+          if (v7)
           {
-            CFRelease(v6);
+            CFRelease(v7);
           }
 
           *(this + 144) = 0;
@@ -1414,10 +1403,10 @@ void ASDT::IOUserClient::CacheProperties(ASDT::IOUserClient *this@<X0>, uint64_t
 
         else
         {
-          v7 = ASDTBaseLogType();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v8 = ASDTBaseLogType(0, v5);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            ASDT::IOUserClient::CacheProperties(this);
+            ASDT::IOUserClient::CacheProperties();
           }
         }
 
@@ -1430,11 +1419,11 @@ void ASDT::IOUserClient::CacheProperties(ASDT::IOUserClient *this@<X0>, uint64_t
   }
 }
 
-void sub_24165E8F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165E8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
-  std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](v2);
+  std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -1493,7 +1482,7 @@ uint64_t ASDT::IOUserClient::GuardedCopyProperty(ASDT::IOUserClient *this, const
     return 0;
   }
 
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(v3, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(&cf, v3, a2);
   v5 = v10;
   if (v10 == 1)
   {
@@ -1543,7 +1532,7 @@ LABEL_8:
 
   std::__shared_mutex_base::unlock_shared(v6);
   v14 = 0;
-  ASDT::IOUserClient::CacheProperties(this, &v11);
+  ASDT::IOUserClient::CacheProperties(&v11, this);
   v9 = ASDT::IOUserClient::GuardedCopyProperty(this, a2, a3);
   if (v12 == 1)
   {
@@ -1553,9 +1542,9 @@ LABEL_8:
   return v9;
 }
 
-void sub_24165EB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24165EB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1613,9 +1602,9 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::C
   return result;
 }
 
-void sub_24165ECD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165ECD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
@@ -1676,7 +1665,7 @@ void applesauce::CF::BooleanRef::~BooleanRef(const void **this)
   }
 }
 
-uint64_t ASDT::IOUserClient::ConvertNumber<unsigned int>(const __CFNumber **a1, _DWORD *a2)
+unint64_t ASDT::IOUserClient::ConvertNumber<unsigned int>(const __CFNumber **a1, _DWORD *a2)
 {
   v2 = *a1;
   if (!v2)
@@ -1750,7 +1739,7 @@ void applesauce::CF::NumberRef::~NumberRef(const void **this)
   }
 }
 
-uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, int *a3)
+unint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, int *a3)
 {
   v4 = *this;
   if (!v4)
@@ -1774,14 +1763,14 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::C
   return v7;
 }
 
-void sub_24165F0DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOUserClient::ConvertNumber<int>(const __CFNumber **a1, _DWORD *a2)
+unint64_t ASDT::IOUserClient::ConvertNumber<int>(const __CFBoolean **a1, _DWORD *a2)
 {
   v2 = *a1;
   if (!v2)
@@ -1799,7 +1788,7 @@ uint64_t ASDT::IOUserClient::ConvertNumber<int>(const __CFNumber **a1, _DWORD *a
   return HIDWORD(v4) & 1;
 }
 
-uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, unsigned int *a3)
+unint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, unsigned int *a3)
 {
   v4 = *this;
   if (!v4)
@@ -1823,9 +1812,9 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::C
   return v7;
 }
 
-void sub_24165F200(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
@@ -1854,9 +1843,9 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const __CFBoolean *
   return v7;
 }
 
-void sub_24165F2A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
@@ -1903,14 +1892,14 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const __CFBoolean *
   return v7;
 }
 
-void sub_24165F3C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOUserClient::ConvertNumber<unsigned long long>(const __CFNumber **a1, const __CFBoolean **a2)
+uint64_t ASDT::IOUserClient::ConvertNumber<unsigned long long>(const __CFBoolean **a1, const __CFBoolean **a2)
 {
   v2 = *a1;
   if (!v2)
@@ -1928,7 +1917,7 @@ uint64_t ASDT::IOUserClient::ConvertNumber<unsigned long long>(const __CFNumber 
   return v5 & 1;
 }
 
-uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, float *a3)
+unint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::CF::TypeRef *a2, float *a3)
 {
   v4 = *this;
   if (!v4)
@@ -1952,14 +1941,14 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const applesauce::C
   return v7;
 }
 
-void sub_24165F4EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOUserClient::ConvertNumber<float>(const __CFNumber **a1, _DWORD *a2)
+unint64_t ASDT::IOUserClient::ConvertNumber<float>(const __CFNumber **a1, _DWORD *a2)
 {
   v2 = *a1;
   if (!v2)
@@ -2001,9 +1990,9 @@ uint64_t ASDT::IOUserClient::ConvertValue(const void **this, const __CFBoolean *
   return v7;
 }
 
-void sub_24165F610(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24165F610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::NumberRef::~NumberRef(va);
   _Unwind_Resume(a1);
 }
@@ -2331,20 +2320,26 @@ void sub_24165FD3C(_Unwind_Exception *a1)
 
 BOOL ASDT::IOUserClient::DictionarySetValueForKey(CFDictionaryRef *a1, const __CFString **a2, const void **a3)
 {
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v16, *a1);
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v11, *a1);
-  *(&v11 + 1) = (v13 - v12) >> 3;
-  std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::map[abi:ne200100]<applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>(&v21, &v16, &v11);
+  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v18, *a1);
+  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v13, *a1);
+  *(&v13 + 1) = (v15 - v14) >> 3;
+  std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::map[abi:ne200100]<applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>(&v23, &v18, &v13);
   if (__p)
   {
-    v15 = __p;
+    v17 = __p;
     operator delete(__p);
   }
 
-  if (v12)
+  if (v14)
   {
-    v13 = v12;
-    operator delete(v12);
+    v15 = v14;
+    operator delete(v14);
+  }
+
+  if (v21)
+  {
+    v22 = v21;
+    operator delete(v21);
   }
 
   if (v19)
@@ -2353,17 +2348,12 @@ BOOL ASDT::IOUserClient::DictionarySetValueForKey(CFDictionaryRef *a1, const __C
     operator delete(v19);
   }
 
-  if (v17)
+  v6 = std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::insert_or_assign[abi:ne200100]<applesauce::CF::TypeRef&>(&v23, a2, a3);
+  v8 = v6;
+  if (v24 == v6)
   {
-    v18 = v17;
-    operator delete(v17);
-  }
-
-  v6 = std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::insert_or_assign[abi:ne200100]<applesauce::CF::TypeRef&>(&v21, a2, a3);
-  if (v22 == v6)
-  {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTBaseLogType(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       ASDT::IOUserClient::DictionarySetValueForKey();
     }
@@ -2371,17 +2361,17 @@ BOOL ASDT::IOUserClient::DictionarySetValueForKey(CFDictionaryRef *a1, const __C
 
   else
   {
-    v7 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v21);
-    v8 = *a1;
-    *a1 = v7;
-    if (v8)
+    v9 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v23);
+    v10 = *a1;
+    *a1 = v9;
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
   }
 
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v21, v22[0]);
-  return v22 != v6;
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v23, v24[0]);
+  return v24 != v8;
 }
 
 void *applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::~DictionaryRef_iterator(void *a1)
@@ -2403,16 +2393,16 @@ void *applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce:
   return a1;
 }
 
-const __CFString *std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::insert_or_assign[abi:ne200100]<applesauce::CF::TypeRef&>(void *a1, const __CFString **a2, const void **a3)
+void *std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::insert_or_assign[abi:ne200100]<applesauce::CF::TypeRef&>(uint64_t a1, const __CFString **a2, const void **a3)
 {
-  v6 = (a1 + 1);
-  v7 = a1[1];
+  v6 = (a1 + 8);
+  v7 = *(a1 + 8);
   if (!v7)
   {
-    return std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(a1, v6, a2);
+    return std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(a1, v6, a2, a2, a3);
   }
 
-  v8 = (a1 + 1);
+  v8 = a1 + 8;
   do
   {
     v9 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>((v7 + 32), a2);
@@ -2425,15 +2415,15 @@ const __CFString *std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::i
   }
 
   while (v7);
-  if (v8 == v6 || applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(a2, v8 + 4) > kCFCompareGreaterThan)
+  if (v8 == v6 || applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(a2, (v8 + 32)) > kCFCompareGreaterThan)
   {
     v6 = v8;
-    return std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(a1, v6, a2);
+    return std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(a1, v6, a2, a2, a3);
   }
 
-  v11 = v8[5];
+  v11 = *(v8 + 40);
   v12 = *a3;
-  v8[5] = *a3;
+  *(v8 + 40) = *a3;
   if (v12)
   {
     CFRetain(v12);
@@ -2447,7 +2437,7 @@ const __CFString *std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::i
   return v8;
 }
 
-uint64_t ASDT::IOUserClient::ArraySetValueAtIndex(CFArrayRef *a1, unint64_t a2, CFTypeRef *a3, char a4)
+uint64_t ASDT::IOUserClient::ArraySetValueAtIndex(CFArrayRef *a1, unint64_t a2, const void **a3, char a4)
 {
   v8 = *a1;
   if (*a1)
@@ -2469,26 +2459,25 @@ uint64_t ASDT::IOUserClient::ArraySetValueAtIndex(CFArrayRef *a1, unint64_t a2, 
 
   v11 = 0;
 LABEL_6:
-  v28 = 0;
   v29 = 0;
   v30 = 0;
-  v31[0] = v10;
-  v32[0] = v8;
-  v32[1] = 0;
-  v32[2] = Count;
-  v31[1] = v11;
-  v31[2] = v11;
-  std::vector<applesauce::CF::TypeRef>::__init_with_size[abi:ne200100]<applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>>(&v28, v32, v31, Count);
-  v12 = *a3;
+  v31 = 0;
+  *&v32 = v10;
+  v34 = v8;
+  v35 = Count;
+  *(&v32 + 1) = v11;
+  v33 = v11;
+  std::vector<applesauce::CF::TypeRef>::__init_with_size[abi:ne200100]<applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>>(&v29, &v34, &v32, Count);
+  v13 = *a3;
   if (*a3)
   {
-    v13 = v29 - v28;
+    v14 = v30 - v29;
     if (a4)
     {
-      if (v13 < a2)
+      if (v14 < a2)
       {
-        v14 = ASDTBaseLogType();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = ASDTBaseLogType(v13, v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_33;
         }
@@ -2496,15 +2485,15 @@ LABEL_6:
         goto LABEL_34;
       }
 
-      std::vector<applesauce::CF::TypeRef>::insert(&v28, &v28[a2], a3);
+      std::vector<applesauce::CF::TypeRef>::insert(&v29, &v29[a2], a3);
     }
 
     else
     {
-      if (v13 <= a2)
+      if (v14 <= a2)
       {
-        v24 = ASDTBaseLogType();
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v25 = ASDTBaseLogType(v13, v12);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_34;
         }
@@ -2512,12 +2501,12 @@ LABEL_6:
         goto LABEL_33;
       }
 
-      v19 = v28[a2];
-      v28[a2] = v12;
-      CFRetain(v12);
-      if (v19)
+      v20 = v29[a2];
+      v29[a2] = v13;
+      CFRetain(v13);
+      if (v20)
       {
-        CFRelease(v19);
+        CFRelease(v20);
       }
     }
   }
@@ -2526,8 +2515,8 @@ LABEL_6:
   {
     if ((a4 & 1) == 0)
     {
-      v20 = ASDTBaseLogType();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = ASDTBaseLogType(0, v12);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         ASDT::IOUserClient::ArraySetValueAtIndex();
       }
@@ -2535,61 +2524,61 @@ LABEL_6:
       goto LABEL_34;
     }
 
-    v15 = v29;
-    if (a2 >= v29 - v28)
+    v16 = v30;
+    if (a2 >= v30 - v29)
     {
-      v26 = ASDTBaseLogType();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = ASDTBaseLogType(0, v12);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
 LABEL_33:
         ASDT::IOUserClient::ArraySetValueAtIndex();
       }
 
 LABEL_34:
-      v23 = 0;
+      v24 = 0;
       goto LABEL_35;
     }
 
-    v16 = &v28[a2];
-    v17 = (v16 + 1);
-    if (v16 + 1 != v29)
+    v17 = &v29[a2];
+    v18 = (v17 + 1);
+    if (v17 + 1 != v30)
     {
-      v18 = *v16;
+      v19 = *v17;
       do
       {
-        *(v17 - 1) = *v17;
-        *v17++ = v18;
+        *(v18 - 1) = *v18;
+        *v18++ = v19;
       }
 
-      while (v17 != v15);
-      v15 = v29;
-      v16 = (v17 - 1);
+      while (v18 != v16);
+      v16 = v30;
+      v17 = (v18 - 1);
     }
 
-    while (v15 != v16)
+    while (v16 != v17)
     {
-      std::__destroy_at[abi:ne200100]<applesauce::CF::TypeRef,0>(--v15);
+      std::__destroy_at[abi:ne200100]<applesauce::CF::TypeRef,0>(--v16);
     }
 
-    v29 = v16;
+    v30 = v17;
   }
 
-  v21 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::TypeRef>(&v28);
-  v22 = *a1;
-  *a1 = v21;
-  if (v22)
+  v22 = applesauce::CF::details::make_CFArrayRef<applesauce::CF::TypeRef>(&v29);
+  v23 = *a1;
+  *a1 = v22;
+  if (v23)
   {
-    CFRelease(v22);
+    CFRelease(v23);
   }
 
-  v23 = 1;
+  v24 = 1;
 LABEL_35:
-  v32[0] = &v28;
-  std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](v32);
-  return v23;
+  *&v34 = &v29;
+  std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](&v34);
+  return v24;
 }
 
-void sub_24166022C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
+void sub_24166022C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char *a16)
 {
   a16 = &a10;
   std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](&a16);
@@ -2668,7 +2657,7 @@ const void **std::vector<applesauce::CF::TypeRef>::insert(uint64_t *a1, const vo
     a1[1] = v8;
     if (v6 != a2 + 1)
     {
-      v16 = a2 - v6 + 8;
+      v16 = (a2 - v6 + 8);
       v17 = v6 - 2;
       do
       {
@@ -2706,9 +2695,9 @@ const void **std::vector<applesauce::CF::TypeRef>::insert(uint64_t *a1, const vo
   return v3;
 }
 
-void sub_241660400(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241660400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2720,30 +2709,31 @@ void ASDT::IOUserClient::PropertiesChanged(ASDT::IOUserClient *this)
   std::__shared_mutex_base::unlock((this + 200));
 }
 
-uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, CFTypeRef *a3, BOOL a4)
+uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, CFTypeRef *a3, char a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v8 = (this + 200);
-  v26 = this + 200;
-  v27 = 1;
+  v27 = this + 200;
+  v28 = 1;
   std::__shared_mutex_base::lock_shared((this + 200));
-  ASDT::IOConnect::IOConnect(v43, (this + 40), a4);
-  if (!ASDT::IOConnect::Get(v43))
+  ASDT::IOConnect::IOConnect(v44, (this + 40), a4);
+  v9 = ASDT::IOConnect::Get(v44);
+  if (!v9)
   {
-    v10 = 1937010544;
+    v12 = 1937010544;
 LABEL_6:
-    v12 = ASDTBaseLogType();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = ASDTBaseLogType(v9, v10);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
 LABEL_7:
-      v11 = 0;
+      v13 = 0;
       goto LABEL_8;
     }
 
-    v15 = (this + 16);
+    v16 = (this + 16);
     if (*(this + 39) < 0)
     {
-      v15 = *v15;
+      v16 = *v16;
     }
 
     if (!*a2)
@@ -2753,12 +2743,12 @@ LABEL_7:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v24, "Unknown");
-    v16 = *a2;
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v25, "Unknown");
+    v17 = *a2;
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v28, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
-      if (!v16)
+      std::string::__init_copy_ctor_external(&v29, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+      if (!v17)
       {
         goto LABEL_21;
       }
@@ -2766,27 +2756,27 @@ LABEL_7:
 
     else
     {
-      v28 = v24;
-      if (!v16)
+      v29 = v25;
+      if (!v17)
       {
         goto LABEL_21;
       }
     }
 
     TypeID = CFStringGetTypeID();
-    if (TypeID == CFGetTypeID(v16))
+    if (TypeID == CFGetTypeID(v17))
     {
-      applesauce::CF::details::CFString_get_value<false>(v16, &__p);
-      if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+      applesauce::CF::details::CFString_get_value<false>(v17, &__p);
+      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v29.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_22;
     }
 
 LABEL_21:
-    __p = v28;
+    __p = v29;
 LABEL_22:
     p_p = &__p;
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -2794,65 +2784,66 @@ LABEL_22:
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    v19 = HIBYTE(v10);
-    if ((v10 - 0x20000000) >> 24 >= 0x5F)
-    {
-      v19 = 32;
-    }
-
-    *buf = 136316674;
-    v30 = v15;
-    v20 = BYTE2(v10);
-    if (BYTE2(v10) - 32 >= 0x5F)
+    v20 = HIBYTE(v12);
+    if ((v12 - 0x20000000) >> 24 >= 0x5F)
     {
       v20 = 32;
     }
 
-    v31 = 2080;
-    v32 = p_p;
-    v21 = BYTE1(v10);
-    if (BYTE1(v10) - 32 >= 0x5F)
+    *buf = 136316674;
+    v31 = v16;
+    v21 = BYTE2(v12);
+    if (BYTE2(v12) - 32 >= 0x5F)
     {
       v21 = 32;
     }
 
-    v33 = 1024;
-    v34 = v10;
-    v35 = 1024;
-    v36 = v19;
-    v37 = 1024;
-    v38 = v20;
-    if (v10 - 32 >= 0x5F)
+    v32 = 2080;
+    v33 = p_p;
+    v22 = BYTE1(v12);
+    if (BYTE1(v12) - 32 >= 0x5F)
     {
       v22 = 32;
     }
 
-    else
+    v34 = 1024;
+    v35 = v12;
+    v36 = 1024;
+    v37 = v20;
+    v38 = 1024;
+    v39 = v21;
+    if (v12 - 32 >= 0x5F)
     {
-      v22 = v10;
+      v23 = 32;
     }
 
-    v39 = 1024;
-    v40 = v21;
-    v41 = 1024;
-    v42 = v22;
-    _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "%s: Failed to set property '%s': %x '%c%c%c%c'", buf, 0x34u);
+    else
+    {
+      v23 = v12;
+    }
+
+    v40 = 1024;
+    v41 = v22;
+    v42 = 1024;
+    v43 = v23;
+    _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "%s: Failed to set property '%s': %x '%c%c%c%c'", buf, 0x34u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_7;
   }
 
-  v9 = ASDT::IOConnect::Get(v43);
-  v10 = IOConnectSetCFProperty(v9, *a2, *a3);
-  if (v10)
+  v11 = ASDT::IOConnect::Get(v44);
+  v9 = IOConnectSetCFProperty(v11, *a2, *a3);
+  v12 = v9;
+  if (v9)
   {
     goto LABEL_6;
   }
@@ -2860,20 +2851,17 @@ LABEL_22:
   if ((*(this + 145) & 1) == 0)
   {
     std::__shared_mutex_base::unlock_shared(v8);
-    v27 = 0;
+    v28 = 0;
     (*(*this + 24))(this);
-    ASDT::IOConnect::~IOConnect(v43);
-    v11 = 1;
-    goto LABEL_9;
+    ASDT::IOConnect::~IOConnect(v44);
+    return 1;
   }
 
-  v11 = 1;
+  v13 = 1;
 LABEL_8:
-  ASDT::IOConnect::~IOConnect(v43);
+  ASDT::IOConnect::~IOConnect(v44);
   std::__shared_mutex_base::unlock_shared(v8);
-LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 {
@@ -2954,7 +2942,7 @@ void sub_241660774(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, int a3, BOOL a4)
+uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, int a3, char a4)
 {
   v7 = MEMORY[0x277CBED28];
   if (!a3)
@@ -3035,21 +3023,21 @@ void sub_24166086C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_241660954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241660954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241660A68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241660A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, const __CFNumber *a3, BOOL a4)
+uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, const __CFNumber *a3, char a4)
 {
   valuePtr = a3;
   v7 = CFNumberCreate(0, kCFNumberLongLongType, &valuePtr);
@@ -3090,7 +3078,7 @@ uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *
   return v9;
 }
 
-uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, float a3, BOOL a4)
+uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, float a3, char a4)
 {
   *&v12 = a3;
   v7 = CFNumberCreate(0, kCFNumberFloatType, &v12);
@@ -3115,14 +3103,14 @@ uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *
   return v9;
 }
 
-void sub_241660DA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241660DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, double a3, BOOL a4)
+uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, double a3, char a4)
 {
   valuePtr = *&a3;
   v7 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
@@ -3143,30 +3131,30 @@ uint64_t ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *
   return v9;
 }
 
-void sub_241660F7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241660F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24166100C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24166100C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24166109C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24166109C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24166112C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24166112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -3177,124 +3165,123 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   if (this)
   {
     v5 = IORegistryEntrySetCFProperty(this, *a2, *a3);
-    if (!v5)
+    if (v5)
     {
-      result = 1;
-      goto LABEL_11;
+      v7 = v5;
+      v8 = ASDTBaseLogType(v5, v6);
+      result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      if (result)
+      {
+        if (!*a2)
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          applesauce::CF::construct_error(exception);
+        }
+
+        std::string::basic_string[abi:ne200100]<0>(&v19, "Unknown");
+        v10 = *a2;
+        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v21, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v21 = v19;
+        }
+
+        if (v10 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v10)))
+        {
+          applesauce::CF::details::CFString_get_value<false>(v10, &__p);
+          if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v21.__r_.__value_.__l.__data_);
+          }
+        }
+
+        else
+        {
+          __p = v21;
+        }
+
+        p_p = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          p_p = __p.__r_.__value_.__r.__words[0];
+        }
+
+        v14 = HIBYTE(v7);
+        if ((v7 - 0x20000000) >> 24 >= 0x5F)
+        {
+          v14 = 32;
+        }
+
+        v15 = BYTE2(v7);
+        if (BYTE2(v7) - 32 >= 0x5F)
+        {
+          v15 = 32;
+        }
+
+        LODWORD(v21.__r_.__value_.__l.__data_) = 136316418;
+        *(v21.__r_.__value_.__r.__words + 4) = p_p;
+        v16 = BYTE1(v7);
+        if (BYTE1(v7) - 32 >= 0x5F)
+        {
+          v16 = 32;
+        }
+
+        WORD2(v21.__r_.__value_.__r.__words[1]) = 1024;
+        *(&v21.__r_.__value_.__r.__words[1] + 6) = v7;
+        WORD1(v21.__r_.__value_.__r.__words[2]) = 1024;
+        HIDWORD(v21.__r_.__value_.__r.__words[2]) = v14;
+        v22 = 1024;
+        v23 = v15;
+        v24 = 1024;
+        if (v7 - 32 >= 0x5F)
+        {
+          v17 = 32;
+        }
+
+        else
+        {
+          v17 = v7;
+        }
+
+        v25 = v16;
+        v26 = 1024;
+        v27 = v17;
+        _os_log_error_impl(&dword_241659000, v8, OS_LOG_TYPE_ERROR, "IOUserClient: Failed to set property '%s': %x '%c%c%c%c'", &v21, 0x2Au);
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v19.__r_.__value_.__l.__data_);
+        }
+
+        return 0;
+      }
     }
 
-    v6 = v5;
-    v7 = ASDTBaseLogType();
-    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-    if (result)
+    else
     {
-      if (!*a2)
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        applesauce::CF::construct_error(exception);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v19, "Unknown");
-      v9 = *a2;
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v21, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        v21 = v19;
-      }
-
-      if (v9 && (TypeID = CFStringGetTypeID(), TypeID == CFGetTypeID(v9)))
-      {
-        applesauce::CF::details::CFString_get_value<false>(v9, &__p);
-        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v21.__r_.__value_.__l.__data_);
-        }
-      }
-
-      else
-      {
-        __p = v21;
-      }
-
-      p_p = &__p;
-      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        p_p = __p.__r_.__value_.__r.__words[0];
-      }
-
-      v14 = HIBYTE(v6);
-      if ((v6 - 0x20000000) >> 24 >= 0x5F)
-      {
-        v14 = 32;
-      }
-
-      v15 = BYTE2(v6);
-      if (BYTE2(v6) - 32 >= 0x5F)
-      {
-        v15 = 32;
-      }
-
-      LODWORD(v21.__r_.__value_.__l.__data_) = 136316418;
-      *(v21.__r_.__value_.__r.__words + 4) = p_p;
-      v16 = BYTE1(v6);
-      if (BYTE1(v6) - 32 >= 0x5F)
-      {
-        v16 = 32;
-      }
-
-      WORD2(v21.__r_.__value_.__r.__words[1]) = 1024;
-      *(&v21.__r_.__value_.__r.__words[1] + 6) = v6;
-      WORD1(v21.__r_.__value_.__r.__words[2]) = 1024;
-      HIDWORD(v21.__r_.__value_.__r.__words[2]) = v14;
-      v22 = 1024;
-      v23 = v15;
-      v24 = 1024;
-      if (v6 - 32 >= 0x5F)
-      {
-        v17 = 32;
-      }
-
-      else
-      {
-        v17 = v6;
-      }
-
-      v25 = v16;
-      v26 = 1024;
-      v27 = v17;
-      _os_log_error_impl(&dword_241659000, v7, OS_LOG_TYPE_ERROR, "IOUserClient: Failed to set property '%s': %x '%c%c%c%c'", &v21, 0x2Au);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v19.__r_.__value_.__l.__data_);
-      }
-
-      goto LABEL_9;
+      return 1;
     }
   }
 
   else
   {
-    v10 = ASDTBaseLogType();
-    result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v11 = ASDTBaseLogType(this, a2);
+    result = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
     if (result)
     {
       ASDT::IOUserClient::SetProperty();
-LABEL_9:
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3464,16 +3451,16 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   return v8;
 }
 
-void sub_241661544(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241661650(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -3503,9 +3490,9 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   return v9;
 }
 
-void sub_241661974(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -3531,16 +3518,16 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   return v9;
 }
 
-void sub_241661B3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241661BC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -3563,9 +3550,9 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   return v7;
 }
 
-void sub_241661C4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -3588,30 +3575,30 @@ BOOL ASDT::IOUserClient::SetProperty(ASDT::IOUserClient *this, CFStringRef *a2, 
   return v7;
 }
 
-void sub_241661CD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241661CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2, const applesauce::CF::TypeRef *a3, char a4)
+BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2, const void **a3, char a4)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (!*a2)
   {
-    v10 = ASDTBaseLogType();
+    v10 = ASDTBaseLogType(this, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOUserClient::ReplaceProperty(this);
+      ASDT::IOUserClient::ReplaceProperty();
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
   if (!*a3 && (a4 & 1) == 0)
   {
-    v7 = ASDTBaseLogType();
+    v7 = ASDTBaseLogType(this, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = this + 2;
@@ -3620,17 +3607,17 @@ BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2,
         v8 = *v8;
       }
 
-      *v53 = applesauce::CF::StringRef::operator->(a2);
-      std::string::basic_string[abi:ne200100]<0>(v49, "Unknown");
-      applesauce::CF::StringRef_proxy::convert_or(v53, v49, &v51);
-      if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      *v55 = applesauce::CF::StringRef::operator->(a2);
+      std::string::basic_string[abi:ne200100]<0>(v51, "Unknown");
+      applesauce::CF::StringRef_proxy::convert_or(v55, v51, &v53);
+      if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v9 = &v51;
+        v9 = &v53;
       }
 
       else
       {
-        v9 = v51.__r_.__value_.__r.__words[0];
+        v9 = v53.__r_.__value_.__r.__words[0];
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
@@ -3638,90 +3625,94 @@ BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2,
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
       *(&buf.__r_.__value_.__r.__words[1] + 6) = v9;
       _os_log_error_impl(&dword_241659000, v7, OS_LOG_TYPE_ERROR, "%s: ReplaceProperty(%s) invalid value: (null).", &buf, 0x16u);
-      if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v51.__r_.__value_.__l.__data_);
+        operator delete(v53.__r_.__value_.__l.__data_);
       }
 
-      if (v50 < 0)
+      if (v52 < 0)
       {
-        operator delete(v49[0]);
+        operator delete(v51[0]);
       }
     }
 
-LABEL_16:
-    v11 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
-  ASDT::IOUserClient::CacheProperties(this, &v47);
-  v14 = this[17];
-  if (v14)
+  ASDT::IOUserClient::CacheProperties(&v49, this);
+  v13 = this[17];
+  if (v13)
   {
     buf.__r_.__value_.__r.__words[0] = 0;
-    applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(v14, a2, &buf, &v51);
+    applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(&buf, &v53, v13, a2);
     if (buf.__r_.__value_.__r.__words[0])
     {
       CFRelease(buf.__r_.__value_.__l.__data_);
     }
 
-    v15 = v51.__r_.__value_.__r.__words[0];
-    v16 = *a3;
-    if (v51.__r_.__value_.__r.__words[0])
+    v14 = v53.__r_.__value_.__r.__words[0];
+    v15 = *a3;
+    if (v53.__r_.__value_.__r.__words[0])
     {
-      if (!v16)
+      if (!v15)
       {
         goto LABEL_30;
       }
 
-      v17 = CFEqual(v51.__r_.__value_.__l.__data_, v16);
-      v15 = v51.__r_.__value_.__r.__words[0];
-      if (v17)
+      v16 = CFEqual(v53.__r_.__value_.__l.__data_, v15);
+      v14 = v53.__r_.__value_.__r.__words[0];
+      if (v16)
       {
-        if (v51.__r_.__value_.__r.__words[0])
+        if (v53.__r_.__value_.__r.__words[0])
         {
-          CFRelease(v51.__r_.__value_.__l.__data_);
+          CFRelease(v53.__r_.__value_.__l.__data_);
         }
 
         goto LABEL_28;
       }
 
-      if (v51.__r_.__value_.__r.__words[0])
+      if (v53.__r_.__value_.__r.__words[0])
       {
 LABEL_30:
-        CFRelease(v15);
+        CFRelease(v14);
       }
     }
 
-    else if (!v16)
+    else if (!v15)
     {
 LABEL_28:
       v11 = 1;
       goto LABEL_65;
     }
 
-    v18 = this[17];
+    v17 = this[17];
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v42, v18);
-  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v37, this[17]);
-  *(&v37 + 1) = (v39 - v38) >> 3;
-  std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::map[abi:ne200100]<applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>(&v51, &v42, &v37);
+  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v44, v17);
+  applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::DictionaryRef_iterator(&v39, this[17]);
+  *(&v39 + 1) = (v41 - v40) >> 3;
+  std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::map[abi:ne200100]<applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>(&v53, &v44, &v39);
   if (__p)
   {
-    v41 = __p;
+    v43 = __p;
     operator delete(__p);
   }
 
-  if (v38)
+  if (v40)
   {
-    v39 = v38;
-    operator delete(v38);
+    v41 = v40;
+    operator delete(v40);
+  }
+
+  if (v47)
+  {
+    v48 = v47;
+    operator delete(v47);
   }
 
   if (v45)
@@ -3730,32 +3721,27 @@ LABEL_28:
     operator delete(v45);
   }
 
-  if (v43)
-  {
-    v44 = v43;
-    operator delete(v43);
-  }
-
-  v19 = std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::find<applesauce::CF::StringRef>(&v51, a2);
-  v20 = *a3;
+  v18 = std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::find<applesauce::CF::StringRef>(&v53, a2);
+  v19 = *a3;
   if (*a3)
   {
-    if (&v51.__r_.__value_.__r.__words[1] == v19)
+    if (&v53.__r_.__value_.__r.__words[1] == v18)
     {
-      if (v19 == std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef const&>(&v51, a2))
+      v21 = std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef const&>(&v53, a2, a2, a3);
+      if (v18 == v21)
       {
-        v22 = ASDTBaseLogType();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = ASDTBaseLogType(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v29 = this + 2;
+          v31 = this + 2;
           if (*(this + 39) < 0)
           {
-            v29 = *v29;
+            v31 = *v31;
           }
 
-          v36 = applesauce::CF::StringRef::operator->(a2);
-          std::string::basic_string[abi:ne200100]<0>(v34, "Unknown");
-          applesauce::CF::StringRef_proxy::convert_or(&v36, v34, &buf);
+          v38 = applesauce::CF::StringRef::operator->(a2);
+          std::string::basic_string[abi:ne200100]<0>(v36, "Unknown");
+          applesauce::CF::StringRef_proxy::convert_or(&v38, v36, &buf);
           if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             p_buf = &buf;
@@ -3766,19 +3752,19 @@ LABEL_28:
             p_buf = buf.__r_.__value_.__r.__words[0];
           }
 
-          *v53 = 136315394;
-          *&v53[4] = v29;
-          v54 = 2080;
-          v55 = p_buf;
-          _os_log_error_impl(&dword_241659000, v22, OS_LOG_TYPE_ERROR, "%s: ReplaceProperty(%s) failed to insert.", v53, 0x16u);
+          *v55 = 136315394;
+          *&v55[4] = v31;
+          v56 = 2080;
+          v57 = p_buf;
+          _os_log_error_impl(&dword_241659000, v23, OS_LOG_TYPE_ERROR, "%s: ReplaceProperty(%s) failed to insert.", v55, 0x16u);
           if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
           }
 
-          if (v35 < 0)
+          if (v37 < 0)
           {
-            operator delete(v34[0]);
+            operator delete(v36[0]);
           }
         }
 
@@ -3789,76 +3775,76 @@ LABEL_28:
 
     else
     {
-      info = v19[1].info;
-      v19[1].info = v20;
-      CFRetain(v20);
-      if (info)
+      v20 = v18[1].__r_.__value_.__r.__words[2];
+      v18[1].__r_.__value_.__r.__words[2] = v19;
+      CFRetain(v19);
+      if (v20)
       {
-        CFRelease(info);
+        CFRelease(v20);
       }
     }
 
     goto LABEL_49;
   }
 
-  if (&v51.__r_.__value_.__r.__words[1] != v19)
+  if (&v53.__r_.__value_.__r.__words[1] != v18)
   {
-    std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::erase(&v51, v19);
+    std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::erase(&v53, v18);
 LABEL_49:
-    v23 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v51);
-    v24 = v23;
-    v36 = v23;
-    v11 = v23 != 0;
-    if (v23)
+    v24 = applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::StringRef,applesauce::CF::TypeRef>(&v53);
+    v26 = v24;
+    v38 = v24;
+    v11 = v24 != 0;
+    if (v24)
     {
-      v25 = this[17];
-      this[17] = v23;
-      CFRetain(v23);
-      if (v25)
+      v27 = this[17];
+      this[17] = v24;
+      CFRetain(v24);
+      if (v27)
       {
-        CFRelease(v25);
+        CFRelease(v27);
       }
 
-      CFRelease(v24);
+      CFRelease(v26);
     }
 
     else
     {
-      v26 = ASDTBaseLogType();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = ASDTBaseLogType(0, v25);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v27 = this + 2;
+        v29 = this + 2;
         if (*(this + 39) < 0)
         {
-          v27 = *v27;
+          v29 = *v29;
         }
 
-        v33 = applesauce::CF::StringRef::operator->(a2);
-        std::string::basic_string[abi:ne200100]<0>(v31, "Unknown");
-        applesauce::CF::StringRef_proxy::convert_or(&v33, v31, &buf);
+        v35 = applesauce::CF::StringRef::operator->(a2);
+        std::string::basic_string[abi:ne200100]<0>(v33, "Unknown");
+        applesauce::CF::StringRef_proxy::convert_or(&v35, v33, &buf);
         if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v28 = &buf;
+          v30 = &buf;
         }
 
         else
         {
-          v28 = buf.__r_.__value_.__r.__words[0];
+          v30 = buf.__r_.__value_.__r.__words[0];
         }
 
-        *v53 = 136315394;
-        *&v53[4] = v27;
-        v54 = 2080;
-        v55 = v28;
-        _os_log_error_impl(&dword_241659000, v26, OS_LOG_TYPE_ERROR, "%s: ReplaceProperty(%s) failed to create new dictionary", v53, 0x16u);
+        *v55 = 136315394;
+        *&v55[4] = v29;
+        v56 = 2080;
+        v57 = v30;
+        _os_log_error_impl(&dword_241659000, v28, OS_LOG_TYPE_ERROR, "%s: ReplaceProperty(%s) failed to create new dictionary", v55, 0x16u);
         if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(buf.__r_.__value_.__l.__data_);
         }
 
-        if (v32 < 0)
+        if (v34 < 0)
         {
-          operator delete(v31[0]);
+          operator delete(v33[0]);
         }
       }
     }
@@ -3868,22 +3854,21 @@ LABEL_49:
 
   v11 = 1;
 LABEL_64:
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v51, v51.__r_.__value_.__l.__size_);
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(&v53, v53.__r_.__value_.__l.__size_);
 LABEL_65:
-  if (v48 == 1)
+  if (v50 == 1)
   {
-    std::__shared_mutex_base::unlock(v47);
+    std::__shared_mutex_base::unlock(v49);
   }
 
-LABEL_17:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void sub_2416621D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_2416621D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(v33 - 152, *(v33 - 144));
-  std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](&a33);
+  va_start(va, a32);
+  std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::destroy(v32 - 152, *(v32 - 144));
+  std::unique_lock<std::shared_mutex>::~unique_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3980,16 +3965,16 @@ void sub_241662324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24166240C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24166240C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241662520(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -4080,9 +4065,9 @@ BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2,
   return v7;
 }
 
-void sub_24166285C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24166285C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -4185,30 +4170,30 @@ BOOL ASDT::IOUserClient::ReplaceProperty(CFDictionaryRef *this, const void **a2,
   return v6;
 }
 
-void sub_241662A30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241662ABC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241662B48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_241662BD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -4225,9 +4210,9 @@ BOOL ASDT::IOUserClient::RemoveProperty(CFDictionaryRef *this, const void **a2)
   return v2;
 }
 
-void sub_241662C34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241662C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::TypeRef::~TypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -4318,19 +4303,20 @@ uint64_t ASDT::IOUserClient::SetConnectionNotification(uint64_t a1, uint64_t a2,
     v10 = ASDT::IOConnect::Get((a1 + 40));
     if (v10)
     {
-      v8 = MEMORY[0x245CEC420](v10, a2, *(*a3 + 8), a4);
-      if (!v8)
+      v10 = MEMORY[0x245CEC420](v10, a2, *(*a3 + 8), a4);
+      v8 = v10;
+      if (!v10)
       {
-        v11 = *a3;
+        v12 = *a3;
         *a3 = 0;
-        v12 = *(a1 + 152);
-        *(a1 + 152) = v11;
-        if (v12)
+        v13 = *(a1 + 152);
+        *(a1 + 152) = v12;
+        if (v13)
         {
-          (*(*v12 + 8))(v12);
+          (*(*v13 + 8))(v13);
         }
 
-        v13 = 1;
+        v14 = 1;
         goto LABEL_11;
       }
     }
@@ -4341,8 +4327,8 @@ uint64_t ASDT::IOUserClient::SetConnectionNotification(uint64_t a1, uint64_t a2,
     }
   }
 
-  v14 = ASDTBaseLogType();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = ASDTBaseLogType(v10, v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     v17 = (a1 + 16);
     if (*(a1 + 39) < 0)
@@ -4404,17 +4390,16 @@ uint64_t ASDT::IOUserClient::SetConnectionNotification(uint64_t a1, uint64_t a2,
     v36 = v21;
     v37 = 1024;
     v38 = v22;
-    _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "%s: SetConnectionNotificationPort(%u, %u, ...) failed: %x (%c%c%c%c)", buf, 0x36u);
+    _os_log_error_impl(&dword_241659000, v15, OS_LOG_TYPE_ERROR, "%s: SetConnectionNotificationPort(%u, %u, ...) failed: %x (%c%c%c%c)", buf, 0x36u);
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_11:
   std::__shared_mutex_base::unlock(v9);
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
-void ASDT::IOUserClient::MapMemory(ASDT::IOUserClient *this@<X0>, unsigned int a2@<W1>, unsigned int a3@<W2>, ASDT::IOMemoryMap *a4@<X8>)
+void ASDT::IOUserClient::MapMemory(ASDT::IOUserClient *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, ASDT::IOMemoryMap *a4@<X8>)
 {
   v8 = (this + 200);
   std::__shared_mutex_base::lock_shared((this + 200));
@@ -4422,17 +4407,19 @@ void ASDT::IOUserClient::MapMemory(ASDT::IOUserClient *this@<X0>, unsigned int a
   std::__shared_mutex_base::unlock_shared(v8);
 }
 
-uint64_t ASDT::IOUserClient::CallMethod(ASDT::IOUserClient *this, uint32_t a2, const unint64_t *a3, uint32_t a4, const void *a5, size_t a6, unint64_t *a7, unsigned int *a8, void *outputStruct, unint64_t *a10, BOOL a11)
+uint64_t ASDT::IOUserClient::CallMethod(ASDT::IOUserClient *this, uint32_t a2, const unint64_t *a3, uint32_t a4, const void *a5, size_t a6, unint64_t *a7, unsigned int *a8, void *outputStruct, unint64_t *a10, char a11)
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v33 = (this + 200);
+  v58 = *MEMORY[0x277D85DE8];
+  v34 = (this + 200);
   std::__shared_mutex_base::lock_shared((this + 200));
-  ASDT::IOConnect::IOConnect(v56, (this + 40), a11);
-  if (ASDT::IOConnect::Get(v56))
+  ASDT::IOConnect::IOConnect(v57, (this + 40), a11);
+  v19 = ASDT::IOConnect::Get(v57);
+  if (v19)
   {
-    v19 = ASDT::IOConnect::Get(v56);
-    v20 = IOConnectCallMethod(v19, a2, a3, a4, a5, a6, a7, a8, outputStruct, a10);
-    if (!v20)
+    v21 = ASDT::IOConnect::Get(v57);
+    v19 = IOConnectCallMethod(v21, a2, a3, a4, a5, a6, a7, a8, outputStruct, a10);
+    v22 = v19;
+    if (!v19)
     {
       goto LABEL_6;
     }
@@ -4440,116 +4427,113 @@ uint64_t ASDT::IOUserClient::CallMethod(ASDT::IOUserClient *this, uint32_t a2, c
 
   else
   {
-    v20 = 1937010544;
+    v22 = 1937010544;
   }
 
-  v21 = ASDTBaseLogType();
-  if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v23 = ASDTBaseLogType(v19, v20);
+  if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
 LABEL_6:
-    ASDT::IOConnect::~IOConnect(v56);
+    ASDT::IOConnect::~IOConnect(v57);
     goto LABEL_7;
   }
 
-  v24 = (this + 16);
+  v25 = (this + 16);
   if (*(this + 39) < 0)
   {
-    v24 = *v24;
+    v25 = *v25;
   }
 
-  v25 = HIBYTE(a2);
+  v26 = HIBYTE(a2);
   if ((a2 - 0x20000000) >> 24 >= 0x5F)
-  {
-    v25 = 32;
-  }
-
-  *buf = 136317698;
-  v35 = v24;
-  v26 = BYTE2(a2);
-  if (BYTE2(a2) - 32 >= 0x5F)
   {
     v26 = 32;
   }
 
-  v36 = 1024;
-  v37 = a2;
-  v27 = BYTE1(a2);
-  if (BYTE1(a2) - 32 >= 0x5F)
+  *buf = 136317698;
+  v36 = v25;
+  v27 = BYTE2(a2);
+  if (BYTE2(a2) - 32 >= 0x5F)
   {
     v27 = 32;
   }
 
-  v38 = 1024;
-  v39 = v25;
-  v28 = a2;
-  if (a2 - 32 >= 0x5F)
+  v37 = 1024;
+  v38 = a2;
+  v28 = BYTE1(a2);
+  if (BYTE1(a2) - 32 >= 0x5F)
   {
     v28 = 32;
   }
 
-  v40 = 1024;
-  v41 = v26;
-  if ((v20 - 0x20000000) >> 24 >= 0x5F)
+  v39 = 1024;
+  v40 = v26;
+  v29 = a2;
+  if (a2 - 32 >= 0x5F)
   {
     v29 = 32;
   }
 
-  else
-  {
-    v29 = BYTE3(v20);
-  }
-
-  v42 = 1024;
-  v43 = v27;
-  v30 = BYTE2(v20);
-  if (BYTE2(v20) - 32 >= 0x5F)
+  v41 = 1024;
+  v42 = v27;
+  if ((v22 - 0x20000000) >> 24 >= 0x5F)
   {
     v30 = 32;
   }
 
-  v44 = 1024;
-  v45 = v28;
-  v31 = BYTE1(v20);
-  if (BYTE1(v20) - 32 >= 0x5F)
+  else
+  {
+    v30 = BYTE3(v22);
+  }
+
+  v43 = 1024;
+  v44 = v28;
+  v31 = BYTE2(v22);
+  if (BYTE2(v22) - 32 >= 0x5F)
   {
     v31 = 32;
   }
 
-  v46 = 1024;
-  v47 = v20;
-  v48 = 1024;
-  v49 = v29;
-  v50 = 1024;
-  v51 = v30;
-  if (v20 - 32 >= 0x5F)
+  v45 = 1024;
+  v46 = v29;
+  v32 = BYTE1(v22);
+  if (BYTE1(v22) - 32 >= 0x5F)
   {
     v32 = 32;
   }
 
-  else
+  v47 = 1024;
+  v48 = v22;
+  v49 = 1024;
+  v50 = v30;
+  v51 = 1024;
+  v52 = v31;
+  if (v22 - 32 >= 0x5F)
   {
-    v32 = v20;
+    v33 = 32;
   }
 
-  v52 = 1024;
-  v53 = v31;
-  v54 = 1024;
-  v55 = v32;
-  _os_log_error_impl(&dword_241659000, v21, OS_LOG_TYPE_ERROR, "%s: CallMethod %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
-  ASDT::IOConnect::~IOConnect(v56);
+  else
+  {
+    v33 = v22;
+  }
+
+  v53 = 1024;
+  v54 = v32;
+  v55 = 1024;
+  v56 = v33;
+  _os_log_error_impl(&dword_241659000, v23, OS_LOG_TYPE_ERROR, "%s: CallMethod %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
+  ASDT::IOConnect::~IOConnect(v57);
 LABEL_7:
-  std::__shared_mutex_base::unlock_shared(v33);
-  v22 = *MEMORY[0x277D85DE8];
-  return v20;
+  std::__shared_mutex_base::unlock_shared(v34);
+  return v22;
 }
 
-void sub_2416634C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2416634C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
@@ -4558,6 +4542,8 @@ void sub_2416634C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   ASDT::IOConnect::~IOConnect(va1);
   std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -4571,8 +4557,9 @@ uint64_t ASDT::IOUserClient::CallTrap(ASDT::IOUserClient *this, uint32_t a2)
   v4 = ASDT::IOConnect::Get((this + 40));
   if (v4)
   {
-    v5 = IOConnectTrap0(v4, a2);
-    if (!v5)
+    v4 = IOConnectTrap0(v4, a2);
+    v6 = v4;
+    if (!v4)
     {
       goto LABEL_6;
     }
@@ -4580,11 +4567,11 @@ uint64_t ASDT::IOUserClient::CallTrap(ASDT::IOUserClient *this, uint32_t a2)
 
   else
   {
-    v5 = 1937010544;
+    v6 = 1937010544;
   }
 
-  v6 = ASDTBaseLogType();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = ASDTBaseLogType(v4, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v9 = (this + 16);
     if (*(this + 39) < 0)
@@ -4624,59 +4611,58 @@ uint64_t ASDT::IOUserClient::CallTrap(ASDT::IOUserClient *this, uint32_t a2)
 
     v25 = 1024;
     v26 = v11;
-    if ((v5 - 0x20000000) >> 24 >= 0x5F)
+    if ((v6 - 0x20000000) >> 24 >= 0x5F)
     {
       v14 = 32;
     }
 
     else
     {
-      v14 = BYTE3(v5);
+      v14 = BYTE3(v6);
     }
 
     v27 = 1024;
     v28 = v12;
-    v15 = BYTE2(v5);
-    if (BYTE2(v5) - 32 >= 0x5F)
+    v15 = BYTE2(v6);
+    if (BYTE2(v6) - 32 >= 0x5F)
     {
       v15 = 32;
     }
 
     v29 = 1024;
     v30 = v13;
-    v16 = BYTE1(v5);
-    if (BYTE1(v5) - 32 >= 0x5F)
+    v16 = BYTE1(v6);
+    if (BYTE1(v6) - 32 >= 0x5F)
     {
       v16 = 32;
     }
 
     v31 = 1024;
-    v32 = v5;
+    v32 = v6;
     v33 = 1024;
     v34 = v14;
     v35 = 1024;
     v36 = v15;
-    if (v5 - 32 >= 0x5F)
+    if (v6 - 32 >= 0x5F)
     {
       v17 = 32;
     }
 
     else
     {
-      v17 = v5;
+      v17 = v6;
     }
 
     v37 = 1024;
     v38 = v16;
     v39 = 1024;
     v40 = v17;
-    _os_log_error_impl(&dword_241659000, v6, OS_LOG_TYPE_ERROR, "%s: CallTrap %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
+    _os_log_error_impl(&dword_241659000, v7, OS_LOG_TYPE_ERROR, "%s: CallTrap %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
   }
 
 LABEL_6:
   std::__shared_mutex_base::unlock_shared(v18);
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 uint64_t ASDT::IOUserClient::CallTrap3(ASDT::IOUserClient *this, uint32_t a2, uintptr_t a3, uintptr_t a4, uintptr_t a5)
@@ -4687,8 +4673,9 @@ uint64_t ASDT::IOUserClient::CallTrap3(ASDT::IOUserClient *this, uint32_t a2, ui
   v10 = ASDT::IOConnect::Get((this + 40));
   if (v10)
   {
-    v11 = IOConnectTrap3(v10, a2, a3, a4, a5);
-    if (!v11)
+    v10 = IOConnectTrap3(v10, a2, a3, a4, a5);
+    v12 = v10;
+    if (!v10)
     {
       goto LABEL_6;
     }
@@ -4696,11 +4683,11 @@ uint64_t ASDT::IOUserClient::CallTrap3(ASDT::IOUserClient *this, uint32_t a2, ui
 
   else
   {
-    v11 = 1937010544;
+    v12 = 1937010544;
   }
 
-  v12 = ASDTBaseLogType();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = ASDTBaseLogType(v10, v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v15 = (this + 16);
     if (*(this + 39) < 0)
@@ -4740,59 +4727,58 @@ uint64_t ASDT::IOUserClient::CallTrap3(ASDT::IOUserClient *this, uint32_t a2, ui
 
     v31 = 1024;
     v32 = v17;
-    if ((v11 - 0x20000000) >> 24 >= 0x5F)
+    if ((v12 - 0x20000000) >> 24 >= 0x5F)
     {
       v20 = 32;
     }
 
     else
     {
-      v20 = BYTE3(v11);
+      v20 = BYTE3(v12);
     }
 
     v33 = 1024;
     v34 = v18;
-    v21 = BYTE2(v11);
-    if (BYTE2(v11) - 32 >= 0x5F)
+    v21 = BYTE2(v12);
+    if (BYTE2(v12) - 32 >= 0x5F)
     {
       v21 = 32;
     }
 
     v35 = 1024;
     v36 = v19;
-    v22 = BYTE1(v11);
-    if (BYTE1(v11) - 32 >= 0x5F)
+    v22 = BYTE1(v12);
+    if (BYTE1(v12) - 32 >= 0x5F)
     {
       v22 = 32;
     }
 
     v37 = 1024;
-    v38 = v11;
+    v38 = v12;
     v39 = 1024;
     v40 = v20;
     v41 = 1024;
     v42 = v21;
-    if (v11 - 32 >= 0x5F)
+    if (v12 - 32 >= 0x5F)
     {
       v23 = 32;
     }
 
     else
     {
-      v23 = v11;
+      v23 = v12;
     }
 
     v43 = 1024;
     v44 = v22;
     v45 = 1024;
     v46 = v23;
-    _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "%s: CallTrap3 %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
+    _os_log_error_impl(&dword_241659000, v13, OS_LOG_TYPE_ERROR, "%s: CallTrap3 %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
   }
 
 LABEL_6:
   std::__shared_mutex_base::unlock_shared(v24);
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 uint64_t ASDT::IOUserClient::CallTrap6(ASDT::IOUserClient *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4803,8 +4789,9 @@ uint64_t ASDT::IOUserClient::CallTrap6(ASDT::IOUserClient *this, uint64_t a2, ui
   v16 = ASDT::IOConnect::Get((this + 40));
   if (v16)
   {
-    v17 = MEMORY[0x245CEC450](v16, a2, a3, a4, a5, a6, a7, a8, v30);
-    if (!v17)
+    v16 = MEMORY[0x245CEC450](v16, a2, a3, a4, a5, a6, a7, a8, v30);
+    v18 = v16;
+    if (!v16)
     {
       goto LABEL_6;
     }
@@ -4812,11 +4799,11 @@ uint64_t ASDT::IOUserClient::CallTrap6(ASDT::IOUserClient *this, uint64_t a2, ui
 
   else
   {
-    v17 = 1937010544;
+    v18 = 1937010544;
   }
 
-  v18 = ASDTBaseLogType();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = ASDTBaseLogType(v16, v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     v21 = (this + 16);
     if (*(this + 39) < 0)
@@ -4856,59 +4843,58 @@ uint64_t ASDT::IOUserClient::CallTrap6(ASDT::IOUserClient *this, uint64_t a2, ui
 
     v37 = 1024;
     v38 = v23;
-    if ((v17 - 0x20000000) >> 24 >= 0x5F)
+    if ((v18 - 0x20000000) >> 24 >= 0x5F)
     {
       v26 = 32;
     }
 
     else
     {
-      v26 = BYTE3(v17);
+      v26 = BYTE3(v18);
     }
 
     v39 = 1024;
     v40 = v24;
-    v27 = BYTE2(v17);
-    if (BYTE2(v17) - 32 >= 0x5F)
+    v27 = BYTE2(v18);
+    if (BYTE2(v18) - 32 >= 0x5F)
     {
       v27 = 32;
     }
 
     v41 = 1024;
     v42 = v25;
-    v28 = BYTE1(v17);
-    if (BYTE1(v17) - 32 >= 0x5F)
+    v28 = BYTE1(v18);
+    if (BYTE1(v18) - 32 >= 0x5F)
     {
       v28 = 32;
     }
 
     v43 = 1024;
-    v44 = v17;
+    v44 = v18;
     v45 = 1024;
     v46 = v26;
     v47 = 1024;
     v48 = v27;
-    if (v17 - 32 >= 0x5F)
+    if (v18 - 32 >= 0x5F)
     {
       v29 = 32;
     }
 
     else
     {
-      v29 = v17;
+      v29 = v18;
     }
 
     v49 = 1024;
     v50 = v28;
     v51 = 1024;
     v52 = v29;
-    _os_log_error_impl(&dword_241659000, v18, OS_LOG_TYPE_ERROR, "%s: CallTrap6 %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
+    _os_log_error_impl(&dword_241659000, v19, OS_LOG_TYPE_ERROR, "%s: CallTrap6 %x (%c%c%c%c) failed: %x (%c%c%c%c)", buf, 0x48u);
   }
 
 LABEL_6:
   std::__shared_mutex_base::unlock_shared(v30);
-  v19 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v18;
 }
 
 uint64_t ASDT::IOUserClient::ShouldEnableInterestNotification(ASDT::IOUserClient *this)
@@ -4928,134 +4914,129 @@ uint64_t ASDT::IOUserClient::ShouldEnableInterestNotification(ASDT::IOUserClient
 
 uint64_t ASDT::IOUserClient::SetInterestNotificationEnabled(ASDT::IOUserClient *this, int a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (*(this + 44) && *(this + 21))
     {
-      goto LABEL_4;
+      return 1;
     }
 
     mainPort = 0;
-    if (MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort))
+    v5 = MEMORY[0x245CEC490](*MEMORY[0x277D85F18], &mainPort);
+    if (v5)
     {
-      v5 = ASDTBaseLogType();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = ASDTBaseLogType(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOUserClient::SetInterestNotificationEnabled(this);
+        ASDT::IOUserClient::SetInterestNotificationEnabled();
       }
 
-LABEL_8:
-      v4 = 0;
-      goto LABEL_28;
+      return 0;
     }
 
-    v6 = IONotificationPortCreate(mainPort);
-    *(this + 21) = v6;
-    if (!v6)
+    v8 = IONotificationPortCreate(mainPort);
+    *(this + 21) = v8;
+    if (!v8)
     {
-      v15 = ASDTBaseLogType();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = ASDTBaseLogType(0, v9);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOUserClient::SetInterestNotificationEnabled(this);
+        ASDT::IOUserClient::SetInterestNotificationEnabled();
       }
 
-      goto LABEL_8;
+      return 0;
     }
 
-    v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v8 = dispatch_queue_attr_make_with_qos_class(v7, QOS_CLASS_USER_INTERACTIVE, 0);
-    v9 = (this + 16);
-    v10 = this + 16;
+    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v11 = dispatch_queue_attr_make_with_qos_class(v10, QOS_CLASS_USER_INTERACTIVE, 0);
+    v12 = (this + 16);
+    v13 = this + 16;
     if (*(this + 39) < 0)
     {
-      v10 = *v9;
+      v13 = *v12;
     }
 
-    v11 = dispatch_queue_create(v10, v8);
-    *(this + 20) = v11;
-    if (v11)
+    v14 = dispatch_queue_create(v13, v11);
+    *(this + 20) = v14;
+    if (v14)
     {
-      IONotificationPortSetDispatchQueue(*(this + 21), v11);
-      v12 = IOServiceAddInterestNotification(*(this + 21), *(this + 2), "IOGeneralInterest", ASDT::IOUserClient::InterestNotificationCallback, this, this + 44);
-      if (!v12)
+      IONotificationPortSetDispatchQueue(*(this + 21), v14);
+      v16 = IOServiceAddInterestNotification(*(this + 21), *(this + 2), "IOGeneralInterest", ASDT::IOUserClient::InterestNotificationCallback, this, this + 44);
+      if (!v16)
       {
-LABEL_4:
-        v4 = 1;
-        goto LABEL_28;
+        return 1;
       }
 
-      v13 = v12;
-      v14 = ASDTBaseLogType();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = v16;
+      v19 = ASDTBaseLogType(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         if (*(this + 39) < 0)
         {
-          v9 = *v9;
+          v12 = *v12;
         }
 
         *buf = 136315394;
-        v24 = v9;
-        v25 = 1024;
-        v26 = v13;
-        _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "%s: IOServiceAddInterestNotification failed: %x", buf, 0x12u);
+        v28 = v12;
+        v29 = 1024;
+        v30 = v18;
+        _os_log_error_impl(&dword_241659000, v19, OS_LOG_TYPE_ERROR, "%s: IOServiceAddInterestNotification failed: %x", buf, 0x12u);
       }
     }
 
     else
     {
-      v16 = ASDTBaseLogType();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v21 = ASDTBaseLogType(0, v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOUserClient::SetInterestNotificationEnabled(this + 39, this + 2);
+        ASDT::IOUserClient::SetInterestNotificationEnabled();
       }
     }
   }
 
-  v17 = *(this + 44);
-  if (v17)
+  v22 = *(this + 44);
+  if (v22)
   {
-    IOObjectRelease(v17);
+    IOObjectRelease(v22);
     *(this + 44) = 0;
   }
 
   v4 = a2 ^ 1u;
-  v18 = *(this + 21);
-  if (v18)
+  v23 = *(this + 21);
+  if (v23)
   {
-    IONotificationPortDestroy(v18);
+    IONotificationPortDestroy(v23);
     *(this + 21) = 0;
   }
 
-  v19 = *(this + 20);
-  if (v19)
+  v24 = *(this + 20);
+  if (v24)
   {
-    dispatch_release(v19);
+    dispatch_release(v24);
     *(this + 20) = 0;
   }
 
-LABEL_28:
-  v20 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-void ASDT::IOUserClient::InterestNotificationCallback(ASDT::IOUserClient *this, void *a2, int a3, unsigned int a4, void *a5)
+void ASDT::IOUserClient::InterestNotificationCallback(_DWORD *this, uint64_t a2, int a3, unsigned int a4, void *a5)
 {
   if (this)
   {
-    if (a3 == -536870896 || *(this + 2) == a2)
+    if (a3 == -536870896 || this[2] == a2)
     {
-      v6 = *(*this + 56);
+      v5 = *(*this + 56);
 
-      v6();
+      v5();
     }
 
     else
     {
-      v7 = ASDTBaseLogType();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = ASDTBaseLogType(this, a2);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        ASDT::IOUserClient::InterestNotificationCallback(this);
+        ASDT::IOUserClient::InterestNotificationCallback();
       }
     }
   }
@@ -5132,7 +5113,7 @@ uint64_t ASDT::IOUserClient::Release(ASDT::IOUserClient *this)
   return result;
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, _BYTE *a2@<X8>)
+void *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -5156,14 +5137,14 @@ _BYTE *applesauce::CF::details::CFString_get_value<false>@<X0>(const __CFString 
     operator new();
   }
 
-  a2[23] = maxBufLen;
+  *(a2 + 23) = maxBufLen;
   if (v7)
   {
     bzero(a2, v7);
   }
 
-  a2[v7] = 0;
-  if (a2[23] >= 0)
+  *(a2 + v7) = 0;
+  if (*(a2 + 23) >= 0)
   {
     v8 = a2;
   }
@@ -5425,20 +5406,20 @@ uint64_t applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesau
   return a1;
 }
 
-void std::vector<void const*>::resize(void *a1, unint64_t a2)
+void std::vector<void const*>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void const*>::__append(a1, a2 - v2);
+    std::vector<void const*>::__append(result, a2 - v2);
   }
 }
 
@@ -5515,7 +5496,7 @@ void std::allocator<void const*>::allocate_at_least[abi:ne200100](uint64_t a1, u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<applesauce::CF::TypeRef>::__init_with_size[abi:ne200100]<applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<applesauce::CF::TypeRef>::__init_with_size[abi:ne200100]<applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v4 = result;
   v5 = 0;
@@ -5527,7 +5508,7 @@ uint64_t std::vector<applesauce::CF::TypeRef>::__init_with_size[abi:ne200100]<ap
   return result;
 }
 
-void std::vector<applesauce::CF::TypeRef>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<applesauce::CF::TypeRef>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5549,16 +5530,16 @@ void *std::vector<applesauce::CF::TypeRef>::__construct_at_end<applesauce::CF::A
   return result;
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::TypeRef*>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
+void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>,applesauce::CF::TypeRef*>(uint64_t a1, const __CFArray **a2, uint64_t *a3, void *a4)
 {
   if (!applesauce::CF::ArrayRef_iterator<applesauce::CF::TypeRef>::equal(a2, a3))
   {
     v7 = 0;
     do
     {
-      applesauce::CF::details::at_to<applesauce::CF::TypeRef>(*a2, *(a2 + 8), &v9);
+      applesauce::CF::details::at_to<applesauce::CF::TypeRef>(*a2, a2[1], &v9);
       *a4++ = v9;
-      ++*(a2 + 8);
+      a2[1] = (a2[1] + 1);
       v7 -= 8;
     }
 
@@ -5634,7 +5615,7 @@ void std::__destroy_at[abi:ne200100]<applesauce::CF::TypeRef,0>(const void **a1)
   }
 }
 
-void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5659,7 +5640,7 @@ void std::vector<applesauce::CF::TypeRef>::__destroy_vector::operator()[abi:ne20
   }
 }
 
-void *std::__split_buffer<applesauce::CF::TypeRef>::emplace_back<applesauce::CF::TypeRef const&>(void *a1, CFTypeRef *a2)
+void *std::__split_buffer<applesauce::CF::TypeRef>::emplace_back<applesauce::CF::TypeRef const&>(unint64_t *a1, CFTypeRef *a2)
 {
   v3 = a1[2];
   v4 = a1[3];
@@ -5848,24 +5829,24 @@ const __CFDictionary *applesauce::CF::details::has_key<applesauce::CF::StringRef
   return result;
 }
 
-const void *applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>@<X0>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+CFTypeRef applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>@<X0>(uint64_t a1@<X8>, const __CFDictionary *a2@<X0>, const void **a3@<X1>)
 {
-  result = applesauce::CF::details::at_key<applesauce::CF::StringRef const&>(a1, a2);
+  result = applesauce::CF::details::at_key<applesauce::CF::StringRef const&>(a2, a3);
   if (result)
   {
     v5 = result;
     result = CFRetain(result);
-    *a3 = v5;
+    *a1 = v5;
     v6 = 1;
   }
 
   else
   {
     v6 = 0;
-    *a3 = 0;
+    *a1 = 0;
   }
 
-  *(a3 + 8) = v6;
+  *(a1 + 8) = v6;
   return result;
 }
 
@@ -6054,7 +6035,7 @@ LABEL_32:
   return v18.i64[0] | v14 | v18.i64[1];
 }
 
-uint64_t applesauce::CF::convert_as<int,0>(const __CFNumber *a1)
+uint64_t applesauce::CF::convert_as<int,0>(const __CFBoolean *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -6386,7 +6367,7 @@ LABEL_36:
   return v21 | (v23 << 8);
 }
 
-const __CFBoolean *applesauce::CF::convert_as<unsigned long long,0>(const __CFNumber *a1)
+const __CFBoolean *applesauce::CF::convert_as<unsigned long long,0>(const __CFBoolean *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -6549,7 +6530,7 @@ LABEL_36:
   return v21 | (v23 << 8);
 }
 
-uint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
+unint64_t applesauce::CF::convert_as<float,0>(const __CFNumber *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -6923,8 +6904,8 @@ BOOL std::map<applesauce::CF::StringRef,applesauce::CF::TypeRef>::insert[abi:ne2
   result = applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::equal(a2, a3);
   if (!result)
   {
-    applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::dereference(a2, &v5);
-    std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_impl<std::pair<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>();
+    applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::dereference(a2, &v6);
+    std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_impl<std::pair<applesauce::CF::TypeRef,applesauce::CF::TypeRef>>(a1, a1 + 8, &v6);
   }
 
   return result;
@@ -6949,7 +6930,7 @@ BOOL applesauce::CF::DictionaryRef_iterator<applesauce::CF::TypeRef,applesauce::
   return *a1 == v2 && a1[1] == a2[1];
 }
 
-void sub_2416664E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
+void sub_2416664E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char *__p, uint64_t a13)
 {
   if (__p)
   {
@@ -6966,9 +6947,9 @@ void sub_241666588(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(void *a1, __CFString **a2, const __CFString ***a3, uint64_t *a4, const __CFString **a5)
+uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(void *a1, void *a2, const __CFString ***a3, uint64_t *a4, const __CFString **a5)
 {
-  v9 = (a1 + 1);
+  v9 = a1 + 1;
   if (a1 + 1 != a2 && applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(a5, a2 + 4) < 2)
   {
     if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(a2 + 4, a5) < 2)
@@ -6978,7 +6959,7 @@ const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,apple
       return a4;
     }
 
-    a4 = (a2 + 1);
+    a4 = a2 + 1;
     v13 = a2[1];
     if (v13)
     {
@@ -6986,7 +6967,7 @@ const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,apple
       do
       {
         v15 = v14;
-        v14 = v14->isa;
+        v14 = *v14;
       }
 
       while (v14);
@@ -7031,12 +7012,12 @@ const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,apple
 
   if (*a1 == a2)
   {
-    v12 = a2;
+    data = a2;
 LABEL_16:
     if (*a2)
     {
-      *a3 = v12;
-      return &v12->info;
+      *a3 = data;
+      return &data->info;
     }
 
     else
@@ -7051,7 +7032,7 @@ LABEL_16:
   {
     do
     {
-      v12 = v11;
+      data = v11;
       v11 = v11->info;
     }
 
@@ -7063,15 +7044,15 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = v16[2];
-      v17 = v12->isa == v16;
-      v16 = v12;
+      data = v16->data;
+      v17 = data->isa == v16;
+      v16 = data;
     }
 
     while (v17);
   }
 
-  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(&v12[1].isa, a5) >= 2)
+  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(&data[1].isa, a5) >= 2)
   {
     goto LABEL_16;
   }
@@ -7081,7 +7062,7 @@ LABEL_28:
   return std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(a1, a3, a5);
 }
 
-uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -7099,7 +7080,7 @@ uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF
   return result;
 }
 
-const __CFString **std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(uint64_t a1, const __CFString ***a2, CFTypeRef *a3)
+uint64_t *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(uint64_t a1, const __CFString ***a2, CFTypeRef *a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -7198,12 +7179,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7217,22 +7198,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7266,13 +7247,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7314,11 +7295,11 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
+void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,void *>>>::operator()[abi:ne200100](uint64_t a1, char *__p)
 {
   if (*(a1 + 8) == 1)
   {
-    std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,void *>>>::destroy[abi:ne200100]<std::pair<applesauce::CF::StringRef const,applesauce::CF::TypeRef>,void,0>(*a1, __p + 32);
+    std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,void *>>>::destroy[abi:ne200100]<std::pair<applesauce::CF::StringRef const,applesauce::CF::TypeRef>,void,0>(*a1, (__p + 32));
   }
 
   if (__p)
@@ -7394,7 +7375,7 @@ uint64_t std::pair<applesauce::CF::TypeRef,applesauce::CF::TypeRef>::~pair(uint6
   return a1;
 }
 
-uint64_t std::vector<void const*>::__init_with_size[abi:ne200100]<void const**,void const**>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<void const*>::__init_with_size[abi:ne200100]<void const**,void const**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7428,9 +7409,9 @@ void std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::Typ
   }
 }
 
-const __CFString *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(void *a1, __CFString **a2, const __CFString **a3)
+void *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_hint_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>(uint64_t **a1, void *a2, const __CFString **a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(a1, a2, &v7, &v6, a3);
   if (!result)
   {
     std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__construct_node<applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>();
@@ -7501,21 +7482,19 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef<applesauce::CF::St
   return CFDictionaryRef;
 }
 
-void sub_241666F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_241666F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<applesauce::CF::TypeRefPair>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<applesauce::CF::TypeRefPair>::allocate_at_least[abi:ne200100](result, a2);
     }
 
@@ -7525,14 +7504,14 @@ void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t 
   return result;
 }
 
-void sub_241667020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_241667020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
+CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(char **a1)
 {
   v2 = (a1[1] - *a1) >> 4;
   __p = 0;
@@ -7550,7 +7529,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
     do
     {
       v5 = *v3;
-      if (!*v3 || !v3[1])
+      if (!*v3 || !*(v3 + 1))
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x245CEC720](exception, "Could not construct");
@@ -7609,7 +7588,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v31 = v7;
-      v14 = v3[1];
+      v14 = *(v3 + 1);
       v15 = v28;
       if (v28 >= v29)
       {
@@ -7662,7 +7641,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
       }
 
       v28 = v16;
-      v3 += 2;
+      v3 += 16;
     }
 
     while (v3 != v4);
@@ -7749,7 +7728,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ap
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(a1, v5);
-      v5 += 16;
+      v5 += 2;
     }
   }
 
@@ -7877,9 +7856,9 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<appl
   return v14;
 }
 
-void sub_2416676A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2416676A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<applesauce::CF::TypeRefPair>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7903,20 +7882,17 @@ CFTypeRef std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::co
   return result;
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::allocator<void const*>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<void const*>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<ASDT::Exclaves::StatusTracker::Update>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -7990,17 +7966,17 @@ CFArrayRef applesauce::CF::details::make_CFArrayRef<void const*>(uint64_t a1)
   return result;
 }
 
-void *std::vector<void const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<void const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<applesauce::CF::TypeRef>::__vallocate[abi:ne200100](result, a2);
+    std::vector<applesauce::CF::TypeRef>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2416679D4(_Unwind_Exception *exception_object)
@@ -8015,13 +7991,13 @@ void sub_2416679D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::TypeRef,applesauce::CF::StringRef const&>(&cf, a3, a4);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -8030,7 +8006,7 @@ void applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef con
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -8039,7 +8015,7 @@ void applesauce::CF::at_or<applesauce::CF::TypeRef,applesauce::CF::StringRef con
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -8078,9 +8054,9 @@ uint64_t std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF:
   return v5;
 }
 
-const __CFString *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef const&>(uint64_t a1, CFTypeRef *a2)
+void *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__emplace_unique_key_args<applesauce::CF::StringRef,applesauce::CF::StringRef const&,applesauce::CF::TypeRef const&>(uint64_t **a1, CFTypeRef *a2, const void **a3, const void **a4)
 {
-  result = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__find_equal<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>(a1, &v5, a2);
   if (!result)
   {
     std::__tree<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__map_value_compare<applesauce::CF::StringRef,std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::less<applesauce::CF::StringRef>,true>,std::allocator<std::__value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::__construct_node<applesauce::CF::StringRef const&,applesauce::CF::TypeRef&>();
@@ -8227,31 +8203,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -8260,193 +8235,188 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 39);
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
-}
-
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 ASDT::Ramper *ASDT::Ramper::Ramper(ASDT::Ramper *this, const AudioStreamBasicDescription *a2, int a3)
@@ -8470,7 +8440,7 @@ ASDT::Ramper *ASDT::Ramper::Ramper(ASDT::Ramper *this, const AudioStreamBasicDes
     mFormatFlags = a2->mFormatFlags;
     if ((~mFormatFlags & 9) != 0)
     {
-      v9 = ASDTBaseLogType();
+      v9 = ASDTBaseLogType(this, a2);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         ASDT::Ramper::Ramper(p_mFormatFlags, v9, v10, v11, v12, v13, v14, v15);
@@ -8479,7 +8449,7 @@ ASDT::Ramper *ASDT::Ramper::Ramper(ASDT::Ramper *this, const AudioStreamBasicDes
 
     else if ((mFormatFlags & 2) != 0)
     {
-      v16 = ASDTBaseLogType();
+      v16 = ASDTBaseLogType(this, a2);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         ASDT::Ramper::Ramper(p_mFormatFlags, v16, v17, v18, v19, v20, v21, v22);
@@ -8494,7 +8464,7 @@ ASDT::Ramper *ASDT::Ramper::Ramper(ASDT::Ramper *this, const AudioStreamBasicDes
         ASDT::Ramper::CreateRampData(this, *&v4);
       }
 
-      v23 = ASDTBaseLogType();
+      v23 = ASDTBaseLogType(this, a2);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         ASDT::Ramper::Ramper(p_mBitsPerChannel, v23, v24, v25, v26, v27, v28, v29);
@@ -8523,12 +8493,11 @@ void ASDT::Ramper::CreateRampData(ASDT::Ramper *this, double a2)
   LODWORD(a2) = *(this + 11);
   v2 = (*(this + 6) * *&a2 / 1000.0);
   *(this + 10) = v2;
-  v3 = *(this + 19) * v2;
   *(this + 23) = v2;
   operator new[]();
 }
 
-void ASDT::Ramper::Process(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, int a5)
+void ASDT::Ramper::Process(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a3 && a4)
   {
@@ -8689,15 +8658,16 @@ void ASDT::Ramper::~Ramper(ASDT::Ramper *this)
   }
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 ASDT::IOMemoryMap *ASDT::IOMemoryMap::IOMemoryMap(ASDT::IOMemoryMap *this, ASDT::IOConnect *a2, uint64_t a3, uint64_t a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   *this = &unk_28534D9B0;
   ASDT::IOConnect::IOConnect((this + 8), a2, 0);
   *(this + 13) = 0;
@@ -8706,78 +8676,78 @@ ASDT::IOMemoryMap *ASDT::IOMemoryMap::IOMemoryMap(ASDT::IOMemoryMap *this, ASDT:
   v7 = ASDT::IOConnect::Get((this + 8));
   if (v7)
   {
-    v17 = 0;
     v18 = 0;
-    v8 = MEMORY[0x245CEC400](v7, a3, *MEMORY[0x277D85F48], &v18, &v17, a4);
+    v19 = 0;
+    v8 = MEMORY[0x245CEC400](v7, a3, *MEMORY[0x277D85F48], &v19, &v18, a4);
+    v10 = v8;
     if (v8)
     {
-      v9 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v9 = v18 == 0;
+      v11 = v19 == 0;
     }
 
-    if (v9)
+    if (v11)
     {
-      v10 = ASDTBaseLogType();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = ASDTBaseLogType(v8, v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = HIBYTE(v8);
-        if ((v8 - 0x20000000) >> 24 >= 0x5F)
-        {
-          v11 = 32;
-        }
-
-        *buf = 67110656;
-        v20 = a3;
-        v12 = BYTE2(v8);
-        if (BYTE2(v8) - 32 >= 0x5F)
-        {
-          v12 = 32;
-        }
-
-        v21 = 1024;
-        v22 = a4;
-        v13 = BYTE1(v8);
-        if (BYTE1(v8) - 32 >= 0x5F)
+        v13 = HIBYTE(v10);
+        if ((v10 - 0x20000000) >> 24 >= 0x5F)
         {
           v13 = 32;
         }
 
-        v23 = 1024;
-        v24 = v8;
-        v25 = 1024;
-        v26 = v11;
-        v27 = 1024;
-        if (v8 - 32 >= 0x5F)
+        *buf = 67110656;
+        v21 = a3;
+        v14 = BYTE2(v10);
+        if (BYTE2(v10) - 32 >= 0x5F)
         {
           v14 = 32;
         }
 
-        else
+        v22 = 1024;
+        v23 = a4;
+        v15 = BYTE1(v10);
+        if (BYTE1(v10) - 32 >= 0x5F)
         {
-          v14 = v8;
+          v15 = 32;
         }
 
-        v28 = v12;
-        v29 = 1024;
-        v30 = v13;
-        v31 = 1024;
-        v32 = v14;
-        _os_log_error_impl(&dword_241659000, v10, OS_LOG_TYPE_ERROR, "IOMemoryMap: MapMemory(%u, %u, ...) failed: %x (%c%c%c%c)", buf, 0x2Cu);
+        v24 = 1024;
+        v25 = v10;
+        v26 = 1024;
+        v27 = v13;
+        v28 = 1024;
+        if (v10 - 32 >= 0x5F)
+        {
+          v16 = 32;
+        }
+
+        else
+        {
+          v16 = v10;
+        }
+
+        v29 = v14;
+        v30 = 1024;
+        v31 = v15;
+        v32 = 1024;
+        v33 = v16;
+        _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "IOMemoryMap: MapMemory(%u, %u, ...) failed: %x (%c%c%c%c)", buf, 0x2Cu);
       }
     }
 
     else
     {
-      *(this + 13) = v18;
-      *(this + 28) = v17;
+      *(this + 13) = v19;
+      *(this + 28) = v18;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -8800,16 +8770,14 @@ void ASDT::IOMemoryMap::Release(ASDT::IOMemoryMap *this)
   {
     if (*(this + 13))
     {
-      v2 = *(this + 29);
-      v3 = *MEMORY[0x277D85F48];
-      v4 = MEMORY[0x245CEC460]();
-      if (v4)
+      v2 = MEMORY[0x245CEC460]();
+      if (v2)
       {
-        v5 = v4;
-        v6 = ASDTBaseLogType();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v4 = v2;
+        v5 = ASDTBaseLogType(v2, v3);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          ASDT::IOMemoryMap::Release(v5, v6);
+          ASDT::IOMemoryMap::Release(v4, v5);
         }
       }
     }
@@ -8862,10 +8830,11 @@ void sub_24166BF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 double ASDT::ValueRange::PickCommonSampleRate(ASDT::ValueRange *this, const AudioValueRange *a2)
@@ -8930,10 +8899,11 @@ uint64_t ASDT::MachPort::CreatePort(ASDT::MachPort *this, integer_t a2)
   v3 = this;
   name = 0;
   v4 = MEMORY[0x277D85F48];
-  if (mach_port_allocate(*MEMORY[0x277D85F48], 1u, &name))
+  v5 = mach_port_allocate(*MEMORY[0x277D85F48], 1u, &name);
+  if (v5)
   {
-    v5 = ASDTBaseLogType();
-    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v7 = ASDTBaseLogType(v5, v6);
+    result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -8946,10 +8916,11 @@ uint64_t ASDT::MachPort::CreatePort(ASDT::MachPort *this, integer_t a2)
   if (a2)
   {
     port_info_outCnt = 1;
-    if (mach_port_get_attributes(*v4, name, 1, &port_info_out, &port_info_outCnt))
+    attributes = mach_port_get_attributes(*v4, name, 1, &port_info_out, &port_info_outCnt);
+    if (attributes)
     {
-      v7 = ASDTBaseLogType();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v11 = ASDTBaseLogType(attributes, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         ASDT::MachPort::CreatePort();
       }
@@ -8960,10 +8931,11 @@ LABEL_15:
     }
 
     port_info_out = a2;
-    if (MEMORY[0x245CECB80](*v4, name, 1, &port_info_out, 1))
+    v12 = MEMORY[0x245CECB80](*v4, name, 1, &port_info_out, 1);
+    if (v12)
     {
-      v8 = ASDTBaseLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v14 = ASDTBaseLogType(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         ASDT::MachPort::CreatePort();
       }
@@ -8972,15 +8944,19 @@ LABEL_15:
     }
   }
 
-  if (v3 && mach_port_insert_right(*v4, name, name, 0x14u))
+  if (v3)
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    inserted = mach_port_insert_right(*v4, name, name, 0x14u);
+    if (inserted)
     {
-      ASDT::MachPort::CreatePort();
-    }
+      v17 = ASDTBaseLogType(inserted, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        ASDT::MachPort::CreatePort();
+      }
 
-    goto LABEL_15;
+      goto LABEL_15;
+    }
   }
 
   return name;
@@ -8988,7 +8964,6 @@ LABEL_15:
 
 uint64_t ASDT::MachPort::LookupPort(ASDT::MachPort *this, const char *a2)
 {
-  v2 = *MEMORY[0x277D85F18];
   if (bootstrap_look_up2())
   {
     return 0;
@@ -9004,10 +8979,11 @@ uint64_t ASDT::MachPort::CheckInPort(ASDT::MachPort *this, const char *a2)
 {
   v2 = a2;
   sp = 0;
-  if (bootstrap_check_in(*MEMORY[0x277D85F18], this, &sp))
+  v3 = bootstrap_check_in(*MEMORY[0x277D85F18], this, &sp);
+  if (v3)
   {
-    v3 = ASDTBaseLogType();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    v5 = ASDTBaseLogType(v3, v4);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
     if (!result)
     {
       return result;
@@ -9017,13 +8993,19 @@ uint64_t ASDT::MachPort::CheckInPort(ASDT::MachPort *this, const char *a2)
     return 0;
   }
 
-  if (!v2 || !mach_port_insert_right(*MEMORY[0x277D85F48], sp, sp, 0x14u))
+  if (!v2)
   {
     return sp;
   }
 
-  v5 = ASDTBaseLogType();
-  result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+  inserted = mach_port_insert_right(*MEMORY[0x277D85F48], sp, sp, 0x14u);
+  if (!inserted)
+  {
+    return sp;
+  }
+
+  v9 = ASDTBaseLogType(inserted, v8);
+  result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
   if (result)
   {
     ASDT::MachPort::CheckInPort();
@@ -9033,25 +9015,29 @@ uint64_t ASDT::MachPort::CheckInPort(ASDT::MachPort *this, const char *a2)
   return result;
 }
 
-void ASDT::MachPort::RetainPort(mach_port_name_t name)
+void ASDT::MachPort::RetainPort(uint64_t name)
 {
-  if (name && mach_port_mod_refs(*MEMORY[0x277D85F48], name, 0, 1))
+  if (name)
   {
-    v1 = ASDTBaseLogType();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v1 = mach_port_mod_refs(*MEMORY[0x277D85F48], name, 0, 1);
+    if (v1)
     {
-      ASDT::MachPort::RetainPort();
+      v3 = ASDTBaseLogType(v1, v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      {
+        ASDT::MachPort::RetainPort();
+      }
     }
   }
 }
 
-uint64_t ASDT::MachPort::DestroyPort(uint64_t name, int a2, int a3)
+uint64_t ASDT::MachPort::DestroyPort(uint64_t name, uint64_t a2, int a3)
 {
   v4 = name;
   if ((a2 & 1) == 0 && (a3 & 1) == 0)
   {
-    v6 = ASDTBaseLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ASDTBaseLogType(name, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ASDT::MachPort::DestroyPort();
     }
@@ -9066,8 +9052,8 @@ uint64_t ASDT::MachPort::DestroyPort(uint64_t name, int a2, int a3)
       name = mach_port_deallocate(*MEMORY[0x277D85F48], name);
       if (name)
       {
-        v7 = ASDTBaseLogType();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = ASDTBaseLogType(name, v5);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           ASDT::MachPort::DestroyPort();
         }
@@ -9078,9 +9064,9 @@ uint64_t ASDT::MachPort::DestroyPort(uint64_t name, int a2, int a3)
 
     if (a3)
     {
-      v5 = *MEMORY[0x277D85F48];
+      v6 = *MEMORY[0x277D85F48];
 
-      return mach_port_mod_refs(v5, v4, 1u, -1);
+      return mach_port_mod_refs(v6, v4, 1u, -1);
     }
   }
 
@@ -9113,16 +9099,17 @@ uint64_t ASDT::MachPort::ReceiveMessage(mach_port_name_t rcv_name, mach_msg_size
   *&msg->msgh_remote_port = 0;
   *&msg->msgh_voucher_port = 0;
   v8 = mach_msg(msg, v7, 0, rcv_size, rcv_name, a5, 0);
+  v10 = v8;
   if (v8)
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      ASDT::MachPort::ReceiveMessage(v8);
+      ASDT::MachPort::ReceiveMessage(v10);
     }
   }
 
-  return v8;
+  return v10;
 }
 
 uint64_t ASDT::MachPort::ReceiveSimpleMessage(ASDT::MachPort *this, mach_msg_id_t *a2, mach_msg_header_t *a3, mach_msg_timeout_t a4)
@@ -9164,12 +9151,13 @@ uint64_t ASDT::MachPort::SendMessage(ASDT::MachPort *this, mach_msg_size_t send_
 
   msg->msgh_remote_port = this;
   v9 = mach_msg(msg, v8, send_size, 0, 0, a5, 0);
+  v11 = v9;
   if (v9)
   {
-    v10 = ASDTBaseLogType();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = ASDTBaseLogType(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      ASDT::MachPort::SendMessage(v9);
+      ASDT::MachPort::SendMessage(v11);
     }
 
     if ((msg->msgh_bits & 0x1F) != 0x13)
@@ -9178,7 +9166,7 @@ uint64_t ASDT::MachPort::SendMessage(ASDT::MachPort *this, mach_msg_size_t send_
     }
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t ASDT::MachPort::SendSimpleMessage(ASDT::MachPort *this, mach_msg_id_t a2, mach_msg_header_t *a3, mach_msg_timeout_t a4)
@@ -9219,11 +9207,12 @@ uint64_t ASDT::MachPort::SendMessageWithReply(ASDT::MachPort *this, mach_port_na
     }
 
     msg->msgh_remote_port = this;
-    v7 = mach_msg(msg, v12, a3, a4, rcv_name, a7, 0);
-    if (v7)
+    v13 = mach_msg(msg, v12, a3, a4, rcv_name, a7, 0);
+    v7 = v13;
+    if (v13)
     {
-      v13 = ASDTBaseLogType();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = ASDTBaseLogType(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         ASDT::MachPort::SendMessageWithReply(v7);
       }
@@ -9297,7 +9286,7 @@ uint64_t ASDT::MachPort::SetNotificationQueue(const void **a1, uint64_t a2)
       return v4;
     }
 
-    v7 = ASDTBaseLogType();
+    v7 = ASDTBaseLogType(a1, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       ASDT::MachPort::SetNotificationQueue();
@@ -9306,7 +9295,7 @@ uint64_t ASDT::MachPort::SetNotificationQueue(const void **a1, uint64_t a2)
 
   else
   {
-    v6 = ASDTBaseLogType();
+    v6 = ASDTBaseLogType(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ASDT::MachPort::SetNotificationQueue();
@@ -9343,18 +9332,18 @@ BOOL ASDT::MachPort::SetNotificationHandler(uint64_t a1, uint64_t a2)
   *(a1 + 32) = v6;
   if (v6)
   {
-    v7 = _Block_copy(*(a2 + 8));
-    v8 = *a2;
-    *(a1 + 16) = v7;
-    *(a1 + 24) = v8;
-    dispatch_retain(v8);
+    v8 = _Block_copy(*(a2 + 8));
+    v9 = *a2;
+    *(a1 + 16) = v8;
+    *(a1 + 24) = v9;
+    dispatch_retain(v9);
     dispatch_source_set_event_handler(*(a1 + 32), *(a2 + 8));
     dispatch_resume(*(a1 + 32));
     return 1;
   }
 
-  v9 = ASDTBaseLogType();
-  result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  v10 = ASDTBaseLogType(0, v7);
+  result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
   if (result)
   {
     ASDT::MachPort::SetNotificationHandler();
@@ -9401,10 +9390,11 @@ uint64_t ASDT::MachPort::SendSimpleMessageWithSimpleReply(ASDT::MachPort *this, 
   return result;
 }
 
-void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 uint64_t OUTLINED_FUNCTION_5_0(uint64_t result, float a2)
@@ -9414,10 +9404,11 @@ uint64_t OUTLINED_FUNCTION_5_0(uint64_t result, float a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_8(void *a1, NSObject *a2, os_log_type_t a3, const char *a4)
@@ -9426,12 +9417,12 @@ void OUTLINED_FUNCTION_8(void *a1, NSObject *a2, os_log_type_t a3, const char *a
   _os_log_error_impl(a1, a2, a3, a4, v4, 0xCu);
 }
 
-void sub_24167026C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_24167026C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTSystemPowerNotifier;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

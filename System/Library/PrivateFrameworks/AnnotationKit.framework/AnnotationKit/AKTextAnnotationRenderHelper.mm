@@ -278,7 +278,7 @@ LABEL_41:
 
     Mutable = CGPathCreateMutable();
     memset(&m, 0, sizeof(m));
-    [AKGeometryHelper affineTransformForExifOrientation:originalExifOrientation aboutCenter:MidX, v22];
+    objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, v22);
     CGPathAddPath(Mutable, &m, v76);
     v200.origin.x = v166;
     v200.origin.y = v177;
@@ -749,29 +749,29 @@ LABEL_142:
     {
       typingAttributes = [annotationCopy typingAttributes];
       [annotationCopy originalModelBaseScaleFactor];
-      v39 = [AKTextAnnotationAttributeHelper typingAttributes:typingAttributes byApplyingScaleFactor:?];
+      v38 = [AKTextAnnotationAttributeHelper typingAttributes:typingAttributes byApplyingScaleFactor:?];
 
-      v40 = [AKTextAnnotationAttributeHelper newTextStorageOriginalFontSavvyWithString:@"AAAA" attributes:v39];
-      [AKAnnotationRenderer textBoundsOfAnnotation:annotationCopy withOptionalAnnotationRect:v40 optionalText:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
-      v76.y = point;
-      v76.x = x;
-      v37 = CGRectContainsPoint(v79, v76);
+      v39 = [AKTextAnnotationAttributeHelper newTextStorageOriginalFontSavvyWithString:@"AAAA" attributes:v38];
+      [AKAnnotationRenderer textBoundsOfAnnotation:annotationCopy withOptionalAnnotationRect:v39 optionalText:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+      v75.y = point;
+      v75.x = x;
+      v36 = CGRectContainsPoint(v78, v75);
 
       goto LABEL_23;
     }
 
 LABEL_12:
-    v37 = 0;
+    v36 = 0;
     goto LABEL_23;
   }
 
-  memset(&v73, 0, sizeof(v73));
+  memset(&v72, 0, sizeof(v72));
+  v70 = 0.0;
   v71 = 0.0;
-  v72 = 0.0;
-  v70 = 0;
-  LOBYTE(v59) = 0;
-  [AKTextAnnotationRenderHelper getAnnotationRectangle:0 textBounds:&v73 containerSize:&v71 exclusionPaths:&v70 isTextClipped:0 forAnnotation:annotationCopy onPageController:*MEMORY[0x277CBF348] orInContext:*(MEMORY[0x277CBF348] + 8) shouldAlignToPixels:*MEMORY[0x277CBF3A0] optionalText:*(MEMORY[0x277CBF3A0] + 8) optionalCenter:*(MEMORY[0x277CBF3A0] + 16) optionalProposedRectangle:*(MEMORY[0x277CBF3A0] + 24), controllerCopy, 0, v59, v11];
-  v12 = v70;
+  v69 = 0;
+  LOBYTE(v58) = 0;
+  [AKTextAnnotationRenderHelper getAnnotationRectangle:0 textBounds:&v72 containerSize:&v70 exclusionPaths:&v69 isTextClipped:0 forAnnotation:annotationCopy onPageController:*MEMORY[0x277CBF348] orInContext:*(MEMORY[0x277CBF348] + 8) shouldAlignToPixels:*MEMORY[0x277CBF3A0] optionalText:*(MEMORY[0x277CBF3A0] + 8) optionalCenter:*(MEMORY[0x277CBF3A0] + 16) optionalProposedRectangle:*(MEMORY[0x277CBF3A0] + 24), controllerCopy, 0, v58, v11];
+  v12 = v69;
   conformsToAKRotatableAnnotationProtocol = [annotationCopy conformsToAKRotatableAnnotationProtocol];
   v14.x = x;
   v14.y = point;
@@ -780,7 +780,7 @@ LABEL_12:
     memset(&m, 0, sizeof(m));
     pointa = v14;
     [annotationCopy rotationAngle];
-    [AKGeometryHelper rotationTransformForRect:*&v73.origin withAngle:*&v73.size, v15];
+    objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, *&v72.origin, *&v72.size, v15);
     t1 = m;
     CGAffineTransformInvert(&t2, &t1);
     m = t2;
@@ -789,7 +789,7 @@ LABEL_12:
 
   y = v14.y;
   v17 = v14;
-  if (!CGRectContainsPoint(v73, v14))
+  if (!CGRectContainsPoint(v72, v14))
   {
 
     goto LABEL_12;
@@ -798,110 +798,110 @@ LABEL_12:
   if ([v12 count] && (objc_msgSend(v12, "firstObject"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "newCGPathForPlatformBezierPath"), v18, v19))
   {
     originalExifOrientation = [annotationCopy originalExifOrientation];
-    v21 = [AKGeometryHelper inverseExifOrientation:originalExifOrientation];
-    MidX = CGRectGetMidX(v73);
-    MidY = CGRectGetMidY(v73);
-    [AKGeometryHelper adjustRect:originalExifOrientation forExifOrientation:*&v73.origin aboutCenter:*&v73.size, MidX, MidY];
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
-    v31 = v30;
-    v32 = *(MEMORY[0x277CBF2C0] + 16);
+    [AKGeometryHelper inverseExifOrientation:originalExifOrientation];
+    MidX = CGRectGetMidX(v72);
+    MidY = CGRectGetMidY(v72);
+    [AKGeometryHelper adjustRect:originalExifOrientation forExifOrientation:*&v72.origin aboutCenter:*&v72.size, MidX, MidY];
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
+    v31 = *(MEMORY[0x277CBF2C0] + 16);
     *&m.a = *MEMORY[0x277CBF2C0];
-    *&m.c = v32;
+    *&m.c = v31;
     *&m.tx = *(MEMORY[0x277CBF2C0] + 32);
-    *&v32 = v27;
-    Height = CGRectGetHeight(*&v24);
+    *&v31 = v26;
+    Height = CGRectGetHeight(*&v23);
     CGAffineTransformMakeTranslation(&t2, 0.0, -Height);
     t1 = m;
     CGAffineTransformConcat(&m, &t1, &t2);
     CGAffineTransformMakeScale(&t1, 1.0, -1.0);
-    v66 = m;
-    CGAffineTransformConcat(&t2, &v66, &t1);
+    v65 = m;
+    CGAffineTransformConcat(&t2, &v65, &t1);
     m = t2;
     memset(&t2, 0, sizeof(t2));
-    v77.origin.x = v25;
-    v77.origin.y = v27;
-    v77.size.width = v29;
-    v77.size.height = v31;
-    MinX = CGRectGetMinX(v77);
-    v78.origin.x = v25;
-    v78.origin.y = v27;
-    v78.size.width = v29;
-    v78.size.height = v31;
-    MinY = CGRectGetMinY(v78);
+    v76.origin.x = v24;
+    v76.origin.y = v26;
+    v76.size.width = v28;
+    v76.size.height = v30;
+    MinX = CGRectGetMinX(v76);
+    v77.origin.x = v24;
+    v77.origin.y = v26;
+    v77.size.width = v28;
+    v77.size.height = v30;
+    MinY = CGRectGetMinY(v77);
     CGAffineTransformMakeTranslation(&t2, MinX, MinY);
-    v66 = m;
-    v65 = t2;
-    CGAffineTransformConcat(&t1, &v66, &v65);
+    v65 = m;
+    v64 = t2;
+    CGAffineTransformConcat(&t1, &v65, &v64);
     m = t1;
     memset(&t1, 0, sizeof(t1));
-    [AKGeometryHelper affineTransformForExifOrientation:v21 aboutCenter:MidX, MidY];
-    v65 = m;
-    v64 = t1;
-    CGAffineTransformConcat(&v66, &v65, &v64);
-    m = v66;
+    objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, MidX, MidY);
+    v64 = m;
+    v63 = t1;
+    CGAffineTransformConcat(&v65, &v64, &v63);
+    m = v65;
     Mutable = CGPathCreateMutable();
     CGPathAddPath(Mutable, &m, v19);
     CGPathRelease(v19);
-    v74.x = v17.x;
-    v74.y = y;
-    if (CGPathContainsPoint(Mutable, 0, v74, 1))
+    v73.x = v17.x;
+    v73.y = y;
+    if (CGPathContainsPoint(Mutable, 0, v73, 1))
     {
       CGPathRelease(Mutable);
-      v37 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v42 = v11;
+      v41 = v11;
       _sharedLayoutManager = [self _sharedLayoutManager];
       textContainers = [_sharedLayoutManager textContainers];
-      v45 = [textContainers objectAtIndex:0];
+      v44 = [textContainers objectAtIndex:0];
 
-      [v45 akSetContainerSize:{v71, v72}];
-      [v45 setExclusionPaths:v12];
-      [v42 addLayoutManager:_sharedLayoutManager];
-      [_sharedLayoutManager glyphRangeForTextContainer:v45];
-      [_sharedLayoutManager usedRectForTextContainer:v45];
-      v47 = v46;
-      v49 = v48;
-      v51 = v50;
-      v53 = v52;
-      [v42 removeLayoutManager:_sharedLayoutManager];
-      v80.origin.x = v47;
-      v80.origin.y = v49;
-      v80.size.width = v51;
-      v80.size.height = v53;
-      v54 = CGPathCreateWithRect(v80, &m);
-      if (v54)
+      [v44 akSetContainerSize:{v70, v71}];
+      [v44 setExclusionPaths:v12];
+      [v41 addLayoutManager:_sharedLayoutManager];
+      [_sharedLayoutManager glyphRangeForTextContainer:v44];
+      [_sharedLayoutManager usedRectForTextContainer:v44];
+      v46 = v45;
+      v48 = v47;
+      v50 = v49;
+      v52 = v51;
+      [v41 removeLayoutManager:_sharedLayoutManager];
+      v79.origin.x = v46;
+      v79.origin.y = v48;
+      v79.size.width = v50;
+      v79.size.height = v52;
+      v53 = CGPathCreateWithRect(v79, &m);
+      if (v53)
       {
-        v55 = v54;
+        v54 = v53;
         if (debugging)
         {
           [MEMORY[0x277D75348] blueColor];
-          v56 = v63 = v42;
-          CGContextSetFillColorWithColor(debugging, [v56 CGColor]);
+          v55 = v62 = v41;
+          CGContextSetFillColorWithColor(debugging, [v55 CGColor]);
 
-          CGContextAddPath(debugging, v55);
+          CGContextAddPath(debugging, v54);
           CGContextFillPath(debugging);
           redColor = [MEMORY[0x277D75348] redColor];
           CGContextSetFillColorWithColor(debugging, [redColor CGColor]);
 
-          v42 = v63;
+          v41 = v62;
           CGContextAddPath(debugging, Mutable);
           CGContextEOFillPath(debugging);
         }
 
-        v75.x = v17.x;
-        v75.y = y;
-        v37 = CGPathContainsPoint(v55, 0, v75, 0);
-        CGPathRelease(v55);
+        v74.x = v17.x;
+        v74.y = y;
+        v36 = CGPathContainsPoint(v54, 0, v74, 0);
+        CGPathRelease(v54);
       }
 
       else
       {
-        v37 = 0;
+        v36 = 0;
       }
 
       CGPathRelease(Mutable);
@@ -915,14 +915,14 @@ LABEL_12:
       blueColor = [MEMORY[0x277D75348] blueColor];
       CGContextSetFillColorWithColor(debugging, [blueColor CGColor]);
 
-      CGContextFillRect(debugging, v73);
+      CGContextFillRect(debugging, v72);
     }
 
-    v37 = 1;
+    v36 = 1;
   }
 
 LABEL_23:
-  return v37;
+  return v36;
 }
 
 + (CGSize)unconstrainedSizeForText:(id)text
@@ -973,9 +973,9 @@ LABEL_23:
 
       if ([v15 length])
       {
-        v50.a = 0.0;
-        v50.b = 0.0;
-        v16 = [v15 attributesAtIndex:0 effectiveRange:&v50];
+        v49.a = 0.0;
+        v49.b = 0.0;
+        v16 = [v15 attributesAtIndex:0 effectiveRange:&v49];
         v17 = [v16 mutableCopy];
 
         v18 = [textCopy foregroundColorForOptions:optionsCopy];
@@ -1013,16 +1013,16 @@ LABEL_23:
         contextCopy = context;
       }
 
-      v54 = 0u;
-      *v55 = 0u;
+      v53 = 0u;
+      v54[0] = 0u;
+      v51 = 0.0;
       v52 = 0.0;
-      v53 = 0.0;
-      v51 = 0;
-      LOBYTE(v41) = 1;
-      [AKTextAnnotationRenderHelper getAnnotationRectangle:0 textBounds:&v54 containerSize:&v52 exclusionPaths:&v51 isTextClipped:0 forAnnotation:textCopy onPageController:*MEMORY[0x277CBF348] orInContext:*(MEMORY[0x277CBF348] + 8) shouldAlignToPixels:*MEMORY[0x277CBF3A0] optionalText:*(MEMORY[0x277CBF3A0] + 8) optionalCenter:*(MEMORY[0x277CBF3A0] + 16) optionalProposedRectangle:*(MEMORY[0x277CBF3A0] + 24), v23, contextCopy, v41, v21];
+      v50 = 0;
+      LOBYTE(v40) = 1;
+      [AKTextAnnotationRenderHelper getAnnotationRectangle:0 textBounds:&v53 containerSize:&v51 exclusionPaths:&v50 isTextClipped:0 forAnnotation:textCopy onPageController:*MEMORY[0x277CBF348] orInContext:*(MEMORY[0x277CBF348] + 8) shouldAlignToPixels:*MEMORY[0x277CBF3A0] optionalText:*(MEMORY[0x277CBF3A0] + 8) optionalCenter:*(MEMORY[0x277CBF3A0] + 16) optionalProposedRectangle:*(MEMORY[0x277CBF3A0] + 24), v23, contextCopy, v40, v21];
 
-      v25 = v51;
-      if (v52 > 0.5 && v53 > 0.5)
+      v25 = v50;
+      if (v51 > 0.5 && v52 > 0.5)
       {
         UIGraphicsPushContext(context);
         CGContextSaveGState(context);
@@ -1033,7 +1033,7 @@ LABEL_23:
         textContainers = [_sharedLayoutManager textContainers];
         firstObject = [textContainers firstObject];
 
-        [firstObject akSetContainerSize:{v52, v53}];
+        [firstObject akSetContainerSize:{v51, v52}];
         [firstObject setExclusionPaths:v25];
         [textCopy originalModelBaseScaleFactor];
         v29 = [AKTextAnnotationAttributeHelper newTextStorage:v21 byApplyingScaleFactor:?];
@@ -1041,61 +1041,61 @@ LABEL_23:
         v30 = [_sharedLayoutManager glyphRangeForTextContainer:firstObject];
         if (v31)
         {
-          v45 = v31;
-          v46 = v30;
-          y = *(&v54 + 1);
-          x = *&v54;
-          height = v55[1];
-          width = v55[0];
+          v44 = v31;
+          v45 = v30;
+          y = *(&v53 + 1);
+          x = *&v53;
+          height = *(v54 + 1);
+          width = *v54;
           if ([textCopy conformsToAKRectangularAnnotationProtocol])
           {
             [textCopy rectangle];
-            v59.origin.x = v36;
-            v59.origin.y = v37;
-            v59.size.width = v38;
-            v59.size.height = v39;
-            v56.origin.x = x;
-            v56.origin.y = y;
-            v56.size.width = width;
-            v56.size.height = height;
-            v57 = CGRectIntersection(v56, v59);
-            x = v57.origin.x;
-            y = v57.origin.y;
-            width = v57.size.width;
-            height = v57.size.height;
+            v58.origin.x = v36;
+            v58.origin.y = v37;
+            v58.size.width = v38;
+            v58.size.height = v39;
+            v55.origin.x = x;
+            v55.origin.y = y;
+            v55.size.width = width;
+            v55.size.height = height;
+            v56 = CGRectIntersection(v55, v58);
+            x = v56.origin.x;
+            y = v56.origin.y;
+            width = v56.size.width;
+            height = v56.size.height;
           }
 
-          v58.origin.x = x;
-          v58.origin.y = y;
-          v58.size.width = width;
-          v58.size.height = height;
-          CGContextClipToRect(context, v58);
-          v40 = +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [textCopy originalExifOrientation]);
-          v43 = *(MEMORY[0x277CBF2C0] + 16);
-          *&v50.a = *MEMORY[0x277CBF2C0];
-          v44 = *&v50.a;
-          *&v50.c = v43;
-          *&v50.tx = *(MEMORY[0x277CBF2C0] + 32);
-          v42 = *&v50.tx;
-          CGAffineTransformMakeTranslation(&t2, -*&v54, -*(&v54 + 1));
-          *&t1.a = v44;
-          *&t1.c = v43;
-          *&t1.tx = v42;
-          CGAffineTransformConcat(&v50, &t1, &t2);
-          [AKGeometryHelper affineTransformRecenteringAboutOriginForExifOrientation:v40 withOriginalSize:*v55];
-          v47 = v50;
-          CGAffineTransformConcat(&t2, &v47, &t1);
-          v50 = t2;
-          CGAffineTransformMakeTranslation(&t1, *&v54, *(&v54 + 1));
-          v47 = v50;
-          CGAffineTransformConcat(&t2, &v47, &t1);
-          v50 = t2;
+          v57.origin.x = x;
+          v57.origin.y = y;
+          v57.size.width = width;
+          v57.size.height = height;
+          CGContextClipToRect(context, v57);
+          +[AKGeometryHelper inverseExifOrientation:](AKGeometryHelper, "inverseExifOrientation:", [textCopy originalExifOrientation]);
+          v42 = *(MEMORY[0x277CBF2C0] + 16);
+          *&v49.a = *MEMORY[0x277CBF2C0];
+          v43 = *&v49.a;
+          *&v49.c = v42;
+          *&v49.tx = *(MEMORY[0x277CBF2C0] + 32);
+          v41 = *&v49.tx;
+          CGAffineTransformMakeTranslation(&t2, -*&v53, -*(&v53 + 1));
+          *&t1.a = v43;
+          *&t1.c = v42;
+          *&t1.tx = v41;
+          CGAffineTransformConcat(&v49, &t1, &t2);
+          objc_msgSend_affineTransformRecenteringAboutOriginForExifOrientation_withOriginalSize_(AKGeometryHelper, v54[0]);
+          v46 = v49;
+          CGAffineTransformConcat(&t2, &v46, &t1);
+          v49 = t2;
+          CGAffineTransformMakeTranslation(&t1, *&v53, *(&v53 + 1));
+          v46 = v49;
+          CGAffineTransformConcat(&t2, &v46, &t1);
+          v49 = t2;
           CGContextConcatCTM(context, &t2);
-          CGContextTranslateCTM(context, 0.0, *(&v54 + 1));
-          CGContextTranslateCTM(context, 0.0, v53);
+          CGContextTranslateCTM(context, 0.0, *(&v53 + 1));
+          CGContextTranslateCTM(context, 0.0, v52);
           CGContextScaleCTM(context, 1.0, -1.0);
-          CGContextTranslateCTM(context, 0.0, -*(&v54 + 1));
-          [_sharedLayoutManager drawGlyphsForGlyphRange:v46 atPoint:{v45, x, y}];
+          CGContextTranslateCTM(context, 0.0, -*(&v53 + 1));
+          [_sharedLayoutManager drawGlyphsForGlyphRange:v45 atPoint:{v44, x, y}];
         }
 
         [v29 removeLayoutManager:_sharedLayoutManager];

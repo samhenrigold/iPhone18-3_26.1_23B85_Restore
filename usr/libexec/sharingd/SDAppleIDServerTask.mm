@@ -11,6 +11,8 @@
 - (void)_callResponseHandlerWithInfo:(id)info errorInfo:(id)errorInfo error:(int)error;
 - (void)_handleGSTokenIsAvailable;
 - (void)_handleServerError:(int64_t)error withStatusCode:(int64_t)code nextSuggestedAttemptDelay:(int64_t)delay responseInfo:(id)info;
+- (void)_handleTaskResponse:(id)response withData:(id)data error:(int)error;
+- (void)_handleURLIsAvailable:(id)available error:(int)error completion:(id)completion;
 - (void)_handleURLRequestIsAvailable;
 - (void)_invalidate;
 - (void)_sendRequest;
@@ -60,9 +62,11 @@
 
 - (id)description
 {
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "-- SDAppleIDServerTask --\n");
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activate
@@ -106,23 +110,27 @@
 {
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
+  v7 = dword_100971638;
   if (completionCopy)
   {
-    if (dword_100971638 <= 30 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+    if (dword_100971638 <= 30)
     {
-      sub_10014B770();
+      if (dword_100971638 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_10014B770(v7, v5, v6);
+      }
     }
 
     type = [(SDAppleIDServerTask *)self type];
-    v6 = dispatch_get_global_queue(0, 0);
+    v9 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1001481B8;
     block[3] = &unk_1008D1728;
-    v9 = type;
+    v12 = type;
     block[4] = self;
-    v8 = completionCopy;
-    dispatch_async(v6, block);
+    v11 = completionCopy;
+    dispatch_async(v9, block);
   }
 
   else
@@ -167,27 +175,31 @@ LABEL_4:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_activated)
   {
-    sub_10014B9E8();
+    sub_10014B9E8(v3, v4, v5);
     return;
   }
 
+  v6 = dword_100971638;
   if (self->_invalidated)
   {
-    sub_10014B96C(dword_100971638, &v4);
-    v3 = v4;
+    sub_10014B96C(dword_100971638, &v8);
+    v7 = v8;
 LABEL_13:
-    sub_10014B9DC(self, v3);
+    sub_10014B9DC(self, v7);
     return;
   }
 
-  if (dword_100971638 <= 30 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+  if (dword_100971638 <= 30)
   {
-    sub_10014B950();
+    if (dword_100971638 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_10014B950(v6, v4, v5);
+    }
   }
 
   if (![(SDAppleIDServerTask *)self _isTaskInfoValid])
   {
-    v3 = 4294960591;
+    v7 = 4294960591;
     goto LABEL_13;
   }
 
@@ -215,12 +227,12 @@ LABEL_13:
   {
     session = self->_session;
     urlRequest2 = [(SDAppleIDServerTask *)self urlRequest];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100148A94;
-    v7[3] = &unk_1008D1778;
-    v7[4] = self;
-    urlRequest = [(NSURLSession *)session dataTaskWithRequest:urlRequest2 completionHandler:v7];
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100148A94;
+    v6[3] = &unk_1008D1778;
+    v6[4] = self;
+    urlRequest = [(NSURLSession *)session dataTaskWithRequest:urlRequest2 completionHandler:v6];
 
     [urlRequest resume];
     if (dword_100971638 <= 30)
@@ -239,7 +251,7 @@ LABEL_13:
 
   else
   {
-    sub_10014BB34(self, v4);
+    sub_10014BB34(self);
   }
 }
 
@@ -250,17 +262,17 @@ LABEL_13:
 
   if (gsToken)
   {
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_100148C78;
-    v5[3] = &unk_1008D17A0;
-    v5[4] = self;
-    [(SDAppleIDServerTask *)self _urlRequestWithCompletion:v5];
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_100148C78;
+    v4[3] = &unk_1008D17A0;
+    v4[4] = self;
+    [(SDAppleIDServerTask *)self _urlRequestWithCompletion:v4];
   }
 
   else
   {
-    sub_10014BB34(self, v4);
+    sub_10014BB34(self);
   }
 }
 
@@ -278,7 +290,7 @@ LABEL_13:
     v12 = objc_opt_new();
   }
 
-  v18 = v12;
+  v16 = v12;
 
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (code == 401)
@@ -286,7 +298,7 @@ LABEL_13:
     v13 = 201215;
     if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      sub_10014BB38();
+      sub_10014BB38(error);
     }
   }
 
@@ -314,7 +326,7 @@ LABEL_13:
 LABEL_8:
         if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
         {
-          sub_10014BBC0();
+          sub_10014BBC0(error);
         }
 
         goto LABEL_29;
@@ -334,7 +346,7 @@ LABEL_8:
 
     if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      sub_10014BC0C();
+      sub_10014BC0C(error);
     }
 
     v13 = 201200;
@@ -344,9 +356,7 @@ LABEL_8:
   {
     if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      codeCopy = code;
-      errorCopy = error;
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _handleServerError:withStatusCode:nextSuggestedAttemptDelay:responseInfo:]", 60, "### Unhandled server response status code: %d. Server error code: %d\n", code, error);
     }
 
     v13 = 4294960584;
@@ -356,10 +366,10 @@ LABEL_29:
   if (delay)
   {
     v14 = [NSNumber numberWithInteger:delay];
-    [v18 setObject:v14 forKeyedSubscript:SFAppleIDErrorUserInfoRetryDelaySecondsKey];
+    [v16 setObject:v14 forKeyedSubscript:SFAppleIDErrorUserInfoRetryDelaySecondsKey];
   }
 
-  v15 = [v18 copy];
+  v15 = [v16 copy];
   [(SDAppleIDServerTask *)self _callResponseHandlerWithInfo:0 errorInfo:v15 error:v13];
 }
 
@@ -368,7 +378,7 @@ LABEL_29:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_invalidated)
   {
-    sub_10014BCB0(dword_100971638);
+    sub_10014BCB0(dword_100971638, v3, v4);
   }
 
   else
@@ -387,86 +397,281 @@ LABEL_29:
   }
 }
 
+- (void)_handleTaskResponse:(id)response withData:(id)data error:(int)error
+{
+  v5 = *&error;
+  responseCopy = response;
+  dataCopy = data;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  v41 = v5;
+  if (v5)
+  {
+    if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10014BD08(self, v5);
+    }
+
+    v19 = 0;
+    v12 = 0;
+    v26 = 0;
+    responseInfo = 0;
+    v27 = 0;
+    v40 = 0;
+    goto LABEL_20;
+  }
+
+  if (!responseCopy)
+  {
+    sub_10014BF54(dword_100971638, &v41);
+    goto LABEL_31;
+  }
+
+  if (dword_100971638 > 30 || dword_100971638 == -1 && !_LogCategory_Initialize())
+  {
+    if (dataCopy)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_24;
+  }
+
+  sub_10014BD78(self, responseCopy);
+  if (!dataCopy)
+  {
+LABEL_24:
+    sub_10014BEDC(&v41);
+LABEL_31:
+    v19 = 0;
+    v12 = 0;
+    v26 = 0;
+    responseInfo = 0;
+    v27 = 0;
+    v40 = 0;
+    v5 = 4294960534;
+    goto LABEL_20;
+  }
+
+LABEL_7:
+  v10 = dataCopy;
+  v40 = responseCopy;
+  v11 = [[SDAppleIDURLResponse alloc] initWithHTTPUTLResponse:v40 data:v10];
+  v12 = v11;
+  v38 = dataCopy;
+  v39 = responseCopy;
+  v37 = v10;
+  if (v11)
+  {
+    responseInfo = [(SDAppleIDURLResponse *)v11 responseInfo];
+
+    if (responseInfo)
+    {
+      if (IsAppleInternalBuild() && dword_100971638 <= 10 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+      {
+        sub_10014BDF0(v12);
+      }
+
+      responseInfo2 = [(SDAppleIDURLResponse *)v12 responseInfo];
+      Int64 = CFDictionaryGetInt64();
+
+      statusCode = [(SDAppleIDURLResponse *)v12 statusCode];
+      responseInfo3 = [(SDAppleIDURLResponse *)v12 responseInfo];
+      if (statusCode != 200 || Int64)
+      {
+        CFStringGetTypeID();
+        v28 = CFDictionaryGetTypedValue();
+
+        if (v28)
+        {
+          v29 = v28;
+        }
+
+        else
+        {
+          v29 = &stru_1008EFBD0;
+        }
+
+        responseInfo4 = [(SDAppleIDURLResponse *)v12 responseInfo];
+        v31 = CFDictionaryGetInt64();
+
+        v32 = v31 / 1000;
+        if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&dword_100971638, "[SDAppleIDServerTask _handleTaskResponse:withData:error:]", 90, "### Response status code: %d, error %d (%@), suggested retry delay: %d\n", [(SDAppleIDURLResponse *)v12 statusCode], Int64, v29, v31 / 1000);
+        }
+
+        v36 = v29;
+        statusCode2 = [(SDAppleIDURLResponse *)v12 statusCode];
+        responseInfo5 = [(SDAppleIDURLResponse *)v12 responseInfo];
+        [(SDAppleIDServerTask *)self _handleServerError:Int64 withStatusCode:statusCode2 nextSuggestedAttemptDelay:v32 responseInfo:responseInfo5];
+
+        responseInfo = 0;
+        v18 = 0;
+      }
+
+      else
+      {
+        responseInfo = [(SDAppleIDServerTask *)self _parseServerResponse:responseInfo3 error:&v41];
+
+        Int64 = 0;
+        if (responseInfo)
+        {
+          v36 = 0;
+        }
+
+        else
+        {
+          v36 = 0;
+          v33 = v41;
+          if (!v41)
+          {
+            v33 = 201217;
+          }
+
+          v41 = v33;
+        }
+
+        v18 = 1;
+      }
+
+      goto LABEL_18;
+    }
+
+    sub_10014BE4C(&v41, v40);
+    v36 = 0;
+  }
+
+  else
+  {
+    responseInfo = 0;
+    v36 = 0;
+    v41 = -6762;
+  }
+
+  v18 = 1;
+  Int64 = -1;
+LABEL_18:
+  v19 = +[AKURLBag sharedBag];
+  v42[0] = @"httpStatusCode";
+  v20 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v40 statusCode]);
+  v43[0] = v20;
+  v42[1] = @"errorCode";
+  v21 = [NSNumber numberWithInteger:Int64];
+  v43[1] = v21;
+  v42[2] = @"type";
+  selfCopy = self;
+  v23 = [NSNumber numberWithInteger:self->_type];
+  v43[2] = v23;
+  v42[3] = @"idmsEnv";
+  v24 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v19 IDMSEnvironment]);
+  v43[3] = v24;
+  v25 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:4];
+  SFMetricsLog();
+
+  if (!v18)
+  {
+    dataCopy = v38;
+    responseCopy = v39;
+    v27 = v36;
+    v26 = v37;
+    goto LABEL_22;
+  }
+
+  v5 = v41;
+  dataCopy = v38;
+  responseCopy = v39;
+  self = selfCopy;
+  v27 = v36;
+  v26 = v37;
+LABEL_20:
+  [(SDAppleIDServerTask *)self _callResponseHandlerWithInfo:responseInfo error:v5];
+LABEL_22:
+}
+
 - (id)_parseCreateCertificateResponse:(id)response error:(int *)error
 {
   responseCopy = response;
   CFStringGetTypeID();
   v6 = CFDictionaryGetTypedValue();
+  v9 = v6;
   if (!v6)
   {
-    if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+    if (dword_100971638 <= 90)
     {
-      sub_10014BFFC();
+      if (dword_100971638 != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        sub_10014BFFC(v6, v7, v8);
+      }
     }
 
     goto LABEL_29;
   }
 
   CFDictionaryGetTypeID();
-  v7 = CFDictionaryGetTypedValue();
-  if (!v7)
+  v10 = CFDictionaryGetTypedValue();
+  if (!v10)
   {
-    if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+    if (dword_100971638 <= 90)
     {
-      sub_10014BFE0();
+      if (dword_100971638 != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        sub_10014BFE0(v10, v11, v12);
+      }
     }
 
 LABEL_29:
-    v8 = 0;
+    v13 = 0;
     goto LABEL_30;
   }
 
-  v8 = v7;
+  v13 = v10;
   CFStringGetTypeID();
-  v9 = CFDictionaryGetTypedValue();
-  if (v9)
+  v14 = CFDictionaryGetTypedValue();
+  if (v14)
   {
-    v10 = v9;
-    v11 = NSDictionaryGetNSNumber();
-    v12 = v11;
-    if (v11)
+    v17 = v14;
+    v18 = NSDictionaryGetNSNumber();
+    v19 = v18;
+    if (v18)
     {
-      v13 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v11 integerValue] / 1000);
+      v20 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v18 integerValue] / 1000);
     }
 
     else
     {
-      v13 = 0;
+      v20 = 0;
     }
 
     if (dword_100971638 <= 30 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      v19 = v10;
-      v20 = v13;
-      v18 = v6;
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseCreateCertificateResponse:error:]", 30, "Received Create Certificate response: altDSID=%@, certToken=%@, suggestedDelay=%@\n", v9, v17, v20);
     }
 
-    if (!v13 || ([v13 integerValue] & 0x8000000000000000) != 0)
+    if (!v20 || ([v20 integerValue] & 0x8000000000000000) != 0)
     {
-      v14 = &off_10090BD30;
+      v21 = &off_10090BD30;
     }
 
     else
     {
-      if ([v13 integerValue] < 601)
+      if ([v20 integerValue] < 601)
       {
         goto LABEL_17;
       }
 
-      v14 = &off_10090BD48;
+      v21 = &off_10090BD48;
     }
 
-    v13 = v14;
+    v20 = v21;
 LABEL_17:
-    v21[0] = @"AltDSID";
-    v21[1] = @"CertificateToken";
-    v22[0] = v6;
-    v22[1] = v10;
-    v21[2] = @"Delay";
-    v22[2] = v13;
-    v15 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:3, v18, v19, v20];
-    v16 = 0;
+    v25[0] = @"AltDSID";
+    v25[1] = @"CertificateToken";
+    v26[0] = v9;
+    v26[1] = v17;
+    v25[2] = @"Delay";
+    v26[2] = v20;
+    v22 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v23 = 0;
     if (!error)
     {
       goto LABEL_19;
@@ -475,33 +680,36 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+  if (dword_100971638 <= 90)
   {
-    sub_10014BFC4();
+    if (dword_100971638 != -1 || (v14 = _LogCategory_Initialize(), v14))
+    {
+      sub_10014BFC4(v14, v15, v16);
+    }
   }
 
 LABEL_30:
-  v10 = 0;
-  v12 = 0;
-  v13 = 0;
-  v15 = 0;
-  v16 = 201240;
+  v17 = 0;
+  v19 = 0;
+  v20 = 0;
+  v22 = 0;
+  v23 = 201240;
   if (error)
   {
 LABEL_18:
-    *error = v16;
+    *error = v23;
   }
 
 LABEL_19:
 
-  return v15;
+  return v22;
 }
 
 - (id)_parseServerResponse:(id)response error:(int *)error
 {
   responseCopy = response;
   v7 = responseCopy;
-  v13 = 0;
+  v12 = 0;
   type = self->_type;
   if (type <= 1)
   {
@@ -512,12 +720,12 @@ LABEL_19:
         goto LABEL_17;
       }
 
-      v9 = [(SDAppleIDServerTask *)self _parseFetchCertificateResponse:responseCopy error:&v13];
+      v9 = [(SDAppleIDServerTask *)self _parseFetchCertificateResponse:responseCopy error:&v12];
     }
 
     else
     {
-      v9 = [(SDAppleIDServerTask *)self _parseCreateCertificateResponse:responseCopy error:&v13];
+      v9 = [(SDAppleIDServerTask *)self _parseCreateCertificateResponse:responseCopy error:&v12];
     }
 
 LABEL_12:
@@ -533,10 +741,10 @@ LABEL_12:
   switch(type)
   {
     case 2:
-      v9 = [(SDAppleIDServerTask *)self _parseGetMyInfoResponse:responseCopy error:&v13];
+      v9 = [(SDAppleIDServerTask *)self _parseGetMyInfoResponse:responseCopy error:&v12];
       goto LABEL_12;
     case 3:
-      v9 = [(SDAppleIDServerTask *)self _parseFindPersonResponse:responseCopy error:&v13];
+      v9 = [(SDAppleIDServerTask *)self _parseFindPersonResponse:responseCopy error:&v12];
       goto LABEL_12;
     case 4:
       v9 = [responseCopy copy];
@@ -556,18 +764,18 @@ LABEL_17:
 
   if (_LogCategory_Initialize())
   {
-    v12 = self->_type;
+    type = self->_type;
 LABEL_19:
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseServerResponse:error:]", 90, "### Unhandled type %d\n", type);
   }
 
 LABEL_21:
   v10 = 0;
-  v13 = -6756;
+  v12 = -6756;
   if (error)
   {
 LABEL_13:
-    *error = v13;
+    *error = v12;
   }
 
 LABEL_14:
@@ -683,8 +891,7 @@ LABEL_27:
     default:
       if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
       {
-        [(SDAppleIDServerTask *)self type];
-        LogPrintF();
+        LogPrintF(&dword_100971638, "[SDAppleIDServerTask _isTaskInfoValid]", 60, "### Unhandled type %d\n", [(SDAppleIDServerTask *)self type]);
       }
 
       goto LABEL_40;
@@ -775,6 +982,87 @@ LABEL_42:
   return isKindOfClass & 1;
 }
 
+- (void)_handleURLIsAvailable:(id)available error:(int)error completion:(id)completion
+{
+  v6 = *&error;
+  availableCopy = available;
+  completionCopy = completion;
+  v10 = availableCopy;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  v11 = 0;
+  v12 = 0;
+  gsToken = 0;
+  taskInfo = 0;
+  if (v10 && !v6)
+  {
+    gsToken = [(SDAppleIDServerTask *)self gsToken];
+
+    if (gsToken)
+    {
+      v15 = [SDAppleIDMutableURLRequest alloc];
+      gsToken2 = [(SDAppleIDServerTask *)self gsToken];
+      gsToken = [(SDAppleIDMutableURLRequest *)v15 initWithURL:v10 gsToken:gsToken2];
+
+      if (gsToken)
+      {
+        taskInfo = [(SDAppleIDServerTask *)self taskInfo];
+
+        if (!taskInfo)
+        {
+LABEL_8:
+          v12 = gsToken;
+          v11 = 0;
+          v6 = 0;
+          gsToken = v12;
+          goto LABEL_9;
+        }
+
+        taskInfo2 = [(SDAppleIDServerTask *)self taskInfo];
+        v19 = 0;
+        taskInfo = [NSJSONSerialization dataWithJSONObject:taskInfo2 options:0 error:&v19];
+        v11 = v19;
+
+        if (!v11)
+        {
+          [(SDAppleIDMutableURLRequest *)gsToken setHTTPBody:taskInfo];
+          goto LABEL_8;
+        }
+
+        if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
+        {
+          localizedDescription = [v11 localizedDescription];
+          LogPrintF(&dword_100971638, "[SDAppleIDServerTask _handleURLIsAvailable:error:completion:]", 90, "JSON Serialization of the URL Request body failed with error %@", localizedDescription);
+        }
+
+        v6 = NSErrorToOSStatus();
+        v12 = 0;
+      }
+
+      else
+      {
+        v11 = 0;
+        v12 = 0;
+        taskInfo = 0;
+        v6 = 4294960534;
+      }
+    }
+
+    else
+    {
+      v11 = 0;
+      v12 = 0;
+      taskInfo = 0;
+      v6 = 4294960587;
+    }
+  }
+
+LABEL_9:
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v12, v6);
+  }
+}
+
 - (id)_parseFetchCertificateResponse:(id)response error:(int *)error
 {
   responseCopy = response;
@@ -805,7 +1093,7 @@ LABEL_42:
 
   else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 60, "### No altDSID\n");
   }
 
   CFDictionaryGetTypeID();
@@ -816,7 +1104,7 @@ LABEL_42:
   {
     if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 90, "### No certificate info\n");
     }
 
     v28 = 0;
@@ -839,7 +1127,7 @@ LABEL_42:
 
   else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 60, "### No certificate token\n");
   }
 
   CFStringGetTypeID();
@@ -885,7 +1173,7 @@ LABEL_42:
   {
     if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 60, "### No certificate expiration date. Will set to 6 months from now.\n");
     }
 
     v14 = +[NSDate date];
@@ -918,7 +1206,7 @@ LABEL_40:
 
   else if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 90, "### Failed to create expiration date\n", v19, v29);
   }
 
   CFStringGetTypeID();
@@ -931,7 +1219,7 @@ LABEL_40:
 
   else if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 90, "### No certificate PEM\n", v28);
   }
 
   CFStringGetTypeID();
@@ -944,7 +1232,7 @@ LABEL_40:
 
   else if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 90, "### No certificate serial number\n", v28);
   }
 
   if (v5 != 2)
@@ -960,7 +1248,7 @@ LABEL_64:
   {
     if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 60, "### Certificate status is pending, but delay not provided.\n", v28);
     }
 
     v4 = 0;
@@ -1000,7 +1288,7 @@ LABEL_73:
   {
     if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFetchCertificateResponse:error:]", 90, "### No intermediate certificate PEM\n", v28, v29);
     }
 
     v26 = 0;
@@ -1053,7 +1341,7 @@ LABEL_80:
 
           else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "Account identifier not in match info dictionary returned by server\n", errorCopy, responseCopy);
           }
 
           CFStringGetTypeID();
@@ -1066,7 +1354,7 @@ LABEL_80:
 
           else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "AltDSID not in match info dictionary returned by server\n", errorCopy);
           }
 
           CFStringGetTypeID();
@@ -1112,7 +1400,7 @@ LABEL_80:
 
           else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "Certificate status not in match info dictionary returned by server\n", errorCopy);
           }
 
           CFStringGetTypeID();
@@ -1125,7 +1413,7 @@ LABEL_80:
 
           else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "Matched criterion not in match info dictionary returned by server\n", errorCopy);
           }
 
           CFStringGetTypeID();
@@ -1138,15 +1426,15 @@ LABEL_80:
 
           else if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "Matched value not in match info dictionary returned by server\n", errorCopy);
           }
 
-          v18 = [v11 dateByAddingTimeInterval:{2592000.0, errorCopy, v22}];
+          v18 = [v11 dateByAddingTimeInterval:{2592000.0, errorCopy}];
           [v6 setObject:v18 forKeyedSubscript:@"ValidUntil"];
 
           if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "### No matches array\n");
           }
 
           v19 = 0;
@@ -1161,7 +1449,7 @@ LABEL_69:
 
       if (dword_100971638 <= 60 && (dword_100971638 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 60, "### Matches array has more than 1 object\n", errorCopy, responseCopy);
       }
 
       sub_100008978();
@@ -1174,7 +1462,7 @@ LABEL_69:
       v19 = 201223;
       if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 90, "### No matches found\n", errorCopy, responseCopy);
       }
 
       sub_100008978();
@@ -1186,7 +1474,7 @@ LABEL_69:
   {
     if (dword_100971638 <= 90 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseFindPersonResponse:error:]", 90, "### No matches array\n", errorCopy, responseCopy);
     }
 
     sub_100008978();
@@ -1214,7 +1502,7 @@ LABEL_53:
   {
     CFStringGetTypeID();
     sub_100021EBC();
-    v43 = CFDictionaryGetTypedValue();
+    v35 = CFDictionaryGetTypedValue();
     CFDictionaryGetDouble();
     v8 = 0;
     if (v7 > 0.0)
@@ -1224,7 +1512,7 @@ LABEL_53:
 
     CFStringGetTypeID();
     sub_100021EBC();
-    v45 = CFDictionaryGetTypedValue();
+    v37 = CFDictionaryGetTypedValue();
     CFStringGetTypeID();
     sub_100021EBC();
     v9 = CFDictionaryGetTypedValue();
@@ -1259,74 +1547,61 @@ LABEL_53:
       }
     }
 
-    v40 = v11;
+    v32 = v11;
 
     if (dword_100971638 <= 30 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      v34 = v45;
-      v35 = v9;
-      v32 = v43;
-      v33 = v8;
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseGetMyInfoResponse:error:]", 30, "Received Get My Info Certificate Info: token=%@, expirationDate=%@, serial number=%@, status=%@\n", v35, v8, v37, v9);
     }
   }
 
   else
   {
     v8 = 0;
-    v45 = 0;
+    v37 = 0;
     v9 = 0;
-    v40 = 0;
-    v43 = 0;
+    v32 = 0;
+    v35 = 0;
   }
 
   CFStringGetTypeID();
   sub_100019CA0();
-  v44 = CFDictionaryGetTypedValue();
+  v36 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
   sub_100019CA0();
-  v50 = CFDictionaryGetTypedValue();
+  v42 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
   sub_100019CA0();
-  v49 = CFDictionaryGetTypedValue();
+  v41 = CFDictionaryGetTypedValue();
   CFDictionaryGetDouble();
   v14 = v13;
   CFArrayGetTypeID();
   sub_100019CA0();
-  v48 = CFDictionaryGetTypedValue();
+  v40 = CFDictionaryGetTypedValue();
   CFArrayGetTypeID();
   sub_100019CA0();
-  v47 = CFDictionaryGetTypedValue();
+  v39 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
   sub_100019CA0();
   v15 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
   sub_100019CA0();
-  v46 = CFDictionaryGetTypedValue();
+  v38 = CFDictionaryGetTypedValue();
   v16 = NSDictionaryGetNSNumber();
   if (dword_100971638 <= 30)
   {
     if (dword_100971638 != -1 || _LogCategory_Initialize())
     {
-      v36 = v47;
-      v37 = v46;
-      v35 = v48;
-      v34 = v49;
-      v32 = v44;
-      v33 = v50;
-      v38 = v16;
-      v39 = v14;
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseGetMyInfoResponse:error:]", 30, "Received Get My Info response: AltDSID=%@, Firstname=%{mask}, LastName=%{mask}, Emails=%~@, Phones=%~@, Validation Record: identifier=%@,version=%@, msUntilNextCheck=%d\n", v36, v42, v41, v40, v39, v38, v16, v14);
     }
 
     if (dword_100971638 <= 10 && (dword_100971638 != -1 || _LogCategory_Initialize()))
     {
-      v32 = v15;
-      LogPrintF();
+      LogPrintF(&dword_100971638, "[SDAppleIDServerTask _parseGetMyInfoResponse:error:]", 10, "Validation Record Data (base64)=%@\n", v15);
     }
   }
 
-  v41 = v9;
+  v33 = v9;
   v17 = v14 / 1000.0;
   if (v14 / 1000.0 > 7776000.0 || v17 == 0.0)
   {
@@ -1338,7 +1613,7 @@ LABEL_53:
     v19 = v14 / 1000.0;
   }
 
-  v20 = [NSDate date:v17];
+  v20 = +[NSDate date];
   v21 = [v20 dateByAddingTimeInterval:v19];
   if (v16)
   {
@@ -1362,26 +1637,26 @@ LABEL_53:
 
   v24 = +[NSMutableDictionary dictionary];
   v25 = v24;
-  v42 = v8;
+  v34 = v8;
   if (v24)
   {
     [v24 setObject:v8 forKeyedSubscript:@"CertificateExpirationDate"];
-    [v25 setObject:v45 forKeyedSubscript:@"CertificateSerialNumber"];
-    [NSNumber numberWithInteger:v40];
+    [v25 setObject:v37 forKeyedSubscript:@"CertificateSerialNumber"];
+    [NSNumber numberWithInteger:v32];
     errorCopy = error;
     v28 = v27 = v6;
     [v25 setObject:v28 forKeyedSubscript:@"CertificateStatus"];
 
     v6 = v27;
     error = errorCopy;
-    v29 = v43;
-    [v25 setObject:v43 forKeyedSubscript:@"CertificateToken"];
-    [v25 setObject:v50 forKeyedSubscript:@"FirstName"];
-    [v25 setObject:v49 forKeyedSubscript:@"LastName"];
-    [v25 setObject:v48 forKeyedSubscript:@"ValidatedEmails"];
-    [v25 setObject:v47 forKeyedSubscript:@"ValidatedPhones"];
+    v29 = v35;
+    [v25 setObject:v35 forKeyedSubscript:@"CertificateToken"];
+    [v25 setObject:v42 forKeyedSubscript:@"FirstName"];
+    [v25 setObject:v41 forKeyedSubscript:@"LastName"];
+    [v25 setObject:v40 forKeyedSubscript:@"ValidatedEmails"];
+    [v25 setObject:v39 forKeyedSubscript:@"ValidatedPhones"];
     sub_100023F44();
-    [v25 setObject:v46 forKeyedSubscript:@"ValidationRecordDataID"];
+    [v25 setObject:v38 forKeyedSubscript:@"ValidationRecordDataID"];
     [v25 setObject:v21 forKeyedSubscript:@"ValidationRecordNextCheckDate"];
     [v25 setObject:v22 forKeyedSubscript:@"Version"];
     v30 = 0;
@@ -1394,7 +1669,7 @@ LABEL_53:
   }
 
   v30 = -6728;
-  v29 = v43;
+  v29 = v35;
   if (error)
   {
 LABEL_41:

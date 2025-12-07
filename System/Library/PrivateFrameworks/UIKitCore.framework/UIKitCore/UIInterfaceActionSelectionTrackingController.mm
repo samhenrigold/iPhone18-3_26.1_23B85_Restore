@@ -207,7 +207,7 @@
 {
   p_selectByPressGestureRecognizer = &self->_selectByPressGestureRecognizer;
   recognizerCopy = recognizer;
-  if (([(_UIInterfaceActionSelectByPressGestureRecognizer *)*p_selectByPressGestureRecognizer isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(*p_selectByPressGestureRecognizer) & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_trackableContainerView);
     [WeakRetained removeGestureRecognizer:self->_selectByPressGestureRecognizer];
@@ -453,9 +453,9 @@ LABEL_3:
   }
 }
 
-uint64_t __71__UIInterfaceActionSelectionTrackingController__rolloverActionChanged___block_invoke(uint64_t result, void *a2)
+void **__71__UIInterfaceActionSelectionTrackingController__rolloverActionChanged___block_invoke(void **result, void *a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     return [a2 setHighlighted:0];
   }
@@ -658,7 +658,7 @@ uint64_t __88__UIInterfaceActionSelectionTrackingController__handleActionSelecti
   return v2;
 }
 
-uint64_t __88__UIInterfaceActionSelectionTrackingController__handleActionSelectionGestureRecognizer___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__88__UIInterfaceActionSelectionTrackingController__handleActionSelectionGestureRecognizer___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isHighlighted];
   if (result)
@@ -670,7 +670,7 @@ uint64_t __88__UIInterfaceActionSelectionTrackingController__handleActionSelecti
   return result;
 }
 
-uint64_t __88__UIInterfaceActionSelectionTrackingController__handleActionSelectionGestureRecognizer___block_invoke_6(double *a1, int a2)
+void *__88__UIInterfaceActionSelectionTrackingController__handleActionSelectionGestureRecognizer___block_invoke_6(double *a1, int a2)
 {
   result = [*(*(a1 + 4) + 80) isActive];
   if (a2)

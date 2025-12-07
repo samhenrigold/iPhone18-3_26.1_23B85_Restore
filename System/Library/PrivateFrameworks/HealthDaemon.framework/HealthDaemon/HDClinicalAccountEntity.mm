@@ -8,22 +8,20 @@
 
 + (id)foreignKeys
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"credential_id";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"credential_id";
   v2 = objc_alloc(MEMORY[0x277D10B38]);
   v3 = objc_opt_class();
   v4 = *MEMORY[0x277D10A40];
   v5 = [v2 initWithEntityClass:v3 property:*MEMORY[0x277D10A40] deletionAction:3];
-  v12[0] = v5;
-  v11[1] = @"gateway_id";
+  v11[0] = v5;
+  v10[1] = @"gateway_id";
   v6 = [objc_alloc(MEMORY[0x277D10B38]) initWithEntityClass:objc_opt_class() property:v4 deletionAction:3];
-  v12[1] = v6;
-  v11[2] = @"signed_clinical_data_issuer_rowid";
+  v11[1] = v6;
+  v10[2] = @"signed_clinical_data_issuer_rowid";
   v7 = [objc_alloc(MEMORY[0x277D10B38]) initWithEntityClass:objc_opt_class() property:v4 deletionAction:2];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }
@@ -38,13 +36,13 @@
 
 + (id)joinClausesForProperty:(id)property
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v5 = objc_alloc(MEMORY[0x277CBEB98]);
-  v20[0] = @"gateway.external_id";
-  v20[1] = @"gateway.last_reported_status";
-  v20[2] = @"issuer.identifier";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = @"gateway.external_id";
+  v19[1] = @"gateway.last_reported_status";
+  v19[2] = @"issuer.identifier";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v7 = [v5 initWithArray:v6];
 
   if ([v7 containsObject:propertyCopy])
@@ -64,12 +62,10 @@
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = &OBJC_METACLASS___HDClinicalAccountEntity;
-    v16 = objc_msgSendSuper2(&v19, sel_joinClausesForProperty_, propertyCopy);
+    v18.receiver = self;
+    v18.super_class = &OBJC_METACLASS___HDClinicalAccountEntity;
+    v16 = objc_msgSendSuper2(&v18, sel_joinClausesForProperty_, propertyCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

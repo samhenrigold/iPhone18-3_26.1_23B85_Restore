@@ -6,6 +6,7 @@
 + (id)activityAlertResultWithTypes:(id)types sounds:(id)sounds vibrations:(id)vibrations;
 + (id)cardDataWithBodyLines:(id)lines version:(id)version encoding:(unint64_t)encoding;
 + (id)chineseDateWithEra:(int64_t)era year:(int64_t)year month:(int64_t)month day:(int64_t)day;
++ (id)complexValueWithValue:(id)value label:(id)label isPrimary:(BOOL)primary;
 + (id)gregorianDateWithYear:(int64_t)year month:(int64_t)month day:(int64_t)day;
 + (id)instantMessagingItemWithUsername:(id)username service:(id)service label:(id)label;
 + (id)linesUsingAdapter:(id)adapter options:(id)options;
@@ -13,6 +14,7 @@
 + (id)parseCardWithBodyLines:(id)lines version:(id)version encoding:(unint64_t)encoding;
 + (id)parseCardWithData:(id)data;
 + (id)parseCardWithData:(id)data options:(id)options;
++ (id)resultWithProperty:(id)property value:(id)value label:(id)label isPrimary:(BOOL)primary;
 + (id)unknownPropertyWithName:(id)name line:(id)line;
 + (id)version21DataUsingAdapter:(id)adapter;
 + (id)version30DataUsingAdapter:(id)adapter;
@@ -22,15 +24,13 @@
 
 + (id)parseCardWithBodyLine:(id)line
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   lineCopy = line;
   v4 = MEMORY[0x277CBEA60];
   lineCopy2 = line;
   v6 = [v4 arrayWithObjects:&lineCopy count:1];
 
-  v7 = [self parseCardWithBodyLines:{v6, lineCopy, v11}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [self parseCardWithBodyLines:{v6, lineCopy, v10}];
 
   return v7;
 }
@@ -61,35 +61,35 @@
 
 + (id)cardDataWithBodyLines:(id)lines version:(id)version encoding:(unint64_t)encoding
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   linesCopy = lines;
   versionCopy = version;
   string = [MEMORY[0x277CCAB68] string];
   [string appendString:@"BEGIN:VCARD\r\n"];
   [string appendFormat:@"VERSION:%@\r\n", versionCopy];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = linesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [string appendFormat:@"%@\r\n", *(*(&v18 + 1) + 8 * i)];
+        [string appendFormat:@"%@\r\n", *(*(&v17 + 1) + 8 * i)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
@@ -98,9 +98,71 @@
   [string appendString:@"END:VCARD\r\n"];
   v15 = [string dataUsingEncoding:encoding];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
+}
+
++ (id)resultWithProperty:(id)property value:(id)value label:(id)label isPrimary:(BOOL)primary
+{
+  primaryCopy = primary;
+  v17[1] = *MEMORY[0x277D85DE8];
+  propertyCopy = property;
+  propertyCopy2 = property;
+  v11 = [self complexValueWithValue:value label:label isPrimary:primaryCopy];
+  v15 = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v17[0] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&propertyCopy count:1];
+
+  return v13;
+}
+
++ (id)complexValueWithValue:(id)value label:(id)label isPrimary:(BOOL)primary
+{
+  primaryCopy = primary;
+  v15[3] = *MEMORY[0x277D85DE8];
+  valueCopy = value;
+  labelCopy = label;
+  v14[0] = @"value";
+  null = valueCopy;
+  if (!valueCopy)
+  {
+    null = [MEMORY[0x277CBEB68] null];
+  }
+
+  v15[0] = null;
+  v14[1] = @"label";
+  null2 = labelCopy;
+  if (!labelCopy)
+  {
+    null2 = [MEMORY[0x277CBEB68] null];
+  }
+
+  v15[1] = null2;
+  v14[2] = @"isPrimary";
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:primaryCopy];
+  v15[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+
+  if (labelCopy)
+  {
+    if (valueCopy)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+
+    if (valueCopy)
+    {
+      goto LABEL_7;
+    }
+  }
+
+LABEL_7:
+
+  return v12;
 }
 
 + (id)unknownPropertyWithName:(id)name line:(id)line
@@ -117,46 +179,40 @@
 
 + (id)linesUsingAdapter:(id)adapter options:(id)options
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   adapterCopy = adapter;
   v5 = MEMORY[0x277CBEA60];
   optionsCopy = options;
   adapterCopy2 = adapter;
   v8 = [v5 arrayWithObjects:&adapterCopy count:1];
-  v9 = [CNVCardWriting stringWithPeople:v8 options:optionsCopy error:0, adapterCopy, v14];
+  v9 = [CNVCardWriting stringWithPeople:v8 options:optionsCopy error:0, adapterCopy, v13];
 
   v10 = [v9 componentsSeparatedByString:@"\r\n"];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)version30DataUsingAdapter:(id)adapter
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   adapterCopy = adapter;
   v3 = MEMORY[0x277CBEA60];
   adapterCopy2 = adapter;
   v5 = [v3 arrayWithObjects:&adapterCopy count:1];
-  v6 = [CNVCardWriting dataWithPeople:v5 options:0 error:0, adapterCopy, v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [CNVCardWriting dataWithPeople:v5 options:0 error:0, adapterCopy, v9];
 
   return v6;
 }
 
 + (id)version21DataUsingAdapter:(id)adapter
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   adapterCopy = adapter;
   v4 = objc_alloc_init(CNVCardWritingOptions);
   [(CNVCardWritingOptions *)v4 setOutputVersion:1];
-  v9[0] = adapterCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = adapterCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [CNVCardWriting dataWithPeople:v5 options:v4 error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -172,16 +228,15 @@
 
 + (BOOL)version30CardForPerson:(id)person containsString:(id)string
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   personCopy = person;
   v5 = MEMORY[0x277CBEA60];
   stringCopy = string;
   personCopy2 = person;
   v8 = [v5 arrayWithObjects:&personCopy count:1];
-  v9 = [CNVCardWriting stringWithPeople:v8 options:0 error:0, personCopy, v13];
+  v9 = [CNVCardWriting stringWithPeople:v8 options:0 error:0, personCopy, v12];
 
   LOBYTE(personCopy2) = [v9 containsString:stringCopy];
-  v10 = *MEMORY[0x277D85DE8];
   return personCopy2;
 }
 
@@ -205,20 +260,18 @@
 
 + (id)instantMessagingItemWithUsername:(id)username service:(id)service label:(id)label
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = @"username";
-  v16[1] = @"service";
-  v17[0] = username;
-  v17[1] = service;
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = @"username";
+  v15[1] = @"service";
+  v16[0] = username;
+  v16[1] = service;
   v8 = MEMORY[0x277CBEAC0];
   labelCopy = label;
   serviceCopy = service;
   usernameCopy = username;
-  v12 = [v8 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v8 dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   v13 = [self itemWithValue:v12 label:labelCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -250,7 +303,7 @@
 
 + (id)activityAlertResultWithTypes:(id)types sounds:(id)sounds vibrations:(id)vibrations
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   soundsCopy = sounds;
   vibrationsCopy = vibrations;
@@ -289,11 +342,9 @@
     while (v11 < [typesCopy count]);
   }
 
-  v24 = @"ActivityAlert";
-  v25[0] = dictionary;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = @"ActivityAlert";
+  v24[0] = dictionary;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
   return v21;
 }

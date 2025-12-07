@@ -76,7 +76,7 @@
   v22 = [(CommonProduct *)self findComponent:20];
   *&v23 = v20;
   [v22 calculateControlEffort:v23];
-  v24 = unk_1000AB8E8;
+  v24 = dword_1000AB8E8;
   v25 = [(CommonProduct *)self findComponent:21];
   *&v26 = v24 / 100.0;
   [v25 calculateControlEffort:v26];
@@ -114,9 +114,9 @@
 
 - (int)computeMaxCGTemp
 {
-  if (qword_1000AB8EC <= SHIDWORD(qword_1000AB8E4))
+  if (qword_1000AB8EC <= dword_1000AB8E8)
   {
-    return HIDWORD(qword_1000AB8E4);
+    return dword_1000AB8E8;
   }
 
   else

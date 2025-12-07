@@ -401,10 +401,7 @@ uint64_t __50__PKPassGroupViewAccessibility_accessibilityFrame__block_invoke_2(u
 
 uint64_t __50__PKPassGroupViewAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) passAtIndex:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) passAtIndex:0];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -474,21 +471,21 @@ uint64_t __50__PKPassGroupViewAccessibility_accessibilityLabel__block_invoke_2(u
   return v17;
 }
 
-uint64_t __58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
+void *__58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) indexOfGroup:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
+void *__58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfGroups];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke_3(uint64_t a1)
+void *__58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) indexOfSeparationGroup];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -501,22 +498,21 @@ uint64_t __58__PKPassGroupViewAccessibility_accessibilityCustomActions__block_in
   v6 = [(PKPassGroupViewAccessibility *)self safeValueForKey:@"group"];
   v7 = [(PKPassGroupViewAccessibility *)self _accessibilityAncestorIsKindOf:NSClassFromString(&cfstr_Pkpassgroupsta.isa)];
   [v7 safeValueForKey:@"datasource"];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v11 = v16 = 0;
-  v12 = v6;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2020000000;
+  v10 = v12[3] = 0;
+  v11 = v6;
   AXPerformSafeBlock();
-  v8 = v14[3];
 
-  _Block_object_dispose(&v13, 8);
-  v9 = v7;
+  _Block_object_dispose(v12, 8);
+  v8 = v7;
   AXPerformSafeBlock();
 
   return 1;
 }
 
-uint64_t __47__PKPassGroupViewAccessibility__axMoveCard_up___block_invoke(uint64_t a1)
+void *__47__PKPassGroupViewAccessibility__axMoveCard_up___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) indexOfGroup:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

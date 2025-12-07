@@ -26,23 +26,17 @@
 + (BOOL)logoff:(NEHotspotNetwork *)network
 {
   v3 = network;
-  v4 = v3;
   if (MEMORY[0x1EEE84658])
   {
-    if (v3)
-    {
-      v5 = v3->_network;
-    }
-
-    v6 = CNPluginLogoffNetwork() != 0;
+    v4 = CNPluginLogoffNetwork() != 0;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 + (BOOL)registerWithOptions:(NSDictionary *)options queue:(dispatch_queue_t)queue handler:(NEHotspotHelperHandler)handler

@@ -116,7 +116,7 @@ LABEL_12:
 
 + (id)_assetURLForConfiguration:(id)configuration withError:(id *)error
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v8 = objc_msgSend_bundleForClass_(MEMORY[0x277CCA8D8], v7, self);
   v10 = objc_msgSend_URLForResource_withExtension_subdirectory_(v8, v9, @"anst", @"mlmodelc", @"Models");
@@ -147,15 +147,15 @@ LABEL_12:
         v26 = MEMORY[0x277CCA9B8];
         v27 = *MEMORY[0x277CCA050];
         v28 = *MEMORY[0x277CCA760];
-        v37[0] = *MEMORY[0x277CCA068];
-        v37[1] = v28;
-        v38[0] = @"Unable to retrieve the asset URL.";
-        v38[1] = v10;
-        v37[2] = *MEMORY[0x277CCA170];
+        v36[0] = *MEMORY[0x277CCA068];
+        v36[1] = v28;
+        v37[0] = @"Unable to retrieve the asset URL.";
+        v37[1] = v10;
+        v36[2] = *MEMORY[0x277CCA170];
         v29 = objc_msgSend_stringByAppendingPathExtension_(@"anst", v15, @"mlmodelc");
         v31 = objc_msgSend_stringByAppendingPathComponent_(@"Models", v30, v29);
-        v38[2] = v31;
-        v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, v38, v37, 3);
+        v37[2] = v31;
+        v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, v37, v36, 3);
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v26, v34, v27, 4, v33);
       }
 
@@ -173,28 +173,27 @@ LABEL_12:
     v17 = MEMORY[0x277CCA9B8];
     v18 = *MEMORY[0x277CCA050];
     v19 = *MEMORY[0x277CCA068];
-    v40[0] = @"Unable to retrieve the base URL for the asset.";
+    v39[0] = @"Unable to retrieve the base URL for the asset.";
     v20 = *MEMORY[0x277CCA170];
-    v39[0] = v19;
-    v39[1] = v20;
+    v38[0] = v19;
+    v38[1] = v20;
     v16 = objc_msgSend_stringByAppendingPathExtension_(@"anst", v11, @"mlmodelc");
     v22 = objc_msgSend_stringByAppendingPathComponent_(@"Models", v21, v16);
-    v40[1] = v22;
-    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v40, v39, 2);
+    v39[1] = v22;
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v23, v39, v38, 2);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v17, v25, v18, 4, v24);
 
     error = 0;
   }
 
 LABEL_13:
-  v35 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 + (BOOL)_getInputDescriptors:(id *)descriptors outputDescriptors:(id *)outputDescriptors forConfiguration:(id)configuration withError:(id *)error
 {
-  v333 = *MEMORY[0x277D85DE8];
+  v332 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v12 = configurationCopy;
   if (!(descriptors | outputDescriptors))
@@ -204,73 +203,73 @@ LABEL_13:
   }
 
   objc_msgSend_useE5(configurationCopy, v10, v11);
-  v297 = 0;
-  bzero(v295, 0xE88uLL);
-  bzero(v332, 0x32EA0uLL);
-  v294 = 0;
-  memset(v293, 0, sizeof(v293));
-  v13 = AcANSTCreate(&v297, &v294);
+  v296 = 0;
+  bzero(v294, 0xE88uLL);
+  bzero(v331, 0x32EA0uLL);
+  v293 = 0;
+  memset(v292, 0, sizeof(v292));
+  AcANSTCreate(&v296, &v293, v292, v331);
   if (!v13)
   {
-    v13 = AcANSTGetParams(v297, v332, v293, v295);
+    v13 = AcANSTGetParams(v296, v331, v292, v294);
     if (!v13)
     {
-      v24 = objc_alloc(MEMORY[0x277CBEB18]);
-      v25 = 25;
-      v18 = objc_msgSend_initWithCapacity_(v24, v26, 25);
-      v28 = &v296;
+      v23 = objc_alloc(MEMORY[0x277CBEB18]);
+      v24 = 25;
+      v18 = objc_msgSend_initWithCapacity_(v23, v25, 25);
+      v27 = &v295;
       do
       {
-        v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, v28);
-        objc_msgSend_addObject_(v18, v30, v29);
+        v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, v27);
+        objc_msgSend_addObject_(v18, v29, v28);
 
-        v28 += 8;
-        --v25;
+        v27 += 8;
+        --v24;
       }
 
-      while (v25);
-      if (v297)
+      while (v24);
+      if (v296)
       {
-        AcANSTDestroy(v297);
+        AcANSTDestroy(v296);
       }
 
       if (descriptors)
       {
-        v31 = [ANSTPixelBufferDescriptor alloc];
-        v328 = *MEMORY[0x277CC4DE8];
-        v329 = MEMORY[0x277CBEC10];
-        v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v32, &v329, &v328, 1);
-        v20 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v31, v34, @"input_image", 512, 384, 1111970369, v33, error);
+        v30 = [ANSTPixelBufferDescriptor alloc];
+        v327 = *MEMORY[0x277CC4DE8];
+        v328 = MEMORY[0x277CBEC10];
+        v32 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v31, &v328, &v327, 1);
+        v20 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v30, v33, @"input_image", 512, 384, 1111970369, v32, error);
 
         if (!v20)
         {
           goto LABEL_10;
         }
 
-        v35 = [ANSTTensorDescriptor alloc];
-        if (objc_msgSend_useE5(v12, v36, v37))
+        v34 = [ANSTTensorDescriptor alloc];
+        if (objc_msgSend_useE5(v12, v35, v36))
         {
-          v40 = 104;
+          v39 = 104;
         }
 
         else
         {
-          v40 = 102;
+          v39 = 102;
         }
 
-        v327[0] = xmmword_22E661C58;
-        v327[1] = unk_22E661C68;
-        if (objc_msgSend_useE5(v12, v38, v39))
+        v326[0] = xmmword_22E661C58;
+        v326[1] = unk_22E661C68;
+        if (objc_msgSend_useE5(v12, v37, v38))
         {
-          v42 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v35, v41, @"last_mask", v40, 4, v327, 64, error);
+          v41 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v34, v40, @"last_mask", v39, 4, v326, 64, error);
         }
 
         else
         {
-          v42 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v35, v41, @"last_mask", v40, 4, v327, 1, error);
+          v41 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v34, v40, @"last_mask", v39, 4, v326, 1, error);
         }
 
-        if (!v42)
+        if (!v41)
         {
 LABEL_9:
 
@@ -281,854 +280,854 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        v43 = v42;
-        v44 = [ANSTTensorDescriptor alloc];
-        if (objc_msgSend_useE5(v12, v45, v46))
+        v42 = v41;
+        v43 = [ANSTTensorDescriptor alloc];
+        if (objc_msgSend_useE5(v12, v44, v45))
         {
-          v49 = 104;
+          v48 = 104;
         }
 
         else
         {
-          v49 = 102;
+          v48 = 102;
         }
 
-        v326[0] = xmmword_22E661C58;
-        v326[1] = unk_22E661C68;
-        if (objc_msgSend_useE5(v12, v47, v48))
+        v325[0] = xmmword_22E661C58;
+        v325[1] = unk_22E661C68;
+        if (objc_msgSend_useE5(v12, v46, v47))
         {
-          v51 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v44, v50, @"last_salient_mask", v49, 4, v326, 64, error);
+          v50 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v43, v49, @"last_salient_mask", v48, 4, v325, 64, error);
         }
 
         else
         {
-          v51 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v44, v50, @"last_salient_mask", v49, 4, v326, 1, error);
+          v50 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v43, v49, @"last_salient_mask", v48, 4, v325, 1, error);
         }
 
-        if (!v51)
+        if (!v50)
         {
 
           goto LABEL_9;
         }
 
-        v53 = v51;
-        v325[0] = v20;
-        v325[1] = v43;
-        v325[2] = v51;
-        *descriptors = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v325, 3);
+        v52 = v50;
+        v324[0] = v20;
+        v324[1] = v42;
+        v324[2] = v50;
+        *descriptors = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v51, v324, 3);
       }
 
       if (outputDescriptors)
       {
-        v54 = [ANSTTensorDescriptor alloc];
-        if (objc_msgSend_useE5(v12, v55, v56))
+        v53 = [ANSTTensorDescriptor alloc];
+        if (objc_msgSend_useE5(v12, v54, v55))
         {
-          v59 = 104;
+          v58 = 104;
         }
 
         else
         {
-          v59 = 102;
+          v58 = 102;
         }
 
-        v324[0] = xmmword_22E661AD8;
-        v324[1] = unk_22E661AE8;
-        if (objc_msgSend_useE5(v12, v57, v58))
+        v323[0] = xmmword_22E661AD8;
+        v323[1] = unk_22E661AE8;
+        if (objc_msgSend_useE5(v12, v56, v57))
         {
-          v61 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v54, v60, @"logits@output", v59, 4, v324, 64, error);
+          v60 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v53, v59, @"logits@output", v58, 4, v323, 64, error);
         }
 
         else
         {
-          v61 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v54, v60, @"logits@output", v59, 4, v324, 1, error);
+          v60 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v53, v59, @"logits@output", v58, 4, v323, 1, error);
         }
 
-        if (!v61)
+        if (!v60)
         {
           goto LABEL_10;
         }
 
-        v62 = v61;
-        v63 = [ANSTTensorDescriptor alloc];
-        if (objc_msgSend_useE5(v12, v64, v65))
+        v61 = v60;
+        v62 = [ANSTTensorDescriptor alloc];
+        if (objc_msgSend_useE5(v12, v63, v64))
         {
-          v68 = 104;
+          v67 = 104;
         }
 
         else
         {
-          v68 = 102;
+          v67 = 102;
         }
 
-        v323[0] = xmmword_22E661C38;
-        v323[1] = unk_22E661C48;
-        if (objc_msgSend_useE5(v12, v66, v67))
+        v322[0] = xmmword_22E661C38;
+        v322[1] = unk_22E661C48;
+        if (objc_msgSend_useE5(v12, v65, v66))
         {
-          v70 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v63, v69, @"centerness@output", v68, 4, v323, 64, error);
+          v69 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v62, v68, @"centerness@output", v67, 4, v322, 64, error);
         }
 
         else
         {
-          v70 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v63, v69, @"centerness@output", v68, 4, v323, 1, error);
+          v69 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v62, v68, @"centerness@output", v67, 4, v322, 1, error);
         }
 
-        if (v70)
+        if (v69)
         {
-          v71 = v70;
-          v72 = [ANSTTensorDescriptor alloc];
-          if (objc_msgSend_useE5(v12, v73, v74))
+          v70 = v69;
+          v71 = [ANSTTensorDescriptor alloc];
+          if (objc_msgSend_useE5(v12, v72, v73))
           {
-            v77 = 104;
+            v76 = 104;
           }
 
           else
           {
-            v77 = 102;
+            v76 = 102;
           }
 
-          v322[0] = xmmword_22E661BB8;
-          v322[1] = unk_22E661BC8;
-          if (objc_msgSend_useE5(v12, v75, v76))
+          v321[0] = xmmword_22E661BB8;
+          v321[1] = unk_22E661BC8;
+          if (objc_msgSend_useE5(v12, v74, v75))
           {
-            v79 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v72, v78, @"bbox_reg@output", v77, 4, v322, 64, error);
+            v78 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v71, v77, @"bbox_reg@output", v76, 4, v321, 64, error);
           }
 
           else
           {
-            v79 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v72, v78, @"bbox_reg@output", v77, 4, v322, 1, error);
+            v78 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v71, v77, @"bbox_reg@output", v76, 4, v321, 1, error);
           }
 
-          if (v79)
+          if (v78)
           {
-            v80 = v79;
-            v81 = [ANSTTensorDescriptor alloc];
-            if (objc_msgSend_useE5(v12, v82, v83))
+            v79 = v78;
+            v80 = [ANSTTensorDescriptor alloc];
+            if (objc_msgSend_useE5(v12, v81, v82))
             {
-              v86 = 104;
+              v85 = 104;
             }
 
             else
             {
-              v86 = 102;
+              v85 = 102;
             }
 
-            v321[0] = xmmword_22E661B18;
-            v321[1] = unk_22E661B28;
-            if (objc_msgSend_useE5(v12, v84, v85))
+            v320[0] = xmmword_22E661B18;
+            v320[1] = unk_22E661B28;
+            if (objc_msgSend_useE5(v12, v83, v84))
             {
-              v88 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v81, v87, @"face_pose@output", v86, 4, v321, 64, error);
+              v87 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v80, v86, @"face_pose@output", v85, 4, v320, 64, error);
             }
 
             else
             {
-              v88 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v81, v87, @"face_pose@output", v86, 4, v321, 1, error);
+              v87 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v80, v86, @"face_pose@output", v85, 4, v320, 1, error);
             }
 
-            if (v88)
+            if (v87)
             {
-              v89 = v88;
-              v90 = [ANSTTensorDescriptor alloc];
-              if (objc_msgSend_useE5(v12, v91, v92))
+              v88 = v87;
+              v89 = [ANSTTensorDescriptor alloc];
+              if (objc_msgSend_useE5(v12, v90, v91))
               {
-                v95 = 104;
+                v94 = 104;
               }
 
               else
               {
-                v95 = 102;
+                v94 = 102;
               }
 
-              v320[0] = xmmword_22E661AF8;
-              v320[1] = unk_22E661B08;
-              if (objc_msgSend_useE5(v12, v93, v94))
+              v319[0] = xmmword_22E661AF8;
+              v319[1] = unk_22E661B08;
+              if (objc_msgSend_useE5(v12, v92, v93))
               {
-                v97 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v90, v96, @"face_attributes@output", v95, 4, v320, 64, error);
+                v96 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v89, v95, @"face_attributes@output", v94, 4, v319, 64, error);
               }
 
               else
               {
-                v97 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v90, v96, @"face_attributes@output", v95, 4, v320, 1, error);
+                v96 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v89, v95, @"face_attributes@output", v94, 4, v319, 1, error);
               }
 
-              if (v97)
+              if (v96)
               {
-                v287 = v97;
-                v98 = [ANSTTensorDescriptor alloc];
-                if (objc_msgSend_useE5(v12, v99, v100))
+                v286 = v96;
+                v97 = [ANSTTensorDescriptor alloc];
+                if (objc_msgSend_useE5(v12, v98, v99))
                 {
-                  v103 = 104;
+                  v102 = 104;
                 }
 
                 else
                 {
-                  v103 = 102;
+                  v102 = 102;
                 }
 
-                v319[0] = xmmword_22E661B18;
-                v319[1] = unk_22E661B28;
-                if (objc_msgSend_useE5(v12, v101, v102))
+                v318[0] = xmmword_22E661B18;
+                v318[1] = unk_22E661B28;
+                if (objc_msgSend_useE5(v12, v100, v101))
                 {
-                  v105 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v98, v104, @"face_skintone@output", v103, 4, v319, 64, error);
+                  v104 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v97, v103, @"face_skintone@output", v102, 4, v318, 64, error);
                 }
 
                 else
                 {
-                  v105 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v98, v104, @"face_skintone@output", v103, 4, v319, 1, error);
+                  v104 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v97, v103, @"face_skintone@output", v102, 4, v318, 1, error);
                 }
 
-                if (v105)
+                if (v104)
                 {
-                  v289 = v105;
-                  v106 = [ANSTTensorDescriptor alloc];
-                  if (objc_msgSend_useE5(v12, v107, v108))
+                  v288 = v104;
+                  v105 = [ANSTTensorDescriptor alloc];
+                  if (objc_msgSend_useE5(v12, v106, v107))
                   {
-                    v111 = 104;
+                    v110 = 104;
                   }
 
                   else
                   {
-                    v111 = 102;
+                    v110 = 102;
                   }
 
-                  v318[0] = xmmword_22E661B38;
-                  v318[1] = unk_22E661B48;
-                  if (objc_msgSend_useE5(v12, v109, v110))
+                  v317[0] = xmmword_22E661B38;
+                  v317[1] = unk_22E661B48;
+                  if (objc_msgSend_useE5(v12, v108, v109))
                   {
-                    v113 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v106, v112, @"id_map@output", v111, 4, v318, 64, error);
+                    v112 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v105, v111, @"id_map@output", v110, 4, v317, 64, error);
                   }
 
                   else
                   {
-                    v113 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v106, v112, @"id_map@output", v111, 4, v318, 1, error);
+                    v112 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v105, v111, @"id_map@output", v110, 4, v317, 1, error);
                   }
 
-                  if (v113)
+                  if (v112)
                   {
-                    v288 = v113;
-                    v114 = [ANSTTensorDescriptor alloc];
-                    if (objc_msgSend_useE5(v12, v115, v116))
+                    v287 = v112;
+                    v113 = [ANSTTensorDescriptor alloc];
+                    if (objc_msgSend_useE5(v12, v114, v115))
                     {
-                      v119 = 104;
+                      v118 = 104;
                     }
 
                     else
                     {
-                      v119 = 102;
+                      v118 = 102;
                     }
 
-                    v317[0] = xmmword_22E661C38;
-                    v317[1] = unk_22E661C48;
-                    if (objc_msgSend_useE5(v12, v117, v118))
+                    v316[0] = xmmword_22E661C38;
+                    v316[1] = unk_22E661C48;
+                    if (objc_msgSend_useE5(v12, v116, v117))
                     {
-                      v121 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v114, v120, @"hand_logits@output", v119, 4, v317, 64, error);
+                      v120 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v113, v119, @"hand_logits@output", v118, 4, v316, 64, error);
                     }
 
                     else
                     {
-                      v121 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v114, v120, @"hand_logits@output", v119, 4, v317, 1, error);
+                      v120 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v113, v119, @"hand_logits@output", v118, 4, v316, 1, error);
                     }
 
-                    if (v121)
+                    if (v120)
                     {
-                      v286 = v121;
-                      v122 = [ANSTTensorDescriptor alloc];
-                      if (objc_msgSend_useE5(v12, v123, v124))
+                      v285 = v120;
+                      v121 = [ANSTTensorDescriptor alloc];
+                      if (objc_msgSend_useE5(v12, v122, v123))
                       {
-                        v127 = 104;
+                        v126 = 104;
                       }
 
                       else
                       {
-                        v127 = 102;
+                        v126 = 102;
                       }
 
-                      v316[0] = xmmword_22E661C38;
-                      v316[1] = unk_22E661C48;
-                      if (objc_msgSend_useE5(v12, v125, v126))
+                      v315[0] = xmmword_22E661C38;
+                      v315[1] = unk_22E661C48;
+                      if (objc_msgSend_useE5(v12, v124, v125))
                       {
-                        v129 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v122, v128, @"hand_ctrness@output", v127, 4, v316, 64, error);
+                        v128 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v121, v127, @"hand_ctrness@output", v126, 4, v315, 64, error);
                       }
 
                       else
                       {
-                        v129 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v122, v128, @"hand_ctrness@output", v127, 4, v316, 1, error);
+                        v128 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v121, v127, @"hand_ctrness@output", v126, 4, v315, 1, error);
                       }
 
-                      if (v129)
+                      if (v128)
                       {
-                        v285 = v129;
-                        v130 = [ANSTTensorDescriptor alloc];
-                        if (objc_msgSend_useE5(v12, v131, v132))
+                        v284 = v128;
+                        v129 = [ANSTTensorDescriptor alloc];
+                        if (objc_msgSend_useE5(v12, v130, v131))
                         {
-                          v135 = 104;
+                          v134 = 104;
                         }
 
                         else
                         {
-                          v135 = 102;
+                          v134 = 102;
                         }
 
-                        v315[0] = xmmword_22E661BB8;
-                        v315[1] = unk_22E661BC8;
-                        if (objc_msgSend_useE5(v12, v133, v134))
+                        v314[0] = xmmword_22E661BB8;
+                        v314[1] = unk_22E661BC8;
+                        if (objc_msgSend_useE5(v12, v132, v133))
                         {
-                          v137 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v130, v136, @"hand_bbox_reg@output", v135, 4, v315, 64, error);
+                          v136 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v129, v135, @"hand_bbox_reg@output", v134, 4, v314, 64, error);
                         }
 
                         else
                         {
-                          v137 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v130, v136, @"hand_bbox_reg@output", v135, 4, v315, 1, error);
+                          v136 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v129, v135, @"hand_bbox_reg@output", v134, 4, v314, 1, error);
                         }
 
-                        if (v137)
+                        if (v136)
                         {
-                          v284 = v137;
-                          v138 = [ANSTTensorDescriptor alloc];
-                          if (objc_msgSend_useE5(v12, v139, v140))
+                          v283 = v136;
+                          v137 = [ANSTTensorDescriptor alloc];
+                          if (objc_msgSend_useE5(v12, v138, v139))
                           {
-                            v143 = 104;
+                            v142 = 104;
                           }
 
                           else
                           {
-                            v143 = 102;
+                            v142 = 102;
                           }
 
-                          v314[0] = xmmword_22E661C38;
-                          v314[1] = unk_22E661C48;
-                          if (objc_msgSend_useE5(v12, v141, v142))
+                          v313[0] = xmmword_22E661C38;
+                          v313[1] = unk_22E661C48;
+                          if (objc_msgSend_useE5(v12, v140, v141))
                           {
-                            v145 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v138, v144, @"hand_pose@output", v143, 4, v314, 64, error);
+                            v144 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v137, v143, @"hand_pose@output", v142, 4, v313, 64, error);
                           }
 
                           else
                           {
-                            v145 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v138, v144, @"hand_pose@output", v143, 4, v314, 1, error);
+                            v144 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v137, v143, @"hand_pose@output", v142, 4, v313, 1, error);
                           }
 
-                          if (v145)
+                          if (v144)
                           {
-                            v283 = v145;
-                            v146 = [ANSTTensorDescriptor alloc];
-                            if (objc_msgSend_useE5(v12, v147, v148))
+                            v282 = v144;
+                            v145 = [ANSTTensorDescriptor alloc];
+                            if (objc_msgSend_useE5(v12, v146, v147))
                             {
-                              v151 = 104;
+                              v150 = 104;
                             }
 
                             else
                             {
-                              v151 = 102;
+                              v150 = 102;
                             }
 
-                            v313[0] = xmmword_22E661B58;
-                            v313[1] = unk_22E661B68;
-                            if (objc_msgSend_useE5(v12, v149, v150))
+                            v312[0] = xmmword_22E661B58;
+                            v312[1] = unk_22E661B68;
+                            if (objc_msgSend_useE5(v12, v148, v149))
                             {
-                              v153 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v146, v152, @"sf_cls_logits@output", v151, 4, v313, 64, error);
+                              v152 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v145, v151, @"sf_cls_logits@output", v150, 4, v312, 64, error);
                             }
 
                             else
                             {
-                              v153 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v146, v152, @"sf_cls_logits@output", v151, 4, v313, 1, error);
+                              v152 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v145, v151, @"sf_cls_logits@output", v150, 4, v312, 1, error);
                             }
 
-                            v282 = v153;
-                            if (v153)
+                            v281 = v152;
+                            if (v152)
                             {
-                              v154 = [ANSTTensorDescriptor alloc];
-                              if (objc_msgSend_useE5(v12, v155, v156))
+                              v153 = [ANSTTensorDescriptor alloc];
+                              if (objc_msgSend_useE5(v12, v154, v155))
                               {
-                                v159 = 104;
+                                v158 = 104;
                               }
 
                               else
                               {
-                                v159 = 102;
+                                v158 = 102;
                               }
 
-                              v312[0] = xmmword_22E661B58;
-                              v312[1] = unk_22E661B68;
-                              if (objc_msgSend_useE5(v12, v157, v158))
+                              v311[0] = xmmword_22E661B58;
+                              v311[1] = unk_22E661B68;
+                              if (objc_msgSend_useE5(v12, v156, v157))
                               {
-                                v161 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v154, v160, @"sf_ctrness@output", v159, 4, v312, 64, error);
+                                v160 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v153, v159, @"sf_ctrness@output", v158, 4, v311, 64, error);
                               }
 
                               else
                               {
-                                v161 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v154, v160, @"sf_ctrness@output", v159, 4, v312, 1, error);
+                                v160 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v153, v159, @"sf_ctrness@output", v158, 4, v311, 1, error);
                               }
 
-                              v281 = v161;
-                              if (v161)
+                              v280 = v160;
+                              if (v160)
                               {
-                                v162 = [ANSTTensorDescriptor alloc];
-                                if (objc_msgSend_useE5(v12, v163, v164))
+                                v161 = [ANSTTensorDescriptor alloc];
+                                if (objc_msgSend_useE5(v12, v162, v163))
                                 {
-                                  v167 = 104;
+                                  v166 = 104;
                                 }
 
                                 else
                                 {
-                                  v167 = 102;
+                                  v166 = 102;
                                 }
 
-                                v311[0] = xmmword_22E661B78;
-                                v311[1] = unk_22E661B88;
-                                if (objc_msgSend_useE5(v12, v165, v166))
+                                v310[0] = xmmword_22E661B78;
+                                v310[1] = unk_22E661B88;
+                                if (objc_msgSend_useE5(v12, v164, v165))
                                 {
-                                  v169 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v162, v168, @"sf_bbox_reg@output", v167, 4, v311, 64, error);
+                                  v168 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v161, v167, @"sf_bbox_reg@output", v166, 4, v310, 64, error);
                                 }
 
                                 else
                                 {
-                                  v169 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v162, v168, @"sf_bbox_reg@output", v167, 4, v311, 1, error);
+                                  v168 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v161, v167, @"sf_bbox_reg@output", v166, 4, v310, 1, error);
                                 }
 
-                                v280 = v169;
-                                if (v169)
+                                v279 = v168;
+                                if (v168)
                                 {
-                                  v170 = [ANSTTensorDescriptor alloc];
-                                  if (objc_msgSend_useE5(v12, v171, v172))
+                                  v169 = [ANSTTensorDescriptor alloc];
+                                  if (objc_msgSend_useE5(v12, v170, v171))
                                   {
-                                    v175 = 104;
+                                    v174 = 104;
                                   }
 
                                   else
                                   {
-                                    v175 = 102;
+                                    v174 = 102;
                                   }
 
-                                  v310[0] = xmmword_22E661B98;
-                                  v310[1] = unk_22E661BA8;
-                                  if (objc_msgSend_useE5(v12, v173, v174))
+                                  v309[0] = xmmword_22E661B98;
+                                  v309[1] = unk_22E661BA8;
+                                  if (objc_msgSend_useE5(v12, v172, v173))
                                   {
-                                    v177 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v170, v176, @"face_landmark@output", v175, 4, v310, 64, error);
+                                    v176 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v169, v175, @"face_landmark@output", v174, 4, v309, 64, error);
                                   }
 
                                   else
                                   {
-                                    v177 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v170, v176, @"face_landmark@output", v175, 4, v310, 1, error);
+                                    v176 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v169, v175, @"face_landmark@output", v174, 4, v309, 1, error);
                                   }
 
-                                  v279 = v177;
-                                  if (v177)
+                                  v278 = v176;
+                                  if (v176)
                                   {
-                                    v178 = [ANSTTensorDescriptor alloc];
-                                    if (objc_msgSend_useE5(v12, v179, v180))
+                                    v177 = [ANSTTensorDescriptor alloc];
+                                    if (objc_msgSend_useE5(v12, v178, v179))
                                     {
-                                      v183 = 104;
+                                      v182 = 104;
                                     }
 
                                     else
                                     {
-                                      v183 = 102;
+                                      v182 = 102;
                                     }
 
-                                    v309[0] = xmmword_22E661BB8;
-                                    v309[1] = unk_22E661BC8;
-                                    if (objc_msgSend_useE5(v12, v181, v182))
+                                    v308[0] = xmmword_22E661BB8;
+                                    v308[1] = unk_22E661BC8;
+                                    if (objc_msgSend_useE5(v12, v180, v181))
                                     {
-                                      v185 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v178, v184, @"hand_associations@output", v183, 4, v309, 64, error);
+                                      v184 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v177, v183, @"hand_associations@output", v182, 4, v308, 64, error);
                                     }
 
                                     else
                                     {
-                                      v185 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v178, v184, @"hand_associations@output", v183, 4, v309, 1, error);
+                                      v184 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v177, v183, @"hand_associations@output", v182, 4, v308, 1, error);
                                     }
 
-                                    v291 = v185;
-                                    if (v185)
+                                    v290 = v184;
+                                    if (v184)
                                     {
-                                      v186 = [ANSTTensorDescriptor alloc];
-                                      if (objc_msgSend_useE5(v12, v187, v188))
+                                      v185 = [ANSTTensorDescriptor alloc];
+                                      if (objc_msgSend_useE5(v12, v186, v187))
                                       {
-                                        v191 = 104;
+                                        v190 = 104;
                                       }
 
                                       else
                                       {
-                                        v191 = 102;
+                                        v190 = 102;
                                       }
 
-                                      v308[0] = xmmword_22E661BD8;
-                                      v308[1] = unk_22E661BE8;
-                                      if (objc_msgSend_useE5(v12, v189, v190))
+                                      v307[0] = xmmword_22E661BD8;
+                                      v307[1] = unk_22E661BE8;
+                                      if (objc_msgSend_useE5(v12, v188, v189))
                                       {
-                                        v193 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v186, v192, @"smudge_predict@output", v191, 4, v308, 64, error);
+                                        v192 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v185, v191, @"smudge_predict@output", v190, 4, v307, 64, error);
                                       }
 
                                       else
                                       {
-                                        v193 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v186, v192, @"smudge_predict@output", v191, 4, v308, 1, error);
+                                        v192 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v185, v191, @"smudge_predict@output", v190, 4, v307, 1, error);
                                       }
 
-                                      v290 = v193;
-                                      if (v193)
+                                      v289 = v192;
+                                      if (v192)
                                       {
-                                        v194 = [ANSTTensorDescriptor alloc];
-                                        if (objc_msgSend_useE5(v12, v195, v196))
+                                        v193 = [ANSTTensorDescriptor alloc];
+                                        if (objc_msgSend_useE5(v12, v194, v195))
                                         {
-                                          v199 = 104;
+                                          v198 = 104;
                                         }
 
                                         else
                                         {
-                                          v199 = 102;
+                                          v198 = 102;
                                         }
 
-                                        v307[0] = xmmword_22E661C58;
-                                        v307[1] = unk_22E661C68;
-                                        if (objc_msgSend_useE5(v12, v197, v198))
+                                        v306[0] = xmmword_22E661C58;
+                                        v306[1] = unk_22E661C68;
+                                        if (objc_msgSend_useE5(v12, v196, v197))
                                         {
-                                          v201 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v194, v200, @"prior_mask@output", v199, 4, v307, 64, error);
+                                          v200 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v193, v199, @"prior_mask@output", v198, 4, v306, 64, error);
                                         }
 
                                         else
                                         {
-                                          v201 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v194, v200, @"prior_mask@output", v199, 4, v307, 1, error);
+                                          v200 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v193, v199, @"prior_mask@output", v198, 4, v306, 1, error);
                                         }
 
-                                        v278 = v201;
-                                        if (v201)
+                                        v277 = v200;
+                                        if (v200)
                                         {
-                                          v202 = [ANSTTensorDescriptor alloc];
-                                          if (objc_msgSend_useE5(v12, v203, v204))
+                                          v201 = [ANSTTensorDescriptor alloc];
+                                          if (objc_msgSend_useE5(v12, v202, v203))
                                           {
-                                            v207 = 104;
+                                            v206 = 104;
                                           }
 
                                           else
                                           {
-                                            v207 = 102;
+                                            v206 = 102;
                                           }
 
-                                          v306[0] = xmmword_22E661BF8;
-                                          v306[1] = unk_22E661C08;
-                                          if (objc_msgSend_useE5(v12, v205, v206))
+                                          v305[0] = xmmword_22E661BF8;
+                                          v305[1] = unk_22E661C08;
+                                          if (objc_msgSend_useE5(v12, v204, v205))
                                           {
-                                            v209 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v202, v208, @"person@output", v207, 4, v306, 64, error);
+                                            v208 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v201, v207, @"person@output", v206, 4, v305, 64, error);
                                           }
 
                                           else
                                           {
-                                            v209 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v202, v208, @"person@output", v207, 4, v306, 1, error);
+                                            v208 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v201, v207, @"person@output", v206, 4, v305, 1, error);
                                           }
 
-                                          v275 = v209;
-                                          if (v209)
+                                          v274 = v208;
+                                          if (v208)
                                           {
-                                            v210 = [ANSTTensorDescriptor alloc];
-                                            if (objc_msgSend_useE5(v12, v211, v212))
+                                            v209 = [ANSTTensorDescriptor alloc];
+                                            if (objc_msgSend_useE5(v12, v210, v211))
                                             {
-                                              v215 = 104;
+                                              v214 = 104;
                                             }
 
                                             else
                                             {
-                                              v215 = 102;
+                                              v214 = 102;
                                             }
 
-                                            v305[0] = xmmword_22E661BF8;
-                                            v305[1] = unk_22E661C08;
-                                            if (objc_msgSend_useE5(v12, v213, v214))
+                                            v304[0] = xmmword_22E661BF8;
+                                            v304[1] = unk_22E661C08;
+                                            if (objc_msgSend_useE5(v12, v212, v213))
                                             {
-                                              v217 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v210, v216, @"salient_person@output", v215, 4, v305, 64, error);
+                                              v216 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v209, v215, @"salient_person@output", v214, 4, v304, 64, error);
                                             }
 
                                             else
                                             {
-                                              v217 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v210, v216, @"salient_person@output", v215, 4, v305, 1, error);
+                                              v216 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v209, v215, @"salient_person@output", v214, 4, v304, 1, error);
                                             }
 
-                                            v274 = v217;
-                                            if (v217)
+                                            v273 = v216;
+                                            if (v216)
                                             {
-                                              v218 = [ANSTTensorDescriptor alloc];
-                                              if (objc_msgSend_useE5(v12, v219, v220))
+                                              v217 = [ANSTTensorDescriptor alloc];
+                                              if (objc_msgSend_useE5(v12, v218, v219))
                                               {
-                                                v223 = 104;
+                                                v222 = 104;
                                               }
 
                                               else
                                               {
-                                                v223 = 102;
+                                                v222 = 102;
                                               }
 
-                                              v304[0] = xmmword_22E661BF8;
-                                              v304[1] = unk_22E661C08;
-                                              if (objc_msgSend_useE5(v12, v221, v222))
+                                              v303[0] = xmmword_22E661BF8;
+                                              v303[1] = unk_22E661C08;
+                                              if (objc_msgSend_useE5(v12, v220, v221))
                                               {
-                                                v225 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v218, v224, @"skin@output", v223, 4, v304, 64, error);
+                                                v224 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v217, v223, @"skin@output", v222, 4, v303, 64, error);
                                               }
 
                                               else
                                               {
-                                                v225 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v218, v224, @"skin@output", v223, 4, v304, 1, error);
+                                                v224 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v217, v223, @"skin@output", v222, 4, v303, 1, error);
                                               }
 
-                                              v273 = v225;
-                                              if (v225)
+                                              v272 = v224;
+                                              if (v224)
                                               {
-                                                v226 = [ANSTTensorDescriptor alloc];
-                                                if (objc_msgSend_useE5(v12, v227, v228))
+                                                v225 = [ANSTTensorDescriptor alloc];
+                                                if (objc_msgSend_useE5(v12, v226, v227))
                                                 {
-                                                  v231 = 104;
+                                                  v230 = 104;
                                                 }
 
                                                 else
                                                 {
-                                                  v231 = 102;
+                                                  v230 = 102;
                                                 }
 
-                                                v303[0] = xmmword_22E661BF8;
-                                                v303[1] = unk_22E661C08;
-                                                if (objc_msgSend_useE5(v12, v229, v230))
+                                                v302[0] = xmmword_22E661BF8;
+                                                v302[1] = unk_22E661C08;
+                                                if (objc_msgSend_useE5(v12, v228, v229))
                                                 {
-                                                  v233 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v226, v232, @"hair@output", v231, 4, v303, 64, error);
+                                                  v232 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v225, v231, @"hair@output", v230, 4, v302, 64, error);
                                                 }
 
                                                 else
                                                 {
-                                                  v233 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v226, v232, @"hair@output", v231, 4, v303, 1, error);
+                                                  v232 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v225, v231, @"hair@output", v230, 4, v302, 1, error);
                                                 }
 
-                                                v272 = v233;
-                                                if (v233)
+                                                v271 = v232;
+                                                if (v232)
                                                 {
-                                                  v234 = [ANSTTensorDescriptor alloc];
-                                                  if (objc_msgSend_useE5(v12, v235, v236))
+                                                  v233 = [ANSTTensorDescriptor alloc];
+                                                  if (objc_msgSend_useE5(v12, v234, v235))
                                                   {
-                                                    v239 = 104;
+                                                    v238 = 104;
                                                   }
 
                                                   else
                                                   {
-                                                    v239 = 102;
+                                                    v238 = 102;
                                                   }
 
-                                                  v302[0] = xmmword_22E661BF8;
-                                                  v302[1] = unk_22E661C08;
-                                                  if (objc_msgSend_useE5(v12, v237, v238))
+                                                  v301[0] = xmmword_22E661BF8;
+                                                  v301[1] = unk_22E661C08;
+                                                  if (objc_msgSend_useE5(v12, v236, v237))
                                                   {
-                                                    v241 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v234, v240, @"sky@output", v239, 4, v302, 64, error);
+                                                    v240 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v233, v239, @"sky@output", v238, 4, v301, 64, error);
                                                   }
 
                                                   else
                                                   {
-                                                    v241 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v234, v240, @"sky@output", v239, 4, v302, 1, error);
+                                                    v240 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v233, v239, @"sky@output", v238, 4, v301, 1, error);
                                                   }
 
-                                                  v277 = v241;
-                                                  if (v241)
+                                                  v276 = v240;
+                                                  if (v240)
                                                   {
-                                                    v242 = [ANSTTensorDescriptor alloc];
-                                                    if (objc_msgSend_useE5(v12, v243, v244))
+                                                    v241 = [ANSTTensorDescriptor alloc];
+                                                    if (objc_msgSend_useE5(v12, v242, v243))
                                                     {
-                                                      v247 = 104;
+                                                      v246 = 104;
                                                     }
 
                                                     else
                                                     {
-                                                      v247 = 102;
+                                                      v246 = 102;
                                                     }
 
-                                                    v301[0] = xmmword_22E661C18;
-                                                    v301[1] = unk_22E661C28;
-                                                    if (objc_msgSend_useE5(v12, v245, v246))
+                                                    v300[0] = xmmword_22E661C18;
+                                                    v300[1] = unk_22E661C28;
+                                                    if (objc_msgSend_useE5(v12, v244, v245))
                                                     {
-                                                      v249 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v242, v248, @"viseg@output", v247, 4, v301, 64, error);
+                                                      v248 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v241, v247, @"viseg@output", v246, 4, v300, 64, error);
                                                     }
 
                                                     else
                                                     {
-                                                      v249 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v242, v248, @"viseg@output", v247, 4, v301, 1, error);
+                                                      v248 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v241, v247, @"viseg@output", v246, 4, v300, 1, error);
                                                     }
 
-                                                    v276 = v249;
-                                                    if (v249)
+                                                    v275 = v248;
+                                                    if (v248)
                                                     {
-                                                      v250 = [ANSTTensorDescriptor alloc];
-                                                      if (objc_msgSend_useE5(v12, v251, v252))
+                                                      v249 = [ANSTTensorDescriptor alloc];
+                                                      if (objc_msgSend_useE5(v12, v250, v251))
                                                       {
-                                                        v255 = 104;
+                                                        v254 = 104;
                                                       }
 
                                                       else
                                                       {
-                                                        v255 = 102;
+                                                        v254 = 102;
                                                       }
 
-                                                      v300[0] = xmmword_22E661C38;
-                                                      v300[1] = unk_22E661C48;
-                                                      if (objc_msgSend_useE5(v12, v253, v254))
+                                                      v299[0] = xmmword_22E661C38;
+                                                      v299[1] = unk_22E661C48;
+                                                      if (objc_msgSend_useE5(v12, v252, v253))
                                                       {
-                                                        v257 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v250, v256, @"saliency@output", v255, 4, v300, 64, error);
+                                                        v256 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v249, v255, @"saliency@output", v254, 4, v299, 64, error);
                                                       }
 
                                                       else
                                                       {
-                                                        v257 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v250, v256, @"saliency@output", v255, 4, v300, 1, error);
+                                                        v256 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v249, v255, @"saliency@output", v254, 4, v299, 1, error);
                                                       }
 
-                                                      v292 = v257;
-                                                      if (v257)
+                                                      v291 = v256;
+                                                      if (v256)
                                                       {
-                                                        v258 = [ANSTTensorDescriptor alloc];
-                                                        if (objc_msgSend_useE5(v12, v259, v260))
+                                                        v257 = [ANSTTensorDescriptor alloc];
+                                                        if (objc_msgSend_useE5(v12, v258, v259))
                                                         {
-                                                          v263 = 104;
+                                                          v262 = 104;
                                                         }
 
                                                         else
                                                         {
-                                                          v263 = 102;
+                                                          v262 = 102;
                                                         }
 
-                                                        v299[0] = xmmword_22E661C58;
-                                                        v299[1] = unk_22E661C68;
-                                                        if (objc_msgSend_useE5(v12, v261, v262))
+                                                        v298[0] = xmmword_22E661C58;
+                                                        v298[1] = unk_22E661C68;
+                                                        if (objc_msgSend_useE5(v12, v260, v261))
                                                         {
-                                                          v265 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v258, v264, @"salient_person_prior_mask@output", v263, 4, v299, 64, error);
+                                                          v264 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v257, v263, @"salient_person_prior_mask@output", v262, 4, v298, 64, error);
                                                         }
 
                                                         else
                                                         {
-                                                          v265 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v258, v264, @"salient_person_prior_mask@output", v263, 4, v299, 1, error);
+                                                          v264 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v257, v263, @"salient_person_prior_mask@output", v262, 4, v298, 1, error);
                                                         }
 
-                                                        v267 = v265;
-                                                        v268 = v265 != 0;
-                                                        if (v265)
+                                                        v266 = v264;
+                                                        v267 = v264 != 0;
+                                                        if (v264)
                                                         {
-                                                          v298[0] = v62;
-                                                          v298[1] = v71;
-                                                          v298[2] = v80;
-                                                          v298[3] = v89;
-                                                          v298[4] = v287;
-                                                          v298[5] = v289;
-                                                          v298[6] = v288;
-                                                          v298[7] = v286;
-                                                          v298[8] = v285;
-                                                          v298[9] = v284;
-                                                          v298[10] = v283;
-                                                          v298[11] = v282;
-                                                          v298[12] = v281;
-                                                          v298[13] = v280;
-                                                          v298[14] = v279;
-                                                          v298[15] = v291;
-                                                          v298[16] = v290;
-                                                          v298[17] = v278;
-                                                          v298[18] = v275;
-                                                          v298[19] = v274;
-                                                          v298[20] = v273;
-                                                          v298[21] = v272;
-                                                          v298[22] = v277;
-                                                          v298[23] = v276;
-                                                          v298[24] = v292;
-                                                          v298[25] = v265;
-                                                          *outputDescriptors = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v266, v298, 26);
+                                                          v297[0] = v61;
+                                                          v297[1] = v70;
+                                                          v297[2] = v79;
+                                                          v297[3] = v88;
+                                                          v297[4] = v286;
+                                                          v297[5] = v288;
+                                                          v297[6] = v287;
+                                                          v297[7] = v285;
+                                                          v297[8] = v284;
+                                                          v297[9] = v283;
+                                                          v297[10] = v282;
+                                                          v297[11] = v281;
+                                                          v297[12] = v280;
+                                                          v297[13] = v279;
+                                                          v297[14] = v278;
+                                                          v297[15] = v290;
+                                                          v297[16] = v289;
+                                                          v297[17] = v277;
+                                                          v297[18] = v274;
+                                                          v297[19] = v273;
+                                                          v297[20] = v272;
+                                                          v297[21] = v271;
+                                                          v297[22] = v276;
+                                                          v297[23] = v275;
+                                                          v297[24] = v291;
+                                                          v297[25] = v264;
+                                                          *outputDescriptors = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v265, v297, 26);
                                                         }
                                                       }
 
                                                       else
                                                       {
-                                                        v268 = 0;
+                                                        v267 = 0;
                                                       }
                                                     }
 
                                                     else
                                                     {
-                                                      v268 = 0;
+                                                      v267 = 0;
                                                     }
                                                   }
 
                                                   else
                                                   {
-                                                    v268 = 0;
+                                                    v267 = 0;
                                                   }
                                                 }
 
                                                 else
                                                 {
-                                                  v268 = 0;
+                                                  v267 = 0;
                                                 }
                                               }
 
                                               else
                                               {
-                                                v268 = 0;
+                                                v267 = 0;
                                               }
                                             }
 
                                             else
                                             {
-                                              v268 = 0;
+                                              v267 = 0;
                                             }
                                           }
 
                                           else
                                           {
-                                            v268 = 0;
+                                            v267 = 0;
                                           }
                                         }
 
                                         else
                                         {
-                                          v268 = 0;
+                                          v267 = 0;
                                         }
                                       }
 
                                       else
                                       {
-                                        v268 = 0;
+                                        v267 = 0;
                                       }
                                     }
 
                                     else
                                     {
-                                      v268 = 0;
+                                      v267 = 0;
                                     }
                                   }
 
                                   else
                                   {
-                                    v268 = 0;
+                                    v267 = 0;
                                   }
                                 }
 
                                 else
                                 {
-                                  v268 = 0;
+                                  v267 = 0;
                                 }
                               }
 
                               else
                               {
-                                v268 = 0;
+                                v267 = 0;
                               }
                             }
 
                             else
                             {
-                              v268 = 0;
+                              v267 = 0;
                             }
 
+                            v268 = v286;
                             v269 = v287;
                             v270 = v288;
-                            v271 = v289;
 
-                            v145 = v283;
+                            v144 = v282;
                           }
 
                           else
                           {
-                            v268 = 0;
+                            v267 = 0;
+                            v268 = v286;
                             v269 = v287;
                             v270 = v288;
-                            v271 = v289;
                           }
 
-                          if (!v268)
+                          if (!v267)
                           {
                             goto LABEL_10;
                           }
@@ -1154,28 +1153,27 @@ LABEL_259:
   }
 
   v15 = v13;
-  if (v297)
+  if (v296)
   {
-    AcANSTDestroy(v297);
+    AcANSTDestroy(v296);
   }
 
   if (error)
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CCA068];
-    v331[0] = @"Unable to get underlying network metadata.";
-    v330[0] = v17;
-    v330[1] = @"AcReturn";
+    v330[0] = @"Unable to get underlying network metadata.";
+    v329[0] = v17;
+    v329[1] = @"AcReturn";
     v18 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v14, v15);
-    v331[1] = v18;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v331, v330, 2);
+    v330[1] = v18;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v330, v329, 2);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v21, @"ANSTErrorDomain", 3, v20);
     goto LABEL_9;
   }
 
 LABEL_12:
 
-  v22 = *MEMORY[0x277D85DE8];
   return error;
 }
 

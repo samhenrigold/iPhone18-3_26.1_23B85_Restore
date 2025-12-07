@@ -55,7 +55,7 @@ void __48__STPersistenceConfiguration_managedObjectModel__block_invoke()
 
 + (id)persistentStoreDescriptionForConfigurationName:(id)name type:(id)type
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typeCopy = type;
   v8 = objc_opt_new();
@@ -83,12 +83,10 @@ void __48__STPersistenceConfiguration_managedObjectModel__block_invoke()
     [v8 setShouldMigrateStoreAutomatically:1];
     [v8 setShouldInferMappingModelAutomatically:1];
     v12 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v16[0] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     [v8 setOption:v13 forKey:*MEMORY[0x1E695D3D8]];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

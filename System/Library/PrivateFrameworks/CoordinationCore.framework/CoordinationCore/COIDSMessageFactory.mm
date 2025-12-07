@@ -26,20 +26,18 @@
 - (id)encodeRequest:(id)request withIDSIdentifier:(BOOL)identifier
 {
   identifierCopy = identifier;
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [[COIDSMessage alloc] initWithRequest:requestCopy];
 
   if (identifierCopy)
   {
     idsIdentifier = self->_idsIdentifier;
-    v12 = @"IDMK";
-    v13[0] = idsIdentifier;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"IDMK";
+    v12[0] = idsIdentifier;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     [(COIDSMessage *)v7 setMetadata:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

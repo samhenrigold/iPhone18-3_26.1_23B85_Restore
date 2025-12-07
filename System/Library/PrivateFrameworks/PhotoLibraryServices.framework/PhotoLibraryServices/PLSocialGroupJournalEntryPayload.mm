@@ -345,7 +345,7 @@ LABEL_7:
   keyCopy = key;
   valueCopy = value;
   builderCopy = builder;
-  if ([keyCopy isEqualToString:@"keyAsset"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
     v14.receiver = self;
@@ -355,7 +355,7 @@ LABEL_7:
 
   else
   {
-    if (![keyCopy isEqualToString:@"members"])
+    if (!objc_msgSend_isEqualToString_(keyCopy))
     {
       v12.receiver = self;
       v12.super_class = PLSocialGroupJournalEntryPayload;

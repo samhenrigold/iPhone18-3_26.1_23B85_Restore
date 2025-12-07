@@ -44,14 +44,15 @@ LABEL_8:
 LABEL_4:
   representativeItem = [collectionCopy representativeItem];
   v12 = [VUIMPSeasonMediaCollectionIdentifier seasonIdentifierWithMediaItem:representativeItem];
+  v13 = v12;
   if (v12)
   {
-    v13 = VUIMPSeasonMediaCollectionKind();
-    v17.receiver = self;
-    v17.super_class = VUIMPSeasonMediaCollection;
-    v14 = [(VUIMPMediaCollection *)&v17 initWithMediaLibrary:libraryCopy mediaItemCollection:collectionCopy identifier:v12 requestedProperties:propertiesCopy kind:v13];
+    v14 = VUIMPSeasonMediaCollectionKind(v12);
+    v18.receiver = self;
+    v18.super_class = VUIMPSeasonMediaCollection;
+    v15 = [(VUIMPMediaCollection *)&v18 initWithMediaLibrary:libraryCopy mediaItemCollection:collectionCopy identifier:v13 requestedProperties:propertiesCopy kind:v14];
 
-    self = v14;
+    self = v15;
     selfCopy = self;
   }
 

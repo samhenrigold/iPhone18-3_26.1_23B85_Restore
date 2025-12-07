@@ -64,7 +64,7 @@ void __42__SKGTaskThroughputManager_sharedInstance__block_invoke()
 
 void __58__SKGTaskThroughputManager_registerBeginForTask_taskType___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];
   v3 = *(*(a1 + 32) + 8);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
@@ -78,42 +78,40 @@ void __58__SKGTaskThroughputManager_registerBeginForTask_taskType___block_invoke
     [v6 setObject:v5 forKey:v7];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
         v13 = *(a1 + 40);
-        v14 = [v8 objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v12)];
-        v16 = 0;
-        [v13 registerThroughputTrackingFor:v14 withStartTime:v2 error:&v16];
+        v14 = [v8 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v12)];
+        v15 = 0;
+        [v13 registerThroughputTrackingFor:v14 withStartTime:v2 error:&v15];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getThroughputMetricForTask:(int)task metricIdentifier:(id)identifier
@@ -188,7 +186,7 @@ void __72__SKGTaskThroughputManager_getThroughputMetricForTask_metricIdentifier_
 
 void __56__SKGTaskThroughputManager_registerEndForTask_taskType___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
   v4 = [v2 objectForKey:v3];
@@ -196,39 +194,39 @@ void __56__SKGTaskThroughputManager_registerEndForTask_taskType___block_invoke(u
   if (v4)
   {
     v5 = [MEMORY[0x277CBEAA8] date];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = [v6 objectForKey:*(*(&v17 + 1) + 8 * i)];
+          v12 = [v6 objectForKey:*(*(&v16 + 1) + 8 * i)];
           if (v12)
           {
             v13 = *(a1 + 40);
-            v16 = v9;
-            [v13 deregisterThroughputTrackingFor:v12 withEndTime:v5 error:&v16];
-            v14 = v16;
+            v15 = v9;
+            [v13 deregisterThroughputTrackingFor:v12 withEndTime:v5 error:&v15];
+            v14 = v15;
 
             v9 = v14;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -239,8 +237,6 @@ void __56__SKGTaskThroughputManager_registerEndForTask_taskType___block_invoke(u
       v9 = 0;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

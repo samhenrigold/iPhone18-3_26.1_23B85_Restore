@@ -1,14 +1,14 @@
-uint64_t _citrus_mapper_serial_mapper_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+double _citrus_mapper_serial_mapper_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, unint64_t a7)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (a7 >= 0x18)
   {
-    v11 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
-    if (v11)
+    v10 = malloc_type_malloc(0x10uLL, 0xA0040AFF93C70uLL);
+    if (v10)
     {
-      v12 = v11;
-      *v11 = 0;
-      v11[1] = v11;
+      v11 = v10;
+      *v10 = 0;
+      v10[1] = v10;
       _citrus_memory_stream_skip_ws();
       if (a5)
       {
@@ -17,50 +17,50 @@ uint64_t _citrus_mapper_serial_mapper_init(uint64_t a1, uint64_t a2, uint64_t a3
           _citrus_memory_stream_chr();
           snprintf(__str, 0x400uLL, "%.*s", 0, 0);
           *_citrus_bcs_skip_nonws() = 0;
-          v13 = malloc_type_malloc(0x18uLL, 0x1020040EDCEB4C7uLL);
-          if (!v13)
+          v12 = malloc_type_malloc(0x18uLL, 0x1020040EDCEB4C7uLL);
+          if (!v12)
           {
             break;
           }
 
-          v14 = v13;
+          v13 = v12;
           if (_citrus_mapper_open())
           {
-            goto LABEL_13;
+            goto LABEL_12;
           }
 
           mapdir_from_key = _citrus_mapper_get_mapdir_from_key();
-          *(v14 + 4) = mapdir_from_key;
+          *(v13 + 4) = mapdir_from_key;
           if ((mapdir_from_key & (mapdir_from_key - 1)) != 0)
           {
             _citrus_mapper_serial_mapper_init_cold_1();
           }
 
-          v16 = *(v14[1] + 24);
-          if (v16[1] != 1 || v16[2] != 1 || *v16)
+          v15 = *(v13[1] + 24);
+          if (v15[1] != 1 || v15[2] != 1 || *v15)
           {
+LABEL_12:
+            free(v13);
 LABEL_13:
-            free(v14);
-LABEL_14:
-            uninit(v12);
-            free(v12);
-            goto LABEL_2;
+            uninit(v11);
+            free(v11);
+            return result;
           }
 
-          *v14 = 0;
-          *v12[1] = v14;
-          v12[1] = v14;
+          *v13 = 0;
+          *v11[1] = v13;
+          v11[1] = v13;
           _citrus_memory_stream_skip_ws();
         }
 
         if (*__error())
         {
-          goto LABEL_14;
+          goto LABEL_13;
         }
       }
 
-      v17 = *v12;
-      if (*v12)
+      v17 = *v11;
+      if (*v11)
       {
         v18 = *(a2 + 64);
         do
@@ -73,25 +73,18 @@ LABEL_14:
         *(a2 + 64) = v18;
       }
 
-      result = 0;
-      *(a2 + 8) = v12;
+      *(a2 + 8) = v11;
       *(a6 + 16) = 1;
+      result = 0.0;
       *a6 = xmmword_296034D10;
     }
 
     else
     {
-      result = *__error();
+      __error();
     }
   }
 
-  else
-  {
-LABEL_2:
-    result = 22;
-  }
-
-  v19 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -326,7 +319,6 @@ void uninit(uint64_t a1)
       *(a1 + 8) = a1;
     }
 
-    v4 = i[1];
     _citrus_mapper_close();
     free(i);
   }

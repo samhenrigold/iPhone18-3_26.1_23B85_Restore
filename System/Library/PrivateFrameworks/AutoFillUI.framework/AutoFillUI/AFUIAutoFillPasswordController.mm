@@ -93,31 +93,31 @@
 
 void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v33 = a2;
-  v3 = [v33 indexesOfObjectsPassingTest:&__block_literal_global];
-  v4 = [v33 objectsAtIndexes:v3];
+  v44 = *MEMORY[0x1E69E9840];
+  v32 = a2;
+  v3 = [v32 indexesOfObjectsPassingTest:&__block_literal_global];
+  v4 = [v32 objectsAtIndexes:v3];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v5)
   {
-    v6 = *v40;
+    v6 = *v39;
     v7 = *MEMORY[0x1E698E028];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v40 != v6)
+        if (*v39 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v39 + 1) + 8 * i);
+        v9 = *(*(&v38 + 1) + 8 * i);
         v10 = [v9 usernameAndPasswordPayload];
         v11 = [v10 objectForKeyedSubscript:v7];
         v12 = @"person.badge.key.fill";
@@ -129,13 +129,13 @@ void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke
         v13 = v12;
 
         v14 = MEMORY[0x1E69DC628];
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke_3;
-        v37[3] = &unk_1E84244B8;
-        objc_copyWeak(&v38, (a1 + 48));
-        v37[4] = v9;
-        v15 = [v14 actionWithHandler:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke_3;
+        v36[3] = &unk_1E84244B8;
+        objc_copyWeak(&v37, (a1 + 48));
+        v36[4] = v9;
+        v15 = [v14 actionWithHandler:v36];
         v16 = [v9 title];
         [v15 setTitle:v16];
 
@@ -146,10 +146,10 @@ void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke
         [v15 setImage:v18];
 
         [*(a1 + 32) addObject:v15];
-        objc_destroyWeak(&v38);
+        objc_destroyWeak(&v37);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v5 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v5);
@@ -177,16 +177,16 @@ void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke
   v24 = [v21 localizedStringForKey:v23 value:&stru_1F4E9A028 table:@"Localizable"];
 
   v25 = MEMORY[0x1E69DC628];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke_4;
-  v35[3] = &unk_1E84244E0;
-  objc_copyWeak(&v36, (a1 + 48));
-  v26 = [v25 actionWithHandler:v35];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke_4;
+  v34[3] = &unk_1E84244E0;
+  objc_copyWeak(&v35, (a1 + 48));
+  v26 = [v25 actionWithHandler:v34];
   [v26 setTitle:v24];
   v27 = MEMORY[0x1E69DCC60];
-  v43 = v26;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+  v42 = v26;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
   v29 = [v27 menuWithTitle:&stru_1F4E9A028 image:0 identifier:0 options:1 children:v28];
 
   [*(a1 + 32) addObject:v29];
@@ -194,8 +194,7 @@ void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke
   v31 = [MEMORY[0x1E69DCC60] menuWithChildren:*(a1 + 32)];
   (*(v30 + 16))(v30, v31);
 
-  objc_destroyWeak(&v36);
-  v32 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v35);
 }
 
 BOOL __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke_2(uint64_t a1, void *a2)
@@ -248,60 +247,54 @@ void __58__AFUIAutoFillPasswordController__loadAccountSuggestions___block_invoke
 
 void __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v3)
   {
-    v4 = *v34;
-    v5 = &dword_1E8425000;
+    v4 = *v31;
     while (2)
     {
-      v6 = 0;
-      v7 = *(v5 + 468);
-      do
+      for (i = 0; i != v3; ++i)
       {
-        if (*v34 != v4)
+        if (*v31 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v33 + 1) + 8 * v6);
+        v6 = *(*(&v30 + 1) + 8 * i);
         if ((objc_opt_respondsToSelector() & 1) == 0)
         {
           WeakRetained = obj;
           goto LABEL_16;
         }
 
-        v9 = MEMORY[0x1E69DC628];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke_2;
-        v31[3] = &unk_1E84244B8;
-        objc_copyWeak(&v32, (a1 + 56));
-        v31[4] = v8;
-        v10 = [v9 actionWithHandler:v31];
-        v11 = [v8 title];
-        [v10 setTitle:v11];
+        v7 = MEMORY[0x1E69DC628];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke_2;
+        v28[3] = &unk_1E84244B8;
+        objc_copyWeak(&v29, (a1 + 56));
+        v28[4] = v6;
+        v8 = [v7 actionWithHandler:v28];
+        v9 = [v6 title];
+        [v8 setTitle:v9];
 
-        v12 = [v8 subTitle];
-        [v10 setSubtitle:v12];
+        v10 = [v6 subTitle];
+        [v8 setSubtitle:v10];
 
-        v13 = [*(a1 + 32) _menuItemImageForOneTimeCodeSuggestion:v8];
-        [v10 setImage:v13];
+        v11 = [*(a1 + 32) _menuItemImageForOneTimeCodeSuggestion:v6];
+        [v8 setImage:v11];
 
-        [*(a1 + 40) addObject:v10];
-        objc_destroyWeak(&v32);
-        ++v6;
+        [*(a1 + 40) addObject:v8];
+        objc_destroyWeak(&v29);
       }
 
-      while (v3 != v6);
-      v3 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-      v5 = &dword_1E8425000;
+      v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v3)
       {
         continue;
@@ -317,43 +310,41 @@ void __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_in
     *(WeakRetained + 33) = [obj count] != 0;
   }
 
-  v15 = [*(WeakRetained + 3) autofillMode] == 8;
-  v16 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v17 = v16;
-  if (v15)
+  v13 = [*(WeakRetained + 3) autofillMode] == 8;
+  v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v15 = v14;
+  if (v13)
   {
-    v18 = @"Passwords & Verification Codes…";
+    v16 = @"Passwords & Verification Codes…";
   }
 
   else
   {
-    v18 = @"Passwords…";
+    v16 = @"Passwords…";
   }
 
-  v19 = [v16 localizedStringForKey:v18 value:&stru_1F4E9A028 table:@"Localizable"];
+  v17 = [v14 localizedStringForKey:v16 value:&stru_1F4E9A028 table:@"Localizable"];
 
-  v20 = MEMORY[0x1E69DC628];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke_3;
-  v29[3] = &unk_1E84244E0;
-  objc_copyWeak(&v30, (a1 + 56));
-  v21 = [v20 actionWithHandler:v29];
-  [v21 setTitle:v19];
-  v22 = MEMORY[0x1E69DCC60];
-  v37 = v21;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-  v24 = [v22 menuWithTitle:&stru_1F4E9A028 image:0 identifier:0 options:1 children:v23];
+  v18 = MEMORY[0x1E69DC628];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke_3;
+  v26[3] = &unk_1E84244E0;
+  objc_copyWeak(&v27, (a1 + 56));
+  v19 = [v18 actionWithHandler:v26];
+  [v19 setTitle:v17];
+  v20 = MEMORY[0x1E69DCC60];
+  v34 = v19;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+  v22 = [v20 menuWithTitle:&stru_1F4E9A028 image:0 identifier:0 options:1 children:v21];
 
-  [*(a1 + 40) addObject:v24];
-  v25 = *(a1 + 48);
-  v26 = [MEMORY[0x1E69DCC60] menuWithChildren:*(a1 + 40)];
-  (*(v25 + 16))(v25, v26);
+  [*(a1 + 40) addObject:v22];
+  v23 = *(a1 + 48);
+  v24 = [MEMORY[0x1E69DCC60] menuWithChildren:*(a1 + 40)];
+  (*(v23 + 16))(v23, v24);
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v27);
 LABEL_16:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AFUIAutoFillPasswordController__loadOneTimeCodeSuggestions___block_invoke_2(uint64_t a1)

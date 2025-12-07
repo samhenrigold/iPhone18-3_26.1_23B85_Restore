@@ -52,9 +52,9 @@
 - (int64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(int64_t)count
 {
   self;
-  v7 = specialized _SwiftNSMutableArray.countByEnumerating(with:objects:count:)(state);
+  v8 = specialized _SwiftNSMutableArray.countByEnumerating(with:objects:count:)(state, v7);
   self;
-  return v7;
+  return v8;
 }
 
 - (id)copyWithZone:(void *)zone

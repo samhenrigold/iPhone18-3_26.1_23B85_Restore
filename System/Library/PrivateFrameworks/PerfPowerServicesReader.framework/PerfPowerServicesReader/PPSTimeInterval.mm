@@ -55,33 +55,34 @@
 - (PPSTimeInterval)initWithStartTimestamp:(double)timestamp endTimestamp:(double)endTimestamp payload:(id)payload
 {
   payloadCopy = payload;
+  v9 = payloadCopy;
   if (timestamp >= endTimestamp)
   {
-    v12 = PPSReaderLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PPSReaderLog(payloadCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [PPSTimeInterval initWithStartTimestamp:v12 endTimestamp:? payload:?];
+      [PPSTimeInterval initWithStartTimestamp:v13 endTimestamp:? payload:?];
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_7;
   }
 
-  v14.receiver = self;
-  v14.super_class = PPSTimeInterval;
-  v9 = [(PPSTimeInterval *)&v14 init];
-  v10 = v9;
-  if (v9)
+  v15.receiver = self;
+  v15.super_class = PPSTimeInterval;
+  v10 = [(PPSTimeInterval *)&v15 init];
+  v11 = v10;
+  if (v10)
   {
-    v9->_startTimestamp = timestamp;
-    v9->_endTimestamp = endTimestamp;
-    v11 = payloadCopy;
-    self = v10->_payload;
-    v10->_payload = v11;
+    v10->_startTimestamp = timestamp;
+    v10->_endTimestamp = endTimestamp;
+    v12 = v9;
+    self = v11->_payload;
+    v11->_payload = v12;
 LABEL_7:
   }
 
-  return v10;
+  return v11;
 }
 
 - (int64_t)compare:(id)compare
@@ -100,7 +101,7 @@ LABEL_7:
 
 - (unint64_t)hash
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(PPSTimeInterval *)self startTimestamp];
   if (v3 == 0.0)
   {
@@ -113,8 +114,8 @@ LABEL_7:
   }
 
   [(PPSTimeInterval *)self endTimestamp];
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   if (v5 == 0.0)
   {
     v6 = 2654435769;
@@ -125,35 +126,34 @@ LABEL_7:
     v6 = *&v5 + 2654435769;
   }
 
+  v16 = 0uLL;
   v17 = 0uLL;
-  v18 = 0uLL;
   payload = [(PPSTimeInterval *)self payload];
   allValues = [payload allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   v10 = (v6 + (v4 << 6) + (v4 >> 2)) ^ v4;
   if (v9)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 ^= (v10 << 6) + 2654435769u + (v10 >> 2) + [*(*(&v15 + 1) + 8 * i) hash];
+        v10 ^= (v10 << 6) + 2654435769u + (v10 >> 2) + [*(*(&v14 + 1) + 8 * i) hash];
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -231,14 +231,14 @@ LABEL_18:
 {
   v2 = MEMORY[0x277CCAAA0];
   dictionary = [(PPSTimeInterval *)self dictionary];
-  v8 = 0;
-  v4 = [v2 dataWithJSONObject:dictionary options:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v2 dataWithJSONObject:dictionary options:1 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = PPSReaderLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PPSReaderLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(PPSTimeSeries *)v5 JSONRepresentation];
     }
@@ -268,24 +268,22 @@ LABEL_18:
 
 - (NSDictionary)dictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"endTimestamp";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"endTimestamp";
   v3 = MEMORY[0x277CCABB0];
   [(PPSTimeInterval *)self startTimestamp];
   v4 = [v3 numberWithDouble:?];
-  v13[0] = v4;
-  v12[1] = @"startTimestamp";
+  v12[0] = v4;
+  v11[1] = @"startTimestamp";
   v5 = MEMORY[0x277CCABB0];
   [(PPSTimeInterval *)self endTimestamp];
   v6 = [v5 numberWithDouble:?];
-  v13[1] = v6;
-  v12[2] = @"payload";
+  v12[1] = v6;
+  v11[2] = @"payload";
   payload = [(PPSTimeInterval *)self payload];
   v8 = [payload copy];
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v9;
 }
@@ -404,12 +402,12 @@ LABEL_18:
 
 - (id)subtractTimeInterval:(id)interval
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (![(PPSTimeInterval *)self intersectsTimeInterval:intervalCopy])
   {
-    v50[0] = self;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+    v49[0] = self;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
     goto LABEL_19;
   }
 
@@ -444,16 +442,16 @@ LABEL_18:
       payload2 = [(PPSTimeInterval *)self payload];
       v43 = [v37 initWithStartTimestamp:payload2 endTimestamp:v39 payload:v41];
 
-      v48[0] = v17;
-      v48[1] = v43;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+      v47[0] = v17;
+      v47[1] = v43;
+      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
 
 LABEL_17:
       goto LABEL_18;
     }
 
-    v49 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+    v48 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
 LABEL_16:
     v5 = v18;
     goto LABEL_17;
@@ -476,8 +474,8 @@ LABEL_16:
         payload3 = [(PPSTimeInterval *)self payload];
         v17 = [v11 initWithStartTimestamp:payload3 endTimestamp:v13 payload:v15];
 
-        v46 = v17;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+        v45 = v17;
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
         goto LABEL_16;
       }
     }
@@ -498,8 +496,8 @@ LABEL_16:
       payload4 = [intervalCopy payload];
       v17 = [v22 initWithStartTimestamp:payload4 endTimestamp:v24 payload:v26];
 
-      v47 = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+      v46 = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
       goto LABEL_16;
     }
   }
@@ -508,14 +506,13 @@ LABEL_16:
 LABEL_18:
 
 LABEL_19:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)unionWithTimeInterval:(id)interval
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v5 = [(PPSTimeInterval *)self compare:intervalCopy];
   if ([(PPSTimeInterval *)self intersectsTimeInterval:intervalCopy]|| [(PPSTimeInterval *)self isAdjacentToTimeInterval:intervalCopy])
@@ -531,8 +528,8 @@ LABEL_19:
     v14 = objc_alloc(objc_opt_class());
     payload = [(PPSTimeInterval *)self payload];
     v16 = [v14 initWithStartTimestamp:payload endTimestamp:fmin(v7 payload:{v9), fmax(v11, v13)}];
-    v23[0] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   }
 
   else
@@ -546,26 +543,23 @@ LABEL_19:
 
     else
     {
-      v21 = intervalCopy;
-      v18 = &v21;
+      v20 = intervalCopy;
+      v18 = &v20;
     }
 
     v18[1] = self;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:?];
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:?];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (void)initWithStartTimestamp:(uint64_t)a1 endTimestamp:(NSObject *)a2 payload:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Couldn't initialize <PPSTimeInterval>: %p> due to invalid boundaries", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Couldn't initialize <PPSTimeInterval>: %p> due to invalid boundaries", &v2, 0xCu);
 }
 
 @end

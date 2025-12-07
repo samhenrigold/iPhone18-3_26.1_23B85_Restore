@@ -8,36 +8,36 @@
 
 + (id)asrHypothesis2QRUtterance:(id)utterance
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   utteranceCopy = utterance;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
   asrTokens = [utteranceCopy asrTokens];
   v6 = [v4 initWithCapacity:{objc_msgSend(asrTokens, "count")}];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   asrTokens2 = [utteranceCopy asrTokens];
-  v8 = [asrTokens2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [asrTokens2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(asrTokens2);
         }
 
-        v12 = [CDMRepetitionDetectionServiceUtils asrToken2QRToken:*(*(&v20 + 1) + 8 * i)];
+        v12 = [CDMRepetitionDetectionServiceUtils asrToken2QRToken:*(*(&v19 + 1) + 8 * i)];
         [v6 addObject:v12];
       }
 
-      v9 = [asrTokens2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [asrTokens2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -58,8 +58,6 @@
 
   [utteranceCopy probability];
   [v13 setConfidence:?];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -87,7 +85,7 @@
 
 + (id)buildRDRequestWithPrevTurn:(id)turn curTurn:(id)curTurn nluRequestId:(id)id resultCandidateId:(id)candidateId cdmRequestId:(id)requestId
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   turnCopy = turn;
   curTurnCopy = curTurn;
   idCopy = id;
@@ -97,7 +95,7 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v48 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
+    v47 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
     _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Preparing Repetition Detection Reqeust", buf, 0xCu);
   }
 
@@ -108,7 +106,7 @@ LABEL_12:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v48 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
+      v47 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
       v22 = "%s Invalid Inputs for Repetition Detection";
       goto LABEL_19;
     }
@@ -140,7 +138,7 @@ LABEL_13:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v48 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
+      v47 = "+[CDMRepetitionDetectionServiceUtils buildRDRequestWithPrevTurn:curTurn:nluRequestId:resultCandidateId:cdmRequestId:]";
       v22 = "%s Current Turn or Previous Turn is Tap2Edit, skipping RD call";
 LABEL_19:
       _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, v22, buf, 0xCu);
@@ -154,52 +152,50 @@ LABEL_19:
   firstObject = [asrOutputs3 firstObject];
   v21 = [CDMRepetitionDetectionServiceUtils asrHypothesis2QRUtterance:firstObject];
 
-  v28 = objc_alloc_init(MEMORY[0x1E69D1370]);
-  v46 = v21;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
-  v30 = [v29 copy];
-  [v28 setOriginalUtterances:v30];
+  v27 = objc_alloc_init(MEMORY[0x1E69D1370]);
+  v45 = v21;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+  v29 = [v28 copy];
+  [v27 setOriginalUtterances:v29];
 
-  v31 = [MEMORY[0x1E695E0F0] mutableCopy];
-  [v28 setSiriResponses:v31];
+  v30 = [MEMORY[0x1E695E0F0] mutableCopy];
+  [v27 setSiriResponses:v30];
 
   locale = [turnCopy locale];
-  [v28 setLocale:locale];
+  [v27 setLocale:locale];
 
-  [v28 setTap2edit:{objc_msgSend(turnCopy, "tapToEdit")}];
-  v42 = v28;
-  [v28 setStartTimestamp:{objc_msgSend(turnCopy, "startTimestamp")}];
+  [v27 setTap2edit:{objc_msgSend(turnCopy, "tapToEdit")}];
+  v41 = v27;
+  [v27 setStartTimestamp:{objc_msgSend(turnCopy, "startTimestamp")}];
   asrOutputs4 = [curTurnCopy asrOutputs];
   firstObject2 = [asrOutputs4 firstObject];
-  v43 = [CDMRepetitionDetectionServiceUtils asrHypothesis2QRUtterance:firstObject2];
+  v42 = [CDMRepetitionDetectionServiceUtils asrHypothesis2QRUtterance:firstObject2];
 
-  v35 = objc_alloc_init(MEMORY[0x1E69D1370]);
-  v45 = v43;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
-  v37 = [v36 copy];
-  [v35 setOriginalUtterances:v37];
+  v34 = objc_alloc_init(MEMORY[0x1E69D1370]);
+  v44 = v42;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+  v36 = [v35 copy];
+  [v34 setOriginalUtterances:v36];
 
-  v38 = [MEMORY[0x1E695E0F0] mutableCopy];
-  [v35 setSiriResponses:v38];
+  v37 = [MEMORY[0x1E695E0F0] mutableCopy];
+  [v34 setSiriResponses:v37];
 
   locale2 = [curTurnCopy locale];
-  [v35 setLocale:locale2];
+  [v34 setLocale:locale2];
 
-  [v35 setTap2edit:{objc_msgSend(curTurnCopy, "tapToEdit")}];
-  [v35 setStartTimestamp:{objc_msgSend(curTurnCopy, "startTimestamp")}];
+  [v34 setTap2edit:{objc_msgSend(curTurnCopy, "tapToEdit")}];
+  [v34 setStartTimestamp:{objc_msgSend(curTurnCopy, "startTimestamp")}];
   v23 = objc_alloc_init(MEMORY[0x1E69D1358]);
   [v23 setResultCandidateId:candidateIdCopy];
   [v23 setNluRequestId:idCopy];
-  v44[0] = v28;
-  v44[1] = v35;
-  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-  v41 = [v40 mutableCopy];
-  [v23 setOriginalInteractions:v41];
+  v43[0] = v27;
+  v43[1] = v34;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v40 = [v39 mutableCopy];
+  [v23 setOriginalInteractions:v40];
 
   [v23 setCdmRequestId:requestIdCopy];
 LABEL_14:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

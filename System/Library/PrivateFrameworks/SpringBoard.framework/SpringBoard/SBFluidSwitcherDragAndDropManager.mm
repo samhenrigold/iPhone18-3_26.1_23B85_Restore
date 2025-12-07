@@ -1125,7 +1125,7 @@ uint64_t __71__SBFluidSwitcherDragAndDropManager__beginTrackingDropSessionIfNeed
 {
   v3 = a2;
   v4 = NSAllMapTableValues(*(a1[4] + 8));
-  v5 = [v4 containsObject:a1[5]];
+  v5 = objc_msgSend_containsObject_(v4);
 
   if (v5)
   {

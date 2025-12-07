@@ -3,7 +3,7 @@
 
 @implementation APBrokerGroupResolveReceiverDNSNameWithOneBroker
 
-void ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke(void *a1, int a2, CFTypeRef cf)
+void ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke(void *a1, uint64_t a2, CFTypeRef cf)
 {
   v6 = a1[6];
   v7 = gLogCategory_APBrokerGroup;
@@ -15,51 +15,56 @@ void ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke(void *a1, 
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_9;
+        goto LABEL_11;
       }
 
       v7 = gLogCategory_APBrokerGroup;
     }
 
-    if (v7 == -1)
+    if (v7 > 30)
     {
-      _LogCategory_Initialize();
+      v10 = 1;
     }
 
-    LogPrintF();
+    else
+    {
+      v10 = v7 == -1 && _LogCategory_Initialize() == 0;
+    }
+
+    LogPrintF(&gLogCategory_APBrokerGroup, "void _APBrokerGroupHandleConnectivityInfo(void *, APBrokerGroupOperationStatus *, OSStatus, void *, CFDictionaryRef)", 33554482, "[%{ptr}] [%{ptr}] Got connectivity info callback from broker [%{ptr}] with error: %#m%?{end} and response: %@\n", v8, v6, v9, a2, v10, cf);
   }
 
-LABEL_9:
+LABEL_11:
   if (a2)
   {
-    ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke_cold_1();
-LABEL_18:
+    ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke_cold_1(a2);
+LABEL_20:
     *(v6 + 4) = a2;
-    goto LABEL_13;
+    goto LABEL_15;
   }
 
   if (!cf)
   {
     ___APBrokerGroupResolveReceiverDNSNameWithOneBroker_block_invoke_cold_2();
-    a2 = -6705;
-    goto LABEL_18;
+    LODWORD(a2) = -6705;
+    goto LABEL_20;
   }
 
   *v6 = 1;
   *(v6 + 4) = 0;
-  v10 = *(v6 + 8);
+  v11 = *(v6 + 8);
   *(v6 + 8) = cf;
   CFRetain(cf);
-  if (v10)
+  if (v11)
   {
-    CFRelease(v10);
+    CFRelease(v11);
   }
 
-LABEL_13:
-  (*(a1[4] + 16))(a1[4], v11, v12, v13, v14, v15);
-  v16 = a1[4];
+LABEL_15:
+  (*(a1[4] + 16))();
+  v12 = a1[4];
 
-  _Block_release(v16);
+  _Block_release(v12);
 }
 
 @end

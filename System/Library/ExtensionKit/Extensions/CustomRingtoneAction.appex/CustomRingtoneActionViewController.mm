@@ -8,24 +8,24 @@
 
 - (void)viewDidLoad
 {
-  v3 = (*(*(sub_100005288(&qword_100010428, &qword_100006ED8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100005288(&qword_100010428, &qword_100006ED8);
   __chkstk_darwin();
-  v5 = &v12 - v4;
-  v6 = type metadata accessor for CustomRingtoneActionViewController();
-  v12.receiver = self;
-  v12.super_class = v6;
+  v4 = &v11 - v3;
+  v5 = type metadata accessor for CustomRingtoneActionViewController();
+  v11.receiver = self;
+  v11.super_class = v5;
   selfCopy = self;
-  [(CustomRingtoneActionViewController *)&v12 viewDidLoad];
-  v8 = sub_100006800();
-  (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
+  [(CustomRingtoneActionViewController *)&v11 viewDidLoad];
+  v7 = sub_100006800();
+  (*(*(v7 - 8) + 56))(v4, 1, 1, v7);
   sub_1000067E0();
-  v9 = selfCopy;
-  v10 = sub_1000067D0();
-  v11 = swift_allocObject();
-  v11[2] = v10;
-  v11[3] = &protocol witness table for MainActor;
-  v11[4] = v9;
-  sub_100001980(0, 0, v5, &unk_100006EE8, v11);
+  v8 = selfCopy;
+  v9 = sub_1000067D0();
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = &protocol witness table for MainActor;
+  v10[4] = v8;
+  sub_100001980(0, 0, v4, &unk_100006EE8, v10);
 }
 
 - (_TtC20CustomRingtoneAction34CustomRingtoneActionViewController)initWithNibName:(id)name bundle:(id)bundle

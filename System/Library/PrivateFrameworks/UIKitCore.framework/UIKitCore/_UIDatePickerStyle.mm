@@ -67,7 +67,7 @@
 {
   if (state)
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor, a2);
   }
 
   else

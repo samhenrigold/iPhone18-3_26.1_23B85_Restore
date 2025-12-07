@@ -258,10 +258,11 @@ void __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke(ui
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_cold_1();
     }
@@ -269,15 +270,15 @@ void __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke(ui
 
   else
   {
-    v8 = *(*(a1 + 32) + 104);
+    v10 = *(*(a1 + 32) + 104);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_117;
     block[3] = &unk_2781D58E8;
-    v10 = v5;
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 32);
-    dispatch_async(v8, block);
+    v12 = v5;
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 32);
+    dispatch_async(v10, block);
   }
 }
 
@@ -364,15 +365,16 @@ void __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_5(
   v1 = a1 + 32;
   v2 = *(*(a1 + 32) + 48);
   v3 = *MEMORY[0x277CBE878];
-  v7 = 0;
-  v4 = [v2 setResourceValue:MEMORY[0x277CBEC38] forKey:v3 error:&v7];
-  v5 = v7;
+  v9 = 0;
+  v4 = [v2 setResourceValue:MEMORY[0x277CBEC38] forKey:v3 error:&v9];
+  v5 = v9;
+  v7 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_5_cold_1(v1, v6, v5);
+      __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_5_cold_1(v1, v8, v7);
     }
   }
 }
@@ -633,36 +635,36 @@ void __55__TabSnapshotCache_initWithThumbnailCacheDirectoryURL___block_invoke_5(
 
 void __49__TabSnapshotCache_removeSnapshotWithIdentifier___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) path];
   v4 = [v2 _web_removeFileOnlyAtPath:v3];
 
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v7 = 138543362;
-      v8 = v6;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Removed snapshot at path %{public}@", &v7, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Removed snapshot at path %{public}@", &v9, 0xCu);
     }
   }
 }
 
 - (void)invalidateSnapshotWithIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [(TabSnapshotCache *)self _entryForIdentifier:identifier];
-  v5 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = v5;
-    v7 = [v4 debugDescription];
-    v8 = 138543362;
-    v9 = v7;
-    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Invalidate entry: %{public}@", &v8, 0xCu);
+    v7 = v6;
+    v8 = [v4 debugDescription];
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Invalidate entry: %{public}@", &v9, 0xCu);
   }
 
   [v4 setState:0];
@@ -674,10 +676,10 @@ void __49__TabSnapshotCache_removeSnapshotWithIdentifier___block_invoke(uint64_t
 {
   identifierCopy = identifier;
   v5 = [(TabSnapshotCache *)self _entryForIdentifier:identifierCopy];
-  v6 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(TabSnapshotCache *)v6 _requestSavedSnapshotForIdentifier:v5];
+    [(TabSnapshotCache *)v7 _requestSavedSnapshotForIdentifier:v5];
   }
 
   metadata = [v5 metadata];
@@ -687,12 +689,12 @@ void __49__TabSnapshotCache_removeSnapshotWithIdentifier___block_invoke(uint64_t
   {
     thumbnailCacheDirectoryURL = self->_thumbnailCacheDirectoryURL;
     fileName2 = [metadata fileName];
-    v11 = [(NSURL *)thumbnailCacheDirectoryURL URLByAppendingPathComponent:fileName2 isDirectory:0];
+    v12 = [(NSURL *)thumbnailCacheDirectoryURL URLByAppendingPathComponent:fileName2 isDirectory:0];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   fileSystemAccessQueue = self->_fileSystemAccessQueue;
@@ -701,14 +703,14 @@ void __49__TabSnapshotCache_removeSnapshotWithIdentifier___block_invoke(uint64_t
   block[2] = __55__TabSnapshotCache__requestSavedSnapshotForIdentifier___block_invoke;
   block[3] = &unk_2781D7D88;
   block[4] = self;
-  v18 = v11;
-  v19 = identifierCopy;
-  v20 = v5;
-  v21 = metadata;
-  v13 = metadata;
-  v14 = v5;
-  v15 = identifierCopy;
-  v16 = v11;
+  v19 = v12;
+  v20 = identifierCopy;
+  v21 = v5;
+  v22 = metadata;
+  v14 = metadata;
+  v15 = v5;
+  v16 = identifierCopy;
+  v17 = v12;
   dispatch_async(fileSystemAccessQueue, block);
 }
 
@@ -752,39 +754,40 @@ uint64_t __55__TabSnapshotCache__requestSavedSnapshotForIdentifier___block_invok
 
 - (id)_readSnapshotImageFromURL:(id)l forIdentifier:(id)identifier
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   identifierCopy = identifier;
+  v8 = identifierCopy;
   if (lCopy)
   {
-    v7 = CGImageSourceCreateWithURL(lCopy, 0);
-    if (v7)
+    v9 = CGImageSourceCreateWithURL(lCopy, 0);
+    if (v9)
     {
-      v8 = v7;
-      v17 = *MEMORY[0x277CD3620];
-      v18[0] = MEMORY[0x277CBEC38];
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(v8, 0, v9);
-      CFRelease(v8);
-      v11 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:ImageAtIndex];
+      v11 = v9;
+      v20 = *MEMORY[0x277CD3620];
+      v21[0] = MEMORY[0x277CBEC38];
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      ImageAtIndex = CGImageSourceCreateImageAtIndex(v11, 0, v12);
+      CFRelease(v11);
+      v14 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:ImageAtIndex];
       CGImageRelease(ImageAtIndex);
       if (deviceSupportsASTC == 1)
       {
-        safari_decodedImageIfPossible = v11;
+        safari_decodedImageIfPossible = v14;
       }
 
       else
       {
-        safari_decodedImageIfPossible = [(UIImage *)v11 safari_decodedImageIfPossible];
+        safari_decodedImageIfPossible = [(UIImage *)v14 safari_decodedImageIfPossible];
       }
 
-      v13 = safari_decodedImageIfPossible;
+      v16 = safari_decodedImageIfPossible;
 
       goto LABEL_11;
     }
 
-    v15 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(0, v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [TabSnapshotCache _readSnapshotImageFromURL:forIdentifier:];
     }
@@ -792,32 +795,32 @@ uint64_t __55__TabSnapshotCache__requestSavedSnapshotForIdentifier___block_invok
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(identifierCopy, v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [TabSnapshotCache _readSnapshotImageFromURL:forIdentifier:];
     }
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_11:
 
-  return v13;
+  return v16;
 }
 
 - (void)_saveSnapshotForIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [(TabSnapshotCache *)self _entryForIdentifier:identifierCopy];
-  v6 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = [v5 debugDescription];
+    v8 = v7;
+    v9 = [v5 debugDescription];
     *buf = 138543362;
-    v28 = v8;
-    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Save snapshot for entry: %{public}@", buf, 0xCu);
+    v29 = v9;
+    _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Save snapshot for entry: %{public}@", buf, 0xCu);
   }
 
   if (v5)
@@ -830,17 +833,17 @@ LABEL_11:
       thumbnailCacheDirectoryURL = self->_thumbnailCacheDirectoryURL;
       metadata2 = [v5 metadata];
       fileName2 = [metadata2 fileName];
-      v14 = [(NSURL *)thumbnailCacheDirectoryURL URLByAppendingPathComponent:fileName2 isDirectory:0];
+      v15 = [(NSURL *)thumbnailCacheDirectoryURL URLByAppendingPathComponent:fileName2 isDirectory:0];
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v15 = [(TabSnapshotCache *)self _preferredURLForSnapshotWithIdentifier:identifierCopy];
+    v16 = [(TabSnapshotCache *)self _preferredURLForSnapshotWithIdentifier:identifierCopy];
     metadata3 = [v5 metadata];
-    lastPathComponent = [v15 lastPathComponent];
+    lastPathComponent = [v16 lastPathComponent];
     [metadata3 setFileName:lastPathComponent];
 
     [(SFTabSnapshotMetadataStore *)self->_metadataStore deleteMetadataForIdentifier:identifierCopy completion:&__block_literal_global_141];
@@ -851,13 +854,13 @@ LABEL_11:
     block[2] = __47__TabSnapshotCache__saveSnapshotForIdentifier___block_invoke_3;
     block[3] = &unk_2781D7D88;
     block[4] = self;
-    v23 = v5;
-    v24 = v15;
-    v25 = v14;
-    v26 = metadata3;
-    v19 = metadata3;
-    v20 = v14;
+    v24 = v5;
+    v25 = v16;
+    v26 = v15;
+    v27 = metadata3;
+    v20 = metadata3;
     v21 = v15;
+    v22 = v16;
     dispatch_async(fileSystemAccessQueue, block);
   }
 }
@@ -920,53 +923,53 @@ uint64_t __47__TabSnapshotCache__saveSnapshotForIdentifier___block_invoke_4(uint
 
 - (id)_writeSnapshotImage:(CGImage *)image toURL:(id)l forIdentifier:(id)identifier
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   lCopy = l;
   identifierCopy = identifier;
   if (deviceSupportsASTC == 1)
   {
     v10 = *MEMORY[0x277CD2DD0];
-    v25[0] = *MEMORY[0x277CD2F40];
-    v25[1] = v10;
-    v26[0] = *MEMORY[0x277CD2DD8];
-    v26[1] = &unk_2827FC298;
-    v25[2] = *MEMORY[0x277CD2DE8];
-    v26[2] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v28[0] = *MEMORY[0x277CD2F40];
+    v28[1] = v10;
+    v29[0] = *MEMORY[0x277CD2DD8];
+    v29[1] = &unk_2827FC298;
+    v28[2] = *MEMORY[0x277CD2DE8];
+    v29[2] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
     v12 = @"org.khronos.ktx";
   }
 
   else
   {
     v12 = *MEMORY[0x277CC2120];
-    v23 = *MEMORY[0x277CD3438];
-    v21 = *MEMORY[0x277CD3428];
-    v22 = &unk_2827FC2B0;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v24 = v13;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v26 = *MEMORY[0x277CD3438];
+    v24 = *MEMORY[0x277CD3428];
+    v25 = &unk_2827FC2B0;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v27 = v13;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
   }
 
   v14 = CGImageDestinationCreateWithURL(lCopy, v12, 1uLL, 0);
   if (v14)
   {
-    v15 = v14;
+    v16 = v14;
     CGImageDestinationAddImage(v14, image, v11);
-    v16 = CGImageDestinationFinalize(v15);
-    CFRelease(v15);
-    if (v16)
+    v17 = CGImageDestinationFinalize(v16);
+    CFRelease(v16);
+    if (v17)
     {
       if (deviceSupportsASTC == 1)
       {
-        v17 = [(TabSnapshotCache *)self _readSnapshotImageFromURL:lCopy forIdentifier:identifierCopy];
+        v20 = [(TabSnapshotCache *)self _readSnapshotImageFromURL:lCopy forIdentifier:identifierCopy];
         goto LABEL_13;
       }
     }
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v18, v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [TabSnapshotCache _writeSnapshotImage:toURL:forIdentifier:];
       }
@@ -975,31 +978,31 @@ uint64_t __47__TabSnapshotCache__saveSnapshotForIdentifier___block_invoke_4(uint
 
   else
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(0, v15);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [TabSnapshotCache _writeSnapshotImage:toURL:forIdentifier:];
     }
   }
 
-  v17 = 0;
+  v20 = 0;
 LABEL_13:
 
-  return v17;
+  return v20;
 }
 
 - (void)_beginUpdatingStateForIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [(TabSnapshotCache *)self _entryForIdentifier:identifier];
-  v4 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = v4;
-    v6 = [v3 debugDescription];
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Begin updating entry: %{public}@", &v7, 0xCu);
+    v6 = v5;
+    v7 = [v3 debugDescription];
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Begin updating entry: %{public}@", &v8, 0xCu);
   }
 
   [v3 setUpdatingState:1];
@@ -1008,33 +1011,33 @@ LABEL_13:
 
 - (void)_finishUpdatingToState:(int64_t)state cachedSnapshot:(id)snapshot metadata:(id)metadata forEntry:(id)entry
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   metadataCopy = metadata;
   entryCopy = entry;
-  v13 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(entryCopy, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = v13;
-    v15 = [entryCopy debugDescription];
-    v16 = v15;
+    v15 = v14;
+    v16 = [entryCopy debugDescription];
+    v17 = v16;
     if (state > 4)
     {
-      v17 = @"Empty";
+      v18 = @"Empty";
     }
 
     else
     {
-      v17 = off_2781DC828[state];
+      v18 = off_2781DC828[state];
     }
 
     *buf = 138543874;
-    v22 = v15;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = snapshotCopy;
-    _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_INFO, "Finish updating entry: %{public}@ (toState = %@; snapshot = %@)", buf, 0x20u);
+    v23 = v16;
+    v24 = 2112;
+    v25 = v18;
+    v26 = 2112;
+    v27 = snapshotCopy;
+    _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_INFO, "Finish updating entry: %{public}@ (toState = %@; snapshot = %@)", buf, 0x20u);
   }
 
   if ([entryCopy isUpdatingState])
@@ -1053,12 +1056,12 @@ LABEL_13:
         [entryCopy setMetadata:metadataCopy];
         if (deviceSupportsASTC != 1 || [entryCopy state] == 2)
         {
-          v20[0] = MEMORY[0x277D85DD0];
-          v20[1] = 3221225472;
-          v20[2] = __76__TabSnapshotCache__finishUpdatingToState_cachedSnapshot_metadata_forEntry___block_invoke;
-          v20[3] = &unk_2781DC7E0;
-          v20[4] = self;
-          [(TabSnapshotCache *)self _enumerateIdentifiersForEntry:entryCopy respondingToSelector:sel_tabSnapshotCache_didCacheSnapshotWithIdentifier_ withBlock:v20];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __76__TabSnapshotCache__finishUpdatingToState_cachedSnapshot_metadata_forEntry___block_invoke;
+          v21[3] = &unk_2781DC7E0;
+          v21[4] = self;
+          [(TabSnapshotCache *)self _enumerateIdentifiersForEntry:entryCopy respondingToSelector:sel_tabSnapshotCache_didCacheSnapshotWithIdentifier_ withBlock:v21];
         }
       }
 
@@ -1297,34 +1300,34 @@ LABEL_13:
 
 - (void)_requestNextSnapshotIfNecessaryForDelegate:(id)delegate
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v4 = [(TabSnapshotCache *)self _contextForDelegate:?];
   identifiersToCache = [v4 identifiersToCache];
-  v25 = v4;
+  v26 = v4;
   updating = [v4 updating];
   v6 = [MEMORY[0x277CBEB58] set];
-  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v7 = identifiersToCache;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v31;
     do
     {
       v11 = 0;
       do
       {
-        if (*v30 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * v11);
+        v12 = *(*(&v30 + 1) + 8 * v11);
         v13 = [(TabSnapshotCache *)self _entryForIdentifier:v12 createIfNeeded:1];
         if ([v13 isGroup])
         {
@@ -1350,24 +1353,24 @@ LABEL_13:
             {
               if ((fitsInCache & 1) == 0)
               {
-                v21 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+                v22 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(2, v19);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                 {
-                  v22 = v21;
-                  v23 = [v13 debugDescription];
+                  v23 = v22;
+                  v24 = [v13 debugDescription];
                   *buf = 138543362;
-                  v34 = v23;
-                  _os_log_impl(&dword_215819000, v22, OS_LOG_TYPE_INFO, "Reached capacity; will evict snapshot for entry: %{public}@", buf, 0xCu);
+                  v35 = v24;
+                  _os_log_impl(&dword_215819000, v23, OS_LOG_TYPE_INFO, "Reached capacity; will evict snapshot for entry: %{public}@", buf, 0xCu);
                 }
 
                 [v13 setSnapshot:0];
                 [v13 setState:3];
-                v28[0] = MEMORY[0x277D85DD0];
-                v28[1] = 3221225472;
-                v28[2] = __63__TabSnapshotCache__requestNextSnapshotIfNecessaryForDelegate___block_invoke;
-                v28[3] = &unk_2781DC7E0;
-                v28[4] = self;
-                [(TabSnapshotCache *)self _enumerateIdentifiersForEntry:v13 respondingToSelector:sel_tabSnapshotCache_didEvictSnapshotWithIdentifier_ withBlock:v28];
+                v29[0] = MEMORY[0x277D85DD0];
+                v29[1] = 3221225472;
+                v29[2] = __63__TabSnapshotCache__requestNextSnapshotIfNecessaryForDelegate___block_invoke;
+                v29[3] = &unk_2781DC7E0;
+                v29[4] = self;
+                [(TabSnapshotCache *)self _enumerateIdentifiersForEntry:v13 respondingToSelector:sel_tabSnapshotCache_didEvictSnapshotWithIdentifier_ withBlock:v29];
               }
             }
 
@@ -1397,11 +1400,11 @@ LABEL_10:
       }
 
       while (v9 != v11);
-      v24 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
-      v9 = v24;
+      v25 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v9 = v25;
     }
 
-    while (v24);
+    while (v25);
   }
 }
 
@@ -1428,7 +1431,7 @@ LABEL_10:
 
 - (void)requestSnapshotWithIdentifier:(id)identifier fromProvider:(id)provider
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   providerCopy = provider;
   v8 = [(TabSnapshotCache *)self _entryForIdentifier:identifierCopy createIfNeeded:1];
@@ -1449,28 +1452,28 @@ LABEL_10:
 
     if ((objc_opt_respondsToSelector() & 1) == 0 || fallbackProviderNumberOfRequests < [providerCopy maximumNumberOfRequestsForTabSnapshotCache:self])
     {
-      if ((objc_opt_respondsToSelector() & 1) != 0 && ([providerCopy tabSnapshotCache:self canAcceptRequestForIdentifier:identifierCopy] & 1) == 0)
+      if ((objc_opt_respondsToSelector() & 1) != 0 && (v12 = [providerCopy tabSnapshotCache:self canAcceptRequestForIdentifier:identifierCopy], (v12 & 1) == 0))
       {
-        v15 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v19 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v12, v13);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           if (WeakRetained == providerCopy)
           {
-            v16 = @"Fallback provider";
+            v20 = @"Fallback provider";
           }
 
           else
           {
-            v16 = @"Delegate";
+            v20 = @"Delegate";
           }
 
-          v17 = v15;
-          v18 = [v8 debugDescription];
+          v21 = v19;
+          v22 = [v8 debugDescription];
           *buf = 138543618;
-          v23 = v16;
-          v24 = 2114;
-          v25 = v18;
-          _os_log_impl(&dword_215819000, v17, OS_LOG_TYPE_INFO, "%{public}@ skipped request for entry %{public}@", buf, 0x16u);
+          v27 = v20;
+          v28 = 2114;
+          v29 = v22;
+          _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_INFO, "%{public}@ skipped request for entry %{public}@", buf, 0x16u);
         }
 
         [(NSMutableOrderedSet *)self->_identifiersNotHandledByProvider addObject:identifierCopy];
@@ -1480,25 +1483,25 @@ LABEL_10:
       {
         [(NSMutableOrderedSet *)self->_identifiersNotHandledByProvider removeObject:identifierCopy];
         [(TabSnapshotCache *)self adjustRequestedSnapshotCountBy:1 forProvider:providerCopy];
-        [(TabSnapshotCache *)self _beginUpdatingStateForIdentifier:identifierCopy];
-        v12 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v14 = [(TabSnapshotCache *)self _beginUpdatingStateForIdentifier:identifierCopy];
+        v16 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v13 = v12;
-          v14 = [v8 debugDescription];
+          v17 = v16;
+          v18 = [v8 debugDescription];
           *buf = 138543362;
-          v23 = v14;
-          _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_INFO, "Request snapshot for entry: %{public}@", buf, 0xCu);
+          v27 = v18;
+          _os_log_impl(&dword_215819000, v17, OS_LOG_TYPE_INFO, "Request snapshot for entry: %{public}@", buf, 0xCu);
         }
 
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __63__TabSnapshotCache_requestSnapshotWithIdentifier_fromProvider___block_invoke;
-        v19[3] = &unk_2781DC808;
-        v19[4] = self;
-        v20 = providerCopy;
-        v21 = v8;
-        [v20 tabSnapshotCache:self requestSnapshotWithIdentifier:identifierCopy completion:v19];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __63__TabSnapshotCache_requestSnapshotWithIdentifier_fromProvider___block_invoke;
+        v23[3] = &unk_2781DC808;
+        v23[4] = self;
+        v24 = providerCopy;
+        v25 = v8;
+        [v24 tabSnapshotCache:self requestSnapshotWithIdentifier:identifierCopy completion:v23];
       }
     }
   }
@@ -1506,55 +1509,55 @@ LABEL_10:
 
 void __63__TabSnapshotCache_requestSnapshotWithIdentifier_fromProvider___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  [*(a1 + 32) adjustRequestedSnapshotCountBy:-1 forProvider:*(a1 + 40)];
-  v6 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = [*(a1 + 32) adjustRequestedSnapshotCountBy:-1 forProvider:*(a1 + 40)];
+  v8 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v7 = @"Error";
+    v9 = @"Error";
     if (!a3)
     {
-      v7 = @"Success";
+      v9 = @"Success";
     }
 
     if (a3 == 1)
     {
-      v7 = @"Temporarily Unavailable";
+      v9 = @"Temporarily Unavailable";
     }
 
-    v8 = v7;
-    v9 = *(a1 + 48);
-    v10 = v6;
-    v11 = [v9 debugDescription];
-    v16 = 138412546;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_INFO, "Did request snapshot with result %@ for entry: %{public}@", &v16, 0x16u);
+    v10 = v9;
+    v11 = *(a1 + 48);
+    v12 = v8;
+    v13 = [v11 debugDescription];
+    v18 = 138412546;
+    v19 = v10;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_INFO, "Did request snapshot with result %@ for entry: %{public}@", &v18, 0x16u);
   }
 
   if (v5)
   {
-    v12 = *(a1 + 32);
-    v13 = [v5 image];
-    v14 = [v5 metadata];
-    [v12 _finishUpdatingToState:1 cachedSnapshot:v13 metadata:v14 forEntry:*(a1 + 48)];
+    v14 = *(a1 + 32);
+    v15 = [v5 image];
+    v16 = [v5 metadata];
+    [v14 _finishUpdatingToState:1 cachedSnapshot:v15 metadata:v16 forEntry:*(a1 + 48)];
   }
 
   else
   {
     if (a3 == 1)
     {
-      v15 = 4;
+      v17 = 4;
     }
 
     else
     {
-      v15 = 3;
+      v17 = 3;
     }
 
-    [*(a1 + 32) _finishUpdatingToState:v15 forEntry:*(a1 + 48)];
+    [*(a1 + 32) _finishUpdatingToState:v17 forEntry:*(a1 + 48)];
   }
 }
 
@@ -1660,127 +1663,127 @@ void __62__TabSnapshotCache_requestNextSnapshotIfNecessaryWithOptions___block_in
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __62__TabSnapshotCache_requestNextSnapshotIfNecessaryWithOptions___block_invoke_2(uint64_t a1)
+void __62__TabSnapshotCache_requestNextSnapshotIfNecessaryWithOptions___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v2 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 debugDescription];
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 debugDescription];
     *buf = 138412290;
-    v23 = v5;
-    _os_log_impl(&dword_215819000, v4, OS_LOG_TYPE_DEFAULT, "Begin update for cache: %@", buf, 0xCu);
+    v24 = v6;
+    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Begin update for cache: %@", buf, 0xCu);
   }
 
-  v6 = *(a1 + 32);
-  if (v6[120])
+  v7 = *(a1 + 32);
+  if (v7[120])
   {
-    [v6 invalidateRecoverableEntries];
-    v6 = *(a1 + 32);
+    [v7 invalidateRecoverableEntries];
+    v7 = *(a1 + 32);
   }
 
-  *(v6 + 15) = 0;
+  *(v7 + 15) = 0;
   *(*(a1 + 32) + 112) = 0;
   [*(a1 + 32) _calculateFitsInCache];
   [*(a1 + 32) cleanUpSavedSnapshots];
-  v7 = [MEMORY[0x277CBEB40] orderedSet];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 72);
-  *(v8 + 72) = v7;
+  v8 = [MEMORY[0x277CBEB40] orderedSet];
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 72);
+  *(v9 + 72) = v8;
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v10 = *(*(a1 + 32) + 8);
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v19 = 0u;
+  v11 = *(*(a1 + 32) + 8);
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v18;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        [*(a1 + 32) _requestNextSnapshotIfNecessaryForDelegate:{*(*(&v17 + 1) + 8 * v14++), v17}];
+        [*(a1 + 32) _requestNextSnapshotIfNecessaryForDelegate:{*(*(&v18 + 1) + 8 * v15++), v18}];
       }
 
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   [*(a1 + 32) requestSnapshotsFromFallbackProvider];
-  v15 = *(a1 + 32);
-  v16 = *(v15 + 72);
-  *(v15 + 72) = 0;
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 72);
+  *(v16 + 72) = 0;
 }
 
 - (void)invalidateRecoverableEntries
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v23 = 0u;
+  v32 = *MEMORY[0x277D85DE8];
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
   obj = self->_delegateToContextMap;
-  v16 = [(NSMapTable *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
-  if (v16)
+  v17 = [(NSMapTable *)obj countByEnumeratingWithState:&v24 objects:v31 count:16];
+  if (v17)
   {
-    v15 = *v24;
+    v16 = *v25;
     do
     {
       v3 = 0;
       do
       {
-        if (*v24 != v15)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = v3;
-        v4 = [(TabSnapshotCache *)self _contextForDelegate:*(*(&v23 + 1) + 8 * v3)];
-        v19 = 0u;
+        v19 = v3;
+        v4 = [(TabSnapshotCache *)self _contextForDelegate:*(*(&v24 + 1) + 8 * v3)];
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v17 = v4;
+        v23 = 0u;
+        v18 = v4;
         identifiersToCache = [v4 identifiersToCache];
-        v6 = [identifiersToCache countByEnumeratingWithState:&v19 objects:v29 count:16];
+        v6 = [identifiersToCache countByEnumeratingWithState:&v20 objects:v30 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v20;
+          v8 = *v21;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v20 != v8)
+              if (*v21 != v8)
               {
                 objc_enumerationMutation(identifiersToCache);
               }
 
-              v10 = [(TabSnapshotCache *)self _entryForIdentifier:*(*(&v19 + 1) + 8 * i)];
+              v10 = [(TabSnapshotCache *)self _entryForIdentifier:*(*(&v20 + 1) + 8 * i)];
               if ([v10 state] == 4)
               {
-                v11 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-                if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+                v12 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(4, v11);
+                if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
                 {
-                  v12 = v11;
-                  v13 = [v10 debugDescription];
+                  v13 = v12;
+                  v14 = [v10 debugDescription];
                   *buf = 138543362;
-                  v28 = v13;
-                  _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_INFO, "Retry entry: %{public}@", buf, 0xCu);
+                  v29 = v14;
+                  _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_INFO, "Retry entry: %{public}@", buf, 0xCu);
                 }
 
                 [v10 setState:0];
@@ -1788,20 +1791,20 @@ void __62__TabSnapshotCache_requestNextSnapshotIfNecessaryWithOptions___block_in
               }
             }
 
-            v7 = [identifiersToCache countByEnumeratingWithState:&v19 objects:v29 count:16];
+            v7 = [identifiersToCache countByEnumeratingWithState:&v20 objects:v30 count:16];
           }
 
           while (v7);
         }
 
-        v3 = v18 + 1;
+        v3 = v19 + 1;
       }
 
-      while (v18 + 1 != v16);
-      v16 = [(NSMapTable *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+      while (v19 + 1 != v17);
+      v17 = [(NSMapTable *)obj countByEnumeratingWithState:&v24 objects:v31 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 }
 
@@ -2098,32 +2101,32 @@ LABEL_32:
 
 + (void)removeSavedSnapshotsKeepingSnapshotsWithIdentifiers:(id)identifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v4 = SafariThumbnailCacheDirectoryPath();
   [MEMORY[0x277CCAA00] defaultManager];
-  v18 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v17 = v21 = 0u;
-  v5 = [v17 contentsOfDirectoryAtPath:v4 error:0];
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v19 = v23 = 0u;
+  v5 = [v19 contentsOfDirectoryAtPath:v4 error:0];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v19;
+    v9 = *v21;
     *&v7 = 138543362;
-    v16 = v7;
+    v18 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         if ([v11 length] >= 0x24)
         {
           v12 = [v11 substringToIndex:36];
@@ -2131,21 +2134,22 @@ LABEL_32:
           if (v13 && ([identifiersCopy containsObject:v13] & 1) == 0)
           {
             v14 = [v4 stringByAppendingPathComponent:v11];
-            if ([v17 _web_removeFileOnlyAtPath:v14])
+            v15 = [v19 _web_removeFileOnlyAtPath:v14];
+            if (v15)
             {
-              v15 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v17 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v15, v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v16;
-                v23 = v14;
-                _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "Cleaning cache directory; removed snapshot at path %{public}@", buf, 0xCu);
+                *buf = v18;
+                v25 = v14;
+                _os_log_impl(&dword_215819000, v17, OS_LOG_TYPE_DEFAULT, "Cleaning cache directory; removed snapshot at path %{public}@", buf, 0xCu);
               }
             }
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v8);

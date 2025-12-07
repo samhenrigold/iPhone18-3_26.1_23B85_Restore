@@ -35,7 +35,7 @@
         {
           if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy handleButtonActions:]", 30, "Home button\n");
           }
 
           [(WatchSetupViewControllerProxy *)self dismiss:4];
@@ -83,14 +83,14 @@
   disappearCopy = disappear;
   if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy viewDidDisappear:]", 30, "Proxy ViewDidDisappear\n");
   }
 
   if (!self->_dismissed)
   {
     if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy viewDidDisappear:]", 30, "Proxy disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(WatchSetupViewControllerProxy *)self dismiss:21];
@@ -109,17 +109,17 @@
     v5 = [(NSDictionary *)self->super._userInfo objectForKeyedSubscript:@"watchData"];
     v6 = [(NSDictionary *)self->super._userInfo objectForKeyedSubscript:@"deviceIdentifier"];
     v7 = [BPSWatchSetupProxCardViewController alloc];
-    v26[0] = @"wd";
-    v26[1] = @"di";
-    v27[0] = v5;
-    v27[1] = v6;
-    v8 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10012C518;
-    v25[3] = &unk_1001958B0;
-    v25[4] = self;
-    v9 = [v7 initWithUserInfo:v8 withDismissCompletionHandler:v25];
+    v28[0] = @"wd";
+    v28[1] = @"di";
+    v29[0] = v5;
+    v29[1] = v6;
+    v8 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10012C518;
+    v27[3] = &unk_1001958B0;
+    v27[4] = self;
+    v9 = [v7 initWithUserInfo:v8 withDismissCompletionHandler:v27];
 
     [v9 setMainController:self];
     v10 = [(WatchSetupViewControllerProxy *)self presentProxCardFlowWithDelegate:self initialViewController:v9];
@@ -130,43 +130,49 @@
   {
     if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy viewDidAppear:]", 30, "Proxy ViewDidAppear\n");
     }
 
-    v24.receiver = self;
-    v24.super_class = WatchSetupViewControllerProxy;
-    [(WatchSetupViewControllerProxy *)&v24 viewDidAppear:appearCopy];
+    v26.receiver = self;
+    v26.super_class = WatchSetupViewControllerProxy;
+    [(WatchSetupViewControllerProxy *)&v26 viewDidAppear:appearCopy];
     v11 = _os_feature_enabled_impl();
     v5 = [(NSDictionary *)self->super._userInfo objectForKeyedSubscript:@"pairingVersion"];
     if (v5 && (-[objc_class systemVersions](off_1001BF398(), "systemVersions"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 maxPairingCompatibilityVersion], v12, ((objc_msgSend(v5, "integerValue") <= v13) & v11) == 0))
     {
       if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
       {
-        [v5 integerValue];
-        LogPrintF();
+        integerValue = [v5 integerValue];
+        v16 = "disabled";
+        if (v11)
+        {
+          v16 = "enabled";
+        }
+
+        LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy viewDidAppear:]", 30, "Needs Software Update:- pairing versions: Watch=%ld vs. Phone(max)=%ld; networkrelay pairing: Watch=%s vs. Phone=%s, \n", integerValue, v13, "enabled", v16);
       }
 
       v6 = objc_alloc_init(PRXSoftwareUpdateViewController);
-      v15 = sub_10012794C(@"Localizable", @"SOFTWARE_UPDATE_REQUIRED");
-      [(SVSWatchSetupInitialViewController *)v6 setTitle:v15];
+      v17 = sub_10012794C(@"Localizable", @"SOFTWARE_UPDATE_REQUIRED");
+      [(SVSWatchSetupInitialViewController *)v6 setTitle:v17];
 
-      v16 = sub_10012794C(@"Localizable", @"APPLE_WATCH_SOFTWARE_UPDATE");
-      [(SVSWatchSetupInitialViewController *)v6 setSubtitle:v16];
+      v18 = sub_10012794C(@"Localizable", @"APPLE_WATCH_SOFTWARE_UPDATE");
+      [(SVSWatchSetupInitialViewController *)v6 setSubtitle:v18];
 
       objc_initWeak(&location, v6);
-      v17 = sub_10012794C(@"Localizable", @"SET_UP_LATER");
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_10012C528;
-      v21[3] = &unk_1001958D8;
-      objc_copyWeak(&v22, &location);
-      v18 = [PRXAction actionWithTitle:v17 style:1 handler:v21];
+      v19 = sub_10012794C(@"Localizable", @"SET_UP_LATER");
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_10012C528;
+      v23[3] = &unk_1001958D8;
+      objc_copyWeak(&v24, &location);
+      v20 = [PRXAction actionWithTitle:v19 style:1 handler:v23];
 
-      v19 = [(SVSWatchSetupInitialViewController *)v6 addAction:v18];
-      v20 = [(WatchSetupViewControllerProxy *)self presentProxCardFlowWithDelegate:self initialViewController:v6];
-      [(WatchSetupViewControllerProxy *)self setProxCardNavigationController:v20];
+      v21 = [(SVSWatchSetupInitialViewController *)v6 addAction:v20];
+      v22 = [(WatchSetupViewControllerProxy *)self presentProxCardFlowWithDelegate:self initialViewController:v6];
+      [(WatchSetupViewControllerProxy *)self setProxCardNavigationController:v22];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(&location);
     }
 
@@ -222,7 +228,7 @@
 
   if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[WatchSetupViewControllerProxy configureWithContext:completion:]", 30, "Proxy configuration: %@\n", self->super._userInfo);
   }
 
   v8 = completionCopy;

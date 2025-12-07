@@ -1,40 +1,7 @@
-void sub_22095128C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-    if ((v16 & 1) == 0)
-    {
-LABEL_6:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v15);
-  goto LABEL_6;
-}
-
-uint64_t _ZNK4E5RT4SpanIDF16_Lm18446744073709551615EE5SliceEm(void *a1, unint64_t a2)
-{
-  if (a1[1] <= a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::range_error::range_error[abi:ne200100](exception, "index out of bounds");
-    _ZNK4E5RT4SpanIDF16_Lm18446744073709551615EE5SliceEm_cold_1();
-  }
-
-  return *a1 + 2 * a2;
-}
-
-uint64_t type metadata completion function for Asset()
+uint64_t type metadata completion function for Asset(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -43,26 +10,26 @@ uint64_t type metadata completion function for Asset()
   return result;
 }
 
-uint64_t OnDeviceInferenceProviderDataSource.catalogResource(for:)@<X0>(uint64_t a1@<X8>)
+uint64_t OnDeviceInferenceProviderDataSource.catalogResource(for:)@<X0>(uint64_t a3@<X8>)
 {
   type metadata accessor for CatalogClient();
   swift_allocObject();
   CatalogClient.init()();
   dispatch thunk of CatalogClient.resource(for:)();
 
-  if (!v1)
+  if (!v3)
   {
-    if (v6)
+    if (v8)
     {
-      return outlined init with take of RandomNumberGenerator(&v5, a1);
+      return outlined init with take of RandomNumberGenerator(&v7, a3);
     }
 
     else
     {
-      outlined destroy of [Int](&v5, &_s12ModelCatalog0B8Resource_pSgMd);
+      outlined destroy of [Int](&v7, &_s12ModelCatalog0B8Resource_pSgMd, &_s12ModelCatalog0B8Resource_pSgMR);
       lazy protocol witness table accessor for type DataSourceError and conformance DataSourceError();
       swift_allocError();
-      *v4 = 3;
+      *v6 = 3;
       return swift_willThrow();
     }
   }
@@ -74,108 +41,108 @@ uint64_t OnDeviceInferenceProviderDataSource.asset(for:)@<X0>(uint64_t a1@<X0>, 
 {
   v7 = type metadata accessor for AssetVersion();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = OnDeviceInferenceProviderDataSource.catalogResource(for:)(v39);
+  MEMORY[0x28223BE20](v7, v9);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = OnDeviceInferenceProviderDataSource.catalogResource(for:)(v41);
   if (!v3)
   {
-    outlined init with copy of DeterministicLanguageModelProtocol(v39, v35);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B8Resource_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedResource_pMd);
+    outlined init with copy of DeterministicLanguageModelProtocol(v41, v37);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B8Resource_pMd, &_s12ModelCatalog0B8Resource_pMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedResource_pMd, &_s12ModelCatalog19AssetBackedResource_pMR);
     if (swift_dynamicCast())
     {
-      v32 = a3;
-      outlined init with take of RandomNumberGenerator(v33, v38);
-      __swift_project_boxed_opaque_existential_1(v38, v38[3]);
+      v34 = a3;
+      outlined init with take of RandomNumberGenerator(v35, v40);
+      __swift_project_boxed_opaque_existential_1(v40, v40[3]);
       AssociatedTypeWitness = swift_getAssociatedTypeWitness();
       AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      v37 = AssociatedConformanceWitness;
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v35);
+      v39 = AssociatedConformanceWitness;
+      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v37);
       dispatch thunk of AssetBackedResource.fetchAsset()();
-      v40 = 0;
-      __swift_project_boxed_opaque_existential_1(v35, AssociatedTypeWitness);
-      v19 = swift_getAssociatedTypeWitness();
-      v30 = &v27;
-      v28 = *(v19 - 8);
-      MEMORY[0x28223BE20](v19);
-      v29 = AssociatedConformanceWitness;
-      v21 = &v27 - v20;
+      v41[7] = 0;
+      __swift_project_boxed_opaque_existential_1(v37, AssociatedTypeWitness);
+      v20 = swift_getAssociatedTypeWitness();
+      v32 = &v29;
+      v30 = *(v20 - 8);
+      MEMORY[0x28223BE20](v20, v21);
+      v31 = AssociatedConformanceWitness;
+      v23 = &v29 - v22;
       dispatch thunk of CatalogAssetProtocol.contents.getter();
       swift_getAssociatedConformanceWitness();
-      v22 = v32;
+      v24 = v34;
       dispatch thunk of AssetContents.baseURL.getter();
-      (*(v28 + 8))(v21, v19);
+      (*(v30 + 8))(v23, v20);
       dispatch thunk of CatalogAssetProtocol.version.getter();
-      v23 = AssetVersion.number.getter();
-      v25 = v24;
-      (*(v8 + 8))(v10, v7);
-      __swift_destroy_boxed_opaque_existential_1(v39);
-      v26 = (v22 + *(type metadata accessor for Asset() + 20));
-      *v26 = v23;
-      v26[1] = v25;
-      __swift_destroy_boxed_opaque_existential_1(v35);
-      return __swift_destroy_boxed_opaque_existential_1(v38);
+      v25 = AssetVersion.number.getter();
+      v27 = v26;
+      (*(v8 + 8))(v11, v7);
+      __swift_destroy_boxed_opaque_existential_1(v41);
+      v28 = (v24 + *(type metadata accessor for Asset(0) + 20));
+      *v28 = v25;
+      v28[1] = v27;
+      __swift_destroy_boxed_opaque_existential_1(v37);
+      return __swift_destroy_boxed_opaque_existential_1(v40);
     }
 
     else
     {
-      v34 = 0;
-      memset(v33, 0, sizeof(v33));
-      outlined destroy of [Int](v33, &_s12ModelCatalog19AssetBackedResource_pSgMd);
+      v36 = 0;
+      memset(v35, 0, sizeof(v35));
+      outlined destroy of [Int](v35, &_s12ModelCatalog19AssetBackedResource_pSgMd, &_s12ModelCatalog19AssetBackedResource_pSgMR);
       if (one-time initialization token for device != -1)
       {
         swift_once();
       }
 
-      v13 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v13, static Log.device);
+      v14 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v14, static Log.device);
 
-      v14 = Logger.logObject.getter();
-      v15 = static os_log_type_t.error.getter();
+      v15 = Logger.logObject.getter();
+      v16 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v14, v15))
+      if (os_log_type_enabled(v15, v16))
       {
-        v16 = swift_slowAlloc();
         v17 = swift_slowAlloc();
-        v38[0] = v17;
-        *v16 = 136315138;
-        *(v16 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v38);
-        _os_log_impl(&dword_220940000, v14, v15, "Catalog resource with identifier %s is not asset backed resource", v16, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v17);
+        v18 = swift_slowAlloc();
+        v40[0] = v18;
+        *v17 = 136315138;
+        *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v40);
+        _os_log_impl(&dword_220940000, v15, v16, "Catalog resource with identifier %s is not asset backed resource", v17, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v18);
+        MEMORY[0x223D90A10](v18, -1, -1);
         MEMORY[0x223D90A10](v17, -1, -1);
-        MEMORY[0x223D90A10](v16, -1, -1);
       }
 
       lazy protocol witness table accessor for type DataSourceError and conformance DataSourceError();
       swift_allocError();
-      *v18 = 1;
+      *v19 = 1;
       swift_willThrow();
-      return __swift_destroy_boxed_opaque_existential_1(v39);
+      return __swift_destroy_boxed_opaque_existential_1(v41);
     }
   }
 
   return result;
 }
 
-void type metadata completion function for OnDeviceInferenceAssetObjectTokenizer()
+void type metadata completion function for OnDeviceInferenceAssetObjectTokenizer(uint64_t a1)
 {
   type metadata accessor for Asset?(319, &lazy cache variable for type metadata for Asset?, type metadata accessor for Asset);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for TokenizerRunner();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ImageTokenIDGenerator();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : String]?, &_sSDyS2SGMd);
-        if (v3 <= 0x3F)
+        type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : String]?, &_sSDyS2SGMd, &_sSDyS2SGMR);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [Int]?, &_sSaySiGMd);
-          if (v4 <= 0x3F)
+          type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [Int]?, &_sSaySiGMd, &_sSaySiGMR);
+          if (v5 <= 0x3F)
           {
             type metadata accessor for Asset?(319, &lazy cache variable for type metadata for GuidedGenerationVocabularyManager?, MEMORY[0x277D71DE8]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -188,145 +155,145 @@ void type metadata completion function for OnDeviceInferenceAssetObjectTokenizer
 
 uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC15handleTokenizer33_65818D6FA4B5F545C6B162D7CBE031AELL17tokenizerResource5assety12ModelCatalog0f6BackedI0_p_AA0F0Vt0V15ManagerServices0C5ErrorOYKF(void *a1, uint64_t a2, uint64_t a3)
 {
-  v46 = a3;
-  v52 = a2;
-  v44 = type metadata accessor for InferenceError.Context();
-  v47 = *(v44 - 8);
-  MEMORY[0x28223BE20](v44);
-  v45 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd);
-  MEMORY[0x28223BE20](v6 - 8);
-  v42 = &v41 - v7;
-  v43 = type metadata accessor for OnDeviceInferenceAssetObjectTokenizer(0);
-  MEMORY[0x28223BE20](v43);
-  v9 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for URL();
-  v49 = *(v10 - 8);
-  v50 = v10;
-  MEMORY[0x28223BE20](v10);
-  v12 = &v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v50 = a3;
+  v56 = a2;
+  v48 = type metadata accessor for InferenceError.Context();
+  v51 = *(v48 - 8);
+  MEMORY[0x28223BE20](v48, v5);
+  v49 = &v45 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v46 = &v45 - v9;
+  v47 = type metadata accessor for OnDeviceInferenceAssetObjectTokenizer(0);
+  MEMORY[0x28223BE20](v47, v10);
+  v12 = &v45 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for URL();
+  v53 = *(v13 - 8);
+  v54 = v13;
+  MEMORY[0x28223BE20](v13, v14);
+  v16 = &v45 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v48 = dispatch thunk of CatalogResource.id.getter();
-  v14 = v13;
+  v52 = dispatch thunk of CatalogResource.id.getter();
+  v18 = v17;
   if (one-time initialization token for device != -1)
   {
     swift_once();
   }
 
-  v15 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v15, static Log.device);
+  v19 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v19, static Log.device);
 
-  v16 = Logger.logObject.getter();
-  v17 = static os_log_type_t.default.getter();
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.default.getter();
 
-  v18 = os_log_type_enabled(v16, v17);
-  v51 = v14;
-  if (v18)
+  v22 = os_log_type_enabled(v20, v21);
+  v55 = v18;
+  if (v22)
   {
-    v19 = v14;
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v53[0] = v21;
-    *v20 = 136446210;
-    *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v19, v53);
-    _os_log_impl(&dword_220940000, v16, v17, "Creating tokenizer for asset %{public}s", v20, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v21);
-    MEMORY[0x223D90A10](v21, -1, -1);
-    MEMORY[0x223D90A10](v20, -1, -1);
+    v23 = v18;
+    v24 = swift_slowAlloc();
+    v25 = swift_slowAlloc();
+    v57[0] = v25;
+    *v24 = 136446210;
+    *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v23, v57);
+    _os_log_impl(&dword_220940000, v20, v21, "Creating tokenizer for asset %{public}s", v24, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v25);
+    MEMORY[0x223D90A10](v25, -1, -1);
+    MEMORY[0x223D90A10](v24, -1, -1);
   }
 
-  __swift_project_boxed_opaque_existential_1((v54 + 192), *(v54 + 216));
-  v22 = off_283451590;
+  __swift_project_boxed_opaque_existential_1((v58 + 192), *(v58 + 216));
+  v26 = off_283451590;
   type metadata accessor for OnDeviceInferenceProviderDataSource();
-  v23 = (v22)(a1);
+  v27 = (v26)(a1);
   if (v3)
   {
 
-    v25 = 0;
-    v26 = 1;
+    v29 = 0;
+    v30 = 1;
   }
 
   else
   {
-    v26 = v23;
-    v25 = v24;
+    v30 = v27;
+    v29 = v28;
   }
 
   URL.appendingPathComponent(_:)();
   URL.path.getter();
-  if (v26 >= 2)
+  if (v30 >= 2)
   {
   }
 
   else
   {
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(&outlined read-only object #0 of OnDeviceInferenceProviderDataSource.createTokenizer(tokenizerPath:metadata:));
-    outlined destroy of [Int](&unk_28344E240, &_sSS_SStMd);
+    outlined destroy of [Int](&unk_28344E240, &_sSS_SStMd, &_sSS_SStMR);
   }
 
   type metadata accessor for TokenizerRunner();
   swift_allocObject();
 
-  v27 = TokenizerRunner.init(tokenizerPath:substitutionTextForInputTokenText:)();
-  (*(v49 + 8))(v12, v50);
+  v31 = TokenizerRunner.init(tokenizerPath:substitutionTextForInputTokenText:)();
+  (*(v53 + 8))(v16, v54);
 
-  v28 = v42;
-  outlined init with copy of OnDeviceInferenceAssetObjectE5Runner(v52, v42, type metadata accessor for Asset);
-  v29 = type metadata accessor for Asset();
-  (*(*(v29 - 8) + 56))(v28, 0, 1, v29);
+  v32 = v46;
+  outlined init with copy of OnDeviceInferenceAssetObjectE5Runner(v56, v46, type metadata accessor for Asset);
+  v33 = type metadata accessor for Asset(0);
+  (*(*(v33 - 8) + 56))(v32, 0, 1, v33);
 
-  v30 = dispatch thunk of TokenizerRunner.vocabularyCount.getter();
+  v34 = dispatch thunk of TokenizerRunner.vocabularyCount.getter();
   type metadata accessor for ImageTokenIDGenerator();
-  v31 = swift_allocObject();
-  *(v31 + 16) = v30;
-  if (v26 == 1)
+  v35 = swift_allocObject();
+  *(v35 + 16) = v34;
+  if (v30 == 1)
   {
-    v32 = 0;
+    v36 = 0;
   }
 
   else
   {
-    v32 = v25;
+    v36 = v29;
   }
 
-  v52 = v32;
-  if (v26 == 1)
+  v56 = v36;
+  if (v30 == 1)
   {
-    v33 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v33 = v26;
+    v37 = v30;
   }
 
-  v34 = v43;
-  v35 = *(v43 + 44);
-  v36 = type metadata accessor for GuidedGenerationVocabularyManager();
-  (*(*(v36 - 8) + 56))(&v9[v35], 1, 1, v36);
-  v37 = v48;
-  v38 = v51;
-  *v9 = v48;
-  *(v9 + 1) = v38;
-  outlined init with take of Asset?(v28, &v9[v34[5]], &_s24TokenGenerationInference5AssetVSgMd);
-  *&v9[v34[6]] = v27;
-  *&v9[v34[7]] = v31;
-  *&v9[v34[8]] = v33;
-  *&v9[v34[9]] = v52;
-  *&v9[v34[10]] = 0;
-  v53[3] = v34;
-  v53[4] = &protocol witness table for OnDeviceInferenceAssetObjectTokenizer;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v53);
-  outlined init with copy of OnDeviceInferenceAssetObjectE5Runner(v9, boxed_opaque_existential_1, type metadata accessor for OnDeviceInferenceAssetObjectTokenizer);
+  v38 = v47;
+  v39 = *(v47 + 44);
+  v40 = type metadata accessor for GuidedGenerationVocabularyManager();
+  (*(*(v40 - 8) + 56))(&v12[v39], 1, 1, v40);
+  v41 = v52;
+  v42 = v55;
+  *v12 = v52;
+  *(v12 + 1) = v42;
+  outlined init with take of Asset?(v32, &v12[v38[5]], &_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
+  *&v12[v38[6]] = v31;
+  *&v12[v38[7]] = v35;
+  *&v12[v38[8]] = v37;
+  *&v12[v38[9]] = v56;
+  *&v12[v38[10]] = 0;
+  v57[3] = v38;
+  v57[4] = &protocol witness table for OnDeviceInferenceAssetObjectTokenizer;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v57);
+  outlined init with copy of OnDeviceInferenceAssetObjectE5Runner(v12, boxed_opaque_existential_1, type metadata accessor for OnDeviceInferenceAssetObjectTokenizer);
   swift_beginAccess();
 
-  specialized Dictionary.subscript.setter(v53, v37, v38);
+  specialized Dictionary.subscript.setter(v57, v41, v42);
   swift_endAccess();
 
-  return outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v9, type metadata accessor for OnDeviceInferenceAssetObjectTokenizer);
+  return outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v12, type metadata accessor for OnDeviceInferenceAssetObjectTokenizer);
 }
 
-void type metadata accessor for Asset?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for Asset?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -343,23 +310,23 @@ uint64_t protocol witness for OnDeviceInferenceProviderDataSourceProtocol.tokeni
 {
   v2 = v1;
   v4 = type metadata accessor for TokenizerAssetMetadata();
-  v15 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA09TokenizerC8MetadataVAA0dC8ContentsVGMd);
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v14 - v9;
+  v17 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4, v5);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA09TokenizerC8MetadataVAA0dC8ContentsVGMd, &_s12ModelCatalog0B5AssetVyAA09TokenizerC8MetadataVAA0dC8ContentsVGMR);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v16 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of AssetBackedResource.fetchAsset()();
   if (!v1)
   {
-    v11 = v15;
+    v13 = v17;
     CatalogAsset.metadata.getter();
-    v12 = (*(v8 + 8))(v10, v7);
-    v2 = MEMORY[0x223D8C4B0](v12);
+    v14 = (*(v9 + 8))(v12, v8);
+    v2 = MEMORY[0x223D8C4B0](v14);
     MEMORY[0x223D8C4C0]();
-    (*(v11 + 8))(v6, v4);
+    (*(v13 + 8))(v7, v4);
   }
 
   return v2;
@@ -370,7 +337,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 56); ; i += 4)
@@ -428,11 +395,11 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v4[77] = v3;
   v4[76] = a2;
   v4[75] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd, &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMR);
   v4[79] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v4[80] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
   v4[81] = swift_task_alloc();
   v4[82] = swift_task_alloc();
   v4[83] = type metadata accessor for OnDeviceInferenceAssetObjectE5Runner(0);
@@ -441,7 +408,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v4[85] = v5;
   v4[86] = *(v5 - 8);
   v4[87] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
   v4[88] = swift_task_alloc();
   v4[89] = swift_task_alloc();
   v4[90] = swift_task_alloc();
@@ -466,12 +433,12 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v4[105] = swift_task_alloc();
   v4[106] = swift_task_alloc();
   v4[107] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v4[108] = swift_task_alloc();
   v4[109] = swift_task_alloc();
   v4[110] = swift_task_alloc();
   v4[111] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v4[112] = swift_task_alloc();
   v4[113] = swift_task_alloc();
   v4[114] = swift_task_alloc();
@@ -484,40 +451,40 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   return MEMORY[0x2822009F8](_s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMModel33_65818D6FA4B5F545C6B162D7CBE031AELL8llmModel5assety0T7Catalog0f6BackedI0_p_AA0F0VtYa0T15ManagerServices0C5ErrorOYKFTY0_, v3, 0);
 }
 
-void type metadata completion function for OnDeviceInferenceAssetObjectE5Runner()
+void type metadata completion function for OnDeviceInferenceAssetObjectE5Runner(uint64_t a1)
 {
   type metadata accessor for Asset?(319, &lazy cache variable for type metadata for Asset?, type metadata accessor for Asset);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for BaseModel(319, &lazy cache variable for type metadata for LanguageModelRunner);
-    if (v1 <= 0x3F)
+    type metadata accessor for BaseModel(319, &lazy cache variable for type metadata for LanguageModelRunner, &protocol descriptor for LanguageModelRunner, 0);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for E5TransformerLanguageModel();
-      if (v2 <= 0x3F)
+      type metadata accessor for E5TransformerLanguageModel(319);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for [String](319, &lazy cache variable for type metadata for DraftingBehavior?, &type metadata for DraftingBehavior, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : MetadataSpecialToken]?, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMd);
-          if (v4 <= 0x3F)
+          type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : MetadataSpecialToken]?, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMd, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMR);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : [String : MetadataSpecialToken]]?, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMd);
-            if (v5 <= 0x3F)
+            type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : [String : MetadataSpecialToken]]?, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMd, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMR);
+            if (v6 <= 0x3F)
             {
               type metadata accessor for Asset?(319, &lazy cache variable for type metadata for UUID?, MEMORY[0x277CC95F0]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 type metadata accessor for Asset?(319, &lazy cache variable for type metadata for PromptTemplateConfiguration?, type metadata accessor for PromptTemplateConfiguration);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   type metadata accessor for [String](319, &lazy cache variable for type metadata for ClassifierMetadata?, &type metadata for ClassifierMetadata, MEMORY[0x277D83D88]);
-                  if (v8 <= 0x3F)
+                  if (v9 <= 0x3F)
                   {
                     type metadata accessor for [String](319, &lazy cache variable for type metadata for StopToken?, &type metadata for StopToken, MEMORY[0x277D83D88]);
-                    if (v9 <= 0x3F)
+                    if (v10 <= 0x3F)
                     {
                       type metadata accessor for Asset?(319, &lazy cache variable for type metadata for PromptPreprocessingTemplateVersion?, MEMORY[0x277D71ED8]);
-                      if (v10 <= 0x3F)
+                      if (v11 <= 0x3F)
                       {
                         swift_cvw_initStructMetadataWithLayoutString();
                       }
@@ -533,10 +500,10 @@ void type metadata completion function for OnDeviceInferenceAssetObjectE5Runner(
   }
 }
 
-uint64_t type metadata completion function for E5TransformerLanguageModel()
+uint64_t type metadata completion function for E5TransformerLanguageModel(uint64_t a1)
 {
   result = type metadata accessor for ContinuousClock();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -560,7 +527,7 @@ uint64_t sub_220952FB4()
 {
   if (MEMORY[0x277D85020])
   {
-    return __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization6AtomicVySiGMd);
+    return __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization6AtomicVySiGMd, &_s15Synchronization6AtomicVySiGMR);
   }
 
   else
@@ -569,19 +536,20 @@ uint64_t sub_220952FB4()
   }
 }
 
-uint64_t outlined init with take of Asset?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of Asset?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference08OnDeviceE11AssetObject_pGMd);
-  v33 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference08OnDeviceE11AssetObject_pGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference08OnDeviceE11AssetObject_pGMR);
+  v33 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -718,266 +686,10 @@ LABEL_34:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2iGMd);
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
-  if (*(v5 + 16))
-  {
-    v30 = a2;
-    v31 = v3;
-    v8 = 0;
-    v9 = (v5 + 64);
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
-    {
-      v11 = ~(-1 << v10);
-    }
-
-    else
-    {
-      v11 = -1;
-    }
-
-    v12 = v11 & *(v5 + 64);
-    v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
-    while (v12)
-    {
-      v16 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
-LABEL_15:
-      v19 = v16 | (v8 << 6);
-      v20 = *(*(v5 + 48) + 8 * v19);
-      v21 = *(*(v5 + 56) + 8 * v19);
-      result = MEMORY[0x223D8F400](*(v7 + 40), v20);
-      v22 = -1 << *(v7 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v14 + 8 * (v23 >> 6))) == 0)
-      {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
-        {
-          v27 = v24 == v26;
-          if (v24 == v26)
-          {
-            v24 = 0;
-          }
-
-          v25 |= v27;
-          v28 = *(v14 + 8 * v24);
-          if (v28 != -1)
-          {
-            v15 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_33:
-        __break(1u);
-        return result;
-      }
-
-      v15 = __clz(__rbit64((-1 << v23) & ~*(v14 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      *(*(v7 + 48) + 8 * v15) = v20;
-      *(*(v7 + 56) + 8 * v15) = v21;
-      ++*(v7 + 16);
-    }
-
-    v17 = v8;
-    while (1)
-    {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_33;
-      }
-
-      if (v8 >= v13)
-      {
-        break;
-      }
-
-      v18 = v9[v8];
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v12 = (v18 - 1) & v18;
-        goto LABEL_15;
-      }
-    }
-
-    if (v30)
-    {
-      v29 = 1 << *(v5 + 32);
-      if (v29 >= 64)
-      {
-        bzero((v5 + 64), ((v29 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-      }
-
-      else
-      {
-        *v9 = -1 << v29;
-      }
-
-      *(v5 + 16) = 0;
-    }
-
-    v3 = v31;
-  }
-
-  else
-  {
-  }
-
-  *v3 = v7;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference15LogitCollection_pGMd);
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
-  if (*(v5 + 16))
-  {
-    v30 = v3;
-    v8 = 0;
-    v9 = (v5 + 64);
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
-    {
-      v11 = ~(-1 << v10);
-    }
-
-    else
-    {
-      v11 = -1;
-    }
-
-    v12 = v11 & *(v5 + 64);
-    v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
-    while (v12)
-    {
-      v16 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
-LABEL_15:
-      v19 = v16 | (v8 << 6);
-      v20 = *(*(v5 + 48) + 8 * v19);
-      v21 = (*(v5 + 56) + 40 * v19);
-      if (a2)
-      {
-        outlined init with take of RandomNumberGenerator(v21, v31);
-      }
-
-      else
-      {
-        outlined init with copy of DeterministicLanguageModelProtocol(v21, v31);
-      }
-
-      result = MEMORY[0x223D8F400](*(v7 + 40), v20);
-      v22 = -1 << *(v7 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v14 + 8 * (v23 >> 6))) == 0)
-      {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
-        {
-          v27 = v24 == v26;
-          if (v24 == v26)
-          {
-            v24 = 0;
-          }
-
-          v25 |= v27;
-          v28 = *(v14 + 8 * v24);
-          if (v28 != -1)
-          {
-            v15 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v15 = __clz(__rbit64((-1 << v23) & ~*(v14 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      *(*(v7 + 48) + 8 * v15) = v20;
-      result = outlined init with take of RandomNumberGenerator(v31, *(v7 + 56) + 40 * v15);
-      ++*(v7 + 16);
-    }
-
-    v17 = v8;
-    while (1)
-    {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v8 >= v13)
-      {
-        break;
-      }
-
-      v18 = v9[v8];
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v12 = (v18 - 1) & v18;
-        goto LABEL_15;
-      }
-    }
-
-    if (a2)
-    {
-      v29 = 1 << *(v5 + 32);
-      if (v29 >= 64)
-      {
-        bzero((v5 + 64), ((v29 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-      }
-
-      else
-      {
-        *v9 = -1 << v29;
-      }
-
-      *(v5 + 16) = 0;
-    }
-
-    v3 = v30;
-  }
-
-  else
-  {
-  }
-
-  *v3 = v7;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSbGMd);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSbGMd, &_ss18_DictionaryStorageCySSSbGMR);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1110,9 +822,10 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMd);
-  v36 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMd, &_ss18_DictionaryStorageCySSSi10logitCount_Sbs13OpaquePointerV_SPySiGSgSiSpySfGSitXC8callbackAE9cbContexttGMR);
+  v36 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1249,136 +962,162 @@ LABEL_33:
 
 {
   v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi24TokenGenerationInference25PrefixGuidedLanguageModelV4NodeCGMd);
+  v4 = a2;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
+  v5 = *(v46 - 8);
+  MEMORY[0x28223BE20](v46, v6);
+  v45 = &v38 - v7;
+  v8 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSScCyyts5NeverOGGMd, &_ss18_DictionaryStorageCySSScCyyts5NeverOGGMR);
+  v43 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
-  if (*(v5 + 16))
+  v10 = result;
+  if (*(v8 + 16))
   {
-    v30 = v3;
-    v8 = 0;
-    v9 = (v5 + 64);
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
+    v11 = 0;
+    v12 = (v8 + 64);
+    v13 = 1 << *(v8 + 32);
+    if (v13 < 64)
     {
-      v11 = ~(-1 << v10);
+      v14 = ~(-1 << v13);
     }
 
     else
     {
-      v11 = -1;
+      v14 = -1;
     }
 
-    v12 = v11 & *(v5 + 64);
-    v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
-    while (v12)
+    v15 = v14 & *(v8 + 64);
+    v16 = (v13 + 63) >> 6;
+    v39 = v2;
+    v40 = (v5 + 16);
+    v41 = v8;
+    v42 = v5;
+    v44 = (v5 + 32);
+    v17 = result + 64;
+    while (v15)
     {
-      v16 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
+      v20 = __clz(__rbit64(v15));
+      v15 &= v15 - 1;
 LABEL_15:
-      v19 = v16 | (v8 << 6);
-      v20 = *(*(v5 + 48) + 8 * v19);
-      v21 = *(*(v5 + 56) + 8 * v19);
-      if ((a2 & 1) == 0)
+      v23 = v20 | (v11 << 6);
+      v24 = *(v8 + 56);
+      v25 = (*(v8 + 48) + 16 * v23);
+      v27 = *v25;
+      v26 = v25[1];
+      v28 = *(v42 + 72);
+      v29 = v24 + v28 * v23;
+      if (v43)
       {
+        (*v44)(v45, v29, v46);
       }
 
-      result = MEMORY[0x223D8F400](*(v7 + 40), v20);
-      v22 = -1 << *(v7 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v14 + 8 * (v23 >> 6))) == 0)
+      else
       {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
+        (*v40)(v45, v29, v46);
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v30 = -1 << *(v10 + 32);
+      v31 = result & ~v30;
+      v32 = v31 >> 6;
+      if (((-1 << v31) & ~*(v17 + 8 * (v31 >> 6))) == 0)
+      {
+        v33 = 0;
+        v34 = (63 - v30) >> 6;
+        while (++v32 != v34 || (v33 & 1) == 0)
         {
-          v27 = v24 == v26;
-          if (v24 == v26)
+          v35 = v32 == v34;
+          if (v32 == v34)
           {
-            v24 = 0;
+            v32 = 0;
           }
 
-          v25 |= v27;
-          v28 = *(v14 + 8 * v24);
-          if (v28 != -1)
+          v33 |= v35;
+          v36 = *(v17 + 8 * v32);
+          if (v36 != -1)
           {
-            v15 = __clz(__rbit64(~v28)) + (v24 << 6);
+            v18 = __clz(__rbit64(~v36)) + (v32 << 6);
             goto LABEL_7;
           }
         }
 
-LABEL_35:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v15 = __clz(__rbit64((-1 << v23) & ~*(v14 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
+      v18 = __clz(__rbit64((-1 << v31) & ~*(v17 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      *(*(v7 + 48) + 8 * v15) = v20;
-      *(*(v7 + 56) + 8 * v15) = v21;
-      ++*(v7 + 16);
+      *(v17 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
+      v19 = (*(v10 + 48) + 16 * v18);
+      *v19 = v27;
+      v19[1] = v26;
+      result = (*v44)(*(v10 + 56) + v28 * v18, v45, v46);
+      ++*(v10 + 16);
+      v8 = v41;
     }
 
-    v17 = v8;
+    v21 = v11;
     while (1)
     {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v11 = v21 + 1;
+      if (__OFADD__(v21, 1))
       {
         __break(1u);
-        goto LABEL_35;
+        goto LABEL_36;
       }
 
-      if (v8 >= v13)
+      if (v11 >= v16)
       {
         break;
       }
 
-      v18 = v9[v8];
-      ++v17;
-      if (v18)
+      v22 = v12[v11];
+      ++v21;
+      if (v22)
       {
-        v16 = __clz(__rbit64(v18));
-        v12 = (v18 - 1) & v18;
+        v20 = __clz(__rbit64(v22));
+        v15 = (v22 - 1) & v22;
         goto LABEL_15;
       }
     }
 
-    if ((a2 & 1) == 0)
+    if ((v43 & 1) == 0)
     {
 
-      v3 = v30;
-      goto LABEL_33;
+      v3 = v39;
+      goto LABEL_34;
     }
 
-    v29 = 1 << *(v5 + 32);
-    v3 = v30;
-    if (v29 >= 64)
+    v37 = 1 << *(v8 + 32);
+    v3 = v39;
+    if (v37 >= 64)
     {
-      bzero((v5 + 64), ((v29 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v12, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v9 = -1 << v29;
+      *v12 = -1 << v37;
     }
 
-    *(v5 + 16) = 0;
+    *(v8 + 16) = 0;
   }
 
-LABEL_33:
-  *v3 = v7;
+LABEL_34:
+  *v3 = v10;
   return result;
 }
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMd);
-  v30 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMd, &_ss18_DictionaryStorageCy24TokenGenerationInference13AsyncLRUCacheC6KeyRef33_8DC87293709CC156815E18BD803FE0EELLCyAC19ImageEmbeddingCacheC0H033_CFAE1BBD2BB7BB3F3F8CA2528C3DB6E7LLVSay10Foundation4DataVG_GAC10LinkedListAGLLV4NodeCyAE0R4DataAGLLVyAmQ_G_GGMR);
+  v30 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1505,9 +1244,159 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
+  v5 = type metadata accessor for AppAssetGarbageCollector.Manifest.Entry(0);
+  v40 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v42 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference24AppAssetGarbageCollectorV8ManifestV5EntryVGMR);
+  v41 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v10 = result;
+  if (*(v8 + 16))
+  {
+    v38 = v2;
+    v39 = v8;
+    v11 = 0;
+    v12 = (v8 + 64);
+    v13 = 1 << *(v8 + 32);
+    if (v13 < 64)
+    {
+      v14 = ~(-1 << v13);
+    }
+
+    else
+    {
+      v14 = -1;
+    }
+
+    v15 = v14 & *(v8 + 64);
+    v16 = (v13 + 63) >> 6;
+    v17 = result + 64;
+    while (v15)
+    {
+      v20 = __clz(__rbit64(v15));
+      v15 &= v15 - 1;
+LABEL_15:
+      v23 = v20 | (v11 << 6);
+      v24 = *(v8 + 56);
+      v25 = (*(v8 + 48) + 16 * v23);
+      v26 = *v25;
+      v27 = v25[1];
+      v28 = *(v40 + 72);
+      v29 = v24 + v28 * v23;
+      if (v41)
+      {
+        outlined init with take of AppAssetGarbageCollector.Manifest.Entry(v29, v42, type metadata accessor for AppAssetGarbageCollector.Manifest.Entry);
+      }
+
+      else
+      {
+        outlined init with copy of AppAssetGarbageCollector.Manifest.Entry(v29, v42, type metadata accessor for AppAssetGarbageCollector.Manifest.Entry);
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v30 = -1 << *(v10 + 32);
+      v31 = result & ~v30;
+      v32 = v31 >> 6;
+      if (((-1 << v31) & ~*(v17 + 8 * (v31 >> 6))) == 0)
+      {
+        v33 = 0;
+        v34 = (63 - v30) >> 6;
+        while (++v32 != v34 || (v33 & 1) == 0)
+        {
+          v35 = v32 == v34;
+          if (v32 == v34)
+          {
+            v32 = 0;
+          }
+
+          v33 |= v35;
+          v36 = *(v17 + 8 * v32);
+          if (v36 != -1)
+          {
+            v18 = __clz(__rbit64(~v36)) + (v32 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_36:
+        __break(1u);
+        return result;
+      }
+
+      v18 = __clz(__rbit64((-1 << v31) & ~*(v17 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v17 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
+      v19 = (*(v10 + 48) + 16 * v18);
+      *v19 = v26;
+      v19[1] = v27;
+      result = outlined init with take of AppAssetGarbageCollector.Manifest.Entry(v42, *(v10 + 56) + v28 * v18, type metadata accessor for AppAssetGarbageCollector.Manifest.Entry);
+      ++*(v10 + 16);
+      v8 = v39;
+    }
+
+    v21 = v11;
+    while (1)
+    {
+      v11 = v21 + 1;
+      if (__OFADD__(v21, 1))
+      {
+        __break(1u);
+        goto LABEL_36;
+      }
+
+      if (v11 >= v16)
+      {
+        break;
+      }
+
+      v22 = v12[v11];
+      ++v21;
+      if (v22)
+      {
+        v20 = __clz(__rbit64(v22));
+        v15 = (v22 - 1) & v22;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v41 & 1) == 0)
+    {
+
+      v3 = v38;
+      goto LABEL_34;
+    }
+
+    v37 = 1 << *(v8 + 32);
+    v3 = v38;
+    if (v37 >= 64)
+    {
+      bzero(v12, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v12 = -1 << v37;
+    }
+
+    *(v8 + 16) = 0;
+  }
+
+LABEL_34:
+  *v3 = v10;
+  return result;
+}
+
+{
+  v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1640,9 +1529,10 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMd);
-  v38 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference015MetadataSpecialC0OGMR);
+  v38 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1785,9 +1675,10 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMd);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMd, &_ss18_DictionaryStorageCySSSDySS24TokenGenerationInference015MetadataSpecialC0OGGMR);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -1920,148 +1811,10 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
-  v33 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
-  if (*(v5 + 16))
-  {
-    v8 = 0;
-    v9 = (v5 + 64);
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
-    {
-      v11 = ~(-1 << v10);
-    }
-
-    else
-    {
-      v11 = -1;
-    }
-
-    v12 = v11 & *(v5 + 64);
-    v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
-    while (v12)
-    {
-      v17 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
-LABEL_15:
-      v20 = v17 | (v8 << 6);
-      v21 = (*(v5 + 48) + 16 * v20);
-      v22 = *v21;
-      v23 = v21[1];
-      v24 = (*(v5 + 56) + 32 * v20);
-      if (v33)
-      {
-        outlined init with take of Any(v24, v34);
-      }
-
-      else
-      {
-        outlined init with copy of Any(v24, v34);
-      }
-
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v25 = -1 << *(v7 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
-      {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
-        {
-          v30 = v27 == v29;
-          if (v27 == v29)
-          {
-            v27 = 0;
-          }
-
-          v28 |= v30;
-          v31 = *(v14 + 8 * v27);
-          if (v31 != -1)
-          {
-            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_36:
-        __break(1u);
-        return result;
-      }
-
-      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      v16 = (*(v7 + 48) + 16 * v15);
-      *v16 = v22;
-      v16[1] = v23;
-      result = outlined init with take of Any(v34, (*(v7 + 56) + 32 * v15));
-      ++*(v7 + 16);
-    }
-
-    v18 = v8;
-    while (1)
-    {
-      v8 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        __break(1u);
-        goto LABEL_36;
-      }
-
-      if (v8 >= v13)
-      {
-        break;
-      }
-
-      v19 = v9[v8];
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v12 = (v19 - 1) & v19;
-        goto LABEL_15;
-      }
-    }
-
-    if ((v33 & 1) == 0)
-    {
-
-      v3 = v2;
-      goto LABEL_34;
-    }
-
-    v32 = 1 << *(v5 + 32);
-    v3 = v2;
-    if (v32 >= 64)
-    {
-      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v9 = -1 << v32;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_34:
-  *v3 = v7;
-  return result;
-}
-
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference17ODIELanguageModelV23KeyValueCacheDescriptorVGMd);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS24TokenGenerationInference17ODIELanguageModelV23KeyValueCacheDescriptorVGMd, &_ss18_DictionaryStorageCySS24TokenGenerationInference17ODIELanguageModelV23KeyValueCacheDescriptorVGMR);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -2196,9 +1949,162 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
+  v46 = type metadata accessor for NDArray.Buffer();
+  v5 = *(v46 - 8);
+  MEMORY[0x28223BE20](v46, v6);
+  v45 = &v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS4ODIE7NDArrayC6BufferVGMd, &_ss18_DictionaryStorageCySS4ODIE7NDArrayC6BufferVGMR);
+  v43 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v10 = result;
+  if (*(v8 + 16))
+  {
+    v11 = 0;
+    v12 = (v8 + 64);
+    v13 = 1 << *(v8 + 32);
+    if (v13 < 64)
+    {
+      v14 = ~(-1 << v13);
+    }
+
+    else
+    {
+      v14 = -1;
+    }
+
+    v15 = v14 & *(v8 + 64);
+    v16 = (v13 + 63) >> 6;
+    v39 = v2;
+    v40 = (v5 + 16);
+    v41 = v8;
+    v42 = v5;
+    v44 = (v5 + 32);
+    v17 = result + 64;
+    while (v15)
+    {
+      v20 = __clz(__rbit64(v15));
+      v15 &= v15 - 1;
+LABEL_15:
+      v23 = v20 | (v11 << 6);
+      v24 = *(v8 + 56);
+      v25 = (*(v8 + 48) + 16 * v23);
+      v27 = *v25;
+      v26 = v25[1];
+      v28 = *(v42 + 72);
+      v29 = v24 + v28 * v23;
+      if (v43)
+      {
+        (*v44)(v45, v29, v46);
+      }
+
+      else
+      {
+        (*v40)(v45, v29, v46);
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v30 = -1 << *(v10 + 32);
+      v31 = result & ~v30;
+      v32 = v31 >> 6;
+      if (((-1 << v31) & ~*(v17 + 8 * (v31 >> 6))) == 0)
+      {
+        v33 = 0;
+        v34 = (63 - v30) >> 6;
+        while (++v32 != v34 || (v33 & 1) == 0)
+        {
+          v35 = v32 == v34;
+          if (v32 == v34)
+          {
+            v32 = 0;
+          }
+
+          v33 |= v35;
+          v36 = *(v17 + 8 * v32);
+          if (v36 != -1)
+          {
+            v18 = __clz(__rbit64(~v36)) + (v32 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_36:
+        __break(1u);
+        return result;
+      }
+
+      v18 = __clz(__rbit64((-1 << v31) & ~*(v17 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v17 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
+      v19 = (*(v10 + 48) + 16 * v18);
+      *v19 = v27;
+      v19[1] = v26;
+      result = (*v44)(*(v10 + 56) + v28 * v18, v45, v46);
+      ++*(v10 + 16);
+      v8 = v41;
+    }
+
+    v21 = v11;
+    while (1)
+    {
+      v11 = v21 + 1;
+      if (__OFADD__(v21, 1))
+      {
+        __break(1u);
+        goto LABEL_36;
+      }
+
+      if (v11 >= v16)
+      {
+        break;
+      }
+
+      v22 = v12[v11];
+      ++v21;
+      if (v22)
+      {
+        v20 = __clz(__rbit64(v22));
+        v15 = (v22 - 1) & v22;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v43 & 1) == 0)
+    {
+
+      v3 = v39;
+      goto LABEL_34;
+    }
+
+    v37 = 1 << *(v8 + 32);
+    v3 = v39;
+    if (v37 >= 64)
+    {
+      bzero(v12, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v12 = -1 << v37;
+    }
+
+    *(v8 + 16) = 0;
+  }
+
+LABEL_34:
+  *v3 = v10;
+  return result;
+}
+
+{
+  v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
-  v37 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
+  v37 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -2336,9 +2242,10 @@ LABEL_33:
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMd);
-  v34 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMd, &_ss18_DictionaryStorageCySS4ODIE7NDArrayCGMR);
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
   v7 = result;
   if (*(v5 + 16))
@@ -2469,130 +2376,6 @@ LABEL_33:
   return result;
 }
 
-{
-  v3 = v2;
-  v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySis5Int32VGMd);
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
-  if (*(v5 + 16))
-  {
-    v30 = a2;
-    v31 = v3;
-    v8 = 0;
-    v9 = (v5 + 64);
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
-    {
-      v11 = ~(-1 << v10);
-    }
-
-    else
-    {
-      v11 = -1;
-    }
-
-    v12 = v11 & *(v5 + 64);
-    v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
-    while (v12)
-    {
-      v16 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
-LABEL_15:
-      v19 = v16 | (v8 << 6);
-      v20 = *(*(v5 + 48) + 8 * v19);
-      v21 = *(*(v5 + 56) + 4 * v19);
-      result = MEMORY[0x223D8F400](*(v7 + 40), v20);
-      v22 = -1 << *(v7 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v14 + 8 * (v23 >> 6))) == 0)
-      {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
-        {
-          v27 = v24 == v26;
-          if (v24 == v26)
-          {
-            v24 = 0;
-          }
-
-          v25 |= v27;
-          v28 = *(v14 + 8 * v24);
-          if (v28 != -1)
-          {
-            v15 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_7;
-          }
-        }
-
-LABEL_33:
-        __break(1u);
-        return result;
-      }
-
-      v15 = __clz(__rbit64((-1 << v23) & ~*(v14 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      *(*(v7 + 48) + 8 * v15) = v20;
-      *(*(v7 + 56) + 4 * v15) = v21;
-      ++*(v7 + 16);
-    }
-
-    v17 = v8;
-    while (1)
-    {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_33;
-      }
-
-      if (v8 >= v13)
-      {
-        break;
-      }
-
-      v18 = v9[v8];
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v12 = (v18 - 1) & v18;
-        goto LABEL_15;
-      }
-    }
-
-    if (v30)
-    {
-      v29 = 1 << *(v5 + 32);
-      if (v29 >= 64)
-      {
-        bzero((v5 + 64), ((v29 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-      }
-
-      else
-      {
-        *v9 = -1 << v29;
-      }
-
-      *(v5 + 16) = 0;
-    }
-
-    v3 = v31;
-  }
-
-  else
-  {
-  }
-
-  *v3 = v7;
-  return result;
-}
-
 uint64_t _s24TokenGenerationInference011TG_OnDeviceC8ProviderC11unloadAsset33_F67B098F505663682541EE68977BD2AALL09inferenceI10IdentifierySS_tYa20ModelManagerServices0C5ErrorOYKF(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4[19] = v3;
@@ -2648,8 +2431,8 @@ uint64_t _s24TokenGenerationInference011TG_OnDeviceC8ProviderC11unloadAsset33_F6
     v9 = v0[19];
     v10 = v8;
     __swift_project_boxed_opaque_existential_1((v9 + 16), *(v9 + 40));
-    v11 = off_2834512C0;
-    v0[31] = type metadata accessor for OnDeviceInferenceOverrides();
+    v11 = off_2834512C0[0];
+    v0[31] = type metadata accessor for OnDeviceInferenceOverrides(0);
     v12 = v11();
     if (v13)
     {
@@ -2706,7 +2489,7 @@ uint64_t _s24TokenGenerationInference011TG_OnDeviceC8ProviderC11unloadAsset33_F6
       outlined init with copy of DeterministicLanguageModelProtocol(v23 + 136, (v0 + 2));
       __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
       __swift_project_boxed_opaque_existential_1((v23 + 16), *(v23 + 40));
-      v24 = off_283451290();
+      v24 = (off_283451290)();
       v0[35] = v25;
       if (v25)
       {
@@ -2890,7 +2673,7 @@ LABEL_47:
         v28 = *(v0 + 392);
         outlined init with copy of DeterministicLanguageModelProtocol(*(v22 + 56) + 40 * v25, v0 + 72);
 
-        outlined destroy of [Int](v0 + 72, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd);
+        outlined destroy of [Int](v0 + 72, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMR);
         v92 = 0;
         v90 = 0u;
         v91 = 0u;
@@ -2912,7 +2695,7 @@ LABEL_47:
     *(v0 + 72) = 0u;
     *(v0 + 88) = 0u;
     *(v0 + 104) = 0;
-    outlined destroy of [Int](v0 + 72, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd);
+    outlined destroy of [Int](v0 + 72, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMR);
     swift_beginAccess();
     v30 = *(v29 + 152);
     if (*(v30 + 16))
@@ -2927,7 +2710,7 @@ LABEL_47:
         v35 = *(v0 + 400);
         outlined init with copy of DeterministicLanguageModelProtocol(*(v30 + 56) + 40 * v33, v0 + 112);
 
-        outlined destroy of [Int](v0 + 112, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd);
+        outlined destroy of [Int](v0 + 112, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMR);
         v92 = 0;
         v90 = 0u;
         v91 = 0u;
@@ -2965,7 +2748,7 @@ LABEL_22:
           if (v50 == v46 && v49 == v45)
           {
 
-            outlined destroy of [Int](v0 + 16, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMd);
+            outlined destroy of [Int](v0 + 16, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMd, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMR);
 LABEL_41:
 
             v78 = Logger.logObject.getter();
@@ -2989,7 +2772,7 @@ LABEL_41:
             v85 = *(v0 + 400);
             v84 = *(v0 + 408);
             v86 = *(v0 + 392);
-            lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type OnDeviceInferenceAssetRepository and conformance OnDeviceInferenceAssetRepository, v87, type metadata accessor for OnDeviceInferenceAssetRepository);
+            lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type OnDeviceInferenceAssetRepository and conformance OnDeviceInferenceAssetRepository, v87, type metadata accessor for OnDeviceInferenceAssetRepository, &protocol conformance descriptor for OnDeviceInferenceAssetRepository);
             v88 = swift_task_alloc();
             *(v0 + 456) = v88;
             v88[2] = v84;
@@ -3006,7 +2789,7 @@ LABEL_41:
           v41 &= v41 - 1;
           v52 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          outlined destroy of [Int](v0 + 16, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMd);
+          outlined destroy of [Int](v0 + 16, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMd, &_sSS3key_24TokenGenerationInference08OnDeviceD11AssetObject_p5valuetMR);
           if (v52)
           {
             goto LABEL_41;
@@ -3066,7 +2849,7 @@ LABEL_41:
     *(v0 + 112) = 0u;
     *(v0 + 128) = 0u;
     *(v0 + 144) = 0;
-    outlined destroy of [Int](v0 + 112, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd);
+    outlined destroy of [Int](v0 + 112, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMd, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pSgMR);
 
     v57 = Logger.logObject.getter();
     v58 = static os_log_type_t.error.getter();
@@ -3101,7 +2884,7 @@ LABEL_41:
     v69 = *MEMORY[0x277D29DD8];
     v70 = type metadata accessor for InferenceError();
     (*(*(v70 - 8) + 104))(v66, v69, v70);
-    lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0]);
+    lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0], MEMORY[0x277D29DE8]);
     swift_willThrowTypedImpl();
     (*(v63 + 8))(v64, v65);
     swift_beginAccess();
@@ -3207,7 +2990,7 @@ uint64_t sub_220954918(uint64_t a1, uint64_t a2, int *a3)
     return (v4 + 1);
   }
 
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
   if (*(*(v8 - 8) + 84) == a2)
   {
     v9 = v8;
@@ -3219,7 +3002,7 @@ LABEL_11:
     return v14(a1 + v11, a2, v9);
   }
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   if (*(*(v12 - 8) + 84) == a2)
   {
     v9 = v12;
@@ -3228,7 +3011,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
   if (*(*(v13 - 8) + 84) == a2)
   {
     v9 = v13;
@@ -3237,7 +3020,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd, &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMR);
   v16 = *(*(v15 - 8) + 48);
   v17 = a1 + a3[18];
 
@@ -3288,20 +3071,20 @@ uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::moveToDynamicS
   return result;
 }
 
-void std::vector<unsigned long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long>::__append(a1, a2 - v2);
+    std::vector<unsigned long>::__append(result, a2 - v2);
   }
 }
 
@@ -3312,7 +3095,7 @@ uint64_t E5TransformerLanguageModel.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t E5TransformerLanguageModel.deinit()
+char *E5TransformerLanguageModel.deinit()
 {
 
   swift_unknownObjectRelease();
@@ -3491,13 +3274,13 @@ uint64_t cgm::token_generation_inference::ajax::utils::unbindAllMemoryFromOperat
   return std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(v10);
 }
 
-void sub_2209551B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2209551B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 - 24);
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 - 24);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::IOPort>>>>::~__hash_table(va);
@@ -3520,7 +3303,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSi_SiTt0g5Tf4g_n(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2iGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2iGMd, &_ss18_DictionaryStorageCyS2iGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     for (i = (a1 + 40); ; i += 2)
     {
@@ -3592,7 +3375,7 @@ uint64_t _s24TokenGenerationInference011TG_OnDeviceC8ProviderC15transitionAsset_
   return MEMORY[0x2822009F8](v7, 0, 0);
 }
 
-uint64_t type metadata accessor for E5TransformerLanguageModel()
+uint64_t type metadata accessor for E5TransformerLanguageModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for E5TransformerLanguageModel;
   if (!type metadata singleton initialization cache for E5TransformerLanguageModel)
@@ -3619,7 +3402,7 @@ uint64_t specialized E5TransformerLanguageModel.__allocating_init(e5Runner:name:
 uint64_t specialized E5TransformerLanguageModel.init(e5Runner:kvCache:name:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   *(a5 + 32) = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference26E5TransformerLanguageModelC9NodeStateVGMR);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_220AE8A30;
   v14 = MEMORY[0x277D84F90];
@@ -3665,52 +3448,52 @@ uint64_t thunk for @escaping @callee_guaranteed (@guaranteed E5RunnerLogitsProto
 void closure #3 in closure #1 in E5RunnerObjC.run(tokens:computeLogitsTokenCount:tokenMasks:presampler:)(void *a1, void *a2, void **a3, uint64_t *a4, void *a5, char **a6, uint64_t a7, uint64_t a8)
 {
   v16 = type metadata accessor for ContinuousClock();
-  MEMORY[0x28223BE20](v16);
-  v19 = v39 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16, v17);
+  v20 = v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1)
   {
-    v20 = *a4 + 1;
+    v21 = *a4 + 1;
     if (__OFADD__(*a4, 1))
     {
       __break(1u);
       goto LABEL_23;
     }
 
-    v39[0] = v17;
-    *a4 = v20;
+    v41[0] = v18;
+    *a4 = v21;
     swift_unknownObjectRetain();
-    v21 = [a5 getNumTokensProcessed];
-    v22 = v21 - a6;
-    if (v21 > a6)
+    v22 = [a5 getNumTokensProcessed];
+    v23 = v22 - a6;
+    if (v22 > a6)
     {
-      if (!__OFSUB__(v21, a6))
+      if (!__OFSUB__(v22, a6))
       {
         a6 = &selRef__encodedImageByteCount;
-        v23 = [a1 numTokens];
-        if (v23 >= v22)
+        v24 = [a1 numTokens];
+        if (v24 >= v23)
         {
-          v24 = v22;
+          v25 = v23;
         }
 
         else
         {
-          v24 = v23;
+          v25 = v24;
         }
 
-        v25 = [a1 numTokens];
-        v26 = (v25 - v24);
-        if (!__OFSUB__(v25, v24))
+        v26 = [a1 numTokens];
+        v27 = (v26 - v25);
+        if (!__OFSUB__(v26, v25))
         {
-          v27 = ContinuousClock.init()();
-          MEMORY[0x28223BE20](v27);
-          v39[-6] = a7;
-          v39[-5] = a1;
-          v39[-4] = v26;
-          v39[-3] = v24;
-          v39[-2] = a8;
+          v28 = ContinuousClock.init()();
+          MEMORY[0x28223BE20](v28, v29);
+          v41[-6] = a7;
+          v41[-5] = a1;
+          v41[-4] = v27;
+          v41[-3] = v25;
+          v41[-2] = a8;
           lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock();
           Clock.measure(_:)();
-          (*(v39[0] + 8))(v19, v16);
+          (*(v41[0] + 8))(v20, v16);
           if (one-time initialization token for device == -1)
           {
             goto LABEL_10;
@@ -3724,23 +3507,23 @@ LABEL_24:
 LABEL_25:
         swift_once();
 LABEL_10:
-        v28 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v28, static Log.device);
+        v30 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v30, static Log.device);
         swift_unknownObjectRetain();
-        v29 = Logger.logObject.getter();
-        v30 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v29, v30))
+        v31 = Logger.logObject.getter();
+        v32 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v31, v32))
         {
-          v31 = swift_slowAlloc();
-          *v31 = 134218240;
-          v32 = Duration.components.getter();
+          v33 = swift_slowAlloc();
+          *v33 = 134218240;
+          v34 = Duration.components.getter();
           Duration.components.getter();
-          *(v31 + 4) = (v33 * 1.0e-18 + v32) * 1000000.0;
-          *(v31 + 12) = 2048;
-          *(v31 + 14) = [a1 a6[42]];
+          *(v33 + 4) = (v35 * 1.0e-18 + v34) * 1000000.0;
+          *(v33 + 12) = 2048;
+          *(v33 + 14) = [a1 a6[42]];
           swift_unknownObjectRelease();
-          _os_log_impl(&dword_220940000, v29, v30, "Took %f µsec to presample %ld token(s)", v31, 0x16u);
-          MEMORY[0x223D90A10](v31, -1, -1);
+          _os_log_impl(&dword_220940000, v31, v32, "Took %f µsec to presample %ld token(s)", v33, 0x16u);
+          MEMORY[0x223D90A10](v33, -1, -1);
           swift_unknownObjectRelease();
         }
 
@@ -3765,18 +3548,18 @@ LABEL_23:
   {
     if (a2)
     {
-      v34 = *a3;
+      v36 = *a3;
       *a3 = a2;
-      v35 = a2;
-      v36 = v34;
+      v37 = a2;
+      v38 = v36;
     }
 
     else
     {
-      v37 = [objc_allocWithZone(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.TokenGenerationInference.E5Runner" code:0 userInfo:0];
-      v38 = *a3;
-      *a3 = v37;
-      v36 = v38;
+      v39 = [objc_allocWithZone(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.TokenGenerationInference.E5Runner" code:0 userInfo:0];
+      v40 = *a3;
+      *a3 = v39;
+      v38 = v40;
     }
   }
 }
@@ -3896,8 +3679,8 @@ void cgm::token_generation_inference::ajax::ane::findBestStreamOpForQuery<cgm::t
             if (v34)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-              v11 = *&v44[24];
               v10 = *&v44[16];
+              v11 = *&v44[24];
             }
 
             if (v11)
@@ -4440,7 +4223,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::vector<std::vector<signed char>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::vector<signed char>>::reserve(const void **result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -4497,17 +4280,17 @@ void std::__split_buffer<std::vector<signed char>>::__destruct_at_end[abi:ne2001
   }
 }
 
-void *std::vector<signed char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<signed char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<signed char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<signed char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_220956B20(_Unwind_Exception *exception_object)
@@ -4522,7 +4305,7 @@ void sub_220956B20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<signed char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<signed char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4532,7 +4315,7 @@ void std::vector<signed char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a
   _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4554,18 +4337,18 @@ void sub_220956BEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<signed char>>::__construct_one_at_end[abi:ne200100]<std::vector<signed char> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<signed char>>::__construct_one_at_end[abi:ne200100]<std::vector<signed char> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(v3, *a2, a2[1], a2[1] - *a2);
+  result = std::vector<signed char>::__init_with_size[abi:ne200100]<signed char *,signed char *>(v3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -4576,7 +4359,7 @@ uint64_t std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t
   else
   {
     std::vector<std::vector<signed char>>::__construct_one_at_end[abi:ne200100]<std::vector<signed char> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -4762,9 +4545,9 @@ void sub_220956F2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<signed char>::reserve(void *result, unint64_t a2)
+void std::vector<signed char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -4773,8 +4556,6 @@ void *std::vector<signed char>::reserve(void *result, unint64_t a2)
 
     _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
   }
-
-  return result;
 }
 
 char *std::vector<signed char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
@@ -4789,13 +4570,13 @@ char *std::vector<signed char>::__insert_with_size[abi:ne200100]<std::__wrap_ite
   v7 = __src;
   v9 = *(a1 + 8);
   v10 = *(a1 + 16);
-  if (v10 - v9 >= a5)
+  if ((v10 - v9) >= a5)
   {
     v15 = v9 - __dst;
-    if (v9 - __dst >= a5)
+    if ((v9 - __dst) >= a5)
     {
       v19 = &__dst[a5];
-      v20 = &v9[-a5];
+      v20 = (v9 - a5);
       v21 = *(a1 + 8);
       if (v9 >= a5)
       {
@@ -4830,7 +4611,7 @@ char *std::vector<signed char>::__insert_with_size[abi:ne200100]<std::__wrap_ite
 
       else
       {
-        v17 = (&v9[a4] - v16);
+        v17 = (&a4[v9] - v16);
         v18 = *(a1 + 8);
         do
         {
@@ -4877,7 +4658,7 @@ char *std::vector<signed char>::__insert_with_size[abi:ne200100]<std::__wrap_ite
   }
 
   v11 = *a1;
-  v12 = &v9[a5 - *a1];
+  v12 = v9 - *a1 + a5;
   if (v12 < 0)
   {
     _ZNSt3__16vectorIDF16_NS_9allocatorIDF16_EEE20__throw_length_errorB8ne200100Ev();
@@ -4933,11 +4714,11 @@ char *std::vector<signed char>::__insert_with_size[abi:ne200100]<std::__wrap_ite
   return v26;
 }
 
-uint64_t std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<signed char>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -4979,8 +4760,8 @@ uint64_t std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -4997,21 +4778,21 @@ uint64_t std::vector<std::vector<signed char>>::push_back[abi:ne200100](uint64_t
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-void *cgm::token_generation_inference::ajax::ane::findGatherOpWithQueryLength@<X0>(void *__val@<X1>, void *result@<X0>, void *a3@<X8>)
+uint64_t *cgm::token_generation_inference::ajax::ane::findGatherOpWithQueryLength@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *__val@<X1>, uint64_t *result@<X0>)
 {
   v5 = *result;
   v6 = result[1];
@@ -5052,16 +4833,16 @@ void *cgm::token_generation_inference::ajax::ane::findGatherOpWithQueryLength@<X
   }
 
   v9 = *(v5 + 8);
-  *a3 = *v5;
-  a3[1] = v9;
+  *a1 = *v5;
+  a1[1] = v9;
   if (v9)
   {
     atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
   }
 
   v10 = *(v5 + 24);
-  a3[2] = *(v5 + 16);
-  a3[3] = v10;
+  a1[2] = *(v5 + 16);
+  a1[3] = v10;
   if (v10)
   {
     atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
@@ -5165,11 +4946,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::checkTokenInVocab(uint64_t this, unsigned int a2)
+uint64_t cgm::token_generation_inference::ajax::ANEAJAXE5MLModel::checkTokenInVocab(uint64_t this, signed int a2)
 {
   v2 = this;
   v17 = *MEMORY[0x277D85DE8];
-  if ((a2 & 0x80000000) != 0 || *(this + 96) <= a2)
+  if (a2 < 0 || *(this + 96) <= a2)
   {
     exception = __cxa_allocate_exception(0x18uLL);
     v10[0] = a2;
@@ -5224,31 +5005,31 @@ LABEL_6:
 
 uint64_t specialized closure #1 in static UnsafeBufferPointer<A>.makeArgmaxBNNSGraphContext()()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMd, &_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMR);
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v15 - v2;
-  v4 = type metadata accessor for BNNSGraph.Builder.Intent();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s7Float16VGMd);
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v15 - v10;
-  (*(v5 + 104))(v7, *MEMORY[0x277D831D8], v4);
+  MEMORY[0x28223BE20](v0, v2);
+  v4 = &v18 - v3;
+  v5 = type metadata accessor for BNNSGraph.Builder.Intent();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s7Float16VGMd, &_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s7Float16VGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v18 - v13;
+  (*(v6 + 104))(v9, *MEMORY[0x277D831D8], v5);
   BNNSGraph.Builder.argument<A>(name:dataType:shape:intent:)();
-  (*(v5 + 8))(v7, v4);
+  (*(v6 + 8))(v9, v5);
   BNNSGraph.Builder.Tensor.argMax(axis:keepDimension:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate9BNNSGraphO16TensorDescriptor_pGMd);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_220AE8A30;
-  *(v12 + 56) = v0;
-  *(v12 + 64) = lazy protocol witness table accessor for type Slice<TokenMask> and conformance Slice<A>(&lazy protocol witness table cache variable for type BNNSGraph.Builder.Tensor<Int32> and conformance BNNSGraph.Builder.Tensor<A>, &_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMd);
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v12 + 32));
-  (*(v1 + 32))(boxed_opaque_existential_1, v3, v0);
-  (*(v9 + 8))(v11, v8);
-  return v12;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate9BNNSGraphO16TensorDescriptor_pGMd, &_ss23_ContiguousArrayStorageCy10Accelerate9BNNSGraphO16TensorDescriptor_pGMR);
+  v15 = swift_allocObject();
+  *(v15 + 16) = xmmword_220AE8A30;
+  *(v15 + 56) = v0;
+  *(v15 + 64) = lazy protocol witness table accessor for type Slice<TokenMask> and conformance Slice<A>(&lazy protocol witness table cache variable for type BNNSGraph.Builder.Tensor<Int32> and conformance BNNSGraph.Builder.Tensor<A>, &_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMd, &_s10Accelerate9BNNSGraphO7BuilderV6TensorVy__s5Int32VGMR, MEMORY[0x277D831E0]);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v15 + 32));
+  (*(v1 + 32))(boxed_opaque_existential_1, v4, v0);
+  (*(v11 + 8))(v14, v10);
+  return v15;
 }
 
 unint64_t lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock()
@@ -5266,7 +5047,7 @@ unint64_t lazy protocol witness table accessor for type ContinuousClock and conf
 
 uint64_t outlined init with copy of LogitPresampler?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitPresampler_pSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5282,10 +5063,10 @@ id closure #1 in closure #3 in closure #1 in E5RunnerObjC.run(tokens:computeLogi
 
   else
   {
-    v17 = type metadata accessor for BasicLogitPresampler();
+    v17 = type metadata accessor for BasicLogitPresampler(0);
     v18 = &protocol witness table for BasicLogitPresampler;
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v16);
-    v7 = type metadata accessor for LogitIndexSet();
+    v7 = type metadata accessor for LogitIndexSet(0);
     (*(*(v7 - 8) + 56))(boxed_opaque_existential_1, 1, 1, v7);
     if (v15)
     {
@@ -5315,86 +5096,86 @@ id closure #1 in closure #3 in closure #1 in E5RunnerObjC.run(tokens:computeLogi
   return result;
 }
 
-uint64_t ArgmaxPresampler.presampleLogits(buffer:numLogits:tokensStride:logitStride:range:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *ArgmaxPresampler.presampleLogits(buffer:numLogits:tokensStride:logitStride:range:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v107 = a3;
-  v112 = a2;
-  v110 = a1;
-  v9 = type metadata accessor for BasicLogitPresampler();
-  MEMORY[0x28223BE20](v9 - 8);
-  *&v109 = v93 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13LogitIndexSetOSgMd);
-  v12 = MEMORY[0x28223BE20](v11 - 8);
-  v14 = v93 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = v93 - v15;
-  v17 = type metadata accessor for LogitIndexSet();
-  v18 = *(v17 - 8);
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = v93 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x28223BE20](v19);
-  v101 = (v93 - v23);
-  v24 = MEMORY[0x28223BE20](v22);
-  v102 = (v93 - v25);
-  v26 = MEMORY[0x28223BE20](v24);
-  v111 = a4;
-  v96 = a6;
-  v104 = v26;
+  v115 = a3;
+  v120 = a2;
+  v118 = a1;
+  v9 = type metadata accessor for BasicLogitPresampler(0);
+  MEMORY[0x28223BE20](v9 - 8, v10);
+  *&v117 = v101 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13LogitIndexSetOSgMd, &_s24TokenGenerationInference13LogitIndexSetOSgMR);
+  v14 = MEMORY[0x28223BE20](v12 - 8, v13);
+  v16 = v101 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14, v17);
+  v19 = v101 - v18;
+  v20 = type metadata accessor for LogitIndexSet(0);
+  v21 = *(v20 - 8);
+  v23 = MEMORY[0x28223BE20](v20, v22);
+  v25 = v101 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x28223BE20](v23, v26);
+  v109 = (v101 - v28);
+  v30 = MEMORY[0x28223BE20](v27, v29);
+  v110 = (v101 - v31);
+  v33 = MEMORY[0x28223BE20](v30, v32);
+  v119 = a4;
+  v104 = a6;
+  v112 = v33;
   if (a4 != 1)
   {
-    outlined init with copy of LogitIndexSet?(v108, v14);
-    if ((*(v18 + 48))(v14, 1, v17) == 1)
+    outlined init with copy of LogitIndexSet?(v116, v16);
+    if ((*(v21 + 48))(v16, 1, v20) == 1)
     {
-      outlined destroy of LogitIndexSet?(v14);
+      outlined destroy of LogitIndexSet?(v16);
     }
 
     else
     {
-      outlined init with take of LogitIndexSet(v14, v21);
-      if (v112 < 0)
+      outlined init with take of LogitIndexSet(v16, v25);
+      if (v120 < 0)
       {
 LABEL_76:
         __break(1u);
         goto LABEL_77;
       }
 
-      v71 = v102;
-      v72 = v112;
-      *v102 = 0;
-      v71[1] = v72;
-      v73 = v104;
+      v78 = v110;
+      v79 = v120;
+      *v110 = 0;
+      v78[1] = v79;
+      v80 = v112;
       swift_storeEnumTagMultiPayload();
-      v74 = specialized static LogitIndexSet.== infix(_:_:)(v21, v71);
-      outlined destroy of LogitIndexSet(v71, type metadata accessor for LogitIndexSet);
-      if ((v74 & 1) == 0)
+      v81 = specialized static LogitIndexSet.== infix(_:_:)(v25, v78);
+      outlined destroy of LogitIndexSet(v78, type metadata accessor for LogitIndexSet);
+      if ((v81 & 1) == 0)
       {
-        v88 = v109;
-        outlined init with copy of LogitIndexSet(v21, v109);
-        v89 = (*(v18 + 56))(v88, 0, 1, v73);
-        MEMORY[0x28223BE20](v89);
-        v90 = v112;
-        v93[-6] = v88;
-        v93[-5] = v90;
-        v91 = v107;
-        v93[-4] = v110;
-        v93[-3] = v91;
-        v93[-2] = v111;
-        v29 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSnySiG_24TokenGenerationInference15LogitCollection_ps5NeverOTg5(partial apply for closure #1 in BasicLogitPresampler.presampleLogits(buffer:numLogits:tokensStride:logitStride:range:), &v93[-8], a5, v96);
-        outlined destroy of LogitIndexSet(v21, type metadata accessor for LogitIndexSet);
-        outlined destroy of LogitIndexSet(v88, type metadata accessor for BasicLogitPresampler);
-        return v29;
+        v95 = v117;
+        outlined init with copy of LogitIndexSet(v25, v117);
+        v96 = (*(v21 + 56))(v95, 0, 1, v80);
+        MEMORY[0x28223BE20](v96, v97);
+        v98 = v120;
+        v101[-6] = v95;
+        v101[-5] = v98;
+        v99 = v115;
+        v101[-4] = v118;
+        v101[-3] = v99;
+        v101[-2] = v119;
+        v36 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSnySiG_24TokenGenerationInference15LogitCollection_ps5NeverOTg5(partial apply for closure #1 in BasicLogitPresampler.presampleLogits(buffer:numLogits:tokensStride:logitStride:range:), &v101[-8], a5, v104);
+        outlined destroy of LogitIndexSet(v25, type metadata accessor for LogitIndexSet);
+        outlined destroy of LogitIndexSet(v95, type metadata accessor for BasicLogitPresampler);
+        return v36;
       }
 
-      outlined destroy of LogitIndexSet(v21, type metadata accessor for LogitIndexSet);
+      outlined destroy of LogitIndexSet(v25, type metadata accessor for LogitIndexSet);
     }
 
-    v75 = v96 - a5;
-    if (__OFSUB__(v96, a5))
+    v82 = v104 - a5;
+    if (__OFSUB__(v104, a5))
     {
       goto LABEL_69;
     }
 
-    if ((v75 & 0x8000000000000000) != 0)
+    if ((v82 & 0x8000000000000000) != 0)
     {
 LABEL_70:
       __break(1u);
@@ -5403,24 +5184,24 @@ LABEL_71:
       goto LABEL_72;
     }
 
-    v76 = MEMORY[0x277D84F90];
-    if (v75)
+    v83 = MEMORY[0x277D84F90];
+    if (v82)
     {
-      v77 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      *(v77 + 16) = v75;
+      v84 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *(v84 + 16) = v82;
     }
 
     else
     {
-      v77 = MEMORY[0x277D84F90];
+      v84 = MEMORY[0x277D84F90];
     }
 
-    if (v112 > 0x7FFFFFFF)
+    if (v120 > 0x7FFFFFFF)
     {
       goto LABEL_71;
     }
 
-    if (v111 > 0x7FFFFFFF)
+    if (v119 > 0x7FFFFFFF)
     {
 LABEL_72:
       __break(1u);
@@ -5436,89 +5217,89 @@ LABEL_74:
       goto LABEL_75;
     }
 
-    if (v112 < 0xFFFFFFFF80000000 || v111 < 0xFFFFFFFF80000000 || a5 < 0xFFFFFFFF80000000)
+    if (v120 < 0xFFFFFFFF80000000 || v119 < 0xFFFFFFFF80000000 || a5 < 0xFFFFFFFF80000000)
     {
       goto LABEL_74;
     }
 
-    if (v75 >> 31)
+    if (v82 >> 31)
     {
 LABEL_75:
       __break(1u);
       goto LABEL_76;
     }
 
-    PresampleArgmax(v110, v112, v111, a5, v75, (v77 + 32));
-    *(v77 + 16) = v75;
-    if (!v75)
+    PresampleArgmax(v118, v120, v119, a5, v82, (v84 + 32));
+    *(v84 + 16) = v82;
+    if (!v82)
     {
 
       return MEMORY[0x277D84F90];
     }
 
-    *&v117 = v76;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v75, 0);
-    v78 = 0;
-    v29 = v117;
-    v112 = *(v77 + 16);
-    v79 = v111;
+    *&v124 = v83;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v82, 0);
+    v85 = 0;
+    v36 = v124;
+    v120 = *(v84 + 16);
+    v86 = v119;
     while (1)
     {
-      if (v112 == v78)
+      if (v120 == v85)
       {
         goto LABEL_60;
       }
 
-      if (v78 >= *(v77 + 16))
+      if (v85 >= *(v84 + 16))
       {
         break;
       }
 
-      v80 = *(v77 + 4 * v78 + 32);
-      v81 = v80 * v79;
-      if ((*(v77 + 4 * v78 + 32) * v79) >> 64 != (v80 * v79) >> 63)
+      v87 = *(v84 + 4 * v85 + 32);
+      v88 = v87 * v86;
+      if ((*(v84 + 4 * v85 + 32) * v86) >> 64 != (v87 * v86) >> 63)
       {
         goto LABEL_62;
       }
 
-      _VF = __OFADD__(v81, v78);
-      v82 = v81 + v78;
+      _VF = __OFADD__(v88, v85);
+      v89 = v88 + v85;
       if (_VF)
       {
         goto LABEL_63;
       }
 
-      _VF = __OFADD__(v82, a5);
-      v83 = v82 + a5;
+      _VF = __OFADD__(v89, a5);
+      v90 = v89 + a5;
       if (_VF)
       {
         goto LABEL_64;
       }
 
-      _H8 = *(v110 + 2 * v83);
-      *&v117 = v29;
-      v86 = v29[2];
-      v85 = v29[3];
-      if (v86 >= v85 >> 1)
+      _H8 = *(v118 + 2 * v90);
+      *&v124 = v36;
+      v93 = v36[2];
+      v92 = v36[3];
+      if (v93 >= v92 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v85 > 1), v86 + 1, 1);
-        v79 = v111;
-        v29 = v117;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v92 > 1), v93 + 1, 1);
+        v86 = v119;
+        v36 = v124;
       }
 
       __asm { FCVT            S0, H8 }
 
-      ++v78;
-      *(&v128 + 1) = &type metadata for WeightedSingleLogitCollection;
-      *&v129 = &protocol witness table for WeightedSingleLogitCollection;
-      *&v127 = v80;
-      DWORD2(v127) = _S0;
-      v29[2] = v86 + 1;
-      outlined init with take of LogitCollection(&v127, &v29[5 * v86 + 4]);
-      if (v75 == v78)
+      ++v85;
+      *(&v135 + 1) = &type metadata for WeightedSingleLogitCollection;
+      *&v136 = &protocol witness table for WeightedSingleLogitCollection;
+      *&v134 = v87;
+      DWORD2(v134) = _S0;
+      v36[2] = v93 + 1;
+      outlined init with take of LogitCollection(&v134, &v36[5 * v93 + 4]);
+      if (v82 == v85)
       {
 
-        return v29;
+        return v36;
       }
     }
 
@@ -5543,36 +5324,36 @@ LABEL_69:
     goto LABEL_70;
   }
 
-  v103 = 0;
+  v111 = 0;
   if (__OFSUB__(a6, a5))
   {
     goto LABEL_68;
   }
 
-  v28 = a6;
-  v97 = v93 - v27;
-  v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, (a6 - a5) & ~((a6 - a5) >> 63), 0, MEMORY[0x277D84F90]);
+  v35 = a6;
+  v105 = v101 - v34;
+  v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, (a6 - a5) & ~((a6 - a5) >> 63), 0, MEMORY[0x277D84F90]);
   if (a5 == a6)
   {
-    return v29;
+    return v36;
   }
 
   if (a6 >= a5)
   {
     if (a5 < a6)
     {
-      v106 = (v18 + 48);
-      v93[1] = 2 * v112;
-      v93[2] = 4 * v112;
-      v95 = xmmword_220AE8A20;
-      v94 = (v112 - 0x2000000000000000) >> 62;
-      v109 = xmmword_220AE8A30;
-      v30 = v104;
-      v31 = v108;
-      v105 = v16;
+      v114 = (v21 + 48);
+      v101[1] = 2 * v120;
+      v101[2] = 4 * v120;
+      v103 = xmmword_220AE8A20;
+      v102 = (v120 - 0x2000000000000000) >> 62;
+      v117 = xmmword_220AE8A30;
+      v37 = v112;
+      v38 = v116;
+      v113 = v19;
       while (1)
       {
-        if ((v107 * a5) >> 64 != (v107 * a5) >> 63)
+        if ((v115 * a5) >> 64 != (v115 * a5) >> 63)
         {
           __break(1u);
 LABEL_60:
@@ -5580,12 +5361,12 @@ LABEL_60:
           goto LABEL_61;
         }
 
-        v111 = v110 + 2 * v107 * a5;
-        outlined init with copy of LogitIndexSet?(v31, v16);
-        if ((*v106)(v16, 1, v30) == 1)
+        v119 = v118 + 2 * v115 * a5;
+        outlined init with copy of LogitIndexSet?(v38, v19);
+        if ((*v114)(v19, 1, v37) == 1)
         {
-          outlined destroy of LogitIndexSet?(v16);
-          if (!v112)
+          outlined destroy of LogitIndexSet?(v19);
+          if (!v120)
           {
             goto LABEL_20;
           }
@@ -5595,169 +5376,169 @@ LABEL_60:
             swift_once();
           }
 
-          v40 = static UnsafeBufferPointer<A>.argmaxGraphContext;
+          v47 = static UnsafeBufferPointer<A>.argmaxGraphContext;
           swift_beginAccess();
-          os_unfair_lock_lock(v40 + 4);
+          os_unfair_lock_lock(v47 + 4);
           swift_endAccess();
-          if (v112 < 1)
+          if (v120 < 1)
           {
-            v42 = MEMORY[0x277D84F90];
+            v49 = MEMORY[0x277D84F90];
           }
 
           else
           {
-            v41 = v112;
-            v42 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-            *(v42 + 16) = v41;
+            v48 = v120;
+            v49 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+            *(v49 + 16) = v48;
           }
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo10BNNSTensoraGMd);
-          v51 = swift_allocObject();
-          *(v51 + 16) = v95;
-          if (v94 < 3)
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo10BNNSTensoraGMd, &_ss23_ContiguousArrayStorageCySo10BNNSTensoraGMR);
+          v58 = swift_allocObject();
+          *(v58 + 16) = v103;
+          if (v102 < 3)
           {
             goto LABEL_66;
           }
 
-          v52 = v51;
-          v99 = v40;
-          v100 = a5;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
-          v53 = swift_allocObject();
-          v54 = v112;
-          *(v53 + 16) = v109;
-          *(v53 + 32) = v54;
-          v55 = swift_allocObject();
-          v98 = v42;
-          *(v55 + 16) = v109;
-          *(v55 + 32) = v54;
+          v59 = v58;
+          v107 = v47;
+          v108 = a5;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
+          v60 = swift_allocObject();
+          v61 = v120;
+          *(v60 + 16) = v117;
+          *(v60 + 32) = v61;
+          v62 = swift_allocObject();
+          v106 = v49;
+          *(v62 + 16) = v117;
+          *(v62 + 32) = v61;
           static Int32.bnnsDataType.getter();
           BNNSTensor.init(data:shape:stride:dataType:)();
-          v56 = v124;
-          v52[8] = v123;
-          v52[9] = v56;
-          v57 = v126;
-          v52[10] = v125;
-          v52[11] = v57;
-          v58 = v120;
-          v52[4] = v119;
-          v52[5] = v58;
-          v59 = v122;
-          v52[6] = v121;
-          v52[7] = v59;
-          v60 = v118;
-          v52[2] = v117;
-          v52[3] = v60;
-          v61 = swift_allocObject();
-          *(v61 + 16) = v109;
-          *(v61 + 32) = v54;
-          v62 = swift_allocObject();
-          *(v62 + 16) = v109;
-          *(v62 + 32) = v54;
+          v63 = v131;
+          v59[8] = v130;
+          v59[9] = v63;
+          v64 = v133;
+          v59[10] = v132;
+          v59[11] = v64;
+          v65 = v127;
+          v59[4] = v126;
+          v59[5] = v65;
+          v66 = v129;
+          v59[6] = v128;
+          v59[7] = v66;
+          v67 = v125;
+          v59[2] = v124;
+          v59[3] = v67;
+          v68 = swift_allocObject();
+          *(v68 + 16) = v117;
+          *(v68 + 32) = v61;
+          v69 = swift_allocObject();
+          *(v69 + 16) = v117;
+          *(v69 + 32) = v61;
           static Float16.bnnsDataType.getter();
           BNNSTensor.init(data:shape:stride:dataType:)();
-          v63 = v134;
-          v52[18] = v133;
-          v52[19] = v63;
-          v64 = v136;
-          v52[20] = v135;
-          v52[21] = v64;
-          v65 = v130;
-          v52[14] = v129;
-          v52[15] = v65;
-          v66 = v132;
-          v52[16] = v131;
-          v52[17] = v66;
-          v67 = v128;
-          v52[12] = v127;
-          v52[13] = v67;
-          v113._rawValue = v52;
-          BNNSGraph.Context.executeFunction(_:arguments:)(0, &v113);
-          v103 = v68;
-          if (v68)
+          v70 = v141;
+          v59[18] = v140;
+          v59[19] = v70;
+          v71 = v143;
+          v59[20] = v142;
+          v59[21] = v71;
+          v72 = v137;
+          v59[14] = v136;
+          v59[15] = v72;
+          v73 = v139;
+          v59[16] = v138;
+          v59[17] = v73;
+          v74 = v135;
+          v59[12] = v134;
+          v59[13] = v74;
+          *&v121 = v59;
+          BNNSGraph.Context.executeFunction(_:arguments:)(0, &v121);
+          v111 = v75;
+          if (v75)
           {
             goto LABEL_79;
           }
 
-          v70 = v98;
-          v69 = v99;
-          *(v98 + 16) = v112;
+          v77 = v106;
+          v76 = v107;
+          *(v106 + 16) = v120;
           swift_beginAccess();
-          os_unfair_lock_unlock(v69 + 4);
+          os_unfair_lock_unlock(v76 + 4);
           swift_endAccess();
-          a5 = v100;
-          v28 = v96;
-          if (!*(v70 + 16))
+          a5 = v108;
+          v35 = v104;
+          if (!*(v77 + 16))
           {
             goto LABEL_67;
           }
 
-          v47 = *(v70 + 32);
+          v54 = *(v77 + 32);
         }
 
         else
         {
-          v43 = v97;
-          outlined init with take of LogitIndexSet(v16, v97);
-          if (v112 < 0)
+          v50 = v105;
+          outlined init with take of LogitIndexSet(v19, v105);
+          if (v120 < 0)
           {
             goto LABEL_65;
           }
 
-          v44 = v101;
-          v45 = v112;
-          *v101 = 0;
-          *(v44 + 8) = v45;
+          v51 = v109;
+          v52 = v120;
+          *v109 = 0;
+          *(v51 + 8) = v52;
           swift_storeEnumTagMultiPayload();
-          v46 = v102;
-          outlined init with copy of LogitIndexSet(v43, v102);
-          LogitIndexSet.formIntersection(_:)(v44);
-          outlined destroy of LogitIndexSet(v44, type metadata accessor for LogitIndexSet);
-          v47 = UnsafeBufferPointer<A>.argmax(mask:)(v46, v111, v45);
-          LOBYTE(v44) = v48;
-          outlined destroy of LogitIndexSet(v46, type metadata accessor for LogitIndexSet);
-          outlined destroy of LogitIndexSet(v43, type metadata accessor for LogitIndexSet);
-          if (v44)
+          v53 = v110;
+          outlined init with copy of LogitIndexSet(v50, v110);
+          LogitIndexSet.formIntersection(_:)(v51);
+          outlined destroy of LogitIndexSet(v51, type metadata accessor for LogitIndexSet);
+          v54 = UnsafeBufferPointer<A>.argmax(mask:)(v53, v119, v52);
+          LOBYTE(v51) = v55;
+          outlined destroy of LogitIndexSet(v53, type metadata accessor for LogitIndexSet);
+          outlined destroy of LogitIndexSet(v50, type metadata accessor for LogitIndexSet);
+          if (v51)
           {
 LABEL_20:
-            v50 = v29[2];
-            v49 = v29[3];
-            if (v50 >= v49 >> 1)
+            v57 = v36[2];
+            v56 = v36[3];
+            if (v57 >= v56 >> 1)
             {
-              v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v49 > 1), v50 + 1, 1, v29);
+              v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v56 > 1), v57 + 1, 1, v36);
             }
 
-            v115 = &type metadata for EmptyLogitCollection;
-            v116 = &protocol witness table for EmptyLogitCollection;
-            v29[2] = v50 + 1;
-            outlined init with take of LogitCollection(&v113, &v29[5 * v50 + 4]);
+            v122 = &type metadata for EmptyLogitCollection;
+            v123 = &protocol witness table for EmptyLogitCollection;
+            v36[2] = v57 + 1;
+            outlined init with take of LogitCollection(&v121, &v36[5 * v57 + 4]);
             goto LABEL_10;
           }
         }
 
-        _H8 = *(v111 + 2 * v47);
-        v34 = v29[2];
-        v33 = v29[3];
-        if (v34 >= v33 >> 1)
+        _H8 = *(v119 + 2 * v54);
+        v41 = v36[2];
+        v40 = v36[3];
+        if (v41 >= v40 >> 1)
         {
-          v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v29);
+          v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1, v36);
         }
 
         __asm { FCVT            S0, H8 }
 
-        v115 = &type metadata for WeightedSingleLogitCollection;
-        v116 = &protocol witness table for WeightedSingleLogitCollection;
-        v113._rawValue = v47;
-        v114 = _S0;
-        v29[2] = v34 + 1;
-        outlined init with take of LogitCollection(&v113, &v29[5 * v34 + 4]);
-        v30 = v104;
+        v122 = &type metadata for WeightedSingleLogitCollection;
+        v123 = &protocol witness table for WeightedSingleLogitCollection;
+        *&v121 = v54;
+        DWORD2(v121) = _S0;
+        v36[2] = v41 + 1;
+        outlined init with take of LogitCollection(&v121, &v36[5 * v41 + 4]);
+        v37 = v112;
 LABEL_10:
-        v31 = v108;
-        v16 = v105;
-        if (v28 == ++a5)
+        v38 = v116;
+        v19 = v113;
+        if (v35 == ++a5)
         {
-          return v29;
+          return v36;
         }
       }
     }
@@ -5775,7 +5556,31 @@ LABEL_79:
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -5870,7 +5675,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitCollection_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitCollection_pMd, &_s24TokenGenerationInference15LogitCollection_pMR);
   swift_arrayInitWithCopy();
 
   if (!v2)
@@ -5892,27 +5697,6 @@ LABEL_14:
 LABEL_18:
   __break(1u);
   return result;
-}
-
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3, void *a4)
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMR, &_s24TokenGenerationInference15LogitCollection_pMd);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay24TokenGenerationInference0D8TreeNodeCGGMd, &_ss23_ContiguousArrayStorageCySay24TokenGenerationInference0D8TreeNodeCGGMR, &_sSay24TokenGenerationInference0A8TreeNodeCGMd);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySaySiGGMd, &_ss23_ContiguousArrayStorageCySaySiGGMR, &_sSaySiGMd);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySay24TokenGenerationInference17BeamSearchDecoderC0G4Node33_A7FE2FA43B970D1C0025663E659989E9LLVGGMd, &_ss23_ContiguousArrayStorageCySay24TokenGenerationInference17BeamSearchDecoderC0G4Node33_A7FE2FA43B970D1C0025663E659989E9LLVGGMR, &_sSay24TokenGenerationInference17BeamSearchDecoderC0D4Node33_A7FE2FA43B970D1C0025663E659989E9LLVGMd);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference08OnDeviceF11AssetObject_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference08OnDeviceF11AssetObject_pGMR, &_s24TokenGenerationInference08OnDeviceC11AssetObject_pMd);
 }
 
 uint64_t __swift_memcpy12_8(uint64_t result, uint64_t *a2)
@@ -5960,7 +5744,7 @@ uint64_t protocol witness for LanguageModelRunner.run(tokens:computeLogitsTokenC
   v6[6] = v2;
   v7 = swift_task_alloc();
   v0[10] = v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCounttMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCounttMd, &_sSay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCounttMR);
   *v7 = v0;
   v7[1] = protocol witness for LanguageModelRunner.run(tokens:computeLogitsTokenCount:tokenMasks:presampler:) in conformance E5RunnerObjC;
 
@@ -5998,10 +5782,10 @@ uint64_t _ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010Con
   return MEMORY[0x2822009F8](_ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010ContinuousA0V_Tg50120_s24TokenGenerationInference26E5TransformerLanguageModelC7measure015_C54BEC2A6549C4L16D2CDB56F73805ABELLyxxyYaKXEYaKlFyyX35KXEfU_SayAA15LogitCollection_pG_Tg5Say0gH9Inference15LogitCollection_pGSgxs5Error_pRi_zRi0_zlyAMIsgHrzo_Tf1ncn_nTf4nnng_nTY3_, v1, v2);
 }
 
-uint64_t type metadata completion function for PromptTemplateConfiguration()
+uint64_t type metadata completion function for PromptTemplateConfiguration(uint64_t a1)
 {
   result = type metadata accessor for ModelConfiguration();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6010,20 +5794,20 @@ uint64_t type metadata completion function for PromptTemplateConfiguration()
   return result;
 }
 
-void type metadata completion function for OnDeviceInferenceAssetObjectBaseModel()
+void type metadata completion function for OnDeviceInferenceAssetObjectBaseModel(uint64_t a1)
 {
   type metadata accessor for Asset?(319, &lazy cache variable for type metadata for Asset?, type metadata accessor for Asset);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for BaseModel(319, &lazy cache variable for type metadata for BaseModel);
-    if (v1 <= 0x3F)
+    type metadata accessor for BaseModel(319, &lazy cache variable for type metadata for BaseModel, &protocol descriptor for BaseModel, 1);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t type metadata accessor for ModelMetadata()
+uint64_t type metadata accessor for ModelMetadata(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ModelMetadata;
   if (!type metadata singleton initialization cache for ModelMetadata)
@@ -6034,37 +5818,37 @@ uint64_t type metadata accessor for ModelMetadata()
   return result;
 }
 
-void type metadata completion function for ModelMetadata()
+void type metadata completion function for ModelMetadata(uint64_t a1)
 {
-  type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : String]?, &_sSDyS2SGMd);
-  if (v0 <= 0x3F)
+  type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : String]?, &_sSDyS2SGMd, &_sSDyS2SGMR);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : E5Function]?, &_sSDySS24TokenGenerationInference10E5FunctionVGMd);
-    if (v1 <= 0x3F)
+    type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : E5Function]?, &_sSDySS24TokenGenerationInference10E5FunctionVGMd, &_sSDySS24TokenGenerationInference10E5FunctionVGMR);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : MetadataSpecialToken]?, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMd);
-      if (v2 <= 0x3F)
+      type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : MetadataSpecialToken]?, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMd, &_sSDySS24TokenGenerationInference015MetadataSpecialA0OGMR);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for DefaultParameters?);
-        if (v3 <= 0x3F)
+        type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for DefaultParameters?, &type metadata for DefaultParameters);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for String?);
-          if (v4 <= 0x3F)
+          type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : [String : MetadataSpecialToken]]?, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMd);
-            if (v5 <= 0x3F)
+            type metadata accessor for [String : String]?(319, &lazy cache variable for type metadata for [String : [String : MetadataSpecialToken]]?, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMd, &_sSDySSSDySS24TokenGenerationInference015MetadataSpecialA0OGGMR);
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for Bool?);
-              if (v6 <= 0x3F)
+              type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0]);
+              if (v7 <= 0x3F)
               {
-                type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for ClassifierMetadata?);
-                if (v7 <= 0x3F)
+                type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for ClassifierMetadata?, &type metadata for ClassifierMetadata);
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for StopToken?);
-                  if (v8 <= 0x3F)
+                  type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(319, &lazy cache variable for type metadata for StopToken?, &type metadata for StopToken);
+                  if (v9 <= 0x3F)
                   {
-                    type metadata accessor for PromptPreprocessingTemplateVersion?();
-                    if (v9 <= 0x3F)
+                    type metadata accessor for PromptPreprocessingTemplateVersion?(319);
+                    if (v10 <= 0x3F)
                     {
                       swift_cvw_initStructMetadataWithLayoutString();
                     }
@@ -6079,27 +5863,27 @@ void type metadata completion function for ModelMetadata()
   }
 }
 
-void type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(uint64_t a1, unint64_t *a2)
+void type metadata accessor for SpeculativeDecoderPerformanceMeasurement?(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Optional();
-    if (!v4)
+    v4 = type metadata accessor for Optional();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
 
-void type metadata accessor for PromptPreprocessingTemplateVersion?()
+void type metadata accessor for PromptPreprocessingTemplateVersion?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for PromptPreprocessingTemplateVersion?)
   {
     type metadata accessor for PromptPreprocessingTemplateVersion();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for PromptPreprocessingTemplateVersion?);
+      atomic_store(v1, &lazy cache variable for type metadata for PromptPreprocessingTemplateVersion?);
     }
   }
 }
@@ -6121,16 +5905,16 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   *(v0 + 328) = *(v7 + 8);
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 296));
   (*(*(v6 - 8) + 16))(boxed_opaque_existential_1, v8, v6);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v1, v2, &_s10Foundation3URLVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v1, v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v10 = *(v3 + 48);
   if (v10(v2, 1, v4) == 1)
   {
     v11 = *(v0 + 872);
     v12 = *(v0 + 864);
     v13 = *(v0 + 792);
-    outlined destroy of [Int](*(v0 + 880), &_s10Foundation3URLVSgMd);
+    outlined destroy of [Int](*(v0 + 880), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     static LanguageModelLoader.findURLOfKnownModelAsset(in:source:)(v11);
-    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v11, v12, &_s10Foundation3URLVSgMd);
+    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v11, v12, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     if (v10(v12, 1, v13) == 1)
     {
       v76 = *(v0 + 872);
@@ -6141,19 +5925,19 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
       v17 = *(v0 + 760);
       v18 = *(v0 + 752);
       v19 = *(v0 + 744);
-      outlined destroy of [Int](*(v0 + 864), &_s10Foundation3URLVSgMd);
+      outlined destroy of [Int](*(v0 + 864), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
       InferenceError.Context.init(additionalDescription:domain:code:userInfo:fallbackAllowed:)();
       (*(v18 + 16))(v14, v17, v19);
       (*(v15 + 104))(v14, *MEMORY[0x277D29D78], v16);
-      lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0]);
+      lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0], MEMORY[0x277D29DE8]);
       swift_willThrowTypedImpl();
       (*(v18 + 8))(v17, v19);
-      outlined destroy of [Int](v76, &_s10Foundation3URLVSgMd);
-      outlined destroy of [Int](v80, &_s10Foundation3URLVSgMd);
+      outlined destroy of [Int](v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      outlined destroy of [Int](v80, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
       (*(v15 + 32))(*(v0 + 624), *(v0 + 856), *(v0 + 824));
-      __swift_destroy_boxed_opaque_existential_1(v0 + 296);
+      __swift_destroy_boxed_opaque_existential_1((v0 + 296));
 
       v26 = *(v0 + 8);
 
@@ -6171,7 +5955,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
     v35 = *(v0 + 792);
 
     (*(v34 + 8))(v33, v35);
-    outlined destroy of [Int](v32, &_s10Foundation3URLVSgMd);
+    outlined destroy of [Int](v32, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 
   else
@@ -6193,8 +5977,8 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v37 = *(v0 + 776);
   v77 = *(v0 + 768);
   v38 = *(v0 + 600);
-  outlined destroy of [Int](*(v0 + 888), &_s10Foundation3URLVSgMd);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 296);
+  outlined destroy of [Int](*(v0 + 888), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 296));
   __swift_project_boxed_opaque_existential_1(v38, v79[3]);
   v39 = dispatch thunk of CatalogResource.id.getter();
   v41 = v40;
@@ -6213,8 +5997,8 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v74 = v39;
   v75 = v28;
   v46 = [v28 e5Functions];
-  type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC);
-  lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC);
+  type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
+  lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
   v47 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
   if ((v47 & 0xC000000000000001) != 0)
@@ -6260,7 +6044,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
       if (!v59 || (*(v0 + 592) = v59, swift_dynamicCast(), (v58 = *v78) == 0))
       {
 LABEL_34:
-        outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant();
+        outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant(v47);
 
         v55 = v75;
         v43 = v41;
@@ -6296,7 +6080,7 @@ LABEL_36:
           *v73 = v0;
           v73[1] = _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMModel33_65818D6FA4B5F545C6B162D7CBE031AELL8llmModel5assety0T7Catalog0f6BackedI0_p_AA0F0VtYa0T15ManagerServices0C5ErrorOYKFTQ4_;
 
-          return (specialized static LanguageModelLoader.load(from:baseModel:))(v55, v0 + 336);
+          return specialized static LanguageModelLoader.load(from:baseModel:)(v55, v0 + 336);
         }
 
 LABEL_42:
@@ -6350,7 +6134,7 @@ LABEL_21:
 
   while (!v43);
 
-  outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant();
+  outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant(v47);
 
   v55 = v75;
   v43 = v41;
@@ -6380,7 +6164,7 @@ LABEL_21:
     *v65 = v61;
     v66 = v61;
     _os_log_impl(&dword_220940000, v62, v63, "Creating asset object for ane base model with configuration %{public}@", v64, 0xCu);
-    outlined destroy of [Int](v65, &_sSo8NSObjectCSgMd);
+    outlined destroy of [Int](v65, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x223D90A10](v65, -1, -1);
     MEMORY[0x223D90A10](v64, -1, -1);
   }
@@ -6393,122 +6177,122 @@ LABEL_21:
   return static BaseModelLoader.load(from:)(v0 + 456, v61);
 }
 
-uint64_t outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
 uint64_t static LanguageModelLoader.findURLOfKnownModelAsset(in:source:)@<X0>(char *a1@<X8>)
 {
-  v28 = a1;
+  v31 = a1;
   v1 = type metadata accessor for URL();
   v2 = *(v1 - 8);
-  v3 = MEMORY[0x28223BE20](v1);
-  v5 = v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = MEMORY[0x28223BE20](v3);
-  v29 = v26 - v7;
-  MEMORY[0x28223BE20](v6);
-  v8 = *(v2 + 16);
-  v30 = v26 - v9;
-  v8();
-  v10 = (v2 + 32);
-  v11 = (v2 + 8);
-  v12 = aNdle;
-  v13 = 5;
-  v26[1] = (v2 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v27 = v2;
+  v4 = MEMORY[0x28223BE20](v1, v3);
+  v6 = v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v4, v7);
+  v32 = v29 - v9;
+  MEMORY[0x28223BE20](v8, v10);
+  v11 = *(v2 + 16);
+  v33 = v29 - v12;
+  v11();
+  v13 = (v2 + 32);
+  v14 = (v2 + 8);
+  v15 = aNdle;
+  v16 = 5;
+  v29[1] = (v2 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v30 = v2;
   while (1)
   {
-    v14 = v29;
+    v17 = v32;
     URL.appendingPathComponent(_:)();
-    v15 = *v10;
-    v16 = v14;
-    v17 = v1;
-    (*v10)(v5, v16, v1);
-    v18 = URL.path(percentEncoded:)(1);
-    v19 = [objc_opt_self() defaultManager];
-    v20 = MEMORY[0x223D8E6B0](v18._countAndFlagsBits, v18._object);
+    v18 = *v13;
+    v19 = v17;
+    v20 = v1;
+    (*v13)(v6, v19, v1);
+    v21 = URL.path(percentEncoded:)(1);
+    v22 = [objc_opt_self() defaultManager];
+    v23 = MEMORY[0x223D8E6B0](v21._countAndFlagsBits, v21._object);
 
-    v21 = [v19 fileExistsAtPath_];
+    v24 = [v22 fileExistsAtPath_];
 
-    if (v21)
+    if (v24)
     {
       break;
     }
 
-    v22 = *v11;
-    v1 = v17;
-    (*v11)(v5, v17);
-    v12 += 16;
-    if (!--v13)
+    v25 = *v14;
+    v1 = v20;
+    (*v14)(v6, v20);
+    v15 += 16;
+    if (!--v16)
     {
-      (*(v27 + 56))(v28, 1, 1, v17);
-      return v22(v30, v1);
+      (*(v30 + 56))(v31, 1, 1, v20);
+      return v25(v33, v1);
     }
   }
 
-  v23 = v28;
-  v1 = v17;
-  v15(v28, v5, v17);
-  v24 = v27 + 56;
-  (*(v27 + 56))(v23, 0, 1, v17);
-  v22 = *(v24 - 48);
-  return v22(v30, v1);
+  v26 = v31;
+  v1 = v20;
+  v18(v31, v6, v20);
+  v27 = v30 + 56;
+  (*(v30 + 56))(v26, 0, 1, v20);
+  v25 = *(v27 - 48);
+  return v25(v33, v1);
 }
 
 unint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC25modelConfigurationWithURL33_65818D6FA4B5F545C6B162D7CBE031AELL0H4Path0H8Resource07adapterV11InformationSo017TGIMutableE5ModelI4ObjCC_AA13ModelMetadataVSgtSS_12ModelCatalog0f6BackedV0_pAA07AdaptervX0VSgt20ModelManagerServices0C5ErrorOYKF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v159 = a3;
-  v151 = a7;
-  v152 = a8;
-  v156 = a6;
-  v157 = a1;
-  v154 = a5;
-  v158 = a2;
+  v162 = a3;
+  v154 = a7;
+  v155 = a8;
+  v159 = a6;
+  v160 = a1;
+  v157 = a5;
+  v161 = a2;
   v11 = type metadata accessor for InferenceError.Context();
-  v155 = *(v11 - 8);
-  MEMORY[0x28223BE20](v11);
-  v13 = &v136 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd);
-  MEMORY[0x28223BE20](v14 - 8);
-  v16 = &v136 - v15;
-  v17 = type metadata accessor for ModelMetadata();
-  v18 = *(v17 - 8);
-  MEMORY[0x28223BE20](v17);
-  v20 = (&v136 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v158 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11, v12);
+  v14 = &v139 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+  MEMORY[0x28223BE20](v15 - 8, v16);
+  v18 = &v139 - v17;
+  v19 = type metadata accessor for ModelMetadata(0);
+  v20 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19, v21);
+  v23 = (&v139 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
   __swift_project_boxed_opaque_existential_1((v9 + 192), *(v9 + 216));
-  v21 = v160;
-  OnDeviceInferenceProviderDataSource.modelMetadataFromResource(_:)(a4, v16);
-  if (v21)
+  v24 = v163;
+  OnDeviceInferenceProviderDataSource.modelMetadataFromResource(_:)(a4, v18);
+  if (v24)
   {
 
-    (*(v18 + 56))(v16, 1, 1, v17);
-    v160 = 0;
+    (*(v20 + 56))(v18, 1, 1, v19);
+    v163 = 0;
     goto LABEL_4;
   }
 
-  v150 = v20;
-  v22 = v155;
-  v160 = 0;
-  if ((*(v18 + 48))(v16, 1, v17) == 1)
+  v153 = v23;
+  v25 = v158;
+  v163 = 0;
+  if ((*(v20 + 48))(v18, 1, v19) == 1)
   {
 LABEL_4:
-    outlined destroy of [Int](v16, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](v18, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     if (one-time initialization token for device == -1)
     {
 LABEL_5:
-      v23 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v23, static Log.device);
-      v24 = Logger.logObject.getter();
-      v25 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v24, v25))
+      v26 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v26, static Log.device);
+      v27 = Logger.logObject.getter();
+      v28 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v27, v28))
       {
-        v26 = swift_slowAlloc();
-        *v26 = 0;
-        _os_log_impl(&dword_220940000, v24, v25, "Falling back to default configuration, metadata json not encoded correctly", v26, 2u);
-        MEMORY[0x223D90A10](v26, -1, -1);
+        v29 = swift_slowAlloc();
+        *v29 = 0;
+        _os_log_impl(&dword_220940000, v27, v28, "Falling back to default configuration, metadata json not encoded correctly", v29, 2u);
+        MEMORY[0x223D90A10](v29, -1, -1);
       }
 
       if (MEMORY[0x277D84F90] >> 62)
@@ -6524,20 +6308,20 @@ LABEL_5:
         }
       }
 
-      v27 = objc_allocWithZone(TGIMutableE5ModelConfigurationObjC);
-      v28 = MEMORY[0x223D8E6B0](v158, v159);
-      type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC);
-      lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC);
+      v30 = objc_allocWithZone(TGIMutableE5ModelConfigurationObjC);
+      v31 = MEMORY[0x223D8E6B0](v161, v162);
+      type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
+      lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
       isa = Set._bridgeToObjectiveC()().super.isa;
 
-      type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
-      lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
-      v30 = Set._bridgeToObjectiveC()().super.isa;
+      type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
+      lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
+      v33 = Set._bridgeToObjectiveC()().super.isa;
 
-      v31 = [v27 initWithModelType:0 modelBundlePath:v28 e5Functions:isa adapterConfigurations:v30];
+      v34 = [v30 initWithModelType:0 modelBundlePath:v31 e5Functions:isa adapterConfigurations:v33];
 
-      (*(v18 + 56))(v157, 1, 1, v17);
-      return v31;
+      (*(v20 + 56))(v160, 1, 1, v19);
+      return v34;
     }
 
 LABEL_71:
@@ -6545,82 +6329,82 @@ LABEL_71:
     goto LABEL_5;
   }
 
-  v142 = v18;
-  v143 = v17;
-  v138 = a9;
-  v33 = v150;
-  outlined init with take of OnDeviceInferenceAssetObjectE5Runner(v16, v150, type metadata accessor for ModelMetadata);
-  v34 = *v33;
-  v35 = v33[1];
-  v36 = *v33 == 7696487 && v35 == 0xE300000000000000;
-  v137 = v13;
-  if (v36 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v145 = v20;
+  v146 = v19;
+  v141 = a9;
+  v36 = v153;
+  outlined init with take of OnDeviceInferenceAssetObjectE5Runner(v18, v153, type metadata accessor for ModelMetadata);
+  v37 = *v36;
+  v38 = v36[1];
+  v39 = *v36 == 7696487 && v38 == 0xE300000000000000;
+  v140 = v14;
+  if (v39 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v37 = 2;
+    v40 = 2;
     goto LABEL_16;
   }
 
-  v97 = v34 == 6647393 && v35 == 0xE300000000000000;
-  if (v97 || (v98 = v13, (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  v100 = v37 == 6647393 && v38 == 0xE300000000000000;
+  if (v100 || (v101 = v14, (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
   {
-    v37 = 1;
+    v40 = 1;
 LABEL_16:
-    v141 = v37;
-    v38 = MEMORY[0x277D84FA0];
-    v164 = MEMORY[0x277D84FA0];
-    v39 = v33[3];
-    v136 = v11;
-    if (v39)
+    v144 = v40;
+    v41 = MEMORY[0x277D84FA0];
+    v167 = MEMORY[0x277D84FA0];
+    v42 = v36[3];
+    v139 = v11;
+    if (v42)
     {
-      v40 = v39;
+      v43 = v42;
     }
 
     else
     {
-      v40 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_24TokenGenerationInference10E5FunctionVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+      v43 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_24TokenGenerationInference10E5FunctionVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
     }
 
-    v161 = v38;
-    v41 = v40 + 64;
-    v42 = 1 << *(v40 + 32);
-    v43 = -1;
-    if (v42 < 64)
+    v164 = v41;
+    v44 = v43 + 64;
+    v45 = 1 << *(v43 + 32);
+    v46 = -1;
+    if (v45 < 64)
     {
-      v43 = ~(-1 << v42);
+      v46 = ~(-1 << v45);
     }
 
-    v18 = v43 & *(v40 + 64);
-    v146 = (v42 + 63) >> 6;
+    v20 = v46 & *(v43 + 64);
+    v149 = (v45 + 63) >> 6;
 
-    v17 = 0;
-    *&v44 = 136446466;
-    v140 = v44;
-    v145 = v40;
-    v147 = v9;
-    while (v18)
+    v19 = 0;
+    *&v47 = 136446466;
+    v143 = v47;
+    v148 = v43;
+    v150 = v9;
+    while (v20)
     {
 LABEL_27:
-      v46 = __clz(__rbit64(v18));
-      v18 &= v18 - 1;
-      v47 = v46 | (v17 << 6);
-      v48 = (*(v40 + 48) + 16 * v47);
-      v49 = *v48;
-      v50 = v48[1];
-      v51 = (*(v40 + 56) + 48 * v47);
-      v53 = v51[3];
-      v52 = v51[4];
-      v153 = v51[5];
-      if (v53)
+      v49 = __clz(__rbit64(v20));
+      v20 &= v20 - 1;
+      v50 = v49 | (v19 << 6);
+      v51 = (*(v43 + 48) + 16 * v50);
+      v52 = *v51;
+      v53 = v51[1];
+      v54 = (*(v43 + 56) + 48 * v50);
+      v56 = v54[3];
+      v55 = v54[4];
+      v156 = v54[5];
+      if (v56)
       {
-        v148 = v52;
-        v54 = v51[2];
-        if (v156)
+        v151 = v55;
+        v57 = v54[2];
+        if (v159)
         {
-          v55 = v54 == v154 && v53 == v156;
-          if (v55 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          v58 = v57 == v157 && v56 == v159;
+          if (v58 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
           {
-            v56 = v150[2];
-            if (!v56)
+            v59 = v153[2];
+            if (!v59)
             {
 
               if (one-time initialization token for device != -1)
@@ -6628,249 +6412,249 @@ LABEL_27:
                 swift_once();
               }
 
-              v108 = type metadata accessor for Logger();
-              __swift_project_value_buffer(v108, static Log.device);
-              v109 = Logger.logObject.getter();
-              v110 = static os_log_type_t.error.getter();
-              v111 = os_log_type_enabled(v109, v110);
-              v112 = v150;
-              v113 = v136;
-              v114 = v155;
-              if (v111)
+              v111 = type metadata accessor for Logger();
+              __swift_project_value_buffer(v111, static Log.device);
+              v112 = Logger.logObject.getter();
+              v113 = static os_log_type_t.error.getter();
+              v114 = os_log_type_enabled(v112, v113);
+              v115 = v153;
+              v116 = v139;
+              v117 = v158;
+              if (v114)
               {
-                v115 = swift_slowAlloc();
-                *v115 = 0;
-                _os_log_impl(&dword_220940000, v109, v110, "Metadata json is missing adapter type to symbol mapping", v115, 2u);
-                MEMORY[0x223D90A10](v115, -1, -1);
+                v118 = swift_slowAlloc();
+                *v118 = 0;
+                _os_log_impl(&dword_220940000, v112, v113, "Metadata json is missing adapter type to symbol mapping", v118, 2u);
+                MEMORY[0x223D90A10](v118, -1, -1);
               }
 
               _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-              v116 = v137;
+              v119 = v140;
               InferenceError.Context.init(additionalDescription:domain:code:userInfo:fallbackAllowed:)();
-              v117 = v138;
-              (*(v114 + 16))(v138, v116, v113);
-              v31 = *MEMORY[0x277D29D78];
-              v118 = type metadata accessor for InferenceError();
-              (*(*(v118 - 8) + 104))(v117, v31, v118);
-              lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0]);
+              v120 = v141;
+              (*(v117 + 16))(v141, v119, v116);
+              v34 = *MEMORY[0x277D29D78];
+              v121 = type metadata accessor for InferenceError();
+              (*(*(v121 - 8) + 104))(v120, v34, v121);
+              lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0], MEMORY[0x277D29DE8]);
               swift_willThrowTypedImpl();
 
-              (*(v114 + 8))(v116, v113);
-              v107 = v112;
+              (*(v117 + 8))(v119, v116);
+              v110 = v115;
               goto LABEL_69;
             }
 
-            if (!*(v56 + 16))
+            if (!*(v59 + 16))
             {
 
 LABEL_64:
-              v119 = v54;
+              v122 = v57;
 
-              v120 = v155;
+              v123 = v158;
               if (one-time initialization token for device != -1)
               {
                 swift_once();
               }
 
-              v121 = type metadata accessor for Logger();
-              __swift_project_value_buffer(v121, static Log.device);
+              v124 = type metadata accessor for Logger();
+              __swift_project_value_buffer(v124, static Log.device);
 
-              v122 = Logger.logObject.getter();
-              v123 = static os_log_type_t.error.getter();
+              v125 = Logger.logObject.getter();
+              v126 = static os_log_type_t.error.getter();
 
-              if (os_log_type_enabled(v122, v123))
+              if (os_log_type_enabled(v125, v126))
               {
-                v124 = swift_slowAlloc();
-                v139 = v53;
-                v125 = v124;
-                v126 = swift_slowAlloc();
-                v162 = v126;
-                *v125 = v140;
-                *(v125 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v119, v139, &v162);
-                *(v125 + 12) = 2082;
-                v127 = Dictionary.description.getter();
-                v129 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v127, v128, &v162);
+                v127 = swift_slowAlloc();
+                v142 = v56;
+                v128 = v127;
+                v129 = swift_slowAlloc();
+                v165 = v129;
+                *v128 = v143;
+                *(v128 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v122, v142, &v165);
+                *(v128 + 12) = 2082;
+                v130 = Dictionary.description.getter();
+                v132 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v130, v131, &v165);
 
-                *(v125 + 14) = v129;
-                _os_log_impl(&dword_220940000, v122, v123, "Failed to get symbol for adapter type %{public}s from %{public}s", v125, 0x16u);
+                *(v128 + 14) = v132;
+                _os_log_impl(&dword_220940000, v125, v126, "Failed to get symbol for adapter type %{public}s from %{public}s", v128, 0x16u);
                 swift_arrayDestroy();
-                MEMORY[0x223D90A10](v126, -1, -1);
-                v53 = v139;
-                MEMORY[0x223D90A10](v125, -1, -1);
+                MEMORY[0x223D90A10](v129, -1, -1);
+                v56 = v142;
+                MEMORY[0x223D90A10](v128, -1, -1);
               }
 
-              v130 = v150;
-              v131 = v136;
-              v162 = 0;
-              v163 = 0xE000000000000000;
+              v133 = v153;
+              v134 = v139;
+              v165 = 0;
+              v166 = 0xE000000000000000;
               _StringGuts.grow(_:)(29);
 
-              v162 = 0xD000000000000015;
-              v163 = 0x8000000220AFD200;
-              MEMORY[0x223D8E780](v119, v53);
+              v165 = 0xD000000000000015;
+              v166 = 0x8000000220AFD200;
+              MEMORY[0x223D8E780](v122, v56);
 
               MEMORY[0x223D8E780](544106784, 0xE400000000000000);
-              v132 = Dictionary.description.getter();
-              MEMORY[0x223D8E780](v132);
+              v135 = Dictionary.description.getter();
+              MEMORY[0x223D8E780](v135);
 
               _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-              v133 = v137;
+              v136 = v140;
               InferenceError.Context.init(additionalDescription:domain:code:userInfo:fallbackAllowed:)();
-              v134 = v138;
-              (*(v120 + 16))(v138, v133, v131);
-              v31 = *MEMORY[0x277D29D78];
-              v135 = type metadata accessor for InferenceError();
-              (*(*(v135 - 8) + 104))(v134, v31, v135);
-              lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0]);
+              v137 = v141;
+              (*(v123 + 16))(v141, v136, v134);
+              v34 = *MEMORY[0x277D29D78];
+              v138 = type metadata accessor for InferenceError();
+              (*(*(v138 - 8) + 104))(v137, v34, v138);
+              lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0], MEMORY[0x277D29DE8]);
               swift_willThrowTypedImpl();
 
-              (*(v120 + 8))(v133, v131);
-              v107 = v130;
+              (*(v123 + 8))(v136, v134);
+              v110 = v133;
               goto LABEL_69;
             }
 
-            v149 = v54;
-            v57 = specialized __RawDictionaryStorage.find<A>(_:)(v54, v53);
-            if ((v58 & 1) == 0)
+            v152 = v57;
+            v60 = specialized __RawDictionaryStorage.find<A>(_:)(v57, v56);
+            if ((v61 & 1) == 0)
             {
 
-              v54 = v149;
+              v57 = v152;
               goto LABEL_64;
             }
 
-            v59 = *(v56 + 56) + 16 * v57;
-            v60 = *(v59 + 8);
-            v144 = *v59;
-            v61 = v53;
-            v62 = objc_allocWithZone(TGIE5FunctionObjC);
+            v62 = *(v59 + 56) + 16 * v60;
+            v63 = *(v62 + 8);
+            v147 = *v62;
+            v64 = v56;
+            v65 = objc_allocWithZone(TGIE5FunctionObjC);
 
-            v63 = MEMORY[0x223D8E6B0](v49, v50);
+            v66 = MEMORY[0x223D8E6B0](v52, v53);
 
-            v64 = MEMORY[0x223D8E6B0](v149, v61);
-            v65 = [v62 initWithName:v63 queryLength:v148 contextSize:v153 adapterType:v64];
+            v67 = MEMORY[0x223D8E6B0](v152, v64);
+            v68 = [v65 initWithName:v66 queryLength:v151 contextSize:v156 adapterType:v67];
 
-            v66 = v65;
-            specialized Set._Variant.insert(_:)(&v162, v66);
+            v69 = v68;
+            specialized Set._Variant.insert(_:)(&v165, v69);
 
-            v67 = objc_allocWithZone(TGIE5AdapterConfigurationObjC);
-            v68 = MEMORY[0x223D8E6B0](v149, v61);
+            v70 = objc_allocWithZone(TGIE5AdapterConfigurationObjC);
+            v71 = MEMORY[0x223D8E6B0](v152, v64);
 
-            v69 = MEMORY[0x223D8E6B0](v144, v60);
+            v72 = MEMORY[0x223D8E6B0](v147, v63);
 
-            v70 = MEMORY[0x223D8E6B0](v151, v152);
-            v71 = [v67 initWithAdapterType:v68 symbolName:v69 mutableWeightsFilePath:v70];
+            v73 = MEMORY[0x223D8E6B0](v154, v155);
+            v74 = [v70 initWithAdapterType:v71 symbolName:v72 mutableWeightsFilePath:v73];
 
-            specialized Set._Variant.insert(_:)(&v162, v71);
-            v40 = v145;
+            specialized Set._Variant.insert(_:)(&v165, v74);
+            v43 = v148;
           }
         }
 
         else
         {
-          v75 = v40;
-          v149 = v51[2];
-          v76 = one-time initialization token for device;
+          v78 = v43;
+          v152 = v54[2];
+          v79 = one-time initialization token for device;
 
-          if (v76 != -1)
+          if (v79 != -1)
           {
             swift_once();
           }
 
-          v77 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v77, static Log.device);
+          v80 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v80, static Log.device);
 
-          v78 = Logger.logObject.getter();
-          v79 = static os_log_type_t.default.getter();
+          v81 = Logger.logObject.getter();
+          v82 = static os_log_type_t.default.getter();
 
-          v144 = v78;
-          if (os_log_type_enabled(v78, v79))
+          v147 = v81;
+          if (os_log_type_enabled(v81, v82))
           {
-            v80 = swift_slowAlloc();
-            v81 = swift_slowAlloc();
-            v139 = v53;
-            v82 = v81;
-            v162 = v81;
-            *v80 = v140;
-            *(v80 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v162);
-            *(v80 + 12) = 2082;
-            v83 = v149;
-            *(v80 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v149, v139, &v162);
-            v84 = v79;
-            v85 = v144;
-            _os_log_impl(&dword_220940000, v144, v84, "E5 function %{public}s specifies adapter type %{public}s but resource information was not provided", v80, 0x16u);
+            v83 = swift_slowAlloc();
+            v84 = swift_slowAlloc();
+            v142 = v56;
+            v85 = v84;
+            v165 = v84;
+            *v83 = v143;
+            *(v83 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v165);
+            *(v83 + 12) = 2082;
+            v86 = v152;
+            *(v83 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v152, v142, &v165);
+            v87 = v82;
+            v88 = v147;
+            _os_log_impl(&dword_220940000, v147, v87, "E5 function %{public}s specifies adapter type %{public}s but resource information was not provided", v83, 0x16u);
             swift_arrayDestroy();
-            v86 = v82;
-            v53 = v139;
-            MEMORY[0x223D90A10](v86, -1, -1);
-            v87 = v80;
-            v75 = v145;
-            MEMORY[0x223D90A10](v87, -1, -1);
+            v89 = v85;
+            v56 = v142;
+            MEMORY[0x223D90A10](v89, -1, -1);
+            v90 = v83;
+            v78 = v148;
+            MEMORY[0x223D90A10](v90, -1, -1);
           }
 
           else
           {
 
-            v83 = v149;
+            v86 = v152;
           }
 
-          v88 = objc_allocWithZone(TGIE5FunctionObjC);
-          v89 = MEMORY[0x223D8E6B0](v49, v50);
+          v91 = objc_allocWithZone(TGIE5FunctionObjC);
+          v92 = MEMORY[0x223D8E6B0](v52, v53);
 
-          v90 = MEMORY[0x223D8E6B0](v83, v53);
+          v93 = MEMORY[0x223D8E6B0](v86, v56);
 
-          v91 = [v88 initWithName:v89 queryLength:v148 contextSize:v153 adapterType:v90];
+          v94 = [v91 initWithName:v92 queryLength:v151 contextSize:v156 adapterType:v93];
 
-          specialized Set._Variant.insert(_:)(&v162, v91);
-          v40 = v75;
+          specialized Set._Variant.insert(_:)(&v165, v94);
+          v43 = v78;
         }
       }
 
       else
       {
-        v72 = objc_allocWithZone(TGIE5FunctionObjC);
+        v75 = objc_allocWithZone(TGIE5FunctionObjC);
 
-        v73 = MEMORY[0x223D8E6B0](v49, v50);
+        v76 = MEMORY[0x223D8E6B0](v52, v53);
 
-        v74 = [v72 initWithName:v73 queryLength:v52 contextSize:v153 adapterType:0];
+        v77 = [v75 initWithName:v76 queryLength:v55 contextSize:v156 adapterType:0];
 
-        specialized Set._Variant.insert(_:)(&v162, v74);
+        specialized Set._Variant.insert(_:)(&v165, v77);
       }
     }
 
     while (1)
     {
-      v45 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v48 = v19 + 1;
+      if (__OFADD__(v19, 1))
       {
         break;
       }
 
-      if (v45 >= v146)
+      if (v48 >= v149)
       {
 
-        v92 = objc_allocWithZone(TGIMutableE5ModelConfigurationObjC);
-        v93 = MEMORY[0x223D8E6B0](v158, v159);
-        type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC);
-        lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC);
-        v94 = Set._bridgeToObjectiveC()().super.isa;
+        v95 = objc_allocWithZone(TGIMutableE5ModelConfigurationObjC);
+        v96 = MEMORY[0x223D8E6B0](v161, v162);
+        type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
+        lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5FunctionObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5FunctionObjC, off_27844EEC0);
+        v97 = Set._bridgeToObjectiveC()().super.isa;
 
-        type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
-        lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC);
-        v95 = Set._bridgeToObjectiveC()().super.isa;
+        type metadata accessor for TGIE5FunctionObjC(0, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
+        lazy protocol witness table accessor for type TGIE5FunctionObjC and conformance NSObject(&lazy protocol witness table cache variable for type TGIE5AdapterConfigurationObjC and conformance NSObject, &lazy cache variable for type metadata for TGIE5AdapterConfigurationObjC, off_27844EEB0);
+        v98 = Set._bridgeToObjectiveC()().super.isa;
 
-        v31 = [v92 initWithModelType:v141 modelBundlePath:v93 e5Functions:v94 adapterConfigurations:v95];
+        v34 = [v95 initWithModelType:v144 modelBundlePath:v96 e5Functions:v97 adapterConfigurations:v98];
 
-        v96 = v157;
-        outlined init with take of OnDeviceInferenceAssetObjectE5Runner(v150, v157, type metadata accessor for ModelMetadata);
-        (*(v142 + 56))(v96, 0, 1, v143);
-        return v31;
+        v99 = v160;
+        outlined init with take of OnDeviceInferenceAssetObjectE5Runner(v153, v160, type metadata accessor for ModelMetadata);
+        (*(v145 + 56))(v99, 0, 1, v146);
+        return v34;
       }
 
-      v18 = *(v41 + 8 * v45);
-      ++v17;
-      if (v18)
+      v20 = *(v44 + 8 * v48);
+      ++v19;
+      if (v20)
       {
-        v17 = v45;
+        v19 = v48;
         goto LABEL_27;
       }
     }
@@ -6884,174 +6668,174 @@ LABEL_64:
     swift_once();
   }
 
-  v99 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v99, static Log.device);
+  v102 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v102, static Log.device);
 
-  v100 = Logger.logObject.getter();
-  v101 = static os_log_type_t.error.getter();
+  v103 = Logger.logObject.getter();
+  v104 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v100, v101))
+  if (os_log_type_enabled(v103, v104))
   {
-    v102 = swift_slowAlloc();
-    v103 = swift_slowAlloc();
-    v162 = v103;
-    *v102 = 136446210;
-    *(v102 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v162);
-    _os_log_impl(&dword_220940000, v100, v101, "Failed to handle model of type %{public}s", v102, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v103);
-    v104 = v103;
-    v98 = v137;
-    MEMORY[0x223D90A10](v104, -1, -1);
-    MEMORY[0x223D90A10](v102, -1, -1);
+    v105 = swift_slowAlloc();
+    v106 = swift_slowAlloc();
+    v165 = v106;
+    *v105 = 136446210;
+    *(v105 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v38, &v165);
+    _os_log_impl(&dword_220940000, v103, v104, "Failed to handle model of type %{public}s", v105, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v106);
+    v107 = v106;
+    v101 = v140;
+    MEMORY[0x223D90A10](v107, -1, -1);
+    MEMORY[0x223D90A10](v105, -1, -1);
   }
 
-  v162 = 0;
-  v163 = 0xE000000000000000;
+  v165 = 0;
+  v166 = 0xE000000000000000;
   _StringGuts.grow(_:)(23);
 
-  v162 = 0xD000000000000015;
-  v163 = 0x8000000220AFD1A0;
-  MEMORY[0x223D8E780](v34, v35);
+  v165 = 0xD000000000000015;
+  v166 = 0x8000000220AFD1A0;
+  MEMORY[0x223D8E780](v37, v38);
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   InferenceError.Context.init(additionalDescription:domain:code:userInfo:fallbackAllowed:)();
-  v105 = v138;
-  (*(v22 + 16))(v138, v98, v11);
-  v31 = *MEMORY[0x277D29D78];
-  v106 = type metadata accessor for InferenceError();
-  (*(*(v106 - 8) + 104))(v105, v31, v106);
-  lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0]);
+  v108 = v141;
+  (*(v25 + 16))(v141, v101, v11);
+  v34 = *MEMORY[0x277D29D78];
+  v109 = type metadata accessor for InferenceError();
+  (*(*(v109 - 8) + 104))(v108, v34, v109);
+  lazy protocol witness table accessor for type InferenceError and conformance InferenceError(&lazy protocol witness table cache variable for type InferenceError and conformance InferenceError, 255, MEMORY[0x277D29DE0], MEMORY[0x277D29DE8]);
   swift_willThrowTypedImpl();
-  (*(v22 + 8))(v98, v11);
-  v107 = v150;
+  (*(v25 + 8))(v101, v11);
+  v110 = v153;
 LABEL_69:
-  outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v107, type metadata accessor for ModelMetadata);
-  return v31;
+  outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v110, type metadata accessor for ModelMetadata);
+  return v34;
 }
 
-uint64_t OnDeviceInferenceProviderDataSource.modelMetadataFromResource(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t OnDeviceInferenceProviderDataSource.modelMetadataFromResource(_:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
-  v51 = type metadata accessor for LLMDraftModelAssetContents();
-  v50 = *(v51 - 8);
-  MEMORY[0x28223BE20](v51);
-  v49 = &v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for LLMDraftModelAssetMetadata();
-  MEMORY[0x28223BE20](v5 - 8);
-  v56 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA08LLMDraftaC8MetadataVAA0daC8ContentsVGMd);
-  v57 = *(v7 - 8);
-  v58 = v7;
-  MEMORY[0x28223BE20](v7);
-  v60 = &v46 - v8;
-  v9 = type metadata accessor for URL();
-  v10 = MEMORY[0x28223BE20](v9 - 8);
-  v48 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v55 = &v46 - v12;
-  v13 = type metadata accessor for LLMModelAssetContents();
-  v54 = *(v13 - 8);
-  MEMORY[0x28223BE20](v13);
-  v15 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for LLMModelAssetMetadata();
-  MEMORY[0x28223BE20](v16 - 8);
-  v18 = &v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd);
-  v20 = MEMORY[0x28223BE20](v19 - 8);
-  v47 = &v46 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v20);
-  v23 = &v46 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA08LLMModelC8MetadataVAA0dC8ContentsVGMd);
-  v59 = *(v24 - 8);
-  MEMORY[0x28223BE20](v24);
-  v26 = &v46 - v25;
-  v27 = type metadata accessor for ModelMetadata();
-  v28 = *(v27 - 8);
-  v29 = *(v28 + 56);
-  v61 = a2;
-  v53 = v29;
-  v52 = v28 + 56;
-  v29(a2, 1, 1, v27);
-  outlined init with copy of DeterministicLanguageModelProtocol(a1, v65);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedResource_pMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedLLMModel_pMd);
+  v61 = type metadata accessor for LLMDraftModelAssetContents();
+  v60 = *(v61 - 8);
+  MEMORY[0x28223BE20](v61, v4);
+  v59 = &v56 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for LLMDraftModelAssetMetadata();
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v66 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA08LLMDraftaC8MetadataVAA0daC8ContentsVGMd, &_s12ModelCatalog0B5AssetVyAA08LLMDraftaC8MetadataVAA0daC8ContentsVGMR);
+  v67 = *(v9 - 8);
+  v68 = v9;
+  MEMORY[0x28223BE20](v9, v10);
+  v70 = &v56 - v11;
+  v12 = type metadata accessor for URL();
+  v14 = MEMORY[0x28223BE20](v12 - 8, v13);
+  v58 = &v56 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14, v16);
+  v65 = &v56 - v17;
+  v18 = type metadata accessor for LLMModelAssetContents();
+  v64 = *(v18 - 8);
+  MEMORY[0x28223BE20](v18, v19);
+  v21 = &v56 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for LLMModelAssetMetadata();
+  MEMORY[0x28223BE20](v22 - 8, v23);
+  v25 = &v56 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+  v28 = MEMORY[0x28223BE20](v26 - 8, v27);
+  v57 = &v56 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v28, v30);
+  v32 = &v56 - v31;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog0B5AssetVyAA08LLMModelC8MetadataVAA0dC8ContentsVGMd, &_s12ModelCatalog0B5AssetVyAA08LLMModelC8MetadataVAA0dC8ContentsVGMR);
+  v69 = *(v33 - 8);
+  MEMORY[0x28223BE20](v33, v34);
+  v36 = &v56 - v35;
+  v37 = type metadata accessor for ModelMetadata(0);
+  v38 = *(v37 - 8);
+  v39 = *(v38 + 56);
+  v71 = a2;
+  v63 = v39;
+  v62 = v38 + 56;
+  v39(a2, 1, 1, v37);
+  outlined init with copy of DeterministicLanguageModelProtocol(a1, v75);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedResource_pMd, &_s12ModelCatalog19AssetBackedResource_pMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog19AssetBackedLLMModel_pMd, &_s12ModelCatalog19AssetBackedLLMModel_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of RandomNumberGenerator(&v62, v66);
-    __swift_project_boxed_opaque_existential_1(v66, v67);
-    v30 = v68;
+    outlined init with take of RandomNumberGenerator(&v72, v76);
+    __swift_project_boxed_opaque_existential_1(v76, v77);
+    v40 = v78;
     dispatch thunk of AssetBackedResource.fetchAsset()();
-    if (!v30)
+    if (!v40)
     {
       CatalogAsset.metadata.getter();
-      v68 = 0;
+      v78 = 0;
       CatalogAsset.contents.getter();
-      v36 = v55;
+      v46 = v65;
       AssetContents.metadataURL.getter();
-      (*(v54 + 8))(v15, v13);
-      v37 = v68;
-      ModelMetadata.init(from:metadataUrl:)(v18, v36, v23);
-      (*(v59 + 8))(v26, v24);
-      v38 = v61;
-      outlined destroy of [Int](v61, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-      if (v37)
+      (*(v64 + 8))(v21, v18);
+      v47 = v78;
+      ModelMetadata.init(from:metadataUrl:)(v25, v46, v32);
+      (*(v69 + 8))(v36, v33);
+      v48 = v71;
+      outlined destroy of [Int](v71, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+      if (v47)
       {
-        return __swift_destroy_boxed_opaque_existential_1(v66);
+        return __swift_destroy_boxed_opaque_existential_1(v76);
       }
 
-      v53(v23, 0, 1, v27);
-      v44 = v23;
-      v45 = v38;
+      v63(v32, 0, 1, v37);
+      v54 = v32;
+      v55 = v48;
       goto LABEL_12;
     }
 
     goto LABEL_6;
   }
 
-  v31 = v68;
-  v64 = 0;
-  v62 = 0u;
-  v63 = 0u;
-  outlined destroy of [Int](&v62, &_s12ModelCatalog19AssetBackedLLMModel_pSgMd);
-  outlined init with copy of DeterministicLanguageModelProtocol(a1, v65);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog019AssetBackedLLMDraftA0_pMd);
+  v41 = v78;
+  v74 = 0;
+  v72 = 0u;
+  v73 = 0u;
+  outlined destroy of [Int](&v72, &_s12ModelCatalog19AssetBackedLLMModel_pSgMd, &_s12ModelCatalog19AssetBackedLLMModel_pSgMR);
+  outlined init with copy of DeterministicLanguageModelProtocol(a1, v75);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12ModelCatalog019AssetBackedLLMDraftA0_pMd, &_s12ModelCatalog019AssetBackedLLMDraftA0_pMR);
   if (swift_dynamicCast())
   {
-    outlined init with take of RandomNumberGenerator(&v62, v66);
-    __swift_project_boxed_opaque_existential_1(v66, v67);
-    v32 = v60;
+    outlined init with take of RandomNumberGenerator(&v72, v76);
+    __swift_project_boxed_opaque_existential_1(v76, v77);
+    v42 = v70;
     dispatch thunk of AssetBackedResource.fetchAsset()();
-    if (!v31)
+    if (!v41)
     {
-      v34 = v56;
-      v35 = v58;
+      v44 = v66;
+      v45 = v68;
       CatalogAsset.metadata.getter();
-      v39 = v49;
+      v49 = v59;
       CatalogAsset.contents.getter();
-      v40 = v48;
-      v41 = v51;
+      v50 = v58;
+      v51 = v61;
       AssetContents.metadataURL.getter();
-      (*(v50 + 8))(v39, v41);
-      v42 = v47;
-      ModelMetadata.init(from:metadataUrl:)(v34, v40, v47);
-      (*(v57 + 8))(v32, v35);
-      v43 = v61;
-      outlined destroy of [Int](v61, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-      v53(v42, 0, 1, v27);
-      v44 = v42;
-      v45 = v43;
+      (*(v60 + 8))(v49, v51);
+      v52 = v57;
+      ModelMetadata.init(from:metadataUrl:)(v44, v50, v57);
+      (*(v67 + 8))(v42, v45);
+      v53 = v71;
+      outlined destroy of [Int](v71, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+      v63(v52, 0, 1, v37);
+      v54 = v52;
+      v55 = v53;
 LABEL_12:
-      outlined init with take of ModelMetadata?(v44, v45);
-      return __swift_destroy_boxed_opaque_existential_1(v66);
+      outlined init with take of ModelMetadata?(v54, v55);
+      return __swift_destroy_boxed_opaque_existential_1(v76);
     }
 
 LABEL_6:
-    outlined destroy of [Int](v61, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-    return __swift_destroy_boxed_opaque_existential_1(v66);
+    outlined destroy of [Int](v71, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+    return __swift_destroy_boxed_opaque_existential_1(v76);
   }
 
-  v64 = 0;
-  v62 = 0u;
-  v63 = 0u;
-  return outlined destroy of [Int](&v62, &_s12ModelCatalog019AssetBackedLLMDraftA0_pSgMd);
+  v74 = 0;
+  v72 = 0u;
+  v73 = 0u;
+  return outlined destroy of [Int](&v72, &_s12ModelCatalog019AssetBackedLLMDraftA0_pSgMd, &_s12ModelCatalog019AssetBackedLLMDraftA0_pSgMR);
 }
 
 uint64_t sub_22095C108(uint64_t result, uint64_t a2, int a3, uint64_t a4)
@@ -7064,7 +6848,7 @@ uint64_t sub_22095C108(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd, &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 64);
 
@@ -7074,7 +6858,7 @@ uint64_t sub_22095C108(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, void *a4)
+unsigned __int8 *std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, unsigned __int8 **a4)
 {
   v23 = *MEMORY[0x277D85DE8];
   v7 = std::__format::__parse_arg_id[abi:ne200100]<char const*,std::basic_format_parse_context<char>>(a1, a2, a3);
@@ -7110,18 +6894,18 @@ LABEL_5:
 
   else if (v10 > 0xC)
   {
-    v15 = (a4[2] + 32 * v8);
-    v16 = v15[1];
+    v15 = &a4[2][32 * v8];
+    v16 = *(v15 + 1);
     v21 = *v15;
     v22 = v16;
   }
 
   else
   {
-    v11 = (a4[2] + 16 * v8);
+    v11 = &a4[2][16 * v8];
     v13 = *v11;
-    v12 = v11[1];
-    v14 = (a4[3] >> (5 * v8)) & 0x1FLL;
+    v12 = *(v11 + 1);
+    v14 = (a4[3] >> (5 * v8)) & 0x1F;
     *&v21 = v13;
     *(&v21 + 1) = v12;
     LOBYTE(v22) = v14;
@@ -7137,7 +6921,7 @@ LABEL_5:
   return v17 + 1;
 }
 
-void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_replacement_field[abi:ne200100]<char const*,std::basic_format_parse_context<char>,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char const*,char const*,std::basic_format_parse_context<char> &,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char> &)::{lambda(char const*)#1},std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unsigned __int8 ***a1, unsigned __int8 *a2)
 {
   switch(a2[16])
   {
@@ -7148,7 +6932,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v4 = *a1;
         v5 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7156,7 +6940,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v4 = v5;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::formatter<BOOL,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v3, v6);
       goto LABEL_65;
     case 2u:
@@ -7166,7 +6950,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v27 = *a1;
         v28 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7174,7 +6958,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v27 = v28;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_char<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v26, v6);
       goto LABEL_65;
     case 3u:
@@ -7184,7 +6968,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v30 = *a1;
         v31 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7192,7 +6976,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v30 = v31;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v29, v6);
       goto LABEL_65;
     case 4u:
@@ -7202,7 +6986,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v17 = *a1;
         v18 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7210,7 +6994,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v17 = v18;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v16, v6);
       goto LABEL_65;
     case 5u:
@@ -7221,7 +7005,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v37 = *a1;
         v38 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7229,7 +7013,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v37 = v38;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<__int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v36, v35, v6);
       goto LABEL_65;
     case 6u:
@@ -7239,7 +7023,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v33 = *a1;
         v34 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7247,7 +7031,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v33 = v34;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned int,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v32, v6);
       goto LABEL_65;
     case 7u:
@@ -7257,7 +7041,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v43 = *a1;
         v44 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7265,7 +7049,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v43 = v44;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned long long,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v42, v6);
       goto LABEL_65;
     case 8u:
@@ -7276,7 +7060,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v24 = *a1;
         v25 = std::__format_spec::__parser<char>::__parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1, 311);
@@ -7284,7 +7068,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
         *v24 = v25;
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_integer<char>::format[abi:ne200100]<unsigned __int128,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v23, v22, v6);
       goto LABEL_65;
     case 9u:
@@ -7294,7 +7078,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_56;
       }
@@ -7311,7 +7095,7 @@ void *std::__visit_format_arg[abi:ne200100]<char const* std::__format::__handle_
 LABEL_55:
         *v20 = v21;
 LABEL_56:
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         v54 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
         result = std::__formatter::__format_floating_point[abi:ne200100]<float,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v54, v55, v19);
         goto LABEL_65;
@@ -7330,7 +7114,7 @@ LABEL_56:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_64;
       }
@@ -7347,7 +7131,7 @@ LABEL_56:
 LABEL_63:
         *v46 = v47;
 LABEL_64:
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         v58 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
         result = std::__formatter::__format_floating_point[abi:ne200100]<double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v58, v59, v45);
         goto LABEL_65;
@@ -7366,7 +7150,7 @@ LABEL_64:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) != 1)
+      if (*a1[2] != 1)
       {
         goto LABEL_60;
       }
@@ -7389,7 +7173,7 @@ LABEL_67:
 
       *v40 = v41;
 LABEL_60:
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       v56 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
       result = std::__formatter::__format_floating_point[abi:ne200100]<long double,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v6, v56, v57, v39);
 LABEL_65:
@@ -7402,13 +7186,13 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v49 = *a1;
         *v49 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v48, v6);
       goto LABEL_65;
     case 0xDu:
@@ -7419,13 +7203,13 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v12 = *a1;
         *v12 = std::__formatter_string<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       v13 = *v6;
       v14 = std::__format_spec::__parser<char>::__get_parsed_std_specifications[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v6);
       result = std::__formatter::__write_string[abi:ne200100]<char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v10, v11, v13, v14, v15);
@@ -7437,20 +7221,20 @@ LABEL_65:
       v61 = 32;
       v62 = 0;
       v63 = 0;
-      if (**(a1 + 16) == 1)
+      if (*a1[2] == 1)
       {
         v9 = *a1;
         *v9 = std::__formatter_pointer<char>::parse[abi:ne200100]<std::basic_format_parse_context<char>>(v60, *a1);
       }
 
-      v6 = *(a1 + 8);
+      v6 = a1[1];
       result = std::__formatter_pointer<char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(v60, v8, v6);
       goto LABEL_65;
     case 0xFu:
       v50 = *a1;
       v51 = *a2;
       v52 = *(a2 + 1);
-      v53 = *(a1 + 8);
+      v53 = a1[1];
 
       return v52(v50, v53, v51);
     default:
@@ -7458,7 +7242,7 @@ LABEL_65:
   }
 }
 
-void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, void *a3)
+void *std::formatter<char const*,char>::format[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(char *a1, char *__s, uint64_t *a3)
 {
   v6 = strlen(__s);
   v7 = *a3;
@@ -7591,12 +7375,12 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
   v10 = result[2];
   do
   {
-    v11 = *(v4 + 8) - v10;
+    v11 = v4[1] - v10;
     if (v11 < v8 + 1)
     {
-      result = (*(v4 + 24))(v4, v8 + 2);
-      v10 = *(v4 + 16);
-      v11 = *(v4 + 8) - v10;
+      result = (v4[3])(v4, v8 + 2);
+      v10 = v4[2];
+      v11 = v4[1] - v10;
     }
 
     if (v11 >= v8)
@@ -7612,11 +7396,11 @@ void *std::__format::__output_buffer<char>::__copy[abi:ne200100]<char>(void *res
     if (v12)
     {
       result = memmove((*v4 + v10), __src, v12);
-      v10 = *(v4 + 16);
+      v10 = v4[2];
     }
 
     v10 += v12;
-    *(v4 + 16) = v10;
+    v4[2] = v10;
     __src += v12;
     v13 = v8 > v11;
     v8 -= v12;
@@ -7973,7 +7757,7 @@ LABEL_70:
 
 void sub_22095D7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (__p != v67)
+  if (__p != v66)
   {
     operator delete(__p);
   }
@@ -7995,7 +7779,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v4 = *(v0 + 976);
   v5 = *(v0 + 968);
   v6 = *(v0 + 696);
-  v7 = type metadata accessor for E5TransformerLanguageModel();
+  v7 = type metadata accessor for E5TransformerLanguageModel(0);
   ObjectType = swift_getObjectType();
   swift_unknownObjectRetain_n();
 
@@ -8018,11 +7802,11 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   }
 
   v11 = *(v0 + 712);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 720), v11, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 720), v11, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
   type metadata accessor for PromptTemplateConfiguration(0);
   v12 = *(*(v10 - 8) + 48);
   v13 = v12(v11, 1, v10);
-  outlined destroy of [Int](v11, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  outlined destroy of [Int](v11, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
   if (v13 == 1)
   {
 
@@ -8048,13 +7832,13 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   else if (!v12(*(v0 + 720), 1, v10))
   {
     v20 = *(v0 + 944);
-    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v20, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-    v21 = type metadata accessor for ModelMetadata();
+    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v20, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+    v21 = type metadata accessor for ModelMetadata(0);
     v22 = (*(*(v21 - 8) + 48))(v20, 1, v21);
     v23 = *(v0 + 944);
     if (v22 == 1)
     {
-      outlined destroy of [Int](v23, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+      outlined destroy of [Int](v23, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
       v24 = 0;
     }
 
@@ -8076,17 +7860,17 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v96 = v30;
   v97 = v29;
   outlined init with copy of OnDeviceInferenceAssetObjectE5Runner(v28, v27, type metadata accessor for Asset);
-  v99 = type metadata accessor for Asset();
+  v99 = type metadata accessor for Asset(0);
   v91 = *(*(v99 - 8) + 56);
   (v91)(v27, 0, 1);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v25, v26, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-  v31 = type metadata accessor for ModelMetadata();
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v25, v26, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+  v31 = type metadata accessor for ModelMetadata(0);
   v32 = *(*(v31 - 8) + 48);
   v33 = v32(v26, 1, v31);
   v34 = *(v0 + 936);
   if (v33 == 1)
   {
-    outlined destroy of [Int](*(v0 + 936), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 936), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v95 = 0;
   }
 
@@ -8098,12 +7882,12 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   }
 
   v35 = *(v0 + 928);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v35, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v35, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v36 = v32(v35, 1, v31);
   v37 = *(v0 + 928);
   if (v36 == 1)
   {
-    outlined destroy of [Int](*(v0 + 928), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 928), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v94 = 0;
   }
 
@@ -8123,7 +7907,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
     *(v0 + 96) = v42;
     *(v0 + 112) = v43;
     *(v0 + 80) = v41;
-    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v0 + 16, v0 + 136, &_s24TokenGenerationInference17DefaultParametersVSgMd);
+    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v0 + 16, v0 + 136, &_s24TokenGenerationInference17DefaultParametersVSgMd, &_s24TokenGenerationInference17DefaultParametersVSgMR);
     outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v37, type metadata accessor for ModelMetadata);
     if (*(v0 + 104) == 1)
     {
@@ -8134,7 +7918,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
     {
       v44 = *(v0 + 80);
       v45 = *(v0 + 88);
-      outlined destroy of [Int](v0 + 16, &_s24TokenGenerationInference17DefaultParametersVSgMd);
+      outlined destroy of [Int](v0 + 16, &_s24TokenGenerationInference17DefaultParametersVSgMd, &_s24TokenGenerationInference17DefaultParametersVSgMR);
       if (v45)
       {
         v46 = 0;
@@ -8150,12 +7934,12 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   }
 
   v47 = *(v0 + 920);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v47, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v47, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v48 = v32(v47, 1, v31);
   v49 = *(v0 + 920);
   if (v48 == 1)
   {
-    outlined destroy of [Int](*(v0 + 920), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 920), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v93 = 0;
   }
 
@@ -8175,13 +7959,13 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v56 = type metadata accessor for UUID();
   (*(*(v56 - 8) + 56))(v55, 1, 1, v56);
   v91(v54, 1, 1, v99);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v52, v53, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v50, v51, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v52, v53, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v50, v51, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v57 = v32(v51, 1, v31);
   v58 = *(v0 + 912);
   if (v57 == 1)
   {
-    outlined destroy of [Int](*(v0 + 912), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 912), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v90 = 0;
     v92 = 0;
     v89 = 0;
@@ -8192,17 +7976,17 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
     v90 = v58[26];
     v92 = v58[25];
     v89 = v58[27];
-    outlined copy of ClassifierMetadata?(v92, v90);
+    outlined copy of ClassifierMetadata?(v92, v90, v89);
     outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v58, type metadata accessor for ModelMetadata);
   }
 
   v59 = *(v0 + 904);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v59, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v59, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v60 = v32(v59, 1, v31);
   v61 = *(v0 + 904);
   if (v60 == 1)
   {
-    outlined destroy of [Int](*(v0 + 904), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 904), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v87 = 0;
     v88 = 0;
     v85 = 1;
@@ -8220,20 +8004,20 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   }
 
   v62 = *(v0 + 896);
-  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v62, &_s24TokenGenerationInference13ModelMetadataVSgMd);
+  outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(*(v0 + 952), v62, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
   v63 = v32(v62, 1, v31);
   v64 = *(v0 + 896);
   v65 = *(v0 + 632);
   if (v63 == 1)
   {
-    outlined destroy of [Int](*(v0 + 896), &_s24TokenGenerationInference13ModelMetadataVSgMd);
+    outlined destroy of [Int](*(v0 + 896), &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
     v66 = type metadata accessor for PromptPreprocessingTemplateVersion();
     (*(*(v66 - 8) + 56))(v65, 1, 1, v66);
   }
 
   else
   {
-    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v64 + *(v31 + 64), *(v0 + 632), &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd);
+    outlined init with copy of (String, AppAssetGarbageCollector.Manifest.Entry)(v64 + *(v31 + 64), *(v0 + 632), &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd, &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMR);
     outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v64, type metadata accessor for ModelMetadata);
   }
 
@@ -8254,7 +8038,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v69[1] = v67;
   v69[2] = v97;
   v69[3] = v96;
-  outlined init with take of Asset?(v71, v69 + v70[6], &_s24TokenGenerationInference5AssetVSgMd);
+  outlined init with take of Asset?(v71, v69 + v70[6], &_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
   *(v69 + v70[7]) = v100;
   *(v69 + v70[8]) = v98;
   v74 = (v69 + v70[9]);
@@ -8266,9 +8050,9 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   *(v69 + v70[10]) = v95;
   *(v69 + v70[11]) = v94;
   *(v69 + v70[12]) = v93;
-  outlined init with take of Asset?(v73, v69 + v70[13], &_s10Foundation4UUIDVSgMd);
-  outlined init with take of Asset?(v72, v69 + v70[14], &_s24TokenGenerationInference5AssetVSgMd);
-  outlined init with take of Asset?(v68, v69 + v70[15], &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  outlined init with take of Asset?(v73, v69 + v70[13], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined init with take of Asset?(v72, v69 + v70[14], &_s24TokenGenerationInference5AssetVSgMd, &_s24TokenGenerationInference5AssetVSgMR);
+  outlined init with take of Asset?(v68, v69 + v70[15], &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
   v75 = (v69 + v70[16]);
   *v75 = v92;
   v75[1] = v90;
@@ -8278,7 +8062,7 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   v76[1] = v87;
   v76[2] = v86;
   v76[3] = v85;
-  outlined init with take of Asset?(v80, v69 + v70[18], &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd);
+  outlined init with take of Asset?(v80, v69 + v70[18], &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMd, &_s19TokenGenerationCore34PromptPreprocessingTemplateVersionOSgMR);
   *(v0 + 400) = v70;
   *(v0 + 408) = &protocol witness table for OnDeviceInferenceAssetObjectE5Runner;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 376));
@@ -8290,8 +8074,8 @@ uint64_t _s24TokenGenerationInference08OnDeviceC15AssetRepositoryC14handleLLMMod
   swift_unknownObjectRelease();
 
   outlined destroy of OnDeviceInferenceAssetObjectE5Runner(v69, type metadata accessor for OnDeviceInferenceAssetObjectE5Runner);
-  outlined destroy of [Int](v83, &_s24TokenGenerationInference13ModelMetadataVSgMd);
-  outlined destroy of [Int](v84, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd);
+  outlined destroy of [Int](v83, &_s24TokenGenerationInference13ModelMetadataVSgMd, &_s24TokenGenerationInference13ModelMetadataVSgMR);
+  outlined destroy of [Int](v84, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMd, &_s24TokenGenerationInference27PromptTemplateConfigurationVSgMR);
 
   v78 = *(v0 + 8);
 
@@ -8321,7 +8105,7 @@ uint64_t _ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010Con
   v3 = v0[9];
   v4 = v0[10];
   dispatch thunk of Clock.now.getter();
-  lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8]);
+  lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8], MEMORY[0x277D85920]);
   dispatch thunk of InstantProtocol.duration(to:)();
   v5 = *(v4 + 8);
   v5(v2, v3);
@@ -8354,7 +8138,7 @@ uint64_t MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:)(uint64
 
   if (v1)
   {
-    outlined destroy of [Int](v4 + 1896, &_s24TokenGenerationInference15LogitPresampler_pSgMd);
+    outlined destroy of [Int](v4 + 1896, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
 
     v5 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
   }
@@ -8362,7 +8146,7 @@ uint64_t MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:)(uint64
   else
   {
     *(v4 + 3016) = a1;
-    outlined destroy of [Int](v4 + 1896, &_s24TokenGenerationInference15LogitPresampler_pSgMd);
+    outlined destroy of [Int](v4 + 1896, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
 
     v5 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
   }
@@ -8383,71 +8167,71 @@ uint64_t MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:)(uint64
 
   else
   {
-    outlined destroy of [Int](v3 + 2696, &_s24TokenGenerationInference15LogitPresampler_pSgMd);
+    outlined destroy of [Int](v3 + 2696, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
     v4 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
   }
 
   return MEMORY[0x2822009F8](v4, 0, 0);
 }
 
-void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
-  }
-
-  else
-  {
-    v13 = v11;
-  }
-
-  if (v13)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v14[2] = v12;
-    v14[3] = 2 * ((v15 - 32) / 40);
+    v15 = a4[2];
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v15 = v13;
   }
 
-  if (v9)
+  if (v15)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[5 * v12 + 4])
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v16[2] = v14;
+    v16[3] = 2 * ((v17 - 32) / 40);
+  }
+
+  else
+  {
+    v16 = MEMORY[0x277D84F90];
+  }
+
+  if (v11)
+  {
+    if (v16 != a4 || v16 + 4 >= &a4[5 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 40 * v12);
+      memmove(v16 + 4, a4 + 4, 40 * v14);
     }
 
     a4[2] = 0;
@@ -8455,76 +8239,76 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  if (v13)
+  if (v15)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 25;
+      v18 = v17 - 25;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 3);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 3);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v16 = MEMORY[0x277D84F90];
   }
 
-  if (v9)
+  if (v11)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 8 * v12);
+      memmove(v16 + 4, a4 + 4, 8 * v14);
     }
 
     a4[2] = 0;
@@ -8532,88 +8316,80 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3, void *a4)
 {
-  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMR, &_s24TokenGenerationInference15LogitCollection_pMd);
+  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference15LogitCollection_pGMR, &_s24TokenGenerationInference15LogitCollection_pMd, &_s24TokenGenerationInference15LogitCollection_pMR);
 }
 
 {
-  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySDyS2i4next_Sf5logittGGMd, &_ss23_ContiguousArrayStorageCySDyS2i4next_Sf5logittGGMR, &_sSDyS2i4next_Sf5logittGMd);
+  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference22ProcessedImageProtocol_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference22ProcessedImageProtocol_pGMR, &_s24TokenGenerationInference22ProcessedImageProtocol_pMd, &_s24TokenGenerationInference22ProcessedImageProtocol_pMR);
 }
 
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference22ProcessedImageProtocol_pGMd, &_ss23_ContiguousArrayStorageCy24TokenGenerationInference22ProcessedImageProtocol_pGMR, &_s24TokenGenerationInference22ProcessedImageProtocol_pMd);
-}
-
-{
-  return specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &_ss23_ContiguousArrayStorageCySaySiGGMd, &_ss23_ContiguousArrayStorageCySaySiGGMR, &_sSaySiGMd);
-}
-
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
-{
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
-  }
-
-  else
-  {
-    v13 = v11;
-  }
-
-  if (v13)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v14[2] = v12;
-    v14[3] = 2 * ((v15 - 32) / 40);
+    v15 = a4[2];
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v15 = v13;
   }
 
-  if (v9)
+  if (v15)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[5 * v12 + 4])
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v16[2] = v14;
+    v16[3] = 2 * ((v17 - 32) / 40);
+  }
+
+  else
+  {
+    v16 = MEMORY[0x277D84F90];
+  }
+
+  if (v11)
+  {
+    if (v16 != a4 || v16 + 4 >= &a4[5 * v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 40 * v12);
+      memmove(v16 + 4, a4 + 4, 40 * v14);
     }
 
     a4[2] = 0;
@@ -8621,76 +8397,76 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  if (v13)
+  if (v15)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 25;
+      v18 = v17 - 25;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 3);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 3);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84F90];
+    v16 = MEMORY[0x277D84F90];
   }
 
-  if (v9)
+  if (v11)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 8 * v12);
+      memmove(v16 + 4, a4 + 4, 8 * v14);
     }
 
     a4[2] = 0;
@@ -8698,11 +8474,11 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
 char *closure #1 in E5RunnerObjC.run(tokens:computeLogitsTokenCount:tokenMasks:presampler:)(uint64_t a1, __int128 *p_aBlock, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
@@ -8752,11 +8528,12 @@ LABEL_13:
   v20 = a5;
   *&aBlock = MEMORY[0x277D84F90];
   specialized ContiguousArray.reserveCapacity(_:)();
-  v21 = (p_aBlock + 2);
+  v21 = p_aBlock + 2;
   v22 = v19;
   do
   {
-    v23 = *v21++;
+    v23 = *v21;
+    v21 = (v21 + 8);
     [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
@@ -8884,7 +8661,7 @@ LABEL_38:
   {
     *&aBlock = v66;
     v43 = v66;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd, &_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMR);
     CheckedContinuation.resume(throwing:)();
   }
 
@@ -8926,7 +8703,7 @@ LABEL_38:
         *&aBlock = v67;
         *(&aBlock + 1) = v65;
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd, &_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMR);
         CheckedContinuation.resume(returning:)();
         goto LABEL_33;
       }
@@ -8959,7 +8736,7 @@ LABEL_38:
     }
 
     v58 = [objc_allocWithZone(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.TokenGenerationInference.E5Runner" code:5 userInfo:0];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMd, &_sScCySay24TokenGenerationInference15LogitCollection_pG6logits_Si9callCountts5Error_pGMR);
     CheckedContinuation.resume(throwing:)();
     __swift_destroy_boxed_opaque_existential_1(&v59);
   }
@@ -8971,7 +8748,7 @@ uint64_t sub_22095F6B0()
 {
   if (*(v0 + 72))
   {
-    __swift_destroy_boxed_opaque_existential_1(v0 + 48);
+    __swift_destroy_boxed_opaque_existential_1((v0 + 48));
   }
 
   return MEMORY[0x2821FE8E8](v0, 96, 7);
@@ -8989,13 +8766,14 @@ uint64_t closure #1 in E5TransformerLanguageModel.run(promptModuleNodes:queryNod
     v5 = 32;
     do
     {
-      v6 = E5TransformerLanguageModel.leftContextTokens(forNode:)(*(v2 + v5));
-      v7 = *(v4 + 16);
+      E5TransformerLanguageModel.leftContextTokens(forNode:)(*(v2 + v5));
+      v7 = v6;
+      v8 = *(v4 + 16);
       type metadata accessor for KVLRUCache.TokenArrayWrapper();
-      v8 = swift_allocObject();
-      *(v8 + 16) = v6;
-      v9 = v7;
-      v10 = [v9 objectForKey_];
+      v9 = swift_allocObject();
+      *(v9 + 16) = v7;
+      v10 = v8;
+      v11 = [v10 objectForKey_];
 
       v5 += 8;
       --v3;
@@ -9004,40 +8782,40 @@ uint64_t closure #1 in E5TransformerLanguageModel.run(promptModuleNodes:queryNod
     while (v3);
   }
 
-  v11 = v0[21];
+  v12 = v0[21];
   E5TransformerLanguageModel.cachePromptModuleNodes(promptModulesTokens:)(v0[15]);
-  v12 = v0[14];
-  if (v11)
+  v13 = v0[14];
+  if (v12)
   {
 
-    v13 = v0[1];
+    v14 = v0[1];
   }
 
   else
   {
-    v14 = v0[20];
-    v15 = v0[8];
+    v15 = v0[20];
+    v16 = v0[8];
 
-    specialized Array.append<A>(contentsOf:)(v12);
+    specialized Array.append<A>(contentsOf:)(v13);
 
-    result = specialized Array.append<A>(contentsOf:)(v16);
-    v18 = *(v15 + 64);
-    v19 = __OFADD__(v18, v14);
-    v20 = v18 + v14;
-    if (v19)
+    result = specialized Array.append<A>(contentsOf:)(v17);
+    v19 = *(v16 + 64);
+    v20 = __OFADD__(v19, v15);
+    v21 = v19 + v15;
+    if (v20)
     {
       __break(1u);
       return result;
     }
 
-    v21 = v0[19];
-    v22 = v0[7];
-    *(v15 + 64) = v20;
-    *v22 = v21;
-    v13 = v0[1];
+    v22 = v0[19];
+    v23 = v0[7];
+    *(v16 + 64) = v21;
+    *v23 = v22;
+    v14 = v0[1];
   }
 
-  return v13();
+  return v14();
 }
 
 {
@@ -9124,7 +8902,7 @@ LABEL_13:
             do
             {
               v31 = *v29++;
-              v32 = E5TransformerLanguageModel.leftContextTokens(forNode:)(v31);
+              E5TransformerLanguageModel.leftContextTokens(forNode:)(v31);
               v66 = v30;
               v34 = *(v30 + 16);
               v33 = *(v30 + 24);
@@ -9514,7 +9292,7 @@ uint64_t _ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010Con
   return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
-uint64_t lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9581,16 +9359,16 @@ LABEL_7:
 }
 
 {
-  v74 = v0;
+  v75 = v0;
   v1 = v0[22];
   v2 = E5TransformerLanguageModel.computePromptModuleNodesNeeded()();
   v4 = v3;
-  v72 = v0;
+  v73 = v0;
   v0[25] = v3;
   v5 = E5TransformerLanguageModel.latestCommonParent(nodes:)(v1);
-  v65 = v4;
-  v66 = *(v2 + 16);
-  if (v66 || *(v4 + 16))
+  v66 = v4;
+  v67 = *(v2 + 16);
+  if (v67 || *(v4 + 16))
   {
     v6 = 0;
   }
@@ -9598,34 +9376,34 @@ LABEL_7:
   else
   {
     v6 = v5;
-    v58 = v0[22];
-    v59 = *(v58 + 16);
-    v60 = (v58 + 32);
-    while (v59)
+    v59 = v0[22];
+    v60 = *(v59 + 16);
+    v61 = (v59 + 32);
+    while (v60)
     {
-      v61 = *v60++;
-      --v59;
-      if (v61 == v5)
+      v62 = *v61++;
+      --v60;
+      if (v62 == v5)
       {
-        v62 = v0[24];
+        v63 = v0[24];
         result = swift_beginAccess();
         if ((v6 & 0x8000000000000000) != 0)
         {
           goto LABEL_62;
         }
 
-        v63 = *(v62 + 56);
-        if (v6 < *(v63 + 16))
+        v64 = *(v63 + 56);
+        if (v6 < *(v64 + 16))
         {
-          v64 = v63 + 48 * v6;
-          if (*(v64 + 48))
+          v65 = v64 + 48 * v6;
+          if (*(v65 + 48))
           {
             v6 = 0;
           }
 
           else
           {
-            v6 = *(v64 + 40);
+            v6 = *(v65 + 40);
           }
 
           break;
@@ -9643,34 +9421,34 @@ LABEL_7:
   v0[20] = v9;
   v11 = *(v7 + 16);
   v0[26] = v11;
-  v69 = v11;
+  v70 = v11;
   if (v11)
   {
-    v67 = v0[24];
-    v68 = v0[22] + 32;
+    v68 = v0[24];
+    v69 = v0[22] + 32;
     result = swift_beginAccess();
     v12 = 0;
     while (1)
     {
-      v13 = *(v68 + 8 * v12);
+      v13 = *(v69 + 8 * v12);
       if ((v13 & 0x8000000000000000) != 0)
       {
         break;
       }
 
-      v14 = *(v67 + 56);
+      v14 = *(v68 + 56);
       if (v13 >= *(v14 + 16))
       {
         goto LABEL_53;
       }
 
-      v70 = v12 + 1;
+      v71 = v12 + 1;
       v15 = *(v14 + 48 * v13 + 32);
 
       v16 = specialized NodeStorage.nodes(previousAndIncluding:position:)(v13, v15, 0, v14);
       v18 = v17;
 
-      v19 = v72[20];
+      v19 = v73[20];
       do
       {
         if ((v16 & 0x8000000000000000) != 0)
@@ -9714,9 +9492,9 @@ LABEL_51:
         {
 LABEL_10:
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          v73 = v19;
+          v74 = v19;
           result = specialized _NativeSet.insertNew(_:at:isUnique:)(v16, v25, isUniquelyReferenced_nonNull_native);
-          v72[20] = v19;
+          v73[20] = v19;
           v9 = v19;
         }
 
@@ -9725,8 +9503,8 @@ LABEL_10:
 
       while ((v23 & 1) == 0);
 
-      v12 = v70;
-      if (v70 == v69)
+      v12 = v71;
+      if (v71 == v70)
       {
         goto LABEL_20;
       }
@@ -9754,7 +9532,7 @@ LABEL_59:
   {
 LABEL_20:
     v27 = 0;
-    v28 = *(v72[24] + OBJC_IVAR____TtC24TokenGenerationInference26E5TransformerLanguageModel_currentQueryNodes);
+    v28 = *(v73[24] + OBJC_IVAR____TtC24TokenGenerationInference26E5TransformerLanguageModel_currentQueryNodes);
     v29 = *(v28 + 16);
     while (v29 != v27)
     {
@@ -9764,26 +9542,27 @@ LABEL_20:
         E5TransformerLanguageModel.reset(promptModuleNodes:toNode:)(v2, v6);
 LABEL_35:
 
-        v44 = v72[22];
-        v45 = v72[20];
+        v44 = v73[22];
+        v45 = v73[20];
 
         v46 = specialized _NativeSet.subtracting<A>(_:)(v44, v45);
         v47 = v46;
         v48 = *(v46 + 16);
-        v49 = v72[24];
+        v49 = v73[24];
         if (v48)
         {
           v50 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi_Tt1g5(*(v46 + 16), 0);
-          v71 = specialized Sequence._copySequenceContents(initializing:)(&v73, v50 + 4, v48, v47);
+          v72 = specialized Sequence._copySequenceContents(initializing:)(&v74, v50 + 4, v48, v47);
+          v51 = v74;
           swift_retain_n();
 
-          result = outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant();
-          if (v71 != v48)
+          result = outlined consume of [Int : (next: Int, logit: Float)].Iterator._Variant(v51);
+          if (v72 != v48)
           {
             goto LABEL_56;
           }
 
-          v49 = v72[24];
+          v49 = v73[24];
         }
 
         else
@@ -9792,34 +9571,34 @@ LABEL_35:
           v50 = MEMORY[0x277D84F90];
         }
 
-        v73 = v50;
+        v74 = v50;
 
-        specialized MutableCollection<>.sort(by:)(&v73, v49, specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:), specialized MutableCollection<>._insertionSort(within:sortedEnd:by:));
-        v52 = v72[23];
-        v51 = v72[24];
+        specialized MutableCollection<>.sort(by:)(&v74, v49, specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:), specialized MutableCollection<>._insertionSort(within:sortedEnd:by:), 2);
+        v53 = v73[23];
+        v52 = v73[24];
 
-        specialized Array.append<A>(contentsOf:)(v53);
-        v54 = v73;
-        v72[27] = v73;
-        v55 = swift_task_alloc();
-        v72[28] = v55;
-        v55[2] = v51;
-        v55[3] = v54;
-        v55[4] = v65;
-        v55[5] = v69;
-        v55[6] = v52;
-        v72[21] = 0;
-        v56 = OBJC_IVAR____TtC24TokenGenerationInference26E5TransformerLanguageModel_clock;
-        v57 = swift_task_alloc();
-        v72[29] = v57;
-        *v57 = v72;
-        v57[1] = specialized E5TransformerLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+        specialized Array.append<A>(contentsOf:)(v54);
+        v55 = v74;
+        v73[27] = v74;
+        v56 = swift_task_alloc();
+        v73[28] = v56;
+        v56[2] = v52;
+        v56[3] = v55;
+        v56[4] = v66;
+        v56[5] = v70;
+        v56[6] = v53;
+        v73[21] = 0;
+        v57 = OBJC_IVAR____TtC24TokenGenerationInference26E5TransformerLanguageModel_clock;
+        v58 = swift_task_alloc();
+        v73[29] = v58;
+        *v58 = v73;
+        v58[1] = specialized E5TransformerLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
 
-        return _ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010ContinuousA0V_Tg50120_s24TokenGenerationInference26E5TransformerLanguageModelC7measure015_C54BEC2A6549C4L16D2CDB56F73805ABELLyxxyYaKXEYaKlFyyX35KXEfU_SayAA15LogitCollection_pG_Tg5Say0gH9Inference15LogitCollection_pGSgxs5Error_pRi_zRi0_zlyAMIsgHrzo_Tf1ncn_nTf4nnng_n(0, 0, v51 + v56, (v72 + 21), &async function pointer to partial apply for closure #1 in E5TransformerLanguageModel.run(promptModuleNodes:queryNodes:computeLogitsTokenCount:presampler:), v55);
+        return _ss5ClockPsE7measure9isolation_8DurationQzScA_pSgYi_yyYaKXEtYaKFs010ContinuousA0V_Tg50120_s24TokenGenerationInference26E5TransformerLanguageModelC7measure015_C54BEC2A6549C4L16D2CDB56F73805ABELLyxxyYaKXEYaKlFyyX35KXEfU_SayAA15LogitCollection_pG_Tg5Say0gH9Inference15LogitCollection_pGSgxs5Error_pRi_zRi0_zlyAMIsgHrzo_Tf1ncn_nTf4nnng_n(0, 0, v52 + v57, (v73 + 21), &async function pointer to partial apply for closure #1 in E5TransformerLanguageModel.run(promptModuleNodes:queryNodes:computeLogitsTokenCount:presampler:), v56);
       }
     }
 
-    if (v66)
+    if (v67)
     {
       goto LABEL_57;
     }
@@ -9834,10 +9613,10 @@ LABEL_35:
       goto LABEL_59;
     }
 
-    v31 = v72[24];
+    v31 = v73[24];
     v32 = *(v28 + 8 * v29 + 24);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_220AE8A20;
     *(inited + 32) = v6;
@@ -9874,7 +9653,7 @@ LABEL_35:
             v41 = v39 + 32 + 48 * v40;
             v42 = *(v41 + 8);
             v43 = *(v41 + 16);
-            result = specialized Set._Variant.insert(_:)(&v73, v40);
+            result = specialized Set._Variant.insert(_:)(&v74, v40);
             v40 = v42;
             if (!v43)
             {
@@ -9898,6 +9677,1104 @@ LABEL_62:
 LABEL_63:
   __break(1u);
   return result;
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+uint64_t MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:)()
+{
+  v1 = v0[363];
+  __swift_destroy_boxed_opaque_existential_1(v0 + 177);
+  outlined destroy of LogitIndexSet(v1);
+
+  __swift_destroy_boxed_opaque_existential_1(v0 + 227);
+  v2 = v0[377];
+  v3 = v0[373];
+  v4 = *(v3 + 16);
+  v5 = v2[2];
+
+  if (v5 >= v4)
+  {
+    v5 = v4;
+  }
+
+  if (v5)
+  {
+    if (v5 <= *(v3 + 16))
+    {
+      v7 = 0;
+      v8 = v0 + 267;
+      v35 = v0 + 272;
+      v37 = v0 + 257;
+      v9 = 4;
+      v36 = v5;
+      v34 = v3;
+      while (1)
+      {
+        outlined init with copy of DeterministicLanguageModelProtocol(v3 + v9 * 8, (v0 + 242));
+        v10 = v0[245];
+        v11 = v0[246];
+        __swift_project_boxed_opaque_existential_1(v0 + 242, v10);
+        (*(v11 + 8))(v10, v11);
+        result = __swift_destroy_boxed_opaque_existential_1(v0 + 242);
+        if (v7 >= v2[2])
+        {
+          break;
+        }
+
+        v12 = v8;
+        v13 = v0[357];
+        outlined init with copy of DeterministicLanguageModelProtocol(&v2[v9], (v0 + 247));
+        v14 = v0[250];
+        v15 = v0[251];
+        __swift_project_boxed_opaque_existential_1(v0 + 247, v14);
+        (*(v15 + 8))(v14, v15);
+        v16 = LogitIndexSet.isDisjoint(with:)(v13);
+        outlined destroy of LogitIndexSet(v13);
+        result = __swift_destroy_boxed_opaque_existential_1(v0 + 247);
+        if ((v16 & 1) == 0)
+        {
+          if (v7 >= v2[2])
+          {
+            goto LABEL_27;
+          }
+
+          v17 = v0[357];
+          outlined init with copy of DeterministicLanguageModelProtocol(&v2[v9], (v0 + 252));
+          v18 = v0[255];
+          v19 = v0[256];
+          __swift_project_boxed_opaque_existential_1(v0 + 252, v18);
+          (*(v19 + 8))(v18, v19);
+          LogitIndexSet.formIntersection(_:)(v17);
+          outlined destroy of LogitIndexSet(v17);
+          result = __swift_destroy_boxed_opaque_existential_1(v0 + 252);
+        }
+
+        if (v7 >= v2[2])
+        {
+          goto LABEL_26;
+        }
+
+        outlined init with copy of DeterministicLanguageModelProtocol(&v2[v9], (v0 + 262));
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitCollection_pMd, &_s24TokenGenerationInference15LogitCollection_pMR);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference22MutableLogitCollection_pMd, &_s24TokenGenerationInference22MutableLogitCollection_pMR);
+        v8 = v12;
+        if (swift_dynamicCast())
+        {
+          v20 = v0[358];
+          outlined init with take of RandomNumberGenerator(v12, v37);
+          v21 = v0[260];
+          v22 = v0[261];
+          __swift_mutable_project_boxed_opaque_existential_1(v37, v21);
+          (*(v22 + 16))(v20, v21, v22);
+          v23 = v0[260];
+          v24 = v0[261];
+          v25 = __swift_project_boxed_opaque_existential_1(v37, v23);
+          v0[285] = v23;
+          v0[286] = *(v24 + 8);
+          boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 282);
+          (*(*(v23 - 8) + 16))(boxed_opaque_existential_1, v25, v23);
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
+          }
+
+          v27 = v36;
+          result = outlined destroy of LogitIndexSet(v0[358]);
+          v29 = (v0 + 282);
+          v28 = v0 + 257;
+          if (v7 >= v2[2])
+          {
+            goto LABEL_29;
+          }
+        }
+
+        else
+        {
+          *(v12 + 32) = 0;
+          *v12 = 0u;
+          *(v12 + 16) = 0u;
+          result = outlined destroy of [Int](v12, &_s24TokenGenerationInference22MutableLogitCollection_pSgMd, &_s24TokenGenerationInference22MutableLogitCollection_pSgMR);
+          if (v7 >= v2[2])
+          {
+            goto LABEL_28;
+          }
+
+          v30 = v0[358];
+          outlined init with copy of DeterministicLanguageModelProtocol(&v2[v9], v35);
+          v31 = v0[275];
+          v32 = v0[276];
+          __swift_project_boxed_opaque_existential_1(v35, v31);
+          (*(v32 + 80))(v30, v31, v32);
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
+          }
+
+          v27 = v36;
+          result = outlined destroy of LogitIndexSet(v0[358]);
+          v29 = (v0 + 277);
+          v28 = v0 + 272;
+          if (v7 >= v2[2])
+          {
+            goto LABEL_30;
+          }
+        }
+
+        ++v7;
+        __swift_destroy_boxed_opaque_existential_1(&v2[v9]);
+        outlined init with take of RandomNumberGenerator(v29, &v2[v9]);
+        __swift_destroy_boxed_opaque_existential_1(v28);
+        v9 += 5;
+        v3 = v34;
+        if (v27 == v7)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      __break(1u);
+LABEL_26:
+      __break(1u);
+LABEL_27:
+      __break(1u);
+LABEL_28:
+      __break(1u);
+LABEL_29:
+      __break(1u);
+LABEL_30:
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_22:
+
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> (@out DeterministicLanguageModelProtocol, @error @owned Error))?(0, 0);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> (@out DeterministicLanguageModelProtocol, @error @owned Error))?(0, 0);
+
+    v33 = v0[1];
+
+    return v33(v2);
+  }
+
+  return result;
+}
+
+{
+  v1 = v0[347];
+  v2 = swift_allocObject();
+  v0[368] = v2;
+  v3 = *(v1 + 16);
+  v0[369] = v3;
+  v4 = MEMORY[0x277D84F90];
+  *(v2 + 16) = MEMORY[0x277D84F90];
+  *(v2 + 16) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0, v4);
+  v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0, v4);
+  v46 = v0;
+  if (v3)
+  {
+    v6 = (v0[347] + 32);
+    v47 = v0[349];
+    v7 = swift_beginAccess();
+    while (1)
+    {
+      v12 = *v6++;
+      v11 = v12;
+      if ((v12 & 0x8000000000000000) != 0)
+      {
+        break;
+      }
+
+      v13 = *(v47 + 16);
+      if (v11 >= *(v13 + 16))
+      {
+        goto LABEL_21;
+      }
+
+      v14 = v13 + 24 * v11;
+      v15 = *(v14 + 32);
+      v16 = *(v14 + 40);
+      v17 = *(v2 + 16);
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      *(v2 + 16) = v17;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+      {
+        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
+        *(v2 + 16) = v17;
+      }
+
+      v20 = *(v17 + 2);
+      v19 = *(v17 + 3);
+      if (v20 >= v19 >> 1)
+      {
+        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v17);
+      }
+
+      *(v17 + 2) = v20 + 1;
+      *&v17[8 * v20 + 32] = v15;
+      *(v2 + 16) = v17;
+      v22 = *(v5 + 2);
+      v21 = *(v5 + 3);
+      if (v22 >= v21 >> 1)
+      {
+        v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1, v5);
+      }
+
+      *(v5 + 2) = v22 + 1;
+      *&v5[8 * v22 + 32] = v16;
+      if (!--v3)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    __break(1u);
+LABEL_21:
+    __break(1u);
+    return MEMORY[0x282200930](v7, v8, v9, v10);
+  }
+
+LABEL_12:
+  v46[370] = v5;
+  v48 = v46[349];
+  outlined init with copy of DeterministicLanguageModelProtocol(v48 + 24, (v46 + 332));
+  v23 = v46[335];
+  v24 = v46[336];
+  __swift_project_boxed_opaque_existential_1(v46 + 332, v23);
+  v25 = *(v24 + 32);
+
+  v27 = v25(v26, v23, v24);
+
+  __swift_destroy_boxed_opaque_existential_1(v46 + 332);
+  if ((v27 & 1) == 0)
+  {
+    outlined init with copy of DeterministicLanguageModelProtocol(v48 + 24, (v46 + 317));
+    __swift_project_boxed_opaque_existential_1(v46 + 317, v46[320]);
+
+    v29 = DeterministicLanguageModelProtocol.nextTokensLogitsAreComputed(nodes:)(v28);
+
+    __swift_destroy_boxed_opaque_existential_1(v46 + 317);
+    if (!v29)
+    {
+      v37 = v46[349];
+      v38 = *(v46 + 3072);
+      v39 = v46[348];
+      v40 = swift_allocObject();
+      *(v40 + 16) = v37;
+      *(v40 + 24) = v2;
+      *(v40 + 32) = v38;
+      v41 = swift_allocObject();
+      v46[378] = v41;
+      *(v41 + 16) = &async function pointer to partial apply for implicit closure #6 in MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+      *(v41 + 24) = v40;
+
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay24TokenGenerationInference15LogitCollection_pGMd, &_sSay24TokenGenerationInference15LogitCollection_pGMR);
+      swift_asyncLet_begin();
+      outlined init with copy of LogitPresampler?(v39, (v46 + 327));
+      v42 = swift_allocObject();
+      *(v42 + 16) = v37;
+      *(v42 + 24) = v5;
+      v43 = *(v46 + 329);
+      *(v42 + 32) = *(v46 + 327);
+      *(v42 + 48) = v43;
+      *(v42 + 64) = v46[331];
+      *(v42 + 72) = v38;
+      v44 = swift_allocObject();
+      v46[379] = v44;
+      *(v44 + 16) = &async function pointer to partial apply for specialized implicit closure #7 in MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+      *(v44 + 24) = v42;
+
+      swift_asyncLet_begin();
+      v9 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+      v7 = (v46 + 2);
+      v8 = v46 + 346;
+      v10 = v46 + 202;
+
+      return MEMORY[0x282200930](v7, v8, v9, v10);
+    }
+  }
+
+  outlined init with copy of DeterministicLanguageModelProtocol(v48 + 24, (v46 + 322));
+  v30 = v46[325];
+  v31 = v46[326];
+  __swift_project_boxed_opaque_existential_1(v46 + 322, v30);
+  v32 = *(v2 + 16);
+  v46[371] = v32;
+  v46[340] = &type metadata for NullLogitPresampler;
+  v46[341] = &protocol witness table for NullLogitPresampler;
+  v33 = *(v31 + 24);
+
+  v45 = (v33 + *v33);
+  v34 = swift_task_alloc();
+  v46[372] = v34;
+  *v34 = v46;
+  v34[1] = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+  v35 = *(v46 + 3072);
+
+  return (v45)(v32, v46 + 337, v35, v30, v31);
+}
+
+{
+  v129 = v0;
+  v1 = *(v0 + 2792);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 2576));
+  v2 = v1[11];
+  v3 = v1[12];
+  v114 = v1;
+  v4 = __swift_project_boxed_opaque_existential_1(v1 + 8, v2);
+  v5 = *(v2 - 8);
+  v6 = swift_task_alloc();
+  (*(v5 + 16))(v6, v4, v2);
+  LOBYTE(v4) = (*(v3 + 40))(v2, v3);
+  (*(v5 + 8))(v6, v2);
+  if ((v4 & 1) == 0)
+  {
+LABEL_25:
+
+    if (one-time initialization token for device == -1)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_70;
+  }
+
+  v7 = *(v0 + 2984);
+  v124 = *(v7 + 16);
+  if (!v124)
+  {
+LABEL_12:
+
+    v23 = *(v7 + 16);
+    v24 = *(v0 + 2984);
+    if (!v23)
+    {
+
+      v26 = MEMORY[0x277D84F90];
+      goto LABEL_49;
+    }
+
+    v125 = *(v0 + 2912);
+    v25 = *(v0 + 2816);
+    v128 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v23, 0);
+    v26 = v128;
+    v27 = v24 + 32;
+    v119 = (v25 + 8);
+    v122 = (v25 + 32);
+    while (1)
+    {
+      v28 = *(v0 + 2920);
+      v29 = *(v0 + 2912);
+      outlined init with copy of DeterministicLanguageModelProtocol(v27, v0 + 2456);
+      v30 = *(v0 + 2480);
+      v31 = *(v0 + 2488);
+      __swift_project_boxed_opaque_existential_1((v0 + 2456), v30);
+      (*(v31 + 8))(v30, v31);
+      outlined init with copy of LogitIndexSet(v28, v29);
+      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+      v33 = *(v0 + 2920);
+      v34 = *(v0 + 2912);
+      if (EnumCaseMultiPayload == 1)
+      {
+        outlined destroy of LogitIndexSet(*(v0 + 2920));
+        v35 = *v34;
+        if (v35 != *(v125 + 8))
+        {
+          goto LABEL_18;
+        }
+      }
+
+      else
+      {
+        v36 = *(v0 + 2832);
+        v37 = *(v0 + 2808);
+        (*v122)(v36, *(v0 + 2912), v37);
+        v35 = ContiguousBitSet.first.getter();
+        v39 = v38;
+        (*v119)(v36, v37);
+        outlined destroy of LogitIndexSet(v33);
+        if ((v39 & 1) == 0)
+        {
+LABEL_18:
+          if (v35 < 0xFFFFFFFF80000000)
+          {
+            goto LABEL_66;
+          }
+
+          if (v35 > 0x7FFFFFFF)
+          {
+            goto LABEL_67;
+          }
+
+          *(v0 + 2520) = &type metadata for UnweightedSingleLogitCollection;
+          *(v0 + 2528) = &protocol witness table for UnweightedSingleLogitCollection;
+          *(v0 + 2496) = v35;
+          goto LABEL_21;
+        }
+      }
+
+      *(v0 + 2520) = &type metadata for EmptyLogitCollection;
+      *(v0 + 2528) = &protocol witness table for EmptyLogitCollection;
+LABEL_21:
+      outlined init with take of RandomNumberGenerator((v0 + 2496), v0 + 2416);
+      __swift_destroy_boxed_opaque_existential_1((v0 + 2456));
+      v128 = v26;
+      v41 = *(v26 + 16);
+      v40 = *(v26 + 24);
+      if (v41 >= v40 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1);
+      }
+
+      v42 = *(v0 + 2440);
+      v43 = *(v0 + 2448);
+      v44 = __swift_mutable_project_boxed_opaque_existential_1(v0 + 2416, v42);
+      v45 = *(v42 - 8);
+      v46 = swift_task_alloc();
+      (*(v45 + 16))(v46, v44, v42);
+      specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)(v41, v46, &v128, v42, v43);
+      __swift_destroy_boxed_opaque_existential_1((v0 + 2416));
+
+      v26 = v128;
+      v27 += 40;
+      if (!--v23)
+      {
+
+        goto LABEL_48;
+      }
+    }
+  }
+
+  v8 = 0;
+  v9 = *(v0 + 2816);
+  v10 = v7 + 32;
+  v118 = (v9 + 32);
+  v121 = *(v0 + 2928);
+  v116 = (v9 + 8);
+  while (v8 < *(v7 + 16))
+  {
+    v11 = *(v0 + 2936);
+    v12 = *(v0 + 2928);
+    outlined init with copy of DeterministicLanguageModelProtocol(v10, v0 + 2376);
+    v13 = *(v0 + 2400);
+    v14 = *(v0 + 2408);
+    __swift_project_boxed_opaque_existential_1((v0 + 2376), v13);
+    (*(v14 + 8))(v13, v14);
+    outlined init with copy of LogitIndexSet(v11, v12);
+    v15 = swift_getEnumCaseMultiPayload();
+    v16 = *(v0 + 2936);
+    v17 = *(v0 + 2928);
+    if (v15 == 1)
+    {
+      outlined destroy of LogitIndexSet(*(v0 + 2936));
+      v18 = *(v121 + 8);
+      v19 = __OFSUB__(v18, *v17);
+      v20 = v18 - *v17;
+      if (v19)
+      {
+        goto LABEL_69;
+      }
+    }
+
+    else
+    {
+      v21 = *(v0 + 2832);
+      v22 = *(v0 + 2808);
+      (*v118)(v21, *(v0 + 2928), v22);
+      v20 = ContiguousBitSet.count.getter();
+      (*v116)(v21, v22);
+      outlined destroy of LogitIndexSet(v16);
+    }
+
+    __swift_destroy_boxed_opaque_existential_1((v0 + 2376));
+    if (v20 > 1)
+    {
+      goto LABEL_25;
+    }
+
+    ++v8;
+    v10 += 40;
+    if (v124 == v8)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  __break(1u);
+LABEL_66:
+  __break(1u);
+LABEL_67:
+  __break(1u);
+LABEL_68:
+  __break(1u);
+LABEL_69:
+  __break(1u);
+LABEL_70:
+  swift_once();
+LABEL_26:
+  v47 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v47, static Log.device);
+  v48 = Logger.logObject.getter();
+  v49 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v48, v49))
+  {
+    v50 = swift_slowAlloc();
+    *v50 = 0;
+    _os_log_impl(&dword_220940000, v48, v49, "Serial Mask calculation failed to produce deterministic run.", v50, 2u);
+    MEMORY[0x223D90A10](v50, -1, -1);
+  }
+
+  v51 = *(v0 + 2984);
+
+  v123 = *(v51 + 16);
+  v126 = v51;
+  if (v123)
+  {
+    v52 = *(v0 + 2848);
+    v53 = *(v0 + 2840);
+    v54 = *(v0 + 2800);
+    v55 = *(v0 + 2984) + 32;
+    outlined init with copy of DeterministicLanguageModelProtocol(v55, v0 + 1336);
+    v56 = *(v0 + 1360);
+    v57 = *(v0 + 1368);
+    __swift_project_boxed_opaque_existential_1((v0 + 1336), v56);
+    (*(v57 + 8))(v56, v57);
+    v112 = *(v52 + 56);
+    v112(v54, 0, 1, v53);
+    __swift_destroy_boxed_opaque_existential_1((v0 + 1336));
+    if ((*(v52 + 48))(v54, 1, v53) != 1)
+    {
+      v117 = *(v0 + 2888);
+      v113 = *(v0 + 2872);
+      v58 = *(v0 + 2816);
+      outlined init with take of LogitIndexSet(*(v0 + 2800), *(v0 + 2904));
+      v59 = 0;
+      v60 = (v58 + 32);
+      v120 = (v58 + 8);
+      while (1)
+      {
+        if (v59 >= *(v126 + 16))
+        {
+          goto LABEL_68;
+        }
+
+        v65 = v60;
+        v66 = *(v0 + 2896);
+        v67 = *(v0 + 2888);
+        outlined init with copy of DeterministicLanguageModelProtocol(v55, v0 + 1576);
+        v68 = *(v0 + 1600);
+        v69 = *(v0 + 1608);
+        __swift_project_boxed_opaque_existential_1((v0 + 1576), v68);
+        (*(v69 + 8))(v68, v69);
+        outlined init with copy of LogitIndexSet(v66, v67);
+        v70 = swift_getEnumCaseMultiPayload();
+        v71 = *(v0 + 2904);
+        v72 = *(v0 + 2888);
+        if (v70 == 1)
+        {
+          v73 = *v72;
+          v74 = *(v117 + 8);
+          outlined init with copy of LogitIndexSet(*(v0 + 2904), *(v0 + 2872));
+          v75 = swift_getEnumCaseMultiPayload();
+          v76 = *(v0 + 2896);
+          v77 = *(v0 + 2872);
+          if (v75 == 1)
+          {
+            outlined destroy of LogitIndexSet(*(v0 + 2896));
+            v78 = *v77;
+            v79 = *(v113 + 8);
+            __swift_destroy_boxed_opaque_existential_1((v0 + 1576));
+            if (v73 != v78 || (v60 = v65, v74 != v79))
+            {
+LABEL_43:
+              outlined init with copy of LogitPresampler?(*(v0 + 2784), v0 + 1736);
+              v91 = *(v0 + 1760);
+              if (!v91)
+              {
+                outlined destroy of [Int](v0 + 1736, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
+                v93 = (v0 + 1656);
+                *(v0 + 1656) = 0u;
+                *(v0 + 1672) = 0u;
+                *(v0 + 1688) = 0;
+                v94 = v114;
+                goto LABEL_57;
+              }
+
+              v92 = *(v0 + 1768);
+              __swift_project_boxed_opaque_existential_1((v0 + 1736), *(v0 + 1760));
+              v93 = (v0 + 1656);
+              (*(v92 + 24))(v91, v92);
+              __swift_destroy_boxed_opaque_existential_1((v0 + 1736));
+              v94 = v114;
+              if (!*(v0 + 1680))
+              {
+LABEL_57:
+                v103 = *(v0 + 2840);
+                *(v0 + 1520) = type metadata accessor for BasicLogitPresampler(0);
+                *(v0 + 1528) = &protocol witness table for BasicLogitPresampler;
+                boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 1496));
+                v112(boxed_opaque_existential_1, 1, 1, v103);
+                if (*(v0 + 1680))
+                {
+                  goto LABEL_58;
+                }
+
+                goto LABEL_59;
+              }
+
+LABEL_55:
+              outlined init with take of RandomNumberGenerator(v93, v0 + 1496);
+              goto LABEL_59;
+            }
+          }
+
+          else
+          {
+            v87 = *(v0 + 2832);
+            v88 = *(v0 + 2808);
+            (*v65)(v87, *(v0 + 2872), v88);
+            v89 = ContiguousBitSet.isEquivalent(to:)();
+            v90 = v88;
+            v60 = v65;
+            (*v120)(v87, v90);
+            outlined destroy of LogitIndexSet(v76);
+            __swift_destroy_boxed_opaque_existential_1((v0 + 1576));
+            if ((v89 & 1) == 0)
+            {
+              goto LABEL_43;
+            }
+          }
+        }
+
+        else
+        {
+          v80 = *(v0 + 2880);
+          v60 = v65;
+          v81 = *v65;
+          (*v65)(*(v0 + 2824), v72, *(v0 + 2808));
+          outlined init with copy of LogitIndexSet(v71, v80);
+          v82 = swift_getEnumCaseMultiPayload();
+          v83 = *(v0 + 2896);
+          if (v82 == 1)
+          {
+            v84 = *(v0 + 2824);
+            v85 = *(v0 + 2808);
+            v86 = ContiguousBitSet.isEquivalent(to:)();
+            (*v120)(v84, v85);
+            outlined destroy of LogitIndexSet(v83);
+            __swift_destroy_boxed_opaque_existential_1((v0 + 1576));
+            if ((v86 & 1) == 0)
+            {
+              goto LABEL_43;
+            }
+          }
+
+          else
+          {
+            v61 = *(v0 + 2832);
+            v62 = *(v0 + 2824);
+            v63 = *(v0 + 2808);
+            v81(v61, *(v0 + 2880), v63);
+            v115 = MEMORY[0x223D8D5F0](v62, v61);
+            v64 = *v120;
+            (*v120)(v61, v63);
+            v64(v62, v63);
+            v60 = v65;
+            outlined destroy of LogitIndexSet(v83);
+            __swift_destroy_boxed_opaque_existential_1((v0 + 1576));
+            if ((v115 & 1) == 0)
+            {
+              goto LABEL_43;
+            }
+          }
+        }
+
+        ++v59;
+        v55 += 40;
+        if (v123 == v59)
+        {
+          outlined init with copy of LogitPresampler?(*(v0 + 2784), v0 + 2336);
+          v99 = *(v0 + 2360);
+          if (v99)
+          {
+            v100 = *(v0 + 2904);
+            v101 = *(v0 + 2368);
+            __swift_project_boxed_opaque_existential_1((v0 + 2336), *(v0 + 2360));
+            v102 = v99;
+            v93 = (v0 + 2296);
+            (*(v101 + 16))(v100, v102, v101);
+            __swift_destroy_boxed_opaque_existential_1((v0 + 2336));
+            v94 = v114;
+            if (*(v0 + 2320))
+            {
+              goto LABEL_55;
+            }
+          }
+
+          else
+          {
+            outlined destroy of [Int](v0 + 2336, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
+            v93 = (v0 + 2296);
+            *(v0 + 2296) = 0u;
+            *(v0 + 2312) = 0u;
+            *(v0 + 2328) = 0;
+            v94 = v114;
+          }
+
+          v110 = *(v0 + 2840);
+          *(v0 + 1520) = type metadata accessor for BasicLogitPresampler(0);
+          *(v0 + 1528) = &protocol witness table for BasicLogitPresampler;
+          v111 = __swift_allocate_boxed_opaque_existential_1((v0 + 1496));
+          v112(v111, 1, 1, v110);
+          if (*(v0 + 2320))
+          {
+LABEL_58:
+            outlined destroy of [Int](v93, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
+          }
+
+LABEL_59:
+          outlined init with take of RandomNumberGenerator((v0 + 1496), v0 + 1416);
+          outlined init with copy of DeterministicLanguageModelProtocol((v94 + 8), v0 + 1816);
+          v105 = *(v0 + 1840);
+          v106 = *(v0 + 1848);
+          __swift_project_boxed_opaque_existential_1((v0 + 1816), v105);
+          outlined init with copy of DeterministicLanguageModelProtocol(v0 + 1416, v0 + 1896);
+          v127 = (*(v106 + 24) + **(v106 + 24));
+          v107 = swift_task_alloc();
+          *(v0 + 3000) = v107;
+          *v107 = v0;
+          v107[1] = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+          v108 = *(v0 + 2960);
+          v109 = *(v0 + 3072);
+
+          return v127(v108, v0 + 1896, v109, v105, v106);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    (*(*(v0 + 2848) + 56))(*(v0 + 2800), 1, 1, *(v0 + 2840));
+  }
+
+  v95 = *(v0 + 2952);
+  v96 = *(v0 + 2800);
+
+  outlined destroy of [Int](v96, &_s24TokenGenerationInference13LogitIndexSetOSgMd, &_s24TokenGenerationInference13LogitIndexSetOSgMR);
+  v26 = _sSa9repeating5countSayxGx_SitcfC24TokenGenerationInference15LogitCollection_p_Tt1g5Tf4en_nAD05EmptyfG0V_Tg5(v95);
+LABEL_48:
+
+LABEL_49:
+
+  v97 = *(v0 + 8);
+
+  return v97(v26);
+}
+
+{
+  v1[380] = v0;
+  if (v0)
+  {
+
+    return MEMORY[0x282200920](v1 + 82, v1 + 345, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v1 + 212);
+  }
+
+  else
+  {
+    v1[381] = v1[346];
+
+    return MEMORY[0x282200930](v1 + 82, v1 + 345, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v1 + 232);
+  }
+}
+
+{
+  *(v1 + 3056) = v0;
+  if (v0)
+  {
+    v2 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+  }
+
+  else
+  {
+    v2 = MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+{
+  *(v0 + 3064) = *(v0 + 2760);
+  swift_bridgeObjectRetain_n();
+
+  return MEMORY[0x282200920](v0 + 656, v0 + 2760, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v0 + 1456);
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
+}
+
+{
+  return MEMORY[0x282200920](v0 + 16, v0 + 2768, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v0 + 1296);
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
+}
+
+{
+  v1 = *(v0 + 3064);
+  v2 = *(v0 + 3048);
+  v3 = *(v0 + 3032);
+  v4 = *(v0 + 3024);
+  v5 = *(v2 + 16);
+  v6 = v1[2];
+
+  if (v6 >= v5)
+  {
+    v8 = v5;
+  }
+
+  else
+  {
+    v8 = v6;
+  }
+
+  if (v8)
+  {
+    if (v8 <= *(v2 + 16))
+    {
+      v34 = v4;
+      v35 = v3;
+      v9 = 0;
+      v37 = (v0 + 2176);
+      v38 = (v0 + 2136);
+      v36 = v8;
+      v39 = (v0 + 2056);
+      v10 = 4;
+      while (1)
+      {
+        v11 = v2;
+        outlined init with copy of DeterministicLanguageModelProtocol(v2 + v10 * 8, v0 + 1936);
+        v12 = *(v0 + 1960);
+        v13 = *(v0 + 1968);
+        __swift_project_boxed_opaque_existential_1((v0 + 1936), v12);
+        (*(v13 + 8))(v12, v13);
+        result = __swift_destroy_boxed_opaque_existential_1((v0 + 1936));
+        if (v9 >= v1[2])
+        {
+          break;
+        }
+
+        v14 = *(v0 + 2856);
+        outlined init with copy of DeterministicLanguageModelProtocol(&v1[v10], v0 + 1976);
+        v15 = *(v0 + 2000);
+        v16 = *(v0 + 2008);
+        __swift_project_boxed_opaque_existential_1((v0 + 1976), v15);
+        (*(v16 + 8))(v15, v16);
+        v17 = LogitIndexSet.isDisjoint(with:)(v14);
+        outlined destroy of LogitIndexSet(v14);
+        result = __swift_destroy_boxed_opaque_existential_1((v0 + 1976));
+        if ((v17 & 1) == 0)
+        {
+          if (v9 >= v1[2])
+          {
+            goto LABEL_30;
+          }
+
+          v18 = *(v0 + 2856);
+          outlined init with copy of DeterministicLanguageModelProtocol(&v1[v10], v0 + 2016);
+          v19 = *(v0 + 2040);
+          v20 = *(v0 + 2048);
+          __swift_project_boxed_opaque_existential_1((v0 + 2016), v19);
+          (*(v20 + 8))(v19, v20);
+          LogitIndexSet.formIntersection(_:)(v18);
+          outlined destroy of LogitIndexSet(v18);
+          result = __swift_destroy_boxed_opaque_existential_1((v0 + 2016));
+        }
+
+        if (v9 >= v1[2])
+        {
+          goto LABEL_29;
+        }
+
+        outlined init with copy of DeterministicLanguageModelProtocol(&v1[v10], v0 + 2096);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference15LogitCollection_pMd, &_s24TokenGenerationInference15LogitCollection_pMR);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s24TokenGenerationInference22MutableLogitCollection_pMd, &_s24TokenGenerationInference22MutableLogitCollection_pMR);
+        if (swift_dynamicCast())
+        {
+          v21 = *(v0 + 2864);
+          outlined init with take of RandomNumberGenerator(v38, v39);
+          v22 = *(v0 + 2080);
+          v23 = *(v0 + 2088);
+          __swift_mutable_project_boxed_opaque_existential_1(v39, v22);
+          (*(v23 + 16))(v21, v22, v23);
+          v24 = *(v0 + 2080);
+          v25 = *(v0 + 2088);
+          v26 = __swift_project_boxed_opaque_existential_1(v39, v24);
+          *(v0 + 2280) = v24;
+          *(v0 + 2288) = *(v25 + 8);
+          boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 2256));
+          (*(*(v24 - 8) + 16))(boxed_opaque_existential_1, v26, v24);
+          v2 = v11;
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v1 = specialized _ArrayBuffer._consumeAndCreateNew()(v1);
+          }
+
+          result = outlined destroy of LogitIndexSet(*(v0 + 2864));
+          v29 = (v0 + 2256);
+          v28 = (v0 + 2056);
+          if (v9 >= v1[2])
+          {
+            goto LABEL_32;
+          }
+        }
+
+        else
+        {
+          *(v0 + 2168) = 0;
+          *v38 = 0u;
+          *(v0 + 2152) = 0u;
+          result = outlined destroy of [Int](v38, &_s24TokenGenerationInference22MutableLogitCollection_pSgMd, &_s24TokenGenerationInference22MutableLogitCollection_pSgMR);
+          if (v9 >= v1[2])
+          {
+            goto LABEL_31;
+          }
+
+          v2 = v11;
+          v30 = *(v0 + 2864);
+          outlined init with copy of DeterministicLanguageModelProtocol(&v1[v10], v37);
+          v31 = *(v0 + 2200);
+          v32 = *(v0 + 2208);
+          __swift_project_boxed_opaque_existential_1(v37, v31);
+          (*(v32 + 80))(v30, v31, v32);
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v1 = specialized _ArrayBuffer._consumeAndCreateNew()(v1);
+          }
+
+          result = outlined destroy of LogitIndexSet(*(v0 + 2864));
+          v29 = (v0 + 2216);
+          v28 = (v0 + 2176);
+          if (v9 >= v1[2])
+          {
+            goto LABEL_33;
+          }
+        }
+
+        ++v9;
+        __swift_destroy_boxed_opaque_existential_1(&v1[v10]);
+        outlined init with take of RandomNumberGenerator(v29, &v1[v10]);
+        __swift_destroy_boxed_opaque_existential_1(v28);
+        v10 += 5;
+        if (v36 == v9)
+        {
+
+          v4 = v34;
+          v3 = v35;
+          goto LABEL_25;
+        }
+      }
+
+      __break(1u);
+LABEL_29:
+      __break(1u);
+LABEL_30:
+      __break(1u);
+LABEL_31:
+      __break(1u);
+LABEL_32:
+      __break(1u);
+LABEL_33:
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_25:
+
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> (@out DeterministicLanguageModelProtocol, @error @owned Error))?(&_sSay24TokenGenerationInference15LogitCollection_pGs5Error_pIegHozo_ACsAD_pIegHTrzo_TRTATu, v4);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> (@out DeterministicLanguageModelProtocol, @error @owned Error))?(&_sSay24TokenGenerationInference15LogitCollection_pGs5Error_pIegHozo_ACsAD_pIegHTrzo_TRTA_19Tu, v3);
+
+    v33 = *(v0 + 8);
+
+    return v33(v1);
+  }
+
+  return result;
+}
+
+{
+  outlined destroy of [Int](v0 + 2696, &_s24TokenGenerationInference15LogitPresampler_pSgMd, &_s24TokenGenerationInference15LogitPresampler_pSgMR);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 2576));
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+  v1 = v0[363];
+
+  __swift_destroy_boxed_opaque_existential_1(v0 + 177);
+  outlined destroy of LogitIndexSet(v1);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 227);
+
+  v2 = v0[1];
+
+  return v2();
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
+}
+
+{
+  return MEMORY[0x282200920](v0 + 16, v0 + 2768, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v0 + 1776);
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+{
+
+  return MEMORY[0x282200920](v0 + 656, v0 + 2760, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v0 + 1376);
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
+}
+
+{
+  return MEMORY[0x282200920](v0 + 16, v0 + 2768, MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), v0 + 1536);
+}
+
+{
+  return MEMORY[0x2822009F8](MaskedLanguageModel.nextTokensLogits(nodes:presampler:isPrompt:), 0, 0);
 }
 
 {

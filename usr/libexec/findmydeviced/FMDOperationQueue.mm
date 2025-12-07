@@ -63,27 +63,27 @@
   requestCopy = request;
   if (requestCopy)
   {
-    objc_initWeak(&location, self);
-    v5 = sub_10017DA30();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v6 = sub_10017DA30(inited);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = requestCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ action to be removed - %@", buf, 0x16u);
+      v15 = 2112;
+      v16 = requestCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ action to be removed - %@", buf, 0x16u);
     }
 
     requestsOperationQueue = [(FMDOperationQueue *)self requestsOperationQueue];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1001C3818;
-    v8[3] = &unk_1002CD288;
-    objc_copyWeak(&v10, &location);
-    v9 = requestCopy;
-    [requestsOperationQueue addOperationWithBlock:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1001C3818;
+    v9[3] = &unk_1002CD288;
+    objc_copyWeak(&v11, &location);
+    v10 = requestCopy;
+    [requestsOperationQueue addOperationWithBlock:v9];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
 
@@ -92,59 +92,60 @@
 
 - (void)processRequests
 {
-  if ([(FMDOperationQueue *)self isPaused])
+  isPaused = [(FMDOperationQueue *)self isPaused];
+  if (isPaused)
   {
-    v3 = sub_10017DA30();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10017DA30(isPaused);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy4 = self;
-      v4 = "%@ queue paused";
+      v5 = "%@ queue paused";
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v4, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, buf, 0xCu);
     }
   }
 
   else
   {
     requests = [(FMDOperationQueue *)self requests];
-    v6 = [requests count];
+    v7 = [requests count];
 
-    if (v6)
+    if (v7)
     {
       if ([(FMDOperationQueue *)self queueCount]== 1)
       {
-        v3 = sub_10017DA30();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        v4 = sub_10017DA30(1);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           headAction = [(FMDOperationQueue *)self headAction];
           *buf = 138412546;
           selfCopy4 = self;
-          v22 = 2112;
-          v23 = headAction;
-          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ Queue BUSY with %@", buf, 0x16u);
+          v24 = 2112;
+          v25 = headAction;
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ Queue BUSY with %@", buf, 0x16u);
         }
       }
 
       else
       {
         requests2 = [(FMDOperationQueue *)self requests];
-        v9 = [requests2 objectAtIndex:0];
-        [(FMDOperationQueue *)self setHeadAction:v9];
+        v10 = [requests2 objectAtIndex:0];
+        [(FMDOperationQueue *)self setHeadAction:v10];
 
         headAction2 = [(FMDOperationQueue *)self headAction];
-        v11 = objc_opt_class();
+        v12 = objc_opt_class();
         headAction3 = [(FMDOperationQueue *)self headAction];
-        v3 = [NSString stringWithFormat:@"%@-%p", v11, headAction3];
+        v4 = [NSString stringWithFormat:@"%@-%p", v12, headAction3];
 
-        v13 = sub_10017DA30();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_10017DA30(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
           selfCopy4 = self;
-          v22 = 2112;
-          v23 = v3;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@ HEAD ACTION - %@", buf, 0x16u);
+          v24 = 2112;
+          v25 = v4;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ HEAD ACTION - %@", buf, 0x16u);
         }
 
         headAction4 = [(FMDOperationQueue *)self headAction];
@@ -156,10 +157,10 @@ LABEL_10:
         }
 
         headAction5 = [(FMDOperationQueue *)self headAction];
-        v17 = [(FMDOperationQueue *)self wrapAction:headAction5];
+        v19 = [(FMDOperationQueue *)self wrapAction:headAction5];
 
-        v18 = +[ActionManager sharedManager];
-        v19 = [v18 enqueueAction:v17];
+        v20 = +[ActionManager sharedManager];
+        v21 = [v20 enqueueAction:v19];
 
         [(FMDOperationQueue *)self setQueueCount:[(FMDOperationQueue *)self queueCount]+ 1];
       }
@@ -167,13 +168,12 @@ LABEL_10:
 
     else
     {
-      [(FMDOperationQueue *)self setHeadAction:0];
-      v3 = sub_10017DA30();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_10017DA30([(FMDOperationQueue *)self setHeadAction:0]);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy4 = self;
-        v4 = "%@ no actions found";
+        v5 = "%@ no actions found";
         goto LABEL_10;
       }
     }

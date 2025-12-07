@@ -117,10 +117,10 @@ void __35__CSIndexAgent_indexDelegateAgent___block_invoke(uint64_t a1)
 
 LABEL_4:
     connection = [configurationCopy connection];
-    v11 = [CSIndexClientConnectionKey keyWithConnection:connection];
+    v12 = [CSIndexClientConnectionKey keyWithConnection:connection];
 
-    [(NSMutableDictionary *)self->_indexConnections setObject:v5 forKeyedSubscript:v11];
-    v12 = 1;
+    [(NSMutableDictionary *)self->_indexConnections setObject:v5 forKeyedSubscript:v12];
+    v13 = 1;
     goto LABEL_5;
   }
 
@@ -132,16 +132,16 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v14 = logForCSLogCategoryIndex();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = logForCSLogCategoryIndex(v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [CSIndexAgent addClientConnectionIfAllowedForConfiguration:configurationCopy];
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_5:
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)addClientConnectionIfAllowedForConnection:(id)connection
@@ -173,7 +173,7 @@ LABEL_5:
 {
   infoCopy = info;
   connectionCopy = connection;
-  v10 = logForCSLogCategoryDefault();
+  v10 = logForCSLogCategoryDefault(connectionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [CSIndexAgent handleCommand:command info:connectionCopy connection:v10];
@@ -197,22 +197,20 @@ LABEL_5:
 
 - (void)addClientConnectionIfAllowedForConfiguration:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
-  OUTLINED_FUNCTION_0_3(&dword_231A35000, v2, v3, "Could not resolve bundle id for %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_231A35000, v2, v3, "Could not resolve bundle id for %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)handleCommand:(uint64_t)a1 info:(xpc_connection_t)connection connection:(NSObject *)a3 .cold.1(uint64_t a1, xpc_connection_t connection, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 136315394;
-  v6 = a1;
-  v7 = 1024;
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = a1;
+  v6 = 1024;
   pid = xpc_connection_get_pid(connection);
-  _os_log_debug_impl(&dword_231A35000, a3, OS_LOG_TYPE_DEBUG, "request %s from pid: %d", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231A35000, a3, OS_LOG_TYPE_DEBUG, "request %s from pid: %d", &v4, 0x12u);
 }
 
 @end

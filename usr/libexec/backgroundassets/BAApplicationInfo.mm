@@ -2,11 +2,13 @@
 + (BOOL)applicationForIdentifierAllowsBackgroundActivity:(id)activity;
 + (id)classesForSerialization;
 + (id)extensionContainingApplicationList;
++ (id)extensionPointQueriesWithPostProcessing:(BOOL)processing;
 - (BAApplicationInfo)initWithCoder:(id)coder;
 - (BAApplicationInfo)initWithIdentifier:(id)identifier applicationTeamIdentifier:(id)teamIdentifier;
 - (BOOL)_consumeAllowanceShouldStopWithAdditionalBytes:(unint64_t)bytes downloadNecessity:(int64_t)necessity isManifest:(BOOL)manifest;
 - (BOOL)allowsBackgroundActivity;
 - (BOOL)awaitingNetworkConsent;
+- (BOOL)consumeAllowanceShouldStopWithAdditionalBytes:(unint64_t)bytes downloadNecessity:(int64_t)necessity isManifest:(BOOL)manifest;
 - (BOOL)hasManagedAssetPacks;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)receivedInstalledNotification;
@@ -26,6 +28,7 @@
 - (int64_t)applicationState;
 - (int64_t)installSource;
 - (unint64_t)_remainingDownloadAllowanceWithNecessity:(int64_t)necessity isManifest:(BOOL)manifest;
+- (unint64_t)remainingDownloadAllowanceWithNecessity:(int64_t)necessity isManifest:(BOOL)manifest;
 - (void)_debugConsumeTime:(double)time;
 - (void)_populateAllowedDomainInfoWithArray:(id)array;
 - (void)applicationInstalled;
@@ -68,59 +71,60 @@
 
   if (isLowPowerModeEnabled)
   {
-    v6 = sub_1000104FC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000104FC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = activityCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because device is in low power mode.", &v13, 0xCu);
+      v16 = 138543362;
+      v17 = activityCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because device is in low power mode.", &v16, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = +[MCProfileConnection sharedConnection];
-    if (([v6 isAutomaticAppUpdatesAllowed]& 1) != 0)
+    v7 = +[MCProfileConnection sharedConnection];
+    isAutomaticAppUpdatesAllowed = [v7 isAutomaticAppUpdatesAllowed];
+    if (isAutomaticAppUpdatesAllowed)
     {
-      v8 = [qword_100089CA8 objectForKey:@"KeepAppsUpToDateAppList"];
-      v9 = [v8 objectForKey:activityCopy];
-      v10 = v9;
-      if (v9 && ([v9 BOOLValue] & 1) == 0)
+      v10 = [qword_100089CA8 objectForKey:@"KeepAppsUpToDateAppList"];
+      v11 = [v10 objectForKey:activityCopy];
+      v12 = v11;
+      if (v11 && (v13 = [v11 BOOLValue], (v13 & 1) == 0))
       {
-        v11 = sub_1000104FC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000104FC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 138543362;
-          v14 = activityCopy;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because background app refresh for this app is disabled.", &v13, 0xCu);
+          v16 = 138543362;
+          v17 = activityCopy;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because background app refresh for this app is disabled.", &v16, 0xCu);
         }
 
-        v7 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v7 = 1;
+        v8 = 1;
       }
     }
 
     else
     {
-      v8 = sub_1000104FC();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000104FC(isAutomaticAppUpdatesAllowed);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543362;
-        v14 = activityCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because background app refresh is globally disabled.", &v13, 0xCu);
+        v16 = 138543362;
+        v17 = activityCopy;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Denying background activity for %{public}@ because background app refresh is globally disabled.", &v16, 0xCu);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)classesForSerialization
@@ -135,68 +139,105 @@
   return v3;
 }
 
++ (id)extensionPointQueriesWithPostProcessing:(BOOL)processing
+{
+  processingCopy = processing;
+  v4 = [_EXQuery extensionPointIdentifierQuery:@"com.apple.background-asset-downloader-extension"];
+  v17 = v4;
+  v5 = [NSArray arrayWithObjects:&v17 count:1];
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = v5;
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        [*(*(&v12 + 1) + 8 * i) setIncludePostprocessing:{processingCopy, v12}];
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
+  }
+
+  return v6;
+}
+
 + (id)extensionContainingApplicationList
 {
-  v24 = +[NSMutableArray array];
-  v23 = [objc_opt_class() extensionPointQueriesWithPostProcessing:1];
+  v23 = +[NSMutableArray array];
+  v22 = [objc_opt_class() extensionPointQueriesWithPostProcessing:1];
   v2 = [_EXQueryController executeQueries:?];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = &lockdown_checkin_xpc_ptr;
     p_inst_meths = &OBJC_PROTOCOL___BAAgentSystemXPCProtocol.inst_meths;
-    v7 = *v28;
-    v25 = *v28;
+    v7 = *v27;
+    v24 = *v27;
     do
     {
       v8 = 0;
-      v26 = v4;
+      v25 = v4;
       do
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * v8);
+        v9 = *(*(&v26 + 1) + 8 * v8);
         containingBundleRecord = [v9 containingBundleRecord];
-        v11 = v5[361];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           bundleIdentifier = [containingBundleRecord bundleIdentifier];
           if (bundleIdentifier)
           {
-            v13 = [v9 entitlementNamed:p_inst_meths[107] ofClass:objc_opt_class()];
-            v14 = [NSBundle alloc];
-            v15 = [containingBundleRecord URL];
-            v16 = [v14 _initUniqueWithURL:v15];
+            v12 = [v9 entitlementNamed:p_inst_meths[107] ofClass:objc_opt_class()];
+            v13 = [NSBundle alloc];
+            v14 = [containingBundleRecord URL];
+            v15 = [v13 _initUniqueWithURL:v14];
 
-            infoDictionary = [v16 infoDictionary];
-            v18 = [[BAApplicationInfo alloc] initWithIdentifier:bundleIdentifier applicationTeamIdentifier:v13];
-            if (v18)
+            infoDictionary = [v15 infoDictionary];
+            v17 = [[BAApplicationInfo alloc] initWithIdentifier:bundleIdentifier applicationTeamIdentifier:v12];
+            if (v17)
             {
-              [v24 addObject:v18];
+              [v23 addObject:v17];
               if (infoDictionary)
               {
                 [BAApplicationConfigurationOverrides overridesForAppBundleIdentifier:bundleIdentifier];
-                v19 = v5;
-                v21 = v20 = v2;
-                [(BAApplicationInfo *)v18 updateApplicationWithInfoDictionary:infoDictionary applicationRecord:containingBundleRecord overrides:v21];
+                v18 = v5;
+                v20 = v19 = v2;
+                [(BAApplicationInfo *)v17 updateApplicationWithInfoDictionary:infoDictionary applicationRecord:containingBundleRecord overrides:v20];
 
-                v2 = v20;
-                v5 = v19;
+                v2 = v19;
+                v5 = v18;
                 p_inst_meths = (&OBJC_PROTOCOL___BAAgentSystemXPCProtocol + 24);
               }
             }
 
-            v7 = v25;
-            v4 = v26;
+            v7 = v24;
+            v4 = v25;
           }
         }
 
@@ -204,22 +245,22 @@
       }
 
       while (v4 != v8);
-      v4 = [v2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v4);
   }
 
-  return v24;
+  return v23;
 }
 
 - (BAApplicationInfo)initWithIdentifier:(id)identifier applicationTeamIdentifier:(id)teamIdentifier
 {
   identifierCopy = identifier;
   teamIdentifierCopy = teamIdentifier;
-  v28.receiver = self;
-  v28.super_class = BAApplicationInfo;
-  v8 = [(BAApplicationInfo *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = BAApplicationInfo;
+  v8 = [(BAApplicationInfo *)&v29 init];
   if (!v8)
   {
     goto LABEL_5;
@@ -227,11 +268,11 @@
 
   if (!identifierCopy)
   {
-    v26 = [NSException exceptionWithName:NSInvalidArgumentException reason:@"identifier can not be nil" userInfo:0];
-    [v26 raise];
+    v27 = [NSException exceptionWithName:NSInvalidArgumentException reason:@"identifier can not be nil" userInfo:0];
+    [v27 raise];
 LABEL_9:
 
-    v25 = 0;
+    v26 = 0;
     goto LABEL_10;
   }
 
@@ -240,8 +281,8 @@ LABEL_9:
 
   if ((v10 & 1) == 0)
   {
-    v26 = sub_1000104FC();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = sub_1000104FC(v11);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10004BD18();
     }
@@ -249,8 +290,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v11 = objc_alloc_init(NSRecursiveLock);
-  [(BAApplicationInfo *)v8 setAppInfoRecursiveLock:v11];
+  v12 = objc_alloc_init(NSRecursiveLock);
+  [(BAApplicationInfo *)v8 setAppInfoRecursiveLock:v12];
 
   appInfoRecursiveLock = [(BAApplicationInfo *)v8 appInfoRecursiveLock];
   identifierCopy = [NSString stringWithFormat:@"%@ App Info Recursive Lock", identifierCopy];
@@ -271,39 +312,39 @@ LABEL_9:
   [(BAApplicationInfo *)v8 setHasLaunchedApplication:0];
   [(BAApplicationInfo *)v8 setApplicationTeamIdentifier:teamIdentifierCopy];
   [(BAApplicationInfo *)v8 setInstallSource:0];
-  v15 = [NSMutableArray arrayWithCapacity:10];
-  [(BAApplicationInfo *)v8 setExtensionRuntimeEvents:v15];
-
-  v16 = +[NSDate distantPast];
-  [(BAApplicationInfo *)v8 setLastPeriodicCheckTime:v16];
+  v16 = [NSMutableArray arrayWithCapacity:10];
+  [(BAApplicationInfo *)v8 setExtensionRuntimeEvents:v16];
 
   v17 = +[NSDate distantPast];
-  [(BAApplicationInfo *)v8 setLastApplicationLaunchTime:v17];
+  [(BAApplicationInfo *)v8 setLastPeriodicCheckTime:v17];
+
+  v18 = +[NSDate distantPast];
+  [(BAApplicationInfo *)v8 setLastApplicationLaunchTime:v18];
 
   [(BAApplicationInfo *)v8 setManifestURL:0];
   [(BAApplicationInfo *)v8 setUserForceQuitApp:0];
-  v18 = objc_alloc_init(NSMutableArray);
+  v19 = objc_alloc_init(NSMutableArray);
   allowedDownloadDomains = v8->_allowedDownloadDomains;
-  v8->_allowedDownloadDomains = v18;
+  v8->_allowedDownloadDomains = v19;
 
-  v20 = objc_alloc_init(NSMutableArray);
+  v21 = objc_alloc_init(NSMutableArray);
   allowedDownloadDomainWildcards = v8->_allowedDownloadDomainWildcards;
-  v8->_allowedDownloadDomainWildcards = v20;
+  v8->_allowedDownloadDomainWildcards = v21;
 
   v8->_awaitingNetworkConsent = 0;
-  v22 = +[NSMutableDictionary dictionary];
+  v23 = +[NSMutableDictionary dictionary];
   blocksAwaitingNetworkConsent = v8->_blocksAwaitingNetworkConsent;
-  v8->_blocksAwaitingNetworkConsent = v22;
+  v8->_blocksAwaitingNetworkConsent = v23;
 
   *&v8->_hasManagedAssetPacks = 0;
   appInfoRecursiveLock3 = [(BAApplicationInfo *)v8 appInfoRecursiveLock];
   [appInfoRecursiveLock3 unlock];
 
 LABEL_5:
-  v25 = v8;
+  v26 = v8;
 LABEL_10:
 
-  return v25;
+  return v26;
 }
 
 - (BAApplicationInfo)initWithCoder:(id)coder
@@ -773,11 +814,10 @@ LABEL_38:
   [appInfoRecursiveLock lock];
 
   [descriptorCopy clientType];
-  [(BAApplicationInfo *)self setPermittedForInitialBackgroundActivity:sub_100016294()];
+  [(BAApplicationInfo *)self setPermittedForInitialBackgroundActivity:sub_100016294(BAAgentUtilities)];
   cellularPolicy = [descriptorCopy cellularPolicy];
 
-  [(BAApplicationInfo *)self setInitialBackgroundCellularPolicy:cellularPolicy];
-  v7 = sub_1000104FC();
+  v7 = sub_1000104FC([(BAApplicationInfo *)self setInitialBackgroundCellularPolicy:cellularPolicy]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
@@ -871,43 +911,43 @@ LABEL_38:
 
   else
   {
-    v7 = sub_1000104FC();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = sub_1000104FC(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (consentCopy)
     {
-      if (v8)
+      if (v9)
       {
         applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-        v15 = 138543362;
-        v16 = applicationIdentifier;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "App awaiting network consent: %{public}@", &v15, 0xCu);
+        v16 = 138543362;
+        v17 = applicationIdentifier;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "App awaiting network consent: %{public}@", &v16, 0xCu);
       }
 
-      v10 = 0;
+      v11 = 0;
       self->_awaitingNetworkConsent = consentCopy;
     }
 
     else
     {
-      if (v8)
+      if (v9)
       {
         applicationIdentifier2 = [(BAApplicationInfo *)self applicationIdentifier];
-        v15 = 138543362;
-        v16 = applicationIdentifier2;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "App no longer awaiting network consent: %{public}@", &v15, 0xCu);
+        v16 = 138543362;
+        v17 = applicationIdentifier2;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "App no longer awaiting network consent: %{public}@", &v16, 0xCu);
       }
 
       self->_awaitingNetworkConsent = 0;
-      v10 = [(NSMutableDictionary *)self->_blocksAwaitingNetworkConsent copy];
+      v11 = [(NSMutableDictionary *)self->_blocksAwaitingNetworkConsent copy];
       [(NSMutableDictionary *)self->_blocksAwaitingNetworkConsent removeAllObjects];
     }
 
     appInfoRecursiveLock3 = [(BAApplicationInfo *)self appInfoRecursiveLock];
     [appInfoRecursiveLock3 unlock];
 
-    if (v10)
+    if (v11)
     {
-      [v10 enumerateKeysAndObjectsWithOptions:1 usingBlock:&stru_10007A128];
+      [v11 enumerateKeysAndObjectsWithOptions:1 usingBlock:&stru_10007A128];
     }
   }
 
@@ -989,27 +1029,27 @@ LABEL_38:
   appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
   [appInfoRecursiveLock lock];
 
-  v6 = sub_1000104FC();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = sub_1000104FC(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (installCopy)
   {
-    if (v7)
+    if (v8)
     {
       applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-      v11 = 138543362;
-      v12 = applicationIdentifier;
-      v9 = "Application is updating: %{public}@";
+      v12 = 138543362;
+      v13 = applicationIdentifier;
+      v10 = "Application is updating: %{public}@";
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v9, &v11, 0xCu);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v10, &v12, 0xCu);
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-    v11 = 138543362;
-    v12 = applicationIdentifier;
-    v9 = "Application is installing: %{public}@";
+    v12 = 138543362;
+    v13 = applicationIdentifier;
+    v10 = "Application is installing: %{public}@";
     goto LABEL_6;
   }
 
@@ -1028,13 +1068,13 @@ LABEL_6:
   appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
   [appInfoRecursiveLock lock];
 
-  v4 = sub_1000104FC();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_1000104FC(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-    v7 = 138543362;
-    v8 = applicationIdentifier;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Application installed to final location: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = applicationIdentifier;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Application installed to final location: %{public}@", &v8, 0xCu);
   }
 
   [(BAApplicationInfo *)self setReceivedInstallingNotification:1];
@@ -1058,76 +1098,80 @@ LABEL_6:
     v13 = [v10 objectForKey:@"BADownloadAllowance"];
   }
 
-  else if ([(BAApplicationInfo *)self usesAppleHosting])
+  else
   {
-    v14 = sub_1000104FC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    usesAppleHosting = [(BAApplicationInfo *)self usesAppleHosting];
+    if (usesAppleHosting)
     {
-      applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-      *buf = 138543362;
-      v55 = applicationIdentifier;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "The application with the identifier “%{public}@” is configured to use Apple hosting.", buf, 0xCu);
-    }
-
-    v16 = [BADevelopmentOverrides URLForApplicationRecord:recordCopy];
-    host = [v16 host];
-
-    if (host)
-    {
-      v18 = sub_1000104FC();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000104FC(usesAppleHosting);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        applicationIdentifier2 = [(BAApplicationInfo *)self applicationIdentifier];
-        *buf = 138543618;
-        v55 = v16;
-        v56 = 2114;
-        v57 = applicationIdentifier2;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Using the development-override URL “%{public}@” for the application with the identifier “%{public}@”…", buf, 0x16u);
+        applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
+        *buf = 138543362;
+        v61 = applicationIdentifier;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "The application with the identifier “%{public}@” is configured to use Apple hosting.", buf, 0xCu);
       }
 
-      v53[0] = @"*.apple.com";
-      host2 = [v16 host];
-      v53[1] = host2;
-      v11 = [NSArray arrayWithObjects:v53 count:2];
+      v17 = [BADevelopmentOverrides URLForApplicationRecord:recordCopy];
+      host = [v17 host];
+
+      if (host)
+      {
+        v20 = sub_1000104FC(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        {
+          applicationIdentifier2 = [(BAApplicationInfo *)self applicationIdentifier];
+          *buf = 138543618;
+          v61 = v17;
+          v62 = 2114;
+          v63 = applicationIdentifier2;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Using the development-override URL “%{public}@” for the application with the identifier “%{public}@”…", buf, 0x16u);
+        }
+
+        v59[0] = @"*.apple.com";
+        host2 = [v17 host];
+        v59[1] = host2;
+        v11 = [NSArray arrayWithObjects:v59 count:2];
+      }
+
+      else
+      {
+        v11 = &off_10007D470;
+      }
+
+      v12 = [NSNumber numberWithUnsignedLongLong:-1];
+      v13 = [NSNumber numberWithUnsignedLongLong:-1];
     }
 
     else
     {
-      v11 = &off_10007D470;
+      v13 = 0;
+      v12 = 0;
+      v11 = 0;
     }
-
-    v12 = [NSNumber numberWithUnsignedLongLong:-1];
-    v13 = [NSNumber numberWithUnsignedLongLong:-1];
   }
 
-  else
-  {
-    v13 = 0;
-    v12 = 0;
-    v11 = 0;
-  }
-
-  v21 = [dictionaryCopy objectForKey:@"BAManifestURL"];
+  v23 = [dictionaryCopy objectForKey:@"BAManifestURL"];
   if (os_variant_has_internal_content())
   {
-    v51 = v10;
+    v57 = v10;
     essentialDownloadAllowance = [overridesCopy essentialDownloadAllowance];
 
     if (essentialDownloadAllowance)
     {
-      v23 = sub_1000104FC();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_1000104FC(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier3 = [(BAApplicationInfo *)self applicationIdentifier];
         [overridesCopy essentialDownloadAllowance];
-        v26 = v25 = v11;
+        v29 = v28 = v11;
         *buf = 138543618;
-        v55 = applicationIdentifier3;
-        v56 = 2114;
-        v57 = v26;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Essential download allowance for %{public}@ overridden to %{public}@", buf, 0x16u);
+        v61 = applicationIdentifier3;
+        v62 = 2114;
+        v63 = v29;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Essential download allowance for %{public}@ overridden to %{public}@", buf, 0x16u);
 
-        v11 = v25;
+        v11 = v28;
       }
 
       essentialDownloadAllowance2 = [overridesCopy essentialDownloadAllowance];
@@ -1139,19 +1183,19 @@ LABEL_6:
 
     if (downloadAllowance)
     {
-      v29 = sub_1000104FC();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v33 = sub_1000104FC(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier4 = [(BAApplicationInfo *)self applicationIdentifier];
         [overridesCopy downloadAllowance];
-        v32 = v31 = v11;
+        v36 = v35 = v11;
         *buf = 138543618;
-        v55 = applicationIdentifier4;
-        v56 = 2114;
-        v57 = v32;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Download allowance for %{public}@ overridden to %{public}@", buf, 0x16u);
+        v61 = applicationIdentifier4;
+        v62 = 2114;
+        v63 = v36;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Download allowance for %{public}@ overridden to %{public}@", buf, 0x16u);
 
-        v11 = v31;
+        v11 = v35;
       }
 
       downloadAllowance2 = [overridesCopy downloadAllowance];
@@ -1163,44 +1207,44 @@ LABEL_6:
 
     if (manifestURL)
     {
-      v35 = sub_1000104FC();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v40 = sub_1000104FC(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier5 = [(BAApplicationInfo *)self applicationIdentifier];
         [overridesCopy manifestURL];
-        v38 = v37 = v11;
+        v43 = v42 = v11;
         *buf = 138543618;
-        v55 = applicationIdentifier5;
-        v56 = 2114;
-        v57 = v38;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Manifest URL overridden for %{public}@ to %{public}@", buf, 0x16u);
+        v61 = applicationIdentifier5;
+        v62 = 2114;
+        v63 = v43;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Manifest URL overridden for %{public}@ to %{public}@", buf, 0x16u);
 
-        v11 = v37;
+        v11 = v42;
       }
 
       manifestURL2 = [overridesCopy manifestURL];
 
-      v21 = manifestURL2;
+      v23 = manifestURL2;
     }
 
     domainAllowlist = [overridesCopy domainAllowlist];
 
     if (domainAllowlist)
     {
-      v41 = sub_1000104FC();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v47 = sub_1000104FC(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier6 = [(BAApplicationInfo *)self applicationIdentifier];
         [overridesCopy domainAllowlist];
-        v43 = v50 = v11;
-        v44 = [v43 componentsJoinedByString:{@", "}];
+        v49 = v56 = v11;
+        v50 = [v49 componentsJoinedByString:{@", "}];
         *buf = 138543618;
-        v55 = applicationIdentifier6;
-        v56 = 2114;
-        v57 = v44;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Domain allowlist for %{public}@ overridden to %{public}@", buf, 0x16u);
+        v61 = applicationIdentifier6;
+        v62 = 2114;
+        v63 = v50;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Domain allowlist for %{public}@ overridden to %{public}@", buf, 0x16u);
 
-        v11 = v50;
+        v11 = v56;
       }
 
       domainAllowlist2 = [overridesCopy domainAllowlist];
@@ -1208,7 +1252,7 @@ LABEL_6:
       v11 = domainAllowlist2;
     }
 
-    v10 = v51;
+    v10 = v57;
   }
 
   appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
@@ -1223,8 +1267,8 @@ LABEL_6:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v48 = [NSURL URLWithString:v21];
-    [(BAApplicationInfo *)self setManifestURL:v48];
+    v54 = [NSURL URLWithString:v23];
+    [(BAApplicationInfo *)self setManifestURL:v54];
   }
 
   appInfoRecursiveLock2 = [(BAApplicationInfo *)self appInfoRecursiveLock];
@@ -1246,31 +1290,31 @@ LABEL_6:
 
   v9 = [objc_opt_class() extensionPointQueriesWithPostProcessing:applicationIdentifier ^ 1];
   [_EXQueryController executeQueries:v9];
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v10 = v44 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v10 = v47 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v11)
   {
     v12 = v11;
     ptrCopy = ptr;
-    v39 = v9;
+    v42 = v9;
     v13 = 0;
-    v14 = *v42;
+    v14 = *v45;
     while (2)
     {
       v15 = 0;
       v16 = v13;
-      v40 = v12;
+      v43 = v12;
       do
       {
-        if (*v42 != v14)
+        if (*v45 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * v15);
+        v17 = *(*(&v44 + 1) + 8 * v15);
         bundleIdentifier = [v17 bundleIdentifier];
         v19 = [bundleIdentifier hasPrefix:v7];
 
@@ -1296,53 +1340,54 @@ LABEL_6:
               v7 = v25;
               selfCopy = v24;
               v14 = v23;
-              v12 = v40;
+              v12 = v43;
               if (v28 == 100)
               {
-                v29 = v13;
+                v30 = v13;
 
-                v9 = v39;
-                if (!v29)
+                v9 = v42;
+                if (!v30)
                 {
                   goto LABEL_26;
                 }
 
 LABEL_19:
-                containingBundleRecord2 = [v29 containingBundleRecord];
-                if (containingBundleRecord2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                isKindOfClass = [v30 containingBundleRecord];
+                v33 = isKindOfClass;
+                if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
                 {
-                  bundleIdentifier2 = [containingBundleRecord2 bundleIdentifier];
-                  v33 = [bundleIdentifier2 isEqualToString:v7];
+                  bundleIdentifier2 = [v33 bundleIdentifier];
+                  v35 = [bundleIdentifier2 isEqualToString:v7];
 
-                  if (v33)
+                  if (v35)
                   {
                     if (ptrCopy)
                     {
-                      v34 = containingBundleRecord2;
-                      *ptrCopy = containingBundleRecord2;
+                      v37 = v33;
+                      *ptrCopy = v33;
                     }
 
-                    v35 = v29;
+                    v38 = v30;
                     goto LABEL_32;
                   }
 
-                  v36 = sub_100010584();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                  v39 = sub_100010584(v36);
+                  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10004BD8C(containingBundleRecord2, v7, v36);
+                    sub_10004BD8C(v33, v7, v39);
                   }
                 }
 
                 else
                 {
-                  v36 = sub_100010584();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                  v39 = sub_100010584(isKindOfClass);
+                  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                   {
-                    sub_10004BE38(v29, v36);
+                    sub_10004BE38(v30, v39);
                   }
                 }
 
-                v35 = 0;
+                v38 = 0;
 LABEL_32:
 
                 goto LABEL_33;
@@ -1362,7 +1407,7 @@ LABEL_32:
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
       if (v12)
       {
         continue;
@@ -1371,16 +1416,16 @@ LABEL_32:
       break;
     }
 
-    v9 = v39;
+    v9 = v42;
     if (v13)
     {
-      v29 = v13;
-      v30 = sub_100010584();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v30 = v13;
+      v31 = sub_100010584(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v46 = v7;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Could not find extension identity from persistant identifier, falling back to bundle identifier match. (ID:%{public}@)", buf, 0xCu);
+        v49 = v7;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Could not find extension identity from persistant identifier, falling back to bundle identifier match. (ID:%{public}@)", buf, 0xCu);
       }
 
       goto LABEL_19;
@@ -1392,16 +1437,16 @@ LABEL_32:
   }
 
 LABEL_26:
-  v29 = sub_100010584();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v30 = sub_100010584(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     sub_10004BECC();
   }
 
-  v35 = 0;
+  v38 = 0;
 LABEL_33:
 
-  return v35;
+  return v38;
 }
 
 - (id)applicationSecurityGroups
@@ -1462,6 +1507,19 @@ LABEL_33:
   }
 
   return allObjects;
+}
+
+- (unint64_t)remainingDownloadAllowanceWithNecessity:(int64_t)necessity isManifest:(BOOL)manifest
+{
+  manifestCopy = manifest;
+  appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
+  [appInfoRecursiveLock lock];
+
+  v8 = [(BAApplicationInfo *)self _remainingDownloadAllowanceWithNecessity:necessity isManifest:manifestCopy];
+  appInfoRecursiveLock2 = [(BAApplicationInfo *)self appInfoRecursiveLock];
+  [appInfoRecursiveLock2 unlock];
+
+  return v8;
 }
 
 - (unint64_t)_remainingDownloadAllowanceWithNecessity:(int64_t)necessity isManifest:(BOOL)manifest
@@ -1533,6 +1591,24 @@ LABEL_33:
   return [(BAApplicationInfo *)self _consumeAllowanceShouldStopWithAdditionalBytes:bytes downloadNecessity:0 isManifest:1];
 }
 
+- (BOOL)consumeAllowanceShouldStopWithAdditionalBytes:(unint64_t)bytes downloadNecessity:(int64_t)necessity isManifest:(BOOL)manifest
+{
+  manifestCopy = manifest;
+  if ([(BAApplicationInfo *)self hasLaunchedApplication])
+  {
+    return 0;
+  }
+
+  appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
+  [appInfoRecursiveLock lock];
+
+  v11 = [(BAApplicationInfo *)self _consumeAllowanceShouldStopWithAdditionalBytes:bytes downloadNecessity:necessity isManifest:manifestCopy];
+  appInfoRecursiveLock2 = [(BAApplicationInfo *)self appInfoRecursiveLock];
+  [appInfoRecursiveLock2 unlock];
+
+  return v11;
+}
+
 - (BOOL)allowsBackgroundActivity
 {
   appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
@@ -1541,15 +1617,16 @@ LABEL_33:
   hasLaunchedApplication = [(BAApplicationInfo *)self hasLaunchedApplication];
   if ((hasLaunchedApplication & 1) != 0 || ![(BAApplicationInfo *)self permittedForInitialBackgroundActivity])
   {
-    if ([(BAApplicationInfo *)self userForceQuitApp])
+    userForceQuitApp = [(BAApplicationInfo *)self userForceQuitApp];
+    if (userForceQuitApp)
     {
-      v7 = sub_1000104FC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000104FC(userForceQuitApp);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-        v13 = 138543362;
-        v14 = applicationIdentifier;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Background activity denied for (%{public}@) because the app was terminated by the user.", &v13, 0xCu);
+        v15 = 138543362;
+        v16 = applicationIdentifier;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Background activity denied for (%{public}@) because the app was terminated by the user.", &v15, 0xCu);
       }
 
       v6 = 0;
@@ -1581,13 +1658,13 @@ LABEL_33:
 
     else
     {
-      applicationIdentifier2 = sub_1000104FC();
+      applicationIdentifier2 = sub_1000104FC(v11);
       if (os_log_type_enabled(applicationIdentifier2, OS_LOG_TYPE_DEFAULT))
       {
         applicationIdentifier3 = [(BAApplicationInfo *)self applicationIdentifier];
-        v13 = 138543362;
-        v14 = applicationIdentifier3;
-        _os_log_impl(&_mh_execute_header, applicationIdentifier2, OS_LOG_TYPE_DEFAULT, "Background activity denied for (%{public}@) because the user has not launched the app.", &v13, 0xCu);
+        v15 = 138543362;
+        v16 = applicationIdentifier3;
+        _os_log_impl(&_mh_execute_header, applicationIdentifier2, OS_LOG_TYPE_DEFAULT, "Background activity denied for (%{public}@) because the user has not launched the app.", &v15, 0xCu);
       }
 
       v2 = 0;
@@ -1695,13 +1772,13 @@ LABEL_9:
   appInfoRecursiveLock = [(BAApplicationInfo *)self appInfoRecursiveLock];
   [appInfoRecursiveLock lock];
 
-  v4 = sub_1000104FC();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_1000104FC(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
-    v8 = 138543362;
-    v9 = applicationIdentifier;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Resetting extension runtime for: %{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = applicationIdentifier;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Resetting extension runtime for: %{public}@", &v9, 0xCu);
   }
 
   extensionRuntimeEvents = [(BAApplicationInfo *)self extensionRuntimeEvents];
@@ -1744,17 +1821,17 @@ LABEL_9:
     currentRuntime2 = [(BAApplicationInfo *)self currentRuntime];
     [currentRuntime2 extensionExited];
 
-    v6 = sub_1000104FC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000104FC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
       currentRuntime3 = [(BAApplicationInfo *)self currentRuntime];
       [currentRuntime3 elapsedTime];
-      v11 = 138543618;
-      v12 = applicationIdentifier;
-      v13 = 2050;
-      v14 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Extension for app identifier %{public}@ ran for %{public}.1f seconds.", &v11, 0x16u);
+      v12 = 138543618;
+      v13 = applicationIdentifier;
+      v14 = 2050;
+      v15 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Extension for app identifier %{public}@ ran for %{public}.1f seconds.", &v12, 0x16u);
     }
 
     [(BAApplicationInfo *)self setCurrentRuntime:0];
@@ -1811,10 +1888,10 @@ LABEL_9:
     block[1] = 3221225472;
     block[2] = sub_10002F1C4;
     block[3] = &unk_100079838;
-    v18 = providedCopy;
+    v19 = providedCopy;
     dispatch_async(queueCopy, block);
 
-    v14 = v18;
+    v15 = v19;
 LABEL_6:
 
     goto LABEL_7;
@@ -1832,15 +1909,15 @@ LABEL_6:
 
   if (v12)
   {
-    v14 = sub_1000104FC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000104FC(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       applicationIdentifier = [(BAApplicationInfo *)self applicationIdentifier];
       *buf = 134218242;
-      v20 = v12;
-      v21 = 2114;
-      v22 = applicationIdentifier;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "There are %lu blocks enqueued awaiting network for identifier: %{public}@", buf, 0x16u);
+      v21 = v12;
+      v22 = 2114;
+      v23 = applicationIdentifier;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "There are %lu blocks enqueued awaiting network for identifier: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_6;

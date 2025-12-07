@@ -24,7 +24,7 @@
 
   else
   {
-    v3 = __atxlog_handle_notification_management();
+    v3 = __atxlog_handle_notification_management(atxMode);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [ATXModeEntityModelTrainer eventProviderForMode:v3];

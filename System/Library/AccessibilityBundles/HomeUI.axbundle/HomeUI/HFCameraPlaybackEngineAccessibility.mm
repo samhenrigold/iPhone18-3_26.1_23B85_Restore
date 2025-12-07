@@ -27,15 +27,14 @@
 - (void)clipPlayerDidPlayToEndTime:(id)time
 {
   v4 = *MEMORY[0x29EDC7EA8];
-  v5 = *MEMORY[0x29EDC7378];
   timeCopy = time;
-  v7 = accessibilityHomeUILocalizedString(@"camera.streaming.live.yes");
-  v8 = AXAttributedStringForBetterPronuciation();
-  UIAccessibilityPostNotification(v4, v8);
+  v6 = accessibilityHomeUILocalizedString(@"camera.streaming.live.yes");
+  v7 = AXAttributedStringForBetterPronuciation();
+  UIAccessibilityPostNotification(v4, v7);
 
-  v9.receiver = self;
-  v9.super_class = HFCameraPlaybackEngineAccessibility;
-  [(HFCameraPlaybackEngineAccessibility *)&v9 clipPlayerDidPlayToEndTime:timeCopy];
+  v8.receiver = self;
+  v8.super_class = HFCameraPlaybackEngineAccessibility;
+  [(HFCameraPlaybackEngineAccessibility *)&v8 clipPlayerDidPlayToEndTime:timeCopy];
 }
 
 @end

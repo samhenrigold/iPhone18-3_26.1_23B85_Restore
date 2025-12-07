@@ -1,4 +1,5 @@
 @interface TISKSpaceKeyEvent
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
 @end
@@ -80,6 +81,13 @@ LABEL_11:
   [(TISKInputEvent *)self downUpTimeDelta];
   v10 = [v9 numberWithDouble:?];
   [sessionCopy addSample:v10 forKey:kTISKSpaceTouchDownUpMetric];
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  v6.receiver = self;
+  v6.super_class = TISKSpaceKeyEvent;
+  return [(TISKInputEvent *)&v6 init:init type:2 emojiSearchMode:mode order:order];
 }
 
 @end

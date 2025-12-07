@@ -358,23 +358,23 @@ void __82__JFXEffectPreviewDiskCache_removePreviewForEffectID_excludingVersion_c
   return v13;
 }
 
-void __56__JFXEffectPreviewDiskCache_cachedURLForEffect_version___block_invoke(uint64_t a1)
+void __56__JFXEffectPreviewDiskCache_cachedURLForEffect_version___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v4 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v5 = [*(a1 + 32) cacheDirectoryPath];
-  v10 = [v2 cachedPathForEffect:v4 version:v3 directoryPath:v5];
+  v3 = objc_opt_class();
+  v5 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v6 = [*(a1 + 32) cacheDirectoryPath];
+  v11 = [v3 cachedPathForEffect:v5 version:v4 directoryPath:v6];
 
-  v6 = v10;
-  if (v10)
+  v7 = v11;
+  if (v11)
   {
-    v7 = [MEMORY[0x277CBEBC0] URLWithString:v10];
-    v8 = *(*(a1 + 56) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [MEMORY[0x277CBEBC0] URLWithString:v11];
+    v9 = *(*(a1 + 56) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v6 = v10;
+    v7 = v11;
   }
 }
 

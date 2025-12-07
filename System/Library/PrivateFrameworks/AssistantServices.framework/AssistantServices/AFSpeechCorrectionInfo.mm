@@ -7,11 +7,11 @@
 
 - (AFSpeechCorrectionInfo)initWithCoder:(id)coder
 {
-  v30[4] = *MEMORY[0x1E69E9840];
+  v29[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v29.receiver = self;
-  v29.super_class = AFSpeechCorrectionInfo;
-  v5 = [(AFSpeechCorrectionInfo *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = AFSpeechCorrectionInfo;
+  v5 = [(AFSpeechCorrectionInfo *)&v28 init];
   if (v5)
   {
     v5->_alternativeSelectionCount = [coderCopy decodeIntegerForKey:@"alternativeSelectionCount"];
@@ -24,11 +24,11 @@
     v5->_correctedText = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v30[2] = objc_opt_class();
-    v30[3] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v29[2] = objc_opt_class();
+    v29[3] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"_recognizedTextInfo"];
     recognizedTextInfo = v5->_recognizedTextInfo;
@@ -53,7 +53,6 @@
     v5->_selectedAlternativesInfo = v25;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

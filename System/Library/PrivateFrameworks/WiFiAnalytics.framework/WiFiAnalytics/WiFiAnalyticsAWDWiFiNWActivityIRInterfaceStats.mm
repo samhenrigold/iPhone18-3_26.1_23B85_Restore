@@ -225,7 +225,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   role = self->_role;
@@ -237,30 +237,30 @@
   if ([(NSMutableArray *)self->_packets count])
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_packets, "count")}];
+    v96 = 0u;
     v97 = 0u;
     v98 = 0u;
     v99 = 0u;
-    v100 = 0u;
     v7 = self->_packets;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v97 objects:v108 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v96 objects:v107 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v98;
+      v10 = *v97;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v98 != v10)
+          if (*v97 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v97 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v96 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v97 objects:v108 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v96 objects:v107 count:16];
       }
 
       while (v9);
@@ -272,30 +272,30 @@
   if ([(NSMutableArray *)self->_bytes count])
   {
     v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_bytes, "count")}];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
     v14 = self->_bytes;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v93 objects:v107 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v92 objects:v106 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v94;
+      v17 = *v93;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v94 != v17)
+          if (*v93 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          dictionaryRepresentation2 = [*(*(&v93 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v92 + 1) + 8 * j) dictionaryRepresentation];
           [v13 addObject:dictionaryRepresentation2];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v93 objects:v107 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v92 objects:v106 count:16];
       }
 
       while (v16);
@@ -307,30 +307,30 @@
   if ([(NSMutableArray *)self->_npeers count])
   {
     v20 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_npeers, "count")}];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
     v21 = self->_npeers;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v89 objects:v106 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v88 objects:v105 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v90;
+      v24 = *v89;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v90 != v24)
+          if (*v89 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          dictionaryRepresentation3 = [*(*(&v89 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v88 + 1) + 8 * k) dictionaryRepresentation];
           [v20 addObject:dictionaryRepresentation3];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v89 objects:v106 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v88 objects:v105 count:16];
       }
 
       while (v23);
@@ -342,8 +342,8 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    v66 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peerCount];
-    [v4 setObject:v66 forKey:@"peerCount"];
+    v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peerCount];
+    [v4 setObject:v65 forKey:@"peerCount"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -363,8 +363,8 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peersAdded];
-  [v4 setObject:v67 forKey:@"peersAdded"];
+  v66 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peersAdded];
+  [v4 setObject:v66 forKey:@"peersAdded"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -379,8 +379,8 @@ LABEL_33:
   }
 
 LABEL_85:
-  v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peersRemoved];
-  [v4 setObject:v68 forKey:@"peersRemoved"];
+  v67 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_peersRemoved];
+  [v4 setObject:v67 forKey:@"peersRemoved"];
 
   if (*&self->_has)
   {
@@ -393,30 +393,30 @@ LABEL_35:
   if ([(NSMutableArray *)self->_enableStates count])
   {
     v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_enableStates, "count")}];
+    v84 = 0u;
     v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
     v30 = self->_enableStates;
-    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v85 objects:v105 count:16];
+    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v84 objects:v104 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v86;
+      v33 = *v85;
       do
       {
         for (m = 0; m != v32; ++m)
         {
-          if (*v86 != v33)
+          if (*v85 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          dictionaryRepresentation4 = [*(*(&v85 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v84 + 1) + 8 * m) dictionaryRepresentation];
           [v29 addObject:dictionaryRepresentation4];
         }
 
-        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v85 objects:v105 count:16];
+        v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v84 objects:v104 count:16];
       }
 
       while (v32);
@@ -428,30 +428,30 @@ LABEL_35:
   if ([(NSMutableArray *)self->_txLatencyBKs count])
   {
     v36 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_txLatencyBKs, "count")}];
+    v80 = 0u;
     v81 = 0u;
     v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
     v37 = self->_txLatencyBKs;
-    v38 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v81 objects:v104 count:16];
+    v38 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v80 objects:v103 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v82;
+      v40 = *v81;
       do
       {
         for (n = 0; n != v39; ++n)
         {
-          if (*v82 != v40)
+          if (*v81 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          dictionaryRepresentation5 = [*(*(&v81 + 1) + 8 * n) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v80 + 1) + 8 * n) dictionaryRepresentation];
           [v36 addObject:dictionaryRepresentation5];
         }
 
-        v39 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v81 objects:v104 count:16];
+        v39 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v80 objects:v103 count:16];
       }
 
       while (v39);
@@ -463,30 +463,30 @@ LABEL_35:
   if ([(NSMutableArray *)self->_txLatencyBEs count])
   {
     v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_txLatencyBEs, "count")}];
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v44 = self->_txLatencyBEs;
-    v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v77 objects:v103 count:16];
+    v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v76 objects:v102 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v78;
+      v47 = *v77;
       do
       {
         for (ii = 0; ii != v46; ++ii)
         {
-          if (*v78 != v47)
+          if (*v77 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          dictionaryRepresentation6 = [*(*(&v77 + 1) + 8 * ii) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v76 + 1) + 8 * ii) dictionaryRepresentation];
           [v43 addObject:dictionaryRepresentation6];
         }
 
-        v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v77 objects:v103 count:16];
+        v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v76 objects:v102 count:16];
       }
 
       while (v46);
@@ -498,30 +498,30 @@ LABEL_35:
   if ([(NSMutableArray *)self->_txLatencyVOs count])
   {
     v50 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_txLatencyVOs, "count")}];
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
     v51 = self->_txLatencyVOs;
-    v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v73 objects:v102 count:16];
+    v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v72 objects:v101 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v74;
+      v54 = *v73;
       do
       {
         for (jj = 0; jj != v53; ++jj)
         {
-          if (*v74 != v54)
+          if (*v73 != v54)
           {
             objc_enumerationMutation(v51);
           }
 
-          dictionaryRepresentation7 = [*(*(&v73 + 1) + 8 * jj) dictionaryRepresentation];
+          dictionaryRepresentation7 = [*(*(&v72 + 1) + 8 * jj) dictionaryRepresentation];
           [v50 addObject:dictionaryRepresentation7];
         }
 
-        v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v73 objects:v102 count:16];
+        v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v72 objects:v101 count:16];
       }
 
       while (v53);
@@ -533,30 +533,30 @@ LABEL_35:
   if ([(NSMutableArray *)self->_txLatencyVIs count])
   {
     v57 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_txLatencyVIs, "count")}];
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
     v58 = self->_txLatencyVIs;
-    v59 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v69 objects:v101 count:16];
+    v59 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v68 objects:v100 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v70;
+      v61 = *v69;
       do
       {
         for (kk = 0; kk != v60; ++kk)
         {
-          if (*v70 != v61)
+          if (*v69 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          dictionaryRepresentation8 = [*(*(&v69 + 1) + 8 * kk) dictionaryRepresentation];
+          dictionaryRepresentation8 = [*(*(&v68 + 1) + 8 * kk) dictionaryRepresentation];
           [v57 addObject:dictionaryRepresentation8];
         }
 
-        v60 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v69 objects:v101 count:16];
+        v60 = [(NSMutableArray *)v58 countByEnumeratingWithState:&v68 objects:v100 count:16];
       }
 
       while (v60);
@@ -565,111 +565,105 @@ LABEL_35:
     [v4 setObject:v57 forKey:@"txLatencyVI"];
   }
 
-  v64 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_role)
   {
     PBDataWriterWriteStringField();
   }
 
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
-  v88 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v5 = self->_packets;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v87 objects:v98 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v74 objects:v85 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v88;
+    v8 = *v75;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v88 != v8)
+        if (*v75 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v87 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v87 objects:v98 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v74 objects:v85 count:16];
     }
 
     while (v7);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v11 = self->_bytes;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v83 objects:v97 count:16];
-  if (v12)
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v10 = self->_bytes;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v70 objects:v84 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v84;
+    v12 = v11;
+    v13 = *v71;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v84 != v14)
+        if (*v71 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v83 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v83 objects:v97 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v70 objects:v84 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v17 = self->_npeers;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v79 objects:v96 count:16];
-  if (v18)
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v15 = self->_npeers;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v66 objects:v83 count:16];
+  if (v16)
   {
-    v19 = v18;
-    v20 = *v80;
+    v17 = v16;
+    v18 = *v67;
     do
     {
-      for (k = 0; k != v19; ++k)
+      for (k = 0; k != v17; ++k)
       {
-        if (*v80 != v20)
+        if (*v67 != v18)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v15);
         }
 
-        v22 = *(*(&v79 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v79 objects:v96 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v66 objects:v83 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    peerCount = self->_peerCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -689,7 +683,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  peersAdded = self->_peersAdded;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -704,162 +697,153 @@ LABEL_27:
   }
 
 LABEL_67:
-  peersRemoved = self->_peersRemoved;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_28:
-    enabled = self->_enabled;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_29:
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v25 = self->_enableStates;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v75 objects:v95 count:16];
-  if (v26)
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v21 = self->_enableStates;
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v62 objects:v82 count:16];
+  if (v22)
   {
-    v27 = v26;
-    v28 = *v76;
+    v23 = v22;
+    v24 = *v63;
     do
     {
-      for (m = 0; m != v27; ++m)
+      for (m = 0; m != v23; ++m)
       {
-        if (*v76 != v28)
+        if (*v63 != v24)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v21);
         }
 
-        v30 = *(*(&v75 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v75 objects:v95 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v62 objects:v82 count:16];
     }
 
-    while (v27);
+    while (v23);
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v31 = self->_txLatencyBKs;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v71 objects:v94 count:16];
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v26 = self->_txLatencyBKs;
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v58 objects:v81 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = *v59;
+    do
+    {
+      for (n = 0; n != v28; ++n)
+      {
+        if (*v59 != v29)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v58 objects:v81 count:16];
+    }
+
+    while (v28);
+  }
+
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v31 = self->_txLatencyBEs;
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v54 objects:v80 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v72;
+    v34 = *v55;
     do
     {
-      for (n = 0; n != v33; ++n)
+      for (ii = 0; ii != v33; ++ii)
       {
-        if (*v72 != v34)
+        if (*v55 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v71 + 1) + 8 * n);
         PBDataWriterWriteSubmessage();
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v71 objects:v94 count:16];
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v54 objects:v80 count:16];
     }
 
     while (v33);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v37 = self->_txLatencyBEs;
-  v38 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v67 objects:v93 count:16];
-  if (v38)
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v36 = self->_txLatencyVOs;
+  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v50 objects:v79 count:16];
+  if (v37)
   {
-    v39 = v38;
-    v40 = *v68;
+    v38 = v37;
+    v39 = *v51;
     do
     {
-      for (ii = 0; ii != v39; ++ii)
+      for (jj = 0; jj != v38; ++jj)
       {
-        if (*v68 != v40)
+        if (*v51 != v39)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        v42 = *(*(&v67 + 1) + 8 * ii);
         PBDataWriterWriteSubmessage();
       }
 
-      v39 = [(NSMutableArray *)v37 countByEnumeratingWithState:&v67 objects:v93 count:16];
+      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v50 objects:v79 count:16];
     }
 
-    while (v39);
+    while (v38);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v43 = self->_txLatencyVOs;
-  v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v63 objects:v92 count:16];
-  if (v44)
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v41 = self->_txLatencyVIs;
+  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v46 objects:v78 count:16];
+  if (v42)
   {
-    v45 = v44;
-    v46 = *v64;
+    v43 = v42;
+    v44 = *v47;
     do
     {
-      for (jj = 0; jj != v45; ++jj)
+      for (kk = 0; kk != v43; ++kk)
       {
-        if (*v64 != v46)
+        if (*v47 != v44)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v41);
         }
 
-        v48 = *(*(&v63 + 1) + 8 * jj);
         PBDataWriterWriteSubmessage();
       }
 
-      v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v63 objects:v92 count:16];
+      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v46 objects:v78 count:16];
     }
 
-    while (v45);
+    while (v43);
   }
-
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v49 = self->_txLatencyVIs;
-  v50 = [(NSMutableArray *)v49 countByEnumeratingWithState:&v59 objects:v91 count:16];
-  if (v50)
-  {
-    v51 = v50;
-    v52 = *v60;
-    do
-    {
-      for (kk = 0; kk != v51; ++kk)
-      {
-        if (*v60 != v52)
-        {
-          objc_enumerationMutation(v49);
-        }
-
-        v54 = *(*(&v59 + 1) + 8 * kk);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v51 = [(NSMutableArray *)v49 countByEnumeratingWithState:&v59 objects:v91 count:16];
-    }
-
-    while (v51);
-  }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -1041,94 +1025,94 @@ LABEL_20:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_role copyWithZone:zone];
   v7 = *(v5 + 64);
   *(v5 + 64) = v6;
 
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
   v88 = 0u;
+  v89 = 0u;
+  v86 = 0u;
+  v87 = 0u;
   v8 = self->_packets;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v87 objects:v98 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v86 objects:v97 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v88;
+    v11 = *v87;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v88 != v11)
+        if (*v87 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v87 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v86 + 1) + 8 * i) copyWithZone:zone];
         [v5 addPackets:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v87 objects:v98 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v86 objects:v97 count:16];
     }
 
     while (v10);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v14 = self->_bytes;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v83 objects:v97 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v82 objects:v96 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v84;
+    v17 = *v83;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v84 != v17)
+        if (*v83 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v83 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v82 + 1) + 8 * j) copyWithZone:zone];
         [v5 addBytes:v19];
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v83 objects:v97 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v82 objects:v96 count:16];
     }
 
     while (v16);
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v20 = self->_npeers;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v79 objects:v96 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v78 objects:v95 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v80;
+    v23 = *v79;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v80 != v23)
+        if (*v79 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v79 + 1) + 8 * k) copyWithZone:zone];
+        v25 = [*(*(&v78 + 1) + 8 * k) copyWithZone:zone];
         [v5 addNpeers:v25];
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v79 objects:v96 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v78 objects:v95 count:16];
     }
 
     while (v22);
@@ -1182,152 +1166,151 @@ LABEL_26:
   }
 
 LABEL_27:
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v27 = self->_enableStates;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v75 objects:v95 count:16];
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v74 objects:v94 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v76;
+    v30 = *v75;
     do
     {
       for (m = 0; m != v29; ++m)
       {
-        if (*v76 != v30)
+        if (*v75 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v75 + 1) + 8 * m) copyWithZone:zone];
+        v32 = [*(*(&v74 + 1) + 8 * m) copyWithZone:zone];
         [v5 addEnableState:v32];
       }
 
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v75 objects:v95 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v74 objects:v94 count:16];
     }
 
     while (v29);
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v33 = self->_txLatencyBKs;
-  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v71 objects:v94 count:16];
+  v34 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v70 objects:v93 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v72;
+    v36 = *v71;
     do
     {
       for (n = 0; n != v35; ++n)
       {
-        if (*v72 != v36)
+        if (*v71 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = [*(*(&v71 + 1) + 8 * n) copyWithZone:zone];
+        v38 = [*(*(&v70 + 1) + 8 * n) copyWithZone:zone];
         [v5 addTxLatencyBK:v38];
       }
 
-      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v71 objects:v94 count:16];
+      v35 = [(NSMutableArray *)v33 countByEnumeratingWithState:&v70 objects:v93 count:16];
     }
 
     while (v35);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v39 = self->_txLatencyBEs;
-  v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v67 objects:v93 count:16];
+  v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v66 objects:v92 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v68;
+    v42 = *v67;
     do
     {
       for (ii = 0; ii != v41; ++ii)
       {
-        if (*v68 != v42)
+        if (*v67 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = [*(*(&v67 + 1) + 8 * ii) copyWithZone:zone];
+        v44 = [*(*(&v66 + 1) + 8 * ii) copyWithZone:zone];
         [v5 addTxLatencyBE:v44];
       }
 
-      v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v67 objects:v93 count:16];
+      v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v66 objects:v92 count:16];
     }
 
     while (v41);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v45 = self->_txLatencyVOs;
-  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v63 objects:v92 count:16];
+  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v62 objects:v91 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v64;
+    v48 = *v63;
     do
     {
       for (jj = 0; jj != v47; ++jj)
       {
-        if (*v64 != v48)
+        if (*v63 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v50 = [*(*(&v63 + 1) + 8 * jj) copyWithZone:zone];
+        v50 = [*(*(&v62 + 1) + 8 * jj) copyWithZone:zone];
         [v5 addTxLatencyVO:v50];
       }
 
-      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v63 objects:v92 count:16];
+      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v62 objects:v91 count:16];
     }
 
     while (v47);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v51 = self->_txLatencyVIs;
-  v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v59 objects:v91 count:16];
+  v52 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v58 objects:v90 count:16];
   if (v52)
   {
     v53 = v52;
-    v54 = *v60;
+    v54 = *v59;
     do
     {
       for (kk = 0; kk != v53; ++kk)
       {
-        if (*v60 != v54)
+        if (*v59 != v54)
         {
           objc_enumerationMutation(v51);
         }
 
-        v56 = [*(*(&v59 + 1) + 8 * kk) copyWithZone:{zone, v59}];
+        v56 = [*(*(&v58 + 1) + 8 * kk) copyWithZone:{zone, v58}];
         [v5 addTxLatencyVI:v56];
       }
 
-      v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v59 objects:v91 count:16];
+      v53 = [(NSMutableArray *)v51 countByEnumeratingWithState:&v58 objects:v90 count:16];
     }
 
     while (v53);
   }
 
-  v57 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1375,7 +1358,6 @@ LABEL_27:
     }
   }
 
-  v9 = *(equalCopy + 104);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 104) & 2) == 0 || self->_peerCount != *(equalCopy + 12))
@@ -1387,7 +1369,7 @@ LABEL_27:
   else if ((*(equalCopy + 104) & 2) != 0)
   {
 LABEL_40:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_41;
   }
 
@@ -1466,17 +1448,17 @@ LABEL_40:
   txLatencyVIs = self->_txLatencyVIs;
   if (txLatencyVIs | *(equalCopy + 11))
   {
-    v15 = [(NSMutableArray *)txLatencyVIs isEqual:?];
+    v14 = [(NSMutableArray *)txLatencyVIs isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_41:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash
@@ -1545,92 +1527,92 @@ LABEL_10:
 
 - (void)mergeFrom:(id)from
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 8))
   {
     [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self setRole:?];
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v5 = *(fromCopy + 5);
-  v6 = [v5 countByEnumeratingWithState:&v75 objects:v86 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v74 objects:v85 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v76;
+    v8 = *v75;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v76 != v8)
+        if (*v75 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addPackets:*(*(&v75 + 1) + 8 * i)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addPackets:*(*(&v74 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v75 objects:v86 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v74 objects:v85 count:16];
     }
 
     while (v7);
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v10 = *(fromCopy + 1);
-  v11 = [v10 countByEnumeratingWithState:&v71 objects:v85 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v70 objects:v84 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v72;
+    v13 = *v71;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v72 != v13)
+        if (*v71 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addBytes:*(*(&v71 + 1) + 8 * j)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addBytes:*(*(&v70 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v71 objects:v85 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v70 objects:v84 count:16];
     }
 
     while (v12);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v15 = *(fromCopy + 4);
-  v16 = [v15 countByEnumeratingWithState:&v67 objects:v84 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v66 objects:v83 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v68;
+    v18 = *v67;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v68 != v18)
+        if (*v67 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addNpeers:*(*(&v67 + 1) + 8 * k)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addNpeers:*(*(&v66 + 1) + 8 * k)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v67 objects:v84 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v66 objects:v83 count:16];
     }
 
     while (v17);
@@ -1684,147 +1666,145 @@ LABEL_28:
   }
 
 LABEL_29:
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v21 = *(fromCopy + 2);
-  v22 = [v21 countByEnumeratingWithState:&v63 objects:v83 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v62 objects:v82 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v64;
+    v24 = *v63;
     do
     {
       for (m = 0; m != v23; ++m)
       {
-        if (*v64 != v24)
+        if (*v63 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addEnableState:*(*(&v63 + 1) + 8 * m)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addEnableState:*(*(&v62 + 1) + 8 * m)];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v63 objects:v83 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v62 objects:v82 count:16];
     }
 
     while (v23);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v26 = *(fromCopy + 10);
-  v27 = [v26 countByEnumeratingWithState:&v59 objects:v82 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v58 objects:v81 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v60;
+    v29 = *v59;
     do
     {
       for (n = 0; n != v28; ++n)
       {
-        if (*v60 != v29)
+        if (*v59 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyBK:*(*(&v59 + 1) + 8 * n)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyBK:*(*(&v58 + 1) + 8 * n)];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v59 objects:v82 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v58 objects:v81 count:16];
     }
 
     while (v28);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v31 = *(fromCopy + 9);
-  v32 = [v31 countByEnumeratingWithState:&v55 objects:v81 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v54 objects:v80 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v56;
+    v34 = *v55;
     do
     {
       for (ii = 0; ii != v33; ++ii)
       {
-        if (*v56 != v34)
+        if (*v55 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyBE:*(*(&v55 + 1) + 8 * ii)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyBE:*(*(&v54 + 1) + 8 * ii)];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v55 objects:v81 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v54 objects:v80 count:16];
     }
 
     while (v33);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v36 = *(fromCopy + 12);
-  v37 = [v36 countByEnumeratingWithState:&v51 objects:v80 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v50 objects:v79 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v52;
+    v39 = *v51;
     do
     {
       for (jj = 0; jj != v38; ++jj)
       {
-        if (*v52 != v39)
+        if (*v51 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyVO:*(*(&v51 + 1) + 8 * jj)];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyVO:*(*(&v50 + 1) + 8 * jj)];
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v51 objects:v80 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v50 objects:v79 count:16];
     }
 
     while (v38);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v41 = *(fromCopy + 11);
-  v42 = [v41 countByEnumeratingWithState:&v47 objects:v79 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v46 objects:v78 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v48;
+    v44 = *v47;
     do
     {
       for (kk = 0; kk != v43; ++kk)
       {
-        if (*v48 != v44)
+        if (*v47 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyVI:*(*(&v47 + 1) + 8 * kk), v47];
+        [(WiFiAnalyticsAWDWiFiNWActivityIRInterfaceStats *)self addTxLatencyVI:*(*(&v46 + 1) + 8 * kk), v46];
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v47 objects:v79 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v46 objects:v78 count:16];
     }
 
     while (v43);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 @end

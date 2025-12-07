@@ -7,10 +7,10 @@
 
 - (SCLUnlockHistoryTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
-  v38[4] = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = SCLUnlockHistoryTableViewCell;
-  v5 = [(PSTableCell *)&v37 initWithStyle:style reuseIdentifier:identifier specifier:specifier];
+  v37[4] = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = SCLUnlockHistoryTableViewCell;
+  v5 = [(PSTableCell *)&v36 initWithStyle:style reuseIdentifier:identifier specifier:specifier];
   v6 = v5;
   if (v5)
   {
@@ -61,15 +61,14 @@
 
     [v32 setIdentifier:@"contentView.trailing"];
     v33 = MEMORY[0x277CCAAD0];
-    v38[0] = v28;
-    v38[1] = v19;
-    v38[2] = v24;
-    v38[3] = v32;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+    v37[0] = v28;
+    v37[1] = v19;
+    v37[2] = v24;
+    v37[3] = v32;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
     [v33 activateConstraints:v34];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

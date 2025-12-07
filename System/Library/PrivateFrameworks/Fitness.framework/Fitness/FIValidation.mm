@@ -43,36 +43,36 @@
 
 + (BOOL)performValidations:(id)validations withObject:(id)object error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   validationsCopy = validations;
   objectCopy = object;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = validationsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (![*(*(&v17 + 1) + 8 * i) validateObject:objectCopy withError:{error, v17}])
+        if (![*(*(&v16 + 1) + 8 * i) validateObject:objectCopy withError:{error, v16}])
         {
           v14 = 0;
           goto LABEL_11;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v11)
       {
         continue;
@@ -85,7 +85,6 @@
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

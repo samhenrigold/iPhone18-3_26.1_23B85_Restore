@@ -8,7 +8,6 @@
 - (void)manager:(id)manager discoveredSessionsDidChange:(id)change
 {
   v4 = *(&self->super.isa + OBJC_IVAR____TtCC12mediaremoted39RemoteControlGroupSessionItemDataSource27GroupSessionManagerObserver_callback);
-  v5 = *&self->callback[OBJC_IVAR____TtCC12mediaremoted39RemoteControlGroupSessionItemDataSource27GroupSessionManagerObserver_callback];
   selfCopy = self;
   v4();
 }

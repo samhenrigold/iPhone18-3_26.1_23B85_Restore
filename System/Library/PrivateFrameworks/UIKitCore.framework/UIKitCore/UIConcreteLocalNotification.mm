@@ -168,35 +168,35 @@
   {
     fireDate = self->fireDate;
     fireDate = [equalCopy fireDate];
-    if (fireDate == fireDate || [(NSDate *)fireDate isEqual:fireDate])
+    if (fireDate == fireDate || objc_msgSend_isEqual_(fireDate))
     {
       timeZone = self->timeZone;
       timeZone = [equalCopy timeZone];
-      if ((timeZone == timeZone || -[NSTimeZone isEqual:](timeZone, "isEqual:", timeZone)) && (repeatInterval = self->repeatInterval, repeatInterval == [equalCopy repeatInterval]))
+      if ((timeZone == timeZone || objc_msgSend_isEqual_(timeZone)) && (repeatInterval = self->repeatInterval, repeatInterval == [equalCopy repeatInterval]))
       {
         repeatCalendar = self->repeatCalendar;
         repeatCalendar = [equalCopy repeatCalendar];
-        if (repeatCalendar == repeatCalendar || [(NSCalendar *)repeatCalendar isEqual:repeatCalendar])
+        if (repeatCalendar == repeatCalendar || objc_msgSend_isEqual_(repeatCalendar))
         {
           alertBody = self->alertBody;
           alertBody = [equalCopy alertBody];
-          if ((alertBody == alertBody || -[NSString isEqual:](alertBody, "isEqual:", alertBody)) && (hasAction = self->hasAction, hasAction == [equalCopy hasAction]))
+          if ((alertBody == alertBody || objc_msgSend_isEqual_(alertBody)) && (hasAction = self->hasAction, hasAction == [equalCopy hasAction]))
           {
             alertAction = self->alertAction;
             alertAction = [equalCopy alertAction];
-            if (alertAction == alertAction || [(NSString *)alertAction isEqual:alertAction])
+            if (alertAction == alertAction || objc_msgSend_isEqual_(alertAction))
             {
               alertLaunchImage = self->alertLaunchImage;
               alertLaunchImage = [equalCopy alertLaunchImage];
-              if (alertLaunchImage == alertLaunchImage || [(NSString *)alertLaunchImage isEqual:alertLaunchImage])
+              if (alertLaunchImage == alertLaunchImage || objc_msgSend_isEqual_(alertLaunchImage))
               {
                 alertTitle = self->alertTitle;
                 alertTitle = [equalCopy alertTitle];
-                if (alertTitle == alertTitle || [(NSString *)alertTitle isEqual:alertTitle])
+                if (alertTitle == alertTitle || objc_msgSend_isEqual_(alertTitle))
                 {
                   soundName = self->soundName;
                   soundName = [equalCopy soundName];
-                  if (soundName == soundName || (v23 = soundName, v24 = soundName, v25 = [(NSString *)v23 isEqual:soundName], soundName = v24, v25))
+                  if (soundName == soundName || (v23 = soundName, v24 = soundName, v25 = objc_msgSend_isEqual_(v23), soundName = v24, v25))
                   {
                     v50 = soundName;
                     applicationIconBadgeNumber = self->applicationIconBadgeNumber;
@@ -207,19 +207,19 @@
                       v29 = userInfo;
                       v30 = userInfo2;
                       v49 = v29;
-                      if (v29 == userInfo2 || [v29 isEqual:userInfo2])
+                      if (v29 == userInfo2 || objc_msgSend_isEqual_(v29))
                       {
                         v48 = v30;
                         category = self->category;
                         category = [equalCopy category];
-                        if (category == category || (v33 = category, v34 = category, v35 = [(NSString *)v33 isEqual:category], category = v34, v35))
+                        if (category == category || (v33 = category, v34 = category, v35 = objc_msgSend_isEqual_(v33), category = v34, v35))
                         {
                           v47 = category;
                           identifier = [(CLRegion *)self->region identifier];
                           region = [equalCopy region];
                           identifier2 = [region identifier];
                           v45 = identifier;
-                          if (identifier == identifier2 || (v44 = identifier2, v38 = [identifier isEqual:identifier2], identifier2 = v44, v38))
+                          if (identifier == identifier2 || (v44 = identifier2, isEqual = objc_msgSend_isEqual_(identifier), identifier2 = v44, isEqual))
                           {
                             regionTriggersOnce = self->regionTriggersOnce;
                             v40 = identifier2;
@@ -640,7 +640,7 @@ LABEL_41:
     timeZone = self->timeZone;
     if (timeZone)
     {
-      if (([(NSTimeZone *)timeZone isEqual:zoneCopy]& 1) == 0)
+      if ((objc_msgSend_isEqual_(timeZone) & 1) == 0)
       {
         currentCalendar = self->repeatCalendar;
         if (!currentCalendar)
@@ -687,9 +687,9 @@ LABEL_25:
   }
 
   timeZone = [(NSCalendar *)currentCalendar2 timeZone];
-  v22 = [timeZone isEqual:zoneCopy];
+  isEqual = objc_msgSend_isEqual_(timeZone);
 
-  if ((v22 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v23 = [(NSCalendar *)currentCalendar2 copy];
 

@@ -10,7 +10,7 @@
   swift_unknownObjectRetain();
   statusCopy = status;
   selfCopy = self;
-  SleepingSampleAnalysisFeatureStatusManager.featureStatusProviding(_:didUpdate:)(providing);
+  SleepingSampleAnalysisFeatureStatusManager.featureStatusProviding(_:didUpdate:)(providing, statusCopy);
   swift_unknownObjectRelease();
 }
 

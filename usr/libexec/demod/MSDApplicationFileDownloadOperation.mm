@@ -40,105 +40,106 @@
       [context5 setUseDiffPatch:1];
 
 LABEL_5:
-      v16 = sub_100063BEC();
+      v17 = sub_100063BEC(v16);
       signpostId = [(MSDOperation *)self signpostId];
       if (signpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v18 = signpostId;
-        if (os_signpost_enabled(v16))
+        v19 = signpostId;
+        if (os_signpost_enabled(v17))
         {
-          *v35 = 138412290;
-          *&v35[4] = v14;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, v18, "File Cache Hit", "File cache hit: %{xcode:string}@", v35, 0xCu);
+          *v36 = 138412290;
+          *&v36[4] = v14;
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, v19, "File Cache Hit", "File cache hit: %{xcode:string}@", v36, 0xCu);
         }
       }
 
 LABEL_23:
 
-      v32 = 1;
+      v33 = 1;
       goto LABEL_24;
     }
   }
 
-  v14 = [v3 findFileInCache:fileHash];
-  if (v14)
+  v16 = [v3 findFileInCache:fileHash];
+  v14 = v16;
+  if (v16)
   {
     goto LABEL_5;
   }
 
   v14 = [v3 fileCachePathFromSourcePath:0 forBackgroundDownload:v12];
-  v19 = sub_100063BEC();
+  v20 = sub_100063BEC(v14);
   signpostId2 = [(MSDOperation *)self signpostId];
   if (signpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v21 = signpostId2;
-    if (os_signpost_enabled(v19))
+    v22 = signpostId2;
+    if (os_signpost_enabled(v20))
     {
-      *v35 = 138412290;
-      *&v35[4] = identifier;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, v21, "Download App", "App identifier: %{xcode:string}@", v35, 0xCu);
+      *v36 = 138412290;
+      *&v36[4] = identifier;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_BEGIN, v22, "Download App", "App identifier: %{xcode:string}@", v36, 0xCu);
     }
   }
 
-  v16 = [(MSDApplicationFileDownloadOperation *)self _downloadAppArchiveFile:identifier ofHash:fileHash ofAppUID:uniqueIdentifier currenntAppUID:currentUniqueIdentifier toFolder:v14];
-  v22 = sub_100063BEC();
+  v17 = [(MSDApplicationFileDownloadOperation *)self _downloadAppArchiveFile:identifier ofHash:fileHash ofAppUID:uniqueIdentifier currenntAppUID:currentUniqueIdentifier toFolder:v14];
+  v23 = sub_100063BEC(v17);
   signpostId3 = [(MSDOperation *)self signpostId];
   if (signpostId3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v24 = signpostId3;
-    if (os_signpost_enabled(v22))
+    v25 = signpostId3;
+    if (os_signpost_enabled(v23))
     {
-      *v35 = 67109120;
-      *&v35[4] = v16 != 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v24, "Download App", "App download result: %{xcode:BOOLean}d", v35, 8u);
+      *v36 = 67109120;
+      *&v36[4] = v17 != 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_END, v25, "Download App", "App download result: %{xcode:BOOLean}d", v36, 8u);
     }
   }
 
-  if (v16)
+  if (v17)
   {
     context6 = [(MSDOperation *)self context];
     useDiffPatch = [context6 useDiffPatch];
 
     if (useDiffPatch)
     {
-      [v3 addAppDiffPatchFile:v16 sourceAppUID:currentUniqueIdentifier targetAppUID:uniqueIdentifier];
+      [v3 addAppDiffPatchFile:v17 sourceAppUID:currentUniqueIdentifier targetAppUID:uniqueIdentifier];
     }
 
-    else if (([fileHash isEqualToString:v16] & 1) == 0)
+    else if (([fileHash isEqualToString:v17] & 1) == 0)
     {
       context7 = [(MSDOperation *)self context];
-      [context7 setFileHash:v16];
+      [context7 setFileHash:v17];
     }
 
-    v28 = [v3 fileSizeInCache:v16];
-    v29 = sub_100063BEC();
+    v29 = [v3 fileSizeInCache:v17];
+    v30 = sub_100063BEC(v29);
     signpostId4 = [(MSDOperation *)self signpostId];
     if (signpostId4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v31 = signpostId4;
-      if (os_signpost_enabled(v29))
+      v32 = signpostId4;
+      if (os_signpost_enabled(v30))
       {
-        *v35 = 134217984;
-        *&v35[4] = v28;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v29, OS_SIGNPOST_EVENT, v31, "File Downloaded", "File download size: %{xcode:size-in-bytes}llu", v35, 0xCu);
+        *v36 = 134217984;
+        *&v36[4] = v29;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v30, OS_SIGNPOST_EVENT, v32, "File Downloaded", "File download size: %{xcode:size-in-bytes}llu", v36, 0xCu);
       }
     }
 
     goto LABEL_23;
   }
 
-  v34 = sub_1000CEF08(v14, self, v35);
-  v32 = 0;
-  if (v34)
+  v35 = sub_1000CEF08(v14, self, v36);
+  v33 = 0;
+  if (v35)
   {
     goto LABEL_25;
   }
 
-  v14 = *v35;
+  v14 = *v36;
 LABEL_24:
 
 LABEL_25:
-  return v32;
+  return v33;
 }
 
 - (id)_downloadAppArchiveFile:(id)file ofHash:(id)hash ofAppUID:(id)d currenntAppUID:(id)iD toFolder:(id)folder

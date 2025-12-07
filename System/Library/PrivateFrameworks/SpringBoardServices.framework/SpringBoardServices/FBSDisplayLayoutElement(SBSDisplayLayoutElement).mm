@@ -1,9 +1,9 @@
 @interface FBSDisplayLayoutElement(SBSDisplayLayoutElement)
 - (uint64_t)isSpringBoardElement;
 - (uint64_t)layoutRole;
-- (uint64_t)sb_isStashedPIP;
-- (uint64_t)sb_isTransitioning;
 - (uint64_t)zOrderIndex;
+- (void)sb_isStashedPIP;
+- (void)sb_isTransitioning;
 @end
 
 @implementation FBSDisplayLayoutElement(SBSDisplayLayoutElement)
@@ -66,7 +66,7 @@
   return integerValue;
 }
 
-- (uint64_t)sb_isTransitioning
+- (void)sb_isTransitioning
 {
   result = [self isSpringBoardElement];
   if (result)
@@ -80,7 +80,7 @@
   return result;
 }
 
-- (uint64_t)sb_isStashedPIP
+- (void)sb_isStashedPIP
 {
   result = [self isSpringBoardElement];
   if (result)

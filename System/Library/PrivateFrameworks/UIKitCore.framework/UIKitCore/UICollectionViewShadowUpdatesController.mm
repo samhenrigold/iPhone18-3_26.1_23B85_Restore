@@ -9,7 +9,7 @@ void __91___UICollectionViewShadowUpdatesController__findShadowUpdateForIdentifi
   v11 = v7;
   if (v7)
   {
-    v8 = *(v7 + 11);
+    v8 = v7[11];
   }
 
   else
@@ -18,9 +18,9 @@ void __91___UICollectionViewShadowUpdatesController__findShadowUpdateForIdentifi
   }
 
   v9 = v8;
-  v10 = [v9 isEqual:*(a1 + 32)];
+  isEqual = objc_msgSend_isEqual_(v9);
 
-  if (v10)
+  if (isEqual)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
@@ -47,7 +47,7 @@ void __85___UICollectionViewShadowUpdatesController__findInsertShadowUpdateForFi
     v10 = v9;
     v11 = [v7 finalIndexPathForIndexPath:v8 startingAtUpdateWithIdentifier:v10];
 
-    if ([v11 isEqual:*(a1 + 40)])
+    if (objc_msgSend_isEqual_(v11))
     {
       objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
       *a4 = 1;

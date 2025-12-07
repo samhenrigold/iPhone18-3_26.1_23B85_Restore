@@ -11,16 +11,16 @@
   obj = d;
   dCopy = d;
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = IMReplyContextTranscriptPluginChatItem;
-  participants = [(IMTranscriptPluginChatItem *)&v31 _initWithItem:itemCopy initialPayload:payload index:index messagePartRange:range.location parentChatHasKnownParticipants:range.length, participants];
+  v27.receiver = self;
+  v27.super_class = IMReplyContextTranscriptPluginChatItem;
+  participants = [(IMTranscriptPluginChatItem *)&v27 _initWithItem:itemCopy initialPayload:payload index:index messagePartRange:range.location parentChatHasKnownParticipants:range.length, participants];
   if (participants)
   {
-    v22 = objc_msgSend_guid(itemCopy, v19, v20);
-    v23 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v21 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(participants, v24, v23);
-    objc_msgSend_setChatContext_(participants, v25, contextCopy);
+    [participants _setGUID:v21];
+    [participants setChatContext:contextCopy];
     objc_storeStrong(participants + 29, parentItem);
     *(participants + 216) = me;
     objc_storeStrong(participants + 30, obj);

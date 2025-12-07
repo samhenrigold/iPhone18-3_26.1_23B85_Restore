@@ -30,9 +30,9 @@
 
 + (id)categoryNameForPluginClass:(Class)class
 {
-  v4 = objc_msgSend_animationCategory(class, a2, class);
+  animationCategory = [(objc_class *)class animationCategory];
 
-  return objc_msgSend_localizedCategoryNameForCategory_(KNAnimationRegistry, v3, v4);
+  return [KNAnimationRegistry localizedCategoryNameForCategory:animationCategory];
 }
 
 + (id)localizedCategoryNameForCategory:(int64_t)category
@@ -44,16 +44,22 @@
       switch(category)
       {
         case 301:
-          v3 = sub_275DC204C();
-          objc_msgSend_localizedStringForKey_value_table_(v3, v10, @"Basic Action Effects *AnimationRegistry*", @"Basic", @"Keynote");
+          v3 = sub_275DC204C(self);
+          v4 = v3;
+          v5 = @"Basic Action Effects *AnimationRegistry*";
+          v6 = @"Basic";
           goto LABEL_23;
         case 302:
-          v3 = sub_275DC204C();
-          objc_msgSend_localizedStringForKey_value_table_(v3, v13, @"Emphasis Action Effects *AnimationRegistry*", @"Emphasis", @"Keynote");
+          v3 = sub_275DC204C(self);
+          v4 = v3;
+          v5 = @"Emphasis Action Effects *AnimationRegistry*";
+          v6 = @"Emphasis";
           goto LABEL_23;
         case 401:
-          v3 = sub_275DC204C();
-          objc_msgSend_localizedStringForKey_value_table_(v3, v7, @"Image Gallery Effects *AnimationRegistry*", @"Image Gallery", @"Keynote");
+          v3 = sub_275DC204C(self);
+          v4 = v3;
+          v5 = @"Image Gallery Effects *AnimationRegistry*";
+          v6 = @"Image Gallery";
           goto LABEL_23;
       }
     }
@@ -62,15 +68,19 @@
     {
       if (category == 203)
       {
-        v3 = sub_275DC204C();
-        objc_msgSend_localizedStringForKey_value_table_(v3, v8, @"Special Effects *AnimationRegistry*", @"Special Effects", @"Keynote");
+        v3 = sub_275DC204C(self);
+        v4 = v3;
+        v5 = @"Special Effects *AnimationRegistry*";
+        v6 = @"Special Effects";
         goto LABEL_23;
       }
 
       if (category == 204)
       {
-        v3 = sub_275DC204C();
-        objc_msgSend_localizedStringForKey_value_table_(v3, v11, @"3D Charts Effects *AnimationRegistry*", @"3D Chart Effects", @"Keynote");
+        v3 = sub_275DC204C(self);
+        v4 = v3;
+        v5 = @"3D Charts Effects *AnimationRegistry*";
+        v6 = @"3D Chart Effects";
         goto LABEL_23;
       }
     }
@@ -83,21 +93,27 @@
     switch(category)
     {
       case 103:
-        v3 = sub_275DC204C();
-        objc_msgSend_localizedStringForKey_value_table_(v3, v9, @"Text Effects *AnimationRegistry*", @"Text Effects", @"Keynote");
+        v3 = sub_275DC204C(self);
+        v4 = v3;
+        v5 = @"Text Effects *AnimationRegistry*";
+        v6 = @"Text Effects";
         goto LABEL_23;
       case 201:
-        v3 = sub_275DC204C();
-        objc_msgSend_localizedStringForKey_value_table_(v3, v12, @"Appear and Move Effects *AnimationRegistry*", @"Appear & Move", @"Keynote");
+        v3 = sub_275DC204C(self);
+        v4 = v3;
+        v5 = @"Appear and Move Effects *AnimationRegistry*";
+        v6 = @"Appear & Move";
         goto LABEL_23;
       case 202:
-        v3 = sub_275DC204C();
-        objc_msgSend_localizedStringForKey_value_table_(v3, v6, @"Flip Spin and Scale Effects *AnimationRegistry*", @"Flip, Spin & Scale", @"Keynote");
+        v3 = sub_275DC204C(self);
+        v4 = v3;
+        v5 = @"Flip Spin and Scale Effects *AnimationRegistry*";
+        v6 = @"Flip, Spin & Scale";
         goto LABEL_23;
     }
 
 LABEL_8:
-    v5 = objc_msgSend_string(MEMORY[0x277CCACA8], a2, category);
+    string = [MEMORY[0x277CCACA8] string];
     goto LABEL_24;
   }
 
@@ -106,13 +122,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v3 = sub_275DC204C();
-  objc_msgSend_localizedStringForKey_value_table_(v3, v4, @"Object Effects *AnimationRegistry*", @"Object Effects", @"Keynote");
-  v5 = LABEL_23:;
+  v3 = sub_275DC204C(self);
+  v4 = v3;
+  v5 = @"Object Effects *AnimationRegistry*";
+  v6 = @"Object Effects";
+LABEL_23:
+  string = [v3 localizedStringForKey:v5 value:v6 table:@"Keynote"];
 
 LABEL_24:
 
-  return v5;
+  return string;
 }
 
 + (id)localizedNameForUnsupportedAnimation:(id)animation
@@ -123,304 +142,298 @@ LABEL_24:
     sub_275E59D58();
   }
 
-  v5 = objc_msgSend_objectForKeyedSubscript_(qword_280A3BF38, v3, animationCopy);
-  if (!v5)
+  v4 = [qword_280A3BF38 objectForKeyedSubscript:animationCopy];
+  if (!v4)
   {
-    v6 = sub_275DC204C();
-    v5 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"Unsupported", &stru_2884D8E20, @"Keynote");
-  }
-
-  return v5;
-}
-
-+ (id)preferredCategoryOrder
-{
-  v3 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = sub_275D56E3C;
-  block[3] = &unk_27A697B20;
-  v4 = v3;
-  v7 = v4;
-  if (qword_280A3BF40 != -1)
-  {
-    dispatch_once(&qword_280A3BF40, block);
+    v5 = sub_275DC204C(0);
+    v4 = [v5 localizedStringForKey:@"Unsupported" value:&stru_2884D8E20 table:@"Keynote"];
   }
 
   return v4;
 }
 
++ (id)preferredCategoryOrder
+{
+  array = [MEMORY[0x277CBEB18] array];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = sub_275D56E3C;
+  block[3] = &unk_27A697B20;
+  v3 = array;
+  v6 = v3;
+  if (qword_280A3BF40 != -1)
+  {
+    dispatch_once(&qword_280A3BF40, block);
+  }
+
+  return v3;
+}
+
 - (id)p_buildAlternateFilterMap
 {
-  v3 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
-  v5 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEAC0], v4, v3);
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
 
-  return v5;
+  return v3;
 }
 
 - (KNAnimationRegistry)init
 {
-  v165 = *MEMORY[0x277D85DE8];
-  v160.receiver = self;
-  v160.super_class = KNAnimationRegistry;
-  v2 = [(KNAnimationRegistry *)&v160 init];
+  v93 = *MEMORY[0x277D85DE8];
+  v88.receiver = self;
+  v88.super_class = KNAnimationRegistry;
+  v2 = [(KNAnimationRegistry *)&v88 init];
+  v3 = v2;
   if (v2)
   {
-    v128 = sub_275DC204C();
-    v125 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v3, v4);
-    v122 = v2;
-    v5 = objc_opt_class();
-    objc_msgSend_animationsInBundle(v5, v6, v7);
-    v156 = 0u;
-    v157 = 0u;
-    v158 = 0u;
-    obj = v159 = 0u;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v156, v164, 16);
-    if (v9)
+    v56 = sub_275DC204C(v2);
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v50 = v3;
+    [objc_opt_class() animationsInBundle];
+    v84 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    obj = v87 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
+    if (v4)
     {
-      v12 = v9;
-      v13 = *v157;
+      v5 = v4;
+      v6 = *v85;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v157 != v13)
+          if (*v85 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v156 + 1) + 8 * i);
-          v16 = objc_msgSend_classNamed_(v128, v10, v15);
-          if (v16)
+          v8 = *(*(&v84 + 1) + 8 * i);
+          v9 = [v56 classNamed:v8];
+          if (v9)
           {
-            objc_msgSend_setObject_forKeyedSubscript_(v125, v17, v16, v15);
+            [dictionary setObject:v9 forKeyedSubscript:v8];
           }
 
           else
           {
-            v18 = MEMORY[0x277D81150];
-            v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[KNAnimationRegistry init]");
-            v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationRegistry.m");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v22, v19, v21, 467, 0, "Cannot find class for animation %@.", v15);
+            v10 = MEMORY[0x277D81150];
+            v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationRegistry init]"];
+            v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationRegistry.m"];
+            [v10 handleFailureInFunction:v11 file:v12 lineNumber:467 isFatal:0 description:{"Cannot find class for animation %@.", v8}];
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24);
+            [MEMORY[0x277D81150] logBacktraceThrottled];
           }
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v156, v164, 16);
+        v5 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
       }
 
-      while (v12);
+      while (v5);
     }
 
-    v25 = objc_msgSend_allValues(v125, v10, v11);
-    v26 = 0x277CBE000uLL;
-    v29 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v27, v28);
-    v134 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v30, v31);
-    v34 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v32, v33);
-    v139 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v35, v36);
-    v127 = objc_msgSend_array(MEMORY[0x277CBEB18], v37, v38);
-    v152 = 0u;
-    v153 = 0u;
-    v154 = 0u;
-    v155 = 0u;
-    v123 = v25;
-    v129 = objc_msgSend_countByEnumeratingWithState_objects_count_(v123, v39, &v152, v163, 16);
-    if (v129)
+    allValues = [dictionary allValues];
+    v14 = 0x277CBE000uLL;
+    dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    dictionary3 = [MEMORY[0x277CBEB38] dictionary];
+    dictionary4 = [MEMORY[0x277CBEB38] dictionary];
+    dictionary5 = [MEMORY[0x277CBEB38] dictionary];
+    array = [MEMORY[0x277CBEB18] array];
+    v80 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v51 = allValues;
+    v57 = [v51 countByEnumeratingWithState:&v80 objects:v91 count:16];
+    if (v57)
     {
-      v126 = *v153;
-      v131 = v34;
-      v132 = v29;
+      v54 = *v81;
+      v59 = dictionary4;
+      v60 = dictionary2;
       do
       {
-        v40 = 0;
+        v17 = 0;
         do
         {
-          if (*v153 != v126)
+          if (*v81 != v54)
           {
-            objc_enumerationMutation(v123);
+            objc_enumerationMutation(v51);
           }
 
-          v130 = v40;
-          v41 = *(*(&v152 + 1) + 8 * v40);
-          v42 = [KNAnimationInfo alloc];
-          v44 = objc_msgSend_initWithAnimationClass_(v42, v43, v41);
-          objc_msgSend_addObject_(v127, v45, v44);
-          v150 = 0u;
-          v151 = 0u;
-          v148 = 0u;
-          v149 = 0u;
-          v135 = objc_msgSend_supportedTypes(v41, v46, v47);
-          v138 = objc_msgSend_countByEnumeratingWithState_objects_count_(v135, v48, &v148, v162, 16);
-          if (v138)
+          v58 = v17;
+          v18 = *(*(&v80 + 1) + 8 * v17);
+          v19 = [[KNAnimationInfo alloc] initWithAnimationClass:v18];
+          [array addObject:v19];
+          v78 = 0u;
+          v79 = 0u;
+          v76 = 0u;
+          v77 = 0u;
+          supportedTypes = [v18 supportedTypes];
+          v66 = [supportedTypes countByEnumeratingWithState:&v76 objects:v90 count:16];
+          if (v66)
           {
-            v137 = *v149;
-            v133 = v41;
+            v65 = *v77;
+            v61 = v18;
             do
             {
-              for (j = 0; j != v138; ++j)
+              for (j = 0; j != v66; ++j)
               {
-                if (*v149 != v137)
+                if (*v77 != v65)
                 {
-                  objc_enumerationMutation(v135);
+                  objc_enumerationMutation(supportedTypes);
                 }
 
-                v51 = *(*(&v148 + 1) + 8 * j);
-                v54 = objc_msgSend_objectForKeyedSubscript_(v29, v49, v51);
-                if (!v54)
+                v21 = *(*(&v76 + 1) + 8 * j);
+                dictionary6 = [dictionary2 objectForKeyedSubscript:v21];
+                if (!dictionary6)
                 {
-                  v54 = objc_msgSend_dictionary(*(v26 + 2872), v52, v53);
-                  objc_msgSend_setObject_forKeyedSubscript_(v29, v55, v54, v51);
+                  dictionary6 = [*(v14 + 2872) dictionary];
+                  [dictionary2 setObject:dictionary6 forKeyedSubscript:v21];
                 }
 
-                objc_msgSend_animationName(v41, v52, v53);
-                v57 = v56 = v41;
-                objc_msgSend_setObject_forKeyedSubscript_(v54, v58, v44, v57);
+                [v18 animationName];
+                v24 = v23 = v18;
+                [dictionary6 setObject:v19 forKeyedSubscript:v24];
 
-                v62 = objc_msgSend_objectForKeyedSubscript_(v34, v59, v51);
-                if (!v62)
+                dictionary7 = [dictionary4 objectForKeyedSubscript:v21];
+                if (!dictionary7)
                 {
-                  v62 = objc_msgSend_dictionary(*(v26 + 2872), v60, v61);
-                  objc_msgSend_setObject_forKeyedSubscript_(v34, v63, v62, v51);
+                  dictionary7 = [*(v14 + 2872) dictionary];
+                  [dictionary4 setObject:dictionary7 forKeyedSubscript:v21];
                 }
 
-                v141 = v54;
-                v64 = objc_msgSend_categoryNameForPluginClass_(KNAnimationRegistry, v60, v56);
-                v143 = v62;
-                v68 = objc_msgSend_objectForKeyedSubscript_(v62, v65, v64);
-                v41 = v56;
-                if (!v68)
+                v69 = dictionary6;
+                v26 = [KNAnimationRegistry categoryNameForPluginClass:v23];
+                v71 = dictionary7;
+                array2 = [dictionary7 objectForKeyedSubscript:v26];
+                v18 = v23;
+                if (!array2)
                 {
-                  v68 = objc_msgSend_array(MEMORY[0x277CBEB18], v66, v67);
-                  objc_msgSend_setObject_forKeyedSubscript_(v143, v69, v68, v64);
+                  array2 = [MEMORY[0x277CBEB18] array];
+                  [v71 setObject:array2 forKeyedSubscript:v26];
                 }
 
-                v140 = v64;
-                objc_msgSend_addObject_(v68, v66, v44);
-                v73 = objc_msgSend_objectForKeyedSubscript_(v139, v70, v51);
-                if (!v73)
+                v68 = v26;
+                [array2 addObject:v19];
+                dictionary8 = [dictionary5 objectForKeyedSubscript:v21];
+                if (!dictionary8)
                 {
-                  v73 = objc_msgSend_dictionary(*(v26 + 2872), v71, v72);
-                  objc_msgSend_setObject_forKeyedSubscript_(v139, v74, v73, v51);
+                  dictionary8 = [*(v14 + 2872) dictionary];
+                  [dictionary5 setObject:dictionary8 forKeyedSubscript:v21];
                 }
 
-                v142 = objc_msgSend_animationFilter(v56, v71, v72);
-                v78 = objc_msgSend_objectForKeyedSubscript_(v73, v75, v142);
-                if (!v78)
+                animationFilter = [v23 animationFilter];
+                array3 = [dictionary8 objectForKeyedSubscript:?];
+                if (!array3)
                 {
-                  v78 = objc_msgSend_array(MEMORY[0x277CBEB18], v76, v77);
-                  objc_msgSend_setObject_forKeyedSubscript_(v73, v79, v78, v142);
+                  array3 = [MEMORY[0x277CBEB18] array];
+                  [dictionary8 setObject:array3 forKeyedSubscript:animationFilter];
                 }
 
-                objc_msgSend_addObject_(v78, v76, v44);
-                if (objc_msgSend_conformsToProtocol_(v41, v80, &unk_28852EB90))
+                [array3 addObject:v19];
+                if ([v18 conformsToProtocol:&unk_28852EB90])
                 {
-                  v83 = objc_msgSend_obsoleteAnimationNames(v41, v81, v82);
-                  if (v83)
+                  obsoleteAnimationNames = [v18 obsoleteAnimationNames];
+                  if (obsoleteAnimationNames)
                   {
-                    v136 = v83;
-                    v87 = objc_msgSend_objectForKeyedSubscript_(v134, v84, v51);
-                    if (!v87)
+                    v64 = obsoleteAnimationNames;
+                    dictionary9 = [dictionary3 objectForKeyedSubscript:v21];
+                    if (!dictionary9)
                     {
-                      v87 = objc_msgSend_dictionary(*(v26 + 2872), v85, v86);
-                      objc_msgSend_setObject_forKeyedSubscript_(v134, v88, v87, v51);
+                      dictionary9 = [*(v14 + 2872) dictionary];
+                      [dictionary3 setObject:dictionary9 forKeyedSubscript:v21];
                     }
 
-                    v146 = 0u;
-                    v147 = 0u;
-                    v144 = 0u;
-                    v145 = 0u;
-                    v89 = v136;
-                    v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(v89, v90, &v144, v161, 16);
-                    if (v91)
+                    v74 = 0u;
+                    v75 = 0u;
+                    v72 = 0u;
+                    v73 = 0u;
+                    v32 = v64;
+                    v33 = [v32 countByEnumeratingWithState:&v72 objects:v89 count:16];
+                    if (v33)
                     {
-                      v93 = v91;
-                      v94 = *v145;
+                      v34 = v33;
+                      v35 = *v73;
                       do
                       {
-                        for (k = 0; k != v93; ++k)
+                        for (k = 0; k != v34; ++k)
                         {
-                          if (*v145 != v94)
+                          if (*v73 != v35)
                           {
-                            objc_enumerationMutation(v89);
+                            objc_enumerationMutation(v32);
                           }
 
-                          objc_msgSend_setObject_forKeyedSubscript_(v87, v92, v44, *(*(&v144 + 1) + 8 * k));
+                          [dictionary9 setObject:v19 forKeyedSubscript:*(*(&v72 + 1) + 8 * k)];
                         }
 
-                        v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v89, v92, &v144, v161, 16);
+                        v34 = [v32 countByEnumeratingWithState:&v72 objects:v89 count:16];
                       }
 
-                      while (v93);
+                      while (v34);
                     }
 
-                    v26 = 0x277CBE000;
-                    v34 = v131;
-                    v29 = v132;
-                    v41 = v133;
-                    v83 = v136;
+                    v14 = 0x277CBE000;
+                    dictionary4 = v59;
+                    dictionary2 = v60;
+                    v18 = v61;
+                    obsoleteAnimationNames = v64;
                   }
                 }
               }
 
-              v138 = objc_msgSend_countByEnumeratingWithState_objects_count_(v135, v49, &v148, v162, 16);
+              v66 = [supportedTypes countByEnumeratingWithState:&v76 objects:v90 count:16];
             }
 
-            while (v138);
+            while (v66);
           }
 
-          v40 = v130 + 1;
+          v17 = v58 + 1;
         }
 
-        while (v130 + 1 != v129);
-        v129 = objc_msgSend_countByEnumeratingWithState_objects_count_(v123, v96, &v152, v163, 16);
+        while (v58 + 1 != v57);
+        v57 = [v51 countByEnumeratingWithState:&v80 objects:v91 count:16];
       }
 
-      while (v129);
+      while (v57);
     }
 
-    v97 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v99 = objc_msgSend_initWithDictionary_(v97, v98, v29);
-    v2 = v122;
-    classesForTypeAndName = v122->_classesForTypeAndName;
-    v122->_classesForTypeAndName = v99;
+    v37 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:dictionary2];
+    v3 = v50;
+    classesForTypeAndName = v50->_classesForTypeAndName;
+    v50->_classesForTypeAndName = v37;
 
-    v101 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v103 = objc_msgSend_initWithDictionary_(v101, v102, v134);
-    classesForTypeAndObsoleteName = v122->_classesForTypeAndObsoleteName;
-    v122->_classesForTypeAndObsoleteName = v103;
+    v39 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:dictionary3];
+    classesForTypeAndObsoleteName = v50->_classesForTypeAndObsoleteName;
+    v50->_classesForTypeAndObsoleteName = v39;
 
-    v105 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v107 = objc_msgSend_initWithDictionary_(v105, v106, v34);
-    classesForTypeAndCategory = v122->_classesForTypeAndCategory;
-    v122->_classesForTypeAndCategory = v107;
+    v41 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:dictionary4];
+    classesForTypeAndCategory = v50->_classesForTypeAndCategory;
+    v50->_classesForTypeAndCategory = v41;
 
-    v109 = objc_alloc(MEMORY[0x277CBEAC0]);
-    v111 = objc_msgSend_initWithDictionary_(v109, v110, v139);
-    classesForTypeAndFilter = v122->_classesForTypeAndFilter;
-    v122->_classesForTypeAndFilter = v111;
+    v43 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:dictionary5];
+    classesForTypeAndFilter = v50->_classesForTypeAndFilter;
+    v50->_classesForTypeAndFilter = v43;
 
-    v113 = objc_alloc(MEMORY[0x277CBEA60]);
-    v115 = objc_msgSend_initWithArray_(v113, v114, v127);
-    animationInfos = v122->_animationInfos;
-    v122->_animationInfos = v115;
+    v45 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:array];
+    animationInfos = v50->_animationInfos;
+    v50->_animationInfos = v45;
 
-    v119 = objc_msgSend_p_buildAlternateFilterMap(v122, v117, v118);
-    alternateEffectIdentifiersForEffectIdentifierAndFilter = v122->_alternateEffectIdentifiersForEffectIdentifierAndFilter;
-    v122->_alternateEffectIdentifiersForEffectIdentifierAndFilter = v119;
+    p_buildAlternateFilterMap = [(KNAnimationRegistry *)v50 p_buildAlternateFilterMap];
+    alternateEffectIdentifiersForEffectIdentifierAndFilter = v50->_alternateEffectIdentifiersForEffectIdentifierAndFilter;
+    v50->_alternateEffectIdentifiersForEffectIdentifierAndFilter = p_buildAlternateFilterMap;
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)distinctCategoriesForType:(int64_t)type
 {
   v4 = KNAnimationTypeAsNumber();
-  v6 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndCategory, v5, v4);
-  v9 = objc_msgSend_allKeys(v6, v7, v8);
-  v11 = objc_msgSend_sortedArrayUsingFunction_context_(v9, v10, sub_275D55DF8, 0);
+  v5 = [(NSDictionary *)self->_classesForTypeAndCategory objectForKeyedSubscript:v4];
+  allKeys = [v5 allKeys];
+  v7 = [allKeys sortedArrayUsingFunction:sub_275D55DF8 context:0];
 
-  return v11;
+  return v7;
 }
 
 - (id)animationInfosForAnimationType:(int64_t)type category:(id)category
@@ -428,10 +441,10 @@ LABEL_24:
   classesForTypeAndCategory = self->_classesForTypeAndCategory;
   categoryCopy = category;
   v6 = KNAnimationTypeAsNumber();
-  v8 = objc_msgSend_objectForKeyedSubscript_(classesForTypeAndCategory, v7, v6);
-  v10 = objc_msgSend_objectForKeyedSubscript_(v8, v9, categoryCopy);
+  v7 = [(NSDictionary *)classesForTypeAndCategory objectForKeyedSubscript:v6];
+  v8 = [v7 objectForKeyedSubscript:categoryCopy];
 
-  return v10;
+  return v8;
 }
 
 - (id)animationInfoForEffectIdentifier:(id)identifier animationType:(int64_t)type includeObsoleteNames:(BOOL)names
@@ -439,87 +452,87 @@ LABEL_24:
   namesCopy = names;
   identifierCopy = identifier;
   v9 = KNAnimationTypeAsNumber();
-  v11 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndName, v10, v9);
-  v14 = objc_msgSend_objectForKeyedSubscript_(v11, v12, identifierCopy);
-  if (v14)
+  v10 = [(NSDictionary *)self->_classesForTypeAndName objectForKeyedSubscript:v9];
+  v11 = [v10 objectForKeyedSubscript:identifierCopy];
+  if (v11)
   {
-    v15 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v15 = !namesCopy;
+    v12 = !namesCopy;
   }
 
-  if (!v15)
+  if (!v12)
   {
-    v16 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndObsoleteName, v13, v9);
-    v14 = objc_msgSend_objectForKeyedSubscript_(v16, v17, identifierCopy);
+    v13 = [(NSDictionary *)self->_classesForTypeAndObsoleteName objectForKeyedSubscript:v9];
+    v11 = [v13 objectForKeyedSubscript:identifierCopy];
   }
 
-  if (!v14)
+  if (!v11)
   {
-    v18 = MEMORY[0x277D801A8];
-    v19 = MEMORY[0x277D800D0];
+    v14 = MEMORY[0x277D801A8];
+    v15 = MEMORY[0x277D800D0];
     if (type != 4)
     {
-      v19 = MEMORY[0x277D80150];
+      v15 = MEMORY[0x277D80150];
     }
 
     if (type != 5)
     {
-      v18 = v19;
+      v14 = v15;
     }
 
-    v14 = objc_msgSend_objectForKeyedSubscript_(v11, v13, *v18);
+    v11 = [v10 objectForKeyedSubscript:*v14];
   }
 
-  return v14;
+  return v11;
 }
 
 - (id)animationInfoForEffectIdentifier:(id)identifier animationType:(int64_t)type includeObsoleteNames:(BOOL)names drawable:(id)drawable
 {
   namesCopy = names;
-  v43 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   drawableCopy = drawable;
   typeCopy = type;
-  v12 = objc_msgSend_animationInfoForEffectIdentifier_animationType_includeObsoleteNames_(self, v11, identifier, type, namesCopy);
+  v11 = [(KNAnimationRegistry *)self animationInfoForEffectIdentifier:identifier animationType:type includeObsoleteNames:namesCopy];
   alternateEffectIdentifiersForEffectIdentifierAndFilter = self->_alternateEffectIdentifiersForEffectIdentifierAndFilter;
-  v16 = objc_msgSend_effectIdentifier(v12, v14, v15);
-  v18 = objc_msgSend_objectForKeyedSubscript_(alternateEffectIdentifiersForEffectIdentifierAndFilter, v17, v16);
+  effectIdentifier = [v11 effectIdentifier];
+  v14 = [(NSDictionary *)alternateEffectIdentifiersForEffectIdentifierAndFilter objectForKeyedSubscript:effectIdentifier];
 
-  if (v18)
+  if (v14)
   {
-    objc_msgSend_allKeys(v18, v19, v20);
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v21 = v41 = 0u;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v38, v42, 16);
-    if (v23)
+    [v14 allKeys];
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v15 = v30 = 0u;
+    v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v16)
     {
-      v26 = v23;
-      v36 = v12;
-      v27 = *v39;
+      v17 = v16;
+      v25 = v11;
+      v18 = *v28;
       while (2)
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v39 != v27)
+          if (*v28 != v18)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v15);
           }
 
-          v29 = *(*(&v38 + 1) + 8 * i);
-          v30 = objc_msgSend_animationFilters(drawableCopy, v24, v25, v36);
-          v32 = objc_msgSend_containsObject_(v30, v31, v29);
+          v20 = *(*(&v27 + 1) + 8 * i);
+          animationFilters = [drawableCopy animationFilters];
+          v22 = [animationFilters containsObject:v20];
 
-          if (v32)
+          if (v22)
           {
-            v33 = objc_msgSend_objectForKeyedSubscript_(v18, v24, v29);
-            v12 = objc_msgSend_animationInfoForEffectIdentifier_animationType_(self, v34, v33, typeCopy);
+            v23 = [v14 objectForKeyedSubscript:v20];
+            v11 = [(KNAnimationRegistry *)self animationInfoForEffectIdentifier:v23 animationType:typeCopy];
 
-            if (v12)
+            if (v11)
             {
 
               goto LABEL_13;
@@ -527,8 +540,8 @@ LABEL_24:
           }
         }
 
-        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v38, v42, 16);
-        if (v26)
+        v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        if (v17)
         {
           continue;
         }
@@ -536,84 +549,84 @@ LABEL_24:
         break;
       }
 
-      v12 = v36;
+      v11 = v25;
     }
 
 LABEL_13:
   }
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)canMapEffectIdentifier:(id)identifier animationType:(int64_t)type toEffectIdentifier:(id)effectIdentifier includeObsoleteNames:(BOOL)names forDrawable:(id)drawable
 {
   namesCopy = names;
-  v46 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   effectIdentifierCopy = effectIdentifier;
   drawableCopy = drawable;
-  if (objc_msgSend_isEqualToString_(identifierCopy, v14, effectIdentifierCopy))
+  if ([identifierCopy isEqualToString:effectIdentifierCopy])
   {
-    v16 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v19 = objc_msgSend_objectForKeyedSubscript_(self->_alternateEffectIdentifiersForEffectIdentifierAndFilter, v15, identifierCopy);
-    v16 = 0;
-    if (!v19 && namesCopy)
+    v15 = [(NSDictionary *)self->_alternateEffectIdentifiersForEffectIdentifierAndFilter objectForKeyedSubscript:identifierCopy];
+    v14 = 0;
+    if (!v15 && namesCopy)
     {
-      v20 = KNAnimationTypeAsNumber();
-      v22 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndObsoleteName, v21, v20);
-      v24 = objc_msgSend_objectForKeyedSubscript_(v22, v23, identifierCopy);
+      v16 = KNAnimationTypeAsNumber();
+      v17 = [(NSDictionary *)self->_classesForTypeAndObsoleteName objectForKeyedSubscript:v16];
+      v18 = [v17 objectForKeyedSubscript:identifierCopy];
 
-      v16 = v24 != 0;
-      if (v24)
+      v14 = v18 != 0;
+      if (v18)
       {
         alternateEffectIdentifiersForEffectIdentifierAndFilter = self->_alternateEffectIdentifiersForEffectIdentifierAndFilter;
-        v28 = objc_msgSend_effectIdentifier(v24, v25, v26);
-        v19 = objc_msgSend_objectForKeyedSubscript_(alternateEffectIdentifiersForEffectIdentifierAndFilter, v29, v28);
+        effectIdentifier = [v18 effectIdentifier];
+        v15 = [(NSDictionary *)alternateEffectIdentifiersForEffectIdentifierAndFilter objectForKeyedSubscript:effectIdentifier];
       }
 
       else
       {
-        v19 = 0;
+        v15 = 0;
       }
     }
 
-    if (v19)
+    if (v15)
     {
-      objc_msgSend_animationFilters(drawableCopy, v17, v18);
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v30 = v44 = 0u;
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v41, v45, 16);
-      if (v32)
+      [drawableCopy animationFilters];
+      v29 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v21 = v32 = 0u;
+      v22 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v22)
       {
-        v34 = v32;
-        v35 = *v42;
+        v23 = v22;
+        v24 = *v30;
         while (2)
         {
-          for (i = 0; i != v34; ++i)
+          for (i = 0; i != v23; ++i)
           {
-            if (*v42 != v35)
+            if (*v30 != v24)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v21);
             }
 
-            v37 = objc_msgSend_objectForKeyedSubscript_(v19, v33, *(*(&v41 + 1) + 8 * i), v41);
-            v39 = v37;
-            if (v37 && objc_msgSend_isEqualToString_(v37, v38, effectIdentifierCopy))
+            v26 = [v15 objectForKeyedSubscript:{*(*(&v29 + 1) + 8 * i), v29}];
+            v27 = v26;
+            if (v26 && [v26 isEqualToString:effectIdentifierCopy])
             {
 
-              v16 = 1;
+              v14 = 1;
               goto LABEL_21;
             }
           }
 
-          v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v33, &v41, v45, 16);
-          if (v34)
+          v23 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v23)
           {
             continue;
           }
@@ -626,63 +639,63 @@ LABEL_21:
     }
   }
 
-  return v16;
+  return v14;
 }
 
 - (id)animationInfosForAnimationType:(int64_t)type filter:(id)filter
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
-  v8 = objc_msgSend_array(MEMORY[0x277CBEB18], v6, v7);
-  v11 = KNAnimationTypeAsNumber();
-  if (filterCopy && objc_msgSend_count(filterCopy, v9, v10))
+  array = [MEMORY[0x277CBEB18] array];
+  v7 = KNAnimationTypeAsNumber();
+  if (filterCopy && [filterCopy count])
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v12 = filterCopy;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v32, v36, 16);
-    if (v14)
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v8 = filterCopy;
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v9)
     {
-      v16 = v14;
-      v17 = *v33;
+      v10 = v9;
+      v11 = *v22;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v17)
+          if (*v22 != v11)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v8);
           }
 
-          v19 = *(*(&v32 + 1) + 8 * i);
-          v20 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndFilter, v15, v11, v32);
-          v22 = objc_msgSend_objectForKeyedSubscript_(v20, v21, v19);
-          objc_msgSend_addObjectsFromArray_(v8, v23, v22);
+          v13 = *(*(&v21 + 1) + 8 * i);
+          v14 = [(NSDictionary *)self->_classesForTypeAndFilter objectForKeyedSubscript:v7, v21];
+          v15 = [v14 objectForKeyedSubscript:v13];
+          [array addObjectsFromArray:v15];
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v32, v36, 16);
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v16);
+      while (v10);
     }
 
-    v25 = objc_msgSend_sortedArrayUsingFunction_context_(v8, v24, sub_275D55D64, v11);
+    v16 = [array sortedArrayUsingFunction:sub_275D55D64 context:v7];
   }
 
   else
   {
-    v26 = objc_msgSend_objectForKeyedSubscript_(self->_classesForTypeAndFilter, v9, v11);
-    v28 = objc_msgSend_objectForKeyedSubscript_(v26, v27, *MEMORY[0x277D805A0]);
-    objc_msgSend_addObjectsFromArray_(v8, v29, v28);
+    v17 = [(NSDictionary *)self->_classesForTypeAndFilter objectForKeyedSubscript:v7];
+    v18 = [v17 objectForKeyedSubscript:*MEMORY[0x277D805A0]];
+    [array addObjectsFromArray:v18];
 
-    v25 = v8;
+    v16 = array;
   }
 
-  v30 = v25;
+  v19 = v16;
 
-  return v30;
+  return v19;
 }
 
 @end

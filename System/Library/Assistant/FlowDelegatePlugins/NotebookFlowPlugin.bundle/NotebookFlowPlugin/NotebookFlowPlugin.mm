@@ -1,10 +1,8 @@
 uint64_t sub_1668()
 {
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
+  v0 = swift_allocObject();
   sub_1974();
-  return v3;
+  return v0;
 }
 
 uint64_t sub_16D8()
@@ -18,7 +16,7 @@ uint64_t sub_16D8()
   return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t type metadata accessor for NotebookFlowPlugin()
+uint64_t type metadata accessor for NotebookFlowPlugin(uint64_t a1)
 {
   result = qword_8180;
   if (!qword_8180)
@@ -29,12 +27,11 @@ uint64_t type metadata accessor for NotebookFlowPlugin()
   return result;
 }
 
-uint64_t sub_17C8()
+uint64_t sub_17C8(uint64_t a1)
 {
   result = sub_1984();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -57,7 +54,7 @@ unint64_t sub_18BC()
   result = qword_8168;
   if (!qword_8168)
   {
-    type metadata accessor for NotebookFlowPlugin();
+    type metadata accessor for NotebookFlowPlugin(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_8168);
   }

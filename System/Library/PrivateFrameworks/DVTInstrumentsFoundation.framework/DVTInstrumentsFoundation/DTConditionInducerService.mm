@@ -70,19 +70,17 @@
 
 + (void)registerCapabilities:(id)capabilities
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    *v7 = 138412290;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Registering service %@", v7, 0xCu);
+    *v6 = 138412290;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Registering service %@", v6, 0xCu);
   }
 
-  [capabilitiesCopy publishCapability:@"com.apple.instruments.server.services.ConditionInducer" withVersion:1 forClass:{self, *v7}];
-
-  v6 = *MEMORY[0x277D85DE8];
+  [capabilitiesCopy publishCapability:@"com.apple.instruments.server.services.ConditionInducer" withVersion:1 forClass:{self, *v6, *&v6[8]}];
 }
 
 - (id)availableConditionInducers
@@ -104,103 +102,100 @@
 
 - (id)disableActiveCondition
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v13 = objc_opt_class();
-    v3 = v13;
+    v12 = objc_opt_class();
+    v3 = v12;
     _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@: disable active condition", buf, 0xCu);
   }
 
   v4 = objc_opt_new();
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_247FB4184;
-  v10[3] = &unk_278EF2DD8;
-  v10[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_247FB4184;
+  v9[3] = &unk_278EF2DD8;
+  v9[4] = self;
   v5 = v4;
-  v11 = v5;
-  [(DTConditionInducerService *)self _requestDisableActiveConditionInducerWithCompletion:v10];
-  v6 = v11;
+  v10 = v5;
+  [(DTConditionInducerService *)self _requestDisableActiveConditionInducerWithCompletion:v9];
+  v6 = v10;
   v7 = v5;
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)disableConditionWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v17 = objc_opt_class();
-    v18 = 2112;
-    v19 = identifierCopy;
-    v5 = v17;
+    v16 = objc_opt_class();
+    v17 = 2112;
+    v18 = identifierCopy;
+    v5 = v16;
     _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@: disable condition with identifier: %@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_247FB44E8;
-  v13[3] = &unk_278EF2E00;
-  v13[4] = self;
-  v14 = identifierCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_247FB44E8;
+  v12[3] = &unk_278EF2E00;
+  v12[4] = self;
+  v13 = identifierCopy;
   v7 = v6;
-  v15 = v7;
+  v14 = v7;
   v8 = identifierCopy;
-  [(DTConditionInducerService *)self _requestDisableConditionInducerWithIdentifier:v8 completion:v13];
-  v9 = v15;
+  [(DTConditionInducerService *)self _requestDisableConditionInducerWithIdentifier:v8 completion:v12];
+  v9 = v14;
   v10 = v7;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)enableConditionWithIdentifier:(id)identifier profileIdentifier:(id)profileIdentifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   profileIdentifierCopy = profileIdentifier;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v22 = objc_opt_class();
-    v23 = 2112;
-    v24 = identifierCopy;
-    v25 = 2112;
-    v26 = profileIdentifierCopy;
-    v8 = v22;
+    v21 = objc_opt_class();
+    v22 = 2112;
+    v23 = identifierCopy;
+    v24 = 2112;
+    v25 = profileIdentifierCopy;
+    v8 = v21;
     _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%@: enable condition with identifier '%@' profile '%@'", buf, 0x20u);
   }
 
   v9 = objc_opt_new();
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = sub_247FB48A0;
-  v17[3] = &unk_278EF2E28;
-  v17[4] = self;
-  v18 = identifierCopy;
-  v19 = profileIdentifierCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = sub_247FB48A0;
+  v16[3] = &unk_278EF2E28;
+  v16[4] = self;
+  v17 = identifierCopy;
+  v18 = profileIdentifierCopy;
   v10 = v9;
-  v20 = v10;
+  v19 = v10;
   v11 = profileIdentifierCopy;
   v12 = identifierCopy;
-  [(DTConditionInducerService *)self _requestEnableConditionInducerWithIdentifier:v12 profileIdentifier:v11 completion:v17];
-  v13 = v20;
+  [(DTConditionInducerService *)self _requestEnableConditionInducerWithIdentifier:v12 profileIdentifier:v11 completion:v16];
+  v13 = v19;
   v14 = v10;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_requestAvailableConditionInducersWithCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   connectionToService = [(DTConditionInducerService *)self connectionToService];
 
@@ -208,33 +203,31 @@
   {
     connectionToService2 = [(DTConditionInducerService *)self connectionToService];
     remoteObjectProxy = [connectionToService2 remoteObjectProxy];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = sub_247FB4C50;
-    v12[3] = &unk_278EF2E50;
-    v13 = completionCopy;
-    [remoteObjectProxy listAvailableConditionInducersWithReply:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_247FB4C50;
+    v11[3] = &unk_278EF2E50;
+    v12 = completionCopy;
+    [remoteObjectProxy listAvailableConditionInducersWithReply:v11];
 
-    v8 = v13;
+    v8 = v12;
   }
 
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"The Condition Inducer service is not available.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"The Condition Inducer service is not available.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v8 = [v9 errorWithDomain:@"DTConditionInducerService" code:2 userInfo:v10];
 
     (*(completionCopy + 2))(completionCopy, 0, v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestEnableConditionInducerWithIdentifier:(id)identifier profileIdentifier:(id)profileIdentifier completion:(id)completion
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   profileIdentifierCopy = profileIdentifier;
   completionCopy = completion;
@@ -244,33 +237,31 @@
   {
     connectionToService2 = [(DTConditionInducerService *)self connectionToService];
     remoteObjectProxy = [connectionToService2 remoteObjectProxy];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = sub_247FB4E1C;
-    v18[3] = &unk_278EF2E78;
-    v19 = completionCopy;
-    [remoteObjectProxy enableConditionInducerWithIdentifier:identifierCopy profileIdentifier:profileIdentifierCopy reply:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_247FB4E1C;
+    v17[3] = &unk_278EF2E78;
+    v18 = completionCopy;
+    [remoteObjectProxy enableConditionInducerWithIdentifier:identifierCopy profileIdentifier:profileIdentifierCopy reply:v17];
 
-    v14 = v19;
+    v14 = v18;
   }
 
   else
   {
     v15 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21[0] = @"The Condition Inducer service is not available.";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20[0] = @"The Condition Inducer service is not available.";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v14 = [v15 errorWithDomain:@"DTConditionInducerService" code:2 userInfo:v16];
 
     (*(completionCopy + 2))(completionCopy, 0, v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDisableConditionInducerWithIdentifier:(id)identifier completion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   connectionToService = [(DTConditionInducerService *)self connectionToService];
@@ -279,33 +270,31 @@
   {
     connectionToService2 = [(DTConditionInducerService *)self connectionToService];
     remoteObjectProxy = [connectionToService2 remoteObjectProxy];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_247FB50A8;
-    v15[3] = &unk_278EF2E78;
-    v16 = completionCopy;
-    [remoteObjectProxy disableConditionInducerWithIdentifier:identifierCopy reply:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_247FB50A8;
+    v14[3] = &unk_278EF2E78;
+    v15 = completionCopy;
+    [remoteObjectProxy disableConditionInducerWithIdentifier:identifierCopy reply:v14];
 
-    v11 = v16;
+    v11 = v15;
   }
 
   else
   {
     v12 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"The Condition Inducer service is not available.";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"The Condition Inducer service is not available.";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v11 = [v12 errorWithDomain:@"DTConditionInducerService" code:2 userInfo:v13];
 
     (*(completionCopy + 2))(completionCopy, 0, v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDisableActiveConditionInducerWithCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   connectionToService = [(DTConditionInducerService *)self connectionToService];
 
@@ -313,28 +302,26 @@
   {
     connectionToService2 = [(DTConditionInducerService *)self connectionToService];
     remoteObjectProxy = [connectionToService2 remoteObjectProxy];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = sub_247FB5320;
-    v12[3] = &unk_278EF2E78;
-    v13 = completionCopy;
-    [remoteObjectProxy disableActiveConditionInducerWithReply:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_247FB5320;
+    v11[3] = &unk_278EF2E78;
+    v12 = completionCopy;
+    [remoteObjectProxy disableActiveConditionInducerWithReply:v11];
 
-    v8 = v13;
+    v8 = v12;
   }
 
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"The Condition Inducer service is not available.";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"The Condition Inducer service is not available.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v8 = [v9 errorWithDomain:@"DTConditionInducerService" code:2 userInfo:v10];
 
     (*(completionCopy + 2))(completionCopy, 0, v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activeConditionsWillStop

@@ -64,22 +64,22 @@
     NSClassFromString(@"CRLWPSearchReference");
     if (objc_opt_isKindOfClass())
     {
-      v41 = 0;
+      v43 = 0;
       v11 = [crlaxPrimaryFindResultSearchReference crlaxValueForKey:@"selection"];
       v12 = objc_opt_class();
-      v13 = __CRLAccessibilityCastAsSafeCategory(v12, v11, 1, &v41);
-      if (v41 == 1)
+      v13 = __CRLAccessibilityCastAsSafeCategory(v12, v11, 1, &v43);
+      if (v43 == 1)
       {
         goto LABEL_22;
       }
 
       v14 = v13;
 
-      v41 = 0;
+      v43 = 0;
       v15 = [crlaxPrimaryFindResultSearchReference crlaxValueForKey:@"storage"];
       v16 = objc_opt_class();
-      v17 = __CRLAccessibilityCastAsSafeCategory(v16, v15, 1, &v41);
-      if (v41 == 1)
+      v17 = __CRLAccessibilityCastAsSafeCategory(v16, v15, 1, &v43);
+      if (v43 == 1)
       {
         goto LABEL_22;
       }
@@ -87,40 +87,51 @@
       v18 = v17;
 
       v19.location = [v14 crlaxRange];
-      if (!v19.length || (location = v19.location, length = v19.length, --v19.length, v42.location = v19.location, v42.length = length, v22 = NSUnionRange(v19, v42), v43.location = [v18 crlaxRange], v43.length = v23, v24 = NSIntersectionRange(v22, v43), v22.location != v24.location) || v22.length != v24.length)
+      if (!v19.length || (location = v19.location, length = v19.length, --v19.length, v44.location = v19.location, v44.length = length, v22 = NSUnionRange(v19, v44), v45.location = [v18 crlaxRange], v45.length = v23, v24 = NSIntersectionRange(v22, v45), v22.location != v24.location) || v22.length != v24.length)
       {
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v37 = v22.length;
+      v39 = v22.length;
       [v18 crlaxSubstringWithRange:{v22.location, v22.length}];
       v26 = v25 = v14;
 
       if (v26)
       {
         v27 = v26;
-        v28 = v27;
-        v29 = location >= v22.location && length + location - v22.location <= [v27 length];
-        if (!CRLAccessibilityShouldPerformValidationChecks() || v29 || (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(), !__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Something is wrong with selectionRange or excerptRange.", v31, v32, v33, v34, v35, v22.length)))
+        v29 = v27;
+        if (location >= v22.location)
         {
-          v36 = v28;
-          if (v29 && [(CRLFindReplaceControllerAccessibility *)self crlaxRespondsToSelector:"crlaxDecoratedStringForAnnouncement:selectionRange:excerptRange:" fromExtrasProtocol:&OBJC_PROTOCOL___CRLFindReplaceControllerAccessibilityExtras])
+          v27 = [v27 length];
+          v30 = length + location - v22.location <= v27;
+        }
+
+        else
+        {
+          v30 = 0;
+        }
+
+        ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v27, v28);
+        if (!ShouldPerformValidationChecks || v30 || (ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks), !__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Something is wrong with selectionRange or excerptRange.", v33, v34, v35, v36, v37, v22.length)))
+        {
+          v38 = v29;
+          if (v30 && [(CRLFindReplaceControllerAccessibility *)self crlaxRespondsToSelector:"crlaxDecoratedStringForAnnouncement:selectionRange:excerptRange:" fromExtrasProtocol:&OBJC_PROTOCOL___CRLFindReplaceControllerAccessibilityExtras])
           {
-            v28 = [(CRLFindReplaceControllerAccessibility *)self crlaxDecoratedStringForAnnouncement:v28 selectionRange:location excerptRange:length, v22.location, v37];
+            v29 = [(CRLFindReplaceControllerAccessibility *)self crlaxDecoratedStringForAnnouncement:v29 selectionRange:location excerptRange:length, v22.location, v39];
           }
 
-          v38[0] = _NSConcreteStackBlock;
-          v38[1] = 3221225472;
-          v38[2] = sub_10030BAAC;
-          v38[3] = &unk_10183AE28;
-          v39 = windowCopy;
-          v40 = v28;
-          v18 = v28;
-          CRLAccessibilityPerformBlockOnMainThreadAfterDelay(v38, 0.5);
+          v40[0] = _NSConcreteStackBlock;
+          v40[1] = 3221225472;
+          v40[2] = sub_10030BAAC;
+          v40[3] = &unk_10183AE28;
+          v41 = windowCopy;
+          v42 = v29;
+          v18 = v29;
+          CRLAccessibilityPerformBlockOnMainThreadAfterDelay(v40, 0.5);
 
-          v14 = v36;
+          v14 = v38;
           goto LABEL_19;
         }
 

@@ -42,10 +42,10 @@ void __30__HULiveListenController_init__block_invoke_2(uint64_t a1)
 
 - (HULiveListenController)init
 {
-  v37[1] = *MEMORY[0x1E69E9840];
-  v36.receiver = self;
-  v36.super_class = HULiveListenController;
-  v2 = [(HULiveListenController *)&v36 init];
+  v36[1] = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = HULiveListenController;
+  v2 = [(HULiveListenController *)&v35 init];
   if (v2)
   {
     if (_os_feature_enabled_impl())
@@ -69,8 +69,8 @@ void __30__HULiveListenController_init__block_invoke_2(uint64_t a1)
 
     mEMORY[0x1E69AED10] = [MEMORY[0x1E69AED10] sharedAVSystemController];
     v11 = MEMORY[0x1E69AE9C0];
-    v37[0] = *MEMORY[0x1E69AE9C0];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v36[0] = *MEMORY[0x1E69AE9C0];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
     [mEMORY[0x1E69AED10] setAttribute:v12 forKey:*MEMORY[0x1E69AECD8] error:0];
 
     v13 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -101,31 +101,30 @@ void __30__HULiveListenController_init__block_invoke_2(uint64_t a1)
     CFNotificationCenterAddObserver(v24, v2, _hearingTestStarted_0, @"com.apple.HearingTest.test.started", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     objc_initWeak(&location, v2);
     v25 = +[HUHearingAidSettings sharedInstance];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __30__HULiveListenController_init__block_invoke;
-    v33[3] = &unk_1E85C9F10;
-    objc_copyWeak(&v34, &location);
-    [v25 registerUpdateBlock:v33 forRetrieveSelector:sel_exportsLiveListenToFile withListener:v2];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __30__HULiveListenController_init__block_invoke;
+    v32[3] = &unk_1E85C9F10;
+    objc_copyWeak(&v33, &location);
+    [v25 registerUpdateBlock:v32 forRetrieveSelector:sel_exportsLiveListenToFile withListener:v2];
 
     v26 = +[HUComfortSoundsSettings sharedInstance];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __30__HULiveListenController_init__block_invoke_2;
-    v31[3] = &unk_1E85C9F60;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __30__HULiveListenController_init__block_invoke_2;
+    v30[3] = &unk_1E85C9F60;
     v27 = v2;
-    v32 = v27;
-    [v26 registerUpdateBlock:v31 forRetrieveSelector:sel_comfortSoundsEnabled withListener:v27];
+    v31 = v27;
+    [v26 registerUpdateBlock:v30 forRetrieveSelector:sel_comfortSoundsEnabled withListener:v27];
 
     v28 = +[HUHearingAidSettings sharedInstance];
     -[HULiveListenController setExportsLiveListenToFile:](v27, "setExportsLiveListenToFile:", [v28 exportsLiveListenToFile]);
 
     v27->_noise = -100.0;
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -147,25 +146,24 @@ void __30__HULiveListenController_init__block_invoke(uint64_t a1)
   [(HULiveListenController *)&v4 dealloc];
 }
 
-uint64_t __49__HULiveListenController_mediaServicesWereReset___block_invoke(uint64_t a1)
+void *__49__HULiveListenController_mediaServicesWereReset___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isListening];
   v3 = HCLogHearingAids();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2;
-    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Media reset, wasListening = %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Media reset, wasListening = %d", v5, 8u);
   }
 
   result = [*(a1 + 32) stopListeningWithCompletion:0];
   if (v2)
   {
-    result = [*(a1 + 32) startListeningWithCompletion:0];
+    return [*(a1 + 32) startListeningWithCompletion:0];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -195,9 +193,9 @@ void __53__HULiveListenController_audioSessionWasInterrupted___block_invoke(uint
   }
 }
 
-uint64_t __46__HULiveListenController_audioRouteDidChange___block_invoke(uint64_t a1)
+void *__46__HULiveListenController_audioRouteDidChange___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = hearingAidStreamSelected();
   if ((result & 1) == 0)
   {
@@ -207,18 +205,17 @@ uint64_t __46__HULiveListenController_audioRouteDidChange___block_invoke(uint64_
       v3 = HCLogHearingAids();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v5[0] = 67109376;
-        v5[1] = hearingAidStreamSelected();
-        v6 = 1024;
-        v7 = liveListenStreamSelected();
-        _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Route changed. Stopping %d, %d", v5, 0xEu);
+        v4[0] = 67109376;
+        v4[1] = hearingAidStreamSelected();
+        v5 = 1024;
+        v6 = liveListenStreamSelected();
+        _os_log_impl(&dword_1DA5E2000, v3, OS_LOG_TYPE_DEFAULT, "Route changed. Stopping %d, %d", v4, 0xEu);
       }
 
-      result = [*(a1 + 32) stopListeningWithCompletion:0];
+      return [*(a1 + 32) stopListeningWithCompletion:0];
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -286,7 +283,7 @@ uint64_t __46__HULiveListenController_audioRouteDidChange___block_invoke(uint64_
 
 void __55__HULiveListenController_startListeningWithCompletion___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = +[HUUtilities sharedUtilities];
   [v2 clearAudioRoutes];
 
@@ -306,7 +303,7 @@ void __55__HULiveListenController_startListeningWithCompletion___block_invoke(ui
       (*(v5 + 16))(v5, 0, 0);
     }
 
-    goto LABEL_19;
+    return;
   }
 
   v6 = +[HUComfortSoundsSettings sharedInstance];
@@ -335,49 +332,49 @@ void __55__HULiveListenController_startListeningWithCompletion___block_invoke(ui
   }
 
   [*(a1 + 32) _sampleRate];
-  v19 = v18;
-  v20 = [*(a1 + 32) session];
-  LODWORD(v21) = [v20 inputNumberOfChannels];
+  v18 = v17;
+  v19 = [*(a1 + 32) session];
+  LODWORD(v20) = [v19 inputNumberOfChannels];
 
-  if ((v21 - 3) >= 0xFFFFFFFE)
+  if ((v20 - 3) >= 0xFFFFFFFE)
   {
-    v21 = v21;
+    v20 = v20;
   }
 
   else
   {
-    v21 = 2;
+    v20 = 2;
   }
 
   if (_os_feature_enabled_impl())
   {
-    v22 = [[HURingBuffer alloc] initWithCount:(v19 * 0.0078125 * 10.0)];
-    [*(a1 + 32) setAudioRingBuffer:v22];
+    v21 = [[HURingBuffer alloc] initWithCount:(v18 * 0.0078125 * 10.0)];
+    [*(a1 + 32) setAudioRingBuffer:v21];
   }
 
-  v23 = HCLogHearingAids();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = HCLogHearingAids();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [*(a1 + 32) didInitializeAudioUnit];
+    v23 = [*(a1 + 32) didInitializeAudioUnit];
     LODWORD(buf.mSampleRate) = 134218496;
-    *(&buf.mSampleRate + 4) = v19;
+    *(&buf.mSampleRate + 4) = v18;
     LOWORD(buf.mFormatFlags) = 1024;
-    *(&buf.mFormatFlags + 2) = v21;
+    *(&buf.mFormatFlags + 2) = v20;
     HIWORD(buf.mBytesPerPacket) = 1024;
-    buf.mFramesPerPacket = v24;
-    _os_log_impl(&dword_1DA5E2000, v23, OS_LOG_TYPE_DEFAULT, "LiveListen: starting - sampleRate = %.f, numberOfChannels = %d, isInitialized = %d", &buf, 0x18u);
+    buf.mFramesPerPacket = v23;
+    _os_log_impl(&dword_1DA5E2000, v22, OS_LOG_TYPE_DEFAULT, "LiveListen: starting - sampleRate = %.f, numberOfChannels = %d, isInitialized = %d", &buf, 0x18u);
   }
 
   if ([*(a1 + 32) didInitializeAudioUnit])
   {
 LABEL_33:
-    v38 = AudioOutputUnitStart(*(*(a1 + 32) + 48));
-    if (v38)
+    v37 = AudioOutputUnitStart(*(*(a1 + 32) + 48));
+    if (v37)
     {
-      v39 = MEMORY[0x1E696ABC0];
-      v40 = v38;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Couldn't start remote i/o unit" forKey:*MEMORY[0x1E696A578]];
-      v11 = [v39 errorWithDomain:@"com.apple.axlivelisten.audio" code:v40 userInfo:v41];
+      v38 = MEMORY[0x1E696ABC0];
+      v39 = v37;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Couldn't start remote i/o unit" forKey:*MEMORY[0x1E696A578]];
+      v11 = [v38 errorWithDomain:@"com.apple.axlivelisten.audio" code:v39 userInfo:v40];
 
       [*(a1 + 32) setIsListening:v11 == 0];
       if (v11)
@@ -388,26 +385,26 @@ LABEL_33:
 
     else
     {
-      v42 = +[HUUtilities sharedUtilities];
-      v43 = [v42 currentPickableAudioRoutes];
-      v44 = [v43 valueForKey:@"AXSHARouteHearingAid"];
+      v41 = +[HUUtilities sharedUtilities];
+      v42 = [v41 currentPickableAudioRoutes];
+      v43 = [v42 valueForKey:@"AXSHARouteHearingAid"];
 
-      if (v44)
+      if (v43)
       {
-        v45 = [MEMORY[0x1E69AED10] sharedAVSystemController];
-        [v45 setAttribute:v44 forKey:*MEMORY[0x1E69AEB00] error:0];
+        v44 = [MEMORY[0x1E69AED10] sharedAVSystemController];
+        [v44 setAttribute:v43 forKey:*MEMORY[0x1E69AEB00] error:0];
       }
 
       [*(a1 + 32) setIsListening:1];
     }
 
-    v46 = +[HUUtilities sharedUtilities];
-    [v46 addHearingFeatureUsage:8];
+    v45 = +[HUUtilities sharedUtilities];
+    [v45 addHearingFeatureUsage:8];
 
     if (_os_feature_enabled_impl())
     {
-      v47 = [*(a1 + 32) transcriber];
-      [v47 startTranscribing];
+      v46 = [*(a1 + 32) transcriber];
+      [v46 startTranscribing];
     }
 
     v11 = 0;
@@ -415,43 +412,43 @@ LABEL_33:
     goto LABEL_14;
   }
 
-  v25 = [objc_alloc(MEMORY[0x1E6958418]) initStandardFormatWithSampleRate:v21 channels:v19];
-  v26 = [v25 streamDescription];
-  v27 = *(v26 + 32);
-  v28 = *(v26 + 16);
-  *&buf.mSampleRate = *v26;
-  *&buf.mBytesPerPacket = v28;
-  *&buf.mBitsPerChannel = v27;
+  v24 = [objc_alloc(MEMORY[0x1E6958418]) initStandardFormatWithSampleRate:v20 channels:v18];
+  v25 = [v24 streamDescription];
+  v26 = *(v25 + 32);
+  v27 = *(v25 + 16);
+  *&buf.mSampleRate = *v25;
+  *&buf.mBytesPerPacket = v27;
+  *&buf.mBitsPerChannel = v26;
   if ([*(a1 + 32) exportsLiveListenToFile])
   {
-    v29 = [objc_alloc(MEMORY[0x1E6958418]) initWithCommonFormat:3 sampleRate:v21 channels:1 interleaved:v19];
-    v30 = [v29 streamDescription];
-    v31 = *(v30 + 32);
-    v32 = *(v30 + 16);
-    *&inStreamDesc.mSampleRate = *v30;
-    *&inStreamDesc.mBytesPerPacket = v32;
-    *&inStreamDesc.mBitsPerChannel = v31;
-    v33 = [MEMORY[0x1E696AC08] defaultManager];
-    [v33 createDirectoryAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Accessibility/" withIntermediateDirectories:1 attributes:0 error:0];
+    v28 = [objc_alloc(MEMORY[0x1E6958418]) initWithCommonFormat:3 sampleRate:v20 channels:1 interleaved:v18];
+    v29 = [v28 streamDescription];
+    v30 = *(v29 + 32);
+    v31 = *(v29 + 16);
+    *&inStreamDesc.mSampleRate = *v29;
+    *&inStreamDesc.mBytesPerPacket = v31;
+    *&inStreamDesc.mBitsPerChannel = v30;
+    v32 = [MEMORY[0x1E696AC08] defaultManager];
+    [v32 createDirectoryAtPath:@"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Accessibility/" withIntermediateDirectories:1 attributes:0 error:0];
 
-    v34 = MEMORY[0x1E695DFF8];
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", @"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Accessibility/", @"LiveListenCapture.wav"];
-    ExtAudioFileCreateWithURL([v34 fileURLWithPath:v35], 0x57415645u, &inStreamDesc, 0, 1u, (*(a1 + 32) + 24));
+    v33 = MEMORY[0x1E695DFF8];
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", @"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Accessibility/", @"LiveListenCapture.wav"];
+    ExtAudioFileCreateWithURL([v33 fileURLWithPath:v34], 0x57415645u, &inStreamDesc, 0, 1u, (*(a1 + 32) + 24));
 
     ExtAudioFileSetProperty(*(*(a1 + 32) + 24), 0x63666D74u, 0x28u, &buf);
   }
 
-  v36 = *(a1 + 32);
+  v35 = *(a1 + 32);
   inStreamDesc = buf;
-  v37 = [v36 _setupAudioUnitsWithAudioFormat:&inStreamDesc];
-  if (!v37)
+  v36 = [v35 _setupAudioUnitsWithAudioFormat:&inStreamDesc];
+  if (!v36)
   {
     [*(a1 + 32) setDidInitializeAudioUnit:1];
 
     goto LABEL_33;
   }
 
-  v11 = v37;
+  v11 = v36;
 
 LABEL_12:
   [*(a1 + 32) setIsListening:0];
@@ -478,9 +475,6 @@ LABEL_14:
   {
     (*(v16 + 16))(v16, v12, v11);
   }
-
-LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListeningWithCompletion:(id)completion
@@ -528,7 +522,7 @@ LABEL_19:
 
 void __54__HULiveListenController_stopListeningWithCompletion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (*(a1 + 56))
   {
     goto LABEL_2;
@@ -552,9 +546,9 @@ LABEL_11:
         v16 = [MEMORY[0x1E695DF00] date];
         v17 = [v14 stringWithFormat:@"LiveListenComplete(%1.2lf_dB)_%@.wav", *&v15, v16];
         v18 = [v14 stringWithFormat:@"%@/%@", @"/var/mobile/Library/Logs/CrashReporter/DiagnosticLogs/Accessibility/", v17];
-        v32 = v9;
-        [v12 moveItemAtPath:v13 toPath:v18 error:&v32];
-        v19 = v32;
+        v30 = v9;
+        [v12 moveItemAtPath:v13 toPath:v18 error:&v30];
+        v19 = v30;
 
         v11 = *(a1 + 32);
         v9 = v19;
@@ -590,13 +584,13 @@ LABEL_11:
         v23 = *(a1 + 48);
         v24 = *(a1 + 52);
         *buf = 67109890;
-        *v35 = v22;
-        *&v35[4] = 2112;
-        *&v35[6] = v9;
+        *v33 = v22;
+        *&v33[4] = 2112;
+        *&v33[6] = v9;
+        v34 = 2048;
+        v35 = v23;
         v36 = 2048;
-        v37 = v23;
-        v38 = 2048;
-        v39 = v24;
+        v37 = v24;
         _os_log_impl(&dword_1DA5E2000, v21, OS_LOG_TYPE_DEFAULT, "Is Listening (%d) %@ - %lf, %lf", buf, 0x26u);
       }
 
@@ -605,7 +599,7 @@ LABEL_11:
       {
         v26 = [*(a1 + 32) session];
         *buf = 138412290;
-        *v35 = v26;
+        *v33 = v26;
         _os_log_impl(&dword_1DA5E2000, v25, OS_LOG_TYPE_DEFAULT, "LiveListen will release auxiliarySession: %@", buf, 0xCu);
       }
 
@@ -616,14 +610,14 @@ LABEL_11:
         (*(v27 + 16))(v27, 1, v9);
       }
 
-      goto LABEL_26;
+      return;
     }
 
 LABEL_2:
     v2 = [*(a1 + 32) session];
-    v33 = 0;
-    [v2 setActive:0 forFeature:8 error:&v33];
-    v3 = v33;
+    v31 = 0;
+    [v2 setActive:0 forFeature:8 error:&v31];
+    v3 = v31;
 
     v4 = *(*(a1 + 32) + 48);
     if (v4 && (v5 = AudioOutputUnitStop(v4)) != 0)
@@ -648,17 +642,12 @@ LABEL_2:
     goto LABEL_11;
   }
 
-  v29 = *(a1 + 40);
-  if (!v29)
+  v28 = *(a1 + 40);
+  if (v28)
   {
-LABEL_26:
-    v28 = *MEMORY[0x1E69E9840];
-    return;
+    v29 = [MEMORY[0x1E696ABC0] ax_errorWithDomain:@"Hearing" description:{@"Won't stop live listen controller, not listening"}];
+    (*(v28 + 16))(v28, 0);
   }
-
-  v31 = [MEMORY[0x1E696ABC0] ax_errorWithDomain:@"Hearing" description:{@"Won't stop live listen controller, not listening"}];
-  (*(v29 + 16))(v29, 0);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startLiveListenRewind
@@ -695,7 +684,7 @@ LABEL_26:
 
 void __47__HULiveListenController_startLiveListenRewind__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 104) content];
   v3 = [v2 copy];
 
@@ -703,21 +692,21 @@ void __47__HULiveListenController_startLiveListenRewind__block_invoke(uint64_t a
   v4 = [*(a1 + 32) audioQueue];
   [v4 play];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(v5);
       }
@@ -727,15 +716,15 @@ LABEL_3:
         break;
       }
 
-      v10 = *(*(&v15 + 1) + 8 * v9);
+      v10 = *(*(&v14 + 1) + 8 * v9);
       v11 = objc_alloc(MEMORY[0x1E6958440]);
-      v12 = [v11 initWithPCMFormat:*(a1 + 40) bufferListNoCopy:objc_msgSend(v10 deallocator:"bufferList", v15), &__block_literal_global_25];
+      v12 = [v11 initWithPCMFormat:*(a1 + 40) bufferListNoCopy:objc_msgSend(v10 deallocator:"bufferList", v14), &__block_literal_global_25];
       v13 = [*(a1 + 32) audioQueue];
       [v13 scheduleBuffer:v12 completionHandler:&__block_literal_global_71];
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -747,7 +736,6 @@ LABEL_3:
   }
 
   [*(a1 + 32) stopLiveListenRewind];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopLiveListenRewind
@@ -794,7 +782,7 @@ LABEL_3:
 
 - (id)_setupSession
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   session = self->_session;
   if (!session)
   {
@@ -807,63 +795,61 @@ LABEL_3:
     {
       v7 = self->_session;
       *buf = 138412290;
-      v28 = v7;
+      v27 = v7;
       _os_log_impl(&dword_1DA5E2000, v6, OS_LOG_TYPE_DEFAULT, "LiveListen created auxiliarySession: %@", buf, 0xCu);
     }
 
     session = self->_session;
   }
 
-  v26 = 0;
-  [(AVAudioSession *)session setAudioHardwareControlFlags:18 error:&v26];
-  v8 = v26;
+  v25 = 0;
+  [(AVAudioSession *)session setAudioHardwareControlFlags:18 error:&v25];
+  v8 = v25;
   if (!v8)
   {
     v9 = self->_session;
     v10 = *MEMORY[0x1E6958060];
-    v25 = 0;
-    [(AVAudioSession *)v9 setCategory:v10 withOptions:5 error:&v25];
-    v8 = v25;
+    v24 = 0;
+    [(AVAudioSession *)v9 setCategory:v10 withOptions:5 error:&v24];
+    v8 = v24;
     if (!v8)
     {
       v11 = self->_session;
       v12 = *MEMORY[0x1E6958140];
-      v24 = 0;
-      [(AVAudioSession *)v11 setMode:v12 error:&v24];
-      v8 = v24;
+      v23 = 0;
+      [(AVAudioSession *)v11 setMode:v12 error:&v23];
+      v8 = v23;
       if (!v8)
       {
         v13 = self->_session;
-        v23 = 0;
-        [(AVAudioSession *)v13 setPreferredIOBufferFrameSize:128 error:&v23];
-        v8 = v23;
+        v22 = 0;
+        [(AVAudioSession *)v13 setPreferredIOBufferFrameSize:128 error:&v22];
+        v8 = v22;
         if (!v8)
         {
           v14 = self->_session;
-          v22 = 0;
-          [(AVAudioSession *)v14 setPrefersNoDucking:0 error:&v22];
-          v8 = v22;
+          v21 = 0;
+          [(AVAudioSession *)v14 setPrefersNoDucking:0 error:&v21];
+          v8 = v21;
           if (!v8)
           {
             v15 = self->_session;
             v16 = *MEMORY[0x1E69B0318];
-            v21 = 0;
-            [(AVAudioSession *)v15 setMXSessionProperty:v16 value:MEMORY[0x1E695E118] error:&v21];
-            v8 = v21;
+            v20 = 0;
+            [(AVAudioSession *)v15 setMXSessionProperty:v16 value:MEMORY[0x1E695E118] error:&v20];
+            v8 = v20;
             if (!v8)
             {
               v17 = self->_session;
-              v20 = 0;
-              [(AVAudioSession *)v17 setActive:1 forFeature:8 error:&v20];
-              v8 = v20;
+              v19 = 0;
+              [(AVAudioSession *)v17 setActive:1 forFeature:8 error:&v19];
+              v8 = v19;
             }
           }
         }
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1144,11 +1130,10 @@ LABEL_6:
 
 void __54__HULiveListenController_stopListeningWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "Stop LiveListen unit error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA5E2000, a2, OS_LOG_TYPE_ERROR, "Stop LiveListen unit error: %@", &v2, 0xCu);
 }
 
 @end

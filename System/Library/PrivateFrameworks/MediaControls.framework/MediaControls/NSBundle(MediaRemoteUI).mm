@@ -24,9 +24,9 @@
     +[NSBundle(MediaRemoteUI) mediaRemoteUIBundle];
   }
 
-  v1 = mediaRemoteUIBundle___mediaRemoteUIBundle;
+  v2 = mediaRemoteUIBundle___mediaRemoteUIBundle;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)mru_isHome

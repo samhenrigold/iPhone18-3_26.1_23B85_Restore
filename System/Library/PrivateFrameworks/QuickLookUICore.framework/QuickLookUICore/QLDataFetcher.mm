@@ -91,22 +91,21 @@ void __90__QLDataFetcher_fetchContentWithAllowedOutputClasses_inQueue_updateBloc
   if ([*(a1 + 40) containsObject:objc_opt_class()])
   {
     [*(a1 + 32) setFetchingState:1];
-    v2 = *(*(a1 + 32) + 24);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
 LABEL_7:
 
-    v3();
+    v2();
     return;
   }
 
   if (![*(a1 + 40) containsObject:objc_opt_class()])
   {
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
     goto LABEL_7;
   }
 
-  v6 = [*(a1 + 32) _createTemporaryFileIfNeeded];
-  if (v6)
+  v5 = [*(a1 + 32) _createTemporaryFileIfNeeded];
+  if (v5)
   {
     [*(a1 + 32) setFetchingState:1];
     (*(*(a1 + 48) + 16))();
@@ -114,9 +113,9 @@ LABEL_7:
 
   else
   {
-    v4 = *(a1 + 48);
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.fetcher.data" code:1 userInfo:0];
-    (*(v4 + 16))(v4, 0, v5);
+    v3 = *(a1 + 48);
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.quicklook.fetcher.data" code:1 userInfo:0];
+    (*(v3 + 16))(v3, 0, v4);
   }
 }
 
@@ -138,7 +137,7 @@ LABEL_7:
 
 - (id)_createTemporaryFileIfNeeded
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   temporaryURL = self->_temporaryURL;
   if (temporaryURL)
   {
@@ -157,9 +156,9 @@ LABEL_7:
     v11 = [v5 fileURLWithPath:v10];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v30 = 0;
-    LODWORD(uUID) = [defaultManager createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v30];
-    v13 = v30;
+    v29 = 0;
+    LODWORD(uUID) = [defaultManager createDirectoryAtURL:v11 withIntermediateDirectories:1 attributes:0 error:&v29];
+    v13 = v29;
 
     if (!uUID || v13)
     {
@@ -174,7 +173,7 @@ LABEL_7:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v13;
+        v31 = v13;
         _os_log_impl(&dword_261653000, v17, OS_LOG_TYPE_ERROR, "Could not create temporary folder for data item with error: %@ #PreviewItem", buf, 0xCu);
       }
 
@@ -205,9 +204,9 @@ LABEL_7:
       }
 
       data = self->_data;
-      v29 = 0;
-      v23 = [(NSData *)data writeToURL:v20 options:1 error:&v29];
-      v24 = v29;
+      v28 = 0;
+      v23 = [(NSData *)data writeToURL:v20 options:1 error:&v28];
+      v24 = v28;
       if (v23)
       {
         objc_storeStrong(&self->_temporaryURL, v20);
@@ -227,7 +226,7 @@ LABEL_7:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v32 = v24;
+          v31 = v24;
           _os_log_impl(&dword_261653000, v26, OS_LOG_TYPE_ERROR, "Writting data on disk failed with error: %@ #PreviewItem", buf, 0xCu);
         }
 
@@ -236,14 +235,12 @@ LABEL_7:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)_deleteTempraryFileIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_temporaryURL)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -253,9 +250,9 @@ LABEL_7:
     if (v5)
     {
       temporaryURL = self->_temporaryURL;
-      v13 = 0;
-      v7 = [defaultManager removeItemAtURL:temporaryURL error:&v13];
-      v8 = v13;
+      v12 = 0;
+      v7 = [defaultManager removeItemAtURL:temporaryURL error:&v12];
+      v8 = v12;
       if ((v7 & 1) == 0)
       {
         v9 = MEMORY[0x277D43EF8];
@@ -269,7 +266,7 @@ LABEL_7:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v15 = v8;
+          v14 = v8;
           _os_log_impl(&dword_261653000, v10, OS_LOG_TYPE_ERROR, "Could not delete temporary folder for data item with error: %@ #PreviewItem", buf, 0xCu);
         }
 
@@ -287,8 +284,6 @@ LABEL_7:
 
 LABEL_10:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_temporaryFilename

@@ -47,7 +47,7 @@
           v8 = v7;
           if (v7)
           {
-            v9 = (softLinkISCopyDecompressedGZipDataForData[0])(v7);
+            v9 = softLinkISCopyDecompressedGZipDataForData(v7);
             v14 = 0;
             if (v9)
             {
@@ -395,13 +395,13 @@ LABEL_8:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v7.receiver = self;
-    v7.super_class = SSRemoteNotification;
-    v5 = [(SSRemoteNotification *)&v7 init];
+    v8.receiver = self;
+    v8.super_class = SSRemoteNotification;
+    v5 = [(SSRemoteNotification *)&v8 init];
     if (v5)
     {
-      objc_opt_class();
-      v5->_userInfo = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
+      v7 = objc_opt_class();
+      v5->_userInfo = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
     }
   }
 

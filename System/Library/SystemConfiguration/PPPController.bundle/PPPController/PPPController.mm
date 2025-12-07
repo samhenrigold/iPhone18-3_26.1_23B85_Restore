@@ -90,7 +90,7 @@ void IPSecConfigureVerboseLogging(__CFDictionary *a1, int a2)
   CFRelease(v3);
 }
 
-uint64_t sub_C40(const void *a1, const char **a2, int a3)
+uint64_t sub_C40(const __CFDictionary *a1, char **a2, int a3)
 {
   __str[0].__pn_.__r_.__value_.__s.__data_[0] = 0;
   if (!isDictionary(a1))
@@ -99,42 +99,42 @@ uint64_t sub_C40(const void *a1, const char **a2, int a3)
     return 0xFFFFFFFFLL;
   }
 
-  memset(&v76, 0, sizeof(v76));
-  v75 = 0;
-  GetIntFromDict(a1, @"VerboseLogging", &v75, 0);
+  memset(&v74, 0, sizeof(v74));
+  v73 = 0;
+  GetIntFromDict(a1, @"VerboseLogging", &v73, 0);
   if (!GetStrAddrFromDict(a1, @"LocalAddress", cStr, 256))
   {
-    v13 = "incorrect local address found";
+    v12 = "incorrect local address found";
 LABEL_19:
-    *a2 = v13;
+    *a2 = v12;
     goto LABEL_20;
   }
 
   if (!racoon_validate_cfg_str(cStr))
   {
-    v13 = "invalid local address";
+    v12 = "invalid local address";
     goto LABEL_19;
   }
 
-  if (!GetStrAddrFromDict(a1, @"RemoteAddress", v79, 256))
+  if (!GetStrAddrFromDict(a1, @"RemoteAddress", v77, 256))
   {
-    v13 = "incorrect remote address found";
+    v12 = "incorrect remote address found";
     goto LABEL_19;
   }
 
-  if (!racoon_validate_cfg_str(v79))
+  if (!racoon_validate_cfg_str(v77))
   {
-    v13 = "invalid remote address";
+    v12 = "invalid remote address";
     goto LABEL_19;
   }
 
-  v7 = inet_addr(v79);
+  v7 = inet_addr(v77);
   v8 = v7;
   if (a3)
   {
     if (v7)
     {
-      v9 = v79;
+      v9 = v77;
     }
 
     else
@@ -145,14 +145,14 @@ LABEL_19:
     v10 = __str;
     snprintf(__str, 0x100uLL, "/var/run/racoon/%s.conf", v9);
     remove(__str, v11);
-    if (stat("/var/run/racoon", &v76))
+    if (stat("/var/run/racoon", &v74))
     {
       if (*__error() == 2 && makepath("/var/run/racoon"))
       {
-        v12 = *__error();
-        snprintf(v81, 0x100uLL, "cannot create racoon configuration file path (error %d)");
+        __error();
+        snprintf(v79, 0x100uLL, "cannot create racoon configuration file path (error %d)");
 LABEL_55:
-        *a2 = v81;
+        *a2 = v79;
         goto LABEL_20;
       }
 
@@ -165,80 +165,80 @@ LABEL_55:
     v10 = "/dev/null";
   }
 
-  v15 = umask(0x3Fu);
-  v16 = fopen(v10, "w");
-  umask(v15);
-  if (!v16)
+  v14 = umask(0x3Fu);
+  v15 = fopen(v10, "w");
+  umask(v14);
+  if (!v15)
   {
-    v30 = *__error();
-    snprintf(v81, 0x100uLL, "cannot create racoon configuration file (error %d)");
+    __error();
+    snprintf(v79, 0x100uLL, "cannot create racoon configuration file (error %d)");
     goto LABEL_55;
   }
 
-  if (v75)
+  if (v73)
   {
-    fprintf(v16, "%s%s", TAB_LEVEL, "log debug2;\n");
-    fprintf(v16, "%s%s", TAB_LEVEL, "path logfile /var/log/racoon.log;\n\n");
+    fprintf(v15, "%s%s", TAB_LEVEL, "log debug2;\n");
+    fprintf(v15, "%s%s", TAB_LEVEL, "path logfile /var/log/racoon.log;\n\n");
   }
 
-  v18 = CFDictionaryGetValue(a1, @"UseAnonymousPolicy") == 0 && v8 != 0;
-  v17 = !v18;
-  v66 = v18;
-  v19 = v79;
-  if (v17)
+  v17 = CFDictionaryGetValue(a1, @"UseAnonymousPolicy") == 0 && v8 != 0;
+  v16 = !v17;
+  v64 = v17;
+  v18 = v77;
+  if (v16)
   {
-    v19 = "anonymous";
+    v18 = "anonymous";
   }
 
-  snprintf(v81, 0x100uLL, "remote %s {\n", v19);
-  fprintf(v16, "%s%s", TAB_LEVEL, v81);
-  fprintf(v16, "%s%s", off_40008[0], "doi ipsec_doi;\n");
-  v72 = v16;
-  fprintf(v16, "%s%s", off_40008[0], "situation identity_only;\n");
+  snprintf(v79, 0x100uLL, "remote %s {\n", v18);
+  fprintf(v15, "%s%s", TAB_LEVEL, v79);
+  fprintf(v15, "%s%s", off_40008[0], "doi ipsec_doi;\n");
+  v70 = v15;
+  fprintf(v15, "%s%s", off_40008[0], "situation identity_only;\n");
   Value = CFDictionaryGetValue(a1, @"AuthenticationMethod");
   if (Value)
   {
-    v21 = Value;
+    v20 = Value;
   }
 
   else
   {
-    v21 = @"SharedSecret";
+    v20 = @"SharedSecret";
   }
 
   __strlcpy_chk();
-  v22 = CFDictionaryGetValue(a1, @"ExchangeMode");
-  cf1 = v21;
-  if (!isArray(v22))
+  v21 = CFDictionaryGetValue(a1, @"ExchangeMode");
+  cf1 = v20;
+  if (!isArray(v21))
   {
     goto LABEL_48;
   }
 
-  v68 = a2;
-  Count = CFArrayGetCount(v22);
-  v24 = Count - 1;
+  v66 = a2;
+  Count = CFArrayGetCount(v21);
+  v23 = Count - 1;
   if (Count >= 1)
   {
-    v25 = 0;
-    if (v24 >= 2)
+    v24 = 0;
+    if (v23 >= 2)
     {
-      v24 = 2;
+      v23 = 2;
     }
 
-    v26 = v24 + 1;
+    v25 = v23 + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v22, v25);
+      ValueAtIndex = CFArrayGetValueAtIndex(v21, v24);
       if (isString(ValueAtIndex))
       {
-        if (v25)
+        if (v24)
         {
           __strlcat_chk();
         }
 
         if (!CFEqual(ValueAtIndex, @"Main") && !CFEqual(ValueAtIndex, @"Aggressive") && !CFEqual(ValueAtIndex, @"Base"))
         {
-          v38 = "incorrect phase 1 exchange mode";
+          v36 = "incorrect phase 1 exchange mode";
           goto LABEL_87;
         }
 
@@ -246,331 +246,331 @@ LABEL_55:
       }
     }
 
-    while (v26 != ++v25);
+    while (v25 != ++v24);
   }
 
-  a2 = v68;
+  a2 = v66;
   if (!Count)
   {
 LABEL_48:
-    StrFromDict = GetStrFromDict(a1, @"LocalIdentifier", v85, 256, "");
-    IPSecIsAggressiveMode(v21, StrFromDict, 1);
+    StrFromDict = GetStrFromDict(a1, @"LocalIdentifier", v83, 256, "");
+    IPSecIsAggressiveMode(v20, StrFromDict, 1);
     __strlcat_chk();
   }
 
   __strlcat_chk();
-  v29 = v16;
-  fprintf(v16, "%s%s", off_40008[0], __ptr);
-  if (!CFEqual(v21, @"SharedSecret") && !CFEqual(v21, @"Certificate") && !CFEqual(v21, @"Hybrid"))
+  v28 = v15;
+  fprintf(v15, "%s%s", off_40008[0], __ptr);
+  if (!CFEqual(v20, @"SharedSecret") && !CFEqual(v20, @"Certificate") && !CFEqual(v20, @"Hybrid"))
   {
-    v35 = "incorrect authentication method found";
+    v33 = "incorrect authentication method found";
     goto LABEL_232;
   }
 
-  if (GetStrFromDict(a1, @"LocalIdentifierType", v84, 256, ""))
+  if (GetStrFromDict(a1, @"LocalIdentifierType", v82, 256, ""))
   {
     __strlcpy_chk();
-    if (!racoon_validate_cfg_str(v84))
+    if (!racoon_validate_cfg_str(v82))
     {
-      v35 = "invalid LocalIdentifierType";
+      v33 = "invalid LocalIdentifierType";
       goto LABEL_232;
     }
   }
 
-  if (GetStrFromDict(a1, @"LocalIdentifier", v85, 256, ""))
+  if (GetStrFromDict(a1, @"LocalIdentifier", v83, 256, ""))
   {
-    if (!racoon_validate_cfg_str(v85))
+    if (!racoon_validate_cfg_str(v83))
     {
-      v35 = "invalid LocalIdentifier";
+      v33 = "invalid LocalIdentifier";
       goto LABEL_232;
     }
 
-    v31 = v84;
-    if (!v84[0])
+    v29 = v82;
+    if (!v82[0])
     {
-      v31 = "fqdn";
+      v29 = "fqdn";
     }
 
-    snprintf(__ptr, 0x400uLL, "my_identifier %s %s;\n", v31, v85);
+    snprintf(__ptr, 0x400uLL, "my_identifier %s %s;\n", v29, v83);
     goto LABEL_62;
   }
 
-  if (!CFEqual(v21, @"SharedSecret") && !CFEqual(v21, @"Hybrid") && CFEqual(v21, @"Certificate"))
+  if (!CFEqual(v20, @"SharedSecret") && !CFEqual(v20, @"Hybrid") && CFEqual(v20, @"Certificate"))
   {
     strcpy(__ptr, "my_identifier asn1dn;\n");
 LABEL_62:
-    fprintf(v16, "%s%s", off_40008[0], __ptr);
+    fprintf(v15, "%s%s", off_40008[0], __ptr);
   }
 
-  v32 = CFDictionaryGetValue(a1, @"IdentifierVerification");
-  if (!isString(v32))
+  v30 = CFDictionaryGetValue(a1, @"IdentifierVerification");
+  if (!isString(v30))
   {
-    v32 = @"GenerateFromRemoteAddress";
+    v30 = @"GenerateFromRemoteAddress";
   }
 
-  if (!CFEqual(v32, @"None"))
+  if (!CFEqual(v30, @"None"))
   {
-    if (CFEqual(v32, @"GenerateFromRemoteAddress"))
+    if (CFEqual(v30, @"GenerateFromRemoteAddress"))
     {
-      if (!GetStrAddrFromDict(a1, @"RemoteAddress", v85, 256))
+      if (!GetStrAddrFromDict(a1, @"RemoteAddress", v83, 256))
       {
-        v35 = "no remote address found";
+        v33 = "no remote address found";
         goto LABEL_150;
       }
 
-      snprintf(__ptr, 0x400uLL, "peers_identifier address %s;\n", v85);
-      v29 = v16;
-      fprintf(v16, "%s%s", off_40008[0], __ptr);
-      v36 = CFEqual(v21, @"Certificate");
-      v37 = "off";
-      if (!v36)
+      snprintf(__ptr, 0x400uLL, "peers_identifier address %s;\n", v83);
+      v28 = v15;
+      fprintf(v15, "%s%s", off_40008[0], __ptr);
+      v34 = CFEqual(v20, @"Certificate");
+      v35 = "off";
+      if (!v34)
       {
-        v37 = "on";
+        v35 = "on";
       }
 
-      v33 = 2 * (v36 != 0);
+      v31 = 2 * (v34 != 0);
       goto LABEL_93;
     }
 
-    if (CFEqual(v32, @"UseRemoteIdentifier"))
+    if (CFEqual(v30, @"UseRemoteIdentifier"))
     {
-      v29 = v16;
-      if (!GetStrFromDict(a1, @"RemoteIdentifier", v85, 256, ""))
+      v28 = v15;
+      if (!GetStrFromDict(a1, @"RemoteIdentifier", v83, 256, ""))
       {
-        v35 = "no remote identifier found";
+        v33 = "no remote identifier found";
         goto LABEL_232;
       }
 
-      if (!racoon_validate_cfg_str(v85))
+      if (!racoon_validate_cfg_str(v83))
       {
-        v35 = "invalid RemoteIdentifier";
+        v33 = "invalid RemoteIdentifier";
         goto LABEL_232;
       }
 
-      snprintf(__ptr, 0x400uLL, "peers_identifier fqdn %s;\n", v85);
-      fprintf(v16, "%s%s", off_40008[0], __ptr);
-      if (!CFEqual(v21, @"Certificate") && !CFEqual(v21, @"Hybrid"))
+      snprintf(__ptr, 0x400uLL, "peers_identifier fqdn %s;\n", v83);
+      fprintf(v15, "%s%s", off_40008[0], __ptr);
+      if (!CFEqual(v20, @"Certificate") && !CFEqual(v20, @"Hybrid"))
       {
-        v33 = 0;
-        v37 = "on";
+        v31 = 0;
+        v35 = "on";
         goto LABEL_93;
       }
 
-      v33 = 2;
+      v31 = 2;
     }
 
     else
     {
-      if (!CFEqual(v32, @"UseOpenDirectory"))
+      if (!CFEqual(v30, @"UseOpenDirectory"))
       {
-        v35 = "incorrect verification method";
+        v33 = "incorrect verification method";
         goto LABEL_150;
       }
 
-      v29 = v16;
-      if (!CFEqual(v21, @"Certificate"))
+      v28 = v15;
+      if (!CFEqual(v20, @"Certificate"))
       {
-        v35 = "open directory can only be used with certificate authentication";
+        v33 = "open directory can only be used with certificate authentication";
         goto LABEL_232;
       }
 
-      v33 = 1;
+      v31 = 1;
     }
 
-    v37 = "off";
+    v35 = "off";
 LABEL_93:
-    v34 = __ptr;
-    snprintf(__ptr, 0x400uLL, "verify_identifier %s;\n", v37);
+    v32 = __ptr;
+    snprintf(__ptr, 0x400uLL, "verify_identifier %s;\n", v35);
     goto LABEL_94;
   }
 
-  v33 = 0;
-  v34 = "verify_identifier off;\n";
-  v29 = v72;
+  v31 = 0;
+  v32 = "verify_identifier off;\n";
+  v28 = v70;
 LABEL_94:
-  fprintf(v29, "%s%s", off_40008[0], v34);
+  fprintf(v28, "%s%s", off_40008[0], v32);
   if (CFEqual(cf1, @"SharedSecret") || CFEqual(cf1, @"Hybrid"))
   {
-    if (!GetStrFromDict(a1, @"SharedSecret", v85, 256, ""))
+    if (!GetStrFromDict(a1, @"SharedSecret", v83, 256, ""))
     {
-      v35 = "no shared secret found";
+      v33 = "no shared secret found";
       goto LABEL_232;
     }
 
-    if (!racoon_validate_cfg_str(v85))
+    if (!racoon_validate_cfg_str(v83))
     {
-      v35 = "invalid SharedSecret";
+      v33 = "invalid SharedSecret";
       goto LABEL_232;
     }
 
     __strlcpy_chk();
-    v39 = CFDictionaryGetValue(a1, @"SharedSecretEncryption");
-    if (!isString(v39))
+    v37 = CFDictionaryGetValue(a1, @"SharedSecretEncryption");
+    if (!isString(v37))
     {
 LABEL_108:
-      snprintf(__ptr, 0x400uLL, "shared_secret %s %s;\n", v84, v85);
-      v29 = v72;
-      fprintf(v72, "%s%s", off_40008[0], __ptr);
+      snprintf(__ptr, 0x400uLL, "shared_secret %s %s;\n", v82, v83);
+      v28 = v70;
+      fprintf(v70, "%s%s", off_40008[0], __ptr);
       if (CFEqual(cf1, @"Hybrid"))
       {
         strcpy(__ptr, "certificate_verification sec_framework use_peers_identifier;\n");
 LABEL_117:
-        fprintf(v29, "%s%s", off_40008[0], __ptr);
+        fprintf(v28, "%s%s", off_40008[0], __ptr);
         goto LABEL_118;
       }
 
       goto LABEL_118;
     }
 
-    if (CFEqual(v39, @"Key") || CFEqual(v39, @"Keychain"))
+    if (CFEqual(v37, @"Key") || CFEqual(v37, @"Keychain"))
     {
       __strlcpy_chk();
       goto LABEL_108;
     }
 
-    v35 = "incorrect shared secret encryption found";
+    v33 = "incorrect shared secret encryption found";
 LABEL_150:
-    v29 = v72;
+    v28 = v70;
     goto LABEL_232;
   }
 
   if (CFEqual(cf1, @"Certificate"))
   {
-    v40 = CFDictionaryGetValue(a1, @"LocalCertificate");
-    if (isData(v40))
+    v38 = CFDictionaryGetValue(a1, @"LocalCertificate");
+    if (isData(v38))
     {
-      fprintf(v72, "%s%s", off_40008[0], "certificate_type x509 in_keychain ");
-      v41 = v40;
-      v29 = v72;
-      v42 = sub_7098(v41, __ptr);
-      fwrite(__ptr, 1uLL, v42, v72);
-      fputs(";\n", v72);
+      fprintf(v70, "%s%s", off_40008[0], "certificate_type x509 in_keychain ");
+      v39 = v38;
+      v28 = v70;
+      v40 = sub_7098(v39, __ptr);
+      fwrite(__ptr, 1uLL, v40, v70);
+      fputs(";\n", v70);
     }
 
     else
     {
-      v29 = v72;
-      fprintf(v72, "%s%s", off_40008[0], "certificate_type x509 in_keychain;\n");
+      v28 = v70;
+      fprintf(v70, "%s%s", off_40008[0], "certificate_type x509 in_keychain;\n");
     }
 
-    fprintf(v29, "%s%s", off_40008[0], "verify_cert on;\n");
-    v43 = " use_peers_identifier";
-    if (v33 != 2)
+    fprintf(v28, "%s%s", off_40008[0], "verify_cert on;\n");
+    v41 = " use_peers_identifier";
+    if (v31 != 2)
     {
-      v43 = "";
+      v41 = "";
     }
 
-    if (v33 == 1)
+    if (v31 == 1)
     {
-      v43 = " use_open_dir";
+      v41 = " use_open_dir";
     }
 
-    snprintf(__ptr, 0x400uLL, "certificate_verification sec_framework%s;\n", v43);
+    snprintf(__ptr, 0x400uLL, "certificate_verification sec_framework%s;\n", v41);
     goto LABEL_117;
   }
 
 LABEL_118:
   if (CFDictionaryContainsKey(a1, @"ForceLocalAddress") && CFDictionaryGetValue(a1, @"ForceLocalAddress") == kCFBooleanTrue)
   {
-    GetStrAddrFromDict(a1, @"LocalAddress", v85, 256);
-    if (racoon_validate_cfg_str(v85))
+    GetStrAddrFromDict(a1, @"LocalAddress", v83, 256);
+    if (racoon_validate_cfg_str(v83))
     {
-      snprintf(__ptr, 0x400uLL, "local_address %s;\n", v85);
-      fprintf(v29, "%s%s", off_40008[0], __ptr);
+      snprintf(__ptr, 0x400uLL, "local_address %s;\n", v83);
+      fprintf(v28, "%s%s", off_40008[0], __ptr);
       goto LABEL_122;
     }
 
-    v35 = "invalid force local address";
+    v33 = "invalid force local address";
 LABEL_232:
-    *a2 = v35;
+    *a2 = v33;
     goto LABEL_233;
   }
 
 LABEL_122:
-  *v85 = 0;
-  GetIntFromDict(a1, @"NonceSize", v85, 16);
-  snprintf(__ptr, 0x400uLL, "nonce_size %d;\n", *v85);
-  fprintf(v29, "%s%s", off_40008[0], __ptr);
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"NattMultipleUsersEnabled", v85, 0))
+  *v83 = 0;
+  GetIntFromDict(a1, @"NonceSize", v83, 16);
+  snprintf(__ptr, 0x400uLL, "nonce_size %d;\n", *v83);
+  fprintf(v28, "%s%s", off_40008[0], __ptr);
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"NattMultipleUsersEnabled", v83, 0))
   {
-    if (*v85)
+    if (*v83)
     {
-      v44 = "on";
+      v42 = "on";
     }
 
     else
     {
-      v44 = "off";
+      v42 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "nat_traversal_multi_user %s;\n", v44);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "nat_traversal_multi_user %s;\n", v42);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
   }
 
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"NattKeepAliveEnabled", v85, 1))
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"NattKeepAliveEnabled", v83, 1))
   {
-    if (*v85)
+    if (*v83)
     {
-      v45 = "on";
+      v43 = "on";
     }
 
     else
     {
-      v45 = "off";
+      v43 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "nat_traversal_keepalive %s;\n", v45);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "nat_traversal_keepalive %s;\n", v43);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
   }
 
-  *v85 = 0;
-  *v84 = 0;
-  v78 = 0;
-  v77 = 0;
-  if (GetIntFromDict(a1, @"DeadPeerDetectionEnabled", v85, 0))
+  *v83 = 0;
+  *v82 = 0;
+  v76 = 0;
+  v75 = 0;
+  if (GetIntFromDict(a1, @"DeadPeerDetectionEnabled", v83, 0))
   {
-    GetIntFromDict(a1, @"DeadPeerDetectionDelay", v84, 30);
-    GetIntFromDict(a1, @"DeadPeerDetectionRetry", &v78 + 1, 5);
-    GetIntFromDict(a1, @"DeadPeerDetectionMaxFail", &v78, 5);
-    GetIntFromDict(a1, @"BlackHoleDetectionEnabled", &v77, 1);
-    snprintf(__ptr, 0x400uLL, "dpd_delay %d;\n", *v84);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
-    snprintf(__ptr, 0x400uLL, "dpd_retry %d;\n", HIDWORD(v78));
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
-    snprintf(__ptr, 0x400uLL, "dpd_maxfail %d;\n", v78);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
-    if (v77)
+    GetIntFromDict(a1, @"DeadPeerDetectionDelay", v82, 30);
+    GetIntFromDict(a1, @"DeadPeerDetectionRetry", &v76 + 1, 5);
+    GetIntFromDict(a1, @"DeadPeerDetectionMaxFail", &v76, 5);
+    GetIntFromDict(a1, @"BlackHoleDetectionEnabled", &v75, 1);
+    snprintf(__ptr, 0x400uLL, "dpd_delay %d;\n", *v82);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_retry %d;\n", HIDWORD(v76));
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_maxfail %d;\n", v76);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
+    if (v75)
     {
-      v46 = "dpd_blackhole_detect";
+      v44 = "dpd_blackhole_detect";
     }
 
     else
     {
-      v46 = "dpd_inbound_detect";
+      v44 = "dpd_inbound_detect";
     }
 
-    snprintf(__ptr, 0x400uLL, "dpd_algorithm %s;\n", v46);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "dpd_algorithm %s;\n", v44);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
   }
 
-  *v85 = 0;
-  *v84 = 0;
-  if (GetIntFromDict(a1, @"DisconnectOnIdle", v85, 0) && *v85)
+  *v83 = 0;
+  *v82 = 0;
+  if (GetIntFromDict(a1, @"DisconnectOnIdle", v83, 0) && *v83)
   {
-    GetIntFromDict(a1, @"DisconnectOnIdleTimer", v84, 120);
-    snprintf(__ptr, 0x400uLL, "disconnect_on_idle idle_timeout %d idle_direction idle_outbound;\n", *v84);
-    fprintf(v29, "%s%s", off_40008[0], __ptr);
+    GetIntFromDict(a1, @"DisconnectOnIdleTimer", v82, 120);
+    snprintf(__ptr, 0x400uLL, "disconnect_on_idle idle_timeout %d idle_direction idle_outbound;\n", *v82);
+    fprintf(v28, "%s%s", off_40008[0], __ptr);
   }
 
-  fprintf(v29, "%s%s", off_40008[0], "initial_contact on;\n");
-  fprintf(v29, "%s%s", off_40008[0], "support_proxy on;\n");
+  fprintf(v28, "%s%s", off_40008[0], "initial_contact on;\n");
+  fprintf(v28, "%s%s", off_40008[0], "support_proxy on;\n");
   __strlcpy_chk();
-  v47 = CFDictionaryGetValue(a1, @"ProposalsBehavior");
-  if (isString(v47))
+  v45 = CFDictionaryGetValue(a1, @"ProposalsBehavior");
+  if (isString(v45))
   {
-    if (!CFEqual(v47, @"Claim") && !CFEqual(v47, @"Obey") && !CFEqual(v47, @"Strict") && !CFEqual(v47, @"Exact"))
+    if (!CFEqual(v45, @"Claim") && !CFEqual(v45, @"Obey") && !CFEqual(v45, @"Strict") && !CFEqual(v45, @"Exact"))
     {
       *a2 = "incorrect proposal behavior";
       goto LABEL_88;
@@ -579,133 +579,133 @@ LABEL_122:
     __strlcpy_chk();
   }
 
-  snprintf(__ptr, 0x400uLL, "proposal_check %s;\n", v85);
-  v29 = v72;
-  fprintf(v72, "%s%s", off_40008[0], __ptr);
-  if (!GetStrFromDict(a1, @"XAuthName", v85, 256, ""))
+  snprintf(__ptr, 0x400uLL, "proposal_check %s;\n", v83);
+  v28 = v70;
+  fprintf(v70, "%s%s", off_40008[0], __ptr);
+  if (!GetStrFromDict(a1, @"XAuthName", v83, 256, ""))
   {
     goto LABEL_157;
   }
 
-  if (!racoon_validate_cfg_str(v85))
+  if (!racoon_validate_cfg_str(v83))
   {
-    v35 = "invalid XauthName";
+    v33 = "invalid XauthName";
     goto LABEL_232;
   }
 
-  snprintf(__ptr, 0x400uLL, "xauth_login %s;\n", v85);
-  fprintf(v72, "%s%s", off_40008[0], __ptr);
+  snprintf(__ptr, 0x400uLL, "xauth_login %s;\n", v83);
+  fprintf(v70, "%s%s", off_40008[0], __ptr);
 LABEL_157:
-  *v85 = 0;
-  if (GetIntFromDict(a1, @"ModeConfigEnabled", v85, 0))
+  *v83 = 0;
+  if (GetIntFromDict(a1, @"ModeConfigEnabled", v83, 0))
   {
-    if (*v85)
+    if (*v83)
     {
-      v48 = "on";
+      v46 = "on";
     }
 
     else
     {
-      v48 = "off";
+      v46 = "off";
     }
 
-    snprintf(__ptr, 0x400uLL, "mode_cfg %s;\n", v48);
-    fprintf(v72, "%s%s", off_40008[0], __ptr);
+    snprintf(__ptr, 0x400uLL, "mode_cfg %s;\n", v46);
+    fprintf(v70, "%s%s", off_40008[0], __ptr);
   }
 
-  v49 = CFDictionaryGetValue(a1, @"Proposals");
-  v68 = a2;
-  theArray = v49;
-  v67 = a3;
-  if (isArray(v49))
+  v47 = CFDictionaryGetValue(a1, @"Proposals");
+  v66 = a2;
+  theArray = v47;
+  v65 = a3;
+  if (isArray(v47))
   {
-    v50 = CFArrayGetCount(v49);
+    v48 = CFArrayGetCount(v47);
   }
 
   else
   {
-    v50 = 0;
+    v48 = 0;
   }
 
-  v51 = 0;
-  v52 = 0;
-  if (v50 <= 1)
+  v49 = 0;
+  v50 = 0;
+  if (v48 <= 1)
   {
-    v53 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v53 = v50;
+    v51 = v48;
   }
 
-  cf1a = v53;
+  cf1a = v51;
   do
   {
-    if (v50)
+    if (v48)
     {
-      v52 = CFArrayGetValueAtIndex(theArray, v51);
-      if (!isDictionary(v52))
+      v50 = CFArrayGetValueAtIndex(theArray, v49);
+      if (!isDictionary(v50))
       {
-        *v68 = "incorrect phase 1 proposal";
+        *v66 = "incorrect phase 1 proposal";
         goto LABEL_233;
       }
     }
 
-    fprintf(v29, "%s%s", off_40008[0], "\n");
-    fprintf(v29, "%s%s", off_40008[0], "proposal {\n");
-    HIDWORD(v78) = 0;
-    v54 = CFDictionaryGetValue(a1, @"AuthenticationMethod");
-    GetIntFromDict(a1, @"XAuthEnabled", &v78 + 1, 0);
+    fprintf(v28, "%s%s", off_40008[0], "\n");
+    fprintf(v28, "%s%s", off_40008[0], "proposal {\n");
+    HIDWORD(v76) = 0;
+    v52 = CFDictionaryGetValue(a1, @"AuthenticationMethod");
+    GetIntFromDict(a1, @"XAuthEnabled", &v76 + 1, 0);
     __strlcpy_chk();
-    if (isString(v54))
+    if (isString(v52))
     {
-      if (!CFEqual(v54, @"SharedSecret") && !CFEqual(v54, @"Certificate") && !CFEqual(v54, @"Hybrid"))
+      if (!CFEqual(v52, @"SharedSecret") && !CFEqual(v52, @"Certificate") && !CFEqual(v52, @"Hybrid"))
       {
-        v38 = "incorrect authentication method";
+        v36 = "incorrect authentication method";
         goto LABEL_87;
       }
 
       __strlcpy_chk();
     }
 
-    snprintf(v85, 0x400uLL, "authentication_method %s;\n", v84);
-    fprintf(v72, "%s%s", off_40010[0], v85);
+    snprintf(v83, 0x400uLL, "authentication_method %s;\n", v82);
+    fprintf(v70, "%s%s", off_40010[0], v83);
     __strlcpy_chk();
-    if (!v52)
+    if (!v50)
     {
-      snprintf(v85, 0x400uLL, "hash_algorithm %s;\n", v84);
-      fprintf(v72, "%s%s", off_40010[0], v85);
+      snprintf(v83, 0x400uLL, "hash_algorithm %s;\n", v82);
+      fprintf(v70, "%s%s", off_40010[0], v83);
 LABEL_190:
       __strlcpy_chk();
       goto LABEL_191;
     }
 
-    v55 = CFDictionaryGetValue(v52, @"HashAlgorithm");
-    if (isString(v55))
+    v53 = CFDictionaryGetValue(v50, @"HashAlgorithm");
+    if (isString(v53))
     {
-      if (!CFEqual(v55, @"MD5") && !CFEqual(v55, @"SHA1") && !CFEqual(v55, @"SHA256") && !CFEqual(v55, @"SHA512"))
+      if (!CFEqual(v53, @"MD5") && !CFEqual(v53, @"SHA1") && !CFEqual(v53, @"SHA256") && !CFEqual(v53, @"SHA512"))
       {
-        v38 = "incorrect authentication algorithm";
+        v36 = "incorrect authentication algorithm";
         goto LABEL_87;
       }
 
       __strlcpy_chk();
     }
 
-    snprintf(v85, 0x400uLL, "hash_algorithm %s;\n", v84);
-    fprintf(v72, "%s%s", off_40010[0], v85);
+    snprintf(v83, 0x400uLL, "hash_algorithm %s;\n", v82);
+    fprintf(v70, "%s%s", off_40010[0], v83);
     __strlcpy_chk();
-    v56 = CFDictionaryGetValue(v52, @"EncryptionAlgorithm");
-    if (isString(v56))
+    v54 = CFDictionaryGetValue(v50, @"EncryptionAlgorithm");
+    if (isString(v54))
     {
-      if (!CFEqual(v56, @"DES") && !CFEqual(v56, @"3DES") && !CFEqual(v56, @"AES") && !CFEqual(v56, @"AES256"))
+      if (!CFEqual(v54, @"DES") && !CFEqual(v54, @"3DES") && !CFEqual(v54, @"AES") && !CFEqual(v54, @"AES256"))
       {
-        v38 = "incorrect encryption algorithm";
+        v36 = "incorrect encryption algorithm";
 LABEL_87:
-        *v68 = v38;
+        *v66 = v36;
 LABEL_88:
-        v29 = v72;
+        v28 = v70;
         goto LABEL_233;
       }
 
@@ -713,42 +713,42 @@ LABEL_88:
     }
 
 LABEL_191:
-    snprintf(v85, 0x400uLL, "encryption_algorithm %s;\n", v84);
-    v29 = v72;
-    fprintf(v72, "%s%s", off_40010[0], v85);
-    *v84 = 3600;
-    if (v52)
+    snprintf(v83, 0x400uLL, "encryption_algorithm %s;\n", v82);
+    v28 = v70;
+    fprintf(v70, "%s%s", off_40010[0], v83);
+    *v82 = 3600;
+    if (v50)
     {
-      GetIntFromDict(v52, @"Lifetime", v84, 3600);
-      snprintf(v85, 0x400uLL, "lifetime time %d sec;\n", *v84);
-      fprintf(v72, "%s%s", off_40010[0], v85);
-      *v84 = 14;
-      GetIntFromDict(v52, @"DHGroup", v84, 14);
-      v57 = *v84;
+      GetIntFromDict(v50, @"Lifetime", v82, 3600);
+      snprintf(v83, 0x400uLL, "lifetime time %d sec;\n", *v82);
+      fprintf(v70, "%s%s", off_40010[0], v83);
+      *v82 = 14;
+      GetIntFromDict(v50, @"DHGroup", v82, 14);
+      v55 = *v82;
     }
 
     else
     {
-      snprintf(v85, 0x400uLL, "lifetime time %d sec;\n", 3600);
-      fprintf(v72, "%s%s", off_40010[0], v85);
-      v57 = 14;
-      *v84 = 14;
+      snprintf(v83, 0x400uLL, "lifetime time %d sec;\n", 3600);
+      fprintf(v70, "%s%s", off_40010[0], v83);
+      v55 = 14;
+      *v82 = 14;
     }
 
-    snprintf(v85, 0x400uLL, "dh_group %d;\n", v57);
-    fprintf(v72, "%s%s", off_40010[0], v85);
-    fprintf(v72, "%s%s", off_40008[0], "}\n");
-    ++v51;
+    snprintf(v83, 0x400uLL, "dh_group %d;\n", v55);
+    fprintf(v70, "%s%s", off_40010[0], v83);
+    fprintf(v70, "%s%s", off_40008[0], "}\n");
+    ++v49;
   }
 
-  while (cf1a != v51);
-  fprintf(v72, "%s%s", TAB_LEVEL, "}\n\n");
-  v58 = CFDictionaryGetValue(a1, @"Policies");
-  if (!isArray(v58) || (v59 = CFArrayGetCount(v58)) == 0 || (!v66 ? (v60 = 1) : (v60 = v59), v60 < 1))
+  while (cf1a != v49);
+  fprintf(v70, "%s%s", TAB_LEVEL, "}\n\n");
+  v56 = CFDictionaryGetValue(a1, @"Policies");
+  if (!isArray(v56) || (v57 = CFArrayGetCount(v56)) == 0 || (!v64 ? (v58 = 1) : (v58 = v57), v58 < 1))
   {
 LABEL_227:
-    fclose(v29);
-    if (v67)
+    fclose(v28);
+    if (v65)
     {
       sub_2978();
     }
@@ -756,101 +756,101 @@ LABEL_227:
     return 0;
   }
 
-  v61 = 0;
-  v62 = "incorrect policy found";
+  v59 = 0;
+  v60 = "incorrect policy found";
   while (2)
   {
-    v78 = 0;
-    v77 = 0;
-    v73 = 0;
-    v74 = 0;
-    v63 = CFArrayGetValueAtIndex(v58, v61);
-    if (isDictionary(v63))
+    v76 = 0;
+    v75 = 0;
+    v71 = 0;
+    v72 = 0;
+    v61 = CFArrayGetValueAtIndex(v56, v59);
+    if (isDictionary(v61))
     {
-      v64 = CFDictionaryGetValue(v63, @"Level");
-      if (!isString(v64) || CFEqual(v64, @"None") || CFEqual(v64, @"Discard"))
+      v62 = CFDictionaryGetValue(v61, @"Level");
+      if (!isString(v62) || CFEqual(v62, @"None") || CFEqual(v62, @"Discard"))
       {
         goto LABEL_223;
       }
 
-      if (!CFEqual(v64, @"Require"))
+      if (!CFEqual(v62, @"Require"))
       {
-        v62 = "incorrect policy level found";
+        v60 = "incorrect policy level found";
 LABEL_246:
-        v29 = v72;
+        v28 = v70;
         break;
       }
 
-      if (v66)
+      if (v64)
       {
-        v65 = CFDictionaryGetValue(v63, @"Mode");
-        if (!isString(v65) || CFEqual(v65, @"Tunnel"))
+        v63 = CFDictionaryGetValue(v61, @"Mode");
+        if (!isString(v63) || CFEqual(v63, @"Tunnel"))
         {
-          if (!GetStrNetFromDict(v63, @"LocalAddress", __ptr, 256))
+          if (!GetStrNetFromDict(v61, @"LocalAddress", __ptr, 256))
           {
-            v62 = "incorrect policy local network";
+            v60 = "incorrect policy local network";
             goto LABEL_246;
           }
 
-          v29 = v72;
+          v28 = v70;
           if (!racoon_validate_cfg_str(__ptr))
           {
-            v62 = "invalid local network";
+            v60 = "invalid local network";
             break;
           }
 
-          if (!GetStrNetFromDict(v63, @"RemoteAddress", v84, 256))
+          if (!GetStrNetFromDict(v61, @"RemoteAddress", v82, 256))
           {
-            v62 = "incorrect policy remote network";
+            v60 = "incorrect policy remote network";
             break;
           }
 
-          if (!racoon_validate_cfg_str(v84))
+          if (!racoon_validate_cfg_str(v82))
           {
-            v62 = "invalid remote network";
+            v60 = "invalid remote network";
             break;
           }
 
-          GetIntFromDict(v63, @"LocalPrefix", &v77, 24);
-          if (!v77)
+          GetIntFromDict(v61, @"LocalPrefix", &v75, 24);
+          if (!v75)
           {
-            v62 = "incorrect policy local prefix";
+            v60 = "incorrect policy local prefix";
             break;
           }
 
-          GetIntFromDict(v63, @"RemotePrefix", &v74, 24);
-          if (!v74)
+          GetIntFromDict(v61, @"RemotePrefix", &v72, 24);
+          if (!v72)
           {
-            v62 = "incorrect policy remote prefix";
+            v60 = "incorrect policy remote prefix";
             break;
           }
 
-          snprintf(v81, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", __ptr, v77, v84, v74);
-          snprintf(v85, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", v84, v74, __ptr, v77);
+          snprintf(v79, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", __ptr, v75, v82, v72);
+          snprintf(v83, 0x100uLL, "sainfo address %s/%d 0 address %s/%d 0 {\n", v82, v72, __ptr, v75);
 LABEL_219:
-          fprintf(v29, "%s%s", TAB_LEVEL, v81);
-          if (sub_6AE4(v29, v63, v68))
+          fprintf(v28, "%s%s", TAB_LEVEL, v79);
+          if (sub_6AE4(v28, v61, v66))
           {
             goto LABEL_233;
           }
 
-          fprintf(v29, "%s%s", TAB_LEVEL, "}\n\n");
-          if (v66)
+          fprintf(v28, "%s%s", TAB_LEVEL, "}\n\n");
+          if (v64)
           {
-            v29 = v72;
-            fprintf(v72, "%s%s", TAB_LEVEL, v85);
-            if (sub_6AE4(v72, v63, v68))
+            v28 = v70;
+            fprintf(v70, "%s%s", TAB_LEVEL, v83);
+            if (sub_6AE4(v70, v61, v66))
             {
               goto LABEL_233;
             }
 
-            fprintf(v72, "%s%s", TAB_LEVEL, "}\n\n");
+            fprintf(v70, "%s%s", TAB_LEVEL, "}\n\n");
           }
 
 LABEL_223:
-          ++v61;
-          v29 = v72;
-          if (v60 == v61)
+          ++v59;
+          v28 = v70;
+          if (v58 == v59)
           {
             goto LABEL_227;
           }
@@ -858,36 +858,36 @@ LABEL_223:
           continue;
         }
 
-        if (!CFEqual(v65, @"Transport"))
+        if (!CFEqual(v63, @"Transport"))
         {
-          v62 = "incorrect policy type found";
+          v60 = "incorrect policy type found";
           goto LABEL_246;
         }
 
-        GetIntFromDict(v63, @"LocalPort", &v78 + 1, 0);
-        GetIntFromDict(v63, @"RemotePort", &v78, 0);
-        GetIntFromDict(v63, @"Protocol", &v73, 0);
-        GetIntFromDict(v63, @"LocalPrefix", &v77, 32);
-        GetIntFromDict(v63, @"RemotePrefix", &v74, 32);
-        snprintf(v81, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", cStr, v77, HIDWORD(v78), v73, v79, v74, v78, v73);
-        snprintf(v85, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", v79, v74, v78, v73, cStr, v77, HIDWORD(v78), v73);
+        GetIntFromDict(v61, @"LocalPort", &v76 + 1, 0);
+        GetIntFromDict(v61, @"RemotePort", &v76, 0);
+        GetIntFromDict(v61, @"Protocol", &v71, 0);
+        GetIntFromDict(v61, @"LocalPrefix", &v75, 32);
+        GetIntFromDict(v61, @"RemotePrefix", &v72, 32);
+        snprintf(v79, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", cStr, v75, HIDWORD(v76), v71, v77, v72, v76, v71);
+        snprintf(v83, 0x100uLL, "sainfo address %s/%d [%d] %d address %s/%d [%d] %d {\n", v77, v72, v76, v71, cStr, v75, HIDWORD(v76), v71);
       }
 
       else
       {
-        strcpy(v81, "sainfo anonymous {\n");
+        strcpy(v79, "sainfo anonymous {\n");
       }
 
-      v29 = v72;
+      v28 = v70;
       goto LABEL_219;
     }
 
     break;
   }
 
-  *v68 = v62;
+  *v66 = v60;
 LABEL_233:
-  fclose(v29);
+  fclose(v28);
 LABEL_20:
   if (__str[0].__pn_.__r_.__value_.__s.__data_[0])
   {
@@ -966,7 +966,7 @@ LABEL_7:
   return result;
 }
 
-const void *IPSecCountPolicies(const __CFDictionary *a1)
+CFIndex IPSecCountPolicies(const __CFDictionary *a1)
 {
   Value = CFDictionaryGetValue(a1, @"Policies");
   result = isArray(Value);
@@ -1942,7 +1942,7 @@ LABEL_53:
   return v31;
 }
 
-uint64_t IPSecRemoveSecurityAssociations(unsigned __int8 *a1, unsigned __int8 *a2)
+ssize_t IPSecRemoveSecurityAssociations(unsigned __int8 *a1, unsigned __int8 *a2)
 {
   v4 = pfkey_open();
   if (v4 < 0)
@@ -2027,24 +2027,23 @@ uint64_t get_src_address(_BYTE *a1, unsigned __int8 *a2, const char *a3, char *a
   if (result != -1)
   {
     v10 = result;
-    bzero(v43, 0x258uLL);
+    bzero(v41, 0x258uLL);
     __buf = 285540444;
-    v44 = 0x1100000807;
-    v45 = v8;
-    v46 = 1;
+    v42 = 0x1100000807;
+    v43 = v8;
+    v44 = 1;
     if (a3)
     {
       LODWORD(a3) = if_nametoindex(a3);
-      LODWORD(v44) = 16779271;
-      v43[0] = a3;
+      LODWORD(v42) = 16779271;
+      v41[0] = a3;
     }
 
-    v11 = v47;
-    v12 = *a2;
+    v11 = v45;
     __memmove_chk();
-    v13 = __buf + v47[0];
-    *&v47[v47[0]] = 4628;
-    LOWORD(__buf) = v13 + 20;
+    v12 = __buf + v45[0];
+    *&v45[v45[0]] = 4628;
+    LOWORD(__buf) = v12 + 20;
     while (write(v10, &__buf, __buf) == -1)
     {
       if (*__error() != 4)
@@ -2061,53 +2060,52 @@ uint64_t get_src_address(_BYTE *a1, unsigned __int8 *a2, const char *a3, char *a
       }
     }
 
-    v14 = 0;
+    v13 = 0;
     *__src = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    v15 = HIDWORD(v44);
+    v36 = 0u;
+    v37 = 0u;
+    v14 = HIDWORD(v42);
     do
     {
-      if (((1 << v14) & v15) != 0)
+      if (((1 << v13) & v14) != 0)
       {
-        *(&v38 + v14) = v11;
-        v16 = *v11;
-        if ((v16 & 3) != 0)
+        *(&v36 + v13) = v11;
+        v15 = *v11;
+        if ((v15 & 3) != 0)
         {
-          v17 = (v16 | 3) + 1;
+          v16 = (v15 | 3) + 1;
         }
 
         else
         {
-          v17 = *v11;
+          v16 = *v11;
         }
 
-        *v11;
         if (*v11)
         {
-          v18 = v17;
+          v17 = v16;
         }
 
         else
         {
-          v18 = 4;
+          v17 = 4;
         }
 
-        v11 += v18;
-        v15 ^= 1 << v14;
+        v11 += v17;
+        v14 ^= 1 << v13;
       }
 
       else
       {
-        *(&v38 + v14) = 0;
+        *(&v36 + v13) = 0;
       }
 
-      ++v14;
+      ++v13;
     }
 
-    while (v14 != 8);
-    if (!a1 || (v19 = __src[1]) == 0 || (v20 = __src[0], a4) && !__src[0])
+    while (v13 != 8);
+    if (!a1 || (v18 = __src[1]) == 0 || (v19 = __src[0], a4) && !__src[0])
     {
 LABEL_7:
       close(v10);
@@ -2116,21 +2114,21 @@ LABEL_7:
 
     if (*(__src[1] + 1) == 30 && *(__src[1] + 8) == 254 && (*(__src[1] + 9) & 0xC0) == 0x80)
     {
-      v21 = *(__src[1] + 5);
+      v20 = *(__src[1] + 5);
       if (*(__src[1] + 5))
       {
         *(__src[1] + 5) = 0;
-        if (!v19[6])
+        if (!v18[6])
         {
-          v19[6] = __rev16(v21);
+          v18[6] = __rev16(v20);
         }
       }
     }
 
-    memmove(a1, v19, *v19);
+    memmove(a1, v18, *v18);
     if (a4)
     {
-      strncpy(a4, v20 + 8, 0x10uLL);
+      strncpy(a4, v19 + 8, 0x10uLL);
     }
 
     close(v10);
@@ -2139,80 +2137,79 @@ LABEL_7:
       return 0;
     }
 
-    LODWORD(v37) = 128;
-    HIDWORD(v37) = a3;
-    v22 = malloc_type_calloc(1uLL, 0x80uLL, 0x2FFDBC06uLL);
-    if (v22)
+    LODWORD(v35) = 128;
+    HIDWORD(v35) = a3;
+    v21 = malloc_type_calloc(1uLL, 0x80uLL, 0x2FFDBC06uLL);
+    if (v21)
     {
-      v23 = v22;
-      v24 = socket(a2[1], 2, 0);
-      if (v24 < 0)
+      v22 = v21;
+      v23 = socket(a2[1], 2, 0);
+      if (v23 < 0)
       {
-        v31 = __error();
-        v32 = strerror(*v31);
-        syslog(3, "socket (%s)\n", v32);
+        v29 = __error();
+        v30 = strerror(*v29);
+        syslog(3, "socket (%s)\n", v30);
       }
 
       else
       {
-        v25 = v24;
-        if (fcntl(v24, 4, 4, v37, v38, v39) == -1)
+        v24 = v23;
+        if (fcntl(v23, 4, 4, v35, v36, v37) == -1)
         {
           syslog(3, "failed to put localaddr socket in non-blocking mode\n");
         }
 
         if (a3)
         {
-          v26 = a2[1] == 2 ? 0 : 41;
-          v27 = a2[1] == 2 ? 25 : 125;
-          if (setsockopt(v25, v26, v27, &v37 + 4, 4u))
+          v25 = a2[1] == 2 ? 0 : 41;
+          v26 = a2[1] == 2 ? 25 : 125;
+          if (setsockopt(v24, v25, v26, &v35 + 4, 4u))
           {
-            v28 = __error();
-            v29 = strerror(*v28);
-            syslog(3, "failed to set IP family on localaddr socket: %s\n", v29);
+            v27 = __error();
+            v28 = strerror(*v27);
+            syslog(3, "failed to set IP family on localaddr socket: %s\n", v28);
           }
         }
 
-        v54 = 0u;
-        v55 = 0u;
         v52 = 0u;
         v53 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v48 = 0;
+        v48 = 0u;
         v49 = 0u;
-        v30 = *a2;
+        v46 = 0;
+        v47 = 0u;
         __memcpy_chk();
-        if (v48.sa_family == 30 || v48.sa_family == 2)
+        if (v46.sa_family == 30 || v46.sa_family == 2)
         {
-          *v48.sa_data = -14161;
+          *v46.sa_data = -14161;
         }
 
-        if (connect(v25, &v48, v48.sa_len) < 0)
+        if (connect(v24, &v46, v46.sa_len) < 0)
         {
-          v33 = __error();
-          v34 = strerror(*v33);
-          syslog(3, "connect (%s)\n", v34);
-          close(v25);
+          v31 = __error();
+          v32 = strerror(*v31);
+          syslog(3, "connect (%s)\n", v32);
+          close(v24);
         }
 
         else
         {
-          if (getsockname(v25, v23, &v37) < 0)
+          if (getsockname(v24, v22, &v35) < 0)
           {
-            v35 = __error();
-            v36 = strerror(*v35);
-            syslog(3, "getsockname (%s)\n", v36);
-            close(v25);
+            v33 = __error();
+            v34 = strerror(*v33);
+            syslog(3, "getsockname (%s)\n", v34);
+            close(v24);
             return 0;
           }
 
-          close(v25);
-          memcpy(a1, v23, v23->sa_len);
+          close(v24);
+          memcpy(a1, v22, v22->sa_len);
         }
       }
 
-      free(v23);
+      free(v22);
     }
 
     else
@@ -2226,39 +2223,39 @@ LABEL_7:
   return result;
 }
 
-uint64_t get_if_mtu()
+uint64_t get_if_mtu(uint64_t a1)
 {
-  v4 = 0u;
   v5 = 0u;
-  v0 = 1500;
-  LODWORD(v5) = 1500;
-  v1 = socket(2, 2, 0);
-  if ((v1 & 0x80000000) == 0)
+  v6 = 0u;
+  v1 = 1500;
+  LODWORD(v6) = 1500;
+  v2 = socket(2, 2, 0);
+  if ((v2 & 0x80000000) == 0)
   {
-    v2 = v1;
+    v3 = v2;
     __strlcpy_chk();
-    ioctl(v2, 0xC0206933uLL, &v4);
-    close(v2);
-    return v5;
+    ioctl(v3, 0xC0206933uLL, &v5);
+    close(v3);
+    return v6;
   }
 
-  return v0;
+  return v1;
 }
 
-uint64_t get_if_media()
+uint64_t get_if_media(uint64_t a1)
 {
-  memset(v3, 0, 44);
-  v0 = socket(2, 2, 0);
-  if (v0 < 0)
+  memset(v4, 0, 44);
+  v1 = socket(2, 2, 0);
+  if (v1 < 0)
   {
     return 0;
   }
 
-  v1 = v0;
+  v2 = v1;
   __strlcpy_chk();
-  ioctl(v1, 0xC02C6938uLL, v3);
-  close(v1);
-  return LODWORD(v3[1]);
+  ioctl(v2, 0xC02C6938uLL, v4);
+  close(v2);
+  return LODWORD(v4[1]);
 }
 
 uint64_t get_if_baudrate(const char *a1)
@@ -3458,8 +3455,9 @@ size_t sub_723C(unsigned int a1, unsigned int a2)
   return result;
 }
 
-uint64_t scnc_cache_routing_table(uint64_t a1, const __CFDictionary *a2, int a3, int a4)
+uint64_t scnc_cache_routing_table(uint64_t a1, const __CFDictionary *a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   if (qword_40528 != -1)
   {
     sub_2C4D8();
@@ -3489,7 +3487,7 @@ uint64_t scnc_cache_routing_table(uint64_t a1, const __CFDictionary *a2, int a3,
     return 0;
   }
 
-  if (a3)
+  if (v5)
   {
     v13 = kSCEntNetIPv4;
   }
@@ -3504,8 +3502,8 @@ uint64_t scnc_cache_routing_table(uint64_t a1, const __CFDictionary *a2, int a3,
   v19[2] = sub_786C;
   v19[3] = &unk_392B0;
   v20 = a4;
-  v21 = a3;
-  if (a3)
+  v21 = v5;
+  if (v5)
   {
     v14 = kSCEntNetIPv6;
   }
@@ -3521,7 +3519,7 @@ uint64_t scnc_cache_routing_table(uint64_t a1, const __CFDictionary *a2, int a3,
   v16[2] = sub_7BDC;
   v16[3] = &unk_39310;
   v17 = a4;
-  v18 = a3;
+  v18 = v5;
   sub_75AC(v12, a2, a4, @"IPv6", v14, v16);
   if (my_CFEqual(Value, v12))
   {
@@ -3981,7 +3979,7 @@ void sub_80C4(id a1)
   SCPreferencesSynchronize(v1);
 }
 
-uint64_t ipsec_check_keylen(int a1, int a2, unsigned int a3)
+uint64_t ipsec_check_keylen(int a1, uint64_t a2, unsigned int a3)
 {
   v5 = 2;
   if (a1 != 14)
@@ -4036,7 +4034,7 @@ LABEL_14:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t ipsec_check_keylen2(int a1, int a2, unsigned int a3)
+uint64_t ipsec_check_keylen2(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v4 = sub_8234(a1, a2);
   if (!v4)
@@ -4241,7 +4239,7 @@ uint64_t pfkey_get_softrate(int a1)
   return result;
 }
 
-uint64_t pfkey_send_getspi(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned int a6, unsigned int a7, int a8, int a9)
+ssize_t pfkey_send_getspi(uint64_t a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned int a6, unsigned int a7, int a8, int a9)
 {
   if (a4 && a5)
   {
@@ -4256,6 +4254,7 @@ uint64_t pfkey_send_getspi(int a1, char a2, char a3, unsigned __int8 *a4, unsign
 
       else
       {
+        v17 = a1;
         if (v11 == 2)
         {
           v18 = 32;
@@ -4328,7 +4327,7 @@ LABEL_41:
 
                   if (v32 == v30)
                   {
-                    v27 = pfkey_send(a1, v25, v23);
+                    v27 = pfkey_send(v17, v25, v23);
                     free(v25);
                     if ((v27 & 0x80000000) == 0)
                     {
@@ -4415,7 +4414,7 @@ ssize_t pfkey_send(int a1, const void *a2, int a3)
   return result;
 }
 
-uint64_t sub_8940(int a1, char a2, int a3, char a4, unsigned __int8 *a5, unsigned __int8 *a6, int a7, int a8, char a9, char *a10, int a11, unsigned int a12, int a13, unsigned int a14, int a15, int a16, unsigned int a17, unsigned int a18, unsigned int a19, int a20)
+ssize_t sub_8940(int a1, char a2, int a3, char a4, unsigned __int8 *a5, unsigned __int8 *a6, int a7, int a8, char a9, char *a10, int a11, unsigned int a12, int a13, unsigned int a14, int a15, int a16, unsigned int a17, unsigned int a18, unsigned int a19, int a20)
 {
   if (!a5 || !a6)
   {
@@ -4620,7 +4619,7 @@ LABEL_36:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_8FE8(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6)
+ssize_t sub_8FE8(int a1, char a2, char a3, unsigned __int8 *a4, unsigned __int8 *a5, int a6)
 {
   if (!a4 || !a5)
   {
@@ -4661,38 +4660,7 @@ LABEL_10:
   {
     v18 = v17;
     v19 = getpid();
-    if (v15 <= -35)
-    {
-      goto LABEL_24;
-    }
-
-    *v18 = 0;
-    v18[1] = 0;
-    *v18 = 2;
-    *(v18 + 1) = a2;
-    *(v18 + 2) = 0;
-    *(v18 + 3) = a3;
-    *(v18 + 1) = (v16 >> 3);
-    *(v18 + 2) = 0;
-    *(v18 + 3) = v19;
-    if (v15 <= -19)
-    {
-      goto LABEL_24;
-    }
-
-    v18[2] = 0;
-    v18[3] = 0;
-    *(v18 + 4) = 65538;
-    *(v18 + 5) = a6;
-    v18[3] = 0;
-    v23 = sub_87FC(v18 + 16, v18 + v16, 5, a4, v13, 255);
-    if (!v23)
-    {
-      goto LABEL_24;
-    }
-
-    v24 = sub_87FC(v23, v18 + v16, 6, a5, v13, 255);
-    if (v24 && v24 == v18 + v16)
+    if (v15 > -35 && (*v18 = 0, v18[1] = 0, *v18 = 2, *(v18 + 1) = a2, *(v18 + 2) = 0, *(v18 + 3) = a3, *(v18 + 1) = (v16 >> 3), *(v18 + 2) = 0, *(v18 + 3) = v19, v15 > -19) && (v18[2] = 0, v18[3] = 0, *(v18 + 4) = 65538, *(v18 + 5) = a6, v18[3] = 0, (v23 = sub_87FC(v18 + 16, v18 + v16, 5, a4, v13, 255)) != 0) && ((v24 = sub_87FC(v23, v18 + v16, 6, a5, v13, 255)) != 0 ? (v25 = v24 == v18 + v16) : (v25 = 0), v25))
     {
       v20 = pfkey_send(a1, v18, v16);
       free(v18);
@@ -4705,7 +4673,6 @@ LABEL_10:
 
     else
     {
-LABEL_24:
       free(v18);
     }
   }
@@ -4721,7 +4688,7 @@ LABEL_24:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t pfkey_send_delete_all(int a1, char a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5)
+ssize_t pfkey_send_delete_all(int a1, char a2, uint64_t a3, unsigned __int8 *a4, unsigned __int8 *a5)
 {
   if (!a4 || !a5)
   {
@@ -4762,27 +4729,7 @@ LABEL_10:
   {
     v15 = v14;
     v16 = getpid();
-    if (v12 <= -19)
-    {
-      goto LABEL_12;
-    }
-
-    *v15 = 0;
-    v15[1] = 0;
-    *v15 = 1026;
-    *(v15 + 2) = 0;
-    *(v15 + 3) = a2;
-    *(v15 + 1) = (v13 >> 3);
-    *(v15 + 2) = 0;
-    *(v15 + 3) = v16;
-    v20 = sub_87FC(v15 + 8, v15 + v13, 5, a4, v10, 255);
-    if (!v20)
-    {
-      goto LABEL_12;
-    }
-
-    v21 = sub_87FC(v20, v15 + v13, 6, a5, v10, 255);
-    if (v21 && v21 == v15 + v13)
+    if (v12 > -19 && (*v15 = 0, v15[1] = 0, *v15 = 1026, *(v15 + 2) = 0, *(v15 + 3) = a2, *(v15 + 1) = (v13 >> 3), *(v15 + 2) = 0, *(v15 + 3) = v16, (v20 = sub_87FC(v15 + 8, v15 + v13, 5, a4, v10, 255)) != 0) && ((v21 = sub_87FC(v20, v15 + v13, 6, a5, v10, 255)) != 0 ? (v22 = v21 == v15 + v13) : (v22 = 0), v22))
     {
       v17 = pfkey_send(a1, v15, v13);
       free(v15);
@@ -4795,7 +4742,6 @@ LABEL_10:
 
     else
     {
-LABEL_12:
       free(v15);
     }
   }
@@ -4811,8 +4757,10 @@ LABEL_12:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t pfkey_send_register(int a1, unsigned int a2)
+ssize_t pfkey_send_register(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   v4 = 0;
   if (a2)
   {
@@ -4850,10 +4798,10 @@ uint64_t pfkey_send_register(int a1, unsigned int a2)
     while (v4 != 24);
   }
 
-  return sub_9678(a1, 7, a2);
+  return sub_9678(v3, 7, v2);
 }
 
-uint64_t sub_9678(int a1, int a2, unsigned int a3)
+ssize_t sub_9678(int a1, int a2, unsigned int a3)
 {
   v3 = a3;
   v4 = a2;
@@ -5128,46 +5076,7 @@ LABEL_17:
   {
     v25 = v24;
     v26 = getpid();
-    if (v23 <= 15)
-    {
-      goto LABEL_25;
-    }
-
-    *v25 = 0;
-    v25[1] = 0;
-    *v25 = 2;
-    *(v25 + 1) = a2;
-    v30 = v25 + v23;
-    *(v25 + 1) = 0;
-    *(v25 + 1) = (v23 >> 3);
-    *(v25 + 2) = a12;
-    *(v25 + 3) = v26;
-    v31 = sub_87FC(v25 + 8, v25 + v23, 5, a3, v18, a7);
-    if (!v31)
-    {
-      goto LABEL_25;
-    }
-
-    v32 = sub_87FC(v31, v25 + v23, 6, a5, v17, a7);
-    if (!v32)
-    {
-      goto LABEL_25;
-    }
-
-    v33 = v32;
-    v34 = v32 + 32;
-    if (v34 > v30)
-    {
-      goto LABEL_25;
-    }
-
-    *v33 = 0u;
-    *(v33 + 1) = 0u;
-    *v33 = 196612;
-    *(v33 + 1) = 0;
-    *(v33 + 2) = a8;
-    *(v33 + 3) = a9;
-    if (&v34[a11] == v30)
+    if (v23 > 15 && (*v25 = 0, v25[1] = 0, *v25 = 2, *(v25 + 1) = a2, v30 = v25 + v23, *(v25 + 1) = 0, *(v25 + 1) = (v23 >> 3), *(v25 + 2) = a12, *(v25 + 3) = v26, (v31 = sub_87FC(v25 + 8, v25 + v23, 5, a3, v18, a7)) != 0) && (v32 = sub_87FC(v31, v25 + v23, 6, a5, v17, a7)) != 0 && (v33 = v32, v34 = v32 + 32, v34 <= v30) && (*v33 = 0u, *(v33 + 1) = 0u, *v33 = 196612, *(v33 + 1) = 0, *(v33 + 2) = a8, *(v33 + 3) = a9, &v34[a11] == v30))
     {
       memcpy(v34, __src, a11);
       v27 = pfkey_send(a1, v25, v23);
@@ -5181,7 +5090,6 @@ LABEL_17:
 
     else
     {
-LABEL_25:
       free(v25);
     }
   }
@@ -5208,7 +5116,7 @@ ssize_t pfkey_send_spddelete(int a1, unsigned __int8 *a2, unsigned int a3, unsig
   return 0xFFFFFFFFLL;
 }
 
-uint64_t sub_A08C(int a1, char a2, int a3)
+ssize_t sub_A08C(int a1, char a2, int a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x20uLL, 0x1000040451B5BE8uLL);
   if (!v6)
@@ -5487,14 +5395,14 @@ LABEL_8:
 char *sub_A524(_WORD *a1, unint64_t a2, __int16 a3, const void *a4, unsigned int a5)
 {
   v5 = (a5 - 1) | 7;
-  v6 = (v5 + 9);
+  v6 = v5 + 9;
   v7 = a1 + v6;
   if (a1 + v6 > a2)
   {
     return 0;
   }
 
-  bzero(a1, (v5 + 9));
+  bzero(a1, v5 + 9);
   *a1 = v6 >> 3;
   a1[1] = a3;
   a1[2] = 8 * a5;
@@ -5638,7 +5546,7 @@ LABEL_16:
   return v17;
 }
 
-const void *get_cf_option(void *key, const void *a2, uint64_t a3, CFDictionaryRef theDict, CFDictionaryRef a5, uint64_t a6)
+uint64_t get_cf_option(void *key, const void *a2, uint64_t a3, CFDictionaryRef theDict, CFDictionaryRef a5, uint64_t a6)
 {
   if (!theDict || (v11 = CFDictionaryGetValue(theDict, key)) == 0 || (v12 = v11, v13 = CFGetTypeID(v11), v13 != CFDictionaryGetTypeID()) || (v14 = CFDictionaryGetValue(v12, a2)) == 0 || (v15 = v14, CFGetTypeID(v14) != a3))
   {
@@ -6130,7 +6038,7 @@ void sub_B608(uint64_t a1)
 
 uint64_t ppp_setup_service(uint64_t a1)
 {
-  v27 = 0;
+  v25 = 0;
   *(a1 + 72) &= 0xF780FEFF;
   my_CFRelease((a1 + 136));
   v2 = *(a1 + 584);
@@ -6138,7 +6046,7 @@ uint64_t ppp_setup_service(uint64_t a1)
   {
     v3 = ne_sm_bridge_copy_configuration(v2);
     v4 = v3;
-    v27 = v3;
+    v25 = v3;
     if (v3 && (Value = CFDictionaryGetValue(v3, kSCEntNetPPP)) != 0)
     {
       v6 = CFRetain(Value);
@@ -6158,36 +6066,36 @@ uint64_t ppp_setup_service(uint64_t a1)
     *(a1 + 136) = v6;
   }
 
-  v28 = 0;
+  v26 = 0;
   if (!v6)
   {
     goto LABEL_25;
   }
 
-  v28 = 0;
-  getNumber(v6, kSCPropNetPPPDialOnDemand, &v28);
-  if (v28)
+  v26 = 0;
+  getNumber(v6, kSCPropNetPPPDialOnDemand, &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x10000u;
   }
 
-  v28 = 0;
-  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnLogout, &v28);
-  if (v28)
+  v26 = 0;
+  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnLogout, &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x20000u;
   }
 
-  v28 = *(a1 + 66) != 5;
-  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnSleep, &v28);
-  if (v28)
+  v26 = *(a1 + 66) != 5;
+  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnSleep, &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x40000u;
   }
 
-  v28 = 0;
-  getNumber(*(a1 + 136), kSCPropNetPPPOnDemandEnabled, &v28);
-  if (v28)
+  v26 = 0;
+  getNumber(*(a1 + 136), kSCPropNetPPPOnDemandEnabled, &v26);
+  if (v26)
   {
     v7 = 18874368;
   }
@@ -6204,34 +6112,34 @@ uint64_t ppp_setup_service(uint64_t a1)
 
   *(a1 + 72) |= v7;
 LABEL_17:
-  v28 = *(a1 + 66) != 5;
-  getNumber(*(a1 + 136), @"PreventIdleSleep", &v28);
+  v26 = *(a1 + 66) != 5;
+  getNumber(*(a1 + 136), @"PreventIdleSleep", &v26);
   v8 = *(a1 + 72);
-  if (v28)
+  if (v26)
   {
     v8 |= 0x80000u;
     *(a1 + 72) = v8;
   }
 
-  v28 = v8 & 0x20000;
-  getNumber(*(a1 + 136), @"DisconnectOnFastUserSwitch", &v28);
-  if (v28)
+  v26 = v8 & 0x20000;
+  getNumber(*(a1 + 136), @"DisconnectOnFastUserSwitch", &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x100000u;
   }
 
-  v28 = 1;
+  v26 = 1;
   *(a1 + 196) = 0;
-  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnWake, &v28);
-  if (v28)
+  getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnWake, &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x8000000u;
     getNumber(*(a1 + 136), kSCPropNetPPPDisconnectOnWakeTimer, (a1 + 196));
   }
 
-  v28 = 0;
-  getNumber(*(a1 + 136), @"ConnectionPersist", &v28);
-  if (v28)
+  v26 = 0;
+  getNumber(*(a1 + 136), @"ConnectionPersist", &v26);
+  if (v26)
   {
     *(a1 + 72) |= 0x400000u;
   }
@@ -6243,9 +6151,9 @@ LABEL_25:
     if (v9)
     {
       v10 = v9;
-      *&v30.sa_len = 0;
-      *&v30.sa_data[6] = 0;
-      v31 = 0;
+      *&v28.sa_len = 0;
+      *&v28.sa_data[6] = 0;
+      v29 = 0;
       v11 = CFDictionaryGetValue(v9, kSCPropNetInterfaceDeviceName);
       v12 = CFDictionaryGetValue(v10, kSCPropNetInterfaceHardware);
       TypeID = CFStringGetTypeID();
@@ -6265,13 +6173,13 @@ LABEL_25:
         goto LABEL_33;
       }
 
-      v25 = *(a1 + 80);
-      if (!v25)
+      v23 = *(a1 + 80);
+      if (!v23)
       {
         goto LABEL_67;
       }
 
-      if (CFStringCompare(v11, v25, 0))
+      if (CFStringCompare(v11, v23, 0))
       {
         sub_B608(a1);
       }
@@ -6279,15 +6187,15 @@ LABEL_25:
       if (!*(a1 + 80))
       {
 LABEL_67:
-        v26 = socket(27, 3, 0);
-        *(a1 + 624) = v26;
-        if ((v26 & 0x80000000) == 0)
+        v24 = socket(27, 3, 0);
+        *(a1 + 624) = v24;
+        if ((v24 & 0x80000000) == 0)
         {
           *(a1 + 80) = v11;
           CFRetain(v11);
-          CFStringGetCString(v11, v30.sa_data, 16, 0);
-          *&v30.sa_len = 6930;
-          if (bind(*(a1 + 624), &v30, 0x12u) < 0)
+          CFStringGetCString(v11, v28.sa_data, 16, 0);
+          *&v28.sa_len = 6930;
+          if (bind(*(a1 + 624), &v28, 0x12u) < 0)
           {
 LABEL_33:
             sub_B608(a1);
@@ -6309,39 +6217,39 @@ LABEL_33:
   else if (v15)
   {
     *(a1 + 72) = *(a1 + 72) & 0xFFFFFFE7 | 0x10;
-    if (v4 || (v4 = copyService(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24)), (v27 = v4) != 0))
+    if (v4 || (v4 = copyService(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24)), (v25 = v4) != 0))
     {
-      v20 = *(a1 + 128);
-      v21 = CFDictionaryGetValue(v4, kSCEntNetPPP);
-      if (v21)
+      v18 = *(a1 + 128);
+      v19 = CFDictionaryGetValue(v4, kSCEntNetPPP);
+      if (v19)
       {
-        v22 = CFGetTypeID(v21);
-        if (v22 == CFDictionaryGetTypeID())
+        v20 = CFGetTypeID(v19);
+        if (v20 == CFDictionaryGetTypeID())
         {
-          v29 = 0;
-          v23 = *(a1 + 596);
-          sub_DD44(v23, "[OPTIONS]");
-          get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPIdleReminder, v20, v4, &v29 + 1, 0);
-          if (HIDWORD(v29))
+          v27 = 0;
+          v21 = *(a1 + 596);
+          sub_DD44(v21, "[OPTIONS]");
+          get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPIdleReminder, v18, v4, &v27 + 1, 0);
+          if (HIDWORD(v27))
           {
-            get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPIdleReminderTimer, v20, v4, &v29 + 1, 0);
-            v24 = HIDWORD(v29);
+            get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPIdleReminderTimer, v18, v4, &v27 + 1, 0);
+            v22 = HIDWORD(v27);
           }
 
           else
           {
-            v24 = 0;
+            v22 = 0;
           }
 
-          sub_10294(v23, "reminder", v24);
-          ppp_getoptval(a1, v20, v4, 4, &v29 + 4, 4u, &v29);
-          sub_10294(v23, "idle", SHIDWORD(v29));
-          if (v20 && GetStrFromDict(v20, @"OutgoingInterface", &v30, 24, ""))
+          sub_10294(v21, "reminder", v22);
+          ppp_getoptval(a1, v18, v4, 4, &v27 + 4, 4u, &v27);
+          sub_10294(v21, "idle", SHIDWORD(v27));
+          if (v18 && GetStrFromDict(v18, @"OutgoingInterface", &v28, 24, ""))
           {
-            sub_10314(v23, "ifscope", &v30);
+            sub_10314(v21, "ifscope", &v28);
           }
 
-          sub_DD44(v23, "[EOP]");
+          sub_DD44(v21, "[EOP]");
         }
       }
     }
@@ -6352,20 +6260,22 @@ LABEL_33:
     v16 = *(a1 + 72);
     if ((v16 & 0x10000) != 0 && ((v16 & 0x20000) == 0 || gLoggedInUser))
     {
-      v17 = *(a1 + 96);
-      v18 = *(a1 + 100);
-      ppp_start(a1, 0);
+      ppp_start(a1, 0, 0, 0, *(a1 + 96), *(a1 + 100), 1, 0);
     }
   }
 
-  my_CFRelease(&v27);
+  my_CFRelease(&v25);
   return 0;
 }
 
-uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, int a3, int a4, mach_port_name_t a5, mach_port_name_t a6, int a7, int a8)
+uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v135 = 1;
-  v136 = 0;
+  v8 = a6;
+  v9 = a5;
+  v10 = a4;
+  v11 = a3;
+  v151 = 1;
+  v152 = 0;
   *(a1 + 72) &= 0xFFFFFDE7;
   v14 = *(a1 + 628);
   if (v14)
@@ -6374,10 +6284,10 @@ uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, int a3, int a4, mach_port_name_t
     {
       my_CFRelease((a1 + 640));
       *(a1 + 640) = cf1;
-      *(a1 + 648) = a3;
-      *(a1 + 652) = a4;
-      *(a1 + 656) = a5;
-      *(a1 + 660) = a6;
+      *(a1 + 648) = v11;
+      *(a1 + 652) = v10;
+      *(a1 + 656) = v9;
+      *(a1 + 660) = v8;
       my_CFRetain(cf1);
       scnc_stop(a1, 0, 15, 0);
       result = 0;
@@ -6386,7 +6296,7 @@ uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, int a3, int a4, mach_port_name_t
 
     else if (my_CFEqual(cf1, *(a1 + 128)))
     {
-      phase_changed(a1, *(a1 + 628));
+      phase_changed(a1, *(a1 + 628), v18, v19, v20, v21, v22, v23);
       return 0;
     }
 
@@ -6398,13 +6308,14 @@ uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, int a3, int a4, mach_port_name_t
     return result;
   }
 
-  __source = *(a1 + 136);
-  scnc_log(7, @"PPP Controller: VPN System Prefs %@");
-  scnc_log(7, @"PPP Controller: VPN User Options %@");
-  v20 = *(a1 + 168);
-  if (v20)
+  v24 = a8;
+  v25 = a7;
+  scnc_log(7, @"PPP Controller: VPN System Prefs %@", a3, a4, a5, a6, a7, a8, *(a1 + 136));
+  scnc_log(7, @"PPP Controller: VPN User Options %@", v26, v27, v28, v29, v30, v31, cf1);
+  v32 = *(a1 + 168);
+  if (v32)
   {
-    CFUserNotificationCancel(v20);
+    CFUserNotificationCancel(v32);
     Current = CFRunLoopGetCurrent();
     CFRunLoopRemoveSource(Current, *(a1 + 176), kCFRunLoopDefaultMode);
     my_CFRelease((a1 + 168));
@@ -6412,462 +6323,462 @@ uint64_t ppp_start(unint64_t a1, CFTypeRef cf1, int a3, int a4, mach_port_name_t
   }
 
   *(a1 + 632) = 1;
-  v22 = *(a1 + 584);
-  if (v22)
+  v34 = *(a1 + 584);
+  if (v34)
   {
-    v23 = ne_sm_bridge_copy_configuration(v22);
+    v35 = ne_sm_bridge_copy_configuration(v34);
   }
 
   else
   {
-    v23 = copyService(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24));
+    v35 = copyService(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24));
   }
 
-  v24 = v23;
-  v143 = 0u;
-  v144 = 0u;
-  v141 = 0u;
-  v142 = 0u;
-  v140 = 0u;
-  if (v23)
+  v36 = v35;
+  v159 = 0u;
+  v160 = 0u;
+  v157 = 0u;
+  v158 = 0u;
+  v156 = 0u;
+  if (v35)
   {
-    v143 = 0uLL;
-    v144 = 0uLL;
-    v141 = 0uLL;
-    v142 = 0uLL;
-    v140 = 0uLL;
-    sub_EC48(&v140, &v136, "pppd");
-    sub_EC48(&v140, &v136, "serviceid");
-    sub_EC48(&v140, &v136, *(a1 + 56));
-    sub_EC48(&v140, &v136, "controlled");
-    if (socketpair(1, 1, 0, (a1 + 592)) == -1 || socketpair(1, 1, 0, (a1 + 600)) == -1 || setsockopt(*(a1 + 596), 0xFFFF, 4130, &v135, 4u) == -1)
+    v159 = 0uLL;
+    v160 = 0uLL;
+    v157 = 0uLL;
+    v158 = 0uLL;
+    v156 = 0uLL;
+    sub_EC48(&v156, &v152, "pppd");
+    sub_EC48(&v156, &v152, "serviceid");
+    sub_EC48(&v156, &v152, *(a1 + 56));
+    sub_EC48(&v156, &v152, "controlled");
+    if (socketpair(1, 1, 0, (a1 + 592)) == -1 || socketpair(1, 1, 0, (a1 + 600)) == -1 || setsockopt(*(a1 + 596), 0xFFFF, 4130, &v151, 4u) == -1)
     {
       goto LABEL_309;
     }
 
-    *(a1 + 72) = *(a1 + 72) & 0xFFFFFBFF | ((a8 != 0) << 10);
-    *(a1 + 88) = a3;
-    *(a1 + 92) = a4;
-    scnc_bootstrap_retain(a1, a5);
-    scnc_ausession_retain(a1, a6);
+    *(a1 + 72) = *(a1 + 72) & 0xFFFFFBFF | ((v24 != 0) << 10);
+    *(a1 + 88) = v11;
+    *(a1 + 92) = v10;
+    scnc_bootstrap_retain(a1, v9);
+    scnc_ausession_retain(a1, v8);
     if (*(a1 + 584))
     {
-      Value = CFDictionaryGetValue(v24, @"EnvironmentVariables");
+      Value = CFDictionaryGetValue(v36, @"EnvironmentVariables");
       if (!Value)
       {
         goto LABEL_26;
       }
 
-      v26 = CFRetain(Value);
+      v38 = CFRetain(Value);
     }
 
     else
     {
-      v26 = collectEnvironmentVariables(gDynamicStore, *(a1 + 24));
+      v38 = collectEnvironmentVariables(gDynamicStore, *(a1 + 24));
     }
 
-    v27 = v26;
-    if (v26)
+    v39 = v38;
+    if (v38)
     {
-      extractEnvironmentVariables(v26, a1);
-      CFRelease(v27);
+      extractEnvironmentVariables(v38, a1);
+      CFRelease(v39);
     }
 
 LABEL_26:
-    v28 = makeref(a1);
-    v29 = geteuid();
-    v30 = getegid();
-    v31 = makeref(a1);
-    v32 = SCNCPluginExecCommand2(0, sub_ECBC, v28, v29, v30, "/usr/sbin/pppd", &v140, sub_EE8C, v31);
-    *(a1 + 608) = v32;
-    if (v32 != -1)
+    v40 = makeref(a1);
+    v41 = geteuid();
+    v42 = getegid();
+    v43 = makeref(a1);
+    v44 = SCNCPluginExecCommand2(0, sub_ECBC, v40, v41, v42, "/usr/sbin/pppd", &v156, sub_EE8C, v43);
+    *(a1 + 608) = v44;
+    if (v44 != -1)
     {
-      v138 = 0;
-      v137 = 0;
-      v33 = kSCEntNetPPP;
-      v34 = CFDictionaryGetValue(v24, kSCEntNetPPP);
-      if (v34)
+      v154 = 0;
+      v153 = 0;
+      v45 = kSCEntNetPPP;
+      v46 = CFDictionaryGetValue(v36, kSCEntNetPPP);
+      if (v46)
       {
-        v35 = v34;
-        v36 = CFGetTypeID(v34);
-        if (v36 == CFDictionaryGetTypeID())
+        v47 = v46;
+        v48 = CFGetTypeID(v46);
+        if (v48 == CFDictionaryGetTypeID())
         {
-          v139 = 0;
-          v37 = *(a1 + 596);
-          sub_DD44(v37, "[OPTIONS]");
+          v155 = 0;
+          v49 = *(a1 + 596);
+          sub_DD44(v49, "[OPTIONS]");
           if (gPluginsDir)
           {
             CFStringGetCString(gPluginsDir, buffer, 1024, 0x8000100u);
             __strlcat_chk();
-            sub_10314(v37, "plugin", buffer);
+            sub_10314(v49, "plugin", buffer);
             if (*(a1 + 66) == 5)
             {
-              sub_10294(v37, "dialogtype", 1);
+              sub_10294(v49, "dialogtype", 1);
             }
           }
 
-          get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPVerboseLogging, cf1, v24, &v139, 0);
-          if (v139)
+          get_int_option(a1, kSCEntNetPPP, kSCPropNetPPPVerboseLogging, cf1, v36, &v155, 0);
+          if (v155)
           {
-            sub_DD44(v37, "debug");
+            sub_DD44(v49, "debug");
           }
 
           *(a1 + 72) &= 0xFFFFFF3F;
-          ppp_getoptval(a1, cf1, v24, 20, &v139, 4u, &v139 + 1);
-          v38 = v139;
-          if ((v139 & 2) != 0)
+          ppp_getoptval(a1, cf1, v36, 20, &v155, 4u, &v155 + 1);
+          v50 = v155;
+          if ((v155 & 2) != 0)
           {
             *(a1 + 72) |= 0x40u;
           }
 
-          if ((v38 & 8) != 0)
+          if ((v50 & 8) != 0)
           {
             *(a1 + 72) |= 0x80u;
           }
 
-          if (ppp_getoptval(a1, cf1, v24, 17, cStr, 0x100u, &v139 + 1) && cStr[0])
+          if (ppp_getoptval(a1, cf1, v36, 17, cStr, 0x100u, &v155 + 1) && cStr[0])
           {
             if (cStr[0] == 47)
             {
-              v39 = "";
+              v51 = "";
             }
 
             else
             {
-              v39 = "/var/log/ppp/";
+              v51 = "/var/log/ppp/";
             }
 
-            snprintf(buffer, 0x400uLL, "%s%s", v39, cStr);
-            sub_10314(v37, "logfile", buffer);
+            snprintf(buffer, 0x400uLL, "%s%s", v51, cStr);
+            sub_10314(v49, "logfile", buffer);
           }
 
-          v40 = *(a1 + 40);
-          if (v40)
+          v52 = *(a1 + 40);
+          if (v52)
           {
-            CFStringGetCString(v40, __str, 252, 0x8000100u);
+            CFStringGetCString(v52, __str, 252, 0x8000100u);
             __strlcat_chk();
-            sub_10314(v37, "plugin", __str);
+            sub_10314(v49, "plugin", __str);
           }
 
-          if (ppp_getoptval(a1, cf1, v24, 1, cStr, 0x100u, &v139 + 1) && cStr[0])
+          if (ppp_getoptval(a1, cf1, v36, 1, cStr, 0x100u, &v155 + 1) && cStr[0])
           {
-            sub_10314(v37, "device", cStr);
+            sub_10314(v49, "device", cStr);
           }
 
-          if (ppp_getoptval(a1, cf1, v24, 2, &v139, 4u, &v139 + 1) && v139)
+          if (ppp_getoptval(a1, cf1, v36, 2, &v155, 4u, &v155 + 1) && v155)
           {
-            snprintf(buffer, 0x400uLL, "%d", v139);
-            sub_DD44(v37, buffer);
+            snprintf(buffer, 0x400uLL, "%d", v155);
+            sub_DD44(v49, buffer);
           }
 
-          if (cf1 && GetStrFromDict(cf1, @"OutgoingInterface", v145, 24, ""))
+          if (cf1 && GetStrFromDict(cf1, @"OutgoingInterface", v161, 24, ""))
           {
-            sub_10314(v37, "ifscope", v145);
+            sub_10314(v49, "ifscope", v161);
           }
 
-          theDict = v35;
-          v134 = v37;
+          theDict = v47;
+          v150 = v49;
           if (*(a1 + 66) != 5)
           {
             if (!*(a1 + 66))
             {
-              get_str_option(a1, kSCEntNetInterface, kSCPropNetInterfaceHardware, cf1, 0, cStr, 0x100u, &v139, "");
-              if (*cStr == 1701080909 && v147 == 109)
+              get_str_option(a1, kSCEntNetInterface, kSCPropNetInterfaceHardware, cf1, 0, cStr, 0x100u, &v155, "");
+              if (*cStr == 1701080909 && v163 == 109)
               {
-                v42 = copyEntity(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24), kSCEntNetModem);
-                if (v42)
+                v54 = copyEntity(gDynamicStore, kSCDynamicStoreDomainSetup, *(a1 + 24), kSCEntNetModem);
+                if (v54)
                 {
-                  v43 = v42;
+                  v55 = v54;
                   if (cf1)
                   {
-                    v44 = CFDictionaryGetValue(cf1, kSCEntNetModem);
-                    if (v44 && (v45 = v44, v46 = CFGetTypeID(v44), v46 == CFDictionaryGetTypeID()) && CFDictionaryGetCount(v45) && (MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v43)) != 0)
+                    v56 = CFDictionaryGetValue(cf1, kSCEntNetModem);
+                    if (v56 && (v57 = v56, v58 = CFGetTypeID(v56), v58 == CFDictionaryGetTypeID()) && CFDictionaryGetCount(v57) && (MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v55)) != 0)
                     {
-                      v48 = MutableCopy;
-                      v49 = CFDictionaryGetValue(v45, kSCPropNetModemConnectionScript);
-                      if (v49)
+                      v60 = MutableCopy;
+                      v61 = CFDictionaryGetValue(v57, kSCPropNetModemConnectionScript);
+                      if (v61)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemConnectionScript, v49);
+                        CFDictionarySetValue(v60, kSCPropNetModemConnectionScript, v61);
                       }
 
-                      v50 = CFDictionaryGetValue(v45, kSCPropNetModemSpeaker);
-                      if (v50)
+                      v62 = CFDictionaryGetValue(v57, kSCPropNetModemSpeaker);
+                      if (v62)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemSpeaker, v50);
+                        CFDictionarySetValue(v60, kSCPropNetModemSpeaker, v62);
                       }
 
-                      v51 = CFDictionaryGetValue(v45, kSCPropNetModemErrorCorrection);
-                      if (v51)
+                      v63 = CFDictionaryGetValue(v57, kSCPropNetModemErrorCorrection);
+                      if (v63)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemErrorCorrection, v51);
+                        CFDictionarySetValue(v60, kSCPropNetModemErrorCorrection, v63);
                       }
 
-                      v52 = CFDictionaryGetValue(v45, kSCPropNetModemDataCompression);
-                      if (v52)
+                      v64 = CFDictionaryGetValue(v57, kSCPropNetModemDataCompression);
+                      if (v64)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemDataCompression, v52);
+                        CFDictionarySetValue(v60, kSCPropNetModemDataCompression, v64);
                       }
 
-                      v53 = CFDictionaryGetValue(v45, kSCPropNetModemPulseDial);
-                      if (v53)
+                      v65 = CFDictionaryGetValue(v57, kSCPropNetModemPulseDial);
+                      if (v65)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemPulseDial, v53);
+                        CFDictionarySetValue(v60, kSCPropNetModemPulseDial, v65);
                       }
 
-                      v54 = CFDictionaryGetValue(v45, kSCPropNetModemDialMode);
-                      if (v54)
+                      v66 = CFDictionaryGetValue(v57, kSCPropNetModemDialMode);
+                      if (v66)
                       {
-                        CFDictionarySetValue(v48, kSCPropNetModemDialMode, v54);
+                        CFDictionarySetValue(v60, kSCPropNetModemDialMode, v66);
                       }
 
-                      CFRelease(v43);
+                      CFRelease(v55);
                     }
 
                     else
                     {
-                      v48 = v43;
+                      v60 = v55;
                     }
 
-                    v37 = v134;
+                    v49 = v150;
                   }
 
                   else
                   {
-                    v48 = v42;
+                    v60 = v54;
                   }
 
-                  v128 = Serialize(v48, &v138, &v137);
-                  if (v128)
+                  v145 = Serialize(v60, &v154, &v153);
+                  if (v145)
                   {
-                    v129 = v128;
-                    sub_103DC(v37, v138, v137);
-                    CFRelease(v129);
+                    v146 = v145;
+                    sub_103DC(v49, v154, v153);
+                    CFRelease(v146);
                   }
 
-                  CFRelease(v48);
-                  v33 = kSCEntNetPPP;
+                  CFRelease(v60);
+                  v45 = kSCEntNetPPP;
                 }
               }
             }
 
 LABEL_98:
-            if (ppp_getoptval(a1, cf1, v24, 24, &v139, 4u, &v139 + 1))
+            if (ppp_getoptval(a1, cf1, v36, 24, &v155, 4u, &v155 + 1))
             {
-              v64 = v139;
-              if (v139)
+              v76 = v155;
+              if (v155)
               {
                 if (*(a1 + 66))
                 {
-                  sub_10314(v37, "plugin", "PPPSerial.ppp");
-                  v64 = v139;
+                  sub_10314(v49, "plugin", "PPPSerial.ppp");
+                  v76 = v155;
                 }
 
-                if (v64 == 1)
+                if (v76 == 1)
                 {
-                  if (ppp_getoptval(a1, cf1, v24, 25, cStr, 0x100u, &v139 + 1) && cStr[0])
+                  if (ppp_getoptval(a1, cf1, v36, 25, cStr, 0x100u, &v155 + 1) && cStr[0])
                   {
-                    sub_10314(v37, "terminalscript", cStr);
+                    sub_10314(v49, "terminalscript", cStr);
                   }
                 }
 
-                else if (v64 == 2)
+                else if (v76 == 2)
                 {
-                  sub_DD44(v37, "terminalwindow");
+                  sub_DD44(v49, "terminalwindow");
                 }
               }
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 5, cStr, 0x100u, &v139 + 1) && cStr[0])
+            if (ppp_getoptval(a1, cf1, v36, 5, cStr, 0x100u, &v155 + 1) && cStr[0])
             {
-              sub_10314(v37, "remoteaddress", cStr);
+              sub_10314(v49, "remoteaddress", cStr);
             }
 
-            get_int_option(a1, v33, kSCPropNetPPPCommRedialEnabled, cf1, v24, &v139, 0);
-            if (v139)
+            get_int_option(a1, v45, kSCPropNetPPPCommRedialEnabled, cf1, v36, &v155, 0);
+            if (v155)
             {
-              get_str_option(a1, v33, kSCPropNetPPPCommAlternateRemoteAddress, cf1, v24, cStr, 0x100u, &v139, "");
+              get_str_option(a1, v45, kSCPropNetPPPCommAlternateRemoteAddress, cf1, v36, cStr, 0x100u, &v155, "");
               if (cStr[0])
               {
-                sub_10314(v37, "altremoteaddress", cStr);
+                sub_10314(v49, "altremoteaddress", cStr);
               }
 
-              get_int_option(a1, v33, kSCPropNetPPPCommRedialCount, cf1, v24, &v139, 0);
-              if (v139)
+              get_int_option(a1, v45, kSCPropNetPPPCommRedialCount, cf1, v36, &v155, 0);
+              if (v155)
               {
-                sub_10294(v37, "redialcount", v139);
+                sub_10294(v49, "redialcount", v155);
               }
 
-              get_int_option(a1, v33, kSCPropNetPPPCommRedialInterval, cf1, v24, &v139, 0);
-              if (v139)
+              get_int_option(a1, v45, kSCPropNetPPPCommRedialInterval, cf1, v36, &v155, 0);
+              if (v155)
               {
-                sub_10294(v37, "redialtimer", v139);
+                sub_10294(v49, "redialtimer", v155);
               }
             }
 
             if (gSleeping)
             {
-              v65 = 0;
+              v77 = 0;
             }
 
             else
             {
-              v65 = (*&gTimeScaleSeconds * (mach_absolute_time() - gWakeUpTime));
-              if (v65 > 19)
+              v77 = (*&gTimeScaleSeconds * (mach_absolute_time() - gWakeUpTime));
+              if (v77 > 19)
               {
                 goto LABEL_125;
               }
             }
 
-            v66 = 20 - v65;
-            if (v66 <= 3)
+            v78 = 20 - v77;
+            if (v78 <= 3)
             {
-              v67 = 3;
+              v79 = 3;
             }
 
             else
             {
-              v67 = v66;
+              v79 = v78;
             }
 
-            sub_10294(v37, "extraconnecttime", v67);
+            sub_10294(v49, "extraconnecttime", v79);
 LABEL_125:
-            if (ppp_getoptval(a1, cf1, v24, 4, &v139, 4u, &v139 + 1) && v139)
+            if (ppp_getoptval(a1, cf1, v36, 4, &v155, 4u, &v155 + 1) && v155)
             {
-              sub_10294(v37, "idle", v139);
-              sub_DD44(v37, "noidlerecv");
+              sub_10294(v49, "idle", v155);
+              sub_DD44(v49, "noidlerecv");
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 23, &v139, 4u, &v139 + 1) && v139)
+            if (ppp_getoptval(a1, cf1, v36, 23, &v155, 4u, &v155 + 1) && v155)
             {
-              sub_10294(v37, "maxconnect", v139);
+              sub_10294(v49, "maxconnect", v155);
             }
 
-            if (a7)
+            if (v25)
             {
-              sub_DD44(v37, "demand");
-              get_int_option(a1, v33, @"HoldOffTime", 0, v24, &v139, 30);
-              sub_10294(v37, "holdoff", v139);
-              if ((a7 & 2) != 0 && v139)
+              sub_DD44(v49, "demand");
+              get_int_option(a1, v45, @"HoldOffTime", 0, v36, &v155, 30);
+              sub_10294(v49, "holdoff", v155);
+              if ((v25 & 2) != 0 && v155)
               {
-                sub_DD44(v37, "holdfirst");
+                sub_DD44(v49, "holdfirst");
               }
 
-              get_int_option(a1, v33, @"MaxFailure", 0, v24, &v139, 3);
-              sub_10294(v37, "maxfail", v139);
+              get_int_option(a1, v45, @"MaxFailure", 0, v36, &v155, 3);
+              sub_10294(v49, "maxfail", v155);
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 21, &v139, 4u, &v139 + 1))
+            if (ppp_getoptval(a1, cf1, v36, 21, &v155, 4u, &v155 + 1))
             {
-              v68 = v139;
-              if (v139)
+              v80 = v155;
+              if (v155)
               {
-                if (v139 >= 0x10000)
+                if (v155 >= 0x10000)
                 {
-                  sub_10294(v37, "lcp-echo-interval", WORD1(v139));
-                  v68 = v139;
+                  sub_10294(v49, "lcp-echo-interval", WORD1(v155));
+                  v80 = v155;
                 }
 
-                if (v68)
+                if (v80)
                 {
-                  sub_10294(v37, "lcp-echo-failure", v68);
+                  sub_10294(v49, "lcp-echo-failure", v80);
                 }
               }
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 9, &v139, 4u, &v139 + 1))
+            if (ppp_getoptval(a1, cf1, v36, 9, &v155, 4u, &v155 + 1))
             {
-              v69 = v139;
-              if ((v139 & 1) == 0)
+              v81 = v155;
+              if ((v155 & 1) == 0)
               {
-                sub_DD44(v37, "nopcomp");
-                v69 = v139;
+                sub_DD44(v49, "nopcomp");
+                v81 = v155;
               }
 
-              if ((v69 & 2) == 0)
+              if ((v81 & 2) == 0)
               {
-                sub_DD44(v37, "noaccomp");
+                sub_DD44(v49, "noaccomp");
               }
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 10, &v139, 4u, &v139 + 1) && v139)
+            if (ppp_getoptval(a1, cf1, v36, 10, &v155, 4u, &v155 + 1) && v155)
             {
-              sub_10294(v37, "mru", v139);
+              sub_10294(v49, "mru", v155);
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 11, &v139, 4u, &v139 + 1) && v139)
+            if (ppp_getoptval(a1, cf1, v36, 11, &v155, 4u, &v155 + 1) && v155)
             {
-              sub_10294(v37, "mtu", v139);
+              sub_10294(v49, "mtu", v155);
             }
 
-            if (ppp_getoptval(a1, cf1, v24, 12, &v139, 4u, &v139 + 1))
+            if (ppp_getoptval(a1, cf1, v36, 12, &v155, 4u, &v155 + 1))
             {
-              if (v139)
+              if (v155)
               {
-                sub_10294(v37, "asyncmap", v139);
+                sub_10294(v49, "asyncmap", v155);
 LABEL_159:
-                if (ppp_getoptval(a1, cf1, v24, 13, &v139, 4u, &v139 + 1) && v139)
+                if (ppp_getoptval(a1, cf1, v36, 13, &v155, 4u, &v155 + 1) && v155)
                 {
-                  sub_DD44(v37, "escape");
-                  v71 = 0;
+                  sub_DD44(v49, "escape");
+                  v83 = 0;
                   buffer[0] = 0;
                   do
                   {
-                    if ((v139 >> v71))
+                    if ((v155 >> v83))
                     {
-                      snprintf(__str, 0x100uLL, "%d,", v71);
+                      snprintf(__str, 0x100uLL, "%d,", v83);
                       __strlcat_chk();
                     }
 
-                    ++v71;
+                    ++v83;
                   }
 
-                  while (v71 != 32);
+                  while (v83 != 32);
                   buffer[strlen(buffer) - 1] = 0;
-                  sub_DD44(v37, buffer);
+                  sub_DD44(v49, buffer);
                 }
 
-                if (CFDictionaryContainsKey(v24, kSCEntNetIPv4))
+                if (CFDictionaryContainsKey(v36, kSCEntNetIPv4))
                 {
                   if (getStringFromEntity(gDynamicStore, kSCDynamicStoreDomainState, 0, kSCEntNetIPv4, kSCPropNetIPv4Router, cStr, 0x100u))
                   {
-                    v72 = cStr[0] == 0;
+                    v84 = cStr[0] == 0;
                   }
 
                   else
                   {
-                    v72 = 1;
+                    v84 = 1;
                   }
 
-                  if (!v72)
+                  if (!v84)
                   {
-                    sub_10314(v37, "ipparam", cStr);
+                    sub_10314(v49, "ipparam", cStr);
                   }
 
-                  get_int_option(a1, kSCEntNetIPv4, kSCPropNetOverridePrimary, 0, v24, &v139, 0);
-                  if (v139)
+                  get_int_option(a1, kSCEntNetIPv4, kSCPropNetOverridePrimary, 0, v36, &v155, 0);
+                  if (v155)
                   {
-                    sub_DD44(v37, "defaultroute");
-                    v73 = 1;
+                    sub_DD44(v49, "defaultroute");
+                    v85 = 1;
                   }
 
                   else
                   {
-                    v73 = 0;
+                    v85 = 0;
                   }
 
-                  if (!ppp_getoptval(a1, cf1, v24, 14, &v139, 4u, &v139 + 1) || !v139)
+                  if (!ppp_getoptval(a1, cf1, v36, 14, &v155, 4u, &v155 + 1) || !v155)
                   {
-                    sub_DD44(v37, "novj");
+                    sub_DD44(v49, "novj");
                   }
 
                   if (*(a1 + 66) == 5)
                   {
-                    sub_10294(v37, "ip-src-address-filter", 2);
+                    sub_10294(v49, "ip-src-address-filter", 2);
                   }
 
-                  if (ppp_getoptval(a1, cf1, v24, 15, &v139, 4u, &v139 + 1) && v139)
+                  if (ppp_getoptval(a1, cf1, v36, 15, &v155, 4u, &v155 + 1) && v155)
                   {
-                    snprintf(__str, 0x100uLL, "%d.%d.%d.%d", BYTE3(v139), BYTE2(v139), BYTE1(v139), v139);
+                    snprintf(__str, 0x100uLL, "%d.%d.%d.%d", BYTE3(v155), BYTE2(v155), BYTE1(v155), v155);
                   }
 
                   else
@@ -6877,9 +6788,9 @@ LABEL_159:
 
                   __strlcpy_chk();
                   __strlcat_chk();
-                  if (ppp_getoptval(a1, cf1, v24, 16, &v139, 4u, &v139 + 1) && v139)
+                  if (ppp_getoptval(a1, cf1, v36, 16, &v155, 4u, &v155 + 1) && v155)
                   {
-                    snprintf(__str, 0x100uLL, "%d.%d.%d.%d", BYTE3(v139), BYTE2(v139), BYTE1(v139), v139);
+                    snprintf(__str, 0x100uLL, "%d.%d.%d.%d", BYTE3(v155), BYTE2(v155), BYTE1(v155), v155);
                   }
 
                   else
@@ -6888,124 +6799,124 @@ LABEL_159:
                   }
 
                   __strlcat_chk();
-                  sub_DD44(v37, buffer);
-                  sub_DD44(v37, "noipdefault");
-                  sub_DD44(v37, "ipcp-accept-local");
-                  sub_DD44(v37, "ipcp-accept-remote");
-                  get_int_option(a1, v33, @"IPCPUsePeerDNS", cf1, v24, &v139, 1);
-                  if (v139)
+                  sub_DD44(v49, buffer);
+                  sub_DD44(v49, "noipdefault");
+                  sub_DD44(v49, "ipcp-accept-local");
+                  sub_DD44(v49, "ipcp-accept-remote");
+                  get_int_option(a1, v45, @"IPCPUsePeerDNS", cf1, v36, &v155, 1);
+                  if (v155)
                   {
-                    sub_DD44(v37, "usepeerdns");
+                    sub_DD44(v49, "usepeerdns");
                   }
 
                   if (*(a1 + 66) != 5)
                   {
 LABEL_194:
-                    if (CFDictionaryContainsKey(v24, kSCEntNetIPv6))
+                    if (CFDictionaryContainsKey(v36, kSCEntNetIPv6))
                     {
-                      sub_DD44(v37, "+ipv6");
-                      sub_DD44(v37, "ipv6cp-use-persistent");
+                      sub_DD44(v49, "+ipv6");
+                      sub_DD44(v49, "ipv6cp-use-persistent");
                     }
 
-                    if (v73)
+                    if (v85)
                     {
-                      sub_DD44(v37, "noacsp");
-                      v75 = "no-use-dhcp";
+                      sub_DD44(v49, "noacsp");
+                      v87 = "no-use-dhcp";
                     }
 
                     else
                     {
-                      get_int_option(a1, v33, kSCPropNetPPPACSPEnabled, cf1, v24, &v139, 0);
-                      if (!v139)
+                      get_int_option(a1, v45, kSCPropNetPPPACSPEnabled, cf1, v36, &v155, 0);
+                      if (!v155)
                       {
-                        sub_DD44(v37, "noacsp");
+                        sub_DD44(v49, "noacsp");
                       }
 
-                      get_int_option(a1, v33, @"UseDHCP", cf1, v24, &v139, *(a1 + 66) == 5);
-                      if (v139 != 1)
+                      get_int_option(a1, v45, @"UseDHCP", cf1, v36, &v155, *(a1 + 66) == 5);
+                      if (v155 != 1)
                       {
 LABEL_203:
-                        sub_DD44(v37, "noauth");
-                        v76 = ppp_getoptval(a1, cf1, v24, 6, &v139, 4u, &v139 + 1);
-                        v77 = 0;
-                        v78 = 1;
-                        if (v76 && v139)
+                        sub_DD44(v49, "noauth");
+                        v88 = ppp_getoptval(a1, cf1, v36, 6, &v155, 4u, &v155 + 1);
+                        v89 = 0;
+                        v90 = 1;
+                        if (v88 && v155)
                         {
-                          if (ppp_getoptval(a1, cf1, v24, 7, cStr, 0x100u, &v139 + 1) && cStr[0])
+                          if (ppp_getoptval(a1, cf1, v36, 7, cStr, 0x100u, &v155 + 1) && cStr[0])
                           {
-                            sub_10314(v37, "user", cStr);
-                            str_option = get_str_option(a1, v33, kSCPropNetPPPAuthPassword, cf1, v24, cStr, 0x100u, &v139, "");
-                            v80 = cStr[0];
+                            sub_10314(v49, "user", cStr);
+                            str_option = get_str_option(a1, v45, kSCPropNetPPPAuthPassword, cf1, v36, cStr, 0x100u, &v155, "");
+                            v92 = cStr[0];
                             TypeID = CFStringGetTypeID();
-                            if (v80)
+                            if (v92)
                             {
                               if (str_option == 3)
                               {
-                                v82 = 0;
+                                v94 = 0;
                               }
 
                               else
                               {
-                                v82 = cf1;
+                                v94 = cf1;
                               }
 
                               if (str_option == 3)
                               {
-                                v83 = v24;
+                                v95 = v36;
                               }
 
                               else
                               {
-                                v83 = 0;
+                                v95 = 0;
                               }
 
-                              cf_option = get_cf_option(v33, kSCPropNetPPPAuthPasswordEncryption, TypeID, v82, v83, 0);
+                              cf_option = get_cf_option(v45, kSCPropNetPPPAuthPasswordEncryption, TypeID, v94, v95, 0);
                               if (!cf_option)
                               {
                                 goto LABEL_217;
                               }
 
-                              v85 = cf_option;
+                              v97 = cf_option;
                               if (CFStringCompare(cf_option, kSCValNetPPPAuthPasswordEncryptionKeychain, 0) == kCFCompareEqualTo)
                               {
                                 if (str_option == 3)
                                 {
-                                  v88 = "keychainpassword";
+                                  v100 = "keychainpassword";
                                 }
 
                                 else
                                 {
-                                  v88 = "userkeychainpassword";
+                                  v100 = "userkeychainpassword";
                                 }
 
 LABEL_231:
-                                sub_10314(v37, v88, cStr);
+                                sub_10314(v49, v100, cStr);
 LABEL_232:
-                                v78 = 1;
-                                v77 = 1;
+                                v90 = 1;
+                                v89 = 1;
                                 goto LABEL_233;
                               }
 
-                              if (CFStringCompare(v85, kSCValNetPPPAuthPasswordEncryptionToken, 0))
+                              if (CFStringCompare(v97, kSCValNetPPPAuthPasswordEncryptionToken, 0))
                               {
 LABEL_217:
-                                v86 = CFStringCreateWithCString(0, cStr, 0x8000100u);
-                                if (v86)
+                                v98 = CFStringCreateWithCString(0, cStr, 0x8000100u);
+                                if (v98)
                                 {
-                                  v87 = v86;
-                                  CFStringGetCString(v86, cStr, 256, 0x500u);
-                                  CFRelease(v87);
+                                  v99 = v98;
+                                  CFStringGetCString(v98, cStr, 256, 0x500u);
+                                  CFRelease(v99);
                                 }
 
-                                v88 = "password";
+                                v100 = "password";
                                 goto LABEL_231;
                               }
                             }
 
                             else
                             {
-                              v91 = get_cf_option(v33, kSCPropNetPPPAuthPasswordEncryption, TypeID, cf1, v24, 0);
-                              if (!v91 || CFStringCompare(v91, kSCValNetPPPAuthPasswordEncryptionToken, 0))
+                              v103 = get_cf_option(v45, kSCPropNetPPPAuthPasswordEncryption, TypeID, cf1, v36, 0);
+                              if (!v103 || CFStringCompare(v103, kSCValNetPPPAuthPasswordEncryptionToken, 0))
                               {
                                 goto LABEL_232;
                               }
@@ -7014,175 +6925,164 @@ LABEL_217:
                             goto LABEL_225;
                           }
 
-                          v89 = CFStringGetTypeID();
-                          v90 = get_cf_option(v33, kSCPropNetPPPAuthPasswordEncryption, v89, cf1, v24, 0);
-                          if (v90 && CFStringCompare(v90, kSCValNetPPPAuthPasswordEncryptionToken, 0) == kCFCompareEqualTo)
+                          v101 = CFStringGetTypeID();
+                          v102 = get_cf_option(v45, kSCPropNetPPPAuthPasswordEncryption, v101, cf1, v36, 0);
+                          if (v102 && CFStringCompare(v102, kSCValNetPPPAuthPasswordEncryptionToken, 0) == kCFCompareEqualTo)
                           {
 LABEL_225:
-                            v77 = 1;
-                            sub_10294(v37, "tokencard", 1);
-                            v78 = 0;
+                            v89 = 1;
+                            sub_10294(v49, "tokencard", 1);
+                            v90 = 0;
                             goto LABEL_233;
                           }
 
-                          v77 = *(a1 + 66) == 5;
-                          v78 = 1;
+                          v89 = *(a1 + 66) == 5;
+                          v90 = 1;
                         }
 
 LABEL_233:
-                        v131 = v78;
-                        v132 = v77;
-                        if (!cf1 || (v92 = CFDictionaryGetValue(cf1, v33)) == 0 || (v93 = v92, v94 = CFGetTypeID(v92), v94 != CFDictionaryGetTypeID()) || (v95 = CFDictionaryGetValue(v93, kSCPropNetPPPAuthProtocol)) == 0 || (v96 = v95, v97 = CFGetTypeID(v95), v97 != CFArrayGetTypeID()))
+                        v147 = v90;
+                        v148 = v89;
+                        if ((cf1 && (v104 = CFDictionaryGetValue(cf1, v45)) != 0 && (v105 = v104, v106 = CFGetTypeID(v104), v106 == CFDictionaryGetTypeID()) && (v107 = CFDictionaryGetValue(v105, kSCPropNetPPPAuthProtocol)) != 0 && (v108 = v107, v109 = CFGetTypeID(v107), v109 == CFArrayGetTypeID()) || (v108 = CFDictionaryGetValue(theDict, kSCPropNetPPPAuthProtocol)) != 0) && (v110 = CFGetTypeID(v108), v110 == CFArrayGetTypeID()) && (LODWORD(v155) = CFArrayGetCount(v108), v155))
                         {
-                          v96 = CFDictionaryGetValue(theDict, kSCPropNetPPPAuthProtocol);
-                          if (!v96)
-                          {
-                            goto LABEL_257;
-                          }
-                        }
-
-                        v98 = CFGetTypeID(v96);
-                        if (v98 == CFArrayGetTypeID() && (LODWORD(v139) = CFArrayGetCount(v96), v139))
-                        {
-                          v99 = 0;
-                          v100 = 0;
+                          v111 = 0;
+                          v112 = 0;
                           do
                           {
-                            ValueAtIndex = CFArrayGetValueAtIndex(v96, v99);
+                            ValueAtIndex = CFArrayGetValueAtIndex(v108, v111);
                             if (ValueAtIndex)
                             {
-                              v102 = ValueAtIndex;
-                              v103 = CFGetTypeID(ValueAtIndex);
-                              if (v103 == CFStringGetTypeID())
+                              v114 = ValueAtIndex;
+                              v115 = CFGetTypeID(ValueAtIndex);
+                              if (v115 == CFStringGetTypeID())
                               {
-                                if (CFStringCompare(v102, kSCValNetPPPAuthProtocolPAP, 0))
+                                if (CFStringCompare(v114, kSCValNetPPPAuthProtocolPAP, 0))
                                 {
-                                  if (CFStringCompare(v102, kSCValNetPPPAuthProtocolCHAP, 0))
+                                  if (CFStringCompare(v114, kSCValNetPPPAuthProtocolCHAP, 0))
                                   {
-                                    if (CFStringCompare(v102, @"MSCHAP1", 0))
+                                    if (CFStringCompare(v114, @"MSCHAP1", 0))
                                     {
-                                      if (CFStringCompare(v102, @"MSCHAP2", 0))
+                                      if (CFStringCompare(v114, @"MSCHAP2", 0))
                                       {
-                                        if (CFStringCompare(v102, @"EAP", 0) == kCFCompareEqualTo)
+                                        if (CFStringCompare(v114, @"EAP", 0) == kCFCompareEqualTo)
                                         {
-                                          v100 |= 0x10u;
+                                          v112 |= 0x10u;
                                         }
                                       }
 
                                       else
                                       {
-                                        v100 |= 8u;
+                                        v112 |= 8u;
                                       }
                                     }
 
                                     else
                                     {
-                                      v100 |= 4u;
+                                      v112 |= 4u;
                                     }
                                   }
 
                                   else
                                   {
-                                    v100 |= 2u;
+                                    v112 |= 2u;
                                   }
                                 }
 
                                 else
                                 {
-                                  v100 |= 1u;
+                                  v112 |= 1u;
                                 }
                               }
                             }
 
-                            ++v99;
+                            ++v111;
                           }
 
-                          while (v99 < v139);
+                          while (v111 < v155);
                         }
 
                         else
                         {
-LABEL_257:
-                          v100 = 15;
+                          v112 = 15;
                         }
 
-                        if (v131)
+                        if (v147)
                         {
-                          v104 = kSCEntNetPPP;
-                          get_int_option(a1, kSCEntNetPPP, @"TokenCard", cf1, v24, &v139, 0);
-                          if (v139)
+                          v116 = kSCEntNetPPP;
+                          get_int_option(a1, kSCEntNetPPP, @"TokenCard", cf1, v36, &v155, 0);
+                          if (v155)
                           {
-                            sub_10294(v134, "tokencard", v139);
-                            v132 = 1;
+                            sub_10294(v150, "tokencard", v155);
+                            v148 = 1;
                           }
                         }
 
                         else
                         {
-                          v104 = kSCEntNetPPP;
+                          v116 = kSCEntNetPPP;
                         }
 
-                        if ((v100 & 0x10) != 0)
+                        if ((v112 & 0x10) != 0)
                         {
-                          v100 &= ~0x10u;
-                          if (cf1 && (v105 = CFDictionaryGetValue(cf1, v104)) != 0 && (v106 = v105, v107 = CFGetTypeID(v105), v107 == CFDictionaryGetTypeID()) && (v108 = CFDictionaryGetValue(v106, @"AuthEAPPlugins")) != 0 && (v109 = v108, v110 = CFGetTypeID(v108), v110 == CFArrayGetTypeID()))
+                          v112 &= ~0x10u;
+                          if (cf1 && (v117 = CFDictionaryGetValue(cf1, v116)) != 0 && (v118 = v117, v119 = CFGetTypeID(v117), v119 == CFDictionaryGetTypeID()) && (v120 = CFDictionaryGetValue(v118, @"AuthEAPPlugins")) != 0 && (v121 = v120, v122 = CFGetTypeID(v120), v122 == CFArrayGetTypeID()))
                           {
-                            v111 = 1;
+                            v123 = 1;
                           }
 
                           else
                           {
-                            v112 = CFDictionaryGetValue(theDict, @"AuthEAPPlugins");
-                            if (!v112)
+                            v124 = CFDictionaryGetValue(theDict, @"AuthEAPPlugins");
+                            if (!v124)
                             {
                               goto LABEL_281;
                             }
 
-                            v109 = v112;
-                            v111 = 0;
+                            v121 = v124;
+                            v123 = 0;
                           }
 
-                          v113 = CFGetTypeID(v109);
-                          if (v113 == CFArrayGetTypeID())
+                          v125 = CFGetTypeID(v121);
+                          if (v125 == CFArrayGetTypeID())
                           {
-                            LODWORD(v139) = CFArrayGetCount(v109);
-                            if (v139)
+                            LODWORD(v155) = CFArrayGetCount(v121);
+                            if (v155)
                             {
-                              v114 = 0;
+                              v126 = 0;
                               do
                               {
-                                v115 = CFArrayGetValueAtIndex(v109, v114);
-                                if (v115)
+                                v127 = CFArrayGetValueAtIndex(v121, v126);
+                                if (v127)
                                 {
-                                  v116 = v115;
-                                  v117 = CFGetTypeID(v115);
-                                  if (v117 == CFStringGetTypeID())
+                                  v128 = v127;
+                                  v129 = CFGetTypeID(v127);
+                                  if (v129 == CFStringGetTypeID())
                                   {
-                                    CFStringGetCString(v116, buffer, 1020, 0x8000100u);
-                                    if (!v111 || !strchr(buffer, 92))
+                                    CFStringGetCString(v128, buffer, 1020, 0x8000100u);
+                                    if (!v123 || !strchr(buffer, 92))
                                     {
                                       __strlcat_chk();
-                                      sub_10314(v134, "eapplugin", buffer);
-                                      v100 |= 0x10u;
+                                      sub_10314(v150, "eapplugin", buffer);
+                                      v112 |= 0x10u;
                                     }
                                   }
 
-                                  v104 = kSCEntNetPPP;
+                                  v116 = kSCEntNetPPP;
                                 }
 
-                                ++v114;
+                                ++v126;
                               }
 
-                              while (v114 < v139);
+                              while (v126 < v155);
                             }
                           }
                         }
 
 LABEL_281:
-                        sub_DD44(v134, "noccp");
-                        if (v100)
+                        sub_DD44(v150, "noccp");
+                        if (v112)
                         {
-                          if ((v100 & 2) != 0)
+                          if ((v112 & 2) != 0)
                           {
                             goto LABEL_283;
                           }
@@ -7190,11 +7090,11 @@ LABEL_281:
 
                         else
                         {
-                          sub_DD44(v134, "refuse-pap");
-                          if ((v100 & 2) != 0)
+                          sub_DD44(v150, "refuse-pap");
+                          if ((v112 & 2) != 0)
                           {
 LABEL_283:
-                            if ((v100 & 4) != 0)
+                            if ((v112 & 4) != 0)
                             {
                               goto LABEL_284;
                             }
@@ -7203,11 +7103,11 @@ LABEL_283:
                           }
                         }
 
-                        sub_DD44(v134, "refuse-chap-md5");
-                        if ((v100 & 4) != 0)
+                        sub_DD44(v150, "refuse-chap-md5");
+                        if ((v112 & 4) != 0)
                         {
 LABEL_284:
-                          if ((v100 & 8) != 0)
+                          if ((v112 & 8) != 0)
                           {
                             goto LABEL_285;
                           }
@@ -7216,11 +7116,11 @@ LABEL_284:
                         }
 
 LABEL_318:
-                        sub_DD44(v134, "refuse-mschap");
-                        if ((v100 & 8) != 0)
+                        sub_DD44(v150, "refuse-mschap");
+                        if ((v112 & 8) != 0)
                         {
 LABEL_285:
-                          if ((v100 & 0x10) != 0)
+                          if ((v112 & 0x10) != 0)
                           {
                             goto LABEL_287;
                           }
@@ -7229,187 +7129,187 @@ LABEL_285:
                         }
 
 LABEL_319:
-                        sub_DD44(v134, "refuse-mschap-v2");
-                        if ((v100 & 0x10) != 0)
+                        sub_DD44(v150, "refuse-mschap-v2");
+                        if ((v112 & 0x10) != 0)
                         {
 LABEL_287:
-                          if (v100 == 16 || !v132 || (*(a1 + 72) & 0x80) == 0)
+                          if (v112 == 16 || !v148 || (*(a1 + 72) & 0x80) == 0)
                           {
-                            sub_DD44(v134, "noaskpassword");
+                            sub_DD44(v150, "noaskpassword");
                           }
 
-                          get_str_option(a1, v104, kSCPropNetPPPAuthPrompt, cf1, v24, cStr, 0x100u, &v139, "");
+                          get_str_option(a1, v116, kSCPropNetPPPAuthPrompt, cf1, v36, cStr, 0x100u, &v155, "");
                           if (cStr[0])
                           {
                             __str[0] = 0;
                             CFStringGetCString(kSCValNetPPPAuthPromptAfter, __str, 256, 0x8000100u);
                             if (!strcmp(cStr, __str))
                             {
-                              sub_DD44(v134, "askpasswordafter");
+                              sub_DD44(v150, "askpasswordafter");
                             }
                           }
 
-                          sub_DD44(v134, "nodetach");
-                          get_int_option(a1, v104, kSCPropNetPPPIdleReminder, cf1, v24, &v139, 0);
-                          if (v139)
+                          sub_DD44(v150, "nodetach");
+                          get_int_option(a1, v116, kSCPropNetPPPIdleReminder, cf1, v36, &v155, 0);
+                          if (v155)
                           {
-                            get_int_option(a1, v104, kSCPropNetPPPIdleReminderTimer, cf1, v24, &v139, 0);
-                            if (v139)
+                            get_int_option(a1, v116, kSCPropNetPPPIdleReminderTimer, cf1, v36, &v155, 0);
+                            if (v155)
                             {
-                              sub_10294(v134, "reminder", v139);
+                              sub_10294(v150, "reminder", v155);
                             }
                           }
 
-                          v118 = CFDictionaryGetValue(theDict, kSCPropNetPPPPlugins);
-                          if (v118)
+                          v130 = CFDictionaryGetValue(theDict, kSCPropNetPPPPlugins);
+                          if (v130)
                           {
-                            v119 = v118;
-                            v120 = CFGetTypeID(v118);
-                            if (v120 == CFArrayGetTypeID())
+                            v131 = v130;
+                            v132 = CFGetTypeID(v130);
+                            if (v132 == CFArrayGetTypeID())
                             {
-                              LODWORD(v139) = CFArrayGetCount(v119);
-                              if (v139)
+                              LODWORD(v155) = CFArrayGetCount(v131);
+                              if (v155)
                               {
-                                v121 = 0;
+                                v133 = 0;
                                 do
                                 {
-                                  v122 = CFArrayGetValueAtIndex(v119, v121);
-                                  if (v122)
+                                  v134 = CFArrayGetValueAtIndex(v131, v133);
+                                  if (v134)
                                   {
-                                    v123 = v122;
-                                    v124 = CFGetTypeID(v122);
-                                    if (v124 == CFStringGetTypeID())
+                                    v135 = v134;
+                                    v136 = CFGetTypeID(v134);
+                                    if (v136 == CFStringGetTypeID())
                                     {
-                                      CFStringGetCString(v123, buffer, 1020, 0x8000100u);
+                                      CFStringGetCString(v135, buffer, 1020, 0x8000100u);
                                       __strlcat_chk();
-                                      sub_10314(v134, "plugin", buffer);
+                                      sub_10314(v150, "plugin", buffer);
                                     }
                                   }
 
-                                  ++v121;
+                                  ++v133;
                                 }
 
-                                while (v121 < v139);
+                                while (v133 < v155);
                               }
                             }
                           }
 
-                          if (GetStrFromDict(theDict, kSCPropUserDefinedName, cStr, 256, "") || GetStrFromDict(v24, kSCPropUserDefinedName, cStr, 256, ""))
+                          if (GetStrFromDict(theDict, kSCPropUserDefinedName, cStr, 256, "") || GetStrFromDict(v36, kSCPropUserDefinedName, cStr, 256, ""))
                           {
-                            sub_10314(v134, "call", cStr);
+                            sub_10314(v150, "call", cStr);
                           }
 
-                          sub_DD44(v134, "[EOP]");
+                          sub_DD44(v150, "[EOP]");
                           ppp_socket_create_client(*(a1 + 600), 1, 0, 0);
                           *(a1 + 632) = 0;
-                          ppp_updatephase(a1, 1u, 0);
+                          ppp_updatephase(a1, 1, 0, v137, v138, v139, v140, v141);
                           *(a1 + 396) = 0;
-                          service_started(a1);
-                          *(a1 + 72) = *(a1 + 72) & 0xFFFFFFDF | (32 * (a7 != 0));
+                          service_started();
+                          *(a1 + 72) = *(a1 + 72) & 0xFFFFFFDF | (32 * (v25 != 0));
                           *(a1 + 128) = cf1;
                           my_CFRetain(cf1);
                           goto LABEL_309;
                         }
 
 LABEL_286:
-                        sub_DD44(v134, "refuse-eap");
+                        sub_DD44(v150, "refuse-eap");
                         goto LABEL_287;
                       }
 
-                      v75 = "use-dhcp";
+                      v87 = "use-dhcp";
                     }
 
-                    sub_DD44(v37, v75);
+                    sub_DD44(v49, v87);
                     goto LABEL_203;
                   }
 
-                  v74 = "addifroute";
+                  v86 = "addifroute";
                 }
 
                 else
                 {
-                  v73 = 0;
-                  v74 = "noip";
+                  v85 = 0;
+                  v86 = "noip";
                 }
 
-                sub_DD44(v37, v74);
+                sub_DD44(v49, v86);
                 goto LABEL_194;
               }
 
-              v70 = "receive-all";
+              v82 = "receive-all";
             }
 
             else
             {
-              v70 = "default-asyncmap";
+              v82 = "default-asyncmap";
             }
 
-            sub_DD44(v37, v70);
+            sub_DD44(v49, v82);
             goto LABEL_159;
           }
 
-          v55 = CFStringGetTypeID();
-          v56 = get_cf_option(kSCEntNetL2TP, kSCPropNetL2TPTransport, v55, cf1, v24, 0);
-          if (v56 && CFStringCompare(v56, kSCValNetL2TPTransportIP, 0) == kCFCompareEqualTo)
+          v67 = CFStringGetTypeID();
+          v68 = get_cf_option(kSCEntNetL2TP, kSCPropNetL2TPTransport, v67, cf1, v36, 0);
+          if (v68 && CFStringCompare(v68, kSCValNetL2TPTransportIP, 0) == kCFCompareEqualTo)
           {
-            sub_DD44(v37, "l2tpnoipsec");
+            sub_DD44(v49, "l2tpnoipsec");
           }
 
-          get_str_option(a1, kSCEntNetL2TP, kSCPropNetL2TPIPSecSharedSecret, cf1, v24, cStr, 0x100u, &v139, "");
+          get_str_option(a1, kSCEntNetL2TP, kSCPropNetL2TPIPSecSharedSecret, cf1, v36, cStr, 0x100u, &v155, "");
           if (cStr[0])
           {
-            sub_10314(v37, "l2tpipsecsharedsecret", cStr);
-            v57 = CFStringGetTypeID();
-            v58 = get_cf_option(kSCEntNetL2TP, kSCPropNetL2TPIPSecSharedSecretEncryption, v57, cf1, v24, 0);
-            if (!v58)
+            sub_10314(v49, "l2tpipsecsharedsecret", cStr);
+            v69 = CFStringGetTypeID();
+            v70 = get_cf_option(kSCEntNetL2TP, kSCPropNetL2TPIPSecSharedSecretEncryption, v69, cf1, v36, 0);
+            if (!v70)
             {
               goto LABEL_97;
             }
 
-            v59 = v58;
-            if (CFStringCompare(v58, @"Key", 0))
+            v71 = v70;
+            if (CFStringCompare(v70, @"Key", 0))
             {
-              v60 = &kSCValNetL2TPIPSecSharedSecretEncryptionKeychain;
+              v72 = &kSCValNetL2TPIPSecSharedSecretEncryptionKeychain;
               goto LABEL_93;
             }
           }
 
           else
           {
-            get_str_option(a1, kSCEntNetIPSec, kSCPropNetIPSecSharedSecret, cf1, v24, cStr, 0x100u, &v139, "");
+            get_str_option(a1, kSCEntNetIPSec, kSCPropNetIPSecSharedSecret, cf1, v36, cStr, 0x100u, &v155, "");
             if (!cStr[0])
             {
               goto LABEL_97;
             }
 
-            sub_10314(v37, "l2tpipsecsharedsecret", cStr);
-            v61 = CFStringGetTypeID();
-            v62 = get_cf_option(kSCEntNetL2TP, kSCPropNetIPSecSharedSecretEncryption, v61, cf1, v24, 0);
-            if (!v62)
+            sub_10314(v49, "l2tpipsecsharedsecret", cStr);
+            v73 = CFStringGetTypeID();
+            v74 = get_cf_option(kSCEntNetL2TP, kSCPropNetIPSecSharedSecretEncryption, v73, cf1, v36, 0);
+            if (!v74)
             {
               goto LABEL_97;
             }
 
-            v59 = v62;
-            if (CFStringCompare(v62, @"Key", 0))
+            v71 = v74;
+            if (CFStringCompare(v74, @"Key", 0))
             {
-              v60 = &kSCValNetIPSecSharedSecretEncryptionKeychain;
+              v72 = &kSCValNetIPSecSharedSecretEncryptionKeychain;
 LABEL_93:
-              if (CFStringCompare(v59, *v60, 0) == kCFCompareEqualTo)
+              if (CFStringCompare(v71, *v72, 0) == kCFCompareEqualTo)
               {
-                v63 = "keychain";
+                v75 = "keychain";
 LABEL_96:
-                sub_10314(v37, "l2tpipsecsharedsecrettype", v63);
+                sub_10314(v49, "l2tpipsecsharedsecrettype", v75);
               }
 
 LABEL_97:
-              get_int_option(a1, kSCEntNetL2TP, @"UDPPort", cf1, v24, &v139, 0);
-              sub_10294(v37, "l2tpudpport", v139);
+              get_int_option(a1, kSCEntNetL2TP, @"UDPPort", cf1, v36, &v155, 0);
+              sub_10294(v49, "l2tpudpport", v155);
               goto LABEL_98;
             }
           }
 
-          v63 = "key";
+          v75 = "key";
           goto LABEL_96;
         }
       }
@@ -7418,21 +7318,21 @@ LABEL_97:
     }
 
 LABEL_309:
-    CFRelease(v24);
+    CFRelease(v36);
   }
 
-  v125 = v136;
-  if (v136)
+  v142 = v152;
+  if (v152)
   {
-    v126 = &v140;
+    v143 = &v156;
     do
     {
-      v127 = *v126++;
-      free(v127);
-      --v125;
+      v144 = *v143++;
+      free(v144);
+      --v142;
     }
 
-    while (v125);
+    while (v142);
   }
 
   if (*(a1 + 608) == -1)
@@ -8170,7 +8070,7 @@ char *sub_EC48(uint64_t a1, _DWORD *a2, char *__s)
   return result;
 }
 
-void sub_ECBC(uint64_t a1, __int16 a2, uint64_t a3, unsigned int a4)
+void sub_ECBC(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4)
 {
   v5 = findbyref(0, a4);
   if (!v5)
@@ -8178,44 +8078,44 @@ void sub_ECBC(uint64_t a1, __int16 a2, uint64_t a3, unsigned int a4)
     return;
   }
 
-  v6 = v5;
+  v11 = v5;
   if ((a2 & 0x7F) != 0)
   {
     goto LABEL_3;
   }
 
-  v8 = HIBYTE(a2);
-  v9 = HIBYTE(a2) > 0x19u;
-  v7 = v9;
-  if (v9)
+  v13 = HIBYTE(a2);
+  v14 = HIBYTE(a2) > 0x19u;
+  v12 = v14;
+  if (v14)
   {
-    v8 = 127;
+    v13 = 127;
   }
 
-  else if (v5[157] != 1)
+  else if (*(v5 + 628) != 1)
   {
 LABEL_3:
-    v7 = 1;
+    v12 = 1;
     goto LABEL_9;
   }
 
-  v5[158] = v8;
-  v5[159] = 0;
+  *(v5 + 632) = v13;
+  *(v5 + 636) = 0;
   sub_F170(v5);
 LABEL_9:
-  ppp_updatephase(v6, 0, 0);
-  *(v6 + 396) = 0;
-  service_ended(v6);
-  *(v6 + 600) = -1;
-  my_close(*(v6 + 596));
-  *(v6 + 596) = -1;
-  my_CFRelease((v6 + 128));
-  *(v6 + 128) = 0;
-  cleanup_dynamicstore(v6);
-  v10 = *(v6 + 584);
-  if (v10)
+  ppp_updatephase(v11, 0, 0, v6, v7, v8, v9, v10);
+  *(v11 + 396) = 0;
+  service_ended(v11);
+  *(v11 + 600) = -1;
+  my_close(*(v11 + 596));
+  *(v11 + 596) = -1;
+  my_CFRelease((v11 + 128));
+  *(v11 + 128) = 0;
+  cleanup_dynamicstore(v11);
+  v15 = *(v11 + 584);
+  if (v15)
   {
-    ne_sm_bridge_acknowledge_sleep(v10);
+    ne_sm_bridge_acknowledge_sleep(v15);
   }
 
   else
@@ -8223,40 +8123,46 @@ LABEL_9:
     allow_sleep();
   }
 
-  if (!allow_dispose(v6) && !allow_stop())
+  v16 = allow_dispose(v11);
+  if (!v16 && !allow_stop(v16, v17, v18, v19, v20, v21, v22, v23))
   {
-    v11 = *(v6 + 72);
-    if ((v11 & 4) != 0)
+    v24 = *(v11 + 72);
+    if ((v24 & 4) != 0)
     {
-      v12 = *(v6 + 648);
-      v13 = *(v6 + 652);
-      v14 = *(v6 + 656);
-      v15 = *(v6 + 660);
-      ppp_start(v6, *(v6 + 640));
-      my_CFRelease((v6 + 640));
-      *(v6 + 656) = 0;
-      *(v6 + 640) = 0u;
-      *(v6 + 72) &= ~4u;
+      ppp_start(v11, *(v11 + 640), *(v11 + 648), *(v11 + 652), *(v11 + 656), *(v11 + 660), 0, 0);
+      my_CFRelease((v11 + 640));
+      *(v11 + 656) = 0;
+      *(v11 + 640) = 0u;
+      *(v11 + 72) &= ~4u;
     }
 
-    else if (v7 && (*(v6 + 72) & 0x38) != 0x20 && (v11 & 0x10000) != 0 && ((v11 & 0x20000) == 0 || gLoggedInUser))
+    else if (v12 && (*(v11 + 72) & 0x38) != 0x20 && (v24 & 0x10000) != 0 && ((v24 & 0x20000) == 0 || gLoggedInUser))
     {
-      v16 = *(v6 + 96);
-      v17 = *(v6 + 100);
+      v25 = *(v11 + 96);
+      v26 = *(v11 + 100);
+      if ((v24 & 8) != 0)
+      {
+        v27 = 1;
+      }
 
-      ppp_start(v6, 0);
+      else
+      {
+        v27 = 3;
+      }
+
+      ppp_start(v11, 0, 0, 0, v25, v26, v27, 0);
     }
 
     else
     {
-      scnc_bootstrap_dealloc(v6);
+      scnc_bootstrap_dealloc(v11);
 
-      scnc_ausession_dealloc(v6);
+      scnc_ausession_dealloc(v11);
     }
   }
 }
 
-void sub_EE8C(int a1, unsigned int a2)
+void sub_EE8C(int a1, uint64_t a2)
 {
   v3 = findbyref(0, a2);
   v4 = v3;
@@ -8314,14 +8220,14 @@ void sub_EE8C(int a1, unsigned int a2)
   }
 }
 
-unint64_t ppp_updatephase(unint64_t result, unsigned int a2, int a3)
+unint64_t ppp_updatephase(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = result;
+  v8 = result;
   if (*(result + 600) == -1)
   {
     *(result + 628) = 0;
 
-    return phase_changed(result, 0);
+    return phase_changed(result, 0, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -8331,14 +8237,15 @@ unint64_t ppp_updatephase(unint64_t result, unsigned int a2, int a3)
       return result;
     }
 
+    v9 = a3;
     *(result + 628) = a2;
-    result = phase_changed(result, a2);
-    v5 = *(v3 + 628);
-    if (v5 > 7)
+    result = phase_changed(result, a2, a3, a4, a5, a6, a7, a8);
+    v10 = *(v8 + 628);
+    if (v10 > 7)
     {
-      if (v5 != 8)
+      if (v10 != 8)
       {
-        if (v5 != 11)
+        if (v10 != 11)
         {
           return result;
         }
@@ -8346,35 +8253,35 @@ unint64_t ppp_updatephase(unint64_t result, unsigned int a2, int a3)
         goto LABEL_13;
       }
 
-      *(v3 + 104) = 0;
-      result = snprintf((v3 + 104), 0x10uLL, "ppp%d", a3);
-      *(v3 + 396) = 1;
-      if (!*(v3 + 188))
+      *(v8 + 104) = 0;
+      result = snprintf((v8 + 104), 0x10uLL, "ppp%d", v9);
+      *(v8 + 396) = 1;
+      if (!*(v8 + 188))
       {
         result = mach_absolute_time();
-        *(v3 + 188) = (*&gTimeScaleSeconds * result);
+        *(v8 + 188) = (*&gTimeScaleSeconds * result);
       }
     }
 
     else
     {
-      if (v5 == 1)
+      if (v10 == 1)
       {
         result = mach_absolute_time();
-        *(v3 + 184) = (*&gTimeScaleSeconds * result);
-        *(v3 + 192) = 0;
+        *(v8 + 184) = (*&gTimeScaleSeconds * result);
+        *(v8 + 192) = 0;
         return result;
       }
 
-      if (v5 == 3)
+      if (v10 == 3)
       {
-        *(v3 + 104) = 0;
-        result = getStringFromEntity(gDynamicStore, kSCDynamicStoreDomainState, *(v3 + 24), kSCEntNetPPP, kSCPropInterfaceName, (v3 + 104), 0x10u);
+        *(v8 + 104) = 0;
+        result = getStringFromEntity(gDynamicStore, kSCDynamicStoreDomainState, *(v8 + 24), kSCEntNetPPP, kSCPropInterfaceName, (v8 + 104), 0x10u);
 LABEL_13:
-        if ((*(v3 + 72) & 0x10) != 0)
+        if ((*(v8 + 72) & 0x10) != 0)
         {
 
-          return scnc_stop(v3, 0, 15, 0);
+          return scnc_stop(v8, 0, 15, 0);
         }
       }
     }
@@ -8383,29 +8290,29 @@ LABEL_13:
   return result;
 }
 
-void sub_F170(uint64_t a1)
+void sub_F170(CFStringRef result)
 {
   v17 = 0;
-  *(a1 + 184) = 0;
-  v1 = *(a1 + 632);
-  if (v1 != 5)
+  result[5].length = 0;
+  length = result[19].length;
+  if (length != 5)
   {
-    v3 = *(a1 + 72);
-    if ((v3 & 0x440) == 0x40)
+    info = result[2].info;
+    if ((info & 0x440) == 0x40)
     {
-      v4 = v3 & 0x20;
-      if (v1 != 21 || v4 == 0)
+      v4 = info & 0x20;
+      if (length != 21 || v4 == 0)
       {
         error = 0;
-        v6 = *(a1 + 636);
-        if (v6)
+        length_high = HIDWORD(result[19].length);
+        if (length_high)
         {
-          if (v6 == 6 && *(a1 + 66) == 5)
+          if (length_high == 6 && WORD1(result[2].isa) == 5)
           {
             return;
           }
 
-          v7 = CFStringCreateWithFormat(0, 0, @"%@ Error %d", *(a1 + 40), v6);
+          v7 = CFStringCreateWithFormat(0, 0, @"%@ Error %d", result[1].info, length_high);
           v18 = v7;
           if (v7)
           {
@@ -8413,12 +8320,12 @@ void sub_F170(uint64_t a1)
           }
         }
 
-        if (*(a1 + 632) == 5)
+        if (LODWORD(result[19].length) == 5)
         {
           return;
         }
 
-        v7 = CFStringCreateWithFormat(0, 0, @"PPP Error %d", *(a1 + 632));
+        v7 = CFStringCreateWithFormat(0, 0, @"PPP Error %d", LODWORD(result[19].length));
         v18 = v7;
         if (v7)
         {
@@ -8442,7 +8349,7 @@ LABEL_14:
               }
 
               CFDictionaryAddValue(v10, kCFUserNotificationAlertMessageKey, v8);
-              if (*(a1 + 66) == 5)
+              if (WORD1(result[2].isa) == 5)
               {
                 v11 = @"VPN Connection";
               }
@@ -8453,7 +8360,7 @@ LABEL_14:
               }
 
               CFDictionaryAddValue(v10, kCFUserNotificationAlertHeaderKey, v11);
-              v12 = *(a1 + 168);
+              v12 = result[5].info;
               if (v12)
               {
                 error = CFUserNotificationUpdate(v12, 0.0, 1uLL, v10);
@@ -8462,20 +8369,20 @@ LABEL_14:
               else
               {
                 v13 = CFUserNotificationCreate(0, 0.0, 1uLL, &error, v10);
-                *(a1 + 168) = v13;
+                result[5].info = v13;
                 if (v13)
                 {
                   RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v13, user_notification_callback, 0);
-                  *(a1 + 176) = RunLoopSource;
+                  result[5].data = RunLoopSource;
                   if (RunLoopSource)
                   {
                     Current = CFRunLoopGetCurrent();
-                    CFRunLoopAddSource(Current, *(a1 + 176), kCFRunLoopDefaultMode);
+                    CFRunLoopAddSource(Current, result[5].data, kCFRunLoopDefaultMode);
                   }
 
                   else
                   {
-                    my_CFRelease((a1 + 168));
+                    my_CFRelease(&result[5].info);
                   }
                 }
               }
@@ -8580,11 +8487,11 @@ uint64_t ppp_resume(uint64_t a1)
   return 0;
 }
 
-void ppp_updatestatus(uint64_t a1, int a2, int a3)
+void ppp_updatestatus(CFStringRef result, int a2, int a3)
 {
-  *(a1 + 632) = a2;
-  *(a1 + 636) = a3;
-  sub_F170(a1);
+  LODWORD(result[19].length) = a2;
+  HIDWORD(result[19].length) = a3;
+  sub_F170(result);
 }
 
 uint64_t ppp_getstatus(uint64_t a1)
@@ -9135,7 +9042,7 @@ ssize_t sub_10314(int a1, char *__s, _BYTE *a3)
       break;
     }
 
-    write(a1, "\", 1uLL);
+    write(a1, "\"", 1uLL);
 LABEL_7:
     write(a1, a3++, 1uLL);
   }
@@ -9160,23 +9067,24 @@ uint64_t terminate_all()
 {
   CFRunLoopSourceInvalidate(gTerminalrls);
   CFRelease(gTerminalrls);
-  v0 = service_head;
+  v8 = service_head;
   if (service_head)
   {
     do
     {
-      scnc_stop(v0, 0, 15, 11);
-      v0 = *v0;
+      v0 = scnc_stop(v8, 0, 15, 11);
+      v8 = *v8;
     }
 
-    while (v0);
+    while (v8);
   }
 
-  return allow_stop();
+  return allow_stop(v0, v1, v2, v3, v4, v5, v6, v7);
 }
 
-uint64_t scnc_stop(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t scnc_stop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   if (!a2)
   {
     v7 = 0;
@@ -9252,9 +9160,9 @@ LABEL_13:
   }
 
 LABEL_20:
-  if (!scnc_get_reason_str(a4))
+  if (!scnc_get_reason_str(v4))
   {
-    goto LABEL_39;
+    goto LABEL_29;
   }
 
   if (!v7)
@@ -9263,66 +9171,31 @@ LABEL_20:
   }
 
   sub_146C0(v7, __str);
-  v19 = *(a1 + 64);
+  v25 = *(a1 + 64);
   if (*(a1 + 64))
   {
-    if (v19 == 2)
+    if (v25 == 2)
     {
-      goto LABEL_39;
+      goto LABEL_29;
     }
 
-    if (v19 == 1)
+    if (v25 == 1)
     {
-      if (!ipsec_error_to_string(*(a1 + 596)) && *(a1 + 596))
-      {
-        v28 = *(a1 + 596);
-      }
-    }
-
-    else
-    {
-      v24 = *(a1 + 40);
+      ipsec_error_to_string(*(a1 + 596));
     }
   }
 
   else
   {
-    v20 = ppp_error_to_string(*(a1 + 632));
-    v21 = ppp_dev_error_to_string(*(a1 + 66), *(a1 + 636));
-    if (v20 && v21)
-    {
-      v23 = *(a1 + 40);
-    }
-
-    else if (v20)
-    {
-      v31 = *(a1 + 636);
-      v25 = *(a1 + 40);
-    }
-
-    else if (v21)
-    {
-      v29 = *(a1 + 632);
-      v26 = *(a1 + 40);
-    }
-
-    else
-    {
-      v22 = *(a1 + 40);
-      if (*(a1 + 632))
-      {
-        v30 = *(a1 + 632);
-        v32 = *(a1 + 636);
-        v27 = *(a1 + 40);
-      }
-    }
+    ppp_error_to_string(*(a1 + 632));
+    ppp_dev_error_to_string(*(a1 + 66), *(a1 + 636));
   }
 
   SCLog();
-LABEL_39:
+LABEL_29:
   if (*(a1 + 64) == 1)
   {
-    return ipsec_stop(a1);
+    return ipsec_stop(a1, a3, v19, v20, v21, v22, v23, v24);
   }
 
   if (*(a1 + 64))
@@ -9333,38 +9206,38 @@ LABEL_39:
   return ppp_stop(a1, a3);
 }
 
-uint64_t allow_stop()
+uint64_t allow_stop(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!gStopRls)
   {
     return 0;
   }
 
-  v0 = &service_head;
+  v8 = &service_head;
   while (1)
   {
-    v0 = *v0;
-    if (!v0)
+    v8 = *v8;
+    if (!v8)
     {
       break;
     }
 
-    if (*(v0 + 32) == 1)
+    if (*(v8 + 32) == 1)
     {
-      v1 = ipsec_getstatus(v0);
+      v9 = ipsec_getstatus(v8, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
     {
-      if (*(v0 + 32))
+      if (*(v8 + 32))
       {
         return 0;
       }
 
-      v1 = ppp_getstatus(v0);
+      v9 = ppp_getstatus(v8);
     }
 
-    if (v1)
+    if (v9)
     {
       return 0;
     }
@@ -9696,12 +9569,12 @@ uint64_t allow_dispose(uint64_t a1)
   return 1;
 }
 
-void sub_11068(unsigned __int16 *a1)
+void sub_11068(char *a1)
 {
   scnc_stop(a1, 0, 15, 12);
-  if (a1[32])
+  if (*(a1 + 32))
   {
-    if (a1[32] != 1)
+    if (*(a1 + 32) != 1)
     {
       *(a1 + 18) &= ~2u;
 LABEL_27:
@@ -9728,7 +9601,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v2 = a1[32];
+  v2 = *(a1 + 32);
   v3 = *(a1 + 18) & 0xFFFFFFFD;
   *(a1 + 18) = v3;
   if (v2 != 1)
@@ -9755,7 +9628,7 @@ LABEL_9:
   v6[1] = v5;
   *v5 = v4;
   reachability_clear(a1);
-  client_notify(*(a1 + 3), *(a1 + 7), a1[34] | (a1[33] << 16), 0, 0, 8);
+  client_notify(*(a1 + 3), *(a1 + 7), *(a1 + 34) | (*(a1 + 33) << 16), 0, 0, 8, -1);
   v7 = *(a1 + 7);
   if (v7)
   {
@@ -9810,4 +9683,94 @@ LABEL_9:
   }
 
   free(a1);
+}
+
+void scnc_init_resources(__CFBundle *a1)
+{
+  gBundleURLRef = CFBundleCopyBundleURL(a1);
+  v2 = CFURLCopyAbsoluteURL(gBundleURLRef);
+  if (v2)
+  {
+    v3 = v2;
+    gBundleDir = CFURLCopyPath(v2);
+    CFRelease(v3);
+  }
+
+  v4 = CFBundleCopyBuiltInPlugInsURL(a1);
+  if (v4)
+  {
+    v5 = v4;
+    v6 = CFURLCopyAbsoluteURL(v4);
+    if (v6)
+    {
+      v7 = v6;
+      gPluginsDir = CFURLCopyPath(v6);
+      CFRelease(v7);
+    }
+
+    CFRelease(v5);
+  }
+
+  v8 = CFBundleCopyResourcesDirectoryURL(a1);
+  if (v8)
+  {
+    v9 = v8;
+    v10 = CFURLCopyAbsoluteURL(v8);
+    if (v10)
+    {
+      v11 = v10;
+      gResourcesDir = CFURLCopyPath(v10);
+      CFRelease(v11);
+    }
+
+    CFRelease(v9);
+  }
+
+  v12 = CFBundleCopyResourceURL(a1, @"NetworkConnect.icns", 0, 0);
+  gIconURLRef = v12;
+  if (v12)
+  {
+    v13 = CFURLCopyAbsoluteURL(v12);
+    if (v13)
+    {
+      v14 = v13;
+      gIconDir = CFURLCopyPath(v13);
+      CFRelease(v14);
+    }
+  }
+
+  v15 = _CFCopySystemVersionDictionary();
+  if (v15)
+  {
+    v16 = v15;
+    Value = CFDictionaryGetValue(v15, _kCFSystemVersionProductNameKey);
+    v18 = CFDictionaryGetValue(v16, _kCFSystemVersionProductVersionKey);
+    if (Value)
+    {
+      v19 = v18;
+      if (v18)
+      {
+        Mutable = CFStringCreateMutable(0, 0);
+        if (Mutable)
+        {
+          v21 = Mutable;
+          CFStringAppend(Mutable, @"Cisco Systems VPN Client ");
+          CFStringAppend(v21, v19);
+          CFStringAppend(v21, @":");
+          CFStringAppend(v21, Value);
+          Length = CFStringGetLength(v21);
+          v23 = malloc_type_malloc(Length + 1, 0x487CCEDuLL);
+          gIPSecAppVersion = v23;
+          if (v23)
+          {
+            CFStringGetCString(v21, v23, Length + 1, 0x8000100u);
+          }
+
+          CFRelease(v21);
+        }
+      }
+    }
+
+    CFRelease(v16);
+  }
 }

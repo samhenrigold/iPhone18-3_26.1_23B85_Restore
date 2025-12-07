@@ -44,7 +44,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100423E94();
+  sub_100423E94(selfCopy);
 }
 
 - (_TtC8AppStore30PurchasesLoadingViewController)initWithNibName:(id)name bundle:(id)bundle

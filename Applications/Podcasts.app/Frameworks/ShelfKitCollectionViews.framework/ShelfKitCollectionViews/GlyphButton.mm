@@ -26,14 +26,14 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for GlyphButton();
+  v3.super_class = type metadata accessor for GlyphButton(0);
   return [(GlyphButton *)&v3 isHighlighted];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for GlyphButton();
+  v5 = type metadata accessor for GlyphButton(0);
   v11.receiver = self;
   v11.super_class = v5;
   selfCopy = self;

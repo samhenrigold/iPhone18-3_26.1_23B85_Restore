@@ -122,7 +122,7 @@
 
 - (void)s3_setS3HeadersWithContent:()S3 accessConfig:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = MEMORY[0x277CCACA8];
   v8 = a4;
@@ -159,10 +159,10 @@
   v15 = objc_opt_new();
   bucket = [v6 bucket];
   filename = [v6 filename];
-  v30 = [self AWSCanonicalizedResourceWithBucket:bucket FileName:filename];
+  v29 = [self AWSCanonicalizedResourceWithBucket:bucket FileName:filename];
 
   mimeType2 = [v6 mimeType];
-  v19 = [self AWSStringToSignWithHTTPVerb:@"PUT" contentMD5:0 contentType:mimeType2 date:v15 canonicalizedResource:v30];
+  v19 = [self AWSStringToSignWithHTTPVerb:@"PUT" contentMD5:0 contentType:mimeType2 date:v15 canonicalizedResource:v29];
 
   aWSSecretAccessKey = [v8 AWSSecretAccessKey];
   uTF8String = [aWSSecretAccessKey UTF8String];
@@ -180,8 +180,6 @@
   [self setValue:v27 forHTTPHeaderField:@"Authorization"];
   v28 = [self _formatHTTPDate:v15];
   [self setValue:v28 forHTTPHeaderField:@"Date"];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

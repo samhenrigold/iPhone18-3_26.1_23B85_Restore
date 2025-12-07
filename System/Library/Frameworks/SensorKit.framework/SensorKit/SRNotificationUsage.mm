@@ -99,21 +99,19 @@ LABEL_7:
 
 - (id)sr_dictionaryRepresentation
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"eventType";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"eventType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_event];
-  v7[1] = @"bundleIdentifier";
-  v8[0] = v3;
+  v6[1] = @"bundleIdentifier";
+  v7[0] = v3;
   bundleIdentifier = self->_bundleIdentifier;
   if (!bundleIdentifier)
   {
     bundleIdentifier = &stru_1F48BB5C0;
   }
 
-  v8[1] = bundleIdentifier;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[1] = bundleIdentifier;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 }
 
 @end

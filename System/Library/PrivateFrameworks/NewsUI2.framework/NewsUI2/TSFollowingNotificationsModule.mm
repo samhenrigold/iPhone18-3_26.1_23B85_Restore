@@ -8,7 +8,7 @@
 - (id)createViewController
 {
   __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR___TSFollowingNotificationsModule_resolver), *&self->resolver[OBJC_IVAR___TSFollowingNotificationsModule_resolver + 16]);
-  type metadata accessor for FollowingNotificationsViewController();
+  type metadata accessor for FollowingNotificationsViewController(0);
   swift_allocObject();
   swift_unknownObjectUnownedInit();
   selfCopy = self;

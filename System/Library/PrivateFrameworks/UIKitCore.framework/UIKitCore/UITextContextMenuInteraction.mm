@@ -785,9 +785,9 @@ LABEL_18:
   identifier = [configuration identifier];
   v6 = +[UIKeyboardImpl activeInstance];
   keyboardMenuTipIdentifier = [v6 keyboardMenuTipIdentifier];
-  v8 = [identifier isEqual:keyboardMenuTipIdentifier];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v8)
+  if (isEqual)
   {
     v9 = +[UIKeyboardImpl activeInstance];
     editMenuTipView = [v9 editMenuTipView];
@@ -852,13 +852,13 @@ void __109__UITextContextMenuInteraction__editMenuInteraction_menuForConfigurati
   actionsCopy = actions;
   handlerCopy = handler;
   identifier = [configurationCopy identifier];
-  v12 = [identifier isEqual:@"UITextContextMenuInteraction.TextSelectionMenu"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
   assistantDelegate = [(UITextInteraction *)self assistantDelegate];
   _editMenuAssistant = [assistantDelegate _editMenuAssistant];
   overrideMenu = [_editMenuAssistant overrideMenu];
 
-  if ((v12 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v18 = [UIMenu menuWithChildren:MEMORY[0x1E695E0F0]];
     goto LABEL_20;
@@ -1339,19 +1339,19 @@ LABEL_19:
   v8 = v7;
   if (v7 == v6)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
 - (id)_targetedPreviewForCurrentSelection
@@ -1680,45 +1680,45 @@ void __88__UITextContextMenuInteraction_contextMenuInteraction_willEndForConfigu
   }
 }
 
-void __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke(uint64_t a1, void *a2)
+void __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke(uint64_t a1, void *a2, __n128 a3, __n128 a4)
 {
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke_2;
-    v9[3] = &unk_1E7125168;
-    v9[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 40);
-    v12 = *(a1 + 56);
-    [a2 _prepareWithCompletion:v9];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke_2;
+    v11[3] = &unk_1E7125168;
+    v11[4] = *(a1 + 32);
+    v13 = *(a1 + 48);
+    v12 = *(a1 + 40);
+    v14 = *(a1 + 56);
+    [a2 _prepareWithCompletion:v11];
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v8 = *(a1 + 64);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
 
-    [(UITextContextMenuInteraction *)v4 _defaultContextMenuInteraction:v5 configurationForMenuAtLocation:v6 completion:v7, v8];
+    [(UITextContextMenuInteraction *)v6 _defaultContextMenuInteraction:v7 configurationForMenuAtLocation:v8 completion:v9, v10];
   }
 }
 
-void __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke_2(uint64_t a1, void *a2)
+void __98__UITextContextMenuInteraction__contextMenuInteraction_configurationForMenuAtLocation_completion___block_invoke_2(double *a1, void *a2)
 {
   v4 = a2;
-  objc_storeStrong((*(a1 + 32) + 176), a2);
+  objc_storeStrong((*(a1 + 4) + 176), a2);
   if (v4)
   {
-    (*(*(a1 + 48) + 16))();
+    (*(*(a1 + 6) + 16))();
   }
 
   else
   {
-    [(UITextContextMenuInteraction *)*(a1 + 32) _defaultContextMenuInteraction:*(a1 + 48) configurationForMenuAtLocation:*(a1 + 56) completion:*(a1 + 64)];
+    [(UITextContextMenuInteraction *)*(a1 + 4) _defaultContextMenuInteraction:*(a1 + 6) configurationForMenuAtLocation:a1[7] completion:a1[8]];
   }
 }
 

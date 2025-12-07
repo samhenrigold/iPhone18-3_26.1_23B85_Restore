@@ -34,25 +34,25 @@
   selfCopy = self;
   if (l)
   {
-    v11.receiver = self;
-    v11.super_class = SLURLAttachment;
-    v8 = [SLAttachment initWithPayload:sel_initWithPayload_type_previewImage_ type:? previewImage:?];
-    if (v8)
+    v14.receiver = self;
+    v14.super_class = SLURLAttachment;
+    v11 = [SLAttachment initWithPayload:sel_initWithPayload_type_previewImage_ type:? previewImage:?];
+    if (v11)
     {
-      v8->_urlType = type;
+      v11->_urlType = type;
     }
 
-    selfCopy = v8;
-    v9 = selfCopy;
+    selfCopy = v11;
+    v12 = selfCopy;
   }
 
   else
   {
-    _SLLog(v5, 3, @"SLURLAttachment must be created with a non-nil URL.");
-    v9 = 0;
+    _SLLog(v8, 3, @"SLURLAttachment must be created with a non-nil URL.", type, preview, v5, v6, v7, v14.receiver);
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 @end

@@ -10,7 +10,7 @@
   endDateCopy = endDate;
   dateCopy = date;
   v12 = objc_opt_new();
-  v13 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:dateCopy endDate:endDateCopy];
+  v13 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:? endDate:?];
 
   v14 = v12[1];
   v12[1] = v13;

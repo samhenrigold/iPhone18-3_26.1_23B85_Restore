@@ -162,7 +162,7 @@
   v18 = v13;
   if (v13)
   {
-    objc_msgSend_labelEnumeratorPair(v13, v14, v15, v16, v17);
+    objc_msgSend_labelEnumeratorPair(v13, v15, v16, v17);
     objc_msgSend_sizeOfLabelsForInfo_enumerator_onlyHeight_(v18, v19, v20, v21, v22, infoCopy, v40, heightCopy);
     v23 = v41;
   }
@@ -192,7 +192,7 @@
   v18 = v13;
   if (v13)
   {
-    objc_msgSend_labelEnumeratorPair(v13, v14, v15, v16, v17);
+    objc_msgSend_labelEnumeratorPair(v13, v15, v16, v17);
     if (v55)
     {
       goto LABEL_6;
@@ -486,7 +486,7 @@ LABEL_9:
 
   interceptCache = v6->_interceptCache;
 
-  return objc_msgSend_value(interceptCache, v8, v9, v10, v11);
+  return objc_msgSend_value(interceptCache, v8, v9, v10);
 }
 
 - (TSCHChartAxisAnalysis)analysis
@@ -507,7 +507,7 @@ LABEL_9:
 
   analysisCache = v6->_analysisCache;
 
-  return objc_msgSend_value(analysisCache, v8, v9, v10, v11);
+  return objc_msgSend_value(analysisCache, v8, v9, v10);
 }
 
 - (TSCHChartAxisAnalysis)multiDataSetAnalysis
@@ -515,7 +515,7 @@ LABEL_9:
   objc_msgSend_p_setupMultiDataSetAnalysisCacheIfNeeded(self, a2, v2, v3, v4);
   multiDataSetAnalysisCache = self->_multiDataSetAnalysisCache;
 
-  return objc_msgSend_value(multiDataSetAnalysisCache, v6, v7, v8, v9);
+  return objc_msgSend_value(multiDataSetAnalysisCache, v6, v7, v8);
 }
 
 - (void)invalidateTransientState

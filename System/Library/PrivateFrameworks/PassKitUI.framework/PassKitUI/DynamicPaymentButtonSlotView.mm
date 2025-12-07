@@ -15,7 +15,7 @@
   if (v14)
   {
     v15 = swift_allocObject();
-    *(v15 + 16) = v14;
+    v15[2] = v14;
     v14 = sub_1BD166E88;
   }
 

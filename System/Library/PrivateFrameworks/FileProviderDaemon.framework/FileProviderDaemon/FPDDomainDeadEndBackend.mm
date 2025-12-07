@@ -168,19 +168,19 @@
 
 - (void)fetchTelemetryReportWithAlwaysFetchExpandedUsageStats:(BOOL)stats completionHandler:(id)handler
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   WeakRetained = objc_loadWeakRetained(&self->_domain);
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    v12[0] = @"enabled";
+    v11[0] = @"enabled";
     v8 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(WeakRetained, "userEnabled")}];
-    v12[1] = @"disconnection_state";
-    v13[0] = v8;
+    v11[1] = @"disconnection_state";
+    v12[0] = v8;
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v7, "disconnectionState")}];
-    v13[1] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     handlerCopy[2](handlerCopy, v10, 0);
   }
 
@@ -188,8 +188,6 @@
   {
     handlerCopy[2](handlerCopy, 0, 0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyDatabaseToURL:(id)l completionHandler:(id)handler

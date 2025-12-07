@@ -106,7 +106,8 @@
   {
     if (v5 != v8)
     {
-      goto LABEL_13;
+      v9 = 107;
+      goto LABEL_14;
     }
 
 LABEL_9:
@@ -118,15 +119,16 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v9 = 0;
-  atomic_compare_exchange_strong(p_deadlineAwareState, &v9, v8);
-  if (!v9 || v9 == v8)
+  v10 = 0;
+  atomic_compare_exchange_strong(p_deadlineAwareState, &v10, v8);
+  if (!v10 || v10 == v8)
   {
     goto LABEL_9;
   }
 
-LABEL_13:
-  [MTLDebugCommandQueue validateDeadlineAwareness:];
+  v9 = 103;
+LABEL_14:
+  [MTLDebugCommandQueue validateDeadlineAwareness:v9];
   if (!v7)
   {
     return;

@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRemainingRangeObservable.remainingRangeService(_:didUpdateHidden:)();
+  CAFRemainingRangeObservable.remainingRangeService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

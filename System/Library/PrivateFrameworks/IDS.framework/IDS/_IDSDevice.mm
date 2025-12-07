@@ -698,7 +698,7 @@
     v9 = +[IDSLogging IDSDevice];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v9);
     }
 
     selfCopy = 0;
@@ -772,7 +772,7 @@
 
 - (void)stateDidChange:(unint64_t)change
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
 
@@ -828,25 +828,23 @@ LABEL_20:
   v16 = +[IDSLogging IDSDevice];
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = self->_nearby;
-    v19 = self->_connected;
-    v20 = self->_cloudConnected;
-    v21[0] = 67110400;
-    v21[1] = nearby;
-    v22 = 1024;
-    v23 = connected;
-    v24 = 1024;
-    v25 = cloudConnected;
-    v26 = 1024;
-    v27 = v18;
-    v28 = 1024;
-    v29 = v19;
-    v30 = 1024;
-    v31 = v20;
-    _os_log_debug_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEBUG, "Device note -- old: {isNearby: %d, isConnected: %d, isCloudConnected: %d} new: {isNearby: %d, isConnected: %d, isCloudConnected: %d}", v21, 0x26u);
+    v17 = self->_nearby;
+    v18 = self->_connected;
+    v19 = self->_cloudConnected;
+    v20[0] = 67110400;
+    v20[1] = nearby;
+    v21 = 1024;
+    v22 = connected;
+    v23 = 1024;
+    v24 = cloudConnected;
+    v25 = 1024;
+    v26 = v17;
+    v27 = 1024;
+    v28 = v18;
+    v29 = 1024;
+    v30 = v19;
+    _os_log_debug_impl(&dword_1959FF000, v16, OS_LOG_TYPE_DEBUG, "Device note -- old: {isNearby: %d, isConnected: %d, isCloudConnected: %d} new: {isNearby: %d, isConnected: %d, isCloudConnected: %d}", v20, 0x26u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fullDescription
@@ -1180,7 +1178,7 @@ LABEL_20:
 
 - (void)setNSUUID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1197,11 +1195,11 @@ LABEL_20:
   v8 = +[IDSLogging IDSDevice];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = dCopy;
-    v16 = 2112;
+    v13 = 138412546;
+    v14 = dCopy;
+    v15 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Client request to set uuid %@ on device %@", &v14, 0x16u);
+    _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Client request to set uuid %@ on device %@", &v13, 0x16u);
   }
 
   if ([(_IDSDevice *)self supportsiCloudPairing])
@@ -1218,12 +1216,10 @@ LABEL_20:
     v9 = +[IDSLogging IDSDevice];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "=> Device doesn't support it, ignoring", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "=> Device doesn't support it, ignoring", &v13, 2u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NSUUID)stableBluetoothIdentifier
@@ -1363,7 +1359,7 @@ LABEL_20:
 
 - (void)_addIdentity:(id)identity
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   v5 = +[IDSInternalQueueController sharedInstance];
   assertQueueIsCurrent = [v5 assertQueueIsCurrent];
@@ -1380,26 +1376,26 @@ LABEL_20:
   if (identityCopy)
   {
     v8 = [identityCopy objectForKey:@"uri"];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     identities = [(_IDSDevice *)self identities];
-    v10 = [identities countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [identities countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
 LABEL_8:
       v13 = 0;
       while (1)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(identities);
         }
 
-        v14 = [*(*(&v23 + 1) + 8 * v13) objectForKey:@"uri"];
+        v14 = [*(*(&v22 + 1) + 8 * v13) objectForKey:@"uri"];
         v15 = [v14 isEqualToIgnoringCase:v8];
 
         if (v15)
@@ -1409,7 +1405,7 @@ LABEL_8:
 
         if (v11 == ++v13)
         {
-          v11 = [identities countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v11 = [identities countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v11)
           {
             goto LABEL_8;
@@ -1448,8 +1444,6 @@ LABEL_14:
       *p_info = v19;
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_nearbyStateChanged

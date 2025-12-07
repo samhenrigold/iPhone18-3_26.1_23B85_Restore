@@ -6,7 +6,7 @@
 
 + (char)mmapToFile:(id)file data:(id)data numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed tag:(id)tag
 {
-  *&v53[53] = *MEMORY[0x1E69E9840];
+  *&v52[53] = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dataCopy = data;
   tagCopy = tag;
@@ -16,17 +16,17 @@
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v37 = *__error();
-      v38 = __error();
-      v39 = strerror(*v38);
+      v36 = *__error();
+      v37 = __error();
+      v38 = strerror(*v37);
       *__strerrbuf = 136315906;
-      v47 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v48 = 2112;
-      v49 = fileCopy;
-      v50 = 1024;
-      v51 = v37;
-      v52 = 2080;
-      *v53 = v39;
+      v46 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v47 = 2112;
+      v48 = fileCopy;
+      v49 = 1024;
+      v50 = v36;
+      v51 = 2080;
+      *v52 = v38;
       v23 = "%s: NEBloomFilterFile - failed to open mmap file %@ <errno %d - %s>";
       v24 = v19;
       v25 = 38;
@@ -47,15 +47,15 @@
       v21 = __error();
       v22 = strerror(*v21);
       *__strerrbuf = 136316162;
-      v47 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v48 = 2112;
-      v49 = fileCopy;
-      v50 = 1024;
-      v51 = v18;
-      v52 = 1024;
-      *v53 = v20;
-      v53[2] = 2080;
-      *&v53[3] = v22;
+      v46 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v47 = 2112;
+      v48 = fileCopy;
+      v49 = 1024;
+      v50 = v18;
+      v51 = 1024;
+      *v52 = v20;
+      v52[2] = 2080;
+      *&v52[3] = v22;
       v23 = "%s: NEBloomFilterFile - failed to ftruncate mmap file <%@> to %d bytes <errno %d - %s>";
       v24 = v19;
       v25 = 44;
@@ -67,20 +67,20 @@ LABEL_27:
     goto LABEL_6;
   }
 
-  v29 = mmap(0, v18, 3, 1, v17, 0);
-  if (v29 == -1)
+  v28 = mmap(0, v18, 3, 1, v17, 0);
+  if (v28 == -1)
   {
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *__strerrbuf = 136315906;
-      v47 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v48 = 2112;
-      v49 = fileCopy;
-      v50 = 1024;
-      v51 = v17;
-      v52 = 1024;
-      *v53 = v18;
+      v46 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v47 = 2112;
+      v48 = fileCopy;
+      v49 = 1024;
+      v50 = v17;
+      v51 = 1024;
+      *v52 = v18;
       v23 = "%s: NEBloomFilterFile - Failed mmap file <%@> <fd %d, size %d>";
       v24 = v19;
       v25 = 34;
@@ -92,70 +92,69 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v30 = v29;
-  v31 = [dataCopy length];
-  *v30 = xmmword_1BAA4E620;
-  *(v30 + 4) = bits;
-  *(v30 + 5) = hashes;
-  *(v30 + 6) = seed;
-  *(v30 + 7) = v31;
-  if (tagCopy && [tagCopy length] && (objc_msgSend(tagCopy, "dataUsingEncoding:", 4), (v32 = objc_claimAutoreleasedReturnValue()) != 0))
+  v29 = v28;
+  v30 = [dataCopy length];
+  *v29 = xmmword_1BAA4E620;
+  *(v29 + 4) = bits;
+  *(v29 + 5) = hashes;
+  *(v29 + 6) = seed;
+  *(v29 + 7) = v30;
+  if (tagCopy && [tagCopy length] && (objc_msgSend(tagCopy, "dataUsingEncoding:", 4), (v31 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v19 = v32;
-    v33 = [v32 length];
-    *(v30 + 8) = v33;
-    v26 = v30 + 36;
-    if (v33)
+    v19 = v31;
+    v32 = [v31 length];
+    *(v29 + 8) = v32;
+    v26 = v29 + 36;
+    if (v32)
     {
-      memcpy(v30 + 36, [v19 bytes], v33);
-      v26 += v33;
+      memcpy(v29 + 36, [v19 bytes], v32);
+      v26 += v32;
     }
   }
 
   else
   {
     v19 = 0;
-    *(v30 + 8) = 0;
-    v26 = v30 + 36;
+    *(v29 + 8) = 0;
+    v26 = v29 + 36;
   }
 
   [dataCopy getBytes:v26 length:{objc_msgSend(dataCopy, "length")}];
-  if (msync(v30, v18, 16) == -1)
+  if (msync(v29, v18, 16) == -1)
   {
-    v35 = *__error();
-    if (strerror_r(v35, __strerrbuf, 0x80uLL))
+    v34 = *__error();
+    if (strerror_r(v34, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
 
-    v36 = ne_log_obj();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v35 = ne_log_obj();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v41 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-      v42 = 1024;
-      v43 = v35;
-      v44 = 2080;
-      v45 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_FAULT, "%s: NEBloomFilterFile - Failed msync: [%d] %s", buf, 0x1Cu);
+      v40 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+      v41 = 1024;
+      v42 = v34;
+      v43 = 2080;
+      v44 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_FAULT, "%s: NEBloomFilterFile - Failed msync: [%d] %s", buf, 0x1Cu);
     }
 
     goto LABEL_6;
   }
 
-  v34 = ne_log_obj();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v33 = ne_log_obj();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
     *__strerrbuf = 136315138;
-    v47 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
-    _os_log_debug_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilterFile - done msync", __strerrbuf, 0xCu);
+    v46 = "+[NEBloomFilterFile mmapToFile:data:numberOfBits:numberOfHashes:murmurSeed:tag:]";
+    _os_log_debug_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_DEBUG, "%s: NEBloomFilterFile - done msync", __strerrbuf, 0xCu);
   }
 
-  munmap(v30, v18);
+  munmap(v29, v18);
   close(v17);
 LABEL_7:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

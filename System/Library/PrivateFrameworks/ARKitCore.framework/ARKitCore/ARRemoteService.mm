@@ -112,16 +112,16 @@
 - (ARRemoteService)initWithMachServiceName:(id)name exportedInterface:(id)interface remoteObjectInterface:(id)objectInterface endpoint:(id)endpoint startConnection:(BOOL)connection dispatchChannelQueue:(id)queue fixedPriorityQueueForXPC:(BOOL)c deviceEndpoint:(id)self0
 {
   connectionCopy = connection;
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   interfaceCopy = interface;
   objectInterfaceCopy = objectInterface;
   endpointCopy = endpoint;
   queueCopy = queue;
   deviceEndpointCopy = deviceEndpoint;
-  v68.receiver = self;
-  v68.super_class = ARRemoteService;
-  v18 = [(ARRemoteService *)&v68 init];
+  v69.receiver = self;
+  v69.super_class = ARRemoteService;
+  v18 = [(ARRemoteService *)&v69 init];
   if (v18)
   {
     v19 = _os_activity_create(&dword_1C241C000, "Remote service", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -141,124 +141,124 @@
     v23 = _os_activity_create(&dword_1C241C000, "Remote service init", *(v18 + 6), OS_ACTIVITY_FLAG_DEFAULT);
     os_activity_scope_enter(v23, &state);
 
-    v24 = _ARLogGeneral_46();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = _ARLogGeneral_46(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       *buf = 138543618;
-      *&buf[4] = v26;
-      v70 = 2048;
-      v71 = v18;
-      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Remote service init", buf, 0x16u);
+      *&buf[4] = v27;
+      v71 = 2048;
+      v72 = v18;
+      _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Remote service init", buf, 0x16u);
     }
 
     if (endpointCopy)
     {
-      v27 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:endpointCopy];
+      v28 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:endpointCopy];
     }
 
     else
     {
-      v27 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:nameCopy options:4096];
+      v28 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:nameCopy options:4096];
     }
 
-    v28 = *(v18 + 32);
-    *(v18 + 32) = v27;
+    v29 = *(v18 + 32);
+    *(v18 + 32) = v28;
 
-    v29 = [ARWeakReference weakReferenceWithObject:v18];
-    [*(v18 + 32) setExportedObject:v29];
+    v30 = [ARWeakReference weakReferenceWithObject:v18];
+    [*(v18 + 32) setExportedObject:v30];
 
     [*(v18 + 32) setExportedInterface:interfaceCopy];
     [*(v18 + 32) setRemoteObjectInterface:objectInterfaceCopy];
     objc_initWeak(&location, v18);
-    v30 = *(v18 + 32);
-    v64[0] = MEMORY[0x1E69E9820];
-    v64[1] = 3221225472;
-    v64[2] = __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObjectInterface_endpoint_startConnection_dispatchChannelQueue_fixedPriorityQueueForXPC_deviceEndpoint___block_invoke;
-    v64[3] = &unk_1E817BD88;
-    objc_copyWeak(&v65, &location);
-    [v30 setInterruptionHandler:v64];
     v31 = *(v18 + 32);
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObjectInterface_endpoint_startConnection_dispatchChannelQueue_fixedPriorityQueueForXPC_deviceEndpoint___block_invoke_2;
-    v62[3] = &unk_1E817BD88;
-    objc_copyWeak(&v63, &location);
-    [v31 setInvalidationHandler:v62];
-    v32 = [nameCopy stringByAppendingString:@".asyncServiceQueue"];
-    v33 = v32;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObjectInterface_endpoint_startConnection_dispatchChannelQueue_fixedPriorityQueueForXPC_deviceEndpoint___block_invoke;
+    v65[3] = &unk_1E817BD88;
+    objc_copyWeak(&v66, &location);
+    [v31 setInterruptionHandler:v65];
+    v32 = *(v18 + 32);
+    v63[0] = MEMORY[0x1E69E9820];
+    v63[1] = 3221225472;
+    v63[2] = __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObjectInterface_endpoint_startConnection_dispatchChannelQueue_fixedPriorityQueueForXPC_deviceEndpoint___block_invoke_2;
+    v63[3] = &unk_1E817BD88;
+    objc_copyWeak(&v64, &location);
+    [v32 setInvalidationHandler:v63];
+    v33 = [nameCopy stringByAppendingString:@".asyncServiceQueue"];
+    v34 = v33;
     if (c)
     {
-      v34 = ARCreateFixedPriorityDispatchQueueWithPropagatedQOS([v32 UTF8String], QOS_CLASS_USER_INITIATED, 0);
-      v35 = *(v18 + 3);
-      *(v18 + 3) = v34;
+      v35 = ARCreateFixedPriorityDispatchQueueWithPropagatedQOS([v33 UTF8String], 25, 0);
+      v36 = *(v18 + 3);
+      *(v18 + 3) = v35;
 
-      v36 = [nameCopy stringByAppendingString:@".xpc"];
-      v37 = _ARLogGeneral_46();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v37 = [nameCopy stringByAppendingString:@".xpc"];
+      v38 = _ARLogGeneral_46(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v38 = objc_opt_class();
-        v39 = NSStringFromClass(v38);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
         *buf = 138543874;
-        *&buf[4] = v39;
-        v70 = 2048;
-        v71 = v18;
-        v72 = 2112;
-        v73 = v36;
-        _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection set to custom fixed priority queue: %@", buf, 0x20u);
+        *&buf[4] = v40;
+        v71 = 2048;
+        v72 = v18;
+        v73 = 2112;
+        v74 = v37;
+        _os_log_impl(&dword_1C241C000, v38, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection set to custom fixed priority queue: %@", buf, 0x20u);
       }
 
-      v40 = *(v18 + 32);
-      v41 = v36;
-      v42 = ARCreateFixedPriorityDispatchQueueWithQOS([v36 UTF8String]);
-      [v40 _setQueue:v42];
+      v41 = *(v18 + 32);
+      v42 = v37;
+      v43 = ARCreateFixedPriorityDispatchQueueWithQOS([v37 UTF8String], 33, 0);
+      [v41 _setQueue:v43];
     }
 
     else
     {
-      uTF8String = [v32 UTF8String];
-      v36 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v44 = dispatch_queue_create(uTF8String, v36);
-      v42 = *(v18 + 3);
-      *(v18 + 3) = v44;
+      uTF8String = [v33 UTF8String];
+      v37 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v45 = dispatch_queue_create(uTF8String, v37);
+      v43 = *(v18 + 3);
+      *(v18 + 3) = v45;
     }
 
     [*(v18 + 32) resume];
     [v18 setStatus:0];
-    v45 = objc_opt_new();
-    v46 = *(v18 + 1);
-    *(v18 + 1) = v45;
+    v46 = objc_opt_new();
+    v47 = *(v18 + 1);
+    *(v18 + 1) = v46;
 
     *(v18 + 4) = 0;
     *(v18 + 64) = [v18 conformsToProtocol:&unk_1F4284858];
-    v47 = [nameCopy componentsSeparatedByString:@"."];
-    lastObject = [v47 lastObject];
+    v48 = [nameCopy componentsSeparatedByString:@"."];
+    lastObject = [v48 lastObject];
     *buf = 0;
-    v49 = lastObject;
-    v50 = [v49 getBytes:buf maxLength:8 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(v49, "length"), 0}];
+    v50 = lastObject;
+    v51 = [v50 getBytes:buf maxLength:8 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(v50, "length"), 0}];
 
-    v51 = *buf;
-    if (!v50)
+    v52 = *buf;
+    if (!v51)
     {
-      v51 = 0;
+      v52 = 0;
     }
 
-    *(v18 + 7) = v51;
+    *(v18 + 7) = v52;
 
-    v52 = MEMORY[0x1E69E9B18];
-    v53 = *MEMORY[0x1E69E9B18];
-    v54 = *(MEMORY[0x1E69E9B18] + 16);
+    v53 = MEMORY[0x1E69E9B18];
+    v54 = *MEMORY[0x1E69E9B18];
+    v55 = *(MEMORY[0x1E69E9B18] + 16);
     *(v18 + 5) = *MEMORY[0x1E69E9B18];
-    *(v18 + 6) = v54;
-    v55 = *(v52 + 32);
-    v56 = *(v52 + 48);
-    *(v18 + 7) = v55;
-    *(v18 + 8) = v56;
-    *(v18 + 9) = v53;
-    *(v18 + 10) = v54;
-    *(v18 + 11) = v55;
-    *(v18 + 12) = v56;
+    *(v18 + 6) = v55;
+    v56 = *(v53 + 32);
+    v57 = *(v53 + 48);
+    *(v18 + 7) = v56;
+    *(v18 + 8) = v57;
+    *(v18 + 9) = v54;
+    *(v18 + 10) = v55;
+    *(v18 + 11) = v56;
+    *(v18 + 12) = v57;
     *(v18 + 52) = 0;
     [v18 setUpdateUnmodifiedAnchors:1];
     objc_storeStrong(v18 + 42, queue);
@@ -269,8 +269,8 @@
       [v18 _startService];
     }
 
-    objc_destroyWeak(&v63);
-    objc_destroyWeak(&v65);
+    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v66);
     objc_destroyWeak(&location);
     os_activity_scope_leave(&state);
   }
@@ -292,22 +292,22 @@ void __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObje
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v3 = _os_activity_create(&dword_1C241C000, "dealloc", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v3, &state);
 
-  v4 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_46(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2048;
+    v12 = v7;
+    v13 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: dealloc", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: dealloc", buf, 0x16u);
   }
 
   [(ARRemoteService *)self setServiceDidInvalidateBlock:0];
@@ -323,9 +323,9 @@ void __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObje
   }
 
   os_activity_scope_leave(&state);
-  v8.receiver = self;
-  v8.super_class = ARRemoteService;
-  [(ARRemoteService *)&v8 dealloc];
+  v9.receiver = self;
+  v9.super_class = ARRemoteService;
+  [(ARRemoteService *)&v9 dealloc];
 }
 
 - (void)connectionDispatchGroupLeave
@@ -345,52 +345,52 @@ void __169__ARRemoteService_initWithMachServiceName_exportedInterface_remoteObje
 - (void)_startServiceSynchronous:(BOOL)synchronous
 {
   synchronousCopy = synchronous;
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v5 = _os_activity_create(&dword_1C241C000, "_startService", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v5, &state);
 
-  v6 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _ARLogGeneral_46(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = &stru_1F4208A80;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = &stru_1F4208A80;
     *buf = 138543874;
-    v25 = v8;
+    v26 = v9;
     if (synchronousCopy)
     {
-      v9 = @": synchronous";
+      v10 = @": synchronous";
     }
 
-    v26 = 2048;
+    v27 = 2048;
     selfCopy = self;
-    v28 = 2112;
-    v29 = v9;
-    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: _startService%@", buf, 0x20u);
+    v29 = 2112;
+    v30 = v10;
+    _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: _startService%@", buf, 0x20u);
   }
 
   skipRemoteObjectErrorHandlers = self->_skipRemoteObjectErrorHandlers;
   objc_initWeak(buf, self);
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __44__ARRemoteService__startServiceSynchronous___block_invoke;
-  v20 = &unk_1E817E998;
-  v22 = skipRemoteObjectErrorHandlers;
-  objc_copyWeak(&v21, buf);
-  v11 = MEMORY[0x1C691B4C0](&v17);
-  v12 = [(ARRemoteService *)self connection:v17];
-  v13 = [v12 remoteObjectProxyWithErrorHandler:v11];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __44__ARRemoteService__startServiceSynchronous___block_invoke;
+  v21 = &unk_1E817E998;
+  v23 = skipRemoteObjectErrorHandlers;
+  objc_copyWeak(&v22, buf);
+  v12 = MEMORY[0x1C691B4C0](&v18);
+  v13 = [(ARRemoteService *)self connection:v18];
+  v14 = [v13 remoteObjectProxyWithErrorHandler:v12];
   service = self->_service;
-  self->_service = v13;
+  self->_service = v14;
 
   if (synchronousCopy)
   {
     connection = [(ARRemoteService *)self connection];
-    v16 = [connection synchronousRemoteObjectProxyWithErrorHandler:v11];
+    v17 = [connection synchronousRemoteObjectProxyWithErrorHandler:v12];
 
-    if (v16)
+    if (v17)
     {
       goto LABEL_7;
     }
@@ -400,8 +400,8 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v16 = self->_service;
-  if (!v16)
+  v17 = self->_service;
+  if (!v17)
   {
     goto LABEL_10;
   }
@@ -410,20 +410,21 @@ LABEL_7:
   [(ARRemoteService *)self setStatus:1];
   if (!self->_deviceEndpoint)
   {
-    [(ARDaemonServiceBaseProtocol *)v16 startService:&__block_literal_global_120];
+    [(ARDaemonServiceBaseProtocol *)v17 startService:&__block_literal_global_120];
   }
 
 LABEL_11:
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
   os_activity_scope_leave(&state);
 }
 
 void __44__ARRemoteService__startServiceSynchronous___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if ((*(a1 + 40) & 1) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_52 != -1)
@@ -431,47 +432,47 @@ void __44__ARRemoteService__startServiceSynchronous___block_invoke(uint64_t a1, 
       __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_1();
     }
 
-    v4 = ARShouldUseLogTypeError_internalOSVersion_52;
-    v5 = _ARLogGeneral_46();
-    v6 = v5;
-    if (v4 == 1)
+    v5 = ARShouldUseLogTypeError_internalOSVersion_52;
+    v6 = _ARLogGeneral_46(v3);
+    v7 = v6;
+    if (v5 == 1)
     {
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_10;
       }
 
-      v7 = [v3 description];
-      v19 = 138412290;
-      v20 = v7;
-      v8 = "ARRemoteService: remote object proxy failed with error: %@";
-      v9 = v6;
-      v10 = OS_LOG_TYPE_ERROR;
+      v8 = [v4 description];
+      v20 = 138412290;
+      v21 = v8;
+      v9 = "ARRemoteService: remote object proxy failed with error: %@";
+      v10 = v7;
+      v11 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         goto LABEL_10;
       }
 
-      v7 = [v3 description];
-      v19 = 138412290;
-      v20 = v7;
-      v8 = "Error: ARRemoteService: remote object proxy failed with error: %@";
-      v9 = v6;
-      v10 = OS_LOG_TYPE_INFO;
+      v8 = [v4 description];
+      v20 = 138412290;
+      v21 = v8;
+      v9 = "Error: ARRemoteService: remote object proxy failed with error: %@";
+      v10 = v7;
+      v11 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v9, v10, v8, &v19, 0xCu);
+    _os_log_impl(&dword_1C241C000, v10, v11, v9, &v20, 0xCu);
 
 LABEL_10:
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v12 = WeakRetained;
+    v13 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained serviceFailedWithError:v3];
+      [WeakRetained serviceFailedWithError:v4];
 LABEL_21:
 
       goto LABEL_22;
@@ -482,28 +483,28 @@ LABEL_21:
       __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
     }
 
-    v13 = ARShouldUseLogTypeError_internalOSVersion_52;
-    v14 = _ARLogGeneral_46();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError_internalOSVersion_52;
+    v15 = _ARLogGeneral_46(WeakRetained);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        v16 = "ARRemoteService: weak self released before invalidation";
-        v17 = v15;
-        v18 = OS_LOG_TYPE_ERROR;
+        LOWORD(v20) = 0;
+        v17 = "ARRemoteService: weak self released before invalidation";
+        v18 = v16;
+        v19 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-        _os_log_impl(&dword_1C241C000, v17, v18, v16, &v19, 2u);
+        _os_log_impl(&dword_1C241C000, v18, v19, v17, &v20, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      v16 = "Error: ARRemoteService: weak self released before invalidation";
-      v17 = v15;
-      v18 = OS_LOG_TYPE_INFO;
+      LOWORD(v20) = 0;
+      v17 = "Error: ARRemoteService: weak self released before invalidation";
+      v18 = v16;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_19;
     }
 
@@ -516,7 +517,7 @@ LABEL_22:
 void __44__ARRemoteService__startServiceSynchronous___block_invoke_67(uint64_t a1, int a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogGeneral_46();
+  v3 = _ARLogGeneral_46(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = @"unsuccessfully";
@@ -533,26 +534,26 @@ void __44__ARRemoteService__startServiceSynchronous___block_invoke_67(uint64_t a
 
 - (void)invalidate
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v12.opaque[0] = 0;
-  v12.opaque[1] = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13.opaque[0] = 0;
+  v13.opaque[1] = 0;
   v3 = _os_activity_create(&dword_1C241C000, "invalidate", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v3, &v12);
+  os_activity_scope_enter(v3, &v13);
 
-  v4 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_46(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v14 = v6;
-    v15 = 2048;
+    v15 = v7;
+    v16 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: invalidate", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: invalidate", buf, 0x16u);
   }
 
-  v7 = [(ARRemoteService *)self connection:v12.opaque[0]];
-  [v7 invalidate];
+  v8 = [(ARRemoteService *)self connection:v13.opaque[0]];
+  [v8 invalidate];
 
   [(ARRemoteService *)self setConnection:0];
   service = self->_service;
@@ -569,7 +570,7 @@ void __44__ARRemoteService__startServiceSynchronous___block_invoke_67(uint64_t a
     (serviceDidInvalidateBlock2)[2](serviceDidInvalidateBlock2, self);
   }
 
-  os_activity_scope_leave(&v12);
+  os_activity_scope_leave(&v13);
 }
 
 - (int64_t)_waitForDispatchGroup:(unint64_t)group
@@ -631,62 +632,63 @@ void __44__ARRemoteService__startServiceSynchronous___block_invoke_67(uint64_t a
 
 - (void)reconnect
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   v3 = _os_activity_create(&dword_1C241C000, "reconnect", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v3, &state);
 
-  v4 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_46(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v18 = v6;
-    v19 = 2048;
+    v20 = v7;
+    v21 = 2048;
     selfCopy3 = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: reconnect", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: reconnect", buf, 0x16u);
   }
 
   if ([(ARRemoteService *)self status]!= 3)
   {
-    if ([(ARRemoteService *)self status]== 4)
+    status = [(ARRemoteService *)self status];
+    if (status == 4)
     {
-      v7 = _ARLogGeneral_46();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = _ARLogGeneral_46(4);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         *buf = 138543618;
-        v18 = v9;
-        v19 = 2048;
+        v20 = v11;
+        v21 = 2048;
         selfCopy3 = self;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Service not started - delaying reconnection attempt", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Service not started - delaying reconnection attempt", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v10 = dispatch_time(0, 2000000000);
+      v12 = dispatch_time(0, 2000000000);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __28__ARRemoteService_reconnect__block_invoke;
       block[3] = &unk_1E817BD88;
-      objc_copyWeak(&v15, buf);
-      dispatch_after(v10, MEMORY[0x1E69E96A0], block);
-      objc_destroyWeak(&v15);
+      objc_copyWeak(&v17, buf);
+      dispatch_after(v12, MEMORY[0x1E69E96A0], block);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(buf);
     }
 
-    v11 = _ARLogGeneral_46();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = _ARLogGeneral_46(status);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      v18 = v13;
-      v19 = 2048;
+      v20 = v15;
+      v21 = 2048;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Attempting reconnection", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Attempting reconnection", buf, 0x16u);
     }
 
     [(ARDaemonServiceBaseProtocol *)self->_service startService:&__block_literal_global_78_3];
@@ -704,56 +706,57 @@ void __28__ARRemoteService_reconnect__block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void __28__ARRemoteService_reconnect__block_invoke_76()
+void __28__ARRemoteService_reconnect__block_invoke_76(uint64_t a1)
 {
-  v0 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = _ARLogGeneral_46(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C241C000, v0, OS_LOG_TYPE_INFO, "Reconnected to arkitd", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1C241C000, v1, OS_LOG_TYPE_INFO, "Reconnected to arkitd", v2, 2u);
   }
 }
 
 - (void)syncServiceWithTimeout:(unint64_t)timeout callback:(id)callback
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   objc_initWeak(&location, self);
-  if (![(ARRemoteService *)self _waitUntilStarted:timeout])
+  v8 = [(ARRemoteService *)self _waitUntilStarted:timeout];
+  if (!v8)
   {
     if (ARShouldUseLogTypeError_onceToken_52 != -1)
     {
       __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
     }
 
-    v10 = ARShouldUseLogTypeError_internalOSVersion_52;
-    v11 = _ARLogGeneral_46();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError_internalOSVersion_52;
+    v12 = _ARLogGeneral_46(v8);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_loadWeakRetained(&location);
-        if (v13)
+        v14 = objc_loadWeakRetained(&location);
+        if (v14)
         {
           v4 = objc_loadWeakRetained(&location);
-          v14 = objc_opt_class();
-          v15 = NSStringFromClass(v14);
+          v15 = objc_opt_class();
+          v16 = NSStringFromClass(v15);
         }
 
         else
         {
-          v15 = @"ARRemoteService";
+          v16 = @"ARRemoteService";
         }
 
-        v18 = objc_loadWeakRetained(&location);
+        v19 = objc_loadWeakRetained(&location);
         *buf = 138412546;
-        v22 = v15;
-        v23 = 2048;
-        v24 = v18;
-        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%@ <%p>: syncService timed out.", buf, 0x16u);
+        v23 = v16;
+        v24 = 2048;
+        v25 = v19;
+        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%@ <%p>: syncService timed out.", buf, 0x16u);
 
-        if (v13)
+        if (v14)
         {
         }
 
@@ -761,29 +764,29 @@ LABEL_19:
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_loadWeakRetained(&location);
-      if (v13)
+      v14 = objc_loadWeakRetained(&location);
+      if (v14)
       {
         v4 = objc_loadWeakRetained(&location);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
       }
 
       else
       {
-        v17 = @"ARRemoteService";
+        v18 = @"ARRemoteService";
       }
 
-      v19 = objc_loadWeakRetained(&location);
+      v20 = objc_loadWeakRetained(&location);
       *buf = 138412546;
-      v22 = v17;
-      v23 = 2048;
-      v24 = v19;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: %@ <%p>: syncService timed out.", buf, 0x16u);
+      v23 = v18;
+      v24 = 2048;
+      v25 = v20;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "Error: %@ <%p>: syncService timed out.", buf, 0x16u);
 
-      if (v13)
+      if (v14)
       {
       }
 
@@ -794,8 +797,8 @@ LABEL_19:
     goto LABEL_21;
   }
 
-  v8 = objc_loadWeakRetained(&location);
-  syncService = [v8 syncService];
+  v9 = objc_loadWeakRetained(&location);
+  syncService = [v9 syncService];
   (callbackCopy)[2](callbackCopy, syncService);
 
 LABEL_21:
@@ -856,66 +859,66 @@ void __44__ARRemoteService_asyncServiceWithCallback___block_invoke(uint64_t a1)
 
 - (void)serverConnectionInterrupted
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10.opaque[0] = 0;
-  v10.opaque[1] = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v11.opaque[0] = 0;
+  v11.opaque[1] = 0;
   v3 = _os_activity_create(&dword_1C241C000, "Connection interrupted", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v3, &v10);
+  os_activity_scope_enter(v3, &v11);
 
-  v4 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_46(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v12 = v6;
-    v13 = 2048;
+    v13 = v7;
+    v14 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection interrupted", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection interrupted", buf, 0x16u);
   }
 
-  v7 = [(ARRemoteService *)self connection:v10.opaque[0]];
-  endpoint = [v7 endpoint];
+  v8 = [(ARRemoteService *)self connection:v11.opaque[0]];
+  endpoint = [v8 endpoint];
   if (endpoint)
   {
   }
 
   else
   {
-    v9 = [(ARRemoteService *)self status]== 0;
+    v10 = [(ARRemoteService *)self status]== 0;
 
-    if (!v9)
+    if (!v10)
     {
       [(ARRemoteService *)self setStatus:4];
       [(ARRemoteService *)self reconnect];
     }
   }
 
-  os_activity_scope_leave(&v10);
+  os_activity_scope_leave(&v11);
 }
 
 - (void)_serverConnectionInvalidated
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v7.opaque[0] = 0;
-  v7.opaque[1] = 0;
+  v13 = *MEMORY[0x1E69E9840];
+  v8.opaque[0] = 0;
+  v8.opaque[1] = 0;
   v3 = _os_activity_create(&dword_1C241C000, "Connection invalidated", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v3, &v7);
+  os_activity_scope_enter(v3, &v8);
 
-  v4 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_46(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v9 = v6;
-    v10 = 2048;
+    v10 = v7;
+    v11 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection invalidated", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Connection invalidated", buf, 0x16u);
   }
 
-  [(ARRemoteService *)self setConnection:0, v7.opaque[0], v7.opaque[1]];
-  os_activity_scope_leave(&v7);
+  [(ARRemoteService *)self setConnection:0, v8.opaque[0], v8.opaque[1]];
+  os_activity_scope_leave(&v8);
 }
 
 - (id)clientProcessName
@@ -936,36 +939,37 @@ void __44__ARRemoteService_asyncServiceWithCallback___block_invoke(uint64_t a1)
 
 - (void)serviceFailedWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v9.opaque[0] = 0;
-  v9.opaque[1] = 0;
+  v10.opaque[0] = 0;
+  v10.opaque[1] = 0;
   v5 = _os_activity_create(&dword_1C241C000, "serviceFailedWithError", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v5, &v9);
+  os_activity_scope_enter(v5, &v10);
 
-  v6 = _ARLogGeneral_46();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _ARLogGeneral_46(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 138543874;
-    v11 = v8;
-    v12 = 2048;
+    v12 = v9;
+    v13 = 2048;
     selfCopy = self;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: serviceFailedWithError: %@", buf, 0x20u);
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: serviceFailedWithError: %@", buf, 0x20u);
   }
 
-  [(ARRemoteService *)self setStatus:2, v9.opaque[0], v9.opaque[1]];
+  [(ARRemoteService *)self setStatus:2, v10.opaque[0], v10.opaque[1]];
   [(ARRemoteService *)self connectionDispatchGroupLeave];
-  os_activity_scope_leave(&v9);
+  os_activity_scope_leave(&v10);
 }
 
 - (void)serviceConfiguredWithError:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v5 = errorCopy;
   if (errorCopy)
   {
     if (ARShouldUseLogTypeError_onceToken_52 != -1)
@@ -973,63 +977,63 @@ void __44__ARRemoteService_asyncServiceWithCallback___block_invoke(uint64_t a1)
       __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_1();
     }
 
-    v5 = ARShouldUseLogTypeError_internalOSVersion_52;
-    v6 = _ARLogGeneral_46();
-    v7 = v6;
-    if (v5 == 1)
+    v6 = ARShouldUseLogTypeError_internalOSVersion_52;
+    v7 = _ARLogGeneral_46(errorCopy);
+    v8 = v7;
+    if (v6 == 1)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
         *buf = 138543874;
-        *&buf[4] = v9;
+        *&buf[4] = v10;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        v24 = 2112;
-        v25 = errorCopy;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Service configured with error: %@", buf, 0x20u);
+        v25 = 2112;
+        v26 = v5;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Service configured with error: %@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138543874;
-      *&buf[4] = v13;
+      *&buf[4] = v14;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Service configured with error: %@", buf, 0x20u);
+      v25 = 2112;
+      v26 = v5;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Service configured with error: %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v7 = _ARLogGeneral_46();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _ARLogGeneral_46(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543618;
-      *&buf[4] = v11;
+      *&buf[4] = v12;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Service successfully configured", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Service successfully configured", buf, 0x16u);
     }
   }
 
   if ([(ARRemoteService *)self status]== 4)
   {
-    [(ARRemoteService *)self serviceDidReconnect:errorCopy == 0];
+    [(ARRemoteService *)self serviceDidReconnect:v5 == 0];
   }
 
-  if (errorCopy)
+  if (v5)
   {
     [(ARRemoteService *)self invalidate];
-    [(ARRemoteService *)self serviceFailedWithError:errorCopy];
+    [(ARRemoteService *)self serviceFailedWithError:v5];
   }
 
   else
@@ -1037,25 +1041,25 @@ void __44__ARRemoteService_asyncServiceWithCallback___block_invoke(uint64_t a1)
     [(ARRemoteService *)self setStatus:3];
     *buf = 0;
     *&buf[8] = 0;
-    v14 = _os_activity_create(&dword_1C241C000, "serviceConfiguredWithNOError", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v14, buf);
+    v15 = _os_activity_create(&dword_1C241C000, "serviceConfiguredWithNOError", self->_remoteServiceActivity, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v15, buf);
 
     objc_initWeak(&location, self);
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __46__ARRemoteService_serviceConfiguredWithError___block_invoke;
-    v20 = &unk_1E817BD88;
-    objc_copyWeak(&v21, &location);
-    [(ARRemoteService *)self serviceConfiguredWithCompletionHandler:&v17];
-    v15 = [(ARRemoteService *)self serviceDidConfigureBlock:v17];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __46__ARRemoteService_serviceConfiguredWithError___block_invoke;
+    v21 = &unk_1E817BD88;
+    objc_copyWeak(&v22, &location);
+    [(ARRemoteService *)self serviceConfiguredWithCompletionHandler:&v18];
+    v16 = [(ARRemoteService *)self serviceDidConfigureBlock:v18];
 
-    if (v15)
+    if (v16)
     {
       serviceDidConfigureBlock = [(ARRemoteService *)self serviceDidConfigureBlock];
       (serviceDidConfigureBlock)[2](serviceDidConfigureBlock, self);
     }
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
     os_activity_scope_leave(buf);
   }
@@ -1069,7 +1073,7 @@ void __46__ARRemoteService_serviceConfiguredWithError___block_invoke(uint64_t a1
   {
     v2 = objc_opt_class();
     v3 = NSStringFromClass(v2);
-    v4 = _ARLogGeneral_46();
+    v4 = _ARLogGeneral_46(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
@@ -1093,50 +1097,51 @@ void __46__ARRemoteService_serviceConfiguredWithError___block_invoke(uint64_t a1
 
 void __46__ARRemoteService_serviceConfiguredWithError___block_invoke_84(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (ARShouldUseLogTypeError_onceToken_52 != -1)
   {
     __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_1();
   }
 
-  v4 = ARShouldUseLogTypeError_internalOSVersion_52;
-  v5 = _ARLogGeneral_46();
-  v6 = v5;
-  if (v4 == 1)
+  v5 = ARShouldUseLogTypeError_internalOSVersion_52;
+  v6 = _ARLogGeneral_46(v3);
+  v7 = v6;
+  if (v5 == 1)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v3;
-      v8 = "%{public}@ - Synchronous remote object proxy failed with error: %@";
-      v9 = v6;
-      v10 = OS_LOG_TYPE_ERROR;
+      v8 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
+      v9 = "%{public}@ - Synchronous remote object proxy failed with error: %@";
+      v10 = v7;
+      v11 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v9, v10, v8, &v12, 0x16u);
+      _os_log_impl(&dword_1C241C000, v10, v11, v9, &v13, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = v11;
-    v14 = 2112;
-    v15 = v3;
-    v8 = "Error: %{public}@ - Synchronous remote object proxy failed with error: %@";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_INFO;
+    v12 = *(a1 + 32);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2112;
+    v16 = v4;
+    v9 = "Error: %{public}@ - Synchronous remote object proxy failed with error: %@";
+    v10 = v7;
+    v11 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 }
 
 - (void)createRTChannelWithRequest:(id)request completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   requestCopy = request;
   v8 = xpc_dictionary_create(0, 0, 0);
@@ -1152,49 +1157,49 @@ LABEL_8:
       __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_1();
     }
 
-    v11 = ARShouldUseLogTypeError_internalOSVersion_52;
-    v12 = _ARLogGeneral_46();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError_internalOSVersion_52;
+    v13 = _ARLogGeneral_46(v11);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        *v20 = 138543618;
-        *&v20[4] = v15;
-        *&v20[12] = 2048;
-        *&v20[14] = self;
-        v16 = "%{public}@ <%p>: Failed to create RT channel from request using channel_rt_create_from_request";
-        v17 = v13;
-        v18 = OS_LOG_TYPE_ERROR;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        *v21 = 138543618;
+        *&v21[4] = v16;
+        *&v21[12] = 2048;
+        *&v21[14] = self;
+        v17 = "%{public}@ <%p>: Failed to create RT channel from request using channel_rt_create_from_request";
+        v18 = v14;
+        v19 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v17, v18, v16, v20, 0x16u);
+        _os_log_impl(&dword_1C241C000, v18, v19, v17, v21, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_opt_class();
-      v15 = NSStringFromClass(v19);
-      *v20 = 138543618;
-      *&v20[4] = v15;
-      *&v20[12] = 2048;
-      *&v20[14] = self;
-      v16 = "Error: %{public}@ <%p>: Failed to create RT channel from request using channel_rt_create_from_request";
-      v17 = v13;
-      v18 = OS_LOG_TYPE_INFO;
+      v20 = objc_opt_class();
+      v16 = NSStringFromClass(v20);
+      *v21 = 138543618;
+      *&v21[4] = v16;
+      *&v21[12] = 2048;
+      *&v21[14] = self;
+      v17 = "Error: %{public}@ <%p>: Failed to create RT channel from request using channel_rt_create_from_request";
+      v18 = v14;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
 
-  [(ARRemoteService *)self setupCompleteForRTChannel:*v20];
+  [(ARRemoteService *)self setupCompleteForRTChannel:*v21];
   completionCopy[2](completionCopy, v8);
 }
 
 - (void)createDispatchChannelWithRequest:(id)request completion:(id)completion
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   v8 = xpc_dictionary_create(0, 0, 0);
@@ -1208,7 +1213,7 @@ LABEL_9:
     serviceName = [objc_opt_class() serviceName];
     v13 = [serviceName stringByAppendingString:@".dispatchChannelQueue"];
 
-    v14 = ARCreateFixedPriorityDispatchQueueWithQOS([v13 UTF8String]);
+    v14 = ARCreateFixedPriorityDispatchQueueWithQOS([v13 UTF8String], 25, 0);
     [(ARRemoteService *)self setDispatchChannelQueue:v14];
   }
 
@@ -1219,20 +1224,20 @@ LABEL_9:
   }
 
   v16 = v15;
-  v17 = _ARLogGeneral_46();
+  v17 = _ARLogGeneral_46(v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
     dispatchChannelQueue3 = [(ARRemoteService *)self dispatchChannelQueue];
     *buf = 138544130;
-    v68 = v19;
-    v69 = 2048;
+    v72 = v19;
+    v73 = 2048;
     selfCopy11 = self;
-    v71 = 2112;
-    v72 = v16;
-    v73 = 2112;
-    v74 = dispatchChannelQueue3;
+    v75 = 2112;
+    v76 = v16;
+    v77 = 2112;
+    v78 = dispatchChannelQueue3;
     _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: %@ dispatch channel with queue: %@", buf, 0x2Au);
   }
 
@@ -1244,10 +1249,11 @@ LABEL_9:
 
   if (self->_dispatchChannel)
   {
-    v25 = [ARXPCDictionaryWrapper wrapperWithDictionary:v8];
-    completionCopy[2](completionCopy, v25);
+    v26 = [ARXPCDictionaryWrapper wrapperWithDictionary:v8];
+    completionCopy[2](completionCopy, v26);
 
     uint64 = xpc_dictionary_get_uint64(dictionary, [@"ARDispatchChannelMessageSizeKey" UTF8String]);
+    v28 = uint64;
     if (!uint64)
     {
       if (ARShouldUseLogTypeError_onceToken_52 != -1)
@@ -1255,87 +1261,89 @@ LABEL_9:
         __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
       }
 
-      v27 = ARShouldUseLogTypeError_internalOSVersion_52;
-      v28 = _ARLogGeneral_46();
-      v29 = v28;
-      if (v27 == 1)
+      v29 = ARShouldUseLogTypeError_internalOSVersion_52;
+      v30 = _ARLogGeneral_46(uint64);
+      v31 = v30;
+      if (v29 == 1)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
           *buf = 138543618;
-          v68 = v31;
-          v69 = 2048;
+          v72 = v33;
+          v73 = 2048;
           selfCopy11 = self;
-          _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Creating a dispatch channel with dispatchChannelDataSize equal to 0.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Creating a dispatch channel with dispatchChannelDataSize equal to 0.", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v39 = objc_opt_class();
-        v40 = NSStringFromClass(v39);
+        v41 = objc_opt_class();
+        v42 = NSStringFromClass(v41);
         *buf = 138543618;
-        v68 = v40;
-        v69 = 2048;
+        v72 = v42;
+        v73 = 2048;
         selfCopy11 = self;
-        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Creating a dispatch channel with dispatchChannelDataSize equal to 0.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Creating a dispatch channel with dispatchChannelDataSize equal to 0.", buf, 0x16u);
       }
     }
 
     if (self->_messageBuffer)
     {
-      if (uint64 == self->_dispatchDataSize)
+      if (v28 == self->_dispatchDataSize)
       {
 LABEL_37:
         objc_initWeak(&location, self);
-        v64[1] = MEMORY[0x1E69E9820];
-        v64[2] = 3221225472;
-        v64[3] = __63__ARRemoteService_createDispatchChannelWithRequest_completion___block_invoke;
-        v64[4] = &unk_1E817EA30;
-        objc_copyWeak(&v65, &location);
-        v49 = channel_dispatch_set_message_handler();
-        if ((v49 & 1) == 0)
+        v68[1] = MEMORY[0x1E69E9820];
+        v68[2] = 3221225472;
+        v68[3] = __63__ARRemoteService_createDispatchChannelWithRequest_completion___block_invoke;
+        v68[4] = &unk_1E817EA30;
+        objc_copyWeak(&v69, &location);
+        v51 = channel_dispatch_set_message_handler();
+        v52 = v51;
+        if ((v51 & 1) == 0)
         {
           if (ARShouldUseLogTypeError_onceToken_52 != -1)
           {
             __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
           }
 
-          v50 = ARShouldUseLogTypeError_internalOSVersion_52;
-          v51 = _ARLogGeneral_46();
-          v52 = v51;
-          if (v50 == 1)
+          v53 = ARShouldUseLogTypeError_internalOSVersion_52;
+          v54 = _ARLogGeneral_46(v51);
+          v55 = v54;
+          if (v53 == 1)
           {
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              v53 = objc_opt_class();
-              v54 = NSStringFromClass(v53);
+              v56 = objc_opt_class();
+              v57 = NSStringFromClass(v56);
               *buf = 138543618;
-              v68 = v54;
-              v69 = 2048;
+              v72 = v57;
+              v73 = 2048;
               selfCopy11 = self;
-              _os_log_impl(&dword_1C241C000, v52, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting message handler for Dispatch Channel", buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v55, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting message handler for Dispatch Channel", buf, 0x16u);
             }
           }
 
-          else if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
-            v55 = objc_opt_class();
-            v56 = NSStringFromClass(v55);
+            v58 = objc_opt_class();
+            v59 = NSStringFromClass(v58);
             *buf = 138543618;
-            v68 = v56;
-            v69 = 2048;
+            v72 = v59;
+            v73 = 2048;
             selfCopy11 = self;
-            _os_log_impl(&dword_1C241C000, v52, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting message handler for Dispatch Channel", buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v55, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting message handler for Dispatch Channel", buf, 0x16u);
           }
         }
 
-        objc_copyWeak(v64, &location);
-        if (channel_dispatch_set_cancel_handler())
+        objc_copyWeak(v68, &location);
+        v60 = channel_dispatch_set_cancel_handler();
+        if (v60)
         {
-          if (v49)
+          if (v52)
           {
             channel_dispatch_activate();
           }
@@ -1348,37 +1356,37 @@ LABEL_37:
             __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
           }
 
-          v57 = ARShouldUseLogTypeError_internalOSVersion_52;
-          v58 = _ARLogGeneral_46();
-          v59 = v58;
-          if (v57 == 1)
+          v61 = ARShouldUseLogTypeError_internalOSVersion_52;
+          v62 = _ARLogGeneral_46(v60);
+          v63 = v62;
+          if (v61 == 1)
           {
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
-              v60 = objc_opt_class();
-              v61 = NSStringFromClass(v60);
+              v64 = objc_opt_class();
+              v65 = NSStringFromClass(v64);
               *buf = 138543618;
-              v68 = v61;
-              v69 = 2048;
+              v72 = v65;
+              v73 = 2048;
               selfCopy11 = self;
-              _os_log_impl(&dword_1C241C000, v59, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting cancel handler for Dispatch Channel", buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error setting cancel handler for Dispatch Channel", buf, 0x16u);
             }
           }
 
-          else if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
           {
-            v62 = objc_opt_class();
-            v63 = NSStringFromClass(v62);
+            v66 = objc_opt_class();
+            v67 = NSStringFromClass(v66);
             *buf = 138543618;
-            v68 = v63;
-            v69 = 2048;
+            v72 = v67;
+            v73 = 2048;
             selfCopy11 = self;
-            _os_log_impl(&dword_1C241C000, v59, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting cancel handler for Dispatch Channel", buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v63, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Error setting cancel handler for Dispatch Channel", buf, 0x16u);
           }
         }
 
-        objc_destroyWeak(v64);
-        objc_destroyWeak(&v65);
+        objc_destroyWeak(v68);
+        objc_destroyWeak(&v69);
         objc_destroyWeak(&location);
         goto LABEL_58;
       }
@@ -1388,46 +1396,46 @@ LABEL_37:
         __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
       }
 
-      v41 = ARShouldUseLogTypeError_internalOSVersion_52;
-      v42 = _ARLogGeneral_46();
-      v43 = v42;
-      if (v41 == 1)
+      v43 = ARShouldUseLogTypeError_internalOSVersion_52;
+      v44 = _ARLogGeneral_46(uint64);
+      v45 = v44;
+      if (v43 == 1)
       {
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          v44 = objc_opt_class();
-          v45 = NSStringFromClass(v44);
+          v46 = objc_opt_class();
+          v47 = NSStringFromClass(v46);
           *buf = 138543618;
-          v68 = v45;
-          v69 = 2048;
+          v72 = v47;
+          v73 = 2048;
           selfCopy11 = self;
-          _os_log_impl(&dword_1C241C000, v43, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: dispatchDataSize changed on _messageBuffer. _messageBuffer is being resized.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: dispatchDataSize changed on _messageBuffer. _messageBuffer is being resized.", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
-        v47 = objc_opt_class();
-        v48 = NSStringFromClass(v47);
+        v49 = objc_opt_class();
+        v50 = NSStringFromClass(v49);
         *buf = 138543618;
-        v68 = v48;
-        v69 = 2048;
+        v72 = v50;
+        v73 = 2048;
         selfCopy11 = self;
-        _os_log_impl(&dword_1C241C000, v43, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: dispatchDataSize changed on _messageBuffer. _messageBuffer is being resized.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v45, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: dispatchDataSize changed on _messageBuffer. _messageBuffer is being resized.", buf, 0x16u);
       }
 
-      self->_dispatchDataSize = uint64;
+      self->_dispatchDataSize = v28;
       free(self->_messageBuffer);
-      v46 = malloc_type_malloc(self->_dispatchDataSize, 0xA9A4FC6AuLL);
+      v48 = malloc_type_malloc(self->_dispatchDataSize, 0xA9A4FC6AuLL);
     }
 
     else
     {
-      self->_dispatchDataSize = uint64;
-      v46 = malloc_type_malloc(uint64, 0x5D984D6DuLL);
+      self->_dispatchDataSize = v28;
+      v48 = malloc_type_malloc(v28, 0x5D984D6DuLL);
     }
 
-    self->_messageBuffer = v46;
+    self->_messageBuffer = v48;
     goto LABEL_37;
   }
 
@@ -1436,32 +1444,32 @@ LABEL_37:
     __44__ARRemoteService__startServiceSynchronous___block_invoke_cold_2();
   }
 
-  v32 = ARShouldUseLogTypeError_internalOSVersion_52;
-  v33 = _ARLogGeneral_46();
-  v34 = v33;
-  if (v32 == 1)
+  v34 = ARShouldUseLogTypeError_internalOSVersion_52;
+  v35 = _ARLogGeneral_46(v25);
+  v36 = v35;
+  if (v34 == 1)
   {
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
       *buf = 138543618;
-      v68 = v36;
-      v69 = 2048;
+      v72 = v38;
+      v73 = 2048;
       selfCopy11 = self;
-      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create dispatch channel from request", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create dispatch channel from request", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
+    v39 = objc_opt_class();
+    v40 = NSStringFromClass(v39);
     *buf = 138543618;
-    v68 = v38;
-    v69 = 2048;
+    v72 = v40;
+    v73 = 2048;
     selfCopy11 = self;
-    _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create dispatch channel from request", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create dispatch channel from request", buf, 0x16u);
   }
 
   completionCopy[2](completionCopy, 0);
@@ -1491,7 +1499,7 @@ void __63__ARRemoteService_createDispatchChannelWithRequest_completion___block_i
       }
 
       v11 = ARShouldUseLogTypeError_internalOSVersion_52;
-      v12 = _ARLogGeneral_46();
+      v12 = _ARLogGeneral_46(v10);
       v13 = v12;
       if (v11 == 1)
       {
@@ -1531,7 +1539,7 @@ LABEL_14:
 void __63__ARRemoteService_createDispatchChannelWithRequest_completion___block_invoke_96(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = _ARLogGeneral_46();
+  v2 = _ARLogGeneral_46(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));

@@ -108,7 +108,7 @@ LABEL_5:
 
 - (void)main
 {
-  v3 = _AESearchLog();
+  v3 = _AESearchLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 67109376;
@@ -126,31 +126,32 @@ LABEL_5:
     v7 = requiresMainThread;
     do
     {
-      if (([(BKSearchOperation *)self isCancelled]& 1) != 0)
+      requiresMainThread = [(BKSearchOperation *)self isCancelled];
+      if (requiresMainThread)
       {
         break;
       }
 
       if (v7)
       {
-        [(BKSearchOperation *)self performSelectorOnMainThread:"_search" withObject:0 waitUntilDone:1];
+        requiresMainThread = [(BKSearchOperation *)self performSelectorOnMainThread:"_search" withObject:0 waitUntilDone:1];
       }
 
       else
       {
-        [(BKSearchOperation *)self _search];
+        requiresMainThread = [(BKSearchOperation *)self _search];
       }
 
       if (v5 > 0.0)
       {
-        [NSThread sleepForTimeInterval:v5];
+        requiresMainThread = [NSThread sleepForTimeInterval:v5];
       }
     }
 
     while (!self->_isDone);
   }
 
-  v8 = _AESearchLog();
+  v8 = _AESearchLog(requiresMainThread);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     ordinal2 = [(BKSearchOperation *)self ordinal];

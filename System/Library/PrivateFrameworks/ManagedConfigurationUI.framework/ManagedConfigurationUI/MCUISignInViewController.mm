@@ -7,17 +7,20 @@
 - (void)setOrgName:(id)name;
 - (void)signInViewController:(id)controller didAuthenticateWithResults:(id)results error:(id)error;
 - (void)signInViewController:(id)controller willPerformAuthenticationWithContext:(id)context completionHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MCUISignInViewController
 
 - (MCUISignInViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MCUISignInViewController;
-  v4 = [(MCUISignInViewController *)&v13 initWithNibName:name bundle:bundle];
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MCUISignInViewController;
+  v4 = [(MCUISignInViewController *)&v12 initWithNibName:name bundle:bundle];
   if (v4)
   {
     v5 = objc_opt_new();
@@ -31,13 +34,12 @@
     inlineSignInViewController = [(MCSignInPageAuthenticationSectionController *)v4->_authSectionController inlineSignInViewController];
     [inlineSignInViewController setDelegate:v4];
 
-    v14[0] = v4->_titleSectionController;
-    v14[1] = v4->_authSectionController;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v4->_titleSectionController;
+    v13[1] = v4->_authSectionController;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     [(MCSectionBasedTableViewController *)v4 setSectionControllers:v10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -53,6 +55,72 @@
   authSectionController2 = [(MCUISignInViewController *)self authSectionController];
   inlineSignInViewController2 = [authSectionController2 inlineSignInViewController];
   [inlineSignInViewController2 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = MCUISignInViewController;
+  [(MCUISignInViewController *)&v17 viewWillAppear:appear];
+  v4 = MEMORY[0x277D755B8];
+  systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
+  v6 = [v4 MCUIImageWithColor:systemBackgroundColor];
+
+  navigationController = [(MCUISignInViewController *)self navigationController];
+  navigationBar = [navigationController navigationBar];
+  [navigationBar setBackgroundImage:v6 forBarMetrics:0];
+
+  navigationController2 = [(MCUISignInViewController *)self navigationController];
+  navigationBar2 = [navigationController2 navigationBar];
+  v11 = objc_opt_new();
+  [navigationBar2 setShadowImage:v11];
+
+  navigationController3 = [(MCUISignInViewController *)self navigationController];
+  navigationBar3 = [navigationController3 navigationBar];
+  [navigationBar3 setTranslucent:1];
+
+  systemBackgroundColor2 = [MEMORY[0x277D75348] systemBackgroundColor];
+  view = [(MCUISignInViewController *)self view];
+  [view setBackgroundColor:systemBackgroundColor2];
+
+  navigationItem = [(MCUISignInViewController *)self navigationItem];
+  [navigationItem setTitle:&stru_286946728];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = MCUISignInViewController;
+  [(MCUISignInViewController *)&v6 viewDidAppear:appear];
+  if (![(MCUISignInViewController *)self signInButtonTapped])
+  {
+    authSectionController = [(MCUISignInViewController *)self authSectionController];
+    inlineSignInViewController = [authSectionController inlineSignInViewController];
+    [inlineSignInViewController signInButtonWasTapped:0];
+
+    [(MCUISignInViewController *)self setSignInButtonTapped:1];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = MCUISignInViewController;
+  [(MCUISignInViewController *)&v7 viewDidDisappear:disappear];
+  presentingViewController = [(MCUISignInViewController *)self presentingViewController];
+  if (!presentingViewController && ![(MCUISignInViewController *)self authenticationFinished])
+  {
+    delegate = [(MCUISignInViewController *)self delegate];
+    v6 = objc_opt_respondsToSelector();
+
+    if ((v6 & 1) == 0)
+    {
+      return;
+    }
+
+    presentingViewController = [(MCUISignInViewController *)self delegate];
+    [presentingViewController signInViewControllerDidCancelAuthentication:self];
+  }
 }
 
 - (AKAppleIDAuthenticationInAppContext)context

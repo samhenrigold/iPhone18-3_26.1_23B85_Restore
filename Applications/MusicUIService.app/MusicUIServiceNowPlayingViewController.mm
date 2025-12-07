@@ -5,7 +5,9 @@
 - (void)customRowDidTap:(id)tap;
 - (void)handleButtonActions:(id)actions;
 - (void)updateMediaControlsWithConfiguration:(id)configuration;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MusicUIServiceNowPlayingViewController
@@ -23,6 +25,22 @@
   v11 = v10;
   view2 = [(MRUViewServiceViewController *)self->_remoteViewController view];
   [view2 setFrame:{v5, v7, v9, v11}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MusicUIServiceNowPlayingViewController;
+  [(MusicUIServiceNowPlayingViewController *)&v4 viewWillAppear:appear];
+  [(MRUViewServiceViewController *)self->_remoteViewController transitionToVisible:1 animated:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MusicUIServiceNowPlayingViewController;
+  [(MusicUIServiceNowPlayingViewController *)&v4 viewDidDisappear:disappear];
+  [(MusicUIServiceNowPlayingViewController *)self cleanup];
 }
 
 - (void)configureWithContext:(id)context completion:(id)completion

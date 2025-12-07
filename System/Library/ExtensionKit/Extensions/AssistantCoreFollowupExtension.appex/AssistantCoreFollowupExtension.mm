@@ -1,8 +1,8 @@
-uint64_t FollowUpViewController.processFollowUpItem(_:selectedAction:completion:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
+uint64_t FollowUpViewController.processFollowUpItem(_:selectedAction:completion:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
 {
   if (a3)
   {
-    return a3(1);
+    return a3(1, a2);
   }
 
   __break(1u);
@@ -27,9 +27,9 @@ id FollowUpViewController.__allocating_init(nibName:bundle:)(uint64_t a1, uint64
   return v7;
 }
 
-id FollowUpViewController.__deallocating_deinit()
+id FollowUpViewController.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FollowUpViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for FollowUpViewController();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }

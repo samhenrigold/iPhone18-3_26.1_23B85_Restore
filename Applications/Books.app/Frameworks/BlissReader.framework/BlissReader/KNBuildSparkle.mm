@@ -111,7 +111,7 @@
   lastObject = [textures lastObject];
   if (self)
   {
-    [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:context];
+    objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   }
 
   else
@@ -140,7 +140,7 @@
   *&self->_baseTransform.m23 = v12;
   v13 = [KNSparkleEffect alloc];
   mAnimationContext = self->super.mAnimationContext;
-  [animatedBuild duration];
+  objc_msgSend_duration(animatedBuild);
   v16 = v15;
   buildType = [animatedBuild buildType];
   metalContext = [context metalContext];

@@ -98,10 +98,10 @@ LABEL_23:
 LABEL_28:
   _appearsToBePhoneNumber = [(__CFString *)iDCopy _appearsToBePhoneNumber];
   v14 = IMNormalizeFormattedString();
-  v15 = &unk_1EB30AF40;
+  v15 = &qword_1EB30AF40;
   if (!_appearsToBePhoneNumber)
   {
-    v15 = &unk_1EB30AF30;
+    v15 = &qword_1EB30AF30;
   }
 
   v16 = *v15;

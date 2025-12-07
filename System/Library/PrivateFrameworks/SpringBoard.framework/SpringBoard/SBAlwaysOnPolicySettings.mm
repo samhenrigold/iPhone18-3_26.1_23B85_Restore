@@ -128,7 +128,7 @@ uint64_t __63__SBAlwaysOnPolicySettings_alwaysOnDisablingFocusSemanticTypes__blo
 
         v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [&unk_283372878 objectForKeyedSubscript:v9];
-        v11 = [typesCopy containsObject:v10];
+        v11 = objc_msgSend_containsObject_(typesCopy);
 
         v12 = [MEMORY[0x277CCABB0] numberWithBool:v11];
         v13 = [objc_opt_class() _keyPathForSemanticTypeName:v9];

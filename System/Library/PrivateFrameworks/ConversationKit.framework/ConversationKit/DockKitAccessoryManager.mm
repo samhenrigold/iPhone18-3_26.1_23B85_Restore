@@ -18,7 +18,7 @@
   infoCopy = info;
   dataCopy = data;
 
-  DockKitAccessoryManager.trackingSummaryData(info:data:)(infoCopy);
+  DockKitAccessoryManager.trackingSummaryData(info:data:)(infoCopy, dataCopy);
 }
 
 @end

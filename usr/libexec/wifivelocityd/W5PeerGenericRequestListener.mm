@@ -14,17 +14,19 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       info = [payload info];
-      [requestCopy options];
-      v15 = 136316162;
-      v16 = "[W5PeerGenericRequestListener handleClientRequest:]";
-      v17 = 2080;
-      v18 = "W5PeerGenericRequestListener.m";
-      v19 = 1024;
-      v20 = 21;
-      v21 = 2114;
-      v22 = info;
-      v24 = v23 = 2114;
-      _os_log_send_and_compose_impl();
+      options = [requestCopy options];
+      v17 = 136316162;
+      v18 = "[W5PeerGenericRequestListener handleClientRequest:]";
+      v19 = 2080;
+      v20 = "W5PeerGenericRequestListener.m";
+      v21 = 1024;
+      v22 = 21;
+      v23 = 2114;
+      v24 = info;
+      v25 = 2114;
+      v26 = options;
+      v14 = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) RECV REQUEST (info=%{public}@, options=%{public}@)", &v17, v14);
     }
 
     requestHandler = [(W5PeerGenericRequestListener *)self requestHandler];
@@ -33,13 +35,13 @@
     {
       requestHandler2 = [(W5PeerGenericRequestListener *)self requestHandler];
       info2 = [payload info];
-      options = [requestCopy options];
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_1000940C4;
-      v13[3] = &unk_1000E3600;
-      v14 = requestCopy;
-      (requestHandler2)[2](requestHandler2, info2, options, v13);
+      options2 = [requestCopy options];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_1000940C4;
+      v15[3] = &unk_1000E3600;
+      v16 = requestCopy;
+      (requestHandler2)[2](requestHandler2, info2, options2, v15);
     }
   }
 

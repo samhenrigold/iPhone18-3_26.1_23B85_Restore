@@ -205,26 +205,26 @@
   v9 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], contextCopy, @"%@", v8, contextCopy);
   v10 = v9;
   v14 = objc_msgSend_UTF8String(v10, v11, v12, v13);
-  sub_2760CD160(v7, "PUSH %s", v15, v16, v17, v18, v19, v20, v14);
+  sub_2760CD160(v7, "PUSH %s", v14);
 
-  objc_msgSend_tsu_push_(self->_contextStack, v21, contextCopy, v22);
+  objc_msgSend_tsu_push_(self->_contextStack, v15, contextCopy, v16);
 }
 
 - (void)popContextWithExpectedClass:(Class)class
 {
-  v33 = objc_msgSend_tsu_peek(self->_contextStack, a2, class, v3);
+  v22 = objc_msgSend_tsu_peek(self->_contextStack, a2, class, v3);
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v8 = objc_opt_class();
-    sub_2760CB2EC(0, "Class mismatch popping rendering context: %@ instead of %@", v9, v10, v11, v12, v13, v14, v8);
+    v9 = objc_opt_class();
+    sub_2760CB2EC(0, "Class mismatch popping rendering context: %@ instead of %@", v9, class);
   }
 
-  v15 = objc_msgSend_tsu_pop(self->_contextStack, v5, v6, v7);
-  v19 = objc_msgSend_count(self->_contextStack, v16, v17, v18);
-  v21 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v33, @"%@", v20, v33);
-  v22 = v21;
-  v26 = objc_msgSend_UTF8String(v22, v23, v24, v25);
-  sub_2760CD160(v19, "POP %s", v27, v28, v29, v30, v31, v32, v26);
+  v10 = objc_msgSend_tsu_pop(self->_contextStack, v6, v7, v8);
+  v14 = objc_msgSend_count(self->_contextStack, v11, v12, v13);
+  v16 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"%@", v15, v22);
+  v17 = v16;
+  v21 = objc_msgSend_UTF8String(v17, v18, v19, v20);
+  sub_2760CD160(v14, "POP %s", v21);
 }
 
 - (void)beginTagWithType:(int)type tagProperties:(id)properties
@@ -233,11 +233,11 @@
   tagProperties = properties;
   Name = CGPDFTagTypeGetName(v4);
   v10 = objc_msgSend_count(self->_tagStack, v7, v8, v9);
-  sub_2760CD160(v10 - 1, "BEGIN %s", v11, v12, v13, v14, v15, v16, Name);
-  v17 = [TSAPdfTagInfo alloc];
-  v19 = objc_msgSend_initWithTagType_tagProperties_(v17, v18, v4, tagProperties);
-  objc_msgSend_tsu_push_(self->_tagStack, v20, v19, v21);
-  if (!objc_msgSend_taggingPreventionDepth(self, v22, v23, v24))
+  sub_2760CD160(v10 - 1, "BEGIN %s", Name);
+  v11 = [TSAPdfTagInfo alloc];
+  v13 = objc_msgSend_initWithTagType_tagProperties_(v11, v12, v4, tagProperties);
+  objc_msgSend_tsu_push_(self->_tagStack, v14, v13, v15);
+  if (!objc_msgSend_taggingPreventionDepth(self, v16, v17, v18))
   {
     CGPDFContextBeginTag(self->_CGContext, v4, tagProperties);
   }
@@ -245,8 +245,8 @@
 
 - (void)endTag
 {
-  v35 = objc_msgSend_tsu_peek(self->_tagStack, a2, v2, v3);
-  v8 = objc_msgSend_tagType(v35, v5, v6, v7);
+  v24 = objc_msgSend_tsu_peek(self->_tagStack, a2, v2, v3);
+  v8 = objc_msgSend_tagType(v24, v5, v6, v7);
   if (!objc_msgSend_taggingPreventionDepth(self, v9, v10, v11))
   {
     CGPDFContextEndTag(self->_CGContext);
@@ -256,13 +256,13 @@
   Name = CGPDFTagTypeGetName(v8);
   if (objc_msgSend_count(self->_tagStack, v17, v18, v19))
   {
-    v27 = objc_msgSend_count(self->_tagStack, v20, v21, v22);
-    sub_2760CD160(v27 - 1, "END %s", v28, v29, v30, v31, v32, v33, Name);
+    v23 = objc_msgSend_count(self->_tagStack, v20, v21, v22);
+    sub_2760CD160(v23 - 1, "END %s", Name);
   }
 
   else
   {
-    sub_2760CB2EC(0, "the tagStack count was 0 and we were trying to endTag", v21, v22, v23, v24, v25, v26, v34);
+    sub_2760CB2EC(0, "the tagStack count was 0 and we were trying to endTag");
   }
 }
 
@@ -270,10 +270,10 @@
 {
   v6 = objc_msgSend_count(self->_tagStack, a2, height, v3) >= height;
   v10 = objc_msgSend_count(self->_tagStack, v7, v8, v9);
-  sub_2760CB2EC(v6, "Tag stack %d less than desired value %d", v11, v12, v13, v14, v15, v16, v10);
-  while (objc_msgSend_count(self->_tagStack, v17, v18, v19) > height)
+  sub_2760CB2EC(v6, "Tag stack %d less than desired value %d", v10, height);
+  while (objc_msgSend_count(self->_tagStack, v11, v12, v13) > height)
   {
-    objc_msgSend_endTag(self, v20, v21, v22);
+    objc_msgSend_endTag(self, v14, v15, v16);
   }
 }
 
@@ -338,12 +338,12 @@ LABEL_11:
 - (int)tagTypeAtDepth:(unint64_t)depth
 {
   v6 = objc_msgSend_count(self->_tagStack, a2, depth, v3) > depth;
-  objc_msgSend_count(self->_tagStack, v7, v8, v9);
-  sub_2760CB2EC(v6, "Tag depth %d exceeds tag stack height %d", v10, v11, v12, v13, v14, v15, depth);
+  v10 = objc_msgSend_count(self->_tagStack, v7, v8, v9);
+  sub_2760CB2EC(v6, "Tag depth %d exceeds tag stack height %d", depth, v10);
   tagStack = self->_tagStack;
-  v20 = objc_msgSend_count(tagStack, v17, v18, v19);
-  v23 = objc_msgSend_objectAtIndexedSubscript_(tagStack, v21, v20 + ~depth, v22);
-  LODWORD(tagStack) = objc_msgSend_tagType(v23, v24, v25, v26);
+  v15 = objc_msgSend_count(tagStack, v12, v13, v14);
+  v18 = objc_msgSend_objectAtIndexedSubscript_(tagStack, v16, v15 + ~depth, v17);
+  LODWORD(tagStack) = objc_msgSend_tagType(v18, v19, v20, v21);
 
   return tagStack;
 }
@@ -422,8 +422,8 @@ LABEL_9:
   isKindOfClass = objc_opt_isKindOfClass();
   v7 = NSStringFromClass(class);
   v8 = objc_opt_class();
-  v16 = NSStringFromClass(v8);
-  sub_2760CB2EC(isKindOfClass & 1, "Incorrect top context class: expected %@, actual %@", v9, v10, v11, v12, v13, v14, v7);
+  v9 = NSStringFromClass(v8);
+  sub_2760CB2EC(isKindOfClass & 1, "Incorrect top context class: expected %@, actual %@", v7, v9);
 
   return v5;
 }
@@ -432,12 +432,12 @@ LABEL_9:
 {
   v5 = objc_opt_class();
   isSubclassOfClass = objc_msgSend_isSubclassOfClass_(class, v6, v5, v7);
-  sub_2760CB2EC(isSubclassOfClass, "Unexpected class hierarchy", v9, v10, v11, v12, v13, v14, v25);
-  v26 = objc_msgSend_topOfContextStackWithExpectedClass_(self, v15, class, v16);
-  v20 = objc_msgSend_taggerState(v26, v17, v18, v19);
-  objc_msgSend_setState_(self, v21, v20, v22);
+  sub_2760CB2EC(isSubclassOfClass, "Unexpected class hierarchy");
+  v19 = objc_msgSend_topOfContextStackWithExpectedClass_(self, v9, class, v10);
+  v14 = objc_msgSend_taggerState(v19, v11, v12, v13);
+  objc_msgSend_setState_(self, v15, v14, v16);
 
-  objc_msgSend_popContextWithExpectedClass_(self, v23, class, v24);
+  objc_msgSend_popContextWithExpectedClass_(self, v17, class, v18);
 }
 
 - (id)topmostColumnContext
@@ -598,7 +598,7 @@ LABEL_9:
   if (objc_msgSend_topOfContextStackIsParagraph(self, a2, paragraph, v3) != paragraph)
   {
 
-    sub_2760CB2EC(0, "Incorrect paragraph rendering context life span", v4, v5, v6, v7, v8, v9, v11);
+    sub_2760CB2EC(0, "Incorrect paragraph rendering context life span");
   }
 }
 
@@ -609,62 +609,62 @@ LABEL_9:
   v6 = objc_msgSend_topmostParagraphLevelResolver(self, a2, range.location, range.length);
   v10 = objc_msgSend_topmostColumnContext(self, v7, v8, v9);
   v14 = objc_msgSend_paragraphEnumerator(v10, v11, v12, v13);
-  v22 = TSWPParagraphEnumerator::paragraphTextRange(v14);
-  v24 = v22 <= location && v22 + v15 >= location + length;
-  sub_2760CB2EC(v24, "Line fragment not within current paragraph", v16, v17, v18, v19, v20, v21, v55);
-  v58 = 0;
-  v27 = objc_msgSend_levelOfCurrentParagraph_(v6, v25, &v58, v26);
-  v56 = v58;
-  if ((v27 & 0x80000000) != 0)
+  v16 = TSWPParagraphEnumerator::paragraphTextRange(v14);
+  v18 = v16 <= location && v16 + v15 >= location + length;
+  sub_2760CB2EC(v18, "Line fragment not within current paragraph");
+  v51 = 0;
+  v21 = objc_msgSend_levelOfCurrentParagraph_(v6, v19, &v51, v20);
+  v49 = v51;
+  if ((v21 & 0x80000000) != 0)
   {
     goto LABEL_17;
   }
 
-  v31 = objc_msgSend_topmostColumnRange(self, v28, v29, v30);
-  v33 = v32;
-  v36 = objc_msgSend_column(v10, v32, v34, v35);
-  v40 = objc_msgSend_storage(v36, v37, v38, v39);
-  VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(v40, v41, v31, v33);
+  v25 = objc_msgSend_topmostColumnRange(self, v22, v23, v24);
+  v27 = v26;
+  v30 = objc_msgSend_column(v10, v26, v28, v29);
+  v34 = objc_msgSend_storage(v30, v31, v32, v33);
+  VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(v34, v35, v25, v27);
 
-  if (VisibleCharInRange >= v22)
+  if (VisibleCharInRange >= v16)
   {
-    v46 = 0;
-    v45 = -1;
+    v40 = 0;
+    v39 = -1;
   }
 
   else
   {
     TSWPParagraphEnumerator::operator--();
-    v57 = 0;
-    v45 = objc_msgSend_levelOfCurrentParagraph_(v6, v43, &v57, v44);
-    v46 = v57;
+    v50 = 0;
+    v39 = objc_msgSend_levelOfCurrentParagraph_(v6, v37, &v50, v38);
+    v40 = v50;
     TSWPParagraphEnumerator::operator++();
-    if (v27 <= v45)
+    if (v21 <= v39)
     {
-      if (v27 != v45)
+      if (v21 != v39)
       {
 
         goto LABEL_17;
       }
 
-      v48 = objc_msgSend_paragraphInfo_matchesParagraphInfo_level_(v6, v47, v46, v56, v27) ^ 1;
+      v42 = objc_msgSend_paragraphInfo_matchesParagraphInfo_level_(v6, v41, v40, v49, v21) ^ 1;
       goto LABEL_15;
     }
   }
 
-  v48 = v27 - v45;
+  v42 = v21 - v39;
 LABEL_15:
 
-  if (v48 >= 1)
+  if (v42 >= 1)
   {
     do
     {
-      v52 = objc_msgSend_tagType(v6, v49, v50, v51);
-      objc_msgSend_beginTagWithType_(self, v53, v52, v54);
-      --v48;
+      v46 = objc_msgSend_tagType(v6, v43, v44, v45);
+      objc_msgSend_beginTagWithType_(self, v47, v46, v48);
+      --v42;
     }
 
-    while (v48);
+    while (v42);
   }
 
 LABEL_17:
@@ -678,57 +678,57 @@ LABEL_17:
   v10 = objc_msgSend_topmostColumnContext(self, v7, v8, v9);
   v14 = objc_msgSend_paragraphEnumerator(v10, v11, v12, v13);
   v15 = TSWPParagraphEnumerator::paragraphTextRange(v14);
-  v23 = v15 + v22;
-  v25 = v15 <= location && v23 >= location + length;
-  sub_2760CB2EC(v25, "Line fragment not within current paragraph", v16, v17, v18, v19, v20, v21, v54);
-  v55 = 0;
-  v28 = objc_msgSend_levelOfCurrentParagraph_(v6, v26, &v55, v27);
-  v32 = v55;
-  if ((v28 & 0x80000000) != 0)
+  v17 = v15 + v16;
+  v19 = v15 <= location && v17 >= location + length;
+  sub_2760CB2EC(v19, "Line fragment not within current paragraph");
+  v49 = 0;
+  v22 = objc_msgSend_levelOfCurrentParagraph_(v6, v20, &v49, v21);
+  v26 = v49;
+  if ((v22 & 0x80000000) != 0)
   {
     goto LABEL_14;
   }
 
-  v33 = objc_msgSend_topmostColumnRange(self, v29, v30, v31);
-  v37 = &v34[v33 - v23];
-  if (&v34[v33] <= v23 || (objc_msgSend_column(v10, v34, v35, v36), v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend_storage(v38, v39, v40, v41), v42 = objc_claimAutoreleasedReturnValue(), VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(v42, v43, v23, v37), v42, v38, VisibleCharInRange == 0x7FFFFFFFFFFFFFFFLL))
+  v27 = objc_msgSend_topmostColumnRange(self, v23, v24, v25);
+  v31 = &v28[v27 - v17];
+  if (&v28[v27] <= v17 || (objc_msgSend_column(v10, v28, v29, v30), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend_storage(v32, v33, v34, v35), v36 = objc_claimAutoreleasedReturnValue(), VisibleCharInRange = objc_msgSend_indexOfFirstVisibleCharInRange_(v36, v37, v17, v31), v36, v32, VisibleCharInRange == 0x7FFFFFFFFFFFFFFFLL))
   {
-    v45 = 0;
-    v46 = -1;
+    v39 = 0;
+    v40 = -1;
   }
 
   else
   {
     TSWPParagraphEnumerator::operator++();
-    v54 = 0;
-    v46 = objc_msgSend_levelOfCurrentParagraph_(v6, v51, &v54, v52);
-    v45 = v54;
+    v48 = 0;
+    v40 = objc_msgSend_levelOfCurrentParagraph_(v6, v45, &v48, v46);
+    v39 = v48;
     TSWPParagraphEnumerator::operator--();
-    if (v28 <= v46)
+    if (v22 <= v40)
     {
-      if (v28 != v46)
+      if (v22 != v40)
       {
 
         goto LABEL_14;
       }
 
-      v47 = objc_msgSend_paragraphInfo_matchesParagraphInfo_level_(v6, v53, v32, v45, v28) ^ 1;
+      v41 = objc_msgSend_paragraphInfo_matchesParagraphInfo_level_(v6, v47, v26, v39, v22) ^ 1;
       goto LABEL_12;
     }
   }
 
-  v47 = v28 - v46;
+  v41 = v22 - v40;
 LABEL_12:
 
-  if (v47 >= 1)
+  if (v41 >= 1)
   {
     do
     {
-      objc_msgSend_endTag(self, v48, v49, v50);
-      --v47;
+      objc_msgSend_endTag(self, v42, v43, v44);
+      --v41;
     }
 
-    while (v47);
+    while (v41);
   }
 
 LABEL_14:
@@ -1010,7 +1010,7 @@ LABEL_27:
 {
   if (!range)
   {
-    sub_2760CB2EC(0, "Char index not in paragraph range", range, v3, v4, v5, v6, v7, v8);
+    sub_2760CB2EC(0, "Char index not in paragraph range");
   }
 }
 

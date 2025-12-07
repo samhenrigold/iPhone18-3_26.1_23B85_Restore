@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorCodeAsString:(int)string;
+- (id)validatorExceptionsAsString:(int)string;
 - (int)StringAsErrorCode:(id)code;
 - (int)StringAsValidatorExceptions:(id)exceptions;
 - (int)errorCode;
@@ -37,6 +39,29 @@
   }
 }
 
+- (id)errorCodeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ValidatorException";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Generic";
+  }
+
+  return v4;
+}
+
 - (int)StringAsErrorCode:(id)code
 {
   codeCopy = code;
@@ -67,6 +92,21 @@
   }
 
   return p_validatorExceptions->list[index];
+}
+
+- (id)validatorExceptionsAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27993DD50[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsValidatorExceptions:(id)exceptions
@@ -186,27 +226,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   p_validatorExceptions = &self->_validatorExceptions;
   if (p_validatorExceptions->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_validatorExceptions->list[v7];
       PBDataWriterWriteInt32Field();
-      toCopy = v9;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < p_validatorExceptions->count);
+    while (v6 < p_validatorExceptions->count);
   }
 }
 
@@ -257,7 +295,6 @@
     goto LABEL_8;
   }
 
-  v5 = *(equalCopy + 36);
   if (*&self->_has)
   {
     if ((*(equalCopy + 36) & 1) == 0 || self->_errorCode != *(equalCopy + 8))

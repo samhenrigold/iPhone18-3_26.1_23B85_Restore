@@ -479,7 +479,7 @@ LABEL_4:
     [(SBReversibleLayerPropertyAnimator *)self setOutstandingCAAnimationCompletionCount:[(SBReversibleLayerPropertyAnimator *)self outstandingCAAnimationCompletionCount]- 1];
     if (![(SBReversibleLayerPropertyAnimator *)self outstandingCAAnimationCompletionCount])
     {
-      v6 = SBLogCommon();
+      v6 = SBLogCommon(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         layer = [(SBReversibleLayerPropertyAnimator *)self layer];

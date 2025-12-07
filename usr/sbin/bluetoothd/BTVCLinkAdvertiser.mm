@@ -65,22 +65,47 @@
 
 - (NSString)description
 {
-  NSAppendPrintF();
-  v3 = 0;
-  v4 = v3;
-  if (self->_invalidateCalled)
+  v15 = 0;
+  linktType = self->_linktType;
+  if (linktType > 2)
   {
-    v8 = v3;
-    NSAppendPrintF();
-    v5 = v8;
-
-    v4 = v5;
+    v4 = "?";
   }
 
-  NSAppendPrintF();
-  v6 = v4;
+  else
+  {
+    v4 = off_100AEF3B0[linktType];
+  }
 
-  return v4;
+  NSAppendPrintF(&v15, "BTVCLinkAdvertiser, Type %s", v4);
+  v5 = v15;
+  v6 = v5;
+  if (self->_invalidateCalled)
+  {
+    v14 = v5;
+    NSAppendPrintF(&v14, ", Invalidated");
+    v7 = v14;
+
+    v6 = v7;
+  }
+
+  v13 = v6;
+  advertiseState = self->_advertiseState;
+  if (advertiseState > 3)
+  {
+    v9 = "?";
+  }
+
+  else
+  {
+    v9 = off_100AEF390[advertiseState];
+  }
+
+  NSAppendPrintF(&v13, ", State %s", v9);
+  v10 = v13;
+  v11 = v13;
+
+  return v10;
 }
 
 - (void)setDispatchQueue:(id)queue
@@ -807,25 +832,27 @@ LABEL_16:
   v5 = qword_100BCEA70;
   if (os_log_type_enabled(qword_100BCEA70, OS_LOG_TYPE_DEBUG))
   {
-    v18 = "";
+    v19 = "";
     if (neededCopy)
     {
-      v18 = "(force)";
+      v19 = "(force)";
     }
 
-    v19 = 136315138;
-    v20 = v18;
-    _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "[BTVCLinkAdvertiser] RestartIfNeeded %s\n", &v19, 0xCu);
+    *v20 = 136315138;
+    *&v20[4] = v19;
+    _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "[BTVCLinkAdvertiser] RestartIfNeeded %s\n", v20, 0xCu);
   }
 
   if ((self->_linktType - 1) > 1)
   {
-    v11 = qword_100BCEA70;
+    v12 = qword_100BCEA70;
     if (os_log_type_enabled(qword_100BCEA70, OS_LOG_TYPE_ERROR))
     {
       sub_10006DDCC();
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[BTVCLinkAdvertiser] ### Restart unsupported type: %ld (%s)\n", &v19, 0x16u);
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "[BTVCLinkAdvertiser] ### Restart unsupported type: %ld (%s)\n", v20, 0x16u);
     }
+
+    v8 = -6735;
   }
 
   else
@@ -837,6 +864,7 @@ LABEL_16:
     }
 
     v7 = [(BTVCLinkAdvertiser *)self _preparePayload:neededCopy];
+    v8 = v7;
     if (v7 == -6757)
     {
 LABEL_13:
@@ -844,34 +872,41 @@ LABEL_13:
       return;
     }
 
-    if (!v7 && self->_payloadDataCurrent)
+    if (!v7)
     {
-      v8 = qword_100BCEA70;
-      if (os_log_type_enabled(qword_100BCEA70, OS_LOG_TYPE_DEFAULT))
+      if (self->_payloadDataCurrent)
       {
-        v9 = "no";
-        payloadDataCurrent = self->_payloadDataCurrent;
-        if (neededCopy)
+        v9 = qword_100BCEA70;
+        if (os_log_type_enabled(qword_100BCEA70, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = "yes";
+          v10 = "no";
+          payloadDataCurrent = self->_payloadDataCurrent;
+          if (neededCopy)
+          {
+            v10 = "yes";
+          }
+
+          *v20 = 138412546;
+          *&v20[4] = payloadDataCurrent;
+          v21 = 2080;
+          v22 = v10;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[BTVCLinkAdvertiser] Advertise update: data '%@', force %s\n", v20, 0x16u);
         }
 
-        v19 = 138412546;
-        v20 = payloadDataCurrent;
-        v21 = 2080;
-        v22 = v9;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[BTVCLinkAdvertiser] Advertise update: data '%@', force %s\n", &v19, 0x16u);
+        [(BTVCBonjourLink *)self->_btvcBonjourLink stopAdvertisingOfType:self->_btvcBonjourLinkType];
+        [(BTVCBonjourLink *)self->_btvcBonjourLink startAdvertisingOfType:self->_btvcBonjourLinkType withData:self->_payloadDataCurrent];
+        goto LABEL_13;
       }
 
-      [(BTVCBonjourLink *)self->_btvcBonjourLink stopAdvertisingOfType:self->_btvcBonjourLinkType];
-      [(BTVCBonjourLink *)self->_btvcBonjourLink startAdvertisingOfType:self->_btvcBonjourLinkType withData:self->_payloadDataCurrent];
-      goto LABEL_13;
+      v8 = -6745;
     }
   }
 
   if (os_log_type_enabled(qword_100BCEA70, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10003F634(&_mh_execute_header, v12, v13, "Warning: [BTVCLinkAdvertiser] ### RestartIfNeeded failed: %d\n", v14, v15, v16, v17, 0);
+    *v20 = 67109120;
+    *&v20[4] = v8;
+    sub_10003F634(&_mh_execute_header, v13, v14, "Warning: [BTVCLinkAdvertiser] ### RestartIfNeeded failed: %d\n", v15, v16, v17, v18, *v20);
   }
 }
 

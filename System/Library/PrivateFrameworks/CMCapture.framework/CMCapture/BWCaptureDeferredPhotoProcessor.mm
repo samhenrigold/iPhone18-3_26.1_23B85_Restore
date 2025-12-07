@@ -30,11 +30,11 @@
   [(BWCaptureDeferredPhotoProcessor *)&v3 dealloc];
 }
 
-void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invoke(uint64_t a1)
+void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invoke(void *result)
 {
-  if (*(a1 + 32) == *(*(a1 + 40) + 48))
+  if (result[4] == *(result[5] + 48))
   {
-    captureDeferredPhotoProcessor_cleanupForCurrentProcessingRequest(*(a1 + 48));
+    captureDeferredPhotoProcessor_cleanupForCurrentProcessingRequest(result[6]);
   }
 }
 
@@ -58,7 +58,7 @@ void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invok
     {
       if (dword_1ED843F90)
       {
-        v19 = 0;
+        v19[0] = 0;
         v18 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -112,8 +112,8 @@ void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invok
 {
   if (dword_1ED843F90)
   {
-    v121 = 0;
-    v120 = 0;
+    v217[0] = 0;
+    v216 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     outputMirroring = 0;
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -121,7 +121,7 @@ void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invok
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = [(FigWeakReference *)self->_weakDeferredPhotoProcessorReference referencedObject:*v104];
+  v8 = [(FigWeakReference *)self->_weakDeferredPhotoProcessorReference referencedObject:*v192];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage && *DerivedStorage)
   {
@@ -140,37 +140,37 @@ void __59__BWCaptureDeferredPhotoProcessor_request_failedWithError___block_invok
       goto LABEL_48;
     }
 
-    memset(&v117, 0, sizeof(v117));
-    CMSampleBufferGetPresentationTimeStamp(&v117, buffer);
+    memset(&v213, 0, sizeof(v213));
+    CMSampleBufferGetPresentationTimeStamp(&v213, buffer);
     v13 = *MEMORY[0x1E695E480];
-    v119[0] = v117;
-    v14 = CMTimeCopyAsDictionary(v119, v13);
+    v215[0] = v213;
+    v14 = CMTimeCopyAsDictionary(v215, v13);
     if (v14)
     {
-      v108 = v8;
+      v204 = v8;
       selfCopy = self;
-      v113 = v11;
-      v112 = v14;
-      v107 = OUTLINED_FUNCTION_19_32(v14, @"PhotoManifest");
-      v15 = [v107 descriptorForSampleBuffer:buffer];
+      v209 = v11;
+      v208 = v14;
+      v203 = OUTLINED_FUNCTION_19_32(v14, @"PhotoManifest");
+      v15 = [v203 descriptorForSampleBuffer:buffer];
       ShouldIncludeDiagnosticMetadata = FigCaptureMetadataUtilitiesShouldIncludeDiagnosticMetadata();
-      v110 = ShouldIncludeDiagnosticMetadata != 0;
+      v206 = ShouldIncludeDiagnosticMetadata != 0;
       self = OUTLINED_FUNCTION_19_32(ShouldIncludeDiagnosticMetadata, @"StillImageSettings");
       outputFileType = [(BWCaptureDeferredPhotoProcessor *)self outputFileType];
       outputRotationDegrees = [(BWCaptureDeferredPhotoProcessor *)self outputRotationDegrees];
       outputMirroring = [(BWCaptureDeferredPhotoProcessor *)self outputMirroring];
-      v114 = v12;
+      v210 = v12;
       flashMode = [(BWCaptureDeferredPhotoProcessor *)self flashMode];
       StillImageMetadataInSettingsForSampleBuffer = FigCaptureMetadataUtilitiesGetStillImageMetadataInSettingsForSampleBuffer(self, buffer);
       IrisAssetIdentifierForSettingsAndSampleBuffer = FigCaptureMetadataUtilitiesGetIrisAssetIdentifierForSettingsAndSampleBuffer(self, buffer);
       imageGroupIdentifier = [(BWCaptureDeferredPhotoProcessor *)self imageGroupIdentifier];
-      time = [v15 time];
+      v23 = objc_msgSend_time(v15);
       v24 = flashMode;
-      v12 = v114;
-      v25 = FigCaptureMetadataUtilitiesCreateMetadataAttachments(buffer, outputFileType, outputRotationDegrees, outputMirroring, 1, 1, v24, v110, 1, 0, 1, 0, 0, 0, 0, StillImageMetadataInSettingsForSampleBuffer, IrisAssetIdentifierForSettingsAndSampleBuffer, imageGroupIdentifier, 0, time, 0);
-      [v114 setObject:v112 forKeyedSubscript:@"PresentationTimestamp"];
-      [v114 setObject:objc_msgSend(objc_msgSend(job forKeyedSubscript:{"processorRequest"), "captureRequestIdentifier"), @"CaptureRequestIdentifier"}];
-      [v114 setObject:objc_msgSend(v15 forKeyedSubscript:{"photoIdentifier"), @"PhotoIdentifier"}];
+      v12 = v210;
+      v25 = FigCaptureMetadataUtilitiesCreateMetadataAttachments(buffer, outputFileType, outputRotationDegrees, outputMirroring, 1, 1, v24, v206, 1, 0, 1, 0, 0, 0, 0, StillImageMetadataInSettingsForSampleBuffer, IrisAssetIdentifierForSettingsAndSampleBuffer, imageGroupIdentifier, 0, v23, 0);
+      [v210 setObject:v208 forKeyedSubscript:@"PresentationTimestamp"];
+      [v210 setObject:objc_msgSend(objc_msgSend(job forKeyedSubscript:{"processorRequest"), "captureRequestIdentifier"), @"CaptureRequestIdentifier"}];
+      [v210 setObject:objc_msgSend(v15 forKeyedSubscript:{"photoIdentifier"), @"PhotoIdentifier"}];
       processingFlags = [v15 processingFlags];
       if ((processingFlags & 0x10000) == 0)
       {
@@ -246,30 +246,51 @@ LABEL_13:
                     if (!v57)
                     {
                       OUTLINED_FUNCTION_0();
-                      FigDebugAssert3();
+                      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v193, v196, v197, v198, v199, v200, v201, v202);
                       FigCaptureGetFrameworkRadarComponent();
                       OUTLINED_FUNCTION_9_57();
-                      v76 = OUTLINED_FUNCTION_103();
-                      v77 = OUTLINED_FUNCTION_133_0(v76);
-                      if (OUTLINED_FUNCTION_5_24(v77))
+                      v103 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+                      v104 = OUTLINED_FUNCTION_133_0(v103);
+                      if (OUTLINED_FUNCTION_5_24(v104))
                       {
-                        v118 = 136315138;
+                        v214 = 136315138;
                         OUTLINED_FUNCTION_0_107();
-                        OUTLINED_FUNCTION_5_77();
+                        OUTLINED_FUNCTION_5_77(v107, v108, v109, v110, &dword_1AC90E000);
                         OUTLINED_FUNCTION_17_32();
                       }
 
+                      else
+                      {
+                        v111 = 0;
+                      }
+
                       v10 = MEMORY[0x1E695FF58];
-                      v11 = v113;
-                      OUTLINED_FUNCTION_1_117();
+                      v11 = v209;
+                      OUTLINED_FUNCTION_1_117(qword_1ED843F88, v105, v106, v111);
                       OUTLINED_FUNCTION_2_107();
-                      OUTLINED_FUNCTION_6_0();
+                      OUTLINED_FUNCTION_6_0(v174, v175, v176, v177, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
                       OUTLINED_FUNCTION_13_18();
-                      v97 = OUTLINED_FUNCTION_6_1();
-                      FigCapturePleaseFileRadar(v97, v98, v99, v100, v101, 1510, v102, v103, v105);
+                      v178 = OUTLINED_FUNCTION_6_1();
+                      FigCapturePleaseFileRadar(v178, v179, v180, v181, v182, 1510, v183, v184, v194);
                       free(&kFigCaptureFlatDictionaryAppleMakerNote_ModuleAndCalibrationValidationStatuses_opaque);
-                      v61 = v107;
-                      goto LABEL_45;
+                      v61 = v203;
+LABEL_45:
+
+                      if (v61)
+                      {
+                        numberOfPhotosDelivered = [job numberOfPhotosDelivered];
+                        if ([objc_msgSend(v61 "photoDescriptors")] == numberOfPhotosDelivered)
+                        {
+                          v212[0] = MEMORY[0x1E69E9820];
+                          v212[1] = 3221225472;
+                          v212[2] = __65__BWCaptureDeferredPhotoProcessor_job_completedWithSampleBuffer___block_invoke_2;
+                          v212[3] = &__block_descriptor_40_e5_v8__0l;
+                          v212[4] = v204;
+                          captureDeferredPhotoProcessor_performBlockOnWorkerQueueAsync(v204, v212);
+                        }
+                      }
+
+                      goto LABEL_48;
                     }
 
                     v58 = v57;
@@ -292,83 +313,68 @@ LABEL_13:
                   [v12 setObject:OUTLINED_FUNCTION_19_32(objc_msgSend(v12 forKeyedSubscript:{"setObject:forKeyedSubscript:", 0, @"ThumbnailSurface", @"PhotoLibraryThumbnails", @"PhotoLibraryThumbnails"}];
                   v60 = [(BWCaptureDeferredPhotoProcessor *)selfCopy _runImageCorruptionDetectionForJob:job onEncodedSurface:outputMirroring surfaceSize:v11];
                   v10 = MEMORY[0x1E695FF58];
-                  v11 = v113;
+                  v11 = v209;
                   if (v60)
                   {
                     [v12 setObject:&unk_1F22464F8 forKeyedSubscript:@"ErrorStatus"];
                   }
 
-                  v61 = v107;
+                  v61 = v203;
                   if (qword_1ED8451A0 != -1)
                   {
                     dispatch_once(&qword_1ED8451A0, &__block_literal_global_74);
                   }
 
                   v62 = [v12 copy];
-                  captureDeferredPhotoProcessor_sendXPCNotificationWithPayload(v108, @"DidFinishProcessingPhotoProxy", v62);
+                  captureDeferredPhotoProcessor_sendXPCNotificationWithPayload(v204, @"DidFinishProcessingPhotoProxy", v62);
 
-LABEL_45:
-                  if (v61)
-                  {
-                    numberOfPhotosDelivered = [job numberOfPhotosDelivered];
-                    if ([objc_msgSend(v61 "photoDescriptors")] == numberOfPhotosDelivered)
-                    {
-                      v116[0] = MEMORY[0x1E69E9820];
-                      v116[1] = 3221225472;
-                      v116[2] = __65__BWCaptureDeferredPhotoProcessor_job_completedWithSampleBuffer___block_invoke_2;
-                      v116[3] = &__block_descriptor_40_e5_v8__0l;
-                      v116[4] = v108;
-                      captureDeferredPhotoProcessor_performBlockOnWorkerQueueAsync(v108, v116);
-                    }
-                  }
-
-                  goto LABEL_48;
+                  goto LABEL_45;
                 }
 
                 FigCaptureGetFrameworkRadarComponent();
                 OUTLINED_FUNCTION_9_57();
-                v74 = OUTLINED_FUNCTION_103();
-                v75 = OUTLINED_FUNCTION_133_0(v74);
-                if (OUTLINED_FUNCTION_5_24(v75))
+                v97 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+                v98 = OUTLINED_FUNCTION_133_0(v97);
+                if (OUTLINED_FUNCTION_5_24(v98))
                 {
-                  v118 = 136315138;
+                  v214 = 136315138;
                   OUTLINED_FUNCTION_0_107();
-                  OUTLINED_FUNCTION_5_77();
+                  OUTLINED_FUNCTION_5_77(v99, v100, v101, v102, &dword_1AC90E000);
                   OUTLINED_FUNCTION_17_32();
                 }
 
                 v10 = MEMORY[0x1E695FF58];
                 OUTLINED_FUNCTION_20_26();
-                OUTLINED_FUNCTION_1_117();
+                OUTLINED_FUNCTION_1_117(qword_1ED843F88, v166, v167, v168);
                 OUTLINED_FUNCTION_2_107();
-                OUTLINED_FUNCTION_6_0();
+                OUTLINED_FUNCTION_6_0(v169, v170, v171, v172, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
                 OUTLINED_FUNCTION_13_18();
-                v88 = OUTLINED_FUNCTION_6_1();
-                v95 = 1442;
+                v137 = OUTLINED_FUNCTION_6_1();
+                v144 = 1442;
               }
 
               else
               {
                 FigCaptureGetFrameworkRadarComponent();
                 OUTLINED_FUNCTION_9_57();
-                v72 = OUTLINED_FUNCTION_103();
-                v73 = OUTLINED_FUNCTION_133_0(v72);
-                if (OUTLINED_FUNCTION_5_24(v73))
+                v91 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+                v92 = OUTLINED_FUNCTION_133_0(v91);
+                if (OUTLINED_FUNCTION_5_24(v92))
                 {
-                  v118 = 136315138;
+                  v214 = 136315138;
                   OUTLINED_FUNCTION_0_107();
-                  OUTLINED_FUNCTION_5_77();
+                  OUTLINED_FUNCTION_5_77(v93, v94, v95, v96, &dword_1AC90E000);
                   OUTLINED_FUNCTION_17_32();
                 }
 
                 v10 = MEMORY[0x1E695FF58];
                 OUTLINED_FUNCTION_20_26();
-                OUTLINED_FUNCTION_1_117();
+                OUTLINED_FUNCTION_1_117(qword_1ED843F88, v159, v160, v161);
                 OUTLINED_FUNCTION_2_107();
-                OUTLINED_FUNCTION_6_0();
+                OUTLINED_FUNCTION_6_0(v162, v163, v164, v165, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
                 OUTLINED_FUNCTION_13_18();
-                v88 = OUTLINED_FUNCTION_6_1();
-                v95 = 1441;
+                v137 = OUTLINED_FUNCTION_6_1();
+                v144 = 1441;
               }
             }
 
@@ -376,24 +382,24 @@ LABEL_45:
             {
               FigCaptureGetFrameworkRadarComponent();
               OUTLINED_FUNCTION_9_57();
-              v70 = OUTLINED_FUNCTION_103();
-              v71 = OUTLINED_FUNCTION_133_0(v70);
-              if (OUTLINED_FUNCTION_5_24(v71))
+              v85 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+              v86 = OUTLINED_FUNCTION_133_0(v85);
+              if (OUTLINED_FUNCTION_5_24(v86))
               {
-                v118 = 136315138;
+                v214 = 136315138;
                 OUTLINED_FUNCTION_0_107();
-                OUTLINED_FUNCTION_5_77();
+                OUTLINED_FUNCTION_5_77(v87, v88, v89, v90, &dword_1AC90E000);
                 OUTLINED_FUNCTION_17_32();
               }
 
               v10 = MEMORY[0x1E695FF58];
               OUTLINED_FUNCTION_20_26();
-              OUTLINED_FUNCTION_1_117();
+              OUTLINED_FUNCTION_1_117(qword_1ED843F88, v152, v153, v154);
               OUTLINED_FUNCTION_2_107();
-              OUTLINED_FUNCTION_6_0();
+              OUTLINED_FUNCTION_6_0(v155, v156, v157, v158, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
               OUTLINED_FUNCTION_13_18();
-              v88 = OUTLINED_FUNCTION_6_1();
-              v95 = 1440;
+              v137 = OUTLINED_FUNCTION_6_1();
+              v144 = 1440;
             }
           }
 
@@ -401,24 +407,24 @@ LABEL_45:
           {
             FigCaptureGetFrameworkRadarComponent();
             OUTLINED_FUNCTION_9_57();
-            v68 = OUTLINED_FUNCTION_103();
-            v69 = OUTLINED_FUNCTION_133_0(v68);
-            if (OUTLINED_FUNCTION_5_24(v69))
+            v79 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+            v80 = OUTLINED_FUNCTION_133_0(v79);
+            if (OUTLINED_FUNCTION_5_24(v80))
             {
-              v118 = 136315138;
+              v214 = 136315138;
               OUTLINED_FUNCTION_0_107();
-              OUTLINED_FUNCTION_5_77();
+              OUTLINED_FUNCTION_5_77(v81, v82, v83, v84, &dword_1AC90E000);
               OUTLINED_FUNCTION_17_32();
             }
 
             v10 = MEMORY[0x1E695FF58];
             OUTLINED_FUNCTION_20_26();
-            OUTLINED_FUNCTION_1_117();
+            OUTLINED_FUNCTION_1_117(qword_1ED843F88, v145, v146, v147);
             OUTLINED_FUNCTION_2_107();
-            OUTLINED_FUNCTION_6_0();
+            OUTLINED_FUNCTION_6_0(v148, v149, v150, v151, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
             OUTLINED_FUNCTION_13_18();
-            v88 = OUTLINED_FUNCTION_6_1();
-            v95 = 1439;
+            v137 = OUTLINED_FUNCTION_6_1();
+            v144 = 1439;
           }
         }
 
@@ -426,29 +432,29 @@ LABEL_45:
         {
           FigCaptureGetFrameworkRadarComponent();
           OUTLINED_FUNCTION_9_57();
-          v66 = OUTLINED_FUNCTION_103();
-          v67 = OUTLINED_FUNCTION_133_0(v66);
-          if (OUTLINED_FUNCTION_5_24(v67))
+          v73 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+          v74 = OUTLINED_FUNCTION_133_0(v73);
+          if (OUTLINED_FUNCTION_5_24(v74))
           {
-            v118 = 136315138;
+            v214 = 136315138;
             OUTLINED_FUNCTION_0_107();
-            OUTLINED_FUNCTION_5_77();
+            OUTLINED_FUNCTION_5_77(v75, v76, v77, v78, &dword_1AC90E000);
             OUTLINED_FUNCTION_17_32();
           }
 
           v10 = MEMORY[0x1E695FF58];
           OUTLINED_FUNCTION_20_26();
-          OUTLINED_FUNCTION_1_117();
+          OUTLINED_FUNCTION_1_117(qword_1ED843F88, v130, v131, v132);
           OUTLINED_FUNCTION_2_107();
-          OUTLINED_FUNCTION_6_0();
+          OUTLINED_FUNCTION_6_0(v133, v134, v135, v136, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
           OUTLINED_FUNCTION_13_18();
-          v88 = OUTLINED_FUNCTION_6_1();
-          v95 = 1438;
+          v137 = OUTLINED_FUNCTION_6_1();
+          v144 = 1438;
         }
 
-        FigCapturePleaseFileRadar(v88, v89, v90, v91, v92, v95, v93, v94, v105);
-        v96 = 4294950471;
-        goto LABEL_78;
+        FigCapturePleaseFileRadar(v137, v138, v139, v140, v141, v144, v142, v143, v193);
+        v173 = 4294950471;
+        goto LABEL_80;
       }
 
       v29 = OUTLINED_FUNCTION_19_32(processingFlags, @"RawImageSurface");
@@ -460,69 +466,74 @@ LABEL_45:
       if (v32)
       {
         v33 = v32;
-        v111 = OUTLINED_FUNCTION_19_32(v32, *off_1E798A3C8);
-        v34 = [OUTLINED_FUNCTION_19_32(v111 @"RawImageContainsDepthData")];
+        v207 = OUTLINED_FUNCTION_19_32(v32, *off_1E798A3C8);
+        v34 = [OUTLINED_FUNCTION_19_32(v207 @"RawImageContainsDepthData")];
         [OUTLINED_FUNCTION_19_32(v34 @"RawImageContainsSemanticSegmentationMattes")];
         [(BWCaptureDeferredPhotoProcessor *)self rawOutputFileCodec];
-        v35 = [v111 objectForKeyedSubscript:*off_1E798B1E0];
+        v35 = [v207 objectForKeyedSubscript:*off_1E798B1E0];
         v36 = v33;
         outputMirroring = v29;
         v28 = v31;
-        v12 = v114;
+        v12 = v210;
         v25 = BWCreateRawMetadataFromMetadata(v25, v36, 0x10000u, v35);
         goto LABEL_13;
       }
 
       FigCaptureGetFrameworkRadarComponent();
       OUTLINED_FUNCTION_9_57();
-      v78 = OUTLINED_FUNCTION_103();
-      v79 = OUTLINED_FUNCTION_133_0(v78);
-      if (OUTLINED_FUNCTION_5_24(v79))
+      v112 = OUTLINED_FUNCTION_103(qword_1ED843F88);
+      v113 = OUTLINED_FUNCTION_133_0(v112);
+      if (OUTLINED_FUNCTION_5_24(v113))
       {
-        v118 = 136315138;
+        v214 = 136315138;
         OUTLINED_FUNCTION_0_107();
-        OUTLINED_FUNCTION_5_77();
+        OUTLINED_FUNCTION_5_77(v114, v115, v116, v117, &dword_1AC90E000);
         OUTLINED_FUNCTION_17_32();
       }
 
       v10 = MEMORY[0x1E695FF58];
       OUTLINED_FUNCTION_20_26();
-      OUTLINED_FUNCTION_1_117();
+      OUTLINED_FUNCTION_1_117(qword_1ED843F88, v185, v186, v187);
       OUTLINED_FUNCTION_2_107();
-      OUTLINED_FUNCTION_6_0();
+      OUTLINED_FUNCTION_6_0(v188, v189, v190, v191, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
       OUTLINED_FUNCTION_13_18();
-      v80 = OUTLINED_FUNCTION_6_1();
-      v87 = 1419;
+      v122 = OUTLINED_FUNCTION_6_1();
+      v129 = 1419;
     }
 
     else
     {
       FigCaptureGetFrameworkRadarComponent();
       OUTLINED_FUNCTION_9_57();
-      v64 = OUTLINED_FUNCTION_103();
+      v64 = OUTLINED_FUNCTION_103(qword_1ED843F88);
       v65 = OUTLINED_FUNCTION_133_0(v64);
       if (OUTLINED_FUNCTION_5_24(v65))
       {
-        v118 = 136315138;
+        v214 = 136315138;
         OUTLINED_FUNCTION_0_107();
-        OUTLINED_FUNCTION_5_77();
+        OUTLINED_FUNCTION_5_77(v68, v69, v70, v71, &dword_1AC90E000);
         OUTLINED_FUNCTION_17_32();
       }
 
-      OUTLINED_FUNCTION_1_117();
+      else
+      {
+        v72 = 0;
+      }
+
+      OUTLINED_FUNCTION_1_117(qword_1ED843F88, v66, v67, v72);
       OUTLINED_FUNCTION_2_107();
-      OUTLINED_FUNCTION_6_0();
+      OUTLINED_FUNCTION_6_0(v118, v119, v120, v121, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
       OUTLINED_FUNCTION_13_18();
-      v80 = OUTLINED_FUNCTION_6_1();
-      v87 = 1362;
+      v122 = OUTLINED_FUNCTION_6_1();
+      v129 = 1362;
     }
 
-    FigCapturePleaseFileRadar(v80, v81, v82, v83, v84, v87, v85, v86, v105);
-    v96 = 4294954516;
-LABEL_78:
+    FigCapturePleaseFileRadar(v122, v123, v124, v125, v126, v129, v127, v128, v193);
+    v173 = 4294954516;
+LABEL_80:
     free(outputMirroring);
 
-    [(BWCaptureDeferredPhotoProcessor *)self job:job failedWithError:v96];
+    [(BWCaptureDeferredPhotoProcessor *)self job:job failedWithError:v173];
 LABEL_48:
     objc_autoreleasePoolPop(v11);
     if (*v10 == 1)
@@ -541,19 +552,19 @@ LABEL_48:
     result = CMBaseObjectGetDerivedStorage();
     if (result)
     {
-      v7 = result;
+      v8 = result;
       result = 0;
       if (job)
       {
-        if (*v7)
+        if (*v8)
         {
-          v8 = FigCaptureIsCarryDevice() && [objc_msgSend(a2 "processorRequest")] > 0x18;
+          v9 = FigCaptureIsCarryDevice(0, v7) && [objc_msgSend(a2 "processorRequest")] > 0x18;
           has_internal_diagnostics = os_variant_has_internal_diagnostics();
-          v10 = FigCaptureClientApplicationIDIsXCTest(*(v7 + 24));
+          v12 = FigCaptureClientApplicationIDIsXCTest(*(v8 + 24), v11);
           result = 0;
           if (has_internal_diagnostics)
           {
-            if ((v10 & 1) == 0 && !v8)
+            if ((v12 & 1) == 0 && !v9)
             {
               mach_absolute_time();
               IOSurfaceLock(job, 1u, 0);
@@ -564,17 +575,17 @@ LABEL_48:
               {
                 OUTLINED_FUNCTION_22_25();
                 os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v13))
+                if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v15))
                 {
-                  v12 = v14;
+                  v14 = v16;
                 }
 
                 else
                 {
-                  v12 = v14 & 0xFFFFFFFE;
+                  v14 = v16 & 0xFFFFFFFE;
                 }
 
-                if (v12)
+                if (v14)
                 {
                   mach_absolute_time();
                   FigHostTimeToNanoseconds();
@@ -613,38 +624,38 @@ LABEL_48:
       {
         OUTLINED_FUNCTION_0();
         OUTLINED_FUNCTION_2_5();
-        IsCurrentDispatchQueue = FigDebugAssert3();
+        IsCurrentDispatchQueue = FigDebugAssert3(v20);
       }
 
-      v9 = *(v6 + 6);
-      if (v9)
+      v10 = *(v6 + 6);
+      if (v10)
       {
-        IsCurrentDispatchQueue = [(BWCaptureDeferredPhotoProcessor *)self request:v9 failedWithError:v3];
+        IsCurrentDispatchQueue = [(BWCaptureDeferredPhotoProcessor *)self request:v10 failedWithError:v3];
         *(v6 + 6) = 0;
       }
 
-      v10 = *(v6 + 5);
-      v11 = OUTLINED_FUNCTION_23_24(IsCurrentDispatchQueue, v8);
-      if (v11)
+      v11 = *(v6 + 5);
+      v12 = OUTLINED_FUNCTION_23_24(IsCurrentDispatchQueue, v8, v10, v9);
+      if (v12)
       {
-        v12 = v11;
-        v13 = MEMORY[0];
+        v13 = v12;
+        v14 = MEMORY[0];
         do
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (MEMORY[0] != v13)
+            if (MEMORY[0] != v14)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
-            v15 = [(BWCaptureDeferredPhotoProcessor *)self request:*(8 * i) failedWithError:v3];
+            v16 = [(BWCaptureDeferredPhotoProcessor *)self request:*(8 * i) failedWithError:v3];
           }
 
-          v12 = OUTLINED_FUNCTION_23_24(v15, v16);
+          v13 = OUTLINED_FUNCTION_23_24(v16, v17, v18, v19);
         }
 
-        while (v12);
+        while (v13);
       }
 
       [*(v6 + 5) removeAllObjects];

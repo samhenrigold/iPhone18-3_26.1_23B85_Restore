@@ -3,6 +3,7 @@
 + (BOOL)isDependentByTagName:(id)name;
 + (Class)elementClassByTagName:(id)name;
 + (void)initialize;
++ (void)registerClass:(Class)class forElementName:(id)name elementType:(unint64_t)type dependent:(BOOL)dependent;
 - (Class)elementClassByTagName:(id)name;
 - (IKViewElementFactory)initWithElementRegistry:(id)registry;
 - (id)elementForDOMElement:(id)element parent:(id)parent;
@@ -49,6 +50,37 @@
   }
 
   return v7;
+}
+
++ (void)registerClass:(Class)class forElementName:(id)name elementType:(unint64_t)type dependent:(BOOL)dependent
+{
+  dependentCopy = dependent;
+  nameCopy = name;
+  v10 = nameCopy;
+  if (class)
+  {
+    v15 = nameCopy;
+    nameCopy = [nameCopy length];
+    v10 = v15;
+    if (type)
+    {
+      if (nameCopy)
+      {
+        [sClassMap setObject:class forKey:v15];
+        v11 = sTypeMap_0;
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+        [v11 setObject:v12 forKey:v15];
+
+        v13 = sDependentMap;
+        v14 = [MEMORY[0x277CCABB0] numberWithBool:dependentCopy];
+        [v13 setObject:v14 forKey:v15];
+
+        v10 = v15;
+      }
+    }
+  }
+
+  MEMORY[0x2821F96F8](nameCopy, v10);
 }
 
 + (Class)elementClassByTagName:(id)name
@@ -130,7 +162,7 @@
 
 + (BOOL)elementsForDocumentElement:(id)element context:(id)context
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   contextCopy = context;
   tagName = [elementCopy tagName];
@@ -141,42 +173,42 @@
     goto LABEL_90;
   }
 
-  v80 = tagName;
-  v81 = v8;
-  v82 = contextCopy;
-  v83 = elementCopy;
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
+  v79 = tagName;
+  v80 = v8;
+  v81 = contextCopy;
+  v82 = elementCopy;
   v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   childElements = [elementCopy childElements];
-  v11 = [childElements countByEnumeratingWithState:&v94 objects:v99 count:16];
+  v11 = [childElements countByEnumeratingWithState:&v93 objects:v98 count:16];
   if (v11)
   {
     v12 = v11;
+    v85 = 0;
     v86 = 0;
     v87 = 0;
-    v88 = 0;
     v13 = 0;
-    v14 = *v95;
+    v14 = *v94;
     while (1)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v95 != v14)
+        if (*v94 != v14)
         {
           objc_enumerationMutation(childElements);
         }
 
-        v16 = *(*(&v94 + 1) + 8 * i);
-        if (v13 || ([*(*(&v94 + 1) + 8 * i) tagName], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", @"head"), v17, (v18 & 1) == 0))
+        v16 = *(*(&v93 + 1) + 8 * i);
+        if (v13 || ([*(*(&v93 + 1) + 8 * i) tagName], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", @"head"), v17, (v18 & 1) == 0))
         {
-          if (v87 || ([v16 tagName], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToString:", @"navigationBar"), v20, (v21 & 1) == 0))
+          if (v86 || ([v16 tagName], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqualToString:", @"navigationBar"), v20, (v21 & 1) == 0))
           {
-            if (v86 || ([v16 tagName], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", @"toolbar"), v22, (v23 & 1) == 0))
+            if (v85 || ([v16 tagName], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", @"toolbar"), v22, (v23 & 1) == 0))
             {
               v19 = v16;
-              if (v88)
+              if (v87)
               {
                 continue;
               }
@@ -184,29 +216,29 @@
               goto LABEL_18;
             }
 
-            v86 = v16;
+            v85 = v16;
           }
 
           else
           {
-            v87 = v16;
+            v86 = v16;
           }
 
-          v19 = v88;
+          v19 = v87;
         }
 
         else
         {
-          v19 = v88;
+          v19 = v87;
           v13 = v16;
         }
 
 LABEL_18:
         v24 = v16;
-        v88 = v19;
+        v87 = v19;
       }
 
-      v12 = [childElements countByEnumeratingWithState:&v94 objects:v99 count:16];
+      v12 = [childElements countByEnumeratingWithState:&v93 objects:v98 count:16];
       if (!v12)
       {
         goto LABEL_23;
@@ -214,23 +246,23 @@ LABEL_18:
     }
   }
 
+  v85 = 0;
   v86 = 0;
   v87 = 0;
-  v88 = 0;
   v13 = 0;
 LABEL_23:
 
-  elementCopy = v83;
-  jsNodeData = [v83 jsNodeData];
-  v85 = [IKViewElement evaluateElementUpdateType:?];
+  elementCopy = v82;
+  jsNodeData = [v82 jsNodeData];
+  v84 = [IKViewElement evaluateElementUpdateType:?];
   v25 = v13;
   jsNodeData2 = [v13 jsNodeData];
-  contextCopy = v82;
-  headViewElement = [v82 headViewElement];
-  v84 = v85 != 0;
+  contextCopy = v81;
+  headViewElement = [v81 headViewElement];
+  v83 = v84 != 0;
   if (headViewElement || !v13)
   {
-    headViewElement2 = [v82 headViewElement];
+    headViewElement2 = [v81 headViewElement];
     if (headViewElement2)
     {
       v30 = v13 == 0;
@@ -261,43 +293,43 @@ LABEL_23:
     isUpdated = 1;
   }
 
-  templateViewElement = [v82 templateViewElement];
+  templateViewElement = [v81 templateViewElement];
   elementName = [templateViewElement elementName];
-  tagName2 = [v88 tagName];
+  tagName2 = [v87 tagName];
   v34 = [elementName isEqualToString:tagName2];
 
-  v78 = jsNodeData2;
-  v77 = v34;
-  if ((v85 | 4) == 4)
+  v77 = jsNodeData2;
+  v76 = v34;
+  if ((v84 | 4) == 4)
   {
     goto LABEL_39;
   }
 
   if ((isUpdated | v34 ^ 1))
   {
-    v84 = (v85 != 0) & (isUpdated | v34 ^ 1);
+    v83 = (v84 != 0) & (isUpdated | v34 ^ 1);
 LABEL_39:
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
     childElements2 = [v13 childElements];
-    v36 = [childElements2 countByEnumeratingWithState:&v90 objects:v98 count:16];
+    v36 = [childElements2 countByEnumeratingWithState:&v89 objects:v97 count:16];
     if (v36)
     {
       v37 = v36;
       v38 = 0;
-      v39 = *v91;
+      v39 = *v90;
       do
       {
         for (j = 0; j != v37; ++j)
         {
-          if (*v91 != v39)
+          if (*v90 != v39)
           {
             objc_enumerationMutation(childElements2);
           }
 
-          v41 = *(*(&v90 + 1) + 8 * j);
+          v41 = *(*(&v89 + 1) + 8 * j);
           tagName3 = [v41 tagName];
           v43 = [tagName3 isEqualToString:@"style"];
 
@@ -319,7 +351,7 @@ LABEL_39:
           }
         }
 
-        v37 = [childElements2 countByEnumeratingWithState:&v90 objects:v98 count:16];
+        v37 = [childElements2 countByEnumeratingWithState:&v89 objects:v97 count:16];
       }
 
       while (v37);
@@ -333,7 +365,7 @@ LABEL_39:
     v47 = +[IKAppContext currentAppContext];
     if ([v47 appUsesDefaultStyleSheets])
     {
-      tagName4 = [v88 tagName];
+      tagName4 = [v87 tagName];
       v49 = [IKTemplateStyleSheet styleSheetForTemplateName:tagName4];
     }
 
@@ -342,17 +374,17 @@ LABEL_39:
       v49 = 0;
     }
 
-    contextCopy = v82;
-    elementCopy = v83;
+    contextCopy = v81;
+    elementCopy = v82;
     v25 = v13;
 
     v50 = [IKViewElementStyleFactory styleFactoryWithMarkup:v38 styleSheet:v49];
-    [v82 setStyleFactory:v50];
+    [v81 setStyleFactory:v50];
 
     goto LABEL_58;
   }
 
-  v84 = 0;
+  v83 = 0;
 LABEL_58:
   styleFactory = [contextCopy styleFactory];
   v52 = [IKViewElementFactory alloc];
@@ -360,11 +392,11 @@ LABEL_58:
   viewElementRegistry = [v53 viewElementRegistry];
   v55 = [(IKViewElementFactory *)v52 initWithElementRegistry:viewElementRegistry];
 
-  [(IKViewElementFactory *)v55 setSparse:v85 != 0];
+  [(IKViewElementFactory *)v55 setSparse:v84 != 0];
   [(IKViewElementFactory *)v55 setStyleFactory:styleFactory];
   if (v25)
   {
-    if (v84)
+    if (v83)
     {
       jsNodeData3 = [v25 jsNodeData];
       [jsNodeData3 setUpdated:1];
@@ -374,59 +406,59 @@ LABEL_58:
     [contextCopy setHeadViewElement:v57];
   }
 
-  if (v87)
+  if (v86)
   {
-    if (v84)
+    if (v83)
     {
-      jsNodeData4 = [v87 jsNodeData];
+      jsNodeData4 = [v86 jsNodeData];
       [jsNodeData4 setUpdated:1];
 
-      v59 = [(IKViewElementFactory *)v55 elementForDOMElement:v87 parent:0];
+      v59 = [(IKViewElementFactory *)v55 elementForDOMElement:v86 parent:0];
       [v59 disperseUpdateType:2];
     }
 
     else
     {
-      v59 = [(IKViewElementFactory *)v55 elementForDOMElement:v87 parent:0];
+      v59 = [(IKViewElementFactory *)v55 elementForDOMElement:v86 parent:0];
     }
 
     [contextCopy setNavigationBarViewElement:v59];
   }
 
-  if (v86)
+  if (v85)
   {
-    if (v84)
+    if (v83)
     {
-      jsNodeData5 = [v86 jsNodeData];
+      jsNodeData5 = [v85 jsNodeData];
       [jsNodeData5 setUpdated:1];
 
-      v61 = [(IKViewElementFactory *)v55 elementForDOMElement:v86 parent:0];
+      v61 = [(IKViewElementFactory *)v55 elementForDOMElement:v85 parent:0];
       [v61 disperseUpdateType:2];
     }
 
     else
     {
-      v61 = [(IKViewElementFactory *)v55 elementForDOMElement:v86 parent:0];
+      v61 = [(IKViewElementFactory *)v55 elementForDOMElement:v85 parent:0];
     }
 
     [contextCopy setToolBarViewElement:v61];
   }
 
-  if (v84)
+  if (v83)
   {
-    jsNodeData6 = [v88 jsNodeData];
+    jsNodeData6 = [v87 jsNodeData];
     [jsNodeData6 setUpdated:1];
   }
 
-  if (!v85)
+  if (!v84)
   {
-    jsNodeData7 = [v88 jsNodeData];
+    jsNodeData7 = [v87 jsNodeData];
     [jsNodeData7 setDataResolved:0];
 
-    jsNodeData8 = [v88 jsNodeData];
+    jsNodeData8 = [v87 jsNodeData];
     [jsNodeData8 setPrototypesResolved:0];
 
-    jsNodeData9 = [v88 jsNodeData];
+    jsNodeData9 = [v87 jsNodeData];
     [jsNodeData9 setRulesParsed:0];
   }
 
@@ -440,7 +472,7 @@ LABEL_58:
     _os_signpost_emit_with_name_impl(&dword_2549A4000, v66, OS_SIGNPOST_INTERVAL_BEGIN, v68, "DOMParsing", &unk_254A72FF2, buf, 2u);
   }
 
-  v69 = [(IKViewElementFactory *)v55 elementForDOMElement:v88 parent:0];
+  v69 = [(IKViewElementFactory *)v55 elementForDOMElement:v87 parent:0];
   v70 = ITMLKitGetLogObject(3);
   v71 = ITMLKitGetLogObject(3);
   v72 = os_signpost_id_make_with_pointer(v71, &stru_2866C1E60);
@@ -451,19 +483,19 @@ LABEL_58:
     _os_signpost_emit_with_name_impl(&dword_2549A4000, v70, OS_SIGNPOST_INTERVAL_END, v72, "DOMParsing", &unk_254A72FF2, buf, 2u);
   }
 
-  if (v84)
+  if (v83)
   {
     [v69 disperseUpdateType:2];
   }
 
   [contextCopy setTemplateViewElement:v69];
   v73 = 4;
-  if (v77)
+  if (v76)
   {
     v73 = 1;
   }
 
-  if (v85)
+  if (v84)
   {
     v74 = v73;
   }
@@ -475,17 +507,16 @@ LABEL_58:
 
   [contextCopy setUpdateType:v74];
 
-  v9 = v81;
-  tagName = v80;
+  v9 = v80;
+  tagName = v79;
 LABEL_90:
 
-  v75 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (id)elementForDOMElement:(id)element parent:(id)parent
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   parentCopy = parent;
   if (!elementCopy)
@@ -510,160 +541,160 @@ LABEL_6:
   }
 
   tagName3 = [elementCopy tagName];
-  v14 = [tagName3 isEqualToString:@"rules"];
+  v13 = [tagName3 isEqualToString:@"rules"];
 
-  if (v14)
+  if (v13)
   {
     goto LABEL_6;
   }
 
   parsingFlags = self->_parsingFlags;
-  v16 = 8;
+  v15 = 8;
   if ((parsingFlags & 8) != 0)
   {
-    v17 = self->_parsingFlags;
+    v16 = self->_parsingFlags;
   }
 
   else
   {
     if ([elementCopy _isPrototypeElement])
     {
-      v16 = 8;
+      v15 = 8;
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    v17 = self->_parsingFlags;
+    v16 = self->_parsingFlags;
   }
 
-  *&self->_parsingFlags = v17 & 0xF7 | v16;
-  v18 = v17 & (v16 == 0);
+  *&self->_parsingFlags = v16 & 0xF7 | v15;
+  v17 = v16 & (v15 == 0);
   jsNodeData = [elementCopy jsNodeData];
-  v20 = jsNodeData;
-  if (v18 != 1 || ([jsNodeData containsUpdates] & 1) != 0 || (*&self->_parsingFlags & 6) != 0)
+  v19 = jsNodeData;
+  if (v17 != 1 || ([jsNodeData containsUpdates] & 1) != 0 || (*&self->_parsingFlags & 6) != 0)
   {
-    v21 = parsingFlags & 8;
+    v20 = parsingFlags & 8;
     tagName4 = [elementCopy tagName];
-    v23 = [(IKViewElementFactory *)self elementClassByTagName:tagName4];
-    if (v23)
+    v22 = [(IKViewElementFactory *)self elementClassByTagName:tagName4];
+    if (v22)
     {
-      v24 = v23;
+      v23 = v22;
       if ((*&self->_parsingFlags & 0xA) == 2)
       {
-        [v20 setUpdated:1];
+        [v19 setUpdated:1];
       }
 
-      v25 = objc_autoreleasePoolPush();
-      [(objc_class *)v24 willParseDOMElement:elementCopy];
-      objc_autoreleasePoolPop(v25);
-      v26 = self->_parsingFlags;
-      v27 = v26 & 2;
-      if (v18)
+      v24 = objc_autoreleasePoolPush();
+      [(objc_class *)v23 willParseDOMElement:elementCopy];
+      objc_autoreleasePoolPop(v24);
+      v25 = self->_parsingFlags;
+      v26 = v25 & 2;
+      if (v17)
       {
-        isUpdated = [v20 isUpdated];
-        v29 = 2;
-        if ((isUpdated & 1) == 0 && (v26 & 2) == 0)
+        isUpdated = [v19 isUpdated];
+        v28 = 2;
+        if ((isUpdated & 1) == 0 && (v25 & 2) == 0)
         {
-          if ([(objc_class *)v24 shouldParseChildDOMElements])
+          if ([(objc_class *)v23 shouldParseChildDOMElements])
           {
-            v29 = 0;
+            v28 = 0;
           }
 
           else
           {
-            v29 = 2;
+            v28 = 2;
           }
         }
 
-        v26 = self->_parsingFlags;
-        *&self->_parsingFlags = v26 & 0xFD | v29;
-        if ([v20 isChildrenUpdated])
+        v25 = self->_parsingFlags;
+        *&self->_parsingFlags = v25 & 0xFD | v28;
+        if ([v19 isChildrenUpdated])
         {
-          v30 = 4;
+          v29 = 4;
         }
 
         else
         {
-          v30 = 0;
+          v29 = 0;
         }
 
-        v31 = self->_parsingFlags;
+        v30 = self->_parsingFlags;
       }
 
       else
       {
-        v30 = 0;
-        v31 = v26 & 0xFD;
+        v29 = 0;
+        v30 = v25 & 0xFD;
       }
 
-      v34 = v26 & 4;
-      *&self->_parsingFlags = v31 & 0xFB | v30;
-      v35 = [[v24 alloc] initWithDOMElement:elementCopy parent:parentCopy elementFactory:self];
-      v10 = v35;
-      if (!v18 || (v36 = self->_parsingFlags, (v36 & 2) != 0))
+      v33 = v25 & 4;
+      *&self->_parsingFlags = v30 & 0xFB | v29;
+      v34 = [[v23 alloc] initWithDOMElement:elementCopy parent:parentCopy elementFactory:self];
+      v10 = v34;
+      if (!v17 || (v35 = self->_parsingFlags, (v35 & 2) != 0))
       {
-        v43 = v34;
-        v44 = v27;
-        v45 = tagName4;
-        v46 = v20;
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
+        v42 = v33;
+        v43 = v26;
+        v44 = tagName4;
+        v45 = v19;
         v48 = 0u;
-        features = [v35 features];
-        v38 = [features countByEnumeratingWithState:&v47 objects:v51 count:16];
-        if (v38)
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        features = [v34 features];
+        v37 = [features countByEnumeratingWithState:&v46 objects:v50 count:16];
+        if (v37)
         {
-          v39 = v38;
-          v40 = *v48;
+          v38 = v37;
+          v39 = *v47;
           do
           {
-            for (i = 0; i != v39; ++i)
+            for (i = 0; i != v38; ++i)
             {
-              if (*v48 != v40)
+              if (*v47 != v39)
               {
                 objc_enumerationMutation(features);
               }
 
-              v42 = *(*(&v47 + 1) + 8 * i);
+              v41 = *(*(&v46 + 1) + 8 * i);
               if (objc_opt_respondsToSelector())
               {
-                [v42 migrateToViewElement:v10];
+                [v41 migrateToViewElement:v10];
               }
             }
 
-            v39 = [features countByEnumeratingWithState:&v47 objects:v51 count:16];
+            v38 = [features countByEnumeratingWithState:&v46 objects:v50 count:16];
           }
 
-          while (v39);
+          while (v38);
         }
 
-        v20 = v46;
-        v36 = self->_parsingFlags;
-        tagName4 = v45;
-        v34 = v43;
-        v27 = v44;
+        v19 = v45;
+        v35 = self->_parsingFlags;
+        tagName4 = v44;
+        v33 = v42;
+        v26 = v43;
       }
 
-      v33 = v34 | v27 | v36 & 0xF9;
+      v32 = v33 | v26 | v35 & 0xF9;
     }
 
     else
     {
-      v32 = ITMLKitGetLogObject(0);
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = ITMLKitGetLogObject(0);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [IKViewElementFactory elementForDOMElement:tagName4 parent:v32];
+        [IKViewElementFactory elementForDOMElement:tagName4 parent:v31];
       }
 
       v10 = 0;
-      v33 = self->_parsingFlags;
+      v32 = self->_parsingFlags;
     }
 
-    *&self->_parsingFlags = v33 & 0xF7 | v21;
+    *&self->_parsingFlags = v32 & 0xF7 | v20;
   }
 
   else
@@ -672,7 +703,6 @@ LABEL_6:
   }
 
 LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

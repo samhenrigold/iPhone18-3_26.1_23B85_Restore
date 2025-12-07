@@ -45,14 +45,15 @@
   sqlite3_finalize([(PCSMetrics *)self addKeyStmt]);
   sqlite3_finalize([(PCSMetrics *)self markKeyStmt]);
   sqlite3_finalize([(PCSMetrics *)self getKeyStmt]);
-  if (sqlite3_close([(PCSMetrics *)self db]))
+  v3 = sqlite3_close([(PCSMetrics *)self db]);
+  if (v3)
   {
-    sub_100022C2C();
+    sub_100022C2C(v3);
   }
 
-  v3.receiver = self;
-  v3.super_class = PCSMetrics;
-  [(PCSMetrics *)&v3 dealloc];
+  v4.receiver = self;
+  v4.super_class = PCSMetrics;
+  [(PCSMetrics *)&v4 dealloc];
 }
 
 + (id)metrics

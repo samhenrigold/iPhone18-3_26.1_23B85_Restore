@@ -25,29 +25,27 @@
 
 void __61__GKPlayerActivityRelationshipPlayer_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v6.receiver = *(a1 + 32);
-  v6.super_class = &OBJC_METACLASS___GKPlayerActivityRelationshipPlayer;
-  v1 = objc_msgSendSuper2(&v6, sel_secureCodedPropertyKeys);
+  v7[1] = *MEMORY[0x277D85DE8];
+  v5.receiver = *(a1 + 32);
+  v5.super_class = &OBJC_METACLASS___GKPlayerActivityRelationshipPlayer;
+  v1 = objc_msgSendSuper2(&v5, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v7 = @"playerInternal";
-  v8[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"playerInternal";
+  v7[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 addEntriesFromDictionary:v3];
 
   v4 = secureCodedPropertyKeys_sSecureCodedKeys_336;
   secureCodedPropertyKeys_sSecureCodedKeys_336 = v2;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (GKPlayerActivityRelationshipPlayer)initWithDictionary:(id)dictionary
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = GKPlayerActivityRelationshipPlayer;
-  v3 = [(GKPlayerActivityRelationshipBase *)&v12 initWithDictionary:dictionary];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = GKPlayerActivityRelationshipPlayer;
+  v3 = [(GKPlayerActivityRelationshipBase *)&v11 initWithDictionary:dictionary];
   if (v3)
   {
     v4 = objc_opt_new();
@@ -61,17 +59,16 @@ void __61__GKPlayerActivityRelationshipPlayer_secureCodedPropertyKeys__block_inv
 
     if (image)
     {
-      v13 = @"template";
+      v12 = @"template";
       image2 = [(GKPlayerActivityRelationshipBase *)v3 image];
-      v14[0] = image2;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = image2;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [v4 setPhotos:v9];
     }
 
     [(GKPlayerActivityRelationshipPlayer *)v3 setPlayerInternal:v4];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

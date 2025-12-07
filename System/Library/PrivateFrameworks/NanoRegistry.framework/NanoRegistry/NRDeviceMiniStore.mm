@@ -34,20 +34,20 @@
 
 - (NRDeviceMiniStore)initWithCoder:(id)coder
 {
-  v17[5] = *MEMORY[0x1E69E9840];
+  v16[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = NRDeviceMiniStore;
-  v5 = [(NRDeviceMiniStore *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = NRDeviceMiniStore;
+  v5 = [(NRDeviceMiniStore *)&v15 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v17[2] = objc_opt_class();
-    v17[3] = objc_opt_class();
-    v17[4] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:5];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v16[2] = objc_opt_class();
+    v16[3] = objc_opt_class();
+    v16[4] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"miniStoreValuesKey"];
 
@@ -66,8 +66,8 @@
         v12 = nr_framework_log();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          *v15 = 0;
-          _os_log_error_impl(&dword_1E0ADF000, v12, OS_LOG_TYPE_ERROR, "No store found, will not return a deviceStore", v15, 2u);
+          *v14 = 0;
+          _os_log_error_impl(&dword_1E0ADF000, v12, OS_LOG_TYPE_ERROR, "No store found, will not return a deviceStore", v14, 2u);
         }
       }
 
@@ -75,13 +75,12 @@
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)objectForKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (!self->_store)
   {
@@ -93,8 +92,8 @@
       v7 = nr_framework_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v14) = 0;
-        _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "No store found in ministore", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "No store found in ministore", &v13, 2u);
       }
     }
   }
@@ -110,14 +109,12 @@
       v11 = nr_framework_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = keyCopy;
-        _os_log_impl(&dword_1E0ADF000, v11, OS_LOG_TYPE_DEFAULT, "No value found in ministore for key %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = keyCopy;
+        _os_log_impl(&dword_1E0ADF000, v11, OS_LOG_TYPE_DEFAULT, "No value found in ministore for key %@", &v13, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

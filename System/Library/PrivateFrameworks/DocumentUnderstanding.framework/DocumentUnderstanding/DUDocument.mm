@@ -85,7 +85,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_232B592B4();
+  sub_232B592B4(coderCopy);
 }
 
 - (id)copyWithZone:(void *)zone

@@ -2,6 +2,7 @@
 + (id)serverInterface;
 - (HKHealthStore)healthStore;
 - (HKSharedSummaryTransactionBuilder)initWithHealthStore:(id)store transactionUUID:(id)d;
+- (HKSharedSummaryTransactionBuilder)initWithHealthStore:(id)store transactionUUID:(id)d allowCommitted:(BOOL)committed;
 - (id)exportedInterface;
 - (id)isCommittedWithError:(id *)error;
 - (id)remoteInterface;
@@ -29,6 +30,57 @@
   v9 = [profileIdentifier type] == 2;
 
   v10 = [(HKSharedSummaryTransactionBuilder *)self initWithHealthStore:storeCopy transactionUUID:dCopy allowCommitted:v9];
+  return v10;
+}
+
+- (HKSharedSummaryTransactionBuilder)initWithHealthStore:(id)store transactionUUID:(id)d allowCommitted:(BOOL)committed
+{
+  committedCopy = committed;
+  v30 = *MEMORY[0x1E69E9840];
+  storeCopy = store;
+  dCopy = d;
+  v25.receiver = self;
+  v25.super_class = HKSharedSummaryTransactionBuilder;
+  v10 = [(HKSharedSummaryTransactionBuilder *)&v25 init];
+  if (v10)
+  {
+    if (dCopy)
+    {
+      uUID = [dCopy copy];
+    }
+
+    else
+    {
+      uUID = [MEMORY[0x1E696AFB0] UUID];
+    }
+
+    transactionUUID = v10->_transactionUUID;
+    v10->_transactionUUID = uUID;
+
+    objc_storeWeak(&v10->_healthStore, storeCopy);
+    v13 = [HKTaskServerProxyProvider alloc];
+    uUID2 = [MEMORY[0x1E696AFB0] UUID];
+    v15 = [(HKTaskServerProxyProvider *)v13 initWithHealthStore:storeCopy taskIdentifier:@"HKSharedSummaryTransactionBuilderServerIdentifier" exportedObject:v10 taskUUID:uUID2];
+    proxyProvider = v10->_proxyProvider;
+    v10->_proxyProvider = v15;
+
+    v17 = objc_alloc_init(HKSharedSummaryTransactionBuilderTaskConfiguration);
+    [(HKSharedSummaryTransactionBuilderTaskConfiguration *)v17 setTransactionUUID:v10->_transactionUUID];
+    [(HKSharedSummaryTransactionBuilderTaskConfiguration *)v17 setAllowCommitted:committedCopy];
+    v18 = [(HKTaskServerProxyProvider *)v10->_proxyProvider setTaskConfiguration:v17];
+    _HKInitializeLogging(v18, v19);
+    v22 = HKLogSharing(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      uUIDString = [(NSUUID *)v10->_transactionUUID UUIDString];
+      *buf = 138543618;
+      v27 = v10;
+      v28 = 2114;
+      v29 = uUIDString;
+      _os_log_impl(&dword_19197B000, v22, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Created new builder for transaction %{public}@", buf, 0x16u);
+    }
+  }
+
   return v10;
 }
 
@@ -148,11 +200,11 @@ void __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_inv
 void __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_invoke_3_cold_1(a1);
+    __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -197,11 +249,11 @@ void __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_i
 void __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1(a1);
+    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -232,11 +284,11 @@ void __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_i
 void __72__HKSharedSummaryTransactionBuilder_reuseSummariesWithUUIDs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1(a1);
+    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -270,11 +322,11 @@ void __72__HKSharedSummaryTransactionBuilder_reuseSummariesWithUUIDs_completion_
 void __80__HKSharedSummaryTransactionBuilder_reuseSummariesWithPackage_names_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1(a1);
+    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -305,11 +357,11 @@ void __80__HKSharedSummaryTransactionBuilder_reuseSummariesWithPackage_names_com
 void __77__HKSharedSummaryTransactionBuilder_reuseAllSummariesWithPackage_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1(a1);
+    __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -340,11 +392,11 @@ void __77__HKSharedSummaryTransactionBuilder_reuseAllSummariesWithPackage_comple
 void __60__HKSharedSummaryTransactionBuilder_addMetadata_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __60__HKSharedSummaryTransactionBuilder_addMetadata_completion___block_invoke_2_cold_1(a1);
+    __60__HKSharedSummaryTransactionBuilder_addMetadata_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -386,11 +438,11 @@ void __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion
 void __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1(a1);
+    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -436,11 +488,11 @@ void __81__HKSharedSummaryTransactionBuilder_removeSummariesWithPackage_names_co
 void __81__HKSharedSummaryTransactionBuilder_removeSummariesWithPackage_names_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1(a1);
+    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -482,11 +534,11 @@ void __78__HKSharedSummaryTransactionBuilder_removeAllSummariesWithPackage_compl
 void __78__HKSharedSummaryTransactionBuilder_removeAllSummariesWithPackage_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1(a1);
+    __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -495,56 +547,54 @@ void __78__HKSharedSummaryTransactionBuilder_removeAllSummariesWithPackage_compl
 - (void)commitAsUrgent:(BOOL)urgent completion:(id)completion
 {
   urgentCopy = urgent;
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v6 = [(HKProxyProvider *)self->_proxyProvider clientQueueObjectHandlerWithCompletion:completion];
-  _HKInitializeLogging();
-  v7 = HKLogSharing();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v6, v7);
+  v10 = HKLogSharing(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [(NSUUID *)self->_transactionUUID UUIDString];
-    v9 = uUIDString;
-    v10 = @"NO";
+    v12 = uUIDString;
+    v13 = @"NO";
     *buf = 138543874;
     selfCopy = self;
-    v21 = 2114;
+    v23 = 2114;
     if (urgentCopy)
     {
-      v10 = @"YES";
+      v13 = @"YES";
     }
 
-    v22 = uUIDString;
-    v23 = 2114;
-    v24 = v10;
-    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Commiting transaction %{public}@ urgent: %{public}@", buf, 0x20u);
+    v24 = uUIDString;
+    v25 = 2114;
+    v26 = v13;
+    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Commiting transaction %{public}@ urgent: %{public}@", buf, 0x20u);
   }
 
   proxyProvider = self->_proxyProvider;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke;
+  v18[3] = &unk_1E7380A88;
+  v20 = urgentCopy;
+  v19 = v6;
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
-  v16[2] = __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke;
-  v16[3] = &unk_1E7380A88;
-  v18 = urgentCopy;
-  v17 = v6;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2;
-  v14[3] = &unk_1E7376820;
-  v14[4] = self;
-  v15 = v17;
-  v12 = v17;
-  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v16 errorHandler:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16[2] = __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2;
+  v16[3] = &unk_1E7376820;
+  v16[4] = self;
+  v17 = v19;
+  v15 = v19;
+  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v18 errorHandler:v16];
 }
 
 void __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2_cold_1(a1);
+    __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -552,36 +602,34 @@ void __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_i
 
 - (void)discardWithCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completion];
-  _HKInitializeLogging();
-  v5 = HKLogSharing();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v4, v5);
+  v8 = HKLogSharing(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [(NSUUID *)self->_transactionUUID UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = uUIDString;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Discarding transaction %{public}@", buf, 0x16u);
+    v18 = 2114;
+    v19 = uUIDString;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Discarding transaction %{public}@", buf, 0x16u);
   }
 
   proxyProvider = self->_proxyProvider;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke;
+  v14[3] = &unk_1E7380AB0;
+  v15 = v4;
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke;
-  v12[3] = &unk_1E7380AB0;
-  v13 = v4;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3;
-  v10[3] = &unk_1E7376820;
-  v10[4] = self;
-  v11 = v13;
-  v8 = v13;
-  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v12 errorHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12[2] = __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3;
+  v12[3] = &unk_1E7376820;
+  v12[4] = self;
+  v13 = v15;
+  v11 = v15;
+  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v14 errorHandler:v12];
 }
 
 void __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -597,11 +645,11 @@ void __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invok
 void __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3_cold_1(a1);
+    __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -669,23 +717,20 @@ void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_res
 
 void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-  v5 = *(*(a1 + 56) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v2 = *(*(a1 + 56) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_4_cold_1(a1);
+    __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -729,60 +774,53 @@ void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_res
   return WeakRetained;
 }
 
-void __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_invoke_3_cold_1(uint64_t a1)
+void __61__HKSharedSummaryTransactionBuilder_addSummaries_completion___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error adding summaries to transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error adding summaries to transaction %{public}@");
 }
 
-void __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1(uint64_t a1)
+void __63__HKSharedSummaryTransactionBuilder_reuseSummaries_completion___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error reusing summaries in transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error reusing summaries in transaction %{public}@");
 }
 
-void __60__HKSharedSummaryTransactionBuilder_addMetadata_completion___block_invoke_2_cold_1(uint64_t a1)
+void __60__HKSharedSummaryTransactionBuilder_addMetadata_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error adding metadata to transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error adding metadata to transaction %{public}@");
 }
 
-void __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1(uint64_t a1)
+void __73__HKSharedSummaryTransactionBuilder_removeSummariesWithUUIDs_completion___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error removing summaries from transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error removing summaries from transaction %{public}@");
 }
 
-void __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2_cold_1(uint64_t a1)
+void __63__HKSharedSummaryTransactionBuilder_commitAsUrgent_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error committing transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error committing transaction %{public}@");
 }
 
-void __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3_cold_1(uint64_t a1)
+void __59__HKSharedSummaryTransactionBuilder_discardWithCompletion___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error discarding transaction %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error discarding transaction %{public}@");
 }
 
-void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_4_cold_1(uint64_t a1)
+void __84__HKSharedSummaryTransactionBuilder_addedSummariesWithPackage_names_resultsHandler___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Error retrieving added summaries %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Error retrieving added summaries %{public}@");
 }
 
 @end

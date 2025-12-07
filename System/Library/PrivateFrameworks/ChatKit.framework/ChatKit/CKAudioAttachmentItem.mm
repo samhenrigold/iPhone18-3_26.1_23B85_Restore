@@ -19,18 +19,19 @@
   fileURL = [(CKAttachmentItem *)self fileURL];
   lastPathComponent = [fileURL lastPathComponent];
 
-  if (([lastPathComponent isEqualToString:@"Audio Message.caf"] & 1) != 0 || objc_msgSend(lastPathComponent, "isEqualToString:", @"Audio Message.amr"))
+  v4 = [lastPathComponent isEqualToString:@"Audio Message.caf"];
+  if ((v4 & 1) != 0 || (v4 = [lastPathComponent isEqualToString:@"Audio Message.amr"], v4))
   {
-    v4 = CKFrameworkBundle();
-    v5 = [v4 localizedStringForKey:@"PREVIEW_TITLE_AUDIO_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v5 = CKFrameworkBundle(v4);
+    v6 = [v5 localizedStringForKey:@"PREVIEW_TITLE_AUDIO_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

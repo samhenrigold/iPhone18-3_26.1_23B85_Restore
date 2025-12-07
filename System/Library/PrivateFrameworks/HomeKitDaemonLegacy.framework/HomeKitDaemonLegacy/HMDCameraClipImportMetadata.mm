@@ -6,11 +6,11 @@
 
 - (id)initClipData:(id)data
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v44.receiver = self;
-  v44.super_class = HMDCameraClipImportMetadata;
-  v5 = [(HMDCameraClipImportMetadata *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = HMDCameraClipImportMetadata;
+  v5 = [(HMDCameraClipImportMetadata *)&v43 init];
   if (!v5)
   {
 LABEL_27:
@@ -28,9 +28,9 @@ LABEL_27:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v24;
-      v47 = 2112;
-      v48 = dataCopy;
+      v45 = v24;
+      v46 = 2112;
+      v47 = dataCopy;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Could not find start date string in clip data: %@", buf, 0x16u);
     }
 
@@ -50,9 +50,9 @@ LABEL_27:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v28;
-      v47 = 2112;
-      v48 = v7;
+      v45 = v28;
+      v46 = 2112;
+      v47 = v7;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Could not parse start date from string: %@", buf, 0x16u);
     }
 
@@ -71,9 +71,9 @@ LABEL_27:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v32;
-      v47 = 2112;
-      v48 = dataCopy;
+      v45 = v32;
+      v46 = 2112;
+      v47 = dataCopy;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Could not find target fragment duration in clip data: %@", buf, 0x16u);
     }
 
@@ -92,9 +92,9 @@ LABEL_27:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v36;
-      v47 = 2112;
-      v48 = dataCopy;
+      v45 = v36;
+      v46 = 2112;
+      v47 = dataCopy;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Could not find poster frames in clip data: %@", buf, 0x16u);
     }
 
@@ -128,11 +128,11 @@ LABEL_21:
     v39 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v42 = HMFGetLogIdentifier();
+      v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v42;
-      v47 = 2112;
-      v48 = dataCopy;
+      v45 = v41;
+      v46 = 2112;
+      v47 = dataCopy;
       _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Could not find video fragments in clip data: %@", buf, 0x16u);
     }
 
@@ -148,7 +148,6 @@ LABEL_22:
   v37 = 0;
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v37;
 }
 

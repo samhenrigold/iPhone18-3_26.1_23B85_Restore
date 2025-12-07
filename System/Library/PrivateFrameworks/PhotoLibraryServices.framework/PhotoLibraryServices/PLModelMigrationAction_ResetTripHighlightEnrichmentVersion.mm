@@ -72,37 +72,45 @@
         v39 = 0u;
         memset(buf, 0, sizeof(buf));
         v22 = PLMigrationGetLog();
-        os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        {
+          v23 = 3;
+        }
+
+        else
+        {
+          v23 = 2;
+        }
+
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
         v33 = 138543618;
-        v34 = v24;
+        v34 = v25;
         v35 = 2112;
         v36 = v13;
-        LODWORD(v30) = 22;
-        v25 = _os_log_send_and_compose_impl();
+        v26 = _os_log_send_and_compose_impl(v23, 0, buf, 512, &dword_19BF1F000, v22, 16, "Failed to perform a save operation for %{public}@. Error: %@", &v33, 22);
 
-        v26 = [(PLModelMigrationActionBackground *)self logger:&v33];
-        [v26 logWithMessage:v25 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1397, 16}];
+        logger2 = [(PLModelMigrationActionBackground *)self logger];
+        [logger2 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActionBackground.m" type:{1397, 16}];
 
-        if (v25 != buf)
+        if (v26 != buf)
         {
-          free(v25);
+          free(v26);
         }
       }
 
       else
       {
-        v27 = PLMigrationGetLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v28 = PLMigrationGetLog();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
+          v29 = objc_opt_class();
+          v30 = NSStringFromClass(v29);
           *buf = 138543618;
-          *&buf[4] = v29;
+          *&buf[4] = v30;
           *&buf[12] = 2112;
           *&buf[14] = v13;
-          _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v28, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %@", buf, 0x16u);
         }
       }
     }

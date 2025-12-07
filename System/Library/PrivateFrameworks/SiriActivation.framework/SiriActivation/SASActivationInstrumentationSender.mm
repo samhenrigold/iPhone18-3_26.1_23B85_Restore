@@ -2,6 +2,7 @@
 - (SASActivationInstrumentationSender)initWithAnalyticsStream:(id)stream;
 - (id)_clientEventWithActivationEventIdentifier:(id)identifier;
 - (void)instrumentActivationMessage:(id)message;
+- (void)instrumentButtonInteractionType:(int)type buttonIdentifier:(id)identifier activationEventIdentifier:(id)eventIdentifier;
 - (void)instrumentRequestLinkToUEIWithTurnId:(id)id activationEventIdentifier:(id)identifier;
 - (void)instrumentTurnActivatedWithTurnId:(id)id activationEventIdentifier:(id)identifier;
 @end
@@ -23,9 +24,49 @@
   return v7;
 }
 
+- (void)instrumentButtonInteractionType:(int)type buttonIdentifier:(id)identifier activationEventIdentifier:(id)eventIdentifier
+{
+  v6 = *&type;
+  v24 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  eventIdentifierCopy = eventIdentifier;
+  v10 = objc_alloc_init(MEMORY[0x1E69CE6D8]);
+  [v10 setButtonInteractionType:v6];
+  [v10 setButtonName:identifierCopy];
+  v11 = [(SASActivationInstrumentationSender *)self _clientEventWithActivationEventIdentifier:eventIdentifierCopy];
+  [v11 setButtonInteractionDetected:v10];
+  v12 = *MEMORY[0x1E698D0A0];
+  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+  {
+    if ((v6 - 1) > 2)
+    {
+      v13 = @"BUTTONINTERACTIONTYPE_UNKNOWN";
+    }
+
+    else
+    {
+      v13 = off_1E82F3578[(v6 - 1)];
+    }
+
+    v16 = 136315906;
+    v17 = "[SASActivationInstrumentationSender instrumentButtonInteractionType:buttonIdentifier:activationEventIdentifier:]";
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2112;
+    v23 = eventIdentifierCopy;
+    v14 = v12;
+    _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #instrumentation %@, %@, identifier: %@", &v16, 0x2Au);
+  }
+
+  v15 = [[SASActivationInstrumentationMessage alloc] initWithEvent:v11 activationEventIdentifier:eventIdentifierCopy machAbsoluteTime:mach_absolute_time()];
+  [(SASActivationInstrumentationSender *)self instrumentActivationMessage:v15];
+}
+
 - (void)instrumentTurnActivatedWithTurnId:(id)id activationEventIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   idCopy = id;
   identifierCopy = identifier;
   v8 = objc_alloc_init(MEMORY[0x1E69CE6F0]);
@@ -37,24 +78,22 @@
   v11 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[SASActivationInstrumentationSender instrumentTurnActivatedWithTurnId:activationEventIdentifier:]";
-    v16 = 2112;
-    v17 = idCopy;
-    v18 = 2112;
-    v19 = identifierCopy;
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Turn Id: %@, activationIdentifier: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SASActivationInstrumentationSender instrumentTurnActivatedWithTurnId:activationEventIdentifier:]";
+    v15 = 2112;
+    v16 = idCopy;
+    v17 = 2112;
+    v18 = identifierCopy;
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Turn Id: %@, activationIdentifier: %@", &v13, 0x20u);
   }
 
   v12 = [[SASActivationInstrumentationMessage alloc] initWithEvent:v10 activationEventIdentifier:identifierCopy machAbsoluteTime:mach_absolute_time()];
   [(SASActivationInstrumentationSender *)self instrumentActivationMessage:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)instrumentRequestLinkToUEIWithTurnId:(id)id activationEventIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   idCopy = id;
   identifierCopy = identifier;
   v8 = objc_alloc_init(MEMORY[0x1E69CF5F8]);
@@ -71,23 +110,21 @@
   v13 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315650;
-    v16 = "[SASActivationInstrumentationSender instrumentRequestLinkToUEIWithTurnId:activationEventIdentifier:]";
-    v17 = 2112;
-    v18 = idCopy;
-    v19 = 2112;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending RequestLink event for Turn Id: %@, activationIdentifier: %@", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "[SASActivationInstrumentationSender instrumentRequestLinkToUEIWithTurnId:activationEventIdentifier:]";
+    v16 = 2112;
+    v17 = idCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending RequestLink event for Turn Id: %@, activationIdentifier: %@", &v14, 0x20u);
   }
 
   [(SiriAnalyticsClientMessageStream *)self->_analyticsStream emitMessage:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)instrumentActivationMessage:(id)message
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   event = [messageCopy event];
   buttonInteractionDetected = [event buttonInteractionDetected];
@@ -120,15 +157,15 @@ LABEL_10:
     }
 
     activationEventIdentifier = [messageCopy activationEventIdentifier];
-    v22 = 136315906;
-    v23 = "[SASActivationInstrumentationSender instrumentActivationMessage:]";
-    v24 = 2112;
-    v25 = buttonName;
-    v26 = 2112;
-    v27 = v15;
-    v28 = 2112;
-    v29 = activationEventIdentifier;
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending <%@, %@> for identifier %@", &v22, 0x2Au);
+    v21 = 136315906;
+    v22 = "[SASActivationInstrumentationSender instrumentActivationMessage:]";
+    v23 = 2112;
+    v24 = buttonName;
+    v25 = 2112;
+    v26 = v15;
+    v27 = 2112;
+    v28 = activationEventIdentifier;
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending <%@, %@> for identifier %@", &v21, 0x2Au);
 
 LABEL_9:
     goto LABEL_10;
@@ -140,13 +177,13 @@ LABEL_9:
     event4 = [messageCopy event];
     buttonName = [event4 turnActivated];
     activationEventIdentifier2 = [messageCopy activationEventIdentifier];
-    v22 = 136315650;
-    v23 = "[SASActivationInstrumentationSender instrumentActivationMessage:]";
-    v24 = 2112;
-    v25 = buttonName;
-    v26 = 2112;
-    v27 = activationEventIdentifier2;
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending %@ for identifier %@", &v22, 0x20u);
+    v21 = 136315650;
+    v22 = "[SASActivationInstrumentationSender instrumentActivationMessage:]";
+    v23 = 2112;
+    v24 = buttonName;
+    v25 = 2112;
+    v26 = activationEventIdentifier2;
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #instrumentation Sending %@ for identifier %@", &v21, 0x20u);
 
     goto LABEL_9;
   }
@@ -155,8 +192,6 @@ LABEL_11:
   analyticsStream = self->_analyticsStream;
   event5 = [messageCopy event];
   -[SiriAnalyticsClientMessageStream emitMessage:timestamp:](analyticsStream, "emitMessage:timestamp:", event5, [messageCopy machAbsoluteTime]);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_clientEventWithActivationEventIdentifier:(id)identifier

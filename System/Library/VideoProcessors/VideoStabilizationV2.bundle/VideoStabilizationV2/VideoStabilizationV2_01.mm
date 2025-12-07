@@ -1,18 +1,18 @@
-uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int a3, char *a4, float a5)
+uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, const char *a2, int a3, char *a4, float a5)
 {
-  v269 = 0u;
   v270 = 0u;
+  v271 = 0u;
+  v269 = 0;
   v268 = 0;
-  v267 = 0;
   v8 = (a1 + 27136);
-  v266 = 1;
-  v264 = 0u;
+  v267 = 1;
   v265 = 0u;
-  v262 = 0u;
+  v266 = 0u;
   v263 = 0u;
-  v260 = 0u;
+  v264 = 0u;
   v261 = 0u;
-  [*(a1 + 29400) getSmoothingAnalysisArrays];
+  v262 = 0u;
+  objc_msgSend_getSmoothingAnalysisArrays(*(a1 + 29400));
   if (v8[1001])
   {
     v9 = *(v8 + 579);
@@ -24,44 +24,44 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
 
     while (v10 >= v9);
     v11 = (a1 + 29408);
-    v241 = v10;
+    v242 = v10;
   }
 
   else
   {
-    v241 = 0;
+    v242 = 0;
     v11 = 0;
   }
 
-  v12 = *(v262 + 8 * a2);
-  v13 = *(v262 + 8 * SDWORD2(v264));
-  v14 = (*(&v261 + 1) + 144 * a2);
-  v253 = *v14;
+  v12 = *(v263 + 8 * a2);
+  v13 = *(v263 + 8 * SDWORD2(v265));
+  v14 = (*(&v262 + 1) + 144 * a2);
+  v254 = *v14;
   v15 = v14[4];
   v17 = v14[1];
   v16 = v14[2];
-  v256 = v14[3];
-  v257 = v15;
-  v254 = v17;
-  v255 = v16;
+  v257 = v14[3];
+  v258 = v15;
+  v255 = v17;
+  v256 = v16;
   v18 = v14[8];
   v20 = v14[5];
   v19 = v14[6];
-  v259[1] = v14[7];
-  v259[2] = v18;
-  v258 = v20;
-  v259[0] = v19;
-  v238 = *v8;
+  v260[1] = v14[7];
+  v260[2] = v18;
+  v259 = v20;
+  v260[0] = v19;
+  v239 = *v8;
   v21 = *(a1 + 29400);
   if (v8[3112] == 1)
   {
-    v235 = v13;
+    v236 = v13;
     v22 = v12;
-    *&v250 = 0;
-    v248 = 0u;
+    *&v251 = 0;
     v249 = 0u;
-    v247 = 0u;
-    [v21 getFaceSmoothingArrays];
+    v250 = 0u;
+    v248 = 0u;
+    objc_msgSend_getFaceSmoothingArrays(v21);
     v23 = *(v8 + 786);
     if (*(v8 + 781) >= 1.0)
     {
@@ -87,32 +87,32 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
     v27 = powf(v26, v24);
     v28 = v25 + ((v27 / (v27 + powf(1.0 - v26, v24))) * (v23 - v25));
     *&v29 = v28;
-    v240 = ([*(a1 + 30288) updateBiasTrackingAndFaceCorrectionQuaternionWithFaceSmoothingArrays:&v247 biasTrackingSigma:a2 centerFrameOffset:v29] & 1) != 0 || v28 == *(v8 + 787);
+    v241 = ([*(a1 + 30288) updateBiasTrackingAndFaceCorrectionQuaternionWithFaceSmoothingArrays:&v248 biasTrackingSigma:a2 centerFrameOffset:v29] & 1) != 0 || v28 == *(v8 + 787);
     v12 = v22;
     v21 = *(a1 + 29400);
-    v13 = v235;
+    v13 = v236;
   }
 
   else
   {
-    v240 = 1;
+    v241 = 1;
   }
 
-  v252 = 0;
-  v250 = 0u;
+  v253 = 0;
   v251 = 0u;
-  v248 = 0u;
+  v252 = 0u;
   v249 = 0u;
-  v247 = 0u;
+  v250 = 0u;
+  v248 = 0u;
   if (v21)
   {
-    [v21 getQuaternionSmoothingArrays];
+    objc_msgSend_getQuaternionSmoothingArrays(v21);
   }
 
   *(a1 + 196) = 1065353216;
   if (*v8)
   {
-    v30 = &v267;
+    v30 = &v268;
     if (!*(a1 + 204) && !*(a1 + 392))
     {
       v30 = 0;
@@ -120,7 +120,7 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
 
     if (v8[1664])
     {
-      v31 = &v268;
+      v31 = &v269;
     }
 
     else
@@ -128,304 +128,307 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
       v31 = 0;
     }
 
-    v269.f64[0] = GVSComputeGaussianAverageQuaternion(&v247, *(a1 + 176), a2, v238 != 0, v31, v30, a5, *(v8 + 597));
-    v269.f64[1] = v32;
-    v270.f64[0] = v33;
-    v270.f64[1] = v34;
+    v270.f64[0] = GVSComputeGaussianAverageQuaternion(&v248, *(a1 + 176), a2, v239 != 0, v31, v30, a5, *(v8 + 597));
+    v270.f64[1] = v32;
+    v271.f64[0] = v33;
+    v271.f64[1] = v34;
     if (v8[3112] == 1)
     {
       [*(a1 + 30288) faceCorrection];
-      v269.f64[0] = GVSApplyFaceCorrectionQuaternionToStabilizedQuaternion(v35, v269.f64[0], v269.f64[1], v270.f64[0], v270.f64[1]);
-      v269.f64[1] = v36;
-      v270.f64[0] = v37;
-      v270.f64[1] = v38;
+      v270.f64[0] = GVSApplyFaceCorrectionQuaternionToStabilizedQuaternion(v35, v270.f64[0], v270.f64[1], v271.f64[0], v271.f64[1]);
+      v270.f64[1] = v36;
+      v271.f64[0] = v37;
+      v271.f64[1] = v38;
     }
 
     if (*(a1 + 29568))
     {
-      v269.f64[0] = FigMotionMultiplyQuaternions((v261 + 32 * a2), v269.f64);
-      v269.f64[1] = v39;
-      v270.f64[0] = v40;
-      v270.f64[1] = v41;
+      v270.f64[0] = FigMotionMultiplyQuaternions((v262 + 32 * a2), v270.f64);
+      v270.f64[1] = v39;
+      v271.f64[0] = v40;
+      v271.f64[1] = v41;
     }
 
     if (*(v8 + 650) > 0.0)
     {
-      v245 = 0u;
+      v42.n128_u32[1] = 0;
+      v42.n128_u64[1] = 0;
       v246 = 0u;
-      v243 = 0u;
+      v247 = 0u;
       v244 = 0u;
-      v242 = 0u;
-      v42 = *(a1 + 29400);
-      if (v42)
+      v245 = 0u;
+      v243 = 0u;
+      v43 = *(a1 + 29400);
+      if (v43)
       {
-        [v42 getRollSmoothingArraysForBaseTransform:*(a1 + 176)];
+        objc_msgSend_getRollSmoothingArraysForBaseTransform_(v43);
       }
 
       if (v11)
       {
-        v43 = v11[3];
-        if (v43)
+        v44 = v11[3];
+        if (v44)
         {
-          v44 = (v43 + 12 * v241);
-          *v45.i64 = GVSComputeSmoothedHorizonQuaternion(&v242, a2, fminf((a5 / 30.0) * 4.0, *(v8 + 581)));
-          v232 = v45;
-          v273 = FigMotionInverseOfQuaternion(&v269);
-          v274 = v46;
+          v42.n128_f32[0] = fminf((a5 / 30.0) * 4.0, *(v8 + 581));
+          v45 = (v44 + 12 * v242);
+          *v46.i64 = GVSComputeSmoothedHorizonQuaternion(&v243, a2, v42);
+          v233 = v46;
+          v274 = FigMotionInverseOfQuaternion(&v270);
           v275 = v47;
           v276 = v48;
-          v49.i32[0] = GVSRotateVectorByQuaternion(v44, &v273).u32[0];
-          v272[0] = v49.f32[0];
-          v272[1] = v50;
-          v272[2] = v51;
-          v236 = v49.f32[0];
-          v49.f32[1] = v50;
-          v228 = *v49.f32;
-          v230 = v51;
-          v52 = sqrtf(vaddv_f32(*&vmulq_f32(v49, v49)));
-          v53 = 0.0;
-          if (v52 > 0.0000001)
+          v277 = v49;
+          v50.i32[0] = GVSRotateVectorByQuaternion(v45, &v274).u32[0];
+          v273[0] = v50.f32[0];
+          v273[1] = v51;
+          v273[2] = v52;
+          v237 = v50.f32[0];
+          v50.f32[1] = v51;
+          v229 = *v50.f32;
+          v231 = v52;
+          v53 = sqrtf(vaddv_f32(*&vmulq_f32(v50, v50)));
+          v54 = 0.0;
+          if (v53 > 0.0000001)
           {
-            v53 = atan2f(v236, v50) * 0.5;
+            v54 = atan2f(v237, v51) * 0.5;
           }
 
-          v54 = __sincosf_stret(v53);
-          v55 = vmulq_n_f32(xmmword_435D0, v54.__sinval);
-          v56 = v55;
-          v56.i32[3] = LODWORD(v54.__cosval);
-          v57 = vmulq_f32(v56, xmmword_433E0);
-          v58 = vnegq_f32(v57);
-          v59 = vtrn2q_s32(v57, vtrn1q_s32(v57, v58));
-          v60 = vmulq_lane_f32(vextq_s8(v57, v58, 8uLL), v228, 1);
-          v61 = vrev64q_s32(v57);
-          v61.i32[0] = v58.i32[1];
-          v61.i32[3] = v58.i32[2];
-          v62 = vmlaq_n_f32(vmlaq_n_f32(v60, vextq_s8(v59, v59, 8uLL), v236), v61, v230);
-          v63 = vnegq_f32(v62);
-          v64 = vtrn2q_s32(v62, vtrn1q_s32(v62, v63));
-          v65 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v62, v63, 8uLL), *v55.f32, 1), vextq_s8(v64, v64, 8uLL), v55.f32[0]);
-          v66 = vrev64q_s32(v62);
-          v66.i32[0] = v63.i32[1];
-          v66.i32[3] = v63.i32[2];
-          v237 = v56;
-          v67 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v62, v56, 3), v66, v55, 2), v65);
-          v68 = vmulq_f32(v67, xmmword_435E0);
-          if ((v68.f32[2] + vaddv_f32(*v68.f32)) >= 0.0)
+          v55 = __sincosf_stret(v54);
+          v56 = vmulq_n_f32(xmmword_435D0, v55.__sinval);
+          v57 = v56;
+          v57.i32[3] = LODWORD(v55.__cosval);
+          v58 = vmulq_f32(v57, xmmword_433E0);
+          v59 = vnegq_f32(v58);
+          v60 = vtrn2q_s32(v58, vtrn1q_s32(v58, v59));
+          v61 = vmulq_lane_f32(vextq_s8(v58, v59, 8uLL), v229, 1);
+          v62 = vrev64q_s32(v58);
+          v62.i32[0] = v59.i32[1];
+          v62.i32[3] = v59.i32[2];
+          v63 = vmlaq_n_f32(vmlaq_n_f32(v61, vextq_s8(v60, v60, 8uLL), v237), v62, v231);
+          v64 = vnegq_f32(v63);
+          v65 = vtrn2q_s32(v63, vtrn1q_s32(v63, v64));
+          v66 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v63, v64, 8uLL), *v56.f32, 1), vextq_s8(v65, v65, 8uLL), v56.f32[0]);
+          v67 = vrev64q_s32(v63);
+          v67.i32[0] = v64.i32[1];
+          v67.i32[3] = v64.i32[2];
+          v238 = v57;
+          v68 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v63, v57, 3), v67, v56, 2), v66);
+          v69 = vmulq_f32(v68, xmmword_435E0);
+          if ((v69.f32[2] + vaddv_f32(*v69.f32)) >= 0.0)
           {
-            v79 = a5;
-            v100 = vaddq_f32(v67, xmmword_435E0);
-            v101 = vmulq_f32(v100, v100);
-            *&v102 = v101.f32[2] + vaddv_f32(*v101.f32);
-            *v101.f32 = vrsqrte_f32(v102);
-            *v101.f32 = vmul_f32(*v101.f32, vrsqrts_f32(v102, vmul_f32(*v101.f32, *v101.f32)));
-            v103 = vmulq_n_f32(v100, vmul_f32(*v101.f32, vrsqrts_f32(v102, vmul_f32(*v101.f32, *v101.f32))).f32[0]);
-            v104 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v103, v103), v103, 0xCuLL), vnegq_f32(v67)), v103, vextq_s8(vuzp1q_s32(v67, v67), v67, 0xCuLL));
-            v105 = vextq_s8(vuzp1q_s32(v104, v104), v104, 0xCuLL);
-            v106 = vmulq_f32(v67, v103);
-            *&v105.i32[3] = v106.f32[2] + vaddv_f32(*v106.f32);
-            v231 = v105;
+            v80 = a5;
+            v101 = vaddq_f32(v68, xmmword_435E0);
+            v102 = vmulq_f32(v101, v101);
+            *&v103 = v102.f32[2] + vaddv_f32(*v102.f32);
+            *v102.f32 = vrsqrte_f32(v103);
+            *v102.f32 = vmul_f32(*v102.f32, vrsqrts_f32(v103, vmul_f32(*v102.f32, *v102.f32)));
+            v104 = vmulq_n_f32(v101, vmul_f32(*v102.f32, vrsqrts_f32(v103, vmul_f32(*v102.f32, *v102.f32))).f32[0]);
+            v105 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v104, v104), v104, 0xCuLL), vnegq_f32(v68)), v104, vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL));
+            v106 = vextq_s8(vuzp1q_s32(v105, v105), v105, 0xCuLL);
+            v107 = vmulq_f32(v68, v104);
+            *&v106.i32[3] = v107.f32[2] + vaddv_f32(*v107.f32);
+            v232 = v106;
           }
 
           else
           {
-            v70 = vmulq_f32(v67, v67);
-            v69 = vaddv_f32(*v70.f32);
-            v70.i32[1] = 0;
-            *&v71 = v70.f32[2] + v69;
-            v72 = vrsqrte_f32(COERCE_UNSIGNED_INT(v70.f32[2] + v69));
-            v73 = vmul_f32(v72, vrsqrts_f32(v71, vmul_f32(v72, v72)));
-            v74 = vrsqrte_f32(1065353216);
-            v75 = vmul_f32(v74, vrsqrts_f32(1065353216, vmul_f32(v74, v74)));
-            v76 = vaddq_f32(vmulq_n_f32(v67, vmul_f32(v73, vrsqrts_f32(v71, vmul_f32(v73, v73))).f32[0]), vmulq_n_f32(xmmword_435E0, vmul_f32(v75, vrsqrts_f32(1065353216, vmul_f32(v75, v75))).f32[0]));
-            v77 = vmulq_f32(v76, v76);
-            v78 = v77.f32[2] + vaddv_f32(*v77.f32);
-            if (v78 <= 1.4211e-14)
+            v71 = vmulq_f32(v68, v68);
+            v70 = vaddv_f32(*v71.f32);
+            v71.i32[1] = 0;
+            *&v72 = v71.f32[2] + v70;
+            v73 = vrsqrte_f32(COERCE_UNSIGNED_INT(v71.f32[2] + v70));
+            v74 = vmul_f32(v73, vrsqrts_f32(v72, vmul_f32(v73, v73)));
+            v75 = vrsqrte_f32(1065353216);
+            v76 = vmul_f32(v75, vrsqrts_f32(1065353216, vmul_f32(v75, v75)));
+            v77 = vaddq_f32(vmulq_n_f32(v68, vmul_f32(v74, vrsqrts_f32(v72, vmul_f32(v74, v74))).f32[0]), vmulq_n_f32(xmmword_435E0, vmul_f32(v76, vrsqrts_f32(1065353216, vmul_f32(v76, v76))).f32[0]));
+            v78 = vmulq_f32(v77, v77);
+            v79 = v78.f32[2] + vaddv_f32(*v78.f32);
+            if (v79 <= 1.4211e-14)
             {
-              v107 = vabsq_f32(v67);
-              v108 = v107.f32[1];
-              v109 = v107.f32[2];
-              if (v107.f32[0] > v107.f32[1] || v107.f32[0] > v107.f32[2])
+              v108 = vabsq_f32(v68);
+              v109 = v108.f32[1];
+              v110 = v108.f32[2];
+              if (v108.f32[0] > v108.f32[1] || v108.f32[0] > v108.f32[2])
               {
-                v79 = a5;
-                v111 = vextq_s8(vuzp1q_s32(v67, v67), v67, 0xCuLL);
-                if (v108 <= v109)
+                v80 = a5;
+                v112 = vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL);
+                if (v109 <= v110)
                 {
-                  v112 = vmlaq_f32(vmulq_f32(v67, xmmword_43610), xmmword_435E0, v111);
+                  v113 = vmlaq_f32(vmulq_f32(v68, xmmword_43610), xmmword_435E0, v112);
                 }
 
                 else
                 {
-                  v112 = vmlaq_f32(vmulq_f32(v67, xmmword_43620), xmmword_435D0, v111);
+                  v113 = vmlaq_f32(vmulq_f32(v68, xmmword_43620), xmmword_435D0, v112);
                 }
               }
 
               else
               {
-                v79 = a5;
-                v112 = vmlaq_f32(vmulq_f32(v67, xmmword_435F0), xmmword_43600, vextq_s8(vuzp1q_s32(v67, v67), v67, 0xCuLL));
+                v80 = a5;
+                v113 = vmlaq_f32(vmulq_f32(v68, xmmword_435F0), xmmword_43600, vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL));
               }
 
-              v113 = vextq_s8(vuzp1q_s32(v112, v112), v112, 0xCuLL);
-              v114 = vmulq_f32(v112, v112);
-              *&v115 = v114.f32[1] + (v114.f32[2] + v114.f32[0]);
-              *v114.f32 = vrsqrte_f32(v115);
-              *v114.f32 = vmul_f32(*v114.f32, vrsqrts_f32(v115, vmul_f32(*v114.f32, *v114.f32)));
-              v99 = vmulq_n_f32(v113, vmul_f32(*v114.f32, vrsqrts_f32(v115, vmul_f32(*v114.f32, *v114.f32))).f32[0]);
-              v99.i32[3] = 0;
+              v114 = vextq_s8(vuzp1q_s32(v113, v113), v113, 0xCuLL);
+              v115 = vmulq_f32(v113, v113);
+              *&v116 = v115.f32[1] + (v115.f32[2] + v115.f32[0]);
+              *v115.f32 = vrsqrte_f32(v116);
+              *v115.f32 = vmul_f32(*v115.f32, vrsqrts_f32(v116, vmul_f32(*v115.f32, *v115.f32)));
+              v100 = vmulq_n_f32(v114, vmul_f32(*v115.f32, vrsqrts_f32(v116, vmul_f32(*v115.f32, *v115.f32))).f32[0]);
+              v100.i32[3] = 0;
             }
 
             else
             {
-              v79 = a5;
-              v80 = v78;
-              v81 = vrsqrte_f32(LODWORD(v78));
-              v82 = vmul_f32(v81, vrsqrts_f32(LODWORD(v80), vmul_f32(v81, v81)));
-              v83 = vmulq_n_f32(v76, vmul_f32(v82, vrsqrts_f32(LODWORD(v80), vmul_f32(v82, v82))).f32[0]);
-              v84 = vaddq_f32(v67, v83);
-              v85 = vmulq_f32(v84, v84);
-              *&v86 = v85.f32[2] + vaddv_f32(*v85.f32);
-              *v85.f32 = vrsqrte_f32(v86);
-              *v85.f32 = vmul_f32(*v85.f32, vrsqrts_f32(v86, vmul_f32(*v85.f32, *v85.f32)));
-              v87 = vmulq_n_f32(v84, vmul_f32(*v85.f32, vrsqrts_f32(v86, vmul_f32(*v85.f32, *v85.f32))).f32[0]);
-              v88 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v87, v87), v87, 0xCuLL), vnegq_f32(v67)), v87, vextq_s8(vuzp1q_s32(v67, v67), v67, 0xCuLL));
-              v89 = vmulq_f32(v67, v87);
-              v90 = vaddq_f32(v83, xmmword_435E0);
-              v91 = vmulq_f32(v90, v90);
-              v70.f32[0] = v91.f32[2] + vaddv_f32(*v91.f32);
-              *v91.f32 = vrsqrte_f32(*v70.f32);
-              *v91.f32 = vmul_f32(*v91.f32, vrsqrts_f32(*v70.f32, vmul_f32(*v91.f32, *v91.f32)));
-              v92 = vmulq_n_f32(v90, vmul_f32(*v91.f32, vrsqrts_f32(*v70.f32, vmul_f32(*v91.f32, *v91.f32))).f32[0]);
-              v93 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v92, v92), v92, 0xCuLL), vnegq_f32(v83)), v92, vextq_s8(vuzp1q_s32(v83, v83), v83, 0xCuLL));
-              v94 = vextq_s8(vuzp1q_s32(v93, v93), v93, 0xCuLL);
-              v95 = vmulq_f32(v83, v92);
-              v94.f32[3] = v95.f32[2] + vaddv_f32(*v95.f32);
-              v96 = vnegq_f32(v94);
-              v97 = vtrn2q_s32(v94, vtrn1q_s32(v94, v96));
-              v98 = vrev64q_s32(v94);
-              v98.i32[0] = v96.i32[1];
-              v98.i32[3] = v96.i32[2];
-              v99 = vaddq_f32(vmlaq_lane_f32(vmulq_n_f32(v94, v89.f32[2] + vaddv_f32(*v89.f32)), v98, *v88.f32, 1), vmlaq_laneq_f32(vmulq_n_f32(vextq_s8(v94, v96, 8uLL), v88.f32[0]), vextq_s8(v97, v97, 8uLL), v88, 2));
+              v80 = a5;
+              v81 = v79;
+              v82 = vrsqrte_f32(LODWORD(v79));
+              v83 = vmul_f32(v82, vrsqrts_f32(LODWORD(v81), vmul_f32(v82, v82)));
+              v84 = vmulq_n_f32(v77, vmul_f32(v83, vrsqrts_f32(LODWORD(v81), vmul_f32(v83, v83))).f32[0]);
+              v85 = vaddq_f32(v68, v84);
+              v86 = vmulq_f32(v85, v85);
+              *&v87 = v86.f32[2] + vaddv_f32(*v86.f32);
+              *v86.f32 = vrsqrte_f32(v87);
+              *v86.f32 = vmul_f32(*v86.f32, vrsqrts_f32(v87, vmul_f32(*v86.f32, *v86.f32)));
+              v88 = vmulq_n_f32(v85, vmul_f32(*v86.f32, vrsqrts_f32(v87, vmul_f32(*v86.f32, *v86.f32))).f32[0]);
+              v89 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v88, v88), v88, 0xCuLL), vnegq_f32(v68)), v88, vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL));
+              v90 = vmulq_f32(v68, v88);
+              v91 = vaddq_f32(v84, xmmword_435E0);
+              v92 = vmulq_f32(v91, v91);
+              v71.f32[0] = v92.f32[2] + vaddv_f32(*v92.f32);
+              *v92.f32 = vrsqrte_f32(*v71.f32);
+              *v92.f32 = vmul_f32(*v92.f32, vrsqrts_f32(*v71.f32, vmul_f32(*v92.f32, *v92.f32)));
+              v93 = vmulq_n_f32(v91, vmul_f32(*v92.f32, vrsqrts_f32(*v71.f32, vmul_f32(*v92.f32, *v92.f32))).f32[0]);
+              v94 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v93, v93), v93, 0xCuLL), vnegq_f32(v84)), v93, vextq_s8(vuzp1q_s32(v84, v84), v84, 0xCuLL));
+              v95 = vextq_s8(vuzp1q_s32(v94, v94), v94, 0xCuLL);
+              v96 = vmulq_f32(v84, v93);
+              v95.f32[3] = v96.f32[2] + vaddv_f32(*v96.f32);
+              v97 = vnegq_f32(v95);
+              v98 = vtrn2q_s32(v95, vtrn1q_s32(v95, v97));
+              v99 = vrev64q_s32(v95);
+              v99.i32[0] = v97.i32[1];
+              v99.i32[3] = v97.i32[2];
+              v100 = vaddq_f32(vmlaq_lane_f32(vmulq_n_f32(v95, v90.f32[2] + vaddv_f32(*v90.f32)), v99, *v89.f32, 1), vmlaq_laneq_f32(vmulq_n_f32(vextq_s8(v95, v97, 8uLL), v89.f32[0]), vextq_s8(v98, v98, 8uLL), v89, 2));
             }
 
-            v231 = v99;
+            v232 = v100;
           }
 
-          v116 = vmulq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(v269), v270), xmmword_43630);
-          v117 = vnegq_f32(v232);
-          v118 = vtrn2q_s32(v232, vtrn1q_s32(v232, v117));
-          v119 = vrev64q_s32(v232);
-          v119.i32[0] = v117.i32[1];
-          v119.i32[3] = v117.i32[2];
-          v233 = vaddq_f32(vmlaq_lane_f32(vmulq_laneq_f32(vextq_s8(v232, v117, 8uLL), v116, 2), vextq_s8(v118, v118, 8uLL), *v116.f32, 1), vmlaq_laneq_f32(vmulq_n_f32(v232, v116.f32[0]), v119, v116, 3));
-          GVSComputeRollPitchFromGravity(v272);
-          v121 = (1.5533 - v120) / 0.50615;
-          v122.i64[0] = 0;
-          v123 = 1.0;
-          v124 = fminf(fmaxf(v121, 0.0), 1.0);
-          v125 = vmulq_f32(v233, xmmword_433D0);
-          *v125.f32 = vadd_f32(*v125.f32, *&vextq_s8(v125, v125, 8uLL));
-          v125.f32[0] = vaddv_f32(*v125.f32);
-          v126 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v125, v122)), 0), vnegq_f32(v233), v233);
-          v127 = 1.0 - v124;
-          v128 = vsubq_f32(xmmword_433D0, v126);
-          v129 = vmulq_f32(v128, v128);
-          v229 = v126;
-          v130 = vaddq_f32(v126, xmmword_433D0);
-          v131 = vmulq_f32(v130, v130);
-          v132 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v129.i8, *&vextq_s8(v129, v129, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v131.i8, *&vextq_s8(v131, v131, 8uLL)))));
-          v133 = v132 + v132;
-          _ZF = (v132 + v132) == 0.0;
-          v135 = 1.0;
+          v117 = vmulq_f32(vcvt_hight_f32_f64(vcvt_f32_f64(v270), v271), xmmword_43630);
+          v118 = vnegq_f32(v233);
+          v119 = vtrn2q_s32(v233, vtrn1q_s32(v233, v118));
+          v120 = vrev64q_s32(v233);
+          v120.i32[0] = v118.i32[1];
+          v120.i32[3] = v118.i32[2];
+          v234 = vaddq_f32(vmlaq_lane_f32(vmulq_laneq_f32(vextq_s8(v233, v118, 8uLL), v117, 2), vextq_s8(v119, v119, 8uLL), *v117.f32, 1), vmlaq_laneq_f32(vmulq_n_f32(v233, v117.f32[0]), v120, v117, 3));
+          GVSComputeRollPitchFromGravity(v273);
+          v122 = (1.5533 - v121) / 0.50615;
+          v123.i64[0] = 0;
+          v124 = 1.0;
+          v125 = fminf(fmaxf(v122, 0.0), 1.0);
+          v126 = vmulq_f32(v234, xmmword_433D0);
+          *v126.f32 = vadd_f32(*v126.f32, *&vextq_s8(v126, v126, 8uLL));
+          v126.f32[0] = vaddv_f32(*v126.f32);
+          v127 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v126, v123)), 0), vnegq_f32(v234), v234);
+          v128 = 1.0 - v125;
+          v129 = vsubq_f32(xmmword_433D0, v127);
+          v130 = vmulq_f32(v129, v129);
+          v230 = v127;
+          v131 = vaddq_f32(v127, xmmword_433D0);
+          v132 = vmulq_f32(v131, v131);
+          v133 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v130.i8, *&vextq_s8(v130, v130, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v132.i8, *&vextq_s8(v132, v132, 8uLL)))));
+          v134 = v133 + v133;
+          _ZF = (v133 + v133) == 0.0;
+          v136 = 1.0;
           if (!_ZF)
           {
-            v135 = sinf(v133) / v133;
+            v136 = sinf(v134) / v134;
           }
 
-          v136 = v135;
-          v137 = vrecpe_f32(LODWORD(v135));
-          v138 = vmul_f32(v137, vrecps_f32(LODWORD(v136), v137));
-          LODWORD(v139) = vmul_f32(v138, vrecps_f32(LODWORD(v136), v138)).u32[0];
-          if ((v133 * v127) != 0.0)
+          v137 = v136;
+          v138 = vrecpe_f32(LODWORD(v136));
+          v139 = vmul_f32(v138, vrecps_f32(LODWORD(v137), v138));
+          LODWORD(v140) = vmul_f32(v139, vrecps_f32(LODWORD(v137), v139)).u32[0];
+          if ((v134 * v128) != 0.0)
           {
-            v226 = v139;
-            v138.f32[0] = sinf(v133 * v127);
-            v139 = v226;
-            v123 = v138.f32[0] / (v133 * v127);
+            v227 = v140;
+            v139.f32[0] = sinf(v134 * v128);
+            v140 = v227;
+            v124 = v139.f32[0] / (v134 * v128);
           }
 
-          v138.f32[0] = v127 * (v139 * v123);
-          v140 = vdupq_lane_s32(v138, 0);
-          v141 = v133 * v124;
-          v142 = 1.0;
-          if (v141 != 0.0)
+          v139.f32[0] = v128 * (v140 * v124);
+          v141 = vdupq_lane_s32(v139, 0);
+          v142 = v134 * v125;
+          v143 = 1.0;
+          if (v142 != 0.0)
           {
-            v225 = v140;
-            v227 = v139;
-            v143 = sinf(v141);
-            v140 = v225;
-            v139 = v227;
-            v142 = v143 / v141;
+            v226 = v141;
+            v228 = v140;
+            v144 = sinf(v142);
+            v141 = v226;
+            v140 = v228;
+            v143 = v144 / v142;
           }
 
-          v144 = xmmword_433D0;
-          v145 = vmlaq_f32(vmulq_n_f32(v229, v124 * (v139 * v142)), xmmword_433D0, v140);
-          v146 = vmulq_f32(v145, v145);
-          v147 = vadd_f32(*v146.i8, *&vextq_s8(v146, v146, 8uLL));
-          a5 = v79;
-          if (vaddv_f32(v147) != 0.0)
+          v145 = xmmword_433D0;
+          v146 = vmlaq_f32(vmulq_n_f32(v230, v125 * (v140 * v143)), xmmword_433D0, v141);
+          v147 = vmulq_f32(v146, v146);
+          v148 = vadd_f32(*v147.i8, *&vextq_s8(v147, v147, 8uLL));
+          a5 = v80;
+          if (vaddv_f32(v148) != 0.0)
           {
-            v148 = vadd_f32(v147, vdup_lane_s32(v147, 1)).u32[0];
-            v149 = vrsqrte_f32(v148);
-            v150 = vmul_f32(v149, vrsqrts_f32(v148, vmul_f32(v149, v149)));
-            v144 = vmulq_n_f32(v145, vmul_f32(v150, vrsqrts_f32(v148, vmul_f32(v150, v150))).f32[0]);
+            v149 = vadd_f32(v148, vdup_lane_s32(v148, 1)).u32[0];
+            v150 = vrsqrte_f32(v149);
+            v151 = vmul_f32(v150, vrsqrts_f32(v149, vmul_f32(v150, v150)));
+            v145 = vmulq_n_f32(v146, vmul_f32(v151, vrsqrts_f32(v149, vmul_f32(v151, v151))).f32[0]);
           }
 
-          v151 = vnegq_f32(v237);
-          v152 = vtrn2q_s32(v237, vtrn1q_s32(v237, v151));
-          v153 = vrev64q_s32(v237);
-          v153.i32[0] = v151.i32[1];
-          v153.i32[3] = v151.i32[2];
-          v154 = vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v237, v151, 8uLL), *v231.f32, 1), vextq_s8(v152, v152, 8uLL), v231.f32[0]), vmlaq_laneq_f32(vmulq_laneq_f32(v237, v231, 3), v153, v231, 2));
-          v155 = vmulq_f32(v154, xmmword_433E0);
-          v156 = vnegq_f32(v155);
-          v157 = vtrn2q_s32(v155, vtrn1q_s32(v155, v156));
-          v158 = vrev64q_s32(v155);
-          v158.i32[0] = v156.i32[1];
-          v158.i32[3] = v156.i32[2];
-          v159 = vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v155, v156, 8uLL), *v144.f32, 1), vextq_s8(v157, v157, 8uLL), v144.f32[0]), vmlaq_laneq_f32(vmulq_laneq_f32(v155, v144, 3), v158, v144, 2));
-          _Q2 = vnegq_f32(v159);
-          v161 = vtrn2q_s32(v159, vtrn1q_s32(v159, _Q2));
-          _Q4 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v159, _Q2, 8uLL), *v154.f32, 1), vextq_s8(v161, v161, 8uLL), v154.f32[0]);
-          _Q3 = vrev64q_s32(v159);
+          v152 = vnegq_f32(v238);
+          v153 = vtrn2q_s32(v238, vtrn1q_s32(v238, v152));
+          v154 = vrev64q_s32(v238);
+          v154.i32[0] = v152.i32[1];
+          v154.i32[3] = v152.i32[2];
+          v155 = vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v238, v152, 8uLL), *v232.f32, 1), vextq_s8(v153, v153, 8uLL), v232.f32[0]), vmlaq_laneq_f32(vmulq_laneq_f32(v238, v232, 3), v154, v232, 2));
+          v156 = vmulq_f32(v155, xmmword_433E0);
+          v157 = vnegq_f32(v156);
+          v158 = vtrn2q_s32(v156, vtrn1q_s32(v156, v157));
+          v159 = vrev64q_s32(v156);
+          v159.i32[0] = v157.i32[1];
+          v159.i32[3] = v157.i32[2];
+          v160 = vaddq_f32(vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v156, v157, 8uLL), *v145.f32, 1), vextq_s8(v158, v158, 8uLL), v145.f32[0]), vmlaq_laneq_f32(vmulq_laneq_f32(v156, v145, 3), v159, v145, 2));
+          _Q2 = vnegq_f32(v160);
+          v162 = vtrn2q_s32(v160, vtrn1q_s32(v160, _Q2));
+          _Q4 = vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v160, _Q2, 8uLL), *v155.f32, 1), vextq_s8(v162, v162, 8uLL), v155.f32[0]);
+          _Q3 = vrev64q_s32(v160);
           _Q3.i32[0] = _Q2.i32[1];
           _Q3.i32[3] = _Q2.i32[2];
-          _Q1 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v159, v154, 3), _Q3, v154, 2), _Q4);
+          _Q1 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v160, v155, 3), _Q3, v155, 2), _Q4);
           _Q2.i32[0] = _Q1.i32[1];
           _Q4.i32[0] = _Q1.i32[3];
-          v154.f32[0] = vmuls_lane_f32(_Q1.f32[2], _Q1, 3);
+          v155.f32[0] = vmuls_lane_f32(_Q1.f32[2], _Q1, 3);
           __asm
           {
             FMLA            S3, S2, V1.S[1]
             FMLA            S3, S4, V1.S[3]
           }
 
-          v168 = atan2f((v154.f32[0] + (_Q1.f32[0] * _Q1.f32[1])) + (v154.f32[0] + (_Q1.f32[0] * _Q1.f32[1])), _Q3.f32[0] - (_Q1.f32[0] * _Q1.f32[0]));
-          v271[1] = 0;
-          v271[2] = 0;
-          v169 = __sincos_stret(v168 * 0.5);
-          v271[3] = *&v169.__sinval;
-          v271[0] = *&v169.__cosval;
-          v269.f64[0] = FigMotionMultiplyQuaternions(v269.f64, v271);
-          v269.f64[1] = v170;
-          v270.f64[0] = v171;
-          v270.f64[1] = v172;
+          v169 = atan2f((v155.f32[0] + (_Q1.f32[0] * _Q1.f32[1])) + (v155.f32[0] + (_Q1.f32[0] * _Q1.f32[1])), _Q3.f32[0] - (_Q1.f32[0] * _Q1.f32[0]));
+          v272[1] = 0;
+          v272[2] = 0;
+          v170 = __sincos_stret(v169 * 0.5);
+          v272[3] = *&v170.__sinval;
+          v272[0] = *&v170.__cosval;
+          v270.f64[0] = FigMotionMultiplyQuaternions(v270.f64, v272);
+          v270.f64[1] = v171;
+          v271.f64[0] = v172;
+          v271.f64[1] = v173;
         }
       }
     }
   }
 
-  v173 = *(*(&v247 + 1) + 8 * a2);
-  v271[0] = vmul_n_f32(v267, *(&v253 + 1));
+  v174 = *(*(&v248 + 1) + 8 * a2);
+  v272[0] = vmul_n_f32(v268, *(&v254 + 1));
   if (*(a1 + 176) <= 0)
   {
     if (!*v8)
@@ -436,97 +439,97 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
     goto LABEL_106;
   }
 
-  v174 = 0;
-  v175 = v12 - v13;
-  v176 = vmul_n_f32(vsub_f32(v173, v268), *(&v253 + 1));
-  v177 = a1 + 27872;
-  v178 = (a1 + 27152);
+  v175 = 0;
+  v176 = v12 - v13;
+  v177 = vmul_n_f32(vsub_f32(v174, v269), *(&v254 + 1));
+  v178 = a1 + 27872;
+  v179 = (a1 + 27152);
   do
   {
     if (*(v8 + 507) < 1)
     {
       if (*v8)
       {
-        v182 = (*(v260 + 8 * v174) + 32 * a2);
-        v183 = &v269;
+        v183 = (*(v261 + 8 * v175) + 32 * a2);
+        v184 = &v270;
       }
 
       else
       {
-        v242 = 0u;
         v243 = 0u;
-        v242.f64[0] = GVSComputeGaussianAverageQuaternion(&v247, v174, a2, v238 != 0, 0, 0, a5, *(v8 + 597));
-        v242.f64[1] = v184;
-        v243.f64[0] = v185;
-        v243.f64[1] = v186;
+        v244 = 0u;
+        v243.f64[0] = GVSComputeGaussianAverageQuaternion(&v248, v175, a2, v239 != 0, 0, 0, a5, *(v8 + 597));
+        v243.f64[1] = v185;
+        v244.f64[0] = v186;
+        v244.f64[1] = v187;
         if (v8[3112] == 1)
         {
           [*(a1 + 30288) faceCorrection];
-          v242.f64[0] = GVSApplyFaceCorrectionQuaternionToStabilizedQuaternion(v187, v242.f64[0], v242.f64[1], v243.f64[0], v243.f64[1]);
-          v242.f64[1] = v188;
-          v243.f64[0] = v189;
-          v243.f64[1] = v190;
+          v243.f64[0] = GVSApplyFaceCorrectionQuaternionToStabilizedQuaternion(v188, v243.f64[0], v243.f64[1], v244.f64[0], v244.f64[1]);
+          v243.f64[1] = v189;
+          v244.f64[0] = v190;
+          v244.f64[1] = v191;
         }
 
         if (*(a1 + 29568))
         {
-          v242.f64[0] = FigMotionMultiplyQuaternions((v261 + 32 * a2), v242.f64);
-          v242.f64[1] = v191;
-          v243.f64[0] = v192;
-          v243.f64[1] = v193;
+          v243.f64[0] = FigMotionMultiplyQuaternions((v262 + 32 * a2), v243.f64);
+          v243.f64[1] = v192;
+          v244.f64[0] = v193;
+          v244.f64[1] = v194;
         }
 
-        v182 = (*(v260 + 8 * v174) + 32 * a2);
-        v183 = &v242;
+        v183 = (*(v261 + 8 * v175) + 32 * a2);
+        v184 = &v243;
       }
 
-      v181 = FigMotionMultiplyByInverseOfQuaternion(v183->f64, v182);
-      *v177 = v181;
-      *(v177 + 8) = v194;
-      *(v177 + 16) = v195;
-      *(v177 + 24) = v196;
+      v182 = FigMotionMultiplyByInverseOfQuaternion(v184->f64, v183);
+      *v178 = v182;
+      *(v178 + 8) = v195;
+      *(v178 + 16) = v196;
+      *(v178 + 24) = v197;
     }
 
     else
     {
-      v179 = (*(&v260 + 1) + 32 * a2);
-      v180 = v179[1];
-      *v177 = *v179;
-      *(v177 + 16) = v180;
-      v181 = *v177;
+      v180 = (*(&v261 + 1) + 32 * a2);
+      v181 = v180[1];
+      *v178 = *v180;
+      *(v178 + 16) = v181;
+      v182 = *v178;
     }
 
-    if (v181 < 0.0)
+    if (v182 < 0.0)
     {
-      v240 = 0;
-      v197 = -*(v177 + 24);
-      *v177 = -v181;
-      *(v177 + 8) = vnegq_f64(*(v177 + 8));
-      *(v177 + 24) = v197;
+      v241 = 0;
+      v198 = -*(v178 + 24);
+      *v178 = -v182;
+      *(v178 + 8) = vnegq_f64(*(v178 + 8));
+      *(v178 + 24) = v198;
     }
 
-    *&v242.f64[0] = v176;
+    *&v243.f64[0] = v177;
     if (v11)
     {
-      *&v242.f64[0] = vadd_f32(v176, *(*(v11[1] + 8 * v241) + 8 * v174));
-      v198 = GVSComputeTransformFromCameraMotion(v177, (a1 + 336), &v253, &v242, v271, v178);
-      if (v198)
+      *&v243.f64[0] = vadd_f32(v177, *(*(v11[1] + 8 * v242) + 8 * v175));
+      v199 = GVSComputeTransformFromCameraMotion(v178, (a1 + 336), &v254, &v243, v272, v179);
+      if (v199)
       {
         goto LABEL_111;
       }
 
-      v199 = v11[2];
-      v200 = v178;
-      if (v199)
+      v200 = v11[2];
+      v201 = v179;
+      if (v200)
       {
-        if (([*(v199 + 240 * v241) isValid] & 1) != 0 || (v201 = objc_msgSend(*(v11[2] + 240 * v241 + 8), "isValid"), v200 = v178, v201))
+        if (([*(v200 + 240 * v242) isValid] & 1) != 0 || (v202 = objc_msgSend(*(v11[2] + 240 * v242 + 8), "isValid"), v201 = v179, v202))
         {
-          v202 = GVSCheckDistortedTransformFits(v178, v259 + 1, (a1 + 136), v11[2] + 240 * v241, v175 > 0.2468, &v266);
-          if (v202)
+          v203 = GVSCheckDistortedTransformFits(v179, v260 + 1, (a1 + 136), v11[2] + 240 * v242, v176 > 0.2468, &v267);
+          if (v203)
           {
-            v224 = v202;
+            v225 = v203;
             sbp_gvs_gaussianAverageComputeCorrection_cold_1();
-            return v224;
+            return v225;
           }
 
           goto LABEL_87;
@@ -536,105 +539,105 @@ uint64_t sbp_gvs_gaussianAverageComputeCorrection(uint64_t a1, uint64_t a2, int 
 
     else
     {
-      v198 = GVSComputeTransformFromCameraMotion(v177, (a1 + 336), &v253, &v242, v271, v178);
-      if (v198)
+      v199 = GVSComputeTransformFromCameraMotion(v178, (a1 + 336), &v254, &v243, v272, v179);
+      if (v199)
       {
 LABEL_111:
-        v224 = v198;
+        v225 = v199;
         sbp_gvs_gaussianAverageComputeCorrection_cold_2();
-        return v224;
+        return v225;
       }
 
-      v200 = a1 + 27152 + 36 * v174;
+      v201 = a1 + 27152 + 36 * v175;
     }
 
-    v203 = limitTransformToOverscan(a1 + 128, v259 + 1, v200, *(&v254 + 1));
-    if (v203)
+    v204 = limitTransformToOverscan(a1 + 128, v260 + 1, v201, *(&v255 + 1));
+    if (v204)
     {
-      v224 = v203;
+      v225 = v204;
       sbp_gvs_gaussianAverageComputeCorrection_cold_3();
-      return v224;
+      return v225;
     }
 
-    v266 = *(a1 + 196) >= 1.0;
+    v267 = *(a1 + 196) >= 1.0;
 LABEL_87:
-    v204 = *v8;
-    v206 = DWORD2(v264) != HIDWORD(v264) && v175 <= 0.295;
-    if (*v8 != 0 || v240 || v206)
+    v205 = *v8;
+    v207 = DWORD2(v265) != HIDWORD(v265) && v176 <= 0.295;
+    if (*v8 != 0 || v241 || v207)
     {
-      v207 = v266;
+      v208 = v267;
     }
 
     else
     {
-      v207 = 0;
-      v266 = 0;
+      v208 = 0;
+      v267 = 0;
     }
 
-    if (a3 && !v207)
+    if (a3 && !v208)
     {
       break;
     }
 
-    ++v174;
-    v178 += 9;
-    v177 += 32;
+    ++v175;
+    v179 += 9;
+    v178 += 32;
   }
 
-  while (v174 < *(a1 + 176));
-  if (v204)
+  while (v175 < *(a1 + 176));
+  if (v205)
   {
     goto LABEL_106;
   }
 
 LABEL_103:
-  v208 = *(a1 + 176) - 1;
-  v209 = *(a1 + 176) / 2;
-  v242.f64[0] = FigMotionMultiplyQuaternions((*(v260 + 8 * (v208 / 2)) + 32 * a2), (a1 + 27872 + 32 * ((v208 + (v208 >> 31)) >> 1)));
-  v242.f64[1] = v210;
-  v243.f64[0] = v211;
-  v243.f64[1] = v212;
-  if (v209 == v208 / 2)
+  v209 = *(a1 + 176) - 1;
+  v210 = *(a1 + 176) / 2;
+  v243.f64[0] = FigMotionMultiplyQuaternions((*(v261 + 8 * (v209 / 2)) + 32 * a2), (a1 + 27872 + 32 * ((v209 + (v209 >> 31)) >> 1)));
+  v243.f64[1] = v211;
+  v244.f64[0] = v212;
+  v244.f64[1] = v213;
+  if (v210 == v209 / 2)
   {
-    v269 = v242;
     v270 = v243;
+    v271 = v244;
   }
 
   else
   {
-    v273 = FigMotionMultiplyQuaternions((*(v260 + 8 * v209) + 32 * a2), (a1 + 27872 + 32 * v209));
-    v274 = v213;
+    v274 = FigMotionMultiplyQuaternions((*(v261 + 8 * v210) + 32 * a2), (a1 + 27872 + 32 * v210));
     v275 = v214;
     v276 = v215;
-    v269.f64[0] = GVSInterpolateQuaternionsLERP(&v273, &v242, 1, 0, 0.5);
-    v269.f64[1] = v216;
-    v270.f64[0] = v217;
-    v270.f64[1] = v218;
+    v277 = v216;
+    v270.f64[0] = GVSInterpolateQuaternionsLERP(&v274, &v243, 1, 0, 0.5);
+    v270.f64[1] = v217;
+    v271.f64[0] = v218;
+    v271.f64[1] = v219;
   }
 
 LABEL_106:
-  v219 = v270;
-  *(a1 + 28096) = v269;
-  *(a1 + 28112) = v219;
-  *(a1 + 28224) = v268;
-  *(a1 + 28232) = v267;
-  if (*(*(&v248 + 1) + a2) == 1)
+  v220 = v271;
+  *(a1 + 28096) = v270;
+  *(a1 + 28112) = v220;
+  *(a1 + 28224) = v269;
+  *(a1 + 28232) = v268;
+  if (*(*(&v249 + 1) + a2) == 1)
   {
-    v242.f64[0] = FigMotionMultiplyByInverseOfQuaternion(v269.f64, (*(v247 + 8 * *(a1 + 176)) + 32 * a2));
-    v242.f64[1] = v220;
-    v243.f64[0] = v221;
-    v243.f64[1] = v222;
-    v273 = 0.0;
-    GVSComputeTranslationFromCameraMotion(v242.f64, &v273, *(&v253 + 1));
-    if (fmaxf(fabsf(*&v273), fabsf(*(&v273 + 1))) > 1.0)
+    v243.f64[0] = FigMotionMultiplyByInverseOfQuaternion(v270.f64, (*(v248 + 8 * *(a1 + 176)) + 32 * a2));
+    v243.f64[1] = v221;
+    v244.f64[0] = v222;
+    v244.f64[1] = v223;
+    v274 = 0.0;
+    GVSComputeTranslationFromCameraMotion(v243.f64, &v274, *(&v254 + 1));
+    if (fmaxf(fabsf(*&v274), fabsf(*(&v274 + 1))) > 1.0)
     {
-      v266 = 0;
+      v267 = 0;
     }
   }
 
-  v224 = 0;
-  *a4 = v266;
-  return v224;
+  v225 = 0;
+  *a4 = v267;
+  return v225;
 }
 
 uint64_t limitTransformToOverscan(uint64_t a1, double *a2, uint64_t a3, float a4)
@@ -660,7 +663,7 @@ uint64_t limitTransformToOverscan(uint64_t a1, double *a2, uint64_t a3, float a4
   return result;
 }
 
-void _runVideoDeghostingRepairOnSingleFrame(void *a1, void *a2, int a3, int a4)
+void _runVideoDeghostingRepairOnSingleFrame(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a1;
   _updateVideoDeghostingGhostInformationLookAhead([v7 ghostInformationLookAheadPointer], a2, a4, a3);
@@ -670,7 +673,7 @@ void _runVideoDeghostingRepairOnSingleFrame(void *a1, void *a2, int a3, int a4)
 
   if (v8)
   {
-    _runVideoDeghostingRepairOnSingleFrame_cold_1();
+    _runVideoDeghostingRepairOnSingleFrame_cold_1(v8);
   }
 }
 
@@ -684,7 +687,7 @@ uint64_t _runSmartStyleIntegrate(uint64_t a1, CMAttachmentBearerRef target)
   rect.size = _Q0;
   if (!a1)
   {
-    _runSmartStyleIntegrate_cold_13();
+    _runSmartStyleIntegrate_cold_13(0, target);
     v14 = 0;
     v11 = 0;
 LABEL_32:
@@ -866,7 +869,7 @@ uint64_t _runSmartStyleApplyOnUnstabilizedThumbnail(uint64_t a1, CMAttachmentBea
   cf = 0;
   if (!a1)
   {
-    _runSmartStyleApplyOnUnstabilizedThumbnail_cold_15();
+    _runSmartStyleApplyOnUnstabilizedThumbnail_cold_15(0, target);
 LABEL_38:
     v21 = 0;
     v23 = 0;
@@ -984,7 +987,7 @@ LABEL_47:
 
   if (PixelBufferFromPool)
   {
-    _runSmartStyleApplyOnUnstabilizedThumbnail_cold_2();
+    _runSmartStyleApplyOnUnstabilizedThumbnail_cold_2(PixelBufferFromPool);
     v21 = 0;
     v23 = 0;
 LABEL_50:
@@ -1088,7 +1091,7 @@ uint64_t sbp_gvs_createStabilizedAttachmentsPixelBuffers(uint64_t a1, void *targ
   v58 = 0;
   if (!a1)
   {
-    sbp_gvs_createStabilizedAttachmentsPixelBuffers_cold_10();
+    sbp_gvs_createStabilizedAttachmentsPixelBuffers_cold_10(0, target);
 LABEL_57:
     PixelBufferFromPool = 4294954516;
     goto LABEL_47;
@@ -1243,7 +1246,7 @@ LABEL_57:
 
             if (PixelBufferFromPool)
             {
-              sbp_gvs_createStabilizedAttachmentsPixelBuffers_cold_2();
+              sbp_gvs_createStabilizedAttachmentsPixelBuffers_cold_2(PixelBufferFromPool);
 LABEL_45:
               v22 = v43;
               goto LABEL_46;
@@ -1340,7 +1343,7 @@ uint64_t _runSmartStyleReverseLearning(uint64_t a1, const void *a2, void *target
   v29 = 0;
   if (!a1)
   {
-    _runSmartStyleReverseLearning_cold_13();
+    _runSmartStyleReverseLearning_cold_13(0, a2, target);
 LABEL_39:
     PixelBufferFromPool = 4294954516;
     goto LABEL_24;
@@ -1508,7 +1511,7 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
 {
   if (!a1)
   {
-    sbp_gvs_createStabilizedPixelBuffer_cold_13();
+    sbp_gvs_createStabilizedPixelBuffer_cold_13(0, sbuf);
     return 4294954516;
   }
 
@@ -1518,7 +1521,7 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
     return 4294954516;
   }
 
-  v5 = a4;
+  v6 = a4;
   if (!a4)
   {
     sbp_gvs_createStabilizedPixelBuffer_cold_11();
@@ -1532,50 +1535,50 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
     return 4294954516;
   }
 
-  v9 = ImageBuffer;
-  v10 = a1 + 27148;
+  v10 = ImageBuffer;
+  v11 = a1 + 27148;
   if (CMGetAttachment(ImageBuffer, @"InputDepthPixelBuffer", 0))
   {
     value[0] = 0;
     if (*(a1 + 25))
     {
-      if (*v10 == 2)
-      {
-        v11 = 66000;
-      }
-
-      else
-      {
-        v11 = 0;
-      }
-
-      if ((*v10 | 2) == 3)
+      if (*v11 == 2)
       {
         v12 = 66000;
       }
 
       else
       {
-        v12 = v11;
+        v12 = 0;
+      }
+
+      if ((*v11 | 2) == 3)
+      {
+        v13 = 66000;
+      }
+
+      else
+      {
+        v13 = v12;
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = [*(a1 + 48) objectForKeyedSubscript:@"OutputBufferDepth"];
-    v14 = [*(a1 + 56) objectForKeyedSubscript:@"OutputBufferDepth"];
-    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v13, v14, 0, v12, 0, 0, value);
+    v14 = [*(a1 + 48) objectForKeyedSubscript:@"OutputBufferDepth"];
+    v15 = [*(a1 + 56) objectForKeyedSubscript:@"OutputBufferDepth"];
+    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v14, v15, 0, v13, 0, 0, value);
 
     if (PixelBufferFromPool)
     {
-      sbp_gvs_createStabilizedPixelBuffer_cold_1();
+      sbp_gvs_createStabilizedPixelBuffer_cold_1(PixelBufferFromPool, value);
       return PixelBufferFromPool;
     }
 
-    CMSetAttachment(v9, @"OutputDepthPixelBuffer", value[0], 0);
+    CMSetAttachment(v10, @"OutputDepthPixelBuffer", value[0], 0);
     if (value[0])
     {
       CFRelease(value[0]);
@@ -1587,140 +1590,140 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
     value[0] = 0;
     if (*(a1 + 25))
     {
-      if (*v10 == 2)
-      {
-        v21 = 66000;
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      if ((*v10 | 2) == 3)
+      if (*v11 == 2)
       {
         v22 = 66000;
       }
 
       else
       {
-        v22 = v21;
+        v22 = 0;
+      }
+
+      if ((*v11 | 2) == 3)
+      {
+        v23 = 66000;
+      }
+
+      else
+      {
+        v23 = v22;
       }
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    v62 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap;
-    v63 = [*(a1 + 48) objectForKeyedSubscript:kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap];
-    v64 = [*(a1 + 56) objectForKeyedSubscript:v62];
-    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v63, v64, 0, v22, 0, 0, value);
+    v63 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap;
+    v64 = [*(a1 + 48) objectForKeyedSubscript:kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingDeltaMap];
+    v65 = [*(a1 + 56) objectForKeyedSubscript:v63];
+    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v64, v65, 0, v23, 0, 0, value);
 
     if (PixelBufferFromPool)
     {
-      sbp_gvs_createStabilizedPixelBuffer_cold_2();
+      sbp_gvs_createStabilizedPixelBuffer_cold_2(PixelBufferFromPool, value);
       return PixelBufferFromPool;
     }
 
-    CMSetAttachment(v9, @"OutputSmartStyleDeltaMapPixelBuffer", value[0], 0);
+    CMSetAttachment(v10, @"OutputSmartStyleDeltaMapPixelBuffer", value[0], 0);
     if (value[0])
     {
       CFRelease(value[0]);
     }
   }
 
-  v16 = kFigCaptureSampleBufferAttachmentKey_LowResImageUsedByVideoEncoder;
-  v17 = [*(a1 + 48) objectForKeyedSubscript:kFigCaptureSampleBufferAttachmentKey_LowResImageUsedByVideoEncoder];
+  v17 = kFigCaptureSampleBufferAttachmentKey_LowResImageUsedByVideoEncoder;
+  v18 = [*(a1 + 48) objectForKeyedSubscript:kFigCaptureSampleBufferAttachmentKey_LowResImageUsedByVideoEncoder];
 
-  if (v17)
+  if (v18)
   {
     value[0] = 0;
     if (*(a1 + 25))
     {
-      v18 = v5;
-      if (*v10 == 2)
-      {
-        v19 = 66000;
-      }
-
-      else
-      {
-        v19 = 0;
-      }
-
-      if ((*v10 | 2) == 3)
+      v19 = v6;
+      if (*v11 == 2)
       {
         v20 = 66000;
       }
 
       else
       {
-        v20 = v19;
+        v20 = 0;
+      }
+
+      if ((*v11 | 2) == 3)
+      {
+        v21 = 66000;
+      }
+
+      else
+      {
+        v21 = v20;
       }
     }
 
     else
     {
-      v18 = v5;
-      v20 = 0;
+      v19 = v6;
+      v21 = 0;
     }
 
-    v23 = [*(a1 + 48) objectForKeyedSubscript:v16];
-    v24 = [*(a1 + 56) objectForKeyedSubscript:v16];
-    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v23, v24, 0, v20, 0, 0, value);
+    v24 = [*(a1 + 48) objectForKeyedSubscript:v17];
+    v25 = [*(a1 + 56) objectForKeyedSubscript:v17];
+    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v24, v25, 0, v21, 0, 0, value);
 
     if (PixelBufferFromPool)
     {
-      sbp_gvs_createStabilizedPixelBuffer_cold_3();
+      sbp_gvs_createStabilizedPixelBuffer_cold_3(PixelBufferFromPool, value);
       return PixelBufferFromPool;
     }
 
-    CMSetAttachment(v9, @"LowResolutionImageUsedByVideoEncoder", value[0], 0);
+    CMSetAttachment(v10, @"LowResolutionImageUsedByVideoEncoder", value[0], 0);
     if (value[0])
     {
       CFRelease(value[0]);
     }
 
-    v5 = v18;
+    v6 = v19;
   }
 
-  v25 = *(a1 + 172);
-  v26 = *(a1 + 27408);
-  if ((v25 - 1) >= 2)
+  v26 = *(a1 + 172);
+  v27 = *(a1 + 27408);
+  if ((v26 - 1) >= 2)
   {
-    if (v25 != 3 && v25)
+    if (v26 != 3 && v26)
     {
       PixelBufferFromPool = 4294954516;
     }
 
     else
     {
-      v27 = *(a1 + 128);
-      v28 = *(a1 + 132);
+      v28 = *(a1 + 128);
+      v29 = *(a1 + 132);
       value[0] = 0;
       value[1] = 0;
-      v67.f64[0] = v27;
-      v67.f64[1] = v28;
+      v69.f64[0] = v28;
+      v69.f64[1] = v29;
       if (*(a1 + 224))
       {
-        v65 = *a3;
-        ensureValidBufferRectIsCompatibleWithGPU(v27, v28, &v65);
-        v29.i64[0] = v65.i32[0];
-        v29.i64[1] = v65.i32[1];
-        v30 = vcvtq_f64_s64(v29);
-        v29.i64[0] = v65.i32[2];
-        v29.i64[1] = v65.i32[3];
-        *value = v30;
-        v67 = vcvtq_f64_s64(v29);
+        v67 = *a3;
+        ensureValidBufferRectIsCompatibleWithGPU(v28, v29, &v67);
+        v30.i64[0] = v67.i32[0];
+        v30.i64[1] = v67.i32[1];
+        v31 = vcvtq_f64_s64(v30);
+        v30.i64[0] = v67.i32[2];
+        v30.i64[1] = v67.i32[3];
+        *value = v31;
+        v69 = vcvtq_f64_s64(v30);
       }
 
       if (*(a1 + 29612) && *(a1 + 29656) && *(a1 + 29675) == 1)
       {
         if (gGMFigKTraceEnabled == 1)
         {
-          sbp_gvs_createStabilizedPixelBuffer_cold_5(sbuf, a1 + 29656, &v65);
+          sbp_gvs_createStabilizedPixelBuffer_cold_5(sbuf, a1 + 29656, &v67);
         }
 
         if ([*(a1 + 29648) computeLTCsCorrection:*(a1 + 29664) forPTS:? shouldShutdown:? skipFrame:?])
@@ -1736,59 +1739,59 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
 
       else
       {
-        v32 = *(a1 + 29680);
-        v33 = __OFSUB__(v32, 1);
-        v34 = v32 - 1;
-        if (v34 < 0 == v33)
+        v33 = *(a1 + 29680);
+        v34 = __OFSUB__(v33, 1);
+        v35 = v33 - 1;
+        if (v35 < 0 == v34)
         {
-          *(a1 + 29680) = v34;
+          *(a1 + 29680) = v35;
         }
       }
 
-      v35 = sbp_gvs_transformImageRender(a1, sbuf, v5, value, a1 + 128, v26, *(a1 + 29656));
-      if (!v35)
+      v36 = sbp_gvs_transformImageRender(a1, sbuf, v6, value, a1 + 128, v27, *(a1 + 29656));
+      if (!v36)
       {
         Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
         if (Mutable)
         {
-          v37 = Mutable;
-          v38 = kFigCaptureVideoSTFAnalyticsKey_VideoSTFLTMApplied;
-          v39 = [NSNumber numberWithBool:*(a1 + 29676)];
-          CFDictionarySetValue(v37, v38, v39);
+          v38 = Mutable;
+          v39 = kFigCaptureVideoSTFAnalyticsKey_VideoSTFLTMApplied;
+          v40 = [NSNumber numberWithBool:*(a1 + 29676)];
+          CFDictionarySetValue(v38, v39, v40);
 
-          v40 = kFigCaptureVideoSTFAnalyticsKey_CancellationReason;
-          v41 = [NSNumber numberWithInt:*(a1 + 29684)];
-          CFDictionarySetValue(v37, v40, v41);
+          v41 = kFigCaptureVideoSTFAnalyticsKey_CancellationReason;
+          v42 = [NSNumber numberWithInt:*(a1 + 29684)];
+          CFDictionarySetValue(v38, v41, v42);
 
-          v42 = kFigCaptureVideoSTFAnalyticsKey_AnalyticsVersion;
-          v43 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 29648) videoSTFAnalyticsVersion]);
-          CFDictionarySetValue(v37, v42, v43);
+          v43 = kFigCaptureVideoSTFAnalyticsKey_AnalyticsVersion;
+          v44 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 29648) videoSTFAnalyticsVersion]);
+          CFDictionarySetValue(v38, v43, v44);
 
           if (*(a1 + 29676) == 1)
           {
-            v45 = [*(a1 + 29648) getAnalyticsData:*(a1 + 29664)];
-            if (v45)
+            v46 = [*(a1 + 29648) getAnalyticsData:*(a1 + 29664)];
+            if (v46)
             {
               sbp_gvs_createStabilizedPixelBuffer_cold_8();
             }
 
             else
             {
-              v46 = HIDWORD(v45);
-              v47 = v44;
-              v48 = kFigCaptureVideoSTFAnalyticsKey_MeanCorrectionLevel;
-              v49 = [NSNumber numberWithInt:v46];
-              CFDictionarySetValue(v37, v48, v49);
+              v47 = HIDWORD(v46);
+              v48 = v45;
+              v49 = kFigCaptureVideoSTFAnalyticsKey_MeanCorrectionLevel;
+              v50 = [NSNumber numberWithInt:v47];
+              CFDictionarySetValue(v38, v49, v50);
 
-              v50 = kFigCaptureVideoSTFAnalyticsKey_MaxCorrectionLevel;
-              LODWORD(v51) = v47;
-              v52 = [NSNumber numberWithFloat:v51];
-              CFDictionarySetValue(v37, v50, v52);
+              v51 = kFigCaptureVideoSTFAnalyticsKey_MaxCorrectionLevel;
+              LODWORD(v52) = v48;
+              v53 = [NSNumber numberWithFloat:v52];
+              CFDictionarySetValue(v38, v51, v53);
             }
           }
 
-          CMSetAttachment(sbuf, kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics, v37, 1u);
-          CFRelease(v37);
+          CMSetAttachment(sbuf, kFigVideoStabilizationSampleBufferAttachmentKey_VideoSTFAnalytics, v38, 1u);
+          CFRelease(v38);
         }
 
         else
@@ -1799,48 +1802,48 @@ uint64_t sbp_gvs_createStabilizedPixelBuffer(uint64_t a1, CMSampleBufferRef sbuf
         goto LABEL_63;
       }
 
-      PixelBufferFromPool = v35;
-      sbp_gvs_createStabilizedPixelBuffer_cold_7();
+      PixelBufferFromPool = v36;
+      sbp_gvs_createStabilizedPixelBuffer_cold_7(v36, value);
     }
 
 LABEL_67:
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", PixelBufferFromPool, v4, v66, v4, v67.i32[0], v67.i64[1], value[0], LODWORD(value[1]));
     return PixelBufferFromPool;
   }
 
-  v31 = sbp_gvs_transformImageRender(a1, sbuf, v5, 0, a1 + 128, *(a1 + 27408), 0);
-  if (v31)
+  v32 = sbp_gvs_transformImageRender(a1, sbuf, v6, 0, a1 + 128, *(a1 + 27408), 0);
+  if (v32)
   {
-    PixelBufferFromPool = v31;
+    PixelBufferFromPool = v32;
     sbp_gvs_createStabilizedPixelBuffer_cold_4();
     goto LABEL_67;
   }
 
 LABEL_63:
-  if (*(v10 + 2628) == 1)
+  if (*(v11 + 2628) == 1)
   {
-    v53 = CVBufferCopyAttachments(v5, kCVAttachmentMode_ShouldPropagate);
-    if (v53)
+    v54 = CVBufferCopyAttachments(v6, kCVAttachmentMode_ShouldPropagate);
+    if (v54)
     {
-      v54 = CFAutorelease(v53);
+      v55 = CFAutorelease(v54);
     }
 
     else
     {
-      v54 = 0;
+      v55 = 0;
     }
 
-    v55 = kCVImageBufferColorPrimariesKey;
-    v56 = CFDictionaryGetValue(v54, kCVImageBufferColorPrimariesKey);
-    v57 = kCVImageBufferTransferFunctionKey;
-    v58 = CFDictionaryGetValue(v54, kCVImageBufferTransferFunctionKey);
-    v59 = kCVImageBufferYCbCrMatrixKey;
-    v60 = CFDictionaryGetValue(v54, kCVImageBufferYCbCrMatrixKey);
-    CVBufferPropagateAttachments(v9, v5);
-    CVBufferSetAttachment(v5, v55, v56, kCVAttachmentMode_ShouldPropagate);
-    CVBufferSetAttachment(v5, v57, v58, kCVAttachmentMode_ShouldPropagate);
-    CVBufferSetAttachment(v5, v59, v60, kCVAttachmentMode_ShouldPropagate);
+    v56 = kCVImageBufferColorPrimariesKey;
+    v57 = CFDictionaryGetValue(v55, kCVImageBufferColorPrimariesKey);
+    v58 = kCVImageBufferTransferFunctionKey;
+    v59 = CFDictionaryGetValue(v55, kCVImageBufferTransferFunctionKey);
+    v60 = kCVImageBufferYCbCrMatrixKey;
+    v61 = CFDictionaryGetValue(v55, kCVImageBufferYCbCrMatrixKey);
+    CVBufferPropagateAttachments(v10, v6);
+    CVBufferSetAttachment(v6, v56, v57, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(v6, v58, v59, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachment(v6, v60, v61, kCVAttachmentMode_ShouldPropagate);
   }
 
   return 0;
@@ -1849,11 +1852,11 @@ LABEL_63:
 uint64_t _runSmartStyleReverseLearningAndComputeDeltaMap(uint64_t a1, CMSampleBufferRef sbuf, opaqueCMSampleBuffer *a3)
 {
   memset(&timingArrayOut, 0, sizeof(timingArrayOut));
-  v26 = 0;
+  v27 = 0;
   cf = 0;
   if (!a1)
   {
-    _runSmartStyleReverseLearningAndComputeDeltaMap_cold_13();
+    _runSmartStyleReverseLearningAndComputeDeltaMap_cold_13(0, sbuf);
 LABEL_38:
     PixelBufferFromPool = 4294954516;
     goto LABEL_24;
@@ -1939,18 +1942,18 @@ LABEL_38:
   }
 
   v18 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingReverseLearnedCoefficients;
-  v19 = [*(a1 + 48) objectForKeyedSubscript:{kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingReverseLearnedCoefficients, v26}];
+  v19 = [*(a1 + 48) objectForKeyedSubscript:{kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingReverseLearnedCoefficients, v27}];
   v20 = [*(a1 + 56) objectForKeyedSubscript:v18];
-  PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v19, v20, 0, v17, 0, 0, &v26);
+  PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v19, v20, 0, v17, 0, 0, &v27);
 
   if (PixelBufferFromPool)
   {
-    _runSmartStyleReverseLearningAndComputeDeltaMap_cold_2();
+    _runSmartStyleReverseLearningAndComputeDeltaMap_cold_2(PixelBufferFromPool);
   }
 
   else
   {
-    v22 = [*(a1 + 30144) learnTransformFrom:v9 to:v11 outputCoefficients:v26 outputIntegratedCoefficients:0];
+    v22 = [*(a1 + 30144) learnTransformFrom:v9 to:v11 outputCoefficients:v27 outputIntegratedCoefficients:0];
     if (v22)
     {
       PixelBufferFromPool = v22;
@@ -1968,7 +1971,7 @@ LABEL_38:
 
       else
       {
-        v24 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v26, *(a1 + 64), v18, &timingArrayOut, &cf);
+        v24 = sbp_internalCreateSampleBufferWithNewPixelBuffer(v27, *(a1 + 64), v18, &timingArrayOut, &cf);
         if (v24)
         {
           PixelBufferFromPool = v24;
@@ -1977,10 +1980,11 @@ LABEL_38:
 
         else
         {
-          PixelBufferFromPool = [*(a1 + 30152) computeDeltaMapForSourcePixelBuffer:v11 targetPixelBuffer:v9 coefficients:v26 outputDeltaMapPixelBuffer:v13];
-          if (PixelBufferFromPool)
+          v25 = [*(a1 + 30152) computeDeltaMapForSourcePixelBuffer:v11 targetPixelBuffer:v9 coefficients:v27 outputDeltaMapPixelBuffer:v13];
+          PixelBufferFromPool = v25;
+          if (v25)
           {
-            _runSmartStyleReverseLearningAndComputeDeltaMap_cold_6();
+            _runSmartStyleReverseLearningAndComputeDeltaMap_cold_6(v25);
           }
 
           else
@@ -2006,19 +2010,19 @@ LABEL_24:
     CFRelease(cf);
   }
 
-  if (v26)
+  if (v27)
   {
-    CFRelease(v26);
+    CFRelease(v27);
   }
 
   return PixelBufferFromPool;
 }
 
-uint64_t ensureValidBufferRectIsCompatibleWithGPU(uint64_t result, int a2, int32x4_t *a3)
+uint64_t ensureValidBufferRectIsCompatibleWithGPU(uint64_t result, uint64_t a2, int32x4_t *a3)
 {
   if (!a3)
   {
-    return ensureValidBufferRectIsCompatibleWithGPU_cold_1();
+    return ensureValidBufferRectIsCompatibleWithGPU_cold_1(result, a2);
   }
 
   v3 = *a3;
@@ -2214,58 +2218,59 @@ float invert3x3Matrix(uint64_t a1, float32x4_t *a2)
   return result;
 }
 
-float64x2_t _computeProjectedPoints(float *a1, uint64_t a2, uint64_t a3)
+__n128 _computeProjectedPoints(float *a1, uint64_t a2, uint64_t a3, __n128 result)
 {
-  v6 = 0;
-  v10 = 0;
-  v7 = 1;
+  v7 = 0;
+  v11 = 0;
+  v8 = 1;
   do
   {
-    v8 = v7;
-    GVSComputePerspectiveProjectedPoint(a1, &v10 + 1, &v10, *(a2 + 8 * v6), *(a2 + 8 * v6 + 4));
-    v7 = 0;
-    result = vcvtq_f64_f32(__PAIR64__(v10, HIDWORD(v10)));
-    *(a3 + 16 * v6) = result;
-    v6 = 1;
+    v9 = v8;
+    GVSComputePerspectiveProjectedPoint(a1, &v11 + 1, &v11, *(a2 + 8 * v7), *(a2 + 8 * v7 + 4));
+    v8 = 0;
+    v10 = vcvtq_f64_f32(__PAIR64__(v11, HIDWORD(v11)));
+    *(a3 + 16 * v7) = v10;
+    v7 = 1;
   }
 
-  while ((v8 & 1) != 0);
-  return result;
+  while ((v9 & 1) != 0);
+  return v10;
 }
 
-uint64_t sbp_gvs_iir_ComputeCorrection(uint64_t a1, uint64_t *a2, double *a3, uint64_t a4, float32x2_t *a5, BOOL *a6, float a7)
+uint64_t sbp_gvs_iir_ComputeCorrection(uint64_t a1, uint64_t *a2, float a3, double *a4, uint64_t a5, float32x2_t *a6, BOOL *a7)
 {
-  FigMotionInterpolateQuaternionsByAngle(a2, a3, a7);
-  v24[0] = v12;
-  v24[1] = v13;
-  v24[2] = v14;
-  v24[3] = v15;
-  v23[0] = FigMotionMultiplyByInverseOfQuaternion(v24, a2);
-  v23[1] = v16;
-  v23[2] = v17;
-  v23[3] = v18;
-  v19 = GVSComputeTransformFromCameraMotion(v23, (a1 + 336), a4, a5, 0, v25);
+  FigMotionInterpolateQuaternionsByAngle(a2, a4, a3);
+  v25[0] = v12;
+  v25[1] = v13;
+  v25[2] = v14;
+  v25[3] = v15;
+  v24[0] = FigMotionMultiplyByInverseOfQuaternion(v25, a2);
+  v24[1] = v16;
+  v24[2] = v17;
+  v24[3] = v18;
+  v19 = GVSComputeTransformFromCameraMotion(v24, (a1 + 336), a5, a6, 0, v26);
   if (v19)
   {
-    v20 = v19;
+    v21 = v19;
     sbp_gvs_iir_ComputeCorrection_cold_1();
 LABEL_7:
-    v21 = 1;
+    v22 = 1;
     goto LABEL_4;
   }
 
   *(a1 + 196) = 1065353216;
-  v20 = limitTransformToOverscan(a1 + 128, (a4 + 104), v25, *(a4 + 20));
+  v20 = limitTransformToOverscan(a1 + 128, (a5 + 104), v26, *(a5 + 20));
+  v21 = v20;
   if (v20)
   {
-    sbp_gvs_iir_ComputeCorrection_cold_2();
+    sbp_gvs_iir_ComputeCorrection_cold_2(v20);
     goto LABEL_7;
   }
 
-  v21 = *(a1 + 196) >= 1.0;
+  v22 = *(a1 + 196) >= 1.0;
 LABEL_4:
-  *a6 = v21;
-  return v20;
+  *a7 = v22;
+  return v21;
 }
 
 id _createNSArray(uint64_t a1)
@@ -2287,7 +2292,7 @@ id OUTLINED_FUNCTION_22()
   return [v0 setObject:v1 forKeyedSubscript:?];
 }
 
-uint64_t OUTLINED_FUNCTION_24()
+uint64_t OUTLINED_FUNCTION_24(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return kdebug_trace();
@@ -2301,7 +2306,7 @@ Float64 OUTLINED_FUNCTION_32(int a1, int a2, int a3, int a4, int a5, int a6, int
   return CMTimeGetSeconds(&a9);
 }
 
-void OUTLINED_FUNCTION_33(int a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void OUTLINED_FUNCTION_33(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
 
   _getPresentationTimeStampForSampleBuffer(a1, 0, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
@@ -2319,7 +2324,7 @@ uint64_t OUTLINED_FUNCTION_43()
   return fig_log_get_emitter();
 }
 
-uint64_t GVSComputeTransforms(uint64_t a1, uint64_t a2, uint64_t __n, uint64_t a4, uint64_t a5, _OWORD *__src, float a7, float a8, float a9, double a10, int8x16_t a11)
+uint64_t GVSComputeTransforms(uint64_t a1, int32x4_t *a2, uint64_t __n, uint64_t a4, uint64_t a5, _OWORD *__src, float a7, float a8, float a9, double a10, int8x16_t a11)
 {
   v11 = __src;
   v42 = __PAIR64__(LODWORD(a10), LODWORD(a9));
@@ -2331,7 +2336,7 @@ uint64_t GVSComputeTransforms(uint64_t a1, uint64_t a2, uint64_t __n, uint64_t a
     __src[1] = xmmword_43600;
     *(__src + 8) = 1065353216;
     v17.i32[0] = *(__n + 20);
-    FigMotionApplyDigitalZoomToTransform(1, __src, v17, *a2, *(a2 + 8), a10, a11);
+    FigMotionApplyDigitalZoomToTransform(1, __src, v17, *a2, *&a2->i64[1], a10, a11);
   }
 
   if (*(a1 + 60) < 1)
@@ -2515,7 +2520,7 @@ uint64_t GVSComputeTransformFromCameraMotion(double *a1, float64x2_t *a2, uint64
   GVSInverseRotationMatrixFromQuaternion(a1, v17);
   *v12.i64 = FigMotionComputeTransformFromRotation(&v20, &v18, v17, a6);
   v12.i32[0] = *(a3 + 20);
-  FigMotionApplyDigitalZoomToTransform(1, a6, v12, v16, *&v16.i64[1], v13, v14);
+  FigMotionApplyDigitalZoomToTransform(1, a6, v12, v16, v16.n128_f64[1], v13, v14);
   return 0;
 }
 
@@ -3229,17 +3234,17 @@ void GVSComputeRollPitchFromGravity(float *a1)
   }
 }
 
-uint64_t GVSExtractMetadataFromTopToBottomRows(const __CFDictionary *a1, int *a2, void *a3, uint64_t a4, uint64_t a5, int32x2_t *a6, uint64_t a7, double *a8, uint64_t a9, float32x2_t *a10, float32x2_t *a11, uint64_t a12, int a13)
+uint64_t GVSExtractMetadataFromTopToBottomRows(const __CFDictionary *a1, int *a2, void *a3, uint64_t a4, uint64_t a5, int32x2_t *a6, uint64_t a7, double *a8, uint64_t a9, float32x2_t *a10, float32x2_t *a11, float *a12, int a13)
 {
-  v19 = a3;
-  v196 = v19;
+  v20 = a3;
+  v201 = v20;
   if (!a6)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_22(&buffer);
     goto LABEL_217;
   }
 
-  v209 = a2;
+  v215 = a2;
   if (!a2)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_21(&buffer);
@@ -3258,12 +3263,12 @@ uint64_t GVSExtractMetadataFromTopToBottomRows(const __CFDictionary *a1, int *a2
     goto LABEL_217;
   }
 
-  v200 = a2 + 2048;
-  v20 = v19;
+  v206 = a2 + 2048;
+  v21 = v20;
   valuePtr = 0;
-  v223 = 0;
-  v222 = 0;
-  v221 = 0;
+  v229 = 0;
+  v228 = 0;
+  v227 = 0;
   *a7 = 0u;
   *(a7 + 16) = 0u;
   *(a7 + 32) = 0u;
@@ -3281,12 +3286,12 @@ uint64_t GVSExtractMetadataFromTopToBottomRows(const __CFDictionary *a1, int *a2
   buffer.size = size;
   if (FigCFDictionaryGetCGRectIfPresent())
   {
-    v21 = llround(buffer.origin.y);
+    v22 = llround(buffer.origin.y);
     *(a7 + 88) = llround(buffer.origin.x);
-    *(a7 + 92) = v21;
-    v22 = llround(buffer.size.height);
+    *(a7 + 92) = v22;
+    v23 = llround(buffer.size.height);
     *(a7 + 96) = llround(buffer.size.width);
-    *(a7 + 100) = v22;
+    *(a7 + 100) = v23;
   }
 
   *(a7 + 104) = origin;
@@ -3294,14 +3299,14 @@ uint64_t GVSExtractMetadataFromTopToBottomRows(const __CFDictionary *a1, int *a2
   FigCFDictionaryGetCGRectIfPresent();
   *(a7 + 20) = 1065353216;
   FigCFDictionaryGetFloatIfPresent();
-  v195 = (a7 + 20);
+  v200 = (a7 + 20);
   *(a7 + 12) = CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SphereMode);
   Value = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_CurrentFocusPosition);
   theDict = a1;
-  v205 = a7;
-  v215 = a4;
-  v198 = a5;
-  v201 = v20;
+  v211 = a7;
+  v221 = a4;
+  v204 = a5;
+  v207 = v21;
   if (!Value)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_8(&buffer);
@@ -3315,37 +3320,37 @@ LABEL_213:
     }
 
 LABEL_209:
-    GVSExtractMetadataFromTopToBottomRows_cold_10();
+    GVSExtractMetadataFromTopToBottomRows_cold_10(x_low);
     goto LABEL_194;
   }
 
   CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
   *a7 = valuePtr;
   FigCFDictionaryGetFloatIfPresent();
-  v24 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_ExposureTime);
-  if (!v24)
+  v25 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_ExposureTime);
+  if (!v25)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_7(&buffer);
     goto LABEL_212;
   }
 
-  CFNumberGetValue(v24, kCFNumberFloat64Type, &v223);
-  *(a7 + 48) = v223;
-  v25 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_FrameRollingShutterSkew);
-  if (!v25)
+  CFNumberGetValue(v25, kCFNumberFloat64Type, &v229);
+  *(a7 + 48) = v229;
+  v26 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_FrameRollingShutterSkew);
+  if (!v26)
   {
-    v25 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_RollingShutterSkew);
-    if (!v25)
+    v26 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_RollingShutterSkew);
+    if (!v26)
     {
       GVSExtractMetadataFromTopToBottomRows_cold_6(&buffer);
       goto LABEL_212;
     }
   }
 
-  CFNumberGetValue(v25, kCFNumberSInt32Type, &v222);
-  *(a7 + 56) = v222 / 1000000.0;
-  v26 = CFDictionaryGetValue(a1, kFigMotionAttachmentsSampleBufferProcessorMetadata_FramePTSSeconds);
-  if (!v26)
+  CFNumberGetValue(v26, kCFNumberSInt32Type, &v228);
+  *(a7 + 56) = v228 / 1000000.0;
+  v27 = CFDictionaryGetValue(a1, kFigMotionAttachmentsSampleBufferProcessorMetadata_FramePTSSeconds);
+  if (!v27)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_5(&buffer);
 LABEL_206:
@@ -3353,292 +3358,293 @@ LABEL_206:
     goto LABEL_213;
   }
 
-  CFNumberGetValue(v26, kCFNumberDoubleType, &v221);
-  *(a7 + 32) = v221;
-  v27 = &kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionData;
+  CFNumberGetValue(v27, kCFNumberDoubleType, &v227);
+  *(a7 + 32) = v227;
+  v28 = &kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionData;
   if (*(a2 + 10260))
   {
-    v27 = &kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionAttachmentsISPMotionData;
+    v28 = &kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionAttachmentsISPMotionData;
   }
 
-  v28 = CFDictionaryGetValue(a1, *v27);
-  if (!v28)
+  v29 = CFDictionaryGetValue(a1, *v28);
+  if (!v29)
   {
     GVSExtractMetadataFromTopToBottomRows_cold_4(&buffer);
     goto LABEL_206;
   }
 
-  v29 = v28;
-  v30 = CFDictionaryGetValue(v28, kFigMotionAttachmentsSampleBufferProcessorMetadata_FusedMotion);
-  v197 = a6;
-  if (v30)
+  v30 = v29;
+  v31 = CFDictionaryGetValue(v29, kFigMotionAttachmentsSampleBufferProcessorMetadata_FusedMotion);
+  v203 = a6;
+  if (v31)
   {
-    v31 = v30;
-    v32 = CFDictionaryContainsKey(v29, kFigMotionAttachmentsSampleBufferProcessorMetadata_GroupDelayCompensationApplied);
-    v33 = v20;
-    Count = CFArrayGetCount(v31);
-    if (v32)
+    v32 = v31;
+    v33 = CFDictionaryContainsKey(v30, kFigMotionAttachmentsSampleBufferProcessorMetadata_GroupDelayCompensationApplied);
+    v34 = v21;
+    Count = CFArrayGetCount(v32);
+    if (v33)
     {
-      v35 = *(a2 + 1281);
+      v36 = *(a2 + 1281);
     }
 
     else
     {
-      v35 = *(a2 + 1281) + -0.005;
+      v36 = *(a2 + 1281) + -0.005;
     }
 
     if (Count >= 1)
     {
-      v36 = 0;
-      v37 = a2 + 2;
-      v211 = a2 + 514;
-      v38 = Count & 0x7FFFFFFF;
+      v37 = 0;
+      v38 = a2 + 2;
+      v217 = a2 + 514;
+      v39 = Count & 0x7FFFFFFF;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v31, v36);
+        ValueAtIndex = CFArrayGetValueAtIndex(v32, v37);
         if (!ValueAtIndex)
         {
           goto LABEL_31;
         }
 
-        v40 = ValueAtIndex;
-        v41 = CFArrayGetCount(ValueAtIndex);
-        if (v41 < 1)
+        v41 = ValueAtIndex;
+        v42 = CFArrayGetCount(ValueAtIndex);
+        if (v42 < 1)
         {
           goto LABEL_31;
         }
 
-        v42 = *v209;
-        v43 = &v37[2 * v42];
+        v43 = *v215;
+        v44 = &v38[2 * v43];
         if (!FigCFArrayGetDoubleAtIndex())
         {
           goto LABEL_31;
         }
 
-        *v43 = v35 + *v43;
-        v44 = CFArrayGetValueAtIndex(v40, 2);
-        if (!v44)
+        *v44 = v36 + *v44;
+        v45 = CFArrayGetValueAtIndex(v41, 2);
+        if (!v45)
         {
           goto LABEL_31;
         }
 
-        v45 = v44;
-        v228.length = CFDataGetLength(v44);
-        v46 = &v211[8 * v42];
-        v228.location = 0;
-        CFDataGetBytes(v45, v228, v46);
-        if (!v33)
+        v46 = v45;
+        v234.length = CFDataGetLength(v45);
+        v47 = &v217[8 * v43];
+        v234.location = 0;
+        CFDataGetBytes(v46, v234, v47);
+        if (!v34)
         {
           goto LABEL_30;
         }
 
-        v47 = [v33 extractGravityData];
-        if (v41 < 4 || !v47)
+        v48 = [v34 extractGravityData];
+        if (v42 < 4 || !v48)
         {
           goto LABEL_30;
         }
 
-        v48 = CFArrayGetValueAtIndex(v40, 3);
-        if (v48)
+        v49 = CFArrayGetValueAtIndex(v41, 3);
+        if (v49)
         {
           break;
         }
 
 LABEL_31:
-        if (v38 == ++v36)
+        if (v39 == ++v37)
         {
           goto LABEL_32;
         }
       }
 
-      v49 = v48;
+      v50 = v49;
       LODWORD(buffer.origin.y) = 0;
       buffer.origin.x = 0.0;
-      v229.length = CFDataGetLength(v48);
-      v229.location = 0;
-      CFDataGetBytes(v49, v229, &buffer);
-      [v33 pushSample:&buffer withPose:v46 atTime:*v43];
+      v235.length = CFDataGetLength(v49);
+      v235.location = 0;
+      CFDataGetBytes(v50, v235, &buffer);
+      [v34 pushSample:&buffer withPose:v47 atTime:*v44];
 LABEL_30:
-      *v209 = (*v209 + 1);
+      *v215 = (*v215 + 1);
       goto LABEL_31;
     }
 
 LABEL_32:
 
-    a6 = v197;
+    a6 = v203;
     a1 = theDict;
-    a7 = v205;
-    a4 = v215;
-    v20 = v201;
+    a7 = v211;
+    a4 = v221;
+    v21 = v207;
   }
 
   if (a4)
   {
-    v50 = CFDictionaryGetValue(a1, kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionAttachmentsISPHallData);
-    if (v50)
+    v51 = CFDictionaryGetValue(a1, kFigMotionAttachmentsSampleBufferProcessorMetadata_MotionAttachmentsISPHallData);
+    if (v51)
     {
-      v51 = v50;
-      rect2 = *(v215 + 16420);
-      v52 = CFArrayGetCount(v50);
-      if (v52 > 2)
+      v52 = v51;
+      rect2 = *(v221 + 16420);
+      v53 = CFArrayGetCount(v51);
+      if (v53 > 2)
       {
         GVSExtractMetadataFromTopToBottomRows_cold_2(&buffer);
 LABEL_196:
         x_low = LODWORD(buffer.origin.x);
         if (LODWORD(buffer.origin.x))
         {
-          GVSExtractMetadataFromTopToBottomRows_cold_9();
-          v20 = v201;
+          GVSExtractMetadataFromTopToBottomRows_cold_9(LODWORD(buffer.origin.x));
+          v21 = v207;
 LABEL_208:
 
           goto LABEL_209;
         }
       }
 
-      else if (v52 >= 1)
+      else if (v53 >= 1)
       {
-        v53 = 0;
-        v54 = v215 + 16416;
-        v55 = v215 + 16424;
-        v56 = v52 & 0x7FFFFFFF;
-        v206 = vdupq_lane_s64(COERCE__INT64(1.0 - rect2), 0);
-        v202 = v56;
-        v203 = v51;
+        v54 = 0;
+        v202 = (v221 + 8);
+        v55 = v221 + 16416;
+        v56 = v221 + 16424;
+        v57 = v53 & 0x7FFFFFFF;
+        v212 = vdupq_lane_s64(COERCE__INT64(1.0 - rect2), 0);
+        v208 = v57;
+        v209 = v52;
         do
         {
-          v57 = CFArrayGetValueAtIndex(v51, v53);
-          if (v57)
+          v58 = CFArrayGetValueAtIndex(v52, v54);
+          if (v58)
           {
-            v58 = v57;
-            v225 = 0;
-            v59 = CFArrayGetValueAtIndex(v57, 0);
-            if (v59)
+            v59 = v58;
+            v231 = 0;
+            v60 = CFArrayGetValueAtIndex(v58, 0);
+            if (v60)
             {
-              CFNumberGetValue(v59, kCFNumberIntType, &v225);
+              CFNumberGetValue(v60, kCFNumberIntType, &v231);
             }
 
-            v60 = v225;
-            if (v225 > 1)
+            v61 = v231;
+            if (v231 > 1)
             {
-              GVSExtractMetadataFromTopToBottomRows_cold_1(&v225, &buffer);
+              GVSExtractMetadataFromTopToBottomRows_cold_1(&v231, &buffer);
               goto LABEL_196;
             }
 
-            v61 = CFArrayGetValueAtIndex(v58, 1);
-            if (v61)
+            v62 = CFArrayGetValueAtIndex(v59, 1);
+            if (v62)
             {
-              v62 = v61;
-              v63 = CFArrayGetCount(v61);
-              if (v63 >= 1)
+              v63 = v62;
+              v64 = CFArrayGetCount(v62);
+              if (v64 >= 1)
               {
-                v64 = 0;
-                v65 = v215 + 8 + (v60 << 12);
-                v66 = v63 & 0x7FFFFFFF;
+                v65 = 0;
+                v66 = &v202[4096 * v61];
+                v67 = v64 & 0x7FFFFFFF;
                 do
                 {
                   buffer.origin.x = 0.0;
-                  *v226 = 0;
-                  v67 = CFArrayGetValueAtIndex(v62, v64);
-                  v68 = CFArrayGetValueAtIndex(v67, 0);
-                  v69 = CFArrayGetValueAtIndex(v67, 1);
-                  if (v68)
+                  *v232 = 0;
+                  v68 = CFArrayGetValueAtIndex(v63, v65);
+                  v69 = CFArrayGetValueAtIndex(v68, 0);
+                  v70 = CFArrayGetValueAtIndex(v68, 1);
+                  if (v69)
                   {
-                    v70 = v69;
-                    if (v69)
+                    v71 = v70;
+                    if (v70)
                     {
-                      if (CFDataGetLength(v69) == 8)
+                      if (CFDataGetLength(v70) == 8)
                       {
-                        CFNumberGetValue(v68, kCFNumberDoubleType, &buffer);
-                        v230.location = 0;
-                        v230.length = 8;
-                        CFDataGetBytes(v70, v230, v226);
-                        v71 = v225;
-                        v72 = *(v215 + 4 * v225);
-                        *(v215 + 4 * v225) = (v72 + 1) & 0x1FF;
-                        *(v65 + 8 * v72) = buffer.origin.x + *(v215 + 16408);
-                        if (*(v54 + v71))
+                        CFNumberGetValue(v69, kCFNumberDoubleType, &buffer);
+                        v236.location = 0;
+                        v236.length = 8;
+                        CFDataGetBytes(v71, v236, v232);
+                        v72 = v231;
+                        v73 = *(v221 + 4 * v231);
+                        *(v221 + 4 * v231) = (v73 + 1) & 0x1FF;
+                        *&v66[8 * v73] = buffer.origin.x + *(v221 + 16408);
+                        if (*(v55 + v72))
                         {
-                          if (!*(v215 + 16418))
+                          if (!*(v221 + 16418))
                           {
-                            *(v55 + 8 * v71) = *v226;
+                            *(v56 + 8 * v72) = *v232;
                           }
 
-                          *(v54 + v71) = 0;
+                          *(v55 + v72) = 0;
                         }
 
-                        v73 = v215 + 8200 + (v71 << 12);
-                        if (*(v215 + 16418))
+                        v74 = v221 + 8200 + (v72 << 12);
+                        if (*(v221 + 16418))
                         {
-                          *(v73 + 8 * v72) = *v226;
+                          *(v74 + 8 * v73) = *v232;
                         }
 
                         else
                         {
-                          v74 = *v226;
-                          *(v73 + 8 * v72) = vsub_f32(*v226, *(v55 + 8 * v71));
-                          *(v55 + 8 * v71) = vcvt_f32_f64(vmlaq_f64(vcvtq_f64_f32(vmul_n_f32(*(v55 + 8 * v71), rect2)), v206, vcvtq_f64_f32(v74)));
+                          v75 = *v232;
+                          *(v74 + 8 * v73) = vsub_f32(*v232, *(v56 + 8 * v72));
+                          *(v56 + 8 * v72) = vcvt_f32_f64(vmlaq_f64(vcvtq_f64_f32(vmul_n_f32(*(v56 + 8 * v72), rect2)), v212, vcvtq_f64_f32(v75)));
                         }
                       }
                     }
                   }
 
-                  ++v64;
+                  ++v65;
                 }
 
-                while (v66 != v64);
+                while (v67 != v65);
               }
 
-              v56 = v202;
-              v51 = v203;
+              v57 = v208;
+              v52 = v209;
             }
           }
 
-          ++v53;
+          ++v54;
         }
 
-        while (v53 != v56);
+        while (v54 != v57);
       }
     }
 
     a1 = theDict;
-    v75 = CFDictionaryGetValue(theDict, kFigMotionAttachmentsSampleBufferProcessorMetadata_SphereScalingFactor);
-    if (v75)
+    v76 = CFDictionaryGetValue(theDict, kFigMotionAttachmentsSampleBufferProcessorMetadata_SphereScalingFactor);
+    if (v76)
     {
-      a7 = v205;
-      CFNumberGetValue(v75, kCFNumberFloatType, (v205 + 16));
-      a6 = v197;
-      a4 = v215;
+      a7 = v211;
+      CFNumberGetValue(v76, kCFNumberFloatType, (v211 + 16));
+      a6 = v203;
+      a4 = v221;
     }
 
     else
     {
-      v76 = CFDictionaryGetValue(theDict, kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor);
-      a6 = v197;
-      a7 = v205;
-      a4 = v215;
-      if (v76)
+      v77 = CFDictionaryGetValue(theDict, kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor);
+      a6 = v203;
+      a7 = v211;
+      a4 = v221;
+      if (v77)
       {
         LODWORD(buffer.origin.x) = 0;
-        CFNumberGetValue(v76, kCFNumberFloatType, &buffer);
-        *(v205 + 16) = *&buffer.origin.x / 1.5;
+        CFNumberGetValue(v77, kCFNumberFloatType, &buffer);
+        *(v211 + 16) = *&buffer.origin.x / 1.5;
       }
 
       else
       {
-        *(v205 + 16) = 1065353216;
+        *(v211 + 16) = 1065353216;
       }
     }
 
-    v20 = v201;
+    v21 = v207;
   }
 
-  v77 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_PortType);
-  if (v77)
+  v78 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_PortType);
+  if (v78)
   {
-    v78 = portIndexFromPortType(v77, (a7 + 136));
-    if (v78)
+    v79 = portIndexFromPortType(v78, (a7 + 136));
+    if (v79)
     {
-      x_low = v78;
+      x_low = v79;
       GVSExtractMetadataFromTopToBottomRows_cold_3();
       goto LABEL_208;
     }
@@ -3646,191 +3652,193 @@ LABEL_208:
 
   if (FigCFDictionaryGetInt32IfPresent())
   {
-    v79 = *(a7 + 140);
+    v80 = *(a7 + 140);
   }
 
   else
   {
-    v79 = 1;
+    v80 = 1;
   }
 
-  a5 = v198;
-  if (v79 <= 1)
+  a5 = v204;
+  if (v80 <= 1)
   {
-    v79 = 1;
+    v80 = 1;
   }
 
-  *(a7 + 140) = v79;
+  *(a7 + 140) = v80;
 
 LABEL_72:
-  v219 = 0;
-  v220 = 0;
+  v225 = 0;
+  v226 = 0;
   if (*(a7 + 88) == 0)
   {
-    v80 = a6->i32[0];
-    v81 = a6->i32[1];
+    v81 = a6->i32[0];
+    v82 = a6->i32[1];
     *(a7 + 96) = a6->i32[0];
-    *(a7 + 100) = v81;
+    *(a7 + 100) = v82;
   }
 
   else
   {
-    v80 = *(a7 + 96);
-    v81 = *(a7 + 100);
+    v81 = *(a7 + 96);
+    v82 = *(a7 + 100);
   }
 
-  v82 = *(a7 + 88);
-  v83 = *(a7 + 92);
-  v84 = v80;
+  v83 = *(a7 + 88);
+  v84 = *(a7 + 92);
   v85 = v81;
-  if (CGRectIsEmpty(*(a7 + 104)) || (v234.origin.x = v82, v234.origin.y = v83, v234.size.width = v84, v234.size.height = v85, v231 = CGRectIntersection(*(a7 + 104), v234), *(a7 + 104) = v231, CGRectIsNull(v231)))
+  v86 = v82;
+  if (CGRectIsEmpty(*(a7 + 104)) || (v240.origin.x = v83, v240.origin.y = v84, v240.size.width = v85, v240.size.height = v86, v237 = CGRectIntersection(*(a7 + 104), v240), *(a7 + 104) = v237, CGRectIsNull(v237)))
   {
-    *(a7 + 104) = v82;
-    *(a7 + 112) = v83;
-    *(a7 + 120) = v84;
-    *(a7 + 128) = v85;
+    *(a7 + 104) = v83;
+    *(a7 + 112) = v84;
+    *(a7 + 120) = v85;
+    *(a7 + 128) = v86;
   }
 
   else
   {
-    v82 = *(a7 + 104);
-    v83 = *(a7 + 112);
-    v84 = *(a7 + 120);
-    v85 = *(a7 + 128);
+    v83 = *(a7 + 104);
+    v84 = *(a7 + 112);
+    v85 = *(a7 + 120);
+    v86 = *(a7 + 128);
   }
 
-  v232.origin.x = v82;
-  v232.origin.y = v83;
-  v232.size.width = v84;
-  v232.size.height = v85;
-  if (CGRectIsEmpty(v232))
+  v238.origin.x = v83;
+  v238.origin.y = v84;
+  v238.size.width = v85;
+  v238.size.height = v86;
+  if (CGRectIsEmpty(v238))
   {
-    v87.i64[0] = a6->i32[0];
-    v87.i64[1] = HIDWORD(*a6);
-    v86 = vcvtq_f64_s64(v87);
+    v88.i64[0] = a6->i32[0];
+    v88.i64[1] = HIDWORD(*a6);
+    v87 = vcvtq_f64_s64(v88);
     *(a7 + 104) = 0;
     *(a7 + 112) = 0;
-    *(a7 + 120) = v86;
+    *(a7 + 120) = v87;
   }
 
   if (*(a7 + 136) == 4)
   {
-    v88 = kFigCaptureSampleBufferMetadata_ImageCircle;
+    v89 = kFigCaptureSampleBufferMetadata_ImageCircle;
     if (CFDictionaryContainsKey(a1, kFigCaptureSampleBufferMetadata_ImageCircle))
     {
-      v89 = *a6;
-      if (CFDictionaryContainsKey(a1, v88))
+      v90 = *a6;
+      if (CFDictionaryContainsKey(a1, v89))
       {
-        if (CFDictionaryGetValue(a1, v88))
+        if (CFDictionaryGetValue(a1, v89))
         {
           memset(&buffer, 0, 16);
           if (FigCFDictionaryGetCGPointIfPresent())
           {
-            memset(v226, 0, sizeof(v226));
+            memset(v232, 0, sizeof(v232));
             if (FigCFDictionaryGetCGSizeIfPresent())
             {
-              v94 = vcvt_f32_s32(v89);
-              v95 = vmul_f32(v94, vcvt_f32_f64(buffer.origin));
-              *&v96 = vaddv_f32(vmul_f32(v94, vcvt_f32_f64(*v226))) * 0.5;
+              v95 = vcvt_f32_s32(v90);
+              v96 = vmul_f32(v95, vcvt_f32_f64(buffer.origin));
+              *&v97 = vaddv_f32(vmul_f32(v95, vcvt_f32_f64(*v232))) * 0.5;
               if (a6[9].i8[5])
               {
-                memset(v226, 0, sizeof(v226));
-                v97 = CFDictionaryGetValue(a1, kFigVideoStabilizationSampleBufferProcessorMetadata_InputFrameCropOffset);
-                if (v97)
+                memset(v232, 0, sizeof(v232));
+                v98 = CFDictionaryGetValue(a1, kFigVideoStabilizationSampleBufferProcessorMetadata_InputFrameCropOffset);
+                if (v98)
                 {
-                  CGPointMakeWithDictionaryRepresentation(v97, v226);
+                  CGPointMakeWithDictionaryRepresentation(v98, v232);
                 }
 
-                v99 = v95;
-                v100 = vcvt_f32_s32(*(a7 + 88));
-                *v98.i8 = vcvt_f32_s32(*(a7 + 96));
-                v102 = a6[1];
-                v101 = a6[2];
-                v103.i64[0] = v101.i32[0];
-                v103.i64[1] = v101.i32[1];
-                v104 = vcvtq_f64_s64(v103);
-                v103.i64[0] = v102.i32[0];
-                v103.i64[1] = v102.i32[1];
+                v100 = v96;
+                v101 = vcvt_f32_s32(*(a7 + 88));
+                *v99.i8 = vcvt_f32_s32(*(a7 + 96));
+                v103 = a6[1];
+                v102 = a6[2];
+                v104.i64[0] = v102.i32[0];
+                v104.i64[1] = v102.i32[1];
+                v105 = vcvtq_f64_s64(v104);
+                v104.i64[0] = v103.i32[0];
+                v104.i64[1] = v103.i32[1];
                 __asm { FMOV            V5.2D, #0.5 }
 
-                v110 = vdivq_f64(v104, vdupq_lane_s64(COERCE__INT64(*(a7 + 20)), 0));
-                v111 = vmlsq_f64(vaddq_f64(*v226, vmlaq_f64(vcvtq_f64_s64(v103), _Q5, v104)), _Q5, v110);
-                height = v110.height;
-                if (v110.width < v110.height)
+                v111 = vdivq_f64(v105, vdupq_lane_s64(COERCE__INT64(*(a7 + 20)), 0));
+                v112 = vmlsq_f64(vaddq_f64(*v232, vmlaq_f64(vcvtq_f64_s64(v104), _Q5, v105)), _Q5, v111);
+                height = v111.height;
+                if (v111.width < v111.height)
                 {
-                  v113 = 1;
+                  v114 = 1;
                 }
 
                 else
                 {
-                  v113 = 2;
+                  v114 = 2;
                 }
 
-                v212 = v111;
-                buffer.origin = v111;
-                buffer.size = v110;
-                rect2a = v110.width;
-                if (GVSConfineRectToCircle(v99, v96, v113, &buffer, v100, v98, v110.width, v104.f64[0], v111.x, _Q5.f64[0]))
+                v218 = v112;
+                buffer.origin = v112;
+                buffer.size = v111;
+                rect2a = v111.width;
+                v115 = GVSConfineRectToCircle(v100, v97, v114, &buffer, v101, v99, v111.width, v105.f64[0], v112.x, _Q5.f64[0]);
+                if (v115)
                 {
+                  v198 = v115;
                   fig_log_get_emitter();
-                  FigDebugAssert3();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v198, v13, v199, v13, v200, v201, v202, v203);
                   x = buffer.origin.x;
                   y = buffer.origin.y;
-                  v116 = buffer.size.height;
+                  v118 = buffer.size.height;
                   width = buffer.size.width;
                 }
 
                 else
                 {
-                  v235.origin.x = v212.x;
+                  v241.origin.x = v218.x;
                   x = buffer.origin.x;
                   y = buffer.origin.y;
-                  v116 = buffer.size.height;
+                  v118 = buffer.size.height;
                   width = buffer.size.width;
-                  v235.origin.y = v212.y;
-                  v235.size.width = rect2a;
-                  v235.size.height = height;
-                  if (!CGRectContainsRect(buffer, v235))
+                  v241.origin.y = v218.y;
+                  v241.size.width = rect2a;
+                  v241.size.height = height;
+                  if (!CGRectContainsRect(buffer, v241))
                   {
-                    v116 = height;
+                    v118 = height;
                     width = rect2a;
-                    y = v212.y;
-                    x = v212.x;
+                    y = v218.y;
+                    x = v218.x;
                   }
                 }
 
-                v118 = llround(x);
-                v119 = llround(y);
-                *(a7 + 88) = v118;
-                *(a7 + 92) = v119;
-                v120 = llround(width);
-                v121 = llround(v116);
-                *(a7 + 96) = v120;
-                *(a7 + 100) = v121;
-                v236.origin.x = v118;
-                v236.origin.y = v119;
-                buffer.origin.x = v118;
-                buffer.origin.y = v119;
-                v236.size.width = v120;
-                v236.size.height = v121;
-                buffer.size.width = v120;
-                buffer.size.height = v121;
-                v233 = CGRectIntersection(*(a7 + 104), v236);
-                *(a7 + 104) = v233;
-                if (CGRectIsNull(v233))
+                v120 = llround(x);
+                v121 = llround(y);
+                *(a7 + 88) = v120;
+                *(a7 + 92) = v121;
+                v122 = llround(width);
+                v123 = llround(v118);
+                *(a7 + 96) = v122;
+                *(a7 + 100) = v123;
+                v242.origin.x = v120;
+                v242.origin.y = v121;
+                buffer.origin.x = v120;
+                buffer.origin.y = v121;
+                v242.size.width = v122;
+                v242.size.height = v123;
+                buffer.size.width = v122;
+                buffer.size.height = v123;
+                v239 = CGRectIntersection(*(a7 + 104), v242);
+                *(a7 + 104) = v239;
+                if (CGRectIsNull(v239))
                 {
-                  HIDWORD(v86.f64[0]) = HIDWORD(buffer.origin.x);
-                  v122 = buffer.size;
+                  HIDWORD(v87.f64[0]) = HIDWORD(buffer.origin.x);
+                  v124 = buffer.size;
                   *(a7 + 104) = buffer.origin;
-                  *(a7 + 120) = v122;
+                  *(a7 + 120) = v124;
                 }
               }
 
               else
               {
-                v123 = *(a7 + 120);
-                *&v123.f64[0] = vcvt_f32_f64(v123);
-                if (GVSConfineRectToCircle(v95, v96, 0, (a7 + 104), vcvt_f32_f64(*(a7 + 104)), v123, v90, v91, v92, v93))
+                v125 = *(a7 + 120);
+                *&v125.f64[0] = vcvt_f32_f64(v125);
+                if (GVSConfineRectToCircle(v96, v97, 0, (a7 + 104), vcvt_f32_f64(*(a7 + 104)), v125, v91, v92, v93, v94))
                 {
                   GVSExtractMetadataFromTopToBottomRows_cold_11();
                 }
@@ -3839,12 +3847,12 @@ LABEL_72:
               goto LABEL_100;
             }
 
-            GVSExtractMetadataFromTopToBottomRows_cold_12();
+            GVSExtractMetadataFromTopToBottomRows_cold_12(v232, &buffer);
           }
 
           else
           {
-            GVSExtractMetadataFromTopToBottomRows_cold_13();
+            GVSExtractMetadataFromTopToBottomRows_cold_13(&buffer);
           }
         }
 
@@ -3854,8 +3862,8 @@ LABEL_72:
         }
       }
 
-      GVSExtractMetadataFromTopToBottomRows_cold_15(&v223);
-      x_low = v223;
+      GVSExtractMetadataFromTopToBottomRows_cold_15(&v229);
+      x_low = v229;
       goto LABEL_194;
     }
   }
@@ -3863,138 +3871,138 @@ LABEL_72:
 LABEL_100:
   if (a6[9].i8[4])
   {
-    v124 = CFDictionaryGetValue(a1, kFigVideoStabilizationSampleBufferProcessorMetadata_InputFrameCropOffset);
-    if (v124)
+    v126 = CFDictionaryGetValue(a1, kFigVideoStabilizationSampleBufferProcessorMetadata_InputFrameCropOffset);
+    if (v126)
     {
       memset(&buffer, 0, 16);
-      CGPointMakeWithDictionaryRepresentation(v124, &buffer.origin);
-      v125.i64[0] = a6->i32[0];
-      v125.i64[1] = HIDWORD(*a6);
-      *&v86.f64[0] = vcvt_f32_f64(vmulq_f64(buffer.origin, vcvtq_f64_s64(v125)));
-      *(a7 + 24) = v86.f64[0];
+      CGPointMakeWithDictionaryRepresentation(v126, &buffer.origin);
+      v127.i64[0] = a6->i32[0];
+      v127.i64[1] = HIDWORD(*a6);
+      *&v87.f64[0] = vcvt_f32_f64(vmulq_f64(buffer.origin, vcvtq_f64_s64(v127)));
+      *(a7 + 24) = v87.f64[0];
     }
   }
 
-  LODWORD(v86.f64[0]) = *v195;
+  LODWORD(v87.f64[0]) = *v200;
   if (a6[9].i8[0])
   {
-    v126 = vcvt_f32_s32(a6[4]);
-    v127 = vcvt_f32_f64(*(a7 + 120));
+    v128 = vcvt_f32_s32(a6[4]);
+    v129 = vcvt_f32_f64(*(a7 + 120));
     __asm { FMOV            V3.2S, #-1.0 }
 
-    v129 = vadd_f32(v126, _D3);
-    v130 = vadd_f32(v127, _D3);
-    v131 = vdiv_f32(v129, vadd_f32(v130, vdup_n_s32(0xBF804189)));
-    if (v131.f32[0] <= v131.f32[1])
+    v131 = vadd_f32(v128, _D3);
+    v132 = vadd_f32(v129, _D3);
+    v133 = vdiv_f32(v131, vadd_f32(v132, vdup_n_s32(0xBF804189)));
+    if (v133.f32[0] <= v133.f32[1])
     {
-      v131.f32[0] = v131.f32[1];
+      v133.f32[0] = v133.f32[1];
     }
 
-    if (*v86.f64 < v131.f32[0])
+    if (*v87.f64 < v133.f32[0])
     {
-      *v195 = v131.i32[0];
-      LODWORD(v86.f64[0]) = v131.i32[0];
+      *v200 = v133.i32[0];
+      LODWORD(v87.f64[0]) = v133.i32[0];
     }
 
-    v132 = vsub_f32(vmla_f32(vcvt_f32_f64(*(a7 + 104)), 0x3F0000003F000000, v130), vmla_f32(vcvt_f32_s32(a6[3]), 0x3F0000003F000000, v129));
-    v133 = vmul_f32(vsub_f32(v127, vdiv_f32(v126, vdup_lane_s32(*&v86.f64[0], 0))), 0x3F0000003F000000);
+    v134 = vsub_f32(vmla_f32(vcvt_f32_f64(*(a7 + 104)), 0x3F0000003F000000, v132), vmla_f32(vcvt_f32_s32(a6[3]), 0x3F0000003F000000, v131));
+    v135 = vmul_f32(vsub_f32(v129, vdiv_f32(v128, vdup_lane_s32(*&v87.f64[0], 0))), 0x3F0000003F000000);
     __asm { FMOV            V2.2S, #0.75 }
 
-    v135 = vmaxnm_f32(vmla_f32(0xBF000000BF000000, _D2, v133), 0);
-    v136 = vminnm_f32(vmaxnm_f32(*(a7 + 24), vsub_f32(v132, v135)), vadd_f32(v135, v132));
-    *(a7 + 24) = v136;
-    v137 = v136.f32[1];
+    v137 = vmaxnm_f32(vmla_f32(0xBF000000BF000000, _D2, v135), 0);
+    v138 = vminnm_f32(vmaxnm_f32(*(a7 + 24), vsub_f32(v134, v137)), vadd_f32(v137, v134));
+    *(a7 + 24) = v138;
+    v139 = v138.f32[1];
   }
 
   else
   {
-    v137 = *(a7 + 28);
+    v139 = *(a7 + 28);
   }
 
-  v138 = a6[2].i32[1];
-  v139 = v138;
-  if (*v86.f64 <= 0.0)
+  v140 = a6[2].i32[1];
+  v141 = v140;
+  if (*v87.f64 <= 0.0)
   {
-    *v86.f64 = 1.0;
+    *v87.f64 = 1.0;
   }
 
-  v140 = v139 / *v86.f64;
-  v141 = *(a7 + 48);
-  v142 = *(a7 + 56) / *(a7 + 100);
-  v143 = *(a7 + 32) + v142 * ((v137 + ((vcvts_n_f32_s32(v138, 1uLL) + a6[1].i32[1]) - (v140 * 0.5))) - *(a7 + 92));
-  *(a7 + 40) = v143;
-  v144 = v142 * v140;
-  v145 = v143 - v141 * 0.5;
-  v146 = v145 + v144 * ((v138 + -1.0) / v138 * 0.5);
-  *(a7 + 64) = v144;
-  *(a7 + 72) = v146;
-  v147 = *(a5 + 40);
-  v217 = *(a5 + 24);
-  v218 = v147;
-  v148 = 0;
+  v142 = v141 / *v87.f64;
+  v143 = *(a7 + 48);
+  v144 = *(a7 + 56) / *(a7 + 100);
+  v145 = *(a7 + 32) + v144 * ((v139 + ((vcvts_n_f32_s32(v140, 1uLL) + a6[1].i32[1]) - (v142 * 0.5))) - *(a7 + 92));
+  *(a7 + 40) = v145;
+  v146 = v144 * v142;
+  v147 = v145 - v143 * 0.5;
+  v148 = v147 + v146 * ((v140 + -1.0) / v140 * 0.5);
+  *(a7 + 64) = v146;
+  *(a7 + 72) = v148;
+  v149 = *(a5 + 40);
+  v223 = *(a5 + 24);
+  v224 = v149;
+  v150 = 0;
   if (*(a5 + 56) == 1)
   {
-    v149 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_PortType);
-    v150 = [*(a5 + 64) objectForKeyedSubscript:v149];
-    v151 = v150;
-    if (v150 && [v150 length] == stru_20.segname)
+    v151 = CFDictionaryGetValue(a1, kFigCaptureStreamMetadata_PortType);
+    v152 = [*(a5 + 64) objectForKeyedSubscript:v151];
+    v153 = v152;
+    if (v152 && [v152 length] == stru_20.segname)
     {
-      v152 = [v151 bytes];
-      *&v217 = FigMotionMultiplyQuaternions(&v217, v152);
-      *(&v217 + 1) = v153;
-      *&v218 = v154;
-      *(&v218 + 1) = v155;
-      LODWORD(v223) = 1065353216;
+      v154 = [v153 bytes];
+      *&v223 = FigMotionMultiplyQuaternions(&v223, v154);
+      *(&v223 + 1) = v155;
+      *&v224 = v156;
+      *(&v224 + 1) = v157;
+      LODWORD(v229) = 1065353216;
       FigCFDictionaryGetFloatIfPresent();
-      v156 = *(a7 + 140);
-      v157 = *a6;
-      v213 = CGPointZero;
+      v158 = *(a7 + 140);
+      v159 = *a6;
+      v219 = CGPointZero;
       buffer.origin = CGPointZero;
-      if (FigMotionComputeRawSensorCenterInBuffer(a1, v157, v156, v156, &buffer))
+      if (FigMotionComputeRawSensorCenterInBuffer(a1, v159, v158, v158, &buffer, *&v229))
       {
-        v158 = *(a7 + 16);
-        v148 = vmul_n_f32(*(v152 + 32), v158);
-        v159 = v198;
+        v160 = *(a7 + 16);
+        v150 = vmul_n_f32(*(v154 + 32), v160);
+        v161 = v204;
       }
 
       else
       {
-        v158 = *(a7 + 16);
-        v160 = vmla_n_f32(vcvt_f32_f64(buffer.origin), *(v152 + 32), v158);
-        v159 = v198;
-        v148 = vsub_f32(v160, vcvt_f32_f64(*v198));
+        v160 = *(a7 + 16);
+        v162 = vmla_n_f32(vcvt_f32_f64(buffer.origin), *(v154 + 32), v160);
+        v161 = v204;
+        v150 = vsub_f32(v162, vcvt_f32_f64(*v204));
       }
 
-      if ((*(v159 + 57) & 1) == 0)
+      if ((*(v161 + 57) & 1) == 0)
       {
-        v161 = *a6;
-        *v226 = v213;
-        if (!FigMotionComputeOpticalCenterInBuffer(a1, v161, v156, v156, 0, v226, v158 / *&v223))
+        v163 = *a6;
+        *v232 = v219;
+        if (!FigMotionComputeOpticalCenterInBuffer(a1, v163, v158, v158, 0, v232, v160 / *&v229))
         {
-          v148 = vcvt_f32_f64(vsubq_f64(*v226, *v159));
+          v150 = vcvt_f32_f64(vsubq_f64(*v232, *v161));
         }
       }
     }
 
-    v20 = v201;
+    v21 = v207;
   }
 
   if (a10)
   {
-    *a10 = v148;
+    *a10 = v150;
   }
 
-  v162 = v144 + v145;
-  GVSComputeMotionBlur(v209, a4, a7, &v217, (a7 + 80));
-  v163 = a8;
+  v164 = v146 + v147;
+  GVSComputeMotionBlur(v215, a4, a7, &v223, (a7 + 80));
+  v165 = a8;
   if (a8)
   {
     if (a13 == 1)
     {
-      FigMotionComputeQuaternionForTimeStamp(v209, a8, v200 + 2066, v146);
-      if (*(v200 + 2066))
+      FigMotionComputeQuaternionForTimeStamp(v215, a8, v206 + 2066, v148);
+      if (*(v206 + 2066))
       {
-        v164 = 1;
+        v166 = 1;
         goto LABEL_133;
       }
 
@@ -4005,49 +4013,49 @@ LABEL_217:
     }
 
     LOBYTE(buffer.origin.x) = 0;
-    *(v200 + 2066) = 1;
+    *(v206 + 2066) = 1;
     if (a13 >= 1)
     {
-      v165 = 0;
-      v166 = a8;
+      v167 = 0;
+      v168 = a8;
       do
       {
-        FigMotionComputeQuaternionForTimeStamp(v209, v166, &buffer, v145 + v165 * ((v162 - v145) / (a13 + -1.0)));
-        *(v200 + 2066) &= LOBYTE(buffer.origin.x);
-        ++v165;
-        v166 += 4;
+        FigMotionComputeQuaternionForTimeStamp(v215, v168, &buffer, v147 + v167 * ((v164 - v147) / (a13 + -1.0)));
+        *(v206 + 2066) &= LOBYTE(buffer.origin.x);
+        ++v167;
+        v168 += 4;
       }
 
-      while (a13 != v165);
+      while (a13 != v167);
     }
 
-    FigMotionComputeQuaternionForTimeStamp(v209, &a8[4 * a13], &buffer, v146);
-    *(v200 + 2066) &= LOBYTE(buffer.origin.x);
+    FigMotionComputeQuaternionForTimeStamp(v215, &a8[4 * a13], &buffer, v148);
+    *(v206 + 2066) &= LOBYTE(buffer.origin.x);
     if ((a13 & 0x80000000) == 0)
     {
-      v164 = a13 + 1;
+      v166 = a13 + 1;
 LABEL_133:
-      v167 = v164;
+      v169 = v166;
       do
       {
-        *v163 = FigMotionMultiplyQuaternions(v163, &v217);
-        *(v163 + 1) = v168;
-        *(v163 + 2) = v169;
-        *(v163 + 3) = v170;
-        v163 += 4;
-        --v167;
+        *v165 = FigMotionMultiplyQuaternions(v165, &v223);
+        *(v165 + 1) = v170;
+        *(v165 + 2) = v171;
+        *(v165 + 3) = v172;
+        v165 += 4;
+        --v169;
       }
 
-      while (v167);
+      while (v169);
     }
   }
 
-  v171 = a11;
+  v173 = a11;
   if (a9)
   {
-    if (v20 && (v172 = [v20 extractGravityData], a8) && v172)
+    if (v21 && (v174 = [v21 extractGravityData], a8) && v174)
     {
-      [v20 computeGravity:a9 forTimestamp:v146];
+      [v21 computeGravity:a9 forTimestamp:v148];
     }
 
     else
@@ -4057,30 +4065,30 @@ LABEL_133:
     }
   }
 
-  v216 = 0;
+  v222 = 0;
   if (a12)
   {
-    v173 = *a12;
-    v174 = *(v205 + 136);
-    FigMotionStashQuadraBinningFactor(theDict, a12);
-    FigMotionUpdateBaseZoomFactorAdjustment(theDict, a12);
-    if ((v173 & 2) != 0 && v174 != *(a12 + 444))
+    v175 = *a12;
+    v176 = *(v211 + 136);
+    FigMotionStashQuadraBinningFactor(theDict, a12, *(v211 + 136));
+    FigMotionUpdateBaseZoomFactorAdjustment(theDict, a12, v176);
+    if ((v175 & 2) != 0 && v176 != *(a12 + 111))
     {
-      *v226 = 0;
-      LODWORD(v223) = 0;
+      *v232 = 0;
+      LODWORD(v229) = 0;
       if (!FigCFDictionaryGetFloat32IfPresent() || !FigCFDictionaryGetFloat32IfPresent())
       {
         FigGetUpTime();
-        v192 = FigHostTimeToNanoseconds();
-        if (!low_freq_error_logging_last_log || (v192 - low_freq_error_logging_last_log) >= 0x3B9ACA00)
+        v195 = FigHostTimeToNanoseconds();
+        if (!low_freq_error_logging_last_log || (v195 - low_freq_error_logging_last_log) >= 0x3B9ACA00)
         {
           if (low_freq_error_logging_filtered)
           {
             low_freq_error_logging_filtered = 0;
           }
 
-          low_freq_error_logging_last_log = v192;
-          if ((v173 & 4) == 0)
+          low_freq_error_logging_last_log = v195;
+          if ((v175 & 4) == 0)
           {
             goto LABEL_163;
           }
@@ -4089,62 +4097,62 @@ LABEL_133:
         }
 
         ++low_freq_error_logging_filtered;
-        if ((v173 & 4) != 0)
+        if ((v175 & 4) != 0)
         {
 LABEL_148:
-          v177 = *(a12 + 444);
-          if (v174 != v177)
+          v179 = *(a12 + 111);
+          if (v176 != v179)
           {
-            v178 = *(a12 + 448);
-            if (v174 != v178)
+            v180 = *(a12 + 112);
+            if (v176 != v180)
             {
-              v179 = 0;
-              v180 = BravoCurrentToReferenceMapping[3 * v177 + v174];
-              if (v177 == 2 && v178 != 2)
+              v181 = 0;
+              v182 = BravoCurrentToReferenceMapping[3 * v179 + v176];
+              if (v179 == 2 && v180 != 2)
               {
                 LODWORD(buffer.origin.x) = 4;
                 FigCFDictionaryGetInt32IfPresent();
-                v179 = LODWORD(buffer.origin.x) != 4;
+                v181 = LODWORD(buffer.origin.x) != 4;
               }
 
-              v181 = v174 == 2 || v179;
-              FigMotionComputeParallaxShift(*(a12 + 48 * v180 + 120), *(a12 + 48 * v180 + 136), *(v205 + 16), theDict, a12, v174, v181, a12 + 452);
-              *(a12 + 528) = *(v205 + 16);
+              v183 = v176 == 2 || v181;
+              FigMotionComputeParallaxShift(theDict, a12, a12[12 * v182 + 30], a12[12 * v182 + 34], *(v211 + 16), v176, v183, (a12 + 113));
+              a12[132] = *(v211 + 16);
             }
 
-            if ((*(a12 + 520) & 1) == 0)
+            if ((a12[130] & 1) == 0)
             {
-              LODWORD(v175) = *(a12 + 456);
-              v182.f32[0] = FigMotionAdjustParallaxShiftForScalingFactor(*(a12 + 452), v175, *(a12 + 528), *(v205 + 16));
-              v182.i32[1] = v183;
-              v216 = vadd_f32(v216, v182);
+              *&v177 = a12[114];
+              v184.f32[0] = FigMotionAdjustParallaxShiftForScalingFactor(a12[113], v177, a12[132], *(v211 + 16));
+              v184.i32[1] = v185;
+              v222 = vadd_f32(v222, v184);
             }
           }
 
-          if (v174 != *(a12 + 448))
+          if (v176 != *(a12 + 112))
           {
             FigMotionClearFocalLengthData(a12);
-            if (v174 == *(a12 + 444))
+            if (v176 == *(a12 + 111))
             {
-              *(a12 + 452) = 0;
+              *(a12 + 113) = 0;
             }
           }
 
-          FigMotionStashFocalLengthData(theDict, a12);
+          FigMotionStashFocalLengthData(theDict, a12, v176);
         }
 
 LABEL_163:
         x_low = 0;
-        *(a12 + 448) = v174;
-        v185 = v215;
-        if (!v215 || !a11)
+        *(a12 + 112) = v176;
+        v187 = v221;
+        if (!v221 || !a11)
         {
           goto LABEL_194;
         }
 
-        v186 = vadd_f32(v148, v216);
-        v187 = v205;
-        if (!*(v205 + 12))
+        v188 = vadd_f32(v150, v222);
+        v189 = v211;
+        if (!*(v211 + 12))
         {
           goto LABEL_185;
         }
@@ -4152,17 +4160,17 @@ LABEL_163:
         goto LABEL_170;
       }
 
-      *&buffer.origin.x = vcvt_f32_f64(*v198);
-      v176 = FigMotionComputeBravoTranslation(*v226, *&v223, theDict, a12, v174, &buffer, &v216);
-      if (v176)
+      *&buffer.origin.x = vcvt_f32_f64(*v204);
+      v178 = FigMotionComputeBravoTranslation(theDict, a12, v176, &buffer, &v222, *v232, *&v229);
+      if (v178)
       {
-        x_low = v176;
-        GVSExtractMetadataFromTopToBottomRows_cold_16();
+        x_low = v178;
+        GVSExtractMetadataFromTopToBottomRows_cold_16(v178, &buffer, &v229, v232);
         goto LABEL_194;
       }
     }
 
-    if ((v173 & 4) != 0)
+    if ((v175 & 4) != 0)
     {
       goto LABEL_148;
     }
@@ -4171,17 +4179,17 @@ LABEL_163:
   }
 
   x_low = 0;
-  v185 = v215;
-  if (!v215 || !a11)
+  v187 = v221;
+  if (!v221 || !a11)
   {
     goto LABEL_194;
   }
 
-  v186 = vadd_f32(v148, 0);
-  v187 = v205;
-  if (!*(v205 + 12))
+  v188 = vadd_f32(v150, 0);
+  v189 = v211;
+  if (!*(v211 + 12))
   {
-    if (*(v198 + 56) != 1)
+    if (*(v204 + 56) != 1)
     {
       bzero(a11, 8 * a6[6].i32[1]);
 LABEL_193:
@@ -4190,16 +4198,16 @@ LABEL_193:
     }
 
 LABEL_185:
-    v193 = a6[6].u32[1];
-    if (v193 >= 1)
+    v196 = a6[6].u32[1];
+    if (v196 >= 1)
     {
       do
       {
-        *v171++ = v186;
-        --v193;
+        *v173++ = v188;
+        --v196;
       }
 
-      while (v193);
+      while (v196);
     }
 
     goto LABEL_193;
@@ -4210,43 +4218,44 @@ LABEL_170:
   {
     if (a6[6].i32[1] >= 1)
     {
-      v188 = 0;
-      v189 = 0;
-      v190 = v139;
+      v191 = 0;
+      v192 = 0;
+      v193 = v141;
       do
       {
-        if (v189 >= v138 - 1)
+        if (v192 >= v140 - 1)
         {
-          v191 = v138 - 1;
+          v194 = v140 - 1;
         }
 
         else
         {
-          v191 = v189;
+          v194 = v192;
         }
 
-        FigMotionComputeLensMovementForTimeStamp(v185, v171, *(v187 + 136), v145 + (v162 - v145) * v191 / v190, *(v187 + 16));
-        *v171 = vadd_f32(v186, *v171);
-        ++v171;
-        ++v188;
-        v189 = a6[7].i32[1] + v191;
+        FigMotionComputeLensMovementForTimeStamp(v187, v173, *(v189 + 136), v147 + (v164 - v147) * v194 / v193, *(v189 + 16));
+        *v173 = vadd_f32(v188, *v173);
+        ++v173;
+        ++v191;
+        v192 = a6[7].i32[1] + v194;
       }
 
-      while (v188 < a6[6].i32[1]);
+      while (v191 < a6[6].i32[1]);
     }
 
     goto LABEL_193;
   }
 
-  x_low = FigMotionComputeLensMovementForTimeStamp(v185, a11, *(v187 + 136), v146, *(v187 + 16));
-  if (x_low)
+  v190 = FigMotionComputeLensMovementForTimeStamp(v187, a11, *(v189 + 136), v148, *(v189 + 16));
+  x_low = v190;
+  if (v190)
   {
-    GVSExtractMetadataFromTopToBottomRows_cold_17();
+    GVSExtractMetadataFromTopToBottomRows_cold_17(v190);
   }
 
   else
   {
-    *a11 = vadd_f32(v186, *a11);
+    *a11 = vadd_f32(v188, *a11);
   }
 
 LABEL_194:
@@ -4258,26 +4267,26 @@ uint64_t GVSComputeMotionBlur(uint64_t a1, uint64_t a2, uint64_t a3, double *a4,
 {
   if (!a5)
   {
-    GVSComputeMotionBlur_cold_6(&v27);
-    return v27.u32[0];
+    GVSComputeMotionBlur_cold_6(&v28);
+    return v28.u32[0];
   }
 
   if (!a1)
   {
-    GVSComputeMotionBlur_cold_5(&v27);
-    return v27.u32[0];
+    GVSComputeMotionBlur_cold_5(&v28);
+    return v28.u32[0];
   }
 
   if (!a3)
   {
-    GVSComputeMotionBlur_cold_4(&v27);
-    return v27.u32[0];
+    GVSComputeMotionBlur_cold_4(&v28);
+    return v28.u32[0];
   }
 
   if (!a4)
   {
-    GVSComputeMotionBlur_cold_3(&v27);
-    return v27.u32[0];
+    GVSComputeMotionBlur_cold_3(&v28);
+    return v28.u32[0];
   }
 
   *a5 = 0;
@@ -4285,33 +4294,33 @@ uint64_t GVSComputeMotionBlur(uint64_t a1, uint64_t a2, uint64_t a3, double *a4,
   v11 = *(a3 + 48) * 0.5;
   v12 = v10 - v11;
   v13 = v10 + v11;
+  v36 = 1;
   v35 = 1;
-  v34 = 1;
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  FigMotionComputeQuaternionForTimeStamp(a1, &v32, &v35, v10 - v11);
-  FigMotionComputeQuaternionForTimeStamp(a1, &v30, &v34, v13);
-  if (v35 && v34)
+  v32 = 0u;
+  FigMotionComputeQuaternionForTimeStamp(a1, &v33, &v36, v10 - v11);
+  FigMotionComputeQuaternionForTimeStamp(a1, &v31, &v35, v13);
+  if (v36 && v35)
   {
-    *&v32 = FigMotionMultiplyQuaternions(&v32, a4);
-    *(&v32 + 1) = v14;
-    *&v33 = v15;
-    *(&v33 + 1) = v16;
-    *&v30 = FigMotionMultiplyQuaternions(&v30, a4);
-    *(&v30 + 1) = v17;
-    *&v31 = v18;
-    *(&v31 + 1) = v19;
-    v29 = 0;
-    v28[0] = FigMotionMultiplyByInverseOfQuaternion(&v30, &v32);
-    v28[1] = v20;
-    v28[2] = v21;
-    v28[3] = v22;
-    v23 = GVSComputeTranslationFromCameraMotion(v28, &v29, *(a3 + 4));
-    if (v23)
+    *&v33 = FigMotionMultiplyQuaternions(&v33, a4);
+    *(&v33 + 1) = v15;
+    *&v34 = v16;
+    *(&v34 + 1) = v17;
+    *&v31 = FigMotionMultiplyQuaternions(&v31, a4);
+    *(&v31 + 1) = v18;
+    *&v32 = v19;
+    *(&v32 + 1) = v20;
+    v30 = 0;
+    v29[0] = FigMotionMultiplyByInverseOfQuaternion(&v31, &v33);
+    v29[1] = v21;
+    v29[2] = v22;
+    v29[3] = v23;
+    v24 = GVSComputeTranslationFromCameraMotion(v29, &v30, *(a3 + 4));
+    if (v24)
     {
-      v24 = v23;
+      v25 = v24;
       GVSComputeMotionBlur_cold_1();
     }
 
@@ -4319,25 +4328,25 @@ uint64_t GVSComputeMotionBlur(uint64_t a1, uint64_t a2, uint64_t a3, double *a4,
     {
       if (a2 && *(a3 + 12))
       {
-        v26 = 0;
         v27 = 0;
-        FigMotionComputeLensMovementForTimeStamp(a2, &v27, *(a3 + 136), v12, *(a3 + 16));
-        FigMotionComputeLensMovementForTimeStamp(a2, &v26, *(a3 + 136), v13, *(a3 + 16));
-        v29 = vsub_f32(v29, vsub_f32(v26, v27));
+        v28 = 0;
+        FigMotionComputeLensMovementForTimeStamp(a2, &v28, *(a3 + 136), v12, *(a3 + 16));
+        FigMotionComputeLensMovementForTimeStamp(a2, &v27, *(a3 + 136), v13, *(a3 + 16));
+        v30 = vsub_f32(v30, vsub_f32(v27, v28));
       }
 
-      v24 = 0;
-      *a5 = v29;
+      v25 = 0;
+      *a5 = v30;
     }
   }
 
   else
   {
-    GVSComputeMotionBlur_cold_2();
+    GVSComputeMotionBlur_cold_2(v14);
     return 0xFFFFFFFFLL;
   }
 
-  return v24;
+  return v25;
 }
 
 uint64_t GVSExtractCameraGeometryFromCameraInfoByPortType(void *a1, void *a2)
@@ -4671,22 +4680,23 @@ uint64_t AffineTransformArrayApply(void *a1, opaqueCMSampleBuffer *a2, __CVBuffe
     v21 = v20 != 0;
 
     WidthOfPlane = CVPixelBufferGetWidthOfPlane(ImageBuffer, 0);
-    v28 = COERCE_DOUBLE(__PAIR64__(CVPixelBufferGetHeightOfPlane(ImageBuffer, 0), WidthOfPlane));
+    v29 = COERCE_DOUBLE(__PAIR64__(CVPixelBufferGetHeightOfPlane(ImageBuffer, 0), WidthOfPlane));
     v23 = CVPixelBufferGetWidthOfPlane(a3, 0);
-    v24 = [v16 setTransformsArray:a4 transforms3x3:a5 transformStrides:v21 inputSize:a7 outputSize:a8 pixelBufferValidRect:v28 isQuadraSensor:{COERCE_DOUBLE(__PAIR64__(CVPixelBufferGetHeightOfPlane(a3, 0), v23))}];
+    v24 = [v16 setTransformsArray:a4 transforms3x3:a5 transformStrides:v21 inputSize:a7 outputSize:a8 pixelBufferValidRect:v29 isQuadraSensor:{COERCE_DOUBLE(__PAIR64__(CVPixelBufferGetHeightOfPlane(a3, 0), v23))}];
+    v25 = v24;
     if (v24)
     {
-      AffineTransformArrayApply_cold_1();
+      AffineTransformArrayApply_cold_1(v24);
     }
 
     else
     {
-      v25 = [v16 renderWithSampleBuffer:a2 pixelBufferValidRect:a5 ltmLUT:v15 outputPixelBuffer:a3 isAttachmentRendering:0];
-      if (v25)
+      v26 = [v16 renderWithSampleBuffer:a2 pixelBufferValidRect:a5 ltmLUT:v15 outputPixelBuffer:a3 isAttachmentRendering:0];
+      if (v26)
       {
-        v27 = v25;
+        v28 = v26;
         AffineTransformArrayApply_cold_2();
-        v24 = v27;
+        v25 = v28;
       }
     }
   }
@@ -4694,10 +4704,10 @@ uint64_t AffineTransformArrayApply(void *a1, opaqueCMSampleBuffer *a2, __CVBuffe
   else
   {
     AffineTransformArrayApply_cold_3();
-    v24 = 4294954516;
+    v25 = 4294954516;
   }
 
-  return v24;
+  return v25;
 }
 
 uint64_t AffineTransformArrayApplyOnAttachmentPixelBuffer(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, double a7, double a8, double a9, double a10)
@@ -4754,11 +4764,11 @@ uint64_t AffineTransformArrayApplyOnAttachment(void *a1, opaqueCMSampleBuffer *a
 LABEL_13:
     v28 = 0;
 LABEL_14:
-    v30 = 4294954516;
+    v31 = 4294954516;
     goto LABEL_9;
   }
 
-  v32 = *&v21;
+  v33 = *&v21;
   v23 = CMGetAttachment(a2, @"MetadataDictionary", 0);
   v19 = v23;
   if (!v23)
@@ -4770,10 +4780,10 @@ LABEL_14:
   v24 = [(__CVBuffer *)v23 objectForKeyedSubscript:@"QuadraBinningFactor"];
   v25 = v24 != 0;
 
-  v26 = [v17 setTransformsArray:a5 transforms3x3:a6 transformStrides:v25 inputSize:a7 outputSize:a8 pixelBufferValidRect:v32 isQuadraSensor:a9];
+  v26 = [v17 setTransformsArray:a5 transforms3x3:a6 transformStrides:v25 inputSize:a7 outputSize:a8 pixelBufferValidRect:v33 isQuadraSensor:a9];
   if (v26)
   {
-    v30 = v26;
+    v31 = v26;
     AffineTransformArrayApplyOnAttachment_cold_2();
     v28 = 0;
     goto LABEL_9;
@@ -4797,14 +4807,15 @@ LABEL_14:
 
   CMSetAttachment(v29, @"AttachmentName", v16, 1u);
   v30 = [v17 renderWithSampleBuffer:v29 pixelBufferValidRect:a6 ltmLUT:0 outputPixelBuffer:a4 isAttachmentRendering:1];
+  v31 = v30;
   if (v30)
   {
-    AffineTransformArrayApplyOnAttachment_cold_3();
+    AffineTransformArrayApplyOnAttachment_cold_3(v30);
   }
 
 LABEL_9:
 
-  return v30;
+  return v31;
 }
 
 void AffineTransformFinish(void *a1)
@@ -4974,7 +4985,7 @@ void sub_206BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void _ispCallbackHandler(void *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+void _ispCallbackHandler(void *a1, uint64_t a2, int a3, uint64_t a4)
 {
   v7 = a1;
   *(v7 + 26) = a2;
@@ -5157,14 +5168,14 @@ uint64_t portIndexFromPortType(const void *a1, int *a2)
 {
   if (!a1)
   {
-    portIndexFromPortType_cold_2(&v7);
-    return v7;
+    portIndexFromPortType_cold_2(&v9);
+    return v9;
   }
 
   if (!a2)
   {
-    portIndexFromPortType_cold_1(&v6);
-    return v6;
+    portIndexFromPortType_cold_1(&v8);
+    return v8;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingCamera))
@@ -5177,64 +5188,64 @@ uint64_t portIndexFromPortType(const void *a1, int *a2)
   if (CFEqual(a1, kFigCapturePortType_BackFacingTelephotoCamera))
   {
     result = 0;
-    v5 = 1;
+    v6 = 1;
 LABEL_17:
-    *a2 = v5;
+    *a2 = v6;
     return result;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingSuperWideCamera))
   {
     result = 0;
-    v5 = 2;
+    v6 = 2;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingCamera))
   {
     result = 0;
-    v5 = 3;
+    v6 = 3;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingSuperWideCamera))
   {
     result = 0;
-    v5 = 4;
+    v6 = 4;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_FrontFacingInfraredCamera))
   {
     result = 0;
-    v5 = 5;
+    v6 = 5;
     goto LABEL_17;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingSparseTimeOfFlightCamera))
   {
     result = 0;
-    v5 = 6;
+    v6 = 6;
     goto LABEL_17;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954513, "(Fig)", 93, v2);
 }
 
 uint64_t bravoTransitionCameraIndexFromPortType(const void *a1, int *a2)
 {
   if (!a1)
   {
-    bravoTransitionCameraIndexFromPortType_cold_2(&v7);
-    return v7;
+    bravoTransitionCameraIndexFromPortType_cold_2(&v9);
+    return v9;
   }
 
   if (!a2)
   {
-    bravoTransitionCameraIndexFromPortType_cold_1(&v6);
-    return v6;
+    bravoTransitionCameraIndexFromPortType_cold_1(&v8);
+    return v8;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingCamera))
@@ -5247,22 +5258,22 @@ uint64_t bravoTransitionCameraIndexFromPortType(const void *a1, int *a2)
   if (CFEqual(a1, kFigCapturePortType_BackFacingTelephotoCamera))
   {
     result = 0;
-    v5 = 1;
+    v6 = 1;
 LABEL_9:
-    *a2 = v5;
+    *a2 = v6;
     return result;
   }
 
   if (CFEqual(a1, kFigCapturePortType_BackFacingSuperWideCamera))
   {
     result = 0;
-    v5 = 2;
+    v6 = 2;
     goto LABEL_9;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954513, "(Fig)", 140, v2);
 }
 
 void FigMotionQuaternionFromDeltaRotation(float *a1)
@@ -5274,7 +5285,7 @@ void FigMotionQuaternionFromDeltaRotation(float *a1)
   }
 }
 
-uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int width, uint64_t a3, int a4, uint64_t a5, float *a6)
+uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int width, uint64_t a3, unsigned int a4, uint64_t a5, float *a6)
 {
   if (!a1)
   {
@@ -5292,7 +5303,7 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
   origin = CGRectZero.origin;
   v19 = CGRectZero.origin;
   v20 = size;
-  SensorValidCropRect = FigMotionGetSensorValidCropRect(a1);
+  SensorValidCropRect = FigMotionGetSensorValidCropRect(a1, &v19);
   if (SensorValidCropRect)
   {
     v13 = SensorValidCropRect;
@@ -5329,37 +5340,47 @@ uint64_t FigMotionComputeLensPositionScalingFactor(const __CFDictionary *a1, int
   return v13;
 }
 
-uint64_t FigMotionGetSensorValidCropRect(const __CFDictionary *a1)
+uint64_t FigMotionGetSensorValidCropRect(const __CFDictionary *a1, uint64_t a2)
 {
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SensorRawValidBufferRect))
+  if (!CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_SensorRawValidBufferRect))
   {
-    if (!FigCFDictionaryGetCGRectIfPresent())
+    if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_TotalSensorCropRect))
     {
-      goto LABEL_10;
+      if (!FigCFDictionaryGetCGRectIfPresent())
+      {
+        v4 = 381;
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      if (!CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_RawCropRect))
+      {
+        v4 = 393;
+        goto LABEL_12;
+      }
+
+      if (!FigCFDictionaryGetCGRectIfPresent())
+      {
+        v4 = 388;
+        goto LABEL_12;
+      }
     }
 
     return 0;
   }
 
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_TotalSensorCropRect))
-  {
-    if (!FigCFDictionaryGetCGRectIfPresent())
-    {
-      goto LABEL_10;
-    }
-
-    return 0;
-  }
-
-  if (CFDictionaryContainsKey(a1, kFigCaptureStreamMetadata_RawCropRect) && FigCFDictionaryGetCGRectIfPresent())
+  if (FigCFDictionaryGetCGRectIfPresent())
   {
     return 0;
   }
 
-LABEL_10:
-  fig_log_get_emitter();
+  v4 = 373;
+LABEL_12:
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954516, "(Fig)", v4, v2);
 }
 
 uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a4)
@@ -5372,7 +5393,7 @@ uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a
 
   else
   {
-    v9 = Length;
+    v10 = Length;
     BytePtr = CFDataGetBytePtr(a1);
     if (*BytePtr >= 2u)
     {
@@ -5381,13 +5402,13 @@ uint64_t FigMotionGetISPHallData(const __CFData *a1, uint64_t a2, int *a3, int a
 
     else
     {
-      v11 = 16;
+      v12 = 16;
       if (*BytePtr == 1)
       {
-        v11 = 24;
+        v12 = 24;
       }
 
-      if (v9 == v11 * *(BytePtr + 1) + 8)
+      if (v10 == v12 * *(BytePtr + 1) + 8)
       {
         if (a3)
         {
@@ -5407,7 +5428,7 @@ LABEL_26:
   if (LODWORD(time.value))
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", value_low, v4, v25, time.value, time.timescale, time.epoch, v27, v28);
     return value_low;
   }
 
@@ -5418,35 +5439,35 @@ LABEL_26:
   }
 
 LABEL_7:
-  v12 = *(BytePtr + 1);
-  if (v12 >= a4)
+  v13 = *(BytePtr + 1);
+  if (v13 >= a4)
   {
-    v12 = a4;
+    v13 = a4;
   }
 
-  *a3 = v12;
+  *a3 = v13;
   if (*BytePtr == 1)
   {
-    if (v12 >= 1)
+    if (v13 >= 1)
     {
-      v18 = 0;
-      v19 = (BytePtr + 16);
-      v20 = (a2 + 12);
+      v19 = 0;
+      v20 = (BytePtr + 16);
+      v21 = (a2 + 12);
       do
       {
-        v21 = FigHostTimeToNanoseconds();
-        CMTimeMake(&time, v21, 1000000000);
-        *(v20 - 3) = CMTimeGetSeconds(&time);
-        *(v20 - 1) = *v19 * 0.0039062;
-        *v20 = v19[1] * 0.0039062;
-        v20[1] = v19[2] * 0.0039062;
-        v20[2] = v19[3] * 0.0039062;
-        ++v18;
-        v19 += 6;
+        v22 = FigHostTimeToNanoseconds();
+        CMTimeMake(&time, v22, 1000000000);
+        *(v21 - 3) = CMTimeGetSeconds(&time);
+        *(v21 - 1) = *v20 * 0.0039062;
+        *v21 = v20[1] * 0.0039062;
+        v21[1] = v20[2] * 0.0039062;
+        v21[2] = v20[3] * 0.0039062;
+        ++v19;
         v20 += 6;
+        v21 += 6;
       }
 
-      while (v18 < *a3);
+      while (v19 < *a3);
     }
   }
 
@@ -5457,26 +5478,26 @@ LABEL_7:
       return 4294954515;
     }
 
-    if (v12 >= 1)
+    if (v13 >= 1)
     {
-      v13 = 0;
-      v14 = (a2 + 16);
-      v15 = (BytePtr + 20);
+      v14 = 0;
+      v15 = (a2 + 16);
+      v16 = (BytePtr + 20);
       do
       {
-        v16 = FigHostTimeToNanoseconds();
-        CMTimeMake(&time, v16, 1000000000);
-        *(v14 - 2) = CMTimeGetSeconds(&time);
-        *(v14 - 2) = *(v15 - 1) * 0.0039062;
-        v17 = *v15;
-        v15 += 4;
-        *(v14 - 1) = v17 * 0.0039062;
-        *v14 = 0.0;
-        v14 += 3;
-        ++v13;
+        v17 = FigHostTimeToNanoseconds();
+        CMTimeMake(&time, v17, 1000000000);
+        *(v15 - 2) = CMTimeGetSeconds(&time);
+        *(v15 - 2) = *(v16 - 1) * 0.0039062;
+        v18 = *v16;
+        v16 += 4;
+        *(v15 - 1) = v18 * 0.0039062;
+        *v15 = 0.0;
+        v15 += 3;
+        ++v14;
       }
 
-      while (v13 < *a3);
+      while (v14 < *a3);
     }
   }
 
@@ -5500,7 +5521,7 @@ uint64_t FigMotionClearFocalLengthData(uint64_t a1)
   }
 }
 
-uint64_t FigMotionStashQuadraBinningFactor(uint64_t a1, uint64_t a2)
+uint64_t FigMotionStashQuadraBinningFactor(uint64_t a1, uint64_t a2, int a3)
 {
   if (a1 && a2)
   {
@@ -5510,12 +5531,12 @@ uint64_t FigMotionStashQuadraBinningFactor(uint64_t a1, uint64_t a2)
 
   else
   {
-    FigMotionStashQuadraBinningFactor_cold_1(&v3);
-    return v3;
+    FigMotionStashQuadraBinningFactor_cold_1(&v4);
+    return v4;
   }
 }
 
-uint64_t FigMotionStashFocalLengthData(uint64_t a1, uint64_t a2)
+uint64_t FigMotionStashFocalLengthData(uint64_t a1, uint64_t a2, int a3)
 {
   if (a1 && a2)
   {
@@ -5527,12 +5548,12 @@ uint64_t FigMotionStashFocalLengthData(uint64_t a1, uint64_t a2)
 
   else
   {
-    FigMotionStashFocalLengthData_cold_1(&v3);
-    return v3;
+    FigMotionStashFocalLengthData_cold_1(&v4);
+    return v4;
   }
 }
 
-uint64_t FigMotionUpdateBaseZoomFactorAdjustment(uint64_t a1, uint64_t a2)
+uint64_t FigMotionUpdateBaseZoomFactorAdjustment(uint64_t a1, uint64_t a2, int a3)
 {
   if (a1 && a2)
   {
@@ -5542,14 +5563,14 @@ uint64_t FigMotionUpdateBaseZoomFactorAdjustment(uint64_t a1, uint64_t a2)
 
   else
   {
-    FigMotionUpdateBaseZoomFactorAdjustment_cold_1(&v3);
-    return v3;
+    FigMotionUpdateBaseZoomFactorAdjustment_cold_1(&v4);
+    return v4;
   }
 }
 
-uint64_t FigMotionComputeBravoTranslation(float a1, float a2, uint64_t a3, uint64_t a4, int a5, float32x2_t *a6, float32x2_t *a7)
+uint64_t FigMotionComputeBravoTranslation(uint64_t a1, uint64_t a2, int a3, float32x2_t *a4, float32x2_t *a5, float a6, float a7)
 {
-  _S8 = a1;
+  _S8 = a6;
   v36 = 0.0;
   if (!FigCFDictionaryGetFloatIfPresent())
   {
@@ -5559,23 +5580,23 @@ uint64_t FigMotionComputeBravoTranslation(float a1, float a2, uint64_t a3, uint6
       return v37;
     }
 
-    v36 = 0.0 * a2;
+    v36 = 0.0 * a7;
   }
 
-  v14 = *(a4 + 444);
-  v35 = *(a4 + 4 + 8 * v14);
-  _D1 = *(a4 + 4 + 8 * a5);
-  v16 = BravoCurrentToReferenceMapping_0[3 * v14 + a5];
-  v17 = (*(a4 + 4 * v16 + 80) * *(a4 + 40 + 4 * a5)) / *(a4 + 40 + 4 * v14);
-  v18 = (*(a4 + 64 + 4 * a5) * _S8) / *(a4 + 64 + 4 * v14);
-  v19 = COERCE_FLOAT(*a6) + (v17 * (v18 * *&v35));
-  v20 = COERCE_FLOAT(HIDWORD(*a6)) - (COERCE_FLOAT(HIDWORD(*a6)) + (v17 * (v18 * *(&v35 + 1))));
+  v14 = *(a2 + 444);
+  v35 = *(a2 + 4 + 8 * v14);
+  _D1 = *(a2 + 4 + 8 * a3);
+  v16 = BravoCurrentToReferenceMapping_0[3 * v14 + a3];
+  v17 = (*(a2 + 4 * v16 + 80) * *(a2 + 40 + 4 * a3)) / *(a2 + 40 + 4 * v14);
+  v18 = (*(a2 + 64 + 4 * a3) * _S8) / *(a2 + 64 + 4 * v14);
+  v19 = COERCE_FLOAT(*a4) + (v17 * (v18 * *&v35));
+  v20 = COERCE_FLOAT(HIDWORD(*a4)) - (COERCE_FLOAT(HIDWORD(*a4)) + (v17 * (v18 * *(&v35 + 1))));
   __asm { FMLA            S4, S8, V1.S[1] }
 
-  v34.f32[0] = COERCE_FLOAT(*a6) + (_S8 * *&_D1);
+  v34.f32[0] = COERCE_FLOAT(*a4) + (_S8 * *&_D1);
   v34.i32[1] = _S4;
-  v26 = a4 + 48 * v16;
-  v27 = COERCE_FLOAT(*a6) - v19;
+  v26 = a2 + 48 * v16;
+  v27 = COERCE_FLOAT(*a4) - v19;
   *v13.i32 = ((v20 * *(v26 + 144)) + (*(v26 + 140) * v27)) + (*(v26 + 148) * v36);
   v28 = 0;
   if (fabsf(*v13.i32) > 0.00000001 && v36 > 0.00000001)
@@ -5587,11 +5608,11 @@ uint64_t FigMotionComputeBravoTranslation(float a1, float a2, uint64_t a3, uint6
     v31.i32[1] = v29[5];
     v30.i32[1] = v29[4];
     v32.i32[1] = v29[6];
-    v28 = vsub_f32(vadd_f32(v34, vdiv_f32(vmul_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(v31, v20), v30, v27), v32, v36), v36), vdup_lane_s32(v13, 0))), *a6);
+    v28 = vsub_f32(vadd_f32(v34, vdiv_f32(vmul_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(v31, v20), v30, v27), v32, v36), v36), vdup_lane_s32(v13, 0))), *a4);
   }
 
   result = 0;
-  *a7 = v28;
+  *a5 = v28;
   return result;
 }
 
@@ -6299,7 +6320,9 @@ uint64_t FigMotionExtractCameraInfo(const __CFDictionary *a1, uint64_t a2, unsig
   x_low = LODWORD(point.x);
   if (LODWORD(point.x))
   {
-    goto LABEL_28;
+    emitter = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", emitter, "Fig", "err == 0 ", "bail", 0, "FigMotionProcessingUtilities.c", 2402, x_low);
+    return x_low;
   }
 
 LABEL_6:
@@ -6309,9 +6332,9 @@ LABEL_6:
     v10 = Value;
     if (CFDataGetLength(Value) == 48)
     {
-      v21.location = 0;
-      v21.length = 48;
-      CFDataGetBytes(v10, v21, (a2 + 48 * a4 + 108));
+      v23.location = 0;
+      v23.length = 48;
+      CFDataGetBytes(v10, v23, (a2 + 48 * a4 + 108));
       goto LABEL_9;
     }
 
@@ -6326,9 +6349,8 @@ LABEL_6:
   x_low = LODWORD(point.x);
   if (LODWORD(point.x))
   {
-LABEL_28:
-    fig_log_get_emitter();
-    FigDebugAssert3();
+    v21 = fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21, "Fig", "err == 0 ", "bail", 0, "FigMotionProcessingUtilities.c", 2405, x_low);
     return x_low;
   }
 
@@ -6391,7 +6413,7 @@ LABEL_17:
 LABEL_18:
   if (x_low)
   {
-    FigMotionExtractCameraInfo_cold_9();
+    FigMotionExtractCameraInfo_cold_9(x_low);
   }
 
   return x_low;
@@ -6476,27 +6498,27 @@ uint64_t FigMotionComputeAverageSpherePosition()
   v8 = v24;
   v9 = valuePtr;
   *v2 = 0;
-  v27 = 0;
+  v26 = 0;
   *v2 = 0;
   v10 = CFDictionaryGetValue(v5, kFigCaptureStreamMetadata_ISPHallData);
   if (v10)
   {
-    ISPHallData = FigMotionGetISPHallData(v10, v25, &v27, 510);
+    ISPHallData = FigMotionGetISPHallData(v10, v25, &v26, 510);
     if (ISPHallData)
     {
       v21 = ISPHallData;
-      FigMotionComputeAverageSpherePosition_cold_1();
+      FigMotionComputeAverageSpherePosition_cold_1(ISPHallData);
       return v21;
     }
 
-    v12 = v27;
-    if (v27 >= 1)
+    v12 = v26;
+    if (v26 >= 1)
     {
       v13 = 0;
       v14 = v4 + v9 * -0.5;
       v15 = v8 / 1000000.0 + v14;
-      v16 = &v26;
-      v17 = v27;
+      v16 = &v25[1];
+      v17 = v26;
       do
       {
         v18 = *&v16[-1];
@@ -6520,12 +6542,12 @@ uint64_t FigMotionComputeAverageSpherePosition()
       else
       {
         v20 = v12 - 1;
-        if (*v25 > v15)
+        if (v25[0] > v15)
         {
           v20 = 0;
         }
 
-        *v2 = v25[3 * v20 + 1];
+        *v2 = *&v25[3 * v20 + 1];
         low_freq_error_logging();
       }
     }
@@ -6549,9 +6571,10 @@ uint64_t FigMotionAdjustPointForSphereMovement(uint64_t a1, float64x2_t *a2, flo
   if (a1)
   {
     v7 = FigMotionComputeAverageSpherePosition();
+    v8 = v7;
     if (v7)
     {
-      FigMotionAdjustPointForSphereMovement_cold_1();
+      FigMotionAdjustPointForSphereMovement_cold_1(v7);
     }
 
     else
@@ -6562,11 +6585,11 @@ uint64_t FigMotionAdjustPointForSphereMovement(uint64_t a1, float64x2_t *a2, flo
 
   else
   {
-    FigMotionAdjustPointForSphereMovement_cold_2(&v9);
-    return v9;
+    FigMotionAdjustPointForSphereMovement_cold_2(&v10);
+    return v10;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t FigMotionMapPointFromRawToBuffer(const __CFDictionary *a1, uint64_t a2, int a3, int a4, float64x2_t *a5, float64_t a6, float64_t a7, float a8)
@@ -6575,81 +6598,83 @@ uint64_t FigMotionMapPointFromRawToBuffer(const __CFDictionary *a1, uint64_t a2,
   {
     size = CGRectZero.size;
     origin = CGRectZero.origin;
-    v31 = CGRectZero.origin;
-    SensorValidCropRect = FigMotionGetSensorValidCropRect(a1);
+    v32 = CGRectZero.origin;
+    v33 = size;
+    SensorValidCropRect = FigMotionGetSensorValidCropRect(a1, &v32);
+    v14 = SensorValidCropRect;
     if (SensorValidCropRect)
     {
-      FigMotionMapPointFromRawToBuffer_cold_1();
+      FigMotionMapPointFromRawToBuffer_cold_1(SensorValidCropRect);
     }
 
     else
     {
       FigCFDictionaryGetCGRectIfPresent();
-      v33.origin = origin;
-      v33.size = size;
-      v34.origin.x = CGRectZero.origin.x;
-      v34.origin.y = CGRectZero.origin.y;
-      v34.size.width = CGRectZero.size.width;
-      v34.size.height = CGRectZero.size.height;
-      if (CGRectEqualToRect(v33, v34))
+      v35.origin = origin;
+      v35.size = size;
+      v36.origin.x = CGRectZero.origin.x;
+      v36.origin.y = CGRectZero.origin.y;
+      v36.size.width = CGRectZero.size.width;
+      v36.size.height = CGRectZero.size.height;
+      if (CGRectEqualToRect(v35, v36))
       {
-        v14 = -1;
+        v15 = -1;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
 
-      v15 = vdupq_n_s64(v14);
-      v16.i64[0] = a2;
-      v16.i64[1] = SHIDWORD(a2);
-      v17 = vbslq_s8(v15, vcvtq_f64_s64(v16), size);
+      v16 = vdupq_n_s64(v15);
+      v17.i64[0] = a2;
+      v17.i64[1] = SHIDWORD(a2);
+      v18 = vbslq_s8(v16, vcvtq_f64_s64(v17), size);
       __asm { FMOV            V1.2D, #-1.0 }
 
-      v16.i64[0] = a3;
-      v16.i64[1] = a4;
+      v17.i64[0] = a3;
+      v17.i64[1] = a4;
       __asm { FMOV            V5.2D, #0.5 }
 
-      v24 = vmlaq_f64(vbicq_s8(origin, v15), _Q5, vaddq_f64(v17, _Q1));
-      v25 = vmlaq_f64(v31, _Q5, vaddq_f64(size, _Q1));
+      v25 = vmlaq_f64(vbicq_s8(origin, v16), _Q5, vaddq_f64(v18, _Q1));
+      v26 = vmlaq_f64(v32, _Q5, vaddq_f64(v33, _Q1));
       _Q5.f64[0] = a6;
       _Q5.f64[1] = a7;
-      *a5 = vmlaq_f64(v24, vcvtq_f64_s64(v16), vmulq_n_f64(vsubq_f64(_Q5, v25), a8));
+      *a5 = vmlaq_f64(v25, vcvtq_f64_s64(v17), vmulq_n_f64(vsubq_f64(_Q5, v26), a8));
     }
   }
 
   else
   {
-    FigMotionMapPointFromRawToBuffer_cold_2(&v32);
-    return v32;
+    FigMotionMapPointFromRawToBuffer_cold_2(&v34);
+    return v34;
   }
 
-  return SensorValidCropRect;
+  return v14;
 }
 
-uint64_t FigMotionComputeRawSensorCenterInBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t FigMotionComputeRawSensorCenterInBuffer(const __CFDictionary *a1, uint64_t a2, int a3, int a4, float64x2_t *a5, float a6)
 {
   if (a1 && a5)
   {
     FigCFDictionaryGetIntIfPresent();
-    FigMotionComputeRawSensorCenterInBuffer_cold_2(&v6);
+    FigMotionComputeRawSensorCenterInBuffer_cold_2(&v7);
   }
 
   else
   {
-    FigMotionComputeRawSensorCenterInBuffer_cold_3(&v6);
+    FigMotionComputeRawSensorCenterInBuffer_cold_3(&v7);
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t FigMotionComputeParallaxShift(float a1, float a2, float a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8)
+uint64_t FigMotionComputeParallaxShift(uint64_t a1, uint64_t a2, float a3, float a4, float a5, uint64_t a6, int a7, uint64_t a8)
 {
   v27 = NAN;
-  if (a5)
+  if (a2)
   {
-    v14 = *(a5 + 524);
+    v14 = *(a2 + 524);
   }
 
   else
@@ -6672,9 +6697,9 @@ uint64_t FigMotionComputeParallaxShift(float a1, float a2, float a3, uint64_t a4
   }
 
   v20 = v18 || a7 != 0;
-  if (a5 && (v20 & 1) != 0)
+  if (a2 && (v20 & 1) != 0)
   {
-    v21 = a5 + 4 * *(a5 + 448);
+    v21 = a2 + 4 * *(a2 + 448);
     v22 = *(v21 + 484);
     v27 = *(v21 + 496);
     v23 = 1.0;
@@ -6690,11 +6715,11 @@ uint64_t FigMotionComputeParallaxShift(float a1, float a2, float a3, uint64_t a4
   v25 = 0.0;
   if (v27 > 0.0 && v24 > v27)
   {
-    v25 = ((v23 * NAN) * a3) / fmaxf(((v24 * v27) / (v24 - v27)) / 1000.0, v14);
+    v25 = ((v23 * NAN) * a5) / fmaxf(((v24 * v27) / (v24 - v27)) / 1000.0, v14);
   }
 
-  *a8 = v25 * a1;
-  *(a8 + 4) = v25 * a2;
+  *a8 = v25 * a3;
+  *(a8 + 4) = v25 * a4;
   return result;
 }
 
@@ -6721,119 +6746,141 @@ uint64_t FigMotionHardwareAvailable()
 
 uint64_t GVSApplyDistortionToTransforms(int32x2_t *a1, id *a2, uint64_t a3)
 {
-  if (!a1 || !a2 || !a3)
+  if (!a1)
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0_1();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_2();
-    v34 = FigSignalErrorAtGM();
-    v7 = 0;
-    v5 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v42, v43, v45, v46, v49, v50, a3);
+    v37 = OUTLINED_FUNCTION_2();
+    v38 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v37, 4294954516, "(Fig)", 169, v3);
+LABEL_26:
+    v35 = v38;
+    v8 = 0;
+    v6 = 0;
     goto LABEL_22;
   }
 
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = v6;
-  if (v6)
+  if (!a2)
   {
-    v8 = [v6 isValid];
-    if (v5)
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v42, v43, v45, v46, v49, v50, a3);
+    v39 = OUTLINED_FUNCTION_2();
+    v38 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v39, 4294954516, "(Fig)", 170, v3);
+    goto LABEL_26;
+  }
+
+  if (!a3)
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_1();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v42, v43, v45, v46, v49, v50, 0);
+    v40 = OUTLINED_FUNCTION_2();
+    v38 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40, 4294954516, "(Fig)", 171, v3);
+    goto LABEL_26;
+  }
+
+  v6 = *a2;
+  v7 = a2[1];
+  v8 = v7;
+  if (v7)
+  {
+    v9 = [v7 isValid];
+    if (v6)
     {
 LABEL_6:
-      v9 = [v5 isValid];
+      v10 = [v6 isValid];
       goto LABEL_9;
     }
   }
 
   else
   {
-    v8 = 0;
-    if (v5)
+    v9 = 0;
+    if (v6)
     {
       goto LABEL_6;
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_9:
-  if ((v8 | v9))
+  if ((v9 | v10))
   {
-    [v7 distortionCenter];
-    v40 = v10;
-    [v7 distortionCenter];
-    v36 = v11;
-    [v5 distortionCenter];
-    v37 = v12;
-    [v5 distortionCenter];
-    v14 = a1[7].i32[0];
-    if (v14 >= 1)
+    [v8 distortionCenter];
+    v52 = v11;
+    [v8 distortionCenter];
+    v44 = v12;
+    [v6 distortionCenter];
+    v47 = v13;
+    [v6 distortionCenter];
+    v15 = a1[7].i32[0];
+    if (v15 >= 1)
     {
-      v15 = 0;
       v16 = 0;
-      v17 = vadd_s32(vadd_s32(a1[1], a1[2]), -1);
-      v18 = v40;
-      *(&v19 + 1) = *(&v37 + 1);
-      v20 = v13;
-      v21 = a1[6].i32[1];
-      v38 = HIDWORD(*&a1[1]);
-      v22 = a1[1];
+      v17 = 0;
+      v18 = vadd_s32(vadd_s32(a1[1], a1[2]), -1);
+      v19 = v52;
+      *(&v20 + 1) = *(&v47 + 1);
+      v21 = v14;
+      v22 = a1[6].i32[1];
+      v48 = HIDWORD(*&a1[1]);
+      v23 = a1[1];
       do
       {
-        if (v21 >= 1)
+        if (v22 >= 1)
         {
-          v23 = 0;
-          v24 = __PAIR64__(v38, v22);
-          v25 = (a3 + 36 * v16);
+          v24 = 0;
+          v25 = __PAIR64__(v48, v23);
+          v26 = (a3 + 36 * v17);
           do
           {
-            *&v19 = vmin_s32(v24, v17);
-            v41 = v19;
-            if (v8)
-            {
-              [v7 computeInverseScalingAtPoint:COERCE_DOUBLE(vcvt_f32_s32(*&v19))];
-              *v26.i64 = v18;
-              FigMotionApplyDigitalZoomToTransform(1, v25, v27, v26, v36, v28, v29);
-              v19 = v41;
-            }
-
+            *&v20 = vmin_s32(v25, v18);
+            v53 = v20;
             if (v9)
             {
-              v42 = SDWORD1(v19);
-              v43 = v19;
-              GVSComputePerspectiveProjectedPoint(v25, &v43, &v42, v19, SDWORD1(v19));
-              [v5 computeScalingAtPoint:{COERCE_DOUBLE(__PAIR64__(LODWORD(v42), LODWORD(v43)))}];
-              *v30.i64 = *&v37;
-              FigMotionApplyDigitalZoomToTransform(0, v25, v31, v30, v20, v32, v33);
-              v19 = v41;
+              [v8 computeInverseScalingAtPoint:COERCE_DOUBLE(vcvt_f32_s32(*&v20))];
+              *v27.i64 = v19;
+              FigMotionApplyDigitalZoomToTransform(1, v26, v28, v27, v44, v29, v30);
+              v20 = v53;
             }
 
-            ++v23;
-            v21 = a1[6].i32[1];
-            v24.i32[0] = v19;
-            v24.i32[1] = a1[7].i32[1] + DWORD1(v19);
-            v25 += 9;
-            ++v16;
+            if (v10)
+            {
+              v54 = SDWORD1(v20);
+              v55 = v20;
+              GVSComputePerspectiveProjectedPoint(v26, &v55, &v54, v20, SDWORD1(v20));
+              [v6 computeScalingAtPoint:{COERCE_DOUBLE(__PAIR64__(LODWORD(v54), LODWORD(v55)))}];
+              *v31.i64 = *&v47;
+              FigMotionApplyDigitalZoomToTransform(0, v26, v32, v31, v21, v33, v34);
+              v20 = v53;
+            }
+
+            ++v24;
+            v22 = a1[6].i32[1];
+            v25.i32[0] = v20;
+            v25.i32[1] = a1[7].i32[1] + DWORD1(v20);
+            v26 += 9;
+            ++v17;
           }
 
-          while (v23 < v21);
-          v14 = a1[7].i32[0];
-          v22 = v19;
+          while (v24 < v22);
+          v15 = a1[7].i32[0];
+          v23 = v20;
         }
 
-        ++v15;
-        v22 += a1[8].u32[0];
+        ++v16;
+        v23 += a1[8].u32[0];
       }
 
-      while (v15 < v14);
+      while (v16 < v15);
     }
   }
 
-  v34 = 0;
+  v35 = 0;
 LABEL_22:
 
-  return v34;
+  return v35;
 }
 
 void GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_1()
@@ -6841,9 +6888,9 @@ void GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_1()
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v11, v12, v13, v14);
   OUTLINED_FUNCTION_5();
-  *v2 = FigSignalErrorAtGM();
+  *v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
 void GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_2()
@@ -6851,18 +6898,18 @@ void GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_2()
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v11, v12, v13, v14);
   OUTLINED_FUNCTION_5();
-  *v2 = FigSignalErrorAtGM();
+  *v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
 }
 
 uint64_t GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6871,9 +6918,9 @@ uint64_t GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6882,9 +6929,9 @@ uint64_t GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6893,9 +6940,9 @@ uint64_t GVSExtractGDCPolynomialFromCameraInfoByPortType_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6904,9 +6951,9 @@ uint64_t GVSCheckDistortedTransformFits_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6915,9 +6962,9 @@ uint64_t GVSEstimatePaddingForDistortedTransformFits_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -6926,102 +6973,11 @@ uint64_t GVSEstimatePaddingForDistortedTransformFits_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t GVSComputeGaussianAverageQuaternion_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeGaussianAverageQuaternion_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedHorizonQuaternion_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedHorizonQuaternion_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothRamp_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedDigitalZoomFactor_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedDigitalZoomFactor_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeDilatedTotalZoomFactor_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeDilatedTotalZoomFactor_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedDilatedDigitalZoomFactor_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedDilatedDigitalZoomFactor_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedFaceQuaternion_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t GVSComputeSmoothedFaceQuaternion_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_finishPendingProcessing(uint64_t a1)
@@ -7036,7 +6992,7 @@ uint64_t sbp_gvs_finishPendingProcessing(uint64_t a1)
   v4 = DerivedStorage + 28672;
   *(DerivedStorage + 25) = 1;
   v5 = *(DerivedStorage + 29392);
-  v6 = v5 - 1;
+  v6 = (v5 - 1);
   if (v5 < 1)
   {
     StabilizedSampleBuffer = 0;
@@ -7111,45 +7067,49 @@ LABEL_46:
   else
   {
     v7 = 0;
-    v115 = DerivedStorage + 29824;
+    v119 = DerivedStorage + 29824;
     v8 = DerivedStorage + 30024;
-    v109 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_AverageLuxValue;
+    v113 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_AverageLuxValue;
     v9 = DerivedStorage + 29992;
-    v119 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_PortIndex;
-    v105 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_OverscanArray;
+    v123 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_PortIndex;
+    v109 = kFigCaptureVideoStabilizationOverscanAnalyticsKey_OverscanArray;
     key = kFigVideoStabilizationSampleBufferAttachmentKey_OverscanAnalytics;
-    v103 = kFigCaptureVideoDeghostingStatisticsKey_Enabled;
-    v102 = kFigCaptureVideoDeghostingStatisticsKey_Version;
-    v101 = kFigCaptureVideoDeghostingStatisticsKey_AverageGhostArea;
-    v100 = kFigCaptureVideoDeghostingStatisticsKey_AverageGhostCount;
-    v99 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetMag;
-    v98 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetX;
-    v97 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetY;
-    v96 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterEstConfidence;
-    v95 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector1Precision;
-    v94 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector1Recall;
-    v93 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector2Precision;
-    v92 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector2Recall;
-    v91 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector3Precision;
-    v90 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector3Recall;
-    v89 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector4Precision;
-    v88 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector4Recall;
-    v87 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector5Precision;
-    v86 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector5Recall;
-    v85 = kFigCaptureVideoDeghostingSampleBufferAttachmentKey_VideoDeghostingStatistics;
-    v108 = a1;
-    v107 = *(DerivedStorage + 29392);
-    v106 = DerivedStorage + 28672;
-    v112 = v5 - 1;
+    v107 = kFigCaptureVideoDeghostingStatisticsKey_Enabled;
+    v106 = kFigCaptureVideoDeghostingStatisticsKey_Version;
+    v105 = kFigCaptureVideoDeghostingStatisticsKey_AverageGhostArea;
+    v104 = kFigCaptureVideoDeghostingStatisticsKey_AverageGhostCount;
+    v103 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetMag;
+    v102 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetX;
+    v101 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterOffsetY;
+    v100 = kFigCaptureVideoDeghostingStatisticsKey_OpticalCenterEstConfidence;
+    v99 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector1Precision;
+    v98 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector1Recall;
+    v97 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector2Precision;
+    v96 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector2Recall;
+    v95 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector3Precision;
+    v94 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector3Recall;
+    v93 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector4Precision;
+    v92 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector4Recall;
+    v91 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector5Precision;
+    v90 = kFigCaptureVideoDeghostingStatisticsKey_LightweightDetector5Recall;
+    v89 = kFigCaptureVideoDeghostingSampleBufferAttachmentKey_VideoDeghostingStatistics;
+    v112 = a1;
+    v111 = *(DerivedStorage + 29392);
+    v110 = DerivedStorage + 28672;
+    v116 = v5 - 1;
     while (1)
     {
       cf = 0;
       if (([*(v3 + 29400) centerIndex] & 0x80000000) != 0)
       {
-        break;
+        OUTLINED_FUNCTION_42();
+        OUTLINED_FUNCTION_23();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v63, v64, v65, v67, LODWORD(v69), v71, v73, v74);
+        v61 = OUTLINED_FUNCTION_42();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v61, 4294954511, "<<<< GyroVideoStabilizationV2 >>>>", 9764, v6);
       }
 
-      v118 = v7;
+      v122 = v7;
       v10 = [*(v3 + 29400) centerIndex];
       if (v10 >= [*(v3 + 29400) size])
       {
@@ -7157,12 +7117,12 @@ LABEL_46:
       }
 
       StabilizedSampleBuffer = sbp_gvs_gaussianAverageGetStabilizedSampleBuffer(v3, &cf);
-      v11 = v118;
-      if (v118 == v6)
+      v11 = v122;
+      if (v122 == v6)
       {
         v12 = 0;
         v13 = 0;
-        v14 = v115;
+        v14 = v119;
         do
         {
           if (*(v8 + 4 * v12))
@@ -7212,16 +7172,16 @@ LABEL_46:
         {
           target = v20;
           v22 = v21;
-          v113 = _createNSArray(v3 + 29992);
+          v117 = _createNSArray(v3 + 29992);
           [v22 setObject:? forKeyedSubscript:?];
           v23 = [NSNumber numberWithUnsignedInt:*(v4 + 1348)];
-          [v22 setObject:v23 forKeyedSubscript:v109];
+          [v22 setObject:v23 forKeyedSubscript:v113];
 
           v24 = +[NSMutableArray array];
           if (v24)
           {
             v25 = 0;
-            v26 = v115;
+            v26 = v119;
             do
             {
               v27 = *(v8 + v25);
@@ -7232,7 +7192,7 @@ LABEL_46:
                 {
                   v29 = (v27 >> 16);
                   v30 = [NSNumber numberWithInt:v27];
-                  [v28 setObject:v30 forKeyedSubscript:v119];
+                  [v28 setObject:v30 forKeyedSubscript:v123];
 
                   v31 = [NSNumber numberWithInt:v29];
                   [OUTLINED_FUNCTION_39() setObject:? forKeyedSubscript:?];
@@ -7248,17 +7208,17 @@ LABEL_46:
             }
 
             while (v25 != 24);
-            v4 = v106;
-            a1 = v108;
-            v5 = v107;
+            v4 = v110;
+            a1 = v112;
+            v5 = v111;
             if ([v24 count])
             {
-              [v22 setObject:v24 forKeyedSubscript:v105];
+              [v22 setObject:v24 forKeyedSubscript:v109];
               CMSetAttachment(target, key, v22, 1u);
             }
           }
 
-          v11 = v118;
+          v11 = v122;
           v21 = v22;
         }
 
@@ -7269,113 +7229,113 @@ LABEL_46:
           v34 = 30088;
         }
 
-        v6 = v112;
+        v6 = v116;
         if (*(v3 + v34) == 3 && v33 == *(v3 + 30080) && *(v4 + 1376) == 1)
         {
           if (v33)
           {
             v35 = cf;
-            [v33 statistics];
-            v36 = v123;
-            if (v123 != 0.0)
+            objc_msgSend_statistics(v33);
+            v36 = v127;
+            if (v127 != 0.0)
             {
-              v37 = v122;
-              v38 = v124;
-              v79 = v126;
-              v81 = v125;
-              v39 = v128;
-              v40 = v131;
-              v61 = v132;
-              v63 = v133;
-              v41 = v134;
-              v65 = v135;
-              v67 = v130;
-              v69 = v136;
-              v42 = v137;
-              v70 = v138;
-              v72 = v129;
-              v74 = v139;
-              v75 = v127;
-              v43 = v140;
-              v77 = v141;
-              v78 = v142;
-              v121[0] = v103;
-              v116 = [NSNumber numberWithBool:*(v4 + 1376)];
-              v122 = *&v116;
-              v121[1] = v102;
+              v37 = v126;
+              v38 = v128;
+              v83 = v130;
+              v85 = v129;
+              v39 = v132;
+              v40 = *&v135;
+              v66 = *&v136;
+              v68 = *&v137;
+              v41 = v138;
+              v70 = v139;
+              v72 = v134;
+              v73 = v140;
+              v42 = v141;
+              v75 = v142;
+              v76 = v133;
+              v78 = v143;
+              v79 = v131;
+              v43 = v144;
+              v81 = v145;
+              v82 = v146;
+              v125[0] = v107;
+              v120 = [NSNumber numberWithBool:*(v4 + 1376)];
+              v126 = *&v120;
+              v125[1] = v106;
               [NSNumber numberWithInt:3];
-              v114 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v123 = v114;
-              v121[2] = v101;
+              v118 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v127 = v118;
+              v125[2] = v105;
               targeta = [NSNumber numberWithDouble:v37];
-              v124 = *&targeta;
-              v121[3] = v100;
-              v84 = [NSNumber numberWithDouble:v36];
-              v125 = *&v84;
-              v121[4] = v99;
-              v83 = [NSNumber numberWithDouble:v38];
-              v126 = *&v83;
-              v121[5] = v98;
-              v82 = [NSNumber numberWithDouble:v81];
-              v127 = *&v82;
-              v121[6] = v97;
+              v128 = *&targeta;
+              v125[3] = v104;
+              v88 = [NSNumber numberWithDouble:v36];
+              v129 = *&v88;
+              v125[4] = v103;
+              v87 = [NSNumber numberWithDouble:v38];
+              v130 = *&v87;
+              v125[5] = v102;
+              v86 = [NSNumber numberWithDouble:v85];
+              v131 = *&v86;
+              v125[6] = v101;
+              [NSNumber numberWithDouble:v83];
+              v84 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v132 = v84;
+              v125[7] = v100;
               [NSNumber numberWithDouble:v79];
               v80 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v128 = v80;
-              v121[7] = v96;
-              [NSNumber numberWithDouble:v75];
-              v76 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v129 = v76;
-              v121[8] = v95;
+              v133 = v80;
+              v125[8] = v99;
+              [NSNumber numberWithDouble:v39 / (v39 + v76)];
+              v77 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v134 = v77;
+              v125[9] = v98;
               [NSNumber numberWithDouble:v39 / (v39 + v72)];
-              v73 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v130 = v73;
-              v121[9] = v94;
-              [NSNumber numberWithDouble:v39 / (v39 + v67)];
-              v68 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v131 = v68;
-              v121[10] = v93;
-              [NSNumber numberWithDouble:v40 / (v40 + v61)];
-              v62 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v132 = v62;
-              v121[11] = v92;
-              [NSNumber numberWithDouble:v40 / (v40 + v63)];
-              v64 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v133 = v64;
-              v121[12] = v91;
-              [NSNumber numberWithDouble:v41 / (v41 + v65)];
-              v66 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v134 = v66;
-              v121[13] = v90;
-              [NSNumber numberWithDouble:v41 / (v41 + v69)];
+              *&v71 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v135 = v71;
+              v125[10] = v97;
+              [NSNumber numberWithDouble:v40 / (v40 + v66)];
+              *&v65 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v136 = v65;
+              v125[11] = v96;
+              [NSNumber numberWithDouble:v40 / (v40 + v68)];
+              *&v67 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v137 = v67;
+              v125[12] = v95;
+              [NSNumber numberWithDouble:v41 / (v41 + v70)];
+              v69 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v138 = v69;
+              v125[13] = v94;
+              [NSNumber numberWithDouble:v41 / (v41 + *&v73)];
               v44 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v135 = v44;
-              v121[14] = v89;
-              [NSNumber numberWithDouble:v42 / (v42 + v70)];
-              v71 = v35;
-              v45 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v136 = v45;
-              v121[15] = v88;
-              [NSNumber numberWithDouble:v42 / (v42 + v74)];
+              v139 = v44;
+              v125[14] = v93;
+              [NSNumber numberWithDouble:v42 / (v42 + v75)];
+              v74 = v35;
+              *&v45 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              v140 = v45;
+              v125[15] = v92;
+              [NSNumber numberWithDouble:v42 / (v42 + v78)];
               v46 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v137 = v46;
-              v121[16] = v87;
-              [NSNumber numberWithDouble:v43 / (v43 + v77)];
+              v141 = v46;
+              v125[16] = v91;
+              [NSNumber numberWithDouble:v43 / (v43 + v81)];
               v47 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v138 = v47;
-              v121[17] = v86;
-              [NSNumber numberWithDouble:v43 / (v43 + v78)];
+              v142 = v47;
+              v125[17] = v90;
+              [NSNumber numberWithDouble:v43 / (v43 + v82)];
               v48 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-              v139 = v48;
-              v49 = [NSDictionary dictionaryWithObjects:&v122 forKeys:v121 count:18];
+              v143 = v48;
+              v49 = [NSDictionary dictionaryWithObjects:&v126 forKeys:v125 count:18];
 
-              v11 = v118;
-              v5 = v107;
+              v11 = v122;
+              v5 = v111;
 
-              a1 = v108;
-              CMSetAttachment(v71, v85, v49, 1u);
+              a1 = v112;
+              CMSetAttachment(v74, v89, v49, 1u);
 
-              v6 = v112;
+              v6 = v116;
             }
           }
         }
@@ -7404,91 +7364,93 @@ LABEL_46:
 
     OUTLINED_FUNCTION_42();
     OUTLINED_FUNCTION_23();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_42();
-    return FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v63, v64, v65, v67, LODWORD(v69), v71, v73, v74);
+    v62 = OUTLINED_FUNCTION_42();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v62, 4294954511, "<<<< GyroVideoStabilizationV2 >>>>", 9765, v6);
   }
 }
 
 void *_loadAndConfigureVideoDeghosting(void *a1, void *a2, void *a3, uint64_t a4, unsigned int *a5)
 {
-  v9 = a1;
-  v26 = a2;
-  v10 = a3;
-  v11 = [v10 objectForKeyedSubscript:@"Version"];
-  *a5 = [v11 intValue];
+  v10 = a1;
+  v36 = a2;
+  v11 = a3;
+  v12 = [v11 objectForKeyedSubscript:@"Version"];
+  *a5 = [v12 intValue];
 
-  v12 = [NSString stringWithFormat:@"%@V%d", @"VideoDeghosting", *a5];
+  v13 = [NSString stringWithFormat:@"%@V%d", @"VideoDeghosting", *a5];
   if (a4 < 1 || SHIDWORD(a4) <= 0)
   {
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
-    v16 = 0;
-    v14 = 0;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v29, v33, v35);
+    v17 = 0;
     v15 = 0;
-    v23 = 0;
-    v20 = 0;
+    v16 = 0;
+    v24 = 0;
+    v21 = 0;
 LABEL_17:
-    v21 = v26;
+    v22 = v36;
     goto LABEL_12;
   }
 
-  v14 = [NSString stringWithFormat:@"%@/%@.bundle", @"/System/Library/VideoProcessors", v12];
-  v15 = [NSString stringWithFormat:@"CMI%@V%d", @"VideoDeghosting", *a5];
-  v16 = [NSBundle bundleWithPath:v14];
-  if (!v16)
+  v15 = [NSString stringWithFormat:@"%@/%@.bundle", @"/System/Library/VideoProcessors", v13];
+  v16 = [NSString stringWithFormat:@"CMI%@V%d", @"VideoDeghosting", *a5];
+  v17 = [NSBundle bundleWithPath:v15];
+  if (!v17)
   {
-    v17 = [NSString stringWithFormat:@"./%@.bundle", v12];
-    v18 = [NSBundle bundleWithPath:v17];
-    if (!v18)
+    v18 = [NSString stringWithFormat:@"./%@.bundle", v13];
+    v19 = [NSBundle bundleWithPath:v18];
+    if (!v19)
     {
       fig_log_get_emitter();
+      LODWORD(v30) = 0;
       OUTLINED_FUNCTION_39();
       OUTLINED_FUNCTION_15();
-      FigDebugAssert3();
+      FigDebugAssert3(v27, v30, v5);
 
       fig_log_get_emitter();
-      OUTLINED_FUNCTION_39();
-      FigDebugAssert3();
+      LODWORD(v31) = 0;
+      v28 = OUTLINED_FUNCTION_39();
+      FigDebugAssert3(v28, v31, v5);
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
-      v16 = 0;
-      v23 = 0;
-      v20 = 0;
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v32, v34, v35);
+      v17 = 0;
+      v24 = 0;
+      v21 = 0;
       goto LABEL_17;
     }
 
-    v16 = v18;
+    v17 = v19;
   }
 
-  v27 = 0;
-  v19 = [v16 loadAndReturnError:&v27];
-  v20 = v27;
-  if (!v19)
+  v37 = 0;
+  v20 = [v17 loadAndReturnError:&v37];
+  v21 = v37;
+  if (!v20)
   {
-    v23 = 0;
+    v24 = 0;
     goto LABEL_17;
   }
 
-  v21 = v26;
-  v22 = [objc_alloc(NSClassFromString(v15)) initWithCommandQueue:v26 imageDimensions:a4 tuningParameters:v10];
-  v23 = v22;
-  if (!v22 || [v22 prepareToProcess:0])
+  v22 = v36;
+  v23 = [objc_alloc(NSClassFromString(v16)) initWithCommandQueue:v36 imageDimensions:a4 tuningParameters:v11];
+  v24 = v23;
+  if (!v23 || [v23 prepareToProcess:0])
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_37();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
   }
 
   else
   {
-    [v23 setCameraInfoByPortType:v9];
+    [v24 setCameraInfoByPortType:v10];
   }
 
 LABEL_12:
-  v24 = v23;
+  v25 = v24;
 
-  return v23;
+  return v24;
 }
 
 uint64_t sbp_setCameraExtrinsicAlignment(uint64_t a1, void *a2)
@@ -7512,13 +7474,13 @@ uint64_t sbp_setCameraExtrinsicAlignment(uint64_t a1, void *a2)
   else
   {
     fig_log_get_emitter();
-    v11 = FigSignalErrorAtGM();
+    v11 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, DWORD2(v14), v15);
   }
 
   return v11;
 }
 
-void _getPresentationTimeStampForSampleBuffer(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void _getPresentationTimeStampForSampleBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   OUTLINED_FUNCTION_41();
   v19 = v18;
@@ -7617,15 +7579,15 @@ LABEL_10:
 uint64_t _runSmartStyleFilterForwardLearning(uint64_t a1, void *a2)
 {
   memset(&timingArrayOut, 0, sizeof(timingArrayOut));
-  v46 = 0;
+  v52 = 0;
   cf = 0;
   if (!a1 || !a2)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     v13 = 0;
-LABEL_53:
+LABEL_52:
     PixelBufferFromPool = 4294954516;
     goto LABEL_38;
   }
@@ -7634,17 +7596,17 @@ LABEL_53:
   if (!*(a1 + 30108))
   {
     v13 = 0;
-    goto LABEL_51;
+    goto LABEL_50;
   }
 
   OUTLINED_FUNCTION_38();
   if (v18)
   {
-    _getPresentationTimeStampForSampleBuffer(a2, 0, v6, v7, v8, v9, v10, v11, v42, v43, v44, *v45, *&v45[8], *&v45[16], v46, cf, timingArrayOut.duration.value, *&timingArrayOut.duration.timescale);
-    time = *v45;
+    _getPresentationTimeStampForSampleBuffer(a2, 0, v6, v7, v8, v9, v10, v11, v44, v47, v49, *v51, *&v51[8], *&v51[16], v52, cf, timingArrayOut.duration.value, *&timingArrayOut.duration.timescale);
+    time = *v51;
     CMTimeGetSeconds(&time);
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_24();
+    v42 = OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_24(v42, 72, v43);
   }
 
   v12 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
@@ -7653,8 +7615,8 @@ LABEL_53:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7();
-    FigDebugAssert3();
-    goto LABEL_53;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44, v47, v49, *v51, *&v51[8], *&v51[16], v52, cf);
+    goto LABEL_52;
   }
 
   v14 = kFigCaptureSampleBufferMetadata_SmartStyleLearnedCoefficientsAreFiltered;
@@ -7663,7 +7625,7 @@ LABEL_53:
 
   if (v16)
   {
-LABEL_51:
+LABEL_50:
     PixelBufferFromPool = 0;
     goto LABEL_38;
   }
@@ -7678,7 +7640,9 @@ LABEL_47:
       PixelBufferFromPool = v24;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_9();
-      goto LABEL_48;
+      LODWORD(v44) = PixelBufferFromPool;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44);
+      goto LABEL_38;
     }
 
     v26 = 3;
@@ -7714,19 +7678,20 @@ LABEL_25:
     v29 = kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingLearnedCoefficients;
     v30 = [*(a1 + 48) objectForKeyedSubscript:kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingLearnedCoefficients];
     v31 = [*(a1 + 56) objectForKeyedSubscript:v29];
-    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v30, v31, 0, v28, 0, 0, &v46);
+    PixelBufferFromPool = sbp_gvs_getPixelBufferFromPool(v30, v31, 0, v28, 0, 0, &v52);
 
     if (PixelBufferFromPool)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_9();
-      FigDebugAssert3();
+      LODWORD(v44) = PixelBufferFromPool;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44, v47, v2, *v51, *&v51[8], *&v51[16], v52, cf);
       goto LABEL_38;
     }
 
     v33 = [*(a1 + 30136) utilities];
-    _getPresentationTimeStampForSampleBuffer(a2, v13, v34, v35, v36, v37, v38, v39, v42, v43, v2, *v45, *&v45[8], *&v45[16], v46, cf, timingArrayOut.duration.value, *&timingArrayOut.duration.timescale);
-    PixelBufferFromPool = [v33 filterCoefficientsForFrameWithMetadata:v13 pts:&time filterType:v26 toPixelBuffer:v46];
+    _getPresentationTimeStampForSampleBuffer(a2, v13, v34, v35, v36, v37, v38, v39, v44, v47, v2, *v51, *&v51[8], *&v51[16], v52, cf, timingArrayOut.duration.value, *&timingArrayOut.duration.timescale);
+    PixelBufferFromPool = [v33 filterCoefficientsForFrameWithMetadata:v13 pts:&time filterType:v26 toPixelBuffer:v52];
 
     if (!PixelBufferFromPool)
     {
@@ -7736,10 +7701,12 @@ LABEL_25:
         PixelBufferFromPool = SampleTimingInfoArray;
         fig_log_get_emitter();
         OUTLINED_FUNCTION_9();
-        goto LABEL_48;
+        LODWORD(v45) = PixelBufferFromPool;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v45);
+        goto LABEL_38;
       }
 
-      PixelBufferFromPool = sbp_internalCreateSampleBufferWithNewPixelBuffer(v46, *(a1 + 64), v29, &timingArrayOut, &cf);
+      PixelBufferFromPool = sbp_internalCreateSampleBufferWithNewPixelBuffer(v52, *(a1 + 64), v29, &timingArrayOut, &cf);
       if (!PixelBufferFromPool)
       {
         [v13 setObject:&__kCFBooleanTrue forKeyedSubscript:v14];
@@ -7750,8 +7717,8 @@ LABEL_25:
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_9();
-LABEL_48:
-    FigDebugAssert3();
+    LODWORD(v45) = PixelBufferFromPool;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v45);
     goto LABEL_38;
   }
 
@@ -7801,14 +7768,14 @@ LABEL_20:
 
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_25();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v44, v47, v2, *v51, *&v51[8], *&v51[16], v52, cf);
   OUTLINED_FUNCTION_1();
-  PixelBufferFromPool = FigSignalErrorAtGM();
+  PixelBufferFromPool = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v46, v48, v50);
 LABEL_38:
   OUTLINED_FUNCTION_38();
   if (v18)
   {
-    OUTLINED_FUNCTION_24();
+    OUTLINED_FUNCTION_24(822152386, 72, PixelBufferFromPool);
   }
 
   if (cf)
@@ -7816,9 +7783,9 @@ LABEL_38:
     CFRelease(cf);
   }
 
-  if (v46)
+  if (v52)
   {
-    CFRelease(v46);
+    CFRelease(v52);
   }
 
   return PixelBufferFromPool;
@@ -7831,11 +7798,11 @@ uint64_t _runSmartStyleApplyOnUnstabilizedImage(uint64_t a1, void *a2)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     OUTLINED_FUNCTION_31();
     v16 = 0;
 LABEL_34:
-    v39 = 0;
+    v41 = 0;
 LABEL_36:
     v31 = 4294954516;
     goto LABEL_23;
@@ -7845,11 +7812,11 @@ LABEL_36:
   OUTLINED_FUNCTION_38();
   if (v14)
   {
-    _getPresentationTimeStampForSampleBuffer(a2, 0, v8, v9, v10, v11, v12, v13, v33, v34, v35, v36, v38, v40, v42, v43, time.value, *&time.timescale);
-    time = v41;
+    _getPresentationTimeStampForSampleBuffer(a2, 0, v8, v9, v10, v11, v12, v13, v35, v36, v37, v38, v40, *v42, *&v42[8], *&v42[16], time.value, *&time.timescale);
+    time = *v42;
     CMTimeGetSeconds(&time);
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_24();
+    v33 = OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_24(v33, 70, v34);
   }
 
   if (!*(v7 + 1432))
@@ -7857,7 +7824,7 @@ LABEL_36:
     OUTLINED_FUNCTION_31();
     v16 = 0;
 LABEL_31:
-    v39 = 0;
+    v41 = 0;
     v31 = 0;
     goto LABEL_23;
   }
@@ -7868,7 +7835,7 @@ LABEL_31:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, v36, v37, v38, v40, *v42, *&v42[8], *&v42[16]);
     v2 = 0;
 LABEL_33:
     v4 = 0;
@@ -7890,32 +7857,32 @@ LABEL_33:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, v36, v37, v38, v40, *v42, *&v42[8], *&v42[16]);
     goto LABEL_33;
   }
 
   ImageBuffer = CMSampleBufferGetImageBuffer(a2);
-  v39 = v2;
+  v41 = v2;
   if (!ImageBuffer || (v20 = ImageBuffer, [v2 objectForKeyedSubscript:kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingUnstyledThumbnail], v21 = objc_claimAutoreleasedReturnValue(), v21, !v21))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     OUTLINED_FUNCTION_31();
     goto LABEL_36;
   }
 
-  v37 = v16;
+  v39 = v16;
   v22 = CMSampleBufferGetImageBuffer(v21);
   if (!v22 || (v23 = v22, [v2 objectForKeyedSubscript:kFigCaptureSampleBufferAttachedMediaKey_SmartStyleStreamingLearnedCoefficients], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24) || (v25 = CMSampleBufferGetImageBuffer(v24)) == 0)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     OUTLINED_FUNCTION_31();
     v31 = 4294954516;
 LABEL_39:
-    v16 = v37;
+    v16 = v39;
     goto LABEL_23;
   }
 
@@ -7928,7 +7895,7 @@ LABEL_39:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, v36, v3, v39, v41, *v42, *&v42[8], *&v42[16]);
     v31 = 4294954510;
     goto LABEL_39;
   }
@@ -7936,17 +7903,18 @@ LABEL_39:
   [v28 setMetalSharedEvent:v2];
   [v4 setInputUnstyledPixelBuffer:v20];
   [v4 setInputUnstyledThumbnailPixelBuffer:v23];
-  v16 = v37;
-  [v4 setInputMetadataDict:v37];
+  v16 = v39;
+  [v4 setInputMetadataDict:v39];
   [v4 setInputStyleCoefficientsPixelBuffer:v26];
   [v4 setOutputStyledPixelBuffer:v20];
-  updated = _updateSmartStyleGlobalMixFactor(a1, v37);
-  if (updated || (LODWORD(v30) = *(v7 + 1540), [v4 setGlobalLinearSystemMixFactor:v30], objc_msgSend(*(a1 + 30136), "setInputOutput:", v4), updated = objc_msgSend(*(a1 + 30136), "process"), updated) || (updated = objc_msgSend(*(a1 + 30136), "finishProcessing"), updated) || (objc_msgSend(v37, "setObject:forKeyedSubscript:", &__kCFBooleanTrue, v17), !*(v7 + 1434)) && (updated = _removeSmartStyleAttachments(a1, a2), updated))
+  updated = _updateSmartStyleGlobalMixFactor(a1, v39);
+  if (updated || (LODWORD(v30) = *(v7 + 1540), [v4 setGlobalLinearSystemMixFactor:v30], objc_msgSend(*(a1 + 30136), "setInputOutput:", v4), updated = objc_msgSend(*(a1 + 30136), "process"), updated) || (updated = objc_msgSend(*(a1 + 30136), "finishProcessing"), updated) || (objc_msgSend(v39, "setObject:forKeyedSubscript:", &__kCFBooleanTrue, v17), !*(v7 + 1434)) && (updated = _removeSmartStyleAttachments(a1, a2), updated))
   {
     v31 = updated;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_9();
-    FigDebugAssert3();
+    LODWORD(v35) = v31;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35);
   }
 
   else
@@ -7963,7 +7931,7 @@ LABEL_23:
   OUTLINED_FUNCTION_38();
   if (v14)
   {
-    OUTLINED_FUNCTION_24();
+    OUTLINED_FUNCTION_24(822152386, 70, v31);
   }
 
   return v31;
@@ -7971,162 +7939,189 @@ LABEL_23:
 
 void sbp_gvs_extractDistortionData(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, float64x2_t a6)
 {
-  v10 = a1;
-  v11 = a2;
-  v12 = a4;
-  v13 = v12;
-  if (!a5 || !v10 || !v11 || !a3 || !v12)
+  v11 = a1;
+  v12 = a2;
+  v13 = a4;
+  v14 = v13;
+  if (!a5)
   {
     OUTLINED_FUNCTION_17();
     fig_log_get_emitter();
     OUTLINED_FUNCTION_18();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, v50, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
     OUTLINED_FUNCTION_17();
-    fig_log_get_emitter();
-    FigSignalErrorAtGM();
-    v22 = 0;
-    v19 = 0;
-    v14 = 0;
+    emitter = fig_log_get_emitter();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954516, "<<<< GyroVideoStabilizationV2 >>>>", 5991, 0);
+LABEL_41:
+    v24 = 0;
+    v21 = 0;
+    v15 = 0;
     goto LABEL_37;
   }
 
-  v14 = [v11 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
+  if (!v11 || !v12 || !a3)
+  {
+    OUTLINED_FUNCTION_17();
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_18();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, v50, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
+    OUTLINED_FUNCTION_17();
+    v44 = fig_log_get_emitter();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 4294954516, "<<<< GyroVideoStabilizationV2 >>>>", 5992, a5);
+    goto LABEL_41;
+  }
+
+  if (!v13)
+  {
+    OUTLINED_FUNCTION_17();
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_18();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v47, v50, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
+    OUTLINED_FUNCTION_17();
+    v45 = fig_log_get_emitter();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v45, 4294954516, "<<<< GyroVideoStabilizationV2 >>>>", 5993, a5);
+    goto LABEL_41;
+  }
+
+  v15 = [v12 objectForKeyedSubscript:kFigCaptureStreamMetadata_PortType];
   *(a5 + 208) = 0;
   *(a5 + 224) = 0;
   *(a5 + 232) = 0;
-  v15 = [v13 allKeys];
-  v16 = [v15 containsObject:v14];
+  v16 = [v14 allKeys];
+  v17 = [v16 containsObject:v15];
 
-  if (!v16 || !*a5 && !*(a5 + 8))
+  if (!v17 || !*a5 && !*(a5 + 8))
   {
-LABEL_40:
-    v22 = 0;
-    v19 = 0;
-    goto LABEL_37;
+    goto LABEL_43;
   }
 
-  if (([v14 isEqualToString:kFigCapturePortType_BackFacingSuperWideCamera] & 1) != 0 || objc_msgSend(v14, "isEqualToString:", kFigCapturePortType_FrontFacingSuperWideCamera))
+  if (([v15 isEqualToString:kFigCapturePortType_BackFacingSuperWideCamera] & 1) != 0 || objc_msgSend(v15, "isEqualToString:", kFigCapturePortType_FrontFacingSuperWideCamera))
   {
-    *v17.i32 = (*(a3 + 96) * 12.0) / 2464.0;
-    *(a5 + 224) = vdupq_lane_s32(v17, 0);
-    v18 = 1;
+    *v18.i32 = (*(a3 + 96) * 12.0) / 2464.0;
+    *(a5 + 224) = vdupq_lane_s32(v18, 0);
+    v19 = 1;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  memset(v46, 0, 32);
-  memset(v45, 0, sizeof(v45));
-  if (GVSExtractGDCPolynomialFromCameraInfoByPortType(v10, v11, v45))
+  memset(v62, 0, 32);
+  memset(v61, 0, sizeof(v61));
+  v20 = GVSExtractGDCPolynomialFromCameraInfoByPortType(v11, v12, v61);
+  if (v20)
   {
+    v46 = v20;
     fig_log_get_emitter();
-    FigDebugAssert3();
-    goto LABEL_40;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v6, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
+LABEL_43:
+    v24 = 0;
+    v21 = 0;
+    goto LABEL_37;
   }
 
-  v19 = [v11 objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_SphereScalingFactor];
-  [v19 floatValue];
-  if (v19 && (v21 = v20, v20 > 0.0))
+  v21 = [v12 objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_SphereScalingFactor];
+  [v21 floatValue];
+  if (v21 && (v23 = v22, v22 > 0.0))
   {
-    v22 = [v11 objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor];
-    [v22 floatValue];
-    if (v22 && (v24 = v23, v23 > 0.0))
+    v24 = [v12 objectForKeyedSubscript:kFigMotionAttachmentsSampleBufferProcessorMetadata_ScalingFactor];
+    [v24 floatValue];
+    if (v24 && (v26 = v25, v25 > 0.0))
     {
-      v41 = v18;
-      v25 = v13;
-      v26 = v10;
-      v27 = 0.001 / v21;
-      v28 = v25;
-      v29 = [v25 objectForKeyedSubscript:v14];
-      v30 = [v29 unsignedIntValue];
+      v57 = v19;
+      v27 = v14;
+      v28 = v11;
+      v29 = 0.001 / v23;
+      v30 = v27;
+      v31 = [v27 objectForKeyedSubscript:v15];
+      v32 = [v31 unsignedIntValue];
 
-      v32 = *(a5 + 8);
-      if (v32 && (v30 & 2) != 0)
+      v34 = *(a5 + 8);
+      if (v34 && (v32 & 2) != 0)
       {
-        v33 = *(a3 + 20);
-        if (v33 <= 0.0)
+        v35 = *(a3 + 20);
+        if (v35 <= 0.0)
         {
-          *&v31 = 0.001 / v21;
+          *&v33 = 0.001 / v23;
         }
 
         else
         {
-          *&v31 = v27 / v33;
+          *&v33 = v29 / v35;
         }
 
-        [v32 updateWithCoefficients:v45 pixelSizeMm:v31 center:COERCE_DOUBLE(vcvt_f32_f64(a6))];
+        [v34 updateWithCoefficients:v61 pixelSizeMm:v33 center:COERCE_DOUBLE(vcvt_f32_f64(a6))];
       }
 
-      v10 = v26;
-      if (*a5 && (v30 & 1) != 0)
+      v11 = v28;
+      if (*a5 && (v32 & 1) != 0)
       {
-        v44 = 0uLL;
-        v34 = v21 / v24;
-        v35 = [v11 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
-        v36 = [v35 intValue];
+        v60 = 0uLL;
+        v36 = v23 / v26;
+        v37 = [v12 objectForKeyedSubscript:kFigCaptureStreamMetadata_QuadraBinningFactor];
+        v38 = [v37 intValue];
 
-        if (v36 <= 1)
+        if (v38 <= 1)
         {
-          v37 = 1;
+          v39 = 1;
         }
 
         else
         {
-          v37 = v36;
+          v39 = v38;
         }
 
-        if (FigMotionComputeOpticalCenterInBuffer(v11, *(a3 + 96), v37, v37, 1, &v44, v34))
+        if (FigMotionComputeOpticalCenterInBuffer(v12, *(a3 + 96), v39, v39, 1, &v60, v36))
         {
-          v38 = a6;
-          v44 = a6;
+          v40 = a6;
+          v60 = a6;
         }
 
         else
         {
-          v38 = v44;
+          v40 = v60;
         }
 
-        v39 = COERCE_DOUBLE(vcvt_f32_f64(v38));
-        *v38.f64 = v27;
-        [*a5 updateWithCoefficients:v46 pixelSizeMm:v38.f64[0] center:v39];
-        v10 = v26;
-        v13 = v28;
-        if (v41)
+        v41 = COERCE_DOUBLE(vcvt_f32_f64(v40));
+        *v40.f64 = v29;
+        [*a5 updateWithCoefficients:v62 pixelSizeMm:v40.f64[0] center:v41];
+        v11 = v28;
+        v14 = v30;
+        if (v57)
         {
-          v40 = objc_alloc_init(GVSDistortionModelEven14);
-          [(GVSDistortionModelEven14 *)v40 updateWithCoefficients:v45 pixelSizeMm:COERCE_DOUBLE(__PAIR64__(HIDWORD(v44.f64[0]) center:LODWORD(v27))), COERCE_DOUBLE(vcvt_f32_f64(v44))];
-          v43 = 0uLL;
-          if (!GVSEstimatePaddingForDistortedTransformFits(v40, (a3 + 104), &v43))
+          v42 = objc_alloc_init(GVSDistortionModelEven14);
+          [(GVSDistortionModelEven14 *)v42 updateWithCoefficients:v61 pixelSizeMm:COERCE_DOUBLE(__PAIR64__(HIDWORD(v60.f64[0]) center:LODWORD(v29))), COERCE_DOUBLE(vcvt_f32_f64(v60))];
+          v59 = 0uLL;
+          if (!GVSEstimatePaddingForDistortedTransformFits(v42, (a3 + 104), &v59))
           {
-            *(a5 + 224) = v43;
+            *(a5 + 224) = v59;
           }
         }
       }
 
       else
       {
-        v13 = v28;
+        v14 = v30;
       }
     }
 
     else
     {
       OUTLINED_FUNCTION_43();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
       OUTLINED_FUNCTION_43();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v49, v52, v55);
     }
   }
 
   else
   {
     OUTLINED_FUNCTION_43();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v53, v56, LODWORD(a6.f64[0]), *&a6.f64[1], v59.i64[0], v59.i32[2]);
     OUTLINED_FUNCTION_43();
-    FigSignalErrorAtGM();
-    v22 = 0;
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v48, v51, v54);
+    v24 = 0;
   }
 
 LABEL_37:
@@ -8134,51 +8129,52 @@ LABEL_37:
 
 uint64_t _enqueueCoefficientsForSmartStyleFilterForwardLearningFromCoefficientsSampleBuffer(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a3;
-  v6 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
-  v46[1] = 0;
-  v47 = 0;
-  _getPresentationTimeStampForSampleBuffer(a2, v6, v7, v8, v9, v10, v11, v12, v37, v40, time2.value, *&time2.timescale, time2.epoch, v44, time1.value, *&time1.timescale, time1.epoch, 0);
+  v6 = a3;
+  v7 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_MetadataDictionary, 0);
+  v48[1] = 0;
+  v49 = 0;
+  _getPresentationTimeStampForSampleBuffer(a2, v7, v8, v9, v10, v11, v12, v13, v38, v42, time2.value, *&time2.timescale, time2.epoch, v46, time1.value, *&time1.timescale, time1.epoch, 0);
   ImageBuffer = CMSampleBufferGetImageBuffer(a2);
   if (ImageBuffer)
   {
-    v21 = ImageBuffer;
-    OUTLINED_FUNCTION_36(ImageBuffer, v14, v15, v16, v17, v18, v19, v20, v38, v41, time2.value, *&time2.timescale, time2.epoch, v44, time1.value, *&time1.timescale, time1.epoch, *v46);
+    v22 = ImageBuffer;
+    OUTLINED_FUNCTION_36(ImageBuffer, v15, v16, v17, v18, v19, v20, v21, v39, v43, time2.value, *&time2.timescale, time2.epoch, v46, time1.value, *&time1.timescale, time1.epoch, *v48);
     time2 = *(a1 + 30216);
     if (CMTimeCompare(&time1, &time2) < 1)
     {
-      v33 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v22 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_SmartStyleCoefficientStyle, 0);
-      v23 = [*(a1 + 30136) utilities];
-      *&v31 = OUTLINED_FUNCTION_36(v23, v24, v25, v26, v27, v28, v29, v30, v39, v42, time2.value, *&time2.timescale, time2.epoch, v44, time1.value, *&time1.timescale, time1.epoch, *v46).n128_u64[0];
-      v33 = [v32 enqueueCoefficientsForFiltering:v21 withMetadata:v5 pts:&time1 learnedStyle:{v22, v31}];
+      v23 = CMGetAttachment(a2, kFigCaptureSampleBufferAttachmentKey_SmartStyleCoefficientStyle, 0);
+      v24 = [*(a1 + 30136) utilities];
+      *&v32 = OUTLINED_FUNCTION_36(v24, v25, v26, v27, v28, v29, v30, v31, v40, v44, time2.value, *&time2.timescale, time2.epoch, v46, time1.value, *&time1.timescale, time1.epoch, *v48).n128_u64[0];
+      v34 = [v33 enqueueCoefficientsForFiltering:v22 withMetadata:v6 pts:&time1 learnedStyle:{v23, v32}];
 
-      if (v33)
+      if (v34)
       {
         fig_log_get_emitter();
-        FigDebugAssert3();
+        LODWORD(v41) = v34;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v3, time2.value, *&time2.timescale, LODWORD(time2.epoch), v46, time1.value, time1.timescale);
       }
 
       else
       {
-        v34 = *(a1 + 30176);
-        if ((v34 + 1) < *(a1 + 30172))
+        v35 = *(a1 + 30176);
+        if ((v35 + 1) < *(a1 + 30172))
         {
-          v35 = v34 + 1;
+          v36 = v35 + 1;
         }
 
         else
         {
-          v35 = *(a1 + 30172);
+          v36 = *(a1 + 30172);
         }
 
-        *(a1 + 30176) = v35;
-        *(a1 + 30216) = *v46;
-        *(a1 + 30232) = v47;
+        *(a1 + 30176) = v36;
+        *(a1 + 30216) = *v48;
+        *(a1 + 30232) = v49;
       }
     }
   }
@@ -8187,41 +8183,20 @@ uint64_t _enqueueCoefficientsForSmartStyleFilterForwardLearningFromCoefficientsS
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_7();
-    FigDebugAssert3();
-    v33 = 4294954516;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v39, v43, time2.value, *&time2.timescale, LODWORD(time2.epoch), v46, time1.value, time1.timescale);
+    v34 = 4294954516;
   }
 
-  return v33;
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_2(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return v34;
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8230,9 +8205,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_5(uint64_t
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
   *a2 = result;
   return result;
 }
@@ -8241,9 +8216,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_6(uint64_t
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
   *a2 = result;
   return result;
 }
@@ -8252,9 +8227,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_7(_DWORD *
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8263,9 +8238,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_8(_DWORD *
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8274,9 +8249,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_9(_DWORD *
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8285,9 +8260,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_10(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8296,9 +8271,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_11(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8307,9 +8282,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_12(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8318,9 +8293,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_13(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8329,9 +8304,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_14(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8340,9 +8315,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_15(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8351,9 +8326,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_16(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8362,9 +8337,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_17(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8373,9 +8348,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_18(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8384,9 +8359,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_19(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8396,9 +8371,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_20()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   OUTLINED_FUNCTION_2();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, v4);
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_21()
@@ -8406,18 +8381,18 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_21()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   OUTLINED_FUNCTION_2();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, v4);
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_22(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8426,9 +8401,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_23(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8437,9 +8412,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_24(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8448,9 +8423,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_25(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8459,27 +8434,20 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_26(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_27()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_28(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8488,9 +8456,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_29(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8499,9 +8467,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_30(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8510,9 +8478,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_31(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8522,36 +8490,8 @@ void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_32()
   OUTLINED_FUNCTION_21();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_33()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_34()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_35()
-{
-  OUTLINED_FUNCTION_41();
-  OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_26();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  *v0 = FigSignalErrorAtGM();
-  OUTLINED_FUNCTION_40();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
 }
 
 BOOL FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_36()
@@ -8560,103 +8500,19 @@ BOOL FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_36()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
-  v2 = *v1;
+  FigDebugAssert3(v2);
+  v3 = *v1;
   *v0 = *v1;
-  return v2 == 0;
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_37()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_38()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_39()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_40()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_41()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_42()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_43()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_44()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_45()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_46()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_47()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_48()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_4_0();
-  return FigDebugAssert3();
+  return v3 == 0;
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_49(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8666,138 +8522,39 @@ void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_50()
   OUTLINED_FUNCTION_21();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_51()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_52()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_53()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_54()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_55(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_56()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_57()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_58(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_59()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_60()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_61()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_62()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_63()
-{
-  OUTLINED_FUNCTION_41();
-  v1 = v0;
-  v3 = v2;
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_25();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  *v1 = FigSignalErrorAtGM();
-
-  OUTLINED_FUNCTION_40();
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_64(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_65()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_66(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8806,9 +8563,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_67(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8817,9 +8574,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_68(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8828,9 +8585,9 @@ uint64_t FigSampleBufferProcessorCreateForGyroVideoStabilization_cold_69(_DWORD 
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8839,9 +8596,9 @@ uint64_t sbp_gvs_setProperty_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8850,27 +8607,20 @@ uint64_t sbp_gvs_setProperty_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_setProperty_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_setProperty_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8879,9 +8629,9 @@ uint64_t sbp_gvs_setProperty_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8890,9 +8640,9 @@ uint64_t sbp_gvs_setProperty_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8901,27 +8651,20 @@ uint64_t sbp_gvs_setProperty_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_setProperty_cold_8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_setProperty_cold_9(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8930,9 +8673,9 @@ uint64_t sbp_gvs_setProperty_cold_10(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8941,9 +8684,9 @@ uint64_t sbp_gvs_setProperty_cold_11(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8952,27 +8695,20 @@ uint64_t sbp_gvs_setProperty_cold_12(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_setProperty_cold_13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_setProperty_cold_14(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8981,9 +8717,9 @@ uint64_t sbp_gvs_setProperty_cold_15(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -8992,9 +8728,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9004,23 +8740,16 @@ uint64_t sbp_gvs_processSampleBuffer_cold_2()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9029,9 +8758,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9040,9 +8769,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9051,41 +8780,20 @@ uint64_t sbp_gvs_processSampleBuffer_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_11(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9094,27 +8802,20 @@ uint64_t sbp_gvs_processSampleBuffer_cold_12(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_14(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9123,9 +8824,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_15(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9134,9 +8835,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_16(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9145,34 +8846,11 @@ uint64_t sbp_gvs_processSampleBuffer_cold_17(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-void sbp_gvs_processSampleBuffer_cold_18()
-{
-  OUTLINED_FUNCTION_41();
-  v1 = v0;
-  v3 = v2;
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_25();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  *v1 = FigSignalErrorAtGM();
-
-  OUTLINED_FUNCTION_40();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_19()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_20()
@@ -9180,47 +8858,16 @@ uint64_t sbp_gvs_processSampleBuffer_cold_20()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_21()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void sbp_gvs_processSampleBuffer_cold_22()
-{
-  OUTLINED_FUNCTION_41();
-  OUTLINED_FUNCTION_19();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_8();
-  FigDebugAssert3();
-  if (*v3)
-  {
-    CFRelease(*v3);
-  }
-
-  *v1 = v2;
-  *v0 = 0;
-  OUTLINED_FUNCTION_40();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_23()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_24(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9229,9 +8876,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_25(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9240,9 +8887,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_26(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9251,25 +8898,11 @@ uint64_t sbp_gvs_processSampleBuffer_cold_27(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_28()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_29()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_30()
@@ -9277,38 +8910,19 @@ uint64_t sbp_gvs_processSampleBuffer_cold_30()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_31()
 {
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_30();
-  FigDebugAssert3();
+  v4 = 0;
+  v1 = OUTLINED_FUNCTION_30();
+  FigDebugAssert3(v1, v4, v0);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_30();
-  return FigDebugAssert3();
-}
-
-void sbp_gvs_processSampleBuffer_cold_32(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_33()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_34()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
+  LODWORD(v5) = -12780;
+  v2 = OUTLINED_FUNCTION_30();
+  return FigDebugAssert3(v2, v5, v0);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_35()
@@ -9316,7 +8930,7 @@ uint64_t sbp_gvs_processSampleBuffer_cold_35()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_36()
@@ -9324,9 +8938,9 @@ uint64_t sbp_gvs_processSampleBuffer_cold_36()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
+  FigDebugAssert3(v0);
   OUTLINED_FUNCTION_2();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, v4);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_37()
@@ -9334,7 +8948,7 @@ uint64_t sbp_gvs_processSampleBuffer_cold_37()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 void sbp_gvs_processSampleBuffer_cold_38(uint64_t a1)
@@ -9342,7 +8956,7 @@ void sbp_gvs_processSampleBuffer_cold_38(uint64_t a1)
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sbp_ltm_deallocateLtcCorrectionTexture(a1);
 }
 
@@ -9351,16 +8965,10 @@ void sbp_gvs_processSampleBuffer_cold_39()
   OUTLINED_FUNCTION_21();
   fig_log_get_emitter();
   OUTLINED_FUNCTION_2_0();
+  v3 = v1;
   OUTLINED_FUNCTION_15();
-  FigDebugAssert3();
+  FigDebugAssert3(v2, v3);
   sbp_ltm_deallocateLtcCorrectionTexture(v0);
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_40()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_41()
@@ -9368,136 +8976,24 @@ uint64_t sbp_gvs_processSampleBuffer_cold_41()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
-uint64_t sbp_gvs_processSampleBuffer_cold_42()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_43()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_44()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_45()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void sbp_gvs_processSampleBuffer_cold_46()
-{
-  OUTLINED_FUNCTION_41();
-  OUTLINED_FUNCTION_19();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_8();
-  FigDebugAssert3();
-  if (*v3)
-  {
-    CFRelease(*v3);
-  }
-
-  *v1 = v2;
-  *v0 = 0;
-  OUTLINED_FUNCTION_40();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_47()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_48()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_49()
+uint64_t sbp_gvs_processSampleBuffer_cold_49(int a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_5_0();
-  return FigDebugAssert3();
-}
-
-void sbp_gvs_processSampleBuffer_cold_50()
-{
-  OUTLINED_FUNCTION_41();
-  OUTLINED_FUNCTION_21();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_26();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_17();
-  fig_log_get_emitter();
-  v0 = FigSignalErrorAtGM();
-  OUTLINED_FUNCTION_34(v0);
-  OUTLINED_FUNCTION_40();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_51()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_35();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_52()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-void sbp_gvs_processSampleBuffer_cold_53()
-{
-  OUTLINED_FUNCTION_41();
-  OUTLINED_FUNCTION_19();
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_8();
-  FigDebugAssert3();
-  if (*v3)
-  {
-    CFRelease(*v3);
-  }
-
-  *v1 = v2;
-  *v0 = 0;
-  OUTLINED_FUNCTION_40();
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_54()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
+  v3 = a1;
+  return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
 }
 
 uint64_t sbp_gvs_processSampleBuffer_cold_55(uint64_t a1, _DWORD *a2)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
   *a2 = result;
   return result;
 }
@@ -9506,34 +9002,20 @@ uint64_t sbp_gvs_processSampleBuffer_cold_56(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t sbp_gvs_processSampleBuffer_cold_57()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_enableLongPressMode_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_enableLongPressMode_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9542,9 +9024,9 @@ uint64_t sbp_enableLongPressMode_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9553,9 +9035,9 @@ uint64_t sbp_enableP3ToBT2020Conversion_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9564,9 +9046,9 @@ uint64_t sbp_configureOverscanParameters_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9575,9 +9057,9 @@ uint64_t sbp_configureOverscanParameters_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9586,9 +9068,9 @@ uint64_t sbp_configureOverscanParameters_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9597,9 +9079,9 @@ uint64_t sbp_configureOverscanParameters_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9608,9 +9090,9 @@ uint64_t sbp_configureOverscanParameters_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9619,9 +9101,9 @@ uint64_t sbp_configureOverscanParameters_cold_6(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9630,9 +9112,9 @@ uint64_t sbp_configureOverscanParameters_cold_7(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9641,9 +9123,9 @@ uint64_t sbp_configureOverscanParameters_cold_8(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9652,9 +9134,9 @@ uint64_t sbp_configureOverscanParameters_cold_9(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9663,41 +9145,20 @@ uint64_t sbp_configureOverscanParameters_cold_10(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t _getMetadataDictionary_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t _getFrameRateConversionStatus_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 uint64_t sbp_gvs_cinematicAddMetadataToQuaternionAndSphereRingBuffers_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
 }
@@ -9706,25 +9167,11 @@ uint64_t sbp_ltm_checkPerVideoDisablement_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
   *a1 = result;
   return result;
-}
-
-uint64_t _setAttachedMediaToSampleBuffer_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t _setAttachedMediaToSampleBuffer_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 uint64_t _runVideoDeghostingDetection_cold_1()
@@ -9732,5 +9179,551 @@ uint64_t _runVideoDeghostingDetection_cold_1()
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_15();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_1(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_2(uint64_t a1, uint64_t a2, _DWORD *a3)
+{
+  OUTLINED_FUNCTION_29();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v9, v12, v15, v17, v19, vars0, vars8);
+  OUTLINED_FUNCTION_29();
+  fig_log_get_emitter();
+  v4 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v10, v13);
+  *a3 = v4;
+  if (!v4)
+  {
+    return 1;
+  }
+
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_35();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v11, v14, v16, v18, v20, vars0a, vars8a);
+  return 0;
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_6(int a1)
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_5_0();
+  v3 = a1;
+  return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_10()
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_15();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_13()
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_15();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_14()
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_15();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t sbp_gvs_gaussianAverageGetStabilizedSampleBuffer_cold_16(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+void sbp_gvs_getPixelBufferFromPool_cold_1(int a1, CFTypeRef *a2)
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_10();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
+  if (*a2)
+  {
+    CFRelease(*a2);
+    *a2 = 0;
+  }
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_3(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_4(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_5(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_6(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_7(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_8(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_9(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_10(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_11(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_12(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_13(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_14(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_15(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_16(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_17(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_18(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_19(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_23(uint64_t a1, void *a2)
+{
+  result = _runSmartStyleFilterForwardLearning(a1, a2);
+  if (result)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_15();
+    return FigDebugAssert3(v3);
+  }
+
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_25(uint64_t a1, void *a2)
+{
+  result = _runSmartStyleFilterForwardLearning(a1, a2);
+  if (result)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_15();
+    return FigDebugAssert3(v3);
+  }
+
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_55(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_56(uint64_t a1, _DWORD *a2)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
+  *a2 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_57(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_58(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sbp_gvs_createStabilizedSampleBuffer_cold_59(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+__n128 _runSmartStyleIntegrate_cold_2()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_15();
+  FigDebugAssert3(v2);
+  *v1 = 0;
+  v1[1] = 0;
+  __asm { FMOV            V0.2D, #1.0 }
+
+  *v0 = result;
+  return result;
+}
+
+void _runSmartStyleReverseLearning_cold_2()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_2_0();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
+}
+
+void _runSmartStyleReverseLearning_cold_3()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_2_0();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
+}
+
+void _runSmartStyleReverseLearning_cold_4()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_2_0();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
+}
+
+void _runSmartStyleReverseLearning_cold_5()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_2_0();
+  v2 = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
+}
+
+void sbp_gvs_createStabilizedPixelBuffer_cold_6()
+{
+  OUTLINED_FUNCTION_21();
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_2_0();
+  v3 = v1;
+  OUTLINED_FUNCTION_15();
+  FigDebugAssert3(v2, v3);
+  sbp_ltm_deallocateLtcCorrectionTexture(v0);
+}
+
+uint64_t sbp_gvs_createStabilizedPixelBuffer_cold_8()
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_15();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t sbp_gvs_createStabilizedPixelBuffer_cold_9()
+{
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_15();
+  return FigDebugAssert3(v0);
+}
+
+uint64_t GVSQuaternionFromRotationMatrix_cold_1(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSQuaternionFromRotationMatrix_cold_2(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_1(uint64_t a1, _DWORD *a2)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v6, v8, v10, v11, v12, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v7, v9);
+  *a2 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_2(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_4(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_5(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_6(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_7(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_8(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
+}
+
+uint64_t GVSExtractMetadataFromTopToBottomRows_cold_15(_DWORD *a1)
+{
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_1();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v5, v7, v9, v10, v11, vars0, vars8);
+  OUTLINED_FUNCTION_1();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v6, v8);
+  *a1 = result;
+  return result;
 }

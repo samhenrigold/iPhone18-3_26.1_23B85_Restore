@@ -19,133 +19,95 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.cellular";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.cellular";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCCellularPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v56.receiver = self;
-  v56.super_class = MCCellularPayload;
-  v9 = [(MCPayload *)&v56 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v55.receiver = self;
+  v55.super_class = MCCellularPayload;
+  v9 = [(MCPayload *)&v55 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (!v9)
   {
     goto LABEL_14;
   }
 
-  v55 = 0;
-  v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AttachAPN" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v55];
-  v11 = v55;
+  v54 = 0;
+  v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AttachAPN" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v54];
+  v11 = v54;
   if (v11)
   {
     v12 = v11;
   }
 
-  else
+  else if (!v10 || (v25 = [MCAPNConfiguration alloc], v26 = error, v27 = [v10 mutableCopy], v53 = 0, v28 = v10, v29 = -[MCAPNConfiguration initWithDictionary:outError:](v25, "initWithDictionary:outError:", v27, &v53), v12 = v53, attachAPN = v9->_attachAPN, v9->_attachAPN = v29, v10 = v28, attachAPN, v27, error = v26, !v12))
   {
-    if (!v10)
+    v52 = 0;
+    v31 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"APNs" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v52];
+    v32 = v52;
+    v33 = v32;
+    if (v31)
     {
-      goto LABEL_17;
-    }
-
-    v26 = [MCAPNConfiguration alloc];
-    errorCopy = error;
-    v28 = [v10 mutableCopy];
-    v54 = 0;
-    v29 = v10;
-    v30 = [(MCAPNConfiguration *)v26 initWithDictionary:v28 outError:&v54];
-    v12 = v54;
-    attachAPN = v9->_attachAPN;
-    v9->_attachAPN = v30;
-    v10 = v29;
-
-    error = errorCopy;
-    if (!v12)
-    {
-LABEL_17:
-      v53 = 0;
-      v32 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"APNs" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v53];
-      v33 = v53;
-      v34 = v33;
-      if (v32)
+      v44 = v10;
+      errorCopy = error;
+      v46 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v31, "count")}];
+      v48 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      v43 = v31;
+      v34 = v31;
+      v35 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      if (v35)
       {
-        v45 = v10;
-        errorCopy2 = error;
-        v47 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v32, "count")}];
-        v49 = 0u;
-        v50 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v44 = v32;
-        v35 = v32;
-        v36 = [v35 countByEnumeratingWithState:&v49 objects:v61 count:16];
-        if (v36)
+        v36 = v35;
+        v37 = *v49;
+        while (2)
         {
-          v37 = v36;
-          v38 = *v50;
-          while (2)
+          for (i = 0; i != v36; ++i)
           {
-            for (i = 0; i != v37; ++i)
+            if (*v49 != v37)
             {
-              if (*v50 != v38)
-              {
-                objc_enumerationMutation(v35);
-              }
-
-              v40 = *(*(&v49 + 1) + 8 * i);
-              v41 = [MCAPNConfiguration alloc];
-              v42 = [v40 mutableCopy];
-              v48 = v34;
-              v43 = [(MCAPNConfiguration *)v41 initWithDictionary:v42 outError:&v48];
-              v12 = v48;
-
-              if (v12)
-              {
-
-                goto LABEL_32;
-              }
-
-              if (v43)
-              {
-                [v47 addObject:v43];
-              }
-
-              v34 = 0;
+              objc_enumerationMutation(v34);
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v49 objects:v61 count:16];
-            v34 = 0;
-            v12 = 0;
-            if (v37)
+            v39 = *(*(&v48 + 1) + 8 * i);
+            v40 = [MCAPNConfiguration alloc];
+            v41 = [v39 mutableCopy];
+            v47 = v33;
+            v42 = [(MCAPNConfiguration *)v40 initWithDictionary:v41 outError:&v47];
+            v12 = v47;
+
+            if (v12)
             {
-              continue;
+
+              goto LABEL_32;
             }
 
-            break;
+            if (v42)
+            {
+              [v46 addObject:v42];
+            }
+
+            v33 = 0;
           }
+
+          v36 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v33 = 0;
+          v12 = 0;
+          if (v36)
+          {
+            continue;
+          }
+
+          break;
         }
-
-        else
-        {
-          v12 = v34;
-        }
-
-LABEL_32:
-
-        if ([v47 count])
-        {
-          objc_storeStrong(&v9->_APNs, v47);
-        }
-
-        v10 = v45;
-        error = errorCopy2;
-        v32 = v44;
       }
 
       else
@@ -153,13 +115,29 @@ LABEL_32:
         v12 = v33;
       }
 
-      if (!v12)
+LABEL_32:
+
+      if ([v46 count])
       {
-        goto LABEL_10;
+        objc_storeStrong(&v9->_APNs, v46);
       }
 
-      goto LABEL_5;
+      v10 = v44;
+      error = errorCopy;
+      v31 = v43;
     }
+
+    else
+    {
+      v12 = v32;
+    }
+
+    if (!v12)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_5;
   }
 
 LABEL_5:
@@ -179,9 +157,9 @@ LABEL_5:
     v19 = v18;
     mCVerboseDescription = [v14 MCVerboseDescription];
     *buf = 138543618;
-    v58 = v18;
-    v59 = 2114;
-    v60 = mCVerboseDescription;
+    v57 = v18;
+    v58 = 2114;
+    v59 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v17, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
@@ -195,24 +173,23 @@ LABEL_10:
       v22 = v21;
       friendlyName = [(MCPayload *)v9 friendlyName];
       *buf = 138543618;
-      v58 = friendlyName;
-      v59 = 2114;
-      v60 = dictionaryCopy;
+      v57 = friendlyName;
+      v58 = 2114;
+      v59 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v22, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_14:
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)stubDictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = MCCellularPayload;
-  stubDictionary = [(MCPayload *)&v24 stubDictionary];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = MCCellularPayload;
+  stubDictionary = [(MCPayload *)&v23 stubDictionary];
   attachAPN = [(MCCellularPayload *)self attachAPN];
 
   if (attachAPN)
@@ -231,30 +208,30 @@ LABEL_14:
     aPNs2 = [(MCCellularPayload *)self APNs];
     v11 = [v9 arrayWithCapacity:{objc_msgSend(aPNs2, "count")}];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     aPNs3 = [(MCCellularPayload *)self APNs];
-    v13 = [aPNs3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v13 = [aPNs3 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(aPNs3);
           }
 
-          stubDictionary3 = [*(*(&v20 + 1) + 8 * i) stubDictionary];
+          stubDictionary3 = [*(*(&v19 + 1) + 8 * i) stubDictionary];
           [v11 addObject:stubDictionary3];
         }
 
-        v14 = [aPNs3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v14 = [aPNs3 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v14);
@@ -263,17 +240,15 @@ LABEL_14:
     [stubDictionary setObject:v11 forKeyedSubscript:@"APNs"];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return stubDictionary;
 }
 
 - (id)verboseDescription
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = MCCellularPayload;
-  verboseDescription = [(MCPayload *)&v21 verboseDescription];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = MCCellularPayload;
+  verboseDescription = [(MCPayload *)&v20 verboseDescription];
   v4 = [verboseDescription mutableCopy];
 
   attachAPN = [(MCCellularPayload *)self attachAPN];
@@ -292,43 +267,41 @@ LABEL_14:
     aPNs2 = [(MCCellularPayload *)self APNs];
     [v4 appendFormat:@"%d APN configurations.\n", objc_msgSend(aPNs2, "count")];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     aPNs3 = [(MCCellularPayload *)self APNs];
-    v11 = [aPNs3 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v11 = [aPNs3 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(aPNs3);
           }
 
-          [v4 appendFormat:@"%@\n", *(*(&v17 + 1) + 8 * i)];
+          [v4 appendFormat:@"%@\n", *(*(&v16 + 1) + 8 * i)];
         }
 
-        v12 = [aPNs3 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v12 = [aPNs3 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v12);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = MEMORY[0x1E695DF70];
   aPNs = [(MCCellularPayload *)self APNs];
@@ -345,26 +318,26 @@ LABEL_14:
   aPNs2 = [(MCCellularPayload *)self APNs];
   [v6 addObjectsFromArray:aPNs2];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   obj = v6;
-  v10 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v10 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v59;
+    v12 = *v58;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v59 != v12)
+        if (*v58 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v58 + 1) + 8 * i);
+        v14 = *(*(&v57 + 1) + 8 * i);
         v15 = objc_opt_new();
         name = [v14 name];
 
@@ -461,7 +434,7 @@ LABEL_14:
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v11 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
     while (v11);
@@ -472,8 +445,6 @@ LABEL_14:
 
     v3 = 0;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

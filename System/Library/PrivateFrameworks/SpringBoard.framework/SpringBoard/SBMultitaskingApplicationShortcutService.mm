@@ -204,9 +204,9 @@ void __115__SBMultitaskingApplicationShortcutService_fetchSupportedShortcutActio
   connectionCopy = connection;
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v9 = objc_msgSend_auditToken(remoteProcess);
   v23 = 0;
-  v10 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v23];
+  v10 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v9 error:&v23];
   v11 = v23;
 
   if (v10)

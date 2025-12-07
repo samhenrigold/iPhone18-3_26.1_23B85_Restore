@@ -323,9 +323,9 @@ LABEL_11:
           v76 = *(*(&v138 + 1) + 8 * m);
           v77 = [v76 PKStringForKey:@"provisioningMethodType"];
           partnerIdentifier = [(PKPaymentSetupProductConfiguration *)self->_configuration partnerIdentifier];
-          v79 = [v77 isEqualToString:@"digitalIssuance"];
+          isEqualToString = objc_msgSend_isEqualToString_(v77);
           v80 = off_1E79C1918;
-          if (v79 & 1) != 0 || (v81 = [v77 isEqualToString:@"readerMode"], v80 = off_1E79C1928, (v81) || (v82 = objc_msgSend(v77, "isEqualToString:", @"appClip"), v80 = off_1E79C1900, (v82) || (v83 = objc_msgSend(v77, "isEqualToString:", @"inApp"), v80 = off_1E79C1920, (v83) || (v84 = objc_msgSend(v77, "isEqualToString:", @"cameraCapture"), v80 = off_1E79C1910, (v84) || (v85 = objc_msgSend(v77, "isEqualToString:", @"web"), v80 = off_1E79C1930, v85))
+          if (isEqualToString & 1) != 0 || (v81 = objc_msgSend_isEqualToString_(v77), v80 = off_1E79C1928, (v81) || (v82 = objc_msgSend_isEqualToString_(v77), v80 = off_1E79C1900, (v82) || (v83 = objc_msgSend_isEqualToString_(v77), v80 = off_1E79C1920, (v83) || (v84 = objc_msgSend_isEqualToString_(v77), v80 = off_1E79C1910, (v84) || (v85 = objc_msgSend_isEqualToString_(v77), v80 = off_1E79C1930, v85))
           {
             v86 = [objc_alloc(*v80) initWithDictionary:v76 partnerIdentifier:partnerIdentifier];
             [v71 safelyAddObject:v86];
@@ -642,7 +642,7 @@ LABEL_14:
             if ([v12 type] == type)
             {
               partnerIdentifier = [v12 partnerIdentifier];
-              if ([partnerIdentifier isEqualToString:identifierCopy])
+              if (objc_msgSend_isEqualToString_(partnerIdentifier))
               {
                 isSupported = [v12 isSupported];
 
@@ -865,9 +865,9 @@ LABEL_12:
 
         v9 = *(*(&v16 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:partnerIdentifier];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           displayName = [v9 displayName];
           goto LABEL_12;
@@ -1797,17 +1797,17 @@ LABEL_8:
 + (id)_displayNameForCardType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"credit"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_CREDIT_CARD";
   }
 
-  else if ([typeCopy isEqualToString:@"debit"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_DEBIT_CARD";
   }
 
-  else if ([typeCopy isEqualToString:@"prepaid"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = @"CARD_TYPE_PREPAID_CARD";
   }
@@ -1815,7 +1815,7 @@ LABEL_8:
   else
   {
     v5 = typeCopy;
-    if (![typeCopy isEqualToString:@"bankcard"])
+    if (!objc_msgSend_isEqualToString_(typeCopy))
     {
       goto LABEL_10;
     }

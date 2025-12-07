@@ -9,7 +9,7 @@
 
 - (id)specifiers
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = +[MCUIWatchManager shared];
   fetchStatus = [v3 fetchStatus];
 
@@ -27,8 +27,8 @@
 LABEL_7:
     _specifiersForWatchProfiles = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:15 edit:0];
     [_specifiersForWatchProfiles setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-    v12 = _specifiersForWatchProfiles;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v11 = _specifiersForWatchProfiles;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
     goto LABEL_8;
   }
 
@@ -41,8 +41,8 @@ LABEL_7:
   if (![_specifiersForWatchProfiles count])
   {
     _emptySpecifier = [(MCUIBridgeSpecifierProvider *)self _emptySpecifier];
-    v13[0] = _emptySpecifier;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = _emptySpecifier;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
     goto LABEL_9;
   }
@@ -54,7 +54,6 @@ LABEL_8:
 LABEL_9:
 
 LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

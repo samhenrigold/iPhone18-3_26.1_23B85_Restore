@@ -29,53 +29,51 @@
 {
   v24 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(applicationCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v22 = 136446210;
       v23 = "[SSApplicationUtil restartApplication:]";
-      LODWORD(v19) = 12;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v22, v19}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
@@ -89,7 +87,7 @@ LABEL_16:
   block[3] = &unk_1E84AC360;
   block[4] = self;
   v21 = applicationCopy;
-  v18 = applicationCopy;
+  v19 = applicationCopy;
   dispatch_async(serialQueue, block);
 }
 
@@ -110,102 +108,112 @@ void __40__SSApplicationUtil_restartApplication___block_invoke(uint64_t a1)
 
 void __40__SSApplicationUtil_restartApplication___block_invoke_2(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!*(a1 + 40))
   {
-    objc_opt_class();
-    v6 = SSXPCDictionaryCopyCFObjectWithClass(v4, "0");
-    v7 = [(__CFArray *)v6 intValue];
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    v9 = v8;
-    if (v7)
+    v6 = objc_opt_class();
+    v7 = SSXPCDictionaryCopyCFObjectWithClass(v4, "0", v6);
+    v8 = [(__CFDate *)v7 intValue];
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    v10 = v9;
+    if (v8)
     {
-      if (!v8)
+      if (!v9)
       {
-        v9 = +[SSLogConfig sharedConfig];
+        v10 = +[SSLogConfig sharedConfig];
       }
 
-      v10 = [v9 shouldLog];
-      if ([v9 shouldLogToDisk])
+      v11 = [v10 shouldLog];
+      if ([v10 shouldLogToDisk])
       {
-        v11 = v10 | 2;
+        LODWORD(v12) = v11 | 2;
       }
 
       else
       {
-        v11 = v10;
+        LODWORD(v12) = v11;
       }
 
-      v12 = [v9 OSLogObject];
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = [v10 OSLogObject];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v11 &= 2u;
+        v12 = v12;
       }
 
-      if (!v11)
+      else
       {
-        goto LABEL_30;
+        v12 &= 2u;
       }
 
-      v13 = objc_opt_class();
-      v14 = v13;
-      v34 = 138412546;
-      v35 = v13;
-      v36 = 1024;
-      v37 = [(__CFArray *)v6 intValue];
-      LODWORD(v30) = 18;
+      if (!v12)
+      {
+        goto LABEL_32;
+      }
+
+      v14 = objc_opt_class();
+      v15 = v14;
+      v36 = 138412546;
+      v37 = v14;
+      v38 = 1024;
+      v39 = [(__CFDate *)v7 intValue];
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 16, "[%@] Restart Application returned error code: %d", &v36, 18);
     }
 
     else
     {
-      if (!v8)
+      if (!v9)
       {
-        v9 = +[SSLogConfig sharedConfig];
+        v10 = +[SSLogConfig sharedConfig];
       }
 
-      v18 = [v9 shouldLog];
-      if ([v9 shouldLogToDisk])
+      v20 = [v10 shouldLog];
+      if ([v10 shouldLogToDisk])
       {
-        v19 = v18 | 2;
+        LODWORD(v21) = v20 | 2;
       }
 
       else
       {
-        v19 = v18;
+        LODWORD(v21) = v20;
       }
 
-      v12 = [v9 OSLogObject];
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = [v10 OSLogObject];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v19 &= 2u;
+        v21 = v21;
       }
 
-      if (!v19)
+      else
       {
-        goto LABEL_30;
+        v21 &= 2u;
       }
 
-      v34 = 138412290;
-      v35 = objc_opt_class();
-      v14 = v35;
-      LODWORD(v30) = 12;
+      if (!v21)
+      {
+        goto LABEL_32;
+      }
+
+      v36 = 138412290;
+      v37 = objc_opt_class();
+      v15 = v37;
+      v16 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, v13, 1, "[%@] Restart Application succeeded", &v36, 12);
     }
 
-    v20 = _os_log_send_and_compose_impl();
+    v22 = v16;
 
-    if (!v20)
+    if (!v22)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
-    v12 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v34, v30}];
-    free(v20);
-    SSFileLog(v9, @"%@", v21, v22, v23, v24, v25, v26, v12);
-LABEL_30:
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
+    free(v22);
+    SSFileLog(v10, @"%@", v23, v24, v25, v26, v27, v28, v13);
+LABEL_32:
 
-    goto LABEL_31;
+    goto LABEL_33;
   }
 
   if (v3 == MEMORY[0x1E69E9E18])
@@ -217,41 +225,41 @@ LABEL_30:
   {
     if (v3 && MEMORY[0x1DA6E0380](v3) == MEMORY[0x1E69E9E80])
     {
-      objc_opt_class();
-      v27 = SSXPCDictionaryCopyCFObjectWithClass(v4, "0");
-      if ([(__CFArray *)v27 intValue])
+      v29 = objc_opt_class();
+      v30 = SSXPCDictionaryCopyCFObjectWithClass(v4, "0", v29);
+      if ([(__CFDate *)v30 intValue])
       {
-        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v29 = xpc_dictionary_get_value(v4, "1");
-        v15 = [v28 initWithXPCEncoding:v29];
+        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v32 = xpc_dictionary_get_value(v4, "1");
+        v17 = [v31 initWithXPCEncoding:v32];
       }
 
       else
       {
-        v15 = 0;
+        v17 = 0;
       }
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v5 = 111;
   }
 
-  v15 = SSError(@"SSErrorDomain", v5, 0, 0);
-LABEL_18:
-  v16 = dispatch_get_global_queue(0, 0);
+  v17 = SSError(@"SSErrorDomain", v5, 0, 0);
+LABEL_19:
+  v18 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __40__SSApplicationUtil_restartApplication___block_invoke_3;
   block[3] = &unk_1E84AC338;
-  v17 = *(a1 + 40);
-  v32 = v15;
-  v33 = v17;
-  v6 = v15;
-  dispatch_async(v16, block);
+  v19 = *(a1 + 40);
+  v34 = v17;
+  v35 = v19;
+  v7 = v17;
+  dispatch_async(v18, block);
 
-  v9 = v33;
-LABEL_31:
+  v10 = v35;
+LABEL_33:
 }
 
 - (id)_connection

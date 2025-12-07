@@ -1852,7 +1852,7 @@ LABEL_14:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && ([PKTextInputElementsFinder responderSupportsPencilTextInput:viewCopy]& 1) == 0)
   {
-    v7 = [(PKTextInputElementsFinder *)x shouldConsiderTextInputSearchForView:PKTextInputElementsFinder referenceHitPoint:viewCopy referenceCoordSpace:viewCopy];
+    v7 = [PKTextInputElementsFinder shouldConsiderTextInputSearchForView:viewCopy referenceHitPoint:viewCopy referenceCoordSpace:x, y];
     v8 = viewCopy;
     v9 = v8;
     if (v8)

@@ -45,7 +45,7 @@
     [(NSArray(SpringBoard) *)a2 sb_arrayByRemovingObject:self];
   }
 
-  if ([self containsObject:v5])
+  if (objc_msgSend_containsObject_(self))
   {
     selfCopy = [self mutableCopy];
     [selfCopy removeObject:v5];

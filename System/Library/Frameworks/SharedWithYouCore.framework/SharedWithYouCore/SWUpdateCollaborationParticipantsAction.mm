@@ -251,7 +251,7 @@ LABEL_32:
 
 - (SWUpdateCollaborationParticipantsAction)initWithDestinationAction:(id)action
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   info = [actionCopy info];
   v5 = [info objectForSetting:3];
@@ -260,25 +260,25 @@ LABEL_32:
   v7 = [info2 objectForSetting:4];
 
   info3 = [actionCopy info];
-  v32 = [info3 objectForSetting:5];
+  v31 = [info3 objectForSetting:5];
 
   v9 = MEMORY[0x1E696ACD0];
   v10 = MEMORY[0x1E695DFD8];
-  v39[0] = objc_opt_class();
-  v39[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+  v38[0] = objc_opt_class();
+  v38[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
   v12 = [v10 setWithArray:v11];
-  v38 = 0;
-  v36 = v5;
-  v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v5 error:&v38];
-  v33 = v38;
+  v37 = 0;
+  v35 = v5;
+  v13 = [v9 unarchivedObjectOfClasses:v12 fromData:v5 error:&v37];
+  v32 = v37;
 
   v14 = MEMORY[0x1E696ACD0];
   v15 = MEMORY[0x1E695DFD8];
   v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = [v15 setWithObjects:{v16, v17, objc_opt_class(), 0}];
-  v35 = v7;
+  v34 = v7;
   v19 = [v14 unarchivedObjectOfClasses:v18 fromData:v7 error:0];
 
   v20 = MEMORY[0x1E696ACD0];
@@ -286,13 +286,13 @@ LABEL_32:
   v22 = objc_opt_class();
   v23 = objc_opt_class();
   v24 = [v21 setWithObjects:{v22, v23, objc_opt_class(), 0}];
-  v25 = [v20 unarchivedObjectOfClasses:v24 fromData:v32 error:0];
+  v25 = [v20 unarchivedObjectOfClasses:v24 fromData:v31 error:0];
 
   if (v13)
   {
-    v37.receiver = self;
-    v37.super_class = SWUpdateCollaborationParticipantsAction;
-    v26 = [(SWAction *)&v37 initWithDestinationAction:actionCopy];
+    v36.receiver = self;
+    v36.super_class = SWUpdateCollaborationParticipantsAction;
+    v26 = [(SWAction *)&v36 initWithDestinationAction:actionCopy];
     p_isa = &v26->super.super.isa;
     if (v26)
     {
@@ -311,7 +311,6 @@ LABEL_32:
     selfCopy = self;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

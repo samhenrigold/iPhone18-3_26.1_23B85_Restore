@@ -12,6 +12,7 @@
 - (void)connectionDidResume:(id)resume;
 - (void)dealloc;
 - (void)discoveryOutputDevicesChanged:(id)changed forConfiguration:(id)configuration;
+- (void)hostedExternalDeviceConnectionStateDidChange:(unsigned int)change withError:(id)error;
 - (void)hostedExternalDeviceDeviceInfoDidChange:(id)change;
 - (void)hostedExternalDeviceDidAddOutputDevice:(id)device;
 - (void)hostedExternalDeviceDidChangeOutputDevice:(id)device;
@@ -70,7 +71,7 @@
     connection = v7->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -169,45 +170,60 @@
   }
 
   [selfCopy appendFormat:@"  hasConnectedCompleted = %@ (%@ %lf seconds ago)\n", v11, hasConnectionAttemptCompletedDate, -v10];
-  connectionState = selfCopy->_connectionState;
-  v13 = MRExternalDeviceConnectionStateCopyDescription();
+  v12 = MRExternalDeviceConnectionStateCopyDescription();
   connectionStateDate = selfCopy->_connectionStateDate;
   [(NSDate *)connectionStateDate timeIntervalSinceNow];
-  [selfCopy appendFormat:@"  connectionState = %@ (%@ %lf seconds ago)\n", v13, connectionStateDate, -v15];
+  [selfCopy appendFormat:@"  connectionState = %@ (%@ %lf seconds ago)\n", v12, connectionStateDate, -v14];
 
   if (selfCopy->_registeredCallbacks)
   {
-    v16 = NSStringFromMRAVDistantExternalDeviceCallbackFlags();
-    [selfCopy appendFormat:@"  registeredCallbacks = %@\n", v16];
+    v15 = NSStringFromMRAVDistantExternalDeviceCallbackFlags();
+    [selfCopy appendFormat:@"  registeredCallbacks = %@\n", v15];
   }
 
   if (selfCopy->_notifications)
   {
-    v17 = NSStringFromMRAVDistantExternalDeviceNotificationFlags();
-    [selfCopy appendFormat:@"  registeredNotifications = %@\n", v17];
+    v16 = NSStringFromMRAVDistantExternalDeviceNotificationFlags();
+    [selfCopy appendFormat:@"  registeredNotifications = %@\n", v16];
   }
 
   if ([(NSArray *)selfCopy->_subscribedPlayerPaths count])
   {
-    subscribedPlayerPaths = selfCopy->_subscribedPlayerPaths;
-    v19 = MRCreateIndentedDebugDescriptionFromArray();
-    [selfCopy appendFormat:@"  subscribedPlayerPaths = %@", v19];
+    v17 = MRCreateIndentedDebugDescriptionFromArray();
+    [selfCopy appendFormat:@"  subscribedPlayerPaths = %@", v17];
   }
 
   if (selfCopy->_pendingClientState)
   {
-    v20 = MRCreateIndentedDebugDescriptionFromObject();
-    [selfCopy appendFormat:@"  pendingClientState = %@", v20];
+    v18 = MRCreateIndentedDebugDescriptionFromObject();
+    [selfCopy appendFormat:@"  pendingClientState = %@", v18];
   }
 
-  connectionMonitor = selfCopy->_connectionMonitor;
-  v22 = MRCreateIndentedDebugDescriptionFromObject();
-  [selfCopy appendFormat:@"  connectionMonitor = %@", v22];
+  v19 = MRCreateIndentedDebugDescriptionFromObject();
+  [selfCopy appendFormat:@"  connectionMonitor = %@", v19];
 
   [selfCopy appendFormat:@"}>\n"];
   objc_sync_exit(selfCopy);
 
   return selfCopy;
+}
+
+- (void)hostedExternalDeviceConnectionStateDidChange:(unsigned int)change withError:(id)error
+{
+  v4 = *&change;
+  errorCopy = error;
+  [(MRDAVHostedExternalDeviceClient *)self setConnectionState:v4];
+  [(MRDAVHostedExternalDeviceClient *)self _maybeWakeClient];
+  connectionMonitor = self->_connectionMonitor;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10007C270;
+  v9[3] = &unk_1004B89A0;
+  v11 = v4;
+  v9[4] = self;
+  v10 = errorCopy;
+  v8 = errorCopy;
+  [(MRXPCConnectionMonitor *)connectionMonitor canSendMessage:v9];
 }
 
 - (void)hostedExternalDeviceDeviceInfoDidChange:(id)change

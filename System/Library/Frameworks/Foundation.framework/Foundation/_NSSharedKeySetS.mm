@@ -2,10 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (_NSSharedKeySetS)init;
 - (uint64_t)allKeys;
-- (uint64_t)keyAtIndex:(uint64_t)index;
 - (unint64_t)hash;
 - (unint64_t)indexForBytes:(char *)bytes length:(unint64_t)length;
 - (unint64_t)indexForKey:(unsigned __int16 *)key length:(unint64_t)length;
+- (unint64_t)keyAtIndex:(uint64_t)index;
 - (void)dealloc;
 - (void)initWithConfiguration:(void *)configuration;
 @end
@@ -148,7 +148,7 @@ LABEL_12:
   return [v16 array];
 }
 
-- (uint64_t)keyAtIndex:(uint64_t)index
+- (unint64_t)keyAtIndex:(uint64_t)index
 {
   v2 = 0;
   if (index && a2 != 0x7FFFFFFFFFFFFFFFLL && *(index + 48))

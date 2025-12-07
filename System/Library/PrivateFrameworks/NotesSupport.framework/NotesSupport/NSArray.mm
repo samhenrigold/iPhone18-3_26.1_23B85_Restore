@@ -3,7 +3,7 @@
 
 @implementation NSArray
 
-uint64_t __50__NSArray_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__50__NSArray_IC__ic_containsObjectMatchingPredicate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) evaluateWithObject:a2];
   if (result)
@@ -25,7 +25,7 @@ uint64_t __37__NSArray_IC__ic_firstObjectOfClass___block_invoke(uint64_t a1, uin
   return isKindOfClass & 1;
 }
 
-uint64_t __50__NSArray_IC__ic_firstObjectConformingToProtocol___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__NSArray_IC__ic_firstObjectConformingToProtocol___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:*(a1 + 32)];
   if (result)

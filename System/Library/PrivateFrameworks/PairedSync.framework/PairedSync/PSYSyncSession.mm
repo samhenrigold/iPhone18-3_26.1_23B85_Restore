@@ -133,26 +133,26 @@
 
 - (id)firstIncompleteActivity
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   activities = [(PSYSyncSession *)self activities];
-  v3 = [activities countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [activities countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(activities);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 activityState] != 2)
         {
           v3 = v6;
@@ -160,7 +160,7 @@
         }
       }
 
-      v3 = [activities countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [activities countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -172,158 +172,150 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)runningActivities
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   activities = [(PSYSyncSession *)self activities];
-  v5 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(activities);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 activityState] == 1)
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)incompleteActivities
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   activities = [(PSYSyncSession *)self activities];
-  v5 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(activities);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 activityState] != 2)
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)completedActivities
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   activities = [(PSYSyncSession *)self activities];
-  v5 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(activities);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 activityState] == 2)
         {
           [array addObject:v9];
         }
       }
 
-      v6 = [activities countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [activities countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)completedActivityLabelsSet
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   activities = [(PSYSyncSession *)self activities];
-  v5 = [activities countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [activities countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(activities);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 activityState] == 2)
         {
           activityInfo = [v9 activityInfo];
@@ -332,41 +324,39 @@ LABEL_11:
         }
       }
 
-      v6 = [activities countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [activities countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)activityForService:(id)service
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_activityMap;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = [(NSDictionary *)self->_activityMap objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v9), v16];
+      v10 = [(NSDictionary *)self->_activityMap objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v9), v15];
       activityInfo = [v10 activityInfo];
       machServiceName = [activityInfo machServiceName];
       v13 = [machServiceName isEqual:serviceCopy];
@@ -378,7 +368,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -395,50 +385,46 @@ LABEL_9:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)syncSessionByUpdatingActivities:(id)activities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   selfCopy = self;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [activitiesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [activitiesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = selfCopy;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(activitiesCopy);
         }
 
-        selfCopy = [(PSYSyncSession *)v10 syncSessionByReplacingActivity:*(*(&v13 + 1) + 8 * v9)];
+        selfCopy = [(PSYSyncSession *)v10 syncSessionByReplacingActivity:*(*(&v12 + 1) + 8 * v9)];
 
         ++v9;
         v10 = selfCopy;
       }
 
       while (v7 != v9);
-      v7 = [activitiesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [activitiesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -450,13 +436,13 @@ LABEL_9:
   label = [activityInfo label];
 
   activities = self->_activities;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke;
-  v21[3] = &unk_2799FB9E8;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke;
+  v22[3] = &unk_2799FB9E8;
   v8 = label;
-  v22 = v8;
-  v9 = [(NSArray *)activities indexOfObjectPassingTest:v21];
+  v23 = v8;
+  v9 = [(NSArray *)activities indexOfObjectPassingTest:v22];
   if (v9 == 0x7FFFFFFFFFFFFFFFLL)
   {
     selfCopy = 0;
@@ -477,15 +463,15 @@ LABEL_9:
       v14 = malloc_type_calloc(v13, 8uLL, 0x80040B8603338uLL);
       if (!v14)
       {
-        v18 = psy_log();
+        v18 = psy_log(0);
         v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
         if (v19)
         {
-          v20 = psy_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = psy_log(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            [PSYSyncSession syncSessionByReplacingActivity:v20];
+            [PSYSyncSession syncSessionByReplacingActivity:v21];
           }
         }
 
@@ -580,7 +566,7 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
 
 - (double)sessionProgress
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   result = 1.0;
   if (self->_syncSessionState != 2)
   {
@@ -588,28 +574,28 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
     if (v4)
     {
       v5 = v4;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v6 = self->_activities;
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         v8 = v7;
         v9 = 0;
-        v10 = *v18;
+        v10 = *v17;
         v11 = 0.0;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(v6);
             }
 
-            v13 = *(*(&v17 + 1) + 8 * i);
+            v13 = *(*(&v16 + 1) + 8 * i);
             if ([v13 activityState] == 2)
             {
               ++v9;
@@ -622,7 +608,7 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
             }
           }
 
-          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v8);
@@ -635,22 +621,21 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
         v11 = 0.0;
       }
 
-      result = v15 / v5 + v11 / v5;
+      return v15 / v5 + v11 / v5;
     }
 
     else
     {
-      result = 0.0;
+      return 0.0;
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)description
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -682,28 +667,28 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
   [(PSYSyncSession *)self sessionProgress];
   [string appendFormat:@"<%@ %p;\n\tpairingID=%@[%@] session=%@ type=%@ migration=%@ state='%@' progress=%1.3f activities:\n", v5, self, uUIDString, v7, uUIDString2, v9, v10, v12, v13];
 
-  v40 = 0;
-  v34 = [MEMORY[0x277D37B38] getDropoutCounter:&v40];
+  v39 = 0;
+  v33 = [MEMORY[0x277D37B38] getDropoutCounter:&v39];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = self->_activities;
-  v14 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v14 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v37;
+    v16 = *v36;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
+        v18 = *(*(&v35 + 1) + 8 * i);
         v19 = [@"\t" mutableCopy];
         activityInfo = [v18 activityInfo];
         label = [activityInfo label];
@@ -742,7 +727,7 @@ uint64_t __49__PSYSyncSession_syncSessionByReplacingActivity___block_invoke(uint
         if ([v18 startDropoutCount])
         {
           startDropoutCount = [v18 startDropoutCount];
-          v27 = ((startDropoutCount != v40) | v34 & 1) == 0;
+          v27 = ((startDropoutCount != v39) | v33 & 1) == 0;
 LABEL_22:
           if (v27)
           {
@@ -780,14 +765,13 @@ LABEL_26:
         [string appendString:@"\n"];
       }
 
-      v15 = [(NSArray *)obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v15 = [(NSArray *)obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v15);
   }
 
   [string appendString:@">"];
-  v32 = *MEMORY[0x277D85DE8];
 
   return string;
 }

@@ -1,7 +1,7 @@
 @interface VNImageBuffer
 + (CGRect)computeCenterCropRectFromCropRect:(CGRect)result inImageSize:(CGSize)size calculatedScaleX:(double *)x calculatedScaleY:(double *)y;
 + (const)mapOrientationToRotationDegrees;
-+ (uint64_t)_VNVTPixelTransferImageForSource:(CGFloat)source destinationBuffer:(CGFloat)buffer cropRect:(uint64_t)rect performCrop:(__CVBuffer *)crop vtSessionManager:(__CVBuffer *)manager error:(int)error;
++ (uint64_t)_VNVTPixelTransferImageForSource:(__CVBuffer *)source destinationBuffer:(int)buffer cropRect:(void *)rect performCrop:(void *)crop vtSessionManager:(CGFloat)manager error:(CGFloat)error;
 - ($C89D6CB792F036C1FD5C44B3A3669EAC)timingInfo;
 - (BOOL)getCameraIntrinsicsAvailable:(id *)available;
 - (BOOL)getCameraOpticalCenterIfAvailable:(CGPoint *)available;
@@ -9,7 +9,7 @@
 - (CGAffineTransform)_calculateTranslationTransformForOrientedCropWithOrientation:(double)orientation unorientedSubsampledFullImageRect:(double)rect unorientedSubsampledOriginalCrop:(double)crop;
 - (CGRect)fullImageBufferRect;
 - (CGRect)makeClippedRectAgainstImageExtentUsingOriginalRect:(CGRect)rect;
-- (CVPixelBufferRef)_createPotentiallyPooledIOSurfaceBackedPixelBufferWithWith:(size_t)with height:(uint64_t)height format:(void *)format options:(_BYTE *)options outPooled:(void *)pooled error:;
+- (CVPixelBufferPoolRef)_createPotentiallyPooledIOSurfaceBackedPixelBufferWithWith:(size_t)with height:(uint64_t)height format:(void *)format options:(_BYTE *)options outPooled:(void *)pooled error:;
 - (NSNumber)sceneStabilityMetric;
 - (VNImageBuffer)bufferWithWidth:(unint64_t)width height:(unint64_t)height format:(unsigned int)format options:(id)options error:(id *)error pixelBufferRepsCacheKey:(id *)key;
 - (VNImageBuffer)initWithCGImage:(CGImage *)image orientation:(unsigned int)orientation options:(id)options;
@@ -28,6 +28,7 @@
 - (VNImageBuffer)initWithData:(id)data orientation:(unsigned int)orientation options:(id)options session:(id)session;
 - (VNImageBuffer)initWithURL:(id)l orientation:(unsigned int)orientation options:(id)options;
 - (VNImageBuffer)initWithURL:(id)l orientation:(unsigned int)orientation options:(id)options session:(id)session;
+- (__CVBuffer)calculateOrientationCorrectedImageDimensions;
 - (__CVBuffer)createBufferWithMaxSideLengthOf:(unint64_t)of pixelFormat:(unsigned int)format options:(id)options error:(id *)error;
 - (__CVBuffer)createCroppedBufferWithMaxSideLengthOf:(unint64_t)of cropRect:(CGRect)rect pixelFormat:(unsigned int)format options:(id)options error:(id *)error pixelBufferRepsCacheKey:(id *)key;
 - (__CVBuffer)cropAndScaleBufferWithWidth:(unint64_t)width height:(unint64_t)height cropRect:(CGRect)rect format:(unsigned int)format imageCropAndScaleOption:(unint64_t)option options:(id)options error:(id *)error calculatedNormalizedOriginOffset:(CGPoint *)self0 calculatedScaleX:(double *)self1 calculatedScaleY:(double *)self2 pixelBufferRepsCacheKey:(id *)self3;
@@ -36,15 +37,14 @@
 - (id)augmentedCroppedBuffersWithWidth:(unint64_t)width height:(unint64_t)height format:(unsigned int)format cropRect:(CGRect)rect options:(id)options augmentationOptions:(id)augmentationOptions error:(id *)error;
 - (id)debugQuickLookObject;
 - (id)fileURL;
-- (id)initWithOptions:(int)options orientation:(void *)orientation session:;
+- (id)initWithOptions:(unsigned int)options orientation:(void *)orientation session:;
 - (id)sequencedRequestPreviousObservationsKey;
 - (int)aspect;
 - (int)aspectForRegionOfInterest:(CGRect)interest;
 - (uint64_t)_cropCIImage:(CVPixelBufferRef *)image outBuffer:(unint64_t)buffer width:(unint64_t)width height:(int)height format:(int)format cropRect:(void *)rect performCrop:(double)crop options:(double)self0 rotate90CCW:(double)self1 error:(double)self2;
-- (uint64_t)_cropCVPixelBuffer:(CVPixelBufferRef *)buffer outBuffer:(unint64_t)outBuffer width:(unint64_t)width height:(int)height format:(int)format cropRect:(void *)rect performCrop:(CGFloat)crop options:(CGFloat)self0 rotate90CCW:(CGFloat)self1 error:(CGFloat)self2;
-- (uint64_t)_cropImageSourceManager:(CVPixelBufferRef *)manager outBuffer:(unint64_t)buffer width:(unint64_t)width height:(int)height format:(int)format cropRect:(void *)rect performCrop:(double)crop options:(double)self0 rotate90CCW:(double)self1 error:(double)self2;
+- (uint64_t)_cropCVPixelBuffer:(CVPixelBufferRef *)buffer outBuffer:(unint64_t)outBuffer width:(unint64_t)width height:(int)height format:(uint64_t)format cropRect:(void *)rect performCrop:(CGFloat)crop options:(CGFloat)self0 rotate90CCW:(CGFloat)self1 error:(CGFloat)self2;
+- (uint64_t)_cropImageSourceManager:(CVPixelBufferRef *)manager outBuffer:(unint64_t)buffer width:(unint64_t)width height:(signed int)height format:(int)format cropRect:(void *)rect performCrop:(double)crop options:(double)self0 rotate90CCW:(double)self1 error:(double)self2;
 - (uint64_t)_croppedBufferWithWidth:(uint64_t)width height:(uint64_t)height format:(void *)format cropRect:(void *)rect options:(void *)options error:(char)error pixelBufferRepsCacheKey:(CGFloat)key rotate90CCW:(CGFloat)self0;
-- (uint64_t)calculateOrientationCorrectedImageDimensions;
 - (unint64_t)height;
 - (unint64_t)width;
 - (void)_baseCIImage;
@@ -1114,8 +1114,9 @@ LABEL_221:
   return v5;
 }
 
-- (uint64_t)_cropCVPixelBuffer:(CVPixelBufferRef *)buffer outBuffer:(unint64_t)outBuffer width:(unint64_t)width height:(int)height format:(int)format cropRect:(void *)rect performCrop:(CGFloat)crop options:(CGFloat)self0 rotate90CCW:(CGFloat)self1 error:(CGFloat)self2
+- (uint64_t)_cropCVPixelBuffer:(CVPixelBufferRef *)buffer outBuffer:(unint64_t)outBuffer width:(unint64_t)width height:(int)height format:(uint64_t)format cropRect:(void *)rect performCrop:(CGFloat)crop options:(CGFloat)self0 rotate90CCW:(CGFloat)self1 error:(CGFloat)self2
 {
+  formatCopy = format;
   v134.x = crop;
   v134.y = options;
   wCopy = w;
@@ -1291,7 +1292,7 @@ LABEL_74:
             v65 = [VNCVPixelBufferHelper createPixelBufferUsingIOSurfaceWithWidth:*(&v133 + 1) height:PixelFormatType pixelFormatType:a14 error:?];
             if (v65)
             {
-              if (([(VNImageBuffer *)v59 _VNVTPixelTransferImageForSource:v60 destinationBuffer:v61 cropRect:v62 performCrop:VNImageBuffer vtSessionManager:a2 error:v65, format, vnvtSessionManager, a14]& 1) != 0)
+              if (([VNImageBuffer _VNVTPixelTransferImageForSource:a2 destinationBuffer:v65 cropRect:formatCopy performCrop:vnvtSessionManager vtSessionManager:a14 error:v59, v60, v61, v62]& 1) != 0)
               {
                 v66 = CVPixelBufferGetPixelFormatType(v65);
                 v67 = [(VNVTSessionManager *)vnvtSessionManager waitAndGetAvailablePixelRotationSessionForInputPixelFormat:v66 outputPixelFormat:PixelFormatType rotation:0 flipHorizontal:0 flipVertical:0 error:a14];
@@ -1356,7 +1357,7 @@ LABEL_73:
           else
           {
             v64 = vnvtSessionManager;
-            if (([(VNImageBuffer *)v59 _VNVTPixelTransferImageForSource:v60 destinationBuffer:v61 cropRect:v62 performCrop:VNImageBuffer vtSessionManager:a2 error:cf, format, vnvtSessionManager, a14]& 1) != 0)
+            if (([VNImageBuffer _VNVTPixelTransferImageForSource:a2 destinationBuffer:cf cropRect:formatCopy performCrop:vnvtSessionManager vtSessionManager:a14 error:v59, v60, v61, v62]& 1) != 0)
             {
               goto LABEL_70;
             }
@@ -1433,7 +1434,7 @@ LABEL_73:
             v64 = vnvtSessionManager;
             if (v97)
             {
-              if (([(VNImageBuffer *)v59 _VNVTPixelTransferImageForSource:v60 destinationBuffer:v61 cropRect:v62 performCrop:VNImageBuffer vtSessionManager:a2 error:v97, format, vnvtSessionManager, a14]& 1) != 0 && (v98 = CVPixelBufferGetPixelFormatType(v97), [(VNVTSessionManager *)vnvtSessionManager waitAndGetAvailablePixelRotationSessionForInputPixelFormat:v98 outputPixelFormat:PixelFormatType rotation:v91 flipHorizontal:v93 flipVertical:recta error:a14], (v99 = objc_claimAutoreleasedReturnValue()) != 0))
+              if (([VNImageBuffer _VNVTPixelTransferImageForSource:a2 destinationBuffer:v97 cropRect:formatCopy performCrop:vnvtSessionManager vtSessionManager:a14 error:v59, v60, v61, v62]& 1) != 0 && (v98 = CVPixelBufferGetPixelFormatType(v97), [(VNVTSessionManager *)vnvtSessionManager waitAndGetAvailablePixelRotationSessionForInputPixelFormat:v98 outputPixelFormat:PixelFormatType rotation:v91 flipHorizontal:v93 flipVertical:recta error:a14], (v99 = objc_claimAutoreleasedReturnValue()) != 0))
               {
                 v116[0] = MEMORY[0x1E69E9820];
                 v116[1] = 3221225472;
@@ -1614,7 +1615,7 @@ LABEL_7:
     memset(&v73, 0, sizeof(v73));
     if (v24)
     {
-      [v24 imageTransformForCGOrientation:orientation];
+      objc_msgSend_imageTransformForCGOrientation_(v24);
     }
 
     else
@@ -1810,7 +1811,7 @@ LABEL_7:
   return v27;
 }
 
-- (uint64_t)_cropImageSourceManager:(CVPixelBufferRef *)manager outBuffer:(unint64_t)buffer width:(unint64_t)width height:(int)height format:(int)format cropRect:(void *)rect performCrop:(double)crop options:(double)self0 rotate90CCW:(double)self1 error:(double)self2
+- (uint64_t)_cropImageSourceManager:(CVPixelBufferRef *)manager outBuffer:(unint64_t)buffer width:(unint64_t)width height:(signed int)height format:(int)format cropRect:(void *)rect performCrop:(double)crop options:(double)self0 rotate90CCW:(double)self1 error:(double)self2
 {
   v121 = *MEMORY[0x1E69E9840];
   v111 = a2;
@@ -2556,16 +2557,16 @@ LABEL_29:
   return result;
 }
 
-+ (uint64_t)_VNVTPixelTransferImageForSource:(CGFloat)source destinationBuffer:(CGFloat)buffer cropRect:(uint64_t)rect performCrop:(__CVBuffer *)crop vtSessionManager:(__CVBuffer *)manager error:(int)error
++ (uint64_t)_VNVTPixelTransferImageForSource:(__CVBuffer *)source destinationBuffer:(int)buffer cropRect:(void *)rect performCrop:(void *)crop vtSessionManager:(CGFloat)manager error:(CGFloat)error
 {
   v61 = *MEMORY[0x1E69E9840];
-  v55 = a9;
+  rectCopy = rect;
   objc_opt_self();
-  PixelFormatType = CVPixelBufferGetPixelFormatType(crop);
-  v17 = CVPixelBufferGetPixelFormatType(manager);
-  cropCopy = crop;
-  managerCopy = manager;
-  if (!v55)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
+  v17 = CVPixelBufferGetPixelFormatType(source);
+  v51 = a2;
+  sourceCopy = source;
+  if (!rectCopy)
   {
     v29 = 0;
 LABEL_40:
@@ -2574,7 +2575,7 @@ LABEL_40:
   }
 
   v18 = v17;
-  v19 = v55[1];
+  v19 = rectCopy[1];
   v20 = &__block_literal_global_17058;
   v21 = &__block_literal_global_42_17059;
   dispatch_semaphore_wait(*(v19 + 8), 0xFFFFFFFFFFFFFFFFLL);
@@ -2639,7 +2640,7 @@ LABEL_15:
     [*(v19 + 24) removeLastObject];
   }
 
-  v33 = _block_invoke_2(&__block_literal_global_42_17059, a10);
+  v33 = _block_invoke_2(&__block_literal_global_42_17059, crop);
   v29 = v33;
   if (v33)
   {
@@ -2657,12 +2658,12 @@ LABEL_21:
   }
 
   v34 = v29[3];
-  if (error)
+  if (buffer)
   {
-    v62.origin.x = self;
-    v62.origin.y = a2;
-    v62.size.width = source;
-    v62.size.height = buffer;
+    v62.origin.x = manager;
+    v62.origin.y = error;
+    v62.size.width = a9;
+    v62.size.height = a10;
     DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v62);
   }
 
@@ -2679,26 +2680,26 @@ LABEL_21:
 
   if (v36)
   {
-    if (a10)
+    if (crop)
     {
       v50 = v36;
       v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Cannot set VTSession property, error: %d"];
       v38 = [VNError errorForInternalErrorWithLocalizedDescription:v37];
 LABEL_33:
-      *a10 = v38;
+      *crop = v38;
     }
   }
 
   else
   {
-    v39 = VTPixelTransferSessionTransferImage(v34, cropCopy, managerCopy);
+    v39 = VTPixelTransferSessionTransferImage(v34, v51, sourceCopy);
     if (!v39)
     {
       v40 = 1;
       goto LABEL_35;
     }
 
-    if (a10)
+    if (crop)
     {
       v50 = v39;
       v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Cannot transfer image using VTSession, error: %d"];
@@ -2710,7 +2711,7 @@ LABEL_33:
   v40 = 0;
 LABEL_35:
   v41 = v29;
-  v42 = v55[1];
+  v42 = rectCopy[1];
   v29 = v41;
   os_unfair_lock_lock((v42 + 16));
   if (([*(v42 + 32) containsObject:v29] & 1) == 0)
@@ -2726,7 +2727,7 @@ LABEL_41:
   return v40;
 }
 
-- (CVPixelBufferRef)_createPotentiallyPooledIOSurfaceBackedPixelBufferWithWith:(size_t)with height:(uint64_t)height format:(void *)format options:(_BYTE *)options outPooled:(void *)pooled error:
+- (CVPixelBufferPoolRef)_createPotentiallyPooledIOSurfaceBackedPixelBufferWithWith:(size_t)with height:(uint64_t)height format:(void *)format options:(_BYTE *)options outPooled:(void *)pooled error:
 {
   formatCopy = format;
   v55 = formatCopy;
@@ -2750,7 +2751,7 @@ LABEL_41:
     goto LABEL_63;
   }
 
-  session = [(__CVBuffer *)self session];
+  session = [(__CVPixelBufferPool *)self session];
   vncvPixelBufferPoolManager = [session vncvPixelBufferPoolManager];
   v17 = vncvPixelBufferPoolManager;
   if (!vncvPixelBufferPoolManager)
@@ -3359,40 +3360,40 @@ LABEL_6:
   result = self->_origImageHeight;
   if (!result)
   {
-    [(VNImageBuffer *)self calculateOrientationCorrectedImageDimensions];
+    [(VNImageBuffer *)&self->super.isa calculateOrientationCorrectedImageDimensions];
     return self->_origImageHeight;
   }
 
   return result;
 }
 
-- (uint64_t)calculateOrientationCorrectedImageDimensions
+- (__CVBuffer)calculateOrientationCorrectedImageDimensions
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 16);
+    v2 = result[2];
     if (v2)
     {
       Width = CVPixelBufferGetWidth(v2);
-      Height = CVPixelBufferGetHeight(*(v1 + 16));
+      Height = CVPixelBufferGetHeight(v1[2]);
     }
 
     else
     {
-      v5 = *(v1 + 24);
+      v5 = v1[3];
       if (v5)
       {
-        [v5 extent];
+        [(__CVBuffer *)v5 extent];
         Width = v6;
-        [*(v1 + 24) extent];
+        [(__CVBuffer *)v1[3] extent];
         Height = v7;
       }
 
       else
       {
-        v8 = *(v1 + 40);
-        if (v8 && (v9 = [v8 _cgImageSourceAtAddress:v8 + 32 forSubSampleFactor:1 protectedWithUnfairLock:v8 + 12 operatingInLowPriority:0 error:0]) != 0)
+        v8 = v1[5];
+        if (v8 && (v9 = [(__CVBuffer *)v8 _cgImageSourceAtAddress:v8 + 32 forSubSampleFactor:1 protectedWithUnfairLock:v8 + 12 operatingInLowPriority:0 error:0]) != 0)
         {
           v10 = CGImageSourceCopyPropertiesAtIndex(v9, 0, 0);
           v11 = [(__CFDictionary *)v10 objectForKeyedSubscript:*MEMORY[0x1E696DED8]];
@@ -3432,8 +3433,8 @@ LABEL_6:
       v14 = Width;
     }
 
-    *(v1 + 72) = v13;
-    *(v1 + 80) = v14;
+    v1[9] = v13;
+    v1[10] = v14;
   }
 
   return result;
@@ -3444,7 +3445,7 @@ LABEL_6:
   result = self->_origImageWidth;
   if (!result)
   {
-    [(VNImageBuffer *)self calculateOrientationCorrectedImageDimensions];
+    [(VNImageBuffer *)&self->super.isa calculateOrientationCorrectedImageDimensions];
     return self->_origImageWidth;
   }
 
@@ -4205,7 +4206,7 @@ LABEL_8:
   return selfCopy;
 }
 
-- (id)initWithOptions:(int)options orientation:(void *)orientation session:
+- (id)initWithOptions:(unsigned int)options orientation:(void *)orientation session:
 {
   v7 = a2;
   orientationCopy = orientation;
@@ -4267,7 +4268,7 @@ LABEL_8:
         }
       }
 
-      if ((options - 1) >= 8)
+      if (options - 1 >= 8)
       {
         optionsCopy = 1;
       }

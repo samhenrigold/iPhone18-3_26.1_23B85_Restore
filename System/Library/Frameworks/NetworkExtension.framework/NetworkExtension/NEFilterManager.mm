@@ -15,6 +15,7 @@
 - (NSString)appBundleIdentifier;
 - (NSString)localizedDescription;
 - (NSUUID)identifier;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initPrivate;
 - (id)initWithConfiguration:(void *)configuration configurationManager:;
 - (void)createEmptyConfiguration;
@@ -23,6 +24,8 @@
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)saveToPreferencesWithCompletionHandler:(void *)completionHandler;
+- (void)setDisableEncryptedDNSSettings:(BOOL)settings;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setGrade:(NEFilterManagerGrade)grade;
 - (void)setLocalizedDescription:(NSString *)localizedDescription;
 - (void)setProviderConfiguration:(NEFilterProviderConfiguration *)providerConfiguration;
@@ -74,15 +77,10 @@ uint64_t __52__NEFilterManager_fetchStatusWithCompletionHandler___block_invoke(u
     v3 = 0;
   }
 
-  v4 = [v3 status];
-  if (v4 <= 5)
-  {
-    v5 = qword_1BAA4F9D8[v4];
-  }
+  [v3 status];
+  v4 = *(*(a1 + 40) + 16);
 
-  v6 = *(*(a1 + 40) + 16);
-
-  return v6();
+  return v4();
 }
 
 - (NEProfileIngestionPayloadInfo)configurationPayloadInfo
@@ -155,6 +153,23 @@ uint64_t __52__NEFilterManager_fetchStatusWithCompletionHandler___block_invoke(u
   return grade;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  [v7 appendString:@"{"];
+  localizedDescription = [(NEFilterManager *)self localizedDescription];
+  [v7 appendPrettyObject:localizedDescription withName:@"localizedDescription" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEFilterManager isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  providerConfiguration = [(NEFilterManager *)self providerConfiguration];
+  [v7 appendPrettyObject:providerConfiguration withName:@"providerConfiguration" andIndent:v5 options:options];
+
+  [v7 appendString:@"\n}"];
+
+  return v7;
+}
+
 - (void)setLocalizedDescription:(NSString *)localizedDescription
 {
   v6 = localizedDescription;
@@ -178,6 +193,18 @@ uint64_t __52__NEFilterManager_fetchStatusWithCompletionHandler___block_invoke(u
   return name;
 }
 
+- (void)setDisableEncryptedDNSSettings:(BOOL)settings
+{
+  settingsCopy = settings;
+  obj = self;
+  objc_sync_enter(obj);
+  configuration = [(NEFilterManager *)obj configuration];
+  contentFilter = [configuration contentFilter];
+  [contentFilter setDisableEncryptedDNSSettings:settingsCopy];
+
+  objc_sync_exit(obj);
+}
+
 - (BOOL)disableEncryptedDNSSettings
 {
   selfCopy = self;
@@ -188,6 +215,18 @@ uint64_t __52__NEFilterManager_fetchStatusWithCompletionHandler___block_invoke(u
 
   objc_sync_exit(selfCopy);
   return disableEncryptedDNSSettings;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v3 = enabled;
+  obj = self;
+  objc_sync_enter(obj);
+  configuration = [(NEFilterManager *)obj configuration];
+  contentFilter = [configuration contentFilter];
+  [contentFilter setEnabled:v3];
+
+  objc_sync_exit(obj);
 }
 
 - (BOOL)isEnabled
@@ -362,7 +401,7 @@ void __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke
 
 void __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -375,9 +414,9 @@ void __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "[NEFilterManager saveToPreferencesWithCompletionHandler:]_block_invoke_3";
-        v14 = 2112;
-        v15 = v5;
+        v12 = "[NEFilterManager saveToPreferencesWithCompletionHandler:]_block_invoke_3";
+        v13 = 2112;
+        v14 = v5;
         _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%s: failed to save the new configuration: %@", buf, 0x16u);
       }
     }
@@ -391,16 +430,14 @@ void __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke
   v7 = *(a1 + 32);
   if (v7)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke_43;
-    v9[3] = &unk_1E7F0B588;
-    v11 = v7;
-    v10 = v5;
-    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __58__NEFilterManager_saveToPreferencesWithCompletionHandler___block_invoke_43;
+    v8[3] = &unk_1E7F0B588;
+    v10 = v7;
+    v9 = v5;
+    dispatch_async(MEMORY[0x1E69E96A0], v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -490,7 +527,7 @@ void __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_in
 
 void __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -503,9 +540,9 @@ void __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_in
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "[NEFilterManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
-        v14 = 2112;
-        v15 = v5;
+        v12 = "[NEFilterManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
+        v13 = 2112;
+        v14 = v5;
         _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "%s: failed to remove the configuration: %@", buf, 0x16u);
       }
     }
@@ -519,16 +556,14 @@ void __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_in
   v7 = *(a1 + 32);
   if (v7)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_invoke_35;
-    v9[3] = &unk_1E7F0B588;
-    v11 = v7;
-    v10 = v5;
-    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_invoke_35;
+    v8[3] = &unk_1E7F0B588;
+    v10 = v7;
+    v9 = v5;
+    dispatch_async(MEMORY[0x1E69E96A0], v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -565,7 +600,7 @@ void __62__NEFilterManager_removeFromPreferencesWithCompletionHandler___block_in
 
 void __60__NEFilterManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -577,12 +612,12 @@ void __60__NEFilterManager_loadFromPreferencesWithCompletionHandler___block_invo
     goto LABEL_23;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v10)
   {
 
@@ -593,17 +628,17 @@ LABEL_19:
   }
 
   v11 = 0;
-  v12 = *v27;
+  v12 = *v26;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v27 != v12)
+      if (*v26 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v26 + 1) + 8 * i);
+      v14 = *(*(&v25 + 1) + 8 * i);
       v15 = [v14 contentFilter];
       v16 = v15 == 0;
 
@@ -627,7 +662,7 @@ LABEL_19:
       }
     }
 
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       continue;
@@ -656,18 +691,16 @@ LABEL_23:
   v21 = *(a1 + 40);
   if (v21)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __60__NEFilterManager_loadFromPreferencesWithCompletionHandler___block_invoke_2;
-    v23[3] = &unk_1E7F0B588;
-    v25 = v21;
-    v24 = v8;
-    dispatch_async(MEMORY[0x1E69E96A0], v23);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __60__NEFilterManager_loadFromPreferencesWithCompletionHandler___block_invoke_2;
+    v22[3] = &unk_1E7F0B588;
+    v24 = v21;
+    v23 = v8;
+    dispatch_async(MEMORY[0x1E69E96A0], v22);
   }
 
   objc_sync_exit(v7);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createEmptyConfiguration
@@ -726,9 +759,9 @@ LABEL_23:
     dispatch_once(&appConfigurationManager_onceToken, &__block_literal_global_23);
   }
 
-  v0 = appConfigurationManager_gAppConfgurationManager;
+  v1 = appConfigurationManager_gAppConfgurationManager;
 
-  return v0;
+  return v1;
 }
 
 void __42__NEFilterManager_appConfigurationManager__block_invoke()
@@ -787,7 +820,7 @@ void __42__NEFilterManager_appConfigurationManager__block_invoke_2()
 
 void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = dispatch_group_create();
   if (a3)
@@ -799,28 +832,28 @@ void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___b
 
   else
   {
-    v22 = a1;
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v21 = a1;
+    v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v14 = *(*(&v28 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -838,19 +871,19 @@ void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___b
                 *(v18 + 8) = 1;
               }
 
-              v27[0] = MEMORY[0x1E69E9820];
-              v27[1] = 3221225472;
-              v27[2] = __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___block_invoke_2;
-              v27[3] = &unk_1E7F09758;
-              v27[4] = v14;
-              v28 = v6;
-              [(NEFilterManager *)v18 setupSessionWithCompletionHandler:v27];
-              [v23 addObject:v18];
+              v26[0] = MEMORY[0x1E69E9820];
+              v26[1] = 3221225472;
+              v26[2] = __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___block_invoke_2;
+              v26[3] = &unk_1E7F09758;
+              v26[4] = v14;
+              v27 = v6;
+              [(NEFilterManager *)v18 setupSessionWithCompletionHandler:v26];
+              [v22 addObject:v18];
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
@@ -860,14 +893,12 @@ void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___b
     block[1] = 3221225472;
     block[2] = __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___block_invoke_31;
     block[3] = &unk_1E7F0B588;
-    v19 = *(v22 + 32);
-    v25 = v23;
-    v26 = v19;
-    v20 = v23;
+    v19 = *(v21 + 32);
+    v24 = v22;
+    v25 = v19;
+    v20 = v22;
     dispatch_group_notify(v6, MEMORY[0x1E69E96A0], block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initWithConfiguration:(void *)configuration configurationManager:
@@ -895,28 +926,26 @@ void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___b
 
 void __69__NEFilterManager_loadMyFiltersFromPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 32) name];
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a content filter session for configuration %@ (%@): %@", &v8, 0x20u);
+      v5 = [*(a1 + 32) name];
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a content filter session for configuration %@ (%@): %@", &v7, 0x20u);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupSessionWithCompletionHandler:(uint64_t)handler
@@ -995,14 +1024,14 @@ void __53__NEFilterManager_setupSessionWithCompletionHandler___block_invoke(uint
     dispatch_once(&globalConfigurationManager_onceToken_5577, &__block_literal_global_18);
   }
 
-  v0 = globalConfigurationManager_gConfigurationManager_5578;
+  v1 = globalConfigurationManager_gConfigurationManager_5578;
 
-  return v0;
+  return v1;
 }
 
 void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = dispatch_group_create();
   if (a3)
@@ -1014,28 +1043,28 @@ void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_i
 
   else
   {
-    v22 = a1;
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v21 = a1;
+    v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v14 = *(*(&v28 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1053,19 +1082,19 @@ void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_i
                 *(v18 + 8) = 1;
               }
 
-              v27[0] = MEMORY[0x1E69E9820];
-              v27[1] = 3221225472;
-              v27[2] = __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
-              v27[3] = &unk_1E7F09758;
-              v27[4] = v14;
-              v28 = v6;
-              [(NEFilterManager *)v18 setupSessionWithCompletionHandler:v27];
-              [v23 addObject:v18];
+              v26[0] = MEMORY[0x1E69E9820];
+              v26[1] = 3221225472;
+              v26[2] = __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2;
+              v26[3] = &unk_1E7F09758;
+              v26[4] = v14;
+              v27 = v6;
+              [(NEFilterManager *)v18 setupSessionWithCompletionHandler:v26];
+              [v22 addObject:v18];
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
@@ -1075,40 +1104,36 @@ void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_i
     block[1] = 3221225472;
     block[2] = __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_29;
     block[3] = &unk_1E7F0B588;
-    v19 = *(v22 + 32);
-    v25 = v23;
-    v26 = v19;
-    v20 = v23;
+    v19 = *(v21 + 32);
+    v24 = v22;
+    v25 = v19;
+    v20 = v22;
     dispatch_group_notify(v6, MEMORY[0x1E69E96A0], block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = [*(a1 + 32) name];
-      v7 = [*(a1 + 32) identifier];
-      v8 = 138412802;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a content filter session for configuration %@ (%@): %@", &v8, 0x20u);
+      v5 = [*(a1 + 32) name];
+      v6 = [*(a1 + 32) identifier];
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Failed to create a content filter session for configuration %@ (%@): %@", &v7, 0x20u);
     }
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__NEFilterManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_29(uint64_t a1)

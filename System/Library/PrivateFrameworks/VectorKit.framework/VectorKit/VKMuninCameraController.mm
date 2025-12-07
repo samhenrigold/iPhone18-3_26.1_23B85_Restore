@@ -278,9 +278,9 @@ void __54__VKMuninCameraController_stopPinchingWithFocusPoint___block_invoke(uin
     *&v10 = (*(self + 1072) - v33.f32[1]) / v38;
     *(self + 4284) = v33;
     v43 = *(self + 537);
-    [(VKMuninCameraController *)self _horizontalFieldOfView:&v43];
+    objc_msgSend__horizontalFieldOfView_(self);
     v42 = *(self + 537);
-    [(VKMuninCameraController *)self _verticalFieldOfView:&v42];
+    objc_msgSend__verticalFieldOfView_(self);
     v34 = v43;
     *(self + 551) = *(self + 551) + v44 * v31.f32[0];
     *(self + 552) = fmin(fmax(*(self + 552) + v34 * *&v10, -0.785398163), 0.785398163);
@@ -555,35 +555,34 @@ void __63__VKMuninCameraController_willStopPanningAtPoint_withVelocity___block_i
     v13 = *(self + 1060) + *&y;
     *(self + 1059) = *(self + 1059) + *&v10;
     *(self + 1060) = v13;
-    v25[0] = *(self + 554);
-    [(VKMuninCameraController *)self _horizontalFieldOfView:v25];
+    v24 = *(self + 554);
+    objc_msgSend__horizontalFieldOfView_(self);
     __x = *(self + 554);
-    [(VKMuninCameraController *)self _verticalFieldOfView:&__x];
+    objc_msgSend__verticalFieldOfView_(self);
     v14 = *(self + 551);
     LODWORD(v15) = *(self + 1059);
     LODWORD(v16) = *(self + 1060);
-    [(VKMuninCameraController *)self _pitchForScreenPoint:v15, v16];
+    objc_msgSend__pitchForScreenPoint_(self, v15, v16);
     v17 = *(self + 551);
-    v18 = v25[1] * *&v10;
-    *(self + 551) = v18 / cos(__x) + v17;
-    *(self + 552) = fmin(fmax(*(self + 552) - v25[0] * *&y, -1.57079633), 0.785398163);
-    v19 = *(self + 551);
-    *(self + 548) = v19;
+    *(self + 551) = v25 * *&v10 / cos(__x) + v17;
+    *(self + 552) = fmin(fmax(*(self + 552) - v24 * *&y, -1.57079633), 0.785398163);
+    v18 = *(self + 551);
+    *(self + 548) = v18;
     if ((*(self + 4233) & 1) == 0)
     {
-      v20 = fmod(3.14159265 - v14 + v19, 6.28318531);
-      v21 = fmin(*(self + 1083) + fabs(fmod(v20 + 6.28318531, 6.28318531) + -3.14159265) * 3.81971863, 1.0);
-      *(self + 1083) = v21;
+      v19 = fmod(3.14159265 - v14 + v18, 6.28318531);
+      v20 = fmin(*(self + 1083) + fabs(fmod(v19 + 6.28318531, 6.28318531) + -3.14159265) * 3.81971863, 1.0);
+      *(self + 1083) = v20;
     }
 
     cameraDelegate = [(VKCameraController *)self cameraDelegate];
     [cameraDelegate mapLayerDidChangeVisibleRegion];
 
-    v23 = *[(VKCameraController *)self runLoopController];
-    if (v23)
+    v22 = *[(VKCameraController *)self runLoopController];
+    if (v22)
     {
       v26 = 4;
-      md::MapEngine::setNeedsTick(v23, &v26);
+      md::MapEngine::setNeedsTick(v22, &v26);
     }
   }
 }
@@ -595,9 +594,8 @@ void __63__VKMuninCameraController_willStopPanningAtPoint_withVelocity___block_i
   [(VKCameraController *)self centerScreenPoint];
   v8 = v7;
   v9 = v4 - v8;
-  v11[0] = *(self + 554);
-  [(VKMuninCameraController *)self _verticalFieldOfView:v11];
-  v10._value = *(self + 552) + *&v11[1] * v9;
+  objc_msgSend__verticalFieldOfView_(self, *(self + 554));
+  v10._value = *(self + 552) + v11 * v9;
   *v6 = v10._value;
   return v10;
 }
@@ -690,7 +688,7 @@ LABEL_6:
 - (BOOL)tapAtPoint:(CGPoint)point
 {
   v3 = MEMORY[0x1EEE9AC00](self);
-  v181 = *MEMORY[0x1E69E9840];
+  v182 = *MEMORY[0x1E69E9840];
   v6 = v3 + 152;
   if (*(v3 + 4136) != 1)
   {
@@ -714,7 +712,7 @@ LABEL_6:
   {
 LABEL_63:
     v81 = std::__throw_bad_optional_access[abi:nn200100]();
-    geo::small_vector_base<md::mun::PhotoInfo>::~small_vector_base(&v165);
+    geo::small_vector_base<md::mun::PhotoInfo>::~small_vector_base(&v166);
 
     _Unwind_Resume(v81);
   }
@@ -733,14 +731,14 @@ LABEL_63:
   v22 = v7;
   v23 = v16 * 57.2957795;
   v24 = -v23;
-  *v128 = v21;
-  *&v128[4] = v22;
+  *v129 = v21;
+  *&v129[4] = v22;
   v25 = v17 * 57.2957795;
-  *&v128[8] = v20;
-  *&v128[16] = v19;
-  *&v128[24] = -v23;
-  *&v128[28] = v25;
-  [v18 setMuninTapState:v128];
+  *&v129[8] = v20;
+  *&v129[16] = v19;
+  *&v129[24] = -v23;
+  *&v129[28] = v25;
+  [v18 setMuninTapState:v129];
 
   if (GEOGetVectorKitVKMuninLog_onceToken != -1)
   {
@@ -750,19 +748,19 @@ LABEL_63:
   v26 = GEOGetVectorKitVKMuninLog_log;
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    *v128 = 134219265;
-    *&v128[4] = v21;
-    *&v128[12] = 2048;
-    *&v128[14] = v22;
-    *&v128[22] = 2049;
-    *&v128[24] = v20;
-    *&v128[32] = 2049;
-    *&v128[34] = v19;
-    *&v128[42] = 2048;
-    *&v128[44] = v24;
-    *&v128[52] = 2048;
-    *&v128[54] = v25;
-    _os_log_impl(&dword_1B2754000, v26, OS_LOG_TYPE_INFO, "{tap_state: {x: %f, y: %f, latitude: %{private}f, longitude: %{private}f, yaw: %f, pitch: %f } }", v128, 0x3Eu);
+    *v129 = 134219265;
+    *&v129[4] = v21;
+    *&v129[12] = 2048;
+    *&v129[14] = v22;
+    *&v129[22] = 2049;
+    *&v129[24] = v20;
+    *&v129[32] = 2049;
+    *&v129[34] = v19;
+    *&v129[42] = 2048;
+    *&v129[44] = v24;
+    *&v129[52] = 2048;
+    *&v129[54] = v25;
+    _os_log_impl(&dword_1B2754000, v26, OS_LOG_TYPE_INFO, "{tap_state: {x: %f, y: %f, latitude: %{private}f, longitude: %{private}f, yaw: %f, pitch: %f } }", v129, 0x3Eu);
   }
 
   v27 = *(*(v9 + 120) + 520);
@@ -771,11 +769,11 @@ LABEL_63:
   [v9 screenPointWithOffset:{v8, v7}];
   v82 = v29;
   v84 = v28;
-  [v9 camera];
-  gdc::ViewDataAccess::worldRayFromScreenPoint(&v123, *v128, (v9 + 4464), vcvtq_f64_f32(__PAIR64__(v82, v84)));
-  if (*&v128[8])
+  objc_msgSend_camera(v9);
+  gdc::ViewDataAccess::worldRayFromScreenPoint(&v123, *v129, vcvtq_f64_f32(__PAIR64__(v82, v84)), (v9 + 4464));
+  if (*&v129[8])
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*&v128[8]);
+    std::__shared_weak_count::__release_shared[abi:nn200100](*&v129[8]);
   }
 
   v30 = *(*(v9 + 120) + 536);
@@ -791,14 +789,14 @@ LABEL_21:
 
   while (1)
   {
-    gdc::LayerDataStore::get(v128, *v30, v31 + 16);
-    v34 = *v128;
-    if (*v128)
+    gdc::LayerDataStore::get(v129, *v30, v31 + 16);
+    v34 = *v129;
+    if (*v129)
     {
       break;
     }
 
-    if (*&v128[8])
+    if (*&v129[8])
     {
       goto LABEL_18;
     }
@@ -811,7 +809,7 @@ LABEL_20:
     }
   }
 
-  if (!*&v128[8])
+  if (!*&v129[8])
   {
     v35 = v122;
     if (v122)
@@ -822,7 +820,7 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  atomic_fetch_add_explicit((*&v128[8] + 8), 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit((*&v129[8] + 8), 1uLL, memory_order_relaxed);
   v35 = v122;
   std::__shared_weak_count::__release_shared[abi:nn200100](*(&v34 + 1));
   if ((v35 & 1) == 0)
@@ -839,123 +837,123 @@ LABEL_22:
   {
     if (*(v6 + 3984) & 1) != 0 && (v35)
     {
-      v125 = *(v6 + 8);
-      v126 = *(v6 + 24);
-      gm::Quaternion<float>::toMatrix(v128, (v6 + 32));
+      v126 = *(v6 + 8);
+      v127 = *(v6 + 24);
+      gm::Quaternion<float>::toMatrix(v129, (v6 + 32));
       v44 = 0;
-      *&v151 = *&v128[12];
-      DWORD2(v151) = *&v128[20];
+      *&v152 = *&v129[12];
+      DWORD2(v152) = *&v129[20];
       do
       {
-        *(&v124[2] + v44) = *(&v151 + v44);
+        *&v125[v44] = *(&v152 + v44);
         ++v44;
       }
 
       while (v44 != 3);
       for (i = 0; i != 24; i += 8)
       {
-        *&v128[i] = *(&v125 + i) - *&v120[i];
+        *&v129[i] = *(&v126 + i) - *&v120[i];
       }
 
-      v46 = gm::Matrix<double,3,1>::normalized<int,void>(v128);
+      v46 = gm::Matrix<double,3,1>::normalized<int,void>(v129);
       v49 = v46;
       v50 = v47;
       v51 = v48;
-      for (j = 0; j != 24; j += 8)
+      for (j = 0; j != 3; ++j)
       {
-        *&v128[j] = -*(&v124[2] + j);
+        *&v129[j * 8] = -*&v125[j];
       }
 
-      v53 = -(*&v128[16] * v46 - *v128 * v48);
-      v54 = -(*v128 * v47 - *&v128[8] * v46);
-      *v128 = -(*&v128[8] * v51 - *&v128[16] * v47);
-      *&v128[8] = v53;
-      *&v128[16] = v54;
-      *v128 = gm::Matrix<double,3,1>::normalized<int,void>(v128);
-      *&v128[8] = v55;
-      *&v128[16] = v56;
-      *&v128[24] = v49;
-      *&v128[32] = v50;
-      *&v128[40] = v51;
-      *&v128[48] = -(v56 * v50 - v55 * v51);
-      *&v128[56] = -(*v128 * v51 - v56 * v49);
-      *&v128[64] = -(v55 * v49 - *v128 * v50);
-      gm::quaternionFromRotationMatrix<double>(&v151, v128);
-      v177 = *v120;
-      v179 = v151;
-      v178 = *&v120[16];
-      v57 = *(&v152 + 1);
+      v53 = -(*&v129[16] * v46 - *v129 * v48);
+      v54 = -(*v129 * v47 - *&v129[8] * v46);
+      *v129 = -(*&v129[8] * v51 - *&v129[16] * v47);
+      *&v129[8] = v53;
+      *&v129[16] = v54;
+      *v129 = gm::Matrix<double,3,1>::normalized<int,void>(v129);
+      *&v129[8] = v55;
+      *&v129[16] = v56;
+      *&v129[24] = v49;
+      *&v129[32] = v50;
+      *&v129[40] = v51;
+      *&v129[48] = -(v56 * v50 - v55 * v51);
+      *&v129[56] = -(*v129 * v51 - v56 * v49);
+      *&v129[64] = -(v55 * v49 - *v129 * v50);
+      gm::quaternionFromRotationMatrix<double>(&v152, v129);
+      v178 = *v120;
       v180 = v152;
+      v179 = *&v120[16];
+      v57 = *(&v153 + 1);
+      v181 = v153;
       v58 = *v120;
-      v151 = *&v120[8];
+      v152 = *&v120[8];
       v59 = *(v9 + 120);
       v60 = *(v9 + 4440);
       v61 = *(v9 + 4448);
       v62 = *(v9 + 4456);
-      v128[8] = 0;
-      BYTE8(v131) = 0;
-      LOBYTE(v132) = 0;
-      LOBYTE(v136) = 0;
-      BYTE8(v136) = 0;
-      v143 = 0;
-      v128[0] = 0;
+      v129[8] = 0;
+      BYTE8(v132) = 0;
+      LOBYTE(v133) = 0;
+      LOBYTE(v137) = 0;
+      BYTE8(v137) = 0;
+      v144 = 0;
+      v129[0] = 0;
       v63 = __sincos_stret(v60);
       v64 = 6378137.0 / sqrt(v63.__sinval * v63.__sinval * -0.00669437999 + 1.0);
       v65 = (v62 + v64 * 0.99330562) * v63.__sinval;
       v66 = (v64 + v62) * v63.__cosval;
       v67 = __sincos_stret(v61);
-      *&v128[16] = *v120;
-      *&v128[32] = *&v120[16];
-      *&v128[56] = v180;
-      *&v128[40] = v179;
-      *&v128[64] = v57;
-      *v129 = v58;
-      *&v129[8] = v151;
-      *&v129[24] = v66 * v67.__cosval;
-      v130 = v66 * v67.__sinval;
-      *&v131 = v65;
-      BYTE8(v131) = 1;
-      md::MuninSceneLogic::addSceneEvent(v59, v128);
-      if (v143 == 1 && *(&v136 + 1))
+      *&v129[16] = *v120;
+      *&v129[32] = *&v120[16];
+      *&v129[56] = v181;
+      *&v129[40] = v180;
+      *&v129[64] = v57;
+      *v130 = v58;
+      *&v130[8] = v152;
+      *&v130[24] = v66 * v67.__cosval;
+      v131 = v66 * v67.__sinval;
+      *&v132 = v65;
+      BYTE8(v132) = 1;
+      md::MuninSceneLogic::addSceneEvent(v59, v129);
+      if (v144 == 1 && *(&v137 + 1))
       {
-        *&v137 = *(&v136 + 1);
-        operator delete(*(&v136 + 1));
+        *&v138 = *(&v137 + 1);
+        operator delete(*(&v137 + 1));
       }
 
-      if (v136 == 1)
+      if (v137 == 1)
       {
-        *&v151 = &v132;
-        std::vector<md::mun::PointView>::__destroy_vector::operator()[abi:nn200100](&v151);
+        *&v152 = &v133;
+        std::vector<md::mun::PointView>::__destroy_vector::operator()[abi:nn200100](&v152);
       }
 
-      v151 = *v120;
-      v152 = *&v120[16];
-      v153 = v121;
-      v154 = v123;
-      v155 = v124[0];
-      v156 = v124[1];
+      v152 = *v120;
+      v153 = *&v120[16];
+      v154 = v121;
+      v155 = v123;
+      v156 = v124[0];
+      v157 = v124[1];
       if (*(v6 + 3984))
       {
-        v158 = *(v6 + 8);
-        v162 = *(v6 + 44);
+        v159 = *(v6 + 8);
+        v163 = *(v6 + 44);
         v68 = *(v6 + 56);
-        v164 = *(v6 + 72);
+        v165 = *(v6 + 72);
         v69 = *(v6 + 24);
         v70 = *(v6 + 32);
-        v157 = *v6;
-        v159 = v69;
-        v160 = v70;
-        v161 = *(v6 + 40);
-        v163 = v68;
-        v165 = v169;
-        v166 = v169;
-        v167 = v169;
-        v168 = 6;
-        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(&v165, *(v6 + 88), *(v6 + 96));
-        *(v170 + 5) = *(v6 + 1853);
-        v170[0] = *(v6 + 1848);
-        gdc::CameraFrame<geo::Radians,double>::toRigidTransformEcefNoOffset(&v171, (v9 + 4464));
-        v176 = *(v9 + 4520);
+        v158 = *v6;
+        v160 = v69;
+        v161 = v70;
+        v162 = *(v6 + 40);
+        v164 = v68;
+        v166 = v170;
+        v167 = v170;
+        v168 = v170;
+        v169 = 6;
+        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(&v166, *(v6 + 88), *(v6 + 96));
+        *(v171 + 5) = *(v6 + 1853);
+        v171[0] = *(v6 + 1848);
+        gdc::CameraFrame<geo::Radians,double>::toRigidTransformEcefNoOffset(&v172, (v9 + 4464));
+        v177 = *(v9 + 4520);
         v71 = *(v9 + 4544);
         if (v71)
         {
@@ -964,86 +962,86 @@ LABEL_22:
           {
             for (k = 0; k != 3; ++k)
             {
-              *(&v173 + k * 8) = v71[k + 9];
+              *(&v174 + k * 8) = v71[k + 9];
             }
 
             v74 = 0;
-            v175 = v71[12];
+            v176 = v71[12];
             do
             {
-              *(&v171 + v74 * 8) = v71[v74 + 6];
+              *(&v172 + v74 * 8) = v71[v74 + 6];
               ++v74;
             }
 
             while (v74 != 3);
             v75 = 0;
-            v157 = *(v72 - 1864);
+            v158 = *(v72 - 1864);
             do
             {
-              *(&v160 + v75) = *(v72 - 1832 + v75);
+              *(&v161 + v75) = *(v72 - 1832 + v75);
               v75 += 4;
             }
 
             while (v75 != 12);
             v76 = 0;
-            LODWORD(v162) = *(v72 - 1820);
+            LODWORD(v163) = *(v72 - 1820);
             do
             {
-              *(&v158 + v76) = *(v72 - 1856 + v76);
+              *(&v159 + v76) = *(v72 - 1856 + v76);
               v76 += 8;
             }
 
             while (v76 != 24);
             v77 = 0;
-            HIDWORD(v162) = *(v72 - 1816);
+            HIDWORD(v163) = *(v72 - 1816);
             do
             {
-              *(&v163 + v77) = *(v72 - 1808 + v77);
+              *(&v164 + v77) = *(v72 - 1808 + v77);
               v77 += 8;
             }
 
             while (v77 != 24);
-            *(&v164 + 1) = *(v72 - 1784);
-            if (&v157 != (v72 - 1864))
+            *(&v165 + 1) = *(v72 - 1784);
+            if (&v158 != (v72 - 1864))
             {
-              geo::small_vector_base<md::mun::PhotoInfo>::copy(&v165, (v72 - 1776), v169);
+              geo::small_vector_base<md::mun::PhotoInfo>::copy(&v166, (v72 - 1776), v170);
             }
 
             v78 = *(v72 - 16);
-            *(v170 + 5) = *(v72 - 11);
-            v170[0] = v78;
+            *(v171 + 5) = *(v72 - 11);
+            v171[0] = v78;
           }
         }
 
         objc_initWeak(&v119, v9);
-        objc_copyWeak(v128, &v119);
-        *&v128[40] = v153;
-        *&v128[56] = v154;
-        *v129 = v155;
-        *&v129[16] = v156;
-        *&v128[8] = v151;
-        *&v128[24] = v152;
-        v130 = v157;
+        objc_copyWeak(v129, &v119);
+        *&v129[40] = v154;
+        *&v129[56] = v155;
+        *v130 = v156;
+        *&v130[16] = v157;
+        *&v129[8] = v152;
+        *&v129[24] = v153;
         v131 = v158;
-        v134 = v161;
         v132 = v159;
-        v133 = v160;
         v135 = v162;
-        v137 = v164;
+        v133 = v160;
+        v134 = v161;
         v136 = v163;
-        v138 = v142;
-        v139 = v142;
-        v140 = v142;
-        v141 = 6;
-        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(&v138, v165, v166);
-        *(v144 + 5) = *(v170 + 5);
-        v144[0] = v170[0];
-        v145 = v171;
+        v138 = v165;
+        v137 = v164;
+        v139 = v143;
+        v140 = v143;
+        v141 = v143;
+        v142 = 6;
+        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(&v139, v166, v167);
+        *(v145 + 5) = *(v171 + 5);
+        v145[0] = v171[0];
         v146 = v172;
         v147 = v173;
         v148 = v174;
         v149 = v175;
         v150 = v176;
+        v151 = v177;
         v79 = *(v9 + 4528);
         if (v79)
         {
@@ -1054,45 +1052,45 @@ LABEL_22:
         v85[1] = v86;
         v85[2] = v86;
         v85[3] = 6;
-        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v85, v165, v166);
-        *(v87 + 5) = *(v170 + 5);
-        v87[0] = v170[0];
-        v88 = v171;
-        v89 = v172;
-        v90 = v173;
-        v91 = v174;
-        v92 = v175;
-        v93 = v176;
-        objc_copyWeak(&v94, v128);
-        v97 = *&v128[40];
-        v98 = *&v128[56];
-        v99 = *v129;
-        v100 = *&v129[16];
-        v95 = *&v128[8];
-        v96 = *&v128[24];
-        v101 = v130;
-        v102 = v131;
-        v103 = v132;
-        v105 = v134;
-        v104 = v133;
-        v106 = v135;
-        v107 = v136;
-        v108 = v137;
+        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v85, v166, v167);
+        *(v87 + 5) = *(v171 + 5);
+        v87[0] = v171[0];
+        v88 = v172;
+        v89 = v173;
+        v90 = v174;
+        v91 = v175;
+        v92 = v176;
+        v93 = v177;
+        objc_copyWeak(&v94, v129);
+        v97 = *&v129[40];
+        v98 = *&v129[56];
+        v99 = *v130;
+        v100 = *&v130[16];
+        v95 = *&v129[8];
+        v96 = *&v129[24];
+        v101 = v131;
+        v102 = v132;
+        v103 = v133;
+        v105 = v135;
+        v104 = v134;
+        v106 = v136;
+        v107 = v137;
+        v108 = v138;
         v109[0] = v110;
         v109[1] = v110;
         v109[2] = v110;
         v109[3] = 6;
-        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v109, v138, v139);
-        *(v111 + 5) = *(v144 + 5);
-        v111[0] = v144[0];
-        v112 = v145;
-        v113 = v146;
-        v114 = v147;
-        v115 = v148;
-        v116 = v149;
-        v117 = v150;
+        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v109, v139, v140);
+        *(v111 + 5) = *(v145 + 5);
+        v111[0] = v145[0];
+        v112 = v146;
+        v113 = v147;
+        v114 = v148;
+        v115 = v149;
+        v116 = v150;
+        v117 = v151;
         objc_copyWeak(&v118, &v119);
-        v127 = 0;
+        v128 = 0;
         operator new();
       }
     }
@@ -1107,27 +1105,27 @@ LABEL_22:
   v40 = (v39 + v37) * v38.__cosval;
   v41 = __sincos_stret(v36);
   v42 = 0;
-  *&v151 = v40 * v41.__cosval;
-  *(&v151 + 1) = v40 * v41.__sinval;
-  *&v152 = (v37 + v39 * 0.99330562) * v38.__sinval;
-  v125 = v151;
-  v126 = *&v152;
+  *&v152 = v40 * v41.__cosval;
+  *(&v152 + 1) = v40 * v41.__sinval;
+  *&v153 = (v37 + v39 * 0.99330562) * v38.__sinval;
+  v126 = v152;
+  v127 = *&v153;
   do
   {
-    *&v128[v42] = *(v124 + v42 + 8) + *(&v125 + v42);
+    *&v129[v42] = *(v124 + v42 + 8) + *(&v126 + v42);
     v42 += 8;
   }
 
   while (v42 != 24);
-  v177 = *v128;
-  v178 = *&v128[16];
-  [v9 runBumpAnimation:&v151 targetPoint:&v177 completionHandler:&__block_literal_global_31];
+  v178 = *v129;
+  v179 = *&v129[16];
+  [v9 runBumpAnimation:&v152 targetPoint:&v178 completionHandler:&__block_literal_global_31];
   [v83 setForceBumpNextTap:0];
   v43 = *[v9 runLoopController];
   if (v43)
   {
-    v128[0] = 4;
-    md::MapEngine::setNeedsTick(v43, v128);
+    v129[0] = 4;
+    md::MapEngine::setNeedsTick(v43, v129);
   }
 
   return 0;
@@ -1457,174 +1455,175 @@ void __70__VKMuninCameraController_moveAlongPath_tap_preloadedViews_continued___
     v15 = v12[568];
     if (v15)
     {
-      [v12 camera];
-      gdc::ViewDataAccess::worldViewProjectionMatrix(v110, v72, v111);
-      if (v73)
+      v16 = gdc::CameraFrame<geo::Radians,double>::fromRigidTransformEcefNoOffset(v112, (v15 + 48));
+      objc_msgSend_camera(v12, v16);
+      gdc::ViewDataAccess::worldViewProjectionMatrix(v111, v73, v112);
+      if (v74)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v73);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v74);
       }
 
-      if (fabs(gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(v110, v9)) <= 1.0 && fabs(v16) <= 1.0 && v17 <= 1.0)
+      if (fabs(gm::Matrix<double,4,4>::multiplyHomogeneous<int,void>(v111, v9)) <= 1.0 && fabs(v17) <= 1.0 && v18 <= 1.0)
       {
-        v73 = 0;
-        v72 = 0;
         v74 = 0;
-        std::vector<md::mun::CollectionPoint>::__init_with_size[abi:nn200100]<md::mun::CollectionPoint*,md::mun::CollectionPoint*>(&v72, *v11, *(v11 + 8), 0x63FB9AEB1FDCD759 * ((*(v11 + 8) - *v11) >> 3));
-        v75 = *(v11 + 24);
-        v18 = *(v11 + 40);
-        v77 = *(v11 + 48);
-        v19 = *(v11 + 64);
-        v76 = v18;
-        v78 = v19;
-        v79 = *(v11 + 72);
-        v80 = *(v11 + 88);
-        v81 = *(v11 + 96);
-        v20 = *(v11 + 112);
-        v82 = *(v11 + 104);
-        v83 = v20;
-        v21 = *(v11 + 120);
+        v73 = 0;
+        v75 = 0;
+        std::vector<md::mun::CollectionPoint>::__init_with_size[abi:nn200100]<md::mun::CollectionPoint*,md::mun::CollectionPoint*>(&v73, *v11, *(v11 + 8), 0x63FB9AEB1FDCD759 * ((*(v11 + 8) - *v11) >> 3));
+        v76 = *(v11 + 24);
+        v19 = *(v11 + 40);
+        v78 = *(v11 + 48);
+        v20 = *(v11 + 64);
+        v77 = v19;
+        v79 = v20;
+        v80 = *(v11 + 72);
+        v81 = *(v11 + 88);
+        v82 = *(v11 + 96);
+        v21 = *(v11 + 112);
+        v83 = *(v11 + 104);
         v84 = v21;
-        if (v21)
+        v22 = *(v11 + 120);
+        v85 = v22;
+        if (v22)
         {
-          atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v22 = *(v11 + 128);
-        v23 = *(v9 + 48);
-        v88 = *(v9 + 32);
-        v89 = v23;
-        v24 = *(v9 + 80);
-        v90 = *(v9 + 64);
-        v91 = v24;
-        v25 = *(v9 + 16);
-        v86 = *v9;
-        v87 = v25;
-        v26 = *(v9 + 96);
-        v85 = v22;
-        v92 = v26;
-        v93 = *(v9 + 104);
-        v96 = *(v9 + 136);
-        v27 = *(v9 + 128);
-        v94 = *(v9 + 120);
-        v95 = v27;
-        v97 = *(v9 + 140);
-        v28 = *(v9 + 168);
-        v98 = *(v9 + 152);
-        v99 = v28;
-        v100[0] = v101;
-        v100[1] = v101;
-        v100[2] = v101;
-        v100[3] = 6;
-        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v100, *(v9 + 184), *(v9 + 192));
-        *(v102 + 5) = *(v9 + 1949);
-        v102[0] = *(v9 + 1944);
-        v104 = *(v9 + 1976);
-        v103 = *(v9 + 1960);
-        v105 = *(v9 + 1984);
-        v106 = *(v9 + 2000);
-        v107 = *(v9 + 2008);
-        v108 = *(v9 + 2016);
+        v23 = *(v11 + 128);
+        v24 = *(v9 + 48);
+        v89 = *(v9 + 32);
+        v90 = v24;
+        v25 = *(v9 + 80);
+        v91 = *(v9 + 64);
+        v92 = v25;
+        v26 = *(v9 + 16);
+        v87 = *v9;
+        v88 = v26;
+        v27 = *(v9 + 96);
+        v86 = v23;
+        v93 = v27;
+        v94 = *(v9 + 104);
+        v97 = *(v9 + 136);
+        v28 = *(v9 + 128);
+        v95 = *(v9 + 120);
+        v96 = v28;
+        v98 = *(v9 + 140);
+        v29 = *(v9 + 168);
+        v99 = *(v9 + 152);
+        v100 = v29;
+        v101[0] = v102;
+        v101[1] = v102;
+        v101[2] = v102;
+        v101[3] = 6;
+        geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v101, *(v9 + 184), *(v9 + 192));
+        *(v103 + 5) = *(v9 + 1949);
+        v103[0] = *(v9 + 1944);
+        v105 = *(v9 + 1976);
+        v104 = *(v9 + 1960);
+        v106 = *(v9 + 1984);
+        v107 = *(v9 + 2000);
+        v108 = *(v9 + 2008);
+        v109 = *(v9 + 2016);
         std::__hash_table<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::hash<md::DaVinciTrafficBatchKey>,std::equal_to<md::DaVinciTrafficBatchKey>,true>,std::__unordered_map_equal<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::equal_to<md::DaVinciTrafficBatchKey>,std::hash<md::DaVinciTrafficBatchKey>,true>,std::allocator<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>>>::__hash_table(&__p, v7);
         operator new();
       }
 
-      v40 = v12[15];
-      LOBYTE(v73) = 0;
-      LOBYTE(v84) = 0;
+      v41 = v12[15];
+      LOBYTE(v74) = 0;
       LOBYTE(v85) = 0;
-      BYTE8(v87) = 0;
-      LOBYTE(v88) = 0;
-      LOBYTE(v95) = 0;
-      LOBYTE(v72) = 4;
-      md::MuninSceneLogic::addSceneEvent(v40, &v72);
-      if (v95 == 1 && v88)
+      LOBYTE(v86) = 0;
+      BYTE8(v88) = 0;
+      LOBYTE(v89) = 0;
+      LOBYTE(v96) = 0;
+      LOBYTE(v73) = 4;
+      md::MuninSceneLogic::addSceneEvent(v41, &v73);
+      if (v96 == 1 && v89)
       {
-        *(&v88 + 1) = v88;
-        operator delete(v88);
+        *(&v89 + 1) = v89;
+        operator delete(v89);
       }
 
-      if (BYTE8(v87) == 1)
+      if (BYTE8(v88) == 1)
       {
-        v112 = &v85;
-        std::vector<md::mun::PointView>::__destroy_vector::operator()[abi:nn200100](&v112);
+        v113 = &v86;
+        std::vector<md::mun::PointView>::__destroy_vector::operator()[abi:nn200100](&v113);
       }
     }
 
     else
     {
-      memset(v60, 0, sizeof(v60));
-      std::vector<md::mun::CollectionPoint>::__init_with_size[abi:nn200100]<md::mun::CollectionPoint*,md::mun::CollectionPoint*>(v60, *v11, *(v11 + 8), 0x63FB9AEB1FDCD759 * ((*(v11 + 8) - *v11) >> 3));
-      v61 = *(v11 + 24);
-      v62 = *(v11 + 40);
-      v63 = *(v11 + 48);
-      v29 = *(v11 + 64);
-      v65 = *(v11 + 72);
-      v30 = *(v11 + 88);
-      v64 = v29;
-      v66 = v30;
-      v67 = *(v11 + 96);
-      v31 = *(v11 + 112);
-      v68 = *(v11 + 104);
-      v69 = v31;
-      v32 = *(v11 + 120);
+      memset(v61, 0, sizeof(v61));
+      std::vector<md::mun::CollectionPoint>::__init_with_size[abi:nn200100]<md::mun::CollectionPoint*,md::mun::CollectionPoint*>(v61, *v11, *(v11 + 8), 0x63FB9AEB1FDCD759 * ((*(v11 + 8) - *v11) >> 3));
+      v62 = *(v11 + 24);
+      v63 = *(v11 + 40);
+      v64 = *(v11 + 48);
+      v30 = *(v11 + 64);
+      v66 = *(v11 + 72);
+      v31 = *(v11 + 88);
+      v65 = v30;
+      v67 = v31;
+      v68 = *(v11 + 96);
+      v32 = *(v11 + 112);
+      v69 = *(v11 + 104);
       v70 = v32;
-      if (v32)
+      v33 = *(v11 + 120);
+      v71 = v33;
+      if (v33)
       {
-        atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v33->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v71 = *(v11 + 128);
-      v33 = *(v9 + 48);
-      v42[2] = *(v9 + 32);
-      v42[3] = v33;
-      v34 = *(v9 + 80);
-      v42[4] = *(v9 + 64);
-      v42[5] = v34;
-      v35 = *(v9 + 16);
-      v42[0] = *v9;
-      v42[1] = v35;
-      v36 = *(v9 + 104);
-      v37 = *(v9 + 120);
-      v38 = *(v9 + 128);
-      v43 = *(v9 + 96);
-      v45 = v37;
+      v72 = *(v11 + 128);
+      v34 = *(v9 + 48);
+      v43[2] = *(v9 + 32);
+      v43[3] = v34;
+      v35 = *(v9 + 80);
+      v43[4] = *(v9 + 64);
+      v43[5] = v35;
+      v36 = *(v9 + 16);
+      v43[0] = *v9;
+      v43[1] = v36;
+      v37 = *(v9 + 104);
+      v38 = *(v9 + 120);
+      v39 = *(v9 + 128);
+      v44 = *(v9 + 96);
       v46 = v38;
-      v44 = v36;
-      v47 = *(v9 + 136);
-      v48 = *(v9 + 140);
-      v50 = *(v9 + 168);
-      v49 = *(v9 + 152);
-      v51[0] = v52;
-      v51[1] = v52;
-      v51[2] = v52;
-      v51[3] = 6;
-      geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v51, *(v9 + 184), *(v9 + 192));
-      *(v53 + 5) = *(v9 + 1949);
-      v53[0] = *(v9 + 1944);
-      v54 = *(v9 + 1960);
-      v55 = *(v9 + 1976);
-      v56 = *(v9 + 1984);
-      v57 = *(v9 + 2000);
-      v58 = *(v9 + 2008);
-      v59 = *(v9 + 2016);
-      std::__hash_table<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::hash<md::DaVinciTrafficBatchKey>,std::equal_to<md::DaVinciTrafficBatchKey>,true>,std::__unordered_map_equal<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::equal_to<md::DaVinciTrafficBatchKey>,std::hash<md::DaVinciTrafficBatchKey>,true>,std::allocator<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>>>::__hash_table(v41, v7);
-      [v12 moveAlongPath:v60 tap:v42 preloadedViews:v41 continued:0];
-      std::__hash_table<std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,std::__unordered_map_hasher<gdc::LayerDataRequestKey,std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,gdc::LayerDataRequestKeyHash,std::equal_to<gdc::LayerDataRequestKey>,true>,std::__unordered_map_equal<gdc::LayerDataRequestKey,std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,std::equal_to<gdc::LayerDataRequestKey>,gdc::LayerDataRequestKeyHash,true>,std::allocator<std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>>>::__deallocate_node(v41[2]);
-      v39 = v41[0];
-      v41[0] = 0;
-      if (v39)
+      v47 = v39;
+      v45 = v37;
+      v48 = *(v9 + 136);
+      v49 = *(v9 + 140);
+      v51 = *(v9 + 168);
+      v50 = *(v9 + 152);
+      v52[0] = v53;
+      v52[1] = v53;
+      v52[2] = v53;
+      v52[3] = 6;
+      geo::small_vector_base<md::mun::PhotoInfo>::append<md::mun::PhotoInfo const*>(v52, *(v9 + 184), *(v9 + 192));
+      *(v54 + 5) = *(v9 + 1949);
+      v54[0] = *(v9 + 1944);
+      v55 = *(v9 + 1960);
+      v56 = *(v9 + 1976);
+      v57 = *(v9 + 1984);
+      v58 = *(v9 + 2000);
+      v59 = *(v9 + 2008);
+      v60 = *(v9 + 2016);
+      std::__hash_table<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::__unordered_map_hasher<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::hash<md::DaVinciTrafficBatchKey>,std::equal_to<md::DaVinciTrafficBatchKey>,true>,std::__unordered_map_equal<md::DaVinciTrafficBatchKey,std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>,std::equal_to<md::DaVinciTrafficBatchKey>,std::hash<md::DaVinciTrafficBatchKey>,true>,std::allocator<std::__hash_value_type<md::DaVinciTrafficBatchKey,std::vector<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,geo::allocator_adapter<std::unique_ptr<md::DaVinciTrafficRibbon,mdm::TypeDeleter<md::DaVinciTrafficRibbon>>,mdm::zone_mallocator>>>>>::__hash_table(v42, v7);
+      [v12 moveAlongPath:v61 tap:v43 preloadedViews:v42 continued:0];
+      std::__hash_table<std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,std::__unordered_map_hasher<gdc::LayerDataRequestKey,std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,gdc::LayerDataRequestKeyHash,std::equal_to<gdc::LayerDataRequestKey>,true>,std::__unordered_map_equal<gdc::LayerDataRequestKey,std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>,std::equal_to<gdc::LayerDataRequestKey>,gdc::LayerDataRequestKeyHash,true>,std::allocator<std::__hash_value_type<gdc::LayerDataRequestKey,std::shared_ptr<gdc::LayerData>>>>::__deallocate_node(v42[2]);
+      v40 = v42[0];
+      v42[0] = 0;
+      if (v40)
       {
-        operator delete(v39);
+        operator delete(v40);
       }
 
-      geo::small_vector_base<md::mun::PhotoInfo>::~small_vector_base(v51);
-      if (v70)
+      geo::small_vector_base<md::mun::PhotoInfo>::~small_vector_base(v52);
+      if (v71)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v70);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v71);
       }
 
-      v72 = v60;
-      std::vector<md::mun::CollectionPoint>::__destroy_vector::operator()[abi:nn200100](&v72);
+      v73 = v61;
+      std::vector<md::mun::CollectionPoint>::__destroy_vector::operator()[abi:nn200100](&v73);
     }
   }
 }
@@ -1731,7 +1730,7 @@ void __70__VKMuninCameraController_moveAlongPath_tap_preloadedViews_continued___
   v10 = v9;
   v12 = v11;
   v13 = v7;
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v30 = v14;
   v15 = *v12;
   v16 = v12[1] - *v12;
@@ -1784,12 +1783,12 @@ void __70__VKMuninCameraController_moveAlongPath_tap_preloadedViews_continued___
     [*(v27 + 600) setLastTimestamp:?];
   }
 
-  objc_initWeak(location, v13);
-  objc_copyWeak(&to, location);
+  objc_initWeak(&location, v13);
+  objc_copyWeak(&to, &location);
   v32 = 0uLL;
   v33 = 0;
   std::vector<md::mun::CollectionPoint>::__init_with_size[abi:nn200100]<md::mun::CollectionPoint*,md::mun::CollectionPoint*>(&v32, *v12, v12[1], 0x63FB9AEB1FDCD759 * ((v12[1] - *v12) >> 3));
-  location[28] = 0;
+  v35 = 0;
   operator new();
 }
 
@@ -2306,7 +2305,7 @@ LABEL_19:
       v31[0] = &unk_1F2A187E8;
       v31[1] = v20;
       v31[3] = v31;
-      md::mun::MuninNavigation::path(&v27, *v21, self + 152, &v28, 1);
+      md::mun::MuninNavigation::path(&v27, *v21, self + 152, &v28, 1, v20 + 616, v31);
     }
 
     v23 = std::__throw_bad_optional_access[abi:nn200100]();
@@ -2973,7 +2972,7 @@ LABEL_110:
     v38 = cameraDelegate;
     if (cameraDelegate)
     {
-      [cameraDelegate willBeginRegionChangeAccess:0];
+      objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
     }
 
     else
@@ -3158,7 +3157,7 @@ void __113__VKMuninCameraController_setCenterCoordinate_altitude_yaw_pitch_durat
   [(VKCameraController *)&v11 setVkCamera:cameraCopy];
   if (cameraCopy)
   {
-    [cameraCopy cameraFrame:0];
+    objc_msgSend_cameraFrame_(cameraCopy);
   }
 
   else
@@ -3186,7 +3185,7 @@ void __113__VKMuninCameraController_setCenterCoordinate_altitude_yaw_pitch_durat
 
 - (double)distanceFromCenterCoordinate
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v2 = *grl::IconMetricsRenderResult::size(v4);
   if (v5)
   {

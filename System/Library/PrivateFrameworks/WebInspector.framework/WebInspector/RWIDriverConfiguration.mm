@@ -48,58 +48,13 @@
   payloadCopy = payload;
   v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverIdentifierKey"];
   v5 = objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverNameKey"];
-  v5 = objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverVersionKey"];
-  v5 = objc_opt_class();
-  if (v4)
-  {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverHostKey"];
-  v5 = objc_opt_class();
-  if (v4)
-  {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverPortKey"];
-  v5 = objc_opt_class();
-  if (v4)
-  {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverBidiPortKey"];
-  v5 = objc_opt_class();
-  if (!v4 || (objc_opt_isKindOfClass() & 1) != 0)
+  if (objc_opt_isKindOfClass() & 1) != 0 && (v5, v4, [payloadCopy objectForKeyedSubscript:@"WIRDriverNameKey"], v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), (objc_opt_isKindOfClass()) && ((v5, v4, objc_msgSend(payloadCopy, "objectForKeyedSubscript:", @"WIRDriverVersionKey"), v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), !v4) || (objc_opt_isKindOfClass()) && ((v5, v4, objc_msgSend(payloadCopy, "objectForKeyedSubscript:", @"WIRDriverHostKey"), v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), !v4) || (objc_opt_isKindOfClass()) && ((v5, v4, objc_msgSend(payloadCopy, "objectForKeyedSubscript:", @"WIRDriverPortKey"), v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), !v4) || (objc_opt_isKindOfClass()) && ((v5, v4, objc_msgSend(payloadCopy, "objectForKeyedSubscript:", @"WIRDriverBidiPortKey"), v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), !v4) || (objc_opt_isKindOfClass()))
   {
     v6 = 1;
   }
 
   else
   {
-LABEL_12:
     v7 = objc_opt_class();
     logUnexpectedType(v7, v5);
     v6 = 0;

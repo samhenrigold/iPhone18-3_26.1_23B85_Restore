@@ -45,11 +45,11 @@
   return v2;
 }
 
-void __49__VCPClientDatabaseManager_sharedDatabaseManager__block_invoke()
+void __49__VCPClientDatabaseManager_sharedDatabaseManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedDatabaseManager_instance;
-  sharedDatabaseManager_instance = v0;
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = sharedDatabaseManager_instance;
+  sharedDatabaseManager_instance = v2;
 }
 
 - (id)sharedDatabaseForPhotoLibrary:(id)library

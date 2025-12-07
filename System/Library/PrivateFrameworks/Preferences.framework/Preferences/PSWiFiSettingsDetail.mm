@@ -8,94 +8,96 @@
 + (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v4 = PSWiFiManagerClientCreate(*MEMORY[0x1E695E480]);
-  if (v4)
+  v5 = PSWiFiManagerClientCreate(*MEMORY[0x1E695E480], a2, enabled, v3);
+  if (v5)
   {
-    v5 = v4;
+    v6 = v5;
     Current = CFRunLoopGetCurrent();
-    v7 = *MEMORY[0x1E695E8E0];
-    PSWiFiManagerClientScheduleWithRunLoop(v5, Current, *MEMORY[0x1E695E8E0]);
-    v8 = PSWiFiManagerClientCopyDevices(v5);
-    if ([v8 count])
+    v8 = *MEMORY[0x1E695E8E0];
+    PSWiFiManagerClientScheduleWithRunLoop(v6, Current, *MEMORY[0x1E695E8E0], v9);
+    v13 = PSWiFiManagerClientCopyDevices(v6, v10, v11, v12);
+    if ([v13 count])
     {
-      v9 = [v8 objectAtIndexedSubscript:0];
+      v14 = [v13 objectAtIndexedSubscript:0];
 
-      if (PSWiFiDeviceClientGetPower(v9) != enabledCopy)
+      Power = PSWiFiDeviceClientGetPower(v14, v15, v16, v17);
+      if (Power != enabledCopy)
       {
-        v10 = _PSLoggingFacility();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v19 = _PSLoggingFacility(Power);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16[0]) = 0;
-          _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "Toggled Wifi State.", v16, 2u);
+          LOWORD(v27[0]) = 0;
+          _os_log_impl(&dword_18B008000, v19, OS_LOG_TYPE_DEFAULT, "Toggled Wifi State.", v27, 2u);
         }
 
-        v18 = 0;
-        v19 = &v18;
-        v20 = 0x2020000000;
-        v11 = getWiFiManagerClientSetPowerSymbolLoc_ptr;
-        v21 = getWiFiManagerClientSetPowerSymbolLoc_ptr;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
+        v20 = getWiFiManagerClientSetPowerSymbolLoc_ptr;
+        v32 = getWiFiManagerClientSetPowerSymbolLoc_ptr;
         if (!getWiFiManagerClientSetPowerSymbolLoc_ptr)
         {
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __getWiFiManagerClientSetPowerSymbolLoc_block_invoke;
-          v16[3] = &unk_1E71DBC78;
-          v17 = &v18;
-          v12 = MobileWiFiLibrary();
-          v13 = dlsym(v12, "WiFiManagerClientSetPower");
-          *(v17[1] + 24) = v13;
-          getWiFiManagerClientSetPowerSymbolLoc_ptr = *(v17[1] + 24);
-          v11 = v19[3];
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __getWiFiManagerClientSetPowerSymbolLoc_block_invoke;
+          v27[3] = &unk_1E71DBC78;
+          v28 = &v29;
+          v21 = MobileWiFiLibrary();
+          v22 = dlsym(v21, "WiFiManagerClientSetPower");
+          *(v28[1] + 24) = v22;
+          getWiFiManagerClientSetPowerSymbolLoc_ptr = *(v28[1] + 24);
+          v20 = v30[3];
         }
 
-        _Block_object_dispose(&v18, 8);
-        if (!v11)
+        _Block_object_dispose(&v29, 8);
+        if (!v20)
         {
-          v15 = [PSContactsAuthorizationLevelController dealloc];
-          _Block_object_dispose(&v18, 8);
-          _Unwind_Resume(v15);
+          [PSContactsAuthorizationLevelController dealloc];
+          v26 = v25;
+          _Block_object_dispose(&v29, 8);
+          _Unwind_Resume(v26);
         }
 
-        v11(v5, enabledCopy);
+        v20(v6, enabledCopy);
       }
     }
 
-    v14 = CFRunLoopGetCurrent();
-    PSWiFiManagerClientUnscheduleFromRunLoop(v5, v14, v7);
-    CFRelease(v5);
+    v23 = CFRunLoopGetCurrent();
+    PSWiFiManagerClientUnscheduleFromRunLoop(v6, v23, v8, v24);
+    CFRelease(v6);
   }
 }
 
 + (BOOL)isEnabled
 {
-  v2 = PSWiFiManagerClientCreate(*MEMORY[0x1E695E480]);
-  if (!v2)
+  v4 = PSWiFiManagerClientCreate(*MEMORY[0x1E695E480], a2, v2, v3);
+  if (!v4)
   {
     return 0;
   }
 
-  v3 = v2;
+  v5 = v4;
   Current = CFRunLoopGetCurrent();
-  v5 = *MEMORY[0x1E695E8E0];
-  PSWiFiManagerClientScheduleWithRunLoop(v3, Current, *MEMORY[0x1E695E8E0]);
-  v6 = PSWiFiManagerClientCopyDevices(v3);
-  if ([v6 count])
+  v7 = *MEMORY[0x1E695E8E0];
+  PSWiFiManagerClientScheduleWithRunLoop(v5, Current, *MEMORY[0x1E695E8E0], v8);
+  v12 = PSWiFiManagerClientCopyDevices(v5, v9, v10, v11);
+  if ([v12 count])
   {
-    v7 = [v6 objectAtIndexedSubscript:0];
+    v13 = [v12 objectAtIndexedSubscript:0];
 
-    v8 = PSWiFiDeviceClientGetPower(v7) != 0;
+    v17 = PSWiFiDeviceClientGetPower(v13, v14, v15, v16) != 0;
   }
 
   else
   {
-    v8 = 0;
+    v17 = 0;
   }
 
-  v9 = CFRunLoopGetCurrent();
-  PSWiFiManagerClientUnscheduleFromRunLoop(v3, v9, v5);
-  CFRelease(v3);
+  v18 = CFRunLoopGetCurrent();
+  PSWiFiManagerClientUnscheduleFromRunLoop(v5, v18, v7, v19);
+  CFRelease(v5);
 
-  return v8;
+  return v17;
 }
 
 @end

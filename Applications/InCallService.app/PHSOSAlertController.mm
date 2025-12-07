@@ -66,6 +66,7 @@
 
   [(PHSOSAlertController *)self setAlert:v17];
   alertActivationAssertion = [(PHSOSAlertController *)self alertActivationAssertion];
+  v19 = alertActivationAssertion;
   if (!alertActivationAssertion && topicCopy != TLAlertTopicSOSButtonChordingTimeout)
   {
     if (v8)
@@ -73,19 +74,19 @@
       goto LABEL_20;
     }
 
-    alertActivationAssertion = [[TLAlertActivationAssertion alloc] initWithAlert:v17];
-    [alertActivationAssertion acquire];
-    [(PHSOSAlertController *)self setAlertActivationAssertion:alertActivationAssertion];
+    v19 = [[TLAlertActivationAssertion alloc] initWithAlert:v17];
+    [v19 acquire];
+    [(PHSOSAlertController *)self setAlertActivationAssertion:v19];
   }
 
 LABEL_20:
-  v19 = sub_100004F84();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100004F84(alertActivationAssertion);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     alertConfiguration3 = [(PHSOSAlertController *)self alertConfiguration];
-    v22 = 138412290;
-    v23 = alertConfiguration3;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Playing countdown alert sound with alertConfiguration: %@", &v22, 0xCu);
+    v23 = 138412290;
+    v24 = alertConfiguration3;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Playing countdown alert sound with alertConfiguration: %@", &v23, 0xCu);
   }
 
   alert = [(PHSOSAlertController *)self alert];
@@ -98,11 +99,11 @@ LABEL_20:
 
   if (alert)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Stopping countdown alert sound...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopping countdown alert sound...", buf, 2u);
     }
 
     alert2 = [(PHSOSAlertController *)self alert];
@@ -113,11 +114,11 @@ LABEL_20:
 
   if (alertActivationAssertion)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Relinquishing alert activation assertion...", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Relinquishing alert activation assertion...", v12, 2u);
     }
 
     alertActivationAssertion2 = [(PHSOSAlertController *)self alertActivationAssertion];

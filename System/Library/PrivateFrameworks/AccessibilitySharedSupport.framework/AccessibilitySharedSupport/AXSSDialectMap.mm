@@ -1,7 +1,9 @@
 @interface AXSSDialectMap
 - (AXSSDialectMap)initWithLocale:(id)locale voiceName:(id)name specificLanguageID:(id)d voiceIdentifier:(id)identifier speakableCharacters:(id)characters secondaryLanguageRange:(id)range;
 - (AXSSLanguageMap)languageMap;
+- (BOOL)canSpeakCharacter:(unsigned __int16)character;
 - (BOOL)canSpeakString:(id)string letterOnly:(BOOL)only;
+- (BOOL)isDialectSecondaryForCharacter:(unsigned __int16)character;
 - (BOOL)isEqual:(id)equal;
 - (NSString)regionID;
 - (id)description;
@@ -104,6 +106,26 @@
   return v10;
 }
 
+- (BOOL)canSpeakCharacter:(unsigned __int16)character
+{
+  characterCopy = character;
+  speakableCharacters = [(AXSSDialectMap *)self speakableCharacters];
+  v6 = [speakableCharacters characterIsMember:characterCopy];
+
+  specificLanguageID = [(AXSSDialectMap *)self specificLanguageID];
+  v8 = [specificLanguageID hasPrefix:@"en"];
+
+  if ((v6 & 1) != 0 || !v8)
+  {
+    return v6;
+  }
+
+  v9 = +[AXSSLanguageManager shared];
+  v10 = [v9 isCommonGreekCharacter:characterCopy];
+
+  return v10;
+}
+
 - (BOOL)canSpeakString:(id)string letterOnly:(BOOL)only
 {
   onlyCopy = only;
@@ -167,6 +189,15 @@ LABEL_17:
   }
 
   return v9;
+}
+
+- (BOOL)isDialectSecondaryForCharacter:(unsigned __int16)character
+{
+  characterCopy = character;
+  secondaryLanguageRange = [(AXSSDialectMap *)self secondaryLanguageRange];
+  LOBYTE(characterCopy) = [secondaryLanguageRange characterIsMember:characterCopy];
+
+  return characterCopy;
 }
 
 - (NSString)regionID

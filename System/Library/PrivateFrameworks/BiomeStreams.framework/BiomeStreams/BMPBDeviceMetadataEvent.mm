@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)platformAsString:(int)string;
 - (int)StringAsPlatform:(id)platform;
 - (int)platform;
 - (unint64_t)hash;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)platformAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54468[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPlatform:(id)platform
@@ -160,37 +176,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_build)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    platform = self->_platform;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_supplementalBuild)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    rapidSecurityResponsePreReboot = self->_rapidSecurityResponsePreReboot;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -286,7 +300,6 @@
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 44);
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_platform != *(equalCopy + 6))
@@ -311,7 +324,7 @@
     has = self->_has;
   }
 
-  v10 = (*(equalCopy + 44) & 2) == 0;
+  v9 = (*(equalCopy + 44) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) != 0)
@@ -329,17 +342,17 @@
         goto LABEL_16;
       }
 
-      v10 = 1;
+      v9 = 1;
       goto LABEL_17;
     }
 
 LABEL_16:
-    v10 = 0;
+    v9 = 0;
   }
 
 LABEL_17:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

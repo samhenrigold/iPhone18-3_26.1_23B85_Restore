@@ -55,31 +55,7 @@
         generationID2 = [fromCopy generationID];
         v13 = HMFEqualObjects();
 
-        if (!v13)
-        {
-          goto LABEL_13;
-        }
-
-        assertionTime = [(HMDResidentStatus *)self assertionTime];
-        assertionTime2 = [fromCopy assertionTime];
-        v16 = HMFEqualObjects();
-
-        if (!v16)
-        {
-          goto LABEL_13;
-        }
-
-        preferredResidentsList = [(HMDResidentStatus *)self preferredResidentsList];
-        preferredResidentsList2 = [fromCopy preferredResidentsList];
-        v19 = HMFEqualObjects();
-
-        if (!v19)
-        {
-          goto LABEL_13;
-        }
-
-        networkConnectionType = [(HMDResidentStatus *)self networkConnectionType];
-        if (networkConnectionType == [fromCopy networkConnectionType])
+        if (v13 && (-[HMDResidentStatus assertionTime](self, "assertionTime"), v14 = objc_claimAutoreleasedReturnValue(), [fromCopy assertionTime], v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (-[HMDResidentStatus preferredResidentsList](self, "preferredResidentsList"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(fromCopy, "preferredResidentsList"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19) && (v20 = -[HMDResidentStatus networkConnectionType](self, "networkConnectionType"), v20 == objc_msgSend(fromCopy, "networkConnectionType")))
         {
           locationRawValue = [(HMDResidentStatus *)self locationRawValue];
           locationRawValue2 = [fromCopy locationRawValue];
@@ -99,7 +75,6 @@
 
         else
         {
-LABEL_13:
           LOBYTE(v24) = 1;
           swVersion = v26;
         }
@@ -193,7 +168,7 @@ LABEL_13:
 
 - (HMDResidentStatus)initWithChannelRecord:(id)record
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   payload = [recordCopy payload];
   v6 = [payload hmf_stringForKey:@"residentStatusSwVersionKey"];
@@ -208,12 +183,12 @@ LABEL_13:
     v11 = [payload3 hmf_dictionaryForKey:@"RS.ck.prl"];
 
     selfCopy = self;
-    v55 = v8;
+    v54 = v8;
     if (v11)
     {
       v12 = MEMORY[0x277CBEB98];
-      v57 = objc_opt_class();
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = objc_opt_class();
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       v14 = [v12 setWithArray:v13];
       v15 = [v11 hmf_arrayForKey:@"PRL.ck.rii" ofClasses:v14];
 
@@ -222,7 +197,7 @@ LABEL_13:
       if (v15 && v16)
       {
         v18 = [v15 na_map:&__block_literal_global_148_107236];
-        v51 = [[HMDPreferredResidentsList alloc] initWithResidentIDSIdentifiers:v18 modifiedTimestamp:v17];
+        v50 = [[HMDPreferredResidentsList alloc] initWithResidentIDSIdentifiers:v18 modifiedTimestamp:v17];
       }
 
       else
@@ -233,33 +208,33 @@ LABEL_13:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v28 = v52 = v25;
+          v28 = v51 = v25;
           payload4 = [recordCopy payload];
           *buf = 138543618;
-          v59 = v28;
-          v60 = 2112;
-          v61 = payload4;
+          v58 = v28;
+          v59 = 2112;
+          v60 = payload4;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to create preferred residents list from invalid record %@", buf, 0x16u);
 
-          v25 = v52;
+          v25 = v51;
         }
 
         objc_autoreleasePoolPop(v25);
-        v51 = 0;
+        v50 = 0;
       }
     }
 
     else
     {
-      v51 = 0;
+      v50 = 0;
     }
 
     payload5 = [recordCopy payload];
     v31 = [payload5 hmf_dateForKey:@"RSI.ck.st"];
 
-    v56 = v6;
-    v53 = v11;
-    v50 = v31;
+    v55 = v6;
+    v52 = v11;
+    v49 = v31;
     if (v31)
     {
       payload6 = [recordCopy payload];
@@ -306,13 +281,13 @@ LABEL_13:
     idsIdentifier = [recordCopy idsIdentifier];
     idsDestination = [recordCopy idsDestination];
     assertionTime = [recordCopy assertionTime];
-    LOBYTE(v49) = v40;
-    v48 = unsignedIntegerValue;
-    v8 = v55;
-    selfCopy3 = [(HMDResidentStatus *)selfCopy initWithIDSIdentifier:idsIdentifier idsDestination:idsDestination version:v9 generationID:v55 assertionTime:assertionTime preferredResidentsList:v51 selectionInfo:v35 connectionType:v48 locationRawValue:v38 hasReachableAccessories:v49];
+    LOBYTE(v48) = v40;
+    v47 = unsignedIntegerValue;
+    v8 = v54;
+    selfCopy3 = [(HMDResidentStatus *)selfCopy initWithIDSIdentifier:idsIdentifier idsDestination:idsDestination version:v9 generationID:v54 assertionTime:assertionTime preferredResidentsList:v50 selectionInfo:v35 connectionType:v47 locationRawValue:v38 hasReachableAccessories:v48];
 
     v24 = selfCopy3;
-    v6 = v56;
+    v6 = v55;
   }
 
   else
@@ -325,9 +300,9 @@ LABEL_13:
       v22 = HMFGetLogIdentifier();
       payload10 = [recordCopy payload];
       *buf = 138543618;
-      v59 = v22;
-      v60 = 2112;
-      v61 = payload10;
+      v58 = v22;
+      v59 = 2112;
+      v60 = payload10;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to create resident status from invalid record %@", buf, 0x16u);
     }
 
@@ -335,7 +310,6 @@ LABEL_13:
     v24 = 0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

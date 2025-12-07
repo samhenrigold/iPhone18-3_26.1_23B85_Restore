@@ -7,7 +7,7 @@
 
 + (id)getSwiftUIViewWithAccountStore:(id)store appleAccount:(id)account delegate:(id)delegate
 {
-  v8 = objc_allocWithZone(type metadata accessor for MAPreferencesController());
+  v8 = objc_allocWithZone(type metadata accessor for MAPreferencesController(0));
   storeCopy = store;
   accountCopy = account;
   swift_unknownObjectRetain();

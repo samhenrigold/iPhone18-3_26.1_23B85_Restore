@@ -6,7 +6,7 @@
 
 + (void)fillOutASDeviceID
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = _serialNumber();
   if (v2)
   {
@@ -33,27 +33,27 @@
         [v6 addObjectsFromArray:v10];
       }
 
-      v25 = v10;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
+      v24 = v10;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v11 = v6;
-      v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v27;
+        v14 = *v26;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v27 != v14)
+            if (*v26 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [MEMORY[0x277D079E8] esAccountSubclassWithBackingAccountInfo:*(*(&v26 + 1) + 8 * i)];
+            v16 = [MEMORY[0x277D079E8] esAccountSubclassWithBackingAccountInfo:*(*(&v25 + 1) + 8 * i)];
             folderHierarchy = [v16 folderHierarchy];
             _deviceIdInCache = [folderHierarchy _deviceIdInCache];
             if (_deviceIdInCache && [v4 isEqualToString:_deviceIdInCache])
@@ -63,18 +63,18 @@
               if (os_log_type_enabled(v20, v21))
               {
                 *buf = 138412290;
-                v31 = v16;
+                v30 = v16;
                 _os_log_impl(&dword_24A0AC000, v20, v21, "Account %@ cares about the old serial number id, keeping it around", buf, 0xCu);
               }
 
               v22 = _serialNumber();
               v23 = asDeviceIDWithHintedID(v22);
 
-              goto LABEL_21;
+              return;
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
           if (v13)
           {
             continue;
@@ -87,8 +87,6 @@
   }
 
   v19 = asDeviceIDWithHintedID(0);
-LABEL_21:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

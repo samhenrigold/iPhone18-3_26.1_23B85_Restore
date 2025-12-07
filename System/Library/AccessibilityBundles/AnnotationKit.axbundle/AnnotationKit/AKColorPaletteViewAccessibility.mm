@@ -27,52 +27,51 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v20 = *MEMORY[0x29EDCA608];
-  v18.receiver = self;
-  v18.super_class = AKColorPaletteViewAccessibility;
-  [(AKColorPaletteViewAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
-  v17 = 0;
+  v19 = *MEMORY[0x29EDCA608];
+  v17.receiver = self;
+  v17.super_class = AKColorPaletteViewAccessibility;
+  [(AKColorPaletteViewAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
+  v16 = 0;
   objc_opt_class();
   v3 = [(AKColorPaletteViewAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   indexPathsForVisibleItems = [v4 indexPathsForVisibleItems];
-  v6 = [indexPathsForVisibleItems countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [indexPathsForVisibleItems countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(indexPathsForVisibleItems);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [v4 cellForItemAtIndexPath:v10];
         [(AKColorPaletteViewAccessibility *)self _axLoadCellAccessibility:v11 atIndexPath:v10];
       }
 
-      v7 = [indexPathsForVisibleItems countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v7 = [indexPathsForVisibleItems countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [(AKColorPaletteViewAccessibility *)self _accessibilityLoadColorInformation];
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadColorInformation
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (self)
   {
     if (_accessibilityLoadColorInformation_onceToken != -1)
@@ -81,44 +80,41 @@
     }
 
     [self safeArrayForKey:@"colors"];
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v2 = v16 = 0u;
-    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v2 = v14 = 0u;
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v14;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v14 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v13 + 1) + 8 * i);
           objc_opt_class();
-          v8 = __UIAccessibilityCastAsClass();
-          v9 = [_accessibilityLoadColorInformation_colorLocalizedInfo objectForKeyedSubscript:v8];
-          v10 = v9;
-          if (v9)
+          v7 = __UIAccessibilityCastAsClass();
+          v8 = [_accessibilityLoadColorInformation_colorLocalizedInfo objectForKeyedSubscript:v7];
+          v9 = v8;
+          if (v8)
           {
-            v11 = accessibilityLocalizedString(v9);
-            [v8 setAccessibilityLabel:v11];
+            v10 = accessibilityLocalizedString(v8);
+            [v7 setAccessibilityLabel:v10];
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_commonInit

@@ -135,8 +135,9 @@
   }
 
   sub_10000EC00(__p, [client UTF8String]);
-  sub_10050DA68([(CLSedentaryTimerNotifierAdapter *)self adaptee]);
-  if (v8 < 0)
+  adaptee = [(CLSedentaryTimerNotifierAdapter *)self adaptee];
+  sub_10050DA68(adaptee, v7);
+  if (v10 < 0)
   {
     operator delete(*__p);
   }

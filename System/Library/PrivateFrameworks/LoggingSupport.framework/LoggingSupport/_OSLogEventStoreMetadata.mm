@@ -1,8 +1,83 @@
 @interface _OSLogEventStoreMetadata
+- (_OSLogEventStoreMetadata)initWithCollection:(id)collection localStorePlist:(id)plist liveDataDescriptor:(int)descriptor;
 - (_OSLogEventStoreMetadata)initWithDictionary:(id)dictionary;
 @end
 
 @implementation _OSLogEventStoreMetadata
+
+- (_OSLogEventStoreMetadata)initWithCollection:(id)collection localStorePlist:(id)plist liveDataDescriptor:(int)descriptor
+{
+  v5 = *&descriptor;
+  v33[2] = *MEMORY[0x277D85DE8];
+  collectionCopy = collection;
+  plistCopy = plist;
+  v10 = [(_OSLogEventStoreMetadata *)self init];
+  if (v10)
+  {
+    v11 = _calculateTimeRefForBook(collectionCopy, "Persist");
+    oldestPersist = v10->_oldestPersist;
+    v10->_oldestPersist = v11;
+
+    v13 = _calculateTimeRefForBook(collectionCopy, "Special");
+    oldestSpecial = v10->_oldestSpecial;
+    v10->_oldestSpecial = v13;
+
+    v15 = _calculateTimeRefForBook(collectionCopy, "Signpost");
+    oldestSignpost = v10->_oldestSignpost;
+    v10->_oldestSignpost = v15;
+
+    v33[0] = 0;
+    v33[1] = 0;
+    v32 = 0;
+    if (_OSLogFileFindExhaustivePoint(v5, v33, &v32) && *__error() == 2)
+    {
+      v17 = 0;
+    }
+
+    else
+    {
+      v18 = [_OSLogEventStoreTimeRef alloc];
+      v17 = [(_OSLogEventStoreTimeRef *)v18 initWithUUID:v33 continuous:v32];
+    }
+
+    oldestLive = v10->_oldestLive;
+    v10->_oldestLive = v17;
+
+    v20 = +[_OSLogEventStoreTimeRef timeRef];
+    end = v10->_end;
+    v10->_end = v20;
+
+    v22 = [plistCopy objectForKeyedSubscript:@"Identifier"];
+    v23 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v22];
+    sourceUUID = v10->_sourceUUID;
+    v10->_sourceUUID = v23;
+
+    objc_storeStrong(&v10->_archiveUUID, v10->_sourceUUID);
+    ttls = v10->_ttls;
+    v26 = 8u;
+    do
+    {
+      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(&_OSLogTTLTable + v26)];
+      v28 = [plistCopy objectForKeyedSubscript:v27];
+
+      v29 = [[_OSLogEventStoreTimeRef alloc] initWithDictionary:v28];
+      v30 = *ttls;
+      *ttls = v29;
+
+      if (!*ttls)
+      {
+        objc_storeStrong(ttls, v10->_oldestSpecial);
+      }
+
+      v26 += 16;
+      ++ttls;
+    }
+
+    while (v26 != 88);
+  }
+
+  return v10;
+}
 
 - (_OSLogEventStoreMetadata)initWithDictionary:(id)dictionary
 {

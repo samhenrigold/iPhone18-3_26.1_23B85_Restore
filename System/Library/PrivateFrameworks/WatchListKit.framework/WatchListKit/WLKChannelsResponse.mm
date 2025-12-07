@@ -3,12 +3,53 @@
 - (BOOL)isValidForFiltered:(BOOL)filtered;
 - (NSArray)orderedChannels;
 - (NSDictionary)channels;
+- (WLKChannelsResponse)initWithDictionary:(id)dictionary expirationDate:(id)date environmentHash:(unint64_t)hash filtered:(BOOL)filtered;
 - (void)modifyConsentStatusForChannelEntry:(id)entry consented:(BOOL)consented;
 - (void)setChannels:(id)channels;
 - (void)setOrderedChannels:(id)channels;
 @end
 
 @implementation WLKChannelsResponse
+
+- (WLKChannelsResponse)initWithDictionary:(id)dictionary expirationDate:(id)date environmentHash:(unint64_t)hash filtered:(BOOL)filtered
+{
+  filteredCopy = filtered;
+  dictionaryCopy = dictionary;
+  dateCopy = date;
+  v29.receiver = self;
+  v29.super_class = WLKChannelsResponse;
+  v12 = [(WLKChannelsResponse *)&v29 init];
+  if (v12)
+  {
+    v13 = dispatch_queue_create("WLKChannelsResponseModificationQueue", 0);
+    modificationQueue = v12->_modificationQueue;
+    v12->_modificationQueue = v13;
+
+    v15 = [dictionaryCopy wlk_dictionaryForKey:@"channels"];
+    v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v15, "count")}];
+    v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v15, "count")}];
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __82__WLKChannelsResponse_initWithDictionary_expirationDate_environmentHash_filtered___block_invoke;
+    v26 = &unk_279E60B00;
+    v27 = v16;
+    v28 = v17;
+    v18 = v17;
+    v19 = v16;
+    [v15 enumerateKeysAndObjectsUsingBlock:&v23];
+    v20 = [v19 copy];
+    [(WLKChannelsResponse *)v12 setOrderedChannels:v20];
+
+    v21 = [v18 copy];
+    [(WLKChannelsResponse *)v12 setChannels:v21];
+
+    [(WLKChannelsResponse *)v12 setExpirationDate:dateCopy];
+    [(WLKChannelsResponse *)v12 setFiltered:filteredCopy];
+    [(WLKChannelsResponse *)v12 setEnvironmentHash:hash];
+  }
+
+  return v12;
+}
 
 void __82__WLKChannelsResponse_initWithDictionary_expirationDate_environmentHash_filtered___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {

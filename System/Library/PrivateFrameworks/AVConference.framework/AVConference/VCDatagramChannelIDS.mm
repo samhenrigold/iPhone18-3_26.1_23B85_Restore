@@ -25,7 +25,7 @@
   return sharedIDSService_service;
 }
 
-uint64_t __40__VCDatagramChannelIDS_sharedIDSService__block_invoke()
+void *__40__VCDatagramChannelIDS_sharedIDSService__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E69A48A8]) initWithService:@"com.apple.private.alloy.avconference.icloud"];
   sharedIDSService_service = result;
@@ -261,7 +261,7 @@ uint64_t __40__VCDatagramChannelIDS_sharedIDSService__block_invoke()
     return 0;
   }
 
-  v4 = VTP_SocketForIDSWithFileDescriptor(descriptor, self->_token);
+  v4 = VTP_SocketForIDSWithFileDescriptor(*&descriptor, self->_token);
   self->_vtpSocket = v4;
   if (v4 != -1)
   {

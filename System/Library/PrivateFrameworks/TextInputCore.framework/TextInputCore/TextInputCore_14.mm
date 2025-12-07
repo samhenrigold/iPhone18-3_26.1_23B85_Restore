@@ -17,21 +17,19 @@ void ___ZNK2TI8Favonius20DictionaryHypothesis6_wordsERNSt3__16vectorIN2KB4WordEN
   v7 = *(a1 + 40);
   v8 = *(*(a1 + 32) + 8);
   v9 = *a2;
-  v12 = v9;
+  v10 = v9;
   if (v9)
   {
     CFRetain(v9);
-    v12 = v9;
-    v10 = *(a1 + 49);
-    TI::Favonius::DictionaryHypothesis::merge_dynamic_words(v7, v8 + 40, &v12, a3, a4, *(a1 + 48));
+    v10 = v9;
+    TI::Favonius::DictionaryHypothesis::merge_dynamic_words(v7, (v8 + 40), &v10, a3, a4, *(a1 + 48), *(a1 + 49));
 
     CFRelease(v9);
   }
 
   else
   {
-    v11 = *(a1 + 49);
-    TI::Favonius::DictionaryHypothesis::merge_dynamic_words(v7, v8 + 40, &v12, a3, a4, *(a1 + 48));
+    TI::Favonius::DictionaryHypothesis::merge_dynamic_words(v7, (v8 + 40), &v10, a3, a4, *(a1 + 48), *(a1 + 49));
   }
 }
 
@@ -51,14 +49,14 @@ __n128 __Block_byref_object_copy__4(void *a1, uint64_t a2)
 
 void ___ZNK2TI8Favonius20DictionaryHypothesis19merge_dynamic_wordsERNSt3__16vectorIN2KB4WordENS2_9allocatorIS5_EEEENS4_10retain_ptrIPK9_LXCursorEENS4_16DynamicEntryTypeEmbb_block_invoke(uint64_t a1, CFTypeRef cf)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   if (cf)
   {
     CFRetain(cf);
   }
 
-  if (*(a1 + 48) == 5 || (v5 = *(v4 + 8), KB::Word::Word(v23, cf, *(a1 + 52)), LOBYTE(v5) = KB::DynamicDictionary::is_word_in_supplemental_lexicon(*(v5 + 24), v23), KB::Word::~Word(v23), (v5 & 1) == 0))
+  if (*(a1 + 48) == 5 || (v5 = *(v4 + 8), KB::Word::Word(v22, cf, *(a1 + 52)), LOBYTE(v5) = KB::DynamicDictionary::is_word_in_supplemental_lexicon(*(v5 + 24), v22), KB::Word::~Word(v22), (v5 & 1) == 0))
   {
     v6 = *(*(a1 + 32) + 8);
     v8 = v6[6];
@@ -165,8 +163,6 @@ void ___ZNK2TI8Favonius20DictionaryHypothesis19merge_dynamic_wordsERNSt3__16vect
   {
     CFRelease(cf);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 float TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(TI::Favonius::DictionaryHypothesis *this)
@@ -188,8 +184,8 @@ float TI::Favonius::DictionaryHypothesis::partial_probability_per_dynamic_usage(
 
 void TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(uint64_t a1, uint64_t a2, int a3, int a4, int a5, float a6)
 {
-  v11 = KB::Word::Word(a1, a2, a4);
-  *(v11 + 104) &= 0xFFFFFF79;
+  v12 = KB::Word::Word(a1, a2, a4);
+  *(v12 + 104) &= 0xFFFFFF79;
   if ((a4 + 1) >= 2 && a4 != a5)
   {
     *(a1 + 192) = 1;
@@ -201,31 +197,31 @@ void TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(uint64_t a1, ui
     switch(a3)
     {
       case 3:
-        v12 = *(a1 + 104) | 0x10000;
+        v13 = *(a1 + 104) | 0x10000;
         goto LABEL_22;
       case 4:
-        v12 = *(a1 + 104) | 0x100;
+        v13 = *(a1 + 104) | 0x100;
         goto LABEL_22;
       case 5:
-        TILXEntryGetSupplementalItemIdentifiers(v14);
-        if ((a1 + 200) != v14)
+        TILXEntryGetSupplementalItemIdentifiers(v15, a2);
+        if ((a1 + 200) != v15)
         {
-          *(a1 + 232) = v16;
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>((a1 + 200), v15);
+          *(a1 + 232) = v17;
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>((a1 + 200), v16);
         }
 
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v14);
-        if (TILXEntryIsPartOfHyphenatedWord())
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v15);
+        if (TILXEntryIsPartOfHyphenatedWord(a2))
         {
-          v13 = 16;
+          v14 = 16;
         }
 
         else
         {
-          v13 = 0;
+          v14 = 0;
         }
 
-        v12 = *(a1 + 104) & 0xFFFFFFEF | v13;
+        v13 = *(a1 + 104) & 0xFFFFFFEF | v14;
         goto LABEL_22;
     }
   }
@@ -235,15 +231,15 @@ void TI::Favonius::DictionaryHypothesis::word_from_dynamic_entry(uint64_t a1, ui
     switch(a3)
     {
       case 0:
-        v12 = *(a1 + 104) & 0xFFFFDFFF | ((*(a1 + 124) > 1u) << 13) | 0x2000000;
+        v13 = *(a1 + 104) & 0xFFFFDFFF | ((*(a1 + 124) > 1u) << 13) | 0x2000000;
         goto LABEL_22;
       case 1:
-        v12 = *(a1 + 104) | 0x20000;
+        v13 = *(a1 + 104) | 0x20000;
         goto LABEL_22;
       case 2:
-        v12 = *(a1 + 104) | 0x80000000;
+        v13 = *(a1 + 104) | 0x80000000;
 LABEL_22:
-        *(a1 + 104) = v12;
+        *(a1 + 104) = v13;
         break;
     }
   }
@@ -252,11 +248,11 @@ LABEL_22:
   *(a1 + 140) = 0;
 }
 
-void KB::DictionaryContainer::DictionaryContainer(KB::StaticDictionary *a1)
+void KB::DictionaryContainer::DictionaryContainer(_DWORD *a1, uint64_t *a2, int a3, int a4, int a5)
 {
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *a1 = 1;
-  KB::StaticDictionary::create(a1);
+  KB::StaticDictionary::create();
 }
 
 void KB::DictionaryContainer::~DictionaryContainer(KB::DictionaryContainer *this)
@@ -292,41 +288,39 @@ void KB::DictionaryContainer::suspend_dynamic_dict(KB::DictionaryContainer *this
   }
 }
 
-uint64_t KB::DictionaryContainer::lookup@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void KB::DictionaryContainer::lookup(KB::Word **__return_ptr a1@<X8>, atomic_uint *this@<X0>, const KB::String *a3@<X1>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  if (**(this + 8) != *(*(this + 8) + 8))
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (**(this + 1) != *(*(this + 1) + 8))
   {
+    v5 = this;
     atomic_fetch_add(this, 1u);
-    TI::Favonius::DictionaryHypothesis::create();
+    TI::Favonius::DictionaryHypothesis::create(&v6, &v5, a3);
   }
-
-  return this;
 }
 
-void KB::DictionaryContainer::_probability_of_word_with_string_and_id(atomic_uint *this, const KB::String *a2, const TITokenID *a3)
+void KB::DictionaryContainer::_probability_of_word_with_string_and_id(atomic_uint *this, const KB::String *a2, const TITokenID *a3, int a4)
 {
-  v3 = this;
+  v5 = this;
   if (this)
   {
     atomic_fetch_add(this, 1u);
-    TI::Favonius::DictionaryHypothesis::create();
+    TI::Favonius::DictionaryHypothesis::create(&v4, &v5, a2);
   }
 
-  TI::Favonius::DictionaryHypothesis::create();
+  TI::Favonius::DictionaryHypothesis::create(&v4, &v5, a2);
 }
 
-void KB::DictionaryContainer::word_with_string(KB::StaticDictionary **this@<X0>, const KB::String *a2@<X1>, int a3@<W2>, KB::Word *a4@<X8>)
+void KB::DictionaryContainer::word_with_string(KB::Word *__return_ptr a1@<X8>, KB::StaticDictionary **this@<X0>, const KB::String *a3@<X1>, int a4@<W2>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  KB::StaticDictionary::word_with_string(this[1], a2, a3, v9);
-  KB::DynamicDictionary::word_with_string(v8, this[3], a2);
-  combine_words(a4, v9, v8);
+  v9 = *MEMORY[0x277D85DE8];
+  KB::StaticDictionary::word_with_string(v8, this[1], a3, a4);
+  KB::DynamicDictionary::word_with_string(v7, this[3], a3);
+  combine_words(a1, v8, v7);
+  KB::Word::~Word(v7);
   KB::Word::~Word(v8);
-  KB::Word::~Word(v9);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 double combine_words(KB::Word *this, _WORD *a2, KB::Word *a3)
@@ -409,147 +403,145 @@ LABEL_15:
 
 void KB::DictionaryContainer::word_with_string_exhaustive(KB::StaticDictionary **this@<X0>, const KB::String *a2@<X1>, int a3@<W2>, KB::Word *a4@<X8>)
 {
-  v21[5] = *MEMORY[0x277D85DE8];
-  KB::StaticDictionary::word_with_string(this[1], a2, a3, v15);
-  if (!v15[0])
+  v20[5] = *MEMORY[0x277D85DE8];
+  KB::StaticDictionary::word_with_string(v14, this[1], a2, a3);
+  if (!v14[0])
   {
-    KB::DictionaryContainer::closest_static_match(this, a2, v8);
-    KB::String::operator=(v15, v8);
-    if (v16 >= 0xFu && *(&v16 + 1))
+    KB::DictionaryContainer::closest_static_match(v7, this, a2);
+    KB::String::operator=(v14, v7);
+    if (v15 >= 0xFu && *(&v15 + 1))
     {
-      MEMORY[0x2318BE250](*(&v16 + 1), 0x1000C8077774924);
+      MEMORY[0x2318BE250](*(&v15 + 1), 0x1000C8077774924);
+    }
+
+    v15 = v8;
+    if (v8 >= 0xFu)
+    {
+      LOWORD(v8) = 0;
     }
 
     v16 = v9;
-    if (v9 >= 0xFu)
-    {
-      LOWORD(v9) = 0;
-    }
-
     v17 = v10;
-    v18 = v11;
+    KB::String::operator=(v18, v11);
+    v18[2] = v11[2];
+    v18[3] = v11[3];
+    v18[4] = v11[4];
+    v18[5] = v11[5];
     KB::String::operator=(v19, v12);
-    v19[2] = v12[2];
-    v19[3] = v12[3];
-    v19[4] = v12[4];
-    v19[5] = v12[5];
-    KB::String::operator=(v20, v13);
-    v20[32] = v13[32];
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v21, v14);
-    KB::Word::~Word(v8);
+    v19[32] = v12[32];
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__move_assign(v20, v13);
+    KB::Word::~Word(v7);
   }
 
-  KB::DynamicDictionary::word_with_string(v8, this[3], a2);
-  combine_words(a4, v15, v8);
-  KB::Word::~Word(v8);
-  KB::Word::~Word(v15);
-  v7 = *MEMORY[0x277D85DE8];
+  KB::DynamicDictionary::word_with_string(v7, this[3], a2);
+  combine_words(a4, v14, v7);
+  KB::Word::~Word(v7);
+  KB::Word::~Word(v14);
 }
 
-void KB::DictionaryContainer::closest_static_match(KB::DictionaryContainer *this@<X0>, const KB::String *a2@<X1>, KB::Word *a3@<X8>)
+void KB::DictionaryContainer::closest_static_match(uint64_t *__return_ptr a1@<X8>, KB::DictionaryContainer *this@<X0>, const KB::String *a3@<X1>)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v23 = *MEMORY[0x277D85DE8];
   v13 = 0;
   v14 = 0;
-  KB::DictionaryContainer::derive_static_words(this, &v12, a2);
-  v5 = v12;
-  v6 = v13;
-  if (v12 == v13)
+  v15 = 0;
+  KB::DictionaryContainer::derive_static_words(this, &v13, a3);
+  v7 = v13;
+  v8 = v14;
+  if (v13 == v14)
   {
 LABEL_7:
-    *(a3 + 13) = 0u;
-    *(a3 + 14) = 0u;
-    *(a3 + 11) = 0u;
-    *(a3 + 12) = 0u;
-    *(a3 + 9) = 0u;
-    *(a3 + 10) = 0u;
-    *(a3 + 7) = 0u;
-    *(a3 + 8) = 0u;
-    *(a3 + 5) = 0u;
-    *(a3 + 6) = 0u;
-    *(a3 + 3) = 0u;
-    *(a3 + 4) = 0u;
-    *(a3 + 1) = 0u;
-    *(a3 + 2) = 0u;
-    *a3 = 0u;
-    KB::Word::Word(a3);
+    *(a1 + 13) = 0u;
+    *(a1 + 14) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 12) = 0u;
+    *(a1 + 9) = 0u;
+    *(a1 + 10) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 8) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 6) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *a1 = 0u;
+    KB::Word::Word(a1);
   }
 
   else
   {
-    while (!KB::String::equal(v5, a2, 0))
+    while (!KB::String::equal(v7, a3, 0, v5, v6))
     {
-      v5 += 240;
-      if (v5 == v6)
+      v7 += 240;
+      if (v7 == v8)
       {
-        v5 = v12;
         v7 = v13;
-        if (v12 == v13)
+        v9 = v14;
+        if (v13 == v14)
         {
           goto LABEL_7;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
         {
-          v9 = a2 + 16;
-          if (*(a2 + 1))
+          v10 = a3 + 16;
+          if (*(a3 + 1))
           {
-            v9 = *(a2 + 1);
+            v10 = *(a3 + 1);
           }
 
-          v10 = "";
-          if (*a2)
+          v11 = "";
+          if (*a3)
           {
-            v11 = v9;
+            v12 = v10;
           }
 
           else
           {
-            v11 = "";
+            v12 = "";
           }
 
-          if (*v5)
+          if (*v7)
           {
-            v10 = *(v5 + 1);
-            if (!v10)
+            v11 = *(v7 + 1);
+            if (!v11)
             {
-              v10 = v5 + 16;
+              v11 = v7 + 16;
             }
           }
 
           *&buf[4] = "closest_static_match";
           *buf = 136315906;
-          v16 = 2080;
-          v17 = v11;
-          v18 = 2080;
-          v19 = v10;
-          v20 = 2048;
-          v21 = 0xEEEEEEEEEEEEEEEFLL * ((v7 - v5) >> 4);
+          v17 = 2080;
+          v18 = v12;
+          v19 = 2080;
+          v20 = v11;
+          v21 = 2048;
+          v22 = 0xEEEEEEEEEEEEEEEFLL * ((v9 - v7) >> 4);
           _os_log_debug_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s  DictionaryContainer::closest_static_match: %s has only diacritic-insensitive matches, returning the first one (%s) out of %zu", buf, 0x2Au);
-          v5 = v12;
+          v7 = v13;
         }
 
         break;
       }
     }
 
-    KB::Word::Word(a3, v5);
+    KB::Word::Word(a1, v7);
   }
 
-  *buf = &v12;
+  *buf = &v13;
   std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void KB::DictionaryContainer::derive_static_words(uint64_t a1, uint64_t *a2, unsigned __int16 *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 8);
   if (*v4 != *(v4 + 1) && *a3 != 0)
   {
-    KB::StaticDictionaryCursor::StaticDictionaryCursor(v46, v4);
-    memset(v45, 0, sizeof(v45));
+    KB::StaticDictionaryCursor::StaticDictionaryCursor(v44, v4);
+    memset(v43, 0, sizeof(v43));
     if (*(a3 + 1))
     {
       v8 = *(a3 + 1);
@@ -557,39 +549,39 @@ void KB::DictionaryContainer::derive_static_words(uint64_t a1, uint64_t *a2, uns
 
     else
     {
-      v8 = (a3 + 8);
+      v8 = a3 + 8;
     }
 
-    v40 = v8;
+    v38 = v8;
     v9 = *a3;
-    v41 = 0;
-    v42 = v9;
-    v43 = 0;
-    KB::String::iterator::initialize(&v40);
-    v44 = 0;
-    v36 = v8;
-    v37 = v9;
-    v38 = v9;
     v39 = 0;
-    KB::String::iterator::initialize(&v36);
-    v10 = v37;
-    if (v41 != v37)
+    v40 = v9;
+    v41 = 0;
+    KB::String::iterator::initialize(&v38);
+    v42 = 0;
+    v34 = v8;
+    v35 = v9;
+    v36 = v9;
+    v37 = 0;
+    KB::String::iterator::initialize(&v34);
+    v10 = v35;
+    if (v39 != v35)
     {
       v11 = 1.0;
       do
       {
-        if (!KB::StaticDictionaryCursor::valid(v46))
+        if (!KB::StaticDictionaryCursor::valid(v44))
         {
           break;
         }
 
-        v12 = v43;
-        ++v44;
-        KB::String::iterator::operator++(&v40);
-        v11 = v11 * KB::StaticDictionaryCursor::advance(v46, v12);
+        v12 = v41;
+        ++v42;
+        KB::String::iterator::operator++(&v38);
+        v11 = v11 * KB::StaticDictionaryCursor::advance(v44, v12);
         if (*(a1 + 32))
         {
-          v13 = v44;
+          v13 = v42;
           v14 = a3[2];
           if (!a3[2])
           {
@@ -597,175 +589,166 @@ void KB::DictionaryContainer::derive_static_words(uint64_t a1, uint64_t *a2, uns
             v14 = a3[2];
           }
 
-          if (v13 < v14 && v47)
+          if (v13 < v14 && v45)
           {
             v15 = 0;
-            v16 = 8 * v47 - 8;
+            v16 = 8 * v45 - 8;
             do
             {
-              v17 = *&v46[v15];
-              v18 = LXCursorTerminatesWordStem();
-              if (v18)
+              v17 = LXCursorTerminatesWordStem();
+              if (v17)
               {
-                v19 = 1;
+                v18 = 1;
               }
 
               else
               {
-                v19 = v16 == v15;
+                v18 = v16 == v15;
               }
 
               v15 += 8;
             }
 
-            while (!v19);
-            if (v18)
+            while (!v18);
+            if (v17)
             {
-              v33 = 0;
-              v34 = 0;
-              v35 = 0;
-              KB::StaticDictionaryCursor::derive_words(v46, &v33, *(a1 + 8));
-              v20 = *a3;
-              v21 = *(a3 + 1);
-              if (!v21)
-              {
-                v21 = (a3 + 8);
-              }
-
-              v29 = v21;
-              v30 = v20;
-              v31 = v20;
+              v31 = 0;
               v32 = 0;
-              KB::String::iterator::initialize(&v29);
-              KB::String::String(&v48, &v40, &v29);
-              v22 = v33;
-              v23 = v34;
-              while (v22 != v23)
+              v33 = 0;
+              KB::StaticDictionaryCursor::derive_words(v44, &v31, *(a1 + 8));
+              v19 = *a3;
+              v20 = *(a3 + 1);
+              if (!v20)
               {
-                *(v22 + 52) = v11;
-                KB::DictionaryContainer::derive_combined_words(a1, v45, v22, &v48);
-                v22 += 240;
+                v20 = a3 + 8;
               }
 
-              if (v49)
+              v27 = v20;
+              v28 = v19;
+              v29 = v19;
+              v30 = 0;
+              KB::String::iterator::initialize(&v27);
+              KB::String::String(&v46, &v38, &v27);
+              v21 = v31;
+              v22 = v32;
+              while (v21 != v22)
               {
-                v24 = BYTE6(v48) == 1;
+                *(v21 + 52) = v11;
+                KB::DictionaryContainer::derive_combined_words(a1, v43, v21, &v46);
+                v21 += 240;
+              }
+
+              if (v47)
+              {
+                v23 = BYTE6(v46) == 1;
               }
 
               else
               {
-                v24 = 0;
+                v23 = 0;
               }
 
-              if (v24)
+              if (v23)
               {
-                free(v49);
+                free(v47);
               }
 
-              v48 = &v33;
-              std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v48);
+              v46 = &v31;
+              std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v46);
             }
           }
         }
       }
 
-      while (v41 != v10);
+      while (v39 != v10);
     }
 
-    KB::StaticDictionaryCursor::derive_words(v46, a2, *(a1 + 8));
+    KB::StaticDictionaryCursor::derive_words(v44, a2, *(a1 + 8));
     if (*(a1 + 32))
     {
-      v25 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Word *>,BOOL({block_pointer})(KB::Word const&)>(*a2, a2[1], &__block_literal_global_15621);
-      std::vector<KB::Word>::erase(a2, v25, a2[1]);
-      KB::StaticDictionary::merge_words(a2, v45);
+      v24 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Word *>,BOOL({block_pointer})(KB::Word const&)>(*a2, a2[1], &__block_literal_global_15621);
+      std::vector<KB::Word>::erase(a2, v24, a2[1]);
+      KB::StaticDictionary::merge_words(a2, v43);
     }
 
-    v48 = v45;
-    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v48);
+    v46 = v43;
+    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v46);
     for (i = 16; i != -8; i -= 8)
     {
-      v27 = *&v46[i];
-      if (v27)
+      v26 = *&v44[i];
+      if (v26)
       {
-        CFRelease(v27);
+        CFRelease(v26);
       }
 
-      *&v46[i] = 0;
+      *&v44[i] = 0;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void KB::DictionaryContainer::derive_combined_words(uint64_t a1, uint64_t a2, uint64_t a3, const KB::String *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  *v24 = 0;
-  v25 = 0;
-  if (*(a1 + 32))
+  v33 = *MEMORY[0x277D85DE8];
+  *v28 = 0;
+  v29 = 0;
+  if (*(a1 + 32) && LMLexiconIDConverterGetStemData())
   {
-    v8 = *(a3 + 140);
-    if (LMLexiconIDConverterGetStemData())
+    KB::String::String(v31, v29, v28[0]);
+    KB::StaticDictionaryCursor::StaticDictionaryCursor(v27, *(a1 + 8));
+    KB::StaticDictionaryCursor::advance(v27, v31, v8, v9, v10);
+    KB::StaticDictionaryCursor::advance(v27, a4, v11, v12, v13);
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    KB::StaticDictionaryCursor::derive_words(v27, &v24, *(a1 + 8));
+    v14 = v24;
+    v15 = v25;
+    while (v14 != v15)
     {
-      KB::String::String(v27, v25, v24[0]);
-      KB::StaticDictionaryCursor::StaticDictionaryCursor(v23, *(a1 + 8));
-      KB::StaticDictionaryCursor::advance(v23, v27);
-      KB::StaticDictionaryCursor::advance(v23, a4);
-      v20 = 0;
-      v21 = 0;
-      v22 = 0;
-      KB::StaticDictionaryCursor::derive_words(v23, &v20, *(a1 + 8));
-      v9 = v20;
-      v10 = v21;
-      while (v9 != v10)
+      v16 = *(a3 + 136);
+      v17 = v14[17];
+      v18 = KB::DictionaryContainer::combined_word_id(a1, v16, v17);
+      if (HIDWORD(v18) && (v14[16].word_id & (*(a3 + 132) >> 12) & 0xFFF) != 0 && *v28 <= LOWORD(v14->lexicon_id))
       {
-        v11 = *(a3 + 136);
-        v12 = v9[17];
-        v13 = KB::DictionaryContainer::combined_word_id(a1, v11, v12);
-        if (HIDWORD(v13) && (v9[16].word_id & (*(a3 + 132) >> 12) & 0xFFF) != 0 && *v24 <= LOWORD(v9->lexicon_id))
-        {
-          v14 = v13;
-          KB::Word::Word(v26, a3);
-          v15 = v14;
-          KB::Word::append_suffix(v26, v9, v24[0], v15);
-          std::vector<KB::Word>::push_back[abi:nn200100](a2, v26);
-          KB::Word::~Word(v26);
-        }
-
-        v9 += 30;
+        v19 = v18;
+        KB::Word::Word(v30, a3);
+        v20 = v19;
+        KB::Word::append_suffix(v30, v14, v28[0], v20);
+        std::vector<KB::Word>::push_back[abi:nn200100](a2, v30);
+        KB::Word::~Word(v30);
       }
 
-      v26[0] = &v20;
-      std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](v26);
-      for (i = 16; i != -8; i -= 8)
-      {
-        v17 = *&v23[i];
-        if (v17)
-        {
-          CFRelease(v17);
-        }
+      v14 += 30;
+    }
 
-        *&v23[i] = 0;
+    v30[0] = &v24;
+    std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](v30);
+    for (i = 16; i != -8; i -= 8)
+    {
+      v22 = *&v27[i];
+      if (v22)
+      {
+        CFRelease(v22);
       }
 
-      if (v28)
-      {
-        v18 = v27[6] == 1;
-      }
+      *&v27[i] = 0;
+    }
 
-      else
-      {
-        v18 = 0;
-      }
+    if (v32)
+    {
+      v23 = v31[6] == 1;
+    }
 
-      if (v18)
-      {
-        free(v28);
-      }
+    else
+    {
+      v23 = 0;
+    }
+
+    if (v23)
+    {
+      free(v32);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KB::DictionaryContainer::combined_word_id(KB::DictionaryContainer *this, TITokenID a2, TITokenID a3)
@@ -799,7 +782,7 @@ uint64_t KB::DictionaryContainer::combined_word_id(KB::DictionaryContainer *this
   return v4;
 }
 
-uint64_t KB::DictionaryContainer::affix_sentinel@<X0>(KB::DictionaryContainer *this@<X0>, TITokenID a2@<0:X1>, int a3@<W2>, uint64_t a4@<X8>)
+KB::String *KB::DictionaryContainer::affix_sentinel@<X0>(KB::String *__return_ptr a1@<X8>, KB::DictionaryContainer *this@<X0>, TITokenID a3@<0:X1>, int a4@<W2>)
 {
   v5 = *(this + 1);
   if (*v5 == *(v5 + 8))
@@ -815,7 +798,7 @@ uint64_t KB::DictionaryContainer::affix_sentinel@<X0>(KB::DictionaryContainer *t
   result = *(this + 4);
   if (result)
   {
-    v8 = v6 == a2.lexicon_id;
+    v8 = v6 == a3.lexicon_id;
   }
 
   else
@@ -828,20 +811,20 @@ uint64_t KB::DictionaryContainer::affix_sentinel@<X0>(KB::DictionaryContainer *t
     goto LABEL_8;
   }
 
-  if (a3)
+  if (a4)
   {
     result = LMLexiconIDConverterGetSuffixData();
     if (result)
     {
-      return KB::String::String(a4, 0, 0);
+      return KB::String::String(a1, 0, 0);
     }
 
 LABEL_8:
-    *a4 = 0x100000;
-    *(a4 + 4) = 0;
-    *(a4 + 6) = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
+    *a1 = 0x100000;
+    *(a1 + 2) = 0;
+    *(a1 + 6) = 0;
+    *(a1 + 1) = 0;
+    *(a1 + 16) = 0;
     return result;
   }
 
@@ -851,7 +834,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  return KB::String::String(a4, 0, 0);
+  return KB::String::String(a1, 0, 0);
 }
 
 void options_with_word_locale(char *a1, char *a2)
@@ -886,7 +869,7 @@ void options_with_word_locale(char *a1, char *a2)
 
 void TI::VulgarWordUsageDatabaseWrapper::attach_to_dynamic_resource_directory(CFTypeRef *a1, std::string *a2)
 {
-  memset(&v11, 0, sizeof(v11));
+  memset(&v10, 0, sizeof(v10));
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
   if (v3 < 0)
@@ -899,27 +882,27 @@ void TI::VulgarWordUsageDatabaseWrapper::attach_to_dynamic_resource_directory(CF
     v3 = size;
   }
 
-  std::string::append[abi:nn200100]<char const*,0>(&v11, a2, (a2 + v3));
+  std::string::append[abi:nn200100]<char const*,0>(&v10, a2, (a2 + v3));
   memset(&__p, 0, sizeof(__p));
   std::string::append[abi:nn200100]<char const*,0>(&__p, "VulgarWordUsage.db", "");
-  std::__fs::filesystem::operator/[abi:nn200100](&v10, &v11, &__p);
+  std::__fs::filesystem::operator/[abi:nn200100](&v9, &v10, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&__p, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v10;
+    __p = v9;
   }
 
-  KB::cf_string(&__p, &v8);
-  v5 = v8;
+  KB::cf_string(&__p, &v7);
+  v5 = v7;
   v6 = LXVulgarWordUsageDatabaseCreate();
   if (*a1)
   {
@@ -937,16 +920,15 @@ void TI::VulgarWordUsageDatabaseWrapper::attach_to_dynamic_resource_directory(CF
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v7 = *a1;
   LXVulgarWordUsageDatabasePerformMaintenance();
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v9.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1059,23 +1041,23 @@ void KB::LanguageModelImplStub::_wait_for_load(uint64_t a1, std::unique_lock<std
 
 void KB::LanguageModelImplStub::_load_dynamic(KB::LanguageModelImplStub *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!*(this + 5))
   {
-    _ZNSt3__115allocate_sharedB8nn200100IN2KB21LanguageModelImplStub13WrapperHandleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2KB21LanguageModelImplStub13WrapperHandleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v13);
   }
 
   ValueAtIndex = CFArrayGetValueAtIndex(*(this + 2), 0);
   v3 = MEMORY[0x2318BC170](ValueAtIndex);
-  KB::utf8_string(v3, v14);
+  KB::utf8_string(v13, v3);
   v4 = CFArrayGetValueAtIndex(*(this + 2), 0);
   v5 = MEMORY[0x2318BC170](v4);
   v6 = UIKeyboardDynamicDictionaryFileWithSiriMode(v5, *(this + 5), 0);
-  KB::utf8_string(v6, v12);
-  KB::LanguageModelImplStub::get_or_create_shared_handle(v14, &v11);
+  KB::utf8_string(v11, v6);
+  KB::LanguageModelImplStub::get_or_create_shared_handle(&v10, v13);
   v7 = *(this + 20);
-  v8 = v11;
-  *(this + 152) = v11;
+  v8 = v10;
+  *(this + 152) = v10;
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -1088,145 +1070,146 @@ void KB::LanguageModelImplStub::_load_dynamic(KB::LanguageModelImplStub *this)
   }
 
   KB::LanguageModelImplStub::WrapperHandle::wait_until_ready(v9);
-  if (v13 && v12[6] == 1)
+  if (v12 && v11[6] == 1)
   {
-    free(v13);
+    free(v12);
   }
 
-  if (v14[1] && BYTE6(v14[0]) == 1)
+  if (v13[1])
   {
-    free(v14[1]);
+    if (BYTE6(v13[0]) == 1)
+    {
+      free(v13[1]);
+    }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void KB::LanguageModelImplStub::get_or_create_shared_handle(KB::LanguageModelImplStub *this@<X0>, void *a2@<X8>)
+void KB::LanguageModelImplStub::get_or_create_shared_handle(uint64_t *__return_ptr a1@<X8>, KB::LanguageModelImplStub *this@<X0>)
 {
   KB::LanguageModelImplStub::wrapper_cache_mutex(this);
   std::mutex::lock(&KB::LanguageModelImplStub::wrapper_cache_mutex(void)::mutex);
-  *a2 = 0;
-  a2[1] = 0;
-  v6 = *(this + 1);
-  if (!v6)
+  *a1 = 0;
+  a1[1] = 0;
+  v5 = *(this + 1);
+  if (!v5)
   {
-    v6 = this + 16;
+    v5 = this + 16;
   }
 
   if (*this)
   {
-    v7 = v6;
+    v6 = v5;
   }
 
   else
   {
-    v7 = "";
+    v6 = "";
   }
 
-  v8 = std::string::basic_string[abi:nn200100]<0>(__p, v7);
-  KB::LanguageModelImplStub::wrapper_cache(v8);
-  if ((v24 & 0x80u) == 0)
+  v7 = std::string::basic_string[abi:nn200100]<0>(__p, v6);
+  KB::LanguageModelImplStub::wrapper_cache(v7);
+  if ((v23 & 0x80u) == 0)
   {
-    v9 = __p;
+    v8 = __p;
   }
 
   else
   {
-    v9 = __p[0];
+    v8 = __p[0];
   }
 
-  if ((v24 & 0x80u) == 0)
+  if ((v23 & 0x80u) == 0)
   {
-    v10 = v24;
+    v9 = v23;
   }
 
   else
   {
-    v10 = __p[1];
+    v9 = __p[1];
   }
 
-  v11 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v9, v10);
-  v12 = *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1);
+  v10 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v8, v9);
+  v11 = *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1);
   if (!*(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1))
   {
     goto LABEL_28;
   }
 
-  v13 = v11;
-  v14 = vcnt_s8(*(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 8));
-  v14.i16[0] = vaddlv_u8(v14);
-  v15 = v14.u32[0];
-  if (v14.u32[0] > 1uLL)
+  v12 = v10;
+  v13 = vcnt_s8(*(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 8));
+  v13.i16[0] = vaddlv_u8(v13);
+  v14 = v13.u32[0];
+  if (v13.u32[0] > 1uLL)
   {
-    v16 = v11;
-    if (v11 >= *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1))
+    v15 = v10;
+    if (v10 >= *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1))
     {
-      v16 = v11 % *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1);
+      v15 = v10 % *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1);
     }
   }
 
   else
   {
-    v16 = (*(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1) - 1) & v11;
+    v15 = (*(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1) - 1) & v10;
   }
 
-  v17 = *(KB::LanguageModelImplStub::wrapper_cache(void)::cache + 8 * v16);
-  if (!v17 || (v18 = *v17) == 0)
+  v16 = *(KB::LanguageModelImplStub::wrapper_cache(void)::cache + 8 * v15);
+  if (!v16 || (v17 = *v16) == 0)
   {
 LABEL_28:
-    KB::LanguageModelImplStub::wrapper_cache(v11);
+    KB::LanguageModelImplStub::wrapper_cache(v10);
     goto LABEL_29;
   }
 
   while (1)
   {
-    v19 = v18[1];
-    if (v19 == v13)
+    v18 = v17[1];
+    if (v18 == v12)
     {
       break;
     }
 
-    if (v15 > 1)
+    if (v14 > 1)
     {
-      if (v19 >= v12)
+      if (v18 >= v11)
       {
-        v19 %= v12;
+        v18 %= v11;
       }
     }
 
     else
     {
-      v19 &= v12 - 1;
+      v18 &= v11 - 1;
     }
 
-    if (v19 != v16)
+    if (v18 != v15)
     {
       goto LABEL_28;
     }
 
 LABEL_27:
-    v18 = *v18;
-    if (!v18)
+    v17 = *v17;
+    if (!v17)
     {
       goto LABEL_28;
     }
   }
 
-  v11 = std::equal_to<std::string>::operator()[abi:nn200100](v18 + 2, __p);
-  if ((v11 & 1) == 0)
+  v10 = std::equal_to<std::string>::operator()[abi:nn200100](v17 + 2, __p);
+  if ((v10 & 1) == 0)
   {
     goto LABEL_27;
   }
 
-  KB::LanguageModelImplStub::wrapper_cache(v11);
-  v20 = v18[6];
-  if (!v20 || (v21 = std::__shared_weak_count::lock(v20)) == 0 || (v22 = v18[5], *a2 = v22, a2[1] = v21, !v22))
+  KB::LanguageModelImplStub::wrapper_cache(v10);
+  v19 = v17[6];
+  if (!v19 || (v20 = std::__shared_weak_count::lock(v19)) == 0 || (v21 = v17[5], *a1 = v21, a1[1] = v20, !v21))
   {
 LABEL_29:
-    _ZNSt3__115allocate_sharedB8nn200100IN2KB21LanguageModelImplStub13WrapperHandleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2KB21LanguageModelImplStub13WrapperHandleENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(&v24);
   }
 
-  if (v24 < 0)
+  if (v23 < 0)
   {
     operator delete(__p[0]);
   }
@@ -1298,7 +1281,7 @@ void std::__shared_ptr_emplace<KB::LanguageModelImplStub::WrapperHandle>::~__sha
   JUMPOUT(0x2318BE270);
 }
 
-void *KB::LanguageModelImplStub::wrapper_cache_mutex(KB::LanguageModelImplStub *this)
+std::mutex *KB::LanguageModelImplStub::wrapper_cache_mutex(KB::LanguageModelImplStub *this)
 {
   {
     __cxa_atexit(MEMORY[0x277D82690], &KB::LanguageModelImplStub::wrapper_cache_mutex(void)::mutex, &dword_22CA55000);
@@ -1319,7 +1302,7 @@ __int128 *KB::LanguageModelImplStub::wrapper_cache(KB::LanguageModelImplStub *th
   return &KB::LanguageModelImplStub::wrapper_cache(void)::cache;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,void *>>>>::~unique_ptr[abi:nn200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1378,107 +1361,106 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<KB::
   return a1;
 }
 
-uint64_t KB::LanguageModelImplStub::completions(uint64_t a1, const KB::Candidate **a2)
+uint64_t KB::LanguageModelImplStub::completions(uint64_t a1, const KB::Candidate **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7[125] = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = a2[1];
-  if (*a2 != v3)
+  v10[125] = *MEMORY[0x277D85DE8];
+  v5 = *a2;
+  v6 = a2[1];
+  if (*a2 != v6)
   {
     do
     {
-      KB::Candidate::Candidate(v7, v2);
-      KB::Candidate::pop_last_word(v7);
-      if (v7[0])
+      KB::Candidate::Candidate(v10, v5);
+      KB::Candidate::pop_last_word(v10);
+      if (v10[0])
       {
-        KB::Candidate::Candidate(v6, v7);
-        std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>();
+        KB::Candidate::Candidate(v9, v10);
+        memset(v8, 0, sizeof(v8));
+        std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate const*,KB::Candidate const*>(v8, v9, v10);
       }
 
-      KB::Candidate::~Candidate(v7);
-      v2 = (v2 + 1000);
+      KB::Candidate::~Candidate(v10);
+      v5 = (v5 + 1000);
     }
 
-    while (v2 != v3);
+    while (v5 != v6);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t KB::LanguageModelImplStub::predictions(uint64_t a1, uint64_t a2, KB::LanguageModelContext *a3)
+uint64_t KB::LanguageModelImplStub::predictions(uint64_t a1, const KB::Candidate **a2, KB::LanguageModelContext *a3, uint64_t a4)
 {
   v23[125] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v3 = *a2;
-  if (*a2 != *(a2 + 8))
+  v18 = 0;
+  v4 = *a2;
+  if (*a2 != a2[1])
   {
-    KB::LanguageModelContext::LanguageModelContext(v15, a3);
-    v6 = KB::Candidate::Candidate(v23, v3);
+    KB::LanguageModelContext::LanguageModelContext(v17, a3);
+    v7 = KB::Candidate::Candidate(v23, v4);
     if (v23[0])
     {
-      v7 = v23[1];
-      v8 = 240 * v23[0];
+      v10 = v23[1];
+      v11 = 240 * v23[0];
       do
       {
-        if ((*(v7 + 135) & 4) == 0)
+        if ((*(v10 + 135) & 4) == 0)
         {
           goto LABEL_10;
         }
 
-        v19 = 0;
-        v20 = 0;
+        WORD2(v20) = 0;
+        BYTE6(v20) = 0;
         v21 = " ";
-        v18 = 1048577;
+        LODWORD(v20) = 1048577;
         v22 = 0;
-        if (v7 != &v18)
+        if (v10 != &v20)
         {
-          v9 = KB::String::equal(v7, &v18, 1);
-          v6 = v21;
-          if (v21 && v20 == 1)
+          v12 = KB::String::equal(v10, &v20, 1, v8, v9);
+          v7 = v21;
+          if (v21 && BYTE6(v20) == 1)
           {
             free(v21);
           }
 
-          if (!v9)
+          if (!v12)
           {
 LABEL_10:
-            *(v7 + 96) = (*(*a1 + 456))(a1, *(v7 + 136), a3);
-            v10 = *(v7 + 136);
-            KB::Word::capitalized_string(v7, &v18);
-            v11 = v10;
-            KB::LanguageModelContext::append(v15, v11, &v18, 0);
-            v6 = v21;
+            *(v10 + 96) = (*(*a1 + 456))(a1, *(v10 + 136), a3);
+            v13 = *(v10 + 136);
+            KB::Word::capitalized_string(&v20, v10);
+            v14 = v13;
+            KB::LanguageModelContext::append(v17, v14, &v20, 0);
+            v7 = v21;
             if (v21)
             {
-              v12 = v20 == 1;
+              v15 = BYTE6(v20) == 1;
             }
 
             else
             {
-              v12 = 0;
+              v15 = 0;
             }
 
-            if (v12)
+            if (v15)
             {
               free(v21);
             }
           }
         }
 
-        v7 += 240;
-        v8 -= 240;
+        v10 += 240;
+        v11 -= 240;
       }
 
-      while (v8);
+      while (v11);
     }
 
-    KB::LanguageModel::get_prediction_count(v6);
-    v17 = 0;
+    KB::LanguageModel::get_prediction_count(v7);
+    v19 = 0;
     operator new();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1543,52 +1525,52 @@ void KB::LanguageModelImplStub::predictions(uint64_t a1, uint64_t a2, uint64_t a
     v10 = v9;
     if (os_signpost_enabled(v8))
     {
-      LOWORD(v16[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CA55000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "kbdManager.languageModel.stubGenerateCompletionsAndPredictions", &unk_22CCA4FEF, v16, 2u);
+      LOWORD(v19[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_22CA55000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v10, "kbdManager.languageModel.stubGenerateCompletionsAndPredictions", &unk_22CCA4FEF, v19, 2u);
     }
   }
 
-  (*(*a1 + 480))(&v22, a1, a2, a3);
-  if ((*(*v22 + 24))(v22))
+  (*(*a1 + 480))(&v25, a1, a2, a3);
+  if ((*(*v25 + 24))(v25))
   {
     while (1)
     {
-      (*(*v22 + 16))(v16);
+      (*(*v25 + 16))(v19);
       v11 = *(a4 + 24);
       if (!v11)
       {
         break;
       }
 
-      (*(*v11 + 48))(v11, v16);
-      v24 = &v21;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v24);
-      v24 = &v20;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v24);
-      if (v19 < 0)
+      (*(*v11 + 48))(v11, v19);
+      v27 = &v24;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v27);
+      v27 = &v23;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v27);
+      if (v22 < 0)
       {
         operator delete(__p);
       }
 
-      if (v17 < 0)
+      if (v20 < 0)
       {
-        operator delete(v16[6]);
+        operator delete(v19[6]);
       }
 
-      if (v16[0])
+      if (v19[0])
       {
-        v16[1] = v16[0];
-        operator delete(v16[0]);
+        v19[1] = v19[0];
+        operator delete(v19[0]);
       }
 
-      if (((*(*v22 + 24))(v22) & 1) == 0)
+      if (((*(*v25 + 24))(v25) & 1) == 0)
       {
         goto LABEL_13;
       }
     }
 
-    v15 = std::__throw_bad_function_call[abi:nn200100]();
-    KB::LanguageModelImplStub::conditional_likelihood_batched(v15);
+    std::__throw_bad_function_call[abi:nn200100]();
+    KB::LanguageModelImplStub::conditional_likelihood_batched(v15, v16, v17, v18);
   }
 
   else
@@ -1602,19 +1584,19 @@ LABEL_13:
       v14 = v13;
       if (os_signpost_enabled(v12))
       {
-        LOWORD(v16[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_22CA55000, v12, OS_SIGNPOST_INTERVAL_END, v14, "kbdManager.languageModel.stubGenerateCompletionsAndPredictions", &unk_22CCA4FEF, v16, 2u);
+        LOWORD(v19[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_22CA55000, v12, OS_SIGNPOST_INTERVAL_END, v14, "kbdManager.languageModel.stubGenerateCompletionsAndPredictions", &unk_22CCA4FEF, v19, 2u);
       }
     }
 
-    if (v23)
+    if (v26)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v23);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v26);
     }
   }
 }
 
-void KB::LanguageModelImplStub::conditional_likelihood_batched(unsigned int **a1@<X1>, void *a2@<X2>, int a3@<W5>, unint64_t *a4@<X8>)
+void KB::LanguageModelImplStub::conditional_likelihood_batched(char **a1@<X1>, void *a2@<X2>, int a3@<W5>, char **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1628,7 +1610,7 @@ void KB::LanguageModelImplStub::conditional_likelihood_batched(unsigned int **a1
       v6 = a4;
       do
       {
-        std::vector<KB::LikelihoodInfo>::vector[abi:nn200100](&v66, *v4);
+        std::vector<KB::LikelihoodInfo>::vector[abi:nn200100](&v66, *v4, &KB::k_invalid_likelihood_value);
         v7 = v6[1];
         v8 = v6[2];
         if (v7 >= v8)
@@ -1670,10 +1652,10 @@ void KB::LanguageModelImplStub::conditional_likelihood_batched(unsigned int **a1
           *(v14 + 16) = __p;
           v66 = 0uLL;
           *&__p = 0;
-          v9 = 24 * v10 + 24;
+          v9 = (24 * v10 + 24);
           v6 = a4;
           v15 = a4[1] - *a4;
-          v16 = 24 * v10 - v15;
+          v16 = (24 * v10 - v15);
           memcpy((v14 - v15), *a4, v15);
           v17 = *a4;
           *a4 = v16;
@@ -1696,13 +1678,13 @@ void KB::LanguageModelImplStub::conditional_likelihood_batched(unsigned int **a1
           *(v7 + 2) = __p;
           v66 = 0uLL;
           *&__p = 0;
-          v9 = (v7 + 24);
+          v9 = v7 + 24;
         }
 
         v6[1] = v9;
         v72 = &v66;
         std::vector<KB::LikelihoodInfo>::__destroy_vector::operator()[abi:nn200100](&v72);
-        v4 += 250;
+        v4 += 1000;
       }
 
       while (v4 != v5);
@@ -1718,7 +1700,7 @@ void KB::LanguageModelImplStub::conditional_likelihood_batched(unsigned int **a1
       v21 = 0;
       do
       {
-        v22 = &v19[250 * v21];
+        v22 = &v19[1000 * v21];
         v69 = 0;
         v70 = 0;
         v71 = 0;
@@ -1940,8 +1922,8 @@ LABEL_67:
           *v58 = 0;
           *(v58 + 8) = 0;
           *(v58 + 16) = 0;
-          std::vector<KB::LikelihoodInfo>::__init_with_size[abi:nn200100]<KB::LikelihoodInfo*,KB::LikelihoodInfo*>(24 * v54, v69, v70, 0xCCCCCCCCCCCCCCCDLL * ((v70 - v69) >> 3));
-          v53 = 24 * v54 + 24;
+          std::vector<KB::LikelihoodInfo>::__init_with_size[abi:nn200100]<KB::LikelihoodInfo*,KB::LikelihoodInfo*>((24 * v54), v69, v70, 0xCCCCCCCCCCCCCCCDLL * ((v70 - v69) >> 3));
+          v53 = (24 * v54 + 24);
           v59 = a4[1] - *a4;
           v60 = (v58 - v59);
           memcpy(v60, *a4, v59);
@@ -1981,12 +1963,12 @@ LABEL_67:
 
 void KB::LanguageModelImplStub::conditional_likelihood(KB::LanguageModelImplStub *this@<X0>, const TITokenID *a2@<X2>, float a3@<S0>, __CFString *a4@<X4>, uint64_t a5@<X8>)
 {
-  v11 = KB::LanguageModel::lexicon_id_active(this, a2->lexicon_id);
-  if (*a2 >> 34 < 0x7D || v11)
+  v9 = KB::LanguageModel::lexicon_id_active(this, a2->lexicon_id);
+  if (*a2 >> 34 < 0x7D || v9)
   {
     if (a4)
     {
-      KB::append_format(a4, "LMMock - LM_score %f", v12, a3);
+      KB::append_format(a4, "LMMock - LM_score %f", v10, a3);
     }
 
     *a5 = a3;
@@ -2002,10 +1984,10 @@ void KB::LanguageModelImplStub::conditional_likelihood(KB::LanguageModelImplStub
     *(a5 + 8) = dword_27D9EB580;
     if (byte_27D9EB59F < 0)
     {
-      v13 = *aInvalidLikelih_1;
-      v14 = *&aInvalidLikelih_1[8];
+      v11 = *aInvalidLikelih_1;
+      v12 = *&aInvalidLikelih_1[8];
 
-      std::string::__init_copy_ctor_external((a5 + 16), v13, v14);
+      std::string::__init_copy_ctor_external((a5 + 16), v11, v12);
     }
 
     else
@@ -2020,7 +2002,7 @@ uint64_t KB::LanguageModelImplStub::register_negative_evidence(uint64_t result, 
 {
   if (a6 == 1)
   {
-    return (*(*result + 352))();
+    return (*(*result + 352))(result, a2, a3, a4);
   }
 
   return result;
@@ -2101,7 +2083,7 @@ void KB::LanguageModelImplStub::decrement_usage_count(KB::LanguageModelImplStub 
           v14 = 0;
         }
 
-        KB::MutableLexiconWrapper::increment_usage_count(v14, a2);
+        KB::MutableLexiconWrapper::increment_usage_count(v14, a2, 0xFFFFFFFFLL);
         CFRelease(v12);
       }
     }
@@ -2127,7 +2109,7 @@ void KB::LanguageModelImplStub::increment_usage_count(KB::LanguageModelImplStub 
         v9 = 0;
       }
 
-      KB::MutableLexiconWrapper::increment_usage_count(v9, a2);
+      KB::MutableLexiconWrapper::increment_usage_count(v9, a2, 1);
     }
   }
 
@@ -2136,12 +2118,12 @@ void KB::LanguageModelImplStub::increment_usage_count(KB::LanguageModelImplStub 
 
 uint64_t KB::LanguageModelImplStub::add_dynamic_word(KB::LanguageModelImplStub *this, const __CFString *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   std::mutex::lock((this + 224));
   v4 = (*(*this + 40))(this);
   if (KB::LanguageModelImplStub::is_dynamic_valid(this))
   {
-    KB::utf8_string(a2, v11);
+    KB::utf8_string(v10, a2);
     if (*(this + 169) & 1) != 0 && (v5 = *(this + 19)) != 0 && *v5 && (atomic_load_explicit((v5 + 120), memory_order_acquire))
     {
       v6 = *v5;
@@ -2152,10 +2134,10 @@ uint64_t KB::LanguageModelImplStub::add_dynamic_word(KB::LanguageModelImplStub *
       v6 = 0;
     }
 
-    v8 = KB::MutableLexiconWrapper::add_entry(v6, v11);
-    if (v12 && v11[6] == 1)
+    v8 = KB::MutableLexiconWrapper::add_entry(v6, v10, 0);
+    if (v11 && v10[6] == 1)
     {
-      free(v12);
+      free(v11);
     }
 
     v7 = v8 << 32;
@@ -2167,7 +2149,6 @@ uint64_t KB::LanguageModelImplStub::add_dynamic_word(KB::LanguageModelImplStub *
   }
 
   std::mutex::unlock((this + 224));
-  v9 = *MEMORY[0x277D85DE8];
   return v7 | v4;
 }
 
@@ -2377,7 +2358,7 @@ uint64_t KB::LanguageModelImplStub::WrapperHandle::get(atomic_uchar *this)
 void KB::LanguageModelImplStub::enumerate_cached_wrappers(void *a1)
 {
   v1 = a1;
-  KB::LanguageModelImplStub::copy_wrapper_cache(v1, v9);
+  KB::LanguageModelImplStub::copy_wrapper_cache(v9, v1);
   for (i = v10; i; i = *i)
   {
     std::pair<std::string const,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>::pair[abi:nn200100](&__p, i + 1);
@@ -2411,66 +2392,65 @@ void KB::LanguageModelImplStub::enumerate_cached_wrappers(void *a1)
   std::__hash_table<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::weak_ptr<KB::LanguageModelImplStub::WrapperHandle>>>>::~__hash_table(v9);
 }
 
-void KB::LanguageModelImplStub::copy_wrapper_cache(KB::LanguageModelImplStub *this@<X0>, uint64_t a2@<X8>)
+void KB::LanguageModelImplStub::copy_wrapper_cache(uint64_t *__return_ptr a1@<X8>, KB::LanguageModelImplStub *this@<X0>)
 {
   KB::LanguageModelImplStub::wrapper_cache_mutex(this);
   std::mutex::lock(&KB::LanguageModelImplStub::wrapper_cache_mutex(void)::mutex);
   KB::LanguageModelImplStub::wrapper_cache(v3);
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = dword_280FAC928;
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a2, *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1));
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = dword_280FAC928;
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a1, *(&KB::LanguageModelImplStub::wrapper_cache(void)::cache + 1));
   for (i = qword_280FAC918; i; i = *i)
   {
-    v5 = *(i + 16);
-    v6 = *(i + 39);
-    if (v6 >= 0)
+    v5 = *(i + 39);
+    if (v5 >= 0)
     {
-      v7 = (i + 16);
+      v6 = (i + 16);
     }
 
     else
     {
-      v7 = *(i + 16);
+      v6 = *(i + 16);
     }
 
-    if (v6 >= 0)
+    if (v5 >= 0)
     {
-      v8 = *(i + 39);
+      v7 = *(i + 39);
     }
 
     else
     {
-      v8 = *(i + 24);
+      v7 = *(i + 24);
     }
 
-    v9 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v7, v8);
-    v10 = v9;
-    v11 = *(a2 + 8);
-    if (!*&v11)
+    v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+    v9 = v8;
+    v10 = a1[1];
+    if (!*&v10)
     {
       goto LABEL_24;
     }
 
-    v12 = vcnt_s8(v11);
-    v12.i16[0] = vaddlv_u8(v12);
-    v13 = v12.u32[0];
-    if (v12.u32[0] > 1uLL)
+    v11 = vcnt_s8(v10);
+    v11.i16[0] = vaddlv_u8(v11);
+    v12 = v11.u32[0];
+    if (v11.u32[0] > 1uLL)
     {
-      v14 = v9;
-      if (v9 >= *&v11)
+      v13 = v8;
+      if (v8 >= *&v10)
       {
-        v14 = v9 % *&v11;
+        v13 = v8 % *&v10;
       }
     }
 
     else
     {
-      v14 = (*&v11 - 1) & v9;
+      v13 = (*&v10 - 1) & v8;
     }
 
-    v15 = *(*a2 + 8 * v14);
-    if (!v15 || (v16 = *v15) == 0)
+    v14 = *(*a1 + 8 * v13);
+    if (!v14 || (v15 = *v14) == 0)
     {
 LABEL_24:
       operator new();
@@ -2478,39 +2458,39 @@ LABEL_24:
 
     while (1)
     {
-      v17 = v16[1];
-      if (v17 == v10)
+      v16 = v15[1];
+      if (v16 == v9)
       {
         break;
       }
 
-      if (v13 > 1)
+      if (v12 > 1)
       {
-        if (v17 >= *&v11)
+        if (v16 >= *&v10)
         {
-          v17 %= *&v11;
+          v16 %= *&v10;
         }
       }
 
       else
       {
-        v17 &= *&v11 - 1;
+        v16 &= *&v10 - 1;
       }
 
-      if (v17 != v14)
+      if (v16 != v13)
       {
         goto LABEL_24;
       }
 
 LABEL_23:
-      v16 = *v16;
-      if (!v16)
+      v15 = *v15;
+      if (!v15)
       {
         goto LABEL_24;
       }
     }
 
-    if (!std::equal_to<std::string>::operator()[abi:nn200100](v16 + 2, (i + 16)))
+    if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, (i + 16)))
     {
       goto LABEL_23;
     }
@@ -2669,9 +2649,9 @@ LABEL_21:
   return result;
 }
 
-atomic_uint **TI::Favonius::KeyFactory::create_key(atomic_uint **this, void *a2, unsigned int a3)
+void TI::Favonius::KeyFactory::create_key(TI::Favonius::KeyFactory *this, void *a2, unsigned int a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2[5];
   if (!v4)
   {
@@ -2743,11 +2723,11 @@ LABEL_17:
   v10 = v8[3];
   if (!v10)
   {
-    KB::String::String(v14, a3);
+    KB::String::String(v13, a3);
     v11 = a2[3];
     if (v11)
     {
-      (*(*v11 + 48))(&v13);
+      (*(*v11 + 48))(&v12);
       operator new();
     }
 
@@ -2757,29 +2737,27 @@ LABEL_17:
 
   *this = v10;
   atomic_fetch_add(v10, 1u);
-  v12 = *MEMORY[0x277D85DE8];
-  return this;
 }
 
 void *__getSBApplicationStateDisplayIDKeySymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_2787322B8;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_2787322B8;
+    v7 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = SpringBoardServicesLibraryCore_frameworkLibrary;
     if (SpringBoardServicesLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -2787,7 +2765,7 @@ void *__getSBApplicationStateDisplayIDKeySymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2799,17 +2777,13 @@ LABEL_5:
   result = dlsym(v2, "SBApplicationStateDisplayIDKey");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getSBApplicationStateDisplayIDKeySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2872,7 +2846,7 @@ void std::vector<TITokenID>::push_back[abi:nn200100](uint64_t a1, void *a2)
   *(a1 + 8) = v5;
 }
 
-void std::vector<float>::push_back[abi:nn200100](uint64_t a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:nn200100](uint64_t a1, int *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -2940,14 +2914,12 @@ id _TILSCLanguageForInputMode(TIInputMode *a1)
 
 __n128 __Block_byref_object_copy__16311(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3274,7 +3246,7 @@ LABEL_46:
   }
 }
 
-unint64_t TI::Favonius::ZephyrTypingModel::Hypothesis::isomorphism_hash(TI::Favonius::ZephyrTypingModel::Hypothesis *this)
+uint64_t TI::Favonius::ZephyrTypingModel::Hypothesis::isomorphism_hash(TI::Favonius::ZephyrTypingModel::Hypothesis *this)
 {
   result = *(this + 9);
   if (!result)
@@ -3324,7 +3296,7 @@ unint64_t TI::Favonius::ZephyrTypingModel::Hypothesis::isomorphism_hash(TI::Favo
 BOOL TI::Favonius::ZephyrTypingModel::Hypothesis::is_isomorphic(uint64_t a1, uint64_t a2)
 {
   v3 = (*(*a1 + 32))(a1);
-  for (i = (*(*a2 + 32))(a2); ; i = (*(*v12 + 32))(v12))
+  for (i = (*(*a2 + 32))(a2); ; i = (*(*v14 + 32))(v14))
   {
     v5 = i;
     if (v3)
@@ -3349,25 +3321,25 @@ BOOL TI::Favonius::ZephyrTypingModel::Hypothesis::is_isomorphic(uint64_t a1, uin
     }
 
     v8 = *(*(*v3 + 16))(v3);
-    v9 = *(*(*v5 + 16))(v5);
-    if (v8 != v9)
+    v11 = *(*(*v5 + 16))(v5);
+    if (v8 != v11)
     {
-      result = KB::String::equal((v8 + 8), (v9 + 8), 1);
+      result = KB::String::equal((v8 + 8), (v11 + 8), 1, v9, v10);
       if (!result)
       {
         return result;
       }
     }
 
-    v10 = (*(*v3 + 72))(v3);
-    if (v10 != (*(*v5 + 72))(v5))
+    v12 = (*(*v3 + 72))(v3);
+    if (v12 != (*(*v5 + 72))(v5))
     {
       break;
     }
 
-    v11 = (**v3)(v3);
-    v3 = (*(*v11 + 32))(v11);
-    v12 = (**v5)(v5);
+    v13 = (**v3)(v3);
+    v3 = (*(*v13 + 32))(v13);
+    v14 = (**v5)(v5);
   }
 
   return 0;
@@ -3419,7 +3391,7 @@ void TI::Favonius::ZephyrTypingModel::Hypothesis::last_typed_input_segment(TI::F
   TI::Favonius::ZephyrTypingModel::Hypothesis::append_typed_string(this, a2, *(this + 6), 0, 0);
 }
 
-void TI::Favonius::ZephyrTypingModel::Hypothesis::for_each_input_segment(uint64_t a1)
+void TI::Favonius::ZephyrTypingModel::Hypothesis::for_each_input_segment(void *a1, uint64_t a2)
 {
   if (a1)
   {
@@ -3567,7 +3539,7 @@ void __TIGetEnableUserWordSyncingValue_block_invoke()
   [v0 _configureKey:@"EnableUserWordSyncing" domain:@"com.apple.keyboard" defaultValue:MEMORY[0x277CBEC38]];
 }
 
-uint64_t TI::Favonius::CMTouchHistory::CMTouchHistory(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t *a5)
+uint64_t TI::Favonius::CMTouchHistory::CMTouchHistory(uint64_t a1, double *a2, void *a3, uint64_t a4, uint64_t *a5)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_283FDD1A8;
@@ -3581,7 +3553,7 @@ uint64_t TI::Favonius::CMTouchHistory::CMTouchHistory(uint64_t a1, uint64_t a2, 
   *(a1 + 56) = v10;
   if ((*(*a2 + 56))(a2))
   {
-    v12 = *(a2 + 64) + (v11 - *(a2 + 64)) * 0.200000003;
+    v12 = a2[8] + (v11 - a2[8]) * 0.200000003;
   }
 
   else
@@ -3651,7 +3623,7 @@ uint64_t TI::Favonius::CMTouchHistory::CMTouchHistory(uint64_t a1, uint64_t a2, 
   return a1;
 }
 
-void TI::Favonius::CMTouchHistory::initialize_history_correlation(uint64_t *a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void TI::Favonius::CMTouchHistory::initialize_history_correlation(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -3711,7 +3683,7 @@ LABEL_91:
       v15[1] = 0u;
       v16 = *a3;
       v17 = a3[1];
-      v18 = (v15 + *a3 - v17);
+      v18 = v15 + *a3 - v17;
       if (*a3 != v17)
       {
         v19 = *a3;
@@ -3720,10 +3692,10 @@ LABEL_91:
         {
           v21 = *v19;
           *v19 = 0;
-          v19[1] = 0;
+          *(v19 + 8) = 0;
           *v20 = v21;
-          v20[1] = *(v19 + 1);
-          v19 += 4;
+          v20[1] = *(v19 + 16);
+          v19 += 32;
           v20 += 2;
         }
 
@@ -3795,7 +3767,7 @@ LABEL_91:
     v34 = a3[2];
     if (v34 - v29 >= v32)
     {
-      for (; v31 != v30; v29 += 4)
+      for (; v31 != v30; v29 += 32)
       {
         v40 = *v31;
         *v29 = *v31;
@@ -3805,13 +3777,13 @@ LABEL_91:
         }
 
         v41 = *(v31 + 8);
-        v29[1] = v41;
+        *(v29 + 8) = v41;
         if (v41)
         {
           atomic_fetch_add(v41, 1u);
         }
 
-        *(v29 + 1) = *(v31 + 16);
+        *(v29 + 16) = *(v31 + 16);
         v31 += 32;
       }
 
@@ -3886,10 +3858,10 @@ LABEL_91:
         {
           v48 = *v47;
           *v47 = 0;
-          v47[1] = 0;
+          *(v47 + 8) = 0;
           *v43 = v48;
-          v43[1] = *(v47 + 1);
-          v47 += 4;
+          v43[1] = *(v47 + 16);
+          v47 += 32;
           v43 += 2;
         }
 
@@ -3908,11 +3880,11 @@ LABEL_91:
       v51 = v79;
       *&v80 = v80 + a3[1] - v29;
       a3[1] = v29;
-      v52 = (v51 + v50 - v29);
+      v52 = v50 + v51 - v29;
       if (v50 != v29)
       {
         v53 = v50;
-        v54 = (v51 + v50 - v29);
+        v54 = (v50 + v51 - v29);
         do
         {
           v55 = *v53;
@@ -3953,10 +3925,10 @@ LABEL_91:
   {
     if ((v59 >> 5) > 0x1F)
     {
-      v65 = v58 + 128;
+      v65 = (v58 + 128);
       while (v29 != v65)
       {
-        v29 -= 4;
+        v29 -= 32;
         std::__destroy_at[abi:nn200100]<TI::Favonius::CMTouchHistory::TouchCorrelation,0>(v29);
       }
     }
@@ -3989,7 +3961,7 @@ LABEL_91:
       }
 
       bzero(v29, 32 * v60);
-      v65 = &v29[4 * v60];
+      v65 = v29 + 32 * v60;
     }
 
     a3[1] = v65;
@@ -3999,7 +3971,7 @@ LABEL_91:
 
   if (v58 != v29)
   {
-    for (i = v29 - 4; *(*a1 + 32) - *(*(v29 - 4) + 32) > 40.0; i = v29 - 4)
+    for (i = (v29 - 32); *(*a1 + 32) - *(*(v29 - 32) + 32) > 40.0; i = (v29 - 32))
     {
       v29 = i;
       std::__destroy_at[abi:nn200100]<TI::Favonius::CMTouchHistory::TouchCorrelation,0>(i);
@@ -4064,9 +4036,7 @@ uint64_t TI::Favonius::CMTouchHistory::initialize_touch_interval(uint64_t a1, ui
   result = (*(*a2 + 56))(a2);
   if (result)
   {
-    v5 = *(*a1 + 32);
-    result = (*(*a2 + 56))(a2);
-    *(result + 32);
+    return (*(*a2 + 56))(a2);
   }
 
   return result;
@@ -4259,21 +4229,22 @@ BOOL TI::Favonius::CMTouchHistory::is_repeated_tap_on_same_key(uint64_t a1, uint
     return 0;
   }
 
-  v6 = *(**((*(*a2 + 64))(a2) + 8) + 8);
-  if (v6)
+  v6 = (*(*a2 + 64))(a2);
+  v9 = *(**(v6 + 8) + 8);
+  if (v9)
   {
-    atomic_fetch_add(v6, 1u);
+    atomic_fetch_add(v9, 1u);
   }
 
-  v7 = *(**(a1 + 8) + 8);
-  if (v7)
+  v10 = *(**(a1 + 8) + 8);
+  if (v10)
   {
-    atomic_fetch_add(v7, 1u);
+    atomic_fetch_add(v10, 1u);
   }
 
-  if (*(v7 + 62) == *(v6 + 62))
+  if (*(v10 + 62) == *(v9 + 62))
   {
-    v5 = v7 == v6 || KB::String::equal((v7 + 8), (v6 + 8), 1);
+    v5 = v10 == v9 || KB::String::equal((v10 + 8), (v9 + 8), 1, v7, v8);
   }
 
   else
@@ -4281,15 +4252,14 @@ BOOL TI::Favonius::CMTouchHistory::is_repeated_tap_on_same_key(uint64_t a1, uint
     v5 = 0;
   }
 
-  WTF::RefCounted<TI::Favonius::Key>::deref(v7);
-  WTF::RefCounted<TI::Favonius::Key>::deref(v6);
+  WTF::RefCounted<TI::Favonius::Key>::deref(v10);
+  WTF::RefCounted<TI::Favonius::Key>::deref(v9);
   return v5;
 }
 
 __n128 __Block_byref_object_copy__17698(__n128 *a1, __n128 *a2)
 {
-  a1[2].n128_u64[1] = 0;
-  a1[3].n128_u64[0] = 0;
+  *(&a1[2] + 8) = 0uLL;
   a1[3].n128_u64[1] = 0;
   a1[2].n128_u64[1] = a2[2].n128_u64[1];
   a2[2].n128_u64[1] = 0;
@@ -4297,45 +4267,6 @@ __n128 __Block_byref_object_copy__17698(__n128 *a1, __n128 *a2)
   a1[3] = a2[3];
   a2[3] = result;
   return result;
-}
-
-void ___ZN2TI8Favonius14CMTouchHistory22initialize_key_matchesERKN3WTF6RefPtrINS0_5TouchEEERKNS0_20CMGeometryParametersERKNS0_28CMGeometryParametersForTouchE_block_invoke(uint64_t a1, CGRect **a2)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = **(a1 + 40);
-  v4 = *(v3 + 8) - (*a2)[3].origin.x;
-  v5 = *(v3 + 16) - (*a2)[3].origin.y;
-  Width = CGRectGetWidth((*a2)[2]);
-  v7 = Width * 0.5;
-  v8 = *(*(a1 + 48) + 4);
-  if (v7 <= v8)
-  {
-    v11 = v4;
-  }
-
-  else
-  {
-    v9 = v7 - v8;
-    v10 = v9;
-    if (v4 <= v9)
-    {
-      v11 = 0.0;
-      if (v4 < -v9)
-      {
-        v11 = v4 + v10;
-      }
-    }
-
-    else
-    {
-      v11 = v4 - v10;
-    }
-  }
-
-  v12 = v5 * v5 + v11 * v11;
-  v13 = **(a1 + 56) * v12;
-  v14 = *(*(a1 + 32) + 8);
-  operator new();
 }
 
 uint64_t std::__destroy_at[abi:nn200100]<TI::Favonius::CMTouchHistory::TouchCorrelation,0>(uint64_t *a1)
@@ -4359,154 +4290,141 @@ uint64_t std::__destroy_at[abi:nn200100]<TI::Favonius::CMTouchHistory::TouchCorr
 double TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 16) - *(a1 + 16);
-  v3 = fabsf(v2);
-  v4 = vabdd_f64(*(a2 + 8), *(a1 + 8)) + v3 * 0.6;
+  v3 = vabdd_f64(*(a2 + 8), *(a1 + 8)) + fabsf(v2) * 0.6;
   {
-    v29 = a2;
-    v31 = a1;
-    a2 = v29;
-    a1 = v31;
-    if (v15)
+    v25 = a2;
+    v27 = a1;
+    a2 = v25;
+    a1 = v27;
+    if (v13)
     {
-      v16 = 31.5;
+      v14 = 31.5;
       if (s_interface_idiom_is_pad)
       {
-        v16 = 26.5;
+        v14 = 26.5;
       }
 
-      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x = LODWORD(v16);
-      a2 = v29;
-      a1 = v31;
+      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x = LODWORD(v14);
+      a2 = v25;
+      a1 = v27;
     }
   }
 
-  v5 = v4;
+  v4 = v3;
   {
-    v30 = a2;
-    v32 = a1;
-    v17 = v4;
-    v5 = v17;
-    v19 = v18;
-    a2 = v30;
-    a1 = v32;
-    if (v19)
+    v26 = a2;
+    v28 = a1;
+    v15 = v3;
+    v4 = v15;
+    v17 = v16;
+    a2 = v26;
+    a1 = v28;
+    if (v17)
     {
-      v20 = 220.5;
+      v18 = 220.5;
       if (s_interface_idiom_is_pad)
       {
-        v20 = 185.5;
+        v18 = 185.5;
       }
 
-      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x = LODWORD(v20);
-      v5 = v17;
-      a2 = v30;
-      a1 = v32;
+      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x = LODWORD(v18);
+      v4 = v15;
+      a2 = v26;
+      a1 = v28;
     }
   }
 
-  v6 = 1.0;
-  if (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x <= v5)
+  v5 = 1.0;
+  if (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x <= v4)
   {
-    v6 = 0.0;
-    if (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x > v5)
+    v5 = 0.0;
+    if (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x > v4)
     {
-      v6 = ((*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x - v5) / (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x - *&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x));
+      v5 = ((*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x - v4) / (*&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_x - *&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_x));
     }
   }
 
   if (*(*(a2 + 56) + 112) == 1)
   {
-    v7 = *(a2 + 52);
-    if (v7 && (v8 = *(a1 + 52)) != 0)
+    v6 = *(a2 + 52);
+    if (v6 && (v7 = *(a1 + 52)) != 0)
     {
-      if (v7 != v8)
+      if (v6 != v7)
       {
-        v6 = v6 * 0.5;
+        v5 = v5 * 0.5;
       }
     }
 
     else
     {
-      v9 = (*(a1 + 8) + *(a2 + 8)) * -0.5;
-      v10 = TI::Favonius::KeyboardLayout::get_horizontal_center(*(a2 + 56)) + v9;
-      v11 = &unk_27D9ED000;
+      v8 = (*(a1 + 8) + *(a2 + 8)) * -0.5;
+      v9 = TI::Favonius::KeyboardLayout::get_horizontal_center(*(a2 + 56)) + v8;
+      v10 = &unk_27D9ED000;
       {
-        v33 = v10;
-        v10 = v33;
-        v11 = &unk_27D9ED000;
-        if (v25)
+        v29 = v9;
+        v9 = v29;
+        v10 = &unk_27D9ED000;
+        if (v21)
         {
-          v26 = 63.0;
+          v22 = 63.0;
           if (s_interface_idiom_is_pad)
           {
-            v26 = 53.0;
+            v22 = 53.0;
           }
 
-          TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_center_distance = LODWORD(v26);
-          v10 = v33;
-          v11 = &unk_27D9ED000;
+          TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_center_distance = LODWORD(v22);
+          v9 = v29;
+          v10 = &unk_27D9ED000;
         }
       }
 
-      v12 = fabsf(v10);
+      v11 = fabsf(v9);
       {
-        v34 = v12;
-        v12 = v34;
-        v11 = &unk_27D9ED000;
-        if (v27)
+        v30 = v11;
+        v11 = v30;
+        v10 = &unk_27D9ED000;
+        if (v23)
         {
-          v28 = 126.0;
+          v24 = 126.0;
           if (s_interface_idiom_is_pad)
           {
-            v28 = 106.0;
+            v24 = 106.0;
           }
 
-          TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_center_distance = LODWORD(v28);
-          v12 = v34;
-          v11 = &unk_27D9ED000;
+          TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_center_distance = LODWORD(v24);
+          v11 = v30;
+          v10 = &unk_27D9ED000;
         }
       }
 
-      if (v12 < v11[500])
+      if (v11 < v10[500])
       {
-        v6 = v6 * ((v12 / *&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_center_distance) + 0.5);
+        v5 = v5 * ((v11 / *&TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_center_distance) + 0.5);
       }
-    }
-  }
-
-  p_cache = TICoreAnalyticsEventDispatcher.cache;
-  {
-    p_cache = TICoreAnalyticsEventDispatcher.cache;
-    if (v21)
-    {
-      v22 = 31.5;
-      if (s_interface_idiom_is_pad)
-      {
-        v22 = 26.5;
-      }
-
-      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_y = LODWORD(v22);
-      p_cache = (TICoreAnalyticsEventDispatcher + 16);
     }
   }
 
   {
-    p_cache = (TICoreAnalyticsEventDispatcher + 16);
-    if (v23)
+    v19 = 31.5;
+    if (s_interface_idiom_is_pad)
     {
-      v24 = 157.5;
-      if (s_interface_idiom_is_pad)
-      {
-        v24 = 132.5;
-      }
-
-      TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_y = LODWORD(v24);
-      p_cache = (TICoreAnalyticsEventDispatcher + 16);
+      v19 = 26.5;
     }
+
+    TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::min_sep_y = LODWORD(v19);
   }
 
-  *(p_cache + 528);
-  return v6;
+  {
+    v20 = 157.5;
+    if (s_interface_idiom_is_pad)
+    {
+      v20 = 132.5;
+    }
+
+    TI::Favonius::CMTouchHistory::estimate_inter_finger_zone_correlation(TI::Favonius::Touch const*,TI::Favonius::Touch const*)::max_sep_y = LODWORD(v20);
+  }
+
+  return v5;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<TI::Favonius::CMTouchHistory::TouchCorrelation>>(unint64_t a1)
@@ -4836,17 +4754,6 @@ double TI::Favonius::CMTouchHistory::CMTouchHistory(TI::Favonius::CMTouchHistory
   return result;
 }
 
-uint64_t TI::Favonius::CMTouchHistory::initialize_average_touch_interval(TI::Favonius::CMTouchHistory *this, double a2, const TI::Favonius::CMTouchHistory *a3)
-{
-  result = (*(*this + 56))(this, a3);
-  if (result)
-  {
-    v6 = *(this + 8) + (a2 - *(this + 8)) * 0.200000003;
-  }
-
-  return result;
-}
-
 float TI::Favonius::CMTouchHistory::initialize_pruning_threshold(float *a1)
 {
   v1 = a1[2] * a1[2];
@@ -4936,13 +4843,13 @@ void AppTrieLoaderImpl::~AppTrieLoaderImpl(AppTrieLoaderImpl *this)
 }
 
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = TIPersonalizationAppNamesOSLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Removing contact observer for app names", "~AppTrieLoaderImpl"];
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -4967,8 +4874,6 @@ void AppTrieLoaderImpl::~AppTrieLoaderImpl(AppTrieLoaderImpl *this)
   {
     std::__shared_weak_count::__release_weak(v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void std::__shared_ptr_emplace<KB::LexiconHandle>::__on_zero_shared(uint64_t a1)
@@ -5000,7 +4905,7 @@ void ___ZN17AppTrieLoaderImpl22app_name_loading_queueEv_block_invoke()
 
 void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 40);
   if (v4)
@@ -5040,86 +4945,86 @@ void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__b
             _os_log_impl(&dword_22CA55000, v12, OS_LOG_TYPE_INFO, "%@", &value, 0xCu);
           }
 
-          v24 = MEMORY[0x277D85DD0];
-          v25 = 3321888768;
-          v26 = ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke_19;
-          v27 = &__block_descriptor_152_a8_32c85_ZTSKZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_E3__0_e5_v8__0l;
+          v23 = MEMORY[0x277D85DD0];
+          v24 = 3321888768;
+          v25 = ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke_19;
+          v26 = &__block_descriptor_152_a8_32c85_ZTSKZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_E3__0_e5_v8__0l;
           *&value = v7;
           *(&value + 1) = v6;
           atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
           CFRetain(Transient);
-          v17 = Transient;
-          KB::String::String(v18, (a1 + 48));
-          KB::String::String(v20, (a1 + 80));
-          KB::String::String(v22, (a1 + 112));
-          v28 = value;
+          v16 = Transient;
+          KB::String::String(v17, (a1 + 48));
+          KB::String::String(v19, (a1 + 80));
+          KB::String::String(v21, (a1 + 112));
+          v27 = value;
           if (*(&value + 1))
           {
             atomic_fetch_add_explicit((*(&value + 1) + 16), 1uLL, memory_order_relaxed);
           }
 
-          v14 = v17;
-          v29 = v17;
-          if (v17)
+          v14 = v16;
+          v28 = v16;
+          if (v16)
           {
-            CFRetain(v17);
-            v29 = v14;
+            CFRetain(v16);
+            v28 = v14;
           }
 
-          KB::String::String(v30, v18);
-          KB::String::String(v32, v20);
-          KB::String::String(v34, v22);
+          KB::String::String(v29, v17);
+          KB::String::String(v31, v19);
+          KB::String::String(v33, v21);
           TIDispatchAsync();
-          if (v23 && v22[6] == 1)
+          if (v22 && v21[6] == 1)
           {
-            free(v23);
+            free(v22);
           }
 
-          if (v21 && v20[6] == 1)
+          if (v20 && v19[6] == 1)
           {
-            free(v21);
+            free(v20);
           }
 
-          if (v19 && v18[6] == 1)
+          if (v18 && v17[6] == 1)
           {
-            free(v19);
+            free(v18);
           }
 
-          if (v17)
+          if (v16)
           {
-            CFRelease(v17);
+            CFRelease(v16);
           }
 
-          v17 = 0;
+          v16 = 0;
           if (*(&value + 1))
           {
             std::__shared_weak_count::__release_weak(*(&value + 1));
           }
 
-          if (v35 && v34[6] == 1)
+          if (v34 && v33[6] == 1)
           {
-            free(v35);
+            free(v34);
           }
 
-          if (v33 && v32[6] == 1)
+          if (v32 && v31[6] == 1)
           {
-            free(v33);
+            free(v32);
           }
 
-          if (v31 && v30[6] == 1)
+          if (v30 && v29[6] == 1)
           {
-            free(v31);
+            free(v30);
           }
 
-          if (v29)
+          if (v28)
           {
-            CFRelease(v29);
+            CFRelease(v28);
           }
 
-          v29 = 0;
-          if (*(&v28 + 1))
+          v28 = 0;
+          if (*(&v27 + 1))
           {
-            std::__shared_weak_count::__release_weak(*(&v28 + 1));
+            std::__shared_weak_count::__release_weak(*(&v27 + 1));
           }
 
           CFRelease(Transient);
@@ -5129,8 +5034,6 @@ void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__b
       std::__shared_weak_count::__release_shared[abi:nn200100](v6);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_32c42_ZTSNSt3__18weak_ptrI17AppTrieLoaderImplEE48c17_ZTSKN2KB6StringE80c17_ZTSKN2KB6StringE112c17_ZTSKN2KB6StringE(uint64_t a1)
@@ -5179,7 +5082,7 @@ KB::String *__copy_helper_block_a8_32c42_ZTSNSt3__18weak_ptrI17AppTrieLoaderImpl
 
 void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke_19(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -5216,11 +5119,11 @@ void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__b
         }
 
         v8 = AppTrieLoaderImpl::app_name_loading_queue(void)::queue;
-        v19 = MEMORY[0x277D85DD0];
-        v20 = 3321888768;
-        v21 = ___ZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEv_block_invoke;
-        v22 = &__block_descriptor_152_a8_32c98_ZTSKZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEvEUlvE__e5_v8__0l;
-        v11 = v5;
+        v18 = MEMORY[0x277D85DD0];
+        v19 = 3321888768;
+        v20 = ___ZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEv_block_invoke;
+        v21 = &__block_descriptor_152_a8_32c98_ZTSKZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEvEUlvE__e5_v8__0l;
+        v10 = v5;
         atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         v9 = *(a1 + 48);
         cf = v9;
@@ -5230,36 +5133,36 @@ void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__b
           cf = v9;
         }
 
-        KB::String::String(v13, (a1 + 56));
-        KB::String::String(v15, (a1 + 88));
-        KB::String::String(v17, (a1 + 120));
-        v23 = v11;
-        v24 = v4;
+        KB::String::String(v12, (a1 + 56));
+        KB::String::String(v14, (a1 + 88));
+        KB::String::String(v16, (a1 + 120));
+        v22 = v10;
+        v23 = v4;
         atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        v25 = cf;
+        v24 = cf;
         if (cf)
         {
           CFRetain(cf);
-          v25 = cf;
+          v24 = cf;
         }
 
-        KB::String::String(v26, v13);
-        KB::String::String(v28, v15);
-        KB::String::String(v30, v17);
+        KB::String::String(v25, v12);
+        KB::String::String(v27, v14);
+        KB::String::String(v29, v16);
         TIDispatchAsync();
-        if (v18 && v17[6] == 1)
+        if (v17 && v16[6] == 1)
         {
-          free(v18);
+          free(v17);
         }
 
-        if (v16 && v15[6] == 1)
+        if (v15 && v14[6] == 1)
         {
-          free(v16);
+          free(v15);
         }
 
-        if (v14 && v13[6] == 1)
+        if (v13 && v12[6] == 1)
         {
-          free(v14);
+          free(v13);
         }
 
         if (cf)
@@ -5269,38 +5172,36 @@ void ___ZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__b
 
         std::__shared_weak_count::__release_weak(v4);
 
-        if (v31 && v30[6] == 1)
+        if (v30 && v29[6] == 1)
         {
-          free(v31);
+          free(v30);
         }
 
-        if (v29 && v28[6] == 1)
+        if (v28 && v27[6] == 1)
         {
-          free(v29);
+          free(v28);
         }
 
-        if (v27 && v26[6] == 1)
+        if (v26 && v25[6] == 1)
         {
-          free(v27);
+          free(v26);
         }
 
-        if (v25)
-        {
-          CFRelease(v25);
-        }
-
-        v25 = 0;
         if (v24)
         {
-          std::__shared_weak_count::__release_weak(v24);
+          CFRelease(v24);
+        }
+
+        v24 = 0;
+        if (v23)
+        {
+          std::__shared_weak_count::__release_weak(v23);
         }
       }
 
       std::__shared_weak_count::__release_shared[abi:nn200100](v4);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_32c85_ZTSKZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_E3__0(uint64_t a1)
@@ -5378,16 +5279,16 @@ CFTypeRef *KB::retain_ptr<_LXLexicon *>::operator=(CFTypeRef *a1, CFTypeRef cf)
   return a1;
 }
 
-void ___ZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEv_block_invoke(uint64_t a1)
+void ___ZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEv_block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = a1[5];
   if (v2)
   {
     v3 = std::__shared_weak_count::lock(v2);
     if (v3)
     {
-      if (*(a1 + 32))
+      if (a1[4])
       {
         v4 = TIPersonalizationAppNamesOSLogFacility();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -5398,14 +5299,12 @@ void ___ZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_
           _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", &buf, 0xCu);
         }
 
-        KB::StaticDictionary::create(v6);
+        KB::StaticDictionary::create();
       }
 
       std::__shared_weak_count::__release_shared[abi:nn200100](v3);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_32c98_ZTSKZZZN17AppTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1_EUb_ENK3__0clEvEUlvE_(uint64_t a1)
@@ -5469,72 +5368,69 @@ KB::String *__copy_helper_block_a8_32c98_ZTSKZZZN17AppTrieLoaderImpl28register_a
 
 void ___ZL27background_append_app_namesN2KB10retain_ptrIP10_LXLexiconEERKNS_16StaticDictionaryE_block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TIPersonalizationAppNamesOSLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s AppName=%@", "background_append_app_names_block_invoke", v3];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s AppName=%@", "background_append_app_names_block_invoke", v3];
     *buf = 138412290;
-    *v19 = v13;
+    *v17 = v11;
     _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = v3;
-  if ([(__CFString *)v7 length])
+  v5 = *(a1 + 40);
+  v6 = v3;
+  if ([(__CFString *)v6 length])
   {
-    *v19 = 0;
-    v19[2] = 0;
-    *&v19[4] = " ,:;";
+    *v17 = 0;
+    v17[2] = 0;
+    *&v17[4] = " ,:;";
     *buf = 1048580;
-    v20 = 0;
-    KB::utf8_string(v7, &v16);
-    KB::sbs_string_tokenize(&v16, buf, v14);
-    v8 = v14[0];
-    v9 = v14[1];
-    while (v8 != v9)
+    v18 = 0;
+    KB::utf8_string(&v14, v6);
+    KB::sbs_string_tokenize(v12, &v14, buf);
+    v7 = v12[0];
+    v8 = v12[1];
+    while (v7 != v8)
     {
-      v10 = v8[2];
-      if (!v8[2])
+      v9 = v7[2];
+      if (!v7[2])
       {
-        KB::String::compute_length(v8);
-        v10 = v8[2];
+        KB::String::compute_length(v7);
+        v9 = v7[2];
       }
 
-      if (v10 >= 3 && !KB::StaticDictionary::contains(v6, v8, 2, 0.0))
+      if (v9 >= 3 && !KB::StaticDictionary::contains(v5, v7, 2, 0.0))
       {
-        KB::cf_string_impl<KB::String>(&v15, v8);
-        v11 = v15;
+        KB::cf_string_impl<KB::String>(&v13, v7);
+        v10 = v13;
         if (LXLexiconAdd())
         {
           LXLexiconIncrementUsageCount();
         }
 
-        if (v11)
+        if (v10)
         {
-          CFRelease(v11);
+          CFRelease(v10);
         }
       }
 
-      v8 += 16;
+      v7 += 16;
     }
 
-    v15 = v14;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v15);
-    if (v17 && BYTE6(v16) == 1)
+    v13 = v12;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v13);
+    if (v15 && BYTE6(v14) == 1)
     {
-      free(v17);
+      free(v15);
     }
 
-    if (*&v19[4] && v19[2] == 1)
+    if (*&v17[4] && v17[2] == 1)
     {
-      free(*&v19[4]);
+      free(*&v17[4]);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_32c36_ZTSN2KB10retain_ptrIP10_LXLexiconEE(uint64_t a1)
@@ -5560,6 +5456,16 @@ void *__copy_helper_block_a8_32c36_ZTSN2KB10retain_ptrIP10_LXLexiconEE(void *res
   }
 
   return result;
+}
+
+void KB::AppTrieLoader::create()
+{
+  operator new();
+}
+
+{
+  v4 = *MEMORY[0x277D85DE8];
+  operator new();
 }
 
 uint64_t std::__shared_ptr_pointer<AppTrieLoaderStub *,std::shared_ptr<AppTrieLoaderStub>::__shared_ptr_default_delete<AppTrieLoaderStub,AppTrieLoaderStub>,std::allocator<AppTrieLoaderStub>>::__on_zero_shared(uint64_t result)
@@ -5660,12 +5566,12 @@ void __Block_byref_object_dispose__17806(uint64_t a1)
 void ___ZN2KB19TIAssetPathRegistry25createPathForMatchingFileEPK10__CFLocaleRKNSt3__18functionIFbPK7__CFURLPK10__CFStringEEE_block_invoke(uint64_t a1, const __CFURL *a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   v7 = *(a1 + 40);
-  v15 = a5;
-  v16 = a2;
+  v19 = a5;
+  v20 = a2;
   v8 = *(v7 + 24);
   if (v8)
   {
-    if ((*(*v8 + 48))(v8, &v16, &v15))
+    if ((*(*v8 + 48))(v8, &v20, &v19, a4))
     {
       v11 = *(*(a1 + 32) + 8);
       v12 = CFURLCopyFileSystemPath(a2, kCFURLPOSIXPathStyle);
@@ -5683,20 +5589,20 @@ void ___ZN2KB19TIAssetPathRegistry25createPathForMatchingFileEPK10__CFLocaleRKNS
   else
   {
     v14 = std::__throw_bad_function_call[abi:nn200100]();
-    ___ZN2KB19TIAssetPathRegistry29createPathsForMatchingBundlesEPK10__CFLocaleRKNSt3__18functionIFbPK7__CFURLPK10__CFString17LDAssetBundleTypeEEEb_block_invoke(v14);
+    ___ZN2KB19TIAssetPathRegistry29createPathsForMatchingBundlesEPK10__CFLocaleRKNSt3__18functionIFbPK7__CFURLPK10__CFString17LDAssetBundleTypeEEEb_block_invoke(v14, v15, v16, v17, v18);
   }
 }
 
 void ___ZN2KB19TIAssetPathRegistry29createPathsForMatchingBundlesEPK10__CFLocaleRKNSt3__18functionIFbPK7__CFURLPK10__CFString17LDAssetBundleTypeEEEb_block_invoke(uint64_t a1, const __CFURL *a2, int a3, uint64_t a4, uint64_t a5)
 {
   v6 = *(a1 + 32);
-  v12 = a5;
-  v13 = a2;
-  v11 = a3;
+  v14 = a5;
+  v15 = a2;
+  v13 = a3;
   v7 = *(v6 + 24);
   if (v7)
   {
-    if ((*(*v7 + 48))(v7, &v13, &v12, &v11))
+    if ((*(*v7 + 48))(v7, &v15, &v14, &v13))
     {
       v9 = CFURLCopyFileSystemPath(a2, kCFURLPOSIXPathStyle);
       CFArrayAppendValue(*(a1 + 40), v9);
@@ -5711,7 +5617,7 @@ void ___ZN2KB19TIAssetPathRegistry29createPathsForMatchingBundlesEPK10__CFLocale
   else
   {
     v10 = std::__throw_bad_function_call[abi:nn200100]();
-    std::__function::__func<KB::TIAssetPathRegistry::unigramLexiconPredicate(void)::$_0,std::allocator<KB::TIAssetPathRegistry::unigramLexiconPredicate(void)::$_0>,BOOL ()(__CFURL const*,__CFString const*)>::operator()(v10);
+    std::__function::__func<KB::TIAssetPathRegistry::unigramLexiconPredicate(void)::$_0,std::allocator<KB::TIAssetPathRegistry::unigramLexiconPredicate(void)::$_0>,BOOL ()(__CFURL const*,__CFString const*)>::operator()(v10, v11, v12);
   }
 }
 
@@ -5863,8 +5769,7 @@ __n128 __Block_byref_object_copy__17991(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -6398,123 +6303,112 @@ void TI::Favonius::CMUnmatchedTouchHypothesis::~CMUnmatchedTouchHypothesis(TI::F
 
 float KB::DynamicDictionaryCursor::do_advance(KB::DynamicDictionaryCursor *this, const KB::DynamicDictionary *a2, const KB::String *a3, unsigned int a4)
 {
+  v6 = 0.0;
   v7 = 0.0;
-  v8 = 0.0;
   if (*(this + 5))
   {
-    v9 = *a3;
-    *(a3 + 1);
-    *a3;
-    v10 = LXCursorCreateByAdvancingWithUTF8();
-    v11 = *(this + 5);
-    if (v11)
+    v8 = LXCursorCreateByAdvancingWithUTF8();
+    v9 = *(this + 5);
+    if (v9)
     {
-      CFRelease(v11);
+      CFRelease(v9);
     }
 
-    *(this + 5) = v10;
-    if (v10)
+    *(this + 5) = v8;
+    if (v8)
     {
-      v12 = LXCursorUsageCountRecursive();
+      v10 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v8 = (v12 / a4) + 0.0;
+        v7 = (v10 / a4) + 0.0;
       }
     }
   }
 
   if (*(this + 1))
   {
-    *(a3 + 1);
-    *a3;
-    v13 = LXCursorCreateByAdvancingWithUTF8();
-    v14 = *(this + 1);
-    if (v14)
+    v11 = LXCursorCreateByAdvancingWithUTF8();
+    v12 = *(this + 1);
+    if (v12)
     {
-      CFRelease(v14);
+      CFRelease(v12);
     }
 
-    *(this + 1) = v13;
-    if (v13)
+    *(this + 1) = v11;
+    if (v11)
     {
-      v15 = LXCursorUsageCountRecursive();
+      v13 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v7 = v15 / a4;
+        v6 = v13 / a4;
       }
     }
   }
 
-  v16 = 0.0;
-  v17 = 0.0;
+  v14 = 0.0;
+  v15 = 0.0;
   if (*(this + 2))
   {
-    *(a3 + 1);
-    *a3;
-    v18 = LXCursorCreateByAdvancingWithUTF8();
-    v19 = *(this + 2);
-    if (v19)
+    v16 = LXCursorCreateByAdvancingWithUTF8();
+    v17 = *(this + 2);
+    if (v17)
     {
-      CFRelease(v19);
+      CFRelease(v17);
     }
 
-    *(this + 2) = v18;
-    if (v18)
+    *(this + 2) = v16;
+    if (v16)
     {
-      v20 = LXCursorUsageCountRecursive();
+      v18 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v17 = v20 / a4;
+        v15 = v18 / a4;
       }
     }
   }
 
   if (*(this + 3))
   {
-    *(a3 + 1);
-    *a3;
-    v21 = LXCursorCreateByAdvancingWithUTF8();
-    v22 = *(this + 3);
-    if (v22)
+    v19 = LXCursorCreateByAdvancingWithUTF8();
+    v20 = *(this + 3);
+    if (v20)
     {
-      CFRelease(v22);
+      CFRelease(v20);
     }
 
-    *(this + 3) = v21;
-    if (v21)
+    *(this + 3) = v19;
+    if (v19)
     {
-      v23 = LXCursorUsageCountRecursive();
+      v21 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v16 = v23 / a4;
+        v14 = v21 / a4;
       }
     }
   }
 
-  v24 = 0.0;
+  v22 = 0.0;
   if (*(this + 4))
   {
-    *(a3 + 1);
-    *a3;
-    v25 = LXCursorCreateByAdvancingWithUTF8();
-    v26 = *(this + 4);
-    if (v26)
+    v23 = LXCursorCreateByAdvancingWithUTF8();
+    v24 = *(this + 4);
+    if (v24)
     {
-      CFRelease(v26);
+      CFRelease(v24);
     }
 
-    *(this + 4) = v25;
-    if (v25)
+    *(this + 4) = v23;
+    if (v23)
     {
-      v27 = LXCursorUsageCountRecursive();
+      v25 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v24 = v27 / a4;
+        v22 = v25 / a4;
       }
     }
   }
 
-  return (((v8 + v7) + v17) + v16) + v24;
+  return (((v7 + v6) + v15) + v14) + v22;
 }
 
 uint64_t KB::DynamicDictionarySingleCursor::get_entry_count(KB::DynamicDictionarySingleCursor *this, const KB::DynamicDictionary *a2)
@@ -6563,7 +6457,7 @@ uint64_t KB::DynamicDictionarySingleCursor::get_subtree_usage_count(KB::DynamicD
   return v2;
 }
 
-uint64_t ___ZNK2KB29DynamicDictionarySingleCursor23get_subtree_usage_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2)
+uint64_t ___ZNK2KB29DynamicDictionarySingleCursor23get_subtree_usage_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2, double a3)
 {
   result = *a2;
   if (*a2)
@@ -6608,13 +6502,12 @@ float KB::DynamicDictionarySingleCursor::get_termination_probability(KB::Dynamic
   return v3;
 }
 
-uint64_t ___ZNK2KB29DynamicDictionarySingleCursor27get_termination_probabilityERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2)
+uint64_t ___ZNK2KB29DynamicDictionarySingleCursor27get_termination_probabilityERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2, double a3)
 {
   result = *a2;
   if (*a2)
   {
     *(*(*(a1 + 32) + 8) + 24) += LXCursorUsageCountRecursive();
-    v5 = *a2;
     result = LXCursorUsageCount();
     *(*(*(a1 + 40) + 8) + 24) += result;
   }
@@ -6670,45 +6563,43 @@ KB::DynamicDictionaryCursor *KB::DynamicDictionaryCursor::DynamicDictionaryCurso
 
 float KB::DynamicDictionarySingleCursor::do_advance(KB::DynamicDictionarySingleCursor *this, const KB::DynamicDictionary *a2, const KB::String *a3, unsigned int a4)
 {
-  v7 = KB::DynamicDictionaryCursor::do_advance(this, a2, a3, a4) + 0.0;
+  v6 = KB::DynamicDictionaryCursor::do_advance(this, a2, a3, a4) + 0.0;
   if (*(this + 6))
   {
-    *(a3 + 1);
-    *a3;
-    v8 = LXCursorCreateByAdvancingWithUTF8();
-    v9 = *(this + 6);
-    if (v9)
-    {
-      CFRelease(v9);
-    }
-
-    *(this + 6) = v8;
+    v7 = LXCursorCreateByAdvancingWithUTF8();
+    v8 = *(this + 6);
     if (v8)
     {
-      v10 = LXCursorUsageCountRecursive();
+      CFRelease(v8);
+    }
+
+    *(this + 6) = v7;
+    if (v7)
+    {
+      v9 = LXCursorUsageCountRecursive();
       if (a4)
       {
-        v11 = v10 / a4;
+        v10 = v9 / a4;
       }
 
       else
       {
-        v11 = 0.0;
+        v10 = 0.0;
       }
 
-      return v7 + v11;
+      return v6 + v10;
     }
   }
 
-  return v7;
+  return v6;
 }
 
-uint64_t KB::DynamicDictionarySingleCursor::do_for_each_mutable_dynamic_trie_node(uint64_t result, uint64_t a2)
+void *KB::DynamicDictionarySingleCursor::do_for_each_mutable_dynamic_trie_node(void *result, uint64_t a2)
 {
   v3 = result;
-  if (*(result + 48))
+  if (result[6])
   {
-    result = (*(a2 + 16))(a2, result + 48, 0, 0);
+    result = (*(a2 + 16))(a2, result + 6, 0, 0);
   }
 
   if (v3[1])
@@ -6743,12 +6634,12 @@ uint64_t KB::DynamicDictionarySingleCursor::do_for_each_mutable_dynamic_trie_nod
   return result;
 }
 
-uint64_t KB::DynamicDictionarySingleCursor::do_for_each_dynamic_trie_node(uint64_t result, uint64_t a2)
+void *KB::DynamicDictionarySingleCursor::do_for_each_dynamic_trie_node(void *result, uint64_t a2)
 {
   v3 = result;
-  if (*(result + 48))
+  if (result[6])
   {
-    result = (*(a2 + 16))(a2, result + 48, 0, 0);
+    result = (*(a2 + 16))(a2, result + 6, 0, 0);
   }
 
   if (v3[1])
@@ -6861,26 +6752,24 @@ unint64_t KB::DynamicDictionaryContainerCursor::get_entry_count(KB::DynamicDicti
   return v2;
 }
 
-uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor15get_entry_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor15get_entry_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, void *a2, int a3, uint64_t a4)
 {
   if (a3)
   {
-    v5 = *a2;
     result = LXCursorUsageCount();
-    v7 = *(*(a1 + 32) + 8);
-    v8 = *(v7 + 24) + result;
+    v6 = *(*(a1 + 32) + 8);
+    v7 = *(v6 + 24) + result;
   }
 
   else
   {
-    v9 = *(*(*(a1 + 40) + 168) + 4 * a4);
-    v10 = *a2;
+    v8 = *(*(*(a1 + 40) + 168) + 4 * a4);
     result = LXCursorUsageCount();
-    v7 = *(*(a1 + 32) + 8);
-    v8 = *(v7 + 24) + (v9 * result);
+    v6 = *(*(a1 + 32) + 8);
+    v7 = *(v6 + 24) + (v8 * result);
   }
 
-  *(v7 + 24) = v8;
+  *(v6 + 24) = v7;
   return result;
 }
 
@@ -6902,11 +6791,10 @@ unint64_t KB::DynamicDictionaryContainerCursor::get_subtree_usage_count(KB::Dyna
   return v2;
 }
 
-uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor23get_subtree_usage_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor23get_subtree_usage_countERKNS_17DynamicDictionaryE_block_invoke(uint64_t a1, double a2, uint64_t a3, int a4, uint64_t a5)
 {
-  if (a3)
+  if (a4)
   {
-    v5 = *a2;
     result = LXCursorUsageCountRecursive();
     v7 = *(*(a1 + 32) + 8);
     v8 = *(v7 + 24) + result;
@@ -6914,8 +6802,7 @@ uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor23get_subtree_usage_countERK
 
   else
   {
-    v9 = *(*(*(a1 + 40) + 168) + 4 * a4);
-    v10 = *a2;
+    v9 = *(*(*(a1 + 40) + 168) + 4 * a5);
     result = LXCursorUsageCountRecursive();
     v7 = *(*(a1 + 32) + 8);
     v8 = *(v7 + 24) + (v9 * result);
@@ -6955,7 +6842,7 @@ float KB::DynamicDictionaryContainerCursor::get_termination_probability(KB::Dyna
   return v3;
 }
 
-uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor27get_termination_probabilityERKNS_17DynamicDictionaryE_block_invoke(void *a1, uint64_t *a2, int a3, uint64_t a4)
+uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor27get_termination_probabilityERKNS_17DynamicDictionaryE_block_invoke(void *a1, uint64_t *a2, int a3, uint64_t a4, double a5)
 {
   result = *a2;
   if (a3)
@@ -6966,10 +6853,9 @@ uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor27get_termination_probabilit
     }
 
     *(*(a1[4] + 8) + 24) = *(*(a1[4] + 8) + 24) + LXCursorUsageCountRecursive();
-    v7 = *a2;
     result = LXCursorUsageCount();
-    v8 = *(a1[5] + 8);
-    v9 = *(v8 + 24) + result;
+    v7 = *(a1[5] + 8);
+    v8 = *(v7 + 24) + result;
   }
 
   else
@@ -6979,19 +6865,18 @@ uint64_t ___ZNK2KB32DynamicDictionaryContainerCursor27get_termination_probabilit
       return result;
     }
 
-    v10 = *(*(a1[6] + 168) + 4 * a4);
-    *(*(a1[4] + 8) + 24) = *(*(a1[4] + 8) + 24) + (v10 * LXCursorUsageCountRecursive());
-    v11 = *a2;
+    v9 = *(*(a1[6] + 168) + 4 * a4);
+    *(*(a1[4] + 8) + 24) = *(*(a1[4] + 8) + 24) + (v9 * LXCursorUsageCountRecursive());
     result = LXCursorUsageCount();
-    v8 = *(a1[5] + 8);
-    v9 = *(v8 + 24) + (v10 * result);
+    v7 = *(a1[5] + 8);
+    v8 = *(v7 + 24) + (v9 * result);
   }
 
-  *(v8 + 24) = v9;
+  *(v7 + 24) = v8;
   return result;
 }
 
-void std::vector<KB::retain_ptr<_LXCursor const*>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<KB::retain_ptr<_LXCursor const*>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7003,63 +6888,61 @@ void std::vector<KB::retain_ptr<_LXCursor const*>>::__vallocate[abi:nn200100](ui
 
 float KB::DynamicDictionaryContainerCursor::do_advance(KB::DynamicDictionaryContainerCursor *this, const KB::DynamicDictionary *a2, const KB::String *a3, unsigned int a4)
 {
-  v8 = KB::DynamicDictionaryCursor::do_advance(this, a2, a3, a4) + 0.0;
-  v9 = *(a2 + 15) - *(a2 + 14);
-  v10 = *(this + 6);
-  if ((*(this + 7) - v10) >> 3 >= (v9 >> 3))
+  v7 = KB::DynamicDictionaryCursor::do_advance(this, a2, a3, a4) + 0.0;
+  v8 = *(a2 + 15) - *(a2 + 14);
+  v9 = *(this + 6);
+  if ((*(this + 7) - v9) >> 3 >= (v8 >> 3))
   {
-    v11 = v9 >> 3;
+    v10 = v8 >> 3;
   }
 
   else
   {
-    v11 = (*(this + 7) - v10) >> 3;
+    v10 = (*(this + 7) - v9) >> 3;
   }
 
-  if (v11)
+  if (v10)
   {
-    for (i = 0; i != v11; ++i)
+    for (i = 0; i != v10; ++i)
     {
-      v13 = *(this + 6);
-      if (*(v13 + 8 * i))
+      v12 = *(this + 6);
+      if (*(v12 + 8 * i))
       {
-        v14 = *(*(a2 + 21) + 4 * i);
-        *(a3 + 1);
-        *a3;
-        v15 = LXCursorCreateByAdvancingWithUTF8();
-        v16 = *(v13 + 8 * i);
-        if (v16)
-        {
-          CFRelease(v16);
-        }
-
-        *(v13 + 8 * i) = v15;
+        v13 = *(*(a2 + 21) + 4 * i);
+        v14 = LXCursorCreateByAdvancingWithUTF8();
+        v15 = *(v12 + 8 * i);
         if (v15)
         {
-          v17 = LXCursorUsageCountRecursive();
+          CFRelease(v15);
+        }
+
+        *(v12 + 8 * i) = v14;
+        if (v14)
+        {
+          v16 = LXCursorUsageCountRecursive();
           if (a4)
           {
-            v18 = v17 / a4;
+            v17 = v16 / a4;
           }
 
           else
           {
-            v18 = 0.0;
+            v17 = 0.0;
           }
 
-          v8 = v8 + (v14 * v18);
+          v7 = v7 + (v13 * v17);
         }
       }
     }
   }
 
-  return v8;
+  return v7;
 }
 
-uint64_t KB::DynamicDictionaryContainerCursor::do_for_each_mutable_dynamic_trie_node(uint64_t result, uint64_t a2)
+void *KB::DynamicDictionaryContainerCursor::do_for_each_mutable_dynamic_trie_node(void *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 56) - *(result + 48);
+  v4 = result[7] - result[6];
   if (v4)
   {
     v5 = 0;
@@ -7110,10 +6993,10 @@ uint64_t KB::DynamicDictionaryContainerCursor::do_for_each_mutable_dynamic_trie_
   return result;
 }
 
-uint64_t KB::DynamicDictionaryContainerCursor::do_for_each_dynamic_trie_node(uint64_t result, uint64_t a2)
+void *KB::DynamicDictionaryContainerCursor::do_for_each_dynamic_trie_node(void *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 56) - *(result + 48);
+  v4 = result[7] - result[6];
   if (v4)
   {
     v5 = 0;
@@ -7182,7 +7065,7 @@ void KB::DynamicDictionaryContainerCursor::~DynamicDictionaryContainerCursor(KB:
   KB::DynamicDictionaryCursor::~DynamicDictionaryCursor(this);
 }
 
-void KB::DynamicDictionaryCursor::set_to_root(KB::DynamicDictionaryCursor *this, const KB::DynamicDictionary *a2)
+void KB::DynamicDictionaryCursor::set_to_root(KB::DynamicDictionaryCursor *this, const KB::DynamicDictionary *a2, double a3)
 {
   if (*(a2 + 1))
   {
@@ -7194,82 +7077,82 @@ void KB::DynamicDictionaryCursor::set_to_root(KB::DynamicDictionaryCursor *this,
     RootCursor = 0;
   }
 
-  v5 = *(this + 1);
-  if (v5)
+  v6 = *(this + 1);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
   *(this + 1) = RootCursor;
   if (*(a2 + 2))
   {
-    v6 = LXLexiconCreateRootCursor();
+    v7 = LXLexiconCreateRootCursor();
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = *(this + 2);
-  if (v7)
+  v8 = *(this + 2);
+  if (v8)
   {
-    CFRelease(v7);
+    CFRelease(v8);
   }
 
-  *(this + 2) = v6;
-  v8 = *(a2 + 3);
-  if (v8 && (v9 = *v8) != 0 && *v9)
+  *(this + 2) = v7;
+  v9 = *(a2 + 3);
+  if (v9 && (v10 = *v9) != 0 && *v10)
   {
-    v10 = LXLexiconCreateRootCursor();
+    v11 = LXLexiconCreateRootCursor();
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = *(this + 3);
-  if (v11)
+  v12 = *(this + 3);
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
-  *(this + 3) = v10;
+  *(this + 3) = v11;
   if (KB::DynamicDictionary::named_entity_lexicon(a2))
   {
-    v12 = LXLexiconCreateRootCursor();
+    v13 = LXLexiconCreateRootCursor();
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = *(this + 4);
-  if (v13)
+  v14 = *(this + 4);
+  if (v14)
   {
-    CFRelease(v13);
+    CFRelease(v14);
   }
 
-  *(this + 4) = v12;
+  *(this + 4) = v13;
   if (TITransientLexiconManagerGetActiveSupplementalLexiconWords())
   {
-    v14 = LXLexiconCreateRootCursor();
+    v15 = LXLexiconCreateRootCursor();
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = *(this + 5);
-  if (v15)
+  v16 = *(this + 5);
+  if (v16)
   {
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
-  *(this + 5) = v14;
+  *(this + 5) = v15;
 }
 
 void ___ZN2KB23DynamicDictionaryCursor10invalidateEv_block_invoke(uint64_t a1, CFTypeRef *a2)
@@ -7282,7 +7165,7 @@ void ___ZN2KB23DynamicDictionaryCursor10invalidateEv_block_invoke(uint64_t a1, C
   *a2 = 0;
 }
 
-uint64_t ___ZNK2KB23DynamicDictionaryCursor11has_entriesEv_block_invoke(uint64_t result, uint64_t *a2)
+uint64_t ___ZNK2KB23DynamicDictionaryCursor11has_entriesEv_block_invoke(uint64_t result, void *a2)
 {
   v2 = result;
   if (*(*(*(result + 32) + 8) + 24))
@@ -7292,11 +7175,9 @@ uint64_t ___ZNK2KB23DynamicDictionaryCursor11has_entriesEv_block_invoke(uint64_t
 
   else
   {
-    v5 = *a2;
     result = LXCursorHasEntries();
     if (result)
     {
-      v6 = *a2;
       result = LXCursorUsageCount();
       v3 = result > 0;
     }
@@ -7311,7 +7192,7 @@ uint64_t ___ZNK2KB23DynamicDictionaryCursor11has_entriesEv_block_invoke(uint64_t
   return result;
 }
 
-uint64_t ___ZNK2KB23DynamicDictionaryCursor12has_childrenEv_block_invoke(uint64_t result, uint64_t *a2)
+uint64_t ___ZNK2KB23DynamicDictionaryCursor12has_childrenEv_block_invoke(uint64_t result, void *a2)
 {
   v2 = *(*(result + 32) + 8);
   if (*(v2 + 24))
@@ -7322,7 +7203,6 @@ uint64_t ___ZNK2KB23DynamicDictionaryCursor12has_childrenEv_block_invoke(uint64_
   else
   {
     v4 = result;
-    v5 = *a2;
     result = LXCursorHasChildren();
     v3 = result != 0;
     v2 = *(*(v4 + 32) + 8);
@@ -7611,12 +7491,12 @@ void ___ZNK2KB23DynamicDictionaryCursor35merge_children_with_static_siblingsERNS
   }
 }
 
-uint64_t ___ZL34enumerate_whole_character_childrenPK9_LXCursorU13block_pointerFvS1_jE_block_invoke(uint64_t a1)
+uint64_t ___ZL34enumerate_whole_character_childrenPK9_LXCursorU13block_pointerFvS1_jE_block_invoke(uint64_t a1, uint64_t a2)
 {
   LXCursorLastTraversedCharacter();
-  v2 = *(*(a1 + 32) + 16);
+  v3 = *(*(a1 + 32) + 16);
 
-  return v2();
+  return v3();
 }
 
 KB::DynamicDictionaryContainerCursor *KB::DynamicDictionaryContainerCursor::DynamicDictionaryContainerCursor(KB::DynamicDictionaryContainerCursor *this, const KB::DynamicDictionaryContainer *a2)
@@ -7628,7 +7508,7 @@ KB::DynamicDictionaryContainerCursor *KB::DynamicDictionaryContainerCursor::Dyna
   v4 = *(a2 + 14);
   v3 = *(a2 + 15);
   *(this + 6) = 0;
-  v5 = this + 48;
+  v5 = (this + 48);
   *(this + 7) = 0;
   *(this + 8) = 0;
   if (v3 != v4)
@@ -7783,41 +7663,38 @@ void *__getSRKeyboardMetricScalarTotalWordsKeySymbolLoc_block_invoke(uint64_t a1
 
 uint64_t SensorKitLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!SensorKitLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __SensorKitLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278732C98;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __SensorKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278732C98;
+    v5 = 0;
     SensorKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = SensorKitLibraryCore_frameworkLibrary;
     if (SensorKitLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = SensorKitLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return SensorKitLibraryCore_frameworkLibrary;
 }
 
 void *__getSRKeyboardMetricScalarTotalAlteredWordsKeySymbolLoc_block_invoke(uint64_t a1)
@@ -8578,11 +8455,8 @@ void *__getSRKeyboardMetricScalarEmojiBucketConfusedKeySymbolLoc_block_invoke(ui
 
 uint64_t __SensorKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SensorKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8712,7 +8586,7 @@ LABEL_32:
 
 void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)::$_0::__invoke(const __CFString *a1, const void *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (CFStringCompare(a1, @"GeometryWeight", 0))
   {
     if (CFStringCompare(a1, @"LanguageWeight", 0))
@@ -8747,29 +8621,26 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                                 {
                                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v25 = 136315394;
-                                    v26 = "operator()";
-                                    v27 = 2112;
-                                    v28 = a1;
-                                    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  SearchParameters initializer: unhandled search parameter %@", &v25, 0x16u);
+                                    v8 = 136315394;
+                                    v9 = "operator()";
+                                    v10 = 2112;
+                                    v11 = a1;
+                                    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  SearchParameters initializer: unhandled search parameter %@", &v8, 0x16u);
                                   }
 
-                                  v6 = *MEMORY[0x277D85DE8];
                                   return;
                                 }
 
                                 CFGetTypeID(a2);
                                 CFBooleanGetTypeID();
-                                v24 = *MEMORY[0x277D85DE8];
-                                v9 = (a3 + 152);
+                                v7 = (a3 + 152);
                               }
 
                               else
                               {
                                 CFGetTypeID(a2);
                                 CFBooleanGetTypeID();
-                                v23 = *MEMORY[0x277D85DE8];
-                                v9 = (a3 + 144);
+                                v7 = (a3 + 144);
                               }
                             }
 
@@ -8777,8 +8648,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                             {
                               CFGetTypeID(a2);
                               CFBooleanGetTypeID();
-                              v22 = *MEMORY[0x277D85DE8];
-                              v9 = (a3 + 128);
+                              v7 = (a3 + 128);
                             }
                           }
 
@@ -8786,8 +8656,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                           {
                             CFGetTypeID(a2);
                             CFBooleanGetTypeID();
-                            v21 = *MEMORY[0x277D85DE8];
-                            v9 = (a3 + 88);
+                            v7 = (a3 + 88);
                           }
                         }
 
@@ -8795,8 +8664,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                         {
                           CFGetTypeID(a2);
                           CFBooleanGetTypeID();
-                          v20 = *MEMORY[0x277D85DE8];
-                          v9 = (a3 + 80);
+                          v7 = (a3 + 80);
                         }
                       }
 
@@ -8804,8 +8672,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                       {
                         CFGetTypeID(a2);
                         CFBooleanGetTypeID();
-                        v19 = *MEMORY[0x277D85DE8];
-                        v9 = (a3 + 96);
+                        v7 = (a3 + 96);
                       }
                     }
 
@@ -8813,8 +8680,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                     {
                       CFGetTypeID(a2);
                       CFBooleanGetTypeID();
-                      v18 = *MEMORY[0x277D85DE8];
-                      v9 = (a3 + 72);
+                      v7 = (a3 + 72);
                     }
                   }
 
@@ -8822,8 +8688,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                   {
                     CFGetTypeID(a2);
                     CFBooleanGetTypeID();
-                    v17 = *MEMORY[0x277D85DE8];
-                    v9 = (a3 + 64);
+                    v7 = (a3 + 64);
                   }
                 }
 
@@ -8831,8 +8696,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
                 {
                   CFGetTypeID(a2);
                   CFBooleanGetTypeID();
-                  v16 = *MEMORY[0x277D85DE8];
-                  v9 = (a3 + 56);
+                  v7 = (a3 + 56);
                 }
               }
 
@@ -8840,8 +8704,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
               {
                 CFGetTypeID(a2);
                 CFBooleanGetTypeID();
-                v15 = *MEMORY[0x277D85DE8];
-                v9 = (a3 + 48);
+                v7 = (a3 + 48);
               }
             }
 
@@ -8849,8 +8712,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
             {
               CFGetTypeID(a2);
               CFBooleanGetTypeID();
-              v14 = *MEMORY[0x277D85DE8];
-              v9 = (a3 + 40);
+              v7 = (a3 + 40);
             }
           }
 
@@ -8858,8 +8720,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
           {
             CFGetTypeID(a2);
             CFBooleanGetTypeID();
-            v13 = *MEMORY[0x277D85DE8];
-            v9 = (a3 + 32);
+            v7 = (a3 + 32);
           }
         }
 
@@ -8867,8 +8728,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
         {
           CFGetTypeID(a2);
           CFBooleanGetTypeID();
-          v12 = *MEMORY[0x277D85DE8];
-          v9 = (a3 + 24);
+          v7 = (a3 + 24);
         }
       }
 
@@ -8876,8 +8736,7 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
       {
         CFGetTypeID(a2);
         CFBooleanGetTypeID();
-        v11 = *MEMORY[0x277D85DE8];
-        v9 = (a3 + 16);
+        v7 = (a3 + 16);
       }
     }
 
@@ -8885,23 +8744,21 @@ void TI::CP::SearchParameters::set_values_from_dictionary(__CFDictionary const*)
     {
       CFGetTypeID(a2);
       CFBooleanGetTypeID();
-      v10 = *MEMORY[0x277D85DE8];
-      v9 = (a3 + 8);
+      v7 = (a3 + 8);
     }
 
-    v8 = a2;
+    v6 = a2;
   }
 
   else
   {
     CFGetTypeID(a2);
     CFBooleanGetTypeID();
-    v7 = *MEMORY[0x277D85DE8];
-    v8 = a2;
-    v9 = a3;
+    v6 = a2;
+    v7 = a3;
   }
 
-  CFNumberGetValue(v8, kCFNumberDoubleType, v9);
+  CFNumberGetValue(v6, kCFNumberDoubleType, v7);
 }
 
 double TI::CP::Search::key_layout_did_update(TI::Favonius::KeyboardLayout **this)
@@ -8932,33 +8789,33 @@ void TI::CP::Search::set_candidate_refinery(uint64_t a1, uint64_t *a2)
 
 void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
 {
-  v183[2] = *MEMORY[0x277D85DE8];
+  v182[2] = *MEMORY[0x277D85DE8];
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 64) - *(a1 + 56)) >> 4) >= 2)
   {
     v3 = a1;
-    v168 = *(a1 + 16);
-    v169 = *(a1 + 32);
-    v170 = *(a1 + 48);
-    v156 = a1 + 56;
-    std::vector<TI::CP::PathSample>::vector[abi:nn200100](v171, (a1 + 56));
-    std::vector<unsigned int>::vector[abi:nn200100](v172, (v3 + 80));
-    std::vector<TI::CP::PathSample>::vector[abi:nn200100](v173, (v3 + 104));
+    v167 = *(a1 + 16);
+    v168 = *(a1 + 32);
+    v169 = *(a1 + 48);
+    v155 = (a1 + 56);
+    std::vector<TI::CP::PathSample>::vector[abi:nn200100](v170, (a1 + 56));
+    std::vector<unsigned int>::vector[abi:nn200100](v171, (v3 + 80));
+    std::vector<TI::CP::PathSample>::vector[abi:nn200100](v172, (v3 + 104));
     std::vector<unsigned int>::vector[abi:nn200100](__p, (v3 + 128));
-    v175 = *(v3 + 152);
-    v176 = *(v3 + 160);
+    v174 = *(v3 + 152);
+    v175 = *(v3 + 160);
     v4 = TI::CP::PathResampler::finalize((v3 + 16));
-    v158 = (v3 + 328);
-    v155 = v3 + 152;
+    v157 = (v3 + 328);
+    v154 = v3 + 152;
     v5 = -1431655765 * ((*(v3 + 336) - *(v3 + 328)) >> 3) - 1;
     if (v4 < v5)
     {
       v6 = v4;
-      std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize(v158, v4 + 1);
+      std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize(v157, v4 + 1);
       std::vector<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>::resize((v3 + 376), v6);
       v5 = v6;
     }
 
-    v154 = v5;
+    v153 = v5;
     while (1)
     {
       v8 = *(v3 + 328);
@@ -8995,7 +8852,7 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
           v15 = v13;
         }
 
-        v181 = v3 + 328;
+        v180 = v3 + 328;
         if (v15)
         {
           std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v15);
@@ -9015,10 +8872,10 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
         *(v3 + 336) = v12;
         v21 = *(v3 + 344);
         *(v3 + 344) = 0;
-        v179 = v20;
-        v180 = v21;
+        v178 = v20;
+        v179 = v21;
         valuePtr = *&v20;
-        v178 = *&v20;
+        v177 = *&v20;
         std::__split_buffer<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::~__split_buffer(&valuePtr);
       }
 
@@ -9045,14 +8902,14 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
     {
       v27 = 0x1CAC083126E978D5;
       v28 = *MEMORY[0x277CBECE8];
-      v161 = v3;
-      v157 = *(v3 + 360);
+      v160 = v3;
+      v156 = *(v3 + 360);
       do
       {
         if ((*(**(*v23 + 8) + 64))(*(*v23 + 8)))
         {
           v29 = v3;
-          v159 = v23;
+          v158 = v23;
           v30 = *v23;
           v31 = *(v29 + 184);
           if (v31)
@@ -9061,8 +8918,8 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
           }
 
           v32 = ((v26[1] - *v26) >> 3) * v27;
-          v160 = v31;
-          (*(*v31 + 16))(v31, *(v30 + 8), v161 + 208, v26);
+          v159 = v31;
+          (*(*v31 + 16))(v31, *(v30 + 8), v160 + 208, v26);
           if ((*(*v30 + 144))(v30))
           {
             v33 = 2;
@@ -9080,19 +8937,19 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
             v35 = v33;
           }
 
-          v166 = v35;
+          v165 = v35;
           v36 = *v26;
           if (((v26[1] - *v26) >> 3) * v27 > v32)
           {
             v37 = v32;
             do
             {
-              v38 = (v36 + 1000 * v37);
-              v38[121] |= v166;
+              v38 = v36 + 1000 * v37;
+              *(v38 + 968) |= v165;
               if ((*(*v30 + 152))(v30))
               {
                 *(v38 + 960) = 1;
-                v39 = v38[1] + 240 * *v38;
+                v39 = *(v38 + 8) + 240 * *v38;
                 *(v39 - 96) = (*(*v30 + 152))(v30);
               }
 
@@ -9111,7 +8968,7 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
                 v50 = 1.0;
                 if (*v38)
                 {
-                  v51 = v38[1];
+                  v51 = *(v38 + 8);
                   v52 = (v51 + 48);
                   v53 = 240 * v48;
                   do
@@ -9124,7 +8981,7 @@ void TI::CP::Search::generate_candidates(uint64_t a1, uint64_t *a2, int a3)
 
                   while (v53);
                   v55 = 240 * v48;
-                  v56 = v38[1];
+                  v56 = *(v38 + 8);
                   while ((*(v56 + 105) & 1) == 0)
                   {
                     v56 += 240;
@@ -9177,13 +9034,13 @@ LABEL_50:
                 v62 = v44;
                 v63 = v45 + *(v43 + 440) * v47 - (v42 * v62);
                 v64 = v42 + logf(v50);
-                *(v38 + 187) = v63;
-                *(v38 + 188) = v64;
-                *(v38 + 189) = 0;
-                *(v38 + 190) = v62;
-                *(v38 + 191) = -8388608;
+                *(v38 + 748) = v63;
+                *(v38 + 752) = v64;
+                *(v38 + 756) = 0;
+                *(v38 + 760) = v62;
+                *(v38 + 764) = -8388608;
                 v65 = v63 + (v62 * (v64 + 0.0));
-                *(v38 + 186) = v65;
+                *(v38 + 744) = v65;
                 v67 = v30[14];
                 v66 = v30[15];
                 v68 = v30[16];
@@ -9192,7 +9049,7 @@ LABEL_50:
                 if (*v38)
                 {
                   v71 = 240 * *v38;
-                  v72 = (v38[1] + 48);
+                  v72 = (*(v38 + 8) + 48);
                   v49 = 1.0;
                   do
                   {
@@ -9213,16 +9070,16 @@ LABEL_50:
                 v79 = v67 + v66;
                 v80 = v68 / v69 + v74;
                 v81 = (*(*v30 + 160))(v30);
-                *(v38 + 187) = v79;
-                *(v38 + 188) = v80;
-                *(v38 + 189) = 0;
-                *(v38 + 190) = v62;
-                *(v38 + 191) = -8388608;
-                *(v38 + 192) = v78;
-                *(v38 + 193) = v81;
+                *(v38 + 748) = v79;
+                *(v38 + 752) = v80;
+                *(v38 + 756) = 0;
+                *(v38 + 760) = v62;
+                *(v38 + 764) = -8388608;
+                *(v38 + 768) = v78;
+                *(v38 + 772) = v81;
                 if (v25 >= 1)
                 {
-                  v165 = v32;
+                  v164 = v32;
                   Mutable = CFDictionaryCreateMutable(v28, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
                   valuePtr = v79;
                   v83 = CFNumberCreate(v28, kCFNumberDoubleType, &valuePtr);
@@ -9256,7 +9113,7 @@ LABEL_50:
                     CFRelease(v86);
                   }
 
-                  valuePtr = expf(*(v38 + 186));
+                  valuePtr = expf(*(v38 + 744));
                   v87 = CFNumberCreate(v28, kCFNumberDoubleType, &valuePtr);
                   CFDictionarySetValue(Mutable, @"final_score", v87);
                   if (v87)
@@ -9265,21 +9122,21 @@ LABEL_50:
                   }
 
                   CFDictionarySetValue(Mutable, @"source", @"favonius");
-                  LODWORD(v32) = v165;
+                  LODWORD(v32) = v164;
                   if (v25 != 1)
                   {
                     theDict = Mutable;
                     valuePtr = 0.0;
-                    v178 = 0.0;
-                    v179 = 0;
+                    v177 = 0.0;
+                    v178 = 0;
                     TI::CP::SearchNode::explain_score(v30, &valuePtr);
                     v88 = *(v30 + 3);
                     v89 = (*(**(v30 + 8) + 80))(*(v30 + 8));
                     v90 = *(v88 + 440) * logf(v89);
-                    v91 = v178;
-                    if (*&v178 < v179)
+                    v91 = v177;
+                    if (*&v177 < v178)
                     {
-                      **&v178 = 9;
+                      **&v177 = 9;
                       *(*&v91 + 8) = 0;
                       v92 = *MEMORY[0x277CBF348];
                       *(*&v91 + 16) = *MEMORY[0x277CBF348];
@@ -9291,8 +9148,8 @@ LABEL_50:
                     }
 
                     v95 = valuePtr;
-                    v96 = *&v178 - *&valuePtr;
-                    v97 = 0x6DB6DB6DB6DB6DB7 * ((*&v178 - *&valuePtr) >> 3);
+                    v96 = *&v177 - *&valuePtr;
+                    v97 = 0x6DB6DB6DB6DB6DB7 * ((*&v177 - *&valuePtr) >> 3);
                     v98 = v97 + 1;
                     v94 = 0x277CBE000uLL;
                     if ((v97 + 1) > 0x492492492492492)
@@ -9300,12 +9157,12 @@ LABEL_50:
                       goto LABEL_157;
                     }
 
-                    if (0xDB6DB6DB6DB6DB6ELL * ((v179 - *&valuePtr) >> 3) > v98)
+                    if (0xDB6DB6DB6DB6DB6ELL * ((v178 - *&valuePtr) >> 3) > v98)
                     {
-                      v98 = 0xDB6DB6DB6DB6DB6ELL * ((v179 - *&valuePtr) >> 3);
+                      v98 = 0xDB6DB6DB6DB6DB6ELL * ((v178 - *&valuePtr) >> 3);
                     }
 
-                    if ((0x6DB6DB6DB6DB6DB7 * ((v179 - *&valuePtr) >> 3)) >= 0x249249249249249)
+                    if ((0x6DB6DB6DB6DB6DB7 * ((v178 - *&valuePtr) >> 3)) >= 0x249249249249249)
                     {
                       v99 = 0x492492492492492;
                     }
@@ -9320,7 +9177,7 @@ LABEL_50:
                       std::__allocate_at_least[abi:nn200100]<std::allocator<TI::CP::ScoreComponent>>(v99);
                     }
 
-                    v100 = 8 * ((*&v178 - *&valuePtr) >> 3);
+                    v100 = 8 * ((*&v177 - *&valuePtr) >> 3);
                     *v100 = 9;
                     *(v100 + 8) = 0;
                     v101 = *MEMORY[0x277CBF348];
@@ -9332,19 +9189,19 @@ LABEL_50:
                     memcpy((v100 - v96), *&v95, v96);
                     v103 = valuePtr;
                     valuePtr = v102;
-                    v178 = *&v93;
-                    v179 = 0;
+                    v177 = *&v93;
+                    v178 = 0;
                     if (v103 != 0.0)
                     {
                       operator delete(*&v103);
                     }
 
 LABEL_80:
-                    v178 = *&v93;
+                    v177 = *&v93;
                     if (*v38)
                     {
                       v104 = 240 * *v38;
-                      v105 = (v38[1] + 48);
+                      v105 = (*(v38 + 8) + 48);
                       v106 = 1.0;
                       do
                       {
@@ -9363,7 +9220,7 @@ LABEL_80:
                     }
 
                     v108 = *(*(v30 + 3) + 440) * logf(v106);
-                    if (v93 < v179)
+                    if (v93 < v178)
                     {
                       *v93 = 10;
                       *(v93 + 8) = 0;
@@ -9385,12 +9242,12 @@ LABEL_157:
                       std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
                     }
 
-                    if (0xDB6DB6DB6DB6DB6ELL * ((v179 - *&valuePtr) >> 3) > v114)
+                    if (0xDB6DB6DB6DB6DB6ELL * ((v178 - *&valuePtr) >> 3) > v114)
                     {
-                      v114 = 0xDB6DB6DB6DB6DB6ELL * ((v179 - *&valuePtr) >> 3);
+                      v114 = 0xDB6DB6DB6DB6DB6ELL * ((v178 - *&valuePtr) >> 3);
                     }
 
-                    if ((0x6DB6DB6DB6DB6DB7 * ((v179 - *&valuePtr) >> 3)) >= 0x249249249249249)
+                    if ((0x6DB6DB6DB6DB6DB7 * ((v178 - *&valuePtr) >> 3)) >= 0x249249249249249)
                     {
                       v115 = 0x492492492492492;
                     }
@@ -9417,19 +9274,19 @@ LABEL_157:
                     memcpy((v116 - v112), *&v111, v112);
                     v119 = valuePtr;
                     valuePtr = v118;
-                    v178 = *&v110;
-                    v179 = 0;
+                    v177 = *&v110;
+                    v178 = 0;
                     if (v119 != 0.0)
                     {
                       operator delete(*&v119);
                     }
 
 LABEL_97:
-                    v178 = *&v110;
+                    v177 = *&v110;
                     v120 = [MEMORY[0x277CBEB18] array];
                     v122 = valuePtr;
-                    v121 = v178;
-                    v167 = v178;
+                    v121 = v177;
+                    v166 = v177;
                     while (2)
                     {
                       if (*&v122 == *&v121)
@@ -9443,10 +9300,10 @@ LABEL_97:
 
                         v25 = a3;
                         v26 = a2;
-                        LODWORD(v32) = v165;
+                        LODWORD(v32) = v164;
                         if (valuePtr != 0.0)
                         {
-                          v178 = valuePtr;
+                          v177 = valuePtr;
                           operator delete(*&valuePtr);
                         }
 
@@ -9478,15 +9335,15 @@ LABEL_97:
                                 v130 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*&v122 + 4)];
                                 [v123 setObject:v130 forKeyedSubscript:@"sample"];
 
-                                v182[0] = @"x";
+                                v181[0] = @"x";
                                 v131 = [MEMORY[0x277CCABB0] numberWithDouble:*(*&v122 + 16)];
-                                v182[1] = @"y";
-                                v183[0] = v131;
+                                v181[1] = @"y";
+                                v182[0] = v131;
                                 [MEMORY[0x277CCABB0] numberWithDouble:*(*&v122 + 24)];
                                 v132 = v28;
                                 v134 = v133 = v27;
-                                v183[1] = v134;
-                                v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v183 forKeys:v182 count:2];
+                                v182[1] = v134;
+                                v135 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v182 forKeys:v181 count:2];
                                 [v123 setObject:v135 forKeyedSubscript:@"point"];
 
                                 v27 = v133;
@@ -9533,10 +9390,10 @@ LABEL_128:
                           v149 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*&v122 + 4)];
                           [v123 setObject:v149 forKeyedSubscript:@"sample"];
 
-                          TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 16));
-                          v140 = v183[0];
+                          TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 16));
+                          v140 = v182[0];
                           v141 = v123;
-                          v142 = v183[0];
+                          v142 = v182[0];
                           v143 = @"point";
 LABEL_129:
                           [v141 setObject:v142 forKeyedSubscript:v143];
@@ -9557,7 +9414,7 @@ LABEL_133:
                         [v120 addObject:v151];
 
                         *&v122 += 56;
-                        v121 = v167;
+                        v121 = v166;
                         continue;
                       }
 
@@ -9572,26 +9429,26 @@ LABEL_133:
                         v137 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*&v122 + 4)];
                         [v123 setObject:v137 forKeyedSubscript:@"sample"];
 
-                        TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 16));
-                        v138 = v183[0];
-                        [v123 setObject:v183[0] forKeyedSubscript:@"point"];
+                        TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 16));
+                        v138 = v182[0];
+                        [v123 setObject:v182[0] forKeyedSubscript:@"point"];
                         if (v138)
                         {
                           CFRelease(v138);
                         }
 
-                        TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 32));
-                        v139 = v183[0];
-                        [v123 setObject:v183[0] forKeyedSubscript:@"keyPoint"];
+                        TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 32));
+                        v139 = v182[0];
+                        [v123 setObject:v182[0] forKeyedSubscript:@"keyPoint"];
                         if (v139)
                         {
                           CFRelease(v139);
                         }
 
-                        TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 32));
-                        v140 = v183[0];
+                        TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 32));
+                        v140 = v182[0];
                         v141 = v123;
-                        v142 = v183[0];
+                        v142 = v182[0];
                         v143 = @"keyPoint";
                         goto LABEL_129;
                       }
@@ -9629,9 +9486,9 @@ LABEL_124:
                     v146 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*&v122 + 4)];
                     [v123 setObject:v146 forKeyedSubscript:@"sample1"];
 
-                    TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 16));
-                    v147 = v183[0];
-                    [v123 setObject:v183[0] forKeyedSubscript:@"point1"];
+                    TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 16));
+                    v147 = v182[0];
+                    [v123 setObject:v182[0] forKeyedSubscript:@"point1"];
                     if (v147)
                     {
                       CFRelease(v147);
@@ -9640,17 +9497,17 @@ LABEL_124:
                     v148 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(*&v122 + 8)];
                     [v123 setObject:v148 forKeyedSubscript:@"sample2"];
 
-                    TI::CP::ScoreComponentSerializer::serialize_point(v183, *(*&v122 + 32));
-                    v140 = v183[0];
+                    TI::CP::ScoreComponentSerializer::serialize_point(v182, *(*&v122 + 32));
+                    v140 = v182[0];
                     v141 = v123;
-                    v142 = v183[0];
+                    v142 = v182[0];
                     v143 = @"point2";
                     goto LABEL_129;
                   }
 
 LABEL_140:
                   KB::Candidate::add_sources_info(v38, @"favonius", Mutable);
-                  *(v38 + 248) = 2;
+                  *(v38 + 992) = 2;
                   if (Mutable)
                   {
                     CFRelease(Mutable);
@@ -9666,20 +9523,20 @@ LABEL_140:
             while (((v26[1] - *v26) >> 3) * v27 > v32);
           }
 
-          v152 = atomic_load(v160 + 2);
-          v24 = v157;
+          v152 = atomic_load(v159 + 2);
+          v24 = v156;
           if (v152 == 1)
           {
-            (*(*v160 + 8))();
+            (*(*v159 + 8))();
           }
 
           else
           {
-            atomic_fetch_add(v160 + 2, 0xFFFFFFFF);
+            atomic_fetch_add(v159 + 2, 0xFFFFFFFF);
           }
 
-          v3 = v161;
-          v23 = v159;
+          v3 = v160;
+          v23 = v158;
         }
 
         v23 += 2;
@@ -9688,25 +9545,19 @@ LABEL_140:
       while (v23 != v24);
     }
 
-    std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize(v158, v154 + 1);
-    std::vector<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>::resize((v3 + 376), v154);
-    *(v3 + 16) = v168;
-    *(v3 + 32) = v169;
-    *(v3 + 48) = v170;
-    TI::CP::Path::operator=(v156, v171);
-    TI::CP::Path::operator=(v3 + 104, v173);
-    *v155 = v175;
-    *(v155 + 8) = v176;
+    std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize(v157, v153 + 1);
+    std::vector<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>::resize((v3 + 376), v153);
+    *(v3 + 16) = v167;
+    *(v3 + 32) = v168;
+    *(v3 + 48) = v169;
+    TI::CP::Path::operator=(v155, v170);
+    TI::CP::Path::operator=((v3 + 104), v172);
+    *v154 = v174;
+    *(v154 + 8) = v175;
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
-    }
-
-    if (v173[0])
-    {
-      v173[1] = v173[0];
-      operator delete(v173[0]);
     }
 
     if (v172[0])
@@ -9720,9 +9571,13 @@ LABEL_140:
       v171[1] = v171[0];
       operator delete(v171[0]);
     }
-  }
 
-  v153 = *MEMORY[0x277D85DE8];
+    if (v170[0])
+    {
+      v170[1] = v170[0];
+      operator delete(v170[0]);
+    }
+  }
 }
 
 void std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize(void **a1, unint64_t a2)
@@ -9781,5 +9636,458 @@ void std::vector<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::resize
     v12 = 24 * ((24 * v6 - 24) / 0x18) + 24;
     bzero(a1[1], v12);
     a1[1] = v4 + v12;
+  }
+}
+
+void std::vector<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>::resize(void **a1, unint64_t a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+  v6 = a2 - v5;
+  if (a2 <= v5)
+  {
+    if (a2 < v5)
+    {
+      v11 = &v3[24 * a2];
+      while (v4 != v11)
+      {
+        v4 -= 3;
+        v13[0] = v4;
+        std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::__destroy_vector::operator()[abi:nn200100](v13);
+      }
+
+      a1[1] = v11;
+    }
+  }
+
+  else
+  {
+    v7 = a1[2];
+    if (0xAAAAAAAAAAAAAAABLL * ((v7 - v4) >> 3) < v6)
+    {
+      if (a2 <= 0xAAAAAAAAAAAAAAALL)
+      {
+        v13[4] = a1;
+        v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v3) >> 3);
+        v9 = 2 * v8;
+        if (2 * v8 <= a2)
+        {
+          v9 = a2;
+        }
+
+        if (v8 >= 0x555555555555555)
+        {
+          v10 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v10 = v9;
+        }
+
+        std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v10);
+      }
+
+      std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
+    }
+
+    v12 = 24 * ((24 * v6 - 24) / 0x18) + 24;
+    bzero(a1[1], v12);
+    a1[1] = v4 + v12;
+  }
+}
+
+uint64_t std::__split_buffer<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    v4 = (i - 24);
+    *(a1 + 16) = v4;
+    v6 = v4;
+    std::vector<std::shared_ptr<TI::CP::SearchNode const>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void TI::CP::Search::step_search(uint64_t a1, unsigned int a2, int a3, void *a4)
+{
+  v64 = *MEMORY[0x277D85DE8];
+  v61 = 0;
+  v62 = 0;
+  v63 = 0;
+  *v56 = 0u;
+  *__p = 0u;
+  v58 = 1065353216;
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v56, 0x28uLL);
+  TI::CP::Search::compute_keys_near_sample(a1, a2);
+  v46 = a3;
+  if (a3)
+  {
+    TI::Favonius::KeyboardLayout::key_for_char(&v60, *(a1 + 8), 0x20u);
+    v44 = v60;
+    v7 = a2;
+    TI::Favonius::KeyboardLayout::find_nearest_key(*(a1 + 8), *(*(a1 + 56) + 48 * a2), &v60);
+    v8 = v60;
+    if (v60)
+    {
+      if (memchr(".,?!", *(v60 + 56), 5uLL))
+      {
+        atomic_fetch_add(v8, 1u);
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      WTF::RefCounted<TI::Favonius::Key>::deref(v8);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+    v44 = 0;
+    v7 = a2;
+  }
+
+  v10 = *(a1 + 328) + 24 * v7;
+  v12 = *v10;
+  v11 = *(v10 + 8);
+  v49 = v9;
+  if (*v10 != v11)
+  {
+    if (a2)
+    {
+      v13 = v46;
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+
+    v50 = v13;
+    v14 = v46 ^ 1;
+    if (!a2)
+    {
+      v14 = 1;
+    }
+
+    v47 = v14;
+    do
+    {
+      v15 = *v12;
+      if (v9)
+      {
+        if ((*(**(v15 + 8) + 64))(*(v15 + 8)))
+        {
+          v16 = v12[1];
+          *&v55 = *v12;
+          *(&v55 + 1) = v16;
+          if (v16)
+          {
+            atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
+          }
+
+          v54 = v9;
+          atomic_fetch_add(v9, 1u);
+          v53 = 0;
+          *&v52 = a1;
+          LODWORD(v59) = a2;
+          std::allocate_shared[abi:nn200100]<TI::CP::SearchNodeKeyMatch,std::allocator<TI::CP::SearchNodeKeyMatch>,TI::CP::Search const*&,std::shared_ptr<TI::CP::SearchNode const>,unsigned int &,WTF::PassRefPtr<TI::Favonius::LayoutKey> &,WTF::PassRefPtr<TI::Favonius::TypingHypothesis> &,0>(&v60, &v52, &v55, &v59, &v54, &v53);
+        }
+      }
+
+      else
+      {
+        if (TI::CP::SearchNode::has_extensions(v15))
+        {
+          if (v12[1])
+          {
+            atomic_fetch_add_explicit(v12[1] + 1, 1uLL, memory_order_relaxed);
+          }
+
+          operator new();
+        }
+
+        if ((v50 & 1) == 0)
+        {
+          v17 = v12[1];
+          if (v17)
+          {
+            atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
+          }
+
+          operator new();
+        }
+
+        if ((v47 & 1) == 0)
+        {
+          if (((*(**v12 + 72))() & 1) == 0 && *(*v12 + 12))
+          {
+            v18 = v12[1];
+            if (v18)
+            {
+              atomic_fetch_add_explicit(v18 + 1, 1uLL, memory_order_relaxed);
+            }
+
+            operator new();
+          }
+
+          v9 = v49;
+        }
+      }
+
+      v12 += 2;
+    }
+
+    while (v12 != v11);
+  }
+
+  v19 = ((v62 - v61) >> 5) & 0x7FFFFFFF;
+  v20 = a4;
+  if (v19)
+  {
+    v21 = v19 - 1;
+    do
+    {
+      TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v61, v21--);
+    }
+
+    while (v21 != -1);
+  }
+
+  do
+  {
+    v23 = v61;
+    v22 = v62;
+    if (v61 == v62 || v20[1] - *v20 > 0x27FuLL)
+    {
+      break;
+    }
+
+    v51 = 0u;
+    v52 = 0u;
+    v24 = *v61;
+    if ((COERCE_UNSIGNED_INT64((*(**v61 + 56))(*v61)) & 0x7FFFFFFFFFFFFFFFLL) > 0x7FEFFFFFFFFFFFFFLL || (*(*v24 + 56))(v24) < -INFINITY)
+    {
+      v25 = 1;
+      goto LABEL_83;
+    }
+
+    (*(*v24 + 40))(&v60, v24);
+    v52 = v60;
+    v48 = v60;
+    v51 = 0u;
+    if (!v60)
+    {
+      (*(*v24 + 32))(&v60, v24);
+      v51 = v60;
+      if (!v60)
+      {
+        (*(*v24 + 48))(v24);
+      }
+    }
+
+    if ((COERCE_UNSIGNED_INT64((*(*v24 + 56))(v24)) & 0x7FFFFFFFFFFFFFFFLL) < 0x7FF0000000000000)
+    {
+      TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v61, 0);
+      if (v48)
+      {
+        std::vector<std::shared_ptr<TI::CP::SearchNodeSource>>::push_back[abi:nn200100](&v61, &v52);
+        TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_upheapify(&v61, (v22 - v23) >> 4);
+      }
+
+      goto LABEL_59;
+    }
+
+    if (v48)
+    {
+      v52 = 0uLL;
+      v26 = v23[1];
+      *v23 = v48;
+      if (v26)
+      {
+        std::__shared_weak_count::__release_shared[abi:nn200100](v26);
+      }
+    }
+
+    else
+    {
+      if (((v22 - v23) & 0xFFFFFFFE0) == 0)
+      {
+        v37 = *(v22 - 1);
+        if (v37)
+        {
+          std::__shared_weak_count::__release_shared[abi:nn200100](v37);
+        }
+
+        v62 = v22 - 16;
+        goto LABEL_59;
+      }
+
+      v28 = *(v22 - 2);
+      v27 = v22 - 16;
+      v29 = *v23;
+      *v23 = v28;
+      *v27 = v29;
+      v30 = v23[1];
+      v23[1] = v27[1];
+      v27[1] = v30;
+      if (v30)
+      {
+        std::__shared_weak_count::__release_shared[abi:nn200100](v30);
+      }
+
+      v62 = v27;
+    }
+
+    TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v61, 0);
+LABEL_59:
+    if (v51 && (!v46 || *(v51 + 48) >= a2))
+    {
+      v31 = (*(**(v51 + 64) + 192))(*(v51 + 64));
+      if (!v56[1])
+      {
+        goto LABEL_78;
+      }
+
+      v32 = vcnt_s8(v56[1]);
+      v32.i16[0] = vaddlv_u8(v32);
+      if (v32.u32[0] > 1uLL)
+      {
+        v33 = v31;
+        if (v31 >= v56[1])
+        {
+          v33 = v31 % v56[1];
+        }
+      }
+
+      else
+      {
+        v33 = (v56[1] - 1) & v31;
+      }
+
+      v34 = *(v56[0] + v33);
+      if (!v34 || (v35 = *v34) == 0)
+      {
+LABEL_78:
+        operator new();
+      }
+
+      while (1)
+      {
+        v36 = v35[1];
+        if (v36 == v31)
+        {
+          if (v35[2] == v31)
+          {
+            v25 = 0;
+            v20 = a4;
+            goto LABEL_83;
+          }
+        }
+
+        else
+        {
+          if (v32.u32[0] > 1uLL)
+          {
+            if (v36 >= v56[1])
+            {
+              v36 %= v56[1];
+            }
+          }
+
+          else
+          {
+            v36 &= v56[1] - 1;
+          }
+
+          if (v36 != v33)
+          {
+            goto LABEL_78;
+          }
+        }
+
+        v35 = *v35;
+        if (!v35)
+        {
+          goto LABEL_78;
+        }
+      }
+    }
+
+    v25 = 0;
+LABEL_83:
+    if (*(&v51 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v51 + 1));
+    }
+
+    if (*(&v52 + 1))
+    {
+      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v52 + 1));
+    }
+  }
+
+  while (!v25);
+  if (v9)
+  {
+    WTF::RefCounted<TI::Favonius::Key>::deref(v9);
+  }
+
+  if (v44)
+  {
+    WTF::RefCounted<TI::Favonius::Key>::deref(v44);
+  }
+
+  v38 = __p[0];
+  if (__p[0])
+  {
+    do
+    {
+      v39 = *v38;
+      operator delete(v38);
+      v38 = v39;
+    }
+
+    while (v39);
+  }
+
+  v40 = v56[0];
+  v56[0] = 0;
+  if (v40)
+  {
+    operator delete(v40);
+  }
+
+  v41 = v61;
+  if (v61)
+  {
+    for (i = v62; i != v41; i -= 16)
+    {
+      v43 = *(i - 1);
+      if (v43)
+      {
+        std::__shared_weak_count::__release_shared[abi:nn200100](v43);
+      }
+    }
+
+    operator delete(v41);
   }
 }

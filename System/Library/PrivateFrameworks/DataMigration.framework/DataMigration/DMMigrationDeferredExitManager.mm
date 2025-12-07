@@ -54,56 +54,56 @@ uint64_t __46__DMMigrationDeferredExitManager__serialQueue__block_invoke()
   dispatch_sync(v3, block);
 }
 
-void __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke(uint64_t a1)
+void __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _DMLogFunc(v1, 7, @"migrationDidEnd");
+  _DMLogFunc(v8, 7, @"migrationDidEnd", a4, a5, a6, a7, a8, v19[0]);
   _isMigrating_onSerialQueue = 0;
   if (_shouldDefer_onSerialQueue == 1)
   {
     _shouldDefer_onSerialQueue = 0;
-    v3 = os_transaction_create();
-    v4 = _transaction_onSerialQueue;
-    _transaction_onSerialQueue = v3;
+    v10 = os_transaction_create();
+    v11 = _transaction_onSerialQueue;
+    _transaction_onSerialQueue = v10;
 
-    v5 = [MEMORY[0x277CCAD78] UUID];
-    v6 = [v5 UUIDString];
+    v12 = [MEMORY[0x277CCAD78] UUID];
+    v13 = [v12 UUIDString];
 
-    objc_storeStrong(&_transactionIdentifier_onSerialQueue, v6);
-    v7 = [*(a1 + 32) _deferralDuration];
-    v8 = dispatch_time(0, 1000000000 * [v7 unsignedIntegerValue]);
-    v9 = +[DMMigrationDeferredExitManager _serialQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke_2;
-    v12[3] = &unk_278855120;
-    v10 = *(a1 + 32);
-    v13 = v6;
-    v14 = v10;
-    v11 = v6;
-    dispatch_after(v8, v9, v12);
+    objc_storeStrong(&_transactionIdentifier_onSerialQueue, v13);
+    v14 = [*(a1 + 32) _deferralDuration];
+    v15 = dispatch_time(0, 1000000000 * [v14 unsignedIntegerValue]);
+    v16 = +[DMMigrationDeferredExitManager _serialQueue];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke_2;
+    v19[3] = &unk_278855120;
+    v17 = *(a1 + 32);
+    v20 = v13;
+    v21 = v17;
+    v18 = v13;
+    dispatch_after(v15, v16, v19);
   }
 }
 
-void __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke_2(uint64_t a1)
+void __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (_transaction_onSerialQueue && [_transactionIdentifier_onSerialQueue isEqualToString:*(a1 + 32)])
   {
-    _DMLogFunc(v1, 7, @"deferred exit did timeout. will end transaction and exit");
-    v3 = _transaction_onSerialQueue;
+    _DMLogFunc(v9, 7, @"deferred exit did timeout. will end transaction and exit", a4, a5, a6, a7, a8, v14);
+    v11 = _transaction_onSerialQueue;
     _transaction_onSerialQueue = 0;
 
-    v4 = _transactionIdentifier_onSerialQueue;
+    v12 = _transactionIdentifier_onSerialQueue;
     _transactionIdentifier_onSerialQueue = 0;
 
-    v5 = *(a1 + 40);
+    v13 = *(a1 + 40);
 
-    [v5 _exitClean];
+    [v13 _exitClean];
   }
 
   else
   {
 
-    _DMLogFunc(v1, 7, @"deferred exit timer fired for stale transaction");
+    _DMLogFunc(v9, 7, @"deferred exit timer fired for stale transaction", a4, a5, a6, a7, a8, a9);
   }
 }
 
@@ -111,29 +111,29 @@ void __49__DMMigrationDeferredExitManager_migrationDidEnd__block_invoke_2(uint64
 {
   if ([connection hasEntitlement:@"com.apple.datamigrator.deferexit"])
   {
-    v4 = +[DMMigrationDeferredExitManager _serialQueue];
-    dispatch_sync(v4, &__block_literal_global_20);
+    v9 = +[DMMigrationDeferredExitManager _serialQueue];
+    dispatch_sync(v9, &__block_literal_global_20);
   }
 
   else
   {
 
-    _DMLogFunc(v3, 3, @"deferExitWithConnection: client not entitled");
+    _DMLogFunc(v3, 3, @"deferExitWithConnection: client not entitled", v4, v5, v6, v7, v8, v11);
   }
 }
 
-void __58__DMMigrationDeferredExitManager_deferExitWithConnection___block_invoke()
+void __58__DMMigrationDeferredExitManager_deferExitWithConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (_isMigrating_onSerialQueue == 1)
   {
-    _DMLogFunc(v0, 7, @"deferExitWithConnection: will defer exit when migration completes");
+    _DMLogFunc(v9, 7, @"deferExitWithConnection: will defer exit when migration completes", a4, a5, a6, a7, a8, vars0);
     _shouldDefer_onSerialQueue = 1;
   }
 
   else
   {
 
-    _DMLogFunc(v0, 3, @"deferExitWithConnection: not migrating");
+    _DMLogFunc(v9, 3, @"deferExitWithConnection: not migrating", a4, a5, a6, a7, a8, a9);
   }
 }
 
@@ -141,43 +141,43 @@ void __58__DMMigrationDeferredExitManager_deferExitWithConnection___block_invoke
 {
   if ([connection hasEntitlement:@"com.apple.datamigrator.deferexit"])
   {
-    v5 = +[DMMigrationDeferredExitManager _serialQueue];
+    v10 = +[DMMigrationDeferredExitManager _serialQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __67__DMMigrationDeferredExitManager_cancelDeferredExitWithConnection___block_invoke;
     block[3] = &unk_278855148;
     block[4] = self;
-    dispatch_sync(v5, block);
+    dispatch_sync(v10, block);
   }
 
   else
   {
 
-    _DMLogFunc(v3, 3, @"cancelDeferredExitWithConnection: client not entitled");
+    _DMLogFunc(v3, 3, @"cancelDeferredExitWithConnection: client not entitled", v5, v6, v7, v8, v9, v13);
   }
 }
 
-void __67__DMMigrationDeferredExitManager_cancelDeferredExitWithConnection___block_invoke(uint64_t a1)
+void __67__DMMigrationDeferredExitManager_cancelDeferredExitWithConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   _shouldDefer_onSerialQueue = 0;
   if (_transaction_onSerialQueue)
   {
-    _DMLogFunc(v1, 7, @"cancelDeferredExitWithConnection: will end transaction and exit");
-    v3 = _transaction_onSerialQueue;
+    _DMLogFunc(v9, 7, @"cancelDeferredExitWithConnection: will end transaction and exit", a4, a5, a6, a7, a8, v14);
+    v11 = _transaction_onSerialQueue;
     _transaction_onSerialQueue = 0;
 
-    v4 = _transactionIdentifier_onSerialQueue;
+    v12 = _transactionIdentifier_onSerialQueue;
     _transactionIdentifier_onSerialQueue = 0;
 
-    v5 = *(a1 + 32);
+    v13 = *(a1 + 32);
 
-    [v5 _exitClean];
+    [v13 _exitClean];
   }
 
   else
   {
 
-    _DMLogFunc(v1, 7, @"cancelDeferredExitWithConnection: no transaction to end");
+    _DMLogFunc(v9, 7, @"cancelDeferredExitWithConnection: no transaction to end", a4, a5, a6, a7, a8, a9);
   }
 }
 

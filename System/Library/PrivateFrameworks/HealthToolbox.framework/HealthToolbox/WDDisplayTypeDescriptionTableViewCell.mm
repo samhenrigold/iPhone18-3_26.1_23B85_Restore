@@ -39,7 +39,7 @@
 
 - (void)setupSubviews
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v3 = [WDDisplayTypeDescriptionView alloc];
   displayType = [(WDDisplayTypeDescriptionTableViewCell *)self displayType];
   v5 = [(WDDisplayTypeDescriptionView *)v3 initWithDisplayType:displayType showAttributionText:[(WDDisplayTypeDescriptionTableViewCell *)self showAttributionText] style:0];
@@ -65,14 +65,12 @@
   [v17 setActive:1];
 
   v18 = self->_descriptionView;
-  v23 = @"descriptionView";
-  v24[0] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v22 = @"descriptionView";
+  v23[0] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   contentView4 = [(WDDisplayTypeDescriptionTableViewCell *)self contentView];
   v21 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[descriptionView]|" options:0 metrics:&unk_28642E0B8 views:v19];
   [contentView4 addConstraints:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

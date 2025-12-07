@@ -2,9 +2,24 @@
 - (AUV2BridgeBus)initWithOwner:(id)owner au:(OpaqueAudioComponentInstance *)au scope:(unsigned int)scope element:(unsigned int)element;
 - (BOOL)setFormat:(id)format error:(id *)error;
 - (id)format;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation AUV2BridgeBus
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_owner);
+  v6 = [WeakRetained enableBus:self->_element scope:self->_scope enable:enabledCopy];
+
+  if (!v6)
+  {
+    v7.receiver = self;
+    v7.super_class = AUV2BridgeBus;
+    [(AUAudioUnitBus *)&v7 setEnabled:enabledCopy];
+  }
+}
 
 - (BOOL)setFormat:(id)format error:(id *)error
 {
@@ -68,7 +83,7 @@
 - (id)format
 {
   0x930000 = 0;
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   ioDataSize = 0;
   v4 = 50;
   v5 = 4;
@@ -107,7 +122,7 @@
     {
       0x930000 = [getAVAudioChannelLayoutClass() layoutWithLayout:__p];
       channelCount = [0x930000 channelCount];
-      if (channelCount != v51)
+      if (channelCount != v50)
       {
         vtable = v6[12].vtable;
         if (vtable)
@@ -133,52 +148,52 @@ LABEL_29:
         {
           audioUnit = self->_audioUnit;
           WeakRetained = objc_loadWeakRetained((&self->super.super.isa + v7[15]));
-          v44 = v4;
-          v45 = WeakRetained;
+          v43 = v4;
+          v44 = WeakRetained;
           log = v15;
-          v43 = audioUnit;
+          v42 = audioUnit;
           if (WeakRetained)
           {
-            [WeakRetained componentDescription];
+            objc_msgSend_componentDescription(WeakRetained);
           }
 
           else
           {
-            memset(&v47, 0, sizeof(v47));
+            memset(&v46, 0, sizeof(v46));
           }
 
-          CAFormatter::CAFormatter(&v48, &v47);
-          v18 = v48;
+          CAFormatter::CAFormatter(&v47, &v46);
+          v18 = v47;
           element = self->_element;
           scope = self->_scope;
-          v21 = v51;
+          v21 = v50;
           channelCount2 = [0x930000 channelCount];
           *buf = 136316930;
           *&buf[4] = "AUAudioUnitV2Bridge.mm";
           *&buf[12] = 1024;
           *&buf[14] = 384;
           *&buf[18] = 2048;
-          *&buf[20] = v43;
+          *&buf[20] = v42;
           *&buf[28] = 2080;
           *&buf[30] = v18;
           *&buf[38] = 1024;
-          v57 = element;
-          v58 = 1024;
-          v59 = scope;
-          v60 = 1024;
-          v61 = v21;
-          v62 = 1024;
-          v63 = channelCount2;
+          v56 = element;
+          v57 = 1024;
+          v58 = scope;
+          v59 = 1024;
+          v60 = v21;
+          v61 = 1024;
+          v62 = channelCount2;
           v15 = log;
           _os_log_impl(&dword_18F5DF000, log, OS_LOG_TYPE_DEBUG, "%25s:%-5d au@%p {%s} (bus %d, scope %d): inconsistent #channels in asbd %d, layout %d.. retrying", buf, 0x3Eu);
-          if (v48)
+          if (v47)
           {
-            free(v48);
+            free(v47);
           }
 
           v7 = &OBJC_IVAR___AUHostingServiceInstanceMap__instances;
           v6 = AudioComponentRegistrarClient;
-          v4 = v44;
+          v4 = v43;
         }
 
         goto LABEL_29;
@@ -212,16 +227,16 @@ LABEL_10:
 
   0x930000 = 0;
 LABEL_32:
-  if (!0x930000 && v51 >= 3)
+  if (!0x930000 && v50 >= 3)
   {
-    0x930000 = [getAVAudioChannelLayoutClass() layoutWithLayoutTag:v51 | 0x930000];
+    0x930000 = [getAVAudioChannelLayoutClass() layoutWithLayoutTag:v50 | 0x930000];
   }
 
   if (0x930000)
   {
     channelCount3 = [0x930000 channelCount];
-    v25 = v51;
-    if (channelCount3 != v51)
+    v25 = v50;
+    if (channelCount3 != v50)
     {
       v26 = v6[12].vtable;
       if (v26)
@@ -247,21 +262,21 @@ LABEL_32:
         v32 = v31;
         if (v31)
         {
-          [v31 componentDescription];
+          objc_msgSend_componentDescription(v31);
         }
 
         else
         {
           __p = 0;
           p_p = 0;
-          LODWORD(v54) = 0;
+          LODWORD(v53) = 0;
         }
 
-        CAFormatter::CAFormatter(&v47, &__p);
-        v33 = *&v47.componentType;
+        CAFormatter::CAFormatter(&v46, &__p);
+        v33 = *&v46.componentType;
         v34 = self->_element;
         v35 = self->_scope;
-        v36 = v51;
+        v36 = v50;
         channelCount4 = [0x930000 channelCount];
         *buf = 136316930;
         *&buf[4] = "AUAudioUnitV2Bridge.mm";
@@ -272,21 +287,21 @@ LABEL_32:
         *&buf[28] = 2080;
         *&buf[30] = v33;
         *&buf[38] = 1024;
-        v57 = v34;
-        v58 = 1024;
-        v59 = v35;
-        v60 = 1024;
-        v61 = v36;
-        v62 = 1024;
-        v63 = channelCount4;
+        v56 = v34;
+        v57 = 1024;
+        v58 = v35;
+        v59 = 1024;
+        v60 = v36;
+        v61 = 1024;
+        v62 = channelCount4;
         _os_log_impl(&dword_18F5DF000, v29, OS_LOG_TYPE_DEFAULT, "%25s:%-5d au@%p {%s} (bus %d, scope %d): inconsistent #channels in asbd %d, layout %d, faking a format", buf, 0x3Eu);
-        if (*&v47.componentType)
+        if (*&v46.componentType)
         {
-          free(*&v47.componentType);
+          free(*&v46.componentType);
         }
       }
 
-      v25 = v51;
+      v25 = v50;
 LABEL_49:
       if (v25 < 3)
       {
@@ -295,7 +310,7 @@ LABEL_49:
 
       else
       {
-        0x9300002 = [getAVAudioChannelLayoutClass() layoutWithLayoutTag:v51 | 0x930000];
+        0x9300002 = [getAVAudioChannelLayoutClass() layoutWithLayoutTag:v50 | 0x930000];
       }
 
       0x930000 = 0x9300002;
@@ -304,9 +319,9 @@ LABEL_49:
 
   __p = 0;
   p_p = &__p;
-  v54 = 0x2050000000;
+  v53 = 0x2050000000;
   v39 = getAVAudioFormatClass(void)::softClass;
-  v55 = getAVAudioFormatClass(void)::softClass;
+  v54 = getAVAudioFormatClass(void)::softClass;
   if (!getAVAudioFormatClass(void)::softClass)
   {
     *buf = MEMORY[0x1E69E9820];
@@ -322,8 +337,6 @@ LABEL_49:
   _Block_object_dispose(&__p, 8);
   v23 = [[v39 alloc] initWithStreamDescription:outData channelLayout:0x930000];
 LABEL_56:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

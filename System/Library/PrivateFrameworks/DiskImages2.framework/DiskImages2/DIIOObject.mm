@@ -9,6 +9,7 @@
 - (NSString)ioClassName;
 - (id)copyParentWithError:(id *)error;
 - (id)copyPropertyWithClass:(Class)class key:(id)key;
+- (id)newIteratorWithOptions:(unsigned int)options error:(id *)error;
 - (unint64_t)registryEntryIDWithError:(id *)error;
 - (void)dealloc;
 @end
@@ -103,6 +104,25 @@
   copyNextObject = [next copyNextObject];
 
   return [(DIIOObject *)self initWithIOObject:copyNextObject];
+}
+
+- (id)newIteratorWithOptions:(unsigned int)options error:(id *)error
+{
+  v10 = 0;
+  v5 = MEMORY[0x24C1ECFC0]([(DIIOObject *)self ioObj], "IOService", *&options, &v10);
+  if (v5)
+  {
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed creating IO iterator, err code %d", v5];
+    v7 = [DIError nilWithEnumValue:153 verboseInfo:v6 error:error];
+  }
+
+  else
+  {
+    v8 = [DIIOIterator alloc];
+    return [(DIIOIterator *)v8 initWithIOIterator:v10 retain:0];
+  }
+
+  return v7;
 }
 
 - (unint64_t)registryEntryIDWithError:(id *)error

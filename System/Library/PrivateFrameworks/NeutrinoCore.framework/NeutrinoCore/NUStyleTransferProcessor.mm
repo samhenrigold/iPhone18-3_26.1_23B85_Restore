@@ -69,12 +69,12 @@ uint64_t __70___NUStyleTransferProcessor_processWithInputs_arguments_output_erro
   v16 = [*(a1 + 56) metalTexture];
   [v3 setInputTexture:v16];
 
-  [*(a1 + 56) region];
+  objc_msgSend_region(*(a1 + 56));
   [v3 setInputImageRect:{NURectFlipYOrigin(v17, v18, v19, v20, *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96))}];
   v21 = [*(a1 + 64) metalTexture];
   [v3 setOutputTexture:v21];
 
-  [*(a1 + 64) region];
+  objc_msgSend_region(*(a1 + 64));
   [v3 setOutputImageRect:{NURectFlipYOrigin(v22, v23, v24, v25, *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96))}];
   v26 = [v3 prepareToProcess:5];
   if (v26)

@@ -30,7 +30,7 @@
   v3 = OBJC_IVAR____TtC26DocumentManagerExecutables17DOCColumnViewCell_navigationFocusGuide;
   swift_beginAccess();
   v4 = *&v2[v3];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
   [v4 setPreferredFocusEnvironments_];
 }

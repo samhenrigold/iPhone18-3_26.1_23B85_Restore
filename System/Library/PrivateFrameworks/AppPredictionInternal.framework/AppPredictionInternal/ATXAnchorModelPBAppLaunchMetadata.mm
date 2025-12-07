@@ -146,25 +146,24 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_appLaunchHistory)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    appInstalledInLast48Hours = self->_appInstalledInLast48Hours;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -183,9 +182,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  relativeTimeSinceAnchorInSeconds = self->_relativeTimeSinceAnchorInSeconds;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -199,15 +197,13 @@ LABEL_8:
   }
 
 LABEL_15:
-  genreId = self->_genreId;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_9:
-    app2VecCluster = self->_app2VecCluster;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_10:
@@ -374,7 +370,7 @@ LABEL_5:
     }
 
 LABEL_28:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_29;
   }
 
@@ -383,7 +379,6 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v7 = *(equalCopy + 44);
   if (self->_appInstalledInLast48Hours)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -424,7 +419,7 @@ LABEL_8:
     goto LABEL_28;
   }
 
-  v8 = (*(equalCopy + 48) & 1) == 0;
+  v7 = (*(equalCopy + 48) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_app2VecCluster != *(equalCopy + 1))
@@ -432,12 +427,12 @@ LABEL_8:
       goto LABEL_28;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_29:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -515,7 +510,7 @@ LABEL_5:
       goto LABEL_9;
     }
 
-    [(ATXAnchorModelPBLaunchHistoryMetadata *)appLaunchHistory mergeFrom:?];
+    appLaunchHistory = [(ATXAnchorModelPBLaunchHistoryMetadata *)appLaunchHistory mergeFrom:?];
   }
 
   else
@@ -525,7 +520,7 @@ LABEL_5:
       goto LABEL_9;
     }
 
-    [(ATXAnchorModelPBAppLaunchMetadata *)self setAppLaunchHistory:?];
+    appLaunchHistory = [(ATXAnchorModelPBAppLaunchMetadata *)self setAppLaunchHistory:?];
   }
 
   fromCopy = v8;
@@ -579,7 +574,7 @@ LABEL_13:
 
 LABEL_14:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](appLaunchHistory, fromCopy);
 }
 
 @end

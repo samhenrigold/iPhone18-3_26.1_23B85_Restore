@@ -27,7 +27,7 @@
 
 - (_SFPBSearchSuggestion)initWithFacade:(id)facade
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBSearchSuggestion *)self init];
   if (v5)
@@ -80,33 +80,33 @@
       v15 = 0;
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     duplicateSuggestions2 = [facadeCopy duplicateSuggestions];
-    v17 = [duplicateSuggestions2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v17 = [duplicateSuggestions2 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v52;
+      v19 = *v51;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v52 != v19)
+          if (*v51 != v19)
           {
             objc_enumerationMutation(duplicateSuggestions2);
           }
 
-          v21 = [[_SFPBSearchSuggestion alloc] initWithFacade:*(*(&v51 + 1) + 8 * i)];
+          v21 = [[_SFPBSearchSuggestion alloc] initWithFacade:*(*(&v50 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [duplicateSuggestions2 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v18 = [duplicateSuggestions2 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v18);
@@ -178,34 +178,34 @@
       v36 = 0;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v37 = v35;
-    v38 = [v37 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v48;
+      v40 = *v47;
       do
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v48 != v40)
+          if (*v47 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          v42 = *(*(&v47 + 1) + 8 * j);
-          v43 = [v37 objectForKey:{v42, v47}];
+          v42 = *(*(&v46 + 1) + 8 * j);
+          v43 = [v37 objectForKey:{v42, v46}];
           if (v43)
           {
             [v36 setObject:v43 forKey:v42];
           }
         }
 
-        v39 = [v37 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v39 = [v37 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v39);
@@ -215,22 +215,21 @@
     v44 = v5;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBSearchSuggestion)initWithDictionary:(id)dictionary
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v74.receiver = self;
-  v74.super_class = _SFPBSearchSuggestion;
-  v5 = [(_SFPBSearchSuggestion *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = _SFPBSearchSuggestion;
+  v5 = [(_SFPBSearchSuggestion *)&v73 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
     objc_opt_class();
-    v65 = v6;
+    v64 = v6;
     if (objc_opt_isKindOfClass())
     {
       v7 = [v6 copy];
@@ -253,10 +252,10 @@
       [(_SFPBSearchSuggestion *)v5 setQuery:v11];
     }
 
-    v57 = v10;
+    v56 = v10;
     v12 = [dictionaryCopy objectForKeyedSubscript:@"score"];
     objc_opt_class();
-    v64 = v12;
+    v63 = v12;
     if (objc_opt_isKindOfClass())
     {
       v13 = [[_SFPBGraphicalFloat alloc] initWithDictionary:v12];
@@ -265,7 +264,7 @@
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"type"];
     objc_opt_class();
-    v63 = v14;
+    v62 = v14;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBSearchSuggestion setType:](v5, "setType:", [v14 intValue]);
@@ -273,30 +272,30 @@
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"duplicateSuggestions"];
     objc_opt_class();
-    v62 = v15;
-    v58 = v8;
+    v61 = v15;
+    v57 = v8;
     if (objc_opt_isKindOfClass())
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v70 objects:v76 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v69 objects:v75 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v71;
+        v19 = *v70;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v71 != v19)
+            if (*v70 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v70 + 1) + 8 * i);
+            v21 = *(*(&v69 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -305,7 +304,7 @@
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v70 objects:v76 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v69 objects:v75 count:16];
         }
 
         while (v18);
@@ -337,11 +336,11 @@
 
     v28 = [dictionaryCopy objectForKeyedSubscript:@"fbr"];
     objc_opt_class();
-    v61 = v28;
+    v60 = v28;
     if (objc_opt_isKindOfClass())
     {
       v29 = v23;
-      v30 = [v61 copy];
+      v30 = [v60 copy];
       [(_SFPBSearchSuggestion *)v5 setFbr:v30];
 
       v23 = v29;
@@ -349,11 +348,11 @@
 
     v31 = [dictionaryCopy objectForKeyedSubscript:@"scopedSearchApplicationBundleIdentifier"];
     objc_opt_class();
-    v60 = v31;
+    v59 = v31;
     if (objc_opt_isKindOfClass())
     {
       v32 = v25;
-      v33 = [v60 copy];
+      v33 = [v59 copy];
       [(_SFPBSearchSuggestion *)v5 setScopedSearchApplicationBundleIdentifier:v33];
 
       v25 = v32;
@@ -375,7 +374,7 @@
 
     v39 = [dictionaryCopy objectForKeyedSubscript:@"detailText"];
     objc_opt_class();
-    v59 = v39;
+    v58 = v39;
     if (objc_opt_isKindOfClass())
     {
       v40 = [v39 copy];
@@ -386,53 +385,52 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v54 = v34;
-      v55 = v27;
-      v56 = v25;
+      v53 = v34;
+      v54 = v27;
+      v55 = v25;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       serverFeatures = v5->_serverFeatures;
       v5->_serverFeatures = dictionary;
 
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v44 = v41;
-      v45 = [v44 countByEnumeratingWithState:&v66 objects:v75 count:16];
+      v45 = [v44 countByEnumeratingWithState:&v65 objects:v74 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v67;
+        v47 = *v66;
         do
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v67 != v47)
+            if (*v66 != v47)
             {
               objc_enumerationMutation(v44);
             }
 
-            v49 = *(*(&v66 + 1) + 8 * j);
+            v49 = *(*(&v65 + 1) + 8 * j);
             v50 = [v44 objectForKeyedSubscript:v49];
             [(NSDictionary *)v5->_serverFeatures setObject:v50 forKey:v49];
           }
 
-          v46 = [v44 countByEnumeratingWithState:&v66 objects:v75 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v65 objects:v74 count:16];
         }
 
         while (v46);
       }
 
-      v8 = v58;
-      v25 = v56;
-      v34 = v54;
-      v27 = v55;
+      v8 = v57;
+      v25 = v55;
+      v34 = v53;
+      v27 = v54;
     }
 
     v51 = v5;
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -472,7 +470,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_bundleIdentifier)
   {
@@ -491,26 +489,26 @@
   if ([(NSArray *)self->_duplicateSuggestions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     v9 = self->_duplicateSuggestions;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v51;
+      v12 = *v50;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v51 != v12)
+          if (*v50 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v50 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v49 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -523,7 +521,7 @@
           }
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v11);
@@ -583,31 +581,31 @@
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v29 = self->_serverFeatures;
-  v30 = [(NSDictionary *)v29 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v30 = [(NSDictionary *)v29 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v47;
+    v32 = *v46;
     do
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v47 != v32)
+        if (*v46 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v46 + 1) + 8 * j);
+        v34 = *(*(&v45 + 1) + 8 * j);
         v35 = [(NSDictionary *)self->_serverFeatures objectForKeyedSubscript:v34];
         [dictionary2 setObject:v35 forKeyedSubscript:v34];
       }
 
-      v31 = [(NSDictionary *)v29 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v31 = [(NSDictionary *)v29 countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v31);
@@ -650,8 +648,6 @@
     v43 = [utteranceText copy];
     [dictionary setObject:v43 forKeyedSubscript:@"utteranceText"];
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1016,7 +1012,7 @@ LABEL_65:
 
 - (void)writeTo:(id)to
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   toCopy = to;
   identifier = [(_SFPBSearchSuggestion *)self identifier];
   if (identifier)
@@ -1048,29 +1044,28 @@ LABEL_65:
   }
 
   duplicateSuggestions = [(_SFPBSearchSuggestion *)self duplicateSuggestions];
+  v32 = 0u;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v10 = [duplicateSuggestions countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v10 = [duplicateSuggestions countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v35;
+    v12 = *v33;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(duplicateSuggestions);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [duplicateSuggestions countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v11 = [duplicateSuggestions countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v11);
@@ -1093,8 +1088,8 @@ LABEL_65:
     PBDataWriterWriteBOOLField();
   }
 
-  v17 = [(_SFPBSearchSuggestion *)self fbr];
-  if (v17)
+  v16 = [(_SFPBSearchSuggestion *)self fbr];
+  if (v16)
   {
     PBDataWriterWriteStringField();
   }
@@ -1118,42 +1113,40 @@ LABEL_65:
   }
 
   serverFeatures = [(_SFPBSearchSuggestion *)self serverFeatures];
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v22 = self->_serverFeatures;
-  v23 = [(NSDictionary *)v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
-  if (v23)
+  v21 = self->_serverFeatures;
+  v22 = [(NSDictionary *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v22)
   {
-    v24 = v23;
-    v25 = *v31;
+    v23 = v22;
+    v24 = *v29;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v31 != v25)
+        if (*v29 != v24)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v30 + 1) + 8 * j);
+        v26 = *(*(&v28 + 1) + 8 * j);
         PBDataWriterPlaceMark();
         PBDataWriterWriteStringField();
-        v28 = [serverFeatures objectForKeyedSubscript:v27];
-        [v28 doubleValue];
+        v27 = [serverFeatures objectForKeyedSubscript:v26];
+        [v27 doubleValue];
         PBDataWriterWriteDoubleField();
 
         PBDataWriterRecallMark();
       }
 
-      v24 = [(NSDictionary *)v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v23 = [(NSDictionary *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setServerFeatures:(double)features forKey:(id)key
@@ -1188,63 +1181,49 @@ LABEL_65:
 
 - (void)setServerFeatures:(id)features
 {
-  v4 = [features copy];
-  serverFeatures = self->_serverFeatures;
-  self->_serverFeatures = v4;
+  self->_serverFeatures = [features copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDetailText:(id)text
 {
-  v4 = [text copy];
-  detailText = self->_detailText;
-  self->_detailText = v4;
+  self->_detailText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUtteranceText:(id)text
 {
-  v4 = [text copy];
-  utteranceText = self->_utteranceText;
-  self->_utteranceText = v4;
+  self->_utteranceText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setScopedSearchApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  scopedSearchApplicationBundleIdentifier = self->_scopedSearchApplicationBundleIdentifier;
-  self->_scopedSearchApplicationBundleIdentifier = v4;
+  self->_scopedSearchApplicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setFbr:(id)fbr
 {
-  v4 = [fbr copy];
-  fbr = self->_fbr;
-  self->_fbr = v4;
+  self->_fbr = [fbr copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->_bundleIdentifier;
-  self->_bundleIdentifier = v4;
+  self->_bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTopicIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  topicIdentifier = self->_topicIdentifier;
-  self->_topicIdentifier = v4;
+  self->_topicIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1269,36 +1248,28 @@ LABEL_65:
 
 - (void)setDuplicateSuggestions:(id)suggestions
 {
-  v4 = [suggestions copy];
-  duplicateSuggestions = self->_duplicateSuggestions;
-  self->_duplicateSuggestions = v4;
+  self->_duplicateSuggestions = [suggestions copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setQuery:(id)query
 {
-  v4 = [query copy];
-  query = self->_query;
-  self->_query = v4;
+  self->_query = [query copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSuggestion:(id)suggestion
 {
-  v4 = [suggestion copy];
-  suggestion = self->_suggestion;
-  self->_suggestion = v4;
+  self->_suggestion = [suggestion copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->_identifier;
-  self->_identifier = v4;
+  self->_identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

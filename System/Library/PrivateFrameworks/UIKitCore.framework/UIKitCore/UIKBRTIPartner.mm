@@ -792,7 +792,7 @@ LABEL_88:
   }
 
   rtiDocumentTraits5 = [(UIKBRTIPartner *)selfCopy rtiDocumentTraits];
-  v136 = [v4 isEqual:rtiDocumentTraits5] & (v193 ^ 1);
+  v136 = objc_msgSend_isEqual_(v4) & (v193 ^ 1);
 
   if ((v136 & 1) == 0)
   {
@@ -1487,9 +1487,9 @@ void __49__UIKBRTIPartner_registerTextOperationCustomInfo__block_invoke()
   {
     currentSessionIdentifier = [(UIKBRTIPartner *)self currentSessionIdentifier];
     authenticatingSessionIdentifier = [(UIKBRTIPartner *)self authenticatingSessionIdentifier];
-    v8 = [currentSessionIdentifier isEqual:authenticatingSessionIdentifier];
+    isEqual = objc_msgSend_isEqual_(currentSessionIdentifier);
 
-    if ((v8 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [(UIKBRTIPartner *)self forwardInputDestinationEventToUIHost:sel_dismissAutoFillPanel];
     }
@@ -1537,9 +1537,9 @@ void __49__UIKBRTIPartner_registerTextOperationCustomInfo__block_invoke()
     {
       currentSessionIdentifier = [(UIKBRTIPartner *)self currentSessionIdentifier];
       authenticatingSessionIdentifier = [(UIKBRTIPartner *)self authenticatingSessionIdentifier];
-      v12 = [currentSessionIdentifier isEqual:authenticatingSessionIdentifier];
+      isEqual = objc_msgSend_isEqual_(currentSessionIdentifier);
 
-      if ((v12 & 1) == 0 && (integerValue == 5 || integerValue == 0))
+      if ((isEqual & 1) == 0 && (integerValue == 5 || integerValue == 0))
       {
         [(UIKBRTIPartner *)self forwardInputDestinationEventToUIHost:sel_dismissAutoFillPanel];
       }
@@ -1893,9 +1893,9 @@ void __50__UIKBRTIPartner_beginInputSessionWithIdentifier___block_invoke(uint64_
     if (*(*(*(a1 + 48) + 8) + 24) == 1)
     {
       v3 = [*(a1 + 40) currentSessionIdentifier];
-      v4 = [v3 isEqual:*(a1 + 32)];
+      isEqual = objc_msgSend_isEqual_(v3);
 
-      if (v4)
+      if (isEqual)
       {
         v5 = [*(a1 + 40) rtiClient];
         v6 = [*(a1 + 40) currentSessionIdentifier];
@@ -3909,7 +3909,7 @@ LABEL_15:
   if (remoteDocumentTraits == documentTraits)
   {
     v191 = 1;
-    v198 = 1;
+    isEqual = 1;
     v199 = 0;
   }
 
@@ -3929,7 +3929,7 @@ LABEL_15:
       documentTraits3 = [inputSystemSourceSession documentTraits];
       inputViewInfo3 = [documentTraits3 inputViewInfo];
       inputViewInfo4 = [(RTIDocumentTraits *)self->_remoteDocumentTraits inputViewInfo];
-      v199 = [inputViewInfo3 isEqual:inputViewInfo4] ^ 1;
+      v199 = objc_msgSend_isEqual_(inputViewInfo3) ^ 1;
     }
 
     documentTraits4 = [inputSystemSourceSession documentTraits];
@@ -3952,14 +3952,14 @@ LABEL_15:
 
     v31 = self->_remoteDocumentTraits;
     documentTraits7 = [inputSystemSourceSession documentTraits];
-    [(RTIDocumentTraits *)v31 isEqual:documentTraits7];
+    objc_msgSend_isEqual_(v31);
 
     userInfo = [(RTIDocumentTraits *)self->_remoteDocumentTraits userInfo];
     v34 = [userInfo objectForKeyedSubscript:0x1EFB53430];
     documentTraits8 = [inputSystemSourceSession documentTraits];
     userInfo2 = [documentTraits8 userInfo];
     v37 = [userInfo2 objectForKeyedSubscript:0x1EFB53430];
-    v198 = [v34 isEqual:v37];
+    isEqual = objc_msgSend_isEqual_(v34);
 
     userInfo3 = [(RTIDocumentTraits *)self->_remoteDocumentTraits userInfo];
     v39 = [userInfo3 objectForKeyedSubscript:0x1EFB53430];
@@ -3969,13 +3969,13 @@ LABEL_15:
       userInfo4 = [documentTraits9 userInfo];
       v42 = [userInfo4 objectForKeyedSubscript:0x1EFB53430];
 
-      v43 = v198;
+      v43 = isEqual;
       if (!v42)
       {
         v43 = 1;
       }
 
-      v198 = v43;
+      isEqual = v43;
     }
 
     documentTraits10 = [inputSystemSourceSession documentTraits];
@@ -4427,7 +4427,7 @@ LABEL_61:
     [partnerDelegate6 setRemoteDelegateSupportsImagePaste:{objc_msgSend(documentTraits46, "supportsImagePaste")}];
   }
 
-  if (!(v198 & 1 | !+[UIKeyboard isKeyboardProcess]))
+  if (!(isEqual & 1 | !+[UIKeyboard isKeyboardProcess]))
   {
     v187 = +[UIKeyboardImpl activeInstance];
     [v187 generateCandidates];
@@ -4593,12 +4593,12 @@ LABEL_8:
 {
   operationCopy = operation;
   customInfoType = [operationCopy customInfoType];
-  v7 = [customInfoType isEqualToString:@"UIPhysicalKeyboardEvent"];
+  isEqualToString = objc_msgSend_isEqualToString_(customInfoType);
 
-  if (!v7)
+  if (!isEqualToString)
   {
     customInfoType2 = [operationCopy customInfoType];
-    v11 = [customInfoType2 isEqualToString:@"UISupplementalLexiconInputOperations"];
+    v11 = objc_msgSend_isEqualToString_(customInfoType2);
 
     if (v11)
     {
@@ -4624,7 +4624,7 @@ LABEL_8:
     }
 
     customInfoType3 = [operationCopy customInfoType];
-    v14 = [customInfoType3 isEqualToString:@"UIDictationRemoteInputOperations"];
+    v14 = objc_msgSend_isEqualToString_(customInfoType3);
 
     if (v14)
     {
@@ -4650,7 +4650,7 @@ LABEL_8:
     }
 
     customInfoType4 = [operationCopy customInfoType];
-    v18 = [customInfoType4 isEqualToString:@"UIUserInteractionRemoteInputOperations"];
+    v18 = objc_msgSend_isEqualToString_(customInfoType4);
 
     if (v18)
     {
@@ -4676,7 +4676,7 @@ LABEL_8:
     }
 
     customInfoType5 = [operationCopy customInfoType];
-    v21 = [customInfoType5 isEqualToString:@"UIKeyboardCameraRemoteInputOperations"];
+    v21 = objc_msgSend_isEqualToString_(customInfoType5);
 
     if (v21)
     {
@@ -4702,7 +4702,7 @@ LABEL_8:
     }
 
     customInfoType6 = [operationCopy customInfoType];
-    v24 = [customInfoType6 isEqualToString:@"UIEmojiSearchOperations"];
+    v24 = objc_msgSend_isEqualToString_(customInfoType6);
 
     if (v24)
     {
@@ -4729,7 +4729,7 @@ LABEL_8:
     else
     {
       customInfoType7 = [operationCopy customInfoType];
-      v31 = [customInfoType7 isEqualToString:@"UIUserPencilOperations"];
+      v31 = objc_msgSend_isEqualToString_(customInfoType7);
 
       if (v31)
       {
@@ -4755,7 +4755,7 @@ LABEL_8:
       }
 
       customInfoType8 = [operationCopy customInfoType];
-      v34 = [customInfoType8 isEqualToString:@"UIKBRTICustomInfoTypeApplicationOperations"];
+      v34 = objc_msgSend_isEqualToString_(customInfoType8);
 
       actionSelector = [operationCopy actionSelector];
       if (!v34)
@@ -4763,7 +4763,7 @@ LABEL_8:
         if (!actionSelector || [operationCopy actionSelector] != sel_acceptAutocorrection)
         {
           customInfoType9 = [operationCopy customInfoType];
-          v38 = [customInfoType9 isEqualToString:@"UIWebKitOperations"];
+          v38 = objc_msgSend_isEqualToString_(customInfoType9);
 
           if (v38)
           {
@@ -4789,7 +4789,7 @@ LABEL_8:
           else
           {
             customInfoType10 = [operationCopy customInfoType];
-            v41 = [customInfoType10 isEqualToString:@"UIKBRTICustomInfoTypeAnalyticsOperations"];
+            v41 = objc_msgSend_isEqualToString_(customInfoType10);
 
             if (v41)
             {
@@ -4815,7 +4815,7 @@ LABEL_8:
             else
             {
               customInfoType11 = [operationCopy customInfoType];
-              v48 = [customInfoType11 isEqualToString:@"UIKBRTICustomInfoTypeGrammarCorrectionOperations"];
+              v48 = objc_msgSend_isEqualToString_(customInfoType11);
 
               if (!v48)
               {
@@ -5582,10 +5582,10 @@ void __53__UIKBRTIPartner_inputSession_performInputOperation___block_invoke_6(ui
 void __66__UIKBRTIPartner_inputSession_performInputOperation_withResponse___block_invoke(id *a1)
 {
   v2 = [a1[4] customInfoType];
-  v3 = [v2 isEqualToString:@"UIPhysicalKeyboardEvent"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v4 = a1[4];
-  if (v3)
+  if (isEqualToString)
   {
     v28 = [v4 customInfo];
     v5 = [a1[5] partnerDelegate];
@@ -5619,7 +5619,7 @@ void __66__UIKBRTIPartner_inputSession_performInputOperation_withResponse___bloc
   }
 
   v8 = [a1[4] customInfoType];
-  v9 = [v8 isEqualToString:@"UIWebKitOperations"];
+  v9 = objc_msgSend_isEqualToString_(v8);
 
   if (v9)
   {
@@ -5907,7 +5907,7 @@ void __50__UIKBRTIPartner_finishCompletionHandlersIfNeeded__block_invoke()
 {
   operationsCopy = operations;
   customInfoType = [operationsCopy customInfoType];
-  if ([customInfoType isEqualToString:@"UIEmojiSearchOperations"])
+  if (objc_msgSend_isEqualToString_(customInfoType))
   {
     v5 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
     scene = [v5 scene];
@@ -6105,7 +6105,7 @@ void __54__UIKBRTIPartner_performTextOperations_resultHandler___block_invoke_557
     if (rtiInputSourceState)
     {
       inputSourceState2 = [operationsCopy inputSourceState];
-      v11 = [(RTIInputSourceState *)rtiInputSourceState isEqual:inputSourceState2]^ 1;
+      v11 = objc_msgSend_isEqual_(rtiInputSourceState) ^ 1;
     }
 
     else
@@ -6137,9 +6137,9 @@ void __54__UIKBRTIPartner_performTextOperations_resultHandler___block_invoke_557
   if (targetSessionUUID)
   {
     currentSessionIdentifier = [(UIKBRTIPartner *)self currentSessionIdentifier];
-    v18 = [targetSessionUUID isEqual:currentSessionIdentifier];
+    isEqual = objc_msgSend_isEqual_(targetSessionUUID);
 
-    v19 = v18 ^ 1;
+    v19 = isEqual ^ 1;
     if (!partnerDelegate)
     {
       goto LABEL_24;
@@ -6272,14 +6272,14 @@ LABEL_24:
     v208 = targetSessionUUID;
     styledIntermediateText2 = [operationsCopy styledIntermediateText];
     customInfoType = [operationsCopy customInfoType];
-    v48 = [customInfoType isEqualToString:@"UIKBRTICustomInfoInlineCompletionAsMarkedText"];
+    isEqualToString = objc_msgSend_isEqualToString_(customInfoType);
 
     displayString = [styledIntermediateText2 displayString];
     selectedRange = [styledIntermediateText2 selectedRange];
     v52 = v51;
     inputString = [styledIntermediateText2 inputString];
     searchString = [styledIntermediateText2 searchString];
-    if (v48)
+    if (isEqualToString)
     {
       [partnerDelegate setInlineCompletionAsMarkedText:displayString selectedRange:selectedRange inputString:v52 searchString:{inputString, searchString}];
     }
@@ -6316,7 +6316,7 @@ LABEL_43:
   if ([operationsCopy editingActionSelector])
   {
     customInfoType2 = [operationsCopy customInfoType];
-    v59 = [customInfoType2 isEqualToString:@"UIKBRTICustomInfoTypeKeyboardOperations"];
+    v59 = objc_msgSend_isEqualToString_(customInfoType2);
 
     if ((v59 & 1) == 0)
     {
@@ -6357,7 +6357,7 @@ LABEL_43:
     currentInputMode = [v62 currentInputMode];
     identifier = [currentInputMode identifier];
 
-    if (([(RTIInputSourceState *)identifier isEqualToString:inputMode]& 1) == 0)
+    if ((objc_msgSend_isEqualToString_(identifier) & 1) == 0)
     {
       v65 = keyboardOutput;
       v66 = [UIKeyboardInputMode keyboardInputModeWithIdentifier:inputMode];
@@ -6381,7 +6381,7 @@ LABEL_43:
   customInfoType3 = [operationsCopy customInfoType];
   customInfo = [operationsCopy customInfo];
   v217 = customInfo;
-  if ([customInfoType3 isEqualToString:@"UIDictationRemoteTextOperations"])
+  if (objc_msgSend_isEqualToString_(customInfoType3))
   {
     v206 = v41;
     v71 = targetSessionUUID;
@@ -6670,9 +6670,9 @@ LABEL_253:
     goto LABEL_253;
   }
 
-  if (![customInfoType3 isEqualToString:@"_UIKeyboardIndirectTextSelectionGestureState"])
+  if (!objc_msgSend_isEqualToString_(customInfoType3))
   {
-    if ([customInfoType3 isEqualToString:@"UITextSuggestion"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v79 = customInfo;
       v76 = selfCopy;
@@ -6693,7 +6693,7 @@ LABEL_253:
       goto LABEL_106;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeWritingToolsOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v89 = keyboardOutput;
       objc_opt_class();
@@ -6749,7 +6749,7 @@ LABEL_253:
     }
 
     v207 = v41;
-    if ([customInfoType3 isEqualToString:@"UIStickerRemoteInputOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v93 = _UIStickerCreateStickerFromTextInputPayload(customInfo);
       v76 = selfCopy;
@@ -6761,7 +6761,7 @@ LABEL_253:
       goto LABEL_76;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeAutofill"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v99 = keyboardOutput;
       objc_opt_class();
@@ -6878,7 +6878,7 @@ LABEL_161:
       goto LABEL_161;
     }
 
-    if ([customInfoType3 isEqualToString:@"UISupplementalLexiconOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v117 = customInfo;
       v118 = [(RTIInputSourceState *)v117 objectForKeyedSubscript:@"selector"];
@@ -7025,7 +7025,7 @@ LABEL_201:
       goto LABEL_202;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIPhysicalKeyboardEvent"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v123 = customInfo;
       v76 = selfCopy;
@@ -7036,7 +7036,7 @@ LABEL_145:
       goto LABEL_106;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeDeleteAction"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v127 = customInfo;
       v76 = selfCopy;
@@ -7049,7 +7049,7 @@ LABEL_145:
       goto LABEL_145;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIWebKitOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       v134 = targetSessionUUID;
       v135 = customInfo;
@@ -7080,10 +7080,10 @@ LABEL_145:
 
       else
       {
-        isEqual = sel_isEqual(v138, sel__handleWebKeyEvent_withEventType_withInputString_withInputStringIgnoringModifiers_);
+        v160 = sel_isEqual(v138, sel__handleWebKeyEvent_withEventType_withInputString_withInputStringIgnoringModifiers_);
         targetSessionUUID = v134;
         v41 = v207;
-        if (!isEqual)
+        if (!v160)
         {
 LABEL_220:
 
@@ -7105,7 +7105,7 @@ LABEL_220:
       goto LABEL_220;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIEmojiSearchOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -7125,7 +7125,7 @@ LABEL_220:
       goto LABEL_105;
     }
 
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeUpdateInputMode"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -7139,7 +7139,7 @@ LABEL_220:
     }
 
     v76 = selfCopy;
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeTypologyLogOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -7157,7 +7157,7 @@ LABEL_77:
     }
 
     v211 = customInfoType3;
-    if ([customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeKeyboardOperations"])
+    if (objc_msgSend_isEqualToString_(customInfoType3))
     {
       if (sel_isEqual([operationsCopy editingActionSelector], sel_setFloating_))
       {
@@ -7252,9 +7252,9 @@ LABEL_249:
 
     else
     {
-      if (![customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeEmojiCreationOperations"])
+      if (!objc_msgSend_isEqualToString_(customInfoType3))
       {
-        if (![customInfoType3 isEqualToString:@"UIKBRTICustomInfoTypeSmartReplyCandidateOperations"])
+        if (!objc_msgSend_isEqualToString_(customInfoType3))
         {
           goto LABEL_249;
         }
@@ -7348,7 +7348,7 @@ void __62__UIKBRTIPartner__queued_performTextOperations_resultHandler___block_in
 {
   v10 = a2;
   v6 = a4;
-  if ([a3 isEqualToString:@"com.apple.png-sticker"])
+  if (objc_msgSend_isEqualToString_(a3))
   {
     v7 = [v6 objectForKeyedSubscript:@"url"];
     v8 = [v6 objectForKeyedSubscript:@"accessibilityLabel"];
@@ -7430,14 +7430,14 @@ void __62__UIKBRTIPartner__queued_performTextOperations_resultHandler___block_in
   {
     v8 = UIKeyboardGetCurrentInputMode();
     customInfoType = [operationsCopy customInfoType];
-    v10 = [customInfoType isEqualToString:@"UIDictationRemoteTextOperations"];
+    isEqualToString = objc_msgSend_isEqualToString_(customInfoType);
 
     multilingualLanguages = [operationsCopy multilingualLanguages];
     if (multilingualLanguages)
     {
       v12 = multilingualLanguages;
       v13 = UIKeyboardGetCurrentInputMode();
-      v14 = [v8 isEqualToString:v13];
+      v14 = objc_msgSend_isEqualToString_(v8);
 
       if (v14)
       {
@@ -7469,7 +7469,7 @@ void __62__UIKBRTIPartner__queued_performTextOperations_resultHandler___block_in
 
     partnerDelegate = [(UIKBRTIPartner *)self partnerDelegate];
     v22 = partnerDelegate;
-    if (v10)
+    if (isEqualToString)
     {
       v26[0] = MEMORY[0x1E69E9820];
       v26[1] = 3221225472;

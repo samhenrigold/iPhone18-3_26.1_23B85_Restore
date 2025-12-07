@@ -94,9 +94,7 @@
   pristineClearedCount = self->_pristineClearedCount;
   self->_pristineClearedCount = v23;
 
-  v25 = [NSNumber numberWithUnsignedLongLong:[(NSNumber *)self->_pristineClearedSize unsignedIntegerValue]+ size];
-  pristineClearedSize = self->_pristineClearedSize;
-  self->_pristineClearedSize = v25;
+  self->_pristineClearedSize = [NSNumber numberWithUnsignedLongLong:[(NSNumber *)self->_pristineClearedSize unsignedIntegerValue]+ size];
 
   _objc_release_x1();
 }

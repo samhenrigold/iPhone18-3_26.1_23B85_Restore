@@ -28,26 +28,24 @@
 {
   v3 = sub_1C014BC50();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1C014BBC0();
-  v8 = _s8TipsCore9UserGuideC03getcD7FromURL0G0ACSg10FoundationAEV_tFZ_0();
-  (*(v4 + 8))(v7, v3);
+  v7 = _s8TipsCore9UserGuideC03getcD7FromURL0G0ACSg10FoundationAEV_tFZ_0(v6);
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 + (id)privateURLWithBookIdentifier:(id)identifier topicIdentifier:(id)topicIdentifier version:(id)version referrer:(id)referrer
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06970, &qword_1C0156340);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v30 - v12;
+  v12 = &v29 - v11;
   if (identifier)
   {
     sub_1C014C230();
-    identifier = v14;
+    identifier = v13;
     if (topicIdentifier)
     {
       goto LABEL_3;
@@ -57,15 +55,15 @@
   else if (topicIdentifier)
   {
 LABEL_3:
-    v15 = sub_1C014C230();
-    topicIdentifier = v16;
+    v14 = sub_1C014C230();
+    topicIdentifier = v15;
     if (version)
     {
       goto LABEL_4;
     }
 
 LABEL_8:
-    v17 = 0;
+    v16 = 0;
     referrerCopy2 = referrer;
     if (referrerCopy2)
     {
@@ -75,63 +73,62 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v15 = 0;
+  v14 = 0;
   if (!version)
   {
     goto LABEL_8;
   }
 
 LABEL_4:
-  v17 = sub_1C014C230();
-  version = v18;
+  v16 = sub_1C014C230();
+  version = v17;
   referrerCopy2 = referrer;
   if (referrerCopy2)
   {
 LABEL_5:
-    v20 = referrerCopy2;
-    v21 = sub_1C014C230();
-    v23 = v22;
+    v19 = referrerCopy2;
+    v20 = sub_1C014C230();
+    v22 = v21;
 
     goto LABEL_10;
   }
 
 LABEL_9:
-  v21 = 0;
-  v23 = 0;
+  v20 = 0;
+  v22 = 0;
 LABEL_10:
-  static UserGuide.privateURL(bookIdentifier:topicIdentifier:version:referrer:)(identifier, v15, topicIdentifier, v17, version, v21, v23, v13);
+  static UserGuide.privateURL(bookIdentifier:topicIdentifier:version:referrer:)(identifier, v14, topicIdentifier, v16, version, v20, v22, v12);
 
-  v24 = sub_1C014BC50();
-  v25 = *(v24 - 8);
-  v26 = (*(v25 + 48))(v13, 1, v24);
-  v27 = 0;
-  if (v26 != 1)
+  v23 = sub_1C014BC50();
+  v24 = *(v23 - 8);
+  v25 = (*(v24 + 48))(v12, 1, v23);
+  v26 = 0;
+  if (v25 != 1)
   {
-    v28 = sub_1C014BBB0();
-    (*(v25 + 8))(v13, v24);
-    v27 = v28;
+    v27 = sub_1C014BBB0();
+    (*(v24 + 8))(v12, v23);
+    v26 = v27;
   }
 
-  return v27;
+  return v26;
 }
 
 + (id)urlWithBook:(id)book topic:(id)topic anchor:(id)anchor version:(id)version referrer:(id)referrer
 {
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06970, &qword_1C0156340);
-  v13 = *(*(v12 - 8) + 64);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = &v35 - v14;
+  v14 = &v34 - v13;
   if (book)
   {
-    v36 = sub_1C014C230();
-    book = v16;
+    v35 = sub_1C014C230();
+    book = v15;
     if (topic)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    v35 = 0;
+    v34 = 0;
     if (anchor)
     {
       goto LABEL_4;
@@ -140,39 +137,39 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v36 = 0;
+  v35 = 0;
   if (!topic)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v35 = sub_1C014C230();
-  topic = v17;
+  v34 = sub_1C014C230();
+  topic = v16;
   if (anchor)
   {
 LABEL_4:
-    v18 = sub_1C014C230();
-    anchor = v19;
+    v17 = sub_1C014C230();
+    anchor = v18;
     goto LABEL_8;
   }
 
 LABEL_7:
-  v18 = 0;
+  v17 = 0;
 LABEL_8:
   versionCopy = version;
   referrerCopy = referrer;
-  v22 = referrerCopy;
+  v21 = referrerCopy;
   if (versionCopy)
   {
-    v23 = sub_1C014C230();
-    v25 = v24;
+    v22 = sub_1C014C230();
+    v24 = v23;
 
-    if (v22)
+    if (v21)
     {
 LABEL_10:
-      v26 = sub_1C014C230();
-      v28 = v27;
+      v25 = sub_1C014C230();
+      v27 = v26;
 
       goto LABEL_13;
     }
@@ -180,58 +177,55 @@ LABEL_10:
 
   else
   {
-    v23 = 0;
-    v25 = 0;
+    v22 = 0;
+    v24 = 0;
     if (referrerCopy)
     {
       goto LABEL_10;
     }
   }
 
-  v26 = 0;
-  v28 = 0;
+  v25 = 0;
+  v27 = 0;
 LABEL_13:
-  static UserGuide.url(book:topic:anchor:version:referrer:)(book, v35, topic, v18, anchor, v23, v25, v15, v26, v28);
+  static UserGuide.url(book:topic:anchor:version:referrer:)(book, v34, topic, v17, anchor, v22, v24, v14, v25, v27);
 
-  v29 = sub_1C014BC50();
-  v30 = *(v29 - 8);
-  v31 = (*(v30 + 48))(v15, 1, v29);
-  v32 = 0;
-  if (v31 != 1)
+  v28 = sub_1C014BC50();
+  v29 = *(v28 - 8);
+  v30 = (*(v29 + 48))(v14, 1, v28);
+  v31 = 0;
+  if (v30 != 1)
   {
-    v33 = sub_1C014BBB0();
-    (*(v30 + 8))(v15, v29);
-    v32 = v33;
+    v32 = sub_1C014BBB0();
+    (*(v29 + 8))(v14, v28);
+    v31 = v32;
   }
 
-  return v32;
+  return v31;
 }
 
 - (NSArray)gradientColorStrings
 {
-  v2 = *(self + OBJC_IVAR___TPSUserGuide_gradientColorStrings);
 
-  v3 = sub_1C014C3B0();
+  v2 = sub_1C014C3B0();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)platform
 {
   if (*(self + OBJC_IVAR___TPSUserGuide_platform + 8))
   {
-    v2 = *(self + OBJC_IVAR___TPSUserGuide_platform);
-    v3 = *(self + OBJC_IVAR___TPSUserGuide_platform + 8);
 
-    v4 = sub_1C014C200();
+    v2 = sub_1C014C200();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)topicIdentifier
@@ -241,22 +235,21 @@ LABEL_13:
   selfCopy = self;
   sub_1C014BF00();
 
-  v4 = (selfCopy + OBJC_IVAR___TPSUserGuide__topicIdentifier);
+  v4 = selfCopy + OBJC_IVAR___TPSUserGuide__topicIdentifier;
   swift_beginAccess();
-  v6 = *v4;
-  v5 = v4[1];
+  v5 = *(v4 + 1);
 
   if (v5)
   {
-    v7 = sub_1C014C200();
+    v6 = sub_1C014C200();
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)setTopicIdentifier:(id)identifier

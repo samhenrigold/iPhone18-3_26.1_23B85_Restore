@@ -1,5 +1,6 @@
 @interface QRCodeScannerCardViewController
 - (void)captureOutput:(id)output didOutputMetadataObjects:(id)objects fromConnection:(id)connection;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -12,6 +13,22 @@
   selfCopy = self;
   sub_10000A7EC();
   sub_10000B1AC();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  if (*&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_captureSession])
+  {
+    v4 = *&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_captureSession];
+
+    [v4 startRunning];
+  }
+
+  else
+  {
+    selfCopy = self;
+    sub_10000A6C4();
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

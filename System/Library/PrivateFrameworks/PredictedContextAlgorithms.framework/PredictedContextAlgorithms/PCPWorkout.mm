@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sessionLocationTypeAsString:(int)string;
+- (id)swimmingLocationTypeAsString:(int)string;
 - (int)StringAsSessionLocationType:(id)type;
 - (int)StringAsSwimmingLocationType:(id)type;
 - (int)sessionLocationType;
@@ -77,6 +79,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)sessionLocationTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8500[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSessionLocationType:(id)type
 {
   typeCopy = type;
@@ -129,6 +146,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)swimmingLocationTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8518[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSwimmingLocationType:(id)type
@@ -270,7 +302,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    workoutActivityType = self->_workoutActivityType;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -290,12 +321,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  startTimeCFAbsolute = self->_startTimeCFAbsolute;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_4:
-    endTimeCFAbsolute = self->_endTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
   }
 
@@ -315,17 +344,15 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((v6 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
-    sessionLocationType = self->_sessionLocationType;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x10) != 0)
+  if ((v5 & 0x10) != 0)
   {
-    swimmingLocationType = self->_swimmingLocationType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -474,7 +501,6 @@ LABEL_5:
     goto LABEL_32;
   }
 
-  v5 = *(equalCopy + 72);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 72) & 4) == 0 || self->_workoutActivityType != *(equalCopy + 3))
@@ -486,7 +512,7 @@ LABEL_5:
   else if ((*(equalCopy + 72) & 4) != 0)
   {
 LABEL_32:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_33;
   }
 
@@ -553,7 +579,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v9 = (*(equalCopy + 72) & 0x10) == 0;
+  v8 = (*(equalCopy + 72) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 72) & 0x10) == 0 || self->_swimmingLocationType != *(equalCopy + 14))
@@ -561,12 +587,12 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_33:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

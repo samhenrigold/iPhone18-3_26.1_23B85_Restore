@@ -1,92 +1,3 @@
-uint64_t realityio::DescendantPrimInputDescriptor::resolvedPrimPaths@<X0>(pxrInternal__aapl__pxrReserved__::UsdStage *this@<X1>, pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X2>, uint64_t a3@<X0>, uint64_t a4@<X8>)
-{
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 1065353216;
-  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v37, this, a2);
-  IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v37);
-  if (IsValid)
-  {
-    UsdPrimDefaultPredicate = pxrInternal__aapl__pxrReserved__::GetUsdPrimDefaultPredicate(IsValid);
-    v9 = *UsdPrimDefaultPredicate;
-    v8 = UsdPrimDefaultPredicate[1];
-    v10 = UsdPrimDefaultPredicate[2];
-    if ((pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL() & 1) == 0 && ((v9 & 0x2000) != 0 || (v8 & 0x2000) == 0))
-    {
-      v9 |= 0x2000uLL;
-      v8 &= ~0x2000uLL;
-    }
-
-    v23 = v9;
-    v24 = v8;
-    *&v25 = v10;
-    pxrInternal__aapl__pxrReserved__::UsdPrim::_MakeDescendantsRange(&v37, &v23, &v27);
-    v23 = v27;
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v24, &v28);
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v24 + 1, &v29);
-    v25 = v30;
-    v26 = v31;
-    v19 = v32;
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v20, &v33);
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v20 + 1, &v34);
-    v21 = v35;
-    v22 = v36;
-    while (v23 != v19 || v24 != v20 || !pxrInternal__aapl__pxrReserved__::operator==(&v25, &v21))
-    {
-      pxrInternal__aapl__pxrReserved__::UsdPrimSubtreeIterator::dereference(&v23, &v15);
-      v12 = v16;
-      if (!v16 || (*(v16 + 57) & 8) != 0)
-      {
-        pxrInternal__aapl__pxrReserved__::Usd_ThrowExpiredPrimAccessError(v16, v11);
-      }
-
-      if (a3 + 56 != std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a3 + 48, *(v12 + 3)))
-      {
-        PrimPath = pxrInternal__aapl__pxrReserved__::UsdObject::GetPrimPath(&v15);
-        std::__hash_table<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath::Hash,std::equal_to<pxrInternal__aapl__pxrReserved__::SdfPath>,std::allocator<pxrInternal__aapl__pxrReserved__::SdfPath>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath const&>(a4, PrimPath);
-      }
-
-      if ((v18 & 7) != 0)
-      {
-        atomic_fetch_add_explicit((v18 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-      }
-
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v17);
-      if (v16)
-      {
-        pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v16);
-      }
-
-      pxrInternal__aapl__pxrReserved__::UsdPrimSubtreeIterator::increment(&v23);
-    }
-
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v20);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v24);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v33);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v28);
-  }
-
-  if ((v40 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v39);
-  result = v38;
-  if (v38)
-  {
-    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v38);
-  }
-
-  return result;
-}
-
 void sub_2474C8224(_Unwind_Exception *a1)
 {
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim((v2 - 112));
@@ -94,18 +5,19 @@ void sub_2474C8224(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::set[abi:ne200100](void *a1, void *a2, uint64_t a3)
+uint64_t **std::set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::set[abi:ne200100](uint64_t **a1, uint64_t *a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 8 * a3;
     do
     {
-      std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__emplace_hint_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken const&>(a1, v4, a2++);
+      std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__emplace_hint_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken const&>(a1, v4, a2, a2);
+      ++a2;
       v6 -= 8;
     }
 
@@ -115,9 +27,9 @@ void *std::set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrR
   return a1;
 }
 
-uint64_t std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__emplace_hint_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken const&>(void *a1, void *a2, void *a3)
+void *std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__emplace_hint_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken const&>(uint64_t **a1, void *a2, void *a3, uint64_t *a4)
 {
-  result = *std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__find_equal<pxrInternal__aapl__pxrReserved__::TfToken>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfTokenFastArbitraryLessThan,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::__find_equal<pxrInternal__aapl__pxrReserved__::TfToken>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<pxrInternal__aapl__pxrReserved__::TfToken>::__construct_node<pxrInternal__aapl__pxrReserved__::TfToken const&>();
@@ -396,79 +308,71 @@ void *std::__hash_table<REEntity *,std::hash<REEntity *>,std::equal_to<REEntity 
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<REEntity *,std::hash<REEntity *>,std::equal_to<REEntity *>,std::allocator<REEntity *>>::__emplace_unique_key_args<REEntity *,REEntity * const&>(void *a1, void *a2)
+void *std::__hash_table<REEntity *,std::hash<REEntity *>,std::equal_to<REEntity *>,std::allocator<REEntity *>>::__emplace_unique_key_args<REEntity *,REEntity * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -476,44 +380,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void std::__tree<std::__value_type<std::string,realityio::TimelineGroupFactory>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TimelineGroupFactory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TimelineGroupFactory>>>::destroy(char *a1)
@@ -538,11 +442,11 @@ void std::__tree<std::__value_type<std::string,realityio::TimelineGroupFactory>,
   }
 }
 
-BOOL std::__tree<std::__value_type<std::string,realityio::TimelineGroupFactory>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TimelineGroupFactory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TimelineGroupFactory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TimelineGroupFactory>>(uint64_t a1, const void **a2)
+BOOL std::__tree<std::__value_type<std::string,realityio::TimelineGroupFactory>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TimelineGroupFactory>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TimelineGroupFactory>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TimelineGroupFactory>>(uint64_t a1, const void **a2, uint64_t a3)
 {
-  v4 = (a1 + 8);
-  v3 = *(a1 + 8);
-  if (!v3)
+  v5 = (a1 + 8);
+  v4 = *(a1 + 8);
+  if (!v4)
   {
     goto LABEL_7;
   }
@@ -551,35 +455,35 @@ BOOL std::__tree<std::__value_type<std::string,realityio::TimelineGroupFactory>,
   {
     while (1)
     {
-      v6 = v3;
-      if (!std::less<std::string>::operator()[abi:ne200100](a1, a2, v3 + 4))
+      v7 = v4;
+      if (!std::less<std::string>::operator()[abi:ne200100](a1, a2, v4 + 4))
       {
         break;
       }
 
-      v3 = *v6;
-      v4 = v6;
-      if (!*v6)
+      v4 = *v7;
+      v5 = v7;
+      if (!*v7)
       {
         goto LABEL_7;
       }
     }
 
-    result = std::less<std::string>::operator()[abi:ne200100](a1, v6 + 4, a2);
+    result = std::less<std::string>::operator()[abi:ne200100](a1, v7 + 4, a2);
     if (!result)
     {
       break;
     }
 
-    v4 = v6 + 1;
-    v3 = v6[1];
-    if (!v3)
+    v5 = v7 + 1;
+    v4 = v7[1];
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 
-  if (!*v4)
+  if (!*v5)
   {
 LABEL_7:
     operator new();
@@ -603,203 +507,196 @@ __n128 std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(
 
 void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_0,std::allocator<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = **(a1 + 8);
   ServiceLocator = REEngineGetServiceLocator();
-  v4 = MEMORY[0x24C1A4230](ServiceLocator);
-  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v4, "default scene animation");
-  v5 = **(a1 + 24);
-  v49 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
-  v6 = **(a1 + 32);
+  v3 = MEMORY[0x24C1A4230](ServiceLocator);
+  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v3, "default scene animation");
+  v42 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
   REAnimationLibraryDefinitionAddEntryAsset();
-  v7 = **(a1 + 32);
   REAnimationLibraryDefinitionAddKeyedEntryIndex();
-  v8 = **(a1 + 40);
   Name = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v44, Name);
-  v10 = std::string::append(&v44, ".");
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v45.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v45.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v45, "timelineGroup.");
+  std::string::basic_string[abi:ne200100]<0>(&v37, Name);
+  v5 = std::string::append(&v37, ".");
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v38.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v38.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  v7 = std::string::append(&v38, "timelineGroup.");
+  v8 = *&v7->__r_.__value_.__l.__data_;
+  v39.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+  *&v39.__r_.__value_.__l.__data_ = v8;
+  v7->__r_.__value_.__l.__size_ = 0;
+  v7->__r_.__value_.__r.__words[2] = 0;
+  v7->__r_.__value_.__r.__words[0] = 0;
+  v9 = std::string::append(&v39, "default scene animation");
+  v10 = *&v9->__r_.__value_.__l.__data_;
+  v41 = v9->__r_.__value_.__r.__words[2];
+  v40 = v10;
+  v9->__r_.__value_.__l.__size_ = 0;
+  v9->__r_.__value_.__r.__words[2] = 0;
+  v9->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v38.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v37.__r_.__value_.__l.__data_);
+  }
+
+  v11 = REEntityGetName();
+  std::string::basic_string[abi:ne200100]<0>(&v36, v11);
+  v12 = std::string::append(&v36, ".");
   v13 = *&v12->__r_.__value_.__l.__data_;
-  v46.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v46.__r_.__value_.__l.__data_ = v13;
+  v37.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+  *&v37.__r_.__value_.__l.__data_ = v13;
   v12->__r_.__value_.__l.__size_ = 0;
   v12->__r_.__value_.__r.__words[2] = 0;
   v12->__r_.__value_.__r.__words[0] = 0;
-  v14 = std::string::append(&v46, "default scene animation");
+  v14 = std::string::append(&v37, "entityAnimationScene.");
   v15 = *&v14->__r_.__value_.__l.__data_;
-  v48 = v14->__r_.__value_.__r.__words[2];
-  v47 = v15;
+  v38.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v38.__r_.__value_.__l.__data_ = v15;
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
   v14->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  v16 = std::string::append(&v38, "default scene animation");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v39.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v39.__r_.__value_.__l.__data_ = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v38.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v37.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 
-  v16 = **(a1 + 40);
-  v17 = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v43, v17);
-  v18 = std::string::append(&v43, ".");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v44.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v44.__r_.__value_.__l.__data_ = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  v20 = std::string::append(&v44, "entityAnimationScene.");
-  v21 = *&v20->__r_.__value_.__l.__data_;
-  v45.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-  *&v45.__r_.__value_.__l.__data_ = v21;
-  v20->__r_.__value_.__l.__size_ = 0;
-  v20->__r_.__value_.__r.__words[2] = 0;
-  v20->__r_.__value_.__r.__words[0] = 0;
-  v22 = std::string::append(&v45, "default scene animation");
-  v23 = *&v22->__r_.__value_.__l.__data_;
-  v46.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-  *&v46.__r_.__value_.__l.__data_ = v23;
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  v18 = REEntityGetName();
+  std::string::basic_string[abi:ne200100]<0>(&v36, v18);
+  v19 = std::string::append(&v36, ".");
+  v20 = *&v19->__r_.__value_.__l.__data_;
+  v37.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+  *&v37.__r_.__value_.__l.__data_ = v20;
+  v19->__r_.__value_.__l.__size_ = 0;
+  v19->__r_.__value_.__r.__words[2] = 0;
+  v19->__r_.__value_.__r.__words[0] = 0;
+  v21 = std::string::append(&v37, "timelineGroup");
+  v22 = *&v21->__r_.__value_.__l.__data_;
+  v38.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+  *&v38.__r_.__value_.__l.__data_ = v22;
+  v21->__r_.__value_.__l.__size_ = 0;
+  v21->__r_.__value_.__r.__words[2] = 0;
+  v21->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v37.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
-  v24 = **(a1 + 40);
-  v25 = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v43, v25);
-  v26 = std::string::append(&v43, ".");
-  v27 = *&v26->__r_.__value_.__l.__data_;
-  v44.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-  *&v44.__r_.__value_.__l.__data_ = v27;
-  v26->__r_.__value_.__l.__size_ = 0;
-  v26->__r_.__value_.__r.__words[2] = 0;
-  v26->__r_.__value_.__r.__words[0] = 0;
-  v28 = std::string::append(&v44, "timelineGroup");
-  v29 = *&v28->__r_.__value_.__l.__data_;
-  v45.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-  *&v45.__r_.__value_.__l.__data_ = v29;
-  v28->__r_.__value_.__l.__size_ = 0;
-  v28->__r_.__value_.__r.__words[2] = 0;
-  v28->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v44.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
-  v30 = *(a1 + 48);
-  v43.__r_.__value_.__r.__words[0] = TimelineAsset;
+  v23 = *(a1 + 48);
+  v36.__r_.__value_.__r.__words[0] = TimelineAsset;
   if (TimelineAsset)
   {
     RERetain();
   }
 
-  if (v48 >= 0)
+  if (v41 >= 0)
   {
-    v31 = &v47;
+    v24 = &v40;
   }
 
   else
   {
-    v31 = v47;
+    v24 = v40;
   }
 
-  realityio::Builder::addAsset(v30, &v43, v31);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v43);
-  v32 = *(a1 + 48);
-  v42 = v49;
-  if (v49)
+  realityio::Builder::addAsset(v23, &v36, v24);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v36);
+  v25 = *(a1 + 48);
+  v35 = v42;
+  if (v42)
   {
     RERetain();
   }
 
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v33 = &v46;
+    v26 = &v39;
   }
 
   else
   {
-    v33 = v46.__r_.__value_.__r.__words[0];
+    v26 = v39.__r_.__value_.__r.__words[0];
   }
 
-  realityio::Builder::addAsset(v32, &v42, v33);
+  realityio::Builder::addAsset(v25, &v35, v26);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v35);
+  v27 = *(a1 + 16);
+  v28 = *(a1 + 64);
+  if (v28[23] < 0)
+  {
+    v28 = *v28;
+  }
+
+  v29 = *(a1 + 56);
+  v30 = TimelineAsset;
+  v31 = *(v27 + 24);
+  v32 = *(v27 + 28);
+  std::string::basic_string[abi:ne200100]<0>(&v37, v28);
+  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v33 = &v38;
+  }
+
+  else
+  {
+    v33 = v38.__r_.__value_.__r.__words[0];
+  }
+
+  realityio::TimelineGroupFactory::addTimeline(v29, v30, &v37.__r_.__value_.__l.__data_, v33, v31, v32);
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v37.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v38.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v41) < 0)
+  {
+    operator delete(v40);
+  }
+
   realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v42);
-  v34 = *(a1 + 16);
-  v35 = *(a1 + 64);
-  if (v35[23] < 0)
-  {
-    v35 = *v35;
-  }
-
-  v36 = *(a1 + 56);
-  v37 = TimelineAsset;
-  v38 = *(v34 + 24);
-  v39 = *(v34 + 28);
-  std::string::basic_string[abi:ne200100]<0>(&v44, v35);
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v40 = &v45;
-  }
-
-  else
-  {
-    v40 = v45.__r_.__value_.__r.__words[0];
-  }
-
-  realityio::TimelineGroupFactory::addTimeline(v36, v37, &v44, v40, v38, v39);
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v44.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v45.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v48) < 0)
-  {
-    operator delete(v47);
-  }
-
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v49);
   return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&TimelineAsset);
 }
 
@@ -858,33 +755,29 @@ __n128 std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(
 
 void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_1,std::allocator<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_1>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = **(a1 + 8);
   ServiceLocator = REEngineGetServiceLocator();
-  v4 = MEMORY[0x24C1A4230](ServiceLocator);
-  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v4, "default subtree animation");
-  v5 = **(a1 + 24);
-  v59 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
+  v3 = MEMORY[0x24C1A4230](ServiceLocator);
+  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v3, "default subtree animation");
+  v49 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
   std::string::basic_string[abi:ne200100]<0>(&__p, "default subtree animation");
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v6 = **(a1 + 40);
   REAnimationLibraryDefinitionAddEntryAsset();
-  v7 = **(a1 + 40);
   REAnimationLibraryDefinitionAddKeyedEntryIndex();
-  v8 = *(a1 + 48);
-  if (v8[2])
+  v4 = *(a1 + 48);
+  if (v4[2])
   {
-    v11 = *v8;
-    v9 = (v8 + 1);
-    v10 = v11;
-    if (v11 != v9)
+    v7 = *v4;
+    v5 = (v4 + 1);
+    v6 = v7;
+    if (v7 != v5)
     {
       do
       {
-        std::pair<std::string const,realityio::TimelineGroupFactory>::pair[abi:ne200100](&__p, v10 + 2);
+        std::pair<std::string const,realityio::TimelineGroupFactory>::pair[abi:ne200100](&__p, v6 + 2);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -895,20 +788,17 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
           p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        v54.__r_.__value_.__r.__words[0] = realityio::TimelineGroupFactory::createTimelineAsset(&v56, v4, p_p);
-        v13 = **(a1 + 24);
-        v53.__r_.__value_.__r.__words[0] = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
-        v14 = **(a1 + 40);
+        v44.__r_.__value_.__r.__words[0] = realityio::TimelineGroupFactory::createTimelineAsset(&v46, v3, p_p);
+        v43.__r_.__value_.__r.__words[0] = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
         REAnimationLibraryDefinitionAddEntryAsset();
-        v15 = **(a1 + 40);
         REAnimationLibraryDefinitionAddKeyedEntryIndex();
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v53);
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v54);
-        v54.__r_.__value_.__r.__words[0] = &v58;
-        std::vector<realityio::TimelineGroupFactory::TimelineData>::__destroy_vector::operator()[abi:ne200100](&v54);
-        if (v57 < 0)
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v43);
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v44);
+        v44.__r_.__value_.__r.__words[0] = &v48;
+        std::vector<realityio::TimelineGroupFactory::TimelineData>::__destroy_vector::operator()[abi:ne200100](&v44);
+        if (v47 < 0)
         {
-          operator delete(v56);
+          operator delete(v46);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -916,203 +806,200 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v16 = *(v10 + 1);
-        if (v16)
+        v9 = *(v6 + 1);
+        if (v9)
         {
           do
           {
-            v17 = v16;
-            v16 = *v16;
+            v10 = v9;
+            v9 = *v9;
           }
 
-          while (v16);
+          while (v9);
         }
 
         else
         {
           do
           {
-            v17 = *(v10 + 2);
-            v18 = *v17 == v10;
-            v10 = v17;
+            v10 = *(v6 + 2);
+            v11 = *v10 == v6;
+            v6 = v10;
           }
 
-          while (!v18);
+          while (!v11);
         }
 
-        v10 = v17;
+        v6 = v10;
       }
 
-      while (v17 != v9);
+      while (v10 != v5);
     }
   }
 
-  v19 = **(a1 + 56);
   Name = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v52, Name);
-  v21 = std::string::append(&v52, ".");
-  v22 = *&v21->__r_.__value_.__l.__data_;
-  v53.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-  *&v53.__r_.__value_.__l.__data_ = v22;
-  v21->__r_.__value_.__l.__size_ = 0;
-  v21->__r_.__value_.__r.__words[2] = 0;
-  v21->__r_.__value_.__r.__words[0] = 0;
-  v23 = std::string::append(&v53, "timelineGroup.");
-  v24 = *&v23->__r_.__value_.__l.__data_;
-  v54.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v54.__r_.__value_.__l.__data_ = v24;
-  v23->__r_.__value_.__l.__size_ = 0;
-  v23->__r_.__value_.__r.__words[2] = 0;
-  v23->__r_.__value_.__r.__words[0] = 0;
-  v25 = std::string::append(&v54, "default subtree animation");
-  v26 = *&v25->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v26;
-  v25->__r_.__value_.__l.__size_ = 0;
-  v25->__r_.__value_.__r.__words[2] = 0;
-  v25->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v42, Name);
+  v13 = std::string::append(&v42, ".");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v43.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v43.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  v15 = std::string::append(&v43, "timelineGroup.");
+  v16 = *&v15->__r_.__value_.__l.__data_;
+  v44.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+  *&v44.__r_.__value_.__l.__data_ = v16;
+  v15->__r_.__value_.__l.__size_ = 0;
+  v15->__r_.__value_.__r.__words[2] = 0;
+  v15->__r_.__value_.__r.__words[0] = 0;
+  v17 = std::string::append(&v44, "default subtree animation");
+  v18 = *&v17->__r_.__value_.__l.__data_;
+  __p.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+  *&__p.__r_.__value_.__l.__data_ = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v53.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v52.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
-  v27 = **(a1 + 56);
-  v28 = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v51, v28);
-  v29 = std::string::append(&v51, ".");
-  v30 = *&v29->__r_.__value_.__l.__data_;
-  v52.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-  *&v52.__r_.__value_.__l.__data_ = v30;
-  v29->__r_.__value_.__l.__size_ = 0;
-  v29->__r_.__value_.__r.__words[2] = 0;
-  v29->__r_.__value_.__r.__words[0] = 0;
-  v31 = std::string::append(&v52, "subtreeAnimationScene.");
-  v32 = *&v31->__r_.__value_.__l.__data_;
-  v53.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-  *&v53.__r_.__value_.__l.__data_ = v32;
-  v31->__r_.__value_.__l.__size_ = 0;
-  v31->__r_.__value_.__r.__words[2] = 0;
-  v31->__r_.__value_.__r.__words[0] = 0;
-  v33 = std::string::append(&v53, "default subtree animation");
-  v34 = *&v33->__r_.__value_.__l.__data_;
-  v54.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-  *&v54.__r_.__value_.__l.__data_ = v34;
-  v33->__r_.__value_.__l.__size_ = 0;
-  v33->__r_.__value_.__r.__words[2] = 0;
-  v33->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+  v19 = REEntityGetName();
+  std::string::basic_string[abi:ne200100]<0>(&v41, v19);
+  v20 = std::string::append(&v41, ".");
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v42.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+  *&v42.__r_.__value_.__l.__data_ = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  v22 = std::string::append(&v42, "subtreeAnimationScene.");
+  v23 = *&v22->__r_.__value_.__l.__data_;
+  v43.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+  *&v43.__r_.__value_.__l.__data_ = v23;
+  v22->__r_.__value_.__l.__size_ = 0;
+  v22->__r_.__value_.__r.__words[2] = 0;
+  v22->__r_.__value_.__r.__words[0] = 0;
+  v24 = std::string::append(&v43, "default subtree animation");
+  v25 = *&v24->__r_.__value_.__l.__data_;
+  v44.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+  *&v44.__r_.__value_.__l.__data_ = v25;
+  v24->__r_.__value_.__l.__size_ = 0;
+  v24->__r_.__value_.__r.__words[2] = 0;
+  v24->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v53.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v52.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v51.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
   }
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v35 = &__p;
+    v26 = &__p;
   }
 
   else
   {
-    v35 = __p.__r_.__value_.__r.__words[0];
+    v26 = __p.__r_.__value_.__r.__words[0];
   }
 
-  realityio::Builder::addAsset(*(a1 + 32), TimelineAsset, v35);
-  if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  realityio::Builder::addAsset(*(a1 + 32), TimelineAsset, v26);
+  if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v36 = &v54;
+    v27 = &v44;
   }
 
   else
   {
-    v36 = v54.__r_.__value_.__r.__words[0];
+    v27 = v44.__r_.__value_.__r.__words[0];
   }
 
-  realityio::Builder::addAsset(*(a1 + 32), v59, v36);
+  realityio::Builder::addAsset(*(a1 + 32), v49, v27);
   if (**(a1 + 64))
   {
-    v37 = **(a1 + 56);
-    v38 = REEntityGetName();
-    std::string::basic_string[abi:ne200100]<0>(&v51, v38);
-    v39 = std::string::append(&v51, ".");
-    v40 = *&v39->__r_.__value_.__l.__data_;
-    v52.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-    *&v52.__r_.__value_.__l.__data_ = v40;
-    v39->__r_.__value_.__l.__size_ = 0;
-    v39->__r_.__value_.__r.__words[2] = 0;
-    v39->__r_.__value_.__r.__words[0] = 0;
-    v41 = std::string::append(&v52, "timelineGroup.subTreeAnimations");
-    v42 = *&v41->__r_.__value_.__l.__data_;
-    v53.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
-    *&v53.__r_.__value_.__l.__data_ = v42;
-    v41->__r_.__value_.__l.__size_ = 0;
-    v41->__r_.__value_.__r.__words[2] = 0;
-    v41->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    v28 = REEntityGetName();
+    std::string::basic_string[abi:ne200100]<0>(&v41, v28);
+    v29 = std::string::append(&v41, ".");
+    v30 = *&v29->__r_.__value_.__l.__data_;
+    v42.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+    *&v42.__r_.__value_.__l.__data_ = v30;
+    v29->__r_.__value_.__l.__size_ = 0;
+    v29->__r_.__value_.__r.__words[2] = 0;
+    v29->__r_.__value_.__r.__words[0] = 0;
+    v31 = std::string::append(&v42, "timelineGroup.subTreeAnimations");
+    v32 = *&v31->__r_.__value_.__l.__data_;
+    v43.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
+    *&v43.__r_.__value_.__l.__data_ = v32;
+    v31->__r_.__value_.__l.__size_ = 0;
+    v31->__r_.__value_.__r.__words[2] = 0;
+    v31->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      operator delete(v42.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v51.__r_.__value_.__l.__data_);
+      operator delete(v41.__r_.__value_.__l.__data_);
     }
 
-    v43 = *(a1 + 16);
-    v44 = *(a1 + 72);
-    if (v44[23] < 0)
+    v33 = *(a1 + 16);
+    v34 = *(a1 + 72);
+    if (v34[23] < 0)
     {
-      v44 = *v44;
+      v34 = *v34;
     }
 
-    v45 = **(a1 + 64);
-    v46 = TimelineAsset;
-    v47 = *(v43 + 24);
-    v48 = *(v43 + 28);
-    std::string::basic_string[abi:ne200100]<0>(&v52, v44);
-    if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v35 = **(a1 + 64);
+    v36 = TimelineAsset;
+    v37 = *(v33 + 24);
+    v38 = *(v33 + 28);
+    std::string::basic_string[abi:ne200100]<0>(&v42, v34);
+    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v49 = &v53;
+      v39 = &v43;
     }
 
     else
     {
-      v49 = v53.__r_.__value_.__r.__words[0];
+      v39 = v43.__r_.__value_.__r.__words[0];
     }
 
-    realityio::TimelineGroupFactory::addTimeline(v45, v46, &v52, v49, v47, v48);
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    realityio::TimelineGroupFactory::addTimeline(v35, v36, &v42.__r_.__value_.__l.__data_, v39, v37, v38);
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v52.__r_.__value_.__l.__data_);
+      operator delete(v42.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v53.__r_.__value_.__l.__data_);
+      operator delete(v43.__r_.__value_.__l.__data_);
     }
   }
 
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1120,7 +1007,7 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v59);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v49);
   return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&TimelineAsset);
 }
 
@@ -1163,82 +1050,81 @@ uint64_t std::__function::__func<realityio::buildSceneAssetsAndAnimationLibrarie
   }
 }
 
-void *realityio::anonymous namespace::annotateSubTimelines(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t *realityio::anonymous namespace::annotateSubTimelines(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v28 = REAssetCopyDependencyArray();
+  v27 = REAssetCopyDependencyArray();
   Size = REAssetDynamicArrayGetSize();
   if (Size)
   {
     v8 = 0;
-    v9 = *(MEMORY[0x277D82828] + 24);
-    v19 = v9;
-    v20 = *MEMORY[0x277D82828];
+    v18 = *(MEMORY[0x277D82828] + 24);
+    v19 = *MEMORY[0x277D82828];
     do
     {
       Asset = REAssetDynamicArrayGetAsset();
       Type = REAssetGetType();
       if (CFStringCompare(Type, @"Timeline", 0) == kCFCompareEqualTo)
       {
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
-        v12 = *(a1 + 23);
-        if (v12 >= 0)
+        std::ostringstream::basic_ostringstream[abi:ne200100](&v22);
+        v11 = *(a1 + 23);
+        if (v11 >= 0)
         {
-          v13 = a1;
+          v12 = a1;
         }
 
         else
         {
-          v13 = *a1;
+          v12 = *a1;
         }
 
-        if (v12 >= 0)
+        if (v11 >= 0)
         {
-          v14 = *(a1 + 23);
+          v13 = *(a1 + 23);
         }
 
         else
         {
-          v14 = *(a1 + 8);
+          v13 = a1[1];
         }
 
-        v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v13, v14);
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "_subTimeline_", 13);
-        MEMORY[0x24C1A8F30](v16, v8);
+        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, v12, v13);
+        v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "_subTimeline_", 13);
+        MEMORY[0x24C1A8F30](v15, v8);
         std::stringbuf::str();
-        if (v22 >= 0)
+        if (v21 >= 0)
         {
-          v17 = __p;
+          v16 = __p;
         }
 
         else
         {
-          v17 = __p[0];
+          v16 = __p[0];
         }
 
-        realityio::Builder::addAsset(a3, Asset, v17);
-        if (v22 < 0)
+        realityio::Builder::addAsset(a3, Asset, v16);
+        if (v21 < 0)
         {
           operator delete(__p[0]);
         }
 
         std::stringbuf::str();
-        if (v22 < 0)
+        if (v21 < 0)
         {
           operator delete(__p[0]);
         }
 
-        v23 = v20;
-        *(&v23 + *(v20 - 24)) = v19;
-        v24 = MEMORY[0x277D82878] + 16;
-        if (v26 < 0)
+        v22 = v19;
+        *(&v22 + *(v19 - 24)) = v18;
+        v23 = MEMORY[0x277D82878] + 16;
+        if (v25 < 0)
         {
-          operator delete(v25[7].__locale_);
+          operator delete(v24[7].__locale_);
         }
 
-        v24 = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v25);
+        v23 = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v24);
         std::ostream::~ostream();
-        MEMORY[0x24C1A9110](&v27);
+        MEMORY[0x24C1A9110](&v26);
       }
 
       ++v8;
@@ -1247,7 +1133,7 @@ void *realityio::anonymous namespace::annotateSubTimelines(uint64_t a1, uint64_t
     while (Size != v8);
   }
 
-  return realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(&v28);
+  return realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(&v27);
 }
 
 uint64_t *std::ostringstream::basic_ostringstream[abi:ne200100](uint64_t *a1)
@@ -1294,7 +1180,7 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-void *realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(void *a1)
+uint64_t *realityio::WrappedRERef<REAssetDynamicArray *>::~WrappedRERef(uint64_t *a1)
 {
   if (*a1)
   {
@@ -1379,33 +1265,29 @@ __n128 std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(
 
 void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_2,std::allocator<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_2>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = **(a1 + 8);
   ServiceLocator = REEngineGetServiceLocator();
-  v4 = MEMORY[0x24C1A4230](ServiceLocator);
-  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v4, "global scene animation");
-  v5 = **(a1 + 24);
-  v48 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
+  v3 = MEMORY[0x24C1A4230](ServiceLocator);
+  TimelineAsset = realityio::TimelineGroupFactory::createTimelineAsset(*(a1 + 16), v3, "global scene animation");
+  v39 = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
   std::string::basic_string[abi:ne200100]<0>(&__p, "global scene animation");
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v6 = **(a1 + 40);
   REAnimationLibraryDefinitionInsertEntryAsset();
-  v7 = **(a1 + 40);
   REAnimationLibraryDefinitionAddKeyedEntryIndex();
-  v8 = *(a1 + 48);
-  if (v8[2])
+  v4 = *(a1 + 48);
+  if (v4[2])
   {
-    v11 = *v8;
-    v9 = (v8 + 1);
-    v10 = v11;
-    if (v11 != v9)
+    v7 = *v4;
+    v5 = (v4 + 1);
+    v6 = v7;
+    if (v7 != v5)
     {
       do
       {
-        std::pair<std::string const,realityio::TimelineGroupFactory>::pair[abi:ne200100](&__p, v10 + 2);
+        std::pair<std::string const,realityio::TimelineGroupFactory>::pair[abi:ne200100](&__p, v6 + 2);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -1416,20 +1298,17 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
           p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        v43.__r_.__value_.__r.__words[0] = realityio::TimelineGroupFactory::createTimelineAsset(&v45, v4, p_p);
-        v13 = **(a1 + 24);
-        v42.__r_.__value_.__r.__words[0] = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
-        v14 = **(a1 + 40);
+        v34.__r_.__value_.__r.__words[0] = realityio::TimelineGroupFactory::createTimelineAsset(&v36, v3, p_p);
+        v33.__r_.__value_.__r.__words[0] = REAnimationSceneAssetCreateWithTimelineAndEntityDefinition();
         REAnimationLibraryDefinitionAddEntryAsset();
-        v15 = **(a1 + 40);
         REAnimationLibraryDefinitionAddKeyedEntryIndex();
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v42);
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v43);
-        v43.__r_.__value_.__r.__words[0] = &v47;
-        std::vector<realityio::TimelineGroupFactory::TimelineData>::__destroy_vector::operator()[abi:ne200100](&v43);
-        if (v46 < 0)
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v33);
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v34);
+        v34.__r_.__value_.__r.__words[0] = &v38;
+        std::vector<realityio::TimelineGroupFactory::TimelineData>::__destroy_vector::operator()[abi:ne200100](&v34);
+        if (v37 < 0)
         {
-          operator delete(v45);
+          operator delete(v36);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1437,117 +1316,115 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v16 = *(v10 + 1);
-        if (v16)
+        v9 = *(v6 + 1);
+        if (v9)
         {
           do
           {
-            v17 = v16;
-            v16 = *v16;
+            v10 = v9;
+            v9 = *v9;
           }
 
-          while (v16);
+          while (v9);
         }
 
         else
         {
           do
           {
-            v17 = *(v10 + 2);
-            v18 = *v17 == v10;
-            v10 = v17;
+            v10 = *(v6 + 2);
+            v11 = *v10 == v6;
+            v6 = v10;
           }
 
-          while (!v18);
+          while (!v11);
         }
 
-        v10 = v17;
+        v6 = v10;
       }
 
-      while (v17 != v9);
+      while (v10 != v5);
     }
   }
 
-  v19 = **(a1 + 56);
   Name = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v41, Name);
-  v21 = std::string::append(&v41, ".");
-  v22 = *&v21->__r_.__value_.__l.__data_;
-  v42.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-  *&v42.__r_.__value_.__l.__data_ = v22;
-  v21->__r_.__value_.__l.__size_ = 0;
-  v21->__r_.__value_.__r.__words[2] = 0;
-  v21->__r_.__value_.__r.__words[0] = 0;
-  v23 = std::string::append(&v42, "timelineGroup.");
-  v24 = *&v23->__r_.__value_.__l.__data_;
-  v43.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v43.__r_.__value_.__l.__data_ = v24;
-  v23->__r_.__value_.__l.__size_ = 0;
-  v23->__r_.__value_.__r.__words[2] = 0;
-  v23->__r_.__value_.__r.__words[0] = 0;
-  v25 = std::string::append(&v43, "global scene animation");
-  v26 = *&v25->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v26;
-  v25->__r_.__value_.__l.__size_ = 0;
-  v25->__r_.__value_.__r.__words[2] = 0;
-  v25->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v32, Name);
+  v13 = std::string::append(&v32, ".");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v33.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v33.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  v15 = std::string::append(&v33, "timelineGroup.");
+  v16 = *&v15->__r_.__value_.__l.__data_;
+  v34.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+  *&v34.__r_.__value_.__l.__data_ = v16;
+  v15->__r_.__value_.__l.__size_ = 0;
+  v15->__r_.__value_.__r.__words[2] = 0;
+  v15->__r_.__value_.__r.__words[0] = 0;
+  v17 = std::string::append(&v34, "global scene animation");
+  v18 = *&v17->__r_.__value_.__l.__data_;
+  __p.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+  *&__p.__r_.__value_.__l.__data_ = v18;
+  v17->__r_.__value_.__l.__size_ = 0;
+  v17->__r_.__value_.__r.__words[2] = 0;
+  v17->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  v27 = **(a1 + 56);
-  v28 = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v40, v28);
-  v29 = std::string::append(&v40, ".");
-  v30 = *&v29->__r_.__value_.__l.__data_;
-  v41.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-  *&v41.__r_.__value_.__l.__data_ = v30;
-  v29->__r_.__value_.__l.__size_ = 0;
-  v29->__r_.__value_.__r.__words[2] = 0;
-  v29->__r_.__value_.__r.__words[0] = 0;
-  v31 = std::string::append(&v41, "globalAnimationScene.");
-  v32 = *&v31->__r_.__value_.__l.__data_;
-  v42.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-  *&v42.__r_.__value_.__l.__data_ = v32;
-  v31->__r_.__value_.__l.__size_ = 0;
-  v31->__r_.__value_.__r.__words[2] = 0;
-  v31->__r_.__value_.__r.__words[0] = 0;
-  v33 = std::string::append(&v42, "global scene animation");
-  v34 = *&v33->__r_.__value_.__l.__data_;
-  v43.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-  *&v43.__r_.__value_.__l.__data_ = v34;
-  v33->__r_.__value_.__l.__size_ = 0;
-  v33->__r_.__value_.__r.__words[2] = 0;
-  v33->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  v19 = REEntityGetName();
+  std::string::basic_string[abi:ne200100]<0>(&v31, v19);
+  v20 = std::string::append(&v31, ".");
+  v21 = *&v20->__r_.__value_.__l.__data_;
+  v32.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+  *&v32.__r_.__value_.__l.__data_ = v21;
+  v20->__r_.__value_.__l.__size_ = 0;
+  v20->__r_.__value_.__r.__words[2] = 0;
+  v20->__r_.__value_.__r.__words[0] = 0;
+  v22 = std::string::append(&v32, "globalAnimationScene.");
+  v23 = *&v22->__r_.__value_.__l.__data_;
+  v33.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+  *&v33.__r_.__value_.__l.__data_ = v23;
+  v22->__r_.__value_.__l.__size_ = 0;
+  v22->__r_.__value_.__r.__words[2] = 0;
+  v22->__r_.__value_.__r.__words[0] = 0;
+  v24 = std::string::append(&v33, "global scene animation");
+  v25 = *&v24->__r_.__value_.__l.__data_;
+  v34.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+  *&v34.__r_.__value_.__l.__data_ = v25;
+  v24->__r_.__value_.__l.__size_ = 0;
+  v24->__r_.__value_.__r.__words[2] = 0;
+  v24->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v40.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
-  v35 = *(a1 + 32);
-  v42.__r_.__value_.__r.__words[0] = TimelineAsset;
+  v26 = *(a1 + 32);
+  v33.__r_.__value_.__r.__words[0] = TimelineAsset;
   if (TimelineAsset)
   {
     RERetain();
@@ -1555,38 +1432,38 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v36 = &__p;
+    v27 = &__p;
   }
 
   else
   {
-    v36 = __p.__r_.__value_.__r.__words[0];
+    v27 = __p.__r_.__value_.__r.__words[0];
   }
 
-  realityio::Builder::addAsset(v35, &v42, v36);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v42);
-  v37 = *(a1 + 32);
-  v41.__r_.__value_.__r.__words[0] = v48;
-  if (v48)
+  realityio::Builder::addAsset(v26, &v33, v27);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v33);
+  v28 = *(a1 + 32);
+  v32.__r_.__value_.__r.__words[0] = v39;
+  if (v39)
   {
     RERetain();
   }
 
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v38 = &v43;
+    v29 = &v34;
   }
 
   else
   {
-    v38 = v43.__r_.__value_.__r.__words[0];
+    v29 = v34.__r_.__value_.__r.__words[0];
   }
 
-  realityio::Builder::addAsset(v37, &v41, v38);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v41);
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  realityio::Builder::addAsset(v28, &v32, v29);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v32);
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1594,7 +1471,7 @@ void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(r
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v48);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v39);
   return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&TimelineAsset);
 }
 
@@ -1639,90 +1516,82 @@ __n128 std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(
 
 void *std::__function::__func<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_3,std::allocator<realityio::buildSceneAssetsAndAnimationLibraries(realityio::Builder &,BOOL,realityio::Inputs *,REEntity *,std::string const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::SkeletalAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*> const&,std::unordered_map<REEntity *,realityio::SpatialAudioComponentBuilder::SpatialAudioComponentDataT const*> const&,std::unordered_map<REEntity *,realityio::SkeletalAnimationAggregationBuilder::BlendShapeAnimationSceneDataT const*> const&,realityio::TimelineGroupFactory *,std::unordered_set<REEntity *> &)::$_3>,void ()(void)>::operator()(uint64_t a1)
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v2 = **(a1 + 8);
+  v18[4] = *MEMORY[0x277D85DE8];
   ServiceLocator = REEngineGetServiceLocator();
   MEMORY[0x24C1A4230](ServiceLocator);
-  v4 = **(a1 + 16);
   AnimationLibraryAsset = REAnimationLibraryDefinitionCreateAnimationLibraryAsset();
   if (AnimationLibraryAsset)
   {
-    v5 = **(a1 + 24);
     REAnimationLibraryComponentGetComponentType();
-    v25[0] = &unk_285946110;
-    v25[1] = &AnimationLibraryAsset;
-    v25[3] = v25;
-    v6 = REEntityGetOrAddComponentByClass();
-    std::function<void ()(REComponent *)>::operator()(v25, v6);
+    v18[0] = &unk_285946110;
+    v18[1] = &AnimationLibraryAsset;
+    v18[3] = v18;
+    v3 = REEntityGetOrAddComponentByClass();
+    std::function<void ()(REComponent *)>::operator()(v18, v3);
     RENetworkMarkComponentDirty();
-    std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v25);
-    v7 = **(a1 + 24);
+    std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v18);
     REAnimationComponentGetComponentType();
     if (!REEntityGetComponentByClass())
     {
-      v8 = **(a1 + 24);
       REAnimationComponentGetComponentType();
       REEntityAddComponentByClass();
-      v9 = *(a1 + 32);
+      v4 = *(a1 + 32);
       __p[0] = REAnimationComponentGetComponentType();
-      std::__tree<REComponentClass *>::__emplace_unique_key_args<REComponentClass *,REComponentClass * const&>(v9 + 40, __p);
+      std::__tree<REComponentClass *>::__emplace_unique_key_args<REComponentClass *,REComponentClass * const&>(v4 + 40, __p, __p);
     }
   }
 
-  v10 = **(a1 + 24);
   Name = REEntityGetName();
-  std::string::basic_string[abi:ne200100]<0>(&v20, Name);
-  v12 = std::string::append(&v20, ".");
-  v13 = *&v12->__r_.__value_.__l.__data_;
-  v21.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v21.__r_.__value_.__l.__data_ = v13;
-  v12->__r_.__value_.__l.__size_ = 0;
-  v12->__r_.__value_.__r.__words[2] = 0;
-  v12->__r_.__value_.__r.__words[0] = 0;
-  v14 = std::string::append(&v21, "animationLibrary");
-  v15 = *&v14->__r_.__value_.__l.__data_;
-  v23 = v14->__r_.__value_.__r.__words[2];
-  *__p = v15;
-  v14->__r_.__value_.__l.__size_ = 0;
-  v14->__r_.__value_.__r.__words[2] = 0;
-  v14->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v13, Name);
+  v6 = std::string::append(&v13, ".");
+  v7 = *&v6->__r_.__value_.__l.__data_;
+  v14.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+  *&v14.__r_.__value_.__l.__data_ = v7;
+  v6->__r_.__value_.__l.__size_ = 0;
+  v6->__r_.__value_.__r.__words[2] = 0;
+  v6->__r_.__value_.__r.__words[0] = 0;
+  v8 = std::string::append(&v14, "animationLibrary");
+  v9 = *&v8->__r_.__value_.__l.__data_;
+  v16 = v8->__r_.__value_.__r.__words[2];
+  *__p = v9;
+  v8->__r_.__value_.__l.__size_ = 0;
+  v8->__r_.__value_.__r.__words[2] = 0;
+  v8->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v13.__r_.__value_.__l.__data_);
   }
 
-  v16 = *(a1 + 32);
-  v21.__r_.__value_.__r.__words[0] = AnimationLibraryAsset;
+  v10 = *(a1 + 32);
+  v14.__r_.__value_.__r.__words[0] = AnimationLibraryAsset;
   if (AnimationLibraryAsset)
   {
     RERetain();
   }
 
-  if (v23 >= 0)
+  if (v16 >= 0)
   {
-    v17 = __p;
+    v11 = __p;
   }
 
   else
   {
-    v17 = __p[0];
+    v11 = __p[0];
   }
 
-  realityio::Builder::addAsset(v16, &v21, v17);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v21);
-  if (SHIBYTE(v23) < 0)
+  realityio::Builder::addAsset(v10, &v14, v11);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v14);
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(&AnimationLibraryAsset);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&AnimationLibraryAsset);
 }
 
 void sub_2474CAA24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -1756,13 +1625,6 @@ uint64_t _ZNKSt3__110__function6__funcIZZN9realityio37buildSceneAssetsAndAnimati
   return result;
 }
 
-uint64_t _ZNSt3__110__function6__funcIZZN9realityio37buildSceneAssetsAndAnimationLibrariesERNS2_7BuilderEbPNS2_6InputsEP8REEntityRKNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERKNS_13unordered_mapIS8_PKNS2_35SkeletalAnimationAggregationBuilder27SkeletalAnimationSceneDataTENS_4hashIS8_EENS_8equal_toIS8_EENSC_INS_4pairIKS8_SL_EEEEEERKNSH_IS8_PKNS2_36TransformAnimationAggregationBuilder28TransformAnimationSceneDataTESN_SP_NSC_INSQ_ISR_S10_EEEEEERKNSH_IS8_PKNS2_28SpatialAudioComponentBuilder26SpatialAudioComponentDataTESN_SP_NSC_INSQ_ISR_S19_EEEEEERKNSH_IS8_PKNSI_29BlendShapeAnimationSceneDataTESN_SP_NSC_INSQ_ISR_S1H_EEEEEEPNS2_20TimelineGroupFactoryERNS_13unordered_setIS8_SN_SP_NSC_IS8_EEEEENK3__3clEvEUlT_E_NSC_IS1V_EEFvP11REComponentEEclEOS1Y_(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = **(a1 + 8);
-  return REAnimationLibraryComponentAssignAnimationLibraryAsset();
-}
-
 uint64_t _ZNKSt3__110__function6__funcIZZN9realityio37buildSceneAssetsAndAnimationLibrariesERNS2_7BuilderEbPNS2_6InputsEP8REEntityRKNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERKNS_13unordered_mapIS8_PKNS2_35SkeletalAnimationAggregationBuilder27SkeletalAnimationSceneDataTENS_4hashIS8_EENS_8equal_toIS8_EENSC_INS_4pairIKS8_SL_EEEEEERKNSH_IS8_PKNS2_36TransformAnimationAggregationBuilder28TransformAnimationSceneDataTESN_SP_NSC_INSQ_ISR_S10_EEEEEERKNSH_IS8_PKNS2_28SpatialAudioComponentBuilder26SpatialAudioComponentDataTESN_SP_NSC_INSQ_ISR_S19_EEEEEERKNSH_IS8_PKNSI_29BlendShapeAnimationSceneDataTESN_SP_NSC_INSQ_ISR_S1H_EEEEEEPNS2_20TimelineGroupFactoryERNS_13unordered_setIS8_SN_SP_NSC_IS8_EEEEENK3__3clEvEUlT_E_NSC_IS1V_EEFvP11REComponentEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
 {
   if (std::type_info::operator==[abi:ne200100](a2, &_ZTIZZN9realityio37buildSceneAssetsAndAnimationLibrariesERNS_7BuilderEbPNS_6InputsEP8REEntityRKNSt3__112basic_stringIcNS6_11char_traitsIcEENS6_9allocatorIcEEEERKNS6_13unordered_mapIS5_PKNS_35SkeletalAnimationAggregationBuilder27SkeletalAnimationSceneDataTENS6_4hashIS5_EENS6_8equal_toIS5_EENSA_INS6_4pairIKS5_SJ_EEEEEERKNSF_IS5_PKNS_36TransformAnimationAggregationBuilder28TransformAnimationSceneDataTESL_SN_NSA_INSO_ISP_SY_EEEEEERKNSF_IS5_PKNS_28SpatialAudioComponentBuilder26SpatialAudioComponentDataTESL_SN_NSA_INSO_ISP_S17_EEEEEERKNSF_IS5_PKNSG_29BlendShapeAnimationSceneDataTESL_SN_NSA_INSO_ISP_S1F_EEEEEEPNS_20TimelineGroupFactoryERNS6_13unordered_setIS5_SL_SN_NSA_IS5_EEEEENK3__3clEvEUlT_E_))
@@ -1786,21 +1648,17 @@ uint64_t std::__function::__func<realityio::removeAnimationLibraries(realityio::
 
 uint64_t std::__function::__func<realityio::removeAnimationLibraries(realityio::Inputs *,REEntity *,std::unordered_set<REEntity *> &)::$_0,std::allocator<realityio::removeAnimationLibraries(realityio::Inputs *,REEntity *,std::unordered_set<REEntity *> &)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = **(a1 + 8);
   REAnimationLibraryComponentGetComponentType();
   if (!REEntityGetComponentByClass())
   {
-    v3 = **(a1 + 8);
     REAnimationLibraryComponentGetComponentType();
     REEntityRemoveComponentByClass();
   }
 
-  v4 = **(a1 + 8);
   REAnimationComponentGetComponentType();
   result = REEntityGetComponentByClass();
   if (!result)
   {
-    v6 = **(a1 + 8);
     REAnimationComponentGetComponentType();
 
     return REEntityRemoveComponentByClass();
@@ -2131,31 +1989,28 @@ __n128 std::__function::__func<realityio::AnimationSceneAssetBuilder::run(realit
   return result;
 }
 
-void *std::__function::__func<realityio::AnimationSceneAssetBuilder::run(realityio::Inputs *)::$_0,std::allocator<realityio::AnimationSceneAssetBuilder::run(realityio::Inputs *)::$_0>,void ()(void)>::operator()(uint64_t a1)
+uint64_t *std::__function::__func<realityio::AnimationSceneAssetBuilder::run(realityio::Inputs *)::$_0,std::allocator<realityio::AnimationSceneAssetBuilder::run(realityio::Inputs *)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = *(a1 + 24);
-  v3 = **(a1 + 8);
+  v1 = *(a1 + 24);
   REAssetGetAssetManager();
-  v4 = **(a1 + 8);
-  v8 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset();
+  v4 = REAnimationLibraryDefinitionCreateFromAnimationLibraryAsset();
   if (REAnimationLibraryDefinitionGetEntryCount())
   {
     REAnimationLibraryDefinitionGetEntryAsset();
-    v5 = **(a1 + 16);
     REAnimationComponentGetComponentType();
-    v6 = REEntityGetOrAddComponentByClass();
-    realityio::Builder::addComponent(v2, v6);
+    v2 = REEntityGetOrAddComponentByClass();
+    realityio::Builder::addComponent(v1, v2);
     RENetworkMarkComponentDirty();
     REAnimationHandoffDefaultDescEx();
     REAnimationComponentPlay();
   }
 
-  return realityio::WrappedRERef<REAnimationLibraryDefinition *>::~WrappedRERef(&v8);
+  return realityio::WrappedRERef<REAnimationLibraryDefinition *>::~WrappedRERef(&v4);
 }
 
-void sub_2474CB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2474CB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   realityio::WrappedRERef<REAnimationLibraryDefinition *>::~WrappedRERef(va);
   _Unwind_Resume(a1);
 }
@@ -2230,14 +2085,14 @@ void sub_2474CB7AC(_Unwind_Exception *a1)
 void realityio::TransformAnimationAssetBuilder::TransformAnimationAssetBuilder(realityio::TransformAnimationAssetBuilder *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v6, "TransformAnimationAssetBuilder");
-  std::string::basic_string[abi:ne200100]<0>(&__p, realityio::kTransformAnimationAssetBuilderIdentifier);
+  std::string::basic_string[abi:ne200100]<0>(v6, "TransformAnimationAssetBuilder");
+  std::string::basic_string[abi:ne200100]<0>(__p, realityio::kTransformAnimationAssetBuilderIdentifier);
   realityio::generateTransformAnimationDirtyStageSubscription(&v4);
   v8[0] = &unk_285946538;
   v8[3] = v8;
   v7[0] = &unk_2859465B8;
   v7[3] = v7;
-  realityio::DynamicBuilder::DynamicBuilder(this, a2);
+  realityio::DynamicBuilder::DynamicBuilder(this, a2, v6, __p, &v4, v8, v7);
 }
 
 void sub_2474CB980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
@@ -2258,14 +2113,12 @@ void realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::~T
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -2280,68 +2133,66 @@ void __Block_byref_object_dispose_(uint64_t a1)
   }
 }
 
-void std::vector<RESRT>::resize(void *a1, unint64_t a2)
+void std::vector<RESRT>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 4);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<RESRT>::__append(a1, v4);
+    std::vector<RESRT>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 48 * a2;
+    result[1] = *result + 48 * a2;
   }
 }
 
 void ___Z9sampleSRTmdRN32pxrInternal__aapl__pxrReserved__16UsdGeomXformableE_block_invoke(uint64_t a1, unint64_t a2)
 {
-  v4 = (*(a1 + 40) + a2);
-  v12 = 0;
-  v5 = *(a1 + 48);
+  v10 = 0;
   LocalTransformation = pxrInternal__aapl__pxrReserved__::UsdGeomXformable::GetLocalTransformation();
   if (LocalTransformation)
   {
-    MEMORY[0x24C1A4BE0](buf, v13);
+    MEMORY[0x24C1A4BE0](buf, v11);
     *&buf[8] = 0;
     *buf = 0;
-    DWORD2(v9) = 0;
-    *&v9 = 0;
+    DWORD2(v7) = 0;
+    *&v7 = 0;
     REDecomposeMatrix();
-    v7 = (*(*(*(a1 + 32) + 8) + 48) + 48 * a2);
-    *v7 = *buf;
-    v7[1] = v10;
-    v7[2] = v9;
+    v5 = (*(*(*(a1 + 32) + 8) + 48) + 48 * a2);
+    *v5 = *buf;
+    v5[1] = v8;
+    v5[2] = v7;
   }
 
   else
   {
-    v8 = *(realityio::logObjects(LocalTransformation) + 24);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = *(realityio::logObjects(LocalTransformation) + 24);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_247485000, v8, OS_LOG_TYPE_DEFAULT, "Stopping operation to read animation because USD call failed.", buf, 2u);
+      _os_log_impl(&dword_247485000, v6, OS_LOG_TYPE_DEFAULT, "Stopping operation to read animation because USD call failed.", buf, 2u);
     }
   }
 }
 
 uint64_t realityio::TransformAnimationAssetBuilder::run(realityio::TransformAnimationAssetBuilder *this, realityio::Inputs *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = (a2 + 32);
-  v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
-  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v38, v5, v4);
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v39, v5, v4);
   v6 = *a2;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v38, buf);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(buf, &v39);
   v7 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>>>::find<pxrInternal__aapl__pxrReserved__::SdfPath>(v6 + 64, buf);
   v8 = v6 + 72 != v7 && *(*(v6 + 40) + 104 * *(v7 + 40) + 24) == *buf;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
   pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(buf);
   if (v8)
   {
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetStage(buf, &v38);
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetStage(buf, &v39);
     v9 = *&buf[8];
     if (*&buf[8])
     {
@@ -2356,60 +2207,60 @@ uint64_t realityio::TransformAnimationAssetBuilder::run(realityio::TransformAnim
       }
     }
 
-    v37 = v9;
-    pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(&v37);
+    v38 = v9;
+    pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(&v38);
     v10 = *&buf[8];
     if (*&buf[8] && atomic_fetch_add_explicit((*&buf[8] + 8), 0xFFFFFFFF, memory_order_release) == 1)
     {
       (*(*v10 + 8))(v10);
     }
 
-    v11 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->(&v37);
+    pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->(&v38);
     pxrInternal__aapl__pxrReserved__::UsdStage::GetTimeCodesPerSecond(v11);
     if (v12 != 0.0)
     {
       pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-      v35 = MEMORY[0x277D86748] + 16;
-      if (v36 && (*(v36 + 57) & 8) == 0 && ((*(MEMORY[0x277D86748] + 48))(&v35) & 1) != 0 && pxrInternal__aapl__pxrReserved__::UsdGeomXformable::TransformMightBeTimeVarying(&v35))
+      v36 = MEMORY[0x277D86748] + 16;
+      if (v37 && (*(v37 + 57) & 8) == 0 && ((*(MEMORY[0x277D86748] + 48))(&v36) & 1) != 0 && pxrInternal__aapl__pxrReserved__::UsdGeomXformable::TransformMightBeTimeVarying(&v36))
       {
-        realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v34, 2028, this);
+        realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v35, 2028, this, 0, 0, 0);
         pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-        v33[3] = 0;
-        v33[0] = MEMORY[0x277D86790] + 16;
+        v34[3] = 0;
+        v34[0] = MEMORY[0x277D86790] + 16;
         v13 = atomic_load(&realityio::tokens::AnimationBuilderTokens);
         if (!v13)
         {
-          pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::AnimationBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::AnimationBuilderTokens_StaticTokenType>>::_TryToCreateData();
+          pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::AnimationBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::AnimationBuilderTokens_StaticTokenType>>::_TryToCreateData(&realityio::tokens::AnimationBuilderTokens);
         }
 
-        pxrInternal__aapl__pxrReserved__::UsdGeomPrimvarsAPI::FindPrimvarWithInheritance(buf, v33, (v13 + 8));
-        v28 = *buf;
-        v29 = *&buf[8];
+        pxrInternal__aapl__pxrReserved__::UsdGeomPrimvarsAPI::FindPrimvarWithInheritance(buf, v34, (v13 + 8));
+        v29 = *buf;
+        v30 = *&buf[8];
         if (*&buf[8])
         {
           atomic_fetch_add_explicit((*&buf[8] + 48), 1uLL, memory_order_relaxed);
         }
 
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v30, &v43);
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v31, &v43 + 1);
-        v32 = *(&v43 + 1);
-        if ((BYTE8(v43) & 7) != 0 && (atomic_fetch_add_explicit((*(&v43 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v31, &v44);
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v32, &v44 + 1);
+        v33 = *(&v44 + 1);
+        if ((BYTE8(v44) & 7) != 0 && (atomic_fetch_add_explicit((*(&v44 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
         {
-          v32 &= 0xFFFFFFFFFFFFFFF8;
+          v33 &= 0xFFFFFFFFFFFFFFF8;
         }
 
-        if ((v44 & 7) != 0)
+        if ((v45 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v44 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v45 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if ((BYTE8(v43) & 7) != 0)
+        if ((BYTE8(v44) & 7) != 0)
         {
-          atomic_fetch_add_explicit((*(&v43 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((*(&v44 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v43);
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v44);
         if (*&buf[8])
         {
           pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&buf[8]);
@@ -2418,37 +2269,37 @@ uint64_t realityio::TransformAnimationAssetBuilder::run(realityio::TransformAnim
         v14 = atomic_load(&realityio::tokens::AnimationBuilderTokens);
         if (!v14)
         {
-          pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::AnimationBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::AnimationBuilderTokens_StaticTokenType>>::_TryToCreateData();
+          pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::AnimationBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::AnimationBuilderTokens_StaticTokenType>>::_TryToCreateData(&realityio::tokens::AnimationBuilderTokens);
         }
 
-        pxrInternal__aapl__pxrReserved__::UsdGeomPrimvarsAPI::FindPrimvarWithInheritance(buf, v33, (v14 + 16));
-        v23 = *buf;
-        v24 = *&buf[8];
+        pxrInternal__aapl__pxrReserved__::UsdGeomPrimvarsAPI::FindPrimvarWithInheritance(buf, v34, (v14 + 16));
+        v24 = *buf;
+        v25 = *&buf[8];
         if (*&buf[8])
         {
           atomic_fetch_add_explicit((*&buf[8] + 48), 1uLL, memory_order_relaxed);
         }
 
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v25, &v43);
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v26, &v43 + 1);
-        v27 = *(&v43 + 1);
-        if ((BYTE8(v43) & 7) != 0 && (atomic_fetch_add_explicit((*(&v43 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v26, &v44);
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::Sdf_PathNodeHandleImpl(&v27, &v44 + 1);
+        v28 = *(&v44 + 1);
+        if ((BYTE8(v44) & 7) != 0 && (atomic_fetch_add_explicit((*(&v44 + 1) & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
         {
-          v27 &= 0xFFFFFFFFFFFFFFF8;
+          v28 &= 0xFFFFFFFFFFFFFFF8;
         }
 
-        if ((v44 & 7) != 0)
+        if ((v45 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v44 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v45 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if ((BYTE8(v43) & 7) != 0)
+        if ((BYTE8(v44) & 7) != 0)
         {
-          atomic_fetch_add_explicit((*(&v43 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((*(&v44 + 1) & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v43);
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v44);
         if (*&buf[8])
         {
           pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&buf[8]);
@@ -2458,84 +2309,83 @@ uint64_t realityio::TransformAnimationAssetBuilder::run(realityio::TransformAnim
         *(this + 41) = 0;
         *(this + 42) = 0;
         *(this + 40) = this + 328;
-        if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v28) && pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v23))
+        if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v29) && pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v24))
         {
-          v44 = 0;
+          v45 = 0;
           *buf = 0u;
-          v43 = 0u;
-          v22 = 0;
-          *v20 = 0u;
-          v21 = 0u;
+          v44 = 0u;
+          v23 = 0;
+          *v21 = 0u;
+          v22 = 0u;
           pxrInternal__aapl__pxrReserved__::UsdAttribute::_Get<pxrInternal__aapl__pxrReserved__::VtArray<std::string>>();
         }
 
-        v20[0] = 0;
-        v20[1] = 0;
-        *&v21 = 0;
+        v21[0] = 0;
+        v21[1] = 0;
+        *&v22 = 0;
         TimeSamples = pxrInternal__aapl__pxrReserved__::UsdGeomXformable::GetTimeSamples();
         v16 = *(realityio::logObjects(TimeSamples) + 24);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          pxrInternal__aapl__pxrReserved__::UsdSchemaBase::GetPath(&v35, &v45);
-          Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v45);
+          pxrInternal__aapl__pxrReserved__::UsdSchemaBase::GetPath(&v46, &v36);
+          Text = pxrInternal__aapl__pxrReserved__::SdfPath::GetText(&v46);
           *buf = 136315138;
           *&buf[4] = Text;
           _os_log_impl(&dword_247485000, v16, OS_LOG_TYPE_DEFAULT, "Empty transform animation samples %s", buf, 0xCu);
-          pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v45);
+          pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v46);
         }
 
-        if ((v27 & 7) != 0)
+        if ((v28 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v27 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v28 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v25);
-        if (v24)
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v26);
+        if (v25)
         {
-          pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v24);
+          pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v25);
         }
 
-        if ((v32 & 7) != 0)
+        if ((v33 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v32 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v33 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v30);
-        if (v29)
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v31);
+        if (v30)
         {
-          pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v29);
+          pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v30);
         }
 
-        MEMORY[0x24C1A56A0](v33);
-        realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v34);
+        MEMORY[0x24C1A56A0](v34);
+        realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v35, v18, v19);
       }
 
-      MEMORY[0x24C1A54D0](&v35);
+      MEMORY[0x24C1A54D0](&v36);
     }
 
-    pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v37);
+    pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v38);
   }
 
-  if ((v41 & 7) != 0)
+  if ((v42 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v41 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v42 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v40);
-  result = v39;
-  if (v39)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v41);
+  result = v40;
+  if (v40)
   {
-    result = pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v39);
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v40);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2474CC6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, atomic_uint *a49, __int16 a50, char a51, char a52)
+void sub_2474CC6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, atomic_uint *a49, __int16 a50, char a51, char a52)
 {
   realityio::WrappedRERef<REAsset *>::~WrappedRERef((v52 - 176));
   if (__p)
@@ -2546,7 +2396,7 @@ void sub_2474CC6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(&a32);
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(&a36);
   MEMORY[0x24C1A56A0](&a40);
-  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(&a44);
+  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(&a44, v54, v55);
   MEMORY[0x24C1A54D0](&a46);
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&a49);
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(&a50);
@@ -2555,191 +2405,169 @@ void sub_2474CC6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void createSampledSRTAnimationTimelineAsset(realityio::Inputs *a1, pxrInternal__aapl__pxrReserved__::UsdGeomXformable *a2, double a3, double a4, double a5, uint64_t a6)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v28 = a2;
-  v35.__r_.__value_.__r.__words[0] = 0;
-  v35.__r_.__value_.__l.__size_ = &v35;
-  v35.__r_.__value_.__r.__words[2] = 0x4812000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
-  v38 = "";
-  v40 = 0;
-  v41 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v23 = a2;
+  v30.__r_.__value_.__r.__words[0] = 0;
+  v30.__r_.__value_.__l.__size_ = &v30;
+  v30.__r_.__value_.__r.__words[2] = 0x4812000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = "";
+  v35 = 0;
+  v36 = 0;
   __p = 0;
   std::vector<RESRT>::resize(&__p, (a4 - a3 + 1.0));
   v9 = dispatch_get_global_queue(25, 0);
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((*(v35.__r_.__value_.__l.__size_ + 56) - *(v35.__r_.__value_.__l.__size_ + 48)) >> 4);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = ___Z9sampleSRTmdRN32pxrInternal__aapl__pxrReserved__16UsdGeomXformableE_block_invoke;
-  v29[3] = &unk_278EA82F0;
-  *&v29[5] = a3;
-  v29[6] = a6;
-  v29[4] = &v35;
-  v11 = v29;
+  v10 = 0xAAAAAAAAAAAAAAABLL * ((*(v30.__r_.__value_.__l.__size_ + 56) - *(v30.__r_.__value_.__l.__size_ + 48)) >> 4);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = ___Z9sampleSRTmdRN32pxrInternal__aapl__pxrReserved__16UsdGeomXformableE_block_invoke;
+  v24[3] = &unk_278EA82F0;
+  *&v24[5] = a3;
+  v24[6] = a6;
+  v24[4] = &v30;
+  v11 = v24;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = ___ZL16dispatchInChunksmmPU28objcproto17OS_dispatch_queue8NSObjectU13block_pointerFvmE_block_invoke;
   block[3] = &unk_278EA8318;
-  v34 = v10 % 0x3E8;
-  v32 = v10 / 0x3E8;
-  v33 = 1000;
-  v31 = v11;
+  v29 = v10 % 0x3E8;
+  v27 = v10 / 0x3E8;
+  v28 = 1000;
+  v26 = v11;
   dispatch_apply(v10 / 0x3E8 + 1, v9, block);
 
   __dst = 0;
-  v27 = 0;
-  v25 = 0;
-  v13 = *(v35.__r_.__value_.__l.__size_ + 48);
-  v12 = *(v35.__r_.__value_.__l.__size_ + 56);
+  v22 = 0;
+  v20 = 0;
+  v13 = *(v30.__r_.__value_.__l.__size_ + 48);
+  v12 = *(v30.__r_.__value_.__l.__size_ + 56);
   if (v12 != v13)
   {
-    std::vector<RESRT>::__vallocate[abi:ne200100](&v25, 0xAAAAAAAAAAAAAAABLL * ((v12 - v13) >> 4));
+    std::vector<RESRT>::__vallocate[abi:ne200100](&v20, 0xAAAAAAAAAAAAAAABLL * ((v12 - v13) >> 4));
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v30, 8);
   if (__p)
   {
-    v40 = __p;
+    v35 = __p;
     operator delete(__p);
   }
 
   *a1 = 0;
-  if (__dst != v25)
+  if (__dst != v20)
   {
-    pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v35, (a6 + 8), (a6 + 16));
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetCustomData(&v24, &v35);
-    if ((v36 & 7) != 0)
+    pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v30, (a6 + 8), (a6 + 16));
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetCustomData(&v19, &v30);
+    if ((v31 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v31 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v35.__r_.__value_.__r.__words[2]);
-    if (v35.__r_.__value_.__l.__size_)
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v30.__r_.__value_.__r.__words[2]);
+    if (v30.__r_.__value_.__l.__size_)
     {
-      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v35.__r_.__value_.__l.__size_);
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v30.__r_.__value_.__l.__size_);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v35, "RealityKit:interpMode");
+    std::string::basic_string[abi:ne200100]<0>(&v30, "RealityKit:interpMode");
     ValueAtPath = pxrInternal__aapl__pxrReserved__::VtDictionary::GetValueAtPath();
     v15 = ValueAtPath;
-    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v35.__r_.__value_.__l.__data_);
+      operator delete(v30.__r_.__value_.__l.__data_);
       if (!v15)
       {
-        goto LABEL_31;
+        goto LABEL_25;
       }
     }
 
     else if (!ValueAtPath)
     {
-      goto LABEL_31;
+      goto LABEL_25;
     }
 
     v16 = *(v15 + 1);
-    if (v16)
+    if (!v16)
     {
-      if (*((v16 & 0xFFFFFFFFFFFFFFF8) + 16) == 13)
+LABEL_25:
+      if (__dst != v20)
       {
-        if ((v16 & 4) == 0)
+        pxrInternal__aapl__pxrReserved__::UsdSchemaBase::GetPath(block, a6);
+        String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(block);
+        if (*(String + 23) < 0)
         {
-          goto LABEL_17;
-        }
-
-LABEL_22:
-        ValueAtPath = (*((v16 & 0xFFFFFFFFFFFFFFF8) + 168))(v15);
-        v15 = ValueAtPath;
-LABEL_17:
-        if ((*v15 & 0xFFFFFFFFFFFFFFF8) != 0)
-        {
-          EmptyString = ((*v15 & 0xFFFFFFFFFFFFFFF8) + 16);
+          std::string::__init_copy_ctor_external(&v30, *String, *(String + 8));
         }
 
         else
         {
-          EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(ValueAtPath);
+          v18 = *String;
+          v30.__r_.__value_.__r.__words[2] = *(String + 16);
+          *&v30.__r_.__value_.__l.__data_ = v18;
         }
 
-        v18 = *(EmptyString + 23);
-        if (v18 < 0)
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+        pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(block);
+        RETimelineDefinitionCreateSampledSRTAnimation();
+        RETimelineDefinitionSetInterpolationEnabled();
+        RETimelineDefinitionSetTargetPath();
+        RETimelineDefinitionSetFrameInterval();
+        RETimelineDefinitionSetStartTime();
+        RETimelineDefinitionSetEndTime();
+        RETimelineDefinitionSetSRTValues();
+        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
         {
-          if (*(EmptyString + 1) != 4)
-          {
-            goto LABEL_31;
-          }
-
-          EmptyString = *EmptyString;
+          operator delete(v30.__r_.__value_.__l.__data_);
         }
-
-        else if (v18 != 4)
-        {
-          goto LABEL_31;
-        }
-
-        v19 = *EmptyString;
-        goto LABEL_31;
       }
 
-      if ((v16 & 4) != 0)
-      {
-        if (ValueAtPath)
-        {
-          v16 = *(v15 + 1);
-          if ((v16 & 4) == 0)
-          {
-            goto LABEL_17;
-          }
-
-          goto LABEL_22;
-        }
-      }
+      operator new();
     }
 
-LABEL_31:
-    if (__dst != v25)
+    if (*((v16 & 0xFFFFFFFFFFFFFFF8) + 16) == 13)
     {
-      pxrInternal__aapl__pxrReserved__::UsdSchemaBase::GetPath(a6, block);
-      String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(block);
-      if (*(String + 23) < 0)
+      if ((v16 & 4) == 0)
       {
-        std::string::__init_copy_ctor_external(&v35, *String, *(String + 8));
-      }
-
-      else
-      {
-        v21 = *String;
-        v35.__r_.__value_.__r.__words[2] = *(String + 16);
-        *&v35.__r_.__value_.__l.__data_ = v21;
-      }
-
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(block);
-      RETimelineDefinitionCreateSampledSRTAnimation();
-      RETimelineDefinitionSetInterpolationEnabled();
-      RETimelineDefinitionSetTargetPath();
-      RETimelineDefinitionSetFrameInterval();
-      RETimelineDefinitionSetStartTime();
-      RETimelineDefinitionSetEndTime();
-      RETimelineDefinitionSetSRTValues();
-      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v35.__r_.__value_.__l.__data_);
+        goto LABEL_17;
       }
     }
 
-    v22 = *(v28 + 6);
-    operator new();
+    else
+    {
+      if ((v16 & 4) == 0)
+      {
+        goto LABEL_25;
+      }
+
+      if (!ValueAtPath)
+      {
+        goto LABEL_25;
+      }
+
+      v16 = *(v15 + 1);
+      if ((v16 & 4) == 0)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    ValueAtPath = (*((v16 & 0xFFFFFFFFFFFFFFF8) + 168))(v15);
+    v15 = ValueAtPath;
+LABEL_17:
+    if ((*v15 & 0xFFFFFFFFFFFFFFF8) == 0)
+    {
+      pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(ValueAtPath);
+    }
+
+    goto LABEL_25;
   }
 
-  if (v25)
+  if (v20)
   {
-    __dst = v25;
-    operator delete(v25);
+    operator delete(v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2474CCEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44)
@@ -2755,7 +2583,7 @@ void sub_2474CCEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::operator=(int *a1, int *a2)
+uint64_t *realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::operator=(uint64_t *a1, uint64_t *a2)
 {
   if (a1 != a2)
   {
@@ -2775,15 +2603,15 @@ uint64_t *realityio::TransformAnimationAssetBuilder::TransformAnimationAssetData
     }
 
     realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v9);
-    v5 = *(a1 + 1);
-    *(a1 + 1) = *(a2 + 1);
-    *(a2 + 1) = v5;
-    v6 = *(a1 + 2);
-    *(a1 + 2) = *(a2 + 2);
-    *(a2 + 2) = v6;
-    v7 = *(a1 + 3);
-    *(a1 + 3) = *(a2 + 3);
-    *(a2 + 3) = v7;
+    v5 = a1[1];
+    a1[1] = a2[1];
+    a2[1] = v5;
+    v6 = a1[2];
+    a1[2] = a2[2];
+    a2[2] = v6;
+    v7 = a1[3];
+    a1[3] = a2[3];
+    a2[3] = v7;
     std::swap[abi:ne200100]<pxrInternal__aapl__pxrReserved__::SdfPath>(a1 + 8, a2 + 8);
   }
 
@@ -2917,7 +2745,7 @@ void realityio::TransformAnimationAssetBuilder::clear(realityio::TransformAnimat
   *&__p.__r_.__value_.__l.__data_ = 0uLL;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle();
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle();
-  realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::operator=(this + 70, &v22);
+  realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::operator=(this + 35, &v22);
   realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT::~TransformAnimationAssetDataT(&v22);
   std::__tree<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>>>::destroy(this + 320, *(this + 41));
   *(this + 41) = 0;
@@ -3014,10 +2842,10 @@ realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT *reality
 
 uint64_t ___ZL16dispatchInChunksmmPU28objcproto17OS_dispatch_queue8NSObjectU13block_pointerFvmE_block_invoke(uint64_t result, uint64_t a2)
 {
-  v3 = result;
+  v2 = result;
   if (*(result + 40) == a2)
   {
-    v4 = *(result + 56);
+    v3 = *(result + 56);
     if (!*(result + 56))
     {
       return result;
@@ -3026,22 +2854,21 @@ uint64_t ___ZL16dispatchInChunksmmPU28objcproto17OS_dispatch_queue8NSObjectU13bl
 
   else
   {
-    v4 = *(result + 48);
-    if (!v4)
+    v3 = *(result + 48);
+    if (!v3)
     {
       return result;
     }
   }
 
-  v5 = 0;
+  v4 = 0;
   do
   {
-    v6 = v5 + *(v3 + 48) * a2;
-    result = (*(*(v3 + 32) + 16))();
-    ++v5;
+    result = (*(*(v2 + 32) + 16))();
+    ++v4;
   }
 
-  while (v4 != v5);
+  while (v3 != v4);
   return result;
 }
 
@@ -3054,37 +2881,29 @@ __n128 std::__function::__func<createSampledSRTAnimationTimelineClipAsset(realit
   return result;
 }
 
-void *std::__function::__func<createSampledSRTAnimationTimelineClipAsset(realityio::Builder &,realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,std::string const&,double,double,double)::$_0,std::allocator<createSampledSRTAnimationTimelineClipAsset(realityio::Builder &,realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,std::string const&,double,double,double)::$_0>,void ()(void)>::operator()(void **a1)
+uint64_t *std::__function::__func<createSampledSRTAnimationTimelineClipAsset(realityio::Builder &,realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,std::string const&,double,double,double)::$_0,std::allocator<createSampledSRTAnimationTimelineClipAsset(realityio::Builder &,realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,std::string const&,double,double,double)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v2 = *(*(*(*a1[1] + 40) + 16) + 16);
   ServiceLocator = REEngineGetServiceLocator();
   MEMORY[0x24C1A4230](ServiceLocator);
-  v4 = *a1[2];
-  v11 = RETimelineDefinitionCreateFromTimeline();
-  v5 = a1[3];
-  if (*(v5 + 23) < 0)
-  {
-    v6 = *v5;
-  }
-
+  v7 = RETimelineDefinitionCreateFromTimeline();
   TimelineClip = RETimelineDefinitionCreateTimelineClip();
   RETimelineDefinitionSetTargetPath();
   RETimelineDefinitionSetClipLoopBehavior();
-  v7 = a1[4];
+  v3 = *(a1 + 32);
   TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
-  if (*v7)
+  if (*v3)
   {
     RERelease();
   }
 
-  *v7 = TimelineAsset;
+  *v3 = TimelineAsset;
   realityio::WrappedRERef<RETimelineDefinition *>::~WrappedRERef(&TimelineClip);
-  return realityio::WrappedRERef<RETimelineDefinition *>::~WrappedRERef(&v11);
+  return realityio::WrappedRERef<RETimelineDefinition *>::~WrappedRERef(&v7);
 }
 
-void sub_2474CD7C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474CD7C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   realityio::WrappedRERef<RETimelineDefinition *>::~WrappedRERef(va);
   _Unwind_Resume(a1);
 }
@@ -3112,19 +2931,17 @@ __n128 std::__function::__func<createSampledSRTAnimationTimelineAsset(realityio:
 
 uint64_t std::__function::__func<createSampledSRTAnimationTimelineAsset(realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,double,double,double)::$_0,std::allocator<createSampledSRTAnimationTimelineAsset(realityio::Inputs *,pxrInternal__aapl__pxrReserved__::UsdGeomXformable &,double,double,double)::$_0>,void ()(void)>::operator()(void **a1)
 {
-  v2 = *(*(*(*a1[1] + 40) + 16) + 16);
   ServiceLocator = REEngineGetServiceLocator();
   MEMORY[0x24C1A4230](ServiceLocator);
-  v4 = a1[2];
-  v5 = *a1[3];
+  v3 = a1[2];
   TimelineAsset = RETimelineDefinitionCreateTimelineAsset();
-  result = *v4;
-  if (*v4)
+  result = *v3;
+  if (*v3)
   {
     result = RERelease();
   }
 
-  *v4 = TimelineAsset;
+  *v3 = TimelineAsset;
   return result;
 }
 
@@ -3395,48 +3212,47 @@ void realityio::tokens::SkeletalAnimationAssetBuilderTokens_StaticTokenType::~Sk
   }
 }
 
-realityio::tokens::SkeletalAnimationAssetBuilderTokens_StaticTokenType *realityio::tokens::SkeletalAnimationAssetBuilderTokens_StaticTokenType::SkeletalAnimationAssetBuilderTokens_StaticTokenType(atomic_uint **this)
+atomic_uint **realityio::tokens::SkeletalAnimationAssetBuilderTokens_StaticTokenType::SkeletalAnimationAssetBuilderTokens_StaticTokenType(atomic_uint **this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x24C1A5DF0](this, "SkelAnimation", 0);
   MEMORY[0x24C1A5DF0](v2 + 8, "PackedJointAnimation", 0);
-  v3 = this + 2;
+  v3 = (this + 2);
   v4 = *this;
-  v12 = v4;
+  v11 = v4;
   if ((v4 & 7) != 0)
   {
     v5 = (v4 & 0xFFFFFFFFFFFFFFF8);
     if ((atomic_fetch_add_explicit(v5, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v12 = v5;
+      v11 = v5;
     }
   }
 
   v6 = this[1];
-  v13 = v6;
+  v12 = v6;
   if ((v6 & 7) != 0)
   {
     v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
     if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
     {
-      v13 = v7;
+      v12 = v7;
     }
   }
 
   *v3 = 0;
   this[3] = 0;
   this[4] = 0;
-  std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(v3, &v12, &v14, 2uLL);
-  for (i = 1; i != -1; --i)
+  std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(v3, &v11, &v13, 2uLL);
+  for (i = 8; i != -8; i -= 8)
   {
-    v9 = (&v12)[i];
+    v9 = *(&v11 + i);
     if ((v9 & 7) != 0)
     {
       atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3470,28 +3286,26 @@ void sub_2474CE590(_Unwind_Exception *a1)
   }
 }
 
-void realityio::generateSkeletalAnimationDirtyStageSubscription(void *a1@<X8>)
+void realityio::generateSkeletalAnimationDirtyStageSubscription(uint64_t *__return_ptr a1@<X8>)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_27EE52CE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52CE0))
   {
     operator new();
   }
 
-  v3 = *algn_27EE52CD8;
+  v2 = *algn_27EE52CD8;
   *a1 = _MergedGlobals_3;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2474CEDAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, _Unwind_Exception *exception_object, uint64_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, std::__shared_weak_count *a31, uint64_t a32, std::__shared_weak_count *a33, uint64_t a34, std::__shared_weak_count *a35, uint64_t a36, std::__shared_weak_count *a37, char a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, std::__shared_weak_count *a45, char a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char *a60)
+void sub_2474CEDAC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, _Unwind_Exception *exception_object, uint64_t a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, std::__shared_weak_count *a29, uint64_t a30, std::__shared_weak_count *a31, uint64_t a32, std::__shared_weak_count *a33, uint64_t a34, std::__shared_weak_count *a35, uint64_t a36, std::__shared_weak_count *a37, char a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, std::__shared_weak_count *a45, char a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char *a60)
 {
-  MEMORY[0x24C1A91B0](v61, 0x10A1C40F82F910ELL);
+  MEMORY[0x24C1A91B0](v61, 0x10A1C40F82F910ELL, a3, a4, a5, a6, a7, a8);
   v64 = v63 - 128;
   if (a45)
   {
@@ -3580,26 +3394,24 @@ void sub_2474CEDAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void realityio::generateSkeletalMeshDirtyStageSubscription(void *a1@<X8>)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_27EE52D00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE52D00))
   {
     operator new();
   }
 
-  v3 = *algn_27EE52CF8;
+  v2 = *algn_27EE52CF8;
   *a1 = qword_27EE52CF0;
-  a1[1] = v3;
-  if (v3)
+  a1[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2474CFAFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, uint64_t a35, std::__shared_weak_count *a36, uint64_t a37, std::__shared_weak_count *a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, std::__shared_weak_count *a44, char a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char *a59)
+void sub_2474CFAFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, std::__shared_weak_count *a34, uint64_t a35, std::__shared_weak_count *a36, uint64_t a37, std::__shared_weak_count *a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, std::__shared_weak_count *a44, char a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char *a59)
 {
-  MEMORY[0x24C1A91B0](v60, 0x10A1C40F82F910ELL);
+  MEMORY[0x24C1A91B0](v60, 0x10A1C40F82F910ELL, a3, a4, a5, a6, a7, a8);
   v63 = v62 - 128;
   if (a44)
   {
@@ -3926,21 +3738,21 @@ void sub_2474D0954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     atomic_fetch_add_explicit((*v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  MEMORY[0x24C1A91B0](v9, v10);
+  MEMORY[0x24C1A91B0](v9, v10, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t realityio::InputsDescriptor::addInputDescriptor(void *a1, void *a2)
+uint64_t realityio::InputsDescriptor::addInputDescriptor(float *a1, void *a2)
 {
-  MEMORY[0x24C1A5E00](v40, *a2 + 8);
-  v4 = v40[0];
-  if ((v40[0] & 7) != 0 && (atomic_fetch_add_explicit((v40[0] & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+  MEMORY[0x24C1A5E00](&v40, *a2 + 8);
+  v4 = v40;
+  if ((v40 & 7) != 0 && (atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
   {
     v4 &= 0xFFFFFFFFFFFFFFF8;
   }
 
   v5 = v4 & 0xFFFFFFFFFFFFFFF8;
-  v6 = a1[1];
+  v6 = *(a1 + 2);
   if (v6)
   {
     v7 = bswap64(0x9E3779B97F4A7C55 * v5);
@@ -4006,13 +3818,13 @@ LABEL_21:
     atomic_fetch_add_explicit(v5, 0xFFFFFFFE, memory_order_release);
   }
 
-  v13 = v40[0];
+  v13 = v40;
   if (v37)
   {
     v38 = 0uLL;
     v39 = 0;
-    v40[1] = v40;
-    v14 = std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(a1, v40[0]);
+    v41 = &v40;
+    v14 = std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(a1, v40, &v41);
     v15 = v14;
     v17 = (v14 + 3);
     v16 = v14[3];
@@ -4036,13 +3848,13 @@ LABEL_21:
     v15[5] = v16;
     v39 = 0;
     v38 = 0uLL;
-    v41 = &v38;
-    std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::__destroy_vector::operator()[abi:ne200100](&v41);
-    v13 = v40[0];
+    v42 = &v38;
+    std::vector<std::shared_ptr<realityio::DirtyStageDescriptor const>>::__destroy_vector::operator()[abi:ne200100](&v42);
+    v13 = v40;
   }
 
-  *&v38 = v40;
-  v19 = std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(a1, v13);
+  *&v38 = &v40;
+  v19 = std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(a1, v13, &v38);
   v20 = v19;
   v21 = v19[4];
   v22 = v19[5];
@@ -4114,9 +3926,9 @@ LABEL_21:
   }
 
   v20[4] = v24;
-  if ((v40[0] & 7) != 0)
+  if ((v40 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v40[0] & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   return 1;
@@ -4134,7 +3946,7 @@ void sub_2474D0C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::shared_ptr<realityio::InputDescriptor const>>::__init_with_size[abi:ne200100]<std::shared_ptr<realityio::InputDescriptor const>*,std::shared_ptr<realityio::InputDescriptor const>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<realityio::InputDescriptor const>>::__init_with_size[abi:ne200100]<std::shared_ptr<realityio::InputDescriptor const>*,std::shared_ptr<realityio::InputDescriptor const>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4151,7 +3963,7 @@ void sub_2474D0D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<realityio::InputDescriptor const>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<realityio::InputDescriptor const>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4204,33 +4016,33 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::__unordered_map_hasher<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::__unordered_map_equal<pxrInternal__aapl__pxrReserved__::TfToken,std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,true>,std::allocator<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::piecewise_construct_t const&,std::tuple<pxrInternal__aapl__pxrReserved__::TfToken const&>,std::tuple<>>(float *a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = bswap64(0x9E3779B97F4A7C55 * (a2 & 0xFFFFFFFFFFFFFFF8));
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = bswap64(0x9E3779B97F4A7C55 * (a2 & 0xFFFFFFFFFFFFFFF8));
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = v2;
-    if (v2 >= *&v3)
+    v6 = v3;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -4238,44 +4050,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if ((v7[2] ^ a2) >= 8)
+  if ((v8[2] ^ a2) >= 8)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<pxrInternal__aapl__pxrReserved__::TfToken,std::vector<std::shared_ptr<realityio::InputDescriptor const>>>,void *>>>::operator()[abi:ne200100](char a1, char *__p)
@@ -4294,32 +4106,31 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t realityio::Builder::addAsset(uint64_t a1, uint64_t *a2, uint64_t a3)
+void *realityio::Builder::addAsset(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (a3)
   {
-    v5 = *a2;
     REAssetSetMetadataString();
   }
 
   result = *a2;
   if (*a2)
   {
-    v7 = *(a1 + 72);
-    if (v7 >= *(a1 + 80))
+    v6 = a1[9];
+    if (v6 >= a1[10])
     {
-      result = std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_path<realityio::WrappedRERef<REAsset *> const&>(a1 + 64, a2);
+      result = std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_path<realityio::WrappedRERef<REAsset *> const&>(a1 + 8, a2);
     }
 
     else
     {
-      *v7 = result;
+      *v6 = result;
       RERetain();
-      result = (v7 + 1);
-      *(a1 + 72) = v7 + 1;
+      result = v6 + 1;
+      a1[9] = (v6 + 1);
     }
 
-    *(a1 + 72) = result;
+    a1[9] = result;
   }
 
   return result;
@@ -4371,7 +4182,7 @@ void **std::vector<std::shared_ptr<realityio::AssetLoadTracker::Asset>>::push_ba
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -4543,16 +4354,16 @@ uint64_t realityio::Builder::isResync(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_path<realityio::WrappedRERef<REAsset *> const&>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_path<realityio::WrappedRERef<REAsset *> const&>(uint64_t *a1, uint64_t *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<realityio::WrappedRERef<REAsset *>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -4593,14 +4404,14 @@ uint64_t std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_pa
   }
 
   *&v19 = v10 + 8;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = v8 + *a1 - v11;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<realityio::WrappedRERef<REAsset *>>,realityio::WrappedRERef<REAsset *>*>(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = *(a1 + 16);
+  v14 = a1[2];
   v16 = v19;
-  *(a1 + 8) = v19;
+  *(a1 + 1) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -4609,14 +4420,14 @@ uint64_t std::vector<realityio::WrappedRERef<REAsset *>>::__emplace_back_slow_pa
   return v16;
 }
 
-void sub_2474D17A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2474D17A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<realityio::WrappedRERef<REAsset *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<realityio::WrappedRERef<REAsset *>>,realityio::WrappedRERef<REAsset *>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<realityio::WrappedRERef<REAsset *>>,realityio::WrappedRERef<REAsset *>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -4641,13 +4452,11 @@ void *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<reali
     while (v8 != a3);
     do
     {
-      result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(v5++);
+      realityio::WrappedRERef<REAsset *>::~WrappedRERef(v5++);
     }
 
     while (v5 != a3);
   }
-
-  return result;
 }
 
 void sub_2474D1850(_Unwind_Exception *exception_object)
@@ -4679,13 +4488,13 @@ uint64_t std::__split_buffer<realityio::WrappedRERef<REAsset *>>::~__split_buffe
 
 uint64_t realityio::MapFromGroupsAction::operator()@<X0>(uint64_t a1@<X4>, void *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *(a1 + 8) - *a1;
   a2[1] = 0;
   if (v4 == 16 && v3[1])
   {
-    result = pxrInternal__aapl__pxrReserved__::VtValue::_HoldAside::_HoldAside(v9, a2);
+    result = pxrInternal__aapl__pxrReserved__::VtValue::_HoldAside::_HoldAside(v8, a2);
     v6 = v3[1];
     v7 = ~*(v3 + 2);
     a2[1] = v6;
@@ -4699,21 +4508,20 @@ uint64_t realityio::MapFromGroupsAction::operator()@<X0>(uint64_t a1@<X4>, void 
       *a2 = *v3;
     }
 
-    if (v10)
+    if (v9)
     {
-      result = (*(v10 + 32))(v9);
+      return (*(v9 + 32))(v8);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2474D1988(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11)
+void sub_2474D1988(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    (*(a11 + 32))(&a10);
+    (*(a11 + 32))(&a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4741,38 +4549,30 @@ __CFArray *RIOBuilderPrimDeltaCopyPropertyDeltas(uint64_t a1)
 {
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   v3 = *(a1 + 56);
-  v4 = *(a1 + 64);
-  if (v3 != v4)
+  for (i = *(a1 + 64); v3 != i; v3 += 6)
   {
-    v5 = *MEMORY[0x277CBECE8];
-    do
+    if (RIOBuilderPropertyDeltaGetTypeID::onceToken != -1)
     {
-      if (RIOBuilderPropertyDeltaGetTypeID::onceToken != -1)
-      {
-        dispatch_once(&RIOBuilderPropertyDeltaGetTypeID::onceToken, &__block_literal_global_13);
-      }
-
-      Instance = _CFRuntimeCreateInstance();
-      v7 = Instance;
-      if (Instance)
-      {
-        v8 = *v3;
-        *(Instance + 16) = *v3;
-        if ((v8 & 7) != 0 && (atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
-        {
-          *(Instance + 16) &= 0xFFFFFFFFFFFFFFF8;
-        }
-
-        std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(Instance + 24, (v3 + 1));
-      }
-
-      v10 = v7;
-      CFArrayAppendValue(Mutable, v7);
-      realityio::WrappedCFRef<RIOBuilderPropertyDelta *>::~WrappedCFRef(&v10);
-      v3 += 6;
+      dispatch_once(&RIOBuilderPropertyDeltaGetTypeID::onceToken, &__block_literal_global_13);
     }
 
-    while (v3 != v4);
+    Instance = _CFRuntimeCreateInstance();
+    v6 = Instance;
+    if (Instance)
+    {
+      v7 = *v3;
+      *(Instance + 16) = *v3;
+      if ((v7 & 7) != 0 && (atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+      {
+        *(Instance + 16) &= 0xFFFFFFFFFFFFFFF8;
+      }
+
+      std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(Instance + 24, (v3 + 1));
+    }
+
+    v9 = v6;
+    CFArrayAppendValue(Mutable, v6);
+    realityio::WrappedCFRef<RIOBuilderPropertyDelta *>::~WrappedCFRef(&v9);
   }
 
   return Mutable;
@@ -4802,16 +4602,15 @@ __CFArray *RIOBuilderPrimDeltaCopyDirtyMetadata(uint64_t a1)
   return Mutable;
 }
 
-void sub_2474D1C18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D1C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   realityio::WrappedCFRef<RIOPxrTfToken *>::~WrappedCFRef(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RIOPxrTfTokenCreate<pxrInternal__aapl__pxrReserved__::TfToken const&>(uint64_t *a1)
 {
-  v2 = *MEMORY[0x277CBECE8];
   if (RIOPxrTfTokenGetTypeID::onceToken != -1)
   {
     dispatch_once(&RIOPxrTfTokenGetTypeID::onceToken, &__block_literal_global_25);
@@ -4820,9 +4619,9 @@ uint64_t RIOPxrTfTokenCreate<pxrInternal__aapl__pxrReserved__::TfToken const&>(u
   result = _CFRuntimeCreateInstance();
   if (result)
   {
-    v4 = *a1;
+    v3 = *a1;
     *(result + 16) = *a1;
-    if ((v4 & 7) != 0 && (atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+    if ((v3 & 7) != 0 && (atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
     {
       *(result + 16) &= 0xFFFFFFFFFFFFFFF8;
     }
@@ -4831,11 +4630,11 @@ uint64_t RIOPxrTfTokenCreate<pxrInternal__aapl__pxrReserved__::TfToken const&>(u
   return result;
 }
 
-uint64_t _RIOBuilderPrimDeltaCFFinalize(char *a1)
+void **_RIOBuilderPrimDeltaCFFinalize(void **a1)
 {
-  v3 = (a1 + 56);
+  v3 = a1 + 7;
   std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v3);
-  return std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table((a1 + 16));
+  return std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(a1 + 2);
 }
 
 void std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -4850,13 +4649,13 @@ void std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne2
   }
 }
 
-uint64_t std::vector<realityio::PropertyDelta>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
+void **std::vector<realityio::PropertyDelta>::__base_destruct_at_end[abi:ne200100](void **result, void **a2)
 {
   v3 = result;
-  for (i = *(result + 8); i != a2; i -= 48)
+  for (i = result[1]; i != a2; i -= 6)
   {
-    result = std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(i - 40);
-    v6 = *(i - 48);
+    result = std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(i - 5);
+    v6 = *(i - 6);
     v5 = v6;
     if ((v6 & 7) != 0)
     {
@@ -4864,7 +4663,7 @@ uint64_t std::vector<realityio::PropertyDelta>::__base_destruct_at_end[abi:ne200
     }
   }
 
-  *(v3 + 8) = a2;
+  v3[1] = a2;
   return result;
 }
 
@@ -4956,9 +4755,9 @@ LABEL_17:
   return result;
 }
 
-void sub_2474D20DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D20DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<pxrInternal__aapl__pxrReserved__::TfToken,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<pxrInternal__aapl__pxrReserved__::TfToken,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5011,8 +4810,8 @@ const void **realityio::WrappedCFRef<RIOPxrTfToken *>::~WrappedCFRef(const void 
 void RIO_MTLX::FilePath::assign(uint64_t a1, std::string *a2)
 {
   *(a1 + 24) = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "/\");
-  RIO_MTLX::splitString(a2, __p, &v12);
+  std::string::basic_string[abi:ne200100]<0>(__p, "/\"");
+  RIO_MTLX::splitString(&v12, a2, __p);
   std::vector<std::string>::__vdeallocate(a1);
   *a1 = v12;
   *(a1 + 16) = v13;
@@ -5127,8 +4926,7 @@ void sub_2474D23A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void RIO_MTLX::FilePath::asString(char **a1@<X0>, int a2@<W1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   if (a2 == 1)
   {
@@ -5189,7 +4987,7 @@ LABEL_20:
 
   else if (!a2 && *(a1 + 6) == 2)
   {
-    v8 = "\\\";
+    v8 = "\\\"";
 LABEL_21:
     std::string::append(a3, v8);
   }
@@ -5262,7 +5060,7 @@ void sub_2474D254C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RIO_MTLX::FilePath::operator/@<X0>(uint64_t a1@<X0>, __int128 **a2@<X1>, uint64_t a3@<X8>)
+std::string *RIO_MTLX::FilePath::operator/@<X0>(uint64_t a1@<X0>, __int128 **a2@<X1>, uint64_t a3@<X8>)
 {
   *a3 = 0;
   *(a3 + 8) = 0;
@@ -5280,9 +5078,9 @@ uint64_t RIO_MTLX::FilePath::operator/@<X0>(uint64_t a1@<X0>, __int128 **a2@<X1>
   return result;
 }
 
-void sub_2474D25F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D25F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5319,12 +5117,12 @@ void sub_2474D2674(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void RIO_MTLX::FilePath::getParentPath(RIO_MTLX::FilePath *this@<X0>, uint64_t a2@<X8>)
+void RIO_MTLX::FilePath::getParentPath(__int128 **this@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *this, *(this + 1), 0xAAAAAAAAAAAAAAABLL * ((*(this + 1) - *this) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *this, this[1], 0xAAAAAAAAAAAAAAABLL * ((this[1] - *this) >> 3));
   *(a2 + 24) = *(this + 6);
   v4 = *(a2 + 8);
   if (*a2 != v4)
@@ -5339,7 +5137,7 @@ void RIO_MTLX::FilePath::getParentPath(RIO_MTLX::FilePath *this@<X0>, uint64_t a
   }
 }
 
-void RIO_MTLX::getEnvironmentPath(unsigned __int8 **a1@<X0>, void *a2@<X8>)
+void RIO_MTLX::getEnvironmentPath(uint64_t *a1@<X8>, unsigned __int8 ***a2@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "MATERIALX_SEARCH_PATH");
   RIO_MTLX::getEnviron(__p, &__str);
@@ -5348,7 +5146,7 @@ void RIO_MTLX::getEnvironmentPath(unsigned __int8 **a1@<X0>, void *a2@<X8>)
     operator delete(__p[0]);
   }
 
-  RIO_MTLX::FileSearchPath::FileSearchPath(a2, &__str, a1);
+  RIO_MTLX::FileSearchPath::FileSearchPath(a1, &__str, a2);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -5365,7 +5163,7 @@ void sub_2474D2780(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5391,19 +5189,19 @@ void *RIO_MTLX::FilePath::FilePath(void *a1, std::string *a2)
   return a1;
 }
 
-void sub_2474D2870(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D2870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *RIO_MTLX::FileSearchPath::FileSearchPath(void *a1, std::string *__str, unsigned __int8 **a3)
+uint64_t *RIO_MTLX::FileSearchPath::FileSearchPath(uint64_t *a1, std::string *__str, unsigned __int8 ***a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  RIO_MTLX::splitString(__str, a3, &v8);
+  RIO_MTLX::splitString(&v8, __str, a3);
   v4 = v8;
   v5 = v9;
   if (v8 != v9)
@@ -5442,10 +5240,10 @@ LABEL_8:
   return a1;
 }
 
-uint64_t std::vector<RIO_MTLX::FilePath>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<RIO_MTLX::FilePath>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<RIO_MTLX::FilePath>::__emplace_back_slow_path<RIO_MTLX::FilePath const&>(a1, a2);
   }
@@ -5456,11 +5254,11 @@ uint64_t std::vector<RIO_MTLX::FilePath>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<RIO_MTLX::FilePath>::__construct_one_at_end[abi:ne200100]<RIO_MTLX::FilePath const&>(uint64_t a1, uint64_t a2)
+std::string *std::vector<RIO_MTLX::FilePath>::__construct_one_at_end[abi:ne200100]<RIO_MTLX::FilePath const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = 0;
@@ -5472,16 +5270,16 @@ uint64_t std::vector<RIO_MTLX::FilePath>::__construct_one_at_end[abi:ne200100]<R
   return result;
 }
 
-uint64_t std::vector<RIO_MTLX::FilePath>::__emplace_back_slow_path<RIO_MTLX::FilePath const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<RIO_MTLX::FilePath>::__emplace_back_slow_path<RIO_MTLX::FilePath const&>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeOutput>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -5513,14 +5311,14 @@ uint64_t std::vector<RIO_MTLX::FilePath>::__emplace_back_slow_path<RIO_MTLX::Fil
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v8, *a2, *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 3));
   *(v8 + 24) = *(a2 + 24);
   *&v17 = v17 + 32;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v16 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RIO_MTLX::FilePath>,RIO_MTLX::FilePath*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -5529,9 +5327,9 @@ uint64_t std::vector<RIO_MTLX::FilePath>::__emplace_back_slow_path<RIO_MTLX::Fil
   return v14;
 }
 
-void sub_2474D2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2474D2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<RIO_MTLX::FilePath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5591,9 +5389,9 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<RI
   return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<RIO_MTLX::FilePath>,RIO_MTLX::FilePath*>>::~__exception_guard_exceptions[abi:ne200100](v9);
 }
 
-void sub_2474D2C94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D2C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<RIO_MTLX::FilePath>,RIO_MTLX::FilePath*>>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5643,7 +5441,7 @@ void std::__split_buffer<RIO_MTLX::FilePath>::clear[abi:ne200100](uint64_t a1)
   }
 }
 
-void std::vector<RIO_MTLX::FilePath>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<RIO_MTLX::FilePath>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5669,7 +5467,7 @@ void std::vector<RIO_MTLX::FilePath>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-void std::vector<RIO_MTLX::FilePath>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RIO_MTLX::FilePath>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5843,7 +5641,7 @@ void sub_2474D3248(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t RIOPxrUsdUtilsCreateNewUsdzPackage(char *a1, char *a2, char *a3)
+uint64_t RIOPxrUsdUtilsCreateNewUsdzPackage(pxrInternal__aapl__pxrReserved__ *a1, char *a2, char *a3)
 {
   TmpDir = pxrInternal__aapl__pxrReserved__::ArchGetTmpDir(a1);
   std::string::basic_string[abi:ne200100]<0>(v18, TmpDir);
@@ -5868,7 +5666,7 @@ uint64_t RIOPxrUsdUtilsCreateNewUsdzPackage(char *a1, char *a2, char *a3)
   if (v7)
   {
     v8 = a1 + 16;
-    if (a1[39] < 0)
+    if (*(a1 + 39) < 0)
     {
       v8 = *v8;
     }
@@ -5952,7 +5750,7 @@ void RIOPxrUsdUtilsConvertNonUsdzImages(uint64_t a1, uint64_t a2, void *a3)
   operator new();
 }
 
-void sub_2474D363C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, atomic_uint *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, void *a21)
+void sub_2474D363C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, atomic_uint *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, void *a21)
 {
   std::__function::__value_func<std::string ()(std::string const&)>::~__value_func[abi:ne200100](v21 - 56);
   if (a10 && atomic_fetch_add_explicit(a10 + 2, 0xFFFFFFFF, memory_order_release) == 1)
@@ -6083,16 +5881,16 @@ __n128 std::__function::__func<RIOPxrUsdUtilsConvertNonUsdzImages::$_0,std::allo
 
 void std::__function::__func<RIOPxrUsdUtilsConvertNonUsdzImages::$_0,std::allocator<RIOPxrUsdUtilsConvertNonUsdzImages::$_0>,std::string ()(std::string const&)>::operator()(uint64_t a1@<X0>, std::string::size_type a2@<X1>, std::string *a3@<X8>)
 {
-  v88[2] = *MEMORY[0x277D85DE8];
-  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindAllFileFormatExtensions(&v86, a1);
+  v84[2] = *MEMORY[0x277D85DE8];
+  pxrInternal__aapl__pxrReserved__::SdfFileFormat::FindAllFileFormatExtensions(&v82, a1);
   pxrInternal__aapl__pxrReserved__::TfGetExtension();
-  v6 = std::__tree<std::string>::__count_unique<std::string>(&v86, &v81);
-  if (v83 < 0)
+  v6 = std::__tree<std::string>::__count_unique<std::string>(&v82, &v77);
+  if (v79 < 0)
   {
-    operator delete(v81);
+    operator delete(v77);
   }
 
-  std::__tree<std::string>::destroy(&v86, v86.__r_.__value_.__l.__size_);
+  std::__tree<std::string>::destroy(&v82, v82.__r_.__value_.__l.__size_);
   if (v6)
   {
     goto LABEL_9;
@@ -6100,329 +5898,326 @@ void std::__function::__func<RIOPxrUsdUtilsConvertNonUsdzImages::$_0,std::alloca
 
   pxrInternal__aapl__pxrReserved__::TfGetExtension();
   pxrInternal__aapl__pxrReserved__::TfStringToLower();
-  v7 = std::__find[abi:ne200100]<std::string_view const*,std::string_view const*,std::string,std::__identity>(&realityio::isUsdzCompliantImageFileExtension(std::string const&)::allowedExtensions, &__block_descriptor_40_e5_v8__0l, &v86.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+  v7 = std::__find[abi:ne200100]<std::string_view const*,std::string_view const*,std::string,std::__identity>(&realityio::isUsdzCompliantImageFileExtension(std::string const&)::allowedExtensions, &__block_descriptor_40_e5_v8__0l, &v82.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v86.__r_.__value_.__l.__data_);
+    operator delete(v82.__r_.__value_.__l.__data_);
   }
 
-  if (v83 < 0)
+  if (v79 < 0)
   {
-    operator delete(v81);
+    operator delete(v77);
   }
 
   if (v7 == &__block_descriptor_40_e5_v8__0l)
   {
-    v9 = std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(*(a1 + 24), a2);
-    if (*(a1 + 24) + 8 == v9)
+    v8 = std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(*(a1 + 24), a2);
+    if (*(a1 + 24) + 8 == v8)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v76 = Mutable;
+      v72 = Mutable;
       if (Mutable)
       {
         CFRetain(Mutable);
       }
 
-      v12 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v75 = v12;
-      if (v12)
+      v11 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v71 = v11;
+      if (v11)
       {
-        CFRetain(v12);
+        CFRetain(v11);
       }
 
-      v13 = *(a1 + 32);
-      v14 = *(a1 + 40);
       pxrInternal__aapl__pxrReserved__::ArResolver::CreateIdentifier();
-      if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v70.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v15 = &v74;
+        v12 = &v70;
       }
 
       else
       {
-        v15 = v74.__r_.__value_.__r.__words[0];
+        v12 = v70.__r_.__value_.__r.__words[0];
       }
 
-      v16 = (*(**(a1 + 16) + 16))(**(a1 + 16), v15, v76, v75);
-      v73 = v16;
-      if (v16)
+      v13 = (*(**(a1 + 16) + 16))(**(a1 + 16), v12, v72, v71);
+      v69 = v13;
+      if (v13)
       {
-        CFRetain(v16);
-        v16 = v73;
+        CFRetain(v13);
+        v13 = v69;
       }
 
-      realityio::stringFromCFString(v16, &v86);
-      if (v87 == 1)
+      realityio::stringFromCFString(&v82, v13);
+      if (v83 == 1)
       {
-        v72 = v86;
+        v68 = v82;
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(&v72, "");
+        std::string::basic_string[abi:ne200100]<0>(&v68, "");
       }
 
-      size = HIBYTE(v72.__r_.__value_.__r.__words[2]);
-      if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      size = HIBYTE(v68.__r_.__value_.__r.__words[2]);
+      if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v72.__r_.__value_.__l.__size_;
+        size = v68.__r_.__value_.__l.__size_;
       }
 
       if (size)
       {
-        v18 = *(a1 + 32);
-        if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v86, v74.__r_.__value_.__l.__data_, v74.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v82, v70.__r_.__value_.__l.__data_, v70.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v86 = v74;
+          v82 = v70;
         }
 
         pxrInternal__aapl__pxrReserved__::ArResolver::OpenAsset();
-        if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v86.__r_.__value_.__l.__data_);
+          operator delete(v82.__r_.__value_.__l.__data_);
         }
 
-        if (v70)
+        if (v66)
         {
           std::string::basic_string[abi:ne200100]<0>(inTag, **(a1 + 8));
           pxrInternal__aapl__pxrReserved__::ArchNormPath();
           pxrInternal__aapl__pxrReserved__::TfGetBaseName();
-          if (v83 < 0)
+          if (v79 < 0)
           {
-            operator delete(v81);
+            operator delete(v77);
           }
 
           pxrInternal__aapl__pxrReserved__::ArchNormPath();
-          if ((v83 & 0x80u) == 0)
+          if ((v79 & 0x80u) == 0)
           {
-            v19 = v83;
+            v15 = v79;
           }
 
           else
           {
-            v19 = v82;
+            v15 = v78;
           }
 
-          std::string::basic_string[abi:ne200100](&v80, v19 + 1);
-          if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100](&v76, v15 + 1);
+          if ((v76.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v20 = &v80;
+            v16 = &v76;
           }
 
           else
           {
-            v20 = v80.__r_.__value_.__r.__words[0];
+            v16 = v76.__r_.__value_.__r.__words[0];
           }
 
-          if (v19)
+          if (v15)
           {
-            if ((v83 & 0x80u) == 0)
+            if ((v79 & 0x80u) == 0)
             {
-              v21 = &v81;
+              v17 = &v77;
             }
 
             else
             {
-              v21 = v81;
+              v17 = v77;
             }
 
-            memmove(v20, v21, v19);
+            memmove(v16, v17, v15);
           }
 
-          *(&v20->__r_.__value_.__l.__data_ + v19) = 47;
-          if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          *(&v16->__r_.__value_.__l.__data_ + v15) = 47;
+          if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v22 = &v86;
+            v18 = &v82;
           }
 
           else
           {
-            v22 = v86.__r_.__value_.__r.__words[0];
+            v18 = v82.__r_.__value_.__r.__words[0];
           }
 
-          if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v23 = HIBYTE(v86.__r_.__value_.__r.__words[2]);
+            v19 = HIBYTE(v82.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v23 = v86.__r_.__value_.__l.__size_;
+            v19 = v82.__r_.__value_.__l.__size_;
           }
 
-          v24 = std::string::append(&v80, v22, v23);
-          v66 = a1;
-          v25 = *&v24->__r_.__value_.__l.__data_;
-          __p.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-          *&__p.__r_.__value_.__l.__data_ = v25;
-          v24->__r_.__value_.__l.__size_ = 0;
-          v24->__r_.__value_.__r.__words[2] = 0;
-          v24->__r_.__value_.__r.__words[0] = 0;
-          if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
+          v20 = std::string::append(&v76, v18, v19);
+          v62 = a1;
+          v21 = *&v20->__r_.__value_.__l.__data_;
+          __p.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+          *&__p.__r_.__value_.__l.__data_ = v21;
+          v20->__r_.__value_.__l.__size_ = 0;
+          v20->__r_.__value_.__r.__words[2] = 0;
+          v20->__r_.__value_.__r.__words[0] = 0;
+          if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v80.__r_.__value_.__l.__data_);
+            operator delete(v76.__r_.__value_.__l.__data_);
           }
 
-          v26 = 0;
+          v22 = 0;
           while (pxrInternal__aapl__pxrReserved__::TfPathExists())
           {
-            if ((v83 & 0x80u) == 0)
+            if ((v79 & 0x80u) == 0)
             {
-              v27 = v83;
+              v23 = v79;
             }
 
             else
             {
-              v27 = v82;
+              v23 = v78;
             }
 
-            std::string::basic_string[abi:ne200100](&v78, v27 + 1);
-            if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100](&v74, v23 + 1);
+            if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v28 = &v78;
+              v24 = &v74;
             }
 
             else
             {
-              v28 = v78.__r_.__value_.__r.__words[0];
+              v24 = v74.__r_.__value_.__r.__words[0];
             }
 
-            if (v27)
+            if (v23)
             {
-              if ((v83 & 0x80u) == 0)
+              if ((v79 & 0x80u) == 0)
               {
-                v29 = &v81;
+                v25 = &v77;
               }
 
               else
               {
-                v29 = v81;
+                v25 = v77;
               }
 
-              memmove(v28, v29, v27);
+              memmove(v24, v25, v23);
             }
 
-            *(&v28->__r_.__value_.__l.__data_ + v27) = 47;
-            std::to_string(&v77, v26);
-            if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            *(&v24->__r_.__value_.__l.__data_ + v23) = 47;
+            std::to_string(&v73, v22);
+            if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v30 = &v77;
+              v26 = &v73;
             }
 
             else
             {
-              v30 = v77.__r_.__value_.__r.__words[0];
+              v26 = v73.__r_.__value_.__r.__words[0];
             }
 
-            if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v31 = HIBYTE(v77.__r_.__value_.__r.__words[2]);
+              v27 = HIBYTE(v73.__r_.__value_.__r.__words[2]);
             }
 
             else
             {
-              v31 = v77.__r_.__value_.__l.__size_;
+              v27 = v73.__r_.__value_.__l.__size_;
             }
 
-            v32 = std::string::append(&v78, v30, v31);
-            v33 = *&v32->__r_.__value_.__l.__data_;
-            v79.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
-            *&v79.__r_.__value_.__l.__data_ = v33;
-            v32->__r_.__value_.__l.__size_ = 0;
-            v32->__r_.__value_.__r.__words[2] = 0;
-            v32->__r_.__value_.__r.__words[0] = 0;
-            v34 = std::string::append(&v79, "_");
-            v35 = *&v34->__r_.__value_.__l.__data_;
-            v80.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-            *&v80.__r_.__value_.__l.__data_ = v35;
+            v28 = std::string::append(&v74, v26, v27);
+            v29 = *&v28->__r_.__value_.__l.__data_;
+            v75.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+            *&v75.__r_.__value_.__l.__data_ = v29;
+            v28->__r_.__value_.__l.__size_ = 0;
+            v28->__r_.__value_.__r.__words[2] = 0;
+            v28->__r_.__value_.__r.__words[0] = 0;
+            v30 = std::string::append(&v75, "_");
+            v31 = *&v30->__r_.__value_.__l.__data_;
+            v76.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+            *&v76.__r_.__value_.__l.__data_ = v31;
+            v30->__r_.__value_.__l.__size_ = 0;
+            v30->__r_.__value_.__r.__words[2] = 0;
+            v30->__r_.__value_.__r.__words[0] = 0;
+            if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v32 = &v82;
+            }
+
+            else
+            {
+              v32 = v82.__r_.__value_.__r.__words[0];
+            }
+
+            if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v33 = HIBYTE(v82.__r_.__value_.__r.__words[2]);
+            }
+
+            else
+            {
+              v33 = v82.__r_.__value_.__l.__size_;
+            }
+
+            v34 = std::string::append(&v76, v32, v33);
+            v35 = v34->__r_.__value_.__r.__words[0];
+            v84[0] = v34->__r_.__value_.__l.__size_;
+            *(v84 + 7) = *(&v34->__r_.__value_.__r.__words[1] + 7);
+            v36 = HIBYTE(v34->__r_.__value_.__r.__words[2]);
             v34->__r_.__value_.__l.__size_ = 0;
             v34->__r_.__value_.__r.__words[2] = 0;
             v34->__r_.__value_.__r.__words[0] = 0;
-            if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v36 = &v86;
-            }
-
-            else
-            {
-              v36 = v86.__r_.__value_.__r.__words[0];
-            }
-
-            if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v37 = HIBYTE(v86.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              v37 = v86.__r_.__value_.__l.__size_;
-            }
-
-            v38 = std::string::append(&v80, v36, v37);
-            v39 = v38->__r_.__value_.__r.__words[0];
-            v88[0] = v38->__r_.__value_.__l.__size_;
-            *(v88 + 7) = *(&v38->__r_.__value_.__r.__words[1] + 7);
-            v40 = HIBYTE(v38->__r_.__value_.__r.__words[2]);
-            v38->__r_.__value_.__l.__size_ = 0;
-            v38->__r_.__value_.__r.__words[2] = 0;
-            v38->__r_.__value_.__r.__words[0] = 0;
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            __p.__r_.__value_.__r.__words[0] = v39;
-            __p.__r_.__value_.__l.__size_ = v88[0];
-            *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v88 + 7);
-            *(&__p.__r_.__value_.__s + 23) = v40;
-            if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
+            __p.__r_.__value_.__r.__words[0] = v35;
+            __p.__r_.__value_.__l.__size_ = v84[0];
+            *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v84 + 7);
+            *(&__p.__r_.__value_.__s + 23) = v36;
+            if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v80.__r_.__value_.__l.__data_);
+              operator delete(v76.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v79.__r_.__value_.__l.__data_);
+              operator delete(v75.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v77.__r_.__value_.__l.__data_);
+              operator delete(v73.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v78.__r_.__value_.__l.__data_);
+              operator delete(v74.__r_.__value_.__l.__data_);
             }
 
-            ++v26;
+            ++v22;
           }
 
-          if (v83 < 0)
+          if (v79 < 0)
           {
-            operator delete(v81);
+            operator delete(v77);
           }
 
-          if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v86.__r_.__value_.__l.__data_);
+            operator delete(v82.__r_.__value_.__l.__data_);
           }
 
-          if (v68 < 0)
+          if (v64 < 0)
           {
             operator delete(inTag[0]);
           }
 
-          v42 = v70;
-          v41 = v71;
-          if (v71)
+          v38 = v66;
+          v37 = v67;
+          if (v67)
           {
-            atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -6435,164 +6230,164 @@ void std::__function::__func<RIOPxrUsdUtilsConvertNonUsdzImages::$_0,std::alloca
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v81, p_p);
-          (*(*v42 + 24))(&v80, v42);
-          v44 = v80.__r_.__value_.__r.__words[0];
-          v45 = (*(*v42 + 16))(v42);
-          v46 = CFDataCreateWithBytesNoCopy(0, v44, v45, *MEMORY[0x277CBED00]);
-          v79.__r_.__value_.__r.__words[0] = v46;
-          if (v46)
+          std::string::basic_string[abi:ne200100]<0>(&v77, p_p);
+          (*(*v38 + 24))(&v76, v38);
+          v40 = v76.__r_.__value_.__r.__words[0];
+          v41 = (*(*v38 + 16))(v38);
+          v42 = CFDataCreateWithBytesNoCopy(0, v40, v41, *MEMORY[0x277CBED00]);
+          v75.__r_.__value_.__r.__words[0] = v42;
+          if (v42)
           {
-            CFRetain(v46);
-            v46 = v79.__r_.__value_.__r.__words[0];
+            CFRetain(v42);
+            v42 = v75.__r_.__value_.__r.__words[0];
           }
 
-          v47 = CGImageSourceCreateWithData(v46, 0);
-          v78.__r_.__value_.__r.__words[0] = v47;
-          if (v47)
+          v43 = CGImageSourceCreateWithData(v42, 0);
+          v74.__r_.__value_.__r.__words[0] = v43;
+          if (v43)
           {
-            CFRetain(v47);
-            v47 = v78.__r_.__value_.__r.__words[0];
+            CFRetain(v43);
+            v43 = v74.__r_.__value_.__r.__words[0];
           }
 
-          ImageAtIndex = CGImageSourceCreateImageAtIndex(v47, 0, 0);
-          v77.__r_.__value_.__r.__words[0] = ImageAtIndex;
-          if (ImageAtIndex && (CFRetain(ImageAtIndex), v77.__r_.__value_.__r.__words[0]))
+          ImageAtIndex = CGImageSourceCreateImageAtIndex(v43, 0, 0);
+          v73.__r_.__value_.__r.__words[0] = ImageAtIndex;
+          if (ImageAtIndex && (CFRetain(ImageAtIndex), v73.__r_.__value_.__r.__words[0]))
           {
             pxrInternal__aapl__pxrReserved__::TfGetExtension();
-            v49 = *MEMORY[0x277CBECE8];
-            if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            v45 = *MEMORY[0x277CBECE8];
+            if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v50 = &v86;
+              v46 = &v82;
             }
 
             else
             {
-              v50 = v86.__r_.__value_.__r.__words[0];
+              v46 = v82.__r_.__value_.__r.__words[0];
             }
 
-            v51 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], v50, 0x8000100u);
-            inTag[0] = v51;
-            if (v51)
+            v47 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], v46, 0x8000100u);
+            inTag[0] = v47;
+            if (v47)
             {
-              CFRetain(v51);
+              CFRetain(v47);
             }
 
-            if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v86.__r_.__value_.__l.__data_);
+              operator delete(v82.__r_.__value_.__l.__data_);
             }
 
             AllIdentifiersForTag = UTTypeCreateAllIdentifiersForTag(*MEMORY[0x277CC1F58], inTag[0], 0);
-            v86.__r_.__value_.__r.__words[0] = AllIdentifiersForTag;
-            if (AllIdentifiersForTag && (CFRetain(AllIdentifiersForTag), v86.__r_.__value_.__r.__words[0]) && CFArrayGetCount(v86.__r_.__value_.__l.__data_) >= 1)
+            v82.__r_.__value_.__r.__words[0] = AllIdentifiersForTag;
+            if (AllIdentifiersForTag && (CFRetain(AllIdentifiersForTag), v82.__r_.__value_.__r.__words[0]) && CFArrayGetCount(v82.__r_.__value_.__l.__data_) >= 1)
             {
-              ValueAtIndex = CFArrayGetValueAtIndex(v86.__r_.__value_.__l.__data_, 0);
-              if ((v83 & 0x80u) == 0)
+              ValueAtIndex = CFArrayGetValueAtIndex(v82.__r_.__value_.__l.__data_, 0);
+              if ((v79 & 0x80u) == 0)
               {
-                v54 = &v81;
+                v50 = &v77;
               }
 
               else
               {
-                v54 = v81;
+                v50 = v77;
               }
 
-              v55 = CFStringCreateWithCString(v49, v54, 0x8000100u);
-              v56 = v55;
-              v88[0] = v55;
+              v51 = CFStringCreateWithCString(v45, v50, 0x8000100u);
+              v52 = v51;
+              v84[0] = v51;
+              if (v51)
+              {
+                CFRetain(v51);
+              }
+
+              v53 = CFURLCreateWithFileSystemPath(v45, v52, kCFURLPOSIXPathStyle, 0);
+              v54 = v53;
+              v81 = v53;
+              if (v53)
+              {
+                CFRetain(v53);
+              }
+
+              v55 = CGImageDestinationCreateWithURL(v54, ValueAtIndex, 1uLL, 0);
+              v80 = v55;
               if (v55)
               {
                 CFRetain(v55);
-              }
-
-              v57 = CFURLCreateWithFileSystemPath(v49, v56, kCFURLPOSIXPathStyle, 0);
-              v58 = v57;
-              v85 = v57;
-              if (v57)
-              {
-                CFRetain(v57);
-              }
-
-              v59 = CGImageDestinationCreateWithURL(v58, ValueAtIndex, 1uLL, 0);
-              v84 = v59;
-              if (v59)
-              {
-                CFRetain(v59);
-                if (v84)
+                if (v80)
                 {
-                  CGImageDestinationAddImage(v84, v77.__r_.__value_.__l.__data_, 0);
-                  CGImageDestinationFinalize(v84);
+                  CGImageDestinationAddImage(v80, v73.__r_.__value_.__l.__data_, 0);
+                  CGImageDestinationFinalize(v80);
                 }
               }
 
-              realityio::WrappedCFRef<CGImageDestination *>::~WrappedCFRef(&v84);
-              realityio::WrappedCFRef<__CFURL const*>::~WrappedCFRef(&v85);
-              realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(v88);
-              v60 = 1;
+              realityio::WrappedCFRef<CGImageDestination *>::~WrappedCFRef(&v80);
+              realityio::WrappedCFRef<__CFURL const*>::~WrappedCFRef(&v81);
+              realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(v84);
+              v56 = 1;
             }
 
             else
             {
-              v60 = 0;
+              v56 = 0;
             }
 
-            realityio::WrappedCFRef<__CFArray const*>::~WrappedCFRef(&v86.__r_.__value_.__l.__data_);
+            realityio::WrappedCFRef<__CFArray const*>::~WrappedCFRef(&v82.__r_.__value_.__l.__data_);
             realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(inTag);
           }
 
           else
           {
-            v60 = 0;
+            v56 = 0;
           }
 
-          realityio::WrappedCFRef<CGImage *>::~WrappedCFRef(&v77.__r_.__value_.__l.__data_);
-          realityio::WrappedCFRef<CGImageSource *>::~WrappedCFRef(&v78.__r_.__value_.__l.__data_);
-          realityio::WrappedCFRef<__CFData const*>::~WrappedCFRef(&v79.__r_.__value_.__l.__data_);
-          v61 = v80.__r_.__value_.__l.__size_;
-          if (v80.__r_.__value_.__l.__size_)
+          realityio::WrappedCFRef<CGImage *>::~WrappedCFRef(&v73.__r_.__value_.__l.__data_);
+          realityio::WrappedCFRef<CGImageSource *>::~WrappedCFRef(&v74.__r_.__value_.__l.__data_);
+          realityio::WrappedCFRef<__CFData const*>::~WrappedCFRef(&v75.__r_.__value_.__l.__data_);
+          v57 = v76.__r_.__value_.__l.__size_;
+          if (v76.__r_.__value_.__l.__size_)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v80.__r_.__value_.__l.__size_);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v76.__r_.__value_.__l.__size_);
           }
 
-          if (v83 < 0)
+          if (v79 < 0)
           {
-            operator delete(v81);
+            operator delete(v77);
           }
 
-          if (v41)
+          if (v37)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v37);
           }
 
-          if (v60)
+          if (v56)
           {
-            v62 = *(v66 + 24);
-            v86.__r_.__value_.__r.__words[0] = a2;
-            v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v62, a2);
-            std::string::operator=((v63 + 56), &__p);
+            v58 = *(v62 + 24);
+            v82.__r_.__value_.__r.__words[0] = a2;
+            v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v58, a2, &std::piecewise_construct, &v82, &v77);
+            std::string::operator=((v59 + 7), &__p);
             *a3 = __p;
             memset(&__p, 0, sizeof(__p));
           }
 
           else
           {
-            v64 = *realityio::logObjects(v61);
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+            v60 = *realityio::logObjects(v57);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
               if (*(a2 + 23) >= 0)
               {
-                v65 = a2;
+                v61 = a2;
               }
 
               else
               {
-                v65 = *a2;
+                v61 = *a2;
               }
 
-              LODWORD(v86.__r_.__value_.__l.__data_) = 136315138;
-              *(v86.__r_.__value_.__r.__words + 4) = v65;
-              _os_log_error_impl(&dword_247485000, v64, OS_LOG_TYPE_ERROR, "Unable to convert %s to a valid USDZ-texture-file.", &v86, 0xCu);
+              LODWORD(v82.__r_.__value_.__l.__data_) = 136315138;
+              *(v82.__r_.__value_.__r.__words + 4) = v61;
+              _os_log_error_impl(&dword_247485000, v60, OS_LOG_TYPE_ERROR, "Unable to convert %s to a valid USDZ-texture-file.", &v82, 0xCu);
             }
 
             if (*(a2 + 23) < 0)
@@ -6624,42 +6419,42 @@ void std::__function::__func<RIOPxrUsdUtilsConvertNonUsdzImages::$_0,std::alloca
           a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
         }
 
-        if (v71)
+        if (v67)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v67);
         }
 
-        if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v72.__r_.__value_.__l.__data_);
+          operator delete(v68.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        *a3 = v72;
+        *a3 = v68;
       }
 
-      realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&v73);
-      if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+      realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&v69);
+      if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v74.__r_.__value_.__l.__data_);
+        operator delete(v70.__r_.__value_.__l.__data_);
       }
 
-      realityio::WrappedCFRef<__CFDictionary *>::~WrappedCFRef(&v75);
-      realityio::WrappedCFRef<__CFDictionary const*>::~WrappedCFRef(&v76);
+      realityio::WrappedCFRef<__CFDictionary *>::~WrappedCFRef(&v71);
+      realityio::WrappedCFRef<__CFDictionary const*>::~WrappedCFRef(&v72);
     }
 
-    else if (*(v9 + 79) < 0)
+    else if (*(v8 + 79) < 0)
     {
-      std::string::__init_copy_ctor_external(a3, *(v9 + 56), *(v9 + 64));
+      std::string::__init_copy_ctor_external(a3, *(v8 + 56), *(v8 + 64));
     }
 
     else
     {
-      v10 = *(v9 + 56);
-      a3->__r_.__value_.__r.__words[2] = *(v9 + 72);
-      *&a3->__r_.__value_.__l.__data_ = v10;
+      v9 = *(v8 + 56);
+      a3->__r_.__value_.__r.__words[2] = *(v8 + 72);
+      *&a3->__r_.__value_.__l.__data_ = v9;
     }
   }
 
@@ -6677,20 +6472,18 @@ LABEL_9:
       a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2474D4418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, const void *a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, const void *a39, const void *a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
+void sub_2474D4418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, const void *a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, const void *a39, const void *a41, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61)
 {
   realityio::WrappedCFRef<CGImageDestination *>::~WrappedCFRef((v59 - 176));
   realityio::WrappedCFRef<__CFURL const*>::~WrappedCFRef((v59 - 168));
   realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef((v59 - 120));
   realityio::WrappedCFRef<__CFArray const*>::~WrappedCFRef((v59 - 160));
   realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&a10);
-  realityio::WrappedCFRef<CGImage *>::~WrappedCFRef(&a41);
-  realityio::WrappedCFRef<CGImageSource *>::~WrappedCFRef(&a47);
-  realityio::WrappedCFRef<__CFData const*>::~WrappedCFRef(&a53);
+  realityio::WrappedCFRef<CGImage *>::~WrappedCFRef(&a44);
+  realityio::WrappedCFRef<CGImageSource *>::~WrappedCFRef(&a50);
+  realityio::WrappedCFRef<__CFData const*>::~WrappedCFRef(&a56);
   v61 = *(v59 - 216);
   if (v61)
   {
@@ -6729,7 +6522,7 @@ void sub_2474D4418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   realityio::WrappedCFRef<__CFDictionary *>::~WrappedCFRef(&a39);
-  realityio::WrappedCFRef<__CFDictionary const*>::~WrappedCFRef(&a40);
+  realityio::WrappedCFRef<__CFDictionary const*>::~WrappedCFRef(&a41);
   _Unwind_Resume(a1);
 }
 
@@ -6874,15 +6667,15 @@ const void **realityio::WrappedCFRef<__CFData const*>::~WrappedCFRef(const void 
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::WrappedRERef<REAsset *>>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -7141,15 +6934,15 @@ void realityio::MaterialAssetBuilder::MaterialAssetBuilder(realityio::MaterialAs
 {
   v8[4] = *MEMORY[0x277D85DE8];
   *this = &unk_285946910;
-  std::string::basic_string[abi:ne200100]<0>(&v6, "MaterialAssetBuilder");
-  std::string::basic_string[abi:ne200100]<0>(&__p, realityio::kMaterialAssetBuilderIdentifier);
+  std::string::basic_string[abi:ne200100]<0>(v6, "MaterialAssetBuilder");
+  std::string::basic_string[abi:ne200100]<0>(__p, realityio::kMaterialAssetBuilderIdentifier);
   realityio::generateMaterialAssetsDirtyStageSubscription(&v4);
   v8[0] = &unk_285946A08;
   v8[1] = this;
   v8[3] = v8;
   v7[0] = &unk_285946A88;
   v7[3] = v7;
-  realityio::DynamicBuilder::DynamicBuilder(this, a2);
+  realityio::DynamicBuilder::DynamicBuilder(this, a2, v6, __p, &v4, v8, v7);
 }
 
 void sub_2474D50C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
@@ -7168,39 +6961,39 @@ void realityio::MaterialAssetDataT::~MaterialAssetDataT(realityio::MaterialAsset
   pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(this);
 }
 
-void realityio::MaterialAssetBuilder::run(std::mutex **this, realityio::Inputs *a2)
+void realityio::MaterialAssetBuilder::run(std::__shared_weak_count **this, realityio::Inputs *a2)
 {
-  realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v37, 2036, this);
-  v4 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
-  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v33, v4, (a2 + 32));
-  v31 = 0;
-  v32 = 0;
-  if (realityio::hasMaterialXSurface(&v33, v5))
+  realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v40, 2036, this, 0, 0, 0);
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+  pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v36, v4, (a2 + 32));
+  v34 = 0;
+  v35 = 0;
+  if (realityio::hasMaterialXSurface(&v36, v5))
   {
-    realityio::buildMaterialXAsset(a2, &v26);
-    realityio::WrappedRERef<REAsset *>::operator=(&v32, &v26);
-    if (v27)
+    realityio::buildMaterialXAsset(&v29, a2);
+    realityio::WrappedRERef<REAsset *>::operator=(&v35, &v29);
+    if (v30)
     {
-      v30 = v27;
+      v33 = v30;
       RERetain();
-      realityio::Builder::addAsset(this, &v30, 0);
-      realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v30);
+      realityio::Builder::addAsset(this, &v33, 0);
+      realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v33);
     }
 
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v27);
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v30);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
   }
 
-  v6 = v32;
-  if (v32)
+  v6 = v35;
+  if (v35)
   {
 LABEL_6:
-    v29 = v6;
+    v32 = v6;
     RERetain();
-    realityio::Builder::addAsset(this, &v29, 0);
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
-    v7 = v31;
-    if (!v31)
+    realityio::Builder::addAsset(this, &v32, 0);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v32);
+    v7 = v34;
+    if (!v34)
     {
       goto LABEL_8;
     }
@@ -7208,58 +7001,58 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v11 = *a2;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v33, &v26);
-  v14 = *(v11 + 168);
-  v12 = v11 + 168;
-  v13 = v14;
-  if (!v14)
+  v14 = *a2;
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v29, &v36);
+  v17 = *(v14 + 168);
+  v15 = v14 + 168;
+  v16 = v17;
+  if (!v17)
   {
     goto LABEL_30;
   }
 
-  v15 = v12;
+  v18 = v15;
   do
   {
-    v16 = pxrInternal__aapl__pxrReserved__::SdfPath::operator<((v13 + 28), &v26);
-    if (v16)
+    v19 = pxrInternal__aapl__pxrReserved__::SdfPath::operator<((v16 + 28), &v29);
+    if (v19)
     {
-      v17 = 8;
+      v20 = 8;
     }
 
     else
     {
-      v17 = 0;
+      v20 = 0;
     }
 
-    if (!v16)
+    if (!v19)
     {
-      v15 = v13;
+      v18 = v16;
     }
 
-    v13 = *(v13 + v17);
+    v16 = *(v16 + v20);
   }
 
-  while (v13);
-  if (v15 == v12 || pxrInternal__aapl__pxrReserved__::SdfPath::operator<(&v26, (v15 + 28)))
+  while (v16);
+  if (v18 == v15 || pxrInternal__aapl__pxrReserved__::SdfPath::operator<(&v29, (v18 + 28)))
   {
 LABEL_30:
-    v15 = v12;
+    v18 = v15;
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v26);
-  if (*a2 + 168 == v15)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v29);
+  if (*a2 + 168 == v18)
   {
-    v18 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v18 = *(v15 + 37);
-    if (*(v15 + 36) != 1)
+    v21 = *(v18 + 37);
+    if (*(v18 + 36) != 1)
     {
-      if (!*(v15 + 37))
+      if (!*(v18 + 37))
       {
         goto LABEL_46;
       }
@@ -7268,679 +7061,673 @@ LABEL_30:
     }
   }
 
-  realityio::createPbrMaterialFromUsdPreviewSurface(&v26, this, a2, &v33);
-  v19 = v32;
-  if (v32 != v26)
+  realityio::createPbrMaterialFromUsdPreviewSurface(&v29, this, a2, &v36, 0);
+  v22 = v35;
+  if (v35 != v29)
   {
-    v32 = v26;
-    v26 = v19;
+    v35 = v29;
+    v29 = v22;
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
-  if ((v18 & 1) == 0)
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
+  if ((v21 & 1) == 0)
   {
     goto LABEL_46;
   }
 
 LABEL_39:
-  realityio::createPbrMaterialFromUsdPreviewSurface(&v26, this, a2, &v33);
-  v20 = v31;
-  if (v31 != v26)
+  realityio::createPbrMaterialFromUsdPreviewSurface(&v29, this, a2, &v36, 1);
+  v23 = v34;
+  if (v34 != v29)
   {
-    v31 = v26;
-    v26 = v20;
+    v34 = v29;
+    v29 = v23;
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
-  v6 = v32;
-  if (v32)
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
+  v6 = v35;
+  if (v35)
   {
     goto LABEL_6;
   }
 
-  v7 = v31;
-  if (v31)
+  v7 = v34;
+  if (v34)
   {
 LABEL_7:
-    v28 = v7;
+    v31 = v7;
     RERetain();
-    realityio::Builder::addAsset(this, &v28, 0);
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v28);
+    realityio::Builder::addAsset(this, &v31, 0);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v31);
 LABEL_8:
-    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v33, &v25);
-    v24 = v32;
-    if (v32)
+    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v28, &v36);
+    v27 = v35;
+    if (v35)
     {
       RERetain();
     }
 
-    v23 = v31;
-    if (v31)
+    v26 = v34;
+    if (v34)
     {
       RERetain();
     }
 
-    realityio::MaterialAssetDataT::MaterialAssetDataT(&v26, &v25, &v24, &v23);
-    realityio::MaterialAssetDataT::operator=((this + 35), &v26);
-    realityio::MaterialAssetDataT::~MaterialAssetDataT(&v26);
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v23);
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v24);
+    realityio::MaterialAssetDataT::MaterialAssetDataT(&v29, &v28, &v27, &v26);
+    realityio::MaterialAssetDataT::operator=((this + 35), &v29);
+    realityio::MaterialAssetDataT::~MaterialAssetDataT(&v29);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v27);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    v8 = pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v25);
+    v8 = pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v28);
     v10 = this[2];
     v9 = this[3];
     if (v9)
     {
-      atomic_fetch_add_explicit(v9->__m_.__opaque, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    realityio::MaterialAssetBuilder::kMaterialDataName(v8);
-    v26 = this + 35;
-    realityio::Outputs::storeValue<realityio::MaterialAssetDataT *>(v10);
+    v11 = realityio::MaterialAssetBuilder::kMaterialDataName(v8);
+    v29 = this + 35;
+    realityio::Outputs::storeValue<realityio::MaterialAssetDataT *>(v10, v11, &v29);
   }
 
-  realityio::createDefaultPbrMaterialAsset(&v26, this, a2, 1);
-  v21 = v31;
-  if (v31 != v26)
+  realityio::createDefaultPbrMaterialAsset(&v29, this, a2, 1);
+  v24 = v34;
+  if (v34 != v29)
   {
-    v31 = v26;
-    v26 = v21;
+    v34 = v29;
+    v29 = v24;
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
 LABEL_46:
-  v6 = v32;
-  if (v32)
+  v6 = v35;
+  if (v35)
   {
     goto LABEL_6;
   }
 
-  v7 = v31;
-  if (v31)
+  v7 = v34;
+  if (v34)
   {
     goto LABEL_7;
   }
 
-  realityio::createDefaultPbrMaterialAsset(&v26, this, a2, 0);
-  v22 = v32;
-  if (v32 != v26)
+  realityio::createDefaultPbrMaterialAsset(&v29, this, a2, 0);
+  v25 = v35;
+  if (v35 != v29)
   {
-    v32 = v26;
-    v26 = v22;
+    v35 = v29;
+    v29 = v25;
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v26);
-  v6 = v32;
-  if (v32)
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v29);
+  v6 = v35;
+  if (v35)
   {
     goto LABEL_6;
   }
 
-  v7 = v31;
-  if (v31)
+  v7 = v34;
+  if (v34)
   {
     goto LABEL_7;
   }
 
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v31);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v32);
-  if ((v36 & 7) != 0)
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v34);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v35);
+  if ((v39 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v35);
-  if (v34)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v38);
+  if (v37)
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v34);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v37);
   }
 
-  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v37);
+  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v40, v12, v13);
 }
 
-void sub_2474D555C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2474D555C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v15 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
   realityio::WrappedRERef<REAsset *>::~WrappedRERef(va);
   realityio::WrappedRERef<REAsset *>::~WrappedRERef(va1);
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(va2);
-  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard((v11 - 64));
+  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard((v18 - 64), v20, v21);
   _Unwind_Resume(a1);
 }
 
-void *realityio::createPbrMaterialFromUsdPreviewSurface(realityio *this, realityio::MaterialAssetBuilder *a2, realityio::ImportSession **a3, const pxrInternal__aapl__pxrReserved__::UsdPrim *a4)
+void *realityio::createPbrMaterialFromUsdPreviewSurface(realityio *this, realityio::MaterialAssetBuilder *a2, realityio::ImportSession **a3, const pxrInternal__aapl__pxrReserved__::UsdPrim *a4, int a5)
 {
-  v133 = *MEMORY[0x277D85DE8];
-  v108 = 0;
+  v130 = *MEMORY[0x277D85DE8];
+  v105 = 0;
   IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(a4);
   if (IsValid & 1) != 0 && (pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::_GetStaticTfType(IsValid), pxrInternal__aapl__pxrReserved__::UsdSchemaRegistry::FindSchemaInfo(), (pxrInternal__aapl__pxrReserved__::UsdPrim::_IsA()) && *(*(a3[5] + 2) + 16) && REEngineGetServiceLocator() && MEMORY[0x24C1A4230]())
   {
     pxrInternal__aapl__pxrReserved__::UsdSchemaBase::UsdSchemaBase();
-    v106 = MEMORY[0x277D86758] + 16;
-    if (v107 && (*(v107 + 57) & 8) == 0 && ((*(MEMORY[0x277D86758] + 48))(&v106) & 1) != 0)
+    v103 = MEMORY[0x277D86758] + 16;
+    if (v104 && (*(v104 + 57) & 8) == 0 && ((*(MEMORY[0x277D86758] + 48))(&v103) & 1) != 0)
     {
-      v9 = atomic_load(MEMORY[0x277D86568]);
-      if (!v9)
+      v10 = atomic_load(MEMORY[0x277D86568]);
+      if (!v10)
       {
-        pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType>>::_TryToCreateData();
+        pxrInternal__aapl__pxrReserved__::TfStaticData<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<pxrInternal__aapl__pxrReserved__::UsdShadeTokensType>>::_TryToCreateData(MEMORY[0x277D86568]);
       }
 
-      v10 = *(v9 + 216);
-      v109 = v10;
-      if ((v10 & 7) != 0 && (atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+      v11 = *(v10 + 216);
+      v106 = v11;
+      if ((v11 & 7) != 0 && (atomic_fetch_add_explicit((v11 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
       {
-        v109 &= 0xFFFFFFFFFFFFFFF8;
+        v106 &= 0xFFFFFFFFFFFFFFF8;
       }
 
-      memset(&v113, 0, sizeof(v113));
-      std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(&v113, &v109, &v110, 1uLL);
+      memset(&v110, 0, sizeof(v110));
+      std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::TfToken const*,pxrInternal__aapl__pxrReserved__::TfToken const*>(&v110, &v106, &v107, 1uLL);
       pxrInternal__aapl__pxrReserved__::UsdShadeMaterial::ComputeSurfaceSource();
-      __p.__r_.__value_.__r.__words[0] = &v113;
+      __p.__r_.__value_.__r.__words[0] = &v110;
       std::vector<pxrInternal__aapl__pxrReserved__::TfToken>::__destroy_vector::operator()[abi:ne200100](&__p);
-      if ((v109 & 7) != 0)
+      if ((v106 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v109 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v106 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      if (v105 && (*(v105 + 57) & 8) == 0 && ((*(v104 + 32))(&v104) & 1) != 0)
+      if (v102 && (*(v102 + 57) & 8) == 0 && ((*(v101 + 32))(&v101) & 1) != 0)
       {
-        realityio::makeBaseNameToTextureDataMap(&v102, a3, &v104);
-        if ((realityio::isAlphaCutout(&v104, v11) & 1) == 0)
+        realityio::makeBaseNameToTextureDataMap(&v99, a3, &v101);
+        if ((realityio::isAlphaCutout(&v101, v12) & 1) == 0)
         {
-          realityio::isTransparent(&v104, &v102);
+          realityio::isTransparent(&v101, &v99);
         }
 
         if ((realityio::ImportSession::allowUnsupportedTextures(a3[5]) & 1) == 0)
         {
-          realityio::hasInvalidTextures(&v104, v14);
+          realityio::hasInvalidTextures(&v101, v14);
         }
 
-        v101 = 0;
+        v98 = 0;
         AssetHandle = REAssetManagerCreateAssetHandle();
-        v113.__r_.__value_.__r.__words[0] = AssetHandle;
-        v16 = v101;
-        if (v101 != AssetHandle)
+        v110.__r_.__value_.__r.__words[0] = AssetHandle;
+        v16 = v98;
+        if (v98 != AssetHandle)
         {
-          v101 = AssetHandle;
-          v113.__r_.__value_.__r.__words[0] = v16;
+          v98 = AssetHandle;
+          v110.__r_.__value_.__r.__words[0] = v16;
         }
 
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v113);
-        if (v101)
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v110);
+        if (v98)
         {
-          if (*(*(a3[5] + 2) + 40))
+          v17 = *(*(a3[5] + 2) + 40);
+          if (v17)
           {
-            realityio::LiveSceneManager::queueForDeferredAssetLoad();
+            realityio::LiveSceneManager::queueForDeferredAssetLoad(v17, &v98);
           }
 
-          realityio::Builder::addAsset(a2, v101, "pbrMaterialDef");
-          *v100 = REMaterialAssetBuilderCreate();
-          if (*v100)
+          realityio::Builder::addAsset(a2, v98, "pbrMaterialDef");
+          *v97 = REMaterialAssetBuilderCreate();
+          if (*v97)
           {
-            pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(a4, &v98);
+            pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v96, a4);
             if (*(*(a3[5] + 2) + 272) == 1)
             {
-              std::string::basic_string[abi:ne200100]<0>(&v113, "/model");
-              MEMORY[0x24C1A5D70](&v97, &v113);
+              std::string::basic_string[abi:ne200100]<0>(&v110, "/model");
+              MEMORY[0x24C1A5D70](&v95, &v110);
               std::string::basic_string[abi:ne200100]<0>(&__p, "/");
-              MEMORY[0x24C1A5D70](&v96, &__p);
-              pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v98, &v97, &v96);
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v98, &v109);
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v99, &v109 + 1);
-              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v109);
-              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v96);
+              MEMORY[0x24C1A5D70](&v94, &__p);
+              pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v106, &v96, &v95, &v94);
+              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v96, &v106);
+              pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=(&v96 + 4, &v106 + 1);
+              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v106);
+              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v94);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v97);
-              if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+              pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v95);
+              if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v113.__r_.__value_.__l.__data_);
+                operator delete(v110.__r_.__value_.__l.__data_);
               }
             }
 
-            Name = pxrInternal__aapl__pxrReserved__::SdfPath::GetName(&v98);
-            if (*(Name + 23) < 0)
-            {
-              v18 = *Name;
-            }
-
+            pxrInternal__aapl__pxrReserved__::SdfPath::GetName(&v96);
             REMaterialAssetBuilderSetName();
             REMaterialAssetBuilderSetMaterialDefinition();
-            realityio::getCullMode(a4, v19);
-            if ((v20 & 0x100) == 0 && (v20 & 1) == 0)
+            realityio::getCullMode(a4, v18);
+            if ((v19 & 0x100) == 0 && (v19 & 1) == 0)
             {
               REMaterialAssetBuilderSetMTLCullMode();
             }
 
-            v21 = v100[0];
-            v22 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->(*a3 + 1);
-            realityio::setFunctionConstantsFromScene(v21, v22);
-            realityio::setMaterialConstantsFromUsdPreviewSurface(v100[0], &v104, &v102);
-            realityio::setFunctionConstantsFromUsdPreviewSurface(v100[0], &v104, &v102);
-            realityio::findFirstUVMeshAttributeNameFromShader(&v104, v23, &v97);
-            std::string::basic_string[abi:ne200100]<0>(&v96, "");
-            v24 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v24)
+            v20 = *v97;
+            pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->(*a3 + 1);
+            realityio::setFunctionConstantsFromScene(v20, v21);
+            realityio::setMaterialConstantsFromUsdPreviewSurface(*v97, &v101, &v99);
+            realityio::setFunctionConstantsFromUsdPreviewSurface(*v97, &v101, &v99);
+            realityio::findFirstUVMeshAttributeNameFromShader(&v95, &v101, v22);
+            std::string::basic_string[abi:ne200100]<0>(&v94, "");
+            v23 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v23)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v24 + 4) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v23 + 4) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              EmptyString = (*(v24 + 4) & 0xFFFFFFFFFFFFFFF8) + 16;
+              EmptyString = (*(v23 + 4) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v24);
+              EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v23);
             }
 
             if (*(EmptyString + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v113, *EmptyString, *(EmptyString + 8));
+              std::string::__init_copy_ctor_external(&v110, *EmptyString, *(EmptyString + 8));
             }
 
             else
             {
-              v26 = *EmptyString;
-              v113.__r_.__value_.__r.__words[2] = *(EmptyString + 16);
-              *&v113.__r_.__value_.__l.__data_ = v26;
+              v25 = *EmptyString;
+              v110.__r_.__value_.__r.__words[2] = *(EmptyString + 16);
+              *&v110.__r_.__value_.__l.__data_ = v25;
             }
 
-            v114 = "textureBaseColor";
-            v27 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v27)
+            v111 = "textureBaseColor";
+            v26 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v26)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v27 + 2) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v26 + 2) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v28 = (*(v27 + 2) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v27 = (*(v26 + 2) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v28 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v27);
+              v27 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v26);
             }
 
-            if (*(v28 + 23) < 0)
+            if (*(v27 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v115, *v28, *(v28 + 8));
+              std::string::__init_copy_ctor_external(&v112, *v27, *(v27 + 8));
             }
 
             else
             {
-              v29 = *v28;
-              v115.__r_.__value_.__r.__words[2] = *(v28 + 16);
-              *&v115.__r_.__value_.__l.__data_ = v29;
+              v28 = *v27;
+              v112.__r_.__value_.__r.__words[2] = *(v27 + 16);
+              *&v112.__r_.__value_.__l.__data_ = v28;
             }
 
-            v116 = "textureMetallic";
-            v30 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v30)
+            v113 = "textureMetallic";
+            v29 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v29)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v30 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v29 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v31 = (*(v30 + 3) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v30 = (*(v29 + 3) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v31 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v30);
+              v30 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v29);
             }
 
-            if (*(v31 + 23) < 0)
+            if (*(v30 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v117, *v31, *(v31 + 8));
+              std::string::__init_copy_ctor_external(&v114, *v30, *(v30 + 8));
             }
 
             else
             {
-              v32 = *v31;
-              v117.__r_.__value_.__r.__words[2] = *(v31 + 16);
-              *&v117.__r_.__value_.__l.__data_ = v32;
+              v31 = *v30;
+              v114.__r_.__value_.__r.__words[2] = *(v30 + 16);
+              *&v114.__r_.__value_.__l.__data_ = v31;
             }
 
-            v118 = "textureRoughness";
-            v33 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v33)
+            v115 = "textureRoughness";
+            v32 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v32)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v33 + 5) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v32 + 5) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v34 = (*(v33 + 5) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v33 = (*(v32 + 5) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v34 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v33);
+              v33 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v32);
             }
 
-            if (*(v34 + 23) < 0)
+            if (*(v33 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v119, *v34, *(v34 + 8));
+              std::string::__init_copy_ctor_external(&v116, *v33, *(v33 + 8));
             }
 
             else
             {
-              v35 = *v34;
-              v119.__r_.__value_.__r.__words[2] = *(v34 + 16);
-              *&v119.__r_.__value_.__l.__data_ = v35;
+              v34 = *v33;
+              v116.__r_.__value_.__r.__words[2] = *(v33 + 16);
+              *&v116.__r_.__value_.__l.__data_ = v34;
             }
 
-            v120 = "textureEmissive";
-            v36 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v36)
+            v117 = "textureEmissive";
+            v35 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v35)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v36 + 24) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v35 + 24) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v37 = (*(v36 + 24) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v36 = (*(v35 + 24) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v37 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v36);
+              v36 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v35);
             }
 
-            if (*(v37 + 23) < 0)
+            if (*(v36 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v121, *v37, *(v37 + 8));
+              std::string::__init_copy_ctor_external(&v118, *v36, *(v36 + 8));
             }
 
             else
             {
-              v38 = *v37;
-              v121.__r_.__value_.__r.__words[2] = *(v37 + 16);
-              *&v121.__r_.__value_.__l.__data_ = v38;
+              v37 = *v36;
+              v118.__r_.__value_.__r.__words[2] = *(v36 + 16);
+              *&v118.__r_.__value_.__l.__data_ = v37;
             }
 
-            v122 = "textureSpecular";
-            v39 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v39)
+            v119 = "textureSpecular";
+            v38 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v38)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v39 + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v38 + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v40 = (*(v39 + 7) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v39 = (*(v38 + 7) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v40 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v39);
+              v39 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v38);
             }
 
-            if (*(v40 + 23) < 0)
+            if (*(v39 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v123, *v40, *(v40 + 8));
+              std::string::__init_copy_ctor_external(&v120, *v39, *(v39 + 8));
             }
 
             else
             {
-              v41 = *v40;
-              v123.__r_.__value_.__r.__words[2] = *(v40 + 16);
-              *&v123.__r_.__value_.__l.__data_ = v41;
+              v40 = *v39;
+              v120.__r_.__value_.__r.__words[2] = *(v39 + 16);
+              *&v120.__r_.__value_.__l.__data_ = v40;
             }
 
-            v124 = "textureClearcoat";
-            v42 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v42)
+            v121 = "textureClearcoat";
+            v41 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v41)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v42 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v41 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v43 = (*(v42 + 8) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v42 = (*(v41 + 8) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v43 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v42);
+              v42 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v41);
             }
 
-            if (*(v43 + 23) < 0)
+            if (*(v42 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v125, *v43, *(v43 + 8));
+              std::string::__init_copy_ctor_external(&v122, *v42, *(v42 + 8));
             }
 
             else
             {
-              v44 = *v43;
-              v125.__r_.__value_.__r.__words[2] = *(v43 + 16);
-              *&v125.__r_.__value_.__l.__data_ = v44;
+              v43 = *v42;
+              v122.__r_.__value_.__r.__words[2] = *(v42 + 16);
+              *&v122.__r_.__value_.__l.__data_ = v43;
             }
 
-            v126 = "textureClearcoatRoughness";
-            v45 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v45)
+            v123 = "textureClearcoatRoughness";
+            v44 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v44)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v45 + 11) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v44 + 11) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v46 = (*(v45 + 11) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v45 = (*(v44 + 11) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v46 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v45);
+              v45 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v44);
             }
 
-            if (*(v46 + 23) < 0)
+            if (*(v45 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v127, *v46, *(v46 + 8));
+              std::string::__init_copy_ctor_external(&v124, *v45, *(v45 + 8));
             }
 
             else
             {
-              v47 = *v46;
-              v127.__r_.__value_.__r.__words[2] = *(v46 + 16);
-              *&v127.__r_.__value_.__l.__data_ = v47;
+              v46 = *v45;
+              v124.__r_.__value_.__r.__words[2] = *(v45 + 16);
+              *&v124.__r_.__value_.__l.__data_ = v46;
             }
 
-            v128 = "textureNormal";
-            v48 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v48)
+            v125 = "textureNormal";
+            v47 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v47)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v48 + 23) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v47 + 23) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v49 = (*(v48 + 23) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v48 = (*(v47 + 23) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v49 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v48);
+              v48 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v47);
             }
 
-            if (*(v49 + 23) < 0)
+            if (*(v48 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v129, *v49, *(v49 + 8));
+              std::string::__init_copy_ctor_external(&v126, *v48, *(v48 + 8));
             }
 
             else
             {
-              v50 = *v49;
-              v129.__r_.__value_.__r.__words[2] = *(v49 + 16);
-              *&v129.__r_.__value_.__l.__data_ = v50;
+              v49 = *v48;
+              v126.__r_.__value_.__r.__words[2] = *(v48 + 16);
+              *&v126.__r_.__value_.__l.__data_ = v49;
             }
 
-            v130 = "textureAmbientOcclusion";
-            v51 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
-            if (!v51)
+            v127 = "textureAmbientOcclusion";
+            v50 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+            if (!v50)
             {
               pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
             }
 
-            if ((*(v51 + 10) & 0xFFFFFFFFFFFFFFF8) != 0)
+            if ((*(v50 + 10) & 0xFFFFFFFFFFFFFFF8) != 0)
             {
-              v52 = (*(v51 + 10) & 0xFFFFFFFFFFFFFFF8) + 16;
+              v51 = (*(v50 + 10) & 0xFFFFFFFFFFFFFFF8) + 16;
             }
 
             else
             {
-              v52 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v51);
+              v51 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v50);
             }
 
-            if (*(v52 + 23) < 0)
+            if (*(v51 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v131, *v52, *(v52 + 8));
+              std::string::__init_copy_ctor_external(&v128, *v51, *(v51 + 8));
             }
 
             else
             {
-              v53 = *v52;
-              v131.__r_.__value_.__r.__words[2] = *(v52 + 16);
-              *&v131.__r_.__value_.__l.__data_ = v53;
+              v52 = *v51;
+              v128.__r_.__value_.__r.__words[2] = *(v51 + 16);
+              *&v128.__r_.__value_.__l.__data_ = v52;
             }
 
-            v132 = "textureOpacity";
-            std::map<std::string,char const*>::map[abi:ne200100](&v94, &v113.__r_.__value_.__l.__data_, 10);
-            v54 = 320;
+            v129 = "textureOpacity";
+            std::map<std::string,char const*>::map[abi:ne200100](&v92, &v110.__r_.__value_.__l.__data_, 10);
+            v53 = 320;
             do
             {
-              if (v111[v54 + 7] < 0)
+              if (v108[v53 + 7] < 0)
               {
-                operator delete(*(&v109 + v54));
+                operator delete(*(&v106 + v53));
               }
 
-              v54 -= 32;
+              v53 -= 32;
             }
 
-            while (v54);
-            isRMABundled = realityio::isRMABundled(&v102);
-            v56 = v102;
-            if (v102 != v103)
+            while (v53);
+            isRMABundled = realityio::isRMABundled(&v99);
+            v55 = v99;
+            if (v99 != v100)
             {
-              v57 = isRMABundled;
-              v81 = 0;
-              v80 = 0;
+              v56 = isRMABundled;
+              v79 = 0;
+              v78 = 0;
               while (1)
               {
-                if (*(v56 + 55) < 0)
+                if (*(v55 + 55) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&v113, v56[4], v56[5]);
+                  std::string::__init_copy_ctor_external(&v110, v55[4], v55[5]);
                 }
 
                 else
                 {
-                  v113 = *(v56 + 4);
+                  v110 = *(v55 + 4);
                 }
 
-                v114 = v56[7];
-                v58 = std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(&v94, &v113.__r_.__value_.__l.__data_);
-                v59 = v58;
-                if (&v95 != v58)
+                v111 = v55[7];
+                v57 = std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(&v92, &v110.__r_.__value_.__l.__data_);
+                v58 = v57;
+                if (&v93 != v57)
                 {
                   break;
                 }
 
-LABEL_191:
-                if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+LABEL_189:
+                if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
                 {
-                  operator delete(v113.__r_.__value_.__l.__data_);
+                  operator delete(v110.__r_.__value_.__l.__data_);
                 }
 
-                v77 = v56[1];
-                if (v77)
+                v74 = v55[1];
+                if (v74)
                 {
                   do
                   {
-                    v78 = v77;
-                    v77 = *v77;
+                    v75 = v74;
+                    v74 = *v74;
                   }
 
-                  while (v77);
+                  while (v74);
                 }
 
                 else
                 {
                   do
                   {
-                    v78 = v56[2];
-                    v66 = *v78 == v56;
-                    v56 = v78;
+                    v75 = v55[2];
+                    v65 = *v75 == v55;
+                    v55 = v75;
                   }
 
-                  while (!v66);
+                  while (!v65);
                 }
 
-                v56 = v78;
-                if (v78 == v103)
+                v55 = v75;
+                if (v75 == v100)
                 {
-                  goto LABEL_199;
+                  goto LABEL_197;
                 }
               }
 
-              std::string::basic_string[abi:ne200100]<0>(v92, v58[7]);
-              std::string::basic_string[abi:ne200100]<0>(&__p, v59[7]);
-              v60 = std::string::append(&__p, "_sampler");
-              v61 = *&v60->__r_.__value_.__l.__data_;
-              v91 = v60->__r_.__value_.__r.__words[2];
-              v90 = v61;
-              v60->__r_.__value_.__l.__size_ = 0;
-              v60->__r_.__value_.__r.__words[2] = 0;
-              v60->__r_.__value_.__r.__words[0] = 0;
+              std::string::basic_string[abi:ne200100]<0>(v90, v57[7]);
+              std::string::basic_string[abi:ne200100]<0>(&__p, v58[7]);
+              v59 = std::string::append(&__p, "_sampler");
+              v60 = *&v59->__r_.__value_.__l.__data_;
+              v89 = v59->__r_.__value_.__r.__words[2];
+              v88 = v60;
+              v59->__r_.__value_.__l.__size_ = 0;
+              v59->__r_.__value_.__r.__words[2] = 0;
+              v59->__r_.__value_.__r.__words[0] = 0;
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (!v57)
+              if (!v56)
               {
-LABEL_149:
-                v67 = v114;
-                v68 = std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>((v114 + 16), &v113.__r_.__value_.__l.__data_);
-                if (v67 + 24 != v68)
+LABEL_147:
+                v66 = v111;
+                if (v66 + 24 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>((v111 + 16), &v110.__r_.__value_.__l.__data_))
                 {
-                  if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+                  if ((v110.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                   {
-                    v69 = &v113;
+                    v67 = &v110;
                   }
 
                   else
                   {
-                    v69 = v113.__r_.__value_.__r.__words[0];
+                    v67 = v110.__r_.__value_.__r.__words[0];
                   }
 
-                  MEMORY[0x24C1A5DE0](&v109, v69);
-                  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&__p, &v104, &v109);
-                  if ((v109 & 7) != 0)
+                  MEMORY[0x24C1A5DE0](&v106, v67);
+                  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&__p, &v101, &v106);
+                  if ((v106 & 7) != 0)
                   {
-                    atomic_fetch_add_explicit((v109 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                    atomic_fetch_add_explicit((v106 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
 
-                  realityio::findPrimWhichOriginatedConnection(&v109, &__p);
+                  realityio::findPrimWhichOriginatedConnection(&v106, &__p);
                   memset(&__str, 0, sizeof(__str));
-                  v86 = xmmword_247757250;
-                  v85 = 0;
-                  realityio::uvNameAndTransformForTexturePrim(&v109, &__str, &v86, &v85);
-                  v70 = *(v68 + 56);
+                  v84 = xmmword_247757250;
+                  v83 = 0;
+                  realityio::uvNameAndTransformForTexturePrim(&v106, &__str, &v84, &v83);
                   REMaterialAssetBuilderSetTextureFromAsset();
-                  v71 = *(v114 + 5);
+                  v68 = *(v111 + 5);
                   REMaterialAssetBuilderSetSampler();
 
                   REMaterialAssetBuilderBindTextureToSampler();
@@ -7950,9 +7737,9 @@ LABEL_149:
                     size = __str.__r_.__value_.__l.__size_;
                   }
 
-                  if (size && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__str, &v97) && (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v96, "") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v96, &__str)))
+                  if (size && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__str, &v95) && (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v94, "") || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v94, &__str)))
                   {
-                    std::string::basic_string[abi:ne200100]<0>(&v82, "geometry.primvars:");
+                    std::string::basic_string[abi:ne200100]<0>(&v80, "geometry.primvars:");
                     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
                       p_str = &__str;
@@ -7965,53 +7752,53 @@ LABEL_149:
 
                     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
                     {
-                      v74 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+                      v71 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
                     }
 
                     else
                     {
-                      v74 = __str.__r_.__value_.__l.__size_;
+                      v71 = __str.__r_.__value_.__l.__size_;
                     }
 
-                    v75 = std::string::append(&v82, p_str, v74);
-                    v76 = *&v75->__r_.__value_.__l.__data_;
-                    v84 = v75->__r_.__value_.__r.__words[2];
-                    *v83 = v76;
-                    v75->__r_.__value_.__l.__size_ = 0;
-                    v75->__r_.__value_.__r.__words[2] = 0;
-                    v75->__r_.__value_.__r.__words[0] = 0;
-                    if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
+                    v72 = std::string::append(&v80, p_str, v71);
+                    v73 = *&v72->__r_.__value_.__l.__data_;
+                    v82 = v72->__r_.__value_.__r.__words[2];
+                    *v81 = v73;
+                    v72->__r_.__value_.__l.__size_ = 0;
+                    v72->__r_.__value_.__r.__words[2] = 0;
+                    v72->__r_.__value_.__r.__words[0] = 0;
+                    if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v82.__r_.__value_.__l.__data_);
+                      operator delete(v80.__r_.__value_.__l.__data_);
                     }
 
-                    std::string::operator=(&v96, &__str);
+                    std::string::operator=(&v94, &__str);
                     REMaterialAssetBuilderSetBufferFromBinding();
                     REMaterialAssetBuilderSetUVIndexForTexture();
-                    if ((v80 & 1) == 0)
+                    if ((v78 & 1) == 0)
                     {
                       REMaterialAssetBuilderSetFloat4();
                       REMaterialAssetBuilderSetFloat2();
                     }
 
-                    if (SHIBYTE(v84) < 0)
+                    if (SHIBYTE(v82) < 0)
                     {
-                      operator delete(v83[0]);
+                      operator delete(v81[0]);
                     }
 
-                    v80 = 1;
+                    v78 = 1;
                   }
 
                   else
                   {
-                    if ((v81 & 1) == 0)
+                    if ((v79 & 1) == 0)
                     {
                       REMaterialAssetBuilderSetFloat4();
                       REMaterialAssetBuilderSetFloat2();
                     }
 
                     REMaterialAssetBuilderSetUVIndexForTexture();
-                    v81 = 1;
+                    v79 = 1;
                   }
 
                   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -8019,21 +7806,21 @@ LABEL_149:
                     operator delete(__str.__r_.__value_.__l.__data_);
                   }
 
-                  if ((v112 & 7) != 0)
+                  if ((v109 & 7) != 0)
                   {
-                    atomic_fetch_add_explicit((v112 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                    atomic_fetch_add_explicit((v109 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
 
                   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-                  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v111);
-                  if (v110)
+                  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v108);
+                  if (v107)
                   {
-                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v110);
+                    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v107);
                   }
 
-                  if ((v89 & 7) != 0)
+                  if ((v87 & 7) != 0)
                   {
-                    atomic_fetch_add_explicit((v89 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+                    atomic_fetch_add_explicit((v87 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
                   }
 
                   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
@@ -8044,175 +7831,170 @@ LABEL_149:
                   }
                 }
 
-                if (SHIBYTE(v91) < 0)
+                if (SHIBYTE(v89) < 0)
                 {
-                  operator delete(v90);
+                  operator delete(v88);
                 }
 
-                if (v93 < 0)
+                if (v91 < 0)
                 {
-                  operator delete(v92[0]);
+                  operator delete(v90[0]);
                 }
 
-                goto LABEL_191;
+                goto LABEL_189;
               }
 
-              if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
               {
-                if (v113.__r_.__value_.__l.__size_ == 8)
+                if (v110.__r_.__value_.__l.__size_ == 8)
                 {
-                  v62 = v113.__r_.__value_.__r.__words[0];
-LABEL_135:
-                  if (v62->__r_.__value_.__r.__words[0] == 0x63696C6C6174656DLL)
+                  v61 = v110.__r_.__value_.__r.__words[0];
+LABEL_133:
+                  if (v61->__r_.__value_.__r.__words[0] == 0x63696C6C6174656DLL)
                   {
-                    goto LABEL_139;
+                    goto LABEL_137;
                   }
                 }
               }
 
-              else if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) == 8)
+              else if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) == 8)
               {
-                v62 = &v113;
-                goto LABEL_135;
+                v61 = &v110;
+                goto LABEL_133;
               }
 
-              if (!std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v113, "occlusion") && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v113, "roughness") && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v113, "specularColor"))
+              if (!std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v110, "occlusion") && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v110, "roughness") && !std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v110, "specularColor"))
               {
-                goto LABEL_149;
+                goto LABEL_147;
               }
 
-LABEL_139:
-              if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+LABEL_137:
+              if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
               {
-                if (v113.__r_.__value_.__l.__size_ == 9)
+                if (v110.__r_.__value_.__l.__size_ == 9)
                 {
-                  v63 = v113.__r_.__value_.__r.__words[0];
-LABEL_144:
-                  v64 = v63->__r_.__value_.__r.__words[0];
-                  v65 = v63->__r_.__value_.__s.__data_[8];
-                  v66 = v64 == 0x6F6973756C63636FLL && v65 == 110;
-                  if (v66)
+                  v62 = v110.__r_.__value_.__r.__words[0];
+LABEL_142:
+                  v63 = v62->__r_.__value_.__r.__words[0];
+                  v64 = v62->__r_.__value_.__s.__data_[8];
+                  v65 = v63 == 0x6F6973756C63636FLL && v64 == 110;
+                  if (v65)
                   {
-                    goto LABEL_149;
+                    goto LABEL_147;
                   }
                 }
               }
 
-              else if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) == 9)
+              else if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) == 9)
               {
-                v63 = &v113;
-                goto LABEL_144;
+                v62 = &v110;
+                goto LABEL_142;
               }
 
-              MEMORY[0x24C1A8D40](v92, "textureRMAS");
-              MEMORY[0x24C1A8D40](&v90, "textureRMAS_sampler");
-              goto LABEL_149;
+              MEMORY[0x24C1A8D40](v90, "textureRMAS");
+              MEMORY[0x24C1A8D40](&v88, "textureRMAS_sampler");
+              goto LABEL_147;
             }
 
-LABEL_199:
-            std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v96, "");
+LABEL_197:
+            std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v94, "");
             REMaterialAssetBuilderSetFunctionConstant();
-            v79 = REAssetManagerMaterialAssetBuilderBuildAsync();
-            *this = v79;
-            if (v79 && *(*(a3[5] + 2) + 40))
+            v76 = REAssetManagerMaterialAssetBuilderBuildAsync();
+            *this = v76;
+            if (v76)
             {
-              realityio::LiveSceneManager::queueForDeferredAssetLoad();
+              v77 = *(*(a3[5] + 2) + 40);
+              if (v77)
+              {
+                realityio::LiveSceneManager::queueForDeferredAssetLoad(v77, this);
+              }
             }
 
-            std::__tree<std::string>::destroy(&v94, v95);
-            if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+            std::__tree<std::string>::destroy(&v92, v93);
+            if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v96.__r_.__value_.__l.__data_);
+              operator delete(v94.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v97.__r_.__value_.__l.__data_);
+              operator delete(v95.__r_.__value_.__l.__data_);
             }
 
-            pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v98);
+            pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(&v96);
           }
 
           else
           {
-            *this = v108;
-            v108 = 0;
+            *this = v105;
+            v105 = 0;
           }
 
-          realityio::WrappedRERef<REMaterialAssetBuilder *>::~WrappedRERef(v100);
+          realityio::WrappedRERef<REMaterialAssetBuilder *>::~WrappedRERef(v97);
         }
 
         else
         {
-          *this = v108;
-          v108 = 0;
+          *this = v105;
+          v105 = 0;
         }
 
-        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v101);
-        std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::destroy(v103[0]);
+        realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v98);
+        std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::destroy(v100[0]);
       }
 
       else
       {
-        *this = v108;
-        v108 = 0;
+        *this = v105;
+        v105 = 0;
       }
 
-      MEMORY[0x24C1A5280](&v104);
+      MEMORY[0x24C1A5280](&v101);
     }
 
     else
     {
-      *this = v108;
-      v108 = 0;
+      *this = v105;
+      v105 = 0;
     }
 
-    MEMORY[0x24C1A5510](&v106);
+    MEMORY[0x24C1A5510](&v103);
   }
 
   else
   {
-    *this = v108;
-    v108 = 0;
+    *this = v105;
+    v105 = 0;
   }
 
-  result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v108);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v105);
 }
 
-void sub_2474D6604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58)
+void sub_2474D6604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58)
 {
-  MEMORY[0x24C1A5510](&a55);
+  MEMORY[0x24C1A5510](&a55, a2, a3, a4, a5, a6, a7, a8);
   realityio::WrappedRERef<REAsset *>::~WrappedRERef(&a58);
   _Unwind_Resume(a1);
 }
 
 void *realityio::createDefaultPbrMaterialAsset(void *result, uint64_t a2, uint64_t a3, char a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = a3;
-  v12 = a2;
-  v10 = a4;
   *result = 0;
   if (a3)
   {
-    v5 = *(*(*(a3 + 40) + 16) + 16);
     ServiceLocator = REEngineGetServiceLocator();
-    v9 = MEMORY[0x24C1A4230](ServiceLocator);
-    v7 = *(a3 + 48);
+    MEMORY[0x24C1A4230](ServiceLocator);
     operator new();
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2474D6A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2474D6A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(v6);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(v11);
   _Unwind_Resume(a1);
 }
 
@@ -8367,8 +8149,8 @@ LABEL_14:
     return result;
   }
 
-  realityio::findOriginalSourceAttribute(this, v7);
-  if (!pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(v7) || (pxrInternal__aapl__pxrReserved__::UsdShadeOutput::IsOutput() & 1) != 0 || !pxrInternal__aapl__pxrReserved__::UsdAttribute::HasValue(v7))
+  realityio::findOriginalSourceAttribute(&v7, this);
+  if (!pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v7) || (pxrInternal__aapl__pxrReserved__::UsdShadeOutput::IsOutput() & 1) != 0 || !pxrInternal__aapl__pxrReserved__::UsdAttribute::HasValue(&v7))
   {
     if ((v10 & 7) != 0)
     {
@@ -8385,7 +8167,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  realityio::getColorAttributeAndGamut(v7, a1, a3);
+  realityio::getColorAttributeAndGamut(&v7, a1, a3);
   if ((v10 & 7) != 0)
   {
     atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -8401,9 +8183,9 @@ LABEL_14:
   return result;
 }
 
-void sub_2474D6F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2474D6F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(va);
   _Unwind_Resume(a1);
 }
@@ -8415,7 +8197,7 @@ uint64_t realityio::findPrimWhichOriginatedConnection(realityio *this, const pxr
     return pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(this, a2 + 1, a2 + 4);
   }
 
-  realityio::findOriginalSourceAttribute(a2, &v7);
+  realityio::findOriginalSourceAttribute(&v7, a2);
   IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v7);
   v5 = IsValid;
   if (IsValid)
@@ -8446,8 +8228,8 @@ uint64_t realityio::findPrimWhichOriginatedConnection(realityio *this, const pxr
 
 uint64_t realityio::findOriginalSourceAttributeName(std::string *this, const pxrInternal__aapl__pxrReserved__::UsdShadeInput *a2)
 {
-  realityio::findOriginalSourceAttribute(a2, v7);
-  BaseName = pxrInternal__aapl__pxrReserved__::UsdProperty::GetBaseName(&v11, v7);
+  realityio::findOriginalSourceAttribute(&v7, a2);
+  BaseName = pxrInternal__aapl__pxrReserved__::UsdProperty::GetBaseName(&v11, &v7);
   if ((v11 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
     EmptyString = (v11 & 0xFFFFFFFFFFFFFFF8) + 16;
@@ -8491,13 +8273,13 @@ uint64_t realityio::findOriginalSourceAttributeName(std::string *this, const pxr
   return result;
 }
 
-void sub_2474D7134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2474D7134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 - 24);
-  if ((v4 & 7) != 0)
+  va_start(va, a3);
+  v5 = *(v3 - 24);
+  if ((v5 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(va);
@@ -8515,10 +8297,10 @@ float realityio::findTextureScaleFloat3(realityio *this, const pxrInternal__aapl
   }
 
   pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v10, v14, (v3 + 240));
-  realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v10, v18);
-  v4 = v18[0];
+  realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v10, &v18);
+  v4 = v18;
   v5 = v19;
-  if ((v18[0] & 1) == 0 && v21 < 0)
+  if ((v18 & 1) == 0 && v21 < 0)
   {
     operator delete(__p);
   }
@@ -8549,10 +8331,10 @@ float realityio::findTextureScaleFloat3(realityio *this, const pxrInternal__aapl
     }
 
     pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(&v10, v14, (v6 + 248));
-    realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v10, v18);
-    v7 = v18[0];
+    realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v10, &v18);
+    v7 = v18;
     v8 = v19;
-    if ((v18[0] & 1) == 0 && v21 < 0)
+    if ((v18 & 1) == 0 && v21 < 0)
     {
       operator delete(__p);
     }
@@ -8592,32 +8374,33 @@ float realityio::findTextureScaleFloat3(realityio *this, const pxrInternal__aapl
   return v5;
 }
 
-void sub_2474D7358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_2474D7358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(&a9);
-  pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(&a13);
+  pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(va);
   _Unwind_Resume(a1);
 }
 
 float realityio::findTextureScaleFloat(realityio *this, const pxrInternal__aapl__pxrReserved__::UsdShadeInput *a2)
 {
   v2 = a2;
-  v44 = *MEMORY[0x277D85DE8];
-  realityio::findPrimWhichOriginatedConnection(v33, this);
+  v43 = *MEMORY[0x277D85DE8];
+  realityio::findPrimWhichOriginatedConnection(v32, this);
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
   v4 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
   if (!v4)
   {
     pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(buf, v33, (v4 + 240));
-  realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(buf, &v37);
-  v5 = v37.__r_.__value_.__s.__data_[0];
-  v6 = v37.__r_.__value_.__r.__words[2];
-  size = v37.__r_.__value_.__l.__size_;
-  if ((v37.__r_.__value_.__s.__data_[0] & 1) == 0 && v39 < 0)
+  pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(buf, v32, (v4 + 240));
+  realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(buf, &v36);
+  v5 = v36.__r_.__value_.__s.__data_[0];
+  v6 = v36.__r_.__value_.__r.__words[2];
+  size = v36.__r_.__value_.__l.__size_;
+  if ((v36.__r_.__value_.__s.__data_[0] & 1) == 0 && v38 < 0)
   {
     operator delete(__p);
   }
@@ -8658,76 +8441,76 @@ float realityio::findTextureScaleFloat(realityio *this, const pxrInternal__aapl_
     v8 = *(&v6 + 1);
   }
 
-  v32 = __PAIR64__(LODWORD(v10), LODWORD(v9));
-  v31 = __PAIR64__(LODWORD(v11), LODWORD(v8));
-  if ((v43 & 7) != 0)
+  v31 = __PAIR64__(LODWORD(v10), LODWORD(v9));
+  v30 = __PAIR64__(LODWORD(v11), LODWORD(v8));
+  if ((v42 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v43 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v42 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v42);
-  if (*&v41[4])
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v41);
+  if (*&v40[4])
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&v41[4]);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&v40[4]);
   }
 
-  OriginalSourceAttributeName = realityio::findOriginalSourceAttributeName(&v37, this);
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  OriginalSourceAttributeName = realityio::findOriginalSourceAttributeName(&v36, this);
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
   {
-    if (v37.__r_.__value_.__l.__size_ != 1)
+    if (v36.__r_.__value_.__l.__size_ != 1)
     {
       goto LABEL_34;
     }
 
-    v13 = *v37.__r_.__value_.__l.__data_;
+    v13 = *v36.__r_.__value_.__l.__data_;
     switch(v13)
     {
       case 'b':
-        v14 = (&v29 + 4);
-        v15 = (&v31 + 4);
+        v14 = (&v28 + 4);
+        v15 = (&v30 + 4);
         goto LABEL_45;
       case 'g':
-        v14 = &v30;
-        v15 = &v32;
+        v14 = &v29;
+        v15 = &v31;
         goto LABEL_45;
       case 'r':
-        v14 = (&v30 + 4);
-        v15 = (&v32 + 4);
+        v14 = (&v29 + 4);
+        v15 = (&v31 + 4);
         goto LABEL_45;
     }
   }
 
   else
   {
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) != 1)
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) != 1)
     {
       goto LABEL_34;
     }
 
-    v13 = v37.__r_.__value_.__s.__data_[0];
-    switch(v37.__r_.__value_.__s.__data_[0])
+    v13 = v36.__r_.__value_.__s.__data_[0];
+    switch(v36.__r_.__value_.__s.__data_[0])
     {
       case 'b':
-        v14 = (&v29 + 4);
-        v15 = (&v31 + 4);
+        v14 = (&v28 + 4);
+        v15 = (&v30 + 4);
         goto LABEL_46;
       case 'g':
-        v14 = &v30;
-        v15 = &v32;
+        v14 = &v29;
+        v15 = &v31;
         goto LABEL_46;
       case 'r':
-        v14 = (&v30 + 4);
-        v15 = (&v32 + 4);
+        v14 = (&v29 + 4);
+        v15 = (&v31 + 4);
         goto LABEL_46;
     }
   }
 
   if (v13 == 97)
   {
-    v15 = &v31;
-    v14 = &v29;
-    if ((*(&v37.__r_.__value_.__s + 23) & 0x80) == 0)
+    v15 = &v30;
+    v14 = &v28;
+    if ((*(&v36.__r_.__value_.__s + 23) & 0x80) == 0)
     {
       goto LABEL_46;
     }
@@ -8739,9 +8522,9 @@ LABEL_34:
   v16 = *(realityio::logObjects(OriginalSourceAttributeName) + 24);
   if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = (&v32 + 4);
-    v14 = (&v30 + 4);
-    if ((*(&v37.__r_.__value_.__s + 23) & 0x80) == 0)
+    v15 = (&v31 + 4);
+    v14 = (&v29 + 4);
+    if ((*(&v36.__r_.__value_.__s + 23) & 0x80) == 0)
     {
       goto LABEL_46;
     }
@@ -8749,41 +8532,41 @@ LABEL_34:
     goto LABEL_45;
   }
 
-  v17 = &v37;
-  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v17 = &v36;
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v17 = v37.__r_.__value_.__r.__words[0];
+    v17 = v36.__r_.__value_.__r.__words[0];
   }
 
   *buf = 136315138;
-  *v41 = v17;
+  *v40 = v17;
   _os_log_impl(&dword_247485000, v16, OS_LOG_TYPE_DEFAULT, "Invalid USD texture shader node output %s for single texture component.", buf, 0xCu);
-  v15 = (&v32 + 4);
-  v14 = (&v30 + 4);
-  if ((*(&v37.__r_.__value_.__s + 23) & 0x80) != 0)
+  v15 = (&v31 + 4);
+  v14 = (&v29 + 4);
+  if ((*(&v36.__r_.__value_.__s + 23) & 0x80) != 0)
   {
 LABEL_45:
-    operator delete(v37.__r_.__value_.__l.__data_);
+    operator delete(v36.__r_.__value_.__l.__data_);
   }
 
 LABEL_46:
   v18 = *v15;
   if ((v2 & 1) == 0)
   {
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
     v19 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
     if (!v19)
     {
       pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
     }
 
-    pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(buf, v33, (v19 + 248));
-    realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(buf, &v37);
-    v20 = v37.__r_.__value_.__s.__data_[0];
-    v21 = v37.__r_.__value_.__r.__words[2];
-    v22 = v37.__r_.__value_.__l.__size_;
-    if ((v37.__r_.__value_.__s.__data_[0] & 1) == 0 && v39 < 0)
+    pxrInternal__aapl__pxrReserved__::UsdPrim::GetAttribute(buf, v32, (v19 + 248));
+    realityio::getAttributeValue<pxrInternal__aapl__pxrReserved__::GfVec4f>(buf, &v36);
+    v20 = v36.__r_.__value_.__s.__data_[0];
+    v21 = v36.__r_.__value_.__r.__words[2];
+    v22 = v36.__r_.__value_.__l.__size_;
+    if ((v36.__r_.__value_.__s.__data_[0] & 1) == 0 && v38 < 0)
     {
       operator delete(__p);
     }
@@ -8820,36 +8603,35 @@ LABEL_46:
       v26 = *(&v21 + 1);
     }
 
-    v30 = __PAIR64__(LODWORD(v25), LODWORD(v24));
-    v29 = __PAIR64__(LODWORD(v23), LODWORD(v26));
-    if ((v43 & 7) != 0)
+    v29 = __PAIR64__(LODWORD(v25), LODWORD(v24));
+    v28 = __PAIR64__(LODWORD(v23), LODWORD(v26));
+    if ((v42 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v43 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v42 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v42);
-    if (*&v41[4])
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v41);
+    if (*&v40[4])
     {
-      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&v41[4]);
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(*&v40[4]);
     }
 
     v18 = v18 * *v14;
   }
 
-  if ((v36 & 7) != 0)
+  if ((v35 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v35 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v35);
-  if (v34)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v34);
+  if (v33)
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v34);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v33);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -8865,41 +8647,41 @@ void sub_2474D7714(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t realityio::getBaseColorTintAndOpacity(float32x4_t *a1, pxrInternal__aapl__pxrReserved__::UsdShadeShader *this, uint64_t a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v6 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
   if (!v6)
   {
     pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v41, this, (v6 + 32));
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v40, this, (v6 + 32));
   v7 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
   if (!v7)
   {
     pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v37, this, (v7 + 80));
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v36, this, (v7 + 80));
   v8 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
   if (!v8)
   {
     pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
   }
 
-  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v33, this, (v8 + 200));
-  v45.i32[0] = 1065353216;
-  ShadeInputValueWith = realityio::getShadeInputValueWithFallback<float>(&v37, v45.f32);
-  realityio::getShadeInputColor4WithFallback(&v45, &v41, xmmword_247757260);
-  v30 = v45;
-  v9 = v46;
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v32, this, (v8 + 200));
+  v44.i32[0] = 1065353216;
+  ShadeInputValueWith = realityio::getShadeInputValueWithFallback<float>(&v36, v44.f32);
+  realityio::getShadeInputColor4WithFallback(&v44, &v40, xmmword_247757260);
+  v29 = v44;
+  v9 = v45;
   __asm { FMOV            V0.4S, #1.0 }
 
-  realityio::getShadeInputColor4WithFallback(&v45, &v33, _Q0);
-  v31 = v45;
-  v15 = v46;
-  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v41) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput())
+  realityio::getShadeInputColor4WithFallback(&v44, &v32, _Q0);
+  v30 = v44;
+  v15 = v45;
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v40) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput())
   {
-    v17 = MEMORY[0x24C1A7400](&v41);
+    v17 = MEMORY[0x24C1A7400](&v40);
   }
 
   else
@@ -8913,7 +8695,7 @@ uint64_t realityio::getBaseColorTintAndOpacity(float32x4_t *a1, pxrInternal__aap
     pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
   }
 
-  if (!realityio::isConnectedToBaseColorAlpha(this, (v18 + 80), v16) && pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v37) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && MEMORY[0x24C1A7400](&v37))
+  if (!realityio::isConnectedToBaseColorAlpha(this, (v18 + 80), v16) && pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v36) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && MEMORY[0x24C1A7400](&v36))
   {
     v19 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
     if (!v19)
@@ -8932,7 +8714,7 @@ uint64_t realityio::getBaseColorTintAndOpacity(float32x4_t *a1, pxrInternal__aap
     }
 
     v21 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, EmptyString);
-    ShadeInputValueWith = realityio::findTextureScaleFloat(&v37, v21);
+    ShadeInputValueWith = realityio::findTextureScaleFloat(&v36, v21);
   }
 
   if (v17)
@@ -8954,76 +8736,75 @@ uint64_t realityio::getBaseColorTintAndOpacity(float32x4_t *a1, pxrInternal__aap
     }
 
     v25 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, v23);
-    v24.f32[0] = realityio::findTextureScaleFloat3(&v41, v25);
+    v24.f32[0] = realityio::findTextureScaleFloat3(&v40, v25);
     v24.i32[1] = v26;
-    *v24.f32 = vmul_f32(*v31.f32, *v24.f32);
-    v24.f32[2] = v31.f32[2] * v27;
+    *v24.f32 = vmul_f32(*v30.f32, *v24.f32);
+    v24.f32[2] = v30.f32[2] * v27;
     v9 = v15;
   }
 
   else
   {
-    v24 = vmulq_f32(v30, v31);
+    v24 = vmulq_f32(v29, v30);
   }
 
   v24.f32[3] = ShadeInputValueWith;
   *a1 = v24;
   a1[1].i8[0] = v9;
-  if ((v36 & 7) != 0)
+  if ((v35 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v36 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v35 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v35);
-  if (v34)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v34);
+  if (v33)
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v34);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v33);
   }
 
-  if ((v40 & 7) != 0)
+  if ((v39 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v40 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-  }
-
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v39);
-  if (v38)
-  {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v38);
-  }
-
-  if ((v44 & 7) != 0)
-  {
-    atomic_fetch_add_explicit((v44 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v39 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v43);
-  result = v42;
-  if (v42)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v38);
+  if (v37)
   {
-    result = pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v42);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v37);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
+  if ((v43 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v43 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v42);
+  result = v41;
+  if (v41)
+  {
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v41);
+  }
+
   return result;
 }
 
-void sub_2474D7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2474D7A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   va_copy(va2, va1);
-  v13 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
   pxrInternal__aapl__pxrReserved__::UsdShadeInput::~UsdShadeInput(va);
   pxrInternal__aapl__pxrReserved__::UsdShadeInput::~UsdShadeInput(va1);
   pxrInternal__aapl__pxrReserved__::UsdShadeInput::~UsdShadeInput(va2);
@@ -9037,14 +8818,14 @@ float realityio::getShadeInputValueWithFallback<float>(pxrInternal__aapl__pxrRes
     return *a2;
   }
 
-  realityio::findOriginalSourceAttribute(a1, &v9);
+  realityio::findOriginalSourceAttribute(&v9, a1);
   if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v9) && (pxrInternal__aapl__pxrReserved__::UsdShadeOutput::IsOutput() & 1) == 0 && pxrInternal__aapl__pxrReserved__::UsdAttribute::HasValue(&v9))
   {
-    realityio::getAttributeValue<float>(&v9, v13);
-    v5 = v13[0];
+    realityio::getAttributeValue<float>(&v9, &v13);
+    v5 = v13;
     v2 = v14;
     v6 = *a2;
-    if ((v13[0] & 1) == 0 && v16 < 0)
+    if ((v13 & 1) == 0 && v16 < 0)
     {
       operator delete(__p);
     }
@@ -9083,7 +8864,7 @@ float realityio::getShadeInputValueWithFallback<float>(pxrInternal__aapl__pxrRes
 
 BOOL realityio::isTransparent(realityio *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
   if (!v4)
   {
@@ -9130,11 +8911,10 @@ BOOL realityio::isTransparent(realityio *a1, uint64_t a2)
   result = 1;
   if (!v14 && v11 == v10)
   {
-    realityio::getBaseColorTintAndOpacity(&v17, a1, a2);
-    result = v17.f32[3] < 1.0;
+    realityio::getBaseColorTintAndOpacity(&v16, a1, a2);
+    return v16.f32[3] < 1.0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9152,15 +8932,15 @@ uint64_t realityio::isAlphaCutout(realityio *this, const pxrInternal__aapl__pxrR
     goto LABEL_15;
   }
 
-  realityio::findOriginalSourceAttribute(&v13, &v9);
+  realityio::findOriginalSourceAttribute(&v9, &v13);
   IsValid = pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v9);
   v6 = IsValid;
   if (IsValid)
   {
-    realityio::getAttributeValue<float>(&v9, v17);
-    v2 = v17[0];
+    realityio::getAttributeValue<float>(&v9, &v17);
+    v2 = v17;
     v7 = v18;
-    if ((v17[0] & 1) == 0 && v20 < 0)
+    if ((v17 & 1) == 0 && v20 < 0)
     {
       operator delete(__p);
     }
@@ -9204,20 +8984,21 @@ LABEL_15:
   return v2 & 1;
 }
 
-void sub_2474D7EA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_2474D7EA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   pxrInternal__aapl__pxrReserved__::UsdAttribute::~UsdAttribute(&a9);
-  pxrInternal__aapl__pxrReserved__::UsdShadeInput::~UsdShadeInput(&a13);
+  pxrInternal__aapl__pxrReserved__::UsdShadeInput::~UsdShadeInput(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t realityio::hasInvalidTextures(realityio *this, const pxrInternal__aapl__pxrReserved__::UsdShadeShader *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(this);
-  v2 = v30;
-  v3 = v31;
-  if (v30 == v31)
+  v36 = *MEMORY[0x277D85DE8];
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(&v29, this);
+  v2 = v29;
+  v3 = v30;
+  if (v29 == v30)
   {
 LABEL_31:
     v16 = 0;
@@ -9226,13 +9007,13 @@ LABEL_31:
 
   while (1)
   {
-    realityio::findPrimWhichOriginatedConnection(v26, v2);
-    FileResolvedPath = realityio::getFileResolvedPath(&v25);
-    size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-    v6 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    realityio::findPrimWhichOriginatedConnection(v25, v2);
+    FileResolvedPath = realityio::getFileResolvedPath(&v24);
+    size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+    v6 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v25.__r_.__value_.__l.__size_;
+      size = v24.__r_.__value_.__l.__size_;
     }
 
     if (!size)
@@ -9242,45 +9023,45 @@ LABEL_31:
 
     pxrInternal__aapl__pxrReserved__::ArGetResolver(FileResolvedPath);
     pxrInternal__aapl__pxrReserved__::ArResolver::GetExtension();
-    v7 = v23;
-    if (v24 >= 0)
+    v7 = v22;
+    if (v23 >= 0)
     {
-      v7 = v24;
+      v7 = v23;
     }
 
     if (v7)
     {
       v8 = 0;
-      v9 = v24 >> 63;
+      v9 = v23 >> 63;
       do
       {
         if (v9)
         {
-          v10 = v22;
+          v10 = v21;
         }
 
         else
         {
-          v10 = &v22;
+          v10 = &v21;
         }
 
         v11 = __tolower(v10[v8]);
-        if (v24 >= 0)
+        if (v23 >= 0)
         {
-          v12 = &v22;
+          v12 = &v21;
         }
 
         else
         {
-          v12 = v22;
+          v12 = v21;
         }
 
         v12[v8++] = v11;
-        v13 = v24;
-        v9 = v24 >> 63;
-        if (v24 < 0)
+        v13 = v23;
+        v9 = v23 >> 63;
+        if (v23 < 0)
         {
-          v13 = v23;
+          v13 = v22;
         }
       }
 
@@ -9290,7 +9071,7 @@ LABEL_31:
     pxrInternal__aapl__pxrReserved__::TfStringToLower();
     v14 = std::__find[abi:ne200100]<std::string_view const*,std::string_view const*,std::string,std::__identity>(&realityio::isUsdzCompliantImageFileExtension(std::string const&)::allowedExtensions, &__block_descriptor_40_e5_v8__0l, &__p);
     v15 = v14;
-    if (SHIBYTE(v33) < 0)
+    if (SHIBYTE(v32) < 0)
     {
       operator delete(__p);
     }
@@ -9300,28 +9081,28 @@ LABEL_31:
       break;
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v22);
+      operator delete(v21);
     }
 
-    v6 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+    v6 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
 LABEL_24:
     if (v6 < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if ((v29 & 7) != 0)
+    if ((v28 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v29 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v28 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v28);
-    if (v27)
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v27);
+    if (v26)
     {
-      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v27);
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v26);
     }
 
     v2 = (v2 + 32);
@@ -9334,57 +9115,56 @@ LABEL_24:
   v17 = *realityio::logObjects(v14);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v21 = &v25;
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v20 = &v24;
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v21 = v25.__r_.__value_.__r.__words[0];
+      v20 = v24.__r_.__value_.__r.__words[0];
     }
 
     LODWORD(__p) = 136315138;
-    *(&__p + 4) = v21;
+    *(&__p + 4) = v20;
     _os_log_error_impl(&dword_247485000, v17, OS_LOG_TYPE_ERROR, "%s is an invalid texture format for use in USDZ.", &__p, 0xCu);
   }
 
   *&__p = "Material/MaterialAssetBuilder.mm";
   *(&__p + 1) = "hasInvalidTextures";
-  v33 = 596;
-  v34 = "BOOL realityio::hasInvalidTextures(const UsdShadeShader &)";
-  v35 = 1;
-  v36 = 6;
-  v18 = &v25;
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v32 = 596;
+  v33 = "BOOL realityio::hasInvalidTextures(const UsdShadeShader &)";
+  v34 = 1;
+  v35 = 6;
+  v18 = &v24;
+  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v18 = v25.__r_.__value_.__r.__words[0];
+    v18 = v24.__r_.__value_.__r.__words[0];
   }
 
   pxrInternal__aapl__pxrReserved__::Tf_DiagnosticHelper::IssueWarning(&__p, "%s is an invalid texture format for use in USDZ.", v18);
-  if (v24 < 0)
+  if (v23 < 0)
   {
-    operator delete(v22);
+    operator delete(v21);
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
 
-  if ((v29 & 7) != 0)
+  if ((v28 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v29 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v28 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v28);
-  if (v27)
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v27);
+  if (v26)
   {
-    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v27);
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v26);
   }
 
   v16 = 1;
 LABEL_44:
-  *&__p = &v30;
+  *&__p = &v29;
   std::vector<pxrInternal__aapl__pxrReserved__::UsdShadeInput>::__destroy_vector::operator()[abi:ne200100](&__p);
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -9415,8 +9195,8 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
         if (this)
         {
           v7 = realityio::TextureBuilder::kOutputName(this);
-          realityio::Inputs::getAccumulatedValues<realityio::TextureBuilder::TextureDataT const*>(a2, v7, v47);
-          if (v47[0] == 1)
+          realityio::Inputs::getAccumulatedValues<realityio::TextureBuilder::TextureDataT const*>(a2, v7, &v47);
+          if (v47 == 1)
           {
             v8 = v49;
             v9 = v48;
@@ -9442,7 +9222,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
                 }
 
                 v44 = v10;
-                std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TextureBuilder::TextureDataT const*>>(&v45, &v43.__r_.__value_.__l.__data_);
+                std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TextureBuilder::TextureDataT const*>>(&v45, &v43.__r_.__value_.__l.__data_, &v43);
                 if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(v43.__r_.__value_.__l.__data_);
@@ -9452,7 +9232,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
               }
 
               while (v9 != v8);
-              pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(a3);
+              pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInputs(&v41, a3);
               v13 = v41;
               for (i = v42; v13 != i; v13 += 32)
               {
@@ -9478,7 +9258,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
                   realityio::findPrimWhichOriginatedConnection(v37, v13);
                   if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(v37))
                   {
-                    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v37, &v34);
+                    pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v34, v37);
                     v17 = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(&v34);
                     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
                     pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v34);
@@ -9571,7 +9351,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
                             }
 
                             v35 = v19[7];
-                            std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TextureBuilder::TextureDataT const*>>(v6, &v34.__r_.__value_.__l.__data_);
+                            std::__tree<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::__map_value_compare<std::string,std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,realityio::TextureBuilder::TextureDataT const*>>>::__emplace_unique_key_args<std::string,std::pair<std::string,realityio::TextureBuilder::TextureDataT const*>>(v6, &v34.__r_.__value_.__l.__data_, &v34);
                             if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
                             {
                               operator delete(v34.__r_.__value_.__l.__data_);
@@ -9624,7 +9404,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
             }
           }
 
-          return realityio::Result<std::vector<realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*>,realityio::DetailedError>::~Result(v47);
+          return realityio::Result<std::vector<realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT const*>,realityio::DetailedError>::~Result(&v47);
         }
       }
     }
@@ -9633,7 +9413,7 @@ uint64_t realityio::makeBaseNameToTextureDataMap(uint64_t this, realityio::Input
   return this;
 }
 
-void sub_2474D86B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, char *a39)
+void sub_2474D86B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, char *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, char *a39)
 {
   if ((a10 & 7) != 0)
   {
@@ -9900,4 +9680,413 @@ LABEL_53:
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
+}
+
+void sub_2474D8B98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, std::__shared_weak_count *a30, uint64_t a31)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if ((a31 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((a31 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  if (a30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a30);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t realityio::setMaterialConstantsFromUsdPreviewSurface(uint64_t a1, pxrInternal__aapl__pxrReserved__::UsdShadeShader *this, uint64_t a3)
+{
+  v66 = *MEMORY[0x277D85DE8];
+  v5 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v5)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v58, this, (v5 + 40));
+  v6 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v6)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v54, this, (v6 + 16));
+  v7 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v7)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v50, this, (v7 + 24));
+  v8 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v8)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v46, this, (v8 + 56));
+  v9 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v9)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v42, this, (v9 + 64));
+  realityio::getBaseColorTintAndOpacity(&v62, this, a3);
+  REMaterialAssetBuilderSetColor4F();
+  v10 = pxrInternal__aapl__pxrReserved__::UsdObject::UsdObject(&v63, this + 1, this + 4);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v40, v10);
+  v11 = bswap64(0x9E3779B97F4A7C55 * (HIDWORD(v40) + ((HIDWORD(v40) + v40 + (HIDWORD(v40) + v40) * (HIDWORD(v40) + v40)) >> 1)));
+  v41.__x_[0] = v11;
+  for (i = 1; i != 624; ++i)
+  {
+    v11 = i + 1812433253 * (v11 ^ (v11 >> 30));
+    v41.__x_[i] = v11;
+  }
+
+  v41.__i_ = 0;
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v40);
+  if ((v65 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+  if (v63.n128_u64[1])
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+  }
+
+  std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v41);
+  std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v41);
+  std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v41);
+  REMaterialAssetBuilderSetColor3F();
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v58) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && (MEMORY[0x24C1A7400](&v58) & 1) != 0)
+  {
+    v13 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v13)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    if ((*(v13 + 5) & 0xFFFFFFFFFFFFFFF8) != 0)
+    {
+      EmptyString = ((*(v13 + 5) & 0xFFFFFFFFFFFFFFF8) + 16);
+    }
+
+    else
+    {
+      EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v13);
+    }
+
+    v34 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, EmptyString);
+    realityio::findTextureScaleFloat3(&v58, v34);
+    __asm { FMOV            V3.4S, #1.0 }
+
+    REMaterialAssetBuilderSetFloat4();
+  }
+
+  else
+  {
+    realityio::getShadeInputColor4WithFallback(&v63, &v58, xmmword_247757270);
+    REMaterialAssetBuilderSetColor3F();
+    __asm { FMOV            V0.4S, #1.0 }
+
+    REMaterialAssetBuilderSetFloat4();
+  }
+
+  REMaterialAssetBuilderSetFloat();
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v54) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && (MEMORY[0x24C1A7400](&v54) & 1) != 0)
+  {
+    v20 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v20)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    if ((*(v20 + 2) & 0xFFFFFFFFFFFFFFF8) != 0)
+    {
+      v21 = ((*(v20 + 2) & 0xFFFFFFFFFFFFFFF8) + 16);
+    }
+
+    else
+    {
+      v21 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v20);
+    }
+
+    v36 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, v21);
+    realityio::findTextureScaleFloat(&v54, v36);
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  else
+  {
+    v22 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v22)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v63, this, (v22 + 16));
+    LODWORD(v40) = 0;
+    realityio::getShadeInputValueWithFallback<float>(&v63, &v40);
+    if ((v65 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+    if (v63.n128_u64[1])
+    {
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+    }
+
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v50) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && (MEMORY[0x24C1A7400](&v50) & 1) != 0)
+  {
+    v23 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v23)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    if ((*(v23 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
+    {
+      v24 = ((*(v23 + 3) & 0xFFFFFFFFFFFFFFF8) + 16);
+    }
+
+    else
+    {
+      v24 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v23);
+    }
+
+    v37 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, v24);
+    realityio::findTextureScaleFloat(&v50, v37);
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  else
+  {
+    v25 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v25)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v63, this, (v25 + 24));
+    LODWORD(v40) = 1056964608;
+    realityio::getShadeInputValueWithFallback<float>(&v63, &v40);
+    if ((v65 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+    if (v63.n128_u64[1])
+    {
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+    }
+
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v46) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && (MEMORY[0x24C1A7400](&v46) & 1) != 0)
+  {
+    v26 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v26)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    if ((*(v26 + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
+    {
+      v27 = ((*(v26 + 7) & 0xFFFFFFFFFFFFFFF8) + 16);
+    }
+
+    else
+    {
+      v27 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v26);
+    }
+
+    v38 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, v27);
+    realityio::findTextureScaleFloat(&v46, v38);
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  else
+  {
+    v63.n128_u32[0] = 0;
+    realityio::getShadeInputValueWithFallback<float>(&v46, &v63);
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  if (pxrInternal__aapl__pxrReserved__::UsdObject::IsValid(&v42) && pxrInternal__aapl__pxrReserved__::UsdShadeInput::IsInput() && (MEMORY[0x24C1A7400](&v42) & 1) != 0)
+  {
+    v28 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v28)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    if ((*(v28 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
+    {
+      v29 = ((*(v28 + 8) & 0xFFFFFFFFFFFFFFF8) + 16);
+    }
+
+    else
+    {
+      v29 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v28);
+    }
+
+    v39 = a3 + 8 != std::__tree<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<realityio::UntypedInputOutputWrapperObject>>>>::find<std::string>(a3, v29);
+    realityio::findTextureScaleFloat(&v42, v39);
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  else
+  {
+    v30 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+    if (!v30)
+    {
+      pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+    }
+
+    pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v63, this, (v30 + 64));
+    LODWORD(v40) = 1008981770;
+    realityio::getShadeInputValueWithFallback<float>(&v63, &v40);
+    if ((v65 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+    if (v63.n128_u64[1])
+    {
+      pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+    }
+
+    REMaterialAssetBuilderSetFloat();
+  }
+
+  v31 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v31)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v63, this, (v31 + 72));
+  LODWORD(v40) = 0;
+  realityio::getShadeInputValueWithFallback<float>(&v63, &v40);
+  if ((v65 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+  if (v63.n128_u64[1])
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+  }
+
+  REMaterialAssetBuilderSetFloat();
+  v32 = atomic_load(&realityio::tokens::MaterialAssetBuilderTokens);
+  if (!v32)
+  {
+    pxrInternal__aapl__pxrReserved__::TfStaticData<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType,pxrInternal__aapl__pxrReserved__::Tf_StaticDataDefaultFactory<realityio::tokens::MaterialAssetBuilderTokens_StaticTokenType>>::_TryToCreateData();
+  }
+
+  pxrInternal__aapl__pxrReserved__::UsdShadeShader::GetInput(&v63, this, (v32 + 168));
+  LODWORD(v40) = 1069547520;
+  realityio::getShadeInputValueWithFallback<float>(&v63, &v40);
+  if ((v65 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v64);
+  if (v63.n128_u64[1])
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v63.n128_i64[1]);
+  }
+
+  REMaterialAssetBuilderSetFloat();
+  if ((v45 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v45 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v44);
+  if (v43)
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v43);
+  }
+
+  if ((v49 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v48);
+  if (v47)
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v47);
+  }
+
+  if ((v53 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v53 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v52);
+  if (v51)
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v51);
+  }
+
+  if ((v57 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v57 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v56);
+  if (v55)
+  {
+    pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v55);
+  }
+
+  if ((v61 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((v61 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(&v60);
+  result = v59;
+  if (v59)
+  {
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v59);
+  }
+
+  return result;
 }

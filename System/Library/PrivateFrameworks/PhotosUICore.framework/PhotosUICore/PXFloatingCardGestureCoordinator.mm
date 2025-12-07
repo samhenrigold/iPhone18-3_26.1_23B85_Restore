@@ -337,8 +337,8 @@ LABEL_7:
   MinY = CGRectGetMinY(v43);
   v23 = v8 * 0.5;
   v24 = v10 * 0.5;
-  layout = [(PXFloatingCardGestureCoordinator *)self layout];
-  [layout insets];
+  v25 = objc_msgSend_layout(self);
+  [v25 insets];
   v27 = v26;
   v29 = v28;
   v31 = v30;
@@ -482,8 +482,8 @@ LABEL_6:
 
 - (double)maximumHeight
 {
-  layout = [(PXFloatingCardGestureCoordinator *)self layout];
-  snappableHeights = [layout snappableHeights];
+  v3 = objc_msgSend_layout(self, a2);
+  snappableHeights = [v3 snappableHeights];
   v5 = [snappableHeights count];
 
   if (!v5)
@@ -491,8 +491,8 @@ LABEL_6:
     return 0.0;
   }
 
-  layout2 = [(PXFloatingCardGestureCoordinator *)self layout];
-  snappableHeights2 = [layout2 snappableHeights];
+  v6 = objc_msgSend_layout(self);
+  snappableHeights2 = [v6 snappableHeights];
   lastObject = [snappableHeights2 lastObject];
   [lastObject floatValue];
   v10 = v9;
@@ -502,8 +502,8 @@ LABEL_6:
 
 - (double)minimumHeight
 {
-  layout = [(PXFloatingCardGestureCoordinator *)self layout];
-  snappableHeights = [layout snappableHeights];
+  v3 = objc_msgSend_layout(self, a2);
+  snappableHeights = [v3 snappableHeights];
   v5 = [snappableHeights count];
 
   if (!v5)
@@ -511,8 +511,8 @@ LABEL_6:
     return 0.0;
   }
 
-  layout2 = [(PXFloatingCardGestureCoordinator *)self layout];
-  snappableHeights2 = [layout2 snappableHeights];
+  v6 = objc_msgSend_layout(self);
+  snappableHeights2 = [v6 snappableHeights];
   firstObject = [snappableHeights2 firstObject];
   [firstObject floatValue];
   v10 = v9;
@@ -618,8 +618,8 @@ void __49__PXFloatingCardGestureCoordinator_snapToHeight___block_invoke_2(uint64
 
 - (double)closestHeightForProjectedHeight:(double)height
 {
-  layout = [(PXFloatingCardGestureCoordinator *)self layout];
-  snappableHeights = [layout snappableHeights];
+  v4 = objc_msgSend_layout(self, a2);
+  snappableHeights = [v4 snappableHeights];
 
   if ([snappableHeights count])
   {
@@ -656,7 +656,7 @@ void __49__PXFloatingCardGestureCoordinator_snapToHeight___block_invoke_2(uint64
   return v9;
 }
 
-uint64_t __68__PXFloatingCardGestureCoordinator_closestHeightForProjectedHeight___block_invoke(uint64_t a1, void *a2)
+void *__68__PXFloatingCardGestureCoordinator_closestHeightForProjectedHeight___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 floatValue];
   v5 = v4;
@@ -805,8 +805,8 @@ uint64_t __68__PXFloatingCardGestureCoordinator_closestHeightForProjectedHeight_
   [view addGestureRecognizer:obj];
 
   objc_storeStrong(&self->_heightGestureRecognizer, obj);
-  layout = [(PXFloatingCardGestureCoordinator *)self layout];
-  LODWORD(view) = [layout canDrag];
+  v5 = objc_msgSend_layout(self);
+  LODWORD(view) = [v5 canDrag];
 
   if (view)
   {

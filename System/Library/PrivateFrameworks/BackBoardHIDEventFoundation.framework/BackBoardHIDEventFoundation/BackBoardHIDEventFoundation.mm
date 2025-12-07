@@ -1,7 +1,7 @@
 uint64_t _BKHandleIOHIDEventFromSender(void *a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v50 = a1;
+  v64 = *MEMORY[0x277D85DE8];
+  v49 = a1;
   v4 = objc_autoreleasePoolPush();
   if (IOHIDEventGetAttributeDataLength() < 1)
   {
@@ -57,7 +57,7 @@ LABEL_20:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v60 = valuePtr;
+        v59 = valuePtr;
         _os_log_impl(&dword_223CBE000, v17, OS_LOG_TYPE_INFO, "populating sender cache for unknown sender with senderID:%llX", buf, 0xCu);
       }
 
@@ -76,7 +76,7 @@ LABEL_30:
 
         v20 = [v11 dispatcherProvider];
         v21 = [v20 dispatcherForEvent:a1];
-        [v11 processEvent:&v50 sender:p_super dispatcher:v21];
+        [v11 processEvent:&v49 sender:p_super dispatcher:v21];
 
 LABEL_31:
         goto LABEL_32;
@@ -86,7 +86,7 @@ LABEL_31:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v60 = valuePtr;
+        v59 = valuePtr;
         _os_log_impl(&dword_223CBE000, v19, OS_LOG_TYPE_INFO, "no IOHIDServiceRef for unknown senderID:%llX", buf, 0xCu);
       }
     }
@@ -100,7 +100,7 @@ LABEL_31:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v60 = a1;
+      v59 = a1;
       _os_log_error_impl(&dword_223CBE000, v11, OS_LOG_TYPE_ERROR, "ignoring event with non-redirect attribute data: %{public}@", buf, 0xCu);
     }
 
@@ -131,137 +131,136 @@ LABEL_31:
       v10 = 0;
     }
 
-    v24 = v10;
+    v23 = v10;
 
-    if (v24)
+    if (v23)
     {
-      v25 = [v24 environment];
-      [v24 source];
-      v26 = [v24 display];
-      if (!v26)
+      v24 = [v23 environment];
+      [v23 source];
+      v25 = [v23 display];
+      if (!v25)
       {
-        v27 = [v6 deliveryManager];
-        v26 = [v27 mainDisplay];
+        v26 = [v6 deliveryManager];
+        v25 = [v26 mainDisplay];
       }
 
-      v49 = [v24 token];
-      [v24 options];
-      v28 = [v24 pid];
-      v48 = v26;
-      if (v28 <= 0)
+      v48 = [v23 token];
+      [v23 options];
+      v27 = [v23 pid];
+      v47 = v25;
+      if (v27 <= 0)
       {
-        v33 = BKLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = BKLogCommon();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v60 = a1;
-          _os_log_error_impl(&dword_223CBE000, v33, OS_LOG_TYPE_ERROR, "must have a valid destination PID must be set to redirect events -- not redirecting '%{public}@'", buf, 0xCu);
+          v59 = a1;
+          _os_log_error_impl(&dword_223CBE000, v32, OS_LOG_TYPE_ERROR, "must have a valid destination PID must be set to redirect events -- not redirecting '%{public}@'", buf, 0xCu);
         }
       }
 
       else
       {
-        v29 = v28;
-        v46 = v6;
-        v47 = v4;
-        if (v25)
+        v28 = v27;
+        v45 = v6;
+        v46 = v4;
+        if (v24)
         {
-          v30 = objc_opt_new();
-          [v30 setDisplay:v26];
-          [v30 setEnvironment:v25];
-          [v30 setToken:v49];
-          v31 = [v6 deliveryManager];
-          v32 = [v31 destinationsStartingFromPID:v29 deferringPredicate:v30];
+          v29 = objc_opt_new();
+          [v29 setDisplay:v25];
+          [v29 setEnvironment:v24];
+          [v29 setToken:v48];
+          v30 = [v6 deliveryManager];
+          v31 = [v30 destinationsStartingFromPID:v28 deferringPredicate:v29];
         }
 
         else
         {
-          v34 = MEMORY[0x277CF0638];
-          v55[0] = MEMORY[0x277D85DD0];
-          v55[1] = 3221225472;
-          v55[2] = ___BKRedirectHIDEvent_block_invoke;
-          v55[3] = &unk_2784F6FD8;
-          v56 = v26;
-          v58 = v29;
-          v57 = v49;
-          v35 = [v34 build:v55];
-          v32 = [MEMORY[0x277CBEB98] setWithObject:v35];
+          v33 = MEMORY[0x277CF0638];
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = ___BKRedirectHIDEvent_block_invoke;
+          v54[3] = &unk_2784F6FD8;
+          v55 = v25;
+          v57 = v28;
+          v56 = v48;
+          v34 = [v33 build:v54];
+          v31 = [MEMORY[0x277CBEB98] setWithObject:v34];
         }
 
-        v45 = v25;
-        v36 = BKLogHID();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v44 = v24;
+        v35 = BKLogHID();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = BKSHIDEventGetConciseDescription();
+          v36 = BKSHIDEventGetConciseDescription();
           SenderID = IOHIDEventGetSenderID();
           *buf = 138543874;
-          v60 = v37;
-          v61 = 2048;
-          v62 = SenderID;
-          v63 = 2114;
-          v64 = v32;
-          _os_log_impl(&dword_223CBE000, v36, OS_LOG_TYPE_DEFAULT, "Redirecting HID event (%{public}@ / senderID:%llX) to destinations: %{public}@", buf, 0x20u);
+          v59 = v36;
+          v60 = 2048;
+          v61 = SenderID;
+          v62 = 2114;
+          v63 = v31;
+          _os_log_impl(&dword_223CBE000, v35, OS_LOG_TYPE_DEFAULT, "Redirecting HID event (%{public}@ / senderID:%llX) to destinations: %{public}@", buf, 0x20u);
         }
 
         IOHIDEventGetTimeStamp();
         kdebug_trace();
         valuePtr = 0u;
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
-        v54 = 0u;
-        v33 = v32;
-        v39 = [v33 countByEnumeratingWithState:&valuePtr objects:buf count:16];
-        if (v39)
+        v32 = v31;
+        v38 = [v32 countByEnumeratingWithState:&valuePtr objects:buf count:16];
+        if (v38)
         {
-          v40 = v39;
-          v41 = *v52;
+          v39 = v38;
+          v40 = *v51;
           do
           {
-            for (i = 0; i != v40; ++i)
+            for (i = 0; i != v39; ++i)
             {
-              if (*v52 != v41)
+              if (*v51 != v40)
               {
-                objc_enumerationMutation(v33);
+                objc_enumerationMutation(v32);
               }
 
-              v43 = *(*(&valuePtr + 1) + 8 * i);
+              v42 = *(*(&valuePtr + 1) + 8 * i);
               Copy = IOHIDEventCreateCopy();
               BKSHIDEventSetSimpleDeliveryInfo();
-              [__HIDClientConnectionManager sendEvent:Copy toDestination:v43];
+              [__HIDClientConnectionManager sendEvent:Copy toDestination:v42];
               CFRelease(Copy);
             }
 
-            v40 = [v33 countByEnumeratingWithState:&valuePtr objects:buf count:16];
+            v39 = [v32 countByEnumeratingWithState:&valuePtr objects:buf count:16];
           }
 
-          while (v40);
+          while (v39);
         }
 
-        v6 = v46;
-        v4 = v47;
-        v25 = v45;
+        v6 = v45;
+        v4 = v46;
+        v24 = v44;
       }
     }
 
     else
     {
-      v25 = BKLogCommon();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = BKLogCommon();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v60 = a1;
-        _os_log_error_impl(&dword_223CBE000, v25, OS_LOG_TYPE_ERROR, "event does not contain valid redirect info -- not redirecting '%{public}@'", buf, 0xCu);
+        v59 = a1;
+        _os_log_error_impl(&dword_223CBE000, v24, OS_LOG_TYPE_ERROR, "event does not contain valid redirect info -- not redirecting '%{public}@'", buf, 0xCu);
       }
     }
   }
 
 LABEL_32:
   objc_autoreleasePoolPop(v4);
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t BKSendHIDEventToClientWithTaskPort(uint64_t a1, uint64_t a2)
+void *BKSendHIDEventToClientWithTaskPort(uint64_t a1, uint64_t a2)
 {
   if (!__BKHIDEventTapCallback || (result = __BKHIDEventTapCallback(a1, a2, 0), result))
   {
@@ -299,13 +298,13 @@ id BKLogHID()
 
 void BKHIDClientConnectionAdditionCallback(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = BKLogHID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138543362;
-    v13 = a3;
-    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a client addition callback: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = a3;
+    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a client addition callback: %{public}@", &v11, 0xCu);
   }
 
   if (a1)
@@ -322,11 +321,11 @@ void BKHIDClientConnectionAdditionCallback(uint64_t a1, uint64_t a2, void *a3)
         v7 = BKLogHID();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138543618;
-          v13 = v6;
-          v14 = 2114;
-          v15 = a3;
-          _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "Adding client connection: %{public}@ for client: %{public}@", &v12, 0x16u);
+          v11 = 138543618;
+          v12 = v6;
+          v13 = 2114;
+          v14 = a3;
+          _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "Adding client connection: %{public}@ for client: %{public}@", &v11, 0x16u);
         }
 
         v8 = [v6 pid];
@@ -342,8 +341,6 @@ void BKHIDClientConnectionAdditionCallback(uint64_t a1, uint64_t a2, void *a3)
     os_unfair_lock_unlock((a1 + 48));
     CFRelease(a3);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _BKHIDEventDeferringDisplayMatch(void *a1, void *a2)
@@ -378,53 +375,51 @@ id _BKResolutionDescriptionForLogging(void *a1, char a2)
 
 void _BKHIDServiceRemoved(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = BKLogHID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138543362;
-    v9 = a3;
-    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a service removed callback: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = a3;
+    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a service removed callback: %{public}@", &v7, 0xCu);
   }
 
   v6 = a1;
   [v6 _serviceWasRemoved];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _BKHIDEventSenderMatchesSenderSet(void *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = 1;
-  v32 = v5;
+  v31 = v5;
   if (v5 && v6)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v8)
     {
-      v30 = v6;
-      v9 = *v34;
+      v29 = v6;
+      v9 = *v33;
       do
       {
         v10 = 0;
         do
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * v10);
-          v12 = v32;
+          v11 = *(*(&v32 + 1) + 8 * v10);
+          v12 = v31;
           v13 = v11;
           v14 = v7;
           v15 = [v13 senderID];
@@ -480,29 +475,28 @@ LABEL_33:
         }
 
         while (v8 != v10);
-        v27 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v27 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         v8 = v27;
       }
 
       while (v27);
 LABEL_34:
-      v6 = v30;
+      v6 = v29;
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void BKHIDClientConnectionRemovalCallback(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = BKLogHID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138543362;
-    v12 = a3;
-    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a client removal callback: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = a3;
+    _os_log_debug_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEBUG, "Got a client removal callback: %{public}@", &v10, 0xCu);
   }
 
   if (a1)
@@ -516,13 +510,13 @@ void BKHIDClientConnectionRemovalCallback(uint64_t a1, uint64_t a2, void *a3)
       v7 = BKLogHID();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543874;
-        v12 = v6;
-        v13 = 2114;
-        v14 = a3;
-        v15 = 2114;
-        v16 = @"HID";
-        _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "Removing client connection %{public}@ for client: %{public}@ source:%{public}@", &v11, 0x20u);
+        v10 = 138543874;
+        v11 = v6;
+        v12 = 2114;
+        v13 = a3;
+        v14 = 2114;
+        v15 = @"HID";
+        _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "Removing client connection %{public}@ for client: %{public}@ source:%{public}@", &v10, 0x20u);
       }
 
       [*(a1 + 16) removeObjectForKey:{objc_msgSend(v6, "task")}];
@@ -538,19 +532,17 @@ void BKHIDClientConnectionRemovalCallback(uint64_t a1, uint64_t a2, void *a3)
     os_unfair_lock_unlock((a1 + 48));
     CFRelease(a3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void _BKHIDServiceAdded(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v7 = BKLogHID();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v13 = 138543362;
-    v14 = a4;
-    _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_INFO, "IOServices added: %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = a4;
+    _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_INFO, "IOServices added: %{public}@", &v12, 0xCu);
   }
 
   if (a4 && CFArrayGetCount(a4))
@@ -589,13 +581,11 @@ void _BKHIDServiceAdded(uint64_t a1, uint64_t a2, void *a3, void *a4)
     v8 = BKLogHID();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
-      v14 = a3;
-      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_INFO, "Empty IOService array for sender %{public}@; ignoring", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = a3;
+      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_INFO, "Empty IOService array for sender %{public}@; ignoring", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _BKSendHIDEventToClientWithDestination(uint64_t a1, void *a2, char a3)
@@ -619,14 +609,11 @@ id sub_223CC2F64()
 
 void *sub_223CC2FA8()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
+  v1 = *(v0 + 16);
+  *(v0 + 16) = 0;
 
-  v3 = v0[2];
-  v0[2] = 0;
-
-  if (v3)
+  if (v1)
   {
     do
     {
@@ -636,13 +623,13 @@ void *sub_223CC2FA8()
         break;
       }
 
-      v4 = *(v3 + 16);
+      v2 = *(v1 + 16);
       swift_retain_n();
 
-      v3 = v4;
+      v1 = v2;
     }
 
-    while (v4);
+    while (v2);
   }
 
   return v0;
@@ -667,18 +654,18 @@ void *variable initialization expression of BKEventGraphDescriptionAccumulator.t
   return result;
 }
 
-void sub_223CC314C()
+void sub_223CC314C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*&v0[OBJC_IVAR___BKEventGraphDescriptionAccumulator_current] + 16);
-  if (!v1)
+  v3 = *(*&v2[OBJC_IVAR___BKEventGraphDescriptionAccumulator_current] + 16);
+  if (!v3)
   {
-    v1 = *&v0[OBJC_IVAR___BKEventGraphDescriptionAccumulator_topLevel];
+    v3 = *&v2[OBJC_IVAR___BKEventGraphDescriptionAccumulator_topLevel];
   }
 
-  *&v0[OBJC_IVAR___BKEventGraphDescriptionAccumulator_current] = v1;
+  *&v2[OBJC_IVAR___BKEventGraphDescriptionAccumulator_current] = v3;
 
-  v2 = sub_223CEACE0();
-  [v0 addSubnode_];
+  v4 = sub_223CEACE0();
+  [v2 addSubnode_];
 }
 
 uint64_t sub_223CC3200(uint64_t a1, uint64_t a2)
@@ -700,14 +687,12 @@ uint64_t sub_223CC3200(uint64_t a1, uint64_t a2)
   MEMORY[0x223DF72D0](v10);
   if (*((*(v9 + 24) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v9 + 24) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v13 = *((*(v9 + 24) & 0xFFFFFFFFFFFFFF8) + 0x10);
     sub_223CEAD30();
   }
 
   sub_223CEAD40();
   swift_endAccess();
 
-  v11 = *(v3 + v8);
   *(v3 + v8) = v6;
 }
 
@@ -729,18 +714,12 @@ uint64_t sub_223CC34CC(void *a1, uint64_t a2, char a3)
     v7 = v6 & 0xFFFFFFFFFFFFLL;
   }
 
-  v23 = v7;
+  v20 = v7;
   if (v7)
   {
     swift_beginAccess();
-    v9 = a1[3];
-    if (v9 >> 62)
+    if (a1[3] >> 62)
     {
-      if (v9 < 0)
-      {
-        v22 = a1[3];
-      }
-
       sub_223CEADD0();
     }
 
@@ -748,65 +727,60 @@ uint64_t sub_223CC34CC(void *a1, uint64_t a2, char a3)
   }
 
   swift_beginAccess();
-  v10 = a1[3];
-  if (v10 >> 62)
+  v9 = a1[3];
+  if (v9 >> 62)
   {
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
-  v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
-LABEL_8:
+  v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_9:
 
-  if (v11)
+  if (v10)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      if ((v10 & 0xC000000000000001) != 0)
+      if ((v9 & 0xC000000000000001) != 0)
       {
-        v13 = MEMORY[0x223DF7410](v12, v10);
-        v14 = v12 + 1;
-        if (__OFADD__(v12, 1))
+        v12 = MEMORY[0x223DF7410](v11, v9);
+        v13 = v11 + 1;
+        if (__OFADD__(v11, 1))
         {
-          goto LABEL_29;
+          goto LABEL_28;
         }
       }
 
       else
       {
-        if (v12 >= *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v11 >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          goto LABEL_30;
+          goto LABEL_29;
         }
 
-        v13 = *(v10 + 8 * v12 + 32);
+        v12 = *(v9 + 8 * v11 + 32);
 
-        v14 = v12 + 1;
-        if (__OFADD__(v12, 1))
+        v13 = v11 + 1;
+        if (__OFADD__(v11, 1))
         {
+LABEL_28:
+          __break(1u);
 LABEL_29:
           __break(1u);
 LABEL_30:
-          __break(1u);
-LABEL_31:
-          v11 = sub_223CEADD0();
-          goto LABEL_8;
+          v10 = sub_223CEADD0();
+          goto LABEL_9;
         }
       }
 
-      v15 = a1[3];
-      if (v15 >> 62)
+      v14 = a1[3];
+      if (v14 >> 62)
       {
-        if (v15 < 0)
+        v17 = sub_223CEADD0();
+        v16 = v17 - 1;
+        if (__OFSUB__(v17, 1))
         {
-          v18 = a1[3];
-        }
-
-        v19 = sub_223CEADD0();
-        v17 = v19 - 1;
-        if (__OFSUB__(v19, 1))
-        {
-LABEL_24:
+LABEL_23:
           __break(1u);
           break;
         }
@@ -814,30 +788,30 @@ LABEL_24:
 
       else
       {
-        v16 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        v17 = v16 - 1;
-        if (__OFSUB__(v16, 1))
+        v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v16 = v15 - 1;
+        if (__OFSUB__(v15, 1))
         {
-          goto LABEL_24;
+          goto LABEL_23;
         }
       }
 
-      sub_223CC34CC(v13, a2, v12 >= v17);
+      sub_223CC34CC(v12, a2, v11 >= v16);
 
-      ++v12;
+      ++v11;
     }
 
-    while (v14 != v11);
+    while (v13 != v10);
   }
 
-  if (v23)
+  if (v20)
   {
     result = *(a2 + 24);
-    v21 = result - 1;
+    v19 = result - 1;
     if (result >= 1)
     {
       result = sub_223CC5260(result);
-      *(a2 + 24) = v21;
+      *(a2 + 24) = v19;
     }
   }
 
@@ -1017,13 +991,13 @@ uint64_t sub_223CC39C4(uint64_t result, uint64_t a2)
       v5 = a2 + 56;
       do
       {
-        if (*(a2 + 16) && (v8 = *(a2 + 40), v9 = sub_223CEAF10(), v10 = -1 << *(a2 + 32), v11 = v9 & ~v10, ((*(v5 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0))
+        if (*(a2 + 16) && (v8 = sub_223CEAF10(), v9 = -1 << *(a2 + 32), v10 = v8 & ~v9, ((*(v5 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0))
         {
-          v12 = ~v10;
-          while (*(*(a2 + 48) + 8 * v11) != v4)
+          v11 = ~v9;
+          while (*(*(a2 + 48) + 8 * v10) != v4)
           {
-            v11 = (v11 + 1) & v12;
-            if (((*(v5 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
+            v10 = (v10 + 1) & v11;
+            if (((*(v5 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
             {
               goto LABEL_4;
             }
@@ -1349,8 +1323,8 @@ char *sub_223CC4028(id *a1)
   sub_223CC67D8(&qword_27D0BC838, &qword_27D0BC830, 0x277CCABB0);
   v5 = sub_223CEACD0();
 
-  sub_223CC3CBC(v5, &v30);
-  v28 = v5;
+  sub_223CC3CBC(v5, v29);
+  v27 = v5;
 
   sub_223CC3D40();
   if (v7)
@@ -1385,7 +1359,7 @@ char *sub_223CC4028(id *a1)
 
       else
       {
-        result = *(v28 + 16);
+        result = *(v27 + 16);
         v20 = result - 1;
         if (__OFSUB__(result, 1))
         {
@@ -1412,12 +1386,12 @@ LABEL_20:
             break;
           }
 
-          if (!v29)
+          if (!v28)
           {
             break;
           }
 
-          sub_223CC50EC(v29, a1, i, v22);
+          sub_223CC50EC(v28, a1, i, v22);
         }
       }
 
@@ -1449,12 +1423,11 @@ LABEL_20:
   else
   {
 LABEL_19:
-    sub_223CC67D0();
+    sub_223CC67D0(v29[0], v29[1]);
 
-    v27 = *v2;
-    v26 = v2[1];
+    v26 = *v2;
 
-    return v27;
+    return v26;
   }
 
   return result;
@@ -1536,7 +1509,7 @@ LABEL_5:
   __break(1u);
 }
 
-unint64_t sub_223CC46F4(uint64_t a1, SEL *a2, uint64_t a3)
+int64_t sub_223CC46F4(int64_t a1, SEL *a2, uint64_t a3)
 {
   v6 = MEMORY[0x277D84FA0];
   v7 = MEMORY[0x277D84FA0];
@@ -1547,12 +1520,12 @@ unint64_t sub_223CC46F4(uint64_t a1, SEL *a2, uint64_t a3)
 
   while (1)
   {
-    v77 = v7;
-    v72 = 0;
-    v73 = 0xE000000000000000;
-    v74 = v6;
+    v76 = v7;
+    v71 = 0;
+    v72 = 0xE000000000000000;
+    v73 = v6;
+    v74 = 0;
     v75 = 0;
-    v76 = 0;
 
     if ((a1 & 0xC000000000000001) != 0)
     {
@@ -1562,7 +1535,7 @@ unint64_t sub_223CC46F4(uint64_t a1, SEL *a2, uint64_t a3)
     sub_223CC3B00(a2, a3, 0);
 
     a3 = (a1 & 0xC000000000000001) != 0 ? sub_223CEADD0() : *(a1 + 16);
-    sub_223CC3CBC(a1, &v70);
+    sub_223CC3CBC(a1, &v69);
 
     sub_223CC3E8C();
     if (!v9)
@@ -1573,9 +1546,9 @@ unint64_t sub_223CC46F4(uint64_t a1, SEL *a2, uint64_t a3)
     v11 = v8;
     v12 = v9;
     v13 = v10;
-    v67 = a3 - 1;
+    v66 = a3 - 1;
     v14 = __OFSUB__(a3, 1);
-    v68 = v14;
+    v67 = v14;
     a2 = &unk_2784F7000;
     while (1)
     {
@@ -1590,7 +1563,7 @@ unint64_t sub_223CC46F4(uint64_t a1, SEL *a2, uint64_t a3)
         {
 LABEL_23:
 
-          v25 = MEMORY[0x277D84F90];
+          v24 = MEMORY[0x277D84F90];
           goto LABEL_24;
         }
       }
@@ -1604,8 +1577,8 @@ LABEL_23:
         }
       }
 
-      v69[0] = MEMORY[0x277D84F90];
-      v6 = v69;
+      v68[0] = MEMORY[0x277D84F90];
+      v6 = v68;
       sub_223CEAE80();
       if (a1 < 0)
       {
@@ -1630,7 +1603,6 @@ LABEL_23:
         v23 = [(BKEventDeferringNode *)v21 rule];
 
         sub_223CEAE60();
-        v24 = *(v69[0] + 16);
         sub_223CEAE90();
         sub_223CEAEA0();
         sub_223CEAE70();
@@ -1639,57 +1611,57 @@ LABEL_23:
       while (a1 != v20);
 
       a2 = &unk_2784F7000;
-      v25 = v69[0];
+      v24 = v68[0];
 LABEL_24:
-      sub_223CC72BC(v25);
+      sub_223CC72BC(v24);
 
-      v26 = v75;
-      v27 = [(BKEventDeferringNode *)v13 rule];
-      if (v27)
+      v25 = v74;
+      v26 = [(BKEventDeferringNode *)v13 rule];
+      if (v26)
       {
-        v28 = v27;
+        v27 = v26;
         v6 = [v12 a2[306]];
         a3 = sub_223CEACF0();
-        a1 = v29;
+        a1 = v28;
 
-        if (v68)
+        if (v67)
         {
           goto LABEL_57;
         }
 
-        sub_223CC3B00(a3, a1, v11 >= v67);
+        sub_223CC3B00(a3, a1, v11 >= v66);
 
-        strcpy(v69, "dispatching: ");
-        HIWORD(v69[1]) = -4864;
-        v30 = [(BKEventDeliveryChain *)v13 dispatchTarget];
-        v31 = [v30 a2[306]];
+        strcpy(v68, "dispatching: ");
+        HIWORD(v68[1]) = -4864;
+        v29 = [(BKEventDeliveryChain *)v13 dispatchTarget];
+        v30 = [v29 a2[306]];
         a3 = sub_223CEACF0();
-        v33 = v32;
+        v32 = v31;
 
-        MEMORY[0x223DF72C0](a3, v33);
+        MEMORY[0x223DF72C0](a3, v32);
 
-        sub_223CC3B00(v69[0], v69[1], 1);
+        sub_223CC3B00(v68[0], v68[1], 1);
 
-        v34 = [(BKEventDeferringNode *)v13 subnodes];
-        if (v34)
+        v33 = [(BKEventDeferringNode *)v13 subnodes];
+        if (v33)
         {
-          strcpy(v69, "sender (");
-          BYTE1(v69[1]) = 0;
-          WORD1(v69[1]) = 0;
-          HIDWORD(v69[1]) = -402653184;
-          v35 = v34;
-          v36 = [v34 a2[306]];
-          v37 = sub_223CEACF0();
-          v39 = v38;
+          strcpy(v68, "sender (");
+          BYTE1(v68[1]) = 0;
+          WORD1(v68[1]) = 0;
+          HIDWORD(v68[1]) = -402653184;
+          v34 = v33;
+          v35 = [v33 a2[306]];
+          v36 = sub_223CEACF0();
+          v38 = v37;
 
-          MEMORY[0x223DF72C0](v37, v39);
+          MEMORY[0x223DF72C0](v36, v38);
 
           MEMORY[0x223DF72C0](41, 0xE100000000000000);
-          a3 = v69[1];
-          sub_223CC3B00(v69[0], v69[1], 1);
+          a3 = v68[1];
+          sub_223CC3B00(v68[0], v68[1], 1);
         }
 
-        v40 = [(BKEventDeliveryChain *)v13 deferringPath];
+        v39 = [(BKEventDeliveryChain *)v13 deferringPath];
         v6 = sub_223CEAD20();
 
         if (v6 >> 62)
@@ -1708,17 +1680,17 @@ LABEL_30:
             {
               if ((v6 & 0xC000000000000001) != 0)
               {
-                v41 = MEMORY[0x223DF7410](a3, v6);
+                v40 = MEMORY[0x223DF7410](a3, v6);
               }
 
               else
               {
-                v41 = *(v6 + 8 * a3 + 32);
+                v40 = *(v6 + 8 * a3 + 32);
               }
 
-              v42 = v41;
+              v41 = v40;
               ++a3;
-              sub_223CC6BE8(v41, v28, &v72, 1);
+              sub_223CC6BE8(v40, v27, &v71, 1);
             }
 
             while (a1 != a3);
@@ -1735,86 +1707,86 @@ LABEL_30:
         }
 
         a2 = &unk_2784F7000;
-        if (v26 < v75)
+        if (v25 < v74)
         {
-          if (__OFSUB__(v75, v26))
+          if (__OFSUB__(v74, v25))
           {
             goto LABEL_62;
           }
 
-          if (__OFSUB__(v75, v75 - v26))
+          if (__OFSUB__(v74, v74 - v25))
           {
             goto LABEL_63;
           }
 
-          v75 = v26;
+          v74 = v25;
         }
 
         goto LABEL_45;
       }
 
-      v43 = [v12 a2[306]];
+      v42 = [v12 a2[306]];
       a1 = sub_223CEACF0();
-      a3 = v44;
+      a3 = v43;
 
-      v69[0] = a1;
-      v69[1] = a3;
-      v6 = v69;
+      v68[0] = a1;
+      v68[1] = a3;
+      v6 = v68;
       MEMORY[0x223DF72C0](0x63206F6E202D2D20, 0xEC0000006E696168);
-      if (v68)
+      if (v67)
       {
         goto LABEL_61;
       }
 
-      sub_223CC3B00(v69[0], v69[1], v11 >= v67);
+      sub_223CC3B00(v68[0], v68[1], v11 >= v66);
 
-      strcpy(v69, "dispatching: ");
-      HIWORD(v69[1]) = -4864;
-      v45 = [(BKEventDeliveryChain *)v13 dispatchTarget];
-      v46 = [v45 a2[306]];
+      strcpy(v68, "dispatching: ");
+      HIWORD(v68[1]) = -4864;
+      v44 = [(BKEventDeliveryChain *)v13 dispatchTarget];
+      v45 = [v44 a2[306]];
       a3 = sub_223CEACF0();
-      v48 = v47;
+      v47 = v46;
 
-      MEMORY[0x223DF72C0](a3, v48);
+      MEMORY[0x223DF72C0](a3, v47);
 
-      a1 = v69[1];
-      v6 = &v72;
-      sub_223CC3B00(v69[0], v69[1], 1);
+      a1 = v68[1];
+      v6 = &v71;
+      sub_223CC3B00(v68[0], v68[1], 1);
 
-      v49 = [(BKEventDeferringNode *)v13 subnodes];
-      if (v49)
+      v48 = [(BKEventDeferringNode *)v13 subnodes];
+      if (v48)
       {
-        strcpy(v69, "sender (");
-        BYTE1(v69[1]) = 0;
-        WORD1(v69[1]) = 0;
-        HIDWORD(v69[1]) = -402653184;
-        a1 = v49;
-        v50 = [v49 a2[306]];
-        v51 = sub_223CEACF0();
-        v53 = v52;
+        strcpy(v68, "sender (");
+        BYTE1(v68[1]) = 0;
+        WORD1(v68[1]) = 0;
+        HIDWORD(v68[1]) = -402653184;
+        a1 = v48;
+        v49 = [v48 a2[306]];
+        v50 = sub_223CEACF0();
+        v52 = v51;
 
-        MEMORY[0x223DF72C0](v51, v53);
+        MEMORY[0x223DF72C0](v50, v52);
 
         MEMORY[0x223DF72C0](41, 0xE100000000000000);
-        a3 = v69[1];
-        v6 = &v72;
-        sub_223CC3B00(v69[0], v69[1], 1);
+        a3 = v68[1];
+        v6 = &v71;
+        sub_223CC3B00(v68[0], v68[1], 1);
       }
 
 LABEL_45:
-      if (v26 < v75)
+      if (v25 < v74)
       {
-        if (__OFSUB__(v75, v26))
+        if (__OFSUB__(v74, v25))
         {
           goto LABEL_58;
         }
 
-        if (__OFSUB__(v75, v75 - v26))
+        if (__OFSUB__(v74, v74 - v25))
         {
           goto LABEL_59;
         }
 
-        v75 = v26;
+        v74 = v25;
       }
 
       sub_223CC3E8C();
@@ -1823,7 +1795,7 @@ LABEL_45:
       v13 = v17;
       if (!v16)
       {
-        v7 = v77;
+        v7 = v76;
         goto LABEL_50;
       }
     }
@@ -1847,7 +1819,7 @@ LABEL_64:
     if (sub_223CEADD0())
     {
       sub_223CC6FCC(MEMORY[0x277D84F90]);
-      v7 = v66;
+      v7 = v65;
     }
 
     else
@@ -1857,7 +1829,7 @@ LABEL_64:
   }
 
 LABEL_50:
-  sub_223CC67D0();
+  sub_223CC67D0(v69, v70);
   if ((v7 & 0xC000000000000001) != 0)
   {
     if (sub_223CEADD0())
@@ -1867,7 +1839,7 @@ LABEL_50:
 
 LABEL_54:
 
-    v64 = v72;
+    v63 = v71;
   }
 
   else
@@ -1878,39 +1850,39 @@ LABEL_54:
     }
 
 LABEL_52:
-    v55 = v72;
-    v54 = v73;
+    v54 = v71;
+    v53 = v72;
 
-    v70 = 0;
-    v71 = 0xE000000000000000;
+    v69 = 0;
+    v70 = 0xE000000000000000;
     sub_223CEAE40();
 
-    v70 = 0xD000000000000012;
-    v71 = 0x8000000223CEDAE0;
-    v56 = objc_opt_self();
+    v69 = 0xD000000000000012;
+    v70 = 0x8000000223CEDAE0;
+    v55 = objc_opt_self();
     sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
     sub_223CC67D8(&qword_28133EF28, &qword_28133EF30, 0x277CF0640);
-    v57 = sub_223CEAD50();
+    v56 = sub_223CEAD50();
 
-    v58 = [v56 descriptionForRootObject_];
+    v57 = [v55 descriptionForRootObject_];
 
-    v59 = sub_223CEACF0();
-    v61 = v60;
+    v58 = sub_223CEACF0();
+    v60 = v59;
 
-    MEMORY[0x223DF72C0](v59, v61);
+    MEMORY[0x223DF72C0](v58, v60);
 
     MEMORY[0x223DF72C0](10, 0xE100000000000000);
+    v61 = v69;
     v62 = v70;
-    v63 = v71;
-    v70 = v55;
-    v71 = v54;
+    v69 = v54;
+    v70 = v53;
 
-    MEMORY[0x223DF72C0](v62, v63);
+    MEMORY[0x223DF72C0](v61, v62);
 
-    return v70;
+    return v69;
   }
 
-  return v64;
+  return v63;
 }
 
 void sub_223CC50EC(void *a1, id *a2, uint64_t a3, uint64_t a4)
@@ -1967,39 +1939,37 @@ void sub_223CC50EC(void *a1, id *a2, uint64_t a3, uint64_t a4)
 uint64_t sub_223CC5260(uint64_t a1)
 {
   v3 = *v1;
-  v4 = *(*v1 + 40);
-  v5 = sub_223CEAF10();
-  v6 = -1 << *(v3 + 32);
-  v7 = v5 & ~v6;
-  if (((*(v3 + 56 + ((v7 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v7) & 1) == 0)
+  v4 = sub_223CEAF10();
+  v5 = -1 << *(v3 + 32);
+  v6 = v4 & ~v5;
+  if (((*(v3 + 56 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) == 0)
   {
     return 0;
   }
 
-  v8 = ~v6;
-  while (*(*(v3 + 48) + 8 * v7) != a1)
+  v7 = ~v5;
+  while (*(*(v3 + 48) + 8 * v6) != a1)
   {
-    v7 = (v7 + 1) & v8;
-    if (((*(v3 + 56 + ((v7 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v7) & 1) == 0)
+    v6 = (v6 + 1) & v7;
+    if (((*(v3 + 56 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) == 0)
     {
       return 0;
     }
   }
 
-  v10 = *v1;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v10 = *v1;
   v12 = *v1;
-  v14 = *v1;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     sub_223CC5350();
-    v12 = v14;
+    v10 = v12;
   }
 
-  v13 = *(*(v12 + 48) + 8 * v7);
-  sub_223CC5E30(v7);
-  result = v13;
-  *v1 = v14;
+  v11 = *(*(v10 + 48) + 8 * v6);
+  sub_223CC5E30(v6);
+  result = v11;
+  *v1 = v12;
   return result;
 }
 
@@ -2160,107 +2130,101 @@ uint64_t sub_223CC55E0(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC828, &qword_223CED878);
   result = sub_223CEAE10();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v14 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-      v18 = *(v6 + 40);
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
       result = sub_223CEAF10();
-      v19 = -1 << *(v6 + 32);
-      v20 = result & ~v19;
-      v21 = v20 >> 6;
-      if (((-1 << v20) & ~*(v12 + 8 * (v20 >> 6))) == 0)
+      v17 = -1 << *(v5 + 32);
+      v18 = result & ~v17;
+      v19 = v18 >> 6;
+      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
       {
-        v22 = 0;
-        v23 = (63 - v19) >> 6;
-        while (++v21 != v23 || (v22 & 1) == 0)
+        v20 = 0;
+        v21 = (63 - v17) >> 6;
+        while (++v19 != v21 || (v20 & 1) == 0)
         {
-          v24 = v21 == v23;
-          if (v21 == v23)
+          v22 = v19 == v21;
+          if (v19 == v21)
           {
-            v21 = 0;
+            v19 = 0;
           }
 
-          v22 |= v24;
-          v25 = *(v12 + 8 * v21);
-          if (v25 != -1)
+          v20 |= v22;
+          v23 = *(v11 + 8 * v19);
+          if (v23 != -1)
           {
-            v13 = __clz(__rbit64(~v25)) + (v21 << 6);
-            goto LABEL_9;
+            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            goto LABEL_7;
           }
         }
 
-        goto LABEL_28;
+        goto LABEL_26;
       }
 
-      v13 = __clz(__rbit64((-1 << v20) & ~*(v12 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      *(*(v6 + 48) + 8 * v13) = v17;
-      ++*(v6 + 16);
+      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v16;
+      ++*(v5 + 16);
     }
 
-    v15 = v7;
+    v14 = v6;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v7 >= v11)
+      if (v6 >= v10)
       {
-        goto LABEL_26;
+        goto LABEL_24;
       }
 
-      v16 = *(v3 + 56 + 8 * v7);
-      ++v15;
-      if (v16)
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
       {
-        v14 = __clz(__rbit64(v16));
-        v10 = (v16 - 1) & v16;
-        goto LABEL_17;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
+        goto LABEL_15;
       }
     }
 
     __break(1u);
-LABEL_28:
+LABEL_26:
     __break(1u);
   }
 
   else
   {
-LABEL_26:
+LABEL_24:
 
-    *v2 = v6;
+    *v2 = v5;
   }
 
   return result;
@@ -2270,18 +2234,232 @@ uint64_t sub_223CC57D0(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC820, &qword_223CED870);
   result = sub_223CEAE10();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v26 = v2;
-    v7 = 0;
+    v24 = v1;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
+    {
+      v8 = ~(-1 << v7);
+    }
+
+    else
+    {
+      v8 = -1;
+    }
+
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
+    {
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
+      result = sub_223CEAD70();
+      v17 = -1 << *(v5 + 32);
+      v18 = result & ~v17;
+      v19 = v18 >> 6;
+      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
+      {
+        v20 = 0;
+        v21 = (63 - v17) >> 6;
+        while (++v19 != v21 || (v20 & 1) == 0)
+        {
+          v22 = v19 == v21;
+          if (v19 == v21)
+          {
+            v19 = 0;
+          }
+
+          v20 |= v22;
+          v23 = *(v11 + 8 * v19);
+          if (v23 != -1)
+          {
+            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            goto LABEL_7;
+          }
+        }
+
+        goto LABEL_28;
+      }
+
+      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v16;
+      ++*(v5 + 16);
+    }
+
+    v14 = v6;
+    while (1)
+    {
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
+      {
+        break;
+      }
+
+      if (v6 >= v10)
+      {
+
+        v2 = v24;
+        goto LABEL_26;
+      }
+
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
+      {
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+LABEL_28:
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_26:
+    *v2 = v5;
+  }
+
+  return result;
+}
+
+uint64_t sub_223CC59E4(uint64_t a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC828, &qword_223CED878);
+  result = sub_223CEAE10();
+  v5 = result;
+  if (*(v3 + 16))
+  {
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    v25 = v2;
+    if (v8 < 64)
+    {
+      v9 = ~(-1 << v8);
+    }
+
+    else
+    {
+      v9 = -1;
+    }
+
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
+    {
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
+      result = sub_223CEAF10();
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+      {
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
+        {
+          v23 = v20 == v22;
+          if (v20 == v22)
+          {
+            v20 = 0;
+          }
+
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
+          {
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
+    }
+
+    v15 = v6;
+    while (1)
+    {
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        __break(1u);
+        goto LABEL_30;
+      }
+
+      if (v6 >= v11)
+      {
+        break;
+      }
+
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
+      }
+    }
+
+    if (v8 >= 64)
+    {
+      bzero((v3 + 56), 8 * v11);
+    }
+
+    else
+    {
+      *v7 = -1 << v8;
+    }
+
+    v2 = v25;
+    *(v3 + 16) = 0;
+  }
+
+  *v2 = v5;
+  return result;
+}
+
+uint64_t sub_223CC5C08(uint64_t a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC820, &qword_223CED870);
+  result = sub_223CEAE10();
+  v5 = result;
+  if (*(v3 + 16))
+  {
+    v6 = 0;
+    v7 = (v3 + 56);
     v8 = 1 << *(v3 + 32);
     if (v8 < 64)
     {
@@ -2300,317 +2478,85 @@ uint64_t sub_223CC57D0(uint64_t a1)
     {
       v14 = __clz(__rbit64(v10));
       v10 &= v10 - 1;
-LABEL_17:
-      v17 = *(v6 + 40);
-      v18 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
       result = sub_223CEAD70();
-      v19 = -1 << *(v6 + 32);
-      v20 = result & ~v19;
-      v21 = v20 >> 6;
-      if (((-1 << v20) & ~*(v12 + 8 * (v20 >> 6))) == 0)
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
       {
-        v22 = 0;
-        v23 = (63 - v19) >> 6;
-        while (++v21 != v23 || (v22 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v24 = v21 == v23;
-          if (v21 == v23)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v21 = 0;
+            v20 = 0;
           }
 
-          v22 |= v24;
-          v25 = *(v12 + 8 * v21);
-          if (v25 != -1)
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
           {
-            v13 = __clz(__rbit64(~v25)) + (v21 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
+            goto LABEL_7;
           }
         }
 
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
+    }
+
+    v15 = v6;
+    while (1)
+    {
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        __break(1u);
         goto LABEL_30;
       }
 
-      v13 = __clz(__rbit64((-1 << v20) & ~*(v12 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      *(*(v6 + 48) + 8 * v13) = v18;
-      ++*(v6 + 16);
-    }
-
-    v15 = v7;
-    while (1)
-    {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      if (v6 >= v11)
       {
         break;
       }
 
-      if (v7 >= v11)
-      {
-
-        v2 = v26;
-        goto LABEL_28;
-      }
-
-      v16 = *(v3 + 56 + 8 * v7);
+      v16 = v7[v6];
       ++v15;
       if (v16)
       {
         v14 = __clz(__rbit64(v16));
         v10 = (v16 - 1) & v16;
-        goto LABEL_17;
+        goto LABEL_15;
       }
     }
 
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v6;
-  }
-
-  return result;
-}
-
-uint64_t sub_223CC59E4(uint64_t a1)
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC828, &qword_223CED878);
-  result = sub_223CEAE10();
-  v6 = result;
-  if (*(v3 + 16))
-  {
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    v27 = v2;
-    if (v9 < 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      v10 = ~(-1 << v9);
+      bzero((v3 + 56), ((v25 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      v10 = -1;
-    }
-
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
-    {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      v19 = *(v6 + 40);
-      result = sub_223CEAF10();
-      v20 = -1 << *(v6 + 32);
-      v21 = result & ~v20;
-      v22 = v21 >> 6;
-      if (((-1 << v21) & ~*(v13 + 8 * (v21 >> 6))) == 0)
-      {
-        v23 = 0;
-        v24 = (63 - v20) >> 6;
-        while (++v22 != v24 || (v23 & 1) == 0)
-        {
-          v25 = v22 == v24;
-          if (v22 == v24)
-          {
-            v22 = 0;
-          }
-
-          v23 |= v25;
-          v26 = *(v13 + 8 * v22);
-          if (v26 != -1)
-          {
-            v14 = __clz(__rbit64(~v26)) + (v22 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_32:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v21) & ~*(v13 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v18;
-      ++*(v6 + 16);
-    }
-
-    v16 = v7;
-    while (1)
-    {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
-      {
-        __break(1u);
-        goto LABEL_32;
-      }
-
-      if (v7 >= v12)
-      {
-        break;
-      }
-
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
-      {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
-      }
-    }
-
-    if (v9 >= 64)
-    {
-      bzero((v3 + 56), 8 * v12);
-    }
-
-    else
-    {
-      *v8 = -1 << v9;
-    }
-
-    v2 = v27;
-    *(v3 + 16) = 0;
-  }
-
-  *v2 = v6;
-  return result;
-}
-
-uint64_t sub_223CC5C08(uint64_t a1)
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC820, &qword_223CED870);
-  result = sub_223CEAE10();
-  v6 = result;
-  if (*(v3 + 16))
-  {
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
-    {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      v19 = *(v6 + 40);
-      result = sub_223CEAD70();
-      v20 = -1 << *(v6 + 32);
-      v21 = result & ~v20;
-      v22 = v21 >> 6;
-      if (((-1 << v21) & ~*(v13 + 8 * (v21 >> 6))) == 0)
-      {
-        v23 = 0;
-        v24 = (63 - v20) >> 6;
-        while (++v22 != v24 || (v23 & 1) == 0)
-        {
-          v25 = v22 == v24;
-          if (v22 == v24)
-          {
-            v22 = 0;
-          }
-
-          v23 |= v25;
-          v26 = *(v13 + 8 * v22);
-          if (v26 != -1)
-          {
-            v14 = __clz(__rbit64(~v26)) + (v22 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_32:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v21) & ~*(v13 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v18;
-      ++*(v6 + 16);
-    }
-
-    v16 = v7;
-    while (1)
-    {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
-      {
-        __break(1u);
-        goto LABEL_32;
-      }
-
-      if (v7 >= v12)
-      {
-        break;
-      }
-
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
-      {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
-      }
-    }
-
-    v27 = 1 << *(v3 + 32);
-    if (v27 >= 64)
-    {
-      bzero((v3 + 56), ((v27 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v8 = -1 << v27;
+      *v7 = -1 << v25;
     }
 
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -2631,26 +2577,24 @@ unint64_t sub_223CC5E30(unint64_t result)
       v9 = (v8 + 1) & v7;
       do
       {
-        v10 = *(v3 + 40);
-        v11 = *(v3 + 48);
-        v12 = (v11 + 8 * v6);
-        v13 = *v12;
-        v14 = sub_223CEAF10() & v7;
+        v10 = *(v3 + 48);
+        v11 = (v10 + 8 * v6);
+        v12 = sub_223CEAF10() & v7;
         if (v2 >= v9)
         {
-          if (v14 >= v9 && v2 >= v14)
+          if (v12 >= v9 && v2 >= v12)
           {
 LABEL_16:
-            v17 = (v11 + 8 * v2);
-            if (v2 != v6 || v17 >= v12 + 1)
+            v15 = (v10 + 8 * v2);
+            if (v2 != v6 || v15 >= v11 + 1)
             {
-              *v17 = *v12;
+              *v15 = *v11;
               v2 = v6;
             }
           }
         }
 
-        else if (v14 >= v9 || v2 >= v14)
+        else if (v12 >= v9 || v2 >= v12)
         {
           goto LABEL_16;
         }
@@ -2669,17 +2613,17 @@ LABEL_16:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v18 = *(v3 + 16);
-  v19 = __OFSUB__(v18, 1);
-  v20 = v18 - 1;
-  if (v19)
+  v16 = *(v3 + 16);
+  v17 = __OFSUB__(v16, 1);
+  v18 = v16 - 1;
+  if (v17)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v20;
+    *(v3 + 16) = v18;
     ++*(v3 + 36);
   }
 
@@ -2692,7 +2636,7 @@ uint64_t sub_223CC5FB4(uint64_t a1, uint64_t a2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0BC820, &qword_223CED870);
     v2 = sub_223CEAE20();
-    v16 = v2;
+    v15 = v2;
     sub_223CEADC0();
     if (sub_223CEADF0())
     {
@@ -2700,53 +2644,52 @@ uint64_t sub_223CC5FB4(uint64_t a1, uint64_t a2)
       do
       {
         swift_dynamicCast();
-        v10 = *(v2 + 16);
-        if (*(v2 + 24) <= v10)
+        v9 = *(v2 + 16);
+        if (*(v2 + 24) <= v9)
         {
-          sub_223CC5C08(v10 + 1);
+          sub_223CC5C08(v9 + 1);
         }
 
-        v2 = v16;
-        v3 = *(v16 + 40);
+        v2 = v15;
         result = sub_223CEAD70();
-        v5 = v16 + 56;
-        v6 = -1 << *(v16 + 32);
-        v7 = result & ~v6;
-        v8 = v7 >> 6;
-        if (((-1 << v7) & ~*(v16 + 56 + 8 * (v7 >> 6))) != 0)
+        v4 = v15 + 56;
+        v5 = -1 << *(v15 + 32);
+        v6 = result & ~v5;
+        v7 = v6 >> 6;
+        if (((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6))) != 0)
         {
-          v9 = __clz(__rbit64((-1 << v7) & ~*(v16 + 56 + 8 * (v7 >> 6)))) | v7 & 0x7FFFFFFFFFFFFFC0;
+          v8 = __clz(__rbit64((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
         }
 
         else
         {
-          v11 = 0;
-          v12 = (63 - v6) >> 6;
+          v10 = 0;
+          v11 = (63 - v5) >> 6;
           do
           {
-            if (++v8 == v12 && (v11 & 1) != 0)
+            if (++v7 == v11 && (v10 & 1) != 0)
             {
               __break(1u);
               return result;
             }
 
-            v13 = v8 == v12;
-            if (v8 == v12)
+            v12 = v7 == v11;
+            if (v7 == v11)
             {
-              v8 = 0;
+              v7 = 0;
             }
 
-            v11 |= v13;
-            v14 = *(v5 + 8 * v8);
+            v10 |= v12;
+            v13 = *(v4 + 8 * v7);
           }
 
-          while (v14 == -1);
-          v9 = __clz(__rbit64(~v14)) + (v8 << 6);
+          while (v13 == -1);
+          v8 = __clz(__rbit64(~v13)) + (v7 << 6);
         }
 
-        *(v5 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
-        *(*(v16 + 48) + 8 * v9) = v15;
-        ++*(v16 + 16);
+        *(v4 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
+        *(*(v15 + 48) + 8 * v8) = v14;
+        ++*(v15 + 16);
       }
 
       while (sub_223CEADF0());
@@ -2764,9 +2707,7 @@ uint64_t sub_223CC5FB4(uint64_t a1, uint64_t a2)
 
 unint64_t sub_223CC61A4(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 40);
   sub_223CEAD70();
-  v5 = -1 << *(a2 + 32);
   result = sub_223CEADB0();
   *(a2 + 56 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
   *(*(a2 + 48) + 8 * result) = a1;
@@ -2774,20 +2715,19 @@ unint64_t sub_223CC61A4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_223CC6228(uint64_t *a1, uint64_t a2)
+uint64_t sub_223CC6228(void *a1, uint64_t a2)
 {
   v5 = *v2;
-  v6 = *(*v2 + 40);
-  v7 = sub_223CEAF10();
-  v8 = -1 << *(v5 + 32);
-  v9 = v7 & ~v8;
-  if ((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9))
+  v6 = sub_223CEAF10();
+  v7 = -1 << *(v5 + 32);
+  v8 = v6 & ~v7;
+  if ((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8))
   {
-    v10 = ~v8;
-    while (*(*(v5 + 48) + 8 * v9) != a2)
+    v9 = ~v7;
+    while (*(*(v5 + 48) + 8 * v8) != a2)
     {
-      v9 = (v9 + 1) & v10;
-      if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+      v8 = (v8 + 1) & v9;
+      if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -2799,11 +2739,10 @@ uint64_t sub_223CC6228(uint64_t *a1, uint64_t a2)
   else
   {
 LABEL_5:
-    v11 = *v2;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v14 = *v2;
-    sub_223CC6540(a2, v9, isUniquelyReferenced_nonNull_native);
-    *v2 = v14;
+    v12 = *v2;
+    sub_223CC6540(a2, v8, isUniquelyReferenced_nonNull_native);
+    *v2 = v12;
     result = 1;
   }
 
@@ -2811,7 +2750,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_223CC6308(void *a1, void *a2)
+uint64_t sub_223CC6308(uint64_t *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -2837,7 +2776,7 @@ uint64_t sub_223CC6308(void *a1, void *a2)
       sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
       swift_dynamicCast();
       result = 0;
-      *a1 = v25;
+      *a1 = v23;
       return result;
     }
 
@@ -2848,60 +2787,58 @@ uint64_t sub_223CC6308(void *a1, void *a2)
       return result;
     }
 
-    v21 = sub_223CC5FB4(v7, result + 1);
-    v22 = *(v21 + 16);
-    if (*(v21 + 24) <= v22)
+    v19 = sub_223CC5FB4(v7, result + 1);
+    v20 = *(v19 + 16);
+    if (*(v19 + 24) <= v20)
     {
-      sub_223CC5C08(v22 + 1);
+      sub_223CC5C08(v20 + 1);
     }
 
-    v20 = v8;
-    sub_223CC61A4(v20, v21);
+    v18 = v8;
+    sub_223CC61A4(v18, v19);
 
-    *v3 = v21;
+    *v3 = v19;
     goto LABEL_16;
   }
 
   sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
-  v11 = *(v6 + 40);
-  v12 = sub_223CEAD70();
-  v13 = -1 << *(v6 + 32);
-  v14 = v12 & ~v13;
-  if (((*(v6 + 56 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
+  v11 = sub_223CEAD70();
+  v12 = -1 << *(v6 + 32);
+  v13 = v11 & ~v12;
+  if (((*(v6 + 56 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13) & 1) == 0)
   {
 LABEL_11:
-    v18 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v26 = *v3;
-    v20 = a2;
-    sub_223CC6660(v20, v14, isUniquelyReferenced_nonNull_native);
-    *v3 = v26;
+    v24 = *v3;
+    v18 = a2;
+    sub_223CC6660(v18, v13, isUniquelyReferenced_nonNull_native);
+    *v3 = v24;
 LABEL_16:
-    *a1 = v20;
+    *a1 = v18;
     return 1;
   }
 
-  v15 = ~v13;
+  v14 = ~v12;
   while (1)
   {
-    v16 = *(*(v6 + 48) + 8 * v14);
-    v17 = sub_223CEAD80();
+    v15 = *(*(v6 + 48) + 8 * v13);
+    v16 = sub_223CEAD80();
 
-    if (v17)
+    if (v16)
     {
       break;
     }
 
-    v14 = (v14 + 1) & v15;
-    if (((*(v6 + 56 + ((v14 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v14) & 1) == 0)
+    v13 = (v13 + 1) & v14;
+    if (((*(v6 + 56 + ((v13 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v13) & 1) == 0)
     {
       goto LABEL_11;
     }
   }
 
-  v23 = *(*(v6 + 48) + 8 * v14);
-  *a1 = v23;
-  v24 = v23;
+  v21 = *(*(v6 + 48) + 8 * v13);
+  *a1 = v21;
+  v22 = v21;
   return 0;
 }
 
@@ -2934,16 +2871,15 @@ uint64_t sub_223CC6540(uint64_t result, unint64_t a2, char a3)
   }
 
   v8 = *v3;
-  v9 = *(*v3 + 40);
   result = sub_223CEAF10();
-  v10 = -1 << *(v8 + 32);
-  a2 = result & ~v10;
+  v9 = -1 << *(v8 + 32);
+  a2 = result & ~v9;
   if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
-    v11 = ~v10;
+    v10 = ~v9;
     while (*(*(v8 + 48) + 8 * a2) != v4)
     {
-      a2 = (a2 + 1) & v11;
+      a2 = (a2 + 1) & v10;
       if (((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) == 0)
       {
         goto LABEL_12;
@@ -2954,15 +2890,15 @@ uint64_t sub_223CC6540(uint64_t result, unint64_t a2, char a3)
   }
 
 LABEL_12:
-  v12 = *v3;
+  v11 = *v3;
   *(*v3 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  *(*(v12 + 48) + 8 * a2) = v4;
-  v13 = *(v12 + 16);
-  v14 = __OFADD__(v13, 1);
-  v15 = v13 + 1;
-  if (!v14)
+  *(*(v11 + 48) + 8 * a2) = v4;
+  v12 = *(v11 + 16);
+  v13 = __OFADD__(v12, 1);
+  v14 = v12 + 1;
+  if (!v13)
   {
-    *(v12 + 16) = v15;
+    *(v11 + 16) = v14;
     return result;
   }
 
@@ -2999,40 +2935,39 @@ void sub_223CC6660(uint64_t a1, unint64_t a2, char a3)
   }
 
   v8 = *v3;
-  v9 = *(*v3 + 40);
-  v10 = sub_223CEAD70();
-  v11 = -1 << *(v8 + 32);
-  a2 = v10 & ~v11;
+  v9 = sub_223CEAD70();
+  v10 = -1 << *(v8 + 32);
+  a2 = v9 & ~v10;
   if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
-    v12 = ~v11;
+    v11 = ~v10;
     sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
     do
     {
-      v13 = *(*(v8 + 48) + 8 * a2);
-      v14 = sub_223CEAD80();
+      v12 = *(*(v8 + 48) + 8 * a2);
+      v13 = sub_223CEAD80();
 
-      if (v14)
+      if (v13)
       {
         goto LABEL_15;
       }
 
-      a2 = (a2 + 1) & v12;
+      a2 = (a2 + 1) & v11;
     }
 
     while (((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
   }
 
 LABEL_12:
-  v15 = *v3;
+  v14 = *v3;
   *(*v3 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  *(*(v15 + 48) + 8 * a2) = a1;
-  v16 = *(v15 + 16);
-  v17 = __OFADD__(v16, 1);
-  v18 = v16 + 1;
-  if (!v17)
+  *(*(v14 + 48) + 8 * a2) = a1;
+  v15 = *(v14 + 16);
+  v16 = __OFADD__(v15, 1);
+  v17 = v15 + 1;
+  if (!v16)
   {
-    *(v15 + 16) = v18;
+    *(v14 + 16) = v17;
     return;
   }
 
@@ -3042,7 +2977,7 @@ LABEL_15:
   __break(1u);
 }
 
-uint64_t sub_223CC67D8(unint64_t *a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_223CC67D8(unint64_t *a1, unint64_t *a2, void *a3)
 {
   result = *a1;
   if (!result)
@@ -3351,11 +3286,11 @@ LABEL_4:
 
 LABEL_9:
   v6 = v3 + 56;
-  v40 = v5;
+  v38 = v5;
   if ((v1 & 0xC000000000000001) != 0)
   {
     v7 = 0;
-    v38 = v1;
+    v36 = v1;
     while (1)
     {
       v8 = MEMORY[0x223DF7410](v7, v1);
@@ -3366,43 +3301,42 @@ LABEL_9:
       }
 
       v10 = v8;
-      v11 = *(v3 + 40);
-      v12 = sub_223CEAD70();
-      v13 = -1 << *(v3 + 32);
-      v14 = v12 & ~v13;
-      v15 = v14 >> 6;
-      v16 = *(v6 + 8 * (v14 >> 6));
-      v17 = 1 << v14;
-      if (((1 << v14) & v16) != 0)
+      v11 = sub_223CEAD70();
+      v12 = -1 << *(v3 + 32);
+      v13 = v11 & ~v12;
+      v14 = v13 >> 6;
+      v15 = *(v6 + 8 * (v13 >> 6));
+      v16 = 1 << v13;
+      if (((1 << v13) & v15) != 0)
       {
-        v18 = ~v13;
+        v17 = ~v12;
         sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
         while (1)
         {
-          v19 = *(*(v3 + 48) + 8 * v14);
-          v20 = sub_223CEAD80();
+          v18 = *(*(v3 + 48) + 8 * v13);
+          v19 = sub_223CEAD80();
 
-          if (v20)
+          if (v19)
           {
             break;
           }
 
-          v14 = (v14 + 1) & v18;
-          v15 = v14 >> 6;
-          v16 = *(v6 + 8 * (v14 >> 6));
-          v17 = 1 << v14;
-          if (((1 << v14) & v16) == 0)
+          v13 = (v13 + 1) & v17;
+          v14 = v13 >> 6;
+          v15 = *(v6 + 8 * (v13 >> 6));
+          v16 = 1 << v13;
+          if (((1 << v13) & v15) == 0)
           {
-            v1 = v38;
-            v5 = v40;
+            v1 = v36;
+            v5 = v38;
             goto LABEL_18;
           }
         }
 
         swift_unknownObjectRelease();
-        v1 = v38;
-        v5 = v40;
-        if (v7 == v40)
+        v1 = v36;
+        v5 = v38;
+        if (v7 == v38)
         {
           return;
         }
@@ -3411,17 +3345,17 @@ LABEL_9:
       else
       {
 LABEL_18:
-        *(v6 + 8 * v15) = v17 | v16;
-        *(*(v3 + 48) + 8 * v14) = v10;
-        v21 = *(v3 + 16);
-        v9 = __OFADD__(v21, 1);
-        v22 = v21 + 1;
+        *(v6 + 8 * v14) = v16 | v15;
+        *(*(v3 + 48) + 8 * v13) = v10;
+        v20 = *(v3 + 16);
+        v9 = __OFADD__(v20, 1);
+        v21 = v20 + 1;
         if (v9)
         {
           goto LABEL_33;
         }
 
-        *(v3 + 16) = v22;
+        *(v3 + 16) = v21;
         if (v7 == v5)
         {
           return;
@@ -3436,58 +3370,57 @@ LABEL_33:
 
   else
   {
-    v23 = 0;
-    v37 = v1 + 32;
-    v39 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    while (v23 != v39)
+    v22 = 0;
+    v35 = v1 + 32;
+    v37 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    while (v22 != v37)
     {
-      v24 = *(v3 + 40);
-      v25 = *(v37 + 8 * v23);
-      v26 = sub_223CEAD70();
-      v27 = -1 << *(v3 + 32);
-      v28 = v26 & ~v27;
-      v29 = v28 >> 6;
-      v30 = *(v6 + 8 * (v28 >> 6));
-      v31 = 1 << v28;
-      if (((1 << v28) & v30) != 0)
+      v23 = *(v35 + 8 * v22);
+      v24 = sub_223CEAD70();
+      v25 = -1 << *(v3 + 32);
+      v26 = v24 & ~v25;
+      v27 = v26 >> 6;
+      v28 = *(v6 + 8 * (v26 >> 6));
+      v29 = 1 << v26;
+      if (((1 << v26) & v28) != 0)
       {
-        v32 = ~v27;
+        v30 = ~v25;
         sub_223CC73DC(0, &qword_28133EF30, 0x277CF0640);
         do
         {
-          v33 = *(*(v3 + 48) + 8 * v28);
-          v34 = sub_223CEAD80();
+          v31 = *(*(v3 + 48) + 8 * v26);
+          v32 = sub_223CEAD80();
 
-          if (v34)
+          if (v32)
           {
 
-            v5 = v40;
+            v5 = v38;
             goto LABEL_23;
           }
 
-          v28 = (v28 + 1) & v32;
-          v29 = v28 >> 6;
-          v30 = *(v6 + 8 * (v28 >> 6));
-          v31 = 1 << v28;
+          v26 = (v26 + 1) & v30;
+          v27 = v26 >> 6;
+          v28 = *(v6 + 8 * (v26 >> 6));
+          v29 = 1 << v26;
         }
 
-        while (((1 << v28) & v30) != 0);
-        v5 = v40;
+        while (((1 << v26) & v28) != 0);
+        v5 = v38;
       }
 
-      *(v6 + 8 * v29) = v31 | v30;
-      *(*(v3 + 48) + 8 * v28) = v25;
-      v35 = *(v3 + 16);
-      v9 = __OFADD__(v35, 1);
-      v36 = v35 + 1;
+      *(v6 + 8 * v27) = v29 | v28;
+      *(*(v3 + 48) + 8 * v26) = v23;
+      v33 = *(v3 + 16);
+      v9 = __OFADD__(v33, 1);
+      v34 = v33 + 1;
       if (v9)
       {
         goto LABEL_35;
       }
 
-      *(v3 + 16) = v36;
+      *(v3 + 16) = v34;
 LABEL_23:
-      if (++v23 == v5)
+      if (++v22 == v5)
       {
         return;
       }
@@ -3552,7 +3485,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -3560,12 +3492,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t sub_223CC73DC(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_223CC73DC(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3638,20 +3569,20 @@ void sub_223CD3FFC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_223CD513C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223CD513C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id BKHIDCreatePrimaryEventProcessor(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v16 = 0;
-  v2 = _BKHIDEventProcessorConfigurationFromRootRelativePath(@"/System/Library/BackBoard/EventProcessorConfigurationPlatformOverride.plist", &v16);
-  v3 = v16;
+  v15 = 0;
+  v2 = _BKHIDEventProcessorConfigurationFromRootRelativePath(@"/System/Library/BackBoard/EventProcessorConfigurationPlatformOverride.plist", &v15);
+  v3 = v15;
   v4 = v3;
   if (v2)
   {
@@ -3678,28 +3609,26 @@ id BKHIDCreatePrimaryEventProcessor(void *a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v18 = @"/System/Library/BackBoard/EventProcessorConfigurationPlatformOverride.plist";
-        v19 = 2114;
-        v20 = v4;
+        v17 = @"/System/Library/BackBoard/EventProcessorConfigurationPlatformOverride.plist";
+        v18 = 2114;
+        v19 = v4;
         _os_log_error_impl(&dword_223CBE000, v9, OS_LOG_TYPE_ERROR, "cannot decode %{public}@: %{public}@", buf, 0x16u);
       }
     }
 
-    v15 = v4;
-    v2 = _BKHIDEventProcessorConfigurationFromRootRelativePath(@"/System/Library/BackBoard/EventProcessorConfiguration.plist", &v15);
-    v5 = v15;
+    v14 = v4;
+    v2 = _BKHIDEventProcessorConfigurationFromRootRelativePath(@"/System/Library/BackBoard/EventProcessorConfiguration.plist", &v14);
+    v5 = v14;
 
     if (!v2)
     {
-      v13 = [MEMORY[0x277CCA890] currentHandler];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessor(BKHIDEventProcessorCreationContext *__strong _Nonnull)"];
-      [v13 handleFailureInFunction:v14 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:55 description:{@"error reading %@: %@", @"/System/Library/BackBoard/EventProcessorConfiguration.plist", v5}];
+      v12 = [MEMORY[0x277CCA890] currentHandler];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessor(BKHIDEventProcessorCreationContext *__strong _Nonnull)"];
+      [v12 handleFailureInFunction:v13 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:55 description:{@"error reading %@: %@", @"/System/Library/BackBoard/EventProcessorConfiguration.plist", v5}];
     }
   }
 
   v10 = BKHIDCreatePrimaryEventProcessorWithDictionary(v1, v2);
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3726,10 +3655,10 @@ id _BKHIDEventProcessorConfigurationFromRootRelativePath(void *a1, void *a2)
 
 BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void *a1, void *a2)
 {
-  v178 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v143 = a2;
-  v4 = [v143 objectForKeyedSubscript:@"DefaultProcessor"];
+  v140 = a2;
+  v4 = [v140 objectForKeyedSubscript:@"DefaultProcessor"];
   v5 = objc_opt_class();
   v6 = v4;
   if (v5)
@@ -3752,19 +3681,19 @@ BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void 
 
   v8 = v7;
 
-  v138 = v8;
+  v135 = v8;
   if (!v8)
   {
-    v126 = [MEMORY[0x277CCA890] currentHandler];
-    v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-    [v126 handleFailureInFunction:v127 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:223 description:@"Must have a default processor name"];
+    v123 = [MEMORY[0x277CCA890] currentHandler];
+    v124 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+    [v123 handleFailureInFunction:v124 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:223 description:@"Must have a default processor name"];
   }
 
-  v9 = [v143 objectForKeyedSubscript:@"CreationOrder"];
+  v9 = [v140 objectForKeyedSubscript:@"CreationOrder"];
   v10 = 0x277CBE000uLL;
   v11 = objc_opt_class();
   v12 = v9;
-  v139 = v3;
+  v136 = v3;
   if (v11)
   {
     if (objc_opt_isKindOfClass())
@@ -3787,32 +3716,32 @@ BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void 
 
   if (!v14)
   {
-    v128 = [MEMORY[0x277CCA890] currentHandler];
-    v129 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-    [v128 handleFailureInFunction:v129 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:226 description:@"Must have a creation order"];
+    v125 = [MEMORY[0x277CCA890] currentHandler];
+    v126 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+    [v125 handleFailureInFunction:v126 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:226 description:@"Must have a creation order"];
   }
 
-  v169 = 0u;
-  v170 = 0u;
+  v166 = 0u;
   v167 = 0u;
-  v168 = 0u;
+  v164 = 0u;
+  v165 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v167 objects:v177 count:16];
-  v140 = v15;
+  v16 = [v15 countByEnumeratingWithState:&v164 objects:v174 count:16];
+  v137 = v15;
   if (v16)
   {
     v17 = v16;
-    v18 = *v168;
+    v18 = *v165;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v168 != v18)
+        if (*v165 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v167 + 1) + 8 * i);
+        v20 = *(*(&v164 + 1) + 8 * i);
         v21 = objc_opt_class();
         v22 = v20;
         if (v21)
@@ -3843,17 +3772,17 @@ BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void 
           [v25 handleFailureInFunction:v27 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:230 description:{@"Bad creation order name: %@", v22}];
 
           v10 = v26;
-          v15 = v140;
+          v15 = v137;
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v167 objects:v177 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v164 objects:v174 count:16];
     }
 
     while (v17);
   }
 
-  v28 = [v143 objectForKeyedSubscript:@"ProcessorChains"];
+  v28 = [v140 objectForKeyedSubscript:@"ProcessorChains"];
   v29 = objc_opt_class();
   v30 = v28;
   if (v29)
@@ -3878,41 +3807,41 @@ BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void 
 
   if (!v32)
   {
-    v130 = [MEMORY[0x277CCA890] currentHandler];
-    v131 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-    [v130 handleFailureInFunction:v131 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:234 description:@"Must have a chain configuration"];
+    v127 = [MEMORY[0x277CCA890] currentHandler];
+    v128 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+    [v127 handleFailureInFunction:v128 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:234 description:@"Must have a chain configuration"];
   }
 
-  v33 = [MEMORY[0x277CBEB98] setWithArray:v140];
+  v33 = [MEMORY[0x277CBEB98] setWithArray:v137];
   v34 = [v33 count];
-  if (v34 != [v140 count])
+  if (v34 != [v137 count])
   {
-    v132 = [MEMORY[0x277CCA890] currentHandler];
-    v133 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-    [v132 handleFailureInFunction:v133 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:237 description:@"Creation order items must be unique"];
+    v129 = [MEMORY[0x277CCA890] currentHandler];
+    v130 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+    [v129 handleFailureInFunction:v130 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:237 description:@"Creation order items must be unique"];
   }
 
-  v165 = 0u;
-  v166 = 0u;
+  v162 = 0u;
   v163 = 0u;
-  v164 = 0u;
+  v160 = 0u;
+  v161 = 0u;
   obj = v32;
-  v146 = [obj countByEnumeratingWithState:&v163 objects:buf count:16];
-  if (v146)
+  v143 = [obj countByEnumeratingWithState:&v160 objects:buf count:16];
+  if (v143)
   {
-    v144 = *v164;
+    v141 = *v161;
     do
     {
       v35 = 0;
       do
       {
-        if (*v164 != v144)
+        if (*v161 != v141)
         {
           objc_enumerationMutation(obj);
         }
 
-        v154 = v35;
-        v36 = *(*(&v163 + 1) + 8 * v35);
+        v151 = v35;
+        v36 = *(*(&v160 + 1) + 8 * v35);
         v37 = objc_opt_class();
         v38 = v36;
         if (v37)
@@ -3937,454 +3866,449 @@ BKHIDPrimaryEventProcessor *BKHIDCreatePrimaryEventProcessorWithDictionary(void 
 
         if (!v40)
         {
-          v61 = [MEMORY[0x277CCA890] currentHandler];
-          v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-          [v61 handleFailureInFunction:v62 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:241 description:{@"Bad event type: %@", v38}];
+          v60 = [MEMORY[0x277CCA890] currentHandler];
+          v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+          [v60 handleFailureInFunction:v61 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:241 description:{@"Bad event type: %@", v38}];
         }
 
         v41 = [obj objectForKeyedSubscript:v40];
-        v42 = *(v10 + 2656);
-        v43 = objc_opt_class();
-        v44 = v41;
-        if (v43)
+        v42 = objc_opt_class();
+        v43 = v41;
+        if (v42)
         {
           if (objc_opt_isKindOfClass())
           {
-            v45 = v44;
+            v44 = v43;
           }
 
           else
           {
-            v45 = 0;
+            v44 = 0;
           }
         }
 
         else
         {
-          v45 = 0;
+          v44 = 0;
         }
 
-        v157 = v40;
-        v46 = v45;
+        v154 = v40;
+        v45 = v44;
 
-        if (!v46)
+        if (!v45)
         {
-          v63 = [MEMORY[0x277CCA890] currentHandler];
-          v64 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-          [v63 handleFailureInFunction:v64 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:245 description:{@"Bad processor chain: %@", v44}];
+          v62 = [MEMORY[0x277CCA890] currentHandler];
+          v63 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+          [v62 handleFailureInFunction:v63 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:245 description:{@"Bad processor chain: %@", v43}];
         }
 
-        v151 = v44;
-        v161 = 0u;
-        v162 = 0u;
+        v148 = v43;
+        v158 = 0u;
         v159 = 0u;
-        v160 = 0u;
-        v47 = v46;
-        v48 = [v47 countByEnumeratingWithState:&v159 objects:&v171 count:16];
-        if (v48)
+        v156 = 0u;
+        v157 = 0u;
+        v46 = v45;
+        v47 = [v46 countByEnumeratingWithState:&v156 objects:&v168 count:16];
+        if (v47)
         {
-          v49 = v48;
-          v50 = *v160;
+          v48 = v47;
+          v49 = *v157;
           do
           {
-            for (j = 0; j != v49; ++j)
+            for (j = 0; j != v48; ++j)
             {
-              if (*v160 != v50)
+              if (*v157 != v49)
               {
-                objc_enumerationMutation(v47);
+                objc_enumerationMutation(v46);
               }
 
-              v52 = *(*(&v159 + 1) + 8 * j);
-              v53 = objc_opt_class();
-              v54 = v52;
-              if (v53)
+              v51 = *(*(&v156 + 1) + 8 * j);
+              v52 = objc_opt_class();
+              v53 = v51;
+              if (v52)
               {
                 if (objc_opt_isKindOfClass())
                 {
-                  v55 = v54;
+                  v54 = v53;
                 }
 
                 else
                 {
-                  v55 = 0;
+                  v54 = 0;
                 }
               }
 
               else
               {
-                v55 = 0;
+                v54 = 0;
               }
 
-              v56 = v55;
+              v55 = v54;
 
-              if (!v56)
+              if (!v55)
               {
-                v57 = [MEMORY[0x277CCA890] currentHandler];
-                v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-                [v57 handleFailureInFunction:v58 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:249 description:{@"Bad event processor: %@", v54}];
-
-                v10 = 0x277CBE000;
+                v56 = [MEMORY[0x277CCA890] currentHandler];
+                v57 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+                [v56 handleFailureInFunction:v57 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:249 description:{@"Bad event processor: %@", v53}];
               }
 
-              if (([v33 containsObject:v56] & 1) == 0)
+              if (([v33 containsObject:v55] & 1) == 0)
               {
-                v59 = [MEMORY[0x277CCA890] currentHandler];
-                v60 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
-                [v59 handleFailureInFunction:v60 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:250 description:{@"Processor chain for %@ contains event processor %@ that does not exist in creation order", v157, v56}];
+                v58 = [MEMORY[0x277CCA890] currentHandler];
+                v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void _validateDictionary(NSDictionary *__strong)"];
+                [v58 handleFailureInFunction:v59 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:250 description:{@"Processor chain for %@ contains event processor %@ that does not exist in creation order", v154, v55}];
               }
             }
 
-            v49 = [v47 countByEnumeratingWithState:&v159 objects:&v171 count:16];
+            v48 = [v46 countByEnumeratingWithState:&v156 objects:&v168 count:16];
           }
 
-          while (v49);
+          while (v48);
         }
 
-        v35 = v154 + 1;
+        v35 = v151 + 1;
       }
 
-      while (v154 + 1 != v146);
-      v146 = [obj countByEnumeratingWithState:&v163 objects:buf count:16];
+      while (v151 + 1 != v143);
+      v143 = [obj countByEnumeratingWithState:&v160 objects:buf count:16];
     }
 
-    while (v146);
+    while (v143);
   }
 
-  v65 = [v143 objectForKeyedSubscript:@"CreationOrder"];
-  v66 = *(v10 + 2656);
-  v67 = objc_opt_class();
-  v68 = v65;
-  if (v67)
+  v64 = [v140 objectForKeyedSubscript:@"CreationOrder"];
+  v65 = objc_opt_class();
+  v66 = v64;
+  if (v65)
   {
     if (objc_opt_isKindOfClass())
     {
-      v69 = v68;
+      v67 = v66;
     }
 
     else
     {
-      v69 = 0;
+      v67 = 0;
     }
   }
 
   else
   {
-    v69 = 0;
+    v67 = 0;
   }
 
-  v70 = v69;
+  v68 = v67;
 
-  v71 = v139;
-  v72 = v70;
-  v155 = [MEMORY[0x277CBEB38] dictionary];
-  v145 = v71;
-  v152 = [v71 eventProcessorRegistry];
-  v147 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v69 = v136;
+  v70 = v68;
+  v152 = [MEMORY[0x277CBEB38] dictionary];
+  v142 = v69;
+  v149 = [v69 eventProcessorRegistry];
+  v144 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
   v171 = 0u;
-  v172 = 0u;
-  v173 = 0u;
-  v174 = 0u;
-  obja = v72;
-  v73 = [obja countByEnumeratingWithState:&v171 objects:v177 count:16];
-  if (v73)
+  obja = v70;
+  v71 = [obja countByEnumeratingWithState:&v168 objects:v174 count:16];
+  if (v71)
   {
-    v74 = v73;
-    v75 = *v172;
+    v72 = v71;
+    v73 = *v169;
     do
     {
-      for (k = 0; k != v74; ++k)
+      for (k = 0; k != v72; ++k)
       {
-        if (*v172 != v75)
+        if (*v169 != v73)
         {
           objc_enumerationMutation(obja);
         }
 
-        v77 = *(*(&v171 + 1) + 8 * k);
-        v78 = NSClassFromString(v77);
-        if (v78)
+        v75 = *(*(&v168 + 1) + 8 * k);
+        v76 = NSClassFromString(v75);
+        if (v76)
         {
-          v79 = v78;
-          if (([(objc_class *)v78 conformsToProtocol:&unk_283741760]& 1) == 0)
+          v77 = v76;
+          if (([(objc_class *)v76 conformsToProtocol:&unk_283741760]& 1) == 0)
           {
-            v141 = [MEMORY[0x277CCA890] currentHandler];
-            v84 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSDictionary<NSString *, id<BKHIDEventProcessor>> *_createEventProcessorsWithCreationOrderArray(BKHIDEventProcessorCreationContext *__strong, NSArray<NSString *> *__strong)"}];
-            [v141 handleFailureInFunction:v84 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:90 description:{@"Class %@ is not an event processor", v77}];
+            v138 = [MEMORY[0x277CCA890] currentHandler];
+            v82 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"NSDictionary<NSString *, id<BKHIDEventProcessor>> *_createEventProcessorsWithCreationOrderArray(BKHIDEventProcessorCreationContext *__strong, NSArray<NSString *> *__strong)"}];
+            [v138 handleFailureInFunction:v82 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:90 description:{@"Class %@ is not an event processor", v75}];
           }
 
           if (objc_opt_respondsToSelector())
           {
-            v80 = [(objc_class *)v79 performSelector:sel_sharedInstance];
+            v78 = [(objc_class *)v77 performSelector:sel_sharedInstance];
           }
 
-          else if ([(objc_class *)v79 instancesRespondToSelector:sel_initWithContext_])
+          else if ([(objc_class *)v77 instancesRespondToSelector:sel_initWithContext_])
           {
-            v80 = [[v79 alloc] initWithContext:v145];
+            v78 = [[v77 alloc] initWithContext:v142];
           }
 
           else
           {
-            v80 = objc_alloc_init(v79);
+            v78 = objc_alloc_init(v77);
           }
 
-          v81 = v80;
-          v82 = BKLogEventDelivery();
-          v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
-          if (v81)
+          v79 = v78;
+          v80 = BKLogEventDelivery();
+          v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+          if (v79)
           {
-            if (v83)
+            if (v81)
             {
               *buf = 138543362;
-              v176 = v81;
-              _os_log_impl(&dword_223CBE000, v82, OS_LOG_TYPE_DEFAULT, "Registered %{public}@", buf, 0xCu);
+              v173 = v79;
+              _os_log_impl(&dword_223CBE000, v80, OS_LOG_TYPE_DEFAULT, "Registered %{public}@", buf, 0xCu);
             }
 
-            [v155 setObject:v81 forKeyedSubscript:v77];
-            [v152 addEventProcessor:v81];
+            [v152 setObject:v79 forKeyedSubscript:v75];
+            [v149 addEventProcessor:v79];
             if (objc_opt_respondsToSelector())
             {
-              [v147 addObject:v81];
+              [v144 addObject:v79];
             }
           }
 
           else
           {
-            if (v83)
+            if (v81)
             {
               *buf = 138543362;
-              v176 = v77;
-              _os_log_impl(&dword_223CBE000, v82, OS_LOG_TYPE_DEFAULT, "Could not create event processor of class %{public}@", buf, 0xCu);
+              v173 = v75;
+              _os_log_impl(&dword_223CBE000, v80, OS_LOG_TYPE_DEFAULT, "Could not create event processor of class %{public}@", buf, 0xCu);
             }
 
-            v81 = 0;
+            v79 = 0;
           }
         }
 
         else
         {
-          v81 = BKLogEventDelivery();
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+          v79 = BKLogEventDelivery();
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v176 = v77;
-            _os_log_impl(&dword_223CBE000, v81, OS_LOG_TYPE_DEFAULT, "Event processor class %{public}@ does not exist", buf, 0xCu);
+            v173 = v75;
+            _os_log_impl(&dword_223CBE000, v79, OS_LOG_TYPE_DEFAULT, "Event processor class %{public}@ does not exist", buf, 0xCu);
           }
         }
       }
 
-      v74 = [obja countByEnumeratingWithState:&v171 objects:v177 count:16];
+      v72 = [obja countByEnumeratingWithState:&v168 objects:v174 count:16];
     }
 
-    while (v74);
+    while (v72);
   }
 
-  v169 = 0u;
-  v170 = 0u;
+  v166 = 0u;
   v167 = 0u;
-  v168 = 0u;
-  v85 = v147;
-  v86 = [v85 countByEnumeratingWithState:&v167 objects:buf count:16];
-  if (v86)
+  v164 = 0u;
+  v165 = 0u;
+  v83 = v144;
+  v84 = [v83 countByEnumeratingWithState:&v164 objects:buf count:16];
+  if (v84)
   {
-    v87 = v86;
-    v88 = *v168;
+    v85 = v84;
+    v86 = *v165;
     do
     {
-      for (m = 0; m != v87; ++m)
+      for (m = 0; m != v85; ++m)
       {
-        if (*v168 != v88)
+        if (*v165 != v86)
         {
-          objc_enumerationMutation(v85);
+          objc_enumerationMutation(v83);
         }
 
-        [*(*(&v167 + 1) + 8 * m) didInitializeRegistryWithContext:v145];
+        [*(*(&v164 + 1) + 8 * m) didInitializeRegistryWithContext:v142];
       }
 
-      v87 = [v85 countByEnumeratingWithState:&v167 objects:buf count:16];
+      v85 = [v83 countByEnumeratingWithState:&v164 objects:buf count:16];
     }
 
-    while (v87);
+    while (v85);
   }
 
-  if (![v155 count])
+  if (![v152 count])
   {
-    v134 = [MEMORY[0x277CCA890] currentHandler];
-    v135 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessorWithDictionary(BKHIDEventProcessorCreationContext *__strong _Nonnull, NSDictionary *__strong _Nonnull)"}];
-    [v134 handleFailureInFunction:v135 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:65 description:@"Failed to create event processors from creation order data"];
+    v131 = [MEMORY[0x277CCA890] currentHandler];
+    v132 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessorWithDictionary(BKHIDEventProcessorCreationContext *__strong _Nonnull, NSDictionary *__strong _Nonnull)"}];
+    [v131 handleFailureInFunction:v132 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:65 description:@"Failed to create event processors from creation order data"];
   }
 
-  v90 = [v143 objectForKeyedSubscript:@"DefaultProcessor"];
-  v91 = objc_opt_class();
-  v92 = v90;
-  if (v91)
+  v88 = [v140 objectForKeyedSubscript:@"DefaultProcessor"];
+  v89 = objc_opt_class();
+  v90 = v88;
+  if (v89)
   {
     if (objc_opt_isKindOfClass())
     {
-      v93 = v92;
+      v91 = v90;
     }
 
     else
     {
-      v93 = 0;
+      v91 = 0;
     }
   }
 
   else
   {
-    v93 = 0;
+    v91 = 0;
   }
 
-  v94 = v93;
+  v92 = v91;
 
-  v95 = [v155 objectForKeyedSubscript:v94];
-  if (!v95)
+  v93 = [v152 objectForKeyedSubscript:v92];
+  if (!v93)
   {
-    v136 = [MEMORY[0x277CCA890] currentHandler];
-    v137 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessorWithDictionary(BKHIDEventProcessorCreationContext *__strong _Nonnull, NSDictionary *__strong _Nonnull)"}];
-    [v136 handleFailureInFunction:v137 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:69 description:@"Failed to create a default event processor"];
+    v133 = [MEMORY[0x277CCA890] currentHandler];
+    v134 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BKHIDPrimaryEventProcessor * _Nonnull BKHIDCreatePrimaryEventProcessorWithDictionary(BKHIDEventProcessorCreationContext *__strong _Nonnull, NSDictionary *__strong _Nonnull)"}];
+    [v133 handleFailureInFunction:v134 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:69 description:@"Failed to create a default event processor"];
   }
 
-  v96 = [v143 objectForKeyedSubscript:@"ProcessorChains"];
-  v97 = objc_opt_class();
-  v98 = v96;
-  v148 = v94;
-  if (v97)
+  v94 = [v140 objectForKeyedSubscript:@"ProcessorChains"];
+  v95 = objc_opt_class();
+  v96 = v94;
+  v145 = v92;
+  if (v95)
   {
     if (objc_opt_isKindOfClass())
     {
-      v99 = v98;
+      v97 = v96;
     }
 
     else
     {
-      v99 = 0;
+      v97 = 0;
     }
   }
 
   else
   {
-    v99 = 0;
+    v97 = 0;
   }
 
-  v100 = v99;
+  v98 = v97;
 
-  v101 = v155;
-  v102 = v100;
-  v142 = v95;
-  memset(v177, 0, sizeof(v177));
-  v169 = 0u;
-  v170 = 0u;
+  v99 = v152;
+  v100 = v98;
+  v139 = v93;
+  memset(v174, 0, sizeof(v174));
+  v166 = 0u;
   v167 = 0u;
-  v168 = 0u;
-  v158 = v102;
-  v156 = [v102 countByEnumeratingWithState:&v167 objects:buf count:16];
-  if (v156)
+  v164 = 0u;
+  v165 = 0u;
+  v155 = v100;
+  v153 = [v100 countByEnumeratingWithState:&v164 objects:buf count:16];
+  if (v153)
   {
-    v153 = *v168;
+    v150 = *v165;
     do
     {
-      for (n = 0; n != v156; ++n)
+      for (n = 0; n != v153; ++n)
       {
-        if (*v168 != v153)
+        if (*v165 != v150)
         {
-          objc_enumerationMutation(v158);
+          objc_enumerationMutation(v155);
         }
 
-        v104 = *(*(&v167 + 1) + 8 * n);
-        v105 = [MEMORY[0x277CBEB18] array];
+        v102 = *(*(&v164 + 1) + 8 * n);
+        v103 = [MEMORY[0x277CBEB18] array];
+        v160 = 0u;
+        v161 = 0u;
+        v162 = 0u;
         v163 = 0u;
-        v164 = 0u;
-        v165 = 0u;
-        v166 = 0u;
-        v106 = [v158 objectForKeyedSubscript:v104];
-        v107 = [v106 countByEnumeratingWithState:&v163 objects:&v171 count:16];
-        if (v107)
+        v104 = [v155 objectForKeyedSubscript:v102];
+        v105 = [v104 countByEnumeratingWithState:&v160 objects:&v168 count:16];
+        if (v105)
         {
-          v108 = v107;
-          v109 = *v164;
+          v106 = v105;
+          v107 = *v161;
           do
           {
-            for (ii = 0; ii != v108; ++ii)
+            for (ii = 0; ii != v106; ++ii)
             {
-              if (*v164 != v109)
+              if (*v161 != v107)
               {
-                objc_enumerationMutation(v106);
+                objc_enumerationMutation(v104);
               }
 
-              v111 = [v101 objectForKeyedSubscript:*(*(&v163 + 1) + 8 * ii)];
-              if (v111)
+              v109 = [v99 objectForKeyedSubscript:*(*(&v160 + 1) + 8 * ii)];
+              if (v109)
               {
-                [v105 addObject:v111];
+                [v103 addObject:v109];
               }
             }
 
-            v108 = [v106 countByEnumeratingWithState:&v163 objects:&v171 count:16];
+            v106 = [v104 countByEnumeratingWithState:&v160 objects:&v168 count:16];
           }
 
-          while (v108);
+          while (v106);
         }
 
-        if ([v105 count])
+        if ([v103 count])
         {
-          v112 = v104;
+          v110 = v102;
           if (_eventTypeFromName_onceToken != -1)
           {
             dispatch_once(&_eventTypeFromName_onceToken, &__block_literal_global_725);
           }
 
-          v113 = [_eventTypeFromName_nameToEventTypeMap objectForKeyedSubscript:v112];
-          if (v113)
+          v111 = [_eventTypeFromName_nameToEventTypeMap objectForKeyedSubscript:v110];
+          if (v111)
           {
-            v114 = v113;
+            v112 = v111;
 LABEL_150:
-            v119 = [v114 intValue];
+            v117 = [v112 intValue];
 
-            objc_storeStrong(v177 + v119, v105);
+            objc_storeStrong(v174 + v117, v103);
             goto LABEL_151;
           }
 
-          if ([v112 hasPrefix:@"kIOHIDEventType"])
+          if ([v110 hasPrefix:@"kIOHIDEventType"])
           {
-            v115 = [v112 stringByReplacingCharactersInRange:0 withString:{objc_msgSend(@"kIOHIDEventType", "length"), &stru_283738628}];
+            v113 = [v110 stringByReplacingCharactersInRange:0 withString:{objc_msgSend(@"kIOHIDEventType", "length"), &stru_283738628}];
 
-            v116 = [_eventTypeFromName_nameToEventTypeMap objectForKeyedSubscript:v115];
-            if (v116)
+            v114 = [_eventTypeFromName_nameToEventTypeMap objectForKeyedSubscript:v113];
+            if (v114)
             {
-              v114 = v116;
-              v112 = v115;
+              v112 = v114;
+              v110 = v113;
               goto LABEL_150;
             }
 
-            v112 = v115;
+            v110 = v113;
           }
 
-          v117 = [MEMORY[0x277CCA890] currentHandler];
-          v118 = [MEMORY[0x277CCACA8] stringWithUTF8String:"IOHIDEventType _eventTypeFromName(NSString *__strong)"];
-          [v117 handleFailureInFunction:v118 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:216 description:{@"Unknown event type %@", v112}];
+          v115 = [MEMORY[0x277CCA890] currentHandler];
+          v116 = [MEMORY[0x277CCACA8] stringWithUTF8String:"IOHIDEventType _eventTypeFromName(NSString *__strong)"];
+          [v115 handleFailureInFunction:v116 file:@"BKHIDPrimaryEventProcessorFactory.m" lineNumber:216 description:{@"Unknown event type %@", v110}];
 
-          v114 = 0;
+          v112 = 0;
           goto LABEL_150;
         }
 
 LABEL_151:
       }
 
-      v156 = [v158 countByEnumeratingWithState:&v167 objects:buf count:16];
+      v153 = [v155 countByEnumeratingWithState:&v164 objects:buf count:16];
     }
 
-    while (v156);
+    while (v153);
   }
 
-  v120 = [[BKHIDPrimaryEventProcessor alloc] initWithSubProcessors:v177 defaultProcessor:v142];
+  v118 = [[BKHIDPrimaryEventProcessor alloc] initWithSubProcessors:v174 defaultProcessor:v139];
   for (jj = 344; jj != -8; jj -= 8)
   {
   }
 
-  v122 = [v145 eventProcessorRegistry];
-  [v122 addEventProcessor:v120];
-  v123 = v120;
+  v120 = [v142 eventProcessorRegistry];
+  [v120 addEventProcessor:v118];
+  v121 = v118;
 
-  v124 = *MEMORY[0x277D85DE8];
-  return v120;
+  return v118;
 }
 
 void ___eventTypeFromName_block_invoke()
@@ -4402,7 +4326,7 @@ uint64_t BKHIDEventRoutingInit(uint64_t a1)
 
 void BKSendGSEvent(int *a1, uint64_t a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!__BKEventTapCallback || __BKEventTapCallback(a1))
   {
     v5 = a3 ? GSSendSystemAppEvent() : GSSendEvent();
@@ -4413,42 +4337,38 @@ void BKSendGSEvent(int *a1, uint64_t a2, int a3)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *a1;
-        v10 = 136315906;
-        v11 = "BKSendGSEvent";
-        v12 = 1024;
-        v13 = v8;
-        v14 = 2082;
-        v15 = mach_error_string(v6);
-        v16 = 1024;
-        v17 = v6;
-        _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "%s ERROR sending event type %d: %{public}s (0x%X)", &v10, 0x22u);
+        v9 = 136315906;
+        v10 = "BKSendGSEvent";
+        v11 = 1024;
+        v12 = v8;
+        v13 = 2082;
+        v14 = mach_error_string(v6);
+        v15 = 1024;
+        v16 = v6;
+        _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "%s ERROR sending event type %d: %{public}s (0x%X)", &v9, 0x22u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void _BKHIDServiceWillTerminate(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = BKLogHID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = a3;
-    _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "Got a service willTerminate callback: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = a3;
+    _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "Got a service willTerminate callback: %{public}@", &v7, 0xCu);
   }
 
   v6 = a1;
   [v6 _serviceWasRemoved];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_223CD9CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223CD9CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4460,16 +4380,16 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_223CDAA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223CDAA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_223CDAD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223CDAD10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4733,9 +4653,9 @@ uint64_t __BKLogSendHIDEvent_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_223CE50BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_223CE50BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

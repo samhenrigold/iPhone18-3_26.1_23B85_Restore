@@ -198,7 +198,7 @@
     v83 = metrics15;
     if (metrics15)
     {
-      [metrics15 arrowMetrics];
+      objc_msgSend_arrowMetrics(metrics15);
     }
 
     else
@@ -214,7 +214,7 @@
     v86 = metrics16;
     if (metrics16)
     {
-      [metrics16 junctionArrowMetrics];
+      objc_msgSend_junctionArrowMetrics(metrics16);
     }
 
     else

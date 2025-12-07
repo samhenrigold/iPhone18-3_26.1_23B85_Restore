@@ -255,7 +255,7 @@
             path2 = v28;
             if (v28)
             {
-              [v28 duration];
+              objc_msgSend_duration(v28);
               Seconds = CMTimeGetSeconds(&buf);
               if (Seconds > 0.0)
               {

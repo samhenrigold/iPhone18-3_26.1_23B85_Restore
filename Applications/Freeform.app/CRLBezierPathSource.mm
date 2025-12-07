@@ -231,7 +231,7 @@
   {
     v4 = [(CRLBezierPath *)self->mPath copy];
     memset(&v7[1], 0, sizeof(CGAffineTransform));
-    [(CRLBezierPathSource *)self transformToNaturalSize];
+    objc_msgSend_transformToNaturalSize(self);
     v7[0] = v7[1];
     if (!CGAffineTransformIsIdentity(v7))
     {

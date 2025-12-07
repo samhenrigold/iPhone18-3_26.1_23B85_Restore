@@ -118,27 +118,27 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_tasks;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         object = [v7 object];
         if (object)
         {
@@ -147,7 +147,7 @@
         }
       }
 
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -155,32 +155,30 @@
 
   pthread_mutex_unlock(&self->_lock);
   pthread_mutex_destroy(&self->_lock);
-  v11.receiver = self;
-  v11.super_class = _PASKVOHandler;
-  [(_PASKVOHandler *)&v11 dealloc];
-  v10 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = _PASKVOHandler;
+  [(_PASKVOHandler *)&v10 dealloc];
 }
 
 - (_PASKVOHandler)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = _PASKVOHandler;
-  v2 = [(_PASKVOHandler *)&v7 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = _PASKVOHandler;
+  v2 = [(_PASKVOHandler *)&v6 init];
   if (v2)
   {
-    v8.__sig = 0;
-    *v8.__opaque = 0;
-    pthread_mutexattr_init(&v8);
-    pthread_mutexattr_settype(&v8, 2);
-    pthread_mutex_init(&v2->_lock, &v8);
-    pthread_mutexattr_destroy(&v8);
+    v7.__sig = 0;
+    *v7.__opaque = 0;
+    pthread_mutexattr_init(&v7);
+    pthread_mutexattr_settype(&v7, 2);
+    pthread_mutex_init(&v2->_lock, &v7);
+    pthread_mutexattr_destroy(&v7);
     v3 = objc_opt_new();
     tasks = v2->_tasks;
     v2->_tasks = v3;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

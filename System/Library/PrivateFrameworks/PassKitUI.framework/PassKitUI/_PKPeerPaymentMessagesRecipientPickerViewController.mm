@@ -61,14 +61,16 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1BD84FF70(appear);
+  sub_1BD84FF70(appearCopy, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1BD8503E0(disappear);
+  sub_1BD8503E0(disappearCopy, selfCopy);
 }
 
 - (_PKPeerPaymentMessagesRecipientPickerViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -2,6 +2,7 @@
 - (IKAppContext)appContext;
 - (IKScriptsEvaluator)initWithScripts:(id)scripts withContext:(id)context callback:(id)callback jingleRequest:(BOOL)request;
 - (void)_operation:(id)_operation finishedWithResult:(id)result error:(id)error;
+- (void)_sendCallback:(id)callback inContext:(id)context success:(BOOL)success;
 - (void)evaluate;
 - (void)evaluateScripts;
 - (void)handleScirptLoadFailure;
@@ -54,26 +55,26 @@
 
 - (void)evaluate
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   scripts = [(IKScriptsEvaluator *)self scripts];
-  v4 = [scripts countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v4 = [scripts countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v4)
   {
-    v5 = *v52;
+    v5 = *v51;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v52 != v5)
+        if (*v51 != v5)
         {
           objc_enumerationMutation(scripts);
         }
 
-        v7 = *(*(&v51 + 1) + 8 * i);
+        v7 = *(*(&v50 + 1) + 8 * i);
         if ([v7 length])
         {
           v8 = [MEMORY[0x277CBEBC0] URLWithString:v7];
@@ -87,7 +88,7 @@
         }
       }
 
-      v4 = [scripts countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v4 = [scripts countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v4);
@@ -101,35 +102,35 @@
   if (v12)
   {
     v14 = +[IKPreference ignoreHTTPCache];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = [(IKScriptsEvaluator *)self records];
-    v38 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
-    if (!v38)
+    v37 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+    if (!v37)
     {
       goto LABEL_31;
     }
 
-    v39 = v14;
-    v37 = *v47;
-    v35 = v43;
+    v38 = v14;
+    v36 = *v46;
+    v34 = v42;
     while (1)
     {
-      for (j = 0; j != v38; ++j)
+      for (j = 0; j != v37; ++j)
       {
-        if (*v47 != v37)
+        if (*v46 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v46 + 1) + 8 * j);
+        v16 = *(*(&v45 + 1) + 8 * j);
         v17 = objc_opt_new();
         v18 = v17;
-        if (v39)
+        if (v38)
         {
-          [v17 setCachePolicy:{v39, v35}];
+          [v17 setCachePolicy:{v38, v34}];
         }
 
         v19 = [v16 URL];
@@ -164,18 +165,18 @@ LABEL_27:
 
           [mEMORY[0x277CCAD30] setRequestProperties:v18];
           objc_initWeak(&location, mEMORY[0x277CCAD30]);
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v40[2] = __30__IKScriptsEvaluator_evaluate__block_invoke_3;
-          v40[3] = &unk_279799920;
-          v40[4] = self;
-          objc_copyWeak(&v41, &location);
-          [mEMORY[0x277CCAD30] setCompletionBlock:v40];
+          v39[0] = MEMORY[0x277D85DD0];
+          v39[1] = 3221225472;
+          v39[2] = __30__IKScriptsEvaluator_evaluate__block_invoke_3;
+          v39[3] = &unk_279799920;
+          v39[4] = self;
+          objc_copyWeak(&v40, &location);
+          [mEMORY[0x277CCAD30] setCompletionBlock:v39];
           [v16 setOpertaion:mEMORY[0x277CCAD30]];
           mainQueue = [MEMORY[0x277D7FD20] mainQueue];
           [mainQueue addOperation:mEMORY[0x277CCAD30]];
 
-          objc_destroyWeak(&v41);
+          objc_destroyWeak(&v40);
           objc_destroyWeak(&location);
           goto LABEL_29;
         }
@@ -196,28 +197,28 @@ LABEL_27:
         mEMORY[0x277CCAD30] = [MEMORY[0x277CCAD30] sharedSession];
         objc_initWeak(&location, self);
         v30 = [v18 URL];
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v43[0] = __30__IKScriptsEvaluator_evaluate__block_invoke_2;
-        v43[1] = &unk_2797998F8;
-        objc_copyWeak(&v44, &location);
-        v43[2] = v16;
-        v31 = [mEMORY[0x277CCAD30] dataTaskWithURL:v30 completionHandler:v42];
+        v41[0] = MEMORY[0x277D85DD0];
+        v41[1] = 3221225472;
+        v42[0] = __30__IKScriptsEvaluator_evaluate__block_invoke_2;
+        v42[1] = &unk_2797998F8;
+        objc_copyWeak(&v43, &location);
+        v42[2] = v16;
+        v31 = [mEMORY[0x277CCAD30] dataTaskWithURL:v30 completionHandler:v41];
 
         [v16 setDataTask:v31];
         [v31 resume];
 
-        objc_destroyWeak(&v44);
+        objc_destroyWeak(&v43);
         objc_destroyWeak(&location);
 LABEL_29:
       }
 
-      v38 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
-      if (!v38)
+      v37 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+      if (!v37)
       {
 LABEL_31:
 
-        goto LABEL_34;
+        return;
       }
     }
   }
@@ -227,16 +228,13 @@ LABEL_31:
   if (callback)
   {
     appContext2 = [(IKScriptsEvaluator *)self appContext];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __30__IKScriptsEvaluator_evaluate__block_invoke;
-    v50[3] = &unk_2797998D0;
-    v50[4] = self;
-    [appContext2 addPostEvaluateBlock:v50];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __30__IKScriptsEvaluator_evaluate__block_invoke;
+    v49[3] = &unk_2797998D0;
+    v49[4] = self;
+    [appContext2 addPostEvaluateBlock:v49];
   }
-
-LABEL_34:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __30__IKScriptsEvaluator_evaluate__block_invoke(uint64_t a1, void *a2)
@@ -266,7 +264,7 @@ void __30__IKScriptsEvaluator_evaluate__block_invoke_3(uint64_t a1)
 
 - (void)parseScriptData:(id)data successPredicate:(id)predicate completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   predicateCopy = predicate;
   completionCopy = completion;
@@ -284,26 +282,26 @@ void __30__IKScriptsEvaluator_evaluate__block_invoke_3(uint64_t a1)
 
   if ([v11 length])
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     records = [(IKScriptsEvaluator *)obj records];
-    v13 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [records countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
-      v14 = *v23;
+      v14 = *v22;
       v15 = 1;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(records);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * i);
+          v17 = *(*(&v21 + 1) + 8 * i);
           loadCompleted = [v17 loadCompleted];
           if (predicateCopy)
           {
@@ -336,7 +334,7 @@ void __30__IKScriptsEvaluator_evaluate__block_invoke_3(uint64_t a1)
           }
         }
 
-        v13 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [records countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -364,7 +362,6 @@ void __30__IKScriptsEvaluator_evaluate__block_invoke_3(uint64_t a1)
 LABEL_27:
 
   objc_sync_exit(obj);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scriptDidLoadWithID:(id)d data:(id)data error:(id)error
@@ -394,46 +391,43 @@ uint64_t __53__IKScriptsEvaluator_scriptDidLoadWithID_data_error___block_invoke(
 
 void __53__IKScriptsEvaluator_scriptDidLoadWithID_data_error___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [a3 setDataTask:0];
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v4 = [*(a1 + 32) records];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v5)
+    v9 = 0u;
+    v10 = 0u;
+    v3 = [*(a1 + 32) records];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v4)
     {
-      v6 = v5;
-      v7 = *v12;
+      v5 = v4;
+      v6 = *v10;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v7)
+          if (*v10 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v9 = [*(*(&v11 + 1) + 8 * i) dataTask];
-          [v9 cancel];
+          v8 = [*(*(&v9 + 1) + 8 * i) dataTask];
+          [v8 cancel];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -493,30 +487,30 @@ void __45__IKScriptsEvaluator_handleScirptLoadFailure__block_invoke(uint64_t a1,
 
 void __37__IKScriptsEvaluator_evaluateScripts__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v23 = a1;
+  v22 = a1;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [v3 JSGlobalContextRef];
         v12 = JSStringCreateWithCFString([v10 scriptStr]);
         if (v12)
@@ -534,9 +528,9 @@ void __37__IKScriptsEvaluator_evaluateScripts__block_invoke(uint64_t a1, void *a
             {
               v18 = [v16 toDictionary];
               *buf = 138412546;
-              v30 = v16;
-              v31 = 2112;
-              v32 = v18;
+              v29 = v16;
+              v30 = 2112;
+              v31 = v18;
               _os_log_error_impl(&dword_2549A4000, v17, OS_LOG_TYPE_ERROR, "Failed to evaluate Script: %@...%@", buf, 0x16u);
             }
 
@@ -548,7 +542,7 @@ void __37__IKScriptsEvaluator_evaluateScripts__block_invoke(uint64_t a1, void *a
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v6);
@@ -559,7 +553,7 @@ void __37__IKScriptsEvaluator_evaluateScripts__block_invoke(uint64_t a1, void *a
     v8 = 1;
   }
 
-  WeakRetained = objc_loadWeakRetained((v23 + 40));
+  WeakRetained = objc_loadWeakRetained((v22 + 40));
   v20 = WeakRetained;
   if (WeakRetained)
   {
@@ -569,8 +563,6 @@ void __37__IKScriptsEvaluator_evaluateScripts__block_invoke(uint64_t a1, void *a
       [WeakRetained _sendCallback:v21 inContext:v3 success:v8 & 1];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operation:(id)operation finishedWithOutput:(id)output
@@ -627,55 +619,79 @@ BOOL __58__IKScriptsEvaluator__operation_finishedWithResult_error___block_invoke
 
 void __58__IKScriptsEvaluator__operation_finishedWithResult_error___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [a3 setOpertaion:0];
   }
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v4 = [*(a1 + 32) records];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v5)
+    v12 = 0u;
+    v13 = 0u;
+    v3 = [*(a1 + 32) records];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v4)
     {
-      v6 = v5;
-      v7 = *v15;
+      v5 = v4;
+      v6 = *v13;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v7)
+          if (*v13 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
-          v10 = [v9 opertaion];
-          [v10 setDelegate:0];
+          v8 = *(*(&v12 + 1) + 8 * i);
+          v9 = [v8 opertaion];
+          [v9 setDelegate:0];
 
-          v11 = [v9 opertaion];
-          [v11 setCompletionBlock:0];
+          v10 = [v8 opertaion];
+          [v10 setCompletionBlock:0];
 
-          v12 = [v9 opertaion];
-          [v12 cancel];
+          v11 = [v8 opertaion];
+          [v11 cancel];
 
-          [v9 setOpertaion:0];
+          [v8 setOpertaion:0];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
+  }
+}
 
-    v13 = *MEMORY[0x277D85DE8];
+- (void)_sendCallback:(id)callback inContext:(id)context success:(BOOL)success
+{
+  successCopy = success;
+  v18[1] = *MEMORY[0x277D85DE8];
+  callbackCopy = callback;
+  contextCopy = context;
+  if (callbackCopy)
+  {
+    value = [callbackCopy value];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+    v18[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v13 = [value callWithArguments:v12];
+
+    virtualMachine = [contextCopy virtualMachine];
+    v15 = [contextCopy objectForKeyedSubscript:@"Device"];
+    [virtualMachine removeManagedReference:callbackCopy withOwner:v15];
+  }
+
+  v16 = +[IKAppContext currentAppContext];
+  if (v16)
+  {
+    identifier = [(IKScriptsEvaluator *)self identifier];
+    objc_setAssociatedObject(v16, identifier, 0, 0x301);
   }
 }
 

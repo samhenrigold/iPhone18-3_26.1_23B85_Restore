@@ -158,31 +158,32 @@
 {
   [(MSDUIHelper *)self setFullScreenState:1];
   launchFullScreenUI = [(MSDUIHelper *)self launchFullScreenUI];
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = launchFullScreenUI;
+  v5 = sub_100063A54(launchFullScreenUI);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109120;
-    HIDWORD(buf) = launchFullScreenUI;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Request to launch blocking UI: %d", &buf, 8u);
+    HIDWORD(buf) = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Request to launch blocking UI: %d", &buf, 8u);
   }
 
   objc_initWeak(&buf, self);
-  v5 = dispatch_time(0, 15000000000);
+  v6 = dispatch_time(0, 15000000000);
   uiHelperQueue = [(MSDUIHelper *)self uiHelperQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000AAD38;
   block[3] = &unk_100169C78;
-  objc_copyWeak(&v8, &buf);
-  dispatch_after(v5, uiHelperQueue, block);
+  objc_copyWeak(&v9, &buf);
+  dispatch_after(v6, uiHelperQueue, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&buf);
 }
 
 - (BOOL)launchFullScreenUI
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -236,59 +237,63 @@
 {
   visibilityCopy = visibility;
   changeCopy = change;
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 67109376;
     HIDWORD(buf) = changeCopy;
-    v19 = 1024;
-    v20 = visibilityCopy;
+    v21 = 1024;
+    v22 = visibilityCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Full screen UI app state change to %d, visible:%d", &buf, 0xEu);
   }
 
-  objc_initWeak(&buf, self);
+  inited = objc_initWeak(&buf, self);
   if (changeCopy <= 1)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100063A54(inited);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "App is crashed or terminated.", v17, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "App is crashed or terminated.", v19, 2u);
     }
 
-    v9 = dispatch_time(0, 1000000000);
+    v10 = dispatch_time(0, 1000000000);
     uiHelperQueue = [(MSDUIHelper *)self uiHelperQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000AB520;
     block[3] = &unk_100169C78;
-    v11 = &v16;
-    objc_copyWeak(&v16, &buf);
-    dispatch_after(v9, uiHelperQueue, block);
+    v12 = &v18;
+    objc_copyWeak(&v18, &buf);
+    dispatch_after(v10, uiHelperQueue, block);
 LABEL_14:
 
-    objc_destroyWeak(v11);
+    objc_destroyWeak(v12);
     goto LABEL_15;
   }
 
-  if ((changeCopy == 3 || changeCopy == 4 && !visibilityCopy) && [(MSDUIHelper *)self backlightStatus])
+  if (changeCopy == 3 || changeCopy == 4 && !visibilityCopy)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    backlightStatus = [(MSDUIHelper *)self backlightStatus];
+    if (backlightStatus)
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "App is no longer in foreground.", v17, 2u);
-    }
+      v14 = sub_100063A54(backlightStatus);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "App is no longer in foreground.", v19, 2u);
+      }
 
-    uiHelperQueue = [(MSDUIHelper *)self uiHelperQueue];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000AB5BC;
-    v13[3] = &unk_100169C78;
-    v11 = &v14;
-    objc_copyWeak(&v14, &buf);
-    dispatch_async(uiHelperQueue, v13);
-    goto LABEL_14;
+      uiHelperQueue = [(MSDUIHelper *)self uiHelperQueue];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_1000AB5BC;
+      v15[3] = &unk_100169C78;
+      v12 = &v16;
+      objc_copyWeak(&v16, &buf);
+      dispatch_async(uiHelperQueue, v15);
+      goto LABEL_14;
+    }
   }
 
 LABEL_15:
@@ -298,16 +303,16 @@ LABEL_15:
 - (BOOL)launchFullScreenUI_ios
 {
   [(MSDUIHelper *)self setFullScreenUILaunchError_iOS:0];
-  v35[0] = @"DisplayString";
+  v39[0] = @"DisplayString";
   message = [(MSDUIHelper *)self message];
-  v36[0] = message;
-  v35[1] = @"CancelButton";
+  v40[0] = message;
+  v39[1] = @"CancelButton";
   v4 = [NSNumber numberWithBool:[(MSDUIHelper *)self allowCancel]];
-  v36[1] = v4;
-  v35[2] = @"DisableIdleTimer";
+  v40[1] = v4;
+  v39[2] = @"DisableIdleTimer";
   v5 = [NSNumber numberWithBool:[(MSDUIHelper *)self disableIdleTimer]];
-  v36[2] = v5;
-  v6 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:3];
+  v40[2] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:3];
 
   remoteAlertHandle = [(MSDUIHelper *)self remoteAlertHandle];
 
@@ -321,8 +326,8 @@ LABEL_15:
 
   if (mode == 4)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_1000E73B0();
     }
@@ -330,46 +335,46 @@ LABEL_15:
     [MSDAppLauncherTerminator launchApp:@"com.apple.StoreDemoViewService" withOptions:0 outError:0];
   }
 
-  v12 = [SBSRemoteAlertDefinition alloc];
-  v13 = [RBSProcessIdentity identityForApplicationJobLabel:@"com.apple.StoreDemoViewService"];
-  v14 = [v12 initWithSceneProvidingProcess:v13 configurationIdentifier:@"BlockingUIRemoteAlert"];
+  v13 = [SBSRemoteAlertDefinition alloc];
+  v14 = [RBSProcessIdentity identityForApplicationJobLabel:@"com.apple.StoreDemoViewService"];
+  v15 = [v13 initWithSceneProvidingProcess:v14 configurationIdentifier:@"BlockingUIRemoteAlert"];
 
-  v15 = objc_alloc_init(SBSRemoteAlertConfigurationContext);
-  [v15 setUserInfo:v6];
-  v16 = [SBSRemoteAlertHandle newHandleWithDefinition:v14 configurationContext:v15];
-  [(MSDUIHelper *)self setRemoteAlertHandle:v16];
+  v16 = objc_alloc_init(SBSRemoteAlertConfigurationContext);
+  [v16 setUserInfo:v6];
+  v17 = [SBSRemoteAlertHandle newHandleWithDefinition:v15 configurationContext:v16];
+  [(MSDUIHelper *)self setRemoteAlertHandle:v17];
 
-  v17 = objc_alloc_init(SBSRemoteAlertActivationContext);
+  v18 = objc_alloc_init(SBSRemoteAlertActivationContext);
   remoteAlertHandle2 = [(MSDUIHelper *)self remoteAlertHandle];
   [remoteAlertHandle2 addObserver:self];
 
-  v19 = [[NSConditionLock alloc] initWithCondition:0];
-  [(MSDUIHelper *)self setConditionLock:v19];
+  v20 = [[NSConditionLock alloc] initWithCondition:0];
+  [(MSDUIHelper *)self setConditionLock:v20];
 
   remoteAlertHandle3 = [(MSDUIHelper *)self remoteAlertHandle];
-  [remoteAlertHandle3 activateWithContext:v17];
+  [remoteAlertHandle3 activateWithContext:v18];
 
-  v21 = sub_100063A54();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100063A54(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 136315138;
-    v32 = "[MSDUIHelper launchFullScreenUI_ios]";
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s: Full screen UI was launched.", &v31, 0xCu);
+    v35 = 136315138;
+    v36 = "[MSDUIHelper launchFullScreenUI_ios]";
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s: Full screen UI was launched.", &v35, 0xCu);
   }
 
-  v22 = [NSDate dateWithTimeIntervalSinceNow:10.0];
+  v24 = [NSDate dateWithTimeIntervalSinceNow:10.0];
   conditionLock = [(MSDUIHelper *)self conditionLock];
-  v24 = [conditionLock lockWhenCondition:1 beforeDate:v22];
+  v26 = [conditionLock lockWhenCondition:1 beforeDate:v24];
 
-  v25 = sub_100063A54();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v28 = sub_100063A54(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 136315138;
-    v32 = "[MSDUIHelper launchFullScreenUI_ios]";
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s: Full screen UI launch completed.", &v31, 0xCu);
+    v35 = 136315138;
+    v36 = "[MSDUIHelper launchFullScreenUI_ios]";
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s: Full screen UI launch completed.", &v35, 0xCu);
   }
 
-  if (!v24)
+  if (!v26)
   {
 
 LABEL_13:
@@ -377,33 +382,33 @@ LABEL_13:
 
     if (fullScreenUILaunchError_iOS)
     {
-      v28 = sub_100063A54();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100063A54(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         fullScreenUILaunchError_iOS2 = [(MSDUIHelper *)self fullScreenUILaunchError_iOS];
-        v31 = 136315394;
-        v32 = "[MSDUIHelper launchFullScreenUI_ios]";
-        v33 = 2114;
-        v34 = fullScreenUILaunchError_iOS2;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s: Error = %{public}@", &v31, 0x16u);
+        v35 = 136315394;
+        v36 = "[MSDUIHelper launchFullScreenUI_ios]";
+        v37 = 2114;
+        v38 = fullScreenUILaunchError_iOS2;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s: Error = %{public}@", &v35, 0x16u);
       }
     }
 
     else
     {
-      if (v24)
+      if (v26)
       {
 LABEL_20:
         v8 = 0;
         goto LABEL_21;
       }
 
-      v28 = sub_100063A54();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100063A54(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136315138;
-        v32 = "[MSDUIHelper launchFullScreenUI_ios]";
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s: Error = Timeout launching full screen UI.", &v31, 0xCu);
+        v35 = 136315138;
+        v36 = "[MSDUIHelper launchFullScreenUI_ios]";
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s: Error = Timeout launching full screen UI.", &v35, 0xCu);
       }
     }
 
@@ -426,7 +431,7 @@ LABEL_21:
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -446,7 +451,7 @@ LABEL_21:
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   deactivateCopy = deactivate;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -486,7 +491,7 @@ LABEL_21:
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     localizedDescription = [errorCopy localizedDescription];

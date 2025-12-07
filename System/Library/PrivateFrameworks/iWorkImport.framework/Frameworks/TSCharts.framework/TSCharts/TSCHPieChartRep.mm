@@ -109,11 +109,11 @@ LABEL_12:
     v40 = v39 + -1.57079633;
     *&v40 = v40;
     LODWORD(v33) = 1078530011;
-    v41 = sub_27628C490(v31, v32, v40, -1.57079673, v33) - v35;
+    v41 = sub_27628C490(v40, -1.57079673, v33, v31, v32) - v35;
     *&v41 = v41;
     LODWORD(v42) = -1068953637;
     LODWORD(v43) = 1078530011;
-    v46 = sub_27628C490(v44, v45, v41, v42, v43);
+    v46 = sub_27628C490(v41, v42, v43, v44, v45);
     v47 = v38 * cos(v46);
   }
 
@@ -152,10 +152,10 @@ LABEL_12:
   width = visible.size.width;
   y = visible.origin.y;
   x = visible.origin.x;
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v10 = !self->_hasDrawnSinceWedgeKnobTrackerCreated && self->_seriesIndexedPieWedgeDraggingLayers != 0;
   self->_hasDrawnSinceWedgeKnobTrackerCreated = 1;
-  CGContextGetCTM(&v76, context);
+  CGContextGetCTM(&v75, context);
   v12 = TSUIsTransformAxisAligned();
   if (v12)
   {
@@ -168,61 +168,61 @@ LABEL_12:
     v18 = objc_msgSend_layout(self, v11, v13, v14, v15);
     objc_msgSend_validate(v18, v19, v20, v21, v22);
     v27 = objc_msgSend_geometry(v18, v23, v24, v25, v26);
-    objc_msgSend_size(v27, v28, v29, v30, v31);
-    v33 = v32;
-    v35 = v34;
-    v74 = 0;
-    v75 = 0;
-    v72 = 0;
+    objc_msgSend_size(v27, v28, v29, v30);
+    v32 = v31;
+    v34 = v33;
     v73 = 0;
-    v70 = 0;
+    v74 = 0;
     v71 = 0;
-    v68 = 0;
+    v72 = 0;
     v69 = 0;
-    CGContextGetCTM(&v76, context);
+    v70 = 0;
+    v67 = 0;
+    v68 = 0;
+    CGContextGetCTM(&v75, context);
     TSURectWithSize();
     TSUTransformedCornersOfRect();
     TSUDistance();
-    v37 = ceil(fabs(v36));
+    v36 = ceil(fabs(v35));
     TSUDistance();
-    v39 = ceil(fabs(v38));
-    v79.width = v37;
-    v79.height = v39;
-    v40 = CGLayerCreateWithContext(context, v79, 0);
-    v16 = v40;
+    v38 = ceil(fabs(v37));
+    v78.width = v36;
+    v78.height = v38;
+    v39 = CGLayerCreateWithContext(context, v78, 0);
+    v16 = v39;
     contextCopy2 = context;
-    if (v40)
+    if (v39)
     {
-      Context = CGLayerGetContext(v40);
+      Context = CGLayerGetContext(v39);
       contextCopy2 = Context;
       if (Context)
       {
         CGContextSaveGState(Context);
-        CGContextScaleCTM(contextCopy2, v37 / v33, v39 / v35);
+        CGContextScaleCTM(contextCopy2, v36 / v32, v38 / v34);
       }
     }
   }
 
-  v67.receiver = self;
-  v67.super_class = TSCHPieChartRep;
-  [(TSCHChartRep *)&v67 renderIntoContext:contextCopy2 visible:x, y, width, height];
+  v66.receiver = self;
+  v66.super_class = TSCHPieChartRep;
+  [(TSCHChartRep *)&v66 renderIntoContext:contextCopy2 visible:x, y, width, height];
   if (v16)
   {
-    v45 = v12;
+    v44 = v12;
   }
 
   else
   {
-    v45 = 1;
+    v44 = 1;
   }
 
-  if ((v45 & 1) == 0)
+  if ((v44 & 1) == 0)
   {
     if (contextCopy2)
     {
       CGContextRestoreGState(contextCopy2);
       TSURectWithSize();
-      objc_msgSend_drawCGLayer_inContext_rect_(TSCHRenderUtilities, v46, v47, v48, v49, v16, context);
+      objc_msgSend_drawCGLayer_inContext_rect_(TSCHRenderUtilities, v45, v46, v47, v48, v16, context);
     }
 
     CGLayerRelease(v16);
@@ -230,32 +230,32 @@ LABEL_12:
 
   if (v10)
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
-    v50 = objc_msgSend_allValues(self->_seriesIndexedPieWedgeDraggingLayers, v42, 0.0, v43, v44);
-    v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v51, v52, v53, v54, &v63, v77, 16);
-    if (v55)
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v49 = objc_msgSend_allValues(self->_seriesIndexedPieWedgeDraggingLayers, v41, 0.0, v42, v43);
+    v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v50, v51, v52, v53, &v62, v76, 16);
+    if (v54)
     {
-      v60 = v55;
-      v61 = *v64;
+      v59 = v54;
+      v60 = *v63;
       do
       {
-        for (i = 0; i != v60; ++i)
+        for (i = 0; i != v59; ++i)
         {
-          if (*v64 != v61)
+          if (*v63 != v60)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v49);
           }
 
-          objc_msgSend_setHidden_(*(*(&v63 + 1) + 8 * i), v56, v57, v58, v59, 0);
+          objc_msgSend_setHidden_(*(*(&v62 + 1) + 8 * i), v55, v56, v57, v58, 0);
         }
 
-        v60 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v56, v57, v58, v59, &v63, v77, 16);
+        v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v55, v56, v57, v58, &v62, v76, 16);
       }
 
-      while (v60);
+      while (v59);
     }
   }
 }

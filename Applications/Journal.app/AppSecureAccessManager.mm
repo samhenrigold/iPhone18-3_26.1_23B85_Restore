@@ -6,7 +6,7 @@
 
 - (void)onAppUnlockedWithNotification:(id)notification
 {
-  v4 = sub_1000F24EC(&qword_100AF6E60);
+  v4 = sub_1000F24EC(&qword_100AF6E60, &unk_100944898);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   if (notification)
@@ -24,7 +24,7 @@
 
   sub_10004E570(v6);
 
-  sub_100004F84(v6, &qword_100AF6E60);
+  sub_100004F84(v6, &qword_100AF6E60, &unk_100944898);
 }
 
 @end

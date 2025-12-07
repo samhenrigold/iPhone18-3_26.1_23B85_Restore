@@ -209,7 +209,7 @@ void __41__NWAccumulation_updateWithState_atTime___block_invoke(uint64_t a1)
     v32 = __nwlog_obj();
     *buf = 136446210;
     v45 = "[NWAccumulation updateWithState:atTime:]_block_invoke";
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s called with null state", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v42 = 0;
@@ -293,7 +293,7 @@ LABEL_53:
     v37 = __nwlog_obj();
     *buf = 136446210;
     v45 = "[NWAccumulation updateWithState:atTime:]_block_invoke";
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s called with null _durations", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v42 = 0;

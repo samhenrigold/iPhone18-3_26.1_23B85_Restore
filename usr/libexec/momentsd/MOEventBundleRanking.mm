@@ -6,6 +6,7 @@
 - (double)_calculateNormSquare:(double *)square;
 - (double)_computeBPROptForPairs:(double *)pairs withTotalBundleCountsForInterfaceTypesHigherTier:(id)tier WithTotalBundleCountsForInterfaceTypesLowerTier:(id)lowerTier bprOpt:(double)opt pairWiseMult:(float)mult;
 - (double)_generateBPROptUsing:(double *)using initialParams:(double *)params;
+- (id)_calculateRankingScore:(id)score withMinRecommendedBundleCountRequirement:(BOOL)requirement;
 - (id)_checkAndUpdateNumericLimits:(id)limits;
 - (id)_fetchBundleInforForRanking:(id)ranking;
 - (id)_getDefaultFallbackFactorDict;
@@ -3136,7 +3137,7 @@ id __65__MOEventBundleRanking__fillDistincnessInfoForRanking_forBundle___block_i
         v387 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
         if (os_log_type_enabled(v387, OS_LOG_TYPE_DEBUG))
         {
-          [(MOEventBundleRanking *)v384 initWithConfigurationManager:?];
+          [MOEventBundleRanking initWithConfigurationManager:];
         }
       }
 
@@ -3750,6 +3751,3010 @@ LABEL_31:
   }
 
   objc_autoreleasePoolPop(context);
+}
+
+- (id)_calculateRankingScore:(id)score withMinRecommendedBundleCountRequirement:(BOOL)requirement
+{
+  v4 = __chkstk_darwin(self, a2);
+  v6 = v5;
+  v692 = v7;
+  v891 = v4;
+  v9 = v8;
+  v1050[0] = @"GRATITUDE";
+  v1050[1] = @"CREATIVITY";
+  v1051[0] = &off_10036E990;
+  v1051[1] = &off_10036E9A0;
+  v1050[2] = @"WISDOM";
+  v1050[3] = @"PURPOSE";
+  v1051[2] = &off_10036E9B0;
+  v1051[3] = &off_10036E9C0;
+  v1050[4] = @"KINDNESS";
+  v1050[5] = @"RESILIENCE";
+  v1051[4] = &off_10036E9D0;
+  v1051[5] = &off_10036E8C0;
+  v691 = [NSDictionary dictionaryWithObjects:v1051 forKeys:v1050 count:6];
+  v876 = objc_opt_new();
+  v875 = objc_opt_new();
+  v869 = objc_opt_new();
+  v683 = objc_opt_new();
+  v682 = objc_opt_new();
+  v684 = objc_opt_new();
+  v688 = objc_opt_new();
+  v10 = objc_opt_new();
+  v699 = objc_opt_new();
+  v774 = +[NSDate distantFuture];
+  v775 = +[NSDate distantPast];
+  v698 = *(v891 + 20);
+  v11 = [*(v891 + 128) objectForKeyedSubscript:@"daysToSuppressCoarseSummaryAfterOnboarding"];
+  [v11 floatValue];
+  v697 = v12;
+
+  v13 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  {
+    *&v14 = v698;
+    v15 = *(v891 + 20);
+    v16 = [*(v891 + 128) objectForKeyedSubscript:{@"daysToSuppressCoarseSummaryAfterOnboarding", v14}];
+    [v16 floatValue];
+    *v1042 = 134218496;
+    *&v1042[4] = v15;
+    *&v1042[12] = 2048;
+    *&v1042[14] = v17;
+    *&v1042[22] = 1024;
+    *v1043 = v698 < v697;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "elapsedDaysSinceOnboardingDate, %.2f, maxDaysToSuppressCoarseSummaryAfterOnboarding,%.2f,suppressCoarseSummary:%d", v1042, 0x1Cu);
+  }
+
+  if (v6)
+  {
+    v18 = [*(v891 + 128) objectForKeyedSubscript:@"minSensedBundleCountInRecommendedTab"];
+    intValue = [v18 intValue];
+
+    v687 = intValue;
+  }
+
+  else
+  {
+    v687 = 0;
+  }
+
+  v1023 = 0u;
+  v1022 = 0u;
+  v1021 = 0u;
+  v1020 = 0u;
+  obj = v9;
+  v20 = [obj countByEnumeratingWithState:&v1020 objects:v1049 count:16];
+  if (v20)
+  {
+    v21 = *v1021;
+    do
+    {
+      for (i = 0; i != v20; i = i + 1)
+      {
+        if (*v1021 != v21)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v23 = *(*(&v1020 + 1) + 8 * i);
+        v24 = v876;
+        if ([v23 suggestionIsDeleted] & 1) != 0 || (v24 = v875, (objc_msgSend(v23, "suggestionIsSelected")) || (v24 = v875, objc_msgSend(v23, "suggestionQuickAddEntry")))
+        {
+          suggestionIdentifier = [v23 suggestionIdentifier];
+          uUIDString = [suggestionIdentifier UUIDString];
+          [v24 addObject:uUIDString];
+
+          subSuggestionIDs = [v23 subSuggestionIDs];
+          [v24 addObjectsFromArray:subSuggestionIDs];
+        }
+
+        if ([v23 bundleInterfaceType] == 16)
+        {
+          subSuggestionIDs2 = [v23 subSuggestionIDs];
+          v29 = [subSuggestionIDs2 count] == 0;
+
+          if (!v29)
+          {
+            subSuggestionIDs3 = [v23 subSuggestionIDs];
+            [v869 addObjectsFromArray:subSuggestionIDs3];
+          }
+        }
+      }
+
+      v20 = [obj countByEnumeratingWithState:&v1020 objects:v1049 count:16];
+    }
+
+    while (v20);
+  }
+
+  v685 = 0;
+  v686 = 0;
+  v31 = 0;
+  v32 = 1.0;
+  while (2)
+  {
+    if (v32 < 0.0 || v31 > v687)
+    {
+      v695 = v10;
+      goto LABEL_375;
+    }
+
+    v689 = v32;
+    v695 = objc_opt_new();
+
+    v34 = objc_opt_new();
+    v1019 = 0u;
+    v1018 = 0u;
+    v1017 = 0u;
+    v1016 = 0u;
+    v693 = obj;
+    v700 = [v693 countByEnumeratingWithState:&v1016 objects:v1048 count:16];
+    v699 = v34;
+    if (!v700)
+    {
+      v694 = 0;
+      goto LABEL_355;
+    }
+
+    v694 = 0;
+    v690 = 0;
+    v696 = *v1017;
+    do
+    {
+      v866 = 0;
+      do
+      {
+        if (*v1017 != v696)
+        {
+          objc_enumerationMutation(v693);
+        }
+
+        v893 = *(*(&v1016 + 1) + 8 * v866);
+        v772 = [v893 bundleInterfaceType] == 2 || objc_msgSend(v893, "bundleInterfaceType") == 1;
+        bundleStartDate = [v893 bundleStartDate];
+        v36 = [bundleStartDate isAfterDate:v775];
+
+        if (v36)
+        {
+          bundleStartDate2 = [v893 bundleStartDate];
+
+          v775 = bundleStartDate2;
+        }
+
+        bundleStartDate3 = [v893 bundleStartDate];
+        v39 = [bundleStartDate3 isBeforeDate:v774];
+
+        if (v39)
+        {
+          bundleStartDate4 = [v893 bundleStartDate];
+
+          v774 = bundleStartDate4;
+        }
+
+        suggestionIdentifier2 = [v893 suggestionIdentifier];
+        uUIDString2 = [suggestionIdentifier2 UUIDString];
+        if ([v876 containsObject:uUIDString2])
+        {
+          v862 = 1;
+        }
+
+        else if ([v893 bundleInterfaceType] == 13)
+        {
+          v862 = 0;
+        }
+
+        else
+        {
+          subSuggestionIDs4 = [v893 subSuggestionIDs];
+          v44 = [NSMutableSet setWithArray:subSuggestionIDs4];
+          v862 = [v876 intersectsSet:v44];
+        }
+
+        suggestionIdentifier3 = [v893 suggestionIdentifier];
+        uUIDString3 = [suggestionIdentifier3 UUIDString];
+        if ([v875 containsObject:uUIDString3])
+        {
+          v859 = 1;
+        }
+
+        else if ([v893 bundleInterfaceType] == 13 || objc_msgSend(v893, "bundleSubType") == 202)
+        {
+          v859 = 0;
+        }
+
+        else
+        {
+          subSuggestionIDs5 = [v893 subSuggestionIDs];
+          v48 = [NSMutableSet setWithArray:subSuggestionIDs5];
+          v859 = [v875 intersectsSet:v48];
+        }
+
+        v49 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+        {
+          bundleIdentifier = [v893 bundleIdentifier];
+          suggestionIdentifier4 = [v893 suggestionIdentifier];
+          *v1042 = 138413058;
+          *&v1042[4] = bundleIdentifier;
+          *&v1042[12] = 2112;
+          *&v1042[14] = suggestionIdentifier4;
+          *&v1042[22] = 1024;
+          *v1043 = v859;
+          *&v1043[4] = 1024;
+          *&v1043[6] = v862;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "Engagement status: bundleID %@, suggestionID %@, isBundleOrSubBundlesSelectedOrQuickAdded %d, isBundleOrSubBundleDeleted %d", v1042, 0x22u);
+        }
+
+        suggestionIdentifier5 = [v893 suggestionIdentifier];
+        uUIDString4 = [suggestionIdentifier5 UUIDString];
+        if ([v869 containsObject:uUIDString4])
+        {
+          v773 = 1;
+        }
+
+        else if ([v893 bundleSuperType] == 10)
+        {
+          v773 = 0;
+        }
+
+        else
+        {
+          subSuggestionIDs6 = [v893 subSuggestionIDs];
+          v55 = [NSMutableSet setWithArray:subSuggestionIDs6];
+          v773 = [v869 intersectsSet:v55];
+        }
+
+        if (![v893 bundleInterfaceType])
+        {
+          v61 = 0;
+          v62 = 0;
+          v805 = 0;
+          v63 = 0;
+          v828 = 0;
+          v64 = 0.0;
+          v65 = -1.0;
+          v66 = -1.0;
+          v67 = 0.0;
+          v68 = 0.0;
+          v69 = 0.0;
+          HIDWORD(v70) = 0;
+          v852 = 0.0;
+          v847 = 0.0;
+          v877 = 0.0;
+          v884 = 0.0;
+          v71 = 0.0;
+          goto LABEL_170;
+        }
+
+        v855 = objc_opt_new();
+        if ([v893 bundleInterfaceType] != 11)
+        {
+          dynamicModelParameterDict = [v891 dynamicModelParameterDict];
+          v73 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+          v74 = [dynamicModelParameterDict objectForKeyedSubscript:v73];
+
+          if (v74)
+          {
+            dynamicModelParameterDict2 = [v891 dynamicModelParameterDict];
+            v75 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+            v76 = [dynamicModelParameterDict2 objectForKeyedSubscript:v75];
+
+            v855 = v76;
+          }
+
+          else
+          {
+            v77 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+            {
+              bundleInterfaceType = [v893 bundleInterfaceType];
+              *v1042 = 134217984;
+              *&v1042[4] = bundleInterfaceType;
+              _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "Dynamic model parameter is not set for bundleInterfaceType %lu. Setting it to zero", v1042, 0xCu);
+            }
+
+            dynamicModelParameterDict2 = v855;
+LABEL_70:
+            v855 = &off_10036E8E0;
+          }
+
+LABEL_71:
+
+          goto LABEL_72;
+        }
+
+        evergreenType = [v893 evergreenType];
+
+        if (!evergreenType)
+        {
+          dynamicModelParameterDict2 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(dynamicModelParameterDict2, OS_LOG_TYPE_DEBUG))
+          {
+            [MOEventBundleRanking _calculateRankingScore:v1015 withMinRecommendedBundleCountRequirement:?];
+          }
+
+          goto LABEL_71;
+        }
+
+        evergreenEngagementScoreParameterDict = [v891 evergreenEngagementScoreParameterDict];
+        evergreenType2 = [v893 evergreenType];
+        v59 = [evergreenEngagementScoreParameterDict objectForKeyedSubscript:evergreenType2];
+
+        v855 = v59;
+        if (!v59)
+        {
+          dynamicModelParameterDict2 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(dynamicModelParameterDict2, OS_LOG_TYPE_DEBUG))
+          {
+            [MOEventBundleRanking _calculateRankingScore:v893 withMinRecommendedBundleCountRequirement:?];
+          }
+
+          goto LABEL_70;
+        }
+
+LABEL_72:
+        [v855 floatValue];
+        v852 = v79;
+        if ([v893 bundleInterfaceType] == 12 && objc_msgSend(v893, "bundleSuperType") == 1)
+        {
+          staticModelParameterMatrix = [v891 staticModelParameterMatrix];
+          v871 = [staticModelParameterMatrix objectForKeyedSubscript:&off_10036BA28];
+        }
+
+        else
+        {
+          v81 = phoneSensedWalkingVariants;
+          v82 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+          LODWORD(v81) = [v81 containsObject:v82];
+
+          if (v81)
+          {
+            staticModelParameterMatrix2 = [v891 staticModelParameterMatrix];
+            v84 = [staticModelParameterMatrix2 objectForKeyedSubscript:&off_10036BA28];
+            v85 = [v84 mutableCopy];
+
+            v86 = *(v891 + 136);
+            v87 = [NSString stringWithFormat:@"%@_MotionActivityWalkingSubType_%@", @"rankingParams", @"bundleScoreConstant"];
+            LODWORD(v88) = -1138501878;
+            [v86 getFloatSettingForKey:v87 withFallback:v88];
+            v89 = [NSNumber numberWithFloat:?];
+            [v85 setObject:v89 forKeyedSubscript:@"bundleScoreConstant"];
+
+            staticModelParameterMatrix = v85;
+            v871 = staticModelParameterMatrix;
+          }
+
+          else if ([v893 bundleSubType] == 201 || objc_msgSend(v893, "bundleSubType") == 205)
+          {
+            staticModelParameterMatrix = [v891 staticModelParameterMatrix];
+            v871 = [staticModelParameterMatrix objectForKeyedSubscript:&off_10036BC50];
+          }
+
+          else
+          {
+            staticModelParameterMatrix = [v891 staticModelParameterMatrix];
+            v90 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+            v871 = [staticModelParameterMatrix objectForKeyedSubscript:v90];
+          }
+        }
+
+        if (!v871)
+        {
+          v91 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+          {
+            bundleInterfaceType2 = [v893 bundleInterfaceType];
+            *v1042 = 134218498;
+            *&v1042[4] = bundleInterfaceType2;
+            *&v1042[12] = 2080;
+            *&v1042[14] = "[MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:]";
+            *&v1042[22] = 1024;
+            *v1043 = 1487;
+            _os_log_error_impl(&_mh_execute_header, v91, OS_LOG_TYPE_ERROR, "Static model parameters are not set for bundleInterfaceType %lu (in %s:%d)", v1042, 0x1Cu);
+          }
+
+          v92 = +[NSAssertionHandler currentHandler];
+          [v92 handleFailureInMethod:v692 object:v891 file:@"MOEventBundleRanking.m" lineNumber:1487 description:{@"Static model parameters are not set for bundleInterfaceType %lu (in %s:%d)", objc_msgSend(v893, "bundleInterfaceType"), "-[MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:]", 1487}];
+        }
+
+        v1013 = 0u;
+        v1012 = 0u;
+        v1011 = 0u;
+        v1010 = 0u;
+        bundleRichnessDict = [v893 bundleRichnessDict];
+        allKeys = [bundleRichnessDict allKeys];
+
+        v94 = [allKeys countByEnumeratingWithState:&v1010 objects:v1046 count:16];
+        if (v94)
+        {
+          v885 = *v1011;
+          v71 = 0.0;
+          do
+          {
+            for (j = 0; j != v94; j = j + 1)
+            {
+              if (*v1011 != v885)
+              {
+                objc_enumerationMutation(allKeys);
+              }
+
+              v96 = *(*(&v1010 + 1) + 8 * j);
+              v97 = [*(v891 + 32) objectForKeyedSubscript:v96];
+              bundleRichnessDict2 = [v893 bundleRichnessDict];
+              v99 = [bundleRichnessDict2 objectForKeyedSubscript:v96];
+
+              v100 = [v99 objectForKeyedSubscript:@"RankingRichnessPrimaryPriorityScoreKey"];
+              [v100 floatValue];
+              v102 = v101;
+              v103 = [v97 objectForKeyedSubscript:@"RankingRichnessPrimaryPriorityScoreKey"];
+              [v103 floatValue];
+              v105 = v104;
+              v106 = [v99 objectForKeyedSubscript:@"RankingRichnessSecondaryPriorityScoreKey"];
+              [v106 floatValue];
+              v108 = v107;
+              v109 = [v97 objectForKeyedSubscript:@"RankingRichnessSecondaryPriorityScoreKey"];
+              [v109 floatValue];
+              v111 = v110;
+              v112 = [v99 objectForKeyedSubscript:@"RankingRichnessAuxiliaryPriorityScoreKey"];
+              [v112 floatValue];
+              v114 = v113;
+              v115 = [v97 objectForKeyedSubscript:@"RankingRichnessAuxiliaryPriorityScoreKey"];
+              [v115 floatValue];
+              v117 = v116;
+
+              v71 = v71 + (((v108 * v111) + (v102 * v105)) + (v114 * v117));
+            }
+
+            v94 = [allKeys countByEnumeratingWithState:&v1010 objects:v1046 count:16];
+          }
+
+          while (v94);
+        }
+
+        else
+        {
+          v71 = 0.0;
+        }
+
+        v118 = [v871 objectForKeyedSubscript:@"weightForLabelQualityScore"];
+        [v118 floatValue];
+        v749 = v119;
+        [v893 labelQualityScore];
+        v748 = v120;
+        v121 = [v871 objectForKeyedSubscript:@"weightForTimeCorrelationScore"];
+        [v121 floatValue];
+        v745 = v122;
+        [v893 timeCorrelationScoreFeature];
+        v744 = v123;
+
+        v124 = [v871 objectForKeyedSubscript:@"weightForNumAnamolyEventsNormalized"];
+        [v124 floatValue];
+        v741 = v125;
+        [v893 numAnomalyEventsNormalized];
+        v740 = v126;
+        v127 = [v871 objectForKeyedSubscript:@"weightForNumTrendEventsNormalized"];
+        [v127 floatValue];
+        v737 = v128;
+        [v893 numTrendEventsNormalized];
+        v736 = v129;
+        v130 = [v871 objectForKeyedSubscript:@"weightForNumRoutineEventsNormalized"];
+        [v130 floatValue];
+        v734 = v131;
+        [v893 numRoutineEventsNormalized];
+        v732 = v132;
+        v133 = [v871 objectForKeyedSubscript:@"weightForNumStateOfMindEventsNormalized"];
+        [v133 floatValue];
+        v731 = v134;
+        [v893 numStateOfMindEventsNormalized];
+        v729 = v135;
+
+        heuristicsParameterDict = [v891 heuristicsParameterDict];
+        v886 = [heuristicsParameterDict objectForKeyedSubscript:@"weightForInterestingPOI"];
+        [v886 floatValue];
+        v757 = v137;
+        [v893 interestingPOIFeature];
+        v756 = v138;
+        heuristicsParameterDict2 = [v891 heuristicsParameterDict];
+        v848 = [heuristicsParameterDict2 objectForKeyedSubscript:@"weightForSensitivePOI"];
+        [v848 floatValue];
+        v755 = v139;
+        isSensitiveLocation = [v893 isSensitiveLocation];
+        heuristicsParameterDict3 = [v891 heuristicsParameterDict];
+        v836 = [heuristicsParameterDict3 objectForKeyedSubscript:@"weightForDistanceFromHome"];
+        [v836 floatValue];
+        v753 = v140;
+        [v893 distanceToHomeFeatureNormalized];
+        v752 = v141;
+        heuristicsParameterDict4 = [v891 heuristicsParameterDict];
+        v829 = [heuristicsParameterDict4 objectForKeyedSubscript:@"weightForCallDuration"];
+        [v829 floatValue];
+        v751 = v142;
+        [v893 callDurationFeatureNormalized];
+        v750 = v143;
+        heuristicsParameterDict5 = [v891 heuristicsParameterDict];
+        v821 = [heuristicsParameterDict5 objectForKeyedSubscript:@"weightForBurstyInteractionCount"];
+        [v821 floatValue];
+        v747 = v144;
+        [v893 burstyInteractionCountFeatureNormalized];
+        v746 = v145;
+        heuristicsParameterDict6 = [v891 heuristicsParameterDict];
+        v815 = [heuristicsParameterDict6 objectForKeyedSubscript:@"weightForMultipleInteractionTypes"];
+        [v815 floatValue];
+        v743 = v146;
+        multipleInteractionTypesFeature = [v893 multipleInteractionTypesFeature];
+        heuristicsParameterDict7 = [v891 heuristicsParameterDict];
+        v809 = [heuristicsParameterDict7 objectForKeyedSubscript:@"weightForContactLocationWork"];
+        [v809 floatValue];
+        v739 = v147;
+        contactLocationWorkFeature = [v893 contactLocationWorkFeature];
+        heuristicsParameterDict8 = [v891 heuristicsParameterDict];
+        v802 = [heuristicsParameterDict8 objectForKeyedSubscript:@"weightForGroupConversation"];
+        [v802 floatValue];
+        v735 = v148;
+        groupConversationFeature = [v893 groupConversationFeature];
+        heuristicsParameterDict9 = [v891 heuristicsParameterDict];
+        v798 = [heuristicsParameterDict9 objectForKeyedSubscript:@"weightForPCountMax"];
+        [v798 floatValue];
+        v730 = v149;
+        [v893 peopleCountMaxNormalized];
+        v728 = v150;
+        heuristicsParameterDict10 = [v891 heuristicsParameterDict];
+        v794 = [heuristicsParameterDict10 objectForKeyedSubscript:@"weightForPCountWeightedSum"];
+        [v794 floatValue];
+        v727 = v151;
+        [v893 peopleCountWeightedSumNormalized];
+        v726 = v152;
+        heuristicsParameterDict11 = [v891 heuristicsParameterDict];
+        v790 = [heuristicsParameterDict11 objectForKeyedSubscript:@"weightForPCountWeightedAverage"];
+        [v790 floatValue];
+        v725 = v153;
+        [v893 peopleCountWeightedAverageNormalized];
+        v724 = v154;
+        heuristicsParameterDict12 = [v891 heuristicsParameterDict];
+        v786 = [heuristicsParameterDict12 objectForKeyedSubscript:@"weightForPDensityWeightedAverage"];
+        [v786 floatValue];
+        v723 = v155;
+        [v893 peopleDensityWeightedAverageNormalized];
+        v722 = v156;
+        heuristicsParameterDict13 = [v891 heuristicsParameterDict];
+        v782 = [heuristicsParameterDict13 objectForKeyedSubscript:@"weightForItemFromMe"];
+        [v782 floatValue];
+        v721 = v157;
+        itemFromMeFeature = [v893 itemFromMeFeature];
+        heuristicsParameterDict14 = [v891 heuristicsParameterDict];
+        v778 = [heuristicsParameterDict14 objectForKeyedSubscript:@"weightShareCountFeature"];
+        [v778 floatValue];
+        v719 = v158;
+        [v893 shareCountFeatureNormalized];
+        v718 = v159;
+        heuristicsParameterDict15 = [v891 heuristicsParameterDict];
+        v771 = [heuristicsParameterDict15 objectForKeyedSubscript:@"weightForTimeAtHomeDuration"];
+        [v771 floatValue];
+        v717 = v160;
+        [v893 timeAtHomeDuration];
+        v716 = v161;
+        heuristicsParameterDict16 = [v891 heuristicsParameterDict];
+        v769 = [heuristicsParameterDict16 objectForKeyedSubscript:@"weightForIsFamilyContact"];
+        [v769 floatValue];
+        v715 = v162;
+        [v893 isFamilyContact];
+        v714 = v163;
+        heuristicsParameterDict17 = [v891 heuristicsParameterDict];
+        v767 = [heuristicsParameterDict17 objectForKeyedSubscript:@"weightForIsCoworkerContact"];
+        [v767 floatValue];
+        v713 = v164;
+        [v893 isCoworkerContact];
+        v712 = v165;
+        heuristicsParameterDict18 = [v891 heuristicsParameterDict];
+        v765 = [heuristicsParameterDict18 objectForKeyedSubscript:@"weightForIsBusinessContact"];
+        [v765 floatValue];
+        v711 = v166;
+        isBusinessContact = [v893 isBusinessContact];
+        heuristicsParameterDict19 = [v891 heuristicsParameterDict];
+        v763 = [heuristicsParameterDict19 objectForKeyedSubscript:@"weightForMediaPlayTime"];
+        [v763 floatValue];
+        v709 = v167;
+        [v893 mediaScoreFeatureNormalized];
+        v708 = v168;
+        heuristicsParameterDict20 = [v891 heuristicsParameterDict];
+        v761 = [heuristicsParameterDict20 objectForKeyedSubscript:@"weightForFamiliarityIndex"];
+        [v761 floatValue];
+        v707 = v169;
+        [v893 familiarityIndexFeature];
+        v706 = v170;
+        heuristicsParameterDict21 = [v891 heuristicsParameterDict];
+        v759 = [heuristicsParameterDict21 objectForKeyedSubscript:@"weightForWorkoutDurationNormalized"];
+        [v759 floatValue];
+        v705 = v171;
+        [v893 workoutDurationFeatureNormalized];
+        v704 = v172;
+        heuristicsParameterDict22 = [v891 heuristicsParameterDict];
+        v173 = [heuristicsParameterDict22 objectForKeyedSubscript:@"weightStateOfMindLabelCountNormalized"];
+        [v173 floatValue];
+        v703 = v174;
+        [v893 stateOfMindLabelCountNormalized];
+        v702 = v175;
+        heuristicsParameterDict23 = [v891 heuristicsParameterDict];
+        v177 = [heuristicsParameterDict23 objectForKeyedSubscript:@"weightStateOfMindDomainCountNormalized"];
+        [v177 floatValue];
+        v701 = v178;
+        [v893 stateOfMindDomainCountNormalized];
+        v180 = v179;
+        heuristicsParameterDict24 = [v891 heuristicsParameterDict];
+        v182 = [heuristicsParameterDict24 objectForKeyedSubscript:@"weightHolidayInclusion"];
+        [v182 floatValue];
+        v184 = v183;
+        if ([v893 numHolidayAssets])
+        {
+          v185 = 1.0;
+        }
+
+        else
+        {
+          v185 = 0.0;
+        }
+
+        heuristicsParameterDict25 = [v891 heuristicsParameterDict];
+        v187 = [heuristicsParameterDict25 objectForKeyedSubscript:@"weightBirthdayInclusion"];
+        [v187 floatValue];
+        v189 = v188;
+        if ([v893 numBirthdayAssets])
+        {
+          v190 = 1.0;
+        }
+
+        else
+        {
+          v190 = 0.0;
+        }
+
+        heuristicsParameterDict26 = [v891 heuristicsParameterDict];
+        v192 = [heuristicsParameterDict26 objectForKeyedSubscript:@"weightInviteEventInclusion"];
+        [v192 floatValue];
+        v194 = v193;
+        if ([v893 numInviteEvents])
+        {
+          v195 = 1.0;
+        }
+
+        else
+        {
+          v195 = 0.0;
+        }
+
+        v196 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+        v197 = (((((((((((((((((((((((((v755 * isSensitiveLocation) + (v757 * v756)) + (v753 * v752)) + (v751 * v750)) + (v747 * v746)) + (v743 * multipleInteractionTypesFeature)) + (v739 * contactLocationWorkFeature)) + (v735 * groupConversationFeature)) + (v730 * v728)) + (v727 * v726)) + (v725 * v724)) + (v723 * v722)) + (v721 * itemFromMeFeature)) + (v719 * v718)) + (v717 * v716)) + (v715 * v714)) + (v713 * v712)) + (v711 * isBusinessContact)) + (v709 * v708)) + (v707 * v706)) + (v705 * v704)) + (v703 * v702)) + (v701 * v180)) + (v184 * v185)) + (v189 * v190)) + (v194 * v195);
+        if (os_log_type_enabled(v196, OS_LOG_TYPE_DEBUG))
+        {
+          *v1042 = 134217984;
+          *&v1042[4] = v197;
+          _os_log_debug_impl(&_mh_execute_header, v196, OS_LOG_TYPE_DEBUG, "heuristics score before person-relationship based bonus %.3f", v1042, 0xCu);
+        }
+
+        v849 = v197;
+
+        heuristicsParameterDict27 = [v891 heuristicsParameterDict];
+        v887 = [heuristicsParameterDict27 objectForKeyedSubscript:@"weightForNumFamilyNormalized"];
+        [v887 floatValue];
+        v841 = v199;
+        [v893 numFamilyNormalized];
+        v837 = v200;
+        heuristicsParameterDict28 = [v891 heuristicsParameterDict];
+        v201 = [heuristicsParameterDict28 objectForKeyedSubscript:@"weightForNumFidsNormalized"];
+        [v201 floatValue];
+        v833 = v202;
+        [v893 numKidsNormalized];
+        v830 = v203;
+        heuristicsParameterDict29 = [v891 heuristicsParameterDict];
+        v205 = [heuristicsParameterDict29 objectForKeyedSubscript:@"weightForNumFriendsNormalized"];
+        [v205 floatValue];
+        v825 = v206;
+        [v893 numFriendsNormalized];
+        v208 = v207;
+        heuristicsParameterDict30 = [v891 heuristicsParameterDict];
+        v210 = [heuristicsParameterDict30 objectForKeyedSubscript:@"weightForNumPetsNormalized"];
+        [v210 floatValue];
+        v212 = v211;
+        [v893 numPetsNormalized];
+        v214 = v213;
+        heuristicsParameterDict31 = [v891 heuristicsParameterDict];
+        v216 = [heuristicsParameterDict31 objectForKeyedSubscript:@"weightForNumCoworkersNormalized"];
+        [v216 floatValue];
+        v218 = v217;
+        [v893 numCoworkersNormalized];
+        v220 = v219;
+        heuristicsParameterDict32 = [v891 heuristicsParameterDict];
+        v222 = [heuristicsParameterDict32 objectForKeyedSubscript:@"weightForNumOtherPersonsNormalized"];
+        [v222 floatValue];
+        v224 = v223;
+        [v893 numOtherPersonsNormalized];
+        v226 = v225;
+
+        v227 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+        v877 = v849 + ((((((v833 * v830) + (v841 * v837)) + (v825 * v208)) + (v212 * v214)) + (v218 * v220)) + (v224 * v226));
+        if (os_log_type_enabled(v227, OS_LOG_TYPE_DEBUG))
+        {
+          *v1042 = 134217984;
+          *&v1042[4] = v877;
+          _os_log_debug_impl(&_mh_execute_header, v227, OS_LOG_TYPE_DEBUG, "heuristics score after person-relationship based bonus %.3f", v1042, 0xCu);
+        }
+
+        v847 = (v745 * v744) + (v749 * v748);
+        v884 = (((v737 * v736) + (v741 * v740)) + (v734 * v732)) + (v731 * v729);
+        if ([v893 bundleInterfaceType] == 11)
+        {
+          v67 = 1.0;
+          v64 = 0.0;
+          v69 = v852;
+          if (v852 <= 0.0)
+          {
+            evergreenType3 = [v893 evergreenType];
+            v229 = [v691 objectForKeyedSubscript:evergreenType3];
+            [v229 floatValue];
+            v69 = v230;
+          }
+
+          v68 = 0.0;
+          goto LABEL_128;
+        }
+
+        if ([v893 bundleInterfaceType] == 15)
+        {
+          [v893 avgSubBundleGoodnessScores];
+          v64 = v231;
+          v67 = 0.0;
+          v68 = 0.0;
+          v69 = v231;
+          goto LABEL_128;
+        }
+
+        if ([v893 bundleInterfaceType] == 10)
+        {
+          heuristicsParameterDict33 = [v891 heuristicsParameterDict];
+          v233 = [heuristicsParameterDict33 objectForKeyedSubscript:@"maxBundleGoodnessScorePhotoMemory"];
+          [v233 floatValue];
+          v235 = v234;
+          heuristicsParameterDict34 = [v891 heuristicsParameterDict];
+          v237 = [heuristicsParameterDict34 objectForKeyedSubscript:@"bundleGoodnessScoreIncrementPhotoMemory"];
+          [v237 floatValue];
+          v239 = v238;
+
+          v64 = v235 - (v239 * v690++);
+        }
+
+        else if ([v893 bundleSuperType] != 4 || (v64 = -0.49, objc_msgSend(v893, "bundleSubType") != 407) && objc_msgSend(v893, "bundleSubType") != 409 && objc_msgSend(v893, "bundleSubType") != 408 && objc_msgSend(v893, "bundleSubType") != 410)
+        {
+          v240 = [v871 objectForKeyedSubscript:@"richnessScoreScalingParameter"];
+          [v240 floatValue];
+          v242 = v241;
+          v243 = [v871 objectForKeyedSubscript:@"bundleScoreScalingParameter"];
+          [v243 floatValue];
+          v245 = v244;
+          v246 = [v871 objectForKeyedSubscript:@"bundleScoreConstant"];
+          [v246 floatValue];
+          v248 = v247;
+
+          v64 = ((v847 + (v877 + (v884 + (v71 * v242)))) / v245) + v248;
+        }
+
+        [v891 engagementScoreWeight];
+        v250 = v249;
+        [v891 engagementScoreWeight];
+        v252 = v251;
+        [v893 viewCount];
+        if (v253 <= 0.0)
+        {
+          v261 = [v871 objectForKeyedSubscript:@"decayRate"];
+          [v261 floatValue];
+          v68 = v262;
+
+          v256 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v256, OS_LOG_TYPE_DEBUG))
+          {
+            *v1042 = 134217984;
+            *&v1042[4] = v68;
+            v258 = v256;
+            v259 = "Suggestion's not viewed yet. Use default decayRate (rate=%.3f)";
+            v260 = 12;
+            goto LABEL_212;
+          }
+        }
+
+        else
+        {
+          v254 = [v871 objectForKeyedSubscript:@"decayRateAfterViewed"];
+          [v254 floatValue];
+          v68 = v255;
+
+          v256 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v256, OS_LOG_TYPE_DEBUG))
+          {
+            [v893 viewCount];
+            *v1042 = 134218240;
+            *&v1042[4] = v257;
+            *&v1042[12] = 2048;
+            *&v1042[14] = v68;
+            v258 = v256;
+            v259 = "Suggestion was already viewed (viewCount=%lu). Use DecayRateAfterViewed (rate=%.3f)";
+            v260 = 22;
+LABEL_212:
+            _os_log_debug_impl(&_mh_execute_header, v258, OS_LOG_TYPE_DEBUG, v259, v1042, v260);
+          }
+        }
+
+        v263 = [v893 bundleInterfaceType] == 10;
+        [v893 bundleRecencyDaysElapsed];
+        v69 = (v852 * v252) + ((1.0 - v250) * v64);
+        if (v263)
+        {
+          v264 = floorf(v264);
+        }
+
+        v67 = expf(v264 * -v68);
+LABEL_128:
+        if ([v893 bundleInterfaceType] == 10 || objc_msgSend(v893, "bundleInterfaceType") == 11)
+        {
+          if ([v893 bundleInterfaceType] == 11 && (objc_msgSend(v893, "evergreenPromptExists") & 1) == 0)
+          {
+            v269 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v269, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier2 = [v893 bundleIdentifier];
+              suggestionIdentifier6 = [v893 suggestionIdentifier];
+              *v1042 = 138412546;
+              *&v1042[4] = bundleIdentifier2;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier6;
+              _os_log_impl(&_mh_execute_header, v269, OS_LOG_TYPE_INFO, "Evergreen suggestion got rejected because prompt doesn't exist: bundleID %@, suggestionID %@", v1042, 0x16u);
+            }
+
+            v63 = 4;
+            v265 = 3;
+          }
+
+          else
+          {
+            v63 = 2;
+            v265 = 1;
+          }
+
+          v828 = v265;
+          v62 = 0;
+          v65 = -1.0;
+          if ([v893 bundleInterfaceType] == 10 && ((v859 | v862) & 1) != 0)
+          {
+            v266 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            v66 = -1.0;
+            if (os_log_type_enabled(v266, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier3 = [v893 bundleIdentifier];
+              suggestionIdentifier7 = [v893 suggestionIdentifier];
+              *v1042 = 138413058;
+              *&v1042[4] = bundleIdentifier3;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier7;
+              *&v1042[22] = 1024;
+              *v1043 = v859;
+              *&v1043[4] = 1024;
+              *&v1043[6] = v862;
+              _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_INFO, "Photo Memory suggestion got rejected due to engagement signal: bundleID %@, suggestionID %@, isBundleOrSubBundlesSelectedOrQuickAdded %d, isBundleOrSubBundleDeleted %d", v1042, 0x22u);
+            }
+
+            v805 = 0;
+            v62 = 0;
+            v61 = 0;
+            goto LABEL_152;
+          }
+
+          v805 = 0;
+          v66 = -1.0;
+          goto LABEL_145;
+        }
+
+        if ([v893 bundleSubType] == 406)
+        {
+          v266 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          v66 = -1.0;
+          if (os_log_type_enabled(v266, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier4 = [v893 bundleIdentifier];
+            suggestionIdentifier8 = [v893 suggestionIdentifier];
+            *v1042 = 138412546;
+            *&v1042[4] = bundleIdentifier4;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier8;
+            _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_INFO, "Internal media bundle got rejected: bundleID %@, suggestionID %@", v1042, 0x16u);
+          }
+
+LABEL_151:
+          v805 = 0;
+          v62 = 0;
+          v61 = 0;
+          v65 = -1.0;
+          goto LABEL_152;
+        }
+
+        if ([v893 bundleInterfaceType] == 15)
+        {
+          v266 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          v66 = -1.0;
+          if (os_log_type_enabled(v266, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier5 = [v893 bundleIdentifier];
+            suggestionIdentifier9 = [v893 suggestionIdentifier];
+            *v1042 = 138412546;
+            *&v1042[4] = bundleIdentifier5;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier9;
+            _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_INFO, "Clustering bundle got rejected: bundleID %@, suggestionID %@", v1042, 0x16u);
+          }
+
+          goto LABEL_151;
+        }
+
+        if ([v893 bundleInterfaceType] == 16)
+        {
+          rankingScoreThresholdDict = [v891 rankingScoreThresholdDict];
+          v316 = [rankingScoreThresholdDict objectForKeyedSubscript:@"suggestionRecommendThresholdForThematicSummary"];
+          [v316 floatValue];
+          v65 = v317;
+
+          [v893 maxSubBundleGoodnessScores];
+          if (v318 <= v65 && [v893 subBundleCount] < 3)
+          {
+            v319 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v319, OS_LOG_TYPE_DEBUG))
+            {
+              suggestionIdentifier10 = [v893 suggestionIdentifier];
+              [v893 maxSubBundleGoodnessScores];
+              v495 = v494;
+              subBundleCount = [v893 subBundleCount];
+              *v1042 = 138413058;
+              *&v1042[4] = suggestionIdentifier10;
+              *&v1042[12] = 2048;
+              *&v1042[14] = v495;
+              *&v1042[22] = 2048;
+              *v1043 = subBundleCount;
+              *&v1043[8] = 2048;
+              *&v1043[10] = v65;
+              _os_log_debug_impl(&_mh_execute_header, v319, OS_LOG_TYPE_DEBUG, "Rejected thematic summary due to low maxSubBundleGoodnessScores or subBundleCount: suggestionID %@, maxSubBundleGoodnessScores=%.3f,subBundleCount=%lu, recommendThre=%.3f ", v1042, 0x2Au);
+            }
+
+            v63 = 4;
+            v320 = 3;
+          }
+
+          else
+          {
+            v319 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v319, OS_LOG_TYPE_DEBUG))
+            {
+              suggestionIdentifier11 = [v893 suggestionIdentifier];
+              [v893 maxSubBundleGoodnessScores];
+              v485 = v484;
+              subBundleCount2 = [v893 subBundleCount];
+              *v1042 = 138413058;
+              *&v1042[4] = suggestionIdentifier11;
+              *&v1042[12] = 2048;
+              *&v1042[14] = v485;
+              *&v1042[22] = 2048;
+              *v1043 = subBundleCount2;
+              *&v1043[8] = 2048;
+              *&v1043[10] = v65;
+              _os_log_debug_impl(&_mh_execute_header, v319, OS_LOG_TYPE_DEBUG, "Setting thematic summary visibility status to Recommended only: suggestionID %@, maxSubBundleGoodnessScores=%.3f,subBundleCount=%lu, recommendThre=%.3f ", v1042, 0x2Au);
+            }
+
+            v63 = 2;
+            v320 = 1;
+          }
+
+          v828 = v320;
+
+          if ((v859 | v862))
+          {
+            v266 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v266, OS_LOG_TYPE_INFO))
+            {
+              suggestionIdentifier12 = [v893 suggestionIdentifier];
+              *v1042 = 138412802;
+              *&v1042[4] = suggestionIdentifier12;
+              *&v1042[12] = 1024;
+              *&v1042[14] = v859;
+              *&v1042[18] = 1024;
+              *&v1042[20] = v862;
+              _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_INFO, "Thematic summary got rejected due to engagement signal: suggestionID %@, isBundleOrSubBundlesSelectedOrQuickAdded %d, isBundleOrSubBundleDeleted %d", v1042, 0x18u);
+            }
+
+            v805 = 0;
+            v62 = 0;
+            v61 = 0;
+            v66 = v65;
+            goto LABEL_152;
+          }
+
+          v62 = 0;
+          v805 = 0;
+          v66 = v65;
+          goto LABEL_145;
+        }
+
+        v321 = visitSubtypeVariants;
+        v322 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+        LODWORD(v321) = [v321 containsObject:v322];
+
+        if (v321)
+        {
+          rankingScoreThresholdDict2 = [v891 rankingScoreThresholdDict];
+          v324 = [rankingScoreThresholdDict2 objectForKeyedSubscript:@"suggestionAcceptThresholdForVisitSubTypeVariants"];
+          [v324 floatValue];
+          v66 = v325;
+
+          rankingScoreThresholdDict3 = [v891 rankingScoreThresholdDict];
+          v327 = [rankingScoreThresholdDict3 objectForKeyedSubscript:@"suggestionRecommendThresholdForVisitSubTypeVariants"];
+          [v327 floatValue];
+          v843 = v328;
+
+          rankingScoreThresholdDict4 = [v891 rankingScoreThresholdDict];
+          v330 = [rankingScoreThresholdDict4 objectForKeyedSubscript:@"summarizationThresholdForVisitSubTypeVariants"];
+          [v330 floatValue];
+          v332 = v331;
+
+          rankingScoreThresholdDict5 = [v891 rankingScoreThresholdDict];
+          v334 = [rankingScoreThresholdDict5 objectForKeyedSubscript:@"tripSummarizationThresholdForVisitSubType"];
+          [v334 floatValue];
+          v336 = v335;
+
+          v805 = v64 > v332;
+          v62 = v64 > v336;
+          if (([v893 isShortVisit] & 1) != 0 || objc_msgSend(v893, "isWorkVisit"))
+          {
+            [v893 numPhotoAssetsResourcesNormalized];
+            if (v337 == 0.0)
+            {
+              v62 = 0;
+              v805 = 0;
+            }
+          }
+
+          if ([v893 numInviteEvents] || objc_msgSend(v893, "numHolidayAssets") || objc_msgSend(v893, "numBirthdayAssets"))
+          {
+            goto LABEL_219;
+          }
+
+          goto LABEL_201;
+        }
+
+        v843 = -1.0;
+        if ([v893 bundleSubType] == 105)
+        {
+          v805 = 0;
+          v62 = 1;
+LABEL_196:
+          v66 = -1.0;
+          goto LABEL_221;
+        }
+
+        if ([v893 bundleSubType] == 201)
+        {
+          rankingScoreThresholdDict6 = [v891 rankingScoreThresholdDict];
+          v340 = [rankingScoreThresholdDict6 objectForKeyedSubscript:@"suggestionAcceptThresholdForWorkoutSubtype"];
+          [v340 floatValue];
+          v66 = v341;
+
+          rankingScoreThresholdDict7 = [v891 rankingScoreThresholdDict];
+          v343 = [rankingScoreThresholdDict7 objectForKeyedSubscript:@"suggestionRecommendThresholdForWorkoutSubtype"];
+          [v343 floatValue];
+          v843 = v344;
+
+          rankingScoreThresholdDict8 = [v891 rankingScoreThresholdDict];
+          v346 = [rankingScoreThresholdDict8 objectForKeyedSubscript:@"summarizationThresholdForWorkoutSubType"];
+          [v346 floatValue];
+          v348 = v347;
+
+          rankingScoreThresholdDict9 = [v891 rankingScoreThresholdDict];
+          v350 = [rankingScoreThresholdDict9 objectForKeyedSubscript:@"tripSummarizationThresholdForWorkoutSubType"];
+          [v350 floatValue];
+          v352 = v351;
+
+          v805 = v64 > v348;
+          v62 = v64 > v352;
+          if ([v893 numInviteEvents] || objc_msgSend(v893, "numHolidayAssets") || objc_msgSend(v893, "numBirthdayAssets"))
+          {
+            goto LABEL_219;
+          }
+
+LABEL_201:
+          if ([v893 isSensitiveLocation])
+          {
+            goto LABEL_219;
+          }
+
+          goto LABEL_221;
+        }
+
+        v354 = phoneSensedWalkingVariants;
+        v355 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+        LODWORD(v354) = [v354 containsObject:v355];
+
+        if (!v354)
+        {
+          if ([v893 bundleSubType] == 202)
+          {
+            bundleStartDate5 = [v893 bundleStartDate];
+
+            bundleEndDate = [v893 bundleEndDate];
+
+            rankingScoreThresholdDict10 = [v891 rankingScoreThresholdDict];
+            v474 = [rankingScoreThresholdDict10 objectForKeyedSubscript:@"suggestionAcceptThresholdForWorkoutWeeklySummarySubType"];
+            [v474 floatValue];
+            v66 = v475;
+
+            rankingScoreThresholdDict11 = [v891 rankingScoreThresholdDict];
+            v477 = [rankingScoreThresholdDict11 objectForKeyedSubscript:@"suggestionRecommendThresholdForWorkoutWeeklySummarySubType"];
+            [v477 floatValue];
+            v843 = v478;
+
+            v62 = 0;
+            v805 = 0;
+            v682 = bundleEndDate;
+            v683 = bundleStartDate5;
+            goto LABEL_221;
+          }
+
+          if ([v893 bundleSubType] == 301 || objc_msgSend(v893, "bundleSubType") == 303)
+          {
+            rankingScoreThresholdDict12 = [v891 rankingScoreThresholdDict];
+            v488 = [rankingScoreThresholdDict12 objectForKeyedSubscript:@"suggestionAcceptThresholdForContactSubType"];
+            [v488 floatValue];
+            v66 = v489;
+
+            rankingScoreThresholdDict13 = [v891 rankingScoreThresholdDict];
+            v491 = [rankingScoreThresholdDict13 objectForKeyedSubscript:@"suggestionRecommendThresholdForContactSubType"];
+            [v491 floatValue];
+            v843 = v492;
+          }
+
+          else if ([v893 bundleSubType] == 302)
+          {
+            rankingScoreThresholdDict14 = [v891 rankingScoreThresholdDict];
+            v498 = [rankingScoreThresholdDict14 objectForKeyedSubscript:@"suggestionAcceptThresholdForContactWeeklySummarySubType"];
+            [v498 floatValue];
+            v66 = v499;
+
+            rankingScoreThresholdDict15 = [v891 rankingScoreThresholdDict];
+            v501 = [rankingScoreThresholdDict15 objectForKeyedSubscript:@"suggestionRecommendThresholdForContactWeeklySummarySubType"];
+            [v501 floatValue];
+            v843 = v502;
+          }
+
+          else
+          {
+            v503 = dailyMediaSubtypeVariants;
+            v504 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+            LODWORD(v503) = [v503 containsObject:v504];
+
+            if (v503)
+            {
+              rankingScoreThresholdDict16 = [v891 rankingScoreThresholdDict];
+              v506 = [rankingScoreThresholdDict16 objectForKeyedSubscript:@"suggestionAcceptThresholdForDailyMediaVariants"];
+              [v506 floatValue];
+              v66 = v507;
+
+              rankingScoreThresholdDict17 = [v891 rankingScoreThresholdDict];
+              v509 = [rankingScoreThresholdDict17 objectForKeyedSubscript:@"suggestionRecommendThresholdForDailyMediaVariants"];
+              [v509 floatValue];
+              v843 = v510;
+            }
+
+            else
+            {
+              v511 = MediaWeeklySummarySubtypeVariants;
+              v512 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+              LODWORD(v511) = [v511 containsObject:v512];
+
+              if (v511)
+              {
+                rankingScoreThresholdDict18 = [v891 rankingScoreThresholdDict];
+                v514 = [rankingScoreThresholdDict18 objectForKeyedSubscript:@"suggestionAcceptThresholdForWeeklyMediaSummaryVariants"];
+                [v514 floatValue];
+                v66 = v515;
+
+                rankingScoreThresholdDict19 = [v891 rankingScoreThresholdDict];
+                v517 = [rankingScoreThresholdDict19 objectForKeyedSubscript:@"suggestionRecommendThresholdForWeeklyMediaSummaryVariants"];
+                [v517 floatValue];
+                v843 = v518;
+              }
+
+              else
+              {
+                v519 = timeAtHomeSubtypeVariants;
+                v520 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+                LODWORD(v519) = [v519 containsObject:v520];
+
+                if (!v519)
+                {
+                  v62 = 0;
+                  v805 = 0;
+                  goto LABEL_196;
+                }
+
+                rankingScoreThresholdDict20 = [v891 rankingScoreThresholdDict];
+                v522 = [rankingScoreThresholdDict20 objectForKeyedSubscript:@"suggestionAcceptThresholdForTimeAtHomeSubTypeVariants"];
+                [v522 floatValue];
+                v66 = v523;
+
+                rankingScoreThresholdDict21 = [v891 rankingScoreThresholdDict];
+                v525 = [rankingScoreThresholdDict21 objectForKeyedSubscript:@"suggestionRecommendThresholdForTimeAtHomeSubTypeVariants"];
+                [v525 floatValue];
+                v843 = v526;
+              }
+            }
+          }
+
+          v62 = 0;
+          goto LABEL_220;
+        }
+
+        rankingScoreThresholdDict22 = [v891 rankingScoreThresholdDict];
+        v357 = [rankingScoreThresholdDict22 objectForKeyedSubscript:@"suggestionAcceptThresholdForMotionActivityWalkingSubtype"];
+        [v357 floatValue];
+        v66 = v358;
+
+        rankingScoreThresholdDict23 = [v891 rankingScoreThresholdDict];
+        v360 = [rankingScoreThresholdDict23 objectForKeyedSubscript:@"suggestionRecommendThresholdForMotionActivityWalkingSubtype"];
+        [v360 floatValue];
+        v843 = v361;
+
+        rankingScoreThresholdDict24 = [v891 rankingScoreThresholdDict];
+        v363 = [rankingScoreThresholdDict24 objectForKeyedSubscript:@"summarizationThresholdForMotionActivityWalkingSubType"];
+        [v363 floatValue];
+        v805 = v64 > v364;
+
+        if ([v893 numInviteEvents] || objc_msgSend(v893, "numHolidayAssets") || objc_msgSend(v893, "numBirthdayAssets") || objc_msgSend(v893, "isSensitiveLocation"))
+        {
+          v62 = 0;
+LABEL_219:
+          v772 = 0;
+LABEL_220:
+          v805 = 0;
+          goto LABEL_221;
+        }
+
+        v62 = 0;
+LABEL_221:
+        if ((v66 + (v689 * (v843 - v66))) >= v66)
+        {
+          v65 = v66 + (v689 * (v843 - v66));
+        }
+
+        else
+        {
+          v65 = v66;
+        }
+
+        v365 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+        if (os_log_type_enabled(v365, OS_LOG_TYPE_DEBUG))
+        {
+          bundleSubType = [v893 bundleSubType];
+          *v1042 = 134218752;
+          *&v1042[4] = bundleSubType;
+          *&v1042[12] = 2048;
+          *&v1042[14] = v66;
+          *&v1042[22] = 2048;
+          *v1043 = v65;
+          *&v1043[8] = 2048;
+          *&v1043[10] = v689;
+          _os_log_debug_impl(&_mh_execute_header, v365, OS_LOG_TYPE_DEBUG, "Current bundle subtype, %lu, acceptThreshold,%.3f, recommendThreshold, %.3f, recommendThresholdMultiplier, %.3f", v1042, 0x2Au);
+        }
+
+        if (v64 <= v65)
+        {
+          v372 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          v373 = os_log_type_enabled(v372, OS_LOG_TYPE_INFO);
+          if (v64 <= v66)
+          {
+            if (v373)
+            {
+              bundleIdentifier6 = [v893 bundleIdentifier];
+              suggestionIdentifier13 = [v893 suggestionIdentifier];
+              *v1042 = 138413314;
+              *&v1042[4] = bundleIdentifier6;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier13;
+              *&v1042[22] = 2048;
+              *v1043 = v64;
+              *&v1043[8] = 2048;
+              *&v1043[10] = v65;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v66;
+              _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_INFO, "Suggestion was rejected to goodness score: bundleID %@, suggestionID %@ goodnessScore %.3f suggestionRecommendThreshold %.3f suggestionAcceptThreshold %.3f", v1042, 0x34u);
+            }
+          }
+
+          else
+          {
+            if (v373)
+            {
+              bundleIdentifier7 = [v893 bundleIdentifier];
+              suggestionIdentifier14 = [v893 suggestionIdentifier];
+              *v1042 = 138413314;
+              *&v1042[4] = bundleIdentifier7;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier14;
+              *&v1042[22] = 2048;
+              *v1043 = v64;
+              *&v1043[8] = 2048;
+              *&v1043[10] = v65;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v66;
+              _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_INFO, "Suggestion was set to present only in Recent tab due to goodness score: bundleID %@, suggestionID %@ goodnessScore %.3f suggestionRecommendThreshold %.3f suggestionAcceptThreshold %.3f", v1042, 0x34u);
+            }
+
+            if ((([v893 isBundleAggregated] & 1) != 0 || objc_msgSend(v893, "summarizationGranularity") != 2) && objc_msgSend(v893, "bundleSubType") != 203 && objc_msgSend(v893, "bundleSubType") != 303)
+            {
+              v63 = 3;
+              v828 = 2;
+              goto LABEL_286;
+            }
+
+            v372 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v372, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier8 = [v893 bundleIdentifier];
+              suggestionIdentifier15 = [v893 suggestionIdentifier];
+              bundleSubType2 = [v893 bundleSubType];
+              *v1042 = 138413570;
+              *&v1042[4] = bundleIdentifier8;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier15;
+              *&v1042[22] = 2048;
+              *v1043 = v64;
+              *&v1043[8] = 2048;
+              *&v1043[10] = v65;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v66;
+              *&v1043[28] = 2048;
+              *&v1043[30] = bundleSubType2;
+              _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_INFO, "Suggestion was rejected due to goodness score: bundleID %@, suggestionID %@ goodnessScore %.3f suggestionRecommendThreshold %.3f suggestionAcceptThreshold %.3f subtype %lu", v1042, 0x3Eu);
+            }
+          }
+
+          v63 = 4;
+          v828 = 3;
+          workoutTypes2 = v688;
+          goto LABEL_284;
+        }
+
+        if (([v893 isBundleAggregated] & 1) == 0 && objc_msgSend(v893, "summarizationGranularity") == 2 || objc_msgSend(v893, "bundleSubType") == 303)
+        {
+          if ([v893 bundleSubType] == 202)
+          {
+            workoutTypes = [v893 workoutTypes];
+
+            v686 = 1;
+            v684 = workoutTypes;
+          }
+
+          if (v698 < v697)
+          {
+            v367 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v367, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier9 = [v893 bundleIdentifier];
+              suggestionIdentifier16 = [v893 suggestionIdentifier];
+              bundleSubType3 = [v893 bundleSubType];
+              *v1042 = 138412802;
+              *&v1042[4] = bundleIdentifier9;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier16;
+              *&v1042[22] = 2048;
+              *v1043 = bundleSubType3;
+              _os_log_impl(&_mh_execute_header, v367, OS_LOG_TYPE_INFO, "Coarse summary suggestion got rejected due to suppressCoarseSummary==True: bundleID %@, suggestionID %@ bundleSubType %lu", v1042, 0x20u);
+            }
+
+            v686 = ([v893 bundleSubType] != 202) & v686;
+            v63 = 4;
+            v371 = 3;
+            goto LABEL_251;
+          }
+
+          v63 = 2;
+        }
+
+        else
+        {
+          v63 = 1;
+        }
+
+        v371 = 1;
+LABEL_251:
+        v828 = v371;
+        if ([v893 bundleSubType] == 203)
+        {
+          workoutTypes2 = [v893 workoutTypes];
+
+          [v893 bundleRecencyDaysElapsed];
+          v383 = v382;
+          v384 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForWorkoutRoutine"];
+          [v384 floatValue];
+          v386 = v383 > v385;
+
+          if (v386)
+          {
+            v387 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v387, OS_LOG_TYPE_INFO))
+            {
+              v388 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForWorkoutRoutine"];
+              [v388 floatValue];
+              v390 = v389;
+              bundleIdentifier10 = [v893 bundleIdentifier];
+              suggestionIdentifier17 = [v893 suggestionIdentifier];
+              bundleSubType4 = [v893 bundleSubType];
+              [v893 bundleRecencyDaysElapsed];
+              *v1042 = 134219010;
+              *&v1042[4] = v390;
+              *&v1042[12] = 2112;
+              *&v1042[14] = bundleIdentifier10;
+              *&v1042[22] = 2112;
+              *v1043 = suggestionIdentifier17;
+              *&v1043[8] = 2048;
+              *&v1043[10] = bundleSubType4;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v394;
+              _os_log_impl(&_mh_execute_header, v387, OS_LOG_TYPE_INFO, "Workout routine suggestion was rejected because elapsed time >%.2f days: bundleID %@, suggestionID %@, bundleSubType %lu, elapsedTime %.2f", v1042, 0x34u);
+            }
+
+            v685 = 0;
+            v63 = 4;
+            v828 = 3;
+          }
+
+          else
+          {
+            v828 = 1;
+            v63 = 2;
+            v685 = 1;
+          }
+        }
+
+        else
+        {
+          workoutTypes2 = v688;
+        }
+
+        if ([v893 bundleSuperType] == 3 && objc_msgSend(v893, "bundleSubType") != 303)
+        {
+          [v893 bundleRecencyDaysElapsed];
+          v396 = v395;
+          v397 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForContact"];
+          [v397 floatValue];
+          v399 = v396 > v398;
+
+          if (v399)
+          {
+            v400 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v400, OS_LOG_TYPE_INFO))
+            {
+              v401 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForContact"];
+              [v401 floatValue];
+              v403 = v402;
+              bundleIdentifier11 = [v893 bundleIdentifier];
+              suggestionIdentifier18 = [v893 suggestionIdentifier];
+              bundleSubType5 = [v893 bundleSubType];
+              [v893 bundleRecencyDaysElapsed];
+              *v1042 = 134219010;
+              *&v1042[4] = v403;
+              *&v1042[12] = 2112;
+              *&v1042[14] = bundleIdentifier11;
+              *&v1042[22] = 2112;
+              *v1043 = suggestionIdentifier18;
+              *&v1043[8] = 2048;
+              *&v1043[10] = bundleSubType5;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v407;
+              _os_log_impl(&_mh_execute_header, v400, OS_LOG_TYPE_INFO, "Suggestion was dismissed from Recommended tab because elapsed time >%.2f days: bundleID %@, suggestionID %@, bundleSubType %lu, elapsedTime %.2f", v1042, 0x34u);
+            }
+
+            v63 = 3;
+            v828 = 2;
+          }
+        }
+
+        if ([v893 bundleSuperType] == 8)
+        {
+          [v893 bundleRecencyDaysElapsed];
+          v409 = v408;
+          v410 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForStateOfMind"];
+          [v410 floatValue];
+          v412 = v409 > v411;
+
+          v413 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          v414 = os_log_type_enabled(v413, OS_LOG_TYPE_INFO);
+          if (v412)
+          {
+            if (v414)
+            {
+              v415 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForContact"];
+              [v415 floatValue];
+              v417 = v416;
+              bundleIdentifier12 = [v893 bundleIdentifier];
+              suggestionIdentifier19 = [v893 suggestionIdentifier];
+              bundleSuperType = [v893 bundleSuperType];
+              [v893 bundleRecencyDaysElapsed];
+              *v1042 = 134219010;
+              *&v1042[4] = v417;
+              *&v1042[12] = 2112;
+              *&v1042[14] = bundleIdentifier12;
+              *&v1042[22] = 2112;
+              *v1043 = suggestionIdentifier19;
+              *&v1043[8] = 2048;
+              *&v1043[10] = bundleSuperType;
+              *&v1043[18] = 2048;
+              *&v1043[20] = v421;
+              _os_log_impl(&_mh_execute_header, v413, OS_LOG_TYPE_INFO, "Suggestion was dismissed from Recommended tab because elapsed time >%.2f days: bundleID %@, suggestionID %@,bundleSubType %lu, elapsedTime %.2f, ", v1042, 0x34u);
+            }
+
+            v63 = 3;
+            v828 = 2;
+          }
+
+          else if (v414)
+          {
+            v422 = [*(v891 + 128) objectForKeyedSubscript:@"maxDaysInRecommendedTabForContact"];
+            [v422 floatValue];
+            v844 = v423;
+            bundleIdentifier13 = [v893 bundleIdentifier];
+            suggestionIdentifier20 = [v893 suggestionIdentifier];
+            [v893 bundleRecencyDaysElapsed];
+            v427 = v426;
+            bundleSuperType2 = [v893 bundleSuperType];
+            *v1042 = 134219266;
+            *&v1042[4] = v844;
+            *&v1042[12] = 2112;
+            *&v1042[14] = bundleIdentifier13;
+            *&v1042[22] = 2112;
+            *v1043 = suggestionIdentifier20;
+            *&v1043[8] = 2048;
+            *&v1043[10] = v427;
+            *&v1043[18] = 1024;
+            *&v1043[20] = v859;
+            *&v1043[24] = 2048;
+            *&v1043[26] = bundleSuperType2;
+            _os_log_impl(&_mh_execute_header, v413, OS_LOG_TYPE_INFO, "Suggestion was not dismissed from Recommended tab since elapsed time >%.2f days: bundleID %@, suggestionID %@ elapsedTime %.2f isBundleOrSubBundlesSelectedOrQuickAdded %d, bundleSuperType %lu,", v1042, 0x3Au);
+          }
+        }
+
+        if ((([v893 isBundleAggregated] & 1) != 0 || objc_msgSend(v893, "summarizationGranularity") != 1 || objc_msgSend(v893, "bundleSuperType") == 3) && objc_msgSend(v893, "bundleSubType") != 102)
+        {
+          goto LABEL_285;
+        }
+
+        v372 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+        v429 = os_log_type_enabled(v372, OS_LOG_TYPE_INFO);
+        if (v698 >= v697)
+        {
+          if (v429)
+          {
+            bundleIdentifier14 = [v893 bundleIdentifier];
+            suggestionIdentifier21 = [v893 suggestionIdentifier];
+            *v1042 = 138412546;
+            *&v1042[4] = bundleIdentifier14;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier21;
+            _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_INFO, "Fine granularity summary suggestion was set to present only in Recent tab: bundleID %@, suggestionID %@", v1042, 0x16u);
+          }
+
+          v63 = 3;
+          v432 = 2;
+        }
+
+        else
+        {
+          if (v429)
+          {
+            bundleIdentifier15 = [v893 bundleIdentifier];
+            suggestionIdentifier22 = [v893 suggestionIdentifier];
+            *v1042 = 138412546;
+            *&v1042[4] = bundleIdentifier15;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier22;
+            _os_log_impl(&_mh_execute_header, v372, OS_LOG_TYPE_INFO, "Fine granularity summary suggestion was set to present on Recommended tab to enrich Recommended tab: bundleID %@, suggestionID %@", v1042, 0x16u);
+          }
+
+          v63 = 1;
+          v432 = 1;
+        }
+
+        v828 = v432;
+LABEL_284:
+
+LABEL_285:
+        v688 = workoutTypes2;
+LABEL_286:
+        if ([v893 isBundleAggregated] && (!objc_msgSend(v893, "summarizationGranularity") || objc_msgSend(v893, "summarizationGranularity") == 1 || objc_msgSend(v893, "summarizationGranularity") == 2))
+        {
+          v435 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v435, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier16 = [v893 bundleIdentifier];
+            suggestionIdentifier23 = [v893 suggestionIdentifier];
+            summarizationGranularity = [v893 summarizationGranularity];
+            *v1042 = 138412802;
+            *&v1042[4] = bundleIdentifier16;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier23;
+            *&v1042[22] = 2048;
+            *v1043 = summarizationGranularity;
+            _os_log_impl(&_mh_execute_header, v435, OS_LOG_TYPE_INFO, "Suggestion was rejected due to isBundleAggregated label: bundleID %@, suggestionID %@ summarizationGranularity %lu", v1042, 0x20u);
+          }
+
+          v63 = 4;
+          v828 = 3;
+        }
+
+        if (v862)
+        {
+          v439 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v439, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier17 = [v893 bundleIdentifier];
+            suggestionIdentifier24 = [v893 suggestionIdentifier];
+            bundleSubType6 = [v893 bundleSubType];
+            *v1042 = 138412802;
+            *&v1042[4] = bundleIdentifier17;
+            *&v1042[12] = 2112;
+            *&v1042[14] = suggestionIdentifier24;
+            *&v1042[22] = 2048;
+            *v1043 = bundleSubType6;
+            _os_log_impl(&_mh_execute_header, v439, OS_LOG_TYPE_INFO, "Suggestion was rejected due to isBundleOrSubBundleDeleted: bundleID %@, suggestionID %@ bundleSubType %lu", v1042, 0x20u);
+          }
+
+          if ([v893 bundleSubType] != 203)
+          {
+            bundleSubType7 = [v893 bundleSubType];
+LABEL_305:
+            v686 = (bundleSubType7 != 202) & v686;
+            goto LABEL_314;
+          }
+
+          v685 = 0;
+        }
+
+        else
+        {
+          if (((v63 != 4) & v859) != 1)
+          {
+            goto LABEL_316;
+          }
+
+          if (([v893 isBundleAggregated] & 1) == 0 && objc_msgSend(v893, "summarizationGranularity") == 2)
+          {
+            v443 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v443, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier18 = [v893 bundleIdentifier];
+              suggestionIdentifier25 = [v893 suggestionIdentifier];
+              bundleSubType8 = [v893 bundleSubType];
+              *v1042 = 138412802;
+              *&v1042[4] = bundleIdentifier18;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier25;
+              *&v1042[22] = 2048;
+              *v1043 = bundleSubType8;
+              _os_log_impl(&_mh_execute_header, v443, OS_LOG_TYPE_INFO, "Coarse summary suggestion got rejected due to isBundleOrSubBundlesSelectedOrQuickAdded: bundleID %@, suggestionID %@ bundleSubType %lu", v1042, 0x20u);
+            }
+
+            bundleSubType7 = [v893 bundleSubType];
+            goto LABEL_305;
+          }
+
+          if ([v893 bundleSubType] == 303)
+          {
+            v448 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v448, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier19 = [v893 bundleIdentifier];
+              suggestionIdentifier26 = [v893 suggestionIdentifier];
+              bundleSubType9 = [v893 bundleSubType];
+              *v1042 = 138412802;
+              *&v1042[4] = bundleIdentifier19;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier26;
+              *&v1042[22] = 2048;
+              *v1043 = bundleSubType9;
+              _os_log_impl(&_mh_execute_header, v448, OS_LOG_TYPE_INFO, "Contact trend bundle got rejected due to isBundleOrSubBundlesSelectedOrQuickAdded: bundleID %@, suggestionID %@ bundleSubType %lu", v1042, 0x20u);
+            }
+          }
+
+          else
+          {
+            v452 = [v893 bundleSubType] == 203;
+            v448 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            v453 = os_log_type_enabled(v448, OS_LOG_TYPE_INFO);
+            if (!v452)
+            {
+              if (v453)
+              {
+                bundleIdentifier20 = [v893 bundleIdentifier];
+                suggestionIdentifier27 = [v893 suggestionIdentifier];
+                bundleSubType10 = [v893 bundleSubType];
+                *v1042 = 134219522;
+                *&v1042[4] = v828;
+                *&v1042[12] = 2048;
+                *&v1042[14] = v63;
+                *&v1042[22] = 2048;
+                *v1043 = 2;
+                *&v1043[8] = 2048;
+                *&v1043[10] = 3;
+                *&v1043[18] = 2112;
+                *&v1043[20] = bundleIdentifier20;
+                *&v1043[28] = 2112;
+                *&v1043[30] = suggestionIdentifier27;
+                v1044 = 2048;
+                v1045 = bundleSubType10;
+                _os_log_impl(&_mh_execute_header, v448, OS_LOG_TYPE_INFO, "(rankingCategory,visibilityCategory) were updated from (%lu,%lu) to (%lu,%lu) due to isBundleOrSubBundlesSelectedOrQuickAdded: bundleID %@, suggestionID %@, bundleSubType %lu", v1042, 0x48u);
+              }
+
+              v63 = 3;
+              v457 = 2;
+              goto LABEL_315;
+            }
+
+            if (v453)
+            {
+              bundleIdentifier21 = [v893 bundleIdentifier];
+              suggestionIdentifier28 = [v893 suggestionIdentifier];
+              bundleSubType11 = [v893 bundleSubType];
+              *v1042 = 138412802;
+              *&v1042[4] = bundleIdentifier21;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier28;
+              *&v1042[22] = 2048;
+              *v1043 = bundleSubType11;
+              _os_log_impl(&_mh_execute_header, v448, OS_LOG_TYPE_INFO, "Workout routine bundle got rejected due to isBundleOrSubBundlesSelectedOrQuickAdded: bundleID %@, suggestionID %@ bundleSubType %lu", v1042, 0x20u);
+            }
+          }
+        }
+
+LABEL_314:
+        v63 = 4;
+        v457 = 3;
+LABEL_315:
+        v828 = v457;
+LABEL_316:
+        if (!v773)
+        {
+          goto LABEL_326;
+        }
+
+        if (v63 == 1)
+        {
+          v458 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v458, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier22 = [v893 bundleIdentifier];
+            suggestionIdentifier29 = [v893 suggestionIdentifier];
+            bundleSubType12 = [v893 bundleSubType];
+            *v1042 = 134219522;
+            *&v1042[4] = v828;
+            *&v1042[12] = 2048;
+            *&v1042[14] = 1;
+            *&v1042[22] = 2048;
+            *v1043 = 3;
+            *&v1043[8] = 2048;
+            *&v1043[10] = 4;
+            *&v1043[18] = 2112;
+            *&v1043[20] = bundleIdentifier22;
+            *&v1043[28] = 2112;
+            *&v1043[30] = suggestionIdentifier29;
+            v1044 = 2048;
+            v1045 = bundleSubType12;
+            _os_log_impl(&_mh_execute_header, v458, OS_LOG_TYPE_INFO, "(rankingCategory,visibilityCategory) were updated from (%lu,%lu) to (%lu,%lu) because it's part of thematic summary: bundleID %@, suggestionID %@, bundleSubType %lu", v1042, 0x48u);
+          }
+
+          v63 = 3;
+          v462 = 2;
+        }
+
+        else
+        {
+          if (v63 != 2)
+          {
+            goto LABEL_326;
+          }
+
+          v458 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v458, OS_LOG_TYPE_INFO))
+          {
+            bundleIdentifier23 = [v893 bundleIdentifier];
+            suggestionIdentifier30 = [v893 suggestionIdentifier];
+            bundleSubType13 = [v893 bundleSubType];
+            *v1042 = 134219522;
+            *&v1042[4] = v828;
+            *&v1042[12] = 2048;
+            *&v1042[14] = 2;
+            *&v1042[22] = 2048;
+            *v1043 = 3;
+            *&v1043[8] = 2048;
+            *&v1043[10] = 4;
+            *&v1043[18] = 2112;
+            *&v1043[20] = bundleIdentifier23;
+            *&v1043[28] = 2112;
+            *&v1043[30] = suggestionIdentifier30;
+            v1044 = 2048;
+            v1045 = bundleSubType13;
+            _os_log_impl(&_mh_execute_header, v458, OS_LOG_TYPE_INFO, "(rankingCategory,visibilityCategory) were updated from (%lu,%lu) to (%lu,%lu) because it's part of thematic summary: bundleID %@, suggestionID %@, bundleSubType %lu", v1042, 0x48u);
+          }
+
+          v63 = 4;
+          v462 = 3;
+        }
+
+        v828 = v462;
+
+LABEL_326:
+        if (([v893 isWorkVisit] & 1) != 0 || objc_msgSend(v893, "isShortVisit"))
+        {
+          [v893 numPhotoAssetsResourcesNormalized];
+          if (v466 == 0.0)
+          {
+            v266 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v266, OS_LOG_TYPE_INFO))
+            {
+              bundleIdentifier24 = [v893 bundleIdentifier];
+              suggestionIdentifier31 = [v893 suggestionIdentifier];
+              isWorkVisit = [v893 isWorkVisit];
+              isShortVisit = [v893 isShortVisit];
+              *v1042 = 138413058;
+              *&v1042[4] = bundleIdentifier24;
+              *&v1042[12] = 2112;
+              *&v1042[14] = suggestionIdentifier31;
+              *&v1042[22] = 1024;
+              *v1043 = isWorkVisit;
+              *&v1043[4] = 1024;
+              *&v1043[6] = isShortVisit;
+              _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_INFO, "Outing suggestion was rejected because it was either work or short visit (or both) without any photo: bundleID %@, suggestionID %@ isWorkVisit %d isShortVisit %d", v1042, 0x22u);
+            }
+
+            v61 = 1;
+LABEL_152:
+            v828 = 3;
+            v63 = 4;
+LABEL_153:
+
+            goto LABEL_154;
+          }
+        }
+
+LABEL_145:
+        if ((v63 - 1) <= 1 && [v893 bundleInterfaceType] != 11)
+        {
+          v311 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+          v312 = [v695 objectForKeyedSubscript:v311];
+          intValue2 = [v312 intValue];
+
+          v266 = [NSNumber numberWithUnsignedInteger:intValue2 + 1];
+          v314 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+          [v695 setObject:v266 forKeyedSubscript:v314];
+
+          v61 = 0;
+          goto LABEL_153;
+        }
+
+        v61 = 0;
+LABEL_154:
+        v276 = [*(v891 + 136) getIntegerSettingForKey:@"EventManagerOverridePatternRehydrationFailureCountThreshold" withFallback:10];
+        v1009 = 0u;
+        v1008 = 0u;
+        v1007 = 0u;
+        v1006 = 0u;
+        events = [v893 events];
+        v278 = [events countByEnumeratingWithState:&v1006 objects:v1041 count:16];
+        if (v278)
+        {
+          v279 = *v1007;
+          v280 = v276;
+          do
+          {
+            for (k = 0; k != v278; k = k + 1)
+            {
+              if (*v1007 != v279)
+              {
+                objc_enumerationMutation(events);
+              }
+
+              v282 = *(*(&v1006 + 1) + 8 * k);
+              if ([v282 rehydrationFailCount] >= v280)
+              {
+                v283 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+                if (os_log_type_enabled(v283, OS_LOG_TYPE_INFO))
+                {
+                  bundleIdentifier25 = [v893 bundleIdentifier];
+                  rehydrationFailCount = [v282 rehydrationFailCount];
+                  *v1042 = 138412802;
+                  *&v1042[4] = bundleIdentifier25;
+                  *&v1042[12] = 2048;
+                  *&v1042[14] = rehydrationFailCount;
+                  *&v1042[22] = 2112;
+                  *v1043 = v282;
+                  _os_log_impl(&_mh_execute_header, v283, OS_LOG_TYPE_INFO, "rejecting bundle %@ due to rehydration failures count bigger than threshold, %lu, in event %@", v1042, 0x20u);
+                }
+
+                v63 = 4;
+              }
+            }
+
+            v278 = [events countByEnumeratingWithState:&v1006 objects:v1041 count:16];
+          }
+
+          while (v278);
+        }
+
+        if (v63 != 4)
+        {
+          bundleInterfaceType3 = [v893 bundleInterfaceType];
+          v287 = v694;
+          if (bundleInterfaceType3 != 11)
+          {
+            v287 = v694 + 1;
+          }
+
+          v694 = v287;
+        }
+
+LABEL_170:
+        if (v67 <= 1.0)
+        {
+          v288 = v67;
+        }
+
+        else
+        {
+          v288 = 1.0;
+        }
+
+        v1039[0] = @"richnessScore";
+        *&v70 = v71;
+        v289 = [NSNumber numberWithFloat:v70];
+        v1040[0] = v289;
+        v1039[1] = @"distinctnessScore";
+        *&v290 = v884;
+        v888 = [NSNumber numberWithFloat:v290];
+        v1040[1] = v888;
+        v1039[2] = @"heuristicsScore";
+        *&v291 = v877;
+        v881 = [NSNumber numberWithFloat:v291];
+        v1040[2] = v881;
+        v1039[3] = @"qualityScore";
+        *&v292 = v847;
+        v872 = [NSNumber numberWithFloat:v292];
+        v1040[3] = v872;
+        v1039[4] = @"engagementScore";
+        *&v293 = v852;
+        v856 = [NSNumber numberWithFloat:v293];
+        v1040[4] = v856;
+        v1039[5] = @"baseScore";
+        v853 = [NSNumber numberWithFloat:COERCE_DOUBLE(COERCE_UNSIGNED_INT(fmaxf(v69, 0.0)))];
+        v1040[5] = v853;
+        v1039[6] = @"bundleInterfaceType";
+        v850 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleInterfaceType]);
+        v1040[6] = v850;
+        v1039[7] = @"bundleSubType";
+        v842 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSubType]);
+        v1040[7] = v842;
+        v1039[8] = @"bundleSuperType";
+        v838 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 bundleSuperType]);
+        v1040[8] = v838;
+        v1039[9] = @"decayFactor";
+        *&v294 = v288;
+        v834 = [NSNumber numberWithFloat:v294];
+        v1040[9] = v834;
+        v1039[10] = @"rankingCategory";
+        v831 = [NSNumber numberWithUnsignedInteger:v828];
+        v1040[10] = v831;
+        v1039[11] = @"visibilityCategoryForUI";
+        v826 = [NSNumber numberWithUnsignedInteger:v63];
+        v1040[11] = v826;
+        v1039[12] = @"viewCountBasedScoreAdjustment";
+        v822 = [NSNumber numberWithFloat:0.0];
+        v1040[12] = v822;
+        v1039[13] = @"bundleGoodnessScore";
+        *&v295 = v64;
+        v819 = [NSNumber numberWithFloat:v295];
+        v1040[13] = v819;
+        v1039[14] = @"elapsedDaysFromBundleEndDate";
+        [v893 bundleRecencyDaysElapsed];
+        v816 = [NSNumber numberWithFloat:?];
+        v1040[14] = v816;
+        v1039[15] = @"bundleIdentifier";
+        bundleIdentifier26 = [v893 bundleIdentifier];
+        v1040[15] = bundleIdentifier26;
+        v1039[16] = @"suggestionIdentifier";
+        suggestionIdentifier32 = [v893 suggestionIdentifier];
+        v1040[16] = suggestionIdentifier32;
+        v1040[17] = &off_10036BC80;
+        v1039[17] = @"isDuplicated";
+        v1039[18] = @"isEligibleForTimeContextSummarization";
+        v807 = [NSNumber numberWithBool:v805];
+        v1040[18] = v807;
+        v1039[19] = @"isEligibleForTripSummarization";
+        v803 = [NSNumber numberWithBool:v62];
+        v1040[19] = v803;
+        v1040[20] = &off_10036BC80;
+        v1039[20] = @"isPseudoDupInRecommendedTab";
+        v1039[21] = @"isPseudoDupInRecentTab";
+        v1040[21] = &off_10036BC80;
+        v1040[22] = &off_10036BC80;
+        v1039[22] = @"isWithinHoldOffPeriod";
+        v1039[23] = @"allPlaceNamesSet";
+        allPlaceNames = [v893 allPlaceNames];
+        v1040[23] = allPlaceNames;
+        v1039[24] = @"workoutTypesSet";
+        workoutTypes3 = [v893 workoutTypes];
+        v1040[24] = workoutTypes3;
+        v1039[25] = @"allContactIdentifiersSet";
+        allContactIdentifiers = [v893 allContactIdentifiers];
+        v1040[25] = allContactIdentifiers;
+        v1039[26] = @"allStateOfMindIdentifiersSet";
+        allStateOfMindIdentifiers = [v893 allStateOfMindIdentifiers];
+        v1040[26] = allStateOfMindIdentifiers;
+        v1039[27] = @"stateOfMindLoggedIn3pApp";
+        [v893 stateOfMindLoggedIn3pApp];
+        v793 = [NSNumber numberWithFloat:?];
+        v1040[27] = v793;
+        v1039[28] = @"stateOfMindLoggedInJournalApp";
+        [v893 stateOfMindLoggedInJournalApp];
+        v791 = [NSNumber numberWithFloat:?];
+        v1040[28] = v791;
+        v1039[29] = @"numAnomalyEventsNormalized";
+        [v893 numAnomalyEventsNormalized];
+        v789 = [NSNumber numberWithFloat:?];
+        v1040[29] = v789;
+        v1039[30] = @"numPhotoAssetsResourcesNormalized";
+        [v893 numPhotoAssetsResourcesNormalized];
+        v787 = [NSNumber numberWithFloat:?];
+        v1040[30] = v787;
+        v1039[31] = @"isCoarseGranularitySummaryKey";
+        v297 = ([v893 isBundleAggregated] & 1) == 0 && objc_msgSend(v893, "summarizationGranularity") == 2;
+        *&v296 = v698;
+        v296 = [NSNumber numberWithInt:v297, v296];
+        v1040[31] = v296;
+        v1039[32] = @"isBundleOrSubBundleDeleted";
+        v863 = [NSNumber numberWithBool:v862];
+        v1040[32] = v863;
+        v1039[33] = @"isBundleOrSubBundlesSelectedOrQuickAdded";
+        v860 = [NSNumber numberWithBool:v859];
+        v1040[33] = v860;
+        v1039[34] = @"bundleStartDate";
+        bundleStartDate6 = [v893 bundleStartDate];
+        v1040[34] = bundleStartDate6;
+        v1039[35] = @"bundleEndDate";
+        bundleEndDate2 = [v893 bundleEndDate];
+        v1040[35] = bundleEndDate2;
+        v1039[36] = @"suppressCoarseSummarization";
+        v697 = [NSNumber numberWithBool:v698 < v697];
+        v1040[36] = v697;
+        v1039[37] = @"suggestionAcceptThreshold";
+        *&v298 = v66;
+        v777 = [NSNumber numberWithFloat:v298];
+        v1040[37] = v777;
+        v1039[38] = @"suggestionRecommendThreshold";
+        *&v299 = v65;
+        v300 = [NSNumber numberWithFloat:v299];
+        v1040[38] = v300;
+        v1039[39] = @"kRejectedByVisitHeuristicsFilter";
+        v301 = [NSNumber numberWithBool:v61];
+        v1040[39] = v301;
+        v1039[40] = @"numHolidayAssets";
+        v302 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 numHolidayAssets]);
+        v1040[40] = v302;
+        v1039[41] = @"numBirthdayAssets";
+        v303 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 numBirthdayAssets]);
+        v1040[41] = v303;
+        v1039[42] = @"numInviteEvents";
+        v304 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v893 numInviteEvents]);
+        v1040[42] = v304;
+        v1040[43] = &off_10036BC80;
+        v1039[43] = @"useHolidayLabel";
+        v1039[44] = @"useBirthdayLabel";
+        v1040[44] = &off_10036BC80;
+        v1039[45] = @"isInThematicSummary";
+        v305 = [NSNumber numberWithBool:v773];
+        v1040[45] = v305;
+        v1039[46] = @"isSensitive";
+        v306 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v893 isSensitiveLocation]);
+        v1040[46] = v306;
+        v1039[47] = @"isEligibleForTransitBundleSummarization";
+        v307 = [NSNumber numberWithBool:v772];
+        v1040[47] = v307;
+        v1039[48] = @"decayRate";
+        *&v308 = v68;
+        v309 = [NSNumber numberWithFloat:v308];
+        v1040[48] = v309;
+        v894 = [NSDictionary dictionaryWithObjects:v1040 forKeys:v1039 count:49];
+
+        v310 = [v891 _checkAndUpdateNumericLimits:v894];
+        [v699 addObject:v310];
+
+        v866 = v866 + 1;
+      }
+
+      while (v866 != v700);
+      v527 = [v693 countByEnumeratingWithState:&v1016 objects:v1048 count:16];
+      v700 = v527;
+    }
+
+    while (v527);
+LABEL_355:
+
+    allValues = [v695 allValues];
+    v529 = [allValues valueForKeyPath:@"@sum.self"];
+    intValue3 = [v529 intValue];
+
+    v531 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+    v31 = intValue3;
+    if (os_log_type_enabled(v531, OS_LOG_TYPE_INFO))
+    {
+      *v1042 = 134218496;
+      *&v1042[4] = v694;
+      *&v1042[12] = 2048;
+      *&v1042[14] = intValue3;
+      *&v1042[22] = 2048;
+      *v1043 = v687;
+      _os_log_impl(&_mh_execute_header, v531, OS_LOG_TYPE_INFO, "Current allowed sensed bundle count=%lu, total sensed bundle count in Recommended tab =%lu, minimum sensed bundle count threshold in Recommended tab %lu", v1042, 0x20u);
+    }
+
+    if (v694)
+    {
+      if (v694 != intValue3)
+      {
+        if (v687 <= intValue3)
+        {
+          v10 = v695;
+        }
+
+        else
+        {
+          v10 = objc_opt_new();
+
+          v532 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v532, OS_LOG_TYPE_INFO))
+          {
+            *v1042 = 134218496;
+            *&v1042[4] = v31;
+            *&v1042[12] = 2048;
+            *&v1042[14] = v687;
+            *&v1042[22] = 2048;
+            *v1043 = v689;
+            _os_log_impl(&_mh_execute_header, v532, OS_LOG_TYPE_INFO, "Sensed suggestion count in Recommended tab (%lu) is less than required (%lu). Setting lower recommended threshold %f ", v1042, 0x20u);
+          }
+        }
+
+        v32 = v689 + -0.25;
+        if ((v689 + -0.25) < 0.0)
+        {
+          v533 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+          if (os_log_type_enabled(v533, OS_LOG_TYPE_INFO))
+          {
+            *v1042 = 134217984;
+            *&v1042[4] = v687;
+            _os_log_impl(&_mh_execute_header, v533, OS_LOG_TYPE_INFO, "Recommendation threshold is set to rejection threshold, but still can't satisfy minimum suggestion count requirement (%lu). continue", v1042, 0xCu);
+          }
+
+          v695 = v10;
+          break;
+        }
+
+        continue;
+      }
+
+      v533 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v533, OS_LOG_TYPE_INFO))
+      {
+        *v1042 = 0;
+        _os_log_impl(&_mh_execute_header, v533, OS_LOG_TYPE_INFO, "Labeled all unrejected bundles to be shown on Recommended tab", v1042, 2u);
+      }
+
+      v31 = v694;
+    }
+
+    else
+    {
+      v533 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v533, OS_LOG_TYPE_INFO))
+      {
+        *v1042 = 0;
+        _os_log_impl(&_mh_execute_header, v533, OS_LOG_TYPE_INFO, "No bundle available for the sheet", v1042, 2u);
+      }
+    }
+
+    break;
+  }
+
+LABEL_375:
+  v534 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v534, OS_LOG_TYPE_DEBUG))
+  {
+    [MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:];
+  }
+
+  v535 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v535, OS_LOG_TYPE_DEBUG))
+  {
+    [MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:];
+  }
+
+  if (v685 & v686)
+  {
+    if ([v684 isEqualToSet:v688])
+    {
+      v536 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v536, OS_LOG_TYPE_INFO))
+      {
+        *v1042 = 0;
+        _os_log_impl(&_mh_execute_header, v536, OS_LOG_TYPE_INFO, "Both Workout Routine and weekly workout summary are eligible for recommended tab. Tagging weekly summary to be suppressed downstream.", v1042, 2u);
+      }
+
+      LOBYTE(v686) = 0;
+    }
+
+    else
+    {
+      LOBYTE(v686) = 1;
+    }
+  }
+
+  v537 = *(v891 + 12);
+  v900 = objc_opt_new();
+  v1005 = 0u;
+  v1004 = 0u;
+  v1003 = 0u;
+  v1002 = 0u;
+  allKeys2 = [v695 allKeys];
+  v539 = [allKeys2 countByEnumeratingWithState:&v1002 objects:v1038 count:16];
+  if (v539)
+  {
+    v540 = log((v537 + 1.0));
+    v541 = *v1003;
+    v542 = v540;
+    do
+    {
+      for (m = 0; m != v539; m = m + 1)
+      {
+        if (*v1003 != v541)
+        {
+          objc_enumerationMutation(allKeys2);
+        }
+
+        v544 = *(*(&v1002 + 1) + 8 * m);
+        if (v31)
+        {
+          v545 = [v695 objectForKeyedSubscript:*(*(&v1002 + 1) + 8 * m)];
+          [v545 floatValue];
+          v547 = v546;
+
+          v548 = log(((*(v891 + 12) * (1.0 - (v547 / v31))) + 1.0)) / v542;
+          *&v548 = v548;
+          v549 = [NSNumber numberWithFloat:v548];
+          [v900 setObject:v549 forKeyedSubscript:v544];
+        }
+
+        else
+        {
+          [v900 setObject:0 forKeyedSubscript:*(*(&v1002 + 1) + 8 * m)];
+        }
+      }
+
+      v539 = [allKeys2 countByEnumeratingWithState:&v1002 objects:v1038 count:16];
+    }
+
+    while (v539);
+  }
+
+  v550 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v550, OS_LOG_TYPE_DEBUG))
+  {
+    [MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:];
+  }
+
+  v551 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v551, OS_LOG_TYPE_DEBUG))
+  {
+    [MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:];
+  }
+
+  allKeys3 = [v900 allKeys];
+  v889 = [allKeys3 count];
+
+  v899 = objc_opt_new();
+  v1001 = 0u;
+  v1000 = 0u;
+  v999 = 0u;
+  v998 = 0u;
+  v895 = v699;
+  v553 = [v895 countByEnumeratingWithState:&v998 objects:v1037 count:16];
+  if (v553)
+  {
+    v554 = 0;
+    v896 = *v999;
+    do
+    {
+      for (n = 0; n != v553; n = n + 1)
+      {
+        if (*v999 != v896)
+        {
+          objc_enumerationMutation(v895);
+        }
+
+        v556 = *(*(&v998 + 1) + 8 * n);
+        v557 = [v556 objectForKeyedSubscript:@"visibilityCategoryForUI"];
+        intValue4 = [v557 intValue];
+
+        v559 = [v556 objectForKeyedSubscript:@"bundleInterfaceType"];
+        v560 = v559;
+        if (intValue4 - 1 > 1)
+        {
+          v573 = 0.0;
+          v563 = 1.0;
+          if ([v559 intValue] != 11)
+          {
+            goto LABEL_415;
+          }
+        }
+
+        else
+        {
+          v561 = [v900 objectForKeyedSubscript:v559];
+          [v561 floatValue];
+          v563 = v562;
+
+          if (v889 == 1)
+          {
+            v563 = 1.0;
+          }
+
+          if ([v560 intValue] != 11)
+          {
+            v564 = [v556 objectForKeyedSubscript:@"baseScore"];
+            [v564 floatValue];
+            v566 = v565;
+            v567 = [v556 objectForKeyedSubscript:@"viewCountBasedScoreAdjustment"];
+            [v567 floatValue];
+            v569 = v568;
+
+            if ((v566 + v569) >= 0.0)
+            {
+              v570 = v566 + v569;
+            }
+
+            else
+            {
+              v570 = 0.0;
+            }
+
+            v571 = [v556 objectForKeyedSubscript:@"decayFactor"];
+            [v571 floatValue];
+            v573 = v563 * (v570 * v572);
+            goto LABEL_414;
+          }
+        }
+
+        v571 = [v556 objectForKeyedSubscript:@"baseScore"];
+        [v571 floatValue];
+        v573 = v574;
+LABEL_414:
+
+LABEL_415:
+        v575 = objc_opt_new();
+        [v575 addEntriesFromDictionary:v556];
+        *&v576 = v573;
+        v577 = [NSNumber numberWithFloat:v576];
+        [v575 setObject:v577 forKey:@"rankingScore"];
+
+        *&v578 = v563;
+        v579 = [NSNumber numberWithFloat:v578];
+        [v575 setObject:v579 forKey:@"diversityCoefficient"];
+
+        v580 = [NSNumber numberWithUnsignedInteger:v554];
+        [v575 setObject:v580 forKey:@"rankingDictionaryIndex"];
+
+        [v899 addObject:v575];
+        ++v554;
+      }
+
+      v553 = [v895 countByEnumeratingWithState:&v998 objects:v1037 count:16];
+    }
+
+    while (v553);
+  }
+
+  v890 = +[NSCalendar currentCalendar];
+  v581 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v581, OS_LOG_TYPE_DEBUG))
+  {
+    [MOEventBundleRanking _calculateRankingScore:withMinRecommendedBundleCountRequirement:];
+  }
+
+  v582 = [v890 components:28 fromDate:v774];
+  v583 = [v890 dateFromComponents:v582];
+
+  v835 = [v890 components:28 fromDate:v775];
+
+  v584 = [v890 dateFromComponents:v835];
+
+  v861 = [v890 dateByAddingUnit:16 value:1 toDate:v584 options:0];
+
+  v854 = objc_opt_new();
+  v845 = v583;
+  v585 = v845;
+  if ([v845 compare:v861] == -1)
+  {
+    v585 = v845;
+    do
+    {
+      v617 = v585;
+      v618 = [v890 dateByAddingUnit:16 value:1 toDate:v617 options:0];
+      v995[0] = _NSConcreteStackBlock;
+      v995[1] = 3221225472;
+      v995[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke;
+      v995[3] = &unk_10033E708;
+      v619 = v617;
+      v996 = v619;
+      v858 = v618;
+      v997 = v858;
+      v620 = [NSPredicate predicateWithBlock:v995];
+      v621 = [v899 filteredArrayUsingPredicate:v620];
+      v622 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v622, OS_LOG_TYPE_DEBUG))
+      {
+        v636 = [v621 count];
+        *v1042 = 138412802;
+        *&v1042[4] = v619;
+        *&v1042[12] = 2112;
+        *&v1042[14] = v858;
+        *&v1042[22] = 2048;
+        *v1043 = v636;
+        _os_log_debug_impl(&_mh_execute_header, v622, OS_LOG_TYPE_DEBUG, "RankingDict count between %@-%@:%lu", v1042, 0x20u);
+      }
+
+      v623 = [NSPredicate predicateWithFormat:@"%K IN %@", @"visibilityCategoryForUI", &off_10036E130];
+      v624 = [v621 filteredArrayUsingPredicate:v623];
+      v625 = [NSSortDescriptor sortDescriptorWithKey:@"numHolidayAssets" ascending:0];
+      v626 = [NSArray arrayWithObject:v625];
+      v627 = [v624 sortedArrayUsingDescriptors:v626];
+
+      v628 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v628, OS_LOG_TYPE_DEBUG))
+      {
+        [MOEventBundleRanking _calculateRankingScore:v1036 withMinRecommendedBundleCountRequirement:v627];
+      }
+
+      v994[0] = _NSConcreteStackBlock;
+      v994[1] = 3221225472;
+      v994[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_706;
+      v994[3] = &unk_10033E730;
+      v994[4] = v891;
+      [v627 enumerateObjectsUsingBlock:v994];
+      v629 = [v621 filteredArrayUsingPredicate:v623];
+      v882 = [NSSortDescriptor sortDescriptorWithKey:@"numBirthdayAssets" ascending:0];
+      v873 = [NSArray arrayWithObject:v882];
+      v898 = [v629 sortedArrayUsingDescriptors:v873];
+
+      v630 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v630, OS_LOG_TYPE_DEBUG))
+      {
+        [MOEventBundleRanking _calculateRankingScore:v1035 withMinRecommendedBundleCountRequirement:v898];
+      }
+
+      v993[0] = _NSConcreteStackBlock;
+      v993[1] = 3221225472;
+      v993[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_710;
+      v993[3] = &unk_10033E730;
+      v993[4] = v891;
+      [v898 enumerateObjectsUsingBlock:v993];
+      v868 = [NSPredicate predicateWithFormat:@"%K IN %@", @"visibilityCategoryForUI", &off_10036E148];
+
+      v631 = [v621 filteredArrayUsingPredicate:v868];
+
+      v632 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v632, OS_LOG_TYPE_DEBUG))
+      {
+        [MOEventBundleRanking _calculateRankingScore:v1034 withMinRecommendedBundleCountRequirement:v631];
+      }
+
+      v633 = [NSSortDescriptor sortDescriptorWithKey:@"bundleGoodnessScore" ascending:0];
+      v865 = [NSArray arrayWithObject:v633];
+      v634 = [v631 sortedArrayUsingDescriptors:v865];
+
+      *v1042 = 0;
+      *&v1042[8] = v1042;
+      *&v1042[16] = 0x3032000000;
+      *v1043 = __Block_byref_object_copy__35;
+      *&v1043[8] = __Block_byref_object_dispose__35;
+      *&v1043[16] = objc_opt_new();
+      v973 = 0;
+      v974 = &v973;
+      v975 = 0x2020000000;
+      v976 = 0;
+      v967 = 0;
+      v968 = &v967;
+      v969 = 0x2020000000;
+      LOBYTE(v970) = 0;
+      v987[0] = _NSConcreteStackBlock;
+      v987[1] = 3221225472;
+      v987[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_714;
+      v987[3] = &unk_10033E758;
+      v987[4] = v891;
+      v988 = v854;
+      v635 = v899;
+      v989 = v635;
+      v990 = v1042;
+      v991 = &v973;
+      v992 = &v967;
+      [v634 enumerateObjectsUsingBlock:v987];
+      if (*(v968 + 24) == 1 && v974[3] >= 2)
+      {
+        v985[0] = _NSConcreteStackBlock;
+        v985[1] = 3221225472;
+        v985[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_717;
+        v985[3] = &unk_10033E730;
+        v986 = v635;
+        [v634 enumerateObjectsUsingBlock:v985];
+      }
+
+      _Block_object_dispose(&v967, 8);
+      _Block_object_dispose(&v973, 8);
+      _Block_object_dispose(v1042, 8);
+
+      v585 = [v890 dateByAddingUnit:16 value:1 toDate:v619 options:0];
+    }
+
+    while ([v585 compare:v861] == -1);
+  }
+
+  v897 = objc_opt_new();
+  v864 = v845;
+  v586 = v864;
+  if ([v864 compare:v861] == -1)
+  {
+    v586 = v864;
+    do
+    {
+      v587 = v586;
+      v588 = [v890 dateByAddingUnit:16 value:1 toDate:v587 options:0];
+      v982[0] = _NSConcreteStackBlock;
+      v982[1] = 3221225472;
+      v982[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_718;
+      v982[3] = &unk_10033E708;
+      v589 = v587;
+      v983 = v589;
+      v590 = v588;
+      v984 = v590;
+      v591 = [NSPredicate predicateWithBlock:v982];
+      v592 = [v899 filteredArrayUsingPredicate:v591];
+      v593 = [NSPredicate predicateWithFormat:@"%K IN %@", @"visibilityCategoryForUI", &off_10036E160];
+      v594 = [v592 filteredArrayUsingPredicate:v593];
+
+      v595 = [NSSortDescriptor sortDescriptorWithKey:@"bundleStartDate" ascending:0];
+      v596 = [NSArray arrayWithObject:v595];
+      v597 = [v594 sortedArrayUsingDescriptors:v596];
+
+      v980[0] = _NSConcreteStackBlock;
+      v980[1] = 3221225472;
+      v980[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_2;
+      v980[3] = &unk_10033E730;
+      v981 = v897;
+      [v597 enumerateObjectsUsingBlock:v980];
+
+      v586 = [v890 dateByAddingUnit:16 value:1 toDate:v589 options:0];
+    }
+
+    while ([v586 compare:v861] == -1);
+  }
+
+  v846 = [NSSortDescriptor sortDescriptorWithKey:"sortDescriptorWithKey:ascending:" ascending:?];
+  v598 = [NSArray arrayWithObject:v846];
+  v599 = [v899 sortedArrayUsingDescriptors:v598];
+  v600 = [v599 mutableCopy];
+
+  v979[0] = 0;
+  v979[1] = v979;
+  v979[2] = 0x2020000000;
+  v979[3] = 1;
+  *v1042 = 0;
+  *&v1042[8] = v1042;
+  *&v1042[16] = 0x3032000000;
+  *v1043 = __Block_byref_object_copy__35;
+  *&v1043[8] = __Block_byref_object_dispose__35;
+  *&v1043[16] = objc_opt_new();
+  v973 = 0;
+  v974 = &v973;
+  v975 = 0x3032000000;
+  v976 = __Block_byref_object_copy__35;
+  v977 = __Block_byref_object_dispose__35;
+  v978 = objc_opt_new();
+  v967 = 0;
+  v968 = &v967;
+  v969 = 0x3032000000;
+  v970 = __Block_byref_object_copy__35;
+  v971 = __Block_byref_object_dispose__35;
+  v972 = objc_opt_new();
+  v965[0] = 0;
+  v965[1] = v965;
+  v965[2] = 0x3032000000;
+  v965[3] = __Block_byref_object_copy__35;
+  v965[4] = __Block_byref_object_dispose__35;
+  v966 = objc_opt_new();
+  v963[0] = 0;
+  v963[1] = v963;
+  v963[2] = 0x3032000000;
+  v963[3] = __Block_byref_object_copy__35;
+  v963[4] = __Block_byref_object_dispose__35;
+  v964 = objc_opt_new();
+  v961[0] = 0;
+  v961[1] = v961;
+  v961[2] = 0x3032000000;
+  v961[3] = __Block_byref_object_copy__35;
+  v961[4] = __Block_byref_object_dispose__35;
+  v962 = objc_opt_new();
+  v955 = 0;
+  v956 = &v955;
+  v957 = 0x3032000000;
+  v958 = __Block_byref_object_copy__35;
+  v959 = __Block_byref_object_dispose__35;
+  v960 = objc_opt_new();
+  v951 = 0;
+  v952 = &v951;
+  v953 = 0x2020000000;
+  v954 = 0;
+  v947 = 0;
+  v948 = &v947;
+  v949 = 0x2020000000;
+  v950 = 0;
+  v943 = 0;
+  v944 = &v943;
+  v945 = 0x2020000000;
+  v946 = 0;
+  v941[0] = 0;
+  v941[1] = v941;
+  v941[2] = 0x2020000000;
+  v942 = 0;
+  v939[0] = 0;
+  v939[1] = v939;
+  v939[2] = 0x2020000000;
+  v940 = 0;
+  v937[0] = 0;
+  v937[1] = v937;
+  v937[2] = 0x2020000000;
+  v938 = 0;
+  v917[0] = _NSConcreteStackBlock;
+  v917[1] = 3221225472;
+  v917[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_3;
+  v917[3] = &unk_10033E780;
+  v922 = v1042;
+  v923 = &v973;
+  v924 = &v967;
+  v925 = &v947;
+  v827 = v897;
+  v918 = v827;
+  v936 = v686 & 1;
+  v811 = v683;
+  v919 = v811;
+  v814 = v682;
+  v920 = v814;
+  v926 = v963;
+  v927 = v965;
+  v928 = v961;
+  v929 = &v951;
+  v930 = v979;
+  v931 = &v955;
+  v932 = v941;
+  v933 = v939;
+  v934 = v937;
+  v935 = &v943;
+  v921 = v600;
+  v867 = v921;
+  [v921 enumerateObjectsUsingBlock:v917];
+  v601 = v944[3];
+  if (v601 >= 24)
+  {
+    v948[3] = 0;
+  }
+
+  else
+  {
+    v602 = 3;
+    if (v601 > 15)
+    {
+      v602 = 4;
+    }
+
+    if (v601 <= 19)
+    {
+      v603 = v602;
+    }
+
+    else
+    {
+      v603 = 5;
+    }
+
+    v948[3] = 0;
+    v604 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+    if (os_log_type_enabled(v604, OS_LOG_TYPE_INFO))
+    {
+      v605 = v944[3];
+      *buf = 134218240;
+      *&buf[4] = v605;
+      *&buf[12] = 2048;
+      *&buf[14] = v603;
+      _os_log_impl(&_mh_execute_header, v604, OS_LOG_TYPE_INFO, "Total recommended sensed suggestion count=%ld, Adjust evergreen count to %ld", buf, 0x16u);
+    }
+
+    v913[0] = _NSConcreteStackBlock;
+    v913[1] = 3221225472;
+    v913[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_722;
+    v913[3] = &unk_10033E7A8;
+    v915 = &v947;
+    v916 = v603;
+    v914 = v867;
+    [v914 enumerateObjectsUsingBlock:v913];
+  }
+
+  v606 = [NSSortDescriptor sortDescriptorWithKey:@"rankingDictionaryIndex" ascending:1];
+  v851 = [NSArray arrayWithObject:v606];
+  v839 = v606;
+
+  v607 = [v867 sortedArrayUsingDescriptors:v851];
+  v857 = [v607 mutableCopy];
+
+  v608 = [v956[5] objectForKeyedSubscript:@"numPhotoAssetsResourcesNormalized"];
+  [v608 floatValue];
+  if (v609 == 0.0)
+  {
+    v610 = [v956[5] objectForKeyedSubscript:@"allPlaceNamesSet"];
+    if (([v610 isEqualToSet:emptyStringSet] & 1) == 0)
+    {
+
+      goto LABEL_453;
+    }
+
+    v611 = v952[3] > 1;
+
+    if (v611)
+    {
+      [v956[5] setObject:&off_10036BC98 forKeyedSubscript:@"visibilityCategoryForUI"];
+      [v956[5] setObject:&off_10036BA28 forKeyedSubscript:@"rankingCategory"];
+      [v956[5] setObject:&off_10036BCB0 forKeyedSubscript:@"isPseudoDupInRecommendedTab"];
+      [v956[5] setObject:&off_10036BCC8 forKeyedSubscript:@"ordinalRankInRecommendedTab"];
+      v612 = [v956[5] objectForKeyedSubscript:@"rankingDictionaryIndex"];
+      intValue5 = [v612 intValue];
+      [v857 replaceObjectAtIndex:intValue5 withObject:v956[5]];
+
+      v608 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+      if (os_log_type_enabled(v608, OS_LOG_TYPE_INFO))
+      {
+        v614 = [v956[5] objectForKeyedSubscript:@"suggestionIdentifier"];
+        v615 = [v956[5] objectForKeyedSubscript:@"bundleIdentifier"];
+        v616 = [v956[5] objectForKeyedSubscript:@"bundleStartDate"];
+        *buf = 138412802;
+        *&buf[4] = v614;
+        *&buf[12] = 2112;
+        *&buf[14] = v615;
+        *&buf[22] = 2112;
+        v1031 = v616;
+        _os_log_impl(&_mh_execute_header, v608, OS_LOG_TYPE_INFO, "Top Phone-sensed walking got suppressed from Recommended tab since it does not have location or photo and we have other unsuppressed walking suggestions. SuggestionID:%@, bundleID:%@, startDate:%@", buf, 0x20u);
+      }
+
+      goto LABEL_453;
+    }
+  }
+
+  else
+  {
+LABEL_453:
+  }
+
+  v637 = [NSSortDescriptor sortDescriptorWithKey:@"ordinalRankInRecommendedTab" ascending:1];
+  [NSArray arrayWithObject:v637];
+  v823 = v820 = v637;
+  v638 = [v857 sortedArrayUsingDescriptors:?];
+  v883 = [v638 mutableCopy];
+
+  v639 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v639, OS_LOG_TYPE_INFO))
+  {
+    v640 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v883 count]);
+    *buf = 138412290;
+    *&buf[4] = v640;
+    _os_log_impl(&_mh_execute_header, v639, OS_LOG_TYPE_INFO, "Sort bundles by ranking score for sensitivity handling, count: %@", buf, 0xCu);
+  }
+
+  v817 = [NSPredicate predicateWithFormat:@"%K IN %@", @"visibilityCategoryForUI", &off_10036E178];
+  v641 = [v883 filteredArrayUsingPredicate:?];
+  v874 = [v641 mutableCopy];
+
+  v642 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v642, OS_LOG_TYPE_INFO))
+  {
+    v643 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v874 count]);
+    *buf = 138412290;
+    *&buf[4] = v643;
+    _os_log_impl(&_mh_execute_header, v642, OS_LOG_TYPE_INFO, "Filter sorted bundles by recommended visibility, count: %@", buf, 0xCu);
+  }
+
+  rankingScoreThresholdDict25 = [v891 rankingScoreThresholdDict];
+  v645 = [rankingScoreThresholdDict25 objectForKeyedSubscript:@"sensitiveOnRecommendedThreshold"];
+  intValue6 = [v645 intValue];
+
+  v647 = [v874 count];
+  v804 = intValue6;
+  if (v647 >= intValue6)
+  {
+    v648 = intValue6;
+  }
+
+  else
+  {
+    v648 = v647;
+  }
+
+  v649 = [v874 subarrayWithRange:{0, v648}];
+  v650 = [NSPredicate predicateWithFormat:@"isSensitive == YES"];
+  v892 = [v649 filteredArrayUsingPredicate:v650];
+  v808 = v649;
+
+  v651 = [v892 count];
+  v652 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+  if (os_log_type_enabled(v652, OS_LOG_TYPE_INFO))
+  {
+    v653 = [NSNumber numberWithInteger:v651];
+    *buf = 138412290;
+    *&buf[4] = v653;
+    _os_log_impl(&_mh_execute_header, v652, OS_LOG_TYPE_INFO, "Sensitive bundle count in top 5: %@", buf, 0xCu);
+  }
+
+  if (v651 < 1)
+  {
+    v673 = v851;
+  }
+
+  else
+  {
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3032000000;
+    v1031 = __Block_byref_object_copy__35;
+    v1032 = __Block_byref_object_dispose__35;
+    v1033 = objc_opt_new();
+    v909 = 0u;
+    v910 = 0u;
+    v911 = 0u;
+    v912 = 0u;
+    v654 = v892;
+    v655 = [v654 countByEnumeratingWithState:&v909 objects:v1029 count:16];
+    if (v655)
+    {
+      v656 = *v910;
+      do
+      {
+        for (ii = 0; ii != v655; ii = ii + 1)
+        {
+          if (*v910 != v656)
+          {
+            objc_enumerationMutation(v654);
+          }
+
+          v658 = *(*(&v909 + 1) + 8 * ii);
+          v659 = [v658 objectForKeyedSubscript:@"suggestionIdentifier"];
+          v660 = v659 == 0;
+
+          if (!v660)
+          {
+            v661 = *(*&buf[8] + 40);
+            v662 = [v658 objectForKeyedSubscript:@"suggestionIdentifier"];
+            [v661 addObject:v662];
+
+            v663 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
+            if (os_log_type_enabled(v663, OS_LOG_TYPE_INFO))
+            {
+              v664 = [v658 objectForKeyedSubscript:@"suggestionIdentifier"];
+              LODWORD(v1024) = 138412290;
+              *(&v1024 + 4) = v664;
+              _os_log_impl(&_mh_execute_header, v663, OS_LOG_TYPE_INFO, "Sensitive bundle found during ranking: %@", &v1024, 0xCu);
+            }
+          }
+        }
+
+        v655 = [v654 countByEnumeratingWithState:&v909 objects:v1029 count:16];
+      }
+
+      while (v655);
+    }
+
+    v665 = [NSPredicate predicateWithFormat:@"isSensitive == NO"];
+    v666 = [v874 filteredArrayUsingPredicate:v665];
+
+    v667 = [v666 count];
+    if (v667 >= v804)
+    {
+      v668 = v804;
+    }
+
+    else
+    {
+      v668 = v667;
+    }
+
+    v669 = [v666 subarrayWithRange:{0, v668}];
+    lastObject = [v669 lastObject];
+    *&v1024 = 0;
+    *(&v1024 + 1) = &v1024;
+    v1025 = 0x3032000000;
+    v1026 = __Block_byref_object_copy__35;
+    v1027 = __Block_byref_object_dispose__35;
+    v1028 = [lastObject objectForKeyedSubscript:@"rankingScore"];
+    v905[0] = _NSConcreteStackBlock;
+    v905[1] = 3221225472;
+    v905[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_732;
+    v905[3] = &unk_10033E7D0;
+    v907 = buf;
+    v908 = &v1024;
+    v671 = v883;
+    v906 = v671;
+    [v671 enumerateObjectsUsingBlock:v905];
+    v672 = [NSSortDescriptor sortDescriptorWithKey:@"rankingScore" ascending:0];
+    v673 = [NSArray arrayWithObject:v672];
+
+    v674 = [v671 sortedArrayUsingDescriptors:v673];
+    v675 = [v674 mutableCopy];
+
+    v904[0] = 0;
+    v904[1] = v904;
+    v904[2] = 0x2020000000;
+    v904[3] = 1;
+    v901[0] = _NSConcreteStackBlock;
+    v901[1] = 3221225472;
+    v901[2] = __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke_733;
+    v901[3] = &unk_10033E7F8;
+    v676 = v675;
+    v902 = v676;
+    v903 = v904;
+    [v676 enumerateObjectsUsingBlock:v901];
+    v883 = v676;
+
+    _Block_object_dispose(v904, 8);
+    _Block_object_dispose(&v1024, 8);
+
+    _Block_object_dispose(buf, 8);
+  }
+
+  v677 = [NSArray arrayWithObject:v839];
+
+  v678 = [v883 sortedArrayUsingDescriptors:v677];
+  v679 = [v678 mutableCopy];
+
+  v680 = [v679 copy];
+  _Block_object_dispose(v937, 8);
+  _Block_object_dispose(v939, 8);
+  _Block_object_dispose(v941, 8);
+  _Block_object_dispose(&v943, 8);
+  _Block_object_dispose(&v947, 8);
+  _Block_object_dispose(&v951, 8);
+  _Block_object_dispose(&v955, 8);
+
+  _Block_object_dispose(v961, 8);
+  _Block_object_dispose(v963, 8);
+
+  _Block_object_dispose(v965, 8);
+  _Block_object_dispose(&v967, 8);
+
+  _Block_object_dispose(&v973, 8);
+  _Block_object_dispose(v1042, 8);
+
+  _Block_object_dispose(v979, 8);
+
+  return v680;
 }
 
 uint64_t __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleCountRequirement___block_invoke(uint64_t a1, void *a2)
@@ -6197,202 +9202,9 @@ void __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleC
 
 - (void)updateEngagementScoreParamsUsingBFGS
 {
-  v2 = __chkstk_darwin(self, a2);
-  for (i = 0; i != 16; ++i)
-  {
-    v4 = v2[6];
-    v5 = [NSNumber numberWithUnsignedInteger:i + 1];
-    v6 = [v4 objectForKeyedSubscript:v5];
-    [v6 floatValue];
-    *(v74 + i) = v7;
-  }
-
-  v8 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-  {
-    v9 = v2[6];
-    v72 = 138412290;
-    v73 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Engagement params before optimization %@", &v72, 0xCu);
-  }
-
-  __B = -1.0;
-  [v2 _setToIdentityMatrix:&v72 forNumRows:16];
-  [v2 _computeGradient:v74 initialParams:v74 Update:v71];
-  [v2 _setToIdentityMatrix:v70 forNumRows:16];
-  v66 = v74[4];
-  v67 = v74[5];
-  v68 = v74[6];
-  v69 = v74[7];
-  v62 = v74[0];
-  v63 = v74[1];
-  v10 = 2;
-  v64 = v74[2];
-  v65 = v74[3];
-  while (1)
-  {
-    [v2 _calculateNormSquare:v71];
-    if (v11 <= 1.0e-10 || v10 > 0x63)
-    {
-      break;
-    }
-
-    vDSP_vsmulD(v70, 1, &__B, &v60, 1, 0x100uLL);
-    vDSP_mmulD(&v60, 1, v71, 1, v59, 1, 0x10uLL, 1uLL, 0x10uLL);
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x2020000000;
-    v48 = 0;
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = __60__MOEventBundleRanking_updateEngagementScoreParamsUsingBFGS__block_invoke;
-    v40[3] = &unk_10033E820;
-    v40[4] = &v41;
-    v40[5] = &v45;
-    [v2 _lineSearch:&v62 initialParams:v74 With:v59 And:v71 handler:v40];
-    if (*(v42 + 24) == 1)
-    {
-      v30 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v54[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "Exited BFGS as linesearch hit max iteration count", v54, 2u);
-      }
-
-      _Block_object_dispose(&v41, 8);
-      _Block_object_dispose(&v45, 8);
-      return;
-    }
-
-    vDSP_vsmulD(v59, 1, v46 + 3, v58, 1, 0x10uLL);
-    vDSP_vaddD(&v62, 1, v58, 1, v57, 1, 0x10uLL);
-    [v2 _computeGradient:v57 initialParams:v74 Update:v56];
-    vDSP_vsubD(v71, 1, v56, 1, v55, 1, 0x10uLL);
-    __C = 0.0;
-    vDSP_mmulD(v55, 1, v58, 1, &__C, 1, 1uLL, 1uLL, 0x10uLL);
-    v12 = 1.0 / __C;
-    v38 = 1.0 / __C;
-    if (COERCE__INT64(fabs(1.0 / __C)) >= 0x7FF0000000000000)
-    {
-      v13 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v54[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Exited BFGS as r is not finite", v54, 2u);
-      }
-    }
-
-    else
-    {
-      vDSP_mmulD(v58, 1, v55, 1, v54, 1, 0x10uLL, 0x10uLL, 1uLL);
-      vDSP_vsmulD(v54, 1, &v38, v54, 1, 0x100uLL);
-      vDSP_vsubD(v54, 1, &v72, 1, v53, 1, 0x100uLL);
-      vDSP_mmulD(v55, 1, v58, 1, v54, 1, 0x10uLL, 0x10uLL, 1uLL);
-      vDSP_vsmulD(v54, 1, &v38, v54, 1, 0x100uLL);
-      vDSP_vsubD(v54, 1, &v72, 1, v52, 1, 0x100uLL);
-      vDSP_mmulD(v53, 1, v70, 1, __A, 1, 0x10uLL, 0x10uLL, 0x10uLL);
-      vDSP_mmulD(__A, 1, v52, 1, v70, 1, 0x10uLL, 0x10uLL, 0x10uLL);
-      vDSP_mmulD(v58, 1, v58, 1, v50, 1, 0x10uLL, 0x10uLL, 1uLL);
-      vDSP_vsmulD(v50, 1, &v38, v50, 1, 0x100uLL);
-      vDSP_vaddD(v70, 1, v50, 1, v70, 1, 0x100uLL);
-      v71[4] = v56[4];
-      v71[5] = v56[5];
-      v71[6] = v56[6];
-      v71[7] = v56[7];
-      v71[0] = v56[0];
-      v71[1] = v56[1];
-      v71[2] = v56[2];
-      v71[3] = v56[3];
-      v65 = v57[3];
-      v64 = v57[2];
-      v63 = v57[1];
-      v62 = v57[0];
-      v69 = v57[7];
-      v68 = v57[6];
-      v67 = v57[5];
-      v66 = v57[4];
-    }
-
-    _Block_object_dispose(&v41, 8);
-    _Block_object_dispose(&v45, 8);
-    ++v10;
-    if ((*&v12 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
-    {
-      return;
-    }
-  }
-
-  v14 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-  {
-    [MOEventBundleRanking updateEngagementScoreParamsUsingBFGS];
-  }
-
-  v15 = objc_opt_new();
-  v16 = 0;
-  v17 = 0.0;
-  do
-  {
-    v18 = *(&v62 + v16);
-    v19 = [NSNumber numberWithDouble:v18];
-    [v15 addObject:v19];
-
-    v20 = fabs(v18);
-    if (v20 >= v17)
-    {
-      v17 = v20;
-    }
-
-    v16 += 8;
-  }
-
-  while (v16 != 128);
-  v21 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-  {
-    v60 = 138412290;
-    v61 = v15;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Engagement params after optimization before normalization %@", &v60, 0xCu);
-  }
-
-  if (v17 >= 2.22507386e-308 && v17 <= 1.79769313e308)
-  {
-    v23 = objc_opt_new();
-    v31 = &v62;
-    for (j = 1; j != 17; ++j)
-    {
-      v33 = *v31 / v17;
-      *&v33 = v33;
-      v34 = [NSNumber numberWithFloat:v33];
-      v35 = [NSNumber numberWithUnsignedInteger:j];
-      [v23 setObject:v34 forKeyedSubscript:v35];
-
-      ++v31;
-    }
-
-    objc_storeStrong(v2 + 6, v23);
-    v36 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
-    {
-      v37 = v2[6];
-      v60 = 138412290;
-      v61 = v37;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Engagement params after optimization after normalization %@", &v60, 0xCu);
-    }
-  }
-
-  else
-  {
-    v23 = _mo_log_facility_get_os_log(&MOLogFacilityRanking);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-    {
-      [(MOEventBundleRanking *)v2 + 6 updateEngagementScoreParamsUsingBFGS:v23];
-    }
-  }
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "Engagement score params were ill formed, earlier value retained %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t __60__MOEventBundleRanking_updateEngagementScoreParamsUsingBFGS__block_invoke(uint64_t result, int a2, double a3)
@@ -7908,22 +10720,17 @@ LABEL_14:
 
 - (double)initWithConfigurationManager:(uint64_t)a3 .cold.1(float *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *a1;
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "EngagementScoreWeight is set to %f", a5, a6, a7, a8, 0);
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "EngagementScoreWeight is set to %f", a5, a6, a7, a8, v9, DWORD2(v9));
   return result;
-}
-
-- (void)initWithConfigurationManager:(uint64_t)a1 .cold.2(uint64_t a1, float *a2)
-{
-  v7 = *a2;
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (double)initWithConfigurationManager:(uint64_t)a3 .cold.3(float *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *a1;
-  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "User onboarding date is not available. Setting elapsedDaysSinceOnboardingDate to %.3f for default behavior", a5, a6, a7, a8, 0);
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "User onboarding date is not available. Setting elapsedDaysSinceOnboardingDate to %.3f for default behavior", a5, a6, a7, a8, v9, DWORD2(v9));
   return result;
 }
 
@@ -8011,11 +10818,10 @@ void __88__MOEventBundleRanking__calculateRankingScore_withMinRecommendedBundleC
 
 void __114__MOEventBundleRanking_identifyRepetitiveSignificantContactBundlesFromBundles_precedingSignificantContactBundles___block_invoke_777_cold_1(uint64_t a1)
 {
-  v2 = NSStringFromSelector(*(a1 + 32));
-  v3 = *(a1 + 40);
+  v1 = NSStringFromSelector(*(a1 + 32));
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 - (void)loadHolidayTuningParameterJSONFromFilePath

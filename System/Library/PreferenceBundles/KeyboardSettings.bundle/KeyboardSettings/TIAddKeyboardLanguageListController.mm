@@ -16,7 +16,9 @@
 - (void)showAddExtensionKeyboardSheet:(id)sheet;
 - (void)showAddSystemKeyboardSheet:(id)sheet;
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TIAddKeyboardLanguageListController
@@ -112,90 +114,89 @@
     [(NSMutableSet *)v7 addObject:TUIKeyboardTitleInLanguage()];
     [(NSMutableSet *)v7 addObject:[[NSLocale localeWithLocaleIdentifier:?], "localizedStringForLocaleIdentifier:", LanguageWithRegion]];
     v8 = [TIKeyboardListController supportedBaseInputModesForLanguage:LanguageWithRegion];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * i);
           [UIKeyboardInputModeGetComponentsFromIdentifier() valueForKey:@"kCFLocaleVariantCodeKey"];
-          v14 = TUIKeyboardTitle();
+          v13 = TUIKeyboardTitle();
+          if ([v13 length])
+          {
+            [(NSMutableSet *)v7 addObject:v13];
+          }
+
+          v14 = TUIKeyboardTitleInLanguage();
           if ([v14 length])
           {
             [(NSMutableSet *)v7 addObject:v14];
           }
-
-          v15 = TUIKeyboardTitleInLanguage();
-          if ([v15 length])
-          {
-            [(NSMutableSet *)v7 addObject:v15];
-          }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v10);
     }
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v16 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v24 objects:v36 count:16];
-    if (v16)
+    v15 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v25;
+      v16 = v15;
+      v17 = *v24;
       while (2)
       {
-        for (j = 0; j != v17; j = j + 1)
+        for (j = 0; j != v16; j = j + 1)
         {
-          if (*v25 != v18)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v7);
           }
 
-          v20 = *(*(&v24 + 1) + 8 * j);
-          if ([predicate evaluateWithObject:v20])
+          v19 = *(*(&v23 + 1) + 8 * j);
+          if ([predicate evaluateWithObject:v19])
           {
-            *(v29 + 24) = 1;
+            *(v28 + 24) = 1;
             goto LABEL_25;
           }
 
-          v21 = [v20 length];
-          v23[0] = _NSConcreteStackBlock;
-          v23[1] = 3221225472;
-          v23[2] = sub_29970;
-          v23[3] = &unk_49980;
-          v23[4] = predicate;
-          v23[5] = &v28;
-          [v20 enumerateSubstringsInRange:0 options:v21 usingBlock:{3, v23}];
-          if (v29[3])
+          v20 = [v19 length];
+          v22[0] = _NSConcreteStackBlock;
+          v22[1] = 3221225472;
+          v22[2] = sub_29970;
+          v22[3] = &unk_49980;
+          v22[4] = predicate;
+          v22[5] = &v27;
+          [v19 enumerateSubstringsInRange:0 options:v20 usingBlock:{3, v22}];
+          if (v28[3])
           {
             goto LABEL_25;
           }
         }
 
-        v17 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v24 objects:v36 count:16];
-        if (v17)
+        v16 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        if (v16)
         {
           continue;
         }
@@ -205,8 +206,8 @@
     }
 
 LABEL_25:
-    v6 = *(v29 + 24);
-    _Block_object_dispose(&v28, 8);
+    v6 = *(v28 + 24);
+    _Block_object_dispose(&v27, 8);
   }
 
   return v6 & 1;
@@ -564,6 +565,23 @@ LABEL_25:
   parentController = [(TIAddKeyboardLanguageListController *)self parentController];
 
   [parentController dismiss];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIAddKeyboardLanguageListController;
+  [(TIAddKeyboardLanguageListController *)&v4 viewWillAppear:appear];
+  [(TIAddKeyboardLanguageListController *)self setTitle:[[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:@"ADD_NEW_KEYBOARD_SHORT", &stru_49C80, @"Keyboard"]];
+  [-[TIAddKeyboardLanguageListController navigationItem](self "navigationItem")];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIAddKeyboardLanguageListController;
+  [(TIAddKeyboardLanguageListController *)&v4 viewDidAppear:appear];
+  [(TIAddKeyboardLanguageListController *)self emitNavigationEventForAddKeyboardLanguageListController];
 }
 
 - (void)dismissForDone

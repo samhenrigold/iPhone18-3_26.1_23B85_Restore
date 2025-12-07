@@ -80,7 +80,7 @@
 
 - (BOOL)beginWithPipeline:(id)pipeline
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   pipelineCopy = pipeline;
   v10 = objc_msgSend_processor(pipelineCopy, v6, v7, v8, v9);
   canRenderPrefilteredLines = objc_msgSend_canRenderPrefilteredLines(v10, v11, v12, v13, v14);
@@ -117,58 +117,58 @@
     objc_msgSend_pushMatrix(v60, v65, v66, v67, v68);
     if (v60)
     {
-      objc_msgSend_renderState(v60, v69, v70, v71, v72);
+      objc_msgSend_renderState(v60, v70, v71, v72);
     }
 
     else
     {
-      v114 = 0;
       v115 = 0;
-      v117 = 257;
-      v118 = 0;
+      v116 = 0;
+      v118 = 257;
       v119 = 0;
       v120 = 0;
+      v121 = 0;
     }
 
-    LOBYTE(v114) = 1;
-    HIDWORD(v114) = 2;
-    v116 = 0;
-    objc_msgSend_setRenderState_(v60, v69, v70, v71, v72, &v114);
-    v106 = 1056964608;
+    LOBYTE(v115) = 1;
+    HIDWORD(v115) = 2;
+    v117 = 0;
+    objc_msgSend_setRenderState_(v60, v69, v70, v71, v72, &v115);
+    v107 = 1056964608;
+    v109 = 0;
     v108 = 0;
-    v107 = 0;
-    v109 = 1056964608;
-    v110 = 0;
+    v110 = 1056964608;
     v111 = 0;
-    v112 = xmmword_2764D6610;
-    v113 = 0x3F80000000000000;
+    v112 = 0;
+    v113 = xmmword_2764D6610;
+    v114 = 0x3F80000000000000;
     objc_msgSend_copyTransformInto_(v60, v73, 0.0078125, v74, v75, &self->_modelMatrix);
     objc_msgSend_copyProjectionInto_(v60, v76, v77, v78, v79, &self->_projection);
     sub_276154554(&self->_modelMatrix, v105);
     *&v80 = *v105;
     *&v81 = *&v105[20];
-    v82 = *&v105[32];
+    v82 = *v106;
     *(&v80 + 1) = __PAIR64__(*&v105[16], *&v105[8]);
-    v83 = *&v105[40];
+    v83 = *&v106[8];
     *&self->_normalMatrix.value[0].var0.var0 = v80;
     *(&v81 + 1) = v82;
     *&self->_normalMatrix.value[1].var1.var0 = v81;
     self->_normalMatrix.value[2].var2.var0 = v83;
-    sub_2761558A0(&v106, &self->_projection, v105);
+    sub_2761558A0(&v107, &self->_projection, v105);
     v84 = *&v105[16];
     self->_normalizedProjection.value[0] = *v105;
     self->_normalizedProjection.value[1] = v84;
-    v85 = *&v105[32];
-    v86 = *&v105[48];
-    self->_normalizedProjection.value[2] = *&v105[32];
+    v85 = *v106;
+    v86 = *&v106[16];
+    self->_normalizedProjection.value[2] = *v106;
     self->_normalizedProjection.value[3] = v86;
     v89 = objc_msgSend_camera(self->_pipeline, v87, v85, *&v86.var0.var0, v88);
     v94 = v89;
     if (v89)
     {
-      objc_msgSend_viewport(v89, v90, v91, v92, v93);
-      v95 = *&v105[8];
+      objc_msgSend_viewport(v89, v91, v92, v93);
       v96 = *v105;
+      v95 = *&v105[8];
     }
 
     else
@@ -180,26 +180,28 @@
     v97._min = v96;
     v97._max = v95;
     self->_viewport = v97;
-    *&v105[4] = 0uLL;
-    *&v105[24] = 0uLL;
-    *&v105[40] = 3212836864;
+    *&v105[12] = 0;
+    *&v105[4] = 0;
+    *&v105[24] = 0;
+    *v106 = 0;
+    *&v106[8] = 3212836864;
     v98 = vcvt_f32_s32(vsub_s32(v95, v96));
     *v105 = 2.0 / v98.f32[0];
     *&v105[20] = 2.0 / v98.f32[1];
     v99 = vneg_f32(v98);
-    *&v105[48] = vdiv_f32(v99, v98);
-    *&v105[56] = 0x3F80000080000000;
-    objc_msgSend_projection_(v60, v90, *&v105[48], *&v99, 0.00781250373, v105);
+    *&v106[16] = vdiv_f32(v99, v98);
+    *&v106[24] = 0x3F80000080000000;
+    objc_msgSend_projection_(v60, v90, *&v106[16], *&v99, 0.00781250373, v105);
     *v105 = 1065353216;
     *&v105[12] = 0;
     *&v105[4] = 0;
     *&v105[20] = 1065353216;
     *&v105[24] = 0;
-    *&v105[32] = 0;
-    *&v105[40] = 1065353216;
-    *&v105[52] = 0;
-    *&v105[44] = 0;
-    *&v105[60] = 1065353216;
+    *v106 = 0;
+    *&v106[8] = 1065353216;
+    *&v106[20] = 0;
+    *&v106[12] = 0;
+    *&v106[28] = 1065353216;
     objc_msgSend_replace_(v60, v100, v101, v102, v103, v105);
   }
 

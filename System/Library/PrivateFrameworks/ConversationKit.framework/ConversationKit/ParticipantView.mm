@@ -77,14 +77,16 @@
 
 - (void)setIsInRoster:(BOOL)roster
 {
+  rosterCopy = roster;
   selfCopy = self;
-  ParticipantView.isInRoster.setter(roster);
+  ParticipantView.isInRoster.setter(rosterCopy);
 }
 
 - (void)setShouldOverrideShadowHidden:(BOOL)hidden
 {
+  hiddenCopy = hidden;
   selfCopy = self;
-  ParticipantView.shouldOverrideShadowHidden.setter(hidden);
+  ParticipantView.shouldOverrideShadowHidden.setter(hiddenCopy);
 }
 
 - (void)setIsExpanded:(BOOL)expanded

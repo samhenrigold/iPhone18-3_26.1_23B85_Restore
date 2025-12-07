@@ -110,13 +110,17 @@
     xpc_dictionary_set_value(xdict, "entryComments", v6);
   }
 
-  if ([(NSArray *)self->_entryLikes count])
+  v7 = [(NSArray *)self->_entryLikes count];
+  v8 = xdict;
+  if (v7)
   {
-    v7 = [(PHCloudFeedEntryChangeRequest *)self _xpcArrayFromOids:self->_entryLikes];
-    xpc_dictionary_set_value(xdict, "entryLikes", v7);
+    v9 = [(PHCloudFeedEntryChangeRequest *)self _xpcArrayFromOids:self->_entryLikes];
+    xpc_dictionary_set_value(xdict, "entryLikes", v9);
+
+    v8 = xdict;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v7, v8);
 }
 
 - (PHCloudFeedEntryChangeRequest)initWithXPCDict:(id)dict request:(id)request clientAuthorization:(id)authorization

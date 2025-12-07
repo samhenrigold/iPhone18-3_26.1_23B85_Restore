@@ -1,7 +1,9 @@
 @interface UNTimeIntervalNotificationTrigger
++ (UNTimeIntervalNotificationTrigger)triggerWithTimeInterval:(NSTimeInterval)timeInterval repeats:(BOOL)repeats;
 - (BOOL)isEqual:(id)equal;
 - (NSDate)nextTriggerDate;
 - (UNTimeIntervalNotificationTrigger)initWithCoder:(id)coder;
+- (id)_initWithTimeInterval:(double)interval repeats:(BOOL)repeats;
 - (id)description;
 - (id)nextTriggerDateAfterDate:(id)date withRequestedDate:(id)requestedDate;
 - (unint64_t)hash;
@@ -9,6 +11,37 @@
 @end
 
 @implementation UNTimeIntervalNotificationTrigger
+
++ (UNTimeIntervalNotificationTrigger)triggerWithTimeInterval:(NSTimeInterval)timeInterval repeats:(BOOL)repeats
+{
+  v4 = [[self alloc] _initWithTimeInterval:repeats repeats:timeInterval];
+
+  return v4;
+}
+
+- (id)_initWithTimeInterval:(double)interval repeats:(BOOL)repeats
+{
+  repeatsCopy = repeats;
+  if (interval < 60.0 && repeats)
+  {
+    [UNTimeIntervalNotificationTrigger _initWithTimeInterval:repeats:];
+  }
+
+  if (interval <= 0.0)
+  {
+    [UNTimeIntervalNotificationTrigger _initWithTimeInterval:repeats:];
+  }
+
+  v9.receiver = self;
+  v9.super_class = UNTimeIntervalNotificationTrigger;
+  result = [(UNNotificationTrigger *)&v9 _initWithRepeats:repeatsCopy];
+  if (result)
+  {
+    *(result + 2) = interval;
+  }
+
+  return result;
+}
 
 - (unint64_t)hash
 {

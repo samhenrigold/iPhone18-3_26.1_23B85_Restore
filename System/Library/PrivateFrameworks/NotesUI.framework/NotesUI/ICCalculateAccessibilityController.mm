@@ -10,7 +10,7 @@
 - (ICCalculateAccessibilityController)initWithNote:(id)note
 {
   noteCopy = note;
-  v4 = sub_1D4191B38();
+  v4 = sub_1D4191B38(noteCopy);
 
   return v4;
 }

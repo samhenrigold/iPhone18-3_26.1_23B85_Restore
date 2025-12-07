@@ -3,6 +3,8 @@
 - (_INPBReadAnnouncementIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)readTypeAsString:(int)string;
+- (id)userNotificationTypeAsString:(int)string;
 - (int)StringAsReadType:(id)type;
 - (int)StringAsUserNotificationType:(id)type;
 - (unint64_t)hash;
@@ -256,7 +258,6 @@ LABEL_17:
 
   if ([(_INPBReadAnnouncementIntent *)self hasReadType])
   {
-    readType = self->_readType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -264,13 +265,11 @@ LABEL_17:
 
   if (startAnnouncementIdentifier)
   {
-    startAnnouncementIdentifier = self->_startAnnouncementIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBReadAnnouncementIntent *)self hasUserNotificationType])
   {
-    userNotificationType = self->_userNotificationType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -290,6 +289,26 @@ LABEL_17:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)userNotificationTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ANNOUNCEMENT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"DELIVERY_FAILURE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -349,6 +368,26 @@ LABEL_17:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)readTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"READ";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"REPEAT";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

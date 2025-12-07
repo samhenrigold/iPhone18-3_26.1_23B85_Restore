@@ -5,6 +5,7 @@
 - (BOOL)verifyWithIdentity:(id)identity;
 - (RPNearFieldAuthenticationPayload)initWithDictionary:(id)dictionary;
 - (RPNearFieldAuthenticationPayload)initWithTimeStamp:(id)stamp pkData:(id)data bonjourListenerUUID:(id)d selfIdentity:(id)identity;
+- (id)descriptionWithLevel:(int)level;
 - (id)dictionaryRepresentation;
 @end
 
@@ -226,7 +227,7 @@ LABEL_21:
 
       if ((v21 & 1) == 0 && dword_1001D38D8 <= 90 && (dword_1001D38D8 != -1 || _LogCategory_Initialize()))
       {
-        sub_100117884();
+        sub_100117884(v22);
       }
     }
 
@@ -252,7 +253,7 @@ LABEL_21:
   v5 = v9;
   if (v5 && dword_1001D38D8 < 91 && (dword_1001D38D8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001178C4();
+    sub_1001178C4(v5);
   }
 
   if (v4)
@@ -277,7 +278,7 @@ LABEL_21:
   v5 = v9;
   if (v5 && dword_1001D38D8 <= 90 && (dword_1001D38D8 != -1 || _LogCategory_Initialize()))
   {
-    sub_100117904();
+    sub_100117904(v5);
     if (v4)
     {
       goto LABEL_6;
@@ -296,6 +297,40 @@ LABEL_9:
   v7 = v6;
 
   return v7;
+}
+
+- (id)descriptionWithLevel:(int)level
+{
+  v19 = 0;
+  NSAppendPrintF(&v19, ", pkData <%.3@> %d B", self->_pkData, [(NSData *)self->_pkData length]);
+  v4 = v19;
+  v18 = v4;
+  uUIDString = [(NSUUID *)self->_bonjourListenerUUID UUIDString];
+  NSAppendPrintF(&v18, ", bonjourUUID '%{mask}'", uUIDString);
+  v6 = v18;
+
+  v17 = v6;
+  NSAppendPrintF(&v17, ", authTag '%{mask}'", self->_authTag);
+  v7 = v17;
+
+  v16 = v7;
+  NSAppendPrintF(&v16, ", signature <%.3@> %d B", self->_signatureData, [(NSData *)self->_signatureData length]);
+  v8 = v16;
+
+  v15 = v8;
+  if (qword_1001D6178 != -1)
+  {
+    sub_100117944();
+  }
+
+  timeStamp = self->_timeStamp;
+  v10 = qword_1001D6170;
+  v11 = [v10 stringFromDate:timeStamp];
+  NSAppendPrintF(&v15, ", timeStamp:%@ isValid:%d", v11, [(RPNearFieldAuthenticationPayload *)self isValidTimeStamp]);
+  v12 = v15;
+  v13 = v15;
+
+  return v12;
 }
 
 @end

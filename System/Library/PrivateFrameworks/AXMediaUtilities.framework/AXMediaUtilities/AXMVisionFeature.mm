@@ -347,7 +347,7 @@ LABEL_13:
   *(_init + 104) = v11;
   if (resultCopy)
   {
-    [resultCopy transform];
+    objc_msgSend_transform(resultCopy);
   }
 
   else

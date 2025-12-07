@@ -56,8 +56,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"image";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"image";
   image = self->_image;
   null = image;
   if (!image)
@@ -65,13 +65,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!image)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -148,10 +146,9 @@
 uint64_t __80__INImageNoteContent_INImageProxyInjecting___injectProxiesForImages_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _setImage:a2];
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v3 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v3();
 }
 
 @end

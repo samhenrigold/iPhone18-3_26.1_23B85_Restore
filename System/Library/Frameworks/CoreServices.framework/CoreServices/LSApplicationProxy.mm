@@ -5,6 +5,7 @@
 + (id)applicationProxyForIdentifier:(id)identifier withContext:(LSContext *)context;
 + (id)applicationProxyForItemID:(id)d;
 + (id)applicationProxyForSystemPlaceholder:(id)placeholder;
++ (id)applicationProxyWithBundleUnitID:(unsigned int)d withContext:(LSContext *)context;
 - (BOOL)gameCenterEverEnabled;
 - (BOOL)getGenericTranslocationTargetURL:(id *)l error:(id *)error;
 - (BOOL)isDeviceBasedVPP;
@@ -47,15 +48,18 @@
 - (NSString)storeCohortMetadata;
 - (NSString)vendorName;
 - (_LSApplicationState)appState;
+- (id)_initWithBundleUnit:(unsigned int)unit context:(LSContext *)context bundleIdentifier:(id)identifier;
 - (id)_initWithContext:(LSContext *)context bundleUnit:(unsigned int)unit applicationRecord:(id)record bundleID:(id)d resolveAndDetach:(BOOL)detach;
 - (id)_stringLocalizerForTable:(id)table;
 - (id)bundleType;
 - (id)description;
 - (id)forwardingTargetForSelector:(SEL)selector;
 - (id)handlerRankOfClaimForContentType:(id)type;
+- (id)iconDataForVariant:(int)variant withOptions:(int)options;
 - (id)installProgressSync;
 - (id)localizedNameForContext:(id)context preferredLocalizations:(id)localizations useShortNameOnly:(BOOL)only;
 - (id)methodSignatureForSelector:(SEL)selector;
+- (id)primaryIconDataForVariant:(int)variant;
 - (int64_t)deviceManagementPolicy;
 - (unint64_t)installType;
 - (void)detach;
@@ -133,28 +137,28 @@
 
 void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(*(a1 + 32) + 160) applicationExtensionRecords];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v10 + 1) + 8 * v6) uniqueIdentifier];
+        v7 = [*(*(&v9 + 1) + 8 * v6) uniqueIdentifier];
         v8 = [LSPlugInKitProxy pluginKitProxyForUUID:v7];
 
         if (v8)
@@ -166,13 +170,11 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)activityTypes
@@ -254,6 +256,28 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
   return [(LSApplicationProxy *)self originalInstallType];
 }
 
++ (id)applicationProxyWithBundleUnitID:(unsigned int)d withContext:(LSContext *)context
+{
+  v4 = 0;
+  if (d && context)
+  {
+    v6 = *&d;
+    if (_LSBundleGet(context->db, *&d))
+    {
+      [(_LSDatabase *)context->db store];
+      v8 = _CSStringCopyCFString();
+      v4 = [[self alloc] _initWithBundleUnit:v6 context:context bundleIdentifier:v8];
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  return v4;
+}
+
 + (id)applicationProxyForIdentifier:(id)identifier withContext:(LSContext *)context
 {
   identifierCopy = identifier;
@@ -278,16 +302,16 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
   identifierCopy = identifier;
   lCopy = l;
   dCopy = d;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__1;
-  v40 = __Block_byref_object_dispose__1;
-  v41 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__1;
+  v41 = __Block_byref_object_dispose__1;
+  v42 = 0;
   if (!identifierCopy || companionCopy || ([self canInstantiateFromDatabase] & 1) != 0)
   {
-    v34 = 0;
-    if (_LSContextInit(&v34))
+    v35.db = 0;
+    if (_LSContextInit(&v35.db))
     {
       LODWORD(v17) = 0;
     }
@@ -304,23 +328,23 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
         unsignedLongLongValue = 0;
       }
 
-      v17 = _LSFindBundleWithInfo(&v34, type, identifierCopy, companionCopy, lCopy, unsignedLongLongValue, 0);
-      v26 = [self alloc];
+      v17 = _LSFindBundleWithInfo(&v35, type, identifierCopy, companionCopy, lCopy, unsignedLongLongValue, 0);
+      v27 = [self alloc];
       if (companionCopy)
       {
-        v27 = 0;
+        v28 = 0;
       }
 
       else
       {
-        v27 = identifierCopy;
+        v28 = identifierCopy;
       }
 
-      v28 = [v26 _initWithBundleUnit:v17 context:&v34 bundleIdentifier:v27];
-      v29 = v37[5];
-      v37[5] = v28;
+      v29 = [v27 _initWithBundleUnit:v17 context:&v35 bundleIdentifier:v28];
+      v30 = v38[5];
+      v38[5] = v29;
 
-      _LSContextDestroy(&v34);
+      _LSContextDestroy(&v35.db);
     }
   }
 
@@ -332,45 +356,45 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
 
     if (v21)
     {
-      v22 = _LSDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = _LSDefaultLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [LSApplicationProxy applicationProxyForBundleType:v22 identifier:? isCompanion:? URL:? itemID:? bundleUnit:?];
+        [LSApplicationProxy applicationProxyForBundleType:v23 identifier:? isCompanion:? URL:? itemID:? bundleUnit:?];
       }
 
       __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_MAY_NOT_MAP_THE_DATABASE__();
       __LAUNCH_SERVICES_IS_ABORTING_BECAUSE_THIS_PROCESS_MAY_NOT_MAP_THE_DATABASE__();
-      v23 = +[LSBundleProxy bundleProxyForCurrentProcess];
-      if (v23)
+      v24 = +[LSBundleProxy bundleProxyForCurrentProcess];
+      if (v24)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          objc_storeStrong(v37 + 5, v23);
+          objc_storeStrong(v38 + 5, v24);
         }
       }
     }
 
-    if (!v37[5])
+    if (!v38[5])
     {
-      v24 = [_LSApplicationProxyForIdentifierQuery queryWithIdentifier:identifierCopy];
-      v25 = +[_LSQueryContext defaultContext];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __97__LSApplicationProxy_applicationProxyForBundleType_identifier_isCompanion_URL_itemID_bundleUnit___block_invoke;
-      v35[3] = &unk_1E6A18F00;
-      v35[4] = &v36;
-      [v25 enumerateResolvedResultsOfQuery:v24 withBlock:v35];
+      v25 = [_LSApplicationProxyForIdentifierQuery queryWithIdentifier:identifierCopy];
+      v26 = +[_LSQueryContext defaultContext];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __97__LSApplicationProxy_applicationProxyForBundleType_identifier_isCompanion_URL_itemID_bundleUnit___block_invoke;
+      v36[3] = &unk_1E6A18F00;
+      v36[4] = &v37;
+      [v26 enumerateResolvedResultsOfQuery:v25 withBlock:v36];
     }
 
     LODWORD(v17) = 0;
   }
 
-  if (!v37[5])
+  if (!v38[5])
   {
-    v30 = [self applicationProxyForIdentifier:identifierCopy withContext:0];
-    v31 = v37[5];
-    v37[5] = v30;
+    v31 = [self applicationProxyForIdentifier:identifierCopy withContext:0];
+    v32 = v38[5];
+    v38[5] = v31;
   }
 
   if (unit)
@@ -378,10 +402,10 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
     *unit = v17;
   }
 
-  v32 = v37[5];
-  _Block_object_dispose(&v36, 8);
+  v33 = v38[5];
+  _Block_object_dispose(&v37, 8);
 
-  return v32;
+  return v33;
 }
 
 + (id)applicationProxyForIdentifier:(id)identifier placeholder:(BOOL)placeholder
@@ -418,22 +442,21 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
   placeholderCopy = placeholder;
   v9 = 0;
   v5 = [self applicationProxyForBundleType:7 identifier:placeholderCopy isCompanion:0 URL:0 itemID:0 bundleUnit:&v9];
+  v6 = v5;
   if (v5 && !v9)
   {
-    v6 = _LSDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _LSDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v11 = placeholderCopy;
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "No system placeholder found with identifier %@", buf, 0xCu);
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "No system placeholder found with identifier %@", buf, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 + (id)applicationProxyForItemID:(id)d
@@ -452,29 +475,29 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
 - (id)_initWithContext:(LSContext *)context bundleUnit:(unsigned int)unit applicationRecord:(id)record bundleID:(id)d resolveAndDetach:(BOOL)detach
 {
   detachCopy = detach;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   dCopy = d;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3812000000;
-  v49 = __Block_byref_object_copy__6;
-  v50 = __Block_byref_object_dispose__7;
-  v51 = 256;
-  v52 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3812000000;
+  v48 = __Block_byref_object_copy__6;
+  v49 = __Block_byref_object_dispose__7;
+  v50 = 256;
+  v51 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   if (recordCopy)
   {
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __94__LSApplicationProxy__initWithContext_bundleUnit_applicationRecord_bundleID_resolveAndDetach___block_invoke;
-    v41[3] = &unk_1E6A18F28;
-    v41[4] = &v46;
-    v41[5] = &v42;
-    [recordCopy _performBlockWithContext:v41];
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __94__LSApplicationProxy__initWithContext_bundleUnit_applicationRecord_bundleID_resolveAndDetach___block_invoke;
+    v40[3] = &unk_1E6A18F28;
+    v40[4] = &v45;
+    v40[5] = &v41;
+    [recordCopy _performBlockWithContext:v40];
   }
 
   _iconFileNames = [recordCopy _iconFileNames];
@@ -484,17 +507,17 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
 
   if (v12)
   {
-    v33 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v12];
+    v32 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v12];
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
   objc_autoreleasePoolPop(v10);
-  v32 = *(v43 + 6);
-  v13 = v47;
+  v31 = *(v42 + 6);
+  v13 = v46;
   if ([recordCopy isPlaceholder])
   {
     v14 = 3;
@@ -521,37 +544,37 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
   _dataContainerURLFromDatabase = [recordCopy _dataContainerURLFromDatabase];
   v20 = [recordCopy URL];
   exactBundleVersion = [recordCopy exactBundleVersion];
-  v40.receiver = self;
-  v40.super_class = LSApplicationProxy;
-  v22 = [(LSBundleProxy *)&v40 _initWithBundleUnit:v32 context:v13 + 6 bundleType:v14 bundleID:v17 localizedName:0 bundleContainerURL:bundleContainerURL dataContainerURL:_dataContainerURLFromDatabase resourcesDirectoryURL:v20 iconsDictionary:v33 iconFileNames:_iconFileNames version:exactBundleVersion];
+  v39.receiver = self;
+  v39.super_class = LSApplicationProxy;
+  v22 = [(LSBundleProxy *)&v39 _initWithBundleUnit:v31 context:v13 + 6 bundleType:v14 bundleID:v17 localizedName:0 bundleContainerURL:bundleContainerURL dataContainerURL:_dataContainerURLFromDatabase resourcesDirectoryURL:v20 iconsDictionary:v32 iconFileNames:_iconFileNames version:exactBundleVersion];
 
   if (v22)
   {
     if (detachCopy && _LSDatabaseContextGetDetachProxyObjects(v23))
     {
       [recordCopy _resolveAllProperties];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       claimRecords = [recordCopy claimRecords];
-      v25 = [claimRecords countByEnumeratingWithState:&v36 objects:v53 count:16];
+      v25 = [claimRecords countByEnumeratingWithState:&v35 objects:v52 count:16];
       if (v25)
       {
-        v26 = *v37;
+        v26 = *v36;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v37 != v26)
+            if (*v36 != v26)
             {
               objc_enumerationMutation(claimRecords);
             }
 
-            [*(*(&v36 + 1) + 8 * i) _resolveAllProperties];
+            [*(*(&v35 + 1) + 8 * i) _resolveAllProperties];
           }
 
-          v25 = [claimRecords countByEnumeratingWithState:&v36 objects:v53 count:16];
+          v25 = [claimRecords countByEnumeratingWithState:&v35 objects:v52 count:16];
         }
 
         while (v25);
@@ -563,11 +586,53 @@ void __38__LSApplicationProxy_plugInKitPlugins__block_invoke(uint64_t a1)
     objc_storeStrong(v22 + 20, record);
   }
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v45, 8);
 
-  v28 = *MEMORY[0x1E69E9840];
   return v22;
+}
+
+- (id)_initWithBundleUnit:(unsigned int)unit context:(LSContext *)context bundleIdentifier:(id)identifier
+{
+  v6 = *&unit;
+  v22 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  if (v6 && !context)
+  {
+    [LSApplicationProxy _initWithBundleUnit:context:bundleIdentifier:];
+LABEL_10:
+    v9 = 0;
+    goto LABEL_11;
+  }
+
+  if (!v6 || !context)
+  {
+    if (context)
+    {
+      v10 = _LSDatabaseGetCacheGUID(context->db);
+      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:_LSDatabaseGetSequenceNumber(context->db)];
+      v12 = _LSDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412802;
+        v17 = identifierCopy;
+        v18 = 2112;
+        v19 = v10;
+        v20 = 2112;
+        v21 = v11;
+        _os_log_debug_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEBUG, "LaunchServices: failed to find bundle record for %@ {%@ %@}", buf, 0x20u);
+      }
+    }
+
+    goto LABEL_10;
+  }
+
+  v15 = 0;
+  v9 = [[LSApplicationRecord alloc] _initWithContext:context bundleID:v6 bundleData:0 error:&v15];
+LABEL_11:
+  v13 = [(LSApplicationProxy *)self _initWithContext:context bundleUnit:v6 applicationRecord:v9 bundleID:identifierCopy resolveAndDetach:1];
+
+  return v13;
 }
 
 - (NSNumber)itemID
@@ -883,133 +948,152 @@ void __48__LSApplicationProxy_requiredDeviceCapabilities__block_invoke(uint64_t 
   return [v2 numberWithUnsignedInteger:placeholderFailureReason];
 }
 
+- (id)primaryIconDataForVariant:(int)variant
+{
+  v3 = *&variant;
+  if (IconServicesLibrary_frameworkLibrary || (v5 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2), (IconServicesLibrary_frameworkLibrary = v5) != 0))
+  {
+    v5 = softLink_ISPrimaryIconDataForApplicationProxy(self, v3, 0);
+  }
+
+  return v5;
+}
+
+- (id)iconDataForVariant:(int)variant withOptions:(int)options
+{
+  v4 = *&options;
+  v5 = *&variant;
+  if (IconServicesLibrary_frameworkLibrary || (v7 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2), (IconServicesLibrary_frameworkLibrary = v7) != 0))
+  {
+    v7 = softLink_ISIconDataForResourceProxy(self, v5, v4);
+  }
+
+  return v7;
+}
+
 - (NSSet)claimedDocumentContentTypes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   claimRecords = [(LSBundleRecord *)self->_record claimRecords];
-  v5 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(claimRecords);
         }
 
-        typeIdentifiers = [*(*(&v12 + 1) + 8 * i) typeIdentifiers];
+        typeIdentifiers = [*(*(&v11 + 1) + 8 * i) typeIdentifiers];
         [v3 addObjectsFromArray:typeIdentifiers];
       }
 
-      v6 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSSet)claimedURLSchemes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   claimRecords = [(LSBundleRecord *)self->_record claimRecords];
-  v5 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(claimRecords);
         }
 
-        uRLSchemes = [*(*(&v12 + 1) + 8 * i) URLSchemes];
+        uRLSchemes = [*(*(&v11 + 1) + 8 * i) URLSchemes];
         [v3 addObjectsFromArray:uRLSchemes];
       }
 
-      v6 = [claimRecords countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [claimRecords countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)handlerRankOfClaimForContentType:(id)type
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   if (!typeCopy)
   {
     [(LSApplicationProxy *)a2 handlerRankOfClaimForContentType:?];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = [(LSBundleRecord *)self->_record claimRecords];
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     v9 = 0x8000;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         typeIdentifiers = [v11 typeIdentifiers];
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v13 = typeIdentifiers;
-        v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v25;
+          v16 = *v24;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v25 != v16)
+              if (*v24 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              if (![*(*(&v24 + 1) + 8 * j) caseInsensitiveCompare:typeCopy])
+              if (![*(*(&v23 + 1) + 8 * j) caseInsensitiveCompare:typeCopy])
               {
                 handlerRank = [v11 handlerRank];
                 v19 = _LSNumericHandlerRankFromHandlerRankString(handlerRank);
@@ -1023,7 +1107,7 @@ void __48__LSApplicationProxy_requiredDeviceCapabilities__block_invoke(uint64_t 
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
             if (v15)
             {
               continue;
@@ -1036,7 +1120,7 @@ void __48__LSApplicationProxy_requiredDeviceCapabilities__block_invoke(uint64_t 
 LABEL_19:
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
@@ -1048,7 +1132,6 @@ LABEL_19:
   }
 
   v20 = _LSCopyHandlerRankStringFromNumericHandlerRank(v9);
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -1101,20 +1184,18 @@ LABEL_19:
 
 - (id)_stringLocalizerForTable:(id)table
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   record = self->_record;
   tableCopy = table;
   platform = [(LSBundleRecord *)record platform];
   sDKVersion = [(LSBundleRecord *)self->_record SDKVersion];
-  _LSVersionNumberMakeWithString(v15, sDKVersion);
-  DYLDVersion = _LSVersionNumberGetDYLDVersion(v15);
+  _LSVersionNumberMakeWithString();
+  DYLDVersion = _LSVersionNumberGetDYLDVersion(v14);
 
   v9 = [_LSStringLocalizer useLegacyLocalizationListForPlatform:platform sdkVersion:DYLDVersion];
   v10 = [_LSStringLocalizer alloc];
   bundleURL = [(LSBundleProxy *)self bundleURL];
   v12 = [(_LSStringLocalizer *)v10 initWithBundleURL:bundleURL stringsFile:tableCopy legacyLocalizationList:v9];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1208,66 +1289,67 @@ void __50__LSApplicationProxy_forwardingTargetForSelector___block_invoke()
   onlyCopy = only;
   contextCopy = context;
   localizationsCopy = localizations;
+  v10 = localizationsCopy;
   if (contextCopy)
   {
     if (onlyCopy)
     {
-      v10 = _LSDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = _LSDefaultLog(localizationsCopy);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [LSApplicationProxy(Localization) localizedNameForContext:contextCopy preferredLocalizations:v10 useShortNameOnly:?];
+        [LSApplicationProxy(Localization) localizedNameForContext:contextCopy preferredLocalizations:v11 useShortNameOnly:?];
       }
     }
 
     record = self->_record;
-    if (localizationsCopy)
+    if (v10)
     {
-      [(LSApplicationRecord *)record localizedNameWithContext:contextCopy preferredLocalizations:localizationsCopy];
+      [(LSApplicationRecord *)record localizedNameWithContext:contextCopy preferredLocalizations:v10];
     }
 
     else
     {
       [(LSApplicationRecord *)record localizedNameWithContext:contextCopy];
     }
-    v14 = ;
+    v15 = ;
   }
 
   else
   {
-    v12 = self->_record;
+    v13 = self->_record;
     if (onlyCopy)
     {
-      if (localizationsCopy)
+      if (v10)
       {
-        [(LSBundleRecord *)v12 localizedShortNameWithPreferredLocalizations:localizationsCopy];
+        [(LSBundleRecord *)v13 localizedShortNameWithPreferredLocalizations:v10];
       }
 
       else
       {
-        [(LSBundleRecord *)v12 localizedShortName];
+        [(LSBundleRecord *)v13 localizedShortName];
       }
     }
 
-    else if (localizationsCopy)
+    else if (v10)
     {
-      [(LSBundleRecord *)v12 localizedNameWithPreferredLocalizations:localizationsCopy];
+      [(LSBundleRecord *)v13 localizedNameWithPreferredLocalizations:v10];
     }
 
     else
     {
-      [(LSBundleRecord *)v12 localizedName];
+      [(LSBundleRecord *)v13 localizedName];
     }
-    v13 = ;
-    v14 = v13;
-    if (![v13 length])
+    v14 = ;
+    v15 = v14;
+    if (![v14 length])
     {
       _fallbackLocalizedName = [(LSBundleRecord *)self->_record _fallbackLocalizedName];
 
-      v14 = _fallbackLocalizedName;
+      v15 = _fallbackLocalizedName;
     }
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)_initWithBundleUnit:context:bundleIdentifier:.cold.1()

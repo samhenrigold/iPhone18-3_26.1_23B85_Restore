@@ -1,20 +1,22 @@
 uint64_t sub_241DA73F8()
 {
-  qword_280BC5E08 = objc_alloc_init(BUAccountsProvider);
+  v0 = objc_alloc_init(BUAccountsProvider);
+  v1 = qword_280BC5E08;
+  qword_280BC5E08 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id sub_241DA750C()
+id sub_241DA750C(uint64_t a1)
 {
   if (qword_280BC5E20 != -1)
   {
     sub_241DA7550();
   }
 
-  v1 = qword_280BC5E18;
+  v2 = qword_280BC5E18;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DA7564()
@@ -27,9 +29,9 @@ uint64_t sub_241DA7564()
   return kdebug_trace();
 }
 
-void sub_241DA770C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA770C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -64,9 +66,12 @@ void sub_241DA77BC(uint64_t a1, const char *a2)
 
 uint64_t sub_241DA7870(uint64_t a1, const char *a2, uint64_t a3)
 {
-  *(*(*(a1 + 40) + 8) + 40) = objc_msgSend_l_activeStoreAccount(*(a1 + 32), a2, a3);
+  v4 = objc_msgSend_l_activeStoreAccount(*(a1 + 32), a2, a3);
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 id BUDynamicCast(uint64_t a1, void *a2)
@@ -87,9 +92,11 @@ id BUDynamicCast(uint64_t a1, void *a2)
 
 uint64_t sub_241DA79E8()
 {
-  qword_280BC5EB0 = objc_alloc_init(BUManagedRestrictionsProvider);
+  v0 = objc_alloc_init(BUManagedRestrictionsProvider);
+  v1 = qword_280BC5EB0;
+  qword_280BC5EB0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_241DA7B48(uint64_t a1, const char *a2, uint64_t a3)
@@ -112,156 +119,161 @@ void sub_241DA7B48(uint64_t a1, const char *a2, uint64_t a3)
 
 void sub_241DA7D50(uint64_t a1)
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   v4 = objc_msgSend_offlineCacheProvider(*(a1 + 32), v2, v3);
   objc_msgSend_setOfflineCacheProvider_(*(a1 + 32), v5, 0);
   if (objc_msgSend_runFromCache(v4, v6, v7))
   {
-    if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v8, v9))
+    isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v8, v9);
+    if (isMainThread)
     {
-      v10 = BookUtilityLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = BookUtilityLog(isMainThread);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        sub_241DCF518(v10);
+        sub_241DCF518(v11);
       }
     }
 
-    v11 = BookUtilityLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = BookUtilityLog(isMainThread);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_241DA6000, v11, OS_LOG_TYPE_INFO, "Using bag values provided by offline cache", buf, 2u);
+      _os_log_impl(&dword_241DA6000, v12, OS_LOG_TYPE_INFO, "Using bag values provided by offline cache", buf, 2u);
     }
 
-    v12 = objc_opt_new();
-    v15 = objc_msgSend_distantFuture(MEMORY[0x277CBEAA8], v13, v14);
-    objc_msgSend_setExpirationDate_(v12, v16, v15);
+    v13 = objc_opt_new();
+    v16 = objc_msgSend_distantFuture(MEMORY[0x277CBEAA8], v14, v15);
+    objc_msgSend_setExpirationDate_(v13, v17, v16);
 
-    objc_msgSend_setProfile_(v12, v17, @"iBooks");
-    objc_msgSend_setProfileVersion_(v12, v18, @"1");
-    v21 = objc_msgSend_loadCache(v4, v19, v20);
-    objc_msgSend_setData_(v12, v22, v21);
+    objc_msgSend_setProfile_(v13, v18, @"iBooks");
+    objc_msgSend_setProfileVersion_(v13, v19, @"1");
+    v22 = objc_msgSend_loadCache(v4, v20, v21);
+    objc_msgSend_setData_(v13, v23, v22);
 
-    v90 = 0;
-    v24 = objc_msgSend_buildWithError_(v12, v23, &v90);
-    v25 = v90;
-    if (v25)
+    v95 = 0;
+    v25 = objc_msgSend_buildWithError_(v13, v24, &v95);
+    v26 = v95;
+    v27 = v26;
+    if (v26)
     {
-      v26 = BookUtilityLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = BookUtilityLog(v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        sub_241DCF55C(v25, v26, v27, v28, v29, v30, v31, v32);
+        sub_241DCF55C(v27, v28, v29, v30, v31, v32, v33, v34);
       }
     }
 
     goto LABEL_26;
   }
 
-  v33 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v8, v9);
-  v36 = objc_msgSend_executableURL(v33, v34, v35);
-  v39 = objc_msgSend_lastPathComponent(v36, v37, v38);
-  isEqualToString = objc_msgSend_isEqualToString_(v39, v40, @"bookdatastored");
+  v35 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v8, v9);
+  v38 = objc_msgSend_executableURL(v35, v36, v37);
+  v41 = objc_msgSend_lastPathComponent(v38, v39, v40);
+  isEqualToString = objc_msgSend_isEqualToString_(v41, v42, @"bookdatastored");
 
   if (isEqualToString)
   {
-    v44 = BookUtilityLog();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+    v47 = BookUtilityLog(v44);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241DA6000, v44, OS_LOG_TYPE_DEFAULT, "Fixing the request process info so we actually get results...", buf, 2u);
+      _os_log_impl(&dword_241DA6000, v47, OS_LOG_TYPE_DEFAULT, "Fixing the request process info so we actually get results...", buf, 2u);
     }
 
-    v47 = objc_msgSend_currentProcess(MEMORY[0x277CEE620], v45, v46);
-    v50 = objc_msgSend_copy(v47, v48, v49);
+    v50 = objc_msgSend_currentProcess(MEMORY[0x277CEE620], v48, v49);
+    v53 = objc_msgSend_copy(v50, v51, v52);
 
-    objc_msgSend_setBundleIdentifier_(v50, v51, @"com.apple.bookdatastored");
-    v54 = objc_msgSend_bundleIdentifier(v50, v52, v53);
-    objc_msgSend_setExecutableName_(v50, v55, v54);
+    objc_msgSend_setBundleIdentifier_(v53, v54, @"com.apple.bookdatastored");
+    v57 = objc_msgSend_bundleIdentifier(v53, v55, v56);
+    objc_msgSend_setExecutableName_(v53, v58, v57);
   }
 
   else
   {
-    v57 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v42, v43);
-    v60 = objc_msgSend_executableURL(v57, v58, v59);
-    v63 = objc_msgSend_lastPathComponent(v60, v61, v62);
-    v65 = objc_msgSend_isEqualToString_(v63, v64, @"booklibraryctl");
+    v60 = objc_msgSend_mainBundle(MEMORY[0x277CCA8D8], v45, v46);
+    v63 = objc_msgSend_executableURL(v60, v61, v62);
+    v66 = objc_msgSend_lastPathComponent(v63, v64, v65);
+    v68 = objc_msgSend_isEqualToString_(v66, v67, @"booklibraryctl");
 
-    if (!v65)
+    if (!v68)
     {
-      v75 = objc_msgSend_bagForProfile_profileVersion_(MEMORY[0x277CEE3F8], v66, @"iBooks", @"1");
+      v80 = objc_msgSend_bagForProfile_profileVersion_(MEMORY[0x277CEE3F8], v70, @"iBooks", @"1");
+      v79 = v80;
       goto LABEL_23;
     }
 
-    v67 = BookUtilityLog();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+    v71 = BookUtilityLog(v69);
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241DA6000, v67, OS_LOG_TYPE_DEFAULT, "Fixing the request process info so we actually get results...", buf, 2u);
+      _os_log_impl(&dword_241DA6000, v71, OS_LOG_TYPE_DEFAULT, "Fixing the request process info so we actually get results...", buf, 2u);
     }
 
-    v70 = objc_msgSend_currentProcess(MEMORY[0x277CEE620], v68, v69);
-    v50 = objc_msgSend_copy(v70, v71, v72);
+    v74 = objc_msgSend_currentProcess(MEMORY[0x277CEE620], v72, v73);
+    v53 = objc_msgSend_copy(v74, v75, v76);
 
-    objc_msgSend_setBundleIdentifier_(v50, v73, @"com.apple.iBooks");
-    objc_msgSend_setExecutableName_(v50, v74, @"com.apple.iBooks");
+    objc_msgSend_setBundleIdentifier_(v53, v77, @"com.apple.iBooks");
+    objc_msgSend_setExecutableName_(v53, v78, @"com.apple.iBooks");
   }
 
-  v75 = objc_msgSend_bagForProfile_profileVersion_processInfo_(MEMORY[0x277CEE3F8], v56, @"iBooks", @"1", v50);
+  v79 = objc_msgSend_bagForProfile_profileVersion_processInfo_(MEMORY[0x277CEE3F8], v59, @"iBooks", @"1", v53);
 
 LABEL_23:
-  v76 = BookUtilityLog();
-  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+  v81 = BookUtilityLog(v80);
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
-    v79 = objc_msgSend__defaultValueDictionary(*(a1 + 32), v77, v78);
-    v81 = objc_msgSend_ams_componentsJoinedByString_(v79, v80, @", ");
+    v84 = objc_msgSend__defaultValueDictionary(*(a1 + 32), v82, v83);
+    v86 = objc_msgSend_ams_componentsJoinedByString_(v84, v85, @", ");
     *buf = 138412290;
-    v94 = v81;
-    _os_log_impl(&dword_241DA6000, v76, OS_LOG_TYPE_DEFAULT, "Setting up default values: %@", buf, 0xCu);
+    v99 = v86;
+    _os_log_impl(&dword_241DA6000, v81, OS_LOG_TYPE_DEFAULT, "Setting up default values: %@", buf, 0xCu);
   }
 
-  v84 = objc_msgSend__defaultValueDictionary(*(a1 + 32), v82, v83);
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = sub_241DAA0C0;
-  v91[3] = &unk_278D1CD10;
-  v24 = v75;
-  v92 = v24;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v84, v85, v91);
+  v89 = objc_msgSend__defaultValueDictionary(*(a1 + 32), v87, v88);
+  v96[0] = MEMORY[0x277D85DD0];
+  v96[1] = 3221225472;
+  v96[2] = sub_241DAA0C0;
+  v96[3] = &unk_278D1CD10;
+  v25 = v79;
+  v97 = v25;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v89, v90, v96);
 
-  v12 = v92;
+  v13 = v97;
 LABEL_26:
 
-  v86 = [BUBag alloc];
-  v88 = objc_msgSend_initWithBackingBag_(v86, v87, v24);
-  v89 = qword_280BC5E68;
-  qword_280BC5E68 = v88;
+  v91 = [BUBag alloc];
+  v93 = objc_msgSend_initWithBackingBag_(v91, v92, v25);
+  v94 = qword_280BC5E68;
+  qword_280BC5E68 = v93;
 
   kdebug_trace();
 }
 
-id BookUtilityLog()
+id BookUtilityLog(uint64_t a1)
 {
   if (qword_280BC5E90 != -1)
   {
     sub_241DA8A30();
   }
 
-  v1 = qword_280BC5E98;
+  v2 = qword_280BC5E98;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DA82DC()
 {
-  qword_280BC5E98 = os_log_create("com.apple.iBooks", "BookUtility");
+  v0 = os_log_create("com.apple.iBooks", "BookUtility");
+  v1 = qword_280BC5E98;
+  qword_280BC5E98 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_241DA8438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA8438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -302,10 +314,10 @@ void sub_241DA8680()
     v1 = v0;
     error = 0;
     v3 = SecTaskCopyValueForEntitlement(v0, @"com.apple.developer.icloud-services", &error);
-    if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    if (v3 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v5 = BookUtilityLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = BookUtilityLog(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_241DD0F80();
       }
@@ -321,8 +333,8 @@ void sub_241DA8680()
 
   else
   {
-    v4 = BookUtilityLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BookUtilityLog(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1018();
     }
@@ -365,66 +377,77 @@ uint64_t sub_241DA87BC()
   return v0;
 }
 
-void sub_241DA8890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA8890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_241DA88A8()
 {
-  v0 = sub_241DA8904();
+  v3 = 0;
+  v0 = sub_241DA8904(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
 }
 
-uint64_t sub_241DA8904()
+uint64_t sub_241DA8904(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_280BC5E88;
-  v5 = qword_280BC5E88;
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_280BC5E88;
+  v6 = qword_280BC5E88;
   if (!qword_280BC5E88)
   {
-    v6 = xmmword_278D1D368;
-    v7 = *off_278D1D378;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_280BC5E88 = v3[3];
-    v0 = v3[3];
+    v7 = xmmword_278D1D368;
+    v8 = *off_278D1D378;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_280BC5E88 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_241DA8A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA8A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241DA8BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA8BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_241DA8BE0(uint64_t a1, const char *a2, uint64_t a3)
 {
-  *(*(*(a1 + 40) + 8) + 40) = objc_msgSend_l_primaryAppleAccount(*(a1 + 32), a2, a3);
+  v4 = objc_msgSend_l_primaryAppleAccount(*(a1 + 32), a2, a3);
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 id sub_241DA8C2C(uint64_t a1, const char *a2, uint64_t a3)
@@ -438,9 +461,11 @@ id sub_241DA8C2C(uint64_t a1, const char *a2, uint64_t a3)
 uint64_t sub_241DA8CD8()
 {
   v0 = [BUAppGroup alloc];
-  qword_280BC5E28 = objc_msgSend_initWithIdentifier_(v0, v1, @"group.com.apple.iBooks");
+  v2 = objc_msgSend_initWithIdentifier_(v0, v1, @"group.com.apple.iBooks");
+  v3 = qword_280BC5E28;
+  qword_280BC5E28 = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 id sub_241DA8D24(void *a1, const char *a2, uint64_t a3)
@@ -513,13 +538,13 @@ LABEL_13:
   return v30;
 }
 
-id sub_241DA8F1C()
+id sub_241DA8F1C(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v3 = objc_msgSend_bu_booksGroupContainerURL(v0, v1, v2);
-  v5 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v3, v4, @"Documents", 1);
+  v1 = objc_opt_class();
+  v4 = objc_msgSend_bu_booksGroupContainerURL(v1, v2, v3);
+  v6 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(v4, v5, @"Documents", 1);
 
-  return v5;
+  return v6;
 }
 
 id sub_241DA8F78(uint64_t a1, const char *a2, uint64_t a3)
@@ -583,9 +608,9 @@ void sub_241DA9360()
   }
 }
 
-void sub_241DA9610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA9610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -612,9 +637,11 @@ void sub_241DA9628(uint64_t a1, const char *a2)
 
 uint64_t sub_241DA98F4(uint64_t a1)
 {
-  qword_280BC5DB0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_280BC5DB0;
+  qword_280BC5DB0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_241DA9B70(uint64_t a1, const char *a2, uint64_t a3)
@@ -626,7 +653,7 @@ void sub_241DA9B70(uint64_t a1, const char *a2, uint64_t a3)
   byte_280BC5DF0 = v7 != 0;
 }
 
-uint64_t BUIsRunningTests()
+uint64_t BUIsRunningTests(uint64_t a1, uint64_t a2)
 {
   if (qword_280BC5E78 != -1)
   {
@@ -636,30 +663,32 @@ uint64_t BUIsRunningTests()
   return byte_280BC5DF0;
 }
 
-uint64_t sub_241DA9C40(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_241DA9C40(uint64_t a1, const char *a2, uint64_t a3)
 {
   result = objc_msgSend_buVerboseLoggingEnabled(*(a1 + 32), a2, a3);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-id BUAssertionLog()
+id BUAssertionLog(uint64_t a1)
 {
   if (qword_280BC5DF8 != -1)
   {
     sub_241DA9CC0();
   }
 
-  v1 = qword_280BC5E00;
+  v2 = qword_280BC5E00;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DA9CD4()
 {
-  qword_280BC5E00 = os_log_create("com.apple.iBooks", "BookUtility.Assertion");
+  v0 = os_log_create("com.apple.iBooks", "BookUtility.Assertion");
+  v1 = qword_280BC5E00;
+  qword_280BC5E00 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id BUProtocolCast(void *a1, void *a2)
@@ -680,9 +709,9 @@ id BUProtocolCast(void *a1, void *a2)
   return v7;
 }
 
-void sub_241DA9F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DA9F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -711,63 +740,65 @@ void sub_241DA9FB8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_241DAAF78(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v9 = a4;
-  if (v9)
+  v7 = a4;
+  v10 = v7;
+  if (v7)
   {
-    v10 = BookUtilityLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BookUtilityLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF60C(v9, v10, v11, v12, v13, v14, v15, v16);
+      sub_241DCF60C(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
 LABEL_4:
-    v17 = 1;
+    v18 = 1;
     goto LABEL_5;
   }
 
   if (!v6)
   {
-    v10 = BookUtilityLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = BookUtilityLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20[0]) = 0;
-      _os_log_impl(&dword_241DA6000, v10, OS_LOG_TYPE_DEFAULT, "Defaulting isAudiobooksStoreEnabled to 1", v20, 2u);
+      LOWORD(v21[0]) = 0;
+      _os_log_impl(&dword_241DA6000, v11, OS_LOG_TYPE_DEFAULT, "Defaulting isAudiobooksStoreEnabled to 1", v21, 2u);
     }
 
     goto LABEL_4;
   }
 
-  v17 = objc_msgSend_BOOLValue(v6, v7, v8);
-  v10 = BookUtilityLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v18 = objc_msgSend_BOOLValue(v6, v8, v9);
+  v11 = BookUtilityLog(v18);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v20[0] = 67109120;
-    v20[1] = v17;
-    _os_log_impl(&dword_241DA6000, v10, OS_LOG_TYPE_DEFAULT, "isAudiobooksStoreEnabled %d", v20, 8u);
+    v21[0] = 67109120;
+    v21[1] = v18;
+    _os_log_impl(&dword_241DA6000, v11, OS_LOG_TYPE_DEFAULT, "isAudiobooksStoreEnabled %d", v21, 8u);
   }
 
 LABEL_5:
 
-  v18 = MEMORY[0x245D00360](*(a1 + 32));
-  v19 = v18;
-  if (v18)
+  v19 = MEMORY[0x245D00360](*(a1 + 32));
+  v20 = v19;
+  if (v19)
   {
-    (*(v18 + 16))(v18, v17);
+    (*(v19 + 16))(v19, v18);
   }
 }
 
 void sub_241DAB1AC(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
-  v9 = a4;
-  if (v9)
+  v7 = a4;
+  v10 = v7;
+  if (v7)
   {
-    v10 = BookUtilityLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BookUtilityLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF678(v9, v10, v11, v12, v13, v14, v15, v16);
+      sub_241DCF678(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
     goto LABEL_5;
@@ -776,24 +807,25 @@ void sub_241DAB1AC(uint64_t a1, void *a2, uint64_t a3, void *a4)
   if (!v6)
   {
 LABEL_5:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_8;
   }
 
-  v17 = objc_msgSend_length(v6, v7, v8) != 0;
+  v18 = objc_msgSend_length(v6, v8, v9) != 0;
 LABEL_8:
-  v18 = MEMORY[0x245D00360](*(a1 + 32));
-  v19 = v18;
-  if (v18)
+  v19 = MEMORY[0x245D00360](*(a1 + 32));
+  v20 = v19;
+  if (v19)
   {
-    (*(v18 + 16))(v18, v17);
+    (*(v19 + 16))(v19, v18);
   }
 }
 
-void sub_241DAB2E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DAB2E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_241DAB7E4()
@@ -1203,66 +1235,70 @@ id sub_241DAD254(void *a1, const char *a2, uint64_t a3)
 
 id BUOnboardingAllBundleIDs(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_defaultBag(BUBag, a2, a3);
   v6 = objc_msgSend_onboardingPersonalizationID(v3, v4, v5);
   v9 = objc_msgSend_valuePromise(v6, v7, v8);
 
   v12 = objc_msgSend_date(MEMORY[0x277CBEAA8], v10, v11);
-  v32 = 0;
-  v14 = objc_msgSend_resultWithTimeout_error_(v9, v13, &v32, 1.0);
-  v15 = v32;
+  v34 = 0;
+  v14 = objc_msgSend_resultWithTimeout_error_(v9, v13, &v34, 1.0);
+  v15 = v34;
   v18 = v15;
-  if (v15 && objc_msgSend_code(v15, v16, v17) != 204)
+  if (v15)
   {
-    v19 = BookUtilityLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v19 = objc_msgSend_code(v15, v16, v17);
+    if (v19 != 204)
     {
-      sub_241DCF784(v18, v19);
+      v20 = BookUtilityLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        sub_241DCF784(v18, v20);
+      }
     }
   }
 
-  v20 = objc_msgSend_date(MEMORY[0x277CBEAA8], v16, v17);
-  objc_msgSend_timeIntervalSinceDate_(v20, v21, v12);
-  v23 = v22;
+  v21 = objc_msgSend_date(MEMORY[0x277CBEAA8], v16, v17);
+  objc_msgSend_timeIntervalSinceDate_(v21, v22, v12);
+  v24 = v23;
 
-  v24 = BookUtilityLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = BookUtilityLog(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v34 = v23;
-    _os_log_impl(&dword_241DA6000, v24, OS_LOG_TYPE_DEFAULT, "BUOnboardingAllBundleIDs: resultWithTimeout elapsedTime: %f", buf, 0xCu);
+    v36 = v24;
+    _os_log_impl(&dword_241DA6000, v26, OS_LOG_TYPE_DEFAULT, "BUOnboardingAllBundleIDs: resultWithTimeout elapsedTime: %f", buf, 0xCu);
   }
 
-  v26 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEB18], v25, @"com.apple.onboarding.ibooks");
-  v29 = v26;
+  v28 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEB18], v27, @"com.apple.onboarding.ibooks");
+  v31 = v28;
   if (v14)
   {
-    objc_msgSend_addObject_(v26, v27, v14);
+    objc_msgSend_addObject_(v28, v29, v14);
   }
 
-  v30 = objc_msgSend_copy(v29, v27, v28);
+  v32 = objc_msgSend_copy(v31, v29, v30);
 
-  return v30;
+  return v32;
 }
 
-void sub_241DAD754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DAD754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_241DAD76C(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_241DAD76C(uint64_t a1, const char *a2, uint64_t a3)
 {
   result = objc_msgSend_entriesCountImpl(*(a1 + 32), a2, a3);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-void sub_241DAD93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DAD93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1295,16 +1331,16 @@ uint64_t sub_241DAE148(uint64_t a1, const char *a2, uint64_t a3, const Bytef *a4
   return 1;
 }
 
-void sub_241DAE3A8(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_241DAE3A8(id *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a1[4];
   if (v9[16] == 1)
   {
-    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 269, "[BUZipWriter flushCurrentEntryWithQueue:completion:]_block_invoke", "!self->_closed", @"Trying to flush while closed.", a6, a7, a8, v28);
+    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 269, "[BUZipWriter flushCurrentEntryWithQueue:completion:]_block_invoke", "!self->_closed", @"Trying to flush while closed.", a6, a7, a8, v30);
     BUCrashBreakpoint();
-    if (BUIsRunningTests())
+    if (BUIsRunningTests(v10, v11))
     {
-      BUCrashFinalThrow(@"Trying to flush while closed.", v10, v11, v12, v13, v14, v15, v16, v29);
+      BUCrashFinalThrow(@"Trying to flush while closed.", v12, v13, v14, v15, v16, v17, v18, v31);
     }
 
     __break(1u);
@@ -1312,36 +1348,36 @@ void sub_241DAE3A8(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t
 
   else
   {
-    v17 = objc_msgSend_error(v9, a2, a3);
+    v19 = objc_msgSend_error(v9, a2, a3);
 
-    v20 = a1[4];
-    if (v17)
+    v22 = a1[4];
+    if (v19)
     {
-      v21 = objc_msgSend_error(v20, v18, v19);
+      v23 = objc_msgSend_error(v22, v20, v21);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_241DAE568;
       block[3] = &unk_278D1CEA0;
-      v22 = a1[5];
-      v23 = a1[6];
-      v34 = v21;
-      v35 = v23;
-      v24 = v21;
-      dispatch_async(v22, block);
+      v24 = a1[5];
+      v25 = a1[6];
+      v36 = v23;
+      v37 = v25;
+      v26 = v23;
+      dispatch_async(v24, block);
     }
 
     else
     {
-      objc_msgSend_finishEntry(v20, v18, v19);
-      v27 = objc_msgSend_channelQueue(a1[4], v25, v26);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = sub_241DAE57C;
-      v30[3] = &unk_278D1CF40;
-      v30[4] = a1[4];
-      v32 = a1[6];
-      v31 = a1[5];
-      dispatch_async(v27, v30);
+      objc_msgSend_finishEntry(v22, v20, v21);
+      v29 = objc_msgSend_channelQueue(a1[4], v27, v28);
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = sub_241DAE57C;
+      v32[3] = &unk_278D1CF40;
+      v32[4] = a1[4];
+      v34 = a1[6];
+      v33 = a1[5];
+      dispatch_async(v29, v32);
     }
   }
 }
@@ -1417,11 +1453,11 @@ void sub_241DAEBBC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
   v9 = *(a1 + 32);
   if (v9[16] == 1)
   {
-    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 350, "[BUZipWriter writeEntryWithName:force32BitSize:lastModificationDate:size:CRC:fromReadChannel:writeHandler:]_block_invoke", "!self->_closed", @"Already closed.", a6, a7, a8, v21[0]);
+    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 350, "[BUZipWriter writeEntryWithName:force32BitSize:lastModificationDate:size:CRC:fromReadChannel:writeHandler:]_block_invoke", "!self->_closed", @"Already closed.", a6, a7, a8, v23[0]);
     BUCrashBreakpoint();
-    if (BUIsRunningTests())
+    if (BUIsRunningTests(v10, v11))
     {
-      BUCrashFinalThrow(@"Already closed.", v10, v11, v12, v13, v14, v15, v16, v21[0]);
+      BUCrashFinalThrow(@"Already closed.", v12, v13, v14, v15, v16, v17, v18, v23[0]);
     }
 
     __break(1u);
@@ -1429,18 +1465,18 @@ void sub_241DAEBBC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64
 
   else
   {
-    v17 = objc_msgSend_writeQueue(v9, a2, a3);
-    dispatch_suspend(v17);
+    v19 = objc_msgSend_writeQueue(v9, a2, a3);
+    dispatch_suspend(v19);
 
-    objc_msgSend_beginEntryWithNameImpl_force32BitSize_lastModificationDate_size_CRC_forceCalculatingSizeAndCRCForPreservingLastModificationDate_(*(a1 + 32), v18, *(a1 + 40), *(a1 + 84), *(a1 + 48), *(a1 + 72), *(a1 + 80), 0);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = sub_241DAECD8;
-    v21[3] = &unk_278D1CFB8;
-    v21[4] = *(a1 + 32);
-    v19 = *(a1 + 56);
-    v22 = *(a1 + 64);
-    objc_msgSend_readWithHandler_(v19, v20, v21);
+    objc_msgSend_beginEntryWithNameImpl_force32BitSize_lastModificationDate_size_CRC_forceCalculatingSizeAndCRCForPreservingLastModificationDate_(*(a1 + 32), v20, *(a1 + 40), *(a1 + 84), *(a1 + 48), *(a1 + 72), *(a1 + 80), 0);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_241DAECD8;
+    v23[3] = &unk_278D1CFB8;
+    v23[4] = *(a1 + 32);
+    v21 = *(a1 + 56);
+    v24 = *(a1 + 64);
+    objc_msgSend_readWithHandler_(v21, v22, v23);
   }
 }
 
@@ -1522,16 +1558,16 @@ void sub_241DAF308(uint64_t a1)
   dispatch_resume(v7);
 }
 
-void sub_241DAF458(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_241DAF458(id *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a1[4];
   if (v9[16] == 1)
   {
-    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 450, "[BUZipWriter closeWithQueue:completion:]_block_invoke", "!self->_closed", @"Shouldn't have closed twice.", a6, a7, a8, v33);
+    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 450, "[BUZipWriter closeWithQueue:completion:]_block_invoke", "!self->_closed", @"Shouldn't have closed twice.", a6, a7, a8, v35);
     BUCrashBreakpoint();
-    if (BUIsRunningTests())
+    if (BUIsRunningTests(v10, v11))
     {
-      BUCrashFinalThrow(@"Shouldn't have closed twice.", v10, v11, v12, v13, v14, v15, v16, v34);
+      BUCrashFinalThrow(@"Shouldn't have closed twice.", v12, v13, v14, v15, v16, v17, v18, v36);
     }
 
     __break(1u);
@@ -1539,44 +1575,44 @@ void sub_241DAF458(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t
 
   else
   {
-    v17 = objc_msgSend_error(v9, a2, a3);
+    v19 = objc_msgSend_error(v9, a2, a3);
 
-    v20 = a1[4];
-    if (v17)
+    v22 = a1[4];
+    if (v19)
     {
-      objc_msgSend_setClosed_(v20, v18, 1);
-      v23 = objc_msgSend_error(a1[4], v21, v22);
+      objc_msgSend_setClosed_(v22, v20, 1);
+      v25 = objc_msgSend_error(a1[4], v23, v24);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_241DAF638;
       block[3] = &unk_278D1CEA0;
-      v24 = a1[5];
-      v25 = a1[6];
-      v39 = v23;
-      v40 = v25;
-      v26 = v23;
-      dispatch_async(v24, block);
+      v26 = a1[5];
+      v27 = a1[6];
+      v41 = v25;
+      v42 = v27;
+      v28 = v25;
+      dispatch_async(v26, block);
     }
 
     else
     {
-      objc_msgSend_finishEntry(v20, v18, v19);
-      objc_msgSend_writeCentralDirectory(a1[4], v27, v28);
-      objc_msgSend_setClosed_(a1[4], v29, 1);
-      v32 = objc_msgSend_channelQueue(a1[4], v30, v31);
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = sub_241DAF64C;
-      v35[3] = &unk_278D1CF40;
-      v35[4] = a1[4];
-      v37 = a1[6];
-      v36 = a1[5];
-      dispatch_async(v32, v35);
+      objc_msgSend_finishEntry(v22, v20, v21);
+      objc_msgSend_writeCentralDirectory(a1[4], v29, v30);
+      objc_msgSend_setClosed_(a1[4], v31, 1);
+      v34 = objc_msgSend_channelQueue(a1[4], v32, v33);
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_241DAF64C;
+      v37[3] = &unk_278D1CF40;
+      v37[4] = a1[4];
+      v39 = a1[6];
+      v38 = a1[5];
+      dispatch_async(v34, v37);
     }
   }
 }
 
-void sub_241DAF64C(void **a1, const char *a2, uint64_t a3)
+void sub_241DAF64C(id *a1, const char *a2, uint64_t a3)
 {
   v4 = objc_msgSend_channelQueue(a1[4], a2, a3);
   dispatch_suspend(v4);
@@ -1604,7 +1640,7 @@ void sub_241DAF750(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_241DAF76C(void **a1)
+void sub_241DAF76C(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   objc_msgSend_close(WeakRetained, v3, v4);
@@ -1698,9 +1734,9 @@ void sub_241DB04D4(uint64_t a1, const char *a2, uint64_t a3)
   _Block_object_dispose(v15, 8);
 }
 
-void sub_241DB0600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DB0600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1749,14 +1785,14 @@ void sub_241DB0618(uint64_t a1, int a2, void *a3, void *a4)
 LABEL_9:
 }
 
-void sub_241DB08BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB08BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_241DB08D4(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_241DB08D4(uint64_t a1, const char *a2, uint64_t a3)
 {
   result = objc_msgSend_currentOffset(*(a1 + 32), a2, a3);
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1853,30 +1889,33 @@ uint64_t sub_241DB0D80(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_241DB0EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB0EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_241DB0EF4(uint64_t a1, const char *a2, uint64_t a3)
 {
-  *(*(*(a1 + 40) + 8) + 40) = objc_msgSend_sortedEntriesImpl(*(a1 + 32), a2, a3);
+  v4 = objc_msgSend_sortedEntriesImpl(*(a1 + 32), a2, a3);
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
-void sub_241DB1000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB1000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241DB1158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DB1158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1890,10 +1929,11 @@ void sub_241DB1170(uint64_t a1, const char *a2, uint64_t a3)
   *(v6 + 40) = v5;
 }
 
-void sub_241DB17A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DB17A8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 double CGPointClipToRect(double a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -2668,9 +2708,9 @@ LABEL_23:
   return v21;
 }
 
-void sub_241DB2A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB2A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2727,7 +2767,7 @@ uint64_t sub_241DB2BF4(void *a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t sub_241DB2D74(void *a1, uint64_t a2)
+char *sub_241DB2D74(void *a1, uint64_t a2)
 {
   v3 = a1;
   v6 = objc_msgSend_offset(v3, v4, v5);
@@ -2890,7 +2930,7 @@ id sub_241DB3C30(uint64_t a1, const char *a2, void *a3)
         {
           if (!objc_msgSend_length(v19, v24, v25))
           {
-            v66 = BookUtilityLog();
+            v66 = BookUtilityLog(0);
             if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
             {
               v67 = 138412290;
@@ -2954,16 +2994,16 @@ LABEL_13:
   return v58;
 }
 
-id sub_241DB3FAC()
+id sub_241DB3FAC(uint64_t a1)
 {
   if (qword_280BC5DE0 != -1)
   {
     sub_241DCFA70();
   }
 
-  v1 = qword_280BC5DE8;
+  v2 = qword_280BC5DE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_241DB3FF0()
@@ -2980,16 +3020,16 @@ void sub_241DB3FF0()
   qword_280BC5DE8 = v2;
 }
 
-id sub_241DB4054()
+id sub_241DB4054(uint64_t a1)
 {
   if (qword_27EC729A0 != -1)
   {
     sub_241DCFA84();
   }
 
-  v1 = qword_27EC72998;
+  v2 = qword_27EC72998;
 
-  return v1;
+  return v2;
 }
 
 void sub_241DB4098()
@@ -3006,16 +3046,16 @@ void sub_241DB4098()
   qword_27EC72998 = v2;
 }
 
-id sub_241DB40FC()
+id sub_241DB40FC(uint64_t a1)
 {
   if (qword_27EC729B0 != -1)
   {
     sub_241DCFA98();
   }
 
-  v1 = qword_27EC729A8;
+  v2 = qword_27EC729A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_241DB4140()
@@ -3505,9 +3545,9 @@ uint64_t sub_241DB506C(void *a1, uint64_t a2, void *a3)
   return v7 & 1;
 }
 
-void sub_241DB5144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB5144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3524,7 +3564,7 @@ uint64_t sub_241DB515C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE
   return result;
 }
 
-uint64_t sub_241DB56F8(uint64_t a1, uint64_t a2)
+os_state_data_s *sub_241DB56F8(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 16) != 3)
   {
@@ -3548,7 +3588,7 @@ uint64_t sub_241DB56F8(uint64_t a1, uint64_t a2)
 
 void sub_241DB5AE4(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_pathMonitor(*(a1 + 32), a2, a3);
 
   if (!v4)
@@ -3562,27 +3602,27 @@ void sub_241DB5AE4(uint64_t a1, const char *a2, uint64_t a3)
 
     objc_initWeak(&location, *(a1 + 32));
     v15 = objc_msgSend_pathMonitor(*(a1 + 32), v13, v14);
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = sub_241DB5CF8;
-    v27 = &unk_278D1D2D8;
-    objc_copyWeak(&v28, &location);
-    nw_path_monitor_set_update_handler(v15, &v24);
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = sub_241DB5CF8;
+    v28 = &unk_278D1D2D8;
+    objc_copyWeak(&v29, &location);
+    nw_path_monitor_set_update_handler(v15, &v25);
 
-    v18 = objc_msgSend_pathMonitor(*(a1 + 32), v16, v17, v24, v25, v26, v27);
+    v18 = objc_msgSend_pathMonitor(*(a1 + 32), v16, v17, v25, v26, v27, v28);
     nw_path_monitor_start(v18);
 
-    v19 = BookUtilityLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = BookUtilityLog(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_msgSend_monitorQueue(*(a1 + 32), v20, v21);
-      label = dispatch_queue_get_label(v22);
+      v23 = objc_msgSend_monitorQueue(*(a1 + 32), v21, v22);
+      label = dispatch_queue_get_label(v23);
       *buf = 136315138;
-      v31 = label;
-      _os_log_impl(&dword_241DA6000, v19, OS_LOG_TYPE_DEFAULT, "Started monitoring network in queue: %s", buf, 0xCu);
+      v32 = label;
+      _os_log_impl(&dword_241DA6000, v20, OS_LOG_TYPE_DEFAULT, "Started monitoring network in queue: %s", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 }
@@ -3603,7 +3643,7 @@ void sub_241DB5CF8(uint64_t a1, void *a2)
 
 void sub_241DB5DC8(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_pathMonitor(*(a1 + 32), a2, a3);
 
   if (v4)
@@ -3611,14 +3651,14 @@ void sub_241DB5DC8(uint64_t a1, const char *a2, uint64_t a3)
     v7 = objc_msgSend_pathMonitor(*(a1 + 32), v5, v6);
     nw_path_monitor_cancel(v7);
 
-    objc_msgSend_setPathMonitor_(*(a1 + 32), v8, 0);
-    v9 = BookUtilityLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = objc_msgSend_setPathMonitor_(*(a1 + 32), v8, 0);
+    v10 = BookUtilityLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_msgSend_monitorQueue(*(a1 + 32), v10, v11);
-      v13 = 136315138;
-      label = dispatch_queue_get_label(v12);
-      _os_log_impl(&dword_241DA6000, v9, OS_LOG_TYPE_DEFAULT, "Stopped monitoring network in queue: %s", &v13, 0xCu);
+      v13 = objc_msgSend_monitorQueue(*(a1 + 32), v11, v12);
+      v14 = 136315138;
+      label = dispatch_queue_get_label(v13);
+      _os_log_impl(&dword_241DA6000, v10, OS_LOG_TYPE_DEFAULT, "Stopped monitoring network in queue: %s", &v14, 0xCu);
     }
   }
 }
@@ -3640,7 +3680,7 @@ uint64_t sub_241DB5F58()
 void sub_241DB61EC(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BUCoalescingCallBlockLog();
+  v3 = BUCoalescingCallBlockLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_241DCFBEC(v2, v3);
@@ -3649,70 +3689,71 @@ void sub_241DB61EC(uint64_t a1, void *a2)
 
 void sub_241DB65C0(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_group(*(a1 + 32), a2, a3);
   dispatch_group_enter(v4);
 
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x2020000000;
-  v44 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 0;
   v7 = objc_msgSend_UUID(MEMORY[0x277CCAD78], v5, v6);
   v10 = objc_msgSend_UUIDString(v7, v8, v9);
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = sub_241DB68B4;
-  v38[3] = &unk_278D1D348;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = sub_241DB68B4;
+  v39[3] = &unk_278D1D348;
   v11 = *(a1 + 40);
   v12 = *(a1 + 32);
-  v39 = v11;
-  v40 = v12;
-  v42 = v43;
+  v40 = v11;
+  v41 = v12;
+  v43 = v44;
   v13 = v10;
-  v41 = v13;
-  v14 = MEMORY[0x245D00360](v38);
-  v19 = objc_msgSend_notifyTimeoutBlock(*(a1 + 32), v15, v16);
-  if (v19)
+  v42 = v13;
+  v14 = MEMORY[0x245D00360](v39);
+  v17 = objc_msgSend_notifyTimeoutBlock(*(a1 + 32), v15, v16);
+  v20 = v17;
+  if (v17)
   {
-    v20 = objc_msgSend_notifyTimeoutDurationSeconds(*(a1 + 32), v17, v18) == 0;
+    v21 = objc_msgSend_notifyTimeoutDurationSeconds(*(a1 + 32), v18, v19) == 0;
 
-    if (!v20)
+    if (!v21)
     {
-      v23 = objc_msgSend_notifyTimeoutDurationSeconds(*(a1 + 32), v21, v22);
-      v24 = dispatch_time(0, 1000000000 * v23);
-      v27 = objc_msgSend_sync(*(a1 + 32), v25, v26);
+      v24 = objc_msgSend_notifyTimeoutDurationSeconds(*(a1 + 32), v22, v23);
+      v25 = dispatch_time(0, 1000000000 * v24);
+      v28 = objc_msgSend_sync(*(a1 + 32), v26, v27);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_241DB6B60;
       block[3] = &unk_278D1D320;
       block[4] = *(a1 + 32);
-      v37 = v43;
-      v36 = v13;
-      dispatch_after(v24, v27, block);
+      v38 = v44;
+      v37 = v13;
+      dispatch_after(v25, v28, block);
     }
   }
 
-  v28 = BUCoalescingCallBlockLog();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  v29 = BUCoalescingCallBlockLog(v17);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v31 = objc_msgSend_notifyBlockDescription(*(a1 + 32), v29, v30);
+    v32 = objc_msgSend_notifyBlockDescription(*(a1 + 32), v30, v31);
     *buf = 138543618;
-    v46 = v31;
-    v47 = 2114;
-    v48 = v13;
-    _os_log_impl(&dword_241DA6000, v28, OS_LOG_TYPE_INFO, "Invoking notify block '%{public}@' (%{public}@)", buf, 0x16u);
+    v47 = v32;
+    v48 = 2114;
+    v49 = v13;
+    _os_log_impl(&dword_241DA6000, v29, OS_LOG_TYPE_INFO, "Invoking notify block '%{public}@' (%{public}@)", buf, 0x16u);
   }
 
-  v34 = objc_msgSend_notifyBlock(*(a1 + 32), v32, v33);
-  (v34)[2](v34, v14);
+  v35 = objc_msgSend_notifyBlock(*(a1 + 32), v33, v34);
+  (v35)[2](v35, v14);
 
-  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(v44, 8);
 }
 
-void sub_241DB6888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_241DB6888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3765,30 +3806,30 @@ void sub_241DB68B4(uint64_t a1)
   dispatch_group_leave(v15);
 }
 
-uint64_t sub_241DB6A50(uint64_t a1, const char *a2)
+void *sub_241DB6A50(uint64_t a1, const char *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  objc_msgSend_setInvoking_(*(a1 + 32), a2, 0);
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = objc_msgSend_setInvoking_(*(a1 + 32), a2, 0);
   *(*(*(a1 + 48) + 8) + 24) = 1;
-  v3 = BUCoalescingCallBlockLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = BUCoalescingCallBlockLog(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = objc_msgSend_notifyBlockDescription(*(a1 + 32), v4, v5);
-    v7 = *(a1 + 40);
-    v15 = 138543618;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_impl(&dword_241DA6000, v3, OS_LOG_TYPE_INFO, "Notify block '%{public}@' called completion (%{public}@)", &v15, 0x16u);
+    v7 = objc_msgSend_notifyBlockDescription(*(a1 + 32), v5, v6);
+    v8 = *(a1 + 40);
+    v16 = 138543618;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v8;
+    _os_log_impl(&dword_241DA6000, v4, OS_LOG_TYPE_INFO, "Notify block '%{public}@' called completion (%{public}@)", &v16, 0x16u);
   }
 
-  result = objc_msgSend_pending(*(a1 + 32), v8, v9);
+  result = objc_msgSend_pending(*(a1 + 32), v9, v10);
   if (result)
   {
-    result = objc_msgSend_nextCoalescingTime(*(a1 + 32), v11, v12);
+    result = objc_msgSend_nextCoalescingTime(*(a1 + 32), v12, v13);
     if (result == -1)
     {
-      return objc_msgSend__invoke(*(a1 + 32), v13, v14);
+      return objc_msgSend__invoke(*(a1 + 32), v14, v15);
     }
   }
 
@@ -3798,7 +3839,7 @@ uint64_t sub_241DB6A50(uint64_t a1, const char *a2)
 void sub_241DB6B60(uint64_t a1)
 {
   v24 = *MEMORY[0x277D85DE8];
-  v2 = BUCoalescingCallBlockLog();
+  v2 = BUCoalescingCallBlockLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v5 = objc_msgSend_notifyBlockDescription(*(a1 + 32), v3, v4);
@@ -3963,9 +4004,9 @@ id sub_241DB73FC()
   return v1;
 }
 
-void sub_241DB74C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB74C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3982,7 +4023,7 @@ Class sub_241DB74DC(uint64_t a1)
 
   else
   {
-    v3 = sub_241DCFC74();
+    sub_241DCFC74();
     return sub_241DB7534(v3);
   }
 
@@ -4029,11 +4070,11 @@ void sub_241DB7FE8(uint64_t a1, const char *a2)
   }
 }
 
-void sub_241DB82B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DB82B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4061,17 +4102,17 @@ void sub_241DB82F0(uint64_t a1, void *a2, void *a3)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_241DB8D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DB8D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_241DB8D60(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_temporaryDirectoryURL(*(a1 + 32), a2, a3);
 
   if (v4)
@@ -4089,114 +4130,114 @@ void sub_241DB8D60(uint64_t a1, const char *a2, uint64_t a3)
 
     if (v14)
     {
-      v15 = [BUFileIOChannel alloc];
-      v16 = *(*(a1 + 48) + 8);
-      obj = *(v16 + 40);
-      v18 = objc_msgSend_initForStreamWritingURL_error_(v15, v17, v14, &obj);
-      objc_storeStrong((v16 + 40), obj);
+      v16 = [BUFileIOChannel alloc];
+      v17 = *(*(a1 + 48) + 8);
+      obj = *(v17 + 40);
+      v19 = objc_msgSend_initForStreamWritingURL_error_(v16, v18, v14, &obj);
+      objc_storeStrong((v17 + 40), obj);
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    *(*(*(a1 + 56) + 8) + 24) = v18 != 0;
+    *(*(*(a1 + 56) + 8) + 24) = v19 != 0;
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      v58 = 0;
-      v59 = &v58;
-      v60 = 0x3032000000;
-      v61 = sub_241DB82D8;
-      v62 = sub_241DB82E8;
-      v63 = 0;
-      v19 = dispatch_group_create();
-      dispatch_group_enter(v19);
-      v22 = objc_msgSend_readChannel(v7, v20, v21);
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = sub_241DB91CC;
-      v54[3] = &unk_278D1D438;
-      v57 = &v58;
-      v23 = v19;
-      v55 = v23;
-      v24 = v18;
-      v56 = v24;
-      objc_msgSend_readFromOffset_length_handler_(v22, v25, 0, -1, v54);
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x3032000000;
+      v63 = sub_241DB82D8;
+      v64 = sub_241DB82E8;
+      v65 = 0;
+      v20 = dispatch_group_create();
+      dispatch_group_enter(v20);
+      v23 = objc_msgSend_readChannel(v7, v21, v22);
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = sub_241DB91CC;
+      v56[3] = &unk_278D1D438;
+      v59 = &v60;
+      v24 = v20;
+      v57 = v24;
+      v25 = v19;
+      v58 = v25;
+      objc_msgSend_readFromOffset_length_handler_(v23, v26, 0, -1, v56);
 
-      dispatch_group_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-      objc_msgSend_close(v24, v26, v27);
+      dispatch_group_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+      objc_msgSend_close(v25, v27, v28);
 
-      v28 = v59;
-      *(*(*(a1 + 56) + 8) + 24) = v59[5] == 0;
+      v29 = v61;
+      *(*(*(a1 + 56) + 8) + 24) = v61[5] == 0;
       if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
       {
-        objc_storeStrong((*(*(a1 + 48) + 8) + 40), v28[5]);
-        v29 = BUZipLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        objc_storeStrong((*(*(a1 + 48) + 8) + 40), v29[5]);
+        v31 = BUZipLog(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v42 = objc_msgSend_path(*(a1 + 40), v30, v31);
-          v45 = objc_msgSend_path(v14, v43, v44);
-          v48 = objc_msgSend_code(v59[5], v46, v47);
-          v51 = objc_msgSend_domain(v59[5], v49, v50);
-          v52 = v59[5];
+          v44 = objc_msgSend_path(*(a1 + 40), v32, v33);
+          v47 = objc_msgSend_path(v14, v45, v46);
+          v50 = objc_msgSend_code(v61[5], v48, v49);
+          v53 = objc_msgSend_domain(v61[5], v51, v52);
+          v54 = v61[5];
           *buf = 138413314;
-          v66 = v42;
-          v67 = 2112;
-          v68 = v45;
-          v69 = 2048;
-          v70 = v48;
-          v71 = 2114;
-          v72 = v51;
-          v73 = 2112;
-          v74 = v52;
-          _os_log_error_impl(&dword_241DA6000, v29, OS_LOG_TYPE_ERROR, "Failed to copy zip file from %@ to %@ with error: %zd %{public}@ %@", buf, 0x34u);
+          v68 = v44;
+          v69 = 2112;
+          v70 = v47;
+          v71 = 2048;
+          v72 = v50;
+          v73 = 2114;
+          v74 = v53;
+          v75 = 2112;
+          v76 = v54;
+          _os_log_error_impl(&dword_241DA6000, v31, OS_LOG_TYPE_ERROR, "Failed to copy zip file from %@ to %@ with error: %zd %{public}@ %@", buf, 0x34u);
         }
       }
 
-      _Block_object_dispose(&v58, 8);
-      v18 = 0;
+      _Block_object_dispose(&v60, 8);
+      v19 = 0;
     }
 
     else
     {
-      v34 = BUZipLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v36 = BUZipLog(v15);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD00EC(v14, v34, v35);
+        sub_241DD00EC(v14, v36, v37);
       }
     }
 
-    v36 = *(*(a1 + 56) + 8);
-    if (*(v36 + 24) == 1)
+    v38 = *(*(a1 + 56) + 8);
+    if (*(v38 + 24) == 1)
     {
-      v37 = *(a1 + 32);
-      v38 = *(*(a1 + 48) + 8);
-      v53 = *(v38 + 40);
-      v39 = objc_msgSend_reopenWithTemporaryURL_error_(v37, v32, v14, &v53);
-      objc_storeStrong((v38 + 40), v53);
-      v36 = *(*(a1 + 56) + 8);
+      v39 = *(a1 + 32);
+      v40 = *(*(a1 + 48) + 8);
+      v55 = *(v40 + 40);
+      v41 = objc_msgSend_reopenWithTemporaryURL_error_(v39, v34, v14, &v55);
+      objc_storeStrong((v40 + 40), v55);
+      v38 = *(*(a1 + 56) + 8);
     }
 
     else
     {
-      v39 = 0;
+      v41 = 0;
     }
 
-    *(v36 + 24) = v39;
+    *(v38 + 24) = v41;
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
     {
-      objc_msgSend_removeTemporaryDirectory(*(a1 + 32), v32, v33);
+      objc_msgSend_removeTemporaryDirectory(*(a1 + 32), v34, v35);
     }
 
     objc_autoreleasePoolPop(v8);
-    objc_msgSend_waitForAccessToEnd(v7, v40, v41);
+    objc_msgSend_waitForAccessToEnd(v7, v42, v43);
   }
 }
 
-void sub_241DB91A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_241DB91A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4258,9 +4299,9 @@ void sub_241DB92DC(uint64_t a1, int a2, void *a3, void *a4)
   }
 }
 
-void sub_241DB9424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DB9424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4275,7 +4316,7 @@ void sub_241DB9540(uint64_t a1, const char *a2, uint64_t a3)
     v9 = dup(v8);
     if ((v9 & 0x80000000) != 0)
     {
-      v21 = BUZipLog();
+      v21 = BUZipLog(v9);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_241DD0180();
@@ -4305,7 +4346,7 @@ void sub_241DB9540(uint64_t a1, const char *a2, uint64_t a3)
 
   else
   {
-    v21 = BUZipLog();
+    v21 = BUZipLog(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_241DD020C(v21);
@@ -4343,10 +4384,11 @@ void sub_241DB978C(uint64_t a1, const char *a2, uint64_t a3)
   }
 }
 
-void sub_241DB9B34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DB9B34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void BUCastStatsDump()
@@ -4430,9 +4472,11 @@ void BUCastRecord(uint64_t a1, int a2, uint64_t a3)
 
 uint64_t sub_241DB9E94()
 {
-  qword_27EC72A08 = dispatch_queue_create("BookUtility.castStats", 0);
+  v0 = dispatch_queue_create("BookUtility.castStats", 0);
+  v1 = qword_27EC72A08;
+  qword_27EC72A08 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_241DB9ED4(uint64_t a1, const char *a2)
@@ -4672,9 +4716,9 @@ void sub_241DBB2BC(uint64_t a1, void *a2)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_241DBB584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_241DBB584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4752,10 +4796,10 @@ uint64_t sub_241DBBA88(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
   return MEMORY[0x2821F9730]();
 }
 
-void sub_241DBC1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_241DBC1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a68, 8);
+  _Block_object_dispose(&a65, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4807,14 +4851,14 @@ void sub_241DBC398(void *a1, uint64_t a2)
   *(v5 + 40) = 0;
 }
 
-void sub_241DBC5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DBC5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_241DBC5F8(uint64_t a1, const char *a2, void *a3, _BYTE *a4)
+void *sub_241DBC5F8(uint64_t a1, const char *a2, void *a3, _BYTE *a4)
 {
   result = objc_msgSend_size(a3, a2, a3);
   if (result)
@@ -4844,8 +4888,8 @@ void sub_241DBC908(uint64_t a1, void *a2, void *a3)
 
     v15 = v14;
 
-    v16 = BUZipLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = BUZipLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       sub_241DD04AC();
     }
@@ -4925,13 +4969,13 @@ void sub_241DBCC08(uint64_t a1, void *a2)
 
     if (v15)
     {
-      v16 = BUZipLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = BUZipLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_241DD0530();
       }
 
-      objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(*(a1 + 32), v17, *(a1 + 40), 0, 0, 0, 0, *(a1 + 48));
+      objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(*(a1 + 32), v18, *(a1 + 40), 0, 0, 0, 0, *(a1 + 48));
     }
 
     else
@@ -5033,12 +5077,13 @@ void sub_241DBE4D8(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_241DBE620(uint64_t a1, void *a2, void *a3, char a4)
 {
   v7 = a2;
-  v10 = a3;
-  if (v10)
+  v8 = a3;
+  v11 = v8;
+  if (v8)
   {
-    v11 = *(*(a1 + 56) + 16);
+    v12 = *(*(a1 + 56) + 16);
 LABEL_3:
-    v11();
+    v12();
     goto LABEL_10;
   }
 
@@ -5047,14 +5092,14 @@ LABEL_3:
     if (a4)
     {
 LABEL_37:
-      v11 = *(*(a1 + 56) + 16);
+      v12 = *(*(a1 + 56) + 16);
       goto LABEL_3;
     }
 
-    v25 = *(a1 + 64);
+    v26 = *(a1 + 64);
     if (*(a1 + 68))
     {
-      if (v25)
+      if (v26)
       {
 LABEL_22:
         v30 = 1;
@@ -5065,23 +5110,23 @@ LABEL_22:
 
     else
     {
-      v26 = objc_msgSend_compressedSize(*(a1 + 40), v8, v9);
-      if (v26 >= 0x64)
+      v8 = objc_msgSend_compressedSize(*(a1 + 40), v9, v10);
+      if (v8 >= 0x64)
       {
         v27 = 100;
       }
 
       else
       {
-        v27 = v26;
+        v27 = v8;
       }
 
-      if (v27 != v25)
+      if (v27 != v26)
       {
-        if (!v25)
+        if (!v26)
         {
-          v41 = v26;
-          v42 = BUZipLog();
+          v41 = v8;
+          v42 = BUZipLog(v8);
           if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             sub_241DD0598(a1, v42, v43);
@@ -5098,12 +5143,12 @@ LABEL_22:
 
         v30 = 0;
 LABEL_23:
-        if (v27 > v25)
+        if (v27 > v26)
         {
-          v31 = (v25 + 1);
+          v31 = (v26 + 1);
           if (v30)
           {
-            v32 = objc_msgSend_offset(*(a1 + 40), v8, v9);
+            v32 = objc_msgSend_offset(*(a1 + 40), v9, v10);
             v35 = objc_msgSend_fileHeaderLength(*(a1 + 40), v33, v34);
             v39 = v32 + v31 + v35 + objc_msgSend_compressedSize(*(a1 + 40), v36, v37);
             v40 = 1;
@@ -5113,7 +5158,7 @@ LABEL_33:
           }
 
 LABEL_32:
-          v44 = objc_msgSend_offset(*(a1 + 40), v8, v9);
+          v44 = objc_msgSend_offset(*(a1 + 40), v9, v10);
           v47 = objc_msgSend_fileHeaderLength(*(a1 + 40), v45, v46);
           v50 = objc_msgSend_compressedSize(*(a1 + 40), v48, v49);
           v40 = 0;
@@ -5122,7 +5167,7 @@ LABEL_32:
         }
 
 LABEL_34:
-        v51 = BUZipLog();
+        v51 = BUZipLog(v8);
         if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           sub_241DD06C0();
@@ -5132,28 +5177,28 @@ LABEL_34:
       }
     }
 
-    v28 = BUZipLog();
+    v28 = BUZipLog(v8);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       sub_241DD062C(a1, v28, v29);
     }
 
-    LODWORD(v25) = 0;
+    LODWORD(v26) = 0;
     goto LABEL_22;
   }
 
-  objc_msgSend_addEntry_(*(a1 + 32), v8, v7);
-  v14 = *(a1 + 40);
-  if (v14 && (*(a1 + 68) & 1) == 0 && *(a1 + 64))
+  objc_msgSend_addEntry_(*(a1 + 32), v9, v7);
+  v15 = *(a1 + 40);
+  if (v15 && (*(a1 + 68) & 1) == 0 && *(a1 + 64))
   {
-    v15 = objc_msgSend_compressedSize(*(a1 + 40), v12, v13);
-    objc_msgSend_setCompressedSize_(v14, v16, v15 - *(a1 + 64));
+    v16 = objc_msgSend_compressedSize(*(a1 + 40), v13, v14);
+    objc_msgSend_setCompressedSize_(v15, v17, v16 - *(a1 + 64));
   }
 
-  v17 = objc_msgSend_offset(v7, v12, v13);
-  v20 = objc_msgSend_fileHeaderLength(v7, v18, v19) + v17;
-  v23 = objc_msgSend_compressedSize(v7, v21, v22);
-  objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(*(a1 + 32), v24, *(a1 + 48), v20 + v23, v7, 0, 0, *(a1 + 56));
+  v18 = objc_msgSend_offset(v7, v13, v14);
+  v21 = objc_msgSend_fileHeaderLength(v7, v19, v20) + v18;
+  v24 = objc_msgSend_compressedSize(v7, v22, v23);
+  objc_msgSend_readLocalFileHeaderEntriesFromChannel_offset_previousEntry_seekAttempts_seekForward_completion_(*(a1 + 32), v25, *(a1 + 48), v21 + v24, v7, 0, 0, *(a1 + 56));
 LABEL_10:
 }
 
@@ -5182,7 +5227,7 @@ void sub_241DBEC8C(uint64_t a1, void *a2, void *a3)
   v23();
 }
 
-id sub_241DBF140(uint64_t a1, void *a2)
+BUZipInflateReadChannel *sub_241DBF140(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [BUZipInflateReadChannel alloc];
@@ -5194,9 +5239,9 @@ id sub_241DBF140(uint64_t a1, void *a2)
   return Channel_uncompressedSize_CRC_validateCRC;
 }
 
-void sub_241DBF704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241DBF704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5309,9 +5354,9 @@ void sub_241DBF920(uint64_t a1, void *a2, void *a3)
 LABEL_6:
 }
 
-void sub_241DBFCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DBFCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5323,10 +5368,11 @@ uint64_t sub_241DBFCFC(uint64_t a1, const char *a2, void *a3)
   return result;
 }
 
-void sub_241DC0424(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DC0424(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_241DC0444(void *a1, uint64_t a2, void *a3, void *a4)
@@ -5584,11 +5630,11 @@ void sub_241DC0DD8(uint64_t a1)
   *(v2 + 16) = 0;
 }
 
-void sub_241DC10D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241DC10D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 80), 8);
+  _Block_object_dispose((v22 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5600,7 +5646,7 @@ void sub_241DC10F8(uint64_t a1)
     v1 = (a1 + 32);
     *(*(v1[2] + 8) + 24) = *(*(a1 + 32) + 16) == 0;
     ++*(*v1 + 16);
-    v2 = BUAssertionLog();
+    v2 = BUAssertionLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       sub_241DD0908(v1, v2);
@@ -5610,16 +5656,17 @@ void sub_241DC10F8(uint64_t a1)
 
 void sub_241DC1194(uint64_t a1, const char *a2, uint64_t a3)
 {
-  if (objc_msgSend__endAssertion(*(a1 + 32), a2, a3))
+  v4 = objc_msgSend__endAssertion(*(a1 + 32), a2, a3);
+  if (v4)
   {
-    v4 = BUAssertionLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = BUAssertionLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_241DD0988(v4);
+      sub_241DD0988(v5);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
-    objc_msgSend_countingAssertProviderTransitionToZero_(WeakRetained, v6, *(a1 + 32));
+    objc_msgSend_countingAssertProviderTransitionToZero_(WeakRetained, v7, *(a1 + 32));
   }
 }
 
@@ -5767,7 +5814,7 @@ BOOL BUEncodedBlockInfoAreEqual(void *a1, void *a2)
   return v15;
 }
 
-id BUEncodedBlockInfoCreate(uint64_t a1, uint64_t a2)
+BUEncodedBlockInfoWithDecodedLengthInternal *BUEncodedBlockInfoCreate(uint64_t a1, uint64_t a2)
 {
   if (a1 == a2)
   {
@@ -5784,9 +5831,9 @@ id BUEncodedBlockInfoCreate(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_241DC1D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_241DC1D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5808,21 +5855,21 @@ void sub_241DC1D7C(uint64_t a1, uint64_t a2)
 
 void sub_241DC1DF4(uint64_t a1, uint64_t a2)
 {
-  close(*(a1 + 40));
+  v4 = close(*(a1 + 40));
   if (a2)
   {
-    v4 = BUZipLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BUZipLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_241DD0AB4(a2);
     }
   }
 
-  v5 = MEMORY[0x245D00360](*(a1 + 32));
-  v6 = v5;
-  if (v5)
+  v6 = MEMORY[0x245D00360](*(a1 + 32));
+  v7 = v6;
+  if (v6)
   {
-    (*(v5 + 16))(v5, a2);
+    (*(v6 + 16))(v6, a2);
   }
 }
 
@@ -5830,7 +5877,7 @@ void sub_241DC2140(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v4 = BUZipLog();
+    v4 = BUZipLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_241DD0AB4(a2);
@@ -6011,12 +6058,12 @@ id BUStoreIdStringFromObject(void *a1)
   return v3;
 }
 
-void sub_241DC30E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_241DC30E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 144), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6097,7 +6144,7 @@ LABEL_12:
 
         else
         {
-          v22 = BUZipLog();
+          v22 = BUZipLog(v21);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             sub_241DD0B30((a1 + 32), v22, v23);
@@ -6188,16 +6235,16 @@ uint64_t sub_241DC3B90(uint64_t a1, int a2, int a3, Bytef *buf, unint64_t a5)
   return 1;
 }
 
-id BUCoalescingCallBlockLog()
+id BUCoalescingCallBlockLog(uint64_t a1)
 {
   if (qword_280BC5EA0 != -1)
   {
     sub_241DD0DF0();
   }
 
-  v1 = qword_280BC5EA8;
+  v2 = qword_280BC5EA8;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DC3DD8()
@@ -6209,16 +6256,16 @@ uint64_t sub_241DC3DD8()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id BUZipLog()
+id BUZipLog(uint64_t a1)
 {
   if (qword_27EC72A28 != -1)
   {
     sub_241DD0E04();
   }
 
-  v1 = qword_27EC72A20;
+  v2 = qword_27EC72A20;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DC3E60()
@@ -6230,9 +6277,9 @@ uint64_t sub_241DC3E60()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_241DC4068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC4068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6263,10 +6310,11 @@ void sub_241DC4728(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BookUtilityLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BookUtilityLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_241DD0ED0();
     }
@@ -6274,16 +6322,16 @@ void sub_241DC4728(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = *(a1 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_241DC4828;
-    v9[3] = &unk_278D1DA60;
-    objc_copyWeak(&v11, (a1 + 40));
-    v10 = v5;
-    dispatch_async(v8, v9);
+    v9 = *(a1 + 32);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = sub_241DC4828;
+    v10[3] = &unk_278D1DA60;
+    objc_copyWeak(&v12, (a1 + 40));
+    v11 = v5;
+    dispatch_async(v9, v10);
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
   }
 }
 
@@ -6343,17 +6391,18 @@ void sub_241DC4C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_241DC4C7C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = BookUtilityLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = BookUtilityLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_241DA6000, v2, OS_LOG_TYPE_DEFAULT, "Received TCC access change notification, reset iCloud and Store Account caches", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_241DA6000, v3, OS_LOG_TYPE_DEFAULT, "Received TCC access change notification, reset iCloud and Store Account caches", v8, 2u);
     }
 
-    objc_msgSend_nq_resetAppleAccountCachedValues(WeakRetained, v3, v4);
-    objc_msgSend_nq_resetStoreAccountCachedValues(WeakRetained, v5, v6);
+    objc_msgSend_nq_resetAppleAccountCachedValues(v2, v4, v5);
+    objc_msgSend_nq_resetStoreAccountCachedValues(v2, v6, v7);
   }
 }
 
@@ -6368,7 +6417,7 @@ uint64_t sub_241DC4E14(uint64_t a1, const char *a2)
 
 uint64_t sub_241DC4EF4(uint64_t a1)
 {
-  v2 = BookUtilityLog();
+  v2 = BookUtilityLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -6379,9 +6428,9 @@ uint64_t sub_241DC4EF4(uint64_t a1)
   return objc_msgSend_setCachedIsPrimaryAccountManagedAppleID_(*(a1 + 32), v4, 0);
 }
 
-void sub_241DC5078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC5078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6404,9 +6453,9 @@ void sub_241DC5090(void *a1, const char *a2)
   *(*(a1[6] + 8) + 24) = objc_msgSend_count(v14, v12, v13);
 }
 
-void sub_241DC5278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC5278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6421,9 +6470,9 @@ void sub_241DC5290(void *a1, const char *a2)
   *(*(a1[6] + 8) + 24) = objc_msgSend_count(v9, v7, v8);
 }
 
-void sub_241DC5448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC5448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6439,9 +6488,9 @@ void sub_241DC5460(void *a1, const char *a2)
   *(v9 + 40) = v8;
 }
 
-void sub_241DC55C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC55C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6485,7 +6534,7 @@ void sub_241DC5B74(uint64_t a1)
     v4 = *(a1 + 32);
     v3 = (a1 + 32);
     v6 = objc_msgSend__singleAccountTypeForNotification_(WeakRetained, v5, v4);
-    v7 = BookUtilityLog();
+    v7 = BookUtilityLog(v6);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
     if (v6)
     {
@@ -6565,13 +6614,14 @@ void sub_241DC650C(uint64_t a1, void *a2, void *a3)
 
 void sub_241DC65F4(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v5 = objc_msgSend__observersForAccountType_(*(a1 + 32), v3, 2);
+  v4 = objc_msgSend__observersForAccountType_(*(a1 + 32), v3, 2);
+  v6 = v4;
   if (*(a1 + 40))
   {
-    v6 = BookUtilityLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BookUtilityLog(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1164();
     }
@@ -6583,81 +6633,81 @@ LABEL_27:
 
   if (WeakRetained)
   {
-    v6 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v4, 2);
-    v9 = objc_msgSend_accountIdentifiers(WeakRetained, v7, v8);
-    v11 = objc_msgSend_objectForKeyedSubscript_(v9, v10, v6);
+    v7 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v5, 2);
+    v10 = objc_msgSend_accountIdentifiers(WeakRetained, v8, v9);
+    v12 = objc_msgSend_objectForKeyedSubscript_(v10, v11, v7);
 
-    v14 = objc_msgSend_recordName(*(a1 + 48), v12, v13);
-    v17 = objc_msgSend_copy(v14, v15, v16);
+    v15 = objc_msgSend_recordName(*(a1 + 48), v13, v14);
+    v18 = objc_msgSend_copy(v15, v16, v17);
 
-    if (objc_msgSend_isEqualToString_(v11, v18, v17))
+    if (objc_msgSend_isEqualToString_(v12, v19, v18))
     {
-      v21 = 0;
+      v22 = 0;
     }
 
     else
     {
-      if (objc_msgSend_length(v11, v19, v20) && objc_msgSend_length(v17, v22, v23))
+      if (objc_msgSend_length(v12, v20, v21) && objc_msgSend_length(v18, v23, v24))
       {
-        v21 = 102;
+        v22 = 102;
       }
 
-      else if (objc_msgSend_length(v11, v22, v23) || !objc_msgSend_length(v17, v22, v23))
+      else if (objc_msgSend_length(v12, v23, v24) || !objc_msgSend_length(v18, v23, v24))
       {
-        if (objc_msgSend_length(v11, v22, v23))
+        if (objc_msgSend_length(v12, v23, v24))
         {
-          if (objc_msgSend_length(v17, v22, v23))
+          if (objc_msgSend_length(v18, v23, v24))
           {
-            v21 = 0;
+            v22 = 0;
           }
 
           else
           {
-            v21 = 101;
+            v22 = 101;
           }
         }
 
         else
         {
-          v21 = 0;
+          v22 = 0;
         }
       }
 
       else
       {
-        v21 = 100;
+        v22 = 100;
       }
 
-      v24 = objc_msgSend_accountIdentifiers(WeakRetained, v22, v23);
-      objc_msgSend_setObject_forKeyedSubscript_(v24, v25, v17, v6);
+      v25 = objc_msgSend_accountIdentifiers(WeakRetained, v23, v24);
+      objc_msgSend_setObject_forKeyedSubscript_(v25, v26, v18, v7);
     }
 
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v26 = v5;
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v33, v37, 16);
-    if (v28)
+    v35 = 0u;
+    v27 = v6;
+    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v34, v38, 16);
+    if (v29)
     {
-      v30 = v28;
-      v31 = *v34;
+      v31 = v29;
+      v32 = *v35;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v31; ++i)
         {
-          if (*v34 != v31)
+          if (*v35 != v32)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v27);
           }
 
-          objc_msgSend_account_didChangeWithReason_(*(*(&v33 + 1) + 8 * i), v29, 2, v21, v33);
+          objc_msgSend_account_didChangeWithReason_(*(*(&v34 + 1) + 8 * i), v30, 2, v22, v34);
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v29, &v33, v37, 16);
+        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v34, v38, 16);
       }
 
-      while (v30);
+      while (v31);
     }
 
     goto LABEL_27;
@@ -6666,15 +6716,16 @@ LABEL_27:
 LABEL_28:
 }
 
-void sub_241DC6B34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DC6B34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_241DC6E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241DC6E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6709,43 +6760,44 @@ void sub_241DC7E3C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  if ((objc_msgSend_isStreamOutputDone(*(a1 + 32), v9, v10) & 1) == 0)
+  isStreamOutputDone = objc_msgSend_isStreamOutputDone(*(a1 + 32), v9, v10);
+  if ((isStreamOutputDone & 1) == 0)
   {
     if (v8)
     {
-      v12 = BUZipLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = BUZipLog(isStreamOutputDone);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD11DC(v8, v12, v13);
+        sub_241DD11DC(v8, v13, v14);
       }
 
-      objc_msgSend_setStreamOutputDone_(*(a1 + 32), v14, 1);
+      objc_msgSend_setStreamOutputDone_(*(a1 + 32), v15, 1);
     }
 
     else
     {
       if (v7)
       {
-        v15 = *(a1 + 32);
+        v16 = *(a1 + 32);
         size = dispatch_data_get_size(v7);
-        v19 = objc_msgSend_streamOutputLength(v15, v17, v18);
-        objc_msgSend_setStreamOutputLength_(v15, v20, v19 + size);
-        v25 = objc_msgSend_currentStreamOutputData(*(a1 + 32), v21, v22);
-        v26 = *(a1 + 32);
-        if (v25)
+        v20 = objc_msgSend_streamOutputLength(v16, v18, v19);
+        objc_msgSend_setStreamOutputLength_(v16, v21, v20 + size);
+        v26 = objc_msgSend_currentStreamOutputData(*(a1 + 32), v22, v23);
+        v27 = *(a1 + 32);
+        if (v26)
         {
-          v27 = objc_msgSend_currentStreamOutputData(v26, v23, v24);
-          concat = dispatch_data_create_concat(v27, v7);
-          objc_msgSend_setCurrentStreamOutputData_(*(a1 + 32), v29, concat);
+          v28 = objc_msgSend_currentStreamOutputData(v27, v24, v25);
+          concat = dispatch_data_create_concat(v28, v7);
+          objc_msgSend_setCurrentStreamOutputData_(*(a1 + 32), v30, concat);
         }
 
         else
         {
-          objc_msgSend_setCurrentStreamOutputData_(v26, v23, v7);
+          objc_msgSend_setCurrentStreamOutputData_(v27, v24, v7);
         }
       }
 
-      objc_msgSend_setStreamOutputDone_(*(a1 + 32), v11, a2);
+      objc_msgSend_setStreamOutputDone_(*(a1 + 32), v12, a2);
     }
   }
 }
@@ -6775,9 +6827,9 @@ void sub_241DC8050(uint64_t a1, const char *a2, uint64_t a3)
   }
 }
 
-void sub_241DC82FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_241DC82FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6797,21 +6849,22 @@ void sub_241DC8314(uint64_t a1, int a2, void *a3, void *a4)
 
   if (!(v8 | v14))
   {
-    v8 = objc_msgSend_bu_fileReadUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v15, 0);
+    v15 = objc_msgSend_bu_fileReadUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v16, 0);
+    v8 = v15;
   }
 
   if (v8)
   {
-    v17 = BUZipLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = BUZipLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_241DD1278(v8, v17, v18);
+      sub_241DD1278(v8, v18, v19);
     }
 
     (*(*(a1 + 40) + 16))();
-    objc_msgSend_setSourceReadChannelError_(*(a1 + 32), v19, v8);
-    v22 = objc_msgSend_readQueue(*(a1 + 32), v20, v21);
-    dispatch_resume(v22);
+    objc_msgSend_setSourceReadChannelError_(*(a1 + 32), v20, v8);
+    v23 = objc_msgSend_readQueue(*(a1 + 32), v21, v22);
+    dispatch_resume(v23);
 
     goto LABEL_22;
   }
@@ -6829,7 +6882,7 @@ void sub_241DC8314(uint64_t a1, int a2, void *a3, void *a4)
   *(*(*(a1 + 48) + 8) + 24) += size;
   if (a2)
   {
-    v24 = *(*(*(a1 + 48) + 8) + 24) < *(a1 + 56);
+    v25 = *(*(*(a1 + 48) + 8) + 24) < *(a1 + 56);
     if (v7)
     {
       goto LABEL_16;
@@ -6838,18 +6891,18 @@ void sub_241DC8314(uint64_t a1, int a2, void *a3, void *a4)
 
   else
   {
-    v24 = 0;
+    v25 = 0;
     if (v7)
     {
 LABEL_16:
-      v25 = objc_msgSend_streamReadChannelSourceHandler(*(a1 + 32), v15, v16);
-      (v25)[2](v25, v24, v7, 0);
+      v26 = objc_msgSend_streamReadChannelSourceHandler(*(a1 + 32), v16, v17);
+      (v26)[2](v26, v25, v7, 0);
 
       goto LABEL_17;
     }
   }
 
-  if (v24)
+  if (v25)
   {
     goto LABEL_16;
   }
@@ -6857,29 +6910,30 @@ LABEL_16:
 LABEL_17:
   if (a2)
   {
-    v26 = *(a1 + 32);
-    v27 = *(*(a1 + 48) + 8);
-    v28 = objc_msgSend_sourceOffset(v26, v15, v16);
-    objc_msgSend_setSourceOffset_(v26, v29, *(v27 + 24) + v28);
-    if (objc_msgSend_sourceLength(*(a1 + 32), v30, v31) != -1)
+    v27 = *(a1 + 32);
+    v28 = *(*(a1 + 48) + 8);
+    v29 = objc_msgSend_sourceOffset(v27, v16, v17);
+    objc_msgSend_setSourceOffset_(v27, v30, *(v28 + 24) + v29);
+    if (objc_msgSend_sourceLength(*(a1 + 32), v31, v32) != -1)
     {
-      v34 = *(a1 + 32);
-      v35 = *(*(a1 + 48) + 8);
-      v36 = objc_msgSend_sourceLength(v34, v32, v33);
-      objc_msgSend_setSourceLength_(v34, v37, v36 - *(v35 + 24));
+      v35 = *(a1 + 32);
+      v36 = *(*(a1 + 48) + 8);
+      v37 = objc_msgSend_sourceLength(v35, v33, v34);
+      objc_msgSend_setSourceLength_(v35, v38, v37 - *(v36 + 24));
     }
 
-    objc_msgSend__readFromOffset_length_handler_(*(a1 + 32), v32, *(a1 + 64), *(a1 + 72), *(a1 + 40));
+    objc_msgSend__readFromOffset_length_handler_(*(a1 + 32), v33, *(a1 + 64), *(a1 + 72), *(a1 + 40));
   }
 
   v8 = 0;
 LABEL_22:
 }
 
-void sub_241DC8780(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_241DC8780(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t sub_241DC8A84(uint64_t a1, uint64_t a2, void *a3)
@@ -6910,11 +6964,11 @@ void sub_241DC8AE0(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_241DC8E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DC8E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6972,14 +7026,14 @@ LABEL_8:
 LABEL_9:
 }
 
-void sub_241DC9E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241DC9E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6987,7 +7041,7 @@ void sub_241DC9E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_241DC9E94(uint64_t a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v8 = a3;
   if (v8)
@@ -7002,113 +7056,114 @@ void sub_241DC9E94(uint64_t a1, void *a2, void *a3)
   }
 
   v9 = (a1 + 32);
-  if (objc_msgSend_isSymLink(*(a1 + 32), v6, v7))
+  isSymLink = objc_msgSend_isSymLink(*(a1 + 32), v6, v7);
+  if (isSymLink)
   {
-    v50 = 0;
-    v11 = objc_msgSend_stringWithContentsOfURL_encoding_error_(MEMORY[0x277CCACA8], v10, v5, 4, &v50);
-    v12 = v50;
-    if (!objc_msgSend_length(v11, v13, v14))
+    v53 = 0;
+    v12 = objc_msgSend_stringWithContentsOfURL_encoding_error_(MEMORY[0x277CCACA8], v11, v5, 4, &v53);
+    v13 = v53;
+    if (!objc_msgSend_length(v12, v14, v15))
     {
-      v39 = BUZipLog();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v42 = BUZipLog(0);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         sub_241DD1888();
       }
 
-      v40 = *(*(a1 + 56) + 8);
-      v29 = v12;
-      v17 = *(v40 + 40);
-      *(v40 + 40) = v29;
+      v43 = *(*(a1 + 56) + 8);
+      v31 = v13;
+      v18 = *(v43 + 40);
+      *(v43 + 40) = v31;
       goto LABEL_24;
     }
 
-    v17 = objc_msgSend_URLByDeletingLastPathComponent(*(a1 + 40), v15, v16);
-    v19 = objc_msgSend_fileURLWithPath_relativeToURL_(MEMORY[0x277CBEBC0], v18, v11, v17);
-    v22 = v19;
-    if ((*(a1 + 72) & 1) != 0 || objc_msgSend_bu_isContainedWithinFileURL_(v19, v20, *(a1 + 48)))
+    v18 = objc_msgSend_URLByDeletingLastPathComponent(*(a1 + 40), v16, v17);
+    v20 = objc_msgSend_fileURLWithPath_relativeToURL_(MEMORY[0x277CBEBC0], v19, v12, v18);
+    v23 = v20;
+    if ((*(a1 + 72) & 1) != 0 || (isContainedWithinFileURL = objc_msgSend_bu_isContainedWithinFileURL_(v20, v21, *(a1 + 48)), isContainedWithinFileURL))
     {
-      v23 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v20, v21, v22);
-      v26 = objc_msgSend_path(*(a1 + 40), v24, v25);
-      v49 = v12;
-      v28 = objc_msgSend_createSymbolicLinkAtPath_withDestinationPath_error_(v23, v27, v26, v11, &v49);
-      v29 = v49;
+      v25 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v21, v22, v23);
+      v28 = objc_msgSend_path(*(a1 + 40), v26, v27);
+      v52 = v13;
+      v30 = objc_msgSend_createSymbolicLinkAtPath_withDestinationPath_error_(v25, v29, v28, v12, &v52);
+      v31 = v52;
 
-      *(*(*(a1 + 64) + 8) + 24) = v28;
+      *(*(*(a1 + 64) + 8) + 24) = v30;
       if (*(*(*(a1 + 64) + 8) + 24))
       {
-        v22 = v47;
+        v23 = v50;
 LABEL_23:
 
 LABEL_24:
         goto LABEL_3;
       }
 
-      v41 = BUZipLog();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v44 = BUZipLog(v32);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v46 = objc_msgSend_path(*(a1 + 40), v42, v43);
+        v49 = objc_msgSend_path(*(a1 + 40), v45, v46);
         *buf = 138412802;
-        v52 = v46;
-        v53 = 2112;
-        v54 = v11;
-        v55 = 2112;
-        v56 = v29;
-        _os_log_error_impl(&dword_241DA6000, v41, OS_LOG_TYPE_ERROR, "Error creating symlink at %@ with destination %@: %@", buf, 0x20u);
+        v55 = v49;
+        v56 = 2112;
+        v57 = v12;
+        v58 = 2112;
+        v59 = v31;
+        _os_log_error_impl(&dword_241DA6000, v44, OS_LOG_TYPE_ERROR, "Error creating symlink at %@ with destination %@: %@", buf, 0x20u);
       }
 
-      v44 = *(*(a1 + 56) + 8);
-      v12 = v29;
-      v45 = *(v44 + 40);
-      *(v44 + 40) = v12;
-      v22 = v47;
+      v47 = *(*(a1 + 56) + 8);
+      v13 = v31;
+      v48 = *(v47 + 40);
+      *(v47 + 40) = v13;
+      v23 = v50;
     }
 
     else
     {
-      v45 = BUZipLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v48 = BUZipLog(isContainedWithinFileURL);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD17E8(v9, v11, v45);
+        sub_241DD17E8(v9, v12, v48);
       }
     }
 
-    v29 = v12;
+    v31 = v13;
     goto LABEL_23;
   }
 
-  v30 = BUZipLog();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v33 = BUZipLog(isSymLink);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = *(a1 + 40);
+    v34 = *(a1 + 40);
     *buf = 138412546;
-    v52 = v5;
-    v53 = 2112;
-    v54 = v31;
-    _os_log_impl(&dword_241DA6000, v30, OS_LOG_TYPE_DEFAULT, "Moving temporary %@ to requested URL: %@", buf, 0x16u);
+    v55 = v5;
+    v56 = 2112;
+    v57 = v34;
+    _os_log_impl(&dword_241DA6000, v33, OS_LOG_TYPE_DEFAULT, "Moving temporary %@ to requested URL: %@", buf, 0x16u);
   }
 
-  v34 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v32, v33);
-  v35 = *(a1 + 40);
-  v36 = *(*(a1 + 56) + 8);
-  obj = *(v36 + 40);
-  v38 = objc_msgSend_moveItemAtURL_toURL_error_(v34, v37, v5, v35, &obj);
-  objc_storeStrong((v36 + 40), obj);
-  *(*(*(a1 + 64) + 8) + 24) = v38;
+  v37 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v35, v36);
+  v38 = *(a1 + 40);
+  v39 = *(*(a1 + 56) + 8);
+  obj = *(v39 + 40);
+  v41 = objc_msgSend_moveItemAtURL_toURL_error_(v37, v40, v5, v38, &obj);
+  objc_storeStrong((v39 + 40), obj);
+  *(*(*(a1 + 64) + 8) + 24) = v41;
 
 LABEL_3:
 }
 
-void sub_241DCA674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DCA674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7173,11 +7228,11 @@ uint64_t BUBundle()
   return MEMORY[0x2821F9670](v0, sel_bundleForClass_, v1);
 }
 
-void sub_241DCAF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DCAF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7946,9 +8001,9 @@ void sub_241DCC9D4(uint64_t a1, char a2, void *a3, void *a4)
   }
 }
 
-void sub_241DCCB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241DCCB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7975,18 +8030,18 @@ BOOL sub_241DCCBAC(void *a1, int a2, uint64_t a3, void *__src, size_t a5)
   return *(*(a1[5] + 8) + 24) != 0;
 }
 
-void sub_241DCD110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241DCD110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 128), 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 128), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8026,9 +8081,9 @@ void sub_241DCD154(uint64_t a1, uint64_t a2, void *a3, void *a4)
 LABEL_10:
 }
 
-void sub_241DCD438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241DCD438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8036,10 +8091,11 @@ void sub_241DCD438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t sub_241DCD458(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v8 = a2;
+  v9 = v8;
   if (HIDWORD(a5))
   {
-    v9 = BUZipLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BUZipLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1B7C();
     }
@@ -8047,107 +8103,107 @@ uint64_t sub_241DCD458(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_
 LABEL_4:
 
 LABEL_31:
-    v12 = 0;
+    v13 = 0;
     *(*(*(a1 + 48) + 8) + 24) = 0;
     goto LABEL_32;
   }
 
-  v10 = *(a1 + 32);
-  if (!*(v10 + 40))
+  v11 = *(a1 + 32);
+  if (!*(v11 + 40))
   {
     goto LABEL_31;
   }
 
-  *(v10 + 16) = a5;
+  *(v11 + 16) = a5;
   *(*(a1 + 32) + 8) = a4;
-  v11 = *(a1 + 32);
-  v12 = 1;
-  if (*(v11 + 16))
+  v12 = *(a1 + 32);
+  v13 = 1;
+  if (*(v12 + 16))
   {
-    v13 = *MEMORY[0x277D85CB0];
+    v14 = *MEMORY[0x277D85CB0];
     while (1)
     {
       if (**(a1 + 56))
       {
 LABEL_30:
-        v12 = 1;
+        v13 = 1;
         goto LABEL_32;
       }
 
-      v14 = inflate((v11 + 8), 0);
-      **(a1 + 56) = v14;
-      if ((v14 + 5) > 6 || ((1 << (v14 + 5)) & 0x61) == 0)
+      v15 = inflate((v12 + 8), 0);
+      **(a1 + 56) = v15;
+      if ((v15 + 5) > 6 || ((1 << (v15 + 5)) & 0x61) == 0)
       {
         break;
       }
 
-      v18 = v14;
-      v11 = *(a1 + 32);
-      if (v18 == 1 || !*(v11 + 40))
+      v19 = v15;
+      v12 = *(a1 + 32);
+      if (v19 == 1 || !*(v12 + 40))
       {
-        v19 = objc_msgSend_outBufferSize(v11, v15, v16) - *(*(a1 + 32) + 40);
-        if (objc_msgSend_validateCRC(*(a1 + 32), v20, v21))
+        v20 = objc_msgSend_outBufferSize(v12, v16, v17) - *(*(a1 + 32) + 40);
+        if (objc_msgSend_validateCRC(*(a1 + 32), v21, v22))
         {
-          v24 = *(a1 + 64);
-          if (v24)
+          v25 = *(a1 + 64);
+          if (v25)
           {
-            if (v19 >= 0xFFFFFFFF)
+            if (v20 >= 0xFFFFFFFF)
             {
-              v25 = -1;
+              v26 = -1;
             }
 
             else
             {
-              v25 = v19;
+              v26 = v20;
             }
 
-            **(a1 + 64) = crc32(*v24, *(*(a1 + 32) + 120), v25);
+            **(a1 + 64) = crc32(*v25, *(*(a1 + 32) + 120), v26);
           }
         }
 
-        v26 = *(a1 + 32);
-        v27 = v26[15];
-        v28 = objc_msgSend_outBufferSize(v26, v22, v23);
-        v29 = dispatch_data_create(v27, v28, 0, v13);
-        if (objc_msgSend_outBufferSize(*(a1 + 32), v30, v31) == v19)
+        v27 = *(a1 + 32);
+        v28 = v27[15];
+        v29 = objc_msgSend_outBufferSize(v27, v23, v24);
+        v30 = dispatch_data_create(v28, v29, 0, v14);
+        if (objc_msgSend_outBufferSize(*(a1 + 32), v31, v32) == v20)
         {
-          subrange = v29;
+          subrange = v30;
         }
 
         else
         {
-          subrange = dispatch_data_create_subrange(v29, 0, v19);
+          subrange = dispatch_data_create_subrange(v30, 0, v20);
         }
 
-        v33 = subrange;
+        v34 = subrange;
         (*(*(a1 + 40) + 16))();
-        objc_msgSend_setOutBufferSize_(*(a1 + 32), v34, 0);
+        objc_msgSend_setOutBufferSize_(*(a1 + 32), v35, 0);
         *(*(a1 + 32) + 120) = 0;
-        v37 = objc_msgSend_remainingUncompressedSize(*(a1 + 32), v35, v36);
-        v39 = 0;
-        v40 = *(a1 + 32);
-        if (v37 > v19)
+        v38 = objc_msgSend_remainingUncompressedSize(*(a1 + 32), v36, v37);
+        v40 = 0;
+        v41 = *(a1 + 32);
+        if (v38 > v20)
         {
-          v39 = objc_msgSend_remainingUncompressedSize(*(a1 + 32), v38, 0) - v19;
+          v40 = objc_msgSend_remainingUncompressedSize(*(a1 + 32), v39, 0) - v20;
         }
 
-        objc_msgSend_setRemainingUncompressedSize_(v40, v38, v39);
-        if (v18 != 1)
+        objc_msgSend_setRemainingUncompressedSize_(v41, v39, v40);
+        if (v19 != 1)
         {
-          objc_msgSend_prepareBuffer(*(a1 + 32), v41, v42);
+          objc_msgSend_prepareBuffer(*(a1 + 32), v42, v43);
         }
 
-        v11 = *(a1 + 32);
+        v12 = *(a1 + 32);
       }
 
-      if (!*(v11 + 16))
+      if (!*(v12 + 16))
       {
         goto LABEL_30;
       }
     }
 
-    v9 = BUZipLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BUZipLog(v15);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1B00();
     }
@@ -8157,7 +8213,7 @@ LABEL_30:
 
 LABEL_32:
 
-  return v12;
+  return v13;
 }
 
 void sub_241DCD828(uint64_t a1, uint64_t a2, void *a3)
@@ -8381,7 +8437,7 @@ void sub_241DCDF44(uint64_t a1)
   }
 }
 
-uint64_t sub_241DCDF94(void *a1, const char *a2, uint64_t a3)
+char *sub_241DCDF94(void *a1, const char *a2, uint64_t a3)
 {
   v58[2] = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, a3);
@@ -8681,7 +8737,7 @@ uint64_t sub_241DCE72C(void *a1, const char *a2, uint64_t a3)
   v4 = objc_msgSend_bu_utType(a1, a2, a3);
   if (!v4)
   {
-    v5 = BookUtilityLog();
+    v5 = BookUtilityLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1BF0();
@@ -8698,7 +8754,7 @@ uint64_t sub_241DCE7B0(void *a1, const char *a2, uint64_t a3)
   v4 = objc_msgSend_bu_utType(a1, a2, a3);
   if (!v4)
   {
-    v5 = BookUtilityLog();
+    v5 = BookUtilityLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1C64();
@@ -8712,35 +8768,35 @@ uint64_t sub_241DCE7B0(void *a1, const char *a2, uint64_t a3)
 
 id sub_241DCE834(void *a1, const char *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CBE7B8];
-  v13[0] = *MEMORY[0x277CBE7B8];
-  v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v13, 1);
-  v12 = 0;
-  v6 = objc_msgSend_resourceValuesForKeys_error_(a1, v5, v4, &v12);
-  v7 = v12;
+  v14[0] = *MEMORY[0x277CBE7B8];
+  v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v14, 1);
+  v13 = 0;
+  v6 = objc_msgSend_resourceValuesForKeys_error_(a1, v5, v4, &v13);
+  v7 = v13;
 
   if (v7)
   {
-    v9 = BookUtilityLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BookUtilityLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1CD8();
     }
 
 LABEL_4:
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_6;
   }
 
-  v10 = objc_msgSend_objectForKeyedSubscript_(v6, v8, v3);
-  if (!v10)
+  v11 = objc_msgSend_objectForKeyedSubscript_(v6, v9, v3);
+  if (!v11)
   {
-    v9 = BookUtilityLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BookUtilityLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_241DD1D58(v9);
+      sub_241DD1D58(v10);
     }
 
     goto LABEL_4;
@@ -8748,7 +8804,7 @@ LABEL_4:
 
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 uint64_t sub_241DCE984(uint64_t a1, uint64_t a2, void *a3)
@@ -8902,16 +8958,16 @@ id sub_241DCEB9C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   return v35;
 }
 
-id sub_241DCED98()
+id sub_241DCED98(uint64_t a1)
 {
   if (qword_27EC72A38 != -1)
   {
     sub_241DD1D9C();
   }
 
-  v1 = qword_27EC72A30;
+  v2 = qword_27EC72A30;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_241DCEDDC(uint64_t a1, const char *a2, uint64_t a3)
@@ -8989,7 +9045,7 @@ id sub_241DCEE40(void *a1, uint64_t a2, void *a3, int a4)
 
 id sub_241DCF018(void *a1, uint64_t a2, void *a3, int a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v9 = objc_msgSend_path(a1, v7, v8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   v10 = v9;
@@ -9017,8 +9073,8 @@ id sub_241DCF018(void *a1, uint64_t a2, void *a3, int a4)
       v22 = v21;
       if (v21 <= 0xFF)
       {
-        v23 = &v30;
-        getxattr(v13, v20, &v30, 0x100uLL, 0, 0);
+        v23 = &v31;
+        getxattr(v13, v20, &v31, 0x100uLL, 0, 0);
       }
 
       else
@@ -9037,8 +9093,8 @@ LABEL_23:
 
       if (*v23)
       {
-        v27 = objc_alloc(MEMORY[0x277CCACA8]);
-        v25 = objc_msgSend_initWithCString_encoding_(v27, v28, v23, 4);
+        v28 = objc_alloc(MEMORY[0x277CCACA8]);
+        v25 = objc_msgSend_initWithCString_encoding_(v28, v29, v23, 4);
       }
 
       else
@@ -9046,7 +9102,7 @@ LABEL_23:
         v25 = 0;
       }
 
-      if (v23 != &v30)
+      if (v23 != &v31)
       {
         free(v23);
       }
@@ -9054,10 +9110,11 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    if (*__error() != 93)
+    v26 = __error();
+    if (*v26 != 93)
     {
-      v26 = BookUtilityLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = BookUtilityLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_241DD1DB0();
       }
@@ -9066,7 +9123,7 @@ LABEL_23:
     goto LABEL_16;
   }
 
-  v24 = BookUtilityLog();
+  v24 = BookUtilityLog(0);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     sub_241DD1E44();
@@ -9108,12 +9165,12 @@ uint64_t sub_241DCF264(void *a1, uint64_t a2, void *a3, void *a4, int a5)
     free(v22);
     if (!v28)
     {
-      v30 = 1;
+      v31 = 1;
       goto LABEL_12;
     }
 
-    v29 = BookUtilityLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = BookUtilityLog(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1ED8();
     }
@@ -9121,69 +9178,15 @@ uint64_t sub_241DCF264(void *a1, uint64_t a2, void *a3, void *a4, int a5)
 
   else
   {
-    v29 = BookUtilityLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = BookUtilityLog(0);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_241DD1F5C();
     }
   }
 
-  v30 = 0;
+  v31 = 0;
 LABEL_12:
 
-  return v30;
-}
-
-BOOL sub_241DCF38C(void *a1, uint64_t a2, void *a3, int a4)
-{
-  v6 = a3;
-  v7 = v6;
-  v10 = objc_msgSend_UTF8String(v7, v8, v9);
-  if (a4)
-  {
-    v11 = 8;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = xattr_name_with_flags(v10, v11);
-  v15 = v12 == 0;
-  if (!v12)
-  {
-    v23 = BookUtilityLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      sub_241DD2064();
-    }
-
-    goto LABEL_12;
-  }
-
-  v16 = v12;
-  v17 = objc_msgSend_path(a1, v13, v14);
-  v18 = v17;
-  v21 = objc_msgSend_UTF8String(v18, v19, v20);
-  v22 = removexattr(v21, v16, 0);
-
-  free(v16);
-  if (v22 && *__error() != 93)
-  {
-    v23 = BookUtilityLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      sub_241DD1FE0();
-    }
-
-LABEL_12:
-
-    goto LABEL_13;
-  }
-
-  v15 = 1;
-LABEL_13:
-
-  return v15;
+  return v31;
 }

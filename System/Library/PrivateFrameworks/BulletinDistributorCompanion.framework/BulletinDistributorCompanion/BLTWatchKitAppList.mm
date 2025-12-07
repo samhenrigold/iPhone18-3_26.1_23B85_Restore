@@ -58,7 +58,7 @@
 
 - (void)_fetchWatchKitInfoWithForce:(BOOL)force completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = [BLTTransaction transactionWithDescription:@"BLTWatchKitAppList _fetchWatchKitInfoWithForce:completion:"];
   if (!force)
@@ -84,58 +84,57 @@
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   mEMORY[0x277CEAF80] = [MEMORY[0x277CEAF80] sharedDeviceConnection];
   blt_boundedWaitForActivePairedDevice = [MEMORY[0x277D2BCF8] blt_boundedWaitForActivePairedDevice];
-  v13 = blt_general_log();
+  v13 = blt_general_log(blt_boundedWaitForActivePairedDevice);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = [blt_boundedWaitForActivePairedDevice valueForProperty:*MEMORY[0x277D2BBB8]];
     *buf = 134218242;
-    v42 = blt_boundedWaitForActivePairedDevice;
-    v43 = 2112;
-    v44 = v14;
+    v41 = blt_boundedWaitForActivePairedDevice;
+    v42 = 2112;
+    v43 = v14;
     _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "Fetching apps for paired device %p id: %@", buf, 0x16u);
   }
 
   v15 = [MEMORY[0x277CBEB58] set];
   pthread_mutex_lock(&self->_lock);
   appsByAppBundleID = self->_appsByAppBundleID;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke;
-  v39[3] = &unk_278D31888;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke;
+  v38[3] = &unk_278D31888;
   v17 = v15;
-  v40 = v17;
-  [(NSDictionary *)appsByAppBundleID enumerateKeysAndObjectsUsingBlock:v39];
+  v39 = v17;
+  [(NSDictionary *)appsByAppBundleID enumerateKeysAndObjectsUsingBlock:v38];
   pthread_mutex_unlock(&self->_lock);
   v18 = [MEMORY[0x277CBEB58] set];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2;
-  v31[3] = &unk_278D318D8;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2;
+  v30[3] = &unk_278D318D8;
   v19 = dictionary;
-  v32 = v19;
+  v31 = v19;
   selfCopy = self;
   forceCopy = force;
-  v37 = completionCopy;
+  v36 = completionCopy;
   v20 = v18;
-  v34 = v20;
-  v35 = v17;
-  v36 = v7;
+  v33 = v20;
+  v34 = v17;
+  v35 = v7;
   v21 = v17;
-  v22 = MEMORY[0x245D067A0](v31);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2_36;
-  v27[3] = &unk_278D31900;
-  v29 = v20;
-  v30 = v22;
-  v28 = v19;
+  v22 = MEMORY[0x245D067A0](v30);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2_36;
+  v26[3] = &unk_278D31900;
+  v28 = v20;
+  v29 = v22;
+  v27 = v19;
   v23 = v20;
   v24 = v19;
   v25 = v22;
-  [mEMORY[0x277CEAF80] enumerateLocallyAvailableApplicationsForPairedDevice:blt_boundedWaitForActivePairedDevice options:0 withBlock:v27];
+  [mEMORY[0x277CEAF80] enumerateLocallyAvailableApplicationsForPairedDevice:blt_boundedWaitForActivePairedDevice options:0 withBlock:v26];
 
 LABEL_10:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -150,7 +149,7 @@ void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_inv
 void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2(uint64_t a1)
 {
   v29 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) allKeys];
@@ -218,9 +217,10 @@ void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_inv
   [v14 minusSet:*(a1 + 56)];
   v15 = [*(a1 + 56) mutableCopy];
   [v15 minusSet:*(a1 + 48)];
-  if ([v15 count] || objc_msgSend(v14, "count"))
+  v16 = [v15 count];
+  if (v16 || (v16 = [v14 count]) != 0)
   {
-    v16 = BLTWorkQueue();
+    v17 = BLTWorkQueue(v16);
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
     v18[2] = __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_34;
@@ -229,10 +229,8 @@ void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_inv
     v19 = v14;
     v20 = v15;
     v21 = *(a1 + 64);
-    dispatch_async(v16, v18);
+    dispatch_async(v17, v18);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_34(uint64_t a1)
@@ -248,12 +246,13 @@ uint64_t __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = blt_general_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = blt_general_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2_36_cold_1(v6, v7);
+      __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2_36_cold_1(v7, v8);
     }
   }
 
@@ -261,18 +260,18 @@ uint64_t __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block
   {
     if ([v5 applicationType] == 2)
     {
-      v8 = [v5 bundleIdentifier];
-      v9 = [v5 counterpartIdentifiers];
-      v10 = [v9 firstObject];
+      v9 = [v5 bundleIdentifier];
+      v10 = [v5 counterpartIdentifiers];
+      v11 = [v10 firstObject];
 
-      v11 = [v5 deviceStatus];
-      v12 = [v11 installStatus];
+      v12 = [v5 deviceStatus];
+      v13 = [v12 installStatus];
 
-      v13 = -[BLTWatchKitAppDefinition initWithContainerBundleID:watchKitAppBundleID:isInstalled:runsIndependently:]([BLTWatchKitAppDefinition alloc], "initWithContainerBundleID:watchKitAppBundleID:isInstalled:runsIndependently:", v10, v8, v12 == 2, [v5 applicationMode] == 2);
-      [*(a1 + 32) setObject:v13 forKeyedSubscript:v10];
-      if ([(BLTWatchKitAppDefinition *)v13 isInstalled])
+      v14 = -[BLTWatchKitAppDefinition initWithContainerBundleID:watchKitAppBundleID:isInstalled:runsIndependently:]([BLTWatchKitAppDefinition alloc], "initWithContainerBundleID:watchKitAppBundleID:isInstalled:runsIndependently:", v11, v9, v13 == 2, [v5 applicationMode] == 2);
+      [*(a1 + 32) setObject:v14 forKeyedSubscript:v11];
+      if ([(BLTWatchKitAppDefinition *)v14 isInstalled])
       {
-        [*(a1 + 40) addObject:v10];
+        [*(a1 + 40) addObject:v11];
       }
     }
   }
@@ -294,11 +293,10 @@ uint64_t __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block
 
 void __61__BLTWatchKitAppList__fetchWatchKitInfoWithForce_completion___block_invoke_2_36_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error enumerating WatchKit apps: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error enumerating WatchKit apps: %@", &v2, 0xCu);
 }
 
 @end

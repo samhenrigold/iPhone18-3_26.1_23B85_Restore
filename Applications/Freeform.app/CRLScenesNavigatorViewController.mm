@@ -34,25 +34,28 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100F2347C();
+  sub_100F2347C(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100F237F0(appear, &selRef_viewWillAppear_);
+  sub_100F237F0(appearCopy, &selRef_viewWillAppear_);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100F23684(appear);
+  sub_100F23684(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100F237F0(disappear, &selRef_viewDidDisappear_);
+  sub_100F237F0(disappearCopy, &selRef_viewDidDisappear_);
 }
 
 - (void)viewDidLayoutSubviews
@@ -93,7 +96,7 @@
 
 - (NSArray)decoratorOverlayRenderables
 {
-  sub_100006370(0, &qword_101A00020);
+  sub_100006370(0, &qword_101A00020, off_10182F790);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

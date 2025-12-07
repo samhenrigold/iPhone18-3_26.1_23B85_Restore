@@ -234,7 +234,7 @@
   return v39;
 }
 
-uint64_t __69__PISemanticStyleProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1, uint64_t a2)
+void __69__PISemanticStyleProcessor_processWithInputs_arguments_output_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) objectAtIndexedSubscript:a2];
   [v4 region];
@@ -245,7 +245,7 @@ uint64_t __69__PISemanticStyleProcessor_processWithInputs_arguments_output_error
   NUPixelRectFromCGRect();
   NUPixelRectScale();
   NUPixelRectToCGRect();
-  return NURectFlipYOrigin();
+  NURectFlipYOrigin();
 }
 
 BOOL __69__PISemanticStyleProcessor_processWithInputs_arguments_output_error___block_invoke_2(uint64_t a1, void *a2)

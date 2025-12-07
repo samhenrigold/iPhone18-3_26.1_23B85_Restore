@@ -130,9 +130,9 @@ void __31__CFXEffect_preWarmShaderCache__block_invoke(uint64_t a1)
         v10 = [v9 jtEffect];
         [v10 setRenderSize:{1.0, 1.0}];
         v11 = [v10 renderEffect];
-        v22 = kDefaultEffectPreviewAnimationRange;
-        v23 = *algn_242B5CE28;
-        v24 = xmmword_242B5CE38;
+        v22 = *kDefaultEffectPreviewAnimationRange;
+        v23 = *&kDefaultEffectPreviewAnimationRange[16];
+        v24 = *&kDefaultEffectPreviewAnimationRange[32];
         [v11 setEffectRange:&v22];
 
         v12 = [JFXEffectsPreviewGenerationRequest alloc];

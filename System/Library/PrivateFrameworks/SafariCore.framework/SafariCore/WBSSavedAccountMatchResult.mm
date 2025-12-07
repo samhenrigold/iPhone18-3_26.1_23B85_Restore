@@ -266,23 +266,7 @@ id __76__WBSSavedAccountMatchResult_accountsToConsiderEquivalentForUserName_atUR
 {
   nameCopy = name;
   lCopy = l;
-  if (![nameCopy length])
-  {
-    goto LABEL_7;
-  }
-
-  host = [lCopy host];
-  v8 = [host length];
-
-  if (!v8)
-  {
-    goto LABEL_7;
-  }
-
-  lowercaseString = [nameCopy lowercaseString];
-  v10 = [lowercaseString hasSuffix:@"@gmail.com"];
-
-  if (v10)
+  if ([nameCopy length] && (objc_msgSend(lCopy, "host"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8) && (objc_msgSend(nameCopy, "lowercaseString"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "hasSuffix:", @"@gmail.com"), v9, v10))
   {
     if (shouldEvaluateAccountsToConsiderEquivalentForUserName_atURL__once != -1)
     {
@@ -290,14 +274,13 @@ id __76__WBSSavedAccountMatchResult_accountsToConsiderEquivalentForUserName_atUR
     }
 
     v11 = shouldEvaluateAccountsToConsiderEquivalentForUserName_atURL__googleHosts;
-    host2 = [lCopy host];
-    lowercaseString2 = [host2 lowercaseString];
-    v14 = [v11 containsObject:lowercaseString2];
+    host = [lCopy host];
+    lowercaseString = [host lowercaseString];
+    v14 = [v11 containsObject:lowercaseString];
   }
 
   else
   {
-LABEL_7:
     v14 = 0;
   }
 

@@ -125,10 +125,11 @@
   x = rect.origin.x;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v11 = sub_1D1260F58(coordinate, x, y, width, height);
+  sub_1D1260F58(coordinate, x, y, width, height);
+  v12 = v11;
   swift_unknownObjectRelease();
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (double)distanceFromPoint:(CGPoint)point blockCoordinate:(id)coordinate chartRect:(CGRect)rect

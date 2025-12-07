@@ -33,7 +33,7 @@
   swift_unknownObjectRelease();
   sub_1003552DC();
 
-  sub_100007000(&v5);
+  sub_100007000(v5);
 }
 
 - (void)notifyMeButtonTapped:(id)tapped
@@ -56,16 +56,17 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC8AppStore22AppEventDetailPageView_lockupTapGestureActionBlock);
   if (v5)
   {
+    v6 = *&selfCopy->cardScrollView[OBJC_IVAR____TtC8AppStore22AppEventDetailPageView_lockupTapGestureActionBlock];
 
-    v5(v6);
-    sub_10001F63C(v5);
+    v5(v7);
+    sub_10001F63C(v5, v6);
 
-    sub_100007000(v6);
+    sub_100007000(v7);
   }
 
   else
   {
-    sub_100007000(v6);
+    sub_100007000(v7);
   }
 }
 

@@ -55,7 +55,7 @@
 
 - (id)generatePayload
 {
-  v42[7] = *MEMORY[0x277D85DE8];
+  v41[7] = *MEMORY[0x277D85DE8];
   testId = [(ASTTestResult *)self testId];
   if (testId)
   {
@@ -80,19 +80,19 @@
   }
   v6 = ;
 
-  v41[0] = @"_id";
-  v39 = @"sd";
-  v37 = @"$date";
+  v40[0] = @"_id";
+  v38 = @"sd";
+  v36 = @"$date";
   v7 = MEMORY[0x277CCABB0];
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
-  v31 = [v7 numberWithDouble:v8 * 1000.0];
-  v38 = v31;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-  v40 = v30;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-  v42[0] = v29;
-  v41[1] = @"d";
+  v30 = [v7 numberWithDouble:v8 * 1000.0];
+  v37 = v30;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+  v39 = v29;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+  v41[0] = v28;
+  v40[1] = @"d";
   predicates = [(ASTTestResult *)self predicates];
   if (predicates)
   {
@@ -104,24 +104,24 @@
     predicates2 = MEMORY[0x277CBEC10];
   }
 
-  v42[1] = predicates2;
-  v42[2] = v4;
-  v34 = v4;
-  v41[2] = @"k";
-  v41[3] = @"e";
+  v41[1] = predicates2;
+  v41[2] = v4;
+  v33 = v4;
+  v40[2] = @"k";
+  v40[3] = @"e";
   v11 = MEMORY[0x277CCABB0];
   v12 = +[ASTEnvironment currentEnvironment];
   v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(v12, "environmentType")}];
-  v42[3] = v13;
-  v41[4] = @"t";
+  v41[3] = v13;
+  v40[4] = @"t";
   v14 = MEMORY[0x277CCABB0];
   [(ASTTestResult *)self testDuration];
   v15 = [v14 numberWithDouble:?];
-  v42[4] = v15;
-  v42[5] = v6;
-  v33 = v6;
-  v41[5] = @"s";
-  v41[6] = @"data";
+  v41[4] = v15;
+  v41[5] = v6;
+  v32 = v6;
+  v40[5] = @"s";
+  v40[6] = @"data";
   data = [(ASTTestResult *)self data];
   if (data)
   {
@@ -133,8 +133,8 @@
     data2 = MEMORY[0x277CBEC10];
   }
 
-  v42[6] = data2;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:7];
+  v41[6] = data2;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:7];
   v19 = [v18 mutableCopy];
 
   if (data)
@@ -160,44 +160,42 @@
     }
   }
 
-  v35[0] = @"results";
-  v35[1] = @"test";
-  v36[0] = v19;
-  v36[1] = v34;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v34[0] = @"results";
+  v34[1] = @"test";
+  v35[0] = v19;
+  v35[1] = v33;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
 
   return v26;
 }
 
 - (BOOL)sealWithFileSigner:(id)signer error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   signerCopy = signer;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   files = [(ASTTestResult *)self files];
-  v8 = [files countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [files countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     v11 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(files);
         }
 
         if (v11)
         {
-          v11 = [*(*(&v15 + 1) + 8 * i) sealWithFileSigner:signerCopy error:error];
+          v11 = [*(*(&v14 + 1) + 8 * i) sealWithFileSigner:signerCopy error:error];
         }
 
         else
@@ -206,7 +204,7 @@
         }
       }
 
-      v9 = [files countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [files countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -218,7 +216,6 @@
   }
 
   [(ASTSealablePayload *)self setSealed:1];
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -249,7 +246,7 @@
 
 - (ASTTestResult)initWithCoder:(id)coder
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(ASTTestResult *)self init];
   if (v5)
@@ -263,13 +260,13 @@
     v5->_statusCode = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v24[3] = objc_opt_class();
-    v24[4] = objc_opt_class();
-    v24[5] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v23[3] = objc_opt_class();
+    v23[4] = objc_opt_class();
+    v23[5] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"data"];
     data = v5->_data;
@@ -290,7 +287,6 @@
     v5->_allowCellularSizeThreshold = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -322,19 +318,17 @@
 {
   if (array)
   {
-    v5 = [ASTUploadFilesResult resultFromSource:source andUploadDictionaries:?];
-    uploadFiles = self->_uploadFiles;
-    self->_uploadFiles = v5;
+    self->_uploadFiles = [ASTUploadFilesResult resultFromSource:source andUploadDictionaries:?];
 
     MEMORY[0x2821F96F8]();
   }
 
   else
   {
-    v7 = ASTLogHandleForCategory(0);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v5 = ASTLogHandleForCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [ASTTestResult setUploadStatusFromSource:v7 withArray:?];
+      [ASTTestResult setUploadStatusFromSource:v5 withArray:?];
     }
   }
 }

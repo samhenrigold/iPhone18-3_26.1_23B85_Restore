@@ -24,6 +24,7 @@
 - (id)_safeAttributedMessageWithAttributedMessage:(id)message contentType:(id)type;
 - (id)_sectionIconForNotificationSourceDescription:(id)description;
 - (id)_sectionIconVariantForApplicationIdentifier:(id)identifier format:(int64_t)format;
+- (id)_sectionIconVariantForImageName:(id)name bundlePath:(id)path format:(int64_t)format precomposed:(BOOL)precomposed;
 - (id)_sectionIconVariantForUTI:(id)i format:(int64_t)format;
 - (id)_silenceActionForCategory:(id)category;
 - (id)_soundsDirectoryPathForContainerBasePath:(id)path;
@@ -53,6 +54,7 @@
 - (void)_queue_fetchBulletinForNotification:(id)notification;
 - (void)_queue_modifyBulletinForNotification:(id)notification;
 - (void)_queue_notificationRepositoryDidPerformUpdates:(id)updates;
+- (void)_queue_saveResultNotificationRecord:(id)record shouldRepost:(BOOL)repost isFailure:(BOOL)failure resultBulletin:(id)bulletin;
 - (void)_queue_withdrawBulletinForNotification:(id)notification shouldSync:(BOOL)sync;
 - (void)_setNotificationSourceDescription:(id)description;
 - (void)categoryRepository:(id)repository didChangeCategoriesForBundleIdentifier:(id)identifier;
@@ -163,7 +165,7 @@
 
 - (void)setNotificationSourceDescription:(id)description
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   [(UNSDefaultDataProvider *)self unloadBundle];
   isRestricted = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription isRestricted];
@@ -182,19 +184,19 @@
       v12 = v11;
       sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
       *buf = 138544898;
-      v18 = sectionIdentifier;
-      v19 = 1024;
-      v20 = isRestricted;
-      v21 = 1024;
-      v22 = isRestricted2;
-      v23 = 1024;
-      v24 = allowTimeSensitive;
-      v25 = 1024;
-      v26 = allowTimeSensitive2;
-      v27 = 1024;
-      v28 = allowMessages;
-      v29 = 1024;
-      v30 = allowMessages2;
+      v17 = sectionIdentifier;
+      v18 = 1024;
+      v19 = isRestricted;
+      v20 = 1024;
+      v21 = isRestricted2;
+      v22 = 1024;
+      v23 = allowTimeSensitive;
+      v24 = 1024;
+      v25 = allowTimeSensitive2;
+      v26 = 1024;
+      v27 = allowMessages;
+      v28 = 1024;
+      v29 = allowMessages2;
       _os_log_impl(&dword_270AA8000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] defaultSectionInfo changed [ isRestricted %{BOOL}d -> %{BOOL}d, allowTimeSensitive %{BOOL}d -> %{BOOL}d, allowMessages %{BOOL}d -> %{BOOL}d]", buf, 0x30u);
     }
 
@@ -206,8 +208,6 @@
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -220,19 +220,18 @@
 
 - (void)dataProviderDidLoad
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
-    v7 = 138543362;
-    v8 = sectionIdentifier;
-    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] data provider loaded", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = sectionIdentifier;
+    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] data provider loaded", &v6, 0xCu);
   }
 
   [(UNSDefaultDataProvider *)self unloadBundle];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uninstall
@@ -284,7 +283,7 @@
 
 - (id)sectionParameters
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CF3578]);
   [v3 setUsesVariableLayout:1];
   if ([(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowUnlimitedContentBody])
@@ -298,32 +297,32 @@
   }
 
   [v3 setMessageNumberOfLines:v4];
-  v25 = v3;
+  v24 = v3;
   defaultSubtypeParameters = [v3 defaultSubtypeParameters];
   [defaultSubtypeParameters setSuppressesAlertsWhenAppIsActive:0];
   [defaultSubtypeParameters setSuppressesTitle:1];
-  v23 = defaultSubtypeParameters;
+  v22 = defaultSubtypeParameters;
   [defaultSubtypeParameters setIPodOutAlertType:3];
   [(UNSDefaultDataProvider *)self _allCategories];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  obj = v31 = 0u;
-  v27 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v27)
+  obj = v30 = 0u;
+  v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v26)
   {
-    v26 = *v29;
+    v25 = *v28;
     v6 = 1;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v29 != v26)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         identifier = [v8 identifier];
         if (identifier)
         {
@@ -331,7 +330,7 @@
           v11 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:v6];
           [(NSMutableDictionary *)categoryToParamSubType setObject:v11 forKey:identifier];
 
-          v12 = [v25 parametersForSubtype:v6];
+          v12 = [v24 parametersForSubtype:v6];
           privateBody = [v8 privateBody];
           bundle = [(UNSDefaultDataProvider *)self bundle];
           v15 = [(UNSDefaultDataProvider *)self _localizeClientString:privateBody inBundle:bundle];
@@ -373,15 +372,13 @@
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 - (id)defaultSectionInfo
@@ -563,30 +560,30 @@ id __48__UNSDefaultDataProvider_defaultSubsectionInfos__block_invoke_3(uint64_t 
 
 - (id)_topicForIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     [(UNCNotificationSourceDescription *)self->_notificationSourceDescription defaultTopics];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v5 = v34 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v5 = v33 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           identifier = [v10 identifier];
           v12 = [identifierCopy isEqual:identifier];
 
@@ -598,7 +595,7 @@ id __48__UNSDefaultDataProvider_defaultSubsectionInfos__block_invoke_3(uint64_t 
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
         if (v7)
         {
           continue;
@@ -612,26 +609,26 @@ id __48__UNSDefaultDataProvider_defaultSubsectionInfos__block_invoke_3(uint64_t 
     sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
     v15 = [(UNCNotificationTopicRepository *)topicRepository topicsForBundleIdentifier:sectionIdentifier];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * j);
+          v21 = *(*(&v26 + 1) + 8 * j);
           identifier2 = [v21 identifier];
           v23 = [identifierCopy isEqual:identifier2];
 
@@ -643,7 +640,7 @@ id __48__UNSDefaultDataProvider_defaultSubsectionInfos__block_invoke_3(uint64_t 
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v18)
         {
           continue;
@@ -661,8 +658,6 @@ LABEL_22:
   {
     v24 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -690,7 +685,7 @@ LABEL_22:
 
 - (id)_queue_bulletinForNotification:(id)notification
 {
-  v225 = *MEMORY[0x277D85DE8];
+  v224 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   if (!notificationCopy)
@@ -718,17 +713,17 @@ LABEL_22:
   titleLocalizationKey = [notificationCopy titleLocalizationKey];
   titleLocalizationArguments = [notificationCopy titleLocalizationArguments];
   title = [notificationCopy title];
-  v203 = UNFormatLocalizedStringInBundleWithDefaultValue();
+  v202 = UNFormatLocalizedStringInBundleWithDefaultValue();
 
   subtitleLocalizationKey = [notificationCopy subtitleLocalizationKey];
   subtitleLocalizationArguments = [notificationCopy subtitleLocalizationArguments];
   subtitle = [notificationCopy subtitle];
-  v202 = UNFormatLocalizedStringInBundleWithDefaultValue();
+  v201 = UNFormatLocalizedStringInBundleWithDefaultValue();
 
   bodyLocalizationKey = [notificationCopy bodyLocalizationKey];
   bodyLocalizationArguments = [notificationCopy bodyLocalizationArguments];
   body = [notificationCopy body];
-  v206 = UNFormatLocalizedStringInBundleWithDefaultValue();
+  v205 = UNFormatLocalizedStringInBundleWithDefaultValue();
 
   attributedBody = [notificationCopy attributedBody];
   summaryArgument = [notificationCopy summaryArgument];
@@ -738,14 +733,14 @@ LABEL_22:
   userInfo = [notificationCopy userInfo];
   sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
   categoryIdentifier = [notificationCopy categoryIdentifier];
-  v197 = [(UNSDefaultDataProvider *)self _defaultActionWithNotification:notificationCopy];
-  v198 = categoryIdentifier;
-  v168 = [(UNSDefaultDataProvider *)self _categoryForIdentifier:categoryIdentifier];
-  v196 = [(UNSDefaultDataProvider *)self _dismissActionForCategory:v168];
-  v195 = [(UNSDefaultDataProvider *)self _followActivityActionForCategory:v168];
-  v194 = [(UNSDefaultDataProvider *)self _silenceActionForCategory:v168];
-  v193 = [(UNSDefaultDataProvider *)self _supplementaryActionsForForCategoryRecord:v168];
-  intentIdentifiers = [v168 intentIdentifiers];
+  v196 = [(UNSDefaultDataProvider *)self _defaultActionWithNotification:notificationCopy];
+  v197 = categoryIdentifier;
+  v167 = [(UNSDefaultDataProvider *)self _categoryForIdentifier:categoryIdentifier];
+  v195 = [(UNSDefaultDataProvider *)self _dismissActionForCategory:v167];
+  v194 = [(UNSDefaultDataProvider *)self _followActivityActionForCategory:v167];
+  v193 = [(UNSDefaultDataProvider *)self _silenceActionForCategory:v167];
+  v192 = [(UNSDefaultDataProvider *)self _supplementaryActionsForForCategoryRecord:v167];
+  intentIdentifiers = [v167 intentIdentifiers];
   launchImageName = [notificationCopy launchImageName];
   realertCount = [notificationCopy realertCount];
   contentDate = [notificationCopy contentDate];
@@ -757,15 +752,15 @@ LABEL_22:
   screenCaptureProhibited = [notificationCopy screenCaptureProhibited];
   speechLanguage = [notificationCopy speechLanguage];
   allowPrivateProperties = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowPrivateProperties];
-  v210 = date;
-  v164 = realertCount;
-  v169 = summaryArgumentCount;
+  v209 = date;
+  v163 = realertCount;
+  v168 = summaryArgumentCount;
   if (!allowPrivateProperties)
   {
     expirationDate = 0;
-    v186 = 0;
+    v185 = 0;
     v34 = 0;
-    v160 = 0;
+    v159 = 0;
     shouldPreemptPresentedNotification = 0;
     presentFullScreenAlertOverList = 0;
     shouldHideTime = 0;
@@ -773,27 +768,27 @@ LABEL_22:
     shouldIgnoreDowntime = 0;
     shouldIgnoreDoNotDisturb = 0;
     topicIdentifiers = 0;
+    v186 = 0;
     v187 = 0;
-    v188 = 0;
-    v156 = 1;
-    v149 = 1;
+    v155 = 1;
+    v148 = 1;
     shouldDisplayActionsInline = 0;
-    v204 = date;
+    v203 = date;
     goto LABEL_26;
   }
 
   headerLocalizationKey = [notificationCopy headerLocalizationKey];
   headerLocalizationArguments = [notificationCopy headerLocalizationArguments];
   header = [notificationCopy header];
-  v188 = UNFormatLocalizedStringInBundleWithDefaultValue();
+  v187 = UNFormatLocalizedStringInBundleWithDefaultValue();
 
   footerLocalizationKey = [notificationCopy footerLocalizationKey];
   footerLocalizationArguments = [notificationCopy footerLocalizationArguments];
   footer = [notificationCopy footer];
-  v187 = UNFormatLocalizedStringInBundleWithDefaultValue();
+  v186 = UNFormatLocalizedStringInBundleWithDefaultValue();
 
-  presentFullScreenAlertOverList = [v168 presentFullScreenAlertOverList];
-  backgroundStyle = [v168 backgroundStyle];
+  presentFullScreenAlertOverList = [v167 presentFullScreenAlertOverList];
+  backgroundStyle = [v167 backgroundStyle];
   LOBYTE(footerLocalizationKey) = [backgroundStyle isEqualToString:*MEMORY[0x277D77D80]];
 
   if (footerLocalizationKey)
@@ -803,14 +798,14 @@ LABEL_22:
 
   else
   {
-    backgroundStyle2 = [v168 backgroundStyle];
+    backgroundStyle2 = [v167 backgroundStyle];
     v38 = [backgroundStyle2 isEqualToString:*MEMORY[0x277D77D78]];
 
     v31 = v38;
   }
 
-  v160 = v31;
-  listPriority = [v168 listPriority];
+  v159 = v31;
+  listPriority = [v167 listPriority];
   v40 = [listPriority isEqualToString:*MEMORY[0x277D77D88]];
 
   if (v40)
@@ -820,7 +815,7 @@ LABEL_22:
 
   else
   {
-    listPriority2 = [v168 listPriority];
+    listPriority2 = [v167 listPriority];
     v42 = [listPriority2 isEqualToString:*MEMORY[0x277D77D90]];
 
     if (v42)
@@ -836,40 +831,40 @@ LABEL_22:
 
   if ([notificationCopy shouldHideDate])
   {
-    v204 = 0;
+    v203 = 0;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v204 = v210;
+  v203 = v209;
   if (contentDate)
   {
-    v204 = contentDate;
+    v203 = contentDate;
     goto LABEL_21;
   }
 
 LABEL_22:
   if ([notificationCopy shouldUseRequestIdentifierForDismissalSync])
   {
-    v186 = identifier;
+    v185 = identifier;
   }
 
   else
   {
-    v186 = 0;
+    v185 = 0;
   }
 
   expirationDate = [notificationCopy expirationDate];
   topicIdentifiers = [notificationCopy topicIdentifiers];
-  v149 = [notificationCopy shouldSuppressScreenLightUp] ^ 1;
+  v148 = [notificationCopy shouldSuppressScreenLightUp] ^ 1;
   shouldIgnoreDoNotDisturb = [notificationCopy shouldIgnoreDoNotDisturb];
   shouldIgnoreDowntime = [notificationCopy shouldIgnoreDowntime];
   shouldSuppressSyncDismissalWhenRemoved = [notificationCopy shouldSuppressSyncDismissalWhenRemoved];
   shouldHideTime = [notificationCopy shouldHideTime];
   shouldPreemptPresentedNotification = [notificationCopy shouldPreemptPresentedNotification];
   shouldDisplayActionsInline = [notificationCopy shouldDisplayActionsInline];
-  v156 = [v168 preventClearFromList] ^ 1;
+  v155 = [v167 preventClearFromList] ^ 1;
 LABEL_26:
   if ([notificationCopy hasCriticalAlertSound])
   {
@@ -888,7 +883,7 @@ LABEL_26:
     v44 = v20;
   }
 
-  v143 = v44;
+  v142 = v44;
   if (v43 && v34 == 0)
   {
     v45 = 1;
@@ -899,7 +894,7 @@ LABEL_26:
     v45 = v34;
   }
 
-  v148 = v45;
+  v147 = v45;
   threadIdentifier = [notificationCopy threadIdentifier];
   if (![threadIdentifier length] && v43)
   {
@@ -910,19 +905,19 @@ LABEL_26:
   }
 
   contentType = [notificationCopy contentType];
-  v212 = -[UNSDefaultDataProvider _bbContentTypeFromUNContentType:toneAlertType:](self, "_bbContentTypeFromUNContentType:toneAlertType:", contentType, [notificationCopy toneAlertType]);
+  v211 = -[UNSDefaultDataProvider _bbContentTypeFromUNContentType:toneAlertType:](self, "_bbContentTypeFromUNContentType:toneAlertType:", contentType, [notificationCopy toneAlertType]);
 
-  v166 = identifier;
-  v171 = topicIdentifiers;
+  v165 = identifier;
+  v170 = topicIdentifiers;
   if (![notificationCopy hasSound] || !objc_msgSend(notificationCopy, "shouldPlaySound"))
   {
     v50 = 0;
-    v180 = 0;
+    v179 = 0;
     goto LABEL_89;
   }
 
-  v174 = shouldPreemptPresentedNotification;
-  v49 = v212 == *MEMORY[0x277CF34B8] && [notificationCopy toneAlertType] == 1;
+  v173 = shouldPreemptPresentedNotification;
+  v49 = v211 == *MEMORY[0x277CF34B8] && [notificationCopy toneAlertType] == 1;
   if ((allowPrivateProperties | v49))
   {
     toneAlertType = [notificationCopy toneAlertType];
@@ -941,7 +936,7 @@ LABEL_26:
   }
 
   toneFileName = [notificationCopy toneFileName];
-  v207 = toneFileName;
+  v206 = toneFileName;
   if ([toneFileName length])
   {
     v55 = [(UNSDefaultDataProvider *)self _pathForSoundName:toneFileName];
@@ -960,18 +955,18 @@ LABEL_26:
         sectionIdentifier2 = [(UNSDefaultDataProvider *)self sectionIdentifier];
         un_logDigest = [identifier un_logDigest];
         *buf = 138543874;
-        v220 = sectionIdentifier2;
-        v221 = 2114;
-        v222 = v207;
-        v223 = 2114;
-        v224 = un_logDigest;
+        v219 = sectionIdentifier2;
+        v220 = 2114;
+        v221 = v206;
+        v222 = 2114;
+        v223 = un_logDigest;
         _os_log_error_impl(&dword_270AA8000, v58, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to find sound %{public}@ for notification %{public}@", buf, 0x20u);
       }
 
       topicIdentifiers = v57;
     }
 
-    toneFileName = v207;
+    toneFileName = v206;
   }
 
   if (v49)
@@ -990,7 +985,7 @@ LABEL_26:
 
     [v53 setMaximumDuration:v61];
     [v53 setTopic:*MEMORY[0x277D71FD0]];
-    shouldPreemptPresentedNotification = v174;
+    shouldPreemptPresentedNotification = v173;
     if (!allowPrivateProperties)
     {
       goto LABEL_83;
@@ -999,7 +994,7 @@ LABEL_26:
     goto LABEL_64;
   }
 
-  shouldPreemptPresentedNotification = v174;
+  shouldPreemptPresentedNotification = v173;
   if (allowPrivateProperties)
   {
     [notificationCopy soundMaximumDuration];
@@ -1015,7 +1010,7 @@ LABEL_64:
       [v53 setAudioCategory:audioCategory];
     }
 
-    v181 = audioCategory;
+    v180 = audioCategory;
     toneMediaLibraryItemIdentifier = [notificationCopy toneMediaLibraryItemIdentifier];
     if (toneMediaLibraryItemIdentifier)
     {
@@ -1062,10 +1057,10 @@ LABEL_64:
       [v53 setShouldIgnoreAccessibilityDisabledVibrationSetting:1];
     }
 
-    identifier = v166;
-    topicIdentifiers = v171;
-    shouldPreemptPresentedNotification = v174;
-    toneFileName = v207;
+    identifier = v165;
+    topicIdentifiers = v170;
+    shouldPreemptPresentedNotification = v173;
+    toneFileName = v206;
   }
 
 LABEL_83:
@@ -1085,17 +1080,17 @@ LABEL_83:
     }
   }
 
-  v180 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlertConfiguration:v53];
+  v179 = [objc_alloc(MEMORY[0x277CF3588]) initWithToneAlertConfiguration:v53];
 
 LABEL_89:
-  v208 = v50;
+  v207 = v50;
   if (![(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowPrivateProperties])
   {
-    v177 = 0;
+    v176 = 0;
     goto LABEL_100;
   }
 
-  v175 = shouldPreemptPresentedNotification;
+  v174 = shouldPreemptPresentedNotification;
   iconApplicationIdentifier = [notificationCopy iconApplicationIdentifier];
   iconName = [notificationCopy iconName];
   iconPath = [notificationCopy iconPath];
@@ -1117,10 +1112,10 @@ LABEL_89:
   {
     if (iconName)
     {
-      v141 = MEMORY[0x277CF3560];
+      v140 = MEMORY[0x277CF3560];
       bundle2 = [(UNSDefaultDataProvider *)self bundle];
       bundlePath = [bundle2 bundlePath];
-      v79 = [v141 variantWithFormat:0 imageName:iconName inBundleAtPath:bundlePath];
+      v79 = [v140 variantWithFormat:0 imageName:iconName inBundleAtPath:bundlePath];
 
       goto LABEL_96;
     }
@@ -1152,31 +1147,8 @@ LABEL_96:
   [v79 setPrecomposed:{objc_msgSend(notificationCopy, "iconShouldSuppressMask")}];
   if (v79)
   {
-    v177 = objc_alloc_init(MEMORY[0x277CF3558]);
-    [v177 addVariant:v79];
-  }
-
-  else
-  {
-    v177 = 0;
-  }
-
-  identifier = v166;
-  topicIdentifiers = v171;
-  shouldPreemptPresentedNotification = v175;
-LABEL_100:
-  if ([(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowPrivateProperties])
-  {
-    accessoryImageName = [notificationCopy accessoryImageName];
-    if (accessoryImageName)
-    {
-      v176 = [MEMORY[0x277CF3538] imageWithName:accessoryImageName inBundlePath:0];
-    }
-
-    else
-    {
-      v176 = 0;
-    }
+    v176 = objc_alloc_init(MEMORY[0x277CF3558]);
+    [v176 addVariant:v79];
   }
 
   else
@@ -1184,13 +1156,36 @@ LABEL_100:
     v176 = 0;
   }
 
+  identifier = v165;
+  topicIdentifiers = v170;
+  shouldPreemptPresentedNotification = v174;
+LABEL_100:
+  if ([(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowPrivateProperties])
+  {
+    accessoryImageName = [notificationCopy accessoryImageName];
+    if (accessoryImageName)
+    {
+      v175 = [MEMORY[0x277CF3538] imageWithName:accessoryImageName inBundlePath:0];
+    }
+
+    else
+    {
+      v175 = 0;
+    }
+  }
+
+  else
+  {
+    v175 = 0;
+  }
+
   v81 = v43 | shouldPreemptPresentedNotification;
   v82 = objc_alloc(MEMORY[0x277D77C98]);
   bundle3 = [(UNSDefaultDataProvider *)self bundle];
   v84 = [v82 initWithBundle:bundle3 categoryRepository:self->_categoryRepository];
 
-  v147 = v84;
-  v172 = [v84 notificationForNotificationRecord:notificationCopy];
+  v146 = v84;
+  v171 = [v84 notificationForNotificationRecord:notificationCopy];
   LODWORD(v84) = [(UNSDefaultDataProvider *)self _queue_supportsCriticalAlertsForSubsectionIDs:topicIdentifiers];
   v85 = [(UNSDefaultDataProvider *)self _queue_supportsTimeSensitiveAlertsforSubsectionIDs:topicIdentifiers];
   v86 = 2;
@@ -1199,9 +1194,9 @@ LABEL_100:
     v86 = 3;
   }
 
-  if (v143 != 3)
+  if (v142 != 3)
   {
-    v86 = v143;
+    v86 = v142;
   }
 
   v87 = 1;
@@ -1220,13 +1215,13 @@ LABEL_100:
     v88 = v86;
   }
 
-  v144 = [v212 isEqualToString:*MEMORY[0x277CF34B0]];
+  v143 = [v211 isEqualToString:*MEMORY[0x277CF34B0]];
   v89 = objc_alloc_init(MEMORY[0x277CF3518]);
-  [v89 setContentType:v212];
-  [v89 setDefaultAction:v197];
-  [v89 setDismissAction:v196];
-  [v89 setFollowActivityAction:v195];
-  [v89 setDate:v204];
+  [v89 setContentType:v211];
+  [v89 setDefaultAction:v196];
+  [v89 setDismissAction:v195];
+  [v89 setFollowActivityAction:v194];
+  [v89 setDate:v203];
   [v89 setInterruptionLevel:v88];
   *&v90 = v22;
   [v89 setRelevanceScore:v90];
@@ -1235,18 +1230,18 @@ LABEL_100:
   [v89 setSpeechLanguage:speechLanguage];
   [v89 setDateIsAllDay:shouldHideTime];
   [v89 setExpirationDate:expirationDate];
-  [v89 setHeader:v188];
-  [v89 setFooter:v187];
-  [v89 setMessage:v206];
+  [v89 setHeader:v187];
+  [v89 setFooter:v186];
+  [v89 setMessage:v205];
   if (attributedBody)
   {
-    v91 = [(UNSDefaultDataProvider *)self _safeAttributedMessageWithAttributedMessage:attributedBody contentType:v212];
+    v91 = [(UNSDefaultDataProvider *)self _safeAttributedMessageWithAttributedMessage:attributedBody contentType:v211];
     if (v91)
     {
       [v89 setAttributedMessage:v91];
     }
 
-    else if (!v206)
+    else if (!v205)
     {
       string = [attributedBody string];
       [v89 setMessage:string];
@@ -1254,16 +1249,16 @@ LABEL_100:
   }
 
   [v89 setSection:sectionIdentifier];
-  [v89 setSubtitle:v202];
-  [v89 setTitle:v203];
+  [v89 setSubtitle:v201];
+  [v89 setTitle:v202];
   [v89 setSummaryArgument:summaryArgument];
-  [v89 setSummaryArgumentCount:v169];
-  [v89 setSound:v180];
-  [v89 setIcon:v177];
+  [v89 setSummaryArgumentCount:v168];
+  [v89 setSound:v179];
+  [v89 setIcon:v176];
   [v89 setHasSubordinateIcon:shouldShowSubordinateIcon];
-  [v89 setAccessoryImage:v176];
+  [v89 setAccessoryImage:v175];
   [v89 setHasCriticalIcon:v43];
-  [v89 setTurnsOnDisplay:v149];
+  [v89 setTurnsOnDisplay:v148];
   [v89 setIgnoresQuietMode:(v43 | shouldIgnoreDoNotDisturb) & 1];
   [v89 setIgnoresDowntime:shouldIgnoreDowntime];
   [v89 setPreemptsPresentedAlert:v81 & 1];
@@ -1271,22 +1266,22 @@ LABEL_100:
   [v89 setUsesExternalSync:shouldSuppressSyncDismissalWhenRemoved];
   [v89 setPublisherBulletinID:identifier];
   [v89 setRecordID:identifier];
-  [v89 setDismissalID:v186];
-  [v89 setCategoryID:v198];
-  v93 = [(NSMutableDictionary *)self->_categoryToParamSubType objectForKey:v198];
+  [v89 setDismissalID:v185];
+  [v89 setCategoryID:v197];
+  v93 = [(NSMutableDictionary *)self->_categoryToParamSubType objectForKey:v197];
   [v89 setSectionSubtype:{objc_msgSend(v93, "integerValue")}];
 
-  [v89 setSilenceAction:v194];
+  [v89 setSilenceAction:v193];
   [v89 setThreadID:threadIdentifier];
   [v89 setIntentIDs:intentIdentifiers];
   [v89 setSubsectionIDs:topicIdentifiers];
   [v89 setDateFormatStyle:1];
-  [v89 setSupplementaryActions:v193];
+  [v89 setSupplementaryActions:v192];
   [v89 setWantsFullscreenPresentation:presentFullScreenAlertOverList];
   [v89 setPreventAutomaticRemovalFromLockScreen:v43];
-  [v89 setLockScreenPriority:v148];
-  [v89 setBackgroundStyle:v160];
-  [v89 setClearable:v156];
+  [v89 setLockScreenPriority:v147];
+  [v89 setBackgroundStyle:v159];
+  [v89 setClearable:v155];
   if ([notificationCopy pipelineState])
   {
     [v89 setIsHighlight:{objc_msgSend(notificationCopy, "isHighlight")}];
@@ -1307,7 +1302,7 @@ LABEL_100:
   threadSummary = [v99 threadSummary];
   [v89 setThreadSummary:threadSummary];
 
-  v170 = v99;
+  v169 = v99;
   spotlightIdentifier = [v99 spotlightIdentifier];
   [v89 setSpotlightIdentifier:spotlightIdentifier];
 
@@ -1320,22 +1315,22 @@ LABEL_100:
     threadSummary2 = [v99 threadSummary];
     v107 = [v105 numberWithInt:{objc_msgSend(threadSummary2, "length") != 0}];
     *buf = 138412546;
-    v220 = spotlightIdentifier2;
-    v221 = 2112;
-    v222 = v107;
+    v219 = spotlightIdentifier2;
+    v220 = 2112;
+    v221 = v107;
     _os_log_impl(&dword_270AA8000, v103, OS_LOG_TYPE_DEFAULT, "group summaries request for record with spotlightIdentifier: %@ hasThreadSummary: %@", buf, 0x16u);
   }
 
   v108 = *v102;
   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
   {
-    [(UNSDefaultDataProvider *)v170 _queue_bulletinForNotification:v89, v108];
+    [(UNSDefaultDataProvider *)v169 _queue_bulletinForNotification:v89, v108];
   }
 
   v109 = targetContentIdentifier;
-  if (v208)
+  if (v207)
   {
-    [v89 setContextValue:v208 forKey:@"audioVolume"];
+    [v89 setContextValue:v207 forKey:@"audioVolume"];
   }
 
   if (badge)
@@ -1349,9 +1344,9 @@ LABEL_100:
   }
 
   [v89 setContextValue:launchImageName forKey:*MEMORY[0x277CF35D0]];
-  if (v210)
+  if (v209)
   {
-    [v89 setContextValue:v210 forKey:@"recordDate"];
+    [v89 setContextValue:v209 forKey:@"recordDate"];
   }
 
   v110 = [MEMORY[0x277CCABB0] numberWithBool:shouldIgnoreDoNotDisturb];
@@ -1363,14 +1358,14 @@ LABEL_100:
   }
 
   v111 = identifier;
-  v112 = v171;
+  v112 = v170;
   if (userInfo)
   {
     [v89 setContextValue:userInfo forKey:@"userInfo"];
   }
 
-  [v89 setRealertCount:v164];
-  request = [v172 request];
+  [v89 setRealertCount:v163];
+  request = [v171 request];
   content = [request content];
   attachments = [content attachments];
 
@@ -1379,8 +1374,8 @@ LABEL_100:
     [(UNSDefaultDataProvider *)self _addAttachments:attachments toBulletinRequest:v89];
   }
 
-  v184 = attachments;
-  request2 = [v172 request];
+  v183 = attachments;
+  request2 = [v171 request];
   trigger = [request2 trigger];
 
   identifier = v111;
@@ -1391,14 +1386,14 @@ LABEL_100:
     [v89 setContextValue:v119 forKey:@"notificationTriggerData"];
   }
 
-  request3 = [v172 request];
+  request3 = [v171 request];
   content2 = [request3 content];
   communicationContext = [content2 communicationContext];
 
-  v123 = v208;
+  v123 = v207;
   if (communicationContext)
   {
-    if (v144)
+    if (v143)
     {
       v124 = *MEMORY[0x277CE2070];
       if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
@@ -1409,32 +1404,32 @@ LABEL_100:
 
     else
     {
-      v163 = v118;
+      v162 = v118;
       v124 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v213 = 0u;
       v214 = 0u;
       v215 = 0u;
       v216 = 0u;
-      v217 = 0u;
       recipients = [communicationContext recipients];
-      v126 = [recipients countByEnumeratingWithState:&v214 objects:v218 count:16];
+      v126 = [recipients countByEnumeratingWithState:&v213 objects:v217 count:16];
       if (v126)
       {
         v127 = v126;
-        v128 = *v215;
+        v128 = *v214;
         do
         {
           for (i = 0; i != v127; ++i)
           {
-            if (*v215 != v128)
+            if (*v214 != v128)
             {
               objc_enumerationMutation(recipients);
             }
 
-            v130 = [(UNSDefaultDataProvider *)self _bbContactFromUNContact:*(*(&v214 + 1) + 8 * i)];
+            v130 = [(UNSDefaultDataProvider *)self _bbContactFromUNContact:*(*(&v213 + 1) + 8 * i)];
             [v124 addObject:v130];
           }
 
-          v127 = [recipients countByEnumeratingWithState:&v214 objects:v218 count:16];
+          v127 = [recipients countByEnumeratingWithState:&v213 objects:v217 count:16];
         }
 
         while (v127);
@@ -1453,18 +1448,18 @@ LABEL_100:
         v133 = 0;
       }
 
-      v165 = v133;
+      v164 = v133;
       if ([communicationContext notifyRecipientAnyway])
       {
-        v161 = [(UNSDefaultDataProvider *)self _isTCCUserAvailabilityGrantedForBundleId:sectionIdentifier];
+        v160 = [(UNSDefaultDataProvider *)self _isTCCUserAvailabilityGrantedForBundleId:sectionIdentifier];
       }
 
       else
       {
-        v161 = 0;
+        v160 = 0;
       }
 
-      v159 = MEMORY[0x277CF3548];
+      v158 = MEMORY[0x277CF3548];
       identifier3 = [communicationContext identifier];
       bundleIdentifier = [communicationContext bundleIdentifier];
       associatedObjectUri = [communicationContext associatedObjectUri];
@@ -1473,23 +1468,23 @@ LABEL_100:
       imageName = [communicationContext imageName];
       isSystemImage = [communicationContext isSystemImage];
       mentionsCurrentUser = [communicationContext mentionsCurrentUser];
-      BYTE3(v142) = [communicationContext isReplyToCurrentUser];
-      BYTE2(v142) = v161;
-      BYTE1(v142) = mentionsCurrentUser;
-      LOBYTE(v142) = isSystemImage;
-      v138 = [v159 communicationContextWithIdentifier:identifier3 bundleIdentifier:bundleIdentifier associatedObjectUri:associatedObjectUri displayName:displayName sender:v165 recipients:v124 contentURL:contentURL imageName:imageName systemImage:v142 mentionsCurrentUser:objc_msgSend(communicationContext notifyRecipientAnyway:"recipientCount") replyToCurrentUser:? recipientCount:?];
+      BYTE3(v141) = [communicationContext isReplyToCurrentUser];
+      BYTE2(v141) = v160;
+      BYTE1(v141) = mentionsCurrentUser;
+      LOBYTE(v141) = isSystemImage;
+      v138 = [v158 communicationContextWithIdentifier:identifier3 bundleIdentifier:bundleIdentifier associatedObjectUri:associatedObjectUri displayName:displayName sender:v164 recipients:v124 contentURL:contentURL imageName:imageName systemImage:v141 mentionsCurrentUser:objc_msgSend(communicationContext notifyRecipientAnyway:"recipientCount") replyToCurrentUser:? recipientCount:?];
 
       [v138 setCapabilities:{objc_msgSend(communicationContext, "capabilities") & 1}];
       [v138 setBusinessCorrespondence:{objc_msgSend(communicationContext, "isBusinessCorrespondence")}];
       [v89 setCommunicationContext:v138];
 
       v109 = targetContentIdentifier;
-      v112 = v171;
-      v123 = v208;
-      v118 = v163;
+      v112 = v170;
+      v123 = v207;
+      v118 = v162;
     }
 
-    identifier = v166;
+    identifier = v165;
   }
 
   v32 = v89;
@@ -1497,14 +1492,12 @@ LABEL_100:
 LABEL_163:
 LABEL_164:
 
-  v139 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (id)_bbContentTypeFromUNContentType:(id)type toneAlertType:(int64_t)alertType
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v7 = *MEMORY[0x277CF34B0];
   allowCalls = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowCalls];
@@ -1597,9 +1590,9 @@ LABEL_8:
         {
           v16 = v15;
           sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
-          v21 = 138543362;
-          v22 = sectionIdentifier;
-          _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] _UNNotificationContentType is '_UNNotificationContentTypeIncomingCall' but the tone alert type is NOT  'TLAlertTypeIncomingCall'. Tone alert type must be 'TLAlertTypeIncomingCall' for notification to be treated as an incoming call. Assigning 'BBBulletinContentTypeCallOther' to notification.", &v21, 0xCu);
+          v20 = 138543362;
+          v21 = sectionIdentifier;
+          _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] _UNNotificationContentType is '_UNNotificationContentTypeIncomingCall' but the tone alert type is NOT  'TLAlertTypeIncomingCall'. Tone alert type must be 'TLAlertTypeIncomingCall' for notification to be treated as an incoming call. Assigning 'BBBulletinContentTypeCallOther' to notification.", &v20, 0xCu);
         }
 
         v7 = v14;
@@ -1662,8 +1655,6 @@ LABEL_8:
 
 LABEL_40:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -1713,33 +1704,33 @@ LABEL_40:
 
 - (BOOL)_queue_supportsCriticalAlertsForSubsectionIDs:(id)ds
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(UNSDefaultDataProvider *)self _queue_applicableSectionInfosForSubsectionIDs:ds];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = v11 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) criticalAlertSetting] == 2)
+        if ([*(*(&v8 + 1) + 8 * i) criticalAlertSetting] == 2)
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1751,39 +1742,38 @@ LABEL_40:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)_queue_supportsTimeSensitiveAlertsforSubsectionIDs:(id)ds
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(UNSDefaultDataProvider *)self _queue_applicableSectionInfosForSubsectionIDs:ds];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = v11 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) timeSensitiveSetting] == 2)
+        if ([*(*(&v8 + 1) + 8 * i) timeSensitiveSetting] == 2)
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1795,35 +1785,34 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)_queue_applicableSectionInfosForSubsectionIDs:(id)ds
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   subsections = [(BBSectionInfo *)self->_effectiveSectionInfo subsections];
-  v7 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [subsections countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(subsections);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         subsectionID = [v11 subsectionID];
         v13 = [dsCopy containsObject:subsectionID];
 
@@ -1833,7 +1822,7 @@ LABEL_11:
         }
       }
 
-      v8 = [subsections countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [subsections countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1843,8 +1832,6 @@ LABEL_11:
   {
     [array addObject:?];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1860,7 +1847,7 @@ LABEL_11:
 
 - (id)_pathForSoundName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dataContainerURL = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription dataContainerURL];
   v6 = dataContainerURL;
@@ -1889,26 +1876,26 @@ LABEL_11:
   groupContainerURLS = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription groupContainerURLS];
   allValues = [groupContainerURLS allValues];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = allValues;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
 LABEL_8:
     v17 = 0;
     while (1)
     {
-      if (*v31 != v16)
+      if (*v30 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      path2 = [*(*(&v30 + 1) + 8 * v17) path];
+      path2 = [*(*(&v29 + 1) + 8 * v17) path];
       stringByStandardizingPath2 = [path2 stringByStandardizingPath];
       v20 = [(UNSDefaultDataProvider *)self _soundsDirectoryPathForContainerBasePath:stringByStandardizingPath2];
 
@@ -1922,7 +1909,7 @@ LABEL_8:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v15)
         {
           goto LABEL_8;
@@ -1958,7 +1945,6 @@ LABEL_14:
   }
 
 LABEL_19:
-  v28 = *MEMORY[0x277D85DE8];
 
   return stringByStandardizingPath;
 }
@@ -2083,31 +2069,31 @@ LABEL_19:
 
 - (id)_allCategories
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   defaultCategories = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription defaultCategories];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v5 = [defaultCategories countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [defaultCategories countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(defaultCategories);
         }
 
-        [array addObject:*(*(&v23 + 1) + 8 * i)];
+        [array addObject:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v6 = [defaultCategories countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [defaultCategories countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
@@ -2117,65 +2103,63 @@ LABEL_19:
   sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
   v11 = [(UNSNotificationCategoryRepository *)categoryRepository categoriesForBundleIdentifier:sectionIdentifier];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [array addObject:{*(*(&v19 + 1) + 8 * j), v19}];
+        [array addObject:{*(*(&v18 + 1) + 8 * j), v18}];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_categoryForIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     [(UNCNotificationSourceDescription *)self->_notificationSourceDescription defaultCategories];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v5 = v34 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v5 = v33 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           identifier = [v10 identifier];
           v12 = [identifierCopy isEqual:identifier];
 
@@ -2187,7 +2171,7 @@ LABEL_19:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
         if (v7)
         {
           continue;
@@ -2201,26 +2185,26 @@ LABEL_19:
     sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
     v15 = [(UNSNotificationCategoryRepository *)categoryRepository categoriesForBundleIdentifier:sectionIdentifier];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = v15;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v27 + 1) + 8 * j);
+          v21 = *(*(&v26 + 1) + 8 * j);
           identifier2 = [v21 identifier];
           v23 = [identifierCopy isEqual:identifier2];
 
@@ -2232,7 +2216,7 @@ LABEL_19:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v18)
         {
           continue;
@@ -2251,46 +2235,42 @@ LABEL_22:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (id)_actionsFromActionRecords:(id)records
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = recordsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(UNSDefaultDataProvider *)self _actionFromActionRecord:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(UNSDefaultDataProvider *)self _actionFromActionRecord:*(*(&v13 + 1) + 8 * i), v13];
         [array bs_safeAddObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -2394,32 +2374,32 @@ LABEL_22:
 
 - (id)_allBulletinsWithMaxCount:(unint64_t)count sinceDate:(id)date
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
   notificationRecords = [(UNSDefaultDataProvider *)self notificationRecords];
   selfCopy = self;
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v11 = notificationRecords;
-  v34 = [v11 countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v34)
+  v33 = [v11 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v33)
   {
-    v33 = *v36;
-    v31 = v11;
+    v32 = *v35;
+    v30 = v11;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v36 != v33)
+      if (*v35 != v32)
       {
         objc_enumerationMutation(v11);
       }
 
-      v13 = *(*(&v35 + 1) + 8 * v12);
+      v13 = *(*(&v34 + 1) + 8 * v12);
       if (![v13 allowsNotificationCenterDestination])
       {
         goto LABEL_29;
@@ -2446,10 +2426,10 @@ LABEL_3:
       }
 
 LABEL_22:
-      if (v34 == ++v12)
+      if (v33 == ++v12)
       {
-        v28 = [v11 countByEnumeratingWithState:&v35 objects:v39 count:16];
-        v34 = v28;
+        v28 = [v11 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v33 = v28;
         if (v28)
         {
           goto LABEL_3;
@@ -2472,16 +2452,16 @@ LABEL_22:
         v24 = selfCopy;
         countCopy = count;
         v27 = v26 = v7;
-        v32 = [v27 length];
+        v31 = [v27 length];
 
         v7 = v26;
         count = countCopy;
         selfCopy = v24;
         v10 = v23;
         dateCopy = v22;
-        v11 = v31;
+        v11 = v30;
 
-        if (!v32)
+        if (!v31)
         {
 LABEL_19:
           if (count && [v7 count] == count)
@@ -2510,8 +2490,6 @@ LABEL_16:
 
 LABEL_29:
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
@@ -2526,7 +2504,7 @@ LABEL_29:
 
 - (id)bulletinsWithRequestParameters:(id)parameters lastCleared:(id)cleared
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   dispatch_assert_queue_V2(self->_queue);
   if ([parametersCopy publisherDestination] == 2)
@@ -2543,45 +2521,45 @@ LABEL_29:
       v12 = [v8 count];
       sinceDate2 = [parametersCopy sinceDate];
       *buf = 138544130;
-      v39 = sectionIdentifier;
-      v40 = 2048;
-      v41 = v12;
-      v42 = 2114;
-      v43 = sinceDate2;
-      v44 = 2048;
+      v38 = sectionIdentifier;
+      v39 = 2048;
+      v40 = v12;
+      v41 = 2114;
+      v42 = sinceDate2;
+      v43 = 2048;
       maximumCount2 = [parametersCopy maximumCount];
       _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning %ld bulletins since %{public}@ (max %ld)", buf, 0x2Au);
     }
 
     if (UNCUseGroupService())
     {
-      v32 = parametersCopy;
+      v31 = parametersCopy;
       v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v15 = objc_alloc(MEMORY[0x277D77C80]);
       bundle = [(UNSDefaultDataProvider *)self bundle];
       v17 = [v15 initWithBundle:bundle];
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
-      v31 = v8;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v30 = v8;
       allObjects = [v8 allObjects];
-      v19 = [allObjects countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v19 = [allObjects countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v34;
+        v21 = *v33;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v34 != v21)
+            if (*v33 != v21)
             {
               objc_enumerationMutation(allObjects);
             }
 
-            categoryID = [*(*(&v33 + 1) + 8 * i) categoryID];
+            categoryID = [*(*(&v32 + 1) + 8 * i) categoryID];
             if (categoryID)
             {
               v24 = [v14 objectForKey:categoryID];
@@ -2598,18 +2576,18 @@ LABEL_29:
             }
           }
 
-          v20 = [allObjects countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v20 = [allObjects countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v20);
       }
 
       uns_notificationSettings = [(BBSectionInfo *)self->_effectiveSectionInfo uns_notificationSettings];
-      v8 = v31;
-      allObjects2 = [v31 allObjects];
+      v8 = v30;
+      allObjects2 = [v30 allObjects];
       [UNSNotificationPipelineAdapter addInitialBulletins:allObjects2 categories:v14 sourceDescription:self->_notificationSourceDescription settings:uns_notificationSettings];
 
-      parametersCopy = v32;
+      parametersCopy = v31;
     }
   }
 
@@ -2617,8 +2595,6 @@ LABEL_29:
   {
     v8 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2644,28 +2620,26 @@ LABEL_29:
 
 - (id)clearedInfoAndBulletinsForClearingAllBulletinsWithLimit:(unint64_t)limit lastClearedInfo:(id)info
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v6 = [(UNSDefaultDataProvider *)self _allBulletinsWithMaxCount:limit sinceDate:0];
   notificationRepository = self->_notificationRepository;
   sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
   [(UNCNotificationRepository *)notificationRepository removeAllNotificationRecordsForBundleIdentifier:sectionIdentifier];
 
-  v13[0] = *MEMORY[0x277CF34F0];
+  v12[0] = *MEMORY[0x277CF34F0];
   null = [MEMORY[0x277CBEB68] null];
-  v13[1] = *MEMORY[0x277CF34E8];
-  v14[0] = null;
-  v14[1] = v6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277CF34E8];
+  v13[0] = null;
+  v13[1] = v6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v10;
 }
 
 - (id)clearedInfoForBulletins:(id)bulletins lastClearedInfo:(id)info
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   bulletinsCopy = bulletins;
   dispatch_assert_queue_V2(self->_queue);
   v6 = *MEMORY[0x277CE2080];
@@ -2674,41 +2648,41 @@ LABEL_29:
     v7 = v6;
     sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
     *buf = 138543618;
-    v26 = sectionIdentifier;
-    v27 = 2048;
-    v28 = [bulletinsCopy count];
+    v25 = sectionIdentifier;
+    v26 = 2048;
+    v27 = [bulletinsCopy count];
     _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Clear %ld bulletins", buf, 0x16u);
   }
 
   v9 = [MEMORY[0x277CBEB58] set];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = bulletinsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       v14 = 0;
       do
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        publisherBulletinID = [*(*(&v20 + 1) + 8 * v14) publisherBulletinID];
+        publisherBulletinID = [*(*(&v19 + 1) + 8 * v14) publisherBulletinID];
         [v9 addObject:publisherBulletinID];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
@@ -2718,7 +2692,6 @@ LABEL_29:
   sectionIdentifier2 = [(UNSDefaultDataProvider *)self sectionIdentifier];
   [(UNCNotificationRepository *)notificationRepository removeNotificationRecordsForIdentifiers:v9 bundleIdentifier:sectionIdentifier2];
 
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2779,7 +2752,7 @@ LABEL_8:
 
 - (void)handleBulletinActionResponse:(id)response withCompletion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   completionCopy = completion;
   v8 = MEMORY[0x277CE2080];
@@ -2791,15 +2764,15 @@ LABEL_8:
     bulletinPublisherID = [responseCopy bulletinPublisherID];
     un_logDigest = [bulletinPublisherID un_logDigest];
     actionID = [responseCopy actionID];
-    v28 = 138544130;
-    v29 = sectionIdentifier;
-    v30 = 2114;
-    v31 = un_logDigest;
-    v32 = 2114;
-    v33 = actionID;
-    v34 = 2048;
+    v27 = 138544130;
+    v28 = sectionIdentifier;
+    v29 = 2114;
+    v30 = un_logDigest;
+    v31 = 2114;
+    v32 = actionID;
+    v33 = 2048;
     actionType = [responseCopy actionType];
-    _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received response to %{public}@ for action %{public}@ (%ld)  ", &v28, 0x2Au);
+    _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received response to %{public}@ for action %{public}@ (%ld)  ", &v27, 0x2Au);
   }
 
   actionType2 = [responseCopy actionType];
@@ -2816,33 +2789,33 @@ LABEL_8:
 
   if (actionType2 == 5)
   {
-    v17 = *v8;
+    v16 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = v17;
+      v17 = v16;
       sectionIdentifier2 = [(UNSDefaultDataProvider *)self sectionIdentifier];
       bulletinPublisherID2 = [responseCopy bulletinPublisherID];
       un_logDigest2 = [bulletinPublisherID2 un_logDigest];
       actionID2 = [responseCopy actionID];
       actionType3 = [responseCopy actionType];
-      v28 = 138544130;
-      v29 = sectionIdentifier2;
-      v30 = 2114;
-      v31 = un_logDigest2;
-      v32 = 2114;
-      v33 = actionID2;
-      v34 = 2048;
+      v27 = 138544130;
+      v28 = sectionIdentifier2;
+      v29 = 2114;
+      v30 = un_logDigest2;
+      v31 = 2114;
+      v32 = actionID2;
+      v33 = 2048;
       actionType = actionType3;
-      _os_log_impl(&dword_270AA8000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing record with identifier %{public}@ from notification repository for action %{public}@ (%ld)  ", &v28, 0x2Au);
+      _os_log_impl(&dword_270AA8000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing record with identifier %{public}@ from notification repository for action %{public}@ (%ld)  ", &v27, 0x2Au);
     }
 
     bulletinPublisherID3 = [responseCopy bulletinPublisherID];
     if (bulletinPublisherID3)
     {
       notificationRepository = self->_notificationRepository;
-      v26 = [MEMORY[0x277CBEB98] setWithObject:bulletinPublisherID3];
+      v25 = [MEMORY[0x277CBEB98] setWithObject:bulletinPublisherID3];
       sectionIdentifier3 = [(UNSDefaultDataProvider *)self sectionIdentifier];
-      [(UNCNotificationRepository *)notificationRepository removeNotificationRecordsForIdentifiers:v26 bundleIdentifier:sectionIdentifier3];
+      [(UNCNotificationRepository *)notificationRepository removeNotificationRecordsForIdentifiers:v25 bundleIdentifier:sectionIdentifier3];
     }
 
     if (completionCopy)
@@ -2861,13 +2834,11 @@ LABEL_15:
   }
 
 LABEL_6:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBulletinActionResponse:(id)response withCompletion:(id)completion
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   completionCopy = completion;
   sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
@@ -2882,12 +2853,12 @@ LABEL_6:
   bulletinPublisherID = [responseCopy bulletinPublisherID];
   v13 = [(UNCNotificationRepository *)notificationRepository notificationRecordForIdentifier:bulletinPublisherID bundleIdentifier:sectionIdentifier];
 
-  v50 = v10;
+  v49 = v10;
   v14 = [v10 objectForKey:*MEMORY[0x277CE2178]];
   v15 = sectionIdentifier;
   defaultActionBundleIdentifier = [v13 defaultActionBundleIdentifier];
   v17 = v15;
-  v51 = v14;
+  v50 = v14;
   if (defaultActionBundleIdentifier)
   {
     if ([(UNCNotificationSourceDescription *)self->_notificationSourceDescription allowAlternateLaunchBundleIdentifiers])
@@ -2901,14 +2872,14 @@ LABEL_6:
         sectionIdentifier2 = [(UNSDefaultDataProvider *)self sectionIdentifier];
         bulletinPublisherID2 = [responseCopy bulletinPublisherID];
         *buf = 138543874;
-        v61 = sectionIdentifier2;
-        v62 = 2114;
-        v63 = bulletinPublisherID2;
-        v64 = 2114;
-        v65 = v17;
+        v60 = sectionIdentifier2;
+        v61 = 2114;
+        v62 = bulletinPublisherID2;
+        v63 = 2114;
+        v64 = v17;
         _os_log_error_impl(&dword_270AA8000, loga, OS_LOG_TYPE_ERROR, "[%{public}@] Launching action response '%{public}@' with alternate bundle identifier '%{public}@'", buf, 0x20u);
 
-        v14 = v51;
+        v14 = v50;
         if (!v13)
         {
           goto LABEL_31;
@@ -2934,14 +2905,14 @@ LABEL_8:
         sectionIdentifier3 = [(UNSDefaultDataProvider *)self sectionIdentifier];
         bulletinPublisherID3 = [responseCopy bulletinPublisherID];
         *buf = 138543874;
-        v61 = sectionIdentifier3;
-        v62 = 2114;
-        v63 = bulletinPublisherID3;
-        v64 = 2114;
-        v65 = defaultActionBundleIdentifier;
+        v60 = sectionIdentifier3;
+        v61 = 2114;
+        v62 = bulletinPublisherID3;
+        v63 = 2114;
+        v64 = defaultActionBundleIdentifier;
         _os_log_error_impl(&dword_270AA8000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] Permission denied to launch action response '%{public}@' with alternate bundle identifier '%{public}@'", buf, 0x20u);
 
-        v14 = v51;
+        v14 = v50;
         v17 = v15;
         if (v13)
         {
@@ -2964,7 +2935,7 @@ LABEL_31:
     goto LABEL_35;
   }
 
-  v39 = [(UNSDefaultDataProvider *)self _unarchiveNotificationFromData:v51];
+  v39 = [(UNSDefaultDataProvider *)self _unarchiveNotificationFromData:v50];
   v23 = v39;
   if (v39)
   {
@@ -3021,10 +2992,10 @@ LABEL_9:
 
     v28 = v27;
 LABEL_18:
-    v55 = v28;
+    v54 = v28;
     if ([responseCopy actionBehavior] == 1)
     {
-      v29 = [v50 objectForKey:*MEMORY[0x277CF35E0]];
+      v29 = [v49 objectForKey:*MEMORY[0x277CF35E0]];
       v30 = [MEMORY[0x277CE2018] responseWithNotification:v24 actionIdentifier:v28 originIdentifier:originID targetConnectionEndpoint:endpoint userText:v29];
     }
 
@@ -3063,20 +3034,20 @@ LABEL_18:
       launchImageName = [content launchImageName];
 
       appLauncher = self->_appLauncher;
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __71__UNSDefaultDataProvider__handleBulletinActionResponse_withCompletion___block_invoke;
-      v56[3] = &unk_279E10A68;
-      v56[4] = self;
-      v57 = v30;
-      v58 = v17;
-      v59 = logb;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __71__UNSDefaultDataProvider__handleBulletinActionResponse_withCompletion___block_invoke;
+      v55[3] = &unk_279E10A68;
+      v55[4] = self;
+      v56 = v30;
+      v57 = v17;
+      v58 = logb;
       v34 = appLauncher;
       completionCopy = logb;
-      [(UNSApplicationLauncher *)v34 foregroundLaunchApplication:v58 withResponse:v57 launchImageName:launchImageName origin:originID endpoint:endpoint completionHandler:v56];
+      [(UNSApplicationLauncher *)v34 foregroundLaunchApplication:v57 withResponse:v56 launchImageName:launchImageName origin:originID endpoint:endpoint completionHandler:v55];
     }
 
-    v35 = v55;
+    v35 = v54;
     goto LABEL_39;
   }
 
@@ -3093,8 +3064,6 @@ LABEL_35:
   }
 
 LABEL_39:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__UNSDefaultDataProvider__handleBulletinActionResponse_withCompletion___block_invoke(void *a1, int a2)
@@ -3117,7 +3086,6 @@ uint64_t __71__UNSDefaultDataProvider__handleBulletinActionResponse_withCompleti
 
 - (id)_unarchiveNotificationFromData:(id)data
 {
-  v9 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = objc_autoreleasePoolPush();
   if (dataCopy)
@@ -3133,8 +3101,6 @@ uint64_t __71__UNSDefaultDataProvider__handleBulletinActionResponse_withCompleti
   }
 
   objc_autoreleasePoolPop(v4);
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -3218,41 +3184,41 @@ uint64_t __77__UNSDefaultDataProvider_topicRepository_didChangeTopicsForBundleId
 
 void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummariesForNotificationIdentifiers___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v25;
+    v6 = *v24;
     v7 = MEMORY[0x277CE2080];
     *&v4 = 138543618;
-    v23 = v4;
+    v22 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
+        v9 = *(*(&v23 + 1) + 8 * v8);
         v10 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
           v11 = *(a1 + 40);
           v12 = v10;
           v13 = [v11 sectionIdentifier];
-          *buf = v23;
-          v29 = v13;
-          v30 = 2114;
-          v31 = v9;
+          *buf = v22;
+          v28 = v13;
+          v29 = 2114;
+          v30 = v9;
           _os_log_impl(&dword_270AA8000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating group summary for notification %{public}@", buf, 0x16u);
         }
 
@@ -3274,10 +3240,10 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
             v19 = *(a1 + 40);
             v20 = v18;
             v21 = [v19 sectionIdentifier];
-            *buf = v23;
-            v29 = v21;
-            v30 = 2114;
-            v31 = v9;
+            *buf = v22;
+            v28 = v21;
+            v29 = 2114;
+            v30 = v9;
             _os_log_error_impl(&dword_270AA8000, v20, OS_LOG_TYPE_ERROR, "[%{public}@] notification %{public}@ record not found; Can't update group summary.", buf, 0x16u);
           }
         }
@@ -3286,41 +3252,39 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       }
 
       while (v5 != v8);
-      v5 = [v2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v5);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_notificationRepositoryDidPerformUpdates:(id)updates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   dispatch_assert_queue_V2(self->_queue);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = updatesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         notificationRecord = [v10 notificationRecord];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && ([v10 shouldRepost] & 1) == 0 && -[UNCNotificationSourceDescription allowPrivateProperties](self->_notificationSourceDescription, "allowPrivateProperties"))
@@ -3361,19 +3325,17 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       }
 
       while (v7 != v9);
-      v13 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v13 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v7 = v13;
     }
 
     while (v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_fetchBulletinForNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   identifier = [notificationCopy identifier];
   if (identifier)
@@ -3387,15 +3349,15 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       identifier2 = [notificationCopy identifier];
       un_logDigest = [identifier2 un_logDigest];
       v12 = BBPublisherDestinationStrings();
-      v16 = 138544130;
-      v17 = sectionIdentifier;
-      v18 = 2114;
-      v19 = un_logDigest;
-      v20 = 2048;
-      v21 = v6;
-      v22 = 2114;
-      v23 = v12;
-      _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetching notification %{public}@ destinations %ld: %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = sectionIdentifier;
+      v17 = 2114;
+      v18 = un_logDigest;
+      v19 = 2048;
+      v20 = v6;
+      v21 = 2114;
+      v22 = v12;
+      _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Fetching notification %{public}@ destinations %ld: %{public}@", &v15, 0x2Au);
     }
 
     v13 = [(UNSDefaultDataProvider *)self _queue_bulletinForNotification:notificationCopy];
@@ -3410,13 +3372,11 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       [(UNSDefaultDataProvider *)v14 _queue_fetchBulletinForNotification:?];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_modifyBulletinForNotification:(id)notification
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   if (![notificationCopy pipelineState])
@@ -3424,7 +3384,7 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
     identifier = [notificationCopy identifier];
     if (identifier)
     {
-      v26 = [(UNSDefaultDataProvider *)self _categoryForNotification:notificationCopy];
+      v25 = [(UNSDefaultDataProvider *)self _categoryForNotification:notificationCopy];
       v6 = [(UNSDefaultDataProvider *)self _destinationsForNotification:notificationCopy];
       v7 = MEMORY[0x277CE2080];
       v8 = *MEMORY[0x277CE2080];
@@ -3436,13 +3396,13 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
         un_logDigest = [identifier2 un_logDigest];
         v13 = BBPublisherDestinationStrings();
         *buf = 138544130;
-        v32 = sectionIdentifier;
-        v33 = 2114;
-        v34 = un_logDigest;
-        v35 = 2048;
-        v36 = v6;
-        v37 = 2114;
-        v38 = v13;
+        v31 = sectionIdentifier;
+        v32 = 2114;
+        v33 = un_logDigest;
+        v34 = 2048;
+        v35 = v6;
+        v36 = 2114;
+        v37 = v13;
         _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Modifying notification %{public}@ destinations %ld: %{public}@", buf, 0x2Au);
       }
 
@@ -3455,9 +3415,9 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
         identifier3 = [notificationCopy identifier];
         un_logDigest2 = [identifier3 un_logDigest];
         *buf = 138543618;
-        v32 = sectionIdentifier2;
-        v33 = 2114;
-        v34 = un_logDigest2;
+        v31 = sectionIdentifier2;
+        v32 = 2114;
+        v33 = un_logDigest2;
         _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting modify notification pipeline for %{public}@", buf, 0x16u);
       }
 
@@ -3465,18 +3425,18 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       v20 = objc_alloc_init(MEMORY[0x277D77C90]);
       uns_notificationSettings = [(BBSectionInfo *)self->_effectiveSectionInfo uns_notificationSettings];
       notificationSourceDescription = self->_notificationSourceDescription;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_invoke;
-      v27[3] = &unk_279E10AB8;
-      v27[4] = self;
-      v28 = notificationCopy;
-      objc_copyWeak(&v30, buf);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_invoke;
+      v26[3] = &unk_279E10AB8;
+      v26[4] = self;
+      v27 = notificationCopy;
+      objc_copyWeak(&v29, buf);
       v23 = v20;
-      v29 = v23;
-      [UNSNotificationPipelineAdapter updateBulletin:v14 category:v26 destinations:v6 sourceDescription:notificationSourceDescription settings:uns_notificationSettings completion:v27];
+      v28 = v23;
+      [UNSNotificationPipelineAdapter updateBulletin:v14 category:v25 destinations:v6 sourceDescription:notificationSourceDescription settings:uns_notificationSettings completion:v26];
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(buf);
     }
 
@@ -3489,13 +3449,11 @@ void __99__UNSDefaultDataProvider_summaryServiceAdapter_didReceiveGroupSummaries
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_invoke(uint64_t a1, void *a2, uint64_t a3, char a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
@@ -3506,9 +3464,9 @@ void __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_i
     v11 = [*(a1 + 40) identifier];
     v12 = [v11 un_logDigest];
     *buf = 138543618;
-    v23 = v10;
-    v24 = 2114;
-    v25 = v12;
+    v22 = v10;
+    v23 = 2114;
+    v24 = v12;
     _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed modify notification pipeline for %{public}@", buf, 0x16u);
   }
 
@@ -3522,35 +3480,32 @@ void __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_i
     block[2] = __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_invoke_90;
     block[3] = &unk_279E10A90;
     block[4] = WeakRetained;
-    v18 = *(a1 + 40);
-    v21 = a4;
-    v19 = v6;
-    v20 = *(a1 + 48);
+    v17 = *(a1 + 40);
+    v20 = a4;
+    v18 = v6;
+    v19 = *(a1 + 48);
     dispatch_async(v15, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___block_invoke_90(uint64_t a1)
 {
   [*(a1 + 32) _queue_saveResultNotificationRecord:*(a1 + 40) shouldRepost:0 isFailure:*(a1 + 64) resultBulletin:*(a1 + 48)];
   [*(*(a1 + 32) + 104) modifyBulletin:*(a1 + 48)];
-  v2 = *(a1 + 56);
 
   return objc_opt_class();
 }
 
 - (void)_queue_addBulletinForNotification:(id)notification shouldRepost:(BOOL)repost
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   if (![notificationCopy pipelineState])
   {
     repostCopy = repost;
-    v32 = [(UNSDefaultDataProvider *)self _categoryForNotification:notificationCopy];
-    v33 = [(UNSDefaultDataProvider *)self _destinationsForNotification:notificationCopy];
+    v31 = [(UNSDefaultDataProvider *)self _categoryForNotification:notificationCopy];
+    v32 = [(UNSDefaultDataProvider *)self _destinationsForNotification:notificationCopy];
     v7 = *MEMORY[0x277CE2080];
     if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
     {
@@ -3567,29 +3522,29 @@ uint64_t __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___blo
       contentDate = [notificationCopy contentDate];
       un_logString = [contentDate un_logString];
       *buf = 138545666;
-      v40 = sectionIdentifier;
-      v41 = 2114;
-      v42 = un_logDigest;
-      v43 = 1024;
-      v44 = hasAlertContent;
-      v45 = 1024;
-      v46 = shouldPresentAlert;
-      v47 = 1024;
-      v48 = hasSound;
-      v49 = 1024;
-      v50 = shouldPlaySound;
-      v51 = 2048;
-      v52 = interruptionLevel;
-      v53 = 2048;
-      v54 = v33;
-      v55 = 2114;
-      v56 = v13;
-      v57 = 2114;
-      v58 = un_logString;
+      v39 = sectionIdentifier;
+      v40 = 2114;
+      v41 = un_logDigest;
+      v42 = 1024;
+      v43 = hasAlertContent;
+      v44 = 1024;
+      v45 = shouldPresentAlert;
+      v46 = 1024;
+      v47 = hasSound;
+      v48 = 1024;
+      v49 = shouldPlaySound;
+      v50 = 2048;
+      v51 = interruptionLevel;
+      v52 = 2048;
+      v53 = v32;
+      v54 = 2114;
+      v55 = v13;
+      v56 = 2114;
+      v57 = un_logString;
       _os_log_impl(&dword_270AA8000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Adding notification %{public}@ [ hasAlertContent: %d, shouldPresentAlert: %d hasSound: %d shouldPlaySound: %d ]; interruption-level: %lu; destinations %ld: %{public}@; contentDate: %{public}@", buf, 0x56u);
     }
 
-    if (v33)
+    if (v32)
     {
       v16 = [(UNSDefaultDataProvider *)self _queue_bulletinForNotification:notificationCopy];
       v17 = *MEMORY[0x277CE2080];
@@ -3600,9 +3555,9 @@ uint64_t __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___blo
         identifier2 = [notificationCopy identifier];
         un_logDigest2 = [identifier2 un_logDigest];
         *buf = 138543618;
-        v40 = sectionIdentifier2;
-        v41 = 2114;
-        v42 = un_logDigest2;
+        v39 = sectionIdentifier2;
+        v40 = 2114;
+        v41 = un_logDigest2;
         _os_log_impl(&dword_270AA8000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting add notification pipeline for %{public}@", buf, 0x16u);
       }
 
@@ -3610,29 +3565,27 @@ uint64_t __63__UNSDefaultDataProvider__queue_modifyBulletinForNotification___blo
       v22 = objc_alloc_init(MEMORY[0x277D77C90]);
       uns_notificationSettings = [(BBSectionInfo *)self->_effectiveSectionInfo uns_notificationSettings];
       notificationSourceDescription = self->_notificationSourceDescription;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke;
-      v34[3] = &unk_279E10B08;
-      v34[4] = self;
-      v35 = notificationCopy;
-      objc_copyWeak(&v37, buf);
-      v38 = repostCopy;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke;
+      v33[3] = &unk_279E10B08;
+      v33[4] = self;
+      v34 = notificationCopy;
+      objc_copyWeak(&v36, buf);
+      v37 = repostCopy;
       v25 = v22;
-      v36 = v25;
-      [UNSNotificationPipelineAdapter createBulletin:v16 category:v32 destinations:v33 sourceDescription:notificationSourceDescription settings:uns_notificationSettings completion:v34];
+      v35 = v25;
+      [UNSNotificationPipelineAdapter createBulletin:v16 category:v31 destinations:v32 sourceDescription:notificationSourceDescription settings:uns_notificationSettings completion:v33];
 
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(buf);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke(uint64_t a1, void *a2, uint64_t a3, char a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
@@ -3643,9 +3596,9 @@ void __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost
     v12 = [*(a1 + 40) identifier];
     v13 = [v12 un_logDigest];
     *buf = 138543618;
-    v26 = v11;
-    v27 = 2114;
-    v28 = v13;
+    v25 = v11;
+    v26 = 2114;
+    v27 = v13;
     _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed add notification pipeline for %{public}@", buf, 0x16u);
   }
 
@@ -3654,35 +3607,32 @@ void __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost
   if (WeakRetained)
   {
     v16 = WeakRetained[14];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke_92;
-    v18[3] = &unk_279E10AE0;
-    v18[4] = WeakRetained;
-    v19 = *(a1 + 40);
-    v23 = *(a1 + 64);
-    v24 = a4;
-    v20 = v7;
-    v22 = a3;
-    v21 = *(a1 + 48);
-    dispatch_async(v16, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke_92;
+    v17[3] = &unk_279E10AE0;
+    v17[4] = WeakRetained;
+    v18 = *(a1 + 40);
+    v22 = *(a1 + 64);
+    v23 = a4;
+    v19 = v7;
+    v21 = a3;
+    v20 = *(a1 + 48);
+    dispatch_async(v16, v17);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRepost___block_invoke_92(uint64_t a1)
 {
   [*(a1 + 32) _queue_saveResultNotificationRecord:*(a1 + 40) shouldRepost:*(a1 + 72) isFailure:*(a1 + 73) resultBulletin:*(a1 + 48)];
   [*(*(a1 + 32) + 104) addBulletin:*(a1 + 48) forDestinations:*(a1 + 64)];
-  v2 = *(a1 + 56);
 
   return objc_opt_class();
 }
 
 - (void)_queue_withdrawBulletinForNotification:(id)notification shouldSync:(BOOL)sync
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   identifier = [notificationCopy identifier];
@@ -3697,9 +3647,9 @@ uint64_t __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRe
       sectionIdentifier = [(UNSDefaultDataProvider *)self sectionIdentifier];
       un_logDigest = [identifier un_logDigest];
       *buf = 138543618;
-      v31 = sectionIdentifier;
-      v32 = 2114;
-      v33 = un_logDigest;
+      v30 = sectionIdentifier;
+      v31 = 2114;
+      v32 = un_logDigest;
       _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Withdrawing notification %{public}@", buf, 0x16u);
     }
 
@@ -3712,29 +3662,29 @@ uint64_t __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRe
       identifier2 = [notificationCopy identifier];
       un_logDigest2 = [identifier2 un_logDigest];
       *buf = 138543618;
-      v31 = sectionIdentifier2;
-      v32 = 2114;
-      v33 = un_logDigest2;
+      v30 = sectionIdentifier2;
+      v31 = 2114;
+      v32 = un_logDigest2;
       _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting delete notification pipeline for %{public}@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     v20 = objc_alloc_init(MEMORY[0x277D77C90]);
     notificationSourceDescription = self->_notificationSourceDescription;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke;
-    v24[3] = &unk_279E10B58;
-    v24[4] = self;
-    v25 = notificationCopy;
-    objc_copyWeak(&v28, buf);
-    v26 = identifier;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke;
+    v23[3] = &unk_279E10B58;
+    v23[4] = self;
+    v24 = notificationCopy;
+    objc_copyWeak(&v27, buf);
+    v25 = identifier;
     syncCopy = sync;
     v22 = v20;
-    v27 = v22;
-    [UNSNotificationPipelineAdapter deleteBulletin:v14 sourceDescription:notificationSourceDescription completion:v24];
+    v26 = v22;
+    [UNSNotificationPipelineAdapter deleteBulletin:v14 sourceDescription:notificationSourceDescription completion:v23];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
   }
 
@@ -3742,13 +3692,11 @@ uint64_t __73__UNSDefaultDataProvider__queue_addBulletinForNotification_shouldRe
   {
     [UNSDefaultDataProvider _queue_withdrawBulletinForNotification:v9 shouldSync:self];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CE2080];
   if (os_log_type_enabled(*MEMORY[0x277CE2080], OS_LOG_TYPE_DEFAULT))
   {
@@ -3758,9 +3706,9 @@ void __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldS
     v6 = [*(a1 + 40) identifier];
     v7 = [v6 un_logDigest];
     *buf = 138543618;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v7;
+    v16 = v5;
+    v17 = 2114;
+    v18 = v7;
     _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed delete notification pipeline for %{public}@", buf, 0x16u);
   }
 
@@ -3769,26 +3717,58 @@ void __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldS
   if (WeakRetained)
   {
     v10 = WeakRetained[14];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke_93;
-    v12[3] = &unk_279E10B30;
-    v12[4] = WeakRetained;
-    v13 = *(a1 + 48);
-    v15 = *(a1 + 72);
-    v14 = *(a1 + 56);
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke_93;
+    v11[3] = &unk_279E10B30;
+    v11[4] = WeakRetained;
+    v12 = *(a1 + 48);
+    v14 = *(a1 + 72);
+    v13 = *(a1 + 56);
+    dispatch_async(v10, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __76__UNSDefaultDataProvider__queue_withdrawBulletinForNotification_shouldSync___block_invoke_93(uint64_t a1)
 {
   [*(*(a1 + 32) + 104) withdrawBulletinWithPublisherBulletinID:*(a1 + 40) shouldSync:*(a1 + 56)];
-  v2 = *(a1 + 48);
 
   return objc_opt_class();
+}
+
+- (void)_queue_saveResultNotificationRecord:(id)record shouldRepost:(BOOL)repost isFailure:(BOOL)failure resultBulletin:(id)bulletin
+{
+  failureCopy = failure;
+  repostCopy = repost;
+  recordCopy = record;
+  bulletinCopy = bulletin;
+  if (failureCopy)
+  {
+    v11 = 2;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  [recordCopy setPipelineState:v11];
+  if (bulletinCopy)
+  {
+    [recordCopy setIsHighlight:{objc_msgSend(bulletinCopy, "isHighlight")}];
+    summary = [bulletinCopy summary];
+    [recordCopy setSummary:summary];
+
+    [recordCopy setPriorityStatus:{-[UNSDefaultDataProvider _notificationRecordPriorityStatusForBulletinStatus:](self, "_notificationRecordPriorityStatusForBulletinStatus:", objc_msgSend(bulletinCopy, "priorityNotificationStatus"))}];
+    [recordCopy setSummaryStatus:{-[UNSDefaultDataProvider _notificationRecordSummaryStatusForBulletinStatus:](self, "_notificationRecordSummaryStatusForBulletinStatus:", objc_msgSend(bulletinCopy, "notificationSummaryStatus"))}];
+    eventBehavior = [bulletinCopy eventBehavior];
+    [recordCopy setEventBehavior:eventBehavior];
+  }
+
+  bundleIdentifier = [(UNCNotificationSourceDescription *)self->_notificationSourceDescription bundleIdentifier];
+  notificationRepository = self->_notificationRepository;
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(recordCopy, "revisionNumber")}];
+  [(UNCNotificationRepository *)notificationRepository saveNotificationRecord:recordCopy targetRevisionNumber:v16 shouldRepost:repostCopy forBundleIdentifier:bundleIdentifier withCompletionHandler:&__block_literal_global_96];
 }
 
 - (id)_categoryForNotification:(id)notification
@@ -3955,29 +3935,29 @@ LABEL_21:
 
 - (void)_addAttachments:(id)attachments toBulletinRequest:(id)request
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
   requestCopy = request;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = attachmentsCopy;
-  v7 = [attachmentsCopy countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [attachmentsCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [v11 family] - 1;
         if (v12 > 2)
         {
@@ -4041,13 +4021,11 @@ LABEL_21:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sectionIconVariantForApplicationIdentifier:(id)identifier format:(int64_t)format
@@ -4082,6 +4060,25 @@ LABEL_21:
   }
 
   return v6;
+}
+
+- (id)_sectionIconVariantForImageName:(id)name bundlePath:(id)path format:(int64_t)format precomposed:(BOOL)precomposed
+{
+  precomposedCopy = precomposed;
+  nameCopy = name;
+  pathCopy = path;
+  if ([nameCopy length])
+  {
+    v11 = [MEMORY[0x277CF3560] variantWithFormat:format imageName:nameCopy inBundleAtPath:pathCopy];
+    [v11 setPrecomposed:precomposedCopy];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (id)_sectionIconForNotificationSourceDescription:(id)description
@@ -4366,15 +4363,15 @@ LABEL_6:
 
 - (BOOL)_isTCCUserAvailabilityGrantedForBundleId:(id)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = MEMORY[0x277CE2070];
   v6 = *MEMORY[0x277CE2070];
   if (os_log_type_enabled(*MEMORY[0x277CE2070], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = idCopy;
-    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "Looking up User Availability permission for bundleId: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = idCopy;
+    _os_log_impl(&dword_270AA8000, v6, OS_LOG_TYPE_DEFAULT, "Looking up User Availability permission for bundleId: %{public}@", &v11, 0xCu);
   }
 
   if ([idCopy length])
@@ -4389,127 +4386,107 @@ LABEL_6:
     v8 = 0;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "Empty bundleId passed to isTCCUserAvailabilityGrantedForBundleId", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_270AA8000, v9, OS_LOG_TYPE_DEFAULT, "Empty bundleId passed to isTCCUserAvailabilityGrantedForBundleId", &v11, 2u);
       v8 = 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)_userAvailabilityTCCApprovedBundleIds
 {
   v2 = MEMORY[0x277CBEB98];
-  v3 = *MEMORY[0x277D6C180];
-  v4 = TCCAccessCopyBundleIdentifiersForService();
-  v5 = [v2 setWithArray:v4];
+  v3 = TCCAccessCopyBundleIdentifiersForService();
+  v4 = [v2 setWithArray:v3];
 
-  return v5;
+  return v4;
 }
 
 - (void)_queue_bulletinForNotification:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = [a1 spotlightIdentifier];
   v7 = [a2 title];
   v8 = [a2 subtitle];
   v9 = [a1 threadSummary];
-  v11 = 138413059;
-  v12 = v6;
-  v13 = 2117;
-  v14 = v7;
-  v15 = 2117;
-  v16 = v8;
-  v17 = 2117;
-  v18 = v9;
-  _os_log_debug_impl(&dword_270AA8000, a3, OS_LOG_TYPE_DEBUG, "group summaries request for record with spotlightIdentifier: %@ title: %{sensitive}@ subtitle: %{sensitive}@ threadSummary: %{sensitive}@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 138413059;
+  v11 = v6;
+  v12 = 2117;
+  v13 = v7;
+  v14 = 2117;
+  v15 = v8;
+  v16 = 2117;
+  v17 = v9;
+  _os_log_debug_impl(&dword_270AA8000, a3, OS_LOG_TYPE_DEBUG, "group summaries request for record with spotlightIdentifier: %@ title: %{sensitive}@ subtitle: %{sensitive}@ threadSummary: %{sensitive}@", &v10, 0x2Au);
 }
 
 - (void)_queue_bulletinForNotification:.cold.2()
 {
   OUTLINED_FUNCTION_3_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 sectionIdentifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_bulletinForNotification:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_270AA8000, v5, v6, "[%{public}@] Notification record has no identifier", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_270AA8000, v5, v6, "[%{public}@] Notification record has no identifier", v7, v8, v9, v10);
 }
 
 - (void)_bbContentTypeFromUNContentType:toneAlertType:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_0() sectionIdentifier];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but call-type notifications are  not allowed. Abandoning communication API features for all call-related notifications. Perhaps app isn't allowed to donate start call intents or is missing the communication entitlement.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but call-type notifications are  not allowed. Abandoning communication API features for all call-related notifications. Perhaps app isn't allowed to donate start call intents or is missing the communication entitlement.", v6, v7, v8, v9);
 }
 
 - (void)_bbContentTypeFromUNContentType:toneAlertType:.cold.5()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_0() sectionIdentifier];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but intercom-type notifications are  not allowed. Abandoning communication API features for all intercom notifications. Perhaps app isn't allowed to donate read announcement intents or is missing the communication entitlement.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but intercom-type notifications are  not allowed. Abandoning communication API features for all intercom notifications. Perhaps app isn't allowed to donate read announcement intents or is missing the communication entitlement.", v6, v7, v8, v9);
 }
 
 - (void)_bbContentTypeFromUNContentType:toneAlertType:.cold.6()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_0() sectionIdentifier];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but messaging notifications are  not allowed. Abandoning communication API features for all messaging notifications. Perhaps app isn't allowed to donate messaging intents or is missing the communication entitlement.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v4, v5, "[%{public}@] _UNNotificationContentType is '%{public}@' but messaging notifications are  not allowed. Abandoning communication API features for all messaging notifications. Perhaps app isn't allowed to donate messaging intents or is missing the communication entitlement.", v6, v7, v8, v9);
 }
 
 - (void)_handleBulletinActionResponse:withCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_4_0() sourceIdentifier];
   OUTLINED_FUNCTION_0_3();
-  _os_log_fault_impl(&dword_270AA8000, v0, OS_LOG_TYPE_FAULT, "Received unexpected notification response for section %{public}@ in data provider for section %{public}@", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_270AA8000, v0, OS_LOG_TYPE_FAULT, "Received unexpected notification response for section %{public}@ in data provider for section %{public}@", v4, 0x16u);
 }
 
 - (void)_handleBulletinActionResponse:withCompletion:.cold.2()
 {
   OUTLINED_FUNCTION_3_0();
-  v13 = *MEMORY[0x277D85DE8];
   v3 = v2;
   v4 = [OUTLINED_FUNCTION_4_0() sectionIdentifier];
-  v12 = [v0 bulletinPublisherID];
-  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v5, v6, "[%{public}@] Unable to fetch or unarchive notification to handle action response for: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = [v0 bulletinPublisherID];
+  *v12 = 138543618;
+  *&v12[4] = v4;
+  *&v12[12] = 2114;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_1_0(&dword_270AA8000, v6, v7, "[%{public}@] Unable to fetch or unarchive notification to handle action response for: %{public}@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 - (void)_unarchiveNotificationFromData:(uint8_t *)buf .cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -4523,37 +4500,28 @@ LABEL_6:
 
 - (void)_queue_fetchBulletinForNotification:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_270AA8000, v5, v6, "[%{public}@] Cannot fetch notification becuase identifier is nil", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_270AA8000, v5, v6, "[%{public}@] Cannot fetch notification becuase identifier is nil", v7, v8, v9, v10);
 }
 
 - (void)_queue_modifyBulletinForNotification:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_withdrawBulletinForNotification:(void *)a1 shouldSync:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

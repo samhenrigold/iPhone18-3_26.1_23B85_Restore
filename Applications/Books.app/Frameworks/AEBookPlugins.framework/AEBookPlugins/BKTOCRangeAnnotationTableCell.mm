@@ -395,69 +395,69 @@
   stringCopy = a17;
   fontCopy = a18;
   selfCopy = a15;
-  v30 = a16;
+  v31 = a16;
   textCopy = text;
   frameCopy = frame;
   height = CGRectZero.size.height;
-  v50.origin.x = a15;
-  v50.origin.y = a16;
-  v50.size.width = a17;
-  v50.size.height = a18;
-  MaxY = CGRectGetMaxY(v50);
-  v51.origin.x = self;
-  v51.origin.y = a2;
-  v51.size.width = string;
-  v51.size.height = font;
-  MinX = CGRectGetMinX(v51);
+  v51.origin.x = a15;
+  v51.origin.y = a16;
+  v51.size.width = a17;
+  v51.size.height = a18;
+  MaxY = CGRectGetMaxY(v51);
+  v52.origin.x = self;
+  v52.origin.y = a2;
+  v52.size.width = string;
+  v52.size.height = font;
+  MinX = CGRectGetMinX(v52);
   if ([textCopy isNotWhitespace])
   {
     if ((a11 & 1) == 0)
     {
-      v52.origin.x = a15;
-      v52.origin.y = a16;
-      v52.size.width = a17;
-      v52.size.height = a18;
-      v43 = CGRectGetMaxY(v52);
-      v53.origin.x = a19;
-      v53.origin.y = a20;
-      v53.size.width = a21;
-      v53.size.height = a22;
-      if (v43 >= CGRectGetMaxY(v53))
+      v53.origin.x = a15;
+      v53.origin.y = a16;
+      v53.size.width = a17;
+      v53.size.height = a18;
+      v44 = CGRectGetMaxY(v53);
+      v54.origin.x = a19;
+      v54.origin.y = a20;
+      v54.size.width = a21;
+      v54.size.height = a22;
+      if (v44 >= CGRectGetMaxY(v54))
       {
         fontCopy = font;
         stringCopy = string;
-        v30 = a2;
+        v31 = a2;
         selfCopy = self;
       }
     }
 
-    v54.origin.x = selfCopy;
-    v54.origin.y = v30;
-    v54.size.width = stringCopy;
-    v54.size.height = fontCopy;
-    Width = CGRectGetWidth(v54);
+    v55.origin.x = selfCopy;
+    v55.origin.y = v31;
+    v55.size.width = stringCopy;
+    v55.size.height = fontCopy;
+    Width = CGRectGetWidth(v55);
     [frameCopy lineHeight];
-    v36 = v35;
-    v37 = objc_alloc_init(NSStringDrawingContext);
-    v55.size.height = height;
-    v38 = MinX;
-    v55.origin.x = MinX;
-    v55.origin.y = MaxY + bounds;
-    v55.size.width = Width;
-    v39 = CGRectGetWidth(v55);
-    v40 = v36 * labelFrame;
-    v48 = NSFontAttributeName;
-    v49 = frameCopy;
-    v41 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    [textCopy boundingRectWithSize:35 options:v41 attributes:v37 context:{v39, v40}];
+    v37 = v36;
+    v38 = objc_alloc_init(NSStringDrawingContext);
+    v56.size.height = height;
+    v39 = MinX;
+    v56.origin.x = MinX;
+    v56.origin.y = MaxY + bounds;
+    v56.size.width = Width;
+    v40 = CGRectGetWidth(v56);
+    v41 = v37 * labelFrame;
+    v49 = NSFontAttributeName;
+    v50 = frameCopy;
+    v42 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    [textCopy boundingRectWithSize:35 options:v42 attributes:v38 context:{v40, v41}];
   }
 
   else
   {
-    v38 = MinX;
+    v39 = MinX;
   }
 
-  return v38;
+  return v39;
 }
 
 + (CGRect)dateLabelFrameForString:(id)string font:(id)font bounds:(CGRect)bounds minY:(double)y layoutDirection:(int64_t)direction

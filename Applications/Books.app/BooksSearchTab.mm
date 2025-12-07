@@ -24,13 +24,14 @@
   else
   {
     v6 = 0;
+    v5 = 0;
   }
 
   v7 = type metadata accessor for BooksSearchTab();
   v11.receiver = self;
   v11.super_class = v7;
   v8 = [(BooksSearchTab *)&v11 initWithViewControllerProvider:v6];
-  sub_100007020(v4);
+  sub_100007020(v4, v5);
   _Block_release(v6);
   return v8;
 }

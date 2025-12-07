@@ -61,7 +61,7 @@
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(PKAuthenticatorEvaluationContext *)self->_context invalidate];
   hoistCompletionHandler = [(PKAuthenticatorEvaluationContext *)self->_context hoistCompletionHandler];
   v4 = hoistCompletionHandler;
@@ -71,44 +71,43 @@
     block[1] = 3221225472;
     block[2] = __26__PKAuthenticator_dealloc__block_invoke;
     block[3] = &unk_2799FFB20;
-    v17 = hoistCompletionHandler;
+    v16 = hoistCompletionHandler;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   v5 = self->_secureIndicatorProviderCompletions;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v9++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v9++) + 16))();
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v11.receiver = self;
-  v11.super_class = PKAuthenticator;
-  [(PKAuthenticator *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = PKAuthenticator;
+  [(PKAuthenticator *)&v10 dealloc];
 }
 
 void __26__PKAuthenticator_dealloc__block_invoke(uint64_t a1)
@@ -200,7 +199,7 @@ void __26__PKAuthenticator_dealloc__block_invoke(uint64_t a1)
   v16 = __Block_byref_object_copy_;
   v17 = __Block_byref_object_dispose_;
   v18 = 0;
-  v5 = _LAPolicyContainerForPKPolicy(policy);
+  v5 = _LAPolicyContainerForPKPolicy(policy, a2);
   v7 = v6;
   if ((v6 & 0x100) != 0)
   {
@@ -235,12 +234,12 @@ void __26__PKAuthenticator_dealloc__block_invoke(uint64_t a1)
 
 void __41__PKAuthenticator_currentStateForPolicy___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 40);
-  v13 = 0;
-  v7 = [a2 evaluationMechanismsForPolicy:v6 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [a2 evaluationMechanismsForPolicy:v6 error:&v12];
+  v8 = v12;
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v7;
@@ -251,14 +250,12 @@ void __41__PKAuthenticator_currentStateForPolicy___block_invoke(uint64_t a1, voi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_25E0A9000, v11, OS_LOG_TYPE_DEFAULT, "Authentication Mechanism Error: %@", buf, 0xCu);
     }
   }
 
   v5[2](v5);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __41__PKAuthenticator_currentStateForPolicy___block_invoke_489(void *a1, void *a2)
@@ -275,18 +272,19 @@ void __41__PKAuthenticator_currentStateForPolicy___block_invoke_489(void *a1, vo
 + (void)currentStateForRequest:(id)request completion:(id)completion
 {
   completionCopy = completion;
-  v7 = _LAPolicyContainerForPKPolicy([request policy]);
-  if ((v8 & 0x100) != 0)
+  policy = [request policy];
+  v9 = _LAPolicyContainerForPKPolicy(policy, v8);
+  if ((v10 & 0x100) != 0)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __53__PKAuthenticator_currentStateForRequest_completion___block_invoke;
-    v9[3] = &unk_279A001C8;
-    v11 = v7;
-    v12 = v8;
-    v10 = completionCopy;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __53__PKAuthenticator_currentStateForRequest_completion___block_invoke;
+    v11[3] = &unk_279A001C8;
+    v13 = v9;
+    v14 = v10;
+    v12 = completionCopy;
     selfCopy = self;
-    _AccessPreflightContext(0, v9);
+    _AccessPreflightContext(0, v11);
   }
 
   else if (completionCopy)
@@ -315,12 +313,12 @@ void __53__PKAuthenticator_currentStateForRequest_completion___block_invoke(uint
 
 void __53__PKAuthenticator_currentStateForRequest_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 48);
-  v11 = a3;
+  v10 = a3;
   v6 = a3;
-  v7 = [a2 evaluationMechanismsForPolicy:v5 error:&v11];
-  v8 = v11;
+  v7 = [a2 evaluationMechanismsForPolicy:v5 error:&v10];
+  v8 = v10;
 
   if (v8)
   {
@@ -328,7 +326,7 @@ void __53__PKAuthenticator_currentStateForRequest_completion___block_invoke_2(ui
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_25E0A9000, v9, OS_LOG_TYPE_DEFAULT, "Authentication Mechanism Error: %@", buf, 0xCu);
     }
   }
@@ -340,8 +338,6 @@ void __53__PKAuthenticator_currentStateForRequest_completion___block_invoke_2(ui
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)currentStateForAccessControl:(__SecAccessControl *)control
@@ -367,12 +363,12 @@ void __53__PKAuthenticator_currentStateForRequest_completion___block_invoke_2(ui
 
 void __48__PKAuthenticator_currentStateForAccessControl___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 40);
-  v13 = 0;
-  v7 = [a2 evaluationMechanismsForAccessControl:v6 operation:3 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [a2 evaluationMechanismsForAccessControl:v6 operation:3 error:&v12];
+  v8 = v12;
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v7;
@@ -383,19 +379,17 @@ void __48__PKAuthenticator_currentStateForAccessControl___block_invoke(uint64_t 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_25E0A9000, v11, OS_LOG_TYPE_DEFAULT, "Authentication Mechanism Error: %@", buf, 0xCu);
     }
   }
 
   v5[2](v5);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)canPerformPSD2StyleBuyForAccessControlRef:(__SecAccessControl *)ref
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (ref)
   {
     CFRetain(ref);
@@ -406,11 +400,11 @@ void __48__PKAuthenticator_currentStateForAccessControl___block_invoke(uint64_t 
     v7 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "+[PKAuthenticator canPerformPSD2StyleBuyForAccessControlRef:]";
-      v12 = 1024;
-      v13 = v5 != 0;
-      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "%s %d", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "+[PKAuthenticator canPerformPSD2StyleBuyForAccessControlRef:]";
+      v11 = 1024;
+      v12 = v5 != 0;
+      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "%s %d", &v9, 0x12u);
     }
   }
 
@@ -419,14 +413,13 @@ void __48__PKAuthenticator_currentStateForAccessControl___block_invoke(uint64_t 
     v7 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "ACL is missing, cannot determine if a buy is possible.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "ACL is missing, cannot determine if a buy is possible.", &v9, 2u);
     }
 
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -484,7 +477,7 @@ void __48__PKAuthenticator_currentStateForAccessControl___block_invoke(uint64_t 
   v16 = __Block_byref_object_copy_;
   v17 = __Block_byref_object_dispose_;
   v18 = 0;
-  _LAPolicyContainerForPKPolicy(policy);
+  _LAPolicyContainerForPKPolicy(policy, a2);
   if ((v5 & 0x100000000) == 0)
   {
     v12[0] = MEMORY[0x277D85DD0];
@@ -546,12 +539,12 @@ void __40__PKAuthenticator_cachedStateForPolicy___block_invoke(uint64_t a1, void
 - (id)_swapContext:(id)context withOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   os_unfair_lock_lock(&self->_lock);
   p_context = &self->_context;
   context = self->_context;
-  v33 = contextCopy;
+  v32 = contextCopy;
   if (self->_invalidated)
   {
     if (contextCopy | context)
@@ -653,26 +646,26 @@ LABEL_15:
   }
 
 LABEL_25:
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v22 = v11;
-  v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v35;
+    v25 = *v34;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v35 != v25)
+        if (*v34 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v34 + 1) + 8 * i);
+        v27 = *(*(&v33 + 1) + 8 * i);
         [v27 invalidate];
         hoistCompletionHandler2 = [v27 hoistCompletionHandler];
         if (hoistCompletionHandler2)
@@ -682,20 +675,19 @@ LABEL_25:
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v24);
   }
 
   v30 = contextCopy2;
-  v31 = *MEMORY[0x277D85DE8];
   return contextCopy2;
 }
 
 - (id)_optionsForEvaluationRequest:(id)request withEvaluationContext:(id)context
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -724,17 +716,17 @@ LABEL_25:
   v11 = MEMORY[0x277CBEC38];
   if (_delegateSupportsPasscodePresentation)
   {
-    v41 = &unk_286FD0F68;
-    v42[0] = MEMORY[0x277CBEC38];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = &unk_286FD0F68;
+    v41[0] = MEMORY[0x277CBEC38];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     [v8 setObject:v12 forKeyedSubscript:&unk_286FD0F80];
   }
 
   if ([(PKAuthenticator *)self _delegateSupportsPassphrasePresentation])
   {
-    v39 = &unk_286FD0F68;
-    v40 = v11;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v38 = &unk_286FD0F68;
+    v39 = v11;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     [v8 setObject:v13 forKeyedSubscript:&unk_286FD0F68];
   }
 
@@ -843,8 +835,6 @@ LABEL_25:
 
   v36 = [v14 copy];
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v36;
 }
 
@@ -879,7 +869,7 @@ LABEL_25:
 
 void __46__PKAuthenticator__evaluateEvaluationContext___block_invoke(id *a1, unsigned __int8 a2, void *a3, uint64_t a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -915,9 +905,9 @@ void __46__PKAuthenticator__evaluateEvaluationContext___block_invoke(id *a1, uns
   v14 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = v9;
-    _os_log_impl(&dword_25E0A9000, v14, OS_LOG_TYPE_DEFAULT, "Authentication Error: %@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = v9;
+    _os_log_impl(&dword_25E0A9000, v14, OS_LOG_TYPE_DEFAULT, "Authentication Error: %@", &v26, 0xCu);
   }
 
   v15 = [v9 domain];
@@ -1022,8 +1012,6 @@ LABEL_36:
     v25 = [MEMORY[0x277D37DB8] responseWithResult:v12 biometricMatch:objc_msgSend(a1[5] credential:{"biometricMatch"), v13}];
     (v24)[2](v24, v25);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)evaluateRequest:(id)request withCompletion:(id)completion
@@ -1111,10 +1099,9 @@ uint64_t __50__PKAuthenticator_evaluateRequest_withCompletion___block_invoke_2(u
     [*(a1 + 32) bindToSecureIndicatorProvider:a2];
   }
 
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v3();
 }
 
 void __50__PKAuthenticator_evaluateRequest_withCompletion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -1231,7 +1218,7 @@ void __59__PKAuthenticator_accessExternalizedContextWithCompletion___block_invok
 
 - (void)invalidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   self->_invalidated = 1;
   v3 = self->_secureIndicatorProviderCompletions;
@@ -1240,38 +1227,36 @@ void __59__PKAuthenticator_accessExternalizedContextWithCompletion___block_invok
 
   os_unfair_lock_unlock(&self->_lock);
   [(PKAuthenticator *)self cancelEvaluation];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v3;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)authenticationIdentifier
@@ -1444,7 +1429,7 @@ void __59__PKAuthenticator_accessExternalizedContextWithCompletion___block_invok
 
 void __81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndicatorVisibility__block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&_SecureIndicatorLock);
   if (--_SecureIndicatorVisibleCount)
   {
@@ -1459,41 +1444,39 @@ void __81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndicatorV
   }
 
   os_unfair_lock_unlock(&_SecureIndicatorLock);
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = v0;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
+        (*(*(*(&v7 + 1) + 8 * v6) + 16))(*(*(&v7 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndicatorVisibility__block_invoke_3(uint64_t a1)
+void *__81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndicatorVisibility__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) invalidate];
   if (result)
@@ -1513,7 +1496,7 @@ uint64_t __81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndica
 
 - (void)registerSecureIndicatorProvider:(id)provider
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   if (!providerCopy)
   {
@@ -1542,35 +1525,33 @@ uint64_t __81__PKAuthenticator_PKAuthenticatorSecureIndicator__trackSecureIndica
   self->_secureIndicatorProviderCompletions = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v9;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v17 + 1) + 8 * i) + 16))(*(*(&v17 + 1) + 8 * i));
+        (*(*(*(&v16 + 1) + 8 * i) + 16))(*(*(&v16 + 1) + 8 * i));
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterSecureIndicatorProvider:(id)provider

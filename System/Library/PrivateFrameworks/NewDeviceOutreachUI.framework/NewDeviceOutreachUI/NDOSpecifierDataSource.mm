@@ -36,21 +36,20 @@
 
 - (NSString)serialNumber
 {
-  v2 = (self + OBJC_IVAR___NDOSpecifierDataSource_serialNumber);
+  v2 = self + OBJC_IVAR___NDOSpecifierDataSource_serialNumber;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_25BDDFE38();
+    v3 = sub_25BDDFE38();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setSerialNumber:(id)number
@@ -69,21 +68,18 @@
 
   v7 = (self + OBJC_IVAR___NDOSpecifierDataSource_serialNumber);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (NSArray)ndoSpecifiers
 {
-  v3 = OBJC_IVAR___NDOSpecifierDataSource_ndoSpecifiers;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_25BDABD64(0, &qword_27FBDD7A8, 0x277D3FAD8);
 
-  v5 = sub_25BDDFEC8();
+  v2 = sub_25BDDFEC8();
 
-  return v5;
+  return v2;
 }
 
 - (void)setNdoSpecifiers:(id)specifiers
@@ -92,7 +88,6 @@
   v4 = sub_25BDDFED8();
   v5 = OBJC_IVAR___NDOSpecifierDataSource_ndoSpecifiers;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -142,7 +137,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_25BDA8480(v7);
+  sub_25BDA8480(v7, v8);
 }
 
 - (NDOACController)hostingController

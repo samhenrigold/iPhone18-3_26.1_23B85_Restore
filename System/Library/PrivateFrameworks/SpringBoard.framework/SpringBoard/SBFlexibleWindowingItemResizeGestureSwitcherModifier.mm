@@ -276,7 +276,7 @@ LABEL_36:
 
 LABEL_38:
     v73 = objc_alloc_init(SBDismissMenuBarSwitcherEventResponse);
-    v6 = SBAppendSwitcherModifierResponse(v73, v89);
+    v6 = SBAppendSwitcherModifierResponse();
   }
 
   *p_location = vaddq_f64(*p_location, self->_locationEdgeAdjustment);
@@ -285,7 +285,7 @@ LABEL_38:
   v76.f64[1] = v75;
   *p_location = vbslq_s8(vcgtq_f64(v76, v74), v74, v76);
   v77 = [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self _responseForGestureUpdateAtGestureEnd:[(SBGestureSwitcherModifierEvent *)eventCopy phase]== 3];
-  v78 = SBAppendSwitcherModifierResponse(v77, v6);
+  v78 = SBAppendSwitcherModifierResponse();
 
   lastGestureEvent = self->_lastGestureEvent;
   self->_lastGestureEvent = eventCopy;
@@ -879,7 +879,7 @@ LABEL_111:
     }
 
     v157 = [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self _responseForSceneSizeUpdateToSize:!endCopy center:v176 sceneUpdatesOnly:v88 animated:v87, v155, v157];
-    v164 = SBAppendSwitcherModifierResponse(v157, 0);
+    v164 = SBAppendSwitcherModifierResponse();
 
     ++self->_delayedSceneSizeUpdateGeneration;
     delayedSceneSizeUpdateReason = self->_delayedSceneSizeUpdateReason;
@@ -906,7 +906,7 @@ LABEL_111:
     v190 = [SBTimerEventSwitcherEventResponse alloc];
     [windowingSettings liveResizeSceneUpdateTimeThreshold];
     delayedSceneSizeUpdateReason = [(SBTimerEventSwitcherEventResponse *)v190 initWithDelay:0 validator:self->_delayedSceneSizeUpdateReason reason:?];
-    v164 = SBAppendSwitcherModifierResponse(delayedSceneSizeUpdateReason, 0);
+    v164 = SBAppendSwitcherModifierResponse();
   }
 
 LABEL_132:
@@ -924,13 +924,13 @@ LABEL_132:
     }
 
     v181 = [(SBUpdateLayoutSwitcherEventResponse *)v179 initWithOptions:30 updateMode:v180];
-    v182 = SBAppendSwitcherModifierResponse(v181, v164);
+    v182 = SBAppendSwitcherModifierResponse();
 
     [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self continuousExposeStripProgress];
     if (BSFloatGreaterThanFloat() && [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self _isStripVisibleForCurrentAppLayout])
     {
       v183 = [[SBUpdateContinuousExposeStripsPresentationResponse alloc] initWithPresentationOptions:0 dismissalOptions:1];
-      v164 = SBAppendSwitcherModifierResponse(v183, v182);
+      v164 = SBAppendSwitcherModifierResponse();
     }
 
     else
@@ -981,8 +981,7 @@ LABEL_132:
   v71 = 0u;
   [windowingConfiguration defaultWindowSize];
   [windowingConfiguration screenEdgePadding];
-  v55 = v24;
-  SBDisplayItemAttributedSizeInfer(&v71, width, height, v11, v13, v15, v17);
+  SBDisplayItemAttributedSizeInfer(&v71, width, height, v11, v13, v15, v17, v24);
   v70 = 0;
   v68 = 0u;
   v69 = 0;
@@ -996,10 +995,10 @@ LABEL_132:
     v26 = displayItemLayoutAttributesCalculator;
     if (displayItemLayoutAttributesCalculator)
     {
-      v62[0] = v68;
-      v62[1] = v69;
+      v61 = v68;
+      v62 = v69;
       v63 = v70;
-      [displayItemLayoutAttributesCalculator updatedSlideOverConfigurationForItemWithSize:v62 center:windowingConfiguration slideOverConfiguration:width windowingConfiguration:{height, x, y}];
+      objc_msgSend_updatedSlideOverConfigurationForItemWithSize_center_slideOverConfiguration_windowingConfiguration_(displayItemLayoutAttributesCalculator, width, height, x, y);
     }
 
     else
@@ -1014,7 +1013,7 @@ LABEL_132:
 
   else
   {
-    v27 = [(SBDisplayItemLayoutAttributes *)x normalizedPointForPoint:v11 inBounds:v13, v15, v17];
+    v27 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:y inBounds:v11, v13, v15, v17];
     v26 = [(SBDisplayItemLayoutAttributes *)v21 attributesByModifyingNormalizedCenter:v27, v28];
 
     v64 = v71;
@@ -1067,7 +1066,7 @@ LABEL_132:
     [(SBDisplayItemLayoutAttributes *)v32 attributedSize];
   }
 
-  v56 = windowingConfiguration;
+  v55 = windowingConfiguration;
   v38 = [SBDisplayItemLayoutAttributes attributesByModifyingSizingPolicy:v32];
 
   [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self updateLayoutAttributes:v38 ofDisplayItem:self->_selectedDisplayItem];
@@ -1078,9 +1077,9 @@ LABEL_132:
   v71 = 0u;
   v72 = 0;
   v41 = [(SBAppLayout *)self->_currentAppLayout leafAppLayoutForItem:self->_selectedDisplayItem];
-  v60.receiver = self;
-  v60.super_class = SBFlexibleWindowingItemResizeGestureSwitcherModifier;
-  [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)&v60 windowControlsLayoutForLeafAppLayout:v41];
+  v59.receiver = self;
+  v59.super_class = SBFlexibleWindowingItemResizeGestureSwitcherModifier;
+  [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)&v59 windowControlsLayoutForLeafAppLayout:v41];
 
   margin = self->_currentWindowControlsLayout.margin;
   v64 = *&self->_currentWindowControlsLayout.style;
@@ -1095,7 +1094,7 @@ LABEL_132:
     animated = 1;
   }
 
-  v44 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:self->_currentAppLayout, v55];
+  v44 = [(SBSwitcherModifier *)self flexibleAutoLayoutSpaceForAppLayout:self->_currentAppLayout];
   v45 = [v44 flexibleAutoLayoutItemForDisplayItem:self->_selectedDisplayItem];
   v46 = [(SBSwitcherModifier *)self autoLayoutItemIntersectsHomeAffordanceArea:v45];
   resizedDisplayItemIntersectsHomeAffordanceArea = self->_resizedDisplayItemIntersectsHomeAffordanceArea;
@@ -1121,7 +1120,7 @@ LABEL_132:
     }
 
     v52 = [[SBSetInterfaceOrientationFromUserResizingEventResponse alloc] initWithDisplayItem:self->_selectedDisplayItem desiredContentOrientation:v51];
-    v53 = SBAppendSwitcherModifierResponse(v52, v50);
+    v53 = SBAppendSwitcherModifierResponse();
 
     v50 = v53;
   }
@@ -1148,12 +1147,12 @@ LABEL_132:
 
     LODWORD(appLayout2) = [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self isLayoutRoleContentReady:v11 inAppLayout:self->_currentAppLayout];
     v12 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:0];
-    v13 = SBAppendSwitcherModifierResponse(v12, v5);
+    v13 = SBAppendSwitcherModifierResponse();
 
     if (appLayout2 && self->_lastGestureEvent && [(SBGestureSwitcherModifier *)self gesturePhase]== 2)
     {
       v14 = [(SBSwitcherModifier *)self _handleEvent:self->_lastGestureEvent];
-      v5 = SBAppendSwitcherModifierResponse(v14, v13);
+      v5 = SBAppendSwitcherModifierResponse();
     }
 
     else
@@ -1199,7 +1198,7 @@ LABEL_132:
       self->_delayedSceneSizeUpdateReason = 0;
 
       v10 = [(SBFlexibleWindowingItemResizeGestureSwitcherModifier *)self handleGestureEvent:self->_lastGestureEvent];
-      v11 = SBAppendSwitcherModifierResponse(v10, v5);
+      v11 = SBAppendSwitcherModifierResponse();
 
       v5 = v11;
     }

@@ -33,8 +33,8 @@
 - (id)rotatedAroundPoint:(CGPoint)point angle:(float)angle;
 - (id)scaledBy:(CGPoint)by offset:(CGPoint)offset;
 - (id)unionWithQuad:(id)quad baselineAngle:(float)angle;
+- (uint64_t)homographyFromSelfToQuad:(void *)quad;
 - (void)encodeWithCoder:(id)coder;
-- (void)homographyFromSelfToQuad:(void *)quad;
 @end
 
 @implementation CRImageSpaceQuad
@@ -1107,30 +1107,23 @@ LABEL_9:
   return v19;
 }
 
-- (void)homographyFromSelfToQuad:(void *)quad
+- (uint64_t)homographyFromSelfToQuad:(void *)quad
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(self + 24);
-  v17[0] = *(self + 8);
-  v17[1] = v3;
+  v9[0] = *(self + 8);
+  v9[1] = v3;
   v4 = *(self + 56);
-  v17[2] = *(self + 40);
-  v17[3] = v4;
+  v9[2] = *(self + 40);
+  v9[3] = v4;
   quadCopy = quad;
   [quadCopy topLeft];
   [quadCopy topRight];
-  v16[2] = v8;
-  v16[3] = v9;
   [quadCopy bottomRight];
-  v16[4] = v10;
-  v16[5] = v11;
   [quadCopy bottomLeft];
-  v13 = v12;
-  v15 = v14;
 
-  v16[6] = v13;
-  v16[7] = v15;
-  find_homography(v17, v16);
+  find_homography(v9);
+  return result;
 }
 
 - (CGPoint)topLeft

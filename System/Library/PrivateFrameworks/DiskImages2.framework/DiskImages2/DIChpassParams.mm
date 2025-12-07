@@ -44,7 +44,6 @@ LABEL_7:
 
 - (BOOL)prepareImageWithXpcHandler:(id)handler fileMode:(int64_t)mode encChpass:(id)chpass error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   chpassCopy = chpass;
   if (-[DIBaseParams hasUnlockedBackend](self, "hasUnlockedBackend") || !*-[DIBaseParams cryptoHeader](self, "cryptoHeader") || ([chpassCopy unlockWithXpcHandler:handlerCopy error:error] & 1) != 0)
@@ -94,7 +93,6 @@ LABEL_7:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 

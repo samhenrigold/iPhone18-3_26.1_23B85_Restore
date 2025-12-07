@@ -62,7 +62,7 @@
 
   selfCopy = self;
   sub_26C6D08DC(v7, v6);
-  sub_26C676904(v7);
+  sub_26C676904(v7, v6);
 }
 
 - (void)syncAnisetteWithSIMData:(id)data completion:(id)completion
@@ -99,7 +99,7 @@ LABEL_3:
   v10 = 0;
 LABEL_6:
   sub_26C6D1B00(data, v9, v11, v10);
-  sub_26C676904(v11);
+  sub_26C676904(v11, v10);
   sub_26C67EE70(data, v9);
 }
 
@@ -122,7 +122,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_26C6D2BA4(v7, v6);
-  sub_26C676904(v7);
+  sub_26C676904(v7, v6);
 }
 
 - (void)fetchAnisetteDataAndProvisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
@@ -142,7 +142,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_26C6D3BA4(necessary, v6, v7);
-  sub_26C676904(v6);
+  sub_26C676904(v6, v7);
 }
 
 - (void)legacyAnisetteDataForDSID:(id)d withCompletion:(id)completion
@@ -176,7 +176,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_26C6D4DC8(v8, d, v7, v10);
-  sub_26C676904(v7);
+  sub_26C676904(v7, v10);
 }
 
 - (_TtC10TDGSharing33WFSetupServerAnisetteDataProvider)init

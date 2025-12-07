@@ -68,8 +68,10 @@
 {
   sub_100005C8C(0, &unk_10009F560, _SWCollaborationOptionsGroup_ptr);
   v4 = sub_10007B2AC();
-  v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_collaborationOptionsGroups);
+  v12 = *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_collaborationOptionsGroups);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_collaborationOptionsGroups) = v4;
+
+  v12, v5, v6, v7, v8, v9, v10, v11;
 }
 
 - (void)setAddressingViewModel:(id)model
@@ -89,22 +91,21 @@
 - (void)setContainerSetupInfo:(id)info
 {
   v5 = sub_1000057A0(&unk_10009ED10, &qword_10007D310);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_containerSetupInfo);
+  v7 = &v14 - v6;
+  v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_containerSetupInfo);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC40com_apple_CloudSharingUI_AddParticipants38CSAddParticipantsServiceViewController_containerSetupInfo) = info;
   infoCopy = info;
   selfCopy = self;
 
-  v12 = sub_10007AC4C();
-  (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
-  v13 = swift_allocObject();
-  *(v13 + 16) = selfCopy;
-  v14 = selfCopy;
-  sub_100018054(v8, info, sub_10006C614, v13);
+  v11 = sub_10007AC4C();
+  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
+  v12 = swift_allocObject();
+  *(v12 + 16) = selfCopy;
+  v13 = selfCopy;
+  sub_100018054(v7, info, sub_10006C614, v12);
 
-  sub_100008824(v8, &unk_10009ED10, &qword_10007D310);
+  sub_100008824(v7, &unk_10009ED10, &qword_10007D310);
 }
 
 @end

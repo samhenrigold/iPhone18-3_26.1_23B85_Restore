@@ -60,7 +60,7 @@ LABEL_11:
 
 uint64_t Backend::Google::HashesSearchResponseParser::parseFullHash(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a1 + 136;
   v4 = (a1 + 168);
   v5 = *(a1 + 259);
@@ -217,12 +217,12 @@ LABEL_16:
         if (HIDWORD(v12))
         {
           std::__throw_bad_variant_access[abi:sn200100]();
-          v38 = v37;
-          *v40 = v4;
-          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](v40);
+          v37 = v36;
+          *v39 = v4;
+          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](v39);
           *a1 = 0;
           *(a1 + 259) = 5;
-          _Unwind_Resume(v38);
+          _Unwind_Resume(v37);
         }
 
         if ((v12 & 1) == 0)
@@ -239,23 +239,23 @@ LABEL_16:
 
         if (*(a1 + 260))
         {
-          v40[0] = *(a1 + 261);
-          *&v40[1] = *(a1 + 228);
-          *&v40[16] = *(a1 + 243);
-          v42 = 0;
-          v41 = 0uLL;
-          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__init_with_size[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(&v41, v29, v30, (v30 - v29) >> 5);
-          v31 = *&v40[16];
-          *(a1 + 32) = *v40;
+          v39[0] = *(a1 + 261);
+          *&v39[1] = *(a1 + 228);
+          *&v39[16] = *(a1 + 243);
+          v41 = 0;
+          v40 = 0uLL;
+          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__init_with_size[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(&v40, v29, v30, (v30 - v29) >> 5);
+          v31 = *&v39[16];
+          *(a1 + 32) = *v39;
           *(a1 + 48) = v31;
-          *(a1 + 64) = v41;
-          *(a1 + 80) = v42;
-          v42 = 0;
-          v41 = 0uLL;
+          *(a1 + 64) = v40;
+          *(a1 + 80) = v41;
+          v41 = 0;
+          v40 = 0uLL;
           *(a1 + 88) = 1;
           *(a1 + 24) = 1;
-          v39 = &v41;
-          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v39);
+          v38 = &v40;
+          std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v38);
           goto LABEL_54;
         }
 
@@ -363,14 +363,13 @@ LABEL_52:
 LABEL_53:
   *(a1 + 24) = 1;
 LABEL_54:
-  *v40 = v4;
-  std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](v40);
+  *v39 = v4;
+  std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](v39);
   *a1 = 0;
   *(a1 + 259) = 5;
   v32 = *(a1 + 16);
 LABEL_59:
   v34 = *v32;
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34();
 }
@@ -879,21 +878,20 @@ void Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(std
 {
   if ((*(__p + 17) & 1) == 0)
   {
-    v2 = __p[19];
     (*(__p[19] + 8))();
-    v3 = *__p[18];
-    if (v3)
+    v2 = *__p[18];
+    if (v2)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v2);
     }
 
     std::__function::__value_func<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)>::~__value_func[abi:sn200100]((__p + 8));
   }
 
-  v4 = __p[17];
-  if (v4)
+  v3 = __p[17];
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v3);
   }
 
   operator delete(__p);
@@ -1152,11 +1150,11 @@ void Backend::Google::FullHashChecker::checkHashes(void *a1, uint64_t a2, void *
   *(a2 + 16) = 0;
   *a2 = 0;
   v17 = operator new(0x18uLL);
-  std::string::basic_string[abi:sn200100]<0>(&__p, "Full Hash Check");
-  Platform::Transaction::Transaction(v17, &__p);
-  if (v30 < 0)
+  std::string::basic_string[abi:sn200100]<0>(__p, "Full Hash Check");
+  Platform::Transaction::Transaction(v17, __p);
+  if (v29 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   std::unique_ptr<Platform::Transaction>::reset[abi:sn200100](v16 + 6, v17);
@@ -1167,17 +1165,17 @@ void Backend::Google::FullHashChecker::checkHashes(void *a1, uint64_t a2, void *
   *(v16 + 10) = v15;
 
   std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::operator=[abi:sn200100]((v16 + 88), a7);
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&__p, a1);
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(__p, a1);
   v19 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN7Backend6Google15FullHashChecker11checkHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_bNS2_8functionIFvNS3_INS0_20ThreatListDescriptorENS5_ISG_EEEEEEE_block_invoke;
   block[3] = &__block_descriptor_64_ea8_32c274_ZTSKZN7Backend6Google15FullHashChecker11checkHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_bNS2_8functionIFvNS3_INS0_20ThreatListDescriptorENS5_ISG_EEEEEEEE3__0_e5_v8__0l;
-  v20 = __p;
-  v21 = v29;
-  if (v29)
+  v20 = __p[0];
+  v21 = __p[1];
+  if (__p[1])
   {
-    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(__p[1] + 1, 1uLL, memory_order_relaxed);
     v24 = v20;
     v25 = v21;
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1185,7 +1183,7 @@ void Backend::Google::FullHashChecker::checkHashes(void *a1, uint64_t a2, void *
 
   else
   {
-    v24 = __p;
+    v24 = __p[0];
     v25 = 0;
   }
 
@@ -1209,9 +1207,9 @@ void Backend::Google::FullHashChecker::checkHashes(void *a1, uint64_t a2, void *
     std::__shared_weak_count::__release_shared[abi:sn200100](v25);
   }
 
-  if (v29)
+  if (__p[1])
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v29);
+    std::__shared_weak_count::__release_shared[abi:sn200100](__p[1]);
   }
 }
 
@@ -1288,11 +1286,11 @@ void __destroy_helper_block_ea8_32c274_ZTSKZN7Backend6Google15FullHashChecker11c
   }
 }
 
-uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, unint64_t *a2, uint64_t *a3, int a4, uint64_t **a5, uint64_t a6, uint64_t a7)
+uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, uint64_t **a2, uint64_t *a3, int a4, uint64_t ***a5, unint64_t a6, uint64_t a7)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = **a2;
-  v8 = *(*a2 + 8);
+  v8 = (*a2)[1];
   if (v7 == v8)
   {
     v14 = 1;
@@ -1300,7 +1298,7 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
 
   else
   {
-    v23 = a1 + 96;
+    v22 = a1 + 96;
     v14 = 1;
     do
     {
@@ -1314,10 +1312,10 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
 
         else
         {
-          Backend::Google::FullHashCache::lookup(*a3, v7, v15, v24);
+          Backend::Google::FullHashCache::lookup(*a3, v7, v15, v23);
           v17 = __p;
-          v16 = v26;
-          if ((v24[0] & 1) != 0 || __p != v26)
+          v16 = v25;
+          if ((v23[0] & 1) != 0 || __p != v25)
           {
             while (v17 != v16)
             {
@@ -1327,32 +1325,32 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
 
           else
           {
-            v30 = *(v7 + 32);
-            if (v30)
+            v29 = *(v7 + 32);
+            if (v29)
             {
-              memmove(&__n[1], v7, v30);
+              memmove(&__n[1], v7, v29);
             }
 
-            v31 = *(v7 + 36);
+            v30 = *(v7 + 36);
             v18 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::find<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(a1 + 88, &__n[1]);
-            if (v23 == v18)
+            if (v22 == v18)
             {
               __n[0] = *(v7 + 32);
               if (__n[0])
               {
                 memcpy(__src, v7, __n[0]);
                 *&__n[1] = *(v7 + 36);
-                BYTE12(v31) = __n[0];
+                BYTE12(v30) = __n[0];
                 if (__n[0])
                 {
-                  memcpy(&v29, __src, __n[0]);
+                  memcpy(&v28, __src, __n[0]);
                 }
               }
 
               else
               {
                 *&__n[1] = *(v7 + 36);
-                BYTE12(v31) = 0;
+                BYTE12(v30) = 0;
               }
 
               std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__emplace_unique_key_args<Backend::Google::FullHashChecker::FetchRequest::Entry,Backend::Google::FullHashChecker::FetchRequest::Entry>(a5, &__n[1], &__n[1]);
@@ -1361,7 +1359,7 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
 
             else
             {
-              std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>((*(v18 + 88) + 24), a2, a2);
+              std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(*(v18 + 88) + 24, a2, a2);
             }
 
             v14 = 0;
@@ -1369,7 +1367,7 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
 
           if (__p)
           {
-            v26 = __p;
+            v25 = __p;
             operator delete(__p);
           }
         }
@@ -1381,7 +1379,6 @@ uint64_t Backend::Google::FullHashChecker::checkFullHashRequests(uint64_t a1, un
     while (v7 != v8);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -1464,54 +1461,52 @@ LABEL_14:
 
 void Backend::Google::FullHashChecker::fetchHashes(uint64_t a1, uint64_t a2, const Backend::Google::FullHashRequest **a3, __int128 *a4, __int128 *a5, void *a6, void *a7)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v13 = a6;
   v14 = a7;
-  v22 = 0;
-  v21 = 0uLL;
-  std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(&v21, *a3, a3[1], 0x8E38E38E38E38E39 * ((a3[1] - *a3) >> 3));
+  v21 = 0;
+  v20 = 0uLL;
+  std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(&v20, *a3, a3[1], 0x8E38E38E38E38E39 * ((a3[1] - *a3) >> 3));
   v15 = *(a1 + 16);
   v16 = *a4;
   *a4 = 0;
   *(a4 + 1) = 0;
-  v20 = v16;
-  v19 = *a5;
+  v19 = v16;
+  v18 = *a5;
   *a5 = 0;
   *(a5 + 1) = 0;
-  v25 = 0;
+  v24 = 0;
   v17 = operator new(0x28uLL);
   *v17 = &unk_2838CE5A0;
-  *(v17 + 24) = v19;
-  *(v17 + 8) = v20;
-  v25 = v17;
-  Backend::Google::FullHashFetcher::fetchHashes(a2, &v21, v13, v14, v15, v24);
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v24);
-  v23 = &v21;
-  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v23);
-
-  v18 = *MEMORY[0x277D85DE8];
+  *(v17 + 24) = v18;
+  *(v17 + 8) = v19;
+  v24 = v17;
+  Backend::Google::FullHashFetcher::fetchHashes(a2, &v20, v13, v14, v15, v23);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v23);
+  v22 = &v20;
+  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v22);
 }
 
-void sub_2256211E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2256211E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
   va_copy(va3, va2);
-  v18 = va_arg(va3, void **);
+  v22 = va_arg(va3, void **);
   std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](va3);
   Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0::~$_0(va);
-  va_copy(v18, va1);
+  va_copy(v22, va1);
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](va2);
 
   _Unwind_Resume(a1);
@@ -1534,36 +1529,36 @@ uint64_t Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHash
   return a1;
 }
 
-void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
+void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, uint64_t **a2)
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   v4 = (a1 + 16);
   dispatch_assert_queue_V2(*(a1 + 16));
+  v110 = 0;
   v111 = 0;
-  v112 = 0;
-  v109 = 0;
-  v110 = &v111;
-  v107 = 0;
   v108 = 0;
-  v105 = 0;
+  v109 = &v110;
   v106 = 0;
-  v103 = 0;
-  v104 = &v105;
-  v101 = 0;
+  v107 = 0;
+  v104 = 0;
+  v105 = 0;
   v102 = 0;
-  v99 = 0;
+  v103 = &v104;
   v100 = 0;
-  v97 = 0;
-  v98 = &v99;
-  v95 = 0;
+  v101 = 0;
+  v98 = 0;
+  v99 = 0;
   v96 = 0;
-  __p = 0;
-  v93 = 0;
+  v97 = &v98;
   v94 = 0;
-  v83 = *(*a2 + 32);
+  v95 = 0;
+  __p = 0;
+  v92 = 0;
+  v93 = 0;
+  v82 = (*a2)[4];
   v5 = +[RemoteConfigurationController sharedController];
-  v85 = v5;
-  v84 = a2;
+  v84 = v5;
+  v83 = a2;
   if (*(*a2 + 48) == 1)
   {
     v6 = [v5 googleProviderConfiguration];
@@ -1578,31 +1573,31 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
     {
       if (!*(a1 + 112))
       {
-        v67 = *(a1 + 32);
-        LODWORD(v113) = 1;
-        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v67, &v113, __dst);
-        v68 = __dst[0];
+        v66 = *(a1 + 32);
+        LODWORD(v112) = 1;
+        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v66, &v112, __dst);
+        v67 = __dst[0];
         __dst[0] = 0uLL;
-        v69 = *(a1 + 48);
-        *(a1 + 40) = v68;
-        if (v69)
+        v68 = *(a1 + 48);
+        *(a1 + 40) = v67;
+        if (v68)
         {
-          std::__shared_weak_count::__release_shared[abi:sn200100](v69);
+          std::__shared_weak_count::__release_shared[abi:sn200100](v68);
           if (*(&__dst[0] + 1))
           {
             std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
           }
         }
 
-        LODWORD(v113) = 1;
-        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v113, __dst);
-        v70 = __dst[0];
+        LODWORD(v112) = 1;
+        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v112, __dst);
+        v69 = __dst[0];
         __dst[0] = 0uLL;
-        v71 = *(a1 + 120);
-        *(a1 + 112) = v70;
-        if (v71)
+        v70 = *(a1 + 120);
+        *(a1 + 112) = v69;
+        if (v70)
         {
-          std::__shared_weak_count::__release_shared[abi:sn200100](v71);
+          std::__shared_weak_count::__release_shared[abi:sn200100](v70);
           if (*(&__dst[0] + 1))
           {
             std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
@@ -1610,7 +1605,7 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
         }
       }
 
-      v5 = Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 112), 1, &v110, &v107, &__p);
+      v5 = Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 112), 1, &v109, &v106, &__p);
       if (v5)
       {
         v8 = 1;
@@ -1632,38 +1627,38 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
   shouldConsultWithTencent = Backend::Google::SSBUtilities::shouldConsultWithTencent(v5);
   if (shouldConsultWithTencent)
   {
-    v10 = [v85 tencentProviderConfiguration];
+    v10 = [v84 tencentProviderConfiguration];
     v11 = [v10 providerOff];
 
     if ((v11 & 1) == 0)
     {
       if (!*(a1 + 128))
       {
-        v72 = *(a1 + 32);
-        LODWORD(v113) = 2;
-        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v72, &v113, __dst);
-        v73 = __dst[0];
+        v71 = *(a1 + 32);
+        LODWORD(v112) = 2;
+        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v71, &v112, __dst);
+        v72 = __dst[0];
         __dst[0] = 0uLL;
-        v74 = *(a1 + 64);
-        *(a1 + 56) = v73;
-        if (v74)
+        v73 = *(a1 + 64);
+        *(a1 + 56) = v72;
+        if (v73)
         {
-          std::__shared_weak_count::__release_shared[abi:sn200100](v74);
+          std::__shared_weak_count::__release_shared[abi:sn200100](v73);
           if (*(&__dst[0] + 1))
           {
             std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
           }
         }
 
-        LODWORD(v113) = 2;
-        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v113, __dst);
-        v75 = __dst[0];
+        LODWORD(v112) = 2;
+        std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v112, __dst);
+        v74 = __dst[0];
         __dst[0] = 0uLL;
-        v76 = *(a1 + 136);
-        *(a1 + 128) = v75;
-        if (v76)
+        v75 = *(a1 + 136);
+        *(a1 + 128) = v74;
+        if (v75)
         {
-          std::__shared_weak_count::__release_shared[abi:sn200100](v76);
+          std::__shared_weak_count::__release_shared[abi:sn200100](v75);
           if (*(&__dst[0] + 1))
           {
             std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
@@ -1671,7 +1666,7 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
         }
       }
 
-      shouldConsultWithTencent = Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 128), 2, &v104, &v101, &__p);
+      shouldConsultWithTencent = Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 128), 2, &v103, &v100, &__p);
       v12 = shouldConsultWithTencent;
       if (shouldConsultWithTencent)
       {
@@ -1684,7 +1679,7 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
 
   if (Backend::Google::SSBUtilities::shouldConsultWithApple(shouldConsultWithTencent))
   {
-    v13 = [v85 appleProviderConfiguration];
+    v13 = [v84 appleProviderConfiguration];
     v14 = [v13 providerOff];
 
     if (v14)
@@ -1699,31 +1694,31 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
 
     if (!*(a1 + 144))
     {
-      v77 = *(a1 + 32);
-      LODWORD(v113) = 3;
-      std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v77, &v113, __dst);
-      v78 = __dst[0];
+      v76 = *(a1 + 32);
+      LODWORD(v112) = 3;
+      std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(v76, &v112, __dst);
+      v77 = __dst[0];
       __dst[0] = 0uLL;
-      v79 = *(a1 + 80);
-      *(a1 + 72) = v78;
-      if (v79)
+      v78 = *(a1 + 80);
+      *(a1 + 72) = v77;
+      if (v78)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v79);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v78);
         if (*(&__dst[0] + 1))
         {
           std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
         }
       }
 
-      LODWORD(v113) = 3;
-      std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v113, __dst);
-      v80 = __dst[0];
+      LODWORD(v112) = 3;
+      std::allocate_shared[abi:sn200100]<Backend::Google::FullHashCache,std::allocator<Backend::Google::FullHashCache>,NSObject  {objcproto17OS_dispatch_queue}* {__strong}&,Backend::Google::SafeBrowsingProvider,0>(v4, &v112, __dst);
+      v79 = __dst[0];
       __dst[0] = 0uLL;
-      v81 = *(a1 + 152);
-      *(a1 + 144) = v80;
-      if (v81)
+      v80 = *(a1 + 152);
+      *(a1 + 144) = v79;
+      if (v80)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v81);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v80);
         if (*(&__dst[0] + 1))
         {
           std::__shared_weak_count::__release_shared[abi:sn200100](*(&__dst[0] + 1));
@@ -1731,7 +1726,7 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
       }
     }
 
-    if (!Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 144), 3, &v98, &v95, &__p))
+    if (!Backend::Google::FullHashChecker::checkFullHashRequests(a1, a2, (a1 + 144), 3, &v97, &v94, &__p))
     {
       goto LABEL_32;
     }
@@ -1742,76 +1737,76 @@ void Backend::Google::FullHashChecker::checkHashes(uint64_t a1, unint64_t *a2)
   if ((v8 & 1) == 0)
   {
 LABEL_32:
-    if (v112 || v106 || v100)
+    if (v111 || v105 || v99)
     {
       v23 = operator new(0x48uLL);
-      *(v23 + 1) = 0;
-      *(v23 + 2) = 0;
-      *(v23 + 4) = 0;
-      v24 = v23 + 32;
-      *v23 = &unk_2838CD550;
-      *(v23 + 3) = v23 + 32;
-      *(v23 + 5) = 0;
-      *(v23 + 7) = 0;
-      *(v23 + 6) = v23 + 56;
-      *(v23 + 8) = 0;
-      std::__tree<Backend::Google::HashView>::destroy((v23 + 24), 0);
-      v25 = v111;
-      *(v23 + 3) = v110;
-      *(v23 + 4) = v25;
-      v26 = v112;
-      *(v23 + 5) = v112;
-      v82 = v23 + 24;
+      v23->__shared_owners_ = 0;
+      v23->__shared_weak_owners_ = 0;
+      v23[1].__shared_owners_ = 0;
+      p_shared_owners = &v23[1].__shared_owners_;
+      v23->__vftable = &unk_2838CD550;
+      v23[1].__vftable = &v23[1].__shared_owners_;
+      v23[1].__shared_weak_owners_ = 0;
+      v23[2].__shared_owners_ = 0;
+      v23[2].__vftable = &v23[2].__shared_owners_;
+      v23[2].__shared_weak_owners_ = 0;
+      std::__tree<Backend::Google::HashView>::destroy(&v23[1], 0);
+      v25 = v110;
+      v23[1].__vftable = v109;
+      v23[1].__shared_owners_ = v25;
+      v26 = v111;
+      v23[1].__shared_weak_owners_ = v111;
+      v81 = &v23[1];
       if (v26)
       {
-        v25[2] = v24;
-        v110 = &v111;
+        v25[2] = p_shared_owners;
+        v109 = &v110;
+        v110 = 0;
         v111 = 0;
-        v112 = 0;
       }
 
       else
       {
-        *(v23 + 3) = v24;
+        v23[1].__vftable = p_shared_owners;
       }
 
-      std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(v23 + 6, a2, a2);
+      std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(&v23[2], a2, a2);
       if (*(*a2 + 48) == 1)
       {
-        v27 = [v85 googleProviderConfiguration];
+        v27 = [v84 googleProviderConfiguration];
         v28 = [v27 providerOff];
 
         if ((v28 & 1) == 0)
         {
-          v29 = *v82;
-          if (*v82 != v24)
+          v29 = *v81;
+          if (*v81 != p_shared_owners)
           {
             do
             {
-              LOBYTE(v115[0]) = *(v29 + 76);
-              if (LOBYTE(v115[0]))
+              LOBYTE(v114[0]) = BYTE4(v29[1].__on_zero_shared_weak);
+              if (LOBYTE(v114[0]))
               {
-                memmove(__dst, v29 + 44, LOBYTE(v115[0]));
+                memmove(__dst, &v29[1].~__shared_weak_count + 4, LOBYTE(v114[0]));
               }
 
-              *(v115 + 4) = *(v29 + 28);
-              v113 = __dst;
-              v30 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v113);
-              atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
-              v31 = v30[12];
-              v30[11] = v82;
-              v30[12] = v23;
+              *(v114 + 4) = *(&v29->__get_deleter + 4);
+              v112 = __dst;
+              v30 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v112);
+              atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+              v31 = *(v30 + 12);
+              *(v30 + 11) = v81;
+              *(v30 + 12) = v23;
               if (v31)
               {
                 std::__shared_weak_count::__release_shared[abi:sn200100](v31);
               }
 
-              v32 = v29[1];
+              v32 = v29->~__shared_weak_count_0;
               if (v32)
               {
                 do
                 {
-                  v33 = v32;
+                  on_zero_shared = v32;
                   v32 = *v32;
                 }
 
@@ -1822,46 +1817,46 @@ LABEL_32:
               {
                 do
                 {
-                  v33 = v29[2];
-                  v34 = *v33 == v29;
-                  v29 = v33;
+                  on_zero_shared = v29->__on_zero_shared;
+                  v34 = on_zero_shared->~__shared_weak_count == v29;
+                  v29 = on_zero_shared;
                 }
 
                 while (!v34);
               }
 
-              v29 = v33;
+              v29 = on_zero_shared;
             }
 
-            while (v33 != v24);
+            while (on_zero_shared != p_shared_owners);
           }
         }
       }
 
       v35 = operator new(0x48uLL);
-      *(v35 + 1) = 0;
-      *(v35 + 2) = 0;
-      *(v35 + 4) = 0;
-      v36 = v35 + 32;
-      *v35 = &unk_2838CD550;
-      *(v35 + 3) = v35 + 32;
-      v37 = v35 + 24;
-      *(v35 + 5) = 0;
-      *(v35 + 7) = 0;
-      *(v35 + 6) = v35 + 56;
-      *(v35 + 8) = 0;
-      std::__tree<Backend::Google::HashView>::destroy((v35 + 24), 0);
-      v38 = v105;
-      *(v35 + 3) = v104;
-      *(v35 + 4) = v38;
-      v39 = v106;
-      *(v35 + 5) = v106;
+      v35->__shared_owners_ = 0;
+      v35->__shared_weak_owners_ = 0;
+      v35[1].__shared_owners_ = 0;
+      v36 = &v35[1].__shared_owners_;
+      v35->__vftable = &unk_2838CD550;
+      v35[1].__vftable = &v35[1].__shared_owners_;
+      v37 = &v35[1];
+      v35[1].__shared_weak_owners_ = 0;
+      v35[2].__shared_owners_ = 0;
+      v35[2].__vftable = &v35[2].__shared_owners_;
+      v35[2].__shared_weak_owners_ = 0;
+      std::__tree<Backend::Google::HashView>::destroy(&v35[1], 0);
+      v38 = v104;
+      v35[1].__vftable = v103;
+      v35[1].__shared_owners_ = v38;
+      v39 = v105;
+      v35[1].__shared_weak_owners_ = v105;
       if (v39)
       {
         v38[2] = v36;
-        v104 = &v105;
+        v103 = &v104;
+        v104 = 0;
         v105 = 0;
-        v106 = 0;
       }
 
       else
@@ -1869,10 +1864,10 @@ LABEL_32:
         *v37 = v36;
       }
 
-      v40 = std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(v35 + 6, v84, v84);
+      v40 = std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(&v35[2], v83, v83);
       if (Backend::Google::SSBUtilities::shouldConsultWithTencent(v40))
       {
-        v41 = [v85 tencentProviderConfiguration];
+        v41 = [v84 tencentProviderConfiguration];
         v42 = [v41 providerOff];
 
         if ((v42 & 1) == 0)
@@ -1882,19 +1877,19 @@ LABEL_32:
           {
             do
             {
-              LOBYTE(v115[0]) = *(v43 + 76);
-              if (LOBYTE(v115[0]))
+              LOBYTE(v114[0]) = *(v43 + 76);
+              if (LOBYTE(v114[0]))
               {
-                memmove(__dst, v43 + 44, LOBYTE(v115[0]));
+                memmove(__dst, v43 + 44, LOBYTE(v114[0]));
               }
 
-              *(v115 + 4) = *(v43 + 28);
-              v113 = __dst;
-              v44 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v113);
-              atomic_fetch_add_explicit(v35 + 1, 1uLL, memory_order_relaxed);
-              v45 = v44[12];
-              v44[11] = v37;
-              v44[12] = v35;
+              *(v114 + 4) = *(v43 + 28);
+              v112 = __dst;
+              v44 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v112);
+              atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+              v45 = *(v44 + 12);
+              *(v44 + 11) = v37;
+              *(v44 + 12) = v35;
               if (v45)
               {
                 std::__shared_weak_count::__release_shared[abi:sn200100](v45);
@@ -1933,29 +1928,29 @@ LABEL_32:
       }
 
       v48 = operator new(0x48uLL);
-      *(v48 + 1) = 0;
-      *(v48 + 2) = 0;
-      *(v48 + 4) = 0;
-      v49 = v48 + 32;
-      *v48 = &unk_2838CD550;
-      *(v48 + 3) = v48 + 32;
-      v50 = v48 + 24;
-      *(v48 + 5) = 0;
-      *(v48 + 7) = 0;
-      *(v48 + 6) = v48 + 56;
-      *(v48 + 8) = 0;
-      std::__tree<Backend::Google::HashView>::destroy((v48 + 24), 0);
-      v51 = v99;
-      *(v48 + 3) = v98;
-      *(v48 + 4) = v51;
-      v52 = v100;
-      *(v48 + 5) = v100;
+      v48->__shared_owners_ = 0;
+      v48->__shared_weak_owners_ = 0;
+      v48[1].__shared_owners_ = 0;
+      v49 = &v48[1].__shared_owners_;
+      v48->__vftable = &unk_2838CD550;
+      v48[1].__vftable = &v48[1].__shared_owners_;
+      v50 = &v48[1];
+      v48[1].__shared_weak_owners_ = 0;
+      v48[2].__shared_owners_ = 0;
+      v48[2].__vftable = &v48[2].__shared_owners_;
+      v48[2].__shared_weak_owners_ = 0;
+      std::__tree<Backend::Google::HashView>::destroy(&v48[1], 0);
+      v51 = v98;
+      v48[1].__vftable = v97;
+      v48[1].__shared_owners_ = v51;
+      v52 = v99;
+      v48[1].__shared_weak_owners_ = v99;
       if (v52)
       {
         v51[2] = v49;
-        v98 = &v99;
+        v97 = &v98;
+        v98 = 0;
         v99 = 0;
-        v100 = 0;
       }
 
       else
@@ -1963,10 +1958,10 @@ LABEL_32:
         *v50 = v49;
       }
 
-      v53 = std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(v48 + 6, v84, v84);
+      v53 = std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(&v48[2], v83, v83);
       if (Backend::Google::SSBUtilities::shouldConsultWithApple(v53))
       {
-        v54 = [v85 appleProviderConfiguration];
+        v54 = [v84 appleProviderConfiguration];
         v55 = [v54 providerOff];
 
         if ((v55 & 1) == 0)
@@ -1976,19 +1971,19 @@ LABEL_32:
           {
             do
             {
-              LOBYTE(v115[0]) = *(v56 + 76);
-              if (LOBYTE(v115[0]))
+              LOBYTE(v114[0]) = *(v56 + 76);
+              if (LOBYTE(v114[0]))
               {
-                memmove(__dst, v56 + 44, LOBYTE(v115[0]));
+                memmove(__dst, v56 + 44, LOBYTE(v114[0]));
               }
 
-              *(v115 + 4) = *(v56 + 28);
-              v113 = __dst;
-              v57 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v113);
-              atomic_fetch_add_explicit(v48 + 1, 1uLL, memory_order_relaxed);
-              v58 = v57[12];
-              v57[11] = v50;
-              v57[12] = v48;
+              *(v114 + 4) = *(v56 + 28);
+              v112 = __dst;
+              v57 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>((a1 + 88), __dst, &std::piecewise_construct, &v112);
+              atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+              v58 = *(v57 + 12);
+              *(v57 + 11) = v50;
+              *(v57 + 12) = v48;
               if (v58)
               {
                 std::__shared_weak_count::__release_shared[abi:sn200100](v58);
@@ -2027,30 +2022,30 @@ LABEL_32:
       }
 
       std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(__dst, a1);
-      if (v107 != v108)
+      if (v106 != v107)
       {
         v62 = *(a1 + 40);
         if (v62)
         {
-          v91 = __dst[0];
+          v90 = __dst[0];
           if (*(&__dst[0] + 1))
           {
             atomic_fetch_add_explicit((*(&__dst[0] + 1) + 8), 1uLL, memory_order_relaxed);
           }
 
-          *&v90 = v23 + 24;
-          *(&v90 + 1) = v23;
-          atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
-          Backend::Google::FullHashChecker::fetchHashes(a1, v62, &v107, &v91, &v90, v83, *(*v84 + 40));
+          *&v89 = v23 + 1;
+          *(&v89 + 1) = v23;
+          atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+          Backend::Google::FullHashChecker::fetchHashes(a1, v62, &v106, &v90, &v89, v82, *(*v83 + 40));
+          if (*(&v89 + 1))
+          {
+            std::__shared_weak_count::__release_shared[abi:sn200100](*(&v89 + 1));
+          }
+
+          v61 = *(&v90 + 1);
           if (*(&v90 + 1))
           {
             std::__shared_weak_count::__release_shared[abi:sn200100](*(&v90 + 1));
-          }
-
-          v61 = *(&v91 + 1);
-          if (*(&v91 + 1))
-          {
-            std::__shared_weak_count::__release_shared[abi:sn200100](*(&v91 + 1));
           }
         }
       }
@@ -2058,30 +2053,30 @@ LABEL_32:
       v63 = Backend::Google::SSBUtilities::shouldConsultWithTencent(v61);
       if (v63)
       {
-        if (v101 != v102)
+        if (v100 != v101)
         {
           v64 = *(a1 + 56);
           if (v64)
           {
-            v89 = __dst[0];
+            v88 = __dst[0];
             if (*(&__dst[0] + 1))
             {
               atomic_fetch_add_explicit((*(&__dst[0] + 1) + 8), 1uLL, memory_order_relaxed);
             }
 
-            *&v88 = v35 + 24;
-            *(&v88 + 1) = v35;
-            atomic_fetch_add_explicit(v35 + 1, 1uLL, memory_order_relaxed);
-            Backend::Google::FullHashChecker::fetchHashes(a1, v64, &v101, &v89, &v88, v83, 0);
+            *&v87 = v35 + 1;
+            *(&v87 + 1) = v35;
+            atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
+            Backend::Google::FullHashChecker::fetchHashes(a1, v64, &v100, &v88, &v87, v82, 0);
+            if (*(&v87 + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](*(&v87 + 1));
+            }
+
+            v63 = *(&v88 + 1);
             if (*(&v88 + 1))
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](*(&v88 + 1));
-            }
-
-            v63 = *(&v89 + 1);
-            if (*(&v89 + 1))
-            {
-              std::__shared_weak_count::__release_shared[abi:sn200100](*(&v89 + 1));
             }
           }
         }
@@ -2089,29 +2084,29 @@ LABEL_32:
 
       if (Backend::Google::SSBUtilities::shouldConsultWithApple(v63))
       {
-        if (v95 != v96)
+        if (v94 != v95)
         {
           v65 = *(a1 + 72);
           if (v65)
           {
-            v87 = __dst[0];
+            v86 = __dst[0];
             if (*(&__dst[0] + 1))
             {
               atomic_fetch_add_explicit((*(&__dst[0] + 1) + 8), 1uLL, memory_order_relaxed);
             }
 
-            *&v86 = v48 + 24;
-            *(&v86 + 1) = v48;
-            atomic_fetch_add_explicit(v48 + 1, 1uLL, memory_order_relaxed);
-            Backend::Google::FullHashChecker::fetchHashes(a1, v65, &v95, &v87, &v86, v83, 0);
+            *&v85 = v48 + 1;
+            *(&v85 + 1) = v48;
+            atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
+            Backend::Google::FullHashChecker::fetchHashes(a1, v65, &v94, &v86, &v85, v82, 0);
+            if (*(&v85 + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](*(&v85 + 1));
+            }
+
             if (*(&v86 + 1))
             {
               std::__shared_weak_count::__release_shared[abi:sn200100](*(&v86 + 1));
-            }
-
-            if (*(&v87 + 1))
-            {
-              std::__shared_weak_count::__release_shared[abi:sn200100](*(&v87 + 1));
             }
           }
         }
@@ -2132,73 +2127,72 @@ LABEL_32:
 
 LABEL_23:
   v15 = *a2;
-  v16 = *(*a2 + 56);
+  v16 = (*a2)[7];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN7Backend6Google15FullHashChecker11checkHashesENSt3__110shared_ptrINS1_5CheckEEE_block_invoke;
   block[3] = &__block_descriptor_88_ea8_32c91_ZTSKZN7Backend6Google15FullHashChecker11checkHashesENSt3__110shared_ptrINS1_5CheckEEEE3__0_e5_v8__0l;
-  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::__value_func[abi:sn200100](__dst, v15 + 64);
-  memset(v115, 0, 24);
+  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::__value_func[abi:sn200100](__dst, (v15 + 8));
+  memset(v114, 0, 24);
   v17 = __p;
-  v18 = v93 - __p;
-  if (v93 != __p)
+  v18 = v92 - __p;
+  if (v92 != __p)
   {
-    std::vector<Backend::Google::Database::HashSizeBucket>::__vallocate[abi:sn200100](v115, v18 >> 4);
-    v19 = v115[1];
-    memmove(v115[1], v17, v18);
-    v115[1] = &v19[v18];
+    std::vector<Backend::Google::Database::HashSizeBucket>::__vallocate[abi:sn200100](v114, v18 >> 4);
+    v19 = v114[1];
+    memmove(v114[1], v17, v18);
+    v114[1] = &v19[v18];
   }
 
-  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::__value_func[abi:sn200100](v117, __dst);
+  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::__value_func[abi:sn200100](v116, __dst);
+  v117 = 0;
   v118 = 0;
   v119 = 0;
-  v120 = 0;
-  v20 = v115[0];
-  v21 = v115[1] - v115[0];
-  if (v115[1] != v115[0])
+  v20 = v114[0];
+  v21 = v114[1] - v114[0];
+  if (v114[1] != v114[0])
   {
-    std::vector<Backend::Google::Database::HashSizeBucket>::__vallocate[abi:sn200100](&v118, v21 >> 4);
-    v22 = v119;
-    memmove(v119, v20, v21);
-    v119 = &v22[v21];
+    std::vector<Backend::Google::Database::HashSizeBucket>::__vallocate[abi:sn200100](&v117, v21 >> 4);
+    v22 = v118;
+    memmove(v118, v20, v21);
+    v118 = &v22[v21];
   }
 
   dispatch_async(v16, block);
-  if (v115[0])
+  if (v114[0])
   {
-    v115[1] = v115[0];
-    operator delete(v115[0]);
+    v114[1] = v114[0];
+    operator delete(v114[0]);
   }
 
   std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::~__value_func[abi:sn200100](__dst);
-  if (v118)
+  if (v117)
   {
-    v119 = v118;
-    operator delete(v118);
+    v118 = v117;
+    operator delete(v117);
   }
 
-  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::~__value_func[abi:sn200100](v117);
+  std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::~__value_func[abi:sn200100](v116);
 LABEL_113:
 
   if (__p)
   {
-    v93 = __p;
+    v92 = __p;
     operator delete(__p);
   }
 
-  *&__dst[0] = &v95;
+  *&__dst[0] = &v94;
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](__dst);
-  std::__tree<Backend::Google::HashView>::destroy(&v98, v99);
-  *&__dst[0] = &v101;
+  std::__tree<Backend::Google::HashView>::destroy(&v97, v98);
+  *&__dst[0] = &v100;
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](__dst);
-  std::__tree<Backend::Google::HashView>::destroy(&v104, v105);
-  *&__dst[0] = &v107;
+  std::__tree<Backend::Google::HashView>::destroy(&v103, v104);
+  *&__dst[0] = &v106;
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](__dst);
-  std::__tree<Backend::Google::HashView>::destroy(&v110, v111);
-  v66 = *MEMORY[0x277D85DE8];
+  std::__tree<Backend::Google::HashView>::destroy(&v109, v110);
 }
 
-void sub_225621E14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, char a32, void *a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, char a38, void *a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, char a44, void *a45)
+void sub_225621E14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45)
 {
   if (a15)
   {
@@ -2285,11 +2279,11 @@ uint64_t Backend::Google::FullHashChecker::checkHashes(std::shared_ptr<Backend::
   return std::__function::__value_func<void ()(std::vector<Backend::Google::ThreatListDescriptor>)>::~__value_func[abi:sn200100](a1);
 }
 
-void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, uint64_t *a3)
+void Backend::Google::FullHashChecker::handleFetchResult(dispatch_queue_t **a1, void *a2, uint64_t *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  v26 = a2;
+  v25 = a2;
   v9 = *a2;
   v8 = a2 + 1;
   v7 = v9;
@@ -2297,7 +2291,7 @@ void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, 
   {
     rep = v6.__d_.__rep_;
     v11 = *(a3 + 48);
-    v27 = v6.__d_.__rep_ + 1000000 * a3[5];
+    v26 = v6.__d_.__rep_ + 1000000 * a3[5];
     if (v11)
     {
       v12 = v6.__d_.__rep_ + 1000000 * a3[5];
@@ -2310,14 +2304,14 @@ void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, 
 
     do
     {
-      v31 = *(v7 + 76);
-      if (v31)
+      v30 = *(v7 + 76);
+      if (v30)
       {
-        memmove(__dst, v7 + 44, v31);
+        memmove(__dst, v7 + 44, v30);
       }
 
-      v32 = *(v7 + 28);
-      std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>((a1 + 88), __dst);
+      v31 = *(v7 + 28);
+      std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(a1 + 11, __dst);
       v13 = *(v7 + 76);
       v15 = *a3;
       v14 = a3[1];
@@ -2345,12 +2339,12 @@ void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, 
             goto LABEL_45;
           }
 
-          Backend::Google::FullHashCache::addSafePrefix(*(a1 + 112), v7 + 28, v7 + 44, v27);
+          Backend::Google::FullHashCache::addSafePrefix(a1[14], v7 + 28, v7 + 44, v26);
         }
 
         else
         {
-          Backend::Google::FullHashCache::addUnsafeFullHash(*(a1 + 112), v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
+          Backend::Google::FullHashCache::addUnsafeFullHash(a1[14], v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
         }
       }
 
@@ -2363,12 +2357,12 @@ void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, 
             goto LABEL_45;
           }
 
-          Backend::Google::FullHashCache::addSafePrefix(*(a1 + 128), v7 + 28, v7 + 44, v27);
+          Backend::Google::FullHashCache::addSafePrefix(a1[16], v7 + 28, v7 + 44, v26);
         }
 
         else
         {
-          Backend::Google::FullHashCache::addUnsafeFullHash(*(a1 + 128), v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
+          Backend::Google::FullHashCache::addUnsafeFullHash(a1[16], v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
         }
       }
 
@@ -2380,12 +2374,12 @@ LABEL_45:
           __break(1u);
         }
 
-        Backend::Google::FullHashCache::addSafePrefix(*(a1 + 144), v7 + 28, v7 + 44, v27);
+        Backend::Google::FullHashCache::addSafePrefix(a1[18], v7 + 28, v7 + 44, v26);
       }
 
       else
       {
-        Backend::Google::FullHashCache::addUnsafeFullHash(*(a1 + 144), v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
+        Backend::Google::FullHashCache::addUnsafeFullHash(a1[18], v15, (v15 + 16), v13, rep + 1000000 * *(v15 + 72), v12, v11);
       }
 
       v18 = v7[1];
@@ -2418,23 +2412,23 @@ LABEL_45:
     while (v19 != v8);
   }
 
-  v21 = v26[3];
-  if (v21 != v26 + 4)
+  v21 = v25[3];
+  if (v21 != v25 + 4)
   {
     do
     {
       v22 = v21[5];
-      v28 = v21[4];
-      v29 = v22;
+      v27 = v21[4];
+      v28 = v22;
       if (v22)
       {
         atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      Backend::Google::FullHashChecker::checkHashes(a1, &v28);
-      if (v29)
+      Backend::Google::FullHashChecker::checkHashes(a1, &v27);
+      if (v28)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v29);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v28);
       }
 
       v23 = v21[1];
@@ -2464,10 +2458,8 @@ LABEL_45:
       v21 = v24;
     }
 
-    while (v24 != v26 + 4);
+    while (v24 != v25 + 4);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_225622464(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
@@ -2482,9 +2474,9 @@ void sub_225622464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, uint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v6.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  v35 = a2;
+  v34 = a2;
   v9 = *a2;
   v7 = a2 + 1;
   v8 = v9;
@@ -2493,13 +2485,13 @@ void Backend::Google::FullHashChecker::handleFetchResult(uint64_t a1, void *a2, 
     v10 = v6.__d_.__rep_ + 1000000 * *(a3 + 24);
     do
     {
-      v46[0] = *(v8 + 76);
-      if (v46[0])
+      v45[0] = *(v8 + 76);
+      if (v45[0])
       {
-        memmove(__dst, v8 + 44, v46[0]);
+        memmove(__dst, v8 + 44, v45[0]);
       }
 
-      *&v46[4] = *(v8 + 28);
+      *&v45[4] = *(v8 + 28);
       std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>((a1 + 88), __dst);
       v11 = *a3;
       v12 = *(a3 + 8);
@@ -2547,14 +2539,14 @@ LABEL_14:
           if (v11 == v12)
           {
             __dst[0] = 0;
-            v47 = 0;
+            v46 = 0;
             goto LABEL_19;
           }
         }
       }
 
       __dst[0] = 0;
-      v47 = 0;
+      v46 = 0;
       if (v11 != v12)
       {
         std::optional<Backend::Google::HashesSearchResponse::FullHash>::operator=[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash const&,void>(__dst, v11);
@@ -2566,20 +2558,20 @@ LABEL_19:
         v19 = *(v8 + 7);
         if (v19 == 16)
         {
-          if (v47 == 1)
+          if (v46 == 1)
           {
-            v20 = *v46;
-            v21 = *&v46[8];
+            v20 = *v45;
+            v21 = *&v45[8];
             while (v20 != v21)
             {
               v22 = *(a1 + 112);
               v23 = *v20;
-              std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v43, __dst);
-              Backend::Google::FullHashCache::handleFullHashResponse(v22, v23, v43, v8 + 44, v10);
-              if (v44[24] == 1)
+              std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v42, __dst);
+              Backend::Google::FullHashCache::handleFullHashResponse(v22, v23, v42, v8 + 44, v10);
+              if (v43[24] == 1)
               {
-                v38 = v44;
-                std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v38);
+                v37 = v43;
+                std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v37);
               }
 
               v20 += 8;
@@ -2589,11 +2581,11 @@ LABEL_19:
           }
 
           v26 = *(a1 + 112);
-          std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v41, __dst);
-          Backend::Google::FullHashCache::handleFullHashResponse(v26, 16, v41, v8 + 44, v10);
-          if (v42[24] == 1)
+          std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v40, __dst);
+          Backend::Google::FullHashCache::handleFullHashResponse(v26, 16, v40, v8 + 44, v10);
+          if (v41[24] == 1)
           {
-            v25 = v42;
+            v25 = v41;
             goto LABEL_31;
           }
         }
@@ -2601,23 +2593,23 @@ LABEL_19:
         else
         {
           v24 = *(a1 + 112);
-          std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v39, __dst);
-          Backend::Google::FullHashCache::handleFullHashResponse(v24, v19, v39, v8 + 44, v10);
-          if (v40[24] == 1)
+          std::__optional_copy_base<Backend::Google::HashesSearchResponse::FullHash,false>::__optional_copy_base[abi:sn200100](v38, __dst);
+          Backend::Google::FullHashCache::handleFullHashResponse(v24, v19, v38, v8 + 44, v10);
+          if (v39[24] == 1)
           {
-            v25 = v40;
+            v25 = v39;
 LABEL_31:
-            v38 = v25;
-            std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v38);
+            v37 = v25;
+            std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v37);
           }
         }
       }
 
 LABEL_32:
-      if (v47 == 1)
+      if (v46 == 1)
       {
-        v38 = v46;
-        std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v38);
+        v37 = v45;
+        std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__destroy_vector::operator()[abi:sn200100](&v37);
       }
 
       v27 = v8[1];
@@ -2650,23 +2642,23 @@ LABEL_32:
     while (v28 != v7);
   }
 
-  v30 = v35[3];
-  if (v30 != v35 + 4)
+  v30 = v34[3];
+  if (v30 != v34 + 4)
   {
     do
     {
       v31 = v30[5];
-      v36 = v30[4];
-      v37 = v31;
+      v35 = v30[4];
+      v36 = v31;
       if (v31)
       {
         atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      Backend::Google::FullHashChecker::checkHashes(a1, &v36);
-      if (v37)
+      Backend::Google::FullHashChecker::checkHashes(a1, &v35);
+      if (v36)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v37);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v36);
       }
 
       v32 = v30[1];
@@ -2696,10 +2688,8 @@ LABEL_32:
       v30 = v33;
     }
 
-    while (v33 != v35 + 4);
+    while (v33 != v34 + 4);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2256227EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
@@ -2742,20 +2732,20 @@ uint64_t std::optional<Backend::Google::HashesSearchResponse::FullHash>::operato
 
 void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != a2 + 1)
   {
     do
     {
-      v27 = *(v5 + 76);
-      if (v27)
+      v26 = *(v5 + 76);
+      if (v26)
       {
-        memmove(&__n[1], v5 + 44, v27);
+        memmove(&__n[1], v5 + 44, v26);
       }
 
-      v28 = *(v5 + 28);
+      v27 = *(v5 + 28);
       std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>((a1 + 88), &__n[1]);
       v6 = v5[1];
       if (v6)
@@ -2793,11 +2783,11 @@ void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
   {
     do
     {
-      v22 = 0uLL;
-      v23 = 0;
+      v21 = 0uLL;
+      v22 = 0;
       v11 = v9[4];
       v12 = *v11;
-      v13 = v11[1];
+      v13 = *(v11 + 8);
       if (*v11 != v13)
       {
         do
@@ -2807,22 +2797,22 @@ void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
           {
             memcpy(__src, v12, __n[0]);
             *&__n[1] = *(v12 + 36);
-            BYTE12(v28) = __n[0];
+            BYTE12(v27) = __n[0];
             if (__n[0])
             {
-              memcpy(&v26, __src, __n[0]);
+              memcpy(&v25, __src, __n[0]);
             }
           }
 
           else
           {
             *&__n[1] = *(v12 + 36);
-            BYTE12(v28) = 0;
+            BYTE12(v27) = 0;
           }
 
           if (!std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__count_unique<Backend::Google::FullHashChecker::FetchRequest::Entry>(a2, &__n[1]))
           {
-            std::vector<Backend::Google::FullHashRequest>::push_back[abi:sn200100](&v22, v12);
+            std::vector<Backend::Google::FullHashRequest>::push_back[abi:sn200100](&v21, v12);
           }
 
           v12 += 72;
@@ -2833,11 +2823,11 @@ void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
       }
 
       std::vector<Backend::Google::FullHashRequest>::__vdeallocate(v11);
-      *v11 = v22;
-      v11[2] = v23;
-      v22 = 0uLL;
-      v23 = 0;
-      *&__n[1] = &v22;
+      *v11 = v21;
+      *(v11 + 16) = v22;
+      v21 = 0uLL;
+      v22 = 0;
+      *&__n[1] = &v21;
       std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&__n[1]);
       v14 = v9[1];
       if (v14)
@@ -2875,17 +2865,17 @@ void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
     do
     {
       v16 = v9[5];
-      v20 = v9[4];
-      v21 = v16;
+      v19 = v9[4];
+      v20 = v16;
       if (v16)
       {
         atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      Backend::Google::FullHashChecker::checkHashes(a1, &v20);
-      if (v21)
+      Backend::Google::FullHashChecker::checkHashes(a1, &v19);
+      if (v20)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v21);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v20);
       }
 
       v17 = v9[1];
@@ -2917,8 +2907,6 @@ void Backend::Google::FullHashChecker::handleFetchFailure(uint64_t a1, void *a2)
 
     while (v18 != v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_225622B58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
@@ -2931,7 +2919,7 @@ void sub_225622B58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Backend::Google::FullHashRequest>::__vdeallocate(void **a1)
+void std::vector<Backend::Google::FullHashRequest>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3003,7 +2991,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  Backend::Google::FullHashRequest::FullHashRequest((v7 + 72 * v2), a2);
+  Backend::Google::FullHashRequest::FullHashRequest(v7 + 72 * v2, a2);
   *&v16 = v16 + 72;
   v8 = *(a1 + 8);
   v9 = (v15 + *a1 - v8);
@@ -3021,9 +3009,9 @@ LABEL_13:
   return v13;
 }
 
-void sub_225622D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_225622D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Backend::Google::FullHashRequest>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3057,7 +3045,6 @@ char *std::vector<Backend::Google::FullHashRequest>::__vallocate[abi:sn200100](v
 
 Backend::Google::FullHashRequest *std::vector<Backend::Google::FullHashRequest>::__construct_at_end<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(uint64_t a1, const Backend::Google::FullHashRequest *a2, const Backend::Google::FullHashRequest *a3)
 {
-  v4 = *(a1 + 8);
   if (a2 == a3)
   {
     result = *(a1 + 8);
@@ -3067,14 +3054,14 @@ LABEL_7:
 
   else
   {
-    v6 = a2;
+    v5 = a2;
     result = *(a1 + 8);
     while (result)
     {
-      v8 = Backend::Google::FullHashRequest::FullHashRequest(result, v6);
-      v6 = (v6 + 72);
-      result = (v8 + 72);
-      if (v6 == a3)
+      v7 = Backend::Google::FullHashRequest::FullHashRequest(result, v5);
+      v5 = (v5 + 72);
+      result = (v7 + 72);
+      if (v5 == a3)
       {
         goto LABEL_7;
       }
@@ -3086,7 +3073,7 @@ LABEL_7:
   return result;
 }
 
-void *std::__optional_storage_base<Backend::Google::HashesSearchResponse::FullHash,false>::__construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash const&>(void *result, uint64_t a2)
+uint64_t *std::__optional_storage_base<Backend::Google::HashesSearchResponse::FullHash,false>::__construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash const&>(uint64_t *result, uint64_t a2)
 {
   if (result)
   {
@@ -3117,33 +3104,32 @@ void std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail
     v12 = a1[1] - v8;
     if (a4 <= v12 >> 5)
     {
-      std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(&v20, a2, a3, v8);
-      v16 = v15;
-      v17 = a1[1];
-      if (v17 != v15)
+      std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(&v19, a2, a3, v8);
+      v15 = v14;
+      v16 = a1[1];
+      if (v16 != v14)
       {
         do
         {
-          v18 = *(v17 - 24);
-          if (v18)
+          v17 = *(v16 - 24);
+          if (v17)
           {
-            *(v17 - 16) = v18;
-            operator delete(v18);
+            *(v16 - 16) = v17;
+            operator delete(v17);
           }
 
-          v17 -= 32;
+          v16 -= 32;
         }
 
-        while (v17 != v16);
+        while (v16 != v15);
       }
 
-      a1[1] = v16;
+      a1[1] = v15;
     }
 
     else
     {
-      v13 = std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(&v19, a2, a2 + v12, v8);
-      v14 = a1[1] - *a1;
+      v13 = std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(&v18, a2, a2 + v12, v8);
       std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail>::__construct_at_end<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail*>(a1, v13, a3);
     }
   }
@@ -3191,7 +3177,7 @@ void std::vector<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail
   }
 }
 
-uint64_t std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *,Backend::Google::HashesSearchResponse::FullHash::FullHashDetail *>(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -3201,11 +3187,11 @@ uint64_t std::__copy_impl::operator()[abi:sn200100]<Backend::Google::HashesSearc
       *a4 = *v5;
       if (v5 != a4)
       {
-        std::vector<unsigned int>::__assign_with_size[abi:sn200100]<unsigned int *,unsigned int *>((a4 + 8), *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 2);
+        std::vector<unsigned int>::__assign_with_size[abi:sn200100]<unsigned int *,unsigned int *>(a4 + 1, *(v5 + 8), *(v5 + 16), (*(v5 + 16) - *(v5 + 8)) >> 2);
       }
 
       v5 += 32;
-      a4 += 32;
+      a4 += 8;
     }
 
     while (v5 != a3);
@@ -3226,11 +3212,11 @@ uint64_t std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__c
     {
       v9 = a2;
       v10 = v4;
-      v7 = v2 + 28;
+      v7 = v2 + 7;
       v8 = v2 + 44;
       if ((std::__tuple_compare_three_way[abi:sn200100]<Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,0ul,1ul>(&v9, &v7) & 0x80) == 0)
       {
-        v9 = v2 + 28;
+        v9 = v2 + 7;
         v10 = v2 + 44;
         v7 = a2;
         v8 = v4;
@@ -3251,7 +3237,7 @@ uint64_t std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__c
   return 0;
 }
 
-uint64_t std::__tuple_compare_three_way[abi:sn200100]<Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,0ul,1ul>(uint64_t a1, uint64_t a2)
+uint64_t std::__tuple_compare_three_way[abi:sn200100]<Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,0ul,1ul>(int **a1, int **a2)
 {
   v4 = *a1;
   v5 = *a2;
@@ -3265,8 +3251,8 @@ uint64_t std::__tuple_compare_three_way[abi:sn200100]<Backend::Google::ThreatLis
     return 1;
   }
 
-  v7 = *(a1 + 8);
-  v8 = *(a2 + 8);
+  v7 = a1[1];
+  v8 = a2[1];
   v9 = v7[32];
   v10 = v8[32];
   if (v10 >= v9)
@@ -3319,7 +3305,7 @@ void std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Goog
   }
 }
 
-void std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(uint64_t a1@<X1>, unsigned int *a2@<X2>, void *a3@<X8>)
+void std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::allocator<Backend::Google::FullHashFetcher>,Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,0>(const Backend::Google::Configuration *a1@<X1>, unsigned int *a2@<X2>, void *a3@<X8>)
 {
   v6 = operator new(0xD8uLL);
   std::__shared_ptr_emplace<Backend::Google::FullHashFetcher>::__shared_ptr_emplace[abi:sn200100]<Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,std::allocator<Backend::Google::FullHashFetcher>,0>(v6, a1, a2);
@@ -3329,12 +3315,12 @@ void std::allocate_shared[abi:sn200100]<Backend::Google::FullHashFetcher,std::al
   std::shared_ptr<ByteProvider>::__enable_weak_this[abi:sn200100]<ByteProvider,ByteProvider,0>(a3, v6 + 3, (v6 + 3));
 }
 
-void *std::__shared_ptr_emplace<Backend::Google::FullHashFetcher>::__shared_ptr_emplace[abi:sn200100]<Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,std::allocator<Backend::Google::FullHashFetcher>,0>(void *a1, uint64_t a2, unsigned int *a3)
+void *std::__shared_ptr_emplace<Backend::Google::FullHashFetcher>::__shared_ptr_emplace[abi:sn200100]<Backend::Google::Configuration const&,Backend::Google::SafeBrowsingProvider,std::allocator<Backend::Google::FullHashFetcher>,0>(void *a1, const Backend::Google::Configuration *a2, unsigned int *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2838CD4A8;
-  Backend::Google::FullHashFetcher::FullHashFetcher(a1 + 3, a2, *a3);
+  Backend::Google::FullHashFetcher::FullHashFetcher((a1 + 3), a2, *a3);
   return a1;
 }
 
@@ -3435,7 +3421,7 @@ uint64_t std::__function::__value_func<void ()(std::vector<Backend::Google::Thre
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::find<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::find<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t a1, unsigned __int8 *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -3447,7 +3433,7 @@ uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::
   v5 = a1 + 8;
   do
   {
-    v6 = std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(v3 + 32, a2);
+    v6 = std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>((v3 + 32), a2);
     if ((v6 & 0x80u) == 0)
     {
       v5 = v3;
@@ -3457,7 +3443,7 @@ uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::
   }
 
   while (v3);
-  if (v5 == v2 || (std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(a2, v5 + 32) & 0x80) != 0)
+  if (v5 == v2 || (std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(a2, (v5 + 32)) & 0x80) != 0)
   {
     return v2;
   }
@@ -3465,18 +3451,18 @@ uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::
   return v5;
 }
 
-uint64_t std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(uint64_t a1, uint64_t a2)
+uint64_t std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(unsigned __int8 *a1, unsigned __int8 *a2)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a2 + 32);
+  v4 = a1[32];
+  v5 = a2[32];
   if (v5 >= v4)
   {
-    v6 = *(a1 + 32);
+    v6 = a1[32];
   }
 
   else
   {
-    v6 = *(a2 + 32);
+    v6 = a2[32];
   }
 
   v7 = memcmp(a1, a2, v6);
@@ -3503,18 +3489,18 @@ uint64_t std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::T
     return 1;
   }
 
-  if (Backend::Google::operator<((a1 + 36), (a2 + 36)))
+  if (Backend::Google::operator<(a1 + 9, a2 + 9))
   {
     return 255;
   }
 
-  return Backend::Google::operator<((a2 + 36), (a1 + 36));
+  return Backend::Google::operator<(a2 + 9, a1 + 9);
 }
 
-uint64_t *std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(uint64_t **a1, unint64_t *a2, uint64_t *a3)
+uint64_t *std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::__emplace_unique_key_args<std::shared_ptr<Backend::Google::FullHashChecker::Check>,std::shared_ptr<Backend::Google::FullHashChecker::Check> const&>(uint64_t a1, unint64_t *a2, uint64_t *a3)
 {
-  v6 = a1 + 1;
-  v5 = a1[1];
+  v6 = (a1 + 8);
+  v5 = *(a1 + 8);
   if (v5)
   {
     v7 = *a2;
@@ -3553,7 +3539,7 @@ uint64_t *std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>:
 
   else
   {
-    v8 = a1 + 1;
+    v8 = (a1 + 8);
 LABEL_10:
     v10 = operator new(0x30uLL);
     v11 = a3[1];
@@ -3570,7 +3556,7 @@ LABEL_10:
   return v10;
 }
 
-uint64_t *std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__emplace_unique_key_args<Backend::Google::FullHashChecker::FetchRequest::Entry,Backend::Google::FullHashChecker::FetchRequest::Entry>(uint64_t **a1, char *a2, uint64_t a3)
+uint64_t *std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__emplace_unique_key_args<Backend::Google::FullHashChecker::FetchRequest::Entry,Backend::Google::FullHashChecker::FetchRequest::Entry>(uint64_t ***a1, char *a2, uint64_t a3)
 {
   v5 = std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__find_equal<Backend::Google::FullHashChecker::FetchRequest::Entry>(a1, &v11, a2);
   v6 = *v5;
@@ -3605,12 +3591,12 @@ void *std::__tree<Backend::Google::FullHashChecker::FetchRequest::Entry>::__find
       while (1)
       {
         v8 = v4;
-        v9 = v4 + 28;
+        v9 = (v4 + 28);
         v14 = a3;
         v15 = v7;
-        v10 = v4 + 44;
-        v12 = v4 + 28;
-        v13 = v4 + 44;
+        v10 = (v4 + 44);
+        v12 = (v4 + 28);
+        v13 = (v4 + 44);
         if ((std::__tuple_compare_three_way[abi:sn200100]<Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,Backend::Google::ThreatListDescriptor const&,Backend::Google::Hash const&,0ul,1ul>(&v14, &v12) & 0x80) == 0)
         {
           break;
@@ -3733,9 +3719,9 @@ void *std::__function::__func<Backend::Google::FullHashChecker::fetchHashes(Back
   return result;
 }
 
-void std::__function::__func<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0,std::allocator<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0>,void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::destroy_deallocate(void *a1)
+void std::__function::__func<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0,std::allocator<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0>,void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0,std::allocator<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0>,void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::destroy[abi:sn200100](a1 + 8);
+  std::__function::__alloc_func<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0,std::allocator<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0>,void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::destroy[abi:sn200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -3771,7 +3757,7 @@ void std::__function::__func<Backend::Google::FullHashChecker::fetchHashes(Backe
 
   else
   {
-    v4 = SSBOSLogFullHash();
+    v4 = SSBOSLogFullHash(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       std::__function::__func<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0,std::allocator<Backend::Google::FullHashChecker::fetchHashes(Backend::Google::FullHashFetcher &,std::vector<Backend::Google::FullHashRequest> const&,std::shared_ptr<Backend::Google::FullHashChecker>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *)::$_0>,void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::operator()(v4);
@@ -3832,9 +3818,9 @@ void std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[
   std::vector<Backend::Google::HashesSearchResponse::FullHash>::__destroy_vector::operator()[abi:sn200100](&v5);
 }
 
-void sub_225623EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_225623EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::vector<Backend::Google::HashesSearchResponse::FullHash>::__destroy_vector::operator()[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -3904,26 +3890,25 @@ void *std::vector<Backend::Google::HashesSearchResponse::FullHash>::__init_with_
   {
     v6 = result;
     result = std::vector<Backend::Google::HashesSearchResponse::FullHash>::__vallocate[abi:sn200100](result, a4);
-    v7 = *(v6 + 8);
     if (a2 == a3)
     {
-      v8 = *(v6 + 8);
+      v7 = *(v6 + 8);
     }
 
     else
     {
-      v8 = *(v6 + 8);
+      v7 = *(v6 + 8);
       do
       {
-        result = std::allocator_traits<std::allocator<Backend::Google::HashesSearchResponse::FullHash>>::construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash,Backend::Google::HashesSearchResponse::FullHash&,void,0>(v6, v8, a2);
+        result = std::allocator_traits<std::allocator<Backend::Google::HashesSearchResponse::FullHash>>::construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash,Backend::Google::HashesSearchResponse::FullHash&,void,0>(v6, v7, a2);
         a2 += 56;
-        v8 += 56;
+        v7 += 56;
       }
 
       while (a2 != a3);
     }
 
-    *(v6 + 8) = v8;
+    *(v6 + 8) = v7;
   }
 
   return result;
@@ -3943,7 +3928,7 @@ char *std::vector<Backend::Google::HashesSearchResponse::FullHash>::__vallocate[
   return result;
 }
 
-void *std::allocator_traits<std::allocator<Backend::Google::HashesSearchResponse::FullHash>>::construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash,Backend::Google::HashesSearchResponse::FullHash&,void,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *std::allocator_traits<std::allocator<Backend::Google::HashesSearchResponse::FullHash>>::construct[abi:sn200100]<Backend::Google::HashesSearchResponse::FullHash,Backend::Google::HashesSearchResponse::FullHash&,void,0>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -3972,12 +3957,12 @@ uint64_t std::__variant_detail::__move_constructor<std::__variant_detail::__trai
   return a1;
 }
 
-void sub_225624148(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
+void sub_225624148(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
   v15 = *(v13 + 56);
   if (v15 != -1)
   {
-    (off_2838CE5E8[v15])(&a13, v13);
+    (off_2838CE5E8[v15])(&a13, v13, a3, a4, a5, a6, a7, a8);
   }
 
   *(v13 + 56) = -1;
@@ -4145,7 +4130,7 @@ void std::__tree<std::shared_ptr<Backend::Google::FullHashChecker::Check>>::dest
   }
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__emplace_unique_key_args<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::piecewise_construct_t const&,std::tuple<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>&&>,std::tuple<>>(uint64_t ***a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__find_equal<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(a1, &v13, a2);
   v7 = *v6;
@@ -4156,22 +4141,22 @@ uint64_t *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend:
     v7 = v9;
     v10 = *a4;
     v11 = *(v10 + 32);
-    *(v9 + 64) = v11;
+    v9[64] = v11;
     if (v11)
     {
-      memmove(v9 + 4, v10, v11);
+      memmove(v9 + 32, v10, v11);
     }
 
     *(v7 + 68) = *(v10 + 36);
-    v7[11] = 0;
-    v7[12] = 0;
+    *(v7 + 11) = 0;
+    *(v7 + 12) = 0;
     std::__tree<Backend::Google::HashView>::__insert_node_at(a1, v13, v8, v7);
   }
 
   return v7;
 }
 
-void *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__find_equal<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t a1, void *a2, uint64_t a3)
+unsigned __int8 *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__find_equal<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t a1, unsigned __int8 **a2, unsigned __int8 *a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -4182,7 +4167,7 @@ void *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Goo
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(a3, (v4 + 4)) & 0x80) == 0)
+        if ((std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -4195,13 +4180,13 @@ void *std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Goo
         }
       }
 
-      if ((std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>((v7 + 4), a3) & 0x80) == 0)
+      if ((std::operator<=>[abi:sn200100]<Backend::Google::Hash,Backend::Google::ThreatListDescriptor,Backend::Google::Hash,Backend::Google::ThreatListDescriptor>(v7 + 32, a3) & 0x80) == 0)
       {
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -4217,7 +4202,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::__erase_unique<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(uint64_t **a1, unsigned __int8 *a2)
 {
   v3 = std::__tree<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::__map_value_compare<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>,std::less<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>,true>,std::allocator<std::__value_type<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>,std::shared_ptr<Backend::Google::FullHashChecker::FetchRequest>>>>::find<std::pair<Backend::Google::Hash,Backend::Google::ThreatListDescriptor>>(a1, a2);
   if (a1 + 1 == v3)
@@ -4288,7 +4273,7 @@ void Backend::Google::FullHashFetcher::~FullHashFetcher(Backend::Google::FullHas
     operator delete(*(this + 16));
   }
 
-  Backend::Google::Configuration::~Configuration((this + 16));
+  Backend::Google::Configuration::~Configuration(this + 2);
   v2 = *(this + 1);
   if (v2)
   {
@@ -4298,7 +4283,7 @@ void Backend::Google::FullHashFetcher::~FullHashFetcher(Backend::Google::FullHas
 
 void Backend::Google::FullHashFetcher::fetchHashes(uint64_t a1, __int128 *a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v37[4] = *MEMORY[0x277D85DE8];
   v11 = a3;
   v12 = a4;
   v13 = a5;
@@ -4327,94 +4312,93 @@ void Backend::Google::FullHashFetcher::fetchHashes(uint64_t a1, __int128 *a2, vo
     v17 = 0;
   }
 
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v23, a1);
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v22, a1);
   v20 = *(a1 + 112);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEE_block_invoke;
   block[3] = &__block_descriptor_136_ea8_32c318_ZTSKZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEE3__0_e5_v8__0l;
-  v25 = v23;
-  v23 = 0uLL;
-  v26 = v19;
-  v27 = v17;
-  v28 = *a2;
-  v29 = *(a2 + 2);
+  v24 = v22;
+  v22 = 0uLL;
+  v25 = v19;
+  v26 = v17;
+  v27 = *a2;
+  v28 = *(a2 + 2);
   *a2 = 0;
   *(a2 + 1) = 0;
   *(a2 + 2) = 0;
   v21 = v11;
-  v30 = v21;
-  v31 = v12;
-  v32 = v13;
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v33, a6);
-  Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::$_0(&v35, &v25);
+  v29 = v21;
+  v30 = v12;
+  v31 = v13;
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v32, a6);
+  Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::$_0(&v34, &v24);
   dispatch_async(v20, block);
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v33);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v32);
 
-  v24 = &v28;
+  v23 = &v27;
+  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v23);
+  if (*(&v24 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v24 + 1));
+  }
+
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v37);
+
+  *&v24 = v36;
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v24);
-  if (*(&v25 + 1))
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v25 + 1));
+    std::__shared_weak_count::__release_shared[abi:sn200100](v35);
   }
 
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v38);
-
-  *&v25 = v37;
-  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v25);
-  if (v36)
+  if (*(&v22 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v36);
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v22 + 1));
   }
-
-  if (*(&v23 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v23 + 1));
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEE_block_invoke(uint64_t a1)
+void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEE_block_invoke(std::chrono::duration<long long, std::ratio<1, 1000000>>::rep rep, uint64_t a2)
 {
+  v2 = rep;
   v61[4] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (*(v2 + 184) || *(v2 + 164) && std::chrono::system_clock::now().__d_.__rep_ < *(v2 + 168))
+  v3 = *(rep + 32);
+  if (*(v3 + 184) || *(v3 + 164) && (rep = std::chrono::system_clock::now().__d_.__rep_, rep < *(v3 + 168)))
   {
-    v3 = SSBOSLogFullHash();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SSBOSLogFullHash(rep, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(*(a1 + 32) + 124);
+      v5 = *(*(v2 + 32) + 124);
       LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v4;
-      _os_log_impl(&dword_2255EE000, v3, OS_LOG_TYPE_DEFAULT, "Cannot issue full hash request to %d server either because we are in wait duration or because we are in backoff interval", &buf, 8u);
+      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v5;
+      _os_log_impl(&dword_2255EE000, v4, OS_LOG_TYPE_DEFAULT, "Cannot issue full hash request to %d server either because we are in wait duration or because we are in backoff interval", &buf, 8u);
     }
 
-    v5 = *(a1 + 96);
+    v6 = *(v2 + 96);
     buf.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
     buf.__r_.__value_.__l.__size_ = 3321888768;
     buf.__r_.__value_.__r.__words[2] = ___ZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEv_block_invoke;
     v56 = &__block_descriptor_64_ea8_32c331_ZTSKZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvEUlvE__e5_v8__0l;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v48, a1 + 104);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v48, v2 + 104);
     std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](&v57, v48);
-    dispatch_async(v5, &buf);
+    dispatch_async(v6, &buf);
     std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v48);
     std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](&v57);
   }
 
   else
   {
-    Backend::xpcConnectionClientIdentifierFromConnection(*(a1 + 80), &v47);
+    Backend::xpcConnectionClientIdentifierFromConnection(*(v2 + 80), &v47);
     Backend::xpcConnectionClientStringFromIdentifier(&v47, __p);
-    v6 = *(a1 + 32);
-    if (*(v6 + 63) < 0)
+    v7 = *(v2 + 32);
+    if (*(v7 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v43, *(v6 + 40), *(v6 + 48));
+      std::string::__init_copy_ctor_external(&v43, *(v7 + 40), *(v7 + 48));
     }
 
     else
     {
-      v43 = *(v6 + 40);
+      v43 = *(v7 + 40);
     }
 
     Backend::Google::ClientInfo::ClientInfo(v46, __p, &v43);
@@ -4428,61 +4412,62 @@ void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Ful
       operator delete(__p[0]);
     }
 
-    v7 = *(*(a1 + 32) + 72);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 124);
-    switch(v9)
+    v8 = *(*(v2 + 32) + 72);
+    v10 = v8;
+    v11 = *(v2 + 32);
+    v12 = *(v11 + 124);
+    switch(v12)
     {
       case 1:
-        if (*(a1 + 49) == 1)
+        if (*(v2 + 49) == 1)
         {
-          if (*(a1 + 48) == 1)
+          if (*(v2 + 48) == 1)
           {
-            v19 = *(v8 + 88);
+            v22 = *(v11 + 88);
 
-            v7 = v19;
+            v10 = v22;
           }
 
-          v20 = SSBOSLogFullHash();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v23 = SSBOSLogFullHash(v8, v9);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_2255EE000, v20, OS_LOG_TYPE_DEFAULT, "Using safe browsing v5 hash search.", &buf, 2u);
+            _os_log_impl(&dword_2255EE000, v23, OS_LOG_TYPE_DEFAULT, "Using safe browsing v5 hash search.", &buf, 2u);
           }
 
           std::string::basic_string[abi:sn200100]<0>(&buf.__r_.__value_.__l.__data_, &unk_2256583B1);
-          v21 = *(a1 + 56);
-          for (i = *(a1 + 64); v21 != i; v21 += 72)
+          v24 = *(v2 + 56);
+          for (i = *(v2 + 64); v24 != i; v24 += 72)
           {
-            Platform::encodeURLSafeBase64(v21, (v21 + *(v21 + 32)), &v42);
-            v23 = std::string::insert(&v42, 0, "&hashPrefixes=", 0xEuLL);
-            v24 = *&v23->__r_.__value_.__l.__data_;
-            v49 = v23->__r_.__value_.__r.__words[2];
-            *v48 = v24;
-            v23->__r_.__value_.__l.__size_ = 0;
-            v23->__r_.__value_.__r.__words[2] = 0;
-            v23->__r_.__value_.__r.__words[0] = 0;
+            Platform::encodeURLSafeBase64(v24, (v24 + *(v24 + 32)), &v42);
+            v26 = std::string::insert(&v42, 0, "&hashPrefixes=", 0xEuLL);
+            v27 = *&v26->__r_.__value_.__l.__data_;
+            v49 = v26->__r_.__value_.__r.__words[2];
+            *v48 = v27;
+            v26->__r_.__value_.__l.__size_ = 0;
+            v26->__r_.__value_.__r.__words[2] = 0;
+            v26->__r_.__value_.__r.__words[0] = 0;
             if (SHIBYTE(v49) >= 0)
             {
-              v25 = v48;
+              v28 = v48;
             }
 
             else
             {
-              v25 = v48[0];
+              v28 = v48[0];
             }
 
             if (SHIBYTE(v49) >= 0)
             {
-              v26 = HIBYTE(v49);
+              v29 = HIBYTE(v49);
             }
 
             else
             {
-              v26 = v48[1];
+              v29 = v48[1];
             }
 
-            std::string::append(&buf, v25, v26);
+            std::string::append(&buf, v28, v29);
             if (SHIBYTE(v49) < 0)
             {
               operator delete(v48[0]);
@@ -4494,7 +4479,8 @@ void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Ful
             }
           }
 
-          v13 = Backend::Google::Configuration::getEncodedHashesSearchRequestURLRequest(*(a1 + 32) + 16, &buf, *(a1 + 48));
+          v8 = Backend::Google::Configuration::getEncodedHashesSearchRequestURLRequest(*(v2 + 32) + 16, &buf, *(v2 + 48));
+          v16 = v8;
           if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
@@ -4504,127 +4490,125 @@ void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Ful
         else
         {
           Backend::Google::FindFullHashesRequestJSONSerializer::FindFullHashesRequestJSONSerializer(&buf, v46);
-          v27 = *(a1 + 56);
-          v28 = *(a1 + 64);
-          if (v27 != v28)
+          v30 = *(v2 + 56);
+          v31 = *(v2 + 64);
+          if (v30 != v31)
           {
-            v29 = *(a1 + 56);
+            v32 = *(v2 + 56);
             do
             {
-              v48[0] = *(v29 + 32);
-              v48[1] = v27;
-              Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v29 + 36), *(v29 + 64), *(v29 + 56));
-              v29 += 72;
-              v27 += 72;
+              v48[0] = *(v32 + 32);
+              v48[1] = v30;
+              Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v32 + 36), *(v32 + 64), *(v32 + 56));
+              v32 += 72;
+              v30 += 72;
             }
 
-            while (v29 != v28);
+            while (v32 != v31);
           }
 
-          v13 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequest((*(a1 + 32) + 16), &buf, *(a1 + 88));
+          v16 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequest((*(v2 + 32) + 16), &buf, *(v2 + 88));
           Backend::Google::FindFullHashesRequestJSONSerializer::~FindFullHashesRequestJSONSerializer(&buf);
         }
 
-        v15 = *(a1 + 88) != 0;
+        v18 = *(v2 + 88) != 0;
         break;
       case 2:
         Backend::Google::FindFullHashesRequestJSONSerializer::FindFullHashesRequestJSONSerializer(&buf, v46);
-        v16 = *(a1 + 56);
-        v17 = *(a1 + 64);
-        if (v16 != v17)
+        v19 = *(v2 + 56);
+        v20 = *(v2 + 64);
+        if (v19 != v20)
         {
-          v18 = *(a1 + 56);
+          v21 = *(v2 + 56);
           do
           {
-            v48[0] = *(v18 + 32);
-            v48[1] = v16;
-            Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v18 + 36), *(v18 + 64), *(v18 + 56));
-            v18 += 72;
-            v16 += 72;
+            v48[0] = *(v21 + 32);
+            v48[1] = v19;
+            Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v21 + 36), *(v21 + 64), *(v21 + 56));
+            v21 += 72;
+            v19 += 72;
           }
 
-          while (v18 != v17);
+          while (v21 != v20);
         }
 
-        v13 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequestForTencent((*(a1 + 32) + 16), &buf);
+        v16 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequestForTencent((*(v2 + 32) + 16), &buf);
         Backend::Google::FindFullHashesRequestJSONSerializer::~FindFullHashesRequestJSONSerializer(&buf);
-        v15 = 0;
+        v18 = 0;
         break;
       case 3:
         Backend::Google::FindFullHashesRequestJSONSerializer::FindFullHashesRequestJSONSerializer(&buf, v46);
-        v10 = *(a1 + 56);
-        v11 = *(a1 + 64);
-        if (v10 != v11)
+        v13 = *(v2 + 56);
+        v14 = *(v2 + 64);
+        if (v13 != v14)
         {
-          v12 = *(a1 + 56);
+          v15 = *(v2 + 56);
           do
           {
-            v48[0] = *(v12 + 32);
-            v48[1] = v10;
-            Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v12 + 36), *(v12 + 64), *(v12 + 56));
-            v12 += 72;
-            v10 += 72;
+            v48[0] = *(v15 + 32);
+            v48[1] = v13;
+            Backend::Google::FindFullHashesRequestJSONSerializer::addHashPrefix(&buf, v48, (v15 + 36), *(v15 + 64), *(v15 + 56));
+            v15 += 72;
+            v13 += 72;
           }
 
-          while (v12 != v11);
+          while (v15 != v14);
         }
 
-        v13 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequestForAppleProtobuf((*(a1 + 32) + 16), &buf);
-        v14 = *(*(a1 + 32) + 88);
+        v16 = Backend::Google::Configuration::getEncodedFullHashesRequestURLRequestForAppleProtobuf((*(v2 + 32) + 16), &buf);
+        v17 = *(*(v2 + 32) + 88);
 
         Backend::Google::FindFullHashesRequestJSONSerializer::~FindFullHashesRequestJSONSerializer(&buf);
-        v15 = 0;
-        v7 = v14;
+        v18 = 0;
+        v10 = v17;
         break;
       default:
-        v15 = 0;
-        v13 = 0;
+        v18 = 0;
+        v16 = 0;
         break;
     }
 
-    v30 = SSBOSLogFullHash();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v33 = SSBOSLogFullHash(v8, v9);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      v31 = *(*(a1 + 32) + 124);
+      v34 = *(*(v2 + 32) + 124);
       LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
-      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v31;
-      _os_log_impl(&dword_2255EE000, v30, OS_LOG_TYPE_INFO, "Initiate request to %d server", &buf, 8u);
+      HIDWORD(buf.__r_.__value_.__r.__words[0]) = v34;
+      _os_log_impl(&dword_2255EE000, v33, OS_LOG_TYPE_INFO, "Initiate request to %d server", &buf, 8u);
     }
 
-    if (v47 && (Backend::xpcConnectionClientIsSafari(&v47) & 1) == 0)
+    if (v47 && !Backend::xpcConnectionClientIsSafari(&v47))
     {
-      v32 = Backend::xpcConnectionClientAuditTokenDataFromConnection(*(a1 + 80));
-      v33 = *(a1 + 32);
-      v34 = *(v33 + 124);
-      v35 = Backend::Google::Configuration::sessionForAuditTokenData(v33 + 16, v32, v7);
+      v35 = Backend::xpcConnectionClientAuditTokenDataFromConnection(*(v2 + 80));
+      v36 = Backend::Google::Configuration::sessionForAuditTokenData(*(v2 + 32) + 16, v35, v10);
 
-      v7 = v35;
+      v10 = v36;
     }
 
-    v36 = nw_activity_create();
+    v37 = nw_activity_create();
     nw_activity_activate();
     buf.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
     buf.__r_.__value_.__l.__size_ = 3321888768;
     buf.__r_.__value_.__r.__words[2] = ___ZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEv_block_invoke_10;
     v56 = &__block_descriptor_136_ea8_32c363_ZTSKZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvEUlP6NSDataP13NSURLResponseP7NSErrorE__e46_v32__0__NSData_8__NSURLResponse_16__NSError_24l;
-    v37 = *(a1 + 40);
-    v48[0] = *(a1 + 32);
-    v48[1] = v37;
-    if (v37)
+    v38 = *(v2 + 40);
+    v48[0] = *(v2 + 32);
+    v48[1] = v38;
+    if (v38)
     {
-      atomic_fetch_add_explicit(v37 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v38 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v49 = *(a1 + 96);
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v50, a1 + 104);
-    v38 = v36;
-    v51 = v38;
-    v52 = v15;
+    v49 = *(v2 + 96);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v50, v2 + 104);
+    v39 = v37;
+    v51 = v39;
+    v52 = v18;
     memset(v53, 0, sizeof(v53));
-    std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(v53, *(a1 + 56), *(a1 + 64), 0x8E38E38E38E38E39 * ((*(a1 + 64) - *(a1 + 56)) >> 3));
-    v54 = *(a1 + 49);
+    std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(v53, *(v2 + 56), *(v2 + 64), 0x8E38E38E38E38E39 * ((*(v2 + 64) - *(v2 + 56)) >> 3));
+    v54 = *(v2 + 49);
     Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(void)::{lambda(NSData *,NSURLResponse *,NSError *)#1}::NSError(&v57, v48);
-    v39 = [v7 dataTaskWithRequest:v13 completionHandler:&buf];
+    v40 = [v10 dataTaskWithRequest:v16 completionHandler:&buf];
     v42.__r_.__value_.__r.__words[0] = v53;
     std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v42);
 
@@ -4634,8 +4618,8 @@ void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Ful
       std::__shared_weak_count::__release_shared[abi:sn200100](v48[1]);
     }
 
-    [v39 set_nw_activity:v38];
-    [v39 resume];
+    [v40 set_nw_activity:v39];
+    [v40 resume];
 
     v48[0] = v61;
     std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](v48);
@@ -4647,18 +4631,16 @@ void ___ZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Ful
     }
 
     Backend::Google::ClientInfo::~ClientInfo(v46);
-    v40 = v47;
+    v41 = v47;
     v47 = 0;
-    if (v40)
+    if (v41)
     {
-      std::default_delete<std::string>::operator()[abi:sn200100](&v47, v40);
+      std::default_delete<std::string>::operator()[abi:sn200100](&v47, v41);
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562528C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void **a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43)
+void sub_22562528C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void **a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43)
 {
   if (*(v44 - 201) < 0)
   {
@@ -4699,15 +4681,15 @@ uint64_t Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Goog
   return a1;
 }
 
-void sub_225625508(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225625508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](va);
-  v4 = *(v2 + 8);
-  if (v4)
+  v5 = *(v3 + 8);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v5);
   }
 
   _Unwind_Resume(a1);
@@ -4743,262 +4725,266 @@ uint64_t Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Goog
 
 void Backend::Google::FullHashFetcher::didFetchFullHashes(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, int a7, uint64_t a8)
 {
-  v67[4] = *MEMORY[0x277D85DE8];
+  v69[4] = *MEMORY[0x277D85DE8];
   v15 = a2;
   v16 = a3;
   v17 = a4;
   v18 = a5;
   v19 = a6;
-  v20 = SSBOSLogFullHash();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v21 = SSBOSLogFullHash(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v35 = v15;
-    v21 = *(a1 + 124);
+    v37 = v15;
+    v22 = *(a1 + 124);
     *buf = 67109376;
-    *&buf[4] = v21;
+    *&buf[4] = v22;
     *&buf[8] = 1024;
     *&buf[10] = [v16 statusCode];
-    _os_log_impl(&dword_2255EE000, v20, OS_LOG_TYPE_INFO, "Received response from %d server with status code %d", buf, 0xEu);
-    v15 = v35;
+    _os_log_impl(&dword_2255EE000, v21, OS_LOG_TYPE_INFO, "Received response from %d server with status code %d", buf, 0xEu);
+    v15 = v37;
   }
 
-  if (!v18 && [v16 statusCode] == 200)
+  if (!v18)
   {
-    *buf = a1;
-    std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&buf[8], a1);
-    *&v63 = v19;
-    *(&v63 + 1) = v17;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v64, a8);
-    v22 = *(a1 + 124);
-    switch(v22)
+    v23 = [v16 statusCode];
+    if (v23 == 200)
     {
-      case 1:
-        goto LABEL_8;
-      case 2:
-        Backend::Google::FetchThreatListUpdatesResponseJSONParser::FetchThreatListUpdatesResponseJSONParser(&v40, v15);
-        Backend::Google::FindFullHashesResponseJSONParser::finish(v36, &v40);
-        LOBYTE(v46) = 0;
-        v50 = 0;
-        if (v39 == 1)
-        {
-          v46 = *v36;
-          v47 = v37;
-          v36[1] = 0;
-          v37 = 0;
-          v36[0] = 0;
-          v48[0] = v38[0];
-          *(v48 + 9) = *(v38 + 9);
-          v49 = 0;
-          v50 = 1;
-        }
-
-        Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator()(buf, &v46);
-        if (v50 == 1)
-        {
-          if (v49 != -1)
-          {
-            (off_2838CE7C8[v49])(&v45, &v46);
-          }
-
-          v49 = -1;
-        }
-
-        if (v39 == 1)
-        {
-          v45 = v36;
-          std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v45);
-        }
-
-        Backend::Google::FetchThreatListUpdatesResponseJSONParser::~FetchThreatListUpdatesResponseJSONParser(&v40);
-        break;
-      case 3:
-LABEL_8:
-        _ZNSt3__115allocate_sharedB8sn200100I12ByteProviderNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v36);
-        if (a7)
-        {
-          std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v36, &v43);
-          v56 = *buf;
-          v57 = v62;
-          *&buf[8] = 0;
-          v62 = 0;
-          v23 = v63;
-          v63 = 0uLL;
-          v58 = v23;
-          if (v65)
-          {
-            if (v65 == v64)
-            {
-              v60 = v59;
-              (*(*v65 + 24))(v65, v59);
-            }
-
-            else
-            {
-              v60 = v65;
-              v65 = 0;
-            }
-          }
-
-          else
-          {
-            v60 = 0;
-          }
-
-          *&v48[0] = 0;
-          v27 = operator new(0x50uLL);
-          *v27 = &unk_2838CE808;
-          *(v27 + 8) = v56;
-          v28 = v60;
-          *(v27 + 3) = v57;
-          *(&v56 + 1) = 0;
-          v57 = 0;
-          v29 = v58;
-          v58 = 0uLL;
-          *(v27 + 2) = v29;
-          if (v28)
-          {
-            if (v28 == v59)
-            {
-              *(v27 + 9) = v27 + 48;
-              (*(*v28 + 24))(v28);
-            }
-
-            else
-            {
-              *(v27 + 9) = v28;
-              v60 = 0;
-            }
-          }
-
-          else
-          {
-            *(v27 + 9) = 0;
-          }
-
-          *&v48[0] = v27;
-          Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(&v45, &v43, &v46);
-          std::__function::__value_func<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)>::~__value_func[abi:sn200100](&v46);
-          std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v59);
-
-          if (v57)
-          {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v57);
-          }
-
-          if (v44)
-          {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v44);
-          }
-        }
-
-        else
-        {
-          std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v36, &v41);
-          v51 = *buf;
-          v52 = v62;
-          *&buf[8] = 0;
-          v62 = 0;
-          v26 = v63;
-          v63 = 0uLL;
-          v53 = v26;
-          if (v65)
-          {
-            if (v65 == v64)
-            {
-              v55 = v54;
-              (*(*v65 + 24))(v65, v54);
-            }
-
-            else
-            {
-              v55 = v65;
-              v65 = 0;
-            }
-          }
-
-          else
-          {
-            v55 = 0;
-          }
-
-          *&v48[0] = 0;
-          v30 = operator new(0x50uLL);
-          *v30 = &unk_2838CE850;
-          *(v30 + 8) = v51;
-          v31 = v55;
-          *(v30 + 3) = v52;
-          *(&v51 + 1) = 0;
+      *buf = a1;
+      std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&buf[8], a1);
+      *&v65 = v19;
+      *(&v65 + 1) = v17;
+      std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v66, a8);
+      v25 = *(a1 + 124);
+      switch(v25)
+      {
+        case 1:
+          goto LABEL_8;
+        case 2:
+          Backend::Google::FetchThreatListUpdatesResponseJSONParser::FetchThreatListUpdatesResponseJSONParser(&v42, v15);
+          Backend::Google::FindFullHashesResponseJSONParser::finish(v38, &v42);
+          LOBYTE(v48) = 0;
           v52 = 0;
-          v32 = v53;
-          v53 = 0uLL;
-          *(v30 + 2) = v32;
-          if (v31)
+          if (v41 == 1)
           {
-            if (v31 == v54)
+            v48 = *v38;
+            v49 = v39;
+            v38[1] = 0;
+            v39 = 0;
+            v38[0] = 0;
+            v50[0] = v40[0];
+            *(v50 + 9) = *(v40 + 9);
+            v51 = 0;
+            v52 = 1;
+          }
+
+          Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator()(buf, &v48);
+          if (v52 == 1)
+          {
+            if (v51 != -1)
             {
-              *(v30 + 9) = v30 + 48;
-              (*(*v31 + 24))(v31);
+              (off_2838CE7C8[v51])(&v47, &v48);
+            }
+
+            v51 = -1;
+          }
+
+          if (v41 == 1)
+          {
+            v47 = v38;
+            std::vector<Backend::Google::FindFullHashesResponse::ThreatMatch>::__destroy_vector::operator()[abi:sn200100](&v47);
+          }
+
+          Backend::Google::FetchThreatListUpdatesResponseJSONParser::~FetchThreatListUpdatesResponseJSONParser(&v42);
+          break;
+        case 3:
+LABEL_8:
+          _ZNSt3__115allocate_sharedB8sn200100I12ByteProviderNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(v38);
+          if (a7)
+          {
+            std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v38, &v45);
+            v58 = *buf;
+            v59 = v64;
+            *&buf[8] = 0;
+            v64 = 0;
+            v26 = v65;
+            v65 = 0uLL;
+            v60 = v26;
+            if (v67)
+            {
+              if (v67 == v66)
+              {
+                v62 = v61;
+                (*(*v67 + 24))(v67, v61);
+              }
+
+              else
+              {
+                v62 = v67;
+                v67 = 0;
+              }
             }
 
             else
             {
-              *(v30 + 9) = v31;
-              v55 = 0;
+              v62 = 0;
+            }
+
+            *&v50[0] = 0;
+            v29 = operator new(0x50uLL);
+            *v29 = &unk_2838CE808;
+            *(v29 + 8) = v58;
+            v30 = v62;
+            *(v29 + 3) = v59;
+            *(&v58 + 1) = 0;
+            v59 = 0;
+            v31 = v60;
+            v60 = 0uLL;
+            *(v29 + 2) = v31;
+            if (v30)
+            {
+              if (v30 == v61)
+              {
+                *(v29 + 9) = v29 + 48;
+                (*(*v30 + 24))(v30);
+              }
+
+              else
+              {
+                *(v29 + 9) = v30;
+                v62 = 0;
+              }
+            }
+
+            else
+            {
+              *(v29 + 9) = 0;
+            }
+
+            *&v50[0] = v29;
+            Backend::Google::HashesSearchResponseParser::HashesSearchResponseParser(&v47, &v45, &v48);
+            std::__function::__value_func<void ()(std::optional<Backend::Google::HashesSearchResponse> &&)>::~__value_func[abi:sn200100](&v48);
+            std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v61);
+
+            if (v59)
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](v59);
+            }
+
+            if (v46)
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](v46);
             }
           }
 
           else
           {
-            *(v30 + 9) = 0;
+            std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v38, &v43);
+            v53 = *buf;
+            v54 = v64;
+            *&buf[8] = 0;
+            v64 = 0;
+            v28 = v65;
+            v65 = 0uLL;
+            v55 = v28;
+            if (v67)
+            {
+              if (v67 == v66)
+              {
+                v57 = v56;
+                (*(*v67 + 24))(v67, v56);
+              }
+
+              else
+              {
+                v57 = v67;
+                v67 = 0;
+              }
+            }
+
+            else
+            {
+              v57 = 0;
+            }
+
+            *&v50[0] = 0;
+            v32 = operator new(0x50uLL);
+            *v32 = &unk_2838CE850;
+            *(v32 + 8) = v53;
+            v33 = v57;
+            *(v32 + 3) = v54;
+            *(&v53 + 1) = 0;
+            v54 = 0;
+            v34 = v55;
+            v55 = 0uLL;
+            *(v32 + 2) = v34;
+            if (v33)
+            {
+              if (v33 == v56)
+              {
+                *(v32 + 9) = v32 + 48;
+                (*(*v33 + 24))(v33);
+              }
+
+              else
+              {
+                *(v32 + 9) = v33;
+                v57 = 0;
+              }
+            }
+
+            else
+            {
+              *(v32 + 9) = 0;
+            }
+
+            *&v50[0] = v32;
+            Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(&v47, &v43, &v48);
+            std::__function::__value_func<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__value_func[abi:sn200100](&v48);
+            std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v56);
+
+            if (v54)
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](v54);
+            }
+
+            if (v44)
+            {
+              std::__shared_weak_count::__release_shared[abi:sn200100](v44);
+            }
           }
 
-          *&v48[0] = v30;
-          Backend::Google::FindFullHashesResponseParser::FindFullHashesResponseParser(&v45, &v41, &v46);
-          std::__function::__value_func<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__value_func[abi:sn200100](&v46);
-          std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v54);
-
-          if (v52)
+          v35 = v38[0];
+          v36 = v15;
+          ByteProvider::dataReceived(v35, [(NSData *)v15 bytes], [(NSData *)v15 length]);
+          ByteProvider::finishedReadingSuccessfully(v38[0]);
+          if (v47)
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v52);
+            (v47[1])();
           }
 
-          if (v42)
+          if (v38[1])
           {
-            std::__shared_weak_count::__release_shared[abi:sn200100](v42);
+            std::__shared_weak_count::__release_shared[abi:sn200100](v38[1]);
           }
-        }
 
-        v33 = v36[0];
-        v34 = v15;
-        ByteProvider::dataReceived(v33, [(NSData *)v15 bytes], [(NSData *)v15 length]);
-        ByteProvider::finishedReadingSuccessfully(v36[0]);
-        if (v45)
-        {
-          (v45[1])();
-        }
+          break;
+      }
 
-        if (v36[1])
-        {
-          std::__shared_weak_count::__release_shared[abi:sn200100](v36[1]);
-        }
+      std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v66);
 
-        break;
+      if (v64)
+      {
+        std::__shared_weak_count::__release_shared[abi:sn200100](v64);
+      }
+
+      goto LABEL_15;
     }
-
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v64);
-
-    if (v62)
-    {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v62);
-    }
-
-    goto LABEL_15;
   }
 
-  v24 = SSBOSLogFullHash();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v27 = SSBOSLogFullHash(v23, v24);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    Backend::Google::FullHashFetcher::didFetchFullHashes(a1, v24);
+    Backend::Google::FullHashFetcher::didFetchFullHashes(a1, v27);
   }
 
   Backend::Google::BackoffTracker<std::chrono::system_clock>::didReceiveError(a1 + 128);
@@ -5008,16 +4994,14 @@ LABEL_8:
   block[2] = ___ZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEE_block_invoke;
   block[3] = &__block_descriptor_64_ea8_32c287_ZTSKZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEE3__1_e5_v8__0l;
   std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](buf, a8);
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v67, buf);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v69, buf);
   dispatch_async(v19, block);
   std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](buf);
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v67);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v69);
 LABEL_15:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225625D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_225625D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
 {
   std::__function::__value_func<void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__value_func[abi:sn200100](&a25);
   Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::~$_0(&a35);
@@ -5076,88 +5060,84 @@ uint64_t Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURL
 
 uint64_t Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator()(uint64_t *a1, uint64_t a2)
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v3 = *a1;
   if (*(a2 + 64))
   {
     *(v3 + 164) = 0;
     std::unique_ptr<Platform::Transaction>::reset[abi:sn200100]((v3 + 176), 0);
-    v5 = a1[4];
     nw_activity_complete_with_reason();
     if (*(a2 + 64) == 1)
     {
-      v16 = v3;
-      v6 = *(a2 + 56);
-      if (v6 == -1)
+      v13 = v3;
+      v5 = *(a2 + 56);
+      if (v5 == -1)
       {
         std::__throw_bad_variant_access[abi:sn200100]();
-        v15 = v14;
+        v12 = v11;
         std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](a1);
-        Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>&&)::{lambda(void)#2}::~(v17);
-        _Unwind_Resume(v15);
+        Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>&&)::{lambda(void)#2}::~(v14);
+        _Unwind_Resume(v12);
       }
 
-      v17[0] = &v16;
-      (off_2838CE7B8[v6])(v17, a2);
+      v14[0] = &v13;
+      (off_2838CE7B8[v5])(v14, a2);
     }
 
-    v7 = a1[3];
+    v6 = a1[3];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3321888768;
     block[2] = ___ZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK__block_invoke_19;
     block[3] = &__block_descriptor_128_ea8_32c304_ZTSKZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK_EUlvE0__e5_v8__0l;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v17, (a1 + 5));
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v14, (a1 + 5));
     if ((*(a2 + 64) & 1) == 0)
     {
       __break(1u);
     }
 
-    v8 = v21;
-    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:sn200100](v18, a2);
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v21, v17);
-    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:sn200100](v22, v18);
-    dispatch_async(v7, block);
-    if (v19 != -1)
+    v7 = v18;
+    std::__variant_detail::__move_constructor<std::__variant_detail::__traits<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:sn200100](v15, a2);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v18, v14);
+    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:sn200100](v19, v15);
+    dispatch_async(v6, block);
+    if (v16 != -1)
     {
-      (off_2838CE7C8[v19])(&v16, v18);
+      (off_2838CE7C8[v16])(&v13, v15);
     }
 
-    v19 = -1;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v17);
-    if (v23 != -1)
+    v16 = -1;
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v14);
+    if (v20 != -1)
     {
-      (off_2838CE7C8[v23])(v17, v22);
+      (off_2838CE7C8[v20])(v14, v19);
     }
 
-    v23 = -1;
+    v20 = -1;
   }
 
   else
   {
-    v9 = SSBOSLogFullHash();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SSBOSLogFullHash(a1, a2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator()(v3, v9);
+      Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator()(v3, v8);
     }
 
     Backend::Google::BackoffTracker<std::chrono::system_clock>::didReceiveError(v3 + 128);
-    v10 = a1[4];
     nw_activity_complete_with_reason();
-    v11 = a1[3];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3321888768;
-    v24[2] = ___ZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK__block_invoke;
-    v24[3] = &__block_descriptor_64_ea8_32c303_ZTSKZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK_EUlvE__e5_v8__0l;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v17, (a1 + 5));
-    v8 = v25;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v25, v17);
-    dispatch_async(v11, v24);
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v17);
+    v9 = a1[3];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3321888768;
+    v21[2] = ___ZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK__block_invoke;
+    v21[3] = &__block_descriptor_64_ea8_32c303_ZTSKZZN7Backend6Google15FullHashFetcher18didFetchFullHashesEP6NSDataP17NSHTTPURLResponsePU25objcproto14OS_nw_activity8NSObjectP7NSErrorPU28objcproto17OS_dispatch_queueS6_bNSt3__18functionIFvNSD_8optionalINSD_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEOSK_EUlvE__e5_v8__0l;
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v14, (a1 + 5));
+    v7 = v22;
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v22, v14);
+    dispatch_async(v9, v21);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v14);
   }
 
-  result = std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v8);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v7);
 }
 
 void Backend::Google::FullHashFetcher::setMinimumWaitDuration(uint64_t a1, uint64_t a2)
@@ -5290,7 +5270,7 @@ uint64_t ___ZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_
 
 void ___ZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEv_block_invoke_10(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v35[3] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5304,52 +5284,50 @@ void ___ZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15Fu
   block[2] = ___ZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU__block_invoke;
   block[3] = &__block_descriptor_160_ea8_32c384_ZTSKZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU_EUlvE__e5_v8__0l;
   v15 = *(a1 + 40);
-  v21 = v13;
-  v22 = v15;
+  v20 = v13;
+  v21 = v15;
   if (v15)
   {
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v23 = *(a1 + 48);
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v24, a1 + 56);
-  v24[32] = *(a1 + 128);
-  v25 = *(a1 + 88);
+  v22 = *(a1 + 48);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v23, a1 + 56);
+  v23[32] = *(a1 + 128);
+  v24 = *(a1 + 88);
   v16 = v10;
-  v26 = v16;
+  v25 = v16;
   v17 = v11;
-  v27 = v17;
+  v26 = v17;
   v18 = v12;
-  v28 = v18;
-  v29 = *(a1 + 96);
-  memset(v30, 0, sizeof(v30));
-  std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(v30, *(a1 + 104), *(a1 + 112), 0x8E38E38E38E38E39 * ((*(a1 + 112) - *(a1 + 104)) >> 3));
-  Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(void)::{lambda(NSData *,NSURLResponse *,NSError *)#1}::operator() const(NSData *,NSURLResponse *,NSError *)::{lambda(void)#1}::(&v32, &v21);
+  v27 = v18;
+  v28 = *(a1 + 96);
+  memset(v29, 0, sizeof(v29));
+  std::vector<Backend::Google::FullHashRequest>::__init_with_size[abi:sn200100]<Backend::Google::FullHashRequest*,Backend::Google::FullHashRequest*>(v29, *(a1 + 104), *(a1 + 112), 0x8E38E38E38E38E39 * ((*(a1 + 112) - *(a1 + 104)) >> 3));
+  Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(void)::{lambda(NSData *,NSURLResponse *,NSError *)#1}::operator() const(NSData *,NSURLResponse *,NSError *)::{lambda(void)#1}::(&v31, &v20);
   dispatch_async(v14, block);
-  v20 = v30;
+  v19 = v29;
+  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v19);
+
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v23);
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](v21);
+  }
+
+  v20 = v35;
   std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v20);
 
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v24);
-  if (v22)
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v34);
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v22);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v32);
   }
-
-  v21 = v36;
-  std::vector<Backend::Google::FullHashRequest>::__destroy_vector::operator()[abi:sn200100](&v21);
-
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v35);
-  if (v33)
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v33);
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225626780(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
+void sub_225626780(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   Backend::Google::FullHashFetcher::fetchHashes(std::vector<Backend::Google::FullHashRequest>,NSObject  {objcproto13OS_xpc_object}*,ProxyConfiguration *,NSObject {objcproto17OS_dispatch_queue}*,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0::operator() const(void)::{lambda(NSData *,NSURLResponse *,NSError *)#1}::operator() const(NSData *,NSURLResponse *,NSError *)::{lambda(void)#1}::~(va);
 
   _Unwind_Resume(a1);
@@ -5472,49 +5450,47 @@ uint64_t std::__function::__value_func<void ()(std::optional<std::variant<Backen
 
 uint64_t ___ZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU__block_invoke(uint64_t a1)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 128) == 1 && *(a1 + 120) && [ProxyConfiguration isProxyError:?])
+  v17[4] = *MEMORY[0x277D85DE8];
+  if (*(a1 + 128) == 1 && *(a1 + 120) && (v2 = [ProxyConfiguration isProxyError:?], v2))
   {
-    v2 = SSBOSLogDatabase();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = SSBOSLogDatabase(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ___ZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU__block_invoke_cold_1(v2);
+      ___ZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU__block_invoke_cold_1(v4);
     }
 
-    v3 = *(a1 + 48);
+    v5 = *(a1 + 48);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3321888768;
     block[2] = ___ZZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU_ENKUlvE_clEv_block_invoke;
     block[3] = &__block_descriptor_64_ea8_32c397_ZTSKZZZZN7Backend6Google15FullHashFetcher11fetchHashesENSt3__16vectorINS0_15FullHashRequestENS2_9allocatorIS4_EEEEPU24objcproto13OS_xpc_object8NSObjectP18ProxyConfigurationPU28objcproto17OS_dispatch_queueS8_NS2_8functionIFvNS2_8optionalINS2_7variantIJNS0_22FindFullHashesResponseENS0_20HashesSearchResponseEEEEEEEEEENK3__0clEvENKUlP6NSDataP13NSURLResponseP7NSErrorE_clESQ_SS_SU_ENKUlvE_clEvEUlvE__e5_v8__0l;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v14, a1 + 56);
-    v4 = v16;
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v16, v14);
-    dispatch_async(v3, block);
-    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v14);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v15, a1 + 56);
+    v6 = v17;
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](v17, v15);
+    dispatch_async(v5, block);
+    std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v15);
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v7 = *(a1 + 96);
-    v6 = *(a1 + 104);
-    v9 = *(a1 + 112);
-    v8 = *(a1 + 120);
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 88);
+    v7 = *(a1 + 32);
+    v9 = *(a1 + 96);
+    v8 = *(a1 + 104);
+    v11 = *(a1 + 112);
+    v10 = *(a1 + 120);
+    v12 = *(a1 + 48);
+    v13 = *(a1 + 88);
     std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::__value_func[abi:sn200100](block, a1 + 56);
-    v4 = block;
-    Backend::Google::FullHashFetcher::didFetchFullHashes(v5, v6, v9, v7, v8, v10, v11 & 1, block);
+    v6 = block;
+    Backend::Google::FullHashFetcher::didFetchFullHashes(v7, v8, v11, v9, v10, v12, v13 & 1, block);
   }
 
-  result = std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v4);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](v6);
 }
 
-void sub_225626BC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225626BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5739,12 +5715,12 @@ uint64_t std::__variant_detail::__copy_constructor<std::__variant_detail::__trai
   return a1;
 }
 
-void sub_2256272FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
+void sub_2256272FC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
   v15 = *(v13 + 56);
   if (v15 != -1)
   {
-    (off_2838CE7C8[v15])(&a13, v13);
+    (off_2838CE7C8[v15])(&a13, v13, a3, a4, a5, a6, a7, a8);
   }
 
   *(v13 + 56) = -1;
@@ -5772,7 +5748,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<Backend::
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8sn200100IOZNS0_6__ctorINS0_8__traitsIJN7Backend6Google22FindFullHashesResponseENS9_20HashesSearchResponseEEEEE19__generic_constructB8sn200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(void *result, uint64_t *a2)
+void **_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8sn200100IOZNS0_6__ctorINS0_8__traitsIJN7Backend6Google22FindFullHashesResponseENS9_20HashesSearchResponseEEEEE19__generic_constructB8sn200100IRKNS0_18__copy_constructorISC_LNS0_6_TraitE1EEEEEvRSD_OT_EUlSM_E_JRKNS0_6__baseILSG_1EJSA_SB_EEEEEEDcSL_DpT0_(void **result, uint64_t *a2)
 {
   v2 = *result;
   if (*result)
@@ -5829,12 +5805,12 @@ uint64_t std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullH
   return a1;
 }
 
-void std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0,std::allocator<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0>,void ()(std::optional<Backend::Google::HashesSearchResponse> &&)>::~__func(void *a1)
+void std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0,std::allocator<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0>,void ()(std::optional<Backend::Google::HashesSearchResponse> &&)>::~__func(id *a1)
 {
   *a1 = &unk_2838CE808;
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](a1 + 48);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100]((a1 + 6));
 
-  v2 = *(a1 + 3);
+  v2 = a1[3];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v2);
@@ -5934,8 +5910,7 @@ uint64_t std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullH
     v5 = *a2;
     v2 = *(a2 + 2);
     v3 = *(a2 + 3);
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v2;
     v7 = v3;
@@ -5976,12 +5951,12 @@ uint64_t std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullH
   return a1;
 }
 
-void std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0,std::allocator<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0>,void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__func(void *a1)
+void std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0,std::allocator<Backend::Google::FullHashFetcher::didFetchFullHashes(NSData *,NSHTTPURLResponse *,NSObject  {objcproto14OS_nw_activity}*,NSError *,NSObject {objcproto17OS_dispatch_queue}*,BOOL,std::function<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>)::$_0>,void ()(std::optional<Backend::Google::FindFullHashesResponse> &&)>::~__func(id *a1)
 {
   *a1 = &unk_2838CE850;
-  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100](a1 + 48);
+  std::__function::__value_func<void ()(std::optional<std::variant<Backend::Google::FindFullHashesResponse,Backend::Google::HashesSearchResponse>>)>::~__value_func[abi:sn200100]((a1 + 6));
 
-  v2 = *(a1 + 3);
+  v2 = a1[3];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v2);
@@ -6080,8 +6055,7 @@ uint64_t std::__function::__func<Backend::Google::FullHashFetcher::didFetchFullH
   {
     v3 = *a2;
     v4 = *(a2 + 2);
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v5[0] = *(a2 + 24);
     *(v5 + 9) = *(a2 + 33);
@@ -6172,7 +6146,7 @@ id Backend::Google::FullHashRequest::toXPC(Backend::Google::FullHashRequest *thi
 
 void Backend::Google::FullHashRequest::fromXPC(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = xpc_dictionary_get_value(v3, "fullHash");
   v5 = v4;
@@ -6182,13 +6156,12 @@ void Backend::Google::FullHashRequest::fromXPC(void *a1@<X0>, uint64_t a2@<X8>)
     *(a2 + 72) = 0;
 LABEL_13:
 
-    v15 = *MEMORY[0x277D85DE8];
     return;
   }
 
   v8 = xpc_dictionary_get_value(v3, "prefixSize");
   v9 = v8;
-  if (!v8 || MEMORY[0x22AA67EF0](v8) != MEMORY[0x277D864C8] || (value = xpc_uint64_get_value(v9), v11 = value, value >= 0x21) || (xpc_dictionary_get_value(v3, "threatListDescriptor"), v12 = objc_claimAutoreleasedReturnValue(), Backend::Google::ThreatListDescriptor::fromXPC(v12, &v22), v12, (v23 & 1) == 0))
+  if (!v8 || MEMORY[0x22AA67EF0](v8) != MEMORY[0x277D864C8] || (value = xpc_uint64_get_value(v9), v11 = value, value >= 0x21) || (xpc_dictionary_get_value(v3, "threatListDescriptor"), v12 = objc_claimAutoreleasedReturnValue(), Backend::Google::ThreatListDescriptor::fromXPC(v12, &v21), v12, (v22 & 1) == 0))
   {
     *a2 = 0;
     *(a2 + 72) = 0;
@@ -6210,32 +6183,32 @@ LABEL_22:
 
   bytes_ptr = xpc_data_get_bytes_ptr(v14);
   length = xpc_data_get_length(v14);
-  if (v23)
+  if (v22)
   {
-    v18 = length;
-    v19 = operator new[](length);
-    bzero(v19, v18);
-    if (v18)
+    v17 = length;
+    v18 = operator new[](length);
+    bzero(v18, v17);
+    if (v17)
     {
-      memmove(v19, bytes_ptr, v18);
+      memmove(v18, bytes_ptr, v17);
     }
 
-    v20 = buffer[1];
+    v19 = buffer[1];
     *a2 = buffer[0];
-    *(a2 + 16) = v20;
+    *(a2 + 16) = v19;
     *(a2 + 32) = v11;
-    *(a2 + 36) = v22;
-    *(a2 + 56) = v18;
-    v21 = operator new[](v18);
-    bzero(v21, v18);
-    *(a2 + 64) = v21;
-    if (v18)
+    *(a2 + 36) = v21;
+    *(a2 + 56) = v17;
+    v20 = operator new[](v17);
+    bzero(v20, v17);
+    *(a2 + 64) = v20;
+    if (v17)
     {
-      memcpy(v21, v19, v18);
+      memcpy(v20, v18, v17);
     }
 
     *(a2 + 72) = 1;
-    operator delete[](v19);
+    operator delete[](v18);
     goto LABEL_22;
   }
 
@@ -6362,69 +6335,68 @@ void Backend::Google::LexicographicallyOrderedHashEnumerator::~Lexicographically
   }
 }
 
-unsigned __int8 ***Backend::Google::LexicographicallyOrderedHashEnumerator::next@<X0>(unsigned __int8 ***this@<X0>, uint64_t a2@<X8>)
+unsigned __int8 ***Backend::Google::LexicographicallyOrderedHashEnumerator::next@<X0>(uint64_t *__return_ptr a1@<X8>, unsigned __int8 ***this@<X0>)
 {
-  v3 = *this;
-  v4 = this[1];
-  v5 = *this;
-  if (*this == v4)
+  v3 = this[1];
+  v4 = *this;
+  if (*this == v3)
   {
-    v15 = 0;
-    *a2 = 0;
+    v14 = 0;
+    *a1 = 0;
     goto LABEL_19;
   }
 
-  v6 = this;
-  for (i = v5 + 3; i != v4; i += 3)
+  v5 = this;
+  for (i = v4 + 3; i != v3; i += 3)
   {
-    v8 = *(i + 8);
-    v9 = *(v5 + 8);
-    if (v9 >= v8)
+    v7 = *(i + 8);
+    v8 = *(v4 + 8);
+    if (v8 >= v7)
     {
-      v10 = *(i + 8);
+      v9 = *(i + 8);
     }
 
     else
     {
-      v10 = *(v5 + 8);
+      v9 = *(v4 + 8);
     }
 
-    this = memcmp(i[2], v5[2], v10);
-    v11 = v8 < v9;
+    this = memcmp(i[2], v4[2], v9);
+    v10 = v7 < v8;
     if (this)
     {
-      v11 = this < 0;
+      v10 = this < 0;
     }
 
-    if (v11)
+    if (v10)
     {
-      v5 = i;
+      v4 = i;
     }
   }
 
-  v12 = *(v5 + 8);
-  v13 = v5[2];
-  v5[2] = &v13[v12];
-  if (&v13[v12] != (*(*v5 + 1) + *(*v5 + 1) * **v5))
+  v11 = *(v4 + 8);
+  v12 = v4[2];
+  v4[2] = (v12 + v11);
+  if (v12 + v11 != *(*v4 + 1) + *(*v4 + 1) * **v4)
   {
 LABEL_17:
-    *a2 = v12;
-    *(a2 + 8) = v13;
-    v15 = 1;
+    *a1 = v11;
+    a1[1] = v12;
+    v14 = 1;
 LABEL_19:
-    *(a2 + 16) = v15;
+    *(a1 + 16) = v14;
     return this;
   }
 
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v14 = v4 - (v5 + 3);
-    if (v14)
+    v13 = v3 - (v4 + 3);
+    if (v13)
     {
-      this = memmove(v5, v5 + 3, v14);
+      this = memmove(v4, v4 + 3, v13);
     }
 
-    *(v6 + 8) = v5 + v14;
+    v5[1] = (v4 + v13);
     goto LABEL_17;
   }
 
@@ -6459,7 +6431,7 @@ SafeBrowsing::LookupContext *SafeBrowsing::LookupContext::LookupContext(SafeBrow
   return this;
 }
 
-void sub_225628548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_225628548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v13 = v12;
   std::__hash_table<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::function<void ()(Backend::Google::DatabaseConfiguration)>>>>::~__hash_table(v11);
@@ -6514,9 +6486,9 @@ void SafeBrowsing::LookupContext::~LookupContext(SafeBrowsing::LookupContext *th
   }
 }
 
-void sub_22562862C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_22562862C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  a10 = (v10 + 168);
+  a10 = v10 + 168;
   std::vector<std::function<void ()(BOOL,std::error_code)>>::__destroy_vector::operator()[abi:sn200100](&a10);
   v12 = *(v10 + 128);
   if (v12)
@@ -6530,55 +6502,54 @@ void sub_22562862C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t SafeBrowsing::LookupContext::addDatabaseUpdateObserver(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   add = atomic_fetch_add((a1 + 72), 1u);
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v8, a1);
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v7, a1);
   v5 = *(a1 + 16);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext25addDatabaseUpdateObserverENSt3__18functionIFvN7Backend6Google21DatabaseConfigurationEEEE_block_invoke;
   block[3] = &__block_descriptor_88_ea8_32c131_ZTSKZN12SafeBrowsing13LookupContext25addDatabaseUpdateObserverENSt3__18functionIFvN7Backend6Google21DatabaseConfigurationEEEEE3__0_e5_v8__0l;
+  v9 = v7;
   v10 = v8;
-  v11 = v9;
-  if (v9)
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v12, a2);
-  v13 = add;
-  block[4] = v10;
-  v15 = v11;
-  if (v11)
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v11, a2);
+  v12 = add;
+  block[4] = v9;
+  v14 = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v16, v12);
-  v16[8] = v13;
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::__value_func[abi:sn200100](v15, v11);
+  v15[8] = v12;
   dispatch_async(v5, block);
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v12);
-  if (v11)
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v11);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
   }
 
-  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v16);
-  if (v15)
+  std::__function::__value_func<void ()(Backend::Google::DatabaseConfiguration)>::~__value_func[abi:sn200100](v15);
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v15);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v14);
   }
 
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return add;
 }
 
-void sub_2256287C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_2256287C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   if (a24)
   {
@@ -6594,7 +6565,7 @@ void sub_2256287C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *___ZN12SafeBrowsing13LookupContext25addDatabaseUpdateObserverENSt3__18functionIFvN7Backend6Google21DatabaseConfigurationEEEE_block_invoke(uint64_t a1)
+char *___ZN12SafeBrowsing13LookupContext25addDatabaseUpdateObserverENSt3__18functionIFvN7Backend6Google21DatabaseConfigurationEEEE_block_invoke(uint64_t a1)
 {
   SafeBrowsing::LookupContext::registerForUpdateNotifications(*(a1 + 32));
   v2 = *(a1 + 32);
@@ -6723,51 +6694,49 @@ void __destroy_helper_block_ea8_32c73_ZTSKZN12SafeBrowsing13LookupContext28remov
 
 void SafeBrowsing::LookupContext::forceDatabaseUpdate(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext19forceDatabaseUpdateENSt3__18functionIFvNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c102_ZTSKZN12SafeBrowsing13LookupContext19forceDatabaseUpdateENSt3__18functionIFvNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225628BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_225628BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -6789,10 +6758,10 @@ void ___ZN12SafeBrowsing13LookupContext19forceDatabaseUpdateENSt3__18functionIFv
   v5 = SafeBrowsing::createMessage(1u);
   xpc_connection_send_message(*(*(a1 + 32) + 24), v5);
   v2 = *(a1 + 32);
-  v3 = v2[7];
-  if (v3 >= v2[8])
+  v3 = *(v2 + 56);
+  if (v3 >= *(v2 + 64))
   {
-    v4 = std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)> const&>(v2 + 6, a1 + 48);
+    v4 = std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)> const&>((v2 + 48), a1 + 48);
   }
 
   else
@@ -6803,12 +6772,12 @@ void ___ZN12SafeBrowsing13LookupContext19forceDatabaseUpdateENSt3__18functionIFv
       return;
     }
 
-    std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v2[7], a1 + 48);
+    std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](*(v2 + 56), a1 + 48);
     v4 = v3 + 32;
-    v2[7] = v3 + 32;
+    *(v2 + 56) = v3 + 32;
   }
 
-  v2[7] = v4;
+  *(v2 + 56) = v4;
 }
 
 void sub_225628CA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -6867,51 +6836,49 @@ uint64_t SafeBrowsing::LookupContext::forceDatabaseUpdate(std::function<void ()(
 
 void SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225628EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_225628EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -6929,7 +6896,7 @@ void sub_225628EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(0xBu);
@@ -6941,42 +6908,40 @@ void ___ZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENS
   handler[2] = ___ZZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c169_ZTSKZZN12SafeBrowsing13LookupContext36forceDeviceIdentificationTokenUpdateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225629090(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225629090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -7036,23 +7001,24 @@ void SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateRepl
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
     v7 = Platform::xpcErrorCode(v4);
+    v9 = v7;
     cat = v8;
     *&v13.__val_ = v7;
     v13.__cat_ = v8;
     if (v7)
     {
-      v10 = SSBOSLogDatabase();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SSBOSLogDatabase(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         std::error_code::message(&v12, &v13);
-        SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateReply(&v12);
+        SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateReply();
       }
 
-      v7 = *&v13.__val_;
+      v9 = *&v13.__val_;
       cat = v13.__cat_;
     }
 
-    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v7, cat);
+    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v9, cat);
   }
 
   else
@@ -7061,11 +7027,9 @@ void SafeBrowsing::LookupContext::handleForceDeviceIdentificationTokenUpdateRepl
     v6 = std::system_category();
     std::function<void ()(BOOL,std::error_code)>::operator()(a3, v5, 0, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::function<void ()(BOOL,std::error_code)>::operator()(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
+void std::function<void ()(BOOL,std::error_code)>::operator()(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
 {
   v8[0] = a3;
   v8[1] = a4;
@@ -7073,61 +7037,64 @@ uint64_t std::function<void ()(BOOL,std::error_code)>::operator()(uint64_t a1, c
   v4 = *(a1 + 24);
   if (v4)
   {
-    return (*(*v4 + 48))(v4, &v7, v8);
+    (*(*v4 + 48))(v4, &v7, v8);
   }
 
-  v6 = std::__throw_bad_function_call[abi:sn200100]();
-  return SafeBrowsing::LookupContext::getDatabaseStatus(v6);
+  else
+  {
+    v5 = std::__throw_bad_function_call[abi:sn200100]();
+    SafeBrowsing::LookupContext::getDatabaseStatus(v5, v6);
+  }
 }
 
 void SafeBrowsing::LookupContext::getDatabaseStatus(void *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v15, a1);
+  v26 = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v14, a1);
   v4 = a1[2];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3321888768;
-  v13[2] = ___ZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEE_block_invoke;
-  v13[3] = &__block_descriptor_48_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEEE3__1_e5_v8__0l;
-  v5 = v15;
-  if (*(&v15 + 1))
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3321888768;
+  v12[2] = ___ZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEE_block_invoke;
+  v12[3] = &__block_descriptor_48_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEEE3__1_e5_v8__0l;
+  v5 = v14;
+  if (*(&v14 + 1))
   {
-    atomic_fetch_add_explicit((*(&v15 + 1) + 8), 1uLL, memory_order_relaxed);
-    v14 = v5;
+    atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+    v13 = v5;
     atomic_fetch_add_explicit((*(&v5 + 1) + 8), 1uLL, memory_order_relaxed);
-    dispatch_async(v4, v13);
+    dispatch_async(v4, v12);
     std::__shared_weak_count::__release_shared[abi:sn200100](*(&v5 + 1));
   }
 
   else
   {
-    v14 = v15;
-    dispatch_async(v4, v13);
+    v13 = v14;
+    dispatch_async(v4, v12);
   }
 
   v6 = dispatch_group_create();
   dispatch_group_enter(v6);
-  v21 = v15;
-  if (*(&v15 + 1))
+  v20 = v14;
+  if (*(&v14 + 1))
   {
-    atomic_fetch_add_explicit((*(&v15 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   v7 = v6;
-  v22 = v7;
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v23, a2);
-  v26 = 0;
+  v21 = v7;
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v22, a2);
+  v25 = 0;
   v8 = operator new(0x40uLL);
   *v8 = &unk_2838CEE38;
-  *(v8 + 8) = v21;
-  v21 = 0uLL;
-  v9 = v22;
-  v10 = v24;
-  v22 = 0;
+  *(v8 + 8) = v20;
+  v20 = 0uLL;
+  v9 = v21;
+  v10 = v23;
+  v21 = 0;
   *(v8 + 3) = v9;
   if (v10)
   {
-    if (v10 == v23)
+    if (v10 == v22)
     {
       *(v8 + 7) = v8 + 32;
       (*(*v10 + 24))(v10);
@@ -7136,7 +7103,7 @@ void SafeBrowsing::LookupContext::getDatabaseStatus(void *a1, uint64_t a2)
     else
     {
       *(v8 + 7) = v10;
-      v24 = 0;
+      v23 = 0;
     }
   }
 
@@ -7145,14 +7112,14 @@ void SafeBrowsing::LookupContext::getDatabaseStatus(void *a1, uint64_t a2)
     *(v8 + 7) = 0;
   }
 
-  v26 = v8;
-  SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(a1, 1, v25);
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v25);
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v23);
+  v25 = v8;
+  SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(a1, 1, v24);
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v24);
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v22);
 
-  if (*(&v21 + 1))
+  if (*(&v20 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v21 + 1));
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v20 + 1));
   }
 
   v11 = a1[2];
@@ -7160,47 +7127,45 @@ void SafeBrowsing::LookupContext::getDatabaseStatus(void *a1, uint64_t a2)
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEE_block_invoke_7;
   block[3] = &__block_descriptor_80_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS_14DatabaseStatusENS1_10error_codeEEEEE3__2_e5_v8__0l;
-  v16 = v15;
+  v15 = v14;
+  if (*(&v14 + 1))
+  {
+    atomic_fetch_add_explicit((*(&v14 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v16, a2);
+  v18 = v15;
   if (*(&v15 + 1))
   {
     atomic_fetch_add_explicit((*(&v15 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v17, a2);
-  v19 = v16;
-  if (*(&v16 + 1))
-  {
-    atomic_fetch_add_explicit((*(&v16 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v20, v17);
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::__value_func[abi:sn200100](v19, v16);
   dispatch_group_notify(v7, v11, block);
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v17);
-  if (*(&v16 + 1))
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v16);
+  if (*(&v15 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v16 + 1));
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v15 + 1));
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v20);
-  if (*(&v19 + 1))
+  std::__function::__value_func<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::~__value_func[abi:sn200100](v19);
+  if (*(&v18 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v19 + 1));
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v18 + 1));
+  }
+
+  if (*(&v13 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v13 + 1));
   }
 
   if (*(&v14 + 1))
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](*(&v14 + 1));
   }
-
-  if (*(&v15 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v15 + 1));
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562964C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28)
+void sub_22562964C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, std::__shared_weak_count *a28)
 {
   if (a28)
   {
@@ -7255,53 +7220,51 @@ void __destroy_helper_block_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext17getD
 
 void SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(void *a1, int a2, uint64_t a3)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v8, a1);
+  v16[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v7, a1);
   v6 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_88_ea8_32c149_ZTSKZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEEE3__0_e5_v8__0l;
+  v9 = v7;
   v10 = v8;
-  v11 = v9;
-  if (v9)
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v12 = a2;
-  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v13, a3);
-  block[4] = v10;
+  v11 = a2;
+  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v12, a3);
+  block[4] = v9;
+  v14 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
   v15 = v11;
-  if (v11)
-  {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v16 = v12;
-  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v17, v13);
+  std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v16, v12);
   dispatch_async(v6, block);
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v11)
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
   }
 
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v17);
-  if (v15)
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v16);
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v15);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v14);
   }
 
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225629888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+void sub_225629888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
 {
   if (a24)
   {
@@ -7343,7 +7306,7 @@ void ___ZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS
 
   else
   {
-    SafeBrowsing::LookupContext::databaseStatus(v2, v6);
+    SafeBrowsing::LookupContext::databaseStatus(v6, v2);
     v5 = std::system_category();
     std::function<void ()(SafeBrowsing::DatabaseStatus,std::error_code)>::operator()(a1 + 48, v6, 0, v5);
   }
@@ -7352,9 +7315,9 @@ void ___ZN12SafeBrowsing13LookupContext17getDatabaseStatusENSt3__18functionIFvNS
   std::vector<SafeBrowsing::DatabaseStatus::Database>::__destroy_vector::operator()[abi:sn200100](&v7);
 }
 
-void sub_225629994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_225629994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<SafeBrowsing::DatabaseStatus::Database>::__destroy_vector::operator()[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7408,51 +7371,49 @@ uint64_t SafeBrowsing::LookupContext::getDatabaseStatus(std::function<void ()(Sa
 
 void SafeBrowsing::LookupContext::getServiceStatus(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c118_ZTSKZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225629BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_225629BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -7470,7 +7431,7 @@ void sub_225629BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(3u);
@@ -7482,42 +7443,40 @@ void ___ZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_
   handler[2] = ___ZZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c167_ZTSKZZN12SafeBrowsing13LookupContext16getServiceStatusENSt3__18functionIFvNS_13ServiceStatusENS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_225629D78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_225629D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::getServiceStatus(std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::getServiceStatus(std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::getServiceStatus(std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -7570,109 +7529,110 @@ uint64_t SafeBrowsing::LookupContext::getServiceStatus(std::function<void ()(Saf
   return a1;
 }
 
-void SafeBrowsing::LookupContext::lookUpURL(void *a1, void *a2, unsigned int a3, unsigned int a4, int a5, uint64_t a6)
+void SafeBrowsing::LookupContext::lookUpURL(void *a1, void *a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v8 = a4;
+  v9 = a3;
+  v33[4] = *MEMORY[0x277D85DE8];
   v11 = a2;
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v21, a1);
-  if ([v11 ssb_isSafeURL])
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v22, a1);
+  v12 = [v11 ssb_isSafeURL];
+  if (v12)
   {
-    v12 = SSBOSLogLookup();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = SSBOSLogLookup(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      SafeBrowsing::LookupContext::lookUpURL(v11, v12);
+      SafeBrowsing::LookupContext::lookUpURL(v11, v14);
     }
 
-    v13 = a1[2];
+    v15 = a1[2];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3321888768;
     block[2] = ___ZN12SafeBrowsing13LookupContext9lookUpURLEP5NSURLNS_11IsMainFrameENS_24ClientConfidenceOfSafetyENS_17IgnoreEnableStateENSt3__18functionIFvNS6_6vectorIN7Backend12LookupResultENS6_9allocatorISA_EEEENS6_10error_codeEEEE_block_invoke;
     block[3] = &__block_descriptor_64_ea8_32c226_ZTSKZN12SafeBrowsing13LookupContext9lookUpURLEP5NSURLNS_11IsMainFrameENS_24ClientConfidenceOfSafetyENS_17IgnoreEnableStateENSt3__18functionIFvNS6_6vectorIN7Backend12LookupResultENS6_9allocatorISA_EEEENS6_10error_codeEEEEE3__1_e5_v8__0l;
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v30, a6);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v32, v30);
-    dispatch_async(v13, block);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v30);
-    v14 = v32;
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v31, a6);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v33, v31);
+    dispatch_async(v15, block);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v31);
+    v16 = v33;
     goto LABEL_12;
   }
 
-  v15 = v21;
+  v17 = v22;
   if (!a5)
   {
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v29, a6);
-    SafeBrowsing::LookupContext::performURLLookup(v15, v11, a3, a4, v29);
-    v14 = v29;
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v30, a6);
+    SafeBrowsing::LookupContext::performURLLookup(v17, v11, v9, v8, v30);
+    v16 = v30;
 LABEL_12:
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v14);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v16);
     goto LABEL_17;
   }
 
-  v22 = v21;
-  if (*(&v21 + 1))
+  v23 = v22;
+  if (*(&v22 + 1))
   {
-    atomic_fetch_add_explicit((*(&v21 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v22 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v23 = v11;
-  v24 = __PAIR64__(a4, a3);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v25, a6);
-  v28 = 0;
-  v16 = operator new(0x48uLL);
-  *v16 = &unk_2838CEE80;
-  *(v16 + 8) = v22;
-  v22 = 0uLL;
-  v17 = v23;
-  v18 = v24;
-  v23 = 0;
-  *(v16 + 3) = v17;
-  *(v16 + 4) = v18;
-  v19 = v26;
-  if (v26)
+  v24 = v11;
+  v25 = __PAIR64__(v8, v9);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v26, a6);
+  v29 = 0;
+  v18 = operator new(0x48uLL);
+  *v18 = &unk_2838CEE80;
+  *(v18 + 8) = v23;
+  v23 = 0uLL;
+  v19 = v24;
+  v20 = v25;
+  v24 = 0;
+  *(v18 + 3) = v19;
+  *(v18 + 4) = v20;
+  v21 = v27;
+  if (v27)
   {
-    if (v26 == v25)
+    if (v27 == v26)
     {
-      *(v16 + 8) = v16 + 40;
-      (*(*v19 + 24))(v19);
+      *(v18 + 8) = v18 + 40;
+      (*(*v21 + 24))(v21);
     }
 
     else
     {
-      *(v16 + 8) = v26;
-      v26 = 0;
+      *(v18 + 8) = v27;
+      v27 = 0;
     }
   }
 
   else
   {
-    *(v16 + 8) = 0;
+    *(v18 + 8) = 0;
   }
 
-  v28 = v16;
-  SafeBrowsing::LookupContext::getSafeBrowsingEnabledState(a1, v27);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v27);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v25);
+  v29 = v18;
+  SafeBrowsing::LookupContext::getSafeBrowsingEnabledState(a1, v28);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v28);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v26);
 
+  if (*(&v23 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v23 + 1));
+  }
+
+LABEL_17:
   if (*(&v22 + 1))
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](*(&v22 + 1));
   }
-
-LABEL_17:
-  if (*(&v21 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v21 + 1));
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562A128(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_22562A128(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](va);
-  if (a3)
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a3);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a10);
   }
 
   _Unwind_Resume(a1);
@@ -7738,33 +7698,33 @@ void sub_22562A2B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SafeBrowsing::LookupContext::performURLLookup(void *a1, void *a2, unsigned int a3, unsigned int a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = a2;
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v16, a1);
-  v17 = v16;
-  if (*(&v16 + 1))
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v15, a1);
+  v16 = v15;
+  if (*(&v15 + 1))
   {
-    atomic_fetch_add_explicit((*(&v16 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((*(&v15 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
   v10 = v9;
-  v18 = v10;
-  v19 = __PAIR64__(a4, a3);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v20, a5);
-  v23 = 0;
+  v17 = v10;
+  v18 = __PAIR64__(a4, a3);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v19, a5);
+  v22 = 0;
   v11 = operator new(0x48uLL);
   *v11 = &unk_2838CEEC8;
-  *(v11 + 8) = v17;
-  v17 = 0uLL;
-  v12 = v18;
-  v13 = v19;
-  v18 = 0;
+  *(v11 + 8) = v16;
+  v16 = 0uLL;
+  v12 = v17;
+  v13 = v18;
+  v17 = 0;
   *(v11 + 3) = v12;
   *(v11 + 4) = v13;
-  v14 = v21;
-  if (v21)
+  v14 = v20;
+  if (v20)
   {
-    if (v21 == v20)
+    if (v20 == v19)
     {
       *(v11 + 8) = v11 + 40;
       (*(*v14 + 24))(v14);
@@ -7772,8 +7732,8 @@ void SafeBrowsing::LookupContext::performURLLookup(void *a1, void *a2, unsigned 
 
     else
     {
-      *(v11 + 8) = v21;
-      v21 = 0;
+      *(v11 + 8) = v20;
+      v20 = 0;
     }
   }
 
@@ -7782,42 +7742,40 @@ void SafeBrowsing::LookupContext::performURLLookup(void *a1, void *a2, unsigned 
     *(v11 + 8) = 0;
   }
 
-  v23 = v11;
-  SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(a1, 1, v22);
-  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v22);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v20);
-
-  if (*(&v17 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v17 + 1));
-  }
+  v22 = v11;
+  SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(a1, 1, v21);
+  std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v21);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v19);
 
   if (*(&v16 + 1))
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](*(&v16 + 1));
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  if (*(&v15 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](*(&v15 + 1));
+  }
 }
 
-void sub_22562A49C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_22562A49C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](va1);
   SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFrame,SafeBrowsing::ClientConfidenceOfSafety,SafeBrowsing::IgnoreEnableState,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_0::~$_0(va);
-  if (a3)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a3);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a5);
   }
 
   _Unwind_Resume(a1);
@@ -7825,51 +7783,49 @@ void sub_22562A49C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count 
 
 void SafeBrowsing::LookupContext::getSafeBrowsingEnabledState(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c111_ZTSKZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562A640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_22562A640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -7900,28 +7856,26 @@ uint64_t SafeBrowsing::LookupContext::lookUpURL(NSURL *,SafeBrowsing::IsMainFram
 
 void SafeBrowsing::LookupContext::getLastDatabaseUpdateTime(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v7, a1);
+  v9 = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
   v4 = a1[15];
-  v5 = v7;
-  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::__value_func[abi:sn200100](v9, a2);
-  (*(*v4 + 48))(v4, v5, v9);
-  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::~__value_func[abi:sn200100](v9);
-  if (v8)
+  v5 = v6;
+  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::__value_func[abi:sn200100](v8, a2);
+  (*(*v4 + 48))(v4, v5, v8);
+  std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::~__value_func[abi:sn200100](v8);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_22562A78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(std::chrono::time_point<std::chrono::system_clock,std::chrono::duration<long long,std::ratio<1l,1000000l>>>,std::error_code)>::~__value_func[abi:sn200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -8181,83 +8135,85 @@ void __destroy_helper_block_ea8_32c128_ZTSKZN12SafeBrowsing13LookupContext41regi
 void SafeBrowsing::LookupContext::handleConnectionEvent(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
+  v4 = MEMORY[0x22AA67EF0]();
+  if (v4 == MEMORY[0x277D86480])
   {
     SafeBrowsing::LookupContext::handleConnectionError(a1, v3);
   }
 
   else
   {
-    v4 = SSBOSLogXPC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v6 = SSBOSLogXPC(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      SafeBrowsing::LookupContext::handleConnectionEvent(v4);
+      SafeBrowsing::LookupContext::handleConnectionEvent(v6);
     }
   }
 }
 
 void SafeBrowsing::LookupContext::handleConnectionError(uint64_t a1, void *a2)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  *&v13.__val_ = Platform::xpcErrorCode(v3);
-  v13.__cat_ = v4;
-  v5 = SSBOSLogXPC();
+  *&v12.__val_ = Platform::xpcErrorCode(v3);
+  v12.__cat_ = v4;
+  v5 = SSBOSLogXPC(*&v12.__val_, v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    std::error_code::message(&v12, &v13);
-    SafeBrowsing::LookupContext::handleConnectionError(&v12);
+    std::error_code::message(&v11, &v12);
+    SafeBrowsing::LookupContext::handleConnectionError();
   }
 
   v6 = *(a1 + 48);
-  v10 = v6;
-  v11 = *(a1 + 56);
-  v7 = v11;
+  v9 = v6;
+  v10 = *(a1 + 56);
+  v7 = v10;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 48) = 0;
   v8 = v7;
   while (v6 != v8)
   {
-    std::function<void ()(std::error_code)>::operator()(v6, *&v13.__val_, v13.__cat_);
+    std::function<void ()(std::error_code)>::operator()(v6, *&v12.__val_, v12.__cat_);
     v6 += 32;
   }
 
-  v14[0] = &v10;
-  std::vector<std::function<void ()(std::error_code)>>::__destroy_vector::operator()[abi:sn200100](v14);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v13[0] = &v9;
+  std::vector<std::function<void ()(std::error_code)>>::__destroy_vector::operator()[abi:sn200100](v13);
 }
 
-uint64_t std::function<void ()(std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::function<void ()(std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6[0] = a2;
   v6[1] = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, v6);
+    (*(*v3 + 48))(v3, v6);
   }
 
-  v5 = std::__throw_bad_function_call[abi:sn200100]();
-  return SafeBrowsing::LookupContext::serviceDidFinishDatabaseUpdate(v5);
+  else
+  {
+    v4 = std::__throw_bad_function_call[abi:sn200100]();
+    SafeBrowsing::LookupContext::serviceDidFinishDatabaseUpdate(v4, v5);
+  }
 }
 
 void SafeBrowsing::LookupContext::serviceDidFinishDatabaseUpdate(uint64_t a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = HIDWORD(a2);
-  v5 = SSBOSLogDatabase();
+  v5 = SSBOSLogDatabase(a1, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     *&buf[4] = a2;
-    LOWORD(v18) = 1024;
-    *(&v18 + 2) = v4;
+    LOWORD(v17) = 1024;
+    *(&v17 + 2) = v4;
     _os_log_impl(&dword_2255EE000, v5, OS_LOG_TYPE_DEFAULT, "Service did finish database update with protection type %d and provider %d", buf, 0xEu);
   }
 
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v14, a1);
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v13, a1);
   v6 = *(a1 + 120);
   v7 = *(a1 + 128);
   if (v7)
@@ -8265,11 +8221,11 @@ void SafeBrowsing::LookupContext::serviceDidFinishDatabaseUpdate(uint64_t a1, un
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v6 + 32))(v6, v14, v4);
+  (*(*v6 + 32))(v6, v13, v4);
   *buf = *(a1 + 48);
   v8 = *buf;
-  v18 = *(a1 + 56);
-  v9 = v18;
+  v17 = *(a1 + 56);
+  v9 = v17;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 48) = 0;
@@ -8295,19 +8251,17 @@ void SafeBrowsing::LookupContext::serviceDidFinishDatabaseUpdate(uint64_t a1, un
     }
   }
 
-  v16 = buf;
-  std::vector<std::function<void ()(std::error_code)>>::__destroy_vector::operator()[abi:sn200100](&v16);
+  v15 = buf;
+  std::vector<std::function<void ()(std::error_code)>>::__destroy_vector::operator()[abi:sn200100](&v15);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v7);
   }
 
-  if (v15)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v15);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v14);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22562B00C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, char a13)
@@ -8338,17 +8292,20 @@ uint64_t SafeBrowsing::LookupContext::databaseCoordinatorFromProtectionType@<X0>
   return result;
 }
 
-uint64_t std::function<void ()(Backend::Google::DatabaseConfiguration)>::operator()(uint64_t a1, uint64_t a2)
+void std::function<void ()(Backend::Google::DatabaseConfiguration)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
+  v4 = a2;
   v2 = *(a1 + 24);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    (*(*v2 + 48))(v2, &v4);
   }
 
-  v4 = std::__throw_bad_function_call[abi:sn200100]();
-  return ___ZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(v4);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:sn200100]();
+    ___ZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(v3);
+  }
 }
 
 void ___ZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(uint64_t a1)
@@ -8360,64 +8317,64 @@ void ___ZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18fun
     {
       SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
       v3 = SafeBrowsing::createMessage(0xAu);
-      v4 = SSBOSLogXPC();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = SSBOSLogXPC(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v13[0]) = 0;
-        _os_log_impl(&dword_2255EE000, v4, OS_LOG_TYPE_INFO, "Send GetSafeBrowsingEnabledState message to safe browsing service", v13, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_log_impl(&dword_2255EE000, v5, OS_LOG_TYPE_INFO, "Send GetSafeBrowsingEnabledState message to safe browsing service", v14, 2u);
       }
 
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v8 = *(v5 + 16);
-      v7 = *(v5 + 24);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3321888768;
-      v13[2] = ___ZZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
-      v13[3] = &__block_descriptor_48_ea8_32c160_ZTSKZZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
-      if (v6)
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v9 = *(v6 + 16);
+      v8 = *(v6 + 24);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3321888768;
+      v14[2] = ___ZZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
+      v14[3] = &__block_descriptor_48_ea8_32c160_ZTSKZZN12SafeBrowsing13LookupContext27getSafeBrowsingEnabledStateENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        v14 = v5;
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
         v15 = v6;
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+        v16 = v7;
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       else
       {
-        v14 = v5;
-        v15 = 0;
+        v15 = v6;
+        v16 = 0;
       }
 
-      xpc_connection_send_message_with_reply(v7, v3, v8, v13);
-      if (v6)
+      xpc_connection_send_message_with_reply(v8, v3, v9, v14);
+      if (v7)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v6);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v7);
       }
 
       *(*(a1 + 32) + 163) = 1;
-      if (v15)
+      if (v16)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v15);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v16);
       }
 
       v2 = *(a1 + 32);
     }
 
-    v11 = *(v2 + 176);
-    if (v11 >= *(v2 + 184))
+    v12 = *(v2 + 176);
+    if (v12 >= *(v2 + 184))
     {
-      v12 = std::vector<std::function<void ()(BOOL,std::error_code)>>::__emplace_back_slow_path<std::function<void ()(BOOL,std::error_code)> const&>((v2 + 168), a1 + 48);
+      v13 = std::vector<std::function<void ()(BOOL,std::error_code)>>::__emplace_back_slow_path<std::function<void ()(BOOL,std::error_code)> const&>((v2 + 168), a1 + 48);
       goto LABEL_20;
     }
 
-    if (v11)
+    if (v12)
     {
       std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](*(v2 + 176), a1 + 48);
-      v12 = v11 + 32;
-      *(v2 + 176) = v11 + 32;
+      v13 = v12 + 32;
+      *(v2 + 176) = v12 + 32;
 LABEL_20:
-      *(v2 + 176) = v12;
+      *(v2 + 176) = v13;
       return;
     }
 
@@ -8426,10 +8383,10 @@ LABEL_20:
 
   else
   {
-    v9 = *(v2 + 161);
-    v10 = std::system_category();
+    v10 = *(v2 + 161);
+    v11 = std::system_category();
 
-    std::function<void ()(BOOL,std::error_code)>::operator()(a1 + 48, v9, 0, v10);
+    std::function<void ()(BOOL,std::error_code)>::operator()(a1 + 48, v10, 0, v11);
   }
 }
 
@@ -8593,7 +8550,7 @@ void __destroy_helper_block_ea8_32c83_ZTSKZN12SafeBrowsing13LookupContext38setSa
 
 void ___ZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v4 = *(v2 + 120);
   v3 = *(v2 + 128);
@@ -8603,136 +8560,134 @@ void ___ZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Bac
     v2 = *(a1 + 32);
   }
 
-  if ((*(*v4 + 16))(v4, v2))
+  v5 = (*(*v4 + 16))(v4, v2);
+  if (v5)
   {
     if ((*(v4 + 24) & 1) == 0)
     {
       SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
-      v5 = SafeBrowsing::createMessage(2u);
-      xpc_dictionary_set_int64(v5, "protectionType", *(a1 + 48));
-      v6 = SSBOSLogDatabase();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = SafeBrowsing::createMessage(2u);
+      xpc_dictionary_set_int64(v7, "protectionType", *(a1 + 48));
+      v10 = SSBOSLogDatabase(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v7 = *(a1 + 48);
+        v11 = *(a1 + 48);
         *buf = 67109120;
-        *&buf[4] = v7;
-        _os_log_impl(&dword_2255EE000, v6, OS_LOG_TYPE_INFO, "Send GetDatabases message to safe browsing service with protection type %d", buf, 8u);
+        *&buf[4] = v11;
+        _os_log_impl(&dword_2255EE000, v10, OS_LOG_TYPE_INFO, "Send GetDatabases message to safe browsing service with protection type %d", buf, 8u);
       }
 
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v11 = *(v8 + 16);
-      v10 = *(v8 + 24);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v15 = *(v12 + 16);
+      v14 = *(v12 + 24);
       *buf = MEMORY[0x277D85DD0];
-      v24 = 3321888768;
-      v25 = ___ZZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEEENK3__0clEv_block_invoke;
-      v26 = &__block_descriptor_56_ea8_32c198_ZTSKZZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
-      if (v9)
+      v27 = 3321888768;
+      v28 = ___ZZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEEENK3__0clEv_block_invoke;
+      v29 = &__block_descriptor_56_ea8_32c198_ZTSKZZN12SafeBrowsing13LookupContext33dispatchWhenDatabasesAreAvailableEN7Backend6Google14ProtectionTypeENSt3__18functionIFvNS4_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        v12 = *(a1 + 48);
-        v27 = v8;
-        v28 = v9;
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+        v16 = *(a1 + 48);
+        v30 = v12;
+        v31 = v13;
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       else
       {
-        v12 = *(a1 + 48);
-        v27 = v8;
-        v28 = 0;
+        v16 = *(a1 + 48);
+        v30 = v12;
+        v31 = 0;
       }
 
-      v29 = v12;
-      xpc_connection_send_message_with_reply(v10, v5, v11, buf);
-      if (v9)
+      v32 = v16;
+      xpc_connection_send_message_with_reply(v14, v7, v15, buf);
+      if (v13)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v13);
       }
 
       *(v4 + 24) = 1;
-      if (v28)
+      if (v31)
       {
-        std::__shared_weak_count::__release_shared[abi:sn200100](v28);
+        std::__shared_weak_count::__release_shared[abi:sn200100](v31);
       }
     }
 
-    v17 = SSBOSLogDatabase();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v20 = SSBOSLogDatabase(v5, v6);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v18 = *(a1 + 48);
-      v21[0] = 67109120;
-      v21[1] = v18;
-      _os_log_impl(&dword_2255EE000, v17, OS_LOG_TYPE_INFO, "Already waiting for GetDatabases response with protection type %d", v21, 8u);
+      v21 = *(a1 + 48);
+      v24[0] = 67109120;
+      v24[1] = v21;
+      _os_log_impl(&dword_2255EE000, v20, OS_LOG_TYPE_INFO, "Already waiting for GetDatabases response with protection type %d", v24, 8u);
     }
 
-    std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v21, a1 + 56);
-    v19 = *(v4 + 40);
-    if (v19 >= *(v4 + 48))
+    std::__function::__value_func<void ()(std::error_code)>::__value_func[abi:sn200100](v24, a1 + 56);
+    v22 = *(v4 + 40);
+    if (v22 >= *(v4 + 48))
     {
-      v20 = std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)>>((v4 + 32), v21);
+      v23 = std::vector<std::function<void ()(std::error_code)>>::__emplace_back_slow_path<std::function<void ()(std::error_code)>>((v4 + 32), v24);
     }
 
     else
     {
-      if (!v19)
+      if (!v22)
       {
         __break(1u);
       }
 
-      if (v22)
+      if (v25)
       {
-        if (v22 == v21)
+        if (v25 == v24)
         {
-          *(v19 + 24) = v19;
-          (*(*v22 + 24))(v22, v19);
+          *(v22 + 24) = v22;
+          (*(*v25 + 24))(v25, v22);
         }
 
         else
         {
-          *(v19 + 24) = v22;
-          v22 = 0;
+          *(v22 + 24) = v25;
+          v25 = 0;
         }
       }
 
       else
       {
-        *(v19 + 24) = 0;
+        *(v22 + 24) = 0;
       }
 
-      v20 = v19 + 32;
+      v23 = v22 + 32;
     }
 
-    *(v4 + 40) = v20;
-    std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v21);
+    *(v4 + 40) = v23;
+    std::__function::__value_func<void ()(std::error_code)>::~__value_func[abi:sn200100](v24);
     if (!v3)
     {
-      goto LABEL_13;
+      return;
     }
 
 LABEL_12:
     std::__shared_weak_count::__release_shared[abi:sn200100](v3);
-    goto LABEL_13;
+    return;
   }
 
-  v13 = SSBOSLogDatabase();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v17 = SSBOSLogDatabase(v5, v6);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v14 = *(a1 + 48);
+    v18 = *(a1 + 48);
     *buf = 67109120;
-    *&buf[4] = v14;
-    _os_log_impl(&dword_2255EE000, v13, OS_LOG_TYPE_INFO, "Databases are not empty with protection type %d", buf, 8u);
+    *&buf[4] = v18;
+    _os_log_impl(&dword_2255EE000, v17, OS_LOG_TYPE_INFO, "Databases are not empty with protection type %d", buf, 8u);
   }
 
-  v15 = std::system_category();
-  std::function<void ()(std::error_code)>::operator()(a1 + 56, 0, v15);
+  v19 = std::system_category();
+  std::function<void ()(std::error_code)>::operator()(a1 + 56, 0, v19);
   if (v3)
   {
     goto LABEL_12;
   }
-
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22562B8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8794,7 +8749,7 @@ uint64_t SafeBrowsing::LookupContext::dispatchWhenDatabasesAreAvailable(Backend:
   return a1;
 }
 
-void SafeBrowsing::LookupContext::databaseStatus(SafeBrowsing::LookupContext *this@<X0>, uint64_t a2@<X8>)
+void SafeBrowsing::LookupContext::databaseStatus(uint64_t *__return_ptr a1@<X8>, SafeBrowsing::LookupContext *this@<X0>)
 {
   std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v9, this);
   v7 = 0uLL;
@@ -8805,8 +8760,8 @@ void SafeBrowsing::LookupContext::databaseStatus(SafeBrowsing::LookupContext *th
   v8 = 0;
   v6[2] = 0;
   v7 = 0uLL;
-  *a2 = v5;
-  *(a2 + 16) = v4;
+  *a1 = v5;
+  a1[2] = v4;
   v6[0] = 0;
   v6[1] = 0;
   v11 = v6;
@@ -8836,34 +8791,32 @@ void SafeBrowsing::LookupContext::handleGetDatabasesReply(void *a1, int a2, void
 {
   v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SSBOSLogDatabase();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = SSBOSLogDatabase(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LODWORD(v10) = 67109120;
     HIDWORD(v10) = a2;
-    _os_log_impl(&dword_2255EE000, v6, OS_LOG_TYPE_INFO, "Receive GetDatabases response from safe browsing service with protection type: %d", &v10, 8u);
+    _os_log_impl(&dword_2255EE000, v7, OS_LOG_TYPE_INFO, "Receive GetDatabases response from safe browsing service with protection type: %d", &v10, 8u);
   }
 
   std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v10, a1);
-  v7 = a1[15];
-  v8 = a1[16];
-  if (v8)
+  v8 = a1[15];
+  v9 = a1[16];
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v7 + 40))(v7, v10, v5);
-  if (v8)
+  (*(*v8 + 40))(v8, v10, v5);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
   if (v11)
   {
     std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22562BBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8884,31 +8837,31 @@ void sub_22562BBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void SafeBrowsing::LookupContext::handleGetServiceStatusReply(uint64_t a1, void *a2, uint64_t a3)
 {
-  v52[2] = *MEMORY[0x277D85DE8];
+  v51[2] = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
+    v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    DWORD2(v47) = -1;
-    memset(v48, 0, sizeof(v48));
-    v49 = 0u;
-    v50 = 0;
+    DWORD2(v46) = -1;
+    memset(v47, 0, sizeof(v47));
+    v48 = 0u;
+    v49 = 0;
     v21 = Platform::xpcErrorCode(v4);
-    std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::operator()(a3, &v46, v21, v22);
-    if (v49)
+    std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::operator()(a3, &v45, v21, v22);
+    if (v48)
     {
-      *(&v49 + 1) = v49;
-      operator delete(v49);
+      *(&v48 + 1) = v48;
+      operator delete(v48);
     }
 
-    v44 = &v48[1] + 8;
-    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v44);
-    v44 = v48;
-    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v44);
-    if (SBYTE7(v47) < 0)
+    v43 = &v47[1] + 8;
+    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v43);
+    v43 = v47;
+    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v43);
+    if (SBYTE7(v46) < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
   }
 
@@ -8916,121 +8869,119 @@ void SafeBrowsing::LookupContext::handleGetServiceStatusReply(uint64_t a1, void 
   {
     v5 = xpc_dictionary_get_remote_connection(v4);
     name = xpc_connection_get_name(v5);
-    std::string::basic_string[abi:sn200100]<0>(&v44, name);
+    std::string::basic_string[abi:sn200100]<0>(&v43, name);
     pid = xpc_connection_get_pid(v5);
-    v42 = 0uLL;
-    v43 = 0;
+    v41 = 0uLL;
+    v42 = 0;
     v8 = xpc_dictionary_get_value(v4, "activeTransactions");
     applier[0] = MEMORY[0x277D85DD0];
     applier[1] = 3321888768;
     applier[2] = ___ZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEE_block_invoke;
     applier[3] = &__block_descriptor_40_ea8_32c166_ZTSKZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEEE3__0_e36_B24__0Q8__NSObject_OS_xpc_object__16l;
-    applier[4] = &v42;
+    applier[4] = &v41;
     xpc_array_apply(v8, applier);
 
-    v39 = 0uLL;
-    v40 = 0;
+    v38 = 0uLL;
+    v39 = 0;
     v9 = xpc_dictionary_get_value(v4, "connections");
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3321888768;
-    v38[2] = ___ZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEE_block_invoke_27;
-    v38[3] = &__block_descriptor_40_ea8_32c166_ZTSKZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEEE3__1_e36_B24__0Q8__NSObject_OS_xpc_object__16l;
-    v38[4] = &v39;
-    xpc_array_apply(v9, v38);
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3321888768;
+    v37[2] = ___ZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEE_block_invoke_27;
+    v37[3] = &__block_descriptor_40_ea8_32c166_ZTSKZN12SafeBrowsing13LookupContext27handleGetServiceStatusReplyEPU24objcproto13OS_xpc_object8NSObjectNSt3__18functionIFvNS_13ServiceStatusENS4_10error_codeEEEEE3__1_e36_B24__0Q8__NSObject_OS_xpc_object__16l;
+    v37[4] = &v38;
+    xpc_array_apply(v9, v37);
 
     LODWORD(v9) = xpc_dictionary_get_int64(v4, "googleDatabaseUpdaterState");
     v10 = operator new(8uLL);
-    *&v36 = v10;
+    *&v35 = v10;
     *v10 = v9 | 0x100000000;
-    *(&v36 + 1) = v10 + 1;
-    v37 = v10 + 1;
+    *(&v35 + 1) = v10 + 1;
+    v36 = v10 + 1;
     shouldConsultWithTencent = Backend::Google::SSBUtilities::shouldConsultWithTencent((v10 + 1));
     if (shouldConsultWithTencent)
     {
-      LODWORD(v51) = xpc_dictionary_get_int64(v4, "tencentDatabaseUpdaterState");
-      HIDWORD(v51) = 2;
-      std::vector<SafeBrowsing::ServiceStatus::DatabaseUpdaterStatus>::push_back[abi:sn200100](&v36, &v51);
+      LODWORD(v50) = xpc_dictionary_get_int64(v4, "tencentDatabaseUpdaterState");
+      HIDWORD(v50) = 2;
+      std::vector<SafeBrowsing::ServiceStatus::DatabaseUpdaterStatus>::push_back[abi:sn200100](&v35, &v50);
     }
 
     if (Backend::Google::SSBUtilities::shouldConsultWithApple(shouldConsultWithTencent))
     {
-      LODWORD(v51) = xpc_dictionary_get_int64(v4, "appleDatabaseUpdaterState");
-      HIDWORD(v51) = 3;
-      std::vector<SafeBrowsing::ServiceStatus::DatabaseUpdaterStatus>::push_back[abi:sn200100](&v36, &v51);
+      LODWORD(v50) = xpc_dictionary_get_int64(v4, "appleDatabaseUpdaterState");
+      HIDWORD(v50) = 3;
+      std::vector<SafeBrowsing::ServiceStatus::DatabaseUpdaterStatus>::push_back[abi:sn200100](&v35, &v50);
     }
 
-    v12 = v44;
-    v52[0] = v45;
-    *(v52 + 7) = *(&v45 + 7);
-    v13 = HIBYTE(v45);
-    v45 = 0uLL;
-    v44 = 0;
-    v14 = v43;
-    v15 = v42;
+    v12 = v43;
+    v51[0] = v44;
+    *(v51 + 7) = *(&v44 + 7);
+    v13 = HIBYTE(v44);
+    v44 = 0uLL;
     v43 = 0;
-    v42 = 0uLL;
-    v16 = v40;
-    v17 = v39;
-    v39 = 0uLL;
-    v40 = 0;
-    v18 = v37;
-    v19 = v36;
-    v36 = 0uLL;
-    v37 = 0;
-    *&v27[7] = *(v52 + 7);
-    v26 = v12;
-    *v27 = v52[0];
-    v28 = v13;
-    v29 = pid;
-    v30 = v15;
-    v31 = v14;
-    memset(v25, 0, sizeof(v25));
-    v32 = v17;
-    v33 = v16;
+    v14 = v42;
+    v15 = v41;
+    v42 = 0;
+    v41 = 0uLL;
+    v16 = v39;
+    v17 = v38;
+    v38 = 0uLL;
+    v39 = 0;
+    v18 = v36;
+    v19 = v35;
+    v35 = 0uLL;
+    v36 = 0;
+    *&v26[7] = *(v51 + 7);
+    v25 = v12;
+    *v26 = v51[0];
+    v27 = v13;
+    v28 = pid;
+    v29 = v15;
+    v30 = v14;
     memset(v24, 0, sizeof(v24));
+    v31 = v17;
+    v32 = v16;
+    memset(v23, 0, sizeof(v23));
     *__p = v19;
-    v35 = v18;
+    v34 = v18;
     v20 = std::system_category();
-    std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::operator()(a3, &v26, 0, v20);
+    std::function<void ()(SafeBrowsing::ServiceStatus,std::error_code)>::operator()(a3, &v25, 0, v20);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
-    v51 = &v32;
-    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v51);
-    v51 = &v30;
-    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v51);
-    if (v28 < 0)
+    v50 = &v31;
+    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v50);
+    v50 = &v29;
+    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v50);
+    if (v27 < 0)
     {
-      operator delete(v26);
+      operator delete(v25);
     }
 
-    v51 = v24;
-    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v51);
-    v51 = v25;
-    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v51);
-    if (v36)
+    v50 = v23;
+    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v50);
+    v50 = v24;
+    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v50);
+    if (v35)
     {
-      *(&v36 + 1) = v36;
-      operator delete(v36);
+      *(&v35 + 1) = v35;
+      operator delete(v35);
     }
 
-    *&v36 = &v39;
-    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v36);
-    *&v39 = &v42;
-    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v39);
-    if (SHIBYTE(v45) < 0)
+    *&v35 = &v38;
+    std::vector<SafeBrowsing::ServiceStatus::Connection>::__destroy_vector::operator()[abi:sn200100](&v35);
+    *&v38 = &v41;
+    std::vector<std::string>::__destroy_vector::operator()[abi:sn200100](&v38);
+    if (SHIBYTE(v44) < 0)
     {
-      operator delete(v44);
+      operator delete(v43);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562C044(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char **__p, char **a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_22562C044(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char **__p, char **a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   SafeBrowsing::ServiceStatus::~ServiceStatus(&a16);
   *(v47 - 112) = &a10;
@@ -9314,9 +9265,9 @@ LABEL_14:
   *(a1 + 8) = v6;
 }
 
-void SafeBrowsing::LookupContext::checkFullHashes(SafeBrowsing::LookupContext *a1, int a2, const Backend::Google::FullHashRequest **a3, uint64_t a4)
+void SafeBrowsing::LookupContext::checkFullHashes(SafeBrowsing::LookupContext *a1, int a2, uint64_t *a3, uint64_t a4)
 {
-  v27[6] = *MEMORY[0x277D85DE8];
+  v28[6] = *MEMORY[0x277D85DE8];
   SafeBrowsing::LookupContext::ensureConnection(a1);
   v8 = SafeBrowsing::createMessage(4u);
   v9 = xpc_array_create(0, 0);
@@ -9329,74 +9280,72 @@ void SafeBrowsing::LookupContext::checkFullHashes(SafeBrowsing::LookupContext *a
     xpc_array_append_value(v9, v12);
 
     Backend::Google::FullHashRequest::~FullHashRequest(buf);
-    v10 = (v10 + 72);
+    v10 += 72;
   }
 
   xpc_dictionary_set_value(v8, "requests", v9);
 
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v18, a1);
-  v13 = SSBOSLogFullHash();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v19, a1);
+  v15 = SSBOSLogFullHash(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
     *&buf[4] = a2;
-    _os_log_impl(&dword_2255EE000, v13, OS_LOG_TYPE_INFO, "Send CheckFullHashes message to safe browsing service with protection type %d", buf, 8u);
+    _os_log_impl(&dword_2255EE000, v15, OS_LOG_TYPE_INFO, "Send CheckFullHashes message to safe browsing service with protection type %d", buf, 8u);
   }
 
-  v16 = (a1 + 16);
-  v14 = *(a1 + 2);
-  v15 = v16[1];
+  v18 = a1 + 16;
+  v16 = *(a1 + 2);
+  v17 = *(v18 + 1);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3321888768;
   handler[2] = ___ZN12SafeBrowsing13LookupContext15checkFullHashesEN7Backend6Google14ProtectionTypeENSt3__16vectorINS2_15FullHashRequestENS4_9allocatorIS6_EEEENS4_8functionIFvNS5_INS1_12LookupResultENS7_ISB_EEEENS4_10error_codeEEEE_block_invoke;
   handler[3] = &__block_descriptor_88_ea8_32c223_ZTSKZN12SafeBrowsing13LookupContext15checkFullHashesEN7Backend6Google14ProtectionTypeENSt3__16vectorINS2_15FullHashRequestENS4_9allocatorIS6_EEEENS4_8functionIFvNS5_INS1_12LookupResultENS7_ISB_EEEENS4_10error_codeEEEEE3__1_e33_v16__0__NSObject_OS_xpc_object__8l;
-  *buf = v18;
-  v25 = v19;
-  if (v19)
+  *buf = v19;
+  v26 = v20;
+  if (v20)
   {
-    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v26 = a2;
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v27, a4);
+  v27 = a2;
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v28, a4);
   handler[4] = *buf;
-  v21 = v25;
-  if (v25)
-  {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
   v22 = v26;
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v23, v27);
-  xpc_connection_send_message_with_reply(v15, v8, v14, handler);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v27);
-  if (v25)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v25);
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v23);
-  if (v21)
+  v23 = v27;
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v24, v28);
+  xpc_connection_send_message_with_reply(v17, v8, v16, handler);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v28);
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v21);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v26);
   }
 
-  if (v19)
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v24);
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v19);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v22);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
+  if (v20)
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](v20);
+  }
 }
 
-void sub_22562C838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22562C838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  SafeBrowsing::LookupContext::checkFullHashes(Backend::Google::ProtectionType,std::vector<Backend::Google::FullHashRequest>,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_1::~$_1(v16 + 32);
+  va_start(va, a22);
+  SafeBrowsing::LookupContext::checkFullHashes(Backend::Google::ProtectionType,std::vector<Backend::Google::FullHashRequest>,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_1::~$_1(v23 + 32);
   SafeBrowsing::LookupContext::checkFullHashes(Backend::Google::ProtectionType,std::vector<Backend::Google::FullHashRequest>,std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>)::$_1::~$_1(va);
-  if (a4)
+  if (a11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a11);
   }
 
   _Unwind_Resume(a1);
@@ -9420,20 +9369,18 @@ id SafeBrowsing::createMessage(unsigned int a1)
 
 void ___ZN12SafeBrowsing13LookupContext15checkFullHashesEN7Backend6Google14ProtectionTypeENSt3__16vectorINS2_15FullHashRequestENS4_9allocatorIS6_EEEENS4_8functionIFvNS5_INS1_12LookupResultENS7_ISB_EEEENS4_10error_codeEEEE_block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(a1 + 48);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v7, a1 + 56);
-  SafeBrowsing::LookupContext::handleCheckFullHashesReply(v4, v5, v3, v7);
-  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v6, a1 + 56);
+  SafeBrowsing::LookupContext::handleCheckFullHashesReply(v4, v5, v3, v6);
+  std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v6);
 }
 
-void sub_22562CA48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562CA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](va);
 
   _Unwind_Resume(a1);
@@ -9489,42 +9436,43 @@ uint64_t SafeBrowsing::LookupContext::checkFullHashes(Backend::Google::Protectio
 
 void SafeBrowsing::LookupContext::handleCheckFullHashesReply(void *a1, int a2, void *a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v8 = SSBOSLogFullHash();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = SSBOSLogFullHash(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf.__r_.__value_.__l.__data_) = 67109120;
     HIDWORD(buf.__r_.__value_.__r.__words[0]) = a2;
-    _os_log_impl(&dword_2255EE000, v8, OS_LOG_TYPE_INFO, "Receive CheckFullHashes reply with protection type %d", &buf, 8u);
+    _os_log_impl(&dword_2255EE000, v9, OS_LOG_TYPE_INFO, "Receive CheckFullHashes reply with protection type %d", &buf, 8u);
   }
 
   if (MEMORY[0x22AA67EF0](v7) == MEMORY[0x277D86480])
   {
-    v12 = Platform::xpcErrorCode(v7);
-    cat = v13;
-    *&v20.__val_ = v12;
-    v20.__cat_ = v13;
-    if (v12)
+    v13 = Platform::xpcErrorCode(v7);
+    v15 = v13;
+    cat = v14;
+    *&v21.__val_ = v13;
+    v21.__cat_ = v14;
+    if (v13)
     {
-      v15 = SSBOSLogFullHash();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = SSBOSLogFullHash(v13, v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        std::error_code::message(&buf, &v20);
-        SafeBrowsing::LookupContext::handleCheckFullHashesReply(&buf);
+        std::error_code::message(&buf, &v21);
+        SafeBrowsing::LookupContext::handleCheckFullHashesReply();
       }
 
-      v12 = *&v20.__val_;
-      cat = v20.__cat_;
+      v15 = *&v21.__val_;
+      cat = v21.__cat_;
     }
 
     __p = 0;
-    v18 = 0;
     v19 = 0;
-    std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(a4, &__p, v12, cat);
+    v20 = 0;
+    std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(a4, &__p, v15, cat);
     if (__p)
     {
-      v18 = __p;
+      v19 = __p;
       operator delete(__p);
     }
   }
@@ -9532,20 +9480,20 @@ void SafeBrowsing::LookupContext::handleCheckFullHashesReply(void *a1, int a2, v
   else
   {
     std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&buf, a1);
-    v10 = a1[15];
-    v9 = a1[16];
-    if (v9)
+    v11 = a1[15];
+    v10 = a1[16];
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v11 = buf.__r_.__value_.__r.__words[0];
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v21, a4);
-    (*(*v10 + 56))(v10, v11, v7, v21);
-    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v21);
-    if (v9)
+    v12 = buf.__r_.__value_.__r.__words[0];
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::__value_func[abi:sn200100](v22, a4);
+    (*(*v11 + 56))(v11, v12, v7, v22);
+    std::__function::__value_func<void ()(std::vector<Backend::LookupResult>,std::error_code)>::~__value_func[abi:sn200100](v22);
+    if (v10)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v10);
     }
 
     if (buf.__r_.__value_.__l.__size_)
@@ -9553,71 +9501,70 @@ void SafeBrowsing::LookupContext::handleCheckFullHashesReply(void *a1, int a2, v
       std::__shared_weak_count::__release_shared[abi:sn200100](buf.__r_.__value_.__l.__size_);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::function<void ()(std::vector<Backend::LookupResult>,std::error_code)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7[0] = a3;
   v7[1] = a4;
   v4 = *(a1 + 24);
   if (v4)
   {
-    return (*(*v4 + 48))(v4, a2, v7);
+    (*(*v4 + 48))(v4, a2, v7);
   }
 
-  v6 = std::__throw_bad_function_call[abi:sn200100]();
-  return SafeBrowsing::LookupContext::forceLoadRemoteConfigurationFromDisk(v6);
+  else
+  {
+    v5 = std::__throw_bad_function_call[abi:sn200100]();
+    SafeBrowsing::LookupContext::forceLoadRemoteConfigurationFromDisk(v5, v6);
+  }
 }
 
 void SafeBrowsing::LookupContext::forceLoadRemoteConfigurationFromDisk(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c120_ZTSKZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562CF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+void sub_22562CF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
 {
   if (a23)
   {
@@ -9635,7 +9582,7 @@ void sub_22562CF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   SafeBrowsing::LookupContext::ensureConnection(*(a1 + 32));
   v3 = SafeBrowsing::createMessage(5u);
@@ -9647,42 +9594,40 @@ void ___ZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENS
   handler[2] = ___ZZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEv_block_invoke;
   handler[3] = &__block_descriptor_80_ea8_32c169_ZTSKZZN12SafeBrowsing13LookupContext36forceLoadRemoteConfigurationFromDiskENSt3__18functionIFvbNS1_10error_codeEEEEENK3__0clEvEUlPU24objcproto13OS_xpc_object8NSObjectE__e33_v16__0__NSObject_OS_xpc_object__8l;
   v7 = *(a1 + 40);
-  v9 = v4;
-  v10 = v7;
+  v8 = v4;
+  v9 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v11, a1 + 48);
-  handler[4] = v9;
-  v13 = v10;
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a1 + 48);
+  handler[4] = v8;
+  v12 = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v14, v11);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
   xpc_connection_send_message_with_reply(v6, v3, v5, handler);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v11);
-  if (v10)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v14);
-  if (v13)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v13);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22562D0E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22562D0E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v3 + 32);
+  va_start(va, a3);
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(v4 + 32);
   SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(va);
 
   _Unwind_Resume(a1);
@@ -9730,23 +9675,24 @@ void SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskRepl
   if (MEMORY[0x22AA67EF0]() == MEMORY[0x277D86480])
   {
     v7 = Platform::xpcErrorCode(v4);
+    v9 = v7;
     cat = v8;
     *&v13.__val_ = v7;
     v13.__cat_ = v8;
     if (v7)
     {
-      v10 = SSBOSLogRemoteConfiguration();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = SSBOSLogRemoteConfiguration(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         std::error_code::message(&v12, &v13);
-        SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskReply(&v12);
+        SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskReply();
       }
 
-      v7 = *&v13.__val_;
+      v9 = *&v13.__val_;
       cat = v13.__cat_;
     }
 
-    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v7, cat);
+    std::function<void ()(BOOL,std::error_code)>::operator()(a3, 0, v9, cat);
   }
 
   else
@@ -9755,52 +9701,64 @@ void SafeBrowsing::LookupContext::handleForceLoadRemoteConfigurationFromDiskRepl
     v6 = std::system_category();
     std::function<void ()(BOOL,std::error_code)>::operator()(a3, v5, 0, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void SafeBrowsing::LookupContext::forceUpdateRemoteConfigurationFromServer(void *a1, uint64_t a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v6, a1);
+  v12[4] = *MEMORY[0x277D85DE8];
+  std::shared_ptr<Backend::Google::DatabaseUpdater>::shared_ptr[abi:sn200100]<Backend::Google::DatabaseUpdater,0>(&v5, a1);
   v4 = a1[2];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3321888768;
   block[2] = ___ZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEE_block_invoke;
   block[3] = &__block_descriptor_80_ea8_32c124_ZTSKZN12SafeBrowsing13LookupContext40forceUpdateRemoteConfigurationFromServerENSt3__18functionIFvbNS1_10error_codeEEEEE3__0_e5_v8__0l;
+  v7 = v5;
   v8 = v6;
-  v9 = v7;
-  if (v7)
+  if (v6)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v10, a2);
-  block[4] = v8;
-  v12 = v9;
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v9, a2);
+  block[4] = v7;
+  v11 = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v13, v10);
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::__value_func[abi:sn200100](v12, v9);
   dispatch_async(v4, block);
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v10);
-  if (v9)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v9);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
   }
 
-  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v13);
-  if (v12)
+  std::__function::__value_func<void ()(BOOL,std::error_code)>::~__value_func[abi:sn200100](v12);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v12);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v11);
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v6);
+  }
+}
+
+void sub_22562D45C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
+{
+  if (a23)
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](a23);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  SafeBrowsing::LookupContext::forceDeviceIdentificationTokenUpdate(std::function<void ()(BOOL,std::error_code)>)::$_0::~$_0(&a12);
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:sn200100](a11);
+  }
+
+  _Unwind_Resume(a1);
 }

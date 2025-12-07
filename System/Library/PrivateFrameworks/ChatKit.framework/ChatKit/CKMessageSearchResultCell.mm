@@ -182,7 +182,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
   v8 = balloonView;
   if (balloonView)
   {
-    [balloonView balloonDescriptor];
+    objc_msgSend_balloonDescriptor(balloonView);
   }
 
   else
@@ -507,7 +507,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
   balloonView = [(CKMessageSearchResultCell *)self balloonView];
   [balloonView frame];
   MaxY = CGRectGetMaxY(v13);
-  [(CKMessageSearchResultCell *)self visibilityContext];
+  objc_msgSend_visibilityContext(self);
 
   v9 = v6;
   v10 = MaxY + v11;
@@ -576,11 +576,11 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
   senderLabel2 = [(CKMessageSearchResultCell *)self senderLabel];
   [senderLabel2 setFrame:{0.0, 0.0, v30, v32}];
 
-  [(CKMessageSearchResultCell *)self visibilityContext];
-  v34 = *&v149[2];
-  [(CKMessageSearchResultCell *)self visibilityContext];
-  v149[0] = v148;
-  [(CKMessageSearchResultCell *)self visibilityContext];
+  objc_msgSend_visibilityContext(self);
+  v34 = v150;
+  objc_msgSend_visibilityContext(self);
+  v149 = v148;
+  objc_msgSend_visibilityContext(self);
   conversationNameLabel3 = [(CKMessageSearchResultCell *)self conversationNameLabel];
   conversationNameLabel8 = conversationNameLabel3;
   if (v147 == 1)
@@ -598,7 +598,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
 
     conversationNameLabel7 = [(CKMessageSearchResultCell *)self conversationNameLabel];
     conversationNameLabel8 = [(CKMessageSearchResultCell *)self conversationNameLabel];
-    [(CKMessageSearchResultCell *)self _proposedBalloonY:v149 afterLayoutForView:conversationNameLabel8];
+    [(CKMessageSearchResultCell *)self _proposedBalloonY:&v149 afterLayoutForView:conversationNameLabel8];
   }
 
   else
@@ -607,14 +607,14 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
     conversationNameLabel7 = 0;
   }
 
-  [(CKMessageSearchResultCell *)self visibilityContext];
+  objc_msgSend_visibilityContext(self);
   if (v146 == 1)
   {
-    [(CKMessageSearchResultCell *)self visibilityContext];
+    objc_msgSend_visibilityContext(self);
     if (v145 == 1)
     {
       [conversationNameLabel7 frame];
-      MaxY = CGRectGetMaxY(v150);
+      MaxY = CGRectGetMaxY(v151);
       v46 = +[CKUIBehavior sharedBehaviors];
       [v46 searchMessagesConversationToSenderSpacing];
       v34 = MaxY + v47;
@@ -635,7 +635,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
     senderLabel7 = [(CKMessageSearchResultCell *)self senderLabel];
 
     senderLabel8 = [(CKMessageSearchResultCell *)self senderLabel];
-    [(CKMessageSearchResultCell *)self _proposedBalloonY:v149 afterLayoutForView:senderLabel8];
+    [(CKMessageSearchResultCell *)self _proposedBalloonY:&v149 afterLayoutForView:senderLabel8];
     conversationNameLabel7 = senderLabel7;
   }
 
@@ -645,13 +645,13 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
     [senderLabel8 setHidden:0];
   }
 
-  [(CKMessageSearchResultCell *)self visibilityContext];
+  objc_msgSend_visibilityContext(self);
   if (v144 == 1)
   {
     if (v20)
     {
       [conversationNameLabel7 frame];
-      v58 = CGRectGetMaxY(v151);
+      v58 = CGRectGetMaxY(v152);
       dateLabel3 = +[CKUIBehavior sharedBehaviors];
       [dateLabel3 searchMessagesConversationToSenderSpacing];
       v34 = v58 + v60;
@@ -680,7 +680,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
     [dateLabel8 setFrame:{v61, v34, v68, v71}];
 
     dateLabel9 = [(CKMessageSearchResultCell *)self dateLabel];
-    [(CKMessageSearchResultCell *)self _proposedBalloonY:v149 afterLayoutForView:dateLabel9];
+    [(CKMessageSearchResultCell *)self _proposedBalloonY:&v149 afterLayoutForView:dateLabel9];
     conversationNameLabel7 = dateLabel4;
   }
 
@@ -690,7 +690,7 @@ void __42__CKMessageSearchResultCell__internalInit__block_invoke(uint64_t a1, vo
     [dateLabel9 setHidden:1];
   }
 
-  v73 = *v149;
+  v73 = v149;
   if (conversationNameLabel7)
   {
     v74 = +[CKUIBehavior sharedBehaviors];
@@ -741,7 +741,7 @@ LABEL_30:
 
     chevronImageView3 = [(CKMessageSearchResultCell *)self chevronImageView];
     [chevronImageView3 frame];
-    MaxX = CGRectGetMaxX(v153);
+    MaxX = CGRectGetMaxX(v154);
     v100 = +[CKUIBehavior sharedBehaviors];
     [v100 searchMessagesBalloonToChevronSpacing];
     v104 = MaxX + v103;
@@ -760,7 +760,7 @@ LABEL_29:
   {
     chevronImageView3 = [(CKMessageSearchResultCell *)self chevronImageView];
     [chevronImageView3 frame];
-    MinX = CGRectGetMinX(v152);
+    MinX = CGRectGetMinX(v153);
     v100 = +[CKUIBehavior sharedBehaviors];
     [v100 searchMessagesBalloonToChevronSpacing];
     v97 = MinX - v101 - v86;
@@ -789,7 +789,7 @@ LABEL_32:
   {
     chevronImageView4 = [(CKMessageSearchResultCell *)self chevronImageView];
     [chevronImageView4 frame];
-    v124 = CGRectGetMaxX(v154);
+    v124 = CGRectGetMaxX(v155);
     v125 = +[CKUIBehavior sharedBehaviors];
     [v125 searchMessagesBalloonToChevronSpacing];
     v122 = v124 + v126;
@@ -797,7 +797,7 @@ LABEL_32:
 
   balloonView3 = [(CKMessageSearchResultCell *)self balloonView];
   [balloonView3 frame];
-  v128 = CGRectGetMaxY(v155);
+  v128 = CGRectGetMaxY(v156);
   v129 = +[CKUIBehavior sharedBehaviors];
   [v129 searchMessagesAvatarSize];
   v131 = v128 - v130;
@@ -807,16 +807,16 @@ LABEL_32:
 
   if (_shouldReverseLayoutDirection && ![(CKMessageSearchResultCell *)self isFromMe])
   {
-    v156.origin.x = v122;
-    v156.origin.y = v131;
-    v156.size.width = v119;
-    v156.size.height = v121;
-    v133 = CGRectGetMidY(v156) - v80 * 0.5;
+    v157.origin.x = v122;
+    v157.origin.y = v131;
+    v157.size.width = v119;
+    v157.size.height = v121;
+    v133 = CGRectGetMidY(v157) - v80 * 0.5;
     chevronImageView5 = [(CKMessageSearchResultCell *)self chevronImageView];
     [chevronImageView5 setFrame:{v140, v133, v78, v80}];
   }
 
-  [(CKMessageSearchResultCell *)self visibilityContext];
+  objc_msgSend_visibilityContext(self);
   if (v143 == 1)
   {
     v135 = +[CKUIBehavior sharedBehaviors];

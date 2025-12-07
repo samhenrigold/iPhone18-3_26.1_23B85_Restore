@@ -39,22 +39,19 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"PLAN_CLASSNAME";
-  plan = self->_plan;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"PLAN_CLASSNAME";
   chunksCopy = chunks;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v12[1] = @"PLAN";
-  v13[0] = v7;
-  v8 = [(PMLPlanProtocol *)self->_plan toPlistWithChunks:chunksCopy];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v10[1] = @"PLAN";
+  v11[0] = v6;
+  v7 = [(PMLPlanProtocol *)self->_plan toPlistWithChunks:chunksCopy];
 
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v8;
 }
 
 - (PMLPlanWrapper)initWithPlan:(id)plan

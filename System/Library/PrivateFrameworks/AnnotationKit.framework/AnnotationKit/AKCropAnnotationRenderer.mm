@@ -1106,206 +1106,211 @@ LABEL_13:
 
 + (CGPath)_newClipMaskEOPathForAnnotation:(id)annotation withPageController:(id)controller
 {
-  *&v68 = 1.0;
+  *&v69 = 1.0;
   v6 = *(MEMORY[0x277CBF3A0] + 16);
   rect_24.origin = *MEMORY[0x277CBF3A0];
   rect_24.size = v6;
   controllerCopy = controller;
   annotationCopy = annotation;
-  [self _pixelAlignedBaseRect:&rect_24 interiorRect:0 scaleFactor:&v68 forAnnotation:annotationCopy withPageController:controllerCopy];
+  [self _pixelAlignedBaseRect:&rect_24 interiorRect:0 scaleFactor:&v69 forAnnotation:annotationCopy withPageController:controllerCopy];
   [controllerCopy maxPageRect];
   v10 = v9;
   v12 = v11;
   v14 = v13;
   v16 = v15;
   Mutable = CGPathCreateMutable();
-  v69.origin.x = v10;
-  v69.origin.y = v12;
-  v69.size.width = v14;
-  v69.size.height = v16;
-  CGPathAddRect(Mutable, 0, v69);
-  v18 = *&v68;
+  v70.origin.x = v10;
+  v70.origin.y = v12;
+  v70.size.width = v14;
+  v70.size.height = v16;
+  CGPathAddRect(Mutable, 0, v70);
+  v18 = *&v69;
   [controllerCopy maxPageRect];
   v20 = v19;
   v22 = v21;
   rect_8 = v24;
   rect_16 = v23;
-  origin = rect_24.origin;
+  x = rect_24.origin.x;
+  y = rect_24.origin.y;
   size = rect_24.size;
-  v27 = [self _shouldUseRoundedCorner:4 forAnnotation:annotationCopy withPageController:controllerCopy];
-  v28 = [self _shouldUseRoundedCorner:5 forAnnotation:annotationCopy withPageController:controllerCopy];
-  v29 = [self _shouldUseRoundedCorner:6 forAnnotation:annotationCopy withPageController:controllerCopy];
-  v30 = [self _shouldUseRoundedCorner:7 forAnnotation:annotationCopy withPageController:controllerCopy];
+  v28 = [self _shouldUseRoundedCorner:4 forAnnotation:annotationCopy withPageController:controllerCopy];
+  v29 = [self _shouldUseRoundedCorner:5 forAnnotation:annotationCopy withPageController:controllerCopy];
+  v30 = [self _shouldUseRoundedCorner:6 forAnnotation:annotationCopy withPageController:controllerCopy];
+  v31 = [self _shouldUseRoundedCorner:7 forAnnotation:annotationCopy withPageController:controllerCopy];
 
-  if ((v27 & 1) != 0 || (v28 & 1) != 0 || (v29 & 1) != 0 || v30)
+  if ((v28 & 1) != 0 || (v29 & 1) != 0 || (v30 & 1) != 0 || v31)
   {
-    v63 = 16.0 / v18;
-    v70.size.width = size.width;
-    v31 = 5.0 / v18;
-    v70.origin = origin;
-    v70.size.height = size.height;
-    MinX = CGRectGetMinX(v70);
-    v71.origin.x = v20;
-    v71.origin.y = v22;
-    v71.size.width = rect_16;
-    v71.size.height = rect_8;
-    v61 = fmax(MinX - CGRectGetMinX(v71), 0.0);
+    v64 = 16.0 / v18;
+    v71.size.width = size.width;
+    v32 = 5.0 / v18;
+    v71.origin.x = x;
+    v71.origin.y = y;
+    v71.size.height = size.height;
+    MinX = CGRectGetMinX(v71);
     v72.origin.x = v20;
-    v58 = v22;
     v72.origin.y = v22;
     v72.size.width = rect_16;
     v72.size.height = rect_8;
-    MaxX = CGRectGetMaxX(v72);
-    v73.origin = origin;
-    v73.size = size;
-    v33 = CGRectGetMaxX(v73);
-    v74.size.height = rect_8;
-    v34 = fmax(MaxX - v33, 0.0);
-    v74.origin.x = v20;
-    v74.origin.y = v22;
-    v74.size.width = rect_16;
-    MaxY = CGRectGetMaxY(v74);
-    v75.origin = origin;
-    v75.size = size;
-    v36 = fmax(MaxY - CGRectGetMaxY(v75), 0.0);
-    v76.origin = origin;
+    v62 = fmax(MinX - CGRectGetMinX(v72), 0.0);
+    v73.origin.x = v20;
+    v59 = v22;
+    v73.origin.y = v22;
+    v73.size.width = rect_16;
+    v73.size.height = rect_8;
+    MaxX = CGRectGetMaxX(v73);
+    v74.origin.x = x;
+    v74.origin.y = y;
+    v74.size = size;
+    v34 = CGRectGetMaxX(v74);
+    v75.size.height = rect_8;
+    v35 = fmax(MaxX - v34, 0.0);
+    v75.origin.x = v20;
+    v75.origin.y = v22;
+    v75.size.width = rect_16;
+    MaxY = CGRectGetMaxY(v75);
+    v76.origin.x = x;
+    v76.origin.y = y;
     v76.size = size;
-    MinY = CGRectGetMinY(v76);
-    v77.origin.y = v58;
-    v77.origin.x = v20;
-    v77.size.height = rect_8;
-    v77.size.width = rect_16;
-    v38 = fmax(MinY - CGRectGetMinY(v77), 0.0);
-    if (v61 >= v36)
+    v37 = fmax(MaxY - CGRectGetMaxY(v76), 0.0);
+    v77.origin.x = x;
+    v77.origin.y = y;
+    v77.size = size;
+    MinY = CGRectGetMinY(v77);
+    v78.origin.y = v59;
+    v78.origin.x = v20;
+    v78.size.height = rect_8;
+    v78.size.width = rect_16;
+    v39 = fmax(MinY - CGRectGetMinY(v78), 0.0);
+    if (v62 >= v37)
     {
-      v39 = v61;
+      v40 = v62;
     }
 
     else
     {
-      v39 = v36;
+      v40 = v37;
     }
 
-    v40 = v63 - v39;
-    if (v31 >= v40)
+    v41 = v64 - v40;
+    if (v32 >= v41)
     {
-      v40 = v31;
-    }
-
-    if (!v27)
-    {
-      v40 = 0.0;
-    }
-
-    rect_16 = v40;
-    if (v34 >= v36)
-    {
-      v41 = v34;
-    }
-
-    else
-    {
-      v41 = v36;
-    }
-
-    v42 = v63 - v41;
-    if (v31 >= v42)
-    {
-      v42 = v31;
+      v41 = v32;
     }
 
     if (!v28)
     {
-      v42 = 0.0;
+      v41 = 0.0;
     }
 
-    rect = v42;
-    if (v61 >= v38)
+    rect_16 = v41;
+    if (v35 >= v37)
     {
-      v43 = v61;
-    }
-
-    else
-    {
-      v43 = v38;
-    }
-
-    v44 = v63 - v43;
-    if (v31 >= v44)
-    {
-      v44 = v31;
-    }
-
-    if (v29)
-    {
-      v45 = v44;
+      v42 = v35;
     }
 
     else
     {
-      v45 = 0.0;
+      v42 = v37;
     }
 
-    if (v34 >= v38)
+    v43 = v64 - v42;
+    if (v32 >= v43)
     {
-      v38 = v34;
+      v43 = v32;
     }
 
-    v46 = v63 - v38;
-    if (v31 >= v46)
+    if (!v29)
     {
-      v46 = v31;
+      v43 = 0.0;
+    }
+
+    rect = v43;
+    if (v62 >= v39)
+    {
+      v44 = v62;
+    }
+
+    else
+    {
+      v44 = v39;
+    }
+
+    v45 = v64 - v44;
+    if (v32 >= v45)
+    {
+      v45 = v32;
     }
 
     if (v30)
     {
-      v47 = v46;
+      v46 = v45;
     }
 
     else
     {
-      v47 = 0.0;
+      v46 = 0.0;
     }
 
-    v48 = CGPathCreateMutable();
-    v49 = CGRectGetMinX(rect_24);
-    v50 = CGRectGetMinY(rect_24);
-    v51 = CGRectGetMaxX(rect_24);
-    v52 = CGRectGetMinY(rect_24);
-    v59 = CGRectGetMaxX(rect_24);
-    v53 = CGRectGetMaxY(rect_24);
-    v60 = CGRectGetMinX(rect_24);
-    v54 = CGRectGetMaxY(rect_24);
-    v62 = v45;
-    v55 = v45 + v49;
-    CGPathMoveToPoint(v48, 0, v55, v50);
-    CGPathAddLineToPoint(v48, 0, v51 - v47, v52);
-    if (v47 > 0.0)
+    if (v35 >= v39)
     {
-      CGPathAddArc(v48, 0, v51 - v47, v47 + v52, v47, -1.57079633, 0.0, 0);
+      v39 = v35;
     }
 
-    CGPathAddLineToPoint(v48, 0, v51, v53 - rect);
+    v47 = v64 - v39;
+    if (v32 >= v47)
+    {
+      v47 = v32;
+    }
+
+    if (v31)
+    {
+      v48 = v47;
+    }
+
+    else
+    {
+      v48 = 0.0;
+    }
+
+    v49 = CGPathCreateMutable();
+    v50 = CGRectGetMinX(rect_24);
+    v51 = CGRectGetMinY(rect_24);
+    v52 = CGRectGetMaxX(rect_24);
+    v53 = CGRectGetMinY(rect_24);
+    v60 = CGRectGetMaxX(rect_24);
+    v54 = CGRectGetMaxY(rect_24);
+    v61 = CGRectGetMinX(rect_24);
+    v55 = CGRectGetMaxY(rect_24);
+    v63 = v46;
+    v56 = v46 + v50;
+    CGPathMoveToPoint(v49, 0, v56, v51);
+    CGPathAddLineToPoint(v49, 0, v52 - v48, v53);
+    if (v48 > 0.0)
+    {
+      CGPathAddArc(v49, 0, v52 - v48, v48 + v53, v48, -1.57079633, 0.0, 0);
+    }
+
+    CGPathAddLineToPoint(v49, 0, v52, v54 - rect);
     if (rect > 0.0)
     {
-      CGPathAddArc(v48, 0, v59 - rect, v53 - rect, rect, 0.0, 1.57079633, 0);
+      CGPathAddArc(v49, 0, v60 - rect, v54 - rect, rect, 0.0, 1.57079633, 0);
     }
 
-    CGPathAddLineToPoint(v48, 0, rect_16 + v60, v54);
+    CGPathAddLineToPoint(v49, 0, rect_16 + v61, v55);
     if (rect_16 > 0.0)
     {
-      CGPathAddArc(v48, 0, rect_16 + v60, v54 - rect_16, rect_16, 1.57079633, 3.14159265, 0);
+      CGPathAddArc(v49, 0, rect_16 + v61, v55 - rect_16, rect_16, 1.57079633, 3.14159265, 0);
     }
 
-    CGPathAddLineToPoint(v48, 0, v49, v62 + v50);
-    if (v62 > 0.0)
+    CGPathAddLineToPoint(v49, 0, v50, v63 + v51);
+    if (v63 > 0.0)
     {
-      CGPathAddArc(v48, 0, v55, v62 + v50, v62, 3.14159265, -1.57079633, 0);
+      CGPathAddArc(v49, 0, v56, v63 + v51, v63, 3.14159265, -1.57079633, 0);
     }
 
-    CGPathCloseSubpath(v48);
-    CGPathAddPath(Mutable, 0, v48);
-    CGPathRelease(v48);
+    CGPathCloseSubpath(v49);
+    CGPathAddPath(Mutable, 0, v49);
+    CGPathRelease(v49);
   }
 
   else

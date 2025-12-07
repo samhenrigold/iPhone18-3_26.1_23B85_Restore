@@ -118,16 +118,14 @@ void __34__ASDLazyPromise_joinWithPromise___block_invoke_2(uint64_t a1, void *a2
 
 void __34__ASDLazyPromise_joinWithPromise___block_invoke_3(uint64_t a1, void *a2)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v7[0] = *(a1 + 32);
-  v7[1] = a2;
+  v6[0] = *(a1 + 32);
+  v6[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v7 count:2];
+  v5 = [v3 arrayWithObjects:v6 count:2];
   (*(v2 + 16))(v2, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

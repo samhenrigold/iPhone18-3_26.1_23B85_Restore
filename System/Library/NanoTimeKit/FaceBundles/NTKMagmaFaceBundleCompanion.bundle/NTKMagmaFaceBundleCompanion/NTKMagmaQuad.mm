@@ -3,11 +3,16 @@
 - (CGSize)size;
 - (NTKMagmaEffectsRendererDelegate)delegate;
 - (NTKMagmaQuad)initWithScale:(double)scale;
+- (void)applyInverseQuadraticRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:;
+- (void)applyInverseSquareRepuslorWithOrigin:(float)origin magnitude:(float)magnitude max:;
 - (void)applyLineImpulseWithLinearFalloff:(NTKMagmaQuad *)self;
 - (void)applyLineImpulseWithQuadraticFalloff:(NTKMagmaQuad *)self;
+- (void)applyQuadraticDragWithOrigin:(NTKMagmaQuad *)self drag:(SEL)drag radius:(float)radius;
+- (void)applyQuadraticRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:;
 - (void)applyRandomImpulses:(float)impulses;
 - (void)applySpinWithMagnitude:(float)magnitude;
 - (void)applyUniformImpulse:(NTKMagmaQuad *)self;
+- (void)applyUniformRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:;
 - (void)performOffscreenPassesWithCommandBuffer:(id)buffer;
 - (void)setBackgroundBottomColor:(id)color;
 - (void)setBackgroundTopColor:(id)color;
@@ -71,9 +76,7 @@
   colorPixelFormat = [viewCopy colorPixelFormat];
 
   *&v18 = v16;
-  v19 = [(NTKMagmaEffectsRenderer *)v8 initWithDevice:device library:library width:v12 height:v15 screenScale:colorPixelFormat colorPixelFormat:v18];
-  renderer = self->_renderer;
-  self->_renderer = v19;
+  self->_renderer = [(NTKMagmaEffectsRenderer *)v8 initWithDevice:device library:library width:v12 height:v15 screenScale:colorPixelFormat colorPixelFormat:v18];
 
   _objc_release_x1();
 }
@@ -192,6 +195,87 @@
   v3[4] = self;
   magnitudeCopy = magnitude;
   [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v3];
+}
+
+- (void)applyInverseSquareRepuslorWithOrigin:(float)origin magnitude:(float)magnitude max:
+{
+  v5 = v4;
+  v7 = *&origin;
+  [(NTKMagmaQuad *)self size];
+  v10[1] = 3221225472;
+  v10[0] = _NSConcreteStackBlock;
+  v10[2] = sub_9B48;
+  v10[3] = &unk_147D0;
+  v10[4] = v7;
+  *&v10[5] = 1.0 / v9;
+  magnitudeCopy = magnitude;
+  v12 = v5;
+  [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v10];
+}
+
+- (void)applyUniformRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:
+{
+  v5 = v4;
+  v7 = *&origin;
+  [(NTKMagmaQuad *)self size];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_9C58;
+  v10[3] = &unk_147F0;
+  v10[4] = v7;
+  *&v10[5] = 1.0 / v9;
+  *&v10[6] = (v5 * v5);
+  magnitudeCopy = magnitude;
+  [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v10];
+}
+
+- (void)applyQuadraticRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:
+{
+  v5 = v4;
+  v7 = *&origin;
+  [(NTKMagmaQuad *)self size];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_9D70;
+  v10[3] = &unk_147F0;
+  v10[4] = v7;
+  *&v10[5] = 1.0 / v9;
+  *&v10[6] = (v5 * v5);
+  magnitudeCopy = magnitude;
+  [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v10];
+}
+
+- (void)applyInverseQuadraticRepuslorWithOrigin:(float)origin magnitude:(float)magnitude radius:
+{
+  v5 = v4;
+  v7 = *&origin;
+  [(NTKMagmaQuad *)self size];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_9E98;
+  v10[3] = &unk_147F0;
+  v10[4] = v7;
+  *&v10[5] = 1.0 / v9;
+  *&v10[6] = (v5 * v5);
+  magnitudeCopy = magnitude;
+  [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v10];
+}
+
+- (void)applyQuadraticDragWithOrigin:(NTKMagmaQuad *)self drag:(SEL)drag radius:(float)radius
+{
+  v5 = v4;
+  v6 = v3;
+  v7 = *&radius;
+  [(NTKMagmaQuad *)self size];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_9FBC;
+  v10[3] = &unk_14810;
+  v10[4] = v7;
+  *&v10[5] = 1.0 / v9;
+  *&v10[6] = (v5 * v5);
+  v10[7] = v6;
+  [(NTKMagmaQuad *)self applySpringImpulseWithBlock:v10];
 }
 
 - (void)setTimeFillColor:(id)color

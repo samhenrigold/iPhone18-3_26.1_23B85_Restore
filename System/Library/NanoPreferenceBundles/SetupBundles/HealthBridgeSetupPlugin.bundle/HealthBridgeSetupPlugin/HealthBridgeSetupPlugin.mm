@@ -221,15 +221,15 @@ LABEL_5:
   [v9 buddyControllerReleaseHold:*(a1 + 32)];
 }
 
-void sub_27E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_27E8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id sub_2814(uint64_t *a1, void *a2)
+id sub_2814(uint64_t a1, void *a2)
 {
-  v3 = *a1;
 
   return a2;
 }
@@ -272,7 +272,7 @@ void sub_3ADC(uint64_t a1, void *a2, void *a3)
     _HKInitializeLogging();
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      sub_4FCC(a1);
+      sub_4FCC();
     }
 
     v8 = [*(a1 + 32) delegate];
@@ -387,7 +387,7 @@ void sub_4738(uint64_t a1, void *a2, void *a3)
     _HKInitializeLogging();
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      sub_4FCC(a1);
+      sub_4FCC();
     }
 
     [*(a1 + 32) completeMiniFlowStep];
@@ -402,7 +402,7 @@ void sub_4854(uint64_t a1, char a2, void *a3)
     _HKInitializeLogging();
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      sub_507C(a1);
+      sub_507C();
     }
   }
 
@@ -462,48 +462,34 @@ void sub_4D10(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "Failed to fetch FAFamilyMember Photo from Family framework, Error: %{public}@", &v2, 0xCu);
 }
 
-void sub_4D88(uint64_t *a1, void *a2)
+void sub_4D88(uint64_t a1, void *a2)
 {
   sub_2814(a1, a2);
   v3 = [sub_2808() gregorianBirthday];
   sub_27D0();
-  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID birthday %@ to Health profile, Error: %{public}@", v6, v7, v8, v9, v10);
+  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID birthday %@ to Health profile, Error: %{public}@", v6, v7, v8, v9);
 }
 
-void sub_4E1C(uint64_t *a1, void *a2)
+void sub_4E1C(uint64_t a1, void *a2)
 {
   sub_2814(a1, a2);
   v3 = [sub_2808() weight];
   sub_27D0();
-  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID weight %@ to Health profile, Error: %{public}@", v6, v7, v8, v9, v10);
+  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID weight %@ to Health profile, Error: %{public}@", v6, v7, v8, v9);
 }
 
-void sub_4EB0(uint64_t *a1, void *a2)
+void sub_4EB0(uint64_t a1, void *a2)
 {
   sub_2814(a1, a2);
   v3 = [sub_2808() height];
   sub_27D0();
-  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID height %@ to Health profile, Error: %{public}@", v6, v7, v8, v9, v10);
+  sub_27E8(&dword_0, v4, v5, "Failed to persist Medical ID height %@ to Health profile, Error: %{public}@", v6, v7, v8, v9);
 }
 
-void sub_4F44(uint64_t *a1, void *a2)
+void sub_4F44(uint64_t a1, void *a2)
 {
   sub_2814(a1, a2);
   [sub_2808() bloodType];
   sub_27D0();
-  sub_27E8(&dword_0, v3, v4, "Failed to persist Medical ID bloodType %ld to Health profile, Error: %{public}@", v5, v6, v7, v8, v9);
-}
-
-void sub_4FCC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_4B08();
-  sub_4B20(&dword_0, v2, v3, "%{public}@ Failed to fetch Medical ID, Error: %{public}@");
-}
-
-void sub_507C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_4B08();
-  sub_4B20(&dword_0, v2, v3, "%{public}@ Failed to update Medical ID, Error: %{public}@");
+  sub_27E8(&dword_0, v3, v4, "Failed to persist Medical ID bloodType %ld to Health profile, Error: %{public}@", v5, v6, v7, v8);
 }

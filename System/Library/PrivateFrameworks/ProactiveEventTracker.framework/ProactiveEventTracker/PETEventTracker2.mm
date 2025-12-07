@@ -106,7 +106,7 @@ void __34__PETEventTracker2_clearLogStores__block_invoke(uint64_t a1, uint64_t a
 
 void __68__PETEventTracker2_enumerateAggregatedMessagesWithBlock_clearStore___block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, double a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v8 = objc_autoreleasePoolPush();
   v9 = objc_opt_new();
   v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:a2 length:a3];
@@ -129,21 +129,20 @@ void __68__PETEventTracker2_enumerateAggregatedMessagesWithBlock_clearStore___bl
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412290;
-      v19 = v11;
-      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Message name is nil in raw message: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v11;
+      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Message name is nil in raw message: %@", &v17, 0xCu);
     }
 
     AnalyticsSendEvent();
   }
 
   objc_autoreleasePoolPop(v8);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __68__PETEventTracker2_enumerateAggregatedMessagesWithBlock_clearStore___block_invoke_174(uint64_t a1, uint64_t a2, unsigned int a3, double a4, double a5, double a6, double a7, uint64_t a8, unsigned int a9)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v17 = objc_autoreleasePoolPush();
   v18 = objc_opt_new();
   v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:a2 length:a3];
@@ -189,16 +188,15 @@ void __68__PETEventTracker2_enumerateAggregatedMessagesWithBlock_clearStore___bl
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v37 = 138412290;
-      v38 = v20;
-      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Message name is nil in raw message: %@", &v37, 0xCu);
+      v36 = 138412290;
+      v37 = v20;
+      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Message name is nil in raw message: %@", &v36, 0xCu);
     }
 
     AnalyticsSendEvent();
   }
 
   objc_autoreleasePoolPop(v17);
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (double)_roundToSigFigs:(double)figs forRawMessage:(id)message
@@ -308,41 +306,41 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
 
 - (void)enumerateMessageGroups:(id)groups
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   if (self->_inited)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     logStoresDir = self->_logStoresDir;
-    v20 = 0;
-    v7 = [defaultManager contentsOfDirectoryAtPath:logStoresDir error:&v20];
-    v8 = v20;
+    v19 = 0;
+    v7 = [defaultManager contentsOfDirectoryAtPath:logStoresDir error:&v19];
+    v8 = v19;
 
     if (v7)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            groupsCopy[2](groupsCopy, *(*(&v16 + 1) + 8 * i));
+            groupsCopy[2](groupsCopy, *(*(&v15 + 1) + 8 * i));
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
         }
 
         while (v11);
@@ -351,15 +349,13 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
 
     else
     {
-      v22 = @"code";
+      v21 = @"code";
       v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "code")}];
-      v23[0] = v9;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v22[0] = v9;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       AnalyticsSendEvent();
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logMessage:(id)message subGroup:(id)group
@@ -408,7 +404,7 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
 
 - (id)_getLogStore:(id)store
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v5 = [(NSMutableDictionary *)self->_storeCache objectForKey:storeCopy];
   if (v5)
@@ -433,11 +429,11 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
       if (fileSize > 0xA00000)
       {
         [(PETReservoirSamplingLog *)v10 clear];
-        v17[0] = @"type";
-        v17[1] = @"msg_group";
-        v18[0] = &unk_1F5AB6CA8;
-        v18[1] = storeCopy;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+        v16[0] = @"type";
+        v16[1] = @"msg_group";
+        v17[0] = &unk_1F5AB6CA8;
+        v17[1] = storeCopy;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
         AnalyticsSendEvent();
       }
     }
@@ -447,22 +443,20 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = storeCopy;
+        v21 = storeCopy;
         _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create store for unaggregated message group: %@", buf, 0xCu);
       }
 
-      v19[0] = @"reason";
-      v19[1] = @"msg_group";
-      v20[0] = @"init_log_store";
-      v20[1] = storeCopy;
-      defaultManager = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+      v18[0] = @"reason";
+      v18[1] = @"msg_group";
+      v19[0] = @"init_log_store";
+      v19[1] = storeCopy;
+      defaultManager = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
       AnalyticsSendEvent();
     }
 
     v6 = v10;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -732,7 +726,7 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
 
 - (void)_runBlockWithRBSAssertion:(id)assertion
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   v5 = assertionCopy;
   if (self->_inited)
@@ -755,16 +749,16 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
       v7 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
       v8 = objc_alloc(MEMORY[0x1E69C7548]);
       rbsTarget = self->_rbsTarget;
-      v23[0] = v7;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v22[0] = v7;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
       v11 = [v8 initWithExplanation:@"ProactiveEventTracker" target:rbsTarget attributes:v10];
       v12 = self->_rbsAssertion;
       self->_rbsAssertion = v11;
 
       v13 = self->_rbsAssertion;
-      v20 = 0;
-      LODWORD(rbsTarget) = [(RBSAssertion *)v13 acquireWithError:&v20];
-      v14 = v20;
+      v19 = 0;
+      LODWORD(rbsTarget) = [(RBSAssertion *)v13 acquireWithError:&v19];
+      v14 = v19;
       if (rbsTarget)
       {
         self->_rbsShouldInvalidate = 0;
@@ -776,12 +770,12 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
 
         v15 = dispatch_time(0, 1000000000);
         v16 = dispatch_queue_create("com.apple.proactive.eventtracker.rbsAssertionCheck", 0);
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __46__PETEventTracker2__runBlockWithRBSAssertion___block_invoke;
-        v19[3] = &unk_1E86C2B30;
-        v19[4] = self;
-        dispatch_after(v15, v16, v19);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __46__PETEventTracker2__runBlockWithRBSAssertion___block_invoke;
+        v18[3] = &unk_1E86C2B30;
+        v18[4] = self;
+        dispatch_after(v15, v16, v18);
       }
 
       else
@@ -792,7 +786,7 @@ void __58__PETEventTracker2_enumerateMessagesWithBlock_clearStore___block_invoke
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v22 = v14;
+          v21 = v14;
           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to acquire the RunningBoard assertion: %@", buf, 0xCu);
         }
       }
@@ -833,8 +827,6 @@ LABEL_14:
       assertionCopy[2](assertionCopy);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__PETEventTracker2__runBlockWithRBSAssertion___block_invoke(uint64_t a1)
@@ -872,68 +864,64 @@ uint64_t __46__PETEventTracker2__runBlockWithRBSAssertion___block_invoke(uint64_
 
 - (void)assertionWillInvalidate:(id)invalidate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = invalidateCopy;
+    v16 = invalidateCopy;
     _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Runningboard assertion (%@) will be invalidated soon. Force unlocking all store files...", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_storeCache allValues];
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) unlock];
+        [*(*(&v10 + 1) + 8 * v9++) unlock];
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   errorCopy = error;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v13 = assertionCopy;
-    v14 = 2112;
-    v15 = errorCopy;
+    v12 = assertionCopy;
+    v13 = 2112;
+    v14 = errorCopy;
     _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Runningboard assertion (%@) was invalidated unexpectedly with error %@", buf, 0x16u);
   }
 
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(errorCopy, "code", @"error_code"}];
-  v11 = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v10 = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   AnalyticsSendEvent();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchAsyncForLogging:(id)logging txnName:(const char *)name
@@ -984,7 +972,7 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
 - (void)_initWithRootDir:(id)dir config:(id)config
 {
   dirCopy = dir;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dirCopy2 = dir;
   configCopy = config;
   objc_storeStrong(&self->_rootDir, dirCopy);
@@ -999,9 +987,9 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   rootDir = self->_rootDir;
-  v37 = 0;
-  LOBYTE(dirCopy) = [defaultManager createDirectoryAtPath:rootDir withIntermediateDirectories:1 attributes:0 error:&v37];
-  v15 = v37;
+  v36 = 0;
+  LOBYTE(dirCopy) = [defaultManager createDirectoryAtPath:rootDir withIntermediateDirectories:1 attributes:0 error:&v36];
+  v15 = v36;
 
   if (dirCopy)
   {
@@ -1024,9 +1012,9 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
 
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
       v23 = self->_logStoresDir;
-      v36 = v15;
-      v24 = [defaultManager3 createDirectoryAtPath:v23 withIntermediateDirectories:1 attributes:0 error:&v36];
-      v25 = v36;
+      v35 = v15;
+      v24 = [defaultManager3 createDirectoryAtPath:v23 withIntermediateDirectories:1 attributes:0 error:&v35];
+      v25 = v35;
 
       if (v24)
       {
@@ -1054,7 +1042,7 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
           }
 
           *buf = 138412290;
-          v43 = v31;
+          v42 = v31;
           _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "_isProcessManagedByRBS: %@", buf, 0xCu);
         }
 
@@ -1066,16 +1054,16 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v43 = v25;
+          v42 = v25;
           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create log stores dir: %@", buf, 0xCu);
         }
 
-        v38[0] = @"reason";
-        v38[1] = @"code";
-        v39[0] = &unk_1F5AB6CA8;
+        v37[0] = @"reason";
+        v37[1] = @"code";
+        v38[0] = &unk_1F5AB6CA8;
         v33 = [MEMORY[0x1E696AD98] numberWithInteger:{-[__CFString code](v25, "code")}];
-        v39[1] = v33;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+        v38[1] = v33;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
         AnalyticsSendEvent();
       }
 
@@ -1099,20 +1087,18 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v43 = v15;
+      v42 = v15;
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create root dir: %@", buf, 0xCu);
     }
 
-    v40[0] = @"reason";
-    v40[1] = @"code";
-    v41[0] = &unk_1F5AB6CA8;
+    v39[0] = @"reason";
+    v39[1] = @"code";
+    v40[0] = &unk_1F5AB6CA8;
     v16 = [MEMORY[0x1E696AD98] numberWithInteger:{-[__CFString code](v15, "code")}];
-    v41[1] = v16;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+    v40[1] = v16;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
     AnalyticsSendEvent();
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (PETEventTracker2)initWithRootDir:(id)dir config:(id)config
@@ -1162,7 +1148,7 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
 
 - (void)_init
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   self->_isTesting = 0;
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   processName = [processInfo processName];
@@ -1182,9 +1168,9 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            v10 = 138412290;
-            v11 = v8;
-            _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Initializing PETEventTracker2 with root dir: %@", &v10, 0xCu);
+            v9 = 138412290;
+            v10 = v8;
+            _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Initializing PETEventTracker2 with root dir: %@", &v9, 0xCu);
           }
 
           [(PETEventTracker2 *)self _initWithRootDir:v8 config:v7];
@@ -1200,8 +1186,8 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v10) = 0;
-          _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize PETEventTracker2 due to corrupted config", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize PETEventTracker2 due to corrupted config", &v9, 2u);
         }
 
         AnalyticsSendEvent();
@@ -1212,8 +1198,8 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v10) = 0;
-        _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize PETEventTracker2 due to missing config", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize PETEventTracker2 due to missing config", &v9, 2u);
       }
 
       AnalyticsSendEvent();
@@ -1225,19 +1211,17 @@ uint64_t __53__PETEventTracker2__dispatchAsyncForLogging_txnName___block_invoke(
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "The process calling PET2 doesn't have the correct entitlement (com.apple.proactive.eventtracker)", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "The process calling PET2 doesn't have the correct entitlement (com.apple.proactive.eventtracker)", &v9, 2u);
     }
 
-    v12[0] = @"reason";
-    v12[1] = @"process";
-    v13[0] = &unk_1F5AB6C48;
-    v13[1] = processName;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = @"reason";
+    v11[1] = @"process";
+    v12[0] = &unk_1F5AB6C48;
+    v12[1] = processName;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     AnalyticsSendEvent();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (PETEventTracker2)initWithAsyncEnabled:(BOOL)enabled
@@ -1429,7 +1413,7 @@ LABEL_6:
 
 + (id)_writeMessage:(id)message objCClassName:(id)name
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   nameCopy = name;
   v7 = [PETEventTracker2 typeIdForMessageName:nameCopy];
@@ -1446,40 +1430,37 @@ LABEL_6:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v16 = nameCopy;
-      v17 = 2048;
-      v18 = [messageCopy length];
-      v19 = 1024;
-      v20 = 0x100000;
+      v15 = nameCopy;
+      v16 = 2048;
+      v17 = [messageCopy length];
+      v18 = 1024;
+      v19 = 0x100000;
       _os_log_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "dropping large message %@ with length %lu. max length: %ul", buf, 0x1Cu);
     }
 
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(messageCopy, "length", @"name", @"size", nameCopy)}];
-    v14[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:2];
+    v13[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:2];
     AnalyticsSendEvent();
 
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (unsigned)typeIdForMessageName:(id)name
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   uTF8String = [name UTF8String];
   v4 = strlen(uTF8String);
   CC_MD5(uTF8String, v4, md);
-  v5 = *MEMORY[0x1E69E9840];
   return bswap32(*md);
 }
 
 + (id)defaultRootDir
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *__error() = 0;
   v2 = getuid();
   v3 = getpwuid(v2);
@@ -1501,21 +1482,21 @@ LABEL_6:
       v9 = *__error();
       v10 = __error();
       v11 = strerror(*v10);
-      v17[0] = 67109378;
-      v17[1] = v9;
-      v18 = 2080;
-      v19 = v11;
+      v16[0] = 67109378;
+      v16[1] = v9;
+      v17 = 2080;
+      v18 = v11;
       v12 = MEMORY[0x1E69E9C10];
       v13 = "Failed to get user passwd entry: [%i] %s";
       v14 = 18;
 LABEL_13:
-      _os_log_error_impl(&dword_1DF726000, v12, OS_LOG_TYPE_ERROR, v13, v17, v14);
+      _os_log_error_impl(&dword_1DF726000, v12, OS_LOG_TYPE_ERROR, v13, v16, v14);
     }
   }
 
   else if (v8)
   {
-    LOWORD(v17[0]) = 0;
+    LOWORD(v16[0]) = 0;
     v12 = MEMORY[0x1E69E9C10];
     v13 = "User passwd entry or home directory is not found";
     v14 = 2;
@@ -1524,7 +1505,6 @@ LABEL_13:
 
   v6 = 0;
 LABEL_9:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

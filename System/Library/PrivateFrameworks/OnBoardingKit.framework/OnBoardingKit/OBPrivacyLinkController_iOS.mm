@@ -4,6 +4,7 @@
 - (void)loadView;
 - (void)processBundlesForTitleInformation;
 - (void)setCustomTintColor:(id)color;
+- (void)setUnderlineLinks:(BOOL)links;
 @end
 
 @implementation OBPrivacyLinkController_iOS
@@ -48,29 +49,29 @@
 
 - (void)loadView
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if ([(OBPrivacyLinkController *)self displayIcon])
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     bundles = [(OBPrivacyLinkController *)self bundles];
-    v4 = [bundles countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v4 = [bundles countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v40;
+      v6 = *v39;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v40 != v6)
+          if (*v39 != v6)
           {
             objc_enumerationMutation(bundles);
           }
 
-          privacyFlow = [*(*(&v39 + 1) + 8 * i) privacyFlow];
+          privacyFlow = [*(*(&v38 + 1) + 8 * i) privacyFlow];
           _iconSymbolName = [privacyFlow _iconSymbolName];
 
           if (_iconSymbolName)
@@ -81,7 +82,7 @@
           }
         }
 
-        v5 = [bundles countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v5 = [bundles countByEnumeratingWithState:&v38 objects:v42 count:16];
         if (v5)
         {
           continue;
@@ -189,36 +190,34 @@ LABEL_18:
   }
 
   [(OBPrivacyLinkController_iOS *)self setView:self->_linkButton];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processBundlesForTitleInformation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   self->bundleTitlesMatch = 1;
   self->bundlesIncludePII = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   bundles = [(OBPrivacyLinkController *)self bundles];
-  v4 = [bundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [bundles countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(bundles);
         }
 
-        privacyFlow = [*(*(&v13 + 1) + 8 * i) privacyFlow];
+        privacyFlow = [*(*(&v12 + 1) + 8 * i) privacyFlow];
         localizedButtonTitle = [privacyFlow localizedButtonTitle];
         v11 = localizedButtonTitle;
         if (v6)
@@ -245,7 +244,7 @@ LABEL_18:
         }
       }
 
-      v5 = [bundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [bundles countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -255,8 +254,6 @@ LABEL_18:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCustomTintColor:(id)color
@@ -266,6 +263,15 @@ LABEL_18:
   colorCopy = color;
   [(OBPrivacyLinkController *)&v5 setCustomTintColor:colorCopy];
   [(OBPrivacyLinkButton *)self->_linkButton setTintColor:colorCopy, v5.receiver, v5.super_class];
+}
+
+- (void)setUnderlineLinks:(BOOL)links
+{
+  linksCopy = links;
+  v5.receiver = self;
+  v5.super_class = OBPrivacyLinkController_iOS;
+  [(OBPrivacyLinkController *)&v5 setUnderlineLinks:?];
+  [(OBPrivacyLinkButton *)self->_linkButton setUnderlineLinks:linksCopy];
 }
 
 @end

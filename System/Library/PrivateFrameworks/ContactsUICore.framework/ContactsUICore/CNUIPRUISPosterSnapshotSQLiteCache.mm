@@ -20,7 +20,7 @@
 {
   _defaultCacheLocationURL = [self _defaultCacheLocationURL];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v4 = CNUIPFFileProtectionNoneAttributes();
+  v4 = CNUIPFFileProtectionNoneAttributes(defaultManager);
   v12 = 0;
   v5 = [defaultManager createDirectoryAtURL:_defaultCacheLocationURL withIntermediateDirectories:1 attributes:v4 error:&v12];
   v6 = v12;

@@ -70,7 +70,7 @@
 
 + (id)unarchivedObjectOfClass:(id)class fromDatabaseArchive:(id)archive error:(id *)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(CKSQLiteDatabaseKeyedUnarchiver, a2, class, archive);
   if (!v6 && *error)
   {
@@ -82,14 +82,12 @@
     v7 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
     {
-      v10 = *error;
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_fault_impl(&dword_1883EA000, v7, OS_LOG_TYPE_FAULT, "Database unarchiving error (missing allowed class for NSSecureCoding?): %@", &v11, 0xCu);
+      v9 = *error;
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_fault_impl(&dword_1883EA000, v7, OS_LOG_TYPE_FAULT, "Database unarchiving error (missing allowed class for NSSecureCoding?): %@", &v10, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -112,7 +110,7 @@
 
 + (id)databaseInDirectory:(id)directory registryDatabase:(id)database options:(unint64_t)options error:(id *)error
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   databaseCopy = database;
   context = objc_autoreleasePoolPush();
@@ -134,7 +132,7 @@ LABEL_4:
   while (1)
   {
 
-    v99 = 0;
+    v98 = 0;
     v14 = directoryCopy;
     v15 = objc_opt_self();
     if (!directoryCopy)
@@ -169,7 +167,7 @@ LABEL_4:
           v39 = __error();
           v40 = strerror(*v39);
           objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v41, @"CKErrorDomain", 1, @"Unable to get database UUID: %s", v40);
-          v99 = v24 = 0;
+          v98 = v24 = 0;
           goto LABEL_15;
         }
 
@@ -178,14 +176,14 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v23 = sub_1886727C8(v17, v18, &v99);
+      v23 = sub_1886727C8(v17, v18, &v98);
     }
 
     v24 = v23;
 LABEL_15:
 
 LABEL_16:
-    v27 = v99;
+    v27 = v98;
     if (v27)
     {
       v11 = v27;
@@ -467,9 +465,9 @@ LABEL_43:
 
   if (*(v10 + 144) == 1 && !v11)
   {
-    v98 = 0;
-    v64 = objc_msgSend_databaseManager_(v10, v59, &v98);
-    v11 = v98;
+    v97 = 0;
+    v64 = objc_msgSend_databaseManager_(v10, v59, &v97);
+    v11 = v97;
     if (!v11)
     {
       v11 = objc_msgSend_registerDatabase_(v64, v65, v10);
@@ -511,27 +509,24 @@ LABEL_73:
   v30 = 0;
 LABEL_96:
 
-  v93 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 + (id)temporaryDatabaseDirectory
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((byte_1EA919CC8 & 1) == 0)
   {
-    v11 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v11, v12, a2, self, @"CKSQLiteDatabase.m", 328, @"For unit test use only");
+    v10 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, v2);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v10, v11, a2, self, @"CKSQLiteDatabase.m", 328, @"For unit test use only");
   }
 
   v3 = NSTemporaryDirectory();
-  objc_msgSend_getCString_maxLength_encoding_(v3, v4, v13, 1024, 1);
+  objc_msgSend_getCString_maxLength_encoding_(v3, v4, v12, 1024, 1);
 
   __strlcat_chk();
-  mkdtemp(v13);
-  v6 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v5, v13, 1);
-  v7 = *MEMORY[0x1E69E9840];
+  mkdtemp(v12);
+  v6 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v5, v12, 1);
 
   return v6;
 }
@@ -624,7 +619,7 @@ LABEL_96:
 
 - (void)setupDatabaseConnection
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sqlite3_extended_result_codes(self->_db, 1);
   v5 = objc_msgSend__executeSQL_(self, v3, "pragma synchronous = normal");
   if (v5)
@@ -638,7 +633,7 @@ LABEL_96:
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v18 = v5;
+      v16 = v5;
       _os_log_fault_impl(&dword_1883EA000, v6, OS_LOG_TYPE_FAULT, "Error setting pragma synchronous = normal: %{public}@", buf, 0xCu);
     }
   }
@@ -656,7 +651,7 @@ LABEL_96:
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v18 = v7;
+      v16 = v7;
       _os_log_fault_impl(&dword_1883EA000, v8, OS_LOG_TYPE_FAULT, "Error setting pragma foreign_keys = ON: %{public}@", buf, 0xCu);
     }
   }
@@ -673,35 +668,32 @@ LABEL_96:
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v16 = v10;
       _os_log_fault_impl(&dword_1883EA000, v11, OS_LOG_TYPE_FAULT, "Failed to disable sql comments: %{public}@", buf, 0xCu);
     }
   }
 
-  db = self->_db;
   if (_sqlite3_maintain_load_factor())
   {
-    v14 = objc_msgSend_sqlErrorWithMessage_(self, v13, @"_sqlite3_maintain_load_factor failed");
+    v13 = objc_msgSend_sqlErrorWithMessage_(self, v12, @"_sqlite3_maintain_load_factor failed");
     if (ck_log_initialization_predicate != -1)
     {
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v15 = ck_log_facility_sql;
+    v14 = ck_log_facility_sql;
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v18 = v14;
-      _os_log_fault_impl(&dword_1883EA000, v15, OS_LOG_TYPE_FAULT, "Failed to enable automatic incremental vacuum: %{public}@", buf, 0xCu);
+      v16 = v13;
+      _os_log_fault_impl(&dword_1883EA000, v14, OS_LOG_TYPE_FAULT, "Failed to enable automatic incremental vacuum: %{public}@", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)openExistingDatabase
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_databaseFilePath(self, a2, v2);
   v7 = objc_msgSend_fileSystemRepresentation(v4, v5, v6);
   v8 = v7;
@@ -734,14 +726,14 @@ LABEL_7:
   }
 
 LABEL_8:
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v37 = sub_188673C14;
-  v38 = &unk_1E70C0C50;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v36 = sub_188673C14;
+  v37 = &unk_1E70C0C50;
   selfCopy = self;
-  v40 = v8;
-  v41 = 3211266;
-  v19 = v36;
+  v39 = v8;
+  v40 = 3211266;
+  v19 = v35;
   if (self)
   {
     if ((objc_msgSend_options(self, v17, v18) & 0x200) != 0)
@@ -752,9 +744,9 @@ LABEL_8:
       v28 = v26;
       if (v26 == -1 || flock(v26, 2))
       {
-        v42 = *MEMORY[0x1E696A368];
-        v43[0] = v22;
-        v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v43, &v42, 1);
+        v41 = *MEMORY[0x1E696A368];
+        v42[0] = v22;
+        v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v42, &v41, 1);
         v30 = MEMORY[0x1E696ABC0];
         v31 = *MEMORY[0x1E696A798];
         v32 = __error();
@@ -763,7 +755,7 @@ LABEL_8:
 
       else
       {
-        v16 = v37(v19);
+        v16 = v36(v19);
       }
 
       close(v28);
@@ -771,7 +763,7 @@ LABEL_8:
 
     else
     {
-      v16 = v37(v19);
+      v16 = v36(v19);
     }
   }
 
@@ -781,7 +773,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  v34 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -837,16 +828,16 @@ LABEL_17:
 
 - (id)createNewDatabase
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   databaseDirectory = self->_databaseDirectory;
   if (!databaseDirectory)
   {
     goto LABEL_5;
   }
 
-  v29 = 0;
-  CKCreateDirectoryAtPathWithAttributes(databaseDirectory, 0, &v29);
-  v5 = v29;
+  v28 = 0;
+  CKCreateDirectoryAtPathWithAttributes(databaseDirectory, 0, &v28);
+  v5 = v28;
   if (v5)
   {
 LABEL_15:
@@ -886,9 +877,9 @@ LABEL_5:
       goto LABEL_12;
     }
 
-    v28 = 0;
-    v18 = sub_1886727C8(CKSQLiteDatabase, v6, &v28);
-    v14 = v28;
+    v27 = 0;
+    v18 = sub_1886727C8(CKSQLiteDatabase, v6, &v27);
+    v14 = v27;
     v19 = self->_uuid;
     self->_uuid = v18;
   }
@@ -940,108 +931,104 @@ LABEL_17:
   {
     *buf = 134218242;
     selfCopy = self;
-    v32 = 2114;
-    v33 = v14;
+    v31 = 2114;
+    v32 = v14;
     _os_log_error_impl(&dword_1883EA000, v25, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: Error creating database: %{public}@", buf, 0x16u);
   }
 
 LABEL_21:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (void)closeDatabase
 {
-  v41 = *MEMORY[0x1E69E9840];
-  if (!self->_db)
+  v40 = *MEMORY[0x1E69E9840];
+  if (self->_db)
   {
-LABEL_16:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v4 = objc_msgSend_databaseFilePath(self, a2, v2);
-  v5 = sqlite3_close(self->_db);
-  self->_db = 0;
-  if (!v5)
-  {
-    uuid = self->_uuid;
-    if (uuid)
+    v4 = objc_msgSend_databaseFilePath(self, a2, v2);
+    v5 = sqlite3_close(self->_db);
+    self->_db = 0;
+    if (v5)
     {
-      objc_msgSend_removeObjectForKey_(qword_1ED4B6310, v6, uuid);
-      objc_msgSend_removeObjectForKey_(qword_1ED4B6318, v8, self->_uuid);
+      v19 = objc_msgSend_sqlErrorWithMessage_(self, v6, @"sqlite3_close() failed");
+      v22 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v20, v21);
+      v23 = [CKSignificantIssue alloc];
+      v24 = [CKSourceCodeLocation alloc];
+      v26 = objc_msgSend_initWithFilePath_lineNumber_(v24, v25, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/SQLite/CKSQLiteDatabase.m", 676);
+      v28 = objc_msgSend_initWithSourceCodeLocation_format_(v23, v27, v26, @"Failed to close database %@, error = %@", self, v19);
+      objc_msgSend_handleSignificantIssue_actions_(v22, v29, v28, 0);
+
+      v31 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v30, @"Failed to close database %@, error = %@", self, v19);
+      objc_msgSend_UTF8String(v31, v32, v33);
+      _os_crash();
+      __break(1u);
     }
 
-    if (ck_log_initialization_predicate != -1)
+    else
     {
-      dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
-    }
-
-    v9 = ck_log_facility_sql;
-    if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
-    {
-      if (self->_isEmpty)
+      uuid = self->_uuid;
+      if (uuid)
       {
-        v15 = @" (empty)";
+        objc_msgSend_removeObjectForKey_(qword_1ED4B6310, v6, uuid);
+        objc_msgSend_removeObjectForKey_(qword_1ED4B6318, v8, self->_uuid);
       }
 
-      else
-      {
-        v15 = &stru_1EFA32970;
-      }
-
-      v16 = qword_1ED4B6310;
-      v17 = v9;
-      *buf = 138543874;
-      selfCopy2 = self;
-      v37 = 2114;
-      selfCopy3 = v15;
-      v39 = 2048;
-      v40 = objc_msgSend_count(v16, v18, v19);
-      _os_log_debug_impl(&dword_1883EA000, v17, OS_LOG_TYPE_DEBUG, "Closed db %{public}@%{public}@. allDatabases.count is now %lu.", buf, 0x20u);
-    }
-
-    if (self->_isEmpty || self->_removeWhenClosed)
-    {
       if (ck_log_initialization_predicate != -1)
       {
         dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
       }
 
-      v10 = ck_log_facility_sql;
-      if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_INFO))
+      v9 = ck_log_facility_sql;
+      if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_DEBUG))
       {
-        *buf = 134218242;
+        if (self->_isEmpty)
+        {
+          v14 = @" (empty)";
+        }
+
+        else
+        {
+          v14 = &stru_1EFA32970;
+        }
+
+        v15 = qword_1ED4B6310;
+        v16 = v9;
+        *buf = 138543874;
         selfCopy2 = self;
-        v37 = 2114;
-        selfCopy3 = self;
-        _os_log_impl(&dword_1883EA000, v10, OS_LOG_TYPE_INFO, "CKSQLiteDatabase<%p>: Removing empty database: %{public}@", buf, 0x16u);
+        v36 = 2114;
+        selfCopy3 = v14;
+        v38 = 2048;
+        v39 = objc_msgSend_count(v15, v17, v18);
+        _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "Closed db %{public}@%{public}@. allDatabases.count is now %lu.", buf, 0x20u);
       }
 
-      v13 = objc_msgSend_removeDatabaseDirectory(self, v11, v12);
+      if (self->_isEmpty || self->_removeWhenClosed)
+      {
+        if (ck_log_initialization_predicate != -1)
+        {
+          dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+        }
+
+        v10 = ck_log_facility_sql;
+        if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_INFO))
+        {
+          *buf = 134218242;
+          selfCopy2 = self;
+          v36 = 2114;
+          selfCopy3 = self;
+          _os_log_impl(&dword_1883EA000, v10, OS_LOG_TYPE_INFO, "CKSQLiteDatabase<%p>: Removing empty database: %{public}@", buf, 0x16u);
+        }
+
+        v13 = objc_msgSend_removeDatabaseDirectory(self, v11, v12);
+      }
     }
-
-    goto LABEL_16;
   }
-
-  v20 = objc_msgSend_sqlErrorWithMessage_(self, v6, @"sqlite3_close() failed");
-  v23 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v21, v22);
-  v24 = [CKSignificantIssue alloc];
-  v25 = [CKSourceCodeLocation alloc];
-  v27 = objc_msgSend_initWithFilePath_lineNumber_(v25, v26, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/SQLite/CKSQLiteDatabase.m", 676);
-  v29 = objc_msgSend_initWithSourceCodeLocation_format_(v24, v28, v27, @"Failed to close database %@, error = %@", self, v20);
-  objc_msgSend_handleSignificantIssue_actions_(v23, v30, v29, 0);
-
-  v32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"Failed to close database %@, error = %@", self, v20);
-  objc_msgSend_UTF8String(v32, v33, v34);
-  _os_crash();
-  __break(1u);
 }
 
 - (id)removeDatabaseDirectory
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], a2, v2);
   v9 = objc_msgSend_databaseDirectory(self, v5, v6);
   if (v9 && (objc_msgSend_databaseFilePath(self, v7, v8), v10 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_fileExistsAtPath_(v4, v11, v10), v10, v12))
@@ -1060,9 +1047,9 @@ LABEL_16:
       _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "CKSQLiteDatabase: Removing db at %{public}@", buf, 0xCu);
     }
 
-    v22 = 0;
-    objc_msgSend_removeItemAtPath_error_(v4, v17, v9, &v22);
-    v18 = v22;
+    v21 = 0;
+    objc_msgSend_removeItemAtPath_error_(v4, v17, v9, &v21);
+    v18 = v21;
     if (v18)
     {
       if (ck_log_initialization_predicate != -1)
@@ -1075,10 +1062,10 @@ LABEL_16:
       {
         *buf = 134218498;
         selfCopy = self;
-        v25 = 2114;
-        v26 = v15;
-        v27 = 2114;
-        v28 = v18;
+        v24 = 2114;
+        v25 = v15;
+        v26 = 2114;
+        v27 = v18;
         _os_log_error_impl(&dword_1883EA000, v19, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: Removal of database at %{public}@ failed: %{public}@", buf, 0x20u);
       }
     }
@@ -1088,8 +1075,6 @@ LABEL_16:
   {
     v18 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1126,18 +1111,18 @@ LABEL_16:
 
 - (id)sqlErrorWithMessage:(id)message
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   db = self->_db;
   if (db)
   {
-    v9 = objc_msgSend_errorForSQLite_message_args_(CKPrettyError, v4, db, messageCopy, &v58);
+    v9 = objc_msgSend_errorForSQLite_message_args_(CKPrettyError, v4, db, messageCopy, &v57);
   }
 
   else
   {
     v10 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v12 = objc_msgSend_initWithFormat_arguments_(v10, v11, messageCopy, &v58);
+    v12 = objc_msgSend_initWithFormat_arguments_(v10, v11, messageCopy, &v57);
     v9 = objc_msgSend_errorWithDomain_code_userInfo_format_(CKPrettyError, v13, @"CKInternalErrorDomain", 1027, 0, @"database is closed (%@)", v12);
   }
 
@@ -1154,8 +1139,8 @@ LABEL_16:
     {
       *buf = 134218242;
       selfCopy = self;
-      v54 = 2114;
-      v55 = v16;
+      v53 = 2114;
+      v54 = v16;
       _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: Database corrupt: %{public}@", buf, 0x16u);
     }
 
@@ -1170,14 +1155,14 @@ LABEL_16:
       v23 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
-        v31 = v23;
-        v32 = __error();
-        v33 = strerror(*v32);
+        v30 = v23;
+        v31 = __error();
+        v32 = strerror(*v31);
         *buf = 138412546;
         selfCopy = v16;
-        v54 = 2080;
-        v55 = v33;
-        _os_log_error_impl(&dword_1883EA000, v31, OS_LOG_TYPE_ERROR, "setxattr failed at path: %@. Removing database instead. error = %s", buf, 0x16u);
+        v53 = 2080;
+        v54 = v32;
+        _os_log_error_impl(&dword_1883EA000, v30, OS_LOG_TYPE_ERROR, "setxattr failed at path: %@. Removing database instead. error = %s", buf, 0x16u);
       }
 
       v26 = objc_msgSend_removeDatabaseDirectory(self, v24, v25);
@@ -1185,20 +1170,20 @@ LABEL_16:
 
     if ((objc_msgSend_options(self, v21, v22) & 4) == 0)
     {
-      v34 = objc_msgSend_sharedOptions(CKBehaviorOptions, v27, v28);
-      isAppleInternalInstall = objc_msgSend_isAppleInternalInstall(v34, v35, v36);
+      v33 = objc_msgSend_sharedOptions(CKBehaviorOptions, v27, v28);
+      isAppleInternalInstall = objc_msgSend_isAppleInternalInstall(v33, v34, v35);
 
       if (isAppleInternalInstall)
       {
-        v40 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v38, v39);
-        v41 = [CKSignificantIssue alloc];
-        v42 = [CKSourceCodeLocation alloc];
-        v44 = objc_msgSend_initWithFilePath_lineNumber_(v42, v43, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/SQLite/CKSQLiteDatabase.m", 782);
-        v46 = objc_msgSend_initWithSourceCodeLocation_format_(v41, v45, v44, @"Database corrupt");
-        objc_msgSend_handleSignificantIssue_actions_(v40, v47, v46, 0);
+        v39 = objc_msgSend_currentHandler(CKSignificantIssueHandler, v37, v38);
+        v40 = [CKSignificantIssue alloc];
+        v41 = [CKSourceCodeLocation alloc];
+        v43 = objc_msgSend_initWithFilePath_lineNumber_(v41, v42, @"/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/SQLite/CKSQLiteDatabase.m", 782);
+        v45 = objc_msgSend_initWithSourceCodeLocation_format_(v40, v44, v43, @"Database corrupt");
+        objc_msgSend_handleSignificantIssue_actions_(v39, v46, v45, 0);
 
-        v49 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v48, @"Database corrupt");
-        objc_msgSend_UTF8String(v49, v50, v51);
+        v48 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v47, @"Database corrupt");
+        objc_msgSend_UTF8String(v48, v49, v50);
         _os_crash();
         __break(1u);
       }
@@ -1206,8 +1191,6 @@ LABEL_16:
       exit(1);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1300,7 +1283,7 @@ LABEL_16:
 
 - (void)finalizeHandle:(void *)handle
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (sqlite3_finalize(handle))
   {
     v5 = objc_msgSend_sqlErrorWithMessage_(self, v4, @"Error finalizing compiled statement");
@@ -1312,18 +1295,16 @@ LABEL_16:
     v6 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
     {
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_fault_impl(&dword_1883EA000, v6, OS_LOG_TYPE_FAULT, "[SQLiteDatabase finalizeHandle]: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_fault_impl(&dword_1883EA000, v6, OS_LOG_TYPE_FAULT, "[SQLiteDatabase finalizeHandle]: %{public}@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dropTable:(id)table
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   tableCopy = table;
   v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v5, @"DROP TABLE '%@'", tableCopy);
   v8 = objc_msgSend_executeSQL_(self, v7, v6);
@@ -1344,14 +1325,12 @@ LABEL_16:
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v14 = tableCopy;
-      v15 = 2114;
-      v16 = v8;
+      v13 = tableCopy;
+      v14 = 2114;
+      v15 = v8;
       _os_log_error_impl(&dword_1883EA000, v10, OS_LOG_TYPE_ERROR, "Failed to drop table %{public}@: %{public}@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1383,7 +1362,7 @@ LABEL_16:
 
 - (void)handleDatabaseBusy:(id)busy
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   busyCopy = busy;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1396,31 +1375,29 @@ LABEL_16:
     databaseDirectory = self->_databaseDirectory;
     v9 = v5;
     v12 = objc_msgSend_CKSanitizedPath(databaseDirectory, v10, v11);
-    v14 = 134218242;
+    v13 = 134218242;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v12;
-    _os_log_impl(&dword_1883EA000, v9, OS_LOG_TYPE_INFO, "SQLitDatabase(%p): Database busy at %{public}@", &v14, 0x16u);
+    v15 = 2114;
+    v16 = v12;
+    _os_log_impl(&dword_1883EA000, v9, OS_LOG_TYPE_INFO, "SQLitDatabase(%p): Database busy at %{public}@", &v13, 0x16u);
   }
 
   objc_msgSend_sleepForTimeInterval_(MEMORY[0x1E696AF00], v6, v7, 0.1);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)performDatabaseTransaction:(id)transaction
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
-  v54 = transactionCopy;
-  v55 = _CKSQLDBSerializerLock(&self->_serializer);
+  v53 = transactionCopy;
+  v54 = _CKSQLDBSerializerLock(&self->_serializer);
   if (self->_transactionNestCount)
   {
     v5 = transactionCopy;
     ++self->_transactionNestCount;
     p_transactionCompletionHandlers = &self->_transactionCompletionHandlers;
     transactionCompletionHandlers = self->_transactionCompletionHandlers;
-    v53 = transactionCompletionHandlers;
+    v52 = transactionCompletionHandlers;
     v8 = self->_transactionCompletionHandlers;
     self->_transactionCompletionHandlers = 0;
 
@@ -1442,8 +1419,8 @@ LABEL_16:
         {
           *buf = 134218242;
           selfCopy5 = self;
-          v62 = 2114;
-          v63 = v13;
+          v61 = 2114;
+          v62 = v13;
           _os_log_error_impl(&dword_1883EA000, v14, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: ROLLBACK failed with %{public}@", buf, 0x16u);
         }
       }
@@ -1473,8 +1450,8 @@ LABEL_16:
     {
       *buf = 134218242;
       selfCopy5 = self;
-      v62 = 2114;
-      v63 = v18;
+      v61 = 2114;
+      v62 = v18;
       _os_log_error_impl(&dword_1883EA000, v19, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: RELEASE failed with %{public}@", buf, 0x16u);
       if (!v15)
       {
@@ -1493,36 +1470,36 @@ LABEL_16:
           v21 = v20;
           objc_storeStrong(&self->_transactionCompletionHandlers, transactionCompletionHandlers);
           v24 = objc_msgSend_reverseObjectEnumerator(v21, v22, v23);
-          v58 = 0u;
-          v59 = 0u;
-          v56 = 0u;
           v57 = 0u;
-          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v56, buf, 16);
+          v58 = 0u;
+          v55 = 0u;
+          v56 = 0u;
+          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v55, buf, 16);
           if (v26)
           {
-            v27 = *v57;
+            v27 = *v56;
             do
             {
               for (i = 0; i != v26; ++i)
               {
-                if (*v57 != v27)
+                if (*v56 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                (*(*(*(&v56 + 1) + 8 * i) + 16))();
+                (*(*(*(&v55 + 1) + 8 * i) + 16))();
               }
 
-              v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v29, &v56, buf, 16);
+              v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v29, &v55, buf, 16);
             }
 
             while (v26);
           }
         }
 
-        else if (v53)
+        else if (v52)
         {
-          objc_msgSend_addObjectsFromArray_(v53, v17, v20);
+          objc_msgSend_addObjectsFromArray_(v52, v17, v20);
           objc_storeStrong(&self->_transactionCompletionHandlers, transactionCompletionHandlers);
         }
       }
@@ -1569,8 +1546,8 @@ LABEL_16:
 
       *buf = 134218242;
       selfCopy5 = self;
-      v62 = 2114;
-      v63 = v33;
+      v61 = 2114;
+      v62 = v33;
       v39 = "CKSQLiteDatabase<%p>: failed to begin transaction: %{public}@";
 LABEL_68:
       _os_log_error_impl(&dword_1883EA000, v38, OS_LOG_TYPE_ERROR, v39, buf, 0x16u);
@@ -1602,8 +1579,8 @@ LABEL_68:
     {
       *buf = 134218242;
       selfCopy5 = self;
-      v62 = 2114;
-      v63 = v33;
+      v61 = 2114;
+      v62 = v33;
       v39 = "CKSQLiteDatabase<%p>: transaction commit failed with %{public}@";
       goto LABEL_68;
     }
@@ -1623,8 +1600,8 @@ LABEL_40:
     {
       *buf = 134218242;
       selfCopy5 = self;
-      v62 = 2114;
-      v63 = v40;
+      v61 = 2114;
+      v62 = v40;
       _os_log_error_impl(&dword_1883EA000, v41, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: transaction rollback failed with %{public}@", buf, 0x16u);
     }
   }
@@ -1638,28 +1615,28 @@ LABEL_46:
     v44 = self->_transactionCompletionHandlers;
     self->_transactionCompletionHandlers = 0;
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v45 = v43;
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v56, buf, 16);
+    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v55, buf, 16);
     if (v47)
     {
-      v48 = *v57;
+      v48 = *v56;
       do
       {
         for (j = 0; j != v47; ++j)
         {
-          if (*v57 != v48)
+          if (*v56 != v48)
           {
             objc_enumerationMutation(v45);
           }
 
-          (*(*(*(&v56 + 1) + 8 * j) + 16))();
+          (*(*(*(&v55 + 1) + 8 * j) + 16))();
         }
 
-        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v50, &v56, buf, 16);
+        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v50, &v55, buf, 16);
       }
 
       while (v47);
@@ -1667,13 +1644,11 @@ LABEL_46:
   }
 
 LABEL_59:
-  if (v55)
+  if (v54)
   {
-    v55[1].__sig = 0;
-    pthread_mutex_unlock(v55);
+    v54[1].__sig = 0;
+    pthread_mutex_unlock(v54);
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

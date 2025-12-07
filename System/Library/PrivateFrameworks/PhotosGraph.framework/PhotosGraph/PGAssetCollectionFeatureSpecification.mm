@@ -149,39 +149,37 @@ LABEL_13:
 
 - (id)_assetUUIDsFromAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = [MEMORY[0x277CBEB58] set];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = assetsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        uuid = [*(*(&v13 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v12 + 1) + 8 * i) uuid];
         [v4 addObject:uuid];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -506,32 +504,32 @@ LABEL_28:
 
 void __109__PGAssetCollectionFeatureSpecification_enumerateFeatureNodesWithInstance_assets_curationContext_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v53 = a4;
-  v65 = *MEMORY[0x277D85DE8];
+  v52 = a4;
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v56 = [MEMORY[0x277CBEB58] set];
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
+  v55 = [MEMORY[0x277CBEB58] set];
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = *(*(a1 + 32) + 32);
-  v58 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
-  if (v58)
+  v57 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+  if (v57)
   {
-    v55 = *v61;
-    v57 = v5;
+    v54 = *v60;
+    v56 = v5;
     do
     {
       v6 = 0;
       do
       {
-        if (*v61 != v55)
+        if (*v60 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v60 + 1) + 8 * v6);
-        v8 = [*(a1 + 32) _assetUUIDsFromAssets:{*(a1 + 40), v53}];
+        v7 = *(*(&v59 + 1) + 8 * v6);
+        v8 = [*(a1 + 32) _assetUUIDsFromAssets:{*(a1 + 40), v52}];
         v9 = [v8 mutableCopy];
 
         v10 = *(a1 + 40);
@@ -612,7 +610,7 @@ void __109__PGAssetCollectionFeatureSpecification_enumerateFeatureNodesWithInsta
 
             v34 = [*(a1 + 32) _assetUUIDsFromAssets:v33];
             v10 = v33;
-            v5 = v57;
+            v5 = v56;
           }
 
           else
@@ -653,7 +651,7 @@ void __109__PGAssetCollectionFeatureSpecification_enumerateFeatureNodesWithInsta
           [v9 intersectSet:v44];
 
           v10 = v43;
-          v5 = v57;
+          v5 = v56;
         }
 
         v45 = [v7 customAssetFilter];
@@ -669,53 +667,51 @@ void __109__PGAssetCollectionFeatureSpecification_enumerateFeatureNodesWithInsta
           v10 = v47;
         }
 
-        [v56 unionSet:v9];
+        [v55 unionSet:v9];
 
         ++v6;
       }
 
-      while (v58 != v6);
-      v58 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      while (v57 != v6);
+      v57 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
-    while (v58);
+    while (v57);
   }
 
-  if ([v56 count])
+  if ([v55 count])
   {
     v49 = *(a1 + 56);
     v50 = [v5 anyNode];
-    v51 = [v56 allObjects];
-    (*(v49 + 16))(v49, v50, v51, v53);
+    v51 = [v55 allObjects];
+    (*(v49 + 16))(v49, v50, v51, v52);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (CLSFeederPrefetchOptions)assetFeederPrefetchOptions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D276B8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_featureDefinitions;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         sceneAssetFilter = [v9 sceneAssetFilter];
 
         if (sceneAssetFilter)
@@ -749,13 +745,11 @@ void __109__PGAssetCollectionFeatureSpecification_enumerateFeatureNodesWithInsta
         [v3 setFaceInformationPrefetchMode:2];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

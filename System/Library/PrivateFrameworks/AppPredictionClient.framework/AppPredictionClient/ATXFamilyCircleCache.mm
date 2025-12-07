@@ -37,17 +37,17 @@
 
 - (BOOL)hasiCloudFamily
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   fetchFamilyCircle = [(ATXFamilyCircleCache *)self fetchFamilyCircle];
   members = [fetchFamilyCircle members];
   v4 = [members count];
 
-  v5 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_home_screen(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "Fetched %ld members during iCloud family check", &v7, 0xCu);
+    v8 = 134217984;
+    v9 = v4;
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "Fetched %ld members during iCloud family check", &v8, 0xCu);
   }
 
   return v4 != 0;
@@ -74,14 +74,14 @@
 
   if (!v6)
   {
-    v7 = __atxlog_handle_home_screen();
+    v7 = __atxlog_handle_home_screen(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(ATXFamilyCircleCache *)v5 _requestUpdatedFamilyCircle];
     }
   }
 
-  v8 = __atxlog_handle_home_screen();
+  v8 = __atxlog_handle_home_screen(v4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -98,7 +98,7 @@
 {
   v3 = objc_alloc(MEMORY[0x1E698AFF0]);
   path = self->_path;
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(v3);
   v6 = [v3 initWithCacheFilePath:path loggingHandle:v5 debugName:@"cached family circle"];
 
   return v6;

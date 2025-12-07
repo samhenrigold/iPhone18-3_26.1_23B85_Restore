@@ -53,7 +53,7 @@
 
 - (id)enumerateScopesForTaskInTransaction:(id)transaction
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   scopes = [(CPLEngineMultiscopeSyncTask *)self scopes];
   primaryScope = [scopes primaryScope];
   if (primaryScope)
@@ -66,8 +66,8 @@
       if (v6)
       {
 LABEL_4:
-        v12[0] = v5;
-        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+        v11[0] = v5;
+        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
 
         goto LABEL_13;
       }
@@ -91,8 +91,6 @@ LABEL_4:
 
   v7 = MEMORY[0x1E695E0F0];
 LABEL_13:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

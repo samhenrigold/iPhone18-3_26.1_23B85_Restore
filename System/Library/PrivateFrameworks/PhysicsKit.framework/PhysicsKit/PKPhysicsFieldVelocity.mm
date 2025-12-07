@@ -28,7 +28,7 @@
   {
     if (gridCopy)
     {
-      [gridCopy gridPtr];
+      objc_msgSend_gridPtr(gridCopy);
     }
 
     else

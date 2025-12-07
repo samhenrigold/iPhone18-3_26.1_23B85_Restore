@@ -12,6 +12,8 @@
 - (void)updateTipsForCurrentCollection;
 - (void)updateTitleTextForCollection:(id)collection;
 - (void)updateWithCollectionID:(id)d tipID:(id)iD;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TPSTipsByCollectionViewController
@@ -24,6 +26,49 @@
   v4.receiver = self;
   v4.super_class = TPSTipsByCollectionViewController;
   [(TPSTipsViewController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = TPSTipsByCollectionViewController;
+  [(TPSTipsViewController *)&v9 viewWillAppear:appear];
+  appController = [(TPSAppViewController *)self appController];
+  if (([appController contentHasLoaded] & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  tips = [(TPSTipsViewController *)self tips];
+  if (![tips count])
+  {
+
+LABEL_6:
+    goto LABEL_7;
+  }
+
+  collectionView = [(TPSTipsViewController *)self collectionView];
+  isHidden = [collectionView isHidden];
+
+  if (isHidden)
+  {
+    [(TPSTipsViewController *)self removeErrorView];
+  }
+
+LABEL_7:
+  appController2 = [(TPSAppViewController *)self appController];
+  [appController2 addDelegate:self];
+
+  [(TPSTipsByCollectionViewController *)self updateContent];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TPSTipsByCollectionViewController;
+  [(TPSTipsViewController *)&v5 viewWillDisappear:disappear];
+  appController = [(TPSAppViewController *)self appController];
+  [appController removeDelegate:self];
 }
 
 - (void)setPendingReload:(BOOL)reload
@@ -261,34 +306,24 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  if (!currentTip)
+  if (!currentTip || (-[TPSTipsViewController tips](self, "tips"), v31 = objc_claimAutoreleasedReturnValue(), -[TPSTipsViewController currentTip](self, "currentTip"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v31 indexOfObject:v32], v32, v31, v25, v33 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_30;
-  }
-
-  tips2 = [(TPSTipsViewController *)self tips];
-  currentTip2 = [(TPSTipsViewController *)self currentTip];
-  v33 = [tips2 indexOfObject:currentTip2];
-
-  if (v33 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_30:
-    tips3 = [(TPSTipsViewController *)self tips];
-    firstObject = [tips3 firstObject];
+    tips2 = [(TPSTipsViewController *)self tips];
+    firstObject = [tips2 firstObject];
 
     goto LABEL_31;
   }
 
 LABEL_33:
-  currentTip3 = [(TPSTipsViewController *)self currentTip];
-  [(TPSTipsViewController *)self updatePageControlToTip:currentTip3];
+  currentTip2 = [(TPSTipsViewController *)self currentTip];
+  [(TPSTipsViewController *)self updatePageControlToTip:currentTip2];
 
   [(TPSTipsViewController *)self ensureCurrentTipVisible];
-  currentTip4 = [(TPSTipsViewController *)self currentTip];
-  if (!currentTip4)
+  currentTip3 = [(TPSTipsViewController *)self currentTip];
+  if (!currentTip3)
   {
-    tips4 = [(TPSTipsViewController *)self tips];
-    v38 = ([tips4 count] == 0) & contentHasLoaded;
+    tips3 = [(TPSTipsViewController *)self tips];
+    v38 = ([tips3 count] == 0) & contentHasLoaded;
 
     if (v38 != 1)
     {
@@ -298,7 +333,7 @@ LABEL_33:
     pendingCollectionID = self->_pendingCollectionID;
     self->_pendingCollectionID = 0;
 
-    currentTip4 = self->_pendingTipID;
+    currentTip3 = self->_pendingTipID;
     self->_pendingTipID = 0;
   }
 

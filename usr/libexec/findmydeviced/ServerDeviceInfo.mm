@@ -13,6 +13,7 @@
 - (id)lastKnownLocationDeviceInfoForAccount:(id)account accessory:(id)accessory;
 - (id)locationDeviceInfoForAccount:(id)account;
 - (id)locationDeviceInfoForAccount:(id)account accessory:(id)accessory;
+- (id)registrationDigestDeviceInfoForAccount:(id)account completedFirstRegister:(BOOL)register;
 - (void)_addOctagonStatusToDict:(id)dict;
 @end
 
@@ -138,6 +139,18 @@
   }
 
   return v5;
+}
+
+- (id)registrationDigestDeviceInfoForAccount:(id)account completedFirstRegister:(BOOL)register
+{
+  v4 = [(ServerDeviceInfo *)self _volatileDeviceInfoForAccount:account completedFirstRegister:register];
+  [v4 removeObjectForKey:@"bioLock"];
+  [v4 removeObjectForKey:@"unlockState"];
+  [v4 removeObjectForKey:@"wristStatus"];
+  [v4 removeObjectForKey:@"lowPowerMode"];
+  [v4 removeObjectForKey:@"connectionStatus"];
+
+  return v4;
 }
 
 - (id)locationDeviceInfoForAccount:(id)account
@@ -652,27 +665,27 @@ LABEL_8:
     v5 = +[FMDSharedConfiguration sharedInstance];
     localeString = [v5 localeString];
 
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022888C(localeString, v7);
+      sub_10022888C(localeString, v8);
     }
 
-    v8 = +[FMDSharedConfigurationManager sharedInstance];
-    [v8 downloadSharedConfigurationWithLocale:localeString reply:&stru_1002CF070];
+    v9 = +[FMDSharedConfigurationManager sharedInstance];
+    [v9 downloadSharedConfigurationWithLocale:localeString reply:&stru_1002CF070];
   }
 
-  v9 = +[FMDSharedConfiguration sharedInstance];
-  v10 = [v9 entryForConfiguration:FMDSharedConfigurationKeyTheftAndLoss deviceClasses:@"Watch"];
+  v10 = +[FMDSharedConfiguration sharedInstance];
+  v11 = [v10 entryForConfiguration:FMDSharedConfigurationKeyTheftAndLoss deviceClasses:@"Watch"];
 
-  v11 = [v10 objectForKeyedSubscript:@"awarenessStrings"];
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v12 = [v11 objectForKeyedSubscript:@"awarenessStrings"];
+  v13 = sub_100002880(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    sub_100228904(v11, v12);
+    sub_100228904(v12, v13);
   }
 
-  isEnabled = [v11 isEnabled];
+  isEnabled = [v12 isEnabled];
   return isEnabled;
 }
 

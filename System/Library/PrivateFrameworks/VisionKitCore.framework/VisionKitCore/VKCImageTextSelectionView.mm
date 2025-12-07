@@ -396,7 +396,7 @@ uint64_t __66__VKCImageTextSelectionView_setHighlightSelectableItems_animated___
   highlightLayer = [(VKCImageTextSelectionView *)self highlightLayer];
   highlightShadowLayer = [(VKCImageTextSelectionView *)self highlightShadowLayer];
   memset(&v25, 0, sizeof(v25));
-  [(VKCImageTextSelectionView *)self transformForHighlightLayerInCurrentBounds];
+  objc_msgSend_transformForHighlightLayerInCurrentBounds(self);
   [(VKCImageTextSelectionView *)self currentContentsRectInLayerCoordinates];
   v6 = v5;
   v8 = v7;
@@ -1399,7 +1399,7 @@ void __66__VKCImageTextSelectionView_iOS_processHasSnapshotDragEntitlement__bloc
 
 void __81__VKCImageTextSelectionView_iOS_targetedDragPreviewWithLabelsForCurrentSelection__block_invoke(uint64_t a1, void *a2)
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 rect];
   v5 = v4;
@@ -1437,9 +1437,9 @@ void __81__VKCImageTextSelectionView_iOS_targetedDragPreviewWithLabelsForCurrent
   [*(a1 + 32) addSubview:v24];
   v27 = [(VKCDragImageLabel *)v18 text];
   v28 = *MEMORY[0x1E69DB648];
-  v60 = *MEMORY[0x1E69DB648];
-  v61[0] = v8;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+  v61 = *MEMORY[0x1E69DB648];
+  v62[0] = v8;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
   [v27 sizeWithAttributes:v29];
   v31 = v30;
   v33 = v32;
@@ -1454,21 +1454,21 @@ void __81__VKCImageTextSelectionView_iOS_targetedDragPreviewWithLabelsForCurrent
 
     [(VKCDragImageLabel *)v18 setFont:v34];
     v35 = [(VKCDragImageLabel *)v18 text];
-    v58 = v28;
-    v59 = v34;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+    v59 = v28;
+    v60 = v34;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
     [v35 sizeWithAttributes:v36];
     v38 = v37;
 
     [v24 bounds];
     v43 = VKMCenterOfRect(v39, v40, v41, v42);
     [(VKCDragImageLabel *)v18 setFrame:VKMRectWithCenterAndSize(v43, v44, v38)];
-    memset(&v57, 0, 48);
-    CGAffineTransformMakeScale(&v57, v31 / v38, v31 / v38);
-    *&v55.m11 = *&v57.m11;
-    *&v55.m13 = *&v57.m13;
-    *&v55.m21 = *&v57.m21;
-    [(VKCDragImageLabel *)v18 setTransform:&v55];
+    memset(&v58, 0, 48);
+    CGAffineTransformMakeScale(&v58, v31 / v38, v31 / v38);
+    *&v56.m11 = *&v58.m11;
+    *&v56.m13 = *&v58.m13;
+    *&v56.m21 = *&v58.m21;
+    [(VKCDragImageLabel *)v18 setTransform:&v56];
     v8 = v34;
   }
 
@@ -1478,20 +1478,21 @@ void __81__VKCImageTextSelectionView_iOS_targetedDragPreviewWithLabelsForCurrent
   v46 = [v24 layer];
   [v46 setMasksToBounds:1];
 
-  memset(&v57, 0, sizeof(v57));
-  CATransform3DMakeScale(&v57, v31 / v10, v33 / v12, 1.0);
-  v56 = v57;
+  memset(&v58, 0, sizeof(v58));
+  CATransform3DMakeScale(&v58, v31 / v10, v33 / v12, 1.0);
+  v57 = v58;
   v47 = [v24 layer];
-  v55 = v56;
-  [v47 setTransform:&v55];
+  v56 = v57;
+  [v47 setTransform:&v56];
 
-  memset(v54, 0, sizeof(v54));
-  memset(&v55, 0, sizeof(v55));
+  v54 = 0u;
+  v55 = 0u;
+  memset(&v56, 0, sizeof(v56));
   v48 = [v24 layer];
   v49 = [v3 quad];
-  [VKQuad transformToConvertLayer:v48 intoQuad:v49 frame:v54];
+  objc_msgSend_transformToConvertLayer_intoQuad_frame_(VKQuad);
 
-  v53 = v55;
+  v53 = v56;
   v50 = [v24 layer];
   v52 = v53;
   [v50 setTransform:&v52];

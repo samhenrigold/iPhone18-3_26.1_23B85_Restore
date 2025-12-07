@@ -8,7 +8,7 @@
 
 - (void)cancelConfirmation
 {
-  v3 = sub_100005AD4(&qword_1003AFCE0);
+  v3 = sub_100005AD4(&qword_1003AFCE0, &qword_1002D5B00);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = *(&self->super.isa + OBJC_IVAR____TtCV17SequoiaTranslator21LIDDisambiguationView11Coordinator_onDismiss);
@@ -21,7 +21,7 @@
 
 - (void)lidConfirmedWithLocale:(id)locale
 {
-  v4 = sub_100005AD4(&qword_1003AFCE0);
+  v4 = sub_100005AD4(&qword_1003AFCE0, &qword_1002D5B00);
   __chkstk_darwin(v4 - 8);
   v6 = &v13 - v5;
   v7 = type metadata accessor for Locale();

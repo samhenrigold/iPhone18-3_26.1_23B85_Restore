@@ -6,7 +6,7 @@
 
 - (id)resultsWithDictionary:(id)dictionary error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = [dictionaryCopy objectForKey:@"data"];
@@ -23,30 +23,30 @@
 
       if (v12)
       {
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         obj = v12;
-        v13 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v13)
         {
           v14 = v13;
-          v33 = *v36;
-          v34 = v6;
-          v30 = v10;
-          v31 = dictionaryCopy;
-          v29 = v12;
+          v32 = *v35;
+          v33 = v6;
+          v29 = v10;
+          v30 = dictionaryCopy;
+          v28 = v12;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v36 != v33)
+              if (*v35 != v32)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = NMAPIDictionaryWithObject(*(*(&v35 + 1) + 8 * i), @"room", error);
+              v16 = NMAPIDictionaryWithObject(*(*(&v34 + 1) + 8 * i), @"room", error);
               if (!v16)
               {
                 goto LABEL_20;
@@ -71,10 +71,10 @@ LABEL_19:
 LABEL_20:
 
                 v26 = 0;
-                v10 = v30;
-                dictionaryCopy = v31;
-                v6 = v34;
-                v12 = v29;
+                v10 = v29;
+                dictionaryCopy = v30;
+                v6 = v33;
+                v12 = v28;
                 goto LABEL_21;
               }
 
@@ -83,14 +83,14 @@ LABEL_20:
               v23 = [NMAPISectionResult alloc];
               v24 = [v22 copy];
               v25 = [(NMAPISectionResult *)v23 initWithSectionIdentifier:v19 sectionDictionary:v24 itemsArray:v21];
-              [v34 addObject:v25];
+              [v33 addObject:v25];
             }
 
-            v14 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-            v10 = v30;
-            dictionaryCopy = v31;
-            v6 = v34;
-            v12 = v29;
+            v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v10 = v29;
+            dictionaryCopy = v30;
+            v6 = v33;
+            v12 = v28;
             if (v14)
             {
               continue;
@@ -121,8 +121,6 @@ LABEL_21:
   {
     v26 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

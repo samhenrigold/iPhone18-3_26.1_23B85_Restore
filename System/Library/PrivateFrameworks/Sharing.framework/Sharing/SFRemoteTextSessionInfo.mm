@@ -212,75 +212,76 @@
 - (SFRemoteTextSessionInfo)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v17 = 0;
-  v16.receiver = self;
-  v16.super_class = SFRemoteTextSessionInfo;
-  v5 = [(SFRemoteTextSessionInfo *)&v16 init];
+  v34 = 0;
+  v32.receiver = self;
+  v32.super_class = SFRemoteTextSessionInfo;
+  v5 = [(SFRemoteTextSessionInfo *)&v32 init];
   if (v5)
   {
     CFStringGetTypeID();
     OUTLINED_FUNCTION_2_16();
     v6 = CFDictionaryGetTypedValue();
-    if (!v17)
+    v13 = v6;
+    if (!v34)
     {
       objc_storeStrong(&v5->_identifier, v6);
     }
 
-    v7 = OUTLINED_FUNCTION_3_12();
-    if (!v17)
+    v14 = OUTLINED_FUNCTION_3_12(v6, &unk_1F1D7D168, v7, v8, v9, v10, v11, v12, v30, v32.receiver, v32.super_class, v33, v34);
+    if (!v34)
     {
-      v5->_keyboardType = v7;
+      v5->_keyboardType = v14;
     }
 
     CFStringGetTypeID();
     OUTLINED_FUNCTION_2_16();
-    v8 = CFDictionaryGetTypedValue();
+    v15 = CFDictionaryGetTypedValue();
 
-    if (!v17)
+    if (!v34)
     {
-      objc_storeStrong(&v5->_prompt, v8);
+      objc_storeStrong(&v5->_prompt, v15);
     }
 
-    v9 = OUTLINED_FUNCTION_3_12();
-    if (!v17)
+    v23 = OUTLINED_FUNCTION_3_12(v16, &unk_1F1D7D198, v17, v18, v19, v20, v21, v22, v31, v32.receiver, v32.super_class, v33, v34);
+    if (!v34)
     {
-      v5->_returnKeyType = v9;
+      v5->_returnKeyType = v23;
     }
 
     CFDictionaryGetTypeID();
     OUTLINED_FUNCTION_2_16();
-    v10 = CFDictionaryGetTypedValue();
+    v24 = CFDictionaryGetTypedValue();
 
-    if (!v17)
+    if (!v34)
     {
-      objc_storeStrong(&v5->_rtiPayload, v10);
+      objc_storeStrong(&v5->_rtiPayload, v24);
     }
 
     Int64 = CFDictionaryGetInt64();
-    if (!v17)
+    if (!v34)
     {
       v5->_secureTextEntry = Int64 != 0;
     }
 
     CFStringGetTypeID();
     OUTLINED_FUNCTION_2_16();
-    v12 = CFDictionaryGetTypedValue();
+    v26 = CFDictionaryGetTypedValue();
 
-    if (!v17)
+    if (!v34)
     {
-      objc_storeStrong(&v5->_text, v12);
+      objc_storeStrong(&v5->_text, v26);
     }
 
     CFStringGetTypeID();
     OUTLINED_FUNCTION_2_16();
-    v13 = CFDictionaryGetTypedValue();
+    v27 = CFDictionaryGetTypedValue();
 
-    if (!v17)
+    if (!v34)
     {
-      objc_storeStrong(&v5->_title, v13);
+      objc_storeStrong(&v5->_title, v27);
     }
 
-    v14 = v5;
+    v28 = v5;
   }
 
   return v5;

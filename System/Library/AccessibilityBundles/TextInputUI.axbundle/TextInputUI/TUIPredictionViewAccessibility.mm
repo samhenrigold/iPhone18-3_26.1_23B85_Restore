@@ -2,6 +2,8 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (unint64_t)_accessibilityScannerGroupTraits;
 - (void)_accessibilitySendCandidateNotificationIfNecessary:(BOOL)necessary;
+- (void)_reloadCellsAnimated:(BOOL)animated;
+- (void)configurePredictionCell:(id)cell forCandidate:(id)candidate animated:(BOOL)animated;
 @end
 
 @implementation TUIPredictionViewAccessibility
@@ -41,6 +43,29 @@
   else if (!necessary)
   {
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7390], 0);
+  }
+}
+
+- (void)_reloadCellsAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = TUIPredictionViewAccessibility;
+  [(TUIPredictionViewAccessibility *)&v4 _reloadCellsAnimated:animated];
+  [(TUIPredictionViewAccessibility *)self _accessibilitySendCandidateNotificationIfNecessary:1];
+}
+
+- (void)configurePredictionCell:(id)cell forCandidate:(id)candidate animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v9.receiver = self;
+  v9.super_class = TUIPredictionViewAccessibility;
+  cellCopy = cell;
+  [(TUIPredictionViewAccessibility *)&v9 configurePredictionCell:cellCopy forCandidate:candidate animated:animatedCopy];
+  LODWORD(animatedCopy) = [cellCopy highlighted];
+
+  if (animatedCopy)
+  {
+    [(TUIPredictionViewAccessibility *)self _accessibilitySendCandidateNotificationIfNecessary:0];
   }
 }
 

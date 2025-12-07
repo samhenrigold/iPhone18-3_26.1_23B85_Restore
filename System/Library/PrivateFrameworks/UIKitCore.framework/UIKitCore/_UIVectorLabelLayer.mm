@@ -41,9 +41,9 @@
   v8.super_class = _UIVectorLabelLayer;
   keyCopy = key;
   [(_UIVectorLabelLayer *)&v8 willChangeValueForKey:keyCopy];
-  v5 = [keyCopy isEqualToString:{_textLayoutKey, v8.receiver, v8.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy, v8.receiver, v8.super_class);
 
-  if (v5)
+  if (isEqualToString)
   {
     textLayout = [(_UIVectorLabelLayer *)self textLayout];
     currentTextLayout = self->_currentTextLayout;
@@ -57,9 +57,9 @@
   v9.super_class = _UIVectorLabelLayer;
   keyCopy = key;
   [(_UIVectorLabelLayer *)&v9 didChangeValueForKey:keyCopy];
-  v5 = [keyCopy isEqualToString:{_textLayoutKey, v9.receiver, v9.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy, v9.receiver, v9.super_class);
 
-  if (v5)
+  if (isEqualToString)
   {
     currentTextLayout = self->_currentTextLayout;
     textLayout = [(_UIVectorLabelLayer *)self textLayout];
@@ -607,13 +607,13 @@ LABEL_48:
                 v39 = v42;
               }
 
-              if (v33 < v39 * -[_UIVectorLabelLayer maxRenderedMoveDistance](self, "maxRenderedMoveDistance") && [v37 isEqual:v35])
+              if (v33 < v39 * [(_UIVectorLabelLayer *)self maxRenderedMoveDistance]&& objc_msgSend_isEqual_(v37))
               {
                 v43 = v8;
                 string2 = [_ui_layoutRun2 string];
-                v45 = [string2 isEqualToString:string];
+                isEqualToString = objc_msgSend_isEqualToString_(string2);
 
-                if (v45)
+                if (isEqualToString)
                 {
                   v46 = v23;
 
@@ -725,7 +725,7 @@ LABEL_33:
 
       else
       {
-        v23 = +[UIColor blackColor];
+        v23 = objc_msgSend_blackColor(UIColor);
         v21 = 0;
         v22 = 1;
       }

@@ -34,7 +34,7 @@
 
 - (GDRankerItem)initWithCoder:(id)coder
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_entityID);
@@ -58,44 +58,8 @@
         v15 = NSStringFromSelector(sel_features);
         v16 = [coderCopy decodeObjectOfClass:v14 forKey:v15];
 
-        if (!v16)
+        if (!v16 && ([coderCopy error], v48 = objc_claimAutoreleasedReturnValue(), v48, v48) || (NSStringFromSelector(sel_score), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeDoubleForKey:", v17), v19 = v18, v17, NSStringFromSelector(sel_nameScore), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeDoubleForKey:", v20), v22 = v21, v20, NSStringFromSelector(sel_contextualScore), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeDoubleForKey:", v23), v25 = v24, v23, NSStringFromSelector(sel_entityRelevance), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeDoubleForKey:", v26), v28 = v27, v26, NSStringFromSelector(sel_confirmationConfidence), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeDoubleForKey:", v29), v31 = v30, v29, NSStringFromSelector(sel_isRelationshipMatch), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(coderCopy, "decodeBoolForKey:", v32), v32, objc_msgSend(coderCopy, "error"), v34 = objc_claimAutoreleasedReturnValue(), v34, v34))
         {
-          error = [coderCopy error];
-
-          if (error)
-          {
-            goto LABEL_17;
-          }
-        }
-
-        v17 = NSStringFromSelector(sel_score);
-        [coderCopy decodeDoubleForKey:v17];
-        v19 = v18;
-
-        v20 = NSStringFromSelector(sel_nameScore);
-        [coderCopy decodeDoubleForKey:v20];
-        v22 = v21;
-
-        v23 = NSStringFromSelector(sel_contextualScore);
-        [coderCopy decodeDoubleForKey:v23];
-        v25 = v24;
-
-        v26 = NSStringFromSelector(sel_entityRelevance);
-        [coderCopy decodeDoubleForKey:v26];
-        v28 = v27;
-
-        v29 = NSStringFromSelector(sel_confirmationConfidence);
-        [coderCopy decodeDoubleForKey:v29];
-        v31 = v30;
-
-        v32 = NSStringFromSelector(sel_isRelationshipMatch);
-        v33 = [coderCopy decodeBoolForKey:v32];
-
-        error2 = [coderCopy error];
-
-        if (error2)
-        {
-LABEL_17:
           selfCopy = 0;
         }
 
@@ -144,14 +108,14 @@ LABEL_17:
 
   else
   {
-    error3 = [coderCopy error];
+    error = [coderCopy error];
 
-    if (!error3)
+    if (!error)
     {
       v43 = MEMORY[0x1E696ABC0];
-      v53 = *MEMORY[0x1E696A578];
-      v54[0] = @"GDRankerItem entityID is nil";
-      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+      v52 = *MEMORY[0x1E696A578];
+      v53[0] = @"GDRankerItem entityID is nil";
+      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
       v45 = [v43 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v44];
       [coderCopy failWithError:v45];
     }
@@ -159,7 +123,6 @@ LABEL_17:
     selfCopy = 0;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

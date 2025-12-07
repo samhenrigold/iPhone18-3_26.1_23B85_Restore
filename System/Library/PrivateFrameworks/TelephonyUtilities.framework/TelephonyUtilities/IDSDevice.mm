@@ -147,7 +147,7 @@ LABEL_6:
 
   if (![(__CFString *)v3 length])
   {
-    v4 = sub_100004778();
+    v4 = sub_100004778(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412290;

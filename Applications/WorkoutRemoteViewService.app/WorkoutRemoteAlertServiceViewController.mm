@@ -13,14 +13,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   WorkoutRemoteAlertServiceViewController.configure(with:completion:)(context, v6);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion

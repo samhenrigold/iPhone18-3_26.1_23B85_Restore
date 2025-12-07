@@ -24,7 +24,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
@@ -41,22 +41,22 @@
       {
         indexPath = [(_UIKeyShortcutHUDIndexPath *)self indexPath];
         indexPath2 = [(_UIKeyShortcutHUDIndexPath *)v7 indexPath];
-        v10 = [indexPath isEqual:indexPath2];
+        isEqual = objc_msgSend_isEqual_(indexPath);
       }
 
       else
       {
-        v10 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
     }
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (unint64_t)hash

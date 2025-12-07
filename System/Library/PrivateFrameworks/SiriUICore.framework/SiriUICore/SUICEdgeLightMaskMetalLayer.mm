@@ -971,45 +971,9 @@ void __42__SUICEdgeLightMaskMetalLayer__drawFrame___block_invoke(uint64_t a1, vo
 
 + (void)prewarm
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = MEMORY[0x1E698D0A0];
-  v3 = *MEMORY[0x1E698D0A0];
-  if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = 136315138;
-    v17 = "+[SUICEdgeLightMaskMetalLayer prewarm]";
-    _os_log_impl(&dword_1C432B000, v3, OS_LOG_TYPE_DEFAULT, "%s #edgeLight Creating temporary mask layer for prewarming", &v16, 0xCu);
-  }
-
-  v4 = objc_opt_new();
-  commandBuffer = [v4[12] commandBuffer];
-  if (commandBuffer)
-  {
-    [v4[16] setRenderTargetWidth:1];
-    [v4[16] setRenderTargetHeight:1];
-    [v4[16] setDefaultRasterSampleCount:1];
-    v6 = [commandBuffer renderCommandEncoderWithDescriptor:v4[16]];
-    [v6 endEncoding];
-    [commandBuffer commit];
-    v7 = *v2;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = 136315138;
-      v17 = "+[SUICEdgeLightMaskMetalLayer prewarm]";
-      _os_log_impl(&dword_1C432B000, v7, OS_LOG_TYPE_DEFAULT, "%s #edgeLight Cleanup of temp layer", &v16, 0xCu);
-    }
-
-    [v4 _invalidate];
-  }
-
-  else
-  {
-    v8 = *v2;
-    if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
-    {
-      [(SUICEdgeLightMaskMetalLayer *)v8 prewarm:v9];
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SUICEdgeLightMaskMetalLayer prewarm]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, self, a3, "%s #edgeLight Failed to create command buffer skipping prewarm", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setScreen:(id)screen
@@ -1281,6 +1245,13 @@ LABEL_5:
   [(CADisplayLink *)displayLink setPreferredFrameRateRange:*&v5.minimum, *&v5.maximum, *&v5.preferred];
 }
 
+- (void)_commonInitWithScreen:(uint64_t)a3 commandQueue:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICEdgeLightMaskMetalLayer _commonInitWithScreen:commandQueue:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to get Metal device for GPU rendering", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_createRenderPipelineFromLibrary:(uint64_t)a3 archive:vert:frag:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v15 = *MEMORY[0x1E69E9840];
@@ -1299,6 +1270,20 @@ LABEL_5:
   }
 
   __assert_rtn("[SUICEdgeLightMaskMetalLayer _createRenderPipelineFromLibrary:archive:vert:frag:]", "SUICEdgeLightMaskMetalLayer.m", 358, "0");
+}
+
+- (void)_drawFrame:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICEdgeLightMaskMetalLayer _drawFrame:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Failed to create command buffer, dropping frame", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setScreen:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SUICEdgeLightMaskMetalLayer setScreen:]";
+  OUTLINED_FUNCTION_0(&dword_1C432B000, a1, a3, "%s Siri Edge Light was set to a nil screen. Defaulting to backup values.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

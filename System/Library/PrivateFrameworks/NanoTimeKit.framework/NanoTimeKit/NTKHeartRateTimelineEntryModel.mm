@@ -177,8 +177,8 @@ LABEL_35:
     v3 = _NTKLoggingObjectForDomain(38, "NTKLoggingDomainHeartRate");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_22D9C5000, v3, OS_LOG_TYPE_DEFAULT, "hasBPM for family: _newUtilitarianLarge", v22, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_22D9C5000, v3, OS_LOG_TYPE_DEFAULT, "hasBPM for family: _newUtilitarianLarge", v24, 2u);
     }
 
     v4 = MEMORY[0x277CBBB88];
@@ -191,46 +191,46 @@ LABEL_35:
 
     if (self->_lessThanMinute)
     {
-      v10 = MEMORY[0x277CBBB88];
-      v11 = NTKClockFaceLocalizedString(@"HEART_RATE_TIME_NOW", @"Now");
-      v12 = [v10 textProviderWithText:v11];
+      v12 = MEMORY[0x277CBBB88];
+      v13 = NTKClockFaceLocalizedString(@"HEART_RATE_TIME_NOW", @"Now");
+      v14 = [v12 textProviderWithText:v13];
     }
 
     else
     {
-      v17 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings();
-      v18 = MEMORY[0x277CBB6A8];
-      if (!v17)
+      v19 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings(v10, v11);
+      v20 = MEMORY[0x277CBB6A8];
+      if (!v19)
       {
-        v18 = MEMORY[0x277CBB6A0];
+        v20 = MEMORY[0x277CBB6A0];
       }
 
-      v12 = [MEMORY[0x277CBBB60] textProviderWithDate:self->_measurementDate style:*v18 units:112];
-      [v12 setTimeTravelUpdateFrequency:0];
-      [v12 setDisableOffsetPrefix:1];
-      [v12 setDisableSmallCapUnits:1];
-      [v12 setItalicized:1];
+      v14 = [MEMORY[0x277CBBB60] textProviderWithDate:self->_measurementDate style:*v20 units:112];
+      [v14 setTimeTravelUpdateFrequency:0];
+      [v14 setDisableOffsetPrefix:1];
+      [v14 setDisableSmallCapUnits:1];
+      [v14 setItalicized:1];
     }
   }
 
   else
   {
-    v13 = MEMORY[0x277CBBB88];
-    v14 = NTKClockFaceLocalizedString(@"HEART_RATE_TITLE", 0);
-    v6 = [v13 textProviderWithText:v14];
-
     v15 = MEMORY[0x277CBBB88];
-    v16 = NTKClockFaceLocalizedString(@"HEART_RATE_LARGE_MODULAR_NODATA", 0);
-    v9 = [v15 textProviderWithText:v16];
+    v16 = NTKClockFaceLocalizedString(@"HEART_RATE_TITLE", 0);
+    v6 = [v15 textProviderWithText:v16];
 
-    v12 = 0;
+    v17 = MEMORY[0x277CBBB88];
+    v18 = NTKClockFaceLocalizedString(@"HEART_RATE_LARGE_MODULAR_NODATA", 0);
+    v9 = [v17 textProviderWithText:v18];
+
+    v14 = 0;
   }
 
-  v19 = [MEMORY[0x277CBBA08] templateWithHeaderTextProvider:v6 body1TextProvider:v9 body2TextProvider:v12];
-  v20 = +[NTKHeartRateComplicationUtilties heartrateTintColor];
-  [v19 setTintColor:v20];
+  v21 = [MEMORY[0x277CBBA08] templateWithHeaderTextProvider:v6 body1TextProvider:v9 body2TextProvider:v14];
+  v22 = +[NTKHeartRateComplicationUtilties heartrateTintColor];
+  [v21 setTintColor:v22];
 
-  return v19;
+  return v21;
 }
 
 - (id)_newSignatureBezelTemplate
@@ -255,9 +255,9 @@ LABEL_35:
   {
     if (![(NTKHeartRateTimelineEntryModel *)self hasBPM])
     {
-      v11 = MEMORY[0x277CBBB88];
-      v12 = NTKClockFaceLocalizedString(@"HEART_RATE_LARGE_MODULAR_NODATA", 0);
-      v4 = [v11 textProviderWithText:v12];
+      v13 = MEMORY[0x277CBBB88];
+      v14 = NTKClockFaceLocalizedString(@"HEART_RATE_LARGE_MODULAR_NODATA", 0);
+      v4 = [v13 textProviderWithText:v14];
 
       goto LABEL_14;
     }
@@ -275,29 +275,29 @@ LABEL_35:
 
     if (self->_lessThanMinute)
     {
-      v8 = MEMORY[0x277CBBB88];
-      v9 = NTKClockFaceLocalizedString(@"HEART_RATE_TIME_NOW", @"Now");
-      v10 = [v8 textProviderWithText:v9];
+      v10 = MEMORY[0x277CBBB88];
+      v11 = NTKClockFaceLocalizedString(@"HEART_RATE_TIME_NOW", @"Now");
+      v12 = [v10 textProviderWithText:v11];
     }
 
     else
     {
-      v13 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings();
-      v14 = MEMORY[0x277CBB6A8];
-      if (!v13)
+      v15 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings(v8, v9);
+      v16 = MEMORY[0x277CBB6A8];
+      if (!v15)
       {
-        v14 = MEMORY[0x277CBB6A0];
+        v16 = MEMORY[0x277CBB6A0];
       }
 
-      v10 = [MEMORY[0x277CBBB60] textProviderWithDate:self->_measurementDate style:*v14 units:112];
-      [v10 setTimeTravelUpdateFrequency:0];
-      [v10 setDisableOffsetPrefix:1];
-      [v10 setDisableSmallCapUnits:1];
+      v12 = [MEMORY[0x277CBBB60] textProviderWithDate:self->_measurementDate style:*v16 units:112];
+      [v12 setTimeTravelUpdateFrequency:0];
+      [v12 setDisableOffsetPrefix:1];
+      [v12 setDisableSmallCapUnits:1];
     }
 
-    v15 = MEMORY[0x277CBBBA0];
-    v16 = NTKClockFaceLocalizedString(@"HEART_RATE_BEZEL_FORMAT", 0);
-    v4 = [v15 textProviderWithFormat:v16, v3, v10];
+    v17 = MEMORY[0x277CBBBA0];
+    v18 = NTKClockFaceLocalizedString(@"HEART_RATE_BEZEL_FORMAT", 0);
+    v4 = [v17 textProviderWithFormat:v18, v3, v12];
   }
 
 LABEL_14:

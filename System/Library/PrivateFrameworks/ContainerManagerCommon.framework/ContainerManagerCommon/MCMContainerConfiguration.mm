@@ -1,43 +1,10 @@
 @interface MCMContainerConfiguration
-- (BOOL)alwaysRequireSignatureScrutiny;
-- (BOOL)associatedWithParent;
-- (BOOL)autoRollsPathOnBuildUpdate;
-- (BOOL)cleanTransientsEachBoot;
-- (BOOL)containsUserGeneratedData;
-- (BOOL)enforceBasedOnDynamicProtectionState;
-- (BOOL)enforceBasedOnStrictSignatureScrutiny;
-- (BOOL)handledByProxy;
-- (BOOL)handledDirectly;
-- (BOOL)hasDynamicProtection;
-- (BOOL)honorGroupContainerEntitlementForAppStoreSigned;
-- (BOOL)honorGroupContainerEntitlementForMatchingTeamIDPrefix;
-- (BOOL)honorGroupContainerEntitlementForPlatformBinary;
-- (BOOL)honorGroupContainerEntitlementForProfileValidatedEntitlements;
-- (BOOL)honorGroupContainerEntitlementForTestFlight;
-- (BOOL)honorGroupContainerEntitlementForiPadAppsOnMac;
-- (BOOL)honorsWipeEntitlement;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToContainerConfig:(id)config;
-- (BOOL)migrateCodeSignInfoFromMetadataToDB;
 - (BOOL)override_initNonBoolPropertiesWithPlist:(id)plist error:(id *)error;
-- (BOOL)ownerIssuedSandboxExtension;
-- (BOOL)personaAndUserSpecific;
-- (BOOL)registerDynamicProtectionWithRestrictedEntitlement;
-- (BOOL)securedByPlatformPolicy;
-- (BOOL)singleOwner;
-- (BOOL)supportedOnPlatform;
-- (BOOL)trustAppMigrationEntitlement;
-- (BOOL)usesGlobalBundleUserIdentity;
-- (BOOL)usesGlobalSystemUserIdentity;
 - (MCMContainerConfiguration)initWithPreprocessedPlist:(id)plist name:(id)name;
-- (NSDictionary)sandboxAffordances;
-- (NSSet)genericExtensionsAllowedForClients;
-- (NSSet)identifierPrefixesExemptFromAutomaticProtection;
 - (NSString)debugDescription;
 - (NSString)description;
-- (NSString)name;
-- (NSString)requiredEntitlement;
-- (NSString)sandboxExtensionClass;
 - (id)_clientIdentifiersSetFromPlistValue:(id)value error:(id *)error;
 - (id)_containerIdentifierSetFromPlistValue:(id)value error:(id *)error;
 - (id)_identifierPrefixesExemptFromAutomaticProtectionFromPlistValue:(id)value error:(id *)error;
@@ -47,9 +14,6 @@
 - (id)debugDescriptionWithIndentString:(id)string;
 - (unint64_t)_containerClassFromPlistValue:(id)value;
 - (unint64_t)_normalizedContainerClassFromPlistValue:(id)value defaultContainerClass:(unint64_t)class;
-- (unint64_t)containerClass;
-- (unint64_t)hash;
-- (unint64_t)normalizedContainerClass;
 - (unsigned)disposition;
 @end
 
@@ -57,309 +21,22 @@
 
 - (unsigned)disposition
 {
-  v5 = *MEMORY[0x1E69E9840];
   if ([(MCMContainerConfiguration *)self handledDirectly])
   {
-    result = 1;
+    return 1;
   }
 
-  else if ([(MCMContainerConfiguration *)self handledByProxy])
+  if ([(MCMContainerConfiguration *)self handledByProxy])
   {
-    result = 2;
+    return 2;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)handledDirectly
-{
-  result = self->_handledDirectly;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)supportedOnPlatform
-{
-  result = self->_supportedOnPlatform;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)containerClass
-{
-  result = self->_containerClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)personaAndUserSpecific
-{
-  result = self->_personaAndUserSpecific;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)containsUserGeneratedData
-{
-  result = self->_containsUserGeneratedData;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)singleOwner
-{
-  result = self->_singleOwner;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)sandboxExtensionClass
-{
-  result = self->_sandboxExtensionClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)trustAppMigrationEntitlement
-{
-  result = self->_trustAppMigrationEntitlement;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)normalizedContainerClass
-{
-  result = self->_normalizedContainerClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)usesGlobalBundleUserIdentity
-{
-  result = self->_usesGlobalBundleUserIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)usesGlobalSystemUserIdentity
-{
-  result = self->_usesGlobalSystemUserIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSSet)identifierPrefixesExemptFromAutomaticProtection
-{
-  result = self->_identifierPrefixesExemptFromAutomaticProtection;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSSet)genericExtensionsAllowedForClients
-{
-  result = self->_genericExtensionsAllowedForClients;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)requiredEntitlement
-{
-  result = self->_requiredEntitlement;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSDictionary)sandboxAffordances
-{
-  result = self->_sandboxAffordances;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)name
-{
-  result = self->_name;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)associatedWithParent
-{
-  result = self->_associatedWithParent;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)securedByPlatformPolicy
-{
-  result = self->_securedByPlatformPolicy;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorsWipeEntitlement
-{
-  result = self->_honorsWipeEntitlement;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)alwaysRequireSignatureScrutiny
-{
-  result = self->_alwaysRequireSignatureScrutiny;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)cleanTransientsEachBoot
-{
-  result = self->_cleanTransientsEachBoot;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)ownerIssuedSandboxExtension
-{
-  result = self->_ownerIssuedSandboxExtension;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)enforceBasedOnStrictSignatureScrutiny
-{
-  result = self->_enforceBasedOnStrictSignatureScrutiny;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)enforceBasedOnDynamicProtectionState
-{
-  result = self->_enforceBasedOnDynamicProtectionState;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)hasDynamicProtection
-{
-  result = self->_hasDynamicProtection;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)registerDynamicProtectionWithRestrictedEntitlement
-{
-  result = self->_registerDynamicProtectionWithRestrictedEntitlement;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForTestFlight
-{
-  result = self->_honorGroupContainerEntitlementForTestFlight;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForProfileValidatedEntitlements
-{
-  result = self->_honorGroupContainerEntitlementForProfileValidatedEntitlements;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForiPadAppsOnMac
-{
-  result = self->_honorGroupContainerEntitlementForiPadAppsOnMac;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForPlatformBinary
-{
-  result = self->_honorGroupContainerEntitlementForPlatformBinary;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForAppStoreSigned
-{
-  result = self->_honorGroupContainerEntitlementForAppStoreSigned;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)honorGroupContainerEntitlementForMatchingTeamIDPrefix
-{
-  result = self->_honorGroupContainerEntitlementForMatchingTeamIDPrefix;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)migrateCodeSignInfoFromMetadataToDB
-{
-  result = self->_migrateCodeSignInfoFromMetadataToDB;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)handledByProxy
-{
-  result = self->_handledByProxy;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)autoRollsPathOnBuildUpdate
-{
-  result = self->_autoRollsPathOnBuildUpdate;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)override_initNonBoolPropertiesWithPlist:(id)plist error:(id *)error
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   v7 = [plistCopy objectForKeyedSubscript:@"containerClass"];
   self->_containerClass = [(MCMContainerConfiguration *)self _containerClassFromPlistValue:v7];
@@ -368,9 +45,9 @@
   self->_normalizedContainerClass = [(MCMContainerConfiguration *)self _normalizedContainerClassFromPlistValue:v8 defaultContainerClass:self->_containerClass];
 
   v9 = [plistCopy objectForKeyedSubscript:@"sandboxAffordances"];
-  v35[0] = 0;
-  v10 = [(MCMContainerConfiguration *)self _sandboxAffordancesFromPlistValue:v9 error:v35];
-  v11 = v35[0];
+  v34[0] = 0;
+  v10 = [(MCMContainerConfiguration *)self _sandboxAffordancesFromPlistValue:v9 error:v34];
+  v11 = v34[0];
   sandboxAffordances = self->_sandboxAffordances;
   self->_sandboxAffordances = v10;
 
@@ -382,9 +59,9 @@ LABEL_13:
   }
 
   v13 = [plistCopy objectForKeyedSubscript:@"requiredEntitlement"];
-  v34 = v11;
-  v14 = [(MCMContainerConfiguration *)self _requiredEntitlementFromPlistValue:v13 error:&v34];
-  v15 = v34;
+  v33 = v11;
+  v14 = [(MCMContainerConfiguration *)self _requiredEntitlementFromPlistValue:v13 error:&v33];
+  v15 = v33;
 
   requiredEntitlement = self->_requiredEntitlement;
   self->_requiredEntitlement = v14;
@@ -392,9 +69,9 @@ LABEL_13:
   if (self->_requiredEntitlement || !v15)
   {
     v18 = [plistCopy objectForKeyedSubscript:@"genericExtensionsAllowedForClients"];
-    v33 = v15;
-    v19 = [(MCMContainerConfiguration *)self _clientIdentifiersSetFromPlistValue:v18 error:&v33];
-    v11 = v33;
+    v32 = v15;
+    v19 = [(MCMContainerConfiguration *)self _clientIdentifiersSetFromPlistValue:v18 error:&v32];
+    v11 = v32;
 
     genericExtensionsAllowedForClients = self->_genericExtensionsAllowedForClients;
     self->_genericExtensionsAllowedForClients = v19;
@@ -407,9 +84,9 @@ LABEL_13:
       self->_sandboxExtensionClass = v22;
 
       v24 = [plistCopy objectForKeyedSubscript:@"identifierPrefixesExemptFromAutomaticProtection"];
-      v32 = v11;
-      v25 = [(MCMContainerConfiguration *)self _identifierPrefixesExemptFromAutomaticProtectionFromPlistValue:v24 error:&v32];
-      v26 = v32;
+      v31 = v11;
+      v25 = [(MCMContainerConfiguration *)self _identifierPrefixesExemptFromAutomaticProtectionFromPlistValue:v24 error:&v31];
+      v26 = v31;
 
       identifierPrefixesExemptFromAutomaticProtection = self->_identifierPrefixesExemptFromAutomaticProtection;
       self->_identifierPrefixesExemptFromAutomaticProtection = v25;
@@ -441,13 +118,12 @@ LABEL_14:
     *error = v11;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)_identifierPrefixesExemptFromAutomaticProtectionFromPlistValue:(id)value error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = [MEMORY[0x1E695DFA8] set];
   v7 = valueCopy;
@@ -460,38 +136,38 @@ LABEL_14:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v26;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v17 = container_log_handle_for_category();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v22 = objc_opt_class();
+              v23 = NSStringFromClass(v22);
               *buf = 138412546;
-              v31 = v24;
-              v32 = 2112;
-              v33 = v8;
+              v30 = v23;
+              v31 = 2112;
+              v32 = v8;
               _os_log_error_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_ERROR, "Identifier prefixes value is not in a valid format; expected = NSArray<NSString>, got = NSArray<%@>, value = %@", buf, 0x16u);
             }
 
@@ -502,7 +178,7 @@ LABEL_14:
           [v6 addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
         if (v10)
         {
           continue;
@@ -526,12 +202,12 @@ LABEL_13:
   v16 = container_log_handle_for_category();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138412546;
-    v31 = v22;
-    v32 = 2112;
-    v33 = v7;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v7;
     _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Identifier prefixes is not in a valid format; expected = NSArray, got = %@, value = %@", buf, 0x16u);
   }
 
@@ -550,14 +226,11 @@ LABEL_22:
 
 LABEL_24:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (unint64_t)_normalizedContainerClassFromPlistValue:(id)value defaultContainerClass:(unint64_t)class
 {
-  v8 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -565,13 +238,12 @@ LABEL_24:
     class = [valueCopy unsignedLongLongValue];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return class;
 }
 
 - (id)_clientIdentifiersSetFromPlistValue:(id)value error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = [MEMORY[0x1E695DFA8] set];
   v7 = valueCopy;
@@ -583,38 +255,38 @@ LABEL_24:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v26;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
+          v13 = *(*(&v25 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v17 = container_log_handle_for_category();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v22 = objc_opt_class();
+              v23 = NSStringFromClass(v22);
               *buf = 138412546;
-              v31 = v24;
-              v32 = 2112;
-              v33 = v8;
+              v30 = v23;
+              v31 = 2112;
+              v32 = v8;
               _os_log_error_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_ERROR, "Generic extension client value is not in a valid format; expected = NSArray<NSString>, got = NSArray<%@>, value = %@", buf, 0x16u);
             }
 
@@ -625,7 +297,7 @@ LABEL_24:
           [v6 addObject:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v25 objects:v24 count:16];
         if (v10)
         {
           continue;
@@ -649,12 +321,12 @@ LABEL_12:
   v16 = container_log_handle_for_category();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138412546;
-    v31 = v22;
-    v32 = 2112;
-    v33 = v7;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v7;
     _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Generic extension clients is not in a valid format; expected = NSArray, got = %@, value = %@", buf, 0x16u);
   }
 
@@ -673,14 +345,12 @@ LABEL_21:
 
 LABEL_23:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)_requiredEntitlementFromPlistValue:(id)value error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = valueCopy;
   if (valueCopy)
@@ -697,13 +367,13 @@ LABEL_23:
       v8 = container_log_handle_for_category();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = 138412546;
-        v14 = v12;
-        v15 = 2112;
-        v16 = v6;
-        _os_log_error_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_ERROR, "Required entitlement is not in a valid format; expected = NSString, got = %@, value = %@", &v13, 0x16u);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v12 = 138412546;
+        v13 = v11;
+        v14 = 2112;
+        v15 = v6;
+        _os_log_error_impl(&dword_1DF2C3000, v8, OS_LOG_TYPE_ERROR, "Required entitlement is not in a valid format; expected = NSString, got = %@, value = %@", &v12, 0x16u);
       }
 
       valueCopy = [[MCMError alloc] initWithErrorType:149 category:3];
@@ -722,14 +392,12 @@ LABEL_23:
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)_sandboxAffordancesFromPlistValue:(id)value error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = objc_opt_new();
   if (!valueCopy)
@@ -747,35 +415,35 @@ LABEL_23:
   if (objc_opt_isKindOfClass())
   {
     v7 = valueCopy;
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v34 objects:v33 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v33 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
       errorCopy = error;
-      v26 = valueCopy;
+      v25 = valueCopy;
       v11 = 0;
-      v12 = *v35;
+      v12 = *v34;
       while (2)
       {
         v13 = 0;
         v14 = v11;
         do
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * v13);
-          v16 = [v8 objectForKeyedSubscript:{v15, errorCopy, v26}];
-          v28 = v14;
-          v17 = [(MCMContainerConfiguration *)self _containerIdentifierSetFromPlistValue:v16 error:&v28];
-          v11 = v28;
+          v15 = *(*(&v33 + 1) + 8 * v13);
+          v16 = [v8 objectForKeyedSubscript:{v15, errorCopy, v25}];
+          v27 = v14;
+          v17 = [(MCMContainerConfiguration *)self _containerIdentifierSetFromPlistValue:v16 error:&v27];
+          v11 = v27;
 
           if (!v17)
           {
@@ -791,7 +459,7 @@ LABEL_23:
         }
 
         while (v10 != v13);
-        v10 = [v8 countByEnumeratingWithState:&v34 objects:v33 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v33 objects:v32 count:16];
         if (v10)
         {
           continue;
@@ -802,7 +470,7 @@ LABEL_23:
 
 LABEL_19:
       error = errorCopy;
-      valueCopy = v26;
+      valueCopy = v25;
     }
 
     else
@@ -822,12 +490,12 @@ LABEL_19:
     v18 = container_log_handle_for_category();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138412546;
-      v30 = v24;
-      v31 = 2112;
-      v32 = valueCopy;
+      v29 = v23;
+      v30 = 2112;
+      v31 = valueCopy;
       _os_log_error_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_ERROR, "Team ID container ID map is not in a valid format; expected = NSDictionary, got = %@, value = %@", buf, 0x16u);
     }
 
@@ -847,14 +515,12 @@ LABEL_22:
 LABEL_24:
   v20 = [v6 copy];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)_containerIdentifierSetFromPlistValue:(id)value error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = [MEMORY[0x1E695DFA8] set];
   v7 = valueCopy;
@@ -864,12 +530,12 @@ LABEL_24:
     v17 = container_log_handle_for_category();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138412546;
-      v32 = v23;
-      v33 = 2112;
-      v34 = v7;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v7;
       _os_log_error_impl(&dword_1DF2C3000, v17, OS_LOG_TYPE_ERROR, "Team ID container ID map value is not in a valid format; expected = NSArray, got = %@, value = %@", buf, 0x16u);
     }
 
@@ -891,38 +557,38 @@ LABEL_19:
     goto LABEL_21;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v27 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v18 = container_log_handle_for_category();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v24 = objc_opt_class();
-            v25 = NSStringFromClass(v24);
+            v23 = objc_opt_class();
+            v24 = NSStringFromClass(v23);
             *buf = 138412546;
-            v32 = v25;
-            v33 = 2112;
-            v34 = v8;
+            v31 = v24;
+            v32 = 2112;
+            v33 = v8;
             _os_log_error_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_ERROR, "Team ID container ID map value is not in a valid format; expected = NSArray<NSString>, got = NSArray<%@>, value = %@", buf, 0x16u);
           }
 
@@ -934,7 +600,7 @@ LABEL_19:
         [v6 addObject:lowercaseString];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v27 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v26 objects:v25 count:16];
       if (v10)
       {
         continue;
@@ -953,14 +619,11 @@ LABEL_19:
 
 LABEL_21:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)_sandboxExtensionClassFromPlistValue:(id)value
 {
-  v7 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (valueCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -972,14 +635,11 @@ LABEL_21:
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (unint64_t)_containerClassFromPlistValue:(id)value
 {
-  v7 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -992,13 +652,11 @@ LABEL_21:
     unsignedLongLongValue = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return unsignedLongLongValue;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v9 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (self == equalCopy)
@@ -1016,81 +674,61 @@ LABEL_21:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)isEqualToContainerConfig:(id)config
 {
-  v9 = *MEMORY[0x1E69E9840];
   configCopy = config;
   containerClass = [(MCMContainerConfiguration *)self containerClass];
   containerClass2 = [configCopy containerClass];
 
-  result = containerClass == containerClass2;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)hash
-{
-  result = self->_containerClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return containerClass == containerClass2;
 }
 
 - (id)debugDescriptionWithIndentString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = MCMContainerConfiguration;
+  v10 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = MCMContainerConfiguration;
   stringCopy = string;
-  v5 = [(MCMPlistReadOnly *)&v10 descriptionOfBoolPropertiesWithIndentString:stringCopy];
+  v5 = [(MCMPlistReadOnly *)&v9 descriptionOfBoolPropertiesWithIndentString:stringCopy];
   v6 = [v5 stringByAppendingFormat:@"%@containerClass: %llu\n", stringCopy, self->_containerClass];
 
   v7 = [v6 stringByAppendingFormat:@"%@name: %@\n", stringCopy, self->_name];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (NSString)debugDescription
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [(MCMContainerConfiguration *)self debugDescriptionWithIndentString:&stru_1F5A5B2B8];
 }
 
 - (NSString)description
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   containerClass = [(MCMContainerConfiguration *)self containerClass];
   name = [(MCMContainerConfiguration *)self name];
   v6 = [v3 stringWithFormat:@"(%llu)%@", containerClass, name];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (MCMContainerConfiguration)initWithPreprocessedPlist:(id)plist name:(id)name
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v12.receiver = self;
-  v12.super_class = MCMContainerConfiguration;
-  v8 = [(MCMPlistReadOnly *)&v12 initWithPreprocessedPlist:plist conformingToProtocol:&unk_1F5A802D0];
+  v11.receiver = self;
+  v11.super_class = MCMContainerConfiguration;
+  v8 = [(MCMPlistReadOnly *)&v11 initWithPreprocessedPlist:plist conformingToProtocol:&unk_1F5A802D0];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_name, name);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

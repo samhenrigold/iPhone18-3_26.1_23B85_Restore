@@ -121,7 +121,7 @@
     v13 = &v26;
   }
 
-  v14 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1, v26, v27, v28, v29, *buf];
+  v14 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1, v26, v27, v28, v29, *buf, *&buf[8]];
   v15 = [NSError errorWithDomain:v11 code:1038 userInfo:v14];
 
   if (v15)
@@ -194,7 +194,7 @@ LABEL_17:
 - (void)speechRecognitionTask:(id)task didFinishSuccessfully:(BOOL)successfully
 {
   taskCopy = task;
-  [(VMTranscriptionTranscribeOperation *)self duration];
+  objc_msgSend_duration(self);
   v7 = v6;
   progress = [(VMTranscriptionTranscribeOperation *)self progress];
   [progress setCompletedUnitCount:v7];

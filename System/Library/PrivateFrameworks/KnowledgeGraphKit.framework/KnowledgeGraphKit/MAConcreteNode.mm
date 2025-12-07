@@ -12,44 +12,44 @@
 
 - (void)enumeratePropertiesUsingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   properties = selfCopy->_properties;
   if (properties)
   {
-    v18 = 0;
+    v17 = 0;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     keyEnumerator = [(NSMutableDictionary *)properties keyEnumerator];
-    v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = [(NSMutableDictionary *)selfCopy->_properties objectForKeyedSubscript:v11];
-        blockCopy[2](blockCopy, v11, v12, &v18);
+        blockCopy[2](blockCopy, v11, v12, &v17);
 
-        if (v18)
+        if (v17)
         {
           break;
         }
 
         if (v8 == ++v10)
         {
-          v8 = [keyEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v8 = [keyEnumerator countByEnumeratingWithState:&v13 objects:v18 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -62,8 +62,6 @@ LABEL_4:
   }
 
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertyDictionary

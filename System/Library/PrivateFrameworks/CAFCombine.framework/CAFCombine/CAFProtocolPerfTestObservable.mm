@@ -24,30 +24,32 @@
 
 - (void)protocolPerfTestService:(id)service didUpdateTestInt32:(int)int32
 {
+  v4 = *&int32;
   serviceCopy = service;
   selfCopy = self;
-  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestInt32:)(selfCopy, int32);
+  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestInt32:)(selfCopy, v4);
 }
 
 - (void)protocolPerfTestService:(id)service didUpdateTestInt16:(signed __int16)int16
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestInt16:)();
+  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestInt16:)(selfCopy, int16);
 }
 
 - (void)protocolPerfTestService:(id)service didUpdateTestUInt32:(unsigned int)int32
 {
+  v4 = *&int32;
   serviceCopy = service;
   selfCopy = self;
-  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestUInt32:)(selfCopy, int32);
+  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestUInt32:)(selfCopy, v4);
 }
 
 - (void)protocolPerfTestService:(id)service didUpdateTestUInt16:(unsigned __int16)int16
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestUInt16:)();
+  CAFProtocolPerfTestObservable.protocolPerfTestService(_:didUpdateTestUInt16:)(selfCopy, int16);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

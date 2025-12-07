@@ -3,13 +3,17 @@
 + (id)handoverAlgToText:(int)text colored:(BOOL)colored;
 + (void)initStateInStatsDict:(id)dict state:(id)state numActions:(int)actions;
 - (WRM_HandoverLearner)init;
+- (float)getDropRatePrediction:(unsigned int)prediction cellToWiFiHandovers:(unsigned int)handovers;
 - (id)loadStatisticsDictionary:(id)dictionary;
 - (int)getRecommendation:(int64_t)recommendation;
 - (void)dealloc;
 - (void)giveReward:(double)reward slot:(int64_t)slot;
 - (void)handleCallNotification:(id)notification;
+- (void)incrementCellToWiFiHandoverCount:(int)count slot:(int64_t)slot;
 - (void)incrementDPDFailure:(int64_t)failure;
+- (void)incrementWiFiToCellHandoverCount:(int)count slot:(int64_t)slot;
 - (void)printStats;
+- (void)resetRecommendation:(int64_t)recommendation withAlgorithm:(int)algorithm;
 - (void)saveStatisticsDictionary:(id)dictionary dict:(id)dict;
 - (void)scoreCallAndUpdate:(BOOL)update slot:(int64_t)slot;
 - (void)showAlert:(id)alert;
@@ -475,6 +479,43 @@
   }
 }
 
+- (void)resetRecommendation:(int64_t)recommendation withAlgorithm:(int)algorithm
+{
+  v4 = *&algorithm;
+  v7 = recommendation - 1;
+  if ([-[NSMutableArray objectAtIndexedSubscript:](self->callActive objectAtIndexedSubscript:{recommendation - 1), "BOOLValue"}])
+  {
+
+    [WCM_Logging logLevel:24 message:@"Handover learner: resetRecommendation called while previous call hasn't been handled. Skipping."];
+  }
+
+  else
+  {
+    if (v4 == 2)
+    {
+      [WCM_Logging logLevel:24 message:@"Handover learner: treating CELLULAR_PREFERRED as IMS_PREFERRED."];
+      v4 = 1;
+    }
+
+    if (([-[NSMutableArray objectAtIndexedSubscript:](-[WRM_HandoverLearner latestStates](self "latestStates")] & 1) == 0)
+    {
+      [(WRM_HandoverLearner *)self updateIdleStats:recommendation];
+    }
+
+    v8 = [(NSMutableDictionary *)self->alg2action objectForKeyedSubscript:[NSNumber numberWithUnsignedInt:v4]];
+    if (!v8)
+    {
+      [WCM_Logging logLevel:16 message:@"Handover learner: Error, could not find carrier preference %d in actions", v4];
+    }
+
+    [(NSMutableArray *)[(WRM_HandoverLearner *)self latestStates] setObject:+[NSNull atIndexedSubscript:"null"], v7];
+    v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v8 intValue]);
+    latestActions = [(WRM_HandoverLearner *)self latestActions];
+
+    [(NSMutableArray *)latestActions setObject:v9 atIndexedSubscript:v7];
+  }
+}
+
 - (int)getRecommendation:(int64_t)recommendation
 {
   v3 = -[NSArray objectAtIndexedSubscript:](self->actions, "objectAtIndexedSubscript:", [-[NSMutableArray objectAtIndexedSubscript:](-[WRM_HandoverLearner latestActions](self "latestActions")]);
@@ -620,6 +661,60 @@
   }
 }
 
+- (float)getDropRatePrediction:(unsigned int)prediction cellToWiFiHandovers:(unsigned int)handovers
+{
+  LODWORD(v4) = handovers;
+  LODWORD(v5) = prediction;
+  if (prediction - handovers >= 2)
+  {
+    [WCM_Logging logLevel:17 message:@"Handover learner: Warning, there were %u W2C handovers and %u C2W handovers, which is impossible", *&prediction, *&handovers];
+    if (v5 <= v4)
+    {
+      LODWORD(v5) = v4 - 1;
+    }
+
+    else
+    {
+      LODWORD(v4) = v5 - 1;
+    }
+  }
+
+  if (v5 >= 4)
+  {
+    v5 = 4;
+  }
+
+  else
+  {
+    v5 = v5;
+  }
+
+  if (v4 >= 4)
+  {
+    v4 = 4;
+  }
+
+  else
+  {
+    v4 = v4;
+  }
+
+  v7 = [(NSDictionary *)[(WRM_HandoverLearner *)self dropRateTable] objectForKeyedSubscript:[NSString stringWithFormat:@"(%u, %u)", v5, v4]];
+  if (v7)
+  {
+
+    [v7 floatValue];
+  }
+
+  else
+  {
+    [WCM_Logging logLevel:24 message:@"Handover learner: entry not in drop rate table, (%u, %u)", v5, v4];
+    return 0.0;
+  }
+
+  return result;
+}
+
 - (void)printStats
 {
   [WCM_Logging logLevel:24 message:@"Handover learner: Print stats. BEGIN"];
@@ -706,6 +801,62 @@
   }
 
   [WCM_Logging logLevel:24 message:@"Handover learner: Print stats. END"];
+}
+
+- (void)incrementWiFiToCellHandoverCount:(int)count slot:(int64_t)slot
+{
+  v5 = "CTSubscriptionSlotUnknown";
+  v6 = "CTSubscriptionSlotOne";
+  v7 = "Unknown CTSubscriptionSlot!!!";
+  if (slot == 2)
+  {
+    v7 = "CTSubscriptionSlotTwo";
+  }
+
+  v8 = slot - 1;
+  if (slot != 1)
+  {
+    v6 = v7;
+  }
+
+  if (slot)
+  {
+    v5 = v6;
+  }
+
+  [WCM_Logging logLevel:24 message:@"Handover learner: incrementing WiFi to cell handover count in mobility state %d for slot %s.", *&count, v5];
+  v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [-[NSMutableArray objectAtIndexedSubscript:](self->wifi2cellCount objectAtIndexedSubscript:{v8), "intValue"}] + 1);
+  wifi2cellCount = self->wifi2cellCount;
+
+  [(NSMutableArray *)wifi2cellCount setObject:v9 atIndexedSubscript:v8];
+}
+
+- (void)incrementCellToWiFiHandoverCount:(int)count slot:(int64_t)slot
+{
+  v5 = "CTSubscriptionSlotUnknown";
+  v6 = "CTSubscriptionSlotOne";
+  v7 = "Unknown CTSubscriptionSlot!!!";
+  if (slot == 2)
+  {
+    v7 = "CTSubscriptionSlotTwo";
+  }
+
+  v8 = slot - 1;
+  if (slot != 1)
+  {
+    v6 = v7;
+  }
+
+  if (slot)
+  {
+    v5 = v6;
+  }
+
+  [WCM_Logging logLevel:24 message:@"Handover learner: incrementing cell to WiFi handover count in mobility state %d for slot %s.", *&count, v5];
+  v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [-[NSMutableArray objectAtIndexedSubscript:](self->cell2wifiCount objectAtIndexedSubscript:{v8), "intValue"}] + 1);
+  cell2wifiCount = self->cell2wifiCount;
+
+  [(NSMutableArray *)cell2wifiCount setObject:v9 atIndexedSubscript:v8];
 }
 
 - (void)handleCallNotification:(id)notification

@@ -721,7 +721,7 @@ LABEL_170:
   {
     customSpacings3 = [_orderedPropertySource customSpacings];
     customSpacings4 = [_orderedConfigurationHistory customSpacings];
-    v8 = [customSpacings3 isEqual:customSpacings4] ^ 1;
+    v8 = objc_msgSend_isEqual_(customSpacings3) ^ 1;
   }
 
   return v8;

@@ -11,18 +11,17 @@
   ObjectType = swift_getObjectType();
   v5 = sub_1B10();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin();
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B00();
-  sub_1AF0(v10);
-  v12 = v11;
-  v15.receiver = self;
-  v15.super_class = ObjectType;
-  v13 = [(HealthAppDaemonOrchestrationDiagnosticOperation *)&v15 initWithAttachmentDirectoryURL:v11];
+  sub_1AF0(v9);
+  v11 = v10;
+  v14.receiver = self;
+  v14.super_class = ObjectType;
+  v12 = [(HealthAppDaemonOrchestrationDiagnosticOperation *)&v14 initWithAttachmentDirectoryURL:v10];
 
-  (*(v6 + 8))(v9, v5);
-  return v13;
+  (*(v6 + 8))(v8, v5);
+  return v12;
 }
 
 - (NSString)reportFilename

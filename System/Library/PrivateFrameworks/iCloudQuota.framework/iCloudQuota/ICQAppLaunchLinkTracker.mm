@@ -25,8 +25,7 @@
 - (id)lastShownDateForBundleID:(id)d
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F9D78, &qword_2755F3850);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = &v18 - v6;
   v8 = sub_2755EC98C();
   v10 = v9;
@@ -90,8 +89,7 @@
 {
   v5 = sub_2755EC61C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2755EC5EC();
   v10 = sub_2755EC98C();

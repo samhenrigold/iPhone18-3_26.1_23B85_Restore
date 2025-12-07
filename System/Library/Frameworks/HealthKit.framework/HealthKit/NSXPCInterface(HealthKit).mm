@@ -8,7 +8,7 @@
 
 - (id)hk_setArrayOfClass:()HealthKit forSelector:argumentIndex:ofReply:
 {
-  v10 = [self _cachedSetForArrayOfClass:?];
+  v10 = [self _cachedSetForArrayOfClass:a3];
   [self setClasses:v10 forSelector:a4 argumentIndex:a5 ofReply:a6];
 
   return v10;

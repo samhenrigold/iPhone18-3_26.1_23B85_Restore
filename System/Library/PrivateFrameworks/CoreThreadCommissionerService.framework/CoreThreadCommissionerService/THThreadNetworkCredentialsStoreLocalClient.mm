@@ -3,8 +3,10 @@
 - (THThreadNetworkCredentialsStoreLocalClient)initWithKeychainAccessGroup:(id)group backingStore:(id)store;
 - (id)parseActiveOperationalDataSet:(id)set;
 - (id)parseCredsFromTLVs:(const char *)vs data_len:(unsigned int)data_len;
+- (id)parseDataSetFromSpinel:(const char *)spinel data_len:(unsigned int)data_len;
 - (id)parseDataSetFromTLVs:(const char *)vs data_len:(unsigned int)data_len;
 - (id)parseThreadNetworkActiveDataSet:(id)set;
+- (id)setFromSpinelFrame:(const char *)frame data_len:(unsigned int)data_len;
 - (void)addPreferredNetworkWithCompletionInternally:(id)internally borderAgentID:(id)d ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)iD wifiPassword:(id)password completion:(id)completion;
 - (void)checkIfRecordForPreferredNetworkIsPresentWithCompletion:(id)completion;
 - (void)checkIsPreferredNetworkForActiveOperationalDataset:(id)dataset completion:(id)completion;
@@ -28,8 +30,11 @@
 - (void)retrieveActiveDataSetRecordWithUniqueIdentifierWithKeychainAccessGroup:(id)group completion:(id)completion;
 - (void)retrieveAllActiveDataSetRecordsForNetwork:(id)network completion:(id)completion;
 - (void)retrieveAllActiveDataSetRecordsWithCompletion:(id)completion;
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag compleiton:(id)compleiton;
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag completion:(id)completion;
 - (void)retrieveAllRecordsForNetwork:(id)network completion:(id)completion;
 - (void)retrieveAllRecordsWithCompletion:(id)completion;
+- (void)retrieveListOfPreferredNetworksInternallyWithCompletion:(id)completion ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)a8;
 - (void)retrieveOrGeneratePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)retrievePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)retrievePreferredNetworkOfAnyDSFormatWithCompletion:(id)completion;
@@ -38,6 +43,9 @@
 - (void)retrieveRecordWithUniqueIdentifier:(id)identifier completion:(id)completion;
 - (void)retrieveThirdPartyInfo:(id)info;
 - (void)storeCachedAODasPreferredNetwork:(id)network completion:(id)completion;
+- (void)storeCredentials:(id)credentials waitForSync:(BOOL)sync forNetwork:(id)network completion:(id)completion;
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentials:(id)credentials credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion;
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion;
 - (void)updatePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)updatePreferredNetworkWithNewDataset:(id)dataset network:(id)network credentialsDataSet:(id)set completion:(id)completion;
 - (void)validateAODInternally:(id)internally completion:(id)completion;
@@ -207,6 +215,43 @@
     block[3] = &unk_100078F10;
     v12 = completionCopy;
     dispatch_async(v10, block);
+  }
+}
+
+- (void)storeCredentials:(id)credentials waitForSync:(BOOL)sync forNetwork:(id)network completion:(id)completion
+{
+  syncCopy = sync;
+  credentialsCopy = credentials;
+  networkCopy = network;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v14 = [THThreadNetworkCredentialsStoreRecord alloc];
+    keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+    v16 = [v14 initWithNetwork:networkCopy credentials:credentialsCopy uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10004ADCC;
+    v19[3] = &unk_100079078;
+    v20 = completionCopy;
+    v17 = completionCopy;
+    [backingStore storeRecord:v16 waitForSync:syncCopy completion:v19];
+  }
+
+  else
+  {
+    v18 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004AD58;
+    block[3] = &unk_100078F10;
+    v22 = completionCopy;
+    v16 = completionCopy;
+    dispatch_async(v18, block);
+
+    v17 = v22;
   }
 }
 
@@ -507,6 +552,70 @@
     v16 = completionCopy;
     v12 = completionCopy;
     dispatch_async(v11, block);
+  }
+}
+
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag completion:(id)completion
+{
+  flagCopy = flag;
+  groupCopy = group;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10004C3AC;
+    v15[3] = &unk_100079310;
+    v11 = &v16;
+    v16 = completionCopy;
+    v12 = completionCopy;
+    [backingStore retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:groupCopy activeFlag:flagCopy compleiton:v15];
+  }
+
+  else
+  {
+    v13 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004C338;
+    block[3] = &unk_100078F10;
+    v11 = &v18;
+    v18 = completionCopy;
+    v14 = completionCopy;
+    dispatch_async(v13, block);
+  }
+}
+
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag compleiton:(id)compleiton
+{
+  flagCopy = flag;
+  groupCopy = group;
+  compleitonCopy = compleiton;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10004C5F8;
+    v15[3] = &unk_100079310;
+    v11 = &v16;
+    v16 = compleitonCopy;
+    v12 = compleitonCopy;
+    [backingStore retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:groupCopy activeFlag:flagCopy compleiton:v15];
+  }
+
+  else
+  {
+    v13 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004C584;
+    block[3] = &unk_100078F10;
+    v11 = &v18;
+    v18 = compleitonCopy;
+    v14 = compleitonCopy;
+    dispatch_async(v13, block);
   }
 }
 
@@ -964,6 +1073,67 @@ LABEL_9:
   }
 }
 
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  setCopy = set;
+  networkCopy = network;
+  dataSetCopy = dataSet;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    dataSetArray = [dataSetCopy dataSetArray];
+    v18 = [(THThreadNetworkCredentialsStoreLocalClient *)self parseThreadNetworkActiveDataSet:dataSetArray];
+
+    if (v18)
+    {
+      v19 = [THThreadNetworkCredentialsActiveDataSetRecord alloc];
+      keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+      v21 = [v19 initWithBorderAgent:setCopy credentialsDataSet:dataSetCopy network:networkCopy credentials:v18 uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10004E3F4;
+      v25[3] = &unk_100079078;
+      v26 = completionCopy;
+      [backingStore storeThreadCredentialActiveDataSetRecord:v21 waitForSync:syncCopy completion:v25];
+    }
+
+    else
+    {
+      v23 = sub_10001B194(1);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        sub_100053A34();
+      }
+
+      v24 = dispatch_get_global_queue(0, 0);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_10004E380;
+      v27[3] = &unk_100078F10;
+      v28 = completionCopy;
+      dispatch_async(v24, v27);
+
+      v21 = v28;
+    }
+  }
+
+  else
+  {
+    v22 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004E30C;
+    block[3] = &unk_100078F10;
+    v30 = completionCopy;
+    dispatch_async(v22, block);
+
+    v18 = v30;
+  }
+}
+
 - (void)updatePreferredNetworkWithNewDataset:(id)dataset network:(id)network credentialsDataSet:(id)set completion:(id)completion
 {
   datasetCopy = dataset;
@@ -1021,6 +1191,45 @@ LABEL_9:
     dispatch_async(v20, block);
 
     v16 = v28;
+  }
+}
+
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentials:(id)credentials credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  setCopy = set;
+  networkCopy = network;
+  credentialsCopy = credentials;
+  dataSetCopy = dataSet;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v20 = [THThreadNetworkCredentialsActiveDataSetRecord alloc];
+    keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+    v22 = [v20 initWithBorderAgent:setCopy credentialsDataSet:dataSetCopy network:networkCopy credentials:credentialsCopy uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10004E9F4;
+    v25[3] = &unk_100079078;
+    v26 = completionCopy;
+    v23 = completionCopy;
+    [backingStore storeThreadCredentialActiveDataSetRecord:v22 waitForSync:syncCopy completion:v25];
+  }
+
+  else
+  {
+    v24 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004E980;
+    block[3] = &unk_100078F10;
+    v28 = completionCopy;
+    v22 = completionCopy;
+    dispatch_async(v24, block);
+
+    v23 = v28;
   }
 }
 
@@ -1345,6 +1554,652 @@ LABEL_11:
     v12 = completionCopy;
     dispatch_async(v11, block);
   }
+}
+
+- (void)retrieveListOfPreferredNetworksInternallyWithCompletion:(id)completion ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)a8
+{
+  entryCopy = entry;
+  completionCopy = completion;
+  signatureCopy = signature;
+  nwSignatureCopy = nwSignature;
+  dCopy = d;
+  v18 = a8;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (!backingStore)
+  {
+    v20 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100050050;
+    block[3] = &unk_100078F10;
+    v25 = v18;
+    dispatch_async(v20, block);
+  }
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000500C4;
+  v22[3] = &unk_100079310;
+  v23 = v18;
+  v21 = v18;
+  [backingStore retrieveListOfPreferredNetworksInternallyWithCompletion:completionCopy ipV4NwSignature:signatureCopy ipv6NwSignature:nwSignatureCopy wifiSSID:dCopy showCurrentEntry:entryCopy completion:v22];
+}
+
+- (id)setFromSpinelFrame:(const char *)frame data_len:(unsigned int)data_len
+{
+  v4 = *&data_len;
+  v6 = sub_10001B194(1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    sub_100053C80();
+  }
+
+  sub_1000085B4(frame, v4, v69, 0x3E8uLL, 0);
+  v7 = sub_10001B194(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    sub_100053D00();
+  }
+
+  if (v4)
+  {
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v47 = 0;
+    while (1)
+    {
+      v11 = sub_10001B194(1);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109376;
+        *v66 = v4;
+        *&v66[4] = 1024;
+        *&v66[6] = 973;
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "#MOS : data_len : %d, Line : %d", buf, 0xEu);
+      }
+
+      v54 = 0;
+      v53 = 0;
+      v17 = spinel_datatype_unpack(frame, v4, "d", v12, v13, v14, v15, v16, &v54);
+      v18 = sub_10001B194(1);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109376;
+        *v66 = v17;
+        *&v66[4] = 1024;
+        *&v66[6] = 985;
+        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "#MOS : length : %d, Line : %d", buf, 0xEu);
+      }
+
+      if (v17 < 1)
+      {
+        goto LABEL_53;
+      }
+
+      v52 = 0;
+      v51 = 0;
+      v50 = 0;
+      v46 = &v51;
+      v24 = spinel_datatype_unpack(v54, v53, "iD", v19, v20, v21, v22, v23, &v52);
+      v25 = sub_10001B194(1);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109632;
+        *v66 = v52;
+        *&v66[4] = 1024;
+        *&v66[6] = v24;
+        v67 = 1024;
+        v68 = 1006;
+        _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "#MOS : propkey : %d, length: %d, Line : %d", buf, 0x14u);
+      }
+
+      if (v24 < 1)
+      {
+        goto LABEL_53;
+      }
+
+      if (v52 > 69)
+      {
+        if (v52 == 75)
+        {
+          v39 = sub_10001B194(1);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          {
+            sub_100053D78(v57, v58, v39);
+          }
+
+          v40 = [NSData dataWithBytes:v51 length:v50];
+
+          v41 = sub_10001B194(1);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138739971;
+            *v66 = v40;
+            _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "#MOS : PSKc : %{sensitive}@", buf, 0xCu);
+          }
+
+          v10 = v40;
+          goto LABEL_45;
+        }
+
+        if (v52 == 70)
+        {
+          if (!v50)
+          {
+            goto LABEL_53;
+          }
+
+          v35 = sub_10001B194(1);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          {
+            sub_100053E38(v63, v64, v35);
+          }
+
+          v34 = [NSData dataWithBytes:v51 length:v50];
+
+          v36 = sub_10001B194(1);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138739971;
+            *v66 = v34;
+            _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "#MOS : Master Key: %{sensitive}@", buf, 0xCu);
+          }
+
+          goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        if (v52 == 33)
+        {
+          LOBYTE(v49) = 0;
+          if (spinel_datatype_unpack(v51, v50, "C", v26, v27, v28, v29, v30, &v49) < 1)
+          {
+            goto LABEL_53;
+          }
+
+          v38 = sub_10001B194(1);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            sub_100053DB8(v59, v60, v38);
+          }
+
+          v47 = v49;
+          v37 = sub_10001B194(1);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 67109120;
+            *v66 = v49;
+            _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "#MOS : Channel : %d", buf, 8u);
+          }
+
+          goto LABEL_39;
+        }
+
+        if (v52 == 54)
+        {
+          v49 = 0;
+          if (spinel_datatype_unpack(v51, v50, "S", v26, v27, v28, v29, v30, &v49) < 1)
+          {
+            goto LABEL_53;
+          }
+
+          v31 = sub_10001B194(1);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            sub_100053DF8(v61, v62, v31);
+          }
+
+          v48 = bswap32(v49) >> 16;
+          v32 = [NSData dataWithBytes:&v48 length:2];
+
+          v33 = sub_10001B194(1);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 67109120;
+            *v66 = v48;
+            _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "#MOS : PANID : %hu", buf, 8u);
+          }
+
+          v34 = v9;
+          v8 = v32;
+          goto LABEL_46;
+        }
+      }
+
+      v37 = sub_10001B194(1);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      {
+        sub_100053E78(v55, v56, v37);
+      }
+
+LABEL_39:
+
+LABEL_45:
+      v34 = v9;
+LABEL_46:
+      frame += v17;
+      v9 = v34;
+      v4 = (v4 - v17);
+      if (!v4)
+      {
+        goto LABEL_49;
+      }
+    }
+  }
+
+  v47 = 0;
+  v10 = 0;
+  v34 = 0;
+  v8 = 0;
+LABEL_49:
+  LOBYTE(v46) = 1;
+  v42 = [[THThreadNetworkCredentials alloc] initWithMasterKey:v34 passPhrase:0 PSKc:v10 channel:v47 PANID:v8 userInfo:0 credentialDataSet:0 isActiveDevice:v46];
+  if (v42)
+  {
+    v43 = v42;
+    v44 = sub_10001B194(1);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      sub_100053EB8();
+    }
+  }
+
+  else
+  {
+    v9 = v34;
+LABEL_53:
+    v44 = sub_10001B194(1);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      sub_100053F30();
+    }
+
+    v43 = 0;
+    v34 = v9;
+  }
+
+  return v43;
+}
+
+- (id)parseDataSetFromSpinel:(const char *)spinel data_len:(unsigned int)data_len
+{
+  v4 = *&data_len;
+  v6 = sub_10001B194(1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    sub_100053FB4();
+  }
+
+  sub_1000085B4(spinel, v4, v78, 0x3E8uLL, 0);
+  v7 = sub_10001B194(1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    sub_100054038();
+  }
+
+  if (v4)
+  {
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v12 = 0;
+    v62 = 0;
+    while (1)
+    {
+      v13 = sub_10001B194(1);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+        v74 = 1024;
+        *v75 = v4;
+        *&v75[4] = 1024;
+        *&v75[6] = 1119;
+        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s: #MOS : data_len : %d, Line : %d", buf, 0x18u);
+      }
+
+      v69 = 0;
+      v68 = 0;
+      v19 = spinel_datatype_unpack(spinel, v4, "d", v14, v15, v16, v17, v18, &v69);
+      v20 = sub_10001B194(1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315650;
+        v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+        v74 = 1024;
+        *v75 = v19;
+        *&v75[4] = 1024;
+        *&v75[6] = 1131;
+        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s: #MOS : length : %d, Line : %d", buf, 0x18u);
+      }
+
+      if (v19 < 1)
+      {
+        goto LABEL_84;
+      }
+
+      v67 = 0;
+      v66 = 0;
+      v65 = 0;
+      v61 = &v66;
+      v26 = spinel_datatype_unpack(v69, v68, "iD", v21, v22, v23, v24, v25, &v67);
+      v27 = sub_10001B194(1);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315906;
+        v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+        v74 = 1024;
+        *v75 = v67;
+        *&v75[4] = 1024;
+        *&v75[6] = v26;
+        v76 = 1024;
+        v77 = 1152;
+        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%s: #MOS : propkey : %d, length: %d, Line : %d", buf, 0x1Eu);
+      }
+
+      if (v26 < 1)
+      {
+LABEL_84:
+        v57 = 0;
+        v34 = v8;
+        goto LABEL_85;
+      }
+
+      if (v67 > 68)
+      {
+        break;
+      }
+
+      if (v67 == 33)
+      {
+        LOBYTE(v64) = 0;
+        if (spinel_datatype_unpack(v66, v65, "C", v28, v29, v30, v31, v32, &v64) < 1)
+        {
+          goto LABEL_84;
+        }
+
+        v40 = sub_10001B194(1);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = 1233;
+          _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded channel Line : %d", buf, 0x12u);
+        }
+
+        v62 = v64;
+        v41 = sub_10001B194(1);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = v64;
+          _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%s: #MOS : Channel : %d", buf, 0x12u);
+        }
+
+LABEL_47:
+
+        goto LABEL_60;
+      }
+
+      if (v67 == 54)
+      {
+        LOWORD(v64) = 0;
+        if (spinel_datatype_unpack(v66, v65, "S", v28, v29, v30, v31, v32, &v64) < 1)
+        {
+          goto LABEL_84;
+        }
+
+        v45 = sub_10001B194(1);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = 1213;
+          _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded pan id Line : %d", buf, 0x12u);
+        }
+
+        v63 = bswap32(v64) >> 16;
+        v46 = [NSData dataWithBytes:&v63 length:2];
+
+        v47 = sub_10001B194(1);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = v63;
+          _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%s: #MOS : PANID : %hu", buf, 0x12u);
+        }
+
+        v10 = v46;
+        goto LABEL_60;
+      }
+
+      if (v67 != 68)
+      {
+        goto LABEL_45;
+      }
+
+      v64 = 0;
+      if (spinel_datatype_unpack(v66, v65, "U", v28, v29, v30, v31, v32, &v64) < 1)
+      {
+        goto LABEL_84;
+      }
+
+      v33 = sub_10001B194(1);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+        v74 = 1024;
+        *v75 = 1170;
+        _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded Network Name Line : %d", buf, 0x12u);
+      }
+
+      v34 = [NSString stringWithUTF8String:v64];
+
+      v35 = sub_10001B194(1);
+      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+      if (!v34)
+      {
+        if (v36)
+        {
+          sub_1000540BC();
+        }
+
+        v8 = 0;
+        goto LABEL_84;
+      }
+
+      if (v36)
+      {
+        *buf = 136315394;
+        v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+        v74 = 2112;
+        *v75 = v34;
+        _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "%s : #MOS : Network Name : %@", buf, 0x16u);
+      }
+
+LABEL_61:
+      spinel += v19;
+      v8 = v34;
+      v4 = (v4 - v19);
+      if (!v4)
+      {
+        goto LABEL_64;
+      }
+    }
+
+    switch(v67)
+    {
+      case 'E':
+        if (!v65)
+        {
+          goto LABEL_84;
+        }
+
+        v42 = sub_10001B194(1);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = 1184;
+          _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded XPAN ID : %d", buf, 0x12u);
+        }
+
+        v43 = [NSData dataWithBytes:v66 length:v65];
+
+        v44 = sub_10001B194(1);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 2112;
+          *v75 = v43;
+          _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%s: #MOS : XPAN ID: %@", buf, 0x16u);
+        }
+
+        v9 = v43;
+        break;
+      case 'F':
+        if (!v65)
+        {
+          goto LABEL_84;
+        }
+
+        v48 = sub_10001B194(1);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = 1194;
+          _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded master key Line : %d", buf, 0x12u);
+        }
+
+        v49 = [NSData dataWithBytes:v66 length:v65];
+
+        v50 = sub_10001B194(1);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315395;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 2117;
+          *v75 = v49;
+          _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%s: #MOS : Master Key: %{sensitive}@", buf, 0x16u);
+        }
+
+        v11 = v49;
+        break;
+      case 'K':
+        v37 = sub_10001B194(1);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 1024;
+          *v75 = 1243;
+          _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%s: #MOS : ==> Decoded pskc Line : %d", buf, 0x12u);
+        }
+
+        v38 = [NSData dataWithBytes:v66 length:v65];
+
+        v39 = sub_10001B194(1);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315395;
+          v73 = "[THThreadNetworkCredentialsStoreLocalClient parseDataSetFromSpinel:data_len:]";
+          v74 = 2117;
+          *v75 = v38;
+          _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%s: #MOS : PSKc : %{sensitive}@", buf, 0x16u);
+        }
+
+        v12 = v38;
+        break;
+      default:
+LABEL_45:
+        v41 = sub_10001B194(1);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        {
+          sub_10005413C(v70, v71, v41);
+        }
+
+        goto LABEL_47;
+    }
+
+LABEL_60:
+    v34 = v8;
+    goto LABEL_61;
+  }
+
+  v62 = 0;
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v34 = 0;
+LABEL_64:
+  LOBYTE(v61) = 1;
+  v51 = [[THThreadNetworkCredentials alloc] initWithMasterKey:v11 passPhrase:0 PSKc:v12 channel:v62 PANID:v10 userInfo:0 credentialDataSet:0 isActiveDevice:v61];
+  v52 = sub_10001B194(1);
+  v53 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
+  if (v51)
+  {
+    if (v53)
+    {
+      sub_10005417C();
+    }
+
+    v54 = [[THThreadNetwork alloc] initWithName:v34 extendedPANID:v9];
+    if (v54)
+    {
+      v55 = v54;
+      v56 = [[THThreadNetworkCredentialsStoreRecord alloc] initWithNetwork:v54 credentials:v51 uniqueIdentifier:0 keychainAccessGroup:@"com.apple.thread.network" creationDate:0 lastModificationDate:0];
+      if (v56)
+      {
+        v57 = v56;
+
+        goto LABEL_85;
+      }
+
+      v59 = sub_10001B194(1);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000541F4();
+      }
+    }
+
+    else
+    {
+      v58 = sub_10001B194(1);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      {
+        sub_100054230();
+      }
+    }
+  }
+
+  else
+  {
+    if (v53)
+    {
+      sub_10005426C();
+    }
+  }
+
+  v57 = 0;
+LABEL_85:
+
+  return v57;
 }
 
 - (id)parseActiveOperationalDataSet:(id)set
@@ -1762,7 +2617,7 @@ LABEL_86:
         v18 = sub_10001B194(1);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_100054854(&vs[v12]);
+          sub_100054854();
         }
 
         goto LABEL_126;
@@ -2402,7 +3257,7 @@ LABEL_86:
           v20 = sub_10001B194(1);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_100055288(&vs[v13]);
+            sub_100055288();
           }
 
           goto LABEL_118;

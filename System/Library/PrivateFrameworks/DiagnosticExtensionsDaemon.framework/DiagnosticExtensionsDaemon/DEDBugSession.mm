@@ -378,13 +378,12 @@ LABEL_14:
 - (NSString)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = DEDBugSession;
-  v4 = [(DEDBugSession *)&v8 description];
-  client = self->_client;
-  v6 = [v3 stringWithFormat:@"%@ - identifier: [%@] - client: [%@] - worker: [%@]", v4, self->_identifier, client, self->_worker];
+  v7.receiver = self;
+  v7.super_class = DEDBugSession;
+  v4 = [(DEDBugSession *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ - identifier: [%@] - client: [%@] - worker: [%@]", v4, self->_identifier, self->_client, self->_worker];
 
-  return v6;
+  return v5;
 }
 
 - (id)prettyDescription
@@ -439,46 +438,45 @@ LABEL_14:
 void __32__DEDBugSession_archivedClasses__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEB58];
-  v2 = *(a1 + 32);
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  v7 = objc_opt_class();
-  v20 = [v1 setWithObjects:{v3, v4, v5, v6, v7, objc_opt_class(), 0}];
-  v8 = +[DEDBugSessionConfiguration archivedClasses];
-  [v20 unionSet:v8];
+  v19 = [v1 setWithObjects:{v2, v3, v4, v5, v6, objc_opt_class(), 0}];
+  v7 = +[DEDBugSessionConfiguration archivedClasses];
+  [v19 unionSet:v7];
 
-  v9 = +[DEDNotifierConfiguration archivedClasses];
-  [v20 unionSet:v9];
+  v8 = +[DEDNotifierConfiguration archivedClasses];
+  [v19 unionSet:v8];
 
-  v10 = +[DEDBugSessionOperation archivedClasses];
-  [v20 unionSet:v10];
+  v9 = +[DEDBugSessionOperation archivedClasses];
+  [v19 unionSet:v9];
 
-  v11 = +[DEDSeedingFinisher archivedClasses];
-  [v20 unionSet:v11];
+  v10 = +[DEDSeedingFinisher archivedClasses];
+  [v19 unionSet:v10];
 
-  v12 = +[DEDRadarFinisher archivedClasses];
-  [v20 unionSet:v12];
+  v11 = +[DEDRadarFinisher archivedClasses];
+  [v19 unionSet:v11];
 
-  v13 = +[DEDCloudKitFinisher archivedClasses];
-  [v20 unionSet:v13];
+  v12 = +[DEDCloudKitFinisher archivedClasses];
+  [v19 unionSet:v12];
 
-  v14 = +[DEDTestingFinisher archivedClasses];
-  [v20 unionSet:v14];
+  v13 = +[DEDTestingFinisher archivedClasses];
+  [v19 unionSet:v13];
 
-  v15 = +[DEDExtensionIdentifierManager archivedClasses];
-  [v20 unionSet:v15];
+  v14 = +[DEDExtensionIdentifierManager archivedClasses];
+  [v19 unionSet:v14];
 
-  v16 = +[DEDUserNotificationNotifier archivedClasses];
-  [v20 unionSet:v16];
+  v15 = +[DEDUserNotificationNotifier archivedClasses];
+  [v19 unionSet:v15];
 
-  v17 = +[DEDFollowUpNotifier archivedClasses];
-  [v20 unionSet:v17];
+  v16 = +[DEDFollowUpNotifier archivedClasses];
+  [v19 unionSet:v16];
 
-  v18 = [MEMORY[0x277CBEB98] setWithSet:v20];
-  v19 = archivedClasses__classes;
-  archivedClasses__classes = v18;
+  v17 = [MEMORY[0x277CBEB98] setWithSet:v19];
+  v18 = archivedClasses__classes;
+  archivedClasses__classes = v17;
 }
 
 - (id)configuration
@@ -627,14 +625,14 @@ void __32__DEDBugSession_archivedClasses__block_invoke(uint64_t a1)
 
 - (void)getStateWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = DEDSessionStateLog();
+  v5 = DEDSessionStateLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     identifier = [(DEDBugSession *)self identifier];
     *buf = 138543362;
-    v16 = identifier;
+    v15 = identifier;
     _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_INFO, "Getting session state on [%{public}@]", buf, 0xCu);
   }
 
@@ -661,20 +659,18 @@ void __32__DEDBugSession_archivedClasses__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __40__DEDBugSession_getStateWithCompletion___block_invoke;
     block[3] = &unk_278F653A8;
-    v14 = v10;
+    v13 = v10;
     identifier2 = v10;
     dispatch_async(callbackQueue, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __40__DEDBugSession_getStateWithCompletion___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device does not have capability %@", @"session-state", *MEMORY[0x277CCA450]];
-  v10[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v4 = MEMORY[0x277CCA9B8];
   v5 = +[DEDConfiguration sharedInstance];
@@ -682,7 +678,6 @@ void __40__DEDBugSession_getStateWithCompletion___block_invoke(uint64_t a1)
   v7 = [v4 errorWithDomain:v6 code:103 userInfo:v3];
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addData:(id)data withFilename:(id)filename
@@ -760,7 +755,7 @@ void __40__DEDBugSession_getStateWithCompletion___block_invoke(uint64_t a1)
 
 - (void)startDiagnosticExtensionWithDEDIdentifier:(id)identifier parameters:(id)parameters deferRunUntil:(id)until completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   untilCopy = until;
@@ -822,8 +817,8 @@ LABEL_15:
       v23 = [(DEDBugSession *)self log];
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&dword_248AD7000, v23, OS_LOG_TYPE_DEFAULT, "Rescheduling an existing collect operation.", &v28, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&dword_248AD7000, v23, OS_LOG_TYPE_DEFAULT, "Rescheduling an existing collect operation.", &v27, 2u);
       }
 
       [stringValue3 schedule];
@@ -843,15 +838,13 @@ LABEL_21:
   v25 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138543362;
-    v29 = untilCopy;
-    _os_log_impl(&dword_248AD7000, v25, OS_LOG_TYPE_DEFAULT, "Deferred execution was scheduled in past (%{public}@), running immediately.", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = untilCopy;
+    _os_log_impl(&dword_248AD7000, v25, OS_LOG_TYPE_DEFAULT, "Deferred execution was scheduled in past (%{public}@), running immediately.", &v27, 0xCu);
   }
 
   [(DEDBugSession *)self finallyStartDiagnosticWithIdentifier:identifierCopy parameters:parametersCopy completion:completionCopy];
 LABEL_22:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiagnosticExtension:(id)extension parameters:(id)parameters completion:(id)completion
@@ -938,7 +931,7 @@ LABEL_22:
 
 - (void)_prepareForStartDiagnosticExtensionWithDEDIdentifier:(id)identifier parameters:(id)parameters newCollectRemovedPendingKill:(BOOL *)kill completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   completionCopy = completion;
@@ -964,19 +957,19 @@ LABEL_22:
       else
       {
         extensionIdentifier = [identifierCopy extensionIdentifier];
-        v42 = [DEDBugSessionOperation hashingKeyWithId:extensionIdentifier type:0];
+        v41 = [DEDBugSessionOperation hashingKeyWithId:extensionIdentifier type:0];
 
         extensionIdentifier2 = [identifierCopy extensionIdentifier];
-        v41 = [DEDBugSessionOperation hashingKeyWithId:extensionIdentifier2 type:1];
+        v40 = [DEDBugSessionOperation hashingKeyWithId:extensionIdentifier2 type:1];
 
         pendingOperations = [(DEDBugSession *)self pendingOperations];
         objc_sync_enter(pendingOperations);
         pendingOperations2 = [(DEDBugSession *)self pendingOperations];
-        v22 = [pendingOperations2 objectForKeyedSubscript:v42];
+        v22 = [pendingOperations2 objectForKeyedSubscript:v41];
         if (v22)
         {
           pendingOperations3 = [(DEDBugSession *)self pendingOperations];
-          pendingOperations5 = [pendingOperations3 objectForKeyedSubscript:v41];
+          pendingOperations5 = [pendingOperations3 objectForKeyedSubscript:v40];
 
           if (pendingOperations5)
           {
@@ -985,7 +978,7 @@ LABEL_22:
             {
               stringValue3 = [identifierCopy stringValue];
               *buf = 138543362;
-              v45 = stringValue3;
+              v44 = stringValue3;
               _os_log_impl(&dword_248AD7000, v24, OS_LOG_TYPE_DEFAULT, "Found matching kill operation for new requested DE [%{public}@], will let it finish", buf, 0xCu);
             }
 
@@ -993,14 +986,14 @@ LABEL_22:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               pendingOperations4 = [(DEDBugSession *)self pendingOperations];
-              v28 = [pendingOperations4 objectForKeyedSubscript:v42];
+              v28 = [pendingOperations4 objectForKeyedSubscript:v41];
               *buf = 138412290;
-              v45 = v28;
+              v44 = v28;
               _os_log_impl(&dword_248AD7000, v26, OS_LOG_TYPE_INFO, "Removing matching kill operation: %@", buf, 0xCu);
             }
 
             pendingOperations5 = [(DEDBugSession *)self pendingOperations];
-            [pendingOperations5 removeObjectForKey:v42];
+            [pendingOperations5 removeObjectForKey:v41];
 
             LODWORD(pendingOperations5) = 1;
           }
@@ -1027,7 +1020,7 @@ LABEL_22:
         {
           identifier = [(DEDBugSession *)self identifier];
           *buf = 138543362;
-          v45 = identifier;
+          v44 = identifier;
           _os_log_impl(&dword_248AD7000, v29, OS_LOG_TYPE_DEFAULT, "Start collection command found matching cancel on DE: [%{public}@]", buf, 0xCu);
         }
       }
@@ -1084,31 +1077,27 @@ LABEL_22:
       _os_log_impl(&dword_248AD7000, v17, OS_LOG_TYPE_DEFAULT, "Running the same extension multiple times requires enhanced execution.", buf, 2u);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_parameters_newCollectRemovedPendingKill_completion___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) identifier];
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_INFO, "will fire collection notification for bug session %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_248AD7000, v2, OS_LOG_TYPE_INFO, "will fire collection notification for bug session %{public}@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) config];
   +[DEDCollectionNotification fireNotificationWithFinishingMove:](DEDCollectionNotification, "fireNotificationWithFinishingMove:", [v4 finishingMove]);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finallyStartDiagnosticWithIdentifier:(id)identifier parameters:(id)parameters completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   completionCopy = completion;
@@ -1136,28 +1125,26 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       identifier3 = [(DEDBugSession *)self identifier];
-      v20 = 136446466;
-      v21 = "[DEDBugSession finallyStartDiagnosticWithIdentifier:parameters:completion:]";
-      v22 = 2114;
-      v23 = identifier3;
-      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}s] called on non target instance of [%{public}@]", &v20, 0x16u);
+      v19 = 136446466;
+      v20 = "[DEDBugSession finallyStartDiagnosticWithIdentifier:parameters:completion:]";
+      v21 = 2114;
+      v22 = identifier3;
+      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}s] called on non target instance of [%{public}@]", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleDiagnosticCollectionForClassBAccessWithIdentifier:(id)identifier parameters:(id)parameters
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   v8 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543362;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "Will reschedule attachment collection for Class B availability for extension [%{public}@]", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "Will reschedule attachment collection for Class B availability for extension [%{public}@]", &v16, 0xCu);
   }
 
   v9 = [[DEDExtensionIdentifier alloc] initWithString:identifierCopy];
@@ -1174,7 +1161,6 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
   [(DEDDeferredExtensionInfo *)v15 setParameters:parametersCopy];
 
   [(DEDDeferredExtensionInfo *)v15 schedule];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAttachment:(id)attachment
@@ -1222,31 +1208,31 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
 
 - (void)cancelDiagnosticExtensionWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   identifierManager = [(DEDBugSession *)self identifierManager];
   v6 = [identifierManager knownIdentifiersForExtensionIdentifier:identifierCopy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         stringValue = [v12 stringValue];
         [(DEDBugSession *)self terminateExtension:stringValue withInfo:0];
 
@@ -1254,19 +1240,18 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
         [identifierManager2 revokeIdentifier:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   [(DEDBugSession *)self save];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDiagnosticExtensionWithIdentifier:(id)identifier invocationNumber:(int64_t)number
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (number && ![(DEDBugSession *)self hasCapability:@"enhanced-execution"])
   {
@@ -1283,33 +1268,33 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
     identifierManager = [(DEDBugSession *)self identifierManager];
     v8 = [identifierManager knownIdentifiersForExtensionIdentifier:identifierCopy];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * i);
+          v14 = *(*(&v15 + 1) + 8 * i);
           if ([v14 invocationNumber] == number)
           {
             [(DEDBugSession *)self cancelDiagnosticExtensionWithDEDExtensionIdentifier:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v11);
@@ -1317,8 +1302,6 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
 
     [(DEDBugSession *)self save];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDiagnosticExtensionWithDEDExtensionIdentifier:(id)identifier
@@ -1413,7 +1396,7 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
 
 - (void)cancel
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ([(DEDBugSession *)self isTarget])
   {
     [(DEDBugSession *)self clearNotification];
@@ -1423,58 +1406,58 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
     scheduledDeferredExtensionCollectionOperations = [(DEDBugSession *)self scheduledDeferredExtensionCollectionOperations];
     if ([ongoingExtensionCollectionOperations count] || objc_msgSend(scheduledDeferredExtensionCollectionOperations, "count"))
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v5 = ongoingExtensionCollectionOperations;
-      v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v28;
+        v8 = *v27;
         do
         {
           v9 = 0;
           do
           {
-            if (*v28 != v8)
+            if (*v27 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            [(DEDBugSession *)self cancelDiagnosticExtensionWithIdentifier:*(*(&v27 + 1) + 8 * v9++)];
+            [(DEDBugSession *)self cancelDiagnosticExtensionWithIdentifier:*(*(&v26 + 1) + 8 * v9++)];
           }
 
           while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v7);
       }
 
       v10 = +[DEDDeferredExtensionInfo allInfo];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v11 = scheduledDeferredExtensionCollectionOperations;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v23;
         do
         {
           v15 = 0;
           do
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [v10 objectForKey:{*(*(&v23 + 1) + 8 * v15), v23}];
+            v16 = [v10 objectForKey:{*(*(&v22 + 1) + 8 * v15), v22}];
             v17 = v16;
             if (v16)
             {
@@ -1488,7 +1471,7 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
         }
 
         while (v13);
@@ -1512,13 +1495,11 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
 
   identifierManager = [(DEDBugSession *)self identifierManager];
   [identifierManager reset];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)adoptFiles:(id)files withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   completionCopy = completion;
   if (completionCopy)
@@ -1529,27 +1510,27 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
   }
 
   v10 = objc_alloc_init(DEDAttachmentHandler);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = filesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [(DEDAttachmentHandler *)v10 identifierForAdoptingFile:*(*(&v21 + 1) + 8 * v15), v21];
+        v16 = [(DEDAttachmentHandler *)v10 identifierForAdoptingFile:*(*(&v20 + 1) + 8 * v15), v20];
         if (v16)
         {
           filePromises = [(DEDBugSession *)self filePromises];
@@ -1560,7 +1541,7 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
@@ -1569,35 +1550,27 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
   worker = self->_worker;
   identifier = [(DEDBugSession *)self identifier];
   [(DEDWorkerProtocol *)worker adoptFiles:v11 forSession:identifier];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleNotification
 {
-  v8 = *MEMORY[0x277D85DE8];
   deviceIdentifier = [self deviceIdentifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearNotification
 {
-  v8 = *MEMORY[0x277D85DE8];
   deviceIdentifier = [self deviceIdentifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadTextDataForExtensions:(id)extensions localization:(id)localization completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   localizationCopy = localization;
   completionCopy = completion;
@@ -1622,8 +1595,8 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
     }
 
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Session does not have capability %@", @"enhanced-execution-v2", *MEMORY[0x277CCA450]];
-    v22[0] = v14;
-    identifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v14;
+    identifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
     v15 = MEMORY[0x277CCA9B8];
     v16 = +[DEDConfiguration sharedInstance];
@@ -1633,8 +1606,6 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
     v19 = [MEMORY[0x277CBEB98] set];
     completionCopy[2](completionCopy, v19, v18);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didLoadTextDataForExtensions:(id)extensions localization:(id)localization
@@ -1673,13 +1644,10 @@ void __121__DEDBugSession__prepareForStartDiagnosticExtensionWithDEDIdentifier_p
 
 - (void)pong
 {
-  v8 = *MEMORY[0x277D85DE8];
   shortDescription = [self shortDescription];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __21__DEDBugSession_pong__block_invoke(uint64_t a1)
@@ -1992,10 +1960,9 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
   result = a1[6];
   if (result)
   {
-    v4 = a1[4];
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -2034,7 +2001,7 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
 
 - (void)hasCollected:(id)collected isCollecting:(id)collecting identifiers:(id)identifiers
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   collectedCopy = collected;
   collectingCopy = collecting;
   identifiersCopy = identifiers;
@@ -2044,7 +2011,7 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
     [DEDBugSession hasCollected:collectedCopy isCollecting:? identifiers:?];
   }
 
-  v44 = identifiersCopy;
+  v43 = identifiersCopy;
 
   v12 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -2053,26 +2020,26 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
   }
 
   [(DEDBugSession *)self populateLocalizedTextDataForExtensions:collectingCopy];
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v13 = collectedCopy;
-  v14 = [v13 countByEnumeratingWithState:&v61 objects:v66 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v60 objects:v65 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v62;
+    v16 = *v61;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v62 != v16)
+        if (*v61 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v61 + 1) + 8 * i);
+        v18 = *(*(&v60 + 1) + 8 * i);
         extensionID = [v18 extensionID];
 
         if (extensionID)
@@ -2088,57 +2055,57 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
           filePromises = [(DEDBugSession *)self log];
           if (os_log_type_enabled(filePromises, OS_LOG_TYPE_ERROR))
           {
-            [DEDBugSession hasCollected:v60 isCollecting:filePromises identifiers:?];
+            [DEDBugSession hasCollected:v59 isCollecting:filePromises identifiers:?];
           }
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v60 objects:v65 count:16];
     }
 
     while (v15);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v23 = collectingCopy;
-  v24 = [v23 countByEnumeratingWithState:&v55 objects:v65 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v54 objects:v64 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v56;
+    v26 = *v55;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v56 != v26)
+        if (*v55 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v55 + 1) + 8 * j);
+        v28 = *(*(&v54 + 1) + 8 * j);
         filePromises2 = [(DEDBugSession *)self filePromises];
         identifier = [v28 identifier];
         [filePromises2 addObject:identifier];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v55 objects:v65 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v54 objects:v64 count:16];
     }
 
     while (v25);
   }
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __55__DEDBugSession_hasCollected_isCollecting_identifiers___block_invoke;
-  v54[3] = &unk_278F654C0;
-  v54[4] = self;
-  [v13 enumerateObjectsUsingBlock:v54];
-  if (v44)
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __55__DEDBugSession_hasCollected_isCollecting_identifiers___block_invoke;
+  v53[3] = &unk_278F654C0;
+  v53[4] = self;
+  [v13 enumerateObjectsUsingBlock:v53];
+  if (v43)
   {
-    v31 = [[DEDExtensionIdentifierManager alloc] initWithExtensionIdentifiers:v44];
+    v31 = [[DEDExtensionIdentifierManager alloc] initWithExtensionIdentifiers:v43];
     [(DEDBugSession *)self setIdentifierManager:v31];
   }
 
@@ -2155,9 +2122,9 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
     {
       client = self->_client;
       identifier2 = [(DEDBugSession *)self identifier];
-      if (v44)
+      if (v43)
       {
-        [(DEDClientProtocol *)client hasCollected:v13 isCollecting:v23 withIdentifiers:v44 inSession:identifier2];
+        [(DEDClientProtocol *)client hasCollected:v13 isCollecting:v23 withIdentifiers:v43 inSession:identifier2];
       }
 
       else
@@ -2180,9 +2147,9 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
     block[1] = 3221225472;
     block[2] = __55__DEDBugSession_hasCollected_isCollecting_identifiers___block_invoke_2;
     block[3] = &unk_278F654E8;
-    v53 = statusCompletionBlock3;
-    v51 = v13;
-    v52 = v23;
+    v52 = statusCompletionBlock3;
+    v50 = v13;
+    v51 = v23;
     v37 = statusCompletionBlock3;
     dispatch_async(callbackQueue, block);
   }
@@ -2194,68 +2161,66 @@ uint64_t __57__DEDBugSession_finishedDiagnosticWithIdentifier_result___block_inv
     syncCompletionBlock3 = [(DEDBugSession *)self syncCompletionBlock];
     [(DEDBugSession *)self setSyncCompletionBlock:0];
     callbackQueue2 = [(DEDBugSession *)self callbackQueue];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __55__DEDBugSession_hasCollected_isCollecting_identifiers___block_invoke_3;
-    v45[3] = &unk_278F65510;
-    v49 = syncCompletionBlock3;
-    v46 = v13;
-    v47 = v23;
-    v48 = v44;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __55__DEDBugSession_hasCollected_isCollecting_identifiers___block_invoke_3;
+    v44[3] = &unk_278F65510;
+    v48 = syncCompletionBlock3;
+    v45 = v13;
+    v46 = v23;
+    v47 = v43;
     identifier2 = syncCompletionBlock3;
-    dispatch_async(callbackQueue2, v45);
+    dispatch_async(callbackQueue2, v44);
 
 LABEL_32:
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)terminateExtension:(id)extension withInfo:(id)info
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   infoCopy = info;
   v7 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v36 = extensionCopy;
+    v35 = extensionCopy;
     _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Will terminate extension [%{public}@]", buf, 0xCu);
   }
 
   v8 = [[DEDExtensionIdentifier alloc] initWithString:extensionCopy];
   v9 = +[DEDDeferredExtensionInfo allInfo];
   allValues = [v9 allValues];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __45__DEDBugSession_terminateExtension_withInfo___block_invoke;
-  v31[3] = &unk_278F65538;
-  v25 = v8;
-  v32 = v25;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __45__DEDBugSession_terminateExtension_withInfo___block_invoke;
+  v30[3] = &unk_278F65538;
+  v24 = v8;
+  v31 = v24;
   selfCopy = self;
-  v11 = [allValues ded_selectItemsPassingTest:v31];
+  v11 = [allValues ded_selectItemsPassingTest:v30];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         [v17 unschedule];
         scheduledDeferredExtensionCollectionOperations = [(DEDBugSession *)self scheduledDeferredExtensionCollectionOperations];
         activityString = [v17 activityString];
@@ -2268,14 +2233,14 @@ LABEL_32:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
     while (v14);
   }
 
   identifierManager = [(DEDBugSession *)self identifierManager];
-  [identifierManager revokeIdentifier:v25];
+  [identifierManager revokeIdentifier:v24];
 
   filePromises = [(DEDBugSession *)self filePromises];
   [filePromises removeObject:extensionCopy];
@@ -2283,8 +2248,6 @@ LABEL_32:
   [(DEDBugSession *)self willPerformOperationWithID:extensionCopy type:0 options:infoCopy];
   [(DEDBugSession *)self save];
   [(DEDBugSession *)self _terminateExtensionWithIdentifier:extensionCopy info:infoCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t a1, void *a2)
@@ -2321,7 +2284,7 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
 
 - (OS_dispatch_queue)diskAccessQueue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   _diskAccessQueue = [(DEDBugSession *)selfCopy _diskAccessQueue];
@@ -2338,9 +2301,9 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
     {
       identifier = [(DEDBugSession *)selfCopy identifier];
       *buf = 138543618;
-      v16 = v7;
-      v17 = 2114;
-      v18 = identifier;
+      v15 = v7;
+      v16 = 2114;
+      v17 = identifier;
       _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "Creating diskAccessQueue [%{public}@] for session [%{public}@]", buf, 0x16u);
     }
 
@@ -2352,39 +2315,37 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
   objc_sync_exit(selfCopy);
 
   _diskAccessQueue2 = [(DEDBugSession *)selfCopy _diskAccessQueue];
-  v13 = *MEMORY[0x277D85DE8];
 
   return _diskAccessQueue2;
 }
 
 - (void)_cancel
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(DEDBugSession *)self identifier];
-    v6 = 138543362;
-    v7 = identifier;
-    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "will cancel session [%{public}@]", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = identifier;
+    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "will cancel session [%{public}@]", &v5, 0xCu);
   }
 
   [(DEDBugSession *)self cleanup];
   [(DEDBugSession *)self didCancel];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConfig:(id)config
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v5 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(DEDBugSession *)self identifier];
-    v10 = 138543362;
-    v11 = identifier;
-    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setConfig", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = identifier;
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setConfig", &v9, 0xCu);
   }
 
   if ([(DEDBugSession *)self hasCapability:@"mutable-bug-session"])
@@ -2403,8 +2364,8 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
       p_super = [(DEDBugSession *)self log];
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_248AD7000, p_super, OS_LOG_TYPE_INFO, "BugSession configuration has unset Finishing Move. Will not reset finisher", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_248AD7000, p_super, OS_LOG_TYPE_INFO, "BugSession configuration has unset Finishing Move. Will not reset finisher", &v9, 2u);
       }
     }
   }
@@ -2417,20 +2378,18 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
       [DEDBugSession setConfig:?];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStart
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(DEDBugSession *)self identifier];
-    v13 = 138543362;
-    v14 = identifier;
-    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] did start", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = identifier;
+    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] did start", &v12, 0xCu);
   }
 
   if ([(DEDBugSession *)self isTarget])
@@ -2447,9 +2406,9 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         identifier2 = [(DEDBugSession *)self identifier];
-        v13 = 138543362;
-        v14 = identifier2;
-        _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "found cancel operation for restarted session [%{public}@], will remove", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = identifier2;
+        _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "found cancel operation for restarted session [%{public}@], will remove", &v12, 0xCu);
       }
 
       pendingOperations3 = [(DEDBugSession *)self pendingOperations];
@@ -2458,26 +2417,24 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
 
     objc_sync_exit(pendingOperations);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupFinishedUploads:(BOOL)uploads
 {
   uploadsCopy = uploads;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = [(DEDBugSession *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(DEDBugSession *)self identifier];
     *buf = 138543362;
-    v49 = identifier;
+    v48 = identifier;
     _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "will cleanup session [%{public}@]", buf, 0xCu);
   }
 
   if ([(DEDBugSession *)self isTarget])
   {
-    v42 = uploadsCopy;
+    v41 = uploadsCopy;
     [(DEDBugSession *)self removeFromStore];
     v7 = objc_alloc_init(DEDAttachmentHandler);
     identifier2 = [(DEDBugSession *)self identifier];
@@ -2502,28 +2459,28 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
       }
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v14 = +[DEDDeferredExtensionInfo allInfo];
     allValues = [v14 allValues];
 
-    v16 = [allValues countByEnumeratingWithState:&v43 objects:v54 count:16];
+    v16 = [allValues countByEnumeratingWithState:&v42 objects:v53 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v44;
+      v18 = *v43;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v44 != v18)
+          if (*v43 != v18)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v20 = *(*(&v43 + 1) + 8 * i);
+          v20 = *(*(&v42 + 1) + 8 * i);
           bugSessionIdentifier = [v20 bugSessionIdentifier];
           identifier3 = [(DEDBugSession *)self identifier];
           v23 = [bugSessionIdentifier isEqualToString:identifier3];
@@ -2534,13 +2491,13 @@ uint64_t __45__DEDBugSession_terminateExtension_withInfo___block_invoke(uint64_t
           }
         }
 
-        v17 = [allValues countByEnumeratingWithState:&v43 objects:v54 count:16];
+        v17 = [allValues countByEnumeratingWithState:&v42 objects:v53 count:16];
       }
 
       while (v17);
     }
 
-    uploadsCopy = v42;
+    uploadsCopy = v41;
   }
 
   if ([(DEDBugSession *)self isTarget])
@@ -2578,11 +2535,11 @@ LABEL_21:
 
   if (transportType2 == 2)
   {
-    v41 = [(DEDBugSession *)self log];
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v40 = [(DEDBugSession *)self log];
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_248AD7000, v41, OS_LOG_TYPE_INFO, "Cleaning up app side", buf, 2u);
+      _os_log_impl(&dword_248AD7000, v40, OS_LOG_TYPE_INFO, "Cleaning up app side", buf, 2u);
     }
 
     controller = +[DEDManager sharedInstance];
@@ -2612,15 +2569,13 @@ LABEL_24:
     sessions2 = [controller sessions];
     allKeys = [sessions2 allKeys];
     *buf = 138543874;
-    v49 = identifier6;
-    v50 = 2048;
-    v51 = v35;
-    v52 = 2114;
-    v53 = allKeys;
+    v48 = identifier6;
+    v49 = 2048;
+    v50 = v35;
+    v51 = 2114;
+    v52 = allKeys;
     _os_log_impl(&dword_248AD7000, v32, OS_LOG_TYPE_DEFAULT, "Removed bug session from memory (%{public}@), [%lu] remaining sessions: %{public}@", buf, 0x20u);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __40__DEDBugSession_cleanupFinishedUploads___block_invoke(uint64_t a1)
@@ -2725,29 +2680,17 @@ void __40__DEDBugSession_cleanupFinishedUploads___block_invoke(uint64_t a1)
 
 - (BOOL)shouldCollectDiagnosticWithId:(id)id
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  if (![(DEDBugSession *)self isTarget])
-  {
-    goto LABEL_6;
-  }
-
-  pendingOperations = [(DEDBugSession *)self pendingOperations];
-  objc_sync_enter(pendingOperations);
-  pendingOperations2 = [(DEDBugSession *)self pendingOperations];
-  v7 = [DEDBugSessionOperation hashingKeyWithId:idCopy type:0];
-  v8 = [pendingOperations2 objectForKey:v7];
-
-  objc_sync_exit(pendingOperations);
-  if (v8)
+  if (-[DEDBugSession isTarget](self, "isTarget") && (-[DEDBugSession pendingOperations](self, "pendingOperations"), v5 = objc_claimAutoreleasedReturnValue(), objc_sync_enter(v5), -[DEDBugSession pendingOperations](self, "pendingOperations"), v6 = objc_claimAutoreleasedReturnValue(), +[DEDBugSessionOperation hashingKeyWithId:type:](DEDBugSessionOperation, "hashingKeyWithId:type:", idCopy, 0), v7 = objc_claimAutoreleasedReturnValue(), [v6 objectForKey:v7], v8 = objc_claimAutoreleasedReturnValue(), v7, v6, objc_sync_exit(v5), v5, v8))
   {
     v9 = [(DEDBugSession *)self log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       hashingKey = [v8 hashingKey];
-      v14 = 138543362;
-      v15 = hashingKey;
-      _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "found kill DE operation [%{public}@]", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = hashingKey;
+      _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "found kill DE operation [%{public}@]", &v13, 0xCu);
     }
 
     v11 = 0;
@@ -2755,11 +2698,9 @@ void __40__DEDBugSession_cleanupFinishedUploads___block_invoke(uint64_t a1)
 
   else
   {
-LABEL_6:
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2835,7 +2776,7 @@ LABEL_9:
 
 - (id)ongoingCollectOperationsWithOperations:(id)operations
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   operationsCopy = operations;
   v5 = [operationsCopy ded_selectItemsPassingTest:&__block_literal_global_138];
   v6 = [v5 ded_mapWithBlock:&__block_literal_global_141];
@@ -2845,32 +2786,30 @@ LABEL_9:
   {
     identifier = [(DEDBugSession *)self identifier];
     *buf = 138412802;
-    v19 = identifier;
-    v20 = 2112;
-    v21 = operationsCopy;
-    v22 = 2112;
-    v23 = v6;
+    v18 = identifier;
+    v19 = 2112;
+    v20 = operationsCopy;
+    v21 = 2112;
+    v22 = v6;
     _os_log_debug_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEBUG, "BS [%@] Pending operations %@, to kill %@", buf, 0x20u);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invoke_142;
-  v15[3] = &unk_278F65538;
-  v16 = v6;
-  v17 = v7;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invoke_142;
+  v14[3] = &unk_278F65538;
+  v15 = v6;
+  v16 = v7;
   v9 = v7;
   v10 = v6;
-  v11 = [operationsCopy ded_rejectItemsPassingTest:v15];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [operationsCopy ded_rejectItemsPassingTest:v14];
 
   return v11;
 }
 
 uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invoke_142(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 type] == 1 || objc_msgSend(v3, "type") == 2) && (v4 = *(a1 + 32), objc_msgSend(v3, "identifier"), v5 = objc_claimAutoreleasedReturnValue(), LODWORD(v4) = objc_msgSend(v4, "containsObject:", v5), v5, v4))
   {
@@ -2880,9 +2819,9 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
     {
       v8 = v6;
       v9 = [v3 description];
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "Found collect operation [%{public}@] marked for deletion", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "Found collect operation [%{public}@] marked for deletion", &v11, 0xCu);
     }
   }
 
@@ -2891,7 +2830,6 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3026,7 +2964,7 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
 
 - (void)populateLocalizedTextDataForExtensions:(id)extensions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   if (![(DEDBugSession *)self hasLocalizedTextDataInCache])
   {
@@ -3043,27 +2981,27 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
 
   if (cachedExtensions)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v6 = extensionsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v21 = extensionsCopy;
-      v9 = *v23;
+      v20 = extensionsCopy;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           cachedExtensions2 = [(DEDBugSession *)self cachedExtensions];
           identifier = [v11 identifier];
           v14 = [cachedExtensions2 objectForKeyedSubscript:identifier];
@@ -3073,7 +3011,7 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
             v15 = [(DEDBugSession *)self log];
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              [(DEDBugSession *)v26 populateLocalizedTextDataForExtensions:v11];
+              [(DEDBugSession *)v25 populateLocalizedTextDataForExtensions:v11];
             }
 
             localizedConsentText = [v14 localizedConsentText];
@@ -3090,49 +3028,47 @@ uint64_t __56__DEDBugSession_ongoingCollectOperationsWithOperations___block_invo
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v8);
-      extensionsCopy = v21;
+      extensionsCopy = v20;
     }
 
 LABEL_17:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCachedExtensionsWithLocalizedTextData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   cachedExtensions = [(DEDBugSession *)self cachedExtensions];
 
   if (cachedExtensions)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v6 = dataCopy;
-    v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v22 = dataCopy;
+      v21 = dataCopy;
       v9 = 0;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           cachedExtensions2 = [(DEDBugSession *)self cachedExtensions];
           identifier = [v12 identifier];
           v15 = [cachedExtensions2 objectForKeyedSubscript:identifier];
@@ -3142,7 +3078,7 @@ LABEL_17:
             v16 = [(DEDBugSession *)self log];
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              [(DEDBugSession *)v27 updateCachedExtensionsWithLocalizedTextData:v15];
+              [(DEDBugSession *)v26 updateCachedExtensionsWithLocalizedTextData:v15];
             }
 
             localizedConsentText = [v12 localizedConsentText];
@@ -3161,12 +3097,12 @@ LABEL_17:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
 
-      dataCopy = v22;
+      dataCopy = v21;
       if (v9)
       {
         [(DEDBugSession *)self setHasLocalizedTextDataInCache:1];
@@ -3177,48 +3113,44 @@ LABEL_17:
     {
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)hashExtensions:(id)extensions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = extensionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         [v4 setObject:v10 forKey:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v4];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -3284,7 +3216,7 @@ LABEL_17:
 
 - (id)notifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   _notifier = [(DEDBugSession *)self _notifier];
 
   if (_notifier)
@@ -3357,8 +3289,8 @@ LABEL_17:
   p_super = [(DEDBugSession *)self log];
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_248AD7000, p_super, OS_LOG_TYPE_DEFAULT, "Unknown notifier specified.", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_248AD7000, p_super, OS_LOG_TYPE_DEFAULT, "Unknown notifier specified.", &v22, 2u);
   }
 
 LABEL_20:
@@ -3374,15 +3306,14 @@ LABEL_21:
       _notifier3 = [(DEDBugSession *)self _notifier];
       v18 = objc_opt_class();
       v19 = NSStringFromClass(v18);
-      v23 = 138543362;
-      v24 = v19;
-      _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Using notifier [%{public}@]", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v19;
+      _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Using notifier [%{public}@]", &v22, 0xCu);
     }
   }
 
 LABEL_25:
   _notifier4 = [(DEDBugSession *)self _notifier];
-  v21 = *MEMORY[0x277D85DE8];
 
   return _notifier4;
 }
@@ -3425,22 +3356,18 @@ LABEL_25:
 
 - (void)idsInbound_presentNotificationOnFilingDevice
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self instanceType];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsInbound_didPresentNotificationOnFilingDevice
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self instanceType];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearNotificationOnFilingDevice
@@ -3458,22 +3385,18 @@ LABEL_25:
 
 - (void)idsInbound_clearNotificationOnFilingDevice
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self instanceType];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)idsInbound_didClearNotificationOnFilingDevice
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self instanceType];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeFromStore
@@ -3496,7 +3419,7 @@ LABEL_25:
 
 - (void)willPerformOperationWithID:(id)d type:(int64_t)type options:(id)options
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   optionsCopy = options;
   if ([(DEDBugSession *)self isTarget])
@@ -3515,22 +3438,20 @@ LABEL_25:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       hashingKey2 = [v11 hashingKey];
-      v17 = 138543362;
-      v18 = hashingKey2;
-      _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_INFO, "will persist operation [%{public}@]", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = hashingKey2;
+      _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_INFO, "will persist operation [%{public}@]", &v16, 0xCu);
     }
 
     objc_sync_exit(pendingOperations);
   }
 
   [(DEDBugSession *)self _logOperationQueue];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishOperation:(int64_t)operation withIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([(DEDBugSession *)self isTarget])
   {
@@ -3547,9 +3468,9 @@ LABEL_25:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [(DEDBugSession *)self identifier];
-        v13 = 138543362;
-        v14 = identifier;
-        _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Did finish cancel operation on [%{public}@]", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = identifier;
+        _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Did finish cancel operation on [%{public}@]", &v12, 0xCu);
       }
     }
 
@@ -3560,13 +3481,11 @@ LABEL_25:
   }
 
   [(DEDBugSession *)self _logOperationQueue];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUploadDelegate:(id)delegate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if ([(DEDBugSession *)self instanceType]== 1)
   {
@@ -3574,11 +3493,11 @@ LABEL_25:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(DEDBugSession *)self identifier];
-      v9 = 138543618;
-      v10 = delegateCopy;
-      v11 = 2114;
-      v12 = identifier;
-      _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Setting uploadDelegate: [%{public}@] session [%{public}@]", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = delegateCopy;
+      v10 = 2114;
+      v11 = identifier;
+      _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Setting uploadDelegate: [%{public}@] session [%{public}@]", &v8, 0x16u);
     }
   }
 
@@ -3586,8 +3505,6 @@ LABEL_25:
   objc_sync_enter(selfCopy);
   [(DEDBugSession *)selfCopy set__uploadDelegate:delegateCopy];
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (DEDUploadStatusDelegate)uploadDelegate
@@ -3621,7 +3538,7 @@ uint64_t __38__DEDBugSession__streamOperationQueue__block_invoke(uint64_t a1)
 
 - (void)_logOperationQueue
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (_logOperationQueue_onceToken != -1)
   {
     [DEDBugSession _logOperationQueue];
@@ -3637,17 +3554,15 @@ uint64_t __38__DEDBugSession__streamOperationQueue__block_invoke(uint64_t a1)
       identifier = [(DEDBugSession *)self identifier];
       pendingOperations2 = [(DEDBugSession *)self pendingOperations];
       allKeys = [pendingOperations2 allKeys];
-      v9 = 138412546;
-      v10 = identifier;
-      v11 = 2112;
-      v12 = allKeys;
-      _os_log_debug_impl(&dword_248AD7000, v4, OS_LOG_TYPE_DEBUG, "BS [%@] Operations %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = identifier;
+      v10 = 2112;
+      v11 = allKeys;
+      _os_log_debug_impl(&dword_248AD7000, v4, OS_LOG_TYPE_DEBUG, "BS [%@] Operations %@", &v8, 0x16u);
     }
 
     objc_sync_exit(pendingOperations);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__DEDBugSession__logOperationQueue__block_invoke()
@@ -3694,7 +3609,7 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
 
 - (int64_t)state
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   pendingOperations = [(DEDBugSession *)self pendingOperations];
   objc_sync_enter(pendingOperations);
   if ([(DEDBugSession *)self readyToFinish])
@@ -3718,11 +3633,11 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
           goto LABEL_29;
         }
 
-        v30 = Log_4();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v33 = Log_4(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33[0]) = 0;
-          _os_log_impl(&dword_248AD7000, v30, OS_LOG_TYPE_DEFAULT, "Finisher not compressing, uploading or finished but session is ready to finish", v33, 2u);
+          LOWORD(v35[0]) = 0;
+          _os_log_impl(&dword_248AD7000, v33, OS_LOG_TYPE_DEFAULT, "Finisher not compressing, uploading or finished but session is ready to finish", v35, 2u);
         }
       }
 
@@ -3754,33 +3669,34 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
     objc_sync_exit(pendingOperations2);
     hasDirectory = [(DEDBugSession *)self hasDirectory];
     hasStaleDirectory = [(DEDBugSession *)self hasStaleDirectory];
-    v20 = DEDSessionStateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v20 = hasStaleDirectory;
+    v21 = DEDSessionStateLog(hasStaleDirectory);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v33[0] = 67110656;
-      v33[1] = v9 != 0;
-      v34 = 1024;
-      v35 = v11 != 0;
+      v35[0] = 67110656;
+      v35[1] = v9 != 0;
       v36 = 1024;
-      v37 = v13 != 0;
+      v37 = v11 != 0;
       v38 = 1024;
-      v39 = hasDirectory;
+      v39 = v13 != 0;
       v40 = 1024;
-      v41 = hasStaleDirectory;
+      v41 = hasDirectory;
       v42 = 1024;
-      v43 = isCancelling;
+      v43 = v20;
       v44 = 1024;
-      v45 = v17 != 0;
-      _os_log_debug_impl(&dword_248AD7000, v20, OS_LOG_TYPE_DEBUG, "IC: [%i] HDCO: [%i] HPO: [%i] HDIR: [%i] HSDIR [%i] IC [%i] HNO [%i]", v33, 0x2Cu);
+      v45 = isCancelling;
+      v46 = 1024;
+      v47 = v17 != 0;
+      _os_log_debug_impl(&dword_248AD7000, v21, OS_LOG_TYPE_DEBUG, "IC: [%i] HDCO: [%i] HPO: [%i] HDIR: [%i] HSDIR [%i] IC [%i] HNO [%i]", v35, 0x2Cu);
     }
 
-    v21 = v9 != 0;
+    v22 = v9 != 0;
 
-    v22 = isCancelling || v21 || v11 != 0;
-    v23 = 3;
-    if (v21)
+    v24 = isCancelling || v22 || v11 != 0;
+    v25 = 3;
+    if (v22)
     {
-      v23 = 4;
+      v25 = 4;
     }
 
     if (isCancelling)
@@ -3790,22 +3706,22 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
 
     else
     {
-      v6 = v23;
+      v6 = v25;
     }
 
-    if (!v22)
+    if (!v24)
     {
       if (!v13 || v17)
       {
-        v29 = 2;
-        if (hasStaleDirectory)
+        v32 = 2;
+        if (v20)
         {
-          v29 = -1;
+          v32 = -1;
         }
 
         if (hasDirectory)
         {
-          v6 = v29;
+          v6 = v32;
         }
 
         else
@@ -3816,10 +3732,10 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
 
       else
       {
-        v24 = Log_4();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v26 = Log_4(v23);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [(DEDBugSession(DaemonTasks) *)v24 state];
+          [(DEDBugSession(DaemonTasks) *)v26 state];
         }
 
         v6 = -2;
@@ -3830,7 +3746,6 @@ void __35__DEDBugSession__logOperationQueue__block_invoke()
 LABEL_29:
   objc_sync_exit(pendingOperations);
 
-  v31 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3929,157 +3844,128 @@ BOOL __42__DEDBugSession_DaemonTasks__isCancelling__block_invoke(uint64_t a1, vo
 
     if (v10)
     {
-      v11 = Log_4();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = Log_4(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [(DEDBugSession(DaemonTasks) *)self hasStaleDirectory];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v11 = [v9 objectForKeyedSubscript:v6];
-      v13 = [v9 objectForKeyedSubscript:v7];
-      v14 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      [v14 setDay:-7];
+      v12 = [v9 objectForKeyedSubscript:v6];
+      v14 = [v9 objectForKeyedSubscript:v7];
+      v15 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      [v15 setDay:-7];
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-      v16 = objc_alloc_init(MEMORY[0x277CBEAA8]);
-      v17 = [currentCalendar dateByAddingComponents:v14 toDate:v16 options:0];
+      v17 = objc_alloc_init(MEMORY[0x277CBEAA8]);
+      v18 = [currentCalendar dateByAddingComponents:v15 toDate:v17 options:0];
 
-      if (v11 && [v11 compare:v17]== -1)
+      if (v12 && [v12 compare:v18]== -1)
       {
-        v12 = 1;
+        v13 = 1;
       }
 
-      else if (v13)
+      else if (v14)
       {
-        v12 = [v13 compare:v17] == -1;
+        v13 = [v14 compare:v18] == -1;
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (void)attachCompletionHandlerForDEDExtensionIdentifier:(uint64_t)a1 handler:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 identifier];
+  v7 = [a2 identifier];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pingWithCallback:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x24C1E5320]();
+  v3 = MEMORY[0x24C1E5320](a1);
   v4 = [a2 shortDescription];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getStateWithCompletion:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addData:(void *)a1 withFilename:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSessionData:filename:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_248AD7000, v0, OS_LOG_TYPE_ERROR, "Finisher does not handle writeData:filename:. Will drop [%{public}@]", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248AD7000, v0, OS_LOG_TYPE_ERROR, "Finisher does not handle writeData:filename:. Will drop [%{public}@]", v1, 0xCu);
 }
 
 - (void)cancelDiagnosticExtensionWithDEDExtensionIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 identifier];
+  v7 = [a2 identifier];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadTextDataForExtensions:(void *)a1 localization:completion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportsDiagnostics:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasCollected:(void *)a1 isCollecting:identifiers:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 valueForKeyPath:@"rootURL"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasCollected:(void *)a1 isCollecting:identifiers:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 valueForKeyPath:@"identifier"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasCollected:(uint8_t *)buf isCollecting:(_BYTE *)a2 identifiers:(os_log_t)log .cold.3(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4091,35 +3977,26 @@ BOOL __42__DEDBugSession_DaemonTasks__isCancelling__block_invoke(uint64_t a1, vo
 
 - (void)setConfig:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyPromiseCancellationIfNeeded:(uint64_t)a1 info:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)instanceType
 {
-  v8 = *MEMORY[0x277D85DE8];
   identifier = [self identifier];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateLocalizedTextDataForExtensions:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
@@ -4140,12 +4017,10 @@ BOOL __42__DEDBugSession_DaemonTasks__isCancelling__block_invoke(uint64_t a1, vo
 
 - (void)notifier
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self instanceType];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

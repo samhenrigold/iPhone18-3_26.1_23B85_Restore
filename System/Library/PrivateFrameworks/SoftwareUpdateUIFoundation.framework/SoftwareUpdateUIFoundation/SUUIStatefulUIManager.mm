@@ -215,7 +215,6 @@
 
   objc_storeStrong(&currentDownload, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (SUUIStatefulUIManager)initWithEnvironment:(id)environment
@@ -302,7 +301,6 @@ LABEL_9:
 LABEL_10:
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -410,7 +408,6 @@ void __77__SUUIStatefulUIManager_checkForAvailableUpdatesWithForcedReload_comple
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __77__SUUIStatefulUIManager_checkForAvailableUpdatesWithForcedReload_completion___block_invoke_317(void *a1)
@@ -1021,7 +1018,6 @@ void __59__SUUIStatefulUIManager_refreshStateWithCompletion_forced___block_invok
   }
 
   objc_storeStrong(v212, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __59__SUUIStatefulUIManager_refreshStateWithCompletion_forced___block_invoke_320(void *a1)
@@ -1149,7 +1145,6 @@ void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_com
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_completion___block_invoke_325(void *a1)
@@ -1175,192 +1170,189 @@ void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_com
 
 - (BOOL)doesTargetedUpdateMatchDescriptorRole:(unint64_t)role
 {
-  v88 = &v108;
-  v89 = "[SUUIStatefulUIManager doesTargetedUpdateMatchDescriptorRole:]";
-  v122 = *MEMORY[0x277D85DE8];
-  v115[3] = self;
-  v115[2] = a2;
-  v115[1] = role;
-  if (!role || *(v88 + 11) == 1)
+  v84 = &v104;
+  v85 = "[SUUIStatefulUIManager doesTargetedUpdateMatchDescriptorRole:]";
+  v118 = *MEMORY[0x277D85DE8];
+  v111[3] = self;
+  v111[2] = a2;
+  v111[1] = role;
+  if (!role || *(v84 + 11) == 1)
   {
-    v24 = *(v88 + 11);
-    v92 = 0;
-    v90 = 0;
-    if (v24)
+    v23 = *(v84 + 11);
+    v88 = 0;
+    v86 = 0;
+    if (v23)
     {
-      alternateStatefulDescriptor = [*(v88 + 13) alternateStatefulDescriptor];
-      v90 = 1;
-      v30 = alternateStatefulDescriptor;
+      alternateStatefulDescriptor = [*(v84 + 13) alternateStatefulDescriptor];
+      v86 = 1;
+      v26 = alternateStatefulDescriptor;
     }
 
     else
     {
-      preferredStatefulDescriptor = [*(v88 + 13) preferredStatefulDescriptor];
-      v92 = 1;
-      v30 = preferredStatefulDescriptor;
+      preferredStatefulDescriptor = [*(v84 + 13) preferredStatefulDescriptor];
+      v88 = 1;
+      v26 = preferredStatefulDescriptor;
     }
 
-    v94 = MEMORY[0x277D82BE0](v30);
-    if (v90)
+    v90 = MEMORY[0x277D82BE0](v26);
+    if (v86)
     {
       MEMORY[0x277D82BD8](alternateStatefulDescriptor);
     }
 
-    if (v92)
+    if (v88)
     {
       MEMORY[0x277D82BD8](preferredStatefulDescriptor);
     }
 
-    v25 = *(v88 + 13);
-    v29 = &v94;
-    v116 = [v25 doesTargetedUpdateMatchDescriptor:v94] & 1;
-    objc_storeStrong(&v94, 0);
+    v112 = [*(v84 + 13) doesTargetedUpdateMatchDescriptor:v90] & 1;
+    objc_storeStrong(&v90, 0);
   }
 
   else
   {
-    v87 = +[SUUILoggingContext statefulUILogger];
-    oslog = [v87 oslog];
-    v4 = v87;
-    *(v88 + 10) = oslog;
+    v83 = +[SUUILoggingContext statefulUILogger];
+    oslog = [v83 oslog];
+    v4 = v83;
+    *(v84 + 10) = oslog;
     MEMORY[0x277D82BD8](v4);
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(*(v88 + 10), OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(*(v84 + 10), OS_LOG_TYPE_DEFAULT))
     {
-      log = *(v88 + 10);
-      *v79 = type;
-      v80 = *(v88 + 13);
-      v5 = *(v88 + 13);
-      v6 = objc_opt_class();
-      v81 = NSStringFromClass(v6);
-      v7 = MEMORY[0x277D82BE0](v81);
-      v8 = v88;
-      v82 = v7;
-      *(v88 + 8) = v7;
-      v83 = SUUIStatefulUIStateToString(*(*(v8 + 13) + 40));
-      v9 = MEMORY[0x277D82BE0](v83);
-      v10 = v88;
-      v84 = v9;
-      *(v88 + 7) = v9;
-      currentState = [v10[13] currentState];
-      delegate = [*(v88 + 13) delegate];
-      v111 = 0;
-      v110 = 0;
+      log = *(v84 + 10);
+      *v75 = type;
+      v76 = *(v84 + 13);
+      v5 = objc_opt_class();
+      v77 = NSStringFromClass(v5);
+      v6 = MEMORY[0x277D82BE0](v77);
+      v7 = v84;
+      v78 = v6;
+      *(v84 + 8) = v6;
+      v79 = SUUIStatefulUIStateToString(*(*(v7 + 13) + 40));
+      v8 = MEMORY[0x277D82BE0](v79);
+      v9 = v84;
+      v80 = v8;
+      *(v84 + 7) = v8;
+      currentState = [v9[13] currentState];
+      delegate = [*(v84 + 13) delegate];
+      v107 = 0;
+      v106 = 0;
       if (delegate)
       {
-        *(v88 + 6) = [*(v88 + 13) delegate];
-        v76 = 1;
-        v111 = 1;
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        *(v88 + 4) = v12;
-        v110 = 1;
-        v77 = v12;
+        *(v84 + 6) = [*(v84 + 13) delegate];
+        v72 = 1;
+        v107 = 1;
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        *(v84 + 4) = v11;
+        v106 = 1;
+        v73 = v11;
       }
 
       else
       {
-        v77 = @"(null)";
+        v73 = @"(null)";
       }
 
-      v70 = v77;
-      delegate2 = [*(v88 + 13) delegate];
-      scanError = [*(v88 + 13) scanError];
-      preferredStatefulDescriptor2 = [*(v88 + 13) preferredStatefulDescriptor];
-      alternateStatefulDescriptor2 = [*(v88 + 13) alternateStatefulDescriptor];
-      currentDownload = [*(v88 + 13) currentDownload];
-      v109 = 0;
-      v107 = 0;
+      v66 = v73;
+      delegate2 = [*(v84 + 13) delegate];
+      scanError = [*(v84 + 13) scanError];
+      preferredStatefulDescriptor2 = [*(v84 + 13) preferredStatefulDescriptor];
+      alternateStatefulDescriptor2 = [*(v84 + 13) alternateStatefulDescriptor];
+      currentDownload = [*(v84 + 13) currentDownload];
       v105 = 0;
+      v103 = 0;
+      v101 = 0;
       if (currentDownload)
       {
-        currentDownload2 = [*(v88 + 13) currentDownload];
-        *(v88 + 2) = currentDownload2;
-        v68 = 1;
-        v109 = 1;
+        currentDownload2 = [*(v84 + 13) currentDownload];
+        *(v84 + 2) = currentDownload2;
+        v64 = 1;
+        v105 = 1;
         descriptor = [currentDownload2 descriptor];
-        *v88 = descriptor;
-        v107 = 1;
+        *v84 = descriptor;
+        v103 = 1;
         updateName = [descriptor updateName];
-        v105 = v68 & 1;
-        v69 = updateName;
+        v101 = v64 & 1;
+        v65 = updateName;
       }
 
       else
       {
-        v69 = @"(null)";
+        v65 = @"(null)";
       }
 
-      v45 = v69;
-      currentDownload3 = [*(v88 + 13) currentDownload];
-      v47 = SUUIUpdateContinuousOperationTypeToString([*(v88 + 13) currentUpdateOperationType]);
-      v48 = MEMORY[0x277D82BE0](v47);
-      v104 = v48;
-      isTargetedUpdateScheduledForAutoInstall = [*(v88 + 13) isTargetedUpdateScheduledForAutoInstall];
-      v58 = @"NO";
-      v59 = @"YES";
-      v66 = 1;
+      v41 = v65;
+      currentDownload3 = [*(v84 + 13) currentDownload];
+      v43 = SUUIUpdateContinuousOperationTypeToString([*(v84 + 13) currentUpdateOperationType]);
+      v44 = MEMORY[0x277D82BE0](v43);
+      v100 = v44;
+      isTargetedUpdateScheduledForAutoInstall = [*(v84 + 13) isTargetedUpdateScheduledForAutoInstall];
+      v54 = @"NO";
+      v55 = @"YES";
+      v62 = 1;
       if (isTargetedUpdateScheduledForAutoInstall)
       {
-        v15 = @"YES";
+        v14 = @"YES";
       }
 
       else
       {
-        v15 = @"NO";
+        v14 = @"NO";
       }
 
-      v49 = v15;
-      v16 = v15;
-      v50 = v49;
-      v51 = MEMORY[0x277D82BE0](v50);
-      v103 = v51;
-      hidingPreferredDescriptor = [*(v88 + 13) hidingPreferredDescriptor];
+      v45 = v14;
+      v15 = v14;
+      v46 = v45;
+      v47 = MEMORY[0x277D82BE0](v46);
+      v99 = v47;
+      hidingPreferredDescriptor = [*(v84 + 13) hidingPreferredDescriptor];
       if (hidingPreferredDescriptor)
       {
-        v17 = v59;
+        v16 = v55;
       }
 
       else
       {
-        v17 = v58;
+        v16 = v54;
       }
 
-      v52 = v17;
-      v18 = v17;
-      v53 = v52;
-      v54 = MEMORY[0x277D82BE0](v53);
-      v102 = v54;
-      hiddenPreferredStatefulDescriptor = [*(v88 + 13) hiddenPreferredStatefulDescriptor];
+      v48 = v16;
+      v17 = v16;
+      v49 = v48;
+      v50 = MEMORY[0x277D82BE0](v49);
+      v98 = v50;
+      hiddenPreferredStatefulDescriptor = [*(v84 + 13) hiddenPreferredStatefulDescriptor];
       updateName2 = [hiddenPreferredStatefulDescriptor updateName];
-      v57 = MEMORY[0x277D82BE0](updateName2);
-      v101 = v57;
-      hidingAlternateDescriptor = [*(v88 + 13) hidingAlternateDescriptor];
+      v53 = MEMORY[0x277D82BE0](updateName2);
+      v97 = v53;
+      hidingAlternateDescriptor = [*(v84 + 13) hidingAlternateDescriptor];
       if (hidingAlternateDescriptor)
       {
-        v19 = v59;
+        v18 = v55;
       }
 
       else
       {
-        v19 = v58;
+        v18 = v54;
       }
 
-      v60 = v19;
-      v20 = v19;
-      v61 = v60;
-      v62 = MEMORY[0x277D82BE0](v61);
-      v100 = v62;
-      hiddenAlternateStatefulDescriptor = [*(v88 + 13) hiddenAlternateStatefulDescriptor];
+      v56 = v18;
+      v19 = v18;
+      v57 = v56;
+      v58 = MEMORY[0x277D82BE0](v57);
+      v96 = v58;
+      hiddenAlternateStatefulDescriptor = [*(v84 + 13) hiddenAlternateStatefulDescriptor];
       updateName3 = [hiddenAlternateStatefulDescriptor updateName];
-      v65 = MEMORY[0x277D82BE0](updateName3);
-      v99 = v65;
-      enrolledBetaProgram = [*(v88 + 13) enrolledBetaProgram];
-      v97 = 0;
+      v61 = MEMORY[0x277D82BE0](updateName3);
+      v95 = v61;
+      enrolledBetaProgram = [*(v84 + 13) enrolledBetaProgram];
+      v93 = 0;
       if (enrolledBetaProgram)
       {
-        enrolledBetaProgram2 = [*(v88 + 13) enrolledBetaProgram];
-        v97 = 1;
+        enrolledBetaProgram2 = [*(v84 + 13) enrolledBetaProgram];
+        v93 = 1;
         programID = [enrolledBetaProgram2 programID];
       }
 
@@ -1369,38 +1361,38 @@ void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_com
         programID = 0;
       }
 
-      v33 = programID;
-      v34 = [*(*(v88 + 13) + 120) count];
-      canEnrollInBetaUpdates = [*(v88 + 13) canEnrollInBetaUpdates];
+      v29 = programID;
+      v30 = [*(*(v84 + 13) + 120) count];
+      canEnrollInBetaUpdates = [*(v84 + 13) canEnrollInBetaUpdates];
       if (canEnrollInBetaUpdates)
       {
-        v21 = @"YES";
+        v20 = @"YES";
       }
 
       else
       {
-        v21 = @"NO";
+        v20 = @"NO";
       }
 
-      v32 = v21;
-      v22 = v21;
-      v43 = v32;
-      v35 = MEMORY[0x277D82BE0](v43);
-      v96 = v35;
-      v36 = *(*(v88 + 13) + 168);
-      v37 = *(*(v88 + 13) + 176);
-      v38 = *(*(v88 + 13) + 184);
-      v39 = [*(*(v88 + 13) + 192) count];
-      v42 = SUUIStatefulDescriptorRoleToString(*(v88 + 11));
-      location = MEMORY[0x277D82BE0](v42);
-      v23 = *(v88 + 11);
-      v40 = &v27;
-      buf = v121;
-      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_64_8_0(v121, v89, v80, v82, v84, currentState, v70, delegate2, scanError, preferredStatefulDescriptor2, alternateStatefulDescriptor2, v45, currentDownload3, v48, v51, v54, v57, v62, v65, v33, v34, v35, v36, v37, v38, v39, location, v23);
-      _os_log_impl(&dword_26ADE5000, log, v79[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe given descriptor role, %@ (%ld), is invalid.", buf, 0x110u);
-      MEMORY[0x277D82BD8](v42);
-      MEMORY[0x277D82BD8](v43);
-      if (v97)
+      v28 = v20;
+      v21 = v20;
+      v39 = v28;
+      v31 = MEMORY[0x277D82BE0](v39);
+      v92 = v31;
+      v32 = *(*(v84 + 13) + 168);
+      v33 = *(*(v84 + 13) + 176);
+      v34 = *(*(v84 + 13) + 184);
+      v35 = [*(*(v84 + 13) + 192) count];
+      v38 = SUUIStatefulDescriptorRoleToString(*(v84 + 11));
+      location = MEMORY[0x277D82BE0](v38);
+      v22 = *(v84 + 11);
+      v36 = &v25;
+      buf = v117;
+      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_64_8_0(v117, v85, v76, v78, v80, currentState, v66, delegate2, scanError, preferredStatefulDescriptor2, alternateStatefulDescriptor2, v41, currentDownload3, v44, v47, v50, v53, v58, v61, v29, v30, v31, v32, v33, v34, v35, location, v22);
+      _os_log_impl(&dword_26ADE5000, log, v75[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe given descriptor role, %@ (%ld), is invalid.", buf, 0x110u);
+      MEMORY[0x277D82BD8](v38);
+      MEMORY[0x277D82BD8](v39);
+      if (v93)
       {
         MEMORY[0x277D82BD8](enrolledBetaProgram2);
       }
@@ -1408,26 +1400,26 @@ void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_com
       MEMORY[0x277D82BD8](enrolledBetaProgram);
       MEMORY[0x277D82BD8](updateName3);
       MEMORY[0x277D82BD8](hiddenAlternateStatefulDescriptor);
-      MEMORY[0x277D82BD8](v61);
+      MEMORY[0x277D82BD8](v57);
       MEMORY[0x277D82BD8](updateName2);
       MEMORY[0x277D82BD8](hiddenPreferredStatefulDescriptor);
-      MEMORY[0x277D82BD8](v53);
-      MEMORY[0x277D82BD8](v50);
-      MEMORY[0x277D82BD8](v47);
+      MEMORY[0x277D82BD8](v49);
+      MEMORY[0x277D82BD8](v46);
+      MEMORY[0x277D82BD8](v43);
       MEMORY[0x277D82BD8](currentDownload3);
-      if (v105)
+      if (v101)
       {
         MEMORY[0x277D82BD8](updateName);
       }
 
-      if (v107)
+      if (v103)
       {
-        MEMORY[0x277D82BD8](*v88);
+        MEMORY[0x277D82BD8](*v84);
       }
 
-      if (v109)
+      if (v105)
       {
-        MEMORY[0x277D82BD8](*(v88 + 2));
+        MEMORY[0x277D82BD8](*(v84 + 2));
       }
 
       MEMORY[0x277D82BD8](currentDownload);
@@ -1435,39 +1427,37 @@ void __80__SUUIStatefulUIManager_checkForUpdatesInBackgroundWithForcedReload_com
       MEMORY[0x277D82BD8](preferredStatefulDescriptor2);
       MEMORY[0x277D82BD8](scanError);
       MEMORY[0x277D82BD8](delegate2);
-      if (v110)
+      if (v106)
       {
-        MEMORY[0x277D82BD8](*(v88 + 4));
+        MEMORY[0x277D82BD8](*(v84 + 4));
       }
 
-      if (v111)
+      if (v107)
       {
-        MEMORY[0x277D82BD8](*(v88 + 6));
+        MEMORY[0x277D82BD8](*(v84 + 6));
       }
 
       MEMORY[0x277D82BD8](delegate);
-      MEMORY[0x277D82BD8](v83);
-      MEMORY[0x277D82BD8](v81);
+      MEMORY[0x277D82BD8](v79);
+      MEMORY[0x277D82BD8](v77);
       obj = 0;
       objc_storeStrong(&location, 0);
+      objc_storeStrong(&v92, obj);
+      objc_storeStrong(&v95, obj);
       objc_storeStrong(&v96, obj);
+      objc_storeStrong(&v97, obj);
+      objc_storeStrong(&v98, obj);
       objc_storeStrong(&v99, obj);
       objc_storeStrong(&v100, obj);
-      objc_storeStrong(&v101, obj);
-      objc_storeStrong(&v102, obj);
-      objc_storeStrong(&v103, obj);
-      objc_storeStrong(&v104, obj);
-      objc_storeStrong(&v112, obj);
-      objc_storeStrong(&v113, obj);
+      objc_storeStrong(&v108, obj);
+      objc_storeStrong(&v109, obj);
     }
 
-    objc_storeStrong(v115, 0);
-    v116 = 0;
+    objc_storeStrong(v111, 0);
+    v112 = 0;
   }
 
-  v28 = v116;
-  *MEMORY[0x277D85DE8];
-  return v116 & 1;
+  return v112 & 1;
 }
 
 - (BOOL)doesTargetedUpdateMatchDescriptor:(id)descriptor
@@ -1795,7 +1785,6 @@ void __98__SUUIStatefulUIManager_downloadUpdate_operationDelegate_delegateCallba
 
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __98__SUUIStatefulUIManager_downloadUpdate_operationDelegate_delegateCallbackQueue_completionHandler___block_invoke_330(void *a1)
@@ -1874,7 +1863,6 @@ void __98__SUUIStatefulUIManager_downloadUpdate_operationDelegate_delegateCallba
   }
 
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadAndInstall:(id)install operationDelegate:(id)delegate delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -2107,7 +2095,6 @@ void __102__SUUIStatefulUIManager_downloadAndInstall_operationDelegate_delegateC
 
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __102__SUUIStatefulUIManager_downloadAndInstall_operationDelegate_delegateCallbackQueue_completionHandler___block_invoke_340(void *a1)
@@ -2186,7 +2173,6 @@ void __102__SUUIStatefulUIManager_downloadAndInstall_operationDelegate_delegateC
   }
 
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadAndScheduleUpdate:(id)update operationDelegate:(id)delegate delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -2425,7 +2411,6 @@ void __109__SUUIStatefulUIManager_downloadAndScheduleUpdate_operationDelegate_de
 
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __109__SUUIStatefulUIManager_downloadAndScheduleUpdate_operationDelegate_delegateCallbackQueue_completionHandler___block_invoke_348(void *a1)
@@ -2504,7 +2489,6 @@ void __109__SUUIStatefulUIManager_downloadAndScheduleUpdate_operationDelegate_de
   }
 
   objc_storeStrong(v19, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)installUpdate:(id)update operationDelegate:(id)delegate delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -2778,7 +2762,6 @@ void __97__SUUIStatefulUIManager_installUpdate_operationDelegate_delegateCallbac
 
   objc_storeStrong(&v47, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __97__SUUIStatefulUIManager_installUpdate_operationDelegate_delegateCallbackQueue_completionHandler___block_invoke_356(void *a1)
@@ -2831,7 +2814,6 @@ void __97__SUUIStatefulUIManager_installUpdate_operationDelegate_delegateCallbac
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleUpdate:(id)update operationDelegate:(id)delegate delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -3058,7 +3040,6 @@ void __98__SUUIStatefulUIManager_scheduleUpdate_operationDelegate_delegateCallba
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __98__SUUIStatefulUIManager_scheduleUpdate_operationDelegate_delegateCallbackQueue_completionHandler___block_invoke_366(void *a1)
@@ -3111,7 +3092,6 @@ void __98__SUUIStatefulUIManager_scheduleUpdate_operationDelegate_delegateCallba
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)promoteTargetedUpdateToUserInitiatedStatus:(id)status delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -3341,7 +3321,6 @@ void __108__SUUIStatefulUIManager_promoteTargetedUpdateToUserInitiatedStatus_del
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __108__SUUIStatefulUIManager_promoteTargetedUpdateToUserInitiatedStatus_delegateCallbackQueue_completionHandler___block_invoke_376(void *a1)
@@ -3394,7 +3373,6 @@ void __108__SUUIStatefulUIManager_promoteTargetedUpdateToUserInitiatedStatus_del
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)unscheduleTargetedUpdateAutomaticInstallation:(id)installation delegateCallbackQueue:(id)queue completionHandler:(id)handler
@@ -3627,7 +3605,6 @@ void __111__SUUIStatefulUIManager_unscheduleTargetedUpdateAutomaticInstallation_
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __111__SUUIStatefulUIManager_unscheduleTargetedUpdateAutomaticInstallation_delegateCallbackQueue_completionHandler___block_invoke_387(void *a1)
@@ -3680,7 +3657,6 @@ void __111__SUUIStatefulUIManager_unscheduleTargetedUpdateAutomaticInstallation_
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPerformingFullScan
@@ -3751,1062 +3727,1061 @@ void __111__SUUIStatefulUIManager_unscheduleTargetedUpdateAutomaticInstallation_
   objc_storeStrong(&location, 0);
 }
 
-void __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke()
+void __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v339 = MEMORY[0x28223BE20]();
-  v340 = "[SUUIStatefulUIManager enrollInBetaUpdatesProgram:completionHandler:]_block_invoke";
-  v341 = "[SUUIStatefulUIManager enrollInBetaUpdatesProgram:completionHandler:]_block_invoke_2";
-  v485 = *MEMORY[0x277D85DE8];
-  v468[2] = v339;
-  v468[1] = v339;
-  WeakRetained = objc_loadWeakRetained((v339 + 48));
-  v468[0] = WeakRetained;
-  v338 = 0;
+  v342 = MEMORY[0x28223BE20](a1, a2, a3);
+  v343 = "[SUUIStatefulUIManager enrollInBetaUpdatesProgram:completionHandler:]_block_invoke";
+  v344 = "[SUUIStatefulUIManager enrollInBetaUpdatesProgram:completionHandler:]_block_invoke_2";
+  v488 = *MEMORY[0x277D85DE8];
+  v471[2] = v342;
+  v471[1] = v342;
+  WeakRetained = objc_loadWeakRetained((v342 + 48));
+  v471[0] = WeakRetained;
+  v341 = 0;
   if (!WeakRetained)
   {
-    v337 = +[SUUILoggingContext softwareUpdateUILogger];
-    v335 = v337;
-    v336 = [v335 oslog];
-    oslog = v336;
-    MEMORY[0x277D82BD8](v335);
+    v340 = +[SUUILoggingContext softwareUpdateUILogger];
+    v338 = v340;
+    v339 = [v338 oslog];
+    oslog = v339;
+    MEMORY[0x277D82BD8](v338);
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       log = oslog;
-      *v333 = type;
-      v334 = NSStringFromSelector(*(v339 + 56));
-      v331 = v334;
-      location = MEMORY[0x277D82BE0](v331);
-      buf = v484;
-      __os_log_helper_16_2_2_8_32_8_66(v484, v340, location);
-      _os_log_error_impl(&dword_26ADE5000, oslog, type, "%s: Self is nil in %{public}@. Stopping.", v484, 0x16u);
-      MEMORY[0x277D82BD8](v331);
+      *v336 = type;
+      v337 = NSStringFromSelector(*(v342 + 56));
+      v334 = v337;
+      location = MEMORY[0x277D82BE0](v334);
+      buf = v487;
+      __os_log_helper_16_2_2_8_32_8_66(v487, v343, location);
+      _os_log_error_impl(&dword_26ADE5000, oslog, type, "%s: Self is nil in %{public}@. Stopping.", v487, 0x16u);
+      MEMORY[0x277D82BD8](v334);
       objc_storeStrong(&location, 0);
     }
 
     objc_storeStrong(&oslog, 0);
-    v464 = 1;
-    v338 = 1;
+    v467 = 1;
+    v341 = 1;
   }
 
-  if (v338)
+  if (v341)
   {
-    v0 = MEMORY[0x277D85CD0];
+    v3 = MEMORY[0x277D85CD0];
     queue = MEMORY[0x277D85CD0];
-    block = &v458;
-    v458 = MEMORY[0x277D85DD0];
-    v459 = -1073741824;
-    v460 = 0;
-    v461 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_391;
-    v462 = &unk_279CC61E0;
-    v327 = &v463;
-    v463 = MEMORY[0x277D82BE0](*(v339 + 40));
-    dispatch_async(queue, &v458);
+    block = &v461;
+    v461 = MEMORY[0x277D85DD0];
+    v462 = -1073741824;
+    v463 = 0;
+    v464 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_391;
+    v465 = &unk_279CC61E0;
+    v330 = &v466;
+    v466 = MEMORY[0x277D82BE0](*(v342 + 40));
+    dispatch_async(queue, &v461);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(&v463, 0);
-    v457 = 1;
+    objc_storeStrong(&v466, 0);
+    v460 = 1;
   }
 
   else
   {
-    v326 = _os_feature_enabled_impl();
-    if (v326)
+    v329 = _os_feature_enabled_impl();
+    if (v329)
     {
-      v452 = 0;
-      v453 = &v452;
-      v454 = 0x20000000;
-      v455 = 32;
-      v456 = 0;
-      v321 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
-      v450 = v321;
-      if (v321)
+      v455 = 0;
+      v456 = &v455;
+      v457 = 0x20000000;
+      v458 = 32;
+      v459 = 0;
+      v324 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
+      v453 = v324;
+      if (v324)
       {
-        v449 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.EnrollInBetaProgram", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-        v1 = v450[1].opaque[0];
-        v450[1].opaque[0] = v449;
-        MEMORY[0x277D82BD8](v1);
+        v452 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.EnrollInBetaProgram", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+        v4 = v453[1].opaque[0];
+        v453[1].opaque[0] = v452;
+        MEMORY[0x277D82BD8](v4);
       }
 
       else
       {
-        v320 = +[SUUILoggingContext softwareUpdateUILogger];
-        v318 = v320;
-        v319 = [v318 oslog];
-        v448 = v319;
-        MEMORY[0x277D82BD8](v318);
-        v447 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v448, OS_LOG_TYPE_ERROR))
+        v323 = +[SUUILoggingContext softwareUpdateUILogger];
+        v321 = v323;
+        v322 = [v321 oslog];
+        v451 = v322;
+        MEMORY[0x277D82BD8](v321);
+        v450 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v451, OS_LOG_TYPE_ERROR))
         {
-          v315 = v448;
-          *v316 = v447;
-          v317 = v446;
-          __os_log_helper_16_0_0(v446);
-          _os_log_error_impl(&dword_26ADE5000, v315, v316[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.EnrollInBetaProgram", v446, 2u);
+          v318 = v451;
+          *v319 = v450;
+          v320 = v449;
+          __os_log_helper_16_0_0(v449);
+          _os_log_error_impl(&dword_26ADE5000, v318, v319[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.EnrollInBetaProgram", v449, 2u);
         }
 
-        objc_storeStrong(&v448, 0);
+        objc_storeStrong(&v451, 0);
       }
 
-      v445[2] = v450;
-      state = v450;
-      if (v450)
+      v448[2] = v453;
+      state = v453;
+      if (v453)
       {
         os_activity_scope_enter(state[1].opaque[0], state);
         LOBYTE(state[1].opaque[1]) = 1;
       }
 
-      v445[1] = state;
-      v453[3] = state;
-      v314 = [v468[0] betaPrograms];
-      v445[0] = v314;
-      v313 = [v468[0] delegateCallbackQueue];
-      v444 = v313;
-      v312 = [v468[0] currentDownload];
-      v443 = v312;
-      v311 = [v468[0] delegate];
-      v310 = v311;
-      objc_initWeak(&from, v310);
-      MEMORY[0x277D82BD8](v310);
-      v309 = [v468[0] currentSeedingDevice];
-      v308 = v309;
-      MEMORY[0x277D82BD8](v308);
-      if (v308)
+      v448[1] = state;
+      v456[3] = state;
+      v317 = [v471[0] betaPrograms];
+      v448[0] = v317;
+      v316 = [v471[0] delegateCallbackQueue];
+      v447 = v316;
+      v315 = [v471[0] currentDownload];
+      v446 = v315;
+      v314 = [v471[0] delegate];
+      v313 = v314;
+      objc_initWeak(&from, v313);
+      MEMORY[0x277D82BD8](v313);
+      v312 = [v471[0] currentSeedingDevice];
+      v311 = v312;
+      MEMORY[0x277D82BD8](v311);
+      if (v311)
       {
-        if (v445[0] && (v220 = [v445[0] count]) != 0)
+        if (v448[0] && (v223 = [v448[0] count]) != 0)
         {
-          v130 = *(v339 + 32);
-          v381 = 0;
-          if (v130)
+          v133 = *(v342 + 32);
+          v384 = 0;
+          if (v133)
           {
-            v129 = v130;
+            v132 = v133;
           }
 
           else
           {
-            v128 = [v445[0] firstObject];
-            v382 = v128;
-            v381 = 1;
-            v129 = v382;
+            v131 = [v448[0] firstObject];
+            v385 = v131;
+            v384 = 1;
+            v132 = v385;
           }
 
-          v383 = MEMORY[0x277D82BE0](v129);
-          if (v381)
+          v386 = MEMORY[0x277D82BE0](v132);
+          if (v384)
           {
-            MEMORY[0x277D82BD8](v382);
+            MEMORY[0x277D82BD8](v385);
           }
 
-          if (v443)
+          if (v446)
           {
-            v127 = +[SUUILoggingContext statefulUILogger];
-            v125 = v127;
-            v126 = [v125 oslog];
-            v380 = v126;
-            MEMORY[0x277D82BD8](v125);
-            v379 = OS_LOG_TYPE_DEFAULT;
-            if (os_log_type_enabled(v380, OS_LOG_TYPE_DEFAULT))
+            v130 = +[SUUILoggingContext statefulUILogger];
+            v128 = v130;
+            v129 = [v128 oslog];
+            v383 = v129;
+            MEMORY[0x277D82BD8](v128);
+            v382 = OS_LOG_TYPE_DEFAULT;
+            if (os_log_type_enabled(v383, OS_LOG_TYPE_DEFAULT))
             {
-              v121 = v380;
-              *v122 = v379;
-              v123 = v468[0];
-              v124 = objc_opt_class();
-              v120 = NSStringFromClass(v124);
-              v117 = v120;
+              v124 = v383;
+              *v125 = v382;
+              v126 = v471[0];
+              v127 = objc_opt_class();
+              v123 = NSStringFromClass(v127);
+              v120 = v123;
+              v121 = MEMORY[0x277D82BE0](v120);
+              v381 = v121;
+              v122 = SUUIStatefulUIStateToString(*(v471[0] + 5));
+              v117 = v122;
               v118 = MEMORY[0x277D82BE0](v117);
-              v378 = v118;
-              v119 = SUUIStatefulUIStateToString(*(v468[0] + 5));
-              v114 = v119;
-              v115 = MEMORY[0x277D82BE0](v114);
-              v377 = v115;
-              v116 = [v468[0] currentState];
-              v375 = 0;
-              v373 = 0;
-              v113 = [v468[0] delegate];
-              v112 = v113;
-              if (v112)
+              v380 = v118;
+              v119 = [v471[0] currentState];
+              v378 = 0;
+              v376 = 0;
+              v116 = [v471[0] delegate];
+              v115 = v116;
+              if (v115)
               {
-                v111 = [v468[0] delegate];
-                v376 = v111;
-                v375 = 1;
-                v110 = objc_opt_class();
-                v109 = NSStringFromClass(v110);
-                v374 = v109;
-                v373 = 1;
-                v108 = v374;
+                v114 = [v471[0] delegate];
+                v379 = v114;
+                v378 = 1;
+                v113 = objc_opt_class();
+                v112 = NSStringFromClass(v113);
+                v377 = v112;
+                v376 = 1;
+                v111 = v377;
               }
 
               else
               {
-                v108 = @"(null)";
+                v111 = @"(null)";
               }
 
-              v106 = v108;
-              v107 = [v468[0] delegate];
-              v104 = v107;
-              v105 = [v468[0] scanError];
-              v102 = v105;
-              v103 = [v468[0] preferredStatefulDescriptor];
-              v100 = v103;
-              v101 = [v468[0] alternateStatefulDescriptor];
-              v98 = v101;
-              v371 = 0;
-              v369 = 0;
-              v367 = 0;
-              v99 = [v468[0] currentDownload];
-              v97 = v99;
-              if (v97)
+              v109 = v111;
+              v110 = [v471[0] delegate];
+              v107 = v110;
+              v108 = [v471[0] scanError];
+              v105 = v108;
+              v106 = [v471[0] preferredStatefulDescriptor];
+              v103 = v106;
+              v104 = [v471[0] alternateStatefulDescriptor];
+              v101 = v104;
+              v374 = 0;
+              v372 = 0;
+              v370 = 0;
+              v102 = [v471[0] currentDownload];
+              v100 = v102;
+              if (v100)
               {
-                v96 = [v468[0] currentDownload];
-                v372 = v96;
-                v371 = 1;
-                v95 = [v372 descriptor];
-                v370 = v95;
-                v369 = 1;
-                v94 = [v370 updateName];
-                v368 = v94;
-                v367 = 1;
-                v93 = v368;
+                v99 = [v471[0] currentDownload];
+                v375 = v99;
+                v374 = 1;
+                v98 = [v375 descriptor];
+                v373 = v98;
+                v372 = 1;
+                v97 = [v373 updateName];
+                v371 = v97;
+                v370 = 1;
+                v96 = v371;
               }
 
               else
               {
-                v93 = @"(null)";
+                v96 = @"(null)";
               }
 
-              v91 = v93;
-              v92 = [v468[0] currentDownload];
-              v89 = v92;
-              v90 = [v468[0] currentUpdateOperationType];
-              v88 = SUUIUpdateContinuousOperationTypeToString(v90);
-              v85 = v88;
-              v86 = MEMORY[0x277D82BE0](v85);
-              v366 = v86;
-              v87 = [v468[0] isTargetedUpdateScheduledForAutoInstall];
-              v472 = v87;
-              if (v87)
+              v94 = v96;
+              v95 = [v471[0] currentDownload];
+              v92 = v95;
+              v93 = [v471[0] currentUpdateOperationType];
+              v91 = SUUIUpdateContinuousOperationTypeToString(v93);
+              v88 = v91;
+              v89 = MEMORY[0x277D82BE0](v88);
+              v369 = v89;
+              v90 = [v471[0] isTargetedUpdateScheduledForAutoInstall];
+              v475 = v90;
+              if (v90)
               {
-                v19 = @"YES";
+                v22 = @"YES";
               }
 
               else
               {
-                v19 = @"NO";
+                v22 = @"NO";
               }
 
-              v84 = v19;
-              v20 = v19;
-              v81 = v84;
-              v82 = MEMORY[0x277D82BE0](v81);
-              v365 = v82;
-              v83 = [v468[0] hidingPreferredDescriptor];
-              v471 = v83;
-              if (v83)
+              v87 = v22;
+              v23 = v22;
+              v84 = v87;
+              v85 = MEMORY[0x277D82BE0](v84);
+              v368 = v85;
+              v86 = [v471[0] hidingPreferredDescriptor];
+              v474 = v86;
+              if (v86)
               {
-                v21 = @"YES";
+                v24 = @"YES";
               }
 
               else
               {
-                v21 = @"NO";
+                v24 = @"NO";
               }
 
-              v80 = v21;
-              v22 = v21;
-              v77 = v80;
-              v78 = MEMORY[0x277D82BE0](v77);
-              v364 = v78;
-              v79 = [v468[0] hiddenPreferredStatefulDescriptor];
+              v83 = v24;
+              v25 = v24;
+              v80 = v83;
+              v81 = MEMORY[0x277D82BE0](v80);
+              v367 = v81;
+              v82 = [v471[0] hiddenPreferredStatefulDescriptor];
+              v78 = v82;
+              v79 = [v78 updateName];
               v75 = v79;
-              v76 = [v75 updateName];
-              v72 = v76;
-              v73 = MEMORY[0x277D82BE0](v72);
-              v363 = v73;
-              v74 = [v468[0] hidingAlternateDescriptor];
-              v470 = v74;
-              if (v74)
+              v76 = MEMORY[0x277D82BE0](v75);
+              v366 = v76;
+              v77 = [v471[0] hidingAlternateDescriptor];
+              v473 = v77;
+              if (v77)
               {
-                v23 = @"YES";
+                v26 = @"YES";
               }
 
               else
               {
-                v23 = @"NO";
+                v26 = @"NO";
               }
 
-              v71 = v23;
-              v24 = v23;
-              v68 = v71;
-              v69 = MEMORY[0x277D82BE0](v68);
-              v362 = v69;
-              v70 = [v468[0] hiddenAlternateStatefulDescriptor];
+              v74 = v26;
+              v27 = v26;
+              v71 = v74;
+              v72 = MEMORY[0x277D82BE0](v71);
+              v365 = v72;
+              v73 = [v471[0] hiddenAlternateStatefulDescriptor];
+              v69 = v73;
+              v70 = [v69 updateName];
               v66 = v70;
-              v67 = [v66 updateName];
-              v63 = v67;
-              v64 = MEMORY[0x277D82BE0](v63);
-              v361 = v64;
-              v359 = 0;
-              v65 = [v468[0] enrolledBetaProgram];
-              v62 = v65;
-              if (v62)
+              v67 = MEMORY[0x277D82BE0](v66);
+              v364 = v67;
+              v362 = 0;
+              v68 = [v471[0] enrolledBetaProgram];
+              v65 = v68;
+              if (v65)
               {
-                v61 = [v468[0] enrolledBetaProgram];
-                v360 = v61;
-                v359 = 1;
-                v60 = [v360 programID];
-                v59 = v60;
+                v64 = [v471[0] enrolledBetaProgram];
+                v363 = v64;
+                v362 = 1;
+                v63 = [v363 programID];
+                v62 = v63;
               }
 
               else
               {
-                v59 = 0;
+                v62 = 0;
               }
 
-              v57 = v59;
-              v58 = [*(v468[0] + 15) count];
-              v56 = [v468[0] canEnrollInBetaUpdates];
-              v469 = v56;
-              if (v56)
+              v60 = v62;
+              v61 = [*(v471[0] + 15) count];
+              v59 = [v471[0] canEnrollInBetaUpdates];
+              v472 = v59;
+              if (v59)
               {
-                v25 = @"YES";
+                v28 = @"YES";
               }
 
               else
               {
-                v25 = @"NO";
+                v28 = @"NO";
               }
 
-              v55 = v25;
-              v26 = v25;
-              v49 = v55;
-              v50 = MEMORY[0x277D82BE0](v49);
-              v358 = v50;
-              v51 = *(v468[0] + 21);
-              v52 = *(v468[0] + 22);
-              v53 = *(v468[0] + 23);
-              v54 = [*(v468[0] + 24) count];
-              v48 = [*(v339 + 32) programID];
-              v27 = *(v339 + 32);
-              v46 = &v28;
-              v47 = v481;
-              __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0(v481, v341, v123, v118, v115, v116, v106, v104, v102, v100, v98, v91, v89, v86, v82, v78, v73, v69, v64, v57, v58, v50, v51, v52, v53, v54, v48, v27);
-              _os_log_impl(&dword_26ADE5000, v121, v122[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA targeted update exists when attempting to enroll in beta program: %ld (%p). Asking to purge the targeted update.", v47, 0x110u);
-              MEMORY[0x277D82BD8](v49);
-              if (v359)
+              v58 = v28;
+              v29 = v28;
+              v52 = v58;
+              v53 = MEMORY[0x277D82BE0](v52);
+              v361 = v53;
+              v54 = *(v471[0] + 21);
+              v55 = *(v471[0] + 22);
+              v56 = *(v471[0] + 23);
+              v57 = [*(v471[0] + 24) count];
+              v51 = [*(v342 + 32) programID];
+              v30 = *(v342 + 32);
+              v49 = &v31;
+              v50 = v484;
+              __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0(v484, v344, v126, v121, v118, v119, v109, v107, v105, v103, v101, v94, v92, v89, v85, v81, v76, v72, v67, v60, v61, v53, v54, v55, v56, v57, v51, v30);
+              _os_log_impl(&dword_26ADE5000, v124, v125[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA targeted update exists when attempting to enroll in beta program: %ld (%p). Asking to purge the targeted update.", v50, 0x110u);
+              MEMORY[0x277D82BD8](v52);
+              if (v362)
               {
-                MEMORY[0x277D82BD8](v360);
+                MEMORY[0x277D82BD8](v363);
               }
 
-              MEMORY[0x277D82BD8](v62);
-              MEMORY[0x277D82BD8](v63);
+              MEMORY[0x277D82BD8](v65);
               MEMORY[0x277D82BD8](v66);
-              MEMORY[0x277D82BD8](v68);
-              MEMORY[0x277D82BD8](v72);
+              MEMORY[0x277D82BD8](v69);
+              MEMORY[0x277D82BD8](v71);
               MEMORY[0x277D82BD8](v75);
-              MEMORY[0x277D82BD8](v77);
-              MEMORY[0x277D82BD8](v81);
-              MEMORY[0x277D82BD8](v85);
-              MEMORY[0x277D82BD8](v89);
-              if (v367)
+              MEMORY[0x277D82BD8](v78);
+              MEMORY[0x277D82BD8](v80);
+              MEMORY[0x277D82BD8](v84);
+              MEMORY[0x277D82BD8](v88);
+              MEMORY[0x277D82BD8](v92);
+              if (v370)
               {
-                MEMORY[0x277D82BD8](v368);
+                MEMORY[0x277D82BD8](v371);
               }
 
-              if (v369)
+              if (v372)
               {
-                MEMORY[0x277D82BD8](v370);
+                MEMORY[0x277D82BD8](v373);
               }
 
-              if (v371)
+              if (v374)
               {
-                MEMORY[0x277D82BD8](v372);
+                MEMORY[0x277D82BD8](v375);
               }
 
-              MEMORY[0x277D82BD8](v97);
-              MEMORY[0x277D82BD8](v98);
               MEMORY[0x277D82BD8](v100);
-              MEMORY[0x277D82BD8](v102);
-              MEMORY[0x277D82BD8](v104);
-              if (v373)
+              MEMORY[0x277D82BD8](v101);
+              MEMORY[0x277D82BD8](v103);
+              MEMORY[0x277D82BD8](v105);
+              MEMORY[0x277D82BD8](v107);
+              if (v376)
               {
-                MEMORY[0x277D82BD8](v374);
+                MEMORY[0x277D82BD8](v377);
               }
 
-              if (v375)
+              if (v378)
               {
-                MEMORY[0x277D82BD8](v376);
+                MEMORY[0x277D82BD8](v379);
               }
 
-              MEMORY[0x277D82BD8](v112);
-              MEMORY[0x277D82BD8](v114);
+              MEMORY[0x277D82BD8](v115);
               MEMORY[0x277D82BD8](v117);
-              objc_storeStrong(&v358, 0);
+              MEMORY[0x277D82BD8](v120);
               objc_storeStrong(&v361, 0);
-              objc_storeStrong(&v362, 0);
-              objc_storeStrong(&v363, 0);
               objc_storeStrong(&v364, 0);
               objc_storeStrong(&v365, 0);
               objc_storeStrong(&v366, 0);
-              objc_storeStrong(&v377, 0);
-              objc_storeStrong(&v378, 0);
+              objc_storeStrong(&v367, 0);
+              objc_storeStrong(&v368, 0);
+              objc_storeStrong(&v369, 0);
+              objc_storeStrong(&v380, 0);
+              objc_storeStrong(&v381, 0);
             }
 
-            objc_storeStrong(&v380, 0);
-            v44 = &v351;
-            v351 = MEMORY[0x277D85DD0];
-            v352 = -1073741824;
-            v353 = 0;
-            v354 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_398;
-            v355 = &unk_279CC6480;
-            v41 = v356;
-            v356[0] = MEMORY[0x277D82BE0](v468[0]);
-            v42 = (v44 + 5);
-            v356[1] = MEMORY[0x277D82BE0](v383);
-            v356[3] = &v452;
-            v43 = (v44 + 6);
-            v356[2] = MEMORY[0x277D82BE0](*(v339 + 40));
-            v45 = MEMORY[0x26D66ADC0](v44);
-            v357 = v45;
-            v40 = [MEMORY[0x277D643F8] sharedCore];
-            v38 = v40;
-            v39 = [v38 selectDelegateCallbackQueue:v444];
-            v36 = v39;
-            v343 = MEMORY[0x277D85DD0];
-            v344 = -1073741824;
-            v345 = 0;
-            v346 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_2;
-            v347 = &unk_279CC64A8;
-            v37 = v350;
-            objc_copyWeak(v350, (v339 + 48));
-            v34 = &v343;
-            v350[2] = *(v339 + 56);
-            v33 = v349;
-            v349[0] = MEMORY[0x277D82BE0](*(v339 + 40));
-            v35 = v34 + 9;
-            objc_copyWeak(v34 + 9, &from);
-            v32 = &v343;
-            v29 = v348;
-            v348[0] = MEMORY[0x277D82BE0](v443);
-            v30 = (v32 + 40);
-            v348[1] = MEMORY[0x277D82BE0](v383);
-            v31 = (v32 + 56);
-            v349[1] = MEMORY[0x277D82BE0](v357);
-            dispatch_async(v36, v32);
-            MEMORY[0x277D82BD8](v36);
-            MEMORY[0x277D82BD8](v38);
-            objc_storeStrong(v31, 0);
-            objc_storeStrong(v30, 0);
-            objc_storeStrong(v29, 0);
-            objc_destroyWeak(v35);
+            objc_storeStrong(&v383, 0);
+            v47 = &v354;
+            v354 = MEMORY[0x277D85DD0];
+            v355 = -1073741824;
+            v356 = 0;
+            v357 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_398;
+            v358 = &unk_279CC6480;
+            v44 = v359;
+            v359[0] = MEMORY[0x277D82BE0](v471[0]);
+            v45 = (v47 + 5);
+            v359[1] = MEMORY[0x277D82BE0](v386);
+            v359[3] = &v455;
+            v46 = (v47 + 6);
+            v359[2] = MEMORY[0x277D82BE0](*(v342 + 40));
+            v48 = MEMORY[0x26D66ADC0](v47);
+            v360 = v48;
+            v43 = [MEMORY[0x277D643F8] sharedCore];
+            v41 = v43;
+            v42 = [v41 selectDelegateCallbackQueue:v447];
+            v39 = v42;
+            v346 = MEMORY[0x277D85DD0];
+            v347 = -1073741824;
+            v348 = 0;
+            v349 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_2;
+            v350 = &unk_279CC64A8;
+            v40 = v353;
+            objc_copyWeak(v353, (v342 + 48));
+            v37 = &v346;
+            v353[2] = *(v342 + 56);
+            v36 = v352;
+            v352[0] = MEMORY[0x277D82BE0](*(v342 + 40));
+            v38 = v37 + 9;
+            objc_copyWeak(v37 + 9, &from);
+            v35 = &v346;
+            v32 = v351;
+            v351[0] = MEMORY[0x277D82BE0](v446);
+            v33 = (v35 + 40);
+            v351[1] = MEMORY[0x277D82BE0](v386);
+            v34 = (v35 + 56);
+            v352[1] = MEMORY[0x277D82BE0](v360);
+            dispatch_async(v39, v35);
+            MEMORY[0x277D82BD8](v39);
+            MEMORY[0x277D82BD8](v41);
+            objc_storeStrong(v34, 0);
             objc_storeStrong(v33, 0);
-            objc_destroyWeak(v37);
-            objc_storeStrong(&v357, 0);
-            objc_storeStrong(v43, 0);
-            objc_storeStrong(v42, 0);
-            objc_storeStrong(v41, 0);
-            v457 = 0;
+            objc_storeStrong(v32, 0);
+            objc_destroyWeak(v38);
+            objc_storeStrong(v36, 0);
+            objc_destroyWeak(v40);
+            objc_storeStrong(&v360, 0);
+            objc_storeStrong(v46, 0);
+            objc_storeStrong(v45, 0);
+            objc_storeStrong(v44, 0);
+            v460 = 0;
           }
 
           else
           {
-            [v468[0] doEnrollInBetaUpdatesProgram:v383 activity:v453 + 3 completionHandler:*(v339 + 40)];
-            v457 = 1;
+            [v471[0] doEnrollInBetaUpdatesProgram:v386 activity:v456 + 3 completionHandler:*(v342 + 40)];
+            v460 = 1;
           }
 
-          objc_storeStrong(&v383, 0);
+          objc_storeStrong(&v386, 0);
         }
 
         else
         {
-          v219 = +[SUUILoggingContext statefulUILogger];
-          v217 = v219;
-          v218 = [v217 oslog];
-          v412 = v218;
-          MEMORY[0x277D82BD8](v217);
-          v411 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v412, OS_LOG_TYPE_DEFAULT))
+          v222 = +[SUUILoggingContext statefulUILogger];
+          v220 = v222;
+          v221 = [v220 oslog];
+          v415 = v221;
+          MEMORY[0x277D82BD8](v220);
+          v414 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v415, OS_LOG_TYPE_DEFAULT))
           {
-            v213 = v412;
-            *v214 = v411;
-            v215 = v468[0];
-            v216 = objc_opt_class();
-            v212 = NSStringFromClass(v216);
-            v209 = v212;
+            v216 = v415;
+            *v217 = v414;
+            v218 = v471[0];
+            v219 = objc_opt_class();
+            v215 = NSStringFromClass(v219);
+            v212 = v215;
+            v213 = MEMORY[0x277D82BE0](v212);
+            v413 = v213;
+            v214 = SUUIStatefulUIStateToString(*(v471[0] + 5));
+            v209 = v214;
             v210 = MEMORY[0x277D82BE0](v209);
-            v410 = v210;
-            v211 = SUUIStatefulUIStateToString(*(v468[0] + 5));
-            v206 = v211;
-            v207 = MEMORY[0x277D82BE0](v206);
-            v409 = v207;
-            v208 = [v468[0] currentState];
-            v407 = 0;
-            v405 = 0;
-            v205 = [v468[0] delegate];
-            v204 = v205;
-            if (v204)
+            v412 = v210;
+            v211 = [v471[0] currentState];
+            v410 = 0;
+            v408 = 0;
+            v208 = [v471[0] delegate];
+            v207 = v208;
+            if (v207)
             {
-              v203 = [v468[0] delegate];
-              v408 = v203;
-              v407 = 1;
-              v202 = objc_opt_class();
-              v201 = NSStringFromClass(v202);
-              v406 = v201;
-              v405 = 1;
-              v200 = v406;
+              v206 = [v471[0] delegate];
+              v411 = v206;
+              v410 = 1;
+              v205 = objc_opt_class();
+              v204 = NSStringFromClass(v205);
+              v409 = v204;
+              v408 = 1;
+              v203 = v409;
             }
 
             else
             {
-              v200 = @"(null)";
+              v203 = @"(null)";
             }
 
-            v198 = v200;
-            v199 = [v468[0] delegate];
-            v196 = v199;
-            v197 = [v468[0] scanError];
-            v194 = v197;
-            v195 = [v468[0] preferredStatefulDescriptor];
-            v192 = v195;
-            v193 = [v468[0] alternateStatefulDescriptor];
-            v190 = v193;
-            v403 = 0;
-            v401 = 0;
-            v399 = 0;
-            v191 = [v468[0] currentDownload];
-            v189 = v191;
-            if (v189)
+            v201 = v203;
+            v202 = [v471[0] delegate];
+            v199 = v202;
+            v200 = [v471[0] scanError];
+            v197 = v200;
+            v198 = [v471[0] preferredStatefulDescriptor];
+            v195 = v198;
+            v196 = [v471[0] alternateStatefulDescriptor];
+            v193 = v196;
+            v406 = 0;
+            v404 = 0;
+            v402 = 0;
+            v194 = [v471[0] currentDownload];
+            v192 = v194;
+            if (v192)
             {
-              v188 = [v468[0] currentDownload];
-              v404 = v188;
-              v403 = 1;
-              v187 = [v404 descriptor];
-              v402 = v187;
-              v401 = 1;
-              v186 = [v402 updateName];
-              v400 = v186;
-              v399 = 1;
-              v185 = v400;
+              v191 = [v471[0] currentDownload];
+              v407 = v191;
+              v406 = 1;
+              v190 = [v407 descriptor];
+              v405 = v190;
+              v404 = 1;
+              v189 = [v405 updateName];
+              v403 = v189;
+              v402 = 1;
+              v188 = v403;
             }
 
             else
             {
-              v185 = @"(null)";
+              v188 = @"(null)";
             }
 
-            v183 = v185;
-            v184 = [v468[0] currentDownload];
-            v181 = v184;
-            v182 = [v468[0] currentUpdateOperationType];
-            v180 = SUUIUpdateContinuousOperationTypeToString(v182);
-            v177 = v180;
-            v178 = MEMORY[0x277D82BE0](v177);
-            v398 = v178;
-            v179 = [v468[0] isTargetedUpdateScheduledForAutoInstall];
-            v476 = v179;
-            if (v179)
+            v186 = v188;
+            v187 = [v471[0] currentDownload];
+            v184 = v187;
+            v185 = [v471[0] currentUpdateOperationType];
+            v183 = SUUIUpdateContinuousOperationTypeToString(v185);
+            v180 = v183;
+            v181 = MEMORY[0x277D82BE0](v180);
+            v401 = v181;
+            v182 = [v471[0] isTargetedUpdateScheduledForAutoInstall];
+            v479 = v182;
+            if (v182)
             {
-              v10 = @"YES";
+              v13 = @"YES";
             }
 
             else
             {
-              v10 = @"NO";
+              v13 = @"NO";
             }
 
-            v176 = v10;
-            v11 = v10;
-            v173 = v176;
-            v174 = MEMORY[0x277D82BE0](v173);
-            v397 = v174;
-            v175 = [v468[0] hidingPreferredDescriptor];
-            v475 = v175;
-            if (v175)
+            v179 = v13;
+            v14 = v13;
+            v176 = v179;
+            v177 = MEMORY[0x277D82BE0](v176);
+            v400 = v177;
+            v178 = [v471[0] hidingPreferredDescriptor];
+            v478 = v178;
+            if (v178)
             {
-              v12 = @"YES";
+              v15 = @"YES";
             }
 
             else
             {
-              v12 = @"NO";
+              v15 = @"NO";
             }
 
-            v172 = v12;
-            v13 = v12;
-            v169 = v172;
-            v170 = MEMORY[0x277D82BE0](v169);
-            v396 = v170;
-            v171 = [v468[0] hiddenPreferredStatefulDescriptor];
+            v175 = v15;
+            v16 = v15;
+            v172 = v175;
+            v173 = MEMORY[0x277D82BE0](v172);
+            v399 = v173;
+            v174 = [v471[0] hiddenPreferredStatefulDescriptor];
+            v170 = v174;
+            v171 = [v170 updateName];
             v167 = v171;
-            v168 = [v167 updateName];
-            v164 = v168;
-            v165 = MEMORY[0x277D82BE0](v164);
-            v395 = v165;
-            v166 = [v468[0] hidingAlternateDescriptor];
-            v474 = v166;
-            if (v166)
+            v168 = MEMORY[0x277D82BE0](v167);
+            v398 = v168;
+            v169 = [v471[0] hidingAlternateDescriptor];
+            v477 = v169;
+            if (v169)
             {
-              v14 = @"YES";
+              v17 = @"YES";
             }
 
             else
             {
-              v14 = @"NO";
+              v17 = @"NO";
             }
 
-            v163 = v14;
-            v15 = v14;
-            v160 = v163;
-            v161 = MEMORY[0x277D82BE0](v160);
-            v394 = v161;
-            v162 = [v468[0] hiddenAlternateStatefulDescriptor];
+            v166 = v17;
+            v18 = v17;
+            v163 = v166;
+            v164 = MEMORY[0x277D82BE0](v163);
+            v397 = v164;
+            v165 = [v471[0] hiddenAlternateStatefulDescriptor];
+            v161 = v165;
+            v162 = [v161 updateName];
             v158 = v162;
-            v159 = [v158 updateName];
-            v155 = v159;
-            v156 = MEMORY[0x277D82BE0](v155);
-            v393 = v156;
-            v391 = 0;
-            v157 = [v468[0] enrolledBetaProgram];
-            v154 = v157;
-            if (v154)
+            v159 = MEMORY[0x277D82BE0](v158);
+            v396 = v159;
+            v394 = 0;
+            v160 = [v471[0] enrolledBetaProgram];
+            v157 = v160;
+            if (v157)
             {
-              v153 = [v468[0] enrolledBetaProgram];
-              v392 = v153;
-              v391 = 1;
-              v152 = [v392 programID];
-              v151 = v152;
+              v156 = [v471[0] enrolledBetaProgram];
+              v395 = v156;
+              v394 = 1;
+              v155 = [v395 programID];
+              v154 = v155;
             }
 
             else
             {
-              v151 = 0;
+              v154 = 0;
             }
 
-            v149 = v151;
-            v150 = [*(v468[0] + 15) count];
-            v148 = [v468[0] canEnrollInBetaUpdates];
-            v473 = v148;
-            if (v148)
+            v152 = v154;
+            v153 = [*(v471[0] + 15) count];
+            v151 = [v471[0] canEnrollInBetaUpdates];
+            v476 = v151;
+            if (v151)
             {
-              v16 = @"YES";
+              v19 = @"YES";
             }
 
             else
             {
-              v16 = @"NO";
+              v19 = @"NO";
             }
 
-            v147 = v16;
-            v17 = v16;
-            v141 = v147;
-            v142 = MEMORY[0x277D82BE0](v141);
-            v390 = v142;
-            v143 = *(v468[0] + 21);
-            v144 = *(v468[0] + 22);
-            v145 = *(v468[0] + 23);
-            v146 = [*(v468[0] + 24) count];
-            v140 = [*(v339 + 32) programID];
-            v18 = *(v339 + 32);
-            v138 = &v28;
-            v139 = v482;
-            __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0(v482, v341, v215, v210, v207, v208, v198, v196, v194, v192, v190, v183, v181, v178, v174, v170, v165, v161, v156, v149, v150, v142, v143, v144, v145, v146, v140, v18);
-            _os_log_impl(&dword_26ADE5000, v213, v214[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nCan not register to the beta progra %ld (%p) as no beta programs have been discovered by the Stateful UI. Attempts to perform a full re-scan.", v139, 0x110u);
-            MEMORY[0x277D82BD8](v141);
-            if (v391)
+            v150 = v19;
+            v20 = v19;
+            v144 = v150;
+            v145 = MEMORY[0x277D82BE0](v144);
+            v393 = v145;
+            v146 = *(v471[0] + 21);
+            v147 = *(v471[0] + 22);
+            v148 = *(v471[0] + 23);
+            v149 = [*(v471[0] + 24) count];
+            v143 = [*(v342 + 32) programID];
+            v21 = *(v342 + 32);
+            v141 = &v31;
+            v142 = v485;
+            __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0(v485, v344, v218, v213, v210, v211, v201, v199, v197, v195, v193, v186, v184, v181, v177, v173, v168, v164, v159, v152, v153, v145, v146, v147, v148, v149, v143, v21);
+            _os_log_impl(&dword_26ADE5000, v216, v217[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nCan not register to the beta progra %ld (%p) as no beta programs have been discovered by the Stateful UI. Attempts to perform a full re-scan.", v142, 0x110u);
+            MEMORY[0x277D82BD8](v144);
+            if (v394)
             {
-              MEMORY[0x277D82BD8](v392);
+              MEMORY[0x277D82BD8](v395);
             }
 
-            MEMORY[0x277D82BD8](v154);
-            MEMORY[0x277D82BD8](v155);
+            MEMORY[0x277D82BD8](v157);
             MEMORY[0x277D82BD8](v158);
-            MEMORY[0x277D82BD8](v160);
-            MEMORY[0x277D82BD8](v164);
+            MEMORY[0x277D82BD8](v161);
+            MEMORY[0x277D82BD8](v163);
             MEMORY[0x277D82BD8](v167);
-            MEMORY[0x277D82BD8](v169);
-            MEMORY[0x277D82BD8](v173);
-            MEMORY[0x277D82BD8](v177);
-            MEMORY[0x277D82BD8](v181);
-            if (v399)
+            MEMORY[0x277D82BD8](v170);
+            MEMORY[0x277D82BD8](v172);
+            MEMORY[0x277D82BD8](v176);
+            MEMORY[0x277D82BD8](v180);
+            MEMORY[0x277D82BD8](v184);
+            if (v402)
             {
-              MEMORY[0x277D82BD8](v400);
+              MEMORY[0x277D82BD8](v403);
             }
 
-            if (v401)
+            if (v404)
             {
-              MEMORY[0x277D82BD8](v402);
+              MEMORY[0x277D82BD8](v405);
             }
 
-            if (v403)
+            if (v406)
             {
-              MEMORY[0x277D82BD8](v404);
+              MEMORY[0x277D82BD8](v407);
             }
 
-            MEMORY[0x277D82BD8](v189);
-            MEMORY[0x277D82BD8](v190);
             MEMORY[0x277D82BD8](v192);
-            MEMORY[0x277D82BD8](v194);
-            MEMORY[0x277D82BD8](v196);
-            if (v405)
+            MEMORY[0x277D82BD8](v193);
+            MEMORY[0x277D82BD8](v195);
+            MEMORY[0x277D82BD8](v197);
+            MEMORY[0x277D82BD8](v199);
+            if (v408)
             {
-              MEMORY[0x277D82BD8](v406);
+              MEMORY[0x277D82BD8](v409);
             }
 
-            if (v407)
+            if (v410)
             {
-              MEMORY[0x277D82BD8](v408);
+              MEMORY[0x277D82BD8](v411);
             }
 
-            MEMORY[0x277D82BD8](v204);
-            MEMORY[0x277D82BD8](v206);
+            MEMORY[0x277D82BD8](v207);
             MEMORY[0x277D82BD8](v209);
-            objc_storeStrong(&v390, 0);
+            MEMORY[0x277D82BD8](v212);
             objc_storeStrong(&v393, 0);
-            objc_storeStrong(&v394, 0);
-            objc_storeStrong(&v395, 0);
             objc_storeStrong(&v396, 0);
             objc_storeStrong(&v397, 0);
             objc_storeStrong(&v398, 0);
-            objc_storeStrong(&v409, 0);
-            objc_storeStrong(&v410, 0);
+            objc_storeStrong(&v399, 0);
+            objc_storeStrong(&v400, 0);
+            objc_storeStrong(&v401, 0);
+            objc_storeStrong(&v412, 0);
+            objc_storeStrong(&v413, 0);
           }
 
-          objc_storeStrong(&v412, 0);
-          if (v453[3])
+          objc_storeStrong(&v415, 0);
+          if (v456[3])
           {
-            if (*(v453[3] + 24))
+            if (*(v456[3] + 24))
             {
-              os_activity_scope_leave(v453[3]);
+              os_activity_scope_leave(v456[3]);
             }
 
-            free(v453[3]);
-            v453[3] = 0;
+            free(v456[3]);
+            v456[3] = 0;
           }
 
-          v137 = [MEMORY[0x277D643F8] sharedCore];
-          v135 = v137;
-          v136 = [v135 selectDelegateCallbackQueue:v444];
-          v134 = v136;
-          v133 = &v384;
-          v384 = MEMORY[0x277D85DD0];
-          v385 = -1073741824;
-          v386 = 0;
-          v387 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_397;
-          v388 = &unk_279CC6458;
-          v131 = v389;
-          v389[0] = MEMORY[0x277D82BE0](v468[0]);
-          v132 = (v133 + 40);
-          v389[1] = MEMORY[0x277D82BE0](*(v339 + 40));
-          dispatch_async(v134, v133);
-          MEMORY[0x277D82BD8](v134);
-          MEMORY[0x277D82BD8](v135);
-          v457 = 1;
-          objc_storeStrong(v132, 0);
-          objc_storeStrong(v131, 0);
+          v140 = [MEMORY[0x277D643F8] sharedCore];
+          v138 = v140;
+          v139 = [v138 selectDelegateCallbackQueue:v447];
+          v137 = v139;
+          v136 = &v387;
+          v387 = MEMORY[0x277D85DD0];
+          v388 = -1073741824;
+          v389 = 0;
+          v390 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_397;
+          v391 = &unk_279CC6458;
+          v134 = v392;
+          v392[0] = MEMORY[0x277D82BE0](v471[0]);
+          v135 = (v136 + 40);
+          v392[1] = MEMORY[0x277D82BE0](*(v342 + 40));
+          dispatch_async(v137, v136);
+          MEMORY[0x277D82BD8](v137);
+          MEMORY[0x277D82BD8](v138);
+          v460 = 1;
+          objc_storeStrong(v135, 0);
+          objc_storeStrong(v134, 0);
         }
       }
 
       else
       {
-        v307 = +[SUUILoggingContext statefulUILogger];
-        v305 = v307;
-        v306 = [v305 oslog];
-        v441 = v306;
-        MEMORY[0x277D82BD8](v305);
-        v440 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v441, OS_LOG_TYPE_DEFAULT))
+        v310 = +[SUUILoggingContext statefulUILogger];
+        v308 = v310;
+        v309 = [v308 oslog];
+        v444 = v309;
+        MEMORY[0x277D82BD8](v308);
+        v443 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v444, OS_LOG_TYPE_DEFAULT))
         {
-          v301 = v441;
-          *v302 = v440;
-          v303 = v468[0];
+          v304 = v444;
+          *v305 = v443;
+          v306 = v471[0];
           aClass = objc_opt_class();
-          v300 = NSStringFromClass(aClass);
-          v297 = v300;
+          v303 = NSStringFromClass(aClass);
+          v300 = v303;
+          v301 = MEMORY[0x277D82BE0](v300);
+          v442 = v301;
+          v302 = SUUIStatefulUIStateToString(*(v471[0] + 5));
+          v297 = v302;
           v298 = MEMORY[0x277D82BE0](v297);
-          v439 = v298;
-          v299 = SUUIStatefulUIStateToString(*(v468[0] + 5));
-          v294 = v299;
-          v295 = MEMORY[0x277D82BE0](v294);
-          v438 = v295;
-          v296 = [v468[0] currentState];
-          v436 = 0;
-          v434 = 0;
-          v293 = [v468[0] delegate];
-          v292 = v293;
-          if (v292)
+          v441 = v298;
+          v299 = [v471[0] currentState];
+          v439 = 0;
+          v437 = 0;
+          v296 = [v471[0] delegate];
+          v295 = v296;
+          if (v295)
           {
-            v291 = [v468[0] delegate];
-            v437 = v291;
-            v436 = 1;
-            v290 = objc_opt_class();
-            v289 = NSStringFromClass(v290);
-            v435 = v289;
-            v434 = 1;
-            v288 = v435;
+            v294 = [v471[0] delegate];
+            v440 = v294;
+            v439 = 1;
+            v293 = objc_opt_class();
+            v292 = NSStringFromClass(v293);
+            v438 = v292;
+            v437 = 1;
+            v291 = v438;
           }
 
           else
           {
-            v288 = @"(null)";
+            v291 = @"(null)";
           }
 
-          v286 = v288;
-          v287 = [v468[0] delegate];
-          v284 = v287;
-          v285 = [v468[0] scanError];
-          v282 = v285;
-          v283 = [v468[0] preferredStatefulDescriptor];
-          v280 = v283;
-          v281 = [v468[0] alternateStatefulDescriptor];
-          v278 = v281;
-          v432 = 0;
-          v430 = 0;
-          v428 = 0;
-          v279 = [v468[0] currentDownload];
-          v277 = v279;
-          if (v277)
+          v289 = v291;
+          v290 = [v471[0] delegate];
+          v287 = v290;
+          v288 = [v471[0] scanError];
+          v285 = v288;
+          v286 = [v471[0] preferredStatefulDescriptor];
+          v283 = v286;
+          v284 = [v471[0] alternateStatefulDescriptor];
+          v281 = v284;
+          v435 = 0;
+          v433 = 0;
+          v431 = 0;
+          v282 = [v471[0] currentDownload];
+          v280 = v282;
+          if (v280)
           {
-            v276 = [v468[0] currentDownload];
-            v433 = v276;
-            v432 = 1;
-            v275 = [v433 descriptor];
-            v431 = v275;
-            v430 = 1;
-            v274 = [v431 updateName];
-            v429 = v274;
-            v428 = 1;
-            v273 = v429;
+            v279 = [v471[0] currentDownload];
+            v436 = v279;
+            v435 = 1;
+            v278 = [v436 descriptor];
+            v434 = v278;
+            v433 = 1;
+            v277 = [v434 updateName];
+            v432 = v277;
+            v431 = 1;
+            v276 = v432;
           }
 
           else
           {
-            v273 = @"(null)";
+            v276 = @"(null)";
           }
 
-          v271 = v273;
-          v272 = [v468[0] currentDownload];
-          v269 = v272;
-          v270 = [v468[0] currentUpdateOperationType];
-          v268 = SUUIUpdateContinuousOperationTypeToString(v270);
-          v265 = v268;
-          v266 = MEMORY[0x277D82BE0](v265);
-          v427 = v266;
-          v267 = [v468[0] isTargetedUpdateScheduledForAutoInstall];
-          v480 = v267;
-          if (v267)
+          v274 = v276;
+          v275 = [v471[0] currentDownload];
+          v272 = v275;
+          v273 = [v471[0] currentUpdateOperationType];
+          v271 = SUUIUpdateContinuousOperationTypeToString(v273);
+          v268 = v271;
+          v269 = MEMORY[0x277D82BE0](v268);
+          v430 = v269;
+          v270 = [v471[0] isTargetedUpdateScheduledForAutoInstall];
+          v483 = v270;
+          if (v270)
           {
-            v2 = @"YES";
+            v5 = @"YES";
           }
 
           else
           {
-            v2 = @"NO";
+            v5 = @"NO";
           }
 
-          v264 = v2;
-          v3 = v2;
-          v261 = v264;
-          v262 = MEMORY[0x277D82BE0](v261);
-          v426 = v262;
-          v263 = [v468[0] hidingPreferredDescriptor];
-          v479 = v263;
-          if (v263)
+          v267 = v5;
+          v6 = v5;
+          v264 = v267;
+          v265 = MEMORY[0x277D82BE0](v264);
+          v429 = v265;
+          v266 = [v471[0] hidingPreferredDescriptor];
+          v482 = v266;
+          if (v266)
           {
-            v4 = @"YES";
+            v7 = @"YES";
           }
 
           else
           {
-            v4 = @"NO";
+            v7 = @"NO";
           }
 
-          v260 = v4;
-          v5 = v4;
-          v257 = v260;
-          v258 = MEMORY[0x277D82BE0](v257);
-          v425 = v258;
-          v259 = [v468[0] hiddenPreferredStatefulDescriptor];
+          v263 = v7;
+          v8 = v7;
+          v260 = v263;
+          v261 = MEMORY[0x277D82BE0](v260);
+          v428 = v261;
+          v262 = [v471[0] hiddenPreferredStatefulDescriptor];
+          v258 = v262;
+          v259 = [v258 updateName];
           v255 = v259;
-          v256 = [v255 updateName];
-          v252 = v256;
-          v253 = MEMORY[0x277D82BE0](v252);
-          v424 = v253;
-          v254 = [v468[0] hidingAlternateDescriptor];
-          v478 = v254;
-          if (v254)
+          v256 = MEMORY[0x277D82BE0](v255);
+          v427 = v256;
+          v257 = [v471[0] hidingAlternateDescriptor];
+          v481 = v257;
+          if (v257)
           {
-            v6 = @"YES";
+            v9 = @"YES";
           }
 
           else
           {
-            v6 = @"NO";
+            v9 = @"NO";
           }
 
-          v251 = v6;
-          v7 = v6;
-          v248 = v251;
-          v249 = MEMORY[0x277D82BE0](v248);
-          v423 = v249;
-          v250 = [v468[0] hiddenAlternateStatefulDescriptor];
+          v254 = v9;
+          v10 = v9;
+          v251 = v254;
+          v252 = MEMORY[0x277D82BE0](v251);
+          v426 = v252;
+          v253 = [v471[0] hiddenAlternateStatefulDescriptor];
+          v249 = v253;
+          v250 = [v249 updateName];
           v246 = v250;
-          v247 = [v246 updateName];
-          v243 = v247;
-          v244 = MEMORY[0x277D82BE0](v243);
-          v422 = v244;
-          v420 = 0;
-          v245 = [v468[0] enrolledBetaProgram];
-          v242 = v245;
-          if (v242)
+          v247 = MEMORY[0x277D82BE0](v246);
+          v425 = v247;
+          v423 = 0;
+          v248 = [v471[0] enrolledBetaProgram];
+          v245 = v248;
+          if (v245)
           {
-            v241 = [v468[0] enrolledBetaProgram];
-            v421 = v241;
-            v420 = 1;
-            v240 = [v421 programID];
-            v239 = v240;
+            v244 = [v471[0] enrolledBetaProgram];
+            v424 = v244;
+            v423 = 1;
+            v243 = [v424 programID];
+            v242 = v243;
           }
 
           else
           {
-            v239 = 0;
+            v242 = 0;
           }
 
-          v237 = v239;
-          v238 = [*(v468[0] + 15) count];
-          v236 = [v468[0] canEnrollInBetaUpdates];
-          v477 = v236;
-          if (v236)
+          v240 = v242;
+          v241 = [*(v471[0] + 15) count];
+          v239 = [v471[0] canEnrollInBetaUpdates];
+          v480 = v239;
+          if (v239)
           {
-            v8 = @"YES";
+            v11 = @"YES";
           }
 
           else
           {
-            v8 = @"NO";
+            v11 = @"NO";
           }
 
-          v235 = v8;
-          v9 = v8;
-          v229 = v235;
-          v230 = MEMORY[0x277D82BE0](v229);
-          v419 = v230;
-          v231 = *(v468[0] + 21);
-          v232 = *(v468[0] + 22);
-          v233 = *(v468[0] + 23);
-          v234 = [*(v468[0] + 24) count];
-          v227 = &v28;
-          v228 = v483;
-          __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v483, v340, v303, v298, v295, v296, v286, v284, v282, v280, v278, v271, v269, v266, v262, v258, v253, v249, v244, v237, v238, v230, v231, v232, v233, v234);
-          _os_log_impl(&dword_26ADE5000, v301, v302[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nCan not enroll in beta updates as we have not discovered a seeding device.", v228, 0xFCu);
-          MEMORY[0x277D82BD8](v229);
-          if (v420)
+          v238 = v11;
+          v12 = v11;
+          v232 = v238;
+          v233 = MEMORY[0x277D82BE0](v232);
+          v422 = v233;
+          v234 = *(v471[0] + 21);
+          v235 = *(v471[0] + 22);
+          v236 = *(v471[0] + 23);
+          v237 = [*(v471[0] + 24) count];
+          v230 = &v31;
+          v231 = v486;
+          __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v486, v343, v306, v301, v298, v299, v289, v287, v285, v283, v281, v274, v272, v269, v265, v261, v256, v252, v247, v240, v241, v233, v234, v235, v236, v237);
+          _os_log_impl(&dword_26ADE5000, v304, v305[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nCan not enroll in beta updates as we have not discovered a seeding device.", v231, 0xFCu);
+          MEMORY[0x277D82BD8](v232);
+          if (v423)
           {
-            MEMORY[0x277D82BD8](v421);
+            MEMORY[0x277D82BD8](v424);
           }
 
-          MEMORY[0x277D82BD8](v242);
-          MEMORY[0x277D82BD8](v243);
+          MEMORY[0x277D82BD8](v245);
           MEMORY[0x277D82BD8](v246);
-          MEMORY[0x277D82BD8](v248);
-          MEMORY[0x277D82BD8](v252);
+          MEMORY[0x277D82BD8](v249);
+          MEMORY[0x277D82BD8](v251);
           MEMORY[0x277D82BD8](v255);
-          MEMORY[0x277D82BD8](v257);
-          MEMORY[0x277D82BD8](v261);
-          MEMORY[0x277D82BD8](v265);
-          MEMORY[0x277D82BD8](v269);
-          if (v428)
+          MEMORY[0x277D82BD8](v258);
+          MEMORY[0x277D82BD8](v260);
+          MEMORY[0x277D82BD8](v264);
+          MEMORY[0x277D82BD8](v268);
+          MEMORY[0x277D82BD8](v272);
+          if (v431)
           {
-            MEMORY[0x277D82BD8](v429);
+            MEMORY[0x277D82BD8](v432);
           }
 
-          if (v430)
+          if (v433)
           {
-            MEMORY[0x277D82BD8](v431);
+            MEMORY[0x277D82BD8](v434);
           }
 
-          if (v432)
+          if (v435)
           {
-            MEMORY[0x277D82BD8](v433);
+            MEMORY[0x277D82BD8](v436);
           }
 
-          MEMORY[0x277D82BD8](v277);
-          MEMORY[0x277D82BD8](v278);
           MEMORY[0x277D82BD8](v280);
-          MEMORY[0x277D82BD8](v282);
-          MEMORY[0x277D82BD8](v284);
-          if (v434)
+          MEMORY[0x277D82BD8](v281);
+          MEMORY[0x277D82BD8](v283);
+          MEMORY[0x277D82BD8](v285);
+          MEMORY[0x277D82BD8](v287);
+          if (v437)
           {
-            MEMORY[0x277D82BD8](v435);
+            MEMORY[0x277D82BD8](v438);
           }
 
-          if (v436)
+          if (v439)
           {
-            MEMORY[0x277D82BD8](v437);
+            MEMORY[0x277D82BD8](v440);
           }
 
-          MEMORY[0x277D82BD8](v292);
-          MEMORY[0x277D82BD8](v294);
+          MEMORY[0x277D82BD8](v295);
           MEMORY[0x277D82BD8](v297);
-          objc_storeStrong(&v419, 0);
+          MEMORY[0x277D82BD8](v300);
           objc_storeStrong(&v422, 0);
-          objc_storeStrong(&v423, 0);
-          objc_storeStrong(&v424, 0);
           objc_storeStrong(&v425, 0);
           objc_storeStrong(&v426, 0);
           objc_storeStrong(&v427, 0);
-          objc_storeStrong(&v438, 0);
-          objc_storeStrong(&v439, 0);
+          objc_storeStrong(&v428, 0);
+          objc_storeStrong(&v429, 0);
+          objc_storeStrong(&v430, 0);
+          objc_storeStrong(&v441, 0);
+          objc_storeStrong(&v442, 0);
         }
 
-        objc_storeStrong(&v441, 0);
-        if (v453[3])
+        objc_storeStrong(&v444, 0);
+        if (v456[3])
         {
-          if (*(v453[3] + 24))
+          if (*(v456[3] + 24))
           {
-            os_activity_scope_leave(v453[3]);
+            os_activity_scope_leave(v456[3]);
           }
 
-          free(v453[3]);
-          v453[3] = 0;
+          free(v456[3]);
+          v456[3] = 0;
         }
 
-        v226 = [MEMORY[0x277D643F8] sharedCore];
-        v224 = v226;
-        v225 = [v224 selectDelegateCallbackQueue:v444];
-        v223 = v225;
-        v222 = &v413;
-        v413 = MEMORY[0x277D85DD0];
-        v414 = -1073741824;
-        v415 = 0;
-        v416 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_395;
-        v417 = &unk_279CC61E0;
-        v221 = &v418;
-        v418 = MEMORY[0x277D82BE0](*(v339 + 40));
-        dispatch_async(v223, v222);
-        MEMORY[0x277D82BD8](v223);
-        MEMORY[0x277D82BD8](v224);
-        v457 = 1;
-        objc_storeStrong(v221, 0);
+        v229 = [MEMORY[0x277D643F8] sharedCore];
+        v227 = v229;
+        v228 = [v227 selectDelegateCallbackQueue:v447];
+        v226 = v228;
+        v225 = &v416;
+        v416 = MEMORY[0x277D85DD0];
+        v417 = -1073741824;
+        v418 = 0;
+        v419 = __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_395;
+        v420 = &unk_279CC61E0;
+        v224 = &v421;
+        v421 = MEMORY[0x277D82BE0](*(v342 + 40));
+        dispatch_async(v226, v225);
+        MEMORY[0x277D82BD8](v226);
+        MEMORY[0x277D82BD8](v227);
+        v460 = 1;
+        objc_storeStrong(v224, 0);
       }
 
       objc_destroyWeak(&from);
-      objc_storeStrong(&v443, 0);
-      objc_storeStrong(&v444, 0);
-      objc_storeStrong(v445, 0);
-      _Block_object_dispose(&v452, 8);
+      objc_storeStrong(&v446, 0);
+      objc_storeStrong(&v447, 0);
+      objc_storeStrong(v448, 0);
+      _Block_object_dispose(&v455, 8);
     }
 
     else
     {
-      v323 = *(v339 + 40);
-      v324 = v323 + 16;
-      v325 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SoftwareUpdateUI" code:2 userInfo:0];
-      v322 = v325;
-      (*(v323 + 16))(v323, 0);
-      MEMORY[0x277D82BD8](v322);
-      v457 = 1;
+      v326 = *(v342 + 40);
+      v327 = v326 + 16;
+      v328 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.SoftwareUpdateUI" code:2 userInfo:0];
+      v325 = v328;
+      (*(v326 + 16))(v326, 0);
+      MEMORY[0x277D82BD8](v325);
+      v460 = 1;
     }
   }
 
-  objc_storeStrong(v468, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v471, 0);
 }
 
 void __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_391(void *a1)
@@ -4964,7 +4939,6 @@ void __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___
   }
 
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __70__SUUIStatefulUIManager_enrollInBetaUpdatesProgram_completionHandler___block_invoke_400(void *a1)
@@ -5751,7 +5725,6 @@ void __63__SUUIStatefulUIManager_unenrollFromBetaUpdatesWithCompletion___block_i
   }
 
   objc_storeStrong(v337, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __63__SUUIStatefulUIManager_unenrollFromBetaUpdatesWithCompletion___block_invoke_403(void *a1)
@@ -5892,7 +5865,6 @@ void __63__SUUIStatefulUIManager_unenrollFromBetaUpdatesWithCompletion___block_i
   }
 
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __63__SUUIStatefulUIManager_unenrollFromBetaUpdatesWithCompletion___block_invoke_408(void *a1)
@@ -6401,7 +6373,6 @@ void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdat
   }
 
   objc_storeStrong(v219, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdates___block_invoke_409(void *a1)
@@ -6508,7 +6479,6 @@ void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdat
 
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdates___block_invoke_413(void *a1)
@@ -7103,7 +7073,6 @@ void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdat
   }
 
   objc_storeStrong(v249, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdates___block_invoke_414(void *a1)
@@ -7181,7 +7150,6 @@ void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdat
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdates___block_invoke_418(void *a1)
@@ -7557,7 +7525,6 @@ void __75__SUUIStatefulUIManager_refreshBetaUpdates_withRecheckForAvailableUpdat
   objc_storeStrong(&v111, 0);
   objc_storeStrong(v135, 0);
   _SUUIActivityCleanup(v142);
-  *MEMORY[0x277D85DE8];
   v11 = v14;
 
   return v11;
@@ -7909,7 +7876,6 @@ void __54__SUUIStatefulUIManager_updateNeRDVersionWithOptions___block_invoke(id 
   }
 
   objc_storeStrong(v113, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPreferredUpdatePromotedAsAlternate
@@ -8438,7 +8404,6 @@ void __54__SUUIStatefulUIManager_updateNeRDVersionWithOptions___block_invoke(id 
   v61 = MEMORY[0x277D82BE0](v62);
   objc_storeStrong(&v62, 0);
   objc_storeStrong(v63, 0);
-  *MEMORY[0x277D85DE8];
 
   return v61;
 }
@@ -8603,1239 +8568,1238 @@ uint64_t __80__SUUIStatefulUIManager_performAction_onEvent_inState_withInfo_next
   objc_storeStrong(&location, 0);
 }
 
-void __41__SUUIStatefulUIManager_performFullScan___block_invoke()
+void __41__SUUIStatefulUIManager_performFullScan___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v415 = MEMORY[0x28223BE20]();
-  v416 = "[SUUIStatefulUIManager performFullScan:]_block_invoke";
-  v417 = "[SUUIStatefulUIManager performFullScan:]_block_invoke_2";
-  v576 = *MEMORY[0x277D85DE8];
-  v552[2] = v415;
-  v552[1] = v415;
-  WeakRetained = objc_loadWeakRetained((v415 + 40));
-  v552[0] = WeakRetained;
-  v414 = 0;
+  v418 = MEMORY[0x28223BE20](a1, a2, a3);
+  v419 = "[SUUIStatefulUIManager performFullScan:]_block_invoke";
+  v420 = "[SUUIStatefulUIManager performFullScan:]_block_invoke_2";
+  v579 = *MEMORY[0x277D85DE8];
+  v555[2] = v418;
+  v555[1] = v418;
+  WeakRetained = objc_loadWeakRetained((v418 + 40));
+  v555[0] = WeakRetained;
+  v417 = 0;
   if (!WeakRetained)
   {
-    v413 = +[SUUILoggingContext softwareUpdateUILogger];
-    v411 = v413;
-    v412 = [v411 oslog];
-    oslog = v412;
-    MEMORY[0x277D82BD8](v411);
-    v550 = OS_LOG_TYPE_ERROR;
+    v416 = +[SUUILoggingContext softwareUpdateUILogger];
+    v414 = v416;
+    v415 = [v414 oslog];
+    oslog = v415;
+    MEMORY[0x277D82BD8](v414);
+    v553 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       log = oslog;
-      *type = v550;
-      v410 = NSStringFromSelector(*(v415 + 48));
-      v407 = v410;
-      v549 = MEMORY[0x277D82BE0](v407);
-      buf = v575;
-      __os_log_helper_16_2_2_8_32_8_66(v575, v416, v549);
-      _os_log_error_impl(&dword_26ADE5000, oslog, v550, "%s: Self is nil in %{public}@. Stopping.", v575, 0x16u);
-      MEMORY[0x277D82BD8](v407);
-      objc_storeStrong(&v549, 0);
+      *type = v553;
+      v413 = NSStringFromSelector(*(v418 + 48));
+      v410 = v413;
+      v552 = MEMORY[0x277D82BE0](v410);
+      buf = v578;
+      __os_log_helper_16_2_2_8_32_8_66(v578, v419, v552);
+      _os_log_error_impl(&dword_26ADE5000, oslog, v553, "%s: Self is nil in %{public}@. Stopping.", v578, 0x16u);
+      MEMORY[0x277D82BD8](v410);
+      objc_storeStrong(&v552, 0);
     }
 
     objc_storeStrong(&oslog, 0);
-    v548 = 1;
-    v414 = 1;
+    v551 = 1;
+    v417 = 1;
   }
 
-  if ((v414 & 1) == 0)
+  if ((v417 & 1) == 0)
   {
-    v542 = 0;
-    v543 = &v542;
-    v544 = 0x20000000;
-    v545 = 32;
-    v546 = 0;
-    v405 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
-    v540 = v405;
-    if (v405)
+    v545 = 0;
+    v546 = &v545;
+    v547 = 0x20000000;
+    v548 = 32;
+    v549 = 0;
+    v408 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
+    v543 = v408;
+    if (v408)
     {
-      v539 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.FullScan", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-      v0 = v540[1].opaque[0];
-      v540[1].opaque[0] = v539;
-      MEMORY[0x277D82BD8](v0);
+      v542 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.FullScan", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+      v3 = v543[1].opaque[0];
+      v543[1].opaque[0] = v542;
+      MEMORY[0x277D82BD8](v3);
     }
 
     else
     {
-      v404 = +[SUUILoggingContext softwareUpdateUILogger];
-      v402 = v404;
-      v403 = [v402 oslog];
-      v538 = v403;
-      MEMORY[0x277D82BD8](v402);
-      v537 = 16;
-      if (os_log_type_enabled(v538, OS_LOG_TYPE_ERROR))
+      v407 = +[SUUILoggingContext softwareUpdateUILogger];
+      v405 = v407;
+      v406 = [v405 oslog];
+      v541 = v406;
+      MEMORY[0x277D82BD8](v405);
+      v540 = 16;
+      if (os_log_type_enabled(v541, OS_LOG_TYPE_ERROR))
       {
-        v399 = v538;
-        *v400 = v537;
-        v401 = v536;
-        __os_log_helper_16_0_0(v536);
-        _os_log_error_impl(&dword_26ADE5000, v399, v400[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.FullScan", v536, 2u);
+        v402 = v541;
+        *v403 = v540;
+        v404 = v539;
+        __os_log_helper_16_0_0(v539);
+        _os_log_error_impl(&dword_26ADE5000, v402, v403[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.FullScan", v539, 2u);
       }
 
-      objc_storeStrong(&v538, 0);
+      objc_storeStrong(&v541, 0);
     }
 
-    v535[2] = v540;
-    state = v540;
-    if (v540)
+    v538[2] = v543;
+    state = v543;
+    if (v543)
     {
       os_activity_scope_enter(state[1].opaque[0], state);
       LOBYTE(state[1].opaque[1]) = 1;
     }
 
-    v535[1] = state;
-    v543[3] = state;
-    v398 = [v552[0] currentFullScanOperation];
-    v535[0] = v398;
-    v397 = [v552[0] currentRefreshScanOperation];
-    v534 = v397;
-    if (v534)
+    v538[1] = state;
+    v546[3] = state;
+    v401 = [v555[0] currentFullScanOperation];
+    v538[0] = v401;
+    v400 = [v555[0] currentRefreshScanOperation];
+    v537 = v400;
+    if (v537)
     {
-      v396 = +[SUUILoggingContext statefulUILogger];
-      v394 = v396;
-      v395 = [v394 oslog];
-      v533 = v395;
-      MEMORY[0x277D82BD8](v394);
-      v532 = 0;
-      if (os_log_type_enabled(v533, OS_LOG_TYPE_DEFAULT))
+      v399 = +[SUUILoggingContext statefulUILogger];
+      v397 = v399;
+      v398 = [v397 oslog];
+      v536 = v398;
+      MEMORY[0x277D82BD8](v397);
+      v535 = 0;
+      if (os_log_type_enabled(v536, OS_LOG_TYPE_DEFAULT))
       {
-        v390 = v533;
-        *v391 = v532;
-        v392 = v552[0];
+        v393 = v536;
+        *v394 = v535;
+        v395 = v555[0];
         aClass = objc_opt_class();
-        v389 = NSStringFromClass(aClass);
-        v386 = v389;
+        v392 = NSStringFromClass(aClass);
+        v389 = v392;
+        v390 = MEMORY[0x277D82BE0](v389);
+        v534 = v390;
+        v391 = SUUIStatefulUIStateToString(*(v555[0] + 5));
+        v386 = v391;
         v387 = MEMORY[0x277D82BE0](v386);
-        v531 = v387;
-        v388 = SUUIStatefulUIStateToString(*(v552[0] + 5));
-        v383 = v388;
-        v384 = MEMORY[0x277D82BE0](v383);
-        v530 = v384;
-        v385 = [v552[0] currentState];
-        v528 = 0;
-        v526 = 0;
-        v382 = [v552[0] delegate];
-        v381 = v382;
-        if (v381)
+        v533 = v387;
+        v388 = [v555[0] currentState];
+        v531 = 0;
+        v529 = 0;
+        v385 = [v555[0] delegate];
+        v384 = v385;
+        if (v384)
         {
-          v380 = [v552[0] delegate];
-          v529 = v380;
-          v528 = 1;
-          v379 = objc_opt_class();
-          v378 = NSStringFromClass(v379);
-          v527 = v378;
-          v526 = 1;
-          v377 = v527;
+          v383 = [v555[0] delegate];
+          v532 = v383;
+          v531 = 1;
+          v382 = objc_opt_class();
+          v381 = NSStringFromClass(v382);
+          v530 = v381;
+          v529 = 1;
+          v380 = v530;
         }
 
         else
         {
-          v377 = @"(null)";
+          v380 = @"(null)";
         }
 
-        v375 = v377;
-        v376 = [v552[0] delegate];
-        v373 = v376;
-        v374 = [v552[0] scanError];
-        v371 = v374;
-        v372 = [v552[0] preferredStatefulDescriptor];
-        v369 = v372;
-        v370 = [v552[0] alternateStatefulDescriptor];
-        v367 = v370;
-        v524 = 0;
-        v522 = 0;
-        v520 = 0;
-        v368 = [v552[0] currentDownload];
-        v366 = v368;
-        if (v366)
+        v378 = v380;
+        v379 = [v555[0] delegate];
+        v376 = v379;
+        v377 = [v555[0] scanError];
+        v374 = v377;
+        v375 = [v555[0] preferredStatefulDescriptor];
+        v372 = v375;
+        v373 = [v555[0] alternateStatefulDescriptor];
+        v370 = v373;
+        v527 = 0;
+        v525 = 0;
+        v523 = 0;
+        v371 = [v555[0] currentDownload];
+        v369 = v371;
+        if (v369)
         {
-          v365 = [v552[0] currentDownload];
-          v525 = v365;
-          v524 = 1;
-          v364 = [v525 descriptor];
-          v523 = v364;
-          v522 = 1;
-          v363 = [v523 updateName];
-          v521 = v363;
-          v520 = 1;
-          v362 = v521;
+          v368 = [v555[0] currentDownload];
+          v528 = v368;
+          v527 = 1;
+          v367 = [v528 descriptor];
+          v526 = v367;
+          v525 = 1;
+          v366 = [v526 updateName];
+          v524 = v366;
+          v523 = 1;
+          v365 = v524;
         }
 
         else
         {
-          v362 = @"(null)";
+          v365 = @"(null)";
         }
 
-        v360 = v362;
-        v361 = [v552[0] currentDownload];
-        v358 = v361;
-        v359 = [v552[0] currentUpdateOperationType];
-        v357 = SUUIUpdateContinuousOperationTypeToString(v359);
-        v354 = v357;
-        v355 = MEMORY[0x277D82BE0](v354);
-        v519 = v355;
-        v356 = [v552[0] isTargetedUpdateScheduledForAutoInstall];
-        v568 = v356;
-        if (v356)
+        v363 = v365;
+        v364 = [v555[0] currentDownload];
+        v361 = v364;
+        v362 = [v555[0] currentUpdateOperationType];
+        v360 = SUUIUpdateContinuousOperationTypeToString(v362);
+        v357 = v360;
+        v358 = MEMORY[0x277D82BE0](v357);
+        v522 = v358;
+        v359 = [v555[0] isTargetedUpdateScheduledForAutoInstall];
+        v571 = v359;
+        if (v359)
         {
-          v1 = @"YES";
+          v4 = @"YES";
         }
 
         else
         {
-          v1 = @"NO";
+          v4 = @"NO";
         }
 
-        v353 = v1;
-        v2 = v1;
-        v350 = v353;
-        v351 = MEMORY[0x277D82BE0](v350);
-        v518 = v351;
-        v352 = [v552[0] hidingPreferredDescriptor];
-        v567 = v352;
-        if (v352)
+        v356 = v4;
+        v5 = v4;
+        v353 = v356;
+        v354 = MEMORY[0x277D82BE0](v353);
+        v521 = v354;
+        v355 = [v555[0] hidingPreferredDescriptor];
+        v570 = v355;
+        if (v355)
         {
-          v3 = @"YES";
+          v6 = @"YES";
         }
 
         else
         {
-          v3 = @"NO";
+          v6 = @"NO";
         }
 
-        v349 = v3;
-        v4 = v3;
-        v346 = v349;
-        v347 = MEMORY[0x277D82BE0](v346);
-        v517 = v347;
-        v348 = [v552[0] hiddenPreferredStatefulDescriptor];
+        v352 = v6;
+        v7 = v6;
+        v349 = v352;
+        v350 = MEMORY[0x277D82BE0](v349);
+        v520 = v350;
+        v351 = [v555[0] hiddenPreferredStatefulDescriptor];
+        v347 = v351;
+        v348 = [v347 updateName];
         v344 = v348;
-        v345 = [v344 updateName];
-        v341 = v345;
-        v342 = MEMORY[0x277D82BE0](v341);
-        v516 = v342;
-        v343 = [v552[0] hidingAlternateDescriptor];
-        v566 = v343;
-        if (v343)
+        v345 = MEMORY[0x277D82BE0](v344);
+        v519 = v345;
+        v346 = [v555[0] hidingAlternateDescriptor];
+        v569 = v346;
+        if (v346)
         {
-          v5 = @"YES";
+          v8 = @"YES";
         }
 
         else
         {
-          v5 = @"NO";
+          v8 = @"NO";
         }
 
-        v340 = v5;
-        v6 = v5;
-        v337 = v340;
-        v338 = MEMORY[0x277D82BE0](v337);
-        v515 = v338;
-        v339 = [v552[0] hiddenAlternateStatefulDescriptor];
+        v343 = v8;
+        v9 = v8;
+        v340 = v343;
+        v341 = MEMORY[0x277D82BE0](v340);
+        v518 = v341;
+        v342 = [v555[0] hiddenAlternateStatefulDescriptor];
+        v338 = v342;
+        v339 = [v338 updateName];
         v335 = v339;
-        v336 = [v335 updateName];
-        v332 = v336;
-        v333 = MEMORY[0x277D82BE0](v332);
-        v514 = v333;
-        v512 = 0;
-        v334 = [v552[0] enrolledBetaProgram];
-        v331 = v334;
-        if (v331)
+        v336 = MEMORY[0x277D82BE0](v335);
+        v517 = v336;
+        v515 = 0;
+        v337 = [v555[0] enrolledBetaProgram];
+        v334 = v337;
+        if (v334)
         {
-          v330 = [v552[0] enrolledBetaProgram];
-          v513 = v330;
-          v512 = 1;
-          v329 = [v513 programID];
-          v328 = v329;
+          v333 = [v555[0] enrolledBetaProgram];
+          v516 = v333;
+          v515 = 1;
+          v332 = [v516 programID];
+          v331 = v332;
         }
 
         else
         {
-          v328 = 0;
+          v331 = 0;
         }
 
-        v326 = v328;
-        v327 = [*(v552[0] + 15) count];
-        v325 = [v552[0] canEnrollInBetaUpdates];
-        v565 = v325;
-        if (v325)
+        v329 = v331;
+        v330 = [*(v555[0] + 15) count];
+        v328 = [v555[0] canEnrollInBetaUpdates];
+        v568 = v328;
+        if (v328)
         {
-          v7 = @"YES";
+          v10 = @"YES";
         }
 
         else
         {
-          v7 = @"NO";
+          v10 = @"NO";
         }
 
-        v324 = v7;
-        v8 = v7;
-        v318 = v324;
-        v319 = MEMORY[0x277D82BE0](v318);
-        location = v319;
-        v320 = *(v552[0] + 21);
-        v321 = *(v552[0] + 22);
-        v322 = *(v552[0] + 23);
-        v323 = [*(v552[0] + 24) count];
-        v316 = &v36;
-        v317 = v574;
-        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v574, v416, v392, v387, v384, v385, v375, v373, v371, v369, v367, v360, v358, v355, v351, v347, v342, v338, v333, v326, v327, v319, v320, v321, v322, v323);
-        _os_log_impl(&dword_26ADE5000, v390, v391[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", v317, 0xFCu);
-        MEMORY[0x277D82BD8](v318);
-        if (v512)
+        v327 = v10;
+        v11 = v10;
+        v321 = v327;
+        v322 = MEMORY[0x277D82BE0](v321);
+        location = v322;
+        v323 = *(v555[0] + 21);
+        v324 = *(v555[0] + 22);
+        v325 = *(v555[0] + 23);
+        v326 = [*(v555[0] + 24) count];
+        v319 = &v39;
+        v320 = v577;
+        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v577, v419, v395, v390, v387, v388, v378, v376, v374, v372, v370, v363, v361, v358, v354, v350, v345, v341, v336, v329, v330, v322, v323, v324, v325, v326);
+        _os_log_impl(&dword_26ADE5000, v393, v394[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", v320, 0xFCu);
+        MEMORY[0x277D82BD8](v321);
+        if (v515)
         {
-          MEMORY[0x277D82BD8](v513);
+          MEMORY[0x277D82BD8](v516);
         }
 
-        MEMORY[0x277D82BD8](v331);
-        MEMORY[0x277D82BD8](v332);
+        MEMORY[0x277D82BD8](v334);
         MEMORY[0x277D82BD8](v335);
-        MEMORY[0x277D82BD8](v337);
-        MEMORY[0x277D82BD8](v341);
+        MEMORY[0x277D82BD8](v338);
+        MEMORY[0x277D82BD8](v340);
         MEMORY[0x277D82BD8](v344);
-        MEMORY[0x277D82BD8](v346);
-        MEMORY[0x277D82BD8](v350);
-        MEMORY[0x277D82BD8](v354);
-        MEMORY[0x277D82BD8](v358);
-        if (v520)
+        MEMORY[0x277D82BD8](v347);
+        MEMORY[0x277D82BD8](v349);
+        MEMORY[0x277D82BD8](v353);
+        MEMORY[0x277D82BD8](v357);
+        MEMORY[0x277D82BD8](v361);
+        if (v523)
         {
-          MEMORY[0x277D82BD8](v521);
+          MEMORY[0x277D82BD8](v524);
         }
 
-        if (v522)
+        if (v525)
         {
-          MEMORY[0x277D82BD8](v523);
+          MEMORY[0x277D82BD8](v526);
         }
 
-        if (v524)
+        if (v527)
         {
-          MEMORY[0x277D82BD8](v525);
+          MEMORY[0x277D82BD8](v528);
         }
 
-        MEMORY[0x277D82BD8](v366);
-        MEMORY[0x277D82BD8](v367);
         MEMORY[0x277D82BD8](v369);
-        MEMORY[0x277D82BD8](v371);
-        MEMORY[0x277D82BD8](v373);
-        if (v526)
+        MEMORY[0x277D82BD8](v370);
+        MEMORY[0x277D82BD8](v372);
+        MEMORY[0x277D82BD8](v374);
+        MEMORY[0x277D82BD8](v376);
+        if (v529)
         {
-          MEMORY[0x277D82BD8](v527);
+          MEMORY[0x277D82BD8](v530);
         }
 
-        if (v528)
+        if (v531)
         {
-          MEMORY[0x277D82BD8](v529);
+          MEMORY[0x277D82BD8](v532);
         }
 
-        MEMORY[0x277D82BD8](v381);
-        MEMORY[0x277D82BD8](v383);
+        MEMORY[0x277D82BD8](v384);
         MEMORY[0x277D82BD8](v386);
+        MEMORY[0x277D82BD8](v389);
         objc_storeStrong(&location, 0);
-        objc_storeStrong(&v514, 0);
-        objc_storeStrong(&v515, 0);
-        objc_storeStrong(&v516, 0);
         objc_storeStrong(&v517, 0);
         objc_storeStrong(&v518, 0);
         objc_storeStrong(&v519, 0);
-        objc_storeStrong(&v530, 0);
-        objc_storeStrong(&v531, 0);
+        objc_storeStrong(&v520, 0);
+        objc_storeStrong(&v521, 0);
+        objc_storeStrong(&v522, 0);
+        objc_storeStrong(&v533, 0);
+        objc_storeStrong(&v534, 0);
       }
 
-      objc_storeStrong(&v533, 0);
-      v314 = v534;
-      v505 = MEMORY[0x277D85DD0];
-      v506 = -1073741824;
-      v507 = 0;
-      v508 = __41__SUUIStatefulUIManager_performFullScan___block_invoke_435;
-      v509 = &unk_279CC6610;
-      v315 = v510;
-      objc_copyWeak(v510, (v415 + 40));
-      v510[1] = *(v415 + 48);
-      [v314 cancel:&v505];
-      objc_destroyWeak(v315);
+      objc_storeStrong(&v536, 0);
+      v317 = v537;
+      v508 = MEMORY[0x277D85DD0];
+      v509 = -1073741824;
+      v510 = 0;
+      v511 = __41__SUUIStatefulUIManager_performFullScan___block_invoke_435;
+      v512 = &unk_279CC6610;
+      v318 = v513;
+      objc_copyWeak(v513, (v418 + 40));
+      v513[1] = *(v418 + 48);
+      [v317 cancel:&v508];
+      objc_destroyWeak(v318);
     }
 
-    if (v535[0])
+    if (v538[0])
     {
-      v313 = [*(v415 + 32) forceScan];
-      if ((v313 & 1) == 0)
+      v316 = [*(v418 + 32) forceScan];
+      if ((v316 & 1) == 0)
       {
-        v312 = +[SUUILoggingContext statefulUILogger];
-        v310 = v312;
-        v311 = [v310 oslog];
-        v504 = v311;
-        MEMORY[0x277D82BD8](v310);
-        v503 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v504, OS_LOG_TYPE_DEFAULT))
+        v315 = +[SUUILoggingContext statefulUILogger];
+        v313 = v315;
+        v314 = [v313 oslog];
+        v507 = v314;
+        MEMORY[0x277D82BD8](v313);
+        v506 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v507, OS_LOG_TYPE_DEFAULT))
         {
-          v306 = v504;
-          *v307 = v503;
-          v308 = v552[0];
-          v309 = objc_opt_class();
-          v305 = NSStringFromClass(v309);
-          v302 = v305;
+          v309 = v507;
+          *v310 = v506;
+          v311 = v555[0];
+          v312 = objc_opt_class();
+          v308 = NSStringFromClass(v312);
+          v305 = v308;
+          v306 = MEMORY[0x277D82BE0](v305);
+          v505 = v306;
+          v307 = SUUIStatefulUIStateToString(*(v555[0] + 5));
+          v302 = v307;
           v303 = MEMORY[0x277D82BE0](v302);
-          v502 = v303;
-          v304 = SUUIStatefulUIStateToString(*(v552[0] + 5));
-          v299 = v304;
-          v300 = MEMORY[0x277D82BE0](v299);
-          v501 = v300;
-          v301 = [v552[0] currentState];
-          v499 = 0;
-          v497 = 0;
-          v298 = [v552[0] delegate];
-          v297 = v298;
-          if (v297)
+          v504 = v303;
+          v304 = [v555[0] currentState];
+          v502 = 0;
+          v500 = 0;
+          v301 = [v555[0] delegate];
+          v300 = v301;
+          if (v300)
           {
-            v296 = [v552[0] delegate];
-            v500 = v296;
-            v499 = 1;
-            v295 = objc_opt_class();
-            v294 = NSStringFromClass(v295);
-            v498 = v294;
-            v497 = 1;
-            v293 = v498;
+            v299 = [v555[0] delegate];
+            v503 = v299;
+            v502 = 1;
+            v298 = objc_opt_class();
+            v297 = NSStringFromClass(v298);
+            v501 = v297;
+            v500 = 1;
+            v296 = v501;
           }
 
           else
           {
-            v293 = @"(null)";
+            v296 = @"(null)";
           }
 
-          v291 = v293;
-          v292 = [v552[0] delegate];
-          v289 = v292;
-          v290 = [v552[0] scanError];
-          v287 = v290;
-          v288 = [v552[0] preferredStatefulDescriptor];
-          v285 = v288;
-          v286 = [v552[0] alternateStatefulDescriptor];
-          v283 = v286;
-          v495 = 0;
-          v493 = 0;
-          v491 = 0;
-          v284 = [v552[0] currentDownload];
-          v282 = v284;
-          if (v282)
+          v294 = v296;
+          v295 = [v555[0] delegate];
+          v292 = v295;
+          v293 = [v555[0] scanError];
+          v290 = v293;
+          v291 = [v555[0] preferredStatefulDescriptor];
+          v288 = v291;
+          v289 = [v555[0] alternateStatefulDescriptor];
+          v286 = v289;
+          v498 = 0;
+          v496 = 0;
+          v494 = 0;
+          v287 = [v555[0] currentDownload];
+          v285 = v287;
+          if (v285)
           {
-            v281 = [v552[0] currentDownload];
-            v496 = v281;
-            v495 = 1;
-            v280 = [v496 descriptor];
-            v494 = v280;
-            v493 = 1;
-            v279 = [v494 updateName];
-            v492 = v279;
-            v491 = 1;
-            v278 = v492;
+            v284 = [v555[0] currentDownload];
+            v499 = v284;
+            v498 = 1;
+            v283 = [v499 descriptor];
+            v497 = v283;
+            v496 = 1;
+            v282 = [v497 updateName];
+            v495 = v282;
+            v494 = 1;
+            v281 = v495;
           }
 
           else
           {
-            v278 = @"(null)";
+            v281 = @"(null)";
           }
 
-          v276 = v278;
-          v277 = [v552[0] currentDownload];
-          v274 = v277;
-          v275 = [v552[0] currentUpdateOperationType];
-          v273 = SUUIUpdateContinuousOperationTypeToString(v275);
-          v270 = v273;
-          v271 = MEMORY[0x277D82BE0](v270);
-          v490 = v271;
-          v272 = [v552[0] isTargetedUpdateScheduledForAutoInstall];
-          v564 = v272;
-          if (v272)
+          v279 = v281;
+          v280 = [v555[0] currentDownload];
+          v277 = v280;
+          v278 = [v555[0] currentUpdateOperationType];
+          v276 = SUUIUpdateContinuousOperationTypeToString(v278);
+          v273 = v276;
+          v274 = MEMORY[0x277D82BE0](v273);
+          v493 = v274;
+          v275 = [v555[0] isTargetedUpdateScheduledForAutoInstall];
+          v567 = v275;
+          if (v275)
           {
-            v9 = @"YES";
+            v12 = @"YES";
           }
 
           else
           {
-            v9 = @"NO";
+            v12 = @"NO";
           }
 
-          v269 = v9;
-          v10 = v9;
-          v266 = v269;
-          v267 = MEMORY[0x277D82BE0](v266);
-          v489 = v267;
-          v268 = [v552[0] hidingPreferredDescriptor];
-          v563 = v268;
-          if (v268)
+          v272 = v12;
+          v13 = v12;
+          v269 = v272;
+          v270 = MEMORY[0x277D82BE0](v269);
+          v492 = v270;
+          v271 = [v555[0] hidingPreferredDescriptor];
+          v566 = v271;
+          if (v271)
           {
-            v11 = @"YES";
+            v14 = @"YES";
           }
 
           else
           {
-            v11 = @"NO";
+            v14 = @"NO";
           }
 
-          v265 = v11;
-          v12 = v11;
-          v262 = v265;
-          v263 = MEMORY[0x277D82BE0](v262);
-          v488 = v263;
-          v264 = [v552[0] hiddenPreferredStatefulDescriptor];
+          v268 = v14;
+          v15 = v14;
+          v265 = v268;
+          v266 = MEMORY[0x277D82BE0](v265);
+          v491 = v266;
+          v267 = [v555[0] hiddenPreferredStatefulDescriptor];
+          v263 = v267;
+          v264 = [v263 updateName];
           v260 = v264;
-          v261 = [v260 updateName];
-          v257 = v261;
-          v258 = MEMORY[0x277D82BE0](v257);
-          v487 = v258;
-          v259 = [v552[0] hidingAlternateDescriptor];
-          v562 = v259;
-          if (v259)
+          v261 = MEMORY[0x277D82BE0](v260);
+          v490 = v261;
+          v262 = [v555[0] hidingAlternateDescriptor];
+          v565 = v262;
+          if (v262)
           {
-            v13 = @"YES";
+            v16 = @"YES";
           }
 
           else
           {
-            v13 = @"NO";
+            v16 = @"NO";
           }
 
-          v256 = v13;
-          v14 = v13;
-          v253 = v256;
-          v254 = MEMORY[0x277D82BE0](v253);
-          v486 = v254;
-          v255 = [v552[0] hiddenAlternateStatefulDescriptor];
+          v259 = v16;
+          v17 = v16;
+          v256 = v259;
+          v257 = MEMORY[0x277D82BE0](v256);
+          v489 = v257;
+          v258 = [v555[0] hiddenAlternateStatefulDescriptor];
+          v254 = v258;
+          v255 = [v254 updateName];
           v251 = v255;
-          v252 = [v251 updateName];
-          v248 = v252;
-          v249 = MEMORY[0x277D82BE0](v248);
-          v485 = v249;
-          v483 = 0;
-          v250 = [v552[0] enrolledBetaProgram];
-          v247 = v250;
-          if (v247)
+          v252 = MEMORY[0x277D82BE0](v251);
+          v488 = v252;
+          v486 = 0;
+          v253 = [v555[0] enrolledBetaProgram];
+          v250 = v253;
+          if (v250)
           {
-            v246 = [v552[0] enrolledBetaProgram];
-            v484 = v246;
-            v483 = 1;
-            v245 = [v484 programID];
-            v244 = v245;
+            v249 = [v555[0] enrolledBetaProgram];
+            v487 = v249;
+            v486 = 1;
+            v248 = [v487 programID];
+            v247 = v248;
           }
 
           else
           {
-            v244 = 0;
+            v247 = 0;
           }
 
-          v242 = v244;
-          v243 = [*(v552[0] + 15) count];
-          v241 = [v552[0] canEnrollInBetaUpdates];
-          v561 = v241;
-          if (v241)
+          v245 = v247;
+          v246 = [*(v555[0] + 15) count];
+          v244 = [v555[0] canEnrollInBetaUpdates];
+          v564 = v244;
+          if (v244)
           {
-            v15 = @"YES";
+            v18 = @"YES";
           }
 
           else
           {
-            v15 = @"NO";
+            v18 = @"NO";
           }
 
-          v240 = v15;
-          v16 = v15;
-          v234 = v240;
-          v235 = MEMORY[0x277D82BE0](v234);
-          v482 = v235;
-          v236 = *(v552[0] + 21);
-          v237 = *(v552[0] + 22);
-          v238 = *(v552[0] + 23);
-          v239 = [*(v552[0] + 24) count];
-          v232 = &v36;
-          v233 = v573;
-          __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v573, v416, v308, v303, v300, v301, v291, v289, v287, v285, v283, v276, v274, v271, v267, v263, v258, v254, v249, v242, v243, v235, v236, v237, v238, v239);
-          _os_log_impl(&dword_26ADE5000, v306, v307[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v233, 0xFCu);
-          MEMORY[0x277D82BD8](v234);
-          if (v483)
+          v243 = v18;
+          v19 = v18;
+          v237 = v243;
+          v238 = MEMORY[0x277D82BE0](v237);
+          v485 = v238;
+          v239 = *(v555[0] + 21);
+          v240 = *(v555[0] + 22);
+          v241 = *(v555[0] + 23);
+          v242 = [*(v555[0] + 24) count];
+          v235 = &v39;
+          v236 = v576;
+          __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v576, v419, v311, v306, v303, v304, v294, v292, v290, v288, v286, v279, v277, v274, v270, v266, v261, v257, v252, v245, v246, v238, v239, v240, v241, v242);
+          _os_log_impl(&dword_26ADE5000, v309, v310[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v236, 0xFCu);
+          MEMORY[0x277D82BD8](v237);
+          if (v486)
           {
-            MEMORY[0x277D82BD8](v484);
+            MEMORY[0x277D82BD8](v487);
           }
 
-          MEMORY[0x277D82BD8](v247);
-          MEMORY[0x277D82BD8](v248);
+          MEMORY[0x277D82BD8](v250);
           MEMORY[0x277D82BD8](v251);
-          MEMORY[0x277D82BD8](v253);
-          MEMORY[0x277D82BD8](v257);
+          MEMORY[0x277D82BD8](v254);
+          MEMORY[0x277D82BD8](v256);
           MEMORY[0x277D82BD8](v260);
-          MEMORY[0x277D82BD8](v262);
-          MEMORY[0x277D82BD8](v266);
-          MEMORY[0x277D82BD8](v270);
-          MEMORY[0x277D82BD8](v274);
-          if (v491)
+          MEMORY[0x277D82BD8](v263);
+          MEMORY[0x277D82BD8](v265);
+          MEMORY[0x277D82BD8](v269);
+          MEMORY[0x277D82BD8](v273);
+          MEMORY[0x277D82BD8](v277);
+          if (v494)
           {
-            MEMORY[0x277D82BD8](v492);
+            MEMORY[0x277D82BD8](v495);
           }
 
-          if (v493)
+          if (v496)
           {
-            MEMORY[0x277D82BD8](v494);
+            MEMORY[0x277D82BD8](v497);
           }
 
-          if (v495)
+          if (v498)
           {
-            MEMORY[0x277D82BD8](v496);
+            MEMORY[0x277D82BD8](v499);
           }
 
-          MEMORY[0x277D82BD8](v282);
-          MEMORY[0x277D82BD8](v283);
           MEMORY[0x277D82BD8](v285);
-          MEMORY[0x277D82BD8](v287);
-          MEMORY[0x277D82BD8](v289);
-          if (v497)
+          MEMORY[0x277D82BD8](v286);
+          MEMORY[0x277D82BD8](v288);
+          MEMORY[0x277D82BD8](v290);
+          MEMORY[0x277D82BD8](v292);
+          if (v500)
           {
-            MEMORY[0x277D82BD8](v498);
+            MEMORY[0x277D82BD8](v501);
           }
 
-          if (v499)
+          if (v502)
           {
-            MEMORY[0x277D82BD8](v500);
+            MEMORY[0x277D82BD8](v503);
           }
 
-          MEMORY[0x277D82BD8](v297);
-          MEMORY[0x277D82BD8](v299);
+          MEMORY[0x277D82BD8](v300);
           MEMORY[0x277D82BD8](v302);
-          objc_storeStrong(&v482, 0);
+          MEMORY[0x277D82BD8](v305);
           objc_storeStrong(&v485, 0);
-          objc_storeStrong(&v486, 0);
-          objc_storeStrong(&v487, 0);
           objc_storeStrong(&v488, 0);
           objc_storeStrong(&v489, 0);
           objc_storeStrong(&v490, 0);
-          objc_storeStrong(&v501, 0);
-          objc_storeStrong(&v502, 0);
+          objc_storeStrong(&v491, 0);
+          objc_storeStrong(&v492, 0);
+          objc_storeStrong(&v493, 0);
+          objc_storeStrong(&v504, 0);
+          objc_storeStrong(&v505, 0);
         }
 
-        objc_storeStrong(&v504, 0);
-        if (v543[3])
+        objc_storeStrong(&v507, 0);
+        if (v546[3])
         {
-          if (*(v543[3] + 24))
+          if (*(v546[3] + 24))
           {
-            os_activity_scope_leave(v543[3]);
+            os_activity_scope_leave(v546[3]);
           }
 
-          free(v543[3]);
-          v543[3] = 0;
+          free(v546[3]);
+          v546[3] = 0;
         }
 
-        v547 = 1;
+        v550 = 1;
 LABEL_173:
-        objc_storeStrong(&v534, 0);
-        objc_storeStrong(v535, 0);
-        _Block_object_dispose(&v542, 8);
+        objc_storeStrong(&v537, 0);
+        objc_storeStrong(v538, 0);
+        _Block_object_dispose(&v545, 8);
         goto LABEL_174;
       }
 
-      v231 = +[SUUILoggingContext statefulUILogger];
-      v229 = v231;
-      v230 = [v229 oslog];
-      v481 = v230;
-      MEMORY[0x277D82BD8](v229);
-      v480 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v481, OS_LOG_TYPE_DEFAULT))
+      v234 = +[SUUILoggingContext statefulUILogger];
+      v232 = v234;
+      v233 = [v232 oslog];
+      v484 = v233;
+      MEMORY[0x277D82BD8](v232);
+      v483 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v484, OS_LOG_TYPE_DEFAULT))
       {
-        v225 = v481;
-        *v226 = v480;
-        v227 = v552[0];
-        v228 = objc_opt_class();
-        v224 = NSStringFromClass(v228);
-        v221 = v224;
+        v228 = v484;
+        *v229 = v483;
+        v230 = v555[0];
+        v231 = objc_opt_class();
+        v227 = NSStringFromClass(v231);
+        v224 = v227;
+        v225 = MEMORY[0x277D82BE0](v224);
+        v482 = v225;
+        v226 = SUUIStatefulUIStateToString(*(v555[0] + 5));
+        v221 = v226;
         v222 = MEMORY[0x277D82BE0](v221);
-        v479 = v222;
-        v223 = SUUIStatefulUIStateToString(*(v552[0] + 5));
-        v218 = v223;
-        v219 = MEMORY[0x277D82BE0](v218);
-        v478 = v219;
-        v220 = [v552[0] currentState];
-        v476 = 0;
-        v474 = 0;
-        v217 = [v552[0] delegate];
-        v216 = v217;
-        if (v216)
+        v481 = v222;
+        v223 = [v555[0] currentState];
+        v479 = 0;
+        v477 = 0;
+        v220 = [v555[0] delegate];
+        v219 = v220;
+        if (v219)
         {
-          v215 = [v552[0] delegate];
-          v477 = v215;
-          v476 = 1;
-          v214 = objc_opt_class();
-          v213 = NSStringFromClass(v214);
-          v475 = v213;
-          v474 = 1;
-          v212 = v475;
+          v218 = [v555[0] delegate];
+          v480 = v218;
+          v479 = 1;
+          v217 = objc_opt_class();
+          v216 = NSStringFromClass(v217);
+          v478 = v216;
+          v477 = 1;
+          v215 = v478;
         }
 
         else
         {
-          v212 = @"(null)";
+          v215 = @"(null)";
         }
 
-        v210 = v212;
-        v211 = [v552[0] delegate];
-        v208 = v211;
-        v209 = [v552[0] scanError];
-        v206 = v209;
-        v207 = [v552[0] preferredStatefulDescriptor];
-        v204 = v207;
-        v205 = [v552[0] alternateStatefulDescriptor];
-        v202 = v205;
-        v472 = 0;
-        v470 = 0;
-        v468 = 0;
-        v203 = [v552[0] currentDownload];
-        v201 = v203;
-        if (v201)
+        v213 = v215;
+        v214 = [v555[0] delegate];
+        v211 = v214;
+        v212 = [v555[0] scanError];
+        v209 = v212;
+        v210 = [v555[0] preferredStatefulDescriptor];
+        v207 = v210;
+        v208 = [v555[0] alternateStatefulDescriptor];
+        v205 = v208;
+        v475 = 0;
+        v473 = 0;
+        v471 = 0;
+        v206 = [v555[0] currentDownload];
+        v204 = v206;
+        if (v204)
         {
-          v200 = [v552[0] currentDownload];
-          v473 = v200;
-          v472 = 1;
-          v199 = [v473 descriptor];
-          v471 = v199;
-          v470 = 1;
-          v198 = [v471 updateName];
-          v469 = v198;
-          v468 = 1;
-          v197 = v469;
+          v203 = [v555[0] currentDownload];
+          v476 = v203;
+          v475 = 1;
+          v202 = [v476 descriptor];
+          v474 = v202;
+          v473 = 1;
+          v201 = [v474 updateName];
+          v472 = v201;
+          v471 = 1;
+          v200 = v472;
         }
 
         else
         {
-          v197 = @"(null)";
+          v200 = @"(null)";
         }
 
-        v195 = v197;
-        v196 = [v552[0] currentDownload];
-        v193 = v196;
-        v194 = [v552[0] currentUpdateOperationType];
-        v192 = SUUIUpdateContinuousOperationTypeToString(v194);
-        v189 = v192;
-        v190 = MEMORY[0x277D82BE0](v189);
-        v467 = v190;
-        v191 = [v552[0] isTargetedUpdateScheduledForAutoInstall];
-        v560 = v191;
-        if (v191)
+        v198 = v200;
+        v199 = [v555[0] currentDownload];
+        v196 = v199;
+        v197 = [v555[0] currentUpdateOperationType];
+        v195 = SUUIUpdateContinuousOperationTypeToString(v197);
+        v192 = v195;
+        v193 = MEMORY[0x277D82BE0](v192);
+        v470 = v193;
+        v194 = [v555[0] isTargetedUpdateScheduledForAutoInstall];
+        v563 = v194;
+        if (v194)
         {
-          v17 = @"YES";
+          v20 = @"YES";
         }
 
         else
         {
-          v17 = @"NO";
+          v20 = @"NO";
         }
 
-        v188 = v17;
-        v18 = v17;
-        v185 = v188;
-        v186 = MEMORY[0x277D82BE0](v185);
-        v466 = v186;
-        v187 = [v552[0] hidingPreferredDescriptor];
-        v559 = v187;
-        if (v187)
+        v191 = v20;
+        v21 = v20;
+        v188 = v191;
+        v189 = MEMORY[0x277D82BE0](v188);
+        v469 = v189;
+        v190 = [v555[0] hidingPreferredDescriptor];
+        v562 = v190;
+        if (v190)
         {
-          v19 = @"YES";
+          v22 = @"YES";
         }
 
         else
         {
-          v19 = @"NO";
+          v22 = @"NO";
         }
 
-        v184 = v19;
-        v20 = v19;
-        v181 = v184;
-        v182 = MEMORY[0x277D82BE0](v181);
-        v465 = v182;
-        v183 = [v552[0] hiddenPreferredStatefulDescriptor];
+        v187 = v22;
+        v23 = v22;
+        v184 = v187;
+        v185 = MEMORY[0x277D82BE0](v184);
+        v468 = v185;
+        v186 = [v555[0] hiddenPreferredStatefulDescriptor];
+        v182 = v186;
+        v183 = [v182 updateName];
         v179 = v183;
-        v180 = [v179 updateName];
-        v176 = v180;
-        v177 = MEMORY[0x277D82BE0](v176);
-        v464 = v177;
-        v178 = [v552[0] hidingAlternateDescriptor];
-        v558 = v178;
-        if (v178)
+        v180 = MEMORY[0x277D82BE0](v179);
+        v467 = v180;
+        v181 = [v555[0] hidingAlternateDescriptor];
+        v561 = v181;
+        if (v181)
         {
-          v21 = @"YES";
+          v24 = @"YES";
         }
 
         else
         {
-          v21 = @"NO";
+          v24 = @"NO";
         }
 
-        v175 = v21;
-        v22 = v21;
-        v172 = v175;
-        v173 = MEMORY[0x277D82BE0](v172);
-        v463 = v173;
-        v174 = [v552[0] hiddenAlternateStatefulDescriptor];
+        v178 = v24;
+        v25 = v24;
+        v175 = v178;
+        v176 = MEMORY[0x277D82BE0](v175);
+        v466 = v176;
+        v177 = [v555[0] hiddenAlternateStatefulDescriptor];
+        v173 = v177;
+        v174 = [v173 updateName];
         v170 = v174;
-        v171 = [v170 updateName];
-        v167 = v171;
-        v168 = MEMORY[0x277D82BE0](v167);
-        v462 = v168;
-        v460 = 0;
-        v169 = [v552[0] enrolledBetaProgram];
-        v166 = v169;
-        if (v166)
+        v171 = MEMORY[0x277D82BE0](v170);
+        v465 = v171;
+        v463 = 0;
+        v172 = [v555[0] enrolledBetaProgram];
+        v169 = v172;
+        if (v169)
         {
-          v165 = [v552[0] enrolledBetaProgram];
-          v461 = v165;
-          v460 = 1;
-          v164 = [v461 programID];
-          v163 = v164;
+          v168 = [v555[0] enrolledBetaProgram];
+          v464 = v168;
+          v463 = 1;
+          v167 = [v464 programID];
+          v166 = v167;
         }
 
         else
         {
-          v163 = 0;
+          v166 = 0;
         }
 
-        v161 = v163;
-        v162 = [*(v552[0] + 15) count];
-        v160 = [v552[0] canEnrollInBetaUpdates];
-        v557 = v160;
-        if (v160)
+        v164 = v166;
+        v165 = [*(v555[0] + 15) count];
+        v163 = [v555[0] canEnrollInBetaUpdates];
+        v560 = v163;
+        if (v163)
         {
-          v23 = @"YES";
+          v26 = @"YES";
         }
 
         else
         {
-          v23 = @"NO";
+          v26 = @"NO";
         }
 
-        v159 = v23;
-        v24 = v23;
-        v153 = v159;
-        v154 = MEMORY[0x277D82BE0](v153);
-        v459 = v154;
-        v155 = *(v552[0] + 21);
-        v156 = *(v552[0] + 22);
-        v157 = *(v552[0] + 23);
-        v158 = [*(v552[0] + 24) count];
-        v151 = &v36;
-        v152 = v572;
-        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v572, v416, v227, v222, v219, v220, v210, v208, v206, v204, v202, v195, v193, v190, v186, v182, v177, v173, v168, v161, v162, v154, v155, v156, v157, v158);
-        _os_log_impl(&dword_26ADE5000, v225, v226[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running, but a force scan has been requested. Cancelling the previous full-scan request.", v152, 0xFCu);
-        MEMORY[0x277D82BD8](v153);
-        if (v460)
+        v162 = v26;
+        v27 = v26;
+        v156 = v162;
+        v157 = MEMORY[0x277D82BE0](v156);
+        v462 = v157;
+        v158 = *(v555[0] + 21);
+        v159 = *(v555[0] + 22);
+        v160 = *(v555[0] + 23);
+        v161 = [*(v555[0] + 24) count];
+        v154 = &v39;
+        v155 = v575;
+        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v575, v419, v230, v225, v222, v223, v213, v211, v209, v207, v205, v198, v196, v193, v189, v185, v180, v176, v171, v164, v165, v157, v158, v159, v160, v161);
+        _os_log_impl(&dword_26ADE5000, v228, v229[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running, but a force scan has been requested. Cancelling the previous full-scan request.", v155, 0xFCu);
+        MEMORY[0x277D82BD8](v156);
+        if (v463)
         {
-          MEMORY[0x277D82BD8](v461);
+          MEMORY[0x277D82BD8](v464);
         }
 
-        MEMORY[0x277D82BD8](v166);
-        MEMORY[0x277D82BD8](v167);
+        MEMORY[0x277D82BD8](v169);
         MEMORY[0x277D82BD8](v170);
-        MEMORY[0x277D82BD8](v172);
-        MEMORY[0x277D82BD8](v176);
+        MEMORY[0x277D82BD8](v173);
+        MEMORY[0x277D82BD8](v175);
         MEMORY[0x277D82BD8](v179);
-        MEMORY[0x277D82BD8](v181);
-        MEMORY[0x277D82BD8](v185);
-        MEMORY[0x277D82BD8](v189);
-        MEMORY[0x277D82BD8](v193);
-        if (v468)
+        MEMORY[0x277D82BD8](v182);
+        MEMORY[0x277D82BD8](v184);
+        MEMORY[0x277D82BD8](v188);
+        MEMORY[0x277D82BD8](v192);
+        MEMORY[0x277D82BD8](v196);
+        if (v471)
         {
-          MEMORY[0x277D82BD8](v469);
+          MEMORY[0x277D82BD8](v472);
         }
 
-        if (v470)
+        if (v473)
         {
-          MEMORY[0x277D82BD8](v471);
+          MEMORY[0x277D82BD8](v474);
         }
 
-        if (v472)
+        if (v475)
         {
-          MEMORY[0x277D82BD8](v473);
+          MEMORY[0x277D82BD8](v476);
         }
 
-        MEMORY[0x277D82BD8](v201);
-        MEMORY[0x277D82BD8](v202);
         MEMORY[0x277D82BD8](v204);
-        MEMORY[0x277D82BD8](v206);
-        MEMORY[0x277D82BD8](v208);
-        if (v474)
+        MEMORY[0x277D82BD8](v205);
+        MEMORY[0x277D82BD8](v207);
+        MEMORY[0x277D82BD8](v209);
+        MEMORY[0x277D82BD8](v211);
+        if (v477)
         {
-          MEMORY[0x277D82BD8](v475);
+          MEMORY[0x277D82BD8](v478);
         }
 
-        if (v476)
+        if (v479)
         {
-          MEMORY[0x277D82BD8](v477);
+          MEMORY[0x277D82BD8](v480);
         }
 
-        MEMORY[0x277D82BD8](v216);
-        MEMORY[0x277D82BD8](v218);
+        MEMORY[0x277D82BD8](v219);
         MEMORY[0x277D82BD8](v221);
-        objc_storeStrong(&v459, 0);
+        MEMORY[0x277D82BD8](v224);
         objc_storeStrong(&v462, 0);
-        objc_storeStrong(&v463, 0);
-        objc_storeStrong(&v464, 0);
         objc_storeStrong(&v465, 0);
         objc_storeStrong(&v466, 0);
         objc_storeStrong(&v467, 0);
-        objc_storeStrong(&v478, 0);
-        objc_storeStrong(&v479, 0);
+        objc_storeStrong(&v468, 0);
+        objc_storeStrong(&v469, 0);
+        objc_storeStrong(&v470, 0);
+        objc_storeStrong(&v481, 0);
+        objc_storeStrong(&v482, 0);
       }
 
-      objc_storeStrong(&v481, 0);
-      [v552[0] setCurrentFullScanOperation:0];
-      [v535[0] cancel:&__block_literal_global_439];
+      objc_storeStrong(&v484, 0);
+      [v555[0] setCurrentFullScanOperation:0];
+      [v538[0] cancel:&__block_literal_global_439];
     }
 
-    v150 = [MEMORY[0x277CCAD78] UUID];
+    v153 = [MEMORY[0x277CCAD78] UUID];
+    v151 = v153;
+    v152 = [v151 UUIDString];
+    v461 = v152;
+    MEMORY[0x277D82BD8](v151);
+    v150 = +[SUUILoggingContext statefulUILogger];
     v148 = v150;
-    v149 = [v148 UUIDString];
-    v458 = v149;
+    v149 = [v148 oslog];
+    v460 = v149;
     MEMORY[0x277D82BD8](v148);
-    v147 = +[SUUILoggingContext statefulUILogger];
-    v145 = v147;
-    v146 = [v145 oslog];
-    v457 = v146;
-    MEMORY[0x277D82BD8](v145);
-    v456 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v457, OS_LOG_TYPE_DEFAULT))
+    v459 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v460, OS_LOG_TYPE_DEFAULT))
     {
-      v141 = v457;
-      *v142 = v456;
-      v143 = v552[0];
-      v144 = objc_opt_class();
-      v140 = NSStringFromClass(v144);
-      v137 = v140;
+      v144 = v460;
+      *v145 = v459;
+      v146 = v555[0];
+      v147 = objc_opt_class();
+      v143 = NSStringFromClass(v147);
+      v140 = v143;
+      v141 = MEMORY[0x277D82BE0](v140);
+      v458 = v141;
+      v142 = SUUIStatefulUIStateToString(*(v555[0] + 5));
+      v137 = v142;
       v138 = MEMORY[0x277D82BE0](v137);
-      v455 = v138;
-      v139 = SUUIStatefulUIStateToString(*(v552[0] + 5));
-      v134 = v139;
-      v135 = MEMORY[0x277D82BE0](v134);
-      v454 = v135;
-      v136 = [v552[0] currentState];
-      v452 = 0;
-      v450 = 0;
-      v133 = [v552[0] delegate];
-      v132 = v133;
-      if (v132)
+      v457 = v138;
+      v139 = [v555[0] currentState];
+      v455 = 0;
+      v453 = 0;
+      v136 = [v555[0] delegate];
+      v135 = v136;
+      if (v135)
       {
-        v131 = [v552[0] delegate];
-        v453 = v131;
-        v452 = 1;
-        v130 = objc_opt_class();
-        v129 = NSStringFromClass(v130);
-        v451 = v129;
-        v450 = 1;
-        v128 = v451;
+        v134 = [v555[0] delegate];
+        v456 = v134;
+        v455 = 1;
+        v133 = objc_opt_class();
+        v132 = NSStringFromClass(v133);
+        v454 = v132;
+        v453 = 1;
+        v131 = v454;
       }
 
       else
       {
-        v128 = @"(null)";
+        v131 = @"(null)";
       }
 
-      v126 = v128;
-      v127 = [v552[0] delegate];
-      v124 = v127;
-      v125 = [v552[0] scanError];
-      v122 = v125;
-      v123 = [v552[0] preferredStatefulDescriptor];
-      v120 = v123;
-      v121 = [v552[0] alternateStatefulDescriptor];
-      v118 = v121;
-      v448 = 0;
-      v446 = 0;
-      v444 = 0;
-      v119 = [v552[0] currentDownload];
-      v117 = v119;
-      if (v117)
+      v129 = v131;
+      v130 = [v555[0] delegate];
+      v127 = v130;
+      v128 = [v555[0] scanError];
+      v125 = v128;
+      v126 = [v555[0] preferredStatefulDescriptor];
+      v123 = v126;
+      v124 = [v555[0] alternateStatefulDescriptor];
+      v121 = v124;
+      v451 = 0;
+      v449 = 0;
+      v447 = 0;
+      v122 = [v555[0] currentDownload];
+      v120 = v122;
+      if (v120)
       {
-        v116 = [v552[0] currentDownload];
-        v449 = v116;
-        v448 = 1;
-        v115 = [v449 descriptor];
-        v447 = v115;
-        v446 = 1;
-        v114 = [v447 updateName];
-        v445 = v114;
-        v444 = 1;
-        v113 = v445;
+        v119 = [v555[0] currentDownload];
+        v452 = v119;
+        v451 = 1;
+        v118 = [v452 descriptor];
+        v450 = v118;
+        v449 = 1;
+        v117 = [v450 updateName];
+        v448 = v117;
+        v447 = 1;
+        v116 = v448;
       }
 
       else
       {
-        v113 = @"(null)";
+        v116 = @"(null)";
       }
 
-      v111 = v113;
-      v112 = [v552[0] currentDownload];
-      v109 = v112;
-      v110 = [v552[0] currentUpdateOperationType];
-      v108 = SUUIUpdateContinuousOperationTypeToString(v110);
-      v105 = v108;
-      v106 = MEMORY[0x277D82BE0](v105);
-      v443 = v106;
-      v107 = [v552[0] isTargetedUpdateScheduledForAutoInstall];
-      v556 = v107;
-      if (v107)
+      v114 = v116;
+      v115 = [v555[0] currentDownload];
+      v112 = v115;
+      v113 = [v555[0] currentUpdateOperationType];
+      v111 = SUUIUpdateContinuousOperationTypeToString(v113);
+      v108 = v111;
+      v109 = MEMORY[0x277D82BE0](v108);
+      v446 = v109;
+      v110 = [v555[0] isTargetedUpdateScheduledForAutoInstall];
+      v559 = v110;
+      if (v110)
       {
-        v25 = @"YES";
+        v28 = @"YES";
       }
 
       else
       {
-        v25 = @"NO";
+        v28 = @"NO";
       }
 
-      v104 = v25;
-      v26 = v25;
-      v101 = v104;
-      v102 = MEMORY[0x277D82BE0](v101);
-      v442 = v102;
-      v103 = [v552[0] hidingPreferredDescriptor];
-      v555 = v103;
-      if (v103)
+      v107 = v28;
+      v29 = v28;
+      v104 = v107;
+      v105 = MEMORY[0x277D82BE0](v104);
+      v445 = v105;
+      v106 = [v555[0] hidingPreferredDescriptor];
+      v558 = v106;
+      if (v106)
       {
-        v27 = @"YES";
+        v30 = @"YES";
       }
 
       else
       {
-        v27 = @"NO";
+        v30 = @"NO";
       }
 
-      v100 = v27;
-      v28 = v27;
-      v97 = v100;
-      v98 = MEMORY[0x277D82BE0](v97);
-      v441 = v98;
-      v99 = [v552[0] hiddenPreferredStatefulDescriptor];
+      v103 = v30;
+      v31 = v30;
+      v100 = v103;
+      v101 = MEMORY[0x277D82BE0](v100);
+      v444 = v101;
+      v102 = [v555[0] hiddenPreferredStatefulDescriptor];
+      v98 = v102;
+      v99 = [v98 updateName];
       v95 = v99;
-      v96 = [v95 updateName];
-      v92 = v96;
-      v93 = MEMORY[0x277D82BE0](v92);
-      v440 = v93;
-      v94 = [v552[0] hidingAlternateDescriptor];
-      v554 = v94;
-      if (v94)
+      v96 = MEMORY[0x277D82BE0](v95);
+      v443 = v96;
+      v97 = [v555[0] hidingAlternateDescriptor];
+      v557 = v97;
+      if (v97)
       {
-        v29 = @"YES";
+        v32 = @"YES";
       }
 
       else
       {
-        v29 = @"NO";
+        v32 = @"NO";
       }
 
-      v91 = v29;
-      v30 = v29;
-      v88 = v91;
-      v89 = MEMORY[0x277D82BE0](v88);
-      v439 = v89;
-      v90 = [v552[0] hiddenAlternateStatefulDescriptor];
+      v94 = v32;
+      v33 = v32;
+      v91 = v94;
+      v92 = MEMORY[0x277D82BE0](v91);
+      v442 = v92;
+      v93 = [v555[0] hiddenAlternateStatefulDescriptor];
+      v89 = v93;
+      v90 = [v89 updateName];
       v86 = v90;
-      v87 = [v86 updateName];
-      v83 = v87;
-      v84 = MEMORY[0x277D82BE0](v83);
-      v438 = v84;
-      v436 = 0;
-      v85 = [v552[0] enrolledBetaProgram];
-      v82 = v85;
-      if (v82)
+      v87 = MEMORY[0x277D82BE0](v86);
+      v441 = v87;
+      v439 = 0;
+      v88 = [v555[0] enrolledBetaProgram];
+      v85 = v88;
+      if (v85)
       {
-        v81 = [v552[0] enrolledBetaProgram];
-        v437 = v81;
-        v436 = 1;
-        v80 = [v437 programID];
-        v79 = v80;
+        v84 = [v555[0] enrolledBetaProgram];
+        v440 = v84;
+        v439 = 1;
+        v83 = [v440 programID];
+        v82 = v83;
       }
 
       else
       {
-        v79 = 0;
+        v82 = 0;
       }
 
-      v77 = v79;
-      v78 = [*(v552[0] + 15) count];
-      v76 = [v552[0] canEnrollInBetaUpdates];
-      v553 = v76;
-      if (v76)
+      v80 = v82;
+      v81 = [*(v555[0] + 15) count];
+      v79 = [v555[0] canEnrollInBetaUpdates];
+      v556 = v79;
+      if (v79)
       {
-        v31 = @"YES";
+        v34 = @"YES";
       }
 
       else
       {
-        v31 = @"NO";
+        v34 = @"NO";
       }
 
-      v75 = v31;
-      v32 = v31;
-      v69 = v75;
-      v70 = MEMORY[0x277D82BE0](v69);
-      v435 = v70;
-      v71 = *(v552[0] + 21);
-      v72 = *(v552[0] + 22);
-      v73 = *(v552[0] + 23);
-      v74 = [*(v552[0] + 24) count];
-      v67 = &v36;
-      v68 = v571;
-      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_0_8_0(v571, v417, v143, v138, v135, v136, v126, v124, v122, v120, v118, v111, v109, v106, v102, v98, v93, v89, v84, v77, v78, v70, v71, v72, v73, v74, v458, v535[0], v534);
-      _os_log_impl(&dword_26ADE5000, v141, v142[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nBeginning a full scan operation with scan ID: %{public}@ (full scan FSM: %p, refresh scan FSM: %p)", v68, 0x11Au);
-      MEMORY[0x277D82BD8](v69);
-      if (v436)
+      v78 = v34;
+      v35 = v34;
+      v72 = v78;
+      v73 = MEMORY[0x277D82BE0](v72);
+      v438 = v73;
+      v74 = *(v555[0] + 21);
+      v75 = *(v555[0] + 22);
+      v76 = *(v555[0] + 23);
+      v77 = [*(v555[0] + 24) count];
+      v70 = &v39;
+      v71 = v574;
+      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_0_8_0(v574, v420, v146, v141, v138, v139, v129, v127, v125, v123, v121, v114, v112, v109, v105, v101, v96, v92, v87, v80, v81, v73, v74, v75, v76, v77, v461, v538[0], v537);
+      _os_log_impl(&dword_26ADE5000, v144, v145[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nBeginning a full scan operation with scan ID: %{public}@ (full scan FSM: %p, refresh scan FSM: %p)", v71, 0x11Au);
+      MEMORY[0x277D82BD8](v72);
+      if (v439)
       {
-        MEMORY[0x277D82BD8](v437);
+        MEMORY[0x277D82BD8](v440);
       }
 
-      MEMORY[0x277D82BD8](v82);
-      MEMORY[0x277D82BD8](v83);
+      MEMORY[0x277D82BD8](v85);
       MEMORY[0x277D82BD8](v86);
-      MEMORY[0x277D82BD8](v88);
-      MEMORY[0x277D82BD8](v92);
+      MEMORY[0x277D82BD8](v89);
+      MEMORY[0x277D82BD8](v91);
       MEMORY[0x277D82BD8](v95);
-      MEMORY[0x277D82BD8](v97);
-      MEMORY[0x277D82BD8](v101);
-      MEMORY[0x277D82BD8](v105);
-      MEMORY[0x277D82BD8](v109);
-      if (v444)
+      MEMORY[0x277D82BD8](v98);
+      MEMORY[0x277D82BD8](v100);
+      MEMORY[0x277D82BD8](v104);
+      MEMORY[0x277D82BD8](v108);
+      MEMORY[0x277D82BD8](v112);
+      if (v447)
       {
-        MEMORY[0x277D82BD8](v445);
+        MEMORY[0x277D82BD8](v448);
       }
 
-      if (v446)
+      if (v449)
       {
-        MEMORY[0x277D82BD8](v447);
+        MEMORY[0x277D82BD8](v450);
       }
 
-      if (v448)
+      if (v451)
       {
-        MEMORY[0x277D82BD8](v449);
+        MEMORY[0x277D82BD8](v452);
       }
 
-      MEMORY[0x277D82BD8](v117);
-      MEMORY[0x277D82BD8](v118);
       MEMORY[0x277D82BD8](v120);
-      MEMORY[0x277D82BD8](v122);
-      MEMORY[0x277D82BD8](v124);
-      if (v450)
+      MEMORY[0x277D82BD8](v121);
+      MEMORY[0x277D82BD8](v123);
+      MEMORY[0x277D82BD8](v125);
+      MEMORY[0x277D82BD8](v127);
+      if (v453)
       {
-        MEMORY[0x277D82BD8](v451);
+        MEMORY[0x277D82BD8](v454);
       }
 
-      if (v452)
+      if (v455)
       {
-        MEMORY[0x277D82BD8](v453);
+        MEMORY[0x277D82BD8](v456);
       }
 
-      MEMORY[0x277D82BD8](v132);
-      MEMORY[0x277D82BD8](v134);
+      MEMORY[0x277D82BD8](v135);
       MEMORY[0x277D82BD8](v137);
-      objc_storeStrong(&v435, 0);
+      MEMORY[0x277D82BD8](v140);
       objc_storeStrong(&v438, 0);
-      objc_storeStrong(&v439, 0);
-      objc_storeStrong(&v440, 0);
       objc_storeStrong(&v441, 0);
       objc_storeStrong(&v442, 0);
       objc_storeStrong(&v443, 0);
-      objc_storeStrong(&v454, 0);
-      objc_storeStrong(&v455, 0);
+      objc_storeStrong(&v444, 0);
+      objc_storeStrong(&v445, 0);
+      objc_storeStrong(&v446, 0);
+      objc_storeStrong(&v457, 0);
+      objc_storeStrong(&v458, 0);
     }
 
-    objc_storeStrong(&v457, 0);
-    v434 = 0uLL;
-    v433 = 0uLL;
-    v66 = +[SUUILoggingContext statefulUILogger];
-    v64 = v66;
-    v65 = [v64 oslog];
-    v62 = v65;
-    *&v63 = _SUUISignpostCreate(v62);
-    *(&v63 + 1) = v33;
-    v433 = v63;
-    MEMORY[0x277D82BD8](v62);
-    MEMORY[0x277D82BD8](v64);
-    if (v433)
+    objc_storeStrong(&v460, 0);
+    v437 = 0uLL;
+    v436 = 0uLL;
+    v69 = +[SUUILoggingContext statefulUILogger];
+    v67 = v69;
+    v68 = [v67 oslog];
+    v65 = v68;
+    *&v66 = _SUUISignpostCreate(v65);
+    *(&v66 + 1) = v36;
+    v436 = v66;
+    MEMORY[0x277D82BD8](v65);
+    MEMORY[0x277D82BD8](v67);
+    if (v436)
     {
-      v61 = +[SUUILoggingContext statefulUILogger];
-      v59 = v61;
-      v60 = [v59 oslog];
-      v432 = v60;
-      MEMORY[0x277D82BD8](v59);
-      v431 = 1;
-      v430 = v433;
-      if (v433 && v430 != -1 && os_signpost_enabled(v432))
+      v64 = +[SUUILoggingContext statefulUILogger];
+      v62 = v64;
+      v63 = [v62 oslog];
+      v435 = v63;
+      MEMORY[0x277D82BD8](v62);
+      v434 = 1;
+      v433 = v436;
+      if (v436 && v433 != -1 && os_signpost_enabled(v435))
       {
-        v55 = v432;
-        *v56 = v431;
-        spid = v430;
-        v58 = v570;
-        __os_log_helper_16_2_1_8_66(v570, v458);
-        _os_signpost_emit_with_name_impl(&dword_26ADE5000, v55, v56[0], spid, "FullScan", "Begins full scan  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v58, 0xCu);
+        v58 = v435;
+        *v59 = v434;
+        spid = v433;
+        v61 = v573;
+        __os_log_helper_16_2_1_8_66(v573, v461);
+        _os_signpost_emit_with_name_impl(&dword_26ADE5000, v58, v59[0], spid, "FullScan", "Begins full scan  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v61, 0xCu);
+      }
+
+      objc_storeStrong(&v435, 0);
+      v57 = +[SUUILoggingContext statefulUILogger];
+      v55 = v57;
+      v56 = [v55 oslog];
+      v432 = v56;
+      MEMORY[0x277D82BD8](v55);
+      v431 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v432, OS_LOG_TYPE_DEFAULT))
+      {
+        v52 = v432;
+        *v53 = v431;
+        v54 = v572;
+        __os_log_helper_16_2_2_8_0_8_66(v572, v436, v461);
+        _os_log_impl(&dword_26ADE5000, v52, v53[0], "BEGIN [%lld]: FullScan Begins full scan  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v54, 0x16u);
       }
 
       objc_storeStrong(&v432, 0);
-      v54 = +[SUUILoggingContext statefulUILogger];
-      v52 = v54;
-      v53 = [v52 oslog];
-      v429 = v53;
-      MEMORY[0x277D82BD8](v52);
-      v428 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v429, OS_LOG_TYPE_DEFAULT))
-      {
-        v49 = v429;
-        *v50 = v428;
-        v51 = v569;
-        __os_log_helper_16_2_2_8_0_8_66(v569, v433, v458);
-        _os_log_impl(&dword_26ADE5000, v49, v50[0], "BEGIN [%lld]: FullScan Begins full scan  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v51, 0x16u);
-      }
-
-      objc_storeStrong(&v429, 0);
     }
 
-    v434 = v433;
-    v48 = [v552[0] environment];
-    v46 = v48;
-    v47 = [v46 scanOperationWithManager:v552[0] identifier:v458 completionQueue:*(v552[0] + 26)];
-    v34 = v47;
-    v35 = v535[0];
-    v535[0] = v34;
-    MEMORY[0x277D82BD8](v35);
-    MEMORY[0x277D82BD8](v46);
-    [v552[0] setCurrentFullScanOperation:v535[0]];
-    v43 = v552[0];
-    v44 = v535[0];
-    v45 = [*(v415 + 32) forceReload];
-    v42 = [v43 contextForFullScanOperation:v44 withThirdPartyScanResults:0 scanError:0 forceReloadScanResults:v45];
-    v427 = v42;
-    v39 = *(v552[0] + 21);
+    v437 = v436;
+    v51 = [v555[0] environment];
+    v49 = v51;
+    v50 = [v49 scanOperationWithManager:v555[0] identifier:v461 completionQueue:*(v555[0] + 26)];
+    v37 = v50;
+    v38 = v538[0];
+    v538[0] = v37;
+    MEMORY[0x277D82BD8](v38);
+    MEMORY[0x277D82BD8](v49);
+    [v555[0] setCurrentFullScanOperation:v538[0]];
+    v46 = v555[0];
+    v47 = v538[0];
+    v48 = [*(v418 + 32) forceReload];
+    v45 = [v46 contextForFullScanOperation:v47 withThirdPartyScanResults:0 scanError:0 forceReloadScanResults:v48];
+    v430 = v45;
+    v42 = *(v555[0] + 21);
+    v43 = v430;
+    v422 = MEMORY[0x277D85DD0];
+    v423 = -1073741824;
+    v424 = 0;
+    v425 = __41__SUUIStatefulUIManager_performFullScan___block_invoke_441;
+    v426 = &unk_279CC6658;
+    v44 = v428;
+    objc_copyWeak(v428, (v418 + 40));
+    v41 = &v422;
+    v428[1] = *(v418 + 48);
+    v429 = v437;
     v40 = v427;
-    v419 = MEMORY[0x277D85DD0];
-    v420 = -1073741824;
-    v421 = 0;
-    v422 = __41__SUUIStatefulUIManager_performFullScan___block_invoke_441;
-    v423 = &unk_279CC6658;
-    v41 = v425;
-    objc_copyWeak(v425, (v415 + 40));
-    v38 = &v419;
-    v425[1] = *(v415 + 48);
-    v426 = v434;
-    v37 = v424;
-    v424[0] = MEMORY[0x277D82BE0](*(v415 + 32));
-    v424[1] = &v542;
-    [v39 checkForAvailableUpdatesWithContext:v40 completionHandler:v38];
-    objc_storeStrong(v37, 0);
-    objc_destroyWeak(v41);
-    objc_storeStrong(&v427, 0);
-    objc_storeStrong(&v458, 0);
-    v547 = 0;
+    v427[0] = MEMORY[0x277D82BE0](*(v418 + 32));
+    v427[1] = &v545;
+    [v42 checkForAvailableUpdatesWithContext:v43 completionHandler:v41];
+    objc_storeStrong(v40, 0);
+    objc_destroyWeak(v44);
+    objc_storeStrong(&v430, 0);
+    objc_storeStrong(&v461, 0);
+    v550 = 0;
     goto LABEL_173;
   }
 
-  v547 = 1;
+  v550 = 1;
 LABEL_174:
-  objc_storeStrong(v552, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v555, 0);
 }
 
 void __41__SUUIStatefulUIManager_performFullScan___block_invoke_435(uint64_t a1, char a2)
@@ -9874,52 +9838,51 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_435(uint64_t a1,
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1, void *a2, void *a3)
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v89 = 0;
-  objc_storeStrong(&v89, a3);
-  v88[1] = a1;
-  v88[0] = objc_loadWeakRetained((a1 + 48));
+  v88 = 0;
+  objc_storeStrong(&v88, a3);
+  v87[1] = a1;
+  v87[0] = objc_loadWeakRetained((a1 + 48));
   v30 = 0;
-  if (!v88[0])
+  if (!v87[0])
   {
     v29 = +[SUUILoggingContext softwareUpdateUILogger];
-    v87 = [v29 oslog];
+    v86 = [v29 oslog];
     MEMORY[0x277D82BD8](v29);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
-      log = v87;
+      log = v86;
       v27 = type;
       v28 = NSStringFromSelector(*(a1 + 56));
-      v85 = MEMORY[0x277D82BE0](v28);
-      __os_log_helper_16_2_2_8_32_8_66(v96, "[SUUIStatefulUIManager performFullScan:]_block_invoke", v85);
-      _os_log_error_impl(&dword_26ADE5000, log, v27, "%s: Self is nil in %{public}@. Stopping.", v96, 0x16u);
+      v84 = MEMORY[0x277D82BE0](v28);
+      __os_log_helper_16_2_2_8_32_8_66(v95, "[SUUIStatefulUIManager performFullScan:]_block_invoke", v84);
+      _os_log_error_impl(&dword_26ADE5000, log, v27, "%s: Self is nil in %{public}@. Stopping.", v95, 0x16u);
       MEMORY[0x277D82BD8](v28);
-      objc_storeStrong(&v85, 0);
+      objc_storeStrong(&v84, 0);
     }
 
-    objc_storeStrong(&v87, 0);
-    v84 = 1;
+    objc_storeStrong(&v86, 0);
+    v83 = 1;
     v30 = 1;
   }
 
   if (v30)
   {
-    v83 = 1;
+    v82 = 1;
   }
 
   else
   {
-    dispatch_assert_queue_V2(*(v88[0] + 26));
-    if (v89)
+    dispatch_assert_queue_V2(*(v87[0] + 26));
+    if (v88)
     {
       v4 = *(a1 + 64);
       v47 = 0;
@@ -9954,9 +9917,9 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
         v41 = *(a1 + 64);
         if (v41 && v41 != -1 && os_signpost_enabled(v43))
         {
-          if (v89)
+          if (v88)
           {
-            v14 = [v89 code];
+            v14 = [v88 code];
           }
 
           else
@@ -9964,8 +9927,8 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
             v14 = 0;
           }
 
-          __os_log_helper_16_0_1_4_2(v93, v14);
-          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v43, v42, v41, "FullScan", "Full scan failed Error=%{public,signpost.telemetry:number1,name=Error}d ", v93, 8u);
+          __os_log_helper_16_0_1_4_2(v92, v14);
+          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v43, v42, v41, "FullScan", "Full scan failed Error=%{public,signpost.telemetry:number1,name=Error}d ", v92, 8u);
         }
 
         objc_storeStrong(&v43, 0);
@@ -9977,9 +9940,9 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
         {
           v11 = *(a1 + 64);
           v12 = *&v44;
-          if (v89)
+          if (v88)
           {
-            v10 = [v89 code];
+            v10 = [v88 code];
           }
 
           else
@@ -9987,51 +9950,51 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
             v10 = 0;
           }
 
-          __os_log_helper_16_0_3_8_0_8_0_4_2(v92, v11, v12, v10);
-          _os_log_impl(&dword_26ADE5000, oslog, v39, "EVENT [%lld] %fs: FullScan Full scan failed Error=%{public,signpost.telemetry:number1,name=Error}d ", v92, 0x1Cu);
+          __os_log_helper_16_0_3_8_0_8_0_4_2(v91, v11, v12, v10);
+          _os_log_impl(&dword_26ADE5000, oslog, v39, "EVENT [%lld] %fs: FullScan Full scan failed Error=%{public,signpost.telemetry:number1,name=Error}d ", v91, 0x1Cu);
         }
 
         objc_storeStrong(&oslog, 0);
       }
 
-      [*(a1 + 32) setError:v89];
-      [v88[0] handleFailedFullScan:*(a1 + 32)];
+      [*(a1 + 32) setError:v88];
+      [v87[0] handleFailedFullScan:*(a1 + 32)];
     }
 
     else
     {
       v3 = *(a1 + 64);
-      v81 = 0;
-      v79 = 0;
+      v80 = 0;
+      v78 = 0;
       v25 = 0;
       if (v3)
       {
-        v82 = +[SUUILoggingContext statefulUILogger];
-        v81 = 1;
-        v80 = [v82 oslog];
-        v79 = 1;
-        v25 = os_signpost_enabled(v80);
+        v81 = +[SUUILoggingContext statefulUILogger];
+        v80 = 1;
+        v79 = [v81 oslog];
+        v78 = 1;
+        v25 = os_signpost_enabled(v79);
       }
 
-      if (v79)
+      if (v78)
       {
-        MEMORY[0x277D82BD8](v80);
+        MEMORY[0x277D82BD8](v79);
       }
 
-      if (v81)
+      if (v80)
       {
-        MEMORY[0x277D82BD8](v82);
+        MEMORY[0x277D82BD8](v81);
       }
 
       if (v25)
       {
-        *&v78 = _SUUISignpostGetNanoseconds(*(a1 + 64), *(a1 + 72)) / 1000000000.0;
+        *&v77[1] = _SUUISignpostGetNanoseconds(*(a1 + 64), *(a1 + 72)) / 1000000000.0;
         v24 = +[SUUILoggingContext statefulUILogger];
-        v77 = [v24 oslog];
+        v77[0] = [v24 oslog];
         MEMORY[0x277D82BD8](v24);
         v76 = OS_SIGNPOST_EVENT;
         v75 = *(a1 + 64);
-        if (v75 && v75 != -1 && os_signpost_enabled(v77))
+        if (v75 && v75 != -1 && os_signpost_enabled(v77[0]))
         {
           v73 = 0;
           v71 = 0;
@@ -10067,8 +10030,8 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
             v22 = @"N/A";
           }
 
-          __os_log_helper_16_2_2_8_66_8_66(v95, v23, v22);
-          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v77, v76, v75, "FullScan", "Full scan finished successfully PreferredUpdate=%{public,signpost.telemetry:string1,name=PreferredUpdate}@  AlternateUpdate=%{public,signpost.telemetry:string2,name=AlternateUpdate}@ ", v95, 0x16u);
+          __os_log_helper_16_2_2_8_66_8_66(v94, v23, v22);
+          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v77[0], v76, v75, "FullScan", "Full scan finished successfully PreferredUpdate=%{public,signpost.telemetry:string1,name=PreferredUpdate}@  AlternateUpdate=%{public,signpost.telemetry:string2,name=AlternateUpdate}@ ", v94, 0x16u);
           if (v63)
           {
             MEMORY[0x277D82BD8](v64);
@@ -10100,7 +10063,7 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
           }
         }
 
-        objc_storeStrong(&v77, 0);
+        objc_storeStrong(v77, 0);
         v21 = +[SUUILoggingContext statefulUILogger];
         v62 = [v21 oslog];
         MEMORY[0x277D82BD8](v21);
@@ -10108,7 +10071,7 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
         if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
         {
           v19 = *(a1 + 64);
-          v20 = v78;
+          v20 = v77[1];
           v59 = 0;
           v57 = 0;
           v55 = 0;
@@ -10143,8 +10106,8 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
             v17 = @"N/A";
           }
 
-          __os_log_helper_16_2_4_8_0_8_0_8_66_8_66(v94, v19, v20, v18, v17);
-          _os_log_impl(&dword_26ADE5000, v62, v61, "EVENT [%lld] %fs: FullScan Full scan finished successfully PreferredUpdate=%{public,signpost.telemetry:string1,name=PreferredUpdate}@  AlternateUpdate=%{public,signpost.telemetry:string2,name=AlternateUpdate}@ ", v94, 0x2Au);
+          __os_log_helper_16_2_4_8_0_8_0_8_66_8_66(v93, v19, v20, v18, v17);
+          _os_log_impl(&dword_26ADE5000, v62, v61, "EVENT [%lld] %fs: FullScan Full scan finished successfully PreferredUpdate=%{public,signpost.telemetry:string1,name=PreferredUpdate}@  AlternateUpdate=%{public,signpost.telemetry:string2,name=AlternateUpdate}@ ", v93, 0x2Au);
           if (v49)
           {
             MEMORY[0x277D82BD8](v50);
@@ -10180,7 +10143,7 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
       }
 
       [*(a1 + 32) setFullScanResults:location[0]];
-      [v88[0] handleFullScanResults:*(a1 + 32)];
+      [v87[0] handleFullScanResults:*(a1 + 32)];
     }
 
     if (*(a1 + 64))
@@ -10206,8 +10169,8 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
       MEMORY[0x277D82BD8](v5);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_2_8_0_8_0(v91, *(a1 + 64), *&v38);
-        _os_log_impl(&dword_26ADE5000, v33, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FullScan ", v91, 0x16u);
+        __os_log_helper_16_0_2_8_0_8_0(v90, *(a1 + 64), *&v38);
+        _os_log_impl(&dword_26ADE5000, v33, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FullScan ", v90, 0x16u);
       }
 
       objc_storeStrong(&v33, 0);
@@ -10224,18 +10187,17 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
       *(*(*(a1 + 40) + 8) + 24) = 0;
     }
 
-    v83 = 0;
+    v82 = 0;
   }
 
-  objc_storeStrong(v88, 0);
-  if (!v83)
+  objc_storeStrong(v87, 0);
+  if (!v82)
   {
-    v83 = 0;
+    v82 = 0;
   }
 
-  objc_storeStrong(&v89, 0);
+  objc_storeStrong(&v88, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)performFullScanWithScanResults:(id)results andScanError:(id)error
@@ -10542,988 +10504,986 @@ void __41__SUUIStatefulUIManager_performFullScan___block_invoke_441(uint64_t a1,
   v16 = 0;
   objc_storeStrong(&v122, 0);
   objc_storeStrong(&location, v16);
-  *MEMORY[0x277D85DE8];
 }
 
-void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke()
+void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v326 = v345;
-  v327 = MEMORY[0x28223BE20]();
-  v328 = "[SUUIStatefulUIManager performFullScanWithScanResults:andScanError:]_block_invoke";
-  v459 = *MEMORY[0x277D85DE8];
-  v440[2] = v327;
-  v440[1] = v327;
-  WeakRetained = objc_loadWeakRetained((v327 + 48));
-  v440[0] = WeakRetained;
-  v325 = 0;
+  v329 = v348;
+  v330 = MEMORY[0x28223BE20](a1, a2, a3);
+  v331 = "[SUUIStatefulUIManager performFullScanWithScanResults:andScanError:]_block_invoke";
+  v462 = *MEMORY[0x277D85DE8];
+  v443[2] = v330;
+  v443[1] = v330;
+  WeakRetained = objc_loadWeakRetained((v330 + 48));
+  v443[0] = WeakRetained;
+  v328 = 0;
   if (!WeakRetained)
   {
-    v324 = +[SUUILoggingContext softwareUpdateUILogger];
-    v322 = v324;
-    v323 = [v322 oslog];
-    oslog = v323;
-    MEMORY[0x277D82BD8](v322);
+    v327 = +[SUUILoggingContext softwareUpdateUILogger];
+    v325 = v327;
+    v326 = [v325 oslog];
+    oslog = v326;
+    MEMORY[0x277D82BD8](v325);
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       log = oslog;
-      *v320 = type;
-      v321 = NSStringFromSelector(*(v327 + 56));
-      v318 = v321;
-      location = MEMORY[0x277D82BE0](v318);
-      buf = v458;
-      __os_log_helper_16_2_2_8_32_8_66(v458, v328, location);
-      _os_log_error_impl(&dword_26ADE5000, log, v320[0], "%s: Self is nil in %{public}@. Stopping.", v458, 0x16u);
-      MEMORY[0x277D82BD8](v318);
+      *v323 = type;
+      v324 = NSStringFromSelector(*(v330 + 56));
+      v321 = v324;
+      location = MEMORY[0x277D82BE0](v321);
+      buf = v461;
+      __os_log_helper_16_2_2_8_32_8_66(v461, v331, location);
+      _os_log_error_impl(&dword_26ADE5000, log, v323[0], "%s: Self is nil in %{public}@. Stopping.", v461, 0x16u);
+      MEMORY[0x277D82BD8](v321);
       objc_storeStrong(&location, 0);
     }
 
     objc_storeStrong(&oslog, 0);
-    v436 = 1;
-    v325 = 1;
+    v439 = 1;
+    v328 = 1;
   }
 
-  if (v325)
+  if (v328)
   {
-    v435 = 1;
+    v438 = 1;
   }
 
   else
   {
-    v430 = 0;
-    v431 = &v430;
-    v432 = 0x20000000;
-    v433 = 32;
-    v434 = 0;
-    v316 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
-    v428 = v316;
-    if (v316)
+    v433 = 0;
+    v434 = &v433;
+    v435 = 0x20000000;
+    v436 = 32;
+    v437 = 0;
+    v319 = malloc_type_calloc(1uLL, 0x20uLL, 0x1080040925F9CD7uLL);
+    v431 = v319;
+    if (v319)
     {
-      v427 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.ThirdPartyFullScan", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-      v0 = v428[1].opaque[0];
-      v428[1].opaque[0] = v427;
-      MEMORY[0x277D82BD8](v0);
+      v430 = _os_activity_create(&dword_26ADE5000, "com.apple.SoftwareUpdateUI.StatefulUI.Manager.ThirdPartyFullScan", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+      v3 = v431[1].opaque[0];
+      v431[1].opaque[0] = v430;
+      MEMORY[0x277D82BD8](v3);
     }
 
     else
     {
-      v315 = +[SUUILoggingContext softwareUpdateUILogger];
-      v313 = v315;
-      v314 = [v313 oslog];
-      v426 = v314;
-      MEMORY[0x277D82BD8](v313);
-      v425 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v426, OS_LOG_TYPE_ERROR))
+      v318 = +[SUUILoggingContext softwareUpdateUILogger];
+      v316 = v318;
+      v317 = [v316 oslog];
+      v429 = v317;
+      MEMORY[0x277D82BD8](v316);
+      v428 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v429, OS_LOG_TYPE_ERROR))
       {
-        v310 = v426;
-        *v311 = v425;
-        v312 = v424;
-        __os_log_helper_16_0_0(v424);
-        _os_log_error_impl(&dword_26ADE5000, v310, v311[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.ThirdPartyFullScan", v424, 2u);
+        v313 = v429;
+        *v314 = v428;
+        v315 = v427;
+        __os_log_helper_16_0_0(v427);
+        _os_log_error_impl(&dword_26ADE5000, v313, v314[0], "Failed to create an activity for: com.apple.SoftwareUpdateUI.StatefulUI.Manager.ThirdPartyFullScan", v427, 2u);
       }
 
-      objc_storeStrong(&v426, 0);
+      objc_storeStrong(&v429, 0);
     }
 
-    obj[2] = v428;
-    state = v428;
-    if (v428)
+    obj[2] = v431;
+    state = v431;
+    if (v431)
     {
       os_activity_scope_enter(state[1].opaque[0], state);
       LOBYTE(state[1].opaque[1]) = 1;
     }
 
     obj[1] = state;
-    v431[3] = state;
-    v309 = [v440[0] currentFullScanOperation];
-    obj[0] = v309;
-    v308 = [v440[0] currentRefreshScanOperation];
-    v422 = v308;
-    if (v422)
+    v434[3] = state;
+    v312 = [v443[0] currentFullScanOperation];
+    obj[0] = v312;
+    v311 = [v443[0] currentRefreshScanOperation];
+    v425 = v311;
+    if (v425)
     {
-      v307 = +[SUUILoggingContext statefulUILogger];
-      v305 = v307;
-      v306 = [v305 oslog];
-      v421 = v306;
-      MEMORY[0x277D82BD8](v305);
-      v420 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v421, OS_LOG_TYPE_DEFAULT))
+      v310 = +[SUUILoggingContext statefulUILogger];
+      v308 = v310;
+      v309 = [v308 oslog];
+      v424 = v309;
+      MEMORY[0x277D82BD8](v308);
+      v423 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v424, OS_LOG_TYPE_DEFAULT))
       {
-        v301 = v421;
-        *v302 = v420;
-        v303 = v440[0];
+        v304 = v424;
+        *v305 = v423;
+        v306 = v443[0];
         aClass = objc_opt_class();
-        v300 = NSStringFromClass(aClass);
-        v297 = v300;
+        v303 = NSStringFromClass(aClass);
+        v300 = v303;
+        v301 = MEMORY[0x277D82BE0](v300);
+        v422 = v301;
+        v302 = SUUIStatefulUIStateToString(*(v443[0] + 5));
+        v297 = v302;
         v298 = MEMORY[0x277D82BE0](v297);
-        v419 = v298;
-        v299 = SUUIStatefulUIStateToString(*(v440[0] + 5));
-        v294 = v299;
-        v295 = MEMORY[0x277D82BE0](v294);
-        v418 = v295;
-        v296 = [v440[0] currentState];
-        v416 = 0;
-        v414 = 0;
-        v293 = [v440[0] delegate];
-        v292 = v293;
-        if (v292)
+        v421 = v298;
+        v299 = [v443[0] currentState];
+        v419 = 0;
+        v417 = 0;
+        v296 = [v443[0] delegate];
+        v295 = v296;
+        if (v295)
         {
-          v291 = [v440[0] delegate];
-          v417 = v291;
-          v416 = 1;
-          v290 = objc_opt_class();
-          v289 = NSStringFromClass(v290);
-          v415 = v289;
-          v414 = 1;
-          v288 = v415;
+          v294 = [v443[0] delegate];
+          v420 = v294;
+          v419 = 1;
+          v293 = objc_opt_class();
+          v292 = NSStringFromClass(v293);
+          v418 = v292;
+          v417 = 1;
+          v291 = v418;
         }
 
         else
         {
-          v288 = @"(null)";
+          v291 = @"(null)";
         }
 
-        v286 = v288;
-        v287 = [v440[0] delegate];
-        v284 = v287;
-        v285 = [v440[0] scanError];
-        v282 = v285;
-        v283 = [v440[0] preferredStatefulDescriptor];
-        v280 = v283;
-        v281 = [v440[0] alternateStatefulDescriptor];
-        v278 = v281;
-        v412 = 0;
-        v410 = 0;
-        v408 = 0;
-        v279 = [v440[0] currentDownload];
-        v277 = v279;
-        if (v277)
+        v289 = v291;
+        v290 = [v443[0] delegate];
+        v287 = v290;
+        v288 = [v443[0] scanError];
+        v285 = v288;
+        v286 = [v443[0] preferredStatefulDescriptor];
+        v283 = v286;
+        v284 = [v443[0] alternateStatefulDescriptor];
+        v281 = v284;
+        v415 = 0;
+        v413 = 0;
+        v411 = 0;
+        v282 = [v443[0] currentDownload];
+        v280 = v282;
+        if (v280)
         {
-          v276 = [v440[0] currentDownload];
-          v413 = v276;
-          v412 = 1;
-          v275 = [v413 descriptor];
-          v411 = v275;
-          v410 = 1;
-          v274 = [v411 updateName];
-          v409 = v274;
-          v408 = 1;
-          v273 = v409;
+          v279 = [v443[0] currentDownload];
+          v416 = v279;
+          v415 = 1;
+          v278 = [v416 descriptor];
+          v414 = v278;
+          v413 = 1;
+          v277 = [v414 updateName];
+          v412 = v277;
+          v411 = 1;
+          v276 = v412;
         }
 
         else
         {
-          v273 = @"(null)";
+          v276 = @"(null)";
         }
 
-        v271 = v273;
-        v272 = [v440[0] currentDownload];
-        v269 = v272;
-        v270 = [v440[0] currentUpdateOperationType];
-        v268 = SUUIUpdateContinuousOperationTypeToString(v270);
-        v265 = v268;
-        v266 = MEMORY[0x277D82BE0](v265);
-        v407 = v266;
-        v267 = [v440[0] isTargetedUpdateScheduledForAutoInstall];
-        v452 = v267;
-        if (v267)
+        v274 = v276;
+        v275 = [v443[0] currentDownload];
+        v272 = v275;
+        v273 = [v443[0] currentUpdateOperationType];
+        v271 = SUUIUpdateContinuousOperationTypeToString(v273);
+        v268 = v271;
+        v269 = MEMORY[0x277D82BE0](v268);
+        v410 = v269;
+        v270 = [v443[0] isTargetedUpdateScheduledForAutoInstall];
+        v455 = v270;
+        if (v270)
         {
-          v1 = @"YES";
+          v4 = @"YES";
         }
 
         else
         {
-          v1 = @"NO";
+          v4 = @"NO";
         }
 
-        v264 = v1;
-        v2 = v1;
-        v261 = v264;
-        v262 = MEMORY[0x277D82BE0](v261);
-        v406 = v262;
-        v263 = [v440[0] hidingPreferredDescriptor];
-        v451 = v263;
-        if (v263)
+        v267 = v4;
+        v5 = v4;
+        v264 = v267;
+        v265 = MEMORY[0x277D82BE0](v264);
+        v409 = v265;
+        v266 = [v443[0] hidingPreferredDescriptor];
+        v454 = v266;
+        if (v266)
         {
-          v3 = @"YES";
+          v6 = @"YES";
         }
 
         else
         {
-          v3 = @"NO";
+          v6 = @"NO";
         }
 
-        v260 = v3;
-        v4 = v3;
-        v257 = v260;
-        v258 = MEMORY[0x277D82BE0](v257);
-        v405 = v258;
-        v259 = [v440[0] hiddenPreferredStatefulDescriptor];
+        v263 = v6;
+        v7 = v6;
+        v260 = v263;
+        v261 = MEMORY[0x277D82BE0](v260);
+        v408 = v261;
+        v262 = [v443[0] hiddenPreferredStatefulDescriptor];
+        v258 = v262;
+        v259 = [v258 updateName];
         v255 = v259;
-        v256 = [v255 updateName];
-        v252 = v256;
-        v253 = MEMORY[0x277D82BE0](v252);
-        v404 = v253;
-        v254 = [v440[0] hidingAlternateDescriptor];
-        v450 = v254;
-        if (v254)
+        v256 = MEMORY[0x277D82BE0](v255);
+        v407 = v256;
+        v257 = [v443[0] hidingAlternateDescriptor];
+        v453 = v257;
+        if (v257)
         {
-          v5 = @"YES";
+          v8 = @"YES";
         }
 
         else
         {
-          v5 = @"NO";
+          v8 = @"NO";
         }
 
-        v251 = v5;
-        v6 = v5;
-        v248 = v251;
-        v249 = MEMORY[0x277D82BE0](v248);
-        v403 = v249;
-        v250 = [v440[0] hiddenAlternateStatefulDescriptor];
+        v254 = v8;
+        v9 = v8;
+        v251 = v254;
+        v252 = MEMORY[0x277D82BE0](v251);
+        v406 = v252;
+        v253 = [v443[0] hiddenAlternateStatefulDescriptor];
+        v249 = v253;
+        v250 = [v249 updateName];
         v246 = v250;
-        v247 = [v246 updateName];
-        v243 = v247;
-        v244 = MEMORY[0x277D82BE0](v243);
-        v402 = v244;
-        v400 = 0;
-        v245 = [v440[0] enrolledBetaProgram];
-        v242 = v245;
-        if (v242)
+        v247 = MEMORY[0x277D82BE0](v246);
+        v405 = v247;
+        v403 = 0;
+        v248 = [v443[0] enrolledBetaProgram];
+        v245 = v248;
+        if (v245)
         {
-          v241 = [v440[0] enrolledBetaProgram];
-          v401 = v241;
-          v400 = 1;
-          v240 = [v401 programID];
-          v239 = v240;
+          v244 = [v443[0] enrolledBetaProgram];
+          v404 = v244;
+          v403 = 1;
+          v243 = [v404 programID];
+          v242 = v243;
         }
 
         else
         {
-          v239 = 0;
+          v242 = 0;
         }
 
-        v237 = v239;
-        v238 = [*(v440[0] + 15) count];
-        v236 = [v440[0] canEnrollInBetaUpdates];
-        v449 = v236;
-        if (v236)
+        v240 = v242;
+        v241 = [*(v443[0] + 15) count];
+        v239 = [v443[0] canEnrollInBetaUpdates];
+        v452 = v239;
+        if (v239)
         {
-          v7 = @"YES";
+          v10 = @"YES";
         }
 
         else
         {
-          v7 = @"NO";
+          v10 = @"NO";
         }
 
-        v235 = v7;
-        v8 = v7;
-        v229 = v235;
-        v230 = MEMORY[0x277D82BE0](v229);
-        v399 = v230;
-        v231 = *(v440[0] + 21);
-        v232 = *(v440[0] + 22);
-        v233 = *(v440[0] + 23);
-        v234 = [*(v440[0] + 24) count];
-        v227 = &v34;
-        v228 = v457;
-        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v457, v328, v303, v298, v295, v296, v286, v284, v282, v280, v278, v271, v269, v266, v262, v258, v253, v249, v244, v237, v238, v230, v231, v232, v233, v234);
-        _os_log_impl(&dword_26ADE5000, v301, v302[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", v228, 0xFCu);
-        MEMORY[0x277D82BD8](v229);
-        if (v400)
+        v238 = v10;
+        v11 = v10;
+        v232 = v238;
+        v233 = MEMORY[0x277D82BE0](v232);
+        v402 = v233;
+        v234 = *(v443[0] + 21);
+        v235 = *(v443[0] + 22);
+        v236 = *(v443[0] + 23);
+        v237 = [*(v443[0] + 24) count];
+        v230 = &v37;
+        v231 = v460;
+        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v460, v331, v306, v301, v298, v299, v289, v287, v285, v283, v281, v274, v272, v269, v265, v261, v256, v252, v247, v240, v241, v233, v234, v235, v236, v237);
+        _os_log_impl(&dword_26ADE5000, v304, v305[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", v231, 0xFCu);
+        MEMORY[0x277D82BD8](v232);
+        if (v403)
         {
-          MEMORY[0x277D82BD8](v401);
+          MEMORY[0x277D82BD8](v404);
         }
 
-        MEMORY[0x277D82BD8](v242);
-        MEMORY[0x277D82BD8](v243);
+        MEMORY[0x277D82BD8](v245);
         MEMORY[0x277D82BD8](v246);
-        MEMORY[0x277D82BD8](v248);
-        MEMORY[0x277D82BD8](v252);
+        MEMORY[0x277D82BD8](v249);
+        MEMORY[0x277D82BD8](v251);
         MEMORY[0x277D82BD8](v255);
-        MEMORY[0x277D82BD8](v257);
-        MEMORY[0x277D82BD8](v261);
-        MEMORY[0x277D82BD8](v265);
-        MEMORY[0x277D82BD8](v269);
-        if (v408)
+        MEMORY[0x277D82BD8](v258);
+        MEMORY[0x277D82BD8](v260);
+        MEMORY[0x277D82BD8](v264);
+        MEMORY[0x277D82BD8](v268);
+        MEMORY[0x277D82BD8](v272);
+        if (v411)
         {
-          MEMORY[0x277D82BD8](v409);
+          MEMORY[0x277D82BD8](v412);
         }
 
-        if (v410)
+        if (v413)
         {
-          MEMORY[0x277D82BD8](v411);
+          MEMORY[0x277D82BD8](v414);
         }
 
-        if (v412)
+        if (v415)
         {
-          MEMORY[0x277D82BD8](v413);
+          MEMORY[0x277D82BD8](v416);
         }
 
-        MEMORY[0x277D82BD8](v277);
-        MEMORY[0x277D82BD8](v278);
         MEMORY[0x277D82BD8](v280);
-        MEMORY[0x277D82BD8](v282);
-        MEMORY[0x277D82BD8](v284);
-        if (v414)
+        MEMORY[0x277D82BD8](v281);
+        MEMORY[0x277D82BD8](v283);
+        MEMORY[0x277D82BD8](v285);
+        MEMORY[0x277D82BD8](v287);
+        if (v417)
         {
-          MEMORY[0x277D82BD8](v415);
+          MEMORY[0x277D82BD8](v418);
         }
 
-        if (v416)
+        if (v419)
         {
-          MEMORY[0x277D82BD8](v417);
+          MEMORY[0x277D82BD8](v420);
         }
 
-        MEMORY[0x277D82BD8](v292);
-        MEMORY[0x277D82BD8](v294);
+        MEMORY[0x277D82BD8](v295);
         MEMORY[0x277D82BD8](v297);
-        objc_storeStrong(&v399, 0);
+        MEMORY[0x277D82BD8](v300);
         objc_storeStrong(&v402, 0);
-        objc_storeStrong(&v403, 0);
-        objc_storeStrong(&v404, 0);
         objc_storeStrong(&v405, 0);
         objc_storeStrong(&v406, 0);
         objc_storeStrong(&v407, 0);
-        objc_storeStrong(&v418, 0);
-        objc_storeStrong(&v419, 0);
+        objc_storeStrong(&v408, 0);
+        objc_storeStrong(&v409, 0);
+        objc_storeStrong(&v410, 0);
+        objc_storeStrong(&v421, 0);
+        objc_storeStrong(&v422, 0);
       }
 
-      objc_storeStrong(&v421, 0);
-      v225 = v422;
-      v393 = MEMORY[0x277D85DD0];
-      v394 = -1073741824;
-      v395 = 0;
-      v396 = __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_443;
-      v397 = &unk_279CC6610;
-      v226 = v398;
-      objc_copyWeak(v398, (v327 + 48));
-      v398[1] = *(v327 + 56);
-      [v225 cancel:&v393];
-      objc_destroyWeak(v226);
+      objc_storeStrong(&v424, 0);
+      v228 = v425;
+      v396 = MEMORY[0x277D85DD0];
+      v397 = -1073741824;
+      v398 = 0;
+      v399 = __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_443;
+      v400 = &unk_279CC6610;
+      v229 = v401;
+      objc_copyWeak(v401, (v330 + 48));
+      v401[1] = *(v330 + 56);
+      [v228 cancel:&v396];
+      objc_destroyWeak(v229);
     }
 
     if (obj[0])
     {
-      v224 = +[SUUILoggingContext statefulUILogger];
-      v222 = v224;
-      v223 = [v222 oslog];
-      v392 = v223;
-      MEMORY[0x277D82BD8](v222);
-      v391 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v392, OS_LOG_TYPE_DEFAULT))
+      v227 = +[SUUILoggingContext statefulUILogger];
+      v225 = v227;
+      v226 = [v225 oslog];
+      v395 = v226;
+      MEMORY[0x277D82BD8](v225);
+      v394 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v395, OS_LOG_TYPE_DEFAULT))
       {
-        v218 = v392;
-        *v219 = v391;
-        v220 = v440[0];
-        v221 = objc_opt_class();
-        v217 = NSStringFromClass(v221);
-        v214 = v217;
+        v221 = v395;
+        *v222 = v394;
+        v223 = v443[0];
+        v224 = objc_opt_class();
+        v220 = NSStringFromClass(v224);
+        v217 = v220;
+        v218 = MEMORY[0x277D82BE0](v217);
+        v393 = v218;
+        v219 = SUUIStatefulUIStateToString(*(v443[0] + 5));
+        v214 = v219;
         v215 = MEMORY[0x277D82BE0](v214);
-        v390 = v215;
-        v216 = SUUIStatefulUIStateToString(*(v440[0] + 5));
-        v211 = v216;
-        v212 = MEMORY[0x277D82BE0](v211);
-        v389 = v212;
-        v213 = [v440[0] currentState];
-        v387 = 0;
-        v385 = 0;
-        v210 = [v440[0] delegate];
-        v209 = v210;
-        if (v209)
+        v392 = v215;
+        v216 = [v443[0] currentState];
+        v390 = 0;
+        v388 = 0;
+        v213 = [v443[0] delegate];
+        v212 = v213;
+        if (v212)
         {
-          v208 = [v440[0] delegate];
-          v388 = v208;
-          v387 = 1;
-          v207 = objc_opt_class();
-          v206 = NSStringFromClass(v207);
-          v386 = v206;
-          v385 = 1;
-          v205 = v386;
+          v211 = [v443[0] delegate];
+          v391 = v211;
+          v390 = 1;
+          v210 = objc_opt_class();
+          v209 = NSStringFromClass(v210);
+          v389 = v209;
+          v388 = 1;
+          v208 = v389;
         }
 
         else
         {
-          v205 = @"(null)";
+          v208 = @"(null)";
         }
 
-        v203 = v205;
-        v204 = [v440[0] delegate];
-        v201 = v204;
-        v202 = [v440[0] scanError];
-        v199 = v202;
-        v200 = [v440[0] preferredStatefulDescriptor];
-        v197 = v200;
-        v198 = [v440[0] alternateStatefulDescriptor];
-        v195 = v198;
-        v383 = 0;
-        v381 = 0;
-        v379 = 0;
-        v196 = [v440[0] currentDownload];
-        v194 = v196;
-        if (v194)
+        v206 = v208;
+        v207 = [v443[0] delegate];
+        v204 = v207;
+        v205 = [v443[0] scanError];
+        v202 = v205;
+        v203 = [v443[0] preferredStatefulDescriptor];
+        v200 = v203;
+        v201 = [v443[0] alternateStatefulDescriptor];
+        v198 = v201;
+        v386 = 0;
+        v384 = 0;
+        v382 = 0;
+        v199 = [v443[0] currentDownload];
+        v197 = v199;
+        if (v197)
         {
-          v193 = [v440[0] currentDownload];
-          v384 = v193;
-          v383 = 1;
-          v192 = [v384 descriptor];
-          v382 = v192;
-          v381 = 1;
-          v191 = [v382 updateName];
-          v380 = v191;
-          v379 = 1;
-          v190 = v380;
+          v196 = [v443[0] currentDownload];
+          v387 = v196;
+          v386 = 1;
+          v195 = [v387 descriptor];
+          v385 = v195;
+          v384 = 1;
+          v194 = [v385 updateName];
+          v383 = v194;
+          v382 = 1;
+          v193 = v383;
         }
 
         else
         {
-          v190 = @"(null)";
+          v193 = @"(null)";
         }
 
-        v188 = v190;
-        v189 = [v440[0] currentDownload];
-        v186 = v189;
-        v187 = [v440[0] currentUpdateOperationType];
-        v185 = SUUIUpdateContinuousOperationTypeToString(v187);
-        v182 = v185;
-        v183 = MEMORY[0x277D82BE0](v182);
-        v378 = v183;
-        v184 = [v440[0] isTargetedUpdateScheduledForAutoInstall];
-        v448 = v184;
-        if (v184)
+        v191 = v193;
+        v192 = [v443[0] currentDownload];
+        v189 = v192;
+        v190 = [v443[0] currentUpdateOperationType];
+        v188 = SUUIUpdateContinuousOperationTypeToString(v190);
+        v185 = v188;
+        v186 = MEMORY[0x277D82BE0](v185);
+        v381 = v186;
+        v187 = [v443[0] isTargetedUpdateScheduledForAutoInstall];
+        v451 = v187;
+        if (v187)
         {
-          v9 = @"YES";
+          v12 = @"YES";
         }
 
         else
         {
-          v9 = @"NO";
+          v12 = @"NO";
         }
 
-        v181 = v9;
-        v10 = v9;
-        v178 = v181;
-        v179 = MEMORY[0x277D82BE0](v178);
-        v377 = v179;
-        v180 = [v440[0] hidingPreferredDescriptor];
-        v447 = v180;
-        if (v180)
+        v184 = v12;
+        v13 = v12;
+        v181 = v184;
+        v182 = MEMORY[0x277D82BE0](v181);
+        v380 = v182;
+        v183 = [v443[0] hidingPreferredDescriptor];
+        v450 = v183;
+        if (v183)
         {
-          v11 = @"YES";
+          v14 = @"YES";
         }
 
         else
         {
-          v11 = @"NO";
+          v14 = @"NO";
         }
 
-        v177 = v11;
-        v12 = v11;
-        v174 = v177;
-        v175 = MEMORY[0x277D82BE0](v174);
-        v376 = v175;
-        v176 = [v440[0] hiddenPreferredStatefulDescriptor];
+        v180 = v14;
+        v15 = v14;
+        v177 = v180;
+        v178 = MEMORY[0x277D82BE0](v177);
+        v379 = v178;
+        v179 = [v443[0] hiddenPreferredStatefulDescriptor];
+        v175 = v179;
+        v176 = [v175 updateName];
         v172 = v176;
-        v173 = [v172 updateName];
-        v169 = v173;
-        v170 = MEMORY[0x277D82BE0](v169);
-        v375 = v170;
-        v171 = [v440[0] hidingAlternateDescriptor];
-        v446 = v171;
-        if (v171)
+        v173 = MEMORY[0x277D82BE0](v172);
+        v378 = v173;
+        v174 = [v443[0] hidingAlternateDescriptor];
+        v449 = v174;
+        if (v174)
         {
-          v13 = @"YES";
+          v16 = @"YES";
         }
 
         else
         {
-          v13 = @"NO";
+          v16 = @"NO";
         }
 
-        v168 = v13;
-        v14 = v13;
-        v165 = v168;
-        v166 = MEMORY[0x277D82BE0](v165);
-        v374 = v166;
-        v167 = [v440[0] hiddenAlternateStatefulDescriptor];
+        v171 = v16;
+        v17 = v16;
+        v168 = v171;
+        v169 = MEMORY[0x277D82BE0](v168);
+        v377 = v169;
+        v170 = [v443[0] hiddenAlternateStatefulDescriptor];
+        v166 = v170;
+        v167 = [v166 updateName];
         v163 = v167;
-        v164 = [v163 updateName];
-        v160 = v164;
-        v161 = MEMORY[0x277D82BE0](v160);
-        v373 = v161;
-        v371 = 0;
-        v162 = [v440[0] enrolledBetaProgram];
-        v159 = v162;
-        if (v159)
+        v164 = MEMORY[0x277D82BE0](v163);
+        v376 = v164;
+        v374 = 0;
+        v165 = [v443[0] enrolledBetaProgram];
+        v162 = v165;
+        if (v162)
         {
-          v158 = [v440[0] enrolledBetaProgram];
-          v372 = v158;
-          v371 = 1;
-          v157 = [v372 programID];
-          v156 = v157;
+          v161 = [v443[0] enrolledBetaProgram];
+          v375 = v161;
+          v374 = 1;
+          v160 = [v375 programID];
+          v159 = v160;
         }
 
         else
         {
-          v156 = 0;
+          v159 = 0;
         }
 
-        v154 = v156;
-        v155 = [*(v440[0] + 15) count];
-        v153 = [v440[0] canEnrollInBetaUpdates];
-        v445 = v153;
-        if (v153)
+        v157 = v159;
+        v158 = [*(v443[0] + 15) count];
+        v156 = [v443[0] canEnrollInBetaUpdates];
+        v448 = v156;
+        if (v156)
         {
-          v15 = @"YES";
+          v18 = @"YES";
         }
 
         else
         {
-          v15 = @"NO";
+          v18 = @"NO";
         }
 
-        v152 = v15;
-        v16 = v15;
-        v146 = v152;
-        v147 = MEMORY[0x277D82BE0](v146);
-        v370 = v147;
-        v148 = *(v440[0] + 21);
-        v149 = *(v440[0] + 22);
-        v150 = *(v440[0] + 23);
-        v151 = [*(v440[0] + 24) count];
-        v144 = &v34;
-        v145 = v456;
-        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v456, v328, v220, v215, v212, v213, v203, v201, v199, v197, v195, v188, v186, v183, v179, v175, v170, v166, v161, v154, v155, v147, v148, v149, v150, v151);
-        _os_log_impl(&dword_26ADE5000, v218, v219[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v145, 0xFCu);
-        MEMORY[0x277D82BD8](v146);
-        if (v371)
+        v155 = v18;
+        v19 = v18;
+        v149 = v155;
+        v150 = MEMORY[0x277D82BE0](v149);
+        v373 = v150;
+        v151 = *(v443[0] + 21);
+        v152 = *(v443[0] + 22);
+        v153 = *(v443[0] + 23);
+        v154 = [*(v443[0] + 24) count];
+        v147 = &v37;
+        v148 = v459;
+        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v459, v331, v223, v218, v215, v216, v206, v204, v202, v200, v198, v191, v189, v186, v182, v178, v173, v169, v164, v157, v158, v150, v151, v152, v153, v154);
+        _os_log_impl(&dword_26ADE5000, v221, v222[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v148, 0xFCu);
+        MEMORY[0x277D82BD8](v149);
+        if (v374)
         {
-          MEMORY[0x277D82BD8](v372);
+          MEMORY[0x277D82BD8](v375);
         }
 
-        MEMORY[0x277D82BD8](v159);
-        MEMORY[0x277D82BD8](v160);
+        MEMORY[0x277D82BD8](v162);
         MEMORY[0x277D82BD8](v163);
-        MEMORY[0x277D82BD8](v165);
-        MEMORY[0x277D82BD8](v169);
+        MEMORY[0x277D82BD8](v166);
+        MEMORY[0x277D82BD8](v168);
         MEMORY[0x277D82BD8](v172);
-        MEMORY[0x277D82BD8](v174);
-        MEMORY[0x277D82BD8](v178);
-        MEMORY[0x277D82BD8](v182);
-        MEMORY[0x277D82BD8](v186);
-        if (v379)
+        MEMORY[0x277D82BD8](v175);
+        MEMORY[0x277D82BD8](v177);
+        MEMORY[0x277D82BD8](v181);
+        MEMORY[0x277D82BD8](v185);
+        MEMORY[0x277D82BD8](v189);
+        if (v382)
         {
-          MEMORY[0x277D82BD8](v380);
+          MEMORY[0x277D82BD8](v383);
         }
 
-        if (v381)
+        if (v384)
         {
-          MEMORY[0x277D82BD8](v382);
+          MEMORY[0x277D82BD8](v385);
         }
 
-        if (v383)
+        if (v386)
         {
-          MEMORY[0x277D82BD8](v384);
+          MEMORY[0x277D82BD8](v387);
         }
 
-        MEMORY[0x277D82BD8](v194);
-        MEMORY[0x277D82BD8](v195);
         MEMORY[0x277D82BD8](v197);
-        MEMORY[0x277D82BD8](v199);
-        MEMORY[0x277D82BD8](v201);
-        if (v385)
+        MEMORY[0x277D82BD8](v198);
+        MEMORY[0x277D82BD8](v200);
+        MEMORY[0x277D82BD8](v202);
+        MEMORY[0x277D82BD8](v204);
+        if (v388)
         {
-          MEMORY[0x277D82BD8](v386);
+          MEMORY[0x277D82BD8](v389);
         }
 
-        if (v387)
+        if (v390)
         {
-          MEMORY[0x277D82BD8](v388);
+          MEMORY[0x277D82BD8](v391);
         }
 
-        MEMORY[0x277D82BD8](v209);
-        MEMORY[0x277D82BD8](v211);
+        MEMORY[0x277D82BD8](v212);
         MEMORY[0x277D82BD8](v214);
-        objc_storeStrong(&v370, 0);
+        MEMORY[0x277D82BD8](v217);
         objc_storeStrong(&v373, 0);
-        objc_storeStrong(&v374, 0);
-        objc_storeStrong(&v375, 0);
         objc_storeStrong(&v376, 0);
         objc_storeStrong(&v377, 0);
         objc_storeStrong(&v378, 0);
-        objc_storeStrong(&v389, 0);
-        objc_storeStrong(&v390, 0);
+        objc_storeStrong(&v379, 0);
+        objc_storeStrong(&v380, 0);
+        objc_storeStrong(&v381, 0);
+        objc_storeStrong(&v392, 0);
+        objc_storeStrong(&v393, 0);
       }
 
-      objc_storeStrong(&v392, 0);
-      if (v431[3])
+      objc_storeStrong(&v395, 0);
+      if (v434[3])
       {
-        if (*(v431[3] + 24))
+        if (*(v434[3] + 24))
         {
-          os_activity_scope_leave(v431[3]);
+          os_activity_scope_leave(v434[3]);
         }
 
-        free(v431[3]);
-        v431[3] = 0;
+        free(v434[3]);
+        v434[3] = 0;
       }
 
-      v435 = 1;
+      v438 = 1;
     }
 
     else
     {
-      v143 = [MEMORY[0x277CCAD78] UUID];
+      v146 = [MEMORY[0x277CCAD78] UUID];
+      v144 = v146;
+      v145 = [v144 UUIDString];
+      v372 = v145;
+      MEMORY[0x277D82BD8](v144);
+      v143 = +[SUUILoggingContext statefulUILogger];
       v141 = v143;
-      v142 = [v141 UUIDString];
-      v369 = v142;
+      v142 = [v141 oslog];
+      v371 = v142;
       MEMORY[0x277D82BD8](v141);
-      v140 = +[SUUILoggingContext statefulUILogger];
-      v138 = v140;
-      v139 = [v138 oslog];
-      v368 = v139;
-      MEMORY[0x277D82BD8](v138);
-      v367 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v368, OS_LOG_TYPE_DEFAULT))
+      v370 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v371, OS_LOG_TYPE_DEFAULT))
       {
-        v134 = v368;
-        *v135 = v367;
-        v136 = v440[0];
-        v137 = objc_opt_class();
-        v133 = NSStringFromClass(v137);
-        v130 = v133;
+        v137 = v371;
+        *v138 = v370;
+        v139 = v443[0];
+        v140 = objc_opt_class();
+        v136 = NSStringFromClass(v140);
+        v133 = v136;
+        v134 = MEMORY[0x277D82BE0](v133);
+        v369 = v134;
+        v135 = SUUIStatefulUIStateToString(*(v443[0] + 5));
+        v130 = v135;
         v131 = MEMORY[0x277D82BE0](v130);
-        v366 = v131;
-        v132 = SUUIStatefulUIStateToString(*(v440[0] + 5));
-        v127 = v132;
-        v128 = MEMORY[0x277D82BE0](v127);
-        v365 = v128;
-        v129 = [v440[0] currentState];
-        v363 = 0;
-        v361 = 0;
-        v126 = [v440[0] delegate];
-        v125 = v126;
-        if (v125)
+        v368 = v131;
+        v132 = [v443[0] currentState];
+        v366 = 0;
+        v364 = 0;
+        v129 = [v443[0] delegate];
+        v128 = v129;
+        if (v128)
         {
-          v124 = [v440[0] delegate];
-          v364 = v124;
-          v363 = 1;
-          v123 = objc_opt_class();
-          v122 = NSStringFromClass(v123);
-          v362 = v122;
-          v361 = 1;
-          v121 = v362;
+          v127 = [v443[0] delegate];
+          v367 = v127;
+          v366 = 1;
+          v126 = objc_opt_class();
+          v125 = NSStringFromClass(v126);
+          v365 = v125;
+          v364 = 1;
+          v124 = v365;
         }
 
         else
         {
-          v121 = @"(null)";
+          v124 = @"(null)";
         }
 
-        v119 = v121;
-        v120 = [v440[0] delegate];
-        v117 = v120;
-        v118 = [v440[0] scanError];
-        v115 = v118;
-        v116 = [v440[0] preferredStatefulDescriptor];
-        v113 = v116;
-        v114 = [v440[0] alternateStatefulDescriptor];
-        v111 = v114;
-        v359 = 0;
-        v357 = 0;
-        v355 = 0;
-        v112 = [v440[0] currentDownload];
-        v110 = v112;
-        if (v110)
+        v122 = v124;
+        v123 = [v443[0] delegate];
+        v120 = v123;
+        v121 = [v443[0] scanError];
+        v118 = v121;
+        v119 = [v443[0] preferredStatefulDescriptor];
+        v116 = v119;
+        v117 = [v443[0] alternateStatefulDescriptor];
+        v114 = v117;
+        v362 = 0;
+        v360 = 0;
+        v358 = 0;
+        v115 = [v443[0] currentDownload];
+        v113 = v115;
+        if (v113)
         {
-          v109 = [v440[0] currentDownload];
-          v360 = v109;
-          v359 = 1;
-          v108 = [v360 descriptor];
-          v358 = v108;
-          v357 = 1;
-          v107 = [v358 updateName];
-          v356 = v107;
-          v355 = 1;
-          v106 = v356;
+          v112 = [v443[0] currentDownload];
+          v363 = v112;
+          v362 = 1;
+          v111 = [v363 descriptor];
+          v361 = v111;
+          v360 = 1;
+          v110 = [v361 updateName];
+          v359 = v110;
+          v358 = 1;
+          v109 = v359;
         }
 
         else
         {
-          v106 = @"(null)";
+          v109 = @"(null)";
         }
 
-        v104 = v106;
-        v105 = [v440[0] currentDownload];
-        v102 = v105;
-        v103 = [v440[0] currentUpdateOperationType];
-        v101 = SUUIUpdateContinuousOperationTypeToString(v103);
-        v98 = v101;
-        v99 = MEMORY[0x277D82BE0](v98);
-        v354 = v99;
-        v100 = [v440[0] isTargetedUpdateScheduledForAutoInstall];
-        v444 = v100;
-        if (v100)
+        v107 = v109;
+        v108 = [v443[0] currentDownload];
+        v105 = v108;
+        v106 = [v443[0] currentUpdateOperationType];
+        v104 = SUUIUpdateContinuousOperationTypeToString(v106);
+        v101 = v104;
+        v102 = MEMORY[0x277D82BE0](v101);
+        v357 = v102;
+        v103 = [v443[0] isTargetedUpdateScheduledForAutoInstall];
+        v447 = v103;
+        if (v103)
         {
-          v17 = @"YES";
+          v20 = @"YES";
         }
 
         else
         {
-          v17 = @"NO";
+          v20 = @"NO";
         }
 
-        v97 = v17;
-        v18 = v17;
-        v94 = v97;
-        v95 = MEMORY[0x277D82BE0](v94);
-        v353 = v95;
-        v96 = [v440[0] hidingPreferredDescriptor];
-        v443 = v96;
-        if (v96)
+        v100 = v20;
+        v21 = v20;
+        v97 = v100;
+        v98 = MEMORY[0x277D82BE0](v97);
+        v356 = v98;
+        v99 = [v443[0] hidingPreferredDescriptor];
+        v446 = v99;
+        if (v99)
         {
-          v19 = @"YES";
+          v22 = @"YES";
         }
 
         else
         {
-          v19 = @"NO";
+          v22 = @"NO";
         }
 
-        v93 = v19;
-        v20 = v19;
-        v90 = v93;
-        v91 = MEMORY[0x277D82BE0](v90);
-        v352 = v91;
-        v92 = [v440[0] hiddenPreferredStatefulDescriptor];
+        v96 = v22;
+        v23 = v22;
+        v93 = v96;
+        v94 = MEMORY[0x277D82BE0](v93);
+        v355 = v94;
+        v95 = [v443[0] hiddenPreferredStatefulDescriptor];
+        v91 = v95;
+        v92 = [v91 updateName];
         v88 = v92;
-        v89 = [v88 updateName];
-        v85 = v89;
-        v86 = MEMORY[0x277D82BE0](v85);
-        v351 = v86;
-        v87 = [v440[0] hidingAlternateDescriptor];
-        v442 = v87;
-        if (v87)
+        v89 = MEMORY[0x277D82BE0](v88);
+        v354 = v89;
+        v90 = [v443[0] hidingAlternateDescriptor];
+        v445 = v90;
+        if (v90)
         {
-          v21 = @"YES";
+          v24 = @"YES";
         }
 
         else
         {
-          v21 = @"NO";
+          v24 = @"NO";
         }
 
-        v84 = v21;
-        v22 = v21;
-        v81 = v84;
-        v82 = MEMORY[0x277D82BE0](v81);
-        v350 = v82;
-        v83 = [v440[0] hiddenAlternateStatefulDescriptor];
+        v87 = v24;
+        v25 = v24;
+        v84 = v87;
+        v85 = MEMORY[0x277D82BE0](v84);
+        v353 = v85;
+        v86 = [v443[0] hiddenAlternateStatefulDescriptor];
+        v82 = v86;
+        v83 = [v82 updateName];
         v79 = v83;
-        v80 = [v79 updateName];
-        v76 = v80;
-        v77 = MEMORY[0x277D82BE0](v76);
-        v349 = v77;
-        v347 = 0;
-        v78 = [v440[0] enrolledBetaProgram];
-        v75 = v78;
-        if (v75)
+        v80 = MEMORY[0x277D82BE0](v79);
+        v352 = v80;
+        v350 = 0;
+        v81 = [v443[0] enrolledBetaProgram];
+        v78 = v81;
+        if (v78)
         {
-          v74 = [v440[0] enrolledBetaProgram];
-          v348 = v74;
-          v347 = 1;
-          v73 = [v348 programID];
-          v72 = v73;
+          v77 = [v443[0] enrolledBetaProgram];
+          v351 = v77;
+          v350 = 1;
+          v76 = [v351 programID];
+          v75 = v76;
         }
 
         else
         {
-          v72 = 0;
+          v75 = 0;
         }
 
-        v70 = v72;
-        v71 = [*(v440[0] + 15) count];
-        v69 = [v440[0] canEnrollInBetaUpdates];
-        v441 = v69;
-        if (v69)
+        v73 = v75;
+        v74 = [*(v443[0] + 15) count];
+        v72 = [v443[0] canEnrollInBetaUpdates];
+        v444 = v72;
+        if (v72)
         {
-          v23 = @"YES";
+          v26 = @"YES";
         }
 
         else
         {
-          v23 = @"NO";
+          v26 = @"NO";
         }
 
-        v68 = v23;
-        v24 = v23;
-        v62 = v68;
-        v63 = MEMORY[0x277D82BE0](v62);
-        v346 = v63;
-        v64 = *(v440[0] + 21);
-        v65 = *(v440[0] + 22);
-        v66 = *(v440[0] + 23);
-        v67 = [*(v440[0] + 24) count];
-        v25 = *(v327 + 32);
-        v26 = *(v327 + 40);
-        v60 = &v34;
-        v61 = v455;
-        __os_log_helper_16_2_30_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_66_8_66_8_0_8_0(v455, v328, v136, v131, v128, v129, v119, v117, v115, v113, v111, v104, v102, v99, v95, v91, v86, v82, v77, v70, v71, v63, v64, v65, v66, v67, v25, v26, v369, obj[0], v422);
-        _os_log_impl(&dword_26ADE5000, v134, v135[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nBeginning a full scan operation with with existing scan results (results: %p, error: %{public}@), using scan ID: %{public}@ (full scan FSM: %p, refresh scan FSM: %p)", v61, 0x12Eu);
-        MEMORY[0x277D82BD8](v62);
-        if (v347)
+        v71 = v26;
+        v27 = v26;
+        v65 = v71;
+        v66 = MEMORY[0x277D82BE0](v65);
+        v349 = v66;
+        v67 = *(v443[0] + 21);
+        v68 = *(v443[0] + 22);
+        v69 = *(v443[0] + 23);
+        v70 = [*(v443[0] + 24) count];
+        v28 = *(v330 + 32);
+        v29 = *(v330 + 40);
+        v63 = &v37;
+        v64 = v458;
+        __os_log_helper_16_2_30_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_66_8_66_8_0_8_0(v458, v331, v139, v134, v131, v132, v122, v120, v118, v116, v114, v107, v105, v102, v98, v94, v89, v85, v80, v73, v74, v66, v67, v68, v69, v70, v28, v29, v372, obj[0], v425);
+        _os_log_impl(&dword_26ADE5000, v137, v138[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nBeginning a full scan operation with with existing scan results (results: %p, error: %{public}@), using scan ID: %{public}@ (full scan FSM: %p, refresh scan FSM: %p)", v64, 0x12Eu);
+        MEMORY[0x277D82BD8](v65);
+        if (v350)
         {
-          MEMORY[0x277D82BD8](v348);
+          MEMORY[0x277D82BD8](v351);
         }
 
-        MEMORY[0x277D82BD8](v75);
-        MEMORY[0x277D82BD8](v76);
+        MEMORY[0x277D82BD8](v78);
         MEMORY[0x277D82BD8](v79);
-        MEMORY[0x277D82BD8](v81);
-        MEMORY[0x277D82BD8](v85);
+        MEMORY[0x277D82BD8](v82);
+        MEMORY[0x277D82BD8](v84);
         MEMORY[0x277D82BD8](v88);
-        MEMORY[0x277D82BD8](v90);
-        MEMORY[0x277D82BD8](v94);
-        MEMORY[0x277D82BD8](v98);
-        MEMORY[0x277D82BD8](v102);
-        if (v355)
+        MEMORY[0x277D82BD8](v91);
+        MEMORY[0x277D82BD8](v93);
+        MEMORY[0x277D82BD8](v97);
+        MEMORY[0x277D82BD8](v101);
+        MEMORY[0x277D82BD8](v105);
+        if (v358)
         {
-          MEMORY[0x277D82BD8](v356);
+          MEMORY[0x277D82BD8](v359);
         }
 
-        if (v357)
+        if (v360)
         {
-          MEMORY[0x277D82BD8](v358);
+          MEMORY[0x277D82BD8](v361);
         }
 
-        if (v359)
+        if (v362)
         {
-          MEMORY[0x277D82BD8](v360);
+          MEMORY[0x277D82BD8](v363);
         }
 
-        MEMORY[0x277D82BD8](v110);
-        MEMORY[0x277D82BD8](v111);
         MEMORY[0x277D82BD8](v113);
-        MEMORY[0x277D82BD8](v115);
-        MEMORY[0x277D82BD8](v117);
-        if (v361)
+        MEMORY[0x277D82BD8](v114);
+        MEMORY[0x277D82BD8](v116);
+        MEMORY[0x277D82BD8](v118);
+        MEMORY[0x277D82BD8](v120);
+        if (v364)
         {
-          MEMORY[0x277D82BD8](v362);
+          MEMORY[0x277D82BD8](v365);
         }
 
-        if (v363)
+        if (v366)
         {
-          MEMORY[0x277D82BD8](v364);
+          MEMORY[0x277D82BD8](v367);
         }
 
-        MEMORY[0x277D82BD8](v125);
-        MEMORY[0x277D82BD8](v127);
+        MEMORY[0x277D82BD8](v128);
         MEMORY[0x277D82BD8](v130);
-        objc_storeStrong(&v346, 0);
+        MEMORY[0x277D82BD8](v133);
         objc_storeStrong(&v349, 0);
-        objc_storeStrong(&v350, 0);
-        objc_storeStrong(&v351, 0);
         objc_storeStrong(&v352, 0);
         objc_storeStrong(&v353, 0);
         objc_storeStrong(&v354, 0);
-        objc_storeStrong(&v365, 0);
-        objc_storeStrong(&v366, 0);
+        objc_storeStrong(&v355, 0);
+        objc_storeStrong(&v356, 0);
+        objc_storeStrong(&v357, 0);
+        objc_storeStrong(&v368, 0);
+        objc_storeStrong(&v369, 0);
       }
 
-      objc_storeStrong(&v368, 0);
-      v345[0] = 0;
-      v345[1] = 0;
-      v344 = 0uLL;
-      v59 = +[SUUILoggingContext statefulUILogger];
-      v57 = v59;
-      v58 = [v57 oslog];
-      v55 = v58;
-      *&v56 = _SUUISignpostCreate(v55);
-      *(&v56 + 1) = v27;
-      v344 = v56;
-      MEMORY[0x277D82BD8](v55);
-      MEMORY[0x277D82BD8](v57);
-      if (v344)
+      objc_storeStrong(&v371, 0);
+      v348[0] = 0;
+      v348[1] = 0;
+      v347 = 0uLL;
+      v62 = +[SUUILoggingContext statefulUILogger];
+      v60 = v62;
+      v61 = [v60 oslog];
+      v58 = v61;
+      *&v59 = _SUUISignpostCreate(v58);
+      *(&v59 + 1) = v30;
+      v347 = v59;
+      MEMORY[0x277D82BD8](v58);
+      MEMORY[0x277D82BD8](v60);
+      if (v347)
       {
-        v54 = +[SUUILoggingContext statefulUILogger];
-        v52 = v54;
-        v53 = [v52 oslog];
-        v343 = v53;
-        MEMORY[0x277D82BD8](v52);
-        v342 = 1;
-        v341 = v344;
-        if (v344 && v341 != -1 && os_signpost_enabled(v343))
+        v57 = +[SUUILoggingContext statefulUILogger];
+        v55 = v57;
+        v56 = [v55 oslog];
+        v346 = v56;
+        MEMORY[0x277D82BD8](v55);
+        v345 = 1;
+        v344 = v347;
+        if (v347 && v344 != -1 && os_signpost_enabled(v346))
         {
-          v48 = v343;
-          *v49 = v342;
-          spid = v341;
-          v28 = *(v327 + 32) != 0;
-          v29 = *(v327 + 40) != 0;
-          v51 = v454;
-          __os_log_helper_16_2_3_4_2_4_2_8_66(v454, v28, v29, v369);
-          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v48, v49[0], spid, "FullScan", "Begins full scan /w 3rd party results  HasScanResults=%{public,signpost.telemetry:number1,name=HasScanResults}d  ScanError=%{public,signpost.telemetry:number2,name=ScanError}d  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v51, 0x18u);
+          v51 = v346;
+          *v52 = v345;
+          spid = v344;
+          v31 = *(v330 + 32) != 0;
+          v32 = *(v330 + 40) != 0;
+          v54 = v457;
+          __os_log_helper_16_2_3_4_2_4_2_8_66(v457, v31, v32, v372);
+          _os_signpost_emit_with_name_impl(&dword_26ADE5000, v51, v52[0], spid, "FullScan", "Begins full scan /w 3rd party results  HasScanResults=%{public,signpost.telemetry:number1,name=HasScanResults}d  ScanError=%{public,signpost.telemetry:number2,name=ScanError}d  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v54, 0x18u);
+        }
+
+        objc_storeStrong(&v346, 0);
+        v50 = +[SUUILoggingContext statefulUILogger];
+        v48 = v50;
+        v49 = [v48 oslog];
+        v343 = v49;
+        MEMORY[0x277D82BD8](v48);
+        v342 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v343, OS_LOG_TYPE_DEFAULT))
+        {
+          v45 = v343;
+          *v46 = v342;
+          v33 = *(v330 + 32) != 0;
+          v34 = *(v330 + 40) != 0;
+          v47 = v456;
+          __os_log_helper_16_2_4_8_0_4_2_4_2_8_66(v456, v347, v33, v34, v372);
+          _os_log_impl(&dword_26ADE5000, v45, v46[0], "BEGIN [%lld]: FullScan Begins full scan /w 3rd party results  HasScanResults=%{public,signpost.telemetry:number1,name=HasScanResults}d  ScanError=%{public,signpost.telemetry:number2,name=ScanError}d  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v47, 0x22u);
         }
 
         objc_storeStrong(&v343, 0);
-        v47 = +[SUUILoggingContext statefulUILogger];
-        v45 = v47;
-        v46 = [v45 oslog];
-        v340 = v46;
-        MEMORY[0x277D82BD8](v45);
-        v339 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v340, OS_LOG_TYPE_DEFAULT))
-        {
-          v42 = v340;
-          *v43 = v339;
-          v30 = *(v327 + 32) != 0;
-          v31 = *(v327 + 40) != 0;
-          v44 = v453;
-          __os_log_helper_16_2_4_8_0_4_2_4_2_8_66(v453, v344, v30, v31, v369);
-          _os_log_impl(&dword_26ADE5000, v42, v43[0], "BEGIN [%lld]: FullScan Begins full scan /w 3rd party results  HasScanResults=%{public,signpost.telemetry:number1,name=HasScanResults}d  ScanError=%{public,signpost.telemetry:number2,name=ScanError}d  ScanIdentifier=%{public,signpost.telemetry:string1,name=ScanIdentifier}@  enableTelemetry=YES ", v44, 0x22u);
-        }
-
-        objc_storeStrong(&v340, 0);
       }
 
-      *v326 = v344;
-      v41 = [v440[0] environment];
-      v39 = v41;
-      v40 = [v39 scanOperationWithManager:v440[0] identifier:v369 completionQueue:*(v440[0] + 26)];
-      v32 = v40;
-      v33 = obj[0];
-      obj[0] = v32;
-      MEMORY[0x277D82BD8](v33);
-      MEMORY[0x277D82BD8](v39);
-      objc_storeStrong(v440[0] + 21, obj[0]);
-      v38 = [v440[0] contextForFullScanOperation:obj[0] withThirdPartyScanResults:*(v327 + 32) scanError:*(v327 + 40) forceReloadScanResults:1];
-      v338 = v38;
-      v35 = obj[0];
-      v36 = v338;
-      v330 = MEMORY[0x277D85DD0];
-      v331 = -1073741824;
-      v332 = 0;
-      v333 = __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_444;
-      v334 = &unk_279CC6680;
-      v37 = v336;
-      objc_copyWeak(v336, (v327 + 48));
-      v336[1] = *(v327 + 56);
-      v337 = *v326;
-      v335 = &v430;
-      [v35 checkForAvailableUpdatesWithContext:v36 completionHandler:?];
-      objc_destroyWeak(v37);
-      objc_storeStrong(&v338, 0);
-      objc_storeStrong(&v369, 0);
-      v435 = 0;
+      *v329 = v347;
+      v44 = [v443[0] environment];
+      v42 = v44;
+      v43 = [v42 scanOperationWithManager:v443[0] identifier:v372 completionQueue:*(v443[0] + 26)];
+      v35 = v43;
+      v36 = obj[0];
+      obj[0] = v35;
+      MEMORY[0x277D82BD8](v36);
+      MEMORY[0x277D82BD8](v42);
+      objc_storeStrong(v443[0] + 21, obj[0]);
+      v41 = [v443[0] contextForFullScanOperation:obj[0] withThirdPartyScanResults:*(v330 + 32) scanError:*(v330 + 40) forceReloadScanResults:1];
+      v341 = v41;
+      v38 = obj[0];
+      v39 = v341;
+      v333 = MEMORY[0x277D85DD0];
+      v334 = -1073741824;
+      v335 = 0;
+      v336 = __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_444;
+      v337 = &unk_279CC6680;
+      v40 = v339;
+      objc_copyWeak(v339, (v330 + 48));
+      v339[1] = *(v330 + 56);
+      v340 = *v329;
+      v338 = &v433;
+      [v38 checkForAvailableUpdatesWithContext:v39 completionHandler:?];
+      objc_destroyWeak(v40);
+      objc_storeStrong(&v341, 0);
+      objc_storeStrong(&v372, 0);
+      v438 = 0;
     }
 
-    objc_storeStrong(&v422, 0);
+    objc_storeStrong(&v425, 0);
     objc_storeStrong(obj, 0);
-    _Block_object_dispose(&v430, 8);
+    _Block_object_dispose(&v433, 8);
   }
 
-  objc_storeStrong(v440, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v443, 0);
 }
 
 void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_443(uint64_t a1, char a2)
@@ -11562,7 +11522,6 @@ void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___b
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___block_invoke_444(uint64_t a1, void *a2, void *a3)
@@ -11927,7 +11886,6 @@ void __69__SUUIStatefulUIManager_performFullScanWithScanResults_andScanError___b
 
   objc_storeStrong(&v91, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyFullScanResultsDelegates:(id)delegates andError:(id)error
@@ -12088,7 +12046,6 @@ void __65__SUUIStatefulUIManager_notifyFullScanResultsDelegates_andError___block
   }
 
   objc_storeStrong(v32, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)performRefreshScan:(id)scan
@@ -12580,7 +12537,6 @@ void __44__SUUIStatefulUIManager_performRefreshScan___block_invoke(id *a1)
   }
 
   objc_storeStrong(v218, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __44__SUUIStatefulUIManager_performRefreshScan___block_invoke_445(uint64_t a1, void *a2, void *a3)
@@ -12817,7 +12773,6 @@ void __44__SUUIStatefulUIManager_performRefreshScan___block_invoke_445(uint64_t 
 
   objc_storeStrong(&v63, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyRefreshScanResultsDelegates:(id)delegates andError:(id)error
@@ -12933,846 +12888,871 @@ void __68__SUUIStatefulUIManager_notifyRefreshScanResultsDelegates_andError___bl
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFullScanResults:(id)results
 {
   v3 = MEMORY[0x28223BE20](self, a2, results);
-  v442 = &v461;
-  v443 = "[SUUIStatefulUIManager handleFullScanResults:]";
-  v535 = *MEMORY[0x277D85DE8];
+  v439 = &v458;
+  v440 = "[SUUIStatefulUIManager handleFullScanResults:]";
+  v532 = *MEMORY[0x277D85DE8];
   location[2] = v3;
   location[1] = v4;
   location[0] = 0;
   objc_storeStrong(location, v5);
   fullScanResults = [location[0] fullScanResults];
-  v518 = fullScanResults;
-  v440 = +[SUUILoggingContext statefulUILogger];
-  v438 = v440;
-  oslog = [v438 oslog];
-  v517 = oslog;
-  MEMORY[0x277D82BD8](v438);
+  v515 = fullScanResults;
+  v437 = +[SUUILoggingContext statefulUILogger];
+  v435 = v437;
+  oslog = [v435 oslog];
+  v514 = oslog;
+  MEMORY[0x277D82BD8](v435);
   type = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v517, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v514, OS_LOG_TYPE_DEFAULT))
   {
-    log = v442[81];
-    *v435 = type;
-    v436 = v442[85];
-    v6 = v442[85];
+    log = v439[81];
+    *v432 = type;
+    v433 = v439[85];
     aClass = objc_opt_class();
-    v433 = NSStringFromClass(aClass);
-    v430 = v433;
-    v7 = MEMORY[0x277D82BE0](v430);
-    v8 = v442;
-    v431 = v7;
-    v442[79] = v7;
-    v432 = SUUIStatefulUIStateToString(*(v8[85] + 5));
-    v427 = v432;
-    v9 = MEMORY[0x277D82BE0](v427);
-    v10 = v442;
-    v428 = v9;
-    v442[78] = v9;
-    currentState = [v10[85] currentState];
-    delegate = [v442[85] delegate];
-    v425 = delegate;
-    v513 = 0;
-    v512 = 0;
-    if (v425)
-    {
-      delegate2 = [v442[85] delegate];
-      v442[77] = delegate2;
-      v513 = 1;
-      v423 = objc_opt_class();
-      v422 = NSStringFromClass(v423);
-      v11 = v422;
-      v442[75] = v11;
-      v512 = 1;
-      v421 = v11;
-    }
-
-    else
-    {
-      v421 = @"(null)";
-    }
-
-    v419 = v421;
-    delegate3 = [v442[85] delegate];
-    v417 = delegate3;
-    scanError = [v442[85] scanError];
-    v415 = scanError;
-    preferredStatefulDescriptor = [v442[85] preferredStatefulDescriptor];
-    v413 = preferredStatefulDescriptor;
-    alternateStatefulDescriptor = [v442[85] alternateStatefulDescriptor];
-    v411 = alternateStatefulDescriptor;
-    currentDownload = [v442[85] currentDownload];
-    v410 = currentDownload;
-    v511 = 0;
+    v430 = NSStringFromClass(aClass);
+    v427 = v430;
+    v6 = MEMORY[0x277D82BE0](v427);
+    v7 = v439;
+    v428 = v6;
+    v439[79] = v6;
+    v429 = SUUIStatefulUIStateToString(*(v7[85] + 5));
+    v424 = v429;
+    v8 = MEMORY[0x277D82BE0](v424);
+    v9 = v439;
+    v425 = v8;
+    v439[78] = v8;
+    currentState = [v9[85] currentState];
+    delegate = [v439[85] delegate];
+    v422 = delegate;
     v510 = 0;
     v509 = 0;
-    if (v410)
+    if (v422)
     {
-      currentDownload2 = [v442[85] currentDownload];
-      v12 = currentDownload2;
-      v442[73] = v12;
-      v511 = 1;
-      descriptor = [v12 descriptor];
-      v13 = descriptor;
-      v442[71] = v13;
+      delegate2 = [v439[85] delegate];
+      v439[77] = delegate2;
       v510 = 1;
-      updateName = [v13 updateName];
-      v14 = updateName;
-      v442[69] = v14;
+      v420 = objc_opt_class();
+      v419 = NSStringFromClass(v420);
+      v10 = v419;
+      v439[75] = v10;
       v509 = 1;
-      v406 = v14;
+      v418 = v10;
     }
 
     else
     {
-      v406 = @"(null)";
+      v418 = @"(null)";
     }
 
-    v404 = v406;
-    currentDownload3 = [v442[85] currentDownload];
-    v402 = currentDownload3;
-    currentUpdateOperationType = [v442[85] currentUpdateOperationType];
-    v401 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType);
-    v398 = v401;
-    v15 = MEMORY[0x277D82BE0](v398);
-    v16 = v442;
-    v399 = v15;
-    v442[67] = v15;
-    isTargetedUpdateScheduledForAutoInstall = [v16[85] isTargetedUpdateScheduledForAutoInstall];
-    v531 = isTargetedUpdateScheduledForAutoInstall;
+    v416 = v418;
+    delegate3 = [v439[85] delegate];
+    v414 = delegate3;
+    scanError = [v439[85] scanError];
+    v412 = scanError;
+    preferredStatefulDescriptor = [v439[85] preferredStatefulDescriptor];
+    v410 = preferredStatefulDescriptor;
+    alternateStatefulDescriptor = [v439[85] alternateStatefulDescriptor];
+    v408 = alternateStatefulDescriptor;
+    currentDownload = [v439[85] currentDownload];
+    v407 = currentDownload;
+    v508 = 0;
+    v507 = 0;
+    v506 = 0;
+    if (v407)
+    {
+      currentDownload2 = [v439[85] currentDownload];
+      v11 = currentDownload2;
+      v439[73] = v11;
+      v508 = 1;
+      descriptor = [v11 descriptor];
+      v12 = descriptor;
+      v439[71] = v12;
+      v507 = 1;
+      updateName = [v12 updateName];
+      v13 = updateName;
+      v439[69] = v13;
+      v506 = 1;
+      v403 = v13;
+    }
+
+    else
+    {
+      v403 = @"(null)";
+    }
+
+    v401 = v403;
+    currentDownload3 = [v439[85] currentDownload];
+    v399 = currentDownload3;
+    currentUpdateOperationType = [v439[85] currentUpdateOperationType];
+    v398 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType);
+    v395 = v398;
+    v14 = MEMORY[0x277D82BE0](v395);
+    v15 = v439;
+    v396 = v14;
+    v439[67] = v14;
+    isTargetedUpdateScheduledForAutoInstall = [v15[85] isTargetedUpdateScheduledForAutoInstall];
+    v528 = isTargetedUpdateScheduledForAutoInstall;
     if (isTargetedUpdateScheduledForAutoInstall)
     {
-      v17 = @"YES";
+      v16 = @"YES";
     }
 
     else
     {
-      v17 = @"NO";
+      v16 = @"NO";
     }
 
-    v397 = v17;
-    v18 = v17;
-    v394 = v397;
-    v19 = MEMORY[0x277D82BE0](v394);
-    v20 = v442;
-    v395 = v19;
-    v442[66] = v19;
-    hidingPreferredDescriptor = [v20[85] hidingPreferredDescriptor];
-    v530 = hidingPreferredDescriptor;
+    v394 = v16;
+    v17 = v16;
+    v391 = v394;
+    v18 = MEMORY[0x277D82BE0](v391);
+    v19 = v439;
+    v392 = v18;
+    v439[66] = v18;
+    hidingPreferredDescriptor = [v19[85] hidingPreferredDescriptor];
+    v527 = hidingPreferredDescriptor;
     if (hidingPreferredDescriptor)
     {
-      v21 = @"YES";
+      v20 = @"YES";
     }
 
     else
     {
-      v21 = @"NO";
+      v20 = @"NO";
     }
 
-    v393 = v21;
-    v22 = v21;
-    v390 = v393;
-    v23 = MEMORY[0x277D82BE0](v390);
-    v24 = v442;
-    v391 = v23;
-    v442[65] = v23;
-    hiddenPreferredStatefulDescriptor = [v24[85] hiddenPreferredStatefulDescriptor];
-    v388 = hiddenPreferredStatefulDescriptor;
-    updateName2 = [v388 updateName];
-    v385 = updateName2;
-    v25 = MEMORY[0x277D82BE0](v385);
-    v26 = v442;
-    v386 = v25;
-    v442[64] = v25;
-    hidingAlternateDescriptor = [v26[85] hidingAlternateDescriptor];
-    v529 = hidingAlternateDescriptor;
+    v390 = v20;
+    v21 = v20;
+    v387 = v390;
+    v22 = MEMORY[0x277D82BE0](v387);
+    v23 = v439;
+    v388 = v22;
+    v439[65] = v22;
+    hiddenPreferredStatefulDescriptor = [v23[85] hiddenPreferredStatefulDescriptor];
+    v385 = hiddenPreferredStatefulDescriptor;
+    updateName2 = [v385 updateName];
+    v382 = updateName2;
+    v24 = MEMORY[0x277D82BE0](v382);
+    v25 = v439;
+    v383 = v24;
+    v439[64] = v24;
+    hidingAlternateDescriptor = [v25[85] hidingAlternateDescriptor];
+    v526 = hidingAlternateDescriptor;
     if (hidingAlternateDescriptor)
     {
-      v27 = @"YES";
+      v26 = @"YES";
     }
 
     else
     {
-      v27 = @"NO";
+      v26 = @"NO";
     }
 
-    v384 = v27;
-    v28 = v27;
-    v381 = v384;
-    v29 = MEMORY[0x277D82BE0](v381);
-    v30 = v442;
-    v382 = v29;
-    v442[63] = v29;
-    hiddenAlternateStatefulDescriptor = [v30[85] hiddenAlternateStatefulDescriptor];
-    v379 = hiddenAlternateStatefulDescriptor;
-    updateName3 = [v379 updateName];
-    v376 = updateName3;
-    v31 = MEMORY[0x277D82BE0](v376);
-    v32 = v442;
-    v377 = v31;
-    v442[62] = v31;
-    enrolledBetaProgram = [v32[85] enrolledBetaProgram];
-    v375 = enrolledBetaProgram;
-    v502 = 0;
-    if (v375)
+    v381 = v26;
+    v27 = v26;
+    v378 = v381;
+    v28 = MEMORY[0x277D82BE0](v378);
+    v29 = v439;
+    v379 = v28;
+    v439[63] = v28;
+    hiddenAlternateStatefulDescriptor = [v29[85] hiddenAlternateStatefulDescriptor];
+    v376 = hiddenAlternateStatefulDescriptor;
+    updateName3 = [v376 updateName];
+    v373 = updateName3;
+    v30 = MEMORY[0x277D82BE0](v373);
+    v31 = v439;
+    v374 = v30;
+    v439[62] = v30;
+    enrolledBetaProgram = [v31[85] enrolledBetaProgram];
+    v372 = enrolledBetaProgram;
+    v499 = 0;
+    if (v372)
     {
-      enrolledBetaProgram2 = [v442[85] enrolledBetaProgram];
-      v33 = enrolledBetaProgram2;
-      v442[61] = v33;
-      v502 = 1;
-      programID = [v33 programID];
-      v372 = programID;
+      enrolledBetaProgram2 = [v439[85] enrolledBetaProgram];
+      v32 = enrolledBetaProgram2;
+      v439[61] = v32;
+      v499 = 1;
+      programID = [v32 programID];
+      v369 = programID;
     }
 
     else
     {
-      v372 = 0;
+      v369 = 0;
     }
 
-    v370 = v372;
-    v371 = [*(v442[85] + 15) count];
-    canEnrollInBetaUpdates = [v442[85] canEnrollInBetaUpdates];
-    v528 = canEnrollInBetaUpdates;
+    v367 = v369;
+    v368 = [*(v439[85] + 15) count];
+    canEnrollInBetaUpdates = [v439[85] canEnrollInBetaUpdates];
+    v525 = canEnrollInBetaUpdates;
     if (canEnrollInBetaUpdates)
     {
-      v34 = @"YES";
+      v33 = @"YES";
     }
 
     else
     {
-      v34 = @"NO";
+      v33 = @"NO";
     }
 
-    v368 = v34;
-    v35 = v34;
-    v362 = v368;
-    v36 = MEMORY[0x277D82BE0](v362);
-    v37 = v442;
-    v363 = v36;
-    v442[59] = v36;
-    v364 = *(v37[85] + 21);
-    v365 = *(v37[85] + 22);
-    v366 = *(v37[85] + 23);
-    v367 = [*(v37[85] + 24) count];
-    identifier = [v442[82] identifier];
-    v360 = identifier;
-    v38 = v442[82];
-    v358 = &v140;
-    buf = v534;
-    __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v534, v443, v436, v431, v428, currentState, v419, v417, v415, v413, v411, v404, v402, v399, v395, v391, v386, v382, v377, v370, v371, v363, v364, v365, v366, v367, v360, v38);
-    _os_log_impl(&dword_26ADE5000, log, v435[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform a full-scan with ID: %{public}@.\nResults: %{public}@", buf, 0x110u);
-    MEMORY[0x277D82BD8](v360);
-    MEMORY[0x277D82BD8](v362);
-    if (v502)
+    v365 = v33;
+    v34 = v33;
+    v359 = v365;
+    v35 = MEMORY[0x277D82BE0](v359);
+    v36 = v439;
+    v360 = v35;
+    v439[59] = v35;
+    v361 = *(v36[85] + 21);
+    v362 = *(v36[85] + 22);
+    v363 = *(v36[85] + 23);
+    v364 = [*(v36[85] + 24) count];
+    identifier = [v439[82] identifier];
+    v357 = identifier;
+    v37 = v439[82];
+    v355 = &v137;
+    buf = v531;
+    __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v531, v440, v433, v428, v425, currentState, v416, v414, v412, v410, v408, v401, v399, v396, v392, v388, v383, v379, v374, v367, v368, v360, v361, v362, v363, v364, v357, v37);
+    _os_log_impl(&dword_26ADE5000, log, v432[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform a full-scan with ID: %{public}@.\nResults: %{public}@", buf, 0x110u);
+    MEMORY[0x277D82BD8](v357);
+    MEMORY[0x277D82BD8](v359);
+    if (v499)
     {
-      MEMORY[0x277D82BD8](v442[61]);
+      MEMORY[0x277D82BD8](v439[61]);
     }
 
-    MEMORY[0x277D82BD8](v375);
+    MEMORY[0x277D82BD8](v372);
+    MEMORY[0x277D82BD8](v373);
     MEMORY[0x277D82BD8](v376);
-    MEMORY[0x277D82BD8](v379);
-    MEMORY[0x277D82BD8](v381);
+    MEMORY[0x277D82BD8](v378);
+    MEMORY[0x277D82BD8](v382);
     MEMORY[0x277D82BD8](v385);
-    MEMORY[0x277D82BD8](v388);
-    MEMORY[0x277D82BD8](v390);
-    MEMORY[0x277D82BD8](v394);
-    MEMORY[0x277D82BD8](v398);
-    MEMORY[0x277D82BD8](v402);
+    MEMORY[0x277D82BD8](v387);
+    MEMORY[0x277D82BD8](v391);
+    MEMORY[0x277D82BD8](v395);
+    MEMORY[0x277D82BD8](v399);
+    if (v506)
+    {
+      MEMORY[0x277D82BD8](v439[69]);
+    }
+
+    if (v507)
+    {
+      MEMORY[0x277D82BD8](v439[71]);
+    }
+
+    if (v508)
+    {
+      MEMORY[0x277D82BD8](v439[73]);
+    }
+
+    MEMORY[0x277D82BD8](v407);
+    MEMORY[0x277D82BD8](v408);
+    MEMORY[0x277D82BD8](v410);
+    MEMORY[0x277D82BD8](v412);
+    MEMORY[0x277D82BD8](v414);
     if (v509)
     {
-      MEMORY[0x277D82BD8](v442[69]);
+      MEMORY[0x277D82BD8](v439[75]);
     }
 
     if (v510)
     {
-      MEMORY[0x277D82BD8](v442[71]);
+      MEMORY[0x277D82BD8](v439[77]);
     }
 
-    if (v511)
-    {
-      MEMORY[0x277D82BD8](v442[73]);
-    }
-
-    MEMORY[0x277D82BD8](v410);
-    MEMORY[0x277D82BD8](v411);
-    MEMORY[0x277D82BD8](v413);
-    MEMORY[0x277D82BD8](v415);
-    MEMORY[0x277D82BD8](v417);
-    if (v512)
-    {
-      MEMORY[0x277D82BD8](v442[75]);
-    }
-
-    if (v513)
-    {
-      MEMORY[0x277D82BD8](v442[77]);
-    }
-
-    MEMORY[0x277D82BD8](v425);
+    MEMORY[0x277D82BD8](v422);
+    MEMORY[0x277D82BD8](v424);
     MEMORY[0x277D82BD8](v427);
-    MEMORY[0x277D82BD8](v430);
+    objc_storeStrong(&v498, 0);
+    objc_storeStrong(&v500, 0);
     objc_storeStrong(&v501, 0);
+    objc_storeStrong(&v502, 0);
     objc_storeStrong(&v503, 0);
     objc_storeStrong(&v504, 0);
     objc_storeStrong(&v505, 0);
-    objc_storeStrong(&v506, 0);
-    objc_storeStrong(&v507, 0);
-    objc_storeStrong(&v508, 0);
-    objc_storeStrong(&v514, 0);
-    objc_storeStrong(&v515, 0);
+    objc_storeStrong(&v511, 0);
+    objc_storeStrong(&v512, 0);
   }
 
-  objc_storeStrong(&v517, 0);
-  objc_initWeak(&from, v442[85]);
-  preferredStatefulDescriptor2 = [v442[85] preferredStatefulDescriptor];
-  v39 = preferredStatefulDescriptor2;
-  v40 = v442;
-  v442[57] = v39;
-  alternateStatefulDescriptor2 = [v40[85] alternateStatefulDescriptor];
-  v41 = alternateStatefulDescriptor2;
-  v42 = v442;
-  v442[54] = v41;
-  currentUpdateOperation = [v42[85] currentUpdateOperation];
-  v43 = currentUpdateOperation;
-  v44 = v442;
-  v442[53] = v43;
-  scanError2 = [v44[85] scanError];
-  v45 = scanError2;
-  v46 = v442;
-  v442[52] = v45;
-  if (v46[53])
+  objc_storeStrong(&v514, 0);
+  objc_initWeak(&from, v439[85]);
+  preferredStatefulDescriptor2 = [v439[85] preferredStatefulDescriptor];
+  v38 = preferredStatefulDescriptor2;
+  v39 = v439;
+  v439[57] = v38;
+  alternateStatefulDescriptor2 = [v39[85] alternateStatefulDescriptor];
+  v40 = alternateStatefulDescriptor2;
+  v41 = v439;
+  v439[54] = v40;
+  currentUpdateOperation = [v41[85] currentUpdateOperation];
+  v42 = currentUpdateOperation;
+  v43 = v439;
+  v439[53] = v42;
+  scanError2 = [v43[85] scanError];
+  v44 = scanError2;
+  v45 = v439;
+  v439[52] = v44;
+  if (v45[53])
   {
-    v47 = v442[82];
-    v495 = 0;
-    isEmptyScanResults = [v47 isEmptyScanResults];
-    v352 = 0;
+    v46 = v439[82];
+    v492 = 0;
+    isEmptyScanResults = [v46 isEmptyScanResults];
+    v349 = 0;
     if (isEmptyScanResults)
     {
-      currentDownload4 = [v442[82] currentDownload];
-      v48 = currentDownload4;
-      v442[51] = v48;
-      v495 = 1;
-      v352 = v48 == 0;
+      currentDownload4 = [v439[82] currentDownload];
+      v47 = currentDownload4;
+      v439[51] = v47;
+      v492 = 1;
+      v349 = v47 == 0;
     }
 
-    v350 = v352;
-    if (v495)
+    v347 = v349;
+    if (v492)
     {
-      MEMORY[0x277D82BD8](v442[51]);
+      MEMORY[0x277D82BD8](v439[51]);
     }
 
-    if (v350)
+    if (v347)
     {
-      v349 = +[SUUILoggingContext statefulUILogger];
-      v347 = v349;
-      oslog2 = [v347 oslog];
-      v49 = oslog2;
-      v50 = v347;
-      v442[49] = v49;
-      MEMORY[0x277D82BD8](v50);
-      v493 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v442[49], OS_LOG_TYPE_DEFAULT))
+      v346 = +[SUUILoggingContext statefulUILogger];
+      v344 = v346;
+      oslog2 = [v344 oslog];
+      v48 = oslog2;
+      v49 = v344;
+      v439[49] = v48;
+      MEMORY[0x277D82BD8](v49);
+      v490 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v439[49], OS_LOG_TYPE_DEFAULT))
       {
-        v343 = v442[49];
-        *v344 = v493;
-        v345 = v442[85];
-        v51 = v442[85];
-        v346 = objc_opt_class();
-        v342 = NSStringFromClass(v346);
-        v339 = v342;
-        v52 = MEMORY[0x277D82BE0](v339);
-        v53 = v442;
-        v340 = v52;
-        v442[47] = v52;
-        v341 = SUUIStatefulUIStateToString(*(v53[85] + 5));
-        v336 = v341;
-        v54 = MEMORY[0x277D82BE0](v336);
-        v55 = v442;
-        v337 = v54;
-        v442[46] = v54;
-        currentState2 = [v55[85] currentState];
-        v56 = v442[85];
-        v490 = 0;
-        v489 = 0;
-        delegate4 = [v56 delegate];
-        v334 = delegate4;
-        if (v334)
-        {
-          delegate5 = [v442[85] delegate];
-          v57 = delegate5;
-          v442[45] = v57;
-          v490 = 1;
-          v332 = objc_opt_class();
-          v331 = NSStringFromClass(v332);
-          v58 = v331;
-          v442[43] = v58;
-          v489 = 1;
-          v330 = v58;
-        }
-
-        else
-        {
-          v330 = @"(null)";
-        }
-
-        v328 = v330;
-        delegate6 = [v442[85] delegate];
-        v326 = delegate6;
-        scanError3 = [v442[85] scanError];
-        v324 = scanError3;
-        preferredStatefulDescriptor3 = [v442[85] preferredStatefulDescriptor];
-        v322 = preferredStatefulDescriptor3;
-        alternateStatefulDescriptor3 = [v442[85] alternateStatefulDescriptor];
-        v320 = alternateStatefulDescriptor3;
-        v59 = v442[85];
-        v488 = 0;
+        v340 = v439[49];
+        *v341 = v490;
+        v342 = v439[85];
+        v343 = objc_opt_class();
+        v339 = NSStringFromClass(v343);
+        v336 = v339;
+        v50 = MEMORY[0x277D82BE0](v336);
+        v51 = v439;
+        v337 = v50;
+        v439[47] = v50;
+        v338 = SUUIStatefulUIStateToString(*(v51[85] + 5));
+        v333 = v338;
+        v52 = MEMORY[0x277D82BE0](v333);
+        v53 = v439;
+        v334 = v52;
+        v439[46] = v52;
+        currentState2 = [v53[85] currentState];
+        v54 = v439[85];
         v487 = 0;
         v486 = 0;
-        currentDownload5 = [v59 currentDownload];
-        v319 = currentDownload5;
-        if (v319)
+        delegate4 = [v54 delegate];
+        v331 = delegate4;
+        if (v331)
         {
-          currentDownload6 = [v442[85] currentDownload];
-          v60 = currentDownload6;
-          v442[41] = v60;
-          v488 = 1;
-          descriptor2 = [v60 descriptor];
-          v61 = descriptor2;
-          v442[39] = v61;
+          delegate5 = [v439[85] delegate];
+          v55 = delegate5;
+          v439[45] = v55;
           v487 = 1;
-          updateName4 = [v61 updateName];
-          v62 = updateName4;
-          v442[37] = v62;
+          v329 = objc_opt_class();
+          v328 = NSStringFromClass(v329);
+          v56 = v328;
+          v439[43] = v56;
           v486 = 1;
-          v315 = v62;
+          v327 = v56;
         }
 
         else
         {
-          v315 = @"(null)";
+          v327 = @"(null)";
         }
 
-        v313 = v315;
-        currentDownload7 = [v442[85] currentDownload];
-        v311 = currentDownload7;
-        currentUpdateOperationType2 = [v442[85] currentUpdateOperationType];
-        v310 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType2);
-        v307 = v310;
-        v63 = MEMORY[0x277D82BE0](v307);
-        v64 = v442;
-        v308 = v63;
-        v442[35] = v63;
-        isTargetedUpdateScheduledForAutoInstall2 = [v64[85] isTargetedUpdateScheduledForAutoInstall];
-        v527 = isTargetedUpdateScheduledForAutoInstall2;
+        v325 = v327;
+        delegate6 = [v439[85] delegate];
+        v323 = delegate6;
+        scanError3 = [v439[85] scanError];
+        v321 = scanError3;
+        preferredStatefulDescriptor3 = [v439[85] preferredStatefulDescriptor];
+        v319 = preferredStatefulDescriptor3;
+        alternateStatefulDescriptor3 = [v439[85] alternateStatefulDescriptor];
+        v317 = alternateStatefulDescriptor3;
+        v57 = v439[85];
+        v485 = 0;
+        v484 = 0;
+        v483 = 0;
+        currentDownload5 = [v57 currentDownload];
+        v316 = currentDownload5;
+        if (v316)
+        {
+          currentDownload6 = [v439[85] currentDownload];
+          v58 = currentDownload6;
+          v439[41] = v58;
+          v485 = 1;
+          descriptor2 = [v58 descriptor];
+          v59 = descriptor2;
+          v439[39] = v59;
+          v484 = 1;
+          updateName4 = [v59 updateName];
+          v60 = updateName4;
+          v439[37] = v60;
+          v483 = 1;
+          v312 = v60;
+        }
+
+        else
+        {
+          v312 = @"(null)";
+        }
+
+        v310 = v312;
+        currentDownload7 = [v439[85] currentDownload];
+        v308 = currentDownload7;
+        currentUpdateOperationType2 = [v439[85] currentUpdateOperationType];
+        v307 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType2);
+        v304 = v307;
+        v61 = MEMORY[0x277D82BE0](v304);
+        v62 = v439;
+        v305 = v61;
+        v439[35] = v61;
+        isTargetedUpdateScheduledForAutoInstall2 = [v62[85] isTargetedUpdateScheduledForAutoInstall];
+        v524 = isTargetedUpdateScheduledForAutoInstall2;
         if (isTargetedUpdateScheduledForAutoInstall2)
         {
-          v65 = @"YES";
+          v63 = @"YES";
         }
 
         else
         {
-          v65 = @"NO";
+          v63 = @"NO";
         }
 
-        v306 = v65;
-        v66 = v65;
-        v303 = v306;
-        v67 = MEMORY[0x277D82BE0](v303);
-        v68 = v442;
-        v304 = v67;
-        v442[34] = v67;
-        hidingPreferredDescriptor2 = [v68[85] hidingPreferredDescriptor];
-        v526 = hidingPreferredDescriptor2;
+        v303 = v63;
+        v64 = v63;
+        v300 = v303;
+        v65 = MEMORY[0x277D82BE0](v300);
+        v66 = v439;
+        v301 = v65;
+        v439[34] = v65;
+        hidingPreferredDescriptor2 = [v66[85] hidingPreferredDescriptor];
+        v523 = hidingPreferredDescriptor2;
         if (hidingPreferredDescriptor2)
         {
-          v69 = @"YES";
+          v67 = @"YES";
         }
 
         else
         {
-          v69 = @"NO";
+          v67 = @"NO";
         }
 
-        v302 = v69;
-        v70 = v69;
-        v299 = v302;
-        v71 = MEMORY[0x277D82BE0](v299);
-        v72 = v442;
-        v300 = v71;
-        v442[33] = v71;
-        hiddenPreferredStatefulDescriptor2 = [v72[85] hiddenPreferredStatefulDescriptor];
-        v297 = hiddenPreferredStatefulDescriptor2;
-        updateName5 = [v297 updateName];
-        v294 = updateName5;
-        v73 = MEMORY[0x277D82BE0](v294);
-        v74 = v442;
-        v295 = v73;
-        v442[32] = v73;
-        hidingAlternateDescriptor2 = [v74[85] hidingAlternateDescriptor];
-        v525 = hidingAlternateDescriptor2;
+        v299 = v67;
+        v68 = v67;
+        v296 = v299;
+        v69 = MEMORY[0x277D82BE0](v296);
+        v70 = v439;
+        v297 = v69;
+        v439[33] = v69;
+        hiddenPreferredStatefulDescriptor2 = [v70[85] hiddenPreferredStatefulDescriptor];
+        v294 = hiddenPreferredStatefulDescriptor2;
+        updateName5 = [v294 updateName];
+        v291 = updateName5;
+        v71 = MEMORY[0x277D82BE0](v291);
+        v72 = v439;
+        v292 = v71;
+        v439[32] = v71;
+        hidingAlternateDescriptor2 = [v72[85] hidingAlternateDescriptor];
+        v522 = hidingAlternateDescriptor2;
         if (hidingAlternateDescriptor2)
         {
-          v75 = @"YES";
+          v73 = @"YES";
         }
 
         else
         {
-          v75 = @"NO";
+          v73 = @"NO";
         }
 
-        v293 = v75;
-        v76 = v75;
-        v290 = v293;
-        v77 = MEMORY[0x277D82BE0](v290);
-        v78 = v442;
-        v291 = v77;
-        v442[31] = v77;
-        hiddenAlternateStatefulDescriptor2 = [v78[85] hiddenAlternateStatefulDescriptor];
-        v288 = hiddenAlternateStatefulDescriptor2;
-        updateName6 = [v288 updateName];
-        v285 = updateName6;
-        v79 = MEMORY[0x277D82BE0](v285);
-        v80 = v442;
-        v286 = v79;
-        v442[30] = v79;
-        v81 = v80[85];
-        v479 = 0;
-        enrolledBetaProgram3 = [v81 enrolledBetaProgram];
-        v284 = enrolledBetaProgram3;
-        if (v284)
+        v290 = v73;
+        v74 = v73;
+        v287 = v290;
+        v75 = MEMORY[0x277D82BE0](v287);
+        v76 = v439;
+        v288 = v75;
+        v439[31] = v75;
+        hiddenAlternateStatefulDescriptor2 = [v76[85] hiddenAlternateStatefulDescriptor];
+        v285 = hiddenAlternateStatefulDescriptor2;
+        updateName6 = [v285 updateName];
+        v282 = updateName6;
+        v77 = MEMORY[0x277D82BE0](v282);
+        v78 = v439;
+        v283 = v77;
+        v439[30] = v77;
+        v79 = v78[85];
+        v476 = 0;
+        enrolledBetaProgram3 = [v79 enrolledBetaProgram];
+        v281 = enrolledBetaProgram3;
+        if (v281)
         {
-          enrolledBetaProgram4 = [v442[85] enrolledBetaProgram];
-          v82 = enrolledBetaProgram4;
-          v442[29] = v82;
-          v479 = 1;
-          programID2 = [v82 programID];
-          v281 = programID2;
+          enrolledBetaProgram4 = [v439[85] enrolledBetaProgram];
+          v80 = enrolledBetaProgram4;
+          v439[29] = v80;
+          v476 = 1;
+          programID2 = [v80 programID];
+          v278 = programID2;
         }
 
         else
         {
-          v281 = 0;
+          v278 = 0;
         }
 
-        v279 = v281;
-        v280 = [*(v442[85] + 15) count];
-        canEnrollInBetaUpdates2 = [v442[85] canEnrollInBetaUpdates];
-        v524 = canEnrollInBetaUpdates2;
+        v276 = v278;
+        v277 = [*(v439[85] + 15) count];
+        canEnrollInBetaUpdates2 = [v439[85] canEnrollInBetaUpdates];
+        v521 = canEnrollInBetaUpdates2;
         if (canEnrollInBetaUpdates2)
         {
-          v83 = @"YES";
+          v81 = @"YES";
         }
 
         else
         {
-          v83 = @"NO";
+          v81 = @"NO";
         }
 
-        v277 = v83;
-        v84 = v83;
-        v271 = v277;
-        v85 = MEMORY[0x277D82BE0](v271);
-        v86 = v442;
-        v272 = v85;
-        v442[27] = v85;
-        v273 = *(v86[85] + 21);
-        v274 = *(v86[85] + 22);
-        v275 = *(v86[85] + 23);
-        v276 = [*(v86[85] + 24) count];
-        v269 = &v140;
-        v270 = v533;
-        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v533, v443, v345, v340, v337, currentState2, v328, v326, v324, v322, v320, v313, v311, v308, v304, v300, v295, v291, v286, v279, v280, v272, v273, v274, v275, v276);
-        _os_log_impl(&dword_26ADE5000, v343, v344[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe full scan yielded empty scan results - cancelling the currently active update operation", v270, 0xFCu);
-        MEMORY[0x277D82BD8](v271);
-        if (v479)
+        v274 = v81;
+        v82 = v81;
+        v268 = v274;
+        v83 = MEMORY[0x277D82BE0](v268);
+        v84 = v439;
+        v269 = v83;
+        v439[27] = v83;
+        v270 = *(v84[85] + 21);
+        v271 = *(v84[85] + 22);
+        v272 = *(v84[85] + 23);
+        v273 = [*(v84[85] + 24) count];
+        v266 = &v137;
+        v267 = v530;
+        __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v530, v440, v342, v337, v334, currentState2, v325, v323, v321, v319, v317, v310, v308, v305, v301, v297, v292, v288, v283, v276, v277, v269, v270, v271, v272, v273);
+        _os_log_impl(&dword_26ADE5000, v340, v341[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe full scan yielded empty scan results - cancelling the currently active update operation", v267, 0xFCu);
+        MEMORY[0x277D82BD8](v268);
+        if (v476)
         {
-          MEMORY[0x277D82BD8](v442[29]);
+          MEMORY[0x277D82BD8](v439[29]);
         }
 
-        MEMORY[0x277D82BD8](v284);
+        MEMORY[0x277D82BD8](v281);
+        MEMORY[0x277D82BD8](v282);
         MEMORY[0x277D82BD8](v285);
-        MEMORY[0x277D82BD8](v288);
-        MEMORY[0x277D82BD8](v290);
+        MEMORY[0x277D82BD8](v287);
+        MEMORY[0x277D82BD8](v291);
         MEMORY[0x277D82BD8](v294);
-        MEMORY[0x277D82BD8](v297);
-        MEMORY[0x277D82BD8](v299);
-        MEMORY[0x277D82BD8](v303);
-        MEMORY[0x277D82BD8](v307);
-        MEMORY[0x277D82BD8](v311);
+        MEMORY[0x277D82BD8](v296);
+        MEMORY[0x277D82BD8](v300);
+        MEMORY[0x277D82BD8](v304);
+        MEMORY[0x277D82BD8](v308);
+        if (v483)
+        {
+          MEMORY[0x277D82BD8](v439[37]);
+        }
+
+        if (v484)
+        {
+          MEMORY[0x277D82BD8](v439[39]);
+        }
+
+        if (v485)
+        {
+          MEMORY[0x277D82BD8](v439[41]);
+        }
+
+        MEMORY[0x277D82BD8](v316);
+        MEMORY[0x277D82BD8](v317);
+        MEMORY[0x277D82BD8](v319);
+        MEMORY[0x277D82BD8](v321);
+        MEMORY[0x277D82BD8](v323);
         if (v486)
         {
-          MEMORY[0x277D82BD8](v442[37]);
+          MEMORY[0x277D82BD8](v439[43]);
         }
 
         if (v487)
         {
-          MEMORY[0x277D82BD8](v442[39]);
+          MEMORY[0x277D82BD8](v439[45]);
         }
 
-        if (v488)
-        {
-          MEMORY[0x277D82BD8](v442[41]);
-        }
-
-        MEMORY[0x277D82BD8](v319);
-        MEMORY[0x277D82BD8](v320);
-        MEMORY[0x277D82BD8](v322);
-        MEMORY[0x277D82BD8](v324);
-        MEMORY[0x277D82BD8](v326);
-        if (v489)
-        {
-          MEMORY[0x277D82BD8](v442[43]);
-        }
-
-        if (v490)
-        {
-          MEMORY[0x277D82BD8](v442[45]);
-        }
-
-        MEMORY[0x277D82BD8](v334);
+        MEMORY[0x277D82BD8](v331);
+        MEMORY[0x277D82BD8](v333);
         MEMORY[0x277D82BD8](v336);
-        MEMORY[0x277D82BD8](v339);
+        objc_storeStrong(&v475, 0);
+        objc_storeStrong(&v477, 0);
         objc_storeStrong(&v478, 0);
+        objc_storeStrong(&v479, 0);
         objc_storeStrong(&v480, 0);
         objc_storeStrong(&v481, 0);
         objc_storeStrong(&v482, 0);
-        objc_storeStrong(&v483, 0);
-        objc_storeStrong(&v484, 0);
-        objc_storeStrong(&v485, 0);
-        objc_storeStrong(&v491, 0);
-        objc_storeStrong(&v492, 0);
+        objc_storeStrong(&v488, 0);
+        objc_storeStrong(&v489, 0);
       }
 
-      objc_storeStrong(&v494, 0);
-      v87 = v442;
-      v267 = v442[53];
-      v442[21] = MEMORY[0x277D85DD0];
-      v475 = -1073741824;
-      v476 = 0;
-      v87[23] = __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke;
-      v87[24] = &unk_279CC6610;
-      v268 = v477;
-      objc_copyWeak(v477, &from);
-      v88 = v267;
-      v442[26] = v442[84];
-      [v88 cancel:v474];
-      objc_destroyWeak(v268);
+      objc_storeStrong(&v491, 0);
+      v85 = v439;
+      v264 = v439[53];
+      v439[21] = MEMORY[0x277D85DD0];
+      v472 = -1073741824;
+      v473 = 0;
+      v85[23] = __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke;
+      v85[24] = &unk_279CC6610;
+      v265 = v474;
+      objc_copyWeak(v474, &from);
+      v86 = v264;
+      v439[26] = v439[84];
+      [v86 cancel:v471];
+      objc_destroyWeak(v265);
     }
 
     else
     {
-      v265 = v442[57];
-      v89 = v442[82];
-      v473 = 0;
-      v472 = 0;
-      v471 = 0;
-      preferredDescriptor = [v89 preferredDescriptor];
-      v263 = preferredDescriptor;
-      v264 = [v265 isEqualToDescriptor:? includeDocumentationComparison:?];
-      if (v264)
+      v262 = v439[57];
+      v87 = v439[82];
+      v470 = 0;
+      v469 = 0;
+      v468 = 0;
+      preferredDescriptor = [v87 preferredDescriptor];
+      v260 = preferredDescriptor;
+      v261 = [v262 isEqualToDescriptor:? includeDocumentationComparison:?];
+      if (v261 & 1) != 0 || (v258 = v439[57], v259 = [v439[82] alternateDescriptor], v88 = v259, v89 = v258, v439[20] = v88, v470 = 1, v257 = objc_msgSend(v89, "isEqualToDescriptor:includeDocumentationComparison:"), v256 = 1, (v257))
       {
-        goto LABEL_80;
-      }
-
-      v261 = v442[57];
-      alternateDescriptor = [v442[82] alternateDescriptor];
-      v90 = alternateDescriptor;
-      v91 = v261;
-      v442[20] = v90;
-      v473 = 1;
-      v260 = [v91 isEqualToDescriptor:? includeDocumentationComparison:?];
-      v259 = 1;
-      if (v260)
-      {
-LABEL_80:
-        v257 = v442[54];
-        preferredDescriptor2 = [v442[82] preferredDescriptor];
-        v92 = preferredDescriptor2;
-        v93 = v257;
-        v442[18] = v92;
-        v472 = 1;
-        v256 = [v93 isEqualToDescriptor:? includeDocumentationComparison:?];
-        v255 = 0;
-        if ((v256 & 1) == 0)
+        v254 = v439[54];
+        preferredDescriptor2 = [v439[82] preferredDescriptor];
+        v90 = preferredDescriptor2;
+        v91 = v254;
+        v439[18] = v90;
+        v469 = 1;
+        v253 = [v91 isEqualToDescriptor:? includeDocumentationComparison:?];
+        v252 = 0;
+        if ((v253 & 1) == 0)
         {
-          v253 = v442[54];
-          alternateDescriptor2 = [v442[82] alternateDescriptor];
-          v94 = alternateDescriptor2;
-          v95 = v253;
-          v442[16] = v94;
-          v471 = 1;
-          v252 = [v95 isEqualToDescriptor:? includeDocumentationComparison:?];
-          v255 = v252 ^ 1;
+          v250 = v439[54];
+          alternateDescriptor = [v439[82] alternateDescriptor];
+          v92 = alternateDescriptor;
+          v93 = v250;
+          v439[16] = v92;
+          v468 = 1;
+          v249 = [v93 isEqualToDescriptor:? includeDocumentationComparison:?];
+          v252 = v249 ^ 1;
         }
 
-        v259 = v255;
+        v256 = v252;
       }
 
-      v251 = v259;
-      if (v471)
+      v248 = v256;
+      if (v468)
       {
-        MEMORY[0x277D82BD8](v442[16]);
+        MEMORY[0x277D82BD8](v439[16]);
       }
 
-      if (v472)
+      if (v469)
       {
-        MEMORY[0x277D82BD8](v442[18]);
+        MEMORY[0x277D82BD8](v439[18]);
       }
 
-      if (v473)
+      if (v470)
       {
-        MEMORY[0x277D82BD8](v442[20]);
+        MEMORY[0x277D82BD8](v439[20]);
       }
 
-      MEMORY[0x277D82BD8](v263);
-      if (v251)
+      MEMORY[0x277D82BD8](v260);
+      if (v248)
       {
-        v250 = +[SUUILoggingContext statefulUILogger];
-        v248 = v250;
-        oslog3 = [v248 oslog];
-        v96 = oslog3;
-        v97 = v248;
-        v442[14] = v96;
-        MEMORY[0x277D82BD8](v97);
-        v469 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v442[14], OS_LOG_TYPE_DEFAULT))
+        v247 = +[SUUILoggingContext statefulUILogger];
+        v245 = v247;
+        oslog3 = [v245 oslog];
+        v94 = oslog3;
+        v95 = v245;
+        v439[14] = v94;
+        MEMORY[0x277D82BD8](v95);
+        v466 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v439[14], OS_LOG_TYPE_DEFAULT))
         {
-          v244 = v442[14];
-          *v245 = v469;
-          v246 = v442[85];
-          v98 = v442[85];
-          v247 = objc_opt_class();
-          v243 = NSStringFromClass(v247);
-          v240 = v243;
-          v99 = MEMORY[0x277D82BE0](v240);
-          v100 = v442;
-          v241 = v99;
-          v442[12] = v99;
-          v242 = SUUIStatefulUIStateToString(*(v100[85] + 5));
-          v237 = v242;
-          v101 = MEMORY[0x277D82BE0](v237);
-          v102 = v442;
-          v238 = v101;
-          v442[11] = v101;
-          currentState3 = [v102[85] currentState];
-          v103 = v442[85];
-          v466 = 0;
-          v465 = 0;
-          delegate7 = [v103 delegate];
-          v235 = delegate7;
-          if (v235)
-          {
-            delegate8 = [v442[85] delegate];
-            v104 = delegate8;
-            v442[10] = v104;
-            v466 = 1;
-            v233 = objc_opt_class();
-            v232 = NSStringFromClass(v233);
-            v105 = v232;
-            v442[8] = v105;
-            v465 = 1;
-            v231 = v105;
-          }
-
-          else
-          {
-            v231 = @"(null)";
-          }
-
-          v229 = v231;
-          delegate9 = [v442[85] delegate];
-          v227 = delegate9;
-          scanError4 = [v442[85] scanError];
-          v225 = scanError4;
-          preferredStatefulDescriptor4 = [v442[85] preferredStatefulDescriptor];
-          v223 = preferredStatefulDescriptor4;
-          alternateStatefulDescriptor4 = [v442[85] alternateStatefulDescriptor];
-          v221 = alternateStatefulDescriptor4;
-          v106 = v442[85];
-          v464 = 0;
+          v241 = v439[14];
+          *v242 = v466;
+          v243 = v439[85];
+          v244 = objc_opt_class();
+          v240 = NSStringFromClass(v244);
+          v237 = v240;
+          v96 = MEMORY[0x277D82BE0](v237);
+          v97 = v439;
+          v238 = v96;
+          v439[12] = v96;
+          v239 = SUUIStatefulUIStateToString(*(v97[85] + 5));
+          v234 = v239;
+          v98 = MEMORY[0x277D82BE0](v234);
+          v99 = v439;
+          v235 = v98;
+          v439[11] = v98;
+          currentState3 = [v99[85] currentState];
+          v100 = v439[85];
           v463 = 0;
           v462 = 0;
-          currentDownload8 = [v106 currentDownload];
-          v220 = currentDownload8;
-          if (v220)
+          delegate7 = [v100 delegate];
+          v232 = delegate7;
+          if (v232)
           {
-            currentDownload9 = [v442[85] currentDownload];
-            v107 = currentDownload9;
-            v442[6] = v107;
-            v464 = 1;
-            descriptor3 = [v107 descriptor];
-            v108 = descriptor3;
-            v442[4] = v108;
+            delegate8 = [v439[85] delegate];
+            v101 = delegate8;
+            v439[10] = v101;
             v463 = 1;
-            updateName7 = [v108 updateName];
-            v109 = updateName7;
-            v442[2] = v109;
+            v230 = objc_opt_class();
+            v229 = NSStringFromClass(v230);
+            v102 = v229;
+            v439[8] = v102;
             v462 = 1;
-            v216 = v109;
+            v228 = v102;
           }
 
           else
           {
-            v216 = @"(null)";
+            v228 = @"(null)";
           }
 
-          v214 = v216;
-          currentDownload10 = [v442[85] currentDownload];
-          v212 = currentDownload10;
-          currentUpdateOperationType3 = [v442[85] currentUpdateOperationType];
-          v211 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType3);
-          v208 = v211;
-          v110 = MEMORY[0x277D82BE0](v208);
-          v111 = v442;
-          v209 = v110;
-          *v442 = v110;
-          isTargetedUpdateScheduledForAutoInstall3 = [v111[85] isTargetedUpdateScheduledForAutoInstall];
-          v523 = isTargetedUpdateScheduledForAutoInstall3;
+          v226 = v228;
+          delegate9 = [v439[85] delegate];
+          v224 = delegate9;
+          scanError4 = [v439[85] scanError];
+          v222 = scanError4;
+          preferredStatefulDescriptor4 = [v439[85] preferredStatefulDescriptor];
+          v220 = preferredStatefulDescriptor4;
+          alternateStatefulDescriptor4 = [v439[85] alternateStatefulDescriptor];
+          v218 = alternateStatefulDescriptor4;
+          v103 = v439[85];
+          v461 = 0;
+          v460 = 0;
+          v459 = 0;
+          currentDownload8 = [v103 currentDownload];
+          v217 = currentDownload8;
+          if (v217)
+          {
+            currentDownload9 = [v439[85] currentDownload];
+            v104 = currentDownload9;
+            v439[6] = v104;
+            v461 = 1;
+            descriptor3 = [v104 descriptor];
+            v105 = descriptor3;
+            v439[4] = v105;
+            v460 = 1;
+            updateName7 = [v105 updateName];
+            v106 = updateName7;
+            v439[2] = v106;
+            v459 = 1;
+            v213 = v106;
+          }
+
+          else
+          {
+            v213 = @"(null)";
+          }
+
+          v211 = v213;
+          currentDownload10 = [v439[85] currentDownload];
+          v209 = currentDownload10;
+          currentUpdateOperationType3 = [v439[85] currentUpdateOperationType];
+          v208 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType3);
+          v205 = v208;
+          v107 = MEMORY[0x277D82BE0](v205);
+          v108 = v439;
+          v206 = v107;
+          *v439 = v107;
+          isTargetedUpdateScheduledForAutoInstall3 = [v108[85] isTargetedUpdateScheduledForAutoInstall];
+          v520 = isTargetedUpdateScheduledForAutoInstall3;
           if (isTargetedUpdateScheduledForAutoInstall3)
           {
-            v112 = @"YES";
+            v109 = @"YES";
           }
 
           else
           {
-            v112 = @"NO";
+            v109 = @"NO";
           }
 
-          v207 = v112;
-          v113 = v112;
-          v204 = v207;
-          v205 = MEMORY[0x277D82BE0](v204);
-          v460 = v205;
-          hidingPreferredDescriptor3 = [v442[85] hidingPreferredDescriptor];
-          v522 = hidingPreferredDescriptor3;
+          v204 = v109;
+          v110 = v109;
+          v201 = v204;
+          v202 = MEMORY[0x277D82BE0](v201);
+          v457 = v202;
+          hidingPreferredDescriptor3 = [v439[85] hidingPreferredDescriptor];
+          v519 = hidingPreferredDescriptor3;
           if (hidingPreferredDescriptor3)
           {
-            v114 = @"YES";
+            v111 = @"YES";
           }
 
           else
           {
-            v114 = @"NO";
+            v111 = @"NO";
           }
 
-          v203 = v114;
-          v115 = v114;
-          v200 = v203;
-          v201 = MEMORY[0x277D82BE0](v200);
-          v459 = v201;
-          hiddenPreferredStatefulDescriptor3 = [v442[85] hiddenPreferredStatefulDescriptor];
-          v198 = hiddenPreferredStatefulDescriptor3;
-          updateName8 = [v198 updateName];
-          v195 = updateName8;
-          v196 = MEMORY[0x277D82BE0](v195);
-          v458 = v196;
-          hidingAlternateDescriptor3 = [v442[85] hidingAlternateDescriptor];
-          v521 = hidingAlternateDescriptor3;
+          v200 = v111;
+          v112 = v111;
+          v197 = v200;
+          v198 = MEMORY[0x277D82BE0](v197);
+          v456 = v198;
+          hiddenPreferredStatefulDescriptor3 = [v439[85] hiddenPreferredStatefulDescriptor];
+          v195 = hiddenPreferredStatefulDescriptor3;
+          updateName8 = [v195 updateName];
+          v192 = updateName8;
+          v193 = MEMORY[0x277D82BE0](v192);
+          v455 = v193;
+          hidingAlternateDescriptor3 = [v439[85] hidingAlternateDescriptor];
+          v518 = hidingAlternateDescriptor3;
           if (hidingAlternateDescriptor3)
+          {
+            v113 = @"YES";
+          }
+
+          else
+          {
+            v113 = @"NO";
+          }
+
+          v191 = v113;
+          v114 = v113;
+          v188 = v191;
+          v189 = MEMORY[0x277D82BE0](v188);
+          v454 = v189;
+          hiddenAlternateStatefulDescriptor3 = [v439[85] hiddenAlternateStatefulDescriptor];
+          v186 = hiddenAlternateStatefulDescriptor3;
+          updateName9 = [v186 updateName];
+          v183 = updateName9;
+          v184 = MEMORY[0x277D82BE0](v183);
+          v453 = v184;
+          v115 = v439[85];
+          v451 = 0;
+          enrolledBetaProgram5 = [v115 enrolledBetaProgram];
+          v182 = enrolledBetaProgram5;
+          if (v182)
+          {
+            enrolledBetaProgram6 = [v439[85] enrolledBetaProgram];
+            v452 = enrolledBetaProgram6;
+            v451 = 1;
+            programID3 = [v452 programID];
+            v179 = programID3;
+          }
+
+          else
+          {
+            v179 = 0;
+          }
+
+          v177 = v179;
+          v178 = [*(v439[85] + 15) count];
+          canEnrollInBetaUpdates3 = [v439[85] canEnrollInBetaUpdates];
+          v517 = canEnrollInBetaUpdates3;
+          if (canEnrollInBetaUpdates3)
           {
             v116 = @"YES";
           }
@@ -13782,271 +13762,227 @@ LABEL_80:
             v116 = @"NO";
           }
 
-          v194 = v116;
+          v175 = v116;
           v117 = v116;
-          v191 = v194;
-          v192 = MEMORY[0x277D82BE0](v191);
-          v457 = v192;
-          hiddenAlternateStatefulDescriptor3 = [v442[85] hiddenAlternateStatefulDescriptor];
-          v189 = hiddenAlternateStatefulDescriptor3;
-          updateName9 = [v189 updateName];
-          v186 = updateName9;
-          v187 = MEMORY[0x277D82BE0](v186);
-          v456 = v187;
-          v118 = v442[85];
-          v454 = 0;
-          enrolledBetaProgram5 = [v118 enrolledBetaProgram];
-          v185 = enrolledBetaProgram5;
-          if (v185)
-          {
-            enrolledBetaProgram6 = [v442[85] enrolledBetaProgram];
-            v455 = enrolledBetaProgram6;
-            v454 = 1;
-            programID3 = [v455 programID];
-            v182 = programID3;
-          }
-
-          else
-          {
-            v182 = 0;
-          }
-
-          v180 = v182;
-          v181 = [*(v442[85] + 15) count];
-          canEnrollInBetaUpdates3 = [v442[85] canEnrollInBetaUpdates];
-          v520 = canEnrollInBetaUpdates3;
-          if (canEnrollInBetaUpdates3)
-          {
-            v119 = @"YES";
-          }
-
-          else
-          {
-            v119 = @"NO";
-          }
-
-          v178 = v119;
-          v120 = v119;
-          v172 = v178;
-          v173 = MEMORY[0x277D82BE0](v172);
-          v453 = v173;
-          v174 = *(v442[85] + 21);
-          v175 = *(v442[85] + 22);
-          v176 = *(v442[85] + 23);
-          v177 = [*(v442[85] + 24) count];
-          preferredDescriptor3 = [v442[82] preferredDescriptor];
-          v169 = preferredDescriptor3;
-          updateName10 = [v169 updateName];
-          v166 = updateName10;
-          v167 = MEMORY[0x277D82BE0](v166);
-          v452 = v167;
-          alternateDescriptor3 = [v442[82] alternateDescriptor];
-          v164 = alternateDescriptor3;
-          updateName11 = [v164 updateName];
-          v121 = v192;
-          v122 = v196;
-          v123 = v201;
-          v124 = v205;
-          v125 = v209;
-          v126 = v212;
-          v127 = v214;
-          v128 = v221;
-          v129 = v223;
-          v130 = v225;
-          v163 = updateName11;
-          v451 = MEMORY[0x277D82BE0](v163);
-          v161 = &v140;
-          v162 = v532;
-          __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v532, v443, v246, v241, v238, currentState3, v229, v227, v130, v129, v128, v127, v126, v125, v124, v123, v122, v121, v187, v180, v181, v173, v174, v175, v176, v177, v167, v451);
-          _os_log_impl(&dword_26ADE5000, v244, v245[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe full scan yielded results that are different than the previously discovered results - cancelling the currently active update operation.\n\tresults.preferredDescriptor: %{public}@\n\tresults.alternateDescriptor: %{public}@", v162, 0x110u);
+          v169 = v175;
+          v170 = MEMORY[0x277D82BE0](v169);
+          v450 = v170;
+          v171 = *(v439[85] + 21);
+          v172 = *(v439[85] + 22);
+          v173 = *(v439[85] + 23);
+          v174 = [*(v439[85] + 24) count];
+          preferredDescriptor3 = [v439[82] preferredDescriptor];
+          v166 = preferredDescriptor3;
+          updateName10 = [v166 updateName];
+          v163 = updateName10;
+          v164 = MEMORY[0x277D82BE0](v163);
+          v449 = v164;
+          alternateDescriptor2 = [v439[82] alternateDescriptor];
+          v161 = alternateDescriptor2;
+          updateName11 = [v161 updateName];
+          v118 = v189;
+          v119 = v193;
+          v120 = v198;
+          v121 = v202;
+          v122 = v206;
+          v123 = v209;
+          v124 = v211;
+          v125 = v218;
+          v126 = v220;
+          v127 = v222;
+          v160 = updateName11;
+          v448 = MEMORY[0x277D82BE0](v160);
+          v158 = &v137;
+          v159 = v529;
+          __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v529, v440, v243, v238, v235, currentState3, v226, v224, v127, v126, v125, v124, v123, v122, v121, v120, v119, v118, v184, v177, v178, v170, v171, v172, v173, v174, v164, v448);
+          _os_log_impl(&dword_26ADE5000, v241, v242[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe full scan yielded results that are different than the previously discovered results - cancelling the currently active update operation.\n\tresults.preferredDescriptor: %{public}@\n\tresults.alternateDescriptor: %{public}@", v159, 0x110u);
+          MEMORY[0x277D82BD8](v160);
+          MEMORY[0x277D82BD8](v161);
           MEMORY[0x277D82BD8](v163);
-          MEMORY[0x277D82BD8](v164);
           MEMORY[0x277D82BD8](v166);
           MEMORY[0x277D82BD8](v169);
-          MEMORY[0x277D82BD8](v172);
-          if (v454)
+          if (v451)
           {
-            MEMORY[0x277D82BD8](v455);
+            MEMORY[0x277D82BD8](v452);
           }
 
-          MEMORY[0x277D82BD8](v185);
+          MEMORY[0x277D82BD8](v182);
+          MEMORY[0x277D82BD8](v183);
           MEMORY[0x277D82BD8](v186);
-          MEMORY[0x277D82BD8](v189);
-          MEMORY[0x277D82BD8](v191);
+          MEMORY[0x277D82BD8](v188);
+          MEMORY[0x277D82BD8](v192);
           MEMORY[0x277D82BD8](v195);
-          MEMORY[0x277D82BD8](v198);
-          MEMORY[0x277D82BD8](v200);
-          MEMORY[0x277D82BD8](v204);
-          MEMORY[0x277D82BD8](v208);
-          MEMORY[0x277D82BD8](v212);
+          MEMORY[0x277D82BD8](v197);
+          MEMORY[0x277D82BD8](v201);
+          MEMORY[0x277D82BD8](v205);
+          MEMORY[0x277D82BD8](v209);
+          if (v459)
+          {
+            MEMORY[0x277D82BD8](v439[2]);
+          }
+
+          if (v460)
+          {
+            MEMORY[0x277D82BD8](v439[4]);
+          }
+
+          if (v461)
+          {
+            MEMORY[0x277D82BD8](v439[6]);
+          }
+
+          MEMORY[0x277D82BD8](v217);
+          MEMORY[0x277D82BD8](v218);
+          MEMORY[0x277D82BD8](v220);
+          MEMORY[0x277D82BD8](v222);
+          MEMORY[0x277D82BD8](v224);
           if (v462)
           {
-            MEMORY[0x277D82BD8](v442[2]);
+            MEMORY[0x277D82BD8](v439[8]);
           }
 
           if (v463)
           {
-            MEMORY[0x277D82BD8](v442[4]);
+            MEMORY[0x277D82BD8](v439[10]);
           }
 
-          if (v464)
-          {
-            MEMORY[0x277D82BD8](v442[6]);
-          }
-
-          MEMORY[0x277D82BD8](v220);
-          MEMORY[0x277D82BD8](v221);
-          MEMORY[0x277D82BD8](v223);
-          MEMORY[0x277D82BD8](v225);
-          MEMORY[0x277D82BD8](v227);
-          if (v465)
-          {
-            MEMORY[0x277D82BD8](v442[8]);
-          }
-
-          if (v466)
-          {
-            MEMORY[0x277D82BD8](v442[10]);
-          }
-
-          MEMORY[0x277D82BD8](v235);
+          MEMORY[0x277D82BD8](v232);
+          MEMORY[0x277D82BD8](v234);
           MEMORY[0x277D82BD8](v237);
-          MEMORY[0x277D82BD8](v240);
-          objc_storeStrong(&v451, 0);
-          objc_storeStrong(&v452, 0);
+          objc_storeStrong(&v448, 0);
+          objc_storeStrong(&v449, 0);
+          objc_storeStrong(&v450, 0);
           objc_storeStrong(&v453, 0);
+          objc_storeStrong(&v454, 0);
+          objc_storeStrong(&v455, 0);
           objc_storeStrong(&v456, 0);
           objc_storeStrong(&v457, 0);
           objc_storeStrong(&v458, 0);
-          objc_storeStrong(&v459, 0);
-          objc_storeStrong(&v460, 0);
-          objc_storeStrong(&v461, 0);
-          objc_storeStrong(&v467, 0);
-          objc_storeStrong(&v468, 0);
+          objc_storeStrong(&v464, 0);
+          objc_storeStrong(&v465, 0);
         }
 
-        objc_storeStrong(&v470, 0);
-        v159 = v442[53];
-        v445 = MEMORY[0x277D85DD0];
-        v446 = -1073741824;
-        v447 = 0;
-        v448 = __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke_447;
-        v449 = &unk_279CC6610;
-        v160 = v450;
-        objc_copyWeak(v450, &from);
-        v450[1] = v442[84];
-        [v159 cancel:&v445];
-        objc_destroyWeak(v160);
+        objc_storeStrong(&v467, 0);
+        v156 = v439[53];
+        v442 = MEMORY[0x277D85DD0];
+        v443 = -1073741824;
+        v444 = 0;
+        v445 = __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke_447;
+        v446 = &unk_279CC6610;
+        v157 = v447;
+        objc_copyWeak(v447, &from);
+        v447[1] = v439[84];
+        [v156 cancel:&v442];
+        objc_destroyWeak(v157);
       }
     }
   }
 
-  v157 = v442[85];
-  fullScanResults2 = [v442[83] fullScanResults];
-  v156 = fullScanResults2;
-  [v157 assignFullScanResults:?];
-  MEMORY[0x277D82BD8](v156);
-  preferredStatefulDescriptor5 = [v442[85] preferredStatefulDescriptor];
-  v131 = preferredStatefulDescriptor5;
-  v132 = v442[57];
-  v442[57] = v131;
-  MEMORY[0x277D82BD8](v132);
-  alternateStatefulDescriptor5 = [v442[85] alternateStatefulDescriptor];
-  v133 = alternateStatefulDescriptor5;
-  v134 = v442[54];
-  v442[54] = v133;
-  MEMORY[0x277D82BD8](v134);
-  currentUpdateOperation2 = [v442[85] currentUpdateOperation];
-  v135 = currentUpdateOperation2;
-  v136 = v442[53];
-  v442[53] = v135;
-  MEMORY[0x277D82BD8](v136);
-  scanError5 = [v442[85] scanError];
-  v137 = scanError5;
-  v138 = v442[52];
-  v442[52] = v137;
-  MEMORY[0x277D82BD8](v138);
-  if (v442[52])
+  v154 = v439[85];
+  fullScanResults2 = [v439[83] fullScanResults];
+  v153 = fullScanResults2;
+  [v154 assignFullScanResults:?];
+  MEMORY[0x277D82BD8](v153);
+  preferredStatefulDescriptor5 = [v439[85] preferredStatefulDescriptor];
+  v128 = preferredStatefulDescriptor5;
+  v129 = v439[57];
+  v439[57] = v128;
+  MEMORY[0x277D82BD8](v129);
+  alternateStatefulDescriptor5 = [v439[85] alternateStatefulDescriptor];
+  v130 = alternateStatefulDescriptor5;
+  v131 = v439[54];
+  v439[54] = v130;
+  MEMORY[0x277D82BD8](v131);
+  currentUpdateOperation2 = [v439[85] currentUpdateOperation];
+  v132 = currentUpdateOperation2;
+  v133 = v439[53];
+  v439[53] = v132;
+  MEMORY[0x277D82BD8](v133);
+  scanError5 = [v439[85] scanError];
+  v134 = scanError5;
+  v135 = v439[52];
+  v439[52] = v134;
+  MEMORY[0x277D82BD8](v135);
+  if (v439[52])
   {
-    traits = [v442[52] traits];
-    v149 = traits;
-    noUpdateFound = [v149 noUpdateFound];
-    MEMORY[0x277D82BD8](v149);
+    traits = [v439[52] traits];
+    v146 = traits;
+    noUpdateFound = [v146 noUpdateFound];
+    MEMORY[0x277D82BD8](v146);
     if (noUpdateFound)
     {
-      [v442[85] clearPastScanResults];
+      [v439[85] clearPastScanResults];
     }
 
-    [*(v442[85] + 25) postEvent:@"FullScanNoUpdateAvailable" withInfo:v442[83]];
-    v444 = 1;
+    [*(v439[85] + 25) postEvent:@"FullScanNoUpdateAvailable" withInfo:v439[83]];
+    v441 = 1;
   }
 
   else
   {
-    isEmptyScanResults2 = [v442[82] isEmptyScanResults];
+    isEmptyScanResults2 = [v439[82] isEmptyScanResults];
     if (isEmptyScanResults2)
     {
-      currentDownload11 = [v442[85] currentDownload];
-      v143 = currentDownload11;
-      v144 = 0;
-      if (v143)
+      currentDownload11 = [v439[85] currentDownload];
+      v140 = currentDownload11;
+      v141 = 0;
+      if (v140)
       {
-        v139 = v442[57];
-        v142 = 1;
-        if (!v139)
+        v136 = v439[57];
+        v139 = 1;
+        if (!v136)
         {
-          v142 = v442[54] != 0;
+          v139 = v439[54] != 0;
         }
 
-        v144 = v142;
+        v141 = v139;
       }
 
-      v141 = v144;
-      MEMORY[0x277D82BD8](v143);
-      if (v141)
+      v138 = v141;
+      MEMORY[0x277D82BD8](v140);
+      if (v138)
       {
-        [v442[85] updateDescriptorsUsingScanResults:v442[82] andWithConcreteError:0];
-        [*(v442[85] + 25) postEvent:@"FullScanUpdatesAvailable" withInfo:v442[83]];
-        v444 = 1;
+        [v439[85] updateDescriptorsUsingScanResults:v439[82] andWithConcreteError:0];
+        [*(v439[85] + 25) postEvent:@"FullScanUpdatesAvailable" withInfo:v439[83]];
+        v441 = 1;
       }
 
       else
       {
-        [v442[85] clearPastScanResults];
-        [*(v442[85] + 25) postEvent:@"FullScanNoUpdateAvailable" withInfo:v442[83]];
-        v444 = 0;
+        [v439[85] clearPastScanResults];
+        [*(v439[85] + 25) postEvent:@"FullScanNoUpdateAvailable" withInfo:v439[83]];
+        v441 = 0;
       }
     }
 
     else
     {
-      [v442[85] assignDescriptorOfType:0 fromSearchResults:v442[82]];
-      [v442[85] assignDescriptorOfType:1 fromSearchResults:v442[82]];
-      [v442[85] setHiddenPreferredStatefulDescriptor:0];
-      [v442[85] setHiddenAlternateStatefulDescriptor:0];
-      [v442[85] setHidingPreferredDescriptor:0];
-      [v442[85] setHidingAlternateDescriptor:0];
-      currentDownload12 = [v442[85] currentDownload];
-      v146 = currentDownload12;
-      MEMORY[0x277D82BD8](v146);
-      if (v146)
+      [v439[85] assignDescriptorOfType:0 fromSearchResults:v439[82]];
+      [v439[85] assignDescriptorOfType:1 fromSearchResults:v439[82]];
+      [v439[85] setHiddenPreferredStatefulDescriptor:0];
+      [v439[85] setHiddenAlternateStatefulDescriptor:0];
+      [v439[85] setHidingPreferredDescriptor:0];
+      [v439[85] setHidingAlternateDescriptor:0];
+      currentDownload12 = [v439[85] currentDownload];
+      v143 = currentDownload12;
+      MEMORY[0x277D82BD8](v143);
+      if (v143)
       {
-        [v442[85] hideNonTargetedUpdateDescriptors];
+        [v439[85] hideNonTargetedUpdateDescriptors];
       }
 
-      [*(v442[85] + 25) postEvent:@"FullScanUpdatesAvailable" withInfo:v442[83]];
-      v444 = 1;
+      [*(v439[85] + 25) postEvent:@"FullScanUpdatesAvailable" withInfo:v439[83]];
+      v441 = 1;
     }
   }
 
+  objc_storeStrong(&v493, 0);
+  objc_storeStrong(&v494, 0);
+  objc_storeStrong(&v495, 0);
   objc_storeStrong(&v496, 0);
-  objc_storeStrong(&v497, 0);
-  objc_storeStrong(&v498, 0);
-  objc_storeStrong(&v499, 0);
   objc_destroyWeak(&from);
-  objc_storeStrong(&v518, 0);
+  objc_storeStrong(&v515, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke(uint64_t a1, char a2)
@@ -14085,7 +14021,6 @@ void __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke(uint64_t a
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke_447(uint64_t a1, char a2)
@@ -14124,7 +14059,6 @@ void __47__SUUIStatefulUIManager_handleFullScanResults___block_invoke_447(uint64
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFailedFullScan:(id)scan
@@ -14484,7 +14418,6 @@ LABEL_50:
   objc_storeStrong(&v141, 0);
   objc_destroyWeak(&from);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __46__SUUIStatefulUIManager_handleFailedFullScan___block_invoke(uint64_t a1)
@@ -14524,7 +14457,6 @@ void __46__SUUIStatefulUIManager_handleFailedFullScan___block_invoke(uint64_t a1
   }
 
   objc_storeStrong(v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __46__SUUIStatefulUIManager_handleFailedFullScan___block_invoke_448(uint64_t a1, void *a2, void *a3)
@@ -14568,761 +14500,755 @@ void __46__SUUIStatefulUIManager_handleFailedFullScan___block_invoke_448(uint64_
   objc_storeStrong(v13, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRefreshScanResults:(id)results
 {
-  v128 = &v144;
-  v129 = "[SUUIStatefulUIManager handleRefreshScanResults:]";
-  v164 = *MEMORY[0x277D85DE8];
+  v126 = &v142;
+  v127 = "[SUUIStatefulUIManager handleRefreshScanResults:]";
+  v162 = *MEMORY[0x277D85DE8];
   location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, results);
   refreshScanResults = [location[0] refreshScanResults];
-  v157 = refreshScanResults;
-  v126 = +[SUUILoggingContext statefulUILogger];
-  v124 = v126;
-  oslog = [v124 oslog];
-  v156 = oslog;
-  MEMORY[0x277D82BD8](v124);
+  v155 = refreshScanResults;
+  v124 = +[SUUILoggingContext statefulUILogger];
+  v122 = v124;
+  oslog = [v122 oslog];
+  v154 = oslog;
+  MEMORY[0x277D82BD8](v122);
   type = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v156, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
   {
-    log = v128[17];
-    *v121 = type;
-    v122 = v128[21];
-    v3 = v128[21];
+    log = v126[17];
+    *v119 = type;
+    v120 = v126[21];
     aClass = objc_opt_class();
-    v119 = NSStringFromClass(aClass);
-    v116 = v119;
-    v4 = MEMORY[0x277D82BE0](v116);
-    v5 = v128;
-    v117 = v4;
-    v128[15] = v4;
-    v118 = SUUIStatefulUIStateToString(*(v5[21] + 5));
-    v113 = v118;
-    v6 = MEMORY[0x277D82BE0](v113);
-    v7 = v128;
-    v114 = v6;
-    v128[14] = v6;
-    currentState = [v7[21] currentState];
-    delegate = [v128[21] delegate];
-    v111 = delegate;
-    v152 = 0;
-    v151 = 0;
-    if (v111)
-    {
-      delegate2 = [v128[21] delegate];
-      v128[13] = delegate2;
-      v152 = 1;
-      v109 = objc_opt_class();
-      v108 = NSStringFromClass(v109);
-      v8 = v108;
-      v128[11] = v8;
-      v151 = 1;
-      v107 = v8;
-    }
-
-    else
-    {
-      v107 = @"(null)";
-    }
-
-    v105 = v107;
-    delegate3 = [v128[21] delegate];
-    v103 = delegate3;
-    scanError = [v128[21] scanError];
-    v101 = scanError;
-    preferredStatefulDescriptor = [v128[21] preferredStatefulDescriptor];
-    v99 = preferredStatefulDescriptor;
-    alternateStatefulDescriptor = [v128[21] alternateStatefulDescriptor];
-    v97 = alternateStatefulDescriptor;
-    currentDownload = [v128[21] currentDownload];
-    v96 = currentDownload;
+    v117 = NSStringFromClass(aClass);
+    v114 = v117;
+    v3 = MEMORY[0x277D82BE0](v114);
+    v4 = v126;
+    v115 = v3;
+    v126[15] = v3;
+    v116 = SUUIStatefulUIStateToString(*(v4[21] + 5));
+    v111 = v116;
+    v5 = MEMORY[0x277D82BE0](v111);
+    v6 = v126;
+    v112 = v5;
+    v126[14] = v5;
+    currentState = [v6[21] currentState];
+    delegate = [v126[21] delegate];
+    v109 = delegate;
     v150 = 0;
     v149 = 0;
-    v148 = 0;
-    if (v96)
+    if (v109)
     {
-      currentDownload2 = [v128[21] currentDownload];
-      v9 = currentDownload2;
-      v128[9] = v9;
+      delegate2 = [v126[21] delegate];
+      v126[13] = delegate2;
       v150 = 1;
-      descriptor = [v9 descriptor];
-      v10 = descriptor;
-      v128[7] = v10;
+      v107 = objc_opt_class();
+      v106 = NSStringFromClass(v107);
+      v7 = v106;
+      v126[11] = v7;
       v149 = 1;
-      updateName = [v10 updateName];
-      v11 = updateName;
-      v128[5] = v11;
-      v148 = 1;
-      v92 = v11;
+      v105 = v7;
     }
 
     else
     {
-      v92 = @"(null)";
+      v105 = @"(null)";
     }
 
-    v90 = v92;
-    currentDownload3 = [v128[21] currentDownload];
-    v88 = currentDownload3;
-    currentUpdateOperationType = [v128[21] currentUpdateOperationType];
-    v87 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType);
-    v84 = v87;
-    v12 = MEMORY[0x277D82BE0](v84);
-    v13 = v128;
-    v85 = v12;
-    v128[3] = v12;
-    isTargetedUpdateScheduledForAutoInstall = [v13[21] isTargetedUpdateScheduledForAutoInstall];
-    v162 = isTargetedUpdateScheduledForAutoInstall;
+    v103 = v105;
+    delegate3 = [v126[21] delegate];
+    v101 = delegate3;
+    scanError = [v126[21] scanError];
+    v99 = scanError;
+    preferredStatefulDescriptor = [v126[21] preferredStatefulDescriptor];
+    v97 = preferredStatefulDescriptor;
+    alternateStatefulDescriptor = [v126[21] alternateStatefulDescriptor];
+    v95 = alternateStatefulDescriptor;
+    currentDownload = [v126[21] currentDownload];
+    v94 = currentDownload;
+    v148 = 0;
+    v147 = 0;
+    v146 = 0;
+    if (v94)
+    {
+      currentDownload2 = [v126[21] currentDownload];
+      v8 = currentDownload2;
+      v126[9] = v8;
+      v148 = 1;
+      descriptor = [v8 descriptor];
+      v9 = descriptor;
+      v126[7] = v9;
+      v147 = 1;
+      updateName = [v9 updateName];
+      v10 = updateName;
+      v126[5] = v10;
+      v146 = 1;
+      v90 = v10;
+    }
+
+    else
+    {
+      v90 = @"(null)";
+    }
+
+    v88 = v90;
+    currentDownload3 = [v126[21] currentDownload];
+    v86 = currentDownload3;
+    currentUpdateOperationType = [v126[21] currentUpdateOperationType];
+    v85 = SUUIUpdateContinuousOperationTypeToString(currentUpdateOperationType);
+    v82 = v85;
+    v11 = MEMORY[0x277D82BE0](v82);
+    v12 = v126;
+    v83 = v11;
+    v126[3] = v11;
+    isTargetedUpdateScheduledForAutoInstall = [v12[21] isTargetedUpdateScheduledForAutoInstall];
+    v160 = isTargetedUpdateScheduledForAutoInstall;
     if (isTargetedUpdateScheduledForAutoInstall)
     {
-      v14 = @"YES";
+      v13 = @"YES";
     }
 
     else
     {
-      v14 = @"NO";
+      v13 = @"NO";
     }
 
-    v83 = v14;
-    v15 = v14;
-    v80 = v83;
-    v16 = MEMORY[0x277D82BE0](v80);
-    v17 = v128;
-    v81 = v16;
-    v128[2] = v16;
-    hidingPreferredDescriptor = [v17[21] hidingPreferredDescriptor];
-    v161 = hidingPreferredDescriptor;
+    v81 = v13;
+    v14 = v13;
+    v78 = v81;
+    v15 = MEMORY[0x277D82BE0](v78);
+    v16 = v126;
+    v79 = v15;
+    v126[2] = v15;
+    hidingPreferredDescriptor = [v16[21] hidingPreferredDescriptor];
+    v159 = hidingPreferredDescriptor;
     if (hidingPreferredDescriptor)
     {
-      v18 = @"YES";
+      v17 = @"YES";
     }
 
     else
     {
-      v18 = @"NO";
+      v17 = @"NO";
     }
 
-    v79 = v18;
-    v19 = v18;
-    v76 = v79;
-    v20 = MEMORY[0x277D82BE0](v76);
-    v21 = v128;
-    v77 = v20;
-    v128[1] = v20;
-    hiddenPreferredStatefulDescriptor = [v21[21] hiddenPreferredStatefulDescriptor];
-    v74 = hiddenPreferredStatefulDescriptor;
-    updateName2 = [v74 updateName];
-    v71 = updateName2;
-    v22 = MEMORY[0x277D82BE0](v71);
-    v23 = v128;
-    v72 = v22;
-    *v128 = v22;
-    hidingAlternateDescriptor = [v23[21] hidingAlternateDescriptor];
-    v160 = hidingAlternateDescriptor;
+    v77 = v17;
+    v18 = v17;
+    v74 = v77;
+    v19 = MEMORY[0x277D82BE0](v74);
+    v20 = v126;
+    v75 = v19;
+    v126[1] = v19;
+    hiddenPreferredStatefulDescriptor = [v20[21] hiddenPreferredStatefulDescriptor];
+    v72 = hiddenPreferredStatefulDescriptor;
+    updateName2 = [v72 updateName];
+    v69 = updateName2;
+    v21 = MEMORY[0x277D82BE0](v69);
+    v22 = v126;
+    v70 = v21;
+    *v126 = v21;
+    hidingAlternateDescriptor = [v22[21] hidingAlternateDescriptor];
+    v158 = hidingAlternateDescriptor;
     if (hidingAlternateDescriptor)
     {
-      v24 = @"YES";
+      v23 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v23 = @"NO";
     }
 
-    v70 = v24;
-    v25 = v24;
-    v67 = v70;
-    v68 = MEMORY[0x277D82BE0](v67);
-    v143 = v68;
-    hiddenAlternateStatefulDescriptor = [v128[21] hiddenAlternateStatefulDescriptor];
-    v65 = hiddenAlternateStatefulDescriptor;
-    updateName3 = [v65 updateName];
-    v62 = updateName3;
-    v63 = MEMORY[0x277D82BE0](v62);
-    v142 = v63;
-    enrolledBetaProgram = [v128[21] enrolledBetaProgram];
-    v61 = enrolledBetaProgram;
-    v140 = 0;
-    if (v61)
+    v68 = v23;
+    v24 = v23;
+    v65 = v68;
+    v66 = MEMORY[0x277D82BE0](v65);
+    v141 = v66;
+    hiddenAlternateStatefulDescriptor = [v126[21] hiddenAlternateStatefulDescriptor];
+    v63 = hiddenAlternateStatefulDescriptor;
+    updateName3 = [v63 updateName];
+    v60 = updateName3;
+    v61 = MEMORY[0x277D82BE0](v60);
+    v140 = v61;
+    enrolledBetaProgram = [v126[21] enrolledBetaProgram];
+    v59 = enrolledBetaProgram;
+    v138 = 0;
+    if (v59)
     {
-      enrolledBetaProgram2 = [v128[21] enrolledBetaProgram];
-      v141 = enrolledBetaProgram2;
-      v140 = 1;
-      programID = [v141 programID];
-      v58 = programID;
+      enrolledBetaProgram2 = [v126[21] enrolledBetaProgram];
+      v139 = enrolledBetaProgram2;
+      v138 = 1;
+      programID = [v139 programID];
+      v56 = programID;
     }
 
     else
     {
-      v58 = 0;
+      v56 = 0;
     }
 
-    v56 = v58;
-    v57 = [*(v128[21] + 15) count];
-    canEnrollInBetaUpdates = [v128[21] canEnrollInBetaUpdates];
-    v159 = canEnrollInBetaUpdates;
+    v54 = v56;
+    v55 = [*(v126[21] + 15) count];
+    canEnrollInBetaUpdates = [v126[21] canEnrollInBetaUpdates];
+    v157 = canEnrollInBetaUpdates;
     if (canEnrollInBetaUpdates)
     {
-      v26 = @"YES";
+      v25 = @"YES";
     }
 
     else
     {
-      v26 = @"NO";
+      v25 = @"NO";
     }
 
-    v54 = v26;
-    v27 = v26;
-    v48 = v54;
-    v49 = MEMORY[0x277D82BE0](v48);
-    v139 = v49;
-    v50 = *(v128[21] + 21);
-    v51 = *(v128[21] + 22);
-    v52 = *(v128[21] + 23);
-    v53 = [*(v128[21] + 24) count];
-    identifier = [v128[18] identifier];
-    v46 = identifier;
-    v28 = v128[18];
-    v44 = &v30;
-    buf = v163;
-    __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v163, v129, v122, v117, v114, currentState, v105, v103, v101, v99, v97, v90, v88, v85, v81, v77, v72, v68, v63, v56, v57, v49, v50, v51, v52, v53, v46, v28);
-    _os_log_impl(&dword_26ADE5000, log, v121[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to refresh the current scan results with ID: %{public}@.\nResults: %{public}@", buf, 0x110u);
+    v52 = v25;
+    v26 = v25;
+    v46 = v52;
+    v47 = MEMORY[0x277D82BE0](v46);
+    v137 = v47;
+    v48 = *(v126[21] + 21);
+    v49 = *(v126[21] + 22);
+    v50 = *(v126[21] + 23);
+    v51 = [*(v126[21] + 24) count];
+    identifier = [v126[18] identifier];
+    v44 = identifier;
+    v27 = v126[18];
+    v42 = &v28;
+    buf = v161;
+    __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v161, v127, v120, v115, v112, currentState, v103, v101, v99, v97, v95, v88, v86, v83, v79, v75, v70, v66, v61, v54, v55, v47, v48, v49, v50, v51, v44, v27);
+    _os_log_impl(&dword_26ADE5000, log, v119[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to refresh the current scan results with ID: %{public}@.\nResults: %{public}@", buf, 0x110u);
+    MEMORY[0x277D82BD8](v44);
     MEMORY[0x277D82BD8](v46);
-    MEMORY[0x277D82BD8](v48);
-    if (v140)
+    if (v138)
     {
-      MEMORY[0x277D82BD8](v141);
+      MEMORY[0x277D82BD8](v139);
     }
 
-    MEMORY[0x277D82BD8](v61);
-    MEMORY[0x277D82BD8](v62);
+    MEMORY[0x277D82BD8](v59);
+    MEMORY[0x277D82BD8](v60);
+    MEMORY[0x277D82BD8](v63);
     MEMORY[0x277D82BD8](v65);
-    MEMORY[0x277D82BD8](v67);
-    MEMORY[0x277D82BD8](v71);
+    MEMORY[0x277D82BD8](v69);
+    MEMORY[0x277D82BD8](v72);
     MEMORY[0x277D82BD8](v74);
-    MEMORY[0x277D82BD8](v76);
-    MEMORY[0x277D82BD8](v80);
-    MEMORY[0x277D82BD8](v84);
-    MEMORY[0x277D82BD8](v88);
+    MEMORY[0x277D82BD8](v78);
+    MEMORY[0x277D82BD8](v82);
+    MEMORY[0x277D82BD8](v86);
+    if (v146)
+    {
+      MEMORY[0x277D82BD8](v126[5]);
+    }
+
+    if (v147)
+    {
+      MEMORY[0x277D82BD8](v126[7]);
+    }
+
     if (v148)
     {
-      MEMORY[0x277D82BD8](v128[5]);
+      MEMORY[0x277D82BD8](v126[9]);
     }
 
+    MEMORY[0x277D82BD8](v94);
+    MEMORY[0x277D82BD8](v95);
+    MEMORY[0x277D82BD8](v97);
+    MEMORY[0x277D82BD8](v99);
+    MEMORY[0x277D82BD8](v101);
     if (v149)
     {
-      MEMORY[0x277D82BD8](v128[7]);
+      MEMORY[0x277D82BD8](v126[11]);
     }
 
     if (v150)
     {
-      MEMORY[0x277D82BD8](v128[9]);
+      MEMORY[0x277D82BD8](v126[13]);
     }
 
-    MEMORY[0x277D82BD8](v96);
-    MEMORY[0x277D82BD8](v97);
-    MEMORY[0x277D82BD8](v99);
-    MEMORY[0x277D82BD8](v101);
-    MEMORY[0x277D82BD8](v103);
-    if (v151)
-    {
-      MEMORY[0x277D82BD8](v128[11]);
-    }
-
-    if (v152)
-    {
-      MEMORY[0x277D82BD8](v128[13]);
-    }
-
+    MEMORY[0x277D82BD8](v109);
     MEMORY[0x277D82BD8](v111);
-    MEMORY[0x277D82BD8](v113);
-    MEMORY[0x277D82BD8](v116);
-    objc_storeStrong(&v139, 0);
+    MEMORY[0x277D82BD8](v114);
+    objc_storeStrong(&v137, 0);
+    objc_storeStrong(&v140, 0);
+    objc_storeStrong(&v141, 0);
     objc_storeStrong(&v142, 0);
     objc_storeStrong(&v143, 0);
     objc_storeStrong(&v144, 0);
     objc_storeStrong(&v145, 0);
-    objc_storeStrong(&v146, 0);
-    objc_storeStrong(&v147, 0);
-    objc_storeStrong(&v153, 0);
-    objc_storeStrong(&v154, 0);
+    objc_storeStrong(&v151, 0);
+    objc_storeStrong(&v152, 0);
   }
 
-  objc_storeStrong(&v156, 0);
-  environment = [v128[21] environment];
-  v40 = environment;
-  v41 = v128[21];
+  objc_storeStrong(&v154, 0);
+  environment = [v126[21] environment];
+  v38 = environment;
+  v39 = v126[21];
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v38 = uUID;
-  uUIDString = [v38 UUIDString];
-  v36 = uUIDString;
-  v29 = *(v128[21] + 26);
-  v37 = [v40 scanOperationWithManager:v41 identifier:? completionQueue:?];
-  v138 = v37;
+  v36 = uUID;
+  uUIDString = [v36 UUIDString];
+  v34 = uUIDString;
+  v35 = [v38 scanOperationWithManager:v39 identifier:? completionQueue:?];
+  v136 = v35;
+  MEMORY[0x277D82BD8](v34);
   MEMORY[0x277D82BD8](v36);
   MEMORY[0x277D82BD8](v38);
-  MEMORY[0x277D82BD8](v40);
-  objc_initWeak(&from, v128[21]);
-  v34 = v138;
-  v130 = MEMORY[0x277D85DD0];
-  v131 = -1073741824;
-  v132 = 0;
-  v133 = __50__SUUIStatefulUIManager_handleRefreshScanResults___block_invoke;
-  v134 = &unk_279CC66F8;
-  v35 = v136;
-  objc_copyWeak(v136, &from);
-  v33 = &v130;
-  v136[1] = v128[20];
-  v31 = v135;
-  v135[0] = MEMORY[0x277D82BE0](v128[19]);
-  v32 = (v33 + 5);
-  v135[1] = MEMORY[0x277D82BE0](v128[18]);
-  [v34 controllerCurrentlyScanning:v33];
-  objc_storeStrong(v32, 0);
-  objc_storeStrong(v31, 0);
-  objc_destroyWeak(v35);
+  objc_initWeak(&from, v126[21]);
+  v32 = v136;
+  v128 = MEMORY[0x277D85DD0];
+  v129 = -1073741824;
+  v130 = 0;
+  v131 = __50__SUUIStatefulUIManager_handleRefreshScanResults___block_invoke;
+  v132 = &unk_279CC66F8;
+  v33 = v134;
+  objc_copyWeak(v134, &from);
+  v31 = &v128;
+  v134[1] = v126[20];
+  v29 = v133;
+  v133[0] = MEMORY[0x277D82BE0](v126[19]);
+  v30 = (v31 + 5);
+  v133[1] = MEMORY[0x277D82BE0](v126[18]);
+  [v32 controllerCurrentlyScanning:v31];
+  objc_storeStrong(v30, 0);
+  objc_storeStrong(v29, 0);
+  objc_destroyWeak(v33);
   objc_destroyWeak(&from);
-  objc_storeStrong(&v138, 0);
-  objc_storeStrong(&v157, 0);
+  objc_storeStrong(&v136, 0);
+  objc_storeStrong(&v155, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __50__SUUIStatefulUIManager_handleRefreshScanResults___block_invoke(uint64_t a1, unsigned __int8 a2, id obj)
 {
-  v122 = &v140;
-  v121 = a1;
-  v120 = "[SUUIStatefulUIManager handleRefreshScanResults:]_block_invoke";
-  v165 = *MEMORY[0x277D85DE8];
-  v156 = a1;
-  v155 = a2;
+  v121 = &v139;
+  v120 = a1;
+  v119 = "[SUUIStatefulUIManager handleRefreshScanResults:]_block_invoke";
+  v164 = *MEMORY[0x277D85DE8];
+  v155 = a1;
+  v154 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v153[1] = v121;
-  v153[0] = objc_loadWeakRetained((v121 + 48));
-  v119 = 0;
-  if (!v153[0])
+  v152[1] = v120;
+  v152[0] = objc_loadWeakRetained((v120 + 48));
+  v118 = 0;
+  if (!v152[0])
   {
-    v118 = +[SUUILoggingContext softwareUpdateUILogger];
-    v3 = [v118 oslog];
-    v4 = v118;
-    v122[18] = v3;
+    v117 = +[SUUILoggingContext softwareUpdateUILogger];
+    v3 = [v117 oslog];
+    v4 = v117;
+    v121[18] = v3;
     MEMORY[0x277D82BD8](v4);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v122[18], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v121[18], OS_LOG_TYPE_ERROR))
     {
-      log = v122[18];
-      *v114 = type;
-      v116 = NSStringFromSelector(*(v121 + 56));
-      v5 = MEMORY[0x277D82BE0](v116);
-      v6 = v120;
-      v117 = &v150;
-      v122[16] = v5;
-      buf = v164;
-      __os_log_helper_16_2_2_8_32_8_66(v164, v6, v5);
-      _os_log_error_impl(&dword_26ADE5000, log, v114[0], "%s: Self is nil in %{public}@. Stopping.", v164, 0x16u);
-      MEMORY[0x277D82BD8](v116);
-      objc_storeStrong(v117, 0);
+      log = v121[18];
+      *v113 = type;
+      v115 = NSStringFromSelector(*(v120 + 56));
+      v5 = MEMORY[0x277D82BE0](v115);
+      v6 = v119;
+      v116 = &v149;
+      v121[16] = v5;
+      buf = v163;
+      __os_log_helper_16_2_2_8_32_8_66(v163, v6, v5);
+      _os_log_error_impl(&dword_26ADE5000, log, v113[0], "%s: Self is nil in %{public}@. Stopping.", v163, 0x16u);
+      MEMORY[0x277D82BD8](v115);
+      objc_storeStrong(v116, 0);
     }
 
-    objc_storeStrong(&v152, 0);
-    v7 = v122;
-    *(v122 + 31) = 1;
-    v119 = *(v7 + 31) != 0;
+    objc_storeStrong(&v151, 0);
+    v7 = v121;
+    *(v121 + 31) = 1;
+    v118 = *(v7 + 31) != 0;
   }
 
-  if (v119)
+  if (v118)
   {
-    *(v122 + 30) = 1;
+    *(v121 + 30) = 1;
   }
 
   else
   {
-    v112 = +[SUUILoggingContext statefulUILogger];
-    v8 = [v112 oslog];
-    v9 = v112;
-    v122[14] = v8;
+    v111 = +[SUUILoggingContext statefulUILogger];
+    v8 = [v111 oslog];
+    v9 = v111;
+    v121[14] = v8;
     MEMORY[0x277D82BD8](v9);
-    v148 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v122[14], OS_LOG_TYPE_DEFAULT))
+    v147 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v121[14], OS_LOG_TYPE_DEFAULT))
     {
-      v103 = v122[14];
-      *v104 = v148;
-      v105 = v122[19];
-      v10 = v122[19];
-      v11 = objc_opt_class();
-      v106 = NSStringFromClass(v11);
-      v12 = MEMORY[0x277D82BE0](v106);
-      v13 = v122;
-      v107 = v12;
-      v122[12] = v12;
-      v108 = SUUIStatefulUIStateToString(*(v13[19] + 5));
-      v14 = MEMORY[0x277D82BE0](v108);
-      v15 = v122;
-      v109 = v14;
-      v122[11] = v14;
-      v110 = [v15[19] currentState];
-      v111 = [v122[19] delegate];
-      v145 = 0;
+      v102 = v121[14];
+      *v103 = v147;
+      v104 = v121[19];
+      v10 = objc_opt_class();
+      v105 = NSStringFromClass(v10);
+      v11 = MEMORY[0x277D82BE0](v105);
+      v12 = v121;
+      v106 = v11;
+      v121[12] = v11;
+      v107 = SUUIStatefulUIStateToString(*(v12[19] + 5));
+      v13 = MEMORY[0x277D82BE0](v107);
+      v14 = v121;
+      v108 = v13;
+      v121[11] = v13;
+      v109 = [v14[19] currentState];
+      v110 = [v121[19] delegate];
       v144 = 0;
-      if (v111)
+      v143 = 0;
+      if (v110)
       {
-        v122[10] = [v122[19] delegate];
-        v101 = 1;
-        v145 = 1;
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v122[8] = v17;
+        v121[10] = [v121[19] delegate];
+        v100 = 1;
         v144 = 1;
-        v102 = v17;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v121[8] = v16;
+        v143 = 1;
+        v101 = v16;
       }
 
       else
       {
-        v102 = @"(null)";
+        v101 = @"(null)";
       }
 
-      v95 = v102;
-      v96 = [v122[19] delegate];
-      v97 = [v122[19] scanError];
-      v98 = [v122[19] preferredStatefulDescriptor];
-      v99 = [v122[19] alternateStatefulDescriptor];
-      v100 = [v122[19] currentDownload];
-      v143 = 0;
+      v94 = v101;
+      v95 = [v121[19] delegate];
+      v96 = [v121[19] scanError];
+      v97 = [v121[19] preferredStatefulDescriptor];
+      v98 = [v121[19] alternateStatefulDescriptor];
+      v99 = [v121[19] currentDownload];
       v142 = 0;
       v141 = 0;
-      if (v100)
+      v140 = 0;
+      if (v99)
       {
-        v18 = [v122[19] currentDownload];
-        v122[6] = v18;
-        v93 = 1;
-        v143 = 1;
-        v19 = [v18 descriptor];
-        v122[4] = v19;
+        v17 = [v121[19] currentDownload];
+        v121[6] = v17;
+        v92 = 1;
         v142 = 1;
-        v20 = [v19 updateName];
-        v21 = v93;
-        v122[2] = v20;
-        v141 = v21 & 1;
-        v94 = v20;
+        v18 = [v17 descriptor];
+        v121[4] = v18;
+        v141 = 1;
+        v19 = [v18 updateName];
+        v20 = v92;
+        v121[2] = v19;
+        v140 = v20 & 1;
+        v93 = v19;
       }
 
       else
       {
-        v94 = @"(null)";
+        v93 = @"(null)";
       }
 
-      v70 = v94;
-      v71 = [v122[19] currentDownload];
-      v72 = SUUIUpdateContinuousOperationTypeToString([v122[19] currentUpdateOperationType]);
-      v22 = MEMORY[0x277D82BE0](v72);
-      v23 = v122;
-      v73 = v22;
-      *v122 = v22;
-      v161 = [v23[19] isTargetedUpdateScheduledForAutoInstall];
-      v83 = @"NO";
-      v84 = @"YES";
-      v91 = 1;
-      if (v161)
-      {
-        v24 = @"YES";
-      }
-
-      else
-      {
-        v24 = @"NO";
-      }
-
-      v74 = v24;
-      v25 = v24;
-      v75 = v74;
-      v76 = MEMORY[0x277D82BE0](v75);
-      v139 = v76;
-      v160 = [v122[19] hidingPreferredDescriptor];
+      v69 = v93;
+      v70 = [v121[19] currentDownload];
+      v71 = SUUIUpdateContinuousOperationTypeToString([v121[19] currentUpdateOperationType]);
+      v21 = MEMORY[0x277D82BE0](v71);
+      v22 = v121;
+      v72 = v21;
+      *v121 = v21;
+      v160 = [v22[19] isTargetedUpdateScheduledForAutoInstall];
+      v82 = @"NO";
+      v83 = @"YES";
+      v90 = 1;
       if (v160)
       {
-        v26 = v84;
+        v23 = @"YES";
       }
 
       else
       {
-        v26 = v83;
+        v23 = @"NO";
       }
 
-      v77 = v26;
-      v27 = v26;
-      v78 = v77;
-      v79 = MEMORY[0x277D82BE0](v78);
-      v138 = v79;
-      v80 = [v122[19] hiddenPreferredStatefulDescriptor];
-      v81 = [v80 updateName];
-      v82 = MEMORY[0x277D82BE0](v81);
-      v137 = v82;
-      v159 = [v122[19] hidingAlternateDescriptor];
+      v73 = v23;
+      v24 = v23;
+      v74 = v73;
+      v75 = MEMORY[0x277D82BE0](v74);
+      v138 = v75;
+      v159 = [v121[19] hidingPreferredDescriptor];
       if (v159)
       {
-        v28 = v84;
+        v25 = v83;
       }
 
       else
       {
-        v28 = v83;
+        v25 = v82;
       }
 
-      v85 = v28;
-      v29 = v28;
-      v86 = v85;
-      v87 = MEMORY[0x277D82BE0](v86);
-      v136 = v87;
-      v88 = [v122[19] hiddenAlternateStatefulDescriptor];
-      v89 = [v88 updateName];
-      v90 = MEMORY[0x277D82BE0](v89);
-      v135 = v90;
-      v92 = [v122[19] enrolledBetaProgram];
-      v133 = 0;
-      if (v92)
-      {
-        v134 = [v122[19] enrolledBetaProgram];
-        v133 = 1;
-        v69 = [v134 programID];
-      }
-
-      else
-      {
-        v69 = 0;
-      }
-
-      v58 = v69;
-      v59 = [*(v122[19] + 15) count];
-      v158 = [v122[19] canEnrollInBetaUpdates];
-      v55 = @"NO";
-      v56 = @"YES";
-      v54 = 1;
+      v76 = v25;
+      v26 = v25;
+      v77 = v76;
+      v78 = MEMORY[0x277D82BE0](v77);
+      v137 = v78;
+      v79 = [v121[19] hiddenPreferredStatefulDescriptor];
+      v80 = [v79 updateName];
+      v81 = MEMORY[0x277D82BE0](v80);
+      v136 = v81;
+      v158 = [v121[19] hidingAlternateDescriptor];
       if (v158)
       {
-        v30 = @"YES";
+        v27 = v83;
       }
 
       else
       {
-        v30 = @"NO";
+        v27 = v82;
       }
 
-      v53 = v30;
-      v31 = v30;
-      v68 = v53;
-      v60 = MEMORY[0x277D82BE0](v68);
-      v132 = v60;
-      v61 = *(v122[19] + 21);
-      v62 = *(v122[19] + 22);
-      v63 = *(v122[19] + 23);
-      v64 = [*(v122[19] + 24) count];
-      v157 = v155 & v54;
-      if (v155 & v54)
+      v84 = v27;
+      v28 = v27;
+      v85 = v84;
+      v86 = MEMORY[0x277D82BE0](v85);
+      v135 = v86;
+      v87 = [v121[19] hiddenAlternateStatefulDescriptor];
+      v88 = [v87 updateName];
+      v89 = MEMORY[0x277D82BE0](v88);
+      v134 = v89;
+      v91 = [v121[19] enrolledBetaProgram];
+      v132 = 0;
+      if (v91)
       {
-        v32 = v56;
+        v133 = [v121[19] enrolledBetaProgram];
+        v132 = 1;
+        v68 = [v133 programID];
       }
 
       else
       {
-        v32 = v55;
+        v68 = 0;
       }
 
-      v57 = v32;
-      v33 = v32;
-      v67 = v57;
-      v131 = MEMORY[0x277D82BE0](v67);
-      v34 = v122[21];
-      v65 = &v37;
-      v66 = v163;
-      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v163, v120, v105, v107, v109, v110, v95, v96, v97, v98, v99, v70, v71, v73, v76, v79, v82, v87, v90, v58, v59, v60, v61, v62, v63, v64, v131, v34);
-      _os_log_impl(&dword_26ADE5000, v103, v104[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nisScanning: %{public}@; error: %{public}@", v66, 0x110u);
+      v57 = v68;
+      v58 = [*(v121[19] + 15) count];
+      v157 = [v121[19] canEnrollInBetaUpdates];
+      v54 = @"NO";
+      v55 = @"YES";
+      v53 = 1;
+      if (v157)
+      {
+        v29 = @"YES";
+      }
+
+      else
+      {
+        v29 = @"NO";
+      }
+
+      v52 = v29;
+      v30 = v29;
+      v67 = v52;
+      v59 = MEMORY[0x277D82BE0](v67);
+      v131 = v59;
+      v60 = *(v121[19] + 21);
+      v61 = *(v121[19] + 22);
+      v62 = *(v121[19] + 23);
+      v63 = [*(v121[19] + 24) count];
+      v156 = v154 & v53;
+      if (v154 & v53)
+      {
+        v31 = v55;
+      }
+
+      else
+      {
+        v31 = v54;
+      }
+
+      v56 = v31;
+      v32 = v31;
+      v66 = v56;
+      v130 = MEMORY[0x277D82BE0](v66);
+      v33 = v121[21];
+      v64 = &v36;
+      v65 = v162;
+      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v162, v119, v104, v106, v108, v109, v94, v95, v96, v97, v98, v69, v70, v72, v75, v78, v81, v86, v89, v57, v58, v59, v60, v61, v62, v63, v130, v33);
+      _os_log_impl(&dword_26ADE5000, v102, v103[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nisScanning: %{public}@; error: %{public}@", v65, 0x110u);
+      MEMORY[0x277D82BD8](v66);
       MEMORY[0x277D82BD8](v67);
-      MEMORY[0x277D82BD8](v68);
-      if (v133)
+      if (v132)
       {
-        MEMORY[0x277D82BD8](v134);
+        MEMORY[0x277D82BD8](v133);
       }
 
-      MEMORY[0x277D82BD8](v92);
-      MEMORY[0x277D82BD8](v89);
+      MEMORY[0x277D82BD8](v91);
       MEMORY[0x277D82BD8](v88);
-      MEMORY[0x277D82BD8](v86);
-      MEMORY[0x277D82BD8](v81);
+      MEMORY[0x277D82BD8](v87);
+      MEMORY[0x277D82BD8](v85);
       MEMORY[0x277D82BD8](v80);
-      MEMORY[0x277D82BD8](v78);
-      MEMORY[0x277D82BD8](v75);
-      MEMORY[0x277D82BD8](v72);
+      MEMORY[0x277D82BD8](v79);
+      MEMORY[0x277D82BD8](v77);
+      MEMORY[0x277D82BD8](v74);
       MEMORY[0x277D82BD8](v71);
+      MEMORY[0x277D82BD8](v70);
+      if (v140)
+      {
+        MEMORY[0x277D82BD8](v121[2]);
+      }
+
       if (v141)
       {
-        MEMORY[0x277D82BD8](v122[2]);
+        MEMORY[0x277D82BD8](v121[4]);
       }
 
       if (v142)
       {
-        MEMORY[0x277D82BD8](v122[4]);
+        MEMORY[0x277D82BD8](v121[6]);
       }
 
-      if (v143)
-      {
-        MEMORY[0x277D82BD8](v122[6]);
-      }
-
-      MEMORY[0x277D82BD8](v100);
       MEMORY[0x277D82BD8](v99);
       MEMORY[0x277D82BD8](v98);
       MEMORY[0x277D82BD8](v97);
       MEMORY[0x277D82BD8](v96);
+      MEMORY[0x277D82BD8](v95);
+      if (v143)
+      {
+        MEMORY[0x277D82BD8](v121[8]);
+      }
+
       if (v144)
       {
-        MEMORY[0x277D82BD8](v122[8]);
+        MEMORY[0x277D82BD8](v121[10]);
       }
 
-      if (v145)
-      {
-        MEMORY[0x277D82BD8](v122[10]);
-      }
-
-      MEMORY[0x277D82BD8](v111);
-      MEMORY[0x277D82BD8](v108);
-      MEMORY[0x277D82BD8](v106);
+      MEMORY[0x277D82BD8](v110);
+      MEMORY[0x277D82BD8](v107);
+      MEMORY[0x277D82BD8](v105);
       obja = 0;
-      objc_storeStrong(&v131, 0);
-      objc_storeStrong(&v132, obja);
+      objc_storeStrong(&v130, 0);
+      objc_storeStrong(&v131, obja);
+      objc_storeStrong(&v134, obja);
       objc_storeStrong(&v135, obja);
       objc_storeStrong(&v136, obja);
       objc_storeStrong(&v137, obja);
       objc_storeStrong(&v138, obja);
       objc_storeStrong(&v139, obja);
-      objc_storeStrong(&v140, obja);
+      objc_storeStrong(&v145, obja);
       objc_storeStrong(&v146, obja);
-      objc_storeStrong(&v147, obja);
     }
 
-    objc_storeStrong(&v149, 0);
-    if (v155)
+    objc_storeStrong(&v148, 0);
+    if (v154)
     {
-      if ([v122[19] currentState] > 1)
+      if ([v121[19] currentState] > 1)
       {
-        [v122[19] checkForUpdatesInBackground];
+        [v121[19] checkForUpdatesInBackground];
       }
 
       else
       {
-        [v122[19] checkForAvailableUpdates];
+        [v121[19] checkForAvailableUpdates];
       }
 
-      *(v122 + 30) = 1;
+      *(v121 + 30) = 1;
     }
 
     else
     {
-      v49 = v122[19];
-      v50 = [*(v121 + 32) refreshScanResults];
-      v51 = [v49 assignScanResults:?];
-      MEMORY[0x277D82BD8](v50);
-      v130 = v51;
-      v129 = [v122[19] preferredStatefulDescriptor];
-      v128 = [v122[19] alternateStatefulDescriptor];
-      v127 = [v122[19] preferredStatefulDescriptor];
-      v126 = [v122[19] alternateStatefulDescriptor];
-      if (v127 || v126)
+      v48 = v121[19];
+      v49 = [*(v120 + 32) refreshScanResults];
+      v50 = [v48 assignScanResults:?];
+      MEMORY[0x277D82BD8](v49);
+      v129 = v50;
+      v128 = [v121[19] preferredStatefulDescriptor];
+      v127 = [v121[19] alternateStatefulDescriptor];
+      v126 = [v121[19] preferredStatefulDescriptor];
+      v125 = [v121[19] alternateStatefulDescriptor];
+      if (v126 || v125)
       {
-        [v122[19] updateDescriptorsUsingScanResults:*(v121 + 40) andWithConcreteError:0];
+        [v121[19] updateDescriptorsUsingScanResults:*(v120 + 40) andWithConcreteError:0];
       }
 
       else
       {
-        v48 = [v122[19] currentDownload];
-        MEMORY[0x277D82BD8](v48);
-        if (!v48)
+        v47 = [v121[19] currentDownload];
+        MEMORY[0x277D82BD8](v47);
+        if (!v47)
         {
-          v47 = 0;
-          objc_storeStrong(&v127, 0);
-          [v122[19] setPreferredStatefulDescriptor:v47];
-          objc_storeStrong(&v126, v47);
-          [v122[19] setAlternateStatefulDescriptor:v47];
+          v46 = 0;
+          objc_storeStrong(&v126, 0);
+          [v121[19] setPreferredStatefulDescriptor:v46];
+          objc_storeStrong(&v125, v46);
+          [v121[19] setAlternateStatefulDescriptor:v46];
         }
       }
 
-      if (v127 == v129 || (v46 = 1, v127) && (v35 = [v127 isEqual:v129], v46 = 1, (v35 & 1) != 0))
+      if (v126 == v128 || (v45 = 1, v126) && (v34 = [v126 isEqual:v128], v45 = 1, (v34 & 1) != 0))
       {
-        v45 = 0;
-        if (v126 != v128)
+        v44 = 0;
+        if (v125 != v127)
         {
-          v44 = 1;
-          if (v126)
+          v43 = 1;
+          if (v125)
           {
-            v44 = [v126 isEqual:v128] ^ 1;
+            v43 = [v125 isEqual:v127] ^ 1;
           }
 
-          v45 = v44;
+          v44 = v43;
         }
 
-        v46 = v45;
+        v45 = v44;
       }
 
-      v125 = v46 & 1;
-      v43 = +[SUUILoggingContext statefulUILogger];
-      oslog = [v43 oslog];
-      MEMORY[0x277D82BD8](v43);
-      v123 = OS_LOG_TYPE_DEFAULT;
+      v124 = v45 & 1;
+      v42 = +[SUUILoggingContext statefulUILogger];
+      oslog = [v42 oslog];
+      MEMORY[0x277D82BD8](v42);
+      v122 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = oslog;
-        *v41 = v123;
-        v36 = v122[19];
-        v42 = v162;
-        __os_log_helper_16_2_4_8_32_8_0_4_0_4_0(v162, v120, v36, v130 & 1, v125 & 1);
-        _os_log_impl(&dword_26ADE5000, v40, v41[0], "%s [%p]: Refreshed results changes from previous data: changedScanRelatedData = %d, changedDescriptors: %d", v42, 0x22u);
+        v39 = oslog;
+        *v40 = v122;
+        v35 = v121[19];
+        v41 = v161;
+        __os_log_helper_16_2_4_8_32_8_0_4_0_4_0(v161, v119, v35, v129 & 1, v124 & 1);
+        _os_log_impl(&dword_26ADE5000, v39, v40[0], "%s [%p]: Refreshed results changes from previous data: changedScanRelatedData = %d, changedDescriptors: %d", v41, 0x22u);
       }
 
       objc_storeStrong(&oslog, 0);
-      v39 = 1;
-      if ((v130 & 1) == 0)
+      v38 = 1;
+      if ((v129 & 1) == 0)
       {
-        v39 = v125;
+        v38 = v124;
       }
 
-      [*(v121 + 32) setRefreshHasAnyChanges:v39 & 1];
-      if (v127 || v126)
+      [*(v120 + 32) setRefreshHasAnyChanges:v38 & 1];
+      if (v126 || v125)
       {
-        [*(v122[19] + 25) postEvent:@"RefreshUpdatesAvailable" withInfo:*(v121 + 32)];
+        [*(v121[19] + 25) postEvent:@"RefreshUpdatesAvailable" withInfo:*(v120 + 32)];
       }
 
-      else if ([*(v121 + 32) refreshPreviousState] == 3)
+      else if ([*(v120 + 32) refreshPreviousState] == 3)
       {
-        [*(v122[19] + 25) postEvent:@"RefreshNoUpdateAvailable" withInfo:*(v121 + 32)];
+        [*(v121[19] + 25) postEvent:@"RefreshNoUpdateAvailable" withInfo:*(v120 + 32)];
       }
 
       else
       {
-        [*(v122[19] + 25) postEvent:@"CheckForAvailableUpdate" withInfo:*(v121 + 32)];
+        [*(v121[19] + 25) postEvent:@"CheckForAvailableUpdate" withInfo:*(v120 + 32)];
       }
 
-      v38 = 0;
-      objc_storeStrong(&v126, 0);
-      objc_storeStrong(&v127, v38);
-      objc_storeStrong(&v128, v38);
-      objc_storeStrong(&v129, v38);
-      *(v122 + 30) = 0;
+      v37 = 0;
+      objc_storeStrong(&v125, 0);
+      objc_storeStrong(&v126, v37);
+      objc_storeStrong(&v127, v37);
+      objc_storeStrong(&v128, v37);
+      *(v121 + 30) = 0;
     }
   }
 
-  objc_storeStrong(v153, 0);
-  if (!*(v122 + 30))
+  objc_storeStrong(v152, 0);
+  if (!*(v121 + 30))
   {
-    *(v122 + 30) = 0;
+    *(v121 + 30) = 0;
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)clearPastScanResults
@@ -15826,7 +15752,6 @@ void __50__SUUIStatefulUIManager_handleRefreshScanResults___block_invoke(uint64_
   v26 = 0;
   objc_storeStrong(&v187, 0);
   objc_storeStrong(location, v26);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)targetedUpdateForDownload:(id)download
@@ -15936,824 +15861,817 @@ void __50__SUUIStatefulUIManager_handleRefreshScanResults___block_invoke(uint64_
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke(id *a1)
 {
-  v356 = &v375;
-  v357 = a1;
-  v358 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
-  v359 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
-  v433 = *MEMORY[0x277D85DE8];
-  v421[2] = a1;
-  v421[1] = a1;
+  v350 = &v369;
+  v351 = a1;
+  v352 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
+  v353 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
+  v427 = *MEMORY[0x277D85DE8];
+  v415[2] = a1;
+  v415[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 11);
-  v421[0] = WeakRetained;
-  v355 = 0;
+  v415[0] = WeakRetained;
+  v349 = 0;
   if (!WeakRetained)
   {
-    v354 = +[SUUILoggingContext softwareUpdateUILogger];
-    v352 = v354;
-    v353 = [v352 oslog];
-    v1 = v353;
-    v2 = v352;
-    *(v356 + 67) = v1;
+    v348 = +[SUUILoggingContext softwareUpdateUILogger];
+    v346 = v348;
+    v347 = [v346 oslog];
+    v1 = v347;
+    v2 = v346;
+    *(v350 + 67) = v1;
     MEMORY[0x277D82BD8](v2);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(*(v356 + 67), OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(*(v350 + 67), OS_LOG_TYPE_ERROR))
     {
-      log = *(v356 + 67);
-      *v350 = type;
-      v351 = NSStringFromSelector(v357[12]);
-      v348 = v351;
-      v3 = MEMORY[0x277D82BE0](v348);
-      v4 = v358;
-      *(v356 + 65) = v3;
-      buf = v432;
-      __os_log_helper_16_2_2_8_32_8_66(v432, v4, v3);
-      _os_log_error_impl(&dword_26ADE5000, log, v350[0], "%s: Self is nil in %{public}@. Stopping.", v432, 0x16u);
-      MEMORY[0x277D82BD8](v348);
+      log = *(v350 + 67);
+      *v344 = type;
+      v345 = NSStringFromSelector(v351[12]);
+      v342 = v345;
+      v3 = MEMORY[0x277D82BE0](v342);
+      v4 = v352;
+      *(v350 + 65) = v3;
+      buf = v426;
+      __os_log_helper_16_2_2_8_32_8_66(v426, v4, v3);
+      _os_log_error_impl(&dword_26ADE5000, log, v344[0], "%s: Self is nil in %{public}@. Stopping.", v426, 0x16u);
+      MEMORY[0x277D82BD8](v342);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v420, 0);
-    v5 = v356;
-    *(v356 + 129) = 1;
-    v355 = *(v5 + 129) != 0;
+    objc_storeStrong(&v414, 0);
+    v5 = v350;
+    *(v350 + 129) = 1;
+    v349 = *(v5 + 129) != 0;
   }
 
-  if (v355)
+  if (v349)
   {
     v6 = MEMORY[0x277D85CD0];
     v7 = MEMORY[0x277D85CD0];
-    v8 = v357;
-    v9 = v356;
+    v8 = v351;
+    v9 = v350;
     queue = v7;
-    block = &v416;
-    *(v356 + 59) = MEMORY[0x277D85DD0];
+    block = &v410;
+    *(v350 + 59) = MEMORY[0x277D85DD0];
     *(v9 + 120) = -1073741824;
     *(v9 + 121) = 0;
     *(v9 + 61) = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_450;
     *(v9 + 62) = &unk_279CC61E0;
-    v344 = &v417;
+    v338 = &v411;
     v10 = MEMORY[0x277D82BE0](v8[7]);
     v11 = block;
     v12 = v10;
     v13 = queue;
-    *(v356 + 63) = v12;
+    *(v350 + 63) = v12;
     dispatch_async(v13, v11);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v344, 0);
-    *(v356 + 117) = 1;
+    objc_storeStrong(v338, 0);
+    *(v350 + 117) = 1;
   }
 
-  else if ((v357[15] & 1) != 0 || (v343 = [*(v356 + 68) currentUpdateOperationType], v14 = v356, *(v356 + 57) = v343, !*(v14 + 57)))
+  else if ((v351[15] & 1) != 0 || (v337 = [*(v350 + 68) currentUpdateOperationType], v14 = v350, *(v350 + 57) = v337, !*(v14 + 57)))
   {
-    v247 = [MEMORY[0x277CCAD78] UUID];
-    v245 = v247;
-    v246 = [v245 UUIDString];
-    v89 = v246;
-    v90 = v245;
-    *(v356 + 24) = v89;
-    MEMORY[0x277D82BD8](v90);
-    v244 = [*(v356 + 68) environment];
-    v240 = v244;
-    v241 = *(v356 + 68);
-    v242 = *(v356 + 24);
-    v243 = v357[5];
-    v391 = 0;
-    if (v243)
+    v241 = [MEMORY[0x277CCAD78] UUID];
+    v239 = v241;
+    v240 = [v239 UUIDString];
+    v88 = v240;
+    v89 = v239;
+    *(v350 + 24) = v88;
+    MEMORY[0x277D82BD8](v89);
+    v238 = [*(v350 + 68) environment];
+    v234 = v238;
+    v235 = *(v350 + 68);
+    v236 = *(v350 + 24);
+    v237 = v351[5];
+    v385 = 0;
+    if (v237)
     {
-      v239 = v243;
+      v233 = v237;
     }
 
     else
     {
-      v238 = [*(v356 + 68) delegateCallbackQueue];
-      v91 = v238;
-      *(v356 + 22) = v91;
-      v391 = 1;
-      v239 = v91;
+      v232 = [*(v350 + 68) delegateCallbackQueue];
+      v90 = v232;
+      *(v350 + 22) = v90;
+      v385 = 1;
+      v233 = v90;
     }
 
-    v237 = [v240 updateOperationWithManager:v241 identifier:v242 delegateCallbackQueue:v239 completionQueue:*(*(v356 + 68) + 208)];
-    *(v356 + 23) = v237;
-    if (v391)
+    v231 = [v234 updateOperationWithManager:v235 identifier:v236 delegateCallbackQueue:v233 completionQueue:*(*(v350 + 68) + 208)];
+    *(v350 + 23) = v231;
+    if (v385)
     {
-      MEMORY[0x277D82BD8](*(v356 + 22));
+      MEMORY[0x277D82BD8](*(v350 + 22));
     }
 
-    MEMORY[0x277D82BD8](v240);
-    v92 = *(v356 + 23);
-    v93 = v357[14];
-    v236 = objc_opt_respondsToSelector();
-    if ((v236 & 1) == 0)
+    MEMORY[0x277D82BD8](v234);
+    v230 = objc_opt_respondsToSelector();
+    if ((v230 & 1) == 0)
     {
-      v234 = *(v356 + 23);
-      v94 = *(v356 + 23);
-      v235 = objc_opt_class();
-      v233 = NSStringFromClass(v235);
-      v231 = v233;
-      v232 = NSStringFromSelector(v357[14]);
-      _suui_precondition_failure_with_format(@"Can't perform the update request since the Update Operation object (%p, of type: %@) doesn't respond to the selector %@.", v234, v231, v232);
+      v228 = *(v350 + 23);
+      v229 = objc_opt_class();
+      v227 = NSStringFromClass(v229);
+      v225 = v227;
+      v226 = NSStringFromSelector(v351[14]);
+      _suui_precondition_failure_with_format(@"Can't perform the update request since the Update Operation object (%p, of type: %@) doesn't respond to the selector %@.", v228, v225, v226);
     }
 
-    v230 = +[SUUILoggingContext statefulUILogger];
-    v228 = v230;
-    v229 = [v228 oslog];
-    v95 = v229;
-    v96 = v228;
-    *(v356 + 20) = v95;
-    MEMORY[0x277D82BD8](v96);
-    v389 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(*(v356 + 20), OS_LOG_TYPE_DEFAULT))
+    v224 = +[SUUILoggingContext statefulUILogger];
+    v222 = v224;
+    v223 = [v222 oslog];
+    v91 = v223;
+    v92 = v222;
+    *(v350 + 20) = v91;
+    MEMORY[0x277D82BD8](v92);
+    v383 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(*(v350 + 20), OS_LOG_TYPE_DEFAULT))
     {
-      v224 = *(v356 + 20);
-      *v225 = v389;
-      v226 = *(v356 + 68);
-      v97 = *(v356 + 68);
-      v227 = objc_opt_class();
-      v223 = NSStringFromClass(v227);
-      v220 = v223;
-      v98 = MEMORY[0x277D82BE0](v220);
-      v99 = v356;
-      v221 = v98;
-      *(v356 + 18) = v98;
-      v222 = SUUIStatefulUIStateToString(*(*(v99 + 68) + 40));
-      v217 = v222;
-      v100 = MEMORY[0x277D82BE0](v217);
-      v101 = v356;
-      v218 = v100;
-      *(v356 + 17) = v100;
-      v219 = [v101[68] currentState];
-      v216 = [*(v356 + 68) delegate];
-      v215 = v216;
-      v386 = 0;
-      v385 = 0;
-      if (v215)
+      v218 = *(v350 + 20);
+      *v219 = v383;
+      v220 = *(v350 + 68);
+      v221 = objc_opt_class();
+      v217 = NSStringFromClass(v221);
+      v214 = v217;
+      v93 = MEMORY[0x277D82BE0](v214);
+      v94 = v350;
+      v215 = v93;
+      *(v350 + 18) = v93;
+      v216 = SUUIStatefulUIStateToString(*(*(v94 + 68) + 40));
+      v211 = v216;
+      v95 = MEMORY[0x277D82BE0](v211);
+      v96 = v350;
+      v212 = v95;
+      *(v350 + 17) = v95;
+      v213 = [v96[68] currentState];
+      v210 = [*(v350 + 68) delegate];
+      v209 = v210;
+      v380 = 0;
+      v379 = 0;
+      if (v209)
       {
-        v214 = [*(v356 + 68) delegate];
-        *(v356 + 16) = v214;
-        v386 = 1;
-        v213 = objc_opt_class();
-        v212 = NSStringFromClass(v213);
-        v102 = v212;
-        *(v356 + 14) = v102;
-        v385 = 1;
-        v211 = v102;
+        v208 = [*(v350 + 68) delegate];
+        *(v350 + 16) = v208;
+        v380 = 1;
+        v207 = objc_opt_class();
+        v206 = NSStringFromClass(v207);
+        v97 = v206;
+        *(v350 + 14) = v97;
+        v379 = 1;
+        v205 = v97;
       }
 
       else
       {
-        v211 = @"(null)";
+        v205 = @"(null)";
       }
 
-      v209 = v211;
-      v210 = [*(v356 + 68) delegate];
-      v207 = v210;
-      v208 = [*(v356 + 68) scanError];
-      v205 = v208;
-      v206 = [*(v356 + 68) preferredStatefulDescriptor];
-      v203 = v206;
-      v204 = [*(v356 + 68) alternateStatefulDescriptor];
+      v203 = v205;
+      v204 = [*(v350 + 68) delegate];
       v201 = v204;
-      v202 = [*(v356 + 68) currentDownload];
-      v200 = v202;
-      v384 = 0;
-      v383 = 0;
-      v382 = 0;
-      if (v200)
-      {
-        v199 = [*(v356 + 68) currentDownload];
-        v103 = v199;
-        *(v356 + 12) = v103;
-        v384 = 1;
-        v198 = [v103 descriptor];
-        v104 = v198;
-        *(v356 + 10) = v104;
-        v383 = 1;
-        v197 = [v104 updateName];
-        v105 = v197;
-        *(v356 + 8) = v105;
-        v382 = 1;
-        v196 = v105;
-      }
-
-      else
-      {
-        v196 = @"(null)";
-      }
-
+      v202 = [*(v350 + 68) scanError];
+      v199 = v202;
+      v200 = [*(v350 + 68) preferredStatefulDescriptor];
+      v197 = v200;
+      v198 = [*(v350 + 68) alternateStatefulDescriptor];
+      v195 = v198;
+      v196 = [*(v350 + 68) currentDownload];
       v194 = v196;
-      v195 = [*(v356 + 68) currentDownload];
-      v192 = v195;
-      v193 = [*(v356 + 68) currentUpdateOperationType];
-      v191 = SUUIUpdateContinuousOperationTypeToString(v193);
-      v188 = v191;
-      v106 = MEMORY[0x277D82BE0](v188);
-      v107 = v356;
-      v189 = v106;
-      *(v356 + 6) = v106;
-      v190 = [v107[68] isTargetedUpdateScheduledForAutoInstall];
-      v425 = v190;
-      if (v190)
+      v378 = 0;
+      v377 = 0;
+      v376 = 0;
+      if (v194)
       {
-        v108 = @"YES";
+        v193 = [*(v350 + 68) currentDownload];
+        v98 = v193;
+        *(v350 + 12) = v98;
+        v378 = 1;
+        v192 = [v98 descriptor];
+        v99 = v192;
+        *(v350 + 10) = v99;
+        v377 = 1;
+        v191 = [v99 updateName];
+        v100 = v191;
+        *(v350 + 8) = v100;
+        v376 = 1;
+        v190 = v100;
       }
 
       else
       {
-        v108 = @"NO";
+        v190 = @"(null)";
       }
 
-      v187 = v108;
-      v109 = v108;
-      v184 = v187;
-      v110 = MEMORY[0x277D82BE0](v184);
-      v111 = v356;
-      v185 = v110;
-      *(v356 + 5) = v110;
-      v186 = [v111[68] hidingPreferredDescriptor];
-      v424 = v186;
-      if (v186)
+      v188 = v190;
+      v189 = [*(v350 + 68) currentDownload];
+      v186 = v189;
+      v187 = [*(v350 + 68) currentUpdateOperationType];
+      v185 = SUUIUpdateContinuousOperationTypeToString(v187);
+      v182 = v185;
+      v101 = MEMORY[0x277D82BE0](v182);
+      v102 = v350;
+      v183 = v101;
+      *(v350 + 6) = v101;
+      v184 = [v102[68] isTargetedUpdateScheduledForAutoInstall];
+      v419 = v184;
+      if (v184)
       {
-        v112 = @"YES";
+        v103 = @"YES";
       }
 
       else
       {
-        v112 = @"NO";
+        v103 = @"NO";
       }
 
-      v183 = v112;
-      v113 = v112;
-      v180 = v183;
-      v114 = MEMORY[0x277D82BE0](v180);
-      v115 = v356;
-      v181 = v114;
-      *(v356 + 4) = v114;
-      v182 = [v115[68] hiddenPreferredStatefulDescriptor];
-      v178 = v182;
-      v179 = [v178 updateName];
-      v175 = v179;
-      v116 = MEMORY[0x277D82BE0](v175);
-      v117 = v356;
-      v176 = v116;
-      *(v356 + 3) = v116;
-      v177 = [v117[68] hidingAlternateDescriptor];
-      v423 = v177;
-      if (v177)
+      v181 = v103;
+      v104 = v103;
+      v178 = v181;
+      v105 = MEMORY[0x277D82BE0](v178);
+      v106 = v350;
+      v179 = v105;
+      *(v350 + 5) = v105;
+      v180 = [v106[68] hidingPreferredDescriptor];
+      v418 = v180;
+      if (v180)
       {
-        v118 = @"YES";
+        v107 = @"YES";
       }
 
       else
       {
-        v118 = @"NO";
+        v107 = @"NO";
       }
 
-      v174 = v118;
-      v119 = v118;
-      v171 = v174;
-      v120 = MEMORY[0x277D82BE0](v171);
-      v121 = v356;
-      v172 = v120;
-      *(v356 + 2) = v120;
-      v173 = [v121[68] hiddenAlternateStatefulDescriptor];
+      v177 = v107;
+      v108 = v107;
+      v174 = v177;
+      v109 = MEMORY[0x277D82BE0](v174);
+      v110 = v350;
+      v175 = v109;
+      *(v350 + 4) = v109;
+      v176 = [v110[68] hiddenPreferredStatefulDescriptor];
+      v172 = v176;
+      v173 = [v172 updateName];
       v169 = v173;
-      v170 = [v169 updateName];
-      v166 = v170;
-      v122 = MEMORY[0x277D82BE0](v166);
-      v123 = v356;
-      v167 = v122;
-      *(v356 + 1) = v122;
-      v168 = [v123[68] enrolledBetaProgram];
-      v165 = v168;
-      v374 = 0;
-      if (v165)
+      v111 = MEMORY[0x277D82BE0](v169);
+      v112 = v350;
+      v170 = v111;
+      *(v350 + 3) = v111;
+      v171 = [v112[68] hidingAlternateDescriptor];
+      v417 = v171;
+      if (v171)
       {
-        v164 = [*(v356 + 68) enrolledBetaProgram];
-        v124 = v164;
-        *v356 = v124;
-        v374 = 1;
-        v163 = [v124 programID];
-        v162 = v163;
+        v113 = @"YES";
       }
 
       else
       {
-        v162 = 0;
+        v113 = @"NO";
       }
 
-      v160 = v162;
-      v161 = [*(*(v356 + 68) + 120) count];
-      v159 = [*(v356 + 68) canEnrollInBetaUpdates];
-      v422 = v159;
+      v168 = v113;
+      v114 = v113;
+      v165 = v168;
+      v115 = MEMORY[0x277D82BE0](v165);
+      v116 = v350;
+      v166 = v115;
+      *(v350 + 2) = v115;
+      v167 = [v116[68] hiddenAlternateStatefulDescriptor];
+      v163 = v167;
+      v164 = [v163 updateName];
+      v160 = v164;
+      v117 = MEMORY[0x277D82BE0](v160);
+      v118 = v350;
+      v161 = v117;
+      *(v350 + 1) = v117;
+      v162 = [v118[68] enrolledBetaProgram];
+      v159 = v162;
+      v368 = 0;
       if (v159)
       {
-        v125 = @"YES";
+        v158 = [*(v350 + 68) enrolledBetaProgram];
+        v119 = v158;
+        *v350 = v119;
+        v368 = 1;
+        v157 = [v119 programID];
+        v156 = v157;
       }
 
       else
       {
-        v125 = @"NO";
+        v156 = 0;
       }
 
-      v158 = v125;
-      v126 = v125;
-      v152 = v158;
-      v153 = MEMORY[0x277D82BE0](v152);
-      v373 = v153;
-      v154 = *(*(v356 + 68) + 168);
-      v155 = *(*(v356 + 68) + 176);
-      v156 = *(*(v356 + 68) + 184);
-      v157 = [*(*(v356 + 68) + 192) count];
-      v151 = SUUIUpdateContinuousOperationTypeToString(v357[13]);
-      v150 = v151;
-      v372 = MEMORY[0x277D82BE0](v150);
-      v127 = v357[4];
-      v128 = *(v356 + 24);
-      v148 = &v130;
-      v149 = v430;
-      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v430, v359, v226, v221, v218, v219, v209, v207, v205, v203, v201, v194, v192, v189, v185, v181, v176, v172, v167, v160, v161, v153, v154, v155, v156, v157, v372, v127, v128);
-      _os_log_impl(&dword_26ADE5000, v224, v225[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nStarting to perform the update operation %{public}@ into: %{public}@, using operation identifier: %{public}@", v149, 0x11Au);
-      MEMORY[0x277D82BD8](v150);
-      MEMORY[0x277D82BD8](v152);
-      if (v374)
+      v154 = v156;
+      v155 = [*(*(v350 + 68) + 120) count];
+      v153 = [*(v350 + 68) canEnrollInBetaUpdates];
+      v416 = v153;
+      if (v153)
       {
-        MEMORY[0x277D82BD8](*v356);
+        v120 = @"YES";
       }
 
+      else
+      {
+        v120 = @"NO";
+      }
+
+      v152 = v120;
+      v121 = v120;
+      v146 = v152;
+      v147 = MEMORY[0x277D82BE0](v146);
+      v367 = v147;
+      v148 = *(*(v350 + 68) + 168);
+      v149 = *(*(v350 + 68) + 176);
+      v150 = *(*(v350 + 68) + 184);
+      v151 = [*(*(v350 + 68) + 192) count];
+      v145 = SUUIUpdateContinuousOperationTypeToString(v351[13]);
+      v144 = v145;
+      v366 = MEMORY[0x277D82BE0](v144);
+      v122 = v351[4];
+      v123 = *(v350 + 24);
+      v142 = &v124;
+      v143 = v424;
+      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v424, v353, v220, v215, v212, v213, v203, v201, v199, v197, v195, v188, v186, v183, v179, v175, v170, v166, v161, v154, v155, v147, v148, v149, v150, v151, v366, v122, v123);
+      _os_log_impl(&dword_26ADE5000, v218, v219[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nStarting to perform the update operation %{public}@ into: %{public}@, using operation identifier: %{public}@", v143, 0x11Au);
+      MEMORY[0x277D82BD8](v144);
+      MEMORY[0x277D82BD8](v146);
+      if (v368)
+      {
+        MEMORY[0x277D82BD8](*v350);
+      }
+
+      MEMORY[0x277D82BD8](v159);
+      MEMORY[0x277D82BD8](v160);
+      MEMORY[0x277D82BD8](v163);
       MEMORY[0x277D82BD8](v165);
-      MEMORY[0x277D82BD8](v166);
       MEMORY[0x277D82BD8](v169);
-      MEMORY[0x277D82BD8](v171);
-      MEMORY[0x277D82BD8](v175);
+      MEMORY[0x277D82BD8](v172);
+      MEMORY[0x277D82BD8](v174);
       MEMORY[0x277D82BD8](v178);
-      MEMORY[0x277D82BD8](v180);
-      MEMORY[0x277D82BD8](v184);
-      MEMORY[0x277D82BD8](v188);
-      MEMORY[0x277D82BD8](v192);
-      if (v382)
+      MEMORY[0x277D82BD8](v182);
+      MEMORY[0x277D82BD8](v186);
+      if (v376)
       {
-        MEMORY[0x277D82BD8](*(v356 + 8));
+        MEMORY[0x277D82BD8](*(v350 + 8));
       }
 
-      if (v383)
+      if (v377)
       {
-        MEMORY[0x277D82BD8](*(v356 + 10));
+        MEMORY[0x277D82BD8](*(v350 + 10));
       }
 
-      if (v384)
+      if (v378)
       {
-        MEMORY[0x277D82BD8](*(v356 + 12));
+        MEMORY[0x277D82BD8](*(v350 + 12));
       }
 
-      MEMORY[0x277D82BD8](v200);
+      MEMORY[0x277D82BD8](v194);
+      MEMORY[0x277D82BD8](v195);
+      MEMORY[0x277D82BD8](v197);
+      MEMORY[0x277D82BD8](v199);
       MEMORY[0x277D82BD8](v201);
-      MEMORY[0x277D82BD8](v203);
-      MEMORY[0x277D82BD8](v205);
-      MEMORY[0x277D82BD8](v207);
-      if (v385)
+      if (v379)
       {
-        MEMORY[0x277D82BD8](*(v356 + 14));
+        MEMORY[0x277D82BD8](*(v350 + 14));
       }
 
-      if (v386)
+      if (v380)
       {
-        MEMORY[0x277D82BD8](*(v356 + 16));
+        MEMORY[0x277D82BD8](*(v350 + 16));
       }
 
-      MEMORY[0x277D82BD8](v215);
-      MEMORY[0x277D82BD8](v217);
-      MEMORY[0x277D82BD8](v220);
+      MEMORY[0x277D82BD8](v209);
+      MEMORY[0x277D82BD8](v211);
+      MEMORY[0x277D82BD8](v214);
+      objc_storeStrong(&v366, 0);
+      objc_storeStrong(&v367, 0);
+      objc_storeStrong(&v370, 0);
+      objc_storeStrong(&v371, 0);
       objc_storeStrong(&v372, 0);
       objc_storeStrong(&v373, 0);
-      objc_storeStrong(&v376, 0);
-      objc_storeStrong(&v377, 0);
-      objc_storeStrong(&v378, 0);
-      objc_storeStrong(&v379, 0);
-      objc_storeStrong(&v380, 0);
+      objc_storeStrong(&v374, 0);
+      objc_storeStrong(&v375, 0);
       objc_storeStrong(&v381, 0);
-      objc_storeStrong(&v387, 0);
-      objc_storeStrong(&v388, 0);
+      objc_storeStrong(&v382, 0);
     }
 
-    objc_storeStrong(&v390, 0);
-    if (v357[15])
+    objc_storeStrong(&v384, 0);
+    if (v351[15])
     {
-      [*(*(v356 + 68) + 192) addObject:*(v356 + 23)];
+      [*(*(v350 + 68) + 192) addObject:*(v350 + 23)];
     }
 
     else
     {
-      [*(v356 + 68) setCurrentUpdateOperation:*(v356 + 23)];
-      [*(v356 + 68) setCurrentUpdateOperationType:v357[13]];
+      [*(v350 + 68) setCurrentUpdateOperation:*(v350 + 23)];
+      [*(v350 + 68) setCurrentUpdateOperationType:v351[13]];
     }
 
-    v144 = *(v356 + 68);
-    v145 = v357[14];
-    v146 = *(v356 + 23);
-    v147 = [v357[4] descriptor];
-    v142 = v147;
-    v129 = *(v356 + 23);
-    v143 = (*(v357[8] + 2))();
-    v139 = v143;
-    v140 = v357[6];
-    v362 = MEMORY[0x277D85DD0];
-    v363 = -1073741824;
-    v364 = 0;
-    v365 = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_457;
-    v366 = &unk_279CC6748;
-    v141 = v370;
-    objc_copyWeak(v370, v357 + 11);
-    v133 = 1;
-    v361 = 1;
-    v137 = &v362;
-    v370[1] = v357[12];
-    v131 = v369;
-    v369[0] = MEMORY[0x277D82BE0](v357[7]);
-    v370[2] = v357[13];
-    v132 = v137 + 4;
-    v367 = MEMORY[0x277D82BE0](*(v356 + 24));
-    v371 = v357[15] & v133;
-    v134 = v137 + 5;
-    v368 = MEMORY[0x277D82BE0](*(v356 + 23));
-    v135 = v137 + 7;
-    v369[1] = MEMORY[0x277D82BE0](v357[9]);
-    v136 = v137 + 8;
-    v369[2] = MEMORY[0x277D82BE0](v357[10]);
-    v138 = MEMORY[0x26D66ADC0](v137);
-    [v144 performSelector:v145 onTarget:v146 withObject:v142 withObject:v139 withObject:v140 withObject:v138];
-    v361 = 0;
-    MEMORY[0x277D82BD8](v138);
-    MEMORY[0x277D82BD8](v139);
-    MEMORY[0x277D82BD8](v142);
-    objc_storeStrong(v136, 0);
-    objc_storeStrong(v135, 0);
-    objc_storeStrong(v134, 0);
-    objc_storeStrong(v132, 0);
-    objc_storeStrong(v131, 0);
-    objc_destroyWeak(v141);
-    objc_storeStrong(&v392, 0);
-    objc_storeStrong(&v393, 0);
-    *(v356 + 117) = 0;
+    v138 = *(v350 + 68);
+    v139 = v351[14];
+    v140 = *(v350 + 23);
+    v141 = [v351[4] descriptor];
+    v136 = v141;
+    v137 = (*(v351[8] + 2))();
+    v133 = v137;
+    v134 = v351[6];
+    v356 = MEMORY[0x277D85DD0];
+    v357 = -1073741824;
+    v358 = 0;
+    v359 = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_457;
+    v360 = &unk_279CC6748;
+    v135 = v364;
+    objc_copyWeak(v364, v351 + 11);
+    v127 = 1;
+    v355 = 1;
+    v131 = &v356;
+    v364[1] = v351[12];
+    v125 = v363;
+    v363[0] = MEMORY[0x277D82BE0](v351[7]);
+    v364[2] = v351[13];
+    v126 = v131 + 4;
+    v361 = MEMORY[0x277D82BE0](*(v350 + 24));
+    v365 = v351[15] & v127;
+    v128 = v131 + 5;
+    v362 = MEMORY[0x277D82BE0](*(v350 + 23));
+    v129 = v131 + 7;
+    v363[1] = MEMORY[0x277D82BE0](v351[9]);
+    v130 = v131 + 8;
+    v363[2] = MEMORY[0x277D82BE0](v351[10]);
+    v132 = MEMORY[0x26D66ADC0](v131);
+    [v138 performSelector:v139 onTarget:v140 withObject:v136 withObject:v133 withObject:v134 withObject:v132];
+    v355 = 0;
+    MEMORY[0x277D82BD8](v132);
+    MEMORY[0x277D82BD8](v133);
+    MEMORY[0x277D82BD8](v136);
+    objc_storeStrong(v130, 0);
+    objc_storeStrong(v129, 0);
+    objc_storeStrong(v128, 0);
+    objc_storeStrong(v126, 0);
+    objc_storeStrong(v125, 0);
+    objc_destroyWeak(v135);
+    objc_storeStrong(&v386, 0);
+    objc_storeStrong(&v387, 0);
+    *(v350 + 117) = 0;
   }
 
   else
   {
-    v342 = +[SUUILoggingContext statefulUILogger];
-    v340 = v342;
-    v341 = [v340 oslog];
-    v15 = v341;
-    v16 = v340;
-    *(v356 + 56) = v15;
+    v336 = +[SUUILoggingContext statefulUILogger];
+    v334 = v336;
+    v335 = [v334 oslog];
+    v15 = v335;
+    v16 = v334;
+    *(v350 + 56) = v15;
     MEMORY[0x277D82BD8](v16);
-    v414 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(*(v356 + 56), OS_LOG_TYPE_DEFAULT))
+    v408 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(*(v350 + 56), OS_LOG_TYPE_DEFAULT))
     {
-      v336 = *(v356 + 56);
-      *v337 = v414;
-      v338 = *(v356 + 68);
-      v17 = *(v356 + 68);
+      v330 = *(v350 + 56);
+      *v331 = v408;
+      v332 = *(v350 + 68);
       aClass = objc_opt_class();
-      v335 = NSStringFromClass(aClass);
-      v332 = v335;
-      v18 = MEMORY[0x277D82BE0](v332);
-      v19 = v356;
-      v333 = v18;
-      *(v356 + 54) = v18;
-      v334 = SUUIStatefulUIStateToString(*(*(v19 + 68) + 40));
-      v329 = v334;
-      v20 = MEMORY[0x277D82BE0](v329);
-      v21 = v356;
-      v330 = v20;
-      *(v356 + 53) = v20;
-      v331 = [v21[68] currentState];
-      v328 = [*(v356 + 68) delegate];
-      v327 = v328;
-      v411 = 0;
-      v410 = 0;
-      if (v327)
+      v329 = NSStringFromClass(aClass);
+      v326 = v329;
+      v17 = MEMORY[0x277D82BE0](v326);
+      v18 = v350;
+      v327 = v17;
+      *(v350 + 54) = v17;
+      v328 = SUUIStatefulUIStateToString(*(*(v18 + 68) + 40));
+      v323 = v328;
+      v19 = MEMORY[0x277D82BE0](v323);
+      v20 = v350;
+      v324 = v19;
+      *(v350 + 53) = v19;
+      v325 = [v20[68] currentState];
+      v322 = [*(v350 + 68) delegate];
+      v321 = v322;
+      v405 = 0;
+      v404 = 0;
+      if (v321)
       {
-        v326 = [*(v356 + 68) delegate];
-        *(v356 + 52) = v326;
-        v411 = 1;
-        v325 = objc_opt_class();
-        v324 = NSStringFromClass(v325);
-        v22 = v324;
-        *(v356 + 50) = v22;
-        v410 = 1;
-        v323 = v22;
+        v320 = [*(v350 + 68) delegate];
+        *(v350 + 52) = v320;
+        v405 = 1;
+        v319 = objc_opt_class();
+        v318 = NSStringFromClass(v319);
+        v21 = v318;
+        *(v350 + 50) = v21;
+        v404 = 1;
+        v317 = v21;
       }
 
       else
       {
-        v323 = @"(null)";
+        v317 = @"(null)";
       }
 
-      v321 = v323;
-      v322 = [*(v356 + 68) delegate];
-      v319 = v322;
-      v320 = [*(v356 + 68) scanError];
-      v317 = v320;
-      v318 = [*(v356 + 68) preferredStatefulDescriptor];
-      v315 = v318;
-      v316 = [*(v356 + 68) alternateStatefulDescriptor];
+      v315 = v317;
+      v316 = [*(v350 + 68) delegate];
       v313 = v316;
-      v314 = [*(v356 + 68) currentDownload];
-      v312 = v314;
-      v409 = 0;
-      v408 = 0;
-      v407 = 0;
-      if (v312)
-      {
-        v311 = [*(v356 + 68) currentDownload];
-        v23 = v311;
-        *(v356 + 48) = v23;
-        v409 = 1;
-        v310 = [v23 descriptor];
-        v24 = v310;
-        *(v356 + 46) = v24;
-        v408 = 1;
-        v309 = [v24 updateName];
-        v25 = v309;
-        *(v356 + 44) = v25;
-        v407 = 1;
-        v308 = v25;
-      }
-
-      else
-      {
-        v308 = @"(null)";
-      }
-
+      v314 = [*(v350 + 68) scanError];
+      v311 = v314;
+      v312 = [*(v350 + 68) preferredStatefulDescriptor];
+      v309 = v312;
+      v310 = [*(v350 + 68) alternateStatefulDescriptor];
+      v307 = v310;
+      v308 = [*(v350 + 68) currentDownload];
       v306 = v308;
-      v307 = [*(v356 + 68) currentDownload];
-      v304 = v307;
-      v305 = [*(v356 + 68) currentUpdateOperationType];
-      v303 = SUUIUpdateContinuousOperationTypeToString(v305);
-      v300 = v303;
-      v26 = MEMORY[0x277D82BE0](v300);
-      v27 = v356;
-      v301 = v26;
-      *(v356 + 42) = v26;
-      v302 = [v27[68] isTargetedUpdateScheduledForAutoInstall];
-      v429 = v302;
-      if (v302)
+      v403 = 0;
+      v402 = 0;
+      v401 = 0;
+      if (v306)
       {
-        v28 = @"YES";
+        v305 = [*(v350 + 68) currentDownload];
+        v22 = v305;
+        *(v350 + 48) = v22;
+        v403 = 1;
+        v304 = [v22 descriptor];
+        v23 = v304;
+        *(v350 + 46) = v23;
+        v402 = 1;
+        v303 = [v23 updateName];
+        v24 = v303;
+        *(v350 + 44) = v24;
+        v401 = 1;
+        v302 = v24;
       }
 
       else
       {
-        v28 = @"NO";
+        v302 = @"(null)";
       }
 
-      v299 = v28;
-      v29 = v28;
-      v296 = v299;
-      v30 = MEMORY[0x277D82BE0](v296);
-      v31 = v356;
-      v297 = v30;
-      *(v356 + 41) = v30;
-      v298 = [v31[68] hidingPreferredDescriptor];
-      v428 = v298;
-      if (v298)
+      v300 = v302;
+      v301 = [*(v350 + 68) currentDownload];
+      v298 = v301;
+      v299 = [*(v350 + 68) currentUpdateOperationType];
+      v297 = SUUIUpdateContinuousOperationTypeToString(v299);
+      v294 = v297;
+      v25 = MEMORY[0x277D82BE0](v294);
+      v26 = v350;
+      v295 = v25;
+      *(v350 + 42) = v25;
+      v296 = [v26[68] isTargetedUpdateScheduledForAutoInstall];
+      v423 = v296;
+      if (v296)
       {
-        v32 = @"YES";
+        v27 = @"YES";
       }
 
       else
       {
-        v32 = @"NO";
+        v27 = @"NO";
       }
 
-      v295 = v32;
-      v33 = v32;
-      v292 = v295;
-      v34 = MEMORY[0x277D82BE0](v292);
-      v35 = v356;
-      v293 = v34;
-      *(v356 + 40) = v34;
-      v294 = [v35[68] hiddenPreferredStatefulDescriptor];
-      v290 = v294;
-      v291 = [v290 updateName];
-      v287 = v291;
-      v36 = MEMORY[0x277D82BE0](v287);
-      v37 = v356;
-      v288 = v36;
-      *(v356 + 39) = v36;
-      v289 = [v37[68] hidingAlternateDescriptor];
-      v427 = v289;
-      if (v289)
+      v293 = v27;
+      v28 = v27;
+      v290 = v293;
+      v29 = MEMORY[0x277D82BE0](v290);
+      v30 = v350;
+      v291 = v29;
+      *(v350 + 41) = v29;
+      v292 = [v30[68] hidingPreferredDescriptor];
+      v422 = v292;
+      if (v292)
       {
-        v38 = @"YES";
+        v31 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v31 = @"NO";
       }
 
-      v286 = v38;
-      v39 = v38;
-      v283 = v286;
-      v40 = MEMORY[0x277D82BE0](v283);
-      v41 = v356;
-      v284 = v40;
-      *(v356 + 38) = v40;
-      v285 = [v41[68] hiddenAlternateStatefulDescriptor];
+      v289 = v31;
+      v32 = v31;
+      v286 = v289;
+      v33 = MEMORY[0x277D82BE0](v286);
+      v34 = v350;
+      v287 = v33;
+      *(v350 + 40) = v33;
+      v288 = [v34[68] hiddenPreferredStatefulDescriptor];
+      v284 = v288;
+      v285 = [v284 updateName];
       v281 = v285;
-      v282 = [v281 updateName];
-      v278 = v282;
-      v42 = MEMORY[0x277D82BE0](v278);
-      v43 = v356;
-      v279 = v42;
-      *(v356 + 37) = v42;
-      v280 = [v43[68] enrolledBetaProgram];
-      v277 = v280;
-      v400 = 0;
-      if (v277)
+      v35 = MEMORY[0x277D82BE0](v281);
+      v36 = v350;
+      v282 = v35;
+      *(v350 + 39) = v35;
+      v283 = [v36[68] hidingAlternateDescriptor];
+      v421 = v283;
+      if (v283)
       {
-        v276 = [*(v356 + 68) enrolledBetaProgram];
-        v44 = v276;
-        *(v356 + 36) = v44;
-        v400 = 1;
-        v275 = [v44 programID];
-        v274 = v275;
+        v37 = @"YES";
       }
 
       else
       {
-        v274 = 0;
+        v37 = @"NO";
       }
 
-      v272 = v274;
-      v273 = [*(*(v356 + 68) + 120) count];
-      v271 = [*(v356 + 68) canEnrollInBetaUpdates];
-      v426 = v271;
+      v280 = v37;
+      v38 = v37;
+      v277 = v280;
+      v39 = MEMORY[0x277D82BE0](v277);
+      v40 = v350;
+      v278 = v39;
+      *(v350 + 38) = v39;
+      v279 = [v40[68] hiddenAlternateStatefulDescriptor];
+      v275 = v279;
+      v276 = [v275 updateName];
+      v272 = v276;
+      v41 = MEMORY[0x277D82BE0](v272);
+      v42 = v350;
+      v273 = v41;
+      *(v350 + 37) = v41;
+      v274 = [v42[68] enrolledBetaProgram];
+      v271 = v274;
+      v394 = 0;
       if (v271)
       {
-        v45 = @"YES";
+        v270 = [*(v350 + 68) enrolledBetaProgram];
+        v43 = v270;
+        *(v350 + 36) = v43;
+        v394 = 1;
+        v269 = [v43 programID];
+        v268 = v269;
       }
 
       else
       {
-        v45 = @"NO";
+        v268 = 0;
       }
 
-      v270 = v45;
-      v46 = v45;
-      v264 = v270;
-      v47 = MEMORY[0x277D82BE0](v264);
-      v48 = v356;
-      v265 = v47;
-      *(v356 + 34) = v47;
-      v266 = *(*(v48 + 68) + 168);
-      v267 = *(*(v48 + 68) + 176);
-      v268 = *(*(v48 + 68) + 184);
-      v269 = [*(*(v48 + 68) + 192) count];
-      v263 = SUUIUpdateContinuousOperationTypeToString(*(v356 + 57));
-      v260 = v263;
-      v49 = MEMORY[0x277D82BE0](v260);
-      v50 = v357;
-      v261 = v49;
-      *(v356 + 33) = v49;
-      v262 = SUUIUpdateContinuousOperationTypeToString(v50[13]);
-      v51 = v279;
-      v52 = v284;
-      v53 = v288;
-      v54 = v293;
-      v55 = v297;
-      v56 = v301;
-      v57 = v304;
-      v58 = v306;
-      v59 = v313;
-      v60 = v315;
-      v259 = v262;
-      v61 = MEMORY[0x277D82BE0](v259);
-      v62 = v357;
-      v63 = v272;
-      v64 = v273;
-      v65 = v265;
-      v66 = v266;
-      v67 = v267;
-      v68 = v268;
-      v69 = v269;
-      v70 = v261;
-      v71 = v359;
-      v72 = v338;
-      v73 = v333;
-      v74 = v330;
-      v75 = v331;
-      v76 = v321;
-      v77 = v319;
-      v78 = v317;
-      *(v356 + 32) = v61;
-      v79 = v62[4];
-      v257 = &v130;
-      v258 = v431;
-      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v431, v71, v72, v73, v74, v75, v76, v77, v78, v60, v59, v58, v57, v56, v55, v54, v53, v52, v51, v63, v64, v65, v66, v67, v68, v69, v70, v61, v79);
-      _os_log_impl(&dword_26ADE5000, v336, v337[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThere is already an update operation running (%{public}@). Ignoring update request %{public}@, into: %{public}@", v258, 0x11Au);
-      MEMORY[0x277D82BD8](v259);
-      MEMORY[0x277D82BD8](v260);
-      MEMORY[0x277D82BD8](v264);
-      if (v400)
+      v266 = v268;
+      v267 = [*(*(v350 + 68) + 120) count];
+      v265 = [*(v350 + 68) canEnrollInBetaUpdates];
+      v420 = v265;
+      if (v265)
       {
-        MEMORY[0x277D82BD8](*(v356 + 36));
+        v44 = @"YES";
       }
 
+      else
+      {
+        v44 = @"NO";
+      }
+
+      v264 = v44;
+      v45 = v44;
+      v258 = v264;
+      v46 = MEMORY[0x277D82BE0](v258);
+      v47 = v350;
+      v259 = v46;
+      *(v350 + 34) = v46;
+      v260 = *(*(v47 + 68) + 168);
+      v261 = *(*(v47 + 68) + 176);
+      v262 = *(*(v47 + 68) + 184);
+      v263 = [*(*(v47 + 68) + 192) count];
+      v257 = SUUIUpdateContinuousOperationTypeToString(*(v350 + 57));
+      v254 = v257;
+      v48 = MEMORY[0x277D82BE0](v254);
+      v49 = v351;
+      v255 = v48;
+      *(v350 + 33) = v48;
+      v256 = SUUIUpdateContinuousOperationTypeToString(v49[13]);
+      v50 = v273;
+      v51 = v278;
+      v52 = v282;
+      v53 = v287;
+      v54 = v291;
+      v55 = v295;
+      v56 = v298;
+      v57 = v300;
+      v58 = v307;
+      v59 = v309;
+      v253 = v256;
+      v60 = MEMORY[0x277D82BE0](v253);
+      v61 = v351;
+      v62 = v266;
+      v63 = v267;
+      v64 = v259;
+      v65 = v260;
+      v66 = v261;
+      v67 = v262;
+      v68 = v263;
+      v69 = v255;
+      v70 = v353;
+      v71 = v332;
+      v72 = v327;
+      v73 = v324;
+      v74 = v325;
+      v75 = v315;
+      v76 = v313;
+      v77 = v311;
+      *(v350 + 32) = v60;
+      v78 = v61[4];
+      v251 = &v124;
+      v252 = v425;
+      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v425, v70, v71, v72, v73, v74, v75, v76, v77, v59, v58, v57, v56, v55, v54, v53, v52, v51, v50, v62, v63, v64, v65, v66, v67, v68, v69, v60, v78);
+      _os_log_impl(&dword_26ADE5000, v330, v331[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThere is already an update operation running (%{public}@). Ignoring update request %{public}@, into: %{public}@", v252, 0x11Au);
+      MEMORY[0x277D82BD8](v253);
+      MEMORY[0x277D82BD8](v254);
+      MEMORY[0x277D82BD8](v258);
+      if (v394)
+      {
+        MEMORY[0x277D82BD8](*(v350 + 36));
+      }
+
+      MEMORY[0x277D82BD8](v271);
+      MEMORY[0x277D82BD8](v272);
+      MEMORY[0x277D82BD8](v275);
       MEMORY[0x277D82BD8](v277);
-      MEMORY[0x277D82BD8](v278);
       MEMORY[0x277D82BD8](v281);
-      MEMORY[0x277D82BD8](v283);
-      MEMORY[0x277D82BD8](v287);
+      MEMORY[0x277D82BD8](v284);
+      MEMORY[0x277D82BD8](v286);
       MEMORY[0x277D82BD8](v290);
-      MEMORY[0x277D82BD8](v292);
-      MEMORY[0x277D82BD8](v296);
-      MEMORY[0x277D82BD8](v300);
-      MEMORY[0x277D82BD8](v304);
-      if (v407)
+      MEMORY[0x277D82BD8](v294);
+      MEMORY[0x277D82BD8](v298);
+      if (v401)
       {
-        MEMORY[0x277D82BD8](*(v356 + 44));
+        MEMORY[0x277D82BD8](*(v350 + 44));
       }
 
-      if (v408)
+      if (v402)
       {
-        MEMORY[0x277D82BD8](*(v356 + 46));
+        MEMORY[0x277D82BD8](*(v350 + 46));
       }
 
-      if (v409)
+      if (v403)
       {
-        MEMORY[0x277D82BD8](*(v356 + 48));
+        MEMORY[0x277D82BD8](*(v350 + 48));
       }
 
-      MEMORY[0x277D82BD8](v312);
+      MEMORY[0x277D82BD8](v306);
+      MEMORY[0x277D82BD8](v307);
+      MEMORY[0x277D82BD8](v309);
+      MEMORY[0x277D82BD8](v311);
       MEMORY[0x277D82BD8](v313);
-      MEMORY[0x277D82BD8](v315);
-      MEMORY[0x277D82BD8](v317);
-      MEMORY[0x277D82BD8](v319);
-      if (v410)
+      if (v404)
       {
-        MEMORY[0x277D82BD8](*(v356 + 50));
+        MEMORY[0x277D82BD8](*(v350 + 50));
       }
 
-      if (v411)
+      if (v405)
       {
-        MEMORY[0x277D82BD8](*(v356 + 52));
+        MEMORY[0x277D82BD8](*(v350 + 52));
       }
 
-      MEMORY[0x277D82BD8](v327);
-      MEMORY[0x277D82BD8](v329);
-      MEMORY[0x277D82BD8](v332);
+      MEMORY[0x277D82BD8](v321);
+      MEMORY[0x277D82BD8](v323);
+      MEMORY[0x277D82BD8](v326);
+      objc_storeStrong(&v391, 0);
+      objc_storeStrong(&v392, 0);
+      objc_storeStrong(&v393, 0);
+      objc_storeStrong(&v395, 0);
+      objc_storeStrong(&v396, 0);
       objc_storeStrong(&v397, 0);
       objc_storeStrong(&v398, 0);
       objc_storeStrong(&v399, 0);
-      objc_storeStrong(&v401, 0);
-      objc_storeStrong(&v402, 0);
-      objc_storeStrong(&v403, 0);
-      objc_storeStrong(&v404, 0);
-      objc_storeStrong(&v405, 0);
+      objc_storeStrong(&v400, 0);
       objc_storeStrong(&v406, 0);
-      objc_storeStrong(&v412, 0);
-      objc_storeStrong(&v413, 0);
+      objc_storeStrong(&v407, 0);
     }
 
-    objc_storeStrong(&v415, 0);
-    v256 = [MEMORY[0x277D643F8] sharedCore];
-    v254 = v256;
-    v255 = [*(v356 + 68) delegateCallbackQueue];
-    v252 = v255;
-    v253 = [v254 selectDelegateCallbackQueue:?];
-    v80 = v253;
-    v81 = v356;
-    v82 = v357;
-    v250 = v80;
-    *(v356 + 25) = MEMORY[0x277D85DD0];
-    *(v81 + 52) = -1073741824;
-    *(v81 + 53) = 0;
-    *(v81 + 27) = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_452;
-    *(v81 + 28) = &unk_279CC6548;
-    v251 = v396;
-    objc_copyWeak(v396, v82 + 11);
-    v83 = v357;
-    v249 = &v394;
-    *(v356 + 31) = v357[12];
-    v248 = &v395;
-    v84 = MEMORY[0x277D82BE0](v83[7]);
-    v85 = v249;
-    v86 = v84;
-    v87 = v250;
-    *(v356 + 29) = v86;
-    dispatch_async(v87, v85);
-    MEMORY[0x277D82BD8](v250);
-    MEMORY[0x277D82BD8](v252);
-    MEMORY[0x277D82BD8](v254);
-    v88 = v248;
-    *(v356 + 117) = 1;
-    objc_storeStrong(v88, 0);
-    objc_destroyWeak(v251);
+    objc_storeStrong(&v409, 0);
+    v250 = [MEMORY[0x277D643F8] sharedCore];
+    v248 = v250;
+    v249 = [*(v350 + 68) delegateCallbackQueue];
+    v246 = v249;
+    v247 = [v248 selectDelegateCallbackQueue:?];
+    v79 = v247;
+    v80 = v350;
+    v81 = v351;
+    v244 = v79;
+    *(v350 + 25) = MEMORY[0x277D85DD0];
+    *(v80 + 52) = -1073741824;
+    *(v80 + 53) = 0;
+    *(v80 + 27) = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_452;
+    *(v80 + 28) = &unk_279CC6548;
+    v245 = v390;
+    objc_copyWeak(v390, v81 + 11);
+    v82 = v351;
+    v243 = &v388;
+    *(v350 + 31) = v351[12];
+    v242 = &v389;
+    v83 = MEMORY[0x277D82BE0](v82[7]);
+    v84 = v243;
+    v85 = v83;
+    v86 = v244;
+    *(v350 + 29) = v85;
+    dispatch_async(v86, v84);
+    MEMORY[0x277D82BD8](v244);
+    MEMORY[0x277D82BD8](v246);
+    MEMORY[0x277D82BD8](v248);
+    v87 = v242;
+    *(v350 + 117) = 1;
+    objc_storeStrong(v87, 0);
+    objc_destroyWeak(v245);
   }
 
-  objc_storeStrong(v421, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v415, 0);
 }
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_450(void *a1)
@@ -16853,7 +16771,6 @@ void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyi
   }
 
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_453(void *a1)
@@ -16871,510 +16788,508 @@ void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyi
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_457(void *a1, void *a2, void *a3)
 {
-  v213 = &v228;
-  v214 = a1;
+  v211 = &v226;
+  v212 = a1;
   obj = a3;
-  v216 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
-  v217 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
-  v267 = *MEMORY[0x277D85DE8];
+  v214 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
+  v215 = "[SUUIStatefulUIManager performUpdateOperation:withDescriptor:byApplyingSelector:context:auxiliaryOperation:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
+  v265 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v259 = 0;
-  objc_storeStrong(&v259, obj);
-  v258[1] = v214;
-  WeakRetained = objc_loadWeakRetained(v214 + 9);
-  v258[0] = WeakRetained;
-  v211 = 0;
+  v257 = 0;
+  objc_storeStrong(&v257, obj);
+  v256[1] = v212;
+  WeakRetained = objc_loadWeakRetained(v212 + 9);
+  v256[0] = WeakRetained;
+  v209 = 0;
   if (!WeakRetained)
   {
-    v210 = +[SUUILoggingContext softwareUpdateUILogger];
-    v208 = v210;
-    v209 = [v208 oslog];
-    v3 = v209;
-    v4 = v208;
-    v213[40] = v3;
+    v208 = +[SUUILoggingContext softwareUpdateUILogger];
+    v206 = v208;
+    v207 = [v206 oslog];
+    v3 = v207;
+    v4 = v206;
+    v211[40] = v3;
     MEMORY[0x277D82BD8](v4);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v213[40], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v211[40], OS_LOG_TYPE_ERROR))
     {
-      log = v213[40];
-      *v206 = type;
-      v207 = NSStringFromSelector(*(v214 + 10));
-      v204 = v207;
-      v5 = MEMORY[0x277D82BE0](v204);
-      v6 = v216;
-      v213[38] = v5;
-      buf = v266;
-      __os_log_helper_16_2_2_8_32_8_66(v266, v6, v5);
-      _os_log_error_impl(&dword_26ADE5000, log, v206[0], "%s: Self is nil in %{public}@. Stopping.", v266, 0x16u);
-      MEMORY[0x277D82BD8](v204);
-      objc_storeStrong(&v255, 0);
+      log = v211[40];
+      *v204 = type;
+      v205 = NSStringFromSelector(*(v212 + 10));
+      v202 = v205;
+      v5 = MEMORY[0x277D82BE0](v202);
+      v6 = v214;
+      v211[38] = v5;
+      buf = v264;
+      __os_log_helper_16_2_2_8_32_8_66(v264, v6, v5);
+      _os_log_error_impl(&dword_26ADE5000, log, v204[0], "%s: Self is nil in %{public}@. Stopping.", v264, 0x16u);
+      MEMORY[0x277D82BD8](v202);
+      objc_storeStrong(&v253, 0);
     }
 
-    objc_storeStrong(&v257, 0);
-    v254[3] = 1;
-    v211 = 1;
+    objc_storeStrong(&v255, 0);
+    v252[3] = 1;
+    v209 = 1;
   }
 
-  if (v211)
+  if (v209)
   {
     v7 = MEMORY[0x277D85CD0];
     v8 = MEMORY[0x277D85CD0];
-    v9 = v214;
-    v10 = v213;
+    v9 = v212;
+    v10 = v211;
     queue = v8;
-    block = &v251;
-    v213[32] = MEMORY[0x277D85DD0];
-    v252 = -1073741824;
-    v253 = 0;
+    block = &v249;
+    v211[32] = MEMORY[0x277D85DD0];
+    v250 = -1073741824;
+    v251 = 0;
     v10[34] = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_458;
     v10[35] = &unk_279CC61E0;
-    v200 = v254;
+    v198 = v252;
     v11 = MEMORY[0x277D82BE0](v9[6]);
     v12 = block;
     v13 = v11;
     v14 = queue;
-    v213[36] = v13;
+    v211[36] = v13;
     dispatch_async(v14, v12);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v200, 0);
-    v250 = 1;
+    objc_storeStrong(v198, 0);
+    v248 = 1;
   }
 
   else
   {
-    v199 = +[SUUILoggingContext statefulUILogger];
-    v197 = v199;
-    v198 = [v197 oslog];
-    v15 = v198;
-    v16 = v197;
-    v213[30] = v15;
+    v197 = +[SUUILoggingContext statefulUILogger];
+    v195 = v197;
+    v196 = [v195 oslog];
+    v15 = v196;
+    v16 = v195;
+    v211[30] = v15;
     MEMORY[0x277D82BD8](v16);
-    v248 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v213[30], OS_LOG_TYPE_DEFAULT))
+    v246 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v211[30], OS_LOG_TYPE_DEFAULT))
     {
-      v193 = v213[30];
-      *v194 = v248;
-      v195 = v213[41];
-      v17 = v213[41];
+      v191 = v211[30];
+      *v192 = v246;
+      v193 = v211[41];
       aClass = objc_opt_class();
-      v192 = NSStringFromClass(aClass);
-      v189 = v192;
-      v18 = MEMORY[0x277D82BE0](v189);
-      v19 = v213;
-      v190 = v18;
-      v213[28] = v18;
-      v191 = SUUIStatefulUIStateToString(*(v19[41] + 40));
-      v186 = v191;
-      v20 = MEMORY[0x277D82BE0](v186);
-      v21 = v213;
-      v187 = v20;
-      v213[27] = v20;
-      v188 = [v21[41] currentState];
-      v185 = [v213[41] delegate];
-      v184 = v185;
-      v245 = 0;
-      v244 = 0;
-      if (v184)
-      {
-        v183 = [v213[41] delegate];
-        v213[26] = v183;
-        v245 = 1;
-        v182 = objc_opt_class();
-        v181 = NSStringFromClass(v182);
-        v22 = v181;
-        v213[24] = v22;
-        v244 = 1;
-        v180 = v22;
-      }
-
-      else
-      {
-        v180 = @"(null)";
-      }
-
-      v178 = v180;
-      v179 = [v213[41] delegate];
-      v176 = v179;
-      v177 = [v213[41] scanError];
-      v174 = v177;
-      v175 = [v213[41] preferredStatefulDescriptor];
-      v172 = v175;
-      v173 = [v213[41] alternateStatefulDescriptor];
-      v170 = v173;
-      v171 = [v213[41] currentDownload];
-      v169 = v171;
+      v190 = NSStringFromClass(aClass);
+      v187 = v190;
+      v17 = MEMORY[0x277D82BE0](v187);
+      v18 = v211;
+      v188 = v17;
+      v211[28] = v17;
+      v189 = SUUIStatefulUIStateToString(*(v18[41] + 40));
+      v184 = v189;
+      v19 = MEMORY[0x277D82BE0](v184);
+      v20 = v211;
+      v185 = v19;
+      v211[27] = v19;
+      v186 = [v20[41] currentState];
+      v183 = [v211[41] delegate];
+      v182 = v183;
       v243 = 0;
       v242 = 0;
-      v241 = 0;
-      if (v169)
+      if (v182)
       {
-        v168 = [v213[41] currentDownload];
-        v23 = v168;
-        v213[22] = v23;
+        v181 = [v211[41] delegate];
+        v211[26] = v181;
         v243 = 1;
-        v167 = [v23 descriptor];
-        v24 = v167;
-        v213[20] = v24;
+        v180 = objc_opt_class();
+        v179 = NSStringFromClass(v180);
+        v21 = v179;
+        v211[24] = v21;
         v242 = 1;
-        v166 = [v24 updateName];
-        v25 = v166;
-        v213[18] = v25;
+        v178 = v21;
+      }
+
+      else
+      {
+        v178 = @"(null)";
+      }
+
+      v176 = v178;
+      v177 = [v211[41] delegate];
+      v174 = v177;
+      v175 = [v211[41] scanError];
+      v172 = v175;
+      v173 = [v211[41] preferredStatefulDescriptor];
+      v170 = v173;
+      v171 = [v211[41] alternateStatefulDescriptor];
+      v168 = v171;
+      v169 = [v211[41] currentDownload];
+      v167 = v169;
+      v241 = 0;
+      v240 = 0;
+      v239 = 0;
+      if (v167)
+      {
+        v166 = [v211[41] currentDownload];
+        v22 = v166;
+        v211[22] = v22;
         v241 = 1;
-        v165 = v25;
+        v165 = [v22 descriptor];
+        v23 = v165;
+        v211[20] = v23;
+        v240 = 1;
+        v164 = [v23 updateName];
+        v24 = v164;
+        v211[18] = v24;
+        v239 = 1;
+        v163 = v24;
       }
 
       else
       {
-        v165 = @"(null)";
+        v163 = @"(null)";
       }
 
-      v163 = v165;
-      v164 = [v213[41] currentDownload];
-      v161 = v164;
-      v162 = [v213[41] currentUpdateOperationType];
-      v160 = SUUIUpdateContinuousOperationTypeToString(v162);
-      v157 = v160;
-      v26 = MEMORY[0x277D82BE0](v157);
-      v27 = v213;
-      v158 = v26;
-      v213[16] = v26;
-      v159 = [v27[41] isTargetedUpdateScheduledForAutoInstall];
-      v264 = v159;
-      if (v159)
+      v161 = v163;
+      v162 = [v211[41] currentDownload];
+      v159 = v162;
+      v160 = [v211[41] currentUpdateOperationType];
+      v158 = SUUIUpdateContinuousOperationTypeToString(v160);
+      v155 = v158;
+      v25 = MEMORY[0x277D82BE0](v155);
+      v26 = v211;
+      v156 = v25;
+      v211[16] = v25;
+      v157 = [v26[41] isTargetedUpdateScheduledForAutoInstall];
+      v262 = v157;
+      if (v157)
       {
-        v28 = @"YES";
+        v27 = @"YES";
       }
 
       else
       {
-        v28 = @"NO";
+        v27 = @"NO";
       }
 
-      v156 = v28;
-      v29 = v28;
-      v153 = v156;
-      v30 = MEMORY[0x277D82BE0](v153);
-      v31 = v213;
-      v154 = v30;
-      v213[15] = v30;
-      v155 = [v31[41] hidingPreferredDescriptor];
-      v263 = v155;
-      if (v155)
+      v154 = v27;
+      v28 = v27;
+      v151 = v154;
+      v29 = MEMORY[0x277D82BE0](v151);
+      v30 = v211;
+      v152 = v29;
+      v211[15] = v29;
+      v153 = [v30[41] hidingPreferredDescriptor];
+      v261 = v153;
+      if (v153)
       {
-        v32 = @"YES";
+        v31 = @"YES";
       }
 
       else
       {
-        v32 = @"NO";
+        v31 = @"NO";
       }
 
-      v152 = v32;
-      v33 = v32;
-      v149 = v152;
-      v34 = MEMORY[0x277D82BE0](v149);
-      v35 = v213;
-      v150 = v34;
-      v213[14] = v34;
-      v151 = [v35[41] hiddenPreferredStatefulDescriptor];
-      v147 = v151;
-      v148 = [v147 updateName];
-      v144 = v148;
-      v36 = MEMORY[0x277D82BE0](v144);
-      v37 = v213;
-      v145 = v36;
-      v213[13] = v36;
-      v146 = [v37[41] hidingAlternateDescriptor];
-      v262 = v146;
-      if (v146)
+      v150 = v31;
+      v32 = v31;
+      v147 = v150;
+      v33 = MEMORY[0x277D82BE0](v147);
+      v34 = v211;
+      v148 = v33;
+      v211[14] = v33;
+      v149 = [v34[41] hiddenPreferredStatefulDescriptor];
+      v145 = v149;
+      v146 = [v145 updateName];
+      v142 = v146;
+      v35 = MEMORY[0x277D82BE0](v142);
+      v36 = v211;
+      v143 = v35;
+      v211[13] = v35;
+      v144 = [v36[41] hidingAlternateDescriptor];
+      v260 = v144;
+      if (v144)
       {
-        v38 = @"YES";
+        v37 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v37 = @"NO";
       }
 
-      v143 = v38;
-      v39 = v38;
-      v140 = v143;
-      v40 = MEMORY[0x277D82BE0](v140);
-      v41 = v213;
-      v141 = v40;
-      v213[12] = v40;
-      v142 = [v41[41] hiddenAlternateStatefulDescriptor];
-      v138 = v142;
-      v139 = [v138 updateName];
-      v135 = v139;
-      v42 = MEMORY[0x277D82BE0](v135);
-      v43 = v213;
-      v136 = v42;
-      v213[11] = v42;
-      v137 = [v43[41] enrolledBetaProgram];
-      v134 = v137;
-      v234 = 0;
-      if (v134)
+      v141 = v37;
+      v38 = v37;
+      v138 = v141;
+      v39 = MEMORY[0x277D82BE0](v138);
+      v40 = v211;
+      v139 = v39;
+      v211[12] = v39;
+      v140 = [v40[41] hiddenAlternateStatefulDescriptor];
+      v136 = v140;
+      v137 = [v136 updateName];
+      v133 = v137;
+      v41 = MEMORY[0x277D82BE0](v133);
+      v42 = v211;
+      v134 = v41;
+      v211[11] = v41;
+      v135 = [v42[41] enrolledBetaProgram];
+      v132 = v135;
+      v232 = 0;
+      if (v132)
       {
-        v133 = [v213[41] enrolledBetaProgram];
-        v44 = v133;
-        v213[10] = v44;
-        v234 = 1;
-        v132 = [v44 programID];
-        v131 = v132;
+        v131 = [v211[41] enrolledBetaProgram];
+        v43 = v131;
+        v211[10] = v43;
+        v232 = 1;
+        v130 = [v43 programID];
+        v129 = v130;
       }
 
       else
       {
-        v131 = 0;
+        v129 = 0;
       }
 
-      v129 = v131;
-      v130 = [*(v213[41] + 120) count];
-      v128 = [v213[41] canEnrollInBetaUpdates];
-      v261 = v128;
-      if (v128)
+      v127 = v129;
+      v128 = [*(v211[41] + 120) count];
+      v126 = [v211[41] canEnrollInBetaUpdates];
+      v259 = v126;
+      if (v126)
       {
-        v45 = @"YES";
+        v44 = @"YES";
       }
 
       else
       {
-        v45 = @"NO";
+        v44 = @"NO";
       }
 
-      v127 = v45;
-      v46 = v45;
-      v121 = v127;
-      v47 = MEMORY[0x277D82BE0](v121);
-      v48 = v213;
-      v122 = v47;
-      v213[8] = v47;
-      v123 = *(v48[41] + 168);
-      v124 = *(v48[41] + 176);
-      v125 = *(v48[41] + 184);
-      v126 = [*(v48[41] + 192) count];
-      v120 = SUUIUpdateContinuousOperationTypeToString(*(v214 + 11));
-      v49 = v141;
-      v50 = v145;
-      v51 = v150;
-      v52 = v154;
-      v53 = v158;
+      v125 = v44;
+      v45 = v44;
+      v119 = v125;
+      v46 = MEMORY[0x277D82BE0](v119);
+      v47 = v211;
+      v120 = v46;
+      v211[8] = v46;
+      v121 = *(v47[41] + 168);
+      v122 = *(v47[41] + 176);
+      v123 = *(v47[41] + 184);
+      v124 = [*(v47[41] + 192) count];
+      v118 = SUUIUpdateContinuousOperationTypeToString(*(v212 + 11));
+      v48 = v139;
+      v49 = v143;
+      v50 = v148;
+      v51 = v152;
+      v52 = v156;
+      v53 = v159;
       v54 = v161;
-      v55 = v163;
+      v55 = v168;
       v56 = v170;
       v57 = v172;
-      v58 = v174;
-      v119 = v120;
-      v59 = MEMORY[0x277D82BE0](v119);
-      v60 = v214;
-      v61 = v136;
-      v62 = v129;
-      v63 = v130;
-      v64 = v122;
-      v65 = v123;
-      v66 = v124;
-      v67 = v125;
-      v68 = v126;
-      v69 = v217;
-      v70 = v195;
-      v71 = v190;
-      v72 = v187;
-      v73 = v188;
-      v74 = v178;
-      v75 = v176;
-      v213[7] = v59;
-      v76 = v60[4];
-      v117 = &v91;
-      v118 = v265;
-      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v265, v69, v70, v71, v72, v73, v74, v75, v58, v57, v56, v55, v54, v53, v52, v51, v50, v49, v61, v62, v63, v64, v65, v66, v67, v68, v59, v76);
-      _os_log_impl(&dword_26ADE5000, v193, v194[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform the update operation %{public}@ using operation identifier: %{public}@", v118, 0x110u);
+      v117 = v118;
+      v58 = MEMORY[0x277D82BE0](v117);
+      v59 = v212;
+      v60 = v134;
+      v61 = v127;
+      v62 = v128;
+      v63 = v120;
+      v64 = v121;
+      v65 = v122;
+      v66 = v123;
+      v67 = v124;
+      v68 = v215;
+      v69 = v193;
+      v70 = v188;
+      v71 = v185;
+      v72 = v186;
+      v73 = v176;
+      v74 = v174;
+      v211[7] = v58;
+      v75 = v59[4];
+      v115 = &v89;
+      v116 = v263;
+      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v263, v68, v69, v70, v71, v72, v73, v74, v57, v56, v55, v54, v53, v52, v51, v50, v49, v48, v60, v61, v62, v63, v64, v65, v66, v67, v58, v75);
+      _os_log_impl(&dword_26ADE5000, v191, v192[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform the update operation %{public}@ using operation identifier: %{public}@", v116, 0x110u);
+      MEMORY[0x277D82BD8](v117);
       MEMORY[0x277D82BD8](v119);
-      MEMORY[0x277D82BD8](v121);
-      if (v234)
+      if (v232)
       {
-        MEMORY[0x277D82BD8](v213[10]);
+        MEMORY[0x277D82BD8](v211[10]);
       }
 
-      MEMORY[0x277D82BD8](v134);
-      MEMORY[0x277D82BD8](v135);
+      MEMORY[0x277D82BD8](v132);
+      MEMORY[0x277D82BD8](v133);
+      MEMORY[0x277D82BD8](v136);
       MEMORY[0x277D82BD8](v138);
-      MEMORY[0x277D82BD8](v140);
-      MEMORY[0x277D82BD8](v144);
+      MEMORY[0x277D82BD8](v142);
+      MEMORY[0x277D82BD8](v145);
       MEMORY[0x277D82BD8](v147);
-      MEMORY[0x277D82BD8](v149);
-      MEMORY[0x277D82BD8](v153);
-      MEMORY[0x277D82BD8](v157);
-      MEMORY[0x277D82BD8](v161);
+      MEMORY[0x277D82BD8](v151);
+      MEMORY[0x277D82BD8](v155);
+      MEMORY[0x277D82BD8](v159);
+      if (v239)
+      {
+        MEMORY[0x277D82BD8](v211[18]);
+      }
+
+      if (v240)
+      {
+        MEMORY[0x277D82BD8](v211[20]);
+      }
+
       if (v241)
       {
-        MEMORY[0x277D82BD8](v213[18]);
+        MEMORY[0x277D82BD8](v211[22]);
       }
 
+      MEMORY[0x277D82BD8](v167);
+      MEMORY[0x277D82BD8](v168);
+      MEMORY[0x277D82BD8](v170);
+      MEMORY[0x277D82BD8](v172);
+      MEMORY[0x277D82BD8](v174);
       if (v242)
       {
-        MEMORY[0x277D82BD8](v213[20]);
+        MEMORY[0x277D82BD8](v211[24]);
       }
 
       if (v243)
       {
-        MEMORY[0x277D82BD8](v213[22]);
+        MEMORY[0x277D82BD8](v211[26]);
       }
 
-      MEMORY[0x277D82BD8](v169);
-      MEMORY[0x277D82BD8](v170);
-      MEMORY[0x277D82BD8](v172);
-      MEMORY[0x277D82BD8](v174);
-      MEMORY[0x277D82BD8](v176);
-      if (v244)
-      {
-        MEMORY[0x277D82BD8](v213[24]);
-      }
-
-      if (v245)
-      {
-        MEMORY[0x277D82BD8](v213[26]);
-      }
-
+      MEMORY[0x277D82BD8](v182);
       MEMORY[0x277D82BD8](v184);
-      MEMORY[0x277D82BD8](v186);
-      MEMORY[0x277D82BD8](v189);
-      objc_storeStrong(&v232, 0);
+      MEMORY[0x277D82BD8](v187);
+      objc_storeStrong(&v230, 0);
+      objc_storeStrong(&v231, 0);
       objc_storeStrong(&v233, 0);
+      objc_storeStrong(&v234, 0);
       objc_storeStrong(&v235, 0);
       objc_storeStrong(&v236, 0);
       objc_storeStrong(&v237, 0);
       objc_storeStrong(&v238, 0);
-      objc_storeStrong(&v239, 0);
-      objc_storeStrong(&v240, 0);
-      objc_storeStrong(&v246, 0);
-      objc_storeStrong(&v247, 0);
+      objc_storeStrong(&v244, 0);
+      objc_storeStrong(&v245, 0);
     }
 
-    objc_storeStrong(&v249, 0);
-    if (*(v214 + 96))
+    objc_storeStrong(&v247, 0);
+    if (*(v212 + 96))
     {
-      [*(v213[41] + 192) removeObject:*(v214 + 5)];
+      [*(v211[41] + 192) removeObject:*(v212 + 5)];
     }
 
     else
     {
-      [v213[41] setCurrentUpdateOperation:0];
+      [v211[41] setCurrentUpdateOperation:0];
     }
 
-    if (v213[44] && (!*(v214 + 7) || (v77 = v213[44], v116 = (*(*(v214 + 7) + 16))(), (v116 & 1) != 0)))
+    if (v211[44] && (!*(v212 + 7) || (v114 = (*(*(v212 + 7) + 16))(), (v114 & 1) != 0)))
     {
-      v102 = MEMORY[0x26D66ADC0](*(v214 + 8));
-      v227 = v102;
-      if (v102)
+      v100 = MEMORY[0x26D66ADC0](*(v212 + 8));
+      v225 = v100;
+      if (v100)
       {
-        (*(v227 + 2))(v227, v213[44]);
-        v226 = 0;
+        (*(v225 + 2))(v225, v211[44]);
+        v224 = 0;
       }
 
       else
       {
-        v225 = 0;
+        v223 = 0;
       }
 
-      objc_storeStrong(&v227, 0);
-      v100 = v213[41];
-      v101 = [v213[41] currentDownload];
-      v97 = v101;
-      v98 = v213[43];
-      v218 = MEMORY[0x277D85DD0];
-      v219 = -1073741824;
-      v220 = 0;
-      v221 = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_2;
-      v222 = &unk_279CC6720;
-      v99 = v224;
-      objc_copyWeak(v224, v214 + 9);
-      v96 = &v218;
-      v224[1] = *(v214 + 10);
-      v224[2] = *(v214 + 11);
-      v92 = v223;
-      v223[0] = MEMORY[0x277D82BE0](*(v214 + 4));
-      v93 = v96 + 7;
-      v223[3] = MEMORY[0x277D82BE0](*(v214 + 6));
-      v94 = v96 + 5;
-      v223[1] = MEMORY[0x277D82BE0](v213[44]);
-      v95 = v96 + 6;
-      v223[2] = MEMORY[0x277D82BE0](v213[43]);
-      [v100 performPostUpdateOperationRefreshWithDownload:v97 error:v98 completionHandler:v96];
-      MEMORY[0x277D82BD8](v97);
-      objc_storeStrong(v95, 0);
-      objc_storeStrong(v94, 0);
+      objc_storeStrong(&v225, 0);
+      v98 = v211[41];
+      v99 = [v211[41] currentDownload];
+      v95 = v99;
+      v96 = v211[43];
+      v216 = MEMORY[0x277D85DD0];
+      v217 = -1073741824;
+      v218 = 0;
+      v219 = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_2;
+      v220 = &unk_279CC6720;
+      v97 = v222;
+      objc_copyWeak(v222, v212 + 9);
+      v94 = &v216;
+      v222[1] = *(v212 + 10);
+      v222[2] = *(v212 + 11);
+      v90 = v221;
+      v221[0] = MEMORY[0x277D82BE0](*(v212 + 4));
+      v91 = v94 + 7;
+      v221[3] = MEMORY[0x277D82BE0](*(v212 + 6));
+      v92 = v94 + 5;
+      v221[1] = MEMORY[0x277D82BE0](v211[44]);
+      v93 = v94 + 6;
+      v221[2] = MEMORY[0x277D82BE0](v211[43]);
+      [v98 performPostUpdateOperationRefreshWithDownload:v95 error:v96 completionHandler:v94];
+      MEMORY[0x277D82BD8](v95);
       objc_storeStrong(v93, 0);
       objc_storeStrong(v92, 0);
-      objc_destroyWeak(v99);
-      v250 = 0;
+      objc_storeStrong(v91, 0);
+      objc_storeStrong(v90, 0);
+      objc_destroyWeak(v97);
+      v248 = 0;
     }
 
     else
     {
-      [v213[41] setCurrentUpdateOperationType:0];
-      v115 = [MEMORY[0x277D643F8] sharedCore];
-      v113 = v115;
-      v114 = [v213[41] delegateCallbackQueue];
-      v111 = v114;
-      v112 = [v113 selectDelegateCallbackQueue:?];
-      v78 = v112;
-      v79 = v214;
-      v80 = v213;
-      v110 = v78;
-      v109 = &v228;
-      v228 = MEMORY[0x277D85DD0];
-      v229 = -1073741824;
-      v230 = 0;
-      v213[2] = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_459;
-      v80[3] = &unk_279CC6570;
-      v106 = &v231;
-      v81 = MEMORY[0x277D82BE0](v79[6]);
-      v82 = v213;
-      v83 = v109;
-      v213[6] = v81;
-      v107 = (v83 + 32);
-      v84 = MEMORY[0x277D82BE0](v82[44]);
-      v85 = v213;
-      v86 = v109;
-      v213[4] = v84;
-      v108 = (v86 + 40);
-      v87 = MEMORY[0x277D82BE0](v85[43]);
-      v88 = v109;
-      v89 = v87;
-      v90 = v110;
-      v213[5] = v89;
-      dispatch_async(v90, v88);
-      MEMORY[0x277D82BD8](v110);
+      [v211[41] setCurrentUpdateOperationType:0];
+      v113 = [MEMORY[0x277D643F8] sharedCore];
+      v111 = v113;
+      v112 = [v211[41] delegateCallbackQueue];
+      v109 = v112;
+      v110 = [v111 selectDelegateCallbackQueue:?];
+      v76 = v110;
+      v77 = v212;
+      v78 = v211;
+      v108 = v76;
+      v107 = &v226;
+      v226 = MEMORY[0x277D85DD0];
+      v227 = -1073741824;
+      v228 = 0;
+      v211[2] = __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_459;
+      v78[3] = &unk_279CC6570;
+      v104 = &v229;
+      v79 = MEMORY[0x277D82BE0](v77[6]);
+      v80 = v211;
+      v81 = v107;
+      v211[6] = v79;
+      v105 = (v81 + 32);
+      v82 = MEMORY[0x277D82BE0](v80[44]);
+      v83 = v211;
+      v84 = v107;
+      v211[4] = v82;
+      v106 = (v84 + 40);
+      v85 = MEMORY[0x277D82BE0](v83[43]);
+      v86 = v107;
+      v87 = v85;
+      v88 = v108;
+      v211[5] = v87;
+      dispatch_async(v88, v86);
+      MEMORY[0x277D82BD8](v108);
+      MEMORY[0x277D82BD8](v109);
       MEMORY[0x277D82BD8](v111);
-      MEMORY[0x277D82BD8](v113);
-      v105 = [v213[43] traits];
-      v103 = v105;
-      v104 = [v103 noUpdateFound];
-      MEMORY[0x277D82BD8](v103);
-      if (v104)
+      v103 = [v211[43] traits];
+      v101 = v103;
+      v102 = [v101 noUpdateFound];
+      MEMORY[0x277D82BD8](v101);
+      if (v102)
       {
-        [v213[41] checkForAvailableUpdates:1];
+        [v211[41] checkForAvailableUpdates:1];
       }
 
-      v250 = 1;
-      objc_storeStrong(v108, 0);
-      objc_storeStrong(v107, 0);
+      v248 = 1;
       objc_storeStrong(v106, 0);
+      objc_storeStrong(v105, 0);
+      objc_storeStrong(v104, 0);
     }
   }
 
-  objc_storeStrong(v258, 0);
-  if (!v250)
+  objc_storeStrong(v256, 0);
+  if (!v248)
   {
-    v250 = 0;
+    v248 = 0;
   }
 
-  objc_storeStrong(&v259, 0);
+  objc_storeStrong(&v257, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_458(void *a1)
@@ -17707,7 +17622,6 @@ void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyi
   }
 
   objc_storeStrong(v126, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyingSelector_context_auxiliaryOperation_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_460(void *a1)
@@ -17780,223 +17694,238 @@ void __187__SUUIStatefulUIManager_performUpdateOperation_withDescriptor_byApplyi
 
 void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke(id *a1)
 {
-  v184 = &v203;
-  v185 = a1;
-  v186 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
-  v187 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
-  v233 = *MEMORY[0x277D85DE8];
-  v226[2] = a1;
-  v226[1] = a1;
+  v179 = &v198;
+  v180 = a1;
+  v181 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
+  v182 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
+  v228 = *MEMORY[0x277D85DE8];
+  v221[2] = a1;
+  v221[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 11);
-  v226[0] = WeakRetained;
-  v183 = 0;
+  v221[0] = WeakRetained;
+  v178 = 0;
   if (!WeakRetained)
   {
-    v182 = +[SUUILoggingContext softwareUpdateUILogger];
-    v180 = v182;
-    v181 = [v180 oslog];
-    v1 = v181;
-    v2 = v180;
-    v184[33] = v1;
+    v177 = +[SUUILoggingContext softwareUpdateUILogger];
+    v175 = v177;
+    v176 = [v175 oslog];
+    v1 = v176;
+    v2 = v175;
+    v179[33] = v1;
     MEMORY[0x277D82BD8](v2);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v184[33], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v179[33], OS_LOG_TYPE_ERROR))
     {
-      log = v184[33];
-      *v178 = type;
-      v179 = NSStringFromSelector(v185[12]);
-      v176 = v179;
-      v3 = MEMORY[0x277D82BE0](v176);
-      v4 = v186;
-      v184[31] = v3;
-      buf = v232;
-      __os_log_helper_16_2_2_8_32_8_66(v232, v4, v3);
-      _os_log_error_impl(&dword_26ADE5000, log, v178[0], "%s: Self is nil in %{public}@. Stopping.", v232, 0x16u);
-      MEMORY[0x277D82BD8](v176);
+      log = v179[33];
+      *v173 = type;
+      v174 = NSStringFromSelector(v180[12]);
+      v171 = v174;
+      v3 = MEMORY[0x277D82BE0](v171);
+      v4 = v181;
+      v179[31] = v3;
+      buf = v227;
+      __os_log_helper_16_2_2_8_32_8_66(v227, v4, v3);
+      _os_log_error_impl(&dword_26ADE5000, log, v173[0], "%s: Self is nil in %{public}@. Stopping.", v227, 0x16u);
+      MEMORY[0x277D82BD8](v171);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v225, 0);
-    v5 = v184;
-    *(v184 + 61) = 1;
-    v183 = *(v5 + 61) != 0;
+    objc_storeStrong(&v220, 0);
+    v5 = v179;
+    *(v179 + 61) = 1;
+    v178 = *(v5 + 61) != 0;
   }
 
-  if (v183)
+  if (v178)
   {
     v6 = MEMORY[0x277D85CD0];
     v7 = MEMORY[0x277D85CD0];
-    v8 = v185;
-    v9 = v184;
+    v8 = v180;
+    v9 = v179;
     queue = v7;
-    block = &v221;
-    v184[25] = MEMORY[0x277D85DD0];
+    block = &v216;
+    v179[25] = MEMORY[0x277D85DD0];
     *(v9 + 52) = -1073741824;
     *(v9 + 53) = 0;
     v9[27] = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_462;
     v9[28] = &unk_279CC61E0;
-    v172 = &v222;
+    v167 = &v217;
     v10 = MEMORY[0x277D82BE0](v8[7]);
     v11 = block;
     v12 = v10;
     v13 = queue;
-    v184[29] = v12;
+    v179[29] = v12;
     dispatch_async(v13, v11);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v172, 0);
-    *(v184 + 49) = 1;
+    objc_storeStrong(v167, 0);
+    *(v179 + 49) = 1;
   }
 
   else
   {
-    v171 = [MEMORY[0x277CCAD78] UUID];
-    v169 = v171;
-    v170 = [v169 UUIDString];
-    v14 = v170;
-    v15 = v169;
-    v184[23] = v14;
+    v166 = [MEMORY[0x277CCAD78] UUID];
+    v164 = v166;
+    v165 = [v164 UUIDString];
+    v14 = v165;
+    v15 = v164;
+    v179[23] = v14;
     MEMORY[0x277D82BD8](v15);
-    v168 = [v184[34] environment];
-    v164 = v168;
-    v165 = v184[34];
-    v166 = v184[23];
-    v167 = v185[4];
-    v218 = 0;
-    if (v167)
+    v163 = [v179[34] environment];
+    v159 = v163;
+    v160 = v179[34];
+    v161 = v179[23];
+    v162 = v180[4];
+    v213 = 0;
+    if (v162)
     {
-      v163 = v167;
+      v158 = v162;
     }
 
     else
     {
-      v162 = [v184[34] delegateCallbackQueue];
-      v16 = v162;
-      v184[21] = v16;
-      v218 = 1;
-      v163 = v16;
+      v157 = [v179[34] delegateCallbackQueue];
+      v16 = v157;
+      v179[21] = v16;
+      v213 = 1;
+      v158 = v16;
     }
 
-    v161 = [v164 updateOperationWithManager:v165 identifier:v166 delegateCallbackQueue:v163 completionQueue:*(v184[34] + 26)];
-    v184[22] = v161;
-    if (v218)
+    v156 = [v159 updateOperationWithManager:v160 identifier:v161 delegateCallbackQueue:v158 completionQueue:*(v179[34] + 26)];
+    v179[22] = v156;
+    if (v213)
     {
-      MEMORY[0x277D82BD8](v184[21]);
+      MEMORY[0x277D82BD8](v179[21]);
     }
 
-    MEMORY[0x277D82BD8](v164);
-    v17 = v184[22];
-    v18 = v185[13];
-    v160 = objc_opt_respondsToSelector();
-    if ((v160 & 1) == 0)
+    MEMORY[0x277D82BD8](v159);
+    v155 = objc_opt_respondsToSelector();
+    if ((v155 & 1) == 0)
     {
-      v158 = v184[22];
-      v19 = v184[22];
+      v153 = v179[22];
       aClass = objc_opt_class();
-      v157 = NSStringFromClass(aClass);
-      v155 = v157;
-      v156 = NSStringFromSelector(v185[13]);
-      _suui_precondition_failure_with_format(@"Can't perform the update request since the Update Operation object (%p, of type: %@) doesn't respond to the selector %@.", v158, v155, v156);
+      v152 = NSStringFromClass(aClass);
+      v150 = v152;
+      v151 = NSStringFromSelector(v180[13]);
+      _suui_precondition_failure_with_format(@"Can't perform the update request since the Update Operation object (%p, of type: %@) doesn't respond to the selector %@.", v153, v150, v151);
     }
 
-    v154 = +[SUUILoggingContext statefulUILogger];
-    v152 = v154;
-    v153 = [v152 oslog];
-    v20 = v153;
-    v21 = v152;
-    v184[19] = v20;
-    MEMORY[0x277D82BD8](v21);
-    v216 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v184[19], OS_LOG_TYPE_DEFAULT))
+    v149 = +[SUUILoggingContext statefulUILogger];
+    v147 = v149;
+    v148 = [v147 oslog];
+    v17 = v148;
+    v18 = v147;
+    v179[19] = v17;
+    MEMORY[0x277D82BD8](v18);
+    v211 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v179[19], OS_LOG_TYPE_DEFAULT))
     {
-      v148 = v184[19];
-      *v149 = v216;
-      v150 = v184[34];
-      v22 = v184[34];
-      v151 = objc_opt_class();
-      v147 = NSStringFromClass(v151);
-      v144 = v147;
-      v23 = MEMORY[0x277D82BE0](v144);
-      v24 = v184;
-      v145 = v23;
-      v184[17] = v23;
-      v146 = SUUIStatefulUIStateToString(*(v24[34] + 5));
-      v141 = v146;
-      v25 = MEMORY[0x277D82BE0](v141);
-      v26 = v184;
-      v142 = v25;
-      v184[16] = v25;
-      v143 = [v26[34] currentState];
-      v140 = [v184[34] delegate];
-      v139 = v140;
-      v213 = 0;
-      v212 = 0;
-      if (v139)
+      v143 = v179[19];
+      *v144 = v211;
+      v145 = v179[34];
+      v146 = objc_opt_class();
+      v142 = NSStringFromClass(v146);
+      v139 = v142;
+      v19 = MEMORY[0x277D82BE0](v139);
+      v20 = v179;
+      v140 = v19;
+      v179[17] = v19;
+      v141 = SUUIStatefulUIStateToString(*(v20[34] + 5));
+      v136 = v141;
+      v21 = MEMORY[0x277D82BE0](v136);
+      v22 = v179;
+      v137 = v21;
+      v179[16] = v21;
+      v138 = [v22[34] currentState];
+      v135 = [v179[34] delegate];
+      v134 = v135;
+      v208 = 0;
+      v207 = 0;
+      if (v134)
       {
-        v138 = [v184[34] delegate];
-        v184[15] = v138;
-        v213 = 1;
-        v137 = objc_opt_class();
-        v136 = NSStringFromClass(v137);
-        v27 = v136;
-        v184[13] = v27;
-        v212 = 1;
-        v135 = v27;
+        v133 = [v179[34] delegate];
+        v179[15] = v133;
+        v208 = 1;
+        v132 = objc_opt_class();
+        v131 = NSStringFromClass(v132);
+        v23 = v131;
+        v179[13] = v23;
+        v207 = 1;
+        v130 = v23;
       }
 
       else
       {
-        v135 = @"(null)";
+        v130 = @"(null)";
       }
 
-      v133 = v135;
-      v134 = [v184[34] delegate];
-      v131 = v134;
-      v132 = [v184[34] scanError];
-      v129 = v132;
-      v130 = [v184[34] preferredStatefulDescriptor];
-      v127 = v130;
-      v128 = [v184[34] alternateStatefulDescriptor];
-      v125 = v128;
-      v126 = [v184[34] currentDownload];
-      v124 = v126;
-      v211 = 0;
-      v210 = 0;
-      v209 = 0;
-      if (v124)
+      v128 = v130;
+      v129 = [v179[34] delegate];
+      v126 = v129;
+      v127 = [v179[34] scanError];
+      v124 = v127;
+      v125 = [v179[34] preferredStatefulDescriptor];
+      v122 = v125;
+      v123 = [v179[34] alternateStatefulDescriptor];
+      v120 = v123;
+      v121 = [v179[34] currentDownload];
+      v119 = v121;
+      v206 = 0;
+      v205 = 0;
+      v204 = 0;
+      if (v119)
       {
-        v123 = [v184[34] currentDownload];
-        v28 = v123;
-        v184[11] = v28;
-        v211 = 1;
-        v122 = [v28 descriptor];
-        v29 = v122;
-        v184[9] = v29;
-        v210 = 1;
-        v121 = [v29 updateName];
-        v30 = v121;
-        v184[7] = v30;
-        v209 = 1;
-        v120 = v30;
+        v118 = [v179[34] currentDownload];
+        v24 = v118;
+        v179[11] = v24;
+        v206 = 1;
+        v117 = [v24 descriptor];
+        v25 = v117;
+        v179[9] = v25;
+        v205 = 1;
+        v116 = [v25 updateName];
+        v26 = v116;
+        v179[7] = v26;
+        v204 = 1;
+        v115 = v26;
       }
 
       else
       {
-        v120 = @"(null)";
+        v115 = @"(null)";
       }
 
-      v118 = v120;
-      v119 = [v184[34] currentDownload];
-      v116 = v119;
-      v117 = [v184[34] currentUpdateOperationType];
-      v115 = SUUIUpdateContinuousOperationTypeToString(v117);
-      v112 = v115;
-      v31 = MEMORY[0x277D82BE0](v112);
-      v32 = v184;
-      v113 = v31;
-      v184[5] = v31;
-      v114 = [v32[34] isTargetedUpdateScheduledForAutoInstall];
-      v230 = v114;
-      if (v114)
+      v113 = v115;
+      v114 = [v179[34] currentDownload];
+      v111 = v114;
+      v112 = [v179[34] currentUpdateOperationType];
+      v110 = SUUIUpdateContinuousOperationTypeToString(v112);
+      v107 = v110;
+      v27 = MEMORY[0x277D82BE0](v107);
+      v28 = v179;
+      v108 = v27;
+      v179[5] = v27;
+      v109 = [v28[34] isTargetedUpdateScheduledForAutoInstall];
+      v225 = v109;
+      if (v109)
+      {
+        v29 = @"YES";
+      }
+
+      else
+      {
+        v29 = @"NO";
+      }
+
+      v106 = v29;
+      v30 = v29;
+      v103 = v106;
+      v31 = MEMORY[0x277D82BE0](v103);
+      v32 = v179;
+      v104 = v31;
+      v179[4] = v31;
+      v105 = [v32[34] hidingPreferredDescriptor];
+      v224 = v105;
+      if (v105)
       {
         v33 = @"YES";
       }
@@ -18006,229 +17935,208 @@ void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_cont
         v33 = @"NO";
       }
 
-      v111 = v33;
+      v102 = v33;
       v34 = v33;
-      v108 = v111;
-      v35 = MEMORY[0x277D82BE0](v108);
-      v36 = v184;
-      v109 = v35;
-      v184[4] = v35;
-      v110 = [v36[34] hidingPreferredDescriptor];
-      v229 = v110;
-      if (v110)
+      v99 = v102;
+      v35 = MEMORY[0x277D82BE0](v99);
+      v36 = v179;
+      v100 = v35;
+      v179[3] = v35;
+      v101 = [v36[34] hiddenPreferredStatefulDescriptor];
+      v97 = v101;
+      v98 = [v97 updateName];
+      v94 = v98;
+      v37 = MEMORY[0x277D82BE0](v94);
+      v38 = v179;
+      v95 = v37;
+      v179[2] = v37;
+      v96 = [v38[34] hidingAlternateDescriptor];
+      v223 = v96;
+      if (v96)
       {
-        v37 = @"YES";
+        v39 = @"YES";
       }
 
       else
       {
-        v37 = @"NO";
+        v39 = @"NO";
       }
 
-      v107 = v37;
-      v38 = v37;
-      v104 = v107;
-      v39 = MEMORY[0x277D82BE0](v104);
-      v40 = v184;
-      v105 = v39;
-      v184[3] = v39;
-      v106 = [v40[34] hiddenPreferredStatefulDescriptor];
-      v102 = v106;
-      v103 = [v102 updateName];
-      v99 = v103;
-      v41 = MEMORY[0x277D82BE0](v99);
-      v42 = v184;
-      v100 = v41;
-      v184[2] = v41;
-      v101 = [v42[34] hidingAlternateDescriptor];
-      v228 = v101;
-      if (v101)
+      v93 = v39;
+      v40 = v39;
+      v90 = v93;
+      v41 = MEMORY[0x277D82BE0](v90);
+      v42 = v179;
+      v91 = v41;
+      v179[1] = v41;
+      v92 = [v42[34] hiddenAlternateStatefulDescriptor];
+      v88 = v92;
+      v89 = [v88 updateName];
+      v85 = v89;
+      v43 = MEMORY[0x277D82BE0](v85);
+      v44 = v179;
+      v86 = v43;
+      *v179 = v43;
+      v87 = [v44[34] enrolledBetaProgram];
+      v84 = v87;
+      v196 = 0;
+      if (v84)
       {
-        v43 = @"YES";
+        v83 = [v179[34] enrolledBetaProgram];
+        v197 = v83;
+        v196 = 1;
+        v82 = [v197 programID];
+        v81 = v82;
       }
 
       else
       {
-        v43 = @"NO";
+        v81 = 0;
       }
 
-      v98 = v43;
-      v44 = v43;
-      v95 = v98;
-      v45 = MEMORY[0x277D82BE0](v95);
-      v46 = v184;
-      v96 = v45;
-      v184[1] = v45;
-      v97 = [v46[34] hiddenAlternateStatefulDescriptor];
-      v93 = v97;
-      v94 = [v93 updateName];
-      v90 = v94;
-      v47 = MEMORY[0x277D82BE0](v90);
-      v48 = v184;
-      v91 = v47;
-      *v184 = v47;
-      v92 = [v48[34] enrolledBetaProgram];
-      v89 = v92;
-      v201 = 0;
-      if (v89)
+      v79 = v81;
+      v80 = [*(v179[34] + 15) count];
+      v78 = [v179[34] canEnrollInBetaUpdates];
+      v222 = v78;
+      if (v78)
       {
-        v88 = [v184[34] enrolledBetaProgram];
-        v202 = v88;
-        v201 = 1;
-        v87 = [v202 programID];
-        v86 = v87;
+        v45 = @"YES";
       }
 
       else
       {
-        v86 = 0;
+        v45 = @"NO";
       }
 
-      v84 = v86;
-      v85 = [*(v184[34] + 15) count];
-      v83 = [v184[34] canEnrollInBetaUpdates];
-      v227 = v83;
-      if (v83)
+      v77 = v45;
+      v46 = v45;
+      v71 = v77;
+      v72 = MEMORY[0x277D82BE0](v71);
+      v195 = v72;
+      v73 = *(v179[34] + 21);
+      v74 = *(v179[34] + 22);
+      v75 = *(v179[34] + 23);
+      v76 = [*(v179[34] + 24) count];
+      v69 = v180[5];
+      v70 = [v179[34] currentDownload];
+      v68 = v70;
+      v47 = v179[23];
+      v66 = &v48;
+      v67 = v226;
+      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v226, v182, v145, v140, v137, v138, v128, v126, v124, v122, v120, v113, v111, v108, v104, v100, v95, v91, v86, v79, v80, v72, v73, v74, v75, v76, v69, v68, v47);
+      _os_log_impl(&dword_26ADE5000, v143, v144[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nStarting to perform the update operation %{public}@ on download: %{public}@, using operation identifier: %{public}@", v67, 0x11Au);
+      MEMORY[0x277D82BD8](v68);
+      MEMORY[0x277D82BD8](v71);
+      if (v196)
       {
-        v49 = @"YES";
+        MEMORY[0x277D82BD8](v197);
       }
 
-      else
-      {
-        v49 = @"NO";
-      }
-
-      v82 = v49;
-      v50 = v49;
-      v76 = v82;
-      v77 = MEMORY[0x277D82BE0](v76);
-      v200 = v77;
-      v78 = *(v184[34] + 21);
-      v79 = *(v184[34] + 22);
-      v80 = *(v184[34] + 23);
-      v81 = [*(v184[34] + 24) count];
-      v74 = v185[5];
-      v75 = [v184[34] currentDownload];
-      v73 = v75;
-      v51 = v184[23];
-      v71 = &v53;
-      v72 = v231;
-      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66_8_66(v231, v187, v150, v145, v142, v143, v133, v131, v129, v127, v125, v118, v116, v113, v109, v105, v100, v96, v91, v84, v85, v77, v78, v79, v80, v81, v74, v73, v51);
-      _os_log_impl(&dword_26ADE5000, v148, v149[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nStarting to perform the update operation %{public}@ on download: %{public}@, using operation identifier: %{public}@", v72, 0x11Au);
-      MEMORY[0x277D82BD8](v73);
-      MEMORY[0x277D82BD8](v76);
-      if (v201)
-      {
-        MEMORY[0x277D82BD8](v202);
-      }
-
-      MEMORY[0x277D82BD8](v89);
+      MEMORY[0x277D82BD8](v84);
+      MEMORY[0x277D82BD8](v85);
+      MEMORY[0x277D82BD8](v88);
       MEMORY[0x277D82BD8](v90);
-      MEMORY[0x277D82BD8](v93);
-      MEMORY[0x277D82BD8](v95);
+      MEMORY[0x277D82BD8](v94);
+      MEMORY[0x277D82BD8](v97);
       MEMORY[0x277D82BD8](v99);
-      MEMORY[0x277D82BD8](v102);
-      MEMORY[0x277D82BD8](v104);
-      MEMORY[0x277D82BD8](v108);
-      MEMORY[0x277D82BD8](v112);
-      MEMORY[0x277D82BD8](v116);
-      if (v209)
+      MEMORY[0x277D82BD8](v103);
+      MEMORY[0x277D82BD8](v107);
+      MEMORY[0x277D82BD8](v111);
+      if (v204)
       {
-        MEMORY[0x277D82BD8](v184[7]);
+        MEMORY[0x277D82BD8](v179[7]);
       }
 
-      if (v210)
+      if (v205)
       {
-        MEMORY[0x277D82BD8](v184[9]);
+        MEMORY[0x277D82BD8](v179[9]);
       }
 
-      if (v211)
+      if (v206)
       {
-        MEMORY[0x277D82BD8](v184[11]);
+        MEMORY[0x277D82BD8](v179[11]);
       }
 
+      MEMORY[0x277D82BD8](v119);
+      MEMORY[0x277D82BD8](v120);
+      MEMORY[0x277D82BD8](v122);
       MEMORY[0x277D82BD8](v124);
-      MEMORY[0x277D82BD8](v125);
-      MEMORY[0x277D82BD8](v127);
-      MEMORY[0x277D82BD8](v129);
-      MEMORY[0x277D82BD8](v131);
-      if (v212)
+      MEMORY[0x277D82BD8](v126);
+      if (v207)
       {
-        MEMORY[0x277D82BD8](v184[13]);
+        MEMORY[0x277D82BD8](v179[13]);
       }
 
-      if (v213)
+      if (v208)
       {
-        MEMORY[0x277D82BD8](v184[15]);
+        MEMORY[0x277D82BD8](v179[15]);
       }
 
+      MEMORY[0x277D82BD8](v134);
+      MEMORY[0x277D82BD8](v136);
       MEMORY[0x277D82BD8](v139);
-      MEMORY[0x277D82BD8](v141);
-      MEMORY[0x277D82BD8](v144);
+      objc_storeStrong(&v195, 0);
+      objc_storeStrong(&v198, 0);
+      objc_storeStrong(&v199, 0);
       objc_storeStrong(&v200, 0);
+      objc_storeStrong(&v201, 0);
+      objc_storeStrong(&v202, 0);
       objc_storeStrong(&v203, 0);
-      objc_storeStrong(&v204, 0);
-      objc_storeStrong(&v205, 0);
-      objc_storeStrong(&v206, 0);
-      objc_storeStrong(&v207, 0);
-      objc_storeStrong(&v208, 0);
-      objc_storeStrong(&v214, 0);
-      objc_storeStrong(&v215, 0);
+      objc_storeStrong(&v209, 0);
+      objc_storeStrong(&v210, 0);
     }
 
-    objc_storeStrong(&v217, 0);
-    [*(v184[34] + 24) addObject:v184[22]];
-    v67 = v184[34];
-    v68 = v185[13];
-    v69 = v184[22];
-    v70 = [v184[34] currentDownload];
-    v65 = v70;
-    v52 = v184[22];
-    v66 = (*(v185[8] + 2))();
-    v62 = v66;
-    v63 = v185[6];
-    v190 = MEMORY[0x277D85DD0];
-    v191 = -1073741824;
-    v192 = 0;
-    v193 = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_464;
-    v194 = &unk_279CC67C0;
-    v64 = v199;
-    objc_copyWeak(v199, v185 + 11);
-    v189 = 1;
-    v60 = &v190;
-    v199[1] = v185[12];
-    v54 = v198;
-    v198[0] = MEMORY[0x277D82BE0](v185[7]);
-    v55 = v60 + 4;
-    v195 = MEMORY[0x277D82BE0](v185[5]);
-    v56 = v60 + 5;
-    v196 = MEMORY[0x277D82BE0](v184[23]);
-    v57 = v60 + 6;
-    v197 = MEMORY[0x277D82BE0](v184[22]);
-    v58 = v60 + 8;
-    v198[1] = MEMORY[0x277D82BE0](v185[9]);
-    v59 = v60 + 9;
-    v198[2] = MEMORY[0x277D82BE0](v185[10]);
-    v61 = MEMORY[0x26D66ADC0](v60);
-    [v67 performSelector:v68 onTarget:v69 withObject:v65 withObject:v62 withObject:v63 withObject:v61];
-    v189 = 0;
-    MEMORY[0x277D82BD8](v61);
-    MEMORY[0x277D82BD8](v62);
-    MEMORY[0x277D82BD8](v65);
-    objc_storeStrong(v59, 0);
-    objc_storeStrong(v58, 0);
-    objc_storeStrong(v57, 0);
-    objc_storeStrong(v56, 0);
-    objc_storeStrong(v55, 0);
+    objc_storeStrong(&v212, 0);
+    [*(v179[34] + 24) addObject:v179[22]];
+    v62 = v179[34];
+    v63 = v180[13];
+    v64 = v179[22];
+    v65 = [v179[34] currentDownload];
+    v60 = v65;
+    v61 = (*(v180[8] + 2))();
+    v57 = v61;
+    v58 = v180[6];
+    v185 = MEMORY[0x277D85DD0];
+    v186 = -1073741824;
+    v187 = 0;
+    v188 = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_464;
+    v189 = &unk_279CC67C0;
+    v59 = v194;
+    objc_copyWeak(v194, v180 + 11);
+    v184 = 1;
+    v55 = &v185;
+    v194[1] = v180[12];
+    v49 = v193;
+    v193[0] = MEMORY[0x277D82BE0](v180[7]);
+    v50 = v55 + 4;
+    v190 = MEMORY[0x277D82BE0](v180[5]);
+    v51 = v55 + 5;
+    v191 = MEMORY[0x277D82BE0](v179[23]);
+    v52 = v55 + 6;
+    v192 = MEMORY[0x277D82BE0](v179[22]);
+    v53 = v55 + 8;
+    v193[1] = MEMORY[0x277D82BE0](v180[9]);
+    v54 = v55 + 9;
+    v193[2] = MEMORY[0x277D82BE0](v180[10]);
+    v56 = MEMORY[0x26D66ADC0](v55);
+    [v62 performSelector:v63 onTarget:v64 withObject:v60 withObject:v57 withObject:v58 withObject:v56];
+    v184 = 0;
+    MEMORY[0x277D82BD8](v56);
+    MEMORY[0x277D82BD8](v57);
+    MEMORY[0x277D82BD8](v60);
     objc_storeStrong(v54, 0);
-    objc_destroyWeak(v64);
-    objc_storeStrong(&v219, 0);
-    objc_storeStrong(&v220, 0);
-    *(v184 + 49) = 0;
+    objc_storeStrong(v53, 0);
+    objc_storeStrong(v52, 0);
+    objc_storeStrong(v51, 0);
+    objc_storeStrong(v50, 0);
+    objc_storeStrong(v49, 0);
+    objc_destroyWeak(v59);
+    objc_storeStrong(&v214, 0);
+    objc_storeStrong(&v215, 0);
+    *(v179 + 49) = 0;
   }
 
-  objc_storeStrong(v226, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v221, 0);
 }
 
 void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_462(void *a1)
@@ -18246,462 +18154,460 @@ void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_cont
 
 void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_464(void *a1, void *a2, void *a3)
 {
-  v183 = &v198;
-  v184 = a1;
+  v181 = &v196;
+  v182 = a1;
   obj = a3;
-  v186 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
-  v187 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
-  v236 = *MEMORY[0x277D85DE8];
+  v184 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke";
+  v185 = "[SUUIStatefulUIManager performUpdateOnDownloadByApplyingSelector:context:description:delegate:delegateCallbackQueue:resultsValidation:resultsAssignment:completion:]_block_invoke_2";
+  v234 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v228 = 0;
-  objc_storeStrong(&v228, obj);
-  v227[1] = v184;
-  WeakRetained = objc_loadWeakRetained(v184 + 10);
-  v227[0] = WeakRetained;
-  v181 = 0;
+  v226 = 0;
+  objc_storeStrong(&v226, obj);
+  v225[1] = v182;
+  WeakRetained = objc_loadWeakRetained(v182 + 10);
+  v225[0] = WeakRetained;
+  v179 = 0;
   if (!WeakRetained)
   {
-    v180 = +[SUUILoggingContext softwareUpdateUILogger];
-    v178 = v180;
-    v179 = [v178 oslog];
-    v3 = v179;
-    v4 = v178;
-    v183[39] = v3;
+    v178 = +[SUUILoggingContext softwareUpdateUILogger];
+    v176 = v178;
+    v177 = [v176 oslog];
+    v3 = v177;
+    v4 = v176;
+    v181[39] = v3;
     MEMORY[0x277D82BD8](v4);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v183[39], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v181[39], OS_LOG_TYPE_ERROR))
     {
-      log = v183[39];
-      *v176 = type;
-      v177 = NSStringFromSelector(*(v184 + 11));
-      v174 = v177;
-      v5 = MEMORY[0x277D82BE0](v174);
-      v6 = v186;
-      v183[37] = v5;
-      buf = v235;
-      __os_log_helper_16_2_2_8_32_8_66(v235, v6, v5);
-      _os_log_error_impl(&dword_26ADE5000, log, v176[0], "%s: Self is nil in %{public}@. Stopping.", v235, 0x16u);
-      MEMORY[0x277D82BD8](v174);
-      objc_storeStrong(&v224, 0);
+      log = v181[39];
+      *v174 = type;
+      v175 = NSStringFromSelector(*(v182 + 11));
+      v172 = v175;
+      v5 = MEMORY[0x277D82BE0](v172);
+      v6 = v184;
+      v181[37] = v5;
+      buf = v233;
+      __os_log_helper_16_2_2_8_32_8_66(v233, v6, v5);
+      _os_log_error_impl(&dword_26ADE5000, log, v174[0], "%s: Self is nil in %{public}@. Stopping.", v233, 0x16u);
+      MEMORY[0x277D82BD8](v172);
+      objc_storeStrong(&v222, 0);
     }
 
-    objc_storeStrong(&v226, 0);
-    v223[3] = 1;
-    v181 = 1;
+    objc_storeStrong(&v224, 0);
+    v221[3] = 1;
+    v179 = 1;
   }
 
-  if (v181)
+  if (v179)
   {
     v7 = MEMORY[0x277D85CD0];
     v8 = MEMORY[0x277D85CD0];
-    v9 = v184;
-    v10 = v183;
+    v9 = v182;
+    v10 = v181;
     queue = v8;
-    block = &v220;
-    v183[31] = MEMORY[0x277D85DD0];
-    v221 = -1073741824;
-    v222 = 0;
+    block = &v218;
+    v181[31] = MEMORY[0x277D85DD0];
+    v219 = -1073741824;
+    v220 = 0;
     v10[33] = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_465;
     v10[34] = &unk_279CC61E0;
-    v170 = v223;
+    v168 = v221;
     v11 = MEMORY[0x277D82BE0](v9[7]);
     v12 = block;
     v13 = v11;
     v14 = queue;
-    v183[35] = v13;
+    v181[35] = v13;
     dispatch_async(v14, v12);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v170, 0);
-    v219 = 1;
+    objc_storeStrong(v168, 0);
+    v217 = 1;
   }
 
   else
   {
-    v169 = +[SUUILoggingContext statefulUILogger];
-    v167 = v169;
-    v168 = [v167 oslog];
-    v15 = v168;
-    v16 = v167;
-    v183[29] = v15;
+    v167 = +[SUUILoggingContext statefulUILogger];
+    v165 = v167;
+    v166 = [v165 oslog];
+    v15 = v166;
+    v16 = v165;
+    v181[29] = v15;
     MEMORY[0x277D82BD8](v16);
-    v217 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v183[29], OS_LOG_TYPE_DEFAULT))
+    v215 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v181[29], OS_LOG_TYPE_DEFAULT))
     {
-      v163 = v183[29];
-      *v164 = v217;
-      v165 = v183[40];
-      v17 = v183[40];
+      v161 = v181[29];
+      *v162 = v215;
+      v163 = v181[40];
       aClass = objc_opt_class();
-      v162 = NSStringFromClass(aClass);
-      v159 = v162;
-      v18 = MEMORY[0x277D82BE0](v159);
-      v19 = v183;
-      v160 = v18;
-      v183[27] = v18;
-      v161 = SUUIStatefulUIStateToString(*(v19[40] + 40));
-      v156 = v161;
-      v20 = MEMORY[0x277D82BE0](v156);
-      v21 = v183;
-      v157 = v20;
-      v183[26] = v20;
-      v158 = [v21[40] currentState];
-      v155 = [v183[40] delegate];
-      v154 = v155;
-      v214 = 0;
-      v213 = 0;
-      if (v154)
-      {
-        v153 = [v183[40] delegate];
-        v183[25] = v153;
-        v214 = 1;
-        v152 = objc_opt_class();
-        v151 = NSStringFromClass(v152);
-        v22 = v151;
-        v183[23] = v22;
-        v213 = 1;
-        v150 = v22;
-      }
-
-      else
-      {
-        v150 = @"(null)";
-      }
-
-      v148 = v150;
-      v149 = [v183[40] delegate];
-      v146 = v149;
-      v147 = [v183[40] scanError];
-      v144 = v147;
-      v145 = [v183[40] preferredStatefulDescriptor];
-      v142 = v145;
-      v143 = [v183[40] alternateStatefulDescriptor];
-      v140 = v143;
-      v141 = [v183[40] currentDownload];
-      v139 = v141;
+      v160 = NSStringFromClass(aClass);
+      v157 = v160;
+      v17 = MEMORY[0x277D82BE0](v157);
+      v18 = v181;
+      v158 = v17;
+      v181[27] = v17;
+      v159 = SUUIStatefulUIStateToString(*(v18[40] + 40));
+      v154 = v159;
+      v19 = MEMORY[0x277D82BE0](v154);
+      v20 = v181;
+      v155 = v19;
+      v181[26] = v19;
+      v156 = [v20[40] currentState];
+      v153 = [v181[40] delegate];
+      v152 = v153;
       v212 = 0;
       v211 = 0;
-      v210 = 0;
-      if (v139)
+      if (v152)
       {
-        v138 = [v183[40] currentDownload];
-        v23 = v138;
-        v183[21] = v23;
+        v151 = [v181[40] delegate];
+        v181[25] = v151;
         v212 = 1;
-        v137 = [v23 descriptor];
-        v24 = v137;
-        v183[19] = v24;
+        v150 = objc_opt_class();
+        v149 = NSStringFromClass(v150);
+        v21 = v149;
+        v181[23] = v21;
         v211 = 1;
-        v136 = [v24 updateName];
-        v25 = v136;
-        v183[17] = v25;
+        v148 = v21;
+      }
+
+      else
+      {
+        v148 = @"(null)";
+      }
+
+      v146 = v148;
+      v147 = [v181[40] delegate];
+      v144 = v147;
+      v145 = [v181[40] scanError];
+      v142 = v145;
+      v143 = [v181[40] preferredStatefulDescriptor];
+      v140 = v143;
+      v141 = [v181[40] alternateStatefulDescriptor];
+      v138 = v141;
+      v139 = [v181[40] currentDownload];
+      v137 = v139;
+      v210 = 0;
+      v209 = 0;
+      v208 = 0;
+      if (v137)
+      {
+        v136 = [v181[40] currentDownload];
+        v22 = v136;
+        v181[21] = v22;
         v210 = 1;
-        v135 = v25;
+        v135 = [v22 descriptor];
+        v23 = v135;
+        v181[19] = v23;
+        v209 = 1;
+        v134 = [v23 updateName];
+        v24 = v134;
+        v181[17] = v24;
+        v208 = 1;
+        v133 = v24;
       }
 
       else
       {
-        v135 = @"(null)";
+        v133 = @"(null)";
       }
 
-      v133 = v135;
-      v134 = [v183[40] currentDownload];
-      v131 = v134;
-      v132 = [v183[40] currentUpdateOperationType];
-      v130 = SUUIUpdateContinuousOperationTypeToString(v132);
-      v127 = v130;
-      v26 = MEMORY[0x277D82BE0](v127);
-      v27 = v183;
-      v128 = v26;
-      v183[15] = v26;
-      v129 = [v27[40] isTargetedUpdateScheduledForAutoInstall];
-      v233 = v129;
-      if (v129)
+      v131 = v133;
+      v132 = [v181[40] currentDownload];
+      v129 = v132;
+      v130 = [v181[40] currentUpdateOperationType];
+      v128 = SUUIUpdateContinuousOperationTypeToString(v130);
+      v125 = v128;
+      v25 = MEMORY[0x277D82BE0](v125);
+      v26 = v181;
+      v126 = v25;
+      v181[15] = v25;
+      v127 = [v26[40] isTargetedUpdateScheduledForAutoInstall];
+      v231 = v127;
+      if (v127)
       {
-        v28 = @"YES";
+        v27 = @"YES";
       }
 
       else
       {
-        v28 = @"NO";
+        v27 = @"NO";
       }
 
-      v126 = v28;
-      v29 = v28;
-      v123 = v126;
-      v30 = MEMORY[0x277D82BE0](v123);
-      v31 = v183;
-      v124 = v30;
-      v183[14] = v30;
-      v125 = [v31[40] hidingPreferredDescriptor];
-      v232 = v125;
-      if (v125)
+      v124 = v27;
+      v28 = v27;
+      v121 = v124;
+      v29 = MEMORY[0x277D82BE0](v121);
+      v30 = v181;
+      v122 = v29;
+      v181[14] = v29;
+      v123 = [v30[40] hidingPreferredDescriptor];
+      v230 = v123;
+      if (v123)
       {
-        v32 = @"YES";
+        v31 = @"YES";
       }
 
       else
       {
-        v32 = @"NO";
+        v31 = @"NO";
       }
 
-      v122 = v32;
-      v33 = v32;
-      v119 = v122;
-      v34 = MEMORY[0x277D82BE0](v119);
-      v35 = v183;
-      v120 = v34;
-      v183[13] = v34;
-      v121 = [v35[40] hiddenPreferredStatefulDescriptor];
-      v117 = v121;
-      v118 = [v117 updateName];
-      v114 = v118;
-      v36 = MEMORY[0x277D82BE0](v114);
-      v37 = v183;
-      v115 = v36;
-      v183[12] = v36;
-      v116 = [v37[40] hidingAlternateDescriptor];
-      v231 = v116;
-      if (v116)
+      v120 = v31;
+      v32 = v31;
+      v117 = v120;
+      v33 = MEMORY[0x277D82BE0](v117);
+      v34 = v181;
+      v118 = v33;
+      v181[13] = v33;
+      v119 = [v34[40] hiddenPreferredStatefulDescriptor];
+      v115 = v119;
+      v116 = [v115 updateName];
+      v112 = v116;
+      v35 = MEMORY[0x277D82BE0](v112);
+      v36 = v181;
+      v113 = v35;
+      v181[12] = v35;
+      v114 = [v36[40] hidingAlternateDescriptor];
+      v229 = v114;
+      if (v114)
       {
-        v38 = @"YES";
+        v37 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v37 = @"NO";
       }
 
-      v113 = v38;
-      v39 = v38;
-      v110 = v113;
-      v40 = MEMORY[0x277D82BE0](v110);
-      v41 = v183;
-      v111 = v40;
-      v183[11] = v40;
-      v112 = [v41[40] hiddenAlternateStatefulDescriptor];
-      v108 = v112;
-      v109 = [v108 updateName];
-      v105 = v109;
-      v42 = MEMORY[0x277D82BE0](v105);
-      v43 = v183;
-      v106 = v42;
-      v183[10] = v42;
-      v107 = [v43[40] enrolledBetaProgram];
-      v104 = v107;
-      v203 = 0;
-      if (v104)
+      v111 = v37;
+      v38 = v37;
+      v108 = v111;
+      v39 = MEMORY[0x277D82BE0](v108);
+      v40 = v181;
+      v109 = v39;
+      v181[11] = v39;
+      v110 = [v40[40] hiddenAlternateStatefulDescriptor];
+      v106 = v110;
+      v107 = [v106 updateName];
+      v103 = v107;
+      v41 = MEMORY[0x277D82BE0](v103);
+      v42 = v181;
+      v104 = v41;
+      v181[10] = v41;
+      v105 = [v42[40] enrolledBetaProgram];
+      v102 = v105;
+      v201 = 0;
+      if (v102)
       {
-        v103 = [v183[40] enrolledBetaProgram];
-        v44 = v103;
-        v183[9] = v44;
-        v203 = 1;
-        v102 = [v44 programID];
-        v101 = v102;
+        v101 = [v181[40] enrolledBetaProgram];
+        v43 = v101;
+        v181[9] = v43;
+        v201 = 1;
+        v100 = [v43 programID];
+        v99 = v100;
       }
 
       else
       {
-        v101 = 0;
+        v99 = 0;
       }
 
-      v99 = v101;
-      v100 = [*(v183[40] + 120) count];
-      v98 = [v183[40] canEnrollInBetaUpdates];
-      v230 = v98;
-      if (v98)
+      v97 = v99;
+      v98 = [*(v181[40] + 120) count];
+      v96 = [v181[40] canEnrollInBetaUpdates];
+      v228 = v96;
+      if (v96)
       {
-        v45 = @"YES";
+        v44 = @"YES";
       }
 
       else
       {
-        v45 = @"NO";
+        v44 = @"NO";
       }
 
-      v97 = v45;
-      v46 = v45;
-      v91 = v97;
-      v47 = MEMORY[0x277D82BE0](v91);
-      v48 = v183;
-      v92 = v47;
-      v183[7] = v47;
-      v93 = *(v48[40] + 168);
-      v94 = *(v48[40] + 176);
-      v95 = *(v48[40] + 184);
-      v96 = [*(v48[40] + 192) count];
-      v49 = *(v184 + 4);
-      v50 = *(v184 + 5);
-      v89 = &v65;
-      v90 = v234;
-      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v234, v187, v165, v160, v157, v158, v148, v146, v144, v142, v140, v133, v131, v128, v124, v120, v115, v111, v106, v99, v100, v92, v93, v94, v95, v96, v49, v50);
-      _os_log_impl(&dword_26ADE5000, v163, v164[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform the update operation %{public}@ using operation identifier: %{public}@", v90, 0x110u);
-      MEMORY[0x277D82BD8](v91);
-      if (v203)
+      v95 = v44;
+      v45 = v44;
+      v89 = v95;
+      v46 = MEMORY[0x277D82BE0](v89);
+      v47 = v181;
+      v90 = v46;
+      v181[7] = v46;
+      v91 = *(v47[40] + 168);
+      v92 = *(v47[40] + 176);
+      v93 = *(v47[40] + 184);
+      v94 = [*(v47[40] + 192) count];
+      v48 = *(v182 + 4);
+      v49 = *(v182 + 5);
+      v87 = &v63;
+      v88 = v232;
+      __os_log_helper_16_2_27_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_66(v232, v185, v163, v158, v155, v156, v146, v144, v142, v140, v138, v131, v129, v126, v122, v118, v113, v109, v104, v97, v98, v90, v91, v92, v93, v94, v48, v49);
+      _os_log_impl(&dword_26ADE5000, v161, v162[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nFinished to perform the update operation %{public}@ using operation identifier: %{public}@", v88, 0x110u);
+      MEMORY[0x277D82BD8](v89);
+      if (v201)
       {
-        MEMORY[0x277D82BD8](v183[9]);
+        MEMORY[0x277D82BD8](v181[9]);
       }
 
-      MEMORY[0x277D82BD8](v104);
-      MEMORY[0x277D82BD8](v105);
+      MEMORY[0x277D82BD8](v102);
+      MEMORY[0x277D82BD8](v103);
+      MEMORY[0x277D82BD8](v106);
       MEMORY[0x277D82BD8](v108);
-      MEMORY[0x277D82BD8](v110);
-      MEMORY[0x277D82BD8](v114);
+      MEMORY[0x277D82BD8](v112);
+      MEMORY[0x277D82BD8](v115);
       MEMORY[0x277D82BD8](v117);
-      MEMORY[0x277D82BD8](v119);
-      MEMORY[0x277D82BD8](v123);
-      MEMORY[0x277D82BD8](v127);
-      MEMORY[0x277D82BD8](v131);
+      MEMORY[0x277D82BD8](v121);
+      MEMORY[0x277D82BD8](v125);
+      MEMORY[0x277D82BD8](v129);
+      if (v208)
+      {
+        MEMORY[0x277D82BD8](v181[17]);
+      }
+
+      if (v209)
+      {
+        MEMORY[0x277D82BD8](v181[19]);
+      }
+
       if (v210)
       {
-        MEMORY[0x277D82BD8](v183[17]);
+        MEMORY[0x277D82BD8](v181[21]);
       }
 
+      MEMORY[0x277D82BD8](v137);
+      MEMORY[0x277D82BD8](v138);
+      MEMORY[0x277D82BD8](v140);
+      MEMORY[0x277D82BD8](v142);
+      MEMORY[0x277D82BD8](v144);
       if (v211)
       {
-        MEMORY[0x277D82BD8](v183[19]);
+        MEMORY[0x277D82BD8](v181[23]);
       }
 
       if (v212)
       {
-        MEMORY[0x277D82BD8](v183[21]);
+        MEMORY[0x277D82BD8](v181[25]);
       }
 
-      MEMORY[0x277D82BD8](v139);
-      MEMORY[0x277D82BD8](v140);
-      MEMORY[0x277D82BD8](v142);
-      MEMORY[0x277D82BD8](v144);
-      MEMORY[0x277D82BD8](v146);
-      if (v213)
-      {
-        MEMORY[0x277D82BD8](v183[23]);
-      }
-
-      if (v214)
-      {
-        MEMORY[0x277D82BD8](v183[25]);
-      }
-
+      MEMORY[0x277D82BD8](v152);
       MEMORY[0x277D82BD8](v154);
-      MEMORY[0x277D82BD8](v156);
-      MEMORY[0x277D82BD8](v159);
+      MEMORY[0x277D82BD8](v157);
+      objc_storeStrong(&v200, 0);
       objc_storeStrong(&v202, 0);
+      objc_storeStrong(&v203, 0);
       objc_storeStrong(&v204, 0);
       objc_storeStrong(&v205, 0);
       objc_storeStrong(&v206, 0);
       objc_storeStrong(&v207, 0);
-      objc_storeStrong(&v208, 0);
-      objc_storeStrong(&v209, 0);
-      objc_storeStrong(&v215, 0);
-      objc_storeStrong(&v216, 0);
+      objc_storeStrong(&v213, 0);
+      objc_storeStrong(&v214, 0);
     }
 
-    objc_storeStrong(&v218, 0);
-    [*(v183[40] + 192) removeObject:*(v184 + 6)];
-    if (v183[43] && (!*(v184 + 8) || (v51 = v183[43], v88 = (*(*(v184 + 8) + 16))(), (v88 & 1) != 0)))
+    objc_storeStrong(&v216, 0);
+    [*(v181[40] + 192) removeObject:*(v182 + 6)];
+    if (v181[43] && (!*(v182 + 8) || (v86 = (*(*(v182 + 8) + 16))(), (v86 & 1) != 0)))
     {
-      v77 = MEMORY[0x26D66ADC0](*(v184 + 9));
-      v197 = v77;
-      if (v77)
+      v75 = MEMORY[0x26D66ADC0](*(v182 + 9));
+      v195 = v75;
+      if (v75)
       {
-        (*(v197 + 2))(v197, v183[43]);
-        v196 = 0;
+        (*(v195 + 2))(v195, v181[43]);
+        v194 = 0;
       }
 
       else
       {
-        v195 = 0;
+        v193 = 0;
       }
 
-      objc_storeStrong(&v197, 0);
-      v75 = v183[40];
-      v76 = [v183[40] currentDownload];
-      v72 = v76;
-      v73 = v183[42];
-      v188 = MEMORY[0x277D85DD0];
-      v189 = -1073741824;
-      v190 = 0;
-      v191 = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_2;
-      v192 = &unk_279CC6798;
-      v74 = v194;
-      objc_copyWeak(v194, v184 + 10);
-      v71 = &v188;
-      v194[1] = *(v184 + 11);
-      v66 = v193;
-      v193[0] = MEMORY[0x277D82BE0](*(v184 + 4));
-      v67 = v71 + 5;
-      v193[1] = MEMORY[0x277D82BE0](*(v184 + 5));
-      v68 = v71 + 8;
-      v193[4] = MEMORY[0x277D82BE0](*(v184 + 7));
-      v69 = v71 + 6;
-      v193[2] = MEMORY[0x277D82BE0](v183[43]);
-      v70 = v71 + 7;
-      v193[3] = MEMORY[0x277D82BE0](v183[42]);
-      [v75 performPostUpdateOperationRefreshWithDownload:v72 error:v73 completionHandler:v71];
-      MEMORY[0x277D82BD8](v72);
-      objc_storeStrong(v70, 0);
-      objc_storeStrong(v69, 0);
+      objc_storeStrong(&v195, 0);
+      v73 = v181[40];
+      v74 = [v181[40] currentDownload];
+      v70 = v74;
+      v71 = v181[42];
+      v186 = MEMORY[0x277D85DD0];
+      v187 = -1073741824;
+      v188 = 0;
+      v189 = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_2;
+      v190 = &unk_279CC6798;
+      v72 = v192;
+      objc_copyWeak(v192, v182 + 10);
+      v69 = &v186;
+      v192[1] = *(v182 + 11);
+      v64 = v191;
+      v191[0] = MEMORY[0x277D82BE0](*(v182 + 4));
+      v65 = v69 + 5;
+      v191[1] = MEMORY[0x277D82BE0](*(v182 + 5));
+      v66 = v69 + 8;
+      v191[4] = MEMORY[0x277D82BE0](*(v182 + 7));
+      v67 = v69 + 6;
+      v191[2] = MEMORY[0x277D82BE0](v181[43]);
+      v68 = v69 + 7;
+      v191[3] = MEMORY[0x277D82BE0](v181[42]);
+      [v73 performPostUpdateOperationRefreshWithDownload:v70 error:v71 completionHandler:v69];
+      MEMORY[0x277D82BD8](v70);
       objc_storeStrong(v68, 0);
       objc_storeStrong(v67, 0);
       objc_storeStrong(v66, 0);
-      objc_destroyWeak(v74);
-      v219 = 0;
+      objc_storeStrong(v65, 0);
+      objc_storeStrong(v64, 0);
+      objc_destroyWeak(v72);
+      v217 = 0;
     }
 
     else
     {
-      v87 = [MEMORY[0x277D643F8] sharedCore];
-      v85 = v87;
-      v86 = [v183[40] delegateCallbackQueue];
-      v83 = v86;
-      v84 = [v85 selectDelegateCallbackQueue:?];
-      v52 = v84;
-      v53 = v184;
-      v54 = v183;
-      v82 = v52;
-      v81 = &v198;
-      v198 = MEMORY[0x277D85DD0];
-      v199 = -1073741824;
-      v200 = 0;
-      v183[2] = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_466;
-      v54[3] = &unk_279CC6570;
-      v78 = &v201;
-      v55 = MEMORY[0x277D82BE0](v53[7]);
-      v56 = v183;
-      v57 = v81;
-      v183[6] = v55;
-      v79 = (v57 + 32);
-      v58 = MEMORY[0x277D82BE0](v56[43]);
-      v59 = v183;
-      v60 = v81;
-      v183[4] = v58;
-      v80 = (v60 + 40);
-      v61 = MEMORY[0x277D82BE0](v59[42]);
-      v62 = v81;
-      v63 = v61;
-      v64 = v82;
-      v183[5] = v63;
-      dispatch_async(v64, v62);
-      MEMORY[0x277D82BD8](v82);
+      v85 = [MEMORY[0x277D643F8] sharedCore];
+      v83 = v85;
+      v84 = [v181[40] delegateCallbackQueue];
+      v81 = v84;
+      v82 = [v83 selectDelegateCallbackQueue:?];
+      v50 = v82;
+      v51 = v182;
+      v52 = v181;
+      v80 = v50;
+      v79 = &v196;
+      v196 = MEMORY[0x277D85DD0];
+      v197 = -1073741824;
+      v198 = 0;
+      v181[2] = __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_466;
+      v52[3] = &unk_279CC6570;
+      v76 = &v199;
+      v53 = MEMORY[0x277D82BE0](v51[7]);
+      v54 = v181;
+      v55 = v79;
+      v181[6] = v53;
+      v77 = (v55 + 32);
+      v56 = MEMORY[0x277D82BE0](v54[43]);
+      v57 = v181;
+      v58 = v79;
+      v181[4] = v56;
+      v78 = (v58 + 40);
+      v59 = MEMORY[0x277D82BE0](v57[42]);
+      v60 = v79;
+      v61 = v59;
+      v62 = v80;
+      v181[5] = v61;
+      dispatch_async(v62, v60);
+      MEMORY[0x277D82BD8](v80);
+      MEMORY[0x277D82BD8](v81);
       MEMORY[0x277D82BD8](v83);
-      MEMORY[0x277D82BD8](v85);
-      v219 = 1;
-      objc_storeStrong(v80, 0);
-      objc_storeStrong(v79, 0);
+      v217 = 1;
       objc_storeStrong(v78, 0);
+      objc_storeStrong(v77, 0);
+      objc_storeStrong(v76, 0);
     }
   }
 
-  objc_storeStrong(v227, 0);
-  if (!v219)
+  objc_storeStrong(v225, 0);
+  if (!v217)
   {
-    v219 = 0;
+    v217 = 0;
   }
 
-  objc_storeStrong(&v228, 0);
+  objc_storeStrong(&v226, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_465(void *a1)
@@ -19030,7 +18936,6 @@ void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_cont
   }
 
   objc_storeStrong(v125, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_context_description_delegate_delegateCallbackQueue_resultsValidation_resultsAssignment_completion___block_invoke_467(void *a1)
@@ -19413,7 +19318,6 @@ void __165__SUUIStatefulUIManager_performUpdateOnDownloadByApplyingSelector_cont
   objc_storeStrong(&v175, 0);
   objc_storeStrong(&v176, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_error_completionHandler___block_invoke(void *a1, void *a2, void *a3)
@@ -19760,7 +19664,6 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
   v17 = 0;
   objc_storeStrong(&v132, 0);
   objc_storeStrong(location, v17);
-  *MEMORY[0x277D85DE8];
 }
 
 void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_error_completionHandler___block_invoke_468(void *a1)
@@ -19828,8 +19731,6 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)hideAlternateUpdate
@@ -19881,8 +19782,6 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)revealHiddenPreferredUpdate
@@ -19936,8 +19835,6 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)revealHiddenAlteranteUpdate
@@ -19988,8 +19885,6 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
 
     objc_storeStrong(location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)getEnrollInBetaUpdatesStatus
@@ -20050,389 +19945,387 @@ void __95__SUUIStatefulUIManager_performPostUpdateOperationRefreshWithDownload_e
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke(id *a1)
 {
-  v153 = &v172;
-  v154 = a1;
-  v155 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke";
-  v156 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke_2";
-  v201 = *MEMORY[0x277D85DE8];
-  v194[2] = a1;
-  v194[1] = a1;
+  v152 = &v171;
+  v153 = a1;
+  v154 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke";
+  v155 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke_2";
+  v200 = *MEMORY[0x277D85DE8];
+  v193[2] = a1;
+  v193[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v194[0] = WeakRetained;
-  v152 = 0;
+  v193[0] = WeakRetained;
+  v151 = 0;
   if (!WeakRetained)
   {
-    v151 = +[SUUILoggingContext softwareUpdateUILogger];
-    v149 = v151;
-    v150 = [v149 oslog];
-    v1 = v150;
-    v2 = v149;
-    v153[28] = v1;
+    v150 = +[SUUILoggingContext softwareUpdateUILogger];
+    v148 = v150;
+    v149 = [v148 oslog];
+    v1 = v149;
+    v2 = v148;
+    v152[28] = v1;
     MEMORY[0x277D82BD8](v2);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v153[28], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v152[28], OS_LOG_TYPE_ERROR))
     {
-      log = v153[28];
-      *v147 = type;
-      v148 = NSStringFromSelector(v154[8]);
-      v145 = v148;
-      v3 = MEMORY[0x277D82BE0](v145);
-      v4 = v155;
-      v153[26] = v3;
-      buf = v200;
-      __os_log_helper_16_2_2_8_32_8_66(v200, v4, v3);
-      _os_log_error_impl(&dword_26ADE5000, log, v147[0], "%s: Self is nil in %{public}@. Stopping.", v200, 0x16u);
-      MEMORY[0x277D82BD8](v145);
+      log = v152[28];
+      *v146 = type;
+      v147 = NSStringFromSelector(v153[8]);
+      v144 = v147;
+      v3 = MEMORY[0x277D82BE0](v144);
+      v4 = v154;
+      v152[26] = v3;
+      buf = v199;
+      __os_log_helper_16_2_2_8_32_8_66(v199, v4, v3);
+      _os_log_error_impl(&dword_26ADE5000, log, v146[0], "%s: Self is nil in %{public}@. Stopping.", v199, 0x16u);
+      MEMORY[0x277D82BD8](v144);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v193, 0);
-    v190[3] = 1;
-    v152 = 1;
+    objc_storeStrong(&v192, 0);
+    v189[3] = 1;
+    v151 = 1;
   }
 
-  if (v152)
+  if (v151)
   {
     v5 = MEMORY[0x277D85CD0];
     v6 = MEMORY[0x277D85CD0];
-    v7 = v154;
-    v8 = v153;
+    v7 = v153;
+    v8 = v152;
     queue = v6;
-    block = &v187;
-    v153[20] = MEMORY[0x277D85DD0];
-    v188 = -1073741824;
-    v189 = 0;
+    block = &v186;
+    v152[20] = MEMORY[0x277D85DD0];
+    v187 = -1073741824;
+    v188 = 0;
     v8[22] = __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_471;
     v8[23] = &unk_279CC61E0;
-    v141 = v190;
+    v140 = v189;
     v9 = MEMORY[0x277D82BE0](v7[5]);
     v10 = block;
     v11 = v9;
     v12 = queue;
-    v153[24] = v11;
+    v152[24] = v11;
     dispatch_async(v12, v10);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v141, 0);
-    v186 = 1;
+    objc_storeStrong(v140, 0);
+    v185 = 1;
   }
 
   else
   {
-    v140 = [MEMORY[0x277CCAD78] UUID];
-    v138 = v140;
-    v139 = [v138 UUIDString];
-    v13 = v139;
-    v14 = v138;
-    v153[18] = v13;
+    v139 = [MEMORY[0x277CCAD78] UUID];
+    v137 = v139;
+    v138 = [v137 UUIDString];
+    v13 = v138;
+    v14 = v137;
+    v152[18] = v13;
     MEMORY[0x277D82BD8](v14);
-    v137 = +[SUUILoggingContext statefulUILogger];
-    v135 = v137;
-    v136 = [v135 oslog];
-    v15 = v136;
-    v16 = v135;
-    v153[17] = v15;
+    v136 = +[SUUILoggingContext statefulUILogger];
+    v134 = v136;
+    v135 = [v134 oslog];
+    v15 = v135;
+    v16 = v134;
+    v152[17] = v15;
     MEMORY[0x277D82BD8](v16);
-    v183 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v153[17], OS_LOG_TYPE_DEFAULT))
+    v182 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v152[17], OS_LOG_TYPE_DEFAULT))
     {
-      v131 = v153[17];
-      *v132 = v183;
-      v133 = v153[29];
-      v17 = v153[29];
+      v130 = v152[17];
+      *v131 = v182;
+      v132 = v152[29];
       aClass = objc_opt_class();
-      v130 = NSStringFromClass(aClass);
-      v127 = v130;
-      v18 = MEMORY[0x277D82BE0](v127);
-      v19 = v153;
-      v128 = v18;
-      v153[15] = v18;
-      v129 = SUUIStatefulUIStateToString(*(v19[29] + 5));
-      v124 = v129;
-      v20 = MEMORY[0x277D82BE0](v124);
-      v21 = v153;
-      v125 = v20;
-      v153[14] = v20;
-      v126 = [v21[29] currentState];
-      v123 = [v153[29] delegate];
-      v122 = v123;
-      v180 = 0;
+      v129 = NSStringFromClass(aClass);
+      v126 = v129;
+      v17 = MEMORY[0x277D82BE0](v126);
+      v18 = v152;
+      v127 = v17;
+      v152[15] = v17;
+      v128 = SUUIStatefulUIStateToString(*(v18[29] + 5));
+      v123 = v128;
+      v19 = MEMORY[0x277D82BE0](v123);
+      v20 = v152;
+      v124 = v19;
+      v152[14] = v19;
+      v125 = [v20[29] currentState];
+      v122 = [v152[29] delegate];
+      v121 = v122;
       v179 = 0;
-      if (v122)
+      v178 = 0;
+      if (v121)
       {
-        v121 = [v153[29] delegate];
-        v153[13] = v121;
-        v180 = 1;
-        v120 = objc_opt_class();
-        v119 = NSStringFromClass(v120);
-        v22 = v119;
-        v153[11] = v22;
+        v120 = [v152[29] delegate];
+        v152[13] = v120;
         v179 = 1;
-        v118 = v22;
+        v119 = objc_opt_class();
+        v118 = NSStringFromClass(v119);
+        v21 = v118;
+        v152[11] = v21;
+        v178 = 1;
+        v117 = v21;
       }
 
       else
       {
-        v118 = @"(null)";
+        v117 = @"(null)";
       }
 
-      v116 = v118;
-      v117 = [v153[29] delegate];
-      v114 = v117;
-      v115 = [v153[29] scanError];
-      v112 = v115;
-      v113 = [v153[29] preferredStatefulDescriptor];
-      v110 = v113;
-      v111 = [v153[29] alternateStatefulDescriptor];
-      v108 = v111;
-      v109 = [v153[29] currentDownload];
-      v107 = v109;
-      v178 = 0;
+      v115 = v117;
+      v116 = [v152[29] delegate];
+      v113 = v116;
+      v114 = [v152[29] scanError];
+      v111 = v114;
+      v112 = [v152[29] preferredStatefulDescriptor];
+      v109 = v112;
+      v110 = [v152[29] alternateStatefulDescriptor];
+      v107 = v110;
+      v108 = [v152[29] currentDownload];
+      v106 = v108;
       v177 = 0;
       v176 = 0;
-      if (v107)
+      v175 = 0;
+      if (v106)
       {
-        v106 = [v153[29] currentDownload];
-        v23 = v106;
-        v153[9] = v23;
-        v178 = 1;
-        v105 = [v23 descriptor];
-        v24 = v105;
-        v153[7] = v24;
+        v105 = [v152[29] currentDownload];
+        v22 = v105;
+        v152[9] = v22;
         v177 = 1;
-        v104 = [v24 updateName];
-        v25 = v104;
-        v153[5] = v25;
+        v104 = [v22 descriptor];
+        v23 = v104;
+        v152[7] = v23;
         v176 = 1;
-        v103 = v25;
+        v103 = [v23 updateName];
+        v24 = v103;
+        v152[5] = v24;
+        v175 = 1;
+        v102 = v24;
       }
 
       else
       {
-        v103 = @"(null)";
+        v102 = @"(null)";
       }
 
-      v101 = v103;
-      v102 = [v153[29] currentDownload];
-      v99 = v102;
-      v100 = [v153[29] currentUpdateOperationType];
-      v98 = SUUIUpdateContinuousOperationTypeToString(v100);
-      v95 = v98;
-      v26 = MEMORY[0x277D82BE0](v95);
-      v27 = v153;
-      v96 = v26;
-      v153[3] = v26;
-      v97 = [v27[29] isTargetedUpdateScheduledForAutoInstall];
-      v198 = v97;
-      if (v97)
+      v100 = v102;
+      v101 = [v152[29] currentDownload];
+      v98 = v101;
+      v99 = [v152[29] currentUpdateOperationType];
+      v97 = SUUIUpdateContinuousOperationTypeToString(v99);
+      v94 = v97;
+      v25 = MEMORY[0x277D82BE0](v94);
+      v26 = v152;
+      v95 = v25;
+      v152[3] = v25;
+      v96 = [v26[29] isTargetedUpdateScheduledForAutoInstall];
+      v197 = v96;
+      if (v96)
       {
-        v28 = @"YES";
+        v27 = @"YES";
       }
 
       else
       {
-        v28 = @"NO";
+        v27 = @"NO";
       }
 
-      v94 = v28;
-      v29 = v28;
-      v91 = v94;
-      v30 = MEMORY[0x277D82BE0](v91);
-      v31 = v153;
-      v92 = v30;
-      v153[2] = v30;
-      v93 = [v31[29] hidingPreferredDescriptor];
-      v197 = v93;
-      if (v93)
+      v93 = v27;
+      v28 = v27;
+      v90 = v93;
+      v29 = MEMORY[0x277D82BE0](v90);
+      v30 = v152;
+      v91 = v29;
+      v152[2] = v29;
+      v92 = [v30[29] hidingPreferredDescriptor];
+      v196 = v92;
+      if (v92)
       {
-        v32 = @"YES";
+        v31 = @"YES";
       }
 
       else
       {
-        v32 = @"NO";
+        v31 = @"NO";
       }
 
-      v90 = v32;
-      v33 = v32;
-      v87 = v90;
-      v34 = MEMORY[0x277D82BE0](v87);
-      v35 = v153;
-      v88 = v34;
-      v153[1] = v34;
-      v89 = [v35[29] hiddenPreferredStatefulDescriptor];
-      v85 = v89;
-      v86 = [v85 updateName];
-      v82 = v86;
-      v36 = MEMORY[0x277D82BE0](v82);
-      v37 = v153;
-      v83 = v36;
-      *v153 = v36;
-      v84 = [v37[29] hidingAlternateDescriptor];
-      v196 = v84;
-      if (v84)
+      v89 = v31;
+      v32 = v31;
+      v86 = v89;
+      v33 = MEMORY[0x277D82BE0](v86);
+      v34 = v152;
+      v87 = v33;
+      v152[1] = v33;
+      v88 = [v34[29] hiddenPreferredStatefulDescriptor];
+      v84 = v88;
+      v85 = [v84 updateName];
+      v81 = v85;
+      v35 = MEMORY[0x277D82BE0](v81);
+      v36 = v152;
+      v82 = v35;
+      *v152 = v35;
+      v83 = [v36[29] hidingAlternateDescriptor];
+      v195 = v83;
+      if (v83)
       {
-        v38 = @"YES";
+        v37 = @"YES";
       }
 
       else
       {
-        v38 = @"NO";
+        v37 = @"NO";
       }
 
-      v81 = v38;
-      v39 = v38;
-      v78 = v81;
-      v79 = MEMORY[0x277D82BE0](v78);
-      v171 = v79;
-      v80 = [v153[29] hiddenAlternateStatefulDescriptor];
-      v76 = v80;
-      v77 = [v76 updateName];
-      v73 = v77;
-      v74 = MEMORY[0x277D82BE0](v73);
-      v170 = v74;
-      v75 = [v153[29] enrolledBetaProgram];
-      v72 = v75;
-      v168 = 0;
-      if (v72)
+      v80 = v37;
+      v38 = v37;
+      v77 = v80;
+      v78 = MEMORY[0x277D82BE0](v77);
+      v170 = v78;
+      v79 = [v152[29] hiddenAlternateStatefulDescriptor];
+      v75 = v79;
+      v76 = [v75 updateName];
+      v72 = v76;
+      v73 = MEMORY[0x277D82BE0](v72);
+      v169 = v73;
+      v74 = [v152[29] enrolledBetaProgram];
+      v71 = v74;
+      v167 = 0;
+      if (v71)
       {
-        v71 = [v153[29] enrolledBetaProgram];
-        v169 = v71;
-        v168 = 1;
-        v70 = [v169 programID];
-        v69 = v70;
+        v70 = [v152[29] enrolledBetaProgram];
+        v168 = v70;
+        v167 = 1;
+        v69 = [v168 programID];
+        v68 = v69;
       }
 
       else
       {
-        v69 = 0;
+        v68 = 0;
       }
 
-      v67 = v69;
-      v68 = [*(v153[29] + 15) count];
-      v66 = [v153[29] canEnrollInBetaUpdates];
-      v195 = v66;
-      if (v66)
+      v66 = v68;
+      v67 = [*(v152[29] + 15) count];
+      v65 = [v152[29] canEnrollInBetaUpdates];
+      v194 = v65;
+      if (v65)
       {
-        v40 = @"YES";
+        v39 = @"YES";
       }
 
       else
       {
-        v40 = @"NO";
+        v39 = @"NO";
       }
 
-      v65 = v40;
-      v41 = v40;
-      v59 = v65;
-      v60 = MEMORY[0x277D82BE0](v59);
-      v167 = v60;
-      v61 = *(v153[29] + 21);
-      v62 = *(v153[29] + 22);
-      v63 = *(v153[29] + 23);
-      v64 = [*(v153[29] + 24) count];
-      v58 = [v154[4] programID];
-      v42 = v154[4];
-      v43 = v153[18];
-      v56 = &v44;
-      v57 = v199;
-      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0_8_66(v199, v156, v133, v128, v125, v126, v116, v114, v112, v110, v108, v101, v99, v96, v92, v88, v83, v79, v74, v67, v68, v60, v61, v62, v63, v64, v58, v42, v43);
-      _os_log_impl(&dword_26ADE5000, v131, v132[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nAttempts to enroll in beta program: %ld (%p) using Beta Updates operation ID: %{public}@", v57, 0x11Au);
-      MEMORY[0x277D82BD8](v59);
-      if (v168)
+      v64 = v39;
+      v40 = v39;
+      v58 = v64;
+      v59 = MEMORY[0x277D82BE0](v58);
+      v166 = v59;
+      v60 = *(v152[29] + 21);
+      v61 = *(v152[29] + 22);
+      v62 = *(v152[29] + 23);
+      v63 = [*(v152[29] + 24) count];
+      v57 = [v153[4] programID];
+      v41 = v153[4];
+      v42 = v152[18];
+      v55 = &v43;
+      v56 = v198;
+      __os_log_helper_16_2_28_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_0_8_0_8_66(v198, v155, v132, v127, v124, v125, v115, v113, v111, v109, v107, v100, v98, v95, v91, v87, v82, v78, v73, v66, v67, v59, v60, v61, v62, v63, v57, v41, v42);
+      _os_log_impl(&dword_26ADE5000, v130, v131[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nAttempts to enroll in beta program: %ld (%p) using Beta Updates operation ID: %{public}@", v56, 0x11Au);
+      MEMORY[0x277D82BD8](v58);
+      if (v167)
       {
-        MEMORY[0x277D82BD8](v169);
+        MEMORY[0x277D82BD8](v168);
       }
 
+      MEMORY[0x277D82BD8](v71);
       MEMORY[0x277D82BD8](v72);
-      MEMORY[0x277D82BD8](v73);
-      MEMORY[0x277D82BD8](v76);
-      MEMORY[0x277D82BD8](v78);
-      MEMORY[0x277D82BD8](v82);
-      MEMORY[0x277D82BD8](v85);
-      MEMORY[0x277D82BD8](v87);
-      MEMORY[0x277D82BD8](v91);
-      MEMORY[0x277D82BD8](v95);
-      MEMORY[0x277D82BD8](v99);
+      MEMORY[0x277D82BD8](v75);
+      MEMORY[0x277D82BD8](v77);
+      MEMORY[0x277D82BD8](v81);
+      MEMORY[0x277D82BD8](v84);
+      MEMORY[0x277D82BD8](v86);
+      MEMORY[0x277D82BD8](v90);
+      MEMORY[0x277D82BD8](v94);
+      MEMORY[0x277D82BD8](v98);
+      if (v175)
+      {
+        MEMORY[0x277D82BD8](v152[5]);
+      }
+
       if (v176)
       {
-        MEMORY[0x277D82BD8](v153[5]);
+        MEMORY[0x277D82BD8](v152[7]);
       }
 
       if (v177)
       {
-        MEMORY[0x277D82BD8](v153[7]);
+        MEMORY[0x277D82BD8](v152[9]);
       }
 
+      MEMORY[0x277D82BD8](v106);
+      MEMORY[0x277D82BD8](v107);
+      MEMORY[0x277D82BD8](v109);
+      MEMORY[0x277D82BD8](v111);
+      MEMORY[0x277D82BD8](v113);
       if (v178)
       {
-        MEMORY[0x277D82BD8](v153[9]);
+        MEMORY[0x277D82BD8](v152[11]);
       }
 
-      MEMORY[0x277D82BD8](v107);
-      MEMORY[0x277D82BD8](v108);
-      MEMORY[0x277D82BD8](v110);
-      MEMORY[0x277D82BD8](v112);
-      MEMORY[0x277D82BD8](v114);
       if (v179)
       {
-        MEMORY[0x277D82BD8](v153[11]);
+        MEMORY[0x277D82BD8](v152[13]);
       }
 
-      if (v180)
-      {
-        MEMORY[0x277D82BD8](v153[13]);
-      }
-
-      MEMORY[0x277D82BD8](v122);
-      MEMORY[0x277D82BD8](v124);
-      MEMORY[0x277D82BD8](v127);
-      objc_storeStrong(&v167, 0);
+      MEMORY[0x277D82BD8](v121);
+      MEMORY[0x277D82BD8](v123);
+      MEMORY[0x277D82BD8](v126);
+      objc_storeStrong(&v166, 0);
+      objc_storeStrong(&v169, 0);
       objc_storeStrong(&v170, 0);
       objc_storeStrong(&v171, 0);
       objc_storeStrong(&v172, 0);
       objc_storeStrong(&v173, 0);
       objc_storeStrong(&v174, 0);
-      objc_storeStrong(&v175, 0);
+      objc_storeStrong(&v180, 0);
       objc_storeStrong(&v181, 0);
-      objc_storeStrong(&v182, 0);
     }
 
-    objc_storeStrong(&v184, 0);
-    v55 = [v153[29] environment];
-    v53 = v55;
-    v54 = [v53 betaUpdatesOperationWithManager:v153[29] identifier:v153[18] completionQueue:*(v153[29] + 26)];
-    v166 = v54;
-    MEMORY[0x277D82BD8](v53);
-    v51 = v166;
-    v52 = [v153[29] currentSeedingDevice];
-    v48 = v52;
-    v49 = v154[4];
-    v158 = MEMORY[0x277D85DD0];
-    v159 = -1073741824;
-    v160 = 0;
-    v161 = __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_473;
-    v162 = &unk_279CC68B0;
+    objc_storeStrong(&v183, 0);
+    v54 = [v152[29] environment];
+    v52 = v54;
+    v53 = [v52 betaUpdatesOperationWithManager:v152[29] identifier:v152[18] completionQueue:*(v152[29] + 26)];
+    v165 = v53;
+    MEMORY[0x277D82BD8](v52);
     v50 = v165;
-    objc_copyWeak(v165, v154 + 7);
-    v47 = &v158;
-    v165[1] = v154[8];
-    v45 = v164;
-    v164[0] = MEMORY[0x277D82BE0](v154[5]);
-    v46 = (v47 + 4);
-    v163 = MEMORY[0x277D82BE0](v154[4]);
-    v164[1] = v154[6];
-    [v51 enrollDevice:v48 inBetaProgram:v49 completionHandler:v47];
-    MEMORY[0x277D82BD8](v48);
-    objc_storeStrong(v46, 0);
+    v51 = [v152[29] currentSeedingDevice];
+    v47 = v51;
+    v48 = v153[4];
+    v157 = MEMORY[0x277D85DD0];
+    v158 = -1073741824;
+    v159 = 0;
+    v160 = __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_473;
+    v161 = &unk_279CC68B0;
+    v49 = v164;
+    objc_copyWeak(v164, v153 + 7);
+    v46 = &v157;
+    v164[1] = v153[8];
+    v44 = v163;
+    v163[0] = MEMORY[0x277D82BE0](v153[5]);
+    v45 = (v46 + 4);
+    v162 = MEMORY[0x277D82BE0](v153[4]);
+    v163[1] = v153[6];
+    [v50 enrollDevice:v47 inBetaProgram:v48 completionHandler:v46];
+    MEMORY[0x277D82BD8](v47);
     objc_storeStrong(v45, 0);
-    objc_destroyWeak(v50);
-    objc_storeStrong(&v166, 0);
-    objc_storeStrong(&v185, 0);
-    v186 = 0;
+    objc_storeStrong(v44, 0);
+    objc_destroyWeak(v49);
+    objc_storeStrong(&v165, 0);
+    objc_storeStrong(&v184, 0);
+    v185 = 0;
   }
 
-  objc_storeStrong(v194, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v193, 0);
 }
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_471(void *a1)
@@ -20837,7 +20730,6 @@ void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completio
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_474(void *a1)
@@ -20990,7 +20882,6 @@ void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completio
 
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_476(void *a1)
@@ -21029,47 +20920,44 @@ void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completio
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15[2] = a1;
-  v15[1] = a1;
-  v15[0] = objc_loadWeakRetained((a1 + 48));
-  v10 = 0;
-  if (!v15[0])
+  v15 = *MEMORY[0x277D85DE8];
+  v13[2] = a1;
+  v13[1] = a1;
+  v13[0] = objc_loadWeakRetained((a1 + 48));
+  v8 = 0;
+  if (!v13[0])
   {
-    v9 = +[SUUILoggingContext softwareUpdateUILogger];
-    v14 = [v9 oslog];
-    MEMORY[0x277D82BD8](v9);
-    v13 = 16;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v7 = +[SUUILoggingContext softwareUpdateUILogger];
+    v12 = [v7 oslog];
+    MEMORY[0x277D82BD8](v7);
+    v11 = 16;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      log = v14;
-      type = v13;
-      v8 = NSStringFromSelector(*(a1 + 56));
-      v12 = MEMORY[0x277D82BE0](v8);
-      __os_log_helper_16_2_2_8_32_8_66(v16, "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke_3", v12);
-      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v16, 0x16u);
-      MEMORY[0x277D82BD8](v8);
-      objc_storeStrong(&v12, 0);
+      log = v12;
+      type = v11;
+      v6 = NSStringFromSelector(*(a1 + 56));
+      v10 = MEMORY[0x277D82BE0](v6);
+      __os_log_helper_16_2_2_8_32_8_66(v14, "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:activity:completionHandler:]_block_invoke_3", v10);
+      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v14, 0x16u);
+      MEMORY[0x277D82BD8](v6);
+      objc_storeStrong(&v10, 0);
     }
 
-    objc_storeStrong(&v14, 0);
-    v10 = 1;
+    objc_storeStrong(&v12, 0);
+    v8 = 1;
   }
 
-  if ((v10 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v5 = [v15[0] delegate];
-    v3 = v15[0];
-    v4 = [v15[0] currentSeedingDevice];
-    v1 = *(a1 + 32);
-    v2 = *(a1 + 40);
-    [v5 statefulUIManager:v3 didEnrollDevice:? inBetaUpdatesProgram:? withError:?];
-    MEMORY[0x277D82BD8](v4);
-    MEMORY[0x277D82BD8](v5);
+    v3 = [v13[0] delegate];
+    v1 = v13[0];
+    v2 = [v13[0] currentSeedingDevice];
+    [v3 statefulUIManager:v1 didEnrollDevice:? inBetaUpdatesProgram:? withError:?];
+    MEMORY[0x277D82BD8](v2);
+    MEMORY[0x277D82BD8](v3);
   }
 
-  objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v13, 0);
 }
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_481(uint64_t a1, char a2)
@@ -21126,7 +21014,6 @@ void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completio
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completionHandler___block_invoke_482(void *a1)
@@ -21191,490 +21078,488 @@ void __81__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_activity_completio
 
 void __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke(id *a1)
 {
-  v213 = &v228;
-  v214 = a1;
-  v215 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:afterPurgeConfirmation:activity:completionHandler:]_block_invoke";
-  v216 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:afterPurgeConfirmation:activity:completionHandler:]_block_invoke_2";
-  v268 = *MEMORY[0x277D85DE8];
-  v261[2] = a1;
-  v261[1] = a1;
+  v212 = &v227;
+  v213 = a1;
+  v214 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:afterPurgeConfirmation:activity:completionHandler:]_block_invoke";
+  v215 = "[SUUIStatefulUIManager doEnrollInBetaUpdatesProgram:afterPurgeConfirmation:activity:completionHandler:]_block_invoke_2";
+  v267 = *MEMORY[0x277D85DE8];
+  v260[2] = a1;
+  v260[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v261[0] = WeakRetained;
-  v212 = 0;
+  v260[0] = WeakRetained;
+  v211 = 0;
   if (!WeakRetained)
   {
-    v211 = +[SUUILoggingContext softwareUpdateUILogger];
-    v209 = v211;
-    v210 = [v209 oslog];
-    v1 = v210;
-    v2 = v209;
-    v213[40] = v1;
+    v210 = +[SUUILoggingContext softwareUpdateUILogger];
+    v208 = v210;
+    v209 = [v208 oslog];
+    v1 = v209;
+    v2 = v208;
+    v212[40] = v1;
     MEMORY[0x277D82BD8](v2);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v213[40], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v212[40], OS_LOG_TYPE_ERROR))
     {
-      log = v213[40];
-      *v207 = type;
-      v208 = NSStringFromSelector(v214[8]);
-      v205 = v208;
-      v3 = MEMORY[0x277D82BE0](v205);
-      v4 = v215;
-      v213[38] = v3;
-      buf = v267;
-      __os_log_helper_16_2_2_8_32_8_66(v267, v4, v3);
-      _os_log_error_impl(&dword_26ADE5000, log, v207[0], "%s: Self is nil in %{public}@. Stopping.", v267, 0x16u);
-      MEMORY[0x277D82BD8](v205);
+      log = v212[40];
+      *v206 = type;
+      v207 = NSStringFromSelector(v213[8]);
+      v204 = v207;
+      v3 = MEMORY[0x277D82BE0](v204);
+      v4 = v214;
+      v212[38] = v3;
+      buf = v266;
+      __os_log_helper_16_2_2_8_32_8_66(v266, v4, v3);
+      _os_log_error_impl(&dword_26ADE5000, log, v206[0], "%s: Self is nil in %{public}@. Stopping.", v266, 0x16u);
+      MEMORY[0x277D82BD8](v204);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v260, 0);
-    v257[3] = 1;
-    v212 = 1;
+    objc_storeStrong(&v259, 0);
+    v256[3] = 1;
+    v211 = 1;
   }
 
-  if (v212)
+  if (v211)
   {
     v5 = MEMORY[0x277D85CD0];
     v6 = MEMORY[0x277D85CD0];
-    v7 = v214;
-    v8 = v213;
+    v7 = v213;
+    v8 = v212;
     queue = v6;
-    block = &v254;
-    v213[32] = MEMORY[0x277D85DD0];
-    v255 = -1073741824;
-    v256 = 0;
+    block = &v253;
+    v212[32] = MEMORY[0x277D85DD0];
+    v254 = -1073741824;
+    v255 = 0;
     v8[34] = __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_484;
     v8[35] = &unk_279CC61E0;
-    v201 = v257;
+    v200 = v256;
     v9 = MEMORY[0x277D82BE0](v7[5]);
     v10 = block;
     v11 = v9;
     v12 = queue;
-    v213[36] = v11;
+    v212[36] = v11;
     dispatch_async(v12, v10);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v201, 0);
-    v253 = 1;
+    objc_storeStrong(v200, 0);
+    v252 = 1;
   }
 
   else
   {
-    v200 = +[SUUILoggingContext statefulUILogger];
-    v198 = v200;
-    v199 = [v198 oslog];
-    v13 = v199;
-    v14 = v198;
-    v213[30] = v13;
+    v199 = +[SUUILoggingContext statefulUILogger];
+    v197 = v199;
+    v198 = [v197 oslog];
+    v13 = v198;
+    v14 = v197;
+    v212[30] = v13;
     MEMORY[0x277D82BD8](v14);
-    v251 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v213[30], OS_LOG_TYPE_DEFAULT))
+    v250 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v212[30], OS_LOG_TYPE_DEFAULT))
     {
-      v194 = v213[30];
-      *v195 = v251;
-      v196 = v213[41];
-      v15 = v213[41];
+      v193 = v212[30];
+      *v194 = v250;
+      v195 = v212[41];
       aClass = objc_opt_class();
-      v193 = NSStringFromClass(aClass);
-      v190 = v193;
-      v16 = MEMORY[0x277D82BE0](v190);
-      v17 = v213;
-      v191 = v16;
-      v213[28] = v16;
-      v192 = SUUIStatefulUIStateToString(*(v17[41] + 40));
-      v187 = v192;
-      v18 = MEMORY[0x277D82BE0](v187);
-      v19 = v213;
-      v188 = v18;
-      v213[27] = v18;
-      v189 = [v19[41] currentState];
-      v186 = [v213[41] delegate];
-      v185 = v186;
-      v248 = 0;
+      v192 = NSStringFromClass(aClass);
+      v189 = v192;
+      v15 = MEMORY[0x277D82BE0](v189);
+      v16 = v212;
+      v190 = v15;
+      v212[28] = v15;
+      v191 = SUUIStatefulUIStateToString(*(v16[41] + 40));
+      v186 = v191;
+      v17 = MEMORY[0x277D82BE0](v186);
+      v18 = v212;
+      v187 = v17;
+      v212[27] = v17;
+      v188 = [v18[41] currentState];
+      v185 = [v212[41] delegate];
+      v184 = v185;
       v247 = 0;
-      if (v185)
+      v246 = 0;
+      if (v184)
       {
-        v184 = [v213[41] delegate];
-        v213[26] = v184;
-        v248 = 1;
-        v183 = objc_opt_class();
-        v182 = NSStringFromClass(v183);
-        v20 = v182;
-        v213[24] = v20;
+        v183 = [v212[41] delegate];
+        v212[26] = v183;
         v247 = 1;
-        v181 = v20;
+        v182 = objc_opt_class();
+        v181 = NSStringFromClass(v182);
+        v19 = v181;
+        v212[24] = v19;
+        v246 = 1;
+        v180 = v19;
       }
 
       else
       {
-        v181 = @"(null)";
+        v180 = @"(null)";
       }
 
-      v179 = v181;
-      v180 = [v213[41] delegate];
-      v177 = v180;
-      v178 = [v213[41] scanError];
-      v175 = v178;
-      v176 = [v213[41] preferredStatefulDescriptor];
-      v173 = v176;
-      v174 = [v213[41] alternateStatefulDescriptor];
-      v171 = v174;
-      v172 = [v213[41] currentDownload];
-      v170 = v172;
-      v246 = 0;
+      v178 = v180;
+      v179 = [v212[41] delegate];
+      v176 = v179;
+      v177 = [v212[41] scanError];
+      v174 = v177;
+      v175 = [v212[41] preferredStatefulDescriptor];
+      v172 = v175;
+      v173 = [v212[41] alternateStatefulDescriptor];
+      v170 = v173;
+      v171 = [v212[41] currentDownload];
+      v169 = v171;
       v245 = 0;
       v244 = 0;
-      if (v170)
+      v243 = 0;
+      if (v169)
       {
-        v169 = [v213[41] currentDownload];
-        v21 = v169;
-        v213[22] = v21;
-        v246 = 1;
-        v168 = [v21 descriptor];
-        v22 = v168;
-        v213[20] = v22;
+        v168 = [v212[41] currentDownload];
+        v20 = v168;
+        v212[22] = v20;
         v245 = 1;
-        v167 = [v22 updateName];
-        v23 = v167;
-        v213[18] = v23;
+        v167 = [v20 descriptor];
+        v21 = v167;
+        v212[20] = v21;
         v244 = 1;
-        v166 = v23;
+        v166 = [v21 updateName];
+        v22 = v166;
+        v212[18] = v22;
+        v243 = 1;
+        v165 = v22;
       }
 
       else
       {
-        v166 = @"(null)";
+        v165 = @"(null)";
       }
 
-      v164 = v166;
-      v165 = [v213[41] currentDownload];
-      v162 = v165;
-      v163 = [v213[41] currentUpdateOperationType];
-      v161 = SUUIUpdateContinuousOperationTypeToString(v163);
-      v158 = v161;
-      v24 = MEMORY[0x277D82BE0](v158);
-      v25 = v213;
-      v159 = v24;
-      v213[16] = v24;
-      v160 = [v25[41] isTargetedUpdateScheduledForAutoInstall];
-      v265 = v160;
-      if (v160)
+      v163 = v165;
+      v164 = [v212[41] currentDownload];
+      v161 = v164;
+      v162 = [v212[41] currentUpdateOperationType];
+      v160 = SUUIUpdateContinuousOperationTypeToString(v162);
+      v157 = v160;
+      v23 = MEMORY[0x277D82BE0](v157);
+      v24 = v212;
+      v158 = v23;
+      v212[16] = v23;
+      v159 = [v24[41] isTargetedUpdateScheduledForAutoInstall];
+      v264 = v159;
+      if (v159)
       {
-        v26 = @"YES";
+        v25 = @"YES";
       }
 
       else
       {
-        v26 = @"NO";
+        v25 = @"NO";
       }
 
-      v157 = v26;
-      v27 = v26;
-      v154 = v157;
-      v28 = MEMORY[0x277D82BE0](v154);
-      v29 = v213;
-      v155 = v28;
-      v213[15] = v28;
-      v156 = [v29[41] hidingPreferredDescriptor];
-      v264 = v156;
-      if (v156)
+      v156 = v25;
+      v26 = v25;
+      v153 = v156;
+      v27 = MEMORY[0x277D82BE0](v153);
+      v28 = v212;
+      v154 = v27;
+      v212[15] = v27;
+      v155 = [v28[41] hidingPreferredDescriptor];
+      v263 = v155;
+      if (v155)
       {
-        v30 = @"YES";
+        v29 = @"YES";
       }
 
       else
       {
-        v30 = @"NO";
+        v29 = @"NO";
       }
 
-      v153 = v30;
-      v31 = v30;
-      v150 = v153;
-      v32 = MEMORY[0x277D82BE0](v150);
-      v33 = v213;
-      v151 = v32;
-      v213[14] = v32;
-      v152 = [v33[41] hiddenPreferredStatefulDescriptor];
-      v148 = v152;
-      v149 = [v148 updateName];
-      v145 = v149;
-      v34 = MEMORY[0x277D82BE0](v145);
-      v35 = v213;
-      v146 = v34;
-      v213[13] = v34;
-      v147 = [v35[41] hidingAlternateDescriptor];
-      v263 = v147;
-      if (v147)
+      v152 = v29;
+      v30 = v29;
+      v149 = v152;
+      v31 = MEMORY[0x277D82BE0](v149);
+      v32 = v212;
+      v150 = v31;
+      v212[14] = v31;
+      v151 = [v32[41] hiddenPreferredStatefulDescriptor];
+      v147 = v151;
+      v148 = [v147 updateName];
+      v144 = v148;
+      v33 = MEMORY[0x277D82BE0](v144);
+      v34 = v212;
+      v145 = v33;
+      v212[13] = v33;
+      v146 = [v34[41] hidingAlternateDescriptor];
+      v262 = v146;
+      if (v146)
       {
-        v36 = @"YES";
+        v35 = @"YES";
       }
 
       else
       {
-        v36 = @"NO";
+        v35 = @"NO";
       }
 
-      v144 = v36;
-      v37 = v36;
-      v141 = v144;
-      v38 = MEMORY[0x277D82BE0](v141);
-      v39 = v213;
-      v142 = v38;
-      v213[12] = v38;
-      v143 = [v39[41] hiddenAlternateStatefulDescriptor];
-      v139 = v143;
-      v140 = [v139 updateName];
-      v136 = v140;
-      v40 = MEMORY[0x277D82BE0](v136);
-      v41 = v213;
-      v137 = v40;
-      v213[11] = v40;
-      v138 = [v41[41] enrolledBetaProgram];
-      v135 = v138;
-      v237 = 0;
-      if (v135)
+      v143 = v35;
+      v36 = v35;
+      v140 = v143;
+      v37 = MEMORY[0x277D82BE0](v140);
+      v38 = v212;
+      v141 = v37;
+      v212[12] = v37;
+      v142 = [v38[41] hiddenAlternateStatefulDescriptor];
+      v138 = v142;
+      v139 = [v138 updateName];
+      v135 = v139;
+      v39 = MEMORY[0x277D82BE0](v135);
+      v40 = v212;
+      v136 = v39;
+      v212[11] = v39;
+      v137 = [v40[41] enrolledBetaProgram];
+      v134 = v137;
+      v236 = 0;
+      if (v134)
       {
-        v134 = [v213[41] enrolledBetaProgram];
-        v42 = v134;
-        v213[10] = v42;
-        v237 = 1;
-        v133 = [v42 programID];
-        v132 = v133;
+        v133 = [v212[41] enrolledBetaProgram];
+        v41 = v133;
+        v212[10] = v41;
+        v236 = 1;
+        v132 = [v41 programID];
+        v131 = v132;
       }
 
       else
       {
-        v132 = 0;
+        v131 = 0;
       }
 
-      v130 = v132;
-      v131 = [*(v213[41] + 120) count];
-      v129 = [v213[41] canEnrollInBetaUpdates];
-      v262 = v129;
-      if (v129)
+      v129 = v131;
+      v130 = [*(v212[41] + 120) count];
+      v128 = [v212[41] canEnrollInBetaUpdates];
+      v261 = v128;
+      if (v128)
       {
-        v43 = @"YES";
+        v42 = @"YES";
       }
 
       else
       {
-        v43 = @"NO";
+        v42 = @"NO";
       }
 
-      v128 = v43;
-      v44 = v43;
-      v122 = v128;
-      v45 = MEMORY[0x277D82BE0](v122);
-      v46 = v213;
-      v123 = v45;
-      v213[8] = v45;
-      v124 = *(v46[41] + 168);
-      v125 = *(v46[41] + 176);
-      v126 = *(v46[41] + 184);
-      v127 = [*(v46[41] + 192) count];
-      v121 = [v213[41] currentDownload];
-      v119 = v121;
-      v120 = [v119 descriptor];
-      v117 = v120;
-      v118 = [v117 updateName];
-      v114 = v118;
-      v47 = MEMORY[0x277D82BE0](v114);
-      v48 = v214;
-      v115 = v47;
-      v213[7] = v47;
-      v116 = [v48[4] programID];
-      v112 = v214[4];
-      v113 = SUUIUserInteractionResponseToString(v214[9]);
-      v49 = v130;
-      v50 = v137;
-      v51 = v142;
-      v52 = v146;
-      v53 = v151;
-      v54 = v155;
-      v55 = v159;
-      v56 = v162;
-      v57 = v164;
-      v58 = v171;
-      v111 = v113;
-      v59 = MEMORY[0x277D82BE0](v111);
-      v60 = v175;
-      v61 = v131;
+      v127 = v42;
+      v43 = v42;
+      v121 = v127;
+      v44 = MEMORY[0x277D82BE0](v121);
+      v45 = v212;
+      v122 = v44;
+      v212[8] = v44;
+      v123 = *(v45[41] + 168);
+      v124 = *(v45[41] + 176);
+      v125 = *(v45[41] + 184);
+      v126 = [*(v45[41] + 192) count];
+      v120 = [v212[41] currentDownload];
+      v118 = v120;
+      v119 = [v118 descriptor];
+      v116 = v119;
+      v117 = [v116 updateName];
+      v113 = v117;
+      v46 = MEMORY[0x277D82BE0](v113);
+      v47 = v213;
+      v114 = v46;
+      v212[7] = v46;
+      v115 = [v47[4] programID];
+      v111 = v213[4];
+      v112 = SUUIUserInteractionResponseToString(v213[9]);
+      v48 = v129;
+      v49 = v136;
+      v50 = v141;
+      v51 = v145;
+      v52 = v150;
+      v53 = v154;
+      v54 = v158;
+      v55 = v161;
+      v56 = v163;
+      v57 = v170;
+      v110 = v112;
+      v58 = MEMORY[0x277D82BE0](v110);
+      v59 = v174;
+      v60 = v130;
+      v61 = v122;
       v62 = v123;
       v63 = v124;
       v64 = v125;
       v65 = v126;
-      v66 = v127;
+      v66 = v114;
       v67 = v115;
-      v68 = v116;
-      v69 = v216;
-      v70 = v196;
-      v71 = v191;
+      v68 = v215;
+      v69 = v195;
+      v70 = v190;
+      v71 = v187;
       v72 = v188;
-      v73 = v189;
-      v74 = v179;
-      v75 = v177;
-      v76 = v173;
-      v213[6] = v59;
-      v109 = &v84;
-      v110 = v266;
-      __os_log_helper_16_2_29_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_0_8_0_8_66(v266, v69, v70, v71, v72, v73, v74, v75, v60, v76, v58, v57, v56, v55, v54, v53, v52, v51, v50, v49, v61, v62, v63, v64, v65, v66, v67, v68, v112, v59);
-      _os_log_impl(&dword_26ADE5000, v194, v195[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUser responded to the targeted update purge request of %{public}@, for beta program %ld (%p): %{public}@", v110, 0x124u);
-      MEMORY[0x277D82BD8](v111);
-      MEMORY[0x277D82BD8](v114);
-      MEMORY[0x277D82BD8](v117);
-      MEMORY[0x277D82BD8](v119);
-      MEMORY[0x277D82BD8](v122);
-      if (v237)
+      v73 = v178;
+      v74 = v176;
+      v75 = v172;
+      v212[6] = v58;
+      v108 = &v83;
+      v109 = v265;
+      __os_log_helper_16_2_29_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66_8_0_8_0_8_66(v265, v68, v69, v70, v71, v72, v73, v74, v59, v75, v57, v56, v55, v54, v53, v52, v51, v50, v49, v48, v60, v61, v62, v63, v64, v65, v66, v67, v111, v58);
+      _os_log_impl(&dword_26ADE5000, v193, v194[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUser responded to the targeted update purge request of %{public}@, for beta program %ld (%p): %{public}@", v109, 0x124u);
+      MEMORY[0x277D82BD8](v110);
+      MEMORY[0x277D82BD8](v113);
+      MEMORY[0x277D82BD8](v116);
+      MEMORY[0x277D82BD8](v118);
+      MEMORY[0x277D82BD8](v121);
+      if (v236)
       {
-        MEMORY[0x277D82BD8](v213[10]);
+        MEMORY[0x277D82BD8](v212[10]);
       }
 
+      MEMORY[0x277D82BD8](v134);
       MEMORY[0x277D82BD8](v135);
-      MEMORY[0x277D82BD8](v136);
-      MEMORY[0x277D82BD8](v139);
-      MEMORY[0x277D82BD8](v141);
-      MEMORY[0x277D82BD8](v145);
-      MEMORY[0x277D82BD8](v148);
-      MEMORY[0x277D82BD8](v150);
-      MEMORY[0x277D82BD8](v154);
-      MEMORY[0x277D82BD8](v158);
-      MEMORY[0x277D82BD8](v162);
+      MEMORY[0x277D82BD8](v138);
+      MEMORY[0x277D82BD8](v140);
+      MEMORY[0x277D82BD8](v144);
+      MEMORY[0x277D82BD8](v147);
+      MEMORY[0x277D82BD8](v149);
+      MEMORY[0x277D82BD8](v153);
+      MEMORY[0x277D82BD8](v157);
+      MEMORY[0x277D82BD8](v161);
+      if (v243)
+      {
+        MEMORY[0x277D82BD8](v212[18]);
+      }
+
       if (v244)
       {
-        MEMORY[0x277D82BD8](v213[18]);
+        MEMORY[0x277D82BD8](v212[20]);
       }
 
       if (v245)
       {
-        MEMORY[0x277D82BD8](v213[20]);
+        MEMORY[0x277D82BD8](v212[22]);
       }
 
+      MEMORY[0x277D82BD8](v169);
+      MEMORY[0x277D82BD8](v170);
+      MEMORY[0x277D82BD8](v172);
+      MEMORY[0x277D82BD8](v174);
+      MEMORY[0x277D82BD8](v176);
       if (v246)
       {
-        MEMORY[0x277D82BD8](v213[22]);
+        MEMORY[0x277D82BD8](v212[24]);
       }
 
-      MEMORY[0x277D82BD8](v170);
-      MEMORY[0x277D82BD8](v171);
-      MEMORY[0x277D82BD8](v173);
-      MEMORY[0x277D82BD8](v175);
-      MEMORY[0x277D82BD8](v177);
       if (v247)
       {
-        MEMORY[0x277D82BD8](v213[24]);
+        MEMORY[0x277D82BD8](v212[26]);
       }
 
-      if (v248)
-      {
-        MEMORY[0x277D82BD8](v213[26]);
-      }
-
-      MEMORY[0x277D82BD8](v185);
-      MEMORY[0x277D82BD8](v187);
-      MEMORY[0x277D82BD8](v190);
+      MEMORY[0x277D82BD8](v184);
+      MEMORY[0x277D82BD8](v186);
+      MEMORY[0x277D82BD8](v189);
+      objc_storeStrong(&v233, 0);
       objc_storeStrong(&v234, 0);
       objc_storeStrong(&v235, 0);
-      objc_storeStrong(&v236, 0);
+      objc_storeStrong(&v237, 0);
       objc_storeStrong(&v238, 0);
       objc_storeStrong(&v239, 0);
       objc_storeStrong(&v240, 0);
       objc_storeStrong(&v241, 0);
       objc_storeStrong(&v242, 0);
-      objc_storeStrong(&v243, 0);
+      objc_storeStrong(&v248, 0);
       objc_storeStrong(&v249, 0);
-      objc_storeStrong(&v250, 0);
     }
 
-    objc_storeStrong(&v252, 0);
-    if (v214[9])
+    objc_storeStrong(&v251, 0);
+    if (v213[9])
     {
-      if (*(*(v214[6] + 1) + 24))
+      if (*(*(v213[6] + 1) + 24))
       {
-        if (*(*(*(v214[6] + 1) + 24) + 24))
+        if (*(*(*(v213[6] + 1) + 24) + 24))
         {
-          os_activity_scope_leave(*(*(v214[6] + 1) + 24));
+          os_activity_scope_leave(*(*(v213[6] + 1) + 24));
         }
 
-        free(*(*(v214[6] + 1) + 24));
-        *(*(v214[6] + 1) + 24) = 0;
+        free(*(*(v213[6] + 1) + 24));
+        *(*(v213[6] + 1) + 24) = 0;
       }
 
-      v108 = [MEMORY[0x277D643F8] sharedCore];
-      v106 = v108;
-      v107 = [v213[41] delegateCallbackQueue];
-      v104 = v107;
-      v105 = [v106 selectDelegateCallbackQueue:?];
-      v103 = v105;
-      v102 = &v228;
-      v228 = MEMORY[0x277D85DD0];
-      v229 = -1073741824;
-      v230 = 0;
-      v231 = __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_486;
-      v232 = &unk_279CC6900;
-      v100 = &v233;
-      v77 = MEMORY[0x277D82BE0](v214[5]);
-      v78 = v214;
-      v79 = v102;
-      v213[5] = v77;
-      v101 = (v79 + 32);
-      v80 = MEMORY[0x277D82BE0](v78[4]);
-      v81 = v102;
-      v82 = v80;
-      v83 = v103;
-      v213[4] = v82;
-      dispatch_async(v83, v81);
+      v107 = [MEMORY[0x277D643F8] sharedCore];
+      v105 = v107;
+      v106 = [v212[41] delegateCallbackQueue];
+      v103 = v106;
+      v104 = [v105 selectDelegateCallbackQueue:?];
+      v102 = v104;
+      v101 = &v227;
+      v227 = MEMORY[0x277D85DD0];
+      v228 = -1073741824;
+      v229 = 0;
+      v230 = __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_486;
+      v231 = &unk_279CC6900;
+      v99 = &v232;
+      v76 = MEMORY[0x277D82BE0](v213[5]);
+      v77 = v213;
+      v78 = v101;
+      v212[5] = v76;
+      v100 = (v78 + 32);
+      v79 = MEMORY[0x277D82BE0](v77[4]);
+      v80 = v101;
+      v81 = v79;
+      v82 = v102;
+      v212[4] = v81;
+      dispatch_async(v82, v80);
+      MEMORY[0x277D82BD8](v102);
       MEMORY[0x277D82BD8](v103);
-      MEMORY[0x277D82BD8](v104);
-      MEMORY[0x277D82BD8](v106);
-      v253 = 1;
-      objc_storeStrong(v101, 0);
+      MEMORY[0x277D82BD8](v105);
+      v252 = 1;
       objc_storeStrong(v100, 0);
+      objc_storeStrong(v99, 0);
     }
 
     else
     {
-      v99 = [MEMORY[0x277CCAD78] UUID];
-      v97 = v99;
-      v98 = [v97 UUIDString];
-      v227 = v98;
-      MEMORY[0x277D82BD8](v97);
-      v96 = [v213[41] environment];
-      v94 = v96;
-      v95 = [v94 updateOperationWithManager:v213[41] identifier:v227 delegateCallbackQueue:0 completionQueue:*(v213[41] + 208)];
-      v226 = v95;
-      MEMORY[0x277D82BD8](v94);
-      v92 = v226;
-      v93 = [v213[41] currentDownload];
-      v90 = v93;
-      v91 = [v213[41] contextForPurgeUpdateOperation:v226 forUserRequestedOperation:1 notifyUser:0];
-      v88 = v91;
-      v218 = MEMORY[0x277D85DD0];
-      v219 = -1073741824;
-      v220 = 0;
-      v221 = __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_2;
-      v222 = &unk_279CC6928;
-      v89 = v225;
-      objc_copyWeak(v225, v214 + 7);
-      v87 = &v218;
-      v225[1] = v214[8];
-      v85 = v224;
-      v224[0] = MEMORY[0x277D82BE0](v214[5]);
-      v224[1] = v214[6];
-      v86 = (v87 + 4);
-      v223 = MEMORY[0x277D82BE0](v214[4]);
-      [v92 purgeDownload:v90 withContext:v88 delegate:0 completionHandler:v87];
-      MEMORY[0x277D82BD8](v88);
-      MEMORY[0x277D82BD8](v90);
-      objc_storeStrong(v86, 0);
+      v98 = [MEMORY[0x277CCAD78] UUID];
+      v96 = v98;
+      v97 = [v96 UUIDString];
+      v226 = v97;
+      MEMORY[0x277D82BD8](v96);
+      v95 = [v212[41] environment];
+      v93 = v95;
+      v94 = [v93 updateOperationWithManager:v212[41] identifier:v226 delegateCallbackQueue:0 completionQueue:*(v212[41] + 208)];
+      v225 = v94;
+      MEMORY[0x277D82BD8](v93);
+      v91 = v225;
+      v92 = [v212[41] currentDownload];
+      v89 = v92;
+      v90 = [v212[41] contextForPurgeUpdateOperation:v225 forUserRequestedOperation:1 notifyUser:0];
+      v87 = v90;
+      v217 = MEMORY[0x277D85DD0];
+      v218 = -1073741824;
+      v219 = 0;
+      v220 = __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_2;
+      v221 = &unk_279CC6928;
+      v88 = v224;
+      objc_copyWeak(v224, v213 + 7);
+      v86 = &v217;
+      v224[1] = v213[8];
+      v84 = v223;
+      v223[0] = MEMORY[0x277D82BE0](v213[5]);
+      v223[1] = v213[6];
+      v85 = (v86 + 4);
+      v222 = MEMORY[0x277D82BE0](v213[4]);
+      [v91 purgeDownload:v89 withContext:v87 delegate:0 completionHandler:v86];
+      MEMORY[0x277D82BD8](v87);
+      MEMORY[0x277D82BD8](v89);
       objc_storeStrong(v85, 0);
-      objc_destroyWeak(v89);
+      objc_storeStrong(v84, 0);
+      objc_destroyWeak(v88);
+      objc_storeStrong(&v225, 0);
       objc_storeStrong(&v226, 0);
-      objc_storeStrong(&v227, 0);
-      v253 = 0;
+      v252 = 0;
     }
   }
 
-  objc_storeStrong(v261, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v260, 0);
 }
 
 void __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_484(void *a1)
@@ -22060,7 +21945,6 @@ void __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirm
   v16 = 0;
   objc_storeStrong(&v135, 0);
   objc_storeStrong(location, v16);
-  *MEMORY[0x277D85DE8];
 }
 
 void __104__SUUIStatefulUIManager_doEnrollInBetaUpdatesProgram_afterPurgeConfirmation_activity_completionHandler___block_invoke_487(void *a1)
@@ -22487,7 +22371,6 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
   }
 
   objc_storeStrong(v166, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_490(void *a1)
@@ -22513,418 +22396,416 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_492(id *a1, char a2)
 {
-  v158 = &v171;
-  v159 = a1;
-  v160 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke";
-  v161 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke_2";
-  v214 = *MEMORY[0x277D85DE8];
-  v207 = a1;
-  v206 = a2;
-  v205[1] = a1;
+  v157 = &v170;
+  v158 = a1;
+  v159 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke";
+  v160 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke_2";
+  v213 = *MEMORY[0x277D85DE8];
+  v206 = a1;
+  v205 = a2;
+  v204[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  v205[0] = WeakRetained;
-  v157 = 0;
+  v204[0] = WeakRetained;
+  v156 = 0;
   if (!WeakRetained)
   {
-    v156 = +[SUUILoggingContext softwareUpdateUILogger];
-    v154 = v156;
-    v155 = [v154 oslog];
-    v2 = v155;
-    v3 = v154;
-    v158[43] = v2;
+    v155 = +[SUUILoggingContext softwareUpdateUILogger];
+    v153 = v155;
+    v154 = [v153 oslog];
+    v2 = v154;
+    v3 = v153;
+    v157[43] = v2;
     MEMORY[0x277D82BD8](v3);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v158[43], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v157[43], OS_LOG_TYPE_ERROR))
     {
-      log = v158[43];
-      *v152 = type;
-      v153 = NSStringFromSelector(v159[7]);
-      v150 = v153;
-      v4 = MEMORY[0x277D82BE0](v150);
-      v5 = v160;
-      v158[41] = v4;
-      buf = v213;
-      __os_log_helper_16_2_2_8_32_8_66(v213, v5, v4);
-      _os_log_error_impl(&dword_26ADE5000, log, v152[0], "%s: Self is nil in %{public}@. Stopping.", v213, 0x16u);
-      MEMORY[0x277D82BD8](v150);
+      log = v157[43];
+      *v151 = type;
+      v152 = NSStringFromSelector(v158[7]);
+      v149 = v152;
+      v4 = MEMORY[0x277D82BE0](v149);
+      v5 = v159;
+      v157[41] = v4;
+      buf = v212;
+      __os_log_helper_16_2_2_8_32_8_66(v212, v5, v4);
+      _os_log_error_impl(&dword_26ADE5000, log, v151[0], "%s: Self is nil in %{public}@. Stopping.", v212, 0x16u);
+      MEMORY[0x277D82BD8](v149);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v204, 0);
-    v201[3] = 1;
-    v157 = 1;
+    objc_storeStrong(&v203, 0);
+    v200[3] = 1;
+    v156 = 1;
   }
 
-  if (v157)
+  if (v156)
   {
     v6 = MEMORY[0x277D85CD0];
     v7 = MEMORY[0x277D85CD0];
-    v8 = v159;
-    v9 = v158;
+    v8 = v158;
+    v9 = v157;
     queue = v7;
-    block = &v198;
-    v158[35] = MEMORY[0x277D85DD0];
-    v199 = -1073741824;
-    v200 = 0;
+    block = &v197;
+    v157[35] = MEMORY[0x277D85DD0];
+    v198 = -1073741824;
+    v199 = 0;
     v9[37] = __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_493;
     v9[38] = &unk_279CC61E0;
-    v146 = v201;
+    v145 = v200;
     v10 = MEMORY[0x277D82BE0](v8[4]);
     v11 = block;
     v12 = v10;
     v13 = queue;
-    v158[39] = v12;
+    v157[39] = v12;
     dispatch_async(v13, v11);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v146, 0);
-    v197 = 1;
+    objc_storeStrong(v145, 0);
+    v196 = 1;
   }
 
   else
   {
-    v145 = +[SUUILoggingContext statefulUILogger];
-    v143 = v145;
-    v144 = [v143 oslog];
-    v14 = v144;
-    v15 = v143;
-    v158[33] = v14;
+    v144 = +[SUUILoggingContext statefulUILogger];
+    v142 = v144;
+    v143 = [v142 oslog];
+    v14 = v143;
+    v15 = v142;
+    v157[33] = v14;
     MEMORY[0x277D82BD8](v15);
-    v195 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v158[33], OS_LOG_TYPE_DEFAULT))
+    v194 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v157[33], OS_LOG_TYPE_DEFAULT))
     {
-      v139 = v158[33];
-      *v140 = v195;
-      v141 = v158[44];
-      v16 = v158[44];
+      v138 = v157[33];
+      *v139 = v194;
+      v140 = v157[44];
       aClass = objc_opt_class();
-      v138 = NSStringFromClass(aClass);
-      v135 = v138;
-      v17 = MEMORY[0x277D82BE0](v135);
-      v18 = v158;
-      v136 = v17;
-      v158[31] = v17;
-      v137 = SUUIStatefulUIStateToString(*(v18[44] + 40));
-      v132 = v137;
-      v19 = MEMORY[0x277D82BE0](v132);
-      v20 = v158;
-      v133 = v19;
-      v158[30] = v19;
-      v134 = [v20[44] currentState];
-      v131 = [v158[44] delegate];
-      v130 = v131;
-      v192 = 0;
+      v137 = NSStringFromClass(aClass);
+      v134 = v137;
+      v16 = MEMORY[0x277D82BE0](v134);
+      v17 = v157;
+      v135 = v16;
+      v157[31] = v16;
+      v136 = SUUIStatefulUIStateToString(*(v17[44] + 40));
+      v131 = v136;
+      v18 = MEMORY[0x277D82BE0](v131);
+      v19 = v157;
+      v132 = v18;
+      v157[30] = v18;
+      v133 = [v19[44] currentState];
+      v130 = [v157[44] delegate];
+      v129 = v130;
       v191 = 0;
-      if (v130)
+      v190 = 0;
+      if (v129)
       {
-        v129 = [v158[44] delegate];
-        v158[29] = v129;
-        v192 = 1;
-        v128 = objc_opt_class();
-        v127 = NSStringFromClass(v128);
-        v21 = v127;
-        v158[27] = v21;
+        v128 = [v157[44] delegate];
+        v157[29] = v128;
         v191 = 1;
-        v126 = v21;
+        v127 = objc_opt_class();
+        v126 = NSStringFromClass(v127);
+        v20 = v126;
+        v157[27] = v20;
+        v190 = 1;
+        v125 = v20;
       }
 
       else
       {
-        v126 = @"(null)";
+        v125 = @"(null)";
       }
 
-      v124 = v126;
-      v125 = [v158[44] delegate];
-      v122 = v125;
-      v123 = [v158[44] scanError];
-      v120 = v123;
-      v121 = [v158[44] preferredStatefulDescriptor];
-      v118 = v121;
-      v119 = [v158[44] alternateStatefulDescriptor];
-      v116 = v119;
-      v117 = [v158[44] currentDownload];
-      v115 = v117;
-      v190 = 0;
+      v123 = v125;
+      v124 = [v157[44] delegate];
+      v121 = v124;
+      v122 = [v157[44] scanError];
+      v119 = v122;
+      v120 = [v157[44] preferredStatefulDescriptor];
+      v117 = v120;
+      v118 = [v157[44] alternateStatefulDescriptor];
+      v115 = v118;
+      v116 = [v157[44] currentDownload];
+      v114 = v116;
       v189 = 0;
       v188 = 0;
-      if (v115)
+      v187 = 0;
+      if (v114)
       {
-        v114 = [v158[44] currentDownload];
-        v22 = v114;
-        v158[25] = v22;
-        v190 = 1;
-        v113 = [v22 descriptor];
-        v23 = v113;
-        v158[23] = v23;
+        v113 = [v157[44] currentDownload];
+        v21 = v113;
+        v157[25] = v21;
         v189 = 1;
-        v112 = [v23 updateName];
-        v24 = v112;
-        v158[21] = v24;
+        v112 = [v21 descriptor];
+        v22 = v112;
+        v157[23] = v22;
         v188 = 1;
-        v111 = v24;
+        v111 = [v22 updateName];
+        v23 = v111;
+        v157[21] = v23;
+        v187 = 1;
+        v110 = v23;
       }
 
       else
       {
-        v111 = @"(null)";
+        v110 = @"(null)";
       }
 
-      v109 = v111;
-      v110 = [v158[44] currentDownload];
-      v107 = v110;
-      v108 = [v158[44] currentUpdateOperationType];
-      v106 = SUUIUpdateContinuousOperationTypeToString(v108);
-      v103 = v106;
-      v25 = MEMORY[0x277D82BE0](v103);
-      v26 = v158;
-      v104 = v25;
-      v158[19] = v25;
-      v105 = [v26[44] isTargetedUpdateScheduledForAutoInstall];
-      v211 = v105;
-      if (v105)
+      v108 = v110;
+      v109 = [v157[44] currentDownload];
+      v106 = v109;
+      v107 = [v157[44] currentUpdateOperationType];
+      v105 = SUUIUpdateContinuousOperationTypeToString(v107);
+      v102 = v105;
+      v24 = MEMORY[0x277D82BE0](v102);
+      v25 = v157;
+      v103 = v24;
+      v157[19] = v24;
+      v104 = [v25[44] isTargetedUpdateScheduledForAutoInstall];
+      v210 = v104;
+      if (v104)
       {
-        v27 = @"YES";
+        v26 = @"YES";
       }
 
       else
       {
-        v27 = @"NO";
+        v26 = @"NO";
       }
 
-      v102 = v27;
-      v28 = v27;
-      v99 = v102;
-      v29 = MEMORY[0x277D82BE0](v99);
-      v30 = v158;
-      v100 = v29;
-      v158[18] = v29;
-      v101 = [v30[44] hidingPreferredDescriptor];
-      v210 = v101;
-      if (v101)
+      v101 = v26;
+      v27 = v26;
+      v98 = v101;
+      v28 = MEMORY[0x277D82BE0](v98);
+      v29 = v157;
+      v99 = v28;
+      v157[18] = v28;
+      v100 = [v29[44] hidingPreferredDescriptor];
+      v209 = v100;
+      if (v100)
       {
-        v31 = @"YES";
+        v30 = @"YES";
       }
 
       else
       {
-        v31 = @"NO";
+        v30 = @"NO";
       }
 
-      v98 = v31;
-      v32 = v31;
-      v95 = v98;
-      v33 = MEMORY[0x277D82BE0](v95);
-      v34 = v158;
-      v96 = v33;
-      v158[17] = v33;
-      v97 = [v34[44] hiddenPreferredStatefulDescriptor];
-      v93 = v97;
-      v94 = [v93 updateName];
-      v90 = v94;
-      v35 = MEMORY[0x277D82BE0](v90);
-      v36 = v158;
-      v91 = v35;
-      v158[16] = v35;
-      v92 = [v36[44] hidingAlternateDescriptor];
-      v209 = v92;
-      if (v92)
+      v97 = v30;
+      v31 = v30;
+      v94 = v97;
+      v32 = MEMORY[0x277D82BE0](v94);
+      v33 = v157;
+      v95 = v32;
+      v157[17] = v32;
+      v96 = [v33[44] hiddenPreferredStatefulDescriptor];
+      v92 = v96;
+      v93 = [v92 updateName];
+      v89 = v93;
+      v34 = MEMORY[0x277D82BE0](v89);
+      v35 = v157;
+      v90 = v34;
+      v157[16] = v34;
+      v91 = [v35[44] hidingAlternateDescriptor];
+      v208 = v91;
+      if (v91)
       {
-        v37 = @"YES";
+        v36 = @"YES";
       }
 
       else
       {
-        v37 = @"NO";
+        v36 = @"NO";
       }
 
-      v89 = v37;
-      v38 = v37;
-      v86 = v89;
-      v39 = MEMORY[0x277D82BE0](v86);
-      v40 = v158;
-      v87 = v39;
-      v158[15] = v39;
-      v88 = [v40[44] hiddenAlternateStatefulDescriptor];
-      v84 = v88;
-      v85 = [v84 updateName];
-      v81 = v85;
-      v41 = MEMORY[0x277D82BE0](v81);
-      v42 = v158;
-      v82 = v41;
-      v158[14] = v41;
-      v83 = [v42[44] enrolledBetaProgram];
-      v80 = v83;
-      v181 = 0;
-      if (v80)
+      v88 = v36;
+      v37 = v36;
+      v85 = v88;
+      v38 = MEMORY[0x277D82BE0](v85);
+      v39 = v157;
+      v86 = v38;
+      v157[15] = v38;
+      v87 = [v39[44] hiddenAlternateStatefulDescriptor];
+      v83 = v87;
+      v84 = [v83 updateName];
+      v80 = v84;
+      v40 = MEMORY[0x277D82BE0](v80);
+      v41 = v157;
+      v81 = v40;
+      v157[14] = v40;
+      v82 = [v41[44] enrolledBetaProgram];
+      v79 = v82;
+      v180 = 0;
+      if (v79)
       {
-        v79 = [v158[44] enrolledBetaProgram];
-        v43 = v79;
-        v158[13] = v43;
-        v181 = 1;
-        v78 = [v43 programID];
-        v77 = v78;
+        v78 = [v157[44] enrolledBetaProgram];
+        v42 = v78;
+        v157[13] = v42;
+        v180 = 1;
+        v77 = [v42 programID];
+        v76 = v77;
       }
 
       else
       {
-        v77 = 0;
+        v76 = 0;
       }
 
-      v75 = v77;
-      v76 = [*(v158[44] + 120) count];
-      v74 = [v158[44] canEnrollInBetaUpdates];
-      v208 = v74;
-      if (v74)
+      v74 = v76;
+      v75 = [*(v157[44] + 120) count];
+      v73 = [v157[44] canEnrollInBetaUpdates];
+      v207 = v73;
+      if (v73)
       {
-        v44 = @"YES";
+        v43 = @"YES";
       }
 
       else
       {
-        v44 = @"NO";
+        v43 = @"NO";
       }
 
-      v73 = v44;
-      v45 = v44;
-      v67 = v73;
-      v46 = MEMORY[0x277D82BE0](v67);
-      v47 = v158;
-      v68 = v46;
-      v158[11] = v46;
-      v69 = *(v47[44] + 168);
-      v70 = *(v47[44] + 176);
-      v71 = *(v47[44] + 184);
-      v72 = [*(v47[44] + 192) count];
-      v65 = &v53;
-      v66 = v212;
-      __os_log_helper_16_2_26_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_4_0(v212, v161, v141, v136, v133, v134, v124, v122, v120, v118, v116, v109, v107, v104, v100, v96, v91, v87, v82, v75, v76, v68, v69, v70, v71, v72, v206 & 1);
-      _os_log_impl(&dword_26ADE5000, v139, v140[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUn-enroll from beta program success: %d", v66, 0x102u);
-      MEMORY[0x277D82BD8](v67);
-      if (v181)
+      v72 = v43;
+      v44 = v43;
+      v66 = v72;
+      v45 = MEMORY[0x277D82BE0](v66);
+      v46 = v157;
+      v67 = v45;
+      v157[11] = v45;
+      v68 = *(v46[44] + 168);
+      v69 = *(v46[44] + 176);
+      v70 = *(v46[44] + 184);
+      v71 = [*(v46[44] + 192) count];
+      v64 = &v52;
+      v65 = v211;
+      __os_log_helper_16_2_26_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_4_0(v211, v160, v140, v135, v132, v133, v123, v121, v119, v117, v115, v108, v106, v103, v99, v95, v90, v86, v81, v74, v75, v67, v68, v69, v70, v71, v205 & 1);
+      _os_log_impl(&dword_26ADE5000, v138, v139[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUn-enroll from beta program success: %d", v65, 0x102u);
+      MEMORY[0x277D82BD8](v66);
+      if (v180)
       {
-        MEMORY[0x277D82BD8](v158[13]);
+        MEMORY[0x277D82BD8](v157[13]);
       }
 
+      MEMORY[0x277D82BD8](v79);
       MEMORY[0x277D82BD8](v80);
-      MEMORY[0x277D82BD8](v81);
-      MEMORY[0x277D82BD8](v84);
-      MEMORY[0x277D82BD8](v86);
-      MEMORY[0x277D82BD8](v90);
-      MEMORY[0x277D82BD8](v93);
-      MEMORY[0x277D82BD8](v95);
-      MEMORY[0x277D82BD8](v99);
-      MEMORY[0x277D82BD8](v103);
-      MEMORY[0x277D82BD8](v107);
+      MEMORY[0x277D82BD8](v83);
+      MEMORY[0x277D82BD8](v85);
+      MEMORY[0x277D82BD8](v89);
+      MEMORY[0x277D82BD8](v92);
+      MEMORY[0x277D82BD8](v94);
+      MEMORY[0x277D82BD8](v98);
+      MEMORY[0x277D82BD8](v102);
+      MEMORY[0x277D82BD8](v106);
+      if (v187)
+      {
+        MEMORY[0x277D82BD8](v157[21]);
+      }
+
       if (v188)
       {
-        MEMORY[0x277D82BD8](v158[21]);
+        MEMORY[0x277D82BD8](v157[23]);
       }
 
       if (v189)
       {
-        MEMORY[0x277D82BD8](v158[23]);
+        MEMORY[0x277D82BD8](v157[25]);
       }
 
+      MEMORY[0x277D82BD8](v114);
+      MEMORY[0x277D82BD8](v115);
+      MEMORY[0x277D82BD8](v117);
+      MEMORY[0x277D82BD8](v119);
+      MEMORY[0x277D82BD8](v121);
       if (v190)
       {
-        MEMORY[0x277D82BD8](v158[25]);
+        MEMORY[0x277D82BD8](v157[27]);
       }
 
-      MEMORY[0x277D82BD8](v115);
-      MEMORY[0x277D82BD8](v116);
-      MEMORY[0x277D82BD8](v118);
-      MEMORY[0x277D82BD8](v120);
-      MEMORY[0x277D82BD8](v122);
       if (v191)
       {
-        MEMORY[0x277D82BD8](v158[27]);
+        MEMORY[0x277D82BD8](v157[29]);
       }
 
-      if (v192)
-      {
-        MEMORY[0x277D82BD8](v158[29]);
-      }
-
-      MEMORY[0x277D82BD8](v130);
-      MEMORY[0x277D82BD8](v132);
-      MEMORY[0x277D82BD8](v135);
-      objc_storeStrong(&v180, 0);
+      MEMORY[0x277D82BD8](v129);
+      MEMORY[0x277D82BD8](v131);
+      MEMORY[0x277D82BD8](v134);
+      objc_storeStrong(&v179, 0);
+      objc_storeStrong(&v181, 0);
       objc_storeStrong(&v182, 0);
       objc_storeStrong(&v183, 0);
       objc_storeStrong(&v184, 0);
       objc_storeStrong(&v185, 0);
       objc_storeStrong(&v186, 0);
-      objc_storeStrong(&v187, 0);
+      objc_storeStrong(&v192, 0);
       objc_storeStrong(&v193, 0);
-      objc_storeStrong(&v194, 0);
     }
 
-    objc_storeStrong(&v196, 0);
-    if (v206)
+    objc_storeStrong(&v195, 0);
+    if (v205)
     {
-      [v158[44] setEnrolledBetaProgram:0];
+      [v157[44] setEnrolledBetaProgram:0];
     }
 
-    v63 = &v171;
-    v171 = MEMORY[0x277D85DD0];
-    v172 = -1073741824;
-    v173 = 0;
-    v174 = __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_494;
-    v175 = &unk_279CC69F0;
-    v62 = &v176;
-    v48 = MEMORY[0x277D82BE0](v158[44]);
-    v49 = v63;
-    v50 = v159;
-    v176 = v48;
-    v158[6] = v159[5];
-    v64 = v49 + 7;
-    objc_copyWeak(v49 + 7, v50 + 6);
-    v51 = v159;
-    v60 = &v171;
-    v158[8] = v159[7];
-    v59 = &v177;
-    v177 = MEMORY[0x277D82BE0](v51[4]);
-    v178 = v206 & 1;
-    v61 = MEMORY[0x26D66ADC0](v60);
-    v52 = v158;
-    v158[10] = v61;
-    v170 = MEMORY[0x277D82BE0](*(v52[44] + 168));
-    if (v170)
+    v62 = &v170;
+    v170 = MEMORY[0x277D85DD0];
+    v171 = -1073741824;
+    v172 = 0;
+    v173 = __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_494;
+    v174 = &unk_279CC69F0;
+    v61 = &v175;
+    v47 = MEMORY[0x277D82BE0](v157[44]);
+    v48 = v62;
+    v49 = v158;
+    v175 = v47;
+    v157[6] = v158[5];
+    v63 = v48 + 7;
+    objc_copyWeak(v48 + 7, v49 + 6);
+    v50 = v158;
+    v59 = &v170;
+    v157[8] = v158[7];
+    v58 = &v176;
+    v176 = MEMORY[0x277D82BE0](v50[4]);
+    v177 = v205 & 1;
+    v60 = MEMORY[0x26D66ADC0](v59);
+    v51 = v157;
+    v157[10] = v60;
+    v169 = MEMORY[0x277D82BE0](*(v51[44] + 168));
+    if (v169)
     {
-      v57 = v170;
-      v163 = MEMORY[0x277D85DD0];
-      v164 = -1073741824;
-      v165 = 0;
-      v166 = __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_499;
-      v167 = &unk_279CC6888;
-      v58 = v169;
-      objc_copyWeak(v169, v159 + 6);
-      v56 = &v163;
-      v169[1] = v159[7];
-      v54 = v168;
-      v168[0] = MEMORY[0x277D82BE0](v159[4]);
-      v55 = (v56 + 5);
-      v168[1] = MEMORY[0x277D82BE0](v158[10]);
-      [v57 cancel:v56];
-      objc_storeStrong(v55, 0);
+      v56 = v169;
+      v162 = MEMORY[0x277D85DD0];
+      v163 = -1073741824;
+      v164 = 0;
+      v165 = __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_499;
+      v166 = &unk_279CC6888;
+      v57 = v168;
+      objc_copyWeak(v168, v158 + 6);
+      v55 = &v162;
+      v168[1] = v158[7];
+      v53 = v167;
+      v167[0] = MEMORY[0x277D82BE0](v158[4]);
+      v54 = (v55 + 5);
+      v167[1] = MEMORY[0x277D82BE0](v157[10]);
+      [v56 cancel:v55];
       objc_storeStrong(v54, 0);
-      objc_destroyWeak(v58);
+      objc_storeStrong(v53, 0);
+      objc_destroyWeak(v57);
     }
 
     else
     {
-      (*(v158[10] + 16))();
+      (*(v157[10] + 16))();
     }
 
-    objc_storeStrong(&v170, 0);
-    objc_storeStrong(&v179, 0);
-    objc_storeStrong(v59, 0);
-    objc_destroyWeak(v64);
-    objc_storeStrong(v62, 0);
-    v197 = 0;
+    objc_storeStrong(&v169, 0);
+    objc_storeStrong(&v178, 0);
+    objc_storeStrong(v58, 0);
+    objc_destroyWeak(v63);
+    objc_storeStrong(v61, 0);
+    v196 = 0;
   }
 
-  objc_storeStrong(v205, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v204, 0);
 }
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_493(void *a1)
@@ -23068,7 +22949,6 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
 
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_495(void *a1)
@@ -23107,46 +22987,44 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14[2] = a1;
-  v14[1] = a1;
-  v14[0] = objc_loadWeakRetained((a1 + 32));
-  v9 = 0;
-  if (!v14[0])
+  v15 = *MEMORY[0x277D85DE8];
+  v13[2] = a1;
+  v13[1] = a1;
+  v13[0] = objc_loadWeakRetained((a1 + 32));
+  v8 = 0;
+  if (!v13[0])
   {
-    v8 = +[SUUILoggingContext softwareUpdateUILogger];
-    v13 = [v8 oslog];
-    MEMORY[0x277D82BD8](v8);
-    v12 = 16;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v7 = +[SUUILoggingContext softwareUpdateUILogger];
+    v12 = [v7 oslog];
+    MEMORY[0x277D82BD8](v7);
+    v11 = 16;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      log = v13;
-      type = v12;
-      v7 = NSStringFromSelector(*(a1 + 40));
-      v11 = MEMORY[0x277D82BE0](v7);
-      __os_log_helper_16_2_2_8_32_8_66(v15, "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke_3", v11);
-      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v15, 0x16u);
-      MEMORY[0x277D82BD8](v7);
-      objc_storeStrong(&v11, 0);
+      log = v12;
+      type = v11;
+      v6 = NSStringFromSelector(*(a1 + 40));
+      v10 = MEMORY[0x277D82BE0](v6);
+      __os_log_helper_16_2_2_8_32_8_66(v14, "[SUUIStatefulUIManager doUnenrollFromBetaUpdates:completionHandler:]_block_invoke_3", v10);
+      _os_log_error_impl(&dword_26ADE5000, log, type, "%s: Self is nil in %{public}@. Stopping.", v14, 0x16u);
+      MEMORY[0x277D82BD8](v6);
+      objc_storeStrong(&v10, 0);
     }
 
-    objc_storeStrong(&v13, 0);
-    v9 = 1;
+    objc_storeStrong(&v12, 0);
+    v8 = 1;
   }
 
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v4 = [v14[0] delegate];
-    v2 = v14[0];
-    v3 = [v14[0] currentSeedingDevice];
-    v1 = *(a1 + 48);
-    [v4 statefulUIManager:v2 didUnenrollDevice:? fromBetaUpdatesProgram:?];
+    v3 = [v13[0] delegate];
+    v1 = v13[0];
+    v2 = [v13[0] currentSeedingDevice];
+    [v3 statefulUIManager:v1 didUnenrollDevice:? fromBetaUpdatesProgram:?];
+    MEMORY[0x277D82BD8](v2);
     MEMORY[0x277D82BD8](v3);
-    MEMORY[0x277D82BD8](v4);
   }
 
-  objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v13, 0);
 }
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_499(uint64_t a1, char a2)
@@ -23203,7 +23081,6 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___block_invoke_500(void *a1)
@@ -23263,459 +23140,457 @@ void __69__SUUIStatefulUIManager_doUnenrollFromBetaUpdates_completionHandler___b
 
 void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke(id *a1)
 {
-  v191 = &v211;
-  v192 = a1;
-  v193 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdatesAfterPurgeConfirmation:activity:completionHandler:]_block_invoke";
-  v194 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdatesAfterPurgeConfirmation:activity:completionHandler:]_block_invoke_2";
-  v244 = *MEMORY[0x277D85DE8];
-  v237[2] = a1;
-  v237[1] = a1;
+  v190 = &v210;
+  v191 = a1;
+  v192 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdatesAfterPurgeConfirmation:activity:completionHandler:]_block_invoke";
+  v193 = "[SUUIStatefulUIManager doUnenrollFromBetaUpdatesAfterPurgeConfirmation:activity:completionHandler:]_block_invoke_2";
+  v243 = *MEMORY[0x277D85DE8];
+  v236[2] = a1;
+  v236[1] = a1;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  v237[0] = WeakRetained;
-  v190 = 0;
+  v236[0] = WeakRetained;
+  v189 = 0;
   if (!WeakRetained)
   {
-    v189 = +[SUUILoggingContext softwareUpdateUILogger];
-    v187 = v189;
-    v188 = [v187 oslog];
-    v1 = v188;
-    v2 = v187;
-    v191[33] = v1;
+    v188 = +[SUUILoggingContext softwareUpdateUILogger];
+    v186 = v188;
+    v187 = [v186 oslog];
+    v1 = v187;
+    v2 = v186;
+    v190[33] = v1;
     MEMORY[0x277D82BD8](v2);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v191[33], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v190[33], OS_LOG_TYPE_ERROR))
     {
-      log = v191[33];
-      *v185 = type;
-      v186 = NSStringFromSelector(v192[7]);
-      v183 = v186;
-      v3 = MEMORY[0x277D82BE0](v183);
-      v4 = v193;
-      v191[31] = v3;
-      buf = v243;
-      __os_log_helper_16_2_2_8_32_8_66(v243, v4, v3);
-      _os_log_error_impl(&dword_26ADE5000, log, v185[0], "%s: Self is nil in %{public}@. Stopping.", v243, 0x16u);
-      MEMORY[0x277D82BD8](v183);
+      log = v190[33];
+      *v184 = type;
+      v185 = NSStringFromSelector(v191[7]);
+      v182 = v185;
+      v3 = MEMORY[0x277D82BE0](v182);
+      v4 = v192;
+      v190[31] = v3;
+      buf = v242;
+      __os_log_helper_16_2_2_8_32_8_66(v242, v4, v3);
+      _os_log_error_impl(&dword_26ADE5000, log, v184[0], "%s: Self is nil in %{public}@. Stopping.", v242, 0x16u);
+      MEMORY[0x277D82BD8](v182);
       objc_storeStrong(&location, 0);
     }
 
-    objc_storeStrong(&v236, 0);
-    v233[3] = 1;
-    v190 = 1;
+    objc_storeStrong(&v235, 0);
+    v232[3] = 1;
+    v189 = 1;
   }
 
-  if (v190)
+  if (v189)
   {
     v5 = MEMORY[0x277D85CD0];
     v6 = MEMORY[0x277D85CD0];
-    v7 = v192;
-    v8 = v191;
+    v7 = v191;
+    v8 = v190;
     queue = v6;
-    block = &v230;
-    v191[25] = MEMORY[0x277D85DD0];
-    v231 = -1073741824;
-    v232 = 0;
+    block = &v229;
+    v190[25] = MEMORY[0x277D85DD0];
+    v230 = -1073741824;
+    v231 = 0;
     v8[27] = __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_501;
     v8[28] = &unk_279CC61E0;
-    v179 = v233;
+    v178 = v232;
     v9 = MEMORY[0x277D82BE0](v7[4]);
     v10 = block;
     v11 = v9;
     v12 = queue;
-    v191[29] = v11;
+    v190[29] = v11;
     dispatch_async(v12, v10);
     MEMORY[0x277D82BD8](queue);
-    objc_storeStrong(v179, 0);
-    v229 = 1;
+    objc_storeStrong(v178, 0);
+    v228 = 1;
   }
 
   else
   {
-    v178 = +[SUUILoggingContext statefulUILogger];
-    v176 = v178;
-    v177 = [v176 oslog];
-    v13 = v177;
-    v14 = v176;
-    v191[23] = v13;
+    v177 = +[SUUILoggingContext statefulUILogger];
+    v175 = v177;
+    v176 = [v175 oslog];
+    v13 = v176;
+    v14 = v175;
+    v190[23] = v13;
     MEMORY[0x277D82BD8](v14);
-    v227 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v191[23], OS_LOG_TYPE_DEFAULT))
+    v226 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v190[23], OS_LOG_TYPE_DEFAULT))
     {
-      v172 = v191[23];
-      *v173 = v227;
-      v174 = v191[34];
-      v15 = v191[34];
+      v171 = v190[23];
+      *v172 = v226;
+      v173 = v190[34];
       aClass = objc_opt_class();
-      v171 = NSStringFromClass(aClass);
-      v168 = v171;
-      v16 = MEMORY[0x277D82BE0](v168);
-      v17 = v191;
-      v169 = v16;
-      v191[21] = v16;
-      v170 = SUUIStatefulUIStateToString(*(v17[34] + 5));
-      v165 = v170;
-      v18 = MEMORY[0x277D82BE0](v165);
-      v19 = v191;
-      v166 = v18;
-      v191[20] = v18;
-      v167 = [v19[34] currentState];
-      v164 = [v191[34] delegate];
-      v163 = v164;
-      v224 = 0;
+      v170 = NSStringFromClass(aClass);
+      v167 = v170;
+      v15 = MEMORY[0x277D82BE0](v167);
+      v16 = v190;
+      v168 = v15;
+      v190[21] = v15;
+      v169 = SUUIStatefulUIStateToString(*(v16[34] + 5));
+      v164 = v169;
+      v17 = MEMORY[0x277D82BE0](v164);
+      v18 = v190;
+      v165 = v17;
+      v190[20] = v17;
+      v166 = [v18[34] currentState];
+      v163 = [v190[34] delegate];
+      v162 = v163;
       v223 = 0;
-      if (v163)
+      v222 = 0;
+      if (v162)
       {
-        v162 = [v191[34] delegate];
-        v191[19] = v162;
-        v224 = 1;
-        v161 = objc_opt_class();
-        v160 = NSStringFromClass(v161);
-        v20 = v160;
-        v191[17] = v20;
+        v161 = [v190[34] delegate];
+        v190[19] = v161;
         v223 = 1;
-        v159 = v20;
+        v160 = objc_opt_class();
+        v159 = NSStringFromClass(v160);
+        v19 = v159;
+        v190[17] = v19;
+        v222 = 1;
+        v158 = v19;
       }
 
       else
       {
-        v159 = @"(null)";
+        v158 = @"(null)";
       }
 
-      v157 = v159;
-      v158 = [v191[34] delegate];
-      v155 = v158;
-      v156 = [v191[34] scanError];
-      v153 = v156;
-      v154 = [v191[34] preferredStatefulDescriptor];
-      v151 = v154;
-      v152 = [v191[34] alternateStatefulDescriptor];
-      v149 = v152;
-      v150 = [v191[34] currentDownload];
-      v148 = v150;
-      v222 = 0;
+      v156 = v158;
+      v157 = [v190[34] delegate];
+      v154 = v157;
+      v155 = [v190[34] scanError];
+      v152 = v155;
+      v153 = [v190[34] preferredStatefulDescriptor];
+      v150 = v153;
+      v151 = [v190[34] alternateStatefulDescriptor];
+      v148 = v151;
+      v149 = [v190[34] currentDownload];
+      v147 = v149;
       v221 = 0;
       v220 = 0;
-      if (v148)
+      v219 = 0;
+      if (v147)
       {
-        v147 = [v191[34] currentDownload];
-        v21 = v147;
-        v191[15] = v21;
-        v222 = 1;
-        v146 = [v21 descriptor];
-        v22 = v146;
-        v191[13] = v22;
+        v146 = [v190[34] currentDownload];
+        v20 = v146;
+        v190[15] = v20;
         v221 = 1;
-        v145 = [v22 updateName];
-        v23 = v145;
-        v191[11] = v23;
+        v145 = [v20 descriptor];
+        v21 = v145;
+        v190[13] = v21;
         v220 = 1;
-        v144 = v23;
+        v144 = [v21 updateName];
+        v22 = v144;
+        v190[11] = v22;
+        v219 = 1;
+        v143 = v22;
       }
 
       else
       {
-        v144 = @"(null)";
+        v143 = @"(null)";
       }
 
-      v142 = v144;
-      v143 = [v191[34] currentDownload];
-      v140 = v143;
-      v141 = [v191[34] currentUpdateOperationType];
-      v139 = SUUIUpdateContinuousOperationTypeToString(v141);
-      v136 = v139;
-      v24 = MEMORY[0x277D82BE0](v136);
-      v25 = v191;
-      v137 = v24;
-      v191[9] = v24;
-      v138 = [v25[34] isTargetedUpdateScheduledForAutoInstall];
-      v241 = v138;
-      if (v138)
+      v141 = v143;
+      v142 = [v190[34] currentDownload];
+      v139 = v142;
+      v140 = [v190[34] currentUpdateOperationType];
+      v138 = SUUIUpdateContinuousOperationTypeToString(v140);
+      v135 = v138;
+      v23 = MEMORY[0x277D82BE0](v135);
+      v24 = v190;
+      v136 = v23;
+      v190[9] = v23;
+      v137 = [v24[34] isTargetedUpdateScheduledForAutoInstall];
+      v240 = v137;
+      if (v137)
       {
-        v26 = @"YES";
+        v25 = @"YES";
       }
 
       else
       {
-        v26 = @"NO";
+        v25 = @"NO";
       }
 
-      v135 = v26;
-      v27 = v26;
-      v132 = v135;
-      v28 = MEMORY[0x277D82BE0](v132);
-      v29 = v191;
-      v133 = v28;
-      v191[8] = v28;
-      v134 = [v29[34] hidingPreferredDescriptor];
-      v240 = v134;
-      if (v134)
+      v134 = v25;
+      v26 = v25;
+      v131 = v134;
+      v27 = MEMORY[0x277D82BE0](v131);
+      v28 = v190;
+      v132 = v27;
+      v190[8] = v27;
+      v133 = [v28[34] hidingPreferredDescriptor];
+      v239 = v133;
+      if (v133)
       {
-        v30 = @"YES";
+        v29 = @"YES";
       }
 
       else
       {
-        v30 = @"NO";
+        v29 = @"NO";
       }
 
-      v131 = v30;
-      v31 = v30;
-      v128 = v131;
-      v32 = MEMORY[0x277D82BE0](v128);
-      v33 = v191;
-      v129 = v32;
-      v191[7] = v32;
-      v130 = [v33[34] hiddenPreferredStatefulDescriptor];
-      v126 = v130;
-      v127 = [v126 updateName];
-      v123 = v127;
-      v34 = MEMORY[0x277D82BE0](v123);
-      v35 = v191;
-      v124 = v34;
-      v191[6] = v34;
-      v125 = [v35[34] hidingAlternateDescriptor];
-      v239 = v125;
-      if (v125)
+      v130 = v29;
+      v30 = v29;
+      v127 = v130;
+      v31 = MEMORY[0x277D82BE0](v127);
+      v32 = v190;
+      v128 = v31;
+      v190[7] = v31;
+      v129 = [v32[34] hiddenPreferredStatefulDescriptor];
+      v125 = v129;
+      v126 = [v125 updateName];
+      v122 = v126;
+      v33 = MEMORY[0x277D82BE0](v122);
+      v34 = v190;
+      v123 = v33;
+      v190[6] = v33;
+      v124 = [v34[34] hidingAlternateDescriptor];
+      v238 = v124;
+      if (v124)
       {
-        v36 = @"YES";
+        v35 = @"YES";
       }
 
       else
       {
-        v36 = @"NO";
+        v35 = @"NO";
       }
 
-      v122 = v36;
-      v37 = v36;
-      v119 = v122;
-      v38 = MEMORY[0x277D82BE0](v119);
-      v39 = v191;
-      v120 = v38;
-      v191[5] = v38;
-      v121 = [v39[34] hiddenAlternateStatefulDescriptor];
-      v117 = v121;
-      v118 = [v117 updateName];
-      v114 = v118;
-      v40 = MEMORY[0x277D82BE0](v114);
-      v41 = v191;
-      v115 = v40;
-      v191[4] = v40;
-      v116 = [v41[34] enrolledBetaProgram];
-      v113 = v116;
-      v213 = 0;
-      if (v113)
+      v121 = v35;
+      v36 = v35;
+      v118 = v121;
+      v37 = MEMORY[0x277D82BE0](v118);
+      v38 = v190;
+      v119 = v37;
+      v190[5] = v37;
+      v120 = [v38[34] hiddenAlternateStatefulDescriptor];
+      v116 = v120;
+      v117 = [v116 updateName];
+      v113 = v117;
+      v39 = MEMORY[0x277D82BE0](v113);
+      v40 = v190;
+      v114 = v39;
+      v190[4] = v39;
+      v115 = [v40[34] enrolledBetaProgram];
+      v112 = v115;
+      v212 = 0;
+      if (v112)
       {
-        v112 = [v191[34] enrolledBetaProgram];
-        v42 = v112;
-        v191[3] = v42;
-        v213 = 1;
-        v111 = [v42 programID];
-        v110 = v111;
+        v111 = [v190[34] enrolledBetaProgram];
+        v41 = v111;
+        v190[3] = v41;
+        v212 = 1;
+        v110 = [v41 programID];
+        v109 = v110;
       }
 
       else
       {
-        v110 = 0;
+        v109 = 0;
       }
 
-      v108 = v110;
-      v109 = [*(v191[34] + 15) count];
-      v107 = [v191[34] canEnrollInBetaUpdates];
-      v238 = v107;
-      if (v107)
+      v107 = v109;
+      v108 = [*(v190[34] + 15) count];
+      v106 = [v190[34] canEnrollInBetaUpdates];
+      v237 = v106;
+      if (v106)
       {
-        v43 = @"YES";
+        v42 = @"YES";
       }
 
       else
       {
-        v43 = @"NO";
+        v42 = @"NO";
       }
 
-      v106 = v43;
-      v44 = v43;
-      v100 = v106;
-      v45 = MEMORY[0x277D82BE0](v100);
-      v46 = v191;
-      v101 = v45;
-      v191[1] = v45;
-      v102 = *(v46[34] + 21);
-      v103 = *(v46[34] + 22);
-      v104 = *(v46[34] + 23);
-      v105 = [*(v46[34] + 24) count];
-      v99 = SUUIUserInteractionResponseToString(v192[8]);
-      v47 = v124;
-      v48 = v129;
-      v49 = v133;
-      v50 = v137;
-      v51 = v140;
-      v52 = v142;
-      v53 = v149;
-      v54 = v151;
-      v55 = v153;
-      v98 = v99;
-      v56 = MEMORY[0x277D82BE0](v98);
-      v57 = v120;
-      v58 = v115;
+      v105 = v42;
+      v43 = v42;
+      v99 = v105;
+      v44 = MEMORY[0x277D82BE0](v99);
+      v45 = v190;
+      v100 = v44;
+      v190[1] = v44;
+      v101 = *(v45[34] + 21);
+      v102 = *(v45[34] + 22);
+      v103 = *(v45[34] + 23);
+      v104 = [*(v45[34] + 24) count];
+      v98 = SUUIUserInteractionResponseToString(v191[8]);
+      v46 = v123;
+      v47 = v128;
+      v48 = v132;
+      v49 = v136;
+      v50 = v139;
+      v51 = v141;
+      v52 = v148;
+      v53 = v150;
+      v54 = v152;
+      v97 = v98;
+      v55 = MEMORY[0x277D82BE0](v97);
+      v56 = v119;
+      v57 = v114;
+      v58 = v107;
       v59 = v108;
-      v60 = v109;
+      v60 = v100;
       v61 = v101;
       v62 = v102;
       v63 = v103;
       v64 = v104;
-      v65 = v105;
-      v66 = v194;
-      v67 = v174;
-      v68 = v169;
+      v65 = v193;
+      v66 = v173;
+      v67 = v168;
+      v68 = v165;
       v69 = v166;
-      v70 = v167;
-      v71 = v157;
-      v72 = v155;
-      *v191 = v56;
-      v96 = &v73;
-      v97 = v242;
-      __os_log_helper_16_2_26_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66(v242, v66, v67, v68, v69, v70, v71, v72, v55, v54, v53, v52, v51, v50, v49, v48, v47, v57, v58, v59, v60, v61, v62, v63, v64, v65, v56);
-      _os_log_impl(&dword_26ADE5000, v172, v173[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUser responded to the targeted update purge request for unenrollment: %{public}@", v97, 0x106u);
-      MEMORY[0x277D82BD8](v98);
-      MEMORY[0x277D82BD8](v100);
-      if (v213)
+      v70 = v156;
+      v71 = v154;
+      *v190 = v55;
+      v95 = &v72;
+      v96 = v241;
+      __os_log_helper_16_2_26_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0_8_66(v241, v65, v66, v67, v68, v69, v70, v71, v54, v53, v52, v51, v50, v49, v48, v47, v46, v56, v57, v58, v59, v60, v61, v62, v63, v64, v55);
+      _os_log_impl(&dword_26ADE5000, v171, v172[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nUser responded to the targeted update purge request for unenrollment: %{public}@", v96, 0x106u);
+      MEMORY[0x277D82BD8](v97);
+      MEMORY[0x277D82BD8](v99);
+      if (v212)
       {
-        MEMORY[0x277D82BD8](v191[3]);
+        MEMORY[0x277D82BD8](v190[3]);
       }
 
+      MEMORY[0x277D82BD8](v112);
       MEMORY[0x277D82BD8](v113);
-      MEMORY[0x277D82BD8](v114);
-      MEMORY[0x277D82BD8](v117);
-      MEMORY[0x277D82BD8](v119);
-      MEMORY[0x277D82BD8](v123);
-      MEMORY[0x277D82BD8](v126);
-      MEMORY[0x277D82BD8](v128);
-      MEMORY[0x277D82BD8](v132);
-      MEMORY[0x277D82BD8](v136);
-      MEMORY[0x277D82BD8](v140);
+      MEMORY[0x277D82BD8](v116);
+      MEMORY[0x277D82BD8](v118);
+      MEMORY[0x277D82BD8](v122);
+      MEMORY[0x277D82BD8](v125);
+      MEMORY[0x277D82BD8](v127);
+      MEMORY[0x277D82BD8](v131);
+      MEMORY[0x277D82BD8](v135);
+      MEMORY[0x277D82BD8](v139);
+      if (v219)
+      {
+        MEMORY[0x277D82BD8](v190[11]);
+      }
+
       if (v220)
       {
-        MEMORY[0x277D82BD8](v191[11]);
+        MEMORY[0x277D82BD8](v190[13]);
       }
 
       if (v221)
       {
-        MEMORY[0x277D82BD8](v191[13]);
+        MEMORY[0x277D82BD8](v190[15]);
       }
 
+      MEMORY[0x277D82BD8](v147);
+      MEMORY[0x277D82BD8](v148);
+      MEMORY[0x277D82BD8](v150);
+      MEMORY[0x277D82BD8](v152);
+      MEMORY[0x277D82BD8](v154);
       if (v222)
       {
-        MEMORY[0x277D82BD8](v191[15]);
+        MEMORY[0x277D82BD8](v190[17]);
       }
 
-      MEMORY[0x277D82BD8](v148);
-      MEMORY[0x277D82BD8](v149);
-      MEMORY[0x277D82BD8](v151);
-      MEMORY[0x277D82BD8](v153);
-      MEMORY[0x277D82BD8](v155);
       if (v223)
       {
-        MEMORY[0x277D82BD8](v191[17]);
+        MEMORY[0x277D82BD8](v190[19]);
       }
 
-      if (v224)
-      {
-        MEMORY[0x277D82BD8](v191[19]);
-      }
-
-      MEMORY[0x277D82BD8](v163);
-      MEMORY[0x277D82BD8](v165);
-      MEMORY[0x277D82BD8](v168);
+      MEMORY[0x277D82BD8](v162);
+      MEMORY[0x277D82BD8](v164);
+      MEMORY[0x277D82BD8](v167);
+      objc_storeStrong(&v210, 0);
       objc_storeStrong(&v211, 0);
-      objc_storeStrong(&v212, 0);
+      objc_storeStrong(&v213, 0);
       objc_storeStrong(&v214, 0);
       objc_storeStrong(&v215, 0);
       objc_storeStrong(&v216, 0);
       objc_storeStrong(&v217, 0);
       objc_storeStrong(&v218, 0);
-      objc_storeStrong(&v219, 0);
+      objc_storeStrong(&v224, 0);
       objc_storeStrong(&v225, 0);
-      objc_storeStrong(&v226, 0);
     }
 
-    objc_storeStrong(&v228, 0);
-    if (v192[8])
+    objc_storeStrong(&v227, 0);
+    if (v191[8])
     {
-      if (*(*(v192[5] + 1) + 24))
+      if (*(*(v191[5] + 1) + 24))
       {
-        if (*(*(*(v192[5] + 1) + 24) + 24))
+        if (*(*(*(v191[5] + 1) + 24) + 24))
         {
-          os_activity_scope_leave(*(*(v192[5] + 1) + 24));
+          os_activity_scope_leave(*(*(v191[5] + 1) + 24));
         }
 
-        free(*(*(v192[5] + 1) + 24));
-        *(*(v192[5] + 1) + 24) = 0;
+        free(*(*(v191[5] + 1) + 24));
+        *(*(v191[5] + 1) + 24) = 0;
       }
 
-      v95 = [MEMORY[0x277D643F8] sharedCore];
-      v93 = v95;
-      v94 = [v191[34] delegateCallbackQueue];
-      v91 = v94;
-      v92 = [v93 selectDelegateCallbackQueue:?];
-      v90 = v92;
-      v89 = &v205;
-      v205 = MEMORY[0x277D85DD0];
-      v206 = -1073741824;
-      v207 = 0;
-      v208 = __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_503;
-      v209 = &unk_279CC61E0;
-      v88 = &v210;
-      v210 = MEMORY[0x277D82BE0](v192[4]);
-      dispatch_async(v90, v89);
+      v94 = [MEMORY[0x277D643F8] sharedCore];
+      v92 = v94;
+      v93 = [v190[34] delegateCallbackQueue];
+      v90 = v93;
+      v91 = [v92 selectDelegateCallbackQueue:?];
+      v89 = v91;
+      v88 = &v204;
+      v204 = MEMORY[0x277D85DD0];
+      v205 = -1073741824;
+      v206 = 0;
+      v207 = __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_503;
+      v208 = &unk_279CC61E0;
+      v87 = &v209;
+      v209 = MEMORY[0x277D82BE0](v191[4]);
+      dispatch_async(v89, v88);
+      MEMORY[0x277D82BD8](v89);
       MEMORY[0x277D82BD8](v90);
-      MEMORY[0x277D82BD8](v91);
-      MEMORY[0x277D82BD8](v93);
-      v229 = 1;
-      objc_storeStrong(v88, 0);
+      MEMORY[0x277D82BD8](v92);
+      v228 = 1;
+      objc_storeStrong(v87, 0);
     }
 
     else
     {
-      v87 = [MEMORY[0x277CCAD78] UUID];
-      v85 = v87;
-      v86 = [v85 UUIDString];
-      v204 = v86;
-      MEMORY[0x277D82BD8](v85);
-      v84 = [v191[34] environment];
-      v82 = v84;
-      v83 = [v82 updateOperationWithManager:v191[34] identifier:v204 delegateCallbackQueue:0 completionQueue:*(v191[34] + 26)];
-      v203 = v83;
-      MEMORY[0x277D82BD8](v82);
-      v80 = v203;
-      v81 = [v191[34] currentDownload];
-      v78 = v81;
-      v79 = [v191[34] contextForPurgeUpdateOperation:v203 forUserRequestedOperation:1 notifyUser:0];
-      v76 = v79;
-      v196 = MEMORY[0x277D85DD0];
-      v197 = -1073741824;
-      v198 = 0;
-      v199 = __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_2;
-      v200 = &unk_279CC6A68;
-      v77 = v202;
-      objc_copyWeak(v202, v192 + 6);
-      v75 = &v196;
-      v202[1] = v192[7];
-      v74 = v201;
-      v201[0] = MEMORY[0x277D82BE0](v192[4]);
-      v201[1] = v192[5];
-      [v80 purgeDownload:v78 withContext:v76 delegate:0 completionHandler:v75];
-      MEMORY[0x277D82BD8](v76);
-      MEMORY[0x277D82BD8](v78);
-      objc_storeStrong(v74, 0);
-      objc_destroyWeak(v77);
+      v86 = [MEMORY[0x277CCAD78] UUID];
+      v84 = v86;
+      v85 = [v84 UUIDString];
+      v203 = v85;
+      MEMORY[0x277D82BD8](v84);
+      v83 = [v190[34] environment];
+      v81 = v83;
+      v82 = [v81 updateOperationWithManager:v190[34] identifier:v203 delegateCallbackQueue:0 completionQueue:*(v190[34] + 26)];
+      v202 = v82;
+      MEMORY[0x277D82BD8](v81);
+      v79 = v202;
+      v80 = [v190[34] currentDownload];
+      v77 = v80;
+      v78 = [v190[34] contextForPurgeUpdateOperation:v202 forUserRequestedOperation:1 notifyUser:0];
+      v75 = v78;
+      v195 = MEMORY[0x277D85DD0];
+      v196 = -1073741824;
+      v197 = 0;
+      v198 = __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_2;
+      v199 = &unk_279CC6A68;
+      v76 = v201;
+      objc_copyWeak(v201, v191 + 6);
+      v74 = &v195;
+      v201[1] = v191[7];
+      v73 = v200;
+      v200[0] = MEMORY[0x277D82BE0](v191[4]);
+      v200[1] = v191[5];
+      [v79 purgeDownload:v77 withContext:v75 delegate:0 completionHandler:v74];
+      MEMORY[0x277D82BD8](v75);
+      MEMORY[0x277D82BD8](v77);
+      objc_storeStrong(v73, 0);
+      objc_destroyWeak(v76);
+      objc_storeStrong(&v202, 0);
       objc_storeStrong(&v203, 0);
-      objc_storeStrong(&v204, 0);
-      v229 = 0;
+      v228 = 0;
     }
   }
 
-  objc_storeStrong(v237, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v236, 0);
 }
 
 void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_501(void *a1)
@@ -24096,7 +23971,6 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
   v16 = 0;
   objc_storeStrong(&v132, 0);
   objc_storeStrong(location, v16);
-  *MEMORY[0x277D85DE8];
 }
 
 void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmation_activity_completionHandler___block_invoke_504(void *a1)
@@ -24143,178 +24017,177 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
 
 - (int64_t)fsmAction_CheckForAvailableUpdate:(id)update error:(id *)error
 {
-  v205 = &v223;
+  v202 = &v220;
   errorCopy = error;
-  v202 = "[SUUIStatefulUIManager fsmAction_CheckForAvailableUpdate:error:]";
-  v263 = *MEMORY[0x277D85DE8];
+  v199 = "[SUUIStatefulUIManager fsmAction_CheckForAvailableUpdate:error:]";
+  v260 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, update);
-  v250[1] = errorCopy;
+  v247[1] = errorCopy;
   extendedStateQueue = [(SUCoreFSM *)selfCopy->_managerFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
   MEMORY[0x277D82BD8](extendedStateQueue);
-  v250[0] = [(SUUIStatefulUIManager *)selfCopy currentRefreshScanOperation];
-  if (v250[0])
+  v247[0] = [(SUUIStatefulUIManager *)selfCopy currentRefreshScanOperation];
+  if (v247[0])
   {
-    v201 = +[SUUILoggingContext statefulUILogger];
-    oslog = [v201 oslog];
-    v5 = v201;
-    *(v205 + 34) = oslog;
+    v198 = +[SUUILoggingContext statefulUILogger];
+    oslog = [v198 oslog];
+    v5 = v198;
+    *(v202 + 34) = oslog;
     MEMORY[0x277D82BD8](v5);
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(*(v205 + 34), OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(*(v202 + 34), OS_LOG_TYPE_DEFAULT))
     {
-      log = *(v205 + 34);
-      *v193 = type;
-      v194 = *(v205 + 39);
-      v6 = *(v205 + 39);
-      v7 = objc_opt_class();
-      v195 = NSStringFromClass(v7);
-      v8 = MEMORY[0x277D82BE0](v195);
-      v9 = v205;
-      v196 = v8;
-      *(v205 + 32) = v8;
-      v197 = SUUIStatefulUIStateToString(*(*(v9 + 39) + 40));
-      v10 = MEMORY[0x277D82BE0](v197);
-      v11 = v205;
-      v198 = v10;
-      *(v205 + 31) = v10;
-      currentState = [v11[39] currentState];
-      delegate = [*(v205 + 39) delegate];
-      v245 = 0;
-      v244 = 0;
-      if (delegate)
-      {
-        *(v205 + 30) = [*(v205 + 39) delegate];
-        v190 = 1;
-        v245 = 1;
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
-        *(v205 + 28) = v13;
-        v244 = 1;
-        v191 = v13;
-      }
-
-      else
-      {
-        v191 = @"(null)";
-      }
-
-      v184 = v191;
-      delegate2 = [*(v205 + 39) delegate];
-      scanError = [*(v205 + 39) scanError];
-      preferredStatefulDescriptor = [*(v205 + 39) preferredStatefulDescriptor];
-      alternateStatefulDescriptor = [*(v205 + 39) alternateStatefulDescriptor];
-      currentDownload = [*(v205 + 39) currentDownload];
-      v243 = 0;
+      log = *(v202 + 34);
+      *v190 = type;
+      v191 = *(v202 + 39);
+      v6 = objc_opt_class();
+      v192 = NSStringFromClass(v6);
+      v7 = MEMORY[0x277D82BE0](v192);
+      v8 = v202;
+      v193 = v7;
+      *(v202 + 32) = v7;
+      v194 = SUUIStatefulUIStateToString(*(*(v8 + 39) + 40));
+      v9 = MEMORY[0x277D82BE0](v194);
+      v10 = v202;
+      v195 = v9;
+      *(v202 + 31) = v9;
+      currentState = [v10[39] currentState];
+      delegate = [*(v202 + 39) delegate];
       v242 = 0;
       v241 = 0;
+      if (delegate)
+      {
+        *(v202 + 30) = [*(v202 + 39) delegate];
+        v187 = 1;
+        v242 = 1;
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        *(v202 + 28) = v12;
+        v241 = 1;
+        v188 = v12;
+      }
+
+      else
+      {
+        v188 = @"(null)";
+      }
+
+      v181 = v188;
+      delegate2 = [*(v202 + 39) delegate];
+      scanError = [*(v202 + 39) scanError];
+      preferredStatefulDescriptor = [*(v202 + 39) preferredStatefulDescriptor];
+      alternateStatefulDescriptor = [*(v202 + 39) alternateStatefulDescriptor];
+      currentDownload = [*(v202 + 39) currentDownload];
+      v240 = 0;
+      v239 = 0;
+      v238 = 0;
       if (currentDownload)
       {
-        currentDownload2 = [*(v205 + 39) currentDownload];
-        *(v205 + 26) = currentDownload2;
-        v182 = 1;
-        v243 = 1;
+        currentDownload2 = [*(v202 + 39) currentDownload];
+        *(v202 + 26) = currentDownload2;
+        v179 = 1;
+        v240 = 1;
         descriptor = [currentDownload2 descriptor];
-        *(v205 + 24) = descriptor;
-        v242 = 1;
+        *(v202 + 24) = descriptor;
+        v239 = 1;
         updateName = [descriptor updateName];
-        v17 = v182;
-        *(v205 + 22) = updateName;
-        v241 = v17 & 1;
-        v183 = updateName;
+        v16 = v179;
+        *(v202 + 22) = updateName;
+        v238 = v16 & 1;
+        v180 = updateName;
       }
 
       else
       {
-        v183 = @"(null)";
+        v180 = @"(null)";
       }
 
-      v159 = v183;
-      currentDownload3 = [*(v205 + 39) currentDownload];
-      v161 = SUUIUpdateContinuousOperationTypeToString([*(v205 + 39) currentUpdateOperationType]);
-      v18 = MEMORY[0x277D82BE0](v161);
-      v19 = v205;
-      v162 = v18;
-      *(v205 + 20) = v18;
-      isTargetedUpdateScheduledForAutoInstall = [v19[39] isTargetedUpdateScheduledForAutoInstall];
-      v172 = @"NO";
-      v173 = @"YES";
-      v180 = 1;
+      v156 = v180;
+      currentDownload3 = [*(v202 + 39) currentDownload];
+      v158 = SUUIUpdateContinuousOperationTypeToString([*(v202 + 39) currentUpdateOperationType]);
+      v17 = MEMORY[0x277D82BE0](v158);
+      v18 = v202;
+      v159 = v17;
+      *(v202 + 20) = v17;
+      isTargetedUpdateScheduledForAutoInstall = [v18[39] isTargetedUpdateScheduledForAutoInstall];
+      v169 = @"NO";
+      v170 = @"YES";
+      v177 = 1;
       if (isTargetedUpdateScheduledForAutoInstall)
       {
-        v20 = @"YES";
+        v19 = @"YES";
       }
 
       else
       {
-        v20 = @"NO";
+        v19 = @"NO";
       }
 
-      v163 = v20;
-      v21 = v20;
-      v164 = v163;
-      v22 = MEMORY[0x277D82BE0](v164);
-      v23 = v205;
-      v165 = v22;
-      *(v205 + 19) = v22;
-      hidingPreferredDescriptor = [v23[39] hidingPreferredDescriptor];
+      v160 = v19;
+      v20 = v19;
+      v161 = v160;
+      v21 = MEMORY[0x277D82BE0](v161);
+      v22 = v202;
+      v162 = v21;
+      *(v202 + 19) = v21;
+      hidingPreferredDescriptor = [v22[39] hidingPreferredDescriptor];
       if (hidingPreferredDescriptor)
       {
-        v24 = v173;
+        v23 = v170;
       }
 
       else
       {
-        v24 = v172;
+        v23 = v169;
       }
 
-      v166 = v24;
-      v25 = v24;
-      v167 = v166;
-      v26 = MEMORY[0x277D82BE0](v167);
-      v27 = v205;
-      v168 = v26;
-      *(v205 + 18) = v26;
-      hiddenPreferredStatefulDescriptor = [v27[39] hiddenPreferredStatefulDescriptor];
+      v163 = v23;
+      v24 = v23;
+      v164 = v163;
+      v25 = MEMORY[0x277D82BE0](v164);
+      v26 = v202;
+      v165 = v25;
+      *(v202 + 18) = v25;
+      hiddenPreferredStatefulDescriptor = [v26[39] hiddenPreferredStatefulDescriptor];
       updateName2 = [hiddenPreferredStatefulDescriptor updateName];
-      v28 = MEMORY[0x277D82BE0](updateName2);
-      v29 = v205;
-      v171 = v28;
-      *(v205 + 17) = v28;
-      hidingAlternateDescriptor = [v29[39] hidingAlternateDescriptor];
+      v27 = MEMORY[0x277D82BE0](updateName2);
+      v28 = v202;
+      v168 = v27;
+      *(v202 + 17) = v27;
+      hidingAlternateDescriptor = [v28[39] hidingAlternateDescriptor];
       if (hidingAlternateDescriptor)
       {
-        v30 = v173;
+        v29 = v170;
       }
 
       else
       {
-        v30 = v172;
+        v29 = v169;
       }
 
-      v174 = v30;
-      v31 = v30;
-      v175 = v174;
-      v32 = MEMORY[0x277D82BE0](v175);
-      v33 = v205;
-      v176 = v32;
-      *(v205 + 16) = v32;
-      hiddenAlternateStatefulDescriptor = [v33[39] hiddenAlternateStatefulDescriptor];
+      v171 = v29;
+      v30 = v29;
+      v172 = v171;
+      v31 = MEMORY[0x277D82BE0](v172);
+      v32 = v202;
+      v173 = v31;
+      *(v202 + 16) = v31;
+      hiddenAlternateStatefulDescriptor = [v32[39] hiddenAlternateStatefulDescriptor];
       updateName3 = [hiddenAlternateStatefulDescriptor updateName];
-      v34 = MEMORY[0x277D82BE0](updateName3);
-      v35 = v205;
-      v179 = v34;
-      *(v205 + 15) = v34;
-      enrolledBetaProgram = [v35[39] enrolledBetaProgram];
-      v234 = 0;
+      v33 = MEMORY[0x277D82BE0](updateName3);
+      v34 = v202;
+      v176 = v33;
+      *(v202 + 15) = v33;
+      enrolledBetaProgram = [v34[39] enrolledBetaProgram];
+      v231 = 0;
       if (enrolledBetaProgram)
       {
-        enrolledBetaProgram2 = [*(v205 + 39) enrolledBetaProgram];
-        *(v205 + 14) = enrolledBetaProgram2;
-        v234 = 1;
+        enrolledBetaProgram2 = [*(v202 + 39) enrolledBetaProgram];
+        *(v202 + 14) = enrolledBetaProgram2;
+        v231 = 1;
         programID = [enrolledBetaProgram2 programID];
       }
 
@@ -24323,71 +24196,71 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
         programID = 0;
       }
 
-      v37 = v168;
-      v38 = v165;
-      v39 = v162;
-      v40 = currentDownload3;
-      v41 = v159;
-      v42 = alternateStatefulDescriptor;
-      v43 = preferredStatefulDescriptor;
-      v44 = scanError;
-      v149 = programID;
-      v150 = [*(*(v205 + 39) + 120) count];
-      canEnrollInBetaUpdates = [*(v205 + 39) canEnrollInBetaUpdates];
+      v36 = v165;
+      v37 = v162;
+      v38 = v159;
+      v39 = currentDownload3;
+      v40 = v156;
+      v41 = alternateStatefulDescriptor;
+      v42 = preferredStatefulDescriptor;
+      v43 = scanError;
+      v146 = programID;
+      v147 = [*(*(v202 + 39) + 120) count];
+      canEnrollInBetaUpdates = [*(v202 + 39) canEnrollInBetaUpdates];
       if (canEnrollInBetaUpdates)
       {
-        v45 = @"YES";
+        v44 = @"YES";
       }
 
       else
       {
-        v45 = @"NO";
+        v44 = @"NO";
       }
 
-      v148 = v45;
-      v46 = v45;
-      v157 = v148;
-      v47 = MEMORY[0x277D82BE0](v157);
-      v48 = v205;
-      v151 = v47;
-      *(v205 + 12) = v47;
-      v152 = *(*(v48 + 39) + 168);
-      v153 = *(*(v48 + 39) + 176);
-      v154 = *(*(v48 + 39) + 184);
-      v49 = [*(*(v48 + 39) + 192) count];
-      v155 = &v85;
-      buf = v262;
-      __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v262, v202, v194, v196, v198, currentState, v184, delegate2, v44, v43, v42, v41, v40, v39, v38, v37, v171, v176, v179, v149, v150, v151, v152, v153, v154, v49);
-      _os_log_impl(&dword_26ADE5000, log, v193[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", buf, 0xFCu);
-      MEMORY[0x277D82BD8](v157);
-      if (v234)
+      v145 = v44;
+      v45 = v44;
+      v154 = v145;
+      v46 = MEMORY[0x277D82BE0](v154);
+      v47 = v202;
+      v148 = v46;
+      *(v202 + 12) = v46;
+      v149 = *(*(v47 + 39) + 168);
+      v150 = *(*(v47 + 39) + 176);
+      v151 = *(*(v47 + 39) + 184);
+      v48 = [*(*(v47 + 39) + 192) count];
+      v152 = &v83;
+      buf = v259;
+      __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v259, v199, v191, v193, v195, currentState, v181, delegate2, v43, v42, v41, v40, v39, v38, v37, v36, v168, v173, v176, v146, v147, v148, v149, v150, v151, v48);
+      _os_log_impl(&dword_26ADE5000, log, v190[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is currently running. Canceling it as we start a full-scan.", buf, 0xFCu);
+      MEMORY[0x277D82BD8](v154);
+      if (v231)
       {
-        MEMORY[0x277D82BD8](*(v205 + 14));
+        MEMORY[0x277D82BD8](*(v202 + 14));
       }
 
       MEMORY[0x277D82BD8](enrolledBetaProgram);
       MEMORY[0x277D82BD8](updateName3);
       MEMORY[0x277D82BD8](hiddenAlternateStatefulDescriptor);
-      MEMORY[0x277D82BD8](v175);
+      MEMORY[0x277D82BD8](v172);
       MEMORY[0x277D82BD8](updateName2);
       MEMORY[0x277D82BD8](hiddenPreferredStatefulDescriptor);
-      MEMORY[0x277D82BD8](v167);
       MEMORY[0x277D82BD8](v164);
       MEMORY[0x277D82BD8](v161);
+      MEMORY[0x277D82BD8](v158);
       MEMORY[0x277D82BD8](currentDownload3);
-      if (v241)
+      if (v238)
       {
-        MEMORY[0x277D82BD8](*(v205 + 22));
+        MEMORY[0x277D82BD8](*(v202 + 22));
       }
 
-      if (v242)
+      if (v239)
       {
-        MEMORY[0x277D82BD8](*(v205 + 24));
+        MEMORY[0x277D82BD8](*(v202 + 24));
       }
 
-      if (v243)
+      if (v240)
       {
-        MEMORY[0x277D82BD8](*(v205 + 26));
+        MEMORY[0x277D82BD8](*(v202 + 26));
       }
 
       MEMORY[0x277D82BD8](currentDownload);
@@ -24395,196 +24268,195 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
       MEMORY[0x277D82BD8](preferredStatefulDescriptor);
       MEMORY[0x277D82BD8](scanError);
       MEMORY[0x277D82BD8](delegate2);
-      if (v244)
+      if (v241)
       {
-        MEMORY[0x277D82BD8](*(v205 + 28));
+        MEMORY[0x277D82BD8](*(v202 + 28));
       }
 
-      if (v245)
+      if (v242)
       {
-        MEMORY[0x277D82BD8](*(v205 + 30));
+        MEMORY[0x277D82BD8](*(v202 + 30));
       }
 
       MEMORY[0x277D82BD8](delegate);
-      MEMORY[0x277D82BD8](v197);
-      MEMORY[0x277D82BD8](v195);
+      MEMORY[0x277D82BD8](v194);
+      MEMORY[0x277D82BD8](v192);
       obj = 0;
-      objc_storeStrong(&v233, 0);
+      objc_storeStrong(&v230, 0);
+      objc_storeStrong(&v232, obj);
+      objc_storeStrong(&v233, obj);
+      objc_storeStrong(&v234, obj);
       objc_storeStrong(&v235, obj);
       objc_storeStrong(&v236, obj);
       objc_storeStrong(&v237, obj);
-      objc_storeStrong(&v238, obj);
-      objc_storeStrong(&v239, obj);
-      objc_storeStrong(&v240, obj);
-      objc_storeStrong(&v246, obj);
-      objc_storeStrong(&v247, obj);
+      objc_storeStrong(&v243, obj);
+      objc_storeStrong(&v244, obj);
     }
 
-    objc_storeStrong(&v249, 0);
-    v50 = v205;
-    v145 = *(v205 + 35);
-    v144 = &v229;
-    *(v205 + 7) = MEMORY[0x277D85DD0];
-    v230 = -1073741824;
-    v231 = 0;
-    *(v50 + 9) = __65__SUUIStatefulUIManager_fsmAction_CheckForAvailableUpdate_error___block_invoke;
-    *(v50 + 10) = &unk_279CC6AB8;
-    v146 = &v232;
-    v51 = MEMORY[0x277D82BE0](*(v50 + 39));
-    v52 = v144;
-    v53 = v51;
-    v54 = v145;
-    *(v205 + 11) = v53;
-    [v54 cancel:v52];
-    objc_storeStrong(v146, 0);
+    objc_storeStrong(&v246, 0);
+    v49 = v202;
+    v142 = *(v202 + 35);
+    v141 = &v226;
+    *(v202 + 7) = MEMORY[0x277D85DD0];
+    v227 = -1073741824;
+    v228 = 0;
+    *(v49 + 9) = __65__SUUIStatefulUIManager_fsmAction_CheckForAvailableUpdate_error___block_invoke;
+    *(v49 + 10) = &unk_279CC6AB8;
+    v143 = &v229;
+    v50 = MEMORY[0x277D82BE0](*(v49 + 39));
+    v51 = v141;
+    v52 = v50;
+    v53 = v142;
+    *(v202 + 11) = v52;
+    [v53 cancel:v51];
+    objc_storeStrong(v143, 0);
   }
 
-  currentFullScanOperation = [*(v205 + 39) currentFullScanOperation];
+  currentFullScanOperation = [*(v202 + 39) currentFullScanOperation];
   MEMORY[0x277D82BD8](currentFullScanOperation);
   if (currentFullScanOperation)
   {
-    v142 = +[SUUILoggingContext statefulUILogger];
-    oslog2 = [v142 oslog];
-    v56 = v142;
-    *(v205 + 6) = oslog2;
-    MEMORY[0x277D82BD8](v56);
-    v227 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(*(v205 + 6), OS_LOG_TYPE_DEFAULT))
+    v139 = +[SUUILoggingContext statefulUILogger];
+    oslog2 = [v139 oslog];
+    v55 = v139;
+    *(v202 + 6) = oslog2;
+    MEMORY[0x277D82BD8](v55);
+    v224 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(*(v202 + 6), OS_LOG_TYPE_DEFAULT))
     {
-      v133 = *(v205 + 6);
-      *v134 = v227;
-      v135 = *(v205 + 39);
-      v57 = *(v205 + 39);
-      v58 = objc_opt_class();
-      v136 = NSStringFromClass(v58);
-      v59 = MEMORY[0x277D82BE0](v136);
-      v60 = v205;
-      v137 = v59;
-      *(v205 + 4) = v59;
-      v138 = SUUIStatefulUIStateToString(*(*(v60 + 39) + 40));
-      v61 = MEMORY[0x277D82BE0](v138);
-      v62 = v205;
-      v139 = v61;
-      *(v205 + 3) = v61;
-      currentState2 = [v62[39] currentState];
-      delegate3 = [*(v205 + 39) delegate];
-      v224 = 0;
-      v222 = 0;
+      v130 = *(v202 + 6);
+      *v131 = v224;
+      v132 = *(v202 + 39);
+      v56 = objc_opt_class();
+      v133 = NSStringFromClass(v56);
+      v57 = MEMORY[0x277D82BE0](v133);
+      v58 = v202;
+      v134 = v57;
+      *(v202 + 4) = v57;
+      v135 = SUUIStatefulUIStateToString(*(*(v58 + 39) + 40));
+      v59 = MEMORY[0x277D82BE0](v135);
+      v60 = v202;
+      v136 = v59;
+      *(v202 + 3) = v59;
+      currentState2 = [v60[39] currentState];
+      delegate3 = [*(v202 + 39) delegate];
+      v221 = 0;
+      v219 = 0;
       if (delegate3)
       {
-        delegate4 = [*(v205 + 39) delegate];
-        *(v205 + 2) = delegate4;
-        v131 = 1;
-        v224 = 1;
-        v64 = objc_opt_class();
-        v65 = NSStringFromClass(v64);
-        v66 = v131;
-        *v205 = v65;
-        v222 = v66 & 1;
-        v132 = v65;
+        delegate4 = [*(v202 + 39) delegate];
+        *(v202 + 2) = delegate4;
+        v128 = 1;
+        v221 = 1;
+        v62 = objc_opt_class();
+        v63 = NSStringFromClass(v62);
+        v64 = v128;
+        *v202 = v63;
+        v219 = v64 & 1;
+        v129 = v63;
       }
 
       else
       {
-        v132 = @"(null)";
+        v129 = @"(null)";
       }
 
-      v125 = v132;
-      delegate5 = [*(v205 + 39) delegate];
-      scanError2 = [*(v205 + 39) scanError];
-      preferredStatefulDescriptor2 = [*(v205 + 39) preferredStatefulDescriptor];
-      alternateStatefulDescriptor2 = [*(v205 + 39) alternateStatefulDescriptor];
-      currentDownload4 = [*(v205 + 39) currentDownload];
-      v220 = 0;
-      v218 = 0;
-      v216 = 0;
+      v122 = v129;
+      delegate5 = [*(v202 + 39) delegate];
+      scanError2 = [*(v202 + 39) scanError];
+      preferredStatefulDescriptor2 = [*(v202 + 39) preferredStatefulDescriptor];
+      alternateStatefulDescriptor2 = [*(v202 + 39) alternateStatefulDescriptor];
+      currentDownload4 = [*(v202 + 39) currentDownload];
+      v217 = 0;
+      v215 = 0;
+      v213 = 0;
       if (currentDownload4)
       {
-        currentDownload5 = [*(v205 + 39) currentDownload];
-        v123 = 1;
-        v220 = 1;
+        currentDownload5 = [*(v202 + 39) currentDownload];
+        v120 = 1;
+        v217 = 1;
         descriptor2 = [currentDownload5 descriptor];
-        v218 = v123 & 1;
+        v215 = v120 & 1;
         updateName4 = [descriptor2 updateName];
-        v216 = v123 & 1;
-        v124 = updateName4;
+        v213 = v120 & 1;
+        v121 = updateName4;
       }
 
       else
       {
-        v124 = @"(null)";
+        v121 = @"(null)";
       }
 
-      v100 = v124;
-      currentDownload6 = [*(v205 + 39) currentDownload];
-      v102 = SUUIUpdateContinuousOperationTypeToString([*(v205 + 39) currentUpdateOperationType]);
-      v103 = MEMORY[0x277D82BE0](v102);
-      v215 = v103;
-      isTargetedUpdateScheduledForAutoInstall2 = [*(v205 + 39) isTargetedUpdateScheduledForAutoInstall];
-      v113 = @"NO";
-      v114 = @"YES";
-      v121 = 1;
+      v97 = v121;
+      currentDownload6 = [*(v202 + 39) currentDownload];
+      v99 = SUUIUpdateContinuousOperationTypeToString([*(v202 + 39) currentUpdateOperationType]);
+      v100 = MEMORY[0x277D82BE0](v99);
+      v212 = v100;
+      isTargetedUpdateScheduledForAutoInstall2 = [*(v202 + 39) isTargetedUpdateScheduledForAutoInstall];
+      v110 = @"NO";
+      v111 = @"YES";
+      v118 = 1;
       if (isTargetedUpdateScheduledForAutoInstall2)
       {
-        v67 = @"YES";
+        v65 = @"YES";
       }
 
       else
       {
-        v67 = @"NO";
+        v65 = @"NO";
+      }
+
+      v101 = v65;
+      v66 = v65;
+      v102 = v101;
+      v103 = MEMORY[0x277D82BE0](v102);
+      v211 = v103;
+      hidingPreferredDescriptor2 = [*(v202 + 39) hidingPreferredDescriptor];
+      if (hidingPreferredDescriptor2)
+      {
+        v67 = v111;
+      }
+
+      else
+      {
+        v67 = v110;
       }
 
       v104 = v67;
       v68 = v67;
       v105 = v104;
       v106 = MEMORY[0x277D82BE0](v105);
-      v214 = v106;
-      hidingPreferredDescriptor2 = [*(v205 + 39) hidingPreferredDescriptor];
-      if (hidingPreferredDescriptor2)
-      {
-        v69 = v114;
-      }
-
-      else
-      {
-        v69 = v113;
-      }
-
-      v107 = v69;
-      v70 = v69;
-      v108 = v107;
-      v109 = MEMORY[0x277D82BE0](v108);
-      v213 = v109;
-      hiddenPreferredStatefulDescriptor2 = [*(v205 + 39) hiddenPreferredStatefulDescriptor];
+      v210 = v106;
+      hiddenPreferredStatefulDescriptor2 = [*(v202 + 39) hiddenPreferredStatefulDescriptor];
       updateName5 = [hiddenPreferredStatefulDescriptor2 updateName];
-      v112 = MEMORY[0x277D82BE0](updateName5);
-      v212 = v112;
-      hidingAlternateDescriptor2 = [*(v205 + 39) hidingAlternateDescriptor];
+      v109 = MEMORY[0x277D82BE0](updateName5);
+      v209 = v109;
+      hidingAlternateDescriptor2 = [*(v202 + 39) hidingAlternateDescriptor];
       if (hidingAlternateDescriptor2)
       {
-        v71 = v114;
+        v69 = v111;
       }
 
       else
       {
-        v71 = v113;
+        v69 = v110;
       }
 
-      v115 = v71;
-      v72 = v71;
-      v116 = v115;
-      v117 = MEMORY[0x277D82BE0](v116);
-      v211 = v117;
-      hiddenAlternateStatefulDescriptor2 = [*(v205 + 39) hiddenAlternateStatefulDescriptor];
+      v112 = v69;
+      v70 = v69;
+      v113 = v112;
+      v114 = MEMORY[0x277D82BE0](v113);
+      v208 = v114;
+      hiddenAlternateStatefulDescriptor2 = [*(v202 + 39) hiddenAlternateStatefulDescriptor];
       updateName6 = [hiddenAlternateStatefulDescriptor2 updateName];
-      v120 = MEMORY[0x277D82BE0](updateName6);
-      v210 = v120;
-      enrolledBetaProgram3 = [*(v205 + 39) enrolledBetaProgram];
-      v208 = 0;
+      v117 = MEMORY[0x277D82BE0](updateName6);
+      v207 = v117;
+      enrolledBetaProgram3 = [*(v202 + 39) enrolledBetaProgram];
+      v205 = 0;
       if (enrolledBetaProgram3)
       {
-        enrolledBetaProgram4 = [*(v205 + 39) enrolledBetaProgram];
-        v208 = 1;
+        enrolledBetaProgram4 = [*(v202 + 39) enrolledBetaProgram];
+        v205 = 1;
         programID2 = [enrolledBetaProgram4 programID];
       }
 
@@ -24593,42 +24465,42 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
         programID2 = 0;
       }
 
-      v73 = v109;
-      v74 = v106;
-      v75 = v103;
-      v76 = currentDownload6;
-      v77 = v100;
-      v78 = alternateStatefulDescriptor2;
-      v79 = preferredStatefulDescriptor2;
-      v80 = scanError2;
-      v90 = programID2;
-      v91 = [*(*(v205 + 39) + 120) count];
-      canEnrollInBetaUpdates2 = [*(v205 + 39) canEnrollInBetaUpdates];
+      v71 = v106;
+      v72 = v103;
+      v73 = v100;
+      v74 = currentDownload6;
+      v75 = v97;
+      v76 = alternateStatefulDescriptor2;
+      v77 = preferredStatefulDescriptor2;
+      v78 = scanError2;
+      v87 = programID2;
+      v88 = [*(*(v202 + 39) + 120) count];
+      canEnrollInBetaUpdates2 = [*(v202 + 39) canEnrollInBetaUpdates];
       if (canEnrollInBetaUpdates2)
       {
-        v81 = @"YES";
+        v79 = @"YES";
       }
 
       else
       {
-        v81 = @"NO";
+        v79 = @"NO";
       }
 
-      v89 = v81;
-      v82 = v81;
-      v98 = v89;
-      v92 = MEMORY[0x277D82BE0](v98);
-      v207 = v92;
-      v93 = *(*(v205 + 39) + 168);
-      v94 = *(*(v205 + 39) + 176);
-      v95 = *(*(v205 + 39) + 184);
-      v83 = [*(*(v205 + 39) + 192) count];
-      v96 = &v85;
-      v97 = v261;
-      __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v261, v202, v135, v137, v139, currentState2, v125, delegate5, v80, v79, v78, v77, v76, v75, v74, v73, v112, v117, v120, v90, v91, v92, v93, v94, v95, v83);
-      _os_log_impl(&dword_26ADE5000, v133, v134[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v97, 0xFCu);
-      MEMORY[0x277D82BD8](v98);
-      if (v208)
+      v86 = v79;
+      v80 = v79;
+      v95 = v86;
+      v89 = MEMORY[0x277D82BE0](v95);
+      v204 = v89;
+      v90 = *(*(v202 + 39) + 168);
+      v91 = *(*(v202 + 39) + 176);
+      v92 = *(*(v202 + 39) + 184);
+      v81 = [*(*(v202 + 39) + 192) count];
+      v93 = &v83;
+      v94 = v258;
+      __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v258, v199, v132, v134, v136, currentState2, v122, delegate5, v78, v77, v76, v75, v74, v73, v72, v71, v109, v114, v117, v87, v88, v89, v90, v91, v92, v81);
+      _os_log_impl(&dword_26ADE5000, v130, v131[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full-scan operation is already running. Skipping on this full-scan request.", v94, 0xFCu);
+      MEMORY[0x277D82BD8](v95);
+      if (v205)
       {
         MEMORY[0x277D82BD8](enrolledBetaProgram4);
       }
@@ -24636,24 +24508,24 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
       MEMORY[0x277D82BD8](enrolledBetaProgram3);
       MEMORY[0x277D82BD8](updateName6);
       MEMORY[0x277D82BD8](hiddenAlternateStatefulDescriptor2);
-      MEMORY[0x277D82BD8](v116);
+      MEMORY[0x277D82BD8](v113);
       MEMORY[0x277D82BD8](updateName5);
       MEMORY[0x277D82BD8](hiddenPreferredStatefulDescriptor2);
-      MEMORY[0x277D82BD8](v108);
       MEMORY[0x277D82BD8](v105);
       MEMORY[0x277D82BD8](v102);
+      MEMORY[0x277D82BD8](v99);
       MEMORY[0x277D82BD8](currentDownload6);
-      if (v216)
+      if (v213)
       {
         MEMORY[0x277D82BD8](updateName4);
       }
 
-      if (v218)
+      if (v215)
       {
         MEMORY[0x277D82BD8](descriptor2);
       }
 
-      if (v220)
+      if (v217)
       {
         MEMORY[0x277D82BD8](currentDownload5);
       }
@@ -24663,49 +24535,47 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
       MEMORY[0x277D82BD8](preferredStatefulDescriptor2);
       MEMORY[0x277D82BD8](scanError2);
       MEMORY[0x277D82BD8](delegate5);
-      if (v222)
+      if (v219)
       {
-        MEMORY[0x277D82BD8](*v205);
+        MEMORY[0x277D82BD8](*v202);
       }
 
-      if (v224)
+      if (v221)
       {
-        MEMORY[0x277D82BD8](*(v205 + 2));
+        MEMORY[0x277D82BD8](*(v202 + 2));
       }
 
       MEMORY[0x277D82BD8](delegate3);
-      MEMORY[0x277D82BD8](v138);
-      MEMORY[0x277D82BD8](v136);
-      v88 = 0;
-      objc_storeStrong(&v207, 0);
-      objc_storeStrong(&v210, v88);
-      objc_storeStrong(&v211, v88);
-      objc_storeStrong(&v212, v88);
-      objc_storeStrong(&v213, v88);
-      objc_storeStrong(&v214, v88);
-      objc_storeStrong(&v215, v88);
-      objc_storeStrong(&v225, v88);
-      objc_storeStrong(&v226, v88);
+      MEMORY[0x277D82BD8](v135);
+      MEMORY[0x277D82BD8](v133);
+      v85 = 0;
+      objc_storeStrong(&v204, 0);
+      objc_storeStrong(&v207, v85);
+      objc_storeStrong(&v208, v85);
+      objc_storeStrong(&v209, v85);
+      objc_storeStrong(&v210, v85);
+      objc_storeStrong(&v211, v85);
+      objc_storeStrong(&v212, v85);
+      objc_storeStrong(&v222, v85);
+      objc_storeStrong(&v223, v85);
     }
 
-    objc_storeStrong(&v228, 0);
-    *(v205 + 40) = 0;
-    v206 = 1;
+    objc_storeStrong(&v225, 0);
+    *(v202 + 40) = 0;
+    v203 = 1;
   }
 
   else
   {
-    [*(v205 + 39) performFullScan:*(v205 + 37)];
-    *(v205 + 40) = 0;
-    v206 = 1;
+    [*(v202 + 39) performFullScan:*(v202 + 37)];
+    *(v202 + 40) = 0;
+    v203 = 1;
   }
 
-  v86 = 0;
-  objc_storeStrong(v250, 0);
-  objc_storeStrong(location, v86);
-  v87 = *(v205 + 40);
-  *MEMORY[0x277D85DE8];
-  return v87;
+  v84 = 0;
+  objc_storeStrong(v247, 0);
+  objc_storeStrong(location, v84);
+  return *(v202 + 40);
 }
 
 - (int64_t)fsmAction_ReportUpdatesAvailable:(id)available error:(id *)error
@@ -25062,7 +24932,6 @@ void __100__SUUIStatefulUIManager_doUnenrollFromBetaUpdatesAfterPurgeConfirmatio
 
   objc_destroyWeak(&v148);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -25106,7 +24975,6 @@ void __64__SUUIStatefulUIManager_fsmAction_ReportUpdatesAvailable_error___block_
   }
 
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fsmAction_ReportNoUpdateFound:(id)found error:(id *)error
@@ -25427,7 +25295,6 @@ void __64__SUUIStatefulUIManager_fsmAction_ReportUpdatesAvailable_error___block_
 
   objc_destroyWeak(&v126);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -25471,7 +25338,6 @@ void __61__SUUIStatefulUIManager_fsmAction_ReportNoUpdateFound_error___block_inv
   }
 
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fsmAction_ReportScanFailed:(id)failed error:(id *)error
@@ -25792,7 +25658,6 @@ void __61__SUUIStatefulUIManager_fsmAction_ReportNoUpdateFound_error___block_inv
 
   objc_destroyWeak(&v126);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -25842,7 +25707,6 @@ void __58__SUUIStatefulUIManager_fsmAction_ReportScanFailed_error___block_invoke
   }
 
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fsmAction_RefreshScanResults:(id)results error:(id *)error
@@ -26021,7 +25885,7 @@ void __58__SUUIStatefulUIManager_fsmAction_ReportScanFailed_error___block_invoke
       currentRefreshScanOperation = selfCopy->_currentRefreshScanOperation;
       currentUpdateOperation = selfCopy->_currentUpdateOperation;
       v14 = [(NSMutableSet *)selfCopy->_auxiliaryOperations count];
-      v92 = v27;
+      v92 = &v27;
       buf = v202;
       __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v202, v139, v131, v133, v135, currentState, v121, delegate3, scanError, preferredStatefulDescriptor, alternateStatefulDescriptor, v96, currentDownload3, v99, v102, v105, v108, v113, v116, v86, v87, v88, currentFullScanOperation, currentRefreshScanOperation, currentUpdateOperation, v14);
       _os_log_impl(&dword_26ADE5000, log, v130[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA refresh operation is already running. Skipping on this refresh request. This should never happen.", buf, 0xFCu);
@@ -26256,7 +26120,7 @@ void __58__SUUIStatefulUIManager_fsmAction_ReportScanFailed_error___block_invoke
         v34 = selfCopy->_currentRefreshScanOperation;
         v35 = selfCopy->_currentUpdateOperation;
         v25 = [(NSMutableSet *)selfCopy->_auxiliaryOperations count];
-        v36 = v27;
+        v36 = &v27;
         v37 = v201;
         __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v201, v139, v75, v77, v79, currentState2, v65, delegate6, scanError2, preferredStatefulDescriptor2, alternateStatefulDescriptor2, v40, currentDownload6, v43, v46, v49, v52, v57, v60, v30, v31, v32, v33, v34, v35, v25);
         _os_log_impl(&dword_26ADE5000, v73, v74[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nA full scan operation is already running. Skipping on this refresh request. This should never happen.", v37, 0xFCu);
@@ -26335,8 +26199,6 @@ void __58__SUUIStatefulUIManager_fsmAction_ReportScanFailed_error___block_invoke
   }
 
   objc_storeStrong(location, 0);
-  v27[18] = v192;
-  *MEMORY[0x277D85DE8];
   return v192;
 }
 
@@ -26572,7 +26434,7 @@ void __58__SUUIStatefulUIManager_fsmAction_ReportScanFailed_error___block_invoke
       v35 = *(val + 22);
       v36 = *(val + 23);
       v37 = [*(val + 24) count];
-      v30 = v21;
+      v30 = &v21;
       v31 = v271;
       __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v271, v202, v106, v101, v98, currentState2, v89, v87, v85, v83, v81, v74, v72, v69, v65, v61, v56, v52, v47, v40, v41, v33, v34, v35, v36, v37);
       _os_log_impl(&dword_26ADE5000, v104, v105[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe descriptors states and errors are identical to the previous values (refreshHasAnyChanges = YES). Force load was requested - proceeding to ask the delegate to reload the UI.", v31, 0xFCu);
@@ -26850,7 +26712,7 @@ LABEL_80:
     v116 = *(val + 22);
     v117 = *(val + 23);
     v118 = [*(val + 24) count];
-    v111 = v21;
+    v111 = &v21;
     buf = v272;
     __os_log_helper_16_2_25_8_32_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_66_8_66_8_66_8_66_8_66_8_66_8_0_8_0_8_66_8_0_8_0_8_0_8_0(v272, v202, v187, v182, v179, currentState3, v170, v168, v166, v164, v162, v155, v153, v150, v146, v142, v137, v133, v128, v121, v122, v114, v115, v116, v117, v118);
     _os_log_impl(&dword_26ADE5000, log, v186[0], "%s [%p]: %{public}@ Checkpoint\n\tcurrentState: %{public}@ (%ld)\n\tdelegate: %{public}@ (%p)\n\tscanError: %{public}@\n\tpreferredDescriptor: %{public}@\n\talternateDescriptor: %{public}@\n\tdownload: %{public}@ (%p)\n\tcurrentUpdateOperationType: %{public}@\n\tscheduledForAutoInstall: %{public}@\n\thiddenUpdatesPostSelection: preferred[%{public}@, %{public}@]; alternate[%{public}@, %{public}@];\n\tselectedBetaProgram: %lu (count: %ld, enrollable: %{public}@)\n\tOpFSMs: scan[%p]; refresh[%p]; update[%p]; auxiliaryOperationsCount[%lu]\n\nThe descriptors states and errors are identical to the previous values (refreshHasAnyChanges = YES). Dropping the refresh request.", buf, 0xFCu);
@@ -26921,8 +26783,6 @@ LABEL_80:
 LABEL_81:
   objc_destroyWeak(from);
   objc_storeStrong(&location, 0);
-  v21[19] = v262;
-  *MEMORY[0x277D85DE8];
   return v262;
 }
 
@@ -26963,7 +26823,6 @@ void __66__SUUIStatefulUIManager_fsmAction_ReportRefreshScanResults_error___bloc
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fsmAction_ReportRefreshScanResultsFailed:(id)failed error:(id *)error
@@ -27036,7 +26895,6 @@ void __72__SUUIStatefulUIManager_fsmAction_ReportRefreshScanResultsFailed_error_
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fsmAction_actionUnknownAction:(id)action error:(id *)error
@@ -27481,7 +27339,6 @@ void __72__SUUIStatefulUIManager_fsmAction_ReportRefreshScanResultsFailed_error_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)performSelector:(SEL)selector onTarget:(id)target withObject:(id)object withObject:(id)withObject withObject:(id)a7 withObject:(id)a8
@@ -27841,7 +27698,6 @@ LABEL_13:
   v8 = v29;
   objc_storeStrong(&currentDownload, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 

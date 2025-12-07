@@ -9,7 +9,7 @@
   ObjectType = swift_getObjectType();
   if (rows)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100, &qword_21DC18230);
     sub_21DBFA5EC();
     rows = sub_21DBFA5DC();
   }

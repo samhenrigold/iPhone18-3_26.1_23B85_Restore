@@ -11,57 +11,57 @@
 
 - (MCEmailAccountPayloadBase)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v80.receiver = self;
-  v80.super_class = MCEmailAccountPayloadBase;
-  v9 = [(MCPayload *)&v80 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v79.receiver = self;
+  v79.super_class = MCEmailAccountPayloadBase;
+  v9 = [(MCPayload *)&v79 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v79 = 0;
-    v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"PreventMove" isRequired:0 outError:&v79];
-    v11 = v79;
+    v78 = 0;
+    v10 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"PreventMove" isRequired:0 outError:&v78];
+    v11 = v78;
     preventMoveNum = v9->_preventMoveNum;
     v9->_preventMoveNum = v10;
 
     if (!v11)
     {
       v9->_preventMove = [(NSNumber *)v9->_preventMoveNum BOOLValue];
-      v78 = 0;
-      v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"PreventAppSheet" isRequired:0 outError:&v78];
-      v11 = v78;
+      v77 = 0;
+      v13 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"PreventAppSheet" isRequired:0 outError:&v77];
+      v11 = v77;
       preventAppSheetNum = v9->_preventAppSheetNum;
       v9->_preventAppSheetNum = v13;
 
       if (!v11)
       {
         v9->_preventAppSheet = [(NSNumber *)v9->_preventAppSheetNum BOOLValue];
-        v77 = 0;
-        v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningEnabled" isRequired:0 outError:&v77];
-        v11 = v77;
+        v76 = 0;
+        v15 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningEnabled" isRequired:0 outError:&v76];
+        v11 = v76;
         SMIMESigningEnabled = v9->_SMIMESigningEnabled;
         v9->_SMIMESigningEnabled = v15;
 
         if (!v11)
         {
-          v76 = 0;
-          v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningUserOverrideable" isRequired:0 outError:&v76];
-          v11 = v76;
+          v75 = 0;
+          v17 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningUserOverrideable" isRequired:0 outError:&v75];
+          v11 = v75;
           v9->_SMIMESigningUserOverrideable = [v17 BOOLValue];
 
           if (!v11)
           {
-            v75 = 0;
-            v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptByDefault" isRequired:0 outError:&v75];
-            v11 = v75;
+            v74 = 0;
+            v18 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptByDefault" isRequired:0 outError:&v74];
+            v11 = v74;
             SMIMEEncryptionEnabled = v9->_SMIMEEncryptionEnabled;
             v9->_SMIMEEncryptionEnabled = v18;
 
             if (!v11)
             {
-              v74 = 0;
-              v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionEnabled" isRequired:0 outError:&v74];
-              v20 = v74;
+              v73 = 0;
+              v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionEnabled" isRequired:0 outError:&v73];
+              v20 = v73;
               if (v20)
               {
                 v21 = v20;
@@ -74,50 +74,50 @@
                   objc_storeStrong(&v9->_SMIMEEncryptionEnabled, v11);
                 }
 
-                v73 = 0;
-                v58 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptByDefaultUserOverrideable" isRequired:0 outError:&v73];
-                v21 = v73;
-                v9->_SMIMEEncryptByDefaultUserOverrideable = [v58 BOOLValue];
+                v72 = 0;
+                v57 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptByDefaultUserOverrideable" isRequired:0 outError:&v72];
+                v21 = v72;
+                v9->_SMIMEEncryptByDefaultUserOverrideable = [v57 BOOLValue];
 
                 if (!v21)
                 {
-                  v72 = 0;
-                  v59 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"disableMailRecentsSyncing" isRequired:0 outError:&v72];
-                  v21 = v72;
+                  v71 = 0;
+                  v58 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"disableMailRecentsSyncing" isRequired:0 outError:&v71];
+                  v21 = v71;
                   isRecentsSyncingDisabledNum = v9->_isRecentsSyncingDisabledNum;
-                  v9->_isRecentsSyncingDisabledNum = v59;
+                  v9->_isRecentsSyncingDisabledNum = v58;
 
                   if (!v21)
                   {
                     v9->_isRecentsSyncingDisabled = [(NSNumber *)v9->_isRecentsSyncingDisabledNum BOOLValue];
-                    v71 = 0;
-                    v60 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"allowMailDrop" isRequired:0 outError:&v71];
-                    v21 = v71;
+                    v70 = 0;
+                    v59 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"allowMailDrop" isRequired:0 outError:&v70];
+                    v21 = v70;
                     isMailDropEnabledNum = v9->_isMailDropEnabledNum;
-                    v9->_isMailDropEnabledNum = v60;
+                    v9->_isMailDropEnabledNum = v59;
 
                     if (!v21)
                     {
                       v9->_isMailDropEnabled = [(NSNumber *)v9->_isMailDropEnabledNum BOOLValue];
-                      v70 = 0;
-                      v24 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v70];
-                      v21 = v70;
+                      v69 = 0;
+                      v24 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"VPNUUID" isRequired:0 outError:&v69];
+                      v21 = v69;
                       VPNUUID = v9->_VPNUUID;
                       v9->_VPNUUID = v24;
 
                       if (!v21)
                       {
-                        v69 = 0;
-                        v26 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnableEncryptionPerMessageSwitch" isRequired:0 outError:&v69];
-                        v27 = v69;
+                        v68 = 0;
+                        v26 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnableEncryptionPerMessageSwitch" isRequired:0 outError:&v68];
+                        v27 = v68;
                         SMIMEPerMessageSwitchEnabledNum = v9->_SMIMEPerMessageSwitchEnabledNum;
                         v9->_SMIMEPerMessageSwitchEnabledNum = v26;
 
                         if (!v27)
                         {
-                          v68 = 0;
-                          v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnablePerMessageSwitch" isRequired:0 outError:&v68];
-                          v30 = v68;
+                          v67 = 0;
+                          v29 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnablePerMessageSwitch" isRequired:0 outError:&v67];
+                          v30 = v67;
                           if (v30)
                           {
                             v27 = v30;
@@ -133,16 +133,16 @@
                             }
 
                             v9->_SMIMEPerMessageSwitchEnabled = [(NSNumber *)v31 BOOLValue];
-                            v67 = 0;
-                            v32 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningCertificateUUIDUserOverrideable" isRequired:0 outError:&v67];
-                            v33 = v67;
+                            v66 = 0;
+                            v32 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningCertificateUUIDUserOverrideable" isRequired:0 outError:&v66];
+                            v33 = v66;
                             v9->_SMIMESigningIdentityUserOverrideable = [v32 BOOLValue];
 
                             if (!v33)
                             {
-                              v66 = 0;
-                              v34 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionCertificateUUIDUserOverrideable" isRequired:0 outError:&v66];
-                              v33 = v66;
+                              v65 = 0;
+                              v34 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionCertificateUUIDUserOverrideable" isRequired:0 outError:&v65];
+                              v33 = v65;
                               v9->_SMIMEEncryptionIdentityUserOverrideable = [v34 BOOLValue];
 
                               if (!v33)
@@ -152,28 +152,28 @@
 
                                 if (isStub)
                                 {
-                                  v65 = 0;
-                                  v46 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnabled" isRequired:0 outError:&v65];
-                                  v33 = v65;
+                                  v64 = 0;
+                                  v45 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEnabled" isRequired:0 outError:&v64];
+                                  v33 = v64;
                                   SMIMEEnabledNum = v9->_SMIMEEnabledNum;
-                                  v9->_SMIMEEnabledNum = v46;
+                                  v9->_SMIMEEnabledNum = v45;
 
                                   if (!v33)
                                   {
                                     v9->_SMIMEEnabled = [(NSNumber *)v9->_SMIMEEnabledNum BOOLValue];
-                                    v64 = 0;
-                                    v48 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningIdentityPersistentID" isRequired:0 outError:&v64];
-                                    v33 = v64;
+                                    v63 = 0;
+                                    v47 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMESigningIdentityPersistentID" isRequired:0 outError:&v63];
+                                    v33 = v63;
                                     SMIMESigningIdentityPersistentID = v9->_SMIMESigningIdentityPersistentID;
-                                    v9->_SMIMESigningIdentityPersistentID = v48;
+                                    v9->_SMIMESigningIdentityPersistentID = v47;
 
                                     if (!v33)
                                     {
-                                      v63 = 0;
-                                      v50 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionIdentityPersistentID" isRequired:0 outError:&v63];
-                                      v33 = v63;
+                                      v62 = 0;
+                                      v49 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"SMIMEEncryptionIdentityPersistentID" isRequired:0 outError:&v62];
+                                      v33 = v62;
                                       SMIMEEncryptionIdentityPersistentID = v9->_SMIMEEncryptionIdentityPersistentID;
-                                      v9->_SMIMEEncryptionIdentityPersistentID = v50;
+                                      v9->_SMIMEEncryptionIdentityPersistentID = v49;
 
                                       if (!v33)
                                       {
@@ -187,20 +187,20 @@ LABEL_31:
 
                                 else
                                 {
-                                  v62 = 0;
-                                  v52 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SMIMESigningCertificateUUID" isRequired:0 outError:&v62];
-                                  v33 = v62;
+                                  v61 = 0;
+                                  v51 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SMIMESigningCertificateUUID" isRequired:0 outError:&v61];
+                                  v33 = v61;
                                   SMIMESigningIdentityUUID = v9->_SMIMESigningIdentityUUID;
-                                  v9->_SMIMESigningIdentityUUID = v52;
+                                  v9->_SMIMESigningIdentityUUID = v51;
 
                                   if (!v33)
                                   {
-                                    v61 = 0;
-                                    v54 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SMIMEEncryptionCertificateUUID" isRequired:0 outError:&v61];
-                                    v33 = v61;
+                                    v60 = 0;
+                                    v53 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"SMIMEEncryptionCertificateUUID" isRequired:0 outError:&v60];
+                                    v33 = v60;
                                     SMIMEEncryptionIdentityUUID = v9->_SMIMEEncryptionIdentityUUID;
-                                    v56 = 136;
-                                    v9->_SMIMEEncryptionIdentityUUID = v54;
+                                    v55 = 136;
+                                    v9->_SMIMEEncryptionIdentityUUID = v53;
 
                                     if (!v33)
                                     {
@@ -209,7 +209,7 @@ LABEL_31:
                                         v9->_SMIMEEncryptionEnabled = MEMORY[0x1E695E118];
                                       }
 
-                                      if ([(NSNumber *)v9->_SMIMESigningEnabled BOOLValue]|| [(NSNumber *)v9->_SMIMEEncryptionEnabled BOOLValue]|| v9->_SMIMESigningIdentityUUID || *(&v9->super.super.isa + v57) || v9->_SMIMESigningUserOverrideable || v9->_SMIMESigningIdentityUserOverrideable || v9->_SMIMEEncryptionIdentityUserOverrideable || v9->_SMIMEEncryptByDefaultUserOverrideable)
+                                      if ([(NSNumber *)v9->_SMIMESigningEnabled BOOLValue]|| [(NSNumber *)v9->_SMIMEEncryptionEnabled BOOLValue]|| v9->_SMIMESigningIdentityUUID || *(&v9->super.super.isa + v56) || v9->_SMIMESigningUserOverrideable || v9->_SMIMESigningIdentityUserOverrideable || v9->_SMIMEEncryptionIdentityUserOverrideable || v9->_SMIMEEncryptByDefaultUserOverrideable)
                                       {
                                         v9->_SMIMEEnabled = 1;
                                       }
@@ -239,7 +239,7 @@ LABEL_31:
       }
     }
 
-    v35 = [(MCPayload *)v9 malformedPayloadErrorWithError:v11, v56];
+    v35 = [(MCPayload *)v9 malformedPayloadErrorWithError:v11, v55];
     v29 = v35;
     if (error)
     {
@@ -255,9 +255,9 @@ LABEL_31:
       v40 = v39;
       mCVerboseDescription = [v29 MCVerboseDescription];
       *buf = 138543618;
-      v82 = v39;
-      v83 = 2114;
-      v84 = mCVerboseDescription;
+      v81 = v39;
+      v82 = 2114;
+      v83 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v38, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -267,7 +267,6 @@ LABEL_31:
 
 LABEL_32:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

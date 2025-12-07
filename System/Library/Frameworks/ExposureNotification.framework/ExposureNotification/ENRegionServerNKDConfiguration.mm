@@ -25,18 +25,18 @@
 
 - (ENRegionServerNKDConfiguration)initWithServerResponseDictionary:(id)dictionary
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v53.receiver = self;
-  v53.super_class = ENRegionServerNKDConfiguration;
-  v5 = [(ENRegionServerNKDConfiguration *)&v53 init];
+  v83.receiver = self;
+  v83.super_class = ENRegionServerNKDConfiguration;
+  v5 = [(ENRegionServerNKDConfiguration *)&v83 init];
   if (!v5)
   {
-    v39 = 0;
-    goto LABEL_46;
+    v55 = 0;
+    goto LABEL_49;
   }
 
-  v52 = 0;
+  v82 = 0;
   CFDictionaryGetTypeID();
   v6 = CFDictionaryGetTypedValue();
   CFStringGetTypeID();
@@ -47,8 +47,8 @@
   v9 = v8;
   if (!v8)
   {
-    v39 = 0;
-    goto LABEL_45;
+    v55 = 0;
+    goto LABEL_48;
   }
 
   v10 = [v8 copy];
@@ -58,17 +58,17 @@
   CFStringGetTypeID();
   OUTLINED_FUNCTION_1_0();
   v12 = CFDictionaryGetTypedValue();
-  if (v52)
+  if (v82)
   {
-    v39 = 0;
-    goto LABEL_44;
+    v55 = 0;
+    goto LABEL_47;
   }
 
   v13 = [MEMORY[0x277CBEBC0] URLWithString:v12];
   if (!v13)
   {
-    v39 = 0;
-    goto LABEL_43;
+    v55 = 0;
+    goto LABEL_46;
   }
 
   objc_storeStrong(&v5->_tekLocalDownloadBaseURL, v13);
@@ -78,113 +78,121 @@
   v15 = [MEMORY[0x277CBEBC0] URLWithString:v14];
   if (!v15)
   {
-    v39 = 0;
-    goto LABEL_42;
+    v55 = 0;
+    goto LABEL_45;
   }
 
-  v47 = v15;
+  v74 = v15;
   objc_storeStrong(&v5->_tekLocalDownloadIndexURL, v15);
-  v5->_tekPublishInterval = (3600 * OUTLINED_FUNCTION_3_0());
-  CFStringGetTypeID();
-  OUTLINED_FUNCTION_1_0();
-  v16 = CFDictionaryGetTypedValue();
-  if (v16)
+  v23 = 3600 * OUTLINED_FUNCTION_3_0(v16, @"tekPublishInterval", v17, v18, v19, v20, v21, v22, v57, v59, v61, v64, v67, v70, v72, v74, v76, *(&v76 + 1), v77, *(&v77 + 1), v78, *(&v78 + 1), v79, *(&v79 + 1), v80, v81, v82);
+  if (v82)
   {
-    v17 = [MEMORY[0x277CBEBC0] URLWithString:v16];
-    if (!v17)
-    {
-      v39 = 0;
-      goto LABEL_41;
-    }
-
-    tekUploadURL = v5->_tekUploadURL;
-    v5->_tekUploadURL = v17;
-  }
-
-  v45 = v13;
-  v46 = v12;
-
-  v19 = OUTLINED_FUNCTION_3_0();
-  if (v52)
-  {
-    v20 = 0;
+    v24 = 86400;
   }
 
   else
   {
-    v20 = v19;
+    v24 = v23;
   }
 
-  v21 = [MEMORY[0x277CBEB18] arrayWithObject:&unk_284B0F090];
-  v16 = v21;
-  if ((v20 & 2) != 0)
+  v5->_tekPublishInterval = v24;
+  CFStringGetTypeID();
+  OUTLINED_FUNCTION_1_0();
+  v25 = CFDictionaryGetTypedValue();
+  if (v25)
   {
-    [v21 addObject:&unk_284B0F0A8];
-    if ((v20 & 4) == 0)
+    v26 = [MEMORY[0x277CBEBC0] URLWithString:v25];
+    if (!v26)
     {
-LABEL_14:
-      if ((v20 & 8) == 0)
+      v55 = 0;
+      goto LABEL_44;
+    }
+
+    tekUploadURL = v5->_tekUploadURL;
+    v5->_tekUploadURL = v26;
+  }
+
+  v35 = OUTLINED_FUNCTION_3_0(v28, @"flags", v29, v30, v31, v32, v33, v34, v58, v60, v62, v65, v68, v13, v12, v75, v76, *(&v76 + 1), v77, *(&v77 + 1), v78, *(&v78 + 1), v79, *(&v79 + 1), v80, v81, v82);
+  if (v82)
+  {
+    v36 = 0;
+  }
+
+  else
+  {
+    v36 = v35;
+  }
+
+  v37 = [MEMORY[0x277CBEB18] arrayWithObject:&unk_284B0F090];
+  v25 = v37;
+  if ((v36 & 2) != 0)
+  {
+    [v37 addObject:&unk_284B0F0A8];
+    if ((v36 & 4) == 0)
+    {
+LABEL_17:
+      if ((v36 & 8) == 0)
       {
-        goto LABEL_16;
+        goto LABEL_19;
       }
 
-      goto LABEL_15;
+      goto LABEL_18;
     }
   }
 
-  else if ((v20 & 4) == 0)
+  else if ((v36 & 4) == 0)
   {
-    goto LABEL_14;
+    goto LABEL_17;
   }
 
-  [v16 addObject:&unk_284B0F0C0];
-  if ((v20 & 8) != 0)
+  [v25 addObject:&unk_284B0F0C0];
+  if ((v36 & 8) != 0)
   {
-LABEL_15:
-    [v16 addObject:&unk_284B0F0D8];
+LABEL_18:
+    [v25 addObject:&unk_284B0F0D8];
   }
 
-LABEL_16:
-  v44 = v14;
-  if ((v20 & 0x10) != 0)
+LABEL_19:
+  v69 = v14;
+  if ((v36 & 0x10) != 0)
   {
-    [v16 addObject:&unk_284B0F0F0];
+    [v25 addObject:&unk_284B0F0F0];
   }
 
-  OUTLINED_FUNCTION_4_0([v16 copy]);
+  OUTLINED_FUNCTION_4_0([v25 copy]);
   CFStringGetTypeID();
   OUTLINED_FUNCTION_1_0();
-  v22 = CFDictionaryGetTypedValue();
+  v38 = CFDictionaryGetTypedValue();
   testVerificationAPIKey = v5->_testVerificationAPIKey;
-  v5->_testVerificationAPIKey = v22;
+  v5->_testVerificationAPIKey = v38;
 
   CFStringGetTypeID();
   OUTLINED_FUNCTION_1_0();
-  v24 = CFDictionaryGetTypedValue();
-  if (v24)
+  v40 = CFDictionaryGetTypedValue();
+  if (v40)
   {
-    v25 = [MEMORY[0x277CBEBC0] URLWithString:v24];
-    if (!v25)
+    v41 = [MEMORY[0x277CBEBC0] URLWithString:v40];
+    if (!v41)
     {
-      goto LABEL_47;
+      goto LABEL_50;
     }
 
     testVerificationCertificateURL = v5->_testVerificationCertificateURL;
-    v5->_testVerificationCertificateURL = v25;
+    v5->_testVerificationCertificateURL = v41;
   }
 
   CFStringGetTypeID();
   OUTLINED_FUNCTION_1_0();
-  v24 = CFDictionaryGetTypedValue();
-  if (!v24)
+  v40 = CFDictionaryGetTypedValue();
+  if (!v40)
   {
-LABEL_24:
+LABEL_27:
 
     CFArrayGetTypeID();
     OUTLINED_FUNCTION_1_0();
-    v29 = CFDictionaryGetTypedValue();
-    v24 = v29;
-    if (v52)
+    v45 = CFDictionaryGetTypedValue();
+    v40 = v45;
+    if (v82)
     {
       travelerDownloadConfigurations = v5->_travelerDownloadConfigurations;
       v5->_travelerDownloadConfigurations = MEMORY[0x277CBEBF8];
@@ -192,87 +200,86 @@ LABEL_24:
 
     else
     {
-      v42 = v6;
-      v43 = dictionaryCopy;
-      travelerDownloadConfigurations = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v29, "count")}];
-      v48 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v31 = v24;
-      v32 = [v31 countByEnumeratingWithState:&v48 objects:v54 count:16];
-      if (v32)
+      v63 = v6;
+      v66 = dictionaryCopy;
+      travelerDownloadConfigurations = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v45, "count")}];
+      v76 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v79 = 0u;
+      v47 = v40;
+      v48 = [v47 countByEnumeratingWithState:&v76 objects:v84 count:16];
+      if (v48)
       {
-        v33 = v32;
-        v34 = *v49;
+        v49 = v48;
+        v50 = *v77;
         do
         {
-          for (i = 0; i != v33; ++i)
+          for (i = 0; i != v49; ++i)
           {
-            if (*v49 != v34)
+            if (*v77 != v50)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v47);
             }
 
-            v36 = [[ENRegionTravelerServerDownloadConfiguration alloc] initWithServerResponseDictionary:*(*(&v48 + 1) + 8 * i)];
-            if (v36)
+            v52 = [[ENRegionTravelerServerDownloadConfiguration alloc] initWithServerResponseDictionary:*(*(&v76 + 1) + 8 * i)];
+            if (v52)
             {
-              [travelerDownloadConfigurations addObject:v36];
+              [travelerDownloadConfigurations addObject:v52];
             }
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v48 objects:v54 count:16];
+          v49 = [v47 countByEnumeratingWithState:&v76 objects:v84 count:16];
         }
 
-        while (v33);
+        while (v49);
       }
 
-      v37 = [travelerDownloadConfigurations copy];
-      v38 = v5->_travelerDownloadConfigurations;
-      v5->_travelerDownloadConfigurations = v37;
+      v53 = [travelerDownloadConfigurations copy];
+      v54 = v5->_travelerDownloadConfigurations;
+      v5->_travelerDownloadConfigurations = v53;
 
-      v6 = v42;
-      dictionaryCopy = v43;
+      v6 = v63;
+      dictionaryCopy = v66;
     }
 
-    v39 = v5;
-    goto LABEL_40;
+    v55 = v5;
+    goto LABEL_43;
   }
 
-  v27 = [MEMORY[0x277CBEBC0] URLWithString:v24];
-  if (v27)
+  v43 = [MEMORY[0x277CBEBC0] URLWithString:v40];
+  if (v43)
   {
     testVerificationURL = v5->_testVerificationURL;
-    v5->_testVerificationURL = v27;
+    v5->_testVerificationURL = v43;
 
-    goto LABEL_24;
+    goto LABEL_27;
   }
 
-LABEL_47:
-  v39 = 0;
-LABEL_40:
-  v13 = v45;
-  v12 = v46;
-
-  v14 = v44;
-LABEL_41:
-
-  v15 = v47;
-LABEL_42:
-
+LABEL_50:
+  v55 = 0;
 LABEL_43:
+  v13 = v71;
+  v12 = v73;
+
+  v14 = v69;
 LABEL_44:
 
+  v15 = v75;
 LABEL_45:
-LABEL_46:
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v39;
+LABEL_46:
+LABEL_47:
+
+LABEL_48:
+LABEL_49:
+
+  return v55;
 }
 
 - (ENRegionServerNKDConfiguration)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   obj = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"tekLocalDownloadBasePath"];
   if (obj)
@@ -284,18 +291,18 @@ LABEL_46:
       if (v6)
       {
         v7 = MEMORY[0x277CBEB98];
-        v38[0] = objc_opt_class();
-        v38[1] = objc_opt_class();
-        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+        v37[0] = objc_opt_class();
+        v37[1] = objc_opt_class();
+        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
         v9 = [v7 setWithArray:v8];
 
         v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"tekTravelerDownloadURLs"];
         if (v10)
         {
           v11 = MEMORY[0x277CBEB98];
-          v37[0] = objc_opt_class();
-          v37[1] = objc_opt_class();
-          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+          v36[0] = objc_opt_class();
+          v36[1] = objc_opt_class();
+          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
           v13 = [v11 setWithArray:v12];
 
           v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"acceptedReportTypes"];
@@ -312,9 +319,9 @@ LABEL_46:
 
           v17 = v16;
 
-          v36.receiver = self;
-          v36.super_class = ENRegionServerNKDConfiguration;
-          v18 = [(ENRegionServerNKDConfiguration *)&v36 init];
+          v35.receiver = self;
+          v35.super_class = ENRegionServerNKDConfiguration;
+          v18 = [(ENRegionServerNKDConfiguration *)&v35 init];
           if (v18)
           {
             v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"healthAuthorityID"];
@@ -377,7 +384,6 @@ LABEL_46:
     selfCopy = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -374,9 +374,9 @@ LABEL_33:
 
   if (v6 && v5)
   {
-    v8 = [(NSString *)v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (!v8)
+    if (!isEqualToString)
     {
       goto LABEL_9;
     }
@@ -429,9 +429,9 @@ void __57__PKPeerPaymentAccount_peerPaymentAccountWithIdentifier___block_invoke(
     goto LABEL_9;
   }
 
-  v11 = [v8 isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v11)
+  if (isEqualToString)
   {
 LABEL_7:
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -455,9 +455,9 @@ LABEL_9:
 
   if (v6 && v5)
   {
-    v8 = [(NSString *)v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (!v8)
+    if (!isEqualToString)
     {
       goto LABEL_9;
     }
@@ -510,9 +510,9 @@ void __54__PKPeerPaymentAccount_peerPaymentAccountWithAltDSID___block_invoke(uin
     goto LABEL_9;
   }
 
-  v11 = [v8 isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v11)
+  if (isEqualToString)
   {
 LABEL_7:
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -589,9 +589,9 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v13 = [v9 isEqualToString:v10];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (v13)
+  if (isEqualToString)
   {
     goto LABEL_10;
   }
@@ -1443,9 +1443,9 @@ LABEL_14:
       goto LABEL_88;
     }
 
-    v33 = [(NSString *)v30 isEqualToString:v31];
+    isEqualToString = objc_msgSend_isEqualToString_(v30);
 
-    if (!v33)
+    if (!isEqualToString)
     {
       goto LABEL_89;
     }
@@ -1504,7 +1504,7 @@ LABEL_14:
   {
     if (v30 && v41)
     {
-      v42 = [(NSString *)v30 isEqualToString:v41];
+      v42 = objc_msgSend_isEqualToString_(v30);
 
       if (!v42)
       {
@@ -1785,7 +1785,7 @@ LABEL_90:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        if ([identifier isEqualToString:identifierCopy])
+        if (objc_msgSend_isEqualToString_(identifier))
         {
           isSupported = [v9 isSupported];
 

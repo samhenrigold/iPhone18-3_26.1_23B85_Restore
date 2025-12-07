@@ -83,6 +83,8 @@
 - (void)generateInsightEventsForObject:(id)object;
 - (void)populateSearchField:(id)field bindings:(id)bindings;
 - (void)setCurrentDB:(id)b;
+- (void)setInSyncBlock:(BOOL)block;
+- (void)setSyncableDataWritten:(BOOL)written;
 - (void)setupDevDB;
 - (void)tearDownDevDB;
 @end
@@ -2276,6 +2278,14 @@ LABEL_10:
   return v2;
 }
 
+- (void)setSyncableDataWritten:(BOOL)written
+{
+  v5 = [NSNumber numberWithBool:written];
+  v3 = +[NSThread currentThread];
+  threadDictionary = [v3 threadDictionary];
+  [threadDictionary setObject:v5 forKeyedSubscript:@"syncDataWritten"];
+}
+
 - (BOOL)isInSyncBlock
 {
   v2 = +[NSThread currentThread];
@@ -2284,6 +2294,14 @@ LABEL_10:
 
   LOBYTE(v2) = [v4 BOOLValue];
   return v2;
+}
+
+- (void)setInSyncBlock:(BOOL)block
+{
+  v5 = [NSNumber numberWithBool:block];
+  v3 = +[NSThread currentThread];
+  threadDictionary = [v3 threadDictionary];
+  [threadDictionary setObject:v5 forKeyedSubscript:@"isInSync"];
 }
 
 - (BOOL)markObject:(id)object as:(int64_t)as

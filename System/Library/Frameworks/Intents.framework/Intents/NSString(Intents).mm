@@ -28,14 +28,14 @@
 
 + (id)deferredLocalizedIntentsStringWithFormat:()Intents fromTable:
 {
-  v9 = [self deferredLocalizedIntentsStringWithFormat:a3 fromTable:a4 arguments:&a9];
+  v9 = [self deferredLocalizedIntentsStringWithFormat:a3 fromTable:a4 arguments:&a9, a6, a7, a8];
 
   return v9;
 }
 
 + (id)deferredLocalizedIntentsStringWithFormat:()Intents
 {
-  v9 = [self deferredLocalizedIntentsStringWithFormat:a3 fromTable:0 arguments:&a9];
+  v9 = [self deferredLocalizedIntentsStringWithFormat:a3 fromTable:0 arguments:&a9, a6, a7, a8];
 
   return v9;
 }

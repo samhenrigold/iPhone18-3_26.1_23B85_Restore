@@ -27,76 +27,73 @@
 + (void)supportedLocalesWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F825750, &qword_256055E80);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_2560537AC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_2560537AC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_256055C98;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_256055C98;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_256055CA0;
-  v13[5] = v12;
-  sub_25604B208(0, 0, v8, &unk_256055CA8, v13);
+  v12[4] = &unk_256055CA0;
+  v12[5] = v11;
+  sub_25604B208(0, 0, v7, &unk_256055CA8, v12);
 }
 
 + (void)installedLocalesWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F825750, &qword_256055E80);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_2560537AC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_2560537AC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_256055C78;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_256055C78;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_256055C80;
-  v13[5] = v12;
-  sub_25604B208(0, 0, v8, &unk_256055C88, v13);
+  v12[4] = &unk_256055C80;
+  v12[5] = v11;
+  sub_25604B208(0, 0, v7, &unk_256055C88, v12);
 }
 
 + (void)defaultLocaleWithCompletion:(id)completion
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F825750, &qword_256055E80);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_2560537AC();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_2560537AC();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_256055C58;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_256055C58;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_256055C60;
-  v13[5] = v12;
-  sub_25604B208(0, 0, v8, &unk_256055C68, v13);
+  v12[4] = &unk_256055C60;
+  v12[5] = v11;
+  sub_25604B208(0, 0, v7, &unk_256055C68, v12);
 }
 
 + (id)formattedLocaleIDsFrom:(id)from
@@ -124,28 +121,26 @@
 
 - (BOOL)startWithSource:(int64_t)source locale:(id)locale sharedRoute:(BOOL)route excludePIDs:(id)ds error:(id *)error transcriptionResult:(id)result
 {
-  v27[0] = error;
+  v25[0] = error;
   routeCopy = route;
   v14 = sub_25605347C();
   v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
   MEMORY[0x28223BE20](v14);
-  v18 = v27 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8256A8, &qword_2560559A0);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8);
-  v22 = v27 - v21;
-  v23 = _Block_copy(result);
+  v17 = v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8256A8, &qword_2560559A0);
+  MEMORY[0x28223BE20](v18 - 8);
+  v20 = v25 - v19;
+  v21 = _Block_copy(result);
   if (locale)
   {
     sub_25605342C();
-    (*(v15 + 32))(v22, v18, v14);
-    (*(v15 + 56))(v22, 0, 1, v14);
+    (*(v15 + 32))(v20, v17, v14);
+    (*(v15 + 56))(v20, 0, 1, v14);
   }
 
   else
   {
-    (*(v15 + 56))(v22, 1, 1, v14);
+    (*(v15 + 56))(v20, 1, 1, v14);
   }
 
   if (ds)
@@ -154,11 +149,11 @@
     sub_25605375C();
   }
 
-  v24 = swift_allocObject();
-  *(v24 + 16) = v23;
+  v22 = swift_allocObject();
+  *(v22 + 16) = v21;
   selfCopy = self;
-  sub_2560362AC(source, v22, routeCopy, sub_256036FC8, v24);
-  sub_256033238(v22, &qword_27F8256A8, &qword_2560559A0);
+  sub_2560362AC(source, v20, routeCopy, sub_256036FC8, v22);
+  sub_256033238(v20, &qword_27F8256A8, &qword_2560559A0);
 
   return 1;
 }

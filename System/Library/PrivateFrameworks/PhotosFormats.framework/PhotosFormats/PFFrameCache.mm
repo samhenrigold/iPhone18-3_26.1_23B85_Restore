@@ -166,7 +166,7 @@ void __54__PFFrameCache__frameGenerationQueue_updateFrameCache__block_invoke(voi
   }
 }
 
-uint64_t __54__PFFrameCache__frameGenerationQueue_updateFrameCache__block_invoke_3(uint64_t result, unint64_t a2, uint64_t a3)
+id *__54__PFFrameCache__frameGenerationQueue_updateFrameCache__block_invoke_3(id *result, unint64_t a2, uint64_t a3)
 {
   if (a2 < a2 + a3)
   {
@@ -181,7 +181,7 @@ uint64_t __54__PFFrameCache__frameGenerationQueue_updateFrameCache__block_invoke
     v11 = result;
     do
     {
-      result = [*(v11 + 32) _frameGenerationQueue_cacheFrameAtIndex:{v10++, v12, v13, v14, v15, v16, v17}];
+      result = [v11[4] _frameGenerationQueue_cacheFrameAtIndex:{v10++, v12, v13, v14, v15, v16, v17}];
       --v9;
     }
 
@@ -313,13 +313,13 @@ void __33__PFFrameCache__updateFrameCache__block_invoke(uint64_t a1)
   dispatch_sync(cacheIsolationQueue, block);
 }
 
-uint64_t __39__PFFrameCache__updateDesiredCacheSize__block_invoke(uint64_t result)
+void *__39__PFFrameCache__updateDesiredCacheSize__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 80) & 1) == 0)
   {
     *(v1 + 80) = 1;
-    v2 = *(result + 32);
+    v2 = *(result + 4);
     v3 = v2[11];
     v4 = 5;
     if (v3 != 2)
@@ -340,7 +340,7 @@ uint64_t __39__PFFrameCache__updateDesiredCacheSize__block_invoke(uint64_t resul
     if (v2[6] != v4)
     {
       v2[6] = v4;
-      return [*(result + 32) _invalidateCacheSize];
+      return [*(result + 4) _invalidateCacheSize];
     }
   }
 
@@ -367,14 +367,14 @@ uint64_t __39__PFFrameCache__updateDesiredCacheSize__block_invoke(uint64_t resul
   [(PFFrameCache *)self _updateIfNeeded];
 }
 
-uint64_t __33__PFFrameCache_setCacheStrategy___block_invoke(uint64_t result)
+void *__33__PFFrameCache_setCacheStrategy___block_invoke(void *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = *(result + 5);
   if (*(v1 + 88) != v2)
   {
     *(v1 + 88) = v2;
-    return [*(result + 32) _invalidateCacheSize];
+    return [*(result + 4) _invalidateCacheSize];
   }
 
   return result;

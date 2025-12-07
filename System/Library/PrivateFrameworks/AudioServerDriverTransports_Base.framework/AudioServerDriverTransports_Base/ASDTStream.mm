@@ -2,7 +2,9 @@
 + (id)streamForConfig:(id)config withDevice:(id)device;
 - (ASDTAudioDevice)device;
 - (ASDTStream)initWithConfig:(id)config withDevice:(id)device;
+- (ASDTStream)initWithDirection:(unsigned int)direction withDevice:(id)device;
 - (BOOL)setupPhysicalFormats:(id)formats;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)readInputBlock;
 - (id)readOrWriteBlock;
 - (id)writeMixBlock;
@@ -20,28 +22,44 @@
 
 + (id)streamForConfig:(id)config withDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configCopy = config;
   deviceCopy = device;
   asdtSubclass = [configCopy asdtSubclass];
-  if (([(objc_class *)asdtSubclass isSubclassOfClass:objc_opt_class()]& 1) != 0)
+  v8 = [asdtSubclass isSubclassOfClass:objc_opt_class()];
+  if (v8)
   {
-    v8 = [[asdtSubclass alloc] initWithConfig:configCopy withDevice:deviceCopy];
+    v10 = [[asdtSubclass alloc] initWithConfig:configCopy withDevice:deviceCopy];
   }
 
   else
   {
-    v9 = ASDTBaseLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ASDTBaseLogType(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v10 = [configCopy objectForKeyedSubscript:@"Subclass"];
-      [(ASDTStream *)v10 streamForConfig:v13 withDevice:v9];
+      v12 = [configCopy objectForKeyedSubscript:@"Subclass"];
+      [(ASDTStream *)v12 streamForConfig:v14 withDevice:v11];
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  return v10;
+}
+
+- (ASDTStream)initWithDirection:(unsigned int)direction withDevice:(id)device
+{
+  v4 = *&direction;
+  deviceCopy = device;
+  plugin = [deviceCopy plugin];
+  v10.receiver = self;
+  v10.super_class = ASDTStream;
+  v8 = [(ASDStream *)&v10 initWithDirection:v4 withPlugin:plugin];
+
+  if (v8)
+  {
+    [(ASDTStream *)v8 setDevice:deviceCopy];
+  }
 
   return v8;
 }
@@ -151,46 +169,46 @@ LABEL_10:
     while (v6);
   }
 
-  v13 = [v4 count];
-  if (v13)
+  v14 = [v4 count];
+  if (v14)
   {
     [(ASDStream *)self setPhysicalFormats:v4];
     v33 = 0u;
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v14 = v4;
-    v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
-    if (v15)
+    v15 = v4;
+    v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v16)
     {
-      v29 = v13;
-      v16 = *v32;
+      v29 = v14;
+      v17 = *v32;
       while (2)
       {
-        for (j = 0; j != v15; ++j)
+        for (j = 0; j != v16; ++j)
         {
-          if (*v32 != v16)
+          if (*v32 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * j);
-          [v18 sampleRate];
-          v20 = v19;
+          v19 = *(*(&v31 + 1) + 8 * j);
+          [v19 sampleRate];
+          v21 = v20;
           device2 = [(ASDTStream *)self device];
           [device2 samplingRate];
-          v23 = v20 == v22;
+          v24 = v21 == v23;
 
-          if (v23)
+          if (v24)
           {
-            [(ASDTStream *)self setPhysicalFormat:v18];
-            v13 = v29;
+            [(ASDTStream *)self setPhysicalFormat:v19];
+            v14 = v29;
             goto LABEL_23;
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
-        if (v15)
+        v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        if (v16)
         {
           continue;
         }
@@ -198,14 +216,14 @@ LABEL_10:
         break;
       }
 
-      v13 = v29;
+      v14 = v29;
     }
   }
 
   else
   {
-    v14 = ASDTBaseLogType();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = ASDTBaseLogType(0, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       device3 = [(ASDTStream *)self device];
       deviceUID = [device3 deviceUID];
@@ -214,14 +232,13 @@ LABEL_10:
       v41 = deviceUID;
       v42 = 2112;
       v43 = streamName;
-      _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "%@: %@: Stream has no formats.", buf, 0x16u);
+      _os_log_error_impl(&dword_241659000, v15, OS_LOG_TYPE_ERROR, "%@: %@: Stream has no formats.", buf, 0x16u);
     }
   }
 
 LABEL_23:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v13 != 0;
+  return v14 != 0;
 }
 
 - (void)setUpdateClientPositionCopy:(id)copy
@@ -236,35 +253,34 @@ LABEL_23:
 
 - (int)pmIdleStream:(int)stream
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(ASDTStream *)self setUpdateClientPositionCopy:0];
-  [(ASDTStream *)self setUpdateClientPositionUnretained:0];
-  if (*&self->_ioBufferFramesSizeMax)
+  v4 = [(ASDTStream *)self setUpdateClientPositionUnretained:0];
+  if (self->_ioBufferFramesSizeMax || self->_ioBufferFramesUnexpectedSizeCount)
   {
-    v4 = ASDTBaseLogType();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = ASDTBaseLogType(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       device = [(ASDTStream *)self device];
       deviceUID = [device deviceUID];
       streamName = [(ASDStream *)self streamName];
       ioBufferFramesSizeMax = self->_ioBufferFramesSizeMax;
       ioBufferFramesUnexpectedSizeCount = self->_ioBufferFramesUnexpectedSizeCount;
-      v12 = 138413058;
-      v13 = deviceUID;
-      v14 = 2112;
-      v15 = streamName;
-      v16 = 1024;
-      v17 = ioBufferFramesSizeMax;
-      v18 = 1024;
-      v19 = ioBufferFramesUnexpectedSizeCount;
-      _os_log_impl(&dword_241659000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@: Maximum frames per IO: %u, unexpected size cycles: %u", &v12, 0x22u);
+      v13 = 138413058;
+      v14 = deviceUID;
+      v15 = 2112;
+      v16 = streamName;
+      v17 = 1024;
+      v18 = ioBufferFramesSizeMax;
+      v19 = 1024;
+      v20 = ioBufferFramesUnexpectedSizeCount;
+      _os_log_impl(&dword_241659000, v6, OS_LOG_TYPE_DEFAULT, "%@:%@: Maximum frames per IO: %u, unexpected size cycles: %u", &v13, 0x22u);
     }
 
     self->_ioBufferFramesSizeMax = 0;
     self->_ioBufferFramesUnexpectedSizeCount = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -557,7 +573,7 @@ uint64_t __30__ASDTStream_readOrWriteBlock__block_invoke(uint64_t a1, unsigned i
 
 - (void)writeZerosToMixMilliseconds:(unsigned int)milliseconds atSampleTime:(unint64_t)time
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   physicalFormat = [(ASDStream *)self physicalFormat];
   [physicalFormat sampleRate];
   v9 = v8;
@@ -567,247 +583,308 @@ uint64_t __30__ASDTStream_readOrWriteBlock__block_invoke(uint64_t a1, unsigned i
 
   ioBufferSize = [(ASDTStream *)self ioBufferSize];
   ioBufferRef = [(ASDTStream *)self ioBufferRef];
-  if (!ioBufferRef || (v14 = *ioBufferRef) == 0 || !ioBufferSize || [(ASDStream *)self direction]== 1768845428)
+  if (ioBufferRef)
   {
-LABEL_72:
-    v40 = *MEMORY[0x277D85DE8];
-    return;
+    v14 = *ioBufferRef;
+    if (*ioBufferRef)
+    {
+      if (ioBufferSize)
+      {
+        direction = [(ASDStream *)self direction];
+        if (direction != 1768845428)
+        {
+          v17 = (v9 / 1000.0 * milliseconds);
+          v18 = bytesPerFrame * v17;
+          if (v18 >= ioBufferSize)
+          {
+
+            [(ASDTStream *)self clearBuffer];
+          }
+
+          else
+          {
+            v19 = ASDTBaseLogType(direction, v16);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            {
+              WeakRetained = objc_loadWeakRetained(&self->_device);
+              deviceUID = [WeakRetained deviceUID];
+              *buf = 138412802;
+              v54 = deviceUID;
+              v55 = 2048;
+              timeCopy = time;
+              v57 = 1024;
+              v58 = v17;
+              _os_log_debug_impl(&dword_241659000, v19, OS_LOG_TYPE_DEBUG, "%@ Sample time: %llu, Zero frames: %u", buf, 0x1Cu);
+            }
+
+            updateClientPositionBlock = [(ASDTStream *)self updateClientPositionBlock];
+            v52 = updateClientPositionBlock;
+            v22 = time % (ioBufferSize / bytesPerFrame) * bytesPerFrame;
+            v23 = ioBufferSize - v22;
+            if (v23 >= v18)
+            {
+              v24 = bytesPerFrame * v17;
+            }
+
+            else
+            {
+              v24 = ioBufferSize - v22;
+            }
+
+            v25 = ASDTBaseLogType(updateClientPositionBlock, v21);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            {
+              device = [(ASDTStream *)self device];
+              deviceUID2 = [device deviceUID];
+              *buf = 138412802;
+              v54 = deviceUID2;
+              v55 = 2048;
+              timeCopy = v22;
+              v57 = 1024;
+              v58 = v24;
+              _os_log_debug_impl(&dword_241659000, v25, OS_LOG_TYPE_DEBUG, "%@ First fill to offset %llu size %u", buf, 0x1Cu);
+            }
+
+            v28 = ASDTBaseLogType(v26, v27);
+            v29 = v18 - v24;
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            {
+              device2 = [(ASDTStream *)self device];
+              deviceUID3 = [device2 deviceUID];
+              *buf = 138412546;
+              v54 = deviceUID3;
+              v55 = 1024;
+              LODWORD(timeCopy) = v18 - v24;
+              _os_log_debug_impl(&dword_241659000, v28, OS_LOG_TYPE_DEBUG, "%@ Second fill to offset 0 size %u", buf, 0x12u);
+            }
+
+            if (v24)
+            {
+              v30 = 0;
+              v31 = vdupq_n_s64(v24 - 1);
+              v32 = &v14[v22];
+              do
+              {
+                v33 = vdupq_n_s64(v30);
+                v34 = vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4D30)));
+                if (vuzp1_s8(vuzp1_s16(v34, *v31.i8), *v31.i8).u8[0])
+                {
+                  v32[v30] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(v34, *&v31), *&v31).i8[1])
+                {
+                  v32[v30 + 1] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(*&v31, vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4D20)))), *&v31).i8[2])
+                {
+                  v32[v30 + 2] = 0;
+                  v32[v30 + 3] = 0;
+                }
+
+                v35 = vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4D10)));
+                if (vuzp1_s8(*&v31, vuzp1_s16(v35, *&v31)).i32[1])
+                {
+                  v32[v30 + 4] = 0;
+                }
+
+                if (vuzp1_s8(*&v31, vuzp1_s16(v35, *&v31)).i8[5])
+                {
+                  v32[v30 + 5] = 0;
+                }
+
+                if (vuzp1_s8(*&v31, vuzp1_s16(*&v31, vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4D00))))).i8[6])
+                {
+                  v32[v30 + 6] = 0;
+                  v32[v30 + 7] = 0;
+                }
+
+                v36 = vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4CF0)));
+                if (vuzp1_s8(vuzp1_s16(v36, *v31.i8), *v31.i8).u8[0])
+                {
+                  v32[v30 + 8] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(v36, *&v31), *&v31).i8[1])
+                {
+                  v32[v30 + 9] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(*&v31, vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4CE0)))), *&v31).i8[2])
+                {
+                  v32[v30 + 10] = 0;
+                  v32[v30 + 11] = 0;
+                }
+
+                v37 = vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4CD0)));
+                if (vuzp1_s8(*&v31, vuzp1_s16(v37, *&v31)).i32[1])
+                {
+                  v32[v30 + 12] = 0;
+                }
+
+                if (vuzp1_s8(*&v31, vuzp1_s16(v37, *&v31)).i8[5])
+                {
+                  v32[v30 + 13] = 0;
+                }
+
+                if (vuzp1_s8(*&v31, vuzp1_s16(*&v31, vmovn_s64(vcgeq_u64(v31, vorrq_s8(v33, xmmword_2416A4CC0))))).i8[6])
+                {
+                  v32[v30 + 14] = 0;
+                  v32[v30 + 15] = 0;
+                }
+
+                v30 += 16;
+              }
+
+              while (((v24 + 15) & 0x1FFFFFFF0) != v30);
+            }
+
+            if (v23 < v18)
+            {
+              v38 = vdupq_n_s64(v29 - 1);
+              v39 = v14 + 7;
+              v40 = 15;
+              do
+              {
+                v41 = vdupq_n_s64(v40 - 15);
+                v42 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4D30)));
+                if (vuzp1_s8(vuzp1_s16(v42, *v38.i8), *v38.i8).u8[0])
+                {
+                  *(v39 - 7) = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(v42, *&v38), *&v38).i8[1])
+                {
+                  *(v39 - 6) = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(*&v38, vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4D20)))), *&v38).i8[2])
+                {
+                  *(v39 - 5) = 0;
+                  *(v39 - 4) = 0;
+                }
+
+                v43 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4D10)));
+                if (vuzp1_s8(*&v38, vuzp1_s16(v43, *&v38)).i32[1])
+                {
+                  *(v39 - 3) = 0;
+                }
+
+                if (vuzp1_s8(*&v38, vuzp1_s16(v43, *&v38)).i8[5])
+                {
+                  *(v39 - 2) = 0;
+                }
+
+                if (vuzp1_s8(*&v38, vuzp1_s16(*&v38, vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4D00))))).i8[6])
+                {
+                  *(v39 - 1) = 0;
+                  *v39 = 0;
+                }
+
+                v44 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4CF0)));
+                if (vuzp1_s8(vuzp1_s16(v44, *v38.i8), *v38.i8).u8[0])
+                {
+                  v39[1] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(v44, *&v38), *&v38).i8[1])
+                {
+                  v39[2] = 0;
+                }
+
+                if (vuzp1_s8(vuzp1_s16(*&v38, vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4CE0)))), *&v38).i8[2])
+                {
+                  v39[3] = 0;
+                  v39[4] = 0;
+                }
+
+                v45 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4CD0)));
+                if (vuzp1_s8(*&v38, vuzp1_s16(v45, *&v38)).i32[1])
+                {
+                  v39[5] = 0;
+                }
+
+                if (vuzp1_s8(*&v38, vuzp1_s16(v45, *&v38)).i8[5])
+                {
+                  v39[6] = 0;
+                }
+
+                if (vuzp1_s8(*&v38, vuzp1_s16(*&v38, vmovn_s64(vcgeq_u64(v38, vorrq_s8(v41, xmmword_2416A4CC0))))).i8[6])
+                {
+                  v39[7] = 0;
+                  v39[8] = 0;
+                }
+
+                v40 += 16;
+                v39 += 16;
+              }
+
+              while (v40 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0) != 15);
+            }
+
+            if (v52)
+            {
+              v52[2](v52, time + v17);
+            }
+          }
+        }
+      }
+    }
   }
+}
 
-  v15 = (v9 / 1000.0 * milliseconds);
-  v16 = bytesPerFrame * v15;
-  if (v16 < ioBufferSize)
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v26 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v24.receiver = self;
+  v24.super_class = ASDTStream;
+  v7 = [(ASDStream *)&v24 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  [v7 appendFormat:@"%@|    ioBufferSize:        %u\n", indentCopy, -[ASDTStream ioBufferSize](self, "ioBufferSize")];
+  latencies = [(ASDTStream *)self latencies];
+  v9 = [latencies count] == 0;
+
+  if (!v9)
   {
-    v17 = ASDTBaseLogType();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-    {
-      WeakRetained = objc_loadWeakRetained(&self->_device);
-      deviceUID = [WeakRetained deviceUID];
-      *buf = 138412802;
-      v50 = deviceUID;
-      v51 = 2048;
-      timeCopy = time;
-      v53 = 1024;
-      v54 = v15;
-      _os_log_debug_impl(&dword_241659000, v17, OS_LOG_TYPE_DEBUG, "%@ Sample time: %llu, Zero frames: %u", buf, 0x1Cu);
-    }
+    [v7 appendFormat:@"%@|    latencies (sampeRate : frames):\n", indentCopy];
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    latencies2 = [(ASDTStream *)self latencies];
+    obj = [latencies2 allKeys];
 
-    updateClientPositionBlock = [(ASDTStream *)self updateClientPositionBlock];
-    v18 = time % (ioBufferSize / bytesPerFrame) * bytesPerFrame;
-    v19 = ioBufferSize - v18;
-    if (v19 >= v16)
+    v11 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+    if (v11)
     {
-      v20 = bytesPerFrame * v15;
-    }
-
-    else
-    {
-      v20 = ioBufferSize - v18;
-    }
-
-    v21 = ASDTBaseLogType();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-    {
-      device = [(ASDTStream *)self device];
-      deviceUID2 = [device deviceUID];
-      *buf = 138412802;
-      v50 = deviceUID2;
-      v51 = 2048;
-      timeCopy = v18;
-      v53 = 1024;
-      v54 = v20;
-      _os_log_debug_impl(&dword_241659000, v21, OS_LOG_TYPE_DEBUG, "%@ First fill to offset %llu size %u", buf, 0x1Cu);
-    }
-
-    v22 = ASDTBaseLogType();
-    v23 = v16 - v20;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
-    {
-      device2 = [(ASDTStream *)self device];
-      deviceUID3 = [device2 deviceUID];
-      *buf = 138412546;
-      v50 = deviceUID3;
-      v51 = 1024;
-      LODWORD(timeCopy) = v16 - v20;
-      _os_log_debug_impl(&dword_241659000, v22, OS_LOG_TYPE_DEBUG, "%@ Second fill to offset 0 size %u", buf, 0x12u);
-    }
-
-    if (v20)
-    {
-      v24 = 0;
-      v25 = vdupq_n_s64(v20 - 1);
-      v26 = &v14[v18];
+      v12 = *v21;
       do
       {
-        v27 = vdupq_n_s64(v24);
-        v28 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4D30)));
-        if (vuzp1_s8(vuzp1_s16(v28, *v25.i8), *v25.i8).u8[0])
+        for (i = 0; i != v11; ++i)
         {
-          v26[v24] = 0;
+          if (*v21 != v12)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v14 = *(*(&v20 + 1) + 8 * i);
+          latencies3 = [(ASDTStream *)self latencies];
+          v16 = [latencies3 objectForKeyedSubscript:v14];
+
+          [v14 doubleValue];
+          [v7 appendFormat:@"%@|        %6.0lf : %u\n", indentCopy, v17, objc_msgSend(v16, "unsignedIntValue")];
         }
 
-        if (vuzp1_s8(vuzp1_s16(v28, *&v25), *&v25).i8[1])
-        {
-          v26[v24 + 1] = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4D20)))), *&v25).i8[2])
-        {
-          v26[v24 + 2] = 0;
-          v26[v24 + 3] = 0;
-        }
-
-        v29 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4D10)));
-        if (vuzp1_s8(*&v25, vuzp1_s16(v29, *&v25)).i32[1])
-        {
-          v26[v24 + 4] = 0;
-        }
-
-        if (vuzp1_s8(*&v25, vuzp1_s16(v29, *&v25)).i8[5])
-        {
-          v26[v24 + 5] = 0;
-        }
-
-        if (vuzp1_s8(*&v25, vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4D00))))).i8[6])
-        {
-          v26[v24 + 6] = 0;
-          v26[v24 + 7] = 0;
-        }
-
-        v30 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4CF0)));
-        if (vuzp1_s8(vuzp1_s16(v30, *v25.i8), *v25.i8).u8[0])
-        {
-          v26[v24 + 8] = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(v30, *&v25), *&v25).i8[1])
-        {
-          v26[v24 + 9] = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4CE0)))), *&v25).i8[2])
-        {
-          v26[v24 + 10] = 0;
-          v26[v24 + 11] = 0;
-        }
-
-        v31 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4CD0)));
-        if (vuzp1_s8(*&v25, vuzp1_s16(v31, *&v25)).i32[1])
-        {
-          v26[v24 + 12] = 0;
-        }
-
-        if (vuzp1_s8(*&v25, vuzp1_s16(v31, *&v25)).i8[5])
-        {
-          v26[v24 + 13] = 0;
-        }
-
-        if (vuzp1_s8(*&v25, vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_2416A4CC0))))).i8[6])
-        {
-          v26[v24 + 14] = 0;
-          v26[v24 + 15] = 0;
-        }
-
-        v24 += 16;
+        v11 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
-      while (((v20 + 15) & 0x1FFFFFFF0) != v24);
+      while (v11);
     }
-
-    if (v19 < v16)
-    {
-      v32 = vdupq_n_s64(v23 - 1);
-      v33 = v14 + 7;
-      v34 = 15;
-      do
-      {
-        v35 = vdupq_n_s64(v34 - 15);
-        v36 = vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4D30)));
-        if (vuzp1_s8(vuzp1_s16(v36, *v32.i8), *v32.i8).u8[0])
-        {
-          *(v33 - 7) = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(v36, *&v32), *&v32).i8[1])
-        {
-          *(v33 - 6) = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4D20)))), *&v32).i8[2])
-        {
-          *(v33 - 5) = 0;
-          *(v33 - 4) = 0;
-        }
-
-        v37 = vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4D10)));
-        if (vuzp1_s8(*&v32, vuzp1_s16(v37, *&v32)).i32[1])
-        {
-          *(v33 - 3) = 0;
-        }
-
-        if (vuzp1_s8(*&v32, vuzp1_s16(v37, *&v32)).i8[5])
-        {
-          *(v33 - 2) = 0;
-        }
-
-        if (vuzp1_s8(*&v32, vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4D00))))).i8[6])
-        {
-          *(v33 - 1) = 0;
-          *v33 = 0;
-        }
-
-        v38 = vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4CF0)));
-        if (vuzp1_s8(vuzp1_s16(v38, *v32.i8), *v32.i8).u8[0])
-        {
-          v33[1] = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(v38, *&v32), *&v32).i8[1])
-        {
-          v33[2] = 0;
-        }
-
-        if (vuzp1_s8(vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4CE0)))), *&v32).i8[2])
-        {
-          v33[3] = 0;
-          v33[4] = 0;
-        }
-
-        v39 = vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4CD0)));
-        if (vuzp1_s8(*&v32, vuzp1_s16(v39, *&v32)).i32[1])
-        {
-          v33[5] = 0;
-        }
-
-        if (vuzp1_s8(*&v32, vuzp1_s16(v39, *&v32)).i8[5])
-        {
-          v33[6] = 0;
-        }
-
-        if (vuzp1_s8(*&v32, vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v35, xmmword_2416A4CC0))))).i8[6])
-        {
-          v33[7] = 0;
-          v33[8] = 0;
-        }
-
-        v34 += 16;
-        v33 += 16;
-      }
-
-      while (v34 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0) != 15);
-    }
-
-    if (updateClientPositionBlock)
-    {
-      updateClientPositionBlock[2](updateClientPositionBlock, time + v15);
-    }
-
-    goto LABEL_72;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  [(ASDTStream *)self clearBuffer];
+  return v7;
 }
 
 - (ASDTAudioDevice)device

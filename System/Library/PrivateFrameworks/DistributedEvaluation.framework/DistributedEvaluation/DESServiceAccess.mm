@@ -24,7 +24,7 @@
 
 + (BOOL)hasOnDemandLaunchEntitlement:(id)entitlement
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   if ([self hasMLRCtlEntitlement:entitlementCopy])
   {
@@ -46,35 +46,35 @@
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       bundleIdentifier = [mainBundle bundleIdentifier];
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v9 = v5;
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v17 + 1) + 8 * i);
+            v14 = *(*(&v16 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) != 0 && ([bundleIdentifier isEqualToString:v14, v17]& 1) != 0)
+            if ((objc_opt_isKindOfClass() & 1) != 0 && ([bundleIdentifier isEqualToString:v14, v16]& 1) != 0)
             {
               v6 = 1;
               goto LABEL_22;
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v11)
           {
             continue;
@@ -106,37 +106,33 @@ LABEL_22:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (void)hasOnDemandLaunchEntitlement:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.mlruntime.host.ondemandplugin";
-  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Missing key=%@ or wrong type", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.mlruntime.host.ondemandplugin";
+  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Missing key=%@ or wrong type", &v1, 0xCu);
 }
 
 + (void)hasOnDemandLaunchEntitlement:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"com.apple.mlruntime.host.ondemandplugin";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Missing element in key=%@ with expected value=%@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"com.apple.mlruntime.host.ondemandplugin";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Missing element in key=%@ with expected value=%@", &v2, 0x16u);
 }
 
 + (void)hasOnDemandLaunchEntitlement:(os_log_t)log .cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.mlruntime.host.ondemandplugin";
-  _os_log_debug_impl(&dword_248FF7000, log, OS_LOG_TYPE_DEBUG, "Bypass check for %@ for internal tool", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.mlruntime.host.ondemandplugin";
+  _os_log_debug_impl(&dword_248FF7000, log, OS_LOG_TYPE_DEBUG, "Bypass check for %@ for internal tool", &v1, 0xCu);
 }
 
 @end

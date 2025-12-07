@@ -35,7 +35,7 @@
 
 - (void)computeAlignedWordsFromSession:(id)session
 {
-  v305 = *MEMORY[0x277D85DE8];
+  v304 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   userActionHistory = [sessionCopy userActionHistory];
   v5 = [userActionHistory count];
@@ -53,21 +53,21 @@
     documentState = [firstObject documentState];
     contextBeforeInput = [documentState contextBeforeInput];
     whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-    v253 = [contextBeforeInput stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+    v252 = [contextBeforeInput stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-    string = [MEMORY[0x277CCAB68] string];
-    v255 = sessionCopy;
-    v271 = v6;
-    v261 = v8;
+    v264 = objc_msgSend_string(MEMORY[0x277CCAB68]);
+    v254 = sessionCopy;
+    v270 = v6;
+    v260 = v8;
     if (v8)
     {
       v14 = 0;
-      v264 = 0;
+      v263 = 0;
       v15 = 0;
       isContinuousPathConversion2 = 0;
-      v270 = 0;
-      v262 = 0;
       v269 = 0;
+      v261 = 0;
+      v268 = 0;
       v16 = 0;
       while (1)
       {
@@ -90,30 +90,30 @@
             originalWordEntries = [v14 originalWordEntries];
             [sessionCopy setOriginalWords:originalWordEntries];
 
-            v298 = 0u;
-            v299 = 0u;
-            v296 = 0u;
             v297 = 0u;
+            v298 = 0u;
+            v295 = 0u;
+            v296 = 0u;
             originalWords = [sessionCopy originalWords];
-            v40 = [originalWords countByEnumeratingWithState:&v296 objects:v304 count:16];
+            v40 = [originalWords countByEnumeratingWithState:&v295 objects:v303 count:16];
             if (v40)
             {
               v41 = v40;
               v42 = v14;
-              v43 = *v297;
+              v43 = *v296;
               do
               {
                 for (i = 0; i != v41; ++i)
                 {
-                  if (*v297 != v43)
+                  if (*v296 != v43)
                   {
                     objc_enumerationMutation(originalWords);
                   }
 
-                  [(TIDocumentWordsAligned *)v6 pushWordToDocument:*(*(&v296 + 1) + 8 * i)];
+                  [(TIDocumentWordsAligned *)v6 pushWordToDocument:*(*(&v295 + 1) + 8 * i)];
                 }
 
-                v41 = [originalWords countByEnumeratingWithState:&v296 objects:v304 count:16];
+                v41 = [originalWords countByEnumeratingWithState:&v295 objects:v303 count:16];
               }
 
               while (v41);
@@ -124,12 +124,12 @@
             goto LABEL_176;
           }
 
-          v262 = 0;
+          v261 = 0;
           v16 = 0;
           goto LABEL_178;
         }
 
-        v263 = v16;
+        v262 = v16;
         if ([v14 actionType])
         {
           if ([v14 actionType] == 1 && -[TIDocumentWordsAligned wordsCount](v6, "wordsCount"))
@@ -146,26 +146,26 @@
             {
               v28 = [(TIDocumentWordsAligned *)v6 wordsFromContext:contextBeforeInput2];
 
-              v282 = 0u;
-              v283 = 0u;
-              v280 = 0u;
               v281 = 0u;
+              v282 = 0u;
+              v279 = 0u;
+              v280 = 0u;
               lastObject = v28;
-              v30 = [lastObject countByEnumeratingWithState:&v280 objects:v300 count:16];
+              v30 = [lastObject countByEnumeratingWithState:&v279 objects:v299 count:16];
               if (v30)
               {
                 v31 = v30;
-                v32 = *v281;
+                v32 = *v280;
                 do
                 {
                   for (j = 0; j != v31; ++j)
                   {
-                    if (*v281 != v32)
+                    if (*v280 != v32)
                     {
                       objc_enumerationMutation(lastObject);
                     }
 
-                    v34 = *(*(&v280 + 1) + 8 * j);
+                    v34 = *(*(&v279 + 1) + 8 * j);
                     editedEntry = [v34 editedEntry];
 
                     if (editedEntry)
@@ -174,12 +174,12 @@
                     }
                   }
 
-                  v31 = [lastObject countByEnumeratingWithState:&v280 objects:v300 count:16];
+                  v31 = [lastObject countByEnumeratingWithState:&v279 objects:v299 count:16];
                 }
 
                 while (v31);
                 v36 = lastObject;
-                sessionCopy = v255;
+                sessionCopy = v254;
               }
 
               else
@@ -240,7 +240,7 @@ LABEL_174:
                     }
                   }
 
-                  v6 = v271;
+                  v6 = v270;
 LABEL_170:
                   [lastObject setUnfinishedWordEntryTreatment:v60];
                 }
@@ -272,13 +272,13 @@ LABEL_170:
                 {
                   allKeyboardInputs4 = [lastObject allKeyboardInputs];
                   lastObject2 = [allKeyboardInputs4 lastObject];
-                  string2 = [lastObject2 string];
+                  v125 = objc_msgSend_string(lastObject2);
                   whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-                  v127 = [string2 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-                  v275 = [v127 length];
+                  v127 = [v125 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+                  v274 = [v127 length];
 
                   isContinuousPathConversion2 = 1;
-                  if (!v275)
+                  if (!v274)
                   {
                     [lastObject setUnfinishedWordEntryTreatment:1];
                   }
@@ -289,12 +289,12 @@ LABEL_170:
                 isContinuousPathConversion2 = 1;
               }
 
-              v6 = v271;
+              v6 = v270;
               goto LABEL_173;
             }
 
 LABEL_222:
-            v6 = v271;
+            v6 = v270;
             goto LABEL_172;
           }
 
@@ -303,27 +303,27 @@ LABEL_222:
             originalWords = v14;
             if ([originalWords isSelection])
             {
-              if ([v264 actionType] == 2)
+              if ([v263 actionType] == 2)
               {
-                v36 = v269;
-                v270 = 1;
-                v269 = v264;
+                v36 = v268;
+                v269 = 1;
+                v268 = v263;
                 goto LABEL_174;
               }
 
-              v270 = 1;
+              v269 = 1;
 LABEL_175:
-              v16 = v263;
+              v16 = v262;
             }
 
 LABEL_176:
 
 LABEL_177:
-            v262 = 0;
+            v261 = 0;
 LABEL_178:
             v214 = v14;
 
-            v264 = v214;
+            v263 = v214;
             goto LABEL_179;
           }
 
@@ -337,17 +337,17 @@ LABEL_178:
         {
           [v38 setDeleted:1];
 LABEL_28:
-          v262 = 0;
+          v261 = 0;
           goto LABEL_179;
         }
 
-        [v38 setFollowsContinuousPath:v262 & 1];
+        [v38 setFollowsContinuousPath:v261 & 1];
         acceptedCandidate = [v38 acceptedCandidate];
         isContinuousPathConversion = [acceptedCandidate isContinuousPathConversion];
 
         acceptedString = [v15 acceptedString];
-        v262 = isContinuousPathConversion;
-        if (([acceptedString isEqualToString:&stru_283FDFAF8] & 1) == 0)
+        v261 = isContinuousPathConversion;
+        if ((objc_msgSend_isEqualToString_(acceptedString) & 1) == 0)
         {
           break;
         }
@@ -367,9 +367,9 @@ LABEL_43:
         acceptedCandidate2 = [acceptedString acceptedCandidate];
         candidate = [acceptedCandidate2 candidate];
         lastWord = [(TIDocumentWordsAligned *)v6 lastWord];
-        v56 = [candidate isEqualToString:lastWord];
+        isEqualToString = objc_msgSend_isEqualToString_(candidate);
 
-        if (!v56)
+        if (!isEqualToString)
         {
           v14 = v51;
           goto LABEL_54;
@@ -377,20 +377,20 @@ LABEL_43:
 
         v15 = v15;
 
-        v264 = v15;
+        v263 = v15;
         v14 = v51;
-        v16 = v263;
+        v16 = v262;
 LABEL_179:
         ++v16;
         v215 = v15;
-        if (v16 == v261)
+        if (v16 == v260)
         {
           goto LABEL_233;
         }
       }
 
       acceptedString2 = [v15 acceptedString];
-      if ([acceptedString2 isEqualToString:@" "])
+      if (objc_msgSend_isEqualToString_(acceptedString2))
       {
         candidateContainsEmoji2 = [v15 candidateContainsEmoji];
 
@@ -404,7 +404,7 @@ LABEL_179:
 
 LABEL_54:
 LABEL_55:
-      v257 = v14;
+      v256 = v14;
       allKeyboardInputs6 = [v15 allKeyboardInputs];
       if ([allKeyboardInputs6 count])
       {
@@ -425,15 +425,15 @@ LABEL_60:
           whitespaceAndNewlineCharacterSet3 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
           v71 = [input componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet3];
 
-          v260 = v67;
+          v259 = v67;
           v72 = [v67 count];
-          v259 = v71;
+          v258 = v71;
           v73 = [v71 count];
           inDocumentWordsStack2 = [(TIDocumentWordsAligned *)v6 inDocumentWordsStack];
           v75 = [inDocumentWordsStack2 count];
 
-          v14 = v257;
-          v268 = v15;
+          v14 = v256;
+          v267 = v15;
           if (v72 >= 2 && v72 == v73)
           {
             documentContextBeforeInput = [v15 documentContextBeforeInput];
@@ -457,25 +457,25 @@ LABEL_60:
                     v82 = v72;
                   }
 
-                  v272 = v82;
+                  v271 = v82;
                   v84 = v78;
                   while (1)
                   {
-                    inDocumentWordsStack4 = [(TIDocumentWordsAligned *)v271 inDocumentWordsStack];
+                    inDocumentWordsStack4 = [(TIDocumentWordsAligned *)v270 inDocumentWordsStack];
                     v86 = [inDocumentWordsStack4 objectAtIndexedSubscript:v81];
 
-                    v87 = [v260 objectAtIndexedSubscript:v83];
-                    v88 = [v259 objectAtIndexedSubscript:v83];
+                    v87 = [v259 objectAtIndexedSubscript:v83];
+                    v88 = [v258 objectAtIndexedSubscript:v83];
                     acceptedCandidate4 = [v86 acceptedCandidate];
                     candidate2 = [acceptedCandidate4 candidate];
-                    v274 = v88;
-                    if ([v87 isEqualToString:candidate2])
+                    v273 = v88;
+                    if (objc_msgSend_isEqualToString_(v87))
                     {
                       acceptedCandidate5 = [v86 acceptedCandidate];
                       input2 = [acceptedCandidate5 input];
-                      v93 = [v88 isEqualToString:input2];
+                      v93 = objc_msgSend_isEqualToString_(v88);
 
-                      v15 = v268;
+                      v15 = v267;
                       if (v93)
                       {
                         goto LABEL_73;
@@ -486,7 +486,7 @@ LABEL_60:
                     {
                     }
 
-                    [(TIDocumentWordsAligned *)v271 removeFromContextMap:v86];
+                    [(TIDocumentWordsAligned *)v270 removeFromContextMap:v86];
                     acceptedCandidate6 = [v15 acceptedCandidate];
                     acceptedCandidate7 = [v86 acceptedCandidate];
                     input3 = [acceptedCandidate7 input];
@@ -505,10 +505,10 @@ LABEL_60:
                     v105 = [v100 documentStateWithContextBefore:v84 selectedText:selectedText contextAfter:contextAfterInput2];
                     [v86 setDocumentState:v105];
 
-                    v15 = v268;
+                    v15 = v267;
                     [v86 setWordEntryType:{objc_msgSend(v86, "wordEntryType") | 1}];
                     [v86 setIsRetrocorrection:1];
-                    [(TIDocumentWordsAligned *)v271 addToContextMap:v86];
+                    [(TIDocumentWordsAligned *)v270 addToContextMap:v86];
 LABEL_73:
                     v106 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v84, v87];
 
@@ -516,11 +516,11 @@ LABEL_73:
                     ++v81;
 
                     v84 = v106;
-                    if (v272 == v83)
+                    if (v271 == v83)
                     {
                       acceptedCandidate9 = [v15 acceptedCandidate];
-                      lastObject3 = [v260 lastObject];
-                      lastObject4 = [v259 lastObject];
+                      lastObject3 = [v259 lastObject];
+                      lastObject4 = [v258 lastObject];
                       v110 = [acceptedCandidate9 candidateByReplacingWithCandidate:lastObject3 input:lastObject4];
                       [v15 setAcceptedCandidate:v110];
 
@@ -536,9 +536,9 @@ LABEL_73:
                       v118 = [v113 documentStateWithContextBefore:v106 selectedText:selectedText2 contextAfter:contextAfterInput3];
                       [v15 setDocumentState:v118];
 
-                      sessionCopy = v255;
-                      v6 = v271;
-                      v14 = v257;
+                      sessionCopy = v254;
+                      v6 = v270;
+                      v14 = v256;
                       v77 = obj;
                       goto LABEL_83;
                     }
@@ -547,7 +547,7 @@ LABEL_73:
               }
 
               v106 = v78;
-              v14 = v257;
+              v14 = v256;
             }
 
             else
@@ -570,35 +570,35 @@ LABEL_83:
           v132 = v131;
 
           whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-          v254 = v132;
+          v253 = v132;
           v134 = [(__CFString *)v132 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
           v135 = [(TIDocumentWordsAligned *)v6 wordsForContext:v134];
 
           obja = v135;
-          if (![v135 count] && (objc_msgSend(v264, "actionType") != 2 || !-[TIDocumentWordsAligned wordsCount](v6, "wordsCount")))
+          if (![v135 count] && (objc_msgSend(v263, "actionType") != 2 || !-[TIDocumentWordsAligned wordsCount](v6, "wordsCount")))
           {
             [v15 setWordAlignmentConf:3];
-            v16 = v263;
-            if (v263)
+            v16 = v262;
+            if (v262)
             {
               v146 = [(TIDocumentWordsAligned *)v6 description];
-              if ([v253 length])
+              if ([v252 length])
               {
-                v254 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v146, v254];
+                v253 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v146, v253];
 
-                v146 = v254;
+                v146 = v253;
               }
 
               whitespaceAndNewlineCharacterSet4 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-              v212 = [(__CFString *)v254 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet4];
+              v212 = [(__CFString *)v253 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet4];
 
-              if (v212 && ([v146 isEqualToString:v212] & 1) == 0)
+              if (v212 && (objc_msgSend_isEqualToString_(v146) & 1) == 0)
               {
                 [v15 setWordAlignmentConf:2];
               }
 
-              v14 = v257;
-              v16 = v263;
+              v14 = v256;
+              v16 = v262;
             }
 
             [(TIDocumentWordsAligned *)v6 pushWordToDocument:v15];
@@ -606,11 +606,11 @@ LABEL_83:
             goto LABEL_229;
           }
 
-          v16 = v263;
-          if ([v264 actionType] == 2 || objc_msgSend(v264, "actionType") == 10)
+          v16 = v262;
+          if ([v263 actionType] == 2 || objc_msgSend(v263, "actionType") == 10)
           {
-            v136 = v264;
-            v278 = v136;
+            v136 = v263;
+            v277 = v136;
             if (![v136 extendsPriorWord])
             {
               [v15 setWordAlignmentConf:1];
@@ -639,18 +639,18 @@ LABEL_83:
                   acceptedCandidate12 = [lastObject5 acceptedCandidate];
                   candidate5 = [acceptedCandidate12 candidate];
                   acceptedString4 = [v15 acceptedString];
-                  v145 = [candidate5 isEqualToString:acceptedString4];
+                  v145 = objc_msgSend_isEqualToString_(candidate5);
 
                   if (v145)
                   {
 
 LABEL_185:
                     v202 = 0;
-                    v6 = v271;
+                    v6 = v270;
 LABEL_228:
-                    v16 = v263;
+                    v16 = v262;
 LABEL_229:
-                    v201 = v254;
+                    v201 = v253;
 LABEL_230:
 
                     if ((v202 & 1) == 0)
@@ -665,14 +665,14 @@ LABEL_230:
                   input4 = [acceptedCandidate13 input];
                   acceptedCandidate14 = [lastObject5 acceptedCandidate];
                   candidate6 = [acceptedCandidate14 candidate];
-                  v220 = [input4 isEqualToString:candidate6];
+                  v220 = objc_msgSend_isEqualToString_(input4);
 
                   if ((v220 & 1) == 0)
                   {
                     goto LABEL_185;
                   }
 
-                  v6 = v271;
+                  v6 = v270;
                 }
 
                 goto LABEL_109;
@@ -699,31 +699,31 @@ LABEL_230:
 LABEL_109:
             if ([obja count])
             {
-              v294 = 0u;
-              v295 = 0u;
-              v292 = 0u;
               v293 = 0u;
+              v294 = 0u;
+              v291 = 0u;
+              v292 = 0u;
               v157 = obja;
               obja = v157;
-              v276 = [v157 countByEnumeratingWithState:&v292 objects:v303 count:16];
-              if (!v276)
+              v275 = [v157 countByEnumeratingWithState:&v291 objects:v302 count:16];
+              if (!v275)
               {
                 goto LABEL_143;
               }
 
-              v273 = *v293;
+              v272 = *v292;
               while (1)
               {
                 v158 = 0;
-                v159 = v278;
+                v159 = v277;
                 do
                 {
-                  if (*v293 != v273)
+                  if (*v292 != v272)
                   {
                     objc_enumerationMutation(obja);
                   }
 
-                  v160 = *(*(&v292 + 1) + 8 * v158);
+                  v160 = *(*(&v291 + 1) + 8 * v158);
                   documentState13 = [v160 documentState];
                   contextBeforeInput6 = [documentState13 contextBeforeInput];
 
@@ -743,7 +743,7 @@ LABEL_109:
 
                   inWord = [v159 inWord];
                   acceptedString6 = [v160 acceptedString];
-                  v169 = [inWord isEqualToString:acceptedString6];
+                  v169 = objc_msgSend_isEqualToString_(inWord);
 
                   if (v169)
                   {
@@ -761,9 +761,9 @@ LABEL_109:
                       contextAfterInput5 = [documentState17 contextAfterInput];
                       v178 = [contextBeforeInput8 stringByAppendingString:contextAfterInput5];
 
-                      v159 = v278;
+                      v159 = v277;
                       contextBeforeInput7 = v178;
-                      v6 = v271;
+                      v6 = v270;
                     }
 
                     if ([v159 inWordRange] == 0x7FFFFFFFFFFFFFFFLL)
@@ -779,12 +779,12 @@ LABEL_109:
                     if (v182 + v181 <= [contextBeforeInput7 length])
                     {
                       v184 = [contextBeforeInput7 substringToIndex:v183];
-                      v159 = v278;
-                      if ([v184 isEqualToString:v165])
+                      v159 = v277;
+                      if (objc_msgSend_isEqualToString_(v184))
                       {
-                        [v160 addUserEdit:v268];
-                        [v160 setEditActionType:{objc_msgSend(v278, "actionType")}];
-                        [v160 setEditActionExtendsPriorWord:{objc_msgSend(v278, "extendsPriorWord")}];
+                        [v160 addUserEdit:v267];
+                        [v160 setEditActionType:{objc_msgSend(v277, "actionType")}];
+                        [v160 setEditActionExtendsPriorWord:{objc_msgSend(v277, "extendsPriorWord")}];
                         [v160 setWordAlignmentConf:3];
                       }
 
@@ -794,25 +794,25 @@ LABEL_109:
                     goto LABEL_139;
                   }
 
-                  if ((v270 & 1) == 0)
+                  if ((v269 & 1) == 0)
                   {
                     goto LABEL_131;
                   }
 
-                  inWord2 = [v269 inWord];
+                  inWord2 = [v268 inWord];
                   acceptedString7 = [v160 acceptedString];
-                  if ([inWord2 isEqualToString:acceptedString7])
+                  if (objc_msgSend_isEqualToString_(inWord2))
                   {
                   }
 
                   else
                   {
-                    v187 = [v268 wordEntryType] & 0xC0;
+                    v187 = [v267 wordEntryType] & 0xC0;
 
                     if (!v187)
                     {
 LABEL_131:
-                      documentState18 = [v268 documentState];
+                      documentState18 = [v267 documentState];
                       contextAfterInput6 = [documentState18 contextAfterInput];
                       if (contextAfterInput6)
                       {
@@ -823,18 +823,18 @@ LABEL_131:
                         lastWord2 = [(TIDocumentWordsAligned *)v6 lastWord];
                         acceptedCandidate15 = [v160 acceptedCandidate];
                         candidate7 = [acceptedCandidate15 candidate];
-                        v193 = [lastWord2 isEqualToString:candidate7];
+                        v193 = objc_msgSend_isEqualToString_(lastWord2);
 
                         if (v193)
                         {
-                          v6 = v271;
-                          v159 = v278;
+                          v6 = v270;
+                          v159 = v277;
                           goto LABEL_141;
                         }
                       }
 
-                      [string appendString:@"<BOS>"];
-                      documentState19 = [v268 documentState];
+                      [v264 appendString:@"<BOS>"];
+                      documentState19 = [v267 documentState];
                       contextBeforeInput9 = [documentState19 contextBeforeInput];
                       v196 = contextBeforeInput9;
                       if (contextBeforeInput9)
@@ -847,44 +847,44 @@ LABEL_131:
                         v197 = &stru_283FDFAF8;
                       }
 
-                      contextBeforeInput7 = [string stringByAppendingString:v197];
+                      contextBeforeInput7 = [v264 stringByAppendingString:v197];
 
                       v198 = [MEMORY[0x277D6F350] documentStateWithContextBefore:contextBeforeInput7 selectedText:0 contextAfter:0];
-                      [v268 setDocumentState:v198];
+                      [v267 setDocumentState:v198];
 
-                      v6 = v271;
-                      [(TIDocumentWordsAligned *)v271 pushWordToDocument:v268];
+                      v6 = v270;
+                      [(TIDocumentWordsAligned *)v270 pushWordToDocument:v267];
 LABEL_139:
-                      v159 = v278;
+                      v159 = v277;
                       goto LABEL_140;
                     }
                   }
 
-                  [v160 addUserEdit:v268];
-                  v159 = v278;
-                  [v160 setEditActionType:{objc_msgSend(v278, "actionType")}];
-                  [v160 setEditActionExtendsPriorWord:{objc_msgSend(v278, "extendsPriorWord")}];
+                  [v160 addUserEdit:v267];
+                  v159 = v277;
+                  [v160 setEditActionType:{objc_msgSend(v277, "actionType")}];
+                  [v160 setEditActionExtendsPriorWord:{objc_msgSend(v277, "extendsPriorWord")}];
                   [v160 setWordAlignmentConf:3];
-                  v270 = 0;
-                  contextBeforeInput7 = v269;
                   v269 = 0;
+                  contextBeforeInput7 = v268;
+                  v268 = 0;
 LABEL_140:
 
 LABEL_141:
                   ++v158;
                 }
 
-                while (v276 != v158);
+                while (v275 != v158);
                 v157 = obja;
-                v276 = [obja countByEnumeratingWithState:&v292 objects:v303 count:16];
-                if (!v276)
+                v275 = [obja countByEnumeratingWithState:&v291 objects:v302 count:16];
+                if (!v275)
                 {
 LABEL_143:
 
-                  sessionCopy = v255;
-                  v14 = v257;
-                  v16 = v263;
-                  v15 = v268;
+                  sessionCopy = v254;
+                  v14 = v256;
+                  v16 = v262;
+                  v15 = v267;
                   goto LABEL_147;
                 }
               }
@@ -898,9 +898,9 @@ LABEL_143:
               [(TIDocumentWordsAligned *)v6 pushWordToDocument:v15];
             }
 
-            v16 = v263;
+            v16 = v262;
 LABEL_147:
-            v201 = v254;
+            v201 = v253;
 
             v202 = 1;
             goto LABEL_230;
@@ -914,7 +914,7 @@ LABEL_147:
 
             if (!v207)
             {
-              if ([v264 actionType] || !-[TITypingSessionAligned isNewLineScenarioWithCurrentWord:andPreviousWord:](self, "isNewLineScenarioWithCurrentWord:andPreviousWord:", v15, v264))
+              if ([v263 actionType] || !-[TITypingSessionAligned isNewLineScenarioWithCurrentWord:andPreviousWord:](self, "isNewLineScenarioWithCurrentWord:andPreviousWord:", v15, v263))
               {
                 documentState22 = [v15 documentState];
                 contextBeforeInput10 = [documentState22 contextBeforeInput];
@@ -939,13 +939,13 @@ LABEL_147:
 
           else
           {
-            if ([v264 actionType])
+            if ([v263 actionType])
             {
             }
 
             else
             {
-              v221 = [(TITypingSessionAligned *)self isNewLineScenarioWithCurrentWord:v15 andPreviousWord:v264];
+              v221 = [(TITypingSessionAligned *)self isNewLineScenarioWithCurrentWord:v15 andPreviousWord:v263];
 
               if (v221)
               {
@@ -960,33 +960,33 @@ LABEL_147:
           }
 
 LABEL_190:
-          v290 = 0u;
-          v291 = 0u;
-          v288 = 0u;
           v289 = 0u;
+          v290 = 0u;
+          v287 = 0u;
+          v288 = 0u;
           allKeyboardInputs9 = [v15 allKeyboardInputs];
-          v223 = [allKeyboardInputs9 countByEnumeratingWithState:&v288 objects:v302 count:16];
+          v223 = [allKeyboardInputs9 countByEnumeratingWithState:&v287 objects:v301 count:16];
           if (v223)
           {
             v224 = v223;
-            v225 = *v289;
+            v225 = *v288;
             while (2)
             {
               for (k = 0; k != v224; ++k)
               {
-                if (*v289 != v225)
+                if (*v288 != v225)
                 {
                   objc_enumerationMutation(allKeyboardInputs9);
                 }
 
-                if ([*(*(&v288 + 1) + 8 * k) isBackspace])
+                if ([*(*(&v287 + 1) + 8 * k) isBackspace])
                 {
                   v227 = 1;
                   goto LABEL_200;
                 }
               }
 
-              v224 = [allKeyboardInputs9 countByEnumeratingWithState:&v288 objects:v302 count:16];
+              v224 = [allKeyboardInputs9 countByEnumeratingWithState:&v287 objects:v301 count:16];
               if (v224)
               {
                 continue;
@@ -997,7 +997,7 @@ LABEL_190:
 
             v227 = 0;
 LABEL_200:
-            sessionCopy = v255;
+            sessionCopy = v254;
           }
 
           else
@@ -1006,7 +1006,7 @@ LABEL_200:
           }
 
           acceptedCandidate16 = [v15 acceptedCandidate];
-          v6 = v271;
+          v6 = v270;
           isContinuousPathConversion2 = [acceptedCandidate16 isContinuousPathConversion];
           if (isContinuousPathConversion2)
           {
@@ -1021,7 +1021,7 @@ LABEL_200:
 
             else
             {
-              actionType = [v264 actionType];
+              actionType = [v263 actionType];
 
               if (actionType != 1)
               {
@@ -1037,49 +1037,49 @@ LABEL_226:
             editedEntry2 = [firstObject5 editedEntry];
             [editedEntry2 setExtendsPriorWord:1];
 
-            [firstObject5 setEditActionType:{objc_msgSend(v264, "actionType")}];
-            v232 = (objc_opt_respondsToSelector() & 1) != 0 && [v264 performSelector:sel_extendsPriorWord] != 0;
+            [firstObject5 setEditActionType:{objc_msgSend(v263, "actionType")}];
+            v232 = (objc_opt_respondsToSelector() & 1) != 0 && [v263 performSelector:sel_extendsPriorWord] != 0;
             [firstObject5 setEditActionExtendsPriorWord:v232];
             if (![v153 count])
             {
               isContinuousPathConversion2 = 0;
-              v6 = v271;
+              v6 = v270;
 LABEL_227:
 
               v202 = 1;
-              v14 = v257;
+              v14 = v256;
               goto LABEL_228;
             }
 
             [firstObject5 setDeleted:0];
-            v286 = 0u;
-            v287 = 0u;
-            v284 = 0u;
             v285 = 0u;
+            v286 = 0u;
+            v283 = 0u;
+            v284 = 0u;
             acceptedCandidate16 = [firstObject5 allEdits];
-            v233 = [acceptedCandidate16 countByEnumeratingWithState:&v284 objects:v301 count:16];
+            v233 = [acceptedCandidate16 countByEnumeratingWithState:&v283 objects:v300 count:16];
             if (v233)
             {
               v234 = v233;
-              v235 = *v285;
+              v235 = *v284;
               do
               {
                 for (m = 0; m != v234; ++m)
                 {
-                  if (*v285 != v235)
+                  if (*v284 != v235)
                   {
                     objc_enumerationMutation(acceptedCandidate16);
                   }
 
-                  [*(*(&v284 + 1) + 8 * m) setDeleted:0];
+                  [*(*(&v283 + 1) + 8 * m) setDeleted:0];
                 }
 
-                v234 = [acceptedCandidate16 countByEnumeratingWithState:&v284 objects:v301 count:16];
+                v234 = [acceptedCandidate16 countByEnumeratingWithState:&v283 objects:v300 count:16];
               }
 
               while (v234);
               v229 = firstObject5;
-              sessionCopy = v255;
+              sessionCopy = v254;
             }
 
             else
@@ -1087,7 +1087,7 @@ LABEL_227:
               v229 = firstObject5;
             }
 
-            v6 = v271;
+            v6 = v270;
           }
 
           goto LABEL_226;
@@ -1098,13 +1098,13 @@ LABEL_227:
       {
       }
 
-      isContinuousPathConversion2 |= [v264 actionType] == 1;
+      isContinuousPathConversion2 |= [v263 actionType] == 1;
       goto LABEL_60;
     }
 
-    v269 = 0;
+    v268 = 0;
     v215 = 0;
-    v264 = 0;
+    v263 = 0;
     v14 = 0;
 LABEL_233:
     v237 = v14;
@@ -1117,7 +1117,7 @@ LABEL_233:
       v241 = wordsCount & 0x7FFFFFFF;
       do
       {
-        inDocumentWordsStack5 = [(TIDocumentWordsAligned *)v271 inDocumentWordsStack];
+        inDocumentWordsStack5 = [(TIDocumentWordsAligned *)v270 inDocumentWordsStack];
         v243 = [inDocumentWordsStack5 objectAtIndexedSubscript:v240];
 
         if ([v243 origin] != 1 || (objc_msgSend(v243, "allEdits"), v244 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v244, "firstObject"), v245 = objc_claimAutoreleasedReturnValue(), v243, v244, (v243 = v245) != 0))
@@ -1150,10 +1150,8 @@ LABEL_233:
     alignedEntries = self->_alignedEntries;
     self->_alignedEntries = array;
 
-    sessionCopy = v255;
+    sessionCopy = v254;
   }
-
-  v250 = *MEMORY[0x277D85DE8];
 }
 
 - (id)textToAppendForEntry:(id)entry sessionIndx:(unint64_t)indx
@@ -1420,16 +1418,16 @@ void __53__TITypingSessionAligned_getAlignedTextAndConfidence__block_invoke_2(ui
 
         v19 = [v12 objectAtIndexedSubscript:v15];
         v20 = [v14 objectAtIndexedSubscript:v16];
-        if (([v19 isEqualToString:&stru_283FDFAF8] & 1) != 0 || objc_msgSend(v19, "isEqualToString:", @" "))
+        if ((objc_msgSend_isEqualToString_(v19) & 1) != 0 || objc_msgSend_isEqualToString_(v19))
         {
           ++v17;
         }
 
         else
         {
-          if (([v20 isEqualToString:&stru_283FDFAF8] & 1) == 0 && !objc_msgSend(v20, "isEqualToString:", @" "))
+          if ((objc_msgSend_isEqualToString_(v20) & 1) == 0 && !objc_msgSend_isEqualToString_(v20))
           {
-            if (([v19 isEqualToString:v20] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v19) & 1) == 0)
             {
 
               v21 = 0;
@@ -1620,30 +1618,30 @@ LABEL_21:
 
 + (id)resolveBackspacesInKeyboardInputs:(id)inputs
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = inputsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         lastObject = [array lastObject];
         if (lastObject && [v10 isBackspace] && (objc_msgSend(lastObject, "isBackspace") & 1) == 0)
         {
@@ -1659,14 +1657,12 @@ LABEL_21:
       }
 
       while (v7 != v9);
-      v12 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v12 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v7 = v12;
     }
 
     while (v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1674,7 +1670,7 @@ LABEL_21:
 + (id)completeStringFromWordEntry:(id)entry leadingInputs:(id)inputs trailingInputs:(id)trailingInputs followsContinuousPath:(BOOL)path
 {
   pathCopy = path;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   inputsCopy = inputs;
   trailingInputsCopy = trailingInputs;
@@ -1685,20 +1681,20 @@ LABEL_21:
     goto LABEL_54;
   }
 
-  v47 = inputsCopy;
-  v48 = pathCopy;
+  v46 = inputsCopy;
+  v47 = pathCopy;
   if (!inputsCopy)
   {
     v18 = &stru_283FDFAF8;
     goto LABEL_20;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v14 = inputsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v52 objects:v57 count:16];
   if (!v15)
   {
     v18 = &stru_283FDFAF8;
@@ -1706,18 +1702,18 @@ LABEL_21:
   }
 
   v16 = v15;
-  v17 = *v54;
+  v17 = *v53;
   v18 = &stru_283FDFAF8;
   do
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v54 != v17)
+      if (*v53 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v53 + 1) + 8 * i);
+      v20 = *(*(&v52 + 1) + 8 * i);
       if ([v20 isBackspace])
       {
         if (![(__CFString *)v18 length])
@@ -1730,22 +1726,22 @@ LABEL_21:
 
       else
       {
-        string = [v20 string];
-        v21 = [(__CFString *)v18 stringByAppendingString:string];
+        v22 = objc_msgSend_string(v20);
+        v21 = [(__CFString *)v18 stringByAppendingString:v22];
 
-        v18 = string;
+        v18 = v22;
       }
 
       v18 = v21;
     }
 
-    v16 = [v14 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v16 = [v14 countByEnumeratingWithState:&v52 objects:v57 count:16];
   }
 
   while (v16);
 LABEL_19:
 
-  pathCopy = v48;
+  pathCopy = v47;
 LABEL_20:
   candidate = [acceptedCandidate candidate];
   v24 = candidate;
@@ -1809,44 +1805,44 @@ LABEL_20:
 
   if (trailingInputsCopy)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v46 = trailingInputsCopy;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v45 = trailingInputsCopy;
     v35 = trailingInputsCopy;
-    v36 = [v35 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v36 = [v35 countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v50;
+      v38 = *v49;
       do
       {
         v39 = 0;
         v40 = v13;
         do
         {
-          if (*v50 != v38)
+          if (*v49 != v38)
           {
             objc_enumerationMutation(v35);
           }
 
-          string2 = [*(*(&v49 + 1) + 8 * v39) string];
-          v13 = [(__CFString *)v40 stringByAppendingString:string2];
+          v41 = objc_msgSend_string(*(*(&v48 + 1) + 8 * v39));
+          v13 = [(__CFString *)v40 stringByAppendingString:v41];
 
           ++v39;
           v40 = v13;
         }
 
         while (v37 != v39);
-        v37 = [v35 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
       while (v37);
     }
 
-    trailingInputsCopy = v46;
-    LOBYTE(pathCopy) = v48;
+    trailingInputsCopy = v45;
+    LOBYTE(pathCopy) = v47;
   }
 
   if ([entryCopy unfinishedWordEntryTreatment] != 1 || pathCopy)
@@ -1867,10 +1863,8 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  inputsCopy = v47;
+  inputsCopy = v46;
 LABEL_54:
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2159,7 +2153,7 @@ LABEL_32:
 void __46__TITypingSessionAligned_alignedEntryForWord___block_invoke(uint64_t a1, void *a2, int a3)
 {
   v20 = a2;
-  v5 = [v20 string];
+  v5 = objc_msgSend_string(v20);
   v6 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
   v7 = [v5 stringByTrimmingCharactersInSet:v6];
   if (![v7 length])
@@ -2167,7 +2161,7 @@ void __46__TITypingSessionAligned_alignedEntryForWord___block_invoke(uint64_t a1
     goto LABEL_10;
   }
 
-  v8 = [v20 string];
+  v8 = objc_msgSend_string(v20);
   v9 = [MEMORY[0x277CCA900] punctuationCharacterSet];
   v10 = [v8 stringByTrimmingCharactersInSet:v9];
   if (![v10 length])
@@ -2180,7 +2174,7 @@ LABEL_10:
   }
 
   v19 = a1;
-  v11 = [v20 string];
+  v11 = objc_msgSend_string(v20);
   v12 = [MEMORY[0x277CCA900] newlineCharacterSet];
   v13 = [v11 stringByTrimmingCharactersInSet:v12];
   if (![v13 length])
@@ -2190,7 +2184,7 @@ LABEL_10:
   }
 
   v17 = a3;
-  v14 = [v20 string];
+  v14 = objc_msgSend_string(v20);
   v18 = [v14 _containsEmoji];
 
   v15 = v20;

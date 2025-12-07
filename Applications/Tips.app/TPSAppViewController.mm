@@ -2,6 +2,10 @@
 - (TPSAppViewController)initWithAppController:(id)controller;
 - (TPSAppViewControllerViewCycleDelegate)viewCycleDelegate;
 - (unint64_t)supportedInterfaceOrientations;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TPSAppViewController
@@ -19,6 +23,42 @@
   }
 
   return v7;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = TPSAppViewController;
+  [(TPSAppViewController *)&v5 viewWillAppear:appear];
+  self->_viewWillAppear = 1;
+  viewCycleDelegate = [(TPSAppViewController *)self viewCycleDelegate];
+  [viewCycleDelegate appViewControllerViewWillAppear:self];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TPSAppViewController;
+  [(TPSAppViewController *)&v5 viewWillDisappear:disappear];
+  self->_viewWillAppear = 0;
+  viewCycleDelegate = [(TPSAppViewController *)self viewCycleDelegate];
+  [viewCycleDelegate appViewControllerViewWillDisappear:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TPSAppViewController;
+  [(TPSAppViewController *)&v4 viewDidAppear:appear];
+  self->_viewDidAppeared = 1;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = TPSAppViewController;
+  [(TPSAppViewController *)&v4 viewDidDisappear:disappear];
+  self->_viewDidAppeared = 0;
 }
 
 - (unint64_t)supportedInterfaceOrientations

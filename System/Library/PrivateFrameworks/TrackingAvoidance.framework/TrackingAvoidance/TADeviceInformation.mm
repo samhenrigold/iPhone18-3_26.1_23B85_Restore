@@ -153,28 +153,26 @@ LABEL_16:
 
 - (id)descriptionDictionary
 {
-  v15[5] = *MEMORY[0x277D85DE8];
-  v14[0] = @"EventType";
+  v14[5] = *MEMORY[0x277D85DE8];
+  v13[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v15[0] = v4;
-  v14[1] = @"Advertisement";
+  v14[0] = v4;
+  v13[1] = @"Advertisement";
   advertisement = [(TADeviceInformation *)self advertisement];
   descriptionDictionary = [advertisement descriptionDictionary];
-  v15[1] = descriptionDictionary;
-  v14[2] = @"DeviceType";
+  v14[1] = descriptionDictionary;
+  v13[2] = @"DeviceType";
   v7 = [TADeviceInformation deviceTypeToString:self->_deviceType];
-  v15[2] = v7;
-  v14[3] = @"NotificationState";
+  v14[2] = v7;
+  v13[3] = @"NotificationState";
   v8 = [TADeviceInformation notificationStateToString:self->_notificationState];
-  v15[3] = v8;
-  v14[4] = @"Date";
+  v14[3] = v8;
+  v13[4] = @"Date";
   date = [(TADeviceInformation *)self date];
   getDateString = [date getDateString];
-  v15[4] = getDateString;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[4] = getDateString;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   return v11;
 }

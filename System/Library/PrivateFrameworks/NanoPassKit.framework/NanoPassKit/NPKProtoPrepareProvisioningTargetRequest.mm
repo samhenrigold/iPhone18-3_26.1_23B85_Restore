@@ -50,11 +50,10 @@
     [NPKProtoPrepareProvisioningTargetRequest writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    checkFamilyCircle = self->_checkFamilyCircle;
     PBDataWriterWriteBOOLField();
   }
 }

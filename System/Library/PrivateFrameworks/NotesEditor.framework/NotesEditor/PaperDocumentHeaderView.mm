@@ -36,7 +36,7 @@
 - (void)layoutMarginsDidChange
 {
   selfCopy = self;
-  sub_215315310();
+  sub_215315310(selfCopy, v2);
 }
 
 - (_TtC11NotesEditorP33_B1771FC5B77E2D60FA249C310C92C62223PaperDocumentHeaderView)initWithFrame:(CGRect)frame

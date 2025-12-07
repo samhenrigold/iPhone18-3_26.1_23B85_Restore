@@ -300,7 +300,7 @@ void __102__PKPhysicalCardController_replaceFlowViewControllerForReason_content_
   }
 }
 
-uint64_t __102__PKPhysicalCardController_replaceFlowViewControllerForReason_content_currentPhysicalCard_completion___block_invoke_3(uint64_t a1, int a2)
+uint64_t __102__PKPhysicalCardController_replaceFlowViewControllerForReason_content_currentPhysicalCard_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   if (a2)
@@ -395,7 +395,7 @@ void __80__PKPhysicalCardController_orderFlowViewControllerForReason_content_com
   }
 }
 
-uint64_t __80__PKPhysicalCardController_orderFlowViewControllerForReason_content_completion___block_invoke_3(uint64_t a1, int a2)
+uint64_t __80__PKPhysicalCardController_orderFlowViewControllerForReason_content_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   if (a2)

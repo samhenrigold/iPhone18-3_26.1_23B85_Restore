@@ -63,24 +63,23 @@
       v10 = v9;
       if (v9)
       {
-        v19 = 0;
-        v20 = &v19;
-        v21 = 0x2020000000;
-        v22 = [v9 length];
+        v18 = 0;
+        v19 = &v18;
+        v20 = 0x2020000000;
+        v21 = [v9 length];
         requestHeaders = [(ENTestResultNetworkRequest *)self requestHeaders];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_invoke;
-        v18[3] = &unk_278FD22D8;
-        v18[4] = &v19;
-        [requestHeaders enumerateKeysAndObjectsUsingBlock:v18];
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_invoke;
+        v17[3] = &unk_278FD22D8;
+        v17[4] = &v18;
+        [requestHeaders enumerateKeysAndObjectsUsingBlock:v17];
 
-        if (v7 <= v20[3])
+        if (v7 <= v19[3])
         {
           if (error)
           {
-            v17 = v20[3];
-            ENErrorF();
+            ENErrorF(2, "Encoded request size %lu bytes is larger than paddedSize (%lu bytes)", v19[3], v7);
             *error = v15 = 0;
           }
 
@@ -108,7 +107,7 @@
           }
         }
 
-        _Block_object_dispose(&v19, 8);
+        _Block_object_dispose(&v18, 8);
       }
 
       else
@@ -119,7 +118,7 @@
 
     else if (error)
     {
-      ENErrorF();
+      ENErrorF(2, "Invalid bodyJSON");
       *error = v15 = 0;
     }
 
@@ -183,13 +182,13 @@ void __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_in
   if (v12)
   {
     v16 = statusCode;
-    v34 = absoluteString;
+    v30 = absoluteString;
     if (dataCopy)
     {
-      v35 = 0;
+      v31 = 0;
       v17 = dataCopy;
-      v18 = [(ENTestResultNetworkRequest *)self _dictionaryFromData:dataCopy response:v12 error:&v35];
-      v19 = v35;
+      v18 = [(ENTestResultNetworkRequest *)self _dictionaryFromData:dataCopy response:v12 error:&v31];
+      v19 = v31;
     }
 
     else
@@ -204,19 +203,15 @@ void __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_in
 
     if ((isSensitiveLoggingAllowed & 1) != 0 && gLogCategory_ENTestResultNetworkRequest <= 30 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
     {
-      v32 = [v17 length];
-      v33 = v18;
-      v30 = v34;
-      v31 = v16;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENTestResultNetworkRequest, "-[ENTestResultNetworkRequest handleURLResponse:data:error:]", 30, "Received response %@ Status Code: %lu (%lu bytes): %@", v30, v16, [v17 length], v18);
     }
 
-    v24 = [ENLoggingPrefs sharedENLoggingPrefs:v30];
+    v24 = +[ENLoggingPrefs sharedENLoggingPrefs];
     isSensitiveLoggingAllowed2 = [v24 isSensitiveLoggingAllowed];
 
     if (isSensitiveLoggingAllowed2 && gLogCategory_ENTestResultNetworkRequest <= 30 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
     {
-      [ENTestResultNetworkRequest handleURLResponse:v12 data:? error:?];
+      [ENTestResultNetworkRequest handleURLResponse:v12 data:v30 error:?];
     }
 
     dataCopy = v17;
@@ -235,7 +230,7 @@ void __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_in
       v19 = [(ENTestResultNetworkRequest *)self errorForUnsuccessfulResponse:v12 body:v26];
     }
 
-    absoluteString = v34;
+    absoluteString = v30;
     if (v18 && !v19)
     {
       CFStringGetTypeID();
@@ -243,8 +238,7 @@ void __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_in
       v28 = v27;
       if (v27 && [v27 length])
       {
-        v30 = v28;
-        v29 = ENTestResultErrorF(6);
+        v29 = ENTestResultErrorF(6, "%@", v28);
       }
 
       else
@@ -263,7 +257,7 @@ void __62__ENTestResultNetworkRequest_getPaddedBodyJSONAndReturnError___block_in
     }
 
 LABEL_32:
-    v19 = ENTestResultErrorF(1);
+    v19 = ENTestResultErrorF(1, "Unknown error");
     goto LABEL_35;
   }
 
@@ -272,7 +266,7 @@ LABEL_32:
 
   if (isSensitiveLoggingAllowed3 && gLogCategory_ENTestResultNetworkRequest <= 90 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
   {
-    [ENTestResultNetworkRequest handleURLResponse:data:error:];
+    [ENTestResultNetworkRequest handleURLResponse:errorCopy data:? error:?];
   }
 
   v19 = [(ENTestResultNetworkRequest *)self _errorForURLRequestError:errorCopy];
@@ -283,7 +277,7 @@ LABEL_32:
   }
 
 LABEL_35:
-  [(ENTestResultNetworkRequest *)self _completeWithError:v19, v30];
+  [(ENTestResultNetworkRequest *)self _completeWithError:v19];
 }
 
 - (id)errorForUnsuccessfulResponse:(id)response body:(id)body
@@ -298,7 +292,7 @@ LABEL_35:
   statusCode = [responseCopy statusCode];
   if (statusCode == 429)
   {
-    v10 = ENTestResultErrorF(7);
+    v10 = ENTestResultErrorF(7, "Server unavailable, too many requests");
   }
 
   else
@@ -315,8 +309,14 @@ LABEL_35:
       integerValue = 6;
     }
 
-    [v7 length];
-    v10 = ENTestResultErrorF(integerValue);
+    v14 = [(__CFString *)v7 length];
+    v15 = @"No Error Message";
+    if (v14)
+    {
+      v15 = v7;
+    }
+
+    v10 = ENTestResultErrorF(integerValue, "%ld response: %@", statusCode, v15);
   }
 
   return v10;
@@ -325,9 +325,9 @@ LABEL_35:
 - (id)_createURLRequestWithError:(id *)error
 {
   v5 = objc_autoreleasePoolPush();
-  v18 = 0;
-  bodyJSON = [(ENTestResultNetworkRequest *)self getPaddedBodyJSONAndReturnError:&v18];
-  v7 = v18;
+  v23 = 0;
+  bodyJSON = [(ENTestResultNetworkRequest *)self getPaddedBodyJSONAndReturnError:&v23];
+  v7 = v23;
   if (!bodyJSON)
   {
     v8 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -335,7 +335,7 @@ LABEL_35:
 
     if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultNetworkRequest <= 90 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
     {
-      [ENTestResultNetworkRequest _createURLRequestWithError:];
+      [(ENTestResultNetworkRequest *)self _createURLRequestWithError:v7];
     }
 
     bodyJSON = [(ENTestResultNetworkRequest *)self bodyJSON];
@@ -343,9 +343,9 @@ LABEL_35:
 
   if ([MEMORY[0x277CCAA98] isValidJSONObject:bodyJSON])
   {
-    v17 = 0;
-    v10 = [MEMORY[0x277CCAA98] dataWithJSONObject:bodyJSON options:0 error:&v17];
-    v11 = v17;
+    v22 = 0;
+    v10 = [MEMORY[0x277CCAA98] dataWithJSONObject:bodyJSON options:0 error:&v22];
+    v11 = v22;
   }
 
   else
@@ -357,29 +357,29 @@ LABEL_35:
   objc_autoreleasePoolPop(v5);
   if (v10)
   {
-    v12 = objc_alloc(MEMORY[0x277CBAB58]);
+    v17 = objc_alloc(MEMORY[0x277CBAB58]);
     requestURL = [(ENTestResultNetworkRequest *)self requestURL];
-    v14 = [v12 initWithURL:requestURL];
+    v19 = [v17 initWithURL:requestURL];
 
     requestHeaders = [(ENTestResultNetworkRequest *)self requestHeaders];
-    [v14 setAllHTTPHeaderFields:requestHeaders];
+    [v19 setAllHTTPHeaderFields:requestHeaders];
 
-    [v14 setHTTPBody:v10];
-    [v14 setHTTPMethod:@"POST"];
+    [v19 setHTTPBody:v10];
+    [v19 setHTTPMethod:@"POST"];
   }
 
   else if (error)
   {
-    ENNestedTestResultErrorF(v11, 1);
-    *error = v14 = 0;
+    ENNestedTestResultErrorF(v11, 1, "Invalid request body", v12, v13, v14, v15, v16, v22);
+    *error = v19 = 0;
   }
 
   else
   {
-    v14 = 0;
+    v19 = 0;
   }
 
-  return v14;
+  return v19;
 }
 
 - (NSDictionary)requestHeaders
@@ -401,27 +401,40 @@ LABEL_35:
   domain = [errorCopy domain];
   v5 = [domain isEqualToString:*MEMORY[0x277CCA740]];
 
-  if (!v5 || (v6 = [errorCopy code], v6 == -1002))
+  if (!v5)
   {
-    v7 = errorCopy;
-    v8 = 1;
+    v12 = "Unknown URL request error";
+LABEL_7:
+    v13 = errorCopy;
+    v14 = 1;
+    goto LABEL_8;
   }
 
-  else if (v6 == -1001)
+  code = [errorCopy code];
+  if (code == -1002)
   {
-    v7 = errorCopy;
-    v8 = 8;
+    v12 = "Bad URL";
+    goto LABEL_7;
+  }
+
+  if (code == -1001)
+  {
+    v12 = "Timed out";
+    v13 = errorCopy;
+    v14 = 8;
   }
 
   else
   {
-    v7 = errorCopy;
-    v8 = 11;
+    v12 = "Network failure";
+    v13 = errorCopy;
+    v14 = 11;
   }
 
-  v9 = ENNestedTestResultErrorF(v7, v8);
+LABEL_8:
+  v15 = ENNestedTestResultErrorF(v13, v14, v12, v6, v7, v8, v9, v10, v17);
 
-  return v9;
+  return v15;
 }
 
 - (void)_performURLRequest:(id)request attempt:(int)attempt
@@ -463,7 +476,7 @@ void __57__ENTestResultNetworkRequest__performURLRequest_attempt___block_invoke(
 
     if (v13 && gLogCategory_ENTestResultNetworkRequest <= 30 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
     {
-      __57__ENTestResultNetworkRequest__performURLRequest_attempt___block_invoke_cold_1();
+      __57__ENTestResultNetworkRequest__performURLRequest_attempt___block_invoke_cold_1(v11);
     }
 
     [*(*(a1 + 32) + 32) cancel];
@@ -601,9 +614,9 @@ void __57__ENTestResultNetworkRequest__performURLRequest_attempt___block_invoke(
   if ([dataCopy length])
   {
     mIMEType = [responseCopy MIMEType];
-    v22 = 0;
-    v10 = [MEMORY[0x277CCAA98] JSONObjectWithData:dataCopy options:0 error:&v22];
-    v11 = v22;
+    v27 = 0;
+    v10 = [MEMORY[0x277CCAA98] JSONObjectWithData:dataCopy options:0 error:&v27];
+    v11 = v27;
     if (v10)
     {
       objc_opt_class();
@@ -617,57 +630,52 @@ LABEL_20:
 
       if (error)
       {
-LABEL_32:
-        v19 = ENTestResultErrorF(4);
-        goto LABEL_33;
+        ENTestResultErrorF(4, "Non-dict JSON");
+        v25 = LABEL_33:;
+        goto LABEL_34;
       }
 
-LABEL_34:
-      v12 = 0;
-      goto LABEL_20;
+      goto LABEL_35;
     }
 
     if ([mIMEType isEqualToString:@"application/json"])
     {
       if (error)
       {
-        v19 = ENNestedTestResultErrorF(v11, 4);
-LABEL_33:
+        v25 = ENNestedTestResultErrorF(v11, 4, "Malformed JSON", v13, v14, v15, v16, v17, v26);
+LABEL_34:
         v12 = 0;
-        *error = v19;
+        *error = v25;
         goto LABEL_20;
       }
 
-      goto LABEL_34;
+      goto LABEL_35;
     }
 
     if ([mIMEType isEqualToString:@"text/plain"])
     {
       if ([dataCopy length] <= 0x3FF)
       {
-        v13 = [objc_alloc(MEMORY[0x277CCACA0]) initWithData:dataCopy encoding:4];
-        v14 = +[ENLoggingPrefs sharedENLoggingPrefs];
-        isSensitiveLoggingAllowed = [v14 isSensitiveLoggingAllowed];
+        v18 = [objc_alloc(MEMORY[0x277CCACA0]) initWithData:dataCopy encoding:4];
+        v19 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed = [v19 isSensitiveLoggingAllowed];
 
         if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultNetworkRequest <= 50 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
         {
-          v20 = [responseCopy URL];
-          v21 = v13;
-          LogPrintF_safe();
+          v21 = [responseCopy URL];
+          LogPrintF_safe(&gLogCategory_ENTestResultNetworkRequest, "[ENTestResultNetworkRequest _dictionaryFromData:response:error:]", 50, "Received text response from %@: %@", v21, v18);
         }
 
         goto LABEL_17;
       }
 
-      v16 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed2 = [v16 isSensitiveLoggingAllowed];
+      v22 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed2 = [v22 isSensitiveLoggingAllowed];
 
       if (isSensitiveLoggingAllowed2 && gLogCategory_ENTestResultNetworkRequest <= 50 && (gLogCategory_ENTestResultNetworkRequest != -1 || _LogCategory_Initialize()))
       {
-        v13 = [responseCopy URL];
-        v20 = v13;
-        v21 = [dataCopy length];
-        LogPrintF_safe();
+        v18 = [responseCopy URL];
+        LogPrintF_safe(&gLogCategory_ENTestResultNetworkRequest, "-[ENTestResultNetworkRequest _dictionaryFromData:response:error:]", 50, "Received large text response from %@ (%lu bytes)", v18, [dataCopy length]);
 LABEL_17:
       }
     }
@@ -680,10 +688,13 @@ LABEL_17:
 
     if (error)
     {
-      goto LABEL_32;
+      ENTestResultErrorF(4, "Unexpected response format with Content-Type %@", mIMEType);
+      goto LABEL_33;
     }
 
-    goto LABEL_34;
+LABEL_35:
+    v12 = 0;
+    goto LABEL_20;
   }
 
   v12 = MEMORY[0x277CBEC08];
@@ -692,10 +703,10 @@ LABEL_21:
   return v12;
 }
 
-- (void)handleURLResponse:(void *)a1 data:error:.cold.1(void *a1)
+- (void)handleURLResponse:(void *)a1 data:(uint64_t)a2 error:.cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 allHeaderFields];
-  LogPrintF_safe();
+  v3 = [a1 allHeaderFields];
+  LogPrintF_safe(&gLogCategory_ENTestResultNetworkRequest, "[ENTestResultNetworkRequest handleURLResponse:data:error:]", 30, "Response %@ headers: %@", a2, v3);
 }
 
 - (void)_performURLRequest:(uint64_t)a1 attempt:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -708,8 +719,7 @@ LABEL_21:
 {
   v2 = [a1 allHTTPHeaderFields];
   v3 = [a1 HTTPBody];
-  [v3 length];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultNetworkRequest, "-[ENTestResultNetworkRequest _dataTaskWithRequest:completionHandler:]", 30, "Sending request %@ %@ (%lu body bytes)", a1, v2, [v3 length]);
 }
 
 @end

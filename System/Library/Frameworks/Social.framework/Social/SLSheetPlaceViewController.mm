@@ -50,8 +50,7 @@
   {
     objc_storeStrong(&v9->_placeDataSource, source);
     objc_storeStrong(&v10->_effectiveBundle, bundle);
-    [(SLPlaceDataSource *)v10->_placeDataSource setDelegate:v10];
-    v11 = SLSocialFrameworkBundle();
+    v11 = SLSocialFrameworkBundle([(SLPlaceDataSource *)v10->_placeDataSource setDelegate:v10]);
     v12 = [v11 localizedStringForKey:@"CHOOSE_LOCATION" value:&stru_1F41EC300 table:@"Localizable"];
     [(SLSheetPlaceViewController *)v10 setTitle:v12];
 
@@ -79,7 +78,7 @@
 - (void)setPlaces:(id)places
 {
   placesCopy = places;
-  _SLLog(v3, 7, @"SLPlaceViewController setPlaces");
+  _SLLog(v3, 7, @"SLPlaceViewController setPlaces", v6, v7, v8, v9, v10, v13);
   if (([(SLSheetPlaceViewController *)self isViewLoaded]& 1) != 0)
   {
     [(MKMapView *)self->_mapView removeAnnotations:self->_places];
@@ -90,8 +89,8 @@
   {
     [(UITableView *)self->_tableView beginUpdates];
     tableView = self->_tableView;
-    v7 = [MEMORY[0x1E696AC90] indexSetWithIndex:0];
-    [(UITableView *)tableView reloadSections:v7 withRowAnimation:100];
+    v12 = [MEMORY[0x1E696AC90] indexSetWithIndex:0];
+    [(UITableView *)tableView reloadSections:v12 withRowAnimation:100];
 
     [(UITableView *)self->_tableView endUpdates];
     [(MKMapView *)self->_mapView addAnnotations:self->_places];
@@ -287,10 +286,10 @@
     v5 = 0.0;
   }
 
-  v8.width = 320.0;
-  v8.height = v5;
-  v6 = NSStringFromCGSize(v8);
-  _SLLog(v2, 7, @"Place VC preferredContentSize=%@");
+  v13.width = 320.0;
+  v13.height = v5;
+  v6 = NSStringFromCGSize(v13);
+  _SLLog(v2, 7, @"Place VC preferredContentSize=%@", v7, v8, v9, v10, v11, v6);
 
   [(SLSheetPlaceViewController *)self setPreferredContentSize:320.0, v5];
 }
@@ -600,7 +599,7 @@ void __65__SLSheetPlaceViewController__forceSelectPlace_setMapAnnotation___block
   v5 = MEMORY[0x1E69DC668];
   errorCopy = error;
   [v5 shouldShowNetworkActivityIndicatorInRemoteApplication:0];
-  _SLLog(v4, 3, @"Base place manager failed to fetch places with error %{public}@");
+  _SLLog(v4, 3, @"Base place manager failed to fetch places with error %{public}@", v6, v7, v8, v9, v10, errorCopy);
 }
 
 - (void)loadView
@@ -838,7 +837,7 @@ void __65__SLSheetPlaceViewController__forceSelectPlace_setMapAnnotation___block
 
   else
   {
-    v18 = SLSocialFrameworkBundle();
+    v18 = SLSocialFrameworkBundle(0);
     v19 = [v18 localizedStringForKey:@"SHEET_LOCATION_NO_VALUE" value:&stru_1F41EC300 table:@"Localizable"];
     textLabel2 = [v7 textLabel];
     [textLabel2 setText:v19];
@@ -872,72 +871,71 @@ void __65__SLSheetPlaceViewController__forceSelectPlace_setMapAnnotation___block
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   pathCopy = path;
   tableView = self->_tableView;
-  v21 = v4;
   if (tableView == viewCopy)
   {
-    _SLLog(v4, 6, @"Selection from standard place results");
+    _SLLog(v4, 6, @"Selection from standard place results", v8, v9, v10, v11, v12, v4);
     searchResultsTableView = self->_tableView;
-    v12 = -[SLSheetPlaceViewController _placeForRow:](self, "_placeForRow:", [pathCopy row]);
-    [(MKMapView *)self->_mapView selectAnnotation:v12 animated:1];
+    v17 = -[SLSheetPlaceViewController _placeForRow:](self, "_placeForRow:", [pathCopy row]);
+    [(MKMapView *)self->_mapView selectAnnotation:v17 animated:1];
   }
 
   else
   {
-    _SLLog(v4, 6, @"Selection from search results");
+    _SLLog(v4, 6, @"Selection from search results", v8, v9, v10, v11, v12, v4);
     searchResultsTableView = [(UISearchDisplayController *)self->_searchDisplayController searchResultsTableView];
     searchResults = [(SLSheetPlaceSearchController *)self->_placeSearchController searchResults];
-    v12 = [searchResults objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+    v17 = [searchResults objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
   }
 
-  objc_storeStrong(&self->_selectedPlace, v12);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  objc_storeStrong(&self->_selectedPlace, v17);
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   visibleCells = [(UITableView *)searchResultsTableView visibleCells];
-  v14 = [visibleCells countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v14)
+  v19 = [visibleCells countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v19)
   {
-    v15 = v14;
-    v16 = *v24;
+    v20 = v19;
+    v21 = *v34;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v24 != v16)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v23 + 1) + 8 * i) setAccessoryType:{0, v21}];
+        [*(*(&v33 + 1) + 8 * i) setAccessoryType:0];
       }
 
-      v15 = [visibleCells countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v20 = [visibleCells countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v15);
+    while (v20);
   }
 
-  v18 = [(UITableView *)searchResultsTableView cellForRowAtIndexPath:pathCopy];
-  [v18 setAccessoryType:3];
+  v23 = [(UITableView *)searchResultsTableView cellForRowAtIndexPath:pathCopy];
+  [v23 setAccessoryType:3];
   [(UITableView *)searchResultsTableView deselectRowAtIndexPath:pathCopy animated:1];
   selectionDelegate = [(SLSheetPlaceViewController *)self selectionDelegate];
-  [selectionDelegate placeViewController:self didSelectPlace:v12];
+  [selectionDelegate placeViewController:self didSelectPlace:v17];
 
   if (tableView != viewCopy)
   {
-    _SLLog(v21, 7, @"Popping after delay");
-    v20 = dispatch_time(0, 400000000);
+    _SLLog(v31, 7, @"Popping after delay", v25, v26, v27, v28, v29, v31);
+    v30 = dispatch_time(0, 400000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __64__SLSheetPlaceViewController_tableView_didSelectRowAtIndexPath___block_invoke;
     block[3] = &unk_1E81757C8;
     block[4] = self;
-    dispatch_after(v20, MEMORY[0x1E69E96A0], block);
+    dispatch_after(v30, MEMORY[0x1E69E96A0], block);
   }
 }
 
@@ -951,8 +949,8 @@ void __64__SLSheetPlaceViewController_tableView_didSelectRowAtIndexPath___block_
 {
   stringCopy = string;
   controllerCopy = controller;
-  _SLLog(v4, 6, @"User started place search with search string %@");
-  [(SLSheetPlaceSearchController *)self->_placeSearchController searchWithSearchString:stringCopy, stringCopy];
+  _SLLog(v4, 6, @"User started place search with search string %@", v9, v10, v11, v12, v13, stringCopy);
+  [(SLSheetPlaceSearchController *)self->_placeSearchController searchWithSearchString:stringCopy];
 
   [controllerCopy setNoResultsMessage:&stru_1F41EC300];
   return 0;

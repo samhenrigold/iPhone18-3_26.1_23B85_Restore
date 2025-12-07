@@ -67,8 +67,8 @@
 {
   v7 = sub_269D97870();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v9);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -82,15 +82,15 @@
   selfCopy = self;
   sub_269C8A0C4(cellCopy);
 
-  (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v11, v7);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_269D97870();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -102,17 +102,17 @@
   sub_269D97840();
   viewCopy = view;
   selfCopy = self;
-  sub_269C921A0();
+  sub_269C921A0(v10);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 - (BOOL)tableView:(id)view shouldHighlightRowAtIndexPath:(id)path
 {
   v6 = sub_269D97870();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -124,12 +124,12 @@
   sub_269D97840();
   viewCopy = view;
   selfCopy = self;
-  sub_269C9238C();
-  v13 = v12;
+  sub_269C9238C(v10);
+  v14 = v13;
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
@@ -161,9 +161,9 @@
 
   viewCopy = view;
   selfCopy = self;
-  v9 = sub_269C9271C(section);
+  v10 = sub_269C9271C(section, v9);
 
-  return v9;
+  return v10;
 }
 
 - (double)tableView:(id)view estimatedHeightForHeaderInSection:(int64_t)section
@@ -182,10 +182,10 @@
     viewCopy = view;
     selfCopy = self;
     v10 = v7;
-    sub_269C92518(section);
-    v12 = v11;
+    sub_269C92518(section, v11);
+    v13 = v12;
 
-    if (v12)
+    if (v13)
     {
 
       return 45.0;

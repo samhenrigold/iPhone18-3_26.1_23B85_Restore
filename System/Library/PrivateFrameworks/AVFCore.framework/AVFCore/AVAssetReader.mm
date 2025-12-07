@@ -72,13 +72,13 @@
 - (id)_commonInitWithAsset:(id)asset options:(id)options error:(id *)error
 {
   selfCopy = self;
-  v41[1] = *MEMORY[0x1E69E9840];
-  v39 = 0;
+  v42[1] = *MEMORY[0x1E69E9840];
+  v40 = 0;
   if (!asset)
   {
     selfCopy2 = self;
-    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(selfCopy userInfo:{a2, @"invalid parameter not satisfying: %s", v29, v30, v31, v32, v33, "asset != nil"), 0}];
-    objc_exception_throw(v34);
+    v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(selfCopy userInfo:{a2, @"invalid parameter not satisfying: %s", v30, v31, v32, v33, v34, "asset != nil"), 0}];
+    objc_exception_throw(v35);
   }
 
   if (!self)
@@ -91,7 +91,7 @@ LABEL_20:
     }
 
 LABEL_27:
-    *error = v39;
+    *error = v40;
     goto LABEL_28;
   }
 
@@ -113,60 +113,60 @@ LABEL_19:
   priv = selfCopy->_priv;
   start = **&MEMORY[0x1E6960CC0];
   duration = **&MEMORY[0x1E6960C88];
-  CMTimeRangeMake(&v38, &start, &duration);
-  v12 = *&v38.start.epoch;
-  v11 = *&v38.duration.timescale;
-  *&priv->timeRange.start.value = *&v38.start.value;
+  CMTimeRangeMake(&v39, &start, &duration);
+  v12 = *&v39.start.epoch;
+  v11 = *&v39.duration.timescale;
+  *&priv->timeRange.start.value = *&v39.start.value;
   *&priv->timeRange.start.epoch = v12;
   *&priv->timeRange.duration.timescale = v11;
   selfCopy->_priv->status = 0;
-  v35.receiver = selfCopy;
-  v35.super_class = AVAssetReader;
-  v13 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ status read/write queue", -[AVAssetReader description](&v35, sel_description)), "UTF8String"];
-  selfCopy->_priv->statusReadWriteQueue = av_readwrite_dispatch_queue_create(v13);
+  v36.receiver = selfCopy;
+  v36.super_class = AVAssetReader;
+  v13 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@ status read/write queue", -[AVAssetReader description](&v36, sel_description)), "UTF8String"];
+  selfCopy->_priv->statusReadWriteQueue = av_readwrite_dispatch_queue_create(v13, v14);
   selfCopy->_priv->realTime = 0;
   _absoluteURL = [asset _absoluteURL];
   _requiresInProcessOperation = [(AVAsset *)selfCopy->_priv->asset _requiresInProcessOperation];
-  v16 = *MEMORY[0x1E695E4D0];
+  v17 = *MEMORY[0x1E695E4D0];
   if (_requiresInProcessOperation)
   {
-    v17 = *MEMORY[0x1E695E4D0];
+    v18 = *MEMORY[0x1E695E4D0];
   }
 
   else
   {
-    v17 = *MEMORY[0x1E695E4C0];
+    v18 = *MEMORY[0x1E695E4C0];
   }
 
-  v18 = [MEMORY[0x1E695DF90] dictionaryWithObject:v17 forKey:*MEMORY[0x1E6971338]];
+  v19 = [MEMORY[0x1E695DF90] dictionaryWithObject:v18 forKey:*MEMORY[0x1E6971338]];
   if (([asset _hasResourceLoaderDelegate] & 1) != 0 || objc_msgSend(objc_msgSend(options, "valueForKey:", @"AssetReaderOption_PermitNonLocalURL"), "BOOLValue"))
   {
-    [v18 setObject:v16 forKey:*MEMORY[0x1E6971328]];
+    [v19 setObject:v17 forKey:*MEMORY[0x1E6971328]];
     goto LABEL_10;
   }
 
   if (_absoluteURL && !FigCFURLIsLocalResource())
   {
-    v40 = *MEMORY[0x1E695E618];
-    v22 = MEMORY[0x1E696AEC0];
-    v23 = objc_opt_class();
-    v41[0] = [v22 stringWithFormat:@"Cannot initialize an instance of %@ with an asset at non-local URL '%@'", NSStringFromClass(v23), _absoluteURL];
-    v39 = AVLocalizedError(@"AVFoundationErrorDomain", -11838, [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1]);
+    v41 = *MEMORY[0x1E695E618];
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = objc_opt_class();
+    v42[0] = [v23 stringWithFormat:@"Cannot initialize an instance of %@ with an asset at non-local URL '%@'", NSStringFromClass(v24), _absoluteURL];
+    v40 = AVLocalizedError(@"AVFoundationErrorDomain", -11838, [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1]);
     goto LABEL_19;
   }
 
 LABEL_10:
   _copyFormatReader = [asset _copyFormatReader];
-  if ([asset statusOfValueForKey:@"formatReader" error:&v39] == 3 || !_copyFormatReader)
+  if ([asset statusOfValueForKey:@"formatReader" error:&v40] == 3 || !_copyFormatReader)
   {
-    if (v39)
+    if (v40)
     {
       goto LABEL_26;
     }
 
-    v21 = AVLocalizedError(@"AVFoundationErrorDomain", -11838, 0);
+    v22 = AVLocalizedError(@"AVFoundationErrorDomain", -11838, 0);
 LABEL_25:
-    v39 = v21;
+    v40 = v22;
 LABEL_26:
 
     selfCopy = 0;
@@ -181,24 +181,24 @@ LABEL_26:
   CFRunLoopGetCurrent();
   if (_requiresInProcessOperation)
   {
-    v20 = FigAssetReaderCreateWithURLAndFormatReader();
+    v21 = FigAssetReaderCreateWithURLAndFormatReader();
   }
 
   else
   {
-    v20 = FigAssetReaderRemoteCreateWithURLAndFormatReader();
+    v21 = FigAssetReaderRemoteCreateWithURLAndFormatReader();
   }
 
-  if (v20 || (v25 = selfCopy->_priv, !v25->figAssetReader))
+  if (v21 || (v26 = selfCopy->_priv, !v26->figAssetReader))
   {
-    v21 = [AVAssetReader _errorForOSStatus:v20];
+    v22 = [AVAssetReader _errorForOSStatus:v21];
     goto LABEL_25;
   }
 
-  CFRetain(v25->weakReference);
-  v26 = [AVCMNotificationDispatcher notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
-  [v26 addListenerWithWeakReference:selfCopy->_priv->weakReference callback:AVAssetReaderHandleServerDiedNotification name:*MEMORY[0x1E69713C8] object:selfCopy->_priv->figAssetReader flags:0];
-  [v26 addListenerWithWeakReference:selfCopy->_priv->weakReference callback:AVAssetReaderHandleServerDiedNotification name:*MEMORY[0x1E69628A8] object:selfCopy->_priv->figAssetReader flags:0];
+  CFRetain(v26->weakReference);
+  v27 = [AVCMNotificationDispatcher notificationDispatcherForCMNotificationCenter:CMNotificationCenterGetDefaultLocalCenter()];
+  [v27 addListenerWithWeakReference:selfCopy->_priv->weakReference callback:AVAssetReaderHandleServerDiedNotification name:*MEMORY[0x1E69713C8] object:selfCopy->_priv->figAssetReader flags:0];
+  [v27 addListenerWithWeakReference:selfCopy->_priv->weakReference callback:AVAssetReaderHandleServerDiedNotification name:*MEMORY[0x1E69628A8] object:selfCopy->_priv->figAssetReader flags:0];
   if (error)
   {
     goto LABEL_27;
@@ -298,7 +298,7 @@ LABEL_28:
     return AVLocalizedError(@"AVFoundationErrorDomain", -11847, 0);
   }
 
-  return AVLocalizedErrorWithUnderlyingOSStatus(status, 0);
+  return AVLocalizedErrorWithUnderlyingOSStatus(*&status, 0);
 }
 
 - (void)_transitionToStatus:(int64_t)status failureError:(id)error
@@ -335,34 +335,34 @@ LABEL_28:
   _Block_object_dispose(&v13, 8);
 }
 
-uint64_t __50__AVAssetReader__transitionToStatus_failureError___block_invoke(uint64_t result)
+id *__50__AVAssetReader__transitionToStatus_failureError___block_invoke(id *result)
 {
   v1 = result;
-  *(*(*(result + 48) + 8) + 24) = *(*(*(result + 32) + 8) + 104);
-  v2 = *(result + 64);
-  v3 = *(*(*(result + 48) + 8) + 24);
+  *(*(result[6] + 1) + 24) = *(*(result[4] + 1) + 104);
+  v2 = result[8];
+  v3 = *(*(result[6] + 1) + 24);
   if (v2 != v3 && v3 <= 1)
   {
-    v5 = *(*(result + 32) + 8);
+    v5 = *(result[4] + 1);
     v6 = *(v5 + 120);
     if (v2 != 3 || v3)
     {
       if (v6)
       {
         *(v5 + 104) = 3;
-        result = [*(*(*(result + 32) + 8) + 120) copy];
+        result = [*(*(result[4] + 1) + 120) copy];
       }
 
       else
       {
         *(v5 + 104) = v2;
-        result = *(result + 32);
-        if (*(*(result + 8) + 112))
+        result = result[4];
+        if (*(result[1] + 14))
         {
           goto LABEL_14;
         }
 
-        result = [*(v1 + 40) copyWithZone:{objc_msgSend(result, "zone")}];
+        result = [v1[5] copyWithZone:{objc_msgSend(result, "zone")}];
       }
 
       v7 = 112;
@@ -375,15 +375,15 @@ uint64_t __50__AVAssetReader__transitionToStatus_failureError___block_invoke(uin
         goto LABEL_14;
       }
 
-      result = [*(result + 40) copy];
+      result = [result[5] copy];
       v7 = 120;
     }
 
-    *(*(*(v1 + 32) + 8) + v7) = result;
+    *(*(v1[4] + 1) + v7) = result;
   }
 
 LABEL_14:
-  *(*(*(v1 + 56) + 8) + 24) = *(*(*(v1 + 32) + 8) + 104);
+  *(*(v1[7] + 1) + 24) = *(*(v1[4] + 1) + 104);
   return result;
 }
 
@@ -577,7 +577,7 @@ LABEL_9:
   memset(&v30, 0, sizeof(v30));
   if (self)
   {
-    [(AVAssetReader *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   outputs = [(AVAssetReader *)self outputs];

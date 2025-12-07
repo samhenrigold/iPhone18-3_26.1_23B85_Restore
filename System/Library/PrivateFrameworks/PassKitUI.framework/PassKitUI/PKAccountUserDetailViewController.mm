@@ -675,10 +675,10 @@ LABEL_32:
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __93__PKAccountUserDetailViewController_physicalCardActionController_didChangeToState_withError___block_invoke(uint64_t result)
+void *__93__PKAccountUserDetailViewController_physicalCardActionController_didChangeToState_withError___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 48);
+  v2 = *(result + 6);
   if (v2 <= 1)
   {
     if (v2)
@@ -688,13 +688,13 @@ uint64_t __93__PKAccountUserDetailViewController_physicalCardActionController_di
         return result;
       }
 
-      v3 = *(result + 32);
+      v3 = *(result + 4);
       v4 = 1;
       goto LABEL_12;
     }
 
 LABEL_11:
-    v3 = *(result + 32);
+    v3 = *(result + 4);
     v4 = 0;
 LABEL_12:
 
@@ -708,10 +708,10 @@ LABEL_12:
 
   if (v2 == 3)
   {
-    result = [*(result + 32) _setPerformingAction:0 animated:1];
-    if (*(v1 + 40))
+    result = [*(result + 4) _setPerformingAction:0 animated:1];
+    if (v1[5])
     {
-      v5 = *(v1 + 32);
+      v5 = v1[4];
 
       return [v5 _presentDisplayableError:?];
     }
@@ -1252,15 +1252,15 @@ void __60__PKAccountUserDetailViewController__loadPeerPaymentAccount__block_invo
   dispatch_async(MEMORY[0x1E69E96A0], v5);
 }
 
-uint64_t __60__PKAccountUserDetailViewController__loadPeerPaymentAccount__block_invoke_2(uint64_t result)
+void *__60__PKAccountUserDetailViewController__loadPeerPaymentAccount__block_invoke_2(void *result)
 {
-  v3 = *(result + 32);
-  v2 = *(result + 40);
+  v3 = result[4];
+  v2 = result[5];
   if (*(v3 + 1136) != v2)
   {
     v4 = result;
     objc_storeStrong((v3 + 1136), v2);
-    v5 = *(v4 + 32);
+    v5 = v4[4];
 
     return [v5 _updateConfigurationAnimated:1];
   }
@@ -2244,11 +2244,11 @@ void __66__PKAccountUserDetailViewController__presentCancelInvitationAlert__bloc
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __66__PKAccountUserDetailViewController__presentCancelInvitationAlert__block_invoke_3(uint64_t result)
+id *__66__PKAccountUserDetailViewController__presentCancelInvitationAlert__block_invoke_3(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) _presentDisplayableError:?];
+    return [result[5] _presentDisplayableError:?];
   }
 
   return result;
@@ -2709,36 +2709,36 @@ void __88__PKAccountUserDetailViewController__presentPasswordAuthorizationWithRe
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __88__PKAccountUserDetailViewController__presentPasswordAuthorizationWithReason_completion___block_invoke_2(uint64_t a1)
+void __88__PKAccountUserDetailViewController__presentPasswordAuthorizationWithReason_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v15 = 138412290;
-    v16 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Request for user authentication returned with error: %@", &v15, 0xCu);
+    v4 = *(a1 + 32);
+    v16 = 138412290;
+    v17 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Request for user authentication returned with error: %@", &v16, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  if (!v4)
+  v5 = *(a1 + 32);
+  if (!v5)
   {
-    v8 = *(*(a1 + 48) + 16);
+    v9 = *(*(a1 + 48) + 16);
     goto LABEL_8;
   }
 
-  v5 = [v4 domain];
-  v6 = *MEMORY[0x1E698DB28];
-  if ([v5 isEqual:*MEMORY[0x1E698DB28]])
+  v6 = [v5 domain];
+  v7 = *MEMORY[0x1E698DB28];
+  if ([v6 isEqual:*MEMORY[0x1E698DB28]])
   {
-    v7 = [*(a1 + 32) code];
+    v8 = [*(a1 + 32) code];
 
-    if (v7 == -7003)
+    if (v8 == -7003)
     {
-      v8 = *(*(a1 + 48) + 16);
+      v9 = *(*(a1 + 48) + 16);
 LABEL_8:
-      v8();
+      v9();
       return;
     }
   }
@@ -2747,16 +2747,16 @@ LABEL_8:
   {
   }
 
-  v9 = [*(a1 + 32) domain];
-  if ([v9 isEqual:v6])
+  v10 = [*(a1 + 32) domain];
+  if ([v10 isEqual:v7])
   {
-    v10 = [*(a1 + 32) code];
+    v11 = [*(a1 + 32) code];
 
-    if (v10 == -7005)
+    if (v11 == -7005)
     {
-      v11 = PKLocalizedPaymentString(&cfstr_CouldNotConnec.isa);
-      v12 = PKLocalizedPaymentString(&cfstr_CouldNotConnec_0.isa);
-      v13 = PKDisplayableErrorCustom();
+      v12 = PKLocalizedPaymentString(&cfstr_CouldNotConnec.isa);
+      v13 = PKLocalizedPaymentString(&cfstr_CouldNotConnec_0.isa);
+      v14 = PKDisplayableErrorCustom();
 
       (*(*(a1 + 48) + 16))();
       return;
@@ -2767,7 +2767,7 @@ LABEL_8:
   {
   }
 
-  v14 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", *(a1 + 32), [*(*(a1 + 40) + 1072) feature], 0, 0);
+  v15 = +[PKAccountFlowController displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:](PKAccountFlowController, "displayableErrorForError:featureIdentifier:genericErrorTitle:genericErrorMessage:", *(a1 + 32), [*(*(a1 + 40) + 1072) feature], 0, 0);
   (*(*(a1 + 48) + 16))();
 }
 

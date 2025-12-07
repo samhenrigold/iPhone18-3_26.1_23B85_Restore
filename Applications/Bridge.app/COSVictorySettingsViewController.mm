@@ -6,7 +6,7 @@
 
 - (id)partnerAppStoreIdentifier
 {
-  v2 = sub_1000E63CC();
+  v2 = sub_1000E63CC(self);
 
   return [NSNumber numberWithInteger:v2];
 }

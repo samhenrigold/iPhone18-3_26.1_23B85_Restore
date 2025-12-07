@@ -31,8 +31,8 @@
 - (void)didTapOnReportAnIssue
 {
   v8 = [[ReportASearchAutocompleteResult alloc] initWithTitle:0];
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v3 = objc_msgSend_configuration(self);
+  actionCoordinator = [v3 actionCoordinator];
   containerViewController = [actionCoordinator containerViewController];
   _maps_mapsSceneDelegate = [containerViewController _maps_mapsSceneDelegate];
   rapPresenter = [_maps_mapsSceneDelegate rapPresenter];
@@ -52,31 +52,31 @@
 - (void)didTapOnPhotoCarousel:(id)carousel index:(int64_t)index
 {
   carouselCopy = carousel;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v7 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v7 homeActionDelegate];
   [homeActionDelegate homeItemTapped:carouselCopy];
 }
 
 - (void)didTapOnUserLibrary:(id)library
 {
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v4 = objc_msgSend_configuration(self, a2, library);
+  actionCoordinator = [v4 actionCoordinator];
   [actionCoordinator viewControllerShowLibraryPlacesView:0];
 }
 
 - (void)didTapOnUserNote:(id)note
 {
   noteCopy = note;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v6 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v6 homeActionDelegate];
   [homeActionDelegate homeItemTapped:noteCopy];
 }
 
 - (void)didTapOnContainment:(id)containment
 {
   containmentCopy = containment;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v7 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v7 homeActionDelegate];
   searchResults = [(SearchResultsDataProvider *)self->_searchResultsDataProvider searchResults];
   [homeActionDelegate homeDidTapOnContainment:containmentCopy forResults:searchResults];
 }
@@ -84,24 +84,24 @@
 - (void)didTapOnCuratedGuides:(id)guides
 {
   guidesCopy = guides;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v6 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v6 homeActionDelegate];
   [homeActionDelegate homeDidTapOnCuratedGuides:guidesCopy];
 }
 
 - (void)didTapOnCuratedGuide:(id)guide
 {
   guideCopy = guide;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v6 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v6 homeActionDelegate];
   [homeActionDelegate homeDidTapOnCuratedGuide:guideCopy];
 }
 
 - (void)didTapOnUserGeneratedGuide:(id)guide
 {
   guideCopy = guide;
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  homeActionDelegate = [configuration homeActionDelegate];
+  v6 = objc_msgSend_configuration(self);
+  homeActionDelegate = [v6 homeActionDelegate];
   [homeActionDelegate homeDidTapOnUserGeneratedGuide:guideCopy];
 }
 
@@ -111,8 +111,8 @@
   v6 = objc_alloc_init(SearchFieldItem);
   [(SearchFieldItem *)v6 setSuggestion:suggestionCopy];
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v7 = objc_msgSend_configuration(self);
+  actionCoordinator = [v7 actionCoordinator];
   v10 = @"SearchSessionIsSuggestionSearch";
   v11 = &__kCFBooleanTrue;
   v9 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
@@ -479,8 +479,8 @@ LABEL_13:
       [(HomeOutlineSearchResultsSectionController *)self cachePlacesummaryTemplates:v14 metadata:placeSummaryMetadata location:currentLocation openAt:openAt];
     }
 
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    sectionIdentifier = [configuration sectionIdentifier];
+    v20 = objc_msgSend_configuration(self);
+    sectionIdentifier = [v20 sectionIdentifier];
     expanded = [(HomeOutlineSectionController *)self expanded];
     v48[0] = _NSConcreteStackBlock;
     v48[1] = 3221225472;
@@ -590,8 +590,8 @@ LABEL_21:
     searchResultsDataProvider = v3->_searchResultsDataProvider;
     v3->_searchResultsDataProvider = v4;
 
-    configuration = [(HomeOutlineSectionController *)v3 configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v6 = objc_msgSend_configuration(v3);
+    actionCoordinator = [v6 actionCoordinator];
     [(SearchResultsDataProvider *)v3->_searchResultsDataProvider setActionCoordinator:actionCoordinator];
 
     v8 = [[CollectionsDataProvider alloc] initWithContext:0 observeInfo:0 observeContents:1];

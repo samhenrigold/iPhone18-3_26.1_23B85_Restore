@@ -85,7 +85,7 @@ void __25__MCBookmarkManager_init__block_invoke(uint64_t a1)
 
 - (void)memberQueueRereadBookmarks
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v3 = _MCLogObjects;
   if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
   {
@@ -94,140 +94,138 @@ void __25__MCBookmarkManager_init__block_invoke(uint64_t a1)
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v5 = MCSystemWebContentFilterCurrentUserBookmarksPath();
+  v5 = MCSystemWebContentFilterCurrentUserBookmarksPath(defaultManager);
   v6 = [defaultManager fileExistsAtPath:v5 isDirectory:0];
 
   if (v6)
   {
-    v7 = MEMORY[0x1E695DEC8];
-    v8 = MCSystemWebContentFilterCurrentUserBookmarksPath();
-    v9 = [v7 arrayWithContentsOfFile:v8];
+    v8 = MEMORY[0x1E695DEC8];
+    v9 = MCSystemWebContentFilterCurrentUserBookmarksPath(v7);
+    v10 = [v8 arrayWithContentsOfFile:v9];
 
-    v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v9, "count")}];
-    v50 = 0u;
-    v51 = 0u;
+    v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v10, "count")}];
     v52 = 0u;
     v53 = 0u;
-    v11 = v9;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v50 objects:v57 count:16];
-    if (v12)
+    v54 = 0u;
+    v55 = 0u;
+    v12 = v10;
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v52 objects:v59 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v51;
+      v14 = v13;
+      v15 = *v53;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v51 != v14)
+          if (*v53 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = [[MCBookmark alloc] initWithSerializableDictionary:*(*(&v50 + 1) + 8 * i)];
-          [(NSArray *)v10 addObject:v16];
+          v17 = [[MCBookmark alloc] initWithSerializableDictionary:*(*(&v52 + 1) + 8 * i)];
+          [(NSArray *)v11 addObject:v17];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v50 objects:v57 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v52 objects:v59 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     memberQueueCurrentUserBookmarks = self->_memberQueueCurrentUserBookmarks;
-    self->_memberQueueCurrentUserBookmarks = v10;
+    self->_memberQueueCurrentUserBookmarks = v11;
   }
 
   else
   {
-    v11 = self->_memberQueueCurrentUserBookmarks;
+    v12 = self->_memberQueueCurrentUserBookmarks;
     self->_memberQueueCurrentUserBookmarks = 0;
   }
 
-  v18 = MCSystemWebContentFilterStashedUserBookmarksPath();
-  v19 = [defaultManager fileExistsAtPath:v18 isDirectory:0];
+  v20 = MCSystemWebContentFilterStashedUserBookmarksPath(v19);
+  v21 = [defaultManager fileExistsAtPath:v20 isDirectory:0];
 
-  v20 = MEMORY[0x1E695DF20];
-  if (v19)
+  v23 = MEMORY[0x1E695DF20];
+  if (v21)
   {
-    v37 = defaultManager;
+    v39 = defaultManager;
     selfCopy = self;
-    v21 = MCSystemWebContentFilterStashedUserBookmarksPath();
-    v22 = [v20 dictionaryWithContentsOfFile:v21];
+    v24 = MCSystemWebContentFilterStashedUserBookmarksPath(v22);
+    v25 = [v23 dictionaryWithContentsOfFile:v24];
 
-    v40 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v22, "count")}];
-    v46 = 0u;
-    v47 = 0u;
+    v42 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v25, "count")}];
     v48 = 0u;
     v49 = 0u;
-    v23 = v22;
-    v41 = [(NSDictionary *)v23 countByEnumeratingWithState:&v46 objects:v56 count:16];
-    if (v41)
+    v50 = 0u;
+    v51 = 0u;
+    v26 = v25;
+    v43 = [(NSDictionary *)v26 countByEnumeratingWithState:&v48 objects:v58 count:16];
+    if (v43)
     {
-      v39 = *v47;
+      v41 = *v49;
       do
       {
-        for (j = 0; j != v41; ++j)
+        for (j = 0; j != v43; ++j)
         {
-          if (*v47 != v39)
+          if (*v49 != v41)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v26);
           }
 
-          v25 = *(*(&v46 + 1) + 8 * j);
-          v26 = [(NSDictionary *)v23 objectForKeyedSubscript:v25];
-          v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v26, "count")}];
-          v42 = 0u;
-          v43 = 0u;
+          v28 = *(*(&v48 + 1) + 8 * j);
+          v29 = [(NSDictionary *)v26 objectForKeyedSubscript:v28];
+          v30 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v29, "count")}];
           v44 = 0u;
           v45 = 0u;
-          v28 = v26;
-          v29 = [v28 countByEnumeratingWithState:&v42 objects:v55 count:16];
-          if (v29)
+          v46 = 0u;
+          v47 = 0u;
+          v31 = v29;
+          v32 = [v31 countByEnumeratingWithState:&v44 objects:v57 count:16];
+          if (v32)
           {
-            v30 = v29;
-            v31 = *v43;
+            v33 = v32;
+            v34 = *v45;
             do
             {
-              for (k = 0; k != v30; ++k)
+              for (k = 0; k != v33; ++k)
               {
-                if (*v43 != v31)
+                if (*v45 != v34)
                 {
-                  objc_enumerationMutation(v28);
+                  objc_enumerationMutation(v31);
                 }
 
-                v33 = [[MCBookmark alloc] initWithSerializableDictionary:*(*(&v42 + 1) + 8 * k)];
-                [v27 addObject:v33];
+                v36 = [[MCBookmark alloc] initWithSerializableDictionary:*(*(&v44 + 1) + 8 * k)];
+                [v30 addObject:v36];
               }
 
-              v30 = [v28 countByEnumeratingWithState:&v42 objects:v55 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v44 objects:v57 count:16];
             }
 
-            while (v30);
+            while (v33);
           }
 
-          [(NSDictionary *)v40 setObject:v27 forKeyedSubscript:v25];
+          [(NSDictionary *)v42 setObject:v30 forKeyedSubscript:v28];
         }
 
-        v41 = [(NSDictionary *)v23 countByEnumeratingWithState:&v46 objects:v56 count:16];
+        v43 = [(NSDictionary *)v26 countByEnumeratingWithState:&v48 objects:v58 count:16];
       }
 
-      while (v41);
+      while (v43);
     }
 
     memberQueueStashedBookmarksByLabel = selfCopy->_memberQueueStashedBookmarksByLabel;
-    selfCopy->_memberQueueStashedBookmarksByLabel = v40;
+    selfCopy->_memberQueueStashedBookmarksByLabel = v42;
 
-    defaultManager = v37;
+    defaultManager = v39;
   }
 
   else
   {
     dictionary = [MEMORY[0x1E695DF20] dictionary];
-    v23 = self->_memberQueueStashedBookmarksByLabel;
+    v26 = self->_memberQueueStashedBookmarksByLabel;
     self->_memberQueueStashedBookmarksByLabel = dictionary;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)memberQueueSetUserBookmarks:(id)bookmarks
@@ -272,18 +270,16 @@ void __25__MCBookmarkManager_init__block_invoke(uint64_t a1)
       while (v10);
     }
 
-    v14 = MCSystemWebContentFilterCurrentUserBookmarksPath();
-    [defaultManager writeToFile:v14 atomically:1];
+    v15 = MCSystemWebContentFilterCurrentUserBookmarksPath(v14);
+    [defaultManager writeToFile:v15 atomically:1];
   }
 
   else
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v14 = MCSystemWebContentFilterCurrentUserBookmarksPath();
-    [defaultManager removeItemAtPath:v14 error:0];
+    v15 = MCSystemWebContentFilterCurrentUserBookmarksPath(defaultManager);
+    [defaultManager removeItemAtPath:v15 error:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserBookmarks:(id)bookmarks

@@ -1,44 +1,46 @@
 @interface NSSQLCoreDispatchManager
 - (NSSQLCoreDispatchManager)initWithSQLCore:(id)core seedConnection:(id)connection;
-- (uint64_t)disconnectAllConnections;
-- (uint64_t)enumerateAvailableConnectionsWithBlock:(uint64_t)result;
-- (uint64_t)routeStoreRequest:(uint64_t)result;
 - (void)dealloc;
+- (void)disconnectAllConnections;
+- (void)enumerateAvailableConnectionsWithBlock:(void *)result;
+- (void)routeStoreRequest:(void *)result;
 - (void)scheduleBarrierBlock:(id)block;
+- (void)setExclusiveLockingMode:(BOOL)mode;
 @end
 
 @implementation NSSQLCoreDispatchManager
 
-- (uint64_t)disconnectAllConnections
+- (void)disconnectAllConnections
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v8 = 0u;
-    v9 = 0u;
-    v6 = 0u;
     v7 = 0u;
-    v1 = *(result + 16);
-    result = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+    v8 = 0u;
+    v5 = 0u;
+    v6 = 0u;
+    v1 = result[2];
+    result = [v1 countByEnumeratingWithState:&v5 objects:v9 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v7;
+      v3 = *v6;
       do
       {
         v4 = 0;
         do
         {
-          if (*v7 != v3)
+          if (*v6 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          [*(*(&v6 + 1) + 8 * v4++) disconnectAllConnections];
+          [*(*(&v5 + 1) + 8 * v4) disconnectAllConnections];
+          v4 = (v4 + 1);
         }
 
         while (v2 != v4);
-        result = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+        result = [v1 countByEnumeratingWithState:&v5 objects:v9 count:16];
         v2 = result;
       }
 
@@ -46,7 +48,6 @@
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -85,43 +86,42 @@
   return v7;
 }
 
-- (uint64_t)routeStoreRequest:(uint64_t)result
+- (void)routeStoreRequest:(void *)result
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    v3 = *(result + 16);
-    result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v3 = result[2];
+    result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (result)
     {
       v4 = result;
-      v5 = *v10;
+      v5 = *v9;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v9 + 1) + 8 * v6);
+          v7 = *(*(&v8 + 1) + 8 * v6);
           if (v7 && ((*(v7[2] + 16))() & 1) != 0)
           {
-            result = [v7 handleStoreRequest:a2];
-            goto LABEL_13;
+            return [v7 handleStoreRequest:a2];
           }
 
-          ++v6;
+          v6 = (v6 + 1);
         }
 
         while (v4 != v6);
-        result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         v4 = result;
         if (result)
         {
@@ -133,9 +133,18 @@
     }
   }
 
-LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
   return result;
+}
+
+- (void)setExclusiveLockingMode:(BOOL)mode
+{
+  modeCopy = mode;
+  if ([(NSMutableArray *)self->_connectionManagers count]== 1)
+  {
+    firstObject = [(NSMutableArray *)self->_connectionManagers firstObject];
+
+    [firstObject setExclusiveLockingMode:modeCopy];
+  }
 }
 
 - (void)scheduleBarrierBlock:(id)block
@@ -145,36 +154,37 @@ LABEL_13:
   [firstObject scheduleBarrierBlock:block];
 }
 
-- (uint64_t)enumerateAvailableConnectionsWithBlock:(uint64_t)result
+- (void)enumerateAvailableConnectionsWithBlock:(void *)result
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
-    v3 = *(result + 16);
-    result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v3 = result[2];
+    result = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (result)
     {
       v4 = result;
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v8 + 1) + 8 * v6++) enumerateAvailableConnectionsWithBlock:a2];
+          [*(*(&v7 + 1) + 8 * v6) enumerateAvailableConnectionsWithBlock:a2];
+          v6 = (v6 + 1);
         }
 
         while (v4 != v6);
-        result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        result = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
         v4 = result;
       }
 
@@ -182,7 +192,6 @@ LABEL_13:
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

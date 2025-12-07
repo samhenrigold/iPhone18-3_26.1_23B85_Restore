@@ -1,4 +1,5 @@
 @interface FSFNluUserParseFeature
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (FSFNluUserParseFeature)initWithContent:(id)content dataVersion:(unsigned int)version;
 - (FSFNluUserParseFeature)initWithContentJson:(id)json dataVersion:(unsigned int)version;
 - (FSFNluUserParseFeature)initWithData:(id)data dataVersion:(unsigned int)version;
@@ -100,6 +101,15 @@
   }
 
   return v3;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[FSFNluUserParseFeature alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
 }
 
 - (id)json

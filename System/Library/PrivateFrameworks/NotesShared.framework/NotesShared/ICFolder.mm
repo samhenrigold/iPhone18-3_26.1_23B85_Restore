@@ -2554,7 +2554,7 @@ id __35__ICFolder_ancestorFolderObjectIDs__block_invoke(uint64_t a1, void *a2)
 {
   serverShare = [self serverShare];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "A shared folder is deleted but may have not been unshared yet: %@, share: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v2, v3, "A shared folder is deleted but may have not been unshared yet: %@, share: %@", v4, v5, v6, v7);
 }
 
 - (void)setMarkedForDeletion:(BOOL)deletion
@@ -3930,7 +3930,7 @@ void *__69__ICFolder_visibleSmartFoldersForHashtagStandardizedContent_account___
 {
   v2 = [a2 account];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "Folder account mismatch %@ expects %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "Folder account mismatch %@ expects %@", v5, v6, v7, v8);
 }
 
 - (void)setAccount:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
@@ -3950,7 +3950,7 @@ void *__69__ICFolder_visibleSmartFoldersForHashtagStandardizedContent_account___
   v1 = [a1 identifier];
   v2 = [MEMORY[0x277CCACC8] callStackSymbols];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "Trying to mark an un-deletable folder (%@) for deletion: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_1(&dword_214D51000, v3, v4, "Trying to mark an un-deletable folder (%@) for deletion: %@", v5, v6, v7, v8);
 }
 
 @end

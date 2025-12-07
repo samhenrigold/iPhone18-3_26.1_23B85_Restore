@@ -89,16 +89,14 @@ void __46__IKJSDevice_initWithAppContext_deviceConfig___block_invoke(uint64_t a1
 
 void __46__IKJSDevice_initWithAppContext_deviceConfig___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v6[0] = *(a1 + 32);
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    v5[0] = *(a1 + 32);
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
     v4 = [WeakRetained invokeMethod:@"onNetworkChange" withArguments:v3];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

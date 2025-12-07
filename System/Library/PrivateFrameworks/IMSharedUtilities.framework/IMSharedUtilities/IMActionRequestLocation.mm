@@ -16,7 +16,7 @@
 
 - (id)dictionaryRepresentation
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = 0x68737550646E6573;
@@ -24,7 +24,7 @@
   selfCopy = self;
   [(IMActionRequestLocation *)selfCopy sendPush];
   v5 = sub_1A88C86C8();
-  *(inited + 72) = sub_1A85E9718(0, &qword_1ED8C9450);
+  *(inited + 72) = sub_1A85E9718(0, &qword_1ED8C9450, 0x1E696AD98);
   *(inited + 48) = v5;
   sub_1A8738AAC(inited);
   swift_setDeallocating();

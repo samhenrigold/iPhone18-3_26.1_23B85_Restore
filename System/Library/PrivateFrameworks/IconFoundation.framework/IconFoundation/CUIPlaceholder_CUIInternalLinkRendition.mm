@@ -194,8 +194,7 @@
     return [(CUIPlaceholderCUIThemeRendition *)self subtype]== 30 || [(CUIPlaceholderCUIThemeRendition *)self subtype]== 11;
   }
 
-  name = [(CUIPlaceholderCUIThemeRendition *)self name];
-  _CUILog(1, "WARNING: -isTiled called on rendition named: %@, which is not a one-part or nine-part image, but the method is only meaningful for one-part and nine-part images. Returning NO.", v5, v6, v7, v8, v9, v10, name);
+  _CUILog(1, "WARNING: -isTiled called on rendition named: %@, which is not a one-part or nine-part image, but the method is only meaningful for one-part and nine-part images. Returning NO.", [(CUIPlaceholderCUIThemeRendition *)self name]);
   return 0;
 }
 

@@ -59,7 +59,7 @@
 
 - ($0AC6E346AE4835514AAA8AC86D8F4844)pixelSizeWithSourceOptions:(id)options
 {
-  [(CIImage *)self->_image extent];
+  objc_msgSend_extent(self->_image, a2, options);
   v4 = vcvtmd_s64_f64(v3);
   v6 = vcvtmd_s64_f64(v5);
   result.var1 = v6;

@@ -23,7 +23,6 @@
   else if (progress == 1.0 || time - self->_lastProgressCallTime >= 0.01)
   {
     self->_lastProgressCallTime = time;
-    progressBlock = self->_progressBlock;
     (*(self->_progressBlock + 2))();
     return self->_isCancelled;
   }

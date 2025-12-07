@@ -13,35 +13,35 @@
 
 - (id)startDate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   successes = [self successes];
-  v3 = [successes countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [successes countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     v6 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(successes);
         }
 
-        startTime = [*(*(&v22 + 1) + 8 * i) startTime];
+        startTime = [*(*(&v21 + 1) + 8 * i) startTime];
         if (startTime < v6)
         {
           v6 = startTime;
         }
       }
 
-      v4 = [successes countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v4 = [successes countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v4);
@@ -52,75 +52,74 @@
     v6 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   failures = [self failures];
-  v10 = [failures countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v10 = [failures countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(failures);
         }
 
-        startTime2 = [*(*(&v18 + 1) + 8 * j) startTime];
+        startTime2 = [*(*(&v17 + 1) + 8 * j) startTime];
         if (startTime2 < v6)
         {
           v6 = startTime2;
         }
       }
 
-      v11 = [failures countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [failures countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v15 = [MEMORY[0x1E695DF00] fc_dateWithMillisecondTimeIntervalSince1970:v6];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)endDate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   successes = [self successes];
-  v3 = [successes countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [successes countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(successes);
         }
 
-        startTime = [*(*(&v22 + 1) + 8 * i) startTime];
+        startTime = [*(*(&v21 + 1) + 8 * i) startTime];
         if (startTime > v5)
         {
           v5 = startTime;
         }
       }
 
-      v4 = [successes countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v4 = [successes countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v4);
@@ -131,40 +130,39 @@
     v5 = 0;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   failures = [self failures];
-  v10 = [failures countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v10 = [failures countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(failures);
         }
 
-        startTime2 = [*(*(&v18 + 1) + 8 * j) startTime];
+        startTime2 = [*(*(&v17 + 1) + 8 * j) startTime];
         if (startTime2 > v5)
         {
           v5 = startTime2;
         }
       }
 
-      v11 = [failures countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [failures countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v15 = [MEMORY[0x1E695DF00] fc_dateWithMillisecondTimeIntervalSince1970:v5];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

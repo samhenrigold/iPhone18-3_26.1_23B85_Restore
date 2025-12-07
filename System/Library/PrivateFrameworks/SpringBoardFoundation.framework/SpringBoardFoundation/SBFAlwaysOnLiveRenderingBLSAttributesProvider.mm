@@ -28,7 +28,7 @@
 
   else
   {
-    v10 = SBLogLiveRendering();
+    v10 = SBLogLiveRendering(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(SBFAlwaysOnLiveRenderingBLSAttributesProvider *)v10 assertionAttributes];

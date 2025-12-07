@@ -12,7 +12,7 @@
 
 + (id)_objectWithCodable:(id)codable collection:(id)collection
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   codableCopy = codable;
   collectionCopy = collection;
   sample = [codableCopy sample];
@@ -26,11 +26,11 @@
     {
       v17 = v16;
       sample2 = [codableCopy sample];
-      v26 = 138543618;
+      v25 = 138543618;
       selfCopy = self;
-      v28 = 2048;
+      v27 = 2048;
       dataType2 = [sample2 dataType];
-      _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignorning unknown data type code %lld", &v26, 0x16u);
+      _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignorning unknown data type code %lld", &v25, 0x16u);
     }
 
     goto LABEL_12;
@@ -95,8 +95,6 @@ LABEL_13:
 LABEL_12:
   v20 = 0;
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -211,32 +209,32 @@ LABEL_17:
     v72 = [(HDQuantitySampleSyncEntity *)selfCopy _headphoneAudioExposureSamplesExpirationPredicateForNowDate:dateCopy];
     v88[4] = v72;
     v53 = dateCopy;
-    objc_opt_self();
-    v70 = +[HDQuantitySampleSyncEntity _sedentaryAndBackgroundHeartRateContextPredicate];
-    v54 = [MEMORY[0x277D10B20] negatedPredicate:v70];
+    v54 = objc_opt_self();
+    v70 = +[(HDQuantitySampleSyncEntity *)v54];
+    v55 = [MEMORY[0x277D10B20] negatedPredicate:v70];
     currentCalendar6 = [MEMORY[0x277CBEA80] currentCalendar];
     heartRateType = [MEMORY[0x277CCD830] heartRateType];
     v98[0] = heartRateType;
-    v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:1];
-    v58 = [currentCalendar6 hd_predicateForSamplesWithTypes:v57 endingBeforeDate:v53 minusDays:*MEMORY[0x277CCCED8]];
+    v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:1];
+    v59 = [currentCalendar6 hd_predicateForSamplesWithTypes:v58 endingBeforeDate:v53 minusDays:*MEMORY[0x277CCCED8]];
 
     currentCalendar7 = [MEMORY[0x277CBEA80] currentCalendar];
     heartRateType2 = [MEMORY[0x277CCD830] heartRateType];
     v97 = heartRateType2;
-    v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
-    v62 = [currentCalendar7 hd_predicateForSamplesWithTypes:v61 endingBeforeDate:v53 minusDays:v74];
+    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
+    v63 = [currentCalendar7 hd_predicateForSamplesWithTypes:v62 endingBeforeDate:v53 minusDays:v74];
 
-    v63 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v54 otherPredicate:v62];
-    v64 = MEMORY[0x277D10B20];
-    v96[0] = v58;
-    v96[1] = v63;
-    v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
-    v66 = [v64 predicateMatchingAnyPredicates:v65];
+    v64 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v55 otherPredicate:v63];
+    v65 = MEMORY[0x277D10B20];
+    v96[0] = v59;
+    v96[1] = v64;
+    v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+    v67 = [v65 predicateMatchingAnyPredicates:v66];
 
-    v88[5] = v66;
+    v88[5] = v67;
     v88[6] = v80;
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:7];
-    v29 = [v71 predicateMatchingAnyPredicates:v67];
+    v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:7];
+    v29 = [v71 predicateMatchingAnyPredicates:v68];
 
     v27 = v86;
   }
@@ -250,27 +248,23 @@ LABEL_17:
     v29 = [v26 predicateMatchingAnyPredicates:v28];
   }
 
-  v68 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 + (id)_headphoneAudioExposureSamplesExpirationPredicateForNowDate:(uint64_t)date
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = [MEMORY[0x277CCD830] dataTypeWithCode:173];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v12[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v6 = [currentCalendar hd_predicateForSamplesWithTypes:v5 endingBeforeDate:v2 minusDays:*MEMORY[0x277CCC180]];
 
   v7 = [MEMORY[0x277CBEB98] setWithObject:MEMORY[0x277CBEC38]];
   v8 = [HDMetadataValueEntityPredicate predicateWithMetadataKey:*MEMORY[0x277CCDFF8] allowedValues:v7];
   v9 = [MEMORY[0x277D10B20] compoundPredicateWithPredicate:v6 otherPredicate:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -278,10 +272,10 @@ LABEL_17:
 + (id)_sedentaryAndBackgroundHeartRateContextPredicate
 {
   objc_opt_self();
-  v0 = _HKBackgroundAndSedentaryPrivateHeartRateContexts();
-  v1 = [HDMetadataValueEntityPredicate predicateWithMetadataKey:*MEMORY[0x277CCE030] allowedValues:v0];
+  v1 = _HKBackgroundAndSedentaryPrivateHeartRateContexts();
+  v2 = [HDMetadataValueEntityPredicate predicateWithMetadataKey:*MEMORY[0x277CCE030] allowedValues:v1];
 
-  return v1;
+  return v2;
 }
 
 + (id)syncEntityDependenciesForSyncProtocolVersion:(int)version
@@ -301,19 +295,19 @@ LABEL_17:
 
 + (id)_predicateForSampleAgeInSyncSession:(id)session sampleTypeClass:(Class)class
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v6 = objc_opt_class();
-  v18.receiver = self;
-  v18.super_class = &OBJC_METACLASS___HDQuantitySampleSyncEntity;
-  v7 = objc_msgSendSuper2(&v18, sel__predicateForSampleAgeInSyncSession_sampleTypeClass_, sessionCopy, v6);
+  v17.receiver = self;
+  v17.super_class = &OBJC_METACLASS___HDQuantitySampleSyncEntity;
+  v7 = objc_msgSendSuper2(&v17, sel__predicateForSampleAgeInSyncSession_sampleTypeClass_, sessionCopy, v6);
   if (v7)
   {
-    v8 = +[HDQuantitySampleSyncEntity _sedentaryAndBackgroundHeartRateContextPredicate];
+    v8 = +[(HDQuantitySampleSyncEntity *)self];
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     heartRateType = [MEMORY[0x277CCD830] heartRateType];
-    v19[0] = heartRateType;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = heartRateType;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     startDate = [sessionCopy startDate];
     v13 = [currentCalendar hd_predicateForSamplesWithTypes:v11 endingAfterDate:startDate minusDays:*MEMORY[0x277CCCED8]];
 
@@ -326,25 +320,23 @@ LABEL_17:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)_predicateForSyncSession:(id)session
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = &OBJC_METACLASS___HDQuantitySampleSyncEntity;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = &OBJC_METACLASS___HDQuantitySampleSyncEntity;
   sessionCopy = session;
-  v4 = objc_msgSendSuper2(&v13, sel__predicateForSyncSession_, sessionCopy);
+  v4 = objc_msgSendSuper2(&v12, sel__predicateForSyncSession_, sessionCopy);
   isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSession = _isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSession(sessionCopy);
 
   if (isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSession)
   {
-    v6 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:{*MEMORY[0x277CCCBE8], v13.receiver, v13.super_class}];
-    v14[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v6 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:{*MEMORY[0x277CCCBE8], v12.receiver, v12.super_class}];
+    v13[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v8 = HDSampleEntityPredicateForDataTypes(v7);
 
     v9 = [MEMORY[0x277D10B20] negatedPredicate:v8];
@@ -352,8 +344,6 @@ LABEL_17:
 
     v4 = v10;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

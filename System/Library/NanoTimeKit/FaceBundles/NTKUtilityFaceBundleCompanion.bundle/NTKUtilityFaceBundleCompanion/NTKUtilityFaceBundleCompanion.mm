@@ -61,7 +61,7 @@ id _NTKUtilityTick(unint64_t a1, void *a2, double a3, double a4, double a5, doub
   return v17;
 }
 
-id _NTKUtilityMinuteLayer(unint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, unint64_t a7, void *a8)
+id _NTKUtilityMinuteLayer(uint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, unint64_t a7, void *a8)
 {
   v14 = a8;
   if (a1)
@@ -136,94 +136,94 @@ id _NTKUtilityMinuteLayer(unint64_t a1, double a2, double a3, double a4, double 
   return v39;
 }
 
-id _NTKUtilityHourLayer(unint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7)
+id _NTKUtilityHourLayer(uint64_t a1, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (!NTKShowIndicScriptNumerals() || ([NTKSFCompactFont numericFontOfSize:a2 weight:UIFontWeightMedium], (v13 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!NTKShowIndicScriptNumerals() || ([NTKSFCompactFont numericFontOfSize:a2 weight:UIFontWeightMedium], (v14 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v13 = [CLKFont systemFontOfSize:a2 weight:UIFontWeightMedium];
+    v14 = [CLKFont systemFontOfSize:a2 weight:UIFontWeightMedium];
   }
 
   if (a1)
   {
-    v14 = a1;
+    v15 = a1;
   }
 
   else
   {
-    v14 = 12;
+    v15 = 12;
   }
 
-  v15 = _NTKUtilityNumberText(@"%i", v14, a7);
-  v16 = _NTKUtilityLanguageRenderingHintForUtilityFaceDialTypeface(a7);
-  v17 = [NSAttributedString alloc];
-  v46[0] = v13;
-  v45[0] = NSFontAttributeName;
-  v45[1] = NSForegroundColorAttributeName;
-  v18 = +[UIColor whiteColor];
-  v45[2] = NSLanguageIdentifierAttributeName;
-  v46[1] = v18;
-  v46[2] = v16;
-  v19 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:3];
-  v20 = [v17 initWithString:v15 attributes:v19];
+  v16 = _NTKUtilityNumberText(@"%i", v15, a7);
+  v17 = _NTKUtilityLanguageRenderingHintForUtilityFaceDialTypeface(a7);
+  v18 = [NSAttributedString alloc];
+  v47[0] = v14;
+  v46[0] = NSFontAttributeName;
+  v46[1] = NSForegroundColorAttributeName;
+  v19 = +[UIColor whiteColor];
+  v46[2] = NSLanguageIdentifierAttributeName;
+  v47[1] = v19;
+  v47[2] = v17;
+  v20 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:3];
+  v21 = [v18 initWithString:v16 attributes:v20];
 
-  v21 = CTLineCreateWithAttributedString(v20);
-  BoundsWithOptions = CTLineGetBoundsWithOptions(v21, 8uLL);
+  v22 = CTLineCreateWithAttributedString(v21);
+  BoundsWithOptions = CTLineGetBoundsWithOptions(v22, 8uLL);
   y = BoundsWithOptions.origin.y;
   height = BoundsWithOptions.size.height;
-  CFRelease(v21);
-  [v13 capHeight];
-  v25 = y + height - v24;
-  [(__CFAttributedString *)v20 boundingRectWithSize:3 options:0 context:CGSizeZero.width, CGSizeZero.height];
-  v27 = v26;
-  v29 = v28;
-  [v13 ascender];
-  v31 = v30;
-  [v13 capHeight];
-  if (a7 && v25 > 0.4 && y >= -0.4)
+  CFRelease(v22);
+  [v14 capHeight];
+  v26 = y + height - v25;
+  [(__CFAttributedString *)v21 boundingRectWithSize:3 options:0 context:CGSizeZero.width, CGSizeZero.height];
+  v28 = v27;
+  v30 = v29;
+  [v14 ascender];
+  v32 = v31;
+  [v14 capHeight];
+  if (a7 && v26 > 0.4 && y >= -0.4)
   {
-    [v13 ascender];
-    v34 = v33 - v25;
-    v35 = ceil(v25);
+    [v14 ascender];
+    v35 = v34 - v26;
+    v36 = ceil(v26);
   }
 
   else
   {
-    v35 = floor(v31 - v32);
-    if (a7 && v25 <= 0.4 && y < -0.4)
+    v36 = floor(v32 - v33);
+    if (a7 && v26 <= 0.4 && y < -0.4)
     {
-      [v13 capHeight];
-      v34 = ceil(v36 - y);
+      [v14 capHeight];
+      v35 = ceil(v37 - y);
     }
 
     else
     {
-      [v13 capHeight];
-      v38 = v37;
+      [v14 capHeight];
+      v39 = v38;
       if (a7 == 2)
       {
-        [v13 descender];
-        v34 = v38 - v39;
+        [v14 descender];
+        v35 = v39 - v40;
       }
 
       else
       {
-        v34 = ceil(v37) + 2.0;
+        v35 = ceil(v38) + 2.0;
       }
     }
   }
 
-  v40 = ceil(v29);
-  v41 = _NTKUtilityFaceRectCenterThatFitsInBoundingRadius(a1 * 3.14159265 / 6.0 + -1.57079633, v40, v34, a3);
-  v42 = __sincos_stret(a1 * 3.14159265 / 6.0 + -1.57079633);
-  v43 = +[CATextLayer layer];
-  [v43 setString:v20];
-  [v43 setBounds:{v27, v35, v40, v34}];
-  [v43 setAnchorPoint:{0.5, 0.5}];
-  [v43 setAlignmentMode:kCAAlignmentCenter];
-  [v43 setMasksToBounds:0];
-  [v43 setPosition:{a4 + v41 * v42.__cosval, a5 + v41 * v42.__sinval}];
+  v41 = ceil(v30);
+  v42 = _NTKUtilityFaceRectCenterThatFitsInBoundingRadius(a1 * 3.14159265 / 6.0 + -1.57079633, v41, v35, a3);
+  v43 = __sincos_stret(a1 * 3.14159265 / 6.0 + -1.57079633);
+  v44 = +[CATextLayer layer];
+  [v44 setString:v21];
+  [v44 setBounds:{v28, v36, v41, v35}];
+  [v44 setAnchorPoint:{0.5, 0.5}];
+  [v44 setAlignmentMode:kCAAlignmentCenter];
+  [v44 setMasksToBounds:0];
+  [v44 setPosition:{a4 + v42 * v43.__cosval, a5 + v42 * v43.__sinval}];
 
-  return v43;
+  return v44;
 }
 
 double _NTKUtilityFaceRectCenterThatFitsInBoundingRadius(double a1, double a2, double a3, double a4)
@@ -455,12 +455,11 @@ void sub_2524(void *a1@<X1>, uint64_t a2@<X8>)
 
 void sub_3F94(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = [a3 display];
+  v4 = [a3 display];
   [*(a1 + 32) _complicationAlphaForEditMode:*(a1 + 40)];
   [*(a1 + 32) _complicationAlphaForEditMode:*(a1 + 48)];
-  v4 = *(a1 + 56);
   CLKInterpolateBetweenFloatsClipped();
-  [v5 setAlpha:?];
+  [v4 setAlpha:?];
 }
 
 void sub_42C0(uint64_t a1, uint64_t a2, void *a3)

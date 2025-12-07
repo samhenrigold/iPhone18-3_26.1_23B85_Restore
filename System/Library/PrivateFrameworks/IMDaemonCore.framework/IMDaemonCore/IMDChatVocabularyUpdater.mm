@@ -69,7 +69,7 @@
 
 - (void)updateVocabularyForAddedChat:(id)chat completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   handlerCopy = handler;
   doneLoadingAfterMerge = [(IMDChatRegistry *)self->_chatRegistry doneLoadingAfterMerge];
@@ -81,9 +81,9 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating SiriKit group name vocabulary for added chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating SiriKit group name vocabulary for added chat: %@", &v12, 0xCu);
       }
     }
 
@@ -97,9 +97,9 @@
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for added chat, but chat registry is not yet loaded. Deferring update. Added Chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for added chat, but chat registry is not yet loaded. Deferring update. Added Chat: %@", &v12, 0xCu);
       }
     }
 
@@ -109,13 +109,11 @@
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVocabularyForDeletedChat:(id)chat completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   handlerCopy = handler;
   doneLoadingAfterMerge = [(IMDChatRegistry *)self->_chatRegistry doneLoadingAfterMerge];
@@ -127,9 +125,9 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating group name vocabulary for deleted chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating group name vocabulary for deleted chat: %@", &v12, 0xCu);
       }
     }
 
@@ -143,9 +141,9 @@
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for deleted chat, but chat registry is not yet loaded. Deferring update. Deleted Chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for deleted chat, but chat registry is not yet loaded. Deferring update. Deleted Chat: %@", &v12, 0xCu);
       }
     }
 
@@ -155,13 +153,11 @@
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVocabularyForRenamedChat:(id)chat completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   handlerCopy = handler;
   doneLoadingAfterMerge = [(IMDChatRegistry *)self->_chatRegistry doneLoadingAfterMerge];
@@ -173,9 +169,9 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating group name vocabulary for renamed chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Updating group name vocabulary for renamed chat: %@", &v12, 0xCu);
       }
     }
 
@@ -189,9 +185,9 @@
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = chatCopy;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for renamed chat, but chat registry is not yet loaded. Deferring update. Renamed Chat: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = chatCopy;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Received request to update vocabulary for renamed chat, but chat registry is not yet loaded. Deferring update. Renamed Chat: %@", &v12, 0xCu);
       }
     }
 
@@ -201,8 +197,6 @@
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVocabularyForDeferredUpdateRequestIfNecessaryWithCompletionHandler:(id)handler
@@ -273,34 +267,34 @@ LABEL_18:
 
 - (void)_updateVocabularyExcludingChat:(id)chat completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   chatCopy = chat;
   handlerCopy = handler;
   if ([MEMORY[0x277D1A9A0] isMessagesInstalled])
   {
     selfCopy = self;
-    v25 = handlerCopy;
+    v24 = handlerCopy;
     cachedChats = [(IMDChatRegistry *)self->_chatRegistry cachedChats];
     v9 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v10 = cachedChats;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v11)
     {
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v14 = *(*(&v28 + 1) + 8 * i);
           if (([v14 isBlackholed] & 1) == 0 && objc_msgSend(v14, "style") != 45)
           {
             displayName = [v14 displayName];
@@ -316,7 +310,7 @@ LABEL_18:
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v11);
@@ -329,12 +323,12 @@ LABEL_18:
     block[2] = sub_22B534718;
     block[3] = &unk_2787037B8;
     block[4] = selfCopy;
-    v27 = v9;
-    v28 = v25;
+    v26 = v9;
+    v27 = v24;
     v21 = v9;
     dispatch_async(v20, block);
 
-    handlerCopy = v25;
+    handlerCopy = v24;
   }
 
   else
@@ -354,8 +348,6 @@ LABEL_18:
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)performInitialUpdateIfNeeded

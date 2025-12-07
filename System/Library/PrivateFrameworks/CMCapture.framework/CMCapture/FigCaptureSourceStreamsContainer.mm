@@ -1,11 +1,11 @@
 @interface FigCaptureSourceStreamsContainer
 - (uint64_t)_populateStreamsFromDeviceVendorForPosition:(uint64_t)position baseZoomFactorOverrides:(uint64_t)overrides clientBaseZoomFactorsByPortType:;
-- (uint64_t)portTypesSupportingDepth;
-- (uint64_t)streamProvidingSDOFRenderingParameters;
-- (uint64_t)switchOverZoomFactors;
-- (uint64_t)switchOverZoomFactorsWithoutFudge;
 - (void)dealloc;
 - (void)initWithDeviceType:(uint64_t)type position:(int)position stillImageDepthDataType:(void *)dataType device:(uint64_t)device baseZoomFactorOverrides:(uint64_t)overrides clientBaseZoomFactorsByPortType:;
+- (void)portTypesSupportingDepth;
+- (void)streamProvidingSDOFRenderingParameters;
+- (void)switchOverZoomFactors;
+- (void)switchOverZoomFactorsWithoutFudge;
 - (void)zoomFactorsForDepth;
 @end
 
@@ -25,9 +25,9 @@
     return 0;
   }
 
-  v16.receiver = self;
-  v16.super_class = FigCaptureSourceStreamsContainer;
-  v13 = objc_msgSendSuper2(&v16, sel_init);
+  v18.receiver = self;
+  v18.super_class = FigCaptureSourceStreamsContainer;
+  v13 = objc_msgSendSuper2(&v18, sel_init);
   v14 = v13;
   if (v13)
   {
@@ -37,7 +37,7 @@
     if ([(FigCaptureSourceStreamsContainer *)v14 _populateStreamsFromDeviceVendorForPosition:type baseZoomFactorOverrides:device clientBaseZoomFactorsByPortType:overrides])
     {
       OUTLINED_FUNCTION_1_5();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18.receiver, v18.super_class, v19, v20, v21, v22);
 
       return 0;
     }
@@ -51,7 +51,7 @@
   if (result)
   {
     v7 = result;
-    v75[0] = 0;
+    v74[0] = 0;
     v8 = FigCaptureSourceUnderlyingDeviceTypes(*(result + 8));
     array = [MEMORY[0x1E695DF70] array];
     v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -69,10 +69,10 @@
 
     v12 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
     *(v7 + 24) = v12;
-    if (v75[0])
+    if (v74[0])
     {
       OUTLINED_FUNCTION_14_21();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v38, v40, v42, v44, v46, v48, v50, v52);
     }
 
     else
@@ -80,7 +80,7 @@
       firstObject = [v12 firstObject];
       *(v7 + 32) = firstObject;
       v14 = *(v7 + 24);
-      v22 = OUTLINED_FUNCTION_14_8(firstObject, v15, v16, v17, v18, v19, v20, v21, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, 0);
+      v22 = OUTLINED_FUNCTION_14_8(firstObject, v15, v16, v17, v18, v19, v20, v21, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72);
       if (v22)
       {
         v23 = v22;
@@ -98,7 +98,7 @@
             v26 = [OUTLINED_FUNCTION_23_12() setObject:? forKeyedSubscript:?];
           }
 
-          v23 = OUTLINED_FUNCTION_14_8(v26, v27, v28, v29, v30, v31, v32, v33, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v74);
+          v23 = OUTLINED_FUNCTION_14_8(v26, v27, v28, v29, v30, v31, v32, v33, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73);
         }
 
         while (v23);
@@ -108,21 +108,21 @@
       v34 = *(v7 + 8);
       if (v34 <= 9 && ((1 << v34) & 0x310) != 0)
       {
-        v35 = [*(v7 + 16) copySynchronizedStreamsGroupForStreams:*(v7 + 24) error:v75];
-        if (v75[0])
+        v35 = [*(v7 + 16) copySynchronizedStreamsGroupForStreams:*(v7 + 24) error:v74];
+        if (v74[0])
         {
           OUTLINED_FUNCTION_14_21();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v39, v41, v43, v45, v47, v49, v51, v53);
         }
 
         else
         {
-          v36 = [[BWFigVideoCaptureSynchronizedStreamsGroup alloc] initWithSynchronizedStreamsGroup:v35 activeStreams:*(v7 + 24) readOnly:1 baseZoomFactorOverrides:position clientBaseZoomFactorsByPortType:overrides error:v75];
+          v36 = [[BWFigVideoCaptureSynchronizedStreamsGroup alloc] initWithSynchronizedStreamsGroup:v35 activeStreams:*(v7 + 24) readOnly:1 baseZoomFactorOverrides:position clientBaseZoomFactorsByPortType:overrides error:v74];
 
-          if (v75[0])
+          if (v74[0])
           {
             OUTLINED_FUNCTION_14_21();
-            FigDebugAssert3();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v39, v41, v43, v45, v47, v49, v51, v53);
           }
 
           else
@@ -140,22 +140,22 @@
       }
     }
 
-    return v75[0];
+    return v74[0];
   }
 
   return result;
 }
 
-- (uint64_t)portTypesSupportingDepth
+- (void)portTypesSupportingDepth
 {
   if (result)
   {
-    switch(*(result + 12))
+    switch(*(result + 3))
     {
       case 1:
       case 2:
       case 8:
-        v4 = *(result + 8);
+        v4 = *(result + 2);
         switch(v4)
         {
           case 9:
@@ -191,7 +191,7 @@
       case 6:
       case 9:
       case 0xA:
-        portType = [*(result + 32) portType];
+        portType = [*(result + 4) portType];
         v1 = MEMORY[0x1E695DEC8];
         v2 = &portType;
         goto LABEL_4;
@@ -350,7 +350,7 @@ LABEL_11:
   return array;
 }
 
-- (uint64_t)streamProvidingSDOFRenderingParameters
+- (void)streamProvidingSDOFRenderingParameters
 {
   if (result)
   {
@@ -363,26 +363,26 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)switchOverZoomFactors
+- (void)switchOverZoomFactors
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = *(result + 2);
     switch(v1)
     {
       case 9:
-        v5[1] = [*(result + 48) objectForKeyedSubscript:{*off_1E798A0D8, objc_msgSend(*(result + 48), "objectForKeyedSubscript:", *off_1E798A0C0)}];
+        v5[1] = [*(result + 6) objectForKeyedSubscript:{*off_1E798A0D8, objc_msgSend(*(result + 6), "objectForKeyedSubscript:", *off_1E798A0C0)}];
         v2 = MEMORY[0x1E695DEC8];
         v3 = v5;
         v4 = 2;
         return [v2 arrayWithObjects:v3 count:v4];
       case 8:
-        v6 = [*(result + 48) objectForKeyedSubscript:*off_1E798A0C0];
+        v6 = [*(result + 6) objectForKeyedSubscript:*off_1E798A0C0];
         v2 = MEMORY[0x1E695DEC8];
         v3 = &v6;
         goto LABEL_7;
       case 4:
-        v7 = [*(result + 48) objectForKeyedSubscript:*off_1E798A0D8];
+        v7 = [*(result + 6) objectForKeyedSubscript:*off_1E798A0D8];
         v2 = MEMORY[0x1E695DEC8];
         v3 = &v7;
 LABEL_7:
@@ -396,26 +396,26 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)switchOverZoomFactorsWithoutFudge
+- (void)switchOverZoomFactorsWithoutFudge
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = *(result + 2);
     switch(v1)
     {
       case 9:
-        v5[1] = [*(result + 48) objectForKeyedSubscript:{*off_1E798A0D8, objc_msgSend(*(result + 56), "objectForKeyedSubscript:", *off_1E798A0C0)}];
+        v5[1] = [*(result + 6) objectForKeyedSubscript:{*off_1E798A0D8, objc_msgSend(*(result + 7), "objectForKeyedSubscript:", *off_1E798A0C0)}];
         v2 = MEMORY[0x1E695DEC8];
         v3 = v5;
         v4 = 2;
         return [v2 arrayWithObjects:v3 count:v4];
       case 8:
-        v6 = [*(result + 56) objectForKeyedSubscript:*off_1E798A0C0];
+        v6 = [*(result + 7) objectForKeyedSubscript:*off_1E798A0C0];
         v2 = MEMORY[0x1E695DEC8];
         v3 = &v6;
         goto LABEL_7;
       case 4:
-        v7 = [*(result + 56) objectForKeyedSubscript:*off_1E798A0D8];
+        v7 = [*(result + 7) objectForKeyedSubscript:*off_1E798A0D8];
         v2 = MEMORY[0x1E695DEC8];
         v3 = &v7;
 LABEL_7:

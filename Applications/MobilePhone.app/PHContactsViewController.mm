@@ -109,61 +109,62 @@ LABEL_6:
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v13.receiver = self;
-  v13.super_class = PHContactsViewController;
-  [(PHContactsViewController *)&v13 viewWillAppear:appear];
+  v14.receiver = self;
+  v14.super_class = PHContactsViewController;
+  [(PHContactsViewController *)&v14 viewWillAppear:appear];
   v4 = objc_alloc_init(TUFeatureFlags);
   nameAndPhotoEnabledC3 = [v4 nameAndPhotoEnabledC3];
 
   if (nameAndPhotoEnabledC3)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v13, 2u);
     }
 
     onboardingController = [(PHContactsViewController *)self onboardingController];
 
     if (!onboardingController)
     {
-      v8 = objc_opt_new();
-      [(PHContactsViewController *)self setOnboardingController:v8];
+      v9 = objc_opt_new();
+      [(PHContactsViewController *)self setOnboardingController:v9];
     }
 
     onboardingController2 = [(PHContactsViewController *)self onboardingController];
-    v10 = +[TUCallCenter sharedInstance];
-    contactStore = [v10 contactStore];
+    v11 = +[TUCallCenter sharedInstance];
+    contactStore = [v11 contactStore];
     [onboardingController2 presentOnboardingControllerOnLaunchIfNeededFrom:self withContactStore:contactStore];
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v9.receiver = self;
-  v9.super_class = PHContactsViewController;
-  [(PHContactsViewController *)&v9 viewDidAppear:appear];
+  v10.receiver = self;
+  v10.super_class = PHContactsViewController;
+  [(PHContactsViewController *)&v10 viewDidAppear:appear];
   [(PHContactsViewController *)self finishSwitchTestIfNeeded];
   v4 = +[MPSignpost sharedInstance];
   [v4 contactsTabViewAppeared];
 
-  if (![(PHContactsViewController *)self checkedForFacebookContacts])
+  checkedForFacebookContacts = [(PHContactsViewController *)self checkedForFacebookContacts];
+  if ((checkedForFacebookContacts & 1) == 0)
   {
     [(PHContactsViewController *)self setCheckedForFacebookContacts:1];
-    [(PHContactsViewController *)self checkForFacebookContactsWithDelay:1 allowAlert:0.5];
+    checkedForFacebookContacts = [(PHContactsViewController *)self checkForFacebookContactsWithDelay:1 allowAlert:0.5];
   }
 
-  v5 = PHDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PHDefaultLog(checkedForFacebookContacts);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHContactsViewController viewDidAppear:", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHContactsViewController viewDidAppear:", v9, 2u);
   }
 
-  v6 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(3, self);
-  v7 = +[NSNotificationCenter defaultCenter];
-  [v7 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v6];
+  v7 = createPHPhoneTabBarControllerTabViewDidAppearNotificationInfo(3, self);
+  v8 = +[NSNotificationCenter defaultCenter];
+  [v8 postNotificationName:@"PHPhoneTabBarControllerTabViewDidAppearNotification" object:v7];
 }
 
 - (BOOL)tabBarControllerShouldSelectViewController:(id)controller
@@ -188,8 +189,8 @@ LABEL_6:
 
 + ($1FF454C5B48E436092D281DABF654916)badge
 {
-  v2 = PhoneBadgeKnownZero[0];
-  v3 = PhoneBadgeKnownZero[1];
+  v2 = PhoneBadgeKnownZero.n128_u64[0];
+  v3 = PhoneBadgeKnownZero.n128_u64[1];
   result.var1 = v3;
   result.var0 = v2;
   return result;
@@ -270,26 +271,26 @@ LABEL_6:
   {
     contactStore = [(PHContactsViewController *)self contactStore];
     v5 = +[CNContactViewController descriptorForRequiredKeys];
-    v13 = v5;
-    v6 = [NSArray arrayWithObjects:&v13 count:1];
-    v12 = 0;
-    v7 = [contactStore unifiedContactWithIdentifier:v3 keysToFetch:v6 error:&v12];
-    v8 = v12;
+    v14 = v5;
+    v6 = [NSArray arrayWithObjects:&v14 count:1];
+    v13 = 0;
+    v7 = [contactStore unifiedContactWithIdentifier:v3 keysToFetch:v6 error:&v13];
+    v8 = v13;
 
     if (v7)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v9 = v8 == 0;
+      v10 = v8 == 0;
     }
 
-    if (!v9)
+    if (!v10)
     {
-      v10 = PHDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PHDefaultLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(PHContactsViewController *)v8 savedPerson];
       }
@@ -327,7 +328,7 @@ LABEL_6:
 - (void)handleURL:(id)l
 {
   lCopy = l;
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(lCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -353,20 +354,20 @@ void __38__PHContactsViewController_handleURL___block_invoke(uint64_t a1)
       v7 = [v6 store];
       v8 = [CNContact predicateForLegacyIdentifier:v5];
       v9 = +[CNContactViewController descriptorForRequiredKeys];
-      v18 = v9;
-      v10 = [NSArray arrayWithObjects:&v18 count:1];
-      v15 = 0;
-      v11 = [v7 unifiedContactsMatchingPredicate:v8 keysToFetch:v10 error:&v15];
-      v12 = v15;
+      v19 = v9;
+      v10 = [NSArray arrayWithObjects:&v19 count:1];
+      v16 = 0;
+      v11 = [v7 unifiedContactsMatchingPredicate:v8 keysToFetch:v10 error:&v16];
+      v12 = v16;
 
       if ([v11 count])
       {
         v13 = [v11 firstObject];
-        v14 = PHDefaultLog();
+        v14 = PHDefaultLog(v13);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138739971;
-          v17 = v13;
+          v18 = v13;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Presenting contact card for contact %{sensitive}@", buf, 0xCu);
         }
 
@@ -375,12 +376,23 @@ void __38__PHContactsViewController_handleURL___block_invoke(uint64_t a1)
 
       else
       {
-        if (v11 || !v12 || [v12 code] == 200)
+        if (v11)
         {
           goto LABEL_8;
         }
 
-        v13 = PHDefaultLog();
+        if (!v12)
+        {
+          goto LABEL_8;
+        }
+
+        v15 = [v12 code];
+        if (v15 == 200)
+        {
+          goto LABEL_8;
+        }
+
+        v13 = PHDefaultLog(v15);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           __38__PHContactsViewController_handleURL___block_invoke_cold_1(v12, v13);

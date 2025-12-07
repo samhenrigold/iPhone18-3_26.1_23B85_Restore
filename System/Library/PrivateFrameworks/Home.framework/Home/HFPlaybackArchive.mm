@@ -6,6 +6,9 @@
 - (HFPlaybackArchive)initWithMediaPlayerPlaybackArchive:(id)archive;
 - (NSData)artworkImageData;
 - (unint64_t)targetOptions;
+- (void)setAutoPlayEnabled:(BOOL)enabled;
+- (void)setRepeatEnabled:(BOOL)enabled;
+- (void)setShuffleEnabled:(BOOL)enabled;
 - (void)setTargetOptions:(unint64_t)options;
 @end
 
@@ -71,6 +74,13 @@
   return v3;
 }
 
+- (void)setShuffleEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mediaPlayerPlaybackArchive = [(HFPlaybackArchive *)self mediaPlayerPlaybackArchive];
+  [mediaPlayerPlaybackArchive setBOOLValue:enabledCopy forOption:1];
+}
+
 - (BOOL)isRepeatSupported
 {
   mediaPlayerPlaybackArchive = [(HFPlaybackArchive *)self mediaPlayerPlaybackArchive];
@@ -85,6 +95,20 @@
   v3 = [mediaPlayerPlaybackArchive BOOLValueForOption:2];
 
   return v3;
+}
+
+- (void)setRepeatEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mediaPlayerPlaybackArchive = [(HFPlaybackArchive *)self mediaPlayerPlaybackArchive];
+  [mediaPlayerPlaybackArchive setBOOLValue:enabledCopy forOption:2];
+}
+
+- (void)setAutoPlayEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  mediaPlayerPlaybackArchive = [(HFPlaybackArchive *)self mediaPlayerPlaybackArchive];
+  [mediaPlayerPlaybackArchive setBOOLValue:enabledCopy forOption:3];
 }
 
 - (NSData)artworkImageData

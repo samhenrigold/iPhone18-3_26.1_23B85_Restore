@@ -17,15 +17,15 @@
   v11 = [(HDWatchSettingValues *)&v19 init];
   if (v11)
   {
-    v12 = [valueCopy copy];
+    v12 = objc_msgSend_copy(valueCopy);
     featureSettingEnabledValue = v11->_featureSettingEnabledValue;
     v11->_featureSettingEnabledValue = v12;
 
-    v14 = [enabledValueCopy copy];
+    v14 = objc_msgSend_copy(enabledValueCopy);
     defaultsEnabledValue = v11->_defaultsEnabledValue;
     v11->_defaultsEnabledValue = v14;
 
-    v16 = [reconciledEnabledValueCopy copy];
+    v16 = objc_msgSend_copy(reconciledEnabledValueCopy);
     lastReconciledEnabledValue = v11->_lastReconciledEnabledValue;
     v11->_lastReconciledEnabledValue = v16;
   }
@@ -102,7 +102,7 @@ LABEL_16:
 
 - (id)reconciledEnabledValue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   featureSettingEnabledValue = self->_featureSettingEnabledValue;
   defaultsEnabledValue = self->_defaultsEnabledValue;
   if (featureSettingEnabledValue)
@@ -138,13 +138,13 @@ LABEL_10:
     v8 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_FAULT))
     {
-      v11 = v8;
-      v13 = 138543618;
-      v14 = objc_opt_class();
-      v15 = 2114;
+      v10 = v8;
+      v12 = 138543618;
+      v13 = objc_opt_class();
+      v14 = 2114;
       selfCopy = self;
-      v12 = v14;
-      _os_log_fault_impl(&dword_228986000, v11, OS_LOG_TYPE_FAULT, "[%{public}@] Unexpected settings evaluation: %{public}@", &v13, 0x16u);
+      v11 = v13;
+      _os_log_fault_impl(&dword_228986000, v10, OS_LOG_TYPE_FAULT, "[%{public}@] Unexpected settings evaluation: %{public}@", &v12, 0x16u);
     }
   }
 
@@ -156,7 +156,6 @@ LABEL_10:
 
   v6 = 0;
 LABEL_16:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -2654,7 +2654,7 @@ _DWORD *GTMTLSMContext_getObjects(_DWORD *result, unint64_t a2, apr_array_header
         while (v8);
         result = apr_array_push(arr);
         *result = v9;
-        v3 = *(v6 + 3);
+        v3 = v6[3];
       }
     }
   }
@@ -3388,7 +3388,7 @@ uint64_t GTMTLSMObjectPtr_compare(void *a1, void *a2)
   }
 }
 
-void GTMTLSMContext_buildResourceChildrenMap2(uint64_t *a1, uint64_t a2, unint64_t a3, apr_hash_t *a4)
+void GTMTLSMContext_buildResourceChildrenMap2(uint64_t *a1, uint64_t a2, unint64_t a3, apr_pool_t **a4)
 {
   v7 = *a4;
   v8 = apr_array_make(*a2, 4, 8);
@@ -4678,8 +4678,8 @@ void *GTMTLSMRenderPipelineState_renderPipelineDescriptor(uint64_t *a1, void *a2
   else
   {
     v10 = a2[2];
-    v29 = a2[5];
-    result = find_entry(*a1, &v29, 8uLL, 0);
+    v28 = a2[5];
+    result = find_entry(*a1, &v28, 8uLL, 0);
     if (*result)
     {
       v11 = *(*result + 32);
@@ -4712,79 +4712,78 @@ void *GTMTLSMRenderPipelineState_renderPipelineDescriptor(uint64_t *a1, void *a2
 LABEL_16:
         if (*v13 == 71)
         {
-          result = GTMTLSMRenderPipelineState_renderPipelineDescriptor(a1);
+          result = GTMTLSMRenderPipelineState_renderPipelineDescriptor(a1, v13, a3, a4);
           v14 = a2[10];
           v15 = v14[9];
           if (v15)
           {
             v16 = (*(a3 + 1072) + v15);
-            v17 = (*(a3 + 1072) + v15);
-            result = apr_palloc(a4, 8 * v17);
+            result = apr_palloc(a4, 8 * v16);
             if (*(a3 + 1072))
             {
-              v18 = 0;
-              v19 = *(a3 + 1064);
+              v17 = 0;
+              v18 = *(a3 + 1064);
               do
               {
-                result[v18] = *(v19 + 8 * v18);
-                ++v18;
+                result[v17] = *(v18 + 8 * v17);
+                ++v17;
               }
 
-              while (*(a3 + 1072) > v18);
+              while (*(a3 + 1072) > v17);
             }
 
             v14 = a2[10];
             if (v14[9])
             {
-              v20 = 0;
-              v21 = v14[8];
+              v19 = 0;
+              v20 = v14[8];
               do
               {
-                result[*(a3 + 1072) + v20] = *(v21 + 8 * v20);
-                ++v20;
+                result[*(a3 + 1072) + v19] = *(v20 + 8 * v19);
+                ++v19;
               }
 
-              while (v14[9] > v20);
+              while (v14[9] > v19);
             }
 
             *(a3 + 1064) = result;
-            *(a3 + 1072) = v17;
+            *(a3 + 1072) = v16;
           }
 
-          v22 = v14[1];
-          if (v22)
+          v21 = v14[1];
+          if (v21)
           {
-            v23 = (*(a3 + 880) + v22);
-            result = apr_palloc(a4, 8 * v23);
+            v22 = (*(a3 + 880) + v21);
+            result = apr_palloc(a4, 8 * v22);
             if (*(a3 + 880))
             {
-              v24 = 0;
-              v25 = *(a3 + 872);
+              v23 = 0;
+              v24 = *(a3 + 872);
               do
               {
-                result[v24] = *(v25 + 8 * v24);
-                ++v24;
+                result[v23] = *(v24 + 8 * v23);
+                ++v23;
               }
 
-              while (*(a3 + 880) > v24);
+              while (*(a3 + 880) > v23);
             }
 
-            v26 = a2[10];
-            if (v26[1])
+            v25 = a2[10];
+            if (v25[1])
             {
-              v27 = 0;
-              v28 = *v26;
+              v26 = 0;
+              v27 = *v25;
               do
               {
-                result[*(a3 + 880) + v27] = *(v28 + 8 * v27);
-                ++v27;
+                result[*(a3 + 880) + v26] = *(v27 + 8 * v26);
+                ++v26;
               }
 
-              while (v26[1] > v27);
+              while (v25[1] > v26);
             }
 
             *(a3 + 872) = result;
-            *(a3 + 880) = v23;
+            *(a3 + 880) = v22;
           }
 
           *(a3 + 1280) = a2[16];
@@ -4828,8 +4827,8 @@ uint64_t *GTMTLSMRenderPipelineState_tilePipelineDescriptor(uint64_t *result, vo
   {
     v17 = result;
     v18 = a2[2];
-    v30 = a2[5];
-    result = find_entry(*result, &v30, 8uLL, 0);
+    v28 = a2[5];
+    result = find_entry(*result, &v28, 8uLL, 0);
     if (*result)
     {
       v19 = *(*result + 32);
@@ -4862,40 +4861,38 @@ uint64_t *GTMTLSMRenderPipelineState_tilePipelineDescriptor(uint64_t *result, vo
 LABEL_15:
         if (*v21 == 71)
         {
-          GTMTLSMRenderPipelineState_tilePipelineDescriptor(v17);
-          v22 = *(a2[10] + 56);
-          v23 = (v22 + *(a3 + 2));
-          v24 = (v22 + *(a3 + 4));
-          result = apr_palloc(a4, 8 * v24);
+          GTMTLSMRenderPipelineState_tilePipelineDescriptor(v17, v21, a3, a4);
+          v22 = (*(a2[10] + 56) + *(a3 + 4));
+          result = apr_palloc(a4, 8 * v22);
           if (a3[1])
           {
-            v25 = 0;
-            v26 = *a3;
+            v23 = 0;
+            v24 = *a3;
             do
             {
-              result[v25] = v26[v25];
-              ++v25;
+              result[v23] = *(v24 + 8 * v23);
+              ++v23;
             }
 
-            while (a3[1] > v25);
+            while (a3[1] > v23);
           }
 
-          v27 = a2[10];
-          if (*(v27 + 56))
+          v25 = a2[10];
+          if (*(v25 + 56))
           {
-            v28 = 0;
-            v29 = *(v27 + 48);
+            v26 = 0;
+            v27 = *(v25 + 48);
             do
             {
-              result[a3[1] + v28] = *(v29 + 8 * v28);
-              ++v28;
+              result[a3[1] + v26] = *(v27 + 8 * v26);
+              ++v26;
             }
 
-            while (*(v27 + 56) > v28);
+            while (*(v25 + 56) > v26);
           }
 
           *a3 = result;
-          a3[1] = v24;
+          a3[1] = v22;
         }
       }
     }
@@ -5123,42 +5120,42 @@ uint64_t GTMTLSMPipelineState_isVisibleFunctionTableCompatible(uint64_t *a1, uin
 
   if (*a2 == 29)
   {
-    v13 = *(a2 + 16);
+    v14 = *(a2 + 16);
     v18[0] = *(a2 + 40);
     entry = find_entry(*a1, v18, 8uLL, 0);
     if (*entry)
     {
-      v15 = *(*entry + 32);
-      if (v15)
+      v16 = *(*entry + 32);
+      if (v16)
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (v15[2] > v13 || (v17 = v15, v15[3] <= v13))
+          if (v16[2] > v14 || (v13 = v16, v16[3] <= v14))
           {
-            if (v16)
+            if (v17)
             {
-              v17 = v16;
+              v13 = v17;
               goto LABEL_31;
             }
 
-            v17 = 0;
+            v13 = 0;
           }
 
-          v15 = v15[4];
-          v16 = v17;
+          v16 = v16[4];
+          v17 = v13;
         }
 
-        while (v15);
-        if (!v17)
+        while (v16);
+        if (!v13)
         {
           return 0;
         }
 
 LABEL_31:
-        if (*v17 == 29)
+        if (*v13 == 29)
         {
-          return GTMTLSMPipelineState_isVisibleFunctionTableCompatible(a1);
+          return GTMTLSMPipelineState_isVisibleFunctionTableCompatible(a1, v13, a3);
         }
       }
     }
@@ -5166,42 +5163,42 @@ LABEL_31:
 
   else if (*a2 == 71)
   {
-    v8 = *(a2 + 16);
+    v9 = *(a2 + 16);
     v18[0] = *(a2 + 40);
-    v9 = find_entry(*a1, v18, 8uLL, 0);
-    if (*v9)
+    v10 = find_entry(*a1, v18, 8uLL, 0);
+    if (*v10)
     {
-      v10 = *(*v9 + 32);
-      if (v10)
+      v11 = *(*v10 + 32);
+      if (v11)
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (v10[2] > v8 || (v12 = v10, v10[3] <= v8))
+          if (v11[2] > v9 || (v13 = v11, v11[3] <= v9))
           {
-            if (v11)
+            if (v12)
             {
-              v12 = v11;
+              v13 = v12;
               goto LABEL_28;
             }
 
-            v12 = 0;
+            v13 = 0;
           }
 
-          v10 = v10[4];
-          v11 = v12;
+          v11 = v11[4];
+          v12 = v13;
         }
 
-        while (v10);
-        if (!v12)
+        while (v11);
+        if (!v13)
         {
           return 0;
         }
 
 LABEL_28:
-        if (*v12 == 71)
+        if (*v13 == 71)
         {
-          return GTMTLSMPipelineState_isVisibleFunctionTableCompatible(a1);
+          return GTMTLSMPipelineState_isVisibleFunctionTableCompatible(a1, v13, a3);
         }
       }
     }
@@ -5227,42 +5224,42 @@ uint64_t GTMTLSMPipelineState_isIntersectionFunctionTableCompatible(uint64_t *a1
 
   if (*a2 == 29)
   {
-    v13 = *(a2 + 16);
+    v14 = *(a2 + 16);
     v18[0] = *(a2 + 40);
     entry = find_entry(*a1, v18, 8uLL, 0);
     if (*entry)
     {
-      v15 = *(*entry + 32);
-      if (v15)
+      v16 = *(*entry + 32);
+      if (v16)
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (v15[2] > v13 || (v17 = v15, v15[3] <= v13))
+          if (v16[2] > v14 || (v13 = v16, v16[3] <= v14))
           {
-            if (v16)
+            if (v17)
             {
-              v17 = v16;
+              v13 = v17;
               goto LABEL_31;
             }
 
-            v17 = 0;
+            v13 = 0;
           }
 
-          v15 = v15[4];
-          v16 = v17;
+          v16 = v16[4];
+          v17 = v13;
         }
 
-        while (v15);
-        if (!v17)
+        while (v16);
+        if (!v13)
         {
           return 0;
         }
 
 LABEL_31:
-        if (*v17 == 29)
+        if (*v13 == 29)
         {
-          return GTMTLSMPipelineState_isIntersectionFunctionTableCompatible(a1);
+          return GTMTLSMPipelineState_isIntersectionFunctionTableCompatible(a1, v13, a3);
         }
       }
     }
@@ -5270,42 +5267,42 @@ LABEL_31:
 
   else if (*a2 == 71)
   {
-    v8 = *(a2 + 16);
+    v9 = *(a2 + 16);
     v18[0] = *(a2 + 40);
-    v9 = find_entry(*a1, v18, 8uLL, 0);
-    if (*v9)
+    v10 = find_entry(*a1, v18, 8uLL, 0);
+    if (*v10)
     {
-      v10 = *(*v9 + 32);
-      if (v10)
+      v11 = *(*v10 + 32);
+      if (v11)
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (v10[2] > v8 || (v12 = v10, v10[3] <= v8))
+          if (v11[2] > v9 || (v13 = v11, v11[3] <= v9))
           {
-            if (v11)
+            if (v12)
             {
-              v12 = v11;
+              v13 = v12;
               goto LABEL_28;
             }
 
-            v12 = 0;
+            v13 = 0;
           }
 
-          v10 = v10[4];
-          v11 = v12;
+          v11 = v11[4];
+          v12 = v13;
         }
 
-        while (v10);
-        if (!v12)
+        while (v11);
+        if (!v13)
         {
           return 0;
         }
 
 LABEL_28:
-        if (*v12 == 71)
+        if (*v13 == 71)
         {
-          return GTMTLSMPipelineState_isIntersectionFunctionTableCompatible(a1);
+          return GTMTLSMPipelineState_isIntersectionFunctionTableCompatible(a1, v13, a3);
         }
       }
     }
@@ -5346,7 +5343,7 @@ BOOL GTMTLSMPipelineState_supportsIndirectCommandBuffers(uint64_t a1)
   return 0;
 }
 
-uint64_t GTMTLSMObject_sortUsedResources(uint64_t *a1, int a2, uint64_t a3)
+uint64_t GTMTLSMObject_sortUsedResources(uint64_t *a1, unsigned int a2, uint64_t a3)
 {
   if (a2 < 1)
   {
@@ -5382,7 +5379,7 @@ uint64_t GTMTLSMObject_sortUsedResources(uint64_t *a1, int a2, uint64_t a3)
   return v5;
 }
 
-uint64_t GTMTLSMSamplerState_sortIndirectResources(uint64_t *a1, int a2)
+uint64_t GTMTLSMSamplerState_sortIndirectResources(uint64_t *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -5410,7 +5407,7 @@ uint64_t GTMTLSMSamplerState_sortIndirectResources(uint64_t *a1, int a2)
   return v2;
 }
 
-uint64_t GTMTLSMPipelineState_sortIndirectResources(uint64_t *a1, int a2)
+uint64_t GTMTLSMPipelineState_sortIndirectResources(uint64_t *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -5609,26 +5606,26 @@ apr_array_header_t *GTMTLSMIndirectCommandBuffer_uniqueIdentifierArray(void *a1,
   return v5;
 }
 
-void GTMTLSMContext_indirectCommandBufferResources(apr_pool_t *p@<X2>, _DWORD **a2@<X0>, unint64_t a3@<X1>, uint64_t a4@<X8>)
+void GTMTLSMContext_indirectCommandBufferResources(apr_array_header_t **__return_ptr a1@<X8>, apr_pool_t *p@<X2>, _DWORD **a3@<X0>, unint64_t a4@<X1>)
 {
   v8 = apr_array_make(p, 128, 8);
-  GTMTLSMContext_getObjects(a2[1], a3, v8);
+  GTMTLSMContext_getObjects(a3[1], a4, v8);
   v9 = GTMTLSMBuffer_gpuAddressArray(v8->elts, v8->nelts, p);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  *a4 = v9;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = v9;
   v10 = apr_hash_make(p);
-  *(a4 + 24) = v10;
-  *(a4 + 32) = 0;
+  a1[3] = v10;
+  a1[4] = 0;
   v11 = apr_hash_make(p);
-  *(a4 + 40) = v11;
+  a1[5] = v11;
   v12 = apr_hash_make(p);
-  *(a4 + 48) = v12;
-  *(a4 + 56) = 0u;
-  *(a4 + 72) = 0u;
-  *(a4 + 88) = 0u;
+  a1[6] = v12;
+  *(a1 + 7) = 0u;
+  *(a1 + 9) = 0u;
+  *(a1 + 11) = 0u;
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[5], a3, v8);
+  GTMTLSMContext_getObjects(a3[5], a4, v8);
   elts = v8->elts;
   v14 = GTMTLSMPipelineState_sortIndirectResources(elts, v8->nelts);
   v8->nelts = v14;
@@ -5648,7 +5645,7 @@ void GTMTLSMContext_indirectCommandBufferResources(apr_pool_t *p@<X2>, _DWORD **
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[6], a3, v8);
+  GTMTLSMContext_getObjects(a3[6], a4, v8);
   v18 = v8->elts;
   v19 = GTMTLSMPipelineState_sortIndirectResources(v18, v8->nelts);
   v8->nelts = v19;
@@ -5668,7 +5665,7 @@ void GTMTLSMContext_indirectCommandBufferResources(apr_pool_t *p@<X2>, _DWORD **
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[11], a3, v8);
+  GTMTLSMContext_getObjects(a3[11], a4, v8);
   v23 = GTMTLSMDepthStencilState_uniqueIdentifierArray(v8->elts, v8->nelts, p);
   v24 = v23->nelts;
   if (v24 >= 1)
@@ -5847,22 +5844,17 @@ LABEL_15:
 
 uint64_t GTMTLSMContext_getObjectFunctionIndexRange(uint64_t *a1, uint64_t a2)
 {
-  v6 = a2;
-  entry = find_entry(*a1, &v6, 8uLL, 0);
-  if (!*entry)
+  v5 = a2;
+  entry = find_entry(*a1, &v5, 8uLL, 0);
+  if (*entry && (v3 = *(*entry + 32)) != 0)
+  {
+    return *(v3 + 16);
+  }
+
+  else
   {
     return 0;
   }
-
-  v3 = *(*entry + 32);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  result = *(v3 + 16);
-  v5 = *(v3 + 24) - result;
-  return result;
 }
 
 char *GTMTLSMBuffer_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t *a3)
@@ -6168,7 +6160,7 @@ char *GTMTLSMTensor_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
           v7 = *(result + 2);
           if (v7 != 1)
           {
-            *(v5 + 53) = v7;
+            *(v5 + 106) = v7;
           }
 
           break;
@@ -6182,30 +6174,30 @@ char *GTMTLSMTensor_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
         case -14959:
           v12 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v13 = *a3;
-          *(v5 + 1) = *(v12 + 1);
-          *(v5 + 2) = v13;
-          *(v5 + 1) = *(a3 + 2);
+          *(v5 + 8) = *(v12 + 1);
+          *(v5 + 16) = v13;
+          *(v5 + 4) = *(a3 + 2);
           v14 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-          *(v5 + 15) = v14;
+          *(v5 + 120) = v14;
           if (v14)
           {
-            *(v5 + 4) = vextq_s8(*v14, *v14, 8uLL);
-            *(v5 + 24) = *(v14 + 4);
-            *(v5 + 39) = *(v14 + 5);
+            *(v5 + 64) = vextq_s8(*v14, *v14, 8uLL);
+            *(v5 + 96) = *(v14 + 4);
+            *(v5 + 312) = *(v14 + 5);
             *(v5 + 296) = *(v14 + 24);
           }
 
           result = GTTraceFunc_argumentBytesWithMap(a3, v12[24], a2);
-          *(v5 + 14) = result;
+          *(v5 + 112) = result;
           break;
         case -14950:
           v15 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           result = GTTraceFunc_argumentBytesWithMap(a3, v15[8], a2);
-          *(v5 + 11) = result;
+          *(v5 + 88) = result;
           break;
         case -14949:
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 24) = *(result + 2);
+          *(v5 + 96) = *(result + 2);
           break;
       }
     }
@@ -6218,32 +6210,32 @@ char *GTMTLSMTensor_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
       case -14840:
         v8 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v9 = *a3;
-        *(v5 + 1) = *(v8 + 1);
-        *(v5 + 2) = v9;
-        *(v5 + 1) = *(a3 + 2);
+        *(v5 + 8) = *(v8 + 1);
+        *(v5 + 16) = v9;
+        *(v5 + 4) = *(a3 + 2);
         v10 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 15) = v10;
+        *(v5 + 120) = v10;
         if (v10)
         {
-          *(v5 + 4) = vextq_s8(*v10, *v10, 8uLL);
-          *(v5 + 24) = *(v10 + 4);
-          *(v5 + 39) = *(v10 + 5);
+          *(v5 + 64) = vextq_s8(*v10, *v10, 8uLL);
+          *(v5 + 96) = *(v10 + 4);
+          *(v5 + 312) = *(v10 + 5);
           *(v5 + 296) = *(v10 + 24);
         }
 
         result = GTTraceFunc_argumentBytesWithMap(a3, v8[32], a2);
-        *(v5 + 14) = result;
+        *(v5 + 112) = result;
         v11 = *(v8 + 2);
-        *(v5 + 16) = *v8;
-        *(v5 + 17) = v11;
+        *(v5 + 128) = *v8;
+        *(v5 + 136) = v11;
         break;
       case -10148:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 8) = *(result + 2);
+        *(v5 + 64) = *(result + 2);
         break;
       case -10147:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-        *(v5 + 9) = *(result + 1);
+        *(v5 + 72) = *(result + 1);
         break;
     }
   }
@@ -6253,26 +6245,26 @@ char *GTMTLSMTensor_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
     if (v6 == -10144)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 39) = *(result + 1);
+      *(v5 + 312) = *(result + 1);
     }
 
     else if (v6 == -10143)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 10) = *(result + 1);
+      *(v5 + 80) = *(result + 1);
     }
   }
 
   else if (v6 == -10146)
   {
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v5 + 37) = *(result + 1);
+    *(v5 + 296) = *(result + 1);
   }
 
   else
   {
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v5 + 38) = *(result + 1);
+    *(v5 + 304) = *(result + 1);
   }
 
   return result;
@@ -7317,13 +7309,13 @@ char *GTMTLSMDepthStencilState_processTraceFuncWithMap(char *result, uint64_t a2
     if (v6 == -10150)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     else if (v6 == -10149)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
   }
 
@@ -7336,19 +7328,19 @@ char *GTMTLSMDepthStencilState_processTraceFuncWithMap(char *result, uint64_t a2
   {
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
     v9 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v9;
+    *(v5 + 56) = v9;
     if (v9)
     {
-      *(v5 + 4) = *v9;
+      *(v5 + 64) = *v9;
     }
 
-    *(v5 + 5) = *v7;
+    *(v5 + 40) = *v7;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
@@ -7363,13 +7355,13 @@ char *GTMTLSMSamplerState_processTraceFuncWithMap(char *result, uint64_t a2, uin
     if (v6 == -10226)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 8) = *(result + 1);
+      *(v5 + 64) = *(result + 1);
     }
 
     else if (v6 == -10163)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      *(v5 + 9) = *(result + 1);
+      *(v5 + 72) = *(result + 1);
     }
   }
 
@@ -7377,20 +7369,20 @@ char *GTMTLSMSamplerState_processTraceFuncWithMap(char *result, uint64_t a2, uin
   {
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
     v9 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v9;
+    *(v5 + 56) = v9;
     if (v9)
     {
-      *(v5 + 10) = *(v9 + 2);
-      *(v5 + 4) = *v9;
+      *(v5 + 80) = *(v9 + 2);
+      *(v5 + 64) = *v9;
     }
 
-    *(v5 + 5) = *v7;
+    *(v5 + 40) = *v7;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   else if (v6 == -16241)
@@ -7592,12 +7584,12 @@ char *GTMTLSMCounterSampleBuffer_processTraceFuncWithMap(char *result, uint64_t 
     v6 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v7 = *a3;
     v8 = *v6;
-    *(v5 + 1) = *(v6 + 1);
-    *(v5 + 2) = v7;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v8;
+    *(v5 + 8) = *(v6 + 1);
+    *(v5 + 16) = v7;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v8;
     result = GTTraceFunc_argumentBytesWithMap(a3, v6[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
@@ -7617,15 +7609,15 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithMap(char *result, uint64_t 
         {
           case -10184:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 109) = *(result + 1);
+            *(v5 + 436) = *(result + 1);
             break;
           case -10172:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 53) = *(result + 1);
+            *(v5 + 424) = *(result + 1);
             break;
           case -10165:
             result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-            *(v5 + 17) = *(result + 1);
+            *(v5 + 136) = *(result + 1);
             break;
         }
 
@@ -7637,13 +7629,13 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithMap(char *result, uint64_t 
         if (v6 == -10220)
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 15) = *(result + 1);
+          *(v5 + 120) = *(result + 1);
         }
 
         else if (v6 == -10192)
         {
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-          *(v5 + 108) = *(result + 2);
+          *(v5 + 432) = *(result + 2);
         }
 
         return result;
@@ -7664,26 +7656,26 @@ char *GTMTLSMRenderPipelineState_processTraceFuncWithMap(char *result, uint64_t 
           v13 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v14 = *a3;
           v15 = *v13;
-          *(v5 + 1) = *(v13 + 1);
-          *(v5 + 2) = v14;
-          *(v5 + 1) = *(a3 + 2);
-          *(v5 + 5) = v15;
+          *(v5 + 8) = *(v13 + 1);
+          *(v5 + 16) = v14;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v15;
           v16 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-          *(v5 + 7) = v16;
+          *(v5 + 56) = v16;
           if (v16)
           {
             v17 = v16;
-            memcpy(v5 + 144, v16 + 216, 0x118uLL);
+            memcpy((v5 + 144), v16 + 216, 0x118uLL);
             *(v5 + 120) = *v17;
-            *(v5 + 108) = *(v17 + 48);
-            *(v5 + 109) = *(v17 + 98);
-            *(v5 + 17) = *(v17 + 2);
+            *(v5 + 432) = *(v17 + 48);
+            *(v5 + 436) = *(v17 + 98);
+            *(v5 + 136) = *(v17 + 2);
           }
 
           v18 = v13[32];
 LABEL_49:
           result = GTTraceFunc_argumentBytesWithMap(a3, v18, a2);
-          *(v5 + 9) = result;
+          *(v5 + 72) = result;
           return result;
         }
 
@@ -7691,20 +7683,20 @@ LABEL_46:
         v36 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v37 = *a3;
         v38 = *v36;
-        *(v5 + 1) = *(v36 + 1);
-        *(v5 + 2) = v37;
-        *(v5 + 1) = *(a3 + 2);
-        *(v5 + 5) = v38;
+        *(v5 + 8) = *(v36 + 1);
+        *(v5 + 16) = v37;
+        *(v5 + 4) = *(a3 + 2);
+        *(v5 + 40) = v38;
         v39 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 7) = v39;
+        *(v5 + 56) = v39;
         if (v39)
         {
           v40 = v39;
-          memcpy(v5 + 144, v39 + 216, 0x118uLL);
+          memcpy((v5 + 144), v39 + 216, 0x118uLL);
           *(v5 + 120) = *v40;
-          *(v5 + 108) = *(v40 + 48);
-          *(v5 + 109) = *(v40 + 98);
-          *(v5 + 17) = *(v40 + 2);
+          *(v5 + 432) = *(v40 + 48);
+          *(v5 + 436) = *(v40 + 98);
+          *(v5 + 136) = *(v40 + 2);
         }
 
         v18 = v36[24];
@@ -7716,23 +7708,23 @@ LABEL_46:
         v46 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v47 = *a3;
         v48 = *v46;
-        *(v5 + 1) = *(v46 + 1);
-        *(v5 + 2) = v47;
-        *(v5 + 1) = *(a3 + 2);
-        *(v5 + 5) = v48;
+        *(v5 + 8) = *(v46 + 1);
+        *(v5 + 16) = v47;
+        *(v5 + 4) = *(a3 + 2);
+        *(v5 + 40) = v48;
         v49 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-        *(v5 + 7) = v49;
+        *(v5 + 56) = v49;
         if (v49)
         {
           v50 = v49;
-          memcpy(v5 + 144, v49 + 216, 0x118uLL);
+          memcpy((v5 + 144), v49 + 216, 0x118uLL);
           *(v5 + 120) = *v50;
-          *(v5 + 108) = *(v50 + 48);
-          *(v5 + 109) = *(v50 + 98);
-          *(v5 + 17) = *(v50 + 2);
+          *(v5 + 432) = *(v50 + 48);
+          *(v5 + 436) = *(v50 + 98);
+          *(v5 + 136) = *(v50 + 2);
         }
 
-        *(v5 + 11) = GTTraceFunc_argumentBytesWithMap(a3, v46[24], a2);
+        *(v5 + 88) = GTTraceFunc_argumentBytesWithMap(a3, v46[24], a2);
         v35 = v46[25];
         goto LABEL_61;
       }
@@ -7746,28 +7738,28 @@ LABEL_46:
     v30 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v31 = *a3;
     v32 = *v30;
-    *(v5 + 1) = *(v30 + 1);
-    *(v5 + 2) = v31;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v32;
+    *(v5 + 8) = *(v30 + 1);
+    *(v5 + 16) = v31;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v32;
     v33 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v33;
+    *(v5 + 56) = v33;
     if (v33)
     {
       v34 = v33;
-      memcpy(v5 + 144, v33 + 216, 0x118uLL);
+      memcpy((v5 + 144), v33 + 216, 0x118uLL);
       *(v5 + 120) = *v34;
-      *(v5 + 108) = *(v34 + 48);
-      *(v5 + 109) = *(v34 + 98);
-      *(v5 + 17) = *(v34 + 2);
+      *(v5 + 432) = *(v34 + 48);
+      *(v5 + 436) = *(v34 + 98);
+      *(v5 + 136) = *(v34 + 2);
     }
 
-    *(v5 + 11) = GTTraceFunc_argumentBytesWithMap(a3, v30[24], a2);
-    *(v5 + 12) = GTTraceFunc_argumentBytesWithMap(a3, v30[25], a2);
+    *(v5 + 88) = GTTraceFunc_argumentBytesWithMap(a3, v30[24], a2);
+    *(v5 + 96) = GTTraceFunc_argumentBytesWithMap(a3, v30[25], a2);
     v35 = v30[26];
 LABEL_61:
     result = GTTraceFunc_argumentBytesWithMap(a3, v35, a2);
-    *(v5 + 13) = result;
+    *(v5 + 104) = result;
     return result;
   }
 
@@ -7783,26 +7775,26 @@ LABEL_33:
           v25 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v26 = *a3;
           v27 = *v25;
-          *(v5 + 1) = *(v25 + 1);
-          *(v5 + 2) = v26;
-          *(v5 + 1) = *(a3 + 2);
-          *(v5 + 5) = v27;
+          *(v5 + 8) = *(v25 + 1);
+          *(v5 + 16) = v26;
+          *(v5 + 4) = *(a3 + 2);
+          *(v5 + 40) = v27;
           v28 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-          *(v5 + 7) = v28;
+          *(v5 + 56) = v28;
           if (v28)
           {
             v29 = v28;
-            memcpy(v5 + 144, v28 + 216, 0x118uLL);
+            memcpy((v5 + 144), v28 + 216, 0x118uLL);
             *(v5 + 120) = *v29;
-            *(v5 + 108) = *(v29 + 48);
-            *(v5 + 109) = *(v29 + 98);
-            *(v5 + 17) = *(v29 + 2);
+            *(v5 + 432) = *(v29 + 48);
+            *(v5 + 436) = *(v29 + 98);
+            *(v5 + 136) = *(v29 + 2);
           }
 
           v24 = v25[24];
 LABEL_36:
           result = GTTraceFunc_argumentBytesWithMap(a3, v24, a2);
-          *(v5 + 8) = result;
+          *(v5 + 64) = result;
           return result;
         }
 
@@ -7815,20 +7807,20 @@ LABEL_36:
       v19 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v20 = *a3;
       v21 = *v19;
-      *(v5 + 1) = *(v19 + 1);
-      *(v5 + 2) = v20;
-      *(v5 + 1) = *(a3 + 2);
-      *(v5 + 5) = v21;
+      *(v5 + 8) = *(v19 + 1);
+      *(v5 + 16) = v20;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v21;
       v22 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v22;
+      *(v5 + 56) = v22;
       if (v22)
       {
         v23 = v22;
-        memcpy(v5 + 144, v22 + 216, 0x118uLL);
+        memcpy((v5 + 144), v22 + 216, 0x118uLL);
         *(v5 + 120) = *v23;
-        *(v5 + 108) = *(v23 + 48);
-        *(v5 + 109) = *(v23 + 98);
-        *(v5 + 17) = *(v23 + 2);
+        *(v5 + 432) = *(v23 + 48);
+        *(v5 + 436) = *(v23 + 98);
+        *(v5 + 136) = *(v23 + 2);
       }
 
       v24 = v19[32];
@@ -7840,24 +7832,24 @@ LABEL_36:
       v56 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v57 = *a3;
       v58 = *v56;
-      *(v5 + 1) = *(v56 + 1);
-      *(v5 + 2) = v57;
-      *(v5 + 1) = *(a3 + 2);
-      *(v5 + 5) = v58;
+      *(v5 + 8) = *(v56 + 1);
+      *(v5 + 16) = v57;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v58;
       v59 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v59;
+      *(v5 + 56) = v59;
       if (v59)
       {
         v60 = v59;
-        memcpy(v5 + 144, v59 + 216, 0x118uLL);
+        memcpy((v5 + 144), v59 + 216, 0x118uLL);
         *(v5 + 120) = *v60;
-        *(v5 + 108) = *(v60 + 48);
-        *(v5 + 109) = *(v60 + 98);
-        *(v5 + 17) = *(v60 + 2);
+        *(v5 + 432) = *(v60 + 48);
+        *(v5 + 436) = *(v60 + 98);
+        *(v5 + 136) = *(v60 + 2);
       }
 
       result = GTTraceFunc_argumentBytesWithMap(a3, v56[32], a2);
-      *(v5 + 14) = result;
+      *(v5 + 112) = result;
       return result;
     }
 
@@ -7866,24 +7858,24 @@ LABEL_36:
       v51 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v52 = *a3;
       v53 = *v51;
-      *(v5 + 1) = *(v51 + 1);
-      *(v5 + 2) = v52;
-      *(v5 + 1) = *(a3 + 2);
-      *(v5 + 5) = v53;
+      *(v5 + 8) = *(v51 + 1);
+      *(v5 + 16) = v52;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v53;
       v54 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v54;
+      *(v5 + 56) = v54;
       if (v54)
       {
         v55 = v54;
-        memcpy(v5 + 144, v54 + 216, 0x118uLL);
+        memcpy((v5 + 144), v54 + 216, 0x118uLL);
         *(v5 + 120) = *v55;
-        *(v5 + 108) = *(v55 + 48);
-        *(v5 + 109) = *(v55 + 98);
-        *(v5 + 17) = *(v55 + 2);
+        *(v5 + 432) = *(v55 + 48);
+        *(v5 + 436) = *(v55 + 98);
+        *(v5 + 136) = *(v55 + 2);
       }
 
       result = GTTraceFunc_argumentBytesWithMap(a3, v51[24], a2);
-      *(v5 + 10) = result;
+      *(v5 + 80) = result;
       return result;
     }
 
@@ -7903,26 +7895,26 @@ LABEL_7:
       v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v8 = *a3;
       v9 = *v7;
-      *(v5 + 1) = *(v7 + 1);
-      *(v5 + 2) = v8;
-      *(v5 + 1) = *(a3 + 2);
-      *(v5 + 5) = v9;
+      *(v5 + 8) = *(v7 + 1);
+      *(v5 + 16) = v8;
+      *(v5 + 4) = *(a3 + 2);
+      *(v5 + 40) = v9;
       v10 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-      *(v5 + 7) = v10;
+      *(v5 + 56) = v10;
       if (v10)
       {
         v11 = v10;
-        memcpy(v5 + 144, v10 + 216, 0x118uLL);
+        memcpy((v5 + 144), v10 + 216, 0x118uLL);
         *(v5 + 120) = *v11;
-        *(v5 + 108) = *(v11 + 48);
-        *(v5 + 109) = *(v11 + 98);
-        *(v5 + 17) = *(v11 + 2);
+        *(v5 + 432) = *(v11 + 48);
+        *(v5 + 436) = *(v11 + 98);
+        *(v5 + 136) = *(v11 + 2);
       }
 
       v12 = v7[24];
 LABEL_57:
       result = GTTraceFunc_argumentBytesWithMap(a3, v12, a2);
-      *(v5 + 6) = result;
+      *(v5 + 48) = result;
       return result;
     }
 
@@ -7940,20 +7932,20 @@ LABEL_54:
     v41 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v42 = *a3;
     v43 = *v41;
-    *(v5 + 1) = *(v41 + 1);
-    *(v5 + 2) = v42;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v43;
+    *(v5 + 8) = *(v41 + 1);
+    *(v5 + 16) = v42;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v43;
     v44 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
-    *(v5 + 7) = v44;
+    *(v5 + 56) = v44;
     if (v44)
     {
       v45 = v44;
-      memcpy(v5 + 144, v44 + 216, 0x118uLL);
+      memcpy((v5 + 144), v44 + 216, 0x118uLL);
       *(v5 + 120) = *v45;
-      *(v5 + 108) = *(v45 + 48);
-      *(v5 + 109) = *(v45 + 98);
-      *(v5 + 17) = *(v45 + 2);
+      *(v5 + 432) = *(v45 + 48);
+      *(v5 + 436) = *(v45 + 98);
+      *(v5 + 136) = *(v45 + 2);
     }
 
     v12 = v41[32];
@@ -8317,13 +8309,13 @@ LABEL_4:
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v9;
-    *(v5 + 7) = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v9;
+    *(v5 + 56) = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
     return result;
   }
 
@@ -8355,12 +8347,12 @@ char *GTMTLSMMotionEstimationPipelineState_processTraceFuncWithMap(char *result,
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 2);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
-    *(v4 + 6) = result;
+    *(v4 + 48) = result;
   }
 
   return result;
@@ -8842,12 +8834,12 @@ char *GTMTL4SMCompiler_processTraceFuncWithMap(char *result, uint64_t a2, uint64
     v6 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v7 = *a3;
     v8 = *v6;
-    *(v5 + 1) = *(v6 + 1);
-    *(v5 + 2) = v7;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v8;
+    *(v5 + 8) = *(v6 + 1);
+    *(v5 + 16) = v7;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v8;
     result = GTTraceFunc_argumentBytesWithMap(a3, v6[24], a2);
-    *(v5 + 6) = result;
+    *(v5 + 48) = result;
   }
 
   return result;
@@ -9392,14 +9384,14 @@ char *GTMTLSMPipelineLibrary_processTraceFuncWithMap(char *result, uint64_t a2, 
     if (v6 == -15744)
     {
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-      v5[82] = *(result + 2);
+      *(v5 + 82) = *(result + 2);
     }
 
     else if (v6 == -15743)
     {
       v10 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       result = GTTraceFunc_argumentBytesWithMap(a3, v10[8], a2);
-      *(v5 + 7) = result;
+      *(v5 + 56) = result;
     }
   }
 
@@ -9413,16 +9405,16 @@ char *GTMTLSMPipelineLibrary_processTraceFuncWithMap(char *result, uint64_t a2, 
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v5 + 1) = *(v7 + 1);
-    *(v5 + 2) = v8;
-    *(v5 + 1) = *(a3 + 2);
-    *(v5 + 5) = v9;
-    *(v5 + 6) = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
+    *(v5 + 8) = *(v7 + 1);
+    *(v5 + 16) = v8;
+    *(v5 + 4) = *(a3 + 2);
+    *(v5 + 40) = v9;
+    *(v5 + 48) = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 14), a2);
     if (result)
     {
-      *(v5 + 40) = *(result + 12);
-      *(v5 + 4) = *(result + 8);
+      *(v5 + 80) = *(result + 12);
+      *(v5 + 64) = *(result + 8);
     }
   }
 
@@ -9443,12 +9435,12 @@ char *GTMTLSMIOCommandQueue_processTraceFuncWithMap(char *result, uint64_t a2, u
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v8 = *a3;
     v9 = *v7;
-    *(v4 + 1) = *(v7 + 1);
-    *(v4 + 2) = v8;
-    *(v4 + 1) = *(a3 + 2);
-    *(v4 + 5) = v9;
+    *(v4 + 8) = *(v7 + 1);
+    *(v4 + 16) = v8;
+    *(v4 + 4) = *(a3 + 2);
+    *(v4 + 40) = v9;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[24], a2);
-    *(v4 + 7) = result;
+    *(v4 + 56) = result;
   }
 
   return result;
@@ -9724,20 +9716,20 @@ char *GTMTLSMRasterizationRateMap_processTraceFuncWithMap(char *result, uint64_t
     case -15411:
       v10 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       result = GTTraceFunc_argumentBytesWithMap(a3, v10[8], a2);
-      *(v4 + 6) = result;
+      *(v4 + 48) = result;
       break;
     case -15793:
       v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v8 = *a3;
       v9 = *v7;
-      *(v4 + 1) = *(v7 + 1);
-      *(v4 + 2) = v8;
-      *(v4 + 1) = *(a3 + 2);
-      *(v4 + 5) = v9;
+      *(v4 + 8) = *(v7 + 1);
+      *(v4 + 16) = v8;
+      *(v4 + 4) = *(a3 + 2);
+      *(v4 + 40) = v9;
       result = GTTraceFunc_argumentBytesWithMap(a3, v7[16], a2);
-      *(v4 + 6) = result;
-      *(v4 + 14) = *(result + 6);
-      v4[60] = result[34];
+      *(v4 + 48) = result;
+      *(v4 + 56) = *(result + 6);
+      *(v4 + 60) = result[34];
       break;
   }
 
@@ -9751,9 +9743,9 @@ char *GTMTLSMDevice_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
   if (v5 == -10239)
   {
     v7 = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
-    *(v4 + 1) = *v7;
+    *(v4 + 8) = *v7;
     result = GTTraceFunc_argumentBytesWithMap(a3, v7[8], a2);
-    *(v4 + 5) = result;
+    *(v4 + 40) = result;
   }
 
   else if (v5 == -16317)
@@ -9764,7 +9756,7 @@ char *GTMTLSMDevice_processTraceFuncWithMap(char *result, uint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t GTMTLSMFilter_processTraceFuncWithMap(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t *GTMTLSMFilter_processTraceFuncWithMap(uint64_t *result, uint64_t a2, uint64_t *a3)
 {
   v5 = result;
   v6 = *(a3 + 2);
@@ -9826,17 +9818,17 @@ uint64_t GTMTLSMFilter_processTraceFuncWithMap(uint64_t result, uint64_t a2, uin
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v29 = *a3;
           v30 = *result;
-          *(v5 + 8) = *(result + 8);
+          *(v5 + 8) = result[1];
           *(v5 + 16) = v29;
           v31 = *(a3 + 2);
           *(v5 + 4) = v31;
           *(v5 + 40) = v31;
           *(v5 + 48) = v30;
-          *(v5 + 96) = *(result + 16);
-          *(v5 + 56) = *(result + 24);
-          *(v5 + 64) = *(result + 32);
-          *(v5 + 80) = *(result + 40);
-          v32 = *(result + 48);
+          *(v5 + 96) = *(result + 4);
+          *(v5 + 56) = result[3];
+          *(v5 + 64) = result[4];
+          *(v5 + 80) = result[5];
+          v32 = result[6];
           goto LABEL_35;
         }
 
@@ -9845,16 +9837,16 @@ uint64_t GTMTLSMFilter_processTraceFuncWithMap(uint64_t result, uint64_t a2, uin
           result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
           v7 = *a3;
           v8 = *result;
-          *(v5 + 8) = *(result + 8);
+          *(v5 + 8) = result[1];
           *(v5 + 16) = v7;
           v9 = *(a3 + 2);
           *(v5 + 4) = v9;
           *(v5 + 40) = v9;
           *(v5 + 48) = v8;
-          *(v5 + 56) = *(result + 16);
-          *(v5 + 64) = *(result + 20);
-          *(v5 + 68) = *(result + 24);
-          *(v5 + 72) = *(result + 28);
+          *(v5 + 56) = *(result + 4);
+          *(v5 + 64) = *(result + 5);
+          *(v5 + 68) = *(result + 6);
+          *(v5 + 72) = *(result + 7);
         }
       }
 
@@ -9870,7 +9862,7 @@ uint64_t GTMTLSMFilter_processTraceFuncWithMap(uint64_t result, uint64_t a2, uin
     {
       if (v6 == -6139)
       {
-        *(result + 24) = *a3;
+        result[3] = *a3;
       }
 
       return result;
@@ -9880,16 +9872,16 @@ LABEL_30:
     result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
     v23 = *a3;
     v24 = *result;
-    *(v5 + 8) = *(result + 8);
+    *(v5 + 8) = result[1];
     *(v5 + 16) = v23;
     v25 = *(a3 + 2);
     *(v5 + 4) = v25;
     *(v5 + 40) = v25;
     *(v5 + 48) = v24;
-    *(v5 + 56) = *(result + 16);
-    *(v5 + 64) = *(result + 24);
-    *(v5 + 72) = *(result + 32);
-    *(v5 + 80) = *(result + 40);
+    *(v5 + 56) = result[2];
+    *(v5 + 64) = result[3];
+    *(v5 + 72) = result[4];
+    *(v5 + 80) = result[5];
     return result;
   }
 
@@ -9908,7 +9900,7 @@ LABEL_31:
         result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
         v26 = *a3;
         v27 = *result;
-        *(v5 + 8) = *(result + 8);
+        *(v5 + 8) = result[1];
         *(v5 + 16) = v26;
         v28 = *(a3 + 2);
         *(v5 + 4) = v28;
@@ -9920,19 +9912,19 @@ LABEL_31:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v37 = *a3;
       v38 = *result;
-      *(v5 + 8) = *(result + 8);
+      *(v5 + 8) = result[1];
       *(v5 + 16) = v37;
       v39 = *(a3 + 2);
       *(v5 + 4) = v39;
       *(v5 + 40) = v39;
       *(v5 + 48) = v38;
-      *(v5 + 96) = *(result + 16);
-      *(v5 + 97) = *(result + 20);
-      *(v5 + 56) = *(result + 24);
-      *(v5 + 64) = *(result + 32);
-      *(v5 + 72) = *(result + 40);
-      *(v5 + 80) = *(result + 48);
-      v32 = *(result + 56);
+      *(v5 + 96) = *(result + 4);
+      *(v5 + 97) = *(result + 5);
+      *(v5 + 56) = result[3];
+      *(v5 + 64) = result[4];
+      *(v5 + 72) = result[5];
+      *(v5 + 80) = result[6];
+      v32 = result[7];
 LABEL_35:
       *(v5 + 88) = v32;
       return result;
@@ -9943,18 +9935,18 @@ LABEL_35:
       result = GTTraceFunc_argumentBytesWithMap(a3, *(a3 + 13), a2);
       v40 = *a3;
       v41 = *result;
-      *(v5 + 8) = *(result + 8);
+      *(v5 + 8) = result[1];
       *(v5 + 16) = v40;
       v42 = *(a3 + 2);
       *(v5 + 4) = v42;
       *(v5 + 40) = v42;
       *(v5 + 48) = v41;
-      *(v5 + 56) = *(result + 16);
-      *(v5 + 64) = *(result + 24);
-      *(v5 + 72) = *(result + 32);
-      *(v5 + 80) = *(result + 40);
-      *(v5 + 88) = *(result + 48);
-      *(v5 + 96) = *(result + 56);
+      *(v5 + 56) = result[2];
+      *(v5 + 64) = result[3];
+      *(v5 + 72) = result[4];
+      *(v5 + 80) = result[5];
+      *(v5 + 88) = result[6];
+      *(v5 + 96) = result[7];
       return result;
     }
 

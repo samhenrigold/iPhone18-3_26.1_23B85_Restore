@@ -96,10 +96,10 @@ uint64_t __143__ATXAnchorModelEventHarvester_fetchEventsAfterAnchorOccurenceDate
 
 void __143__ATXAnchorModelEventHarvester_fetchEventsAfterAnchorOccurenceDate_withBiomePublisher_maxSecondsBeforeAnchor_maxSecondsAfterAnchor_isIncluded___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 state];
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(v4);
   v6 = v5;
   if (v4)
   {
@@ -113,14 +113,12 @@ void __143__ATXAnchorModelEventHarvester_fetchEventsAfterAnchorOccurenceDate_wit
   {
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
     v8 = *(a1 + 40);
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events after anchor on %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Successfully fetched %@ Biome events after anchor on %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchAppLaunchEventsAfterAnchorOccurrenceDate:(id)date limit:(unint64_t)limit maxSecondsBeforeAnchor:(int64_t)anchor maxSecondsAfterAnchor:(int64_t)afterAnchor isIncluded:(id)included
@@ -198,29 +196,29 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
 
 + (id)idsFromDuetEvents:(id)events
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         identifier = [v10 identifier];
         [v4 addObject:identifier];
@@ -228,43 +226,42 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)idsFromBiomeEvents:(id)events
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = objc_alloc(MEMORY[0x277CCACA8]);
         [v10 timestamp];
@@ -274,44 +271,43 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   v15 = [v4 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)deduplicatedActionEventsByIdFromActionEvents:(id)events
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = eventsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         identifier = [v11 identifier];
         v14 = [v5 containsObject:identifier];
@@ -327,14 +323,13 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
 
   v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -351,41 +346,41 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
   v11 = [dateCopy dateByAddingTimeInterval:-v9];
   v12 = [v10 appIntentDuetEventsForActionsBetweenStartDate:v11 endDate:dateCopy];
 
-  v13 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __atxlog_handle_anchor(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    [(ATXAnchorModelEventHarvester *)v12 negativeActionsOnAnchorOccurrenceDate:v13 positiveActionIds:v9];
+    [(ATXAnchorModelEventHarvester *)v12 negativeActionsOnAnchorOccurrenceDate:v14 positiveActionIds:v9];
   }
 
-  v14 = objc_opt_new();
+  v15 = objc_opt_new();
   if ([v12 count])
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      v16 = [v12 objectAtIndexedSubscript:v15];
-      identifier = [v16 identifier];
-      v18 = [idsCopy containsObject:identifier];
+      v17 = [v12 objectAtIndexedSubscript:v16];
+      identifier = [v17 identifier];
+      v19 = [idsCopy containsObject:identifier];
 
-      if ((v18 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        [v14 addIndex:v15];
+        [v15 addIndex:v16];
       }
 
-      ++v15;
+      ++v16;
     }
 
-    while ([v12 count] > v15);
+    while ([v12 count] > v16);
   }
 
-  v19 = [v12 objectsAtIndexes:v14];
-  v20 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v20 = [v12 objectsAtIndexes:v15];
+  v21 = __atxlog_handle_anchor(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    [ATXAnchorModelEventHarvester negativeActionsOnAnchorOccurrenceDate:v19 positiveActionIds:v20];
+    [ATXAnchorModelEventHarvester negativeActionsOnAnchorOccurrenceDate:v20 positiveActionIds:v21];
   }
 
-  return v19;
+  return v20;
 }
 
 + (id)randomSampleFromArray:(id)array sampleSize:(unint64_t)size
@@ -411,36 +406,32 @@ uint64_t __140__ATXAnchorModelEventHarvester_fetchAppLaunchEventsAfterAnchorOccu
 
 void __143__ATXAnchorModelEventHarvester_fetchEventsAfterAnchorOccurenceDate_withBiomePublisher_maxSecondsBeforeAnchor_maxSecondsAfterAnchor_isIncluded___block_invoke_2_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = [a2 error];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for after the anchor event on date %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "Error encountered while fetching events from Biome for after the anchor event on date %@: %@", &v6, 0x16u);
 }
 
 - (void)negativeActionsOnAnchorOccurrenceDate:(double)a3 positiveActionIds:.cold.1(void *a1, NSObject *a2, double a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218240;
-  v7 = [a1 count];
-  v8 = 2048;
-  v9 = a3;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Producing negative samples: fetched %lu actions that were received in the last %.2f seconds.", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = [a1 count];
+  v7 = 2048;
+  v8 = a3;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Producing negative samples: fetched %lu actions that were received in the last %.2f seconds.", &v5, 0x16u);
 }
 
 - (void)negativeActionsOnAnchorOccurrenceDate:(void *)a1 positiveActionIds:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Producing negative samples: %lu negative actions remain after filtering out positive actions.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Producing negative samples: %lu negative actions remain after filtering out positive actions.", &v3, 0xCu);
 }
 
 @end

@@ -3,6 +3,8 @@
 - (ServiceBridgedNavigationItemProxy)proxyHandler;
 - (id)rightBarButtonItem;
 - (void)setBackButtonTitle:(id)title;
+- (void)setHidesBackButton:(BOOL)button;
+- (void)setRightBarButtonItem:(id)item animated:(BOOL)animated;
 - (void)setTitle:(id)title;
 @end
 
@@ -56,6 +58,24 @@
   v5.receiver = self;
   v5.super_class = ServiceBridgedNavigationItem;
   [(ServiceBridgedNavigationItem *)&v5 setBackButtonTitle:title];
+  proxyHandler = [(ServiceBridgedNavigationItem *)self proxyHandler];
+  [proxyHandler navigationItemUpdated];
+}
+
+- (void)setHidesBackButton:(BOOL)button
+{
+  v5.receiver = self;
+  v5.super_class = ServiceBridgedNavigationItem;
+  [(ServiceBridgedNavigationItem *)&v5 setHidesBackButton:button];
+  proxyHandler = [(ServiceBridgedNavigationItem *)self proxyHandler];
+  [proxyHandler navigationItemUpdated];
+}
+
+- (void)setRightBarButtonItem:(id)item animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = ServiceBridgedNavigationItem;
+  [(ServiceBridgedNavigationItem *)&v6 setRightBarButtonItem:item animated:animated];
   proxyHandler = [(ServiceBridgedNavigationItem *)self proxyHandler];
   [proxyHandler navigationItemUpdated];
 }

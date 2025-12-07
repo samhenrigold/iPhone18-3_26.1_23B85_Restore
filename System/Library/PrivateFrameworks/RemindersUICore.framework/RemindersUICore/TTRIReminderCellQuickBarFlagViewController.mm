@@ -25,7 +25,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC15RemindersUICore42TTRIReminderCellQuickBarFlagViewController_isFlagged) = (*(&self->super.isa + OBJC_IVAR____TtC15RemindersUICore42TTRIReminderCellQuickBarFlagViewController_isFlagged) & 1) == 0;
   sub_21D854808();
   sub_21D854008(*(&self->super.isa + v6));
-  sub_21D0CF7E0(v7, &qword_27CE5C690);
+  sub_21D0CF7E0(v7, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (_TtC15RemindersUICore42TTRIReminderCellQuickBarFlagViewController)init

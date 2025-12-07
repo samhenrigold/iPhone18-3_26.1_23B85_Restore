@@ -1,7 +1,7 @@
 @interface _HKMappingKey
 - (BOOL)isEqual:(id)equal;
 - (id)initWithObject:(void *)object andKey:;
-- (uint64_t)objectMatches:(uint64_t)result;
+- (id)objectMatches:(id *)result;
 @end
 
 @implementation _HKMappingKey
@@ -62,7 +62,7 @@
   return self;
 }
 
-- (uint64_t)objectMatches:(uint64_t)result
+- (id)objectMatches:(id *)result
 {
   if (result)
   {
@@ -71,7 +71,7 @@
     v4 = a2;
     v5 = [[v3 alloc] initWithFormat:@"%p", v4];
 
-    v6 = [*(v2 + 8) isEqualToString:v5];
+    v6 = [v2[1] isEqualToString:v5];
     return v6;
   }
 

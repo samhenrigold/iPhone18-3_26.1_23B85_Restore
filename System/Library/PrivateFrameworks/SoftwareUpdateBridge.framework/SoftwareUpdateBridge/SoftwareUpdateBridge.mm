@@ -12,7 +12,7 @@ void sub_26AB0763C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SUBLoggingInit()
+void SUBLoggingInit(uint64_t result, uint64_t a2)
 {
   if (SUBLoggingInit_onceToken != -1)
   {
@@ -71,7 +71,7 @@ id SUBIPCDecodeObjectForKey(void *a1, const char *a2, uint64_t a3)
 
 id SUBIPCDecodeObjectsForKey(void *a1, const char *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   data = 0;
   if (a1)
@@ -87,9 +87,9 @@ id SUBIPCDecodeObjectsForKey(void *a1, const char *a2, void *a3)
         v9 = [v7 initForReadingFromData:v8 error:0];
 
         v10 = *MEMORY[0x277CCA308];
-        v15 = 0;
-        data = [v9 decodeTopLevelObjectOfClasses:v5 forKey:v10 error:&v15];
-        v11 = v15;
+        v14 = 0;
+        data = [v9 decodeTopLevelObjectOfClasses:v5 forKey:v10 error:&v14];
+        v11 = v14;
         [v9 finishDecoding];
         if (v11)
         {
@@ -97,9 +97,9 @@ id SUBIPCDecodeObjectsForKey(void *a1, const char *a2, void *a3)
           if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v18 = a2;
-            v19 = 2112;
-            v20 = v11;
+            v17 = a2;
+            v18 = 2112;
+            v19 = v11;
             _os_log_impl(&dword_26AB06000, v12, OS_LOG_TYPE_DEFAULT, "Error decoding %s: %@", buf, 0x16u);
           }
         }
@@ -107,88 +107,83 @@ id SUBIPCDecodeObjectsForKey(void *a1, const char *a2, void *a3)
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
-BOOL SUBIPCClientIsEntitled()
+BOOL SUBIPCClientIsEntitled(uint64_t a1)
 {
   v20 = *MEMORY[0x277D85DE8];
   v17 = 0u;
   v18 = 0u;
   xpc_connection_get_audit_token();
-  v0 = *MEMORY[0x277CBECE8];
+  v1 = *MEMORY[0x277CBECE8];
   memset(&token, 0, sizeof(token));
-  v1 = SecTaskCreateWithAuditToken(v0, &token);
-  if (v1)
+  v2 = SecTaskCreateWithAuditToken(v1, &token);
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     error = 0;
-    v3 = SecTaskCopyValueForEntitlement(v1, @"com.apple.private.allow-subridge", &error);
-    v4 = error;
-    if (v3)
+    v4 = SecTaskCopyValueForEntitlement(v2, @"com.apple.private.allow-subridge", &error);
+    v5 = error;
+    if (v4)
     {
-      v5 = v3;
-      v6 = CFGetTypeID(v3);
-      if (v6 == CFBooleanGetTypeID())
+      v6 = v4;
+      v7 = CFGetTypeID(v4);
+      if (v7 == CFBooleanGetTypeID())
       {
-        v7 = CFBooleanGetValue(v5) != 0;
+        v8 = CFBooleanGetValue(v6) != 0;
       }
 
       else
       {
-        v13 = softwareupdatebridge_log;
-        v7 = 0;
+        v14 = softwareupdatebridge_log;
+        v8 = 0;
         if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(token.val[0]) = 0;
-          _os_log_impl(&dword_26AB06000, v13, OS_LOG_TYPE_DEFAULT, "entitlement has wrong type", &token, 2u);
-          v7 = 0;
+          _os_log_impl(&dword_26AB06000, v14, OS_LOG_TYPE_DEFAULT, "entitlement has wrong type", &token, 2u);
+          v8 = 0;
         }
       }
 
-      CFRelease(v2);
+      CFRelease(v3);
       goto LABEL_16;
     }
 
-    v8 = softwareupdatebridge_log;
-    v9 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
-    if (v4)
+    v9 = softwareupdatebridge_log;
+    v10 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
+    if (v5)
     {
-      if (v9)
+      if (v10)
       {
         token.val[0] = 138543362;
-        *&token.val[1] = v4;
-        v10 = "unable to look up client entitlement: %{public}@";
-        v11 = v8;
-        v12 = 12;
+        *&token.val[1] = v5;
+        v11 = "unable to look up client entitlement: %{public}@";
+        v12 = v9;
+        v13 = 12;
 LABEL_14:
-        _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, v10, &token, v12);
+        _os_log_impl(&dword_26AB06000, v12, OS_LOG_TYPE_DEFAULT, v11, &token, v13);
       }
     }
 
-    else if (v9)
+    else if (v10)
     {
       LOWORD(token.val[0]) = 0;
-      v10 = "client is not entitled";
-      v11 = v8;
-      v12 = 2;
+      v11 = "client is not entitled";
+      v12 = v9;
+      v13 = 2;
       goto LABEL_14;
     }
 
-    v7 = 0;
-    v5 = v2;
+    v8 = 0;
+    v6 = v3;
 LABEL_16:
-    CFRelease(v5);
+    CFRelease(v6);
 
-    goto LABEL_17;
+    return v8;
   }
 
-  v7 = 0;
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 0;
 }
 
 id SUBIPCDictionaryToXPC(void *a1, void *a2)
@@ -394,32 +389,32 @@ uint64_t SUBIsChargerConnected()
 
 id SUBActiveNRDevice()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D2BCF8] sharedInstance];
   v1 = [v0 getAllDevices];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     v6 = *MEMORY[0x277D2BB20];
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v9 = [v8 valueForProperty:{v6, v14}];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [v8 valueForProperty:{v6, v13}];
         v10 = [v9 BOOLValue];
 
         if (v10)
@@ -429,7 +424,7 @@ id SUBActiveNRDevice()
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -441,8 +436,6 @@ id SUBActiveNRDevice()
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -476,7 +469,7 @@ uint64_t __SUBIsRunningInStoreDemoMode_block_invoke()
 
 void __SUBIsRunningInStoreDemoMode_block_invoke_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   SUBIsRunningInStoreDemoMode_result = CFPreferencesGetAppBooleanValue(@"StoreDemoMode", @"com.apple.demo-settings", 0) != 0;
   out_token = 0;
   v0 = dispatch_get_global_queue(25, 0);
@@ -498,17 +491,15 @@ void __SUBIsRunningInStoreDemoMode_block_invoke_2()
       }
 
       *buf = 138412290;
-      v7 = v3;
+      v6 = v3;
       _os_log_impl(&dword_26AB06000, v2, OS_LOG_TYPE_DEFAULT, "Failed to register for storeDemoMode state change notifications. StoreDemoMode currently %@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __SUBIsRunningInStoreDemoMode_block_invoke_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = SUBIsRunningInStoreDemoMode_lock;
   objc_sync_enter(v0);
   SUBIsRunningInStoreDemoMode_result = CFPreferencesGetAppBooleanValue(@"StoreDemoMode", @"com.apple.demo-settings", 0) != 0;
@@ -525,17 +516,15 @@ void __SUBIsRunningInStoreDemoMode_block_invoke_3()
       v2 = @"Disabled";
     }
 
-    v4 = 138412290;
-    v5 = v2;
-    _os_log_impl(&dword_26AB06000, v1, OS_LOG_TYPE_DEFAULT, "StoreDemoMode settings changed. StoreDemoMode is now %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_26AB06000, v1, OS_LOG_TYPE_DEFAULT, "StoreDemoMode settings changed. StoreDemoMode is now %@", &v3, 0xCu);
   }
 
   objc_sync_exit(v0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t SUBIsRunningInStandaloneGizmoMode()
+uint64_t SUBIsRunningInStandaloneGizmoMode(uint64_t a1, uint64_t a2)
 {
   if (SUBIsRunningInStandaloneGizmoMode_onceToken != -1)
   {
@@ -563,21 +552,21 @@ uint64_t __SUBIsRunningInStandaloneGizmoMode_block_invoke()
   return result;
 }
 
-id copySUBSimulationFileName()
+id copySUBSimulationFileName(uint64_t a1)
 {
   if (copySUBSimulationFileName_onceToken != -1)
   {
     copySUBSimulationFileName_cold_1();
   }
 
-  v1 = copySUBSimulationFileName_simulationFileName;
+  v2 = copySUBSimulationFileName_simulationFileName;
 
-  return v1;
+  return v2;
 }
 
 void __copySUBSimulationFileName_block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (MGGetBoolAnswer())
   {
     v0 = CFPreferencesCopyValue(@"SimulationFileName", @"com.apple.subridge", @"mobile", *MEMORY[0x277CBF010]);
@@ -592,21 +581,20 @@ void __copySUBSimulationFileName_block_invoke()
         v2 = softwareupdatebridge_log;
         if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
         {
-          v6 = 138412290;
-          v7 = copySUBSimulationFileName_simulationFileName;
-          _os_log_impl(&dword_26AB06000, v2, OS_LOG_TYPE_DEFAULT, "Found default for simulator file %@", &v6, 0xCu);
+          v4 = 138412290;
+          v5 = copySUBSimulationFileName_simulationFileName;
+          _os_log_impl(&dword_26AB06000, v2, OS_LOG_TYPE_DEFAULT, "Found default for simulator file %@", &v4, 0xCu);
         }
 
-        v3 = *MEMORY[0x277D85DE8];
         return;
       }
 
-      v4 = copySUBSimulationFileName_simulationFileName;
+      v3 = copySUBSimulationFileName_simulationFileName;
     }
 
     else
     {
-      v4 = 0;
+      v3 = 0;
     }
 
     copySUBSimulationFileName_simulationFileName = 0;
@@ -614,11 +602,9 @@ void __copySUBSimulationFileName_block_invoke()
 
   else
   {
-    v4 = copySUBSimulationFileName_simulationFileName;
+    v3 = copySUBSimulationFileName_simulationFileName;
     copySUBSimulationFileName_simulationFileName = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *stringForMAAssetCancelResult(unint64_t a1)

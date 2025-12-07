@@ -303,46 +303,36 @@ LABEL_42:
 {
   bucketOverride = [(CTAppProperties *)self bucketOverride];
   lsAppRecord = [(CTAppProperties *)self lsAppRecord];
-  if (!lsAppRecord)
+  if (lsAppRecord && (v5 = lsAppRecord, -[CTAppProperties lsAppRecord](self, "lsAppRecord"), v6 = objc_claimAutoreleasedReturnValue(), [v6 applicationState], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isValid"), v7, v6, v5, v8))
   {
-    goto LABEL_5;
-  }
-
-  v5 = lsAppRecord;
-  lsAppRecord2 = [(CTAppProperties *)self lsAppRecord];
-  applicationState = [lsAppRecord2 applicationState];
-  isValid = [applicationState isValid];
-
-  if (isValid)
-  {
-    lsAppRecord3 = [(CTAppProperties *)self lsAppRecord];
-    applicationState2 = [lsAppRecord3 applicationState];
-    if ([applicationState2 isInstalled])
+    lsAppRecord2 = [(CTAppProperties *)self lsAppRecord];
+    applicationState = [lsAppRecord2 applicationState];
+    if ([applicationState isInstalled])
     {
       isDeletable = 0;
     }
 
     else
     {
-      lsAppRecord4 = [(CTAppProperties *)self lsAppRecord];
-      if ([lsAppRecord4 isPlaceholder])
+      lsAppRecord3 = [(CTAppProperties *)self lsAppRecord];
+      if ([lsAppRecord3 isPlaceholder])
       {
         isDeletable = 0;
       }
 
       else
       {
-        lsAppRecord5 = [(CTAppProperties *)self lsAppRecord];
-        applicationState3 = [lsAppRecord5 applicationState];
-        if ([applicationState3 isPlaceholder])
+        lsAppRecord4 = [(CTAppProperties *)self lsAppRecord];
+        applicationState2 = [lsAppRecord4 applicationState];
+        if ([applicationState2 isPlaceholder])
         {
           isDeletable = 0;
         }
 
         else
         {
-          lsAppRecord6 = [(CTAppProperties *)self lsAppRecord];
-          isDeletable = [lsAppRecord6 isDeletable];
+          lsAppRecord5 = [(CTAppProperties *)self lsAppRecord];
+          isDeletable = [lsAppRecord5 isDeletable];
         }
       }
     }
@@ -350,7 +340,6 @@ LABEL_42:
 
   else
   {
-LABEL_5:
     isDeletable = 1;
   }
 
@@ -626,24 +615,14 @@ LABEL_11:
 {
   nameCopy = name;
   lsAppRecord = [(CTAppProperties *)self lsAppRecord];
-  if (!lsAppRecord)
+  if (lsAppRecord && (-[CTAppProperties lsAppRecord](self, "lsAppRecord"), v6 = objc_claimAutoreleasedReturnValue(), [v6 applicationState], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isValid"), v7, v6, lsAppRecord, v8))
   {
-    goto LABEL_4;
-  }
-
-  lsAppRecord2 = [(CTAppProperties *)self lsAppRecord];
-  applicationState = [lsAppRecord2 applicationState];
-  isValid = [applicationState isValid];
-
-  if (isValid)
-  {
-    lsAppRecord3 = [(CTAppProperties *)self lsAppRecord];
-    v10 = [lsAppRecord3 localizedNameWithPreferredLocalizations:nameCopy];
+    lsAppRecord2 = [(CTAppProperties *)self lsAppRecord];
+    v10 = [lsAppRecord2 localizedNameWithPreferredLocalizations:nameCopy];
   }
 
   else
   {
-LABEL_4:
     remoteAppInfo = [(CTAppProperties *)self remoteAppInfo];
 
     if (remoteAppInfo)

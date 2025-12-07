@@ -130,20 +130,20 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
 
 - (void)updateBundleIDWithResponse:(id)response
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   endpointController = [(MRUEndpointController *)self->_endpointController endpointController];
   representedBundleID = [endpointController representedBundleID];
   if (![(NSString *)self->_bundleID isEqualToString:representedBundleID])
   {
     objc_storeStrong(&self->_bundleID, representedBundleID);
-    v6 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryDefault(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543618;
-      v9 = objc_opt_class();
-      v10 = 2114;
-      v11 = representedBundleID;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ update bundleID: %{public}@", &v8, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = representedBundleID;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ update bundleID: %{public}@", &v9, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -153,7 +153,7 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
 
 - (void)updateNowPlayingInfoWithResponse:(id)response
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = [MRUNowPlayingInfo alloc];
   placeholder = [(MRUMPCMetadataDataSource *)self placeholder];
@@ -162,14 +162,14 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
   if (![(MRUNowPlayingInfo *)self->_nowPlayingInfo isEqual:v7])
   {
     objc_storeStrong(&self->_nowPlayingInfo, v7);
-    v8 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = MCLogCategoryDefault(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v7;
-      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ update metadata: %{public}@", &v10, 0x16u);
+      v11 = 138543618;
+      v12 = objc_opt_class();
+      v13 = 2114;
+      v14 = v7;
+      _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ update metadata: %{public}@", &v11, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -179,7 +179,7 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
 
 - (void)updateTimeControlsWithResponse:(id)response
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = [MRUTimeControls alloc];
   tracklist = [responseCopy tracklist];
@@ -190,14 +190,14 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
   if (![(MRUTimeControls *)self->_timeControls isEqual:v8])
   {
     objc_storeStrong(&self->_timeControls, v8);
-    v9 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MCLogCategoryDefault(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v8;
-      _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ update time controls: %{public}@", &v11, 0x16u);
+      v12 = 138543618;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ update time controls: %{public}@", &v12, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -207,19 +207,19 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
 
 - (void)updateTransportControlsWithResponse:(id)response
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = [[MRUTransportControls alloc] initWithMPCResponse:responseCopy];
 
   objc_storeStrong(&self->_transportControls, v5);
-  v6 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MCLogCategoryDefault(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ update transport controls: %{public}@", &v8, 0x16u);
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = v5;
+    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ update transport controls: %{public}@", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -228,34 +228,34 @@ id __32__MRUMPCMetadataDataSource_init__block_invoke_2(uint64_t a1, uint64_t a2)
 
 - (id)placeholder
 {
-  state = [(MRUEndpointController *)self->_endpointController state];
-  if (state > 1)
+  v2 = objc_msgSend_state(self->_endpointController, a2);
+  if (v2 > 1)
   {
-    if (state == 2)
+    if (v2 == 2)
     {
-      state = +[MRUStringsProvider loading];
+      v2 = +[MRUStringsProvider loading];
     }
 
-    else if (state == 3)
+    else if (v2 == 3)
     {
-      state = +[MRUStringsProvider notPlaying];
+      v2 = +[MRUStringsProvider notPlaying];
     }
   }
 
-  else if (state >= 2)
+  else if (v2 >= 2)
   {
-    if (state == -1)
+    if (v2 == -1)
     {
-      state = +[MRUStringsProvider notConnected];
+      v2 = +[MRUStringsProvider notConnected];
     }
   }
 
   else
   {
-    state = +[MRUStringsProvider connecting];
+    v2 = +[MRUStringsProvider connecting];
   }
 
-  return state;
+  return v2;
 }
 
 - (id)_stateDumpObject

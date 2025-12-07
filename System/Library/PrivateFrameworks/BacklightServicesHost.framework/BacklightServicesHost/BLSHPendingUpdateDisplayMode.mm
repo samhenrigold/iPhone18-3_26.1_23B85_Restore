@@ -24,14 +24,14 @@
 
 + (id)operationForUpdateFromCurrentDisplayMode:(int64_t)mode toTargetDisplayMode:(int64_t)displayMode withConfiguration:(id)configuration
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __111__BLSHPendingUpdateDisplayMode_operationForUpdateFromCurrentDisplayMode_toTargetDisplayMode_withConfiguration___block_invoke;
-  v32[3] = &__block_descriptor_40_e38_B16__0__BLSHPendingUpdateDisplayMode_8l;
-  v32[4] = displayMode;
-  v8 = MEMORY[0x223D70730](v32);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __111__BLSHPendingUpdateDisplayMode_operationForUpdateFromCurrentDisplayMode_toTargetDisplayMode_withConfiguration___block_invoke;
+  v31[3] = &__block_descriptor_40_e38_B16__0__BLSHPendingUpdateDisplayMode_8l;
+  v31[4] = displayMode;
+  v8 = MEMORY[0x223D70730](v31);
   pendingOperation = [configurationCopy pendingOperation];
   v10 = (v8)[2](v8, pendingOperation);
 
@@ -75,14 +75,14 @@ LABEL_9:
     v21 = bls_backlight_log();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v30 = NSStringFromBLSBacklightDisplayMode(displayMode);
-      v31 = NSStringFromBLSBacklightDisplayMode(mode);
+      v29 = NSStringFromBLSBacklightDisplayMode(displayMode);
+      v30 = NSStringFromBLSBacklightDisplayMode(mode);
       *buf = 138543874;
-      v34 = inProgressOperation;
-      v35 = 2114;
-      v36 = v30;
-      v37 = 2114;
-      v38 = v31;
+      v33 = inProgressOperation;
+      v34 = 2114;
+      v35 = v29;
+      v36 = 2114;
+      v37 = v30;
       _os_log_debug_impl(&dword_21FD11000, v21, OS_LOG_TYPE_DEBUG, "TSM: pendingIsStartedButIncomplete: %{public}@ targetDisplayMode:%{public}@ currentDisplayMode:%{public}@", buf, 0x20u);
     }
 
@@ -156,7 +156,6 @@ LABEL_38:
 LABEL_39:
 
 LABEL_40:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -227,20 +226,18 @@ BOOL __111__BLSHPendingUpdateDisplayMode_operationForUpdateFromCurrentDisplayMod
 
 + (void)operationForUpdateFromCurrentDisplayMode:(void *)a1 toTargetDisplayMode:withConfiguration:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 abandonedInProgressOperation];
-  OUTLINED_FUNCTION_4_5(&dword_21FD11000, v2, v3, "TSM: reusing abandoned:%{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_21FD11000, v2, v3, "TSM: reusing abandoned:%{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)operationForUpdateFromCurrentDisplayMode:(void *)a1 toTargetDisplayMode:withConfiguration:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 pendingOperation];
-  OUTLINED_FUNCTION_4_5(&dword_21FD11000, v2, v3, "TSM: using existing pending:%{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_21FD11000, v2, v3, "TSM: using existing pending:%{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

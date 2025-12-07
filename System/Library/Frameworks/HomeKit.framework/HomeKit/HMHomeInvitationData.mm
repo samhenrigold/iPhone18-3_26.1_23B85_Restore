@@ -64,12 +64,12 @@
 
 - (HMHomeInvitationData)initWithInvitationState:(int64_t)state invitationIdentifier:(id)identifier endDate:(id)date
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dateCopy = date;
-  v20.receiver = self;
-  v20.super_class = HMHomeInvitationData;
-  v10 = [(HMHomeInvitationData *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HMHomeInvitationData;
+  v10 = [(HMHomeInvitationData *)&v19 init];
   if (v10)
   {
     if (identifierCopy)
@@ -95,9 +95,9 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = dateCopy;
+      v21 = v17;
+      v22 = 2112;
+      v23 = dateCopy;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Setting home invitation expiry date to %@", buf, 0x16u);
     }
 
@@ -106,7 +106,6 @@
     v10->_invitationState = state;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -252,40 +252,40 @@ LABEL_28:
 
 - (id)_queryPostV3
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v48 = *MEMORY[0x277D85DE8];
+  v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Installed"];
   v5 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Subscribed"];
   v6 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Test"];
   v7 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"SubscriptionInfo"];
-  v35 = v4;
+  v34 = v4;
   [v3 wlk_setObjectUnlessNilOrEmpty:v4 forKey:@"ibids"];
-  v37 = v3;
-  v34 = v6;
+  v36 = v3;
+  v33 = v6;
   [v3 wlk_setObjectUnlessNilOrEmpty:v6 forKey:@"tbids"];
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = v5;
-  v9 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v9 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       v12 = 0;
       do
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * v12);
+        v13 = *(*(&v42 + 1) + 8 * v12);
         v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
         [v14 wlk_setObjectUnlessNil:v13 forKey:@"bundleId"];
         v15 = [v7 objectForKeyedSubscript:v13];
@@ -309,45 +309,45 @@ LABEL_28:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v10 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v10);
   }
 
   v18 = [v8 copy];
-  [v37 wlk_setObjectUnlessNilOrEmpty:v18 forKey:@"sbids"];
+  [v36 wlk_setObjectUnlessNilOrEmpty:v18 forKey:@"sbids"];
 
-  v19 = [v37 copy];
-  [v36 wlk_setObjectUnlessNilOrEmpty:v19 forKey:@"entitlementInfo"];
+  v19 = [v36 copy];
+  [v35 wlk_setObjectUnlessNilOrEmpty:v19 forKey:@"entitlementInfo"];
 
   v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v21 = +[WLKFeatureEnablement tvAppEnabledFeatures];
   v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v23 = v21;
-  v24 = [v23 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v40;
+    v26 = *v39;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v40 != v26)
+        if (*v39 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        jsonRepresentation = [*(*(&v39 + 1) + 8 * i) jsonRepresentation];
+        jsonRepresentation = [*(*(&v38 + 1) + 8 * i) jsonRepresentation];
         [v22 addObject:jsonRepresentation];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v25);
@@ -357,10 +357,9 @@ LABEL_28:
   [v20 wlk_setObjectUnlessNilOrEmpty:v29 forKey:@"clientFeatures"];
 
   v30 = [v20 copy];
-  [v36 wlk_setObjectUnlessNilOrEmpty:v30 forKey:@"featureFlags"];
+  [v35 wlk_setObjectUnlessNilOrEmpty:v30 forKey:@"featureFlags"];
 
-  v31 = [v36 copy];
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [v35 copy];
 
   return v31;
 }
@@ -564,79 +563,77 @@ LABEL_50:
 
 - (id)description
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v19[0] = @"protocol version:";
+  v18[0] = @"protocol version:";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_protocolVersion];
   DSID = self->_DSID;
   storeFrontIdentifier = self->_storeFrontIdentifier;
-  v20[0] = v6;
-  v20[1] = DSID;
-  v19[1] = @"dsid";
-  v19[2] = @"storefront";
-  v20[2] = storeFrontIdentifier;
-  v19[3] = @"language";
-  v19[4] = @"country";
-  v21 = vbslq_s8(vceqzq_s64(*&self->_languageIdentifier), vdupq_n_s64(&stru_288206BC0), *&self->_languageIdentifier);
-  v19[5] = @"entitlements";
-  v19[6] = @"restrictions";
+  v19[0] = v6;
+  v19[1] = DSID;
+  v18[1] = @"dsid";
+  v18[2] = @"storefront";
+  v19[2] = storeFrontIdentifier;
+  v18[3] = @"language";
+  v18[4] = @"country";
+  v20 = vbslq_s8(vceqzq_s64(*&self->_languageIdentifier), vdupq_n_s64(&stru_288206BC0), *&self->_languageIdentifier);
+  v18[5] = @"entitlements";
+  v18[6] = @"restrictions";
   restrictions = self->_restrictions;
   entitlements = self->_entitlements;
-  v23 = restrictions;
+  v22 = restrictions;
   consentedBrands = self->_consentedBrands;
-  v19[7] = @"cbrids";
-  v19[8] = @"dbrids";
+  v18[7] = @"cbrids";
+  v18[8] = @"dbrids";
   deniedBrands = self->_deniedBrands;
-  v24 = consentedBrands;
-  v25 = deniedBrands;
-  v19[9] = @"gac";
+  v23 = consentedBrands;
+  v24 = deniedBrands;
+  v18[9] = @"gac";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:self->_consented];
   platform = self->_platform;
-  v26 = v12;
-  v27 = platform;
-  v19[10] = @"platform";
-  v19[11] = @"hash";
+  v25 = v12;
+  v26 = platform;
+  v18[10] = @"platform";
+  v18[11] = @"hash";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WLKUserEnvironment hash](self, "hash")}];
-  v28 = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:12];
+  v27 = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:12];
   v16 = [v3 stringWithFormat:@"<%@: %p %@>", v5, self, v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)_entitlementsQuery
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Installed"];
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Installed"];
   v3 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Subscribed"];
-  v20 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Test"];
+  v19 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"Test"];
   v4 = [(NSDictionary *)self->_entitlements objectForKeyedSubscript:@"SubscriptionInfo"];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = v3;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         v11 = [v4 objectForKeyedSubscript:v10];
         if ([v11 length])
         {
@@ -662,16 +659,16 @@ LABEL_50:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  if ([v21 count])
+  if ([v20 count])
   {
-    v15 = [v21 componentsJoinedByString:{@", "}];
+    v15 = [v20 componentsJoinedByString:{@", "}];
     [dictionary setObject:v15 forKeyedSubscript:@"ibids"];
   }
 
@@ -681,13 +678,11 @@ LABEL_50:
     [dictionary setObject:v16 forKeyedSubscript:@"sbids"];
   }
 
-  if ([v20 count])
+  if ([v19 count])
   {
-    v17 = [v20 componentsJoinedByString:{@", "}];
+    v17 = [v19 componentsJoinedByString:{@", "}];
     [dictionary setObject:v17 forKeyedSubscript:@"tbids"];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

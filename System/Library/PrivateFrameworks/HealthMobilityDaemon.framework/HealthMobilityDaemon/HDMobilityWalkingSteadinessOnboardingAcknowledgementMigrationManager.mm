@@ -3,7 +3,6 @@
 - (HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManagerDelegate)delegate;
 - (id)_queue_fetchFirstOnboardingCompletion;
 - (void)_enqueueMigration;
-- (void)_queue_fetchFirstOnboardingCompletion;
 - (void)_queue_migrateNotificationOnboardingCompletionToOnboardingAcknowledgement;
 - (void)_queue_migrateOnboardingAcknowledgementToNotificationOnboardingCompletionWithClassificationCompletion:(id)completion;
 - (void)_queue_reconcileFeatures;
@@ -65,34 +64,32 @@
 
 - (void)featureSettingsManager:(id)manager didUpdateSettingsForFeatureIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature settings changed for classifications, triggering migration", &v7, 0xCu);
+    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Feature settings changed for classifications, triggering migration", &v6, 0xCu);
   }
 
   [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self _enqueueMigration];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onboardingCompletionManager:(id)manager didUpdateOnboardingCompletionsForFeatureIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completion changed for notifications, triggering migration", &v7, 0xCu);
+    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding completion changed for notifications, triggering migration", &v6, 0xCu);
   }
 
   [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self _enqueueMigration];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enqueueMigration
@@ -128,10 +125,130 @@ void __89__HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager_
 
 - (void)_queue_reconcileFeatures
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_251962000, v0, v1, "[%{public}@] Error while retrieving feature settings, stopping onboarding acknowledgement migration: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_queue);
+  _queue_fetchFirstOnboardingCompletion = [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self _queue_fetchFirstOnboardingCompletion];
+  if (_queue_fetchFirstOnboardingCompletion)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+    featureSettingsManager = [WeakRetained featureSettingsManager];
+    v6 = *MEMORY[0x277CCC110];
+    v27 = 0;
+    v7 = [featureSettingsManager featureSettingsForFeatureIdentifier:v6 error:&v27];
+    v8 = v27;
+
+    if (!v7)
+    {
+      _HKInitializeLogging();
+      if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_ERROR))
+      {
+        [HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager _queue_reconcileFeatures];
+      }
+
+      v13 = v8;
+      goto LABEL_29;
+    }
+
+    v9 = objc_loadWeakRetained(&self->_profile);
+    onboardingCompletionManager = [v9 onboardingCompletionManager];
+    v11 = *MEMORY[0x277CCC118];
+    v26 = v8;
+    v12 = [onboardingCompletionManager onboardingCompletionsForHighestVersionOfFeatureIdentifier:v11 error:&v26];
+    v13 = v26;
+
+    if (!v12)
+    {
+      _HKInitializeLogging();
+      if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_ERROR))
+      {
+        [HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager _queue_reconcileFeatures];
+      }
+
+      goto LABEL_28;
+    }
+
+    v14 = [v7 numberForKey:*MEMORY[0x277CCC130]];
+    bOOLValue = [v14 BOOLValue];
+
+    v16 = [v12 count];
+    if (!bOOLValue || v16)
+    {
+      if (v16)
+      {
+        v19 = bOOLValue;
+      }
+
+      else
+      {
+        v19 = 1;
+      }
+
+      _HKInitializeLogging();
+      v20 = *MEMORY[0x277CCC2F8];
+      v21 = os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT);
+      if (v19)
+      {
+        if (v21)
+        {
+          *buf = 138543362;
+          selfCopy6 = self;
+          _os_log_impl(&dword_251962000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] No migration necessary, onboarding acknowledgement consistent", buf, 0xCu);
+        }
+
+        delegate = [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self delegate];
+        v23 = delegate;
+        selfCopy5 = self;
+        v25 = 0;
+        goto LABEL_27;
+      }
+
+      if (v21)
+      {
+        *buf = 138543362;
+        selfCopy6 = self;
+        _os_log_impl(&dword_251962000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding acknowledged in onboarding completion but not settings, setting settings for forward compatibility", buf, 0xCu);
+      }
+
+      [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self _queue_migrateNotificationOnboardingCompletionToOnboardingAcknowledgement];
+    }
+
+    else
+    {
+      _HKInitializeLogging();
+      v17 = *MEMORY[0x277CCC2F8];
+      if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy6 = self;
+        _os_log_impl(&dword_251962000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding acknowledged in settings but not onboarding completion, setting onboarding completion for backward compatibility", buf, 0xCu);
+      }
+
+      [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self _queue_migrateOnboardingAcknowledgementToNotificationOnboardingCompletionWithClassificationCompletion:_queue_fetchFirstOnboardingCompletion];
+    }
+
+    delegate = [(HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager *)self delegate];
+    v23 = delegate;
+    selfCopy5 = self;
+    v25 = 1;
+LABEL_27:
+    [delegate onboardingAcknowledgementMigrationManager:selfCopy5 didCompleteMigrationWithDidUpdate:v25];
+
+LABEL_28:
+LABEL_29:
+
+    goto LABEL_30;
+  }
+
+  _HKInitializeLogging();
+  v18 = *MEMORY[0x277CCC2F8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    selfCopy6 = self;
+    _os_log_impl(&dword_251962000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Should not attempt to reconcile unless classifications have onboarded", buf, 0xCu);
+  }
+
+LABEL_30:
 }
 
 - (void)_queue_migrateOnboardingAcknowledgementToNotificationOnboardingCompletionWithClassificationCompletion:(id)completion
@@ -170,11 +287,10 @@ void __89__HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager_
 
 - (void)_queue_migrateNotificationOnboardingCompletionToOnboardingAcknowledgement
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_251962000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Onboarding acknowledgement saved to feature settings to reflect notification onboarding completion", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_251962000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Onboarding acknowledgement saved to feature settings to reflect notification onboarding completion", &v2, 0xCu);
 }
 
 - (id)_queue_fetchFirstOnboardingCompletion
@@ -212,29 +328,12 @@ void __89__HDMobilityWalkingSteadinessOnboardingAcknowledgementMigrationManager_
   return WeakRetained;
 }
 
-- (void)_queue_migrateOnboardingAcknowledgementToNotificationOnboardingCompletionWithClassificationCompletion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_251962000, v0, v1, "[%{public}@] Error while setting onboarding completion for notifications: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_queue_migrateOnboardingAcknowledgementToNotificationOnboardingCompletionWithClassificationCompletion:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_251962000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Notification onboarding completion saved to reflect onboarding acknowledgement in classifications feature setting", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_fetchFirstOnboardingCompletion
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_251962000, v0, v1, "[%{public}@] Error while retrieving onboarding completions for classifications, stopping onboarding acknowledgement migration: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_251962000, a2, OS_LOG_TYPE_DEBUG, "[%{public}@] Notification onboarding completion saved to reflect onboarding acknowledgement in classifications feature setting", &v2, 0xCu);
 }
 
 @end

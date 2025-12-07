@@ -1,1497 +1,9776 @@
-uint64_t tessellateTriangleRecursive(uint64_t a1, float32x4_t *a2, unsigned int *a3, float32x4_t *a4)
+BOOL RayRTreeCallback<0,false>::processResults(uint64_t a1, unsigned int a2, uint64_t a3, float *a4)
 {
-  ++*(a1 + 52);
-  result = physx::Gu::intersectTriangleBox_Unsafe((a1 + 24), (a1 + 36), a2, a3, a4);
-  if (!result)
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = 0uLL;
+  v31 = -1;
+  v32 = 0;
+  v34 = 0;
+  v33 = 0uLL;
+  *v35 = 2139095039;
+  *&v35[8] = 0;
+  if (a2)
   {
-    return result;
-  }
-
-  v9 = *a3;
-  *&v10 = a2->i64[0];
-  v11 = a2->f32[2];
-  *&v12 = *(a3 + 1);
-  LODWORD(v13) = HIDWORD(a2->i64[0]);
-  v14 = *a4->f32;
-  LODWORD(v15) = HIDWORD(a4->i64[0]);
-  v16 = a4->f32[2];
-  v17 = vsub_f32(*a4->f32, *a2->f32).f32[0];
-  v18 = *(a1 + 48);
-  v19 = (((((v13 - *&v12) * (v13 - *&v12)) + ((COERCE_FLOAT(a2->i64[0]) - *a3) * (COERCE_FLOAT(a2->i64[0]) - *a3))) + ((v11 - *(&v12 + 1)) * (v11 - *(&v12 + 1)))) > v18) | (2 * (((((*&v12 - v15) * (*&v12 - v15)) + ((*a3 - COERCE_FLOAT(a4->i64[0])) * (*a3 - COERCE_FLOAT(a4->i64[0])))) + ((*(&v12 + 1) - v16) * (*(&v12 + 1) - v16))) > v18)) | (4 * (((((v15 - v13) * (v15 - v13)) + (v17 * v17)) + ((v16 - v11) * (v16 - v11))) > v18));
-  v20 = *a3;
-  v43 = vmul_f32(vadd_f32(*a2->f32, *a3), 0x3F0000003F000000);
-  v44 = (v11 + *(&v12 + 1)) * 0.5;
-  v41 = vmul_f32(vadd_f32(v20, v14), 0x3F0000003F000000);
-  v42 = (*(&v12 + 1) + v16) * 0.5;
-  v39 = vmul_f32(vadd_f32(*&v10, v14), 0x3F0000003F000000);
-  v40 = (v11 + v16) * 0.5;
-  if (v19 > 3)
-  {
-    if (v19 > 5)
+    v6 = 0;
+    v7 = 0;
+    v27 = a2;
+    v28 = a3;
+LABEL_3:
+    v8 = *(a3 + 4 * v6);
+    v9 = v8 >> 5;
+    v10 = ((v8 >> 1) & 0xF) + 1;
+    v11 = 3 * (v8 >> 5);
+    v12 = 4 * v11;
+    v13 = 2 * v11;
+    while (1)
     {
-      if (v19 != 6)
+      v14 = *(a1 + 32);
+      if (*(a1 + 24))
       {
-        tessellateTriangleRecursive(a1, a2, &v43, &v39);
-        tessellateTriangleRecursive(a1, &v43, a3, &v41);
-        tessellateTriangleRecursive(a1, &v39, &v41, a4);
-        v32 = &v43;
-        v33 = &v41;
-        v30 = &v39;
-        v31 = a1;
-        return tessellateTriangleRecursive(v31, v32, v33, v30);
-      }
-
-      tessellateTriangleRecursive(a1, a2, a3, &v41);
-      tessellateTriangleRecursive(a1, a2, &v41, &v39);
-      v32 = &v39;
-      v33 = &v41;
-      v31 = a1;
-      goto LABEL_24;
-    }
-
-    if (v19 == 4)
-    {
-      tessellateTriangleRecursive(a1, a2, a3, &v39);
-      v30 = &v39;
-      v31 = a1;
-      v32 = a3;
-      v33 = a4;
-      return tessellateTriangleRecursive(v31, v32, v33, v30);
-    }
-
-    tessellateTriangleRecursive(a1, a2, &v43, &v39);
-    tessellateTriangleRecursive(a1, &v43, a3, &v39);
-    v32 = &v39;
-LABEL_23:
-    v31 = a1;
-    v33 = a3;
-LABEL_24:
-    v30 = a4;
-    return tessellateTriangleRecursive(v31, v32, v33, v30);
-  }
-
-  if (v19 > 1)
-  {
-    if (v19 != 2)
-    {
-      tessellateTriangleRecursive(a1, a2, &v43, &v41);
-      tessellateTriangleRecursive(a1, a2, &v41, a4);
-      v32 = &v43;
-      v30 = &v41;
-      v31 = a1;
-      v33 = a3;
-      return tessellateTriangleRecursive(v31, v32, v33, v30);
-    }
-
-    tessellateTriangleRecursive(a1, a2, a3, &v41);
-    v33 = &v41;
-    v31 = a1;
-    v32 = a2;
-    goto LABEL_24;
-  }
-
-  if (v19)
-  {
-    tessellateTriangleRecursive(a1, a2, &v43, a4);
-    v32 = &v43;
-    goto LABEL_23;
-  }
-
-  v21 = *(a1 + 8);
-  v22 = *(v21 + 8);
-  v23 = *(v21 + 12) & 0x7FFFFFFF;
-  v24 = v22 + 1;
-  v25 = v22 + 2;
-  if (v22 + 2 > v23)
-  {
-    v26 = 2 * *(v21 + 12);
-    if (!v23)
-    {
-      v26 = 2;
-    }
-
-    if (v25 <= v26)
-    {
-      v27 = v26;
-    }
-
-    else
-    {
-      v27 = v25;
-    }
-
-    v37 = v12;
-    v38 = v10;
-    v35 = v14;
-    v36 = v9;
-    v34 = v11;
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(*(a1 + 8), v27);
-    v11 = v34;
-    v14 = v35;
-    v9 = v36;
-    *&v12 = v37;
-    *&v10 = v38;
-    v22 = *(v21 + 8);
-  }
-
-  v28 = *v21 + 36 * v22;
-  *(v21 + 8) = v24;
-  *(&v10 + 1) = __PAIR64__(v9, LODWORD(v11));
-  *(&v12 + 1) = v14;
-  *v28 = v10;
-  *(v28 + 16) = v12;
-  *(v28 + 32) = v16;
-  result = *(a1 + 16);
-  v29 = *(result + 8);
-  if ((*(result + 12) & 0x7FFFFFFFu) <= v29)
-  {
-    result = physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(result, (a1 + 4));
-  }
-
-  else
-  {
-    *(*result + 4 * v29) = *(a1 + 4);
-    ++*(result + 8);
-  }
-
-  ++*a1;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(uint64_t *a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = 36 * a2;
-  v5 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance, a2))
-  {
-    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxTriangle>::getName() [T = physx::PxTriangle]";
-  }
-
-  else
-  {
-    v6 = "<allocation names disabled>";
-  }
-
-  result = (*(*(v5 + 24) + 16))(v5 + 24, v4, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-  v8 = result;
-  v9 = *(a1 + 2);
-  v10 = *a1;
-  if (v9)
-  {
-    v11 = result + 36 * v9;
-    v12 = *a1;
-    v13 = result;
-    do
-    {
-      *v13 = *v12;
-      *(v13 + 8) = *(v12 + 8);
-      *(v13 + 16) = *(v12 + 16);
-      *(v13 + 24) = *(v12 + 24);
-      *(v13 + 32) = *(v12 + 32);
-      v13 += 36;
-      v12 += 36;
-    }
-
-    while (v13 < v11);
-  }
-
-  if ((*(a1 + 3) & 0x80000000) == 0 && v10)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *a1 = v8;
-  *(a1 + 3) = v2;
-  return result;
-}
-
-uint64_t createInvisibleWalls(float *a1, float *a2, uint64_t a3, uint64_t a4)
-{
-  v14 = a1[11];
-  if (v14 == 0.0)
-  {
-    return 0;
-  }
-
-  v118 = v13;
-  v119 = v12;
-  v120 = v11;
-  v121 = v10;
-  v122 = v9;
-  v123 = v8;
-  v124 = v7;
-  v125 = v6;
-  v126 = v4;
-  v127 = v5;
-  v20 = *a2;
-  v19 = a2[1];
-  v21 = a2[2];
-  v22 = a2[3];
-  v23 = v22 - *a2;
-  v24 = a2[4];
-  v25 = a2[5];
-  v26 = a2[7];
-  v27 = a2[6] - *a2;
-  v28 = a2[8];
-  v29 = ((v24 - v19) * (v28 - v21)) - ((v25 - v21) * (v26 - v19));
-  v30 = ((v25 - v21) * v27) - (v23 * (v28 - v21));
-  v31 = (v23 * (v26 - v19)) - ((v24 - v19) * v27);
-  v32 = sqrtf(((v30 * v30) + (v29 * v29)) + (v31 * v31));
-  if (v32 > 0.0)
-  {
-    v33 = 1.0 / v32;
-    v29 = v29 * v33;
-    v30 = v30 * v33;
-    v31 = v31 * v33;
-  }
-
-  v34 = a1[5];
-  v35 = a1[6];
-  v36 = (v30 * v35) + (v29 * v34);
-  v37 = a1[7];
-  v38 = v36 + (v31 * v37);
-  if (v38 < 0.0 || v38 >= a1[8])
-  {
-    return 0;
-  }
-
-  v40 = v14 * v34;
-  v41 = v14 * v35;
-  v42 = v14 * v37;
-  v114 = v20 + (v14 * v34);
-  v115 = v21 + (v14 * v37);
-  v116 = v19 + (v14 * v35);
-  v43 = *(a3 + 8);
-  v44 = *(a3 + 12) & 0x7FFFFFFF;
-  v45 = v43 + 1;
-  v46 = v43 + 2;
-  v111 = a2[6];
-  v109 = a2[7];
-  v107 = a2[8];
-  if (v43 + 2 <= v44)
-  {
-    v50 = *(a3 + 8);
-  }
-
-  else
-  {
-    if (v44)
-    {
-      v47 = 2 * *(a3 + 12);
-    }
-
-    else
-    {
-      v47 = 2;
-    }
-
-    if (v46 <= v47)
-    {
-      v48 = v47;
-    }
-
-    else
-    {
-      v48 = v46;
-    }
-
-    v106 = v14 * v35;
-    v49 = v14 * v37;
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v48);
-    v42 = v49;
-    v41 = v106;
-    v50 = *(a3 + 8);
-    v44 = *(a3 + 12) & 0x7FFFFFFF;
-  }
-
-  v51 = v22 + v40;
-  v52 = v25 + v42;
-  v53 = v24 + v41;
-  v54 = *a3;
-  *(a3 + 8) = v45;
-  v55 = (v54 + 36 * v50);
-  *v55 = v20;
-  v55[1] = v19;
-  v55[2] = v21;
-  v55[3] = v22;
-  v55[4] = v24;
-  v55[5] = v25;
-  v55[6] = v114;
-  v55[7] = v116;
-  v55[8] = v115;
-  v56 = *(a2 + 3);
-  v57 = *(a2 + 5);
-  v58 = v43 + 3;
-  if (v43 + 3 > v44)
-  {
-    if (v44)
-    {
-      v59 = 2 * v44;
-    }
-
-    else
-    {
-      v59 = 2;
-    }
-
-    if (v58 <= v59)
-    {
-      v60 = v59;
-    }
-
-    else
-    {
-      v60 = v58;
-    }
-
-    v61 = v52;
-    v62 = v22 + v40;
-    v63 = v53;
-    v64 = v42;
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v60);
-    v42 = v64;
-    v53 = v63;
-    v51 = v62;
-    v52 = v61;
-    v54 = *a3;
-    v45 = *(a3 + 8);
-    v44 = *(a3 + 12) & 0x7FFFFFFF;
-  }
-
-  v65 = v109 + v41;
-  v66 = v111 + v40;
-  v67 = v107 + v42;
-  *(a3 + 8) = v46;
-  v68 = v54 + 36 * v45;
-  v70 = v114;
-  v69 = v115;
-  *v68 = v114;
-  *(v68 + 4) = v116;
-  *(v68 + 8) = v115;
-  *(v68 + 12) = v56;
-  *(v68 + 20) = v57;
-  *(v68 + 24) = v51;
-  *(v68 + 28) = v53;
-  *(v68 + 32) = v52;
-  v71 = *(a2 + 3);
-  v72 = *(a2 + 5);
-  v73 = v43 + 4;
-  if (v43 + 4 > v44)
-  {
-    if (v44)
-    {
-      v74 = 2 * v44;
-    }
-
-    else
-    {
-      v74 = 2;
-    }
-
-    if (v73 <= v74)
-    {
-      v75 = v74;
-    }
-
-    else
-    {
-      v75 = v73;
-    }
-
-    v76 = v66;
-    v77 = v107 + v42;
-    v78 = v65;
-    v79 = v52;
-    v80 = v51;
-    v81 = v53;
-    v82 = *(a2 + 5);
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v75);
-    v72 = v82;
-    v53 = v81;
-    v51 = v80;
-    v52 = v79;
-    v65 = v78;
-    v67 = v77;
-    v66 = v76;
-    v70 = v114;
-    v69 = v115;
-    v54 = *a3;
-    v46 = *(a3 + 8);
-    v44 = *(a3 + 12) & 0x7FFFFFFF;
-  }
-
-  *(a3 + 8) = v58;
-  v83 = v54 + 36 * v46;
-  *v83 = v51;
-  *(v83 + 4) = v53;
-  *(v83 + 8) = v52;
-  *(v83 + 12) = v71;
-  *(v83 + 20) = v72;
-  *(v83 + 24) = v66;
-  *(v83 + 28) = v65;
-  *(v83 + 32) = v67;
-  v84 = *(a2 + 3);
-  v85 = *(a2 + 7);
-  v86 = v43 + 5;
-  if (v43 + 5 > v44)
-  {
-    if (v44)
-    {
-      v87 = 2 * v44;
-    }
-
-    else
-    {
-      v87 = 2;
-    }
-
-    if (v86 <= v87)
-    {
-      v88 = v87;
-    }
-
-    else
-    {
-      v88 = v86;
-    }
-
-    v112 = *(a2 + 3);
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v88);
-    v84 = v112;
-    v54 = *a3;
-    v58 = *(a3 + 8);
-    v44 = *(a3 + 12) & 0x7FFFFFFF;
-  }
-
-  v89 = v54 + 36 * v58;
-  *(a3 + 8) = v73;
-  *v89 = v66;
-  *(v89 + 4) = v65;
-  *(v89 + 8) = v67;
-  *(v89 + 12) = v84;
-  *(v89 + 28) = v85;
-  *&v90 = *(a2 + 3);
-  v91 = *(a2 + 8);
-  v92 = *a2;
-  v93 = *(a2 + 1);
-  v94 = v43 + 6;
-  if (v43 + 6 > v44)
-  {
-    if (v44)
-    {
-      v95 = 2 * v44;
-    }
-
-    else
-    {
-      v95 = 2;
-    }
-
-    if (v94 <= v95)
-    {
-      v96 = v95;
-    }
-
-    else
-    {
-      v96 = v94;
-    }
-
-    v110 = *a2;
-    v113 = *(a2 + 3);
-    v108 = *(a2 + 8);
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v96);
-    v91 = v108;
-    v92 = v110;
-    *&v90 = v113;
-    v54 = *a3;
-    v73 = *(a3 + 8);
-    v44 = *(a3 + 12) & 0x7FFFFFFF;
-  }
-
-  v97 = v54 + 36 * v73;
-  *(a3 + 8) = v86;
-  *v97 = v70;
-  *(v97 + 4) = v116;
-  *(v97 + 8) = v69;
-  *(&v90 + 1) = __PAIR64__(LODWORD(v92), v91);
-  *(v97 + 12) = v90;
-  *(v97 + 28) = v93;
-  v98 = *(a2 + 3);
-  v99 = *(a2 + 8);
-  v100 = v43 + 7;
-  if (v43 + 7 > v44)
-  {
-    if (v44)
-    {
-      v101 = 2 * v44;
-    }
-
-    else
-    {
-      v101 = 2;
-    }
-
-    if (v100 <= v101)
-    {
-      v102 = v101;
-    }
-
-    else
-    {
-      v102 = v100;
-    }
-
-    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v102);
-    v54 = *a3;
-    v86 = *(a3 + 8);
-  }
-
-  *(a3 + 8) = v94;
-  v103 = v54 + 36 * v86;
-  *v103 = v70;
-  *(v103 + 4) = v116;
-  *(v103 + 8) = v69;
-  *(v103 + 12) = v66;
-  *(v103 + 16) = v65;
-  *(v103 + 20) = v67;
-  *(v103 + 24) = v98;
-  *(v103 + 32) = v99;
-  v117 = -1;
-  v104 = 6;
-  do
-  {
-    v105 = *(a4 + 8);
-    if ((*(a4 + 12) & 0x7FFFFFFFu) <= v105)
-    {
-      physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(a4, &v117);
-    }
-
-    else
-    {
-      *(*a4 + 4 * v105) = v117;
-      ++*(a4 + 8);
-    }
-
-    --v104;
-  }
-
-  while (v104);
-  return 6;
-}
-
-float *fixDir(float *result, float *a2, float *a3)
-{
-  v3 = a2[1];
-  v4 = a3[1];
-  v5 = a2[2];
-  v6 = a3[2];
-  v7 = ((v3 * v4) + (*a2 * *a3)) + (v5 * v6);
-  v8 = *a2 - (*a3 * v7);
-  v9 = v3 - (v4 * v7);
-  v10 = v5 - (v6 * v7);
-  v11 = ((v9 * v9) + (v8 * v8)) + (v10 * v10);
-  v12 = 0.0;
-  v13 = 0.0;
-  v14 = 0.0;
-  if (v11 > 0.0)
-  {
-    v15 = 1.0 / sqrtf(v11);
-    v12 = v8 * v15;
-    v13 = v9 * v15;
-    v14 = v10 * v15;
-  }
-
-  *result = v12;
-  result[1] = v13;
-  result[2] = v14;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxExtendedBox,physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>>::growAndPushBack(uint64_t result, __int128 *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>::getName() [T = physx::PxExtendedBox]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 56 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  if (v9)
-  {
-    v10 = v8 + 56 * v9;
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11;
-      *(v12 + 16) = *(v11 + 2);
-      *v12 = v13;
-      *(v12 + 24) = *(v11 + 24);
-      *(v12 + 40) = *(v11 + 5);
-      *(v12 + 48) = *(v11 + 12);
-      v12 += 56;
-      v11 = (v11 + 56);
-    }
-
-    while (v12 < v10);
-    v14 = *(v3 + 8);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v15 = v8 + 56 * v14;
-  v16 = *a2;
-  *(v15 + 16) = *(a2 + 2);
-  *v15 = v16;
-  *(v15 + 24) = *(a2 + 24);
-  *(v15 + 40) = *(a2 + 5);
-  *(v15 + 48) = *(a2 + 12);
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v8;
-  ++*(v3 + 8);
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<void const*,physx::shdfnd::ReflectionAllocator<void const*>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<const void *>::getName() [T = const void *]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
-  if (v9)
-  {
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxExtendedCapsule,physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>>::growAndPushBack(uint64_t result, __int128 *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>::getName() [T = physx::PxExtendedCapsule]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 56 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  if (v9)
-  {
-    v10 = v8 + 56 * v9;
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11;
-      v14 = v11[1];
-      v15 = v11[2];
-      *(v12 + 48) = *(v11 + 6);
-      *(v12 + 16) = v14;
-      *(v12 + 32) = v15;
-      *v12 = v13;
-      v12 += 56;
-      v11 = (v11 + 56);
-    }
-
-    while (v12 < v10);
-    v16 = *(v3 + 8);
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = v8 + 56 * v16;
-  v18 = *a2;
-  v19 = a2[1];
-  v20 = a2[2];
-  *(v17 + 48) = *(a2 + 6);
-  *(v17 + 16) = v19;
-  *(v17 + 32) = v20;
-  *v17 = v18;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v8;
-  ++*(v3 + 8);
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(uint64_t a1, unsigned int a2)
-{
-  v2 = a2;
-  if ((a2 ^ (a2 - 1)) <= a2 - 1)
-  {
-    v4 = a2 | (a2 >> 1) | ((a2 | (a2 >> 1)) >> 2);
-    v5 = v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8);
-    v2 = (v5 | HIWORD(v5)) + 1;
-  }
-
-  v6 = *(a1 + 32);
-  v7 = (*(a1 + 40) * v2);
-  v8 = ((-4 * (v2 + v7)) & 0xC) + 4 * (v2 + v7);
-  if (v8 + 16 * v7)
-  {
-    v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v8 + 16 * v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsHashInternals.h", 372);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = &v9[4 * v2];
-  result = memset(v9, 255, 4 * v2);
-  if (*(a1 + 52))
-  {
-    v12 = 0;
-    v13 = &v9[v8 + 8];
-    v14 = (*(a1 + 8) + 8);
-    do
-    {
-      v15 = *(v14 - 1);
-      v16 = (~(v15 << 32) + v15) ^ ((~(v15 << 32) + v15) >> 22);
-      v17 = 9 * ((v16 + ~(v16 << 13)) ^ ((v16 + ~(v16 << 13)) >> 8));
-      v18 = (v17 ^ (v17 >> 15)) + ~((v17 ^ (v17 >> 15)) << 27);
-      LODWORD(v18) = (v2 - 1) & ((v18 >> 31) ^ v18);
-      *&v10[4 * v12] = *&v9[4 * v18];
-      *&v9[4 * v18] = v12;
-      *(v13 - 1) = v15;
-      v19 = *v14;
-      v14 += 4;
-      *v13 = v19;
-      v13 += 16;
-      ++v12;
-    }
-
-    while (v12 < *(a1 + 52));
-  }
-
-  if (*a1)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *(a1 + 16) = v10;
-  *(a1 + 24) = v9;
-  *a1 = v9;
-  *(a1 + 8) = &v9[v8];
-  *(a1 + 32) = v7;
-  *(a1 + 36) = v2;
-  if (*(a1 + 44) == -1)
-  {
-    *(a1 + 44) = v6;
-  }
-
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Cct::Controller *,physx::shdfnd::ReflectionAllocator<physx::Cct::Controller *>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::Controller *>::getName() [T = physx::Cct::Controller *]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
-  if (v9)
-  {
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(int32x2_t *a1, void *a2, _BYTE *a3)
-{
-  v5 = a1[4].u32[1];
-  if (!v5)
-  {
-    v9 = 0;
-    goto LABEL_8;
-  }
-
-  v6 = ~(*a2 << 32) + *a2;
-  v7 = 9 * (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) ^ (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) >> 8));
-  v8 = (v7 ^ (v7 >> 15)) + ~((v7 ^ (v7 >> 15)) << 27);
-  v9 = (v5 - 1) & ((v8 >> 31) ^ v8);
-  v10 = *(*&a1[3] + 4 * v9);
-  if (v10 == -1)
-  {
-LABEL_8:
-    *a3 = 0;
-    if (a1[6].i32[1] == a1[4].i32[0])
-    {
-      if (v5)
-      {
-        v12 = 2 * v5;
+        v15 = v14 + v13;
+        v16 = *(v14 + v13);
+        v17 = *(v15 + 2);
+        v18 = *(v15 + 4);
       }
 
       else
       {
-        v12 = 16;
+        v19 = v14 + v12;
+        v16 = *(v14 + v12);
+        v17 = *(v19 + 4);
+        v18 = *(v19 + 8);
       }
 
-      if (v5 < v12)
+      v20 = *(a1 + 40);
+      v21 = v20 + 12 * v16;
+      v22 = v20 + 12 * v17;
+      v23 = v20 + 12 * v18;
+      v36[0] = v16;
+      v36[1] = v17;
+      v36[2] = v18;
+      v31 = v9;
+      v32 = 1;
+      if (*(a1 + 209) == 1)
       {
-        physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1, v12);
-        v5 = a1[4].u32[1];
-      }
-
-      v13 = ~(*a2 << 32) + *a2;
-      v14 = 9 * (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) ^ (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) >> 8));
-      v15 = (v14 ^ (v14 >> 15)) + ~((v14 ^ (v14 >> 15)) << 27);
-      v9 = (v5 - 1) & ((v15 >> 31) ^ v15);
-    }
-
-    v16 = a1[5].u32[1];
-    a1[5].i32[1] = v16 + 1;
-    v17 = a1[3];
-    v18 = a1[1];
-    *(*&a1[2] + 4 * v16) = *(*&v17 + 4 * v9);
-    *(*&v17 + 4 * v9) = v16;
-    a1[6] = vadd_s32(a1[6], 0x100000001);
-    return *&v18 + 16 * v16;
-  }
-
-  v11 = a1[1];
-  while (*(*&v11 + 16 * v10) != *a2)
-  {
-    v10 = *(*&a1[2] + 4 * v10);
-    if (v10 == -1)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  result = *&v11 + 16 * v10;
-  *a3 = 1;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext *,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext *>>::growAndPushBack(uint64_t result, void *a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext *>::getName() [T = physx::Cct::ObstacleContext *]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  v10 = &v8[v9];
-  if (v9)
-  {
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      v13 = *v11++;
-      *v12++ = v13;
-    }
-
-    while (v12 < v10);
-  }
-
-  *v10 = *a2;
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-    LODWORD(v9) = *(v3 + 8);
-  }
-
-  *v3 = v8;
-  *(v3 + 8) = v9 + 1;
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<void const*,physx::shdfnd::ReflectionAllocator<void const*>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    v4 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v5 = "static const char *physx::shdfnd::ReflectionAllocator<const void *>::getName() [T = const void *]";
-    }
-
-    else
-    {
-      v5 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v4 + 24) + 16))(v4 + 24, 8 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = *v3;
-  if (v7)
-  {
-    v9 = &v6[v7];
-    v10 = v6;
-    do
-    {
-      v11 = *v8++;
-      *v10++ = v11;
-    }
-
-    while (v10 < v9);
-    v8 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v6;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxExtendedBox,physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    v4 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>::getName() [T = physx::PxExtendedBox]";
-    }
-
-    else
-    {
-      v5 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v4 + 24) + 16))(v4 + 24, 56 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = *v3;
-  if (v7)
-  {
-    v9 = v6 + 56 * v7;
-    v10 = v6;
-    do
-    {
-      v11 = *v8;
-      *(v10 + 16) = *(v8 + 2);
-      *v10 = v11;
-      *(v10 + 24) = *(v8 + 24);
-      *(v10 + 40) = *(v8 + 5);
-      *(v10 + 48) = *(v8 + 12);
-      v10 += 56;
-      v8 = (v8 + 56);
-    }
-
-    while (v10 < v9);
-    v8 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v6;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::PxExtendedCapsule,physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>>::recreate(uint64_t result, unsigned int a2)
-{
-  v3 = result;
-  if (a2)
-  {
-    v4 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>::getName() [T = physx::PxExtendedCapsule]";
-    }
-
-    else
-    {
-      v5 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v4 + 24) + 16))(v4 + 24, 56 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v6 = result;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(v3 + 8);
-  v8 = *v3;
-  if (v7)
-  {
-    v9 = v6 + 56 * v7;
-    v10 = v6;
-    do
-    {
-      v11 = *v8;
-      v12 = v8[1];
-      v13 = v8[2];
-      *(v10 + 48) = *(v8 + 6);
-      *(v10 + 16) = v12;
-      *(v10 + 32) = v13;
-      *v10 = v11;
-      v10 += 56;
-      v8 = (v8 + 56);
-    }
-
-    while (v10 < v9);
-    v8 = *v3;
-  }
-
-  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v6;
-  *(v3 + 12) = a2;
-  return result;
-}
-
-physx::Cct::HandleManager *physx::Cct::HandleManager::HandleManager(physx::Cct::HandleManager *this)
-{
-  *(this + 10) = 0;
-  *(this + 1) = 0x200000000;
-  *this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 16, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 44);
-  v2 = *(this + 3);
-  if (!v2)
-  {
-    *(this + 2) = 0;
-    goto LABEL_6;
-  }
-
-  v3 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 45);
-  v4 = *(this + 3);
-  *(this + 2) = v3;
-  if (!v4)
-  {
-LABEL_6:
-    v8 = 0;
-    v7 = 0;
-    *(this + 3) = 0;
-    goto LABEL_7;
-  }
-
-  v5 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v4, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 46);
-  v6 = *(this + 3);
-  *(this + 3) = v5;
-  if (v6)
-  {
-    v7 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v6, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 47);
-    v8 = (2 * *(this + 3));
-  }
-
-  else
-  {
-    v8 = 0;
-    v7 = 0;
-  }
-
-LABEL_7:
-  *(this + 4) = v7;
-  memset(*(this + 2), 255, v8);
-  memset(*(this + 3), 255, (2 * *(this + 3)));
-  bzero(*(this + 4), (2 * *(this + 3)));
-  return this;
-}
-
-void *physx::Cct::HandleManager::SetupLists(void *this, void **a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned __int16 *a5)
-{
-  v9 = this;
-  if (this[4])
-  {
-    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  v9[4] = 0;
-  if (v9[3])
-  {
-    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  v9[3] = 0;
-  if (v9[2])
-  {
-    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  v9[2] = 0;
-  if (*v9)
-  {
-    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v9 = a2;
-  v9[2] = a3;
-  v9[3] = a4;
-  v9[4] = a5;
-  return this;
-}
-
-uint64_t physx::Cct::HandleManager::Add(physx::Cct::HandleManager *this, void *a2)
-{
-  v4 = *(this + 10);
-  if (v4)
-  {
-    v5 = *(this + 2);
-    v6 = *(*(this + 3) + 2 * v5);
-    *(*this + 8 * v5) = a2;
-    *(this + 2) = v5 + 1;
-    *(*(this + 2) + 2 * v6) = v5;
-    *(this + 10) = v4 - 1;
-    return v6 | (*(*(this + 4) + 2 * v6) << 16);
-  }
-
-  v8 = *(this + 2);
-  if (v8 == *(this + 3))
-  {
-    v9 = 2 * v8;
-    if (2 * v8 >= 0xFFFF)
-    {
-      v10 = 0xFFFF;
-    }
-
-    else
-    {
-      v10 = 2 * v8;
-    }
-
-    *(this + 3) = v10;
-    if (v9)
-    {
-      v11 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 8 * v10, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 94);
-      v10 = *(this + 3);
-      if (v10)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v11 = 0;
-      if (v10)
-      {
-LABEL_9:
-        v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v10, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 95);
-        v13 = *(this + 3);
-        if (v13)
+        v24 = *v35;
+        if (*v35 < *(a1 + 144))
         {
-          v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v13, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 96);
-          v15 = *(this + 3);
-          if (v15)
+          *(a1 + 96) = v30;
+          *(a1 + 112) = v31;
+          *(a1 + 116) = 1;
+          *(a1 + 120) = v33;
+          *(a1 + 136) = v34;
+          *(a1 + 144) = v24;
+          *(a1 + 148) = *&v35[4];
+          if (v24 >= *a4)
           {
-            v16 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v15, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 97);
-LABEL_16:
-            memcpy(v11, *this, (8 * *(this + 2)));
-            memcpy(v12, *(this + 2), (2 * *(this + 2)));
-            memcpy(v14, *(this + 3), (2 * *(this + 2)));
-            memcpy(v16, *(this + 4), (2 * *(this + 2)));
-            memset(&v12[2 * *(this + 2)], 255, (2 * (*(this + 3) - *(this + 2))));
-            memset(&v14[2 * *(this + 2)], 255, (2 * (*(this + 3) - *(this + 2))));
-            bzero(&v16[2 * *(this + 2)], (2 * (*(this + 3) - *(this + 2))));
-            physx::Cct::HandleManager::SetupLists(this, v11, v12, v14, v16);
-            v8 = *(this + 2);
-            goto LABEL_17;
+            v24 = *a4;
+          }
+
+          *a4 = v24;
+          *(a1 + 160) = *v21;
+          *(a1 + 168) = *(v21 + 8);
+          *(a1 + 172) = *v22;
+          *(a1 + 180) = *(v22 + 8);
+          *(a1 + 184) = *v23;
+          *(a1 + 192) = *(v23 + 8);
+          *(a1 + 196) = v16;
+          *(a1 + 200) = v17;
+          *(a1 + 204) = v18;
+          *(a1 + 208) = 1;
+        }
+      }
+
+      else
+      {
+        v29 = *a4;
+        if (!(***(a1 + 16))(*(a1 + 16), &v30, v21, v22, v23, &v29, v36))
+        {
+          return v7;
+        }
+
+        v25 = v29;
+        if (v29 < *a4)
+        {
+          *a4 = v29;
+          *(a1 + 88) = v25;
+        }
+      }
+
+      if (!*(*(a1 + 16) + 8))
+      {
+        break;
+      }
+
+      LODWORD(v9) = v9 + 1;
+      v12 += 12;
+      v13 += 6;
+      if (!--v10)
+      {
+        ++v6;
+        a3 = v28;
+        v7 = v6 >= v27;
+        if (v6 != v27)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v7;
+}
+
+void RayRTreeCallback<0,false>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<0,false>::~RayRTreeCallback(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+BOOL RayRTreeCallback<0,false>::processResults(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  v36 = *MEMORY[0x1E69E9840];
+  v29 = 0uLL;
+  v30 = -1;
+  v31 = 0;
+  v33 = 0;
+  v32 = 0uLL;
+  *v34 = 2139095039;
+  *&v34[8] = 0;
+  if (a2)
+  {
+    v5 = 0;
+    v6 = 0;
+    v7 = 0.0;
+    v27 = a2;
+LABEL_3:
+    v8 = *(a3 + 4 * v5);
+    v9 = v8 >> 5;
+    v10 = ((v8 >> 1) & 0xF) + 1;
+    v11 = 3 * (v8 >> 5);
+    v12 = 4 * v11;
+    v13 = 2 * v11;
+    while (1)
+    {
+      v14 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v15 = v14 + v13;
+        v16 = *(v14 + v13);
+        v17 = *(v15 + 2);
+        v18 = *(v15 + 4);
+      }
+
+      else
+      {
+        v19 = v14 + v12;
+        v16 = *(v14 + v12);
+        v17 = *(v19 + 4);
+        v18 = *(v19 + 8);
+      }
+
+      v20 = *(a1 + 40);
+      v21 = v20 + 12 * v16;
+      v22 = v20 + 12 * v17;
+      v23 = v20 + 12 * v18;
+      v35[0] = v16;
+      v35[1] = v17;
+      v35[2] = v18;
+      v30 = v9;
+      v31 = 1;
+      if (*(a1 + 209) == 1)
+      {
+        v24 = *v34;
+        if (*v34 < *(a1 + 144))
+        {
+          *(a1 + 96) = v29;
+          *(a1 + 112) = v30;
+          *(a1 + 116) = 1;
+          *(a1 + 120) = v32;
+          *(a1 + 136) = v33;
+          *(a1 + 144) = v24;
+          *(a1 + 148) = *&v34[4];
+          if (v24 < v7)
+          {
+            v7 = v24;
+          }
+
+          *(a1 + 160) = *v21;
+          *(a1 + 168) = *(v21 + 8);
+          *(a1 + 172) = *v22;
+          *(a1 + 180) = *(v22 + 8);
+          *(a1 + 184) = *v23;
+          *(a1 + 192) = *(v23 + 8);
+          *(a1 + 196) = v16;
+          *(a1 + 200) = v17;
+          *(a1 + 204) = v18;
+          *(a1 + 208) = 1;
+        }
+      }
+
+      else
+      {
+        v28 = v7;
+        if (!(***(a1 + 16))(*(a1 + 16), &v29, v21, v22, v23, &v28, v35))
+        {
+          return v6;
+        }
+
+        v25 = v28;
+        if (v28 < v7)
+        {
+          *(a1 + 88) = v28;
+          v7 = v25;
+        }
+      }
+
+      if (!*(*(a1 + 16) + 8))
+      {
+        break;
+      }
+
+      LODWORD(v9) = v9 + 1;
+      v12 += 12;
+      v13 += 6;
+      if (!--v10)
+      {
+        v6 = ++v5 >= v27;
+        if (v5 != v27)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v6;
+}
+
+void non-virtual thunk toRayRTreeCallback<0,false>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<0,false>::~RayRTreeCallback(a1 - 8);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t RayRTreeCallback<0,false>::~RayRTreeCallback(uint64_t a1)
+{
+  *a1 = &unk_1F5D22268;
+  *(a1 + 8) = &unk_1F5D22298;
+  if (*(a1 + 208) == 1)
+  {
+    (***(a1 + 16))(*(a1 + 16), a1 + 96, a1 + 160, a1 + 172, a1 + 184, a1 + 88, a1 + 196);
+  }
+
+  return a1;
+}
+
+float RayRTreeCallback<1,false>::RayRTreeCallback(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8, float a9, float a10, uint64_t a11)
+{
+  *a1 = &unk_1F5D22320;
+  *(a1 + 8) = &unk_1F5D22350;
+  *(a1 + 16) = a2;
+  *(a1 + 24) = a3;
+  *(a1 + 32) = a4;
+  *(a1 + 40) = a5;
+  *(a1 + 48) = a11;
+  *&v11 = *a6;
+  *(a1 + 56) = *a6;
+  v12 = *(a6 + 8);
+  *(a1 + 64) = v12;
+  *&v13 = *a7;
+  *(a1 + 68) = *a7;
+  v14 = *(a7 + 8);
+  *(a1 + 76) = v14;
+  *(a1 + 80) = a8;
+  *(a1 + 84) = a9;
+  *(a1 + 88) = a10;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = -1;
+  *(a1 + 116) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 136) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 144) = 2139095039;
+  *(a1 + 152) = 0;
+  *(a1 + 209) = *(a2 + 8) == 1;
+  *(a1 + 208) = 0;
+  *&v15 = *a11;
+  *(&v15 + 1) = *(a11 + 8);
+  *(&v11 + 1) = v12;
+  *(a1 + 224) = v15;
+  *(a1 + 240) = v11;
+  *(&v13 + 1) = v14;
+  *(a1 + 256) = v13;
+  return *&v15;
+}
+
+BOOL RayRTreeCallback<1,false>::processResults(uint64_t a1, unsigned int a2, uint64_t a3, float *a4)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = 0uLL;
+  v31 = -1;
+  v32 = 0;
+  v34 = 0;
+  v33 = 0uLL;
+  *v35 = 2139095039;
+  *&v35[8] = 0;
+  if (a2)
+  {
+    v6 = 0;
+    v7 = 0;
+    v27 = a2;
+    v28 = a3;
+LABEL_3:
+    v8 = *(a3 + 4 * v6);
+    v9 = v8 >> 5;
+    v10 = ((v8 >> 1) & 0xF) + 1;
+    v11 = 3 * (v8 >> 5);
+    v12 = 4 * v11;
+    v13 = 2 * v11;
+    while (1)
+    {
+      v14 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v15 = v14 + v13;
+        v16 = *(v14 + v13);
+        v17 = *(v15 + 2);
+        v18 = *(v15 + 4);
+      }
+
+      else
+      {
+        v19 = v14 + v12;
+        v16 = *(v14 + v12);
+        v17 = *(v19 + 4);
+        v18 = *(v19 + 8);
+      }
+
+      v20 = *(a1 + 40);
+      v21 = v20 + 12 * v16;
+      v22 = v20 + 12 * v17;
+      v23 = v20 + 12 * v18;
+      v36[0] = v16;
+      v36[1] = v17;
+      v36[2] = v18;
+      v31 = v9;
+      v32 = 1;
+      if (*(a1 + 209) == 1)
+      {
+        v24 = *v35;
+        if (*v35 < *(a1 + 144))
+        {
+          *(a1 + 96) = v30;
+          *(a1 + 112) = v31;
+          *(a1 + 116) = 1;
+          *(a1 + 120) = v33;
+          *(a1 + 136) = v34;
+          *(a1 + 144) = v24;
+          *(a1 + 148) = *&v35[4];
+          if (v24 >= *a4)
+          {
+            v24 = *a4;
+          }
+
+          *a4 = v24;
+          *(a1 + 160) = *v21;
+          *(a1 + 168) = *(v21 + 8);
+          *(a1 + 172) = *v22;
+          *(a1 + 180) = *(v22 + 8);
+          *(a1 + 184) = *v23;
+          *(a1 + 192) = *(v23 + 8);
+          *(a1 + 196) = v16;
+          *(a1 + 200) = v17;
+          *(a1 + 204) = v18;
+          *(a1 + 208) = 1;
+        }
+      }
+
+      else
+      {
+        v29 = *a4;
+        if (!(***(a1 + 16))(*(a1 + 16), &v30, v21, v22, v23, &v29, v36))
+        {
+          return v7;
+        }
+
+        v25 = v29;
+        if (v29 < *a4)
+        {
+          *a4 = v29;
+          *(a1 + 88) = v25;
+        }
+      }
+
+      if (!*(*(a1 + 16) + 8))
+      {
+        break;
+      }
+
+      LODWORD(v9) = v9 + 1;
+      v12 += 12;
+      v13 += 6;
+      if (!--v10)
+      {
+        ++v6;
+        a3 = v28;
+        v7 = v6 >= v27;
+        if (v6 != v27)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v7;
+}
+
+void RayRTreeCallback<1,false>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<1,false>::~RayRTreeCallback(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+BOOL RayRTreeCallback<1,false>::processResults(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  v36 = *MEMORY[0x1E69E9840];
+  v29 = 0uLL;
+  v30 = -1;
+  v31 = 0;
+  v33 = 0;
+  v32 = 0uLL;
+  *v34 = 2139095039;
+  *&v34[8] = 0;
+  if (a2)
+  {
+    v5 = 0;
+    v6 = 0;
+    v7 = 0.0;
+    v27 = a2;
+LABEL_3:
+    v8 = *(a3 + 4 * v5);
+    v9 = v8 >> 5;
+    v10 = ((v8 >> 1) & 0xF) + 1;
+    v11 = 3 * (v8 >> 5);
+    v12 = 4 * v11;
+    v13 = 2 * v11;
+    while (1)
+    {
+      v14 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v15 = v14 + v13;
+        v16 = *(v14 + v13);
+        v17 = *(v15 + 2);
+        v18 = *(v15 + 4);
+      }
+
+      else
+      {
+        v19 = v14 + v12;
+        v16 = *(v14 + v12);
+        v17 = *(v19 + 4);
+        v18 = *(v19 + 8);
+      }
+
+      v20 = *(a1 + 40);
+      v21 = v20 + 12 * v16;
+      v22 = v20 + 12 * v17;
+      v23 = v20 + 12 * v18;
+      v35[0] = v16;
+      v35[1] = v17;
+      v35[2] = v18;
+      v30 = v9;
+      v31 = 1;
+      if (*(a1 + 209) == 1)
+      {
+        v24 = *v34;
+        if (*v34 < *(a1 + 144))
+        {
+          *(a1 + 96) = v29;
+          *(a1 + 112) = v30;
+          *(a1 + 116) = 1;
+          *(a1 + 120) = v32;
+          *(a1 + 136) = v33;
+          *(a1 + 144) = v24;
+          *(a1 + 148) = *&v34[4];
+          if (v24 < v7)
+          {
+            v7 = v24;
+          }
+
+          *(a1 + 160) = *v21;
+          *(a1 + 168) = *(v21 + 8);
+          *(a1 + 172) = *v22;
+          *(a1 + 180) = *(v22 + 8);
+          *(a1 + 184) = *v23;
+          *(a1 + 192) = *(v23 + 8);
+          *(a1 + 196) = v16;
+          *(a1 + 200) = v17;
+          *(a1 + 204) = v18;
+          *(a1 + 208) = 1;
+        }
+      }
+
+      else
+      {
+        v28 = v7;
+        if (!(***(a1 + 16))(*(a1 + 16), &v29, v21, v22, v23, &v28, v35))
+        {
+          return v6;
+        }
+
+        v25 = v28;
+        if (v28 < v7)
+        {
+          *(a1 + 88) = v28;
+          v7 = v25;
+        }
+      }
+
+      if (!*(*(a1 + 16) + 8))
+      {
+        break;
+      }
+
+      LODWORD(v9) = v9 + 1;
+      v12 += 12;
+      v13 += 6;
+      if (!--v10)
+      {
+        v6 = ++v5 >= v27;
+        if (v5 != v27)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v6;
+}
+
+void non-virtual thunk toRayRTreeCallback<1,false>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<1,false>::~RayRTreeCallback(a1 - 8);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t RayRTreeCallback<1,false>::~RayRTreeCallback(uint64_t a1)
+{
+  *a1 = &unk_1F5D22320;
+  *(a1 + 8) = &unk_1F5D22350;
+  if (*(a1 + 208) == 1)
+  {
+    (***(a1 + 16))(*(a1 + 16), a1 + 96, a1 + 160, a1 + 172, a1 + 184, a1 + 88, a1 + 196);
+  }
+
+  return a1;
+}
+
+BOOL RayRTreeCallback<0,true>::processResults(uint64_t a1, unsigned int a2, uint64_t a3, float *a4)
+{
+  v85 = *MEMORY[0x1E69E9840];
+  v75 = 0uLL;
+  v76 = -1;
+  v77 = 0;
+  v79 = 0;
+  v78 = 0uLL;
+  if (!a2)
+  {
+    return 1;
+  }
+
+  v7 = 0;
+  v8 = 0;
+  v9 = a2;
+  v72 = a2;
+  do
+  {
+    v10 = *(a3 + 4 * v7);
+    v11 = v10 >> 5;
+    v12 = ((v10 >> 1) & 0xF) + 1;
+    v13 = 3 * (v10 >> 5);
+    v14 = 4 * v13;
+    v15 = 2 * v13;
+    do
+    {
+      v16 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v17 = v16 + v15;
+        v18 = *(v16 + v15);
+        v19 = *(v17 + 2);
+        v20 = *(v17 + 4);
+      }
+
+      else
+      {
+        v21 = v16 + v14;
+        v18 = *(v16 + v14);
+        v19 = *(v21 + 4);
+        v20 = *(v21 + 8);
+      }
+
+      v22 = *(a1 + 40);
+      v23 = (v22 + 12 * v18);
+      v24 = (v22 + 12 * v19);
+      v25 = (v22 + 12 * v20);
+      v82 = v18;
+      v83 = v19;
+      v84 = v20;
+      v26 = *(a1 + 84);
+      v28 = *v23;
+      v27 = v23[1];
+      v29 = *v24 - *v23;
+      v30 = v24[1] - v27;
+      v31 = v23[2];
+      v32 = v24[2] - v31;
+      v33 = *v25 - *v23;
+      v34 = v25[1] - v27;
+      v35 = v25[2] - v31;
+      v37 = *(a1 + 72);
+      v36 = *(a1 + 76);
+      v38 = *(a1 + 68);
+      v39 = (v37 * v35) - (v36 * v34);
+      v40 = (v36 * v33) - (v38 * v35);
+      v41 = (v38 * v34) - (v37 * v33);
+      v42 = ((v30 * v40) + (v29 * v39)) + (v32 * v41);
+      if (*(a1 + 80))
+      {
+        if (fabsf(v42) < 1.4211e-14)
+        {
+          goto LABEL_32;
+        }
+
+        v43 = *(a1 + 56) - v28;
+        v44 = 1.0 / v42;
+        v45 = *(a1 + 60) - v27;
+        v46 = *(a1 + 64) - v31;
+        v47 = v44 * (((v40 * v45) + (v43 * v39)) + (v46 * v41));
+        v48 = -v26;
+        v49 = v26 + 1.0;
+        v50 = v47 >= -v26 && v47 <= v49;
+        v51 = (v45 * v32) - (v46 * v30);
+        v52 = (v46 * v29) - (v43 * v32);
+        v53 = (v43 * v30) - (v45 * v29);
+        v54 = v44 * (((v37 * v52) + (v38 * v51)) + (v36 * v53));
+        v55 = !v50 || v54 < v48;
+        if (v55 || (v47 + v54) > v49)
+        {
+          goto LABEL_32;
+        }
+
+        v57 = v44 * (((v34 * v52) + (v33 * v51)) + (v35 * v53));
+        v80 = v57;
+        *v81 = v47;
+      }
+
+      else
+      {
+        if (v42 < 1.4211e-14)
+        {
+          goto LABEL_32;
+        }
+
+        v58 = *(a1 + 56) - v28;
+        v59 = *(a1 + 60) - v27;
+        v60 = *(a1 + 64) - v31;
+        v61 = ((v40 * v59) + (v58 * v39)) + (v60 * v41);
+        v62 = -(v26 * v42);
+        v63 = v42 + (v26 * v42);
+        v64 = v61 >= v62 && v61 <= v63;
+        v65 = (v59 * v32) - (v60 * v30);
+        v66 = (v60 * v29) - (v58 * v32);
+        v67 = (v58 * v30) - (v59 * v29);
+        v68 = ((v37 * v66) + (v38 * v65)) + (v36 * v67);
+        v69 = !v64 || v68 < v62;
+        if (v69 || (v61 + v68) > v63)
+        {
+          goto LABEL_32;
+        }
+
+        v57 = (1.0 / v42) * (((v34 * v66) + (v33 * v65)) + (v35 * v67));
+        v80 = v57;
+        *v81 = (1.0 / v42) * v61;
+        v54 = (1.0 / v42) * v68;
+      }
+
+      *(v81 + 1) = v54;
+      if (v57 >= 0.0 && v57 <= *(a1 + 88))
+      {
+        v76 = v11;
+        v77 = 1;
+        if (*(a1 + 209) == 1)
+        {
+          if (v57 < *(a1 + 144))
+          {
+            *(a1 + 96) = v75;
+            *(a1 + 112) = v76;
+            *(a1 + 116) = 1;
+            *(a1 + 120) = v78;
+            *(a1 + 136) = v79;
+            *(a1 + 144) = v57;
+            *(a1 + 148) = v81[0];
+            if (v57 >= *a4)
+            {
+              v57 = *a4;
+            }
+
+            *a4 = v57;
+            *(a1 + 160) = *v23;
+            *(a1 + 168) = v23[2];
+            *(a1 + 172) = *v24;
+            *(a1 + 180) = v24[2];
+            *(a1 + 184) = *v25;
+            *(a1 + 192) = v25[2];
+            *(a1 + 196) = v18;
+            *(a1 + 200) = v19;
+            *(a1 + 204) = v20;
+            *(a1 + 208) = 1;
           }
         }
 
         else
         {
-          v14 = 0;
+          v73 = v7;
+          v74 = *a4;
+          if (!(***(a1 + 16))(*(a1 + 16), &v75))
+          {
+            return v8;
+          }
+
+          if (v74 < *a4)
+          {
+            *a4 = v74;
+            *(a1 + 88) = v74;
+          }
+
+          v9 = v72;
+          v7 = v73;
         }
 
-LABEL_15:
-        v16 = 0;
-        goto LABEL_16;
+        if (!*(*(a1 + 16) + 8))
+        {
+          return v8;
+        }
       }
+
+LABEL_32:
+      LODWORD(v11) = v11 + 1;
+      v14 += 12;
+      v15 += 6;
+      --v12;
     }
 
-    v14 = 0;
-    v12 = 0;
-    goto LABEL_15;
+    while (v12);
+    v8 = ++v7 >= v9;
   }
 
-LABEL_17:
-  *(*this + 8 * v8) = a2;
-  v17 = *(this + 3);
-  *(*(this + 2) + 2 * v8) = v8;
-  *(v17 + 2 * v8) = v8;
-  *(this + 2) = v8 + 1;
-  return v8 | (*(*(this + 4) + 2 * v8) << 16);
+  while (v7 != v9);
+  return 1;
 }
 
-uint64_t *physx::Cct::HandleManager::Remove(uint64_t *this, unsigned int a2)
+void RayRTreeCallback<0,true>::~RayRTreeCallback(uint64_t a1)
 {
-  v2 = *(this + 3);
-  if (a2 < v2)
+  RayRTreeCallback<0,true>::~RayRTreeCallback(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+BOOL RayRTreeCallback<0,true>::processResults(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  v82 = *MEMORY[0x1E69E9840];
+  v72 = 0uLL;
+  v73 = -1;
+  v74 = 0;
+  v76 = 0;
+  v75 = 0uLL;
+  if (!a2)
   {
-    v3 = *(this[2] + 2 * a2);
-    if (v3 != 0xFFFF && v2 > v3)
+    goto LABEL_47;
+  }
+
+  v5 = 0;
+  v6 = 0;
+  v7 = 0.0;
+  for (i = a2; i != v5; v6 = v5 >= i)
+  {
+    v9 = *(a3 + 4 * v5);
+    v10 = v9 >> 5;
+    v11 = ((v9 >> 1) & 0xF) + 1;
+    v12 = 3 * (v9 >> 5);
+    v13 = 4 * v12;
+    v14 = 2 * v12;
+    do
     {
-      v5 = *(this + 2);
-      if (v5)
+      v15 = *(a1 + 32);
+      if (*(a1 + 24))
       {
-        if (*(this[4] + 2 * a2) == HIWORD(a2))
+        v16 = v15 + v14;
+        v17 = *(v15 + v14);
+        v18 = *(v16 + 2);
+        v19 = *(v16 + 4);
+      }
+
+      else
+      {
+        v20 = v15 + v13;
+        v17 = *(v15 + v13);
+        v18 = *(v20 + 4);
+        v19 = *(v20 + 8);
+      }
+
+      v21 = *(a1 + 40);
+      v22 = (v21 + 12 * v17);
+      v23 = (v21 + 12 * v18);
+      v24 = (v21 + 12 * v19);
+      v79 = v17;
+      v80 = v18;
+      v81 = v19;
+      v25 = *(a1 + 84);
+      v27 = *v22;
+      v26 = v22[1];
+      v28 = *v23 - *v22;
+      v29 = v23[1] - v26;
+      v30 = v22[2];
+      v31 = v23[2] - v30;
+      v32 = *v24 - *v22;
+      v33 = v24[1] - v26;
+      v34 = v24[2] - v30;
+      v36 = *(a1 + 72);
+      v35 = *(a1 + 76);
+      v37 = *(a1 + 68);
+      v38 = (v36 * v34) - (v35 * v33);
+      v39 = (v35 * v32) - (v37 * v34);
+      v40 = (v37 * v33) - (v36 * v32);
+      v41 = ((v29 * v39) + (v28 * v38)) + (v31 * v40);
+      if (*(a1 + 80))
+      {
+        if (fabsf(v41) < 1.4211e-14)
         {
-          v6 = *this;
-          v7 = v5 - 1;
-          *(this + 2) = v7;
-          *(v6 + 8 * v3) = *(v6 + 8 * v7);
-          v8 = this[2];
-          v9 = this[3];
-          *(v8 + 2 * *(v9 + 2 * v7)) = v3;
-          *(v9 + 2 * v3) = *(v9 + 2 * v7);
-          *(v9 + 2 * v7) = a2;
-          *(v8 + 2 * a2) = -1;
-          ++*(this + 10);
-          ++*(this[4] + 2 * a2);
+          goto LABEL_32;
+        }
+
+        v42 = *(a1 + 56) - v27;
+        v43 = 1.0 / v41;
+        v44 = *(a1 + 60) - v26;
+        v45 = *(a1 + 64) - v30;
+        v46 = v43 * (((v39 * v44) + (v42 * v38)) + (v45 * v40));
+        v47 = -v25;
+        v48 = v25 + 1.0;
+        v49 = v46 >= -v25 && v46 <= v48;
+        v50 = (v44 * v31) - (v45 * v29);
+        v51 = (v45 * v28) - (v42 * v31);
+        v52 = (v42 * v29) - (v44 * v28);
+        v53 = v43 * (((v36 * v51) + (v37 * v50)) + (v35 * v52));
+        v54 = !v49 || v53 < v47;
+        if (v54 || (v46 + v53) > v48)
+        {
+          goto LABEL_32;
+        }
+
+        v56 = v43 * (((v33 * v51) + (v32 * v50)) + (v34 * v52));
+        v77 = v56;
+        *v78 = v46;
+      }
+
+      else
+      {
+        if (v41 < 1.4211e-14)
+        {
+          goto LABEL_32;
+        }
+
+        v57 = *(a1 + 56) - v27;
+        v58 = *(a1 + 60) - v26;
+        v59 = *(a1 + 64) - v30;
+        v60 = ((v39 * v58) + (v57 * v38)) + (v59 * v40);
+        v61 = -(v25 * v41);
+        v62 = v41 + (v25 * v41);
+        v63 = v60 >= v61 && v60 <= v62;
+        v64 = (v58 * v31) - (v59 * v29);
+        v65 = (v59 * v28) - (v57 * v31);
+        v66 = (v57 * v29) - (v58 * v28);
+        v67 = ((v36 * v65) + (v37 * v64)) + (v35 * v66);
+        v68 = !v63 || v67 < v61;
+        if (v68 || (v60 + v67) > v62)
+        {
+          goto LABEL_32;
+        }
+
+        v56 = (1.0 / v41) * (((v33 * v65) + (v32 * v64)) + (v34 * v66));
+        v77 = v56;
+        *v78 = (1.0 / v41) * v60;
+        v53 = (1.0 / v41) * v67;
+      }
+
+      *(v78 + 1) = v53;
+      if (v56 >= 0.0 && v56 <= *(a1 + 88))
+      {
+        v73 = v10;
+        v74 = 1;
+        if (*(a1 + 209) == 1)
+        {
+          if (v56 < *(a1 + 144))
+          {
+            *(a1 + 96) = v72;
+            *(a1 + 112) = v73;
+            *(a1 + 116) = 1;
+            *(a1 + 120) = v75;
+            *(a1 + 136) = v76;
+            *(a1 + 144) = v56;
+            *(a1 + 148) = v78[0];
+            if (v56 < v7)
+            {
+              v7 = v56;
+            }
+
+            *(a1 + 160) = *v22;
+            *(a1 + 168) = v22[2];
+            *(a1 + 172) = *v23;
+            *(a1 + 180) = v23[2];
+            *(a1 + 184) = *v24;
+            *(a1 + 192) = v24[2];
+            *(a1 + 196) = v17;
+            *(a1 + 200) = v18;
+            *(a1 + 204) = v19;
+            *(a1 + 208) = 1;
+          }
+        }
+
+        else
+        {
+          v71 = v6;
+          if (!(***(a1 + 16))(*(a1 + 16), &v72))
+          {
+            LOBYTE(v6) = v71;
+            return v6;
+          }
+
+          v6 = v71;
+        }
+
+        if (!*(*(a1 + 16) + 8))
+        {
+          return v6;
+        }
+      }
+
+LABEL_32:
+      LODWORD(v10) = v10 + 1;
+      v13 += 12;
+      v14 += 6;
+      --v11;
+    }
+
+    while (v11);
+    ++v5;
+  }
+
+LABEL_47:
+  LOBYTE(v6) = 1;
+  return v6;
+}
+
+void non-virtual thunk toRayRTreeCallback<0,true>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<0,true>::~RayRTreeCallback(a1 - 8);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t RayRTreeCallback<0,true>::~RayRTreeCallback(uint64_t a1)
+{
+  *a1 = &unk_1F5D223B8;
+  *(a1 + 8) = &unk_1F5D223E8;
+  if (*(a1 + 208) == 1)
+  {
+    (***(a1 + 16))(*(a1 + 16), a1 + 96, a1 + 160, a1 + 172, a1 + 184, a1 + 88, a1 + 196);
+  }
+
+  return a1;
+}
+
+BOOL RayRTreeCallback<1,true>::processResults(uint64_t a1, unsigned int a2, uint64_t a3, float *a4)
+{
+  v59 = *MEMORY[0x1E69E9840];
+  v49 = 0uLL;
+  v50 = -1;
+  v51 = 0;
+  v53 = 0;
+  v52 = 0uLL;
+  if (a2)
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = xmmword_1E3116C60;
+    v9 = xmmword_1E30DA660;
+    v10 = xmmword_1E304F3C0;
+    v46 = a2;
+    v47 = a3;
+LABEL_3:
+    v11 = 0;
+    v12 = *(a3 + 4 * v6);
+    v13 = v12 >> 5;
+    v14 = ((v12 >> 1) & 0xF) + 1;
+    while (1)
+    {
+      v15 = v11 + v13;
+      v16 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v17 = (v16 + 6 * v15);
+        v18 = *v17;
+        v19 = v17[1];
+        v20 = v17[2];
+      }
+
+      else
+      {
+        v21 = (v16 + 12 * v15);
+        v18 = *v21;
+        v19 = v21[1];
+        v20 = v21[2];
+      }
+
+      v22 = *(a1 + 40);
+      v23 = v22 + 12 * v18;
+      v24 = v22 + 12 * v19;
+      v25 = v22 + 12 * v20;
+      v56 = v18;
+      v57 = v19;
+      v58 = v20;
+      v26.i64[0] = *v23;
+      v26.i64[1] = *(v23 + 8);
+      v27.i64[0] = *v24;
+      v27.i64[1] = *(v24 + 8);
+      v28.i64[0] = *v25;
+      v28.i64[1] = *(v25 + 8);
+      v29 = vminq_f32(vminq_f32(v26, v27), v28);
+      v30 = vmaxq_f32(v26, v27);
+      v31 = *(a1 + 88);
+      v32 = v31 >= 1.0 ? *(a1 + 88) : 1.0;
+      v33 = v32 * 0.001;
+      v34 = *(a1 + 224);
+      v35 = vsubq_f32(v29, v34);
+      v29.f32[0] = v31 + v33;
+      v36 = vmulq_f32(vmaxq_f32(vabsq_f32(*(a1 + 256)), v8), vbslq_s8(vcgezq_f32(*(a1 + 256)), v10, v9));
+      v37 = vrecpeq_f32(v36);
+      v38 = 4;
+      do
+      {
+        v37 = vmulq_f32(v37, vrecpsq_f32(v37, v36));
+        --v38;
+      }
+
+      while (v38);
+      v39 = vaddq_f32(vmaxq_f32(v30, v28), v34);
+      v37.i32[3] = 0;
+      v40 = *(a1 + 240);
+      v41 = vmulq_f32(v37, vsubq_f32(v35, v40));
+      v42 = vmulq_f32(v37, vsubq_f32(v39, v40));
+      v43 = vminq_f32(v42, v41);
+      v44 = vmaxq_f32(v42, v41);
+      if (vcgt_f32(vmin_f32(vmin_f32(vdup_lane_s32(*v44.i8, 0), vmin_f32(vdup_lane_s32(*v44.i8, 1), vdup_laneq_s32(v44, 2))), vdup_lane_s32(*v29.f32, 0)), vmax_f32(vmax_f32(vdup_lane_s32(*v43.i8, 0), vmax_f32(vdup_lane_s32(*v43.i8, 1), vdup_laneq_s32(v43, 2))), 0)).u32[0])
+      {
+        v54 = *(a1 + 88);
+        v55 = 0;
+        v50 = v11 + v13;
+        v51 = 1;
+        if (*(a1 + 209) == 1)
+        {
+          if (v31 < *(a1 + 144))
+          {
+            *(a1 + 96) = v49;
+            *(a1 + 112) = v50;
+            *(a1 + 116) = 1;
+            *(a1 + 120) = v52;
+            *(a1 + 136) = v53;
+            *(a1 + 144) = v31;
+            *(a1 + 148) = v55;
+            if (v31 >= *a4)
+            {
+              v31 = *a4;
+            }
+
+            *a4 = v31;
+            *(a1 + 160) = *v23;
+            *(a1 + 168) = *(v23 + 8);
+            *(a1 + 172) = *v24;
+            *(a1 + 180) = *(v24 + 8);
+            *(a1 + 184) = *v25;
+            *(a1 + 192) = *(v25 + 8);
+            *(a1 + 196) = v18;
+            *(a1 + 200) = v19;
+            *(a1 + 204) = v20;
+            *(a1 + 208) = 1;
+          }
+        }
+
+        else
+        {
+          v48 = *a4;
+          if (!(***(a1 + 16))(*(a1 + 16), &v49))
+          {
+            return v7;
+          }
+
+          if (v48 < *a4)
+          {
+            *a4 = v48;
+            *(a1 + 88) = v48;
+          }
+
+          v9 = xmmword_1E30DA660;
+          v8 = xmmword_1E3116C60;
+          v10 = xmmword_1E304F3C0;
+        }
+
+        if (!*(*(a1 + 16) + 8))
+        {
+          break;
+        }
+      }
+
+      if (++v11 == v14)
+      {
+        ++v6;
+        a3 = v47;
+        v7 = v6 >= v46;
+        if (v6 != v46)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v7;
+}
+
+void RayRTreeCallback<1,true>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<1,true>::~RayRTreeCallback(a1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+BOOL RayRTreeCallback<1,true>::processResults(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  v47 = 0uLL;
+  v48 = -1;
+  v49 = 0;
+  v51 = 0;
+  v50 = 0uLL;
+  if (a2)
+  {
+    v5 = 0;
+    v6 = 0;
+    v7 = 0.0;
+    v8 = xmmword_1E3116C60;
+    v9 = xmmword_1E30DA660;
+    v46 = a2;
+    v10 = xmmword_1E304F3C0;
+LABEL_3:
+    v11 = 0;
+    v12 = *(a3 + 4 * v5);
+    v13 = v12 >> 5;
+    v14 = ((v12 >> 1) & 0xF) + 1;
+    while (1)
+    {
+      v15 = v11 + v13;
+      v16 = *(a1 + 32);
+      if (*(a1 + 24))
+      {
+        v17 = (v16 + 6 * v15);
+        v18 = *v17;
+        v19 = v17[1];
+        v20 = v17[2];
+      }
+
+      else
+      {
+        v21 = (v16 + 12 * v15);
+        v18 = *v21;
+        v19 = v21[1];
+        v20 = v21[2];
+      }
+
+      v22 = *(a1 + 40);
+      v23 = v22 + 12 * v18;
+      v24 = v22 + 12 * v19;
+      v25 = v22 + 12 * v20;
+      v54 = v18;
+      v55 = v19;
+      v56 = v20;
+      v26.i64[0] = *v23;
+      v26.i64[1] = *(v23 + 8);
+      v27.i64[0] = *v24;
+      v27.i64[1] = *(v24 + 8);
+      v28.i64[0] = *v25;
+      v28.i64[1] = *(v25 + 8);
+      v29 = vminq_f32(vminq_f32(v26, v27), v28);
+      v30 = vmaxq_f32(v26, v27);
+      v31 = *(a1 + 88);
+      v32 = v31 >= 1.0 ? *(a1 + 88) : 1.0;
+      v33 = v32 * 0.001;
+      v34 = *(a1 + 224);
+      v35 = vsubq_f32(v29, v34);
+      v29.f32[0] = v31 + v33;
+      v36 = vmulq_f32(vmaxq_f32(vabsq_f32(*(a1 + 256)), v8), vbslq_s8(vcgezq_f32(*(a1 + 256)), v10, v9));
+      v37 = vrecpeq_f32(v36);
+      v38 = 4;
+      do
+      {
+        v37 = vmulq_f32(v37, vrecpsq_f32(v37, v36));
+        --v38;
+      }
+
+      while (v38);
+      v39 = vaddq_f32(vmaxq_f32(v30, v28), v34);
+      v37.i32[3] = 0;
+      v40 = *(a1 + 240);
+      v41 = vmulq_f32(v37, vsubq_f32(v35, v40));
+      v42 = vmulq_f32(v37, vsubq_f32(v39, v40));
+      v43 = vminq_f32(v42, v41);
+      v44 = vmaxq_f32(v42, v41);
+      if (vcgt_f32(vmin_f32(vmin_f32(vdup_lane_s32(*v44.i8, 0), vmin_f32(vdup_lane_s32(*v44.i8, 1), vdup_laneq_s32(v44, 2))), vdup_lane_s32(*v29.f32, 0)), vmax_f32(vmax_f32(vdup_lane_s32(*v43.i8, 0), vmax_f32(vdup_lane_s32(*v43.i8, 1), vdup_laneq_s32(v43, 2))), 0)).u32[0])
+      {
+        v52 = *(a1 + 88);
+        v53 = 0;
+        v48 = v11 + v13;
+        v49 = 1;
+        if (*(a1 + 209) == 1)
+        {
+          if (v31 < *(a1 + 144))
+          {
+            *(a1 + 96) = v47;
+            *(a1 + 112) = v48;
+            *(a1 + 116) = 1;
+            *(a1 + 120) = v50;
+            *(a1 + 136) = v51;
+            *(a1 + 144) = v31;
+            *(a1 + 148) = v53;
+            if (v31 < v7)
+            {
+              v7 = v31;
+            }
+
+            *(a1 + 160) = *v23;
+            *(a1 + 168) = *(v23 + 8);
+            *(a1 + 172) = *v24;
+            *(a1 + 180) = *(v24 + 8);
+            *(a1 + 184) = *v25;
+            *(a1 + 192) = *(v25 + 8);
+            *(a1 + 196) = v18;
+            *(a1 + 200) = v19;
+            *(a1 + 204) = v20;
+            *(a1 + 208) = 1;
+          }
+        }
+
+        else
+        {
+          if (!(***(a1 + 16))(*(a1 + 16), &v47))
+          {
+            return v6;
+          }
+
+          v9 = xmmword_1E30DA660;
+          v8 = xmmword_1E3116C60;
+          v10 = xmmword_1E304F3C0;
+        }
+
+        if (!*(*(a1 + 16) + 8))
+        {
+          break;
+        }
+      }
+
+      if (++v11 == v14)
+      {
+        v6 = ++v5 >= v46;
+        if (v5 != v46)
+        {
+          goto LABEL_3;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+
+  return v6;
+}
+
+void non-virtual thunk toRayRTreeCallback<1,true>::~RayRTreeCallback(uint64_t a1)
+{
+  RayRTreeCallback<1,true>::~RayRTreeCallback(a1 - 8);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t RayRTreeCallback<1,true>::~RayRTreeCallback(uint64_t a1)
+{
+  *a1 = &unk_1F5D22450;
+  *(a1 + 8) = &unk_1F5D22480;
+  if (*(a1 + 208) == 1)
+  {
+    (***(a1 + 16))(*(a1 + 16), a1 + 96, a1 + 160, a1 + 172, a1 + 184, a1 + 88, a1 + 196);
+  }
+
+  return a1;
+}
+
+uint64_t anonymous namespace::IntersectSphereVsMeshCallback<true>::processHit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v7.i64[0] = *a3;
+  v7.i64[1] = *(a3 + 8);
+  v22 = v7;
+  v7.i64[0] = *a4;
+  v7.i64[1] = *(a4 + 8);
+  v8.i64[0] = *a5;
+  v8.i32[2] = *(a5 + 8);
+  v21 = v7;
+  v8.i64[1] = v8.u32[2];
+  v20 = v8;
+  v18 = 0;
+  v19 = 0;
+  v17 = 0uLL;
+  v7.i64[0] = *(a1 + 40);
+  v7.i64[1] = *(a1 + 48);
+  v16 = v7;
+  v9 = physx::Gu::distancePointTriangleSquared(&v16, &v22, &v21, &v20, &v19, &v18, &v17).f32[0];
+  result = 1;
+  if (v9 <= *(a1 + 36))
+  {
+    *(a1 + 32) = 1;
+    v11 = *(a1 + 24);
+    if (v11)
+    {
+      v12 = *(v11 + 2);
+      if (v12 >= *(v11 + 3))
+      {
+        *(v11 + 24) = 1;
+      }
+
+      else
+      {
+        v13 = *(v11 + 5);
+        if (v13 >= *(v11 + 4))
+        {
+          v14 = *(a2 + 16);
+          v15 = *v11;
+          *(v11 + 2) = v12 + 1;
+          *(v15 + 4 * v12) = v14;
+        }
+
+        else
+        {
+          *(v11 + 5) = v13 + 1;
         }
       }
     }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::IntersectSphereVsMeshCallback<false>::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v7 = *(a1 + 16);
+  v8 = *(v7 + 8);
+  v9 = a3[1];
+  v10 = *(v7 + 20);
+  v11 = (*a3 * v8) + (v9 * v10);
+  v12 = a3[2];
+  v13 = *(v7 + 32);
+  v14 = *v7;
+  v15 = *(v7 + 12);
+  v16 = vadd_f32(vmul_n_f32(*v7, *a3), vmul_n_f32(v15, v9));
+  v17 = *(v7 + 24);
+  *v18.f32 = vadd_f32(v16, vmul_n_f32(v17, v12));
+  v18.i64[1] = COERCE_UNSIGNED_INT(v11 + (v12 * v13));
+  v42 = v18;
+  if (*(a1 + 33))
+  {
+    v19 = a5;
+  }
+
+  else
+  {
+    v19 = a4;
+  }
+
+  v20 = v19[1];
+  v21 = v19[2];
+  *v22.f32 = vadd_f32(vadd_f32(vmul_n_f32(v14, *v19), vmul_n_f32(v15, v20)), vmul_n_f32(v17, v21));
+  v22.f32[2] = ((v8 * *v19) + (v10 * v20)) + (v13 * v21);
+  v22.i32[3] = 0;
+  if (*(a1 + 33))
+  {
+    v23 = a4;
+  }
+
+  else
+  {
+    v23 = a5;
+  }
+
+  v24 = v23[1];
+  v25 = (v8 * *v23) + (v10 * v24);
+  v26 = v23[2];
+  *v27.f32 = vadd_f32(vadd_f32(vmul_n_f32(v14, *v23), vmul_n_f32(v15, v24)), vmul_n_f32(v17, v26));
+  v27.f32[2] = v25 + (v13 * v26);
+  v41 = v22;
+  v27.i32[3] = 0;
+  v40 = v27;
+  v38 = 0;
+  v39 = 0;
+  v37 = 0uLL;
+  v28.i64[0] = *(a1 + 40);
+  v28.i64[1] = *(a1 + 48);
+  v36 = v28;
+  v29 = physx::Gu::distancePointTriangleSquared(&v36, &v42, &v41, &v40, &v39, &v38, &v37).f32[0];
+  result = 1;
+  if (v29 <= *(a1 + 36))
+  {
+    *(a1 + 32) = 1;
+    v31 = *(a1 + 24);
+    if (v31)
+    {
+      v32 = *(v31 + 2);
+      if (v32 >= *(v31 + 3))
+      {
+        *(v31 + 24) = 1;
+      }
+
+      else
+      {
+        v33 = *(v31 + 5);
+        if (v33 >= *(v31 + 4))
+        {
+          v34 = *(a2 + 16);
+          v35 = *v31;
+          *(v31 + 2) = v32 + 1;
+          *(v35 + 4 * v32) = v34;
+        }
+
+        else
+        {
+          *(v31 + 5) = v33 + 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::IntersectBoxVsMeshCallback<true>::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v7 = *(a1 + 16);
+  v8 = *(v7 + 8);
+  v9 = a3[1];
+  v10 = *(v7 + 20);
+  v11 = a3[2];
+  v12 = *(v7 + 32);
+  v13 = ((*a3 * v8) + (v9 * v10)) + (v11 * v12);
+  v14 = *v7;
+  v15 = *(v7 + 12);
+  v16 = vadd_f32(vmul_n_f32(*v7, *a3), vmul_n_f32(v15, v9));
+  v17 = *(v7 + 24);
+  *v33.f32 = vadd_f32(v16, vmul_n_f32(v17, v11));
+  v33.f32[2] = v13;
+  v18 = a4[1];
+  v19 = a4[2];
+  v20 = ((v8 * *a4) + (v10 * v18)) + (v12 * v19);
+  *v32.f32 = vadd_f32(vadd_f32(vmul_n_f32(v14, *a4), vmul_n_f32(v15, v18)), vmul_n_f32(v17, v19));
+  v32.f32[2] = v20;
+  v21 = a5[1];
+  v22 = (v8 * *a5) + (v10 * v21);
+  v23 = a5[2];
+  *v31.f32 = vadd_f32(vadd_f32(vmul_n_f32(v14, *a5), vmul_n_f32(v15, v21)), vmul_n_f32(v17, v23));
+  v31.f32[2] = v22 + (v12 * v23);
+  v24 = physx::Gu::intersectTriangleBox_Unsafe((a1 + 100), (a1 + 84), &v33, &v32, &v31);
+  result = 1;
+  if (v24)
+  {
+    *(a1 + 32) = 1;
+    v26 = *(a1 + 24);
+    if (v26)
+    {
+      v27 = *(v26 + 2);
+      if (v27 >= *(v26 + 3))
+      {
+        *(v26 + 24) = 1;
+      }
+
+      else
+      {
+        v28 = *(v26 + 5);
+        if (v28 >= *(v26 + 4))
+        {
+          v29 = *(a2 + 16);
+          v30 = *v26;
+          *(v26 + 2) = v27 + 1;
+          *(v30 + 4 * v27) = v29;
+        }
+
+        else
+        {
+          *(v26 + 5) = v28 + 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::IntersectBoxVsMeshCallback<false>::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v7 = *(a1 + 44);
+  v8 = a3[1];
+  v9 = *(a1 + 56);
+  v10 = a3[2];
+  v11 = *(a1 + 68);
+  v12 = *(a1 + 80);
+  v13 = (((*a3 * v7) + (v8 * v9)) + (v10 * v11)) + v12;
+  v14 = *(a1 + 36);
+  v15 = *(a1 + 48);
+  v16 = vadd_f32(vmul_n_f32(v14, *a3), vmul_n_f32(v15, v8));
+  v17 = *(a1 + 60);
+  v18 = vadd_f32(v16, vmul_n_f32(v17, v10));
+  v19 = *(a1 + 72);
+  *v38.f32 = vadd_f32(v18, v19);
+  v38.f32[2] = v13;
+  v20 = *(a1 + 33) == 0;
+  if (*(a1 + 33))
+  {
+    v21 = a5;
+  }
+
+  else
+  {
+    v21 = a4;
+  }
+
+  v22 = v21[1];
+  v23 = v21[2];
+  v24 = v12 + (((v7 * *v21) + (v9 * v22)) + (v11 * v23));
+  *v37.f32 = vadd_f32(v19, vadd_f32(vadd_f32(vmul_n_f32(v14, *v21), vmul_n_f32(v15, v22)), vmul_n_f32(v17, v23)));
+  v37.f32[2] = v24;
+  if (v20)
+  {
+    v25 = a5;
+  }
+
+  else
+  {
+    v25 = a4;
+  }
+
+  v26 = v25[1];
+  v27 = (v7 * *v25) + (v9 * v26);
+  v28 = v25[2];
+  *v36.f32 = vadd_f32(v19, vadd_f32(vadd_f32(vmul_n_f32(v14, *v25), vmul_n_f32(v15, v26)), vmul_n_f32(v17, v28)));
+  v36.f32[2] = v12 + (v27 + (v11 * v28));
+  v29 = physx::Gu::intersectTriangleBox_Unsafe((a1 + 100), (a1 + 84), &v38, &v37, &v36);
+  result = 1;
+  if (v29)
+  {
+    *(a1 + 32) = 1;
+    v31 = *(a1 + 24);
+    if (v31)
+    {
+      v32 = *(v31 + 2);
+      if (v32 >= *(v31 + 3))
+      {
+        *(v31 + 24) = 1;
+      }
+
+      else
+      {
+        v33 = *(v31 + 5);
+        if (v33 >= *(v31 + 4))
+        {
+          v34 = *(a2 + 16);
+          v35 = *v31;
+          *(v31 + 2) = v32 + 1;
+          *(v35 + 4 * v32) = v34;
+        }
+
+        else
+        {
+          *(v31 + 5) = v33 + 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::IntersectCapsuleVsMeshCallback<true>::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v7 = a3[1];
+  v8 = *a3 - *a4;
+  v9 = v7 - a4[1];
+  v10 = a3[2];
+  v11 = *a3 - *a5;
+  v12 = v10 - a4[2];
+  v13 = v7 - a5[1];
+  v14 = v10 - a5[2];
+  v22[0] = (v9 * v14) - (v12 * v13);
+  v22[1] = (v12 * v11) - (v8 * v14);
+  v22[2] = (v8 * v13) - (v9 * v11);
+  v15 = physx::Gu::intersectCapsuleTriangle(v22, a3, a4, a5, (a1 + 36), (a1 + 64));
+  result = 1;
+  if (v15)
+  {
+    *(a1 + 32) = 1;
+    v17 = *(a1 + 24);
+    if (v17)
+    {
+      v18 = *(v17 + 2);
+      if (v18 >= *(v17 + 3))
+      {
+        *(v17 + 24) = 1;
+      }
+
+      else
+      {
+        v19 = *(v17 + 5);
+        if (v19 >= *(v17 + 4))
+        {
+          v20 = *(a2 + 16);
+          v21 = *v17;
+          *(v17 + 2) = v18 + 1;
+          *(v21 + 4 * v18) = v20;
+        }
+
+        else
+        {
+          *(v17 + 5) = v19 + 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t anonymous namespace::IntersectCapsuleVsMeshCallback<false>::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v7 = *(a1 + 16);
+  v8 = *(v7 + 8);
+  v9 = a3[1];
+  v10 = *(v7 + 20);
+  v11 = a3[2];
+  v12 = *(v7 + 32);
+  v13 = ((*a3 * v8) + (v9 * v10)) + (v11 * v12);
+  v14 = *v7;
+  v15 = *(v7 + 12);
+  v16 = vadd_f32(vmul_n_f32(*v7, *a3), vmul_n_f32(v15, v9));
+  v17 = *(v7 + 24);
+  v18 = vadd_f32(v16, vmul_n_f32(v17, v11));
+  v53 = v18;
+  v54 = v13;
+  _ZF = *(a1 + 33) == 0;
+  if (*(a1 + 33))
+  {
+    v20 = a5;
+  }
+
+  else
+  {
+    v20 = a4;
+  }
+
+  v21 = v20[1];
+  v22 = v20[2];
+  v23 = ((v8 * *v20) + (v10 * v21)) + (v12 * v22);
+  v24 = vadd_f32(vadd_f32(vmul_n_f32(v14, *v20), vmul_n_f32(v15, v21)), vmul_n_f32(v17, v22));
+  v51 = v24;
+  v52 = v23;
+  if (_ZF)
+  {
+    v25 = a5;
+  }
+
+  else
+  {
+    v25 = a4;
+  }
+
+  v26 = v25[1];
+  v27 = (v8 * *v25) + (v10 * v26);
+  v28 = v25[2];
+  _D3 = vadd_f32(vadd_f32(vmul_n_f32(v14, *v25), vmul_n_f32(v15, v26)), vmul_n_f32(v17, v28));
+  v49 = _D3;
+  v50 = v27 + (v12 * v28);
+  _D4 = vsub_f32(v18, v24);
+  _S1 = v13 - v50;
+  v32 = vdup_lane_s32(v18, 0);
+  *v18.i32 = v13;
+  v33 = vsub_f32(v32, vzip1_s32(_D3, v24));
+  *_D3.i32 = v23;
+  v34 = vsub_f32(v18, _D3);
+  __asm { FMLA            S3, S1, V4.S[1] }
+
+  v38 = vrev64_s32(v33);
+  v39 = vneg_f32(__PAIR64__(_D4.u32[1], v38.u32[0]));
+  v38.f32[0] = _S1;
+  v47 = _D3.i32[0];
+  v48 = vmla_f32(vmul_f32(v38, v39), v34, v33);
+  v40 = physx::Gu::intersectCapsuleTriangle(&v47, &v53, &v51, &v49, (a1 + 36), (a1 + 64));
+  result = 1;
+  if (v40)
+  {
+    *(a1 + 32) = 1;
+    v42 = *(a1 + 24);
+    if (v42)
+    {
+      v43 = *(v42 + 2);
+      if (v43 >= *(v42 + 3))
+      {
+        *(v42 + 24) = 1;
+      }
+
+      else
+      {
+        v44 = *(v42 + 5);
+        if (v44 >= *(v42 + 4))
+        {
+          v45 = *(a2 + 16);
+          v46 = *v42;
+          *(v42 + 2) = v43 + 1;
+          *(v46 + 4 * v43) = v45;
+        }
+
+        else
+        {
+          *(v42 + 5) = v44 + 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void physx::PxMeshQuery::getTriangle(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int *a5, _DWORD *a6, uint64_t a7, uint64_t a8)
+{
+  v14 = *(a1 + 40);
+  if (a6 && !*(v14 + 112))
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMeshQuery.cpp", 111, "Adjacency information not created. Set buildTriangleAdjacencies on Cooking params.", a6, a7, a8);
+  }
+
+  physx::operator*(a2, (a1 + 4), &v50);
+  v15 = (*(a1 + 4) * *(a1 + 8)) * *(a1 + 12);
+  v16 = *(v14 + 48);
+  if ((*(v14 + 92) & 2) != 0)
+  {
+    v21 = (v16 + 6 * a3);
+    v18 = *v21;
+    v19 = v21[1];
+    v20 = v21[2];
+  }
+
+  else
+  {
+    v17 = (v16 + 12 * a3);
+    v18 = *v17;
+    v19 = v17[1];
+    v20 = v17[2];
+  }
+
+  if (v15 >= 0.0)
+  {
+    v22 = v20;
+  }
+
+  else
+  {
+    v22 = v19;
+  }
+
+  if (v15 < 0.0)
+  {
+    v19 = v20;
+  }
+
+  v23 = *(v14 + 40);
+  v24 = (v23 + 12 * v18);
+  v25 = v51;
+  v26 = v24[1];
+  v27 = v53;
+  v28 = v24[2];
+  v29 = v55;
+  v30 = v57;
+  v31 = (((*v24 * v51) + (v26 * v53)) + (v28 * v55)) + v57;
+  v32 = v50;
+  v33 = v52;
+  v34 = vadd_f32(vmul_n_f32(v50, *v24), vmul_n_f32(v52, v26));
+  v35 = v54;
+  v36 = vadd_f32(v34, vmul_n_f32(v54, v28));
+  v37 = v56;
+  *a4 = vadd_f32(v36, v56);
+  *(a4 + 8) = v31;
+  v38 = (v23 + 12 * v19);
+  v39 = v38[1];
+  v40 = v38[2];
+  v41 = v30 + (((v25 * *v38) + (v27 * v39)) + (v29 * v40));
+  *(a4 + 12) = vadd_f32(v37, vadd_f32(vadd_f32(vmul_n_f32(v32, *v38), vmul_n_f32(v33, v39)), vmul_n_f32(v35, v40)));
+  *(a4 + 20) = v41;
+  v42 = (v23 + 12 * v22);
+  v43 = v42[1];
+  v44 = (v25 * *v42) + (v27 * v43);
+  v45 = v42[2];
+  *(a4 + 24) = vadd_f32(v37, vadd_f32(vadd_f32(vmul_n_f32(v32, *v42), vmul_n_f32(v33, v43)), vmul_n_f32(v35, v45)));
+  *(a4 + 32) = v30 + (v44 + (v29 * v45));
+  if (a5)
+  {
+    *a5 = v18;
+    a5[1] = v19;
+    a5[2] = v22;
+  }
+
+  if (a6)
+  {
+    v46 = *(v14 + 112);
+    if (v46)
+    {
+      v47 = 3 * a3 + 2;
+      if (v15 >= 0.0)
+      {
+        v48 = 3 * a3;
+      }
+
+      else
+      {
+        v48 = 3 * a3 + 2;
+      }
+
+      if (v15 < 0.0)
+      {
+        v47 = 3 * a3;
+      }
+
+      *a6 = *(v46 + 4 * v48);
+      a6[1] = *(v46 + 4 * (3 * a3 + 1));
+      v49 = *(v46 + 4 * v47);
+    }
+
+    else
+    {
+      *a6 = -1;
+      v49 = -1;
+    }
+
+    a6[2] = v49;
+  }
+}
+
+BOOL physx::PxMeshQuery::getTriangle(float32x2_t *a1, float *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v15 = a1[1];
+  v16 = a1;
+  v6 = a1[3].f32[0];
+  __asm { FMOV            V2.2S, #1.0 }
+
+  v13 = vrev64_s32(vdiv_f32(_D2, a1[2]));
+  v14 = 1.0 / v6;
+  return physx::Gu::HeightFieldUtil::getTriangle(&v13, a2, a4, a5, a6, a3, 1, 1);
+}
+
+uint64_t physx::PxMeshQuery::findOverlapTriangleMesh(float *a1, int32x4_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, _BYTE *a8)
+{
+  v60 = a5;
+  v61 = 0;
+  v62 = a6;
+  v63 = a7;
+  v64 = 0;
+  v65 = 0;
+  v10 = *(a3 + 40);
+  v11 = *a1;
+  if (!*a1)
+  {
+    *&v52 = a2[1].i64[0];
+    DWORD2(v52) = a2[1].i32[2];
+    *(&v52 + 3) = a1[1];
+    v54 = v52;
+    v33 = *(v10 + 8) - 3;
+    v34 = physx::Gu::gMidphaseSphereOverlapTable;
+    goto LABEL_7;
+  }
+
+  if (v11 == 2)
+  {
+    v35 = *a2->i32;
+    v36 = *&a2->i32[1];
+    v37 = v35 + v35;
+    v39 = *&a2->i32[2];
+    v38 = *&a2->i32[3];
+    v40 = v38 + v38;
+    v41 = ((v38 * (v38 + v38)) + -1.0) + (v35 * (v35 + v35));
+    v42 = (v37 * v36) + (v39 * (v38 + v38));
+    v43 = (v37 * v39) - (v36 * v40);
+    v45 = *(a1 + 1);
+    v44 = a1[2];
+    v46 = v41 * v44;
+    v47 = v44 * v42;
+    v48 = v43 * v44;
+    v49 = *a2[1].i32;
+    v50 = *&a2[1].i32[1];
+    v51 = *&a2[1].i32[2];
+    *&v54 = v49 + v46;
+    *(&v54 + 1) = v50 + v47;
+    *(&v54 + 2) = v48 + v51;
+    *(&v54 + 3) = v49 - v46;
+    v55 = v50 - v47;
+    *&v56 = v51 - v48;
+    HIDWORD(v56) = v45;
+    v33 = *(v10 + 8) - 3;
+    v34 = &physx::Gu::gMidphaseCapsuleOverlapTable;
+    goto LABEL_7;
+  }
+
+  if (v11 == 3)
+  {
+    v12 = vdup_lane_s32(*a2->i8, 1);
+    v13 = vdup_laneq_s32(*a2, 2);
+    v14 = vdup_laneq_s32(*a2, 3);
+    _Q4 = vaddq_f32(*a2, *a2);
+    v16 = vdup_lane_s32(vmul_f32(*a2->i8, *_Q4.f32), 0);
+    v17 = vmul_lane_f32(v12, *_Q4.f32, 1);
+    v18 = vmul_laneq_f32(v13, _Q4, 2);
+    v19 = vmul_n_f32(v12, _Q4.f32[0]);
+    v20 = vmul_n_f32(v13, _Q4.f32[0]);
+    v21 = vmul_n_f32(v14, _Q4.f32[0]);
+    v22 = vmul_lane_f32(v13, *_Q4.f32, 1);
+    v23 = vmul_lane_f32(v14, *_Q4.f32, 1);
+    v24 = vmul_laneq_f32(v14, _Q4, 2);
+    __asm { FMOV            V4.2S, #1.0 }
+
+    v29 = vsub_f32(*_Q4.f32, v16);
+    LODWORD(v30) = vsub_f32(v20, v23).u32[0];
+    LODWORD(v31) = vadd_f32(v22, v21).u32[0];
+    HIDWORD(v30) = vsub_f32(v19, v24).i32[1];
+    *&v54 = (1.0 - v17.f32[1]) - v18.f32[1];
+    DWORD1(v54) = vadd_f32(v19, v24).u32[0];
+    *(&v54 + 1) = v30;
+    LODWORD(v55) = vsub_f32(v29, v18).u32[0];
+    HIDWORD(v31) = vadd_f32(v20, v23).i32[1];
+    v56 = v31;
+    v57 = vzip1_s32(vsub_f32(v22, v21), vsub_f32(v29, v17));
+    *&v32 = a2[1].i64[0];
+    DWORD2(v32) = a2[1].i32[2];
+    *(&v32 + 3) = a1[1];
+    v58 = v32;
+    v59 = *(a1 + 1);
+    v33 = *(v10 + 8) - 3;
+    v34 = physx::Gu::gMidphaseBoxOverlapTable;
+LABEL_7:
+    (v34[v33])(&v54);
+  }
+
+  *a8 = v65;
+  return v61;
+}
+
+uint64_t physx::PxMeshQuery::findOverlapHeightField(uint64_t a1, float *a2, float32x2_t *a3, float *a4, uint64_t a5, int a6, int a7, _BYTE *a8, double a9, double a10, double a11)
+{
+  v15 = *a4;
+  v16 = a4[1];
+  v18 = a4[2];
+  v17 = a4[3];
+  v20 = a2[4];
+  v19 = a2[5];
+  v22 = a4[4];
+  v21 = a4[5];
+  v23 = a2[6];
+  v24 = a4[6];
+  v26 = a2[2];
+  v25 = a2[3];
+  v28 = *a2;
+  v27 = a2[1];
+  *&a11 = (((v17 * *a2) - (*a4 * v25)) - (v16 * v26)) + (v27 * v18);
+  v29 = ((v17 * v27) - (v16 * v25)) - (v18 * *a2);
+  v30 = ((v17 * v26) - (v18 * v25)) - (*a4 * v27);
+  v31 = ((*a4 * *a2) + (v17 * v25)) + (v16 * v27);
+  v32 = *a1;
+  v33 = 0.0;
+  if (*a1 <= 1)
+  {
+    if (v32 != -1)
+    {
+      if (!v32)
+      {
+        v33 = *(a1 + 4);
+        v34 = v33;
+        v35 = v33;
+        goto LABEL_9;
+      }
+
+      if (v32 != 1)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    goto LABEL_7;
+  }
+
+  if ((v32 - 4) < 4)
+  {
+LABEL_7:
+    *a8 = 0;
+LABEL_8:
+    v34 = 0.0;
+    v35 = 0.0;
+    goto LABEL_9;
+  }
+
+  if (v32 == 3)
+  {
+    v33 = *(a1 + 4);
+    v34 = *(a1 + 8);
+    v35 = *(a1 + 12);
+  }
+
+  else
+  {
+    v34 = 0.0;
+    v35 = 0.0;
+    if (v32 == 2)
+    {
+      v34 = *(a1 + 4);
+      v33 = *(a1 + 8) + v34;
+      v35 = v34;
+    }
+  }
+
+LABEL_9:
+  v36 = -v15;
+  v37 = -v16;
+  v38 = -v18;
+  *v13.i32 = v29 + (v26 * v15);
+  *v12.i32 = v30 + (v28 * v16);
+  *v11.i32 = v31 + (v18 * v26);
+  if (*&a11 == 0.0 && *v13.i32 == 0.0 && *v12.i32 == 0.0)
+  {
+    v39 = 1;
+    v40 = v33;
+    v41 = v34;
+    v42 = v35;
+  }
+
+  else
+  {
+    v39 = 0;
+    v92 = v24;
+    v43 = v22;
+    v44 = v21;
+    v45 = v19;
+    v46 = v20;
+    v47 = *v13.i32 * (*v13.i32 + *v13.i32);
+    v48 = *v12.i32 * (*v12.i32 + *v12.i32);
+    v49 = (*&a11 + *&a11) * *v13.i32;
+    v50 = *v12.i32 * (*&a11 + *&a11);
+    v51 = *v11.i32 * (*&a11 + *&a11);
+    v52 = *v12.i32 * (*v13.i32 + *v13.i32);
+    v53 = *v11.i32 * (*v13.i32 + *v13.i32);
+    v54 = *v11.i32 * (*v12.i32 + *v12.i32);
+    v55 = v49 + v54;
+    v56 = v50 - v53;
+    v57 = v49 - v54;
+    v58 = 1.0 - (*&a11 * (*&a11 + *&a11));
+    v59 = (v51 + v52) * v34;
+    v60 = (v52 - v51) * v35;
+    v40 = (fabsf(((1.0 - v47) - v48) * v33) + fabsf(v57 * v34)) + fabsf((v50 + v53) * v35);
+    v41 = (fabsf(v55 * v33) + fabsf((v58 - v48) * v34)) + fabsf(v60);
+    v61 = fabsf((v58 - v47) * v35);
+    v20 = v46;
+    v19 = v45;
+    v21 = v44;
+    v22 = v43;
+    v24 = v92;
+    v42 = (fabsf(v56 * v33) + fabsf(v59)) + v61;
+  }
+
+  v62 = (v23 - v24) + (v23 - v24);
+  v63 = (v20 - v22) + (v20 - v22);
+  v64 = (v19 - v21) + (v19 - v21);
+  v65 = ((v64 * v37) + (v36 * v63)) + (v38 * v62);
+  v66 = (v17 * v17) + -0.5;
+  v67 = ((v17 * ((v16 * v63) + (v36 * v64))) + (v62 * v66)) + (v38 * v65);
+  v68 = ((v17 * ((v15 * v62) + (v38 * v63))) + (v64 * v66)) + (v37 * v65);
+  v69 = ((v17 * ((v18 * v64) + (v37 * v62))) + (v63 * v66)) + (v36 * v65);
+  v117[0] = v69 - v40;
+  v117[1] = v68 - v41;
+  v117[2] = v67 - v42;
+  v117[3] = v69 + v40;
+  v70.i64[0] = __PAIR64__(v13.u32[0], LODWORD(a11));
+  v117[4] = v68 + v41;
+  v117[5] = v67 + v42;
+  v70.i64[1] = __PAIR64__(v11.u32[0], v12.u32[0]);
+  v115 = a3[1];
+  v116 = a3;
+  v71 = a3[3].f32[0];
+  __asm { FMOV            V18.2S, #1.0 }
+
+  v113 = vrev64_s32(vdiv_f32(_D18, a3[2]));
+  v114 = 1.0 / v71;
+  v94 = 0;
+  v95 = a6;
+  v96 = a7;
+  v97 = 0;
+  v98 = 0;
+  v93[0] = &unk_1F5D226B0;
+  v93[1] = a5;
+  v99 = &v113;
+  v112 = v39;
+  v77 = vdup_lane_s32(v13, 0);
+  v78 = vdup_lane_s32(v12, 0);
+  v79 = vdup_lane_s32(v11, 0);
+  v80 = vaddq_f32(v70, v70);
+  v81 = vdup_lane_s32(vmul_f32(*&a11, *v80.f32), 0);
+  v82 = vmul_lane_f32(v77, *v80.f32, 1);
+  v83 = vmul_laneq_f32(v78, v80, 2);
+  v84 = vmul_n_f32(v77, v80.f32[0]);
+  v85 = vmul_n_f32(v78, v80.f32[0]);
+  v86 = vmul_n_f32(v79, v80.f32[0]);
+  v87 = vmul_lane_f32(v78, *v80.f32, 1);
+  v88 = vmul_lane_f32(v79, *v80.f32, 1);
+  *v80.f32 = vmul_laneq_f32(v79, v80, 2);
+  v89 = vsub_f32(_D18, v81);
+  v79.i32[0] = vsub_f32(v85, v88).u32[0];
+  LODWORD(v90) = vadd_f32(v87, v86).u32[0];
+  v100 = (1.0 - v82.f32[1]) - v83.f32[1];
+  v101 = vadd_f32(v84, *v80.f32).u32[0];
+  v79.i32[1] = vsub_f32(v84, *&v80).i32[1];
+  v102 = v79;
+  v103 = vsub_f32(v89, v83).u32[0];
+  HIDWORD(v90) = vadd_f32(v85, v88).i32[1];
+  v104 = v90;
+  v105 = vzip1_s32(vsub_f32(v87, v86), vsub_f32(v89, v82));
+  v106 = v69;
+  v107 = v68;
+  v108 = v67;
+  v109 = v33;
+  v110 = v34;
+  v111 = v35;
+  physx::Gu::HeightFieldUtil::overlapAABBTriangles(&v113, a4, v117, 0, v93);
+  *a8 = v98;
+  return v94;
+}
+
+uint64_t physx::PxMeshQuery::sweep(float32x2_t *a1, int *a2, int32x2_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, _WORD *a7, unsigned int *a8, double a9, double a10, double a11, double a12, double a13, double a14, float32x4_t a15, __n128 q7_0, unsigned __int8 a16)
+{
+  LODWORD(a11) = 1287568416;
+  *&a9 = fminf(*&a9, 100000000.0);
+  v17 = *a2;
+  if (*a2 == 3)
+  {
+    if ((*a7 & 0x100) != 0)
+    {
+      LOWORD(v21[0]) = *a7;
+      return physx::Gu::sweepBoxTriangles_Precise(a4, a5, a16, a2, a3, a1, a6, a8, *&a9, a10, a11, a12, a13, a14, *a15.i64, q7_0, v21);
+    }
+
+    else
+    {
+      LOWORD(v21[0]) = *a7;
+      return physx::Gu::sweepBoxTriangles(a4, a5, a16, a2, a3, a1, a6, a8, a9, *&a10, a11, a12, a13, a14, a15, v21);
+    }
+  }
+
+  else if (v17 == 2)
+  {
+    LOWORD(v21[0]) = *a7;
+    return physx::Gu::sweepCapsuleTriangles(a4, a5, a16, a2, a3, a1, a6, a8, *&a9, *&a10, v21);
+  }
+
+  else if (v17)
+  {
+    return 0;
+  }
+
+  else
+  {
+    v18 = a2[1];
+    v21[0] = 2;
+    v21[1] = v18;
+    v21[2] = 0;
+    v20 = *a7;
+    return physx::Gu::sweepCapsuleTriangles(a4, a5, a16, v21, a3, a1, a6, a8, *&a9, *&a10, &v20);
+  }
+}
+
+uint64_t GeomOverlapCallback_SphereMesh(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *&v3 = *(a2 + 16);
+  DWORD2(v3) = *(a2 + 24);
+  HIDWORD(v3) = *(a1 + 4);
+  v5 = v3;
+  return (physx::Gu::gMidphaseSphereOverlapTable[*(*(a3 + 40) + 8) - 3])(&v5);
+}
+
+uint64_t GeomOverlapCallback_CapsuleMesh(uint64_t a1, float *a2, uint64_t a3)
+{
+  v4 = *(a3 + 40);
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = v5 + v5;
+  v9 = a2[2];
+  v8 = a2[3];
+  v10 = v8 + v8;
+  v11 = ((v8 * (v8 + v8)) + -1.0) + (v5 * (v5 + v5));
+  v12 = (v7 * v6) + (v9 * (v8 + v8));
+  v13 = (v7 * v9) - (v6 * v10);
+  v15 = *(a1 + 4);
+  v14 = *(a1 + 8);
+  v16 = v11 * v14;
+  v17 = v14 * v12;
+  v18 = v13 * v14;
+  v19 = a2[4];
+  v20 = a2[5];
+  v21 = a2[6];
+  v23[0] = v19 + v16;
+  v23[1] = v20 + v17;
+  v23[2] = v18 + v21;
+  v23[3] = v19 - v16;
+  v23[4] = v20 - v17;
+  v23[5] = v21 - v18;
+  v23[6] = v15;
+  return (*(&physx::Gu::gMidphaseCapsuleOverlapTable + *(v4 + 8) - 3))(v23);
+}
+
+uint64_t GeomOverlapCallback_BoxMesh(uint64_t a1, int32x2_t *a2, uint64_t a3)
+{
+  v4 = *(a3 + 40);
+  v5 = vdup_lane_s32(*a2, 1);
+  v6 = vdup_laneq_s32(*a2->i8, 2);
+  v7 = vdup_laneq_s32(*a2->i8, 3);
+  _Q4 = vaddq_f32(*a2->i8, *a2->i8);
+  v9 = vdup_lane_s32(vmul_f32(*a2, *_Q4.f32), 0);
+  v10 = vmul_lane_f32(v5, *_Q4.f32, 1);
+  v11 = vmul_laneq_f32(v6, _Q4, 2);
+  v12 = vmul_n_f32(v5, _Q4.f32[0]);
+  v13 = vmul_n_f32(v6, _Q4.f32[0]);
+  v14 = vmul_n_f32(v7, _Q4.f32[0]);
+  v15 = vmul_lane_f32(v6, *_Q4.f32, 1);
+  v16 = vmul_lane_f32(v7, *_Q4.f32, 1);
+  v17 = vmul_laneq_f32(v7, _Q4, 2);
+  __asm { FMOV            V4.2S, #1.0 }
+
+  v22 = vsub_f32(*_Q4.f32, v9);
+  LODWORD(v23) = vsub_f32(v13, v16).u32[0];
+  LODWORD(v24) = vadd_f32(v15, v14).u32[0];
+  v27[0] = (1.0 - v10.f32[1]) - v11.f32[1];
+  LODWORD(v27[1]) = vadd_f32(v12, v17).u32[0];
+  HIDWORD(v23) = vsub_f32(v12, v17).i32[1];
+  v28 = v23;
+  v29 = vsub_f32(v22, v11).u32[0];
+  HIDWORD(v24) = vadd_f32(v13, v16).i32[1];
+  *&v25 = a2[2];
+  DWORD2(v25) = a2[3].i32[0];
+  v30 = v24;
+  v31 = vzip1_s32(vsub_f32(v15, v14), vsub_f32(v22, v10));
+  HIDWORD(v25) = *(a1 + 4);
+  v32 = v25;
+  v33 = *(a1 + 8);
+  return (physx::Gu::gMidphaseBoxOverlapTable[*(v4 + 8) - 3])(v27);
+}
+
+uint64_t GeomOverlapCallback_ConvexMesh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v237 = *MEMORY[0x1E69E9840];
+  v8 = *(a1 + 4) == 1.0 && *(a1 + 8) == 1.0 && *(a1 + 12) == 1.0;
+  v9 = *(a3 + 4) == 1.0 && *(a3 + 8) == 1.0 && *(a3 + 12) == 1.0;
+  v10 = *(a1 + 32);
+  v11 = *(a3 + 40);
+  v12 = xmmword_1E3047670;
+  *v201 = xmmword_1E3047670;
+  *&v201[16] = xmmword_1E3047670;
+  v13 = xmmword_1E3060D60;
+  v14 = xmmword_1E3047680;
+  v202 = xmmword_1E3060D60;
+  v203 = xmmword_1E3047680;
+  v204 = 0x3F80000000000000;
+  v205 = 0;
+  if (!v8)
+  {
+    physx::Cm::FastVertex2ShapeScaling::init(v201, (a1 + 4), (a1 + 16));
+    v13 = xmmword_1E3060D60;
+    v14 = xmmword_1E3047680;
+    v12 = xmmword_1E3047670;
+  }
+
+  v196[0] = v12;
+  v196[1] = v12;
+  v197 = v13;
+  v198 = v14;
+  v199 = 0x3F80000000000000;
+  v200 = 0;
+  if ((v9 & 1) == 0)
+  {
+    physx::Cm::FastVertex2ShapeScaling::init(v196, (a3 + 4), (a3 + 16));
+  }
+
+  v15 = *a2;
+  v16 = *(a2 + 4);
+  v17 = *(a2 + 8);
+  v18 = *(a2 + 12);
+  v19 = v16 + v16;
+  v20 = v17 + v17;
+  v21 = v16 * (v16 + v16);
+  v22 = v17 * (v17 + v17);
+  v23 = (v15 + v15) * v16;
+  v24 = (v15 + v15) * v17;
+  v25 = (v15 + v15) * v18;
+  v26 = v19 * v17;
+  v27 = v19 * v18;
+  v28 = v20 * v18;
+  v193[0] = (1.0 - v21) - v22;
+  v193[1] = v23 + v28;
+  v29 = 1.0 - (v15 * (v15 + v15));
+  v193[2] = v24 - v27;
+  v193[3] = v23 - v28;
+  v193[4] = v29 - v22;
+  v193[5] = v26 + v25;
+  v193[6] = v24 + v27;
+  v193[7] = v26 - v25;
+  v194 = *(a2 + 16);
+  v30 = *(a2 + 24);
+  v193[8] = v29 - v21;
+  v195 = v30;
+  v31 = *a4;
+  v32 = *(a4 + 4);
+  v33 = *(a4 + 8);
+  v34 = *(a4 + 12);
+  v35 = v32 + v32;
+  v36 = v33 + v33;
+  v37 = v32 * (v32 + v32);
+  v38 = v33 * (v33 + v33);
+  v39 = (v31 + v31) * v32;
+  v40 = (v31 + v31) * v33;
+  v41 = (v31 + v31) * v34;
+  v42 = v35 * v33;
+  v43 = v35 * v34;
+  v44 = v36 * v34;
+  v190[0] = (1.0 - v37) - v38;
+  v190[1] = v39 + v44;
+  v45 = 1.0 - (v31 * (v31 + v31));
+  v190[2] = v40 - v43;
+  v190[3] = v39 - v44;
+  v190[4] = v45 - v38;
+  v190[5] = v42 + v41;
+  v190[6] = v40 + v43;
+  v190[7] = v42 - v41;
+  v190[8] = v45 - v37;
+  v191 = *(a4 + 16);
+  v192 = *(a4 + 24);
+  v46 = *(v10 + 32);
+  v47 = *(v10 + 36);
+  v48 = *(v10 + 40);
+  v49 = ((v46 * *&v201[8]) + (v47 * *&v201[20])) + (v48 * *&v202);
+  v50 = *(v10 + 44);
+  v51 = *(v10 + 48);
+  v52 = *(v10 + 52);
+  v53 = (fabsf(*&v201[8] * v50) + fabsf(*&v201[20] * v51)) + fabsf(*&v202 * v52);
+  v54 = v49 - v53;
+  v55 = v49 + v53;
+  v56 = vadd_f32(vadd_f32(vmul_n_f32(*v201, v46), vmul_n_f32(*&v201[12], v47)), vmul_n_f32(*&v201[24], v48));
+  v57 = vadd_f32(vadd_f32(vabs_f32(vmul_n_f32(*v201, v50)), vabs_f32(vmul_n_f32(*&v201[12], v51))), vabs_f32(vmul_n_f32(*&v201[24], v52)));
+  v186 = vsub_f32(v56, v57);
+  v187 = v54;
+  v188 = vadd_f32(v56, v57);
+  v189 = v55;
+  physx::Gu::computeHullOBB(&v173, &v186, v193, v190, v196, v9, 0.0);
+  v207 = 2;
+  v206 = &unk_1F5D22720;
+  v235 = 0;
+  if ((v9 & 1) == 0)
+  {
+    *&v60 = *&v196[0];
+    *(&v60 + 1) = DWORD2(v196[0]);
+    *&v61 = *(v196 + 12);
+    *(&v61 + 1) = DWORD1(v196[1]);
+    *&v62 = *(&v196[1] + 1);
+    *(&v62 + 1) = v197;
+    v232 = v60;
+    v233 = v61;
+    v234 = v62;
+  }
+
+  v63 = *(a1 + 4);
+  v64 = v63;
+  v64.i32[3] = 0;
+  v65 = *(a1 + 16);
+  __asm { FMOV            V0.2S, #1.0 }
+
+  v71 = xmmword_1E3047680;
+  v72 = xmmword_1E3047670;
+  if (_ZF && v63.f32[1] == 1.0)
+  {
+    v73 = *(v10 + 72);
+    v74 = *(v10 + 71);
+    v75 = *(v10 + 70);
+    v76 = *(v10 + 92);
+    v77 = *(v10 + 96);
+    if (v63.f32[2] == 1.0)
+    {
+      v78 = xmmword_1E30476A0;
+      v79 = 0uLL;
+      v80 = xmmword_1E3047670;
+      v81 = xmmword_1E3047680;
+      v82 = xmmword_1E30476A0;
+      goto LABEL_27;
+    }
+  }
+
+  else
+  {
+    v73 = *(v10 + 72);
+    v74 = *(v10 + 71);
+    v75 = *(v10 + 70);
+    v76 = *(v10 + 92);
+    v77 = *(v10 + 96);
+  }
+
+  v83 = vrecpeq_f32(v64);
+  v84 = 4;
+  do
+  {
+    v83 = vmulq_f32(v83, vrecpsq_f32(v83, v64));
+    --v84;
+  }
+
+  while (v84);
+  *v85.f32 = vdup_lane_s32(*v63.f32, 0);
+  v85.i64[1] = v85.u32[0];
+  if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v85, v64)), _D0).u32[0] & 0xFFFFFF) != 0)
+  {
+    v86 = vdup_lane_s32(*v65.f32, 1);
+    v87 = vdup_laneq_s32(v65, 2);
+    v88 = vdup_laneq_s32(v65, 3);
+    v89 = vaddq_f32(v65, v65);
+    v90 = vmul_lane_f32(v86, *v89.f32, 1);
+    v91 = vmul_laneq_f32(v87, v89, 2);
+    v92 = vmul_n_f32(v86, v89.f32[0]);
+    v93 = vmul_n_f32(v87, v89.f32[0]);
+    v94 = vmul_n_f32(v88, v89.f32[0]);
+    v95 = vmul_lane_f32(v87, *v89.f32, 1);
+    v96 = vmul_lane_f32(v88, *v89.f32, 1);
+    v97 = vmul_laneq_f32(v88, v89, 2);
+    v98 = vsub_f32(_D0, vdup_lane_s32(vmul_f32(*v65.f32, *v89.f32), 0));
+    v99 = vsub_f32(vsub_f32(_D0, v90), v91);
+    *v89.f32 = vadd_f32(v92, v97);
+    v100 = vsub_f32(v93, v96);
+    v101 = vsub_f32(v92, v97);
+    v102 = vadd_f32(v93, v96);
+    v103 = vsub_f32(v95, v94);
+    v104 = vext_s8(v102, v103, 4uLL);
+    v105 = vsub_f32(v98, v91);
+    *v106.f32 = vext_s8(v99, *&vdupq_lane_s32(v101, 1), 4uLL);
+    v106.i64[1] = vdup_lane_s32(v104, 0).u32[0];
+    v107 = vsub_f32(v98, v90);
+    *v108.f32 = vext_s8(*&vdupq_lane_s32(*v89.f32, 0), v105, 4uLL);
+    v108.i64[1] = vdup_lane_s32(v104, 1).u32[0];
+    v58 = vadd_f32(v95, v94);
+    *v109.f32 = vext_s8(*&vdupq_lane_s32(v100, 0), v58, 4uLL);
+    v109.i64[1] = vdup_lane_s32(v107, 0).u32[0];
+    v110 = vmulq_n_f32(v106, v63.f32[0]);
+    v110.i32[3] = 0;
+    v111 = vmulq_lane_f32(v108, *v63.f32, 1);
+    v111.i32[3] = 0;
+    v112 = vmulq_laneq_f32(v109, v63, 2);
+    v112.i32[3] = 0;
+    v113 = vmulq_lane_f32(v110, v99, 1);
+    v113.i32[3] = 0;
+    v114 = vmulq_n_f32(v111, v89.f32[0]);
+    v114.i32[3] = 0;
+    v115 = vmulq_n_f32(v112, *v100.i32);
+    v115.i32[3] = 0;
+    v72 = vaddq_f32(v115, vaddq_f32(v113, v114));
+    v116 = vmulq_lane_f32(v110, v101, 1);
+    v116.i32[3] = 0;
+    v117 = vmulq_n_f32(v111, *v105.i32);
+    v117.i32[3] = 0;
+    v118 = vmulq_n_f32(v112, *v58.i32);
+    v118.i32[3] = 0;
+    v119 = vmulq_lane_f32(v110, v102, 1);
+    v119.i32[3] = 0;
+    v120 = vmulq_n_f32(v111, *v103.i32);
+    v120.i32[3] = 0;
+    v71 = vaddq_f32(v118, vaddq_f32(v116, v117));
+    v121 = vmulq_n_f32(v112, *v107.i32);
+    v121.i32[3] = 0;
+    v78 = vaddq_f32(v121, vaddq_f32(v119, v120));
+    v59 = vmulq_n_f32(v106, v83.f32[0]);
+    v59.i32[3] = 0;
+    v122 = vmulq_lane_f32(v108, *v83.f32, 1);
+    v122.i32[3] = 0;
+    v123 = vmulq_laneq_f32(v109, v83, 2);
+    v123.i32[3] = 0;
+    v124 = vmulq_lane_f32(v59, v99, 1);
+    v124.i32[3] = 0;
+    v125 = vmulq_n_f32(v122, v89.f32[0]);
+    v125.i32[3] = 0;
+    v126 = vmulq_n_f32(v123, *v100.i32);
+    v126.i32[3] = 0;
+    v80 = vaddq_f32(v126, vaddq_f32(v124, v125));
+    v127 = vmulq_lane_f32(v59, v101, 1);
+    v127.i32[3] = 0;
+    v128 = vmulq_n_f32(v122, *v105.i32);
+    v128.i32[3] = 0;
+    v129 = vmulq_n_f32(v123, *v58.i32);
+    v129.i32[3] = 0;
+    v130 = vaddq_f32(v127, v128);
+    v131 = vmulq_lane_f32(v59, v102, 1);
+    v131.i32[3] = 0;
+    v132 = vmulq_n_f32(v122, *v103.i32);
+    v132.i32[3] = 0;
+    v81 = vaddq_f32(v129, v130);
+    v133 = vmulq_n_f32(v123, *v107.i32);
+    v133.i32[3] = 0;
+    v82 = vaddq_f32(v133, vaddq_f32(v131, v132));
+  }
+
+  else
+  {
+    v83.i32[3] = 0;
+    v80 = vmulq_f32(v83, xmmword_1E3047670);
+    v72 = vmulq_f32(v64, xmmword_1E3047670);
+    v81 = vmulq_f32(v83, xmmword_1E3047680);
+    v71 = vmulq_f32(v64, xmmword_1E3047680);
+    v78 = vmulq_f32(v64, xmmword_1E30476A0);
+    v82 = vmulq_f32(v83, xmmword_1E30476A0);
+  }
+
+  v134 = vmulq_f32(v72, 0);
+  v134.i32[3] = 0;
+  v135 = vmulq_f32(v71, 0);
+  v135.i32[3] = 0;
+  v136 = vmulq_f32(v78, 0);
+  v136.i32[3] = 0;
+  v79 = vaddq_f32(vaddq_f32(v134, v135), v136);
+LABEL_27:
+  v137.i64[0] = __PAIR64__(v77, v76);
+  v137.i64[1] = HIDWORD(v77);
+  v138 = vmulq_f32(v64, v137);
+  *v138.i8 = vpmin_f32(vdup_laneq_s32(v138, 2), *v138.i8);
+  *v138.i32 = vpmin_f32(*v138.i8, *v138.i8).f32[0];
+  v139 = *(v10 + 80);
+  v140.i32[1] = 1028443341;
+  v214 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v138.i32);
+  v215 = 0.025 * *v138.i32;
+  v218 = v72;
+  v219 = v71;
+  v220 = v78;
+  v221 = v80;
+  v222 = v81;
+  v223 = v82;
+  v141 = *(a2 + 4);
+  v142 = *(a2 + 8);
+  v143 = *(a2 + 12);
+  v144 = *(a4 + 16) - *(a2 + 16);
+  v81.f32[0] = *(a4 + 20) - *(a2 + 20);
+  v145 = *(a4 + 24) - *(a2 + 24);
+  v146 = v144 + v144;
+  v81.f32[0] = v81.f32[0] + v81.f32[0];
+  v147 = v145 + v145;
+  v137.f32[0] = (v143 * v143) + -0.5;
+  v148 = (-(v141 * v81.f32[0]) - (*a2 * v146)) - (v142 * v147);
+  *&v149 = ((v143 * ((v142 * v81.f32[0]) - (v141 * v147))) + (v146 * v137.f32[0])) - (*a2 * v148);
+  *&v150 = ((v143 * ((*a2 * v147) - (v142 * v146))) + (v81.f32[0] * v137.f32[0])) - (v141 * v148);
+  *&v151 = ((v143 * ((v141 * v146) - (*a2 * v81.f32[0]))) + (v147 * v137.f32[0])) - (v142 * v148);
+  v152 = *(a4 + 8);
+  v81.i32[0] = *(a4 + 12);
+  v153 = *(a4 + 4);
+  v137.f32[0] = (v143 * *a4) - (*a2 * v81.f32[0]);
+  *v58.i32 = (((v143 * v153) - (v141 * v81.f32[0])) - (v142 * *a4)) + (v152 * *a2);
+  v59.f32[0] = (((v143 * v152) - (v142 * v81.f32[0])) - (*a2 * v153)) + (*a4 * v141);
+  v154 = *a2 * *a4;
+  v138.i32[3] = 0;
+  v216 = 0;
+  v217 = 0;
+  v224 = v10 + 32;
+  v225 = v139;
+  v226 = v73 + 20 * v74;
+  v227 = v75;
+  v137.f32[0] = (v137.f32[0] - (v141 * v152)) + (v153 * v142);
+  *v140.i32 = ((v154 + (v143 * v81.f32[0])) + (v141 * v153)) + (v142 * v152);
+  *&v155 = __PAIR64__(v150, v149);
+  *(&v155 + 1) = v151;
+  v156 = vdup_lane_s32(*v59.f32, 0);
+  v157 = vdup_lane_s32(v140, 0);
+  v81.f32[0] = v137.f32[0] + v137.f32[0];
+  v137.f32[0] = v137.f32[0] * (v137.f32[0] + v137.f32[0]);
+  v158 = vmul_n_f32(vdup_lane_s32(v58, 0), *v58.i32 + *v58.i32);
+  v159 = vmul_n_f32(v156, v59.f32[0] + v59.f32[0]);
+  v160 = vmul_n_f32(vdup_lane_s32(*v81.f32, 0), *v58.i32);
+  v161 = vmul_n_f32(v156, v81.f32[0]);
+  v162 = vmul_n_f32(v157, v81.f32[0]);
+  v163 = vmul_n_f32(v156, *v58.i32 + *v58.i32);
+  v164 = vmul_n_f32(v157, *v58.i32 + *v58.i32);
+  v165 = vmul_n_f32(v157, v59.f32[0] + v59.f32[0]);
+  *v137.f32 = vsub_f32(_D0, vdup_lane_s32(*v137.f32, 0));
+  *&v166 = vext_s8(vsub_f32(vsub_f32(_D0, v158), v159), vadd_f32(v160, v165), 4uLL);
+  *(&v166 + 1) = vsub_f32(v161, v164).u32[0];
+  *&v167 = vext_s8(vsub_f32(v160, v165), vsub_f32(*v137.f32, v159), 4uLL);
+  *(&v167 + 1) = vadd_f32(v162, v163).u32[0];
+  *&v168 = vext_s8(vadd_f32(v161, v164), vsub_f32(v163, v162), 4uLL);
+  *(&v168 + 1) = vsub_f32(*v137.f32, v158).u32[0];
+  v228 = v166;
+  v229 = v167;
+  v230 = v168;
+  v231 = v155;
+  v236 = v9;
+  *&v169 = __PAIR64__(LODWORD(v175), v173.u32[0]);
+  *(&v169 + 1) = LODWORD(v178);
+  *&v170 = __PAIR64__(LODWORD(v176), v173.u32[1]);
+  *(&v170 + 1) = LODWORD(v179);
+  *&v171 = __PAIR64__(LODWORD(v177), LODWORD(v174));
+  *(&v171 + 1) = LODWORD(v180);
+  *v138.i32 = (-(v182 * v173.f32[1]) - (v173.f32[0] * v181)) - (v174 * v183);
+  *&v138.i32[1] = (-(v182 * v176) - (v175 * v181)) - (v177 * v183);
+  *&v138.i32[2] = (-(v182 * v179) - (v178 * v181)) - (v180 * v183);
+  v208 = v169;
+  v209 = v170;
+  v210 = v171;
+  v211 = v138;
+  *&v166 = vadd_f32(v184, vdup_n_s32(0x3A83126Fu));
+  *(&v166 + 2) = v185 + 0.001;
+  HIDWORD(v166) = 0;
+  v212 = v166;
+  v213 = v79;
+  (physx::Gu::gMidphaseBoxCBOverlapTable[*(v11 + 8) - 3])(v11, &v173, &v206, 1, 0);
+  return v235;
+}
+
+uint64_t physx::Gu::RTree::load(uint64_t a1, void (***a2)(uint64_t (***)(void, uint64_t, uint64_t), unsigned int *, uint64_t), uint64_t a3, int a4)
+{
+  if ((*(a1 + 84) & 1) == 0)
+  {
+    v7 = *(a1 + 88);
+    if (v7)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v7 - *(v7 - 8), a3);
+      *(a1 + 88) = 0;
+    }
+  }
+
+  v15 = 0;
+  physx::readChunk(&v15 + 3, &v15 + 2, &v15 + 1, &v15, a2);
+  result = 0;
+  if (HIBYTE(v15) == 82 && BYTE2(v15) == 84 && BYTE1(v15) == 82 && v15 == 69)
+  {
+    v16 = 0;
+    (**a2)(a2, &v16, 4);
+    v9 = v16;
+    v10 = 1;
+    if (v16 == 1 || v16 == 0x1000000)
+    {
+      goto LABEL_13;
+    }
+
+    v11 = bswap32(v16);
+    if (a4)
+    {
+      v9 = v11;
+    }
+
+    v10 = a4;
+    if (v9 <= 3)
+    {
+LABEL_13:
+      physx::readFloatBuffer(a1, 4u, v10, a2);
+      physx::readFloatBuffer((a1 + 16), 4u, v10, a2);
+      physx::readFloatBuffer((a1 + 32), 4u, v10, a2);
+      physx::readFloatBuffer((a1 + 48), 4u, v10, a2);
+      *(a1 + 64) = physx::readDword(v10, a2);
+      *(a1 + 68) = physx::readDword(v10, a2);
+      *(a1 + 72) = physx::readDword(v10, a2);
+      *(a1 + 76) = physx::readDword(v10, a2);
+      *(a1 + 80) = physx::readDword(v10, a2);
+      physx::readDword(v10, a2);
+      *(a1 + 88) = physx::shdfnd::AlignedAllocator<128u,physx::shdfnd::NonTrackingAllocator>::allocate(&v14, 112 * *(a1 + 80), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuRTree.cpp", 87);
+      if (*(a1 + 80))
+      {
+        v12 = 0;
+        v13 = 96;
+        do
+        {
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 96), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 80), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 64), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 48), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 32), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13 - 16), 4u, v10, a2);
+          physx::readFloatBuffer((*(a1 + 88) + v13), 4u, v10, a2);
+          ++v12;
+          v13 += 112;
+        }
+
+        while (v12 < *(a1 + 80));
+      }
+
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::shdfnd::AlignedAllocator<128u,physx::shdfnd::NonTrackingAllocator>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a2 + 135;
+  if (!v4)
+  {
+    return 0;
+  }
+
+  result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v4, "NonTrackedAlloc", a3, a4);
+  if (result)
+  {
+    v6 = result;
+    result = (result + 135) & 0xFFFFFFFFFFFFFF80;
+    *(result - 8) = result - v6;
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::RTree::refitAllStaticTree(uint64_t result, uint64_t (***a2)(void, void, __int128 *, __int128 *), uint64_t a3)
+{
+  v42 = result;
+  v3 = *(result + 80);
+  if (v3 >= 1)
+  {
+    v5 = *(result + 88);
+    do
+    {
+      v6 = 0;
+      v43 = v3;
+      v44 = v3 - 1;
+      v7 = *(v42 + 88) + 112 * (v3 - 1);
+      v8 = v7 + 48;
+      v9 = v7 + 96;
+      v10 = v7 + 16;
+      v11 = v7 + 32;
+      v12 = v7 + 64;
+      v13 = v7 + 80;
+      do
+      {
+        v14 = *(v7 + 4 * v6);
+        v15 = *(v8 + 4 * v6);
+        if (v14 <= v15)
+        {
+          v16 = *(v9 + 4 * v6);
+          if (v16)
+          {
+            v45 = 0u;
+            v46 = 0u;
+            result = (**a2)(a2, (*(v9 + 4 * v6) - 1), &v46, &v45);
+            v26 = v45;
+            v25 = v46;
+            *(v7 + 4 * v6) = v46;
+            *(v10 + 4 * v6) = DWORD1(v25);
+            *(v11 + 4 * v6) = DWORD2(v25);
+            *(v8 + 4 * v6) = v26;
+            *(v12 + 4 * v6) = DWORD1(v26);
+            *(v13 + 4 * v6) = DWORD2(v26);
+          }
+
+          else
+          {
+            v17 = v5 + v16 + 48;
+            v18 = 1;
+            v19 = 4;
+            do
+            {
+              v20 = *(v17 - 48);
+              if (v20 <= *v17)
+              {
+                if (v18)
+                {
+                  *(v7 + 4 * v6) = v20;
+                  *(v10 + 4 * v6) = *(v17 - 32);
+                  *(v11 + 4 * v6) = *(v17 - 16);
+                  v15 = *v17;
+                  *(v8 + 4 * v6) = *v17;
+                  *(v12 + 4 * v6) = *(v17 + 16);
+                  v21 = *(v17 + 32);
+                }
+
+                else
+                {
+                  if (v14 < v20)
+                  {
+                    v20 = v14;
+                  }
+
+                  *(v7 + 4 * v6) = v20;
+                  v22 = *(v10 + 4 * v6);
+                  if (v22 >= *(v17 - 32))
+                  {
+                    v22 = *(v17 - 32);
+                  }
+
+                  *(v10 + 4 * v6) = v22;
+                  v23 = *(v11 + 4 * v6);
+                  if (v23 >= *(v17 - 16))
+                  {
+                    v23 = *(v17 - 16);
+                  }
+
+                  *(v11 + 4 * v6) = v23;
+                  if (v15 <= *v17)
+                  {
+                    v15 = *v17;
+                  }
+
+                  *(v8 + 4 * v6) = v15;
+                  v24 = *(v12 + 4 * v6);
+                  if (v24 <= *(v17 + 16))
+                  {
+                    v24 = *(v17 + 16);
+                  }
+
+                  *(v12 + 4 * v6) = v24;
+                  v21 = *(v13 + 4 * v6);
+                  if (v21 <= *(v17 + 32))
+                  {
+                    v21 = *(v17 + 32);
+                  }
+                }
+
+                v18 = 0;
+                *(v13 + 4 * v6) = v21;
+                v14 = v20;
+              }
+
+              v17 += 4;
+              --v19;
+            }
+
+            while (v19);
+          }
+        }
+
+        ++v6;
+      }
+
+      while (v6 != 4);
+      v3 = v44;
+    }
+
+    while (v43 > 1);
+  }
+
+  if (a3)
+  {
+    v27 = *(v42 + 68);
+    if (v27)
+    {
+      v28 = 0;
+      v29 = *(a3 + 16);
+      v30 = *a3;
+      v31 = *(v42 + 88) + 48;
+      do
+      {
+        v32 = 0x80000000800000;
+        v33 = v31;
+        v34 = 4;
+        v35 = xmmword_1E3116ED0;
+        do
+        {
+          v36.i32[0] = *(v33 - 12);
+          if (*v36.i32 <= *v33)
+          {
+            v36.i32[1] = *(v33 - 8);
+            v36.i32[2] = *(v33 - 4);
+            v36.i32[3] = *v33;
+            v37 = vmovn_s32(vcgtq_f32(v36, v35));
+            v37.i16[3] = vmovn_s32(vcgtq_f32(*&v35, *&v36)).i16[3];
+            v35 = vbslq_s8(vmovl_s16(v37), v35, v36);
+            v38.i32[0] = v33[4];
+            v38.i32[1] = v33[8];
+            v32 = vbsl_s8(vcgt_f32(v32, v38), v32, v38);
+          }
+
+          ++v33;
+          --v34;
+        }
+
+        while (v34);
+        if (v28)
+        {
+          v39 = v30;
+          v39.i32[3] = v35.i32[3];
+          v40 = v35;
+          v40.i32[3] = v30.i32[3];
+          v35 = vbslq_s8(vcgtq_f32(v40, v39), v30, v35);
+          v32 = vbsl_s8(vcgt_f32(v29, v32), v29, v32);
+        }
+
+        ++v28;
+        *a3 = v35;
+        *(a3 + 16) = v32;
+        v31 += 112;
+        v30 = v35;
+        v29 = v32;
+      }
+
+      while (v28 != v27);
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::RTree::traverseRay<0>(uint64_t result, uint64_t a2, uint64_t a3, float32_t a4, uint64_t a5, uint64_t a6, uint64_t (***a7)(void, uint64_t, _DWORD *, float *))
+{
+  v62[63] = *MEMORY[0x1E69E9840];
+  v8 = *(result + 68);
+  if (v8 - 1 >= 0)
+  {
+    v7.f32[0] = a4;
+    v10 = *(result + 88);
+    v11 = vdupq_lane_s32(*v7.f32, 0);
+    v12.i64[0] = *a2;
+    v12.i64[1] = *(a2 + 8);
+    v13.i64[0] = *a3;
+    v13.i64[1] = *(a3 + 8);
+    v14.i64[0] = 0x8000000080000000;
+    v14.i64[1] = 0x8000000080000000;
+    v15 = vorrq_s8(vandq_s8(v13, v14), vmaxq_f32(vabsq_f32(v13), vdupq_n_s32(0x3089705Fu)));
+    v16 = vrecpeq_f32(v15);
+    v17 = vmulq_f32(v16, vrecpsq_f32(v16, v15));
+    v18.i64[0] = 0x4000000040000000;
+    v18.i64[1] = 0x4000000040000000;
+    v19 = vmulq_f32(v17, vmlsq_f32(v18, v17, v15));
+    v20 = vmlsq_f32(0, v12, v19);
+    v56 = vdupq_lane_s32(*v19.f32, 1);
+    v57 = vdupq_lane_s32(*v19.f32, 0);
+    v54 = vdupq_lane_s32(*v20.i8, 0);
+    v55 = vdupq_laneq_s32(v19, 2);
+    v52 = vdupq_laneq_s32(v20, 2);
+    v53 = vdupq_lane_s32(*v20.i8, 1);
+    v21 = vdupq_n_s64(v8 - 1);
+    v22 = (v8 + 3) & 0x1FFFFFFFCLL;
+    v23 = 112 * v8 - 224;
+    v24 = xmmword_1E3049640;
+    v25 = xmmword_1E3049620;
+    v26 = v62;
+    v27 = vdupq_n_s64(4uLL);
+    do
+    {
+      v28 = vmovn_s64(vcgeq_u64(v21, v25));
+      if (vuzp1_s16(v28, *v21.i8).u8[0])
+      {
+        *(v26 - 1) = v23 + 112;
+      }
+
+      if (vuzp1_s16(v28, *&v21).i8[2])
+      {
+        *v26 = v23;
+      }
+
+      if (vuzp1_s16(*&v21, vmovn_s64(vcgeq_u64(v21, *&v24))).i32[1])
+      {
+        v26[1] = v23 - 112;
+        v26[2] = v23 - 224;
+      }
+
+      v24 = vaddq_s64(v24, v27);
+      v25 = vaddq_s64(v25, v27);
+      v23 -= 448;
+      v26 += 4;
+      v22 -= 4;
+    }
+
+    while (v22);
+    v51 = vdupq_n_s32(0x3089705Fu);
+    do
+    {
+      while (1)
+      {
+        v29 = v8 - 1;
+        v30 = v61[(v8 - 1) + 2];
+        if (v30)
+        {
+          break;
+        }
+
+        v31 = (v10 + v30);
+        v32 = v31[6].i32[1];
+        v61[v29 + 2] = v31[6].i32[0];
+        v33 = v31[3];
+        v34 = vcgtq_f32(*v31, v33);
+        v35 = vmlaq_f32(v54, v57, *v31);
+        v36 = vmlaq_f32(v53, v56, v31[1]);
+        v37 = vmlaq_f32(v52, v55, v31[2]);
+        v38 = vmlaq_f32(v54, v57, v33);
+        v39 = vmlaq_f32(v53, v56, v31[4]);
+        v40 = vmlaq_f32(v52, v55, v31[5]);
+        v41 = vminq_f32(v35, v38);
+        v42 = vmaxq_f32(v35, v38);
+        v43 = vminq_f32(v36, v39);
+        v44 = vmaxq_f32(v36, v39);
+        v45 = vmaxq_f32(vmaxq_f32(v41, v43), vminq_f32(v37, v40));
+        v46 = vminq_f32(vminq_f32(v42, v44), vmaxq_f32(v37, v40));
+        v47 = vorrq_s8(vorrq_s8(vcgtq_f32(v45, v11), v34), vorrq_s8(vcgtq_f32(v51, v46), vcgtq_f32(v45, v46)));
+        *v37.f32 = vadd_s32(*v47.i8, (v8 | 0x100000000));
+        v61[v37.u32[0] + 2] = v32;
+        v48 = v31[6].i32[2];
+        LODWORD(v31) = v31[6].i32[3];
+        v61[v37.i32[1] + v37.i32[0] + 2] = v48;
+        v49 = v47.i32[2] + v37.i32[1] + v37.i32[0] + 1;
+        v61[v49 + 2] = v31;
+        LODWORD(v8) = v47.i32[3] + v49 + 1;
+        if (!v8)
+        {
+          return result;
+        }
+      }
+
+      v59 = v11;
+      v61[0] = v30 - 1;
+      v60 = v7.f32[0];
+      v58 = v7;
+      result = (**a7)(a7, 1, v61, &v60, a6);
+      if (!result)
+      {
+        break;
+      }
+
+      v50.f32[0] = v60;
+      v7 = v58;
+      v11 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(v58, v50)), 0), vdupq_lane_s32(*v50.f32, 0), v59);
+      if (v58.f32[0] != v60)
+      {
+        v7.f32[0] = v60;
+      }
+
+      LODWORD(v8) = v29;
+    }
+
+    while (v29);
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::RTree::traverseRay<1>(uint64_t result, uint64_t a2, uint64_t a3, float32_t a4, uint64_t a5, uint64_t a6, uint64_t (***a7)(void, uint64_t, _DWORD *, float *), uint64_t a8)
+{
+  v67[63] = *MEMORY[0x1E69E9840];
+  v9 = *(result + 68);
+  if (v9 - 1 >= 0)
+  {
+    v8.f32[0] = a4;
+    v11.i64[0] = *a8;
+    v11.i64[1] = *(a8 + 8);
+    v12 = *(result + 88);
+    v13 = vaddq_f32(v11, vdupq_n_s32(0x33D6BF95u));
+    v61 = vdupq_lane_s32(*v13.f32, 1);
+    v62 = vdupq_lane_s32(*v13.f32, 0);
+    v60 = vdupq_laneq_s32(v13, 2);
+    v14 = vdupq_lane_s32(*v8.f32, 0);
+    v13.i64[0] = *a2;
+    v13.i64[1] = *(a2 + 8);
+    v15.i64[0] = *a3;
+    v15.i64[1] = *(a3 + 8);
+    v16.i64[0] = 0x8000000080000000;
+    v16.i64[1] = 0x8000000080000000;
+    v17 = vorrq_s8(vandq_s8(v15, v16), vmaxq_f32(vabsq_f32(v15), vdupq_n_s32(0x3089705Fu)));
+    v18 = vrecpeq_f32(v17);
+    v19 = vmulq_f32(v18, vrecpsq_f32(v18, v17));
+    v20.i64[0] = 0x4000000040000000;
+    v20.i64[1] = 0x4000000040000000;
+    v21 = vmulq_f32(v19, vmlsq_f32(v20, v19, v17));
+    v22 = vmlsq_f32(0, v13, v21);
+    v58 = vdupq_lane_s32(*v21.f32, 1);
+    v59 = vdupq_lane_s32(*v21.f32, 0);
+    v56 = vdupq_lane_s32(*v22.i8, 0);
+    v57 = vdupq_laneq_s32(v21, 2);
+    v54 = vdupq_laneq_s32(v22, 2);
+    v55 = vdupq_lane_s32(*v22.i8, 1);
+    v23 = vdupq_n_s64(v9 - 1);
+    v24 = (v9 + 3) & 0x1FFFFFFFCLL;
+    v25 = 112 * v9 - 224;
+    v26 = xmmword_1E3049640;
+    v27 = xmmword_1E3049620;
+    v28 = v67;
+    v29 = vdupq_n_s64(4uLL);
+    do
+    {
+      v30 = vmovn_s64(vcgeq_u64(v23, v27));
+      if (vuzp1_s16(v30, *v23.i8).u8[0])
+      {
+        *(v28 - 1) = v25 + 112;
+      }
+
+      if (vuzp1_s16(v30, *&v23).i8[2])
+      {
+        *v28 = v25;
+      }
+
+      if (vuzp1_s16(*&v23, vmovn_s64(vcgeq_u64(v23, *&v26))).i32[1])
+      {
+        v28[1] = v25 - 112;
+        v28[2] = v25 - 224;
+      }
+
+      v26 = vaddq_s64(v26, v29);
+      v27 = vaddq_s64(v27, v29);
+      v25 -= 448;
+      v28 += 4;
+      v24 -= 4;
+    }
+
+    while (v24);
+    v53 = vdupq_n_s32(0x3089705Fu);
+    do
+    {
+      while (1)
+      {
+        v31 = v9 - 1;
+        v32 = v66[(v9 - 1) + 2];
+        if (v32)
+        {
+          break;
+        }
+
+        v33 = (v12 + v32);
+        v34 = v33[6].i32[1];
+        v66[v31 + 2] = v33[6].i32[0];
+        v35 = v33[3];
+        v36 = vcgtq_f32(*v33, v35);
+        v37 = vmlaq_f32(v56, v59, vsubq_f32(*v33, v62));
+        v38 = vmlaq_f32(v55, v58, vsubq_f32(v33[1], v61));
+        v39 = vmlaq_f32(v54, v57, vsubq_f32(v33[2], v60));
+        v40 = vmlaq_f32(v56, v59, vaddq_f32(v62, v35));
+        v41 = vmlaq_f32(v55, v58, vaddq_f32(v61, v33[4]));
+        v42 = vmlaq_f32(v54, v57, vaddq_f32(v60, v33[5]));
+        v43 = vminq_f32(v37, v40);
+        v44 = vmaxq_f32(v37, v40);
+        v45 = vminq_f32(v38, v41);
+        v46 = vmaxq_f32(v38, v41);
+        v47 = vmaxq_f32(vmaxq_f32(v43, v45), vminq_f32(v39, v42));
+        v48 = vminq_f32(vminq_f32(v44, v46), vmaxq_f32(v39, v42));
+        v49 = vorrq_s8(vorrq_s8(vcgtq_f32(v47, v14), v36), vorrq_s8(vcgtq_f32(v53, v48), vcgtq_f32(v47, v48)));
+        *v39.f32 = vadd_s32(*v49.i8, (v9 | 0x100000000));
+        v66[v39.u32[0] + 2] = v34;
+        v50 = v33[6].i32[2];
+        LODWORD(v33) = v33[6].i32[3];
+        v66[v39.i32[1] + v39.i32[0] + 2] = v50;
+        v51 = v49.i32[2] + v39.i32[1] + v39.i32[0] + 1;
+        v66[v51 + 2] = v33;
+        LODWORD(v9) = v49.i32[3] + v51 + 1;
+        if (!v9)
+        {
+          return result;
+        }
+      }
+
+      v64 = v14;
+      v66[0] = v32 - 1;
+      v65 = v8.f32[0];
+      v63 = v8;
+      result = (**a7)(a7, 1, v66, &v65, a6);
+      if (!result)
+      {
+        break;
+      }
+
+      v52.f32[0] = v65;
+      v8 = v63;
+      v14 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vceqq_f32(v63, v52)), 0), vdupq_lane_s32(*v52.f32, 0), v64);
+      if (v63.f32[0] != v65)
+      {
+        v8.f32[0] = v65;
+      }
+
+      LODWORD(v9) = v31;
+    }
+
+    while (v31);
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::RTree::traverseAABB(uint64_t result, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t (***a6)(void, uint64_t, unsigned int *))
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v7 = *a2;
+  v8 = *(a2 + 4);
+  v9 = *a3;
+  v10 = *(a3 + 4);
+  v11 = *(result + 68);
+  if (v11 - 1 < 0)
+  {
+    v14 = 4;
+  }
+
+  else
+  {
+    v12 = 112 * v11 - 112;
+    v13 = 4;
+    do
+    {
+      v14 = v13 + 4;
+      *(&v30[1] + v13 + 8) = v12;
+      v12 -= 112;
+      v13 += 4;
+      --v11;
+    }
+
+    while (v11);
+  }
+
+  v15 = 0;
+  v27 = vdupq_lane_s32(v8, 0);
+  v28 = vdupq_lane_s32(v7, 0);
+  v25 = vdupq_lane_s32(v9, 0);
+  v26 = vdupq_lane_s32(v8, 1);
+  v23 = vdupq_lane_s32(v10, 1);
+  v24 = vdupq_lane_s32(v10, 0);
+  v16 = 1;
+  v17 = *(result + 88);
+  do
+  {
+    v14 -= 4;
+    v18 = v15;
+    if (!v16)
+    {
+      v18 = *(&v30[1] + v14 + 8);
+    }
+
+    v19 = 0;
+    v16 = 0;
+    v20 = (v17 + v18);
+    v21 = v20 + 6;
+    v30[0] = vorrq_s8(vorrq_s8(vorrq_s8(vcgtq_f32(v20[1], v24), vcgtq_f32(*v20, v25)), vorrq_s8(vcgtq_f32(v20[2], v23), vcgtq_f32(v28, v20[3]))), vorrq_s8(vcgtq_f32(v27, v20[4]), vcgtq_f32(v26, v20[5])));
+    do
+    {
+      v22 = v21->i32[v19];
+      v29 = v22 & 0xFFFFFFFE;
+      if (!*(v30 + v19 * 4))
+      {
+        if (v22)
+        {
+          result = (**a6)(a6, 1, &v29, a4, a5);
+          if ((result & 1) == 0)
+          {
+            return result;
+          }
+        }
+
+        else
+        {
+          *(&v30[1] + v14 + 8) = v22 & 0xFFFFFFFE;
+          v14 += 4;
+          v16 = 1;
+          v15 = v22 & 0xFFFFFFFE;
+        }
+      }
+
+      ++v19;
+    }
+
+    while (v19 != 4);
+  }
+
+  while (v14 > 4);
+  return result;
+}
+
+uint64_t physx::Gu::RTree::traverseOBB(uint64_t this, const physx::Gu::Box *a2, unsigned int a3, unsigned int *a4, physx::Gu::RTree::Callback *a5)
+{
+  v124 = *MEMORY[0x1E69E9840];
+  v8 = *(this + 88);
+  v9 = *(a2 + 36);
+  v10 = *(a2 + 40);
+  v11 = *(a2 + 48);
+  v12 = *(a2 + 52);
+  v13 = *a2;
+  v14 = *a2;
+  v14.i32[1] = *(a2 + 1);
+  v15 = v14;
+  v15.i32[2] = *(a2 + 2);
+  v5.i32[0] = *(a2 + 3);
+  v16 = v5;
+  v16.i32[1] = *(a2 + 4);
+  v17 = v16;
+  v17.i32[2] = *(a2 + 5);
+  v6.i32[0] = *(a2 + 6);
+  v18 = v6;
+  v18.i32[1] = *(a2 + 7);
+  v19 = v18;
+  v19.i32[2] = *(a2 + 8);
+  v20 = *(this + 68);
+  if (v20 - 1 < 0)
+  {
+    v22 = v123;
+  }
+
+  else
+  {
+    v21 = 112 * v20 - 112;
+    v22 = v123;
+    do
+    {
+      *v22++ = v21;
+      v21 -= 112;
+      --v20;
+    }
+
+    while (v20);
+  }
+
+  v23 = 0;
+  v118 = vdupq_lane_s32(*&v9, 0);
+  v117 = vdupq_lane_s32(*&v10, 0);
+  v115 = vdupq_lane_s32(v13, 0);
+  v116 = vdupq_lane_s32((v10 >> 32), 0);
+  v113 = vdupq_laneq_s32(v15, 2);
+  v114 = vdupq_lane_s32(*v14.f32, 1);
+  v111 = vdupq_lane_s32(*v16.f32, 1);
+  v112 = vdupq_lane_s32(*v5.f32, 0);
+  v109 = vdupq_lane_s32(*v6.f32, 0);
+  v110 = vdupq_laneq_s32(v17, 2);
+  v107 = vdupq_laneq_s32(v19, 2);
+  v108 = vdupq_lane_s32(*v18.f32, 1);
+  v106 = vdupq_lane_s32(v11, 0);
+  v104 = vdupq_lane_s32(v12, 0);
+  v105 = vsubq_f32(0, v106);
+  v103 = vsubq_f32(0, v104);
+  v24 = vmlaq_n_f32(0, v15, *v11.i32);
+  v101 = vdupq_lane_s32(*v24.i8, 0);
+  v102 = vdupq_lane_s32(v12, 1);
+  v25 = vmlaq_n_f32(0, v17, *v12.i32);
+  v99 = vdupq_laneq_s32(v24, 2);
+  v100 = vdupq_lane_s32(*v24.i8, 1);
+  v97 = vsubq_f32(0, v102);
+  v98 = vdupq_lane_s32(*v25.i8, 0);
+  v26 = vmlaq_lane_f32(0, v19, v12, 1);
+  v95 = vdupq_laneq_s32(v25, 2);
+  v96 = vdupq_lane_s32(*v25.i8, 1);
+  v27 = 1;
+  v93 = vdupq_lane_s32(*v26.i8, 1);
+  v94 = vdupq_lane_s32(*v26.i8, 0);
+  v92 = vdupq_laneq_s32(v26, 2);
+  do
+  {
+    --v22;
+    v28 = v23;
+    if (!v27)
+    {
+      v28 = *v22;
+    }
+
+    v29 = 0;
+    v27 = 0;
+    v30 = v8 + v28;
+    v31 = *(v30 + 16);
+    v33 = *(v30 + 32);
+    v32 = *(v30 + 48);
+    v34 = *(v30 + 64);
+    v35 = *(v30 + 80);
+    v36 = vmaxq_f32(*v30, vminq_f32(v32, v118));
+    v37 = vmaxq_f32(v31, vminq_f32(v34, v117));
+    v38 = vmaxq_f32(v33, vminq_f32(v35, v116));
+    v39 = vsubq_f32(v36, v118);
+    v40 = vsubq_f32(v37, v117);
+    v41 = vsubq_f32(v38, v116);
+    v42 = vmaxq_f32(v105, vminq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v113, v41), v114, v40), v115, v39), v106));
+    v43 = vmaxq_f32(v103, vminq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v110, v41), v111, v40), v112, v39), v104));
+    v44 = vmaxq_f32(v97, vminq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v107, v41), v108, v40), v109, v39), v102));
+    v45 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v118, v109, v44), v112, v43), v115, v42);
+    v46 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v117, v108, v44), v111, v43), v114, v42);
+    v47 = vmlaq_f32(vmlaq_f32(vmlaq_f32(v116, v107, v44), v110, v43), v113, v42);
+    v119 = vmaxq_f32(v33, vminq_f32(v35, v47));
+    v120 = vmaxq_f32(v31, vminq_f32(v34, v46));
+    v48.i64[0] = 0x3F0000003F000000;
+    v48.i64[1] = 0x3F0000003F000000;
+    v49 = vmlaq_f32(0, v48, vaddq_f32(*v30, v32));
+    v50 = vmlaq_f32(0, v48, vaddq_f32(v31, v34));
+    v51 = vmlaq_f32(0, v48, vaddq_f32(v33, v35));
+    v52 = vsubq_f32(v32, v49);
+    v53 = vsubq_f32(v34, v50);
+    v54 = vsubq_f32(v35, v51);
+    v55 = vsubq_f32(v45, v36);
+    v56 = vsubq_f32(v46, v37);
+    v57 = vsubq_f32(v47, v38);
+    v58 = vmlaq_f32(0, v54, v57);
+    v59 = vmlaq_f32(0, v51, v57);
+    v60 = vmlaq_f32(0, v99, v57);
+    v61 = vmlaq_f32(0, v95, v57);
+    v62 = vmlaq_f32(0, v92, v57);
+    v63 = vmlaq_f32(0, v116, v57);
+    v64 = vmlaq_f32(0, v53, v56);
+    v65 = vmlaq_f32(v59, v50, v56);
+    v66 = vmlaq_f32(v60, v100, v56);
+    v67 = vmlaq_f32(v61, v96, v56);
+    v68 = vmlaq_f32(v62, v93, v56);
+    v69 = vmlaq_f32(v63, v117, v56);
+    v70 = vmlaq_f32(0, v52, v55);
+    v71 = vmlaq_f32(v66, v101, v55);
+    v72 = vmlaq_f32(v67, v98, v55);
+    v73 = vmlaq_f32(v68, v94, v55);
+    v74 = vabdq_f32(vmlaq_f32(v65, v49, v55), vmlaq_f32(v69, v118, v55));
+    v75 = vsubq_f32(v45, vmaxq_f32(*v30, vminq_f32(v32, v45)));
+    v76 = vsubq_f32(v46, v120);
+    v77 = vsubq_f32(v47, v119);
+    v78 = vmlaq_f32(0, v52, v75);
+    v79 = vmlaq_f32(0, v53, v76);
+    v80 = vmlaq_f32(0, v54, v77);
+    v81 = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v51, v77), v50, v76), v49, v75);
+    v82 = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v99, v77), v100, v76), v101, v75);
+    v83 = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v95, v77), v96, v76), v98, v75);
+    v84 = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v92, v77), v93, v76), v94, v75);
+    v85 = vabdq_f32(v81, vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v116, v77), v117, v76), v118, v75));
+    v86 = vaddq_f32(vabsq_f32(v84), vaddq_f32(vabsq_f32(v82), vabsq_f32(v83)));
+    v87 = vdupq_n_s32(0xB58637BD);
+    v88 = vdupq_n_s32(0x358637BDu);
+    v89 = vbicq_s8(vornq_s8(vmvnq_s8(vcgtq_f32(vaddq_f32(v74, v87), vaddq_f32(vaddq_f32(vabsq_f32(v58), vaddq_f32(vabsq_f32(v70), vabsq_f32(v64))), vaddq_f32(vabsq_f32(v73), vaddq_f32(vabsq_f32(v71), vabsq_f32(v72)))))), vcgtq_f32(v74, v88)), vcgtq_f32(*v30, v32));
+    v32.i64[0] = 0x100000001;
+    v32.i64[1] = 0x100000001;
+    v122 = vandq_s8(vandq_s8(v89, v32), vornq_s8(vmvnq_s8(vcgtq_f32(vaddq_f32(v85, v87), vaddq_f32(vaddq_f32(vaddq_f32(vabsq_f32(v78), vabsq_f32(v79)), vabsq_f32(v80)), v86))), vcgtq_f32(v85, v88)));
+    v90 = v30 + 96;
+    do
+    {
+      v91 = *(v90 + v29 * 4);
+      v121 = v91 & 0xFFFFFFFE;
+      if (v122.i32[v29])
+      {
+        if (v91)
+        {
+          this = (**a5)(a5, 1, &v121, a4);
+          if ((this & 1) == 0)
+          {
+            return this;
+          }
+        }
+
+        else
+        {
+          *v22++ = v91 & 0xFFFFFFFE;
+          v23 = v121;
+          v27 = 1;
+        }
+      }
+
+      ++v29;
+    }
+
+    while (v29 != 4);
+  }
+
+  while (v22 > v123);
+  return this;
+}
+
+uint64_t physx::Gu::unsupportedBoxOverlapMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
+  {
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
+  }
+
+  return 0;
+}
+
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
+  {
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
+  }
+
+  return 0;
+}
+
+uint64_t physx::Gu::unsupportedCapsuleOverlapMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
+  {
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
+  }
+
+  return 0;
+}
+
+uint64_t physx::Gu::unsupportedSphereOverlapMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
+  {
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
+  }
+
+  return 0;
+}
+
+uint64_t anonymous namespace::HfTrianglesEntityReport2::onEvent(_anonymous_namespace_::HfTrianglesEntityReport2 *this, unsigned int a2, unsigned int *a3)
+{
+  if (*(this + 112) != 1)
+  {
+    v22 = xmmword_1E30474D0;
+    v23 = 0;
+    v24 = 0;
+    if (a2)
+    {
+      v10 = a2;
+      do
+      {
+        physx::Gu::HeightFieldUtil::getTriangle(*(this + 5), &v22, v19, 0, 0, *a3, 0, 0);
+        if (physx::Gu::intersectTriangleBox(this + 48, v19, &v20, &v21, v11, v12, v13))
+        {
+          v14 = *(this + 4);
+          if (v14 >= *(this + 5))
+          {
+            goto LABEL_18;
+          }
+
+          v15 = *(this + 7);
+          if (v15 >= *(this + 6))
+          {
+            v16 = *a3;
+            v17 = *(this + 1);
+            *(this + 4) = v14 + 1;
+            *(v17 + 4 * v14) = v16;
+          }
+
+          else
+          {
+            *(this + 7) = v15 + 1;
+          }
+        }
+
+        ++a3;
+        --v10;
+      }
+
+      while (v10);
+    }
+
+    return 1;
+  }
+
+  if (!a2)
+  {
+    return 1;
+  }
+
+  while (1)
+  {
+    v5 = *(this + 4);
+    if (v5 >= *(this + 5))
+    {
+      break;
+    }
+
+    v7 = *a3++;
+    v6 = v7;
+    v8 = *(this + 7);
+    if (v8 >= *(this + 6))
+    {
+      v9 = *(this + 1);
+      *(this + 4) = v5 + 1;
+      *(v9 + 4 * v5) = v6;
+    }
+
+    else
+    {
+      *(this + 7) = v8 + 1;
+    }
+
+    if (!--a2)
+    {
+      return 1;
+    }
+  }
+
+LABEL_18:
+  result = 0;
+  *(this + 32) = 1;
+  return result;
+}
+
+uint64_t ConvexVsMeshOverlapCallback::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5)
+{
+  v213 = *MEMORY[0x1E69E9840];
+  v5 = *a3;
+  v5.f32[1] = a3[1];
+  v6 = v5;
+  v6.f32[2] = a3[2];
+  v7.i32[1] = 0;
+  v8 = *a4;
+  v8.f32[1] = a4[1];
+  v9 = v8;
+  v9.f32[2] = a4[2];
+  v10 = *a5;
+  v10.f32[1] = a5[1];
+  v11 = v10;
+  v11.f32[2] = a5[2];
+  v12 = *(a1 + 16);
+  v13 = *(a1 + 32);
+  v14 = vmulq_n_f32(v12, *a3);
+  v14.i32[3] = 0;
+  v15 = vmulq_lane_f32(v13, *v5.f32, 1);
+  v15.i32[3] = 0;
+  v17 = *(a1 + 48);
+  v16 = *(a1 + 64);
+  v18 = vmulq_laneq_f32(v17, v6, 2);
+  v18.i32[3] = 0;
+  v19 = vaddq_f32(vaddq_f32(v14, v15), v18);
+  v20 = vmulq_n_f32(v12, *a4);
+  v20.i32[3] = 0;
+  v21 = vmulq_lane_f32(v13, *v8.f32, 1);
+  v21.i32[3] = 0;
+  v22 = vaddq_f32(v16, v19);
+  v23 = vmulq_laneq_f32(v17, v9, 2);
+  v23.i32[3] = 0;
+  v24 = vmulq_n_f32(v12, *a5);
+  v24.i32[3] = 0;
+  v25 = vmulq_lane_f32(v13, *v10.f32, 1);
+  v25.i32[3] = 0;
+  v26 = vaddq_f32(v16, vaddq_f32(vaddq_f32(v20, v21), v23));
+  v27 = vmulq_laneq_f32(v17, v11, 2);
+  v27.i32[3] = 0;
+  v28 = vaddq_f32(v16, vaddq_f32(vaddq_f32(v24, v25), v27));
+  v29 = vminq_f32(vminq_f32(v22, v26), v28);
+  v30 = vmaxq_f32(vmaxq_f32(v22, v26), v28);
+  v31 = *(a1 + 80);
+  v32 = vnegq_f32(v31);
+  v32.i32[3] = 0;
+  v33 = vorrq_s8(vcgtq_f32(v32, v30), vcgtq_f32(v29, v31));
+  *v29.f32 = vmovn_s32(v33);
+  v29.i64[1] = vextq_s8(v33, v33, 8uLL).u64[0];
+  *v33.i8 = vmovn_s16(v29);
+  if (vuzp1_s8(vdup_lane_s16(vtst_s32((v33.i64[0] & 0xFFFFFF00FFFFFFLL), (v33.i64[0] & 0xFFFFFF00FFFFFFLL)), 0), *v5.f32).u32[0] != -1)
+  {
+    if ((*(a1 + 385) & 1) == 0)
+    {
+      v35 = *(a1 + 336);
+      v36 = *(a1 + 352);
+      v37 = vmulq_n_f32(v35, *a3);
+      v37.i32[3] = 0;
+      v38 = vmulq_lane_f32(v36, *v5.f32, 1);
+      v38.i32[3] = 0;
+      v39 = *(a1 + 368);
+      v40 = vmulq_laneq_f32(v39, v6, 2);
+      v40.i32[3] = 0;
+      v6 = vaddq_f32(vaddq_f32(v37, v38), v40);
+      v41 = vmulq_n_f32(v35, *a4);
+      v41.i32[3] = 0;
+      v42 = vmulq_lane_f32(v36, *v8.f32, 1);
+      v42.i32[3] = 0;
+      v43 = vmulq_laneq_f32(v39, v9, 2);
+      v43.i32[3] = 0;
+      v7 = vaddq_f32(v41, v42);
+      v44 = vmulq_n_f32(v35, *a5);
+      v44.i32[3] = 0;
+      v45 = vmulq_lane_f32(v36, *v10.f32, 1);
+      v45.i32[3] = 0;
+      v9 = vaddq_f32(v7, v43);
+      v46 = vmulq_laneq_f32(v39, v11, 2);
+      v46.i32[3] = 0;
+      v11 = vaddq_f32(vaddq_f32(v44, v45), v46);
+    }
+
+    v47 = vmulq_f32(vaddq_f32(vaddq_f32(v6, v9), v11), vdupq_n_s32(0x3EAAAA9Fu));
+    v47.i32[3] = 0;
+    v195 = 0;
+    v192 = v47;
+    v196 = v6;
+    v197 = v9;
+    v198 = v11;
+    v193 = 0x7F7FFFFF00000000;
+    v194 = 0x57F7FFFFFLL;
+    v186.i64[1] = &v192;
+    v187 = a1 + 272;
+    v186.i64[0] = &unk_1F5D21D08;
+    v48 = *(a1 + 288);
+    v188 = *(a1 + 272);
+    v189 = v48;
+    v49 = *(a1 + 320);
+    v190 = *(a1 + 304);
+    v191 = v49;
+    v50 = vzip1q_s32(v188, v190);
+    v51 = vzip1q_s32(v189, 0);
+    v52 = vzip1q_s32(vzip2q_s32(v188, v190), vzip2q_s32(v189, 0));
+    v188 = vzip1q_s32(v50, v51);
+    v189 = vzip2q_s32(v50, v51);
+    v190 = v52;
+    v184 = &unk_1F5D21818;
+    v185 = a1 + 96;
+    v53 = *(a1 + 320);
+    v202 = 0;
+    v54 = vmulq_f32(v53, v53);
+    v54.i64[0] = vpaddq_f32(v54, v54).u64[0];
+    v58.i64[1] = 0;
+    v55 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v54.f32, *v54.f32)), 0)), v53, xmmword_1E3047670);
+    v201 = v55;
+    v56 = vmulq_f32(v55, v55);
+    v56.i64[0] = vpaddq_f32(v56, v56).u64[0];
+    v57 = vpadd_f32(*v56.f32, *v56.f32);
+    *v58.i8 = vrsqrte_f32(v57);
+    v59 = 4;
+    do
+    {
+      *v58.i8 = vmul_f32(*v58.i8, vrsqrts_f32(vmul_f32(*v58.i8, *v58.i8), v57));
+      --v59;
+    }
+
+    while (v59);
+    v60 = vbsl_s8(vdup_lane_s32(vceqz_f32(v57), 0), v57, vmul_f32(v57, *v58.i8));
+    v61 = vrecpe_f32(v60);
+    v62 = 4;
+    do
+    {
+      v61 = vmul_f32(v61, vrecps_f32(v60, v61));
+      --v62;
+    }
+
+    while (v62);
+    v63 = vmulq_n_f32(v55, v61.f32[0]);
+    v63.i32[3] = 0;
+    v64 = (a1 + 116);
+    *v58.i8 = vld1_dup_f32(v64);
+    v65 = vneg_f32(0x80000000800000);
+    *v58.i8 = vmul_f32(vmin_f32(*v58.i8, v65), vdup_n_s32(0x3DCCCCCDu));
+    v51.i32[0] = *(a1 + 112);
+    v7.i32[0] = -*(a1 + 128);
+    v66 = vdup_lane_s32(vand_s8(*v51.i8, *v7.f32), 0);
+    v67 = vmax_f32(*v58.i8, vdup_n_s32(0x358637BDu));
+    v68 = vadd_f32(v66, 0);
+    v69 = vdup_n_s32(0x3F7FF141u);
+    v58.i32[0] = -1;
+    v181 = v58;
+    while (1)
+    {
+      v183 = v63;
+      v70 = v65;
+      v200 = v55;
+      v71 = vnegq_f32(v55);
+      v71.i32[3] = 0;
+      v199 = v71;
+      *v72.i64 = physx::Gu::RelativeConvex<physx::Gu::TriangleV>::support(&v186, &v199);
+      v182 = v72;
+      *v73.i64 = physx::Gu::LocalConvex<physx::Gu::ConvexHullV>::support(&v184, &v201);
+      v74 = v73;
+      v55 = vsubq_f32(v182, v73);
+      v75 = vmulq_f32(v183, v55);
+      v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+      v76 = vpadd_f32(*v75.f32, *v75.f32);
+      v77 = vcgt_f32(v76, v66);
+      if ((vmvn_s8(v77).u8[0] & 1) == 0)
+      {
+        return 1;
+      }
+
+      v78 = v202;
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(v77, vcgt_f32(v76, vmul_f32(v70, v69))), 0), *v55.f32).u32[0] == -1)
+      {
+        if (v202 == 3)
+        {
+          v199.i64[0] = 0;
+          v203 = 0;
+          physx::Gu::barycentricCoordinates(&v201, &v210, &v211, v212, &v199, &v203);
+        }
+
+        return 1;
+      }
+
+      *(&v207 + v202) = v182;
+      *(&v204 + v78) = v74;
+      v202 = v78 + 1;
+      *(&v210 + v78) = v55;
+      if (v78 == 3)
+      {
+        physx::Gu::closestPtPointTetrahedron(&v210, &v207, &v204, &v202);
+        goto LABEL_48;
+      }
+
+      if (v78 != 2)
+      {
+        if (v78 != 1)
+        {
+          goto LABEL_48;
+        }
+
+        v55 = v210;
+        v79 = vsubq_f32(v211, v210);
+        v80 = vmulq_f32(v79, v79);
+        v80.i64[0] = vpaddq_f32(v80, v80).u64[0];
+        v81 = vpadd_f32(*v80.f32, *v80.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v81), 0), *v210.f32).u32[0] != -1)
+        {
+          v82 = vnegq_f32(v210);
+          v82.i32[3] = 0;
+          v83 = vmulq_f32(v82, v79);
+          v83.i64[0] = vpaddq_f32(v83, v83).u64[0];
+          v84 = vpadd_f32(*v83.f32, *v83.f32);
+          v85 = vrecpe_f32(v81);
+          v86 = 4;
+          do
+          {
+            v85 = vmul_f32(v85, vrecps_f32(v81, v85));
+            --v86;
+          }
+
+          while (v86);
+          v87 = vmul_f32(v84, v85);
+          __asm { FMOV            V3.2S, #1.0 }
+
+          v55 = vmlaq_n_f32(v210, v79, vmax_f32(vmin_f32(v87, _D3), 0).f32[0]);
+LABEL_32:
+          v55.i64[1] = vextq_s8(v55, v55, 8uLL).u32[0];
+          goto LABEL_48;
+        }
+
+LABEL_33:
+        v202 = 1;
+        goto LABEL_48;
+      }
+
+      v55 = v210;
+      v93 = vsubq_f32(v211, v210);
+      v94 = vsubq_f32(v212[0], v210);
+      v96 = vmls_f32(vmul_f32(*v93.i8, *&vextq_s8(v94, v94, 4uLL)), *&vextq_s8(v93, v93, 4uLL), *v94.i8);
+      *v95.f32 = vext_s8(v96, vmls_f32(vmul_f32(*&vextq_s8(v93, v93, 8uLL), *v94.i8), *v93.i8, *&vextq_s8(v94, v94, 8uLL)), 4uLL);
+      v96.i32[1] = 0;
+      v202 = 3;
+      v97 = vpadd_f32(vmul_f32(*v95.f32, *v95.f32), vmul_f32(v96.u32[0], v96.u32[0]));
+      v98 = vpadd_f32(v97, v97);
+      if (v98.f32[0] <= 0.00000011921)
+      {
+        v202 = 2;
+        v135 = vmulq_f32(v93, v93);
+        v135.i64[0] = vpaddq_f32(v135, v135).u64[0];
+        v136 = vpadd_f32(*v135.f32, *v135.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v136), 0), *v210.f32).u32[0] != -1)
+        {
+          v137 = vnegq_f32(v210);
+          v137.i32[3] = 0;
+          v138 = vmulq_f32(v137, v93);
+          v138.i64[0] = vpaddq_f32(v138, v138).u64[0];
+          v139 = vpadd_f32(*v138.f32, *v138.f32);
+          v140 = vrecpe_f32(v136);
+          v141 = 4;
+          do
+          {
+            v140 = vmul_f32(v140, vrecps_f32(v136, v140));
+            --v141;
+          }
+
+          while (v141);
+          v142 = vmul_f32(v139, v140);
+          __asm { FMOV            V2.2S, #1.0 }
+
+          v55 = vmlaq_n_f32(v210, v93, vmax_f32(vmin_f32(v142, _D2), 0).f32[0]);
+          goto LABEL_32;
+        }
+
+        goto LABEL_33;
+      }
+
+      *&v95.u32[2] = v96;
+      v99 = vextq_s8(v211, v211, 8uLL).u64[0];
+      v100 = vextq_s8(v212[0], v212[0], 8uLL).u64[0];
+      v101 = vextq_s8(v212[0], v212[0], 4uLL).u64[0];
+      v102 = vextq_s8(v211, v211, 4uLL).u64[0];
+      v103 = vmls_f32(vmul_f32(*v211.f32, v101), v102, *v212[0].f32);
+      *v104.f32 = vext_s8(v103, vmls_f32(vmul_f32(v99, *v212[0].f32), *v211.f32, v100), 4uLL);
+      v104.i64[1] = v103.u32[0];
+      v105 = vextq_s8(v210, v210, 8uLL).u64[0];
+      v106 = vextq_s8(v210, v210, 4uLL).u64[0];
+      v107 = vmls_f32(vmul_f32(v106, *v212[0].f32), v101, *v210.f32);
+      *v108.f32 = vext_s8(v107, vmls_f32(vmul_f32(*v210.f32, v100), *v212[0].f32, v105), 4uLL);
+      v108.i64[1] = v107.u32[0];
+      v109 = vmls_f32(vmul_f32(*v210.f32, v102), v106, *v211.f32);
+      *v110.f32 = vext_s8(v109, vmls_f32(vmul_f32(v105, *v211.f32), *v210.f32, v99), 4uLL);
+      v110.i64[1] = v109.u32[0];
+      v111 = vmulq_f32(v104, v95);
+      v111.i64[0] = vpaddq_f32(v111, v111).u64[0];
+      v112 = vpadd_f32(*v111.f32, *v111.f32);
+      v113 = vmulq_f32(v108, v95);
+      v113.i64[0] = vpaddq_f32(v113, v113).u64[0];
+      v114 = vpadd_f32(*v113.f32, *v113.f32);
+      v115 = vmulq_f32(v110, v95);
+      v115.i64[0] = vpaddq_f32(v115, v115).u64[0];
+      v116 = vpadd_f32(*v115.f32, *v115.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v114), vcgez_f32(v112)), vcgez_f32(v116)), 0), *v210.f32).u32[0] == -1)
+      {
+        v144 = vmulq_f32(v210, v95);
+        v145 = vrecpe_f32(v98);
+        v146 = 4;
+        do
+        {
+          v145 = vmul_f32(v145, vrecps_f32(v98, v145));
+          --v146;
+        }
+
+        while (v146);
+        v147 = vpaddq_f32(v144, v144).u64[0];
+        v55 = vmulq_n_f32(v95, vmul_f32(v145, vpadd_f32(v147, v147)).f32[0]);
+        v55.i32[3] = 0;
+        goto LABEL_48;
+      }
+
+      v117 = vnegq_f32(v210);
+      v117.i32[3] = 0;
+      v118 = vnegq_f32(v211);
+      v118.i32[3] = 0;
+      v119 = vmulq_f32(v117, v93);
+      v119.i64[0] = vpaddq_f32(v119, v119).u64[0];
+      v120 = vpadd_f32(*v119.f32, *v119.f32);
+      v121 = vmulq_f32(v93, v118);
+      v121.i64[0] = vpaddq_f32(v121, v121).u64[0];
+      v122 = vpadd_f32(*v121.f32, *v121.f32);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v116), vand_s8(vclez_f32(v122), vcgez_f32(v120))), 0), *v210.f32).u32[0] == -1)
+      {
+        v148 = vsub_f32(v120, v122);
+        v149 = vrecpe_f32(v148);
+        v150 = 4;
+        do
+        {
+          v149 = vmul_f32(v149, vrecps_f32(v148, v149));
+          --v150;
+        }
+
+        while (v150);
+        v134 = 0;
+        v55 = vmlaq_n_f32(v210, v93, vmul_f32(v120, vbsl_s8(vcgt_f32(vabs_f32(v148), 0x3400000034000000), v149, 0)).f32[0]);
+        v55.i64[1] = vextq_s8(v55, v55, 8uLL).u32[0];
+        v133 = 2;
+      }
+
+      else
+      {
+        v123 = vnegq_f32(v212[0]);
+        v123.i32[3] = 0;
+        v124 = vmulq_f32(v118, v94);
+        v124.i64[0] = vpaddq_f32(v124, v124).u64[0];
+        v125 = vpadd_f32(*v124.f32, *v124.f32);
+        v126 = vmulq_f32(v93, v123);
+        v126.i64[0] = vpaddq_f32(v126, v126).u64[0];
+        v127 = vpadd_f32(*v126.f32, *v126.f32);
+        v128 = vmulq_f32(v94, v123);
+        v128.i64[0] = vpaddq_f32(v128, v128).u64[0];
+        v129 = vpadd_f32(*v128.f32, *v128.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v125, v122), vcge_f32(v127, v129)), vclez_f32(v112)), 0), *v210.f32).u32[0] == -1)
+        {
+          v154 = vsub_f32(v125, v122);
+          v155 = vadd_f32(v154, vsub_f32(v127, v129));
+          v156 = vrecpe_f32(v155);
+          v157 = 4;
+          do
+          {
+            v156 = vmul_f32(v156, vrecps_f32(v155, v156));
+            --v157;
+          }
+
+          while (v157);
+          v158 = vmlaq_n_f32(v211, vsubq_f32(v212[0], v211), vmul_f32(v154, vbsl_s8(vcgt_f32(vabs_f32(v155), 0x3400000034000000), v156, 0)).f32[0]);
+          v133 = 2;
+          v151 = v206;
+          v158.i64[1] = vextq_s8(v158, v158, 8uLL).u32[0];
+          v152 = v209;
+          v153 = v212;
+          v134 = 1;
+          v55 = v158;
+          goto LABEL_47;
+        }
+
+        v130 = vmulq_f32(v117, v94);
+        v130.i64[0] = vpaddq_f32(v130, v130).u64[0];
+        v131 = vpadd_f32(*v130.f32, *v130.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v114), vand_s8(vclez_f32(v129), vcgez_f32(v131))), 0), *v210.f32).u32[0] == -1)
+        {
+          v159 = vsub_f32(v131, v129);
+          v160 = vrecpe_f32(v159);
+          v161 = 4;
+          do
+          {
+            v160 = vmul_f32(v160, vrecps_f32(v159, v160));
+            --v161;
+          }
+
+          while (v161);
+          v134 = 0;
+          v55 = vmlaq_n_f32(v210, v94, vmul_f32(v131, vbsl_s8(vcgt_f32(vabs_f32(v159), 0x3400000034000000), v160, 0)).f32[0]);
+          v55.i64[1] = vextq_s8(v55, v55, 8uLL).u32[0];
+          v133 = 2;
+          v151 = v206;
+          v152 = v209;
+          v153 = v212;
+          goto LABEL_47;
+        }
+
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v131), vclez_f32(v120)), 0), *v210.f32).u32[0] == -1)
+        {
+          v134 = 0;
+          v133 = 1;
+        }
+
+        else
+        {
+          *v55.f32 = vdup_lane_s16(vand_s8(vcge_f32(v122, v125), vcgez_f32(v122)), 0);
+          *v55.f32 = vuzp1_s8(*v55.f32, *v55.f32);
+          v132 = v55.i32[0];
+          v133 = 1;
+          v55 = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v55, v181), 0), v211, v212[0]);
+          if (v132 == -1)
+          {
+            v134 = 1;
+          }
+
+          else
+          {
+            v134 = 2;
+          }
+        }
+      }
+
+      v151 = &v205;
+      v152 = &v208;
+      v153 = &v211;
+LABEL_47:
+      v162 = *(&v207 + v134);
+      v163 = *v153;
+      v164 = *v152;
+      v165 = *(&v204 + v134);
+      v166 = *v151;
+      v210 = *(&v210 + v134);
+      v211 = v163;
+      v207 = v162;
+      v208 = v164;
+      v204 = v165;
+      v205 = v166;
+      v202 = v133;
+LABEL_48:
+      v201 = v55;
+      v167 = vmulq_f32(v55, v55);
+      v167.i64[0] = vpaddq_f32(v167, v167).u64[0];
+      v168 = vpadd_f32(*v167.f32, *v167.f32);
+      v169 = vrsqrte_f32(v168);
+      v170 = 4;
+      do
+      {
+        v169 = vmul_f32(v169, vrsqrts_f32(vmul_f32(v169, v169), v168));
+        --v170;
+      }
+
+      while (v170);
+      v65 = vbsl_s8(vdup_lane_s32(vceqz_f32(v168), 0), v168, vmul_f32(v168, v169));
+      v171 = vrecpe_f32(v65);
+      v172 = 4;
+      do
+      {
+        v171 = vmul_f32(v171, vrecps_f32(v65, v171));
+        --v172;
+      }
+
+      while (v172);
+      v63 = vmulq_n_f32(v55, v171.f32[0]);
+      v63.i32[3] = 0;
+      v173 = vcgt_f32(v70, v65);
+      if (vuzp1_s8(vdup_lane_s16(vand_s8(vcgt_f32(v65, v67), v173), 0), *v55.f32).u32[0] != -1)
+      {
+        v174 = vdup_lane_s16(v173, 0);
+        if (vuzp1_s8(v174, v174).u32[0] == -1)
+        {
+          goto LABEL_62;
+        }
+
+        v175 = (v186.i64[1] + 16);
+        v176 = vld1_dup_f32(v175);
+        v177 = (v185 + 16);
+        v178 = vld1_dup_f32(v177);
+        v179 = vbsl_s8(vdup_lane_s32(vcgtz_f32(v66), 0), v68, vmul_f32(vmin_f32(v176, v178), vdup_n_s32(0x3E4CCCCDu)));
+        if (v202 == 3)
+        {
+          v199.i64[0] = 0;
+          v203 = 0;
+          physx::Gu::barycentricCoordinates(&v200, &v210, &v211, v212, &v199, &v203);
+        }
+
+        if ((vcgt_f32(vmax_f32(vsub_f32(v70, v68), 0), v179).u32[0] & 1) == 0)
+        {
+LABEL_62:
+          result = 0;
+          *(a1 + 384) = 1;
+          return result;
+        }
+
+        return 1;
+      }
+    }
+  }
+
+  return 1;
+}
+
+uint64_t physx::Gu::SweepCapsuleMeshHitCallback::SweepCapsuleMeshHitCallback(uint64_t result, uint64_t a2, uint64_t a3, char a4, float *a5, uint64_t a6, _WORD *a7, char a8, float a9, float a10)
+{
+  *(result + 8) = 2;
+  *(result + 12) = *a7;
+  *(result + 14) = 0;
+  *(result + 16) = a8;
+  *(result + 20) = a10;
+  *result = &unk_1F5D22770;
+  *(result + 24) = a2;
+  *(result + 32) = a3;
+  *(result + 40) = a9;
+  *(result + 44) = 0x40000000;
+  *(result + 48) = a9 + 0.001;
+  *(result + 56) = a5;
+  *(result + 64) = a6;
+  *(result + 72) = a4;
+  v10 = *a5 == a5[3] && a5[1] == a5[4] && a5[2] == a5[5];
+  *(result + 73) = v10;
+  *(a2 + 48) = a9;
+  return result;
+}
+
+uint64_t physx::Gu::SweepCapsuleMeshHitCallback::processHit(uint64_t a1, uint64_t a2, float *a3, float32x2_t *a4, float32x2_t *a5, float *a6, __n128 a7, float32x4_t a8, float32x4_t a9)
+{
+  v12 = *a3;
+  v13 = a3[1];
+  v14 = a3[2];
+  if (*(a1 + 16))
+  {
+    v15 = a5;
+  }
+
+  else
+  {
+    v15 = a4;
+  }
+
+  v16 = v15->f32[0];
+  v17 = v15->f32[1];
+  v18 = v15[1].f32[0];
+  v20 = *(a1 + 24);
+  v19 = *(a1 + 32);
+  v21 = *v19;
+  v22 = *(v19 + 12);
+  v23 = *(v19 + 24);
+  v24 = *(v19 + 36);
+  if (*(a1 + 16))
+  {
+    v25 = a4;
+  }
+
+  else
+  {
+    v25 = a5;
+  }
+
+  v26 = v25[1].f32[0];
+  v27 = (((v12 * v21) + (v13 * v22)) + (v14 * v23)) + v24;
+  v28 = v24 + (((v21 * v16) + (v22 * v17)) + (v23 * v18));
+  v29 = *(v19 + 4);
+  v30 = *(v19 + 16);
+  v31 = vmul_n_f32(v30, v13);
+  v32 = *(v19 + 28);
+  v33 = *(v19 + 40);
+  v34 = vadd_f32(vadd_f32(vmul_n_f32(v29, v16), vmul_n_f32(v30, v17)), vmul_n_f32(v32, v18));
+  *a8.f32 = vadd_f32(vmul_f32(v29, *v25), vmul_lane_f32(v30, *v25, 1));
+  a8.f32[0] = *v33.i32 + (a8.f32[0] + (v26 * *v32.i32));
+  a7.n128_u64[0] = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(v29, v12), v31), vmul_n_f32(v32, v14)), v33);
+  v30.i32[0] = *v19;
+  *a9.f32 = vadd_f32(v33, v34);
+  v35.i32[0] = vdup_lane_s32(v32, 1).u32[0];
+  v35.i32[1] = *(v19 + 24);
+  v36 = vadd_f32(vadd_f32(vrev64_s32(vmul_f32(v30, *v25)), vmul_f32(*(v19 + 8), *v25)), vmul_n_f32(v35, v26));
+  v35.i32[0] = vdup_lane_s32(v33, 1).u32[0];
+  v35.i32[1] = *(v19 + 36);
+  v37 = vadd_f32(v35, v36);
+  v84 = v27;
+  v85 = a7.n128_u64[0];
+  v86 = v28;
+  v88 = __PAIR64__(a8.u32[0], v37.u32[1]);
+  v87 = a9.i64[0];
+  v89 = v37.i32[0];
+  v79[0] = 0;
+  v79[1] = 0;
+  v80 = -1;
+  v81 = 0;
+  memset(v82, 0, sizeof(v82));
+  v83 = 3.4028e38;
+  v38 = *(v20 + 48);
+  v39 = 1.0;
+  if (v38 >= 1.0)
+  {
+    v39 = *(v20 + 48);
+  }
+
+  v40 = v39 * 0.001;
+  v41 = v38 + v40;
+  v42 = *(a1 + 56);
+  if (*(a1 + 73) == 1)
+  {
+    v43 = v42[3].f32[0];
+    v44 = *(a1 + 64);
+    v45 = *(a1 + 12);
+    v46 = *(a1 + 72);
+    if ((v45 & 0x10) != 0)
+    {
+      goto LABEL_15;
+    }
+
+    v47 = vsub_f32(*a9.f32, a7.n128_u64[0]);
+    v48.i32[0] = vdup_lane_s32(a7.n128_u64[0], 1).u32[0];
+    v48.f32[1] = v27;
+    v49 = vsub_f32(v37, v48);
+    v50 = a8.f32[0] - a7.n128_f32[0];
+    v51.i32[0] = vdup_lane_s32(v47, 1).u32[0];
+    v51.f32[1] = v28 - v27;
+    v52 = vdup_lane_s32(v49, 0);
+    v52.f32[0] = v50;
+    v53 = vmla_f32(vmul_f32(v52, vneg_f32(v51)), v49, v47);
+    v54 = vmuls_lane_f32(-*v47.i32, v49, 1) + ((v28 - v27) * v50);
+    if ((v45 & 0x80) == 0 && (v46 & 1) == 0 && ((vmuls_lane_f32(v44->f32[1], v53, 1) + (v53.f32[0] * v44->f32[0])) + (v54 * v44[1].f32[0])) > 0.0)
+    {
+      return 1;
+    }
+
+    v76 = v53;
+    v92 = 0;
+    a7.n128_u64[0] = physx::Gu::closestPtPointTriangle(v42, &v84, &v86, &v88, &v92 + 1, &v92, &v90);
+    if (((((v90.f32[1] - v42->f32[1]) * (v90.f32[1] - v42->f32[1])) + ((v90.f32[0] - v42->f32[0]) * (v90.f32[0] - v42->f32[0]))) + ((v91 - v42[1].f32[0]) * (v91 - v42[1].f32[0]))) > (v43 * v43))
+    {
+LABEL_15:
+      v75 = (v45 & 0x80) != 0;
+      v55 = 1;
+      a7.n128_f32[0] = v43;
+      if ((physx::Gu::sweepSphereTriangles(1, &v84, v42, v44, 0, v79, &v77, v46, a7, v41, v75, SHIBYTE(v75), 0) & 1) == 0)
+      {
+        return v55;
+      }
+    }
+
+    else
+    {
+      v57 = (COERCE_FLOAT(vmul_f32(v76, v76).i32[1]) + (v76.f32[0] * v76.f32[0])) + (v54 * v54);
+      if (v57 <= 0.0)
+      {
+        v59 = 0;
+        v60 = 0.0;
+      }
+
+      else
+      {
+        v58 = 1.0 / sqrtf(v57);
+        v59 = vmul_n_f32(v76, v58);
+        v60 = v54 * v58;
+      }
+
+      v77 = v59;
+      v78 = v60;
+      v81 = 1026;
+      v61 = -v44[1].f32[0];
+      *&v82[12] = vneg_f32(*v44);
+      *&v82[20] = v61;
+      v83 = 0.0;
+    }
+  }
+
+  else
+  {
+    v56 = *(a1 + 64);
+    v90.i16[0] = *(a1 + 12);
+    v55 = 1;
+    a7.n128_f32[0] = v38 + v40;
+    if (!physx::Gu::sweepCapsuleTriangles_Precise(1, &v84, v42, v56, 0, v79, &v77, &v90, a7, a8, a9, *(a1 + 72), 0))
+    {
+      return v55;
+    }
+  }
+
+  v62 = v83;
+  if (v83 <= *(a1 + 40))
+  {
+    v63 = -fabsf(((v77.f32[1] * *(*(a1 + 64) + 4)) + (v77.f32[0] * **(a1 + 64))) + (v78 * *(*(a1 + 64) + 8)));
+    v64 = *(a1 + 48);
+    if (v83 <= v64)
+    {
+      v65 = *(a1 + 48);
+    }
+
+    else
+    {
+      v65 = v83;
+    }
+
+    if (v65 < 1.0)
+    {
+      v65 = 1.0;
+    }
+
+    v66 = v65 * 0.001;
+    if (v64 - (v65 * 0.001)) > v83 || ((v67 = *(a1 + 44), v68 = v64 + v66, v67 > v63) ? (v69 = v68 <= v83) : (v69 = 1), !v69 || (v67 == v63 ? (v70 = v83 < v64) : (v70 = 0), !v70 ? (v71 = 0) : (v71 = 1), v83 == 0.0 || (v71)))
+    {
+      *(a1 + 44) = v63;
+      *a6 = v62 * *(a1 + 20);
+      v72 = *(a1 + 48);
+      if (v72 >= v62)
+      {
+        v72 = v62;
+      }
+
+      *(a1 + 48) = v72;
+      v73 = *(a1 + 24);
+      *(v73 + 20) = v81;
+      *(v73 + 48) = v62;
+      *(v73 + 40) = *&v82[16];
+      *(v73 + 24) = *v82;
+      *(v73 + 16) = *(a2 + 16);
+      *(a1 + 14) = 1;
+      if (v83 == 0.0)
+      {
+        v55 = 0;
+        *(a1 + 15) = 1;
+        return v55;
+      }
+
+      if ((*(a1 + 12) & 0x40) != 0)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return 1;
+}
+
+uint64_t physx::Gu::SweepCapsuleMeshHitCallback::finalizeHit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a1 + 14);
+  if (v4 == 1)
+  {
+    if (*(a1 + 15) == 1)
+    {
+      if ((*(a1 + 12) & 0x200) == 0)
+      {
+        v7 = *(a1 + 64);
+        *(a2 + 20) = 1026;
+LABEL_9:
+        *(a2 + 48) = 0;
+        v10 = -v7[1].f32[0];
+        *(a2 + 36) = vneg_f32(*v7);
+        *(a2 + 44) = v10;
+        return v4;
+      }
+
+      v8 = physx::Gu::computeCapsule_TriangleMeshMTD(a4);
+      v7 = *(a1 + 64);
+      *(a2 + 20) = 1026;
+      if ((v8 & 1) == 0)
+      {
+        goto LABEL_9;
+      }
+
+      if (*(a2 + 48) == 0.0)
+      {
+        v9 = -v7[1].f32[0];
+        *(a2 + 36) = vneg_f32(*v7);
+        *(a2 + 44) = v9;
+      }
+    }
+
+    *(a2 + 20) = 1027;
+  }
+
+  return v4;
+}
+
+uint64_t sweepCapsule_MeshGeom(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int16 *a8)
+{
+  v8 = physx::Gu::gMidphaseCapsuleSweepTable[*(*(a1 + 40) + 8) - 3];
+  v10 = *a8;
+  return v8();
+}
+
+uint64_t physx::Gu::SweepBoxMeshHitCallback::SweepBoxMeshHitCallback(uint64_t result, int a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, float32x2_t *a7, uint64_t a8, int32x2_t a9, float a10, float a11, unsigned __int16 *a12, char a13)
+{
+  *(result + 8) = a2;
+  *(result + 12) = *a12;
+  *(result + 16) = a13;
+  *(result + 20) = a11;
+  *result = &unk_1F5D22798;
+  *(result + 24) = a3;
+  *(result + 32) = a9.i32[0];
+  *(result + 48) = a5;
+  *(result + 56) = a7;
+  *(result + 64) = a8;
+  *(result + 72) = a10;
+  *(result + 176) = a4;
+  *&v13 = *a6;
+  *(&v13 + 1) = *(a6 + 8);
+  *(result + 144) = v13;
+  *(result + 40) = vdup_lane_s32(a9, 0);
+  *(result + 36) = a9.i32[0];
+  v14 = a7[1].f32[0];
+  v15 = 1.0 / v14;
+  _ZF = v14 == 0.0;
+  v17 = 0.0;
+  if (!_ZF)
+  {
+    v17 = v15;
+  }
+
+  __asm { FMOV            V3.2S, #1.0 }
+
+  *(result + 164) = vbic_s8(vdiv_f32(_D3, *a7), vceqz_f32(*a7));
+  *(result + 172) = v17;
+  return result;
+}
+
+BOOL physx::Gu::SweepBoxMeshHitCallback::processHit(uint64_t a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4, float32x2_t *a5, float *a6, double a7, double a8, int8x16_t a9, int8x16_t a10, int8x16_t a11, int8x16_t a12, double a13, int32x4_t a14)
+{
+  if ((*(a1 + 12) & 0x100) == 0)
+  {
+    v103 = 0;
+    v20 = *(a1 + 24);
+    v21 = *v20;
+    v22 = *(v20 + 12);
+    v23 = *(v20 + 24);
+    v24 = *(v20 + 36);
+    v25 = vaddq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v20, COERCE_FLOAT(*a3->f32)), v22, *a3, 1), v23, *a3->f32, 2), v24);
+    v26 = v25;
+    v26.i32[3] = 0;
+    if (*(a1 + 16))
+    {
+      v27 = a5;
+    }
+
+    else
+    {
+      v27 = a4;
+    }
+
+    v28 = vaddq_f32(v24, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*v27->f32)), v22, *v27, 1), v23, *v27->f32, 2));
+    v29 = v28;
+    v29.i32[3] = 0;
+    if (*(a1 + 16))
+    {
+      v30 = a4;
+    }
+
+    else
+    {
+      v30 = a5;
+    }
+
+    v31 = vaddq_f32(v24, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*v30->f32)), v22, *v30, 1), v23, *v30->f32, 2));
+    v32 = v31;
+    v32.i32[3] = 0;
+    if ((*(a1 + 176) & 1) != 0 || (v33 = vsubq_f32(v32, v29), v34 = vsubq_f32(v26, v29), v35 = vmls_f32(vmul_f32(*&vextq_s8(v34, v34, 4uLL), *v33.i8), *&vextq_s8(v33, v33, 4uLL), *v34.i8), *v33.i8 = vext_s8(v35, vmls_f32(vmul_f32(*v34.i8, *&vextq_s8(v33, v33, 8uLL)), *v33.i8, *&vextq_s8(v34, v34, 8uLL)), 4uLL), v33.i64[1] = v35.u32[0], v23 = *(a1 + 144), v36 = vmulq_f32(v33, v23), v36.i64[0] = vpaddq_f32(v36, v36).u64[0], vpadd_f32(*v36.f32, *v36.f32).f32[0] < 0.0))
+    {
+      v83 = v31;
+      v84 = v28;
+      v85 = v25;
+      v37 = *(a1 + 48);
+      v23.i64[0] = *(v37 + 48);
+      v38 = v23;
+      v38.i32[2] = *(v37 + 56);
+      v39 = vdup_laneq_s32(v38, 2);
+      v38.i32[3] = 0;
+      v101 = v38;
+      v102 = 0u;
+      v99 = 3;
+      v100 = 0;
+      v95[0] = 0;
+      v95[1] = 0;
+      v40 = vpmin_f32(v39, *v23.f32);
+      v40.f32[0] = vpmin_f32(v40, v40).f32[0];
+      v96 = 0.15 * v40.f32[0];
+      v97 = 0.05 * v40.f32[0];
+      v98 = 0.05 * v40.f32[0];
+      LOBYTE(v91) = 0;
+      v41 = vmulq_f32(vaddq_f32(vaddq_f32(v26, v29), v32), vdupq_n_s32(0x3EAAAA9Fu));
+      v41.i32[3] = 0;
+      v89 = v41;
+      v92 = v26;
+      v93 = v29;
+      v94 = v32;
+      v42.i32[1] = 2139095039;
+      v90.i64[0] = 0x7F7FFFFF00000000;
+      v90.i64[1] = 0x57F7FFFFFLL;
+      v88[1] = &v89;
+      v87[1] = v95;
+      v88[0] = &unk_1F5D21A20;
+      v87[0] = &unk_1F5D21A80;
+      v86 = v41;
+      v42.i32[0] = *(a1 + 72);
+      v105 = 0u;
+      v106 = 0u;
+      v104 = 0;
+      v43 = physx::Gu::gjkRaycast<physx::Gu::LocalConvex<physx::Gu::TriangleV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(v88, v87, &v86, v42, &v103, &v102, (a1 + 144), &v104, &v105, &v106);
+      if (!v43)
+      {
+        return !v43;
+      }
+
+      v44 = v105;
+      v45 = v106;
+      *(a1 + 14) = 1;
+      *(a1 + 112) = v45;
+      *(a1 + 160) = *(a2 + 16);
+      v46 = v103;
+      if (vcge_f32(v103, v104).u8[0])
+      {
+        *(a1 + 15) = 1;
+        *a6 = 0.0;
+        *(a1 + 40) = v46;
+        *(a1 + 32) = 0;
+        v47 = *(a1 + 64);
+        v44.i64[0] = *v47;
+        *&v48 = vnegq_f32(v44).u64[0];
+        *(&v48 + 2) = -*(v47 + 8);
+        HIDWORD(v48) = 0;
+        *(a1 + 128) = v48;
+        return !v43;
+      }
+
+      v78 = *(a1 + 32) * v104.f32[0];
+      v79 = vmulq_n_f32(*(a1 + 144), v104.f32[0]);
+      v80 = vmul_f32(v104, *(a1 + 40));
+      *(a1 + 32) = v78;
+      v79.i32[3] = 0;
+      *(a1 + 40) = v80;
+      *(a1 + 128) = v44;
+      *(a1 + 144) = v79;
+      v81 = v78 * *(a1 + 20);
+      if (v81 < *a6)
+      {
+        *a6 = v81;
+      }
+
+      v82 = v85;
+      v82.i32[3] = v84.i32[0];
+      *(a1 + 76) = v82;
+      *(a1 + 92) = vextq_s8(vextq_s8(v84, v84, 0xCuLL), v83, 8uLL);
+      *(a1 + 108) = v83.i32[2];
+    }
+
+    return 1;
+  }
+
+  v50 = *(a1 + 24);
+  v51 = *(v50 + 20);
+  a12.i64[0] = *(v50 + 28);
+  a10.i32[0] = *(v50 + 36);
+  a9.i64[0] = *(v50 + 40);
+  if (*(a1 + 16))
+  {
+    v52 = a5;
+  }
+
+  else
+  {
+    v52 = a4;
+  }
+
+  *v15.f32 = *v52;
+  a14.i32[0] = v52[1].i32[0];
+  if (*(a1 + 16))
+  {
+    v53 = a4;
+  }
+
+  else
+  {
+    v53 = a5;
+  }
+
+  *v16.i8 = *v53;
+  *v54.f32 = *a3;
+  v54.i32[3] = vdup_lane_s32(*&v15, 0).i32[1];
+  v54.i32[2] = *a3;
+  *v55.f32 = vrev64_s32(*a3);
+  v55.i64[1] = __PAIR64__(v15.u32[1], v55.u32[0]);
+  a11.i32[0] = *(v50 + 24);
+  v56 = vextq_s8(vextq_s8(a11, a11, 4uLL), a12, 0xCuLL);
+  v56.i32[3] = v56.i32[0];
+  v14.i32[0] = a3[1].i32[0];
+  v57 = v14;
+  v57.i32[1] = a14.i32[0];
+  v58 = vzip1q_s32(v57, v57);
+  v58.i32[2] = v14.i32[0];
+  v59 = vmulq_f32(v56, v58);
+  v60 = vextq_s8(vextq_s8(a10, a10, 4uLL), a9, 0xCuLL);
+  v60.i32[3] = v60.i32[0];
+  v61 = *(v50 + 4);
+  v62 = (vmuls_lane_f32(COERCE_FLOAT(*v53), *v61.f32, 1) + vmuls_lane_f32(v51, *v53, 1)) + vmuls_lane_f32(v53[1].f32[0], *a12.i8, 1);
+  v63 = vzip1q_s32(v16, v15);
+  *&v15.u32[2] = *v53;
+  v64 = vmulq_f32(v61, v63);
+  v65 = vuzp2q_s32(v61, v61);
+  v66 = vzip2q_s32(v61, vuzp1q_s32(v61, v61)).u64[0];
+  v61.i32[1] = *(v50 + 20);
+  v61.i32[2] = *v50;
+  v67 = vmulq_f32(v61, v15);
+  v68 = v64;
+  v68.i32[0] = v64.i32[3];
+  v68.i32[3] = v64.i32[0];
+  v64.i64[0] = *(v50 + 28);
+  v64.i64[1] = __PAIR64__(v64.u32[0], a11.u32[0]);
+  a14.i32[1] = v53[1].i32[0];
+  v69 = vmulq_f32(v64, vzip1q_s32(a14, a14));
+  v70.i64[0] = *(v50 + 40);
+  v70.i64[1] = __PAIR64__(a9.u32[0], a10.u32[0]);
+  v65.i32[0] = *v50;
+  v65.i32[3] = *v50;
+  v71.i64[0] = v66;
+  v71.i64[1] = __PAIR64__(v66, LODWORD(v51));
+  v89 = vaddq_f32(v60, vaddq_f32(vaddq_f32(vmulq_f32(v65, v54), vmulq_f32(v71, v55)), v59));
+  v90 = vaddq_f32(v70, vaddq_f32(vaddq_f32(v68, v67), v69));
+  v91 = *&a9.i32[1] + v62;
+  LODWORD(v95[0]) = 2139095039;
+  v72 = physx::Gu::triBoxSweepTestBoxSpace(v89.f32, (*(a1 + 48) + 48), *(a1 + 56), (a1 + 164), v95, (*(a1 + 176) & 1) == 0, *(a1 + 32));
+  result = v72 == 0;
+  if (v72)
+  {
+    v73 = *v95;
+    if (*v95 <= *(a1 + 32))
+    {
+      *(a1 + 32) = v95[0];
+      *a6 = v73 * *(a1 + 20);
+      v74 = *(a1 + 64);
+      v75 = v89;
+      v76 = v90;
+      v77 = v89;
+      v77.i32[3] = 0;
+      *(a1 + 14) = 1;
+      *(a1 + 112) = v77;
+      v77.i64[0] = *v74;
+      v77.i64[0] = vnegq_f32(v77).u64[0];
+      v77.f32[2] = -*(v74 + 8);
+      v77.i32[3] = 0;
+      *(a1 + 128) = v77;
+      *(a1 + 160) = *(a2 + 16);
+      *(a1 + 76) = v75;
+      *(a1 + 92) = v76;
+      *(a1 + 108) = v91;
+      if (v73 == 0.0)
+      {
+        *(a1 + 15) = 1;
+        return result;
+      }
+    }
+
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::SweepBoxMeshHitCallback::finalizeHit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t *a5, float32x2_t *a6, int a7, char a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, __n128 a16)
+{
+  v16 = *(a1 + 14);
+  if (v16 == 1)
+  {
+    v19 = *(a1 + 112);
+    v20 = *(a1 + 128);
+    *(a2 + 16) = *(a1 + 160);
+    if (*(a1 + 15) == 1)
+    {
+      if ((*(a1 + 12) & 0x200) == 0)
+      {
+        v21 = *(a1 + 64);
+        *(a2 + 20) = 1026;
+LABEL_15:
+        *(a2 + 48) = 0;
+        v54 = -v21[1].f32[0];
+        *(a2 + 36) = vneg_f32(*v21);
+        *(a2 + 44) = v54;
+        return v16;
+      }
+
+      v51 = physx::Gu::computeBox_TriangleMeshMTD(a3);
+      v21 = *(a1 + 64);
+      *(a2 + 20) = 1026;
+      if ((v51 & 1) == 0)
+      {
+        goto LABEL_15;
+      }
+
+      if (*(a2 + 48) == 0.0)
+      {
+        v52 = -v21[1].f32[0];
+        *(a2 + 36) = vneg_f32(*v21);
+        *(a2 + 44) = v52;
+      }
+
+      v53 = 1027;
+LABEL_29:
+      *(a2 + 20) = v53;
+      return v16;
+    }
+
+    v25 = *(a1 + 32);
+    *(a2 + 48) = v25;
+    *(a2 + 20) = 1024;
+    v26 = *(a1 + 12);
+    if ((v26 & 0x100) != 0)
+    {
+      if ((v26 & 3) != 0)
+      {
+        v55 = *(a1 + 48);
+        physx::Gu::computeBoxTriImpactData(&v71, &v69, (v55 + 48), a6, a1 + 76, v25, *v19.i64, a11, v20, a13, a14, a15, a16);
+        if ((v26 & 2) != 0)
+        {
+          v56 = v69.f32[1];
+          v57 = v69.f32[0];
+          v58 = v70;
+          v59 = sqrtf(((v69.f32[1] * v69.f32[1]) + (v69.f32[0] * v69.f32[0])) + (v58 * v58));
+          if (v59 > 0.0)
+          {
+            v60 = 1.0 / v59;
+            v57 = v69.f32[0] * v60;
+            v56 = v69.f32[1] * v60;
+            v58 = v70 * v60;
+          }
+
+          v61 = a6->f32[1];
+          v62 = a6[1].f32[0];
+          if ((((v56 * v61) + (v57 * a6->f32[0])) + (v58 * v62)) > 0.0)
+          {
+            v58 = -v58;
+            v56 = -v56;
+            v57 = -v57;
+          }
+
+          if (a7)
+          {
+            if ((a8 & 1) == 0)
+            {
+              v63 = *(a1 + 76);
+              v64 = *(a1 + 80);
+              v65 = *(a1 + 84);
+              if ((((v61 * (((*(a1 + 96) - v65) * (*(a1 + 100) - v63)) - ((*(a1 + 88) - v63) * (*(a1 + 108) - v65)))) + ((((*(a1 + 92) - v64) * (*(a1 + 108) - v65)) - ((*(a1 + 96) - v65) * (*(a1 + 104) - v64))) * a6->f32[0])) + ((((*(a1 + 88) - v63) * (*(a1 + 104) - v64)) - ((*(a1 + 92) - v64) * (*(a1 + 100) - v63))) * v62)) > 0.0)
+              {
+                v57 = -v57;
+                v56 = -v56;
+                v58 = -v58;
+              }
+            }
+          }
+
+          v66 = ((v57 * *(v55 + 8)) + (v56 * *(v55 + 20))) + (v58 * *(v55 + 32));
+          *(a2 + 36) = vadd_f32(vadd_f32(vmul_n_f32(*v55, v57), vmul_n_f32(*(v55 + 12), v56)), vmul_n_f32(*(v55 + 24), v58));
+          *(a2 + 44) = v66;
+          *(a2 + 20) |= 2u;
+        }
+
+        if (v26)
+        {
+          v67 = (((v71.f32[0] * *(v55 + 8)) + (v71.f32[1] * *(v55 + 20))) + (v72 * *(v55 + 32))) + *(v55 + 44);
+          *(a2 + 24) = vadd_f32(vadd_f32(vadd_f32(vmul_n_f32(*v55, v71.f32[0]), vmul_n_f32(*(v55 + 12), v71.f32[1])), vmul_n_f32(*(v55 + 24), v72)), *(v55 + 36));
+          *(a2 + 32) = v67;
+          v53 = *(a2 + 20) | 1;
+          goto LABEL_29;
+        }
+      }
+    }
+
+    else
+    {
+      v27.i64[0] = a5[1].i64[0];
+      v27.i64[1] = a5[1].u32[2];
+      v28 = *a5;
+      *(a2 + 20) = 1027;
+      v29 = vnegq_f32(v20);
+      v29.i32[3] = 0;
+      if (a7)
+      {
+        if ((a8 & 1) == 0)
+        {
+          v30 = *(a1 + 76);
+          v31 = *(a1 + 80);
+          v32 = *(a1 + 84);
+          if ((((a6->f32[1] * (((*(a1 + 96) - v32) * (*(a1 + 100) - v30)) - ((*(a1 + 88) - v30) * (*(a1 + 108) - v32)))) + ((((*(a1 + 92) - v31) * (*(a1 + 108) - v32)) - ((*(a1 + 96) - v32) * (*(a1 + 104) - v31))) * a6->f32[0])) + ((((*(a1 + 88) - v30) * (*(a1 + 104) - v31)) - ((*(a1 + 92) - v31) * (*(a1 + 100) - v30))) * a6[1].f32[0])) > 0.0)
+          {
+            v29 = vnegq_f32(v29);
+            v29.i32[3] = 0;
+          }
+        }
+      }
+
+      v33 = v28;
+      v33.i32[3] = 0;
+      v34 = vdupq_laneq_s32(v28, 3).u64[0];
+      LODWORD(v35) = vmla_f32(0xBF000000BF000000, v34, v34).u32[0];
+      v36 = vmulq_n_f32(v29, v35);
+      v36.i32[3] = 0;
+      v37 = vextq_s8(v33, v33, 8uLL).u64[0];
+      v38 = vext_s8(*v28.f32, v37, 4uLL);
+      v39 = vmls_f32(vmul_f32(*v28.f32, *&vextq_s8(v29, v29, 4uLL)), v38, *v29.i8);
+      *v40.f32 = vext_s8(v39, vmls_f32(vmul_f32(v37, *v29.i8), *v28.f32, *&vextq_s8(v29, v29, 8uLL)), 4uLL);
+      v40.i64[1] = v39.u32[0];
+      v41 = vmlaq_laneq_f32(v36, v40, v28, 3);
+      v41.i64[1] = vextq_s8(v41, v41, 8uLL).u32[0];
+      v42 = vmulq_f32(v33, v29);
+      v42.i64[0] = vpaddq_f32(v42, v42).u64[0];
+      v43 = vmlaq_n_f32(v41, v33, vpadd_f32(*v42.f32, *v42.f32).f32[0]);
+      v44 = vaddq_f32(v43, v43);
+      v45 = vmulq_n_f32(v19, v35);
+      v45.i32[3] = 0;
+      *v40.f32 = vmls_f32(vmul_f32(*&vextq_s8(v19, v19, 4uLL), *v28.f32), v38, *v19.i8);
+      *v46.f32 = vext_s8(*v40.f32, vmls_f32(vmul_f32(*v19.i8, v37), *v28.f32, *&vextq_s8(v19, v19, 8uLL)), 4uLL);
+      v46.i64[1] = v40.u32[0];
+      v47 = vmlaq_laneq_f32(v45, v46, v28, 3);
+      v47.i64[1] = vextq_s8(v47, v47, 8uLL).u32[0];
+      v48 = vmulq_f32(v19, v33);
+      v48.i64[0] = vpaddq_f32(v48, v48).u64[0];
+      v49 = vmlaq_n_f32(v47, v33, vpadd_f32(*v48.f32, *v48.f32).f32[0]);
+      v49.i64[1] = vextq_s8(v49, v49, 8uLL).u32[0];
+      *(a2 + 40) = vextq_s8(v44, v44, 4uLL).u64[0];
+      v48.i64[0] = 0x4000000040000000;
+      v48.i64[1] = 0x4000000040000000;
+      v50 = vmlaq_f32(v27, v48, v49);
+      v50.i32[3] = v44.i32[0];
+      *(a2 + 24) = v50;
+    }
+  }
+
+  return v16;
+}
+
+uint64_t sweepBox_MeshGeom(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int16 *a8)
+{
+  v8 = physx::Gu::gMidphaseBoxSweepTable[*(*(a1 + 40) + 8) - 3];
+  v10 = *a8;
+  return v8();
+}
+
+BOOL physx::Gu::SweepConvexMeshHitCallback::processHit(uint64_t a1, uint64_t a2, float *a3, float *a4, float *a5, float *a6, int32x2_t a7)
+{
+  v10 = *(a1 + 336);
+  v11 = *v10;
+  v12 = v10[1];
+  v13 = a3[1];
+  v14 = v10[2];
+  v15 = v10[3];
+  v16 = v10[4];
+  v17 = v10[5];
+  v18 = (*a3 * *v10) + (v13 * v15);
+  v19 = (*a3 * v12) + (v13 * v16);
+  v20 = (*a3 * v14) + (v13 * v17);
+  v21 = a3[2];
+  v22 = v10[6];
+  v23 = v10[7];
+  v24 = v10[8];
+  v25 = v18 + (v21 * v22);
+  v26 = v19 + (v21 * v23);
+  v27 = v20 + (v21 * v24);
+  if (*(a1 + 16))
+  {
+    v28 = a5;
+  }
+
+  else
+  {
+    v28 = a4;
+  }
+
+  v29 = v28[1];
+  v30 = (v11 * *v28) + (v15 * v29);
+  v31 = (v12 * *v28) + (v16 * v29);
+  v32 = (v14 * *v28) + (v17 * v29);
+  v33 = v28[2];
+  v34 = v30 + (v22 * v33);
+  v35 = v31 + (v23 * v33);
+  v36 = v32 + (v24 * v33);
+  if (*(a1 + 16))
+  {
+    v37 = a4;
+  }
+
+  else
+  {
+    v37 = a5;
+  }
+
+  v38 = v37[1];
+  v39 = (v11 * *v37) + (v15 * v38);
+  v40 = (v12 * *v37) + (v16 * v38);
+  v41 = (v14 * *v37) + (v17 * v38);
+  v42 = v37[2];
+  v43 = v22 * v42;
+  v44 = v23 * v42;
+  v45 = v24 * v42;
+  v46 = v39 + v43;
+  v47 = v40 + v44;
+  v48 = v41 + v45;
+  a7.i32[0] = *(a1 + 456);
+  v49 = *(a2 + 16);
+  if ((*(a1 + 461) & 1) == 0 && ((((((v36 - v27) * (v46 - v34)) - ((v34 - v25) * (v48 - v36))) * *(a1 + 448)) + ((((v35 - v26) * (v48 - v36)) - ((v36 - v27) * (v47 - v35))) * *(a1 + 444))) + ((((v34 - v25) * (v47 - v35)) - ((v35 - v26) * (v46 - v34))) * *(a1 + 452))) <= 0.0)
+  {
+    return 1;
+  }
+
+  v7.i32[0] = *(a1 + 392);
+  v111 = v7;
+  v132 = 0u;
+  v131 = 0;
+  v50 = *(a1 + 240);
+  v51 = *(a1 + 256);
+  v119 = v26;
+  v120 = v25;
+  v52 = vmulq_n_f32(v50, v25);
+  v52.i32[3] = 0;
+  v53 = vmulq_n_f32(v51, v26);
+  v53.i32[3] = 0;
+  v55 = *(a1 + 272);
+  v54 = *(a1 + 288);
+  v117 = v36;
+  v118 = v27;
+  v56 = vmulq_n_f32(v55, v27);
+  v56.i32[3] = 0;
+  v57 = vaddq_f32(vaddq_f32(v52, v53), v56);
+  v114 = v35;
+  v115 = v34;
+  v58 = vmulq_n_f32(v50, v34);
+  v58.i32[3] = 0;
+  v59 = vmulq_n_f32(v51, v35);
+  v59.i32[3] = 0;
+  v60 = vaddq_f32(v54, v57);
+  v61 = vmulq_n_f32(v55, v36);
+  v61.i32[3] = 0;
+  v112 = v47;
+  v113 = v46;
+  v62 = vmulq_n_f32(v50, v46);
+  v62.i32[3] = 0;
+  v63 = vmulq_n_f32(v51, v47);
+  v63.i32[3] = 0;
+  v64 = vaddq_f32(v54, vaddq_f32(vaddq_f32(v58, v59), v61));
+  v116 = v48;
+  v65 = vmulq_n_f32(v55, v48);
+  v65.i32[3] = 0;
+  v66 = vaddq_f32(v54, vaddq_f32(vaddq_f32(v62, v63), v65));
+  v127 = 0;
+  v67 = vmulq_f32(vaddq_f32(v66, vaddq_f32(v60, v64)), vdupq_n_s32(0x3EAAAA9Fu));
+  v67.i32[3] = 0;
+  v124 = v67;
+  v128 = v60;
+  v129 = v64;
+  v130 = v66;
+  v125 = 0x7F7FFFFF00000000;
+  v126 = 0x57F7FFFFFLL;
+  v123[1] = &v124;
+  v122[1] = a1 + 64;
+  v123[0] = &unk_1F5D21A20;
+  v122[0] = &unk_1F5D21818;
+  v121 = vsubq_f32(v67, *(a1 + 64));
+  v134 = 0u;
+  v135 = 0u;
+  v133 = 0;
+  if (!physx::Gu::gjkRaycast<physx::Gu::LocalConvex<physx::Gu::TriangleV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(v123, v122, &v121, a7, &v131, &v132, (a1 + 416), &v133, &v134, &v135))
+  {
+    return 1;
+  }
+
+  if (*&v131 >= v133.f32[0])
+  {
+    *(a1 + 15) = 1;
+    *(a1 + 360) = v49;
+    *(a1 + 364) = 1026;
+    v109 = -*(a1 + 440);
+    *(a1 + 380) = vneg_f32(*(a1 + 432));
+    *(a1 + 388) = v109;
+    *(a1 + 392) = 0;
+    v68.i32[0] = 0;
+    v70 = v119;
+    v69 = v120;
+    v72 = v117;
+    v71 = v118;
+    v104 = v115;
+    v73 = v116;
+    v105 = v113;
+  }
+
+  else
+  {
+    v68 = vmul_f32(v133, *(a1 + 400));
+    v70 = v119;
+    v69 = v120;
+    v72 = v117;
+    v71 = v118;
+    v73 = v116;
+    if ((vcgt_f32(vdup_lane_s32(v111, 0), v68).u8[0] & 1) == 0)
+    {
+      return 1;
+    }
+
+    v74 = v134;
+    v75 = v135;
+    v77 = *(a1 + 304);
+    v76 = *(a1 + 320);
+    v78 = v77;
+    v78.i32[3] = 0;
+    v79 = vdupq_laneq_s32(v77, 3).u64[0];
+    *(a1 + 360) = v49;
+    LODWORD(v80) = vmla_f32(0xBF000000BF000000, v79, v79).u32[0];
+    v81 = vmulq_n_f32(v75, v80);
+    v81.i32[3] = 0;
+    v82 = vextq_s8(v78, v78, 8uLL).u64[0];
+    v83 = vext_s8(*v77.f32, v82, 4uLL);
+    v84 = vmls_f32(vmul_f32(*&vextq_s8(v75, v75, 4uLL), *v77.f32), v83, *v75.i8);
+    *v85.f32 = vext_s8(v84, vmls_f32(vmul_f32(*v75.i8, v82), *v77.f32, *&vextq_s8(v75, v75, 8uLL)), 4uLL);
+    v85.i64[1] = v84.u32[0];
+    v86 = vmlaq_laneq_f32(v81, v85, v77, 3);
+    v86.i64[1] = vextq_s8(v86, v86, 8uLL).u32[0];
+    v87 = vmulq_f32(v75, v78);
+    v87.i64[0] = vpaddq_f32(v87, v87).u64[0];
+    v88 = vmlaq_n_f32(v86, v78, vpadd_f32(*v87.f32, *v87.f32).f32[0]);
+    v89 = vextq_s8(v88, v88, 8uLL).u32[0];
+    v90 = vmulq_n_f32(v74, v80);
+    v90.i32[3] = 0;
+    v91 = vmls_f32(vmul_f32(*&vextq_s8(v74, v74, 4uLL), *v77.f32), v83, *v74.i8);
+    *v92.f32 = vext_s8(v91, vmls_f32(vmul_f32(*v74.i8, v82), *v77.f32, *&vextq_s8(v74, v74, 8uLL)), 4uLL);
+    v92.i64[1] = v91.u32[0];
+    v93 = vmlaq_laneq_f32(v90, v92, v77, 3);
+    v93.i64[1] = vextq_s8(v93, v93, 8uLL).u32[0];
+    v94 = vmulq_f32(v74, v78);
+    v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+    v95 = vmlaq_n_f32(v93, v78, vpadd_f32(*v94.f32, *v94.f32).f32[0]);
+    v96 = vaddq_f32(v95, v95);
+    v96.i32[3] = 0;
+    *(a1 + 364) = 1027;
+    v97 = vmulq_f32(v96, v96);
+    v97.i64[0] = vpaddq_f32(v97, v97).u64[0];
+    v98 = vpadd_f32(*v97.f32, *v97.f32);
+    v99 = vrsqrte_f32(v98);
+    v100 = 4;
+    do
+    {
+      v99 = vmul_f32(v99, vrsqrts_f32(vmul_f32(v99, v99), v98));
+      --v100;
+    }
+
+    while (v100);
+    v101 = vbsl_s8(vdup_lane_s32(vceqz_f32(v98), 0), v98, vmul_f32(v98, v99));
+    v102 = vrecpe_f32(v101);
+    v103 = 4;
+    v104 = v115;
+    v105 = v113;
+    do
+    {
+      v102 = vmul_f32(v102, vrecps_f32(v101, v102));
+      --v103;
+    }
+
+    while (v103);
+    v88.i64[1] = v89;
+    v106.i64[0] = 0x4000000040000000;
+    v106.i64[1] = 0x4000000040000000;
+    v107 = vmlaq_f32(v76, v106, v88);
+    v108 = vmulq_n_f32(v96, v102.f32[0]);
+    v107.i32[3] = v108.i32[0];
+    *(a1 + 368) = v107;
+    *(a1 + 384) = vextq_s8(v108, v108, 4uLL).u64[0];
+    *(a1 + 392) = v68.i32[0];
+  }
+
+  *(a1 + 14) = 1;
+  *a6 = v68.f32[0] * *(a1 + 20);
+  *(a1 + 24) = v69;
+  *(a1 + 28) = v70;
+  *(a1 + 32) = v71;
+  *(a1 + 36) = v104;
+  *(a1 + 40) = v114;
+  *(a1 + 44) = v72;
+  *(a1 + 48) = v105;
+  *(a1 + 52) = v112;
+  *(a1 + 56) = v73;
+  return (*(a1 + 460) & 1) == 0 && *(a1 + 392) != 0.0;
+}
+
+uint64_t sweepConvex_MeshGeom(uint64_t a1, int8x8_t *a2, uint64_t a3, int8x16_t *a4, float32x2_t *a5, uint64_t a6, unsigned __int16 *a7, double a8, double a9)
+{
+  v304 = *MEMORY[0x1E69E9840];
+  v15 = *(a3 + 4) == 1.0 && *(a3 + 8) == 1.0 && *(a3 + 12) == 1.0;
+  v16 = *(a1 + 4) == 1.0 && *(a1 + 8) == 1.0 && *(a1 + 12) == 1.0;
+  v17 = *(a3 + 32);
+  v223 = *(a1 + 40);
+  *v248 = xmmword_1E3047670;
+  *&v248[16] = xmmword_1E3047670;
+  v18 = xmmword_1E3060D60;
+  v249 = xmmword_1E3060D60;
+  v250 = xmmword_1E3047680;
+  v251 = 0x3F80000000000000;
+  v252 = 0;
+  if (!v15)
+  {
+    physx::Cm::FastVertex2ShapeScaling::init(v248, (a3 + 4), (a3 + 16));
+    v18 = xmmword_1E3060D60;
+  }
+
+  v244[0] = xmmword_1E3047670;
+  v244[1] = xmmword_1E3047670;
+  v245 = v18;
+  *v246 = xmmword_1E3047680;
+  *&v246[16] = 0x3F80000000000000;
+  v247 = 0;
+  if (!v16)
+  {
+    physx::Cm::FastVertex2ShapeScaling::init(v244, (a1 + 4), (a1 + 16));
+  }
+
+  v19 = *(v17 + 32);
+  v20 = *(v17 + 36);
+  v21 = *(v17 + 40);
+  v22 = ((v19 * *&v248[8]) + (v20 * *&v248[20])) + (v21 * *&v249);
+  v23 = *(v17 + 44);
+  v24 = *(v17 + 48);
+  v25 = *(v17 + 52);
+  v26 = (fabsf(*&v248[8] * v23) + fabsf(*&v248[20] * v24)) + fabsf(*&v249 * v25);
+  v27 = v22 - v26;
+  v28 = v22 + v26;
+  v29 = vadd_f32(vadd_f32(vmul_n_f32(*v248, v19), vmul_n_f32(*&v248[12], v20)), vmul_n_f32(*&v248[24], v21));
+  v30 = vadd_f32(vadd_f32(vabs_f32(vmul_n_f32(*v248, v23)), vabs_f32(vmul_n_f32(*&v248[12], v24))), vabs_f32(vmul_n_f32(*&v248[24], v25)));
+  v240 = vsub_f32(v29, v30);
+  v241 = v27;
+  v242 = vadd_f32(v29, v30);
+  v243 = v28;
+  v29.i32[0] = a4->i32[0];
+  v31 = *&a4->i32[1];
+  v32 = *&a4->i32[2];
+  v30.i32[0] = a4->i32[3];
+  v33 = v31 + v31;
+  v34 = v32 + v32;
+  v35 = v31 * (v31 + v31);
+  v36 = v32 * (v32 + v32);
+  v37 = (v29.f32[0] + v29.f32[0]) * v31;
+  v38 = (v29.f32[0] + v29.f32[0]) * v32;
+  v39 = (v29.f32[0] + v29.f32[0]) * v30.f32[0];
+  v40 = v33 * v32;
+  v41 = v33 * v30.f32[0];
+  v30.f32[0] = v34 * v30.f32[0];
+  *&v253 = (1.0 - v35) - v36;
+  *(&v253 + 1) = v37 + v30.f32[0];
+  v29.f32[0] = 1.0 - (v29.f32[0] * (v29.f32[0] + v29.f32[0]));
+  *&v254 = v38 - v41;
+  v255 = v37 - v30.f32[0];
+  v256 = v29.f32[0] - v36;
+  v257 = v40 + v39;
+  v258 = v38 + v41;
+  v259 = v40 - v39;
+  v261 = a4[1].i64[0];
+  v42 = a4[1].i32[2];
+  v260 = v29.f32[0] - v35;
+  v262 = *&v42;
+  v29.i32[0] = a2->i32[0];
+  v43 = *&a2->i32[1];
+  v44 = *a2[1].i32;
+  v30.i32[0] = a2[1].i32[1];
+  v45 = v43 + v43;
+  v46 = v44 + v44;
+  v47 = v43 * (v43 + v43);
+  v48 = v44 * (v44 + v44);
+  v49 = (v29.f32[0] + v29.f32[0]) * v43;
+  v50 = (v29.f32[0] + v29.f32[0]) * v44;
+  v51 = (v29.f32[0] + v29.f32[0]) * v30.f32[0];
+  v52 = v45 * v44;
+  v53 = v45 * v30.f32[0];
+  v30.f32[0] = v46 * v30.f32[0];
+  v227.f32[0] = (1.0 - v47) - v48;
+  v227.f32[1] = v49 + v30.f32[0];
+  v29.f32[0] = 1.0 - (v29.f32[0] * (v29.f32[0] + v29.f32[0]));
+  v228 = v50 - v53;
+  v229 = v49 - v30.f32[0];
+  v230 = v29.f32[0] - v48;
+  v231 = v52 + v51;
+  v232 = v50 + v53;
+  v233 = v52 - v51;
+  v234 = v29.f32[0] - v47;
+  v235 = a2[2];
+  v236 = a2[3].i32[0];
+  physx::Gu::computeHullOBB(v237, &v240, &v253, &v227, v244, v16, 0.0);
+  v238 = vadd_f32(v238, vdup_lane_s32(*&a9, 0));
+  v239 = v239 + *&a9;
+  v54 = *a5;
+  LODWORD(v55) = HIDWORD(*a5);
+  v56 = a5[1].f32[0];
+  v58 = *a2[1].i32;
+  v57 = *&a2[1].i32[1];
+  v59 = (v57 * v57) + -0.5;
+  v60 = *a2->i32;
+  v61 = *&a2->i32[1];
+  v62 = (((v55 + v55) * v61) + (*a2->i32 * (v54.f32[0] + v54.f32[0]))) + (v58 * (v56 + v56));
+  v63 = -*a2->i32;
+  v68.f32[0] = ((((v54.f32[0] + v54.f32[0]) * v59) - (((v61 * (v56 + v56)) - (v58 * (v55 + v55))) * v57)) + (*a2->i32 * v62)) * *&a8;
+  v64 = ((((v55 + v55) * v59) - (((v58 * (v54.f32[0] + v54.f32[0])) - (*a2->i32 * (v56 + v56))) * v57)) + (v61 * v62)) * *&a8;
+  v65 = ((((v56 + v56) * v59) - (((*a2->i32 * (v55 + v55)) - (v61 * (v54.f32[0] + v54.f32[0]))) * v57)) + (v58 * v62)) * *&a8;
+  v66 = (*(&v245 + 3) * v68.f32[0]) + (v64 * *&v246[8]);
+  v67 = vadd_f32(vadd_f32(vmul_n_f32(*(&v245 + 4), v68.f32[0]), vmul_n_f32(*v246, v64)), vmul_n_f32(*&v246[12], v65));
+  v68.f32[0] = v66 + (v65 * *&v246[20]);
+  v227 = v67;
+  v228 = v68.f32[0];
+  v69 = vmul_f32(v67, v67);
+  *v69.i32 = sqrtf((*&v69.i32[1] + (v67.f32[0] * v67.f32[0])) + (v68.f32[0] * v68.f32[0]));
+  if (*v69.i32 > 0.0)
+  {
+    v227 = vmul_n_f32(v67, 1.0 / *v69.i32);
+    v228 = v68.f32[0] * (1.0 / *v69.i32);
+  }
+
+  v70 = 0;
+  if (v16)
+  {
+    v71 = 1.0;
+  }
+
+  else
+  {
+    v71 = *v69.i32 / *&a8;
+  }
+
+  v72 = *a7;
+  v221 = *(a1 + 32);
+  v73 = *a7 & 0x80 | v221 & 2;
+  *v68.f32 = vneg_f32(v54);
+  v254 = 2;
+  LODWORD(v255) = v72;
+  LOBYTE(v256) = v247;
+  v257 = v71;
+  v253 = &unk_1F5D227C0;
+  v266 = 0u;
+  v267 = 0u;
+  v268 = 0;
+  v285 = v244;
+  v286 = 0uLL;
+  v288 = 0;
+  v291 = 0;
+  v289 = 0;
+  v290 = 0;
+  v296 = v68.i64[0];
+  v297 = -v56;
+  v301 = LODWORD(a9);
+  v302 = (v72 & 0x40) != 0;
+  v303 = v73 != 0;
+  v292 = LODWORD(a8);
+  v287 = -1;
+  v74 = v54.f32[0] * -2.0;
+  v75 = v55 * -2.0;
+  v76 = v56 * -2.0;
+  v77 = ((v75 * v61) + (v60 * v74)) + (v58 * v76);
+  v298 = ((v74 * v59) - (((v75 * -v58) + (v61 * v76)) * v57)) + (v60 * v77);
+  v299 = ((v75 * v59) - (((v76 * v63) + (v58 * v74)) * v57)) + (v61 * v77);
+  v300 = ((v76 * v59) - (((v74 * -v61) + (v60 * v75)) * v57)) + (v58 * v77);
+  v68.f32[2] = v297;
+  *v78.f32 = a2[2];
+  v78.i64[1] = a2[3].u32[0];
+  v79 = *a4;
+  v80.i64[0] = a4[1].i64[0];
+  v80.i64[1] = a4[1].u32[2];
+  v81 = vnegq_f32(*a4);
+  v82 = vdupq_laneq_s32(*a4, 3).u64[0];
+  v83 = v81;
+  v83.i32[3] = 0;
+  v84 = vsubq_f32(v78, v80);
+  v78.i32[0] = vmla_f32(0xBF000000BF000000, v82, v82).u32[0];
+  v85 = vmulq_n_f32(v84, v78.f32[0]);
+  v85.i32[3] = 0;
+  v86 = vextq_s8(v83, v83, 8uLL).u64[0];
+  v87 = vext_s8(*v81.f32, v86, 4uLL);
+  v88 = vmls_f32(vmul_f32(*v81.f32, *&vextq_s8(v84, v84, 4uLL)), v87, *v84.i8);
+  *v89.f32 = vext_s8(v88, vmls_f32(vmul_f32(v86, *v84.i8), *v81.f32, *&vextq_s8(v84, v84, 8uLL)), 4uLL);
+  v89.i64[1] = v88.u32[0];
+  v90 = vmlaq_laneq_f32(v85, v89, *a4, 3);
+  v90.i64[1] = vextq_s8(v90, v90, 8uLL).u32[0];
+  v91 = vmulq_f32(v83, v84);
+  v91.i64[0] = vpaddq_f32(v91, v91).u64[0];
+  v92 = vmlaq_n_f32(v90, v83, vpadd_f32(*v91.f32, *v91.f32).f32[0]);
+  v93 = vaddq_f32(v92, v92);
+  v93.i32[3] = 0;
+  v94 = *a2->i8;
+  v94.i32[3] = 0;
+  v95 = vmulq_f32(v94, v83);
+  v95.i64[0] = vpaddq_f32(v95, v95).u64[0];
+  v96 = vsub_f32(vmul_f32(*&vextq_s8(*a2->i8, *a2->i8, 8uLL), *&vextq_s8(v79, v79, 8uLL)), vpadd_f32(*v95.f32, *v95.f32));
+  v97 = vmulq_laneq_f32(v94, *a4, 3);
+  v94.i64[0] = vextq_s8(v94, v94, 8uLL).u64[0];
+  v98 = vmls_f32(vmul_f32(vext_s8(*a2, *v94.i8, 4uLL), *v81.f32), v87, *a2);
+  *v99.f32 = vext_s8(v98, vmls_f32(vmul_f32(*a2, v86), *v81.f32, *v94.i8), 4uLL);
+  *&v99.u32[2] = v98;
+  v100 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v83, *a2->i8, 3), v97), v99);
+  *v81.f32 = vdup_lane_s32(*v100.f32, 1);
+  *v83.i8 = vdup_laneq_s32(v100, 2);
+  v101 = vaddq_f32(v100, v100);
+  v102 = vdup_laneq_s32(v101, 2);
+  v103 = vdup_lane_s32(vmul_f32(*v100.f32, *v101.f32), 0);
+  v104 = vmul_lane_f32(*v81.f32, *v101.f32, 1);
+  v105 = vmul_laneq_f32(*v83.i8, v101, 2);
+  *v81.f32 = vmul_n_f32(*v81.f32, v101.f32[0]);
+  v106 = vmul_n_f32(*v83.i8, v101.f32[0]);
+  v107 = vmul_lane_f32(vdup_lane_s32(*v101.f32, 0), v96, 1);
+  *v83.i8 = vmul_lane_f32(*v83.i8, *v101.f32, 1);
+  *v101.f32 = vmul_lane_f32(vdup_lane_s32(*v101.f32, 1), v96, 1);
+  v108 = vmul_lane_f32(v102, v96, 1);
+  __asm { FMOV            V3.2S, #1.0 }
+
+  *v97.f32 = vsub_f32(_D3, v103);
+  *&v113 = vext_s8(vsub_f32(vsub_f32(_D3, v104), v105), vadd_f32(*v81.f32, v108), 4uLL);
+  *(&v113 + 1) = vsub_f32(v106, *v101.f32).u32[0];
+  *v81.f32 = vext_s8(vsub_f32(*v81.f32, v108), vsub_f32(*v97.f32, v105), 4uLL);
+  v81.i64[1] = vadd_f32(*v83.i8, v107).u32[0];
+  *v83.i8 = vext_s8(vadd_f32(v106, *v101.f32), vsub_f32(*v83.i8, v107), 4uLL);
+  v83.i64[1] = vsub_f32(*v97.f32, v104).u32[0];
+  v279 = v113;
+  v280 = v81;
+  v281 = v83;
+  v282 = v93;
+  v283 = v79;
+  v284 = v80;
+  v114 = vmulq_n_f32(v68, *&a8);
+  v114.i32[3] = 0;
+  v115 = vnegq_f32(v114);
+  v116 = v115;
+  v116.i32[3] = 0;
+  v117 = v79;
+  v117.i32[3] = 0;
+  v118 = vmulq_n_f32(v116, v78.f32[0]);
+  v118.i32[3] = 0;
+  v81.i64[0] = vextq_s8(v117, v117, 8uLL).u64[0];
+  v83.i64[0] = vextq_s8(v116, v116, 8uLL).u64[0];
+  *v101.f32 = vmls_f32(vmul_f32(vext_s8(*v115.f32, *v83.i8, 4uLL), *v79.i8), vext_s8(*v79.i8, *v81.f32, 4uLL), *v115.f32);
+  *v115.f32 = vext_s8(*v101.f32, vmls_f32(vmul_f32(*v115.f32, *v81.f32), *v79.i8, *v83.i8), 4uLL);
+  v115.i64[1] = v101.u32[0];
+  v119 = vmlsq_laneq_f32(v118, v115, v79, 3);
+  v119.i64[1] = vextq_s8(v119, v119, 8uLL).u32[0];
+  v120 = vmulq_f32(v116, v117);
+  v120.i64[0] = vpaddq_f32(v120, v120).u64[0];
+  v121 = vmlaq_n_f32(v119, v117, vpadd_f32(*v120.f32, *v120.f32).f32[0]);
+  v122 = vaddq_f32(v121, v121);
+  v122.i32[3] = 0;
+  v295 = v122;
+  v294 = vdupq_lane_s32(*&a8, 0).u64[0];
+  v123 = *(a3 + 4);
+  v124 = v123;
+  v124.i32[3] = 0;
+  if (v123.f32[0] == 1.0 && v123.f32[1] == 1.0)
+  {
+    v70 = v123.f32[2] == 1.0;
+  }
+
+  v125 = *(a3 + 16);
+  v126 = *(v17 + 72) + 20 * *(v17 + 71);
+  v127.i64[0] = *(v17 + 92);
+  v127.i64[1] = *(v17 + 100);
+  v128 = vmulq_f32(v124, v127);
+  *v128.i8 = vpmin_f32(vdup_laneq_s32(v128, 2), *v128.i8);
+  *v128.i32 = vpmin_f32(*v128.i8, *v128.i8).f32[0];
+  *&v267 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v128.i32);
+  *(&v267 + 2) = 0.025 * *v128.i32;
+  if (v70)
+  {
+    v269 = xmmword_1E3047670;
+    v270 = xmmword_1E3047680;
+    v271 = xmmword_1E30476A0;
+    v272 = xmmword_1E3047670;
+    v273 = xmmword_1E3047680;
+    v274 = xmmword_1E30476A0;
+  }
+
+  else
+  {
+    v129 = vrecpeq_f32(v124);
+    v130 = 4;
+    do
+    {
+      v129 = vmulq_f32(v129, vrecpsq_f32(v129, v124));
+      --v130;
+    }
+
+    while (v130);
+    *v131.f32 = vdup_lane_s32(*v123.f32, 0);
+    v131.i64[1] = v131.u32[0];
+    if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v131, v124)), v69).u32[0] & 0xFFFFFF) != 0)
+    {
+      v138 = vdup_lane_s32(*v125.f32, 1);
+      v139 = vdup_laneq_s32(v125, 2);
+      v140 = vdup_laneq_s32(v125, 3);
+      v141 = vaddq_f32(v125, v125);
+      v142 = vmul_lane_f32(v138, *v141.f32, 1);
+      v143 = vmul_laneq_f32(v139, v141, 2);
+      v144 = vmul_n_f32(v138, v141.f32[0]);
+      v145 = vmul_n_f32(v139, v141.f32[0]);
+      v146 = vmul_n_f32(v140, v141.f32[0]);
+      v147 = vmul_lane_f32(v139, *v141.f32, 1);
+      v148 = vmul_lane_f32(v140, *v141.f32, 1);
+      v149 = vmul_laneq_f32(v140, v141, 2);
+      v150 = vsub_f32(_D3, vdup_lane_s32(vmul_f32(*v125.f32, *v141.f32), 0));
+      v151 = vsub_f32(vsub_f32(_D3, v142), v143);
+      v152 = vadd_f32(v144, v149);
+      *v141.f32 = vsub_f32(v145, v148);
+      v153 = vsub_f32(v144, v149);
+      v154 = vsub_f32(v150, v143);
+      v155 = vadd_f32(v147, v146);
+      v156 = vadd_f32(v145, v148);
+      v157 = vsub_f32(v147, v146);
+      v158 = vext_s8(v156, v157, 4uLL);
+      *v159.f32 = vext_s8(v151, *&vdupq_lane_s32(v153, 1), 4uLL);
+      v159.i64[1] = vdup_lane_s32(v158, 0).u32[0];
+      v160 = vsub_f32(v150, v142);
+      *v161.f32 = vext_s8(*&vdupq_lane_s32(v152, 0), v154, 4uLL);
+      v161.i64[1] = vdup_lane_s32(v158, 1).u32[0];
+      *v162.f32 = vext_s8(*&vdupq_lane_s32(*v141.f32, 0), v155, 4uLL);
+      v162.i64[1] = vdup_lane_s32(v160, 0).u32[0];
+      v163 = vmulq_n_f32(v159, v123.f32[0]);
+      v163.i32[3] = 0;
+      v164 = vmulq_lane_f32(v161, *v123.f32, 1);
+      v164.i32[3] = 0;
+      v165 = vmulq_laneq_f32(v162, v123, 2);
+      v165.i32[3] = 0;
+      v166 = vmulq_lane_f32(v163, v151, 1);
+      v166.i32[3] = 0;
+      v167 = vmulq_n_f32(v164, *v152.i32);
+      v167.i32[3] = 0;
+      v168 = vmulq_n_f32(v165, v141.f32[0]);
+      v168.i32[3] = 0;
+      v132 = vaddq_f32(v168, vaddq_f32(v166, v167));
+      v169 = vmulq_lane_f32(v163, v153, 1);
+      v169.i32[3] = 0;
+      v170 = vmulq_n_f32(v164, *v154.i32);
+      v170.i32[3] = 0;
+      v171 = vmulq_n_f32(v165, *v155.i32);
+      v171.i32[3] = 0;
+      v172 = vaddq_f32(v169, v170);
+      v173 = vmulq_lane_f32(v163, v156, 1);
+      v173.i32[3] = 0;
+      v174 = vmulq_n_f32(v164, *v157.i32);
+      v174.i32[3] = 0;
+      v175 = vmulq_n_f32(v165, *v160.i32);
+      v175.i32[3] = 0;
+      v133 = vaddq_f32(v171, v172);
+      v134 = vaddq_f32(v175, vaddq_f32(v173, v174));
+      v269 = v132;
+      v270 = v133;
+      v271 = v134;
+      v176 = vmulq_n_f32(v159, v129.f32[0]);
+      v176.i32[3] = 0;
+      v177 = vmulq_lane_f32(v161, *v129.f32, 1);
+      v177.i32[3] = 0;
+      v178 = vmulq_laneq_f32(v162, v129, 2);
+      v178.i32[3] = 0;
+      v179 = vmulq_lane_f32(v176, v151, 1);
+      v179.i32[3] = 0;
+      v180 = vmulq_n_f32(v177, *v152.i32);
+      v180.i32[3] = 0;
+      v181 = vmulq_n_f32(v178, v141.f32[0]);
+      v181.i32[3] = 0;
+      v135 = vaddq_f32(v181, vaddq_f32(v179, v180));
+      v182 = vmulq_lane_f32(v176, v153, 1);
+      v182.i32[3] = 0;
+      v183 = vmulq_n_f32(v177, *v154.i32);
+      v183.i32[3] = 0;
+      v184 = vmulq_n_f32(v178, *v155.i32);
+      v184.i32[3] = 0;
+      v185 = vaddq_f32(v182, v183);
+      v186 = vmulq_lane_f32(v176, v156, 1);
+      v186.i32[3] = 0;
+      v187 = vmulq_n_f32(v177, *v157.i32);
+      v187.i32[3] = 0;
+      v136 = vaddq_f32(v184, v185);
+      v188 = vmulq_n_f32(v178, *v160.i32);
+      v188.i32[3] = 0;
+      v137 = vaddq_f32(v188, vaddq_f32(v186, v187));
+    }
+
+    else
+    {
+      v129.i32[3] = 0;
+      v132 = vmulq_f32(v124, xmmword_1E3047670);
+      v133 = vmulq_f32(v124, xmmword_1E3047680);
+      v134 = vmulq_f32(v124, xmmword_1E30476A0);
+      v269 = v132;
+      v270 = v133;
+      v271 = v134;
+      v135 = vmulq_f32(v129, xmmword_1E3047670);
+      v136 = vmulq_f32(v129, xmmword_1E3047680);
+      v137 = vmulq_f32(v129, xmmword_1E30476A0);
+    }
+
+    v272 = v135;
+    v273 = v136;
+    v274 = v137;
+    v189 = vmulq_f32(v132, 0);
+    v189.i32[3] = 0;
+    v190 = vmulq_f32(v133, 0);
+    v190.i32[3] = 0;
+    v191 = vmulq_f32(v134, 0);
+    v191.i32[3] = 0;
+    v266 = vaddq_f32(v191, vaddq_f32(v190, v189));
+  }
+
+  v277 = v126;
+  v278 = *(v17 + 70);
+  v266 = 0uLL;
+  v192 = *(v17 + 80);
+  v276 = v192;
+  v275 = v17 + 32;
+  if (v192)
+  {
+    _X10 = *(v192 + 24);
+    _X9 = *(v192 + 32);
+    __asm
+    {
+      PRFM            #0, [X10]
+      PRFM            #0, [X10,#0x80]
+      PRFM            #0, [X9]
+    }
+  }
+
+  physx::Gu::gMidphaseConvexSweepTable[*(v223 + 8) - 3]();
+  v198 = BYTE2(v255);
+  if (BYTE2(v255) == 1)
+  {
+    if (HIBYTE(v255) == 1)
+    {
+      if ((*a7 & 0x200) != 0)
+      {
+        v217 = physx::Gu::computeConvex_TriangleMeshMTD(a1);
+        *(a6 + 20) = 1026;
+        if (v217)
+        {
+          if (*(a6 + 48) == 0.0)
+          {
+            v218 = -a5[1].f32[0];
+            *(a6 + 36) = vneg_f32(*a5);
+            *(a6 + 44) = v218;
+          }
+
+          *(a6 + 20) = 1027;
+          goto LABEL_48;
+        }
+      }
+
+      else
+      {
+        *(a6 + 20) = 1026;
+      }
+
+      *(a6 + 48) = 0;
+      v219 = -a5[1].f32[0];
+      *(a6 + 36) = vneg_f32(*a5);
+      *(a6 + 44) = v219;
+LABEL_48:
+      *(a6 + 16) = v287;
+      return v198;
+    }
+
+    *a6 = v286;
+    *(a6 + 16) = v287;
+    *(a6 + 20) = v288;
+    *(a6 + 24) = v289;
+    v199 = v290;
+    v200 = v291;
+    v201 = v292;
+    *(a6 + 52) = v293;
+    v202 = -*(&v199 + 1);
+    v203 = -*&v200;
+    v204 = -*(&v200 + 1);
+    *(a6 + 32) = v199;
+    *(a6 + 36) = -*(&v199 + 1);
+    *(a6 + 40) = -*&v200;
+    *(a6 + 44) = -*(&v200 + 1);
+    *(a6 + 48) = v201;
+    v205 = sqrtf(((*&v200 * *&v200) + (*(&v199 + 1) * *(&v199 + 1))) + (*(&v200 + 1) * *(&v200 + 1)));
+    if (v205 > 0.0)
+    {
+      v206 = 1.0 / v205;
+      v202 = v206 * v202;
+      v203 = v206 * v203;
+      *(a6 + 36) = v202;
+      *(a6 + 40) = v203;
+      v204 = v206 * v204;
+      *(a6 + 44) = v204;
+    }
+
+    if ((v221 & 2) == 0 && (v72 & 0x80) != 0)
+    {
+      v207 = ((*(&v261 + 1) - v259) * (v265 - v260)) - ((v262 - v260) * (v264 - v259));
+      v208 = ((v262 - v260) * (v263 - v258)) - ((*&v261 - v258) * (v265 - v260));
+      v209 = ((*&v261 - v258) * (v264 - v259)) - ((*(&v261 + 1) - v259) * (v263 - v258));
+      v210 = v208 + v208;
+      v211 = v209 + v209;
+      v213 = *a2[1].i32;
+      v212 = *&a2[1].i32[1];
+      v214 = (v212 * v212) + -0.5;
+      v215 = *&a2->i32[1];
+      v216 = ((v215 * v210) + (*a2->i32 * (v207 + v207))) + (v213 * v211);
+      if ((((a5->f32[1] * (((v212 * ((v213 * (v207 + v207)) - (*a2->i32 * v211))) + (v210 * v214)) + (v215 * v216))) + ((((v212 * ((v215 * v211) - (v213 * v210))) + ((v207 + v207) * v214)) + (*a2->i32 * v216)) * a5->f32[0])) + ((((v212 * ((*a2->i32 * v210) - (v215 * (v207 + v207)))) + (v211 * v214)) + (v213 * v216)) * a5[1].f32[0])) > 0.0)
+      {
+        *(a6 + 36) = -v202;
+        *(a6 + 40) = -v203;
+        *(a6 + 44) = -v204;
+      }
+    }
+  }
+
+  return v198;
+}
+
+double physx::Gu::TriangleMesh::TriangleMesh(physx::Gu::TriangleMesh *this, physx::GuMeshFactory *a2, physx::Gu::TriangleMeshData *a3)
+{
+  *(this + 4) = physx::gTable[*(a3 + 2)];
+  *(this + 5) = 3;
+  *(this + 6) = 1;
+  *this = &unk_1F5D227E8;
+  *(this + 2) = &unk_1F5D228A8;
+  v3 = *(a3 + 26);
+  *(this + 7) = *(a3 + 4);
+  *(this + 8) = v3;
+  v4 = *(a3 + 14);
+  v5 = *(a3 + 15);
+  *(this + 5) = *(a3 + 3);
+  *(this + 6) = v4;
+  v6 = (*(a3 + 10) + *(a3 + 13)) * 0.5;
+  *(this + 7) = vmul_f32(vadd_f32(*(a3 + 32), *(a3 + 44)), 0x3F0000003F000000);
+  *(this + 16) = v6;
+  v7 = (*(a3 + 13) - *(a3 + 10)) * 0.5;
+  *(this + 68) = vmul_f32(vsub_f32(*(a3 + 44), *(a3 + 32)), 0x3F0000003F000000);
+  *(this + 19) = v7;
+  *(this + 10) = v5;
+  *(this + 22) = *(a3 + 14);
+  *(this + 92) = *(a3 + 12);
+  *(this + 12) = *(a3 + 16);
+  *(this + 104) = *(a3 + 4);
+  *(this + 15) = a2;
+  *(this + 8) = *(a3 + 5);
+  v8 = *(a3 + 17);
+  *(this + 18) = *(a3 + 12);
+  *(this + 19) = v8;
+  *(a3 + 3) = 0;
+  *(a3 + 12) = 0;
+  result = 0.0;
+  *(a3 + 4) = 0u;
+  *(a3 + 5) = 0u;
+  *(a3 + 7) = 0u;
+  *(a3 + 8) = 0u;
+  return result;
+}
+
+void physx::Gu::TriangleMesh::~TriangleMesh(physx::Gu::TriangleMesh *this)
+{
+  *this = &unk_1F5D227E8;
+  *(this + 2) = &unk_1F5D228A8;
+  if (*(this + 10))
+  {
+    if (*(this + 10))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 10) = 0;
+    if (*(this + 13))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 13) = 0;
+    if (*(this + 14))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 14) = 0;
+    if (*(this + 12))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 12) = 0;
+    if (*(this + 6))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 6) = 0;
+    if (*(this + 5))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 5) = 0;
+    if (*(this + 16))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 16) = 0;
+    if (*(this + 17))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 17) = 0;
+    if (*(this + 18))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(this + 18) = 0;
+    v2 = *(this + 19);
+    if (v2)
+    {
+      physx::Gu::BV32Tree::release(*(this + 19));
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v2);
+    }
+  }
+}
+
+uint64_t physx::Gu::TriangleMesh::exportExtraData(uint64_t result, uint64_t a2)
+{
+  v3 = result;
+  if (*(result + 40))
+  {
+    (*(*a2 + 24))(a2, 16);
+    result = (*(*a2 + 16))(a2, *(v3 + 40), (12 * *(v3 + 28)));
+  }
+
+  if (*(v3 + 48))
+  {
+    v4 = *(v3 + 92);
+    (*(*a2 + 24))(a2, 16);
+    if ((v4 & 2) != 0)
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = 2;
+    }
+
+    result = (*(*a2 + 16))(a2, *(v3 + 48), ((3 * *(v3 + 32)) << v5));
+  }
+
+  if (*(v3 + 80))
+  {
+    (*(*a2 + 24))(a2, 16);
+    result = (*(*a2 + 16))(a2, *(v3 + 80), *(v3 + 32));
+  }
+
+  if (*(v3 + 96))
+  {
+    (*(*a2 + 24))(a2, 16);
+    result = (*(*a2 + 16))(a2, *(v3 + 96), (2 * *(v3 + 32)));
+  }
+
+  if (*(v3 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    result = (*(*a2 + 16))(a2, *(v3 + 104), (4 * *(v3 + 32)));
+  }
+
+  if (*(v3 + 112))
+  {
+    (*(*a2 + 24))(a2, 16);
+    v6 = *(v3 + 112);
+    v7 = (12 * *(v3 + 32));
+    v8 = *(*a2 + 16);
+
+    return v8(a2, v6, v7);
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::TriangleMesh::onRefCountZero(physx::Gu::TriangleMesh *this)
+{
+  if (physx::GuMeshFactory::removeTriangleMesh(*(this + 15), this))
+  {
+    v5 = *(this + 4);
+    v6 = *(this + 15);
+    v7 = *this;
+    if (*(this + 5))
+    {
+      result = (*(v7 + 32))(this);
+    }
+
+    else
+    {
+      result = (*(v7 + 24))(this);
+    }
+
+    v10 = *(v6 + 248);
+    if (v10)
+    {
+      v11 = 0;
+      v12 = 8 * v10;
+      do
+      {
+        result = (*(**(*(v6 + 240) + v11) + 16))(*(*(v6 + 240) + v11), this, v5);
+        v11 += 8;
+      }
+
+      while (v12 != v11);
+    }
+  }
+
+  else
+  {
+    v9 = physx::shdfnd::Foundation::mInstance;
+
+    return physx::shdfnd::Foundation::error(v9, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuTriangleMesh.cpp", 208, "Gu::TriangleMesh::release: double deletion detected!", v2, v3, v4);
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::TriangleMesh::release(uint64_t this)
+{
+  if (atomic_fetch_add((this + 24), 0xFFFFFFFF) == 1)
+  {
+    return (*(*(this + 16) + 16))();
   }
 
   return this;
 }
 
-void physx::Cct::ObstacleContext::~ObstacleContext(physx::Cct::ObstacleContext *this)
+float32x2_t physx::Gu::TriangleMesh::refitBVH@<D0>(physx::Gu::TriangleMesh *this@<X0>, uint64_t a2@<X8>, uint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X7>)
 {
-  *this = &unk_1F5D27C50;
-  physx::Cct::HandleManager::SetupLists(this + 5, 0, 0, 0, 0);
-  v2 = *(this + 9);
-  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 3) != 0)
+  physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuTriangleMesh.cpp", 227, "PxTriangleMesh::refitBVH() is only supported for meshes with PxMeshMidPhase::eBVH33.", a3, a4, a5);
+  v7 = *(this + 56);
+  v8 = vextq_s8(v7, v7, 8uLL);
+  v9 = vextq_s8(v7, v8, 0xCuLL);
+  v10 = vaddq_f32(v7, v9);
+  *(v9.i64 + 4) = *(this + 9);
+  v11 = vsubq_f32(v7, v9);
+  v11.i32[3] = v10.i32[3];
+  result = vadd_f32(vext_s8(*v7.i8, *v8.i8, 4uLL), *(this + 72));
+  *a2 = v11;
+  *(a2 + 16) = result;
+  return result;
+}
+
+physx::Gu::BV4TriangleMesh *physx::Gu::BV4TriangleMesh::BV4TriangleMesh(physx::Gu::BV4TriangleMesh *this, physx::GuMeshFactory *a2, physx::Gu::TriangleMeshData *a3)
+{
+  physx::Gu::TriangleMesh::TriangleMesh(this, a2, a3);
+  *v5 = &unk_1F5D228D0;
+  *(v5 + 16) = &unk_1F5D22990;
+  *(v5 + 160) = 0;
+  v6 = v5 + 160;
+  *(v5 + 168) = 0;
+  *(v5 + 176) = 0;
+  *(v5 + 184) = 0;
+  *(v5 + 256) = 0u;
+  *(v5 + 240) = 0u;
+  *(v5 + 270) = 0;
+  *(v5 + 192) = 0u;
+  *(v5 + 220) = 0u;
+  *(v5 + 208) = 0u;
+  v7 = (v5 + 208);
+  *(v5 + 160) = *(a3 + 36);
+  *(v5 + 184) = *(a3 + 42);
+  *(v5 + 192) = *(a3 + 11);
+  *(v5 + 168) = *(a3 + 152);
+  *(a3 + 36) = 0;
+  *(a3 + 19) = 0;
+  *(a3 + 20) = 0;
+  *(a3 + 42) = 0;
+  *(a3 + 22) = 0;
+  *(a3 + 23) = 0;
+  physx::Gu::BV4Tree::operator=(v5 + 208, a3 + 192);
+  *v7 = v6;
+  return this;
+}
+
+uint64_t physx::Gu::BV4TriangleMesh::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  physx::Gu::BV4Tree::exportExtraData(a1 + 208, a2);
+
+  return physx::Gu::TriangleMesh::exportExtraData(a1, a2);
+}
+
+__n128 physx::Gu::RTreeTriangleMesh::RTreeTriangleMesh(physx::Gu::RTreeTriangleMesh *this, physx::GuMeshFactory *a2, physx::Gu::TriangleMeshData *a3)
+{
+  physx::Gu::TriangleMesh::TriangleMesh(this, a2, a3);
+  *v4 = &unk_1F5D229B8;
+  *(v4 + 16) = &unk_1F5D22A78;
+  *(v4 + 244) = 0;
+  *(v4 + 248) = 0;
+  *(v4 + 232) = 0;
+  *(v4 + 224) = 4;
+  *(v4 + 160) = *(a3 + 9);
+  *(v4 + 176) = *(a3 + 10);
+  *(v4 + 192) = *(a3 + 11);
+  *(v4 + 208) = *(a3 + 12);
+  result = *(a3 + 14);
+  *(v4 + 224) = *(a3 + 13);
+  *(v4 + 240) = result;
+  *(a3 + 29) = 0;
+  return result;
+}
+
+uint64_t physx::Gu::RTreeTriangleMesh::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  (*(*a2 + 24))(a2, 128);
+  (*(*a2 + 16))(a2, *(a1 + 248), (112 * *(a1 + 240)));
+
+  return physx::Gu::TriangleMesh::exportExtraData(a1, a2);
+}
+
+float32x2_t physx::Gu::RTreeTriangleMesh::refitBVH@<D0>(physx::Gu::RTreeTriangleMesh *this@<X0>, uint64_t a2@<X8>)
+{
+  if ((*(this + 92) & 2) != 0)
   {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    v4 = &unk_1F5D22BC0;
   }
 
-  v4 = *(this + 5);
-  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 1) != 0)
+  else
   {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    v4 = &unk_1F5D22C10;
+  }
+
+  v14 = v4;
+  v15 = *(this + 40);
+  physx::Gu::RTree::refitAllStaticTree(this + 160, &v14, a2);
+  v5 = *(this + 61);
+  if ((v5 & 2) == 0)
+  {
+    *(this + 61) = v5 | 2;
+    if (*(this + 10))
+    {
+      v6 = (*(*this + 80))(this);
+      if (v6)
+      {
+          ;
+        }
+      }
+    }
+  }
+
+  v8 = vextq_s8(*a2, *a2, 8uLL);
+  v9 = vextq_s8(*a2, v8, 0xCuLL);
+  v10 = vsubq_f32(*a2, v9);
+  *(v9.i64 + 4) = *(a2 + 16);
+  v11 = vaddq_f32(*a2, v9);
+  v11.i32[3] = v10.i32[3];
+  v12 = vsub_f32(*(a2 + 16), vext_s8(*a2, *v8.i8, 4uLL));
+  v8.i64[0] = 0x3F0000003F000000;
+  v8.i64[1] = 0x3F0000003F000000;
+  result = vmul_f32(v12, 0x3F0000003F000000);
+  *(this + 56) = vmulq_f32(v11, v8);
+  *(this + 9) = result;
+  return result;
+}
+
+uint64_t physx::Gu::BV32Tree::release(uint64_t this)
+{
+  v1 = this;
+  if ((*(this + 56) & 1) == 0)
+  {
+    if (*(this + 32))
+    {
+      this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+      *(v1 + 32) = 0;
+    }
+
+    if (*(v1 + 40))
+    {
+      this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    *(v1 + 40) = 0;
+  }
+
+  *(v1 + 32) = 0;
+  *(v1 + 24) = 0;
+  return this;
+}
+
+uint64_t physx::Gu::BV32Tree::load(uint64_t a1, void (***a2)(void, float *, uint64_t), int a3)
+{
+  physx::Gu::BV32Tree::release(a1);
+  v16 = 0;
+  physx::readChunk(&v16 + 3, &v16 + 2, &v16 + 1, &v16, a2);
+  result = 0;
+  if (HIBYTE(v16) == 66 && BYTE2(v16) == 86 && BYTE1(v16) == 51 && v16 == 50)
+  {
+    v17 = 0;
+    (**a2)(a2, &v17, 4);
+    v7 = v17;
+    v8 = 1;
+    if (v17 == 1 || v17 == 0x1000000)
+    {
+      goto LABEL_10;
+    }
+
+    v9 = bswap32(v17);
+    if (a3)
+    {
+      v7 = v9;
+    }
+
+    v8 = a3;
+    if (v7 <= 3)
+    {
+LABEL_10:
+      *(a1 + 8) = physx::readFloat(v8, a2);
+      *(a1 + 12) = physx::readFloat(v8, a2);
+      *(a1 + 16) = physx::readFloat(v8, a2);
+      *(a1 + 20) = physx::readFloat(v8, a2);
+      *(a1 + 52) = physx::readDword(v8, a2);
+      Dword = physx::readDword(v8, a2);
+      *(a1 + 48) = Dword;
+      if (Dword)
+      {
+        v11 = 1168 * Dword;
+        v12 = 0;
+        *(a1 + 40) = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v11, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32.cpp", 167);
+        do
+        {
+          v13 = (*(a1 + 40) + v12);
+          v14 = physx::readDword(v8, a2);
+          v13[288] = v14;
+          physx::readFloatBuffer(v13 + 256, v14, v8, a2);
+          v15 = 4 * v13[288];
+          physx::readFloatBuffer(v13, v15, v8, a2);
+          physx::readFloatBuffer(v13 + 128, v15, v8, a2);
+          v12 += 1168;
+        }
+
+        while (v11 != v12);
+      }
+
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::BV32Tree::calculateLeafNode(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  if ((v2 & 1) == 0)
+  {
+    v3 = (v2 >> 1) & 0x3FF;
+    if (v3)
+    {
+      v4 = result;
+      v5 = 0;
+      v6 = v2 >> 11;
+      v7 = v2 >> 11;
+      v8 = (v2 >> 1) & 0x3FF;
+      do
+      {
+        v5 += *(*(result + 32) + 40 * v7++ + 32) & 1;
+        --v8;
+      }
+
+      while (v8);
+      *(a2 + 12) = v5;
+      do
+      {
+        result = physx::Gu::BV32Tree::calculateLeafNode(v4, *(v4 + 32) + 40 * v6);
+        LODWORD(v6) = v6 + 1;
+        --v3;
+      }
+
+      while (v3);
+    }
+
+    else
+    {
+      *(a2 + 12) = 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Gu::BV32Tree::createSOAformatNode(uint64_t result, uint64_t a2, unint64_t a3, unsigned int a4, _DWORD *a5, _DWORD *a6)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v6 = (a3 >> 1) & 0x3FF;
+  if (v6)
+  {
+    v9 = a4;
+    v10 = result;
+    v11 = 0;
+    v12 = a3 >> 11;
+    v13 = *(result + 32);
+    v14 = (a2 + 1024);
+    v15 = 1024;
+    v16 = a3 >> 11;
+    do
+    {
+      v17 = v13 + 40 * v16;
+      v18 = *(v17 + 8);
+      result = a2 + v11;
+      *result = *v17;
+      *(result + 8) = v18;
+      *(result + 12) = 0;
+      v19 = *(v17 + 24);
+      *(result + 512) = *(v17 + 16);
+      *(result + 520) = v19;
+      *(result + 524) = 0;
+      *(a2 + v15) = *(v17 + 32);
+      v11 += 16;
+      v15 += 4;
+      ++v16;
+    }
+
+    while (16 * ((a3 >> 1) & 0x3FF) != v11);
+    v20 = 0;
+    *(a2 + 1152) = v6;
+    *&v21 = -1;
+    *(&v21 + 1) = -1;
+    v30[6] = v21;
+    v30[7] = v21;
+    v30[4] = v21;
+    v30[5] = v21;
+    v30[2] = v21;
+    v30[3] = v21;
+    v30[0] = v21;
+    v30[1] = v21;
+    memset(v29, 0, sizeof(v29));
+    do
+    {
+      v22 = v13 + 40 * v12;
+      v23 = *(v22 + 32);
+      if ((v23 & 1) == 0)
+      {
+        result = *a5;
+        *a5 = result + ((v23 >> 1) & 0x3FF) - *(v22 + 12);
+        *v14 = *v14 & 0x7FF | ((v20 + a4) << 11);
+        *(v30 + v20) = result;
+        *(v29 + v20++) = v22;
+      }
+
+      ++v14;
+      LODWORD(v12) = v12 + 1;
+      --v6;
+    }
+
+    while (v6);
+    *a6 += v20;
+    if (v20)
+    {
+      v24 = v30;
+      v25 = v29;
+      v26 = v20;
+      do
+      {
+        v28 = *v25++;
+        v27 = v28;
+        LODWORD(v28) = *v24++;
+        result = physx::Gu::BV32Tree::createSOAformatNode(v10, *(v10 + 40) + 1168 * v9++, *(v27 + 32), v28, a5, a6);
+        --v26;
+      }
+
+      while (v26);
+    }
+  }
+
+  else
+  {
+    *(a2 + 1152) = 0;
+  }
+
+  return result;
+}
+
+BOOL physx::Gu::BuildBV32Ex(float32x2_t *this, physx::Gu::BV32Tree *a2, physx::Gu::SourceMesh *a3, float a4)
+{
+  v4 = a3;
+  v8 = *(a2 + 6);
+  v57 = 0;
+  v58 = 0;
+  v59 = 0;
+  v9 = physx::Gu::AABBTree::buildFromMesh(&v57, a2, a3);
+  if (v9)
+  {
+    if (v8)
+    {
+      v10 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * v8, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 509);
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v45[0] = a2;
+    v45[1] = v10;
+    v46 = v4;
+    v47 = 0;
+    v48 = v8;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    *&v60[4] = 0;
+    physx::Gu::AABBTree::walk(BOOL (*)(physx::Gu::AABBTreeNode const*,unsigned int,void *),void *)const::Local::_Walk(v58, &v60[8], &v60[4], gReorderCallback, v45);
+    physx::Gu::SourceMesh::remapTopology(a2, v10);
+    if (v10)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v10);
+    }
+
+    if (*(a2 + 6) > 0x20u)
+    {
+      BuildBV4Internal(physx::Gu::BV4Tree &,physx::Gu::AABBTree const&,physx::Gu::SourceMesh *,float,BOOL)::Local::_Check(*(v58 + 24));
+      LODWORD(v45[0]) = 1;
+      v17 = physx::shdfnd::Foundation::mInstance;
+      if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+      {
+        v18 = "static const char *physx::shdfnd::ReflectionAllocator<BV32Node>::getName() [T = BV32Node]";
+      }
+
+      else
+      {
+        v18 = "<allocation names disabled>";
+      }
+
+      v19 = (*(*(v17 + 24) + 16))(v17 + 24, 1296, v18, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 337);
+      v20 = v19;
+      v21 = 0;
+      v22 = 0uLL;
+      __asm { FMOV            V9.2S, #-1.0 }
+
+      do
+      {
+        v28 = v19 + v21;
+        *(v28 + 40) = 0xFFFFFFFFLL;
+        *(v28 + 8) = 0uLL;
+        *(v28 + 24) = _D9;
+        *(v28 + 32) = -1082130432;
+        v21 += 40;
+      }
+
+      while (v21 != 1280);
+      *(v19 + 1288) = 0;
+      *&v22 = a4;
+      _BuildBV32(&v57, v19, v58, v45, *&v22);
+      v29 = physx::Gu::BV4Tree::init(this, a2, v58);
+      v30 = *(v20 + 1288) + 1;
+      *&v60[8] = v30;
+      v31 = v45[0];
+      v32 = 40 * LODWORD(v45[0]);
+      v33 = physx::shdfnd::Foundation::mInstance;
+      if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance, v29))
+      {
+        v34 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::BV32Data>::getName() [T = physx::Gu::BV32Data]";
+      }
+
+      else
+      {
+        v34 = "<allocation names disabled>";
+      }
+
+      v35 = (*(*(v33 + 24) + 16))(v33 + 24, v32, v34, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 419);
+      v36 = v35;
+      v37 = v35 + 2;
+      do
+      {
+        v37[2] = 0xFFFFFFFFLL;
+        *v37[-2].f32 = 0uLL;
+        *v37 = _D9;
+        v37[1].i32[0] = -1082130432;
+        v37 += 5;
+        v32 -= 40;
+      }
+
+      while (v32);
+      v38 = v58;
+      v39 = (*(v38 + 8) + *(v38 + 20)) * 0.5;
+      *v35 = vmul_f32(vadd_f32(*v58, *(v58 + 12)), 0x3F0000003F000000);
+      v35[1].f32[0] = v39;
+      v40 = (*(v38 + 20) - *(v38 + 8)) * 0.5;
+      v35[2] = vmul_f32(vsub_f32(*(v38 + 12), *v38), 0x3F0000003F000000);
+      v35[3].f32[0] = v40;
+      v35[4] = (2 * *(v20 + 1288) + 2048);
+      this[6].i32[1] = v30;
+      *v60 = 0;
+      BuildBV32Internal(physx::Gu::BV32Tree &,physx::Gu::AABBTree const&,physx::Gu::SourceMesh *,float)::Local::_Flatten(v35, 1u, &v60[8], v20, &v60[4], v60);
+      this[3].i32[0] = v31;
+      this[4] = v36;
+      physx::Gu::BV32Tree::calculateLeafNode(this, v36);
+      v41 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 1168 * v31, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 447);
+      this[5] = v41;
+      this[6].i32[0] = v31;
+      v42 = this[4];
+      v43 = *(*&v42 + 32);
+      *&v60[4] = ((v43 >> 1) & 0x3FF) - *(*&v42 + 12) + 1;
+      *&v60[8] = 1;
+      physx::Gu::BV32Tree::createSOAformatNode(this, v41, v43, 1u, &v60[4], &v60[8]);
+      this[6].i32[0] = *&v60[8];
+    }
+
+    else
+    {
+      this[6].i32[0] = 1;
+      v11 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 1168, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 289);
+      this[5] = v11;
+      v11[144].i32[0] = 1;
+      v12 = v58;
+      v13 = *(v58 + 8);
+      v14 = *(v58 + 20);
+      v15 = *v58;
+      v16 = *(v58 + 12);
+      *v11 = vmul_f32(vadd_f32(*v58, v16), 0x3F0000003F000000);
+      v11[1].f32[0] = (v13 + v14) * 0.5;
+      v11[1].i32[1] = 0;
+      v11[64] = vmul_f32(vsub_f32(v16, v15), 0x3F0000003F000000);
+      v11[65].f32[0] = (v14 - v13) * 0.5;
+      v11[65].i32[1] = 0;
+      v11[128].i32[0] = (2 * *(a2 + 6)) | 1;
+      physx::Gu::BV4Tree::init(this, a2, v12);
+    }
+  }
+
+  physx::Gu::AABBTree::release(&v57);
+  return v9;
+}
+
+uint64_t gReorderCallback(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(a1 + 24))
+  {
+    v3 = *(a1 + 40);
+    ++*(a3 + 4 * (v3 - 1) + 28);
+    if (v3)
+    {
+      v4 = *(a1 + 32);
+      v5 = *(a3 + 8);
+      v6 = *(a3 + 20);
+      do
+      {
+        *(v5 + 4 * v6) = *v4;
+        v7 = *(a3 + 20);
+        *v4++ = v7;
+        v6 = v7 + 1;
+        *(a3 + 20) = v6;
+        --v3;
+      }
+
+      while (v3);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t physx::Gu::pcmContactBoxBox(_DWORD *a1, _DWORD *a2, float32x4_t *a3, float32x4_t *a4, int32x2_t *a5, float32x4_t **a6, int32x4_t *a7)
+{
+  v634 = *MEMORY[0x1E69E9840];
+  _X20 = *a6;
+  __asm { PRFM            #0, [X20,#0x100] }
+
+  v16 = vdup_lane_s32(*a5, 0);
+  v8.i32[0] = a1[1];
+  v17 = v8;
+  v17.i32[1] = a1[2];
+  v18 = v17;
+  v18.i32[2] = a1[3];
+  v7.i32[0] = a2[1];
+  v581 = *v7.f32;
+  v7.i32[1] = a2[2];
+  v19 = v7;
+  v19.i32[2] = a2[3];
+  v20.i64[0] = a3[1].i64[0];
+  v20.i32[2] = a3[1].i32[2];
+  v621 = v16;
+  v20.i64[1] = v20.u32[2];
+  v21 = *a4;
+  v22.i64[0] = a4[1].i64[0];
+  v22.i64[1] = a4[1].u32[2];
+  v23 = vnegq_f32(*a4);
+  v24 = vsubq_f32(v20, v22);
+  v25 = v23;
+  v25.i32[3] = 0;
+  v26 = vdupq_laneq_s32(*a4, 3);
+  LODWORD(v27) = vmla_f32(0xBF000000BF000000, *v26.f32, *v26.f32).u32[0];
+  v28 = vmulq_n_f32(v24, v27);
+  v28.i32[3] = 0;
+  v29 = vextq_s8(v25, v25, 8uLL).u64[0];
+  v30 = vext_s8(*v23.f32, v29, 4uLL);
+  v31 = vmls_f32(vmul_f32(*v23.f32, *&vextq_s8(v24, v24, 4uLL)), v30, *v24.i8);
+  *v32.f32 = vext_s8(v31, vmls_f32(vmul_f32(v29, *v24.i8), *v23.f32, *&vextq_s8(v24, v24, 8uLL)), 4uLL);
+  v32.i64[1] = v31.u32[0];
+  v33 = vmlaq_laneq_f32(v28, v32, *a4, 3);
+  v33.i64[1] = vextq_s8(v33, v33, 8uLL).u32[0];
+  v34 = vmulq_f32(v25, v24);
+  v34.i64[0] = vpaddq_f32(v34, v34).u64[0];
+  v35 = vmlaq_n_f32(v33, v25, vpadd_f32(*v34.f32, *v34.f32).f32[0]);
+  v36 = vaddq_f32(v35, v35);
+  v36.i32[3] = 0;
+  v37 = *a3;
+  v38 = *a3;
+  v38.i32[3] = 0;
+  v39 = vdupq_laneq_s32(*a3, 3).u64[0];
+  v40 = vmulq_f32(v38, v25);
+  v40.i64[0] = vpaddq_f32(v40, v40).u64[0];
+  v41 = vmulq_laneq_f32(v38, *a4, 3);
+  v38.i64[0] = vextq_s8(v38, v38, 8uLL).u64[0];
+  v42 = vmls_f32(vmul_f32(vext_s8(*a3->f32, *v38.i8, 4uLL), *v23.f32), v30, *a3->f32);
+  *v23.f32 = vext_s8(v42, vmls_f32(vmul_f32(*a3->f32, v29), *v23.f32, *v38.i8), 4uLL);
+  *&v23.u32[2] = v42;
+  v43 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v25, *a3, 3), v41), v23);
+  *v25.i8 = vdup_lane_s32(*v43.f32, 1);
+  *v38.i8 = vdup_laneq_s32(v43, 2);
+  v44 = vaddq_f32(v43, v43);
+  v45 = vsub_f32(vmul_laneq_f32(v39, *a4, 3), vpadd_f32(*v40.f32, *v40.f32));
+  *v35.f32 = vdup_lane_s32(*v44.f32, 1);
+  *v41.f32 = vdup_laneq_s32(v44, 2);
+  v46 = vdup_lane_s32(vmul_f32(*v43.f32, *v44.f32), 0);
+  v47 = vmul_lane_f32(*v25.i8, *v44.f32, 1);
+  v48 = vmul_laneq_f32(*v38.i8, v44, 2);
+  v49 = vmul_n_f32(*v25.i8, v44.f32[0]);
+  v50 = vmul_n_f32(*v38.i8, v44.f32[0]);
+  *v40.f32 = vmul_lane_f32(vdup_lane_s32(*v44.f32, 0), v45, 1);
+  *v44.f32 = vmul_lane_f32(*v38.i8, *v44.f32, 1);
+  *v35.f32 = vmul_lane_f32(*v35.f32, v45, 1);
+  *v38.i8 = vmul_lane_f32(*v41.f32, v45, 1);
+  __asm { FMOV            V13.2S, #1.0 }
+
+  *v41.f32 = vsub_f32(_D13, v46);
+  *v52.f32 = vext_s8(vsub_f32(vsub_f32(_D13, v47), v48), vadd_f32(v49, *v38.i8), 4uLL);
+  v52.i64[1] = vsub_f32(v50, *v35.f32).u32[0];
+  *v53.f32 = vext_s8(vsub_f32(v49, *v38.i8), vsub_f32(*v41.f32, v48), 4uLL);
+  v53.i64[1] = vadd_f32(*v44.f32, *v40.f32).u32[0];
+  v620[0] = *a4;
+  v620[1] = v22;
+  v616 = v52;
+  v617 = v53;
+  *v44.f32 = vsub_f32(*v44.f32, *v40.f32);
+  v40.i64[0] = vsub_f32(*v41.f32, v47).u32[0];
+  *v54.f32 = vext_s8(vadd_f32(v50, *v35.f32), *v44.f32, 4uLL);
+  v54.i64[1] = v40.u32[0];
+  v619 = v36;
+  v618 = v54;
+  v40.i32[0] = a5[1].i32[0];
+  v578 = *v17.f32;
+  v585 = vdup_laneq_s32(v18, 2);
+  *v44.f32 = vpmin_f32(v585, *v17.f32);
+  *v41.f32 = vpmin_f32(*v44.f32, *v44.f32);
+  v566 = *v40.i64;
+  v44.f32[0] = v40.f32[0] * 0.15;
+  *v44.f32 = vdup_lane_s32(*v44.f32, 0);
+  *v40.f32 = vdup_n_s32(0x3E19999Au);
+  v564 = v41.f32[0];
+  v583 = vdup_laneq_s32(v19, 2);
+  v55 = vpmin_f32(v583, *v7.f32);
+  v56 = vpmin_f32(v55, v55);
+  v565 = v56.f32[0];
+  v57 = vmin_f32(vmin_f32(vmul_f32(*v41.f32, *v40.f32), *v44.f32), vmin_f32(vmul_f32(v56, *v40.f32), *v44.f32));
+  v58 = *(_X20 + 64);
+  if (*(_X20 + 64))
+  {
+    v59 = vmul_f32(v57, vdup_n_s32(0x3F4CCCCDu));
+    v60 = vmul_f32(v59, v59);
+    v61 = 48 * v58;
+    do
+    {
+      v62 = *(_X20 + 80);
+      v63 = (v62 + v61 - 48);
+      v64 = vmulq_n_f32(v52, COERCE_FLOAT(*v63));
+      v64.i32[3] = 0;
+      v65 = vmulq_lane_f32(v53, *v63->f32, 1);
+      v65.i32[3] = 0;
+      v66 = vmulq_laneq_f32(v54, *v63, 2);
+      v66.i32[3] = 0;
+      v67 = vaddq_f32(v36, vaddq_f32(v66, vaddq_f32(v64, v65)));
+      v69 = *(v62 + v61 - 32);
+      v68 = *(v62 + v61 - 16);
+      v70 = v68;
+      v70.i32[3] = 0;
+      v71 = vmulq_f32(v70, vsubq_f32(v67, v69));
+      v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+      v72 = vpadd_f32(*v71.f32, *v71.f32);
+      v73 = vmlsq_lane_f32(v67, v70, v72, 0);
+      v73.i64[1] = vextq_s8(v73, v73, 8uLL).u32[0];
+      v74 = vsubq_f32(v69, v73);
+      v75 = vmulq_f32(v74, v74);
+      v75.i64[0] = vpaddq_f32(v75, v75).u64[0];
+      if (vuzp1_s8(vdup_lane_s16(vcgt_f32(vpadd_f32(*v75.f32, *v75.f32), v60), 0), v45).u32[0] == -1)
+      {
+        v76 = *(_X20 + 64) - 1;
+        *(_X20 + 64) = v76;
+        v77 = (v62 + 48 * v76);
+        v78 = *v77;
+        v79 = v77[2];
+        v63[1] = v77[1];
+        v63[2] = v79;
+        *v63 = v78;
+      }
+
+      else
+      {
+        v68.i32[3] = v72.i32[1];
+        *(v62 + v61 - 16) = v68;
+      }
+
+      v61 -= 48;
+    }
+
+    while (v61);
+    v80 = *(_X20 + 64);
+  }
+
+  else
+  {
+    v80 = 0;
+  }
+
+  v576 = v16;
+  v43.i32[3] = v45.i32[1];
+  v574 = v43;
+  v567 = v18;
+  v81 = vmulq_f32(v18, v18);
+  v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
+  v82 = vpadd_f32(*v81.f32, *v81.f32);
+  v83 = vrsqrte_f32(v82);
+  v84 = 4;
+  do
+  {
+    v83 = vmul_f32(v83, vrsqrts_f32(vmul_f32(v83, v83), v82));
+    --v84;
+  }
+
+  while (v84);
+  v85 = vmulq_f32(v19, v19);
+  v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+  v86 = vpadd_f32(*v85.f32, *v85.f32);
+  v87 = vrsqrte_f32(v86);
+  v88 = 4;
+  do
+  {
+    v87 = vmul_f32(v87, vrsqrts_f32(vmul_f32(v87, v87), v86));
+    --v88;
+  }
+
+  while (v88);
+  v568 = v22;
+  v570 = *v8.f32;
+  v572 = *v7.f32;
+  if (v80 != v58)
+  {
+    goto LABEL_38;
+  }
+
+  v89 = vmul_n_f32(v57, physx::Gu::invalidateThresholds[v58]);
+  v90 = vabdq_f32(v36, *(_X20 + 16));
+  *v90.i8 = vpmax_f32(*&vextq_s8(v90, v90, 8uLL), *v90.i8);
+  v91 = (&physx::Gu::invalidateQuatThresholds + 4 * v58);
+  v92 = vld1_dup_f32(v91);
+  v93 = vpmax_f32(*v90.i8, *v90.i8);
+  v94 = vmulq_f32(v37, *(_X20 + 32));
+  v94.i64[0] = vpaddq_f32(v94, v94).u64[0];
+  v95 = vpadd_f32(*v94.f32, *v94.f32);
+  v96 = vmulq_f32(v21, *(_X20 + 48));
+  v96.i64[0] = vpaddq_f32(v96, v96).u64[0];
+  v97 = vpadd_f32(*v96.f32, *v96.f32);
+  if (vuzp1_s8(vdup_lane_s16(vorr_s8(vorr_s8(vcgt_f32(v92, v95), vcgt_f32(v92, v97)), vcgt_f32(v93, v89)), 0), v82).u32[0] == -1)
+  {
+    goto LABEL_38;
+  }
+
+  v554 = v37;
+  v556 = v26;
+  v560 = v19;
+  v562 = v20;
+  v98 = vbsl_s8(vdup_lane_s32(vceqz_f32(v82), 0), v82, vmul_f32(v82, v83));
+  v99 = vmul_f32(v86, v87);
+  v100 = vdup_lane_s32(vceqz_f32(v86), 0);
+  v101 = 0.0;
+  v102 = 0.0;
+  v558 = v21;
+  v550 = v27;
+  v552 = v36;
+  v548 = v39;
+  if (v95.f32[0] < 1.0)
+  {
+    v103 = -1.0;
+    if (v95.f32[0] >= -1.0)
+    {
+      v103 = v95.f32[0];
+    }
+
+    if (v103 > 1.0)
+    {
+      v103 = 1.0;
+    }
+
+    v104 = v57;
+    v105 = v89;
+    v546 = v97.i32[0];
+    v106 = v98;
+    v102 = acosf(v103);
+    v101 = 0.0;
+    v98 = v106;
+    v97.i32[0] = v546;
+    v39 = v548;
+    v89 = v105;
+    v27 = v550;
+    v36 = v552;
+    v26 = v556;
+    v21 = v558;
+    v22 = v568;
+    *v8.f32 = v570;
+    v57 = v104;
+  }
+
+  v107 = vbsl_s8(v100, v86, v99);
+  v108 = vmul_n_f32(v98, v102);
+  if (v97.f32[0] < 1.0)
+  {
+    v109 = -1.0;
+    if (v97.f32[0] >= -1.0)
+    {
+      v109 = v97.f32[0];
+    }
+
+    if (v109 > 1.0)
+    {
+      v109 = 1.0;
+    }
+
+    v110 = v57;
+    v111 = v89;
+    v112 = acosf(v109);
+    v89 = v111;
+    v39 = v548;
+    v27 = v550;
+    v36 = v552;
+    v26 = v556;
+    v21 = v558;
+    v22 = v568;
+    *v8.f32 = v570;
+    v57 = v110;
+    v101 = v112;
+  }
+
+  v113 = vdup_lane_s16(vcgt_f32(vmaxnm_f32(vmul_n_f32(v107, v101), v108), v89), 0);
+  v19 = v560;
+  v20 = v562;
+  *v7.f32 = v572;
+  v37 = v554;
+  if (vuzp1_s8(v113, v113).u32[0] == -1)
+  {
+LABEL_38:
+    v538 = v57;
+    v139 = vdup_lane_s32(*v37.f32, 1);
+    v140 = vdup_laneq_s32(v37, 2);
+    v141 = vaddq_f32(v37, v37);
+    v142 = vdup_lane_s32(vmul_f32(*v37.f32, *v141.f32), 0);
+    v143 = vmul_lane_f32(v139, *v141.f32, 1);
+    v144 = vmul_laneq_f32(v140, v141, 2);
+    v145 = vmul_n_f32(v139, v141.f32[0]);
+    v146 = vmul_n_f32(v140, v141.f32[0]);
+    v147 = vmul_n_f32(v39, v141.f32[0]);
+    v148 = vmul_lane_f32(v140, *v141.f32, 1);
+    v149 = vmul_lane_f32(v39, *v141.f32, 1);
+    *v141.f32 = vmul_laneq_f32(v39, v141, 2);
+    v150 = vsub_f32(_D13, v142);
+    v151 = vsub_f32(vsub_f32(_D13, v143), v144);
+    v152 = vadd_f32(v145, *v141.f32);
+    v153 = v36;
+    v154 = vsub_f32(v146, v149).u32[0];
+    v155 = vsub_f32(v145, *v141.f32);
+    v156 = vadd_f32(v148, v147).u32[0];
+    LODWORD(v157) = vsub_f32(v150, v143).u32[0];
+    v158 = vsub_f32(v148, v147);
+    v539 = vadd_f32(v146, v149);
+    v540 = *v158.i32;
+    v159 = vext_s8(v539, v158, 4uLL);
+    v160 = vdup_lane_s32(*v21.f32, 1);
+    *v141.f32 = vdup_laneq_s32(v21, 2);
+    v161 = vaddq_f32(v21, v21);
+    v162 = vdup_lane_s32(vmul_f32(*v21.f32, *v161.f32), 0);
+    v163 = vmul_lane_f32(v160, *v161.f32, 1);
+    v164 = vmul_laneq_f32(*v141.f32, v161, 2);
+    v165 = vmul_n_f32(v160, v161.f32[0]);
+    v166 = vmul_n_f32(*v141.f32, v161.f32[0]);
+    v167 = vmul_n_f32(*v26.f32, v161.f32[0]);
+    *v141.f32 = vmul_lane_f32(*v141.f32, *v161.f32, 1);
+    v168 = vmul_lane_f32(*v26.f32, *v161.f32, 1);
+    *v161.f32 = vmul_laneq_f32(*v26.f32, v161, 2);
+    v169 = vsub_f32(_D13, v162);
+    v170 = vsub_f32(v166, v168).u32[0];
+    v171 = vext_s8(vsub_f32(vsub_f32(_D13, v163), v164), vadd_f32(v165, *v161.f32), 4uLL);
+    *v172.f32 = v171;
+    v172.i64[1] = v170;
+    v173 = vsub_f32(v165, *v161.f32);
+    v174 = vadd_f32(*v141.f32, v167).u32[0];
+    *v175.f32 = vext_s8(v173, vsub_f32(v169, v164), 4uLL);
+    v555 = *v175.f32;
+    v175.i64[1] = v174.u32[0];
+    *v176.f32 = vext_s8(vadd_f32(v166, v168), vsub_f32(*v141.f32, v167), 4uLL);
+    v176.i64[1] = vsub_f32(v169, v163).u32[0];
+    v177 = vdup_lane_s32(v151, 1);
+    v178 = vdup_lane_s32(v155, 1);
+    v179 = vsub_f32(v150, v144);
+    *v180.f32 = vext_s8(v177, v178, 4uLL);
+    v545 = vdup_lane_s32(v159, 0).u32[0];
+    v180.i64[1] = v545;
+    v181 = vdup_lane_s32(v179, 0);
+    *v182.f32 = v159;
+    v541 = vdup_lane_s32(v152, 0);
+    *v141.f32 = vext_s8(v541, v181, 4uLL);
+    v544 = vdup_lane_s32(v159, 1).u32[0];
+    v141.i64[1] = v544;
+    *_X20 = v574;
+    *(_X20 + 16) = v153;
+    v183 = vdup_lane_s32(v156.u32[0], 0);
+    *(_X20 + 32) = v37;
+    *(_X20 + 48) = v21;
+    v542 = vdup_lane_s32(v154.u32[0], 0);
+    v543 = vdup_lane_s32(LODWORD(v157), 0).u32[0];
+    *v184.f32 = vext_s8(v542, v183, 4uLL);
+    v184.i64[1] = v543;
+    v185 = vmulq_n_f32(v180, *v171.i32);
+    v185.i32[3] = 0;
+    v186 = vmulq_lane_f32(v141, v171, 1);
+    v186.i32[3] = 0;
+    v187 = vmulq_laneq_f32(v184, v172, 2);
+    v187.i32[3] = 0;
+    v188 = vaddq_f32(v187, vaddq_f32(v185, v186));
+    v189 = vmulq_n_f32(v180, v175.f32[0]);
+    v189.i32[3] = 0;
+    v190 = vmulq_lane_f32(v141, *v175.f32, 1);
+    v190.i32[3] = 0;
+    v191 = vaddq_f32(v189, v190);
+    v192 = vmulq_laneq_f32(v184, v175, 2);
+    v192.i32[3] = 0;
+    v193 = vmulq_n_f32(v180, v176.f32[0]);
+    v193.i32[3] = 0;
+    v194 = vmulq_lane_f32(v141, *v176.f32, 1);
+    v194.i32[3] = 0;
+    v195 = vmulq_laneq_f32(v184, v176, 2);
+    v195.i32[3] = 0;
+    v196 = vaddq_f32(v192, v191);
+    v197 = vaddq_f32(v195, vaddq_f32(v193, v194));
+    *v194.f32 = vext_s8(vdup_lane_s32(*v188.f32, 0), vdup_lane_s32(*v196.f32, 0), 4uLL);
+    v194.i64[1] = vdup_lane_s32(*v197.f32, 0).u32[0];
+    v198 = vaddq_f32(vabsq_f32(v194), xmmword_1E3115C00);
+    v199 = vmulq_f32(v19, v198);
+    v596[0] = vdup_lane_s32(*v8.f32, 0);
+    v547 = v152;
+    v549 = v154;
+    *v194.f32 = vext_s8(v151, v152, 4uLL);
+    v194.i64[1] = v154.u32[0];
+    v200 = vsubq_f32(v22, v20);
+    v551 = v194;
+    v553 = v151;
+    v201 = vmulq_f32(v200, v194);
+    v201.i64[0] = vpaddq_f32(v201, v201).u64[0];
+    v202 = vpadd_f32(*v201.f32, *v201.f32);
+    v203 = vdup_lane_s32(v202, 1);
+    *v201.f32 = vsub_f32(vadd_f32(v596[0], vadd_f32(vdup_lane_s32(*v199.i8, 0), vadd_f32(vdup_lane_s32(*v199.i8, 1), vdup_laneq_s32(v199, 2)))), vabs_f32(v203));
+    v575 = v172;
+    v612 = v172;
+    v613 = v175;
+    v557 = v176;
+    v559 = v175;
+    v614 = v176;
+    v615 = v22;
+    v204 = vdup_lane_s32(v578, 1);
+    v611 = 0;
+    *&v589 = v204;
+    *v588.i8 = v585;
+    v205 = vdup_lane_s32(v581, 0);
+    *v587.f32 = v205;
+    v206 = vdup_lane_s32(*v7.f32, 1);
+    v623 = v206;
+    v622 = v583;
+    v207 = vadd_f32(v576, *v201.f32);
+    if (v207.f32[0] < 0.0)
+    {
+      return 0;
+    }
+
+    *v208.f32 = vext_s8(v155, v179, 4uLL);
+    v208.i64[1] = v156.u32[0];
+    v536 = v208;
+    v209 = vmulq_f32(v200, v208);
+    v209.i64[0] = vpaddq_f32(v209, v209).u64[0];
+    v210 = vpadd_f32(*v209.f32, *v209.f32);
+    *v209.f32 = vext_s8(vdup_lane_s32(*v188.f32, 1), vdup_lane_s32(*v196.f32, 1), 4uLL);
+    v209.i64[1] = vdup_lane_s32(*v197.f32, 1).u32[0];
+    v537 = v210;
+    v211 = vdup_lane_s32(v210, 0);
+    v212 = vaddq_f32(vabsq_f32(v209), xmmword_1E3115C00);
+    v213 = vmulq_f32(v19, v212);
+    *&v624.u32[2] = vadd_f32(v576, vsub_f32(vadd_f32(v204, vadd_f32(vdup_lane_s32(*v213.i8, 0), vadd_f32(vdup_lane_s32(*v213.i8, 1), vdup_laneq_s32(v213, 2)))), vabs_f32(v211)));
+    if (v624.f32[2] < 0.0)
+    {
+      return 0;
+    }
+
+    v182.i64[1] = LODWORD(v157);
+    v214 = vmulq_f32(v200, v182);
+    v214.i64[0] = vpaddq_f32(v214, v214).u64[0];
+    LODWORD(v215) = vpadd_f32(*v214.f32, *v214.f32).u32[0];
+    *v214.f32 = vext_s8(vdup_laneq_s32(v188, 2), vdup_laneq_s32(v196, 2), 4uLL);
+    v214.i64[1] = vdup_laneq_s32(v197, 2).u32[0];
+    v216 = vdup_lane_s32(LODWORD(v215), 0);
+    v533 = v182;
+    v534 = vaddq_f32(vabsq_f32(v214), xmmword_1E3115C00);
+    v217 = vmulq_f32(v19, v534);
+    v561 = v19;
+    v563 = v20;
+    *&v625 = vadd_f32(v576, vsub_f32(vadd_f32(v585, vadd_f32(vdup_lane_s32(*v217.i8, 0), vadd_f32(vdup_lane_s32(*v217.i8, 1), vdup_laneq_s32(v217, 2)))), vabs_f32(v216)));
+    if (*&v625 < 0.0)
+    {
+      return 0;
+    }
+
+    *v218.f32 = vext_s8(v202, v537, 4uLL);
+    v218.i64[1] = LODWORD(v215);
+    v219 = vmulq_f32(v188, v218);
+    v219.i64[0] = vpaddq_f32(v219, v219).u64[0];
+    v220 = vpadd_f32(*v219.f32, *v219.f32);
+    v532 = vaddq_f32(vabsq_f32(v188), xmmword_1E3115C00);
+    v221 = vmulq_f32(v567, v532);
+    *(&v625 + 1) = vadd_f32(v576, vsub_f32(vadd_f32(v205, vadd_f32(vdup_lane_s32(*v221.i8, 0), vadd_f32(vdup_lane_s32(*v221.i8, 1), vdup_laneq_s32(v221, 2)))), vabs_f32(v220)));
+    if (*(&v625 + 2) < 0.0)
+    {
+      return 0;
+    }
+
+    v222 = vmulq_f32(v196, v218);
+    v222.i64[0] = vpaddq_f32(v222, v222).u64[0];
+    v223 = vpadd_f32(*v222.f32, *v222.f32);
+    v531 = vaddq_f32(vabsq_f32(v196), xmmword_1E3115C00);
+    v224 = vmulq_f32(v567, v531);
+    *v626.f32 = vadd_f32(v576, vsub_f32(vadd_f32(v206, vadd_f32(vdup_lane_s32(*v224.i8, 0), vadd_f32(vdup_lane_s32(*v224.i8, 1), vdup_laneq_s32(v224, 2)))), vabs_f32(v223)));
+    if (v626.f32[0] < 0.0)
+    {
+      return 0;
+    }
+
+    v225 = vaddq_f32(vabsq_f32(v197), xmmword_1E3115C00);
+    v226 = vmulq_f32(v197, v218);
+    v226.i64[0] = vpaddq_f32(v226, v226).u64[0];
+    v227 = vpadd_f32(*v226.f32, *v226.f32);
+    v228 = vmulq_f32(v567, v225);
+    v530 = v227.f32[0];
+    *&v626.u32[2] = vadd_f32(v576, vsub_f32(vadd_f32(v583, vadd_f32(vdup_lane_s32(*v228.i8, 0), vadd_f32(vdup_lane_s32(*v228.i8, 1), vdup_laneq_s32(v228, 2)))), vabs_f32(v227)));
+    if (v626.f32[2] < 0.0 || (vcgt_f32(vabd_f32(vmul_lane_f32(v216, *v188.f32, 1), vmul_laneq_f32(v211, v188, 2)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_laneq_f32(v204, v532, 2), vmul_lane_f32(v585, *v532.f32, 1)), vadd_f32(vmul_laneq_f32(v206, v198, 2), vmul_lane_f32(v583, *v198.f32, 1))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_lane_f32(v216, *v196.f32, 1), vmul_laneq_f32(v211, v196, 2)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_laneq_f32(v204, v531, 2), vmul_lane_f32(v585, *v531.f32, 1)), vadd_f32(vmul_n_f32(vdup_laneq_s32(v198, 2), *v581.i32), vmul_n_f32(v583, v198.f32[0]))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_lane_f32(v216, *v197.f32, 1), vmul_laneq_f32(v211, v197, 2)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_laneq_f32(v204, v225, 2), vmul_lane_f32(v585, *v225.f32, 1)), vadd_f32(vmul_n_f32(vdup_lane_s32(*v198.f32, 1), *v581.i32), vmul_lane_f32(vdup_lane_s32(*v198.f32, 0), v572, 1))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_laneq_f32(v203, v188, 2), vmul_n_f32(v216, v188.f32[0])), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_laneq_s32(v532, 2), *v570.i32), vmul_n_f32(v585, v532.f32[0])), vadd_f32(vmul_laneq_f32(v206, v212, 2), vmul_lane_f32(v583, *v212.f32, 1))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_laneq_f32(v203, v196, 2), vmul_n_f32(v216, v196.f32[0])), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_laneq_s32(v531, 2), *v570.i32), vmul_n_f32(v585, v531.f32[0])), vadd_f32(vmul_n_f32(vdup_laneq_s32(v212, 2), *v581.i32), vmul_n_f32(v583, v212.f32[0]))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_laneq_f32(v203, v197, 2), vmul_n_f32(v216, v197.f32[0])), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_laneq_s32(v225, 2), *v570.i32), vmul_n_f32(v585, v225.f32[0])), vadd_f32(vmul_n_f32(vdup_lane_s32(*v212.f32, 1), *v581.i32), vmul_lane_f32(vdup_lane_s32(*v212.f32, 0), v572, 1))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_n_f32(v211, v188.f32[0]), vmul_lane_f32(v203, *v188.f32, 1)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_lane_s32(*v532.f32, 1), *v570.i32), vmul_lane_f32(vdup_lane_s32(*v532.f32, 0), v578, 1)), vadd_f32(vmul_laneq_f32(v206, v534, 2), vmul_lane_f32(v583, *v534.f32, 1))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_n_f32(v211, v196.f32[0]), vmul_lane_f32(v203, *v196.f32, 1)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_lane_s32(*v531.f32, 1), *v570.i32), vmul_lane_f32(vdup_lane_s32(*v531.f32, 0), v578, 1)), vadd_f32(vmul_n_f32(vdup_laneq_s32(v534, 2), *v581.i32), vmul_n_f32(v583, v534.f32[0]))))).u8[0] & 1) != 0 || (vcgt_f32(vabd_f32(vmul_n_f32(v211, v197.f32[0]), vmul_lane_f32(v203, *v197.f32, 1)), vadd_f32(v576, vadd_f32(vadd_f32(vmul_n_f32(vdup_lane_s32(*v225.f32, 1), *v570.i32), vmul_lane_f32(vdup_lane_s32(*v225.f32, 0), v578, 1)), vadd_f32(vmul_n_f32(vdup_lane_s32(*v534.f32, 1), *v581.i32), vmul_lane_f32(vdup_lane_s32(*v534.f32, 0), v572, 1))))).u8[0] & 1) != 0)
+    {
+      return 0;
+    }
+
+    v577 = v179;
+    v535 = v155;
+    v584 = v156;
+    v229 = v223.f32[0];
+    v230 = 0;
+    v231 = vdup_lane_s32(v171, 0);
+    v232 = vdup_lane_s32(v171, 1);
+    v233 = vdup_lane_s32(v170, 0);
+    v234 = vdupq_lane_s32(*v575.f32, 1);
+    v235 = vdupq_laneq_s32(v575, 2);
+    v236 = vdup_lane_s32(v555, 1);
+    v237 = vdupq_lane_s32(*v559.i8, 0);
+    v238 = vdupq_lane_s32(*v559.i8, 1);
+    v239 = vdupq_laneq_s32(v559, 2);
+    v240 = vdupq_lane_s32(*v557.i8, 0);
+    v241 = vdupq_lane_s32(*v557.i8, 1);
+    v242 = 1;
+    v243 = vdupq_laneq_s32(v557, 2);
+    do
+    {
+      v244 = *&v624.f32[2 * v242];
+      if (vcgt_f32(v207, v244).u8[0])
+      {
+        v230 = v242;
+        v245 = -1;
+      }
+
+      else
+      {
+        v245 = 0;
+      }
+
+      v207 = vbsl_s8(vdup_n_s32(v245), v244, v207);
+      ++v242;
+    }
+
+    while (v242 != 6);
+    v604 = 0uLL;
+    if (v230 > 2)
+    {
+      switch(v230)
+      {
+        case 3:
+          v258 = vnegq_f32(v575);
+          v259 = v258;
+          v259.i32[3] = 0;
+          if (v220.f32[0] <= 0.0)
+          {
+            v298 = vmlaq_n_f32(v568, v575, *v581.i32);
+            v298.i64[1] = vextq_s8(v298, v298, 8uLL).u32[0];
+            v231.i32[0] = vdup_lane_s32(*v258.f32, 0).u32[0];
+            v232.i32[0] = vdup_lane_s32(*v258.f32, 1).u32[0];
+            v233.i32[0] = vdup_laneq_s32(v258, 2).u32[0];
+            v586 = v259;
+            v582 = v298;
+            v262 = v575;
+          }
+
+          else
+          {
+            v260 = vnegq_f32(v557);
+            v260.i32[3] = 0;
+            v557 = v260;
+            v261 = vmlaq_n_f32(v568, v258, *v581.i32);
+            v261.i64[1] = vextq_s8(v261, v261, 8uLL).u32[0];
+            v586 = v575;
+            v582 = v261;
+            v262 = v259;
+          }
+
+          v299 = vsubq_f32(v563, v582);
+          v300 = vmulq_f32(v557, v299);
+          v300.i64[0] = vpaddq_f32(v300, v300).u64[0];
+          v301 = vmulq_f32(v299, v559);
+          v301.i64[0] = vpaddq_f32(v301, v301).u64[0];
+          v302 = vmulq_f32(v586, v299);
+          v302.i64[0] = vpaddq_f32(v302, v302).u64[0];
+          *v300.f32 = vext_s8(vpadd_f32(*v300.f32, *v300.f32), vpadd_f32(*v301.f32, *v301.f32), 4uLL);
+          v300.i64[1] = vpadd_f32(*v302.f32, *v302.f32).u32[0];
+          *v302.f32 = vext_s8(vdup_lane_s32(*v557.i8, 0), v555, 4uLL);
+          v302.i64[1] = v231.u32[0];
+          *v303.f32 = vext_s8(*v557.i8, v236, 4uLL);
+          v303.i64[1] = v232.u32[0];
+          *v304.f32 = vext_s8(vdup_laneq_s32(v557, 2), v174.u32[0], 4uLL);
+          v304.i64[1] = v233.u32[0];
+          v305 = vmulq_lane_f32(v302, v553, 1);
+          v305.i32[3] = 0;
+          v306 = vmulq_n_f32(v303, *v547.i32);
+          v306.i32[3] = 0;
+          v307 = vmulq_n_f32(v304, *v549.i32);
+          v307.i32[3] = 0;
+          v308 = vaddq_f32(v305, v306);
+          v309 = vmulq_lane_f32(v302, v535, 1);
+          v309.i32[3] = 0;
+          v310 = vmulq_n_f32(v303, *v577.i32);
+          v310.i32[3] = 0;
+          v311 = vaddq_f32(v307, v308);
+          v312 = vmulq_n_f32(v304, *v156.i32);
+          v312.i32[3] = 0;
+          v313 = vmulq_lane_f32(v302, v539, 1);
+          v313.i32[3] = 0;
+          v314 = vmulq_n_f32(v303, v540);
+          v314.i32[3] = 0;
+          v315 = vmulq_n_f32(v304, v157);
+          v315.i32[3] = 0;
+          v590 = v311;
+          v591 = vaddq_f32(v312, vaddq_f32(v309, v310));
+          v592 = vaddq_f32(v315, vaddq_f32(v313, v314));
+          v593 = v300;
+          v316 = vmulq_f32(v557, v262);
+          v316.i64[0] = vpaddq_f32(v316, v316).u64[0];
+          v317 = vmulq_f32(v262, v559);
+          v317.i64[0] = vpaddq_f32(v317, v317).u64[0];
+          v318 = vmulq_f32(v259, v575);
+          v318.i64[0] = vpaddq_f32(v318, v318).u64[0];
+          *v316.f32 = vext_s8(vpadd_f32(*v316.f32, *v316.f32), vpadd_f32(*v317.f32, *v317.f32), 4uLL);
+          v316.i64[1] = vpadd_f32(*v318.f32, *v318.f32).u32[0];
+          v597 = v316;
+          physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v316, v567);
+          physx::Gu::calculateContacts(&v622, &v623, &v628, &v604, &v597, a7, &v611, &v621, v319, v320, v321, v322, v323, v324, v325);
+          v575 = v557;
+          break;
+        case 4:
+          v266 = vnegq_f32(v559);
+          v267 = v266;
+          v267.i32[3] = 0;
+          if (v229 <= 0.0)
+          {
+            v269 = v559;
+            v266 = v559;
+            v586 = v267;
+          }
+
+          else
+          {
+            v268 = vnegq_f32(v557);
+            v268.i32[3] = 0;
+            v557 = v268;
+            v586 = v559;
+            v269 = v267;
+          }
+
+          v410 = vmlaq_lane_f32(v568, v266, v572, 1);
+          v410.i64[1] = vextq_s8(v410, v410, 8uLL).u32[0];
+          v569 = v410;
+          v411 = vsubq_f32(v563, v410);
+          v412 = vmulq_f32(v411, v575);
+          v412.i64[0] = vpaddq_f32(v412, v412).u64[0];
+          v413 = vmulq_f32(v557, v411);
+          v413.i64[0] = vpaddq_f32(v413, v413).u64[0];
+          v414 = vmulq_f32(v586, v411);
+          v414.i64[0] = vpaddq_f32(v414, v414).u64[0];
+          v415 = vpadd_f32(*v414.f32, *v414.f32).u32[0];
+          *v414.f32 = vext_s8(vpadd_f32(*v412.f32, *v412.f32), vpadd_f32(*v413.f32, *v413.f32), 4uLL);
+          v414.i64[1] = v415;
+          *v413.f32 = vext_s8(v231, *v557.i8, 4uLL);
+          v413.i64[1] = vdup_lane_s32(*v586.f32, 0).u32[0];
+          *v412.f32 = vext_s8(v232, vdup_lane_s32(*v557.i8, 1), 4uLL);
+          v412.i64[1] = vdup_lane_s32(*v586.f32, 1).u32[0];
+          *v416.f32 = vext_s8(v233, *&vextq_s8(v557, v557, 8uLL), 4uLL);
+          v416.i64[1] = vdup_laneq_s32(v586, 2).u32[0];
+          v417 = vmulq_lane_f32(v413, v553, 1);
+          v417.i32[3] = 0;
+          v418 = vmulq_n_f32(v412, *v547.i32);
+          v418.i32[3] = 0;
+          v419 = vmulq_n_f32(v416, *v549.i32);
+          v419.i32[3] = 0;
+          v420 = vaddq_f32(v417, v418);
+          v421 = vmulq_lane_f32(v413, v535, 1);
+          v421.i32[3] = 0;
+          v422 = vmulq_n_f32(v412, *v577.i32);
+          v422.i32[3] = 0;
+          v423 = vaddq_f32(v419, v420);
+          v424 = vmulq_n_f32(v416, *v156.i32);
+          v424.i32[3] = 0;
+          v425 = vmulq_lane_f32(v413, v539, 1);
+          v425.i32[3] = 0;
+          v426 = vmulq_n_f32(v412, v540);
+          v426.i32[3] = 0;
+          v427 = vmulq_n_f32(v416, v157);
+          v427.i32[3] = 0;
+          v590 = v423;
+          v591 = vaddq_f32(v424, vaddq_f32(v421, v422));
+          v592 = vaddq_f32(v427, vaddq_f32(v425, v426));
+          v593 = v414;
+          v428 = vmulq_f32(v269, v575);
+          v428.i64[0] = vpaddq_f32(v428, v428).u64[0];
+          v429 = vmulq_f32(v557, v269);
+          v429.i64[0] = vpaddq_f32(v429, v429).u64[0];
+          v430 = vmulq_f32(v267, v559);
+          v430.i64[0] = vpaddq_f32(v430, v430).u64[0];
+          *v428.f32 = vext_s8(vpadd_f32(*v428.f32, *v428.f32), vpadd_f32(*v429.f32, *v429.f32), 4uLL);
+          v428.i64[1] = vpadd_f32(*v430.f32, *v430.f32).u32[0];
+          v597 = v428;
+          physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v428, v567);
+          physx::Gu::calculateContacts(&v587, &v622, &v628, &v604, &v597, a7, &v611, &v621, v431, v432, v433, v434, v435, v436, v437);
+          v559 = v557;
+          v582 = v569;
+          break;
+        case 5:
+          if (v530 <= 0.0)
+          {
+            v356 = vnegq_f32(v559);
+            v357 = v356;
+            v357.i32[3] = 0;
+            v559 = v357;
+            v358 = vnegq_f32(v557);
+            v358.i32[3] = 0;
+            v586 = v358;
+            v359 = vmlaq_laneq_f32(v568, v557, v561, 2);
+            v359.i64[1] = vextq_s8(v359, v359, 8uLL).u32[0];
+            v236 = vdup_lane_s32(*v356.i8, 1);
+            v555 = *v356.i8;
+            v174 = vextq_s8(v356, v356, 8uLL).u64[0];
+            v582 = v359;
+          }
+
+          else
+          {
+            v252 = vmlsq_laneq_f32(v568, v557, v561, 2);
+            v586 = v557;
+            v253 = vnegq_f32(v557);
+            v253.i32[3] = 0;
+            v252.i64[1] = vextq_s8(v252, v252, 8uLL).u32[0];
+            v582 = v252;
+            v557 = v253;
+          }
+
+          v360 = vsubq_f32(v563, v582);
+          v361 = vmulq_f32(v360, v575);
+          v361.i64[0] = vpaddq_f32(v361, v361).u64[0];
+          v362 = vmulq_f32(v559, v360);
+          v362.i64[0] = vpaddq_f32(v362, v362).u64[0];
+          v363 = vmulq_f32(v586, v360);
+          v363.i64[0] = vpaddq_f32(v363, v363).u64[0];
+          v364 = vpadd_f32(*v363.f32, *v363.f32).u32[0];
+          *v363.f32 = vext_s8(vpadd_f32(*v361.f32, *v361.f32), vpadd_f32(*v362.f32, *v362.f32), 4uLL);
+          v363.i64[1] = v364;
+          *v362.f32 = vext_s8(v231, v555, 4uLL);
+          v362.i64[1] = vdup_lane_s32(*v586.f32, 0).u32[0];
+          *v365.f32 = vext_s8(v232, v236, 4uLL);
+          v365.i64[1] = vdup_lane_s32(*v586.f32, 1).u32[0];
+          *v366.f32 = vext_s8(v233, v174, 4uLL);
+          v366.i64[1] = vdup_laneq_s32(v586, 2).u32[0];
+          v367 = vmulq_lane_f32(v362, v553, 1);
+          v367.i32[3] = 0;
+          v368 = vmulq_n_f32(v365, *v547.i32);
+          v368.i32[3] = 0;
+          v369 = vmulq_n_f32(v366, *v549.i32);
+          v369.i32[3] = 0;
+          v370 = vaddq_f32(v367, v368);
+          v371 = vmulq_lane_f32(v362, v535, 1);
+          v371.i32[3] = 0;
+          v372 = vmulq_n_f32(v365, *v577.i32);
+          v372.i32[3] = 0;
+          v373 = vaddq_f32(v369, v370);
+          v374 = vmulq_n_f32(v366, *v156.i32);
+          v374.i32[3] = 0;
+          v375 = vmulq_lane_f32(v362, v539, 1);
+          v375.i32[3] = 0;
+          v376 = vmulq_n_f32(v365, v540);
+          v376.i32[3] = 0;
+          v377 = vmulq_n_f32(v366, v157);
+          v377.i32[3] = 0;
+          v590 = v373;
+          v591 = vaddq_f32(v374, vaddq_f32(v371, v372));
+          v592 = vaddq_f32(v377, vaddq_f32(v375, v376));
+          v593 = v363;
+          v378 = vmulq_f32(v557, v575);
+          v378.i64[0] = vpaddq_f32(v378, v378).u64[0];
+          v379 = vmulq_f32(v559, v557);
+          v379.i64[0] = vpaddq_f32(v379, v379).u64[0];
+          v380 = vmulq_f32(v586, v557);
+          v380.i64[0] = vpaddq_f32(v380, v380).u64[0];
+          *v378.f32 = vext_s8(vpadd_f32(*v378.f32, *v378.f32), vpadd_f32(*v379.f32, *v379.f32), 4uLL);
+          v378.i64[1] = vpadd_f32(*v380.f32, *v380.f32).u32[0];
+          v597 = v378;
+          physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v378, v567);
+          physx::Gu::calculateContacts(&v587, &v623, &v628, &v604, &v597, a7, &v611, &v621, v381, v382, v383, v384, v385, v386, v387);
+          break;
+        default:
+          return 0;
+      }
+
+      v438 = v611;
+      if (v611)
+      {
+        v439 = &a7[1];
+        do
+        {
+          v440 = v439[-1];
+          v439[-1] = *v439;
+          *v439 = v440;
+          v439 += 3;
+          --v438;
+        }
+
+        while (v438);
+      }
+    }
+
+    else if (v230)
+    {
+      if (v230 == 1)
+      {
+        v263 = vdupq_lane_s32(v578, 1);
+        if (*v537.i32 <= 0.0)
+        {
+          v388 = vnegq_f32(v533);
+          v388.i32[3] = 0;
+          v559 = v388;
+          v389 = vmlsq_f32(v563, v263, v536);
+          v389.i64[1] = vextq_s8(v389, v389, 8uLL).u32[0];
+          v582 = v389;
+          v586 = v536;
+        }
+
+        else
+        {
+          v264 = vnegq_f32(v536);
+          v178.i32[0] = vdup_lane_s32(*v264.i8, 0).u32[0];
+          v181.i32[0] = vdup_lane_s32(*v264.i8, 1).u32[0];
+          v183.i32[0] = vdup_laneq_s32(v264, 2).u32[0];
+          v264.i32[3] = 0;
+          v586 = v264;
+          v265 = vmlaq_f32(v563, v263, v536);
+          v265.i64[1] = vextq_s8(v265, v265, 8uLL).u32[0];
+          v582 = v265;
+          v559 = v533;
+        }
+
+        v390 = vsubq_f32(v568, v582);
+        v391 = vmulq_f32(v390, v551);
+        v391.i64[0] = vpaddq_f32(v391, v391).u64[0];
+        v392 = vmulq_f32(v559, v390);
+        v392.i64[0] = vpaddq_f32(v392, v392).u64[0];
+        v393 = vmulq_f32(v586, v390);
+        v393.i64[0] = vpaddq_f32(v393, v393).u64[0];
+        v394 = vpadd_f32(*v393.f32, *v393.f32).u32[0];
+        *v393.f32 = vext_s8(vpadd_f32(*v391.f32, *v391.f32), vpadd_f32(*v392.f32, *v392.f32), 4uLL);
+        v393.i64[1] = v394;
+        *v391.f32 = vext_s8(v553, *v559.i8, 4uLL);
+        v391.i64[1] = v178.u32[0];
+        *v392.f32 = vext_s8(v541, vdup_lane_s32(*v559.i8, 1), 4uLL);
+        v392.i64[1] = v181.u32[0];
+        *v395.f32 = vext_s8(v542, *&vextq_s8(v559, v559, 8uLL), 4uLL);
+        v395.i64[1] = v183.u32[0];
+        v396 = vmulq_n_f32(v391, v575.f32[0]);
+        v396.i32[3] = 0;
+        v397 = vmulq_f32(v234, v392);
+        v397.i32[3] = 0;
+        v398 = vmulq_f32(v235, v395);
+        v398.i32[3] = 0;
+        v399 = vaddq_f32(v396, v397);
+        v400 = vmulq_f32(v237, v391);
+        v400.i32[3] = 0;
+        v401 = vmulq_f32(v238, v392);
+        v401.i32[3] = 0;
+        v402 = vmulq_f32(v239, v395);
+        v402.i32[3] = 0;
+        v403 = vmulq_f32(v240, v391);
+        v403.i32[3] = 0;
+        v404 = vmulq_f32(v241, v392);
+        v404.i32[3] = 0;
+        v405 = vmulq_f32(v243, v395);
+        v405.i32[3] = 0;
+        v590 = vaddq_f32(v398, v399);
+        v591 = vaddq_f32(v402, vaddq_f32(v400, v401));
+        v592 = vaddq_f32(v405, vaddq_f32(v403, v404));
+        v593 = v393;
+        v406 = vmulq_f32(v586, v551);
+        v406.i64[0] = vpaddq_f32(v406, v406).u64[0];
+        v407 = vmulq_f32(v559, v586);
+        v407.i64[0] = vpaddq_f32(v407, v407).u64[0];
+        v408 = vmulq_f32(v586, v586);
+        v408.i64[0] = vpaddq_f32(v408, v408).u64[0];
+        *v406.f32 = vext_s8(vpadd_f32(*v406.f32, *v406.f32), vpadd_f32(*v407.f32, *v407.f32), 4uLL);
+        v406.i64[1] = vpadd_f32(*v408.f32, *v408.f32).u32[0];
+        v597 = v406;
+        v409 = vnegq_f32(v406);
+        v409.i32[3] = 0;
+        physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v409, v561);
+        v355 = &v588;
+      }
+
+      else
+      {
+        if (v230 != 2)
+        {
+          return 0;
+        }
+
+        if (v215 <= 0.0)
+        {
+          v326 = vmlsq_laneq_f32(v563, v533, v567, 2);
+          v251 = v543;
+          v326.i64[1] = vextq_s8(v326, v326, 8uLL).u32[0];
+          v582 = v326;
+          v250 = v544;
+          v249 = v545;
+          v559 = v536;
+          v586 = v533;
+        }
+
+        else
+        {
+          v246 = vnegq_f32(v533);
+          LODWORD(v251) = vdup_laneq_s32(v246, 2).u32[0];
+          v246.i32[3] = 0;
+          v586 = v246;
+          v247 = vmlaq_laneq_f32(v563, v533, v567, 2);
+          v247.i64[1] = vextq_s8(v247, v247, 8uLL).u32[0];
+          v582 = v247;
+          v248 = vnegq_f32(v536);
+          v248.i32[3] = 0;
+          v559 = v248;
+          v249 = vdup_lane_s32(*v246.i8, 0).u32[0];
+          v250 = vdup_lane_s32(*v246.i8, 1).u32[0];
+          v251 = v251;
+        }
+
+        v327 = vsubq_f32(v568, v582);
+        v328 = vmulq_f32(v327, v551);
+        v328.i64[0] = vpaddq_f32(v328, v328).u64[0];
+        v329 = vmulq_f32(v559, v327);
+        v329.i64[0] = vpaddq_f32(v329, v329).u64[0];
+        v330 = vmulq_f32(v586, v327);
+        v330.i64[0] = vpaddq_f32(v330, v330).u64[0];
+        *v328.f32 = vext_s8(vpadd_f32(*v328.f32, *v328.f32), vpadd_f32(*v329.f32, *v329.f32), 4uLL);
+        v328.i64[1] = vpadd_f32(*v330.f32, *v330.f32).u32[0];
+        *v330.f32 = vext_s8(v553, *v559.i8, 4uLL);
+        v330.i64[1] = v249;
+        *v331.f32 = vext_s8(v541, vdup_lane_s32(*v559.i8, 1), 4uLL);
+        v331.i64[1] = v250;
+        *v332.f32 = vext_s8(v542, *&vextq_s8(v559, v559, 8uLL), 4uLL);
+        v332.i64[1] = v251;
+        v333 = vmulq_n_f32(v330, v575.f32[0]);
+        v333.i32[3] = 0;
+        v334 = vmulq_f32(v234, v331);
+        v334.i32[3] = 0;
+        v335 = vmulq_f32(v235, v332);
+        v335.i32[3] = 0;
+        v336 = vaddq_f32(v333, v334);
+        v337 = vmulq_f32(v237, v330);
+        v337.i32[3] = 0;
+        v338 = vmulq_f32(v238, v331);
+        v338.i32[3] = 0;
+        v339 = vmulq_f32(v239, v332);
+        v339.i32[3] = 0;
+        v340 = vaddq_f32(v335, v336);
+        v341 = vmulq_f32(v240, v330);
+        v341.i32[3] = 0;
+        v342 = vmulq_f32(v241, v331);
+        v342.i32[3] = 0;
+        v343 = vmulq_f32(v243, v332);
+        v343.i32[3] = 0;
+        v590 = v340;
+        v591 = vaddq_f32(v339, vaddq_f32(v337, v338));
+        v592 = vaddq_f32(v343, vaddq_f32(v341, v342));
+        v593 = v328;
+        v344 = vmulq_f32(v586, v551);
+        v344.i64[0] = vpaddq_f32(v344, v344).u64[0];
+        v345 = vmulq_f32(v559, v586);
+        v345.i64[0] = vpaddq_f32(v345, v345).u64[0];
+        v346 = vmulq_f32(v586, v586);
+        v346.i64[0] = vpaddq_f32(v346, v346).u64[0];
+        *v344.f32 = vext_s8(vpadd_f32(*v344.f32, *v344.f32), vpadd_f32(*v345.f32, *v345.f32), 4uLL);
+        v344.i64[1] = vpadd_f32(*v346.f32, *v346.f32).u32[0];
+        v597 = v344;
+        v347 = vnegq_f32(v344);
+        v347.i32[3] = 0;
+        physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v347, v561);
+        v355 = &v589;
+      }
+
+      physx::Gu::calculateContacts(v596, v355, &v628, &v604, &v597, a7, &v611, &v621, v348, v349, v350, v351, v352, v353, v354);
+      v575 = v551;
+    }
+
+    else
+    {
+      v254 = vdupq_lane_s32(v570, 0);
+      if (*&v202.i32[1] <= 0.0)
+      {
+        v257 = vnegq_f32(v533);
+        v257.i32[3] = 0;
+        v270 = vmlsq_f32(v563, v254, v551);
+        v270.i64[1] = vextq_s8(v270, v270, 8uLL).u32[0];
+        v582 = v270;
+        v586 = v551;
+      }
+
+      else
+      {
+        v255 = vnegq_f32(v551);
+        v177.i32[0] = vdup_lane_s32(*v255.i8, 0).u32[0];
+        v541.i32[0] = vdup_lane_s32(*v255.i8, 1).u32[0];
+        v542.i32[0] = vdup_laneq_s32(v255, 2).u32[0];
+        v255.i32[3] = 0;
+        v586 = v255;
+        v256 = vmlaq_f32(v563, v254, v551);
+        v256.i64[1] = vextq_s8(v256, v256, 8uLL).u32[0];
+        v582 = v256;
+        v257 = v533;
+      }
+
+      v271 = vsubq_f32(v568, v582);
+      v272 = vmulq_f32(v257, v271);
+      v272.i64[0] = vpaddq_f32(v272, v272).u64[0];
+      v273 = vmulq_f32(v271, v536);
+      v273.i64[0] = vpaddq_f32(v273, v273).u64[0];
+      v274 = vmulq_f32(v586, v271);
+      v274.i64[0] = vpaddq_f32(v274, v274).u64[0];
+      v275 = vpadd_f32(*v274.f32, *v274.f32).u32[0];
+      *v274.f32 = vext_s8(vpadd_f32(*v272.f32, *v272.f32), vpadd_f32(*v273.f32, *v273.f32), 4uLL);
+      v274.i64[1] = v275;
+      *v272.f32 = vext_s8(vdup_lane_s32(*v257.f32, 0), v178, 4uLL);
+      v272.i64[1] = v177.u32[0];
+      *v273.f32 = vext_s8(*v257.f32, v179, 4uLL);
+      v273.i64[1] = v541.u32[0];
+      v579 = v257;
+      *v276.f32 = vext_s8(vdup_laneq_s32(v257, 2), v156, 4uLL);
+      v276.i64[1] = v542.u32[0];
+      v277 = vmulq_n_f32(v272, v575.f32[0]);
+      v277.i32[3] = 0;
+      v278 = vmulq_f32(v234, v273);
+      v278.i32[3] = 0;
+      v279 = vmulq_f32(v235, v276);
+      v279.i32[3] = 0;
+      v280 = vaddq_f32(v277, v278);
+      v281 = vmulq_f32(v237, v272);
+      v281.i32[3] = 0;
+      v282 = vmulq_f32(v238, v273);
+      v282.i32[3] = 0;
+      v283 = vmulq_f32(v239, v276);
+      v283.i32[3] = 0;
+      v284 = vmulq_f32(v240, v272);
+      v284.i32[3] = 0;
+      v285 = vmulq_f32(v241, v273);
+      v285.i32[3] = 0;
+      v286 = vmulq_f32(v243, v276);
+      v286.i32[3] = 0;
+      v590 = vaddq_f32(v279, v280);
+      v591 = vaddq_f32(v283, vaddq_f32(v281, v282));
+      v592 = vaddq_f32(v286, vaddq_f32(v284, v285));
+      v593 = v274;
+      v287 = vmulq_f32(v579, v586);
+      v287.i64[0] = vpaddq_f32(v287, v287).u64[0];
+      v288 = vmulq_f32(v586, v536);
+      v288.i64[0] = vpaddq_f32(v288, v288).u64[0];
+      v289 = vmulq_f32(v586, v586);
+      v289.i64[0] = vpaddq_f32(v289, v289).u64[0];
+      *v287.f32 = vext_s8(vpadd_f32(*v287.f32, *v287.f32), vpadd_f32(*v288.f32, *v288.f32), 4uLL);
+      v287.i64[1] = vpadd_f32(*v289.f32, *v289.f32).u32[0];
+      v597 = v287;
+      v290 = vnegq_f32(v287);
+      v290.i32[3] = 0;
+      physx::Gu::getIncidentPolygon(&v628, &v604, &v590, v290, v561);
+      physx::Gu::calculateContacts(&v588, &v589, &v628, &v604, &v597, a7, &v611, &v621, v291, v292, v293, v294, v295, v296, v297);
+      v575 = v579;
+      v559 = v536;
+    }
+
+    v441 = v611;
+    if (v611)
+    {
+      v442 = vsubq_f32(v582, v615);
+      v443 = vmulq_f32(v612, v442);
+      v443.i64[0] = vpaddq_f32(v443, v443).u64[0];
+      v444 = vmulq_f32(v442, v613);
+      v444.i64[0] = vpaddq_f32(v444, v444).u64[0];
+      v445 = vmulq_f32(v442, v614);
+      v445.i64[0] = vpaddq_f32(v445, v445).u64[0];
+      v446 = vpadd_f32(*v445.f32, *v445.f32).u32[0];
+      *v447.f32 = vext_s8(vpadd_f32(*v443.f32, *v443.f32), vpadd_f32(*v444.f32, *v444.f32), 4uLL);
+      v447.i64[1] = v446;
+      *v448.f32 = vext_s8(vdup_lane_s32(*v612.f32, 0), *v613.f32, 4uLL);
+      v448.i64[1] = vdup_lane_s32(*v614.f32, 0).u32[0];
+      *v449.f32 = vext_s8(*v612.f32, vdup_lane_s32(*v613.f32, 1), 4uLL);
+      v449.i64[1] = vdup_lane_s32(*v614.f32, 1).u32[0];
+      v571 = v612;
+      v573 = v613;
+      v580 = v614;
+      *v444.f32 = vext_s8(vdup_laneq_s32(v612, 2), *&vextq_s8(v573, v573, 8uLL), 4uLL);
+      v444.i64[1] = vdup_laneq_s32(v614, 2).u32[0];
+      v450 = vmulq_n_f32(v448, v575.f32[0]);
+      v450.i32[3] = 0;
+      v451 = vmulq_lane_f32(v449, *v575.f32, 1);
+      v451.i32[3] = 0;
+      v452 = vmulq_laneq_f32(v444, v575, 2);
+      v452.i32[3] = 0;
+      v453 = vaddq_f32(v452, vaddq_f32(v450, v451));
+      v454 = vmulq_n_f32(v448, *v559.i32);
+      v454.i32[3] = 0;
+      v455 = vmulq_lane_f32(v449, *v559.i8, 1);
+      v455.i32[3] = 0;
+      v456 = vmulq_laneq_f32(v444, v559, 2);
+      v456.i32[3] = 0;
+      v457 = vmulq_n_f32(v448, v586.f32[0]);
+      v457.i32[3] = 0;
+      v458 = vmulq_lane_f32(v449, *v586.f32, 1);
+      v458.i32[3] = 0;
+      v459 = vmulq_laneq_f32(v444, v586, 2);
+      v459.i32[3] = 0;
+      v460 = vsubq_f32(v582, v563);
+      v461 = vmulq_f32(v460, v551);
+      v461.i64[0] = vpaddq_f32(v461, v461).u64[0];
+      v462 = vmulq_f32(v460, v536);
+      v462.i64[0] = vpaddq_f32(v462, v462).u64[0];
+      v463 = vmulq_f32(v460, v533);
+      v463.i64[0] = vpaddq_f32(v463, v463).u64[0];
+      v464 = vpadd_f32(*v463.f32, *v463.f32).u32[0];
+      *v465.f32 = vext_s8(vpadd_f32(*v461.f32, *v461.f32), vpadd_f32(*v462.f32, *v462.f32), 4uLL);
+      v465.i64[1] = v464;
+      *v462.f32 = vext_s8(v553, vdup_lane_s32(v535, 1), 4uLL);
+      v462.i64[1] = v545;
+      v466 = vaddq_f32(v456, vaddq_f32(v454, v455));
+      *v456.f32 = vext_s8(vdup_lane_s32(v547, 0), v577, 4uLL);
+      v456.i64[1] = v544;
+      v467 = vaddq_f32(v457, v458);
+      *v457.f32 = vext_s8(vdup_lane_s32(v549, 0), v584, 4uLL);
+      v457.i64[1] = v543;
+      v468 = vaddq_f32(v459, v467);
+      v469 = vaddq_f32(vmulq_laneq_f32(v457, v575, 2), vaddq_f32(vmulq_n_f32(v462, v575.f32[0]), vmulq_lane_f32(v456, *v575.f32, 1)));
+      v470 = vaddq_f32(vmulq_laneq_f32(v457, v559, 2), vaddq_f32(vmulq_n_f32(v462, *v559.i32), vmulq_lane_f32(v456, *v559.i8, 1)));
+      v471 = vaddq_f32(vmulq_laneq_f32(v457, v586, 2), vaddq_f32(vmulq_n_f32(v462, v586.f32[0]), vmulq_lane_f32(v456, *v586.f32, 1)));
+      v472 = vaddq_f32(vmulq_laneq_f32(v468, a7[2], 2), vaddq_f32(vmulq_n_f32(v453, COERCE_FLOAT(*&a7[2])), vmulq_lane_f32(v466, *a7[2].i8, 1)));
+      v473 = &a7[2];
+      v474 = v611;
+      do
+      {
+        v475 = v473[-2];
+        v476 = v473[-1];
+        v477 = vmulq_n_f32(v469, v475.f32[0]);
+        v477.i32[3] = 0;
+        v478 = vmulq_lane_f32(v470, *v475.f32, 1);
+        v478.i32[3] = 0;
+        v479 = vmulq_laneq_f32(v471, v475, 2);
+        v479.i32[3] = 0;
+        v480 = vaddq_f32(v479, vaddq_f32(v477, v478));
+        v481 = vmulq_n_f32(v453, v476.f32[0]);
+        v481.i32[3] = 0;
+        v482 = vmulq_lane_f32(v466, *v476.f32, 1);
+        v482.i32[3] = 0;
+        v483 = vmulq_laneq_f32(v468, v476, 2);
+        v483.i32[3] = 0;
+        v473[-2] = vaddq_f32(v480, v465);
+        v473[-1] = vaddq_f32(vaddq_f32(v483, vaddq_f32(v481, v482)), v447);
+        v484 = v472;
+        v484.i32[3] = v473->i32[3];
+        *v473 = v484;
+        v473 += 3;
+        --v474;
+      }
+
+      while (v474);
+      physx::Gu::PersistentContactManifold::addBatchManifoldContacts(_X20, a7, v441, v566);
+      v485 = *(*(_X20 + 80) + 32);
+      v486 = vmulq_n_f32(v571, v485.f32[0]);
+      v486.i32[3] = 0;
+      v487 = vmulq_lane_f32(v573, *v485.f32, 1);
+      v487.i32[3] = 0;
+      v488 = vmulq_laneq_f32(v580, v485, 2);
+      v488.i32[3] = 0;
+      v489 = vaddq_f32(v488, vaddq_f32(v486, v487));
+      v490 = vmulq_f32(v489, v489);
+      v490.i64[0] = vpaddq_f32(v490, v490).u64[0];
+      v491 = vpadd_f32(*v490.f32, *v490.f32);
+      v492 = vrsqrte_f32(v491);
+      v493 = 4;
+      do
+      {
+        v492 = vmul_f32(v492, vrsqrts_f32(vmul_f32(v492, v492), v491));
+        --v493;
+      }
+
+      while (v493);
+      v494 = vbsl_s8(vdup_lane_s32(vceqz_f32(v491), 0), v491, vmul_f32(v491, v492));
+      v495 = vrecpe_f32(v494);
+      v496 = 4;
+      do
+      {
+        v495 = vmul_f32(v495, vrecps_f32(v494, v495));
+        --v496;
+      }
+
+      while (v496);
+      v497 = vmulq_n_f32(v489, v495.f32[0]);
+      v497.i32[3] = 0;
+      v628 = v497;
+      physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(_X20, a7, &v628, &v612);
+      return 1;
+    }
+
+    v608 = 3;
+    v609 = 0;
+    v604 = 0uLL;
+    v610 = v567;
+    v605 = 0.15 * v564;
+    v606 = 0.05 * v564;
+    v607 = 0.05 * v564;
+    v601 = 3;
+    v602 = 0;
+    v597 = 0uLL;
+    v603 = v561;
+    v598 = 0.15 * v565;
+    v599 = 0.05 * v565;
+    *(_X20 + 66) = 0;
+    v600 = 0.05 * v565;
+    v628.i64[0] = &unk_1F5D21AE0;
+    v628.i64[1] = &v604;
+    v629 = &v616;
+    v633 = v619;
+    v498 = vzip1q_s32(v616, v618);
+    v499 = vzip1q_s32(v617, 0);
+    v500 = vzip2q_s32(v617, 0);
+    v630 = vzip1q_s32(v498, v499);
+    v631 = vzip2q_s32(v498, v499);
+    v632 = vzip1q_s32(vzip2q_s32(v616, v618), v500);
+    v596[1] = &v597;
+    v596[0] = &unk_1F5D21A80;
+    v627 = 0;
+    v624 = 0u;
+    v625 = 0u;
+    v626 = 0u;
+    v501 = physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::BoxV>>(&v628, v596, &v619, &v621, 1, (_X20 + 67), (_X20 + 71), (_X20 + 66), *v632.i64, *v631.i64, *v500.i8, &v624);
+    if (v501 == 5)
+    {
+      v590.i64[1] = &v604;
+      v590.i64[0] = &unk_1F5D21AE0;
+      v591.i64[0] = &v616;
+      v595 = v619;
+      v502 = vzip1q_s32(v616, v618);
+      v503 = vzip1q_s32(v617, 0);
+      v592 = vzip1q_s32(v502, v503);
+      v593 = vzip2q_s32(v502, v503);
+      v594 = vzip1q_s32(vzip2q_s32(v616, v618), vzip2q_s32(v617, 0));
+      *(&v589 + 1) = &v597;
+      *&v589 = &unk_1F5D21A80;
+      v501 = physx::Gu::epaPenetration(&v590);
+    }
+
+    if (v501 == 5 || v501 == 2)
+    {
+      v623 = vmul_f32(v538, vdup_n_s32(0x3D4CCCCDu));
+      v504 = vsubq_f32(v624, v619);
+      v505 = vmulq_f32(v616, v504);
+      v506 = vmulq_f32(v504, v617);
+      v507 = vmulq_f32(v504, v618);
+      v508 = vpaddq_f32(v505, v505).u64[0];
+      v505.i64[0] = vpaddq_f32(v506, v506).u64[0];
+      v507.i64[0] = vpaddq_f32(v507, v507).u64[0];
+      *v509.f32 = vext_s8(vpadd_f32(v508, v508), vpadd_f32(*v505.f32, *v505.f32), 4uLL);
+      v509.i64[1] = vpadd_f32(*v507.f32, *v507.f32).u32[0];
+      v589 = v625;
+      v590 = v509;
+      v510 = v626;
+      v510.i32[3] = HIDWORD(v627);
+      v588 = v510;
+      physx::Gu::PersistentContactManifold::addManifoldPoint(_X20, &v590, &v589, &v588, &v623);
+      v511 = v620[0];
+      v511.i32[3] = 0;
+      v512 = vdupq_laneq_s32(v620[0], 3).u64[0];
+      v513 = vmulq_n_f32(v626, vmla_f32(0xBF000000BF000000, v512, v512).f32[0]);
+      v513.i32[3] = 0;
+      v514 = vextq_s8(v511, v511, 8uLL).u64[0];
+      v515 = vextq_s8(v626, v626, 8uLL).u64[0];
+      v516 = vmls_f32(vmul_f32(*v620[0].f32, vext_s8(*v626.f32, v515, 4uLL)), vext_s8(*v620[0].f32, v514, 4uLL), *v626.f32);
+      *v517.f32 = vext_s8(v516, vmls_f32(vmul_f32(v514, *v626.f32), *v620[0].f32, v515), 4uLL);
+      v517.i64[1] = v516.u32[0];
+      v518 = vmlaq_laneq_f32(v513, v517, v620[0], 3);
+      v518.i64[1] = vextq_s8(v518, v518, 8uLL).u32[0];
+      v519 = vmulq_f32(v511, v626);
+      v519.i64[0] = vpaddq_f32(v519, v519).u64[0];
+      v520 = vmlaq_n_f32(v518, v511, vpadd_f32(*v519.f32, *v519.f32).f32[0]);
+      v521 = vaddq_f32(v520, v520);
+      v521.i32[3] = 0;
+      v522 = vmulq_f32(v521, v521);
+      v522.i64[0] = vpaddq_f32(v522, v522).u64[0];
+      v523 = vpadd_f32(*v522.f32, *v522.f32);
+      v524 = vrsqrte_f32(v523);
+      v525 = 4;
+      do
+      {
+        v524 = vmul_f32(v524, vrsqrts_f32(vmul_f32(v524, v524), v523));
+        --v525;
+      }
+
+      while (v525);
+      v526 = vbsl_s8(vdup_lane_s32(vceqz_f32(v523), 0), v523, vmul_f32(v523, v524));
+      v527 = vrecpe_f32(v526);
+      v528 = 4;
+      do
+      {
+        v527 = vmul_f32(v527, vrecps_f32(v526, v527));
+        --v528;
+      }
+
+      while (v528);
+      v529 = vmulq_n_f32(v521, v527.f32[0]);
+      v529.i32[3] = 0;
+      v587 = v529;
+      physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(_X20, a7, &v587, v620, &v621);
+    }
+
+    if (v501 == 2 || v501 == 5)
+    {
+      return 1;
+    }
+  }
+
+  else if (v58)
+  {
+    v114 = *(_X20 + 80);
+    v115 = *(v114 + 32);
+    v116 = v115;
+    if (v58 != 1)
+    {
+      v117 = v58 - 1;
+      v118 = (v114 + 80);
+      v116 = v115;
+      do
+      {
+        v119 = *v118;
+        v118 += 3;
+        v116 = vaddq_f32(v116, v119);
+        --v117;
+      }
+
+      while (v117);
+    }
+
+    v116.i32[3] = 0;
+    v120 = vmulq_f32(v116, v116);
+    v120.i64[0] = vpaddq_f32(v120, v120).u64[0];
+    v115.i32[3] = 0;
+    v121 = v21;
+    v121.i32[3] = 0;
+    v122 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v120.f32, *v120.f32), 0x3400000034000000), 0)), 0x1FuLL)), v116, v115);
+    v123 = vmulq_n_f32(v122, v27);
+    v123.i32[3] = 0;
+    v120.i64[0] = vextq_s8(v121, v121, 8uLL).u64[0];
+    v124 = vextq_s8(v122, v122, 8uLL).u64[0];
+    v125 = vmls_f32(vmul_f32(*v21.f32, vext_s8(*v122.i8, v124, 4uLL)), vext_s8(*v21.f32, *v120.f32, 4uLL), *v122.i8);
+    *v120.f32 = vext_s8(v125, vmls_f32(vmul_f32(*v120.f32, *v122.i8), *v21.f32, v124), 4uLL);
+    v120.i64[1] = v125.u32[0];
+    v126 = vmlaq_f32(v123, v26, v120);
+    v126.i64[1] = vextq_s8(v126, v126, 8uLL).u32[0];
+    v127 = vmulq_f32(v121, v122);
+    v127.i64[0] = vpaddq_f32(v127, v127).u64[0];
+    v128 = vmlaq_n_f32(v126, v121, vpadd_f32(*v127.f32, *v127.f32).f32[0]);
+    v129 = vaddq_f32(v128, v128);
+    v129.i32[3] = 0;
+    v130 = vmulq_f32(v129, v129);
+    v130.i64[0] = vpaddq_f32(v130, v130).u64[0];
+    v131 = vpadd_f32(*v130.f32, *v130.f32);
+    v132 = vrsqrte_f32(v131);
+    v133 = 4;
+    do
+    {
+      v132 = vmul_f32(v132, vrsqrts_f32(vmul_f32(v132, v132), v131));
+      --v133;
+    }
+
+    while (v133);
+    v134 = vbsl_s8(vdup_lane_s32(vceqz_f32(v131), 0), v131, vmul_f32(v131, v132));
+    v135 = vrecpe_f32(v134);
+    v136 = 4;
+    do
+    {
+      v135 = vmul_f32(v135, vrecps_f32(v134, v135));
+      --v136;
+    }
+
+    while (v136);
+    v137 = vmulq_n_f32(v129, v135.f32[0]);
+    v137.i32[3] = 0;
+    v628 = v137;
+    physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(_X20, a7, &v628, v620, &v621);
+    return 1;
+  }
+
+  return 0;
+}
+
+BOOL physx::Gu::pcmContactBoxConvex(uint64_t a1, uint64_t a2, int8x16_t *a3, int8x16_t *a4, uint64_t a5, float32x4_t **a6, float32x4_t *a7, uint64_t a8)
+{
+  v274 = *MEMORY[0x1E69E9840];
+  v11 = *a6;
+  _X23 = *(a2 + 48);
+  __asm { PRFM            #0, [X23] }
+
+  v17 = vdup_lane_s32(*a5, 0);
+  v18 = *(a1 + 4);
+  v19 = v18;
+  v19.i32[2] = *(a1 + 12);
+  v20 = vdup_laneq_s32(v19, 2);
+  v256 = v17;
+  v21 = v19;
+  v21.i32[3] = 0;
+  v22 = *(a2 + 4);
+  v23 = v22;
+  v23.i32[3] = 0;
+  v19.i64[0] = a3[1].i64[0];
+  v19.i64[1] = a3[1].u32[2];
+  v255[0] = *a3;
+  v255[1] = v19;
+  v24.i64[0] = a4[1].i64[0];
+  v24.i64[1] = a4[1].u32[2];
+  v254[0] = *a4;
+  v254[1] = v24;
+  v25 = vnegq_f32(v254[0]);
+  v26 = v25;
+  v26.i32[3] = 0;
+  v27 = vsubq_f32(v19, v24);
+  v28 = vdupq_laneq_s32(v254[0], 3).u64[0];
+  v29 = vmulq_n_f32(v27, vmla_f32(0xBF000000BF000000, v28, v28).f32[0]);
+  v29.i32[3] = 0;
+  v30 = vextq_s8(v26, v26, 8uLL).u64[0];
+  v31 = vext_s8(*v25.f32, v30, 4uLL);
+  v32 = vmls_f32(vmul_f32(*v25.f32, *&vextq_s8(v27, v27, 4uLL)), v31, *v27.i8);
+  *v33.f32 = vext_s8(v32, vmls_f32(vmul_f32(v30, *v27.i8), *v25.f32, *&vextq_s8(v27, v27, 8uLL)), 4uLL);
+  v33.i64[1] = v32.u32[0];
+  v34 = vmlaq_laneq_f32(v29, v33, v254[0], 3);
+  v34.i64[1] = vextq_s8(v34, v34, 8uLL).u32[0];
+  v35 = vmulq_f32(v26, v27);
+  v35.i64[0] = vpaddq_f32(v35, v35).u64[0];
+  v36 = vmlaq_n_f32(v34, v26, vpadd_f32(*v35.f32, *v35.f32).f32[0]);
+  v37 = vaddq_f32(v36, v36);
+  v37.i32[3] = 0;
+  v38 = v255[0];
+  v38.i32[3] = 0;
+  v39 = vmulq_f32(v38, v26);
+  v39.i64[0] = vpaddq_f32(v39, v39).u64[0];
+  v40 = vmulq_laneq_f32(v38, v254[0], 3);
+  v38.i64[0] = vextq_s8(v38, v38, 8uLL).u64[0];
+  *v33.f32 = vmls_f32(vmul_f32(vext_s8(*v255[0].i8, *v38.i8, 4uLL), *v25.f32), v31, *v255[0].i8);
+  *v38.i8 = vext_s8(*v33.f32, vmls_f32(vmul_f32(*v255[0].i8, v30), *v25.f32, *v38.i8), 4uLL);
+  v38.i64[1] = v33.i64[0];
+  v41 = vaddq_f32(vaddq_f32(vmulq_laneq_f32(v26, v255[0], 3), v40), v38);
+  v42 = vdup_lane_s32(*v41.f32, 1);
+  *v40.f32 = vdup_laneq_s32(v41, 2);
+  v43 = vsub_f32(vmul_f32(*&vextq_s8(v255[0], v255[0], 8uLL), *&vextq_s8(v254[0], v254[0], 8uLL)), vpadd_f32(*v39.f32, *v39.f32));
+  v44 = vaddq_f32(v41, v41);
+  *v26.i8 = vdup_lane_s32(*v44.f32, 1);
+  *v39.f32 = vdup_laneq_s32(v44, 2);
+  v45 = vdup_lane_s32(vmul_f32(*v41.f32, *v44.f32), 0);
+  *v33.f32 = vmul_lane_f32(v42, *v44.f32, 1);
+  v46 = vmul_laneq_f32(*v40.f32, v44, 2);
+  v47 = vmul_n_f32(v42, v44.f32[0]);
+  v48 = vmul_n_f32(*v40.f32, v44.f32[0]);
+  *v25.f32 = vmul_lane_f32(vdup_lane_s32(*v44.f32, 0), v43, 1);
+  *v44.f32 = vmul_lane_f32(*v40.f32, *v44.f32, 1);
+  *v26.i8 = vmul_lane_f32(*v26.i8, v43, 1);
+  *v40.f32 = vmul_lane_f32(*v39.f32, v43, 1);
+  __asm { FMOV            V24.2S, #1.0 }
+
+  *v39.f32 = vsub_f32(_D24, v45);
+  *v50.f32 = vext_s8(vsub_f32(vsub_f32(_D24, *v33.f32), v46), vadd_f32(v47, *v40.f32), 4uLL);
+  v50.i64[1] = vsub_f32(v48, *v26.i8).u32[0];
+  *v51.f32 = vext_s8(vsub_f32(v47, *v40.f32), vsub_f32(*v39.f32, v46), 4uLL);
+  v51.i64[1] = vadd_f32(*v44.f32, *v25.f32).u32[0];
+  v250 = v50;
+  v251 = v51;
+  *v52.f32 = vext_s8(vadd_f32(v48, *v26.i8), vsub_f32(*v44.f32, *v25.f32), 4uLL);
+  v52.i64[1] = vsub_f32(*v39.f32, *v33.f32).u32[0];
+  v252 = v52;
+  v253 = v37;
+  v54.i64[0] = *(_X23 + 60);
+  v53 = *(a5 + 8);
+  v54.i64[1] = *(_X23 + 68);
+  v55 = vmulq_f32(v23, v54);
+  *v39.f32 = vdup_laneq_s32(v55, 2);
+  *v55.i8 = vpmin_f32(*v39.f32, *v55.i8);
+  v39.f32[0] = v53 * 0.05;
+  __asm { FMOV            V17.2S, #0.25 }
+
+  *v18.f32 = vpmin_f32(v20, *v18.f32);
+  v57 = vpmin_f32(*v18.f32, *v18.f32);
+  v18.f32[0] = v53 * 0.15;
+  v58 = vmin_f32(vmin_f32(vmul_f32(vpmin_f32(*v55.i8, *v55.i8), _D17), vdup_lane_s32(*v39.f32, 0)), vmin_f32(vmul_f32(v57, vdup_n_s32(0x3E19999Au)), vdup_lane_s32(*v18.f32, 0)));
+  v59 = *(v11 + 64);
+  if (*(v11 + 64))
+  {
+    v60 = vmul_f32(v58, vdup_n_s32(0x3F4CCCCDu));
+    v61 = vmul_f32(v60, v60);
+    v62 = 48 * v59;
+    do
+    {
+      v63 = *(v11 + 80);
+      v64 = (v63 + v62 - 48);
+      v65 = vmulq_n_f32(v50, COERCE_FLOAT(*v64));
+      v65.i32[3] = 0;
+      v66 = vmulq_lane_f32(v51, *v64->f32, 1);
+      v66.i32[3] = 0;
+      v67 = vmulq_laneq_f32(v52, *v64, 2);
+      v67.i32[3] = 0;
+      v68 = vaddq_f32(v37, vaddq_f32(v67, vaddq_f32(v65, v66)));
+      v70 = *(v63 + v62 - 32);
+      v69 = *(v63 + v62 - 16);
+      v71 = v69;
+      v71.i32[3] = 0;
+      v72 = vmulq_f32(v71, vsubq_f32(v68, v70));
+      v72.i64[0] = vpaddq_f32(v72, v72).u64[0];
+      v73 = vpadd_f32(*v72.f32, *v72.f32);
+      v74 = vmlsq_lane_f32(v68, v71, v73, 0);
+      v74.i64[1] = vextq_s8(v74, v74, 8uLL).u32[0];
+      v75 = vsubq_f32(v70, v74);
+      v76 = vmulq_f32(v75, v75);
+      v76.i64[0] = vpaddq_f32(v76, v76).u64[0];
+      if (vuzp1_s8(vdup_lane_s16(vcgt_f32(vpadd_f32(*v76.f32, *v76.f32), v61), 0), v61).u32[0] == -1)
+      {
+        v77 = *(v11 + 64) - 1;
+        *(v11 + 64) = v77;
+        v78 = (v63 + 48 * v77);
+        v79 = *v78;
+        v80 = v78[2];
+        v64[1] = v78[1];
+        v64[2] = v80;
+        *v64 = v79;
+      }
+
+      else
+      {
+        v69.i32[3] = v73.i32[1];
+        *(v63 + v62 - 16) = v69;
+      }
+
+      v62 -= 48;
+    }
+
+    while (v62);
+    v54.i64[0] = *(_X23 + 60);
+    v54.i64[1] = *(_X23 + 68);
+  }
+
+  v41.i32[3] = v43.i32[1];
+  v81 = vmulq_f32(v21, v21);
+  v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
+  v82 = vpadd_f32(*v81.f32, *v81.f32);
+  v83 = vrsqrte_f32(v82);
+  v84 = 4;
+  do
+  {
+    v83 = vmul_f32(v83, vrsqrts_f32(vmul_f32(v83, v83), v82));
+    --v84;
+  }
+
+  while (v84);
+  v85 = vmulq_f32(v23, v54);
+  v86 = vmulq_f32(v85, v85);
+  v88 = vpaddq_f32(v86, v86);
+  v87 = vpadd_f32(*v88.f32, *v88.f32);
+  *v88.f32 = vrsqrte_f32(v87);
+  v89 = 4;
+  do
+  {
+    *v88.f32 = vmul_f32(*v88.f32, vrsqrts_f32(vmul_f32(*v88.f32, *v88.f32), v87));
+    --v89;
+  }
+
+  while (v89);
+  v90 = v255[0];
+  v91 = v254[0];
+  if (*(v11 + 64) != v59)
+  {
+    goto LABEL_36;
+  }
+
+  v92 = vmul_n_f32(v58, physx::Gu::invalidateThresholds[v59]);
+  v93 = vabdq_f32(v37, *(v11 + 16));
+  *v93.i8 = vpmax_f32(*&vextq_s8(v93, v93, 8uLL), *v93.i8);
+  v94 = (&physx::Gu::invalidateQuatThresholds + 4 * v59);
+  v95 = vld1_dup_f32(v94);
+  v96 = vpmax_f32(*v93.i8, *v93.i8);
+  v97 = vmulq_f32(v255[0], *(v11 + 32));
+  v97.i64[0] = vpaddq_f32(v97, v97).u64[0];
+  v98 = vpadd_f32(*v97.f32, *v97.f32);
+  v99 = vmulq_f32(v254[0], *(v11 + 48));
+  v99.i64[0] = vpaddq_f32(v99, v99).u64[0];
+  v100 = vpadd_f32(*v99.f32, *v99.f32);
+  if (vuzp1_s8(vdup_lane_s16(vorr_s8(vorr_s8(vcgt_f32(v95, v98), vcgt_f32(v95, v100)), vcgt_f32(v96, v92)), 0), v82).u32[0] == -1)
+  {
+    goto LABEL_36;
+  }
+
+  v233 = v57.i32[0];
+  v234 = v21;
+  v235 = v53;
+  v101 = vbsl_s8(vdup_lane_s32(vceqz_f32(v82), 0), v82, vmul_f32(v82, v83));
+  v102 = vmul_f32(v87, *v88.f32);
+  v103 = vdup_lane_s32(vceqz_f32(v87), 0);
+  v104 = 0.0;
+  v105 = 0.0;
+  v231 = v23;
+  v232 = v22;
+  v229 = v41;
+  v230 = v37;
+  if (v98.f32[0] < 1.0)
+  {
+    v106 = -1.0;
+    if (v98.f32[0] >= -1.0)
+    {
+      v106 = v98.f32[0];
+    }
+
+    if (v106 > 1.0)
+    {
+      v106 = 1.0;
+    }
+
+    v227 = v58;
+    v107 = v17;
+    v108 = _D24;
+    v109 = v92;
+    v228 = v100.i32[0];
+    v110 = v101;
+    v105 = acosf(v106);
+    v101 = v110;
+    v104 = 0.0;
+    v100.i32[0] = v228;
+    v92 = v109;
+    v90 = v255[0];
+    v91 = v254[0];
+    v41 = v229;
+    v37 = v230;
+    _D24 = v108;
+    v23 = v231;
+    v22 = v232;
+    v17 = v107;
+    v58 = v227;
+  }
+
+  v111 = vbsl_s8(v103, v87, v102);
+  v112 = vmul_n_f32(v101, v105);
+  if (v100.f32[0] < 1.0)
+  {
+    v113 = -1.0;
+    if (v100.f32[0] >= -1.0)
+    {
+      v113 = v100.f32[0];
+    }
+
+    if (v113 > 1.0)
+    {
+      v113 = 1.0;
+    }
+
+    v114 = v58;
+    v115 = v17;
+    v116 = _D24;
+    v117 = v92;
+    v118 = acosf(v113);
+    v92 = v117;
+    v90 = v255[0];
+    v91 = v254[0];
+    v41 = v229;
+    v37 = v230;
+    _D24 = v116;
+    v23 = v231;
+    v22 = v232;
+    v17 = v115;
+    v58 = v114;
+    v104 = v118;
+  }
+
+  v119 = vdup_lane_s16(vcgt_f32(vmaxnm_f32(vmul_n_f32(v111, v104), v112), v92), 0);
+  v53 = v235;
+  v57.i32[0] = v233;
+  v21 = v234;
+  if (vuzp1_s8(v119, v119).u32[0] == -1)
+  {
+LABEL_36:
+    *v11 = v41;
+    *(v11 + 16) = v37;
+    *(v11 + 32) = v90;
+    *(v11 + 48) = v91;
+    v148 = *(a2 + 4) == 1.0 && *(a2 + 8) == 1.0 && *(a2 + 12) == 1.0;
+    v149 = *(a2 + 16);
+    v88.i32[0] = *(_X23 + 24);
+    v150 = v88;
+    v150.i32[1] = *(_X23 + 28);
+    v151 = v150;
+    v151.i32[2] = *(_X23 + 32);
+    v262 = 0;
+    v263 = 0;
+    v259 = v151;
+    v270 = _X23;
+    v272 = *(_X23 + 40) + 20 * *(_X23 + 39);
+    v273 = *(_X23 + 38);
+    v152.i64[0] = *(_X23 + 60);
+    v152.i64[1] = *(_X23 + 68);
+    v153 = vmulq_f32(v23, v152);
+    *v153.i8 = vpmin_f32(vdup_laneq_s32(v153, 2), *v153.i8);
+    *v153.i32 = vpmin_f32(*v153.i8, *v153.i8).f32[0];
+    v260 = vmul_n_f32(0x3D4CCCCD3DCCCCCDLL, *v153.i32);
+    v261 = 0.025 * *v153.i32;
+    if (v148)
+    {
+      v264 = xmmword_1E3047670;
+      v265 = xmmword_1E3047680;
+      v266 = xmmword_1E30476A0;
+      v267 = xmmword_1E3047670;
+      v268 = xmmword_1E3047680;
+      v269 = xmmword_1E30476A0;
+    }
+
+    else
+    {
+      v154 = vrecpeq_f32(v23);
+      v155 = 4;
+      do
+      {
+        v154 = vmulq_f32(v154, vrecpsq_f32(v154, v23));
+        --v155;
+      }
+
+      while (v155);
+      *v156.f32 = vdup_lane_s32(*v22.f32, 0);
+      v156.i64[1] = v156.u32[0];
+      if ((~vuzp1_s8(vmovn_s32(vceqq_f32(v156, v23)), *v150.f32).u32[0] & 0xFFFFFF) != 0)
+      {
+        v163 = vdup_lane_s32(*v149.f32, 1);
+        v164 = vdup_laneq_s32(v149, 2);
+        v165 = vdup_laneq_s32(v149, 3);
+        v166 = vaddq_f32(v149, v149);
+        v167 = vmul_lane_f32(v163, *v166.f32, 1);
+        v168 = vmul_laneq_f32(v164, v166, 2);
+        v169 = vmul_n_f32(v163, v166.f32[0]);
+        v170 = vmul_n_f32(v164, v166.f32[0]);
+        v171 = vmul_n_f32(v165, v166.f32[0]);
+        v172 = vmul_lane_f32(v164, *v166.f32, 1);
+        v173 = vmul_lane_f32(v165, *v166.f32, 1);
+        v174 = vmul_laneq_f32(v165, v166, 2);
+        v175 = vsub_f32(_D24, vdup_lane_s32(vmul_f32(*v149.f32, *v166.f32), 0));
+        v176 = vsub_f32(vsub_f32(_D24, v167), v168);
+        *v166.f32 = vadd_f32(v169, v174);
+        v177 = vsub_f32(v170, v173);
+        v178 = vsub_f32(v169, v174);
+        v179 = vadd_f32(v170, v173);
+        v180 = vsub_f32(v172, v171);
+        v181 = vext_s8(v179, v180, 4uLL);
+        v182 = vsub_f32(v175, v168);
+        *v183.f32 = vext_s8(v176, *&vdupq_lane_s32(v178, 1), 4uLL);
+        v183.i64[1] = vdup_lane_s32(v181, 0).u32[0];
+        v184 = vsub_f32(v175, v167);
+        *v185.f32 = vext_s8(*&vdupq_lane_s32(*v166.f32, 0), v182, 4uLL);
+        v185.i64[1] = vdup_lane_s32(v181, 1).u32[0];
+        v186 = vadd_f32(v172, v171);
+        *v187.f32 = vext_s8(*&vdupq_lane_s32(v177, 0), v186, 4uLL);
+        v187.i64[1] = vdup_lane_s32(v184, 0).u32[0];
+        v188 = vmulq_n_f32(v183, v22.f32[0]);
+        v188.i32[3] = 0;
+        v189 = vmulq_lane_f32(v185, *v22.f32, 1);
+        v189.i32[3] = 0;
+        v190 = vmulq_laneq_f32(v187, v22, 2);
+        v190.i32[3] = 0;
+        v191 = vmulq_lane_f32(v188, v176, 1);
+        v191.i32[3] = 0;
+        v192 = vmulq_n_f32(v189, v166.f32[0]);
+        v192.i32[3] = 0;
+        v193 = vmulq_n_f32(v190, *v177.i32);
+        v193.i32[3] = 0;
+        v157 = vaddq_f32(v193, vaddq_f32(v191, v192));
+        v194 = vmulq_lane_f32(v188, v178, 1);
+        v194.i32[3] = 0;
+        v195 = vmulq_n_f32(v189, *v182.i32);
+        v195.i32[3] = 0;
+        v196 = vmulq_n_f32(v190, *v186.i32);
+        v196.i32[3] = 0;
+        v158 = vaddq_f32(v196, vaddq_f32(v194, v195));
+        v197 = vmulq_lane_f32(v188, v179, 1);
+        v197.i32[3] = 0;
+        v198 = vmulq_n_f32(v189, *v180.i32);
+        v198.i32[3] = 0;
+        v199 = vmulq_n_f32(v190, *v184.i32);
+        v199.i32[3] = 0;
+        v159 = vaddq_f32(v199, vaddq_f32(v197, v198));
+        v264 = v157;
+        v265 = v158;
+        v200 = vmulq_n_f32(v183, v154.f32[0]);
+        v200.i32[3] = 0;
+        v201 = vmulq_lane_f32(v185, *v154.f32, 1);
+        v201.i32[3] = 0;
+        v202 = vmulq_laneq_f32(v187, v154, 2);
+        v202.i32[3] = 0;
+        v203 = vmulq_lane_f32(v200, v176, 1);
+        v203.i32[3] = 0;
+        v204 = vmulq_n_f32(v201, v166.f32[0]);
+        v204.i32[3] = 0;
+        v205 = vmulq_n_f32(v202, *v177.i32);
+        v205.i32[3] = 0;
+        v206 = vaddq_f32(v205, vaddq_f32(v203, v204));
+        v207 = vmulq_lane_f32(v200, v178, 1);
+        v207.i32[3] = 0;
+        v208 = vmulq_n_f32(v201, *v182.i32);
+        v208.i32[3] = 0;
+        v209 = vmulq_n_f32(v202, *v186.i32);
+        v209.i32[3] = 0;
+        v210 = vmulq_lane_f32(v200, v179, 1);
+        v210.i32[3] = 0;
+        v211 = vmulq_n_f32(v201, *v180.i32);
+        v211.i32[3] = 0;
+        v212 = vmulq_n_f32(v202, *v184.i32);
+        v212.i32[3] = 0;
+        v162 = vaddq_f32(v212, vaddq_f32(v210, v211));
+        v266 = v159;
+        v267 = v206;
+        v268 = vaddq_f32(v209, vaddq_f32(v207, v208));
+      }
+
+      else
+      {
+        v154.i32[3] = 0;
+        v157 = vmulq_f32(v23, xmmword_1E3047670);
+        v158 = vmulq_f32(v23, xmmword_1E3047680);
+        v159 = vmulq_f32(v23, xmmword_1E30476A0);
+        v264 = v157;
+        v265 = v158;
+        v160 = vmulq_f32(v154, xmmword_1E3047670);
+        v161 = vmulq_f32(v154, xmmword_1E3047680);
+        v162 = vmulq_f32(v154, xmmword_1E30476A0);
+        v266 = v159;
+        v267 = v160;
+        v268 = v161;
+      }
+
+      v213 = vmulq_n_f32(v157, v88.f32[0]);
+      v213.i32[3] = 0;
+      v214 = vmulq_lane_f32(v158, *v150.f32, 1);
+      v214.i32[3] = 0;
+      v215 = vmulq_laneq_f32(v159, v151, 2);
+      v215.i32[3] = 0;
+      v269 = v162;
+      v259 = vaddq_f32(v215, vaddq_f32(v214, v213));
+    }
+
+    v271 = *(_X23 + 48);
+    v247 = 3;
+    v248 = 0;
+    v243[0] = 0;
+    v243[1] = 0;
+    v249 = v21;
+    v244 = 0.15 * v57.f32[0];
+    v245 = 0.05 * v57.f32[0];
+    v246 = 0.05 * v57.f32[0];
+    v258 = 0;
+    memset(v257, 0, 48);
+    v237.i64[1] = v243;
+    v237.i64[0] = &unk_1F5D21AE0;
+    v238 = &v250;
+    v242 = v253;
+    v216 = vzip1q_s32(v250, v252);
+    v217 = vzip2q_s32(v250, v252);
+    v218 = vzip1q_s32(v251, 0);
+    v219 = vzip1q_s32(v216, v218);
+    v220 = vzip2q_s32(v216, v218);
+    v221 = vzip1q_s32(v217, vzip2q_s32(v251, 0));
+    v239 = v219;
+    v240 = v220;
+    v241 = v221;
+    v236[1] = &v259;
+    if (v148)
+    {
+      v236[0] = &unk_1F5D22C50;
+      v222 = physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullNoScaleV>>(&v237, v236, (v11 + 67), (v11 + 71), (v11 + 66), v257, v253, v17, *v220.i64, v219, *v216.i8);
+      v224 = v256;
+      v226 = a8;
+      v225 = 1;
+    }
+
+    else
+    {
+      v236[0] = &unk_1F5D21818;
+      v222 = physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullV>>(&v237, v236, &v253, &v256, 1, (v11 + 67), (v11 + 71), (v11 + 66), *v221.i64, *v217.i64, *v220.i8, v219, v257);
+      v224 = v256;
+      v226 = a8;
+      v225 = 0;
+    }
+
+    v223.n128_f32[0] = v53;
+    return physx::Gu::generateOrProcessContactsBoxConvex(&v237, v236, v255, v254, &v250, v222, v257, v11, v58, v224, v223, a7, v59, v225, v226);
+  }
+
+  else if (v59)
+  {
+    v120 = *(v11 + 80);
+    v121 = *(v120 + 32);
+    v122 = v121;
+    if (v59 != 1)
+    {
+      v123 = v59 - 1;
+      v124 = (v120 + 80);
+      v122 = v121;
+      do
+      {
+        v125 = *v124;
+        v124 += 3;
+        v122 = vaddq_f32(v122, v125);
+        --v123;
+      }
+
+      while (v123);
+    }
+
+    v122.i32[3] = 0;
+    v126 = vmulq_f32(v122, v122);
+    v126.i64[0] = vpaddq_f32(v126, v126).u64[0];
+    v121.i32[3] = 0;
+    v127 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v126.f32, *v126.f32), 0x3400000034000000), 0)), 0x1FuLL)), v122, v121);
+    v128 = v91;
+    v128.i32[3] = 0;
+    v126.i64[0] = vdupq_laneq_s32(v91, 3).u64[0];
+    v129 = vmulq_n_f32(v127, vmla_f32(0xBF000000BF000000, *v126.f32, *v126.f32).f32[0]);
+    v129.i32[3] = 0;
+    v130 = vextq_s8(v128, v128, 8uLL).u64[0];
+    v131 = vextq_s8(v127, v127, 8uLL).u64[0];
+    v132 = vmls_f32(vmul_f32(*v91.f32, vext_s8(*v127.i8, v131, 4uLL)), vext_s8(*v91.f32, v130, 4uLL), *v127.i8);
+    *v133.f32 = vext_s8(v132, vmls_f32(vmul_f32(v130, *v127.i8), *v91.f32, v131), 4uLL);
+    v133.i64[1] = v132.u32[0];
+    v134 = vmlaq_laneq_f32(v129, v133, v91, 3);
+    v134.i64[1] = vextq_s8(v134, v134, 8uLL).u32[0];
+    v135 = vmulq_f32(v128, v127);
+    v135.i64[0] = vpaddq_f32(v135, v135).u64[0];
+    v136 = vmlaq_n_f32(v134, v128, vpadd_f32(*v135.f32, *v135.f32).f32[0]);
+    v137 = vaddq_f32(v136, v136);
+    v137.i32[3] = 0;
+    v138 = vmulq_f32(v137, v137);
+    v138.i64[0] = vpaddq_f32(v138, v138).u64[0];
+    v139 = vpadd_f32(*v138.f32, *v138.f32);
+    v140 = vrsqrte_f32(v139);
+    v141 = 4;
+    do
+    {
+      v140 = vmul_f32(v140, vrsqrts_f32(vmul_f32(v140, v140), v139));
+      --v141;
+    }
+
+    while (v141);
+    v142 = vbsl_s8(vdup_lane_s32(vceqz_f32(v139), 0), v139, vmul_f32(v139, v140));
+    v143 = vrecpe_f32(v142);
+    v144 = 4;
+    do
+    {
+      v143 = vmul_f32(v143, vrecps_f32(v142, v143));
+      --v144;
+    }
+
+    while (v144);
+    v145 = vmulq_n_f32(v137, v143.f32[0]);
+    v145.i32[3] = 0;
+    v259 = v145;
+    physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(v11, a7, &v259, v254, &v256);
+    return 1;
+  }
+
+  else
+  {
+    return 0;
   }
 }
 
+uint64_t physx::Gu::gjkPenetration<physx::Gu::RelativeConvex<physx::Gu::BoxV>,physx::Gu::LocalConvex<physx::Gu::ConvexHullNoScaleV>>(float32x4_t *a1, uint64_t a2, _BYTE *a3, _BYTE *a4, _BYTE *a5, float32x4_t *a6, float32x4_t a7, float32x2_t a8, double a9, int32x4_t a10, int8x8_t a11)
 {
-  physx::Cct::ObstacleContext::~ObstacleContext(this);
+  v343 = *MEMORY[0x1E69E9840];
+  v16 = a1->i64[1];
+  v17 = (v16 + 20);
+  v18 = vld1_dup_f32(v17);
+  v19 = *(a2 + 8);
+  v20 = (v19 + 20);
+  v21 = vld1_dup_f32(v20);
+  v22 = vmin_f32(v18, v21);
+  v23 = vdup_n_s32(0x3DCCCCCDu);
+  v24 = vmul_f32(v22, v23);
+  v22.i32[0] = *(v16 + 16);
+  v23.i32[0] = *(v19 + 16);
+  a10.i32[0] = -*(v16 + 32);
+  a11.i32[0] = -*(v19 + 32);
+  v25 = vadd_f32(vand_s8(*a10.i8, v22), vand_s8(a11, v23));
+  v326 = 0uLL;
+  v325 = 0;
+  v26 = *a5;
+  __asm { FMOV            V10.2S, #1.0 }
+
+  if (!*a5)
+  {
+    v54 = vmulq_f32(a7, a7);
+    v54.i64[0] = vpaddq_f32(v54, v54).u64[0];
+    v46 = vbslq_s8(vmovl_s16(vdup_lane_s16(vcgtz_f32(vpadd_f32(*v54.f32, *v54.f32)), 0)), a7, xmmword_1E3047670);
+    v326 = v46;
+    v55 = vmulq_f32(v46, v46);
+    v55.i64[0] = vpaddq_f32(v55, v55).u64[0];
+    v56 = vpadd_f32(*v55.f32, *v55.f32);
+    v57 = vrsqrte_f32(v56);
+    v58 = 4;
+    do
+    {
+      v57 = vmul_f32(v57, vrsqrts_f32(vmul_f32(v57, v57), v56));
+      --v58;
+    }
+
+    while (v58);
+    v59 = vbsl_s8(vdup_lane_s32(vceqz_f32(v56), 0), v56, vmul_f32(v56, v57));
+    v60 = vrecpe_f32(v59);
+    v61 = 4;
+    do
+    {
+      *a10.i8 = vrecps_f32(v59, v60);
+      v60 = vmul_f32(v60, *a10.i8);
+      --v61;
+    }
+
+    while (v61);
+    v62 = vmulq_n_f32(v46, v60.f32[0]);
+    v62.i32[3] = 0;
+    v321 = v62;
+    v63 = vneg_f32(0x80000000800000);
+    v64.i64[0] = -1;
+    v64.i64[1] = -1;
+    v65 = 0uLL;
+    goto LABEL_52;
+  }
+
+  v32 = 0;
+  v33 = a1[1].i64[0];
+  v34 = *(v16 + 48);
+  v35 = *(v19 + 160);
+  v36 = vnegq_f32(v34);
+  v36.i32[3] = 0;
+  v37 = -1;
+  do
+  {
+    v38 = a3[v32];
+    *(&v331 + v32) = v38;
+    v39 = a4[v32];
+    *(&v328 + v32) = v39;
+    v40 = vbslq_s8(physx::boxVertexTable[v38], v34, v36);
+    v41 = vmulq_n_f32(*v33, v40.f32[0]);
+    v41.i32[3] = 0;
+    v42 = vmulq_lane_f32(v33[1], *v40.f32, 1);
+    v42.i32[3] = 0;
+    v43 = vmulq_laneq_f32(v33[2], v40, 2);
+    v43.i32[3] = 0;
+    v44 = vaddq_f32(v43, vaddq_f32(v41, v42));
+    a10 = *(v35 + 12 * v39);
+    a10.i32[3] = 0;
+    v45 = vaddq_f32(v33[3], v44);
+    v46 = vsubq_f32(v45, a10);
+    *(&v337 + v32) = v45;
+    *(&v334 + v32) = a10;
+    *(&v340 + v32) = v46;
+    ++v37;
+    ++v32;
+  }
+
+  while (v26 != v32);
+  v325 = v26;
+  if (v37 == 3)
+  {
+    physx::Gu::closestPtPointTetrahedron(&v340, &v337, &v334, &v331, &v328, &v325);
+    goto LABEL_47;
+  }
+
+  if (v37 != 2)
+  {
+    if (v37 != 1)
+    {
+      goto LABEL_47;
+    }
+
+    v46 = v340;
+    v47 = vsubq_f32(v341, v340);
+    v48 = vmulq_f32(v47, v47);
+    v48.i64[0] = vpaddq_f32(v48, v48).u64[0];
+    v49 = vpadd_f32(*v48.f32, *v48.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v49), 0), *v340.f32).u32[0] != -1)
+    {
+      v50 = vnegq_f32(v340);
+      v50.i32[3] = 0;
+      v51 = vmulq_f32(v50, v47);
+      a10 = vpaddq_f32(v51, v51);
+      *a10.i8 = vpadd_f32(*a10.i8, *a10.i8);
+      v52 = vrecpe_f32(v49);
+      v53 = 4;
+      do
+      {
+        v52 = vmul_f32(v52, vrecps_f32(v49, v52));
+        --v53;
+      }
+
+      while (v53);
+      v46 = vmlaq_n_f32(v340, v47, vmax_f32(vmin_f32(vmul_f32(*a10.i8, v52), _D10), 0).f32[0]);
+LABEL_31:
+      v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+      goto LABEL_47;
+    }
+
+LABEL_32:
+    v325 = 1;
+    goto LABEL_47;
+  }
+
+  v325 = 3;
+  v46 = v340;
+  a10 = vsubq_f32(v341, v340);
+  v66 = vsubq_f32(v342[0], v340);
+  v68 = vmls_f32(vmul_f32(*a10.i8, *&vextq_s8(v66, v66, 4uLL)), *&vextq_s8(a10, a10, 4uLL), *v66.i8);
+  *v67.f32 = vext_s8(v68, vmls_f32(vmul_f32(*&vextq_s8(a10, a10, 8uLL), *v66.i8), *a10.i8, *&vextq_s8(v66, v66, 8uLL)), 4uLL);
+  v68.i32[1] = 0;
+  v69 = vpadd_f32(vmul_f32(*v67.f32, *v67.f32), vmul_f32(v68.u32[0], v68.u32[0]));
+  v70 = vpadd_f32(v69, v69);
+  if (v70.f32[0] <= 0.00000011921)
+  {
+    v325 = 2;
+    v109 = vmulq_f32(a10, a10);
+    v109.i64[0] = vpaddq_f32(v109, v109).u64[0];
+    v110 = vpadd_f32(*v109.f32, *v109.f32);
+    if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v110), 0), *v340.f32).u32[0] != -1)
+    {
+      v111 = vnegq_f32(v340);
+      v111.i32[3] = 0;
+      v112 = vmulq_f32(v111, a10);
+      v112.i64[0] = vpaddq_f32(v112, v112).u64[0];
+      v113 = vpadd_f32(*v112.f32, *v112.f32);
+      v114 = vrecpe_f32(v110);
+      v115 = 4;
+      do
+      {
+        v114 = vmul_f32(v114, vrecps_f32(v110, v114));
+        --v115;
+      }
+
+      while (v115);
+      v46 = vmlaq_n_f32(v340, a10, vmax_f32(vmin_f32(vmul_f32(v113, v114), _D10), 0).f32[0]);
+      goto LABEL_31;
+    }
+
+    goto LABEL_32;
+  }
+
+  *&v67.u32[2] = v68;
+  v71 = vextq_s8(v341, v341, 8uLL).u64[0];
+  v72 = vextq_s8(v342[0], v342[0], 8uLL).u64[0];
+  v73 = vextq_s8(v342[0], v342[0], 4uLL).u64[0];
+  v74 = vextq_s8(v341, v341, 4uLL).u64[0];
+  v75 = vmls_f32(vmul_f32(*v341.f32, v73), v74, *v342[0].f32);
+  *v76.f32 = vext_s8(v75, vmls_f32(vmul_f32(v71, *v342[0].f32), *v341.f32, v72), 4uLL);
+  v76.i64[1] = v75.u32[0];
+  v77 = vextq_s8(v340, v340, 8uLL).u64[0];
+  v78 = vextq_s8(v340, v340, 4uLL).u64[0];
+  v79 = vmls_f32(vmul_f32(v78, *v342[0].f32), v73, *v340.f32);
+  *v80.f32 = vext_s8(v79, vmls_f32(vmul_f32(*v340.f32, v72), *v342[0].f32, v77), 4uLL);
+  v80.i64[1] = v79.u32[0];
+  v81 = vmls_f32(vmul_f32(*v340.f32, v74), v78, *v341.f32);
+  *v82.f32 = vext_s8(v81, vmls_f32(vmul_f32(v77, *v341.f32), *v340.f32, v71), 4uLL);
+  v82.i64[1] = v81.u32[0];
+  v83 = vmulq_f32(v76, v67);
+  v83.i64[0] = vpaddq_f32(v83, v83).u64[0];
+  v84 = vpadd_f32(*v83.f32, *v83.f32);
+  v85 = vmulq_f32(v80, v67);
+  v85.i64[0] = vpaddq_f32(v85, v85).u64[0];
+  v86 = vpadd_f32(*v85.f32, *v85.f32);
+  v87 = vmulq_f32(v82, v67);
+  v87.i64[0] = vpaddq_f32(v87, v87).u64[0];
+  v88 = vpadd_f32(*v87.f32, *v87.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v86), vcgez_f32(v84)), vcgez_f32(v88)), 0), *v340.f32).u32[0] == -1)
+  {
+    v116 = vmulq_f32(v340, v67);
+    v117 = vextq_s8(v116, v116, 8uLL).u64[0];
+    v118 = vrecpe_f32(v70);
+    v119 = 4;
+    do
+    {
+      v118 = vmul_f32(v118, vrecps_f32(v70, v118));
+      --v119;
+    }
+
+    while (v119);
+    v120 = vpadd_f32(*v116.i8, v117);
+    v46 = vmulq_n_f32(v67, vmul_f32(v118, vpadd_f32(v120, v120)).f32[0]);
+    v46.i32[3] = 0;
+    goto LABEL_47;
+  }
+
+  v89 = vnegq_f32(v340);
+  v89.i32[3] = 0;
+  v90 = vnegq_f32(v341);
+  v90.i32[3] = 0;
+  v91 = vmulq_f32(v89, a10);
+  v91.i64[0] = vpaddq_f32(v91, v91).u64[0];
+  v92 = vpadd_f32(*v91.f32, *v91.f32);
+  v93 = vmulq_f32(a10, v90);
+  v93.i64[0] = vpaddq_f32(v93, v93).u64[0];
+  v94 = vpadd_f32(*v93.f32, *v93.f32);
+  if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v88), vand_s8(vclez_f32(v94), vcgez_f32(v92))), 0), *v340.f32).u32[0] == -1)
+  {
+    v121 = vsub_f32(v92, v94);
+    v122 = vrecpe_f32(v121);
+    v123 = 4;
+    do
+    {
+      v122 = vmul_f32(v122, vrecps_f32(v121, v122));
+      --v123;
+    }
+
+    while (v123);
+    v107 = 0;
+    v46 = vmlaq_n_f32(v340, a10, vmul_f32(v92, vbsl_s8(vcgt_f32(vabs_f32(v121), 0x3400000034000000), v122, 0)).f32[0]);
+    v106 = 2;
+    v108 = &v329;
+    v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+  }
+
+  else
+  {
+    v95 = vnegq_f32(v342[0]);
+    v95.i32[3] = 0;
+    v96 = vmulq_f32(v90, v66);
+    v96.i64[0] = vpaddq_f32(v96, v96).u64[0];
+    v97 = vpadd_f32(*v96.f32, *v96.f32);
+    v98 = vmulq_f32(a10, v95);
+    v98.i64[0] = vpaddq_f32(v98, v98).u64[0];
+    v99 = vpadd_f32(*v98.f32, *v98.f32);
+    v100 = vmulq_f32(v66, v95);
+    v100.i64[0] = vpaddq_f32(v100, v100).u64[0];
+    v101 = vpadd_f32(*v100.f32, *v100.f32);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v97, v94), vcge_f32(v99, v101)), vclez_f32(v84)), 0), *v340.f32).u32[0] == -1)
+    {
+      v128 = vsub_f32(v97, v94);
+      v129 = vadd_f32(v128, vsub_f32(v99, v101));
+      v130 = vrecpe_f32(v129);
+      v131 = 4;
+      do
+      {
+        v130 = vmul_f32(v130, vrecps_f32(v129, v130));
+        --v131;
+      }
+
+      while (v131);
+      v132 = vmlaq_n_f32(v341, vsubq_f32(v342[0], v341), vmul_f32(v128, vbsl_s8(vcgt_f32(vabs_f32(v129), 0x3400000034000000), v130, 0)).f32[0]);
+      v106 = 2;
+      v107 = 1;
+      v124 = &v333;
+      v108 = &v330;
+      v132.i64[1] = vextq_s8(v132, v132, 8uLL).u32[0];
+      v126 = v339;
+      v125 = v336;
+      v127 = v342;
+      v46 = v132;
+      goto LABEL_46;
+    }
+
+    v102 = vmulq_f32(v89, v66);
+    v103 = vpaddq_f32(v102, v102);
+    *v103.i8 = vpadd_f32(*v103.i8, *v103.i8);
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v86), vand_s8(vclez_f32(v101), vcgez_f32(*v103.i8))), 0), *v340.f32).u32[0] == -1)
+    {
+      v133 = vsub_f32(*v103.i8, v101);
+      v134 = vrecpe_f32(v133);
+      v135 = 4;
+      do
+      {
+        v134 = vmul_f32(v134, vrecps_f32(v133, v134));
+        --v135;
+      }
+
+      while (v135);
+      v107 = 0;
+      v46 = vmlaq_n_f32(v340, v66, vmul_f32(*v103.i8, vbsl_s8(vcgt_f32(vabs_f32(v133), 0x3400000034000000), v134, 0)).f32[0]);
+      v106 = 2;
+      v124 = &v333;
+      v108 = &v330;
+      v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+      v126 = v339;
+      v125 = v336;
+      v127 = v342;
+      goto LABEL_46;
+    }
+
+    if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(*v103.i8), vclez_f32(v92)), 0), *v340.f32).u32[0] == -1)
+    {
+      v107 = 0;
+      v106 = 1;
+      v108 = &v329;
+    }
+
+    else
+    {
+      *v103.i8 = vcge_f32(v94, v97);
+      *v46.f32 = vdup_lane_s16(vand_s8(*v103.i8, vcgez_f32(v94)), 0);
+      *v46.f32 = vuzp1_s8(*v46.f32, *v46.f32);
+      v103.i32[0] = -1;
+      v104 = v46.i32[0];
+      v105 = vdupq_lane_s32(*&vceqq_s32(v46, v103), 0);
+      v106 = 1;
+      if (v104 == -1)
+      {
+        v107 = 1;
+      }
+
+      else
+      {
+        v107 = 2;
+      }
+
+      v108 = &v329;
+      v46 = vbslq_s8(v105, v341, v342[0]);
+    }
+  }
+
+  v125 = &v335;
+  v124 = &v332;
+  v126 = &v338;
+  v127 = &v341;
+LABEL_46:
+  v136 = *(&v340 + v107);
+  v137 = *v127;
+  a10 = *(&v337 + v107);
+  v138 = *v126;
+  v139 = *(&v334 + v107);
+  v140 = *v125;
+  v141 = *(&v331 + v107);
+  v142 = *v124;
+  v143 = *(&v328 + v107);
+  v144 = *v108;
+  v340 = v136;
+  v341 = v137;
+  v337 = a10;
+  v338 = v138;
+  v334 = v139;
+  v335 = v140;
+  v331 = v141;
+  v332 = v142;
+  v328 = v143;
+  v329 = v144;
+  v325 = v106;
+LABEL_47:
+  v326 = v46;
+  v145 = vmulq_f32(v46, v46);
+  v145.i64[0] = vpaddq_f32(v145, v145).u64[0];
+  v146 = vpadd_f32(*v145.f32, *v145.f32);
+  v147 = vrsqrte_f32(v146);
+  v148 = 4;
+  do
+  {
+    v147 = vmul_f32(v147, vrsqrts_f32(vmul_f32(v147, v147), v146));
+    --v148;
+  }
+
+  while (v148);
+  v63 = vbsl_s8(vdup_lane_s32(vceqz_f32(v146), 0), v146, vmul_f32(v146, v147));
+  v149 = vrecpe_f32(v63);
+  v150 = 4;
+  do
+  {
+    *a10.i8 = vrecps_f32(v63, v149);
+    v149 = vmul_f32(v149, *a10.i8);
+    --v150;
+  }
+
+  while (v150);
+  v151 = vmulq_n_f32(v46, v149.f32[0]);
+  v151.i32[3] = 0;
+  v321 = v151;
+  v64 = vdupq_lane_s32(vcgt_f32(v63, v24), 0);
+  v65 = v46;
+LABEL_52:
+  v152 = vadd_f32(v25, a8);
+  a10.i32[0] = -1;
+  v316 = a10;
+  v153.i64[0] = -1;
+  v153.i64[1] = -1;
+  v154 = v63;
+  while (1)
+  {
+    v155 = v46;
+    v156.i64[0] = -1;
+    v156.i64[1] = -1;
+    *v156.i8 = vmovn_s32(vceqq_s32(v64, v156));
+    if (vuzp1_s8(*v156.i8, *v156.i8).u32[0] != -1)
+    {
+      break;
+    }
+
+    v319 = v155;
+    v157 = vnegq_f32(v155);
+    v157.i32[3] = 0;
+    v322 = v63;
+    v324 = v157;
+    *v158.i64 = physx::Gu::RelativeConvex<physx::Gu::BoxV>::support(a1, &v324, &v331 + v325);
+    v320 = v158;
+    v159 = v325;
+    v160 = *(a2 + 8);
+    v161 = physx::Gu::ConvexHullV::supportVertexIndex(v160, &v326);
+    *(&v328 + v159) = v161;
+    v162 = *(*(v160 + 160) + 12 * v161);
+    v162.i32[3] = 0;
+    v46 = vsubq_f32(v320, v162);
+    v163 = vmulq_f32(v321, v46);
+    v163.i64[0] = vpaddq_f32(v163, v163).u64[0];
+    v164 = vpadd_f32(*v163.f32, *v163.f32);
+    if ((vmvn_s8(vcgt_f32(v164, v152)).u8[0] & 1) == 0)
+    {
+      if (a3)
+      {
+        v270 = v325;
+        *a5 = v325;
+        if (v270)
+        {
+          v271 = &v328;
+          v272 = &v331;
+          do
+          {
+            v273 = *v272++;
+            *a3++ = v273;
+            v274 = *v271++;
+            *a4++ = v274;
+            --v270;
+          }
+
+          while (v270);
+        }
+      }
+
+      return 0;
+    }
+
+    v165 = v322;
+    v166 = v325;
+    if (v164.f32[0] > (0.99977 * v322.f32[0]))
+    {
+      if (!a3)
+      {
+        goto LABEL_116;
+      }
+
+      *a5 = v325;
+      if (v166)
+      {
+        v275 = &v328;
+        v276 = &v331;
+        v277 = v166;
+        do
+        {
+          v278 = *v276++;
+          *a3++ = v278;
+          v279 = *v275++;
+          *a4++ = v279;
+          --v277;
+        }
+
+        while (v277);
+LABEL_116:
+        v280 = a6;
+        a6[2] = v321;
+        switch(v166)
+        {
+          case 3:
+            v324.i64[0] = 0;
+            v327 = 0;
+            physx::Gu::barycentricCoordinates(&v326, &v340, &v341, v342, &v324, &v327);
+            v165 = v322;
+            v296 = vmulq_n_f32(vsubq_f32(v338, v337), v324.f32[0]);
+            v296.i32[3] = 0;
+            v297 = vmulq_n_f32(vsubq_f32(v339[0], v337), v327.f32[0]);
+            v297.i32[3] = 0;
+            v281 = vaddq_f32(v337, vaddq_f32(v296, v297));
+            v298 = vmulq_n_f32(vsubq_f32(v335, v334), v324.f32[0]);
+            v298.i32[3] = 0;
+            v299 = vmulq_n_f32(vsubq_f32(v336[0], v334), v327.f32[0]);
+            v299.i32[3] = 0;
+            v282 = vaddq_f32(v334, vaddq_f32(v298, v299));
+            break;
+          case 2:
+            v288 = vsubq_f32(v340, v326);
+            v289 = vsubq_f32(vsubq_f32(v341, v326), v288);
+            v290 = vmulq_f32(v289, v289);
+            v290.i64[0] = vpaddq_f32(v290, v290).u64[0];
+            v291 = vpadd_f32(*v290.f32, *v290.f32);
+            v292 = vrecpe_f32(v291);
+            v293 = 4;
+            do
+            {
+              v292 = vmul_f32(v292, vrecps_f32(v291, v292));
+              --v293;
+            }
+
+            while (v293);
+            v294 = vnegq_f32(v288);
+            v294.i32[3] = 0;
+            v295 = vmulq_f32(v294, v289);
+            v295.i64[0] = vpaddq_f32(v295, v295).u64[0];
+            v294.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v291), v292, 0), vpadd_f32(*v295.f32, *v295.f32)).u32[0];
+            v281 = vmlaq_n_f32(v337, vsubq_f32(v338, v337), v294.f32[0]);
+            v281.i64[1] = vextq_s8(v281, v281, 8uLL).u32[0];
+            v282 = vmlaq_n_f32(v334, vsubq_f32(v335, v334), v294.f32[0]);
+            v282.i64[1] = vextq_s8(v282, v282, 8uLL).u32[0];
+            break;
+          case 1:
+            v281 = v337;
+            result = 2;
+            v282 = v334;
+LABEL_142:
+            *v280 = v281;
+            v280[1] = v282;
+            *v280[4].f32 = v165;
+            return result;
+          default:
+LABEL_129:
+            result = 2;
+            v281 = 0uLL;
+            v282 = 0uLL;
+            goto LABEL_142;
+        }
+
+        result = 2;
+        goto LABEL_142;
+      }
+
+      v280 = a6;
+      a6[2] = v321;
+      goto LABEL_129;
+    }
+
+    *(&v337 + v325) = v320;
+    *(&v334 + v166) = v162;
+    v325 = v166 + 1;
+    *(&v340 + v166) = v46;
+    switch(v166)
+    {
+      case 3:
+        physx::Gu::closestPtPointTetrahedron(&v340, &v337, &v334, &v331, &v328, &v325);
+        v165 = v322;
+        break;
+      case 2:
+        v46 = v340;
+        v175 = vsubq_f32(v341, v340);
+        v176 = vsubq_f32(v342[0], v340);
+        v178 = vmls_f32(vmul_f32(*v175.i8, *&vextq_s8(v176, v176, 4uLL)), *&vextq_s8(v175, v175, 4uLL), *v176.i8);
+        *v177.f32 = vext_s8(v178, vmls_f32(vmul_f32(*&vextq_s8(v175, v175, 8uLL), *v176.i8), *v175.i8, *&vextq_s8(v176, v176, 8uLL)), 4uLL);
+        v178.i32[1] = 0;
+        v325 = 3;
+        v179 = vpadd_f32(vmul_f32(*v177.f32, *v177.f32), vmul_f32(v178.u32[0], v178.u32[0]));
+        v180 = vpadd_f32(v179, v179);
+        if (v180.f32[0] <= 0.00000011921)
+        {
+          v325 = 2;
+          v219 = vmulq_f32(v175, v175);
+          v219.i64[0] = vpaddq_f32(v219, v219).u64[0];
+          v220 = vpadd_f32(*v219.f32, *v219.f32);
+          if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v220), 0), *v340.f32).u32[0] == -1)
+          {
+LABEL_79:
+            v325 = 1;
+            break;
+          }
+
+          v221 = vnegq_f32(v340);
+          v221.i32[3] = 0;
+          v222 = vmulq_f32(v221, v175);
+          v222.i64[0] = vpaddq_f32(v222, v222).u64[0];
+          v223 = vpadd_f32(*v222.f32, *v222.f32);
+          v224 = vrecpe_f32(v220);
+          v225 = 4;
+          do
+          {
+            v224 = vmul_f32(v224, vrecps_f32(v220, v224));
+            --v225;
+          }
+
+          while (v225);
+          v46 = vmlaq_n_f32(v340, v175, vmax_f32(vmin_f32(vmul_f32(v223, v224), _D10), 0).f32[0]);
+          goto LABEL_78;
+        }
+
+        *&v177.u32[2] = v178;
+        v181 = vextq_s8(v341, v341, 8uLL).u64[0];
+        v182 = vextq_s8(v342[0], v342[0], 8uLL).u64[0];
+        v183 = vextq_s8(v342[0], v342[0], 4uLL).u64[0];
+        v184 = vextq_s8(v341, v341, 4uLL).u64[0];
+        v185 = vmls_f32(vmul_f32(*v341.f32, v183), v184, *v342[0].f32);
+        *v186.f32 = vext_s8(v185, vmls_f32(vmul_f32(v181, *v342[0].f32), *v341.f32, v182), 4uLL);
+        v186.i64[1] = v185.u32[0];
+        v187 = vextq_s8(v340, v340, 8uLL).u64[0];
+        v188 = vextq_s8(v340, v340, 4uLL).u64[0];
+        v189 = vmls_f32(vmul_f32(v188, *v342[0].f32), v183, *v340.f32);
+        *v190.f32 = vext_s8(v189, vmls_f32(vmul_f32(*v340.f32, v182), *v342[0].f32, v187), 4uLL);
+        v190.i64[1] = v189.u32[0];
+        v191 = vmls_f32(vmul_f32(*v340.f32, v184), v188, *v341.f32);
+        *v192.f32 = vext_s8(v191, vmls_f32(vmul_f32(v187, *v341.f32), *v340.f32, v181), 4uLL);
+        v192.i64[1] = v191.u32[0];
+        v193 = vmulq_f32(v186, v177);
+        v193.i64[0] = vpaddq_f32(v193, v193).u64[0];
+        v194 = vpadd_f32(*v193.f32, *v193.f32);
+        v195 = vmulq_f32(v190, v177);
+        v195.i64[0] = vpaddq_f32(v195, v195).u64[0];
+        v196 = vpadd_f32(*v195.f32, *v195.f32);
+        v197 = vmulq_f32(v192, v177);
+        v197.i64[0] = vpaddq_f32(v197, v197).u64[0];
+        v198 = vpadd_f32(*v197.f32, *v197.f32);
+        if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcgez_f32(v196), vcgez_f32(v194)), vcgez_f32(v198)), 0), *v340.f32).u32[0] != -1)
+        {
+          v199 = vnegq_f32(v340);
+          v199.i32[3] = 0;
+          v200 = vnegq_f32(v341);
+          v200.i32[3] = 0;
+          v201 = vmulq_f32(v199, v175);
+          v201.i64[0] = vpaddq_f32(v201, v201).u64[0];
+          v202 = vpadd_f32(*v201.f32, *v201.f32);
+          v203 = vmulq_f32(v175, v200);
+          v203.i64[0] = vpaddq_f32(v203, v203).u64[0];
+          v204 = vpadd_f32(*v203.f32, *v203.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v198), vand_s8(vclez_f32(v204), vcgez_f32(v202))), 0), *v340.f32).u32[0] == -1)
+          {
+            v231 = vsub_f32(v202, v204);
+            v232 = vrecpe_f32(v231);
+            v233 = 4;
+            do
+            {
+              v232 = vmul_f32(v232, vrecps_f32(v231, v232));
+              --v233;
+            }
+
+            while (v233);
+            v217 = 0;
+            v46 = vmlaq_n_f32(v340, v175, vmul_f32(v202, vbsl_s8(vcgt_f32(vabs_f32(v231), 0x3400000034000000), v232, 0)).f32[0]);
+            v216 = 2;
+            v218 = &v329;
+            v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+            goto LABEL_86;
+          }
+
+          v205 = vnegq_f32(v342[0]);
+          v205.i32[3] = 0;
+          v206 = vmulq_f32(v200, v176);
+          v206.i64[0] = vpaddq_f32(v206, v206).u64[0];
+          v207 = vpadd_f32(*v206.f32, *v206.f32);
+          v208 = vmulq_f32(v175, v205);
+          v208.i64[0] = vpaddq_f32(v208, v208).u64[0];
+          v209 = vpadd_f32(*v208.f32, *v208.f32);
+          v210 = vmulq_f32(v176, v205);
+          v210.i64[0] = vpaddq_f32(v210, v210).u64[0];
+          v211 = vpadd_f32(*v210.f32, *v210.f32);
+          if (vuzp1_s8(vdup_lane_s16(vand_s8(vand_s8(vcge_f32(v207, v204), vcge_f32(v209, v211)), vclez_f32(v194)), 0), *v340.f32).u32[0] == -1)
+          {
+            v238 = vsub_f32(v207, v204);
+            v239 = vadd_f32(v238, vsub_f32(v209, v211));
+            v240 = vrecpe_f32(v239);
+            v241 = 4;
+            do
+            {
+              v240 = vmul_f32(v240, vrecps_f32(v239, v240));
+              --v241;
+            }
+
+            while (v241);
+            v242 = vmlaq_n_f32(v341, vsubq_f32(v342[0], v341), vmul_f32(v238, vbsl_s8(vcgt_f32(vabs_f32(v239), 0x3400000034000000), v240, 0)).f32[0]);
+            v242.i64[1] = vextq_s8(v242, v242, 8uLL).u32[0];
+            v216 = 2;
+            v46 = v242;
+            v217 = 1;
+            v218 = &v330;
+          }
+
+          else
+          {
+            v212 = vmulq_f32(v199, v176);
+            v212.i64[0] = vpaddq_f32(v212, v212).u64[0];
+            v213 = vpadd_f32(*v212.f32, *v212.f32);
+            if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v196), vand_s8(vclez_f32(v211), vcgez_f32(v213))), 0), *v340.f32).u32[0] != -1)
+            {
+              if (vuzp1_s8(vdup_lane_s16(vand_s8(vclez_f32(v213), vclez_f32(v202)), 0), *v340.f32).u32[0] == -1)
+              {
+                v217 = 0;
+                v216 = 1;
+                v218 = &v329;
+              }
+
+              else
+              {
+                *v46.f32 = vdup_lane_s16(vand_s8(vcge_f32(v204, v207), vcgez_f32(v204)), 0);
+                *v46.f32 = vuzp1_s8(*v46.f32, *v46.f32);
+                v214 = v46.i32[0];
+                v215 = vdupq_lane_s32(*&vceqq_s32(v46, v316), 0);
+                v216 = 1;
+                if (v214 == -1)
+                {
+                  v217 = 1;
+                }
+
+                else
+                {
+                  v217 = 2;
+                }
+
+                v218 = &v329;
+                v46 = vbslq_s8(v215, v341, v342[0]);
+              }
+
+LABEL_86:
+              v235 = &v335;
+              v234 = &v332;
+              v236 = &v338;
+              v237 = &v341;
+LABEL_94:
+              v246 = *(&v340 + v217);
+              v247 = *v237;
+              v248 = *(&v337 + v217);
+              v249 = *v236;
+              v250 = *(&v334 + v217);
+              v251 = *v235;
+              v252 = *(&v331 + v217);
+              v253 = *v234;
+              v254 = *(&v328 + v217);
+              v255 = *v218;
+              v340 = v246;
+              v341 = v247;
+              v337 = v248;
+              v338 = v249;
+              v334 = v250;
+              v335 = v251;
+              v331 = v252;
+              v332 = v253;
+              v328 = v254;
+              v329 = v255;
+              v325 = v216;
+              break;
+            }
+
+            v243 = vsub_f32(v213, v211);
+            v244 = vrecpe_f32(v243);
+            v245 = 4;
+            do
+            {
+              v244 = vmul_f32(v244, vrecps_f32(v243, v244));
+              --v245;
+            }
+
+            while (v245);
+            v217 = 0;
+            v46 = vmlaq_n_f32(v340, v176, vmul_f32(v213, vbsl_s8(vcgt_f32(vabs_f32(v243), 0x3400000034000000), v244, 0)).f32[0]);
+            v216 = 2;
+            v218 = &v330;
+            v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+          }
+
+          v235 = v336;
+          v234 = &v333;
+          v236 = v339;
+          v237 = v342;
+          goto LABEL_94;
+        }
+
+        v226 = vmulq_f32(v340, v177);
+        v227 = vextq_s8(v226, v226, 8uLL).u64[0];
+        v228 = vrecpe_f32(v180);
+        v229 = 4;
+        do
+        {
+          v228 = vmul_f32(v228, vrecps_f32(v180, v228));
+          --v229;
+        }
+
+        while (v229);
+        v230 = vpadd_f32(*v226.i8, v227);
+        v46 = vmulq_n_f32(v177, vmul_f32(v228, vpadd_f32(v230, v230)).f32[0]);
+        v46.i32[3] = 0;
+        break;
+      case 1:
+        v46 = v340;
+        v167 = vsubq_f32(v341, v340);
+        v168 = vmulq_f32(v167, v167);
+        v168.i64[0] = vpaddq_f32(v168, v168).u64[0];
+        v169 = vpadd_f32(*v168.f32, *v168.f32);
+        if (vuzp1_s8(vdup_lane_s16(vcge_f32(0x3400000034000000, v169), 0), *v340.f32).u32[0] == -1)
+        {
+          goto LABEL_79;
+        }
+
+        v170 = vnegq_f32(v340);
+        v170.i32[3] = 0;
+        v171 = vmulq_f32(v170, v167);
+        v171.i64[0] = vpaddq_f32(v171, v171).u64[0];
+        v172 = vpadd_f32(*v171.f32, *v171.f32);
+        v173 = vrecpe_f32(v169);
+        v174 = 4;
+        do
+        {
+          v173 = vmul_f32(v173, vrecps_f32(v169, v173));
+          --v174;
+        }
+
+        while (v174);
+        v46 = vmlaq_n_f32(v340, v167, vmax_f32(vmin_f32(vmul_f32(v172, v173), _D10), 0).f32[0]);
+LABEL_78:
+        v46.i64[1] = vextq_s8(v46, v46, 8uLL).u32[0];
+        break;
+    }
+
+    v326 = v46;
+    v256 = vmulq_f32(v46, v46);
+    v256.i64[0] = vpaddq_f32(v256, v256).u64[0];
+    v257 = vpadd_f32(*v256.f32, *v256.f32);
+    v258 = vrsqrte_f32(v257);
+    v259 = 4;
+    do
+    {
+      v258 = vmul_f32(v258, vrsqrts_f32(vmul_f32(v258, v258), v257));
+      --v259;
+    }
+
+    while (v259);
+    v63 = vbsl_s8(vdup_lane_s32(vceqz_f32(v257), 0), v257, vmul_f32(v257, v258));
+    v260 = vrecpe_f32(v63);
+    v261 = 4;
+    do
+    {
+      v260 = vmul_f32(v260, vrecps_f32(v63, v260));
+      --v261;
+    }
+
+    while (v261);
+    v262 = vmulq_n_f32(v46, v260.f32[0]);
+    v262.i32[3] = 0;
+    v321 = v262;
+    *v262.f32 = vcgt_f32(v165, v63);
+    v153 = vdupq_lane_s32(*v262.f32, 0);
+    v64 = vdupq_lane_s32(vand_s8(vcgt_f32(v63, v24), *v262.f32), 0);
+    v154 = v165;
+    v65 = v319;
+  }
+
+  v263 = vmovn_s32(vceqzq_s32(v153));
+  v264 = v325;
+  if (vuzp1_s8(v263, v263).u32[0] == -1)
+  {
+    if (a3)
+    {
+      v283 = v325 - 1;
+      *a5 = v325 - 1;
+      if (v264 == 1)
+      {
+LABEL_127:
+        v281 = v337;
+        v282 = v334;
+        goto LABEL_139;
+      }
+
+      v284 = &v328;
+      v285 = &v331;
+      do
+      {
+        v286 = *v285++;
+        *a3++ = v286;
+        v287 = *v284++;
+        *a4++ = v287;
+        --v283;
+      }
+
+      while (v283);
+    }
+
+    v326 = v65;
+    if (v264 == 3)
+    {
+      v324.i64[0] = 0;
+      v327 = 0;
+      v323 = v65;
+      physx::Gu::barycentricCoordinates(&v326, &v340, &v341, v342, &v324, &v327);
+      v308 = vmulq_n_f32(vsubq_f32(v338, v337), v324.f32[0]);
+      v308.i32[3] = 0;
+      v309 = vmulq_n_f32(vsubq_f32(v339[0], v337), v327.f32[0]);
+      v309.i32[3] = 0;
+      v310 = vaddq_f32(v308, v309);
+      v311 = vmulq_n_f32(vsubq_f32(v335, v334), v324.f32[0]);
+      v311.i32[3] = 0;
+      v281 = vaddq_f32(v337, v310);
+      v312 = vmulq_n_f32(vsubq_f32(v336[0], v334), v327.f32[0]);
+      v65 = v323;
+      v312.i32[3] = 0;
+      v282 = vaddq_f32(v334, vaddq_f32(v311, v312));
+    }
+
+    else
+    {
+      if (v264 == 2)
+      {
+        v300 = vsubq_f32(v340, v65);
+        v301 = vsubq_f32(vsubq_f32(v341, v65), v300);
+        v302 = vmulq_f32(v301, v301);
+        v302.i64[0] = vpaddq_f32(v302, v302).u64[0];
+        v303 = vpadd_f32(*v302.f32, *v302.f32);
+        v304 = vrecpe_f32(v303);
+        v305 = 4;
+        do
+        {
+          v304 = vmul_f32(v304, vrecps_f32(v303, v304));
+          --v305;
+        }
+
+        while (v305);
+        v306 = vnegq_f32(v300);
+        v306.i32[3] = 0;
+        v307 = vmulq_f32(v306, v301);
+        v307.i64[0] = vpaddq_f32(v307, v307).u64[0];
+        v306.i32[0] = vmul_f32(vbsl_s8(vcgtz_f32(v303), v304, 0), vpadd_f32(*v307.f32, *v307.f32)).u32[0];
+        v281 = vmlaq_n_f32(v337, vsubq_f32(v338, v337), v306.f32[0]);
+        v281.i64[1] = vextq_s8(v281, v281, 8uLL).u32[0];
+        v282 = vmlaq_n_f32(v334, vsubq_f32(v335, v334), v306.f32[0]);
+        v282.i64[1] = vextq_s8(v282, v282, 8uLL).u32[0];
+        goto LABEL_139;
+      }
+
+      v281 = 0uLL;
+      v282 = 0uLL;
+      if (v264 == 1)
+      {
+        goto LABEL_127;
+      }
+    }
+
+LABEL_139:
+    v313 = vrecpe_f32(v154);
+    v314 = 4;
+    do
+    {
+      v313 = vmul_f32(v313, vrecps_f32(v154, v313));
+      --v314;
+    }
+
+    while (v314);
+    v315 = vmulq_n_f32(v65, v313.f32[0]);
+    v315.i32[3] = 0;
+    v280 = a6;
+    a6[2] = v315;
+    a6[3] = v321;
+    result = 4;
+    v165 = v154;
+    goto LABEL_142;
+  }
+
+  if (a3)
+  {
+    *a5 = v325;
+    if (v264)
+    {
+      v265 = &v328;
+      v266 = &v331;
+      do
+      {
+        v267 = *v266++;
+        *a3++ = v267;
+        v268 = *v265++;
+        *a4++ = v268;
+        --v264;
+      }
+
+      while (v264);
+    }
+  }
+
+  return 5;
+}
+
+BOOL physx::Gu::generateOrProcessContactsBoxConvex(uint64_t a1, uint64_t a2, uint64_t a3, int8x16_t *a4, float32x4_t *a5, uint64_t a6, float32x4_t *a7, uint64_t a8, float32x2_t a9, float32x2_t a10, __n128 a11, float32x4_t *a12, unsigned int a13, char a14, uint64_t a15)
+{
+  v144 = *MEMORY[0x1E69E9840];
+  v120 = a10;
+  if (!a6)
+  {
+    return 0;
+  }
+
+  v21 = *(a8 + 64);
+  if (*(a8 + 64))
+  {
+    v22 = *(a8 + 80);
+    v23 = v22[2];
+    if (v21 != 1)
+    {
+      v24 = v21 - 1;
+      v25 = v22 + 5;
+      do
+      {
+        v26 = *v25;
+        v25 += 3;
+        v23 = vaddq_f32(v23, v26);
+        --v24;
+      }
+
+      while (v24);
+    }
+
+    v23.i32[3] = 0;
+    v27 = vmulq_f32(v23, v23);
+    v27.i64[0] = vpaddq_f32(v27, v27).u64[0];
+    v28 = vpadd_f32(*v27.f32, *v27.f32);
+    v29 = vrsqrte_f32(v28);
+    v30 = 4;
+    do
+    {
+      v29 = vmul_f32(v29, vrsqrts_f32(vmul_f32(v29, v29), v28));
+      --v30;
+    }
+
+    while (v30);
+    v31 = vbsl_s8(vdup_lane_s32(vceqz_f32(v28), 0), v28, vmul_f32(v28, v29));
+    v32 = vrecpe_f32(v31);
+    v33 = 4;
+    do
+    {
+      v32 = vmul_f32(v32, vrecps_f32(v31, v32));
+      --v33;
+    }
+
+    while (v33);
+    v34 = vmulq_n_f32(v23, v32.f32[0]);
+    v34.i32[3] = 0;
+  }
+
+  else
+  {
+    v34 = 0uLL;
+  }
+
+  v118 = a11.n128_f64[0];
+  v119 = v34;
+  v36 = physx::Gu::addGJKEPAContacts(a1, a2, a5, a6, a12, a7, a8, vmul_f32(a9, vdup_n_s32(0x3D4CCCCDu)));
+  v37 = a7[2];
+  if ((v36 & 1) == 0 && ((v38 = vmulq_f32(v119, v37), v38.i64[0] = vpaddq_f32(v38, v38).u64[0], vpadd_f32(*v38.f32, *v38.f32).f32[0] >= 0.70711) ? (v39 = *(a8 + 64) >= a13) : (v39 = 0), v39))
+  {
+    v40 = vaddq_f32(v119, v37);
+    v41 = *a4;
+    v41.i32[3] = 0;
+    v42 = vdupq_laneq_s32(*a4, 3).u64[0];
+    v43 = vmulq_n_f32(v40, vmla_f32(0xBF000000BF000000, v42, v42).f32[0]);
+    v43.i32[3] = 0;
+    v44 = vextq_s8(v41, v41, 8uLL).u64[0];
+    v45 = vmls_f32(vmul_f32(*&vextq_s8(v40, v40, 4uLL), *a4->i8), vext_s8(*a4->i8, v44, 4uLL), *v40.i8);
+    *v46.f32 = vext_s8(v45, vmls_f32(vmul_f32(*v40.i8, v44), *a4->i8, *&vextq_s8(v40, v40, 8uLL)), 4uLL);
+    v46.i64[1] = v45.u32[0];
+    v47 = vmlaq_laneq_f32(v43, v46, *a4, 3);
+    v47.i64[1] = vextq_s8(v47, v47, 8uLL).u32[0];
+    v48 = vmulq_f32(v40, v41);
+    v48.i64[0] = vpaddq_f32(v48, v48).u64[0];
+    v49 = vmlaq_n_f32(v47, v41, vpadd_f32(*v48.f32, *v48.f32).f32[0]);
+    v50 = vaddq_f32(v49, v49);
+    v50.i32[3] = 0;
+    v51 = vmulq_f32(v50, v50);
+    v51.i64[0] = vpaddq_f32(v51, v51).u64[0];
+    v52 = vpadd_f32(*v51.f32, *v51.f32);
+    v53 = vrsqrte_f32(v52);
+    v54 = 4;
+    do
+    {
+      v53 = vmul_f32(v53, vrsqrts_f32(vmul_f32(v53, v53), v52));
+      --v54;
+    }
+
+    while (v54);
+    v55 = vbsl_s8(vdup_lane_s32(vceqz_f32(v52), 0), v52, vmul_f32(v52, v53));
+    v56 = vrecpe_f32(v55);
+    v57 = 4;
+    do
+    {
+      v56 = vmul_f32(v56, vrecps_f32(v55, v56));
+      --v57;
+    }
+
+    while (v57);
+    v58 = vmulq_n_f32(v50, v56.f32[0]);
+    v58.i32[3] = 0;
+    v125 = v58;
+    physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(a8, a12, &v125, a4, &v120);
+    return 1;
+  }
+
+  else
+  {
+    v59 = *(a1 + 8);
+    v60 = *(a2 + 8);
+    v61 = *(v59 + 48);
+    v127 = *(v59 + 48);
+    v128 = DWORD2(v61);
+    physx::Gu::PolygonalBox::PolygonalBox(&v125, &v127);
+    v129 = 0;
+    v130 = 0;
+    v131 = 0x600000008;
+    v132 = 0;
+    v133 = &v126;
+    v134 = &v125.i64[1];
+    v136 = 0u;
+    v137 = 0u;
+    v135 = &physx::Gu::gPCMBoxPolygonData;
+    physx::Gu::getPCMConvexData(v60, a14, v124);
+    v123[0] = xmmword_1E3047670;
+    v123[1] = xmmword_1E3047680;
+    v123[2] = xmmword_1E30476A0;
+    v141[4] = a3;
+    v141[5] = v123;
+    v141[6] = v123;
+    v142 = 1;
+    v141[0] = &unk_1F5D21690;
+    v143 = v59;
+    if (a14)
+    {
+      v62 = 1;
+      v63 = &unk_1F5D216F0;
+    }
+
+    else
+    {
+      v62 = 0;
+      v63 = &unk_1F5D21740;
+    }
+
+    v138[5] = v60 + 3;
+    v138[6] = v60 + 6;
+    v139 = v62;
+    v138[4] = a4;
+    v138[0] = v63;
+    v140 = v60;
+    v122 = 0;
+    v35 = physx::Gu::generateFullContactManifold(&v129, v124, v141, v138, a12, &v122, &v120, a7 + 2, *(v59 + 16), v60[1].f32[0], *&v118, a7, &a7[1], v36);
+    if (v35)
+    {
+      if (v122)
+      {
+        physx::Gu::PersistentContactManifold::addBatchManifoldContacts(a8, a12, v122, v118);
+        v64 = *(a8 + 80);
+        v65 = *(v64 + 32);
+        v66 = *(a8 + 64);
+        v67 = v65;
+        if (v66 >= 2)
+        {
+          v68 = v66 - 1;
+          v69 = (v64 + 80);
+          v67 = v65;
+          do
+          {
+            v70 = *v69;
+            v69 += 3;
+            v67 = vaddq_f32(v67, v70);
+            --v68;
+          }
+
+          while (v68);
+        }
+
+        v67.i32[3] = 0;
+        v71 = vmulq_f32(v67, v67);
+        v71.i64[0] = vpaddq_f32(v71, v71).u64[0];
+        v65.i32[3] = 0;
+        v72 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v71.f32, *v71.f32), 0x3400000034000000), 0)), 0x1FuLL)), v67, v65);
+        v73 = *a4;
+        v73.i32[3] = 0;
+        v74 = vdupq_laneq_s32(*a4, 3).u64[0];
+        v75 = vmulq_n_f32(v72, vmla_f32(0xBF000000BF000000, v74, v74).f32[0]);
+        v75.i32[3] = 0;
+        v76 = vextq_s8(v73, v73, 8uLL).u64[0];
+        v77 = vextq_s8(v72, v72, 8uLL).u64[0];
+        v78 = vmls_f32(vmul_f32(*a4->i8, vext_s8(*v72.i8, v77, 4uLL)), vext_s8(*a4->i8, v76, 4uLL), *v72.i8);
+        *v79.f32 = vext_s8(v78, vmls_f32(vmul_f32(v76, *v72.i8), *a4->i8, v77), 4uLL);
+        v79.i64[1] = v78.u32[0];
+        v80 = vmlaq_laneq_f32(v75, v79, *a4, 3);
+        v80.i64[1] = vextq_s8(v80, v80, 8uLL).u32[0];
+        v81 = vmulq_f32(v73, v72);
+        v81.i64[0] = vpaddq_f32(v81, v81).u64[0];
+        v82 = vmlaq_n_f32(v80, v73, vpadd_f32(*v81.f32, *v81.f32).f32[0]);
+        v83 = vaddq_f32(v82, v82);
+        v83.i32[3] = 0;
+        v84 = vmulq_f32(v83, v83);
+        v84.i64[0] = vpaddq_f32(v84, v84).u64[0];
+        v85 = vpadd_f32(*v84.f32, *v84.f32);
+        v86 = vrsqrte_f32(v85);
+        v87 = 4;
+        do
+        {
+          v86 = vmul_f32(v86, vrsqrts_f32(vmul_f32(v86, v86), v85));
+          --v87;
+        }
+
+        while (v87);
+        v88 = vbsl_s8(vdup_lane_s32(vceqz_f32(v85), 0), v85, vmul_f32(v85, v86));
+        v89 = vrecpe_f32(v88);
+        v90 = 4;
+        do
+        {
+          v89 = vmul_f32(v89, vrecps_f32(v88, v89));
+          --v90;
+        }
+
+        while (v90);
+LABEL_45:
+        v116 = vmulq_n_f32(v83, v89.f32[0]);
+        v116.i32[3] = 0;
+        v121 = v116;
+        physx::Gu::PersistentContactManifold::addManifoldContactsToContactBuffer(a8, a12, &v121, a4, &v120);
+        return v35;
+      }
+
+      if ((v36 & 1) == 0)
+      {
+        v91 = *(a8 + 80);
+        v92 = *(v91 + 32);
+        v93 = *(a8 + 64);
+        v94 = v92;
+        if (v93 >= 2)
+        {
+          v95 = v93 - 1;
+          v96 = (v91 + 80);
+          v94 = v92;
+          do
+          {
+            v97 = *v96;
+            v96 += 3;
+            v94 = vaddq_f32(v94, v97);
+            --v95;
+          }
+
+          while (v95);
+        }
+
+        v94.i32[3] = 0;
+        v98 = vmulq_f32(v94, v94);
+        v98.i64[0] = vpaddq_f32(v98, v98).u64[0];
+        v92.i32[3] = 0;
+        v99 = vbslq_s8(vcltzq_s32(vshlq_n_s32(vmovl_u16(vdup_lane_s16(vcgt_f32(vpadd_f32(*v98.f32, *v98.f32), 0x3400000034000000), 0)), 0x1FuLL)), v94, v92);
+        v100 = *a4;
+        v100.i32[3] = 0;
+        v101 = vdupq_laneq_s32(*a4, 3).u64[0];
+        v102 = vmulq_n_f32(v99, vmla_f32(0xBF000000BF000000, v101, v101).f32[0]);
+        v102.i32[3] = 0;
+        v103 = vextq_s8(v100, v100, 8uLL).u64[0];
+        v104 = vextq_s8(v99, v99, 8uLL).u64[0];
+        v105 = vmls_f32(vmul_f32(*a4->i8, vext_s8(*v99.i8, v104, 4uLL)), vext_s8(*a4->i8, v103, 4uLL), *v99.i8);
+        *v106.f32 = vext_s8(v105, vmls_f32(vmul_f32(v103, *v99.i8), *a4->i8, v104), 4uLL);
+        v106.i64[1] = v105.u32[0];
+        v107 = vmlaq_laneq_f32(v102, v106, *a4, 3);
+        v107.i64[1] = vextq_s8(v107, v107, 8uLL).u32[0];
+        v108 = vmulq_f32(v100, v99);
+        v108.i64[0] = vpaddq_f32(v108, v108).u64[0];
+        v109 = vmlaq_n_f32(v107, v100, vpadd_f32(*v108.f32, *v108.f32).f32[0]);
+        v83 = vaddq_f32(v109, v109);
+        v83.i32[3] = 0;
+        v110 = vmulq_f32(v83, v83);
+        v110.i64[0] = vpaddq_f32(v110, v110).u64[0];
+        v111 = vpadd_f32(*v110.f32, *v110.f32);
+        v112 = vrsqrte_f32(v111);
+        v113 = 4;
+        do
+        {
+          v112 = vmul_f32(v112, vrsqrts_f32(vmul_f32(v112, v112), v111));
+          --v113;
+        }
+
+        while (v113);
+        v114 = vbsl_s8(vdup_lane_s32(vceqz_f32(v111), 0), v111, vmul_f32(v111, v112));
+        v89 = vrecpe_f32(v114);
+        v115 = 4;
+        do
+        {
+          v89 = vmul_f32(v89, vrecps_f32(v114, v89));
+          --v115;
+        }
+
+        while (v115);
+        goto LABEL_45;
+      }
+    }
+  }
+
+  return v35;
+}
+
+uint64_t physx::Gu::TriangleMesh::getTriangleMaterialIndex(physx::Gu::TriangleMesh *this, unsigned int a2)
+{
+  v2 = *(this + 12);
+  if (v2)
+  {
+    return *(v2 + 2 * a2);
+  }
+
+  else
+  {
+    return 0xFFFFLL;
+  }
+}
+
+float32x2_t physx::Gu::TriangleMesh::getLocalBounds@<D0>(physx::Gu::TriangleMesh *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 56);
+  v3 = vextq_s8(v2, v2, 8uLL);
+  v4 = vextq_s8(v2, v3, 0xCuLL);
+  v5 = vaddq_f32(v2, v4);
+  *(v4.i64 + 4) = *(this + 9);
+  v6 = vsubq_f32(v2, v4);
+  v6.i32[3] = v5.i32[3];
+  result = vadd_f32(vext_s8(*v2.i8, *v3.i8, 4uLL), *(this + 72));
+  *a2 = v6;
+  *(a2 + 16) = result;
+  return result;
+}
+
+void physx::Gu::BV4TriangleMesh::~BV4TriangleMesh(physx::Gu::BV4TriangleMesh *this)
+{
+  physx::Gu::BV4TriangleMesh::~BV4TriangleMesh(this);
   if (v1)
   {
     v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
@@ -1500,9072 +9779,244 @@ void physx::Cct::ObstacleContext::~ObstacleContext(physx::Cct::ObstacleContext *
   }
 }
 
-uint64_t physx::Cct::ObstacleContext::addObstacle(uint64_t a1, __int128 *a2)
 {
-  if (*a2 == 2)
+  *this = &unk_1F5D228D0;
+  *(this + 2) = &unk_1F5D22990;
+  v2 = physx::Gu::BV4Tree::release((this + 208));
+  if (*(this + 22))
   {
-    v17 = physx::Cct::HandleManager::Add((a1 + 40), ((*(a1 + 32) << 16) | 3));
-    v5 = v17;
-    v28 = v17;
-    v18 = a2[1];
-    v29 = *a2;
-    v30 = v18;
-    v31 = *(a2 + 4);
-    v19 = *(a2 + 10);
-    v20 = *(a2 + 11);
-    v32 = v19;
-    v33 = v20;
-    v21 = *(a2 + 12);
-    v22 = *(a2 + 13);
-    v34 = v21;
-    v35 = v22;
-    v23 = *(a2 + 7);
-    v24 = *(a1 + 32);
-    v25 = *(a1 + 36) & 0x7FFFFFFF;
-    v36 = v23;
-    if (v25 <= v24)
-    {
-      physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalCapsuleObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>>::growAndPushBack(a1 + 24, &v28);
-    }
-
-    else
-    {
-      v26 = *(a1 + 24) + 72 * v24;
-      *v26 = v17;
-      *(v26 + 8) = v29;
-      *(v26 + 24) = v30;
-      *(v26 + 40) = v31;
-      *(v26 + 48) = v19;
-      *(v26 + 52) = v20;
-      *(v26 + 56) = v21;
-      *(v26 + 60) = v22;
-      *(v26 + 64) = v23;
-      ++*(a1 + 32);
-    }
-
-    goto LABEL_10;
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(v2);
   }
 
-  if (*a2 == 3)
-  {
-    v4 = physx::Cct::HandleManager::Add((a1 + 40), ((*(a1 + 16) << 16) | 4));
-    v5 = v4;
-    v28 = v4;
-    v6 = a2[1];
-    v29 = *a2;
-    v30 = v6;
-    v31 = *(a2 + 4);
-    v7 = *(a2 + 10);
-    v8 = *(a2 + 11);
-    v32 = v7;
-    v33 = v8;
-    v9 = *(a2 + 12);
-    v10 = *(a2 + 13);
-    v34 = v9;
-    v35 = v10;
-    v11 = *(a2 + 14);
-    v12 = *(a2 + 15);
-    v36 = __PAIR64__(v12, v11);
-    v13 = *(a2 + 16);
-    v14 = *(a1 + 16);
-    v15 = *(a1 + 20) & 0x7FFFFFFF;
-    v37 = v13;
-    if (v15 <= v14)
-    {
-      physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalBoxObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>>::growAndPushBack(a1 + 8, &v28);
-    }
+  *(this + 22) = 0;
 
-    else
-    {
-      v16 = *(a1 + 8) + 80 * v14;
-      *v16 = v4;
-      *(v16 + 8) = v29;
-      *(v16 + 24) = v30;
-      *(v16 + 40) = v31;
-      *(v16 + 48) = v7;
-      *(v16 + 52) = v8;
-      *(v16 + 56) = v9;
-      *(v16 + 60) = v10;
-      *(v16 + 64) = v11;
-      *(v16 + 68) = v12;
-      *(v16 + 72) = v13;
-      ++*(a1 + 16);
-    }
-
-LABEL_10:
-    physx::Cct::CharacterControllerManager::onObstacleAdded(*(a1 + 88), v5, a1);
-    return v5;
-  }
-
-  return 0xFFFFFFFFLL;
+  physx::Gu::TriangleMesh::~TriangleMesh(this);
 }
 
-uint64_t physx::Cct::ObstacleContext::removeObstacle(physx::Cct::ObstacleContext *this, unsigned int a2)
+void non-virtual thunk tophysx::Gu::BV4TriangleMesh::~BV4TriangleMesh(physx::Gu::BV4TriangleMesh *this)
 {
-  v2 = *(this + 13);
-  if (a2 >= v2)
+  physx::Gu::BV4TriangleMesh::~BV4TriangleMesh((this - 16));
+}
+
+{
+  physx::Gu::BV4TriangleMesh::~BV4TriangleMesh((this - 16));
+  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v1();
+}
+
+void physx::Gu::RTreeTriangleMesh::~RTreeTriangleMesh(physx::Gu::RTreeTriangleMesh *this)
+{
+  *this = &unk_1F5D229B8;
+  *(this + 2) = &unk_1F5D22A78;
+  physx::Gu::RTree::~RTree((this + 160));
+
+  physx::Gu::TriangleMesh::~TriangleMesh(this);
+}
+
+{
+  *this = &unk_1F5D229B8;
+  *(this + 2) = &unk_1F5D22A78;
+  physx::Gu::RTree::~RTree((this + 160));
+  physx::Gu::TriangleMesh::~TriangleMesh(this);
+  v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v2();
+}
+
+void non-virtual thunk tophysx::Gu::RTreeTriangleMesh::~RTreeTriangleMesh(physx::Gu::RTreeTriangleMesh *this)
+{
+  v1 = (this - 16);
+  *(this - 2) = &unk_1F5D229B8;
+  *this = &unk_1F5D22A78;
+  physx::Gu::RTree::~RTree((this + 144));
+
+  physx::Gu::TriangleMesh::~TriangleMesh(v1);
+}
+
+{
+  v1 = (this - 16);
+  *(this - 2) = &unk_1F5D229B8;
+  *this = &unk_1F5D22A78;
+  physx::Gu::RTree::~RTree((this + 144));
+  physx::Gu::TriangleMesh::~TriangleMesh(v1);
+  v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v2();
+}
+
+uint64_t physx::Gu::unsupportedCapsuleSweepMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
   {
-    return 0;
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
   }
 
-  v4 = *(*(this + 7) + 2 * a2);
-  if (v4 == 0xFFFF || v2 <= v4)
+  return 0;
+}
+
+uint64_t physx::Gu::unsupportedBoxSweepMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
   {
-    return 0;
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
   }
 
-  if (*(*(this + 9) + 2 * a2) != HIWORD(a2))
+  return 0;
+}
+
+uint64_t physx::Gu::unsupportedConvexSweepMidphase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((physx::Gu::Midphase::outputError(void)::reportOnlyOnce & 1) == 0)
   {
-    return 0;
+    physx::Gu::Midphase::outputError(void)::reportOnlyOnce = 1;
+    return physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuMidphaseInterface.h", 175, "BV4 midphase only supported on Intel platforms.", a6, a7, a8);
   }
 
-  v7 = *(*(this + 5) + 8 * *(*(this + 7) + 2 * a2));
-  if (!v7)
-  {
-    return 0;
-  }
-
-  if (*(*(this + 5) + 8 * *(*(this + 7) + 2 * a2)) == 3)
-  {
-    v20 = *(this + 8);
-    if (WORD1(v7) < v20)
-    {
-      physx::Cct::HandleManager::Remove(this + 5, a2);
-      v21 = *(this + 3);
-      if (v20 - 1 != WORD1(v7))
-      {
-        v22 = *(v21 + 72 * (v20 - 1));
-        v23 = *(this + 13);
-        if (*(v21 + 72 * (v20 - 1)) < v23)
-        {
-          v24 = *(*(this + 7) + 2 * v22);
-          v25 = v24 != 0xFFFF && v23 > v24;
-          if (v25 && *(*(this + 9) + 2 * v22) == HIWORD(*(v21 + 72 * (v20 - 1))))
-          {
-            *(*(this + 5) + 8 * *(*(this + 7) + 2 * v22)) = v7;
-            v21 = *(this + 3);
-          }
-        }
-      }
-
-      v26 = *(this + 8) - 1;
-      *(this + 8) = v26;
-      v27 = v21 + 72 * v26;
-      v28 = v21 + 72 * WORD1(v7);
-      *v28 = *v27;
-      v29 = *(v27 + 40);
-      v30 = *(v27 + 24);
-      *(v28 + 8) = *(v27 + 8);
-      *(v28 + 24) = v30;
-      *(v28 + 40) = v29;
-      *(v28 + 48) = *(v27 + 48);
-      *(v28 + 64) = *(v27 + 64);
-      goto LABEL_34;
-    }
-
-    return 0;
-  }
-
-  if (*(*(this + 5) + 8 * *(*(this + 7) + 2 * a2)) != 4)
-  {
-    return 0;
-  }
-
-  v8 = *(this + 4);
-  if (WORD1(v7) >= v8)
-  {
-    return 0;
-  }
-
-  physx::Cct::HandleManager::Remove(this + 5, a2);
-  v9 = *(this + 1);
-  if (v8 - 1 != WORD1(v7))
-  {
-    v10 = *(v9 + 80 * (v8 - 1));
-    v11 = *(this + 13);
-    if (*(v9 + 80 * (v8 - 1)) < v11)
-    {
-      v12 = *(*(this + 7) + 2 * v10);
-      v13 = v12 != 0xFFFF && v11 > v12;
-      if (v13 && *(*(this + 9) + 2 * v10) == HIWORD(*(v9 + 80 * (v8 - 1))))
-      {
-        *(*(this + 5) + 8 * *(*(this + 7) + 2 * v10)) = v7;
-        v9 = *(this + 1);
-      }
-    }
-  }
-
-  v14 = *(this + 4) - 1;
-  *(this + 4) = v14;
-  v15 = v9 + 80 * v14;
-  v16 = v9 + 80 * WORD1(v7);
-  *v16 = *v15;
-  v17 = *(v15 + 40);
-  v18 = *(v15 + 24);
-  *(v16 + 8) = *(v15 + 8);
-  *(v16 + 24) = v18;
-  *(v16 + 40) = v17;
-  *(v16 + 48) = *(v15 + 48);
-  *(v16 + 64) = *(v15 + 64);
-  *(v16 + 72) = *(v15 + 72);
-LABEL_34:
-  v31 = *(this + 11);
-  v32 = *(v31 + 112);
-  if (!v32)
-  {
-    return 1;
-  }
-
-  v33 = *(v31 + 104);
-  result = 1;
-  do
-  {
-    if (*(*v33 + 320) == a2)
-    {
-      *(*v33 + 320) = -1;
-    }
-
-    v33 += 8;
-    --v32;
-  }
-
-  while (v32);
   return result;
 }
 
-uint64_t physx::Cct::ObstacleContext::updateObstacle(uint64_t a1, unsigned int a2, __int128 *a3)
+uint64_t _BuildBV32(uint64_t *a1, uint64_t a2, uint64_t a3, _DWORD *a4, double a5)
 {
-  v3 = *(a1 + 52);
-  if (a2 < v3)
+  v43 = *MEMORY[0x1E69E9840];
+  v7 = (a2 + 1288);
+  memset(v42, 0, sizeof(v42));
+  v8 = 31;
+  result = fillInNodes(a3, 0, 0x1Fu, v42, (a2 + 1288));
+  v10 = 0;
+  do
   {
-    v4 = *(*(a1 + 56) + 2 * a2);
-    if (v4 != 0xFFFF && v3 > v4 && *(*(a1 + 72) + 2 * a2) == HIWORD(a2))
+    v11 = v10;
+    if (v8 <= v10 + 1)
     {
-      v6 = *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * a2));
-      if (v6)
-      {
-        if (*(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * a2)) - 1 == *a3)
-        {
-          v7 = WORD1(v6);
-          if (v6 == 3)
-          {
-            if (v7 < *(a1 + 32))
-            {
-              v11 = *(a1 + 24) + 72 * v7;
-              v12 = *a3;
-              v13 = a3[1];
-              *(v11 + 40) = *(a3 + 4);
-              *(v11 + 24) = v13;
-              *(v11 + 8) = v12;
-              *(v11 + 48) = *(a3 + 40);
-              *(v11 + 64) = *(a3 + 7);
-              goto LABEL_16;
-            }
-          }
+      ++v10;
+    }
 
-          else if (v6 == 4 && v7 < *(a1 + 16))
-          {
-            v8 = *(a1 + 8) + 80 * v7;
-            v9 = *a3;
-            v10 = a3[1];
-            *(v8 + 40) = *(a3 + 4);
-            *(v8 + 24) = v10;
-            *(v8 + 8) = v9;
-            *(v8 + 48) = *(a3 + 40);
-            *(v8 + 64) = *(a3 + 7);
-            *(v8 + 72) = *(a3 + 16);
+    else
+    {
+      v10 = v8;
+    }
+
+    while (*(v42 + v11))
+    {
+      if (++v11 >= v8)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    if (v8 > v11)
+    {
+      while (!*(v42 + v8))
+      {
+        if (--v8 <= v11)
+        {
+          goto LABEL_16;
+        }
+      }
+    }
+
+    v10 = v11;
+LABEL_13:
+    if (v10 != v8)
+    {
+      v12 = *(v42 + v8);
+      *(v42 + v8) = *(v42 + v10);
+      *(v42 + v10) = v12;
+    }
+  }
+
+  while (v10 < v8);
 LABEL_16:
-            physx::Cct::CharacterControllerManager::onObstacleUpdated(*(a1 + 88), a2, a1);
-            return 1;
-          }
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t physx::Cct::ObstacleContext::getObstacle(physx::Cct::ObstacleContext *this, unsigned int a2)
-{
-  v2 = *(this + 4);
-  v3 = a2 >= v2;
-  v4 = a2 - v2;
-  if (!v3)
-  {
-    v5 = *(this + 1) + 80 * a2;
-    return v5 + 8;
-  }
-
-  if (v4 < *(this + 8))
-  {
-    v5 = *(this + 3) + 72 * v4;
-    return v5 + 8;
-  }
-
-  return 0;
-}
-
-unint64_t physx::Cct::ObstacleContext::getObstacleByHandle(physx::Cct::ObstacleContext *this, unsigned int a2)
-{
-  v2 = *(this + 13);
-  if (a2 < v2)
-  {
-    v3 = *(*(this + 7) + 2 * a2);
-    if (v3 != 0xFFFF && v2 > v3 && *(*(this + 9) + 2 * a2) == HIWORD(a2))
-    {
-      v5 = *(*(this + 5) + 8 * *(*(this + 7) + 2 * a2));
-      if (v5)
-      {
-        v6 = WORD1(v5);
-        if (v5 == 3)
-        {
-          if (WORD1(v5) < *(this + 8))
-          {
-            v7 = *(this + 3);
-            v8 = 72;
-            return v7 + v6 * v8 + 8;
-          }
-        }
-
-        else if (v5 == 4 && WORD1(v5) < *(this + 4))
-        {
-          v7 = *(this + 1);
-          v8 = 80;
-          return v7 + v6 * v8 + 8;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t physx::Cct::ObstacleContext::raycastSingle(uint64_t a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4, _DWORD *a5, float a6)
-{
-  v38 = 0uLL;
-  v39 = -1;
-  v40 = 0;
-  v42 = 0;
-  v41 = 0uLL;
-  *v43 = 2139095039;
-  *&v43[8] = 0;
-  v11 = *(a1 + 16);
-  if (v11)
-  {
-    v12 = 0;
-    v13 = 0;
-    v14 = off_1EE185D68[0];
-    v15 = 80 * v11;
-    v16 = 3.4028e38;
-    do
-    {
-      v17 = *(a1 + 8) + v12;
-      v18 = *(v17 + 72);
-      v35 = 3;
-      v36 = *(v17 + 64);
-      v37 = v18;
-      v19 = *(v17 + 40);
-      v32 = *(v17 + 48);
-      v33 = vcvt_f32_f64(*(v17 + 24));
-      v34 = v19;
-      v31 = 0;
-      if ((v14)(&v35, &v32, a3, a4, &v31, a6, 1, &v38))
-      {
-        v20 = *v43;
-        if (*v43 < v16)
-        {
-          v13 = v17 + 8;
-          *a2 = v38;
-          *(a2 + 16) = v39;
-          *(a2 + 20) = v40;
-          *(a2 + 24) = v41;
-          *(a2 + 40) = v42;
-          *(a2 + 48) = v20;
-          *(a2 + 52) = *&v43[4];
-          *a5 = *(*(a1 + 8) + v12);
-          v16 = v20;
-        }
-      }
-
-      v12 += 80;
-    }
-
-    while (v15 != v12);
-  }
-
-  else
-  {
-    v13 = 0;
-    v16 = 3.4028e38;
-  }
-
-  v21 = *(a1 + 32);
-  if (v21)
-  {
-    v22 = 0;
-    v23 = off_1EE185D60[0];
-    v24 = 72 * v21;
-    do
-    {
-      v25 = *(a1 + 24) + v22;
-      v35 = 2;
-      v36 = vrev64_s32(*(v25 + 64));
-      v26 = *(v25 + 40);
-      v32 = *(v25 + 48);
-      v33 = vcvt_f32_f64(*(v25 + 24));
-      v34 = v26;
-      v31 = 0;
-      (v23)(&v35, &v32, a3, a4, &v31, a6, 1, &v38);
-      if (v27)
-      {
-        v28 = *v43;
-        if (*v43 < v16)
-        {
-          v13 = v25 + 8;
-          *a2 = v38;
-          *(a2 + 16) = v39;
-          *(a2 + 20) = v40;
-          *(a2 + 24) = v41;
-          *(a2 + 40) = v42;
-          *(a2 + 48) = v28;
-          *(a2 + 52) = *&v43[4];
-          *a5 = *(*(a1 + 24) + v22);
-          v16 = v28;
-        }
-      }
-
-      v22 += 72;
-    }
-
-    while (v24 != v22);
-  }
-
-  return v13;
-}
-
-uint64_t physx::Cct::ObstacleContext::raycastSingle(uint64_t a1, uint64_t a2, unsigned int *a3, float *a4, float32x2_t *a5, float a6)
-{
-  v8 = *a3;
-  v9 = *a3;
-  v10 = *(a1 + 52);
-  if (v9 >= v10)
-  {
-    return 0;
-  }
-
-  v27 = v6;
-  v28 = v7;
-  v11 = *(*(a1 + 56) + 2 * v9);
-  v12 = v11 != 0xFFFF && v10 > v11;
-  if (v12 && *(*(a1 + 72) + 2 * v9) == HIWORD(v8) && (v13 = *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * v9))) != 0 && ((v14 = WORD1(v13), *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * v9)) != 4) ? (v15 = *(a1 + 24) + 72 * v14, v16 = off_1EE185D60[0], v24 = 2, v25 = vrev64_s32(*(v15 + 64))) : (v15 = *(a1 + 8) + 80 * v14, v16 = off_1EE185D68[0], v17 = *(v15 + 72), v24 = 3, v25 = *(v15 + 64), v26 = v17), v19 = *(v15 + 40), v21 = *(v15 + 48), v22 = vcvt_f32_f64(*(v15 + 24)), v23 = v19, v20 = 0, (v16)(&v24, &v21, a4, a5, &v20, a6, 1, a2)))
-  {
-    return v15 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t physx::Cct::ObstacleContext::onOriginShift(uint64_t result, float32x2_t *a2)
-{
-  v2 = *(result + 16);
-  if (v2)
-  {
-    v3 = vcvtq_f64_f32(*a2);
-    v4 = a2[1].f32[0];
-    v5 = (*(result + 8) + 40);
-    do
-    {
-      *(v5 - 1) = vsubq_f64(*(v5 - 2), v3);
-      *v5 = *v5 - v4;
-      v5 += 10;
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  v6 = *(result + 32);
-  if (v6)
-  {
-    v7 = vcvtq_f64_f32(*a2);
-    v8 = a2[1].f32[0];
-    v9 = (*(result + 24) + 40);
-    do
-    {
-      *(v9 - 1) = vsubq_f64(*(v9 - 2), v7);
-      *v9 = *v9 - v8;
-      v9 += 9;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  return result;
-}
-
-uint64_t physx::Cct::SweptBox::computeTemporalBox(uint64_t a1, uint64_t a2, uint64_t a3, float64x2_t *a4, float32x2_t *a5, double a6)
-{
-  LODWORD(a6) = *(a1 + 48);
-  if (*(a1 + 44) > *&a6)
-  {
-    LODWORD(a6) = *(a1 + 44);
-  }
-
-  return physx::Cct::computeTemporalBox(a3, (a2 + 300), a4, a5, a6, *(a1 + 40) + *(a1 + 40), *(a2 + 316), *(a2 + 328));
-}
-
-uint64_t physx::Cct::computeTemporalBox(uint64_t result, float32x2_t *a2, float64x2_t *a3, float32x2_t *a4, double a5, float a6, float a7, float a8)
-{
-  *&a5 = *&a5 + a7;
-  v8 = a6 * 0.5;
-  v9 = a2[1].f32[0];
-  v10 = a3[1].f64[0];
-  v11 = (*&a5 + (fabsf(v9) * v8));
-  v12 = v10 + v11;
-  v13 = v10 + a4[1].f32[0];
-  v14 = v13 - v11;
-  v15 = v13 + v11;
-  v16 = *a3;
-  v17 = vcvtq_f64_f32(vmla_n_f32(vdup_lane_s32(*&a5, 0), vabs_f32(*a2), v8));
-  v18 = vsubq_f64(*a3, v17);
-  v19 = vaddq_f64(*a3, vcvtq_f64_f32(*a4));
-  v20 = vsubq_f64(v19, v17);
-  v21 = vbslq_s8(vcgtq_f64(v18, v20), v20, v18);
-  if (v10 - v11 <= v14)
-  {
-    v22 = v10 - v11;
-  }
-
-  else
-  {
-    v22 = v14;
-  }
-
-  v23 = vaddq_f64(v16, v17);
-  v24 = vaddq_f64(v19, v17);
-  v25 = vbslq_s8(vcgtq_f64(v24, v23), v24, v23);
-  if (v12 < v15)
-  {
-    v12 = v15;
-  }
-
-  if (a8 == 0.0)
-  {
-    goto LABEL_10;
-  }
-
-  v26 = vmul_n_f32(*a2, a8);
-  v27 = v10 - (v9 * a8);
-  v28 = v27 - v11;
-  v29 = v27 + v11;
-  v30 = vsubq_f64(v16, vcvtq_f64_f32(v26));
-  v31 = vsubq_f64(v30, v17);
-  v21 = vbslq_s8(vcgtq_f64(v21, v31), v31, v21);
-  if (v22 > v28)
-  {
-    v22 = v28;
-  }
-
-  v32 = vaddq_f64(v30, v17);
-  v25 = vbslq_s8(vcgtq_f64(v32, v25), v32, v25);
-  if (v12 >= v29)
-  {
-LABEL_10:
-    v29 = v12;
-  }
-
-  *result = v21;
-  *(result + 16) = v22;
-  *(result + 24) = v25;
-  *(result + 40) = v29;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalBoxObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>>::growAndPushBack(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>::getName() [T = physx::Cct::ObstacleContext::InternalBoxObstacle]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 80 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  if (v9)
-  {
-    v10 = v8 + 80 * v9;
-    v11 = *v3;
-    v12 = v8;
-    do
-    {
-      *v12 = *v11;
-      v13 = *(v11 + 8);
-      v14 = *(v11 + 24);
-      *(v12 + 40) = *(v11 + 40);
-      *(v12 + 24) = v14;
-      *(v12 + 8) = v13;
-      *(v12 + 48) = *(v11 + 48);
-      *(v12 + 64) = *(v11 + 64);
-      *(v12 + 72) = *(v11 + 72);
-      v12 += 80;
-      v11 += 80;
-    }
-
-    while (v12 < v10);
-    v15 = *(v3 + 8);
-  }
-
-  else
+  *a4 += *v7;
+  v13 = *v7;
+  v14 = *&a5;
+  if (v13)
   {
     v15 = 0;
-  }
+    v16 = a2 + 8;
+    v17 = vdup_lane_s32(*&a5, 0);
+    __asm { FMOV            V11.2S, #-1.0 }
 
-  v16 = v8 + 80 * v15;
-  *v16 = *a2;
-  v17 = *(a2 + 8);
-  v18 = *(a2 + 24);
-  *(v16 + 40) = *(a2 + 40);
-  *(v16 + 24) = v18;
-  *(v16 + 8) = v17;
-  *(v16 + 48) = *(a2 + 48);
-  *(v16 + 64) = *(a2 + 64);
-  *(v16 + 72) = *(a2 + 72);
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v8;
-  ++*(v3 + 8);
-  *(v3 + 12) = v5;
-  return result;
-}
-
-uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalCapsuleObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>>::growAndPushBack(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  v4 = *(result + 12);
-  if ((v4 & 0x7FFFFFFF) != 0)
-  {
-    v5 = 2 * v4;
-  }
-
-  else
-  {
-    v5 = 1;
-  }
-
-  if (v5)
-  {
-    v6 = physx::shdfnd::Foundation::mInstance;
-    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-    {
-      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>::getName() [T = physx::Cct::ObstacleContext::InternalCapsuleObstacle]";
-    }
-
-    else
-    {
-      v7 = "<allocation names disabled>";
-    }
-
-    result = (*(*(v6 + 24) + 16))(v6 + 24, 72 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
-    v8 = result;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 8);
-  if (v9)
-  {
-    v10 = v8 + 72 * v9;
-    v11 = *v3;
-    v12 = v8;
     do
     {
-      *v12 = *v11;
-      v13 = *(v11 + 8);
-      v14 = *(v11 + 24);
-      *(v12 + 40) = *(v11 + 40);
-      *(v12 + 24) = v14;
-      *(v12 + 8) = v13;
-      *(v12 + 48) = *(v11 + 48);
-      *(v12 + 64) = *(v11 + 64);
-      v12 += 72;
-      v11 += 72;
-    }
-
-    while (v12 < v10);
-    v15 = *(v3 + 8);
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v16 = v8 + 72 * v15;
-  *v16 = *a2;
-  v17 = *(a2 + 8);
-  v18 = *(a2 + 24);
-  *(v16 + 40) = *(a2 + 40);
-  *(v16 + 24) = v18;
-  *(v16 + 8) = v17;
-  *(v16 + 48) = *(a2 + 48);
-  *(v16 + 64) = *(a2 + 64);
-  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
-  {
-    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
-  }
-
-  *v3 = v8;
-  ++*(v3 + 8);
-  *(v3 + 12) = v5;
-  return result;
-}
-
-void *physx::PxD6JointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
-{
-  v10 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::D6Joint>::getName() [T = physx::Ext::D6Joint]";
-  }
-
-  else
-  {
-    v11 = "<allocation names disabled>";
-  }
-
-  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 120, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 49);
-  v13 = (*(*a1 + 40))(a1);
-  physx::Ext::D6Joint::D6Joint(v12, v13, a2, a3, a4, a5);
-  v14 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::D6Joint::sShaders, 480);
-  v12[12] = v14;
-  if (!v14)
-  {
-    (*(*v12 + 32))(v12);
-    return 0;
-  }
-
-  return v12;
-}
-
-uint64_t physx::Ext::D6Joint::D6Joint(uint64_t a1, float *a2, uint64_t a3, float32x4_t *a4, uint64_t a5, float32x4_t *a6)
-{
-  *(a1 + 8) = 196869;
-  *a1 = &unk_1F5D280D0;
-  *(a1 + 24) = &unk_1F5D282E8;
-  *(a1 + 32) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 16) = 0;
-  v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 480, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
-  _Q0 = *a4;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _S2 = a4->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _S2 = HIDWORD(*a4);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  v21 = a4[1].i32[2];
-  v22 = vdivq_f32(*a4, vdupq_lane_s32(*_Q1.f32, 0));
-  _Q1.i64[0] = a4[1].i64[0];
-  *(a1 + 40) = v22;
-  *(a1 + 56) = _Q1.i64[0];
-  *(a1 + 64) = v21;
-  v22.i32[0] = a6[1].i32[2];
-  _Q1 = *a6;
-  _Q2 = vmulq_f32(_Q1, _Q1);
-  _S3 = a6->i64[1];
-  __asm { FMLA            S2, S3, V1.S[2] }
-
-  _S3 = HIDWORD(*a6);
-  __asm { FMLA            S2, S3, V1.S[3] }
-
-  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
-  v27 = a6[1].i64[0];
-  *(a1 + 68) = vdivq_f32(*a6, vdupq_lane_s32(*_Q2.f32, 0));
-  *(a1 + 84) = v27;
-  *(a1 + 92) = v22.i32[0];
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v66, a3);
-  v28 = v68;
-  v29 = (a4[1].f32[0] - v70) + (a4[1].f32[0] - v70);
-  v30 = (a4[1].f32[1] - v71) + (a4[1].f32[1] - v71);
-  v31 = (a4[1].f32[2] - v72) + (a4[1].f32[2] - v72);
-  v32 = (v69 * v69) + -0.5;
-  v33 = (-(v67 * v30) - (v66 * v29)) - (v68 * v31);
-  v34 = ((v69 * ((v68 * v30) - (v67 * v31))) + (v29 * v32)) - (v66 * v33);
-  v35 = (v69 * ((v66 * v31) - (v68 * v29))) + (v30 * v32);
-  v36 = (v69 * ((v67 * v29) - (v66 * v30))) + (v31 * v32);
-  v38 = a4->f32[2];
-  v37 = a4->f32[3];
-  v39 = a4->f32[1];
-  v40 = (((v69 * v39) - (v67 * v37)) - (v68 * a4->f32[0])) + (v38 * v66);
-  v41 = (((v69 * v38) - (v68 * v37)) - (v66 * v39)) + (a4->f32[0] * v67);
-  v42 = v35 - (v67 * v33);
-  v43 = (((v66 * a4->f32[0]) + (v69 * v37)) + (v67 * v39)) + (v68 * v38);
-  *(v12 + 16) = (((v69 * a4->f32[0]) - (v66 * v37)) - (v67 * v38)) + (v39 * v68);
-  *(v12 + 20) = v40;
-  *(v12 + 24) = v41;
-  *(v12 + 28) = v43;
-  *(v12 + 32) = v34;
-  *(v12 + 36) = v42;
-  *(v12 + 40) = v36 - (v28 * v33);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v66, a5);
-  v44 = (a6[1].f32[0] - v70) + (a6[1].f32[0] - v70);
-  v45 = (a6[1].f32[1] - v71) + (a6[1].f32[1] - v71);
-  v46 = (a6[1].f32[2] - v72) + (a6[1].f32[2] - v72);
-  v47 = (v69 * v69) + -0.5;
-  v48 = (-(v67 * v45) - (v66 * v44)) - (v68 * v46);
-  v49 = ((v69 * ((v68 * v45) - (v67 * v46))) + (v44 * v47)) - (v66 * v48);
-  v50 = ((v69 * ((v66 * v46) - (v68 * v44))) + (v45 * v47)) - (v67 * v48);
-  v51 = ((v69 * ((v67 * v44) - (v66 * v45))) + (v46 * v47)) - (v68 * v48);
-  v53 = a6->f32[2];
-  v52 = a6->f32[3];
-  v54 = a6->f32[1];
-  v55 = (((v69 * v54) - (v67 * v52)) - (v68 * a6->f32[0])) + (v53 * v66);
-  v56 = (((v69 * v53) - (v68 * v52)) - (v66 * v54)) + (a6->f32[0] * v67);
-  v57 = (((v66 * a6->f32[0]) + (v69 * v52)) + (v67 * v54)) + (v68 * v53);
-  *(v12 + 44) = (((v69 * a6->f32[0]) - (v66 * v52)) - (v67 * v53)) + (v54 * v68);
-  *(v12 + 48) = v55;
-  *(v12 + 52) = v56;
-  *(v12 + 56) = v57;
-  *(v12 + 60) = v49;
-  *(v12 + 64) = v50;
-  *(v12 + 68) = v51;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *v12 = _Q0;
-  *(a1 + 104) = v12;
-  *a1 = &unk_1F5D27D88;
-  *(a1 + 24) = &unk_1F5D27FB0;
-  *(a1 + 112) = 1;
-  *(v12 + 80) = 0;
-  *(v12 + 88) = 0;
-  *(v12 + 96) = 0;
-  *(v12 + 212) = 0x3F00000000000000;
-  *(v12 + 220) = 0;
-  *(v12 + 228) = xmmword_1E3118980;
-  *(v12 + 244) = 1056964608;
-  *(v12 + 248) = 0;
-  *(v12 + 256) = xmmword_1E3118990;
-  *(v12 + 272) = 1056964608;
-  *(v12 + 276) = 0;
-  *(v12 + 284) = xmmword_1E31189A0;
-  *(v12 + 300) = 1070141403;
-  *&_Q0 = *a2 * 0.01;
-  *(v12 + 104) = 0;
-  *(v12 + 112) = 0;
-  *(v12 + 120) = _Q0;
-  *(v12 + 124) = 2139095039;
-  *&_Q0 = *a2;
-  *(v12 + 464) = *a2 * 0.000001;
-  *(v12 + 128) = 0;
-  *(v12 + 132) = *&_Q0 + *&_Q0;
-  *(v12 + 136) = 0;
-  *(v12 + 144) = fminf(*&_Q0 * 0.01, 1.1116e38);
-  *(v12 + 148) = 0xFEAAAAAA7EAAAAAALL;
-  v59 = fminf(*a2 * 0.01, 1.1116e38);
-  v60 = *a2 + *a2;
-  *(v12 + 156) = 0;
-  *(v12 + 160) = v60;
-  *(v12 + 164) = 0;
-  *(v12 + 172) = v59;
-  *(v12 + 176) = 0xFEAAAAAA7EAAAAAALL;
-  v61 = fminf(*a2 * 0.01, 1.1116e38);
-  v62 = *a2 + *a2;
-  *(v12 + 184) = 0;
-  *(v12 + 188) = v62;
-  *(v12 + 192) = 0;
-  *(v12 + 200) = v61;
-  *(v12 + 204) = 0xFEAAAAAA7EAAAAAALL;
-  v63 = v12 + 316;
-  v64 = 6;
-  do
-  {
-    *(v63 - 12) = 0;
-    *(v63 - 4) = 2139095039;
-    v63 += 16;
-    --v64;
-  }
-
-  while (v64);
-  *(v12 + 400) = xmmword_1E30474D0;
-  *(v12 + 416) = 0u;
-  *(v12 + 432) = 0u;
-  *(v12 + 448) = 0;
-  *(v12 + 468) = 0x40490FDB501502F9;
-  *(v12 + 476) = 0;
-  return a1;
-}
-
-uint64_t physx::Ext::D6Joint::setMotion(uint64_t a1, unsigned int a2, int a3)
-{
-  v3 = *(a1 + 96);
-  *(*(a1 + 104) + 4 * a2 + 80) = a3;
-  *(a1 + 112) = 1;
-  return (*(*v3 + 72))(v3);
-}
-
-float physx::Ext::D6Joint::getTwistAngle(physx::Ext::D6Joint *this)
-{
-  (*(*this + 80))(v7);
-  v1 = 1.0;
-  if (v7[0] == 0.0)
-  {
-    v4 = 0;
-    v3 = 1.0;
-  }
-
-  else
-  {
-    v2 = sqrtf(((v7[0] * v7[0]) + 0.0) + (v8 * v8));
-    v3 = v8 / v2;
-    v4 = (v7[0] / v2) < 0.0;
-  }
-
-  if (v3 < -1.0)
-  {
-    v3 = -1.0;
-  }
-
-  if (v3 <= 1.0)
-  {
-    v1 = v3;
-  }
-
-  v5 = acosf(v1);
-  result = v5 + v5;
-  if (v4)
-  {
-    return -result;
-  }
-
-  return result;
-}
-
-float physx::Ext::D6Joint::getSwingYAngle(physx::Ext::D6Joint *this)
-{
-  (*(*this + 80))(&v9);
-  if (*&v9 == 0.0)
-  {
-    v2 = 0.0;
-    v3 = 0.0;
-    v4 = 1.0;
-  }
-
-  else
-  {
-    v1 = sqrtf(((*&v9 * *&v9) + 0.0) + (v11 * v11));
-    v2 = *&v9 / v1;
-    v3 = 0.0 / v1;
-    v4 = v11 / v1;
-  }
-
-  v5 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
-  v6 = -((((*(&v9 + 1) * v4) - (v11 * v3)) - (v10 * v2)) + (v3 * *&v9));
-  v7 = -v5;
-  if (v5 >= 0.0)
-  {
-    v7 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
-    v6 = (((*(&v9 + 1) * v4) - (v11 * v3)) - (v10 * v2)) + (v3 * *&v9);
-  }
-
-  return atan2f(v6, v7 + 1.0) * 4.0;
-}
-
-float physx::Ext::D6Joint::getSwingZAngle(physx::Ext::D6Joint *this)
-{
-  (*(*this + 80))(&v9);
-  if (*&v9 == 0.0)
-  {
-    v2 = 0.0;
-    v3 = 0.0;
-    v4 = 1.0;
-  }
-
-  else
-  {
-    v1 = sqrtf(((*&v9 * *&v9) + 0.0) + (v11 * v11));
-    v2 = *&v9 / v1;
-    v3 = 0.0 / v1;
-    v4 = v11 / v1;
-  }
-
-  v5 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
-  v6 = -((((v10 * v4) - (v11 * v3)) - (*&v9 * v3)) + (v2 * *(&v9 + 1)));
-  v7 = -v5;
-  if (v5 >= 0.0)
-  {
-    v7 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
-    v6 = (((v10 * v4) - (v11 * v3)) - (*&v9 * v3)) + (v2 * *(&v9 + 1));
-  }
-
-  return atan2f(v6, v7 + 1.0) * 4.0;
-}
-
-float physx::Ext::D6Joint::getDrive@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = *(a1 + 104) + 16 * a2;
-  *a3 = *(v3 + 304);
-  result = *(v3 + 312);
-  *(a3 + 8) = result;
-  *(a3 + 12) = *(v3 + 316);
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setDrive(uint64_t a1, unsigned int a2, uint64_t a3)
-{
-  v3 = *(a1 + 104) + 16 * a2;
-  *(v3 + 304) = *a3;
-  *(v3 + 312) = *(a3 + 8);
-  *(v3 + 316) = *(a3 + 12);
-  *(a1 + 112) = 1;
-  return (*(**(a1 + 96) + 72))();
-}
-
-uint64_t physx::Ext::D6Joint::setDistanceLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  *(v2 + 120) = *(a2 + 2);
-  *(v2 + 104) = v3;
-  v5 = a1 + 96;
-  v4 = *(a1 + 96);
-  *(*(v5 + 8) + 476) = 1;
-  return (*(*v4 + 72))();
-}
-
-double physx::Ext::D6Joint::getDistanceLimit@<D0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 104);
-  result = *(v2 + 120);
-  *(a2 + 16) = result;
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setLinearLimit(uint64_t result, int a2, __int128 *a3)
-{
-  v3 = *(result + 104);
-  if (a2 == 2)
-  {
-    v6 = *a3;
-    *(v3 + 196) = *(a3 + 12);
-    *(v3 + 184) = v6;
-  }
-
-  else if (a2 == 1)
-  {
-    v5 = *a3;
-    *(v3 + 168) = *(a3 + 12);
-    *(v3 + 156) = v5;
-  }
-
-  else
-  {
-    if (a2)
-    {
-      return result;
-    }
-
-    v4 = *a3;
-    *(v3 + 140) = *(a3 + 12);
-    *(v3 + 128) = v4;
-  }
-
-  *(v3 + 477) = 1;
-  return (*(**(result + 96) + 72))();
-}
-
-uint64_t physx::Ext::D6Joint::getLinearLimit@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = *(result + 104);
-  switch(a2)
-  {
-    case 2:
-      *a3 = *(v3 + 184);
-      *(a3 + 16) = *(v3 + 200);
-      v4 = *(v3 + 204);
-      goto LABEL_7;
-    case 1:
-      *a3 = *(v3 + 156);
-      *(a3 + 16) = *(v3 + 172);
-      v4 = *(v3 + 176);
-      goto LABEL_7;
-    case 0:
-      *a3 = *(v3 + 128);
-      *(a3 + 16) = *(v3 + 144);
-      v4 = *(v3 + 148);
-LABEL_7:
-      *(a3 + 20) = v4;
-      return result;
-  }
-
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 24) = 0;
-  *(a3 + 16) = 0;
-  *(a3 + 4) = 0x40000000;
-  return result;
-}
-
-float physx::Ext::D6Joint::getTwistLimit@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 212);
-  result = *(v2 + 228);
-  *(a2 + 16) = result;
-  *(a2 + 20) = *(v2 + 232);
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setTwistLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  *(v2 + 224) = *(a2 + 12);
-  *(v2 + 212) = v3;
-  return (*(**(a1 + 96) + 72))();
-}
-
-__n128 physx::Ext::D6Joint::getPyramidSwingLimit@<Q0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 268);
-  *(a2 + 16) = *(v2 + 284);
-  result = *(v2 + 288);
-  *(a2 + 20) = result;
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setPyramidSwingLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  v4 = a2[1];
-  *(v2 + 300) = *(a2 + 8);
-  *(v2 + 268) = v3;
-  *(v2 + 284) = v4;
-  *(*(a1 + 104) + 478) = 256;
-  return (*(**(a1 + 96) + 72))();
-}
-
-float physx::Ext::D6Joint::getSwingLimit@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 240);
-  result = *(v2 + 256);
-  *(a2 + 16) = result;
-  *(a2 + 20) = *(v2 + 260);
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setSwingLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  *(v2 + 252) = *(a2 + 12);
-  *(v2 + 240) = v3;
-  *(*(a1 + 104) + 478) = 1;
-  return (*(**(a1 + 96) + 72))();
-}
-
-float physx::Ext::D6Joint::getDrivePosition@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 400);
-  *(a2 + 16) = *(v2 + 416);
-  result = *(v2 + 424);
-  *(a2 + 24) = result;
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setDrivePosition(uint64_t a1, float32x4_t *a2, int a3)
-{
-  v4 = a2[1].i32[2];
-  _Q1 = *a2;
-  _Q2 = vmulq_f32(_Q1, _Q1);
-  _S3 = a2->i64[1];
-  __asm { FMLA            S2, S3, V1.S[2] }
-
-  _S3 = HIDWORD(*a2);
-  __asm { FMLA            S2, S3, V1.S[3] }
-
-  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
-  v13 = *(a1 + 104);
-  v14 = a2[1].i64[0];
-  v13[25] = vdivq_f32(*a2, vdupq_lane_s32(*_Q2.f32, 0));
-  v13[26].i64[0] = v14;
-  v13[26].i32[2] = v4;
-  if (a3)
-  {
-    physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(*(a1 + 96));
-  }
-
-  v15 = *(**(a1 + 96) + 72);
-
-  return v15();
-}
-
-void *physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(uint64_t a1)
-{
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12[0] = 0;
-  v1 = &v11;
-  (*(*a1 + 56))(a1, &v11, v12);
-  v2 = 1;
-  do
-  {
-    v3 = v2;
-    result = *v1;
-    if (*v1)
-    {
-      result = (*(*result + 56))(result);
-      if (result)
+      v23 = *(v42 + v15);
+      if (v23)
       {
-        result = (*(**v1 + 48))();
-        if (result == 1)
+        if (*(v23 + 24))
         {
-          v5 = *v1;
-          result = (*(*v5 + 432))(&v10, v5);
-          if ((v10 & 1) == 0)
+          v24 = (*(v23 + 8) + *(v23 + 20)) * 0.5;
+          v25 = (v16 + 40 * v15);
+          *v25 = vmul_f32(vadd_f32(*v23, *(v23 + 12)), 0x3F0000003F000000);
+          v25[1].f32[0] = v24;
+          v26 = vmul_f32(vsub_f32(*(v23 + 12), *v23), 0x3F0000003F000000);
+          v27 = (*(v23 + 20) - *(v23 + 8)) * 0.5;
+          v25[2] = v26;
+          v25[3].f32[0] = v27;
+          if (v14 != 0.0)
           {
-            v6 = (*(*v5 + 56))(v5);
-            v7 = (*(*v6 + 880))(v6);
-            v8 = (*(*v5 + 584))(v5);
-            result = (*(*v5 + 512))(v5);
-            if (v8 < v7 || result != 0)
-            {
-              if (v8 >= v7)
-              {
-                v7 = v8;
-              }
-
-              (*(*v5 + 592))(v5);
-              result = (*(*v5 + 576))(v5, v7);
-            }
+            v25[2] = vadd_f32(v26, v17);
+            v25[3].f32[0] = v27 + v14;
           }
-        }
-      }
-    }
 
-    v2 = 0;
-    v1 = v12;
-  }
-
-  while ((v3 & 1) != 0);
-  return result;
-}
-
-float physx::Ext::D6Joint::getDriveVelocity(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 104);
-  *a2 = *(v3 + 428);
-  *(a2 + 8) = *(v3 + 436);
-  *a3 = *(v3 + 440);
-  result = *(v3 + 448);
-  *(a3 + 8) = result;
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::setDriveVelocity(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
-{
-  v5 = *(a1 + 104);
-  *(v5 + 428) = *a2;
-  *(v5 + 436) = *(a2 + 8);
-  *(v5 + 440) = *a3;
-  *(v5 + 448) = *(a3 + 8);
-  if (a4)
-  {
-    physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(*(a1 + 96));
-  }
-
-  v6 = *(**(a1 + 96) + 72);
-
-  return v6();
-}
-
-uint64_t physx::Ext::D6Joint::setProjectionAngularTolerance(physx::Ext::D6Joint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 472) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::D6Joint::setProjectionLinearTolerance(physx::Ext::D6Joint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 468) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::D6Joint::prepareData(physx::Ext::D6Joint *this)
-{
-  result = *(this + 13);
-  if (*(this + 112) == 1)
-  {
-    v3 = 0;
-    v4 = 0;
-    v5 = 0;
-    *(this + 112) = 0;
-    *(result + 456) = 0;
-    v6 = (result + 80);
-    *(result + 452) = 0;
-    do
-    {
-      v7 = v6[v5];
-      if (v7)
-      {
-        if (v7 == 1)
-        {
-          v3 |= 1 << v5;
-          *(result + 456) = v3;
-        }
-      }
-
-      else
-      {
-        v4 |= 1 << v5;
-        *(result + 452) = v4;
-      }
-
-      ++v5;
-    }
-
-    while (v5 != 6);
-    v8 = *(result + 304) == 0.0 && *(result + 308) == 0.0;
-    v9 = 0;
-    if (!v8 && *v6)
-    {
-      v9 = 1;
-      *(result + 460) = 1;
-    }
-
-    if ((*(result + 320) != 0.0 || *(result + 324) != 0.0) && *(result + 84))
-    {
-      v9 |= 2u;
-      *(result + 460) = v9;
-    }
-
-    if ((*(result + 336) != 0.0 || *(result + 340) != 0.0) && *(result + 88))
-    {
-      v9 |= 4u;
-      *(result + 460) = v9;
-    }
-
-    v10 = *(result + 96);
-    v11 = v10 == 0;
-    if (*(result + 384) == 0.0)
-    {
-      v11 = *(result + 388) == 0.0 || v10 == 0;
-    }
-
-    v13 = *(result + 100);
-    v14 = *(result + 92);
-    if (!v11 && v13 && v14)
-    {
-      v15 = v9 | 0x20;
-LABEL_43:
-      *(result + 460) = v15;
-      return result;
-    }
-
-    if (*(result + 368) != 0.0 || *(result + 372) != 0.0)
-    {
-      if (v14)
-      {
-        v9 |= 0x10u;
-        *(result + 460) = v9;
-      }
-    }
-
-    v16 = v10 | v13;
-    if (*(result + 352) != 0.0)
-    {
-      if (!v16)
-      {
-        return result;
-      }
-
-LABEL_42:
-      v15 = v9 | 8;
-      goto LABEL_43;
-    }
-
-    v17 = v16 == 0;
-    if (*(result + 356) != 0.0 && !v17)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::D6Joint::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 104))
-  {
-    (*(*a2 + 24))(a2, 16);
-    (*(*a2 + 16))(a2, *(a1 + 104), 480);
-  }
-
-  v4 = *(a1 + 32);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-float project(float *a1, float *a2, float *a3, BOOL *a4, float a5)
-{
-  v7 = *a2;
-  v6 = a2[1];
-  v8 = a2[2];
-  v9 = a3[1];
-  v10 = a3[2];
-  v11 = ((v6 * v9) + (*a2 * *a3)) + (v8 * v10);
-  if (fabsf(v11) >= 0.000001)
-  {
-    v17 = *a3 * v11;
-    v18 = v9 * v11;
-    v19 = v10 * v11;
-    v12 = a2[3];
-    v20 = sqrtf((((v18 * v18) + (v17 * v17)) + (v19 * v19)) + (v12 * v12));
-    v14 = v17 / v20;
-    v15 = v18 / v20;
-    v16 = v19 / v20;
-    v13 = v12 / v20;
-  }
-
-  else
-  {
-    v12 = a2[3];
-    v13 = 1.0;
-    v14 = 0.0;
-    v15 = 0.0;
-    v16 = 0.0;
-  }
-
-  v30[0] = (((v7 * v13) - (v12 * v14)) - (v6 * v16)) + (v15 * v8);
-  v30[1] = (((v6 * v13) - (v12 * v15)) - (v8 * v14)) + (v16 * v7);
-  v30[2] = (((v8 * v13) - (v12 * v16)) - (v7 * v15)) + (v14 * v6);
-  v30[3] = (((v7 * v14) + (v12 * v13)) + (v6 * v15)) + (v8 * v16);
-  truncate(&v26, v30, a4, a5);
-  v21 = v28;
-  v22 = (((v13 * v27) + (v29 * v15)) + (v28 * v14)) - (v16 * v26);
-  v23 = (((v13 * v28) + (v29 * v16)) + (v26 * v15)) - (v14 * v27);
-  v24 = ((v29 * v13) - (v26 * v14)) - (v27 * v15);
-  *a1 = (((v13 * v26) + (v29 * v14)) + (v27 * v16)) - (v15 * v28);
-  a1[1] = v22;
-  result = v24 - (v21 * v16);
-  a1[2] = v23;
-  a1[3] = result;
-  return result;
-}
-
-uint64_t truncate(uint64_t result, uint64_t a2, BOOL *a3, float a4)
-{
-  v4 = *(a2 + 12);
-  v5 = *a2;
-  if (v4 >= 0.0)
-  {
-    _D2 = *(a2 + 4);
-  }
-
-  else
-  {
-    v5 = -v5;
-    _D2 = vneg_f32(*(a2 + 4));
-    v4 = -v4;
-  }
-
-  *a3 = v4 < a4;
-  if (v4 < a4)
-  {
-    _S4 = _D2.i32[1];
-    __asm { FMLA            S3, S4, V2.S[1] }
-
-    if (_S3 <= 0.0)
-    {
-      v15 = 0;
-      v14 = 0.0;
-    }
-
-    else
-    {
-      v13 = 1.0 / sqrtf(_S3);
-      v14 = v5 * v13;
-      v15 = vmul_n_f32(_D2, v13);
-    }
-
-    v16 = sqrtf(1.0 - (a4 * a4));
-    v5 = v16 * v14;
-    _D2 = vmul_n_f32(v15, v16);
-  }
-
-  else
-  {
-    a4 = v4;
-  }
-
-  *result = v5;
-  *(result + 4) = _D2;
-  *(result + 12) = a4;
-  return result;
-}
-
-uint64_t D6JointSolverPrep(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int8x16_t a9, int8x16_t a10, uint64_t a11, __int128 *a12, uint64_t a13, float32x2_t *a14, float32x2_t *a15, int a16, float32x2_t *a17, float32x2_t *a18)
-{
-  v320 = *MEMORY[0x1E69E9840];
-  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v293, a1, a12, &v305, &v299, a2, a13, a14, a3, a4, a5, a6, a7, a8, a9, a10, a15);
-  v25 = *(a13 + 460);
-  v26 = v305;
-  v27 = v300;
-  if (a16)
-  {
-    v29 = v306;
-    v28 = v307;
-    v30 = v308;
-    v31 = v301;
-    v33 = v299.f32[1];
-    v32 = v299.f32[0];
-  }
-
-  else
-  {
-    v33 = v299.f32[1];
-    v32 = v299.f32[0];
-    v29 = v306;
-    v28 = v307;
-    v30 = v308;
-    v31 = v301;
-    if (((((v306 * v299.f32[1]) + (v305 * v299.f32[0])) + (v307 * v300)) + (v308 * v301)) < 0.0)
-    {
-      v32 = -v299.f32[0];
-      v33 = -v299.f32[1];
-      v27 = -v300;
-      v299.f32[0] = -v299.f32[0];
-      v299.f32[1] = -v299.f32[1];
-      v31 = -v301;
-      v300 = -v300;
-      v301 = -v301;
-    }
-  }
-
-  v34 = *(a13 + 452);
-  v35 = *(a13 + 456);
-  v36 = (v302 - v309) + (v302 - v309);
-  v37 = (v303 - v310) + (v303 - v310);
-  v38 = (v304 - v311) + (v304 - v311);
-  v39 = (v30 * v30) + -0.5;
-  v40 = (-(v29 * v37) - (v305 * v36)) - (v28 * v38);
-  v41 = ((v30 * ((v28 * v37) - (v29 * v38))) + (v36 * v39)) - (v305 * v40);
-  v42 = ((v30 * ((v305 * v38) - (v28 * v36))) + (v37 * v39)) - (v29 * v40);
-  v43 = ((v30 * ((v29 * v36) - (v305 * v37))) + (v38 * v39)) - (v28 * v40);
-  v44 = (((v30 * v32) - (v305 * v31)) - (v29 * v27)) + (v33 * v28);
-  v45 = (((v30 * v33) - (v29 * v31)) - (v28 * v32)) + (v27 * v305);
-  v46 = (((v30 * v27) - (v28 * v31)) - (v305 * v33)) + (v32 * v29);
-  v47 = (((v305 * v32) + (v30 * v31)) + (v29 * v33)) + (v28 * v27);
-  v289[0] = v44;
-  v289[1] = v45;
-  v289[2] = v46;
-  v289[3] = v47;
-  v290 = v41;
-  v291 = v42;
-  v292 = v43;
-  v48 = v29 * (v29 + v29);
-  v49 = v28 * (v28 + v28);
-  v50 = (v305 + v305) * v29;
-  v51 = (v305 + v305) * v28;
-  v52 = (v305 + v305) * v30;
-  v53 = v28 * (v29 + v29);
-  v54 = v30 * (v29 + v29);
-  v55 = v30 * (v28 + v28);
-  v283[0] = (1.0 - v48) - v49;
-  v283[1] = v50 + v55;
-  v56 = 1.0 - (v305 * (v305 + v305));
-  v284 = v51 - v54;
-  v285.f32[0] = v50 - v55;
-  v285.f32[1] = v56 - v49;
-  v286 = v52 + v53;
-  v287.f32[0] = v51 + v54;
-  v287.f32[1] = v53 - v52;
-  v288 = v56 - v48;
-  v57 = v32 + v32;
-  v58 = v33 * (v33 + v33);
-  v59 = v27 * (v27 + v27);
-  v60 = v33 * (v32 + v32);
-  v61 = v27 * (v32 + v32);
-  v62 = (v33 + v33) * v31;
-  v63 = v31 * (v27 + v27);
-  if ((v25 & 7) != 0)
-  {
-    v64 = 0;
-    v65 = 0;
-    v66 = a13 + 304;
-    *&v67 = *(a13 + 420) - v42;
-    *&v68 = *(a13 + 424) - v43;
-    *&v317 = *(a13 + 416) - v41;
-    *(&v317 + 4) = __PAIR64__(v68, v67);
-    v69 = v294;
-    v70 = &v284;
-    do
-    {
-      if ((v25 >> v64))
-      {
-        v71 = -*(a13 + v65 + 428);
-        v294 = v69 + 80;
-        *(v69 + 78) = 0;
-        v72 = *(v70 - 2);
-        *&_Q10 = v72;
-        *(&_Q10 + 2) = *v70;
-        HIDWORD(_Q10) = *(&v317 + v65);
-        *(v69 + 32) = v72;
-        *(v69 + 40) = DWORD2(_Q10);
-        *v69 = _Q10;
-        LODWORD(_Q10) = v296;
-        _V12.S[1] = v295.i32[1];
-        __asm { FMLA            S11, S22, V12.S[1] }
-
-        v80 = vdup_lane_s32(v72, 0);
-        v80.i32[0] = DWORD2(_Q10);
-        *&_Q10 = vzip1_s32(*&_Q10, v295);
-        v81 = vmla_f32(vmul_f32(v80, vneg_f32(v295)), v72, *&_Q10);
-        *(v69 + 16) = _S11;
-        *(v69 + 20) = v81;
-        LODWORD(_Q10) = v298;
-        _V12.S[1] = v297.i32[1];
-        __asm { FMLA            S11, S22, V12.S[1] }
-
-        v84 = vmla_f32(vmul_f32(v80, vneg_f32(v297)), v72, vzip1_s32(*&_Q10, v297));
-        *(v69 + 48) = _S11;
-        *(v69 + 52) = v84;
-        *(v69 + 28) = v71;
-        if (*(a13 + 4 * v65 + 316))
-        {
-          v85 = 35;
-        }
-
-        else
-        {
-          v85 = 33;
-        }
-
-        *(v69 + 76) |= v85;
-        *(v69 + 64) = *v66;
-        *(v69 + 68) = *(v66 + 4);
-        v86 = *(v66 + 8);
-        *(v69 + 44) = -v86;
-        *(v69 + 60) = v86;
-        v69 += 80;
-      }
-
-      v65 += 4;
-      ++v64;
-      v66 += 16;
-      v70 += 3;
-    }
-
-    while (v65 != 12);
-  }
-
-  v87 = (1.0 - v58) - v59;
-  v88 = v63 + v60;
-  v89 = v61 - v62;
-  if ((v25 & 0x38) != 0)
-  {
-    v90 = *(a13 + 400);
-    v91 = *(a13 + 404);
-    v92 = *(a13 + 408);
-    v93 = *(a13 + 412);
-    if (((((v45 * v91) + (v44 * v90)) + (v46 * v92)) + (v47 * v93)) <= 0.0)
-    {
-      v90 = -v90;
-      v91 = -v91;
-      v92 = -v92;
-      v93 = -v93;
-    }
-
-    v94 = (((v93 * v44) - (v90 * v47)) - (v91 * v46)) + (v45 * v92);
-    v95 = (((v93 * v45) - (v91 * v47)) - (v92 * v44)) + (v46 * v90);
-    v96 = (((v93 * v46) - (v92 * v47)) - (v90 * v45)) + (v44 * v91);
-    if ((v25 & 0x20) != 0)
-    {
-      v276 = v63 + v60;
-      v122 = *(a13 + 440) + *(a13 + 440);
-      v123 = *(a13 + 444) + *(a13 + 444);
-      v124 = *(a13 + 448) + *(a13 + 448);
-      v125 = ((v29 * v123) + (v26 * v122)) + (v28 * v124);
-      v126 = (v30 * ((v123 * -v28) + (v29 * v124))) + (v122 * v39);
-      v127 = (v30 * ((v124 * -v26) + (v28 * v122))) + (v123 * v39);
-      v128 = (v30 * ((v122 * -v29) + (v26 * v123))) + (v124 * v39);
-      v317 = xmmword_1E3047670;
-      v318 = xmmword_1E3047670;
-      v319 = 1.0;
-      if (*(a13 + 384) != 0.0)
-      {
-        v271 = v89;
-        v129 = (((v26 * v93) + (v30 * v90)) + (v29 * v92)) + (-v91 * v28);
-        v130 = (((v29 * v93) + (v30 * v91)) + (v28 * v90)) + (-v92 * v26);
-        v131 = (((v28 * v93) + (v30 * v92)) + (v26 * v91)) + (-v90 * v29);
-        v132 = (((v90 * -v26) + (v30 * v93)) + (-v29 * v91)) + (-v28 * v92);
-        v133 = (v32 * v132) + (v31 * v129);
-        v134 = (v33 * v132) + (v31 * v130);
-        v135 = (v27 * v132) + (v31 * v131);
-        v136 = v31 * v132;
-        v137 = v33 * v130;
-        v138 = ((v33 * v130) + (v129 * v32)) + (v131 * v27);
-        v139 = v32 * v129;
-        v140 = (v32 * v130) + (v33 * v129);
-        v141 = (v32 * v131) + (v27 * v129);
-        v142 = ((v139 + v139) + (v136 - v138)) * 0.5;
-        *&v317 = v142;
-        *(&v317 + 1) = (v140 + v135) * 0.5;
-        v143 = (v33 * v131) + (v27 * v130);
-        v144 = ((v137 + v137) + (v136 - v138)) * 0.5;
-        *(&v317 + 2) = (v141 - v134) * 0.5;
-        *(&v317 + 3) = (v140 - v135) * 0.5;
-        *&v318 = v144;
-        *(&v318 + 1) = (v133 + v143) * 0.5;
-        v145 = (((v27 * v131) + (v27 * v131)) + (v136 - v138)) * 0.5;
-        *(&v318 + 2) = (v134 + v141) * 0.5;
-        *(&v318 + 3) = (v143 - v133) * 0.5;
-        v319 = v145;
-        v146 = v136 + v138;
-        v89 = v271;
-        if (v146 == 0.0)
-        {
-          *&v317 = v142 + 0.00000011921;
-          *&v318 = v144 + 0.00000011921;
-          v319 = v145 + 0.00000011921;
-        }
-      }
-
-      v147 = 0;
-      v148 = v294;
-      v149 = -(v128 + (v28 * v125));
-      v150 = &v317 + 2;
-      v151 = &v315;
-      do
-      {
-        v152 = v148 + v147;
-        *&v153 = *(v150 - 1);
-        v154 = *v150;
-        v150 += 3;
-        v155 = v154;
-        v156 = (vmuls_lane_f32(-(v127 + (v29 * v125)), *&v153, 1) + (*&v153 * -(v126 + (v26 * v125)))) + (v154 * v149);
-        v315 = __PAIR64__(LODWORD(v95), LODWORD(v94));
-        v316 = v96;
-        v157 = v151->f32[0];
-        v151 = (v151 + 4);
-        *(v152 + 78) = 258;
-        *v152 = 0;
-        *(v152 + 8) = 0;
-        *(v152 + 16) = v153;
-        *(v152 + 32) = 0;
-        *(v152 + 40) = 0;
-        *(v152 + 12) = -v157;
-        v158 = *(v148 + v147 + 76);
-        *(v152 + 24) = v155;
-        *(v152 + 28) = v156;
-        if (*(a13 + 396))
-        {
-          v159 = 35;
-        }
-
-        else
-        {
-          v159 = 33;
-        }
-
-        *(v152 + 76) = v158 | v159 | 0x40;
-        *(v152 + 64) = *(a13 + 384);
-        *(v152 + 68) = *(a13 + 388);
-        v160 = *(a13 + 392);
-        *(&v153 + 1) = __PAIR64__(LODWORD(v160), LODWORD(v155));
-        *(v152 + 44) = -v160;
-        *(v152 + 48) = v153;
-        v147 += 80;
-      }
-
-      while (v147 != 240);
-      v294 = v148 + 240;
-      v88 = v276;
-    }
-
-    else
-    {
-      if ((v25 & 0x10) != 0)
-      {
-        v97 = *(a13 + 440);
-        v98 = v294;
-        v294 += 80;
-        *(v98 + 78) = 0;
-        *v98 = 0;
-        *(v98 + 8) = 0;
-        *(v98 + 20) = v88;
-        *(v98 + 24) = v89;
-        *(v98 + 32) = 0;
-        *(v98 + 40) = 0;
-        *(v98 + 48) = v87;
-        *(v98 + 52) = v88;
-        *(v98 + 56) = v89;
-        *(v98 + 12) = v94 * -2.0;
-        *(v98 + 16) = v87;
-        v99 = *(v98 + 76);
-        *(v98 + 28) = v97;
-        if (*(a13 + 380))
-        {
-          v100 = 35;
-        }
-
-        else
-        {
-          v100 = 33;
-        }
-
-        *(v98 + 76) = v99 | v100 | 0x40;
-        *(v98 + 64) = *(a13 + 368);
-        *(v98 + 68) = *(a13 + 372);
-        v101 = *(a13 + 376);
-        *(v98 + 44) = -v101;
-        *(v98 + 60) = v101;
-      }
-
-      if ((v25 & 8) != 0)
-      {
-        v102 = v31 * v57;
-        v103 = v27 * (v33 + v33);
-        v104 = 1.0 - (v32 * v57);
-        v105 = (((v44 * v90) + (v93 * v47)) + (v91 * v45)) + (v92 * v46);
-        v106 = (v105 * v105) + -0.5;
-        v107 = ((v95 * 0.0) + (v94 * 2.0)) + (v96 * 0.0);
-        if ((v34 & 0x10) == 0)
-        {
-          v108 = v60 - v63;
-          v109 = *(a13 + 444);
-          v110 = v294;
-          v294 += 80;
-          *(v110 + 78) = 0;
-          *v110 = 0;
-          *(v110 + 8) = 0;
-          *(v110 + 20) = v104 - v59;
-          *(v110 + 24) = v103 + v102;
-          *(v110 + 32) = 0;
-          *(v110 + 40) = 0;
-          *(v110 + 48) = v108;
-          *(v110 + 52) = v104 - v59;
-          *(v110 + 56) = v103 + v102;
-          *(v110 + 12) = ((v105 * ((v95 * -2.0) + (v94 * 0.0))) + (v106 * 0.0)) + (v96 * v107);
-          *(v110 + 16) = v108;
-          v111 = *(v110 + 76);
-          *(v110 + 28) = v109;
-          if (*(a13 + 364))
+          v28 = physx::shdfnd::Foundation::mInstance;
+          if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
           {
-            v112 = 35;
+            v29 = "static const char *physx::shdfnd::ReflectionAllocator<BV32Node>::getName() [T = BV32Node]";
           }
 
           else
           {
-            v112 = 33;
+            v29 = "<allocation names disabled>";
           }
 
-          *(v110 + 76) = v111 | v112 | 0x40;
-          *(v110 + 64) = *(a13 + 352);
-          *(v110 + 68) = *(a13 + 356);
-          v113 = *(a13 + 360);
-          *(v110 + 44) = -v113;
-          *(v110 + 60) = v113;
-        }
-
-        if ((v34 & 0x20) == 0)
-        {
-          v114 = v103 - v102;
-          v115 = v104 - v58;
-          v116 = ((v105 * ((v94 * -0.0) + (v96 * 2.0))) + (v106 * 0.0)) + (v95 * v107);
-          v117 = *(a13 + 448);
-          v118 = v294;
-          v294 += 80;
-          *(v118 + 78) = 0;
-          *v118 = 0;
-          *(v118 + 8) = 0;
-          *(v118 + 20) = v114;
-          *(v118 + 24) = v115;
-          *(v118 + 32) = 0;
-          *(v118 + 40) = 0;
-          *(v118 + 48) = v62 + v61;
-          *(v118 + 52) = v114;
-          *(v118 + 56) = v115;
-          *(v118 + 12) = -v116;
-          *(v118 + 16) = v62 + v61;
-          v119 = *(v118 + 76);
-          *(v118 + 28) = v117;
-          if (*(a13 + 364))
+          v30 = (*(*(v28 + 24) + 16))(v28 + 24, 1296, v29, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/common/src/../../geomutils/src/mesh/GuBV32Build.cpp", 147);
+          for (i = 0; i != 1280; i += 40)
           {
-            v120 = 35;
+            v32 = v30 + i;
+            *(v32 + 40) = 0xFFFFFFFFLL;
+            *(v32 + 8) = 0u;
+            *(v32 + 24) = _D11;
+            *(v32 + 32) = -1082130432;
           }
 
-          else
+          *(v30 + 1288) = 0;
+          v25[4] = v30;
+          result = _BuildBV32(a1, v30, v23, a4, a5);
+          v14 = *&a5;
+          v13 = *v7;
+        }
+
+        else
+        {
+          v33 = *(v23 + 40);
+          v34 = *a1;
+          v35 = *(v23 + 32);
+          v36 = (*(v23 + 8) + *(v23 + 20)) * 0.5;
+          v37 = (v16 + 40 * v15);
+          *v37 = vmul_f32(vadd_f32(*v23, *(v23 + 12)), 0x3F0000003F000000);
+          v37[1].f32[0] = v36;
+          v38 = vmul_f32(vsub_f32(*(v23 + 12), *v23), 0x3F0000003F000000);
+          v39 = (*(v23 + 20) - *(v23 + 8)) * 0.5;
+          v37[2] = v38;
+          v37[3].f32[0] = v39;
+          if (v14 != 0.0)
           {
-            v120 = 33;
+            v37[2] = vadd_f32(v38, v17);
+            v37[3].f32[0] = v39 + v14;
           }
 
-          *(v118 + 76) = v119 | v120 | 0x40;
-          *(v118 + 64) = *(a13 + 352);
-          *(v118 + 68) = *(a13 + 356);
-          v121 = *(a13 + 360);
-          *(v118 + 44) = -v121;
-          *(v118 + 60) = v121;
-        }
-      }
-    }
-  }
-
-  if ((v35 & 0x38) != 0)
-  {
-    if (v44 == 0.0)
-    {
-      v164 = 1.0;
-      v162 = 0.0;
-      v163 = 0.0;
-    }
-
-    else
-    {
-      v161 = sqrtf(((v44 * v44) + 0.0) + (v47 * v47));
-      v162 = v44 / v161;
-      v163 = 0.0 / v161;
-      v164 = v47 / v161;
-    }
-
-    *&v165 = (((v44 * v164) - (v47 * v162)) - (v45 * v163)) + (v163 * v46);
-    v166 = (((v45 * v164) - (v47 * v163)) - (v46 * v162)) + (v163 * v44);
-    *&v167 = (((v46 * v164) - (v47 * v163)) - (v44 * v163)) + (v162 * v45);
-    v168 = (((v44 * v162) + (v47 * v164)) + (v45 * v163)) + (v46 * v163);
-    *&v317 = __PAIR64__(LODWORD(v166), v165);
-    *(&v317 + 1) = __PAIR64__(LODWORD(v168), v167);
-    if ((~v35 & 0x30) == 0)
-    {
-      if (*(a13 + 478) == 1)
-      {
-        v169 = *(a13 + 252) <= 0.0 && *(a13 + 248) <= 0.0 ? *(a13 + 256) : 0;
-        v314 = 0;
-        v312 = *(a13 + 260);
-        v313 = v169;
-        if (physx::Cm::ConeLimitHelperTanLess::getLimit(&v312, &v317, &v315, &v314))
-        {
-          v172 = v307;
-          v173 = (v308 * v308) + -0.5;
-          v174 = (((v315.f32[1] + v315.f32[1]) * v306) + (v305 * (v315.f32[0] + v315.f32[0]))) + (v307 * (v316 + v316));
-          v175 = ((v308 * ((v306 * (v316 + v316)) - (v307 * (v315.f32[1] + v315.f32[1])))) + ((v315.f32[0] + v315.f32[0]) * v173)) + (v305 * v174);
-          v176 = ((v308 * ((v307 * (v315.f32[0] + v315.f32[0])) - (v305 * (v316 + v316)))) + ((v315.f32[1] + v315.f32[1]) * v173)) + (v306 * v174);
-          v177 = (v308 * ((v305 * (v315.f32[1] + v315.f32[1])) - (v306 * (v315.f32[0] + v315.f32[0])))) + ((v316 + v316) * v173);
-          v178 = v314;
-          v179 = v294;
-          v294 += 80;
-          *(v179 + 78) = 0;
-          *v179 = 0;
-          v180 = v177 + (v172 * v174);
-          *(v179 + 8) = 0;
-          *(v179 + 20) = v176;
-          *(v179 + 24) = v180;
-          *(v179 + 32) = 0;
-          *(v179 + 40) = 0;
-          *(v179 + 48) = v175;
-          *(v179 + 52) = v176;
-          *(v179 + 56) = v180;
-          *(v179 + 12) = v178;
-          *(v179 + 16) = v175;
-          *(v179 + 76) |= 0x40u;
-          physx::Ext::joint::ConstraintHelper::addLimit(&v293, v179, a13 + 240);
+          v37[4] = ((2 * (v33 & 0x8000003F | ((((v35 - v34) >> 2) & 0x1FFFFFF) << 6))) | 1);
         }
       }
 
-      if (*(a13 + 479) != 1)
-      {
-        goto LABEL_69;
-      }
-
-      v170 = a13;
-      v171 = 1;
-      goto LABEL_68;
+      ++v15;
     }
 
-    if ((v35 & 0x10) == 0)
-    {
-      goto LABEL_52;
-    }
-
-    if ((v34 & 0x20) != 0)
-    {
-      if (*(a13 + 479))
-      {
-        setupPyramidSwingLimits(&v293, a13, &v317, &v305, 1, 0);
-        goto LABEL_52;
-      }
-
-      v280 = *(a13 + 260);
-      v221 = atan2f(v166, v168 + 1.0) * 4.0;
-      if (*(a13 + 252) <= 0.0 && *(a13 + 248) <= 0.0)
-      {
-        v222 = *(a13 + 256);
-      }
-
-      else
-      {
-        v222 = 0.0;
-      }
-
-      v262 = v280;
-      if ((v222 - v280) > v221)
-      {
-        v263 = -v286;
-        v264 = v294;
-        v294 += 80;
-        *(v264 + 78) = 0;
-        *v264 = 0;
-        *(v264 + 8) = 0;
-        v265 = vneg_f32(v285);
-        *(v264 + 16) = v265;
-        *(v264 + 24) = v263;
-        *(v264 + 32) = 0;
-        *(v264 + 40) = 0;
-        *(v264 + 48) = v265;
-        *(v264 + 56) = v263;
-        *(v264 + 12) = -(-v280 - v221);
-        *(v264 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v264, a13 + 240);
-        v262 = v280;
-      }
-
-      if ((v262 - v222) < v221)
-      {
-        v256 = v262 - v221;
-        v257 = v294;
-        v294 += 80;
-        *(v257 + 78) = 0;
-        *v257 = 0;
-        *(v257 + 8) = 0;
-        v215 = v285.f32[1];
-        v214 = v285.f32[0];
-        v216 = v286;
-        goto LABEL_156;
-      }
-    }
-
-    else
-    {
-      if (*(a13 + 479))
-      {
-        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 1005, "D6JointSolverPrep: invalid joint setup. Double pyramid mode not supported.", v22, v23, v24, v266);
-        goto LABEL_52;
-      }
-
-      v206 = (v288 * v87) - (v287.f32[0] * v89);
-      v207 = (v287.f32[0] * v88) - (v287.f32[1] * v87);
-      v208 = ((v88 * v287.f32[1]) + (v287.f32[0] * v87)) + (v288 * v89);
-      v209 = -v208;
-      v273 = (v287.f32[1] * v89) - (v288 * v88);
-      v278 = *(a13 + 260);
-      if (v208 > 1.0)
-      {
-        v209 = -1.0;
-      }
-
-      if (v209 > 1.0)
-      {
-        v209 = 1.0;
-      }
-
-      v210 = asinf(v209);
-      v211 = v206;
-      v212 = v210;
-      v213 = ((v211 * v211) + (v273 * v273)) + (v207 * v207);
-      v214 = 0.0;
-      v215 = 0.0;
-      v216 = 0.0;
-      if (v213 > 0.0)
-      {
-        v217 = 1.0 / sqrtf(v213);
-        v214 = v273 * v217;
-        v215 = v211 * v217;
-        v216 = v207 * v217;
-      }
-
-      if (*(a13 + 252) <= 0.0 && *(a13 + 248) <= 0.0)
-      {
-        v218 = *(a13 + 256);
-      }
-
-      else
-      {
-        v218 = 0.0;
-      }
-
-      v254 = v278;
-      if ((v218 - v278) > v212)
-      {
-        v255 = v294;
-        v268 = v218;
-        v270 = v216;
-        v294 += 80;
-        v275 = v215;
-        v282 = v214;
-        *(v255 + 78) = 0;
-        *v255 = 0;
-        *(v255 + 8) = 0;
-        *(v255 + 20) = -v215;
-        *(v255 + 24) = -v216;
-        *(v255 + 32) = 0;
-        *(v255 + 40) = 0;
-        *(v255 + 48) = -v214;
-        *(v255 + 52) = -v215;
-        *(v255 + 56) = -v216;
-        *(v255 + 12) = -(-v254 - v212);
-        *(v255 + 16) = -v214;
-        *(v255 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v255, a13 + 240);
-        v218 = v268;
-        v216 = v270;
-        v215 = v275;
-        v214 = v282;
-      }
-
-      if ((v254 - v218) < v212)
-      {
-        v256 = v254 - v212;
-        v257 = v294;
-        v294 += 80;
-        *(v257 + 78) = 0;
-        *v257 = 0;
-        *(v257 + 8) = 0;
-LABEL_156:
-        *(v257 + 20) = v215;
-        *(v257 + 24) = v216;
-        *(v257 + 32) = 0;
-        *(v257 + 40) = 0;
-        *(v257 + 48) = v214;
-        *(v257 + 52) = v215;
-        *(v257 + 56) = v216;
-        *(v257 + 12) = v256;
-        *(v257 + 16) = v214;
-        *(v257 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v257, a13 + 240);
-      }
-    }
-
-LABEL_52:
-    if ((v35 & 0x20) == 0)
-    {
-      goto LABEL_69;
-    }
-
-    if ((v34 & 0x10) != 0)
-    {
-      if (*(a13 + 479))
-      {
-        v170 = a13;
-        v171 = 0;
-LABEL_68:
-        setupPyramidSwingLimits(&v293, v170, &v317, &v305, v171, 1);
-        goto LABEL_69;
-      }
-
-      v279 = *(a13 + 264);
-      v219 = atan2f(*(&v317 + 2), *(&v317 + 3) + 1.0) * 4.0;
-      if (*(a13 + 252) <= 0.0 && *(a13 + 248) <= 0.0)
-      {
-        v220 = *(a13 + 256);
-      }
-
-      else
-      {
-        v220 = 0.0;
-      }
-
-      v258 = v279;
-      if ((v220 - v279) > v219)
-      {
-        v259 = -v288;
-        v260 = v294;
-        v294 += 80;
-        *(v260 + 78) = 0;
-        *v260 = 0;
-        *(v260 + 8) = 0;
-        v261 = vneg_f32(v287);
-        *(v260 + 16) = v261;
-        *(v260 + 24) = v259;
-        *(v260 + 32) = 0;
-        *(v260 + 40) = 0;
-        *(v260 + 48) = v261;
-        *(v260 + 56) = v259;
-        *(v260 + 12) = -(-v279 - v219);
-        *(v260 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v260, a13 + 240);
-        v258 = v279;
-      }
-
-      if ((v258 - v220) >= v219)
-      {
-        goto LABEL_69;
-      }
-
-      v252 = v258 - v219;
-      v253 = v294;
-      v294 += 80;
-      *(v253 + 78) = 0;
-      *v253 = 0;
-      *(v253 + 8) = 0;
-      v202 = v287.f32[1];
-      v201 = v287.f32[0];
-      v203 = v288;
-    }
-
-    else
-    {
-      if (*(a13 + 479))
-      {
-        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 1021, "D6JointSolverPrep: invalid joint setup. Double pyramid mode not supported.", v22, v23, v24, v266);
-        goto LABEL_69;
-      }
-
-      v194 = (v286 * v87) - (v285.f32[0] * v89);
-      v195 = (v285.f32[0] * v88) - (v285.f32[1] * v87);
-      v196 = ((v88 * v285.f32[1]) + (v285.f32[0] * v87)) + (v286 * v89);
-      v272 = (v285.f32[1] * v89) - (v286 * v88);
-      v277 = *(a13 + 264);
-      if (v196 < -1.0)
-      {
-        v196 = -1.0;
-      }
-
-      if (v196 > 1.0)
-      {
-        v196 = 1.0;
-      }
-
-      v197 = asinf(v196);
-      v198 = v194;
-      v199 = v197;
-      v200 = ((v198 * v198) + (v272 * v272)) + (v195 * v195);
-      v201 = 0.0;
-      v202 = 0.0;
-      v203 = 0.0;
-      if (v200 > 0.0)
-      {
-        v204 = 1.0 / sqrtf(v200);
-        v201 = -(v272 * v204);
-        v202 = -(v198 * v204);
-        v203 = -(v195 * v204);
-      }
-
-      if (*(a13 + 252) <= 0.0 && *(a13 + 248) <= 0.0)
-      {
-        v205 = *(a13 + 256);
-      }
-
-      else
-      {
-        v205 = 0.0;
-      }
-
-      v250 = v277;
-      if ((v205 - v277) > v199)
-      {
-        v251 = v294;
-        v267 = v205;
-        v269 = v203;
-        v294 += 80;
-        v274 = v202;
-        v281 = v201;
-        *(v251 + 78) = 0;
-        *v251 = 0;
-        *(v251 + 8) = 0;
-        *(v251 + 20) = -v202;
-        *(v251 + 24) = -v203;
-        *(v251 + 32) = 0;
-        *(v251 + 40) = 0;
-        *(v251 + 48) = -v201;
-        *(v251 + 52) = -v202;
-        *(v251 + 56) = -v203;
-        *(v251 + 12) = -(-v250 - v199);
-        *(v251 + 16) = -v201;
-        *(v251 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v251, a13 + 240);
-        v205 = v267;
-        v203 = v269;
-        v202 = v274;
-        v201 = v281;
-      }
-
-      if ((v250 - v205) >= v199)
-      {
-        goto LABEL_69;
-      }
-
-      v252 = v250 - v199;
-      v253 = v294;
-      v294 += 80;
-      *(v253 + 78) = 0;
-      *v253 = 0;
-      *(v253 + 8) = 0;
-    }
-
-    *(v253 + 20) = v202;
-    *(v253 + 24) = v203;
-    *(v253 + 32) = 0;
-    *(v253 + 40) = 0;
-    *(v253 + 48) = v201;
-    *(v253 + 52) = v202;
-    *(v253 + 56) = v203;
-    *(v253 + 12) = v252;
-    *(v253 + 16) = v201;
-    *(v253 + 76) |= 0x40u;
-    physx::Ext::joint::ConstraintHelper::addLimit(&v293, v253, a13 + 240);
-LABEL_69:
-    if ((v35 & 8) != 0)
-    {
-      v181 = sqrtf((((v163 * v163) + (v162 * v162)) + (v163 * v163)) + (v164 * v164));
-      if (v181 != 0.0)
-      {
-        v162 = v162 / v181;
-        v164 = v164 / v181;
-      }
-
-      v182 = -1.0;
-      if (v164 >= -1.0)
-      {
-        v182 = v164;
-      }
-
-      if (v182 > 1.0)
-      {
-        v182 = 1.0;
-      }
-
-      v183 = acosf(v182);
-      v184 = v183 + v183;
-      if (v162 >= 0.0)
-      {
-        v185 = v184;
-      }
-
-      else
-      {
-        v185 = -v184;
-      }
-
-      v186 = *(a13 + 236);
-      if (*(a13 + 224) <= 0.0 && *(a13 + 220) <= 0.0)
-      {
-        v187 = *(a13 + 228);
-      }
-
-      else
-      {
-        v187 = 0.0;
-      }
-
-      v188 = *(a13 + 232);
-      if ((v186 + v187) > v185)
-      {
-        v189 = v294;
-        v294 += 80;
-        *(v189 + 78) = 0;
-        *v189 = 0;
-        *(v189 + 8) = 0;
-        *(v189 + 20) = -v88;
-        *(v189 + 24) = -v89;
-        *(v189 + 32) = 0;
-        *(v189 + 40) = 0;
-        *(v189 + 48) = -v87;
-        *(v189 + 52) = -v88;
-        *(v189 + 56) = -v89;
-        *(v189 + 12) = -(v186 - v185);
-        *(v189 + 16) = -v87;
-        *(v189 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v189, a13 + 212);
-      }
-
-      if ((v188 - v187) < v185)
-      {
-        v190 = v294;
-        v294 += 80;
-        *(v190 + 78) = 0;
-        *v190 = 0;
-        *(v190 + 8) = 0;
-        *(v190 + 20) = v88;
-        *(v190 + 24) = v89;
-        *(v190 + 32) = 0;
-        *(v190 + 40) = 0;
-        *(v190 + 48) = v87;
-        *(v190 + 52) = v88;
-        *(v190 + 56) = v89;
-        *(v190 + 12) = v188 - v185;
-        *(v190 + 16) = v87;
-        *(v190 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v293, v190, a13 + 212);
-      }
-    }
-  }
-
-  if ((v35 & 7) != 0)
-  {
-    if (*(a13 + 476) == 1)
-    {
-      v191 = computeLimitedDistance(*(a13 + 456), v289, v283, &v317);
-      if (v191 > *(a13 + 464))
-      {
-        v192.i32[0] = *(a13 + 124);
-        if (*(a13 + 116) <= 0.0 && *(a13 + 112) <= 0.0)
-        {
-          v193 = *(a13 + 120);
-        }
-
-        else
-        {
-          v193 = 0.0;
-        }
-
-        if ((v191 + v193) > *v192.i32)
-        {
-          v223 = vmul_n_f32(*&v317, 1.0 / v191);
-          _S2 = (1.0 / v191) * *(&v317 + 2);
-          v225 = *v192.i32 - v191;
-          v226 = v294;
-          v294 += 80;
-          *(v226 + 78) = 0;
-          *v226 = v223;
-          *(v226 + 8) = _S2;
-          v192.i32[0] = v296;
-          _V5.S[1] = v295.i32[1];
-          __asm { FMLA            S4, S2, V5.S[1] }
-
-          v229 = vdup_lane_s32(v223, 0);
-          v229.f32[0] = _S2;
-          v230 = vzip1_s32(v192, v295);
-          v231 = vmla_f32(vmul_f32(v229, vneg_f32(v295)), v223, v230);
-          *(v226 + 16) = _S4;
-          *(v226 + 20) = v231;
-          *(v226 + 32) = v223;
-          *(v226 + 40) = _S2;
-          v230.i32[0] = v298;
-          _V5.S[1] = v297.i32[1];
-          __asm { FMLA            S4, S2, V5.S[1] }
-
-          v234 = vmla_f32(vmul_f32(v229, vneg_f32(v297)), v223, vzip1_s32(v230, v297));
-          *(v226 + 48) = _S4;
-          *(v226 + 52) = v234;
-          *(v226 + 12) = v225;
-          physx::Ext::joint::ConstraintHelper::addLimit(&v293, v226, a13 + 104);
-        }
-      }
-    }
-
-    if (*(a13 + 477) == 1)
-    {
-      if ((v35 & 1) != 0 && *(a13 + 152) <= *(a13 + 148))
-      {
-        setupLinearLimit(&v293, (a13 + 128), v283, v290);
-      }
-
-      if ((v35 & 2) != 0 && *(a13 + 180) <= *(a13 + 176))
-      {
-        setupLinearLimit(&v293, (a13 + 156), &v285, v291);
-      }
-
-      if ((v35 & 4) != 0 && *(a13 + 208) <= *(a13 + 204))
-      {
-        setupLinearLimit(&v293, (a13 + 184), &v287, v292);
-      }
-    }
-  }
-
-  if ((v34 & 0x38) == 0x20)
-  {
-    v34 &= 0xFFFFFFC7;
-    v241 = v286;
-    v242 = (v88 * v286) - (v89 * v285.f32[1]);
-    v243 = (v89 * v285.f32[0]) - (v87 * v286);
-    v244 = (v87 * v285.f32[1]) - (v88 * v285.f32[0]);
-    v245 = (v88 * v285.f32[1]) + (v87 * v285.f32[0]);
-    v246 = v294;
-    v294 += 80;
-    *(v246 + 78) = 2048;
-    *v246 = 0;
-    *(v246 + 8) = 0;
-    *(v246 + 20) = v243;
-    *(v246 + 24) = v244;
-    *(v246 + 32) = 0;
-    *(v246 + 40) = 0;
-    *(v246 + 48) = v242;
-    *(v246 + 52) = v243;
-    *(v246 + 56) = v244;
-    *(v246 + 12) = -(v245 + (v89 * v241));
-    *(v246 + 16) = v242;
-    *(v246 + 76) |= 0x50u;
-  }
-
-  else if ((v34 & 0x38) == 0x10)
-  {
-    v235 = v288;
-    v236 = (v88 * v288) - (v89 * v287.f32[1]);
-    v237 = (v89 * v287.f32[0]) - (v87 * v288);
-    v238 = (v87 * v287.f32[1]) - (v88 * v287.f32[0]);
-    v239 = (v88 * v287.f32[1]) + (v87 * v287.f32[0]);
-    v240 = v294;
-    v294 += 80;
-    *(v240 + 78) = 2048;
-    *v240 = 0;
-    *(v240 + 8) = 0;
-    *(v240 + 20) = v237;
-    *(v240 + 24) = v238;
-    *(v240 + 32) = 0;
-    *(v240 + 40) = 0;
-    *(v240 + 48) = v236;
-    *(v240 + 52) = v237;
-    *(v240 + 56) = v238;
-    *(v240 + 12) = -(v239 + (v89 * v235));
-    *(v240 + 16) = v236;
-    *(v240 + 76) |= 0x50u;
-    v34 &= 0xFFFFFFC7;
-  }
-
-  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v293, &v305, &v299, &v290, v34 & 7, v34 >> 3, &v317, &v315);
-  v247 = *(&v317 + 2) + a14[3].f32[0];
-  *a17 = vadd_f32(*&v317, a14[2]);
-  a17[1].f32[0] = v247;
-  v248 = v316 + a15[3].f32[0];
-  *a18 = vadd_f32(v315, a15[2]);
-  a18[1].f32[0] = v248;
-  return -858993459 * ((v294 - v293) >> 4);
-}
-
-void D6JointProject(uint64_t a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
-{
-  physx::Ext::joint::computeJointFrames(&v149, &v142, a1, a2, a3, a5, a6, a7, a8, a9, a10, a11, a12);
-  v16 = v149;
-  v17 = v150;
-  v19 = v151;
-  v18 = v152;
-  v122 = v153;
-  v123 = v146;
-  v20 = (v146 - v122) + (v146 - v122);
-  v21 = (v147 - v154) + (v147 - v154);
-  v22 = (v148 - v155) + (v148 - v155);
-  v23 = (v18 * v18) + -0.5;
-  v24 = (-(v150 * v21) - (v149 * v20)) - (v151 * v22);
-  v25 = ((v152 * ((v151 * v21) - (v150 * v22))) + (v20 * v23)) - (v149 * v24);
-  v26 = ((v152 * ((v149 * v22) - (v151 * v20))) + (v21 * v23)) - (v150 * v24);
-  v121 = v23;
-  v27 = ((v152 * ((v150 * v20) - (v149 * v21))) + (v22 * v23)) - (v151 * v24);
-  v28 = (((v152 * v142) - (v149 * v145)) - (v150 * v144)) + (v143 * v151);
-  v29 = (((v152 * v143) - (v150 * v145)) - (v151 * v142)) + (v144 * v149);
-  v30 = (((v152 * v144) - (v151 * v145)) - (v149 * v143)) + (v142 * v150);
-  v124 = v142;
-  v125 = v143;
-  v126 = v145;
-  v127 = v144;
-  v31 = (((v149 * v142) + (v152 * v145)) + (v150 * v143)) + (v151 * v144);
-  v141[0] = v28;
-  v141[1] = v29;
-  v141[2] = v30;
-  v141[3] = v31;
-  v141[4] = v25;
-  v141[5] = v26;
-  v141[6] = v27;
-  v32 = *(a1 + 452);
-  v134 = v26;
-  v135 = v25;
-  if (v32)
-  {
-    v33 = v25;
-  }
-
-  else
-  {
-    v33 = 0.0;
-  }
-
-  if ((v32 & 2) == 0)
-  {
-    v26 = 0.0;
-  }
-
-  v133 = v27;
-  if ((v32 & 4) != 0)
-  {
-    v34 = v27;
-  }
-
-  else
-  {
-    v34 = 0.0;
-  }
-
-  v35 = *(a1 + 468);
-  v36 = ((v26 * v26) + (v33 * v33)) + (v34 * v34);
-  v136 = v35 * v35;
-  v37 = v33;
-  v38 = v26;
-  v39 = v34;
-  if (v36 > (v35 * v35))
-  {
-    v40 = 1.0 / sqrtf(v36);
-    v37 = v35 * (v33 * v40);
-    v38 = v35 * (v26 * v40);
-    v39 = v35 * (v34 * v40);
-  }
-
-  v137 = ((v26 * v26) + (v33 * v33)) + (v34 * v34);
-  v138 = v33;
-  v128 = v39;
-  v129 = v38;
-  v130 = v37;
-  v131 = v34;
-  v132 = v26;
-  v41 = v32 >> 3;
-  v42 = cosf(*(a1 + 472) * 0.5);
-  v140 = 0;
-  if (v41 <= 3)
-  {
-    if (v41 <= 1)
-    {
-      if (v41 >= 2)
-      {
-        goto LABEL_27;
-      }
-
-      goto LABEL_20;
-    }
-
-    if (v41 != 2)
-    {
-      v156 = 0;
-      v157 = 1065353216;
-LABEL_26:
-      project(&v139, v141, &v156, &v140, v42);
-      goto LABEL_28;
-    }
-
-LABEL_20:
-    *&v139 = __PAIR64__(LODWORD(v29), LODWORD(v28));
-    *(&v139 + 1) = __PAIR64__(LODWORD(v31), LODWORD(v30));
-    goto LABEL_28;
-  }
-
-  if (v41 <= 5)
-  {
-    if (v41 == 4)
-    {
-      goto LABEL_20;
-    }
-
-    v43 = 0x3F80000000000000;
-LABEL_25:
-    v156 = v43;
-    v157 = 0;
-    goto LABEL_26;
-  }
-
-  if (v41 == 6)
-  {
-    v43 = 1065353216;
-    goto LABEL_25;
-  }
-
-  if (v41 != 7)
-  {
-LABEL_27:
-    v139 = xmmword_1E30474D0;
-    goto LABEL_28;
-  }
-
-  truncate(&v139, v141, &v140, v42);
-LABEL_28:
-  if (v137 > v136 || v140)
-  {
-    v44 = (v135 - v138) + v130;
-    v45 = (v134 - v132) + v129;
-    v46 = (v133 - v131) + v128;
-    if (a4)
-    {
-      v47 = *(a1 + 60) * -2.0;
-      v48 = *(a1 + 64) * -2.0;
-      v49 = *(a1 + 68) * -2.0;
-      v51 = *(a1 + 52);
-      v50 = *(a1 + 56);
-      v52 = (v50 * v50) + -0.5;
-      v53 = *(a1 + 44);
-      v54 = *(a1 + 48);
-      v55 = ((v48 * v54) + (v53 * v47)) + (v51 * v49);
-      v56 = ((v47 * v52) - (((v54 * v49) - (v51 * v48)) * v50)) + (v53 * v55);
-      v57 = ((v48 * v52) - (((v51 * v47) - (v53 * v49)) * v50)) + (v54 * v55);
-      v58 = ((v49 * v52) - (((v53 * v48) - (v54 * v47)) * v50)) + (v51 * v55);
-      v59 = v56 + v56;
-      v60 = v58 + v58;
-      v61 = (*(&v139 + 3) * *(&v139 + 3)) + -0.5;
-      v62 = ((*(&v139 + 1) * (v57 + v57)) + (*&v139 * (v56 + v56))) + (*(&v139 + 2) * v60);
-      v63 = ((*(&v139 + 3) * ((*(&v139 + 1) * v60) - (*(&v139 + 2) * (v57 + v57)))) + ((v56 + v56) * v61)) + (*&v139 * v62);
-      v64 = ((*(&v139 + 3) * ((*(&v139 + 2) * (v56 + v56)) - (*&v139 * v60))) + ((v57 + v57) * v61)) + (*(&v139 + 1) * v62);
-      v65 = v46 + (((*(&v139 + 3) * ((*&v139 * (v57 + v57)) - (*(&v139 + 1) * v59))) + (v60 * v61)) + (*(&v139 + 2) * v62));
-      v66 = (((*&v139 * v50) - (*(&v139 + 3) * v53)) - (*(&v139 + 1) * v51)) + (v54 * *(&v139 + 2));
-      v67 = (((*(&v139 + 1) * v50) - (*(&v139 + 3) * v54)) - (*(&v139 + 2) * v53)) + (v51 * *&v139);
-      v68 = (((*(&v139 + 2) * v50) - (*(&v139 + 3) * v51)) - (*&v139 * v54)) + (v53 * *(&v139 + 1));
-      v69 = (((*&v139 * v53) + (*(&v139 + 3) * v50)) + (*(&v139 + 1) * v54)) + (*(&v139 + 2) * v51);
-      v70 = (v44 + v63) + (v44 + v63);
-      v71 = (v45 + v64) + (v45 + v64);
-      v72 = v65 + v65;
-      v73 = ((v17 * v71) + (v16 * v70)) + (v19 * (v65 + v65));
-      v74 = ((v18 * ((v71 * -v19) + (v17 * v72))) + (v70 * v121)) + (v16 * v73);
-      v75 = ((v18 * ((v72 * -v16) + (v19 * v70))) + (v71 * v121)) + (v17 * v73);
-      v76 = ((v18 * ((v70 * -v17) + (v16 * v71))) + (v72 * v121)) + (v19 * v73);
-      v77 = v122 + v74;
-      v78 = v154 + v75;
-      v79 = v155 + v76;
-      v80 = (((v16 * v69) + (v18 * v66)) + (v17 * v68)) - (v67 * v19);
-      v81 = (((v17 * v69) + (v18 * v67)) + (v19 * v66)) - (v68 * v16);
-      v82 = (((v19 * v69) + (v18 * v68)) + (v16 * v67)) - (v66 * v17);
-      v83 = (((v66 * -v16) + (v18 * v69)) + (-v17 * v67)) + (-v19 * v68);
-      *a3 = v80;
-      a3[1] = v81;
-      a3[2] = v82;
-      a3[3] = v83;
-      a3[4] = v77;
-      a3[5] = v78;
-      a3[6] = v79;
-      v84 = sqrtf((((v81 * v81) + (v80 * v80)) + (v82 * v82)) + (v83 * v83));
-      if (v84 != 0.0)
-      {
-        *a3 = v80 / v84;
-        a3[1] = v81 / v84;
-        a3[2] = v82 / v84;
-        a3[3] = v83 / v84;
-      }
-    }
-
-    else
-    {
-      v85 = *(a1 + 32) * -2.0;
-      v86 = *(a1 + 36) * -2.0;
-      v87 = *(a1 + 40) * -2.0;
-      v89 = *(a1 + 24);
-      v88 = *(a1 + 28);
-      v90 = (v88 * v88) + -0.5;
-      v91 = *(a1 + 16);
-      v92 = *(a1 + 20);
-      v93 = ((v86 * v92) + (v91 * v85)) + (v89 * v87);
-      v94 = ((v85 * v90) - (((v92 * v87) - (v89 * v86)) * v88)) + (v91 * v93);
-      v95 = ((v86 * v90) - (((v89 * v85) - (v91 * v87)) * v88)) + (v92 * v93);
-      v96 = (((v87 * v90) - (((v91 * v86) - (v92 * v85)) * v88)) + (v89 * v93)) - v46;
-      v97 = (v94 - v44) + (v94 - v44);
-      v98 = (v95 - v45) + (v95 - v45);
-      v99 = v96 + v96;
-      v100 = (*(&v139 + 3) * *(&v139 + 3)) + -0.5;
-      v101 = (-(*(&v139 + 1) * v98) - (*&v139 * v97)) - (*(&v139 + 2) * v99);
-      v102 = ((*(&v139 + 3) * ((*(&v139 + 2) * v98) - (*(&v139 + 1) * v99))) + (v97 * v100)) - (*&v139 * v101);
-      v103 = ((*(&v139 + 3) * ((*&v139 * v99) - (*(&v139 + 2) * v97))) + (v98 * v100)) - (*(&v139 + 1) * v101);
-      v104 = ((*(&v139 + 3) * ((*(&v139 + 1) * v97) - (*&v139 * v98))) + (v99 * v100)) - (*(&v139 + 2) * v101);
-      v105 = ((-(*&v139 * v88) - (*(&v139 + 3) * v91)) + (*(&v139 + 1) * v89)) - (v92 * *(&v139 + 2));
-      v106 = ((-(*(&v139 + 1) * v88) - (*(&v139 + 3) * v92)) + (*(&v139 + 2) * v91)) - (v89 * *&v139);
-      v107 = ((-(*(&v139 + 2) * v88) - (*(&v139 + 3) * v89)) + (*&v139 * v92)) - (v91 * *(&v139 + 1));
-      v108 = (((*(&v139 + 3) * v88) - (v91 * *&v139)) - (*(&v139 + 1) * v92)) - (*(&v139 + 2) * v89);
-      v109 = (v126 * v126) + -0.5;
-      v110 = ((v125 * (v103 + v103)) + (v124 * (v102 + v102))) + (v127 * (v104 + v104));
-      v111 = ((v126 * ((v127 * (v102 + v102)) - (v124 * (v104 + v104)))) + ((v103 + v103) * v109)) + (v125 * v110);
-      v112 = ((v126 * ((v124 * (v103 + v103)) - (v125 * (v102 + v102)))) + ((v104 + v104) * v109)) + (v127 * v110);
-      v113 = v123 + (((v126 * ((v125 * (v104 + v104)) - (v127 * (v103 + v103)))) + ((v102 + v102) * v109)) + (v124 * v110));
-      v114 = v147 + v111;
-      v115 = v148 + v112;
-      v116 = (((v124 * v108) + (v126 * v105)) + (v125 * v107)) - (v106 * v127);
-      v117 = (((v125 * v108) + (v126 * v106)) + (v127 * v105)) - (v107 * v124);
-      v118 = (((v127 * v108) + (v126 * v107)) + (v124 * v106)) - (v105 * v125);
-      v119 = (((v126 * v108) - (v124 * v105)) - (v125 * v106)) - (v127 * v107);
-      *a2 = v116;
-      a2[1] = v117;
-      a2[2] = v118;
-      a2[3] = v119;
-      a2[4] = v113;
-      a2[5] = v114;
-      a2[6] = v115;
-      v120 = sqrtf((((v117 * v117) + (v116 * v116)) + (v118 * v118)) + (v119 * v119));
-      if (v120 != 0.0)
-      {
-        *a2 = v116 / v120;
-        a2[1] = v117 / v120;
-        a2[2] = v118 / v120;
-        a2[3] = v119 / v120;
-      }
-    }
-  }
-}
-
-void D6JointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
-{
-  *v16.i32 = physx::Ext::joint::computeJointFrames(v208, &v201, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
-  if (a5)
-  {
-    (*(*a1 + 16))(a1, v208, &v201, *v16.i32);
-  }
-
-  if ((a5 & 2) == 0)
-  {
-    return;
-  }
-
-  v18 = *v208;
-  v19 = *&v208[8];
-  v20 = (v205 - v210.f32[0]) + (v205 - v210.f32[0]);
-  v21 = (v206 - v210.f32[1]) + (v206 - v210.f32[1]);
-  v22 = (v207 - v211) + (v207 - v211);
-  v23 = (v209 * v209) + -0.5;
-  v24 = (-(*&v208[4] * v21) - (*v208 * v20)) - (*&v208[8] * v22);
-  v25 = ((v209 * ((*&v208[8] * v21) - (*&v208[4] * v22))) + (v20 * v23)) - (*v208 * v24);
-  v26 = ((v209 * ((*v208 * v22) - (*&v208[8] * v20))) + (v21 * v23)) - (*&v208[4] * v24);
-  v27 = ((v209 * ((*&v208[4] * v20) - (*v208 * v21))) + (v22 * v23)) - (*&v208[8] * v24);
-  v29 = v203;
-  v28 = v204;
-  v31 = v201;
-  v30 = v202;
-  v194 = (((v209 * v201) - (*v208 * v204)) - (*&v208[4] * v203)) + (v202 * *&v208[8]);
-  v195 = (((v209 * v202) - (*&v208[4] * v204)) - (*&v208[8] * v201)) + (v203 * *v208);
-  v196 = (((v209 * v203) - (*&v208[8] * v204)) - (*v208 * v202)) + (v201 * *&v208[4]);
-  v197 = (((*v208 * v201) + (v209 * v204)) + (*&v208[4] * v202)) + (*&v208[8] * v203);
-  v198 = v25;
-  v199 = v26;
-  v200 = v27;
-  v32 = v18 + v18;
-  v33 = v18 * (v18 + v18);
-  v34 = *&v208[4] * (*&v208[4] + *&v208[4]);
-  v35 = v19 * (v19 + v19);
-  v36 = (v18 + v18) * *&v208[4];
-  v37 = v32 * *&v208[8];
-  v38 = v32 * v209;
-  v39 = (*&v208[4] + *&v208[4]) * *&v208[8];
-  v40 = (*&v208[4] + *&v208[4]) * v209;
-  v41 = (v19 + v19) * v209;
-  v42 = (1.0 - v34) - v35;
-  v43 = v36 + v41;
-  v44 = v37 - v40;
-  v187[0] = v42;
-  v187[1] = v36 + v41;
-  v45 = v36 - v41;
-  v46 = 1.0 - v33;
-  v47 = (1.0 - v33) - v35;
-  v48 = v39 + v38;
-  v187[2] = v37 - v40;
-  v188 = v45;
-  v189 = v47;
-  v190 = v39 + v38;
-  v49 = v37 + v40;
-  v50 = v39 - v38;
-  v51 = v46 - v34;
-  v191 = v37 + v40;
-  v192 = v39 - v38;
-  v193 = v51;
-  if (*(a2 + 477) == 1)
-  {
-    v52 = *(a2 + 456);
-    if (v52 <= 3)
-    {
-      switch(v52)
-      {
-        case 1:
-          v59 = v187;
-          v60 = (a2 + 128);
-          v61 = a1;
-          goto LABEL_23;
-        case 2:
-          v59 = &v188;
-          v60 = (a2 + 156);
-          v61 = a1;
-          v25 = v26;
-          goto LABEL_23;
-        case 3:
-          v53 = v187;
-          v54 = (a2 + 128);
-          v55 = &v188;
-          v56 = (a2 + 156);
-          v57 = a1;
-          v27 = v26;
-          goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      if (v52 <= 5)
-      {
-        if (v52 != 4)
-        {
-          v53 = v187;
-          v54 = (a2 + 128);
-          v55 = &v191;
-          v56 = (a2 + 184);
-          v57 = a1;
-LABEL_21:
-          visualizeQuad(v57, &v210, v53, v54, v55, v56, v25, v27);
-          goto LABEL_52;
-        }
-
-        v59 = &v191;
-        v60 = (a2 + 184);
-        v61 = a1;
-        v25 = v27;
-LABEL_23:
-        visualizeLine(v61, &v210, v59, v60, v25);
-        goto LABEL_52;
-      }
-
-      if (v52 == 6)
-      {
-        v53 = &v188;
-        v54 = (a2 + 156);
-        v55 = &v191;
-        v56 = (a2 + 184);
-        v57 = a1;
-        v25 = v26;
-        goto LABEL_21;
-      }
-
-      if (v52 == 7)
-      {
-        if (*(a2 + 140) <= 0.0 && *(a2 + 136) <= 0.0)
-        {
-          v58 = *(a2 + 144);
-        }
-
-        else
-        {
-          v58 = 0.0;
-        }
-
-        if (*(a2 + 168) <= 0.0 && *(a2 + 164) <= 0.0)
-        {
-          v62 = *(a2 + 172);
-        }
-
-        else
-        {
-          v62 = 0.0;
-        }
-
-        v63 = *(a2 + 148);
-        v64 = *(a2 + 152);
-        v65 = *(a2 + 176);
-        v66 = *(a2 + 180);
-        if (*(a2 + 196) <= 0.0 && *(a2 + 192) <= 0.0)
-        {
-          v67 = *(a2 + 200);
-        }
-
-        else
-        {
-          v67 = 0.0;
-        }
-
-        v68 = v62 + v66;
-        v69 = v65 - v62;
-        v70 = *(a2 + 204);
-        v71 = *(a2 + 208);
-        if ((v70 - v67) >= v27 && (v67 + v71) <= v27 && v69 >= v26 && (v63 - v58) >= v25 && v68 <= v26 && (v58 + v64) <= v25)
-        {
-          v77 = 0xFFFFFFLL;
-        }
-
-        else
-        {
-          v77 = 16711680;
-        }
-
-        v78 = v42 * v64;
-        v79 = v43 * v64;
-        v80 = v44 * v64;
-        v81 = v42 * v63;
-        v82 = v43 * v63;
-        v83 = v44 * v63;
-        v84 = v45 * v66;
-        v85 = v47 * v66;
-        v86 = v48 * v66;
-        v87 = v45 * v65;
-        v88 = v47 * v65;
-        v89 = v48 * v65;
-        v90 = v49 * v71;
-        v91 = v50 * v71;
-        v92 = v51 * v71;
-        v93 = v49 * v70;
-        v94 = v50 * v70;
-        v95 = v51 * v70;
-        v96 = v210.f32[0] + v78;
-        v97 = v210.f32[1] + v79;
-        v98 = v211 + v80;
-        v99 = v96 + v84;
-        v100 = v97 + v85;
-        v101 = v98 + v86;
-        *&v180 = (v96 + v84) + v90;
-        *(&v180 + 1) = (v97 + v85) + v91;
-        *(&v180 + 2) = (v98 + v86) + v92;
-        v102 = v210.f32[0] + v81;
-        v103 = v210.f32[1] + v82;
-        v104 = v211 + v83;
-        v105 = v102 + v84;
-        v106 = v103 + v85;
-        v107 = v104 + v86;
-        *&v177 = (v102 + v84) + v90;
-        *(&v177 + 1) = (v103 + v85) + v91;
-        *(&v177 + 2) = (v104 + v86) + v92;
-        v108 = v102 + v87;
-        v109 = v103 + v88;
-        v110 = v104 + v89;
-        v174.f32[0] = v108 + v90;
-        v174.f32[1] = v109 + v91;
-        v174.f32[2] = v110 + v92;
-        v111 = v96 + v87;
-        v112 = v97 + v88;
-        v113 = v98 + v89;
-        v212.f32[0] = v111 + v90;
-        v212.f32[1] = v112 + v91;
-        v212.f32[2] = v113 + v92;
-        v183 = v99 + v93;
-        v184 = v100 + v94;
-        v185 = v101 + v95;
-        v215[0] = v105 + v93;
-        v215[1] = v106 + v94;
-        v215[2] = v107 + v95;
-        v214[0] = v108 + v93;
-        v214[1] = v109 + v94;
-        v214[2] = v110 + v95;
-        v213[0] = v111 + v93;
-        v213[1] = v112 + v94;
-        v213[2] = v113 + v95;
-        (*(*a1 + 56))(a1, &v180, &v177, v77);
-        (*(*a1 + 56))(a1, &v177, &v174, v77);
-        (*(*a1 + 56))(a1, &v174, &v212, v77);
-        (*(*a1 + 56))(a1, &v212, &v180, v77);
-        (*(*a1 + 56))(a1, &v183, v215, v77);
-        (*(*a1 + 56))(a1, v215, v214, v77);
-        (*(*a1 + 56))(a1, v214, v213, v77);
-        (*(*a1 + 56))(a1, v213, &v183, v77);
-        (*(*a1 + 56))(a1, &v180, &v183, v77);
-        (*(*a1 + 56))(a1, &v177, v215, v77);
-        (*(*a1 + 56))(a1, &v174, v214, v77);
-        (*(*a1 + 56))(a1, &v212, v213, v77);
-      }
-    }
-  }
-
-LABEL_52:
-  if (*(a2 + 476) == 1)
-  {
-    *v16.i32 = computeLimitedDistance(*(a2 + 456), &v194, v187, &v180);
-    if (*v16.i32 > *(a2 + 464))
-    {
-      if (*v16.i32 <= *(a2 + 124))
-      {
-        v114 = 65280;
-      }
-
-      else
-      {
-        v114 = 16711680;
-      }
-
-      (*(*a1 + 56))(a1, &v210, &v205, v114);
-    }
-  }
-
-  if (v194 == 0.0)
-  {
-    v16.i32[0] = 1.0;
-    v116 = 0.0;
-    v117 = 0.0;
-  }
-
-  else
-  {
-    v16.i32[1] = 0;
-    v115 = sqrtf(((v194 * v194) + 0.0) + (v197 * v197));
-    v116 = v194 / v115;
-    v117 = 0.0 / v115;
-    *v16.i32 = v197 / v115;
-  }
-
-  v118 = (((*v16.i32 * v195) - (v197 * v117)) - (v196 * v116)) + (v117 * v194);
-  v119 = (((*v16.i32 * v196) - (v197 * v117)) - (v194 * v117)) + (v116 * v195);
-  v120 = (((v194 * v116) + (v197 * *v16.i32)) + (v195 * v117)) + (v196 * v117);
-  v183 = (((v194 * *v16.i32) - (v197 * v116)) - (v195 * v117)) + (v117 * v196);
-  v184 = v118;
-  v185 = v119;
-  v186 = v120;
-  v121 = *(a2 + 456);
-  if ((v121 & 8) != 0)
-  {
-    v122 = sqrtf((((v117 * v117) + (v116 * v116)) + (v117 * v117)) + (*v16.i32 * *v16.i32));
-    if (v122 != 0.0)
-    {
-      v116 = v116 / v122;
-      *v16.i32 = *v16.i32 / v122;
-    }
-
-    if (*v16.i32 < -1.0)
-    {
-      *v16.i32 = -1.0;
-    }
-
-    if (*v16.i32 > 1.0)
-    {
-      *v16.i32 = 1.0;
-    }
-
-    v123 = acosf(*v16.i32);
-    v124 = v123 + v123;
-    if (v116 >= 0.0)
-    {
-      v125 = v124;
-    }
-
-    else
-    {
-      v125 = -v124;
-    }
-
-    if (*(a2 + 224) <= 0.0 && *(a2 + 220) <= 0.0)
-    {
-      v126 = *(a2 + 228);
-    }
-
-    else
-    {
-      v126 = 0.0;
-    }
-
-    v127 = (*(a2 + 236) + v126) > v125 || (*(a2 + 232) - v126) < v125;
-    (*(*a1 + 32))(a1, v208, v127);
-    v121 = *(a2 + 456);
-  }
-
-  if ((~v121 & 0x30) != 0)
-  {
-    if (((v121 >> 5) & 1) == (v121 & 0x10) >> 4)
-    {
-      return;
-    }
-
-    v128 = (v31 + v31) * v29;
-    *v133.i32 = v28 * (v30 + v30);
-    v129 = v28 * (v29 + v29);
-    v130 = (1.0 - (v30 * (v30 + v30))) - (v29 * (v29 + v29));
-    v131 = ((v31 + v31) * v30) + v129;
-    v132 = v128 - *v133.i32;
-    v133.i64[1] = 0x3F3504F3BF3504F3;
-    v180 = xmmword_1E31189B0;
-    v133.i32[1] = 0;
-    v181 = 0;
-    v182 = 0;
-    v177 = xmmword_1E31189C0;
-    v178 = 0;
-    v179 = 0;
-    v134 = *(a2 + 452);
-    if ((v121 & 0x10) != 0)
-    {
-      if ((v134 & 0x20) == 0)
-      {
-        if (*(a2 + 479))
-        {
-          return;
-        }
-
-        v17.i32[0] = *&v208[8];
-        *v133.i32 = (v209 * v209) + -0.5;
-        v141 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
-        v142 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(*v17.i8, *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v133.i32), *v208, v141);
-        *v133.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v133.i32 * 0.0)) + (*&v208[8] * v141);
-        v143 = vadd_f32(v210, v142);
-        v144 = v211 + *v133.i32;
-        physx::PxQuat::operator*(v208, &v177, &v212, v133, v17);
-        v174 = v212;
-        v175 = v143;
-        v176 = v144;
-        v139 = ((v131 * v192) + (v191 * v130)) + (v193 * v132);
-        v140 = *(a2 + 260);
-LABEL_92:
-        visualizeDoubleCone(a1, a2, &v174, v139, v140);
-        return;
-      }
-
-      if (*(a2 + 479))
-      {
-        v155 = a1;
-        v156 = a2;
-        v157 = 1;
-        v158 = 0;
-        goto LABEL_98;
-      }
-
-      v17.i32[0] = *&v208[8];
-      *v133.i32 = (v209 * v209) + -0.5;
-      v167 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
-      v168 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(*v17.i8, *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v133.i32), *v208, v167);
-      *v133.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v133.i32 * 0.0)) + (*&v208[8] * v167);
-      v169 = vadd_f32(v210, v168);
-      v170 = v211 + *v133.i32;
-      physx::PxQuat::operator*(v208, &v180, &v212, v133, v17);
-      v174 = v212;
-      v175 = v169;
-      v176 = v170;
-      v163 = *(a2 + 260);
-      v164 = *(a2 + 256);
-      v165 = a1;
-      v166 = v118;
-    }
-
-    else
-    {
-      if ((v134 & 0x10) == 0)
-      {
-        if (*(a2 + 479))
-        {
-          return;
-        }
-
-        v17.i32[0] = *&v208[8];
-        *v133.i32 = (v209 * v209) + -0.5;
-        v135 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
-        v136 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(*v17.i8, *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v133.i32), *v208, v135);
-        *v133.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v133.i32 * 0.0)) + (*&v208[8] * v135);
-        v137 = vadd_f32(v210, v136);
-        v138 = v211 + *v133.i32;
-        physx::PxQuat::operator*(v208, &v180, &v212, v133, v17);
-        v174 = v212;
-        v175 = v137;
-        v176 = v138;
-        v139 = ((v131 * v189) + (v188 * v130)) + (v190 * v132);
-        v140 = *(a2 + 264);
-        goto LABEL_92;
-      }
-
-      if (*(a2 + 479))
-      {
-        v155 = a1;
-        v156 = a2;
-        v157 = 0;
-        goto LABEL_97;
-      }
-
-      v17.i32[0] = *&v208[8];
-      *v133.i32 = (v209 * v209) + -0.5;
-      v159 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
-      v160 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(*v17.i8, *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v133.i32), *v208, v159);
-      *v133.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v133.i32 * 0.0)) + (*&v208[8] * v159);
-      v161 = vadd_f32(v210, v160);
-      v162 = v211 + *v133.i32;
-      physx::PxQuat::operator*(v208, &v177, &v212, v133, v17);
-      v174 = v212;
-      v175 = v161;
-      v176 = v162;
-      v163 = *(a2 + 264);
-      v164 = *(a2 + 256);
-      v165 = a1;
-      v166 = v119;
-    }
-
-    visualizeAngularLimit(v165, &v174, v164, v166, v120, v163);
-    return;
-  }
-
-  if (*(a2 + 478) == 1)
-  {
-    if (*(a2 + 252) <= 0.0 && *(a2 + 248) <= 0.0)
-    {
-      v16.i32[0] = *(a2 + 256);
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    v171 = v16;
-    v145 = v120 + 1.0;
-    v172 = atan2f(v119, v145);
-    v146.f32[0] = atan2f(v118, v145);
-    v146.f32[1] = v172;
-    __asm { FMOV            V1.2S, #4.0 }
-
-    v151 = vmul_f32(v146, _D1);
-    v173 = *(a2 + 260);
-    v152 = tanf(vmuls_lane_f32(0.25, v173, 1));
-    v153.n128_u32[0] = tanf(0.25 * v173.f32[0]);
-    v154 = vdiv_f32(vadd_f32(vdup_lane_s32(v171, 0), vabs_f32(v151)), v173);
-    (*(*a1 + 40))(a1, v208, vaddv_f32(vmul_f32(v154, v154)) > 1.0, v152, v153);
-  }
-
-  if (*(a2 + 479) == 1)
-  {
-    v155 = a1;
-    v156 = a2;
-    v157 = 1;
-LABEL_97:
-    v158 = 1;
-LABEL_98:
-    drawPyramid(v155, v156, v208, &v183, v157, v158);
-  }
-}
-
-void physx::PxDefaultErrorCallback::reportError(uint64_t a1, int a2, const char *a3, const char *a4, int a5)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  if (a2 > 7)
-  {
-    if (a2 <= 31)
-    {
-      if (a2 == 8)
-      {
-        v6 = "invalid operation";
-      }
-
-      else
-      {
-        if (a2 != 16)
-        {
-          return;
-        }
-
-        v6 = "out of memory";
-      }
-    }
-
-    else
-    {
-      switch(a2)
-      {
-        case 32:
-          v6 = "internal error";
-          break;
-        case 64:
-          v6 = "abort";
-          break;
-        case 128:
-          v6 = "performance warning";
-          break;
-        default:
-          return;
-      }
-    }
-  }
-
-  else if (a2 <= 0)
-  {
-    if (a2 == -1)
-    {
-      v6 = "unknown error";
-    }
-
-    else
-    {
-      if (a2)
-      {
-        return;
-      }
-
-      v6 = "no error";
-    }
-  }
-
-  else
-  {
-    switch(a2)
-    {
-      case 1:
-        v6 = "info";
-        break;
-      case 2:
-        v6 = "warning";
-        break;
-      case 4:
-        v6 = "invalid parameter";
-        break;
-      default:
-        return;
-    }
-  }
-
-  sprintf(v8, "%s (%d) : %s : %s\n", a4, a5, v6, a3);
-  puts(v8);
-  if (a2 == 64)
-  {
-    while (1)
-    {
-      puts(v8);
-      __rmtp = xmmword_1E3058110;
-        ;
-      }
-    }
-  }
-}
-
-void physx::Ext::D6Joint::~D6Joint(physx::Ext::D6Joint *this)
-{
-  if (physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this))
-  {
-    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v1();
-  }
-}
-
-BOOL physx::PxD6Joint::isKindOf(physx::PxD6Joint *this, const char *a2)
-{
-  if (!strcmp("PxD6Joint", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxJoint::isKindOf(this, a2);
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(**(a1 + 96) + 64))(*(a1 + 96));
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
-  v6 = v43;
-  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
-  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
-  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
-  v10 = (v44 * v44) + -0.5;
-  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
-  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
-  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
-  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
-  v16 = *(a1 + 48);
-  v15 = *(a1 + 52);
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 44);
-  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
-  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
-  v21 = v13 - (v42 * v11);
-  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
-  v23 = *(a1 + 104);
-  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
-  v23[5] = v19;
-  v23[6] = v20;
-  v23[7] = v22;
-  v23[8] = v12;
-  v23[9] = v21;
-  v23[10] = v14 - (v6 * v11);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
-  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
-  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
-  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
-  v27 = (v44 * v44) + -0.5;
-  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
-  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
-  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
-  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
-  v33 = *(a1 + 76);
-  v32 = *(a1 + 80);
-  v34 = *(a1 + 68);
-  v35 = *(a1 + 72);
-  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
-  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
-  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
-  v39 = *(a1 + 104);
-  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
-  v39[12] = v36;
-  v39[13] = v37;
-  v39[14] = v38;
-  v39[15] = v29;
-  v39[16] = v30;
-  v39[17] = v31;
-  return (*(**(a1 + 96) + 72))(*(a1 + 96));
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 56))();
-  }
-
-  *a2 = 0;
-  *a3 = 0;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
-{
-  v40[1] = *MEMORY[0x1E69E9840];
-  v5 = a3[1];
-  v6 = a3[2];
-  v7 = a3[3];
-  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
-  v9 = *a3 / v8;
-  v10 = v5 / v8;
-  v11 = v6 / v8;
-  v12 = v7 / v8;
-  v13 = a3[4];
-  v14 = a3[5];
-  v15 = a3[6];
-  v16 = 28 * a2;
-  v17 = (a1 + v16);
-  v17[10] = v9;
-  v17[11] = v5 / v8;
-  v17[12] = v6 / v8;
-  v17[13] = v7 / v8;
-  v17[14] = v13;
-  v17[15] = v14;
-  v17[16] = v15;
-  v39 = 0;
-  v40[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
-  v18 = (v13 - v36) + (v13 - v36);
-  v19 = (v14 - v37) + (v14 - v37);
-  v20 = (v15 - v38) + (v15 - v38);
-  v21 = (v35 * v35) + -0.5;
-  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
-  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
-  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
-  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
-  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
-  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
-  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
-  v29 = *(a1 + 96);
-  v30 = (*(a1 + 104) + v16);
-  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
-  v30[5] = v26;
-  v30[6] = v27;
-  v30[7] = v28;
-  v30[8] = v23;
-  v30[9] = v24;
-  v30[10] = v25;
-  return (*(*v29 + 72))(v29);
-}
-
-float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = a1 + 28 * a2;
-  *a3 = *(v3 + 40);
-  *(a3 + 16) = *(v3 + 56);
-  result = *(v3 + 64);
-  *(a3 + 24) = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v72 = 0;
-  v73 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
-  v4 = 1.0;
-  v5 = 0.0;
-  v6 = 0.0;
-  v7 = 0.0;
-  v8 = 0.0;
-  v9 = 0.0;
-  v10 = 0.0;
-  v11 = 0.0;
-  v12 = 1.0;
-  if (v73)
-  {
-    (*(*v73 + 152))(&v66);
-    v5 = 0.0;
-    v4 = 1.0;
-    v10 = *(&v66 + 1);
-    v11 = *&v66;
-    v9 = v67;
-    v12 = v68;
-    v8 = v69;
-    v7 = v70;
-    v6 = v71;
-  }
-
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 60);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 52);
-  v18 = 0.0;
-  v19 = 0.0;
-  v20 = 0.0;
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 44);
-  v23 = 0.0;
-  v24 = 0.0;
-  if (v72)
-  {
-    v64 = v7;
-    v65 = v8;
-    v62 = *(a1 + 56);
-    v63 = v6;
-    v60 = *(a1 + 64);
-    v61 = *(a1 + 60);
-    (*(*v72 + 152))(&v66);
-    v15 = v60;
-    v14 = v61;
-    v13 = v62;
-    v6 = v63;
-    v7 = v64;
-    v8 = v65;
-    v23 = *(&v66 + 1);
-    v24 = *&v66;
-    v20 = v67;
-    v4 = v68;
-    v19 = v69;
-    v18 = v70;
-    v5 = v71;
-  }
-
-  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
-  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
-  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
-  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
-  v29 = v15 + v15;
-  v30 = v14 + v14;
-  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
-  v32 = (v12 * v12) + -0.5;
-  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
-  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
-  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
-  v36 = *(a1 + 84) + *(a1 + 84);
-  v37 = *(a1 + 88) + *(a1 + 88);
-  v38 = *(a1 + 92) + *(a1 + 92);
-  v39 = (v4 * v4) + -0.5;
-  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
-  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
-  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
-  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
-  v45 = *(a1 + 76);
-  v44 = *(a1 + 80);
-  v46 = *(a1 + 68);
-  v47 = *(a1 + 72);
-  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
-  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
-  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
-  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
-  v52 = (v41 - v35) + (v41 - v35);
-  v53 = (v42 - v34) + (v42 - v34);
-  v54 = (v43 - v33) + (v43 - v33);
-  v55 = (v25 * v25) + -0.5;
-  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
-  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
-  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
-  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
-  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
-  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
-  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
-  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
-  a2[4] = v57;
-  a2[5] = v58;
-  a2[6] = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v51 = 0;
-  v52 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
-  v4 = *(a1 + 56) + *(a1 + 56);
-  v5 = *(a1 + 60) + *(a1 + 60);
-  v6 = *(a1 + 64) + *(a1 + 64);
-  v7 = (v39 * v39) + -0.5;
-  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
-  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
-  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
-  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
-  v12 = *(a1 + 84) + *(a1 + 84);
-  v13 = *(a1 + 88) + *(a1 + 88);
-  v14 = *(a1 + 92) + *(a1 + 92);
-  v15 = (v35 * v35) + -0.5;
-  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
-  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
-  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
-  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
-  v20 = (v48 * v11) - (v49 * v10);
-  v21 = (v49 * v9) - (v47 * v11);
-  v22 = (v47 * v10) - (v48 * v9);
-  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
-  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
-  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
-  v26 = v23 + v23;
-  v27 = v24 + v24;
-  v28 = v25 + v25;
-  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
-  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
-  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
-  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
-  a2[1] = v30;
-  a2[2] = result;
-  return result;
-}
-
-float32_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
-{
-  v21 = 0;
-  v22 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
-  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
-  v4.i32[0] = *&v11[8];
-  v5 = (v12 * v12) + -0.5;
-  v6 = vsub_f32(vsub_f32(v15, v18), v13);
-  v7 = vadd_f32(v6, v6);
-  v8 = (vmuls_lane_f32(v7.f32[1], *v11, 1) + (*v11 * v7.f32[0])) + (*&v11[8] * v3);
-  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
-  v9.f32[1] = v3;
-  result = ((v3 * v5) - (((-*&v11[4] * v7.f32[0]) + (*v11 * v7.f32[1])) * v12)) + (*&v11[8] * v8);
-  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
-  a2[1].f32[0] = result;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
-{
-  v2 = *(a1 + 96);
-  v4 = *a2;
-  return (*(*v2 + 80))(v2, &v4);
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  **(v2 + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 4) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 12) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getScene(uint64_t a1)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 48))();
+    while (v15 < v13);
   }
 
   return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
-{
-  (*(*a2 + 16))(a2, *(a1 + 96));
-  v5 = 0;
-  v6 = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
-  if (v6)
-  {
-    result = (*(*a2 + 16))(a2);
-  }
-
-  if (v5)
-  {
-    return (*(*a2 + 16))(a2);
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
-{
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
-  v4 = 28 * a2;
-  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
-  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
-  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
-  v8 = (v26 * v26) + -0.5;
-  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
-  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
-  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
-  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
-  v14 = *(a1 + v4 + 48);
-  v13 = *(a1 + v4 + 52);
-  v15 = *(a1 + v4 + 40);
-  v16 = *(a1 + v4 + 44);
-  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
-  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
-  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
-  v20 = *(a1 + 96);
-  v21 = (*(a1 + 104) + v4);
-  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
-  v21[5] = v17;
-  v21[6] = v18;
-  v21[7] = v19;
-  v21[8] = v10;
-  v21[9] = v11;
-  v21[10] = v12;
-  return (*(*v20 + 72))(v20);
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16[0] = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
-  if (v15)
-  {
-    if (v16[0])
-    {
-      return result;
-    }
-
-    v5 = 68;
-    v6 = 64;
-    v7 = 60;
-    v8 = 92;
-    v9 = 88;
-    v10 = 84;
-  }
-
-  else
-  {
-    v5 = 40;
-    v6 = 36;
-    v7 = 32;
-    v8 = 64;
-    v9 = 60;
-    v10 = 56;
-  }
-
-  v11 = a2[1];
-  *(a1 + v10) = *(a1 + v10) - *a2;
-  *(a1 + v9) = *(a1 + v9) - v11;
-  *(a1 + v8) = *(a1 + v8) - a2[2];
-  v12 = *(a1 + 96);
-  v13 = *(a1 + 104);
-  v14 = a2[1];
-  *(v13 + v7) = *(v13 + v7) - *a2;
-  *(v13 + v6) = *(v13 + v6) - v14;
-  *(v13 + v5) = *(v13 + v5) - a2[2];
-  return (*(*v12 + 72))(v12);
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onConstraintRelease(void *a1)
-{
-  if (a1[13])
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  a1[13] = 0;
-  v2 = *(*a1 + 32);
-
-  return v2(a1);
-}
-
-uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
-{
-  result = a1 - 24;
-  *a2 = 0;
-  return result;
-}
-
-void non-virtual thunk tophysx::Ext::D6Joint::~D6Joint(physx::Ext::D6Joint *this)
-{
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this - 24);
-}
-
-{
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this - 24);
-  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-  v1();
-}
-
-void setupPyramidSwingLimits(uint64_t a1, float *a2, float *a3, float *a4, int a5, int a6)
-{
-  v10 = a4[1];
-  v12 = a3[2];
-  v11 = a3[3];
-  v13 = a3[1];
-  v15 = a4[2];
-  v14 = a4[3];
-  v16 = (((v11 * *a4) + (v14 * *a3)) + (v10 * v12)) - (v13 * v15);
-  v17 = (((v11 * v10) + (v14 * v13)) + (v15 * *a3)) - (v12 * *a4);
-  v18 = (((v11 * v15) + (v14 * v12)) + (*a4 * v13)) - (*a3 * v10);
-  v19 = (((v14 * v11) - (*a4 * *a3)) - (v10 * v13)) - (v15 * v12);
-  if (a5)
-  {
-    v20 = atan2f(v13, v11 + 1.0) * 4.0;
-    v21 = a2[72];
-    v22 = v19 + v19;
-    if (a2[70] <= 0.0 && a2[69] <= 0.0)
-    {
-      v23 = a2[71];
-    }
-
-    else
-    {
-      v23 = 0.0;
-    }
-
-    v24 = a2[73];
-    v25 = (v16 * (v17 + v17)) - (v18 * v22);
-    v26 = ((v19 * (v19 + v19)) + -1.0) + (v17 * (v17 + v17));
-    v27 = ((v17 + v17) * v18) + (v16 * v22);
-    if ((v21 + v23) > v20)
-    {
-      v28 = *(a1 + 8);
-      *(a1 + 8) = v28 + 80;
-      v42 = (v16 * (v17 + v17)) - (v18 * v22);
-      *(v28 + 78) = 0;
-      *v28 = 0;
-      *(v28 + 8) = 0;
-      *(v28 + 20) = -v26;
-      *(v28 + 24) = -v27;
-      *(v28 + 32) = 0;
-      *(v28 + 40) = 0;
-      *(v28 + 48) = -v25;
-      *(v28 + 52) = -v26;
-      *(v28 + 56) = -v27;
-      *(v28 + 12) = -(v21 - v20);
-      *(v28 + 16) = -v25;
-      *(v28 + 76) |= 0x40u;
-      physx::Ext::joint::ConstraintHelper::addLimit(a1, v28, (a2 + 67));
-      v26 = ((v19 * (v19 + v19)) + -1.0) + (v17 * (v17 + v17));
-      v25 = v42;
-    }
-
-    if ((v24 - v23) < v20)
-    {
-      v29 = *(a1 + 8);
-      *(a1 + 8) = v29 + 80;
-      *(v29 + 78) = 0;
-      *v29 = 0;
-      *(v29 + 8) = 0;
-      *(v29 + 20) = v26;
-      *(v29 + 24) = v27;
-      *(v29 + 32) = 0;
-      *(v29 + 40) = 0;
-      *(v29 + 48) = v25;
-      *(v29 + 52) = v26;
-      *(v29 + 56) = v27;
-      *(v29 + 12) = v24 - v20;
-      *(v29 + 16) = v25;
-      *(v29 + 76) |= 0x40u;
-      physx::Ext::joint::ConstraintHelper::addLimit(a1, v29, (a2 + 67));
-    }
-  }
-
-  if (a6)
-  {
-    v30 = atan2f(a3[2], a3[3] + 1.0) * 4.0;
-    v31 = a2[74];
-    v32 = v19 + v19;
-    v33 = v17 * (v18 + v18);
-    v34 = (v19 * (v19 + v19)) + -1.0;
-    if (a2[70] <= 0.0 && a2[69] <= 0.0)
-    {
-      v35 = a2[71];
-    }
-
-    else
-    {
-      v35 = 0.0;
-    }
-
-    v36 = a2[75];
-    v37 = (v16 * (v18 + v18)) + (v17 * v32);
-    v38 = v33 - (v16 * v32);
-    v39 = v34 + (v18 * (v18 + v18));
-    if ((v31 + v35) > v30)
-    {
-      v40 = *(a1 + 8);
-      *(a1 + 8) = v40 + 80;
-      *(v40 + 78) = 0;
-      *v40 = 0;
-      *(v40 + 8) = 0;
-      *(v40 + 20) = -v38;
-      *(v40 + 24) = -v39;
-      *(v40 + 32) = 0;
-      *(v40 + 40) = 0;
-      *(v40 + 48) = -v37;
-      *(v40 + 52) = -v38;
-      *(v40 + 56) = -v39;
-      *(v40 + 12) = -(v31 - v30);
-      *(v40 + 16) = -v37;
-      *(v40 + 76) |= 0x40u;
-      physx::Ext::joint::ConstraintHelper::addLimit(a1, v40, (a2 + 67));
-    }
-
-    if ((v36 - v35) < v30)
-    {
-      v41 = *(a1 + 8);
-      *(a1 + 8) = v41 + 80;
-      *(v41 + 78) = 0;
-      *v41 = 0;
-      *(v41 + 8) = 0;
-      *(v41 + 20) = v38;
-      *(v41 + 24) = v39;
-      *(v41 + 32) = 0;
-      *(v41 + 40) = 0;
-      *(v41 + 48) = v37;
-      *(v41 + 52) = v38;
-      *(v41 + 56) = v39;
-      *(v41 + 12) = v36 - v30;
-      *(v41 + 16) = v37;
-      *(v41 + 76) |= 0x40u;
-
-      physx::Ext::joint::ConstraintHelper::addLimit(a1, v41, (a2 + 67));
-    }
-  }
-}
-
-float computeLimitedDistance(unsigned int a1, uint64_t a2, uint64_t a3, float32x2_t *a4)
-{
-  v4 = 0;
-  v5 = (a3 + 8);
-  v6 = 0;
-  v7 = 0.0;
-  do
-  {
-    if ((a1 >> v4))
-    {
-      v8 = *(a2 + 16 + 4 * v4);
-      v6 = vadd_f32(v6, vmul_n_f32(*(v5 - 2), v8));
-      v7 = v7 + (v8 * *v5);
-    }
-
-    ++v4;
-    v5 += 3;
-  }
-
-  while (v4 != 3);
-  *a4 = v6;
-  a4[1].f32[0] = v7;
-  return sqrtf((COERCE_FLOAT(vmul_f32(v6, v6).i32[1]) + (v6.f32[0] * v6.f32[0])) + (v7 * v7));
-}
-
-void setupLinearLimit(uint64_t a1, float *a2, uint64_t a3, float a4)
-{
-  v8 = a2[5];
-  v9 = a2[3];
-  if (v9 <= 0.0 && a2[2] <= 0.0)
-  {
-    v10 = a2[4];
-  }
-
-  else
-  {
-    v10 = 0.0;
-  }
-
-  if ((v10 + a4) > v8)
-  {
-    v11 = *(a1 + 8);
-    *(a1 + 8) = v11 + 80;
-    v12 = *a3;
-    *v11 = *a3;
-    v13 = *(a1 + 16);
-    v14 = *(a3 + 4);
-    *(v11 + 4) = v14;
-    v15 = *(a1 + 20);
-    v16.i32[0] = vdup_lane_s32(v15, 1).u32[0];
-    *(v11 + 78) = 0;
-    v16.f32[1] = v13;
-    v17.i32[0] = vdup_lane_s32(v14, 1).u32[0];
-    v17.f32[1] = v12;
-    *(v11 + 16) = vmla_f32(vmul_f32(v14, vneg_f32(v16)), v17, v15);
-    *(v11 + 24) = (v13 * v14.f32[0]) - (v15.f32[0] * v12);
-    v18 = *a3;
-    *(v11 + 32) = *a3;
-    v19 = *(a1 + 28);
-    v20 = *(a3 + 4);
-    *(v11 + 36) = v20;
-    v21 = *(a1 + 32);
-    v16.i32[0] = vdup_lane_s32(v21, 1).u32[0];
-    v16.f32[1] = v19;
-    v17.i32[0] = vdup_lane_s32(v20, 1).u32[0];
-    v17.f32[1] = v18;
-    *(v11 + 48) = vmla_f32(vmul_f32(v20, vneg_f32(v16)), v17, v21);
-    *(v11 + 56) = (v19 * v20.f32[0]) - (v21.f32[0] * v18);
-    *(v11 + 12) = v8 - a4;
-    physx::Ext::joint::ConstraintHelper::addLimit(a1, v11, a2);
-    v9 = a2[3];
-  }
-
-  v22 = a2[6];
-  if (v9 <= 0.0 && a2[2] <= 0.0)
-  {
-    v23 = a2[4];
-  }
-
-  else
-  {
-    v23 = 0.0;
-  }
-
-  if ((v23 - a4) > -v22)
-  {
-    v24 = *a3;
-    v25 = *(a3 + 4);
-    v26 = *(a3 + 8);
-    v27 = -*a3;
-    v28 = *(a1 + 8);
-    *(a1 + 8) = v28 + 80;
-    *(v28 + 78) = 0;
-    *v28 = v27;
-    *(v28 + 4) = -v25;
-    *(v28 + 8) = -v26;
-    v30 = *(a1 + 20);
-    v29 = *(a1 + 24);
-    v31 = *(a1 + 16);
-    *(v28 + 16) = (v25 * v29) + (v30 * -v26);
-    *(v28 + 20) = (v26 * v31) + (v29 * v27);
-    *(v28 + 24) = (v24 * v30) + (v31 * -v25);
-    *(v28 + 32) = v27;
-    *(v28 + 36) = -v25;
-    *(v28 + 40) = -v26;
-    v33 = *(a1 + 32);
-    v32 = *(a1 + 36);
-    v34 = *(a1 + 28);
-    *(v28 + 48) = (v25 * v32) + (v33 * -v26);
-    *(v28 + 52) = (v26 * v34) + (v32 * v27);
-    *(v28 + 56) = (v24 * v33) + (v34 * -v25);
-    *(v28 + 12) = a4 - v22;
-
-    physx::Ext::joint::ConstraintHelper::addLimit(a1, v28, a2);
-  }
-}
-
-uint64_t physx::Ext::joint::ConstraintHelper::prepareLockedAxes(uint64_t result, float *a2, float *a3, float *a4, int a5, int a6, float *a7, float *a8)
-{
-  v8 = *(result + 8);
-  v9 = *(result + 16);
-  v10 = *(result + 20);
-  v12 = *(result + 24);
-  v11 = *(result + 28);
-  v13 = *(result + 32);
-  v14 = *(result + 36);
-  if (!a5)
-  {
-    v45 = *(result + 8);
-    goto LABEL_16;
-  }
-
-  v15 = *a2;
-  v16 = a2[1];
-  v17 = a2[2];
-  v18 = a2[3];
-  v19 = v15 + v15;
-  v20 = v16 + v16;
-  v21 = v15 * (v15 + v15);
-  v22 = v16 * (v16 + v16);
-  v23 = v17 * (v17 + v17);
-  v24 = v19 * v16;
-  v25 = v19 * v17;
-  v26 = v19 * v18;
-  v27 = v20 * v17;
-  v28 = v20 * v18;
-  v29 = (v17 + v17) * v18;
-  v30 = (1.0 - v22) - v23;
-  v31 = v24 + v29;
-  v32 = v25 - v28;
-  v33 = 1.0 - v21;
-  v34 = 0.0;
-  v35 = 0.0;
-  v36 = 0.0;
-  if (a5)
-  {
-    v34 = 0.0 - (v30 * *a4);
-    v35 = 0.0 - (v31 * *a4);
-    v36 = 0.0 - (v32 * *a4);
-  }
-
-  v37 = v24 - v29;
-  v38 = v33 - v23;
-  v39 = v27 + v26;
-  if ((a5 & 2) != 0)
-  {
-    v40 = a4[1];
-    v34 = v34 - (v37 * v40);
-    v35 = v35 - (v38 * v40);
-    v36 = v36 - (v39 * v40);
-  }
-
-  v41 = v25 + v28;
-  v42 = v27 - v26;
-  v43 = v33 - v22;
-  if ((a5 & 4) != 0)
-  {
-    v44 = a4[2];
-    v34 = v34 - (v41 * v44);
-    v35 = v35 - (v42 * v44);
-    v36 = v36 - (v43 * v44);
-  }
-
-  v9 = v9 + v34;
-  v10 = v10 + v35;
-  v12 = v12 + v36;
-  v45 = *(result + 8);
-  if ((a5 & 1) == 0)
-  {
-    if ((a5 & 2) == 0)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_14:
-    v47 = -a4[1];
-    *(v45 + 78) = 2048;
-    *v45 = v37;
-    *(v45 + 4) = v38;
-    *(v45 + 16) = (v10 * v39) - (v12 * v38);
-    *(v45 + 20) = (v12 * v37) - (v9 * v39);
-    *(v45 + 24) = (v9 * v38) - (v10 * v37);
-    *(v45 + 32) = v37;
-    *(v45 + 36) = v38;
-    *(v45 + 40) = v39;
-    *(v45 + 48) = (v13 * v39) - (v14 * v38);
-    *(v45 + 52) = (v14 * v37) - (v11 * v39);
-    *(v45 + 56) = (v11 * v38) - (v13 * v37);
-    *(v45 + 8) = v39;
-    *(v45 + 12) = v47;
-    v45 += 80;
-    if ((a5 & 4) == 0)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_15;
-  }
-
-  v46 = -*a4;
-  v45 = v8 + 80;
-  *(v8 + 78) = 2048;
-  *v8 = v30;
-  *(v8 + 4) = v31;
-  *(v8 + 16) = (v10 * v32) - (v12 * v31);
-  *(v8 + 20) = (v12 * v30) - (v9 * v32);
-  *(v8 + 24) = (v9 * v31) - (v10 * v30);
-  *(v8 + 32) = v30;
-  *(v8 + 36) = v31;
-  *(v8 + 40) = v32;
-  *(v8 + 48) = (v13 * v32) - (v14 * v31);
-  *(v8 + 52) = (v14 * v30) - (v11 * v32);
-  *(v8 + 56) = (v11 * v31) - (v13 * v30);
-  *(v8 + 8) = v32;
-  *(v8 + 12) = v46;
-  if ((a5 & 2) != 0)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_10:
-  if ((a5 & 4) != 0)
-  {
-LABEL_15:
-    v48 = -a4[2];
-    *(v45 + 78) = 2048;
-    *v45 = v41;
-    *(v45 + 4) = v42;
-    *(v45 + 16) = (v10 * v43) - (v12 * v42);
-    *(v45 + 20) = (v12 * v41) - (v9 * v43);
-    *(v45 + 24) = (v9 * v42) - (v10 * v41);
-    *(v45 + 32) = v41;
-    *(v45 + 36) = v42;
-    *(v45 + 40) = v43;
-    *(v45 + 48) = (v13 * v43) - (v14 * v42);
-    *(v45 + 52) = (v14 * v41) - (v11 * v43);
-    *(v45 + 56) = (v11 * v42) - (v13 * v41);
-    *(v45 + 8) = v43;
-    *(v45 + 12) = v48;
-    v45 += 80;
-  }
-
-LABEL_16:
-  if (a6)
-  {
-    v50 = *a2;
-    v49 = a2[1];
-    v51 = a2[2];
-    v52 = a2[3];
-    v54 = a3[2];
-    v53 = a3[3];
-    v55 = *a3;
-    v56 = a3[1];
-    v57 = v52 * *a3;
-    v58 = *a2 * v53;
-    v59 = (v49 * v53) + (v52 * v56);
-    v60 = (v51 * v53) + (v52 * v54);
-    v61 = ((v49 * v56) + (*a2 * *a3)) + (v51 * v54);
-    v62 = (v52 * v53) - v61;
-    v63 = (v49 * *a3) + (*a2 * v56);
-    v64 = (v51 * *a3) + (*a2 * v54);
-    v65 = (v52 * v53) + v61;
-    v66 = ((((v49 * v56) + (v49 * v56)) + v62) * 0.5) + 0.00000011921;
-    v67 = ((((v51 * v54) + (v51 * v54)) + v62) * 0.5) + 0.00000011921;
-    if (v65 != 0.0)
-    {
-      v67 = (((v51 * v54) + (v51 * v54)) + v62) * 0.5;
-      v66 = (((v49 * v56) + (v49 * v56)) + v62) * 0.5;
-    }
-
-    if (a6)
-    {
-      v68 = (((v50 * v55) + (v50 * v55)) + v62) * 0.5;
-      if (v65 == 0.0)
-      {
-        v68 = v68 + 0.00000011921;
-      }
-
-      v69 = (v64 - v59) * 0.5;
-      v70 = (v60 + v63) * 0.5;
-      *(v45 + 78) = 2048;
-      *v45 = 0;
-      *(v45 + 8) = 0;
-      *(v45 + 20) = v70;
-      *(v45 + 24) = v69;
-      *(v45 + 32) = 0;
-      *(v45 + 40) = 0;
-      *(v45 + 48) = v68;
-      *(v45 + 52) = v70;
-      *(v45 + 56) = v69;
-      *(v45 + 12) = -((((v53 * -v50) + (v52 * v55)) + (-v49 * v54)) + (v56 * v51));
-      *(v45 + 16) = v68;
-      *(v45 + 76) |= 0x40u;
-      v45 += 80;
-    }
-
-    v71 = v57 + v58;
-    v72 = (v49 * v54) + (v51 * v56);
-    if ((a6 & 2) != 0)
-    {
-      v73 = (v63 - v60) * 0.5;
-      v74 = (v71 + v72) * 0.5;
-      *(v45 + 78) = 2048;
-      *v45 = 0;
-      *(v45 + 8) = 0;
-      *(v45 + 20) = v66;
-      *(v45 + 24) = v74;
-      *(v45 + 32) = 0;
-      *(v45 + 40) = 0;
-      *(v45 + 48) = v73;
-      *(v45 + 52) = v66;
-      *(v45 + 56) = v74;
-      *(v45 + 12) = -((((v52 * v56) - (v49 * v53)) - (v51 * v55)) + (v54 * v50));
-      *(v45 + 16) = v73;
-      *(v45 + 76) |= 0x40u;
-      v45 += 80;
-    }
-
-    if ((a6 & 4) != 0)
-    {
-      v75 = (((v52 * v54) - (v51 * v53)) - (v50 * v56)) + (v55 * v49);
-      v76 = (v64 + v59) * 0.5;
-      v77 = (v72 - v71) * 0.5;
-      *(v45 + 78) = 2048;
-      *v45 = 0;
-      *(v45 + 8) = 0;
-      *(v45 + 20) = v77;
-      *(v45 + 24) = v67;
-      *(v45 + 32) = 0;
-      *(v45 + 40) = 0;
-      *(v45 + 48) = v76;
-      *(v45 + 52) = v77;
-      *(v45 + 56) = v67;
-      *(v45 + 12) = -v75;
-      *(v45 + 16) = v76;
-      *(v45 + 76) |= 0x40u;
-      v45 += 80;
-    }
-  }
-
-  *a7 = v9;
-  a7[1] = v10;
-  a7[2] = v12;
-  *a8 = v11;
-  a8[1] = v13;
-  a8[2] = v14;
-  while (v8 < v45)
-  {
-    *(v8 + 76) |= 0x10u;
-    v8 += 80;
-  }
-
-  *(result + 8) = v45;
-  return result;
-}
-
-uint64_t physx::Ext::joint::ConstraintHelper::ConstraintHelper(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, float32x2_t *a5, float32x2_t *a6, __int128 *a7, float32x2_t *a8, double a9, double a10, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a17)
-{
-  *a1 = a2;
-  *(a1 + 8) = a2;
-  v22 = *a7;
-  *a3 = *a7;
-  physx::Ext::joint::computeJointFrames(a4, a5, a7, a8, a17, *&v22, a10, a11, a12, a13, a14, a15, a16);
-  v23 = a5[3].f32[0] - a8[3].f32[0];
-  *a6 = vsub_f32(a5[2], a8[2]);
-  a6[1].f32[0] = v23;
-  v24 = a5[3].f32[0] - a8[3].f32[0];
-  *(a1 + 16) = vsub_f32(a5[2], a8[2]);
-  *(a1 + 24) = v24;
-  v25 = a5[3].f32[0] - a17[3].f32[0];
-  *(a1 + 28) = vsub_f32(a5[2], a17[2]);
-  *(a1 + 36) = v25;
-  *(a1 + 40) = *(a4 + 16);
-  *(a1 + 48) = *(a4 + 24);
-  *(a1 + 52) = a5[2];
-  *(a1 + 60) = a5[3].i32[0];
-  return a1;
-}
-
-float physx::Ext::joint::computeJointFrames(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t _Q7)
-{
-  _S2 = *(a3 + 32) + *(a3 + 32);
-  v15 = *(a3 + 36) + *(a3 + 36);
-  _S4 = *(a3 + 40) + *(a3 + 40);
-  v17 = *(a4 + 12);
-  *a12.i32 = (v17 * v17) + -0.5;
-  _Q7.i32[0] = *a4;
-  _Q16.i64[0] = *(a4 + 4);
-  __asm
-  {
-    FMLA            S17, S4, V16.S[1]
-    FMLA            S19, S2, V16.S[1]
-    FMLA            S21, S17, V16.S[1]
-  }
-
-  v25 = *(a4 + 20) + (((v17 * _S19) + (v15 * *a12.i32)) + (_Q16.f32[0] * _S17));
-  v26 = *(a4 + 24) + _S21;
-  v27 = *(a3 + 16);
-  v28 = v27;
-  v28.i32[3] = _Q16.i32[1];
-  v29 = *(a4 + 16) + (((v17 * (vmuls_lane_f32(v15, vnegq_f32(v28), 3) + (_Q16.f32[0] * _S4))) + (_S2 * *a12.i32)) + (*a4 * _S17));
-  v30 = vextq_s8(vextq_s8(_Q7, _Q7, 4uLL), _Q16, 0xCuLL);
-  v30.f32[3] = -*a4;
-  _Q3 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v27, 3), v27, 4uLL), v30), v27, v17);
-  v30.f32[3] = -_Q16.f32[0];
-  _Q16.i32[2] = *a4;
-  _Q16.i32[3] = *(a3 + 24);
-  v32 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(_Q3, _Q3, 4uLL), _Q3), vextq_s8(vextq_s8(v27, v27, 0xCuLL), v27, 8uLL), v30), _Q16, v28);
-  *a1 = vzip2q_s32(vzip1q_s32(v32, vextq_s8(v32, v32, 0xCuLL)), v32);
-  *(a1 + 16) = v29;
-  *(a1 + 20) = v25;
-  *(a1 + 24) = v26;
-  *_Q3.i32 = *(a3 + 60) + *(a3 + 60);
-  v30.f32[0] = *(a3 + 64) + *(a3 + 64);
-  _S5 = *(a3 + 68) + *(a3 + 68);
-  v32.i32[0] = *(a5 + 12);
-  v34 = *(a5 + 16);
-  v35 = (*v32.i32 * *v32.i32) + -0.5;
-  a12.i32[0] = *a5;
-  _Q7.i64[0] = *(a5 + 4);
-  __asm
-  {
-    FMLA            S16, S5, V7.S[1]
-    FMLA            S18, S3, V7.S[1]
-    FMLA            S20, S16, V7.S[1]
-  }
-
-  v39 = *(a5 + 20) + (((*v32.i32 * _S18) + (v30.f32[0] * v35)) + (*_Q7.i32 * _S16));
-  v40 = *(a3 + 44);
-  v41 = v40;
-  v41.i32[3] = _Q7.i32[1];
-  v42 = *(a5 + 24) + _S20;
-  v43 = ((*v32.i32 * (vmuls_lane_f32(v30.f32[0], vnegq_f32(v41), 3) + (*_Q7.i32 * _S5))) + (*_Q3.i32 * v35)) + (*a5 * _S16);
-  v44 = vextq_s8(vextq_s8(a12, a12, 4uLL), _Q7, 0xCuLL);
-  v44.f32[3] = -*a5;
-  v45 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v40, 3), v40, 4uLL), v44), v40, *v32.i32);
-  v44.f32[3] = -*_Q7.i32;
-  _Q7.i32[2] = *a5;
-  _Q7.i32[3] = *(a3 + 52);
-  v46 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v45, v45, 4uLL), v45), vextq_s8(vextq_s8(v40, v40, 0xCuLL), v40, 8uLL), v44), _Q7, v41);
-  *a2 = vzip2q_s32(vzip1q_s32(v46, vextq_s8(v46, v46, 0xCuLL)), v46);
-  result = v34 + v43;
-  *(a2 + 16) = result;
-  *(a2 + 20) = v39;
-  *(a2 + 24) = v42;
-  return result;
-}
-
-BOOL physx::Cm::ConeLimitHelperTanLess::getLimit(float32x2_t *a1, float *a2, float *a3, float *a4)
-{
-  v7 = a2[2];
-  v8 = a2[3];
-  v10 = *a2;
-  v9 = a2[1];
-  v67 = atan2f(v9, v8 + 1.0);
-  v11 = __PAIR64__(COERCE_UNSIGNED_INT(atan2f(v7, v8 + 1.0)), LODWORD(v67));
-  v12 = &a1[1];
-  __asm { FMOV            V0.2S, #4.0 }
-
-  v18 = vmul_f32(v11, _D0);
-  v19 = vabs_f32(v18);
-  v20 = vld1_dup_f32(v12);
-  v21 = *a1;
-  v22 = vdiv_f32(vadd_f32(v19, v20), *a1);
-  v23 = vaddv_f32(vmul_f32(v22, v22));
-  if (v23 > 1.0)
-  {
-    v24 = v10 + v10;
-    v25 = ((v8 * (v8 + v8)) + -1.0) + (v10 * (v10 + v10));
-    v26 = ((v10 + v10) * v9) + (v7 * (v8 + v8));
-    v66 = (v24 * v7) - (v9 * (v8 + v8));
-    v68 = v25;
-    if (v21.f32[0] >= v21.f32[1])
-    {
-      if (v19.f32[1] < 0.000001)
-      {
-        if (v18.f32[0] <= 0.0)
-        {
-          v28.f32[0] = -v21.f32[0];
-        }
-
-        else
-        {
-          v28.i32[0] = *a1;
-        }
-
-        v27 = 0.0;
-        goto LABEL_20;
-      }
-    }
-
-    else if (v19.f32[0] < 0.000001)
-    {
-      if (v18.f32[1] <= 0.0)
-      {
-        v27 = -v21.f32[1];
-      }
-
-      else
-      {
-        LODWORD(v27) = HIDWORD(*a1);
-      }
-
-      v28.i32[0] = 0;
-LABEL_20:
-      v42 = v28.f32[0] / vmul_f32(v21, v21).f32[0];
-      v43 = v27 / (v21.f32[1] * v21.f32[1]);
-      v44 = tanf(v28.f32[0] * 0.25);
-      v45 = tanf(v27 * 0.25);
-      v46 = (v44 * v44) + (v45 * v45);
-      v47 = 1.0 - v46;
-      v48 = 1.0 / (v46 + 1.0);
-      v49 = (v47 + v47) * (v48 * v48);
-      v50 = v45 + v45;
-      v51 = (v45 + v45) * v49;
-      v52 = (v44 * -2.0) * v49;
-      v53 = ((1.0 - v46) * v49) + -1.0;
-      v54 = ((v42 * v44) + 0.0) + (v45 * v43);
-      v55 = v48 * (((3.0 - v46) * (v54 * -4.0)) * (v48 * v48));
-      v56 = (v47 * v55) - ((v54 + v54) * v49);
-      v57 = ((v43 + v43) * v49) + (v50 * v55);
-      v58 = ((v44 * -2.0) * v55) - ((v42 + v42) * v49);
-      v59 = (v52 * v56) - (v53 * v58);
-      v60 = (v53 * v57) - (v51 * v56);
-      v61 = 1.0 / sqrtf(((v57 * v57) + (v56 * v56)) + (v58 * v58));
-      v62 = ((v51 * v58) - (v52 * v57)) * v61;
-      v63 = v59 * v61;
-      v64 = v60 * v61;
-      *a3 = v62;
-      a3[1] = v63;
-      a3[2] = v64;
-      *a4 = ((v26 * ((v52 * v62) - (v53 * v64))) + (((v51 * v64) - (v52 * v63)) * v68)) + (((v53 * v63) - (v51 * v62)) * v66);
-      return v23 > 1.0;
-    }
-
-    v29 = vmul_f32(v21, v21);
-    v30 = vmul_f32(v19, v21);
-    v31 = vsub_f32(v30, v29);
-    if (*v31.i32 <= *&v31.i32[1])
-    {
-      v31.i32[0] = v31.i32[1];
-    }
-
-    v32 = 20;
-    __asm { FMOV            V6.2S, #1.0 }
-
-    while (1)
-    {
-      _D18 = vdiv_f32(_D6, vadd_f32(v29, vdup_lane_s32(v31, 0)));
-      v35 = vmul_f32(v30, _D18);
-      v36 = vmul_f32(v35, v35);
-      v37 = vaddv_f32(v36) + -1.0;
-      if (v37 < 0.0001)
-      {
-        break;
-      }
-
-      _S21 = v36.i32[1];
-      __asm { FMLA            S20, S21, V18.S[1] }
-
-      *v31.i32 = *v31.i32 + (v37 / (_S20 + _S20));
-      if (!--v32)
-      {
-        v40 = vmul_f32(vmul_f32(v18, v29), _D18);
-        v28 = vdiv_f32(v40, v21);
-        v41 = 1.0 / sqrtf(vaddv_f32(vmul_f32(v28, v28)));
-        v28.f32[0] = v41 * v40.f32[0];
-        v27 = vmuls_lane_f32(v41, v40, 1);
-        goto LABEL_20;
-      }
-    }
-
-    v28 = vmul_f32(vmul_f32(v18, v29), _D18);
-    v27 = v28.f32[1];
-    goto LABEL_20;
-  }
-
-  return v23 > 1.0;
-}
-
-void physx::Ext::joint::ConstraintHelper::addLimit(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 76);
-  v4 = *(a3 + 8);
-  if (*(a3 + 12) > 0.0 || v4 > 0.0)
-  {
-    v6 = v3 | 0x11;
-    *(a2 + 64) = v4;
-    *(a2 + 68) = *(a3 + 12);
-  }
-
-  else
-  {
-    *(a2 + 78) = 2049;
-    *(a2 + 64) = *a3;
-    *(a2 + 68) = *(a3 + 4);
-    if (*(a2 + 12) <= 0.0)
-    {
-      v5 = 16;
-    }
-
-    else
-    {
-      v5 = 24;
-    }
-
-    v6 = v5 | v3;
-    if (*a3 > 0.0)
-    {
-      v6 |= 4u;
-    }
-  }
-
-  *(a2 + 76) = v6;
-  *(a2 + 44) = 0;
-}
-
-uint64_t visualizeLine(uint64_t a1, float32x2_t *a2, float32x2_t *a3, float *a4, float a5)
-{
-  if (a4[3] <= 0.0 && a4[2] <= 0.0)
-  {
-    v7 = a4[4];
-  }
-
-  else
-  {
-    v7 = 0.0;
-  }
-
-  v21 = v5;
-  v22 = v6;
-  v9 = a4[5];
-  v8 = a4[6];
-  v10 = (v9 - v7) >= a5 && (v7 + v8) <= a5;
-  v11 = a3[1].f32[0];
-  v12 = a2[1].f32[0];
-  v13 = *a3;
-  v14 = *a2;
-  v19 = vadd_f32(vmul_n_f32(*a3, v8), *a2);
-  v20 = (v8 * v11) + v12;
-  v17 = vadd_f32(vmul_n_f32(v13, v9), v14);
-  v18 = (v9 * v11) + v12;
-  if (v10)
-  {
-    v15 = 0xFFFFFFLL;
-  }
-
-  else
-  {
-    v15 = 16711680;
-  }
-
-  return (*(*a1 + 56))(a1, &v19, &v17, v15);
-}
-
-uint64_t visualizeQuad(uint64_t a1, float *a2, float *a3, float *a4, float *a5, float *a6, float a7, float a8)
-{
-  if (a4[3] <= 0.0 && a4[2] <= 0.0)
-  {
-    v9 = a4[4];
-  }
-
-  else
-  {
-    v9 = 0.0;
-  }
-
-  v10 = a4[5];
-  v11 = a4[6];
-  if (a6[3] <= 0.0 && a6[2] <= 0.0)
-  {
-    v12 = a6[4];
-  }
-
-  else
-  {
-    v12 = 0.0;
-  }
-
-  v13 = v9 + v11;
-  v14 = v10 - v9;
-  v15 = a6[5];
-  v16 = a6[6];
-  if ((v15 - v12) >= a8 && v14 >= a7 && (v12 + v16) <= a8 && v13 <= a7)
-  {
-    v20 = 0xFFFFFFLL;
-  }
-
-  else
-  {
-    v20 = 16711680;
-  }
-
-  v21 = a3[1];
-  v22 = v11 * *a3;
-  v23 = v11 * v21;
-  v24 = a3[2];
-  v25 = v11 * v24;
-  v26 = v10 * *a3;
-  v27 = v10 * v21;
-  v28 = v10 * v24;
-  v29 = a5[1];
-  v30 = v16 * *a5;
-  v31 = v16 * v29;
-  v32 = a5[2];
-  v33 = v16 * v32;
-  v34 = v15 * *a5;
-  v35 = v15 * v29;
-  v36 = v15 * v32;
-  v37 = *a2;
-  v38 = a2[1];
-  v39 = v22 + *a2;
-  v40 = v23 + v38;
-  v41 = a2[2];
-  v42 = v25 + v41;
-  v50[0] = v30 + v39;
-  v50[1] = v31 + v40;
-  v50[2] = v33 + v42;
-  v43 = v26 + v37;
-  v44 = v27 + v38;
-  v45 = v28 + v41;
-  v49[0] = v30 + v43;
-  v49[1] = v31 + v44;
-  v49[2] = v33 + v45;
-  v48[0] = v34 + v43;
-  v48[1] = v35 + v44;
-  v48[2] = v36 + v45;
-  v47[0] = v34 + v39;
-  v47[1] = v35 + v40;
-  v47[2] = v36 + v42;
-  (*(*a1 + 56))(a1, v50, v49, v20);
-  (*(*a1 + 56))(a1, v49, v48, v20);
-  (*(*a1 + 56))(a1, v48, v47, v20);
-  return (*(*a1 + 56))(a1, v47, v50, v20);
-}
-
-uint64_t drawPyramid(uint64_t a1, float *a2, float32x2_t *a3, float *a4, int a5, char a6)
-{
-  if (a5)
-  {
-    v11 = atan2f(a4[1], a4[3] + 1.0) * 4.0;
-    if (a2[70] <= 0.0 && a2[69] <= 0.0)
-    {
-      v12 = a2[71];
-    }
-
-    else
-    {
-      v12 = 0.0;
-    }
-
-    v13 = (a2[72] + v12) > v11;
-    if ((a2[73] - v12) < v11)
-    {
-      v13 = 1;
-    }
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  if (a6)
-  {
-    v14 = atan2f(a4[2], a4[3] + 1.0) * 4.0;
-    v15 = a2[74];
-    v16 = a2[75];
-    if (a2[70] <= 0.0 && a2[69] <= 0.0)
-    {
-      v17 = a2[71];
-    }
-
-    else
-    {
-      v17 = 0.0;
-    }
-
-    v18 = (v15 + v17) > v14;
-    if ((v16 - v17) < v14)
-    {
-      v18 = 1;
-    }
-  }
-
-  else
-  {
-    v18 = 0;
-    v15 = a2[74];
-    v16 = a2[75];
-  }
-
-  if (v13 || v18)
-  {
-    v19 = 4294901760;
-  }
-
-  else
-  {
-    v19 = 4286611584;
-  }
-
-  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v19, a2[72], a2[72], v15, v16);
-  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v19, a2[73], a2[73], a2[74], a2[75]);
-  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v19, a2[72], a2[73], a2[74], a2[74]);
-  v20 = a2[72];
-  v21 = a2[73];
-  v22 = a2[75];
-
-  return drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v19, v20, v21, v22, v22);
-}
-
-uint64_t visualizeAngularLimit(uint64_t a1, uint64_t a2, float a3, float a4, float a5, float a6)
-{
-  v9 = fabsf(atan2f(a4, a5 + 1.0) * 4.0) > (a6 - a3);
-  v11 = *(*a1 + 32);
-  v12.n128_f32[0] = a6;
-
-  v10.n128_f32[0] = -a6;
-  return v11(a1, a2, v9, v10, v12);
-}
-
-uint64_t visualizeDoubleCone(uint64_t a1, float *a2, uint64_t a3, float a4, float a5)
-{
-  if (a2[63] <= 0.0 && a2[62] <= 0.0)
-  {
-    v8 = a2[64];
-  }
-
-  else
-  {
-    v8 = 0.0;
-  }
-
-  if (a4 < -1.0)
-  {
-    a4 = -1.0;
-  }
-
-  if (a4 > 1.0)
-  {
-    a4 = 1.0;
-  }
-
-  v9.n128_f32[0] = asinf(a4);
-  v10 = (v8 - a5) > v9.n128_f32[0] || (a5 - v8) < v9.n128_f32[0];
-  v11 = *(*a1 + 48);
-  v9.n128_f32[0] = a5;
-
-  return v11(a1, a3, v10, v9);
-}
-
-uint64_t drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(uint64_t a1, float32x2_t *a2, uint64_t a3, float a4, float a5, float a6, float a7)
-{
-  v14 = 0;
-  v36 = 0;
-  v37 = 0;
-  do
-  {
-    v15 = v14 / 7.0;
-    v16 = ((1.0 - v15) * a4) + (v15 * a5);
-    v17 = __sincosf_stret(((1.0 - v15) * a6) + (v15 * a7));
-    v18 = __sincosf_stret(v16);
-    *v19.i32 = v18.__cosval * 0.0;
-    *v20.i32 = v18.__sinval * -0.0;
-    v21 = (((v18.__cosval * 0.0) + 0.0) - v18.__sinval) + ((v18.__cosval + ((v18.__sinval * 0.0) + 0.0)) * 0.0);
-    v22 = v21 + v21;
-    v23.i32[0] = a2[1].i32[0];
-    v24 = a2[1].f32[1];
-    v25 = (v24 * v24) + -0.5;
-    v26 = vmul_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), COERCE_FLOAT32X2_T(-0.0));
-    v27 = vrev64_s32(v26);
-    v28 = vadd_f32(vdup_lane_s32(v20, 0), vadd_f32(vmul_n_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), v18.__cosval), v27));
-    *v20.i32 = *v26.i32 - v17.__sinval;
-    *&v20.i32[1] = v17.__cosval + (v17.__sinval * 0.0);
-    v29 = vadd_f32(vmul_f32(vadd_f32(vdup_lane_s32(v19, 0), vadd_f32(vmul_n_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), v18.__sinval), v27)), 0), vadd_f32(v28, vmul_f32(vadd_f32(v20, 0), 0)));
-    v30 = vadd_f32(v29, v29);
-    v19.i32[0] = HIDWORD(*a2);
-    v31 = (vmuls_lane_f32(*v19.i32, v30, 1) + (COERCE_FLOAT(*a2) * v30.f32[0])) + (*v23.i32 * v22);
-    v27.i32[0] = vdup_lane_s32(v30, 1).u32[0];
-    v27.f32[1] = v22;
-    v32 = vadd_f32(a2[2], vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(v27, vneg_f32(vzip1_s32(v23, *a2))), vext_s8(v27, v30, 4uLL), *(a2 + 4)), v24), v30, v25), *a2, v31));
-    v30.f32[0] = a2[3].f32[0] + (((v24 * ((-*v19.i32 * v30.f32[0]) + (COERCE_FLOAT(*a2) * v30.f32[1]))) + (v22 * v25)) + (*v23.i32 * v31));
-    v34 = v32;
-    v35 = v30.i32[0];
-    result = (*(*a1 + 56))(a1, a2 + 2, &v34, a3);
-    if (v14)
-    {
-      result = (*(*a1 + 56))(a1, &v36, &v34, a3);
-    }
-
-    v36 = v34;
-    v37 = v35;
-    ++v14;
-  }
-
-  while (v14 != 8);
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(uint64_t a1)
-{
-  *a1 = &unk_1F5D280D0;
-  *(a1 + 24) = &unk_1F5D282E8;
-  if (*(a1 + 10))
-  {
-    if (*(a1 + 104))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    *(a1 + 104) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t physx::shdfnd::ReflectionAllocator<physx::PxShape *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v7 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxShape *>::getName() [T = physx::PxShape *]";
-  }
-
-  else
-  {
-    v8 = "<allocation names disabled>";
-  }
-
-  v9 = *(*(v7 + 24) + 16);
-
-  return v9(v7 + 24, a2, v8, a3, a4);
-}
-
-float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(float *a1, uint64_t a2)
-{
-  if (a2)
-  {
-    if ((*(*a2 + 48))(a2) == 1 || (*(*a2 + 48))(a2) == 2)
-    {
-      v4 = *(*a2 + 224);
-
-      v4(a2);
-    }
-
-    else
-    {
-      (*(*a2 + 152))(&v15, a2);
-      v7 = v16;
-      v6 = v17;
-      v8 = (v6 * v6) + -0.5;
-      v9 = (((v19 * -2.0) * *(&v15 + 1)) + (*&v15 * (v18 * -2.0))) + (v16 * (v20 * -2.0));
-      v10 = -v16;
-      v11 = (((v18 * -2.0) * v8) - (((*(&v15 + 1) * (v20 * -2.0)) - (v16 * (v19 * -2.0))) * v17)) + (*&v15 * v9);
-      v12 = (((v19 * -2.0) * v8) - (((v16 * (v18 * -2.0)) - (*&v15 * (v20 * -2.0))) * v17)) + (*(&v15 + 1) * v9);
-      v13 = -*(&v15 + 1);
-      v14 = ((v20 * -2.0) * v8) - (((*&v15 * (v19 * -2.0)) - (*(&v15 + 1) * (v18 * -2.0))) * v17);
-      *a1 = -*&v15;
-      a1[1] = v13;
-      a1[2] = v10;
-      a1[3] = v6;
-      result = v14 + (v7 * v9);
-      a1[4] = v11;
-      a1[5] = v12;
-      a1[6] = result;
-    }
-  }
-
-  else
-  {
-    result = 0.0;
-    *a1 = xmmword_1E30474D0;
-    *(a1 + 2) = 0;
-    a1[6] = 0.0;
-  }
-
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(_WORD *a1, uint64_t a2, uint64_t a3)
-{
-  if (a1 && a1[4] != 6)
-  {
-    (*(*a1 + 312))(&v7, a1);
-    *a2 = v7;
-    *(a2 + 8) = v8;
-    (*(*a1 + 328))(&v7, a1);
-    *a3 = v7;
-    result = v8;
-    *(a3 + 8) = v8;
-  }
-
-  else
-  {
-    result = 0.0;
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void physx::PxDefaultMemoryOutputStream::~PxDefaultMemoryOutputStream(physx::PxDefaultMemoryOutputStream *this)
-{
-  *this = &unk_1F5D28378;
-  if (*(this + 2))
-  {
-    (*(**(this + 1) + 24))(*(this + 1));
-  }
-}
-
-{
-  *this = &unk_1F5D28378;
-  if (*(this + 2))
-  {
-    (*(**(this + 1) + 24))(*(this + 1));
-  }
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t physx::PxDefaultMemoryOutputStream::write(physx::PxDefaultMemoryOutputStream *this, const void *a2, uint64_t a3)
-{
-  v6 = *(this + 6);
-  if ((v6 + a3) <= *(this + 7))
-  {
-    v11 = *(this + 2);
-  }
-
-  else
-  {
-    v7 = (v6 + a3) | ((v6 + a3) >> 1) | (((v6 + a3) | ((v6 + a3) >> 1)) >> 2);
-    v8 = v7 | (v7 >> 4) | ((v7 | (v7 >> 4)) >> 8);
-    v9 = v8 | HIWORD(v8);
-    if ((v9 + 1) > 0x1000)
-    {
-      v10 = v9 + 1;
-    }
-
-    else
-    {
-      v10 = 4096;
-    }
-
-    *(this + 7) = v10;
-    v11 = (*(**(this + 1) + 16))(*(this + 1));
-    memcpy(v11, *(this + 2), *(this + 6));
-    if (*(this + 2))
-    {
-      (*(**(this + 1) + 24))(*(this + 1));
-    }
-
-    *(this + 2) = v11;
-    v6 = *(this + 6);
-  }
-
-  memcpy(&v11[v6], a2, a3);
-  *(this + 6) += a3;
-  return a3;
-}
-
-size_t physx::PxDefaultMemoryInputData::read(physx::PxDefaultMemoryInputData *this, void *__dst, unsigned int a3)
-{
-  v4 = *(this + 6);
-  v5 = *(this + 2) - v4;
-  if (a3 >= v5)
-  {
-    v6 = v5;
-  }
-
-  else
-  {
-    v6 = a3;
-  }
-
-  memcpy(__dst, (*(this + 2) + v4), v6);
-  *(this + 6) += v6;
-  return v6;
-}
-
-uint64_t physx::PxDefaultMemoryInputData::seek(uint64_t this, unsigned int a2)
-{
-  v2 = *(this + 8);
-  if (v2 >= a2)
-  {
-    v2 = a2;
-  }
-
-  *(this + 24) = v2;
-  return this;
-}
-
-void *physx::PxDistanceJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
-{
-  v10 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::DistanceJoint>::getName() [T = physx::Ext::DistanceJoint]";
-  }
-
-  else
-  {
-    v11 = "<allocation names disabled>";
-  }
-
-  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtDistanceJoint.cpp", 45);
-  v13 = (*(*a1 + 40))(a1);
-  v14 = physx::Ext::DistanceJoint::DistanceJoint(v12, v13, a2, a3, a4, a5);
-  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::DistanceJoint::sShaders, 112, v14);
-  v12[12] = v15;
-  if (!v15)
-  {
-    (*(*v12 + 32))(v12);
-    return 0;
-  }
-
-  return v12;
-}
-
-uint64_t physx::Ext::DistanceJoint::setMinDistance(physx::Ext::DistanceJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 80) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setMaxDistance(physx::Ext::DistanceJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 84) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setTolerance(physx::Ext::DistanceJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 88) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setStiffness(physx::Ext::DistanceJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 92) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setDamping(physx::Ext::DistanceJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 96) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setDistanceJointFlags(uint64_t a1, _WORD *a2)
-{
-  v3 = a1 + 96;
-  v2 = *(a1 + 96);
-  *(*(v3 + 8) + 100) = *a2;
-  return (*(*v2 + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::setDistanceJointFlag(uint64_t a1, __int16 a2, int a3)
-{
-  v3 = *(a1 + 104);
-  if (a3)
-  {
-    v4 = *(v3 + 100) | a2;
-  }
-
-  else
-  {
-    v4 = *(v3 + 100) & ~a2;
-  }
-
-  *(v3 + 100) = v4;
-  return (*(**(a1 + 96) + 72))();
-}
-
-uint64_t physx::Ext::DistanceJoint::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 104))
-  {
-    (*(*a2 + 24))(a2, 16);
-    (*(*a2 + 16))(a2, *(a1 + 104), 112);
-  }
-
-  v4 = *(a1 + 32);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t DistanceJointSolverPrep(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int8x16_t a9, int8x16_t a10, uint64_t a11, __int128 *a12, uint64_t a13, float32x2_t *a14, float32x2_t *a15, uint64_t a16, float *a17, float *a18)
-{
-  physx::Ext::joint::ConstraintHelper::ConstraintHelper(v45, a1, a12, v56, v52, a2, a13, a14, a3, a4, a5, a6, a7, a8, a9, a10, a15);
-  v20 = v53;
-  v21 = v54;
-  *a17 = v53;
-  a17[1] = v21;
-  v22 = v55;
-  a17[2] = v55;
-  v23 = v58;
-  v24 = v57 - v20;
-  *a18 = v20;
-  a18[1] = v21;
-  a18[2] = v22;
-  v25 = v23 - v21;
-  v26 = v59 - v22;
-  v27 = sqrtf(((v25 * v25) + (v24 * v24)) + (v26 * v26));
-  if (v27 > 0.0)
-  {
-    v24 = v24 * (1.0 / v27);
-    v25 = v25 * (1.0 / v27);
-    v26 = v26 * (1.0 / v27);
-  }
-
-  v28 = *(a13 + 100);
-  if (v27 < 0.00000011921)
-  {
-    v24 = 1.0;
-    v25 = 0.0;
-    v26 = 0.0;
-  }
-
-  v29 = v49;
-  v30 = (v47 * v26) - (v48 * v25);
-  v31 = (v48 * v24) - (v46 * v26);
-  v32 = (v46 * v25) - (v47 * v24);
-  v33 = (v50 * v26) - (v51 * v25);
-  v34 = (v51 * v24) - (v49 * v26);
-  v35 = -(v50 * v24);
-  *(a1 + 76) = 16;
-  *a1 = v24;
-  *(a1 + 4) = v25;
-  *(a1 + 8) = v26;
-  v36 = v35 + (v29 * v25);
-  *(a1 + 16) = v30;
-  *(a1 + 20) = v31;
-  *(a1 + 24) = v32;
-  *(a1 + 32) = v24;
-  *(a1 + 36) = v25;
-  *(a1 + 40) = v26;
-  *(a1 + 48) = v33;
-  *(a1 + 52) = v34;
-  *(a1 + 56) = v36;
-  if ((v28 & 8) != 0)
-  {
-    *(a1 + 76) = 17;
-    *(a1 + 64) = *(a13 + 92);
-    *(a1 + 68) = *(a13 + 96);
-    v37 = 25;
-  }
-
-  else
-  {
-    v37 = 24;
-  }
-
-  v39 = *(a13 + 80);
-  v38 = *(a13 + 84);
-  if (v39 == v38 && (v28 & 6) == 6)
-  {
-    v40 = v27 - v38;
-    v41 = *(a13 + 88);
-    if (v40 <= v41)
-    {
-      v42 = 0.0;
-      if (v40 < -v41)
-      {
-        v42 = v40 + v41;
-      }
-    }
-
-    else
-    {
-      v42 = v40 - v41;
-    }
-
-    *(a1 + 12) = v42;
-    return 1;
-  }
-
-  if ((v28 & 2) == 0)
-  {
-    if ((v28 & 4) != 0)
-    {
-      if (v27 >= v39)
-      {
-        result = 0;
-        *(a1 + 12) = v27 - v39;
-        *(a1 + 44) = 0;
-        *(a1 + 60) = 2139095039;
-LABEL_24:
-        *(a1 + 76) = v37;
-        return result;
-      }
-
-LABEL_26:
-      *(a1 + 12) = (v27 - v39) + *(a13 + 88);
-      *(a1 + 44) = 0;
-    }
-
-    return 1;
-  }
-
-  if (v27 > v38)
-  {
-    *(a1 + 12) = (v27 - v38) - *(a13 + 88);
-    *(a1 + 60) = 0;
-    return 1;
-  }
-
-  if ((v28 & 4) == 0)
-  {
-    result = 0;
-    *(a1 + 12) = v27 - v38;
-    *(a1 + 44) = -8388609;
-    *(a1 + 60) = 0;
-    goto LABEL_24;
-  }
-
-  if (v27 < v39)
-  {
-    goto LABEL_26;
-  }
-
-  *(a1 + 12) = v27 - v39;
-  *(a1 + 44) = 0;
-  *(a1 + 60) = 2139095039;
-  *(a1 + 76) = v37;
-  *(a1 + 80) = v24;
-  *(a1 + 84) = v25;
-  *(a1 + 88) = v26;
-  *(a1 + 96) = v30;
-  *(a1 + 100) = v31;
-  *(a1 + 104) = v32;
-  *(a1 + 112) = v24;
-  *(a1 + 116) = v25;
-  *(a1 + 120) = v26;
-  *(a1 + 128) = v33;
-  *(a1 + 132) = v34;
-  *(a1 + 136) = v36;
-  if ((*(a13 + 100) & 8) != 0)
-  {
-    *(a1 + 144) = *(a13 + 92);
-    *(a1 + 148) = *(a13 + 96);
-    v38 = *(a13 + 84);
-    v44 = 25;
-  }
-
-  else
-  {
-    v44 = 24;
-  }
-
-  *(a1 + 92) = v27 - v38;
-  *(a1 + 124) = -8388609;
-  *(a1 + 140) = 0;
-  *(a1 + 156) = v44;
-  return 2;
-}
-
-void DistanceJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
-{
-  v16 = physx::Ext::joint::computeJointFrames(v24, v20, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
-  if (a5)
-  {
-    (*(*a1 + 16))(a1, v24, v20, v16);
-  }
-
-  if ((a5 & 2) != 0)
-  {
-    v17 = *(a2 + 100);
-    if ((v17 & 6) != 0)
-    {
-      v18 = sqrtf((((v22 - v26) * (v22 - v26)) + ((v21 - v25) * (v21 - v25))) + ((v23 - v27) * (v23 - v27)));
-      if ((v17 & 2) != 0 && v18 > *(a2 + 84))
-      {
-        v19 = 16711680;
-      }
-
-      else
-      {
-        v19 = 65280;
-      }
-
-      if ((v17 & 4) != 0 && v18 < *(a2 + 80))
-      {
-        v19 = 255;
-      }
-
-      (*(*a1 + 56))(a1, &v25, &v21, v19);
-    }
-  }
-}
-
-void *physx::PxFixedJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
-{
-  v10 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::FixedJoint>::getName() [T = physx::Ext::FixedJoint]";
-  }
-
-  else
-  {
-    v11 = "<allocation names disabled>";
-  }
-
-  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtFixedJoint.cpp", 45);
-  (*(*a1 + 40))(a1);
-  v15 = 3;
-  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::Joint(v12, 259, &v15, a2, a3, a4, a5, 0x60u);
-  *v12 = &unk_1F5D286F8;
-  v12[3] = &unk_1F5D28878;
-  *(v12[13] + 80) = 0x40490FDB501502F9;
-  v13 = (*(*a1 + 216))(a1, a2, a4);
-  v12[12] = v13;
-  if (!v13)
-  {
-    (*(*v12 + 32))(v12);
-    return 0;
-  }
-
-  return v12;
-}
-
-uint64_t physx::Ext::FixedJoint::setProjectionLinearTolerance(physx::Ext::FixedJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 80) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::FixedJoint::setProjectionAngularTolerance(physx::Ext::FixedJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 84) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::FixedJoint::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 104))
-  {
-    (*(*a2 + 24))(a2, 16);
-    (*(*a2 + 16))(a2, *(a1 + 104), 96);
-  }
-
-  v4 = *(a1 + 32);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t FixedJointSolverPrep(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int8x16_t a9, int8x16_t a10, uint64_t a11, __int128 *a12, __int128 *a13, float32x2_t *a14, float32x2_t *a15, uint64_t a16, float32x2_t *a17, float32x2_t *a18)
-{
-  physx::Ext::joint::ConstraintHelper::ConstraintHelper(v47, a1, a12, &v51, &v48, a2, a13, a14, a3, a4, a5, a6, a7, a8, a9, a10, a15);
-  _S0 = v51.i32[0];
-  *_D1.i32 = v52;
-  _S2 = v53;
-  _V4.D[1] = v48.i64[1];
-  __asm
-  {
-    FMLA            S5, S1, V4.S[2]
-    FMLA            S5, S2, V4.S[3]
-  }
-
-  if (_S5 < 0.0)
-  {
-    v48 = vnegq_f32(v48);
-  }
-
-  v30 = (v50 - v55) + (v50 - v55);
-  v31 = (v53 * v53) + -0.5;
-  v32 = vsub_f32(v49, v54);
-  _D16 = vadd_f32(v32, v32);
-  v34 = (vmuls_lane_f32(*&v51.i32[1], _D16, 1) + (*v51.i32 * _D16.f32[0])) + (v52 * v30);
-  v35.i32[0] = vdup_lane_s32(_D16, 1).u32[0];
-  v35.f32[1] = v30;
-  v36 = vdup_lane_s32(_D1, 0);
-  v36.i32[0] = v51.i32[1];
-  __asm { FMLA            S7, S0, V16.S[1] }
-
-  v41 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v35, vneg_f32(vzip1_s32(_D1, v51))), vext_s8(v35, _D16, 4uLL), v36)), v53), _D16, v31), v51, v34);
-  v42 = ((v30 * v31) - (_S7 * v53)) + (v52 * v34);
-  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(v47, &v51, v48.f32, &v41, 7, 7, &v45, &v43);
-  v38 = v46 + a14[3].f32[0];
-  *a17 = vadd_f32(v45, a14[2]);
-  a17[1].f32[0] = v38;
-  v39 = v44 + a15[3].f32[0];
-  *a18 = vadd_f32(v43, a15[2]);
-  a18[1].f32[0] = v39;
-  return -858993459 * ((v47[1] - v47[0]) >> 4);
-}
-
-void FixedJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
-{
-  physx::Ext::joint::computeDerived(a1, a2, a3, &v132, &v125, &v119, 1, a5, a6, a7, a8, a9, a10, a11, a12);
-  v16 = a1[20];
-  v18 = v122;
-  v17 = v123;
-  v19 = v124;
-  v20 = ((v17 * v17) + (v18 * v18)) + (v19 * v19);
-  v21 = v16 * v16;
-  if (v20 > (v16 * v16))
-  {
-    v22 = 1.0 / sqrtf(v20);
-    v18 = v16 * (v122 * v22);
-    v17 = v16 * (v123 * v22);
-    v19 = v16 * (v124 * v22);
-  }
-
-  v24 = __sincosf_stret(a1[21] * 0.5);
-  if (v24.__sinval > 0.9999)
-  {
-    v25 = v119;
-    _D2 = v120;
-    v23.f32[0] = v121;
-    goto LABEL_9;
-  }
-
-  v23.f32[0] = v121;
-  _D2 = v120;
-  _D5 = vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v23, 0)), 0), vneg_f32(v120), v120);
-  v25 = v119;
-  v28 = -v119;
-  if (v121 >= 0.0)
-  {
-    v28 = v119;
-  }
-
-  _S16 = _D5.i32[1];
-  __asm { FMLA            S7, S16, V5.S[1] }
-
-  if (_S7 <= (v24.__sinval * v24.__sinval))
-  {
-LABEL_9:
-    if (v20 <= v21)
-    {
-      return;
-    }
-
-    goto LABEL_10;
-  }
-
-  v35 = 1.0 / sqrtf(_S7);
-  v25 = (v24.__sinval * v28) * v35;
-  _D2 = vmul_n_f32(vmul_n_f32(_D5, v24.__sinval), v35);
-  v23.i32[0] = LODWORD(v24.__cosval);
-LABEL_10:
-  if (a4)
-  {
-    v36 = a1[15] * -2.0;
-    v37 = a1[16] * -2.0;
-    v38 = a1[17] * -2.0;
-    _S5 = a1[13];
-    v39 = a1[14];
-    v41 = (v39 * v39) + -0.5;
-    _S7 = a1[11];
-    _S6 = a1[12];
-    v44 = ((v37 * _S6) + (_S7 * v36)) + (_S5 * v38);
-    v45 = ((v36 * v41) - (((_S6 * v38) - (_S5 * v37)) * v39)) + (_S7 * v44);
-    v46 = ((v37 * v41) - (((_S5 * v36) - (_S7 * v38)) * v39)) + (_S6 * v44);
-    v47 = ((v38 * v41) - (((_S7 * v37) - (_S6 * v36)) * v39)) + (_S5 * v44);
-    _S17 = v45 + v45;
-    v49 = v46 + v46;
-    _S16 = v47 + v47;
-    v51 = (v23.f32[0] * v23.f32[0]) + -0.5;
-    __asm { FMLA            S20, S16, V2.S[1] }
-
-    v53 = ((v23.f32[0] * ((_D2.f32[0] * _S16) - (_D2.f32[1] * (v46 + v46)))) + ((v45 + v45) * v51)) + (v25 * _S20);
-    __asm
-    {
-      FMLA            S22, S17, V2.S[1]
-      FMLA            S16, S20, V2.S[1]
-    }
-
-    v56 = v18 + v53;
-    v57 = v17 + (((v23.f32[0] * _S22) + (v49 * v51)) + (_D2.f32[0] * _S20));
-    v58 = v19 + _S16;
-    __asm
-    {
-      FMLA            S16, S6, V2.S[1]
-      FMLS            S20, S7, V2.S[1]
-    }
-
-    v61 = _S20 + (_S5 * v25);
-    v62 = ((vmuls_lane_f32(v39, _D2, 1) - (v23.f32[0] * _S5)) - (v25 * _S6)) + (_S7 * _D2.f32[0]);
-    __asm { FMLA            S3, S5, V2.S[1] }
-
-    v64 = v57 + v57;
-    v65 = v58 + v58;
-    v66 = (v135 * v135) + -0.5;
-    v67 = ((v133 * (v57 + v57)) + (v132 * (v56 + v56))) + (v134 * (v58 + v58));
-    v68 = ((v135 * ((v133 * (v58 + v58)) - (v134 * v64))) + ((v56 + v56) * v66)) + (v132 * v67);
-    v69 = ((v135 * ((v134 * (v56 + v56)) - (v132 * v65))) + (v64 * v66)) + (v133 * v67);
-    v70 = ((v135 * ((v132 * v64) - (v133 * (v56 + v56)))) + (v65 * v66)) + (v134 * v67);
-    v71 = v136 + v68;
-    v72 = v137 + v69;
-    v73 = v138 + v70;
-    v74 = (((_S3 * v132) + (v135 * _S16)) + (v133 * v62)) - (v61 * v134);
-    v75 = (((_S3 * v133) + (v135 * v61)) + (v134 * _S16)) - (v62 * v132);
-    v76 = (((_S3 * v134) + (v135 * v62)) + (v132 * v61)) - (_S16 * v133);
-    v77 = (((v135 * _S3) - (v132 * _S16)) - (v133 * v61)) - (v134 * v62);
-    *a3 = v74;
-    a3[1] = v75;
-    a3[2] = v76;
-    a3[3] = v77;
-    a3[4] = v71;
-    a3[5] = v72;
-    a3[6] = v73;
-    v78 = sqrtf((((v75 * v75) + (v74 * v74)) + (v76 * v76)) + (v77 * v77));
-    if (v78 != 0.0)
-    {
-      *a3 = v74 / v78;
-      a3[1] = v75 / v78;
-      a3[2] = v76 / v78;
-      a3[3] = v77 / v78;
-    }
-  }
-
-  else
-  {
-    v79 = a1[8] * -2.0;
-    v80 = a1[9] * -2.0;
-    v81 = a1[10] * -2.0;
-    _S5 = a1[6];
-    v82 = a1[7];
-    v84 = (v82 * v82) + -0.5;
-    _S7 = a1[4];
-    _S6 = a1[5];
-    v87 = ((v80 * _S6) + (_S7 * v79)) + (_S5 * v81);
-    v88 = ((v79 * v84) - (((_S6 * v81) - (_S5 * v80)) * v82)) + (_S7 * v87);
-    v89 = ((v80 * v84) - (((_S5 * v79) - (_S7 * v81)) * v82)) + (_S6 * v87);
-    v90 = ((v81 * v84) - (((_S7 * v80) - (_S6 * v79)) * v82)) + (_S5 * v87);
-    _S18 = (v88 - v18) + (v88 - v18);
-    v92 = (v89 - v17) + (v89 - v17);
-    _S16 = (v90 - v19) + (v90 - v19);
-    v94 = (v23.f32[0] * v23.f32[0]) + -0.5;
-    __asm { FMLS            S21, S16, V2.S[1] }
-
-    v96 = ((v23.f32[0] * (vmuls_lane_f32(v92, _D2, 1) - (_S16 * _D2.f32[0]))) + (_S18 * v94)) - (v25 * _S21);
-    __asm { FMLS            S23, S18, V2.S[1] }
-
-    v98 = ((v23.f32[0] * _S23) + (v92 * v94)) - (_S21 * _D2.f32[0]);
-    __asm
-    {
-      FMLS            S18, S21, V2.S[1]
-      FMLS            S16, S6, V2.S[1]
-      FMLA            S19, S7, V2.S[1]
-    }
-
-    v102 = _S19 - (_S5 * v25);
-    v103 = ((-(_D2.f32[1] * v82) - (v23.f32[0] * _S5)) + (v25 * _S6)) - (_S7 * _D2.f32[0]);
-    __asm { FMLS            S3, S5, V2.S[1] }
-
-    v105 = v96 + v96;
-    v106 = (v128 * v128) + -0.5;
-    v107 = ((v126 * (v98 + v98)) + (v125 * (v96 + v96))) + (v127 * (_S18 + _S18));
-    v108 = ((v128 * ((v126 * (_S18 + _S18)) - (v127 * (v98 + v98)))) + ((v96 + v96) * v106)) + (v125 * v107);
-    v109 = ((v128 * ((v127 * (v96 + v96)) - (v125 * (_S18 + _S18)))) + ((v98 + v98) * v106)) + (v126 * v107);
-    v110 = ((v128 * ((v125 * (v98 + v98)) - (v126 * v105))) + ((_S18 + _S18) * v106)) + (v127 * v107);
-    v111 = v129 + v108;
-    v112 = v130 + v109;
-    v113 = v131 + v110;
-    v114 = (((_S3 * v125) + (v128 * _S16)) + (v126 * v103)) - (v102 * v127);
-    v115 = (((_S3 * v126) + (v128 * v102)) + (v127 * _S16)) - (v103 * v125);
-    v116 = (((_S3 * v127) + (v128 * v103)) + (v125 * v102)) - (_S16 * v126);
-    v117 = (((v128 * _S3) - (v125 * _S16)) - (v126 * v102)) - (v127 * v103);
-    *a2 = v114;
-    a2[1] = v115;
-    a2[2] = v116;
-    a2[3] = v117;
-    a2[4] = v111;
-    a2[5] = v112;
-    a2[6] = v113;
-    v118 = sqrtf((((v115 * v115) + (v114 * v114)) + (v116 * v116)) + (v117 * v117));
-    if (v118 != 0.0)
-    {
-      *a2 = v114 / v118;
-      a2[1] = v115 / v118;
-      a2[2] = v116 / v118;
-      a2[3] = v117 / v118;
-    }
-  }
-}
-
-uint64_t FixedJointVisualize(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
-{
-  if (a5)
-  {
-    v13 = result;
-    v14 = physx::Ext::joint::computeJointFrames(v16, v15, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
-    return (*(*v13 + 16))(v13, v16, v15, v14);
-  }
-
-  return result;
-}
-
-void physx::Ext::DistanceJoint::~DistanceJoint(physx::Ext::DistanceJoint *this)
-{
-  if (physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this))
-  {
-    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v1();
-  }
-}
-
-BOOL physx::PxDistanceJoint::isKindOf(physx::PxDistanceJoint *this, const char *a2)
-{
-  if (!strcmp("PxDistanceJoint", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxJoint::isKindOf(this, a2);
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(**(a1 + 96) + 64))(*(a1 + 96));
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
-  v6 = v43;
-  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
-  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
-  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
-  v10 = (v44 * v44) + -0.5;
-  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
-  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
-  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
-  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
-  v16 = *(a1 + 48);
-  v15 = *(a1 + 52);
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 44);
-  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
-  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
-  v21 = v13 - (v42 * v11);
-  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
-  v23 = *(a1 + 104);
-  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
-  v23[5] = v19;
-  v23[6] = v20;
-  v23[7] = v22;
-  v23[8] = v12;
-  v23[9] = v21;
-  v23[10] = v14 - (v6 * v11);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
-  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
-  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
-  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
-  v27 = (v44 * v44) + -0.5;
-  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
-  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
-  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
-  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
-  v33 = *(a1 + 76);
-  v32 = *(a1 + 80);
-  v34 = *(a1 + 68);
-  v35 = *(a1 + 72);
-  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
-  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
-  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
-  v39 = *(a1 + 104);
-  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
-  v39[12] = v36;
-  v39[13] = v37;
-  v39[14] = v38;
-  v39[15] = v29;
-  v39[16] = v30;
-  v39[17] = v31;
-  return (*(**(a1 + 96) + 72))(*(a1 + 96));
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 56))();
-  }
-
-  *a2 = 0;
-  *a3 = 0;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
-{
-  v40[1] = *MEMORY[0x1E69E9840];
-  v5 = a3[1];
-  v6 = a3[2];
-  v7 = a3[3];
-  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
-  v9 = *a3 / v8;
-  v10 = v5 / v8;
-  v11 = v6 / v8;
-  v12 = v7 / v8;
-  v13 = a3[4];
-  v14 = a3[5];
-  v15 = a3[6];
-  v16 = 28 * a2;
-  v17 = (a1 + v16);
-  v17[10] = v9;
-  v17[11] = v5 / v8;
-  v17[12] = v6 / v8;
-  v17[13] = v7 / v8;
-  v17[14] = v13;
-  v17[15] = v14;
-  v17[16] = v15;
-  v39 = 0;
-  v40[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
-  v18 = (v13 - v36) + (v13 - v36);
-  v19 = (v14 - v37) + (v14 - v37);
-  v20 = (v15 - v38) + (v15 - v38);
-  v21 = (v35 * v35) + -0.5;
-  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
-  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
-  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
-  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
-  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
-  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
-  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
-  v29 = *(a1 + 96);
-  v30 = (*(a1 + 104) + v16);
-  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
-  v30[5] = v26;
-  v30[6] = v27;
-  v30[7] = v28;
-  v30[8] = v23;
-  v30[9] = v24;
-  v30[10] = v25;
-  return (*(*v29 + 72))(v29);
-}
-
-float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = a1 + 28 * a2;
-  *a3 = *(v3 + 40);
-  *(a3 + 16) = *(v3 + 56);
-  result = *(v3 + 64);
-  *(a3 + 24) = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v72 = 0;
-  v73 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
-  v4 = 1.0;
-  v5 = 0.0;
-  v6 = 0.0;
-  v7 = 0.0;
-  v8 = 0.0;
-  v9 = 0.0;
-  v10 = 0.0;
-  v11 = 0.0;
-  v12 = 1.0;
-  if (v73)
-  {
-    (*(*v73 + 152))(&v66);
-    v5 = 0.0;
-    v4 = 1.0;
-    v10 = *(&v66 + 1);
-    v11 = *&v66;
-    v9 = v67;
-    v12 = v68;
-    v8 = v69;
-    v7 = v70;
-    v6 = v71;
-  }
-
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 60);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 52);
-  v18 = 0.0;
-  v19 = 0.0;
-  v20 = 0.0;
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 44);
-  v23 = 0.0;
-  v24 = 0.0;
-  if (v72)
-  {
-    v64 = v7;
-    v65 = v8;
-    v62 = *(a1 + 56);
-    v63 = v6;
-    v60 = *(a1 + 64);
-    v61 = *(a1 + 60);
-    (*(*v72 + 152))(&v66);
-    v15 = v60;
-    v14 = v61;
-    v13 = v62;
-    v6 = v63;
-    v7 = v64;
-    v8 = v65;
-    v23 = *(&v66 + 1);
-    v24 = *&v66;
-    v20 = v67;
-    v4 = v68;
-    v19 = v69;
-    v18 = v70;
-    v5 = v71;
-  }
-
-  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
-  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
-  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
-  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
-  v29 = v15 + v15;
-  v30 = v14 + v14;
-  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
-  v32 = (v12 * v12) + -0.5;
-  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
-  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
-  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
-  v36 = *(a1 + 84) + *(a1 + 84);
-  v37 = *(a1 + 88) + *(a1 + 88);
-  v38 = *(a1 + 92) + *(a1 + 92);
-  v39 = (v4 * v4) + -0.5;
-  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
-  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
-  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
-  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
-  v45 = *(a1 + 76);
-  v44 = *(a1 + 80);
-  v46 = *(a1 + 68);
-  v47 = *(a1 + 72);
-  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
-  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
-  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
-  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
-  v52 = (v41 - v35) + (v41 - v35);
-  v53 = (v42 - v34) + (v42 - v34);
-  v54 = (v43 - v33) + (v43 - v33);
-  v55 = (v25 * v25) + -0.5;
-  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
-  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
-  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
-  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
-  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
-  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
-  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
-  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
-  a2[4] = v57;
-  a2[5] = v58;
-  a2[6] = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v51 = 0;
-  v52 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
-  v4 = *(a1 + 56) + *(a1 + 56);
-  v5 = *(a1 + 60) + *(a1 + 60);
-  v6 = *(a1 + 64) + *(a1 + 64);
-  v7 = (v39 * v39) + -0.5;
-  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
-  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
-  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
-  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
-  v12 = *(a1 + 84) + *(a1 + 84);
-  v13 = *(a1 + 88) + *(a1 + 88);
-  v14 = *(a1 + 92) + *(a1 + 92);
-  v15 = (v35 * v35) + -0.5;
-  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
-  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
-  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
-  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
-  v20 = (v48 * v11) - (v49 * v10);
-  v21 = (v49 * v9) - (v47 * v11);
-  v22 = (v47 * v10) - (v48 * v9);
-  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
-  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
-  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
-  v26 = v23 + v23;
-  v27 = v24 + v24;
-  v28 = v25 + v25;
-  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
-  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
-  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
-  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
-  a2[1] = v30;
-  a2[2] = result;
-  return result;
-}
-
-float32_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
-{
-  v21 = 0;
-  v22 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
-  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
-  v4.i32[0] = *&v11[8];
-  v5 = (v12 * v12) + -0.5;
-  v6 = vsub_f32(vsub_f32(v15, v18), v13);
-  v7 = vadd_f32(v6, v6);
-  v8 = (vmuls_lane_f32(v7.f32[1], *v11, 1) + (*v11 * v7.f32[0])) + (*&v11[8] * v3);
-  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
-  v9.f32[1] = v3;
-  result = ((v3 * v5) - (((-*&v11[4] * v7.f32[0]) + (*v11 * v7.f32[1])) * v12)) + (*&v11[8] * v8);
-  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
-  a2[1].f32[0] = result;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
-{
-  v2 = *(a1 + 96);
-  v4 = *a2;
-  return (*(*v2 + 80))(v2, &v4);
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  **(v2 + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 4) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 12) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getScene(uint64_t a1)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 48))();
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
-{
-  (*(*a2 + 16))(a2, *(a1 + 96));
-  v5 = 0;
-  v6 = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
-  if (v6)
-  {
-    result = (*(*a2 + 16))(a2);
-  }
-
-  if (v5)
-  {
-    return (*(*a2 + 16))(a2);
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
-{
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
-  v4 = 28 * a2;
-  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
-  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
-  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
-  v8 = (v26 * v26) + -0.5;
-  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
-  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
-  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
-  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
-  v14 = *(a1 + v4 + 48);
-  v13 = *(a1 + v4 + 52);
-  v15 = *(a1 + v4 + 40);
-  v16 = *(a1 + v4 + 44);
-  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
-  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
-  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
-  v20 = *(a1 + 96);
-  v21 = (*(a1 + 104) + v4);
-  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
-  v21[5] = v17;
-  v21[6] = v18;
-  v21[7] = v19;
-  v21[8] = v10;
-  v21[9] = v11;
-  v21[10] = v12;
-  return (*(*v20 + 72))(v20);
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16[0] = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
-  if (v15)
-  {
-    if (v16[0])
-    {
-      return result;
-    }
-
-    v5 = 68;
-    v6 = 64;
-    v7 = 60;
-    v8 = 92;
-    v9 = 88;
-    v10 = 84;
-  }
-
-  else
-  {
-    v5 = 40;
-    v6 = 36;
-    v7 = 32;
-    v8 = 64;
-    v9 = 60;
-    v10 = 56;
-  }
-
-  v11 = a2[1];
-  *(a1 + v10) = *(a1 + v10) - *a2;
-  *(a1 + v9) = *(a1 + v9) - v11;
-  *(a1 + v8) = *(a1 + v8) - a2[2];
-  v12 = *(a1 + 96);
-  v13 = *(a1 + 104);
-  v14 = a2[1];
-  *(v13 + v7) = *(v13 + v7) - *a2;
-  *(v13 + v6) = *(v13 + v6) - v14;
-  *(v13 + v5) = *(v13 + v5) - a2[2];
-  return (*(*v12 + 72))(v12);
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onConstraintRelease(void *a1)
-{
-  if (a1[13])
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  a1[13] = 0;
-  v2 = *(*a1 + 32);
-
-  return v2(a1);
-}
-
-uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
-{
-  result = a1 - 24;
-  *a2 = 0;
-  return result;
-}
-
-void non-virtual thunk tophysx::Ext::DistanceJoint::~DistanceJoint(physx::Ext::DistanceJoint *this)
-{
-  physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this - 24);
-}
-
-{
-  physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this - 24);
-  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-  v1();
-}
-
-void physx::Ext::FixedJoint::~FixedJoint(physx::Ext::FixedJoint *this)
-{
-  if (physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this))
-  {
-    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-    v1();
-  }
-}
-
-BOOL physx::PxFixedJoint::isKindOf(physx::PxFixedJoint *this, const char *a2)
-{
-  if (!strcmp("PxFixedJoint", a2))
-  {
-    return 1;
-  }
-
-  return physx::PxJoint::isKindOf(this, a2);
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(**(a1 + 96) + 64))(*(a1 + 96));
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
-  v6 = v43;
-  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
-  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
-  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
-  v10 = (v44 * v44) + -0.5;
-  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
-  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
-  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
-  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
-  v16 = *(a1 + 48);
-  v15 = *(a1 + 52);
-  v17 = *(a1 + 40);
-  v18 = *(a1 + 44);
-  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
-  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
-  v21 = v13 - (v42 * v11);
-  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
-  v23 = *(a1 + 104);
-  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
-  v23[5] = v19;
-  v23[6] = v20;
-  v23[7] = v22;
-  v23[8] = v12;
-  v23[9] = v21;
-  v23[10] = v14 - (v6 * v11);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
-  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
-  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
-  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
-  v27 = (v44 * v44) + -0.5;
-  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
-  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
-  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
-  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
-  v33 = *(a1 + 76);
-  v32 = *(a1 + 80);
-  v34 = *(a1 + 68);
-  v35 = *(a1 + 72);
-  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
-  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
-  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
-  v39 = *(a1 + 104);
-  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
-  v39[12] = v36;
-  v39[13] = v37;
-  v39[14] = v38;
-  v39[15] = v29;
-  v39[16] = v30;
-  v39[17] = v31;
-  return (*(**(a1 + 96) + 72))(*(a1 + 96));
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 56))();
-  }
-
-  *a2 = 0;
-  *a3 = 0;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
-{
-  v40[1] = *MEMORY[0x1E69E9840];
-  v5 = a3[1];
-  v6 = a3[2];
-  v7 = a3[3];
-  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
-  v9 = *a3 / v8;
-  v10 = v5 / v8;
-  v11 = v6 / v8;
-  v12 = v7 / v8;
-  v13 = a3[4];
-  v14 = a3[5];
-  v15 = a3[6];
-  v16 = 28 * a2;
-  v17 = (a1 + v16);
-  v17[10] = v9;
-  v17[11] = v5 / v8;
-  v17[12] = v6 / v8;
-  v17[13] = v7 / v8;
-  v17[14] = v13;
-  v17[15] = v14;
-  v17[16] = v15;
-  v39 = 0;
-  v40[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
-  v18 = (v13 - v36) + (v13 - v36);
-  v19 = (v14 - v37) + (v14 - v37);
-  v20 = (v15 - v38) + (v15 - v38);
-  v21 = (v35 * v35) + -0.5;
-  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
-  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
-  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
-  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
-  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
-  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
-  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
-  v29 = *(a1 + 96);
-  v30 = (*(a1 + 104) + v16);
-  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
-  v30[5] = v26;
-  v30[6] = v27;
-  v30[7] = v28;
-  v30[8] = v23;
-  v30[9] = v24;
-  v30[10] = v25;
-  return (*(*v29 + 72))(v29);
-}
-
-float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = a1 + 28 * a2;
-  *a3 = *(v3 + 40);
-  *(a3 + 16) = *(v3 + 56);
-  result = *(v3 + 64);
-  *(a3 + 24) = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v72 = 0;
-  v73 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
-  v4 = 1.0;
-  v5 = 0.0;
-  v6 = 0.0;
-  v7 = 0.0;
-  v8 = 0.0;
-  v9 = 0.0;
-  v10 = 0.0;
-  v11 = 0.0;
-  v12 = 1.0;
-  if (v73)
-  {
-    (*(*v73 + 152))(&v66);
-    v5 = 0.0;
-    v4 = 1.0;
-    v10 = *(&v66 + 1);
-    v11 = *&v66;
-    v9 = v67;
-    v12 = v68;
-    v8 = v69;
-    v7 = v70;
-    v6 = v71;
-  }
-
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 60);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 52);
-  v18 = 0.0;
-  v19 = 0.0;
-  v20 = 0.0;
-  v21 = *(a1 + 40);
-  v22 = *(a1 + 44);
-  v23 = 0.0;
-  v24 = 0.0;
-  if (v72)
-  {
-    v64 = v7;
-    v65 = v8;
-    v62 = *(a1 + 56);
-    v63 = v6;
-    v60 = *(a1 + 64);
-    v61 = *(a1 + 60);
-    (*(*v72 + 152))(&v66);
-    v15 = v60;
-    v14 = v61;
-    v13 = v62;
-    v6 = v63;
-    v7 = v64;
-    v8 = v65;
-    v23 = *(&v66 + 1);
-    v24 = *&v66;
-    v20 = v67;
-    v4 = v68;
-    v19 = v69;
-    v18 = v70;
-    v5 = v71;
-  }
-
-  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
-  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
-  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
-  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
-  v29 = v15 + v15;
-  v30 = v14 + v14;
-  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
-  v32 = (v12 * v12) + -0.5;
-  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
-  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
-  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
-  v36 = *(a1 + 84) + *(a1 + 84);
-  v37 = *(a1 + 88) + *(a1 + 88);
-  v38 = *(a1 + 92) + *(a1 + 92);
-  v39 = (v4 * v4) + -0.5;
-  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
-  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
-  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
-  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
-  v45 = *(a1 + 76);
-  v44 = *(a1 + 80);
-  v46 = *(a1 + 68);
-  v47 = *(a1 + 72);
-  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
-  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
-  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
-  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
-  v52 = (v41 - v35) + (v41 - v35);
-  v53 = (v42 - v34) + (v42 - v34);
-  v54 = (v43 - v33) + (v43 - v33);
-  v55 = (v25 * v25) + -0.5;
-  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
-  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
-  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
-  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
-  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
-  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
-  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
-  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
-  a2[4] = v57;
-  a2[5] = v58;
-  a2[6] = result;
-  return result;
-}
-
-float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
-{
-  v51 = 0;
-  v52 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
-  v4 = *(a1 + 56) + *(a1 + 56);
-  v5 = *(a1 + 60) + *(a1 + 60);
-  v6 = *(a1 + 64) + *(a1 + 64);
-  v7 = (v39 * v39) + -0.5;
-  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
-  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
-  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
-  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
-  v12 = *(a1 + 84) + *(a1 + 84);
-  v13 = *(a1 + 88) + *(a1 + 88);
-  v14 = *(a1 + 92) + *(a1 + 92);
-  v15 = (v35 * v35) + -0.5;
-  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
-  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
-  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
-  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
-  v20 = (v48 * v11) - (v49 * v10);
-  v21 = (v49 * v9) - (v47 * v11);
-  v22 = (v47 * v10) - (v48 * v9);
-  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
-  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
-  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
-  v26 = v23 + v23;
-  v27 = v24 + v24;
-  v28 = v25 + v25;
-  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
-  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
-  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
-  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
-  a2[1] = v30;
-  a2[2] = result;
-  return result;
-}
-
-float32_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
-{
-  v21 = 0;
-  v22 = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
-  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
-  v4.i32[0] = *&v11[8];
-  v5 = (v12 * v12) + -0.5;
-  v6 = vsub_f32(vsub_f32(v15, v18), v13);
-  v7 = vadd_f32(v6, v6);
-  v8 = (vmuls_lane_f32(v7.f32[1], *v11, 1) + (*v11 * v7.f32[0])) + (*&v11[8] * v3);
-  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
-  v9.f32[1] = v3;
-  result = ((v3 * v5) - (((-*&v11[4] * v7.f32[0]) + (*v11 * v7.f32[1])) * v12)) + (*&v11[8] * v8);
-  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
-  a2[1].f32[0] = result;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
-{
-  v2 = *(a1 + 96);
-  v4 = *a2;
-  return (*(*v2 + 80))(v2, &v4);
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  **(v2 + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 4) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 8) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
-{
-  v2 = a1 + 96;
-  v3 = *(a1 + 96);
-  *(*(v2 + 8) + 12) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getScene(uint64_t a1)
-{
-  result = *(a1 + 96);
-  if (result)
-  {
-    return (*(*result + 48))();
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
-{
-  (*(*a2 + 16))(a2, *(a1 + 96));
-  v5 = 0;
-  v6 = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
-  if (v6)
-  {
-    result = (*(*a2 + 16))(a2);
-  }
-
-  if (v5)
-  {
-    return (*(*a2 + 16))(a2);
-  }
-
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
-{
-  v31[1] = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31[0] = 0;
-  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
-  v4 = 28 * a2;
-  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
-  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
-  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
-  v8 = (v26 * v26) + -0.5;
-  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
-  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
-  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
-  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
-  v14 = *(a1 + v4 + 48);
-  v13 = *(a1 + v4 + 52);
-  v15 = *(a1 + v4 + 40);
-  v16 = *(a1 + v4 + 44);
-  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
-  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
-  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
-  v20 = *(a1 + 96);
-  v21 = (*(a1 + 104) + v4);
-  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
-  v21[5] = v17;
-  v21[6] = v18;
-  v21[7] = v19;
-  v21[8] = v10;
-  v21[9] = v11;
-  v21[10] = v12;
-  return (*(*v20 + 72))(v20);
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
-{
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v16[0] = 0;
-  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
-  if (v15)
-  {
-    if (v16[0])
-    {
-      return result;
-    }
-
-    v5 = 68;
-    v6 = 64;
-    v7 = 60;
-    v8 = 92;
-    v9 = 88;
-    v10 = 84;
-  }
-
-  else
-  {
-    v5 = 40;
-    v6 = 36;
-    v7 = 32;
-    v8 = 64;
-    v9 = 60;
-    v10 = 56;
-  }
-
-  v11 = a2[1];
-  *(a1 + v10) = *(a1 + v10) - *a2;
-  *(a1 + v9) = *(a1 + v9) - v11;
-  *(a1 + v8) = *(a1 + v8) - a2[2];
-  v12 = *(a1 + 96);
-  v13 = *(a1 + 104);
-  v14 = a2[1];
-  *(v13 + v7) = *(v13 + v7) - *a2;
-  *(v13 + v6) = *(v13 + v6) - v14;
-  *(v13 + v5) = *(v13 + v5) - a2[2];
-  return (*(*v12 + 72))(v12);
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onConstraintRelease(void *a1)
-{
-  if (a1[13])
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  a1[13] = 0;
-  v2 = *(*a1 + 32);
-
-  return v2(a1);
-}
-
-uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
-{
-  result = a1 - 24;
-  *a2 = 0;
-  return result;
-}
-
-void non-virtual thunk tophysx::Ext::FixedJoint::~FixedJoint(physx::Ext::FixedJoint *this)
-{
-  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this - 24);
-}
-
-{
-  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this - 24);
-  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
-
-  v1();
-}
-
-float physx::Ext::DistanceJoint::DistanceJoint(uint64_t a1, float *a2, uint64_t a3, float32x4_t *a4, uint64_t a5, float32x4_t *a6)
-{
-  v10 = 3;
-  v7 = physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::Joint(a1, 260, &v10, a3, a4, a5, a6, 0x70u);
-  *v7 = &unk_1F5D28448;
-  v7[3] = &unk_1F5D28618;
-  v8 = v7[13];
-  *(v8 + 92) = 0;
-  *(v8 + 80) = 0;
-  result = *a2 * 0.025;
-  *(v8 + 88) = result;
-  *(v8 + 100) = 2;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::Joint(uint64_t a1, __int16 a2, __int16 *a3, uint64_t a4, float32x4_t *a5, uint64_t a6, float32x4_t *a7, unsigned int a8)
-{
-  v13 = *a3;
-  *(a1 + 8) = a2;
-  *(a1 + 10) = v13;
-  *a1 = &unk_1F5D28958;
-  *(a1 + 24) = &unk_1F5D28B18;
-  *(a1 + 32) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 16) = 0;
-  if (a8)
-  {
-    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, a8, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v15 = a5[1].i32[2];
-  _Q1 = *a5;
-  _Q2 = vmulq_f32(_Q1, _Q1);
-  _S3 = a5->i64[1];
-  __asm { FMLA            S2, S3, V1.S[2] }
-
-  _S3 = HIDWORD(*a5);
-  __asm { FMLA            S2, S3, V1.S[3] }
-
-  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
-  v24 = vdivq_f32(*a5, vdupq_lane_s32(*_Q2.f32, 0));
-  _Q2.i64[0] = a5[1].i64[0];
-  *(a1 + 40) = v24;
-  *(a1 + 56) = _Q2.i64[0];
-  *(a1 + 64) = v15;
-  _Q0 = *a7;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _Q2.i32[0] = a7->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _Q2.i32[0] = HIDWORD(*a7);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  _Q2.i32[0] = a7[1].i32[2];
-  v27 = a7[1].i64[0];
-  *(a1 + 68) = vdivq_f32(*a7, vdupq_lane_s32(*_Q1.f32, 0));
-  *(a1 + 84) = v27;
-  *(a1 + 92) = _Q2.i32[0];
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a4);
-  v28 = v63;
-  v29 = (a5[1].f32[0] - v65) + (a5[1].f32[0] - v65);
-  v30 = (a5[1].f32[1] - v66) + (a5[1].f32[1] - v66);
-  v31 = (a5[1].f32[2] - v67) + (a5[1].f32[2] - v67);
-  v32 = (v64 * v64) + -0.5;
-  v33 = (-(v62 * v30) - (v61 * v29)) - (v63 * v31);
-  v34 = ((v64 * ((v63 * v30) - (v62 * v31))) + (v29 * v32)) - (v61 * v33);
-  v35 = (v64 * ((v61 * v31) - (v63 * v29))) + (v30 * v32);
-  v36 = (v64 * ((v62 * v29) - (v61 * v30))) + (v31 * v32);
-  v38 = a5->f32[2];
-  v37 = a5->f32[3];
-  v39 = a5->f32[1];
-  v40 = (((v64 * v39) - (v62 * v37)) - (v63 * a5->f32[0])) + (v38 * v61);
-  v41 = (((v64 * v38) - (v63 * v37)) - (v61 * v39)) + (a5->f32[0] * v62);
-  v42 = v35 - (v62 * v33);
-  v43 = (((v61 * a5->f32[0]) + (v64 * v37)) + (v62 * v39)) + (v63 * v38);
-  *(v14 + 16) = (((v64 * a5->f32[0]) - (v61 * v37)) - (v62 * v38)) + (v39 * v63);
-  *(v14 + 20) = v40;
-  *(v14 + 24) = v41;
-  *(v14 + 28) = v43;
-  *(v14 + 32) = v34;
-  *(v14 + 36) = v42;
-  *(v14 + 40) = v36 - (v28 * v33);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a6);
-  v44 = v63;
-  v45 = (a7[1].f32[0] - v65) + (a7[1].f32[0] - v65);
-  v46 = (a7[1].f32[1] - v66) + (a7[1].f32[1] - v66);
-  v47 = (a7[1].f32[2] - v67) + (a7[1].f32[2] - v67);
-  v48 = (v64 * v64) + -0.5;
-  v49 = (-(v62 * v46) - (v61 * v45)) - (v63 * v47);
-  v50 = ((v64 * ((v63 * v46) - (v62 * v47))) + (v45 * v48)) - (v61 * v49);
-  v51 = ((v64 * ((v61 * v47) - (v63 * v45))) + (v46 * v48)) - (v62 * v49);
-  v52 = ((v64 * ((v62 * v45) - (v61 * v46))) + (v47 * v48)) - (v63 * v49);
-  v54 = a7->f32[2];
-  v53 = a7->f32[3];
-  v55 = a7->f32[1];
-  v56 = (((v64 * v55) - (v62 * v53)) - (v63 * a7->f32[0])) + (v54 * v61);
-  v57 = (((v64 * v54) - (v63 * v53)) - (v61 * v55)) + (a7->f32[0] * v62);
-  v58 = ((v61 * a7->f32[0]) + (v64 * v53)) + (v62 * v55);
-  *(v14 + 44) = (((v64 * a7->f32[0]) - (v61 * v53)) - (v62 * v54)) + (v55 * v63);
-  *(v14 + 48) = v56;
-  *(v14 + 52) = v57;
-  *(v14 + 56) = v58 + (v44 * v54);
-  *(v14 + 60) = v50;
-  *(v14 + 64) = v51;
-  *(v14 + 68) = v52;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *v14 = _Q0;
-  *(a1 + 104) = v14;
-  return a1;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::Joint(uint64_t a1, __int16 a2, __int16 *a3, uint64_t a4, float32x4_t *a5, uint64_t a6, float32x4_t *a7, unsigned int a8)
-{
-  v13 = *a3;
-  *(a1 + 8) = a2;
-  *(a1 + 10) = v13;
-  *a1 = &unk_1F5D28B80;
-  *(a1 + 24) = &unk_1F5D28CF0;
-  *(a1 + 32) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 16) = 0;
-  if (a8)
-  {
-    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, a8, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v15 = a5[1].i32[2];
-  _Q1 = *a5;
-  _Q2 = vmulq_f32(_Q1, _Q1);
-  _S3 = a5->i64[1];
-  __asm { FMLA            S2, S3, V1.S[2] }
-
-  _S3 = HIDWORD(*a5);
-  __asm { FMLA            S2, S3, V1.S[3] }
-
-  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
-  v24 = vdivq_f32(*a5, vdupq_lane_s32(*_Q2.f32, 0));
-  _Q2.i64[0] = a5[1].i64[0];
-  *(a1 + 40) = v24;
-  *(a1 + 56) = _Q2.i64[0];
-  *(a1 + 64) = v15;
-  _Q0 = *a7;
-  _Q1 = vmulq_f32(_Q0, _Q0);
-  _Q2.i32[0] = a7->i64[1];
-  __asm { FMLA            S1, S2, V0.S[2] }
-
-  _Q2.i32[0] = HIDWORD(*a7);
-  __asm { FMLA            S1, S2, V0.S[3] }
-
-  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
-  _Q2.i32[0] = a7[1].i32[2];
-  v27 = a7[1].i64[0];
-  *(a1 + 68) = vdivq_f32(*a7, vdupq_lane_s32(*_Q1.f32, 0));
-  *(a1 + 84) = v27;
-  *(a1 + 92) = _Q2.i32[0];
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a4);
-  v28 = v63;
-  v29 = (a5[1].f32[0] - v65) + (a5[1].f32[0] - v65);
-  v30 = (a5[1].f32[1] - v66) + (a5[1].f32[1] - v66);
-  v31 = (a5[1].f32[2] - v67) + (a5[1].f32[2] - v67);
-  v32 = (v64 * v64) + -0.5;
-  v33 = (-(v62 * v30) - (v61 * v29)) - (v63 * v31);
-  v34 = ((v64 * ((v63 * v30) - (v62 * v31))) + (v29 * v32)) - (v61 * v33);
-  v35 = (v64 * ((v61 * v31) - (v63 * v29))) + (v30 * v32);
-  v36 = (v64 * ((v62 * v29) - (v61 * v30))) + (v31 * v32);
-  v38 = a5->f32[2];
-  v37 = a5->f32[3];
-  v39 = a5->f32[1];
-  v40 = (((v64 * v39) - (v62 * v37)) - (v63 * a5->f32[0])) + (v38 * v61);
-  v41 = (((v64 * v38) - (v63 * v37)) - (v61 * v39)) + (a5->f32[0] * v62);
-  v42 = v35 - (v62 * v33);
-  v43 = (((v61 * a5->f32[0]) + (v64 * v37)) + (v62 * v39)) + (v63 * v38);
-  *(v14 + 16) = (((v64 * a5->f32[0]) - (v61 * v37)) - (v62 * v38)) + (v39 * v63);
-  *(v14 + 20) = v40;
-  *(v14 + 24) = v41;
-  *(v14 + 28) = v43;
-  *(v14 + 32) = v34;
-  *(v14 + 36) = v42;
-  *(v14 + 40) = v36 - (v28 * v33);
-  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a6);
-  v44 = v63;
-  v45 = (a7[1].f32[0] - v65) + (a7[1].f32[0] - v65);
-  v46 = (a7[1].f32[1] - v66) + (a7[1].f32[1] - v66);
-  v47 = (a7[1].f32[2] - v67) + (a7[1].f32[2] - v67);
-  v48 = (v64 * v64) + -0.5;
-  v49 = (-(v62 * v46) - (v61 * v45)) - (v63 * v47);
-  v50 = ((v64 * ((v63 * v46) - (v62 * v47))) + (v45 * v48)) - (v61 * v49);
-  v51 = ((v64 * ((v61 * v47) - (v63 * v45))) + (v46 * v48)) - (v62 * v49);
-  v52 = ((v64 * ((v62 * v45) - (v61 * v46))) + (v47 * v48)) - (v63 * v49);
-  v54 = a7->f32[2];
-  v53 = a7->f32[3];
-  v55 = a7->f32[1];
-  v56 = (((v64 * v55) - (v62 * v53)) - (v63 * a7->f32[0])) + (v54 * v61);
-  v57 = (((v64 * v54) - (v63 * v53)) - (v61 * v55)) + (a7->f32[0] * v62);
-  v58 = ((v61 * a7->f32[0]) + (v64 * v53)) + (v62 * v55);
-  *(v14 + 44) = (((v64 * a7->f32[0]) - (v61 * v53)) - (v62 * v54)) + (v55 * v63);
-  *(v14 + 48) = v56;
-  *(v14 + 52) = v57;
-  *(v14 + 56) = v58 + (v44 * v54);
-  *(v14 + 60) = v50;
-  *(v14 + 64) = v51;
-  *(v14 + 68) = v52;
-  __asm { FMOV            V0.4S, #1.0 }
-
-  *v14 = _Q0;
-  *(a1 + 104) = v14;
-  return a1;
-}
-
-float physx::Ext::joint::computeDerived(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, float *a5, float *a6, char a7, double a8, double a9, double a10, double a11, double a12, double a13, int8x16_t a14, int8x16_t a15)
-{
-  physx::Ext::joint::computeJointFrames(a4, a5, a1, a2, a3, a8, a9, a10, a11, a12, a13, a14, a15);
-  v19 = *a4;
-  v20 = *a5;
-  if (a7)
-  {
-    v22 = a5[1];
-    v21 = a5[2];
-    v23 = a5[3];
-    if (((((a4[1] * v22) + (v19 * v20)) + (a4[2] * v21)) + (a4[3] * v23)) < 0.0)
-    {
-      v20 = -v20;
-      v22 = -v22;
-      v21 = -v21;
-      v23 = -v23;
-      *a5 = v20;
-      a5[1] = v22;
-      a5[2] = v21;
-      a5[3] = v23;
-      v19 = *a4;
-    }
-  }
-
-  else
-  {
-    v21 = a5[2];
-    v23 = a5[3];
-    v22 = a5[1];
-  }
-
-  v24 = a4[1];
-  v25 = a4[2];
-  v26 = a4[3];
-  v27 = a5[4] - a4[4];
-  v28 = a5[5] - a4[5];
-  v29 = a5[6] - a4[6];
-  v30 = v27 + v27;
-  v31 = v28 + v28;
-  v32 = v29 + v29;
-  v33 = (v26 * v26) + -0.5;
-  v34 = (-(v24 * v31) - (v19 * v30)) - (v25 * v32);
-  *a6 = (((v26 * v20) - (v19 * v23)) - (v24 * v21)) + (v22 * v25);
-  a6[1] = (((v26 * v22) - (v24 * v23)) - (v25 * v20)) + (v21 * v19);
-  a6[2] = (((v26 * v21) - (v25 * v23)) - (v19 * v22)) + (v20 * v24);
-  a6[3] = (((v20 * v19) + (v26 * v23)) + (v24 * v22)) + (v25 * v21);
-  result = ((v26 * ((v24 * v30) - (v19 * v31))) + (v32 * v33)) - (v25 * v34);
-  a6[4] = ((v26 * ((v25 * v31) - (v24 * v32))) + (v30 * v33)) - (v19 * v34);
-  a6[5] = ((v26 * ((v19 * v32) - (v25 * v30))) + (v31 * v33)) - (v24 * v34);
-  a6[6] = result;
-  return result;
-}
-
-uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(uint64_t a1)
-{
-  *a1 = &unk_1F5D28958;
-  *(a1 + 24) = &unk_1F5D28B18;
-  if (*(a1 + 10))
-  {
-    if (*(a1 + 104))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    *(a1 + 104) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(uint64_t a1)
-{
-  *a1 = &unk_1F5D28B80;
-  *(a1 + 24) = &unk_1F5D28CF0;
-  if (*(a1 + 10))
-  {
-    if (*(a1 + 104))
-    {
-      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-    }
-
-    *(a1 + 104) = 0;
-  }
-
-  return a1;
-}
-
-void *physx::PxPrismaticJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
-{
-  v10 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::PrismaticJoint>::getName() [T = physx::Ext::PrismaticJoint]";
-  }
-
-  else
-  {
-    v11 = "<allocation names disabled>";
-  }
-
-  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtPrismaticJoint.cpp", 45);
-  v13 = (*(*a1 + 40))(a1);
-  v14 = physx::Ext::PrismaticJoint::PrismaticJoint(v12, v13, a2, a3, a4, a5);
-  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::PrismaticJoint::sShaders, 128, v14);
-  v12[12] = v15;
-  if (!v15)
-  {
-    (*(*v12 + 32))(v12);
-    return 0;
-  }
-
-  return v12;
-}
-
-uint64_t physx::Ext::PrismaticJoint::setProjectionAngularTolerance(physx::Ext::PrismaticJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 112) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::PrismaticJoint::setProjectionLinearTolerance(physx::Ext::PrismaticJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 108) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::PrismaticJoint::setPrismaticJointFlags(uint64_t a1, _WORD *a2)
-{
-  v3 = a1 + 96;
-  v2 = *(a1 + 96);
-  *(*(v3 + 8) + 116) = *a2;
-  return (*(*v2 + 72))();
-}
-
-uint64_t physx::Ext::PrismaticJoint::setPrismaticJointFlag(uint64_t a1, __int16 a2, int a3)
-{
-  v3 = *(a1 + 104);
-  if (a3)
-  {
-    v4 = *(v3 + 116) | a2;
-  }
-
-  else
-  {
-    v4 = *(v3 + 116) & ~a2;
-  }
-
-  *(v3 + 116) = v4;
-  return (*(**(a1 + 96) + 72))();
-}
-
-float physx::Ext::PrismaticJoint::getLimit@<S0>(physx::Ext::PrismaticJoint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 80);
-  result = *(v2 + 96);
-  *(a2 + 16) = result;
-  *(a2 + 20) = *(v2 + 100);
-  return result;
-}
-
-uint64_t physx::Ext::PrismaticJoint::setLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  *(v2 + 92) = *(a2 + 12);
-  *(v2 + 80) = v3;
-  return (*(**(a1 + 96) + 72))();
-}
-
-uint64_t physx::Ext::PrismaticJoint::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 104))
-  {
-    (*(*a2 + 24))(a2, 16);
-    (*(*a2 + 16))(a2, *(a1 + 104), 128);
-  }
-
-  v4 = *(a1 + 32);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t PrismaticJointSolverPrep(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int8x16_t a9, int8x16_t a10, uint64_t a11, __int128 *a12, uint64_t a13, float32x2_t *a14, float32x2_t *a15, uint64_t a16, float32x2_t *a17, float32x2_t *a18)
-{
-  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v75, a1, a12, &v86, &v83, a2, a13, a14, a3, a4, a5, a6, a7, a8, a9, a10, a15);
-  _S0 = v86.i32[0];
-  *_D1.i32 = v87;
-  _S2 = v88;
-  _V4.D[1] = v83.i64[1];
-  __asm
-  {
-    FMLA            S5, S1, V4.S[2]
-    FMLA            S5, S2, V4.S[3]
-  }
-
-  if (_S5 < 0.0)
-  {
-    v83 = vnegq_f32(v83);
-  }
-
-  v31 = *(a13 + 116);
-  v32 = (v31 & 2) != 0 && *(a13 + 104) >= *(a13 + 100);
-  v33 = (v85 - v90) + (v85 - v90);
-  v34 = (v88 * v88) + -0.5;
-  v35 = vsub_f32(v84, v89);
-  _D16 = vadd_f32(v35, v35);
-  v37.i32[0] = vdup_lane_s32(_D16, 1).u32[0];
-  v38 = (vmuls_lane_f32(*&v86.i32[1], _D16, 1) + (*v86.i32 * _D16.f32[0])) + (v87 * v33);
-  v37.f32[1] = v33;
-  v39 = vdup_lane_s32(_D1, 0);
-  v39.i32[0] = v86.i32[1];
-  __asm { FMLA            S7, S0, V16.S[1] }
-
-  v73 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v37, vneg_f32(vzip1_s32(_D1, v86))), vext_s8(v37, _D16, 4uLL), v39)), v88), _D16, v34), v86, v38);
-  v74 = ((v33 * v34) - (_S7 * v88)) + (v87 * v38);
-  if (v32)
-  {
-    v41 = 7;
-  }
-
-  else
-  {
-    v41 = 6;
-  }
-
-  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v75, &v86, v83.f32, &v73, v41, 7, &v71, &v69);
-  v42 = v72 + a14[3].f32[0];
-  *a17 = vadd_f32(v71, a14[2]);
-  a17[1].f32[0] = v42;
-  v43 = v70 + a15[3].f32[0];
-  *a18 = vadd_f32(v69, a15[2]);
-  a18[1].f32[0] = v43;
-  if ((v31 & 2) != 0 && !v32)
-  {
-    v44 = (v88 * v88) + -0.5;
-    v45 = 0.0;
-    v46 = ((*&v86.i32[1] * 0.0) + (*v86.i32 * 2.0)) + (v87 * 0.0);
-    v47 = (v88 * ((v87 * -0.0) + (*&v86.i32[1] * 0.0))) + (v44 * 2.0);
-    v48 = (v88 * ((*v86.i32 * -0.0) + (v87 * 2.0))) + (v44 * 0.0);
-    v49 = (v88 * ((*&v86.i32[1] * -2.0) + (*v86.i32 * 0.0))) + (v44 * 0.0);
-    v50 = v73.f32[0];
-    v51 = *(a13 + 100);
-    v52 = *(a13 + 92);
-    if (v52 <= 0.0 && *(a13 + 88) <= 0.0)
-    {
-      v45 = *(a13 + 96);
-    }
-
-    v53 = v47 + (*v86.i32 * v46);
-    v54 = v48 + (*&v86.i32[1] * v46);
-    v55 = v49 + (v87 * v46);
-    if ((v73.f32[0] + v45) > v51)
-    {
-      v56 = v76;
-      v76 += 80;
-      *(v56 + 78) = 0;
-      *v56 = v53;
-      *(v56 + 4) = v54;
-      *(v56 + 8) = v55;
-      v57 = (v79 * v53) - (v77 * v55);
-      v58 = (v77 * v54) - (v78 * v53);
-      *(v56 + 16) = (v78 * v55) - (v79 * v54);
-      *(v56 + 20) = v57;
-      *(v56 + 24) = v58;
-      *(v56 + 32) = v53;
-      *(v56 + 36) = v54;
-      *(v56 + 40) = v55;
-      v59 = (v82 * v53) - (v80 * v55);
-      v60 = (v80 * v54) - (v81 * v53);
-      *(v56 + 48) = (v81 * v55) - (v82 * v54);
-      *(v56 + 52) = v59;
-      *(v56 + 56) = v60;
-      *(v56 + 12) = v51 - v50;
-      physx::Ext::joint::ConstraintHelper::addLimit(&v75, v56, a13 + 80);
-      v52 = *(a13 + 92);
-    }
-
-    v61 = *(a13 + 104);
-    if (v52 <= 0.0 && *(a13 + 88) <= 0.0)
-    {
-      v62 = *(a13 + 96);
-    }
-
-    else
-    {
-      v62 = 0.0;
-    }
-
-    if ((v62 - v50) > -v61)
-    {
-      v63 = v76;
-      v76 += 80;
-      *(v63 + 78) = 0;
-      *v63 = -v53;
-      *(v63 + 4) = -v54;
-      *(v63 + 8) = -v55;
-      v64 = (v55 * v77) + (v79 * -v53);
-      v65 = (v53 * v78) + (v77 * -v54);
-      *(v63 + 16) = (v54 * v79) + (v78 * -v55);
-      *(v63 + 20) = v64;
-      *(v63 + 24) = v65;
-      *(v63 + 32) = -v53;
-      *(v63 + 36) = -v54;
-      *(v63 + 40) = -v55;
-      v66 = (v55 * v80) + (v82 * -v53);
-      v67 = (v53 * v81) + (v80 * -v54);
-      *(v63 + 48) = (v54 * v82) + (v81 * -v55);
-      *(v63 + 52) = v66;
-      *(v63 + 56) = v67;
-      *(v63 + 12) = v50 - v61;
-      physx::Ext::joint::ConstraintHelper::addLimit(&v75, v63, a13 + 80);
-    }
-  }
-
-  return -858993459 * ((v76 - v75) >> 4);
-}
-
-void PrismaticJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
-{
-  physx::Ext::joint::computeDerived(a1, a2, a3, &v130, &v123, &v117, 1, a5, a6, a7, a8, a9, a10, a11, a12);
-  v17 = v121;
-  v16 = v122;
-  v18 = a1[27];
-  v19 = (v17 * v17) + (v16 * v16);
-  v20 = v18 * v18;
-  if (v19 > (v18 * v18))
-  {
-    v21 = 1.0 / sqrtf(v19);
-    v17 = v18 * (v121 * v21);
-    v16 = v18 * (v122 * v21);
-  }
-
-  v23 = __sincosf_stret(a1[28] * 0.5);
-  if (v23.__sinval > 0.9999)
-  {
-    v24 = v117;
-    _D2 = v118;
-    v22.f32[0] = v119;
-    goto LABEL_9;
-  }
-
-  v22.f32[0] = v119;
-  _D2 = v118;
-  _D5 = vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v22, 0)), 0), vneg_f32(v118), v118);
-  v24 = v117;
-  v27 = -v117;
-  if (v119 >= 0.0)
-  {
-    v27 = v117;
-  }
-
-  _S16 = _D5.i32[1];
-  __asm { FMLA            S7, S16, V5.S[1] }
-
-  if (_S7 <= (v23.__sinval * v23.__sinval))
-  {
-LABEL_9:
-    if (v19 <= v20)
-    {
-      return;
-    }
-
-    goto LABEL_10;
-  }
-
-  v34 = 1.0 / sqrtf(_S7);
-  v24 = (v23.__sinval * v27) * v34;
-  _D2 = vmul_n_f32(vmul_n_f32(_D5, v23.__sinval), v34);
-  v22.i32[0] = LODWORD(v23.__cosval);
-LABEL_10:
-  if (a4)
-  {
-    v35 = a1[15] * -2.0;
-    v36 = a1[16] * -2.0;
-    v37 = a1[17] * -2.0;
-    _S6 = a1[13];
-    v38 = a1[14];
-    v40 = (v38 * v38) + -0.5;
-    _S16 = a1[11];
-    _S7 = a1[12];
-    v43 = ((v36 * _S7) + (_S16 * v35)) + (_S6 * v37);
-    v44 = ((v35 * v40) - (((_S7 * v37) - (_S6 * v36)) * v38)) + (_S16 * v43);
-    v45 = ((v36 * v40) - (((_S6 * v35) - (_S16 * v37)) * v38)) + (_S7 * v43);
-    v46 = ((v37 * v40) - (((_S16 * v36) - (_S7 * v35)) * v38)) + (_S6 * v43);
-    _S18 = v44 + v44;
-    v48 = v45 + v45;
-    _S17 = v46 + v46;
-    v50 = (v22.f32[0] * v22.f32[0]) + -0.5;
-    __asm { FMLA            S21, S17, V2.S[1] }
-
-    v52 = ((v22.f32[0] * ((_D2.f32[0] * _S17) - (_D2.f32[1] * (v45 + v45)))) + ((v44 + v44) * v50)) + (v24 * _S21);
-    __asm { FMLA            S23, S18, V2.S[1] }
-
-    v54 = ((v22.f32[0] * _S23) + (v48 * v50)) + (_D2.f32[0] * _S21);
-    __asm
-    {
-      FMLA            S17, S21, V2.S[1]
-      FMLA            S0, S7, V2.S[1]
-      FMLS            S20, S16, V2.S[1]
-    }
-
-    v58 = _S20 + (_S6 * v24);
-    v59 = ((vmuls_lane_f32(v38, _D2, 1) - (v22.f32[0] * _S6)) - (v24 * _S7)) + (_S16 * _D2.f32[0]);
-    __asm { FMLA            S4, S6, V2.S[1] }
-
-    v61 = (v120 + v52) + (v120 + v52);
-    v62 = (v17 + v54) + (v17 + v54);
-    v63 = (v16 + _S17) + (v16 + _S17);
-    v64 = (v133 * v133) + -0.5;
-    v65 = ((v131 * v62) + (v130 * v61)) + (v132 * v63);
-    v66 = ((v133 * ((v131 * v63) - (v132 * v62))) + (v61 * v64)) + (v130 * v65);
-    v67 = ((v133 * ((v132 * v61) - (v130 * v63))) + (v62 * v64)) + (v131 * v65);
-    v68 = ((v133 * ((v130 * v62) - (v131 * v61))) + (v63 * v64)) + (v132 * v65);
-    v69 = v134 + v66;
-    v70 = v135 + v67;
-    v71 = v136 + v68;
-    v72 = (((_S4 * v130) + (v133 * _S0)) + (v131 * v59)) - (v58 * v132);
-    v73 = (((_S4 * v131) + (v133 * v58)) + (v132 * _S0)) - (v59 * v130);
-    v74 = (((_S4 * v132) + (v133 * v59)) + (v130 * v58)) - (_S0 * v131);
-    v75 = (((v133 * _S4) - (v130 * _S0)) - (v131 * v58)) - (v132 * v59);
-    *a3 = v72;
-    a3[1] = v73;
-    a3[2] = v74;
-    a3[3] = v75;
-    a3[4] = v69;
-    a3[5] = v70;
-    a3[6] = v71;
-    v76 = sqrtf((((v73 * v73) + (v72 * v72)) + (v74 * v74)) + (v75 * v75));
-    if (v76 != 0.0)
-    {
-      *a3 = v72 / v76;
-      a3[1] = v73 / v76;
-      a3[2] = v74 / v76;
-      a3[3] = v75 / v76;
-    }
-  }
-
-  else
-  {
-    v77 = a1[8] * -2.0;
-    v78 = a1[9] * -2.0;
-    v79 = a1[10] * -2.0;
-    _S6 = a1[6];
-    v80 = a1[7];
-    v82 = (v80 * v80) + -0.5;
-    _S16 = a1[4];
-    _S7 = a1[5];
-    v85 = ((v78 * _S7) + (_S16 * v77)) + (_S6 * v79);
-    v86 = ((v77 * v82) - (((_S7 * v79) - (_S6 * v78)) * v80)) + (_S16 * v85);
-    v87 = ((v78 * v82) - (((_S6 * v77) - (_S16 * v79)) * v80)) + (_S7 * v85);
-    v88 = ((v79 * v82) - (((_S16 * v78) - (_S7 * v77)) * v80)) + (_S6 * v85);
-    _S0 = (v86 - v120) + (v86 - v120);
-    v90 = (v87 - v17) + (v87 - v17);
-    _S17 = (v88 - v16) + (v88 - v16);
-    v92 = (v22.f32[0] * v22.f32[0]) + -0.5;
-    __asm { FMLS            S21, S17, V2.S[1] }
-
-    v94 = ((v22.f32[0] * (vmuls_lane_f32(v90, _D2, 1) - (_S17 * _D2.f32[0]))) + (_S0 * v92)) - (v24 * _S21);
-    __asm { FMLS            S23, S0, V2.S[1] }
-
-    v96 = ((v22.f32[0] * _S23) + (v90 * v92)) - (_S21 * _D2.f32[0]);
-    __asm
-    {
-      FMLS            S17, S21, V2.S[1]
-      FMLS            S0, S7, V2.S[1]
-      FMLA            S19, S16, V2.S[1]
-    }
-
-    v100 = _S19 - (_S6 * v24);
-    v101 = ((-(_D2.f32[1] * v80) - (v22.f32[0] * _S6)) + (v24 * _S7)) - (_S16 * _D2.f32[0]);
-    __asm { FMLS            S4, S6, V2.S[1] }
-
-    v103 = v94 + v94;
-    v104 = (v126 * v126) + -0.5;
-    v105 = ((v124 * (v96 + v96)) + (v123 * (v94 + v94))) + (v125 * (_S17 + _S17));
-    v106 = ((v126 * ((v124 * (_S17 + _S17)) - (v125 * (v96 + v96)))) + ((v94 + v94) * v104)) + (v123 * v105);
-    v107 = ((v126 * ((v125 * (v94 + v94)) - (v123 * (_S17 + _S17)))) + ((v96 + v96) * v104)) + (v124 * v105);
-    v108 = ((v126 * ((v123 * (v96 + v96)) - (v124 * v103))) + ((_S17 + _S17) * v104)) + (v125 * v105);
-    v109 = v127 + v106;
-    v110 = v128 + v107;
-    v111 = v129 + v108;
-    v112 = (((_S4 * v123) + (v126 * _S0)) + (v124 * v101)) - (v100 * v125);
-    v113 = (((_S4 * v124) + (v126 * v100)) + (v125 * _S0)) - (v101 * v123);
-    v114 = (((_S4 * v125) + (v126 * v101)) + (v123 * v100)) - (_S0 * v124);
-    v115 = (((v126 * _S4) - (v123 * _S0)) - (v124 * v100)) - (v125 * v101);
-    *a2 = v112;
-    a2[1] = v113;
-    a2[2] = v114;
-    a2[3] = v115;
-    a2[4] = v109;
-    a2[5] = v110;
-    a2[6] = v111;
-    v116 = sqrtf((((v113 * v113) + (v112 * v112)) + (v114 * v114)) + (v115 * v115));
-    if (v116 != 0.0)
-    {
-      *a2 = v112 / v116;
-      a2[1] = v113 / v116;
-      a2[2] = v114 / v116;
-      a2[3] = v115 / v116;
-    }
-  }
-}
-
-void PrismaticJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
-{
-  v16 = physx::Ext::joint::computeJointFrames(&v23, v19, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
-  if (a5)
-  {
-    (*(*a1 + 16))(a1, &v23, v19, v16);
-  }
-
-  if ((a5 & 2) != 0 && (*(a2 + 116) & 2) != 0)
-  {
-    v17 = ((((v20 - v27) + (v20 - v27)) * ((v26 * v26) + -0.5)) - (((v24 * ((v22 - v29) + (v22 - v29))) - (v25 * ((v21 - v28) + (v21 - v28)))) * v26)) + (v23 * (((((v21 - v28) + (v21 - v28)) * v24) + (v23 * ((v20 - v27) + (v20 - v27)))) + (v25 * ((v22 - v29) + (v22 - v29)))));
-    v18 = 0.0;
-    if (*(a2 + 92) <= 0.0 && *(a2 + 88) <= 0.0)
-    {
-      v18 = *(a2 + 96);
-    }
-
-    (*(*a1 + 24))(a1, &v23, v19, v17 < (v18 + *(a2 + 104)));
-    (*(*a1 + 24))(a1, &v23, v19, v17 > (*(a2 + 100) - v18));
-  }
-}
-
-void *physx::PxRevoluteJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
-{
-  v10 = physx::shdfnd::Foundation::mInstance;
-  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
-  {
-    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::RevoluteJoint>::getName() [T = physx::Ext::RevoluteJoint]";
-  }
-
-  else
-  {
-    v11 = "<allocation names disabled>";
-  }
-
-  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRevoluteJoint.cpp", 45);
-  v13 = (*(*a1 + 40))(a1);
-  v14 = physx::Ext::RevoluteJoint::RevoluteJoint(v12, v13, a2, a3, a4, a5);
-  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::RevoluteJoint::sShaders, 144, v14);
-  v12[12] = v15;
-  if (!v15)
-  {
-    (*(*v12 + 32))(v12);
-    return 0;
-  }
-
-  return v12;
-}
-
-float physx::Ext::RevoluteJoint::getAngle(physx::Ext::RevoluteJoint *this)
-{
-  (*(*this + 80))(v7);
-  v1 = 1.0;
-  if (v7[0] == 0.0)
-  {
-    v4 = 0;
-    v3 = 1.0;
-  }
-
-  else
-  {
-    v2 = sqrtf(((v7[0] * v7[0]) + 0.0) + (v8 * v8));
-    v3 = v8 / v2;
-    v4 = (v7[0] / v2) < 0.0;
-  }
-
-  if (v3 < -1.0)
-  {
-    v3 = -1.0;
-  }
-
-  if (v3 <= 1.0)
-  {
-    v1 = v3;
-  }
-
-  v5 = acosf(v1);
-  result = v5 + v5;
-  if (v4)
-  {
-    return -result;
-  }
-
-  return result;
-}
-
-float physx::Ext::RevoluteJoint::getLimit@<S0>(physx::Ext::RevoluteJoint *this@<X0>, uint64_t a2@<X8>)
-{
-  v2 = *(this + 13);
-  *a2 = *(v2 + 92);
-  result = *(v2 + 108);
-  *(a2 + 16) = result;
-  *(a2 + 20) = *(v2 + 112);
-  return result;
-}
-
-uint64_t physx::Ext::RevoluteJoint::setLimit(uint64_t a1, __int128 *a2)
-{
-  v2 = *(a1 + 104);
-  v3 = *a2;
-  *(v2 + 104) = *(a2 + 12);
-  *(v2 + 92) = v3;
-  return (*(**(a1 + 96) + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setDriveVelocity(physx::Ext::RevoluteJoint *this, float a2, int a3)
-{
-  v18[1] = *MEMORY[0x1E69E9840];
-  *(*(this + 13) + 80) = a2;
-  if (a3)
-  {
-    v4 = *(this + 12);
-    v17 = 0;
-    v18[0] = 0;
-    v5 = &v17;
-    (*(*v4 + 56))(v4, &v17, v18);
-    v6 = 1;
-    do
-    {
-      v7 = v6;
-      if (*v5)
-      {
-        if ((*(**v5 + 56))(*v5))
-        {
-          if ((*(**v5 + 48))() == 1)
-          {
-            v8 = *v5;
-            (*(*v8 + 432))(&v16, v8);
-            if ((v16 & 1) == 0)
-            {
-              v9 = (*(*v8 + 56))(v8);
-              v10 = (*(*v9 + 880))(v9);
-              v11 = (*(*v8 + 584))(v8);
-              v12 = (*(*v8 + 512))(v8);
-              if (v11 < v10 || v12 != 0)
-              {
-                if (v11 >= v10)
-                {
-                  v10 = v11;
-                }
-
-                (*(*v8 + 592))(v8);
-                (*(*v8 + 576))(v8, v10);
-              }
-            }
-          }
-        }
-      }
-
-      v6 = 0;
-      v5 = v18;
-    }
-
-    while ((v7 & 1) != 0);
-  }
-
-  v14 = *(**(this + 12) + 72);
-
-  return v14();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setDriveForceLimit(physx::Ext::RevoluteJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 84) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setDriveGearRatio(physx::Ext::RevoluteJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 88) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setProjectionAngularTolerance(physx::Ext::RevoluteJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 124) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setProjectionLinearTolerance(physx::Ext::RevoluteJoint *this, float a2)
-{
-  v2 = this + 96;
-  v3 = *(this + 12);
-  *(*(v2 + 1) + 120) = a2;
-  return (*(*v3 + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::setRevoluteJointFlag(uint64_t a1, __int16 a2, int a3)
-{
-  v3 = *(a1 + 104);
-  if (a3)
-  {
-    v4 = *(v3 + 128) | a2;
-  }
-
-  else
-  {
-    v4 = *(v3 + 128) & ~a2;
-  }
-
-  *(v3 + 128) = v4;
-  return (*(**(a1 + 96) + 72))();
-}
-
-uint64_t physx::Ext::RevoluteJoint::exportExtraData(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 104))
-  {
-    (*(*a2 + 24))(a2, 16);
-    (*(*a2 + 16))(a2, *(a1 + 104), 144);
-  }
-
-  v4 = *(a1 + 32);
-  v5 = *(*a2 + 32);
-
-  return v5(a2, v4);
-}
-
-uint64_t RevoluteJointSolverPrep(uint64_t a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int8x16_t a9, int8x16_t a10, uint64_t a11, __int128 *a12, uint64_t a13, float32x2_t *a14, float32x2_t *a15, int a16, float32x2_t *a17, float32x2_t *a18)
-{
-  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v77, a1, a12, &v82, &v79, a2, a13, a14, a3, a4, a5, a6, a7, a8, a9, a10, a15);
-  v22 = *(a13 + 128);
-  v23 = (v22 & 1) != 0 && *(a13 + 116) >= *(a13 + 112);
-  _S0 = v83;
-  if (a16)
-  {
-    _S2 = v84;
-    v26 = v82;
-  }
-
-  else
-  {
-    v26 = v82;
-    _V3.D[1] = v79.i64[1];
-    __asm { FMLA            S4, S0, V3.S[2] }
-
-    _S2 = v84;
-    __asm { FMLA            S4, S2, V3.S[3] }
-
-    if (_S4 < 0.0)
-    {
-      v79 = vnegq_f32(v79);
-    }
-  }
-
-  v34 = (v81 - v86) + (v81 - v86);
-  v35 = vdup_lane_s32(v26, 0);
-  v36 = (_S2 * _S2) + -0.5;
-  v35.f32[0] = v83;
-  v37 = vsub_f32(v80, v85);
-  v38 = vadd_f32(v37, v37);
-  v39 = (vmuls_lane_f32(v26.f32[1], v38, 1) + (v26.f32[0] * v38.f32[0])) + (v83 * v34);
-  v40.i32[0] = vdup_lane_s32(v38, 1).u32[0];
-  v40.f32[1] = v34;
-  v71 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v40, vneg_f32(v35)), vext_s8(v40, v38, 4uLL), vext_s8(v26, v35, 4uLL))), _S2), v38, v36), v26, v39);
-  v72 = ((v34 * v36) - (((-v26.f32[1] * v38.f32[0]) + (v26.f32[0] * v38.f32[1])) * _S2)) + (v83 * v39);
-  if (v23)
-  {
-    v41 = 7;
-  }
-
-  else
-  {
-    v41 = 6;
-  }
-
-  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v77, &v82, v79.f32, &v71, 7, v41, &v75, &v73);
-  v42 = v76 + a14[3].f32[0];
-  *a17 = vadd_f32(v75, a14[2]);
-  a17[1].f32[0] = v42;
-  v43 = v74 + a15[3].f32[0];
-  *a18 = vadd_f32(v73, a15[2]);
-  a18[1].f32[0] = v43;
-  if (!v23)
-  {
-    v45 = v83;
-    v44 = v84;
-    v46 = (v44 * v44) + -0.5;
-    v47 = v82;
-    v48 = ((v82.f32[1] * 0.0) + (v82.f32[0] * 2.0)) + (v83 * 0.0);
-    v49 = ((v84 * ((v83 * -0.0) + (v82.f32[1] * 0.0))) + (v46 * 2.0)) + (v82.f32[0] * v48);
-    v50 = ((v84 * ((v82.f32[0] * -0.0) + (v83 * 2.0))) + (v46 * 0.0)) + (v82.f32[1] * v48);
-    v51 = ((v84 * ((v82.f32[1] * -2.0) + (v82.f32[0] * 0.0))) + (v46 * 0.0)) + (v83 * v48);
-    v52 = *(a13 + 128);
-    if ((v52 & 2) != 0)
-    {
-      v53 = v78;
-      v78 += 80;
-      *(v53 + 78) = 0;
-      *v53 = 0;
-      *(v53 + 8) = 0;
-      *(v53 + 16) = -v49;
-      *(v53 + 20) = -v50;
-      *(v53 + 32) = 0;
-      *(v53 + 40) = 0;
-      v54 = *(a13 + 88);
-      v55 = -(v49 * v54);
-      *(v53 + 52) = -(v50 * v54);
-      *(v53 + 56) = -(v51 * v54);
-      v56 = *(a13 + 80);
-      v57 = *(a13 + 84);
-      *(v53 + 24) = -v51;
-      *(v53 + 28) = v56;
-      *(v53 + 44) = -v57;
-      *(v53 + 48) = v55;
-      *(v53 + 60) = v57;
-      v58 = *(v53 + 76);
-      if ((v52 & 4) != 0)
-      {
-        if (v56 > 0.0)
-        {
-          *(v53 + 44) = 0;
-        }
-
-        if (v56 < 0.0)
-        {
-          *(v53 + 60) = 0;
-        }
-      }
-
-      *(v53 + 76) = v58 | 0x60;
-    }
-
-    if (v22)
-    {
-      v59 = (((v79.f32[3] * -v47.f32[0]) + (v44 * v79.f32[0])) + (-v47.f32[1] * v79.f32[2])) + (v79.f32[1] * v45);
-      v60 = (((v47.f32[0] * v79.f32[0]) + (v44 * v79.f32[3])) + (v47.f32[1] * v79.f32[1])) + (v45 * v79.f32[2]);
-      v61 = sqrtf(((v59 * v59) + 0.0) + (v60 * v60));
-      if (v61 != 0.0)
-      {
-        v59 = v59 / v61;
-        v60 = v60 / v61;
-      }
-
-      if (v60 < -1.0)
-      {
-        v60 = -1.0;
-      }
-
-      if (v60 > 1.0)
-      {
-        v60 = 1.0;
-      }
-
-      v62 = acosf(v60);
-      v63 = v62 + v62;
-      if (v59 >= 0.0)
-      {
-        v64 = v63;
-      }
-
-      else
-      {
-        v64 = -v63;
-      }
-
-      v65 = *(a13 + 116);
-      if (*(a13 + 104) <= 0.0 && *(a13 + 100) <= 0.0)
-      {
-        v66 = *(a13 + 108);
-      }
-
-      else
-      {
-        v66 = 0.0;
-      }
-
-      v67 = *(a13 + 112);
-      if ((v65 + v66) > v64)
-      {
-        v68 = v78;
-        v78 += 80;
-        *(v68 + 78) = 0;
-        *v68 = 0;
-        *(v68 + 8) = 0;
-        *(v68 + 20) = -v50;
-        *(v68 + 24) = -v51;
-        *(v68 + 32) = 0;
-        *(v68 + 40) = 0;
-        *(v68 + 48) = -v49;
-        *(v68 + 52) = -v50;
-        *(v68 + 56) = -v51;
-        *(v68 + 12) = -(v65 - v64);
-        *(v68 + 16) = -v49;
-        *(v68 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v77, v68, a13 + 92);
-      }
-
-      if ((v67 - v66) < v64)
-      {
-        v69 = v78;
-        v78 += 80;
-        *(v69 + 78) = 0;
-        *v69 = 0;
-        *(v69 + 8) = 0;
-        *(v69 + 20) = v50;
-        *(v69 + 24) = v51;
-        *(v69 + 32) = 0;
-        *(v69 + 40) = 0;
-        *(v69 + 48) = v49;
-        *(v69 + 52) = v50;
-        *(v69 + 56) = v51;
-        *(v69 + 12) = v67 - v64;
-        *(v69 + 16) = v49;
-        *(v69 + 76) |= 0x40u;
-        physx::Ext::joint::ConstraintHelper::addLimit(&v77, v69, a13 + 92);
-      }
-    }
-  }
-
-  return -858993459 * ((v78 - v77) >> 4);
-}
-
-void RevoluteJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
-{
-  physx::Ext::joint::computeJointFrames(&v151, &v144, a1, a2, a3, a5, a6, a7, a8, a9, a10, a11, a12);
-  v16 = v153;
-  v130 = v155;
-  v131 = v148;
-  v128 = v156;
-  v129 = v149;
-  v126 = v150;
-  v127 = v157;
-  v17 = (v148 - v155) + (v148 - v155);
-  v18 = (v149 - v156) + (v149 - v156);
-  v19 = (v150 - v157) + (v150 - v157);
-  v20 = (v154 * v154) + -0.5;
-  v21 = (-(v152 * v18) - (v151 * v17)) - (v153 * v19);
-  v22 = ((v154 * ((v153 * v18) - (v152 * v19))) + (v17 * v20)) - (v151 * v21);
-  v23 = ((v154 * ((v151 * v19) - (v153 * v17))) + (v18 * v20)) - (v152 * v21);
-  v125 = v20;
-  v24 = ((v154 * ((v152 * v17) - (v151 * v18))) + (v19 * v20)) - (v153 * v21);
-  v25 = (((v154 * v144) - (v151 * v147)) - (v152 * v146)) + (v145 * v153);
-  v136 = v145;
-  v137 = v147;
-  v132 = v154;
-  v26 = a1[30];
-  v27 = ((v23 * v23) + (v22 * v22)) + (v24 * v24);
-  v142 = v26 * v26;
-  v143 = v27;
-  if (v27 > (v26 * v26))
-  {
-    v28 = 1.0 / sqrtf(v27);
-    v22 = v26 * (v22 * v28);
-    v23 = v26 * (v23 * v28);
-    v24 = v26 * (v24 * v28);
-  }
-
-  v134 = v151;
-  v135 = v144;
-  v29 = (((v154 * v145) - (v152 * v147)) - (v153 * v144)) + (v146 * v151);
-  v30 = (((v154 * v146) - (v153 * v147)) - (v151 * v145)) + (v144 * v152);
-  v31 = (((v151 * v144) + (v154 * v147)) + (v152 * v145)) + (v153 * v146);
-  v138 = v146;
-  v139 = v24;
-  v133 = v152;
-  v140 = v23;
-  v141 = v22;
-  if (v25 == 0.0)
-  {
-    v35 = 1.0;
-    v33 = 0.0;
-    v34 = 0.0;
-  }
-
-  else
-  {
-    v32 = sqrtf(((v25 * v25) + 0.0) + (v31 * v31));
-    v33 = v25 / v32;
-    v34 = 0.0 / v32;
-    v35 = v31 / v32;
-  }
-
-  v36 = (((v25 * v35) - (v31 * v33)) - (v29 * v34)) + (v34 * v30);
-  v37 = (((v29 * v35) - (v31 * v34)) - (v30 * v33)) + (v34 * v25);
-  v38 = (((v30 * v35) - (v31 * v34)) - (v25 * v34)) + (v33 * v29);
-  cosval = (((v25 * v33) + (v31 * v35)) + (v29 * v34)) + (v30 * v34);
-  v40 = __sincosf_stret(a1[31] * 0.5);
-  if (v40.__sinval > 0.9999)
-  {
-    goto LABEL_11;
-  }
-
-  v41 = -v36;
-  v42 = -v37;
-  v43 = -v38;
-  if (cosval >= 0.0)
-  {
-    v41 = v36;
-    v42 = v37;
-    v43 = v38;
-  }
-
-  v44 = ((v42 * v42) + (v41 * v41)) + (v43 * v43);
-  if (v44 <= (v40.__sinval * v40.__sinval))
-  {
-LABEL_11:
-    if (v143 <= v142)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v45 = v40.__sinval * v43;
-    v46 = 1.0 / sqrtf(v44);
-    v36 = (v40.__sinval * v41) * v46;
-    v37 = (v40.__sinval * v42) * v46;
-    v38 = v45 * v46;
-    cosval = v40.__cosval;
-  }
-
-  v47 = (((v35 * v36) + (cosval * v33)) + (v37 * v34)) + (-v34 * v38);
-  v48 = (((v35 * v37) + (cosval * v34)) + (v38 * v33)) + (-v34 * v36);
-  v49 = (((v35 * v38) + (cosval * v34)) + (v36 * v34)) + (-v33 * v37);
-  v50 = (((cosval * v35) - (v36 * v33)) - (v37 * v34)) - (v38 * v34);
-  if (a4)
-  {
-    v51 = a1[15] * -2.0;
-    v52 = a1[16] * -2.0;
-    v53 = a1[17] * -2.0;
-    v55 = a1[13];
-    v54 = a1[14];
-    v56 = (v54 * v54) + -0.5;
-    v57 = a1[11];
-    v58 = a1[12];
-    v59 = ((v52 * v58) + (v57 * v51)) + (v55 * v53);
-    v60 = ((v51 * v56) - (((v58 * v53) - (v55 * v52)) * v54)) + (v57 * v59);
-    v61 = ((v52 * v56) - (((v55 * v51) - (v57 * v53)) * v54)) + (v58 * v59);
-    v62 = ((v53 * v56) - (((v57 * v52) - (v58 * v51)) * v54)) + (v55 * v59);
-    v63 = v60 + v60;
-    v64 = v62 + v62;
-    v65 = (v50 * v50) + -0.5;
-    v66 = ((v48 * (v61 + v61)) + (v47 * (v60 + v60))) + (v49 * v64);
-    v67 = ((v50 * ((v48 * v64) - (v49 * (v61 + v61)))) + ((v60 + v60) * v65)) + (v47 * v66);
-    v68 = ((v50 * ((v49 * (v60 + v60)) - (v47 * v64))) + ((v61 + v61) * v65)) + (v48 * v66);
-    v69 = ((v50 * ((v47 * (v61 + v61)) - (v48 * v63))) + (v64 * v65)) + (v49 * v66);
-    v70 = v141 + v67;
-    v71 = (((v47 * v54) - (v50 * v57)) - (v48 * v55)) + (v58 * v49);
-    v72 = (((v48 * v54) - (v50 * v58)) - (v49 * v57)) + (v55 * v47);
-    v73 = (((v49 * v54) - (v50 * v55)) - (v47 * v58)) + (v57 * v48);
-    v74 = (((v47 * v57) + (v50 * v54)) + (v48 * v58)) + (v49 * v55);
-    v75 = v70 + v70;
-    v76 = (v140 + v68) + (v140 + v68);
-    v77 = (v139 + v69) + (v139 + v69);
-    v78 = ((v133 * v76) + (v134 * (v70 + v70))) + (v16 * v77);
-    v79 = ((v132 * ((v76 * -v16) + (v133 * v77))) + ((v70 + v70) * v125)) + (v134 * v78);
-    v80 = ((v132 * ((v77 * -v134) + (v16 * (v70 + v70)))) + (v76 * v125)) + (v133 * v78);
-    v81 = ((v132 * ((v75 * -v133) + (v134 * v76))) + (v77 * v125)) + (v16 * v78);
-    v82 = v130 + v79;
-    v83 = v128 + v80;
-    v84 = v127 + v81;
-    v85 = (((v134 * v74) + (v132 * v71)) + (v133 * v73)) - (v72 * v16);
-    v86 = (((v133 * v74) + (v132 * v72)) + (v16 * v71)) - (v73 * v134);
-    v87 = (((v16 * v74) + (v132 * v73)) + (v134 * v72)) - (v71 * v133);
-    v88 = (((v71 * -v134) + (v132 * v74)) + (-v133 * v72)) + (-v16 * v73);
-    *a3 = v85;
-    a3[1] = v86;
-    a3[2] = v87;
-    a3[3] = v88;
-    a3[4] = v82;
-    a3[5] = v83;
-    a3[6] = v84;
-    v89 = sqrtf((((v86 * v86) + (v85 * v85)) + (v87 * v87)) + (v88 * v88));
-    if (v89 != 0.0)
-    {
-      *a3 = v85 / v89;
-      a3[1] = v86 / v89;
-      a3[2] = v87 / v89;
-      a3[3] = v88 / v89;
-    }
-  }
-
-  else
-  {
-    v90 = a1[8] * -2.0;
-    v91 = a1[9] * -2.0;
-    v92 = a1[10] * -2.0;
-    v94 = a1[6];
-    v93 = a1[7];
-    v95 = (v93 * v93) + -0.5;
-    v96 = a1[4];
-    v97 = a1[5];
-    v98 = ((v91 * v97) + (v96 * v90)) + (v94 * v92);
-    v99 = ((v90 * v95) - (((v97 * v92) - (v94 * v91)) * v93)) + (v96 * v98);
-    v100 = ((v91 * v95) - (((v94 * v90) - (v96 * v92)) * v93)) + (v97 * v98);
-    v101 = ((v92 * v95) - (((v96 * v91) - (v97 * v90)) * v93)) + (v94 * v98);
-    v102 = (v99 - v141) + (v99 - v141);
-    v103 = (v100 - v140) + (v100 - v140);
-    v104 = (v101 - v139) + (v101 - v139);
-    v105 = (v50 * v50) + -0.5;
-    v106 = (-(v48 * v103) - (v47 * v102)) - (v49 * v104);
-    v107 = ((v50 * ((v49 * v103) - (v48 * v104))) + (v102 * v105)) - (v47 * v106);
-    v108 = ((v50 * ((v47 * v104) - (v49 * v102))) + (v103 * v105)) - (v48 * v106);
-    v109 = ((v50 * ((v48 * v102) - (v47 * v103))) + (v104 * v105)) - (v49 * v106);
-    v110 = ((-(v47 * v93) - (v50 * v96)) + (v48 * v94)) - (v97 * v49);
-    v111 = ((-(v48 * v93) - (v50 * v97)) + (v49 * v96)) - (v94 * v47);
-    v112 = ((-(v49 * v93) - (v50 * v94)) + (v47 * v97)) - (v96 * v48);
-    v113 = (((v50 * v93) - (v96 * v47)) - (v48 * v97)) - (v49 * v94);
-    v114 = (v137 * v137) + -0.5;
-    v115 = ((v136 * (v108 + v108)) + (v135 * (v107 + v107))) + (v138 * (v109 + v109));
-    v116 = ((v137 * ((v138 * (v107 + v107)) - (v135 * (v109 + v109)))) + ((v108 + v108) * v114)) + (v136 * v115);
-    v117 = ((v137 * ((v135 * (v108 + v108)) - (v136 * (v107 + v107)))) + ((v109 + v109) * v114)) + (v138 * v115);
-    v118 = v131 + (((v137 * ((v136 * (v109 + v109)) - (v138 * (v108 + v108)))) + ((v107 + v107) * v114)) + (v135 * v115));
-    v119 = v126 + v117;
-    v120 = (((v135 * v113) + (v137 * v110)) + (v136 * v112)) - (v111 * v138);
-    v121 = (((v136 * v113) + (v137 * v111)) + (v138 * v110)) - (v112 * v135);
-    v122 = (((v138 * v113) + (v137 * v112)) + (v135 * v111)) - (v110 * v136);
-    v123 = (((v137 * v113) - (v135 * v110)) - (v136 * v111)) - (v138 * v112);
-    *a2 = v120;
-    a2[1] = v121;
-    a2[2] = v122;
-    a2[3] = v123;
-    a2[4] = v118;
-    a2[5] = v129 + v116;
-    a2[6] = v119;
-    v124 = sqrtf((((v121 * v121) + (v120 * v120)) + (v122 * v122)) + (v123 * v123));
-    if (v124 != 0.0)
-    {
-      *a2 = v120 / v124;
-      a2[1] = v121 / v124;
-      a2[2] = v122 / v124;
-      a2[3] = v123 / v124;
-    }
-  }
-}
-
-void RevoluteJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
-{
-  v16 = physx::Ext::joint::computeJointFrames(&v29, &v25, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
-  if (a5)
-  {
-    (*(*a1 + 16))(a1, &v29, &v25, v16);
-  }
-
-  if (a5 & 2) != 0 && (*(a2 + 128))
-  {
-    v17 = (((v32 * v25) - (v29 * v28)) - (v30 * v27)) + (v26 * v31);
-    v18 = (((v29 * v25) + (v32 * v28)) + (v30 * v26)) + (v31 * v27);
-    v19 = sqrtf(((v17 * v17) + 0.0) + (v18 * v18));
-    if (v19 != 0.0)
-    {
-      v17 = v17 / v19;
-      v18 = v18 / v19;
-    }
-
-    if (v18 < -1.0)
-    {
-      v18 = -1.0;
-    }
-
-    if (v18 > 1.0)
-    {
-      v18 = 1.0;
-    }
-
-    v20 = acosf(v18);
-    v21 = v20 + v20;
-    if (v17 >= 0.0)
-    {
-      v22 = v21;
-    }
-
-    else
-    {
-      v22 = -v21;
-    }
-
-    if (*(a2 + 104) <= 0.0 && *(a2 + 100) <= 0.0)
-    {
-      v23 = *(a2 + 108);
-    }
-
-    else
-    {
-      v23 = 0.0;
-    }
-
-    v24 = (*(a2 + 116) + v23) > v22 || (*(a2 + 112) - v23) < v22;
-    (*(*a1 + 32))(a1, &v29, v24);
-  }
-}
-
-float physx::Ext::InertiaTensorComputer::translate(uint64_t a1, uint64_t a2, int32x4_t a3)
-{
-  a3.i32[0] = *a2;
-  v4 = *(a2 + 4);
-  if (*a2 != 0.0 || v4.f32[0] != 0.0 || v4.f32[1] != 0.0)
-  {
-    v5 = *(a1 + 36);
-    v6 = -v5;
-    v7 = *a3.i32 + v5;
-    a3.i64[0] = *(a1 + 40);
-    v8 = vextq_s8(vzip1q_s32(a3, a3), a3, 8uLL);
-    v9 = vdup_lane_s32(*a3.i8, 0);
-    v10 = vadd_f32(v4, *a3.i8);
-    if (v7 == 0.0 && *v10.i32 == 0.0 && *&v10.i32[1] == 0.0)
-    {
-      v11 = xmmword_1E3118C30;
-      v11.i32[0] = v8.i32[0];
-      v12 = vmulq_f32(v8, v11);
-      v13 = v12;
-      v13.i32[0] = 0;
-      v14 = v5 * v6;
-      v15 = a3;
-      v15.i32[2] = HIDWORD(*(a1 + 40));
-      v16 = vextq_s8(vzip1q_s32(v15, vzip1q_s32(0, v15)), v15, 4uLL);
-      v15.i32[0] = *(a1 + 36);
-      v15.i32[1] = v15.i32[0];
-      v15.f32[3] = -*a3.i32;
-      v17 = vmulq_f32(v16, v15);
-      v18 = vsubq_f32(v13, v12).f32[0];
-      v13.i32[2] = v17.i32[1];
-      v19 = vaddq_f32(v13, v12);
-      v19.f32[0] = v18;
-      v12.i32[0] = v17.i32[3];
-      v12.f32[1] = *a3.i32 * v5;
-      v12.f32[3] = *a3.i32 * v5;
-      v20 = vaddq_f32(v19, v12);
-      v21 = vdupq_laneq_s32(v17, 2);
-      v21.f32[1] = *a3.i32 * 0.0;
-      v22 = v18 + v14;
-      v21.f32[2] = v5 * -0.0;
-      v23 = v21;
-      v23.f32[3] = v14;
-      v21.i32[0] = v17.i32[0];
-      v21.i32[3] = 0;
-      v24 = vaddq_f32(vaddq_f32(v17, v23), v21);
-    }
-
-    else
-    {
-      *v3.f32 = vrev64_s32(v10);
-      v25 = vzip1q_s32(v3, vdupq_lane_s32(*v3.f32, 0));
-      v26 = xmmword_1E3118C30;
-      v27 = xmmword_1E3118C30;
-      v27.i32[0] = v8.i32[0];
-      v28 = vmulq_f32(v8, v27);
-      v27.f32[0] = v5 * v6;
-      v26.i32[0] = v25.i32[0];
-      v29 = vmulq_f32(v25, v26);
-      *&v30 = *v10.i32 * v7;
-      v31 = v28;
-      v31.i32[0] = 0;
-      v32 = v29;
-      v32.i32[0] = 0;
-      v33 = a3;
-      v33.i32[2] = HIDWORD(*(a1 + 40));
-      v34 = vextq_s8(vzip1q_s32(v33, vzip1q_s32(0, v33)), v33, 4uLL);
-      v33.i32[0] = *(a1 + 36);
-      v33.i32[1] = v33.i32[0];
-      v25.f32[0] = -(v7 * v7);
-      v33.f32[3] = -*a3.i32;
-      v35 = vmulq_f32(v34, v33);
-      v36 = vdupq_laneq_s32(v35, 2);
-      v37 = v7 * -0.0;
-      v36.f32[1] = *a3.i32 * 0.0;
-      v36.f32[2] = v5 * -0.0;
-      v38 = v36;
-      v38.i32[3] = v27.i32[0];
-      v36.i32[0] = v35.i32[0];
-      v36.i32[3] = 0;
-      v3.i64[1] = v3.i64[0];
-      v39 = vzip1q_s32(v3, v3);
-      v39.i32[0] = 0;
-      v3.f32[0] = v7;
-      v3.f32[1] = v7;
-      v3.f32[3] = -*v10.i32;
-      v40 = vaddq_f32(vaddq_f32(v35, v38), v36);
-      v41 = vmulq_f32(v39, v3);
-      v42 = vsubq_f32(v31, v28).f32[0];
-      v31.i32[2] = v35.i32[1];
-      v43 = vaddq_f32(v31, v28);
-      v43.f32[0] = v42;
-      v28.i32[0] = v35.i32[3];
-      v28.f32[1] = *a3.i32 * v5;
-      v28.f32[3] = *a3.i32 * v5;
-      v44 = vsubq_f32(v32, v29).f32[0];
-      v32.i32[2] = v41.i32[1];
-      v27.f32[0] = v42 + v27.f32[0];
-      v45 = vaddq_f32(v32, v29);
-      v45.f32[0] = v44;
-      v29.i64[0] = __PAIR64__(v30, v41.u32[3]);
-      v29.i32[3] = v30;
-      v46 = v44 + v25.f32[0];
-      v47 = vdupq_laneq_s32(v41, 2);
-      v47.f32[1] = *v10.i32 * 0.0;
-      v47.f32[2] = v37;
-      v48 = v47;
-      v48.i32[3] = v25.i32[0];
-      v47.i32[0] = v41.i32[0];
-      v47.i32[3] = 0;
-      v49 = vaddq_f32(vaddq_f32(v41, v48), v47);
-      v20 = vsubq_f32(vaddq_f32(v43, v28), vaddq_f32(v29, v45));
-      v22 = v27.f32[0] - v46;
-      v24 = vsubq_f32(v40, v49);
-    }
-
-    v50 = *(a1 + 48);
-    *a1 = vaddq_f32(vmulq_n_f32(v20, v50), *a1);
-    *(a1 + 16) = (v22 * v50) + *(a1 + 16);
-    *(a1 + 20) = vaddq_f32(vmulq_n_f32(v24, v50), *(a1 + 20));
-    v9.f32[0] = v5;
-    *(a1 + 36) = vadd_f32(v9, *a2);
-    *a3.i32 = *&a3.i32[1] + *(a2 + 8);
-    *(a1 + 44) = *a3.i32;
-  }
-
-  return *a3.i32;
-}
-
-uint64_t updateMassAndInertia(int a1, uint64_t a2, float *a3, unsigned int a4, float32x2_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = a6;
-  v284 = *MEMORY[0x1E69E9840];
-  __asm { FMOV            V8.2S, #1.0 }
-
-  v255 = _D8;
-  v256 = 1.0;
-  v254 = xmmword_1E30474D0;
-  if (a5)
-  {
-    v20 = *a5;
-    v21 = a5[1].f32[0];
-  }
-
-  else
-  {
-    v20 = 0;
-    v21 = 0.0;
-  }
-
-  v248 = v20;
-  if (!a3 || !a4)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 288, "%s: No density specified, setting mass to 1 and inertia to (1,1,1)", a6, a7, a8, "PxRigidBodyExt::updateMassAndInertia");
-LABEL_64:
-    v194 = 0;
-    v193 = v248.i32[1];
-LABEL_65:
-    v195 = 1.0;
-    goto LABEL_66;
-  }
-
-  v253 = 0.0;
-  v251 = 0u;
-  v252 = 0u;
-  v249 = 0u;
-  v250 = 0u;
-  v281 = 1;
-  v283 = 0x1000000000;
-  v282 = &v278;
-  v22 = (*(*a2 + 184))(a2);
-  *v275 = 0;
-  physx::shdfnd::Array<physx::PxShape *,physx::shdfnd::InlineAllocator<128u,physx::shdfnd::ReflectionAllocator<physx::PxShape *>>>::resize(&v278, v22, v275);
-  v26 = (*(*a2 + 192))(a2, v282, v283, 0);
-  v245 = *a3;
-  if ((*a3 >> 23) == 255)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 128, "computeMassAndInertia: Provided mass or density has no valid value", v23, v24, v25, v242);
-    v192 = 0;
-    goto LABEL_54;
-  }
-
-  v244 = v21;
-  if (!v283)
-  {
-    v29 = 0;
-    v31 = 0.0;
-    v26.n128_u64[0] = 0;
-    v246 = v26;
-    v30 = 0.0;
-    v247 = 0u;
-LABEL_49:
-    v191 = v246;
-    v250 = v249;
-    v251 = v247;
-    *&v252 = v30;
-    *(&v252 + 4) = v29;
-    v192 = 1;
-    *(&v252 + 3) = v31;
-    v253 = v246.n128_f32[0];
-    goto LABEL_53;
-  }
-
-  v243 = _D8;
-  v27 = 0;
-  v28 = 0;
-  v29 = 0;
-  v249 = 0u;
-  v8.i32[0] = 1.0;
-  v30 = 0.0;
-  v31 = 0.0;
-  v246 = 0u;
-  v247 = 0u;
-  while (1)
-  {
-    (*(**(v282 + v27) + 312))(v275);
-    if ((v275[0] & 1) == 0 && !v9)
-    {
-      goto LABEL_42;
-    }
-
-    if (a1)
-    {
-      if (v28 >= a4)
-      {
-        v188 = physx::shdfnd::Foundation::mInstance;
-        v189 = "computeMassAndInertia: Not enough mass/density values provided for all (simulation) shapes";
-        v190 = 153;
-        goto LABEL_52;
-      }
-
-      v245 = a3[v28];
-      if ((LODWORD(v245) >> 23) == 255)
-      {
-        break;
-      }
-    }
-
-    v32 = (*(**(v282 + v27) + 64))(*(v282 + v27));
-    if (v32 <= 2)
-    {
-      if (v32 > 0)
-      {
-        if (v32 != 2)
-        {
-          goto LABEL_45;
-        }
-
-        LODWORD(v262) = 2;
-        *(&v262 + 4) = 0;
-        (*(**(v282 + v27) + 104))(*(v282 + v27), &v262);
-        (*(**(v282 + v27) + 160))(&v266);
-        v71.i64[0] = *(&v262 + 4);
-        v73 = (3.1416 * *v71.i32) * *v71.i32;
-        *(&v277 + 3) = (((4.1888 * *v71.i32) * *v71.i32) * *v71.i32) + (v73 * (*(&v262 + 2) + *(&v262 + 2)));
-        __asm { FMOV            V3.2S, #3.0 }
-
-        v75 = vdiv_f32(vmul_f32(vmul_n_f32(*(&v262 + 4), vmuls_lane_f32(*(&v262 + 2), *(&v262 + 4), 1)), 0x4000000040800000), _D3);
-        _D3.f32[0] = (8.0 * vmul_f32(*v71.i8, vmul_f32(*v71.i8, *v71.i8)).f32[0]) / 15.0;
-        v76 = vmuls_lane_f32(*v71.i32, *v71.i8, 1);
-        v77 = v73 * (v75.f32[1] + (v75.f32[0] + (_D3.f32[0] + (((v76 * *(&v262 + 1)) * 3.0) * 0.5))));
-        *v71.i32 = v73 * (_D3.f32[0] + (v76 * *(&v262 + 1)));
-        v75.i32[0] = v266;
-        v78 = v267;
-        v79 = v75.f32[0] + v75.f32[0];
-        v80 = *&v78 * (*&v78 + *&v78);
-        v81 = *(&v267 + 1) * (*(&v267 + 1) + *(&v267 + 1));
-        v82 = (v75.f32[0] + v75.f32[0]) * *&v267;
-        v83.f32[0] = (v75.f32[0] + v75.f32[0]) * *(&v267 + 2);
-        _D3.f32[0] = (*(&v267 + 1) + *(&v267 + 1)) * *(&v267 + 2);
-        *&v84 = (v8.f32[0] - v80) - v81;
-        *v85.i32 = v82 + _D3.f32[0];
-        v86 = ((v75.f32[0] + v75.f32[0]) * *(&v267 + 1)) - ((*&v78 + *&v78) * *(&v267 + 2));
-        *&v87 = v82 - _D3.f32[0];
-        v88 = v8.f32[0] - (v75.f32[0] * (v75.f32[0] + v75.f32[0]));
-        v89.f32[0] = v88 - v81;
-        v90 = *v71.i32 * v86;
-        v91 = (*v71.i32 * *&v84) + (*&v87 * 0.0);
-        v92 = (*v71.i32 * *v85.i32) + (v89.f32[0] * 0.0);
-        *v71.i32 = (*&v84 * 0.0) + (*&v87 * 0.0);
-        v75.f32[0] = (*v85.i32 * 0.0) + (v89.f32[0] * 0.0);
-        v93.f32[0] = (v79 * *(&v267 + 1)) + ((*&v78 + *&v78) * *(&v267 + 2));
-        *v94.i32 = v88 - v80;
-        v95 = (v88 - v80) * 0.0;
-        v96.f32[0] = (*&v78 + *&v78) * *(&v267 + 1);
-        *v97.i32 = v96.f32[0] - v83.f32[0];
-        v98 = *v97.i32 * 0.0;
-        v96.f32[1] = (v96.f32[0] - v83.f32[0]) * 0.0;
-        v83.f32[1] = (*v85.i32 * 0.0) + (v89.f32[0] * v77);
-        *v99.i8 = vadd_f32(v96, *v83.f32);
-        v100.f32[0] = (*v97.i32 * 0.0) + v92;
-        v101 = v99;
-        *v101.i32 = (v93.f32[0] * 0.0) + v91;
-        *&v101.i32[2] = v95 + (v90 + (0.0 * *v99.i32));
-        v102 = v85;
-        *&v102.i32[1] = v95 + ((v86 * 0.0) + (v77 * *v99.i32));
-        v102.i32[3] = v100.i32[0];
-        v103 = v101;
-        v103.f32[3] = *v101.i32;
-        v104 = v102;
-        v104.f32[2] = *v101.i32;
-        v105 = (v86 * 0.0) + (0.0 * *v99.i32);
-        v106.i64[0] = __PAIR64__(v87, v84);
-        v106.i64[1] = __PAIR64__(v85.u32[0], v84);
-        v107 = vuzp2q_s32(v102, v102);
-        v108 = vextq_s8(v101, v99, 4uLL);
-        v107.f32[0] = (v93.f32[0] * 0.0) + ((*&v84 * 0.0) + (*&v87 * v77));
-        v108.f32[2] = v107.f32[0];
-        v107.f32[3] = v107.f32[0];
-        v100.i32[1] = v89.i32[0];
-        v100.f32[2] = v86;
-        v100.f32[3] = v86;
-        v109 = vmulq_f32(v104, v100);
-        v100.i64[0] = __PAIR64__(v84, v87);
-        v100.i64[1] = __PAIR64__(v89.u32[0], v87);
-        v89.i32[1] = v85.i32[0];
-        v89.i64[1] = v99.i64[0];
-        v110 = vaddq_f32(v109, vmulq_f32(v108, v89));
-        v109.f32[0] = (v93.f32[0] * v77) + *v71.i32;
-        v109.f32[1] = (*v97.i32 * v77) + v75.f32[0];
-        v109.i64[1] = __PAIR64__(v109.u32[0], v93.u32[0]);
-        v83.f32[0] = v109.f32[1];
-        v83.f32[1] = (*v94.i32 * v77) + v105;
-        v83.f32[2] = v109.f32[0];
-        v83.f32[3] = v109.f32[1];
-        v93.i32[1] = v93.i32[0];
-        v93.f32[2] = v83.f32[1];
-        v93.i32[3] = v97.i32[0];
-        *v111.f32 = vdup_lane_s32(v97, 0);
-        *&v111.u32[2] = vdup_lane_s32(v94, 0);
-        *v275 = vaddq_f32(vmulq_f32(v109, v93), vaddq_f32(vmulq_f32(v103, v106), vmulq_f32(v107, v100)));
-        *&v275[16] = vaddq_f32(vmulq_f32(v83, v111), v110);
-        v72 = v98 + v75.f32[0];
-        v276 = (*v94.i32 * v83.f32[1]) + ((v86 * (v95 + (v90 + (0.0 * *v99.i32)))) + (*&v102.i32[1] * *v99.i32));
-        *&v277 = (v93.f32[0] * 0.0) + *v71.i32;
-        *v71.i32 = v95 + v105;
-      }
-
-      else
-      {
-        if (v32)
-        {
-          if (v32 == -1)
-          {
-LABEL_45:
-            v188 = physx::shdfnd::Foundation::mInstance;
-            v189 = "computeMassAndInertia: Dynamic actor with illegal collision shapes";
-            v190 = 231;
-            goto LABEL_52;
-          }
-
-          goto LABEL_41;
-        }
-
-        *&v262 = 0;
-        (*(**(v282 + v27) + 96))(*(v282 + v27), &v262);
-        (*(**(v282 + v27) + 160))(&v266);
-        v36 = (*(&v262 + 1) * (*(&v262 + 1) * (*(&v262 + 1) * (*(&v262 + 1) * (*(&v262 + 1) * 4.1888))))) * 0.4;
-        *(&v277 + 3) = *(&v262 + 1) * (*(&v262 + 1) * (*(&v262 + 1) * 4.1888));
-        v71.i32[0] = v266;
-        v37 = *&v267;
-        v38 = *v71.i32 + *v71.i32;
-        v39 = v37 + v37;
-        v40 = v37 * (v37 + v37);
-        v41 = *(&v267 + 1) * (*(&v267 + 1) + *(&v267 + 1));
-        v42 = (*v71.i32 + *v71.i32) * *&v267;
-        v43.f32[0] = (*v71.i32 + *v71.i32) * *(&v267 + 2);
-        v44 = (*(&v267 + 1) + *(&v267 + 1)) * *(&v267 + 2);
-        *&v45 = (v8.f32[0] - v40) - v41;
-        v46.f32[0] = v42 + v44;
-        v47 = ((*v71.i32 + *v71.i32) * *(&v267 + 1)) - (v39 * *(&v267 + 2));
-        *&v48 = v42 - v44;
-        v49 = v8.f32[0] - (*v71.i32 * (*v71.i32 + *v71.i32));
-        v50.f32[0] = v49 - v41;
-        *v71.i32 = (*&v45 * 0.0) + (*&v48 * 0.0);
-        v51 = (v46.f32[0] * 0.0) + ((v49 - v41) * 0.0);
-        v52.f32[0] = (v38 * *(&v267 + 1)) + (v39 * *(&v267 + 2));
-        *v53.i32 = v49 - v40;
-        v54 = *v53.i32 * 0.0;
-        v55.f32[0] = v39 * *(&v267 + 1);
-        *v56.i32 = (v39 * *(&v267 + 1)) - v43.f32[0];
-        v57 = *v56.i32 * 0.0;
-        v55.f32[1] = *v56.i32 * 0.0;
-        v43.f32[1] = (v46.f32[0] * 0.0) + (v36 * v50.f32[0]);
-        *v8.f32 = vadd_f32(v55, v43);
-        v58 = (v47 * 0.0) + (0.0 * v8.f32[0]);
-        v59.f32[0] = (*v56.i32 * 0.0) + ((v36 * v46.f32[0]) + (v50.f32[0] * 0.0));
-        v60 = (*v53.i32 * 0.0) + ((v36 * v47) + (0.0 * v8.f32[0]));
-        v61 = v8;
-        v61.f32[0] = (v52.f32[0] * 0.0) + ((v36 * *&v45) + (*&v48 * 0.0));
-        v61.f32[2] = v60;
-        v62 = v46;
-        v62.f32[1] = (*v53.i32 * 0.0) + ((v47 * 0.0) + (v36 * v8.f32[0]));
-        v62.f32[3] = v59.f32[0];
-        v63 = vuzp2q_s32(v62, v62);
-        v62.f32[2] = v61.f32[0];
-        v64 = vextq_s8(v61, v8, 4uLL);
-        v61.f32[3] = v61.f32[0];
-        v59.i32[1] = v50.i32[0];
-        v59.f32[2] = v47;
-        v59.f32[3] = v47;
-        v65.i64[0] = __PAIR64__(v48, v45);
-        v65.i64[1] = __PAIR64__(v46.u32[0], v45);
-        v66 = vmulq_f32(v61, v65);
-        v63.f32[0] = (v52.f32[0] * 0.0) + ((*&v45 * 0.0) + (v36 * *&v48));
-        v63.f32[3] = v63.f32[0];
-        v64.f32[2] = v63.f32[0];
-        v67.i64[0] = __PAIR64__(v45, v48);
-        v67.i64[1] = __PAIR64__(v50.u32[0], v48);
-        v50.i32[1] = v46.i32[0];
-        v50.i64[1] = v8.i64[0];
-        v68 = v62.f32[1] * v8.f32[0];
-        v8.i32[0] = 1.0;
-        v61.f32[0] = (v36 * v52.f32[0]) + *v71.i32;
-        v61.f32[1] = (v36 * *v56.i32) + v51;
-        v61.i64[1] = __PAIR64__(v61.u32[0], v52.u32[0]);
-        v69 = vaddq_f32(v66, vmulq_f32(v63, v67));
-        v66.f32[0] = v61.f32[1];
-        v66.f32[1] = (v36 * *v53.i32) + v58;
-        v66.f32[2] = v61.f32[0];
-        v66.f32[3] = v61.f32[1];
-        v52.i32[1] = v52.i32[0];
-        v52.f32[2] = v66.f32[1];
-        v52.i32[3] = v56.i32[0];
-        *v70.f32 = vdup_lane_s32(v56, 0);
-        *&v70.u32[2] = vdup_lane_s32(v53, 0);
-        *v275 = vaddq_f32(vmulq_f32(v61, v52), v69);
-        *&v275[16] = vaddq_f32(vmulq_f32(v66, v70), vaddq_f32(vmulq_f32(v62, v59), vmulq_f32(v64, v50)));
-        *v71.i32 = (v52.f32[0] * 0.0) + *v71.i32;
-        v72 = v57 + v51;
-        v276 = (*v53.i32 * v66.f32[1]) + ((v47 * v60) + v68);
-LABEL_34:
-        LODWORD(v277) = v71.i32[0];
-        *v71.i32 = v54 + v58;
-      }
-
-      *(&v277 + 4) = __PAIR64__(v71.u32[0], LODWORD(v72));
-      v152 = &v266;
-      goto LABEL_40;
-    }
-
-    if (v32 == 3)
-    {
-      v262 = 3uLL;
-      (*(**(v282 + v27) + 88))(*(v282 + v27), &v262);
-      (*(**(v282 + v27) + 160))(&v266);
-      if (*(&v262 + 1) == 0.0)
-      {
-        v116 = v8.f32[0];
-      }
-
-      else
-      {
-        v116 = *(&v262 + 1);
-      }
-
-      if (*(&v262 + 2) != 0.0)
-      {
-        v116 = *(&v262 + 2) * v116;
-      }
-
-      if (*(&v262 + 3) != 0.0)
-      {
-        v116 = *(&v262 + 3) * v116;
-      }
-
-      v117 = v116 * 8.0;
-      v118 = ((*(&v262 + 2) * *(&v262 + 2)) + (*(&v262 + 3) * *(&v262 + 3))) * (v117 * 0.33333);
-      v119 = ((*(&v262 + 1) * *(&v262 + 1)) + (*(&v262 + 3) * *(&v262 + 3))) * (v117 * 0.33333);
-      v120 = ((*(&v262 + 1) * *(&v262 + 1)) + (*(&v262 + 2) * *(&v262 + 2))) * (v117 * 0.33333);
-      *(&v277 + 3) = v117;
-      v121 = *&v266;
-      v122 = *&v267;
-      *v112.i32 = v121 + v121;
-      *v113.i32 = v122 + v122;
-      *v115.i32 = v122 * (v122 + v122);
-      v123 = *(&v267 + 1) * (*(&v267 + 1) + *(&v267 + 1));
-      v124 = (v121 + v121) * *&v267;
-      v125.f32[0] = (v121 + v121) * *(&v267 + 2);
-      v126 = (*(&v267 + 1) + *(&v267 + 1)) * *(&v267 + 2);
-      *&v127 = (v8.f32[0] - *v115.i32) - v123;
-      v114.f32[0] = v124 + v126;
-      v128 = ((v121 + v121) * *(&v267 + 1)) - (*v113.i32 * *(&v267 + 2));
-      *&v129 = v124 - v126;
-      v130 = v8.f32[0] - (v121 * (v121 + v121));
-      v131.f32[0] = v130 - v123;
-      v132 = v118 * v128;
-      v133 = (v118 * *&v127) + (*&v129 * 0.0);
-      v134 = (v118 * v114.f32[0]) + (v131.f32[0] * 0.0);
-      v135 = (*&v127 * 0.0) + (*&v129 * 0.0);
-      v136 = (v114.f32[0] * 0.0) + (v131.f32[0] * 0.0);
-      v137.f32[0] = (*v112.i32 * *(&v267 + 1)) + (*v113.i32 * *(&v267 + 2));
-      *v112.i32 = v130 - *v115.i32;
-      v54 = (v130 - *v115.i32) * 0.0;
-      *v115.i32 = *v113.i32 * *(&v267 + 1);
-      *v113.i32 = (*v113.i32 * *(&v267 + 1)) - v125.f32[0];
-      v138 = *v113.i32 * 0.0;
-      *&v115.i32[1] = *v113.i32 * 0.0;
-      v125.f32[1] = (v114.f32[0] * 0.0) + (v119 * v131.f32[0]);
-      v139 = (v137.f32[0] * 0.0) + ((*&v127 * 0.0) + (v119 * *&v129));
-      *v115.i8 = vadd_f32(*v115.i8, v125);
-      v125.f32[0] = v132 + (0.0 * *v115.i32);
-      v140 = (v128 * 0.0) + (v119 * *v115.i32);
-      v58 = (v128 * 0.0) + (0.0 * *v115.i32);
-      v141.f32[0] = (*v113.i32 * 0.0) + v134;
-      v142 = v115;
-      v142.f32[0] = (v137.f32[0] * 0.0) + v133;
-      v142.f32[2] = v54 + v125.f32[0];
-      v143 = v114;
-      v143.f32[1] = v54 + v140;
-      v143.i32[3] = v141.i32[0];
-      v144 = vextq_s8(v142, v115, 4uLL);
-      v142.f32[3] = v142.f32[0];
-      v8 = vuzp2q_s32(v143, v143);
-      v143.f32[2] = v142.f32[0];
-      v141.i32[1] = v131.i32[0];
-      v141.f32[2] = v128;
-      v141.f32[3] = v128;
-      v145.i64[0] = __PAIR64__(v129, v127);
-      v145.i64[1] = __PAIR64__(v114.u32[0], v127);
-      v8.f32[0] = v139;
-      v144.f32[2] = v139;
-      v8.f32[3] = v139;
-      v146 = vmulq_f32(v143, v141);
-      v141.i64[0] = __PAIR64__(v127, v129);
-      v141.i64[1] = __PAIR64__(v131.u32[0], v129);
-      v131.i32[1] = v114.i32[0];
-      v131.i64[1] = v115.i64[0];
-      v147 = vmulq_f32(v8, v141);
-      v8.i32[0] = 1.0;
-      v148 = (v54 + v140) * *v115.i32;
-      v149.f32[0] = (v120 * *v113.i32) + v136;
-      v149.f32[1] = (*v112.i32 * v120) + v58;
-      v149.f32[2] = (v120 * v137.f32[0]) + v135;
-      v149.f32[3] = v149.f32[0];
-      v150.f32[0] = v149.f32[2];
-      v150.f32[1] = v149.f32[0];
-      v150.i32[2] = v137.i32[0];
-      v150.f32[3] = v149.f32[2];
-      v137.i32[1] = v137.i32[0];
-      v137.f32[2] = v149.f32[1];
-      v137.i32[3] = v113.i32[0];
-      *v151.f32 = vdup_lane_s32(v113, 0);
-      *&v151.u32[2] = vdup_lane_s32(v112, 0);
-      *v275 = vaddq_f32(vmulq_f32(v150, v137), vaddq_f32(vmulq_f32(v142, v145), v147));
-      *&v275[16] = vaddq_f32(vmulq_f32(v149, v151), vaddq_f32(v146, vmulq_f32(v144, v131)));
-      *v71.i32 = (v137.f32[0] * 0.0) + v135;
-      v72 = v138 + v136;
-      v276 = (*v112.i32 * v149.f32[1]) + ((v128 * (v54 + v125.f32[0])) + v148);
-      goto LABEL_34;
-    }
-
-    if (v32 != 4)
-    {
-      if ((v32 - 5) < 3)
-      {
-        goto LABEL_45;
-      }
-
-      goto LABEL_41;
-    }
-
-    v267 = xmmword_1E304F3C0;
-    v266 = 4;
-    v268 = 0.0;
-    v269 = 0.0;
-    v270 = 1.0;
-    v271 = 0;
-    v272 = 1;
-    v273 = 0;
-    v274 = 0;
-    (*(**(v282 + v27) + 120))(*(v282 + v27), &v266);
-    v265 = 0.0;
-    (*(*v271 + 104))(v271, &v265, &v262, &v260);
-    if (*&v267 == v8.f32[0] && *(&v267 + 1) == v8.f32[0] && *(&v267 + 2) == v8.f32[0])
-    {
-      v33 = v262;
-      v34 = v263;
-      v35 = v264;
-    }
-
-    else
-    {
-      v265 = ((*&v267 * *(&v267 + 1)) * *(&v267 + 2)) * v265;
-      v153 = (v270 * v270) + -0.5;
-      v154 = (((*(&v260 + 1) + *(&v260 + 1)) * v268) + (*(&v267 + 3) * (*&v260 + *&v260))) + (v269 * (v261 + v261));
-      v155 = ((v270 * ((v268 * (v261 + v261)) - (v269 * (*(&v260 + 1) + *(&v260 + 1))))) + ((*&v260 + *&v260) * v153)) + (*(&v267 + 3) * v154);
-      v156 = ((v270 * ((v269 * (*&v260 + *&v260)) - (*(&v267 + 3) * (v261 + v261)))) + ((*(&v260 + 1) + *(&v260 + 1)) * v153)) + (v268 * v154);
-      v157 = *(&v267 + 2) * (((v270 * ((*(&v267 + 3) * (*(&v260 + 1) + *(&v260 + 1))) - (v268 * (*&v260 + *&v260)))) + ((v261 + v261) * v153)) + (v269 * v154));
-      v158 = (*&v267 * v155) + (*&v267 * v155);
-      v159 = (*(&v267 + 1) * v156) + (*(&v267 + 1) * v156);
-      v160 = v157 + v157;
-      v161 = ((v268 * v159) + (*(&v267 + 3) * v158)) + (v269 * v160);
-      *&v260 = ((v158 * v153) - (((v268 * v160) - (v269 * v159)) * v270)) + (*(&v267 + 3) * v161);
-      *(&v260 + 1) = ((v159 * v153) - (((v269 * v158) - (*(&v267 + 3) * v160)) * v270)) + (v268 * v161);
-      v261 = ((v160 * v153) - (((*(&v267 + 3) * v159) - (v268 * v158)) * v270)) + (v269 * v161);
-      physx::PxMassProperties::scaleInertia(&v262, &v267 + 12, &v267, &v257);
-      v33 = v257;
-      v34 = v258;
-      v262 = v257;
-      v263 = v258;
-      v35 = v259;
-      v264 = v259;
-    }
-
-    *&v162 = v260;
-    *v275 = v33;
-    *&v275[16] = v34;
-    v276 = v35;
-    *(&v162 + 1) = __PAIR64__(LODWORD(v265), LODWORD(v261));
-    v277 = v162;
-    (*(**(v282 + v27) + 160))(&v257);
-    v163 = vadd_f32(*&v257, *&v257);
-    v164 = vadd_f32(*(&v257 + 8), *(&v257 + 8));
-    v165 = vrev64_s32(vmul_f32(*&v257, v163));
-    v166 = vmul_lane_f32(v163, *&v257, 1);
-    v167 = vmul_n_f32(*(&v257 + 8), v163.f32[0]);
-    v168 = vrev64_s32(vmul_lane_f32(*(&v257 + 8), v163, 1));
-    v169 = vmul_lane_f32(v164, *(&v257 + 8), 1);
-    *v71.i8 = vsub_f32(v167, v168);
-    v170 = vsub_f32(v166, v169);
-    v171 = vadd_f32(v166, v169);
-    v172 = vzip1_s32(v170, v171);
-    v173 = vsub_f32(v243, v165);
-    v174 = vsub_f32(v173, vdup_lane_s32(vmul_f32(*(&v257 + 8), v164), 0));
-    v175 = vadd_f32(v168, v167);
-    v176 = vsub_f32(v168, v167);
-    v177 = __PAIR64__(v176.u32[1], v175.u32[0]);
-    v178 = vsub_f32(vdup_lane_s32(v173, 1), v165);
-    v179 = vadd_f32(vadd_f32(vmul_f32(vrev64_s32(*v275), v172), vmul_f32(*v275, v174)), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), *&v275[8]));
-    v168.f32[0] = (vmul_f32(*v275, *v71.i8).f32[0] + vmuls_lane_f32(*&v275[4], v175, 1)) + (*&v275[8] * v178.f32[0]);
-    v180 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v275[12])), vmul_f32(v174, *&v275[12])), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), *&v275[20]));
-    v173.f32[0] = (vmul_f32(*v71.i8, *&v275[12]).f32[0] + vmuls_lane_f32(v175.f32[1], *&v275[12], 1)) + (*&v275[20] * v178.f32[0]);
-    v181 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v275[24])), vmul_f32(v174, *&v275[24])), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), v276));
-    v182 = (vmul_f32(*v71.i8, *&v275[24]).f32[0] + vmuls_lane_f32(v175.f32[1], *&v275[24], 1)) + (v276 * v178.f32[0]);
-    v183 = vadd_f32(vadd_f32(vmul_f32(v174, v179), vmul_f32(v170, v180)), vmul_f32(v175, v181)).u32[0];
-    v184 = (vmuls_lane_f32(v174.f32[0], v179, 1) + vmuls_lane_f32(v170.f32[0], v180, 1)) + vmuls_lane_f32(v175.f32[0], v181, 1);
-    v170.f32[0] = ((v168.f32[0] * v174.f32[0]) + (v173.f32[0] * v170.f32[0])) + (v182 * v175.f32[0]);
-    v185 = vmuls_lane_f32(v180.f32[0], v175, 1);
-    v175.f32[0] = (v168.f32[0] * *v71.i32) + vmuls_lane_f32(v173.f32[0], v175, 1);
-    *v275 = v183;
-    *&v275[4] = v184;
-    *&v275[12] = vadd_f32(vadd_f32(vmul_n_f32(v179, *v171.i32), vmul_lane_f32(v180, v174, 1)), vmul_lane_f32(v181, v176, 1));
-    *&v275[8] = v170.i32[0];
-    *&v275[20] = ((v168.f32[0] * *v171.i32) + vmuls_lane_f32(v173.f32[0], v174, 1)) + vmuls_lane_f32(v182, v176, 1);
-    *&v275[24] = (vmul_f32(*v71.i8, v179).f32[0] + v185) + vmul_f32(v178, v181).f32[0];
-    *&v275[28] = (vmuls_lane_f32(*v71.i32, v179, 1) + vmuls_lane_f32(v175.f32[1], v180, 1)) + vmuls_lane_f32(v178.f32[0], v181, 1);
-    *v71.i8 = vmul_f32(*v71.i8, *&v277);
-    v164.f32[0] = vmuls_lane_f32(v175.f32[1], *&v277, 1);
-    *&v277 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v277)), vmul_f32(v174, *&v277)), vmul_n_f32(v177, *(&v277 + 2)));
-    *v71.i32 = (*v71.i32 + v164.f32[0]) + (*(&v277 + 2) * v178.f32[0]);
-    v276 = v175.f32[0] + (v182 * v178.f32[0]);
-    DWORD2(v277) = v71.i32[0];
-    v152 = &v257;
-LABEL_40:
-    physx::Ext::InertiaTensorComputer::translate(v275, (v152 + 4), v71);
-LABEL_41:
-    v186 = v8.f32[0] / (v246.n128_f32[0] + (v245 * *(&v277 + 3)));
-    v29 = vmul_n_f32(vadd_f32(vmul_n_f32(v29, v246.n128_f32[0]), vmul_n_f32(*&v277, v245 * *(&v277 + 3))), v186);
-    v31 = v186 * ((v31 * v246.n128_f32[0]) + ((v245 * *(&v277 + 3)) * *(&v277 + 2)));
-    v249 = vaddq_f32(v249, vmulq_n_f32(*v275, v245));
-    v187 = v247;
-    v30 = v30 + (v245 * v276);
-    ++v28;
-    v187.n128_f32[0] = v246.n128_f32[0] + (v245 * *(&v277 + 3));
-    v246 = v187;
-    v247 = vaddq_f32(v247, vmulq_n_f32(*&v275[16], v245));
-LABEL_42:
-    if (++v27 >= v283)
-    {
-      goto LABEL_49;
-    }
-  }
-
-  v188 = physx::shdfnd::Foundation::mInstance;
-  v189 = "computeMassAndInertia: Provided mass or density has no valid value";
-  v190 = 146;
-LABEL_52:
-  physx::shdfnd::Foundation::error(v188, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", v190, v189, v23, v24, v25, v242);
-  v192 = 0;
-LABEL_53:
-  v21 = v244;
-LABEL_54:
-  if ((v283 & 0x8000000000000000) == 0 && (v283 & 0x7FFFFFFF00000000) != 0 && v282 != &v278 && v282)
-  {
-    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
-  }
-
-  if (!v192)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 280, "%s: Mass and inertia computation failed, setting mass to 1 and inertia to (1,1,1)", v23, v24, v25, "PxRigidBodyExt::updateMassAndInertia");
-    goto LABEL_64;
-  }
-
-  v193 = v248.i32[1];
-  if (v253 == 0.0)
-  {
-    v194 = 0;
-    goto LABEL_65;
-  }
-
-  if (a5)
-  {
-    *v191.i8 = vneg_f32(v248);
-    *&v278 = v191.i64[0];
-    *(&v278 + 2) = -v21;
-    physx::Ext::InertiaTensorComputer::translate(&v250, &v278, v191);
-  }
-
-  else
-  {
-    v21 = *(&v252 + 3);
-    *v191.i32 = -*(&v252 + 3);
-    v248 = *(&v252 + 4);
-    *&v278 = vneg_f32(*(&v252 + 4));
-    *(&v278 + 2) = -*(&v252 + 3);
-    physx::Ext::InertiaTensorComputer::translate(&v250, &v278, v191);
-    v193 = v248.i32[1];
-  }
-
-  v278 = v250;
-  v279 = v251;
-  v195 = v253;
-  v280 = v252;
-  physx::PxDiagonalize(&v278, &v254, v275);
-  v255 = *v275;
-  v256 = *&v275[8];
-  if (*v275 <= 0.0 || *&v275[4] <= 0.0 || *&v275[8] <= 0.0)
-  {
-    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 84, "%s: inertia tensor has negative components (ill-conditioned input expected). Approximation for inertia tensor will be used instead.", v197, v198, v199, "PxRigidBodyExt::updateMassAndInertia");
-    (*(*a2 + 80))(v275, a2, 1.01);
-    (*(*a2 + 152))(&v278, a2);
-    v200.f32[0] = v279.f32[2] * -2.0;
-    v201.i32[0] = DWORD2(v278);
-    v202 = (*(&v278 + 3) * *(&v278 + 3)) + -0.5;
-    v236 = vadd_f32(*v275, *&v275[12]);
-    v203 = vmul_f32(v236, 0x3F0000003F000000);
-    _S20 = ((*&v275[8] + *&v275[20]) * 0.5) + ((*&v275[8] + *&v275[20]) * 0.5);
-    v205 = -*(&v278 + 2) - *(&v278 + 2);
-    v206 = -(*(&v278 + 2) * v205);
-    v207 = vmul_f32(*v279.f32, 0xC0000000C0000000);
-    v208 = vrev64_s32(v207);
-    _D22 = vrev64_s32(*&v278);
-    v210 = (vmul_f32(v208, _D22).f32[0] + (*&v278 * *v207.i32)) + (*(&v278 + 2) * (v279.f32[2] * -2.0));
-    v211 = vneg_f32(_D22);
-    _D27 = vadd_f32(v203, v203);
-    v213 = vrev64_s32(_D27);
-    _S30 = _D27.i32[1];
-    _D31 = vmul_f32(v213, v211);
-    __asm { FMLS            S31, S27, V22.S[1] }
-
-    _D31.f32[0] = _D31.f32[0] - (*(&v278 + 2) * _S20);
-    v216.f32[0] = (_S20 * *&v278) - (*_D27.i32 * *(&v278 + 2));
-    __asm { FMLS            S27, S30, V22.S[1] }
-
-    v201.f32[1] = v279.f32[2] * -2.0;
-    v200.f32[1] = -*(&v278 + 2);
-    v217 = vmla_f32(vmul_f32(v200, vext_s8(v211, v208, 4uLL)), vzip2_s32(v208, *&v278), v201);
-    v201.f32[0] = *(&v278 + 3) * v205;
-    v218 = (*&v275[20] - *&v275[8]) * 0.5;
-    __asm { FMLS            S9, S20, V22.S[0] }
-
-    v216.i32[1] = _S9;
-    v220 = vadd_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(v217), *(&v278 + 3)), v208, v202), _D22, v210), vmls_lane_f32(vmla_n_f32(vmul_n_f32(v216, *(&v278 + 3)), v213, v202), _D22, _D31, 0));
-    v221 = ((((v279.f32[2] * -2.0) * v202) - ((vmuls_n_f32(*v207.i32, v211.f32[0]) + (*&v278 * *&v207.i32[1])) * *(&v278 + 3))) + (*(&v278 + 2) * v210)) + (((*(&v278 + 3) * *_D27.i32) + (_S20 * v202)) - (*(&v278 + 2) * _D31.f32[0]));
-    v222 = vmul_f32(vsub_f32(*&v275[12], *v275), 0x3F0000003F000000);
-    v223 = vsub_f32(v211, _D22);
-    v224 = vmul_f32(v223, v211).f32[0];
-    v225 = vmuls_lane_f32(v211.f32[0], v223, 1);
-    v226 = vmul_n_f32(v223, -*(&v278 + 2));
-    v227 = vmul_n_f32(vrev64_s32(v223), *(&v278 + 3));
-    v211.f32[0] = (1.0 - v224) - v206;
-    v228.f32[0] = v225 + (*(&v278 + 3) * v205);
-    v229 = vmuls_lane_f32(*&v278, v223, 1) + 1.0;
-    v230.f32[0] = v229 - v206;
-    v231 = vsub_f32(v226, v227);
-    v232 = vadd_f32(v226, v227);
-    v228.i32[1] = v211.i32[0];
-    v230.f32[1] = v225 - v201.f32[0];
-    v233 = vmul_f32(vext_s8(v231, v232, 4uLL), v222);
-    v231.i32[1] = v232.i32[1];
-    v234 = vadd_f32(vadd_f32(vabs_f32(vmul_n_f32(v228, v222.f32[0])), vabs_f32(vmul_lane_f32(v230, v222, 1))), vabs_f32(vmul_n_f32(v231, v218)));
-    v233.f32[0] = vaddv_f32(vabs_f32(v233)) + fabsf((v229 - v224) * v218);
-    v235 = vmul_f32(vadd_f32(vadd_f32(v234, v220), vsub_f32(v234, v220)), 0x3F0000003F000000);
-    v236.f32[0] = ((v233.f32[0] + v221) + (v233.f32[0] - v221)) * 0.5;
-    v237 = v235.f32[1];
-    if (v235.f32[1] == 0.0)
-    {
-      v237 = 1.0;
-    }
-
-    if (v235.f32[0] != 0.0)
-    {
-      v237 = v237 * v235.f32[0];
-    }
-
-    if (v236.f32[0] != 0.0)
-    {
-      v237 = v236.f32[0] * v237;
-    }
-
-    v238 = v237 * 8.0;
-    v236.f32[0] = v236.f32[0] * v236.f32[0];
-    v239 = vmul_f32(v235, v235);
-    v240 = vmul_n_f32(vadd_f32(vdup_lane_s32(v236, 0), v239), v238 * 0.33333);
-    v239.f32[0] = vaddv_f32(v239) * (v238 * 0.33333);
-    v241 = v195 / v238;
-    v255 = vmul_n_f32(v240, v241);
-    v256 = v241 * v239.f32[0];
-    v254 = xmmword_1E30474D0;
-  }
-
-  v194 = 1;
-LABEL_66:
-  (*(*a2 + 232))(a2, v195);
-  (*(*a2 + 256))(a2, &v255);
-  v278 = v254;
-  v279.i64[0] = __PAIR64__(v193, v248.u32[0]);
-  v279.f32[2] = v21;
-  (*(*a2 + 216))(a2, &v278);
-  return v194;
 }

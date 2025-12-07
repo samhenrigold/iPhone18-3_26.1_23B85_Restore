@@ -46,30 +46,30 @@
 
 - (void)addPhraseToUserProfileWithTemplateName:(id)name wordTag:(id)tag phrase:(id)phrase
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   tagCopy = tag;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = phrase;
-  v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       v13 = 0;
       do
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v13);
+        v14 = *(*(&v20 + 1) + 8 * v13);
         array = [MEMORY[0x277CBEB18] array];
         v16 = objc_alloc(MEMORY[0x277D072A8]);
         v17 = [MEMORY[0x277CBEB98] set];
@@ -82,42 +82,40 @@
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPhraseToUserProfileWithTemplateName:(id)name wordTag:(id)tag namesToProns:(id)prons
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   tagCopy = tag;
   pronsCopy = prons;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [pronsCopy allKeys];
-  v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v29)
   {
-    v11 = *v32;
+    v11 = *v31;
     v12 = 0x277CBE000uLL;
-    v28 = pronsCopy;
+    v27 = pronsCopy;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         v15 = [pronsCopy objectForKeyedSubscript:v14];
         v16 = [v15 count];
         v17 = *(v12 + 2968);
@@ -141,7 +139,7 @@
           tagCopy = v20;
           v11 = v19;
           v12 = v18;
-          pronsCopy = v28;
+          pronsCopy = v27;
         }
 
         array = [MEMORY[0x277CBEB18] array];
@@ -151,61 +149,57 @@
         [(_EARUserProfile *)self->_userProfile addWordWithParts:array templateName:nameCopy];
       }
 
-      v30 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWordsToUserProfileWithTemplateName:(id)name wordArrays:(id)arrays
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = arrays;
-  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         array = [MEMORY[0x277CBEB18] array];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = sub_272375B18;
-        v16[3] = &unk_279E40898;
-        v17 = array;
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = sub_272375B18;
+        v15[3] = &unk_279E40898;
+        v16 = array;
         v13 = array;
-        [v11 enumerateKeysAndObjectsUsingBlock:v16];
+        [v11 enumerateKeysAndObjectsUsingBlock:v15];
         [(_EARUserProfile *)self->_userProfile addWordWithParts:v13 templateName:nameCopy];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)writeUserProfileToCache
@@ -268,22 +262,22 @@
 
 - (id)getUserProfileData
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [(NSString *)self->_language copy];
   dataProfile = [(RDUserProfileImpl *)self dataProfile];
   v5 = dataProfile;
   if (dataProfile)
   {
-    v15[0] = @"data";
-    v15[1] = @"version";
-    v16[0] = dataProfile;
-    v16[1] = @"4.0";
-    v15[2] = @"language";
-    v16[2] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-    v14 = 0;
-    v7 = [MEMORY[0x277CCAC58] dataWithPropertyList:v6 format:200 options:0 error:&v14];
-    v8 = v14;
+    v14[0] = @"data";
+    v14[1] = @"version";
+    v15[0] = dataProfile;
+    v15[1] = @"4.0";
+    v14[2] = @"language";
+    v15[2] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v13 = 0;
+    v7 = [MEMORY[0x277CCAC58] dataWithPropertyList:v6 format:200 options:0 error:&v13];
+    v8 = v13;
     v9 = v8;
     if (v7)
     {
@@ -305,8 +299,6 @@
     v9 = 0;
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

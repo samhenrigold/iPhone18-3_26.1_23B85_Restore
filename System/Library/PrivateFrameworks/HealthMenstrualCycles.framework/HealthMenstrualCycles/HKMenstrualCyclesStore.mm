@@ -28,6 +28,7 @@
 - (void)savePeriodStartedOnDayIndex:(int64_t)index completion:(id)completion;
 - (void)savePeriodStartedOnDayIndex:(int64_t)index endedOnDayIndex:(int64_t)dayIndex completion:(id)completion;
 - (void)setCycleFactorsLastReviewedDate:(id)date;
+- (void)setIsEligibleForCycleFactorsReminder:(BOOL)reminder;
 - (void)setLastMenstrualPeriodDismissalDay:(id)day;
 - (void)setUnconfirmedDeviationDismissalDay:(id)day;
 - (void)setUnconfirmedDeviationSubmissionDay:(id)day;
@@ -96,15 +97,14 @@
 
 - (void)saveDaySummary:(id)summary completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   summaryCopy2 = summary;
   v9 = [v6 arrayWithObjects:&summaryCopy count:1];
 
-  [(HKMenstrualCyclesStore *)self saveDaySummaries:v9 completion:completionCopy, summaryCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(HKMenstrualCyclesStore *)self saveDaySummaries:v9 completion:completionCopy, summaryCopy, v11];
 }
 
 - (void)saveDaySummaries:(id)summaries canOverrideCreationDate:(BOOL)date completion:(id)completion
@@ -131,7 +131,7 @@
 
 - (void)saveMenstrualFlow:(int64_t)flow dayIndex:(int64_t)index updateAdjacentDays:(BOOL)days completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC2E8];
@@ -142,10 +142,10 @@
     v14 = v13;
     v15 = HKSensitiveLogItem();
     *buf = 138543874;
-    v28 = v13;
-    v29 = 2112;
-    v30 = v15;
-    v31 = 2048;
+    v27 = v13;
+    v28 = 2112;
+    v29 = v15;
+    v30 = 2048;
     flowCopy = flow;
     _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving a %@ value of %ld", buf, 0x20u);
   }
@@ -153,28 +153,26 @@
   v16 = [(HKTaskServerProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completionCopy];
 
   proxyProvider = self->_proxyProvider;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __83__HKMenstrualCyclesStore_saveMenstrualFlow_dayIndex_updateAdjacentDays_completion___block_invoke;
-  v22[3] = &unk_2796D4A48;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __83__HKMenstrualCyclesStore_saveMenstrualFlow_dayIndex_updateAdjacentDays_completion___block_invoke;
+  v21[3] = &unk_2796D4A48;
   flowCopy2 = flow;
   indexCopy = index;
   daysCopy = days;
-  v23 = v16;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __83__HKMenstrualCyclesStore_saveMenstrualFlow_dayIndex_updateAdjacentDays_completion___block_invoke_2;
-  v20[3] = &unk_2796D4960;
-  v21 = v23;
-  v18 = v23;
-  [(HKTaskServerProxyProvider *)proxyProvider fetchProxyWithHandler:v22 errorHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v22 = v16;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __83__HKMenstrualCyclesStore_saveMenstrualFlow_dayIndex_updateAdjacentDays_completion___block_invoke_2;
+  v19[3] = &unk_2796D4960;
+  v20 = v22;
+  v18 = v22;
+  [(HKTaskServerProxyProvider *)proxyProvider fetchProxyWithHandler:v21 errorHandler:v19];
 }
 
 - (void)saveBleedingFlow:(int64_t)flow forBleedingType:(int64_t)type dayIndex:(int64_t)index completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v11 = *MEMORY[0x277CCC2E8];
@@ -182,22 +180,22 @@
   {
     log = v11;
     v12 = objc_opt_class();
-    v23 = v12;
+    v22 = v12;
     v13 = HKSensitiveLogItem();
     v14 = HKSensitiveLogItem();
     [MEMORY[0x277CCABB0] numberWithInteger:type];
     v16 = v15 = index;
     v17 = HKSensitiveLogItem();
     *buf = 138544386;
-    v32 = v12;
-    v33 = 2112;
-    v34 = v13;
-    v35 = 2048;
+    v31 = v12;
+    v32 = 2112;
+    v33 = v13;
+    v34 = 2048;
     flowCopy = flow;
-    v37 = 2112;
-    v38 = v14;
-    v39 = 2112;
-    v40 = v17;
+    v36 = 2112;
+    v37 = v14;
+    v38 = 2112;
+    v39 = v17;
     _os_log_impl(&dword_2518FC000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Saving a %@ value of %ld for %@ %@", buf, 0x34u);
 
     index = v15;
@@ -206,23 +204,21 @@
   v18 = [(HKTaskServerProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completionCopy];
 
   proxyProvider = self->_proxyProvider;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __79__HKMenstrualCyclesStore_saveBleedingFlow_forBleedingType_dayIndex_completion___block_invoke;
-  v26[3] = &unk_2796D4A70;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __79__HKMenstrualCyclesStore_saveBleedingFlow_forBleedingType_dayIndex_completion___block_invoke;
+  v25[3] = &unk_2796D4A70;
   flowCopy2 = flow;
   typeCopy = type;
   indexCopy = index;
-  v27 = v18;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __79__HKMenstrualCyclesStore_saveBleedingFlow_forBleedingType_dayIndex_completion___block_invoke_2;
-  v24[3] = &unk_2796D4960;
-  v25 = v27;
-  v20 = v27;
-  [(HKTaskServerProxyProvider *)proxyProvider fetchProxyWithHandler:v26 errorHandler:v24];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v26 = v18;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __79__HKMenstrualCyclesStore_saveBleedingFlow_forBleedingType_dayIndex_completion___block_invoke_2;
+  v23[3] = &unk_2796D4960;
+  v24 = v26;
+  v20 = v26;
+  [(HKTaskServerProxyProvider *)proxyProvider fetchProxyWithHandler:v25 errorHandler:v23];
 }
 
 - (void)saveBleedingFlowByDayIndex:(id)index forBleedingType:(int64_t)type completion:(id)completion
@@ -474,11 +470,11 @@
 
 - (NSDate)cycleFactorsLastReviewedDate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _appProtectedSyncedKeyValueDomain = [(HKMenstrualCyclesStore *)self _appProtectedSyncedKeyValueDomain];
-  v12 = 0;
-  v3 = [_appProtectedSyncedKeyValueDomain dateForKey:@"CycleFactorsLastReviewedDate" error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [_appProtectedSyncedKeyValueDomain dateForKey:@"CycleFactorsLastReviewedDate" error:&v11];
+  v4 = v11;
 
   if (v3)
   {
@@ -496,32 +492,30 @@
     v6 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v9 = v6;
-      v10 = objc_opt_class();
+      v8 = v6;
+      v9 = objc_opt_class();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2114;
-      v16 = @"CycleFactorsLastReviewedDate";
-      v17 = 2114;
-      v18 = v4;
-      v11 = v10;
-      _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+      v13 = v9;
+      v14 = 2114;
+      v15 = @"CycleFactorsLastReviewedDate";
+      v16 = 2114;
+      v17 = v4;
+      v10 = v9;
+      _os_log_error_impl(&dword_2518FC000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setCycleFactorsLastReviewedDate:(id)date
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   _appProtectedSyncedKeyValueDomain = [(HKMenstrualCyclesStore *)self _appProtectedSyncedKeyValueDomain];
-  v16 = 0;
-  [_appProtectedSyncedKeyValueDomain setDate:dateCopy forKey:@"CycleFactorsLastReviewedDate" error:&v16];
-  v6 = v16;
+  v15 = 0;
+  [_appProtectedSyncedKeyValueDomain setDate:dateCopy forKey:@"CycleFactorsLastReviewedDate" error:&v15];
+  v6 = v15;
 
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2E8];
@@ -533,11 +527,11 @@
       v9 = v7;
       v10 = objc_opt_class();
       *buf = 138543874;
-      v18 = v10;
-      v19 = 2114;
-      v20 = @"CycleFactorsLastReviewedDate";
-      v21 = 2114;
-      v22 = v6;
+      v17 = v10;
+      v18 = 2114;
+      v19 = @"CycleFactorsLastReviewedDate";
+      v20 = 2114;
+      v21 = v6;
       v11 = v10;
       _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
     }
@@ -550,28 +544,73 @@
       v12 = v7;
       v13 = objc_opt_class();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2114;
-      v20 = @"CycleFactorsLastReviewedDate";
-      v21 = 2112;
-      v22 = dateCopy;
+      v17 = v13;
+      v18 = 2114;
+      v19 = @"CycleFactorsLastReviewedDate";
+      v20 = 2112;
+      v21 = dateCopy;
       v14 = v13;
       _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
     }
 
     [(HKMenstrualCyclesStore *)self _triggerImmediateSyncWithReason:@"setCycleFactorsLastReviewedDate"];
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)setIsEligibleForCycleFactorsReminder:(BOOL)reminder
+{
+  reminderCopy = reminder;
+  v24 = *MEMORY[0x277D85DE8];
+  _appProtectedSyncedKeyValueDomain = [(HKMenstrualCyclesStore *)self _appProtectedSyncedKeyValueDomain];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:reminderCopy];
+  v17 = 0;
+  [_appProtectedSyncedKeyValueDomain setNumber:v5 forKey:@"HKMCCycleFactorsEligibilityState" error:&v17];
+  v6 = v17;
+
+  _HKInitializeLogging();
+  v7 = *MEMORY[0x277CCC2E8];
+  v8 = *MEMORY[0x277CCC2E8];
+  if (v6)
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v7;
+      v10 = objc_opt_class();
+      *buf = 138543874;
+      v19 = v10;
+      v20 = 2114;
+      v21 = @"HKMCCycleFactorsEligibilityState";
+      v22 = 2114;
+      v23 = v6;
+      v11 = v10;
+      _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
+    }
+  }
+
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v7;
+    v13 = objc_opt_class();
+    v14 = MEMORY[0x277CCABB0];
+    v15 = v13;
+    v16 = [v14 numberWithBool:reminderCopy];
+    *buf = 138543874;
+    v19 = v13;
+    v20 = 2114;
+    v21 = @"HKMCCycleFactorsEligibilityState";
+    v22 = 2112;
+    v23 = v16;
+    _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
+  }
 }
 
 - (NSNumber)lastMenstrualPeriodDismissalDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _syncedProtectedKeyValueDomain = [(HKMenstrualCyclesStore *)self _syncedProtectedKeyValueDomain];
-  v12 = 0;
-  v3 = [_syncedProtectedKeyValueDomain numberForKey:@"LastMenstrualPeriodDismissalDefaultsKey" error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [_syncedProtectedKeyValueDomain numberForKey:@"LastMenstrualPeriodDismissalDefaultsKey" error:&v11];
+  v4 = v11;
 
   if (v3)
   {
@@ -589,32 +628,30 @@
     v6 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v9 = v6;
-      v10 = objc_opt_class();
+      v8 = v6;
+      v9 = objc_opt_class();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2114;
-      v16 = @"LastMenstrualPeriodDismissalDefaultsKey";
-      v17 = 2114;
-      v18 = v4;
-      v11 = v10;
-      _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+      v13 = v9;
+      v14 = 2114;
+      v15 = @"LastMenstrualPeriodDismissalDefaultsKey";
+      v16 = 2114;
+      v17 = v4;
+      v10 = v9;
+      _os_log_error_impl(&dword_2518FC000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setLastMenstrualPeriodDismissalDay:(id)day
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   _syncedProtectedKeyValueDomain = [(HKMenstrualCyclesStore *)self _syncedProtectedKeyValueDomain];
-  v16 = 0;
-  [_syncedProtectedKeyValueDomain setNumber:dayCopy forKey:@"LastMenstrualPeriodDismissalDefaultsKey" error:&v16];
-  v6 = v16;
+  v15 = 0;
+  [_syncedProtectedKeyValueDomain setNumber:dayCopy forKey:@"LastMenstrualPeriodDismissalDefaultsKey" error:&v15];
+  v6 = v15;
 
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2E8];
@@ -626,11 +663,11 @@
       v9 = v7;
       v10 = objc_opt_class();
       *buf = 138543874;
-      v18 = v10;
-      v19 = 2114;
-      v20 = @"LastMenstrualPeriodDismissalDefaultsKey";
-      v21 = 2114;
-      v22 = v6;
+      v17 = v10;
+      v18 = 2114;
+      v19 = @"LastMenstrualPeriodDismissalDefaultsKey";
+      v20 = 2114;
+      v21 = v6;
       v11 = v10;
       _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
     }
@@ -643,24 +680,22 @@
       v12 = v7;
       v13 = objc_opt_class();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2114;
-      v20 = @"LastMenstrualPeriodDismissalDefaultsKey";
-      v21 = 2112;
-      v22 = dayCopy;
+      v17 = v13;
+      v18 = 2114;
+      v19 = @"LastMenstrualPeriodDismissalDefaultsKey";
+      v20 = 2112;
+      v21 = dayCopy;
       v14 = v13;
       _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
     }
 
     [(HKMenstrualCyclesStore *)self _triggerImmediateSyncWithReason:@"setLastMenstrualPeriodDismissalDay"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deviationDetectedIndicesForDeviationType:(int64_t)type error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = HKMCDeviationDetectionAnalyticsKeyFromDeviationType(type);
   _deviationDetectionAnalyticsDomain = [(HKMenstrualCyclesStore *)self _deviationDetectionAnalyticsDomain];
   v8 = [_deviationDetectionAnalyticsDomain propertyListValueForKey:v6 error:error];
@@ -681,36 +716,34 @@
     v9 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v13 = v9;
-      v14 = objc_opt_class();
-      v15 = *error;
-      v17 = 138543874;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v6;
-      v21 = 2114;
-      v22 = v15;
-      v16 = v14;
-      _os_log_error_impl(&dword_2518FC000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", &v17, 0x20u);
+      v12 = v9;
+      v13 = objc_opt_class();
+      v14 = *error;
+      v16 = 138543874;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v6;
+      v20 = 2114;
+      v21 = v14;
+      v15 = v13;
+      _os_log_error_impl(&dword_2518FC000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", &v16, 0x20u);
     }
 
     v8 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (BOOL)setDeviationDetectedIfNeededForDeviations:(id)deviations
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = deviations;
-  v4 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v4 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (!v4)
   {
     v7 = 0;
@@ -720,21 +753,21 @@
   v6 = v4;
   v7 = 0;
   v8 = 0;
-  v9 = *v46;
+  v9 = *v45;
   *&v5 = 138543874;
-  v39 = v5;
+  v38 = v5;
   while (2)
   {
     v10 = 0;
-    v41 = v6;
+    v40 = v6;
     do
     {
-      if (*v46 != v9)
+      if (*v45 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v45 + 1) + 8 * v10);
+      v11 = *(*(&v44 + 1) + 8 * v10);
       v12 = MEMORY[0x277CCABB0];
       days = [v11 days];
       if (v14 <= 0)
@@ -750,9 +783,9 @@
       v16 = [v12 numberWithInteger:v15];
       v17 = HKMCDeviationDetectionAnalyticsKeyFromDeviationType([v11 type]);
       type = [v11 type];
-      v44 = v8;
-      v19 = [(HKMenstrualCyclesStore *)self deviationDetectedIndicesForDeviationType:type error:&v44];
-      v20 = v44;
+      v43 = v8;
+      v19 = [(HKMenstrualCyclesStore *)self deviationDetectedIndicesForDeviationType:type error:&v43];
+      v20 = v43;
 
       if (v20)
       {
@@ -760,16 +793,16 @@
         v30 = *MEMORY[0x277CCC2E8];
         if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
         {
-          v33 = v30;
-          v34 = objc_opt_class();
-          *buf = v39;
-          v50 = v34;
-          v51 = 2114;
-          v52 = v17;
-          v53 = 2114;
-          v54 = v20;
-          v35 = v34;
-          _os_log_error_impl(&dword_2518FC000, v33, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+          v32 = v30;
+          v33 = objc_opt_class();
+          *buf = v38;
+          v49 = v33;
+          v50 = 2114;
+          v51 = v17;
+          v52 = 2114;
+          v53 = v20;
+          v34 = v33;
+          _os_log_error_impl(&dword_2518FC000, v32, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
         }
 
         v8 = v20;
@@ -782,14 +815,14 @@
         goto LABEL_16;
       }
 
-      v40 = v7;
+      v39 = v7;
       v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v19];
       [v21 addObject:v16];
       selfCopy = self;
       _deviationDetectionAnalyticsDomain = [(HKMenstrualCyclesStore *)self _deviationDetectionAnalyticsDomain];
-      v43 = 0;
-      v24 = [_deviationDetectionAnalyticsDomain setPropertyListValue:v21 forKey:v17 error:&v43];
-      v8 = v43;
+      v42 = 0;
+      v24 = [_deviationDetectionAnalyticsDomain setPropertyListValue:v21 forKey:v17 error:&v42];
+      v8 = v42;
 
       _HKInitializeLogging();
       v25 = *MEMORY[0x277CCC2E8];
@@ -798,19 +831,19 @@
       {
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v36 = v25;
-          v37 = objc_opt_class();
-          *buf = v39;
-          v50 = v37;
-          v51 = 2114;
-          v52 = v17;
-          v53 = 2114;
-          v54 = v8;
-          v38 = v37;
-          _os_log_error_impl(&dword_2518FC000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
+          v35 = v25;
+          v36 = objc_opt_class();
+          *buf = v38;
+          v49 = v36;
+          v50 = 2114;
+          v51 = v17;
+          v52 = 2114;
+          v53 = v8;
+          v37 = v36;
+          _os_log_error_impl(&dword_2518FC000, v35, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
         }
 
-        v7 = v40;
+        v7 = v39;
 LABEL_26:
 
         goto LABEL_27;
@@ -820,26 +853,26 @@ LABEL_26:
       {
         v27 = v25;
         v28 = objc_opt_class();
-        *buf = v39;
-        v50 = v28;
-        v51 = 2114;
-        v52 = v17;
-        v53 = 2112;
-        v54 = v21;
+        *buf = v38;
+        v49 = v28;
+        v50 = 2114;
+        v51 = v17;
+        v52 = 2112;
+        v53 = v21;
         v29 = v28;
         _os_log_impl(&dword_2518FC000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
       }
 
       v7 = 1;
       self = selfCopy;
-      v6 = v41;
+      v6 = v40;
 LABEL_16:
 
       ++v10;
     }
 
     while (v6 != v10);
-    v6 = [obj countByEnumeratingWithState:&v45 objects:v55 count:16];
+    v6 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
     if (v6)
     {
       continue;
@@ -851,17 +884,16 @@ LABEL_16:
 LABEL_27:
 
 LABEL_28:
-  v31 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 - (NSNumber)unconfirmedDeviationDismissalDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _syncedProtectedKeyValueDomain = [(HKMenstrualCyclesStore *)self _syncedProtectedKeyValueDomain];
-  v12 = 0;
-  v3 = [_syncedProtectedKeyValueDomain numberForKey:@"UnconfirmedDeviationDismissalDayIndex" error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [_syncedProtectedKeyValueDomain numberForKey:@"UnconfirmedDeviationDismissalDayIndex" error:&v11];
+  v4 = v11;
 
   if (v3)
   {
@@ -879,32 +911,30 @@ LABEL_28:
     v6 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v9 = v6;
-      v10 = objc_opt_class();
+      v8 = v6;
+      v9 = objc_opt_class();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2114;
-      v16 = @"UnconfirmedDeviationDismissalDayIndex";
-      v17 = 2114;
-      v18 = v4;
-      v11 = v10;
-      _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+      v13 = v9;
+      v14 = 2114;
+      v15 = @"UnconfirmedDeviationDismissalDayIndex";
+      v16 = 2114;
+      v17 = v4;
+      v10 = v9;
+      _os_log_error_impl(&dword_2518FC000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setUnconfirmedDeviationDismissalDay:(id)day
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   _syncedProtectedKeyValueDomain = [(HKMenstrualCyclesStore *)self _syncedProtectedKeyValueDomain];
-  v16 = 0;
-  [_syncedProtectedKeyValueDomain setNumber:dayCopy forKey:@"UnconfirmedDeviationDismissalDayIndex" error:&v16];
-  v6 = v16;
+  v15 = 0;
+  [_syncedProtectedKeyValueDomain setNumber:dayCopy forKey:@"UnconfirmedDeviationDismissalDayIndex" error:&v15];
+  v6 = v15;
 
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2E8];
@@ -916,11 +946,11 @@ LABEL_28:
       v9 = v7;
       v10 = objc_opt_class();
       *buf = 138543874;
-      v18 = v10;
-      v19 = 2114;
-      v20 = @"UnconfirmedDeviationDismissalDayIndex";
-      v21 = 2114;
-      v22 = v6;
+      v17 = v10;
+      v18 = 2114;
+      v19 = @"UnconfirmedDeviationDismissalDayIndex";
+      v20 = 2114;
+      v21 = v6;
       v11 = v10;
       _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
     }
@@ -933,11 +963,11 @@ LABEL_28:
       v12 = v7;
       v13 = objc_opt_class();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2114;
-      v20 = @"UnconfirmedDeviationDismissalDayIndex";
-      v21 = 2112;
-      v22 = dayCopy;
+      v17 = v13;
+      v18 = 2114;
+      v19 = @"UnconfirmedDeviationDismissalDayIndex";
+      v20 = 2112;
+      v21 = dayCopy;
       v14 = v13;
       _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
     }
@@ -945,17 +975,15 @@ LABEL_28:
     [(HKMenstrualCyclesStore *)self triggerAnalysisForDebugReason:@"deviation dismissal" completion:&__block_literal_global];
     [(HKMenstrualCyclesStore *)self _triggerImmediateSyncWithReason:@"setUnconfirmedDeviationDismissalDay"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)unconfirmedDeviationSubmissionDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _deviationDetectionAnalyticsDomain = [(HKMenstrualCyclesStore *)self _deviationDetectionAnalyticsDomain];
-  v12 = 0;
-  v3 = [_deviationDetectionAnalyticsDomain numberForKey:@"UnconfirmedDeviationSubmissionDayIndex" error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [_deviationDetectionAnalyticsDomain numberForKey:@"UnconfirmedDeviationSubmissionDayIndex" error:&v11];
+  v4 = v11;
 
   if (v3)
   {
@@ -973,32 +1001,30 @@ LABEL_28:
     v6 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      v9 = v6;
-      v10 = objc_opt_class();
+      v8 = v6;
+      v9 = objc_opt_class();
       *buf = 138543874;
-      v14 = v10;
-      v15 = 2114;
-      v16 = @"UnconfirmedDeviationSubmissionDayIndex";
-      v17 = 2114;
-      v18 = v4;
-      v11 = v10;
-      _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
+      v13 = v9;
+      v14 = 2114;
+      v15 = @"UnconfirmedDeviationSubmissionDayIndex";
+      v16 = 2114;
+      v17 = v4;
+      v10 = v9;
+      _os_log_error_impl(&dword_2518FC000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Error retrieving %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setUnconfirmedDeviationSubmissionDay:(id)day
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   _deviationDetectionAnalyticsDomain = [(HKMenstrualCyclesStore *)self _deviationDetectionAnalyticsDomain];
-  v14 = 0;
-  [_deviationDetectionAnalyticsDomain setNumber:dayCopy forKey:@"UnconfirmedDeviationSubmissionDayIndex" error:&v14];
-  v6 = v14;
+  v13 = 0;
+  [_deviationDetectionAnalyticsDomain setNumber:dayCopy forKey:@"UnconfirmedDeviationSubmissionDayIndex" error:&v13];
+  v6 = v13;
 
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2E8];
@@ -1010,11 +1036,11 @@ LABEL_28:
       v9 = v7;
       v10 = objc_opt_class();
       *buf = 138543874;
-      v16 = v10;
-      v17 = 2114;
-      v18 = @"UnconfirmedDeviationSubmissionDayIndex";
-      v19 = 2114;
-      v20 = v6;
+      v15 = v10;
+      v16 = 2114;
+      v17 = @"UnconfirmedDeviationSubmissionDayIndex";
+      v18 = 2114;
+      v19 = v6;
       v11 = v10;
       _os_log_error_impl(&dword_2518FC000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting %{public}@: %{public}@", buf, 0x20u);
 LABEL_6:
@@ -1026,17 +1052,15 @@ LABEL_6:
     v9 = v7;
     v12 = objc_opt_class();
     *buf = 138543874;
-    v16 = v12;
-    v17 = 2114;
-    v18 = @"UnconfirmedDeviationSubmissionDayIndex";
-    v19 = 2112;
-    v20 = dayCopy;
+    v15 = v12;
+    v16 = 2114;
+    v17 = @"UnconfirmedDeviationSubmissionDayIndex";
+    v18 = 2112;
+    v19 = dayCopy;
     v11 = v12;
     _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@: %@", buf, 0x20u);
     goto LABEL_6;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerImmediateSyncWithReason:(id)reason
@@ -1057,7 +1081,7 @@ LABEL_6:
 
 void __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -1066,16 +1090,15 @@ void __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
-      v14 = 138543618;
+      v8 = v6;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      v12 = v10;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully requested sync after %{public}@", &v14, 0x16u);
+      v11 = v9;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully requested sync after %{public}@", &v12, 0x16u);
     }
   }
 
@@ -1083,8 +1106,6 @@ void __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke
   {
     __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_syncedProtectedKeyValueDomain
@@ -1116,21 +1137,18 @@ void __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke
 
 void __58__HKMenstrualCyclesStore__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2114;
   v12 = v7;
   v13 = 2114;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a3;
-  v9 = v7;
-  _os_log_error_impl(&dword_2518FC000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Unsuccessfully requested sync after %{public}@: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = a3;
+  v8 = v6;
+  _os_log_error_impl(&dword_2518FC000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Unsuccessfully requested sync after %{public}@: %{public}@", &v9, 0x20u);
 }
 
 @end

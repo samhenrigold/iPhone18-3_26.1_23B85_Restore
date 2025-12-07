@@ -9,24 +9,22 @@
 
 - (HMDHAPAccessorySwiftDataSource)swiftDataSource
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HMDHAPAccessoryDefaultDataSource_swiftDataSource);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSDate)currentDate
 {
   v2 = sub_22A4DB74C();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB71C();
-  v7 = sub_22A4DB6AC();
-  (*(v3 + 8))(v6, v2);
+  v6 = sub_22A4DB6AC();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isResidentCapable

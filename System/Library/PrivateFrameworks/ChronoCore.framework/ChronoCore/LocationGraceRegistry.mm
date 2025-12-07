@@ -10,15 +10,14 @@
 
 - (id)copyWithZone:(void *)zone
 {
-  isa = self->super.isa;
   swift_beginAccess();
-  v5 = *self->timeoutByIdentifier;
+  v4 = *self->timeoutByIdentifier;
   type metadata accessor for LocationGraceRegistry();
-  *(swift_allocObject() + 16) = v5;
+  *(swift_allocObject() + 16) = v4;
 
-  v6 = sub_224DAFD68();
+  v5 = sub_224DAFD68();
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal

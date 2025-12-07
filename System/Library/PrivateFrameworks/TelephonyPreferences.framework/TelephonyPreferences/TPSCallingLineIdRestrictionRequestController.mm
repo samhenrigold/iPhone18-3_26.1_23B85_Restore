@@ -2,6 +2,7 @@
 - (void)executeFetchForRequest:(id)request;
 - (void)executeRequest:(id)request;
 - (void)executeSetForRequest:(id)request;
+- (void)respondWithSubscriptionContext:(id)context editable:(BOOL)editable state:(int64_t)state error:(id)error;
 - (void)suppServicesEvent:(id)event event:(int)a4 settingsType:(int)type data:(id)data;
 @end
 
@@ -81,39 +82,51 @@ void __69__TPSCallingLineIdRestrictionRequestController_executeSetForRequest___b
   }
 }
 
+- (void)respondWithSubscriptionContext:(id)context editable:(BOOL)editable state:(int64_t)state error:(id)error
+{
+  editableCopy = editable;
+  errorCopy = error;
+  contextCopy = context;
+  v12 = [[TPSCallingLineIdRestrictionResponse alloc] initWithsubscriptionContext:contextCopy editable:editableCopy state:state error:errorCopy];
+
+  [(TPSRequestController *)self postResponse:v12];
+}
+
 - (void)suppServicesEvent:(id)event event:(int)a4 settingsType:(int)type data:(id)data
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   dataCopy = data;
+  v13 = dataCopy;
   if (type == 6)
   {
-    v12 = TPSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TPSLog(dataCopy, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = TPSStringForCTSuppServicesEventType(a4);
-      v14 = TPSStringForCTSuppServicesSettingsType(6u);
-      v30 = 138413058;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 2112;
-      v35 = dataCopy;
-      v36 = 2112;
-      v37 = eventCopy;
-      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", &v30, 0x2Au);
+      v15 = TPSStringForCTSuppServicesEventType(a4);
+      v16 = TPSStringForCTSuppServicesSettingsType(6u);
+      v35 = 138413058;
+      v36 = v15;
+      v37 = 2112;
+      v38 = v16;
+      v39 = 2112;
+      v40 = v13;
+      v41 = 2112;
+      v42 = eventCopy;
+      _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Received event %@, settings type %@, data %@ for context %@.", &v35, 0x2Au);
     }
 
     pendingRequest = [(TPSRequestController *)self pendingRequest];
+    v19 = pendingRequest;
     if (a4 > 2)
     {
       if (a4 != 3)
       {
         if (a4 == 4)
         {
-          v16 = [TPSResponseError errorWithCode:4 userInfo:0];
-          v17 = TPSLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = [TPSResponseError errorWithCode:4 userInfo:0];
+          v22 = TPSLog(v20, v23);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [TPSCallingLineIdRestrictionRequestController suppServicesEvent:event:settingsType:data:];
           }
@@ -122,27 +135,27 @@ void __69__TPSCallingLineIdRestrictionRequestController_executeSetForRequest___b
         }
 
 LABEL_14:
-        v18 = TPSLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v24 = TPSLog(pendingRequest, v18);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          [TPSCallingLineIdRestrictionRequestController suppServicesEvent:a4 event:v18 settingsType:? data:?];
+          [TPSCallingLineIdRestrictionRequestController suppServicesEvent:a4 event:v24 settingsType:? data:?];
         }
 
         goto LABEL_24;
       }
 
-      v28 = TPSLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v34 = TPSLog(pendingRequest, v18);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = 138412290;
-        v31 = pendingRequest;
-        _os_log_impl(&dword_21B8E9000, v28, OS_LOG_TYPE_DEFAULT, "Calling Line ID Restriction save request succeeded for %@.", &v30, 0xCu);
+        v35 = 138412290;
+        v36 = v19;
+        _os_log_impl(&dword_21B8E9000, v34, OS_LOG_TYPE_DEFAULT, "Calling Line ID Restriction save request succeeded for %@.", &v35, 0xCu);
       }
 
-      state = [pendingRequest state];
+      state = [v19 state];
       selfCopy2 = self;
-      v25 = eventCopy;
-      v26 = 1;
+      v31 = eventCopy;
+      v32 = 1;
     }
 
     else
@@ -151,16 +164,16 @@ LABEL_14:
       {
         if (a4 == 2)
         {
-          v16 = [TPSResponseError errorWithCode:2 userInfo:0];
-          v17 = TPSLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v20 = [TPSResponseError errorWithCode:2 userInfo:0];
+          v22 = TPSLog(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [TPSCallingLineIdRestrictionRequestController suppServicesEvent:event:settingsType:data:];
           }
 
 LABEL_13:
 
-          [(TPSCallingLineIdRestrictionRequestController *)self respondWithSubscriptionContext:eventCopy editable:0 state:0 error:v16];
+          [(TPSCallingLineIdRestrictionRequestController *)self respondWithSubscriptionContext:eventCopy editable:0 state:0 error:v20];
 LABEL_24:
 
           goto LABEL_25;
@@ -169,60 +182,41 @@ LABEL_24:
         goto LABEL_14;
       }
 
-      v19 = TPSLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v25 = TPSLog(pendingRequest, v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = 138412546;
-        v31 = pendingRequest;
-        v32 = 2112;
-        v33 = dataCopy;
-        _os_log_impl(&dword_21B8E9000, v19, OS_LOG_TYPE_DEFAULT, "Calling Line ID Restriction fetch request succeeded for %@; data value is %@.", &v30, 0x16u);
+        v35 = 138412546;
+        v36 = v19;
+        v37 = 2112;
+        v38 = v13;
+        _os_log_impl(&dword_21B8E9000, v25, OS_LOG_TYPE_DEFAULT, "Calling Line ID Restriction fetch request succeeded for %@; data value is %@.", &v35, 0x16u);
       }
 
-      callingLineIdRestrictionModification = [dataCopy callingLineIdRestrictionModification];
-      v21 = [callingLineIdRestrictionModification intValue] == 1;
+      callingLineIdRestrictionModification = [v13 callingLineIdRestrictionModification];
+      v27 = [callingLineIdRestrictionModification intValue] == 1;
 
-      callingLineIdRestriction = [dataCopy callingLineIdRestriction];
-      v23 = TPSCallingLineIdRestrictionStateForValue([callingLineIdRestriction intValue]);
+      callingLineIdRestriction = [v13 callingLineIdRestriction];
+      v29 = TPSCallingLineIdRestrictionStateForValue([callingLineIdRestriction intValue]);
 
       selfCopy2 = self;
-      v25 = eventCopy;
-      v26 = v21;
-      state = v23;
+      v31 = eventCopy;
+      v32 = v27;
+      state = v29;
     }
 
-    [(TPSCallingLineIdRestrictionRequestController *)selfCopy2 respondWithSubscriptionContext:v25 editable:v26 state:state error:0];
+    [(TPSCallingLineIdRestrictionRequestController *)selfCopy2 respondWithSubscriptionContext:v31 editable:v32 state:state error:0];
     goto LABEL_24;
   }
 
 LABEL_25:
-
-  v29 = *MEMORY[0x277D85DE8];
-}
-
-- (void)suppServicesEvent:event:settingsType:data:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Calling Line ID Restriction save request failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)suppServicesEvent:event:settingsType:data:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21B8E9000, v0, v1, "Calling Line ID Restriction fetch request failed with error %@ for %@.");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suppServicesEvent:(int)a1 event:(NSObject *)a2 settingsType:data:.cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Event type %u is not recognized as a valid call waiting request event.", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Event type %u is not recognized as a valid call waiting request event.", v2, 8u);
 }
 
 @end

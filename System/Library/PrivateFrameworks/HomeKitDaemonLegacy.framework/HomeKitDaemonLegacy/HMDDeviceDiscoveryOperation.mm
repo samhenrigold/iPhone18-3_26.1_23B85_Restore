@@ -14,13 +14,13 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   messageCopy = message;
   dCopy = d;
   contextCopy = context;
-  v43 = dCopy;
+  v42 = dCopy;
   v14 = [HMDDeviceHandle deviceHandleForDestination:dCopy];
   accountHandle = [v14 accountHandle];
   v15 = [HMDAccountIdentifier accountIdentifierForMessageContext:contextCopy];
@@ -40,9 +40,9 @@ LABEL_14:
         v31 = HMFGetLogIdentifier();
         shortDescription = [v14 shortDescription];
         *buf = 138543618;
-        v47 = v31;
-        v48 = 2112;
-        v49 = shortDescription;
+        v46 = v31;
+        v47 = 2112;
+        v48 = shortDescription;
         _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring message from: %@", buf, 0x16u);
       }
 
@@ -103,12 +103,12 @@ LABEL_14:
         v33 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v38 = HMFGetLogIdentifier();
+          v37 = HMFGetLogIdentifier();
           [v27 shortDescription];
           *buf = 138543618;
-          v47 = v38;
-          v49 = v48 = 2112;
-          v37 = v49;
+          v46 = v37;
+          v48 = v47 = 2112;
+          v36 = v48;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Discovered device: %@", buf, 0x16u);
         }
 
@@ -126,12 +126,11 @@ LABEL_14:
   }
 
 LABEL_24:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   account = [(HMDDeviceDiscoveryOperation *)self account];
   handles = [account handles];
   firstObject = [handles firstObject];
@@ -142,35 +141,35 @@ LABEL_24:
     uUID = [MEMORY[0x277CCAD78] UUID];
     v7 = [(HMDRemoteAccountMessageDestination *)v5 initWithTarget:uUID handle:firstObject multicast:1];
 
-    v28 = v7;
+    v27 = v7;
     v8 = [[HMDRemoteMessage alloc] initWithName:@"kElectDeviceForIDSSessionKey" qualityOfService:[(HMDDeviceDiscoveryOperation *)self qualityOfService] destination:v7 payload:0];
     [(HMDRemoteMessage *)v8 setType:0];
-    v27 = v8;
+    v26 = v8;
     v9 = [[HMDIDSSendMessageOperation alloc] initWithMessage:v8 service:self->_service];
     operation = self->_operation;
     self->_operation = v9;
 
     [(HMFOperation *)self->_operation setQualityOfService:[(HMDDeviceDiscoveryOperation *)self qualityOfService]];
     [(HMDIDSService *)self->_service addDelegate:self queue:self->_queue];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = [(HMDAccount *)self->_account devices];
-    v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v11)
     {
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           selfCopy = self;
           v17 = HMFGetOSLogHandle();
@@ -178,9 +177,9 @@ LABEL_24:
           {
             v18 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v37 = v18;
-            v38 = 2112;
-            v39 = v14;
+            v36 = v18;
+            v37 = 2112;
+            v38 = v14;
             _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Adding known device: %@", buf, 0x16u);
           }
 
@@ -196,7 +195,7 @@ LABEL_24:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v11);
@@ -215,18 +214,16 @@ LABEL_24:
       v24 = HMFGetLogIdentifier();
       account2 = [(HMDDeviceDiscoveryOperation *)selfCopy2 account];
       *buf = 138543618;
-      v37 = v24;
-      v38 = 2112;
-      v39 = account2;
+      v36 = v24;
+      v37 = 2112;
+      v38 = account2;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot discover devices for account without any handles: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
-    v28 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    [(HMDDeviceDiscoveryOperation *)selfCopy2 cancelWithError:v28];
+    v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+    [(HMDDeviceDiscoveryOperation *)selfCopy2 cancelWithError:v27];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelWithError:(id)error
@@ -271,7 +268,7 @@ LABEL_6:
 - (NSSet)devices
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableSet *)self->_devices copy];
+  v3 = objc_msgSend_copy(self->_devices);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -331,12 +328,11 @@ LABEL_6:
 
 uint64_t __42__HMDDeviceDiscoveryOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_31140;
-  logCategory__hmf_once_v5_31140 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_31140;
+  logCategory__hmf_once_v5_31140 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (double)timeout

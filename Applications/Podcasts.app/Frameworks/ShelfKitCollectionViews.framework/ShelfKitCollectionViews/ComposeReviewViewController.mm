@@ -8,7 +8,7 @@
 
 - (_TtC23ShelfKitCollectionViews27ComposeReviewViewController)initWithCompositionURL:(id)l
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB8E0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_3FB8E0, &qword_317E00);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (l)

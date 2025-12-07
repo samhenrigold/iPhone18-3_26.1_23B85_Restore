@@ -23,7 +23,7 @@
 
 + (id)configureMessageSummaryInfoForChatItem:()CKMessageAcknowledgment
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -64,9 +64,9 @@ LABEL_35:
       v27 = objc_alloc(MEMORY[0x1E696ACD0]);
       pluginPayload = [dataSource pluginPayload];
       data = [pluginPayload data];
-      v45 = 0;
-      v30 = [v27 initForReadingFromData:data error:&v45];
-      v44 = v45;
+      v46 = 0;
+      v30 = [v27 initForReadingFromData:data error:&v46];
+      v45 = v46;
 
       if (objc_opt_respondsToSelector())
       {
@@ -105,7 +105,7 @@ LABEL_34:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v47 = v44;
+            v48 = v45;
             _os_log_impl(&dword_19020E000, v34, OS_LOG_TYPE_INFO, "Failed to unarchive the data source pluginPayload. Error: %@", buf, 0xCu);
           }
         }
@@ -123,7 +123,7 @@ LABEL_34:
         if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v47 = v13;
+          v48 = v13;
           _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_INFO, "summary text for tapback is nil for type: %@", buf, 0xCu);
         }
       }
@@ -209,17 +209,18 @@ LABEL_41:
 LABEL_42:
   messageItem2 = [v3 messageItem];
   expressiveSendStyleID = [messageItem2 expressiveSendStyleID];
-  if ([expressiveSendStyleID isEqualToString:*MEMORY[0x1E69A7088]])
+  v40 = [expressiveSendStyleID isEqualToString:*MEMORY[0x1E69A7088]];
+  if (v40)
   {
-    v40 = CKFrameworkBundle();
-    v41 = [v40 localizedStringForKey:@"SUMMARY_INVISIBLE_INK_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v41 = CKFrameworkBundle(v40);
+    v42 = [v41 localizedStringForKey:@"SUMMARY_INVISIBLE_INK_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    absoluteString = v41;
+    absoluteString = v42;
   }
 
-  v42 = [MEMORY[0x1E695DF20] dictionaryWithAssociatedMessageSummary:absoluteString contentType:v7 associatedMessagePartText:messagePartBody pluginBundleID:v13 pluginDisplayName:v25 messageEffect:expressiveSendStyleID];
+  v43 = [MEMORY[0x1E695DF20] dictionaryWithAssociatedMessageSummary:absoluteString contentType:v7 associatedMessagePartText:messagePartBody pluginBundleID:v13 pluginDisplayName:v25 messageEffect:expressiveSendStyleID];
 
-  return v42;
+  return v43;
 }
 
 - (id)_relevantLanguageIdentifierForLocalization

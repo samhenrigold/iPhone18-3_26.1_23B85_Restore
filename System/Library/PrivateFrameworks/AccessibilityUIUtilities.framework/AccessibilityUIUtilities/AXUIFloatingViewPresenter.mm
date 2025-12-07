@@ -127,11 +127,11 @@ void __62__AXUIFloatingViewPresenter_presentFloatingView_withDuration___block_in
   [v1 setAlpha:1.0];
 }
 
-uint64_t __62__AXUIFloatingViewPresenter_presentFloatingView_withDuration___block_invoke_2(uint64_t result)
+id *__62__AXUIFloatingViewPresenter_presentFloatingView_withDuration___block_invoke_2(id *result)
 {
-  if (*(result + 40) > 0.0)
+  if (*(result + 5) > 0.0)
   {
-    return [*(result + 32) performSelector:sel__hideFloatingView withObject:0 afterDelay:?];
+    return [result[4] performSelector:sel__hideFloatingView withObject:0 afterDelay:?];
   }
 
   return result;

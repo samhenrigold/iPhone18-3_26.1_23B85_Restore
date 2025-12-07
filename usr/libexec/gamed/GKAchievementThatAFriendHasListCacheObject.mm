@@ -40,7 +40,7 @@
     v36 = 0u;
     v37 = 0u;
     obj = v38 = 0u;
-    v17 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v17 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
@@ -66,16 +66,16 @@
           v28 = v27;
           if (v23)
           {
-            v41[0] = @"friend";
-            v41[1] = @"timestamp";
-            v42[0] = v23;
-            v42[1] = v27;
-            v29 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
+            v41 = @"friend";
+            v42 = @"timestamp";
+            v43 = v23;
+            v44 = v27;
+            v29 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             [v34 addObject:v29];
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v18 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v18);

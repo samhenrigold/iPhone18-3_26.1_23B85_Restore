@@ -51,11 +51,11 @@
   [(PlaylistDetailViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   (*(v7 + 16))(v9, *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI28PlaylistDetailViewController_dataProvider) + OBJC_IVAR____TtC9SeymourUI26PlaylistDetailDataProvider_metricPage, v6);
-  sub_20BF28F28(&qword_27C770778);
+  sub_20BF28F28(&qword_27C770778, &protocol conformance descriptor for PlaylistDetailViewController);
   sub_20C138C54();
   (*(v7 + 8))(v9, v6);
-  sub_20BF28F28(&qword_27C770780);
-  sub_20BF28F28(&qword_27C770788);
+  sub_20BF28F28(&qword_27C770780, &protocol conformance descriptor for PlaylistDetailViewController);
+  sub_20BF28F28(&qword_27C770788, &protocol conformance descriptor for PlaylistDetailViewController);
   sub_20C139364();
 }
 
@@ -72,8 +72,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(PlaylistDetailViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BF28F28(&qword_27C770780);
-  sub_20BF28F28(&qword_27C770788);
+  sub_20BF28F28(&qword_27C770780, &protocol conformance descriptor for PlaylistDetailViewController);
+  sub_20BF28F28(&qword_27C770788, &protocol conformance descriptor for PlaylistDetailViewController);
   sub_20C139374();
 }
 

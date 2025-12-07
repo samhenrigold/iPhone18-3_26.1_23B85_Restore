@@ -505,9 +505,9 @@ void __33__UIDatePicker__datePickerReset___block_invoke(uint64_t a1)
     goto LABEL_8;
   }
 
-  v7 = [v8 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIDatePickerDataModel *)self->_data setLocale:v8];
@@ -543,9 +543,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [calendar isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(calendar, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIDatePickerDataModel *)self->_data setCalendar:v8];
@@ -573,9 +573,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSTimeZone *)timeZone isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(timeZone, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIDatePickerDataModel *)self->_data setTimeZone:v8];
@@ -626,10 +626,10 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v7 = [(NSDate *)minimumDate isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(minimumDate, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -669,10 +669,10 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v7 = [(NSDate *)maximumDate isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(maximumDate, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -726,9 +726,9 @@ LABEL_9:
       goto LABEL_13;
     }
 
-    v9 = [(NSDate *)date isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(date, v8, v8);
 
-    if ((v9 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_9;
     }
@@ -789,9 +789,9 @@ LABEL_13:
 
   if (v6 && customFontDesign)
   {
-    v7 = [customFontDesign isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(customFontDesign, v6, v6);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_10;
     }

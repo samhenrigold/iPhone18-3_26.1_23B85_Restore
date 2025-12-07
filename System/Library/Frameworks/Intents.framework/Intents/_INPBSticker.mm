@@ -3,6 +3,7 @@
 - (_INPBSticker)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -266,7 +267,6 @@ LABEL_23:
 
   if (appBundleID)
   {
-    appBundleID = self->_appBundleID;
     PBDataWriterWriteStringField();
   }
 
@@ -274,7 +274,6 @@ LABEL_23:
 
   if (avatarDescriptor)
   {
-    avatarDescriptor = self->_avatarDescriptor;
     PBDataWriterWriteStringField();
   }
 
@@ -282,7 +281,6 @@ LABEL_23:
 
   if (emoji)
   {
-    emoji = self->_emoji;
     PBDataWriterWriteStringField();
   }
 
@@ -290,13 +288,11 @@ LABEL_23:
 
   if (stickerDescription)
   {
-    stickerDescription = self->_stickerDescription;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBSticker *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -342,6 +338,21 @@ LABEL_23:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72889E0[string];
   }
 
   return v4;

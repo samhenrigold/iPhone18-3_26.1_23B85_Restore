@@ -38,33 +38,34 @@
   {
     v14 = v13;
     v15 = objc_autoreleasePoolPush();
-    v32 = 0;
-    v16 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v32];
-    v17 = v32;
+    v34 = 0;
+    v16 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v34];
+    v17 = v34;
+    v18 = v17;
     if (v16)
     {
-      v31.receiver = self;
-      v31.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
-      v18 = [(_ATXAppLaunchHistogram *)&v31 initWithCoder:v16];
+      v33.receiver = self;
+      v33.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
+      v19 = [(_ATXAppLaunchHistogram *)&v33 initWithCoder:v16];
     }
 
     else
     {
-      v23 = __atxlog_handle_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = __atxlog_handle_default(v17);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramWithPersistentBackup initWithDataStore:histogramType:loadFromDataStore:saveOnBackgroundQueue:];
       }
 
-      v30.receiver = self;
-      v30.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
-      v18 = [(_ATXAppLaunchHistogram *)&v30 initWithType:type];
+      v32.receiver = self;
+      v32.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
+      v19 = [(_ATXAppLaunchHistogram *)&v32 initWithType:type];
     }
 
-    v19 = v18;
+    v21 = v19;
 
     objc_autoreleasePoolPop(v15);
-    if (!v19)
+    if (!v21)
     {
       goto LABEL_12;
     }
@@ -72,15 +73,16 @@
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
-    v19 = [(_ATXAppLaunchHistogram *)&v29 initWithType:type];
+    v31.receiver = self;
+    v31.super_class = _ATXAppLaunchHistogramWithPersistentBackup;
+    v20 = [(_ATXAppLaunchHistogram *)&v31 initWithType:type];
+    v21 = v20;
     v14 = 0;
-    if (!v19)
+    if (!v20)
     {
 LABEL_12:
-      v24 = __atxlog_handle_default();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v26 = __atxlog_handle_default(v20);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         [_ATXAppLaunchHistogramWithPersistentBackup initWithDataStore:histogramType:loadFromDataStore:saveOnBackgroundQueue:];
       }
@@ -89,28 +91,28 @@ LABEL_12:
     }
   }
 
-  objc_storeStrong(&v19->_datastore, store);
-  v19->_histogramType = type;
+  objc_storeStrong(&v21->_datastore, store);
+  v21->_histogramType = type;
   if (queueCopy)
   {
-    objc_initWeak(&location, v19);
-    v20 = [ATXBackgroundSaver alloc];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __118___ATXAppLaunchHistogramWithPersistentBackup_initWithDataStore_histogramType_loadFromDataStore_saveOnBackgroundQueue___block_invoke;
-    v26[3] = &unk_2785977B0;
-    objc_copyWeak(&v27, &location);
-    v21 = [(ATXBackgroundSaver *)v20 initWithQueue:queueCopy block:v26];
-    saver = v19->_saver;
-    v19->_saver = v21;
+    objc_initWeak(&location, v21);
+    v22 = [ATXBackgroundSaver alloc];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __118___ATXAppLaunchHistogramWithPersistentBackup_initWithDataStore_histogramType_loadFromDataStore_saveOnBackgroundQueue___block_invoke;
+    v28[3] = &unk_2785977B0;
+    objc_copyWeak(&v29, &location);
+    v23 = [(ATXBackgroundSaver *)v22 initWithQueue:queueCopy block:v28];
+    saver = v21->_saver;
+    v21->_saver = v23;
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
 LABEL_15:
 
-  return v19;
+  return v21;
 }
 
 - (void)addLaunchWithBundleId:(id)id date:(id)date timeZone:(id)zone
@@ -203,20 +205,11 @@ LABEL_15:
   [(ATXBackgroundSaver *)self->_saver scheduleSave];
 }
 
-- (void)initWithDataStore:histogramType:loadFromDataStore:saveOnBackgroundQueue:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error unarchiving AppLaunchHistogram. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithDataStore:histogramType:loadFromDataStore:saveOnBackgroundQueue:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "Failed to create App Launch Histogram with type: %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "Failed to create App Launch Histogram with type: %ld", v1, 0xCu);
 }
 
 @end

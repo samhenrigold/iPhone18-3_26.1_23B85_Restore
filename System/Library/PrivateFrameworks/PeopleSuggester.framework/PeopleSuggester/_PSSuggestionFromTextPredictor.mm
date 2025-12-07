@@ -72,15 +72,15 @@
 
 - (id)suggestionFromContactPriors:(id)priors priorScoreThreshold:(float)threshold bundleID:(id)d reason:(id)reason
 {
-  v39[7] = *MEMORY[0x1E69E9840];
+  v38[7] = *MEMORY[0x1E69E9840];
   dCopy = d;
   reasonCopy = reason;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke;
-  v37[3] = &__block_descriptor_36_e25_B16__0___PSContactPrior_8l;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke;
+  v36[3] = &__block_descriptor_36_e25_B16__0___PSContactPrior_8l;
   thresholdCopy = threshold;
-  v12 = [priors _pas_filteredArrayWithTest:v37];
+  v12 = [priors _pas_filteredArrayWithTest:v36];
   v13 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
@@ -89,50 +89,50 @@
 
   if ([v12 count])
   {
-    v31 = reasonCopy;
-    v32 = dCopy;
+    v30 = reasonCopy;
+    v31 = dCopy;
     v14 = +[_PSConstants mobileFacetimeBundleId];
-    v39[0] = v14;
+    v38[0] = v14;
     v15 = +[_PSConstants macFacetimeBundleId];
-    v39[1] = v15;
+    v38[1] = v15;
     v16 = +[_PSConstants mobileMessagesBundleId];
-    v39[2] = v16;
+    v38[2] = v16;
     v17 = +[_PSConstants macMessagesBundleId];
-    v39[3] = v17;
+    v38[3] = v17;
     v18 = +[_PSConstants mobilePhoneBundleId];
-    v39[4] = v18;
+    v38[4] = v18;
     v19 = +[_PSConstants mobileMailBundleId];
-    v39[5] = v19;
+    v38[5] = v19;
     v20 = +[_PSConstants macMailBundleId];
-    v39[6] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:7];
+    v38[6] = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:7];
 
     v22 = [MEMORY[0x1E695DF00] now];
     v23 = [v22 dateByAddingTimeInterval:-1209600.0];
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_83;
-    v34[3] = &unk_1E7C25EA8;
-    v34[4] = self;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_83;
+    v33[3] = &unk_1E7C25EA8;
+    v33[4] = self;
     v24 = v21;
-    v35 = v24;
+    v34 = v24;
     v25 = v23;
-    v36 = v25;
-    v26 = [v12 _pas_filteredArrayWithTest:v34];
+    v35 = v25;
+    v26 = [v12 _pas_filteredArrayWithTest:v33];
     if ([v26 count])
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_85;
-      v33[3] = &unk_1E7C25ED0;
-      v33[4] = self;
-      v27 = [v26 _pas_mappedArrayWithTransform:v33];
-      reasonCopy = v31;
-      dCopy = v32;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __98___PSSuggestionFromTextPredictor_suggestionFromContactPriors_priorScoreThreshold_bundleID_reason___block_invoke_85;
+      v32[3] = &unk_1E7C25ED0;
+      v32[4] = self;
+      v27 = [v26 _pas_mappedArrayWithTransform:v32];
+      reasonCopy = v30;
+      dCopy = v31;
       if ([v27 count])
       {
-        v28 = [[_PSSuggestion alloc] initWithBundleID:v32 conversationIdentifier:0 groupName:0 recipients:v27 reason:v31 reasonType:0];
+        v28 = [[_PSSuggestion alloc] initWithBundleID:v31 conversationIdentifier:0 groupName:0 recipients:v27 reason:v30 reasonType:0];
       }
 
       else
@@ -144,8 +144,8 @@
     else
     {
       v28 = 0;
-      reasonCopy = v31;
-      dCopy = v32;
+      reasonCopy = v30;
+      dCopy = v31;
     }
   }
 
@@ -154,14 +154,12 @@
     v28 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (id)suggestionFromText:(id)text priorScoreThreshold:(float)threshold bundleID:(id)d reason:(id)reason
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   textCopy = text;
   dCopy = d;
   reasonCopy = reason;
@@ -171,11 +169,11 @@
     v14 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = textCopy;
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_DEFAULT, "For text %@ found contacts %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = textCopy;
+      v20 = 2112;
+      v21 = v13;
+      _os_log_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_DEFAULT, "For text %@ found contacts %@", &v18, 0x16u);
     }
 
     if ([v13 count])
@@ -194,8 +192,6 @@
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -317,68 +313,68 @@ LABEL_13:
 
 - (id)suggestionsFromPortraitExtractionsWithContext:(id)context startDate:(id)date endDate:(id)endDate priorScoreThreshold:(float)threshold reason:(id)reason
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   dateCopy = date;
   endDateCopy = endDate;
   reasonCopy = reason;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2050000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2050000000;
   v15 = getPPFuzzyContactQueryClass_softClass;
-  v46 = getPPFuzzyContactQueryClass_softClass;
+  v45 = getPPFuzzyContactQueryClass_softClass;
   if (!getPPFuzzyContactQueryClass_softClass)
   {
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __getPPFuzzyContactQueryClass_block_invoke;
-    v41 = &unk_1E7C23BF0;
-    v42 = &v43;
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __getPPFuzzyContactQueryClass_block_invoke;
+    v40 = &unk_1E7C23BF0;
+    v41 = &v42;
     PersonalizationPortraitLibraryCore();
-    v44[3] = objc_getClass("PPFuzzyContactQuery");
-    getPPFuzzyContactQueryClass_softClass = *(v42[1] + 24);
-    v15 = v44[3];
+    v43[3] = objc_getClass("PPFuzzyContactQuery");
+    getPPFuzzyContactQueryClass_softClass = *(v41[1] + 24);
+    v15 = v43[3];
   }
 
   v16 = v15;
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
   v17 = objc_opt_new();
   v18 = MEMORY[0x1E695DFD8];
   v19 = +[_PSConstants mobileCalendarBundleId];
-  v47[0] = v19;
+  v46[0] = v19;
   v20 = +[_PSConstants macCalendarBundleId];
-  v47[1] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+  v46[1] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
   v22 = [v18 setWithArray:v21];
   [v17 setSourceBundleIds:v22];
 
   [v17 setStartDate:dateCopy];
   [v17 setEndDate:endDateCopy];
   [v17 setOnlyAddressBook:1];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2050000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2050000000;
   v23 = getPPContactStoreClass_softClass;
-  v46 = getPPContactStoreClass_softClass;
+  v45 = getPPContactStoreClass_softClass;
   if (!getPPContactStoreClass_softClass)
   {
-    v38 = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __getPPContactStoreClass_block_invoke;
-    v41 = &unk_1E7C23BF0;
-    v42 = &v43;
+    v37 = MEMORY[0x1E69E9820];
+    v38 = 3221225472;
+    v39 = __getPPContactStoreClass_block_invoke;
+    v40 = &unk_1E7C23BF0;
+    v41 = &v42;
     PersonalizationPortraitLibraryCore();
-    v44[3] = objc_getClass("PPContactStore");
-    getPPContactStoreClass_softClass = *(v42[1] + 24);
-    v23 = v44[3];
+    v43[3] = objc_getClass("PPContactStore");
+    getPPContactStoreClass_softClass = *(v41[1] + 24);
+    v23 = v43[3];
   }
 
   v24 = v23;
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
   v25 = objc_opt_new();
-  v37 = 0;
-  v26 = [v25 upcomingRelevantContactsForQuery:v17 error:&v37];
-  v27 = v37;
+  v36 = 0;
+  v26 = [v25 upcomingRelevantContactsForQuery:v17 error:&v36];
+  v27 = v36;
   if (v27 || ![v26 count])
   {
     v28 = +[_PSLogging generalChannel];
@@ -393,18 +389,16 @@ LABEL_13:
   else
   {
     v28 = [v26 _pas_mappedArrayWithTransform:&__block_literal_global_101];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __125___PSSuggestionFromTextPredictor_suggestionsFromPortraitExtractionsWithContext_startDate_endDate_priorScoreThreshold_reason___block_invoke_2;
-    v33[3] = &unk_1E7C25F60;
-    v33[4] = self;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __125___PSSuggestionFromTextPredictor_suggestionsFromPortraitExtractionsWithContext_startDate_endDate_priorScoreThreshold_reason___block_invoke_2;
+    v32[3] = &unk_1E7C25F60;
+    v32[4] = self;
     thresholdCopy = threshold;
-    v34 = contextCopy;
-    v35 = reasonCopy;
-    v29 = [v28 _pas_mappedArrayWithTransform:v33];
+    v33 = contextCopy;
+    v34 = reasonCopy;
+    v29 = [v28 _pas_mappedArrayWithTransform:v32];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -461,38 +455,30 @@ LABEL_13:
 
 - (void)suggestionFromContactPriors:priorScoreThreshold:bundleID:reason:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suggestionsFromIncompleteRemindersWithContext:startDate:endDate:priorScoreThreshold:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suggestionsFromIncompleteRemindersWithContext:startDate:endDate:priorScoreThreshold:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suggestionsFromPortraitExtractionsWithContext:startDate:endDate:priorScoreThreshold:reason:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

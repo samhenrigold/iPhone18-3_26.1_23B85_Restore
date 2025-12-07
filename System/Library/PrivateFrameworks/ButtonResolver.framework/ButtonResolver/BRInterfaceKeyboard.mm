@@ -145,33 +145,33 @@
 
 - (BOOL)enableStates:(id)states error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v8 = [states countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v8 = [states countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(states);
         }
 
-        if (!-[BRInterfaceKeyboard _enableState:](self, "_enableState:", [*(*(&v16 + 1) + 8 * i) unsignedIntegerValue]))
+        if (!-[BRInterfaceKeyboard _enableState:](self, "_enableState:", [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue]))
         {
-          v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
-          v12 = v15 != 0;
-          if (error && v15)
+          v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
+          v12 = v14 != 0;
+          if (error && v14)
           {
-            *error = v15;
+            *error = v14;
             v12 = 1;
           }
 
@@ -179,7 +179,7 @@
         }
       }
 
-      v9 = [states countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [states countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -192,39 +192,38 @@
   v12 = 0;
 LABEL_10:
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"end"]);
-  v13 = *MEMORY[0x277D85DE8];
   return !v12;
 }
 
 - (BOOL)disableStates:(id)states clearAsset:(BOOL)asset error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"start"]);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v9 = [states countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v9 = [states countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(states);
         }
 
-        if (!-[BRInterfaceKeyboard _disableState:](self, "_disableState:", [*(*(&v17 + 1) + 8 * i) unsignedIntegerValue]))
+        if (!-[BRInterfaceKeyboard _disableState:](self, "_disableState:", [*(*(&v16 + 1) + 8 * i) unsignedIntegerValue]))
         {
-          v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
-          v13 = v16 != 0;
-          if (error && v16)
+          v15 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-536870212 userInfo:0];
+          v13 = v15 != 0;
+          if (error && v15)
           {
-            *error = v16;
+            *error = v15;
             v13 = 1;
           }
 
@@ -232,7 +231,7 @@ LABEL_10:
         }
       }
 
-      v10 = [states countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [states countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -245,7 +244,6 @@ LABEL_10:
   v13 = 0;
 LABEL_10:
   -[BRInterface timestampWithLabel:](self, "timestampWithLabel:", [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", NSStringFromSelector(a2), @"end"]);
-  v14 = *MEMORY[0x277D85DE8];
   return !v13;
 }
 
@@ -474,36 +472,36 @@ LABEL_13:
 
 uint64_t __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(*(a1 + 32) + 112);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         *(*(*(a1 + 40) + 8) + 24) = IOHIDServiceClientSetProperty(v7, *(a1 + 48), *(a1 + 56));
         if (!*(*(*(a1 + 40) + 8) + 24))
         {
           __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke_cold_1(v7);
-          goto LABEL_11;
+          return [*(*(a1 + 32) + 56) setObject:*(a1 + 56) forKeyedSubscript:*(a1 + 48)];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -513,38 +511,35 @@ uint64_t __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke(ui
     }
   }
 
-LABEL_11:
-  result = [*(*(a1 + 32) + 56) setObject:*(a1 + 56) forKeyedSubscript:*(a1 + 48)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 56) setObject:*(a1 + 56) forKeyedSubscript:*(a1 + 48)];
 }
 
 - (BOOL)_setCachedPropertiesOnService:(__IOHIDServiceClient *)service
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = self->_propertyCache;
-  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v18;
+    v8 = *v17;
     *&v6 = 136315650;
-    v15 = v6;
+    v14 = v6;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_propertyCache objectForKeyedSubscript:v10, v15];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_propertyCache objectForKeyedSubscript:v10, v14];
         v12 = _BRLog_log_2;
         if (!_BRLog_log_2)
         {
@@ -554,24 +549,23 @@ LABEL_11:
 
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v15;
-          v22 = "[BRInterfaceKeyboard _setCachedPropertiesOnService:]";
-          v23 = 2112;
-          v24 = v11;
-          v25 = 2112;
-          v26 = v10;
+          *buf = v14;
+          v21 = "[BRInterfaceKeyboard _setCachedPropertiesOnService:]";
+          v22 = 2112;
+          v23 = v11;
+          v24 = 2112;
+          v25 = v10;
           _os_log_debug_impl(&dword_242149000, v12, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", buf, 0x20u);
         }
 
         if (!IOHIDServiceClientSetProperty(service, v10, v11))
         {
           [(BRInterfaceKeyboard *)service _setCachedPropertiesOnService:buf];
-          result = buf[0];
-          goto LABEL_15;
+          return buf[0];
         }
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v16 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -581,18 +575,14 @@ LABEL_11:
     }
   }
 
-  result = 1;
-LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)_findServices
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = IOHIDEventSystemClientCreate();
-  self->_client = v4;
-  if (v4)
+  v3 = IOHIDEventSystemClientCreate();
+  self->_client = v3;
+  if (v3)
   {
     IOHIDEventSystemClientSetMatching();
     queue = [(BRInterface *)self queue];
@@ -607,50 +597,44 @@ LABEL_15:
 
 void __36__BRInterfaceKeyboard__findServices__block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = v2[6];
-  [v2 queue];
+  [*(a1 + 32) queue];
   IOHIDEventSystemClientScheduleWithDispatchQueue();
-  v4 = *(*(a1 + 32) + 48);
   IOHIDEventSystemClientRegisterDeviceMatchingCallback();
-  v5 = IOHIDEventSystemClientCopyServices(*(*(a1 + 32) + 48));
-  v13 = v5;
-  if (v5)
+  v2 = IOHIDEventSystemClientCopyServices(*(*(a1 + 32) + 48));
+  v10 = v2;
+  if (v2)
   {
-    v14 = OUTLINED_FUNCTION_3_0(v5, v6, v7, v8, v9, v10, v11, v12, 0, 0, 0, 0, 0, 0, 0, 0, v34, v36);
-    if (v14)
+    v11 = OUTLINED_FUNCTION_3_0(v2, v3, v4, v5, v6, v7, v8, v9, 0, 0, 0, 0, 0, 0, 0, 0, v30);
+    if (v11)
     {
-      v15 = v14;
-      v16 = *v28;
+      v12 = v11;
+      v13 = *v24;
       do
       {
-        v17 = 0;
+        v14 = 0;
         do
         {
-          if (*v28 != v16)
+          if (*v24 != v13)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = serviceAddedCallback_0(v14, *(a1 + 32), *(v27 + 8 * v17++));
+          v11 = serviceAddedCallback_0(v11, *(a1 + 32), *(v23 + 8 * v14++));
         }
 
-        while (v15 != v17);
-        v14 = OUTLINED_FUNCTION_3_0(v14, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29, v30, v31, v32, v33, v35, v37);
-        v15 = v14;
+        while (v12 != v14);
+        v11 = OUTLINED_FUNCTION_3_0(v11, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v31);
+        v12 = v11;
       }
 
-      while (v14);
+      while (v11);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_2;
   if (!_BRLog_log_2)
   {
@@ -660,39 +644,35 @@ void __36__BRInterfaceKeyboard__findServices__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[BRInterfaceKeyboard init]";
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[BRInterfaceKeyboard init]";
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s failed!", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propertyList
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315394;
+  v4 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  v4 = v0;
-  _os_log_debug_impl(&dword_242149000, v1, OS_LOG_TYPE_DEBUG, "%s %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_242149000, v1, OS_LOG_TYPE_DEBUG, "%s %@", v2, 0x16u);
 }
 
 - (void)_servicesSetProperty:forKey:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v6 = v0;
-  v7 = v1;
-  v8 = v2;
-  _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_242149000, v3, OS_LOG_TYPE_DEBUG, "%s property: %@ key: %@", v4, 0x20u);
 }
 
 void __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = _BRLog_log_2;
   if (!_BRLog_log_2)
   {
@@ -702,18 +682,16 @@ void __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke_cold_1
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v4[0] = 136315394;
+    v3[0] = 136315394;
     OUTLINED_FUNCTION_0_1();
-    v5 = a1;
-    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s error setting property on service %@", v4, 0x16u);
+    v4 = a1;
+    _os_log_error_impl(&dword_242149000, v2, OS_LOG_TYPE_ERROR, "%s error setting property on service %@", v3, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setCachedPropertiesOnService:(uint64_t)a1 .cold.1(uint64_t a1, _BYTE *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = _BRLog_log_2;
   if (!_BRLog_log_2)
   {
@@ -723,14 +701,13 @@ void __51__BRInterfaceKeyboard__servicesSetProperty_forKey___block_invoke_cold_1
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 136315394;
+    v5[0] = 136315394;
     OUTLINED_FUNCTION_0_1();
-    v7 = a1;
-    _os_log_error_impl(&dword_242149000, v4, OS_LOG_TYPE_ERROR, "%s error setting cached property on service %@", v6, 0x16u);
+    v6 = a1;
+    _os_log_error_impl(&dword_242149000, v4, OS_LOG_TYPE_ERROR, "%s error setting cached property on service %@", v5, 0x16u);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

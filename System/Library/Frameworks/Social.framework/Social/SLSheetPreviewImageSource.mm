@@ -15,10 +15,10 @@
 
   if (previewImage)
   {
-    _SLLog(v5, 6, @"previewImageForAttachment: previewImage for attachment is not nil so returning");
+    _SLLog(v5, 6, @"previewImageForAttachment: previewImage for attachment is not nil so returning", v12, v13, v14, v15, v16, v63);
     previewImage2 = [attachmentCopy previewImage];
 LABEL_3:
-    v13 = previewImage2;
+    v18 = previewImage2;
     blockCopy[2](blockCopy, previewImage2, 0.0);
 
     goto LABEL_4;
@@ -30,29 +30,29 @@ LABEL_3:
 
     if (payload)
     {
-      v18 = MEMORY[0x1E69DCAB8];
+      v38 = MEMORY[0x1E69DCAB8];
       payload2 = [attachmentCopy payload];
-      v20 = [v18 imageWithData:payload2];
+      v40 = [v38 imageWithData:payload2];
 
-      [v20 size];
-      v22 = v21;
-      [v20 size];
-      if (v22 * v23 >= 262144.0)
+      [v40 size];
+      v42 = v41;
+      [v40 size];
+      if (v42 * v48 >= 262144.0)
       {
-        _SLLog(v5, 6, @"previewImageForAttachment: Generating preview from downsampled payload");
+        _SLLog(v5, 6, @"previewImageForAttachment: Generating preview from downsampled payload", v43, v44, v45, v46, v47, v63);
         [(SLSheetPreviewImageSource *)self _generatePreviewImageForAttachment:attachmentCopy queueToBlockWhileDownsampling:downsamplingCopy resultBlock:blockCopy];
       }
 
       else
       {
-        _SLLog(v5, 6, @"previewImageForAttachment: Using payload as preview");
-        blockCopy[2](blockCopy, v20, 0.0);
+        _SLLog(v5, 6, @"previewImageForAttachment: Using payload as preview", v43, v44, v45, v46, v47, v63);
+        blockCopy[2](blockCopy, v40, 0.0);
       }
     }
 
     else
     {
-      _SLLog(v5, 6, @"previewImageForAttachment: No payload. Guess we need to wait until it loads.");
+      _SLLog(v5, 6, @"previewImageForAttachment: No payload. Guess we need to wait until it loads.", v33, v34, v35, v36, v37, v63);
       blockCopy[2](blockCopy, 0, 0.0);
     }
 
@@ -61,9 +61,9 @@ LABEL_3:
 
   if (!SLAttachmentPayloadIsAssetLibraryURL(attachmentCopy))
   {
-    if ((SLAttachmentPayloadIsVideoFileURL(attachmentCopy) & 1) != 0 || [attachmentCopy type] == 8 && (objc_msgSend(attachmentCopy, "payloadSourceFileURL"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isFileURL"), v24, v25))
+    if ((SLAttachmentPayloadIsVideoFileURL(attachmentCopy) & 1) != 0 || [attachmentCopy type] == 8 && (objc_msgSend(attachmentCopy, "payloadSourceFileURL"), v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isFileURL"), v54, v55))
     {
-      _SLLog(v5, 6, @"previewImageForAttachment: creating preview for video file URL");
+      _SLLog(v5, 6, @"previewImageForAttachment: creating preview for video file URL", v49, v50, v51, v52, v53, v63);
       if (SLAttachmentPayloadIsVideoFileURL(attachmentCopy))
       {
         [attachmentCopy payload];
@@ -73,30 +73,30 @@ LABEL_3:
       {
         [attachmentCopy payloadSourceFileURL];
       }
-      v26 = ;
-      [(SLSheetPreviewImageSource *)self _generatePreviewImageForVideoFileURL:v26 resultBlock:blockCopy];
+      v62 = ;
+      [(SLSheetPreviewImageSource *)self _generatePreviewImageForVideoFileURL:v62 resultBlock:blockCopy];
 
       goto LABEL_4;
     }
 
     type = [attachmentCopy type];
-    _SLLog(v5, 3, @"previewImageForAttachment: Cannot create preview for attachment of type %i,returning fallback preview");
+    _SLLog(v5, 3, @"previewImageForAttachment: Cannot create preview for attachment of type %i,returning fallback preview", v57, v58, v59, v60, v61, type);
     goto LABEL_20;
   }
 
-  _SLLog(v5, 6, @"previewImageForAttachment: creating preview for asset URL");
+  _SLLog(v5, 6, @"previewImageForAttachment: creating preview for asset URL", v19, v20, v21, v22, v23, v63);
   payload3 = [attachmentCopy payload];
   scheme = [payload3 scheme];
-  v16 = [scheme isEqualToString:@"assets-library"];
+  v26 = [scheme isEqualToString:@"assets-library"];
 
-  if (!v16)
+  if (!v26)
   {
 LABEL_20:
     previewImage2 = +[SLSheetImagePreviewView fallbackPreviewImage];
     goto LABEL_3;
   }
 
-  _SLLog(v5, 3, @"ALAsset attachment support is deprecated");
+  _SLLog(v5, 3, @"ALAsset attachment support is deprecated", v27, v28, v29, v30, v31, v64);
 LABEL_4:
 }
 
@@ -105,24 +105,24 @@ LABEL_4:
   attachmentCopy = attachment;
   downsamplingCopy = downsampling;
   blockCopy = block;
-  _SLLog(v5, 6, @"SLComposeServiceViewController-_generatePreviewImageForAttachment:%@");
-  if ([attachmentCopy type] || (objc_msgSend(attachmentCopy, "previewImage"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+  _SLLog(v5, 6, @"SLComposeServiceViewController-_generatePreviewImageForAttachment:%@", v11, v12, v13, v14, v15, attachmentCopy);
+  if ([attachmentCopy type] || (objc_msgSend(attachmentCopy, "previewImage"), v21 = objc_claimAutoreleasedReturnValue(), v21, v21))
   {
-    _SLLog(v5, 3, @"_generatePreviewImageForAttachment called for non-image payload attachment");
+    _SLLog(v5, 3, @"_generatePreviewImageForAttachment called for non-image payload attachment", v16, v17, v18, v19, v20, v24);
     blockCopy[2](blockCopy, 0, 0.0);
   }
 
   else
   {
-    _SLLog(v5, 6, @"Image attachment with nil preview - triggering thumbnail generation");
+    _SLLog(v5, 6, @"Image attachment with nil preview - triggering thumbnail generation", v16, v17, v18, v19, v20, v24);
     payload = [attachmentCopy payload];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __106__SLSheetPreviewImageSource__generatePreviewImageForAttachment_queueToBlockWhileDownsampling_resultBlock___block_invoke;
     block[3] = &unk_1E81759A0;
-    v15 = payload;
-    v16 = blockCopy;
-    v13 = payload;
+    v26 = payload;
+    v27 = blockCopy;
+    v23 = payload;
     dispatch_async(downsamplingCopy, block);
   }
 }
@@ -176,51 +176,51 @@ void __106__SLSheetPreviewImageSource__generatePreviewImageForAttachment_queueTo
 
 - (void)_generatePreviewImageForVideoFileURL:(id)l resultBlock:(id)block
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
-  _SLLog(v4, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: %@");
-  v9 = objc_alloc(MEMORY[0x1E6988168]);
-  v10 = *MEMORY[0x1E6987BB8];
-  v25[0] = *MEMORY[0x1E6987BD8];
-  v25[1] = v10;
-  v26[0] = &unk_1F4202A60;
-  v26[1] = MEMORY[0x1E695E110];
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:{2, lCopy}];
-  v12 = [v9 initWithURL:lCopy options:v11];
+  _SLLog(v4, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: %@", v9, v10, v11, v12, v13, lCopy);
+  v14 = objc_alloc(MEMORY[0x1E6988168]);
+  v15 = *MEMORY[0x1E6987BB8];
+  v40[0] = *MEMORY[0x1E6987BD8];
+  v40[1] = v15;
+  v41[0] = &unk_1F4202A60;
+  v41[1] = MEMORY[0x1E695E110];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+  v17 = [v14 initWithURL:lCopy options:v16];
 
-  _SLLog(v4, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: got asset %@");
-  if (v12)
+  _SLLog(v4, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: got asset %@", v18, v19, v20, v21, v22, v17);
+  if (v17)
   {
     assetImageGenerator = self->_assetImageGenerator;
     if (!assetImageGenerator)
     {
-      v14 = [objc_alloc(MEMORY[0x1E6987E68]) initWithAsset:{v12, v12}];
-      v15 = self->_assetImageGenerator;
-      self->_assetImageGenerator = v14;
+      v29 = [objc_alloc(MEMORY[0x1E6987E68]) initWithAsset:v17];
+      v30 = self->_assetImageGenerator;
+      self->_assetImageGenerator = v29;
 
       [(AVAssetImageGenerator *)self->_assetImageGenerator setAppliesPreferredTrackTransform:1];
       assetImageGenerator = self->_assetImageGenerator;
     }
 
-    v16 = MEMORY[0x1E696B098];
-    CMTimeMakeWithSeconds(&v23, 0.0, 1);
-    v17 = [v16 valueWithCMTime:&v23];
-    v24 = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_resultBlock___block_invoke;
-    v19[3] = &unk_1E8175B20;
-    v20 = v12;
-    v22 = blockCopy;
-    v21 = lCopy;
-    [(AVAssetImageGenerator *)assetImageGenerator generateCGImagesAsynchronouslyForTimes:v18 completionHandler:v19];
+    v31 = MEMORY[0x1E696B098];
+    CMTimeMakeWithSeconds(&v38, 0.0, 1);
+    v32 = [v31 valueWithCMTime:&v38];
+    v39 = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_resultBlock___block_invoke;
+    v34[3] = &unk_1E8175B20;
+    v35 = v17;
+    v37 = blockCopy;
+    v36 = lCopy;
+    [(AVAssetImageGenerator *)assetImageGenerator generateCGImagesAsynchronouslyForTimes:v33 completionHandler:v34];
   }
 
   else
   {
-    _SLLog(v4, 3, @"Could not create AVAsset from %@");
+    _SLLog(v4, 3, @"Could not create AVAsset from %@", v23, v24, v25, v26, v27, lCopy);
     (*(blockCopy + 2))(blockCopy, 0, 0.0);
   }
 }
@@ -229,8 +229,8 @@ void __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_result
 {
   v10 = MEMORY[0x1E696AD98];
   v11 = a6;
-  v12 = [v10 numberWithInteger:a5];
-  _SLLog(v6, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: did generate image %@ result %@ error %{public}@");
+  v17 = [v10 numberWithInteger:a5];
+  _SLLog(v6, 7, @"SLSheetPreviewImageSource _generatePreviewImageForVideoFileURL: did generate image %@ result %@ error %{public}@", v12, v13, v14, v15, v16, a3);
 
   if (a3)
   {
@@ -241,36 +241,36 @@ void __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_result
   block[1] = 3221225472;
   block[2] = __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_resultBlock___block_invoke_2;
   block[3] = &unk_1E8175AF8;
-  v17 = a3;
-  v14 = a1[4];
-  v16 = a1[6];
-  v15 = a1[5];
+  v22 = a3;
+  v19 = a1[4];
+  v21 = a1[6];
+  v20 = a1[5];
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_resultBlock___block_invoke_2(uint64_t a1)
+void __78__SLSheetPreviewImageSource__generatePreviewImageForVideoFileURL_resultBlock___block_invoke_2(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 56))
   {
-    v3 = *(a1 + 32);
-    if (v3)
+    v10 = *(a1 + 32);
+    if (v10)
     {
-      [v3 duration];
+      objc_msgSend_duration(v10, a2);
     }
 
-    _SLLog(v1, 3, @"Video duration CMTime.flags kCMTimeFlags_Valid is not set");
-    v6 = [MEMORY[0x1E69DCAB8] imageWithCGImage:{*(a1 + 56), v7}];
+    _SLLog(v8, 3, @"Video duration CMTime.flags kCMTimeFlags_Valid is not set", a4, a5, a6, a7, a8, v14);
+    v13 = [MEMORY[0x1E69DCAB8] imageWithCGImage:*(a1 + 56)];
     (*(*(a1 + 48) + 16))(0.0);
     CGImageRelease(*(a1 + 56));
   }
 
   else
   {
-    _SLLog(v1, 6, @"AVAssetImageGenerator failed for %@");
-    v4 = *(*(a1 + 48) + 16);
-    v5.n128_u64[0] = 0;
+    _SLLog(v8, 6, @"AVAssetImageGenerator failed for %@", a4, a5, a6, a7, a8, *(a1 + 40));
+    v11 = *(*(a1 + 48) + 16);
+    v12.n128_u64[0] = 0;
 
-    v4(v5);
+    v11(v12);
   }
 }
 

@@ -53,11 +53,11 @@ void SUControllerIPCEncodeObject(uint64_t a1, void *a2, const char *a3, void *a4
   }
 }
 
-id _SUControllerIPCDecodeObjectForKey(uint64_t a1, xpc_object_t xdict, char *key, uint64_t a4, int a5)
+id _SUControllerIPCDecodeObjectForKey(uint64_t a1, xpc_object_t xdict, char *key, uint64_t a4, uint64_t a5)
 {
   if (!xdict || !key)
   {
-    v15 = +[SUControllerLogger sharedLogger];
+    v15 = [SUControllerLogger sharedLogger:key];
     v16 = v15;
     v17 = "MISSING";
     if (key)
@@ -70,11 +70,12 @@ id _SUControllerIPCDecodeObjectForKey(uint64_t a1, xpc_object_t xdict, char *key
     goto LABEL_8;
   }
 
+  v7 = a5;
   length = 0;
   data = xpc_dictionary_get_data(xdict, key, &length);
   if (!data)
   {
-    if (a5)
+    if (v7)
     {
       v13 = +[SUControllerLogger sharedLogger];
       [v13 logAtLevel:0 label:"_SUControllerIPCDecodeObjectForKey" format:{@"{SUControllerIPCDecodeObjectForKey} unable to get data for key:%s", key}];
@@ -125,7 +126,7 @@ BOOL SUControllerIPCDecodeBooleanForKey(uint64_t a1, xpc_object_t xdict, char *k
   }
 }
 
-id SUControllerIPCDecodeStringForKey(uint64_t a1, xpc_object_t xdict, char *key)
+char *SUControllerIPCDecodeStringForKey(uint64_t a1, xpc_object_t xdict, char *key)
 {
   if (xdict && key)
   {
@@ -154,63 +155,63 @@ id SUControllerIPCDecodeStringForKey(uint64_t a1, xpc_object_t xdict, char *key)
   return string;
 }
 
-BOOL SUControllerIPCClientIsEntitled()
+BOOL SUControllerIPCClientIsEntitled(uint64_t a1)
 {
   error = 0;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
   xpc_connection_get_audit_token();
-  v0 = *MEMORY[0x277CBECE8];
+  v1 = *MEMORY[0x277CBECE8];
   memset(&token, 0, sizeof(token));
-  v1 = SecTaskCreateWithAuditToken(v0, &token);
-  if (v1)
+  v2 = SecTaskCreateWithAuditToken(v1, &token);
+  if (v2)
   {
-    v2 = v1;
-    v3 = SecTaskCopyValueForEntitlement(v1, @"com.apple.private.allow-SUController", &error);
-    if (v3)
+    v3 = v2;
+    v4 = SecTaskCopyValueForEntitlement(v2, @"com.apple.private.allow-SUController", &error);
+    if (v4)
     {
-      v4 = v3;
-      v5 = CFGetTypeID(v3);
-      if (v5 == CFBooleanGetTypeID())
+      v5 = v4;
+      v6 = CFGetTypeID(v4);
+      if (v6 == CFBooleanGetTypeID())
       {
-        v6 = CFBooleanGetValue(v4) != 0;
+        v7 = CFBooleanGetValue(v5) != 0;
       }
 
       else
       {
-        v9 = +[SUControllerLogger sharedLogger];
-        [v9 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:@"entitlement has wrong type"];
+        v10 = +[SUControllerLogger sharedLogger];
+        [v10 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:@"entitlement has wrong type"];
 
-        v6 = 0;
+        v7 = 0;
       }
 
-      CFRelease(v2);
-      v2 = v4;
+      CFRelease(v3);
+      v3 = v5;
     }
 
     else
     {
-      v7 = error;
-      v8 = +[SUControllerLogger sharedLogger];
-      if (v7)
+      v8 = error;
+      v9 = +[SUControllerLogger sharedLogger];
+      if (v8)
       {
-        [v8 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:{@"unable to look up client entitlement: %ld", CFErrorGetCode(error)}];
+        [v9 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:{@"unable to look up client entitlement: %ld", CFErrorGetCode(error)}];
       }
 
       else
       {
-        [v8 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:{@"client is not entitled", v11}];
+        [v9 logAtLevel:0 label:"SUControllerIPCClientIsEntitled" format:{@"client is not entitled", v12}];
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   if (error)
@@ -218,7 +219,7 @@ BOOL SUControllerIPCClientIsEntitled()
     CFRelease(error);
   }
 
-  return v6;
+  return v7;
 }
 
 id SUControllerIPCDictionaryToXPC(void *a1, void *a2)
@@ -368,17 +369,7 @@ id SUControllerUnarchive(void *a1, void *a2, uint64_t a3)
   v5 = a1;
   v6 = a2;
   v7 = [v5 objectForKey:v6];
-  if (!v7)
-  {
-    goto LABEL_3;
-  }
-
-  v8 = v7;
-  v9 = [v5 objectForKey:v6];
-  v10 = [MEMORY[0x277CBEB68] null];
-  v11 = [v9 isEqual:v10];
-
-  if ((v11 & 1) == 0)
+  if (v7 && (v8 = v7, [v5 objectForKey:v6], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEB68], "null"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
     v13 = objc_alloc(MEMORY[0x277CCAAC8]);
     v14 = [v5 objectForKey:v6];
@@ -390,7 +381,6 @@ id SUControllerUnarchive(void *a1, void *a2, uint64_t a3)
 
   else
   {
-LABEL_3:
     v12 = 0;
   }
 
@@ -486,9 +476,9 @@ uint64_t updateRequiresDocAsset()
   }
 }
 
-void sub_26AB20524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26AB20524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -507,9 +497,9 @@ void sub_26AB20730(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_26AB208F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26AB208F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

@@ -32,39 +32,40 @@
 + (id)__annotations
 {
   v2 = [JavaLangAnnotationTarget alloc];
+  v4 = v2;
   if ((atomic_load_explicit(JavaLangAnnotationElementTypeEnum__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10014C018();
+    v2 = sub_10014C018();
   }
 
-  v5[0] = JavaLangAnnotationElementTypeEnum_values_;
+  v8[0] = JavaLangAnnotationElementTypeEnum_values_[0];
   if ((atomic_load_explicit(JavaLangAnnotationElementTypeEnum__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10014C018();
+    v2 = sub_10014C018();
   }
 
-  v5[1] = qword_100558238;
+  v8[1] = qword_100558238;
   if ((atomic_load_explicit(JavaLangAnnotationElementTypeEnum__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10014C018();
+    v2 = sub_10014C018();
   }
 
-  v5[2] = qword_100558248;
+  v8[2] = qword_100558248;
   if ((atomic_load_explicit(JavaLangAnnotationElementTypeEnum__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_10014C018();
+    v2 = sub_10014C018();
   }
 
-  v5[3] = qword_100558260;
-  v6[0] = [(JavaLangAnnotationTarget *)v2 initWithValue:[IOSObjectArray arrayWithObjects:v5 count:4 type:NSObject_class_()]];
-  v3 = [JavaLangAnnotationRetention alloc];
+  v8[3] = qword_100558260;
+  v9 = [(JavaLangAnnotationTarget *)v4 initWithValue:[IOSObjectArray arrayWithObjects:v8 count:4 type:NSObject_class_(v2, v3)]];
+  v5 = [JavaLangAnnotationRetention alloc];
   if ((atomic_load_explicit(JavaLangAnnotationRetentionPolicyEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100185EFC();
   }
 
-  v6[1] = [(JavaLangAnnotationRetention *)v3 initWithValue:qword_100557C78];
-  return [IOSObjectArray arrayWithObjects:v6 count:2 type:JavaLangAnnotationAnnotation_class_()];
+  v10 = [(JavaLangAnnotationRetention *)v5 initWithValue:qword_100557C78];
+  return [IOSObjectArray arrayWithObjects:&v9 count:2 type:JavaLangAnnotationAnnotation_class_(v10, v6)];
 }
 
 @end

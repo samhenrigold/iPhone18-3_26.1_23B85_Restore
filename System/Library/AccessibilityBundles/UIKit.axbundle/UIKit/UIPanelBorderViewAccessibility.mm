@@ -280,21 +280,23 @@
   return v9;
 }
 
-uint64_t __68__UIPanelBorderViewAccessibility__accessibilitySetBorderFloatValue___block_invoke(uint64_t a1)
+double __68__UIPanelBorderViewAccessibility__accessibilitySetBorderFloatValue___block_invoke(uint64_t a1)
 {
   if (([(UIPanelBorderViewAccessibility *)*(a1 + 32) _axIsPrimaryBorder]& 1) != 0)
   {
     v3 = [(UIPanelBorderViewAccessibility *)*(a1 + 32) _axSplitViewControllerImplementation];
     [v3 setPreferredPrimaryColumnWidthFraction:*(a1 + 40)];
-    return MEMORY[0x29EDC9740](v3);
+    *&result = MEMORY[0x29EDC9740](v3).n128_u64[0];
   }
 
   else
   {
     v2 = [(UIPanelBorderViewAccessibility *)*(a1 + 32) _axSplitViewControllerImplementation];
     [v2 setPreferredSupplementaryColumnWidthFraction:*(a1 + 40)];
-    return MEMORY[0x29EDC9740](v2);
+    *&result = MEMORY[0x29EDC9740](v2).n128_u64[0];
   }
+
+  return result;
 }
 
 @end

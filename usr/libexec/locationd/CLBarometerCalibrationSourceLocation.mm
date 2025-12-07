@@ -171,19 +171,19 @@ LABEL_23:
       v36 = *(*var0 + 56);
       v37 = *(*var0 + 130);
       *buf = 67110656;
-      *v42 = v32;
-      *&v42[4] = 2048;
-      *&v42[6] = v34;
-      v43 = 2048;
-      *v44 = v38;
-      *&v44[8] = 2048;
-      *&v44[10] = v35;
-      *&v44[18] = 2048;
-      *&v44[20] = v36;
-      *&v44[28] = 2048;
-      *&v44[30] = v15;
-      *&v44[38] = 1024;
-      *&v44[40] = v37;
+      *v75 = v32;
+      *&v75[4] = 2048;
+      *&v75[6] = v34;
+      v76 = 2048;
+      *v77 = v38;
+      *&v77[8] = 2048;
+      *&v77[10] = v35;
+      *&v77[18] = 2048;
+      *&v77[20] = v36;
+      *&v77[28] = 2048;
+      *&v77[30] = v15;
+      *&v77[38] = 1024;
+      *&v77[40] = v37;
       _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_INFO, "#altimeter,DEM state,underDEM,%d,altitude,%f,vertUnc,%f,demAltitude,%f,demVertUnc,%f,threshold,%f,altitudeState,%d", buf, 0x40u);
     }
 
@@ -195,13 +195,34 @@ LABEL_23:
         sub_10193AFE8();
       }
 
+      v39 = qword_1025D4418;
+      v40 = self->_currentUnderDEM;
       [(CLBarometerCalibrationSourceClient *)self->super._delegate getLastAltitude];
+      v42 = v41;
       [(CLBarometerCalibrationSourceClient *)self->super._delegate getLastAltitudeAccuracy];
-      v39 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLBarometerCalibrationSourceLocation updateAltitudeStateWithLocationData:sampleAltitude:sampleVerticalUncertainty:]", "%s\n", v39);
-      if (v39 != buf)
+      v43 = *(*var0 + 48);
+      v44 = *(*var0 + 56);
+      v45 = *(*var0 + 130);
+      *v63 = 67110656;
+      *&v63[4] = v40;
+      *&v63[8] = 2048;
+      *&v63[10] = v42;
+      *&v63[18] = 2048;
+      *&v63[20] = v46;
+      *&v63[28] = 2048;
+      *&v63[30] = v43;
+      *&v65[4] = v44;
+      *&v65[12] = 2048;
+      *&v65[14] = v15;
+      *&v65[22] = 1024;
+      *&v65[24] = v45;
+      LODWORD(v62) = 64;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v39, 1, "#altimeter,DEM state,underDEM,%d,altitude,%f,vertUnc,%f,demAltitude,%f,demVertUnc,%f,threshold,%f,altitudeState,%d", v63, v62, *v63, *&v63[8], *&v63[16], *&v63[24], v43 >> 16);
+      v48 = v47;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLBarometerCalibrationSourceLocation updateAltitudeStateWithLocationData:sampleAltitude:sampleVerticalUncertainty:]", "%s\n", v47);
+      if (v48 != buf)
       {
-        free(v39);
+        free(v48);
       }
     }
   }
@@ -231,27 +252,27 @@ LABEL_12:
     v28 = *(*var0 + 156);
     v29 = *(*var0 + 152);
     *buf = 134220545;
-    *v42 = v21;
-    *&v42[8] = 1024;
-    *&v42[10] = v22;
-    v43 = 1024;
-    *v44 = v23;
-    *&v44[4] = 2048;
-    *&v44[6] = data;
-    *&v44[14] = 2048;
-    *&v44[16] = a5;
-    *&v44[24] = 2048;
-    *&v44[26] = v25;
-    *&v44[34] = 2048;
-    *&v44[36] = v30;
-    v45 = 2049;
-    v46 = v26;
-    v47 = 2049;
-    v48 = v27;
-    v49 = 1025;
-    v50 = v28;
-    v51 = 1025;
-    v52 = v29;
+    *v75 = v21;
+    *&v75[8] = 1024;
+    *&v75[10] = v22;
+    v76 = 1024;
+    *v77 = v23;
+    *&v77[4] = 2048;
+    *&v77[6] = data;
+    *&v77[14] = 2048;
+    *&v77[16] = a5;
+    *&v77[24] = 2048;
+    *&v77[26] = v25;
+    *&v77[34] = 2048;
+    *&v77[36] = v30;
+    v78 = 2049;
+    v79 = v26;
+    v80 = 2049;
+    v81 = v27;
+    v82 = 1025;
+    v83 = v28;
+    v84 = 1025;
+    v85 = v29;
     _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEBUG, "#altimeter,location altitude information,timestamp,%f,state,%u,type,%d,altitude,%f,vertUnc,%f,lastAltitude,%.3lf,lastAltitudeTimestamp,%.3lf,outdoorConfidence,%{private}.3lf,indoorConfidence,%{private}.3lf,outdoorState,%{private}u,mapMatchType,%{private}u", buf, 0x60u);
   }
 
@@ -263,13 +284,46 @@ LABEL_12:
       sub_10193AFE8();
     }
 
+    v49 = qword_1025D4418;
+    v50 = **var0;
+    v51 = *(*var0 + 130);
+    v52 = *(*var0 + 100);
     [(CLBarometerCalibrationSourceClient *)self->super._delegate getLastAltitude];
+    v54 = v53;
     [(CLBarometerCalibrationSourceClient *)self->super._delegate getLastAltitudeTime];
-    v40 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLBarometerCalibrationSourceLocation updateAltitudeStateWithLocationData:sampleAltitude:sampleVerticalUncertainty:]", "%s\n", v40);
-    if (v40 != buf)
+    v56 = *(*var0 + 136);
+    v55 = *(*var0 + 144);
+    v57 = *(*var0 + 156);
+    v58 = *(*var0 + 152);
+    *v63 = 134220545;
+    *&v63[4] = v50;
+    *&v63[12] = 1024;
+    *&v63[14] = v51;
+    *&v63[18] = 1024;
+    *&v63[20] = v52;
+    *&v63[24] = 2048;
+    *&v63[26] = data;
+    v64 = 2048;
+    *v65 = a5;
+    *&v65[8] = 2048;
+    *&v65[10] = v54;
+    *&v65[18] = 2048;
+    *&v65[20] = v59;
+    v66 = 2049;
+    v67 = v55;
+    v68 = 2049;
+    v69 = v56;
+    v70 = 1025;
+    v71 = v57;
+    v72 = 1025;
+    v73 = v58;
+    LODWORD(v62) = 96;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v49, 2, "#altimeter,location altitude information,timestamp,%f,state,%u,type,%d,altitude,%f,vertUnc,%f,lastAltitude,%.3lf,lastAltitudeTimestamp,%.3lf,outdoorConfidence,%{private}.3lf,indoorConfidence,%{private}.3lf,outdoorState,%{private}u,mapMatchType,%{private}u", v63, *&v62);
+    v61 = v60;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLBarometerCalibrationSourceLocation updateAltitudeStateWithLocationData:sampleAltitude:sampleVerticalUncertainty:]", "%s\n", v60);
+    if (v61 != buf)
     {
-      free(v40);
+      free(v61);
     }
   }
 }

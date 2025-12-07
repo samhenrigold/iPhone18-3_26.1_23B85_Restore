@@ -364,34 +364,34 @@ LABEL_12:
     PFPosterDeviceSupportsSpatialPhoto();
   }
 
-  *self = 0u;
-  self[1] = 0u;
+  *a2 = 0u;
+  a2[1] = 0u;
 
   PXAssetBadgeInfoCreateWithBadges();
 }
 
 + (__n128)topLeftSecondaryBadgeInfoForBadgeInfo:()iOS
 {
-  v6 = a2[1];
-  v11 = *a2;
-  v12 = v6;
-  [self topLeftPrimaryBadgeInfoForBadgeInfo:&v11];
-  v7 = v13;
-  v8 = a2[1];
-  v11 = *a2;
-  v12 = v8;
-  [self topRightBadgeInfoForBadgeInfo:&v11];
-  a2->n128_u64[0] &= ~(v10 | v7);
-  result = a2[1];
-  *a3 = *a2;
-  a3[1] = result;
+  v7 = a3[1];
+  v12 = *a3;
+  v13 = v7;
+  objc_msgSend_topLeftPrimaryBadgeInfoForBadgeInfo_(self, a2, &v12);
+  v8 = v14[0];
+  v9 = a3[1];
+  v12 = *a3;
+  v13 = v9;
+  objc_msgSend_topRightBadgeInfoForBadgeInfo_(self);
+  a3->n128_u64[0] &= ~(v11 | v8);
+  result = a3[1];
+  *a4 = *a3;
+  a4[1] = result;
   return result;
 }
 
 + (void)topLeftPrimaryBadgeInfoForBadgeInfo:()iOS
 {
-  *self = 0u;
-  self[1] = 0u;
+  *a2 = 0u;
+  a2[1] = 0u;
   PXAssetBadgeInfoCreateWithBadges();
 }
 

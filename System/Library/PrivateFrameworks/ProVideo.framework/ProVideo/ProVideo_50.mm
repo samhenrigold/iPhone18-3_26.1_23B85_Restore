@@ -1,24 +1,20 @@
-uint64_t HGHWBlendFlipped::AllocateStates(HGHWBlendFlipped *this, HGRenderer *a2)
+void HGHWBlendFlipped::AllocateStates(HGHWBlendFlipped *this, HGRenderer *a2)
 {
-  result = (*(*a2 + 304))(a2);
-  if (!result)
+  if (!(*(*a2 + 304))(a2))
   {
     if ((*(this + 57) - *(this + 56)) >> 3)
     {
-      return result;
+      return;
     }
 
 LABEL_5:
     operator new();
   }
 
-  result = (*(*a2 + 128))(a2, 5);
-  if (result > ((*(this + 57) - *(this + 56)) >> 3))
+  if ((*(*a2 + 128))(a2, 5) > ((*(this + 57) - *(this + 56)) >> 3))
   {
     goto LABEL_5;
   }
-
-  return result;
 }
 
 uint64_t HGHWBlendFlipped::DeleteStates(uint64_t this)
@@ -80,8 +76,8 @@ float HGHWBlendFlipped::UpdateLocalParameters(float32x4_t *this, int a2, float r
 
     else
     {
-      f32 = this[26].f32;
-      v5 = vld1q_dup_f32(f32);
+      v4 = this + 26;
+      v5 = vld1q_dup_f32(v4->f32);
     }
 
     **(v3 + 8 * a2) = v5;
@@ -160,20 +156,20 @@ uint64_t HGHWBlendFlipped::GetProgram(HGHWBlendFlipped *this, HGRenderer *a2)
   }
 }
 
-uint64_t HGHWBlendFlipped::InitProgramDescriptor(HGHWBlendFlipped *this, HGProgramDescriptor *a2)
+void HGHWBlendFlipped::InitProgramDescriptor(HGHWBlendFlipped *this, HGProgramDescriptor *a2)
 {
   v2 = *(this + 106) - 9;
   if (v2 > 0x20)
   {
 
-    return HGLegacyBlend::InitProgramDescriptor(this, a2);
+    HGLegacyBlend::InitProgramDescriptor(this, a2);
   }
 
   else
   {
     v4 = *(&s_programdesc_glblend_table + 3 * v2 + HGHWBlendFlipped::GetGammaBlendMode(this, *(this + 106), *(this + 105)));
 
-    return v4(a2);
+    v4(a2);
   }
 }
 

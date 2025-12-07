@@ -18,16 +18,17 @@
 
 - (void)dragMonitor:(id)monitor didEndDragSessionWithIdentifier:(unsigned int)identifier
 {
+  v4 = *&identifier;
   monitorCopy = monitor;
   selfCopy = self;
-  sub_2706CA53C(monitorCopy, identifier);
+  sub_2706CA53C(monitorCopy, v4);
 }
 
 - (void)dragMonitorSession:(id)session didConnectWithItems:(id)items
 {
   sub_270690D44(0, &qword_28081CEC0, 0x277CCAA88);
-  v5 = sub_2706E5B1C();
-  nullsub_1(session, v5);
+  sub_2706E5B1C();
+  nullsub_1();
 }
 
 - (void)dragMonitorSession:(id)session didUpdateDragPresentation:(id)presentation

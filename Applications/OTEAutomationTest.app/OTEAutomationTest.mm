@@ -36,7 +36,6 @@ uint64_t sub_1000010FC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -48,10 +47,9 @@ uint64_t sub_100001148()
 {
   v0 = sub_100001328(&qword_100008018, &qword_100001610);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v4 = &v6 - v3;
-  sub_100001370();
+  v2 = __chkstk_darwin();
+  v4 = &v8 - v3;
+  sub_100001370(v2, v5, v6);
   WindowGroup.init(id:title:lazyContent:)();
   sub_1000013C4();
   static SceneBuilder.buildBlock<A>(_:)();
@@ -60,12 +58,12 @@ uint64_t sub_100001148()
 
 int main(int argc, const char **argv, const char **envp)
 {
-  sub_1000012A8();
+  sub_1000012A8(*&argc, argv, envp);
   static App.main()();
   return 0;
 }
 
-unint64_t sub_1000012A8()
+unint64_t sub_1000012A8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_100008010;
   if (!qword_100008010)
@@ -82,7 +80,6 @@ uint64_t sub_100001328(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -90,7 +87,7 @@ uint64_t sub_100001328(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-unint64_t sub_100001370()
+unint64_t sub_100001370(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_100008020;
   if (!qword_100008020)

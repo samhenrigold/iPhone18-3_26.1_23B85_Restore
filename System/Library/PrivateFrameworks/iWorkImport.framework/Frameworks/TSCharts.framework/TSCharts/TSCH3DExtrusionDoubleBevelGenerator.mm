@@ -198,31 +198,31 @@
     v7 = self->_spinePoints.__begin_ + 12 * started;
     v8 = *(v7 + 5);
     v9 = *(v7 + 12);
-    objc_msgSend_bottomDirection(self, v10, v11, v12, v13);
+    objc_msgSend_bottomDirection(self, v10, v11, v12);
     if (self->_bevelSlices >= 1)
     {
-      v16 = 0;
-      v17 = v25;
-      v18 = COERCE_DOUBLE(vmul_f32(v17, v17));
-      *&v15 = v26;
-      *&v18 = 1.0 / sqrtf((*(&v18 + 1) + (v17.f32[0] * v17.f32[0])) + (*&v15 * *&v15));
-      v19 = vmul_n_f32(v25, *&v18);
-      v20 = v26 * *&v18;
-      v21 = 12 * started;
+      v15 = 0;
+      v16 = v24;
+      v17 = COERCE_DOUBLE(vmul_f32(v16, v16));
+      *&v14 = v25;
+      *&v17 = 1.0 / sqrtf((*(&v17 + 1) + (v16.f32[0] * v16.f32[0])) + (*&v14 * *&v14));
+      v18 = vmul_n_f32(v24, *&v17);
+      v19 = v25 * *&v17;
+      v20 = 12 * started;
       do
       {
-        objc_msgSend_spineUValueAtIndex_(self, v14, *&v17, v18, v15, v16);
-        v23 = v22 * self->_bevelHeight;
-        *&v18 = v8 + (v20 * v23);
-        v24 = self->_spinePoints.__begin_ + v21;
-        v17 = vadd_f32(v9, vmul_n_f32(v19, v23));
-        *v24 = v17;
-        *(v24 + 2) = LODWORD(v18);
-        ++v16;
-        v21 -= 12;
+        objc_msgSend_spineUValueAtIndex_(self, v13, *&v16, v17, v14, v15);
+        v22 = v21 * self->_bevelHeight;
+        *&v17 = v8 + (v19 * v22);
+        v23 = self->_spinePoints.__begin_ + v20;
+        v16 = vadd_f32(v9, vmul_n_f32(v18, v22));
+        *v23 = v16;
+        *(v23 + 2) = LODWORD(v17);
+        ++v15;
+        v20 -= 12;
       }
 
-      while (v16 < self->_bevelSlices);
+      while (v15 < self->_bevelSlices);
     }
   }
 }
@@ -231,7 +231,7 @@
 {
   if (self->_enableBevelEdges)
   {
-    objc_msgSend_bottomDirection(self, a2, v2, v3, v4);
+    objc_msgSend_bottomDirection(self, v2, v3, v4, a2);
     v6 = v11 >= 0.0 ? -self->_bevelHeight : self->_bevelHeight;
     begin = self->_spinePoints.__begin_;
     v8 = self->_spinePoints.__end_ - begin;

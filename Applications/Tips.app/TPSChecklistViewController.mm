@@ -7,6 +7,7 @@
 - (void)setPreferredViewMethod:(id)method;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TPSChecklistViewController
@@ -35,13 +36,12 @@
 
 - (id)currentCollection
 {
-  v3 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR___TPSChecklistViewController_viewModel);
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
   static Published.subscript.getter();
 
-  return v6;
+  return v5;
 }
 
 - (void)loadView
@@ -52,22 +52,39 @@
 
 - (void)viewDidLoad
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for ChecklistViewController();
-  v2 = v6.receiver;
-  [(TPSViewController *)&v6 viewDidLoad];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for ChecklistViewController();
+  v2 = v4.receiver;
+  [(TPSViewController *)&v4 viewDidLoad];
   navigationItem = [v2 navigationItem];
   [navigationItem setLargeTitleDisplayMode:2];
 
-  v4 = *&v2[OBJC_IVAR___TPSChecklistViewController_viewModel];
-  v5 = *(v4 + OBJC_IVAR___TPSChecklistViewModel_currentDisplayTips);
-  *(v4 + OBJC_IVAR___TPSChecklistViewModel_currentDisplayTips) = 0;
+  *(*&v2[OBJC_IVAR___TPSChecklistViewController_viewModel] + OBJC_IVAR___TPSChecklistViewModel_currentDisplayTips) = 0;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for ChecklistViewController();
+  v4 = v9.receiver;
+  [(TipsTOCViewController *)&v9 viewWillAppear:appearCopy];
+  navigationController = [v4 navigationController];
+  if (navigationController)
+  {
+    v6 = navigationController;
+    navigationBar = [navigationController navigationBar];
+
+    tintColor = [objc_opt_self() tintColor];
+    [navigationBar setTintColor:tintColor];
+  }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000485F0(appear);
+  sub_1000485F0(appearCopy, selfCopy);
 }
 
 - (TPSChecklistViewController)initWithNibName:(id)name bundle:(id)bundle

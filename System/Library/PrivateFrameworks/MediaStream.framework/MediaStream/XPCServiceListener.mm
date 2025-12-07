@@ -44,27 +44,26 @@
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 6))
     {
       xpc_connection_get_pid(connection);
-      _XPCLog(6, @"%@: Rejecting client connection from PID %d", v21, v22, v23, v24, v25, v26, self);
+      _XPCLog(6, @"%@: Rejecting client connection from PID %d", v20, v21, v22, v23, v24, v25, self);
     }
   }
 
   else
   {
-    serviceName = self->_serviceName;
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"XPCKit.%@.client.%lu", serviceName, self->_clientCount];
-    v13 = dispatch_queue_create([v12 UTF8String], 0);
-    v14 = [[XPCServiceConnection alloc] initWithServiceName:self->_serviceName client:connection queue:v13];
-    [(XPCServiceConnection *)v14 setServiceListener:self];
-    [(NSMutableSet *)self->_serviceConnections addObject:v14];
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"XPCKit.%@.client.%lu", self->_serviceName, self->_clientCount];
+    v12 = dispatch_queue_create([v11 UTF8String], 0);
+    v13 = [[XPCServiceConnection alloc] initWithServiceName:self->_serviceName client:connection queue:v12];
+    [(XPCServiceConnection *)v13 setServiceListener:self];
+    [(NSMutableSet *)self->_serviceConnections addObject:v13];
     ++self->_clientCount;
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 6))
     {
       xpc_connection_get_pid(connection);
-      _XPCLog(6, @"%@: Established new client connection from PID %d", v15, v16, v17, v18, v19, v20, self);
+      _XPCLog(6, @"%@: Established new client connection from PID %d", v14, v15, v16, v17, v18, v19, self);
     }
 
-    [(XPCServiceListenerDelegate *)v10 XPCServiceListener:self didReceiveNewConnection:v14];
-    [(XPCServiceConnection *)v14 resume];
+    [(XPCServiceListenerDelegate *)v10 XPCServiceListener:self didReceiveNewConnection:v13];
+    [(XPCServiceConnection *)v13 resume];
   }
 }
 
@@ -73,7 +72,6 @@
   blockCopy = block;
   if (_shouldLogBlock && (*(_shouldLogBlock + 16))())
   {
-    serviceName = self->_serviceName;
     _XPCLog(6, @"%@: Shutting down service listener for service name “%@”.", v5, v6, v7, v8, v9, v10, self);
   }
 
@@ -83,7 +81,7 @@
   block[2] = __46__XPCServiceListener_shutDownCompletionBlock___block_invoke;
   block[3] = &unk_2798A5170;
   block[4] = self;
-  v15 = blockCopy;
+  v14 = blockCopy;
   v12 = blockCopy;
   dispatch_async(workQueue, block);
 }
@@ -185,7 +183,6 @@ void __81__XPCServiceListener__workQueueShutDownServiceConnections_index_complet
   {
     if ((*(_shouldLogBlock + 16))())
     {
-      serviceName = self->_serviceName;
       _XPCLog(6, @"%@: Service listener now listening for events for service name %@.", v4, v5, v6, v7, v8, v9, self);
     }
   }
@@ -287,13 +284,12 @@ void __57__XPCServiceListener_initWithServiceName_queue_delegate___block_invoke(
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = XPCServiceListener;
-  v4 = [(XPCServiceListener *)&v8 description];
-  listener = self->_listener;
-  v6 = [v3 stringWithFormat:@"%@: name %@, connection %p, delegate %p", v4, self->_serviceName, listener, self->_delegate];
+  v7.receiver = self;
+  v7.super_class = XPCServiceListener;
+  v4 = [(XPCServiceListener *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@: name %@, connection %p, delegate %p", v4, self->_serviceName, self->_listener, self->_delegate];
 
-  return v6;
+  return v5;
 }
 
 @end

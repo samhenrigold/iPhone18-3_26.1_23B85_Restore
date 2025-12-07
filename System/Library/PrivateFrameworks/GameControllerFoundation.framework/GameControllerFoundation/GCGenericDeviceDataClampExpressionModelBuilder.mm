@@ -65,48 +65,48 @@
 
 - (GCGenericDeviceDataClampExpressionModelBuilder)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v79[2] = *MEMORY[0x1E69E9840];
+  v78[2] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v67.receiver = self;
-  v67.super_class = GCGenericDeviceDataClampExpressionModelBuilder;
-  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v67 initWithDictionaryRepresentation:representationCopy error:error];
+  v66.receiver = self;
+  v66.super_class = GCGenericDeviceDataClampExpressionModelBuilder;
+  v7 = [(GCGenericDeviceDataProcessorExpressionModelBuilder *)&v66 initWithDictionaryRepresentation:representationCopy error:error];
   if (!v7)
   {
     goto LABEL_66;
   }
 
-  v66 = 0;
-  v8 = [representationCopy gc_requiredObjectForKey:@"InputExpression" ofClass:objc_opt_class() error:&v66];
-  v9 = v66;
+  v65 = 0;
+  v8 = [representationCopy gc_requiredObjectForKey:@"InputExpression" ofClass:objc_opt_class() error:&v65];
+  v9 = v65;
   if (!v8)
   {
     if (error)
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v78[0] = *MEMORY[0x1E696A578];
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v79[0] = v21;
-      v78[1] = *MEMORY[0x1E696A588];
+      v19 = MEMORY[0x1E696ABC0];
+      v77[0] = *MEMORY[0x1E696A578];
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
+      v78[0] = v20;
+      v77[1] = *MEMORY[0x1E696A588];
       localizedFailureReason = [v9 localizedFailureReason];
-      v79[1] = localizedFailureReason;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:2];
-      *error = [(NSError *)v20 gc_modelError:v23 userInfo:?];
+      v78[1] = localizedFailureReason;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:2];
+      *error = [(NSError *)v19 gc_modelError:v22 userInfo:?];
     }
 
     goto LABEL_66;
   }
 
-  v65 = 0;
-  v10 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v65];
-  v11 = v65;
+  v64 = 0;
+  v10 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v64];
+  v11 = v64;
 
   if (!v10)
   {
     if (error)
     {
       errorCopy = error;
-      v59 = MEMORY[0x1E696ABC0];
-      v76[0] = *MEMORY[0x1E696A578];
+      v58 = MEMORY[0x1E696ABC0];
+      v75[0] = *MEMORY[0x1E696A578];
       localizedDescription = [v11 localizedDescription];
       localizedDescription2 = localizedDescription;
       if (!localizedDescription)
@@ -114,39 +114,39 @@
         localizedDescription = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating model for '%@'.", @"InputExpression"];
       }
 
-      v57 = localizedDescription;
-      v77[0] = localizedDescription;
-      v76[1] = *MEMORY[0x1E696A588];
+      v56 = localizedDescription;
+      v76[0] = localizedDescription;
+      v75[1] = *MEMORY[0x1E696A588];
       localizedFailureReason2 = [v11 localizedFailureReason];
-      v28 = localizedFailureReason2;
-      v29 = @"Invalid 'Expression' definition.";
+      v27 = localizedFailureReason2;
+      v28 = @"Invalid 'Expression' definition.";
       if (localizedFailureReason2)
       {
-        v29 = localizedFailureReason2;
+        v28 = localizedFailureReason2;
       }
 
-      v77[1] = v29;
-      v76[2] = *MEMORY[0x1E696AA08];
+      v76[1] = v28;
+      v75[2] = *MEMORY[0x1E696AA08];
       null = v11;
       if (!v11)
       {
         null = [MEMORY[0x1E695DFB0] null];
       }
 
-      v55 = null;
-      v77[2] = null;
-      v76[3] = @"GCFailingKeyPathErrorKey";
+      v54 = null;
+      v76[2] = null;
+      v75[3] = @"GCFailingKeyPathErrorKey";
       gc_failingKeyPath = [v11 gc_failingKeyPath];
-      v32 = gc_failingKeyPath;
+      v31 = gc_failingKeyPath;
       if (!gc_failingKeyPath)
       {
         gc_failingKeyPath = MEMORY[0x1E695E0F0];
       }
 
-      v33 = [gc_failingKeyPath arrayByAddingObject:@"InputExpression"];
-      v77[3] = v33;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:4];
-      *errorCopy = [(NSError *)v59 gc_modelError:v34 userInfo:?];
+      v32 = [gc_failingKeyPath arrayByAddingObject:@"InputExpression"];
+      v76[3] = v32;
+      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:4];
+      *errorCopy = [(NSError *)v58 gc_modelError:v33 userInfo:?];
 
       if (!v11)
       {
@@ -164,27 +164,27 @@
 
   [(GCGenericDeviceDataClampExpressionModelBuilder *)v7 setInputExpression:v10];
 
-  v64 = 0;
-  v8 = [representationCopy gc_objectForKey:@"MinExpression" ofClass:objc_opt_class() error:&v64];
-  v12 = v64;
+  v63 = 0;
+  v8 = [representationCopy gc_objectForKey:@"MinExpression" ofClass:objc_opt_class() error:&v63];
+  v12 = v63;
   v13 = v12;
   if (!v8 && v12)
   {
     if (error)
     {
-      v35 = MEMORY[0x1E696ABC0];
-      v74[0] = *MEMORY[0x1E696A578];
+      v34 = MEMORY[0x1E696ABC0];
+      v73[0] = *MEMORY[0x1E696A578];
       localizedDescription2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v75[0] = localizedDescription2;
-      v74[1] = *MEMORY[0x1E696A588];
+      v74[0] = localizedDescription2;
+      v73[1] = *MEMORY[0x1E696A588];
       localizedFailureReason3 = [v13 localizedFailureReason];
-      v75[1] = localizedFailureReason3;
-      v37 = MEMORY[0x1E695DF20];
-      v38 = v75;
-      v39 = v74;
+      v74[1] = localizedFailureReason3;
+      v36 = MEMORY[0x1E695DF20];
+      v37 = v74;
+      v38 = v73;
 LABEL_38:
-      v40 = [v37 dictionaryWithObjects:v38 forKeys:v39 count:2];
-      *error = [(NSError *)v35 gc_modelError:v40 userInfo:?];
+      v39 = [v36 dictionaryWithObjects:v37 forKeys:v38 count:2];
+      *error = [(NSError *)v34 gc_modelError:v39 userInfo:?];
 
       v11 = v13;
 LABEL_39:
@@ -200,16 +200,16 @@ LABEL_40:
 
   if (v8)
   {
-    v63 = 0;
-    v14 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v63];
-    v11 = v63;
+    v62 = 0;
+    v14 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v62];
+    v11 = v62;
 
     if (!v14)
     {
       if (error)
       {
-        v60 = MEMORY[0x1E696ABC0];
-        v72[0] = *MEMORY[0x1E696A578];
+        v59 = MEMORY[0x1E696ABC0];
+        v71[0] = *MEMORY[0x1E696A578];
         localizedDescription2 = [v11 localizedDescription];
         localizedFailureReason3 = localizedDescription2;
         if (!localizedDescription2)
@@ -217,42 +217,42 @@ LABEL_40:
           localizedFailureReason3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating model for '%@'.", @"MinExpression"];
         }
 
-        v73[0] = localizedFailureReason3;
-        v72[1] = *MEMORY[0x1E696A588];
+        v72[0] = localizedFailureReason3;
+        v71[1] = *MEMORY[0x1E696A588];
         localizedFailureReason4 = [v11 localizedFailureReason];
-        v42 = @"Invalid 'Expression' definition.";
-        v58 = localizedFailureReason4;
+        v41 = @"Invalid 'Expression' definition.";
+        v57 = localizedFailureReason4;
         if (localizedFailureReason4)
         {
-          v42 = localizedFailureReason4;
+          v41 = localizedFailureReason4;
         }
 
-        v73[1] = v42;
-        v72[2] = *MEMORY[0x1E696AA08];
+        v72[1] = v41;
+        v71[2] = *MEMORY[0x1E696AA08];
         null2 = v11;
         if (!v11)
         {
           null2 = [MEMORY[0x1E695DFB0] null];
         }
 
-        v56 = null2;
-        v73[2] = null2;
-        v72[3] = @"GCFailingKeyPathErrorKey";
+        v55 = null2;
+        v72[2] = null2;
+        v71[3] = @"GCFailingKeyPathErrorKey";
         gc_failingKeyPath2 = [v11 gc_failingKeyPath];
-        v45 = gc_failingKeyPath2;
+        v44 = gc_failingKeyPath2;
         if (!gc_failingKeyPath2)
         {
           gc_failingKeyPath2 = MEMORY[0x1E695E0F0];
         }
 
-        v46 = [gc_failingKeyPath2 arrayByAddingObject:@"MinExpression"];
-        v73[3] = v46;
-        v47 = MEMORY[0x1E695DF20];
-        v48 = v73;
-        v49 = v72;
+        v45 = [gc_failingKeyPath2 arrayByAddingObject:@"MinExpression"];
+        v72[3] = v45;
+        v46 = MEMORY[0x1E695DF20];
+        v47 = v72;
+        v48 = v71;
 LABEL_61:
-        v54 = [v47 dictionaryWithObjects:v48 forKeys:v49 count:4];
-        *error = [(NSError *)v60 gc_modelError:v54 userInfo:?];
+        v53 = [v46 dictionaryWithObjects:v47 forKeys:v48 count:4];
+        *error = [(NSError *)v59 gc_modelError:v53 userInfo:?];
 
         if (!v11)
         {
@@ -281,24 +281,24 @@ LABEL_66:
     v11 = v12;
   }
 
-  v62 = 0;
-  v8 = [representationCopy gc_objectForKey:@"MaxExpression" ofClass:objc_opt_class() error:&v62];
-  v15 = v62;
+  v61 = 0;
+  v8 = [representationCopy gc_objectForKey:@"MaxExpression" ofClass:objc_opt_class() error:&v61];
+  v15 = v61;
   v13 = v15;
   if (!v8 && v15)
   {
     if (error)
     {
-      v35 = MEMORY[0x1E696ABC0];
-      v70[0] = *MEMORY[0x1E696A578];
+      v34 = MEMORY[0x1E696ABC0];
+      v69[0] = *MEMORY[0x1E696A578];
       localizedDescription2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", objc_msgSend(objc_opt_class(), "modelClass")];
-      v71[0] = localizedDescription2;
-      v70[1] = *MEMORY[0x1E696A588];
+      v70[0] = localizedDescription2;
+      v69[1] = *MEMORY[0x1E696A588];
       localizedFailureReason3 = [v13 localizedFailureReason];
-      v71[1] = localizedFailureReason3;
-      v37 = MEMORY[0x1E695DF20];
-      v38 = v71;
-      v39 = v70;
+      v70[1] = localizedFailureReason3;
+      v36 = MEMORY[0x1E695DF20];
+      v37 = v70;
+      v38 = v69;
       goto LABEL_38;
     }
 
@@ -311,16 +311,16 @@ LABEL_66:
     goto LABEL_16;
   }
 
-  v61 = 0;
-  v16 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v61];
-  v11 = v61;
+  v60 = 0;
+  v16 = [GCGenericDeviceDataProcessorExpressionModel modelWithDictionaryRepresentation:v8 error:&v60];
+  v11 = v60;
 
   if (!v16)
   {
     if (error)
     {
-      v60 = MEMORY[0x1E696ABC0];
-      v68[0] = *MEMORY[0x1E696A578];
+      v59 = MEMORY[0x1E696ABC0];
+      v67[0] = *MEMORY[0x1E696A578];
       localizedDescription2 = [v11 localizedDescription];
       localizedFailureReason3 = localizedDescription2;
       if (!localizedDescription2)
@@ -328,39 +328,39 @@ LABEL_66:
         localizedFailureReason3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating model for '%@'.", @"MaxExpression"];
       }
 
-      v69[0] = localizedFailureReason3;
-      v68[1] = *MEMORY[0x1E696A588];
+      v68[0] = localizedFailureReason3;
+      v67[1] = *MEMORY[0x1E696A588];
       localizedFailureReason5 = [v11 localizedFailureReason];
-      v51 = @"Invalid 'Expression' definition.";
-      v58 = localizedFailureReason5;
+      v50 = @"Invalid 'Expression' definition.";
+      v57 = localizedFailureReason5;
       if (localizedFailureReason5)
       {
-        v51 = localizedFailureReason5;
+        v50 = localizedFailureReason5;
       }
 
-      v69[1] = v51;
-      v68[2] = *MEMORY[0x1E696AA08];
+      v68[1] = v50;
+      v67[2] = *MEMORY[0x1E696AA08];
       null3 = v11;
       if (!v11)
       {
         null3 = [MEMORY[0x1E695DFB0] null];
       }
 
-      v56 = null3;
-      v69[2] = null3;
-      v68[3] = @"GCFailingKeyPathErrorKey";
+      v55 = null3;
+      v68[2] = null3;
+      v67[3] = @"GCFailingKeyPathErrorKey";
       gc_failingKeyPath3 = [v11 gc_failingKeyPath];
-      v45 = gc_failingKeyPath3;
+      v44 = gc_failingKeyPath3;
       if (!gc_failingKeyPath3)
       {
         gc_failingKeyPath3 = MEMORY[0x1E695E0F0];
       }
 
-      v46 = [gc_failingKeyPath3 arrayByAddingObject:@"MaxExpression"];
-      v69[3] = v46;
-      v47 = MEMORY[0x1E695DF20];
-      v48 = v69;
-      v49 = v68;
+      v45 = [gc_failingKeyPath3 arrayByAddingObject:@"MaxExpression"];
+      v68[3] = v45;
+      v46 = MEMORY[0x1E695DF20];
+      v47 = v68;
+      v48 = v67;
       goto LABEL_61;
     }
 
@@ -373,7 +373,6 @@ LABEL_16:
   v17 = v7;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

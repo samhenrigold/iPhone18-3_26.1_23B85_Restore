@@ -150,7 +150,7 @@ LABEL_25:
       if ((v24 & 1) != 0 || v25)
       {
         v27 = 1;
-        [_store setInteger:1 forKey:{@"SBBottomRightCornerGestureFeature", *v34}];
+        [_store setInteger:1 forKey:{@"SBBottomRightCornerGestureFeature", *v34, *&v34[8]}];
         if (v24)
         {
           v27 = [_store BOOLForKey:@"SBApplePencilPaperFromCorner"];

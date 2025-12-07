@@ -27,11 +27,11 @@
 
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   bagCopy = bag;
-  v23.receiver = self;
-  v23.super_class = NMAPIRadioGenreRoomRequest;
-  v7 = [(NMAPIRequest *)&v23 urlComponentsWithStoreURLBag:bagCopy error:error];
+  v22.receiver = self;
+  v22.super_class = NMAPIRadioGenreRoomRequest;
+  v7 = [(NMAPIRequest *)&v22 urlComponentsWithStoreURLBag:bagCopy error:error];
   v8 = MusicURLPathStorefrontWithURLBag(bagCopy);
   if (v8)
   {
@@ -40,18 +40,18 @@
     if (v9)
     {
       v11 = MEMORY[0x277CCACA8];
-      v25[0] = @"/v1/editorial";
-      v25[1] = v8;
-      v25[2] = @"rooms";
-      v25[3] = v9;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+      v24[0] = @"/v1/editorial";
+      v24[1] = v8;
+      v24[2] = @"rooms";
+      v24[3] = v9;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
       v13 = [v11 pathWithComponents:v12];
       [v7 setPath:v13];
 
       queryItems = [v7 queryItems];
       v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"art[url]" value:{@"f, c"}];
-      v24 = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v23 = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
       v17 = [queryItems arrayByAddingObjectsFromArray:v16];
       [v7 setQueryItems:v17];
 
@@ -98,8 +98,6 @@
       v18 = 0;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -192,31 +190,14 @@ LABEL_8:
   return v5;
 }
 
-- (void)_roomIdentifierWithStoreURLBag:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_roomIdentifierWithStoreURLBag:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_bagRoomURLRegularExpressionWithStoreURLBag:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25B251000, log, OS_LOG_TYPE_ERROR, "[NMAPIRequest] Regex cannot be generated from pattern: %{public}@ with error %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25B251000, log, OS_LOG_TYPE_ERROR, "[NMAPIRequest] Regex cannot be generated from pattern: %{public}@ with error %{public}@", &v3, 0x16u);
 }
 
 @end

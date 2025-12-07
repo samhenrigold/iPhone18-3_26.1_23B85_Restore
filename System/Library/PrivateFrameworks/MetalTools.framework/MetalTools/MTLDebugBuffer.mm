@@ -1,6 +1,7 @@
 @interface MTLDebugBuffer
 - (BOOL)detachBacking;
 - (BOOL)replaceBackingWithBytesNoCopy:(void *)copy length:(unint64_t)length deallocator:(id)deallocator;
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only;
 - (MTLDebugBuffer)initWithBuffer:(id)buffer device:(id)device bytes:(const void *)bytes options:(unint64_t)options;
 - (MTLDebugBuffer)initWithBuffer:(id)buffer device:(id)device options:(unint64_t)options;
 - (MTLDebugBuffer)initWithBuffer:(id)buffer device:(id)device options:(unint64_t)options placementSparsePageSize:(int64_t)size;
@@ -161,6 +162,10 @@
 - (id)newTextureWithDescriptor:(id)descriptor offset:(unint64_t)offset bytesPerRow:(unint64_t)row
 {
   baseObject = [(MTLDevice *)[(MTLToolsObject *)self device] baseObject];
+  v28 = 0;
+  v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   if (!descriptor)
@@ -168,15 +173,18 @@
     _MTLMessageContextPush_();
   }
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (!v25)
   {
-    _MTLMessageContextPush_();
-  }
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      _MTLMessageContextPush_();
+    }
 
-  if ([descriptor textureType] == 9)
-  {
-    _validateTextureBufferDescriptor(descriptor, baseObject);
+    if ([descriptor textureType] == 9)
+    {
+      _validateTextureBufferDescriptor(descriptor, baseObject, &v25);
+    }
   }
 
   _MTLMessageContextEnd();
@@ -193,6 +201,10 @@
   }
 
   validateNewTexture(self, descriptor, offset, row, v12, v12);
+  v28 = 0;
+  v26 = 0u;
+  v27 = 0u;
+  v25 = 0u;
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   resourceOptions = [descriptor resourceOptions];
@@ -277,6 +289,10 @@
 - (id)newLinearTextureWithDescriptor:(id)descriptor offset:(unint64_t)offset bytesPerRow:(unint64_t)row bytesPerImage:(unint64_t)image
 {
   baseObject = [(MTLDevice *)[(MTLToolsObject *)self device] baseObject];
+  v33 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  v30 = 0u;
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   if (!descriptor)
@@ -284,32 +300,35 @@
     _MTLMessageContextPush_();
   }
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (!v30)
   {
-    _MTLMessageContextPush_();
-  }
-
-  if ([descriptor textureType] == 3)
-  {
-    linearTextureArrayAlignmentBytes = [baseObject linearTextureArrayAlignmentBytes];
-    linearTextureArrayAlignmentSlice = [baseObject linearTextureArrayAlignmentSlice];
-    v14 = linearTextureArrayAlignmentSlice;
-    if (!linearTextureArrayAlignmentBytes || !linearTextureArrayAlignmentSlice)
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       _MTLMessageContextPush_();
     }
 
-    if ((image & (v14 - 1)) != 0)
+    if ([descriptor textureType] == 3)
     {
-      resourceOptions3 = v14;
-      _MTLMessageContextPush_();
-    }
-  }
+      linearTextureArrayAlignmentBytes = [baseObject linearTextureArrayAlignmentBytes];
+      linearTextureArrayAlignmentSlice = [baseObject linearTextureArrayAlignmentSlice];
+      v14 = linearTextureArrayAlignmentSlice;
+      if (!linearTextureArrayAlignmentBytes || !linearTextureArrayAlignmentSlice)
+      {
+        _MTLMessageContextPush_();
+      }
 
-  else if ([descriptor textureType] == 9)
-  {
-    _validateTextureBufferDescriptor(descriptor, baseObject);
+      if ((image & (v14 - 1)) != 0)
+      {
+        resourceOptions3 = v14;
+        _MTLMessageContextPush_();
+      }
+    }
+
+    else if ([descriptor textureType] == 9)
+    {
+      _validateTextureBufferDescriptor(descriptor, baseObject, &v30);
+    }
   }
 
   _MTLMessageContextEnd();
@@ -342,6 +361,10 @@
   }
 
   validateNewTexture(self, descriptor, offset, row, linearTextureArrayAlignmentSlice2, linearTextureArrayAlignmentBytes2);
+  v33 = 0;
+  v31 = 0u;
+  v32 = 0u;
+  v30 = 0u;
   [(MTLToolsObject *)self device];
   _MTLMessageContextBegin_();
   resourceOptions = [descriptor resourceOptions];
@@ -527,6 +550,21 @@
   return [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  if (([(MTLDevice *)[(MTLToolsObject *)self device] supportsResourceDetachBacking]& 1) == 0)
+  {
+    [MTLDebugBuffer replaceBackingWithRanges:readOnly:];
+  }
+
+  [(MTLToolsObject *)self device:0];
+  _MTLMessageContextBegin_();
+  [(MTLDebugDevice *)self->_debugDevice validateAddressRanges:ranges expectedTotalSize:[(MTLDebugBuffer *)self length] context:&v8];
+  _MTLMessageContextEnd();
+  return [-[MTLToolsObject baseObject](self "baseObject")];
+}
+
 - (id)newTensorWithDescriptor:(id)descriptor offset:(unint64_t)offset error:(id *)error
 {
   v15 = 0;
@@ -560,13 +598,12 @@ LABEL_3:
   return v12;
 }
 
-- (uint64_t)newTextureWithDescriptor:(void *)a1 offset:(uint64_t *)a2 bytesPerRow:.cold.5(void *a1, uint64_t *a2)
+- (uint64_t)newTextureWithDescriptor:(void *)a1 offset:(void *)a2 bytesPerRow:.cold.5(void *a1, void *a2)
 {
   [a1 placementSparsePageSize];
   MTLSparsePageSizeString();
-  v3 = *a2;
-  MTLSparsePageSizeString();
-  return OUTLINED_FUNCTION_7();
+  v4 = MTLSparsePageSizeString();
+  return OUTLINED_FUNCTION_7(v4, v2, @"Texture descriptor placementSparsePageSize(%@) and buffer placementSparsePageSize(%@) must be the same.");
 }
 
 @end

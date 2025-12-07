@@ -229,7 +229,7 @@
     return 0;
   }
 
-  v5 = [IOSObjectArray arrayWithLength:var9 type:JavaLangReflectType_class_()];
+  v5 = [IOSObjectArray arrayWithLength:var9 type:JavaLangReflectType_class_(self, a2)];
   v6 = 0;
   do
   {
@@ -243,7 +243,7 @@
 
 - (id)allFields
 {
-  v3 = [IOSObjectArray arrayWithLength:self->data_->var7 type:NSObject_class_()];
+  v3 = [IOSObjectArray arrayWithLength:self->data_->var7 type:NSObject_class_(self, a2)];
   data = self->data_;
   if (data->var7)
   {
@@ -262,7 +262,7 @@
 
 - (id)allMethods
 {
-  v3 = [IOSObjectArray arrayWithLength:self->data_->var5 type:NSObject_class_()];
+  v3 = [IOSObjectArray arrayWithLength:self->data_->var5 type:NSObject_class_(self, a2)];
   data = self->data_;
   if (data->var5)
   {
@@ -288,7 +288,7 @@
     return 0;
   }
 
-  v5 = [IOSObjectArray arrayWithLength:var11 type:JavaLangReflectType_class_()];
+  v5 = [IOSObjectArray arrayWithLength:var11 type:JavaLangReflectType_class_(self, a2)];
   v6 = 0;
   do
   {

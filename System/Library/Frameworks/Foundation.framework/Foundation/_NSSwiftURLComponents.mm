@@ -263,7 +263,7 @@
 - (_NSSwiftURLComponents)init
 {
   URLComponents.init()(v10);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMR);
   v3 = swift_allocObject();
   *(v3 + 172) = 0;
   v4 = v10[7];
@@ -299,7 +299,7 @@
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMR);
     v7 = swift_allocObject();
     *(v7 + 172) = 0;
     v8 = v13[7];
@@ -480,9 +480,9 @@
   v5 = *(&self->super.super.super.isa + OBJC_IVAR____NSSwiftURLComponents_lock);
   MEMORY[0x1EEE9AC00](v4);
   selfCopy = self;
-  os_unfair_lock_lock(v5 + 43);
-  partial apply for closure #1 in _NSSwiftURLComponents._setPercentEncodedHost(_:)(&v5[4]);
-  os_unfair_lock_unlock(v5 + 43);
+  os_unfair_lock_lock((v5 + 172));
+  partial apply for closure #1 in _NSSwiftURLComponents._setPercentEncodedHost(_:)((v5 + 16));
+  os_unfair_lock_unlock((v5 + 172));
 
   return 1;
 }

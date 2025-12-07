@@ -1349,13 +1349,13 @@ void __39__CNQuickActionsManager__orderedLabels__block_invoke()
 
 - (CNContact)contact
 {
-  contacts = [(CNQuickActionsManager *)self contacts];
-  v4 = [contacts count];
+  v3 = objc_msgSend_contacts(self, a2);
+  v4 = [v3 count];
 
   if (v4 == 1)
   {
-    contacts2 = [(CNQuickActionsManager *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
   }
 
   else

@@ -188,7 +188,7 @@ void __197__PLIntensiveResourceTask_Constructors__taskForGeneratingDeferredAdjus
 void __50__PLIntensiveResourceTask_taskResponderDidCancel___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
-  if (![*(*(a1 + 32) + 24) count])
+  if (!objc_msgSend_count(*(*(a1 + 32) + 24)))
   {
     *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _lock_transitionToState:2];
     if (*(*(*(a1 + 48) + 8) + 24) == 1)
@@ -397,7 +397,7 @@ void __32__PLIntensiveResourceTask_start__block_invoke_2(uint64_t a1)
   return v3;
 }
 
-uint64_t __40__PLIntensiveResourceTask_addResponder___block_invoke(uint64_t a1)
+void *__40__PLIntensiveResourceTask_addResponder___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _lock_canAcceptResponders];
   if (result)

@@ -39,15 +39,14 @@
 
 void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
 {
-  v2[7] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v2[1] = objc_opt_class();
-  v2[2] = objc_opt_class();
-  v2[3] = objc_opt_class();
-  v2[4] = objc_opt_class();
-  v2[5] = objc_opt_class();
-  v2[6] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:7];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:{v3, v4, v5, v6, v7, objc_opt_class(), v8}];
   v1 = eventClassesArray_classes;
   eventClassesArray_classes = v0;
 }
@@ -56,7 +55,7 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
 {
   v2 = MEMORY[0x277CBEB98];
   eventClassesArray = [self eventClassesArray];
-  v4 = [v2 setWithArray:eventClassesArray];
+  v4 = [v2 setWithArray:?];
 
   return v4;
 }
@@ -91,49 +90,46 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
 
   else
   {
-    v18 = [HMIVideoAnalyzerEvent initWithConfidence:boundingBox:userInfo:];
+    [HMIVideoAnalyzerEvent initWithConfidence:boundingBox:userInfo:];
     return [(HMIVideoAnalyzerEvent *)v18 allEvents];
   }
 }
 
 - (NSArray)allEvents
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:self count:v4];
 
   return v2;
 }
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = MEMORY[0x277CCABB0];
   confidence = [(HMIVideoAnalyzerEvent *)self confidence];
   [confidence value];
   v6 = [v4 numberWithDouble:?];
-  v7 = [v3 initWithName:@"Confidence" value:v6];
-  v13[0] = v7;
-  v8 = objc_alloc(MEMORY[0x277D0F778]);
+  v11 = [v3 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMIVideoAnalyzerEvent *)self boundingBox];
-  v9 = NSStringFromRect(v15);
-  v10 = [v8 initWithName:@"Bounding Box" value:v9];
-  v13[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v8 = NSStringFromRect(v14);
+  v12 = [v7 initWithName:? value:?];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v11;
+  return v9;
 }
 
 - (id)shortDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v4 = [HMIVideoAnalyzerEvent shortNameForEventClass:objc_opt_class()];
+  objc_opt_class();
+  v4 = [HMIVideoAnalyzerEvent shortNameForEventClass:?];
   [(HMIVideoAnalyzerEvent *)self boundingBox];
   v9 = HMICGRectDescription(v5, v6, v7, v8);
   confidence = [(HMIVideoAnalyzerEvent *)self confidence];
   shortDescription = [confidence shortDescription];
-  v12 = [v3 stringWithFormat:@"P(%@|[%@])=%@", v4, v9, shortDescription];
+  v12 = [v3 stringWithFormat:v4, v9, shortDescription];
 
   return v12;
 }
@@ -207,29 +203,24 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
 
 - (HMIVideoAnalyzerEvent)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = objc_opt_class();
-  v6 = NSStringFromSelector(sel_confidence);
-  v7 = [coderCopy decodeObjectOfClass:v5 forKey:v6];
+  objc_opt_class();
+  v5 = NSStringFromSelector(sel_confidence);
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v8 = NSStringFromSelector(sel_boundingBox);
-  [coderCopy decodeRectForKey:v8];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
+  v7 = NSStringFromSelector(sel_boundingBox);
+  [coderCopy decodeRectForKey:?];
 
-  v17 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v19 = [v17 setWithArray:v18];
-  v20 = NSStringFromSelector(sel_userInfo);
-  v21 = [coderCopy decodeObjectOfClasses:v19 forKey:v20];
+  v8 = MEMORY[0x277CBEB98];
+  objc_opt_class();
+  objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v10 = [v8 setWithArray:?];
+  v11 = NSStringFromSelector(sel_userInfo);
+  v12 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v22 = [(HMIVideoAnalyzerEvent *)self initWithConfidence:v7 boundingBox:v21 userInfo:v10, v12, v14, v16];
-  return v22;
+  v13 = [HMIVideoAnalyzerEvent initWithConfidence:"initWithConfidence:boundingBox:userInfo:" boundingBox:? userInfo:?];
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -237,55 +228,42 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
   coderCopy = coder;
   confidence = [(HMIVideoAnalyzerEvent *)self confidence];
   v6 = NSStringFromSelector(sel_confidence);
-  [coderCopy encodeObject:confidence forKey:v6];
+  [coderCopy encodeObject:? forKey:?];
 
   [(HMIVideoAnalyzerEvent *)self boundingBox];
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v15 = NSStringFromSelector(sel_boundingBox);
-  [coderCopy encodeRect:v15 forKey:{v8, v10, v12, v14}];
+  v7 = NSStringFromSelector(sel_boundingBox);
+  [coderCopy encodeRect:? forKey:?];
 
   userInfo = [(HMIVideoAnalyzerEvent *)self userInfo];
-  v16 = NSStringFromSelector(sel_userInfo);
-  [coderCopy encodeObject:userInfo forKey:v16];
+  v8 = NSStringFromSelector(sel_userInfo);
+  [coderCopy encodeObject:? forKey:?];
 }
 
 + (id)eventsWithContentsOfFile:(id)file
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:fileCopy];
+  v6 = [defaultManager fileExistsAtPath:?];
 
   if (v6)
   {
-    v22 = 0;
-    v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:fileCopy options:0 error:&v22];
-    v8 = v22;
+    v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:? options:? error:?];
+    v8 = 0;
     if (v7)
     {
-      v23[0] = @"Pet";
-      v24[0] = objc_opt_class();
-      v23[1] = @"Package";
-      v24[1] = objc_opt_class();
-      v23[2] = @"Person";
-      v24[2] = objc_opt_class();
-      v23[3] = @"Vehicle";
-      v24[3] = objc_opt_class();
-      v23[4] = @"Face";
-      v24[4] = objc_opt_class();
-      v23[5] = @"Torso";
-      v24[5] = objc_opt_class();
-      v23[6] = @"Motion";
-      v24[6] = objc_opt_class();
-      v23[7] = @"Confidence";
-      v24[7] = objc_opt_class();
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:8];
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      objc_opt_class();
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
       v10 = MEMORY[0x277CBEB98];
-      v11 = [HMIJSONUnarchiver objectWithJSONData:v7 classMap:v9];
-      v12 = [v10 setWithArray:v11];
+      v11 = [HMIJSONUnarchiver objectWithJSONData:"objectWithJSONData:classMap:" classMap:?];
+      v12 = [v10 setWithArray:?];
     }
 
     else
@@ -297,11 +275,11 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v26 = v20;
-        v27 = 2112;
-        v28 = fileCopy;
-        v29 = 2112;
-        v30 = v8;
+        v23 = v20;
+        v24 = 2112;
+        v25 = fileCopy;
+        v26 = 2112;
+        v27 = v8;
         _os_log_impl(&dword_22D12F000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot read events from file %@, error: %@", buf, 0x20u);
       }
 
@@ -319,9 +297,9 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v16;
-      v27 = 2112;
-      v28 = fileCopy;
+      v23 = v16;
+      v24 = 2112;
+      v25 = fileCopy;
       _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_ERROR, "%{public}@Events file %@ does not exist.", buf, 0x16u);
     }
 
@@ -339,31 +317,31 @@ void __42__HMIVideoAnalyzerEvent_eventClassesArray__block_invoke()
     +[HMIVideoAnalyzerEvent shortNameForEventClass:];
   }
 
-  v4 = shortNameForEventClass__map;
+  v3 = shortNameForEventClass__map;
 
-  return [v4 objectForKeyedSubscript:class];
+  return [v3 objectForKeyedSubscript:?];
 }
 
 void __48__HMIVideoAnalyzerEvent_shortNameForEventClass___block_invoke()
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = @"Event";
-  v2[1] = objc_opt_class();
-  v3[1] = @"Motion";
-  v2[2] = objc_opt_class();
-  v3[2] = @"Person";
-  v2[3] = objc_opt_class();
-  v3[3] = @"Pet";
-  v2[4] = objc_opt_class();
-  v3[4] = @"Package";
-  v2[5] = objc_opt_class();
-  v3[5] = @"Vehicle";
-  v2[6] = objc_opt_class();
-  v3[6] = @"Face";
-  v2[7] = objc_opt_class();
-  v3[7] = @"Torso";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:8];
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v10 = @"Event";
+  v3 = objc_opt_class();
+  v11 = @"Motion";
+  v4 = objc_opt_class();
+  v12 = @"Person";
+  v5 = objc_opt_class();
+  v13 = @"Pet";
+  v6 = objc_opt_class();
+  v14 = @"Package";
+  v7 = objc_opt_class();
+  v15 = @"Vehicle";
+  v8 = objc_opt_class();
+  v16 = @"Face";
+  v9 = objc_opt_class();
+  v17 = @"Torso";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = shortNameForEventClass__map;
   shortNameForEventClass__map = v0;
 }
@@ -380,31 +358,31 @@ void __48__HMIVideoAnalyzerEvent_shortNameForEventClass___block_invoke()
   v5 = eventClassForShortName__map;
   lowercaseString = [nameCopy lowercaseString];
 
-  v7 = [v5 objectForKeyedSubscript:lowercaseString];
+  v7 = [v5 objectForKeyedSubscript:?];
 
   return v7;
 }
 
 void __48__HMIVideoAnalyzerEvent_eventClassForShortName___block_invoke()
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  v2[0] = @"event";
-  v3[0] = objc_opt_class();
-  v2[1] = @"motion";
-  v3[1] = objc_opt_class();
-  v2[2] = @"person";
-  v3[2] = objc_opt_class();
-  v2[3] = @"pet";
-  v3[3] = objc_opt_class();
-  v2[4] = @"vehicle";
-  v3[4] = objc_opt_class();
-  v2[5] = @"package";
-  v3[5] = objc_opt_class();
-  v2[6] = @"face";
-  v3[6] = objc_opt_class();
-  v2[7] = @"torso";
-  v3[7] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:8];
+  v18 = *MEMORY[0x277D85DE8];
+  v2 = @"event";
+  v10 = objc_opt_class();
+  v3 = @"motion";
+  v11 = objc_opt_class();
+  v4 = @"person";
+  v12 = objc_opt_class();
+  v5 = @"pet";
+  v13 = objc_opt_class();
+  v6 = @"vehicle";
+  v14 = objc_opt_class();
+  v7 = @"package";
+  v15 = objc_opt_class();
+  v8 = @"face";
+  v16 = objc_opt_class();
+  v9 = @"torso";
+  v17 = objc_opt_class();
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = eventClassForShortName__map;
   eventClassForShortName__map = v0;
 }
@@ -416,29 +394,29 @@ void __48__HMIVideoAnalyzerEvent_eventClassForShortName___block_invoke()
     +[HMIVideoAnalyzerEvent rgbColorCodeForEventClass:];
   }
 
-  v4 = rgbColorCodeForEventClass__map;
+  v3 = rgbColorCodeForEventClass__map;
 
-  return [v4 objectForKeyedSubscript:class];
+  return [v3 objectForKeyedSubscript:?];
 }
 
 void __51__HMIVideoAnalyzerEvent_rgbColorCodeForEventClass___block_invoke()
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = @"#D62728";
-  v2[1] = objc_opt_class();
-  v3[1] = @"#2CA02C";
-  v2[2] = objc_opt_class();
-  v3[2] = @"#1F77B4";
-  v2[3] = objc_opt_class();
-  v3[3] = @"#9467BD";
-  v2[4] = objc_opt_class();
-  v3[4] = @"#FF7F0E";
-  v2[5] = objc_opt_class();
-  v3[5] = @"#8C564B";
-  v2[6] = objc_opt_class();
-  v3[6] = @"#7F7F7F";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:7];
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v9 = @"#D62728";
+  v3 = objc_opt_class();
+  v10 = @"#2CA02C";
+  v4 = objc_opt_class();
+  v11 = @"#1F77B4";
+  v5 = objc_opt_class();
+  v12 = @"#9467BD";
+  v6 = objc_opt_class();
+  v13 = @"#FF7F0E";
+  v7 = objc_opt_class();
+  v14 = @"#8C564B";
+  v8 = objc_opt_class();
+  v15 = @"#7F7F7F";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = rgbColorCodeForEventClass__map;
   rgbColorCodeForEventClass__map = v0;
 }
@@ -457,10 +435,10 @@ void __51__HMIVideoAnalyzerEvent_rgbColorCodeForEventClass___block_invoke()
 
 void __60__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsFeedback__block_invoke()
 {
-  v3[1] = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
-  v3[0] = &unk_2840758C8;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
+  v3 = &unk_2840758C8;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = defaultConfidenceThresholdsFeedback_confidenceThresholdsFeedback;
   defaultConfidenceThresholdsFeedback_confidenceThresholdsFeedback = v0;
 }
@@ -479,20 +457,20 @@ void __60__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsFeedback__block_invo
 
 void __58__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsMedium__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_2840758D8;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_2840758E8;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_2840758F8;
-  v2[3] = objc_opt_class();
-  v3[3] = &unk_284075908;
-  v2[4] = objc_opt_class();
-  v3[4] = &unk_284075918;
-  v2[5] = objc_opt_class();
-  v3[5] = &unk_284075928;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v8 = &unk_2840758D8;
+  v3 = objc_opt_class();
+  v9 = &unk_2840758E8;
+  v4 = objc_opt_class();
+  v10 = &unk_2840758F8;
+  v5 = objc_opt_class();
+  v11 = &unk_284075908;
+  v6 = objc_opt_class();
+  v12 = &unk_284075918;
+  v7 = objc_opt_class();
+  v13 = &unk_284075928;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = defaultConfidenceThresholdsMedium_confidenceThresholdsMedium;
   defaultConfidenceThresholdsMedium_confidenceThresholdsMedium = v0;
 }
@@ -511,20 +489,20 @@ void __58__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsMedium__block_invoke
 
 void __56__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsHigh__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = &unk_284075938;
-  v2[1] = objc_opt_class();
-  v3[1] = &unk_284075948;
-  v2[2] = objc_opt_class();
-  v3[2] = &unk_284075958;
-  v2[3] = objc_opt_class();
-  v3[3] = &unk_284075908;
-  v2[4] = objc_opt_class();
-  v3[4] = &unk_284075918;
-  v2[5] = objc_opt_class();
-  v3[5] = &unk_284075928;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v8 = &unk_284075938;
+  v3 = objc_opt_class();
+  v9 = &unk_284075948;
+  v4 = objc_opt_class();
+  v10 = &unk_284075958;
+  v5 = objc_opt_class();
+  v11 = &unk_284075908;
+  v6 = objc_opt_class();
+  v12 = &unk_284075918;
+  v7 = objc_opt_class();
+  v13 = &unk_284075928;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = defaultConfidenceThresholdsHigh_confidenceThresholdsHigh;
   defaultConfidenceThresholdsHigh_confidenceThresholdsHigh = v0;
 }
@@ -541,16 +519,16 @@ void __56__HMIVideoAnalyzerEvent_defaultConfidenceThresholdsHigh__block_invoke()
   {
     defaultConfidenceThresholdsMedium = [self defaultConfidenceThresholdsHigh];
 LABEL_5:
-    v6 = defaultConfidenceThresholdsMedium;
-    v7 = [defaultConfidenceThresholdsMedium objectForKeyedSubscript:threshold];
+    v5 = defaultConfidenceThresholdsMedium;
+    v6 = [defaultConfidenceThresholdsMedium objectForKeyedSubscript:?];
 
     goto LABEL_7;
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_7:
 
-  return v7;
+  return v6;
 }
 
 + (id)eventConfidenceThresholdsMedium
@@ -560,31 +538,31 @@ LABEL_7:
     +[HMIVideoAnalyzerEvent eventConfidenceThresholdsMedium];
   }
 
-  v3 = [eventConfidenceThresholdsMedium_eventClassToConfidenceKey na_dictionaryByMappingValues:&__block_literal_global_139];
+  v3 = [eventConfidenceThresholdsMedium_eventClassToConfidenceKey na_dictionaryByMappingValues:?];
   defaultConfidenceThresholdsMedium = [self defaultConfidenceThresholdsMedium];
   v5 = [defaultConfidenceThresholdsMedium mutableCopy];
 
-  [v5 addEntriesFromDictionary:v3];
+  [v5 addEntriesFromDictionary:?];
 
   return v5;
 }
 
 void __56__HMIVideoAnalyzerEvent_eventConfidenceThresholdsMedium__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = @"confidenceThresholdPersonMedium";
-  v2[1] = objc_opt_class();
-  v3[1] = @"confidenceThresholdPetMedium";
-  v2[2] = objc_opt_class();
-  v3[2] = @"confidenceThresholdVehicleMedium";
-  v2[3] = objc_opt_class();
-  v3[3] = @"confidenceThresholdFaceMedium";
-  v2[4] = objc_opt_class();
-  v3[4] = @"confidenceThresholdTorsoMedium";
-  v2[5] = objc_opt_class();
-  v3[5] = @"confidenceThresholdPackageMedium";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v8 = @"confidenceThresholdPersonMedium";
+  v3 = objc_opt_class();
+  v9 = @"confidenceThresholdPetMedium";
+  v4 = objc_opt_class();
+  v10 = @"confidenceThresholdVehicleMedium";
+  v5 = objc_opt_class();
+  v11 = @"confidenceThresholdFaceMedium";
+  v6 = objc_opt_class();
+  v12 = @"confidenceThresholdTorsoMedium";
+  v7 = objc_opt_class();
+  v13 = @"confidenceThresholdPackageMedium";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = eventConfidenceThresholdsMedium_eventClassToConfidenceKey;
   eventConfidenceThresholdsMedium_eventClassToConfidenceKey = v0;
 }
@@ -593,7 +571,7 @@ id __56__HMIVideoAnalyzerEvent_eventConfidenceThresholdsMedium__block_invoke_2(u
 {
   v3 = a3;
   v4 = +[HMIPreference sharedInstance];
-  v5 = [v4 numberPreferenceForKey:v3];
+  v5 = [v4 numberPreferenceForKey:?];
 
   return v5;
 }
@@ -605,31 +583,31 @@ id __56__HMIVideoAnalyzerEvent_eventConfidenceThresholdsMedium__block_invoke_2(u
     +[HMIVideoAnalyzerEvent eventConfidenceThresholdsHigh];
   }
 
-  v3 = [eventConfidenceThresholdsHigh_eventClassToConfidenceKey na_dictionaryByMappingValues:&__block_literal_global_144];
+  v3 = [eventConfidenceThresholdsHigh_eventClassToConfidenceKey na_dictionaryByMappingValues:?];
   defaultConfidenceThresholdsHigh = [self defaultConfidenceThresholdsHigh];
   v5 = [defaultConfidenceThresholdsHigh mutableCopy];
 
-  [v5 addEntriesFromDictionary:v3];
+  [v5 addEntriesFromDictionary:?];
 
   return v5;
 }
 
 void __54__HMIVideoAnalyzerEvent_eventConfidenceThresholdsHigh__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = objc_opt_class();
-  v3[0] = @"confidenceThresholdPersonHigh";
-  v2[1] = objc_opt_class();
-  v3[1] = @"confidenceThresholdPetHigh";
-  v2[2] = objc_opt_class();
-  v3[2] = @"confidenceThresholdVehicleHigh";
-  v2[3] = objc_opt_class();
-  v3[3] = @"confidenceThresholdFaceHigh";
-  v2[4] = objc_opt_class();
-  v3[4] = @"confidenceThresholdTorsoHigh";
-  v2[5] = objc_opt_class();
-  v3[5] = @"confidenceThresholdPackageHigh";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v8 = @"confidenceThresholdPersonHigh";
+  v3 = objc_opt_class();
+  v9 = @"confidenceThresholdPetHigh";
+  v4 = objc_opt_class();
+  v10 = @"confidenceThresholdVehicleHigh";
+  v5 = objc_opt_class();
+  v11 = @"confidenceThresholdFaceHigh";
+  v6 = objc_opt_class();
+  v12 = @"confidenceThresholdTorsoHigh";
+  v7 = objc_opt_class();
+  v13 = @"confidenceThresholdPackageHigh";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v1 = eventConfidenceThresholdsHigh_eventClassToConfidenceKey;
   eventConfidenceThresholdsHigh_eventClassToConfidenceKey = v0;
 }
@@ -638,7 +616,7 @@ id __54__HMIVideoAnalyzerEvent_eventConfidenceThresholdsHigh__block_invoke_2(uin
 {
   v3 = a3;
   v4 = +[HMIPreference sharedInstance];
-  v5 = [v4 numberPreferenceForKey:v3];
+  v5 = [v4 numberPreferenceForKey:?];
 
   return v5;
 }

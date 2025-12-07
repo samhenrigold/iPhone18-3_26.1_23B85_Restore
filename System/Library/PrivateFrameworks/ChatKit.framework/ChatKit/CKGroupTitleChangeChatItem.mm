@@ -58,7 +58,7 @@
     v18 = &stru_1F04268F8;
   }
 
-  v89 = v18;
+  v90 = v18;
 
   title = [(CKGroupTitleChangeChatItem *)self title];
   v20 = title;
@@ -74,12 +74,12 @@
 
   v22 = v21;
 
-  v87 = sender;
-  v88 = v22;
+  v88 = sender;
+  v89 = v22;
   if (![(CKGroupTitleChangeChatItem *)self unattributed])
   {
     v33 = [(__CFString *)v22 length];
-    v34 = CKFrameworkBundle();
+    v34 = CKFrameworkBundle(v33);
     mEMORY[0x1E69A60F0] = v34;
     if (sender)
     {
@@ -93,7 +93,7 @@
         [v34 localizedStringForKey:@"GROUP_REMOVE_NAME_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
       }
       v41 = ;
-      v62 = v89;
+      v63 = v90;
     }
 
     else
@@ -101,22 +101,22 @@
       if (!v33)
       {
         v41 = [v34 localizedStringForKey:@"GROUP_YOU_REMOVE_NAME_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-        CKAttributedFormatString(v12, v14, v41, v78, v79, v80, v81, v82, 0);
+        CKAttributedFormatString(v12, v14, v41, v79, v80, v81, v82, v83, 0);
         goto LABEL_28;
       }
 
       v41 = [v34 localizedStringForKey:@"GROUP_YOU_NAME_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-      v62 = v88;
+      v63 = v89;
     }
 
-    CKAttributedFormatString(v12, v14, v41, v57, v58, v59, v60, v61, v62);
-    v56 = LABEL_28:;
+    CKAttributedFormatString(v12, v14, v41, v58, v59, v60, v61, v62, v63);
+    v57 = LABEL_28:;
     goto LABEL_29;
   }
 
   v23 = v22;
   v24 = [(__CFString *)v22 length];
-  v25 = CKFrameworkBundle();
+  v25 = CKFrameworkBundle(v24);
   v26 = v25;
   if (v24)
   {
@@ -149,70 +149,70 @@
   v43 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
   [mEMORY[0x1E69A60F0] appendAttributedString:v43];
 
-  v44 = CKFrameworkBundle();
-  [v44 localizedStringForKey:@"GROUP_SYSTEM_DEBUG_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v83 = transcriptRegularFontAttributes;
-  v45 = v85 = transcriptGroupModificationErrorEmphasizedFontAttributes;
-  CKAttributedFormatString(v12, v14, v45, v46, v47, v48, v49, v50, v89);
-  v51 = v14;
-  v52 = v12;
-  v53 = transcriptGroupModificationErrorRegularFontAttributes;
-  v55 = v54 = transcriptEmphasizedFontAttributes;
-  [mEMORY[0x1E69A60F0] appendAttributedString:v55];
+  v45 = CKFrameworkBundle(v44);
+  [v45 localizedStringForKey:@"GROUP_SYSTEM_DEBUG_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v84 = transcriptRegularFontAttributes;
+  v46 = v86 = transcriptGroupModificationErrorEmphasizedFontAttributes;
+  CKAttributedFormatString(v12, v14, v46, v47, v48, v49, v50, v51, v90);
+  v52 = v14;
+  v53 = v12;
+  v54 = transcriptGroupModificationErrorRegularFontAttributes;
+  v56 = v55 = transcriptEmphasizedFontAttributes;
+  [mEMORY[0x1E69A60F0] appendAttributedString:v56];
 
-  transcriptEmphasizedFontAttributes = v54;
-  transcriptGroupModificationErrorRegularFontAttributes = v53;
-  v12 = v52;
-  v14 = v51;
+  transcriptEmphasizedFontAttributes = v55;
+  transcriptGroupModificationErrorRegularFontAttributes = v54;
+  v12 = v53;
+  v14 = v52;
 
-  transcriptRegularFontAttributes = v83;
-  transcriptGroupModificationErrorEmphasizedFontAttributes = v85;
+  transcriptRegularFontAttributes = v84;
+  transcriptGroupModificationErrorEmphasizedFontAttributes = v86;
 
-  v56 = [mEMORY[0x1E69A60F0] copy];
+  v57 = [mEMORY[0x1E69A60F0] copy];
 LABEL_29:
-  v63 = v56;
+  v64 = v57;
 
-  v41 = v63;
+  v41 = v64;
 LABEL_30:
 
 LABEL_31:
   if ([(CKGroupTitleChangeChatItem *)self failed])
   {
-    v64 = MEMORY[0x1E69DCAD8];
-    v65 = +[CKUIBehavior sharedBehaviors];
-    [v65 transcriptLightFont];
-    v84 = transcriptRegularFontAttributes;
-    v66 = v86 = transcriptGroupModificationErrorEmphasizedFontAttributes;
-    v67 = [v64 configurationWithFont:v66];
+    v65 = MEMORY[0x1E69DCAD8];
+    v66 = +[CKUIBehavior sharedBehaviors];
+    [v66 transcriptLightFont];
+    v85 = transcriptRegularFontAttributes;
+    v67 = v87 = transcriptGroupModificationErrorEmphasizedFontAttributes;
+    v68 = [v65 configurationWithFont:v67];
 
-    v68 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.circle" withConfiguration:v67];
+    v69 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.circle" withConfiguration:v68];
     [MEMORY[0x1E69DC888] redColor];
-    v69 = v14;
-    v70 = v12;
-    v72 = v71 = transcriptEmphasizedFontAttributes;
-    v73 = [v68 imageWithTintColor:v72];
+    v70 = v14;
+    v71 = v12;
+    v73 = v72 = transcriptEmphasizedFontAttributes;
+    v74 = [v69 imageWithTintColor:v73];
 
-    v74 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-    [v74 setImage:v73];
-    v75 = [MEMORY[0x1E696AD40] attributedStringWithAttachment:v74 attributes:transcriptGroupModificationErrorRegularFontAttributes];
-    v76 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
-    [v75 appendAttributedString:v76];
+    v75 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+    [v75 setImage:v74];
+    v76 = [MEMORY[0x1E696AD40] attributedStringWithAttachment:v75 attributes:transcriptGroupModificationErrorRegularFontAttributes];
+    v77 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
+    [v76 appendAttributedString:v77];
 
-    transcriptEmphasizedFontAttributes = v71;
-    v12 = v70;
-    v14 = v69;
-    [v75 appendAttributedString:v41];
+    transcriptEmphasizedFontAttributes = v72;
+    v12 = v71;
+    v14 = v70;
+    [v76 appendAttributedString:v41];
 
-    transcriptRegularFontAttributes = v84;
-    transcriptGroupModificationErrorEmphasizedFontAttributes = v86;
+    transcriptRegularFontAttributes = v85;
+    transcriptGroupModificationErrorEmphasizedFontAttributes = v87;
   }
 
   else
   {
-    v75 = v41;
+    v76 = v41;
   }
 
-  return v75;
+  return v76;
 }
 
 - (BOOL)failed
@@ -233,7 +233,7 @@ LABEL_31:
 
 - (NSString)errorText
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"GROUP_NAME_CHANGE_ERROR_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;

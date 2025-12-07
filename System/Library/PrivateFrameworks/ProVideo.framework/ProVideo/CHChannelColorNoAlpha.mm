@@ -45,7 +45,7 @@
     v9 = 0;
   }
 
-  OZChannelColorNoAlpha::getPCColorSpace(v9, &v13);
+  OZChannelColorNoAlpha::getPCColorSpace(&v13, v9);
   redCopy = red;
   greenCopy = green;
   blueCopy = blue;
@@ -125,7 +125,7 @@ LABEL_4:
   (*(*v11 + 824))(v11, v14, &v15, 0.0);
   v13 = 0;
   v12 = 0.0;
-  OZChannelColorNoAlpha::getPCColorSpace(v11, v14);
+  OZChannelColorNoAlpha::getPCColorSpace(v14, v11);
   PCColor::getRGB(&v15, &v13 + 1, &v13, &v12, v14);
   PCCFRef<CGColorSpace *>::~PCCFRef(v14);
   *red = *(&v13 + 1);
@@ -255,7 +255,7 @@ LABEL_4:
   Instance = OZCoreGlobals::getInstance(pOZChannel);
   v16 = *(Instance + 8);
   *(OZCoreGlobals::getInstance(Instance) + 8) = optionsCopy & 1;
-  OZChannelColorNoAlpha::getPCColorSpace(v13, &v21);
+  OZChannelColorNoAlpha::getPCColorSpace(&v21, v13);
   redCopy = red;
   greenCopy = green;
   blueCopy = blue;

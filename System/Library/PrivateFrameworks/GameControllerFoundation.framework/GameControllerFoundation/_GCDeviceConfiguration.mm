@@ -18,31 +18,29 @@
 
 + (id)configurationWithIdentifier:(id)identifier priority:(unint64_t)priority deviceIdentifier:(id)deviceIdentifier deviceDependencies:(id)dependencies deviceBuilder:(id)builder
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v25[4] = *MEMORY[0x1E69E9840];
   builderCopy = builder;
   dependenciesCopy = dependencies;
   deviceIdentifierCopy = deviceIdentifier;
   identifierCopy = identifier;
   v16 = [self alloc];
-  v25[0] = @"Priority";
+  v24[0] = @"Priority";
   v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:priority];
-  v26[0] = v17;
-  v25[1] = @"DeviceIdentifier";
+  v25[0] = v17;
+  v24[1] = @"DeviceIdentifier";
   v18 = [deviceIdentifierCopy copyWithZone:0];
 
-  v26[1] = v18;
-  v25[2] = @"DeviceDependencies";
+  v25[1] = v18;
+  v24[2] = @"DeviceDependencies";
   v19 = [dependenciesCopy copy];
 
-  v26[2] = v19;
-  v25[3] = @"DeviceBuilderIdentifier";
+  v25[2] = v19;
+  v24[3] = @"DeviceBuilderIdentifier";
   v20 = [builderCopy copyWithZone:0];
 
-  v26[3] = v20;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v25[3] = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:4];
   v22 = [v16 _initWithIdentifier:identifierCopy attributes:v21];
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -75,36 +73,35 @@
 
 - (_GCDeviceConfiguration)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = _GCDeviceConfiguration;
-  v5 = [(_GCDeviceConfiguration *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _GCDeviceConfiguration;
+  v5 = [(_GCDeviceConfiguration *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"identifier"];
     identifier = v5->_identifier;
     v5->_identifier = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v19[2] = objc_opt_class();
-    v19[3] = objc_opt_class();
-    v19[4] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:5];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v18[2] = objc_opt_class();
+    v18[3] = objc_opt_class();
+    v18[4] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:5];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"attributes"];
     attributes = v5->_attributes;
     v5->_attributes = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -159,7 +156,6 @@
 
   else
   {
-    v9 = self->_identifier;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

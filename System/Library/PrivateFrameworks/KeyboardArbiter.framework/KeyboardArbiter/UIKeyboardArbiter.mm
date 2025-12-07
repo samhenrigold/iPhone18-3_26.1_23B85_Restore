@@ -5,17 +5,8 @@
 
 void __49___UIKeyboardArbiter_updateKeyboardSceneSettings__block_invoke(uint64_t a1)
 {
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([getFBSceneManagerClass() sharedInstance], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "sceneFromIdentityToken:", *(a1 + 32)), v3 = objc_claimAutoreleasedReturnValue(), v2, !v3) || (objc_msgSend(v3, "settings"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "displayConfiguration"), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
   {
-    goto LABEL_4;
-  }
-
-  v2 = [getFBSceneManagerClass() sharedInstance];
-  v3 = [v2 sceneFromIdentityToken:*(a1 + 32)];
-
-  if (!v3 || ([v3 settings], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "displayConfiguration"), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
-  {
-LABEL_4:
     v27 = 0;
     v28 = &v27;
     v29 = 0x2050000000;
@@ -79,25 +70,23 @@ uint64_t __35___UIKeyboardArbiter_initWithLink___block_invoke(uint64_t a1)
 
 void __35___UIKeyboardArbiter_initWithLink___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D46FB0] descriptor];
   [v4 setValues:5];
-  v9[0] = *MEMORY[0x277D0AC90];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = *MEMORY[0x277D0AC90];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [v4 setEndowmentNamespaces:v5];
 
   [v3 setStateDescriptor:v4];
   [v3 setServiceClass:33];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __35___UIKeyboardArbiter_initWithLink___block_invoke_3;
-  v7[3] = &unk_2797F4658;
-  objc_copyWeak(&v8, (a1 + 32));
-  [v3 setUpdateHandler:v7];
-  objc_destroyWeak(&v8);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __35___UIKeyboardArbiter_initWithLink___block_invoke_3;
+  v6[3] = &unk_2797F4658;
+  objc_copyWeak(&v7, (a1 + 32));
+  [v3 setUpdateHandler:v6];
+  objc_destroyWeak(&v7);
 }
 
 void __35___UIKeyboardArbiter_initWithLink___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -185,25 +174,23 @@ void __67___UIKeyboardArbiter_retrieveClientDebugInformationWithCompletion___blo
 
 void __67___UIKeyboardArbiter_retrieveClientDebugInformationWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = @"Description";
+  v7 = @"Description";
   v5 = v3;
   if (!v3)
   {
     v5 = [*(a1 + 40) _descriptionWithScene:0];
   }
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v4 addObject:v6];
 
   if (!v3)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67___UIKeyboardArbiter_retrieveClientDebugInformationWithCompletion___block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -273,69 +260,81 @@ void __67___UIKeyboardArbiter_retrieveClientDebugInformationWithCompletion___blo
 
 void __39___UIKeyboardArbiter_attemptConnection__block_invoke(uint64_t a1, char a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
-    memset(v14, 0, sizeof(v14));
+    memset(v13, 0, sizeof(v13));
     v3 = _UIArbiterLog();
-    os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
-    v13[0] = 0;
-    LODWORD(v11) = 2;
-    v4 = _os_log_send_and_compose_impl();
-
-    v5 = [_UIKeyboardArbiterDebug sharedInstance:v13];
-    v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v14];
-    [v5 errorWithMessage:v6];
-
-    if (v4 != v14)
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      free(v4);
+      v4 = 3;
     }
 
-    v7 = dispatch_time(0, 1000000000);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 16);
+    else
+    {
+      v4 = 2;
+    }
+
+    v12[0] = 0;
+    v5 = _os_log_send_and_compose_impl(v4, 0, v13, 512, &dword_2557BA000, v3, 16, "Failed to connect - scheduling retry", v12, 2);
+
+    v6 = +[_UIKeyboardArbiterDebug sharedInstance];
+    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v13];
+    [v6 errorWithMessage:v7];
+
+    if (v5 != v13)
+    {
+      free(v5);
+    }
+
+    v8 = dispatch_time(0, 1000000000);
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39___UIKeyboardArbiter_attemptConnection__block_invoke_122;
     block[3] = &unk_2797F4630;
-    block[4] = v8;
-    dispatch_after(v7, v9, block);
+    block[4] = v9;
+    dispatch_after(v8, v10, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __59___UIKeyboardArbiter_runOperations_onHandler_fromFunction___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  memset(v19, 0, sizeof(v19));
+  v19 = *MEMORY[0x277D85DE8];
+  memset(v18, 0, sizeof(v18));
   v3 = a2;
   v4 = _UIArbiterLog();
-  os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v13 = 136315650;
-  v14 = v5;
-  v15 = 2112;
-  v16 = v6;
-  v17 = 2112;
-  v18 = v3;
-  LODWORD(v12) = 32;
-  v7 = _os_log_send_and_compose_impl();
-
-  v8 = [_UIKeyboardArbiterDebug sharedInstance:&v13];
-  v9 = objc_alloc(MEMORY[0x277CCACA8]);
-
-  v10 = [v9 initWithUTF8String:v19];
-  [v8 errorWithMessage:v10];
-
-  if (v7 != v19)
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    free(v7);
+    v5 = 3;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v5 = 2;
+  }
+
+  v7 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v12 = 136315650;
+  v13 = v6;
+  v14 = 2112;
+  v15 = v7;
+  v16 = 2112;
+  v17 = v3;
+  v8 = _os_log_send_and_compose_impl(v5, 0, v18, 512, &dword_2557BA000, v4, 16, "runOperations: %s Failed to access %@ remote service: %@", &v12, 32);
+
+  v9 = +[_UIKeyboardArbiterDebug sharedInstance];
+  v10 = objc_alloc(MEMORY[0x277CCACA8]);
+
+  v11 = [v10 initWithUTF8String:v18];
+  [v9 errorWithMessage:v11];
+
+  if (v8 != v18)
+  {
+    free(v8);
+  }
 }
 
 uint64_t __59___UIKeyboardArbiter_runOperations_onHandler_fromFunction___block_invoke_125(uint64_t a1)
@@ -348,31 +347,31 @@ uint64_t __59___UIKeyboardArbiter_runOperations_onHandler_fromFunction___block_i
 
 void __43___UIKeyboardArbiter_scheduleWindowTimeout__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 144) == *(a1 + 40))
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v3 = *(v1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v24 objects:v33 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v23 objects:v32 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v25;
+      v6 = *v24;
       do
       {
         v7 = 0;
         do
         {
-          if (*v25 != v6)
+          if (*v24 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v24 + 1) + 8 * v7);
+          v8 = *(*(&v23 + 1) + 8 * v7);
           if ([v8 active])
           {
             WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
@@ -386,24 +385,32 @@ void __43___UIKeyboardArbiter_scheduleWindowTimeout__block_invoke(uint64_t a1)
 
               if (v8 != v10)
               {
-                memset(v32, 0, sizeof(v32));
+                memset(v31, 0, sizeof(v31));
                 v11 = _UIArbiterLog();
-                os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-                v12 = *(a1 + 32);
-                v13 = objc_opt_class();
-                v28 = 138412546;
-                v29 = v13;
-                v30 = 2112;
-                v31 = v8;
-                v14 = v13;
-                LODWORD(v23) = 22;
-                v15 = _os_log_send_and_compose_impl();
+                if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+                {
+                  v12 = 3;
+                }
 
-                v16 = [_UIKeyboardArbiterDebug sharedInstance:&v28];
-                v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v32];
+                else
+                {
+                  v12 = 2;
+                }
+
+                v13 = objc_opt_class();
+                v27 = 138412546;
+                v28 = v13;
+                v29 = 2112;
+                v30 = v8;
+                v14 = v13;
+                LODWORD(v22) = 22;
+                v15 = _os_log_send_and_compose_impl(v12, 0, v31, 512, &dword_2557BA000, v11, 16, "[%@] Dropping %@", &v27, v22);
+
+                v16 = +[_UIKeyboardArbiterDebug sharedInstance];
+                v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v31];
                 [v16 errorWithMessage:v17];
 
-                if (v15 != v32)
+                if (v15 != v31)
                 {
                   free(v15);
                 }
@@ -422,15 +429,13 @@ void __43___UIKeyboardArbiter_scheduleWindowTimeout__block_invoke(uint64_t a1)
         }
 
         while (v5 != v7);
-        v21 = [v3 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v21 = [v3 countByEnumeratingWithState:&v23 objects:v32 count:16];
         v5 = v21;
       }
 
       while (v21);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __57___UIKeyboardArbiter_updateKeyboardUIStatus_fromHandler___block_invoke(uint64_t a1, void *a2)
@@ -515,42 +520,40 @@ void __65___UIKeyboardArbiter_updateKeyboardStatus_fromHandler_fromFocus___block
 
   if (v2 != WeakRetained)
   {
-    v4 = a1[4];
-    v5 = a1[6];
-    v6 = *(a1[7] + 16);
+    v4 = *(a1[7] + 16);
 
-    v6();
+    v4();
   }
 }
 
 void __42___UIKeyboardArbiter_notifyHeightUpdated___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v15 = a1;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = a1;
   v4 = *(*(a1 + 32) + 32);
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if ([v3 isHandlerShowableWithHandler:v9])
         {
-          v10 = *(v15 + 40);
+          v10 = *(v14 + 40);
           v11 = MEMORY[0x277CCABB0];
           [v9 iavHeight];
           v12 = [v11 numberWithDouble:?];
@@ -559,13 +562,11 @@ void __42___UIKeyboardArbiter_notifyHeightUpdated___block_invoke(uint64_t a1, vo
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __56___UIKeyboardArbiter_handleUnexpectedDeallocForHandler___block_invoke(uint64_t a1)
@@ -640,7 +641,7 @@ void __49___UIKeyboardArbiter_updateKeyboardSceneSettings__block_invoke_2(uint64
 
 void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke(uint64_t a1)
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) handlerForPID:*(a1 + 40)];
   v3 = [v2 running];
   [v2 setRunning:(*(a1 + 44) & 1) == 0];
@@ -649,9 +650,13 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
   {
     if (v4)
     {
-      goto LABEL_31;
+      goto LABEL_40;
     }
 
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v86 = 0u;
     v87 = 0u;
     v84 = 0u;
@@ -678,37 +683,41 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
     v65 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
     *buf = 0u;
-    v57 = 0u;
+    v61 = 0u;
     v5 = _UIArbiterLog();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
-    v54 = 138412290;
-    v55 = v2;
-    LODWORD(v50) = 12;
-    v6 = _os_log_send_and_compose_impl();
-
-    v7 = [_UIKeyboardArbiterDebug sharedInstance:&v54];
-    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
-    [v7 debugWithMessage:v8];
-
-    if (v6 != buf)
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      free(v6);
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v58 = 138412290;
+    v59 = v2;
+    v7 = _os_log_send_and_compose_impl(v6, 0, buf, 512, &dword_2557BA000, v5, 2, "[%@] suspended", &v58, 12);
+
+    v8 = +[_UIKeyboardArbiterDebug sharedInstance];
+    v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
+    [v8 debugWithMessage:v9];
+
+    if (v7 != buf)
+    {
+      free(v7);
     }
 
     [v2 clearAcquiringFocus];
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
 
-    v10 = WeakRetained == v2;
+    v11 = WeakRetained == v2;
     if (WeakRetained == v2)
     {
-      v11 = *(a1 + 32);
-      v12 = [MEMORY[0x277D76088] informationForKeyboardDown];
-      [v11 updateKeyboardStatus:v12 fromHandler:v2];
+      v12 = *(a1 + 32);
+      v13 = [MEMORY[0x277D76088] informationForKeyboardDown];
+      [v12 updateKeyboardStatus:v13 fromHandler:v2];
 
       objc_storeWeak((*(a1 + 32) + 48), 0);
       if ([v2 isViewService])
@@ -717,47 +726,47 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
       }
     }
 
-    v13 = objc_loadWeakRetained((*(a1 + 32) + 112));
+    v14 = objc_loadWeakRetained((*(a1 + 32) + 112));
 
-    if (v2 == v13)
+    if (v2 == v14)
     {
       objc_storeWeak((*(a1 + 32) + 112), 0);
-      v14 = _UIArbiterEventsLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _UIArbiterEventsLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2557BA000, v14, OS_LOG_TYPE_DEFAULT, "set focusRequestedHandle:(null) (processSuspended)", buf, 2u);
+        _os_log_impl(&dword_2557BA000, v15, OS_LOG_TYPE_DEFAULT, "set focusRequestedHandle:(null) (processSuspended)", buf, 2u);
       }
 
-      v10 = 1;
+      v11 = 1;
     }
 
-    v15 = objc_loadWeakRetained((*(a1 + 32) + 104));
+    v16 = objc_loadWeakRetained((*(a1 + 32) + 104));
 
-    if (v2 == v15)
+    if (v2 == v16)
     {
       objc_storeWeak((*(a1 + 32) + 104), 0);
-      v10 = 1;
+      v11 = 1;
     }
 
-    v16 = *(*(a1 + 32) + 120);
-    v17 = [v2 remoteFocusContext];
-    v18 = [v17 sceneIdentity];
-    v19 = [v18 stringRepresentation];
-    LODWORD(v16) = [v16 containsObject:v19];
+    v17 = *(*(a1 + 32) + 120);
+    v18 = [v2 remoteFocusContext];
+    v19 = [v18 sceneIdentity];
+    v20 = [v19 stringRepresentation];
+    LODWORD(v17) = [v17 containsObject:v20];
 
-    if (v16)
+    if (v17)
     {
-      v20 = *(*(a1 + 32) + 120);
-      v21 = [v2 remoteFocusContext];
-      v22 = [v21 sceneIdentity];
-      v23 = [v22 stringRepresentation];
-      [v20 removeObject:v23];
+      v21 = *(*(a1 + 32) + 120);
+      v22 = [v2 remoteFocusContext];
+      v23 = [v22 sceneIdentity];
+      v24 = [v23 stringRepresentation];
+      [v21 removeObject:v24];
     }
 
-    else if (!v10)
+    else if (!v11)
     {
-      goto LABEL_31;
+      goto LABEL_40;
     }
 
     [*(a1 + 32) reevaluateFocusedSceneIdentityForKeyboardFocusStealingKeyboardOnSuccess:0];
@@ -765,6 +774,10 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
 
   else if (v4)
   {
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
     v86 = 0u;
     v87 = 0u;
     v84 = 0u;
@@ -791,32 +804,40 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
     v65 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
     *buf = 0u;
-    v57 = 0u;
-    v24 = _UIArbiterLog();
-    os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-    v54 = 138412290;
-    v55 = v2;
-    LODWORD(v50) = 12;
-    v25 = _os_log_send_and_compose_impl();
-
-    v26 = [_UIKeyboardArbiterDebug sharedInstance:&v54];
-    v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
-    [v26 debugWithMessage:v27];
-
-    if (v25 != buf)
+    v61 = 0u;
+    v25 = _UIArbiterLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      free(v25);
+      v26 = 3;
     }
 
-    v28 = objc_loadWeakRetained((*(a1 + 32) + 40));
-
-    if (v2 == v28)
+    else
     {
+      v26 = 2;
+    }
+
+    v58 = 138412290;
+    v59 = v2;
+    v27 = _os_log_send_and_compose_impl(v26, 0, buf, 512, &dword_2557BA000, v25, 2, "[%@] started running", &v58, 12);
+
+    v28 = +[_UIKeyboardArbiterDebug sharedInstance];
+    v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
+    [v28 debugWithMessage:v29];
+
+    if (v27 != buf)
+    {
+      free(v27);
+    }
+
+    v30 = objc_loadWeakRetained((*(a1 + 32) + 40));
+
+    if (v2 == v30)
+    {
+      v90 = 0u;
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
       v86 = 0u;
       v87 = 0u;
       v84 = 0u;
@@ -843,119 +864,75 @@ void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke
       v65 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
       *buf = 0u;
-      v57 = 0u;
-      v32 = _UIArbiterLog();
-      os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
-      v54 = 138412290;
-      v55 = v2;
-      LODWORD(v50) = 12;
-      v33 = _os_log_send_and_compose_impl();
-
-      v34 = [_UIKeyboardArbiterDebug sharedInstance:&v54];
-      v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
-      [v34 debugWithMessage:v35];
-
-      if (v33 != buf)
+      v61 = 0u;
+      v34 = _UIArbiterLog();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        free(v33);
-      }
-    }
-
-    else
-    {
-      v29 = [*(a1 + 32) lastUpdate];
-      v30 = v29;
-      if (v29)
-      {
-        v31 = v29;
+        v35 = 3;
       }
 
       else
       {
-        v31 = [MEMORY[0x277D76088] informationForKeyboardDown];
+        v35 = 2;
       }
 
-      v36 = v31;
+      v58 = 138412290;
+      v59 = v2;
+      LODWORD(v54) = 12;
+      v36 = _os_log_send_and_compose_impl(v35, 0, buf, 512, &dword_2557BA000, v34, 2, "[%@] abnormal state - resuming handle was already active", &v58, v54);
 
-      if (![v2 isViewService] || (objc_msgSend(v36, "sourceBundleIdentifier"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "isEqualToString:", @"com.apple.Spotlight"), v37, (v38 & 1) == 0))
+      v37 = +[_UIKeyboardArbiterDebug sharedInstance];
+      v38 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
+      [v37 debugWithMessage:v38];
+
+      if (v36 != buf)
       {
-        v39 = *(a1 + 32);
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke_177;
-        v51[3] = &unk_2797F4A00;
-        v52 = v2;
-        v53 = v36;
-        [v39 runOperations:v51 onHandler:v52 fromFunction:"-[_UIKeyboardArbiter processWithPID:foreground:suspended:]_block_invoke_2"];
+        free(v36);
       }
-    }
-  }
-
-LABEL_31:
-  v40 = objc_loadWeakRetained((*(a1 + 32) + 40));
-
-  if (v40 == v2)
-  {
-    if (*(a1 + 45) == 1)
-    {
-      v86 = 0uLL;
-      v87 = 0uLL;
-      v84 = 0uLL;
-      v85 = 0uLL;
-      v82 = 0uLL;
-      v83 = 0uLL;
-      v80 = 0uLL;
-      v81 = 0uLL;
-      v78 = 0uLL;
-      v79 = 0uLL;
-      v76 = 0uLL;
-      v77 = 0uLL;
-      v74 = 0uLL;
-      v75 = 0uLL;
-      v72 = 0uLL;
-      v73 = 0uLL;
-      v70 = 0uLL;
-      v71 = 0uLL;
-      v68 = 0uLL;
-      v69 = 0uLL;
-      v66 = 0uLL;
-      v67 = 0uLL;
-      v64 = 0uLL;
-      v65 = 0uLL;
-      v62 = 0uLL;
-      v63 = 0uLL;
-      v60 = 0uLL;
-      v61 = 0uLL;
-      v58 = 0uLL;
-      v59 = 0uLL;
-      *buf = 0uLL;
-      v57 = 0uLL;
-      v41 = _UIArbiterLog();
-      os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG);
-      v54 = 138412290;
-      v55 = v2;
-      LODWORD(v50) = 12;
-      v42 = _os_log_send_and_compose_impl();
-
-      v43 = [_UIKeyboardArbiterDebug sharedInstance:&v54];
-      v44 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
-      [v43 debugWithMessage:v44];
-
-      if (v42 != buf)
-      {
-        free(v42);
-      }
-
-      [v2 uncacheWindowContext];
     }
 
     else
     {
+      v31 = [*(a1 + 32) lastUpdate];
+      v32 = v31;
+      if (v31)
+      {
+        v33 = v31;
+      }
+
+      else
+      {
+        v33 = [MEMORY[0x277D76088] informationForKeyboardDown];
+      }
+
+      v39 = v33;
+
+      if (![v2 isViewService] || (objc_msgSend(v39, "sourceBundleIdentifier"), v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v40, "isEqualToString:", @"com.apple.Spotlight"), v40, (v41 & 1) == 0))
+      {
+        v42 = *(a1 + 32);
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke_177;
+        v55[3] = &unk_2797F4A00;
+        v56 = v2;
+        v57 = v39;
+        [v42 runOperations:v55 onHandler:v56 fromFunction:"-[_UIKeyboardArbiter processWithPID:foreground:suspended:]_block_invoke_2"];
+      }
+    }
+  }
+
+LABEL_40:
+  v43 = objc_loadWeakRetained((*(a1 + 32) + 40));
+
+  if (v43 == v2)
+  {
+    if (*(a1 + 45) == 1)
+    {
+      v90 = 0uLL;
+      v91 = 0uLL;
+      v88 = 0uLL;
+      v89 = 0uLL;
       v86 = 0uLL;
       v87 = 0uLL;
       v84 = 0uLL;
@@ -982,20 +959,25 @@ LABEL_31:
       v65 = 0uLL;
       v62 = 0uLL;
       v63 = 0uLL;
-      v60 = 0uLL;
-      v61 = 0uLL;
-      v58 = 0uLL;
-      v59 = 0uLL;
       *buf = 0uLL;
-      v57 = 0uLL;
-      v45 = _UIArbiterLog();
-      os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG);
-      v54 = 138412290;
-      v55 = v2;
-      LODWORD(v50) = 12;
-      v46 = _os_log_send_and_compose_impl();
+      v61 = 0uLL;
+      v44 = _UIArbiterLog();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+      {
+        v45 = 3;
+      }
 
-      v47 = [_UIKeyboardArbiterDebug sharedInstance:&v54];
+      else
+      {
+        v45 = 2;
+      }
+
+      v58 = 138412290;
+      v59 = v2;
+      LODWORD(v54) = 12;
+      v46 = _os_log_send_and_compose_impl(v45, 0, buf, 512, &dword_2557BA000, v44, 2, "[%@] foregrounded", &v58, v54);
+
+      v47 = +[_UIKeyboardArbiterDebug sharedInstance];
       v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
       [v47 debugWithMessage:v48];
 
@@ -1004,11 +986,71 @@ LABEL_31:
         free(v46);
       }
 
+      [v2 uncacheWindowContext];
+    }
+
+    else
+    {
+      v90 = 0uLL;
+      v91 = 0uLL;
+      v88 = 0uLL;
+      v89 = 0uLL;
+      v86 = 0uLL;
+      v87 = 0uLL;
+      v84 = 0uLL;
+      v85 = 0uLL;
+      v82 = 0uLL;
+      v83 = 0uLL;
+      v80 = 0uLL;
+      v81 = 0uLL;
+      v78 = 0uLL;
+      v79 = 0uLL;
+      v76 = 0uLL;
+      v77 = 0uLL;
+      v74 = 0uLL;
+      v75 = 0uLL;
+      v72 = 0uLL;
+      v73 = 0uLL;
+      v70 = 0uLL;
+      v71 = 0uLL;
+      v68 = 0uLL;
+      v69 = 0uLL;
+      v66 = 0uLL;
+      v67 = 0uLL;
+      v64 = 0uLL;
+      v65 = 0uLL;
+      v62 = 0uLL;
+      v63 = 0uLL;
+      *buf = 0uLL;
+      v61 = 0uLL;
+      v49 = _UIArbiterLog();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      {
+        v50 = 3;
+      }
+
+      else
+      {
+        v50 = 2;
+      }
+
+      v58 = 138412290;
+      v59 = v2;
+      LODWORD(v54) = 12;
+      v51 = _os_log_send_and_compose_impl(v50, 0, buf, 512, &dword_2557BA000, v49, 2, "[%@] no longer foreground", &v58, v54);
+
+      v52 = +[_UIKeyboardArbiterDebug sharedInstance];
+      v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
+      [v52 debugWithMessage:v53];
+
+      if (v51 != buf)
+      {
+        free(v51);
+      }
+
       [v2 cacheWindowContext];
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __58___UIKeyboardArbiter_processWithPID_foreground_suspended___block_invoke_177(uint64_t a1, void *a2, void *a3)
@@ -1064,7 +1106,7 @@ uint64_t __50___UIKeyboardArbiter__previouslyFocusedHostHandle__block_invoke(uin
 
 void __55___UIKeyboardArbiter_applySceneFocusChange_forRequest___block_invoke(id *a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = _UIArbiterEventsLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -1080,55 +1122,63 @@ void __55___UIKeyboardArbiter_applySceneFocusChange_forRequest___block_invoke(id
   if (a1[5] && (v3 = a1[4]) != 0 && ([v3 _isFocusNothing] & 1) == 0 && (v4 = a1[6], objc_msgSend(a1[4], "sceneIdentity"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "_handleForSceneIdentity:", v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v6))
   {
     v7 = a1[6];
-    v19 = 0;
-    v8 = [v7 _activeFocusedHostHandleForKeyboardFocusAndGetLeafHandle:&v19];
-    v9 = v19;
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
+    v18 = 0;
+    v8 = [v7 _activeFocusedHostHandleForKeyboardFocusAndGetLeafHandle:&v18];
+    v9 = v18;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    v45 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    v41 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v39 = 0u;
+    v43 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v26 = 0u;
+    v29 = 0u;
     v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
     memset(buf, 0, sizeof(buf));
     v10 = _UIArbiterLog();
-    os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
-    v11 = [a1[4] sceneIdentity];
-    v20 = 138543362;
-    v21 = v11;
-    LODWORD(v18) = 12;
-    v12 = _os_log_send_and_compose_impl();
-
-    v13 = [_UIKeyboardArbiterDebug sharedInstance:&v20];
-    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
-    [v13 infoWithMessage:v14];
-
-    if (v12 != buf)
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      free(v12);
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v12 = [a1[4] sceneIdentity];
+    v19 = 138543362;
+    v20 = v12;
+    v13 = _os_log_send_and_compose_impl(v11, 0, buf, 512, &dword_2557BA000, v10, 1, "Advisor: Scene focus change request: %{public}@", &v19, 12);
+
+    v14 = +[_UIKeyboardArbiterDebug sharedInstance];
+    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buf];
+    [v14 infoWithMessage:v15];
+
+    if (v13 != buf)
+    {
+      free(v13);
     }
 
     [a1[6] _focusSceneHandle:v6 previousHostFocusHandle:v8 previousLeafFocusHandle:v9 shouldStealKeyboardOnSuccess:{objc_msgSend(a1[5], "shouldStealKeyboardOnSuccess")}];
@@ -1138,33 +1188,38 @@ void __55___UIKeyboardArbiter_applySceneFocusChange_forRequest___block_invoke(id
   {
     [a1[6] _invalidateFocus];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  memset(v25, 0, sizeof(v25));
+  memset(v23, 0, sizeof(v23));
   v3 = _UIArbiterLog();
-  os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-  v4 = *(a1 + 32);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
   v5 = objc_opt_class();
   v6 = *(a1 + 48);
-  v21 = 138412546;
-  v22 = v5;
-  v23 = 2112;
-  v24 = v6;
+  v19 = 138412546;
+  v20 = v5;
+  v21 = 2112;
+  v22 = v6;
   v7 = v5;
-  LODWORD(v16) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(v4, 0, v23, 512, &dword_2557BA000, v3, 2, "[%@] Lost connection [%@]", &v19, 22);
 
-  v9 = [_UIKeyboardArbiterDebug sharedInstance:&v21];
-  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v25];
+  v9 = +[_UIKeyboardArbiterDebug sharedInstance];
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v23];
   [v9 debugWithMessage:v10];
 
-  if (v8 != v25)
+  if (v8 != v23)
   {
     free(v8);
   }
@@ -1176,29 +1231,27 @@ void __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke(
   block[2] = __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke_210;
   block[3] = &unk_2797F4B68;
   v13 = *(a1 + 48);
-  v18 = v2;
-  v19 = v13;
+  v16 = v2;
+  v17 = v13;
   block[4] = v11;
-  v20 = *(a1 + 56);
+  v18 = *(a1 + 56);
   v14 = v2;
   dispatch_async(v12, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke_210(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = _UIArbiterClientHandleLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [v2 bundleIdentifier];
-    v25 = 138543618;
-    v26 = v4;
-    v27 = 1024;
-    v28 = [v2 processIdentifier];
-    _os_log_impl(&dword_2557BA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@(%d) lostConnection (invalidation)", &v25, 0x12u);
+    v24 = 138543618;
+    v25 = v4;
+    v26 = 1024;
+    v27 = [v2 processIdentifier];
+    _os_log_impl(&dword_2557BA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@(%d) lostConnection (invalidation)", &v24, 0x12u);
   }
 
   if ([v2 prevActiveIdentifier])
@@ -1295,8 +1348,8 @@ LABEL_22:
     v19 = _UIArbiterEventsLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_2557BA000, v19, OS_LOG_TYPE_DEFAULT, "set focusRequestedHandle:(null) (connectionInvalidated)", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_2557BA000, v19, OS_LOG_TYPE_DEFAULT, "set focusRequestedHandle:(null) (connectionInvalidated)", &v24, 2u);
     }
   }
 
@@ -1318,8 +1371,6 @@ LABEL_22:
     v23 = +[_UIKeyboardArbiterDebug sharedInstance];
     [v23 setPause:0];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke_328(id *a1)
@@ -1335,15 +1386,14 @@ void __57___UIKeyboardArbiter_listener_shouldAcceptNewConnection___block_invoke_
 
   if (v2)
   {
-    v4 = a1[5];
     (*(*(a1[4] + 25) + 16))();
-    v5 = a1[4];
-    v6 = v5[24];
-    v5[24] = 0;
+    v4 = a1[4];
+    v5 = v4[24];
+    v4[24] = 0;
 
-    v7 = a1[4];
-    v8 = v7[25];
-    v7[25] = 0;
+    v6 = a1[4];
+    v7 = v6[25];
+    v6[25] = 0;
   }
 
   objc_sync_exit(obj);

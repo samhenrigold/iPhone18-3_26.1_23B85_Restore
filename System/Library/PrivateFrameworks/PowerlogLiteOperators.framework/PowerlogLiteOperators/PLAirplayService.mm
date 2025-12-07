@@ -110,7 +110,7 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
 
 - (void)handleScreenStateCallback:(id)callback
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = [callback objectForKey:@"group"];
   entryKeyPLScreenStateAgentScreenState = [(PLAirplayService *)self entryKeyPLScreenStateAgentScreenState];
   v6 = [v4 objectForKeyedSubscript:entryKeyPLScreenStateAgentScreenState];
@@ -127,26 +127,26 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
 
       if (v10)
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         screenLayoutEntries2 = [(PLAirplayService *)self screenLayoutEntries];
-        v12 = [screenLayoutEntries2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [screenLayoutEntries2 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(screenLayoutEntries2);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * i);
+              v16 = *(*(&v21 + 1) + 8 * i);
               v17 = [v16 objectForKeyedSubscript:@"bundleID"];
 
               if (v17)
@@ -156,7 +156,7 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
               }
             }
 
-            v13 = [screenLayoutEntries2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v13 = [screenLayoutEntries2 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v13);
@@ -168,13 +168,11 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAudioAppCallback:(id)callback
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = [callback objectForKey:@"entry"];
   v5 = [v4 objectForKeyedSubscript:@"MirroringState"];
 
@@ -205,27 +203,27 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
 
             if (v16)
             {
-              v40 = v13;
-              v43 = 0u;
-              v44 = 0u;
-              v41 = 0u;
+              v39 = v13;
               v42 = 0u;
+              v43 = 0u;
+              v40 = 0u;
+              v41 = 0u;
               screenLayoutEntries5 = [(PLAirplayService *)self screenLayoutEntries];
-              v18 = [screenLayoutEntries5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+              v18 = [screenLayoutEntries5 countByEnumeratingWithState:&v40 objects:v44 count:16];
               if (v18)
               {
                 v19 = v18;
-                v20 = *v42;
+                v20 = *v41;
                 do
                 {
                   for (i = 0; i != v19; ++i)
                   {
-                    if (*v42 != v20)
+                    if (*v41 != v20)
                     {
                       objc_enumerationMutation(screenLayoutEntries5);
                     }
 
-                    v22 = *(*(&v41 + 1) + 8 * i);
+                    v22 = *(*(&v40 + 1) + 8 * i);
                     v23 = [v22 objectForKeyedSubscript:@"bundleID"];
 
                     if (v23)
@@ -235,15 +233,15 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
                     }
                   }
 
-                  v19 = [screenLayoutEntries5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+                  v19 = [screenLayoutEntries5 countByEnumeratingWithState:&v40 objects:v44 count:16];
                 }
 
                 while (v19);
               }
 
               mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-              v13 = v40;
-              entryDate = [v40 entryDate];
+              v13 = v39;
+              entryDate = [v39 entryDate];
               [mEMORY[0x277D3F0C0] createQualificationEventForwardWithQualificationID:3 withChildNodeNames:array withStartDate:entryDate];
             }
           }
@@ -282,8 +280,6 @@ uint64_t __56__PLAirplayService_buildCallBack_withGroup_withHandler___block_invo
 
     [(PLAirplayService *)selfCopy2 setAirplayMirroringOn:v32];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

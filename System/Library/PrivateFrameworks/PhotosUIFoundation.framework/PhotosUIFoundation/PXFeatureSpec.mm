@@ -82,7 +82,7 @@
   return localizedLeadingTextAlignment_textAlignment;
 }
 
-uint64_t __46__PXFeatureSpec_localizedLeadingTextAlignment__block_invoke()
+void *__46__PXFeatureSpec_localizedLeadingTextAlignment__block_invoke()
 {
   result = [MEMORY[0x1E695DF58] px_currentCharacterDirection];
   localizedLeadingTextAlignment_textAlignment = 2 * (result == 2);

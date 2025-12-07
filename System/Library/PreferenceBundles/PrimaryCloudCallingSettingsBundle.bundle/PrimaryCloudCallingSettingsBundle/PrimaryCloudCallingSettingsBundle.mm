@@ -41,7 +41,7 @@ void sub_3AAC(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_6A74();
@@ -59,7 +59,7 @@ void sub_3B38(uint64_t a1, uint64_t a2)
   {
     if (!a2)
     {
-      v6 = PHDefaultLog();
+      v6 = PHDefaultLog(a1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *v7 = 0;
@@ -72,7 +72,7 @@ void sub_3B38(uint64_t a1, uint64_t a2)
 
   else
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_6A74();
@@ -84,10 +84,11 @@ void sub_3B38(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_3EE8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3EE8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_40D8(uint64_t a1)
@@ -108,18 +109,17 @@ void sub_40D8(uint64_t a1)
 
 uint64_t sub_417C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = PHDefaultLog(result);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v6, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v5, 0xCu);
     }
 
     return [*(a1 + 40) reloadSpecifiers];
@@ -134,20 +134,20 @@ void sub_4BA0(uint64_t a1)
   [v1 reloadSpecifiers];
 }
 
-void *sub_5060(void *result)
+void *sub_5060(void *result, uint64_t a2)
 {
-  v1 = result;
-  v2 = result[4];
-  if (!*(v2 + 40) || !*(v2 + 48))
+  v2 = result;
+  v3 = result[4];
+  if (!*(v3 + 40) || !*(v3 + 48))
   {
-    v3 = PHDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PHDefaultLog(result);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[WARN] Timed out trying to load carrier URL", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Timed out trying to load carrier URL", v5, 2u);
     }
 
-    return [v1[4] doWebViewTimedOut];
+    return [v2[4] doWebViewTimedOut];
   }
 
   return result;
@@ -261,16 +261,16 @@ LABEL_6:
   }
 }
 
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_11450 != -1)
   {
     sub_6C1C();
   }
 
-  v1 = qword_11448;
+  v2 = qword_11448;
 
-  return v1;
+  return v2;
 }
 
 void sub_5D68(id a1)
@@ -280,16 +280,16 @@ void sub_5D68(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_11460 != -1)
   {
     sub_6C30();
   }
 
-  v1 = qword_11458;
+  v2 = qword_11458;
 
-  return v1;
+  return v2;
 }
 
 void sub_5DF0(id a1)
@@ -299,16 +299,16 @@ void sub_5DF0(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_11470[0] != -1)
   {
     sub_6C44();
   }
 
-  v1 = qword_11468;
+  v2 = qword_11468;
 
-  return v1;
+  return v2;
 }
 
 void sub_5E78(id a1)
@@ -333,7 +333,7 @@ unint64_t sub_5F18()
 
 uint64_t sub_5F88()
 {
-  v0 = *(*(sub_6C88() - 8) + 64);
+  sub_6C88();
   __chkstk_darwin();
   sub_6D18();
   sub_6D08();
@@ -400,7 +400,6 @@ uint64_t sub_6200(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -412,14 +411,13 @@ uint64_t PHSettingsPrimaryCloudCallingBundleController.isStateDrivenNavigationPo
 {
   v2 = sub_6CD8();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_6D28();
 
   LOBYTE(a1) = sub_6CB8();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -427,25 +425,23 @@ uint64_t PHSettingsPrimaryCloudCallingBundleController.handleUserDidTapOnMainSpe
 {
   v3 = sub_6CD8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_6D48() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_6D48();
   __chkstk_darwin();
-  v9 = sub_6CA8();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_6CA8();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_6D38();
   sub_6C98();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_6D28();
 
   sub_66C8();
   sub_6CC8();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_66C8()

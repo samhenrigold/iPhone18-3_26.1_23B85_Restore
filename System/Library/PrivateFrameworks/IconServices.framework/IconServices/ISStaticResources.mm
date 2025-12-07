@@ -64,7 +64,7 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
 
 - (id)fallbackResourceForHint:(id)hint descriptor:(id)descriptor referenceObj:(id)obj
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   hintCopy = hint;
   descriptorCopy = descriptor;
   objCopy = obj;
@@ -83,14 +83,16 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
       v13 = 0;
     }
 
-    if ([v13 conformsToType:*MEMORY[0x1E6982CA8]])
+    v18 = [v13 conformsToType:*MEMORY[0x1E6982CA8]];
+    if (v18)
     {
-      if ([descriptorCopy shape] == 5 || objc_msgSend(descriptorCopy, "shape") == 6)
+      shape = [descriptorCopy shape];
+      if (shape == 5 || (shape = [descriptorCopy shape], shape == 6))
       {
-        v16 = _ISDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v20 = _ISDefaultLog(shape);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          [ISStaticResources fallbackResourceForHint:objCopy descriptor:descriptorCopy referenceObj:v16];
+          [ISStaticResources fallbackResourceForHint:descriptor:referenceObj:];
         }
 
         genericAppClipIconResource = [(ISStaticResources *)self genericAppClipIconResource];
@@ -98,14 +100,14 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
 
       else
       {
-        v25 = _ISDefaultLog();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v28 = _ISDefaultLog(shape);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
-          [ISStaticResources fallbackResourceForHint:objCopy descriptor:descriptorCopy referenceObj:v25];
+          [ISStaticResources fallbackResourceForHint:descriptor:referenceObj:];
         }
 
-        v26 = +[ISPlatformInfo sharedInstance];
-        genericAppClipIconResource = -[ISStaticResources genericAppIconResourceForPlatform:](self, "genericAppIconResourceForPlatform:", [v26 nativePlatform]);
+        v29 = +[ISPlatformInfo sharedInstance];
+        genericAppClipIconResource = -[ISStaticResources genericAppIconResourceForPlatform:](self, "genericAppIconResourceForPlatform:", [v29 nativePlatform]);
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -118,72 +120,76 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
 
     else
     {
-      v17 = _ISDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v21 = _ISDefaultLog(v18);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [ISStaticResources fallbackResourceForHint:objCopy descriptor:descriptorCopy referenceObj:v17];
+        [ISStaticResources fallbackResourceForHint:descriptor:referenceObj:];
       }
 
-      v18 = +[ISPlatformInfo sharedInstance];
-      genericAppClipIconResource = -[ISStaticResources placeholderIconResourceForPlatform:](self, "placeholderIconResourceForPlatform:", [v18 nativePlatform]);
+      v22 = +[ISPlatformInfo sharedInstance];
+      genericAppClipIconResource = -[ISStaticResources placeholderIconResourceForPlatform:](self, "placeholderIconResourceForPlatform:", [v22 nativePlatform]);
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         genericAppClipIconResource = genericAppClipIconResource;
         [genericAppClipIconResource setAppearance:{objc_msgSend(descriptorCopy, "appearance")}];
-        v19 = objc_alloc_init(ISGenericRecipe);
-        [genericAppClipIconResource setSuggestedRecipe:v19];
+        v23 = objc_alloc_init(ISGenericRecipe);
+        [genericAppClipIconResource setSuggestedRecipe:v23];
       }
     }
   }
 
-  else if ([descriptorCopy shape] == 5 || objc_msgSend(descriptorCopy, "shape") == 6)
-  {
-    v14 = _ISDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-    {
-      [ISStaticResources fallbackResourceForHint:objCopy descriptor:descriptorCopy referenceObj:v14];
-    }
-
-    genericAppClipIconResource = [(ISStaticResources *)self genericAppClipIconResource];
-  }
-
   else
   {
-    v23 = _ISDefaultLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    shape2 = [descriptorCopy shape];
+    if (shape2 == 5 || (shape2 = [descriptorCopy shape], shape2 == 6))
     {
-      [ISStaticResources fallbackResourceForHint:objCopy descriptor:descriptorCopy referenceObj:v23];
+      v15 = _ISDefaultLog(shape2);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        [ISStaticResources fallbackResourceForHint:descriptor:referenceObj:];
+      }
+
+      isKindOfClass = [(ISStaticResources *)self genericAppClipIconResource];
+      genericAppClipIconResource = isKindOfClass;
     }
 
-    v24 = +[ISPlatformInfo sharedInstance];
-    genericAppClipIconResource = -[ISStaticResources genericAppIconResourceForPlatform:](self, "genericAppIconResourceForPlatform:", [v24 nativePlatform]);
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    else
     {
-      genericAppClipIconResource = genericAppClipIconResource;
-      [genericAppClipIconResource setAppearance:{objc_msgSend(descriptorCopy, "appearance")}];
+      v26 = _ISDefaultLog(shape2);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      {
+        [ISStaticResources fallbackResourceForHint:descriptor:referenceObj:];
+      }
+
+      v27 = +[ISPlatformInfo sharedInstance];
+      genericAppClipIconResource = -[ISStaticResources genericAppIconResourceForPlatform:](self, "genericAppIconResourceForPlatform:", [v27 nativePlatform]);
+
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
+      {
+        genericAppClipIconResource = genericAppClipIconResource;
+        [genericAppClipIconResource setAppearance:{objc_msgSend(descriptorCopy, "appearance")}];
+      }
     }
   }
 
   if (!genericAppClipIconResource)
   {
-    v20 = _ISDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v24 = _ISDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      v27 = 138412802;
-      v28 = hintCopy;
-      v29 = 2112;
-      v30 = descriptorCopy;
-      v31 = 2112;
-      v32 = objCopy;
-      _os_log_fault_impl(&dword_1A77B8000, v20, OS_LOG_TYPE_FAULT, "Failed to resolve a fallback resource. Hint: %@, Descriptor: %@, Icon: %@", &v27, 0x20u);
+      v30 = 138412802;
+      v31 = hintCopy;
+      v32 = 2112;
+      v33 = descriptorCopy;
+      v34 = 2112;
+      v35 = objCopy;
+      _os_log_fault_impl(&dword_1A77B8000, v24, OS_LOG_TYPE_FAULT, "Failed to resolve a fallback resource. Hint: %@, Descriptor: %@, Icon: %@", &v30, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return genericAppClipIconResource;
 }
@@ -198,9 +204,10 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
 
   if (!v12)
   {
-    v16 = 0;
-    v12 = [ISAssetCatalogResource assetCatalogResourceWithURL:lCopy imageName:nameCopy error:&v16];
-    v13 = v16;
+    v17 = 0;
+    v12 = [ISAssetCatalogResource assetCatalogResourceWithURL:lCopy imageName:nameCopy error:&v17];
+    v13 = v17;
+    v14 = v13;
     if (v12)
     {
       cache2 = [(ISStaticResources *)self cache];
@@ -209,10 +216,10 @@ uint64_t __35__ISStaticResources_sharedInstance__block_invoke()
 
     else
     {
-      cache2 = _ISDefaultLog();
+      cache2 = _ISDefaultLog(v13);
       if (os_log_type_enabled(cache2, OS_LOG_TYPE_ERROR))
       {
-        [ISStaticResources _assetCatalogResourceWithName:keyCopy fromURL:v13 cacheKey:cache2];
+        [ISStaticResources _assetCatalogResourceWithName:keyCopy fromURL:v14 cacheKey:cache2];
       }
     }
   }
@@ -293,7 +300,7 @@ LABEL_17:
   }
 
 LABEL_9:
-  v9 = _ISDefaultLog();
+  v9 = _ISDefaultLog(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [(ISStaticResources *)platformCopy genericAppIconResourceForPlatform:v9];
@@ -311,7 +318,7 @@ LABEL_18:
   v3 = [MEMORY[0x1E69A8990] imageBagWithResourcesNamed:@"AppClipDefaultIcon" fromBundle:iconsetResourceBundle];
   if (!v3)
   {
-    v4 = _ISDefaultLog();
+    v4 = _ISDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(ISStaticResources *)v4 genericAppClipIconResource];
@@ -378,7 +385,7 @@ LABEL_8:
   else
   {
 LABEL_14:
-    v11 = _ISDefaultLog();
+    v11 = _ISDefaultLog(self);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(ISStaticResources *)platformCopy placeholderIconResourceForPlatform:v11];
@@ -475,35 +482,79 @@ LABEL_9:
   return v13;
 }
 
+- (void)fallbackResourceForHint:descriptor:referenceObj:.cold.1()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6(v0, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_2(&dword_1A77B8000, v1, v2, "%@ RETURNING App PLACEHOLDER: <ISImageDescriptor: %p> s (%0.2f, %0.2f)@%.0fx v:%lx a:%ld:%ld ps:%ld ", v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3();
+}
+
+- (void)fallbackResourceForHint:descriptor:referenceObj:.cold.2()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6(v0, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_2(&dword_1A77B8000, v1, v2, "%@ RETURNING AppClip PLACEHOLDER: <ISImageDescriptor: %p> s (%0.2f, %0.2f)@%.0fx v:%lx a:%ld:%ld ps:%ld ", v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3();
+}
+
+- (void)fallbackResourceForHint:descriptor:referenceObj:.cold.3()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6(v0, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5();
+  OUTLINED_FUNCTION_11();
+  OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_2(&dword_1A77B8000, v1, v2, "%@ RETURNING cache miss PLACEHOLDER: <ISImageDescriptor: %p> s (%0.2f, %0.2f)@%.0fx v:%lx a:%ld:%ld ps:%ld ", v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3();
+}
+
 - (void)_assetCatalogResourceWithName:(uint64_t)a1 fromURL:(void *)a2 cacheKey:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 localizedDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to retrieve %@ resource. Error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to retrieve %@ resource. Error: %@", &v6, 0x16u);
 }
 
 - (void)genericAppIconResourceForPlatform:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve default app icon resource for platform: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve default app icon resource for platform: %lu", &v2, 0xCu);
 }
 
 - (void)placeholderIconResourceForPlatform:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve cache miss icon resource for platform: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve cache miss icon resource for platform: %lu", &v2, 0xCu);
 }
 
 @end

@@ -34,7 +34,7 @@
         layout = [objc_msgSend(v10 layout];
         if (layout)
         {
-          [layout inverseTransform];
+          objc_msgSend_inverseTransform(layout);
           v12 = v19;
           v13 = v20;
           v14 = v21;
@@ -94,7 +94,7 @@
         layout = [objc_msgSend(v21 layout];
         if (layout)
         {
-          [layout inverseTransform];
+          objc_msgSend_inverseTransform(layout);
           v23 = v30;
           v24 = v31;
           v25 = v32;

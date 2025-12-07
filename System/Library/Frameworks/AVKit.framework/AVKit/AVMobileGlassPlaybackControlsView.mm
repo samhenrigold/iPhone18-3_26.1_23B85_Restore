@@ -2,7 +2,7 @@
 - (AVMobileGlassPlaybackControlsView)initWithStyleSheet:(id)sheet;
 - (AVMobileGlassPlaybackControlsViewDelegate)delegate;
 - (CGSize)intrinsicContentSize;
-- (uint64_t)_updateExtendedDynamicRangeGain;
+- (id)_updateExtendedDynamicRangeGain;
 - (void)_addPlaybackControlViews:(id)views;
 - (void)_setUpShadowAppearance;
 - (void)_setupPointerInteractionForButton:(void *)button;
@@ -472,19 +472,19 @@ id __71__AVMobileGlassPlaybackControlsView__setupPointerInteractionForButton___b
   if (self->_extendedDynamicRangeGain != gain)
   {
     self->_extendedDynamicRangeGain = gain;
-    [(AVMobileGlassPlaybackControlsView *)self _updateExtendedDynamicRangeGain];
+    [(AVMobileGlassPlaybackControlsView *)&self->super.super.super.super.super.isa _updateExtendedDynamicRangeGain];
   }
 }
 
-- (uint64_t)_updateExtendedDynamicRangeGain
+- (id)_updateExtendedDynamicRangeGain
 {
   if (result)
   {
     v1 = result;
-    [*(result + 576) setAvkit_extendedDynamicRangeGain:*(result + 504)];
-    [*(v1 + 584) setAvkit_extendedDynamicRangeGain:*(v1 + 504)];
-    v2 = *(v1 + 568);
-    v3 = *(v1 + 504);
+    [result[72] setAvkit_extendedDynamicRangeGain:*(result + 63)];
+    [v1[73] setAvkit_extendedDynamicRangeGain:*(v1 + 63)];
+    v2 = v1[71];
+    v3 = *(v1 + 63);
 
     return [v2 setAvkit_extendedDynamicRangeGain:v3];
   }
@@ -716,61 +716,61 @@ id __71__AVMobileGlassPlaybackControlsView__setupPointerInteractionForButton___b
     memset(&v24, 0, sizeof(v24));
     CMTimeMakeWithSeconds(&v24, 10.0, 600);
     v8 = *&v24.value;
-    *(v7 + 608) = v24.epoch;
-    *(v7 + 592) = v8;
+    v7->_backwardSecondaryControlSkipInterval.epoch = v24.epoch;
+    *&v7->_backwardSecondaryControlSkipInterval.value = v8;
     v9 = *&v24.value;
-    *(v7 + 632) = v24.epoch;
-    *(v7 + 616) = v9;
-    *(v7 + 544) = 0;
-    *(v7 + 552) = 0;
+    v7->_forwardSecondaryControlSkipInterval.epoch = v24.epoch;
+    *&v7->_forwardSecondaryControlSkipInterval.value = v9;
+    v7->_backwardSecondaryControlIcon = 0;
+    v7->_forwardSecondaryControlIcon = 0;
     v10 = [AVMobileGlassPlaybackControlButton playPauseButtonWithStyleSheet:sheetCopy];
-    v11 = *(v7 + 568);
-    *(v7 + 568) = v10;
+    playPauseButton = v7->_playPauseButton;
+    v7->_playPauseButton = v10;
 
-    [*(v7 + 568) addTarget:v7 action:sel_playPauseButtonWasPressed forControlEvents:0x2000];
-    [*(v7 + 568) setContentIntersectingDelegate:v7];
+    [(AVMobileGlassPlaybackControlButton *)v7->_playPauseButton addTarget:v7 action:sel_playPauseButtonWasPressed forControlEvents:0x2000];
+    [(AVButton *)v7->_playPauseButton setContentIntersectingDelegate:v7];
     v12 = [AVMobileGlassPlaybackControlButton forwardSecondaryButtonWithStyleSheet:sheetCopy];
-    v13 = *(v7 + 584);
-    *(v7 + 584) = v12;
+    forwardSecondaryButton = v7->_forwardSecondaryButton;
+    v7->_forwardSecondaryButton = v12;
 
-    [*(v7 + 584) addTarget:v7 action:sel_forwardSecondaryControlWasPressed forControlEvents:0x2000];
-    [*(v7 + 584) setContentIntersectingDelegate:v7];
+    [(AVMobileGlassPlaybackControlButton *)v7->_forwardSecondaryButton addTarget:v7 action:sel_forwardSecondaryControlWasPressed forControlEvents:0x2000];
+    [(AVButton *)v7->_forwardSecondaryButton setContentIntersectingDelegate:v7];
     v14 = [AVMobileGlassPlaybackControlButton backwardSecondaryButtonWithStyleSheet:sheetCopy];
-    v15 = *(v7 + 576);
-    *(v7 + 576) = v14;
+    backwardSecondaryButton = v7->_backwardSecondaryButton;
+    v7->_backwardSecondaryButton = v14;
 
-    [*(v7 + 576) addTarget:v7 action:sel_backwardsSecondaryControlWasPressed forControlEvents:0x2000];
-    [*(v7 + 576) setContentIntersectingDelegate:v7];
-    [v7 setIgnoresTouches:1];
-    v29[0] = *(v7 + 568);
-    v29[1] = *(v7 + 584);
-    v29[2] = *(v7 + 576);
+    [(AVMobileGlassPlaybackControlButton *)v7->_backwardSecondaryButton addTarget:v7 action:sel_backwardsSecondaryControlWasPressed forControlEvents:0x2000];
+    [(AVButton *)v7->_backwardSecondaryButton setContentIntersectingDelegate:v7];
+    [(AVView *)v7 setIgnoresTouches:1];
+    v29[0] = v7->_playPauseButton;
+    v29[1] = v7->_forwardSecondaryButton;
+    v29[2] = v7->_backwardSecondaryButton;
     v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-    [v7 _addPlaybackControlViews:v16];
+    [(AVMobileGlassPlaybackControlsView *)v7 _addPlaybackControlViews:v16];
 
-    v17 = *(v7 + 576);
-    v18 = *(v7 + 592);
-    v27 = *(v7 + 608);
+    v17 = v7->_backwardSecondaryButton;
+    v18 = *&v7->_backwardSecondaryControlSkipInterval.value;
+    epoch = v7->_backwardSecondaryControlSkipInterval.epoch;
     v26 = v18;
-    [v17 setSkipInterval:&v26];
-    v19 = *(v7 + 584);
-    v20 = *(v7 + 616);
-    v27 = *(v7 + 632);
+    [(AVMobileGlassPlaybackControlButton *)v17 setSkipInterval:&v26];
+    v19 = v7->_forwardSecondaryButton;
+    v20 = *&v7->_forwardSecondaryControlSkipInterval.value;
+    epoch = v7->_forwardSecondaryControlSkipInterval.epoch;
     v26 = v20;
-    [v19 setSkipInterval:&v26];
-    [v7 _updateBackwardSecondaryControlIcon];
-    [v7 _updateForwardSecondaryControlIcon];
-    [(AVMobileGlassPlaybackControlsView *)v7 _updateExtendedDynamicRangeGain];
-    *(v7 + 532) = 1;
-    *(v7 + 533) = 1;
-    *(v7 + 529) = 1;
-    *(v7 + 530) = 1;
-    *(v7 + 531) = 1;
-    objc_storeStrong((v7 + 512), @"State 1");
-    objc_storeStrong((v7 + 520), @"State 1");
+    [(AVMobileGlassPlaybackControlButton *)v19 setSkipInterval:&v26];
+    [(AVMobileGlassPlaybackControlsView *)v7 _updateBackwardSecondaryControlIcon];
+    [(AVMobileGlassPlaybackControlsView *)v7 _updateForwardSecondaryControlIcon];
+    [(AVMobileGlassPlaybackControlsView *)&v7->super.super.super.super.super.isa _updateExtendedDynamicRangeGain];
+    v7->_backwardSecondaryControlEnabled = 1;
+    v7->_forwardSecondaryControlEnabled = 1;
+    v7->_showsPlayPauseButton = 1;
+    v7->_showsBackwardSecondaryPlaybackButton = 1;
+    v7->_showsForwardSecondaryPlaybackButton = 1;
+    objc_storeStrong(&v7->_backwardIntervalSkipGlyphState, @"State 1");
+    objc_storeStrong(&v7->_forwardIntervalSkipGlyphState, @"State 1");
     v28 = objc_opt_class();
     v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    v22 = [v7 registerForTraitChanges:v21 withHandler:&__block_literal_global_20870];
+    v22 = [(AVMobileGlassPlaybackControlsView *)v7 registerForTraitChanges:v21 withHandler:&__block_literal_global_20870];
   }
 
   return v7;

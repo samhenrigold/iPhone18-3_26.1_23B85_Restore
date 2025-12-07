@@ -128,34 +128,35 @@ void __47__WebBookmarksSettingsGateway__setupConnection__block_invoke_4(uint64_t
 {
   completionCopy = completion;
   v5 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksGetSafariWebDataUsageMessageName];
-  v6 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_DEFAULT, "Waiting for website data from webbookmarksd.", buf, 2u);
+    _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_DEFAULT, "Waiting for website data from webbookmarksd.", buf, 2u);
   }
 
   connection = self->_connection;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke;
-  v9[3] = &unk_279E77D58;
-  v10 = completionCopy;
-  v8 = completionCopy;
-  [(WebBookmarksXPCConnection *)connection sendMessage:v5 withReplyHandler:v9];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke;
+  v10[3] = &unk_279E77D58;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [(WebBookmarksXPCConnection *)connection sendMessage:v5 withReplyHandler:v10];
 }
 
 void __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke_cold_1(v7);
+      __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke_cold_1(v9);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -163,32 +164,31 @@ void __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___blo
 
   else
   {
-    v8 = [MEMORY[0x277CBEB18] array];
+    v10 = [MEMORY[0x277CBEB18] array];
+    v12 = v10;
     if (v5)
     {
-      v9 = xpc_dictionary_get_value(v5, kWebsiteDataAllRecordsKey);
+      v13 = xpc_dictionary_get_value(v5, kWebsiteDataAllRecordsKey);
       applier[0] = MEMORY[0x277D85DD0];
       applier[1] = 3221225472;
       applier[2] = __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke_2;
       applier[3] = &unk_279E77D30;
-      v15 = v8;
-      xpc_array_apply(v9, applier);
+      v18 = v12;
+      xpc_array_apply(v13, applier);
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v10, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
-      v12 = [v8 count];
+      v15 = v14;
+      v16 = [v12 count];
       *buf = 134217984;
-      v17 = v12;
-      _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_DEFAULT, "Parsed %zu data records from webbookmarksd.", buf, 0xCu);
+      v20 = v16;
+      _os_log_impl(&dword_272C20000, v15, OS_LOG_TYPE_DEFAULT, "Parsed %zu data records from webbookmarksd.", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke_2(uint64_t a1)
@@ -204,61 +204,63 @@ uint64_t __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion__
 {
   handlerCopy = handler;
   identifierCopy = identifier;
-  v8 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(identifierCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Sending XPC message to delete all Website data", buf, 2u);
+    _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Sending XPC message to delete all Website data", buf, 2u);
   }
 
-  v9 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksDeleteAllSafariWebSecurityOriginsMessageName];
-  v10 = xpc_array_create(0, 0);
+  v10 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksDeleteAllSafariWebSecurityOriginsMessageName];
+  v11 = xpc_array_create(0, 0);
   uTF8String = [identifierCopy UTF8String];
 
-  v12 = xpc_string_create(uTF8String);
-  xpc_array_append_value(v10, v12);
+  v13 = xpc_string_create(uTF8String);
+  xpc_array_append_value(v11, v13);
 
-  xpc_dictionary_set_value(v9, kWebsiteProfileIdentifiersKey, v10);
+  xpc_dictionary_set_value(v10, kWebsiteProfileIdentifiersKey, v11);
   connection = self->_connection;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke;
-  v15[3] = &unk_279E77D58;
-  v16 = handlerCopy;
-  v14 = handlerCopy;
-  [(WebBookmarksXPCConnection *)connection sendMessage:v9 withReplyHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke;
+  v16[3] = &unk_279E77D58;
+  v17 = handlerCopy;
+  v15 = handlerCopy;
+  [(WebBookmarksXPCConnection *)connection sendMessage:v10 withReplyHandler:v16];
 }
 
 void __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke_cold_1(v7);
+      __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v11 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v11)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete all website data", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete all website data", v14, 2u);
       }
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -287,32 +289,34 @@ void __79__WebBookmarksSettingsGateway_deleteSafariWebsiteDataRecord_completionH
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __79__WebBookmarksSettingsGateway_deleteSafariWebsiteDataRecord_completionHandler___block_invoke_cold_1(v7);
+      __79__WebBookmarksSettingsGateway_deleteSafariWebsiteDataRecord_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v11 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v11)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete individual website data", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete individual website data", v14, 2u);
       }
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -334,32 +338,34 @@ void __90__WebBookmarksSettingsGateway_deleteSafariPersistentURLCacheStorageWith
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __90__WebBookmarksSettingsGateway_deleteSafariPersistentURLCacheStorageWithCompletionHandler___block_invoke_cold_1(v7);
+      __90__WebBookmarksSettingsGateway_deleteSafariPersistentURLCacheStorageWithCompletionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v11 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v11)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete persistent URL cache storage", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete persistent URL cache storage", v14, 2u);
       }
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -392,7 +398,7 @@ uint64_t __80__WebBookmarksSettingsGateway_getSafariDataUsageByteCountWithComple
 
 - (void)clearHistoryVisitsAddedAfterDate:(id)date beforeDate:(id)beforeDate profileIdentifiers:(id)identifiers options:(int64_t)options clearAllSpotlightHistoryForProfile:(BOOL)profile completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   beforeDateCopy = beforeDate;
   identifiersCopy = identifiers;
@@ -408,89 +414,89 @@ uint64_t __80__WebBookmarksSettingsGateway_getSafariDataUsageByteCountWithComple
   xpc_dictionary_set_BOOL(v18, kWebsiteClearAllSpotlightHistoryForProfileKey, profile);
   if (identifiersCopy)
   {
-    v33 = beforeDateCopy;
-    v34 = dateCopy;
+    v32 = beforeDateCopy;
+    v33 = dateCopy;
     v23 = xpc_array_create(0, 0);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v24 = identifiersCopy;
-    v25 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v38;
+      v27 = *v37;
       do
       {
         v28 = 0;
         do
         {
-          if (*v38 != v27)
+          if (*v37 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = xpc_string_create([*(*(&v37 + 1) + 8 * v28) UTF8String]);
+          v29 = xpc_string_create([*(*(&v36 + 1) + 8 * v28) UTF8String]);
           xpc_array_append_value(v23, v29);
 
           ++v28;
         }
 
         while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v26);
     }
 
     xpc_dictionary_set_value(v18, kWebsiteProfileIdentifiersKey, v23);
-    beforeDateCopy = v33;
-    dateCopy = v34;
+    beforeDateCopy = v32;
+    dateCopy = v33;
   }
 
   connection = self->_connection;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke;
-  v35[3] = &unk_279E77D58;
-  v36 = handlerCopy;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke;
+  v34[3] = &unk_279E77D58;
+  v35 = handlerCopy;
   v31 = handlerCopy;
-  [(WebBookmarksXPCConnection *)connection sendMessage:v18 withReplyHandler:v35];
-
-  v32 = *MEMORY[0x277D85DE8];
+  [(WebBookmarksXPCConnection *)connection sendMessage:v18 withReplyHandler:v34];
 }
 
 void __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke_cold_1(v7);
+      __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v11 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v11)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete Safari's history", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to delete Safari's history", v14, 2u);
       }
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -524,24 +530,26 @@ void __87__WebBookmarksSettingsGateway_exportBookmarksToURL_sandboxExtension_com
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __87__WebBookmarksSettingsGateway_exportBookmarksToURL_sandboxExtension_completionHandler___block_invoke_cold_1(v7);
+      __87__WebBookmarksSettingsGateway_exportBookmarksToURL_sandboxExtension_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v10 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v10)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXExport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXExport(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export bookmarks", v9, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export bookmarks", v13, 2u);
       }
     }
   }
@@ -553,32 +561,33 @@ void __87__WebBookmarksSettingsGateway_exportBookmarksToURL_sandboxExtension_com
 {
   nameCopy = name;
   handlerCopy = handler;
-  v17 = 0;
-  v10 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v17];
-  v11 = v17;
+  v19 = 0;
+  v10 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v19];
+  v11 = v19;
+  v13 = v11;
   if (v10)
   {
-    v12 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportBookmarksMessageName];
-    xpc_dictionary_set_string(v12, kWebBookmarksImportBookmarksSuggestedNameKey, [nameCopy UTF8String]);
-    xpc_dictionary_set_fd(v12, kWebBookmarksImportBookmarksFileDescriptorKey, [v10 fileDescriptor]);
+    v14 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportBookmarksMessageName];
+    xpc_dictionary_set_string(v14, kWebBookmarksImportBookmarksSuggestedNameKey, [nameCopy UTF8String]);
+    xpc_dictionary_set_fd(v14, kWebBookmarksImportBookmarksFileDescriptorKey, [v10 fileDescriptor]);
     connection = self->_connection;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSuggestedName_completionHandler___block_invoke;
-    v15[3] = &unk_279E77D58;
-    v16 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v12 withReplyHandler:v15];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSuggestedName_completionHandler___block_invoke;
+    v17[3] = &unk_279E77D58;
+    v18 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v14 withReplyHandler:v17];
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway importBookmarksFromURL:v14 inFolderWithSuggestedName:? completionHandler:?];
+      [WebBookmarksSettingsGateway importBookmarksFromURL:v16 inFolderWithSuggestedName:? completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v11);
+    (*(handlerCopy + 2))(handlerCopy, 0, v13);
   }
 }
 
@@ -586,33 +595,34 @@ void __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSugges
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSuggestedName_completionHandler___block_invoke_cold_1(v11);
+      __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSuggestedName_completionHandler___block_invoke_cold_1(v14);
     }
 
-    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v7);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v8);
   }
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXImport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import bookmarks", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import bookmarks", v15, 2u);
       }
     }
 
-    v9 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(v5, kWebBookmarksImportBookmarksItemsCountKey);
-    (*(v9 + 16))(v9, uint64, 0);
+    (*(v12 + 16))(v12, uint64, 0);
   }
 }
 
@@ -651,32 +661,34 @@ void __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtensio
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtension_profileIdentifier_completionHandler___block_invoke_cold_1(v7);
+      __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtension_profileIdentifier_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v11 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v11)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXExport();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v13 = WBS_LOG_CHANNEL_PREFIXExport(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272C20000, v9, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export Safari's history", v10, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export Safari's history", v14, 2u);
       }
     }
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v8 + 16))(v8, v6);
+    (*(v10 + 16))(v10, v8);
   }
 }
 
@@ -690,16 +702,16 @@ void __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtensio
   v11 = MEMORY[0x277CCAAB0];
   allObjects = [identifiersCopy allObjects];
 
-  v19 = 0;
-  v13 = [v11 archivedDataWithRootObject:allObjects requiringSecureCoding:0 error:&v19];
-  v14 = v19;
+  v21 = 0;
+  v13 = [v11 archivedDataWithRootObject:allObjects requiringSecureCoding:0 error:&v21];
+  v14 = v21;
 
   if (v14)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXExport(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway numberOfHistorySitesToBeExportedWithProfileIdentifiers:v15 completionHandler:?];
+      [WebBookmarksSettingsGateway numberOfHistorySitesToBeExportedWithProfileIdentifiers:v17 completionHandler:?];
     }
 
     handlerCopy[2](handlerCopy, 0, v14);
@@ -708,13 +720,13 @@ void __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtensio
   else
   {
     xpc_dictionary_set_data(v10, kWebBookmarksNumberOfHistorySitesToBeExportedProfileIdentifiersKey, [v13 bytes], objc_msgSend(v13, "length"));
-    v16 = self->_connection;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __104__WebBookmarksSettingsGateway_numberOfHistorySitesToBeExportedWithProfileIdentifiers_completionHandler___block_invoke;
-    v17[3] = &unk_279E77D58;
-    v18 = handlerCopy;
-    [(WebBookmarksXPCConnection *)v16 sendMessage:v10 withReplyHandler:v17];
+    v18 = self->_connection;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __104__WebBookmarksSettingsGateway_numberOfHistorySitesToBeExportedWithProfileIdentifiers_completionHandler___block_invoke;
+    v19[3] = &unk_279E77D58;
+    v20 = handlerCopy;
+    [(WebBookmarksXPCConnection *)v18 sendMessage:v10 withReplyHandler:v19];
   }
 }
 
@@ -722,13 +734,13 @@ void __104__WebBookmarksSettingsGateway_numberOfHistorySitesToBeExportedWithProf
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtension_profileIdentifier_completionHandler___block_invoke_cold_1(v11);
+      __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtension_profileIdentifier_completionHandler___block_invoke_cold_1(v14);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
@@ -736,19 +748,20 @@ void __104__WebBookmarksSettingsGateway_numberOfHistorySitesToBeExportedWithProf
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXExport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXExport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export Safari's history", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to export Safari's history", v15, 2u);
       }
     }
 
-    v9 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(v5, kWebBookmarksNumberOfHistorySitesToBeExportedKey);
-    (*(v9 + 16))(v9, uint64, 0);
+    (*(v12 + 16))(v12, uint64, 0);
   }
 }
 
@@ -756,43 +769,44 @@ void __104__WebBookmarksSettingsGateway_numberOfHistorySitesToBeExportedWithProf
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  v20 = 0;
-  v12 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v20];
-  v13 = v20;
+  v22 = 0;
+  v12 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v22];
+  v13 = v22;
+  v15 = v13;
   if (v12)
   {
-    v14 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportHistoryMessageName];
-    xpc_dictionary_set_fd(v14, kWebBookmarksImportHistoryFileDescriptorKey, [v12 fileDescriptor]);
-    xpc_dictionary_set_double(v14, kWebBookmarksImportHistoryAgeLimitKey, limit);
+    v16 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportHistoryMessageName];
+    xpc_dictionary_set_fd(v16, kWebBookmarksImportHistoryFileDescriptorKey, [v12 fileDescriptor]);
+    xpc_dictionary_set_double(v16, kWebBookmarksImportHistoryAgeLimitKey, limit);
     if (identifierCopy)
     {
-      v15 = identifierCopy;
+      v17 = identifierCopy;
     }
 
     else
     {
-      v15 = *MEMORY[0x277D49BD8];
+      v17 = *MEMORY[0x277D49BD8];
     }
 
-    xpc_dictionary_set_string(v14, kWebsiteProfileIdentifiersKey, [v15 UTF8String]);
+    xpc_dictionary_set_string(v16, kWebsiteProfileIdentifiersKey, [v17 UTF8String]);
     connection = self->_connection;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke;
-    v18[3] = &unk_279E77D58;
-    v19 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v14 withReplyHandler:v18];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke;
+    v20[3] = &unk_279E77D58;
+    v21 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v16 withReplyHandler:v20];
   }
 
   else
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXImport(v13, v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway importSafariHistoryFromURL:v17 ageLimit:? profileIdentifier:? completionHandler:?];
+      [WebBookmarksSettingsGateway importSafariHistoryFromURL:v19 ageLimit:? profileIdentifier:? completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v13);
+    (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
 }
 
@@ -800,13 +814,13 @@ void __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_prof
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke_cold_1(v11);
+      __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke_cold_1(v14);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
@@ -814,19 +828,20 @@ void __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_prof
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXImport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import Safari's history", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import Safari's history", v15, 2u);
       }
     }
 
-    v9 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(v5, kWebBookmarksImportHistoryItemsCountKey);
-    (*(v9 + 16))(v9, uint64, 0);
+    (*(v12 + 16))(v12, uint64, 0);
   }
 }
 
@@ -838,49 +853,50 @@ void __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_prof
   v11 = kWebBookmarksScanImportURLsMessageName;
   lsCopy = ls;
   v13 = [(WebBookmarksXPCConnection *)connection messageWithName:v11];
-  v24 = 0;
-  v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:lsCopy requiringSecureCoding:0 error:&v24];
+  v27 = 0;
+  v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:lsCopy requiringSecureCoding:0 error:&v27];
 
-  v15 = v24;
+  v15 = v27;
   if (v15)
   {
-    v16 = v15;
-    v17 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v17 = v15;
+    v18 = WBS_LOG_CHANNEL_PREFIXImport(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway scanImportURLs:v17 sandboxExtensions:? completionHandler:?];
+      [WebBookmarksSettingsGateway scanImportURLs:v18 sandboxExtensions:? completionHandler:?];
     }
 
-    handlerCopy[2](handlerCopy, MEMORY[0x277CBEC10], v16);
+    handlerCopy[2](handlerCopy, MEMORY[0x277CBEC10], v17);
   }
 
   else
   {
-    v23 = 0;
-    v18 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:extensionsCopy requiringSecureCoding:0 error:&v23];
-    v16 = v23;
-    if (v16)
+    v26 = 0;
+    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:extensionsCopy requiringSecureCoding:0 error:&v26];
+    v20 = v26;
+    v17 = v20;
+    if (v20)
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXImport(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [WebBookmarksSettingsGateway scanImportURLs:v19 sandboxExtensions:? completionHandler:?];
+        [WebBookmarksSettingsGateway scanImportURLs:v22 sandboxExtensions:? completionHandler:?];
       }
 
-      handlerCopy[2](handlerCopy, MEMORY[0x277CBEC10], v16);
+      handlerCopy[2](handlerCopy, MEMORY[0x277CBEC10], v17);
     }
 
     else
     {
       xpc_dictionary_set_data(v13, kWebBookmarksImportURLsKey, [v14 bytes], objc_msgSend(v14, "length"));
-      xpc_dictionary_set_data(v13, kWebBookmarksImportSandboxExtensionsKey, [v18 bytes], objc_msgSend(v18, "length"));
-      v20 = self->_connection;
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke;
-      v21[3] = &unk_279E77D58;
-      v22 = handlerCopy;
-      [(WebBookmarksXPCConnection *)v20 sendMessage:v13 withReplyHandler:v21];
+      xpc_dictionary_set_data(v13, kWebBookmarksImportSandboxExtensionsKey, [v19 bytes], objc_msgSend(v19, "length"));
+      v23 = self->_connection;
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke;
+      v24[3] = &unk_279E77D58;
+      v25 = handlerCopy;
+      [(WebBookmarksXPCConnection *)v23 sendMessage:v13 withReplyHandler:v24];
     }
   }
 }
@@ -889,13 +905,13 @@ void __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completi
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v26 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_2(v21);
+      __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_2(v26);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -903,80 +919,82 @@ void __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completi
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXImport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to scan import URLs", buf, 2u);
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to scan import URLs", buf, 2u);
       }
     }
 
     *buf = 0;
     data = xpc_dictionary_get_data(v5, kWebBookmarksImportURLsResultKey, buf);
-    v10 = MEMORY[0x277CCAAC8];
-    v11 = MEMORY[0x277CBEB98];
-    v12 = objc_opt_class();
-    v13 = objc_opt_class();
-    v14 = objc_opt_class();
-    v15 = [v11 setWithObjects:{v12, v13, v14, objc_opt_class(), 0}];
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:data length:*buf];
-    v22 = 0;
-    v17 = [v10 unarchivedObjectOfClasses:v15 fromData:v16 error:&v22];
-    v18 = v22;
+    v13 = MEMORY[0x277CCAAC8];
+    v14 = MEMORY[0x277CBEB98];
+    v15 = objc_opt_class();
+    v16 = objc_opt_class();
+    v17 = objc_opt_class();
+    v18 = [v14 setWithObjects:{v15, v16, v17, objc_opt_class(), 0}];
+    v19 = [MEMORY[0x277CBEA90] dataWithBytes:data length:*buf];
+    v27 = 0;
+    v20 = [v13 unarchivedObjectOfClasses:v18 fromData:v19 error:&v27];
+    v21 = v27;
 
-    if (v18)
+    if (v21)
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v24 = WBS_LOG_CHANNEL_PREFIXImport(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(v19);
+        __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(v24);
       }
     }
 
-    if (v17)
+    if (v20)
     {
-      v20 = v17;
+      v25 = v20;
     }
 
     else
     {
-      v20 = MEMORY[0x277CBEC10];
+      v25 = MEMORY[0x277CBEC10];
     }
 
-    (*(*(a1 + 32) + 16))(*(a1 + 32), v20, v18);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), v25, v21);
   }
 }
 
 - (void)importChromeExtensionsFromURL:(id)l completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v14 = 0;
-  v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v14];
-  v8 = v14;
+  v16 = 0;
+  v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v16];
+  v8 = v16;
+  v10 = v8;
   if (v7)
   {
-    v9 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportChromeExtensionsMessageName];
-    xpc_dictionary_set_fd(v9, kWebBookmarksImportChromeExtensionsFileDescriptorKey, [v7 fileDescriptor]);
+    v11 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportChromeExtensionsMessageName];
+    xpc_dictionary_set_fd(v11, kWebBookmarksImportChromeExtensionsFileDescriptorKey, [v7 fileDescriptor]);
     connection = self->_connection;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke;
-    v12[3] = &unk_279E77D58;
-    v13 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v9 withReplyHandler:v12];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke;
+    v14[3] = &unk_279E77D58;
+    v15 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v11 withReplyHandler:v14];
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXImport(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway importChromeExtensionsFromURL:v11 completionHandler:?];
+      [WebBookmarksSettingsGateway importChromeExtensionsFromURL:v13 completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, v8);
+    (*(handlerCopy + 2))(handlerCopy, v10);
   }
 }
 
@@ -984,24 +1002,26 @@ void __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionH
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke_cold_1(v7);
+      __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v10 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v10)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXImport(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import extensions", v9, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import extensions", v13, 2u);
       }
     }
   }
@@ -1038,24 +1058,26 @@ void __74__WebBookmarksSettingsGateway_importCreditCardsFromURL_completionHandle
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __74__WebBookmarksSettingsGateway_importCreditCardsFromURL_completionHandler___block_invoke_cold_1(v7);
+      __74__WebBookmarksSettingsGateway_importCreditCardsFromURL_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v10 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v10)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXImport(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import credit cards", v9, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import credit cards", v13, 2u);
       }
     }
   }
@@ -1066,31 +1088,32 @@ void __74__WebBookmarksSettingsGateway_importCreditCardsFromURL_completionHandle
 - (void)importExtensionsFromURL:(id)l completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v14 = 0;
-  v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v14];
-  v8 = v14;
+  v16 = 0;
+  v7 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v16];
+  v8 = v16;
+  v10 = v8;
   if (v7)
   {
-    v9 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportExtensionsMessageName];
-    xpc_dictionary_set_fd(v9, kWebBookmarksImportExtensionsFileDescriptorKey, [v7 fileDescriptor]);
+    v11 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportExtensionsMessageName];
+    xpc_dictionary_set_fd(v11, kWebBookmarksImportExtensionsFileDescriptorKey, [v7 fileDescriptor]);
     connection = self->_connection;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __73__WebBookmarksSettingsGateway_importExtensionsFromURL_completionHandler___block_invoke;
-    v12[3] = &unk_279E77D58;
-    v13 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v9 withReplyHandler:v12];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __73__WebBookmarksSettingsGateway_importExtensionsFromURL_completionHandler___block_invoke;
+    v14[3] = &unk_279E77D58;
+    v15 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v11 withReplyHandler:v14];
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXImport(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway importExtensionsFromURL:v11 completionHandler:?];
+      [WebBookmarksSettingsGateway importExtensionsFromURL:v13 completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, v8);
+    (*(handlerCopy + 2))(handlerCopy, v10);
   }
 }
 
@@ -1098,24 +1121,26 @@ void __73__WebBookmarksSettingsGateway_importExtensionsFromURL_completionHandler
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke_cold_1(v7);
+      __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke_cold_1(v9);
     }
   }
 
   else if (v5)
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v10 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v10)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXImport(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import extensions", v9, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import extensions", v13, 2u);
       }
     }
   }
@@ -1127,32 +1152,33 @@ void __73__WebBookmarksSettingsGateway_importExtensionsFromURL_completionHandler
 {
   typeCopy = type;
   handlerCopy = handler;
-  v17 = 0;
-  v10 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v17];
-  v11 = v17;
+  v19 = 0;
+  v10 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v19];
+  v11 = v19;
+  v13 = v11;
   if (v10)
   {
-    v12 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksComputeNumberOfItemsToBeImportedMessageName];
-    xpc_dictionary_set_fd(v12, kWebBookmarksComputeNumberOfItemsToBeImportedFileDescriptorKey, [v10 fileDescriptor]);
-    xpc_dictionary_set_string(v12, kWebBookmarksComputeNumberOfItemsToBeImportedMetadataDataTypeKey, [typeCopy UTF8String]);
+    v14 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksComputeNumberOfItemsToBeImportedMessageName];
+    xpc_dictionary_set_fd(v14, kWebBookmarksComputeNumberOfItemsToBeImportedFileDescriptorKey, [v10 fileDescriptor]);
+    xpc_dictionary_set_string(v14, kWebBookmarksComputeNumberOfItemsToBeImportedMetadataDataTypeKey, [typeCopy UTF8String]);
     connection = self->_connection;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_exportMetadataDataType_completionHandler___block_invoke;
-    v15[3] = &unk_279E77D58;
-    v16 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v12 withReplyHandler:v15];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_exportMetadataDataType_completionHandler___block_invoke;
+    v17[3] = &unk_279E77D58;
+    v18 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v14 withReplyHandler:v17];
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway computeNumberOfItemsToBeImportedFromURL:v14 exportMetadataDataType:? completionHandler:?];
+      [WebBookmarksSettingsGateway computeNumberOfItemsToBeImportedFromURL:v16 exportMetadataDataType:? completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v11);
+    (*(handlerCopy + 2))(handlerCopy, 0, v13);
   }
 }
 
@@ -1160,33 +1186,34 @@ void __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_exportMetadataDataType_completionHandler___block_invoke_cold_1(v11);
+      __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_exportMetadataDataType_completionHandler___block_invoke_cold_1(v14);
     }
 
-    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v7);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), 0, v8);
   }
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXImport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to compute the number of items to be imported", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to compute the number of items to be imported", v15, 2u);
       }
     }
 
-    v9 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(v5, kWebBookmarksComputeNumberOfItemsToBeImportedResultKey);
-    (*(v9 + 16))(v9, uint64, 0);
+    (*(v12 + 16))(v12, uint64, 0);
   }
 }
 
@@ -1194,43 +1221,44 @@ void __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  v20 = 0;
-  v12 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v20];
-  v13 = v20;
+  v22 = 0;
+  v12 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:l error:&v22];
+  v13 = v22;
+  v15 = v13;
   if (v12)
   {
-    v14 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportChromeHistoryMessageName];
-    xpc_dictionary_set_fd(v14, kWebBookmarksImportChromeHistoryFileDescriptorKey, [v12 fileDescriptor]);
-    xpc_dictionary_set_double(v14, kWebBookmarksImportChromeHistoryAgeLimitKey, limit);
+    v16 = [(WebBookmarksXPCConnection *)self->_connection messageWithName:kWebBookmarksImportChromeHistoryMessageName];
+    xpc_dictionary_set_fd(v16, kWebBookmarksImportChromeHistoryFileDescriptorKey, [v12 fileDescriptor]);
+    xpc_dictionary_set_double(v16, kWebBookmarksImportChromeHistoryAgeLimitKey, limit);
     if (identifierCopy)
     {
-      v15 = identifierCopy;
+      v17 = identifierCopy;
     }
 
     else
     {
-      v15 = *MEMORY[0x277D49BD8];
+      v17 = *MEMORY[0x277D49BD8];
     }
 
-    xpc_dictionary_set_string(v14, kWebsiteProfileIdentifiersKey, [v15 UTF8String]);
+    xpc_dictionary_set_string(v16, kWebsiteProfileIdentifiersKey, [v17 UTF8String]);
     connection = self->_connection;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __103__WebBookmarksSettingsGateway_importChromeHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke;
-    v18[3] = &unk_279E77D58;
-    v19 = handlerCopy;
-    [(WebBookmarksXPCConnection *)connection sendMessage:v14 withReplyHandler:v18];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __103__WebBookmarksSettingsGateway_importChromeHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke;
+    v20[3] = &unk_279E77D58;
+    v21 = handlerCopy;
+    [(WebBookmarksXPCConnection *)connection sendMessage:v16 withReplyHandler:v20];
   }
 
   else
   {
-    v17 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXImport(v13, v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksSettingsGateway importSafariHistoryFromURL:v17 ageLimit:? profileIdentifier:? completionHandler:?];
+      [WebBookmarksSettingsGateway importSafariHistoryFromURL:v19 ageLimit:? profileIdentifier:? completionHandler:?];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v13);
+    (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
 }
 
@@ -1238,13 +1266,13 @@ void __103__WebBookmarksSettingsGateway_importChromeHistoryFromURL_ageLimit_prof
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke_cold_1(v11);
+      __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke_cold_1(v14);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), 0, 0);
@@ -1252,19 +1280,20 @@ void __103__WebBookmarksSettingsGateway_importChromeHistoryFromURL_ageLimit_prof
 
   else
   {
-    if (xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey))
+    v9 = xpc_dictionary_get_BOOL(v5, webBookmarksMessageReceivedAcknowledgementKey);
+    if (v9)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = WBS_LOG_CHANNEL_PREFIXImport(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import Safari's history", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Received acknowledgement that XPC message was delivered to import Safari's history", v15, 2u);
       }
     }
 
-    v9 = *(a1 + 32);
+    v12 = *(a1 + 32);
     uint64 = xpc_dictionary_get_uint64(v5, kWebBookmarksImportChromeHistoryItemsCountKey);
-    (*(v9 + 16))(v9, uint64, 0);
+    (*(v12 + 16))(v12, uint64, 0);
   }
 }
 
@@ -1402,19 +1431,17 @@ LABEL_4:
 {
   v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = [errorCopy description];
+    v8 = v7;
+    v9 = [errorCopy description];
     v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "Settings gateway connection closed with error: %{public}@", &v10, 0xCu);
+    v11 = v9;
+    _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Settings gateway connection closed with error: %{public}@", &v10, 0xCu);
   }
 
   [(WebBookmarksSettingsGateway *)self _setupConnection];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WBSCreditCardImporterDelegate)creditCardImporterDelegate
@@ -1433,244 +1460,178 @@ LABEL_4:
 
 void __67__WebBookmarksSettingsGateway_getSafariWebDataUsageWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() localizedDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error obtaining website data from webbookmarksd: %{public}@.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error obtaining website data from webbookmarksd: %{public}@.", v6, v7, v8, v9);
 }
 
 void __104__WebBookmarksSettingsGateway_deleteAllSafariSecurityOriginsForProfileWithIdentifier_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete all website data. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete all website data. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __79__WebBookmarksSettingsGateway_deleteSafariWebsiteDataRecord_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete individual website data. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete individual website data. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __90__WebBookmarksSettingsGateway_deleteSafariPersistentURLCacheStorageWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete persistent URL cache storage. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete persistent URL cache storage. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __155__WebBookmarksSettingsGateway_clearHistoryVisitsAddedAfterDate_beforeDate_profileIdentifiers_options_clearAllSpotlightHistoryForProfile_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete Safari's history. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to delete Safari's history. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __87__WebBookmarksSettingsGateway_exportBookmarksToURL_sandboxExtension_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to export bookmarks. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to export bookmarks. Error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)importBookmarksFromURL:(void *)a1 inFolderWithSuggestedName:completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import bookmarks from: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import bookmarks from: %{public}@", v6, v7, v8, v9);
 }
 
 void __98__WebBookmarksSettingsGateway_importBookmarksFromURL_inFolderWithSuggestedName_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import bookmarks. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import bookmarks. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __109__WebBookmarksSettingsGateway_exportSafariHistoryToURL_sandboxExtension_profileIdentifier_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to export Safari's history. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to export Safari's history. Error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)numberOfHistorySitesToBeExportedWithProfileIdentifiers:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the profile identifiers to get the number of history sites for: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the profile identifiers to get the number of history sites for: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)importSafariHistoryFromURL:(void *)a1 ageLimit:profileIdentifier:completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import history from: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import history from: %{public}@", v6, v7, v8, v9);
 }
 
 void __103__WebBookmarksSettingsGateway_importSafariHistoryFromURL_ageLimit_profileIdentifier_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import Safari's history. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import Safari's history. Error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)scanImportURLs:(void *)a1 sandboxExtensions:completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the import URLs to be scanned: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the import URLs to be scanned: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)scanImportURLs:(void *)a1 sandboxExtensions:completionHandler:.cold.2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the sandbox extensions: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to archive the sandbox extensions: %{public}@", v6, v7, v8, v9);
 }
 
 void __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to read the reply data from scanning import URLs: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Failed to read the reply data from scanning import URLs: %{public}@", v6, v7, v8, v9);
 }
 
 void __82__WebBookmarksSettingsGateway_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to scan import URLs. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to scan import URLs. Error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)importChromeExtensionsFromURL:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import Chrome extensions from: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import Chrome extensions from: %{public}@", v6, v7, v8, v9);
 }
 
 void __79__WebBookmarksSettingsGateway_importChromeExtensionsFromURL_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import extensions. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import extensions. Error: %{public}@", v6, v7, v8, v9);
 }
 
 void __74__WebBookmarksSettingsGateway_importCreditCardsFromURL_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import credit cards. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to import credit cards. Error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)importExtensionsFromURL:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import extensions from: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle to import extensions from: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)computeNumberOfItemsToBeImportedFromURL:(void *)a1 exportMetadataDataType:completionHandler:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle for the file to compute the number of items to be imported from %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while creating a file handle for the file to compute the number of items to be imported from %{public}@", v6, v7, v8, v9);
 }
 
 void __112__WebBookmarksSettingsGateway_computeNumberOfItemsToBeImportedFromURL_exportMetadataDataType_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4_0() wb_privacyPreservingDescription];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to compute the number of items to be imported. Error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_272C20000, v4, v5, "Error encountered while delivering XPC message to compute the number of items to be imported. Error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

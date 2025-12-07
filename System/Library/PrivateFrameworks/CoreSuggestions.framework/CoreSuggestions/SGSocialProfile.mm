@@ -25,14 +25,12 @@
     label2 = @"unlabeled";
   }
 
-  displayName = self->_displayName;
-  service = self->_service;
-  v9 = [v3 initWithFormat:@"%@/[%@ %@:%@:%@:%@:%@]", label2, displayName, self->_bundleIdentifier, self->_username, self->_userIdentifier, service, self->_teamIdentifier];
+  v7 = [v3 initWithFormat:@"%@/[%@ %@:%@:%@:%@:%@]", label2, self->_displayName, self->_bundleIdentifier, self->_username, self->_userIdentifier, self->_service, self->_teamIdentifier];
   if (v5)
   {
   }
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

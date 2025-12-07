@@ -75,7 +75,7 @@
 
 - (id)accessibilityCustomActions
 {
-  v12[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   if ([(SocialPersonHorizontalCellAccessibility *)self safeBoolForKey:@"accessibilityIsFollowRequest"])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
@@ -86,17 +86,15 @@
     v7 = accessibilityMusicLocalizedString(@"decline.action");
     v8 = [v6 initWithName:v7 target:self selector:sel__accessibilityDeclineButtonAction_];
 
-    v12[0] = v5;
-    v12[1] = v8;
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
+    v11[0] = v5;
+    v11[1] = v8;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:2];
   }
 
   else
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v9;
 }

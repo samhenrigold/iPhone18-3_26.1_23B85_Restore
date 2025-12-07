@@ -77,52 +77,52 @@
 
 - (void)_dissectMessage:(id)message entity:(id)entity
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
   attachments = [messageCopy attachments];
-  v40 = [(SGWalletPassAttachmentDissector *)self _filteredWalletPassAttachmentsFrom:attachments];
+  v39 = [(SGWalletPassAttachmentDissector *)self _filteredWalletPassAttachmentsFrom:attachments];
 
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
     attachments2 = [messageCopy attachments];
     *buf = 138412802;
-    *&buf[4] = v38;
+    *&buf[4] = v37;
     *&buf[12] = 2048;
-    *&buf[14] = [attachments2 count];
+    *&buf[14] = objc_msgSend_count(attachments2);
     *&buf[22] = 2048;
-    v61 = [v40 count];
+    v60 = objc_msgSend_count(v39);
     _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "%@: Message with %tu attachments (%tu downloaded wallet pass attachments)", buf, 0x20u);
   }
 
-  if ([v40 count])
+  if (objc_msgSend_count(v39))
   {
-    v47 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v46 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
     v52 = 0u;
-    obj = v40;
-    v8 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    obj = v39;
+    v8 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
     if (!v8)
     {
       goto LABEL_41;
     }
 
-    v49 = *v52;
+    v48 = *v51;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v52 != v49)
+        if (*v51 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v51 + 1) + 8 * i);
+        v10 = *(*(&v50 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         path = [v10 path];
         if (path)
@@ -130,28 +130,28 @@
           v13 = [(SGWalletPassAttachmentDissector *)self _passDataForFilePath:path];
           if (v13)
           {
-            v55 = 0;
-            v56 = &v55;
-            v57 = 0x2050000000;
+            v54 = 0;
+            v55 = &v54;
+            v56 = 0x2050000000;
             v14 = getPKPassClass_softClass;
-            v58 = getPKPassClass_softClass;
+            v57 = getPKPassClass_softClass;
             if (!getPKPassClass_softClass)
             {
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __getPKPassClass_block_invoke;
-              v61 = &unk_278955BF0;
-              v62 = &v55;
+              v60 = &unk_278955BF0;
+              v61 = &v54;
               __getPKPassClass_block_invoke(buf);
-              v14 = v56[3];
+              v14 = v55[3];
             }
 
             v15 = v14;
-            _Block_object_dispose(&v55, 8);
+            _Block_object_dispose(&v54, 8);
             v16 = [v14 alloc];
-            v50 = 0;
-            v17 = [v16 initWithData:v13 error:&v50];
-            v18 = v50;
+            v49 = 0;
+            v17 = [v16 initWithData:v13 error:&v49];
+            v18 = v49;
             v19 = v18;
             if (!v17 || v18)
             {
@@ -159,10 +159,10 @@
               if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 v27 = objc_opt_class();
-                v41 = NSStringFromClass(v27);
+                v40 = NSStringFromClass(v27);
                 localizedDescription = [v19 localizedDescription];
                 *buf = 138412546;
-                *&buf[4] = v41;
+                *&buf[4] = v40;
                 *&buf[12] = 2112;
                 *&buf[14] = localizedDescription;
                 _os_log_error_impl(&dword_231E60000, v26, OS_LOG_TYPE_ERROR, "%@: Error encountered while initializing Wallet Pass from NSData: %@", buf, 0x16u);
@@ -177,10 +177,10 @@
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
                 {
                   v30 = objc_opt_class();
-                  v42 = NSStringFromClass(v30);
+                  v41 = NSStringFromClass(v30);
                   serialNumber = [v17 serialNumber];
                   *buf = 138412547;
-                  *&buf[4] = v42;
+                  *&buf[4] = v41;
                   *&buf[12] = 2113;
                   *&buf[14] = serialNumber;
                   _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "%@, Wallet Pass with Serial No. %{private}@ exists, setting state duplicate", buf, 0x16u);
@@ -201,10 +201,10 @@
                 if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                 {
                   v34 = objc_opt_class();
-                  v44 = NSStringFromClass(v34);
+                  v43 = NSStringFromClass(v34);
                   serialNumber2 = [v17 serialNumber];
                   *buf = 138412547;
-                  *&buf[4] = v44;
+                  *&buf[4] = v43;
                   *&buf[12] = 2113;
                   *&buf[14] = serialNumber2;
                   _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "%@, Cannot add wallet pass with Serial No. %{private}@ exists", buf, 0x16u);
@@ -218,9 +218,9 @@ LABEL_30:
               if (v26)
               {
                 v29 = [(SGWalletPassAttachmentDissector *)self _enrichmentsForWalletPassDictionary:v26 filePath:path parentMessage:messageCopy parentEntity:entityCopy];
-                if ([v47 count] <= 9)
+                if (objc_msgSend_count(v46) <= 9)
                 {
-                  [v47 addObjectsFromArray:v29];
+                  [v46 addObjectsFromArray:v29];
                 }
               }
 
@@ -233,7 +233,7 @@ LABEL_30:
                   v33 = NSStringFromClass(v32);
                   *buf = 138412290;
                   *&buf[4] = v33;
-                  v43 = v33;
+                  v42 = v33;
                   _os_log_error_impl(&dword_231E60000, v29, OS_LOG_TYPE_ERROR, "%@: Pass dictionary is nil. Skipping further processing of this pass", buf, 0xCu);
                 }
               }
@@ -271,23 +271,22 @@ LABEL_39:
         objc_autoreleasePoolPop(v11);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v8 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
       if (!v8)
       {
 LABEL_41:
 
-        [entityCopy addEnrichments:v47];
+        [entityCopy addEnrichments:v46];
         break;
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_extractPassInformation:(id)information filePath:(id)path state:(int)state
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v5 = *&state;
+  v50 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   pathCopy = path;
   v10 = objc_opt_new();
@@ -354,14 +353,14 @@ LABEL_41:
   }
 
   [v10 setObject:pathCopy forKeyedSubscript:@"filepath"];
-  v23 = walletPassStateDescription(state);
+  v23 = walletPassStateDescription(v5);
   [v10 setObject:v23 forKeyedSubscript:@"passState"];
 
   localizedName3 = [informationCopy localizedName];
   v25 = [localizedName3 isEqualToString:@"BoardingPass"];
 
   allSemantics = [informationCopy allSemantics];
-  v27 = [allSemantics count];
+  v27 = objc_msgSend_count(allSemantics);
 
   if (v27)
   {
@@ -378,9 +377,9 @@ LABEL_41:
     {
       v37 = objc_opt_class();
       v38 = NSStringFromClass(v37);
-      v47 = 138412290;
-      v48 = v38;
-      _os_log_error_impl(&dword_231E60000, v31, OS_LOG_TYPE_ERROR, "%@: Missing serial number. Skipping wallet pass", &v47, 0xCu);
+      v46 = 138412290;
+      v47 = v38;
+      _os_log_error_impl(&dword_231E60000, v31, OS_LOG_TYPE_ERROR, "%@: Missing serial number. Skipping wallet pass", &v46, 0xCu);
 LABEL_30:
     }
 
@@ -406,11 +405,11 @@ LABEL_31:
       v39 = objc_opt_class();
       v38 = NSStringFromClass(v39);
       localizedDescription3 = [informationCopy localizedDescription];
-      v47 = 138412547;
-      v48 = v38;
-      v49 = 2113;
-      v50 = localizedDescription3;
-      _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "%@: Ignoring pass without departure date: %{private}@", &v47, 0x16u);
+      v46 = 138412547;
+      v47 = v38;
+      v48 = 2113;
+      v49 = localizedDescription3;
+      _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "%@: Ignoring pass without departure date: %{private}@", &v46, 0x16u);
 
       goto LABEL_30;
     }
@@ -428,14 +427,14 @@ LABEL_31:
     v36 = sgLogHandle();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v44 = objc_opt_class();
-      v45 = NSStringFromClass(v44);
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
       localizedDescription4 = [informationCopy localizedDescription];
-      v47 = 138412547;
-      v48 = v45;
-      v49 = 2113;
-      v50 = localizedDescription4;
-      _os_log_debug_impl(&dword_231E60000, v36, OS_LOG_TYPE_DEBUG, "%@: Ignoring old pass: %{private}@", &v47, 0x16u);
+      v46 = 138412547;
+      v47 = v44;
+      v48 = 2113;
+      v49 = localizedDescription4;
+      _os_log_debug_impl(&dword_231E60000, v36, OS_LOG_TYPE_DEBUG, "%@: Ignoring old pass: %{private}@", &v46, 0x16u);
     }
 
     goto LABEL_31;
@@ -445,14 +444,12 @@ LABEL_33:
   v41 = v10;
 LABEL_34:
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 - (id)_extractRelevantSemanticTagsFromPass:(id)pass
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   passCopy = pass;
   v4 = objc_opt_new();
   allSemantics = [passCopy allSemantics];
@@ -517,17 +514,17 @@ LABEL_34:
 
   if (locationValue)
   {
-    v117[0] = @"lat";
+    v116[0] = @"lat";
     v45 = MEMORY[0x277CCABB0];
     [locationValue coordinate];
     v46 = [v45 numberWithDouble:?];
-    v117[1] = @"lon";
-    v118[0] = v46;
+    v116[1] = @"lon";
+    v117[0] = v46;
     v47 = MEMORY[0x277CCABB0];
     [locationValue coordinate];
     v49 = [v47 numberWithDouble:v48];
-    v118[1] = v49;
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:v117 count:2];
+    v117[1] = v49;
+    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:2];
     v51 = getPKPassSemanticLocationKeyVenueLocation();
     [v4 setObject:v50 forKeyedSubscript:v51];
   }
@@ -556,17 +553,17 @@ LABEL_34:
 
   if (locationValue2)
   {
-    v115[0] = @"lat";
+    v114[0] = @"lat";
     v67 = MEMORY[0x277CCABB0];
     [locationValue2 coordinate];
     v68 = [v67 numberWithDouble:?];
-    v115[1] = @"lon";
-    v116[0] = v68;
+    v114[1] = @"lon";
+    v115[0] = v68;
     v69 = MEMORY[0x277CCABB0];
     [locationValue2 coordinate];
     v71 = [v69 numberWithDouble:v70];
-    v116[1] = v71;
-    v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v116 forKeys:v115 count:2];
+    v115[1] = v71;
+    v72 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:2];
     v73 = getPKPassSemanticLocationKeyDepartureLocation();
     [v4 setObject:v72 forKeyedSubscript:v73];
   }
@@ -577,17 +574,17 @@ LABEL_34:
 
   if (locationValue3)
   {
-    v113[0] = @"lat";
+    v112[0] = @"lat";
     v77 = MEMORY[0x277CCABB0];
     [locationValue3 coordinate];
     v78 = [v77 numberWithDouble:?];
-    v113[1] = @"lon";
-    v114[0] = v78;
+    v112[1] = @"lon";
+    v113[0] = v78;
     v79 = MEMORY[0x277CCABB0];
     [locationValue3 coordinate];
     v81 = [v79 numberWithDouble:v80];
-    v114[1] = v81;
-    v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:v113 count:2];
+    v113[1] = v81;
+    v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:2];
     v83 = getPKPassSemanticLocationKeyDestinationLocation();
     [v4 setObject:v82 forKeyedSubscript:v83];
   }
@@ -631,25 +628,23 @@ LABEL_34:
   v108 = sgLogHandle();
   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
   {
-    v111 = 138477827;
-    v112 = v4;
-    _os_log_debug_impl(&dword_231E60000, v108, OS_LOG_TYPE_DEBUG, "SGWalletPassAttachmentDissector: Extracted relevant semantic tags from pass: %{private}@", &v111, 0xCu);
+    v110 = 138477827;
+    v111 = v4;
+    _os_log_debug_impl(&dword_231E60000, v108, OS_LOG_TYPE_DEBUG, "SGWalletPassAttachmentDissector: Extracted relevant semantic tags from pass: %{private}@", &v110, 0xCu);
   }
-
-  v109 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_passDataForFilePath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = MEMORY[0x277CBEA90];
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-  v15 = 0;
-  v6 = [v4 dataWithContentsOfURL:v5 options:1 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [v4 dataWithContentsOfURL:v5 options:1 error:&v14];
+  v7 = v14;
 
   if (v6)
   {
@@ -661,32 +656,30 @@ LABEL_34:
     v9 = sgLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = &stru_284703F00;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = &stru_284703F00;
       *buf = 138412802;
-      v17 = v13;
+      v16 = v12;
       if (v7)
       {
-        v14 = v7;
+        v13 = v7;
       }
 
-      v18 = 2112;
-      v19 = pathCopy;
-      v20 = 2112;
-      v21 = v14;
+      v17 = 2112;
+      v18 = pathCopy;
+      v19 = 2112;
+      v20 = v13;
       _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "%@: Failed to read data for wallet pass: %@ - Error: %@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_enrichmentsForWalletPassDictionary:(id)dictionary filePath:(id)path parentMessage:(id)message parentEntity:(id)entity
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   pathCopy = path;
   entityCopy = entity;
@@ -698,9 +691,9 @@ LABEL_34:
   v15 = [dictionaryCopy objectForKeyedSubscript:@"description"];
   v16 = [(SGPipelineEnrichment *)v14 initWithDuplicateKey:v13 title:v15 parent:entityCopy];
 
-  v33 = 0;
-  v17 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v33];
-  v18 = v33;
+  v32 = 0;
+  v17 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:pathCopy options:1 error:&v32];
+  v18 = v32;
   if (v17)
   {
     v19 = [MEMORY[0x277D01FA0] walletPassData:v17];
@@ -715,10 +708,10 @@ LABEL_34:
       v23 = sgLogHandle();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
         *buf = 138412290;
-        v36 = v32;
+        v35 = v31;
         _os_log_error_impl(&dword_231E60000, v23, OS_LOG_TYPE_ERROR, "%@: Entity tag is nil for wallet pass data. Skipping this order", buf, 0xCu);
       }
 
@@ -734,11 +727,11 @@ LABEL_34:
       v21 = objc_opt_class();
       v22 = NSStringFromClass(v21);
       *buf = 138412802;
-      v36 = v22;
-      v37 = 2112;
-      v38 = pathCopy;
-      v39 = 2112;
-      v40 = v18;
+      v35 = v22;
+      v36 = 2112;
+      v37 = pathCopy;
+      v38 = 2112;
+      v39 = v18;
       _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "%@: Could not load data for file path: %@. Error: %@", buf, 0x20u);
     }
   }
@@ -750,8 +743,8 @@ LABEL_34:
     if (v16)
     {
 LABEL_11:
-      v34 = v16;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+      v33 = v16;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
       goto LABEL_16;
     }
   }
@@ -761,10 +754,10 @@ LABEL_11:
     v26 = sgLogHandle();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138412290;
-      v36 = v30;
+      v35 = v29;
       _os_log_error_impl(&dword_231E60000, v26, OS_LOG_TYPE_ERROR, "%@: Entity tag is nil for wallet pass dictionary. Skipping this order", buf, 0xCu);
     }
 
@@ -776,8 +769,6 @@ LABEL_11:
 
   v25 = 0;
 LABEL_16:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

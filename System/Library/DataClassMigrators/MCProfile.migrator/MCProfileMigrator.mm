@@ -7,6 +7,7 @@
 - (void)_createSystemMetadataFileIfNeeded;
 - (void)_handleUnsupervisedGrandfatheredRestrictions;
 - (void)_recomputeProfileRestrictions;
+- (void)_setStopFilteringGrandfatheredRestrictionsState:(BOOL)state;
 - (void)_stopAllowingGrandfatheredRestrictions;
 - (void)_storeAllowedGrandfatheredRestrictionsIfNeeded;
 @end
@@ -312,6 +313,23 @@ LABEL_33:
   }
 
   [(MCProfileMigrator *)self _setStopFilteringGrandfatheredRestrictionsState:0];
+}
+
+- (void)_setStopFilteringGrandfatheredRestrictionsState:(BOOL)state
+{
+  stateCopy = state;
+  [(MCProfileMigrator *)self _createSystemMetadataFileIfNeeded];
+  v4 = MCSystemMetadataFilePath();
+  v7 = [NSMutableDictionary dictionaryWithContentsOfFile:v4];
+
+  if (v7)
+  {
+    v5 = [NSNumber numberWithBool:stateCopy];
+    [v7 setObject:v5 forKeyedSubscript:kMCMetaStopFilteringGrandfatheredRestrictions];
+
+    v6 = MCSystemMetadataFilePath();
+    [v7 MCWriteToBinaryFile:v6];
+  }
 }
 
 - (void)_allowGrandfatheredRestrictionsIfNeeded

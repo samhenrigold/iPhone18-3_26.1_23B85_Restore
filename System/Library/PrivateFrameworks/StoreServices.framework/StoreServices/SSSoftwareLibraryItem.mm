@@ -40,7 +40,7 @@
 - (BOOL)setETag:(id)tag forAssetType:(id)type error:(id *)error
 {
   v43 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v9)
@@ -59,28 +59,27 @@
       v11 = shouldLog;
     }
 
-    if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v12 = v11;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v11 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       LODWORD(v38) = 136446210;
       *(&v38 + 4) = "[SSSoftwareLibraryItem setETag:forAssetType:error:]";
-      LODWORD(v32) = 12;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v38, v32}];
-        free(v14);
-        SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
@@ -95,32 +94,32 @@
   v40 = __Block_byref_object_copy__46;
   v41 = __Block_byref_object_dispose__46;
   v42 = 0;
-  v22 = SSXPCCreateMessageDictionary(90);
-  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v23 = SSXPCCreateMessageDictionary(90);
+  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
   tagCopy = tag;
   if (!tag)
   {
     tagCopy = [MEMORY[0x1E695DFB0] null];
   }
 
-  -[__CFString setObject:forKey:](v23, "setObject:forKey:", tagCopy, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$$%@$$%@", @"com.apple.iTunesStore.downloadInfo", @"etags", type]);
-  SSXPCDictionarySetCFObject(v22, "1", [(NSMutableDictionary *)self->_propertyValues objectForKey:@"bundle-id"]);
-  SSXPCDictionarySetCFObject(v22, "2", v23);
+  -[__CFString setObject:forKey:](v24, "setObject:forKey:", tagCopy, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@$$%@$$%@", @"com.apple.iTunesStore.downloadInfo", @"etags", type]);
+  SSXPCDictionarySetCFObject(v23, "1", [(NSMutableDictionary *)self->_propertyValues objectForKey:@"bundle-id"]);
+  SSXPCDictionarySetCFObject(v23, "2", v24);
 
-  v25 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
-  v26 = dispatch_semaphore_create(0);
+  v26 = [[SSXPCConnection alloc] initWithServiceName:@"com.apple.itunesstored.xpc"];
+  v27 = dispatch_semaphore_create(0);
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
   v33[2] = __52__SSSoftwareLibraryItem_setETag_forAssetType_error___block_invoke;
   v33[3] = &unk_1E84B17B0;
   v33[6] = &v34;
-  v33[4] = v26;
+  v33[4] = v27;
   v33[5] = &v38;
-  [(SSXPCConnection *)v25 sendMessage:v22 withReply:v33];
-  dispatch_semaphore_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
-  dispatch_release(v26);
+  [(SSXPCConnection *)v26 sendMessage:v23 withReply:v33];
+  dispatch_semaphore_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v27);
 
-  xpc_release(v22);
+  xpc_release(v23);
   if (*(v35 + 24) == 1)
   {
     etags = self->_etags;
@@ -141,18 +140,18 @@
     }
   }
 
-  v28 = *(*(&v38 + 1) + 40);
-  v29 = v35;
-  v30 = *(v35 + 24);
+  v29 = *(*(&v38 + 1) + 40);
+  v30 = v35;
+  v31 = *(v35 + 24);
   if (error && (v35[3] & 1) == 0)
   {
     *error = *(*(&v38 + 1) + 40);
-    v30 = *(v29 + 24);
+    v31 = *(v30 + 24);
   }
 
   _Block_object_dispose(&v38, 8);
   _Block_object_dispose(&v34, 8);
-  return v30 & 1;
+  return v31 & 1;
 }
 
 intptr_t __52__SSSoftwareLibraryItem_setETag_forAssetType_error___block_invoke(void *a1, void *a2)
@@ -261,22 +260,22 @@ LABEL_11:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v9.receiver = self;
-    v9.super_class = SSSoftwareLibraryItem;
-    v5 = [(SSSoftwareLibraryItem *)&v9 init];
+    v11.receiver = self;
+    v11.super_class = SSSoftwareLibraryItem;
+    v5 = [(SSSoftwareLibraryItem *)&v11 init];
     if (v5)
     {
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      v5->_etags = [(__CFArray *)v7 mutableCopy];
+      v7 = objc_opt_class();
+      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      v5->_etags = [(__CFDate *)v8 mutableCopy];
 
       v5->_beta = xpc_dictionary_get_BOOL(encoding, "4");
       v5->_launchProhibited = xpc_dictionary_get_BOOL(encoding, "5");
       v5->_placeholder = xpc_dictionary_get_BOOL(encoding, "3");
       v5->_profileValidated = xpc_dictionary_get_BOOL(encoding, "1");
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-      v5->_propertyValues = [(__CFArray *)v8 mutableCopy];
+      v9 = objc_opt_class();
+      v10 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v9);
+      v5->_propertyValues = [(__CFDate *)v10 mutableCopy];
     }
   }
 

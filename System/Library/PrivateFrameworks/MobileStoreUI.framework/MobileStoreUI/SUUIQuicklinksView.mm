@@ -78,9 +78,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v11 = objc_msgSend_primaryTextColor(schemeCopy);
   v12 = self->_titleColor;
-  self->_titleColor = primaryTextColor;
+  self->_titleColor = v11;
 
   titleLabel = self->_titleLabel;
   if (self->_titleColor)
@@ -92,11 +92,11 @@ LABEL_7:
   [(UILabel *)titleLabel setTextColor:blackColor];
 
 LABEL_8:
-  primaryTextColor2 = [schemeCopy primaryTextColor];
+  v13 = objc_msgSend_primaryTextColor(schemeCopy);
   borderView = self->_borderView;
-  if (primaryTextColor2)
+  if (v13)
   {
-    [(UIView *)borderView setBackgroundColor:primaryTextColor2];
+    [(UIView *)borderView setBackgroundColor:v13];
   }
 
   else
@@ -110,7 +110,7 @@ LABEL_8:
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

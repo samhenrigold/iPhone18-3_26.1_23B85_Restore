@@ -837,9 +837,9 @@ LABEL_18:
   v3 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
   hardwareKeyboardExclusivityIdentifier = [v3 hardwareKeyboardExclusivityIdentifier];
   hardwareKeyboardExclusivityIdentifier2 = [(_UIKeyboardStateManager *)self->_keyboardStateManager hardwareKeyboardExclusivityIdentifier];
-  v6 = [hardwareKeyboardExclusivityIdentifier isEqualToString:hardwareKeyboardExclusivityIdentifier2];
+  isEqualToString = objc_msgSend_isEqualToString_(hardwareKeyboardExclusivityIdentifier);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)delegateAsResponder
@@ -1675,7 +1675,7 @@ void __45__UIKeyboardImpl_touchAutocorrectPromptTimer__block_invoke(uint64_t a1,
         v60 = keyboardWindow;
         v62 = v5;
         v61 = v6;
-        if (![v6 isEqualToString:@"dictation"] || (-[UIView bounds](self, "bounds"), v23 = *MEMORY[0x1E695F060], *MEMORY[0x1E695F060] == v24) && (v23 = *(MEMORY[0x1E695F060] + 8), v23 == v22))
+        if (!objc_msgSend_isEqualToString_(v6) || ([(UIView *)self bounds], v23 = *MEMORY[0x1E695F060], *MEMORY[0x1E695F060] == v24) && (v23 = *(MEMORY[0x1E695F060] + 8), v23 == v22))
         {
           v25 = +[UIKeyboard activeKeyboard];
           interfaceOrientation = [v25 interfaceOrientation];
@@ -2553,7 +2553,8 @@ LABEL_14:
   {
     window3 = [(UIKeyboardImpl *)self window];
     v17 = objc_opt_class();
-    LODWORD(v17) = [v17 isEqual:objc_opt_class()];
+    objc_opt_class();
+    LODWORD(v17) = objc_msgSend_isEqual_(v17);
 
     if (v17)
     {
@@ -2725,9 +2726,9 @@ LABEL_19:
   v3 = +[UIKeyboardInputModeController sharedInputModeController];
   currentInputMode = [v3 currentInputMode];
   identifier = [currentInputMode identifier];
-  v6 = [identifier isEqualToString:@"autofillsignup"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v6)
+  if (isEqualToString)
   {
     LOBYTE(v7) = 0;
     return v7;
@@ -2771,7 +2772,7 @@ LABEL_11:
   {
     v12 = UIKeyboardGetCurrentInputMode();
     v13 = TIInputModeGetLanguage();
-    v14 = [v13 isEqualToString:@"zh"];
+    v14 = objc_msgSend_isEqualToString_(v13);
 
     LOBYTE(v7) = v14 ^ 1;
   }
@@ -2879,7 +2880,7 @@ LABEL_9:
   else
   {
     v8 = +[UIKeyboard keyboardBundleIdentifier];
-    if (([v8 isEqualToString:@"com.apple.Spotlight"] & 1) == 0 && !objc_msgSend(v8, "isEqualToString:", @"com.apple.SpotlightTest"))
+    if ((objc_msgSend_isEqualToString_(v8) & 1) == 0 && !objc_msgSend_isEqualToString_(v8))
     {
       goto LABEL_9;
     }
@@ -3136,7 +3137,7 @@ LABEL_5:
   else
   {
     v6 = +[UIKeyboard keyboardBundleIdentifier];
-    v7 = [v6 isEqualToString:@"com.apple.purplebuddy"] ^ 1;
+    v7 = objc_msgSend_isEqualToString_(v6) ^ 1;
   }
 
   return v7;
@@ -4806,13 +4807,13 @@ LABEL_7:
 {
   scrollingCopy = scrolling;
   name = [scrollingCopy name];
-  v6 = [name isEqualToString:@"UITextSelectionWillScroll"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
   object = [scrollingCopy object];
 
   if (+[UIKeyboard usesInputSystemUI])
   {
-    if (v6)
+    if (isEqualToString)
     {
       v7 = sel_textSelectionWillScroll;
     }
@@ -4827,7 +4828,7 @@ LABEL_7:
 
   else
   {
-    [(UIKeyboardImpl *)self _selectionScrolling:v6 scroller:object];
+    [(UIKeyboardImpl *)self _selectionScrolling:isEqualToString scroller:object];
   }
 }
 
@@ -5069,9 +5070,9 @@ LABEL_10:
     goto LABEL_7;
   }
 
-  if (![nameCopy isEqualToString:@"split-left"])
+  if (!objc_msgSend_isEqualToString_(nameCopy))
   {
-    if ([nameCopy isEqualToString:@"split-right"])
+    if (objc_msgSend_isEqualToString_(nameCopy))
     {
       [rtiInputSourceState rightSplitFrame];
       goto LABEL_6;
@@ -6993,8 +6994,8 @@ uint64_t __38__UIKeyboardImpl_keyboardMenuElements__block_invoke_3(uint64_t a1, 
   v4 = [v2 title];
   v5 = UIKeyboardLocalizedDictationDisplayName(v3);
 
-  v6 = [v4 isEqualToString:v5];
-  return v6;
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
+  return isEqualToString;
 }
 
 void __38__UIKeyboardImpl_keyboardMenuElements__block_invoke_297()
@@ -7133,9 +7134,9 @@ void __59__UIKeyboardImpl_presentEducationTipWithTitle_description___block_invok
   v6 = *(MEMORY[0x1E695F050] + 24);
   identifier = [configuration identifier];
   keyboardMenuTipIdentifier = [(UIKeyboardImpl *)self keyboardMenuTipIdentifier];
-  v10 = [identifier isEqual:keyboardMenuTipIdentifier];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v10)
+  if (isEqual)
   {
     v11 = +[UIDictationController sharedInstance];
     dictationTipController = [v11 dictationTipController];
@@ -7923,7 +7924,7 @@ LABEL_51:
 LABEL_53:
 }
 
-uint64_t __70__UIKeyboardImpl_presentKeyboardPopoverWithType_keyString_completion___block_invoke(uint64_t a1)
+void *__70__UIKeyboardImpl_presentKeyboardPopoverWithType_keyString_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canPresentEmojiPopover];
   v3 = *(a1 + 56);
@@ -10209,7 +10210,7 @@ LABEL_15:
   typeCopy = type;
   modeCopy = mode;
   traitsCopy = traits;
-  if ([modeCopy isEqualToString:@"intl_HWR"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v9 = 0;
   }
@@ -10704,9 +10705,9 @@ LABEL_20:
 {
   labelCopy = label;
   keyCopy = key;
-  v7 = [labelCopy isEqualToString:@"UI-Nothing"];
+  isEqualToString = objc_msgSend_isEqualToString_(labelCopy);
   m_layout = self->m_layout;
-  if (v7)
+  if (isEqualToString)
   {
     [(UIKeyboardLayout *)m_layout restoreDefaultsForKey:keyCopy];
   }
@@ -10882,7 +10883,7 @@ LABEL_11:
         v26 = ;
         if (UIKeyboardInputModeLanguageMatchesLocaleLanguage(v26, v71))
         {
-          if (!v21 || (+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController, "sharedInputModeController"), v27 = objc_claimAutoreleasedReturnValue(), [v27 currentInputMode], v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v25, "isEqual:", v28), v28, v23 = v66, v27, v29))
+          if (!v21 || (+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController, "sharedInputModeController"), v27 = objc_claimAutoreleasedReturnValue(), [v27 currentInputMode], v28 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v25), v28, v23 = v66, v27, isEqual))
           {
             v30 = v25;
 
@@ -10983,7 +10984,7 @@ LABEL_11:
 
           v46 = [v69 stringFromNumber:&unk_1EFE31C48];
           v47 = v46;
-          if ((v35 || ([v46 isEqualToString:v63] & 1) == 0) && (objc_msgSend(v68, "containsObject:", v47) & 1) == 0)
+          if ((v35 || (objc_msgSend_isEqualToString_(v46) & 1) == 0) && ([v68 containsObject:v47] & 1) == 0)
           {
             [v62 addObject:v43];
             [v68 addObject:v47];
@@ -12137,9 +12138,9 @@ LABEL_24:
   behaviorCopy = behavior;
   if (behavior == 8)
   {
-    v8 = [typeCopy isEqualToString:@"_keyid_space_"];
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy, typeCopy, @"_keyid_space_");
     v9 = 56;
-    if (v8)
+    if (isEqualToString)
     {
       v9 = 55;
     }
@@ -12297,7 +12298,7 @@ LABEL_45:
 
   else
   {
-    if ([v28 isEqualToString:@"_keyid_space_"])
+    if (objc_msgSend_isEqualToString_(v28))
     {
       v27 = 480;
     }
@@ -12310,7 +12311,7 @@ LABEL_45:
     *(&self->super.super.super.isa + v27) = behaviorCopy;
   }
 
-  if ([v28 isEqualToString:@"_keyid_return_"])
+  if (objc_msgSend_isEqualToString_(v28))
   {
     [(UIKeyboardImpl *)self updateReturnKey:0];
   }
@@ -13242,7 +13243,7 @@ void __42__UIKeyboardImpl_updateAutocorrectPrompt___block_invoke()
     goto LABEL_11;
   }
 
-  if ([candidate isEqualToString:input])
+  if (objc_msgSend_isEqualToString_(candidate))
   {
     if (self->m_autocorrectPrompt)
     {
@@ -14055,7 +14056,7 @@ LABEL_34:
     if (v14)
     {
       v15 = v14;
-      if ([_fullText isEqualToString:v13])
+      if (objc_msgSend_isEqualToString_(_fullText))
       {
 LABEL_28:
         if ([v12 count] < 2)
@@ -14784,10 +14785,10 @@ void __51__UIKeyboardImpl_sendKeyboardDismissalNotification__block_invoke_2()
                 {
                   v14 = [v13 objectForKey:@"DeviceUsagePage"];
                   v15 = [v13 objectForKey:@"DeviceUsage"];
-                  if ([v14 isEqual:&unk_1EFE31C78] && objc_msgSend(v15, "isEqual:", &unk_1EFE31C90))
+                  if (objc_msgSend_isEqual_(v14) && objc_msgSend_isEqual_(v15))
                   {
                     v16 = IOHIDServiceClientCopyProperty(service, @"Transport");
-                    if (([v16 isEqualToString:@"AID"] & 1) != 0 || objc_msgSend(v16, "isEqualToString:", @"USB"))
+                    if ((objc_msgSend_isEqualToString_(v16) & 1) != 0 || objc_msgSend_isEqualToString_(v16))
                     {
                       [(UIKeyboardImpl *)self setIsAttachedHardwareKeyboard:MEMORY[0x1E695E118]];
                       CFRelease(cf);

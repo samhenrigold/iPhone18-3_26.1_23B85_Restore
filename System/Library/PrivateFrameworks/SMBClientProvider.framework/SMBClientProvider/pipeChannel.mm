@@ -180,53 +180,54 @@
 
 - (int)pipeWait
 {
-  v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   v20 = 0;
   v3 = dispatch_group_create();
   dispatch_group_enter(v3);
   v4 = [(pipeChannel *)self pd];
   pipeName = [(pipeChannel *)self pipeName];
   shareID = [(pipeChannel *)self shareID];
-  v12 = _NSConcreteStackBlock;
-  v13 = 3221225472;
-  v14 = sub_100004B5C;
-  v15 = &unk_10008C740;
-  v17 = &v18;
+  v11 = _NSConcreteStackBlock;
+  v12 = 3221225472;
+  v13 = sub_100004B5C;
+  v14 = &unk_10008C740;
+  v16 = &v17;
   v7 = v3;
-  v16 = v7;
-  [smb_subr sendPipeWait:v4 Pipe:pipeName ShareID:shareID Timeout:0 CompletionHandler:&v12];
+  v15 = v7;
+  [smb_subr sendPipeWait:v4 Pipe:pipeName ShareID:shareID Timeout:0 CompletionHandler:&v11];
 
   dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-  if (*(v19[0] + 24))
+  if (*(v18 + 6))
   {
     v8 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      [(pipeChannel *)self channel:v12];
-      pipeName2 = [(pipeChannel *)self pipeName];
-      sub_10004C4F8(pipeName2, v19);
+      [(pipeChannel *)self channel:v11];
+      [(pipeChannel *)self pipeName];
+      objc_claimAutoreleasedReturnValue();
+      sub_10004C4F8();
     }
 
-    v10 = *(v19[0] + 24);
+    v9 = *(v18 + 6);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  _Block_object_dispose(&v18, 8);
-  return v10;
+  _Block_object_dispose(&v17, 8);
+  return v9;
 }
 
 - (int)pipeClose
 {
   v2 = 0;
-  v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v18 = 0;
   if (self->_pipeIsOpen)
   {
@@ -242,25 +243,26 @@
       v6[1] = 0u;
       dispatch_group_enter(v5);
       fidCtx2 = [(pipeChannel *)self fidCtx];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_100004D94;
-      v12[3] = &unk_10008C830;
-      v14 = &v16;
-      v15 = v6;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_100004D94;
+      v11[3] = &unk_10008C830;
+      v13 = &v15;
+      v14 = v6;
       fidCtx = v5;
-      v13 = fidCtx;
-      [smb_subr sendClose:fidCtx2 Param:v6 GetPostAttrs:0 CompletionHandler:v12];
+      v12 = fidCtx;
+      [smb_subr sendClose:fidCtx2 Param:v6 GetPostAttrs:0 CompletionHandler:v11];
 
       dispatch_group_wait(fidCtx, 0xFFFFFFFFFFFFFFFFLL);
-      if (*(v17[0] + 24))
+      if (*(v16 + 6))
       {
         v8 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           [(pipeChannel *)self channel];
-          pipeName = [(pipeChannel *)self pipeName];
-          sub_10004C544(pipeName, v17);
+          [(pipeChannel *)self pipeName];
+          objc_claimAutoreleasedReturnValue();
+          sub_10004C544();
         }
       }
     }
@@ -269,10 +271,10 @@
     fidCtx = self->_fidCtx;
     self->_fidCtx = 0;
 
-    v2 = *(v17[0] + 24);
+    v2 = *(v16 + 6);
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   return v2;
 }
 
@@ -280,69 +282,70 @@
 {
   transceiveCopy = transceive;
   outCopy = out;
-  v24 = 0;
-  v25[0] = &v24;
-  v25[1] = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v26 = 0;
   if ([(pipeChannel *)self pipeIsOpen])
   {
     v8 = dispatch_group_create();
     dispatch_group_enter(v8);
     fidCtx = [(pipeChannel *)self fidCtx];
-    v18 = _NSConcreteStackBlock;
-    v19 = 3221225472;
-    v20 = sub_10000503C;
-    v21 = &unk_10008C740;
-    v23 = &v24;
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_10000503C;
+    v20 = &unk_10008C740;
+    v22 = &v23;
     v10 = v8;
-    v22 = v10;
-    [smb_subr sendPipeTransceive:fidCtx InData:transceiveCopy OutData:outCopy CompletionHandler:&v18];
+    v21 = v10;
+    [smb_subr sendPipeTransceive:fidCtx InData:transceiveCopy OutData:outCopy CompletionHandler:&v17];
 
     dispatch_group_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-    if (*(v25[0] + 24))
+    if (*(v24 + 6))
     {
       v11 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        [(pipeChannel *)self channel:v18];
-        pipeName = [(pipeChannel *)self pipeName];
-        sub_10004C5E8(pipeName, v25);
+        [(pipeChannel *)self channel:v17];
+        [(pipeChannel *)self pipeName];
+        objc_claimAutoreleasedReturnValue();
+        sub_10004C5E8();
       }
 
-      v13 = *(v25[0] + 24);
+      v12 = *(v24 + 6);
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v14 = &_os_log_default;
+    v13 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       channel = [(pipeChannel *)self channel];
-      pipeName2 = [(pipeChannel *)self pipeName];
-      sub_10004C590(pipeName2, v27, channel);
+      pipeName = [(pipeChannel *)self pipeName];
+      sub_10004C590(pipeName, v27, channel);
     }
 
-    v13 = 9;
-    *(v25[0] + 24) = 9;
+    v12 = 9;
+    *(v24 + 6) = 9;
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v13;
+  return v12;
 }
 
 - (int)pipeWrite:(id)write
 {
   writeCopy = write;
-  v21 = 0;
-  v22[0] = &v21;
-  v22[1] = 0x2020000000;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
   v23 = 0;
   if ([(pipeChannel *)self pipeIsOpen])
   {
@@ -355,57 +358,58 @@
     v7 = dispatch_group_create();
     dispatch_group_enter(v7);
     fidCtx = [(pipeChannel *)self fidCtx];
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000052E0;
-    v17[3] = &unk_10008C830;
-    v19 = &v21;
-    v20 = v5;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000052E0;
+    v16[3] = &unk_10008C830;
+    v18 = &v20;
+    v19 = v5;
     v9 = v7;
-    v18 = v9;
-    [smb_subr sendWrite:fidCtx Param:v5 WriteBuf:writeCopy CompletionHandler:v17];
+    v17 = v9;
+    [smb_subr sendWrite:fidCtx Param:v5 WriteBuf:writeCopy CompletionHandler:v16];
 
     dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-    if (*(v22[0] + 24))
+    if (*(v21 + 6))
     {
       v10 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         [(pipeChannel *)self channel];
-        pipeName = [(pipeChannel *)self pipeName];
-        sub_10004C68C(pipeName, v22);
+        [(pipeChannel *)self pipeName];
+        objc_claimAutoreleasedReturnValue();
+        sub_10004C68C();
       }
 
-      v12 = *(v22[0] + 24);
+      v11 = *(v21 + 6);
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
     v9 = &_os_log_default;
-    v13 = &_os_log_default;
+    v12 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       channel = [(pipeChannel *)self channel];
-      pipeName2 = [(pipeChannel *)self pipeName];
-      sub_10004C634(pipeName2, v24, channel);
-      v12 = 9;
+      pipeName = [(pipeChannel *)self pipeName];
+      sub_10004C634(pipeName, v24, channel);
+      v11 = 9;
       v9 = &_os_log_default;
     }
 
     else
     {
-      v12 = 9;
+      v11 = 9;
     }
   }
 
-  _Block_object_dispose(&v21, 8);
-  return v12;
+  _Block_object_dispose(&v20, 8);
+  return v11;
 }
 
 @end

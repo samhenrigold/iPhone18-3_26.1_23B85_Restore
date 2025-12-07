@@ -84,29 +84,26 @@
     [BRFieldPkgLocalItem writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
-  fileID = self->_fileID;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) != 0)
   {
-    generationID = self->_generationID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    size = self->_size;
     PBDataWriterWriteInt64Field();
   }
 
-  v9 = v10;
+  v6 = v7;
   if (self->_xattrs)
   {
     PBDataWriterWriteDataField();
-    v9 = v10;
+    v6 = v7;
   }
 }
 
@@ -188,7 +185,6 @@
     goto LABEL_17;
   }
 
-  v6 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_generationID != *(equalCopy + 6))
@@ -200,7 +196,7 @@
   else if ((*(equalCopy + 48) & 2) != 0)
   {
 LABEL_17:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
@@ -220,17 +216,17 @@ LABEL_17:
   xattrs = self->_xattrs;
   if (xattrs | *(equalCopy + 5))
   {
-    v8 = [(NSData *)xattrs isEqual:?];
+    v7 = [(NSData *)xattrs isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_18:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

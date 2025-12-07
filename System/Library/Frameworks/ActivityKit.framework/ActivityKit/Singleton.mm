@@ -19,18 +19,15 @@
 
 - (_TtC11ActivityKitP33_1602B0B984EDF6E52CE840E80AB3FBCA9Singleton)init
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0A02E8, &qword_1A2D0AA58);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v6 = &v13 - v5;
-  (*(v7 + 104))(&v13 - v5, *MEMORY[0x1E69CA970]);
-  v8 = objc_allocWithZone(type metadata accessor for Singleton());
-  v9 = sub_1A2C57D70(v6);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0A02E8, &qword_1A2D0AA58);
+  v3 = MEMORY[0x1EEE9AC00](v2);
+  v5 = &v10 - v4;
+  (*(v6 + 104))(&v10 - v4, *MEMORY[0x1E69CA970], v3);
+  v7 = objc_allocWithZone(type metadata accessor for Singleton(0));
+  v8 = sub_1A2C57D70(v5);
   swift_getObjectType();
-  v10 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v11 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v9;
+  return v8;
 }
 
 - (void)activitiesChanged:(id)changed completion:(id)completion
@@ -71,19 +68,17 @@
   v12 = sub_1A2C88734(0, 1, v10, selfCopy, v6, v8, sub_1A2C95754, v9);
   v13 = type metadata accessor for CancellableAssertion();
   v14 = objc_allocWithZone(v13);
-  v21 = v12;
-  v15 = sub_1A2D080E4();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
+  v18 = v12;
+  sub_1A2D080E4();
   swift_allocObject();
-  sub_1A2C8BAD0(&qword_1EB09ED18, type metadata accessor for RetryingCancellable);
+  sub_1A2C8BAD0(&qword_1EB09ED18, type metadata accessor for RetryingCancellable, &unk_1A2D17280);
 
   *&v14[OBJC_IVAR____TtC11ActivityKit20CancellableAssertion_token] = sub_1A2D080F4();
-  v20.receiver = v14;
-  v20.super_class = v13;
-  v18 = [(Singleton *)&v20 init];
+  v17.receiver = v14;
+  v17.super_class = v13;
+  v15 = [(Singleton *)&v17 init];
 
-  return v18;
+  return v15;
 }
 
 - (void)activityProminenceDidChange:(id)change completion:(id)completion
@@ -180,13 +175,13 @@
   v4 = sub_1A2D08444();
   v6 = v5;
   selfCopy = self;
-  v8 = sub_1A2CBC01C();
+  v8 = sub_1A2CBC01C(v10);
   if (*v9)
   {
     sub_1A2CBB62C(v4, v6);
   }
 
-  (v8)(&v10, 0);
+  (v8)(v10, 0);
 }
 
 + (_TtC11ActivityKitP33_6DC02F3CDAFEFBE600E2E479E61466209Singleton)shared

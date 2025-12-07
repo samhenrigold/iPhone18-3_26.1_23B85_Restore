@@ -10,7 +10,7 @@ uint64_t sub_1009E83CC()
   v1 = *(v0 + 296);
   v2 = OBJC_IVAR____TtC8Freeform17CRLSyncController_syncEngine;
   swift_beginAccess();
-  sub_10000BE14(v1 + v2, v0 + 168, &qword_101A0BA28);
+  sub_10000BE14(v1 + v2, v0 + 168, &qword_101A0BA28, &qword_10148CE40);
   if (*(v0 + 192))
   {
     sub_100050F74((v0 + 168), v0 + 128);
@@ -26,7 +26,7 @@ uint64_t sub_1009E83CC()
 
   else
   {
-    sub_10000CAAC(v0 + 168, &qword_101A0BA28);
+    sub_10000CAAC(v0 + 168, &qword_101A0BA28, &qword_10148CE40);
     if (qword_1019F2270 != -1)
     {
       swift_once();
@@ -60,7 +60,7 @@ uint64_t sub_1009E8578()
 
 uint64_t sub_1009E868C()
 {
-  sub_100005070(v0 + 128);
+  sub_100005070((v0 + 128));
   v1 = *(v0 + 8);
 
   return v1();
@@ -68,14 +68,14 @@ uint64_t sub_1009E868C()
 
 uint64_t sub_1009E86EC()
 {
-  sub_100005070((v0 + 16));
+  sub_100005070(v0 + 16);
   if (qword_1019F2270 != -1)
   {
     swift_once();
   }
 
   v1 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146BDE0;
   swift_getErrorValue();
@@ -96,7 +96,7 @@ uint64_t sub_1009E86EC()
   sub_100005404(v1, &_mh_execute_header, v9, "fetchChanges call to SyncEngine failed because of error: %{public}@ %@", 70, 2, inited);
 
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v10 = v0[1];
 
@@ -131,7 +131,7 @@ uint64_t sub_1009E889C(void *a1)
   swift_once();
 LABEL_3:
   v33 = static OS_os_log.dataSync;
-  v34 = sub_1005B981C(&qword_1019F54E0);
+  v34 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v11 = inited;
   *(inited + 16) = xmmword_10146BDE0;
@@ -163,14 +163,14 @@ LABEL_3:
   v15 = [a1 zoneID];
   v32 = a1;
   v16 = v15;
-  v11[12] = sub_100006370(0, &qword_1019F69D0);
-  v11[13] = sub_10000FE24(&unk_101A22DB0, &qword_1019F69D0);
+  v11[12] = sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+  v11[13] = sub_10000FE24(&unk_101A22DB0, &qword_1019F69D0, CKRecordZoneID_ptr);
   v11[9] = v16;
   v17 = v33;
   v18 = static os_log_type_t.default.getter();
   sub_100005404(v17, &_mh_execute_header, v18, "<%{public}@> Saved recordZone %{public}@", 40, 2, v11);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v19 = *(v1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
   if (!v19)
@@ -180,7 +180,7 @@ LABEL_3:
     *(v24 + 56) = &type metadata for String;
     *(v24 + 64) = v14;
     *(v24 + 32) = v12;
-    v25 = v24 + 32;
+    v25 = (v24 + 32);
     *(v24 + 40) = v13;
     v26 = static os_log_type_t.default.getter();
     sub_100005404(v17, &_mh_execute_header, v26, "<%{public}@> No save task for successful save. Enqueuing record save", 68, 2, v24);
@@ -217,7 +217,7 @@ LABEL_17:
     *(v28 + 56) = &type metadata for String;
     *(v28 + 64) = v27;
     *(v28 + 32) = v12;
-    v25 = v28 + 32;
+    v25 = (v28 + 32);
     *(v28 + 40) = v20;
     v29 = static os_log_type_t.default.getter();
     sub_100005404(v17, &_mh_execute_header, v29, "<%{public}@> Record zones finished saving. Enqueuing record save", 64, 2, v28);
@@ -257,7 +257,7 @@ void sub_1009E8CF8(void *a1, char *a2)
   swift_once();
 LABEL_3:
   v13 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v15 = inited;
   *(inited + 16) = xmmword_10146C4D0;
@@ -302,13 +302,13 @@ LABEL_3:
   v24 = static os_log_type_t.default.getter();
   sub_100005404(v13, &_mh_execute_header, v24, "<%{public}@> Failed to save recordZone %{public}@ due to error: %{public}@ <%@>", 79, 2, v15);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v25 = [a1 zoneID];
   sub_1009F55E8(v21);
 
   v30 = v21;
-  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError);
+  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError, byte_101468944);
   _BridgedStoredNSError.code.getter();
   v26 = v29;
   v27 = [a1 zoneID];
@@ -356,7 +356,7 @@ void sub_1009E9054(void *a1)
     {
 LABEL_4:
       v16 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       v18 = inited;
       *(inited + 16) = xmmword_10146BDE0;
@@ -382,7 +382,7 @@ LABEL_4:
       v24 = static os_log_type_t.default.getter();
       sub_100005404(v16, &_mh_execute_header, v24, "<%{public}@> Removing zoneID from unsaved zones after success %{public}@", 72, 2, v18);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       swift_beginAccess();
       v25 = sub_100ED80E4(a1);
@@ -402,7 +402,7 @@ LABEL_17:
   }
 
   v26 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v27 = swift_initStackObject();
   v28 = v27;
   *(v27 + 16) = xmmword_10146C6B0;
@@ -433,7 +433,7 @@ LABEL_17:
   v31 = static os_log_type_t.error.getter();
   sub_100005404(v26, &_mh_execute_header, v31, "<%{public}@> Could not find active save task for zone save success", 66, 2, v28);
   swift_setDeallocating();
-  sub_100005070(v28 + 32);
+  sub_100005070((v28 + 32));
 }
 
 uint64_t sub_1009E9418(uint64_t a1, uint64_t a2)
@@ -473,7 +473,7 @@ uint64_t sub_1009E94E8()
 
     v8 = v0[22];
     v9 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v11 = inited;
     *(inited + 16) = xmmword_10146C6B0;
@@ -499,9 +499,9 @@ uint64_t sub_1009E94E8()
     v13 = static os_log_type_t.default.getter();
     sub_100005404(v9, &_mh_execute_header, v13, "<%{public}@> Next Record Zone Change Batch is being requested by Sync Engine.", 77, 2, v11);
     swift_setDeallocating();
-    sub_100005070(v11 + 32);
+    sub_100005070((v11 + 32));
     *(swift_task_alloc() + 16) = v8;
-    sub_1005B981C(&qword_101A0BA58);
+    sub_1005B981C(&qword_101A0BA58, &qword_10148CE78);
     OS_dispatch_queue.sync<A>(execute:)();
   }
 
@@ -515,7 +515,7 @@ uint64_t sub_1009E94E8()
     v14 = v0[22];
     v15 = v0[20];
     v16 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v17 = swift_initStackObject();
     v18 = v17;
     *(v17 + 16) = xmmword_10146C6B0;
@@ -546,7 +546,7 @@ uint64_t sub_1009E94E8()
     v21 = static os_log_type_t.default.getter();
     sub_100005404(v16, &_mh_execute_header, v21, "<%{public}@> Ignoring nextRecordZoneChangeBatch event that came in because of push-notification; scope is not .all", 114, 2, v18);
     swift_setDeallocating();
-    sub_100005070(v18 + 32);
+    sub_100005070((v18 + 32));
     v22 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
     (*(*(v22 - 8) + 56))(v15, 1, 1, v22);
   }
@@ -558,23 +558,23 @@ uint64_t sub_1009E94E8()
 
 unint64_t sub_1009E98A8@<X0>(uint64_t a1@<X8>)
 {
-  v171 = a1;
-  v2 = sub_1005B981C(&qword_101A0BA30);
+  v172 = a1;
+  v2 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v2 - 8);
-  *&v170 = &v162 - v3;
-  v4 = sub_1005B981C(&qword_101A0BA40);
+  *&v171 = &v163 - v3;
+  v4 = sub_1005B981C(&qword_101A0BA40, &qword_10148CE60);
   __chkstk_darwin(v4 - 8);
-  v174 = &v162 - v5;
+  v175 = &v163 - v5;
   if (qword_1019F2270 != -1)
   {
     swift_once();
   }
 
   v6 = static OS_os_log.dataSync;
-  v7 = sub_1005B981C(&qword_1019F54E0);
+  v7 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v9 = inited;
-  v166 = xmmword_10146C6B0;
+  v167 = xmmword_10146C6B0;
   *(inited + 16) = xmmword_10146C6B0;
   if (*(v1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
   {
@@ -604,13 +604,13 @@ unint64_t sub_1009E98A8@<X0>(uint64_t a1@<X8>)
   v13 = static os_log_type_t.default.getter();
   sub_100005404(v6, &_mh_execute_header, v13, "<%{public}@> Generating Record Zone Change Batch.", 49, 2, v9);
   swift_setDeallocating();
-  sub_100005070((v9 + 4));
+  sub_100005070(v9 + 4);
   v14 = v1;
   v15 = *(v1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
   if (!v15)
   {
     v18 = swift_initStackObject();
-    *(v18 + 16) = v166;
+    *(v18 + 16) = v167;
     *(v18 + 56) = &type metadata for String;
     *(v18 + 64) = v12;
     *(v18 + 32) = v10;
@@ -618,23 +618,23 @@ unint64_t sub_1009E98A8@<X0>(uint64_t a1@<X8>)
     v19 = static os_log_type_t.default.getter();
     sub_100005404(v6, &_mh_execute_header, v19, "<%{public}@> There is no outstanding save task. No new record batch to save", 75, 2, v18);
     swift_setDeallocating();
-    sub_100005070(v18 + 32);
-    v20 = sub_1005B981C(&qword_101A0BA48);
-    v21 = v174;
-    (*(*(v20 - 8) + 56))(v174, 1, 1, v20);
+    sub_100005070((v18 + 32));
+    v20 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
+    v21 = v175;
+    (*(*(v20 - 8) + 56))(v175, 1, 1, v20);
     v22 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
-    (*(*(v22 - 8) + 56))(v171, 1, 1, v22);
+    (*(*(v22 - 8) + 56))(v172, 1, 1, v22);
     v23 = v21;
     v24 = v14;
     goto LABEL_78;
   }
 
-  v165 = v1;
-  v176 = v10;
-  v177 = v12;
-  v178 = v6;
-  v173 = v7;
-  v175 = v11;
+  v166 = v1;
+  v177 = v10;
+  v178 = v12;
+  v179 = v6;
+  v174 = v7;
+  v176 = v11;
   swift_beginAccess();
   v16 = v15[5];
   if ((v16 & 0xC000000000000001) != 0)
@@ -648,32 +648,32 @@ unint64_t sub_1009E98A8@<X0>(uint64_t a1@<X8>)
     v17 = *(v16 + 16);
   }
 
-  v25 = v176;
+  v25 = v177;
   if (v17)
   {
     v26 = swift_initStackObject();
     *(v26 + 16) = xmmword_10146BDE0;
-    v27 = v177;
+    v27 = v178;
     *(v26 + 56) = &type metadata for String;
     *(v26 + 64) = v27;
     *(v26 + 32) = v25;
-    v28 = v174;
-    *(v26 + 40) = v175;
+    v28 = v175;
+    *(v26 + 40) = v176;
     v29 = v15[5];
-    *(v26 + 96) = sub_1005B981C(&unk_1019F52B0);
-    *(v26 + 104) = sub_10001A2F8(&qword_101A0BA50, &unk_1019F52B0);
+    *(v26 + 96) = sub_1005B981C(&unk_1019F52B0, &qword_10146FC90);
+    *(v26 + 104) = sub_10001A2F8(&qword_101A0BA50, &unk_1019F52B0, &qword_10146FC90, &protocol conformance descriptor for Set<A>);
     *(v26 + 72) = v29;
 
     v30 = static os_log_type_t.default.getter();
-    sub_100005404(v178, &_mh_execute_header, v30, "<%{public}@> Could not return a batch for saving, task has pending zones to save: %{public}@", 92, 2, v26);
+    sub_100005404(v179, &_mh_execute_header, v30, "<%{public}@> Could not return a batch for saving, task has pending zones to save: %{public}@", 92, 2, v26);
 
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
-    v31 = sub_1005B981C(&qword_101A0BA48);
+    v31 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
     (*(*(v31 - 8) + 56))(v28, 1, 1, v31);
     v32 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
-    (*(*(v32 - 8) + 56))(v171, 1, 1, v32);
+    (*(*(v32 - 8) + 56))(v172, 1, 1, v32);
     v23 = v28;
     goto LABEL_77;
   }
@@ -681,95 +681,95 @@ unint64_t sub_1009E98A8@<X0>(uint64_t a1@<X8>)
   if (v15[4])
   {
     v33 = swift_allocObject();
-    *(v33 + 16) = v166;
-    v34 = v177;
+    *(v33 + 16) = v167;
+    v34 = v178;
     *(v33 + 56) = &type metadata for String;
     *(v33 + 64) = v34;
     *(v33 + 32) = v25;
-    *(v33 + 40) = v175;
+    *(v33 + 40) = v176;
     v35 = static os_log_type_t.default.getter();
-    sub_100005404(v178, &_mh_execute_header, v35, "<%{public}@> There is an ongoing batch to be saved. Not returning a new batch", 77, 2, v33);
+    sub_100005404(v179, &_mh_execute_header, v35, "<%{public}@> There is an ongoing batch to be saved. Not returning a new batch", 77, 2, v33);
 
     swift_setDeallocating();
-    sub_100005070(v33 + 32);
+    sub_100005070((v33 + 32));
     swift_deallocClassInstance();
     goto LABEL_18;
   }
 
   v39 = v15[8];
-  v40 = v178;
-  v164 = v15;
+  v40 = v179;
+  v165 = v15;
   if (v39 && (*(v39 + 80) & 1) == 0)
   {
     v41 = *(v39 + 72);
 
-    if (!v41 || (sub_100B50C20() & 1) == 0 && (swift_beginAccess(), v42 = v15[6], v43 = *(*(v39 + 16) + 16), , v44 = v43, v45 = sub_10079DB58(v44, v42), v44, , (v45 & 1) == 0))
+    if (!v41 || (sub_100B50C20(), (v42 & 1) == 0) && (swift_beginAccess(), v43 = v15[6], v44 = *(*(v39 + 16) + 16), , v45 = v44, v46 = sub_10079DB58(v45, v43), v45, , (v46 & 1) == 0))
     {
-      v88 = swift_allocObject();
-      *(v88 + 16) = xmmword_10146BDE0;
-      *(v88 + 32) = v25;
-      v172 = v88 + 32;
-      v89 = v177;
-      *(v88 + 56) = &type metadata for String;
-      *(v88 + 64) = v89;
-      *(v88 + 40) = v175;
-      v90 = [*(*(v39 + 16) + 16) zoneName];
-      v91 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v93 = v92;
+      v89 = swift_allocObject();
+      *(v89 + 16) = xmmword_10146BDE0;
+      *(v89 + 32) = v25;
+      v173 = v89 + 32;
+      v90 = v178;
+      *(v89 + 56) = &type metadata for String;
+      *(v89 + 64) = v90;
+      *(v89 + 40) = v176;
+      v91 = [*(*(v39 + 16) + 16) zoneName];
+      v92 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v94 = v93;
 
-      *(v88 + 96) = &type metadata for String;
-      *(v88 + 104) = v89;
-      *(v88 + 72) = v91;
-      *(v88 + 80) = v93;
-      v94 = static os_log_type_t.default.getter();
-      v51 = v178;
-      sub_100005404(v178, &_mh_execute_header, v94, "<%{public}@> The current batch previously had a recoverable save error. Attempting to save the batch again. Zone ID: %{public}@", 127, 2, v88);
+      *(v89 + 96) = &type metadata for String;
+      *(v89 + 104) = v90;
+      *(v89 + 72) = v92;
+      *(v89 + 80) = v94;
+      v95 = static os_log_type_t.default.getter();
+      v52 = v179;
+      sub_100005404(v179, &_mh_execute_header, v95, "<%{public}@> The current batch previously had a recoverable save error. Attempting to save the batch again. Zone ID: %{public}@", 127, 2, v89);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       swift_deallocClassInstance();
       goto LABEL_42;
     }
 
-    v40 = v178;
+    v40 = v179;
   }
 
-  v46 = v165;
-  v47 = (v165 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncLogicProvider);
+  v47 = v166;
+  v48 = (v166 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncLogicProvider);
   swift_beginAccess();
-  v48 = v47[3];
-  v168 = v47;
-  v49 = sub_100020E58(v47, v48);
-  v50 = sub_1009F4158(*v49, v15);
-  if (!v50)
+  v49 = v48[3];
+  v169 = v48;
+  v50 = sub_100020E58(v48, v49);
+  sub_1009F4158(*v50, v15);
+  if (!v51)
   {
 LABEL_38:
 
-    v77 = sub_1005B981C(&qword_101A0BA48);
-    v78 = v174;
-    (*(*(v77 - 8) + 56))(v174, 1, 1, v77);
-    v79 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
-    (*(*(v79 - 8) + 56))(v171, 1, 1, v79);
-    v23 = v78;
-    v24 = v46;
+    v78 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
+    v79 = v175;
+    (*(*(v78 - 8) + 56))(v175, 1, 1, v78);
+    v80 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
+    (*(*(v80 - 8) + 56))(v172, 1, 1, v80);
+    v23 = v79;
+    v24 = v47;
     goto LABEL_78;
   }
 
-  v169 = xmmword_10146BDE0;
+  v170 = xmmword_10146BDE0;
   while (1)
   {
-    v51 = v40;
-    v52 = v15[6];
-    v172 = v50;
-    v53 = *(*(v50 + 16) + 16);
-    if ((v52 & 0xC000000000000001) != 0)
+    v52 = v40;
+    v53 = v15[6];
+    v173 = v51;
+    v54 = *(*(v51 + 16) + 16);
+    if ((v53 & 0xC000000000000001) != 0)
     {
 
-      v54 = v53;
-      v55 = __CocoaSet.contains(_:)();
+      v55 = v54;
+      v56 = __CocoaSet.contains(_:)();
 
-      v56 = v175;
-      if ((v55 & 1) == 0)
+      v57 = v176;
+      if ((v56 & 1) == 0)
       {
         goto LABEL_40;
       }
@@ -777,80 +777,80 @@ LABEL_38:
       goto LABEL_37;
     }
 
-    v56 = v175;
-    if (!*(v52 + 16))
+    v57 = v176;
+    if (!*(v53 + 16))
     {
       goto LABEL_40;
     }
 
-    sub_100006370(0, &qword_1019F69D0);
-    v57 = *(v52 + 40);
+    sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+    v58 = *(v53 + 40);
 
-    v58 = v53;
-    v59 = NSObject._rawHashValue(seed:)(v57);
-    v60 = -1 << *(v52 + 32);
-    v61 = v59 & ~v60;
-    if (((*(v52 + 56 + ((v61 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v61) & 1) == 0)
+    v59 = v54;
+    v60 = NSObject._rawHashValue(seed:)(v58);
+    v61 = -1 << *(v53 + 32);
+    v62 = v60 & ~v61;
+    if (((*(v53 + 56 + ((v62 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v62) & 1) == 0)
     {
       break;
     }
 
-    v62 = ~v60;
+    v63 = ~v61;
     while (1)
     {
-      v63 = *(*(v52 + 48) + 8 * v61);
-      v64 = static NSObject.== infix(_:_:)();
+      v64 = *(*(v53 + 48) + 8 * v62);
+      v65 = static NSObject.== infix(_:_:)();
 
-      if (v64)
+      if (v65)
       {
         break;
       }
 
-      v61 = (v61 + 1) & v62;
-      if (((*(v52 + 56 + ((v61 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v61) & 1) == 0)
+      v62 = (v62 + 1) & v63;
+      if (((*(v53 + 56 + ((v62 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v62) & 1) == 0)
       {
         goto LABEL_39;
       }
     }
 
-    v51 = v178;
-    v56 = v175;
+    v52 = v179;
+    v57 = v176;
 LABEL_37:
-    v65 = v172;
+    v66 = v173;
     sub_100B510C0();
-    v66 = swift_initStackObject();
-    *(v66 + 16) = v169;
-    v67 = v176;
+    v67 = swift_initStackObject();
+    *(v67 + 16) = v170;
     v68 = v177;
-    *(v66 + 56) = &type metadata for String;
-    *(v66 + 64) = v68;
-    *(v66 + 32) = v67;
-    *(v66 + 40) = v56;
-    v69 = [*(*(v65 + 16) + 16) zoneName];
-    v70 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v72 = v71;
+    v69 = v178;
+    *(v67 + 56) = &type metadata for String;
+    *(v67 + 64) = v69;
+    *(v67 + 32) = v68;
+    *(v67 + 40) = v57;
+    v70 = [*(*(v66 + 16) + 16) zoneName];
+    v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v73 = v72;
 
-    *(v66 + 96) = &type metadata for String;
-    *(v66 + 104) = v68;
-    *(v66 + 72) = v70;
-    *(v66 + 80) = v72;
-    v73 = static os_log_type_t.default.getter();
-    v40 = v51;
-    sub_100005404(v51, &_mh_execute_header, v73, "<%{public}@> Skipping batch part of a failed zone with ID: %{public}@", 69, 2, v66);
+    *(v67 + 96) = &type metadata for String;
+    *(v67 + 104) = v69;
+    *(v67 + 72) = v71;
+    *(v67 + 80) = v73;
+    v74 = static os_log_type_t.default.getter();
+    v40 = v52;
+    sub_100005404(v52, &_mh_execute_header, v74, "<%{public}@> Skipping batch part of a failed zone with ID: %{public}@", 69, 2, v67);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
-    v74 = type metadata accessor for CRLZoneSyncResultScenarios();
-    v75 = v170;
-    (*(*(v74 - 8) + 56))(v170, 1, 1, v74);
-    v46 = v165;
-    sub_1009EEDBC(v65, 0, v75);
+    v75 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+    v76 = v171;
+    (*(*(v75 - 8) + 56))(v171, 1, 1, v75);
+    v47 = v166;
+    sub_1009EEDBC(v66, 0, v76);
 
-    sub_10000CAAC(v75, &qword_101A0BA30);
-    v76 = sub_100020E58(v168, v168[3]);
-    v15 = v164;
-    v50 = sub_1009F4158(*v76, v164);
-    if (!v50)
+    sub_10000CAAC(v76, &qword_101A0BA30, &qword_10148CE48);
+    v77 = sub_100020E58(v169, v169[3]);
+    v15 = v165;
+    sub_1009F4158(*v77, v165);
+    if (!v51)
     {
       goto LABEL_38;
     }
@@ -858,90 +858,90 @@ LABEL_37:
 
 LABEL_39:
 
-  v51 = v178;
-  v56 = v175;
+  v52 = v179;
+  v57 = v176;
 LABEL_40:
-  v80 = swift_initStackObject();
-  *(v80 + 16) = v169;
-  v81 = v176;
+  v81 = swift_initStackObject();
+  *(v81 + 16) = v170;
   v82 = v177;
-  *(v80 + 56) = &type metadata for String;
-  *(v80 + 64) = v82;
-  *(v80 + 32) = v81;
-  *(v80 + 40) = v56;
-  v39 = v172;
-  v83 = [*(*(v172 + 16) + 16) zoneName];
-  v84 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v86 = v85;
+  v83 = v178;
+  *(v81 + 56) = &type metadata for String;
+  *(v81 + 64) = v83;
+  *(v81 + 32) = v82;
+  *(v81 + 40) = v57;
+  v39 = v173;
+  v84 = [*(*(v173 + 16) + 16) zoneName];
+  v85 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v87 = v86;
 
-  *(v80 + 96) = &type metadata for String;
-  *(v80 + 104) = v82;
-  *(v80 + 72) = v84;
-  *(v80 + 80) = v86;
-  v87 = static os_log_type_t.default.getter();
-  sub_100005404(v51, &_mh_execute_header, v87, "<%{public}@> Advancing to next batch. Zone ID: %{public}@", 57, 2, v80);
+  *(v81 + 96) = &type metadata for String;
+  *(v81 + 104) = v83;
+  *(v81 + 72) = v85;
+  *(v81 + 80) = v87;
+  v88 = static os_log_type_t.default.getter();
+  sub_100005404(v52, &_mh_execute_header, v88, "<%{public}@> Advancing to next batch. Zone ID: %{public}@", 57, 2, v81);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
-  v15 = v164;
+  v15 = v165;
 LABEL_42:
-  v182 = _swiftEmptyArrayStorage;
+  v183 = _swiftEmptyArrayStorage;
   result = sub_100B50D88();
-  v96 = result;
-  v97 = v39;
+  v97 = result;
+  v98 = v39;
   if (result >> 62)
   {
     result = _CocoaArrayWrapper.endIndex.getter();
-    v98 = result;
+    v99 = result;
     if (!result)
     {
       goto LABEL_73;
     }
 
 LABEL_44:
-    if (v98 < 1)
+    if (v99 < 1)
     {
       __break(1u);
       return result;
     }
 
-    v167 = v96 & 0xC000000000000001;
+    v168 = v97 & 0xC000000000000001;
     swift_beginAccess();
-    v99 = 0;
-    v163 = _swiftEmptyArrayStorage;
-    v170 = xmmword_10146BDE0;
-    v172 = v97;
-    v168 = v98;
-    *&v169 = v96;
+    v100 = 0;
+    v164 = _swiftEmptyArrayStorage;
+    v171 = xmmword_10146BDE0;
+    v173 = v98;
+    v169 = v99;
+    *&v170 = v97;
     while (1)
     {
-      if (v167)
+      if (v168)
       {
-        v105 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v106 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v105 = *(v96 + 8 * v99 + 32);
+        v106 = *(v97 + 8 * v100 + 32);
       }
 
-      v106 = v105;
-      v107 = *(v97 + 48);
-      if ((v107 & 0xC000000000000001) != 0)
+      v107 = v106;
+      v108 = *(v98 + 48);
+      if ((v108 & 0xC000000000000001) != 0)
       {
 
-        v108 = v106;
-        v109 = __CocoaDictionary.lookup(_:)();
+        v109 = v107;
+        v110 = __CocoaDictionary.lookup(_:)();
 
-        if (v109)
+        if (v110)
         {
-          v179 = v109;
-          sub_100006370(0, &unk_101A22DC0);
+          v180 = v110;
+          sub_100006370(0, &unk_101A22DC0, CKRecord_ptr);
           swift_dynamicCast();
-          v110 = v180;
+          v111 = v181;
 
-          v97 = v172;
-          if (v110)
+          v98 = v173;
+          if (v111)
           {
             goto LABEL_58;
           }
@@ -950,72 +950,72 @@ LABEL_44:
         else
         {
 
-          v97 = v172;
+          v98 = v173;
         }
       }
 
-      else if (*(v107 + 16))
+      else if (*(v108 + 16))
       {
 
-        v111 = sub_1007C8B7C(v106);
-        if (v112)
+        v112 = sub_1007C8B7C(v107);
+        if (v113)
         {
-          v110 = *(*(v107 + 56) + 8 * v111);
+          v111 = *(*(v108 + 56) + 8 * v112);
 
-          if (v110)
+          if (v111)
           {
 LABEL_58:
-            v113 = swift_initStackObject();
-            *(v113 + 16) = v170;
-            v114 = v176;
+            v114 = swift_initStackObject();
+            *(v114 + 16) = v171;
             v115 = v177;
-            *(v113 + 56) = &type metadata for String;
-            *(v113 + 64) = v115;
-            *(v113 + 32) = v114;
-            *(v113 + 40) = v175;
-            v180 = 0x203A65707954;
-            v181 = 0xE600000000000000;
-            v116._countAndFlagsBits = CKRecord.recordType.getter();
-            String.append(_:)(v116);
-
-            v117._countAndFlagsBits = 0x203A444920;
-            v117._object = 0xE500000000000000;
+            v116 = v178;
+            *(v114 + 56) = &type metadata for String;
+            *(v114 + 64) = v116;
+            *(v114 + 32) = v115;
+            *(v114 + 40) = v176;
+            v181 = 0x203A65707954;
+            v182 = 0xE600000000000000;
+            v117._countAndFlagsBits = CKRecord.recordType.getter();
             String.append(_:)(v117);
-            v118 = [v110 recordID];
-            v119 = [v118 recordName];
 
-            v120 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v122 = v121;
+            v118._countAndFlagsBits = 0x203A444920;
+            v118._object = 0xE500000000000000;
+            String.append(_:)(v118);
+            v119 = [v111 recordID];
+            v120 = [v119 recordName];
 
-            v123._countAndFlagsBits = v120;
-            v123._object = v122;
-            String.append(_:)(v123);
-            v124 = v177;
+            v121 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v123 = v122;
 
-            v125 = v180;
+            v124._countAndFlagsBits = v121;
+            v124._object = v123;
+            String.append(_:)(v124);
+            v125 = v178;
+
             v126 = v181;
-            *(v113 + 96) = &type metadata for String;
-            *(v113 + 104) = v124;
-            *(v113 + 72) = v125;
-            *(v113 + 80) = v126;
-            v127 = static os_log_type_t.default.getter();
-            sub_100005404(v178, &_mh_execute_header, v127, "<%{public}@> Adding record %{public}@ to batch save that was previously merged with the server record", 101, 2, v113);
+            v127 = v182;
+            *(v114 + 96) = &type metadata for String;
+            *(v114 + 104) = v125;
+            *(v114 + 72) = v126;
+            *(v114 + 80) = v127;
+            v128 = static os_log_type_t.default.getter();
+            sub_100005404(v179, &_mh_execute_header, v128, "<%{public}@> Adding record %{public}@ to batch save that was previously merged with the server record", 101, 2, v114);
             swift_setDeallocating();
-            sub_1005B981C(&unk_1019F5670);
+            sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
 LABEL_69:
             swift_arrayDestroy();
-            v148 = v110;
+            v149 = v111;
             specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-            if (*((v182 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v182 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v183 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v183 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
             specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-            v163 = v182;
-            v15 = v164;
-            v97 = v172;
+            v164 = v183;
+            v15 = v165;
+            v98 = v173;
             goto LABEL_47;
           }
         }
@@ -1025,116 +1025,116 @@ LABEL_69:
         }
       }
 
-      v128 = *(v97 + 40);
-      if ((v128 & 0xC000000000000001) != 0)
+      v129 = *(v98 + 40);
+      if ((v129 & 0xC000000000000001) != 0)
       {
-        v129 = v106;
-        v130 = __CocoaDictionary.lookup(_:)();
+        v130 = v107;
+        v131 = __CocoaDictionary.lookup(_:)();
 
-        if (v130)
+        if (v131)
         {
-          v179 = v130;
-          sub_100006370(0, &unk_101A22DC0);
+          v180 = v131;
+          sub_100006370(0, &unk_101A22DC0, CKRecord_ptr);
           swift_dynamicCast();
-          v110 = v180;
-          if (v180)
+          v111 = v181;
+          if (v181)
           {
             goto LABEL_68;
           }
         }
       }
 
-      else if (*(v128 + 16))
+      else if (*(v129 + 16))
       {
-        v131 = sub_1007C8B7C(v106);
-        if (v132)
+        v132 = sub_1007C8B7C(v107);
+        if (v133)
         {
-          v110 = *(*(v128 + 56) + 8 * v131);
-          if (v110)
+          v111 = *(*(v129 + 56) + 8 * v132);
+          if (v111)
           {
 LABEL_68:
-            v133 = swift_initStackObject();
-            *(v133 + 16) = v170;
-            v134 = v176;
+            v134 = swift_initStackObject();
+            *(v134 + 16) = v171;
             v135 = v177;
-            *(v133 + 56) = &type metadata for String;
-            *(v133 + 64) = v135;
-            *(v133 + 32) = v134;
-            *(v133 + 40) = v175;
-            v180 = 0x203A65707954;
-            v181 = 0xE600000000000000;
-            v136._countAndFlagsBits = CKRecord.recordType.getter();
-            String.append(_:)(v136);
-
-            v137._countAndFlagsBits = 0x203A444920;
-            v137._object = 0xE500000000000000;
+            v136 = v178;
+            *(v134 + 56) = &type metadata for String;
+            *(v134 + 64) = v136;
+            *(v134 + 32) = v135;
+            *(v134 + 40) = v176;
+            v181 = 0x203A65707954;
+            v182 = 0xE600000000000000;
+            v137._countAndFlagsBits = CKRecord.recordType.getter();
             String.append(_:)(v137);
-            v138 = [v110 recordID];
-            v139 = [v138 recordName];
 
-            v140 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v142 = v141;
+            v138._countAndFlagsBits = 0x203A444920;
+            v138._object = 0xE500000000000000;
+            String.append(_:)(v138);
+            v139 = [v111 recordID];
+            v140 = [v139 recordName];
 
-            v143._countAndFlagsBits = v140;
-            v144 = v177;
-            v143._object = v142;
-            String.append(_:)(v143);
+            v141 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v143 = v142;
 
-            v145 = v180;
+            v144._countAndFlagsBits = v141;
+            v145 = v178;
+            v144._object = v143;
+            String.append(_:)(v144);
+
             v146 = v181;
-            *(v133 + 96) = &type metadata for String;
-            *(v133 + 104) = v144;
-            *(v133 + 72) = v145;
-            *(v133 + 80) = v146;
-            v147 = static os_log_type_t.default.getter();
-            sub_100005404(v178, &_mh_execute_header, v147, "<%{public}@> Adding record %{public}@ to batch save from local changes", 70, 2, v133);
+            v147 = v182;
+            *(v134 + 96) = &type metadata for String;
+            *(v134 + 104) = v145;
+            *(v134 + 72) = v146;
+            *(v134 + 80) = v147;
+            v148 = static os_log_type_t.default.getter();
+            sub_100005404(v179, &_mh_execute_header, v148, "<%{public}@> Adding record %{public}@ to batch save from local changes", 70, 2, v134);
             swift_setDeallocating();
-            sub_1005B981C(&unk_1019F5670);
+            sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
             goto LABEL_69;
           }
         }
       }
 
-      v100 = swift_initStackObject();
-      *(v100 + 16) = v170;
-      v101 = v176;
+      v101 = swift_initStackObject();
+      *(v101 + 16) = v171;
       v102 = v177;
-      *(v100 + 56) = &type metadata for String;
-      *(v100 + 64) = v102;
-      *(v100 + 32) = v101;
-      *(v100 + 40) = v175;
-      *(v100 + 96) = sub_100006370(0, &qword_1019F6E98);
-      *(v100 + 104) = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98);
-      *(v100 + 72) = v106;
-      v103 = v106;
-      v104 = static os_log_type_t.error.getter();
-      sub_100005404(v178, &_mh_execute_header, v104, "<%{public}@> Failed to find a cloud record for record ID %{public}@ for saving the batch", 88, 2, v100);
+      v103 = v178;
+      *(v101 + 56) = &type metadata for String;
+      *(v101 + 64) = v103;
+      *(v101 + 32) = v102;
+      *(v101 + 40) = v176;
+      *(v101 + 96) = sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
+      *(v101 + 104) = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98, CKRecordID_ptr);
+      *(v101 + 72) = v107;
+      v104 = v107;
+      v105 = static os_log_type_t.error.getter();
+      sub_100005404(v179, &_mh_execute_header, v105, "<%{public}@> Failed to find a cloud record for record ID %{public}@ for saving the batch", 88, 2, v101);
 
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
 LABEL_47:
-      v99 = (v99 + 1);
-      v96 = v169;
-      v51 = v178;
-      if (v168 == v99)
+      v100 = (v100 + 1);
+      v97 = v170;
+      v52 = v179;
+      if (v169 == v100)
       {
         goto LABEL_74;
       }
     }
   }
 
-  v98 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v98)
+  v99 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v99)
   {
     goto LABEL_44;
   }
 
 LABEL_73:
-  v163 = _swiftEmptyArrayStorage;
+  v164 = _swiftEmptyArrayStorage;
 LABEL_74:
 
-  if (v163 >> 62)
+  if (v164 >> 62)
   {
     if (!_CocoaArrayWrapper.endIndex.getter())
     {
@@ -1142,74 +1142,73 @@ LABEL_74:
     }
 
 LABEL_76:
-    v149 = v171;
+    v150 = v172;
     CKSyncEngine.RecordZoneChangeBatch.init(recordsToSave:recordIDsToDelete:atomicByZone:)();
     *(v15 + 32) = 1;
 
-    v150 = sub_1005B981C(&qword_101A0BA48);
-    v151 = *(v150 + 48);
-    v152 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
-    v153 = v97;
-    v154 = *(v152 - 8);
-    v155 = v174;
-    (*(v154 + 16))(v174, v149, v152);
-    v156 = *(v153 + 16);
+    v151 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
+    v152 = *(v151 + 48);
+    v153 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
+    v154 = v98;
+    v155 = *(v153 - 8);
+    v156 = v175;
+    (*(v155 + 16))(v175, v150, v153);
+    v157 = *(v154 + 16);
 
-    v157 = *(v156 + 16);
+    v158 = *(v157 + 16);
 
-    *(v155 + v151) = v157;
-    (*(*(v150 - 8) + 56))(v155, 0, 1, v150);
-    (*(v154 + 56))(v149, 0, 1, v152);
-    v23 = v155;
+    *(v156 + v152) = v158;
+    (*(*(v151 - 8) + 56))(v156, 0, 1, v151);
+    (*(v155 + 56))(v150, 0, 1, v153);
+    v23 = v156;
   }
 
   else
   {
-    if (*((v163 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (*((v164 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_76;
     }
 
 LABEL_80:
 
-    v158 = swift_initStackObject();
-    *(v158 + 16) = v166;
-    v159 = v176;
+    v159 = swift_initStackObject();
+    *(v159 + 16) = v167;
     v160 = v177;
-    *(v158 + 56) = &type metadata for String;
-    *(v158 + 64) = v160;
-    *(v158 + 32) = v159;
-    *(v158 + 40) = v175;
-    v161 = static os_log_type_t.default.getter();
-    sub_100005404(v51, &_mh_execute_header, v161, "<%{public}@> No records are available to add to a batch save", 60, 2, v158);
+    v161 = v178;
+    *(v159 + 56) = &type metadata for String;
+    *(v159 + 64) = v161;
+    *(v159 + 32) = v160;
+    *(v159 + 40) = v176;
+    v162 = static os_log_type_t.default.getter();
+    sub_100005404(v52, &_mh_execute_header, v162, "<%{public}@> No records are available to add to a batch save", 60, 2, v159);
 
     swift_setDeallocating();
-    sub_100005070(v158 + 32);
+    sub_100005070((v159 + 32));
 LABEL_18:
-    v36 = sub_1005B981C(&qword_101A0BA48);
-    v37 = v174;
-    (*(*(v36 - 8) + 56))(v174, 1, 1, v36);
+    v36 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
+    v37 = v175;
+    (*(*(v36 - 8) + 56))(v175, 1, 1, v36);
     v38 = type metadata accessor for CKSyncEngine.RecordZoneChangeBatch();
-    (*(*(v38 - 8) + 56))(v171, 1, 1, v38);
+    (*(*(v38 - 8) + 56))(v172, 1, 1, v38);
     v23 = v37;
   }
 
 LABEL_77:
-  v24 = v165;
+  v24 = v166;
 LABEL_78:
   sub_1009EAD48(v23, v24);
-  return sub_10000CAAC(v174, &qword_101A0BA40);
+  return sub_10000CAAC(v175, &qword_101A0BA40, &qword_10148CE60);
 }
 
-uint64_t sub_1009EAD48(uint64_t a1, uint64_t a2)
+double sub_1009EAD48(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_101A0BA48);
+  v4 = sub_1005B981C(&qword_101A0BA48, &unk_10148CE68);
   v5 = *(*(v4 - 8) + 48);
   if (v5(a1, 1, v4) != 1 || (v6 = *(a2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask)) == 0 || (*(v6 + 32) & 1) != 0)
   {
 LABEL_7:
-    result = v5(a1, 1, v4);
-    if (result != 1)
+    if (v5(a1, 1, v4) != 1)
     {
       if (qword_1019F2270 != -1)
       {
@@ -1217,7 +1216,7 @@ LABEL_7:
       }
 
       v10 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       v12 = inited;
       *(inited + 16) = xmmword_10146C6B0;
@@ -1248,7 +1247,7 @@ LABEL_7:
       v15 = static os_log_type_t.default.getter();
       sub_100005404(v10, &_mh_execute_header, v15, "<%{public}@> There is another batch to save in the current save task. Incrementing attempts for save.", 101, 2, v12);
       swift_setDeallocating();
-      return sub_100005070(v12 + 32);
+      sub_100005070((v12 + 32));
     }
 
     return result;
@@ -1285,7 +1284,7 @@ LABEL_6:
   }
 
   v17 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v18 = swift_initStackObject();
   v19 = v18;
   *(v18 + 16) = xmmword_10146C6B0;
@@ -1316,23 +1315,25 @@ LABEL_6:
   v22 = static os_log_type_t.default.getter();
   sub_100005404(v17, &_mh_execute_header, v22, "<%{public}@> No batch left to save in the current save task. Finishing the save task", 84, 2, v19);
   swift_setDeallocating();
-  sub_100005070(v19 + 32);
+  sub_100005070((v19 + 32));
   sub_1009E4740();
+
+  return result;
 }
 
-uint64_t sub_1009EB0CC(uint64_t a1, uint64_t a2)
+uint64_t sub_1009EB0CC(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v3[25] = a2;
-  v3[26] = v2;
-  v3[24] = a1;
+  v4[25] = a2;
+  v4[26] = v3;
+  v4[24] = a1;
   Changes = type metadata accessor for CKSyncEngine.FetchChangesOptions.Scope();
-  v3[27] = Changes;
-  v3[28] = *(Changes - 8);
-  v3[29] = swift_task_alloc();
-  v5 = type metadata accessor for CKSyncEngine.SyncReason();
-  v3[30] = v5;
-  v3[31] = *(v5 - 8);
-  v3[32] = swift_task_alloc();
+  v4[27] = Changes;
+  v4[28] = *(Changes - 8);
+  v4[29] = swift_task_alloc();
+  v6 = type metadata accessor for CKSyncEngine.SyncReason();
+  v4[30] = v6;
+  v4[31] = *(v6 - 8);
+  v4[32] = swift_task_alloc();
 
   return _swift_task_switch(sub_1009EB1EC, 0, 0);
 }
@@ -1350,7 +1351,7 @@ uint64_t sub_1009EB1EC()
     (*(v0[28] + 104))(v0[29], enum case for CKSyncEngine.FetchChangesOptions.Scope.all(_:), v0[27]);
     CKSyncEngine.FetchChangesOptions.init(scope:operationGroup:)();
     sub_100020E58((v5 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncPriorityProvider), *(v5 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncPriorityProvider + 24));
-    type metadata accessor for CRLSyncPriorityProvider();
+    type metadata accessor for CRLSyncPriorityProvider(0);
     sub_1006C3518();
     CKSyncEngine.FetchChangesOptions.prioritizedZoneIDs.setter();
     Changes = CKSyncEngine.FetchChangesOptions.defaultZoneConfiguration.modify();
@@ -1382,7 +1383,7 @@ uint64_t sub_1009EB1EC()
     v28 = v0[27];
     v13 = v0[26];
     v26 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v15 = inited;
     *(inited + 16) = xmmword_10146BDE0;
@@ -1411,7 +1412,7 @@ uint64_t sub_1009EB1EC()
     v15[8] = v18;
     v15[4] = v16;
     v15[5] = v17;
-    sub_10002C5F0(&qword_101A0BA38, 255, &type metadata accessor for CKSyncEngine.SyncReason);
+    sub_10002C5F0(&qword_101A0BA38, 255, &type metadata accessor for CKSyncEngine.SyncReason, &protocol conformance descriptor for CKSyncEngine.SyncReason);
     v19 = v11;
     v20 = dispatch thunk of CustomStringConvertible.description.getter();
     v15[12] = &type metadata for String;
@@ -1421,12 +1422,12 @@ uint64_t sub_1009EB1EC()
     v22 = static os_log_type_t.error.getter();
     sub_100005404(v26, &_mh_execute_header, v22, "<%{public}@> encountered unknown FetchChangesContext.Reason %@", 62, 2, v15);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     (*(v12 + 104))(v27, enum case for CKSyncEngine.FetchChangesOptions.Scope.all(_:), v28);
     CKSyncEngine.FetchChangesOptions.init(scope:operationGroup:)();
     sub_100020E58((v13 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncPriorityProvider), *(v13 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncPriorityProvider + 24));
-    type metadata accessor for CRLSyncPriorityProvider();
+    type metadata accessor for CRLSyncPriorityProvider(0);
     sub_1006C3518();
     CKSyncEngine.FetchChangesOptions.prioritizedZoneIDs.setter();
     v23 = CKSyncEngine.FetchChangesOptions.defaultZoneConfiguration.modify();
@@ -1452,7 +1453,7 @@ uint64_t sub_1009EB684(uint64_t a1)
   return _swift_task_switch(sub_1009EB748, 0, 0);
 }
 
-uint64_t sub_1009EB748()
+void sub_1009EB748()
 {
   v1 = v0[12];
   v3 = v0[9];
@@ -1487,15 +1488,13 @@ uint64_t sub_1009EB748()
   else
   {
 
-    v11 = v0[1];
+    v10 = v0[1];
 
-    return v11();
+    v10();
   }
-
-  return result;
 }
 
-void sub_1009EB92C(void *a1, uint64_t a2)
+void sub_1009EB92C(char *a1, uint64_t a2)
 {
   v46 = a2;
   v3 = type metadata accessor for SyncEvent.DidSendChanges(0);
@@ -1504,7 +1503,7 @@ void sub_1009EB92C(void *a1, uint64_t a2)
   v5 = type metadata accessor for SyncEvent.WillSendChanges(0);
   __chkstk_darwin(v5 - 8);
   v43 = v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v44 = v41 - v8;
   v9 = type metadata accessor for SyncEvent(0);
@@ -1516,12 +1515,12 @@ void sub_1009EB92C(void *a1, uint64_t a2)
   }
 
   v12 = static OS_os_log.dataSync;
-  v41[1] = sub_1005B981C(&qword_1019F54E0);
+  v41[1] = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v14 = inited;
   *(inited + 16) = xmmword_10146BDE0;
   v47 = a1;
-  if (*(a1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
+  if (a1[OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope])
   {
     v15 = 0x5320646572616853;
   }
@@ -1531,7 +1530,7 @@ void sub_1009EB92C(void *a1, uint64_t a2)
     v15 = 0x2065746176697250;
   }
 
-  if (*(a1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
+  if (a1[OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope])
   {
     v16 = 0xEC00000065706F63;
   }
@@ -1557,7 +1556,7 @@ void sub_1009EB92C(void *a1, uint64_t a2)
   v42 = v12;
   sub_100005404(v12, &_mh_execute_header, v21, "<%{public}@> Received new SyncEngine event: <%{public}@>", 56, 2, v14);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   sub_1009F5EFC(v18, v11, type metadata accessor for SyncEvent);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
@@ -1578,7 +1577,7 @@ void sub_1009EB92C(void *a1, uint64_t a2)
           v34 = static os_log_type_t.default.getter();
           sub_100005404(v42, &_mh_execute_header, v34, "<%{public}@> Sync engine started fetching changes from CloudKit", 63, 2, v33);
           swift_setDeallocating();
-          sub_100005070(v33 + 32);
+          sub_100005070((v33 + 32));
           sub_1009F1CE8();
         }
 
@@ -1658,7 +1657,7 @@ void sub_1009EB92C(void *a1, uint64_t a2)
       v36 = OBJC_IVAR____TtC8Freeform17CRLSyncController_latestFetchedSyncMetadata;
       v37 = v47;
       swift_beginAccess();
-      sub_10002C638(v48, v37 + v36, &qword_101A0BA20);
+      sub_10002C638(v48, &v37[v36], &qword_101A0BA20, &qword_10148CE38);
       swift_endAccess();
       sub_1009E5BB8(v49);
       sub_1009F7574(v49);
@@ -1739,7 +1738,7 @@ uint64_t sub_1009EBFB0()
 
   v9 = *(v0 + 256);
   v40 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C4D0;
   v11 = *(v9 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope);
@@ -1824,7 +1823,7 @@ LABEL_24:
   v27 = static os_log_type_t.default.getter();
   sub_100005404(v40, &_mh_execute_header, v27, "<%{public}@> Received account changed notification. From %@ to %@", 65, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   if (!v5)
   {
@@ -1860,7 +1859,7 @@ LABEL_34:
     goto LABEL_33;
   }
 
-  sub_100006370(0, &qword_1019F6E98);
+  sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
   v28 = static NSObject.== infix(_:_:)();
 
   v29 = v5;
@@ -1882,7 +1881,7 @@ LABEL_29:
   sub_100005404(v40, &_mh_execute_header, v34, "<%{public}@> Unexpected account change state. Both old and new user records are same", 84, 2, v33);
 
   swift_setDeallocating();
-  sub_100005070(v33 + 32);
+  sub_100005070((v33 + 32));
   v35 = *(v0 + 8);
 
   return v35();
@@ -1937,7 +1936,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
       }
 
       v106 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10146BDE0;
       *(inited + 56) = &type metadata for String;
@@ -1957,7 +1956,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
       sub_100005404(v106, &_mh_execute_header, v14, "<%{public}@> zoneWithIDWasModified name: %{public}@", 51, 2, inited);
 
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       ++v3;
       --v2;
@@ -1990,7 +1989,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
       }
 
       v98 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v41 = swift_initStackObject();
       v42 = v41;
       *(v41 + 16) = xmmword_10146BDE0;
@@ -2030,7 +2029,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
       v50 = static os_log_type_t.default.getter();
       sub_100005404(v98, &_mh_execute_header, v50, "<%{public}@> zoneWithIDWasDeleted name: %{public}@", 50, 2, v42);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       swift_beginAccess();
       v30 = v19;
@@ -2057,7 +2056,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
       else
       {
         sub_100A92A18(v57, isUniquelyReferenced_nonNull_native);
-        sub_100006370(0, &qword_1019F69D0);
+        sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
         v59 = sub_1007C8A78(v30);
         if ((v58 & 1) != (v60 & 1))
         {
@@ -2111,7 +2110,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
     }
 
     v99 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v61 = swift_initStackObject();
     v62 = v61;
     *(v61 + 16) = xmmword_10146BDE0;
@@ -2151,7 +2150,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
     v70 = static os_log_type_t.default.getter();
     sub_100005404(v99, &_mh_execute_header, v70, "<%{public}@> zoneWithIDWasDeletedDueToUserEncryptedDataReset name: %{public}@", 77, 2, v62);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     swift_beginAccess();
     v30 = v19;
@@ -2181,7 +2180,7 @@ void sub_1009EC5BC(uint64_t a1, uint64_t a2)
     else
     {
       sub_100A92A18(v77, v71);
-      sub_100006370(0, &qword_1019F69D0);
+      sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
       v73 = sub_1007C8A78(v30);
       if ((v78 & 1) != (v79 & 1))
       {
@@ -2237,7 +2236,7 @@ LABEL_72:
   }
 
   v97 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v20 = swift_initStackObject();
   v21 = v20;
   *(v20 + 16) = xmmword_10146BDE0;
@@ -2277,7 +2276,7 @@ LABEL_72:
   v29 = static os_log_type_t.default.getter();
   sub_100005404(v97, &_mh_execute_header, v29, "<%{public}@> zoneWithIDWasPurged name: %{public}@", 49, 2, v21);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   swift_beginAccess();
   v30 = v19;
@@ -2304,7 +2303,7 @@ LABEL_72:
     else
     {
       sub_100A92A18(v38, v31);
-      sub_100006370(0, &qword_1019F69D0);
+      sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
       v33 = sub_1007C8A78(v30);
       if ((v39 & 1) != (v40 & 1))
       {
@@ -2440,7 +2439,7 @@ void sub_1009ED08C(uint64_t a1, uint64_t a2)
       }
 
       v45 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
       *(inited + 16) = v33;
       *(inited + 56) = &type metadata for String;
@@ -2465,7 +2464,7 @@ void sub_1009ED08C(uint64_t a1, uint64_t a2)
       v32 = static os_log_type_t.default.getter();
       sub_100005404(v45, &_mh_execute_header, v32, "<%{public}@> SyncEngine fetched changed deleted record with type: %{public}@ id: %{public}@", 91, 2, inited);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       swift_beginAccess();
       sub_100ADEA78(v24, v46, v20);
@@ -2485,7 +2484,7 @@ void sub_1009ED08C(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1009ED4C4(void *a1)
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3);
   v5 = &v43 - v4;
   v6 = type metadata accessor for DispatchPredicate();
@@ -2515,7 +2514,7 @@ uint64_t sub_1009ED4C4(void *a1)
   swift_once();
 LABEL_3:
   v44 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146CA70;
   v43 = v1;
@@ -2569,7 +2568,7 @@ LABEL_3:
 
   v46 = v28;
   v47 = v30;
-  sub_1005B981C(&unk_1019F6C70);
+  sub_1005B981C(&unk_1019F6C70, &unk_101488FF0);
   v31 = String.init<A>(describing:)();
   *(inited + 176) = &type metadata for String;
   *(inited + 184) = v16;
@@ -2599,7 +2598,7 @@ LABEL_3:
   v39 = static os_log_type_t.default.getter();
   sub_100005404(v44, &_mh_execute_header, v39, "<%{public}@> SyncEngine fetched changed record with type: %{public}@ id: %{public}@ recordChangeTag: %{public}@ modificationDate: %@", 132, 2, inited);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v40 = [a1 recordID];
   v41 = [v40 zoneID];
@@ -2610,7 +2609,7 @@ LABEL_3:
   return swift_endAccess();
 }
 
-uint64_t sub_1009ED958(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+void sub_1009ED958(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a1 >> 62)
   {
@@ -2678,7 +2677,7 @@ LABEL_10:
   }
 
   v18 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  v81 = v4;
+  v80 = v4;
   if (!v18)
   {
 LABEL_39:
@@ -2690,7 +2689,7 @@ LABEL_39:
     }
 
     v54 = v53 & *(a4 + 64);
-    v83 = OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope;
+    v82 = OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope;
     v55 = (v52 + 63) >> 6;
 
     v5 = 0;
@@ -2709,6 +2708,8 @@ LABEL_39:
 
       if (v56 >= v55)
       {
+
+        return;
       }
 
       v54 = *(a4 + 64 + 8 * v56);
@@ -2723,19 +2724,19 @@ LABEL_46:
           v58 = *(*(a4 + 56) + v57);
           v59 = qword_1019F2270;
           v60 = *(*(a4 + 48) + v57);
-          v87 = v58;
+          v86 = v58;
           if (v59 != -1)
           {
             swift_once();
           }
 
           v54 &= v54 - 1;
-          v86 = static OS_os_log.dataSync;
-          sub_1005B981C(&qword_1019F54E0);
+          v85 = static OS_os_log.dataSync;
+          sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
           inited = swift_initStackObject();
           v62 = inited;
           *(inited + 16) = xmmword_10146C4D0;
-          if (*(v81 + v83))
+          if (*(v80 + v82))
           {
             v63 = 0x5320646572616853;
           }
@@ -2745,7 +2746,7 @@ LABEL_46:
             v63 = 0x2065746176697250;
           }
 
-          if (*(v81 + v83))
+          if (*(v80 + v82))
           {
             v64 = 0xEC00000065706F63;
           }
@@ -2762,7 +2763,7 @@ LABEL_46:
           v62[5] = v64;
           v66 = [v60 zoneName];
           v67 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v85 = v60;
+          v84 = v60;
           v69 = v68;
 
           v62[12] = &type metadata for String;
@@ -2770,17 +2771,17 @@ LABEL_46:
           v62[9] = v67;
           v62[10] = v69;
           type metadata accessor for CKError(0);
-          sub_10002C5F0(&qword_1019F31E0, 255, type metadata accessor for CKError);
+          sub_10002C5F0(&qword_1019F31E0, 255, type metadata accessor for CKError, byte_101467228);
           v70 = Error.localizedDescription.getter();
           v62[17] = &type metadata for String;
           v62[18] = v65;
           v62[14] = v70;
           v62[15] = v71;
           v72 = static os_log_type_t.error.getter();
-          sub_100005404(v86, &_mh_execute_header, v72, "<%{public}@> Zone apparently failed to be deleted as part of client save. This is unexpected! This will go unhandled. zoneID: %{public}@ error: %@", 146, 2, v62);
+          sub_100005404(v85, &_mh_execute_header, v72, "<%{public}@> Zone apparently failed to be deleted as part of client save. This is unexpected! This will go unhandled. zoneID: %{public}@ error: %@", 146, 2, v62);
 
           swift_setDeallocating();
-          sub_1005B981C(&unk_1019F5670);
+          sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
           swift_arrayDestroy();
         }
 
@@ -2801,21 +2802,21 @@ LABEL_46:
       v20 = 0x2065746176697250;
     }
 
-    v79 = v20;
-    v80 = a3 & 0xC000000000000001;
+    v78 = v20;
+    v79 = a3 & 0xC000000000000001;
     v21 = 0xED000065706F6353;
     if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
       v21 = 0xEC00000065706F63;
     }
 
-    v77 = v21;
-    v75 = v18;
-    v76 = a3;
-    v78 = OBJC_IVAR____TtC8Freeform17CRLSyncController_fetchedRecords;
+    v76 = v21;
+    v74 = v18;
+    v75 = a3;
+    v77 = OBJC_IVAR____TtC8Freeform17CRLSyncController_fetchedRecords;
     while (1)
     {
-      if (v80)
+      if (v79)
       {
         v22 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
@@ -2826,22 +2827,22 @@ LABEL_46:
       }
 
       v23 = v22;
-      v82 = v19;
+      v81 = v19;
       if (qword_1019F2270 != -1)
       {
         swift_once();
       }
 
       v24 = static OS_os_log.dataSync;
-      v84 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      v83 = static OS_os_log.dataSync;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v25 = swift_initStackObject();
       *(v25 + 16) = xmmword_10146BDE0;
       *(v25 + 56) = &type metadata for String;
       v26 = sub_1000053B0();
       *(v25 + 64) = v26;
-      *(v25 + 32) = v79;
-      *(v25 + 40) = v77;
+      *(v25 + 32) = v78;
+      *(v25 + 40) = v76;
       v27 = [v23 zoneName];
       v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       v30 = v29;
@@ -2853,14 +2854,14 @@ LABEL_46:
       v31 = static os_log_type_t.error.getter();
       sub_100005404(v24, &_mh_execute_header, v31, "<%{public}@> Zone apparently deleted as part of client save. This is unexpected! Handling anyway. zoneID: %{public}@", 116, 2, v25);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v32 = swift_initStackObject();
       *(v32 + 16) = xmmword_10146BDE0;
       *(v32 + 56) = &type metadata for String;
       *(v32 + 64) = v26;
-      *(v32 + 32) = v79;
-      *(v32 + 40) = v77;
+      *(v32 + 32) = v78;
+      *(v32 + 40) = v76;
       v33 = [v23 zoneName];
       v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
       a3 = v35;
@@ -2870,13 +2871,13 @@ LABEL_46:
       *(v32 + 72) = v34;
       *(v32 + 80) = a3;
       v36 = static os_log_type_t.default.getter();
-      sub_100005404(v84, &_mh_execute_header, v36, "<%{public}@> zoneWithIDWasDeleted name: %{public}@", 50, 2, v32);
+      sub_100005404(v83, &_mh_execute_header, v36, "<%{public}@> zoneWithIDWasDeleted name: %{public}@", 50, 2, v32);
       swift_setDeallocating();
       swift_arrayDestroy();
       swift_beginAccess();
       v5 = v23;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v4 = *(v81 + v78);
+      v4 = *(v80 + v77);
       v38 = sub_1007C8A78(v5);
       v40 = v4[2];
       v41 = (v39 & 1) == 0;
@@ -2901,7 +2902,7 @@ LABEL_46:
       else
       {
         sub_100A92A18(v43, isUniquelyReferenced_nonNull_native);
-        sub_100006370(0, &qword_1019F69D0);
+        sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
         v38 = sub_1007C8A78(v5);
         if ((v44 & 1) != (v45 & 1))
         {
@@ -2909,7 +2910,7 @@ LABEL_46:
         }
       }
 
-      *(v81 + v78) = v4;
+      *(v80 + v77) = v4;
       v46 = 32 * v38;
       if ((v44 & 1) == 0)
       {
@@ -2933,12 +2934,12 @@ LABEL_46:
         v50 = v5;
       }
 
-      v19 = v82 + 1;
+      v19 = v81 + 1;
       *(v4[7] + v46 + 24) = 1;
       swift_endAccess();
 
-      a3 = v76;
-      if (v75 == v82 + 1)
+      a3 = v75;
+      if (v74 == v81 + 1)
       {
         goto LABEL_39;
       }
@@ -2949,7 +2950,7 @@ LABEL_37:
     __break(1u);
 LABEL_38:
     v18 = _CocoaArrayWrapper.endIndex.getter();
-    v81 = v4;
+    v80 = v4;
     if (!v18)
     {
       goto LABEL_39;
@@ -2960,9 +2961,8 @@ LABEL_59:
   __break(1u);
 LABEL_60:
 
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
-  return result;
 }
 
 void sub_1009EE160(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -3022,7 +3022,7 @@ LABEL_10:
       v21 = v19;
       sub_1009E6450(v20, v21);
       type metadata accessor for CKError(0);
-      sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError);
+      sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError, byte_101468944);
       _BridgedStoredNSError.code.getter();
       if (v13[2] && (v22 = sub_1007CF108(), (v23 & 1) != 0))
       {
@@ -3128,7 +3128,7 @@ LABEL_43:
 
           v44 &= v44 - 1;
           v85 = static OS_os_log.dataSync;
-          sub_1005B981C(&qword_1019F54E0);
+          sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
           inited = swift_initStackObject();
           v53 = inited;
           *(inited + 16) = xmmword_10146C4D0;
@@ -3167,7 +3167,7 @@ LABEL_43:
           v53[9] = v58;
           v53[10] = v60;
           type metadata accessor for CKError(0);
-          sub_10002C5F0(&qword_1019F31E0, 255, type metadata accessor for CKError);
+          sub_10002C5F0(&qword_1019F31E0, 255, type metadata accessor for CKError, byte_101467228);
           v61 = Error.localizedDescription.getter();
           v53[17] = &type metadata for String;
           v53[18] = v56;
@@ -3177,7 +3177,7 @@ LABEL_43:
           sub_100005404(v85, &_mh_execute_header, v63, "<%{public}@> Record apparently failed to be deleted as part of client save. This is unexpected! This will go unhandled. recordID: %{public}@ error: %@", 150, 2, v53);
 
           swift_setDeallocating();
-          sub_1005B981C(&unk_1019F5670);
+          sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
           swift_arrayDestroy();
           v41 = a4 + 64;
         }
@@ -3313,7 +3313,7 @@ LABEL_21:
 
       ++v26;
       v31 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v32 = swift_initStackObject();
       *(v32 + 16) = xmmword_10146BDE0;
       *(v32 + 56) = &type metadata for String;
@@ -3333,7 +3333,7 @@ LABEL_21:
       sub_100005404(v31, &_mh_execute_header, v38, "<%{public}@> Record apparently deleted as part of client save. This is unexpected! This will go unhandled. recordID: %{public}@", 127, 2, v32);
 
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v25 = v84;
       v13 = v83;
@@ -3349,7 +3349,7 @@ LABEL_68:
 
 uint64_t sub_1009EE97C(void *a1)
 {
-  v3 = sub_1005B981C(&qword_101A0BA30);
+  v3 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v3 - 8);
   v5 = &v19 - v4;
   v6 = type metadata accessor for DispatchPredicate();
@@ -3380,12 +3380,12 @@ uint64_t sub_1009EE97C(void *a1)
 
         else
         {
-          v17 = type metadata accessor for CRLZoneSyncResultScenarios();
+          v17 = type metadata accessor for CRLZoneSyncResultScenarios(0);
           (*(*(v17 - 8) + 56))(v5, 1, 1, v17);
 
           sub_1009EEDBC(v18, 1, v5);
 
-          sub_10000CAAC(v5, &qword_101A0BA30);
+          sub_10000CAAC(v5, &qword_101A0BA30, &qword_10148CE48);
         }
       }
     }
@@ -3456,7 +3456,7 @@ LABEL_11:
   }
 
   v5 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v7 = inited;
   *(inited + 16) = xmmword_10146C6B0;
@@ -3487,7 +3487,7 @@ LABEL_11:
   v10 = static os_log_type_t.default.getter();
   sub_100005404(v5, &_mh_execute_header, v10, "<%{public}@> No pending zones to save, saving record zones", 58, 2, v7);
   swift_setDeallocating();
-  sub_100005070(v7 + 32);
+  sub_100005070((v7 + 32));
   return sub_1009E52A4();
 }
 
@@ -3497,7 +3497,7 @@ uint64_t sub_1009EEDBC(uint64_t a1, char a2, unint64_t a3)
   v8 = type metadata accessor for DispatchPredicate();
   v9 = *(v8 - 8);
   v10 = __chkstk_darwin(v8);
-  v12 = (&v113 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = (&v118 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   v13 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_queue);
   *v12 = v13;
   (*(v9 + 104))(v12, enum case for DispatchPredicate.onQueue(_:), v8, v10);
@@ -3516,10 +3516,10 @@ LABEL_11:
     v19 = 0xEC00000065706F63;
     v20 = 0x5320646572616853;
     v21 = static OS_os_log.dataSync;
-    v125 = sub_1005B981C(&qword_1019F54E0);
+    v130 = sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v23 = inited;
-    v124 = xmmword_10146BDE0;
+    v129 = xmmword_10146BDE0;
     *(inited + 16) = xmmword_10146BDE0;
     if (!*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
@@ -3528,8 +3528,8 @@ LABEL_11:
     }
 
     *(inited + 56) = &type metadata for String;
-    *&v123 = sub_1000053B0();
-    v23[8] = v123;
+    *&v128 = sub_1000053B0();
+    v23[8] = v128;
     v23[4] = v20;
     v23[5] = v19;
     swift_beginAccess();
@@ -3538,19 +3538,19 @@ LABEL_11:
     v23[13] = &protocol witness table for Int;
     v23[9] = v24;
     v25 = static os_log_type_t.default.getter();
-    v126 = v21;
+    v131 = v21;
     sub_100005404(v21, &_mh_execute_header, v25, "<%{public}@> Processing %d save results", 39, 2, v23);
     swift_setDeallocating();
-    v122 = sub_1005B981C(&unk_1019F5670);
+    v127 = sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     v26 = swift_arrayDestroy();
-    v131 = _swiftEmptyDictionarySingleton;
-    v130 = _swiftEmptyArrayStorage;
+    v136 = _swiftEmptyDictionarySingleton;
+    v135 = _swiftEmptyArrayStorage;
     __chkstk_darwin(v26);
-    *(&v113 - 4) = a3;
-    *(&v113 - 3) = &v130;
-    *(&v113 - 2) = &v131;
+    *(&v118 - 4) = a3;
+    *(&v118 - 3) = &v135;
+    *(&v118 - 2) = &v136;
 
-    v28 = sub_100DCE4F0(v27, sub_1009EFB78, 0, sub_1009F5A0C, (&v113 - 6), sub_1009F06F4);
+    v28 = sub_100DCE4F0(v27, sub_1009EFB78, 0, sub_1009F5A0C, (&v118 - 6), sub_1009F06F4, 0);
 
     v29 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_dataSource);
     sub_100EA364C();
@@ -3580,10 +3580,10 @@ LABEL_81:
     }
 
     v31 = 0;
-    v127 = v28 & 0xC000000000000001;
+    v132 = v28 & 0xC000000000000001;
     do
     {
-      if (v127)
+      if (v132)
       {
         v32 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         v33 = v32;
@@ -3596,9 +3596,9 @@ LABEL_81:
 
       v34 = *(v29 + 24);
       __chkstk_darwin(v32);
-      *(&v113 - 4) = v35;
-      *(&v113 - 3) = v33;
-      *(&v113 - 16) = v34;
+      *(&v118 - 4) = v35;
+      *(&v118 - 3) = v33;
+      *(&v118 - 16) = v34;
       OS_dispatch_queue.sync<A>(execute:)();
 
       ++v31;
@@ -3608,30 +3608,30 @@ LABEL_81:
 LABEL_78:
 
     v4 = *(v29 + 16);
-    v107 = *(v29 + 24);
-    v108 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLBoardDataStore_writeQueue);
-    v109 = swift_allocObject();
-    *(v109 + 16) = v4;
-    *(v109 + 24) = v107;
-    v110 = swift_allocObject();
-    *(v110 + 16) = sub_1009F5D28;
-    *(v110 + 24) = v109;
-    v129[4] = sub_10002AAE4;
-    v129[5] = v110;
-    v129[0] = _NSConcreteStackBlock;
-    v129[1] = *"";
-    v129[2] = sub_10002AAB8;
-    v129[3] = &unk_101890C20;
-    v111 = _Block_copy(v129);
-    v112 = v4;
+    v112 = *(v29 + 24);
+    v113 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLBoardDataStore_writeQueue);
+    v114 = swift_allocObject();
+    *(v114 + 16) = v4;
+    *(v114 + 24) = v112;
+    v115 = swift_allocObject();
+    *(v115 + 16) = sub_1009F5D28;
+    *(v115 + 24) = v114;
+    v134[4] = sub_10002AAE4;
+    v134[5] = v115;
+    v134[0] = _NSConcreteStackBlock;
+    v134[1] = *"";
+    v134[2] = sub_10002AAB8;
+    v134[3] = &unk_101890C20;
+    v116 = _Block_copy(v134);
+    v117 = v4;
 
-    dispatch_sync(v108, v111);
-    _Block_release(v111);
-    LOBYTE(v108) = swift_isEscapingClosureAtFileLocation();
+    dispatch_sync(v113, v116);
+    _Block_release(v116);
+    LOBYTE(v113) = swift_isEscapingClosureAtFileLocation();
 
-    if ((v108 & 1) == 0)
+    if ((v113 & 1) == 0)
     {
-      sub_100BF4340(v131);
+      sub_100BF4340(v136);
     }
 
     __break(1u);
@@ -3648,7 +3648,7 @@ LABEL_78:
     {
       *(a1 + 80) = 1;
 LABEL_9:
-      v121 = v16;
+      v126 = v16;
 
       goto LABEL_10;
     }
@@ -3658,7 +3658,7 @@ LABEL_22:
     {
 LABEL_23:
       v36 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v37 = swift_initStackObject();
       v38 = v37;
       *(v37 + 16) = xmmword_10146C6B0;
@@ -3689,7 +3689,7 @@ LABEL_23:
       v41 = static os_log_type_t.error.getter();
       sub_100005404(v36, &_mh_execute_header, v41, "<%{public}@> Could not find active save task for handling finishSavingBatch", 75, 2, v38);
       swift_setDeallocating();
-      return sub_100005070(v38 + 32);
+      return sub_100005070((v38 + 32));
     }
 
 LABEL_82:
@@ -3710,13 +3710,13 @@ LABEL_82:
   }
 
   v17 = *(a1 + 24);
-  v121 = v16;
+  v126 = v16;
   if (v17 == 1)
   {
     v18 = *(*(a1 + 16) + 16);
     swift_beginAccess();
 
-    sub_100E71568(v132, v18);
+    sub_100E71568(v137, v18);
     swift_endAccess();
   }
 
@@ -3724,8 +3724,8 @@ LABEL_82:
   {
   }
 
-  v118 = *(a1 + 32);
-  if (v118 >> 62)
+  v123 = *(a1 + 32);
+  if (v123 >> 62)
   {
 LABEL_85:
     v43 = _CocoaArrayWrapper.endIndex.getter();
@@ -3743,26 +3743,26 @@ LABEL_10:
     goto LABEL_76;
   }
 
-  v43 = *((v118 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v43 = *((v123 & 0xFFFFFFFFFFFFFF8) + 0x10);
   if (!v43)
   {
     goto LABEL_10;
   }
 
 LABEL_33:
-  v114 = a3;
-  v115 = v4;
+  v119 = a3;
+  v120 = v4;
   v44 = *(a1 + 16);
-  v4 = v118;
-  v45 = v118 & 0xC000000000000001;
+  v4 = v123;
+  v45 = v123 & 0xC000000000000001;
   swift_beginAccess();
   a3 = 0;
-  v127 = v4 & 0xFFFFFFFFFFFFFF8;
-  v123 = xmmword_101478600;
-  v122 = v43;
-  v125 = v4 & 0xC000000000000001;
-  v126 = v44;
-  v119 = a1;
+  v132 = v4 & 0xFFFFFFFFFFFFFF8;
+  v128 = xmmword_101478600;
+  v127 = v43;
+  v130 = v4 & 0xC000000000000001;
+  v131 = v44;
+  v124 = a1;
   while (1)
   {
     if (v45)
@@ -3772,7 +3772,7 @@ LABEL_33:
 
     else
     {
-      if (a3 >= *(v127 + 16))
+      if (a3 >= *(v132 + 16))
       {
         goto LABEL_73;
       }
@@ -3807,7 +3807,7 @@ LABEL_35:
 
     v52 = (*(v49 + 56) + 16 * v50);
     v53 = *v52;
-    v128 = v52[1];
+    v133 = v52[1];
     swift_unknownObjectRetain();
 
     v54 = *(a1 + 64);
@@ -3820,71 +3820,72 @@ LABEL_52:
     swift_beginAccess();
     swift_unknownObjectRetain();
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v132[0] = *(a1 + 64);
-    v72 = v132[0];
+    v137[0] = *(a1 + 64);
+    v73 = v137[0];
     *(a1 + 64) = 0x8000000000000000;
-    v73 = sub_1007C8B7C(v47);
-    v75 = v72[2];
-    v76 = (v74 & 1) == 0;
-    v77 = __OFADD__(v75, v76);
-    v78 = v75 + v76;
-    if (v77)
+    v74 = sub_1007C8B7C(v47);
+    v76 = v73[2];
+    v77 = (v75 & 1) == 0;
+    v78 = __OFADD__(v76, v77);
+    v79 = v76 + v77;
+    if (v78)
     {
       goto LABEL_75;
     }
 
-    v79 = v74;
-    if (v72[3] >= v78)
+    v80 = v75;
+    if (v73[3] >= v79)
     {
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v106 = v73;
+        v111 = v74;
         sub_100AAA428();
-        v73 = v106;
+        v74 = v111;
       }
     }
 
     else
     {
-      sub_100A939F4(v78, isUniquelyReferenced_nonNull_native);
-      v73 = sub_1007C8B7C(v47);
-      if ((v79 & 1) != (v80 & 1))
+      sub_100A939F4(v79, isUniquelyReferenced_nonNull_native);
+      v74 = sub_1007C8B7C(v47);
+      if ((v80 & 1) != (v81 & 1))
       {
         goto LABEL_88;
       }
     }
 
-    v44 = v126;
-    v81 = v128 | 0x8000000000000000;
-    v82 = v132[0];
-    if (v79)
+    v44 = v131;
+    v82 = v133 | 0x8000000000000000;
+    v83 = v137[0];
+    if (v80)
     {
-      v83 = (*(v132[0] + 7) + 40 * v73);
-      v84 = *v83;
-      v85 = v83[1];
-      v86 = v83[2];
-      v87 = v83[3];
-      v88 = v83[4];
-      *v83 = v53;
-      v83[1] = v81;
-      *(v83 + 1) = v123;
-      v83[4] = 0;
-      sub_1009F5D34(v84, v85, v86, v87, v88);
+      v84 = (*(v137[0] + 7) + 40 * v74);
+      v85 = *v84;
+      v86 = v84[1];
+      v87 = v84[2];
+      v88 = v84[3];
+      v89 = v84[4];
+      *v84 = v53;
+      v84[1] = v82;
+      v90 = *&v128;
+      *(v84 + 1) = v128;
+      v84[4] = 0;
+      sub_1009F5D34(v85, v86, v87, v88, v89, v90);
     }
 
     else
     {
-      *(v132[0] + (v73 >> 6) + 8) |= 1 << v73;
-      *(v82[6] + 8 * v73) = v47;
-      v89 = v82[7] + 40 * v73;
-      *v89 = v53;
-      *(v89 + 8) = v81;
-      *(v89 + 16) = v123;
-      *(v89 + 32) = 0;
-      v90 = v82[2];
-      v77 = __OFADD__(v90, 1);
-      v91 = v90 + 1;
-      if (v77)
+      *(v137[0] + (v74 >> 6) + 8) |= 1 << v74;
+      *(v83[6] + 8 * v74) = v47;
+      v91 = v83[7] + 40 * v74;
+      *v91 = v53;
+      *(v91 + 8) = v82;
+      *(v91 + 16) = v128;
+      *(v91 + 32) = 0;
+      v92 = v83[2];
+      v78 = __OFADD__(v92, 1);
+      v93 = v92 + 1;
+      if (v78)
       {
         __break(1u);
 LABEL_84:
@@ -3892,72 +3893,72 @@ LABEL_84:
         goto LABEL_85;
       }
 
-      v82[2] = v91;
+      v83[2] = v93;
     }
 
-    *(a1 + 64) = v82;
+    *(a1 + 64) = v83;
     swift_endAccess();
     swift_unknownObjectRelease();
-    v43 = v122;
-    v45 = v125;
+    v43 = v127;
+    v45 = v130;
 LABEL_36:
     ++a3;
     if (v48 == v43)
     {
-      a3 = v114;
-      v4 = v115;
+      a3 = v119;
+      v4 = v120;
       goto LABEL_10;
     }
   }
 
   v55 = sub_1007C8B7C(v47);
-  if ((v56 & 1) == 0)
+  if ((v57 & 1) == 0)
   {
 
     goto LABEL_52;
   }
 
-  *&v124 = v53;
-  v57 = (*(v54 + 56) + 40 * v55);
-  v58 = v57[1];
-  a1 = v57[2];
-  v59 = v57[3];
-  v60 = v57[4];
-  v120 = *v57;
-  sub_1009F5E18(v120, v58, a1, v59, v60);
+  *&v129 = v53;
+  v58 = (*(v54 + 56) + 40 * v55);
+  v59 = v58[1];
+  a1 = v58[2];
+  v60 = v58[3];
+  v61 = v58[4];
+  v125 = *v58;
+  sub_1009F5E18(v125, v59, a1, v60, v61, v56);
 
-  if ((v58 & 0x8000000000000000) != 0)
+  if ((v59 & 0x8000000000000000) != 0)
   {
     swift_unknownObjectRelease();
-    sub_1009F5D34(v120, v58, a1, v59, v60);
+    sub_1009F5D34(v125, v59, a1, v60, v61, v94);
 
-    v45 = v125;
-    v44 = v126;
-    v4 = v118;
-    a1 = v119;
+    v45 = v130;
+    v44 = v131;
+    v4 = v123;
+    a1 = v124;
     goto LABEL_36;
   }
 
-  v116 = v60;
-  v117 = v59;
-  v61 = v119;
+  v121 = v61;
+  v122 = v60;
+  v62 = v124;
   swift_beginAccess();
   swift_unknownObjectRetain();
   v4 = swift_isUniquelyReferenced_nonNull_native();
-  v132[0] = *(v61 + 64);
-  v62 = v132[0];
-  *(v61 + 64) = 0x8000000000000000;
-  v64 = sub_1007C8B7C(v47);
-  v65 = v62[2];
-  v66 = (v63 & 1) == 0;
-  v67 = v65 + v66;
-  if (__OFADD__(v65, v66))
+  v137[0] = *(v62 + 64);
+  v63 = v137[0];
+  *(v62 + 64) = 0x8000000000000000;
+  v65 = sub_1007C8B7C(v47);
+  v66 = v63[2];
+  v67 = (v64 & 1) == 0;
+  v68 = v66 + v67;
+  if (__OFADD__(v66, v67))
   {
     goto LABEL_84;
   }
 
-  v68 = v63;
-  if (v62[3] >= v67)
+  v69 = v64;
+  if (v63[3] >= v68)
   {
     if ((v4 & 1) == 0)
     {
@@ -3967,67 +3968,68 @@ LABEL_36:
 
   else
   {
-    sub_100A939F4(v67, v4);
-    v69 = sub_1007C8B7C(v47);
-    if ((v68 & 1) != (v70 & 1))
+    sub_100A939F4(v68, v4);
+    v70 = sub_1007C8B7C(v47);
+    if ((v69 & 1) != (v71 & 1))
     {
       goto LABEL_88;
     }
 
-    v64 = v69;
+    v65 = v70;
   }
 
-  v92 = v128 | 0x8000000000000000;
-  v93 = v132[0];
-  if (v68)
+  v95 = v133 | 0x8000000000000000;
+  v96 = v137[0];
+  if (v69)
   {
-    v94 = (*(v132[0] + 7) + 40 * v64);
-    v95 = *v94;
-    v96 = v94[1];
-    v97 = v94[2];
-    v98 = v94[3];
-    v99 = v94[4];
-    *v94 = v124;
-    v94[1] = v92;
-    *(v94 + 1) = v123;
-    v94[4] = 0;
-    sub_1009F5D34(v95, v96, v97, v98, v99);
+    v97 = (*(v137[0] + 7) + 40 * v65);
+    v98 = *v97;
+    v99 = v97[1];
+    v100 = v97[2];
+    v101 = v97[3];
+    v102 = v97[4];
+    *v97 = v129;
+    v97[1] = v95;
+    v103 = *&v128;
+    *(v97 + 1) = v128;
+    v97[4] = 0;
+    sub_1009F5D34(v98, v99, v100, v101, v102, v103);
 
 LABEL_70:
-    v43 = v122;
-    v44 = v126;
-    v104 = v119;
-    v103 = v120;
-    *(v119 + 64) = v93;
+    v43 = v127;
+    v44 = v131;
+    v108 = v124;
+    v107 = v125;
+    *(v124 + 64) = v96;
     swift_endAccess();
-    v105 = a1;
-    a1 = v104;
-    sub_1009F5D34(v103, v58, v105, v117, v116);
+    v109 = a1;
+    a1 = v108;
+    sub_1009F5D34(v107, v59, v109, v122, v121, v110);
     swift_unknownObjectRelease();
-    v45 = v125;
-    v4 = v118;
+    v45 = v130;
+    v4 = v123;
     goto LABEL_36;
   }
 
-  *(v132[0] + (v64 >> 6) + 8) |= 1 << v64;
-  *(v93[6] + 8 * v64) = v47;
-  v100 = v93[7] + 40 * v64;
-  *v100 = v124;
-  *(v100 + 8) = v92;
-  *(v100 + 16) = v123;
-  *(v100 + 32) = 0;
-  v101 = v93[2];
-  v77 = __OFADD__(v101, 1);
-  v102 = v101 + 1;
-  if (!v77)
+  *(v137[0] + (v65 >> 6) + 8) |= 1 << v65;
+  *(v96[6] + 8 * v65) = v47;
+  v104 = v96[7] + 40 * v65;
+  *v104 = v129;
+  *(v104 + 8) = v95;
+  *(v104 + 16) = v128;
+  *(v104 + 32) = 0;
+  v105 = v96[2];
+  v78 = __OFADD__(v105, 1);
+  v106 = v105 + 1;
+  if (!v78)
   {
-    v93[2] = v102;
+    v96[2] = v106;
     goto LABEL_70;
   }
 
   __break(1u);
 LABEL_88:
-  sub_100006370(0, &qword_1019F6E98);
+  sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
@@ -4041,7 +4043,7 @@ void sub_1009EFB78(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   v6 = *(a1 + 32);
   v7 = *(a1 + 40);
   v8 = *a1;
-  sub_1009F5E18(v3, v4, v5, v6, v7);
+  sub_1009F5E18(v3, v4, v5, v6, v7, v9);
 
   *a2 = v3;
   a2[1] = v4;
@@ -4050,24 +4052,24 @@ void sub_1009EFB78(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   a2[4] = v7;
 }
 
-void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>)
+void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>)
 {
   v115 = a4;
   v110 = a3;
   v107 = a5;
-  v106 = sub_1005B981C(&qword_101A0BA08);
+  v106 = sub_1005B981C(&qword_101A0BA08, &unk_10148CE10);
   __chkstk_darwin(v106);
   v105 = &v97 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
   v104 = &v97 - v9;
-  v10 = sub_1005B981C(&qword_101A0A320);
+  v10 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v10 - 8);
   v103 = &v97 - v11;
-  v12 = type metadata accessor for CRLZoneSyncResultScenarios();
+  v12 = type metadata accessor for CRLZoneSyncResultScenarios(0);
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
   v98 = &v97 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_1005B981C(&qword_101A0BA30);
+  v15 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v15 - 8);
   v102 = &v97 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v17);
@@ -4104,12 +4106,12 @@ void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t
   v38 = (*(*(v36 + 8) + 8))(ObjectType);
   v113 = [v38 zoneID];
 
-  sub_10000BE14(a2, v33, &qword_101A0BA30);
+  sub_10000BE14(a2, v33, &qword_101A0BA30, &qword_10148CE48);
   v108 = v13;
   v39 = *(v13 + 48);
   if (v39(v33, 1, v12) == 1)
   {
-    sub_10000CAAC(v33, &qword_101A0BA30);
+    sub_10000CAAC(v33, &qword_101A0BA30, &qword_10148CE48);
     v112 = 0;
   }
 
@@ -4119,10 +4121,10 @@ void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t
     sub_10002C420(v33, type metadata accessor for CRLZoneSyncResultScenarios);
   }
 
-  sub_10000BE14(a2, v30, &qword_101A0BA30);
+  sub_10000BE14(a2, v30, &qword_101A0BA30, &qword_10148CE48);
   if (v39(v30, 1, v12) == 1)
   {
-    sub_10000CAAC(v30, &qword_101A0BA30);
+    sub_10000CAAC(v30, &qword_101A0BA30, &qword_10148CE48);
     v40 = 0;
   }
 
@@ -4132,10 +4134,10 @@ void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t
     sub_10002C420(v30, type metadata accessor for CRLZoneSyncResultScenarios);
   }
 
-  sub_10000BE14(a2, v27, &qword_101A0BA30);
+  sub_10000BE14(a2, v27, &qword_101A0BA30, &qword_10148CE48);
   if (v39(v27, 1, v12) == 1)
   {
-    sub_10000CAAC(v27, &qword_101A0BA30);
+    sub_10000CAAC(v27, &qword_101A0BA30, &qword_10148CE48);
     v100 = 0;
   }
 
@@ -4145,10 +4147,10 @@ void sub_1009EFBEC(uint64_t *a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, uint64_t
     sub_10002C420(v27, type metadata accessor for CRLZoneSyncResultScenarios);
   }
 
-  sub_10000BE14(a2, v24, &qword_101A0BA30);
+  sub_10000BE14(a2, v24, &qword_101A0BA30, &qword_10148CE48);
   if (v39(v24, 1, v12) == 1)
   {
-    sub_10000CAAC(v24, &qword_101A0BA30);
+    sub_10000CAAC(v24, &qword_101A0BA30, &qword_10148CE48);
     v41 = 0;
     v42 = v111;
     if (v111)
@@ -4199,7 +4201,7 @@ LABEL_15:
       {
         v117 = v97;
         type metadata accessor for CKError(0);
-        sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError);
+        sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError, byte_101468944);
         _BridgedStoredNSError.code.getter();
         if (v116 == 25)
         {
@@ -4258,17 +4260,17 @@ LABEL_28:
   }
 
   v64 = *(v108 + 56);
-  (v64)(v62, v63, 1, v12);
+  v64(v62, v63, 1, v12);
   if (v39(v62, 1, v12))
   {
-    sub_10000CAAC(v62, &qword_101A0BA30);
+    sub_10000CAAC(v62, &qword_101A0BA30, &qword_10148CE48);
   }
 
   else
   {
     v65 = v98;
     sub_1009F5EFC(v62, v98, type metadata accessor for CRLZoneSyncResultScenarios);
-    sub_10000CAAC(v62, &qword_101A0BA30);
+    sub_10000CAAC(v62, &qword_101A0BA30, &qword_10148CE48);
     v66 = *v65;
     sub_10002C420(v65, type metadata accessor for CRLZoneSyncResultScenarios);
     v112 |= v66;
@@ -4291,13 +4293,13 @@ LABEL_28:
     v72 = v102;
   }
 
-  (v64)(v72, v73, 1, v12);
+  v64(v72, v73, 1, v12);
   v74 = v12;
   v75 = v39(v72, 1, v12);
   v101 = v64;
   if (v75)
   {
-    sub_10000CAAC(v72, &qword_101A0BA30);
+    sub_10000CAAC(v72, &qword_101A0BA30, &qword_10148CE48);
     v76 = v43;
   }
 
@@ -4305,7 +4307,7 @@ LABEL_28:
   {
     v77 = v98;
     sub_1009F5EFC(v72, v98, type metadata accessor for CRLZoneSyncResultScenarios);
-    sub_10000CAAC(v72, &qword_101A0BA30);
+    sub_10000CAAC(v72, &qword_101A0BA30, &qword_10148CE48);
     v78 = *(v77 + 1);
     sub_10002C420(v77, type metadata accessor for CRLZoneSyncResultScenarios);
     v76 = v78 | v43;
@@ -4318,17 +4320,17 @@ LABEL_28:
   v82 = v104;
   *v104 = 0;
   v83 = v106;
-  sub_10003DFF8(v81, v82 + *(v106 + 48), &qword_101A0A320);
+  sub_10003DFF8(v81, v82 + *(v106 + 48), &qword_101A0A320, &qword_10146D650);
   *v21 = v112 & 1;
   v21[1] = v76 & 1;
   v21[2] = v100;
   *(v21 + 3) = v99;
   v84 = v105;
-  sub_10003DFF8(v82, v105, &qword_101A0BA08);
+  sub_10003DFF8(v82, v105, &qword_101A0BA08, &unk_10148CE10);
   v85 = *(v83 + 48);
   v86 = &v21[*(v74 + 36)];
   *v86 = *v84;
-  sub_10003DFF8(&v84[v85], &v86[v85], &qword_101A0A320);
+  sub_10003DFF8(&v84[v85], &v86[v85], &qword_101A0A320, &qword_10146D650);
   *&v21[*(v74 + 40)] = v79;
   (v101)(v21, 0, 1, v74);
 
@@ -4355,9 +4357,9 @@ LABEL_28:
   v96[1] = v95;
 }
 
-uint64_t sub_1009F06F4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1009F06F4@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if (v3 >> 62)
   {
     v4 = v3 & 0x3FFFFFFFFFFFFFFFLL;
@@ -4365,7 +4367,7 @@ uint64_t sub_1009F06F4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 
   else
   {
-    v4 = *(a1 + 8);
+    v4 = a1[1];
   }
 
   ObjectType = swift_getObjectType();
@@ -4375,16 +4377,16 @@ uint64_t sub_1009F06F4@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1009F076C(uint64_t a1, void *a2)
+double sub_1009F076C(uint64_t a1, void *a2)
 {
   v4 = v2;
-  v7 = sub_1005B981C(&qword_101A0BA30);
+  v7 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v7 - 8);
-  v9 = &v84 - v8;
+  v9 = &v86 - v8;
   v10 = type metadata accessor for DispatchPredicate();
   v11 = *(v10 - 1);
   v12 = __chkstk_darwin(v10);
-  v14 = (&v84 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = (&v86 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   v15 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_queue);
   *v14 = v15;
   (*(v11 + 104))(v14, enum case for DispatchPredicate.onQueue(_:), v10, v12);
@@ -4403,101 +4405,103 @@ LABEL_60:
   *(a1 + 72) = a2;
   v10 = a2;
 
-  if ((sub_100B50C20() & 1) == 0)
+  sub_100B50C20();
+  if ((v17 & 1) == 0)
   {
     goto LABEL_13;
   }
 
-  v17 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
-  if (v17)
+  v18 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
+  if (v18)
   {
-    *(v17 + 56) = 1;
+    *(v18 + 56) = 1;
   }
 
-  v84 = a1;
-  v85 = v9;
+  v86 = a1;
+  v87 = v9;
   if (qword_1019F2270 != -1)
   {
     goto LABEL_60;
   }
 
 LABEL_6:
-  v18 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  v19 = static OS_os_log.dataSync;
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
-  v20 = inited;
+  v21 = inited;
   *(inited + 16) = xmmword_10146C4D0;
-  v21 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope) == 0;
-  v22 = v4;
+  v22 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope) == 0;
+  v23 = v4;
   if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
   {
-    v23 = v3;
+    v24 = v3;
   }
 
   else
   {
-    v23 = 0x2065746176697250;
+    v24 = 0x2065746176697250;
   }
 
-  if (v21)
+  if (v22)
   {
-    v24 = 0xED000065706F6353;
+    v25 = 0xED000065706F6353;
   }
 
   else
   {
-    v24 = 0xEC00000065706F63;
+    v25 = 0xEC00000065706F63;
   }
 
   *(inited + 56) = &type metadata for String;
-  v25 = sub_1000053B0();
-  v20[8] = v25;
-  v20[4] = v23;
-  v20[5] = v24;
-  v26 = sub_100B6FCD4(v10);
-  v20[12] = &type metadata for String;
-  v20[13] = v25;
-  v20[9] = v26;
-  v20[10] = v27;
-  v89 = v10;
+  v26 = sub_1000053B0();
+  v21[8] = v26;
+  v21[4] = v24;
+  v21[5] = v25;
+  v27 = sub_100B6FCD4(v10);
+  v21[12] = &type metadata for String;
+  v21[13] = v26;
+  v21[9] = v27;
+  v21[10] = v28;
+  v91 = v10;
   type metadata accessor for CKError(0);
-  v28 = v10;
-  v4 = v22;
-  v29 = String.init<A>(reflecting:)();
-  v20[17] = &type metadata for String;
-  v20[18] = v25;
+  v29 = v10;
+  v4 = v23;
+  v30 = String.init<A>(reflecting:)();
+  v21[17] = &type metadata for String;
+  v21[18] = v26;
   v3 = 0x5320646572616853;
-  v20[14] = v29;
-  v20[15] = v30;
-  v31 = static os_log_type_t.default.getter();
-  sub_100005404(v18, &_mh_execute_header, v31, "<%{public}@> Encountered unrecoverable batch error <%{public}@> <%@>", 70, 2, v20);
+  v21[14] = v30;
+  v21[15] = v31;
+  v32 = static os_log_type_t.default.getter();
+  sub_100005404(v19, &_mh_execute_header, v32, "<%{public}@> Encountered unrecoverable batch error <%{public}@> <%@>", 70, 2, v21);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
-  a1 = v84;
-  v9 = v85;
+  a1 = v86;
+  v9 = v87;
 LABEL_13:
-  v89 = v10;
+  v91 = v10;
   type metadata accessor for CKError(0);
-  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError);
+  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError, byte_101468944);
   _BridgedStoredNSError.code.getter();
-  if (v88 == 23)
+  if (v90 == 23)
   {
-    v32 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v87 = v10;
+    v89 = v10;
     _BridgedStoredNSError.code.getter();
-    v32 = (v86 < 0x25) & (0x1000A002D8uLL >> v86);
+    v33 = (v88 < 0x25) & (0x1000A002D8uLL >> v88);
   }
 
-  v33 = *(a1 + 16);
-  v34 = *(v33 + 16);
+  v34 = *(a1 + 16);
+  v35 = *(v34 + 16);
   sub_1009F55E8(v10);
 
-  if (sub_100B50C20())
+  sub_100B50C20();
+  if (v36)
   {
     if (*(a1 + 25) == 1)
     {
@@ -4506,33 +4510,33 @@ LABEL_13:
         swift_once();
       }
 
-      v35 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
-      v36 = swift_initStackObject();
-      *(v36 + 16) = xmmword_10146C6B0;
-      v37 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope);
-      *(v36 + 56) = &type metadata for String;
-      v38 = sub_1000053B0();
-      v39 = 0x2065746176697250;
-      if (v37)
+      v37 = static OS_os_log.dataSync;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+      v38 = swift_initStackObject();
+      *(v38 + 16) = xmmword_10146C6B0;
+      v39 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope);
+      *(v38 + 56) = &type metadata for String;
+      v40 = sub_1000053B0();
+      v41 = 0x2065746176697250;
+      if (v39)
       {
-        v39 = 0x5320646572616853;
+        v41 = 0x5320646572616853;
       }
 
-      *(v36 + 32) = v39;
-      v40 = v36 + 32;
-      v41 = 0xED000065706F6353;
-      if (v37)
+      *(v38 + 32) = v41;
+      v42 = (v38 + 32);
+      v43 = 0xED000065706F6353;
+      if (v39)
       {
-        v41 = 0xEC00000065706F63;
+        v43 = 0xEC00000065706F63;
       }
 
-      *(v36 + 64) = v38;
-      *(v36 + 40) = v41;
-      v42 = static os_log_type_t.default.getter();
-      v43 = "<%{public}@> An atomic batch has failed to save and we cannot retry the save. Finishing the save operation on the batch";
-      v44 = v35;
-      v45 = 119;
+      *(v38 + 64) = v40;
+      *(v38 + 40) = v43;
+      v44 = static os_log_type_t.default.getter();
+      v45 = "<%{public}@> An atomic batch has failed to save and we cannot retry the save. Finishing the save operation on the batch";
+      v46 = v37;
+      v47 = 119;
     }
 
     else
@@ -4542,139 +4546,141 @@ LABEL_13:
         swift_once();
       }
 
-      v56 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
-      v36 = swift_initStackObject();
-      *(v36 + 16) = xmmword_10146C6B0;
-      v57 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope);
-      *(v36 + 56) = &type metadata for String;
-      v58 = sub_1000053B0();
-      v59 = 0x2065746176697250;
-      if (v57)
+      v58 = static OS_os_log.dataSync;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+      v38 = swift_initStackObject();
+      *(v38 + 16) = xmmword_10146C6B0;
+      v59 = *(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope);
+      *(v38 + 56) = &type metadata for String;
+      v60 = sub_1000053B0();
+      v61 = 0x2065746176697250;
+      if (v59)
       {
-        v59 = 0x5320646572616853;
+        v61 = 0x5320646572616853;
       }
 
-      *(v36 + 32) = v59;
-      v40 = v36 + 32;
-      v60 = 0xED000065706F6353;
-      if (v57)
+      *(v38 + 32) = v61;
+      v42 = (v38 + 32);
+      v62 = 0xED000065706F6353;
+      if (v59)
       {
-        v60 = 0xEC00000065706F63;
+        v62 = 0xEC00000065706F63;
       }
 
-      *(v36 + 64) = v58;
-      *(v36 + 40) = v60;
-      v42 = static os_log_type_t.default.getter();
-      v43 = "<%{public}@> A non-atomic batch has failed to save and we cannot retry the save. Finishing the save operation on the batch";
-      v44 = v56;
-      v45 = 122;
+      *(v38 + 64) = v60;
+      *(v38 + 40) = v62;
+      v44 = static os_log_type_t.default.getter();
+      v45 = "<%{public}@> A non-atomic batch has failed to save and we cannot retry the save. Finishing the save operation on the batch";
+      v46 = v58;
+      v47 = 122;
     }
 
-    sub_100005404(v44, &_mh_execute_header, v42, v43, v45, 2, v36);
+    sub_100005404(v46, &_mh_execute_header, v44, v45, v47, 2, v38, v86);
     swift_setDeallocating();
-    sub_100005070(v40);
-    v61 = type metadata accessor for CRLZoneSyncResultScenarios();
-    (*(*(v61 - 8) + 56))(v9, 1, 1, v61);
+    sub_100005070(v42);
+    v63 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+    (*(*(v63 - 8) + 56))(v9, 1, 1, v63);
     sub_1009EEDBC(a1, 0, v9);
-    v55 = v9;
-    return sub_10000CAAC(v55, &qword_101A0BA30);
+    v57 = v9;
+LABEL_40:
+    sub_10000CAAC(v57, &qword_101A0BA30, &qword_10148CE48);
+    return result;
   }
 
-  if (v32)
+  if (v33)
   {
-    v85 = v9;
+    v87 = v9;
     if (qword_1019F2270 != -1)
     {
       swift_once();
     }
 
-    v46 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
-    v47 = swift_initStackObject();
-    v48 = v47;
-    *(v47 + 16) = xmmword_10146BDE0;
+    v48 = static OS_os_log.dataSync;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+    v49 = swift_initStackObject();
+    v50 = v49;
+    *(v49 + 16) = xmmword_10146BDE0;
     if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
-      v49 = 0xEC00000065706F63;
+      v51 = 0xEC00000065706F63;
     }
 
     else
     {
       v3 = 0x2065746176697250;
-      v49 = 0xED000065706F6353;
+      v51 = 0xED000065706F6353;
     }
 
-    *(v47 + 56) = &type metadata for String;
-    *(v47 + 64) = sub_1000053B0();
-    v48[4] = v3;
-    v48[5] = v49;
-    v50 = *(v33 + 16);
-    v48[12] = sub_100006370(0, &qword_1019F69D0);
-    v48[13] = sub_10000FE24(&unk_101A22DB0, &qword_1019F69D0);
-    v48[9] = v50;
-    v51 = v50;
-    v52 = static os_log_type_t.default.getter();
-    sub_100005404(v46, &_mh_execute_header, v52, "<%{public}@> Batch cannot be saved because it encounteredThrottlingErrorForAllZones. ZoneID:<%{public}@>", 104, 2, v48);
+    *(v49 + 56) = &type metadata for String;
+    *(v49 + 64) = sub_1000053B0();
+    v50[4] = v3;
+    v50[5] = v51;
+    v52 = *(v34 + 16);
+    v50[12] = sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+    v50[13] = sub_10000FE24(&unk_101A22DB0, &qword_1019F69D0, CKRecordZoneID_ptr);
+    v50[9] = v52;
+    v53 = v52;
+    v54 = static os_log_type_t.default.getter();
+    sub_100005404(v48, &_mh_execute_header, v54, "<%{public}@> Batch cannot be saved because it encounteredThrottlingErrorForAllZones. ZoneID:<%{public}@>", 104, 2, v50);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
-    v53 = type metadata accessor for CRLZoneSyncResultScenarios();
-    v54 = v85;
-    (*(*(v53 - 8) + 56))(v85, 1, 1, v53);
-    sub_1009EEDBC(a1, 0, v54);
-    v55 = v54;
-    return sub_10000CAAC(v55, &qword_101A0BA30);
+    v55 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+    v56 = v87;
+    (*(*(v55 - 8) + 56))(v87, 1, 1, v55);
+    sub_1009EEDBC(a1, 0, v56);
+    v57 = v56;
+    goto LABEL_40;
   }
 
-  v63 = sub_100B50D88();
-  if (v63 >> 62)
+  v65 = sub_100B50D88();
+  if (v65 >> 62)
   {
-    v64 = _CocoaArrayWrapper.endIndex.getter();
+    v66 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v64 = *((v63 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v66 = *((v65 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  if (!v64)
+  if (!v66)
   {
-    v77 = v9;
+    v79 = v9;
     if (qword_1019F2270 != -1)
     {
       swift_once();
     }
 
-    v78 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
-    v79 = swift_initStackObject();
-    v80 = v79;
-    *(v79 + 16) = xmmword_10146C6B0;
+    v80 = static OS_os_log.dataSync;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+    v81 = swift_initStackObject();
+    v82 = v81;
+    *(v81 + 16) = xmmword_10146C6B0;
     if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
-      v81 = 0xEC00000065706F63;
+      v83 = 0xEC00000065706F63;
     }
 
     else
     {
       v3 = 0x2065746176697250;
-      v81 = 0xED000065706F6353;
+      v83 = 0xED000065706F6353;
     }
 
-    *(v79 + 56) = &type metadata for String;
-    *(v79 + 64) = sub_1000053B0();
-    *(v80 + 32) = v3;
-    *(v80 + 40) = v81;
-    v82 = static os_log_type_t.default.getter();
-    sub_100005404(v78, &_mh_execute_header, v82, "<%{public}@> A failed batch save should not be attempted again because all failures have been resolved locally and there is no need to sync them back to server", 159, 2, v80);
+    *(v81 + 56) = &type metadata for String;
+    *(v81 + 64) = sub_1000053B0();
+    *(v82 + 32) = v3;
+    *(v82 + 40) = v83;
+    v84 = static os_log_type_t.default.getter();
+    sub_100005404(v80, &_mh_execute_header, v84, "<%{public}@> A failed batch save should not be attempted again because all failures have been resolved locally and there is no need to sync them back to server", 159, 2, v82);
     swift_setDeallocating();
-    sub_100005070(v80 + 32);
-    v83 = type metadata accessor for CRLZoneSyncResultScenarios();
-    (*(*(v83 - 8) + 56))(v77, 1, 1, v83);
-    sub_1009EEDBC(a1, 1, v77);
-    v55 = v77;
-    return sub_10000CAAC(v55, &qword_101A0BA30);
+    sub_100005070((v82 + 32));
+    v85 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+    (*(*(v85 - 8) + 56))(v79, 1, 1, v85);
+    sub_1009EEDBC(a1, 1, v79);
+    v57 = v79;
+    goto LABEL_40;
   }
 
   if (qword_1019F2270 != -1)
@@ -4682,56 +4688,57 @@ LABEL_13:
     swift_once();
   }
 
-  v65 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
-  v66 = swift_initStackObject();
-  v67 = v66;
-  *(v66 + 16) = xmmword_10146C4D0;
+  v67 = static OS_os_log.dataSync;
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+  v68 = swift_initStackObject();
+  v69 = v68;
+  *(v68 + 16) = xmmword_10146C4D0;
   if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
   {
-    v68 = 0x5320646572616853;
+    v70 = 0x5320646572616853;
   }
 
   else
   {
-    v68 = 0x2065746176697250;
+    v70 = 0x2065746176697250;
   }
 
   if (*(v4 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
   {
-    v69 = 0xEC00000065706F63;
+    v71 = 0xEC00000065706F63;
   }
 
   else
   {
-    v69 = 0xED000065706F6353;
+    v71 = 0xED000065706F6353;
   }
 
-  *(v66 + 56) = &type metadata for String;
-  v70 = sub_1000053B0();
-  *(v67 + 64) = v70;
-  *(v67 + 32) = v68;
-  *(v67 + 40) = v69;
-  v71 = [*(v33 + 16) zoneName];
-  v72 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v74 = v73;
+  *(v68 + 56) = &type metadata for String;
+  v72 = sub_1000053B0();
+  *(v69 + 64) = v72;
+  *(v69 + 32) = v70;
+  *(v69 + 40) = v71;
+  v73 = [*(v34 + 16) zoneName];
+  v74 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v76 = v75;
 
-  *(v67 + 96) = &type metadata for String;
-  *(v67 + 104) = v70;
-  *(v67 + 72) = v72;
-  *(v67 + 80) = v74;
-  v75 = *(a1 + 25);
-  *(v67 + 136) = &type metadata for Bool;
-  *(v67 + 144) = &protocol witness table for Bool;
-  *(v67 + 112) = v75;
-  v76 = static os_log_type_t.default.getter();
-  sub_100005404(v65, &_mh_execute_header, v76, "<%{public}@> Saving a batch is failed but the save failure is recoverable. In our next attempt, we will retry the save if there are any outstanding records for saving. Zone id: %{public}@, isAtomic: %d", 201, 2, v67);
+  *(v69 + 96) = &type metadata for String;
+  *(v69 + 104) = v72;
+  *(v69 + 72) = v74;
+  *(v69 + 80) = v76;
+  v77 = *(a1 + 25);
+  *(v69 + 136) = &type metadata for Bool;
+  *(v69 + 144) = &protocol witness table for Bool;
+  *(v69 + 112) = v77;
+  v78 = static os_log_type_t.default.getter();
+  sub_100005404(v67, &_mh_execute_header, v78, "<%{public}@> Saving a batch is failed but the save failure is recoverable. In our next attempt, we will retry the save if there are any outstanding records for saving. Zone id: %{public}@, isAtomic: %d", 201, 2, v69);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
-  return swift_arrayDestroy();
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+  swift_arrayDestroy();
+  return result;
 }
 
-uint64_t sub_1009F1310(void *a1)
+double sub_1009F1310(void *a1)
 {
   if (qword_1019F2270 != -1)
   {
@@ -4739,7 +4746,7 @@ uint64_t sub_1009F1310(void *a1)
   }
 
   v3 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v5 = inited;
   *(inited + 16) = xmmword_10146BDE0;
@@ -4779,8 +4786,9 @@ uint64_t sub_1009F1310(void *a1)
   v13 = static os_log_type_t.default.getter();
   sub_100005404(v3, &_mh_execute_header, v13, "<%{public}@> Sync engine started fetching record zone changes from CloudKit for zone: %{public}@", 96, 2, v5);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
-  return swift_arrayDestroy();
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+  swift_arrayDestroy();
+  return result;
 }
 
 uint64_t sub_1009F14BC()
@@ -4811,7 +4819,7 @@ uint64_t sub_1009F14BC()
     }
 
     v15 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v17 = inited;
     *(inited + 16) = xmmword_10146C6B0;
@@ -4842,7 +4850,7 @@ uint64_t sub_1009F14BC()
     v20 = static os_log_type_t.default.getter();
     sub_100005404(v15, &_mh_execute_header, v20, "<%{public}@> Sync engine will send changes to CloudKit", 54, 2, v17);
     swift_setDeallocating();
-    sub_100005070(v17 + 32);
+    sub_100005070((v17 + 32));
     v21 = *(v1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_queue);
     *v5 = v21;
     (*(v3 + 104))(v5, enum case for DispatchPredicate.onQueue(_:), v2);
@@ -4878,7 +4886,7 @@ LABEL_22:
   }
 
   v27 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v28 = swift_initStackObject();
   v29 = v28;
   *(v28 + 16) = xmmword_10146C6B0;
@@ -4909,7 +4917,7 @@ LABEL_22:
   v32 = static os_log_type_t.default.getter();
   sub_100005404(v27, &_mh_execute_header, v32, "<%{public}@> Ignoring WillSendChanges event that came in because of push-notification; scope is not .all", 104, 2, v29);
   swift_setDeallocating();
-  return sub_100005070(v29 + 32);
+  return sub_100005070((v29 + 32));
 }
 
 void sub_1009F1944()
@@ -4936,7 +4944,7 @@ void sub_1009F1944()
     }
 
     v11 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v13 = inited;
     *(inited + 16) = xmmword_10146BDE0;
@@ -4973,7 +4981,7 @@ void sub_1009F1944()
     v19 = static os_log_type_t.default.getter();
     sub_100005404(v11, &_mh_execute_header, v19, "<%{public}@> Sync engine did send changes to CloudKit for reason %{public}@", 75, 2, v13);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     sub_1009F2354();
   }
@@ -4986,7 +4994,7 @@ void sub_1009F1944()
     }
 
     v20 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     v21 = swift_initStackObject();
     v22 = v21;
     *(v21 + 16) = xmmword_10146C6B0;
@@ -5017,42 +5025,41 @@ void sub_1009F1944()
     v25 = static os_log_type_t.default.getter();
     sub_100005404(v20, &_mh_execute_header, v25, "<%{public}@> Ignoring DidSendChanges event that came in because of push-notification; scope is not .all", 103, 2, v22);
     swift_setDeallocating();
-    sub_100005070(v22 + 32);
+    sub_100005070((v22 + 32));
   }
 }
 
-uint64_t sub_1009F1CE8()
+void sub_1009F1CE8()
 {
   v1 = type metadata accessor for DispatchPredicate();
   v2 = *(v1 - 8);
   v3 = __chkstk_darwin(v1);
-  v5 = (&v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = (&v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   v6 = *&v0[OBJC_IVAR____TtC8Freeform17CRLSyncController_queue];
   *v5 = v6;
   (*(v2 + 104))(v5, enum case for DispatchPredicate.onQueue(_:), v1, v3);
   v7 = v6;
   LOBYTE(v6) = _dispatchPreconditionTest(_:)();
-  result = (*(v2 + 8))(v5, v1);
+  (*(v2 + 8))(v5, v1);
   if (v6)
   {
-    v9 = OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter;
+    v8 = OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter;
     if (!*&v0[OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter])
     {
-      result = swift_unknownObjectWeakLoadStrong();
-      if (result)
+      if (swift_unknownObjectWeakLoadStrong())
       {
         sub_100EA824C(v0);
-        result = swift_unknownObjectRelease();
+        swift_unknownObjectRelease();
       }
     }
 
-    v10 = *&v0[v9];
-    v11 = __OFADD__(v10, 1);
-    v12 = v10 + 1;
-    if (!v11)
+    v9 = *&v0[v8];
+    v10 = __OFADD__(v9, 1);
+    v11 = v9 + 1;
+    if (!v10)
     {
-      *&v0[v9] = v12;
-      return result;
+      *&v0[v8] = v11;
+      return;
     }
   }
 
@@ -5062,15 +5069,14 @@ uint64_t sub_1009F1CE8()
   }
 
   __break(1u);
-  return result;
 }
 
-void sub_1009F1E50()
+double sub_1009F1E50()
 {
   v3 = type metadata accessor for DispatchPredicate();
   v4 = *(v3 - 8);
   v5 = __chkstk_darwin(v3);
-  v7 = (&v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = (&v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   v8 = *&v0[OBJC_IVAR____TtC8Freeform17CRLSyncController_queue];
   *v7 = v8;
   (*(v4 + 104))(v7, enum case for DispatchPredicate.onQueue(_:), v3, v5);
@@ -5084,27 +5090,27 @@ void sub_1009F1E50()
   }
 
   v3 = OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter;
-  v10 = *&v0[OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter];
-  if (v10 > 0)
+  v11 = *&v0[OBJC_IVAR____TtC8Freeform17CRLSyncController_ongoingFetchCounter];
+  if (v11 > 0)
   {
     goto LABEL_5;
   }
 
-  v33 = v0;
-  v32 = objc_opt_self();
-  LODWORD(v0) = [v32 _atomicIncrementAssertCount];
-  v34 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v34);
-  StaticString.description.getter();
+  v34 = v0;
+  v33 = objc_opt_self();
+  LODWORD(v0) = [v33 _atomicIncrementAssertCount];
+  v35 = [objc_allocWithZone(NSString) init];
+  sub_100604538(_swiftEmptyArrayStorage, &v35, "SyncController ongoing fetch counter is negative, which is invalid. A fetch finished but we did not expect one to be ongoing.", 125, 2u);
+  StaticString.description.getter("_decrementOngoingFetchCounter()", 31, 2);
   v7 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
-  v11 = String._bridgeToObjectiveC()();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncController.swift", 82, 2);
+  v12 = String._bridgeToObjectiveC()();
 
-  v12 = [v11 lastPathComponent];
+  v13 = [v12 lastPathComponent];
 
   v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v13;
+  v2 = v14;
 
   if (qword_1019F20A0 != -1)
   {
@@ -5113,66 +5119,66 @@ void sub_1009F1E50()
 
   while (1)
   {
-    v14 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    v15 = static OS_os_log.crlAssert;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v0;
-    v16 = sub_100006370(0, &qword_1019F4D30);
-    *(inited + 96) = v16;
-    v17 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30);
-    *(inited + 104) = v17;
+    v17 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
+    *(inited + 96) = v17;
+    v18 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr);
+    *(inited + 104) = v18;
     *(inited + 72) = v7;
     *(inited + 136) = &type metadata for String;
-    v18 = sub_1000053B0();
+    v19 = sub_1000053B0();
     *(inited + 112) = v1;
     *(inited + 120) = v2;
     *(inited + 176) = &type metadata for UInt;
     *(inited + 184) = &protocol witness table for UInt;
-    *(inited + 144) = v18;
+    *(inited + 144) = v19;
     *(inited + 152) = 1566;
-    v19 = v34;
-    *(inited + 216) = v16;
-    *(inited + 224) = v17;
-    *(inited + 192) = v19;
-    v20 = v7;
-    v21 = v19;
-    v22 = static os_log_type_t.error.getter();
-    v2 = &_mh_execute_header;
-    sub_100005404(v14, &_mh_execute_header, v22, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
-    swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
-    swift_arrayDestroy();
+    v20 = v35;
+    *(inited + 216) = v17;
+    *(inited + 224) = v18;
+    *(inited + 192) = v20;
+    v21 = v7;
+    v22 = v20;
     v23 = static os_log_type_t.error.getter();
-    sub_100005404(v14, &_mh_execute_header, v23, "SyncController ongoing fetch counter is negative, which is invalid. A fetch finished but we did not expect one to be ongoing.", 125, 2, _swiftEmptyArrayStorage);
+    v2 = &_mh_execute_header;
+    sub_100005404(v15, &_mh_execute_header, v23, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
+    swift_setDeallocating();
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+    swift_arrayDestroy();
+    v24 = static os_log_type_t.error.getter();
+    sub_100005404(v15, &_mh_execute_header, v24, "SyncController ongoing fetch counter is negative, which is invalid. A fetch finished but we did not expect one to be ongoing.", 125, 2, _swiftEmptyArrayStorage);
 
     type metadata accessor for __VaListBuilder();
-    v24 = swift_allocObject();
-    v24[2] = 8;
-    v24[3] = 0;
-    v24[4] = 0;
-    v24[5] = 0;
-    v25 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
-    v26 = String._bridgeToObjectiveC()();
+    v25 = swift_allocObject();
+    v25[2] = 8;
+    v25[3] = 0;
+    v25[4] = 0;
+    v25[5] = 0;
+    v26 = __VaListBuilder.va_list()();
+    StaticString.description.getter("_decrementOngoingFetchCounter()", 31, 2);
+    v27 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncController.swift", 82, 2);
     v1 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
-    v7 = v27;
-    v28 = String._bridgeToObjectiveC()();
+    StaticString.description.getter("SyncController ongoing fetch counter is negative, which is invalid. A fetch finished but we did not expect one to be ongoing.", 125, 2);
+    v7 = v28;
+    v29 = String._bridgeToObjectiveC()();
 
-    [v32 handleFailureInFunction:v26 file:v1 lineNumber:1566 isFatal:0 format:v28 args:v25];
+    [v33 handleFailureInFunction:v27 file:v1 lineNumber:1566 isFatal:0 format:v29 args:v26];
 
-    v0 = v33;
-    v10 = *&v33[v3];
+    v0 = v34;
+    v11 = *&v34[v3];
 LABEL_5:
-    v29 = __OFSUB__(v10, 1);
-    v30 = v10 - 1;
-    if (!v29)
+    v30 = __OFSUB__(v11, 1);
+    v31 = v11 - 1;
+    if (!v30)
     {
       break;
     }
@@ -5183,8 +5189,8 @@ LABEL_12:
     swift_once();
   }
 
-  *&v0[v3] = v30 & ~(v30 >> 63);
-  if (v30 <= 0)
+  *&v0[v3] = v31 & ~(v31 >> 63);
+  if (v31 <= 0)
   {
     if (swift_unknownObjectWeakLoadStrong())
     {
@@ -5192,6 +5198,8 @@ LABEL_12:
       swift_unknownObjectRelease();
     }
   }
+
+  return result;
 }
 
 void sub_1009F2354()
@@ -5223,11 +5231,11 @@ void sub_1009F2354()
   v32 = objc_opt_self();
   LODWORD(v0) = [v32 _atomicIncrementAssertCount];
   v34 = [objc_allocWithZone(NSString) init];
-  sub_100604538(_swiftEmptyArrayStorage, &v34);
-  StaticString.description.getter();
+  sub_100604538(_swiftEmptyArrayStorage, &v34, "SyncController ongoing send counter is negative, which is invalid. A send finished but we did not expect one to be ongoing.", 123, 2u);
+  StaticString.description.getter("_decrementOngoingSendCounter()", 30, 2);
   v7 = String._bridgeToObjectiveC()();
 
-  StaticString.description.getter();
+  StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncController.swift", 82, 2);
   v11 = String._bridgeToObjectiveC()();
 
   v12 = [v11 lastPathComponent];
@@ -5243,15 +5251,15 @@ void sub_1009F2354()
   while (1)
   {
     v14 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
     *(inited + 64) = &protocol witness table for Int32;
     *(inited + 32) = v0;
-    v16 = sub_100006370(0, &qword_1019F4D30);
+    v16 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
     *(inited + 96) = v16;
-    v17 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30);
+    v17 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr);
     *(inited + 104) = v17;
     *(inited + 72) = v7;
     *(inited + 136) = &type metadata for String;
@@ -5272,7 +5280,7 @@ void sub_1009F2354()
     v2 = &_mh_execute_header;
     sub_100005404(v14, &_mh_execute_header, v22, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v23 = static os_log_type_t.error.getter();
     sub_100005404(v14, &_mh_execute_header, v23, "SyncController ongoing send counter is negative, which is invalid. A send finished but we did not expect one to be ongoing.", 123, 2, _swiftEmptyArrayStorage);
@@ -5284,13 +5292,13 @@ void sub_1009F2354()
     v24[4] = 0;
     v24[5] = 0;
     v25 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("_decrementOngoingSendCounter()", 30, 2);
     v26 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncController.swift", 82, 2);
     v1 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("SyncController ongoing send counter is negative, which is invalid. A send finished but we did not expect one to be ongoing.", 123, 2);
     v7 = v27;
     v28 = String._bridgeToObjectiveC()();
 
@@ -5349,14 +5357,14 @@ uint64_t sub_1009F2B14(uint64_t a1, uint64_t a2)
   *v5 = v2;
   v5[1] = sub_10002D4C8;
 
-  return sub_1009EB0CC(a1, a2);
+  return sub_1009EB0CC(a1, a2, v6);
 }
 
 uint64_t sub_1009F2BBC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = swift_task_alloc();
   *(v3 + 16) = v6;
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_10148CD58, a3);
   *v6 = v3;
   v6[1] = sub_10002D3D4;
 
@@ -5367,7 +5375,7 @@ uint64_t sub_1009F2C9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9 = swift_task_alloc();
   *(v4 + 16) = v9;
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_10148CD58, a4);
   *v9 = v4;
   v9[1] = sub_10002D4C8;
 
@@ -5378,7 +5386,7 @@ uint64_t sub_1009F2D7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9 = swift_task_alloc();
   *(v4 + 16) = v9;
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_10148CD58, a4);
   *v9 = v4;
   v9[1] = sub_10002D4C8;
 
@@ -5407,7 +5415,7 @@ uint64_t sub_1009F2F1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t sub_1009F2FE4(uint64_t a1, uint64_t a2)
 {
-  result = sub_10002C5F0(&qword_101A0B9F8, a2, type metadata accessor for CRLSyncController);
+  result = sub_10002C5F0(&qword_101A0B9F8, a2, type metadata accessor for CRLSyncController, aY_34);
   *(a1 + 8) = result;
   return result;
 }
@@ -5421,7 +5429,7 @@ unint64_t sub_1009F303C(uint64_t a1, uint64_t a2)
   return sub_10000BF4C(a1, a2, v4);
 }
 
-uint64_t sub_1009F30B4(uint64_t a1, void *a2)
+void sub_1009F30B4(uint64_t a1, void *a2)
 {
   v109 = type metadata accessor for CRLBoardSyncLogicProvider();
   v110 = &off_1018A8500;
@@ -5437,7 +5445,6 @@ uint64_t sub_1009F30B4(uint64_t a1, void *a2)
   {
 LABEL_121:
 
-    v87 = 0;
     goto LABEL_122;
   }
 
@@ -5527,11 +5534,11 @@ LABEL_107:
         v104 = objc_opt_self();
         v50 = [v104 _atomicIncrementAssertCount];
         v106[0] = [objc_allocWithZone(NSString) init];
-        sub_100604538(_swiftEmptyArrayStorage, v106);
-        StaticString.description.getter();
+        sub_100604538(_swiftEmptyArrayStorage, v106, v7, 39, 2u);
+        StaticString.description.getter("advanceToNextBatchForSaving(syncLogicProvider:)", 47, 2);
         v51 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncRecordGroup.swift", 83, 2);
         v52 = String._bridgeToObjectiveC()();
 
         v53 = [v52 lastPathComponent];
@@ -5546,15 +5553,15 @@ LABEL_107:
         }
 
         v58 = static OS_os_log.crlAssert;
-        sub_1005B981C(&qword_1019F54E0);
+        sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_10146CA70;
         *(inited + 56) = &type metadata for Int32;
         *(inited + 64) = &protocol witness table for Int32;
         *(inited + 32) = v50;
-        v60 = sub_100006370(0, &qword_1019F4D30);
+        v60 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
         *(inited + 96) = v60;
-        v61 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30);
+        v61 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr);
         *(inited + 104) = v61;
         *(inited + 72) = v51;
         *(inited + 136) = &type metadata for String;
@@ -5574,7 +5581,7 @@ LABEL_107:
         v66 = static os_log_type_t.error.getter();
         sub_100005404(v58, &_mh_execute_header, v66, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
         swift_setDeallocating();
-        sub_1005B981C(&unk_1019F5670);
+        sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
         swift_arrayDestroy();
         v67 = static os_log_type_t.error.getter();
         sub_100005404(v58, &_mh_execute_header, v67, v54, 39, 2, _swiftEmptyArrayStorage);
@@ -5586,13 +5593,13 @@ LABEL_107:
         v68[4] = 0;
         v68[5] = 0;
         v69 = __VaListBuilder.va_list()();
-        StaticString.description.getter();
+        StaticString.description.getter("advanceToNextBatchForSaving(syncLogicProvider:)", 47, 2);
         v2 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncRecordGroup.swift", 83, 2);
         v70 = String._bridgeToObjectiveC()();
 
-        StaticString.description.getter();
+        StaticString.description.getter(v54, 39, 2);
         v71 = String._bridgeToObjectiveC()();
 
         [v104 handleFailureInFunction:v2 file:v70 lineNumber:100 isFatal:0 format:v71 args:v69];
@@ -5614,14 +5621,12 @@ LABEL_107:
             v2 = v72 & 0xFFFFFFFFFFFFFF8;
           }
 
-          result = _CocoaArrayWrapper.endIndex.getter();
-          if (!result)
+          if (!_CocoaArrayWrapper.endIndex.getter())
           {
             goto LABEL_132;
           }
 
-          result = _CocoaArrayWrapper.endIndex.getter();
-          if (!result)
+          if (!_CocoaArrayWrapper.endIndex.getter())
           {
             goto LABEL_133;
           }
@@ -5703,11 +5708,11 @@ LABEL_6:
       v97 = objc_opt_self();
       v19 = [v97 _atomicIncrementAssertCount];
       v106[0] = [objc_allocWithZone(NSString) init];
-      sub_100604538(_swiftEmptyArrayStorage, v106);
-      StaticString.description.getter();
+      sub_100604538(_swiftEmptyArrayStorage, v106, v7, 39, 2u);
+      StaticString.description.getter("advanceToNextBatchForSaving(syncLogicProvider:)", 47, 2);
       v20 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncRecordGroup.swift", 83, 2);
       v21 = String._bridgeToObjectiveC()();
 
       v22 = [v21 lastPathComponent];
@@ -5722,15 +5727,15 @@ LABEL_6:
       }
 
       v27 = static OS_os_log.crlAssert;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v28 = swift_initStackObject();
       *(v28 + 16) = xmmword_10146CA70;
       *(v28 + 56) = &type metadata for Int32;
       *(v28 + 64) = &protocol witness table for Int32;
       *(v28 + 32) = v19;
-      v29 = sub_100006370(0, &qword_1019F4D30);
+      v29 = sub_100006370(0, &qword_1019F4D30, NSString_ptr);
       *(v28 + 96) = v29;
-      v30 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30);
+      v30 = sub_10000FE24(&qword_1019F52E0, &qword_1019F4D30, NSString_ptr);
       *(v28 + 104) = v30;
       *(v28 + 72) = v20;
       *(v28 + 136) = &type metadata for String;
@@ -5750,7 +5755,7 @@ LABEL_6:
       v35 = static os_log_type_t.error.getter();
       sub_100005404(v27, &_mh_execute_header, v35, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, v28);
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
       swift_arrayDestroy();
       v36 = static os_log_type_t.error.getter();
       sub_100005404(v27, &_mh_execute_header, v36, v26, 39, 2, _swiftEmptyArrayStorage);
@@ -5762,13 +5767,13 @@ LABEL_6:
       v37[4] = 0;
       v37[5] = 0;
       v38 = __VaListBuilder.va_list()();
-      StaticString.description.getter();
+      StaticString.description.getter("advanceToNextBatchForSaving(syncLogicProvider:)", 47, 2);
       v39 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/Sync/CRLSyncRecordGroup.swift", 83, 2);
       v40 = String._bridgeToObjectiveC()();
 
-      StaticString.description.getter();
+      StaticString.description.getter(v26, 39, 2);
       v41 = String._bridgeToObjectiveC()();
 
       [v97 handleFailureInFunction:v39 file:v40 lineNumber:105 isFatal:0 format:v41 args:v38];
@@ -5782,29 +5787,27 @@ LABEL_6:
       v42 = static OS_os_log.dataSync;
       v43 = swift_initStackObject();
       *(v43 + 16) = xmmword_10146C6B0;
-      *(v43 + 56) = sub_100006370(0, &qword_1019F6E98);
-      *(v43 + 64) = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98);
+      *(v43 + 56) = sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
+      *(v43 + 64) = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98, CKRecordID_ptr);
       *(v43 + 32) = v105;
       v44 = v105;
       v45 = static os_log_type_t.error.getter();
       sub_100005404(v42, &_mh_execute_header, v45, "Failed to create cloud record from local record for ID %{public}@", 65, 2, v43);
       swift_setDeallocating();
-      sub_100005070(v43 + 32);
+      sub_100005070((v43 + 32));
       a2 = v98;
       swift_beginAccess();
       v46 = v98[4];
       v2 = v46 >> 62;
       if (v46 >> 62)
       {
-        result = _CocoaArrayWrapper.endIndex.getter();
         v6 = v99;
-        if (!result)
+        if (!_CocoaArrayWrapper.endIndex.getter())
         {
           goto LABEL_134;
         }
 
-        result = _CocoaArrayWrapper.endIndex.getter();
-        if (!result)
+        if (!_CocoaArrayWrapper.endIndex.getter())
         {
           goto LABEL_135;
         }
@@ -5900,15 +5903,15 @@ LABEL_7:
     }
 
     v2 = v18;
-    result = [v18 size];
-    if (result < 0)
+    v76 = [v18 size];
+    if ((v76 & 0x8000000000000000) != 0)
     {
       __break(1u);
       goto LABEL_126;
     }
 
-    v77 = __CFADD__(result, v95);
-    v95 += result;
+    v77 = __CFADD__(v76, v95);
+    v95 += v76;
     if (v77)
     {
 LABEL_126:
@@ -5933,17 +5936,17 @@ LABEL_108:
 
       swift_unknownObjectRelease();
 LABEL_109:
-      sub_100006370(0, &qword_1019F54D0);
+      sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
       if (qword_1019F25F8 != -1)
       {
         swift_once();
       }
 
-      v86 = static NSObject.== infix(_:_:)();
+      v87 = static NSObject.== infix(_:_:)();
       type metadata accessor for CRLSyncRecordSaveBatch();
       swift_allocObject();
 
-      v87 = sub_100B5149C(v6, a2, v96 & 1, (v86 & 1) == 0);
+      sub_100B5149C(v6, a2, v96 & 1, (v87 & 1) == 0);
 
       v88 = a2[5];
       v89 = __OFADD__(v88, 1);
@@ -5960,7 +5963,7 @@ LABEL_109:
         {
 LABEL_113:
           v91 = static OS_os_log.dataSync;
-          sub_1005B981C(&qword_1019F54E0);
+          sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
           v92 = swift_initStackObject();
           *(v92 + 16) = xmmword_10146C6B0;
           v93 = a2[5];
@@ -5970,10 +5973,10 @@ LABEL_113:
           v94 = static os_log_type_t.default.getter();
           sub_100005404(v91, &_mh_execute_header, v94, "Formed new batch #%d for save task.", 35, 2, v92);
           swift_setDeallocating();
-          sub_100005070(v92 + 32);
+          sub_100005070((v92 + 32));
 LABEL_122:
           sub_100005070(v108);
-          return v87;
+          return;
         }
       }
 
@@ -5998,20 +6001,18 @@ LABEL_77:
 
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     v6 = v107;
-    result = swift_beginAccess();
+    swift_beginAccess();
     v80 = a2[4];
     v81 = v80 >> 62;
     if (v80 >> 62)
     {
-      result = _CocoaArrayWrapper.endIndex.getter();
-      if (!result)
+      if (!_CocoaArrayWrapper.endIndex.getter())
       {
         goto LABEL_137;
       }
 
-      result = _CocoaArrayWrapper.endIndex.getter();
       a2 = v98;
-      if (!result)
+      if (!_CocoaArrayWrapper.endIndex.getter())
       {
         goto LABEL_136;
       }
@@ -6035,48 +6036,46 @@ LABEL_81:
       v101 = v82;
       if (v81)
       {
-        result = _CocoaArrayWrapper.endIndex.getter();
-        if (!result)
+        if (!_CocoaArrayWrapper.endIndex.getter())
         {
           goto LABEL_130;
         }
 
-        result = _CocoaArrayWrapper.endIndex.getter();
-        if (result < 1)
+        if (_CocoaArrayWrapper.endIndex.getter() < 1)
         {
           goto LABEL_131;
         }
 
-        result = _CocoaArrayWrapper.endIndex.getter();
+        v83 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        result = *((v80 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        if (!result)
+        v83 = *((v80 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (!v83)
         {
           goto LABEL_130;
         }
       }
 
-      v83 = result - 1;
-      if (__OFSUB__(result, 1))
+      v84 = v83 - 1;
+      if (__OFSUB__(v83, 1))
       {
         goto LABEL_129;
       }
 
-      v84 = swift_isUniquelyReferenced_nonNull_bridgeObject();
+      v85 = swift_isUniquelyReferenced_nonNull_bridgeObject();
       a2[4] = v80;
-      if (v84)
+      if (v85)
       {
         if (!v81)
         {
-          if (v83 <= *((v80 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (v84 <= *((v80 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v85 = v96;
+            v86 = v96;
             v2 = v103;
 LABEL_99:
-            v96 = v2 | v85;
+            v96 = v2 | v86;
             sub_10067D7F0(0, 1, 0);
             a2[4] = v80;
             swift_endAccess();
@@ -6089,7 +6088,7 @@ LABEL_98:
           v2 = v103;
           v80 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
           a2[4] = v80;
-          v85 = v96;
+          v86 = v96;
           goto LABEL_99;
         }
       }
@@ -6133,14 +6132,13 @@ LABEL_136:
   __break(1u);
 LABEL_137:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_1009F4158(uint64_t a1, void *a2)
+void sub_1009F4158(uint64_t a1, void *a2)
 {
-  v43 = type metadata accessor for CRLBoardSyncLogicProvider();
-  v44 = &off_1018A8500;
-  v42[0] = a1;
+  v48 = type metadata accessor for CRLBoardSyncLogicProvider();
+  v49 = &off_1018A8500;
+  v47[0] = a1;
   v4 = a2[8];
   if (v4)
   {
@@ -6150,33 +6148,35 @@ uint64_t sub_1009F4158(uint64_t a1, void *a2)
 
     v7 = v5;
 
-    v8 = sub_1009DFFF0(v7, v6);
+    sub_1009DFFF0(v7, v6);
+    v9 = v8;
 
-    if (v8)
+    if (v9)
     {
       swift_beginAccess();
-      v9 = a2[6];
+      v10 = a2[6];
 
-      v10 = sub_10079DB58(v7, v9);
+      v11 = sub_10079DB58(v7, v10);
 
-      if (v10)
+      if (v11)
       {
       }
 
       else
       {
-        v11 = sub_100020E58(v42, v43);
-        v12 = sub_1009F30B4(*v11, v8);
+        v12 = sub_100020E58(v47, v48);
+        sub_1009F30B4(*v12, v9);
+        v14 = v13;
 
-        if (v12)
+        if (v14)
         {
 LABEL_8:
-          a2[8] = v12;
+          a2[8] = v14;
 
 LABEL_65:
 
-          sub_100005070(v42);
-          return v12;
+          sub_100005070(v47);
+          return;
         }
       }
     }
@@ -6195,100 +6195,95 @@ LABEL_65:
   swift_beginAccess();
   while (1)
   {
-    v13 = a2[3];
-    if (v13 >> 62)
+    v15 = a2[3];
+    if (v15 >> 62)
     {
       if (!_CocoaArrayWrapper.endIndex.getter())
       {
 LABEL_64:
-        v12 = 0;
         a2[8] = 0;
         goto LABEL_65;
       }
     }
 
-    else if (!*((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    else if (!*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_64;
     }
 
-    result = swift_beginAccess();
-    v15 = a2[3];
-    v16 = v15 >> 62;
-    if (!(v15 >> 62))
+    swift_beginAccess();
+    v16 = a2[3];
+    v17 = v16 >> 62;
+    if (!(v16 >> 62))
     {
       break;
     }
 
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (!result)
+    if (!_CocoaArrayWrapper.endIndex.getter())
     {
       goto LABEL_72;
     }
 
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (!result)
+    if (!_CocoaArrayWrapper.endIndex.getter())
     {
       goto LABEL_73;
     }
 
 LABEL_16:
-    if ((v15 & 0xC000000000000001) != 0)
+    if ((v16 & 0xC000000000000001) != 0)
     {
-      v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v18 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (!*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (!*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
       {
         goto LABEL_67;
       }
 
-      v17 = *(v15 + 32);
+      v18 = *(v16 + 32);
     }
 
-    v18 = v17;
-    if (v16)
+    v19 = v18;
+    if (v17)
     {
-      result = _CocoaArrayWrapper.endIndex.getter();
-      if (!result)
+      if (!_CocoaArrayWrapper.endIndex.getter())
       {
         goto LABEL_70;
       }
 
-      result = _CocoaArrayWrapper.endIndex.getter();
-      if (result < 1)
+      if (_CocoaArrayWrapper.endIndex.getter() < 1)
       {
         goto LABEL_71;
       }
 
-      result = _CocoaArrayWrapper.endIndex.getter();
+      v20 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      result = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!result)
+      v20 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v20)
       {
         goto LABEL_70;
       }
     }
 
-    v19 = result - 1;
-    if (__OFSUB__(result, 1))
+    v21 = v20 - 1;
+    if (__OFSUB__(v20, 1))
     {
       goto LABEL_68;
     }
 
     isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-    a2[3] = v15;
+    a2[3] = v16;
     if (isUniquelyReferenced_nonNull_bridgeObject)
     {
-      if (!v16)
+      if (!v17)
       {
-        v21 = v15 & 0xFFFFFFFFFFFFFF8;
-        if (v19 <= *((v15 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        v23 = v16 & 0xFFFFFFFFFFFFFF8;
+        if (v21 <= *((v16 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
           goto LABEL_33;
         }
@@ -6301,29 +6296,29 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    if (v16)
+    if (v17)
     {
       goto LABEL_31;
     }
 
 LABEL_32:
-    v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-    a2[3] = v15;
-    v21 = v15 & 0xFFFFFFFFFFFFFF8;
+    v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+    a2[3] = v16;
+    v23 = v16 & 0xFFFFFFFFFFFFFF8;
 LABEL_33:
 
-    if (v15 >> 62)
+    if (v16 >> 62)
     {
-      result = _CocoaArrayWrapper.endIndex.getter();
-      if (__OFSUB__(result, 1))
+      v44 = _CocoaArrayWrapper.endIndex.getter();
+      if (__OFSUB__(v44, 1))
       {
         goto LABEL_74;
       }
 
-      memmove((v21 + 32), (v21 + 40), 8 * (result - 1));
-      result = _CocoaArrayWrapper.endIndex.getter();
-      v23 = result - 1;
-      if (__OFSUB__(result, 1))
+      memmove((v23 + 32), (v23 + 40), 8 * (v44 - 1));
+      v45 = _CocoaArrayWrapper.endIndex.getter();
+      v25 = v45 - 1;
+      if (__OFSUB__(v45, 1))
       {
         goto LABEL_69;
       }
@@ -6331,73 +6326,74 @@ LABEL_33:
 
     else
     {
-      v22 = *(v21 + 16);
-      result = memmove((v21 + 32), (v21 + 40), 8 * v22 - 8);
-      v23 = v22 - 1;
-      if (__OFSUB__(v22, 1))
+      v24 = *(v23 + 16);
+      memmove((v23 + 32), (v23 + 40), 8 * v24 - 8);
+      v25 = v24 - 1;
+      if (__OFSUB__(v24, 1))
       {
         goto LABEL_69;
       }
     }
 
-    *(v21 + 16) = v23;
-    a2[3] = v15;
+    *(v23 + 16) = v25;
+    a2[3] = v16;
     swift_endAccess();
-    v24 = a2[2];
-    if ((v24 & 0xC000000000000001) != 0)
+    v26 = a2[2];
+    if ((v26 & 0xC000000000000001) != 0)
     {
 
-      v25 = v18;
-      v26 = __CocoaDictionary.lookup(_:)();
+      v27 = v19;
+      v28 = __CocoaDictionary.lookup(_:)();
 
-      if (!v26)
+      if (!v28)
       {
         goto LABEL_10;
       }
 
       type metadata accessor for CRLSyncRecordGroup();
       swift_dynamicCast();
-      v27 = v41;
+      v29 = v46;
     }
 
     else
     {
-      if (!*(v24 + 16))
+      if (!*(v26 + 16))
       {
         goto LABEL_11;
       }
 
-      v28 = sub_1007C8A78(v18);
-      if ((v29 & 1) == 0)
+      v30 = sub_1007C8A78(v19);
+      if ((v31 & 1) == 0)
       {
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v27 = *(*(v24 + 56) + 8 * v28);
+      v29 = *(*(v26 + 56) + 8 * v30);
     }
 
-    if (v27)
+    if (v29)
     {
-      v30 = a2[6];
-      if ((v30 & 0xC000000000000001) != 0)
+      v32 = a2[6];
+      if ((v32 & 0xC000000000000001) != 0)
       {
-        v31 = v18;
+        v33 = v19;
 
-        v32 = __CocoaSet.contains(_:)();
+        v34 = __CocoaSet.contains(_:)();
 
-        if (v32)
+        if (v34)
         {
         }
 
         else
         {
 LABEL_51:
-          v40 = sub_100020E58(v42, v43);
-          v12 = sub_1009F30B4(*v40, v27);
+          v42 = sub_100020E58(v47, v48);
+          sub_1009F30B4(*v42, v29);
+          v14 = v43;
 
-          if (v12)
+          if (v14)
           {
             goto LABEL_8;
           }
@@ -6406,37 +6402,37 @@ LABEL_51:
 
       else
       {
-        if (!*(v30 + 16))
+        if (!*(v32 + 16))
         {
           goto LABEL_51;
         }
 
-        sub_100006370(0, &qword_1019F69D0);
-        v33 = *(v30 + 40);
+        sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
+        v35 = *(v32 + 40);
 
-        v34 = NSObject._rawHashValue(seed:)(v33);
-        v35 = -1 << *(v30 + 32);
-        v36 = v34 & ~v35;
-        if (((*(v30 + 56 + ((v36 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v36) & 1) == 0)
+        v36 = NSObject._rawHashValue(seed:)(v35);
+        v37 = -1 << *(v32 + 32);
+        v38 = v36 & ~v37;
+        if (((*(v32 + 56 + ((v38 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v38) & 1) == 0)
         {
 LABEL_50:
 
           goto LABEL_51;
         }
 
-        v37 = ~v35;
+        v39 = ~v37;
         while (1)
         {
-          v38 = *(*(v30 + 48) + 8 * v36);
-          v39 = static NSObject.== infix(_:_:)();
+          v40 = *(*(v32 + 48) + 8 * v38);
+          v41 = static NSObject.== infix(_:_:)();
 
-          if (v39)
+          if (v41)
           {
             break;
           }
 
-          v36 = (v36 + 1) & v37;
-          if (((*(v30 + 56 + ((v36 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v36) & 1) == 0)
+          v38 = (v38 + 1) & v39;
+          if (((*(v32 + 56 + ((v38 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v38) & 1) == 0)
           {
             goto LABEL_50;
           }
@@ -6450,7 +6446,7 @@ LABEL_11:
     }
   }
 
-  if (*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     goto LABEL_16;
   }
@@ -6472,22 +6468,21 @@ LABEL_73:
   __break(1u);
 LABEL_74:
   __break(1u);
-  return result;
 }
 
-uint64_t sub_1009F4740()
+uint64_t sub_1009F4740(uint64_t a1, uint64_t a2)
 {
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v3 = result;
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v3 = Strong;
+      v5 = Strong;
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
-      return v1 == v3;
+      return v3 == v5;
     }
 
     else
@@ -6505,13 +6500,13 @@ unint64_t sub_1009F47A4(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_1005B981C(&qword_101A0BA60);
+    sub_1005B981C(&qword_101A0BA60, &unk_10148CE80);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_10000BE14(v4, &v13, &qword_101A2F5D0);
+      sub_10000BE14(v4, &v13, &qword_101A2F5D0, &qword_10149E8C0);
       v5 = v13;
       v6 = v14;
       result = sub_1009F303C(v13, v14);
@@ -6560,12 +6555,12 @@ uint64_t sub_1009F48F4(unint64_t a1, uint64_t a2, uint64_t a3)
 
   v5 = a1;
   v33 = a3;
-  *(a3 + 16) = &_swiftEmptyDictionarySingleton;
+  *(a3 + 16) = _swiftEmptyDictionarySingleton;
   v6 = a3 + 16;
-  *(v6 + 8) = &_swiftEmptyArrayStorage;
+  *(v6 + 8) = _swiftEmptyArrayStorage;
   *(v6 + 16) = 0;
-  *(v6 + 24) = &_swiftEmptySetSingleton;
-  *(v6 + 32) = &_swiftEmptySetSingleton;
+  *(v6 + 24) = _swiftEmptySetSingleton;
+  *(v6 + 32) = _swiftEmptySetSingleton;
   *(v6 + 40) = 0;
   *(v6 + 48) = 0;
   if (a1 >> 62)
@@ -6640,7 +6635,7 @@ LABEL_10:
         v18 = sub_1007C8A78(v12);
         if ((v23 & 1) != (v5 & 1))
         {
-          sub_100006370(0, &qword_1019F69D0);
+          sub_100006370(0, &qword_1019F69D0, CKRecordZoneID_ptr);
           result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
           __break(1u);
           return result;
@@ -6741,13 +6736,13 @@ LABEL_36:
   return v33;
 }
 
-uint64_t sub_1009F4C48(uint64_t a1, void *a2)
+void sub_1009F4C48(uint64_t a1, void *a2)
 {
   v3 = v2;
   v6 = type metadata accessor for DispatchPredicate();
   v7 = *(v6 - 8);
   v8 = __chkstk_darwin(v6);
-  v10 = (v85 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = (v83 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   v11 = *(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_queue);
   *v10 = v11;
   (*(v7 + 104))(v10, enum case for DispatchPredicate.onQueue(_:), v6, v8);
@@ -6763,51 +6758,52 @@ uint64_t sub_1009F4C48(uint64_t a1, void *a2)
   }
 
   v13 = [a2 recordID];
-  v89 = sub_100B51038(v13);
-  if (!v89)
+  v87 = sub_100B51038(v13);
+  if (!v87)
   {
     if (qword_1019F2270 == -1)
     {
 LABEL_21:
-      v52 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      v51 = static OS_os_log.dataSync;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
-      v54 = inited;
+      v53 = inited;
       *(inited + 16) = xmmword_10146BDE0;
       if (*(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
       {
-        v55 = 0x5320646572616853;
+        v54 = 0x5320646572616853;
       }
 
       else
       {
-        v55 = 0x2065746176697250;
+        v54 = 0x2065746176697250;
       }
 
       if (*(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
       {
-        v56 = 0xEC00000065706F63;
+        v55 = 0xEC00000065706F63;
       }
 
       else
       {
-        v56 = 0xED000065706F6353;
+        v55 = 0xED000065706F6353;
       }
 
       *(inited + 56) = &type metadata for String;
       *(inited + 64) = sub_1000053B0();
-      v54[4] = v55;
-      v54[5] = v56;
-      v54[12] = sub_100006370(0, &qword_1019F6E98);
-      v54[13] = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98);
-      v54[9] = v13;
-      v57 = v13;
-      v58 = static os_log_type_t.error.getter();
-      sub_100005404(v52, &_mh_execute_header, v58, "<%{public}@> Failed to find the local change to merge into the remote change for %{public}@.", 92, 2, v54);
+      v53[4] = v54;
+      v53[5] = v55;
+      v53[12] = sub_100006370(0, &qword_1019F6E98, CKRecordID_ptr);
+      v53[13] = sub_10000FE24(&qword_101A22E90, &qword_1019F6E98, CKRecordID_ptr);
+      v53[9] = v13;
+      v56 = v13;
+      v57 = static os_log_type_t.error.getter();
+      sub_100005404(v51, &_mh_execute_header, v57, "<%{public}@> Failed to find the local change to merge into the remote change for %{public}@.", 92, 2, v53);
 
       swift_setDeallocating();
-      sub_1005B981C(&unk_1019F5670);
-      return swift_arrayDestroy();
+      sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
+      swift_arrayDestroy();
+      return;
     }
 
 LABEL_43:
@@ -6816,7 +6812,7 @@ LABEL_43:
   }
 
   v16 = v15;
-  v88 = v13;
+  v86 = v13;
   v17 = (v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncLogicProvider);
   v18 = *(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncLogicProvider + 24);
   v19 = *(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncLogicProvider + 32);
@@ -6829,111 +6825,112 @@ LABEL_43:
       swift_once();
     }
 
-    v87 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
-    v59 = swift_initStackObject();
-    v60 = v59;
-    *(v59 + 16) = xmmword_10146BDE0;
+    v85 = static OS_os_log.dataSync;
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
+    v58 = swift_initStackObject();
+    v59 = v58;
+    *(v58 + 16) = xmmword_10146BDE0;
     if (*(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
-      v61 = 0x5320646572616853;
+      v60 = 0x5320646572616853;
     }
 
     else
     {
-      v61 = 0x2065746176697250;
+      v60 = 0x2065746176697250;
     }
 
     if (*(v3 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
     {
-      v62 = 0xEC00000065706F63;
+      v61 = 0xEC00000065706F63;
     }
 
     else
     {
-      v62 = 0xED000065706F6353;
+      v61 = 0xED000065706F6353;
     }
 
-    *(v59 + 56) = &type metadata for String;
-    v63 = sub_1000053B0();
-    v86 = v63;
-    v60[4] = v61;
-    v60[8] = v63;
-    v60[5] = v62;
-    v92 = 0x203A65707954;
-    v93 = 0xE600000000000000;
-    v64._countAndFlagsBits = CKRecord.recordType.getter();
+    *(v58 + 56) = &type metadata for String;
+    v62 = sub_1000053B0();
+    v84 = v62;
+    *(v59 + 32) = v60;
+    *(v59 + 64) = v62;
+    *(v59 + 40) = v61;
+    *&v90 = 0x203A65707954;
+    *(&v90 + 1) = 0xE600000000000000;
+    v63._countAndFlagsBits = CKRecord.recordType.getter();
+    String.append(_:)(v63);
+
+    v64._countAndFlagsBits = 0x203A444920;
+    v64._object = 0xE500000000000000;
     String.append(_:)(v64);
+    v65 = [a2 recordID];
+    v66 = [v65 recordName];
 
-    v65._countAndFlagsBits = 0x203A444920;
-    v65._object = 0xE500000000000000;
-    String.append(_:)(v65);
-    v66 = [a2 recordID];
-    v67 = [v66 recordName];
+    v67 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v69 = v68;
 
-    v68 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v70 = v69;
+    v70._countAndFlagsBits = v67;
+    v70._object = v69;
+    String.append(_:)(v70);
 
-    v71._countAndFlagsBits = v68;
-    v71._object = v70;
-    String.append(_:)(v71);
-
-    v72 = v92;
-    v73 = v93;
-    v74 = v86;
-    v60[12] = &type metadata for String;
-    v60[13] = v74;
-    v60[9] = v72;
-    v60[10] = v73;
-    v75 = static os_log_type_t.error.getter();
-    sub_100005404(v87, &_mh_execute_header, v75, "<%{public}@> Failed to convert server's record to CRLSyncRemoteRecord %{public}@", 80, 2, v60);
+    v71 = v90;
+    v72 = v84;
+    *(v59 + 96) = &type metadata for String;
+    *(v59 + 104) = v72;
+    *(v59 + 72) = v71;
+    v73 = static os_log_type_t.error.getter();
+    sub_100005404(v85, &_mh_execute_header, v73, "<%{public}@> Failed to convert server's record to CRLSyncRemoteRecord %{public}@", 80, 2, v59);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
-    v92 = v89;
-    v93 = v16 | 0x8000000000000000;
-    v94 = a2;
-    v95 = xmmword_101482150;
+    *&v90 = v87;
+    *(&v90 + 1) = v16 | 0x8000000000000000;
+    v91 = a2;
+    v92 = xmmword_101482150;
     swift_beginAccess();
-    v76 = a2;
+    v74 = a2;
     swift_unknownObjectRetain_n();
-    v77 = v76;
+    v75 = v74;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v90 = *(a1 + 64);
+    v88 = *(a1 + 64);
     *(a1 + 64) = 0x8000000000000000;
-    v79 = v88;
-    sub_100A9F750(&v92, v88, isUniquelyReferenced_nonNull_native);
+    v77 = v86;
+    sub_100A9F750(&v90, v86, isUniquelyReferenced_nonNull_native);
 
-    *(a1 + 64) = v90;
+    *(a1 + 64) = v88;
     swift_endAccess();
 
-    return swift_unknownObjectRelease_n();
+    swift_unknownObjectRelease_n();
+    return;
   }
 
   v22 = v20;
   v23 = v21;
   sub_100020E58(v17, v17[3]);
-  v24 = sub_100EEC328();
+  v24 = sub_100EEC328(v22, v23, v87, v16);
   if (!v24)
   {
 LABEL_38:
-    v92 = v89;
-    v93 = v16 | 0x4000000000000000;
-    v94 = v22;
-    v95 = v23;
+    *&v90 = v87;
+    *(&v90 + 1) = v16 | 0x4000000000000000;
+    v91 = v22;
+    v92 = v23;
     swift_beginAccess();
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
-    v80 = swift_isUniquelyReferenced_nonNull_native();
-    v90 = *(a1 + 64);
+    v78 = swift_isUniquelyReferenced_nonNull_native();
+    v88 = *(a1 + 64);
     *(a1 + 64) = 0x8000000000000000;
-    v81 = v88;
-    sub_100A9F750(&v92, v88, v80);
+    v79 = v86;
+    sub_100A9F750(&v90, v86, v78);
 
-    *(a1 + 64) = v90;
+    *(a1 + 64) = v88;
     swift_endAccess();
     swift_unknownObjectRelease();
-    return swift_unknownObjectRelease();
+LABEL_41:
+    swift_unknownObjectRelease();
+    return;
   }
 
   v26 = v24;
@@ -6946,15 +6943,15 @@ LABEL_38:
   }
 
   sub_100020E58(v17, v17[3]);
-  v85[1] = v26;
+  v83[1] = v26;
   sub_100EECE0C(v26, v27, a2);
   if (qword_1019F2270 != -1)
   {
     swift_once();
   }
 
-  v87 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  v85 = static OS_os_log.dataSync;
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   v29 = swift_initStackObject();
   v30 = v29;
   *(v29 + 16) = xmmword_10146BDE0;
@@ -6980,12 +6977,12 @@ LABEL_38:
 
   *(v29 + 56) = &type metadata for String;
   v33 = sub_1000053B0();
-  v86 = v33;
-  v30[4] = v31;
-  v30[8] = v33;
-  v30[5] = v32;
-  v92 = 0x203A65707954;
-  v93 = 0xE600000000000000;
+  v84 = v33;
+  *(v30 + 32) = v31;
+  *(v30 + 64) = v33;
+  *(v30 + 40) = v32;
+  *&v90 = 0x203A65707954;
+  *(&v90 + 1) = 0xE600000000000000;
   v34._countAndFlagsBits = CKRecord.recordType.getter();
   String.append(_:)(v34);
 
@@ -7002,68 +6999,65 @@ LABEL_38:
   v41._object = v40;
   String.append(_:)(v41);
 
-  v42 = v92;
-  v43 = v93;
-  v44 = v86;
-  v30[12] = &type metadata for String;
-  v30[13] = v44;
-  v30[9] = v42;
-  v30[10] = v43;
-  v45 = static os_log_type_t.default.getter();
-  sub_100005404(v87, &_mh_execute_header, v45, "<%{public}@> Resolved conflict for record %{public}@", 52, 2, v30);
+  v42 = v90;
+  v43 = v84;
+  *(v30 + 96) = &type metadata for String;
+  *(v30 + 104) = v43;
+  *(v30 + 72) = v42;
+  v44 = static os_log_type_t.default.getter();
+  sub_100005404(v85, &_mh_execute_header, v44, "<%{public}@> Resolved conflict for record %{public}@", 52, 2, v30);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   swift_beginAccess();
-  v46 = *(a1 + 48);
-  if ((v46 & 0xC000000000000001) == 0)
+  v45 = *(a1 + 48);
+  if ((v45 & 0xC000000000000001) == 0)
   {
-    v48 = v88;
-    v82 = v88;
-    v83 = a2;
+    v47 = v86;
+    v80 = v86;
+    v81 = a2;
     goto LABEL_40;
   }
 
-  if (v46 < 0)
+  if (v45 < 0)
   {
-    v47 = *(a1 + 48);
+    v46 = *(a1 + 48);
   }
 
   else
   {
-    v47 = v46 & 0xFFFFFFFFFFFFFF8;
+    v46 = v45 & 0xFFFFFFFFFFFFFF8;
   }
 
-  v48 = v88;
-  v49 = v88;
-  v50 = a2;
-  result = __CocoaDictionary.count.getter();
-  if (!__OFADD__(result, 1))
+  v47 = v86;
+  v48 = v86;
+  v49 = a2;
+  v50 = __CocoaDictionary.count.getter();
+  if (!__OFADD__(v50, 1))
   {
-    *(a1 + 48) = sub_100E8DDD0(v47, result + 1);
+    *(a1 + 48) = sub_100E8DDD0(v46, v50 + 1);
 LABEL_40:
-    v84 = swift_isUniquelyReferenced_nonNull_native();
-    v91 = *(a1 + 48);
-    sub_100A9F8E0(a2, v48, v84);
-    *(a1 + 48) = v91;
+    v82 = swift_isUniquelyReferenced_nonNull_native();
+    v89 = *(a1 + 48);
+    sub_100A9F8E0(a2, v47, v82);
+    *(a1 + 48) = v89;
 
     swift_endAccess();
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
-    return swift_unknownObjectRelease();
+    goto LABEL_41;
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t sub_1009F55E8(uint64_t a1)
+void sub_1009F55E8(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for DispatchPredicate();
   v5 = *(v4 - 8);
   v6 = __chkstk_darwin(v4);
-  v8 = &v25[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = &v24[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v9 = *(v2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_queue);
   *v8 = v9;
   (*(v5 + 104))(v8, enum case for DispatchPredicate.onQueue(_:), v4, v6);
@@ -7082,39 +7076,40 @@ uint64_t sub_1009F55E8(uint64_t a1)
     if (qword_1019F2270 == -1)
     {
 LABEL_17:
-      v19 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      v18 = static OS_os_log.dataSync;
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       inited = swift_initStackObject();
-      v21 = inited;
+      v20 = inited;
       *(inited + 16) = xmmword_10146C6B0;
       if (*(v2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
       {
-        v22 = 0x5320646572616853;
+        v21 = 0x5320646572616853;
       }
 
       else
       {
-        v22 = 0x2065746176697250;
+        v21 = 0x2065746176697250;
       }
 
       if (*(v2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_syncScope))
       {
-        v23 = 0xEC00000065706F63;
+        v22 = 0xEC00000065706F63;
       }
 
       else
       {
-        v23 = 0xED000065706F6353;
+        v22 = 0xED000065706F6353;
       }
 
       *(inited + 56) = &type metadata for String;
       *(inited + 64) = sub_1000053B0();
-      *(v21 + 32) = v22;
-      *(v21 + 40) = v23;
-      v24 = static os_log_type_t.error.getter();
-      sub_100005404(v19, &_mh_execute_header, v24, "<%{public}@> Could not find active save task for handling failure", 65, 2, v21);
+      *(v20 + 32) = v21;
+      *(v20 + 40) = v22;
+      v23 = static os_log_type_t.error.getter();
+      sub_100005404(v18, &_mh_execute_header, v23, "<%{public}@> Could not find active save task for handling failure", 65, 2, v20);
       swift_setDeallocating();
-      return sub_100005070(v21 + 32);
+      sub_100005070((v20 + 32));
+      return;
     }
 
 LABEL_25:
@@ -7122,16 +7117,16 @@ LABEL_25:
     goto LABEL_17;
   }
 
-  v29 = a1;
+  v28 = a1;
   type metadata accessor for CKError(0);
-  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError);
+  sub_10002C5F0(&qword_1019F3348, 255, type metadata accessor for CKError, byte_101468944);
 
   _BridgedStoredNSError.code.getter();
-  if (v28 != 23)
+  if (v27 != 23)
   {
-    v27 = a1;
+    v26 = a1;
     _BridgedStoredNSError.code.getter();
-    if (v26 <= 0x24 && ((1 << v26) & 0x1000A002D8) != 0)
+    if (v25 <= 0x24 && ((1 << v25) & 0x1000A002D8) != 0)
     {
       if (qword_1019F2270 != -1)
       {
@@ -7139,7 +7134,7 @@ LABEL_25:
       }
 
       v12 = static OS_os_log.dataSync;
-      sub_1005B981C(&qword_1019F54E0);
+      sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
       v13 = swift_initStackObject();
       v14 = v13;
       *(v13 + 16) = xmmword_10146C6B0;
@@ -7170,7 +7165,7 @@ LABEL_25:
       v17 = static os_log_type_t.error.getter();
       sub_100005404(v12, &_mh_execute_header, v17, "<%{public}@> encounteredThrottlingErrorForAllZones", 50, 2, v14);
       swift_setDeallocating();
-      sub_100005070(v14 + 32);
+      sub_100005070((v14 + 32));
       *(v11 + 57) = 1;
     }
   }
@@ -7229,7 +7224,7 @@ LABEL_16:
 
 LABEL_7:
   v16 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v18 = inited;
   *(inited + 16) = xmmword_10146C6B0;
@@ -7260,15 +7255,15 @@ LABEL_7:
   v21 = static os_log_type_t.error.getter();
   sub_100005404(v16, &_mh_execute_header, v21, "<%{public}@> Could not find active save task for handling zone-not-found error", 78, 2, v18);
   swift_setDeallocating();
-  sub_100005070(v18 + 32);
+  sub_100005070((v18 + 32));
 }
 
-void sub_1009F5D34(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
+double sub_1009F5D34(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5, double result)
 {
-  v7 = a2 >> 62;
+  v8 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v7 == 2)
+    if (v8 == 2)
     {
       swift_unknownObjectRelease();
 
@@ -7276,7 +7271,7 @@ void sub_1009F5D34(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     swift_unknownObjectRelease();
 
@@ -7288,6 +7283,8 @@ void sub_1009F5D34(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
     swift_unknownObjectRelease();
     sub_100025870(a3, a4);
   }
+
+  return v9;
 }
 
 void sub_1009F5E04(id a1, unsigned __int8 a2)
@@ -7297,12 +7294,12 @@ void sub_1009F5E04(id a1, unsigned __int8 a2)
   }
 }
 
-void sub_1009F5E18(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
+double sub_1009F5E18(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5, double result)
 {
-  v7 = a2 >> 62;
+  v8 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v7 == 2)
+    if (v8 == 2)
     {
       swift_unknownObjectRetain();
 
@@ -7310,7 +7307,7 @@ void sub_1009F5E18(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     swift_unknownObjectRetain();
 
@@ -7322,8 +7319,10 @@ void sub_1009F5E18(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, void *a5)
     swift_unknownObjectRetain();
     sub_100024E84(a3, a4);
 
-    v8 = a5;
+    v9 = a5;
   }
+
+  return v10;
 }
 
 id sub_1009F5EE8(id result, unsigned __int8 a2)
@@ -7365,21 +7364,21 @@ void sub_1009F5FB0()
   sub_1009EB92C(v2, v3);
 }
 
-uint64_t sub_1009F6014(void *a1)
+double sub_1009F6014(void *a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&qword_101A0BA30);
+  v4 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v4 - 8);
   v6 = v39 - v5;
-  v7 = sub_1005B981C(&qword_101A0BA08);
+  v7 = sub_1005B981C(&qword_101A0BA08, &unk_10148CE10);
   __chkstk_darwin(v7);
   v9 = v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v12 = v39 - v11;
-  v13 = sub_1005B981C(&qword_101A0A320);
+  v13 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v13 - 8);
   v15 = v39 - v14;
-  v16 = type metadata accessor for CRLZoneSyncResultScenarios();
+  v16 = type metadata accessor for CRLZoneSyncResultScenarios(0);
   __chkstk_darwin(v16);
   v19 = v39 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = *(v2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
@@ -7403,7 +7402,7 @@ uint64_t sub_1009F6014(void *a1)
     if (v23)
     {
       v39[1] = v2;
-      sub_100006370(0, &qword_1019F54D0);
+      sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
       v24 = *(*(v23 + 16) + 16);
 
       v25 = v24;
@@ -7415,21 +7414,21 @@ uint64_t sub_1009F6014(void *a1)
         (*(*(v27 - 8) + 56))(v15, 1, 1, v27);
         *v12 = 0;
         v28 = v41;
-        sub_10003DFF8(v15, &v12[*(v41 + 48)], &qword_101A0A320);
+        sub_10003DFF8(v15, &v12[*(v41 + 48)], &qword_101A0A320, &qword_10146D650);
         *v19 = 0x10000;
         v19[4] = 0;
-        sub_10003DFF8(v12, v9, &qword_101A0BA08);
+        sub_10003DFF8(v12, v9, &qword_101A0BA08, &unk_10148CE10);
         v29 = *(v28 + 48);
         v30 = &v19[*(v16 + 36)];
         *v30 = *v9;
-        sub_10003DFF8(&v9[v29], &v30[v29], &qword_101A0A320);
+        sub_10003DFF8(&v9[v29], &v30[v29], &qword_101A0A320, &qword_10146D650);
         *&v19[*(v16 + 40)] = _swiftEmptyArrayStorage;
         v31 = v42;
         sub_1009F5EFC(v19, v42, type metadata accessor for CRLZoneSyncResultScenarios);
         (*(v40 + 56))(v31, 0, 1, v16);
         sub_1009EEDBC(v23, 0, v31);
 
-        sub_10000CAAC(v31, &qword_101A0BA30);
+        sub_10000CAAC(v31, &qword_101A0BA30, &qword_10148CE48);
         sub_10002C420(v19, type metadata accessor for CRLZoneSyncResultScenarios);
       }
 
@@ -7449,7 +7448,7 @@ uint64_t sub_1009F6014(void *a1)
     }
 
     v32 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v34 = inited;
     *(inited + 16) = xmmword_10146C6B0;
@@ -7480,25 +7479,27 @@ uint64_t sub_1009F6014(void *a1)
     v37 = static os_log_type_t.error.getter();
     sub_100005404(v32, &_mh_execute_header, v37, "<%{public}@> Could not find active save task for handling zone save failure", 75, 2, v34);
     swift_setDeallocating();
-    return sub_100005070(v34 + 32);
+    sub_100005070((v34 + 32));
   }
+
+  return result;
 }
 
-uint64_t sub_1009F6578(void *a1)
+double sub_1009F6578(void *a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&qword_101A0BA30);
+  v4 = sub_1005B981C(&qword_101A0BA30, &qword_10148CE48);
   __chkstk_darwin(v4 - 8);
   v6 = v39 - v5;
-  v7 = sub_1005B981C(&qword_101A0BA08);
+  v7 = sub_1005B981C(&qword_101A0BA08, &unk_10148CE10);
   __chkstk_darwin(v7);
   v9 = v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
   v12 = v39 - v11;
-  v13 = sub_1005B981C(&qword_101A0A320);
+  v13 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v13 - 8);
   v15 = v39 - v14;
-  v16 = type metadata accessor for CRLZoneSyncResultScenarios();
+  v16 = type metadata accessor for CRLZoneSyncResultScenarios(0);
   __chkstk_darwin(v16);
   v19 = v39 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v20 = *(v2 + OBJC_IVAR____TtC8Freeform17CRLSyncController_saveTask);
@@ -7522,7 +7523,7 @@ uint64_t sub_1009F6578(void *a1)
     if (v23)
     {
       v39[1] = v2;
-      sub_100006370(0, &qword_1019F54D0);
+      sub_100006370(0, &qword_1019F54D0, NSObject_ptr);
       v24 = *(*(v23 + 16) + 16);
 
       v25 = v24;
@@ -7534,21 +7535,21 @@ uint64_t sub_1009F6578(void *a1)
         (*(*(v27 - 8) + 56))(v15, 1, 1, v27);
         *v12 = 0;
         v28 = v41;
-        sub_10003DFF8(v15, &v12[*(v41 + 48)], &qword_101A0A320);
+        sub_10003DFF8(v15, &v12[*(v41 + 48)], &qword_101A0A320, &qword_10146D650);
         *v19 = 0;
         v19[4] = 0;
-        sub_10003DFF8(v12, v9, &qword_101A0BA08);
+        sub_10003DFF8(v12, v9, &qword_101A0BA08, &unk_10148CE10);
         v29 = *(v28 + 48);
         v30 = &v19[*(v16 + 36)];
         *v30 = *v9;
-        sub_10003DFF8(&v9[v29], &v30[v29], &qword_101A0A320);
+        sub_10003DFF8(&v9[v29], &v30[v29], &qword_101A0A320, &qword_10146D650);
         *&v19[*(v16 + 40)] = _swiftEmptyArrayStorage;
         v31 = v42;
         sub_1009F5EFC(v19, v42, type metadata accessor for CRLZoneSyncResultScenarios);
         (*(v40 + 56))(v31, 0, 1, v16);
         sub_1009EEDBC(v23, 0, v31);
 
-        sub_10000CAAC(v31, &qword_101A0BA30);
+        sub_10000CAAC(v31, &qword_101A0BA30, &qword_10148CE48);
         sub_10002C420(v19, type metadata accessor for CRLZoneSyncResultScenarios);
       }
 
@@ -7568,7 +7569,7 @@ uint64_t sub_1009F6578(void *a1)
     }
 
     v32 = static OS_os_log.dataSync;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     v34 = inited;
     *(inited + 16) = xmmword_10146C6B0;
@@ -7599,27 +7600,29 @@ uint64_t sub_1009F6578(void *a1)
     v37 = static os_log_type_t.error.getter();
     sub_100005404(v32, &_mh_execute_header, v37, "<%{public}@> Could not find active save task for handling zone save failure", 75, 2, v34);
     swift_setDeallocating();
-    return sub_100005070(v34 + 32);
+    sub_100005070((v34 + 32));
   }
+
+  return result;
 }
 
-uint64_t sub_1009F6AD8(void *a1)
+void sub_1009F6AD8(void *a1)
 {
-  v48 = sub_1005B981C(&qword_101A0BA08);
-  __chkstk_darwin(v48);
-  v47 = &v44 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = sub_1005B981C(&qword_101A0BA08, &unk_10148CE10);
+  __chkstk_darwin(v47);
+  v46 = &v43 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
-  v46 = &v44 - v5;
-  v6 = sub_1005B981C(&qword_101A0A320);
+  v45 = &v43 - v5;
+  v6 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v6 - 8);
-  v45 = &v44 - v7;
+  v44 = &v43 - v7;
   if (qword_1019F2270 != -1)
   {
     swift_once();
   }
 
   v8 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v10 = inited;
   *(inited + 16) = xmmword_10146BDE0;
@@ -7660,7 +7663,7 @@ uint64_t sub_1009F6AD8(void *a1)
   v19 = static os_log_type_t.default.getter();
   sub_100005404(v8, &_mh_execute_header, v19, "<%{public}@> Sync engine stopped fetching record zone changes from CloudKit for zone: %{public}@", 96, 2, v10);
   swift_setDeallocating();
-  sub_1005B981C(&unk_1019F5670);
+  sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
   swift_arrayDestroy();
   v20 = *(*(v1 + OBJC_IVAR____TtC8Freeform17CRLSyncController_dataSource) + 16);
   v21 = *&v20[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore_writeQueue];
@@ -7692,41 +7695,39 @@ uint64_t sub_1009F6AD8(void *a1)
 
   else
   {
-    sub_1005B981C(&qword_101A0BA10);
-    v28 = (sub_1005B981C(&qword_101A0BA18) - 8);
-    v29 = (*(*v28 + 80) + 32) & ~*(*v28 + 80);
-    v30 = swift_allocObject();
-    *(v30 + 16) = xmmword_10146C6B0;
-    v31 = v30 + v29;
-    v32 = v30 + v29 + v28[14];
-    *(v30 + v29) = v25;
-    v33 = type metadata accessor for Date();
+    sub_1005B981C(&qword_101A0BA10, &qword_10148CE20);
+    v27 = (sub_1005B981C(&qword_101A0BA18, &qword_10148CE28) - 8);
+    v28 = (*(*v27 + 80) + 32) & ~*(*v27 + 80);
+    v29 = swift_allocObject();
+    *(v29 + 16) = xmmword_10146C6B0;
+    v30 = v29 + v28;
+    v31 = v29 + v28 + v27[14];
+    *(v29 + v28) = v25;
+    v32 = type metadata accessor for Date();
+    v33 = v44;
+    (*(*(v32 - 8) + 56))(v44, 1, 1, v32);
     v34 = v45;
-    (*(*(v33 - 8) + 56))(v45, 1, 1, v33);
-    v35 = v46;
-    *v46 = 0;
-    v36 = v48;
-    sub_10003DFF8(v34, &v35[*(v48 + 48)], &qword_101A0A320);
-    *v32 = 1;
-    *(v32 + 1) = 0;
-    v37 = v35;
-    v38 = v47;
-    sub_10003DFF8(v37, v47, &qword_101A0BA08);
-    v39 = *v38;
-    v40 = *(v36 + 48);
-    v41 = type metadata accessor for CRLZoneSyncResultScenarios();
-    v42 = (v32 + *(v41 + 36));
-    *v42 = v39;
-    sub_10003DFF8(&v38[v40], &v42[v40], &qword_101A0A320);
-    *(v32 + *(v41 + 40)) = _swiftEmptyArrayStorage;
-    v43 = sub_100BD7B1C(v30);
+    *v45 = 0;
+    v35 = v47;
+    sub_10003DFF8(v33, &v34[*(v47 + 48)], &qword_101A0A320, &qword_10146D650);
+    *v31 = 1;
+    *(v31 + 1) = 0;
+    v36 = v34;
+    v37 = v46;
+    sub_10003DFF8(v36, v46, &qword_101A0BA08, &unk_10148CE10);
+    v38 = *v37;
+    v39 = *(v35 + 48);
+    v40 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+    v41 = (v31 + *(v40 + 36));
+    *v41 = v38;
+    sub_10003DFF8(&v37[v39], &v41[v39], &qword_101A0A320, &qword_10146D650);
+    *(v31 + *(v40 + 40)) = _swiftEmptyArrayStorage;
+    v42 = sub_100BD7B1C(v29);
     swift_setDeallocating();
-    sub_10000CAAC(v31, &qword_101A0BA18);
+    sub_10000CAAC(v30, &qword_101A0BA18, &qword_10148CE28);
     swift_deallocClassInstance();
-    sub_100BF3BF4(v43, 0);
+    sub_100BF3BF4(v42, 0);
   }
-
-  return result;
 }
 
 void sub_1009F70A0()
@@ -7737,7 +7738,7 @@ void sub_1009F70A0()
   }
 
   v1 = static OS_os_log.dataSync;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   v3 = inited;
   *(inited + 16) = xmmword_10146C6B0;
@@ -7768,7 +7769,7 @@ void sub_1009F70A0()
   v6 = static os_log_type_t.default.getter();
   sub_100005404(v1, &_mh_execute_header, v6, "<%{public}@> Sync engine stopped fetching changes from CloudKit", 63, 2, v3);
   swift_setDeallocating();
-  sub_100005070(v3 + 32);
+  sub_100005070((v3 + 32));
   v7 = *(v0 + OBJC_IVAR____TtC8Freeform17CRLSyncController_dataSource);
   v8 = *(v7 + 16);
   v9 = *&v8[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore_writeQueue];
@@ -7897,10 +7898,10 @@ uint64_t sub_1009F7758(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_1009F77C0(uint64_t a1, uint64_t a2)
+uint64_t sub_1009F77C0(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = type metadata accessor for CRLZoneSyncResultScenarios();
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  v5 = type metadata accessor for CRLZoneSyncResultScenarios(0);
+  (*(*(v5 - 8) + 40))(a2, a1, v5);
   return a2;
 }
 
@@ -7927,74 +7928,74 @@ uint64_t sub_1009F78F8(uint64_t a1)
 
 id sub_1009F7A0C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v9 = objc_allocWithZone(type metadata accessor for CRLPreinsertionAssetWrapper());
+  v9 = objc_allocWithZone(type metadata accessor for CRLPreinsertionAssetWrapper(0));
 
   swift_unknownObjectRetain();
   sub_100024E98(a1, a2);
   return sub_100CF051C(a1, a2, a3, a4, v4);
 }
 
-id sub_1009F7AA0(uint64_t a1)
+id sub_1009F7AA0(uint64_t a1, uint64_t a2)
 {
-  v3 = [v1 store];
-  v4 = *&v3[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManagerLock];
-  os_unfair_lock_lock(*(v4 + 16));
-  v5 = OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager;
-  v6 = *&v3[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager];
-  if (v6)
+  v4 = [v2 store];
+  v5 = *&v4[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManagerLock];
+  os_unfair_lock_lock(*(v5 + 16));
+  v6 = OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager;
+  v7 = *&v4[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager];
+  if (v7)
   {
-    v7 = *&v3[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager];
+    v8 = *&v4[OBJC_IVAR____TtC8Freeform17CRLBoardDataStore__assetManager];
   }
 
   else
   {
-    v20 = type metadata accessor for CRLAssetManager();
-    v8 = objc_allocWithZone(v20);
+    v21 = type metadata accessor for CRLAssetManager();
+    v9 = objc_allocWithZone(v21);
     swift_unknownObjectWeakInit();
-    v9 = OBJC_IVAR____TtC8Freeform15CRLAssetManager_lock;
+    v10 = OBJC_IVAR____TtC8Freeform15CRLAssetManager_lock;
     type metadata accessor for CRLUnfairLock();
-    v10 = swift_allocObject();
-    v11 = v3;
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    *(v10 + 16) = v12;
+    v11 = swift_allocObject();
+    v12 = v4;
+    v13 = swift_slowAlloc();
+    *v13 = 0;
+    *(v11 + 16) = v13;
     atomic_thread_fence(memory_order_acq_rel);
-    *&v8[v9] = v10;
-    *&v8[OBJC_IVAR____TtC8Freeform15CRLAssetManager_assets] = _swiftEmptyDictionarySingleton;
-    v13 = OBJC_IVAR____TtC8Freeform15CRLAssetManager_owners;
-    *&v8[v13] = [objc_opt_self() mapTableWithKeyOptions:517 valueOptions:0];
-    *&v8[OBJC_IVAR____TtC8Freeform15CRLAssetManager_garbageCollectionWorkItem] = 0;
+    *&v9[v10] = v11;
+    *&v9[OBJC_IVAR____TtC8Freeform15CRLAssetManager_assets] = _swiftEmptyDictionarySingleton;
+    v14 = OBJC_IVAR____TtC8Freeform15CRLAssetManager_owners;
+    *&v9[v14] = [objc_opt_self() mapTableWithKeyOptions:517 valueOptions:0];
+    *&v9[OBJC_IVAR____TtC8Freeform15CRLAssetManager_garbageCollectionWorkItem] = 0;
     swift_unknownObjectWeakAssign();
-    v21.receiver = v8;
-    v21.super_class = v20;
-    v14 = objc_msgSendSuper2(&v21, "init");
+    v22.receiver = v9;
+    v22.super_class = v21;
+    v15 = objc_msgSendSuper2(&v22, "init");
 
-    v15 = *&v3[v5];
-    *&v3[v5] = v14;
-    v7 = v14;
+    v16 = *&v4[v6];
+    *&v4[v6] = v15;
+    v8 = v15;
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v16 = *(v4 + 16);
-  v17 = v6;
-  os_unfair_lock_unlock(v16);
+  v17 = *(v5 + 16);
+  v18 = v7;
+  os_unfair_lock_unlock(v17);
 
-  v18 = sub_100C81464(a1, v1, v7);
-  return v18;
+  v19 = sub_100C81464(a1, v2, v8);
+  return v19;
 }
 
-id sub_1009F7C78(uint64_t a1, uint64_t a2, uint64_t a3)
+id sub_1009F7C78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = type metadata accessor for URL();
-  v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for CRLPreinsertionAssetWrapper();
-  (*(v8 + 16))(v10, a1, v7);
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for CRLPreinsertionAssetWrapper(0);
+  (*(v10 + 16))(v12, a1, v9);
 
   swift_unknownObjectRetain();
-  return sub_100CF5584(v10, a2, a3, v3, v11);
+  return sub_100CF5584(v12, a2, a3, v4, v13, a4);
 }
 
 uint64_t sub_1009F7D94(uint64_t a1)
@@ -8033,115 +8034,115 @@ LABEL_10:
 
 uint64_t sub_1009F7E30()
 {
-  v0 = sub_1005B981C(&qword_1019F67C0);
+  v0 = sub_1005B981C(&qword_1019F67C0, &unk_10146F3E0);
   __chkstk_darwin(v0 - 8);
-  v41 = &v35 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v42 = &v36 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v2);
-  v37 = &v35 - v3;
+  v38 = &v36 - v3;
   v4 = type metadata accessor for CRLProto_Data(0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v40 = (&v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v41 = (&v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v7);
-  v9 = &v35 - v8;
+  v9 = &v36 - v8;
   __chkstk_darwin(v10);
-  v12 = (&v35 - v11);
+  v12 = (&v36 - v11);
   v13 = type metadata accessor for CRLProto_ChunkedRealTimeMessage(0);
   __chkstk_darwin(v13);
-  v15 = &v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15[8] = 0;
   *v15 = 0;
   UnknownStorage.init()();
   v16 = *(v13 + 32);
   v17 = *(v5 + 56);
-  v45 = v17;
+  v46 = v17;
   v17(&v15[v16], 1, 1, v4);
-  v42 = v13;
-  v38 = *(v13 + 36);
-  v17(&v15[v38], 1, 1, v4);
-  v44 = xmmword_10146F370;
+  v43 = v13;
+  v39 = *(v13 + 36);
+  v17(&v15[v39], 1, 1, v4);
+  v45 = xmmword_10146F370;
   *v12 = xmmword_10146F370;
   UnknownStorage.init()();
   sub_1009DCE5C(&v15[v16]);
   sub_100683F6C(v12, &v15[v16]);
-  v46 = v5 + 56;
-  v17(&v15[v16], 0, 1, v4);
-  v18 = v37;
-  v19 = UUID.crl_data()();
-  v36 = v20;
-  sub_10084DD24(&v15[v16], v18);
-  v21 = *(v5 + 48);
-  v22 = v21(v18, 1, v4);
-  v39 = v5 + 48;
-  v43 = v21;
-  if (v22 == 1)
+  v47 = v5 + 56;
+  v18 = (v17)(&v15[v16], 0, 1, v4);
+  v19 = v38;
+  v20 = UUID.crl_data()(v18);
+  v37 = v21;
+  sub_10084DD24(&v15[v16], v19);
+  v22 = *(v5 + 48);
+  v23 = v22(v19, 1, v4);
+  v40 = v5 + 48;
+  v44 = v22;
+  if (v23 == 1)
   {
-    *v9 = v44;
+    *v9 = v45;
     UnknownStorage.init()();
-    if (v21(v18, 1, v4) != 1)
+    if (v22(v19, 1, v4) != 1)
     {
-      sub_1009DCE5C(v18);
+      sub_1009DCE5C(v19);
     }
   }
 
   else
   {
-    sub_100683F6C(v18, v9);
+    sub_100683F6C(v19, v9);
   }
 
   sub_10002640C(*v9, *(v9 + 1));
-  v23 = v36;
-  *v9 = v19;
-  *(v9 + 1) = v23;
+  v24 = v37;
+  *v9 = v20;
+  *(v9 + 1) = v24;
   sub_1009DCE5C(&v15[v16]);
   sub_100683F6C(v9, &v15[v16]);
-  v24 = v45;
-  v45(&v15[v16], 0, 1, v4);
-  v25 = v47;
-  v26 = *(v47 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_lastIndex);
-  *v15 = *(v47 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_index);
-  *(v15 + 1) = v26;
-  v15[8] = *(v25 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_encrypted);
-  *v12 = v44;
+  v25 = v46;
+  v46(&v15[v16], 0, 1, v4);
+  v26 = v48;
+  v27 = *(v48 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_lastIndex);
+  *v15 = *(v48 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_index);
+  *(v15 + 1) = v27;
+  v15[8] = *(v26 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_encrypted);
+  *v12 = v45;
   UnknownStorage.init()();
-  v27 = v38;
-  sub_1009DCE5C(&v15[v38]);
-  sub_100683F6C(v12, &v15[v27]);
-  v24(&v15[v27], 0, 1, v4);
-  v28 = v25 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_data;
-  v29 = *(v25 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_data);
-  v30 = *(v28 + 8);
-  v31 = v41;
-  sub_10084DD24(&v15[v27], v41);
-  if (v43(v31, 1, v4) == 1)
+  v28 = v39;
+  sub_1009DCE5C(&v15[v39]);
+  sub_100683F6C(v12, &v15[v28]);
+  v25(&v15[v28], 0, 1, v4);
+  v29 = v26 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_data;
+  v30 = *(v26 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_data);
+  v31 = *(v29 + 8);
+  v32 = v42;
+  sub_10084DD24(&v15[v28], v42);
+  if (v44(v32, 1, v4) == 1)
   {
-    v32 = v40;
-    *v40 = v44;
-    sub_100024E98(v29, v30);
+    v33 = v41;
+    *v41 = v45;
+    sub_100024E98(v30, v31);
     UnknownStorage.init()();
-    if (v43(v31, 1, v4) != 1)
+    if (v44(v32, 1, v4) != 1)
     {
-      sub_1009DCE5C(v31);
+      sub_1009DCE5C(v32);
     }
   }
 
   else
   {
-    v32 = v40;
-    sub_100683F6C(v31, v40);
-    sub_100024E98(v29, v30);
+    v33 = v41;
+    sub_100683F6C(v32, v41);
+    sub_100024E98(v30, v31);
   }
 
-  sub_10002640C(*v32, *(v32 + 1));
-  *v32 = v29;
-  *(v32 + 1) = v30;
-  sub_1009DCE5C(&v15[v27]);
-  sub_100683F6C(v32, &v15[v27]);
-  v45(&v15[v27], 0, 1, v4);
-  sub_1009FA00C(&qword_101A0BB88, type metadata accessor for CRLProto_ChunkedRealTimeMessage);
-  v33 = Message.serializedData(partial:)();
+  sub_10002640C(*v33, *(v33 + 1));
+  *v33 = v30;
+  *(v33 + 1) = v31;
+  sub_1009DCE5C(&v15[v28]);
+  sub_100683F6C(v33, &v15[v28]);
+  v46(&v15[v28], 0, 1, v4);
+  sub_1009FA00C(&qword_101A0BB88, type metadata accessor for CRLProto_ChunkedRealTimeMessage, "yZ8");
+  v34 = Message.serializedData(partial:)();
   sub_1009FA054(v15, type metadata accessor for CRLProto_ChunkedRealTimeMessage);
-  return v33;
+  return v34;
 }
 
 uint64_t sub_1009F838C()
@@ -8176,10 +8177,10 @@ uint64_t sub_1009F838C()
   }
 }
 
-uint64_t sub_1009F8428@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_1009F8428@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_1009FA1CC(a1, a2);
-  *a3 = result;
+  result = sub_1009FA1CC(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8207,7 +8208,7 @@ uint64_t sub_1009F84C8()
   return swift_deallocClassInstance();
 }
 
-uint64_t type metadata accessor for CRLChunkedRealTimeMessage()
+uint64_t type metadata accessor for CRLChunkedRealTimeMessage(uint64_t a1)
 {
   result = qword_101A0BAB0;
   if (!qword_101A0BAB0)
@@ -8218,10 +8219,10 @@ uint64_t type metadata accessor for CRLChunkedRealTimeMessage()
   return result;
 }
 
-uint64_t sub_1009F85CC()
+uint64_t sub_1009F85CC(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -8236,7 +8237,7 @@ uint64_t sub_1009F85CC()
 uint64_t sub_1009F8680(void *a1)
 {
   v3 = v1;
-  v5 = sub_1005B981C(&qword_101A0BB70);
+  v5 = sub_1005B981C(&qword_101A0BB70, &qword_10148CFD0);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11[-v7];
@@ -8245,7 +8246,7 @@ uint64_t sub_1009F8680(void *a1)
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   LOBYTE(v12) = 0;
   type metadata accessor for UUID();
-  sub_1009FA00C(&qword_1019F43C0, &type metadata accessor for UUID);
+  sub_1009FA00C(&qword_1019F43C0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
@@ -8268,14 +8269,14 @@ uint64_t sub_1009F8680(void *a1)
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t sub_1009F8920(void *a1)
+uint64_t *sub_1009F8920(void *a1)
 {
   v2 = v1;
   v4 = type metadata accessor for UUID();
   v15 = *(v4 - 8);
   __chkstk_darwin(v4);
   v17 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = sub_1005B981C(&qword_101A0BB60);
+  v18 = sub_1005B981C(&qword_101A0BB60, &qword_10148CFC8);
   v6 = *(v18 - 8);
   __chkstk_darwin(v18);
   v8 = &v14 - v7;
@@ -8295,7 +8296,7 @@ uint64_t sub_1009F8920(void *a1)
     v10 = v15;
     v19 = a1;
     LOBYTE(v20) = 0;
-    sub_1009FA00C(&qword_1019F43A8, &type metadata accessor for UUID);
+    sub_1009FA00C(&qword_1019F43A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     v11 = v16;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v10 + 32))(v2 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_chainID, v17, v4);
@@ -8317,7 +8318,7 @@ uint64_t sub_1009F8920(void *a1)
   return v2;
 }
 
-uint64_t sub_1009F8CF8@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t *sub_1009F8CF8@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = swift_allocObject();
   result = sub_1009F8920(a1);
@@ -8334,7 +8335,7 @@ unint64_t sub_1009F8D80()
   result = qword_101A0BB68;
   if (!qword_101A0BB68)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_10148D0AC, &type metadata for CRLChunkedRealTimeMessage.CodingKeys, v0, v1);
     atomic_store(result, &qword_101A0BB68);
   }
 
@@ -8394,7 +8395,7 @@ LABEL_41:
       if (v9 == 1)
       {
 LABEL_16:
-        sub_1005B981C(&qword_101A0BB80);
+        sub_1005B981C(&qword_101A0BB80, &unk_10148CFD8);
         v11 = swift_allocObject();
         *(v11 + 1) = xmmword_10146C6B0;
         v11[4] = a2;
@@ -8750,7 +8751,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t sub_1009F9488(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL sub_1009F9488(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -8860,7 +8861,7 @@ LABEL_31:
   return result;
 }
 
-uint64_t sub_1009F95F0(uint64_t a1, uint64_t a2)
+BOOL sub_1009F95F0(uint64_t a1, uint64_t a2)
 {
   if ((static UUID.== infix(_:_:)() & 1) == 0 || *(a1 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_index) != *(a2 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_index) || *(a1 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_lastIndex) != *(a2 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_lastIndex) || *(a1 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_encrypted) != *(a2 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_encrypted))
   {
@@ -8875,9 +8876,9 @@ uint64_t sub_1009F95F0(uint64_t a1, uint64_t a2)
   return sub_1009F9488(v5, v6, v7, v8);
 }
 
-uint64_t sub_1009F96AC(uint64_t a1, unint64_t a2)
+char *sub_1009F96AC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_1005B981C(&qword_1019F67C0);
+  v4 = sub_1005B981C(&qword_1019F67C0, &unk_10146F3E0);
   __chkstk_darwin(v4 - 8);
   v52 = &v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
@@ -8904,7 +8905,7 @@ uint64_t sub_1009F96AC(uint64_t a1, unint64_t a2)
   v59 = 0u;
   sub_100024E98(a1, a2);
   BinaryDecodingOptions.init()();
-  sub_1009FA00C(&qword_101A0BB88, type metadata accessor for CRLProto_ChunkedRealTimeMessage);
+  sub_1009FA00C(&qword_101A0BB88, type metadata accessor for CRLProto_ChunkedRealTimeMessage, "yZ8");
   v22 = v61;
   Message.init(serializedData:extensions:partial:options:)();
   if (v22)
@@ -9006,7 +9007,7 @@ LABEL_9:
       v43 = *(v53 + 32);
       v44 = v49;
       v43(v40, v51, v49);
-      type metadata accessor for CRLChunkedRealTimeMessage();
+      type metadata accessor for CRLChunkedRealTimeMessage(0);
       v45 = swift_allocObject();
       v46 = v40;
       v17 = v45;
@@ -9025,7 +9026,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t sub_1009F9CD0(uint64_t a1, unint64_t a2, char a3, uint64_t a4)
+unint64_t sub_1009F9CD0(uint64_t a1, unint64_t a2, char a3, uint64_t a4)
 {
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
@@ -9066,7 +9067,7 @@ uint64_t sub_1009F9CD0(uint64_t a1, unint64_t a2, char a3, uint64_t a4)
         v30(v12, v33, v9);
         v22 = *(v21 - 1);
         v23 = *v21;
-        type metadata accessor for CRLChunkedRealTimeMessage();
+        type metadata accessor for CRLChunkedRealTimeMessage(0);
         v24 = swift_allocObject();
         (*(v10 + 32))(v24 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_chainID, v12, v9);
         *(v24 + OBJC_IVAR____TtC8Freeform25CRLChunkedRealTimeMessage_index) = v20;
@@ -9108,20 +9109,20 @@ unint64_t sub_1009F9FB8()
   result = qword_101A0BB78;
   if (!qword_101A0BB78)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_1014AD380, &type metadata for CRLRealTimeSyncError, v0, v1);
     atomic_store(result, &qword_101A0BB78);
   }
 
   return result;
 }
 
-uint64_t sub_1009FA00C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1009FA00C(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -9140,7 +9141,7 @@ unint64_t sub_1009FA0C8()
   result = qword_101A0BB90;
   if (!qword_101A0BB90)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("Ue:", &type metadata for CRLChunkedRealTimeMessage.CodingKeys, v0, v1);
     atomic_store(result, &qword_101A0BB90);
   }
 
@@ -9152,7 +9153,7 @@ unint64_t sub_1009FA120()
   result = qword_101A0BB98;
   if (!qword_101A0BB98)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("Ei:", &type metadata for CRLChunkedRealTimeMessage.CodingKeys, v0, v1);
     atomic_store(result, &qword_101A0BB98);
   }
 
@@ -9164,7 +9165,7 @@ unint64_t sub_1009FA178()
   result = qword_101A0BBA0;
   if (!qword_101A0BBA0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("-i:", &type metadata for CRLChunkedRealTimeMessage.CodingKeys, v0, v1);
     atomic_store(result, &qword_101A0BBA0);
   }
 
@@ -9220,56 +9221,56 @@ uint64_t sub_1009FA1CC(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1009FA388(uint64_t a1)
+double sub_1009FA388(uint64_t a1)
 {
   v2 = v1;
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   *&v5 = __chkstk_darwin(v4 - 8).n128_u64[0];
-  v7 = v20 - v6;
+  v7 = v21 - v6;
   v8 = [*(v1 + 16) objectForKey:{a1, v5}];
   if (v8)
   {
     v9 = v8;
     swift_beginAccess();
-    sub_10000BE14(v9 + 64, &v21, &unk_101A08DE0);
-    if (*(&v22 + 1))
+    sub_10000BE14(v9 + 64, &v22, &unk_101A08DE0, &unk_1014870D0);
+    if (*(&v23 + 1))
     {
-      sub_10000630C(&v21, v20);
-      sub_10000CAAC(&v21, &unk_101A08DE0);
-      sub_100020E58(v20, v20[3]);
+      sub_10000630C(&v22, v21);
+      sub_10000CAAC(&v22, &unk_101A08DE0, &unk_1014870D0);
+      sub_100020E58(v21, v21[3]);
       dispatch thunk of Cancellable.cancel()();
-      sub_100005070(v20);
+      sub_100005070(v21);
     }
 
     else
     {
-      sub_10000CAAC(&v21, &unk_101A08DE0);
+      sub_10000CAAC(&v22, &unk_101A08DE0, &unk_1014870D0);
     }
 
-    v23 = 0;
-    v21 = 0u;
+    v24 = 0;
     v22 = 0u;
+    v23 = 0u;
     swift_beginAccess();
-    sub_10002C638(&v21, v9 + 64, &unk_101A08DE0);
+    sub_10002C638(&v22, v9 + 64, &unk_101A08DE0, &unk_1014870D0);
     swift_endAccess();
     [*(v1 + 16) removeObjectForKey:a1];
     dispatch thunk of __ServiceLocator.sceneService.getter();
-    sub_100020E58(&v21, *(&v22 + 1));
+    sub_100020E58(&v22, *(&v23 + 1));
     dispatch thunk of __SceneService.remove(scene:)();
-    sub_100005070(&v21);
+    sub_100005070(&v22);
     if (![*(v1 + 16) count])
     {
-      sub_1009FC0D0();
-      v17 = type metadata accessor for TaskPriority();
-      (*(*(v17 - 8) + 56))(v7, 1, 1, v17);
+      sub_1009FC0D0(v17);
+      v18 = type metadata accessor for TaskPriority();
+      (*(*(v18 - 8) + 56))(v7, 1, 1, v18);
       type metadata accessor for MainActor();
 
-      v18 = static MainActor.shared.getter();
-      v19 = swift_allocObject();
-      v19[2] = v18;
-      v19[3] = &protocol witness table for MainActor;
-      v19[4] = v2;
-      sub_100796D54(0, 0, v7, &unk_10148D300, v19);
+      v19 = static MainActor.shared.getter();
+      v20 = swift_allocObject();
+      v20[2] = v19;
+      v20[3] = &protocol witness table for MainActor;
+      v20[4] = v2;
+      sub_100796D54(0, 0, v7, &unk_10148D300, v20);
     }
   }
 
@@ -9281,7 +9282,7 @@ uint64_t sub_1009FA388(uint64_t a1)
     }
 
     v10 = static OS_os_log.crlThreeDimensionalObjects;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146C6B0;
     UUID.uuidString.getter();
@@ -9298,8 +9299,10 @@ uint64_t sub_1009FA388(uint64_t a1)
     v15 = static os_log_type_t.debug.getter();
     sub_100005404(v10, &_mh_execute_header, v15, "(CoreRE) [%{public}@] Cannot remove unknown client.", 51, 2, inited);
     swift_setDeallocating();
-    return sub_100005070(inited + 32);
+    sub_100005070((inited + 32));
   }
+
+  return result;
 }
 
 uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
@@ -9310,7 +9313,7 @@ uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   }
 
   v6 = static OS_os_log.crlThreeDimensionalObjects;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   UUID.uuidString.getter();
@@ -9330,16 +9333,16 @@ uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   v31 = v8;
   sub_100005404(v8, &_mh_execute_header, v13, "(CoreRE) [%{public}@] Adding new client.", 40, 2, inited);
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   strcpy(v40, "ClientScene-");
   BYTE5(v40[1]) = 0;
   HIWORD(v40[1]) = -5120;
   type metadata accessor for UUID();
-  sub_10006217C(&qword_101A02180, &type metadata accessor for UUID);
+  sub_10006217C(&qword_101A02180, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v14._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v14);
 
-  v15 = v40[16];
+  v15 = v41;
   sub_1009FB6B4(v40[0], v40[1]);
 
   String.utf8CString.getter();
@@ -9354,7 +9357,7 @@ uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
   sub_100020E58(v40, v40[3]);
   dispatch thunk of __SceneService.append(scene:)();
   sub_100005070(v40);
-  _s11ClientSceneCMa();
+  _s11ClientSceneCMa(0);
   swift_allocObject();
 
   v17 = sub_100CEF9B0(a1, v16, a2, a3, a4 & 1, a5);
@@ -9398,9 +9401,9 @@ uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
     *(v24 + 24) = v23;
     Scene.subscribe<A>(to:on:_:)();
 
-    sub_10000CAAC(v38, &qword_101A0BFF8);
+    sub_10000CAAC(v38, &qword_101A0BFF8, &qword_10148D318);
     swift_beginAccess();
-    sub_10002C638(v40, v20 + 64, &unk_101A08DE0);
+    sub_10002C638(v40, v20 + 64, &unk_101A08DE0, &unk_1014870D0);
     swift_endAccess();
     v25 = swift_initStackObject();
     *(v25 + 16) = xmmword_10146C6B0;
@@ -9419,13 +9422,13 @@ uint64_t sub_1009FA790(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t 
     sub_100005404(v31, &_mh_execute_header, v29, "(CoreRE) [%{public}@] Added new client.", 39, 2, v25);
 
     swift_setDeallocating();
-    sub_100005070(v25 + 32);
+    sub_100005070((v25 + 32));
   }
 
   return v17;
 }
 
-uint64_t sub_1009FAD90()
+void *sub_1009FAD90()
 {
   _s6CoreREO6EngineCMa();
   swift_allocObject();
@@ -9434,7 +9437,7 @@ uint64_t sub_1009FAD90()
   return result;
 }
 
-uint64_t sub_1009FADCC()
+void *sub_1009FADCC()
 {
   v1 = v0;
   v2 = type metadata accessor for __EngineServiceMaskRef();
@@ -9504,9 +9507,9 @@ uint64_t sub_1009FADCC()
   swift_weakInit();
   EventService.subscribe<A>(to:on:componentType:_:)();
 
-  sub_10000CAAC(v20, &qword_101A0BFF8);
+  sub_10000CAAC(v20, &qword_101A0BFF8, &qword_10148D318);
   swift_beginAccess();
-  sub_10002C638(v23, v10, &unk_101A08DE0);
+  sub_10002C638(v23, v10, &unk_101A08DE0, &unk_1014870D0);
   swift_endAccess();
   sub_100005070(v22);
   dispatch thunk of __ServiceLocator.coreServiceLocator.getter();
@@ -9526,11 +9529,10 @@ uint64_t sub_1009FADCC()
   return result;
 }
 
-uint64_t sub_1009FB240()
+double sub_1009FB240(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     sub_1009FB298();
   }
@@ -9636,7 +9638,7 @@ LABEL_10:
   v22 = *(v14 + 32);
   v40 = *(v14 + 48);
   v41 = v22;
-  v23 = sub_100CEE500();
+  sub_100CEE500();
   LODWORD(v46) = v15;
   v47 = v44;
   v48 = v41;
@@ -9677,7 +9679,7 @@ LABEL_10:
   v33 = v51;
   *(v11 + 176) = v50;
   *(v11 + 192) = v33;
-  sub_10000CAAC(v55, &qword_101A0C000);
+  sub_10000CAAC(v55, &qword_101A0C000, &unk_10148D320);
   result = RERenderFrameSettingsAddGpuSignalEvent();
   v34 = *(v11 + 264);
   v7 = __CFADD__(v34, 1);
@@ -9755,11 +9757,11 @@ void sub_1009FB7AC()
     v1 = objc_opt_self();
     v2 = [v1 _atomicIncrementAssertCount];
     v26[0] = [objc_allocWithZone(NSString) init];
-    sub_100604538(_swiftEmptyArrayStorage, v26);
-    StaticString.description.getter();
+    sub_100604538(_swiftEmptyArrayStorage, v26, "expected nil value, but non-nil found", 37, 2u);
+    StaticString.description.getter("loadRenderGraphEmitter()", 24, 2);
     v3 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CrossPlatformUI/USD Rendering/CoreRE/CRLUSDRendering+CoreRE_Engine.swift", 126, 2);
     v4 = String._bridgeToObjectiveC()();
 
     v5 = [v4 lastPathComponent];
@@ -9773,7 +9775,7 @@ void sub_1009FB7AC()
     }
 
     v9 = static OS_os_log.crlAssert;
-    sub_1005B981C(&qword_1019F54E0);
+    sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_10146CA70;
     *(inited + 56) = &type metadata for Int32;
@@ -9781,7 +9783,7 @@ void sub_1009FB7AC()
     *(inited + 32) = v2;
     v11 = sub_1005CF000();
     *(inited + 96) = v11;
-    v12 = sub_10006217C(&qword_1019F52E0, sub_1005CF000);
+    v12 = sub_10006217C(&qword_1019F52E0, sub_1005CF000, &protocol conformance descriptor for NSObject);
     *(inited + 104) = v12;
     *(inited + 72) = v3;
     *(inited + 136) = &type metadata for String;
@@ -9801,7 +9803,7 @@ void sub_1009FB7AC()
     v17 = static os_log_type_t.error.getter();
     sub_100005404(v9, &_mh_execute_header, v17, "#Assert *** Assertion failure #%d: %{public}@ %{public}@:%lu %{public}@", 71, 2, inited);
     swift_setDeallocating();
-    sub_1005B981C(&unk_1019F5670);
+    sub_1005B981C(&unk_1019F5670, &unk_10146CF10);
     swift_arrayDestroy();
     v18 = static os_log_type_t.error.getter();
     sub_100005404(v9, &_mh_execute_header, v18, "expected nil value, but non-nil found", 37, 2, _swiftEmptyArrayStorage);
@@ -9813,13 +9815,13 @@ void sub_1009FB7AC()
     v19[4] = 0;
     v19[5] = 0;
     v20 = __VaListBuilder.va_list()();
-    StaticString.description.getter();
+    StaticString.description.getter("loadRenderGraphEmitter()", 24, 2);
     v21 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CrossPlatformUI/USD Rendering/CoreRE/CRLUSDRendering+CoreRE_Engine.swift", 126, 2);
     v22 = String._bridgeToObjectiveC()();
 
-    StaticString.description.getter();
+    StaticString.description.getter("expected nil value, but non-nil found", 37, 2);
     v23 = String._bridgeToObjectiveC()();
 
     [v1 handleFailureInFunction:v21 file:v22 lineNumber:257 isFatal:0 format:v23 args:v20];

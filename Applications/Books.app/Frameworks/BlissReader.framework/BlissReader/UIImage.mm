@@ -6,7 +6,7 @@
 
 + (id)th_imageNamed:(id)named
 {
-  v4 = THBundle();
+  v4 = THBundle(self, a2);
 
   return [UIImage imageNamed:named inBundle:v4 compatibleWithTraitCollection:0];
 }

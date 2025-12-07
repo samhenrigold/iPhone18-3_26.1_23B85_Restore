@@ -204,7 +204,7 @@ LABEL_151:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v45 = 0;
@@ -223,8 +223,8 @@ LABEL_151:
         goto LABEL_145;
       }
 
-      v18 = (v54[0] + v14 - 16);
-      v17 = *(v54[0] + v14);
+      v18 = &v54[0][v14 - 4];
+      v17 = LOBYTE(v54[0][v14]);
       if (v45 == 255)
       {
         if (v17 == 255)
@@ -277,8 +277,8 @@ LABEL_145:
         goto LABEL_151;
       }
 
-      v20 = (v56[0] + v14 - 16);
-      v19 = *(v56[0] + v14);
+      v20 = &v56[0][v14 - 4];
+      v19 = LOBYTE(v56[0][v14]);
       if (v47 == 255)
       {
         if (v19 == 255)
@@ -459,7 +459,7 @@ LABEL_69:
         JUMPOUT(0x22582DF7CLL);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v52 == 255)
         {
@@ -470,7 +470,7 @@ LABEL_69:
       else if (v52 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v48, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_83;
       }
 
@@ -511,7 +511,7 @@ LABEL_83:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -798,7 +798,7 @@ LABEL_149:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v41 = 0;
@@ -817,8 +817,8 @@ LABEL_149:
         goto LABEL_143;
       }
 
-      v18 = (v50[0] + v14 - 16);
-      v17 = *(v50[0] + v14);
+      v18 = &v50[0][v14 - 4];
+      v17 = LOBYTE(v50[0][v14]);
       if (v41 == 255)
       {
         if (v17 == 255)
@@ -871,8 +871,8 @@ LABEL_143:
         goto LABEL_149;
       }
 
-      v20 = (v52[0] + v14 - 16);
-      v19 = *(v52[0] + v14);
+      v20 = &v52[0][v14 - 4];
+      v19 = LOBYTE(v52[0][v14]);
       if (v43 == 255)
       {
         if (v19 == 255)
@@ -1049,7 +1049,7 @@ LABEL_71:
         JUMPOUT(0x22582E8C4);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v48 == 255)
         {
@@ -1060,7 +1060,7 @@ LABEL_71:
       else if (v48 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v44, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_82;
       }
 
@@ -1101,7 +1101,7 @@ LABEL_82:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -1389,7 +1389,7 @@ LABEL_149:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v41 = 0;
@@ -1408,8 +1408,8 @@ LABEL_149:
         goto LABEL_143;
       }
 
-      v18 = (v50[0] + v14 - 16);
-      v17 = *(v50[0] + v14);
+      v18 = &v50[0][v14 - 4];
+      v17 = LOBYTE(v50[0][v14]);
       if (v41 == 255)
       {
         if (v17 == 255)
@@ -1462,8 +1462,8 @@ LABEL_143:
         goto LABEL_149;
       }
 
-      v20 = (v52[0] + v14 - 16);
-      v19 = *(v52[0] + v14);
+      v20 = &v52[0][v14 - 4];
+      v19 = LOBYTE(v52[0][v14]);
       if (v43 == 255)
       {
         if (v19 == 255)
@@ -1640,7 +1640,7 @@ LABEL_71:
         JUMPOUT(0x22582F214);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v48 == 255)
         {
@@ -1651,7 +1651,7 @@ LABEL_71:
       else if (v48 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v44, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_82;
       }
 
@@ -1692,7 +1692,7 @@ LABEL_82:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -1989,7 +1989,7 @@ LABEL_117:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v41 = 0;
@@ -2008,8 +2008,8 @@ LABEL_117:
         goto LABEL_143;
       }
 
-      v18 = (v50[0] + v14 - 16);
-      v17 = *(v50[0] + v14);
+      v18 = &v50[0][v14 - 4];
+      v17 = LOBYTE(v50[0][v14]);
       if (v41 == 255)
       {
         if (v17 == 255)
@@ -2062,8 +2062,8 @@ LABEL_143:
         goto LABEL_149;
       }
 
-      v20 = (v52[0] + v14 - 16);
-      v19 = *(v52[0] + v14);
+      v20 = &v52[0][v14 - 4];
+      v19 = LOBYTE(v52[0][v14]);
       if (v43 == 255)
       {
         if (v19 == 255)
@@ -2242,7 +2242,7 @@ LABEL_65:
         JUMPOUT(0x22582FB44);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v48 == 255)
         {
@@ -2253,7 +2253,7 @@ LABEL_65:
       else if (v48 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v44, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_82;
       }
 
@@ -2294,7 +2294,7 @@ LABEL_82:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -2591,7 +2591,7 @@ LABEL_117:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v41 = 0;
@@ -2610,8 +2610,8 @@ LABEL_117:
         goto LABEL_143;
       }
 
-      v18 = (v50[0] + v14 - 16);
-      v17 = *(v50[0] + v14);
+      v18 = &v50[0][v14 - 4];
+      v17 = LOBYTE(v50[0][v14]);
       if (v41 == 255)
       {
         if (v17 == 255)
@@ -2664,8 +2664,8 @@ LABEL_143:
         goto LABEL_149;
       }
 
-      v20 = (v52[0] + v14 - 16);
-      v19 = *(v52[0] + v14);
+      v20 = &v52[0][v14 - 4];
+      v19 = LOBYTE(v52[0][v14]);
       if (v43 == 255)
       {
         if (v19 == 255)
@@ -2844,7 +2844,7 @@ LABEL_65:
         JUMPOUT(0x22583047CLL);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v48 == 255)
         {
@@ -2855,7 +2855,7 @@ LABEL_65:
       else if (v48 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v44, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_82;
       }
 
@@ -2896,7 +2896,7 @@ LABEL_82:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -3114,8 +3114,8 @@ LABEL_89:
       JUMPOUT(0x225830A48);
     }
 
-    v13 = (v42[0] + v8 * 4 - 16);
-    v12 = *(v42[0] + v8 * 4);
+    v13 = &v42[0][v8 - 4];
+    v12 = LOBYTE(v42[0][v8]);
     if (v35 == 255)
     {
       if (v12 == 255)
@@ -3440,7 +3440,7 @@ LABEL_80:
       case 5:
         if (*(v3 + 48) == 5)
         {
-          v39[0] = *(v3 + 4) ^ *(v3 + 1);
+          v39[0] = (*(v3 + 4) ^ *(v3 + 1));
           v28 = 5;
           v40 = 5;
           *a2 = v39[0];
@@ -3491,7 +3491,7 @@ LABEL_121:
   v10 = WTF::fastMalloc((24 * v9 + 8));
   *v10 = v9;
   v11 = v10 + 2;
-  v12 = 24;
+  v12 = 6;
   bzero(v10 + 2, 24 * ((24 * v9 - 24) / 0x18uLL) + 24);
   v13 = 0;
   LODWORD(v39[0]) = 0;
@@ -3510,8 +3510,8 @@ LABEL_121:
         goto LABEL_115;
       }
 
-      v17 = (v49[0] + v12 - 16);
-      v16 = *(v49[0] + v12);
+      v17 = &v49[0][v12 - 4];
+      v16 = LOBYTE(v49[0][v12]);
       if (v40 == 255)
       {
         if (v16 == 255)
@@ -3564,8 +3564,8 @@ LABEL_115:
         goto LABEL_121;
       }
 
-      v19 = (v51[0] + v12 - 16);
-      v18 = *(v51[0] + v12);
+      v19 = &v51[0][v12 - 4];
+      v18 = LOBYTE(v51[0][v12]);
       if (v42 == 255)
       {
         if (v18 == 255)
@@ -3670,7 +3670,7 @@ LABEL_55:
         JUMPOUT(0x2258312C4);
       }
 
-      if (LOBYTE(v10[v12 / 4]) == 255)
+      if (LOBYTE(v10[v12]) == 255)
       {
         if (v47 == 255)
         {
@@ -3681,7 +3681,7 @@ LABEL_55:
       else if (v47 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v43, v11);
-        LOBYTE(v10[v12 / 4]) = -1;
+        LOBYTE(v10[v12]) = -1;
         v24 = v48;
         if (v48 == 255)
         {
@@ -3761,7 +3761,7 @@ LABEL_74:
 
     ++v13;
     v11 += 24;
-    v12 += 24;
+    v12 += 6;
   }
 
   while (v9 != v13);
@@ -3955,7 +3955,7 @@ LABEL_70:
   v9 = WTF::fastMalloc((24 * v8 + 8));
   *v9 = v8;
   v10 = v9 + 2;
-  v11 = 24;
+  v11 = 6;
   bzero(v9 + 2, 24 * ((24 * v8 - 24) / 0x18uLL) + 24);
   v12 = 0;
   LODWORD(v34[0]) = 0;
@@ -3974,8 +3974,8 @@ LABEL_70:
         goto LABEL_97;
       }
 
-      v16 = (v42[0] + v11 - 16);
-      v15 = *(v42[0] + v11);
+      v16 = &v42[0][v11 - 4];
+      v15 = LOBYTE(v42[0][v11]);
       if (v35 == 255)
       {
         if (v15 == 255)
@@ -4024,8 +4024,8 @@ LABEL_32:
         goto LABEL_97;
       }
 
-      v18 = (v44[0] + v11 - 16);
-      v17 = *(v44[0] + v11);
+      v18 = &v44[0][v11 - 4];
+      v17 = LOBYTE(v44[0][v11]);
       if (v37 == 255)
       {
         if (v17 == 255)
@@ -4079,7 +4079,7 @@ LABEL_97:
         JUMPOUT(0x225831974);
       }
 
-      if (LOBYTE(v9[v11 / 4]) == 255)
+      if (LOBYTE(v9[v11]) == 255)
       {
         if (v40 == 255)
         {
@@ -4090,7 +4090,7 @@ LABEL_97:
       else if (v40 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v38, v10);
-        LOBYTE(v9[v11 / 4]) = -1;
+        LOBYTE(v9[v11]) = -1;
         v22 = v41;
         if (v41 == 255)
         {
@@ -4172,7 +4172,7 @@ LABEL_64:
 
     ++v12;
     v10 += 24;
-    v11 += 24;
+    v11 += 6;
   }
 
   while (v8 != v12);
@@ -4366,7 +4366,7 @@ LABEL_70:
   v9 = WTF::fastMalloc((24 * v8 + 8));
   *v9 = v8;
   v10 = v9 + 2;
-  v11 = 24;
+  v11 = 6;
   bzero(v9 + 2, 24 * ((24 * v8 - 24) / 0x18uLL) + 24);
   v12 = 0;
   LODWORD(v34[0]) = 0;
@@ -4385,8 +4385,8 @@ LABEL_70:
         goto LABEL_97;
       }
 
-      v16 = (v42[0] + v11 - 16);
-      v15 = *(v42[0] + v11);
+      v16 = &v42[0][v11 - 4];
+      v15 = LOBYTE(v42[0][v11]);
       if (v35 == 255)
       {
         if (v15 == 255)
@@ -4435,8 +4435,8 @@ LABEL_32:
         goto LABEL_97;
       }
 
-      v18 = (v44[0] + v11 - 16);
-      v17 = *(v44[0] + v11);
+      v18 = &v44[0][v11 - 4];
+      v17 = LOBYTE(v44[0][v11]);
       if (v37 == 255)
       {
         if (v17 == 255)
@@ -4490,7 +4490,7 @@ LABEL_97:
         JUMPOUT(0x225832044);
       }
 
-      if (LOBYTE(v9[v11 / 4]) == 255)
+      if (LOBYTE(v9[v11]) == 255)
       {
         if (v40 == 255)
         {
@@ -4501,7 +4501,7 @@ LABEL_97:
       else if (v40 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v38, v10);
-        LOBYTE(v9[v11 / 4]) = -1;
+        LOBYTE(v9[v11]) = -1;
         v22 = v41;
         if (v41 == 255)
         {
@@ -4583,7 +4583,7 @@ LABEL_64:
 
     ++v12;
     v10 += 24;
-    v11 += 24;
+    v11 += 6;
   }
 
   while (v8 != v12);
@@ -4872,7 +4872,7 @@ void WGSL::constantI32(const WGSL::Type **a1@<X0>, uint64_t *a2@<X1>, uint64_t a
         return;
       }
 
-      if ((v6 & 0x8000000000000000) != 0)
+      if (v6 < 0)
       {
         v13 = -v6;
         v7 = 1;
@@ -4906,7 +4906,7 @@ void WGSL::constantI32(const WGSL::Type **a1@<X0>, uint64_t *a2@<X1>, uint64_t a
         v16 = v7 + 31;
         if (!v15 && !__OFADD__(v16, 6))
         {
-          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v20, v16 + 6, "value ", 6uLL, v6, " cannot be represented as 'i32'", 0x1FuLL);
+          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v20, (v16 + 6), "value ", 6uLL, v6, " cannot be represented as 'i32'", 0x1FuLL);
           if (v20[0])
           {
             *a3 = v20[0];
@@ -5148,7 +5148,7 @@ void WGSL::constantU32(const WGSL::Type **a1@<X0>, uint64_t *a2@<X1>, uint64_t a
         v16 = v9 + 31;
         if (!v15 && !__OFADD__(v16, 6))
         {
-          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v20, v16 + 6, "value ", 6uLL, v6, " cannot be represented as 'u32'", 0x1FuLL);
+          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v20, (v16 + 6), "value ", 6uLL, v6, " cannot be represented as 'u32'", 0x1FuLL);
           if (v20[0])
           {
             *a3 = v20[0];
@@ -5694,7 +5694,7 @@ LABEL_36:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantVec2(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantVec2(unint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantVector(&v7, a1, a2, 2u);
   *a3 = 0;
@@ -5772,7 +5772,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantVec3(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantVec3(unint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantVector(&v7, a1, a2, 3u);
   *a3 = 0;
@@ -5850,7 +5850,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantVec4(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantVec4(unint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantVector(&v7, a1, a2, 4u);
   *a3 = 0;
@@ -5928,7 +5928,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat2x2(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat2x2(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 2u, 2);
   *a3 = 0;
@@ -6006,7 +6006,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat2x3(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat2x3(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 2u, 3);
   *a3 = 0;
@@ -6084,7 +6084,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat2x4(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat2x4(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 2u, 4);
   *a3 = 0;
@@ -6162,7 +6162,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat3x2(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat3x2(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 3u, 2);
   *a3 = 0;
@@ -6240,7 +6240,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat3x3(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat3x3(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 3u, 3);
   *a3 = 0;
@@ -6318,7 +6318,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat3x4(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat3x4(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 3u, 4);
   *a3 = 0;
@@ -6396,7 +6396,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat4x2(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat4x2(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 4u, 2);
   *a3 = 0;
@@ -6474,7 +6474,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat4x3(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat4x3(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 4u, 3);
   *a3 = 0;
@@ -6552,7 +6552,7 @@ LABEL_14:
   *(a3 + 24) = 0;
 }
 
-void WGSL::constantMat4x4(uint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
+void WGSL::constantMat4x4(unint64_t a1@<X0>, unsigned int **a2@<X1>, uint64_t a3@<X8>)
 {
   WGSL::constantMatrix(&v7, a1, a2, 4u, 4);
   *a3 = 0;
@@ -7179,8 +7179,8 @@ LABEL_88:
       JUMPOUT(0x225834A3CLL);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -7556,8 +7556,8 @@ LABEL_88:
       JUMPOUT(0x2258350B8);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -7933,8 +7933,8 @@ LABEL_88:
       JUMPOUT(0x225835734);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -8310,8 +8310,8 @@ LABEL_88:
       JUMPOUT(0x225835DB0);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -8687,8 +8687,8 @@ LABEL_88:
       JUMPOUT(0x22583642CLL);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -9064,8 +9064,8 @@ LABEL_88:
       JUMPOUT(0x225836AA8);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -9441,8 +9441,8 @@ LABEL_88:
       JUMPOUT(0x225837124);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)
@@ -9818,8 +9818,8 @@ LABEL_88:
       JUMPOUT(0x2258377A0);
     }
 
-    v14 = (v50[0] + v9 * 4 - 16);
-    v13 = *(v50[0] + v9 * 4);
+    v14 = &v50[0][v9 - 4];
+    v13 = LOBYTE(v50[0][v9]);
     if (v43 == 255)
     {
       if (v13 == 255)

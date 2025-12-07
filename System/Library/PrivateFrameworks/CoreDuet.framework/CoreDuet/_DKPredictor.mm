@@ -7,6 +7,7 @@
 - (id)displayOnLikelihood;
 - (id)expectedInBedPeriod;
 - (id)initWithKnowledgeStore:(id *)store;
+- (id)launchLikelihoodForTopNApplications:(int64_t)applications withLikelihoodGreaterThan:(double)than withTemporalResolution:(int)resolution;
 - (id)launchLikelihoodPredictionForApp:(id)app;
 - (id)localInBedPeriod;
 - (id)pluginLikelihood;
@@ -14,9 +15,6 @@
 - (id)predictionForStreamWithName:(id)name withPredicate:(id)predicate withPredictionType:(unint64_t)type asOfDate:(id)date;
 - (id)predictionForStreamWithName:(id)name withPredicate:(id)predicate withPredictionType:(unint64_t)type withDataPartitionType:(unint64_t)partitionType asOfDate:(id)date;
 - (id)predictionForStreamsWithNames:(id)names withPredicate:(id)predicate withPredictionType:(unint64_t)type;
-- (void)deviceActivityLikelihood;
-- (void)displayOnLikelihood;
-- (void)pluginLikelihood;
 - (void)predictionForStreamsWithNames:(void *)names withPredicate:(uint64_t)predicate withPredictionType:(uint64_t)type withDataPartitionType:(void *)partitionType asOfDate:;
 - (void)predictionForStreamsWithNames:(void *)names withPredicate:(uint64_t)predicate withPredictionType:(void *)type asOfDate:;
 @end
@@ -31,9 +29,9 @@
     +[_DKPredictor predictorLog];
   }
 
-  v0 = predictorLog_predictorLog;
+  v1 = predictorLog_predictorLog;
 
-  return v0;
+  return v1;
 }
 
 - (id)launchLikelihoodPredictionForApp:(id)app
@@ -86,26 +84,88 @@
   v18 = v24;
   if (v18)
   {
-    objc_opt_class();
-    v19 = +[_DKPredictor predictorLog];
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v19 = objc_opt_class();
+    v20 = +[(_DKPredictor *)v19];
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [_DKPredictor launchLikelihoodPredictionForApp:];
     }
 
-    v20 = +[_DKPredictionTimeline predictionUnavailable];
+    v21 = +[_DKPredictionTimeline predictionUnavailable];
   }
 
   else
   {
-    v20 = v17;
+    v21 = v17;
   }
 
-  v21 = v20;
+  v22 = v21;
 
-  v22 = *MEMORY[0x1E69E9840];
+  return v22;
+}
 
-  return v21;
+- (id)launchLikelihoodForTopNApplications:(int64_t)applications withLikelihoodGreaterThan:(double)than withTemporalResolution:(int)resolution
+{
+  v5 = *&resolution;
+  v37[2] = *MEMORY[0x1E69E9840];
+  v9 = _os_activity_create(&dword_191750000, "CoreDuet: launchLikelihoodForTopNApplications", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  *state = 0;
+  *&state[8] = 0;
+  os_activity_scope_enter(v9, state);
+  os_activity_scope_leave(state);
+
+  v10 = [_DKEventQuery predicateForEventsOfMinimumDuration:5.0];
+  v11 = MEMORY[0x1E696AB28];
+  v12 = +[_DKApplicationMetadataKey extensionHostIdentifier];
+  v13 = [_DKQuery predicateForObjectsWithMetadataKey:v12];
+  v14 = [v11 notPredicateWithSubpredicate:v13];
+
+  v15 = MEMORY[0x1E696AB28];
+  v37[0] = v10;
+  v37[1] = v14;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+  v17 = [v15 andPredicateWithSubpredicates:v16];
+
+  v18 = +[_DKSystemEventStreams appInFocusStream];
+  v19 = [_DKPredictionQuery topNPredictionQueryForStream:v18 withPredicate:v17 withTopN:applications withMinLikelihood:than];
+
+  [v19 setReadMetadata:1];
+  [v19 setSlotDuration:v5];
+  knowledgeStore = self->_knowledgeStore;
+  v31 = 0;
+  v21 = [(_DKKnowledgeQuerying *)knowledgeStore executeQuery:v19 error:&v31];
+  v22 = v31;
+  if (v22)
+  {
+    v23 = objc_opt_class();
+    v24 = +[(_DKPredictor *)v23];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      v28 = [MEMORY[0x1E696AD98] numberWithInteger:applications];
+      v29 = [MEMORY[0x1E696AD98] numberWithDouble:than];
+      v30 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+      *state = 138413058;
+      *&state[4] = v28;
+      *&state[12] = 2112;
+      *&state[14] = v29;
+      v33 = 2112;
+      v34 = v30;
+      v35 = 2112;
+      v36 = v22;
+      _os_log_error_impl(&dword_191750000, v24, OS_LOG_TYPE_ERROR, "Error executing top %@ query > %@ / %@: %@", state, 0x2Au);
+    }
+
+    v25 = +[_DKPredictionTimeline predictionUnavailable];
+  }
+
+  else
+  {
+    v25 = v21;
+  }
+
+  v26 = v25;
+
+  return v26;
 }
 
 - (id)pluginLikelihood
@@ -134,26 +194,24 @@
   v13 = v19;
   if (v13)
   {
-    objc_opt_class();
-    v14 = +[_DKPredictor predictorLog];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v14 = objc_opt_class();
+    v15 = +[(_DKPredictor *)v14];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [_DKPredictor pluginLikelihood];
     }
 
-    v15 = +[_DKPredictionTimeline predictionUnavailable];
+    v16 = +[_DKPredictionTimeline predictionUnavailable];
   }
 
   else
   {
-    v15 = v12;
+    v16 = v12;
   }
 
-  v16 = v15;
+  v17 = v16;
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v17;
 }
 
 - (id)displayOnLikelihood
@@ -180,31 +238,29 @@
   v12 = v18;
   if (v12)
   {
-    objc_opt_class();
-    v13 = +[_DKPredictor predictorLog];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v13 = objc_opt_class();
+    v14 = +[(_DKPredictor *)v13];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [_DKPredictor displayOnLikelihood];
     }
 
-    v14 = +[_DKPredictionTimeline predictionUnavailable];
+    v15 = +[_DKPredictionTimeline predictionUnavailable];
   }
 
   else
   {
-    v14 = v11;
+    v15 = v11;
   }
 
-  v15 = v14;
+  v16 = v15;
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 + (id)deviceActivityLikelihoodQueryPredicate
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = _os_activity_create(&dword_191750000, "CoreDuet: deviceActivityLikelihoodQueryPredicate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -214,12 +270,10 @@
   v3 = [_DKQuery predicateForEventsExcludingIntegerValue:0];
   v4 = [_DKQuery predicateForEventsExcludingIntegerValue:8];
   v5 = MEMORY[0x1E696AB28];
-  v11[0] = v3;
-  v11[1] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = v3;
+  v10[1] = v4;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v5 andPredicateWithSubpredicates:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -241,40 +295,40 @@
   [v6 setPartitionType:2];
   [v6 setUseHistoricalHistogram:1];
   knowledgeStore = self->_knowledgeStore;
-  v17 = 0;
-  v8 = [(_DKKnowledgeQuerying *)knowledgeStore executeQuery:v6 error:&v17];
-  v9 = v17;
+  v18 = 0;
+  v8 = [(_DKKnowledgeQuerying *)knowledgeStore executeQuery:v6 error:&v18];
+  v9 = v18;
   if (v9)
   {
-    objc_opt_class();
-    v10 = +[_DKPredictor predictorLog];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = objc_opt_class();
+    v11 = +[(_DKPredictor *)v10];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_DKPredictor deviceActivityLikelihood];
     }
 
-    v11 = +[_DKPredictionTimeline predictionUnavailable];
+    v12 = +[_DKPredictionTimeline predictionUnavailable];
   }
 
   else
   {
-    v12 = objc_alloc_init(_DKPredictionQueryFeedback);
-    v13 = self->_knowledgeStore;
+    v13 = objc_alloc_init(_DKPredictionQueryFeedback);
+    v14 = self->_knowledgeStore;
     startHistogram = [v8 startHistogram];
     endHistogram = [v8 endHistogram];
-    [(_DKPredictionQueryFeedback *)v12 logPredictionQueryFeedback:startHistogram endHistogram:endHistogram withStorage:v13];
+    [(_DKPredictionQueryFeedback *)v13 logPredictionQueryFeedback:startHistogram endHistogram:endHistogram withStorage:v14];
 
     [v8 setStartHistogram:0];
     [v8 setEndHistogram:0];
-    v11 = v8;
+    v12 = v8;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)predictionForStreamWithName:(id)name withPredicate:(id)predicate withPredictionType:(unint64_t)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v8 = MEMORY[0x1E695DEC8];
   predicateCopy = predicate;
@@ -284,24 +338,20 @@
 
   v13 = [(_DKPredictor *)self predictionForStreamsWithNames:v11 withPredicate:predicateCopy withPredictionType:type asOfDate:date];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)predictionForStreamWithName:(id)name withPredicate:(id)predicate withPredictionType:(unint64_t)type withDataPartitionType:(unint64_t)partitionType asOfDate:(id)date
 {
-  v20[1] = *MEMORY[0x1E69E9840];
-  v20[0] = name;
+  v19[1] = *MEMORY[0x1E69E9840];
+  v19[0] = name;
   v12 = MEMORY[0x1E695DEC8];
   dateCopy = date;
   predicateCopy = predicate;
   nameCopy = name;
-  v16 = [v12 arrayWithObjects:v20 count:1];
+  v16 = [v12 arrayWithObjects:v19 count:1];
 
   v17 = [(_DKPredictor *)self predictionForStreamsWithNames:v16 withPredicate:predicateCopy withPredictionType:type withDataPartitionType:partitionType asOfDate:dateCopy];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -414,17 +464,15 @@
 
 - (id)predictionForStreamWithName:(id)name withPredicate:(id)predicate withPredictionType:(unint64_t)type asOfDate:(id)date
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v18[0] = name;
+  v17[1] = *MEMORY[0x1E69E9840];
+  v17[0] = name;
   v10 = MEMORY[0x1E695DEC8];
   dateCopy = date;
   predicateCopy = predicate;
   nameCopy = name;
-  v14 = [v10 arrayWithObjects:v18 count:1];
+  v14 = [v10 arrayWithObjects:v17 count:1];
 
   v15 = [(_DKPredictor *)self predictionForStreamsWithNames:v14 withPredicate:predicateCopy withPredictionType:type asOfDate:dateCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -487,26 +535,26 @@
     v25 = v34;
     if (v25)
     {
-      objc_opt_class();
-      v26 = +[_DKPredictor predictorLog];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v26 = objc_opt_class();
+      v27 = +[(_DKPredictor *)v26];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *state = 138412546;
         *&state[4] = v25;
         *&state[12] = 2112;
         *&state[14] = v22;
-        _os_log_error_impl(&dword_191750000, v26, OS_LOG_TYPE_ERROR, "Error executing timeline query: %@ (%@)", state, 0x16u);
+        _os_log_error_impl(&dword_191750000, v27, OS_LOG_TYPE_ERROR, "Error executing timeline query: %@ (%@)", state, 0x16u);
       }
 
-      v27 = +[_DKPredictionTimeline predictionUnavailable];
+      v28 = +[_DKPredictionTimeline predictionUnavailable];
     }
 
     else
     {
-      v27 = v24;
+      v28 = v24;
     }
 
-    self = v27;
+    self = v28;
     v9 = v31;
 
     objc_autoreleasePoolPop(context);
@@ -517,43 +565,16 @@
     v21 = namesCopy;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 - (void)launchLikelihoodPredictionForApp:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_191750000, v1, OS_LOG_TYPE_ERROR, "Error executing timeline query for likelihood of %@ launch: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)pluginLikelihood
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error executing plugin likelihood query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)displayOnLikelihood
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error executing display likelihood query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)deviceActivityLikelihood
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error executing activity likelihood query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_191750000, v1, OS_LOG_TYPE_ERROR, "Error executing timeline query for likelihood of %@ launch: %@", v2, 0x16u);
 }
 
 @end

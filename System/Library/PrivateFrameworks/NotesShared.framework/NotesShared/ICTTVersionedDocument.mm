@@ -66,19 +66,24 @@
   v6 = *(archive + 12);
   if (!v6)
   {
-    v10 = -1;
-    goto LABEL_36;
+    v10 = 0xFFFFFFFFLL;
+    goto LABEL_37;
   }
 
   v7 = serializationVersion;
   v8 = 0;
   v9 = -1;
-  v10 = -1;
+  LODWORD(v10) = -1;
   do
   {
     v11 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 40, v8);
     versioned_document::Version::Version(v47, v11);
-    if (v10 < 0 && v48 <= v7)
+    if (v10 >= 0 || v48 > v7)
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 = v8;
     }
@@ -93,17 +98,17 @@
       versioned_document::Version::~Version(v47);
       if ((v9 & 0x80000000) == 0)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-LABEL_36:
+LABEL_37:
       v30 = os_log_create("com.apple.notes", "Topotext");
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [(ICTTVersionedDocument *)v30 loadDocumentArchive:v31, v32, v33, v34, v35, v36, v37];
       }
 
-      goto LABEL_39;
+      goto LABEL_40;
     }
 
     if (v49 <= v7)
@@ -118,19 +123,19 @@ LABEL_36:
   while (v6 != v8);
   if (v9 < 0)
   {
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
-LABEL_18:
+LABEL_19:
   if (v9 >= v6)
   {
-LABEL_39:
-    if (v10 < 0)
+LABEL_40:
+    if ((v10 & 0x80000000) != 0)
     {
       return;
     }
 
-    goto LABEL_40;
+    goto LABEL_41;
   }
 
   v14 = "com.apple.notes";
@@ -163,12 +168,12 @@ LABEL_39:
         v21 = v20;
         v22 = "Loading old version %d < %d";
         v23 = 14;
-LABEL_29:
+LABEL_30:
         _os_log_debug_impl(&dword_214D51000, v21, OS_LOG_TYPE_DEBUG, v22, buf, v23);
-        goto LABEL_34;
+        goto LABEL_35;
       }
 
-      goto LABEL_34;
+      goto LABEL_35;
     }
 
     if (v48 != v7)
@@ -184,16 +189,16 @@ LABEL_29:
       v21 = v20;
       v22 = "Loading current version %d";
       v23 = 8;
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
-LABEL_34:
+LABEL_35:
 
     [(ICTTVersionedDocument *)self mergeVersion:v48 fromData:v19];
     versioned_document::Version::~Version(v47);
     if (v6 == ++v9)
     {
-      goto LABEL_39;
+      goto LABEL_40;
     }
   }
 
@@ -221,7 +226,7 @@ LABEL_34:
     v15 = v25;
     self = selfCopy;
     archive = archiveCopy;
-    goto LABEL_34;
+    goto LABEL_35;
   }
 
   archive = archiveCopy;
@@ -233,7 +238,7 @@ LABEL_34:
   versioned_document::Version::~Version(v47);
   if ((v10 & 0x80000000) == 0)
   {
-LABEL_40:
+LABEL_41:
     google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange((archive + 40), v10, *(archive + 12) - v10);
   }
 }
@@ -285,8 +290,8 @@ LABEL_40:
   documentArchive2 = [documentCopy documentArchive];
   if (documentArchive2 != documentArchive)
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((documentArchive + 40));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((documentArchive + 40), (documentArchive2 + 40));
+    google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(&documentArchive[5]);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(documentArchive + 5, documentArchive2 + 5);
   }
 
   return 1;
@@ -337,7 +342,7 @@ LABEL_40:
   {
     if (v8 == documentArchive2[14])
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((documentArchive2 + 10), v8 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(documentArchive2 + 10, v8 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<versioned_document::Version>::New();
@@ -390,7 +395,7 @@ LABEL_40:
   if (documentArchive != archive)
   {
     google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 40);
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((archive + 40), (documentArchive + 40));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 5, documentArchive + 5);
   }
 
   v9 = *(archive + 13);
@@ -399,7 +404,7 @@ LABEL_40:
   {
     if (v9 == *(archive + 14))
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 40, v9 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v9 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<versioned_document::Version>::New();

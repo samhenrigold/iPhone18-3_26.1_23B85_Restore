@@ -68,22 +68,21 @@
     v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:4];
     [v18 addEntriesFromDictionary:v20];
 
-    v21 = Log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v22 = Log(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
       v32 = v12;
-      _os_log_impl(&dword_1B00C4000, v21, OS_LOG_TYPE_INFO, "Using filing device OS version: [%{public}@]", buf, 0xCu);
+      _os_log_impl(&dword_1B00C4000, v22, OS_LOG_TYPE_INFO, "Using filing device OS version: [%{public}@]", buf, 0xCu);
     }
 
     [v18 setValue:v12 forKey:@"X-OS-Version"];
     [v4 setHTTPAdditionalHeaders:v18];
-    v22 = [MEMORY[0x1E695AC78] sessionWithConfiguration:v4 delegate:v2 delegateQueue:0];
+    v23 = [MEMORY[0x1E695AC78] sessionWithConfiguration:v4 delegate:v2 delegateQueue:0];
     session = v2->_session;
-    v2->_session = v22;
+    v2->_session = v23;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -111,32 +110,33 @@ void __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke(uint64_
 {
   if (*(a1 + 32))
   {
-    v8 = 0;
-    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a2 options:0 error:&v8];
-    v4 = v8;
+    v9 = 0;
+    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:a2 options:0 error:&v9];
+    v4 = v9;
+    v5 = v4;
     if (v4)
     {
-      v5 = Log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = Log(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_cold_1();
       }
 
-      v6 = *(a1 + 40);
-      if (!v6)
+      v7 = *(a1 + 40);
+      if (!v7)
       {
         goto LABEL_9;
       }
 
-      v7 = *(v6 + 16);
+      v8 = *(v7 + 16);
     }
 
     else
     {
-      v7 = *(*(a1 + 32) + 16);
+      v8 = *(*(a1 + 32) + 16);
     }
 
-    v7();
+    v8();
 LABEL_9:
   }
 }
@@ -166,7 +166,7 @@ uint64_t __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_49(
 
 - (id)formattedRequestHeader:(id)header session:(id)session cookies:(id)cookies
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   sessionCopy = session;
   cookiesCopy = cookies;
@@ -176,102 +176,102 @@ uint64_t __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_49(
   v12 = [v11 debugDescription];
   v13 = [v9 stringWithFormat:@"%@ %@\n", hTTPMethod, v12];
 
-  v45 = headerCopy;
+  v44 = headerCopy;
   v14 = [headerCopy URL];
   host = [v14 host];
   [v13 appendFormat:@"Host: %@\n", host];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
-  v46 = sessionCopy;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v45 = sessionCopy;
   configuration = [sessionCopy configuration];
   hTTPAdditionalHeaders = [configuration HTTPAdditionalHeaders];
 
-  v18 = [hTTPAdditionalHeaders countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v18 = [hTTPAdditionalHeaders countByEnumeratingWithState:&v54 objects:v60 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v56;
+    v20 = *v55;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v56 != v20)
+        if (*v55 != v20)
         {
           objc_enumerationMutation(hTTPAdditionalHeaders);
         }
 
-        v22 = *(*(&v55 + 1) + 8 * i);
-        configuration2 = [v46 configuration];
+        v22 = *(*(&v54 + 1) + 8 * i);
+        configuration2 = [v45 configuration];
         hTTPAdditionalHeaders2 = [configuration2 HTTPAdditionalHeaders];
         v25 = [hTTPAdditionalHeaders2 objectForKeyedSubscript:v22];
         [v13 appendFormat:@"%@: %@\n", v22, v25];
       }
 
-      v19 = [hTTPAdditionalHeaders countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v19 = [hTTPAdditionalHeaders countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
     while (v19);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v26 = cookiesCopy;
-  v27 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v52;
+    v29 = *v51;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v52 != v29)
+        if (*v51 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v51 + 1) + 8 * j);
+        v31 = *(*(&v50 + 1) + 8 * j);
         name = [v31 name];
         value = [v31 value];
         [v13 appendFormat:@"%@: %@\n", name, value];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v28);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  allHTTPHeaderFields = [v45 allHTTPHeaderFields];
-  v35 = [allHTTPHeaderFields countByEnumeratingWithState:&v47 objects:v59 count:16];
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  allHTTPHeaderFields = [v44 allHTTPHeaderFields];
+  v35 = [allHTTPHeaderFields countByEnumeratingWithState:&v46 objects:v58 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v48;
+    v37 = *v47;
     do
     {
       for (k = 0; k != v36; ++k)
       {
-        if (*v48 != v37)
+        if (*v47 != v37)
         {
           objc_enumerationMutation(allHTTPHeaderFields);
         }
 
-        v39 = *(*(&v47 + 1) + 8 * k);
-        v40 = [v45 valueForHTTPHeaderField:v39];
+        v39 = *(*(&v46 + 1) + 8 * k);
+        v40 = [v44 valueForHTTPHeaderField:v39];
         [v13 appendFormat:@"%@: %@\n", v39, v40];
       }
 
-      v36 = [allHTTPHeaderFields countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v36 = [allHTTPHeaderFields countByEnumeratingWithState:&v46 objects:v58 count:16];
     }
 
     while (v36);
@@ -279,82 +279,79 @@ uint64_t __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_49(
 
   v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", v13];
 
-  v42 = *MEMORY[0x1E69E9840];
-
   return v41;
 }
 
 - (void)dataForURLRequest:(id)request successWithResponse:(id)response error:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
   errorCopy = error;
-  v11 = Log();
+  v11 = Log(errorCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     hTTPMethod = [requestCopy HTTPMethod];
     v13 = [requestCopy URL];
     path = [v13 path];
     *buf = 138543618;
-    v30 = hTTPMethod;
-    v31 = 2114;
-    v32 = path;
+    v29 = hTTPMethod;
+    v30 = 2114;
+    v31 = path;
     _os_log_impl(&dword_1B00C4000, v11, OS_LOG_TYPE_INFO, "-> %{public}@ %{public}@", buf, 0x16u);
   }
 
   session = [(FBKSHTTPClient *)self session];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke;
-  v24 = &unk_1E7A90098;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke;
+  v23 = &unk_1E7A90098;
   selfCopy = self;
-  v26 = requestCopy;
-  v27 = errorCopy;
-  v28 = responseCopy;
+  v25 = requestCopy;
+  v26 = errorCopy;
+  v27 = responseCopy;
   v16 = responseCopy;
   v17 = errorCopy;
   v18 = requestCopy;
-  v19 = [session dataTaskWithRequest:v18 completionHandler:&v21];
+  v19 = [session dataTaskWithRequest:v18 completionHandler:&v20];
 
   [v19 resume];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
-  v40 = a4;
+  v41 = a4;
   v8 = v7;
   v9 = MEMORY[0x1E695ABF8];
   v10 = [v8 allHeaderFields];
-  v39 = v8;
+  v40 = v8;
   v11 = [v8 URL];
   v12 = [v9 cookiesWithResponseHeaderFields:v10 forURL:v11];
 
-  v57 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
+  v57 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  v13 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v56;
+    v15 = *v57;
     while (2)
     {
       v16 = v6;
       for (i = 0; i != v14; ++i)
       {
-        if (*v56 != v15)
+        if (*v57 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v55 + 1) + 8 * i);
+        v18 = *(*(&v56 + 1) + 8 * i);
         v19 = [v18 name];
         if ([v19 isEqualToString:@"_seedportal_session"])
         {
@@ -374,7 +371,7 @@ LABEL_12:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+      v14 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
       v6 = v16;
       if (v14)
       {
@@ -387,104 +384,102 @@ LABEL_12:
 
 LABEL_13:
 
-  v22 = Log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v23 = Log(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v23 = [*(a1 + 40) HTTPMethod];
-    v24 = [*(a1 + 40) URL];
-    v25 = [v24 path];
-    v26 = [v39 statusCode];
+    v24 = [*(a1 + 40) HTTPMethod];
+    v25 = [*(a1 + 40) URL];
+    v26 = [v25 path];
+    v27 = [v40 statusCode];
     *buf = 138543874;
-    v60 = v23;
-    v61 = 2114;
-    v62 = v25;
-    v63 = 2048;
-    v64 = v26;
-    _os_log_impl(&dword_1B00C4000, v22, OS_LOG_TYPE_INFO, "<- %{public}@ %{public}@ %li", buf, 0x20u);
+    v61 = v24;
+    v62 = 2114;
+    v63 = v26;
+    v64 = 2048;
+    v65 = v27;
+    _os_log_impl(&dword_1B00C4000, v23, OS_LOG_TYPE_INFO, "<- %{public}@ %{public}@ %li", buf, 0x20u);
   }
 
-  if (v40)
+  if (v41)
   {
-    if ([v40 code] == -999)
+    if ([v41 code] == -999)
     {
-      v27 = [v40 domain];
-      v28 = [v27 isEqualToString:*MEMORY[0x1E696A978]];
+      v28 = [v41 domain];
+      v29 = [v28 isEqualToString:*MEMORY[0x1E696A978]];
 
-      if (v28)
+      if (v29)
       {
-        v29 = Log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v31 = Log(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = [*(a1 + 40) URL];
-          v31 = [v30 path];
+          v32 = [*(a1 + 40) URL];
+          v33 = [v32 path];
           *buf = 138543362;
-          v60 = v31;
-          _os_log_impl(&dword_1B00C4000, v29, OS_LOG_TYPE_DEFAULT, "Request was cancelled, ignoring error on [%{public}@]", buf, 0xCu);
+          v61 = v33;
+          _os_log_impl(&dword_1B00C4000, v31, OS_LOG_TYPE_DEFAULT, "Request was cancelled, ignoring error on [%{public}@]", buf, 0xCu);
         }
 
         goto LABEL_22;
       }
     }
 
-    v29 = _os_activity_create(&dword_1B00C4000, "HTTP Error", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v31 = _os_activity_create(&dword_1B00C4000, "HTTP Error", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke_66;
     block[3] = &unk_1E7A90048;
     block[4] = *(a1 + 32);
-    v50 = v39;
-    v51 = v6;
-    v52 = *(a1 + 40);
-    v53 = v40;
-    v54 = *(a1 + 48);
-    os_activity_apply(v29, block);
+    v51 = v40;
+    v52 = v6;
+    v53 = *(a1 + 40);
+    v54 = v41;
+    v55 = *(a1 + 48);
+    os_activity_apply(v31, block);
 
-    v32 = v50;
+    v34 = v51;
 LABEL_21:
 
 LABEL_22:
     goto LABEL_23;
   }
 
-  v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", objc_msgSend(v39, "statusCode")];
-  if ([v34 characterAtIndex:0] == 50)
+  v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%li", objc_msgSend(v40, "statusCode")];
+  if ([v35 characterAtIndex:0] == 50)
   {
   }
 
   else
   {
-    v35 = [v39 statusCode];
+    v36 = [v40 statusCode];
 
-    if (v35 != 302)
+    if (v36 != 302)
     {
-      v29 = _os_activity_create(&dword_1B00C4000, "HTTP Error", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke_2;
-      v43[3] = &unk_1E7A90070;
-      v37 = v6;
-      v38 = *(a1 + 32);
-      v44 = v37;
+      v31 = _os_activity_create(&dword_1B00C4000, "HTTP Error", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke_2;
+      v44[3] = &unk_1E7A90070;
+      v38 = v6;
+      v39 = *(a1 + 32);
       v45 = v38;
       v46 = v39;
-      v47 = *(a1 + 40);
-      v48 = *(a1 + 48);
-      os_activity_apply(v29, v43);
+      v47 = v40;
+      v48 = *(a1 + 40);
+      v49 = *(a1 + 48);
+      os_activity_apply(v31, v44);
 
-      v32 = v44;
+      v34 = v45;
       goto LABEL_21;
     }
   }
 
-  v36 = *(a1 + 56);
-  if (v36)
+  v37 = *(a1 + 56);
+  if (v37)
   {
-    (*(v36 + 16))(v36, v6, v39);
+    (*(v37 + 16))(v37, v6, v40);
   }
 
 LABEL_23:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke_66(uint64_t a1)
@@ -520,13 +515,13 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
 
 void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
-    v25 = 0;
-    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v2 options:0 error:&v25];
-    v4 = v25;
+    v24 = 0;
+    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v2 options:0 error:&v24];
+    v4 = v24;
     v5 = 0;
     if (FBKSIsValidErrorResponse(v3))
     {
@@ -535,27 +530,27 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
       v8 = [v6 objectForKeyedSubscript:@"errors"];
       v9 = [v7 arrayWithCapacity:{objc_msgSend(v8, "count")}];
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v10 = [v6 objectForKeyedSubscript:{@"errors", 0}];
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         do
         {
           v14 = 0;
           do
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = FBKSErrorForDict(*(*(&v21 + 1) + 8 * v14));
+            v15 = FBKSErrorForDict(*(*(&v20 + 1) + 8 * v14));
             if (v15)
             {
               [v9 addObject:v15];
@@ -565,7 +560,7 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v12);
@@ -598,8 +593,6 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
     v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HTTPErrorDomain" code:objc_msgSend(*(a1 + 48) userInfo:{"statusCode"), v17}];
     (*(*(a1 + 64) + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataForURL:(id)l success:(id)success error:(id)error
@@ -614,7 +607,7 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
   errorCopy = error;
-  v5 = Log();
+  v5 = Log(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [FBKSHTTPClient URLSession:didBecomeInvalidWithError:];
@@ -626,16 +619,18 @@ void __62__FBKSHTTPClient_dataForURLRequest_successWithResponse_error___block_in
   challengeCopy = challenge;
   handlerCopy = handler;
   v8 = +[FBKSSharedConstants environment];
-  if (FBKSHasInternalUI() && (v8 & 0xFFFFFFFD) == 1)
+  v9 = v8;
+  v11 = FBKSHasInternalUI(v8, v10);
+  if (v11 && (v9 & 0xFFFFFFFD) == 1)
   {
-    v9 = Log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = Log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 0;
-      v10 = "Running in development/stagingDev mode; skipping pinning check (internal only).";
-      v11 = &v31;
+      v35 = 0;
+      v13 = "Running in development/stagingDev mode; skipping pinning check (internal only).";
+      v14 = &v35;
 LABEL_13:
-      _os_log_impl(&dword_1B00C4000, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+      _os_log_impl(&dword_1B00C4000, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
       goto LABEL_14;
     }
 
@@ -644,18 +639,18 @@ LABEL_13:
 
   protectionSpace = [challengeCopy protectionSpace];
   host = [protectionSpace host];
-  v14 = +[FBKSSharedConstants appleSeedURL];
-  host2 = [v14 host];
-  v16 = [host isEqualToString:host2];
+  v17 = +[FBKSSharedConstants appleSeedURL];
+  host2 = [v17 host];
+  v19 = [host isEqualToString:host2];
 
-  if ((v16 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    v9 = Log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = Log(v20);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v10 = "Connecting to other server; skipping pinning check.";
-      v11 = buf;
+      v13 = "Connecting to other server; skipping pinning check.";
+      v14 = buf;
       goto LABEL_13;
     }
 
@@ -666,45 +661,45 @@ LABEL_14:
 
   protectionSpace2 = [challengeCopy protectionSpace];
   authenticationMethod = [protectionSpace2 authenticationMethod];
-  v19 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]];
+  v23 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]];
 
-  if (!v19)
+  if (!v23)
   {
 LABEL_15:
     handlerCopy[2](handlerCopy, 1, 0);
     goto LABEL_16;
   }
 
-  v20 = +[FBKSSharedConstants appleSeedURL];
-  host3 = [v20 host];
+  v24 = +[FBKSSharedConstants appleSeedURL];
+  host3 = [v24 host];
 
   AppleSSLPinned = SecPolicyCreateAppleSSLPinned();
   if (AppleSSLPinned)
   {
-    v23 = AppleSSLPinned;
+    v27 = AppleSSLPinned;
     protectionSpace3 = [challengeCopy protectionSpace];
     serverTrust = [protectionSpace3 serverTrust];
 
-    LODWORD(protectionSpace3) = SecTrustSetPolicies(serverTrust, v23);
-    CFRelease(v23);
+    LODWORD(protectionSpace3) = SecTrustSetPolicies(serverTrust, v27);
+    CFRelease(v27);
     if (!protectionSpace3)
     {
       error = 0;
       if (SecTrustEvaluateWithError(serverTrust, &error))
       {
-        v26 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
-        (handlerCopy)[2](handlerCopy, 0, v26);
+        v30 = [MEMORY[0x1E695AC48] credentialForTrust:serverTrust];
+        (handlerCopy)[2](handlerCopy, 0, v30);
 
         goto LABEL_10;
       }
 
       if (error)
       {
-        v27 = error;
-        v28 = Log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v31 = error;
+        v32 = Log(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          [FBKSHTTPClient URLSession:v27 didReceiveChallenge:v28 completionHandler:?];
+          [FBKSHTTPClient URLSession:v31 didReceiveChallenge:v32 completionHandler:?];
         }
 
         CFRelease(error);
@@ -720,12 +715,12 @@ LABEL_16:
 
 - (id)logHTTPErrorWithResponse:(id)response withData:(id)data fromRequest:(id)request
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dataCopy = data;
   requestCopy = request;
   v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:5];
-  v11 = Log();
+  v11 = Log(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [FBKSHTTPClient logHTTPErrorWithResponse:responseCopy withData:requestCopy fromRequest:v11];
@@ -793,131 +788,105 @@ LABEL_16:
   [v10 setObject:v26 forKeyedSubscript:@"request id"];
 
   v27 = [allHeaderFields objectForKeyedSubscript:@"Content-Type"];
-  if ((([v27 containsString:@"application/json"] & 1) != 0 || objc_msgSend(v27, "containsString:", @"text/html")) && objc_msgSend(responseCopy, "statusCode") != 404)
+  if (([v27 containsString:@"application/json"] & 1) != 0 || (statusCode = objc_msgSend(v27, "containsString:", @"text/html"), statusCode))
   {
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
-    v28 = Log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    statusCode = [responseCopy statusCode];
+    if (statusCode != 404)
     {
-      [FBKSHTTPClient logHTTPErrorWithResponse:withData:fromRequest:];
-    }
-
-    v29 = Log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-    {
-      v30 = [allHeaderFields objectForKeyedSubscript:@"X-Request-Id"];
-      [FBKSHTTPClient logHTTPErrorWithResponse:v30 withData:buf fromRequest:v29];
-    }
-
-    v31 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:0];
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_32;
-    }
-
-    v32 = [v31 objectForKeyedSubscript:@"errors"];
-    if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-    {
-      firstObject = [v32 firstObject];
-      v34 = [firstObject objectForKeyedSubscript:@"message"];
-
-      if (!v34)
+      v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:dataCopy encoding:4];
+      v29 = Log(v40);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_31;
+        [FBKSHTTPClient logHTTPErrorWithResponse:withData:fromRequest:];
       }
 
+      v31 = Log(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        v32 = [allHeaderFields objectForKeyedSubscript:@"X-Request-Id"];
+        [FBKSHTTPClient logHTTPErrorWithResponse:v32 withData:buf fromRequest:v31];
+      }
+
+      v33 = [MEMORY[0x1E696ACB0] JSONObjectWithData:dataCopy options:0 error:0];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        goto LABEL_31;
+        goto LABEL_32;
       }
-    }
 
-    else
-    {
-      v34 = [v31 objectForKeyedSubscript:@"error"];
-      if (!v34)
+      v34 = [v33 objectForKeyedSubscript:@"errors"];
+      if (v34 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        goto LABEL_31;
+        firstObject = [v34 firstObject];
+        v36 = [firstObject objectForKeyedSubscript:@"message"];
+
+        if (!v36)
+        {
+          goto LABEL_31;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          goto LABEL_31;
+        }
       }
 
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      else
       {
-        goto LABEL_31;
-      }
-    }
+        v36 = [v33 objectForKeyedSubscript:@"error"];
+        if (!v36)
+        {
+          goto LABEL_31;
+        }
 
-    [v10 setObject:v34 forKeyedSubscript:@"error message"];
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          goto LABEL_31;
+        }
+      }
+
+      [v10 setObject:v36 forKeyedSubscript:@"error message"];
 LABEL_31:
 
 LABEL_32:
+    }
   }
 
-  v35 = Log();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v37 = Log(statusCode);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     [FBKSHTTPClient logHTTPErrorWithResponse:withData:fromRequest:];
   }
 
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v10];
+  v38 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v10];
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v36;
-}
-
-void __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B00C4000, v0, v1, "Could not create object from JSON data. Error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)URLSession:didBecomeInvalidWithError:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B00C4000, v0, v1, "URLSession became invalid with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  return v38;
 }
 
 - (void)URLSession:(void *)a1 didReceiveChallenge:(NSObject *)a2 completionHandler:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 debugDescription];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_ERROR, "Error in certificate: %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B00C4000, a2, OS_LOG_TYPE_ERROR, "Error in certificate: %{public}@", v4, 0xCu);
 }
 
 - (void)logHTTPErrorWithResponse:(void *)a1 withData:(void *)a2 fromRequest:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = [a1 statusCode];
   v6 = [a2 HTTPMethod];
   v7 = [a2 URL];
   v8 = [v7 path];
-  v10 = 134218498;
-  v11 = v5;
-  v12 = 2114;
-  v13 = v6;
-  v14 = 2114;
-  v15 = v8;
-  _os_log_error_impl(&dword_1B00C4000, a3, OS_LOG_TYPE_ERROR, "HTTP Error: [%ld] from request: [%{public}@ %{public}@]", &v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)logHTTPErrorWithResponse:withData:fromRequest:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B00C4000, v0, v1, "Error Body: [%{public}@]", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v9 = 134218498;
+  v10 = v5;
+  v11 = 2114;
+  v12 = v6;
+  v13 = 2114;
+  v14 = v8;
+  _os_log_error_impl(&dword_1B00C4000, a3, OS_LOG_TYPE_ERROR, "HTTP Error: [%ld] from request: [%{public}@ %{public}@]", &v9, 0x20u);
 }
 
 - (void)logHTTPErrorWithResponse:(__CFString *)a1 withData:(uint8_t *)buf fromRequest:(os_log_t)log .cold.3(__CFString *a1, uint8_t *buf, os_log_t log)
@@ -935,20 +904,18 @@ void __50__FBKSHTTPClient_jsonForURLRequest_success_error___block_invoke_cold_1(
 
 - (void)logHTTPErrorWithResponse:withData:fromRequest:.cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1B00C4000, v0, OS_LOG_TYPE_DEBUG, "SP2 Request Attributes: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B00C4000, v0, OS_LOG_TYPE_DEBUG, "SP2 Request Attributes: %@", v1, 0xCu);
 }
 
 - (void)logHTTPErrorWithResponse:withData:fromRequest:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B00C4000, v1, OS_LOG_TYPE_ERROR, "Exception [%{public}@] decoding HTTP error for response [%{public}@]", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B00C4000, v1, OS_LOG_TYPE_ERROR, "Exception [%{public}@] decoding HTTP error for response [%{public}@]", v2, 0x16u);
 }
 
 @end

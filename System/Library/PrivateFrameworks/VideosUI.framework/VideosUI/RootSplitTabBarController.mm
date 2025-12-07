@@ -34,7 +34,7 @@
   controllersCopy = controllers;
   if (controllers)
   {
-    sub_1E3280A90(0, &qword_1EE23B250);
+    sub_1E3280A90(0, &qword_1EE23B250, 0x1E69DD258);
     controllersCopy = sub_1E42062B4();
   }
 
@@ -44,7 +44,7 @@
 
 - (_TtC8VideosUI25RootSplitTabBarController)initWithTabs:(id)tabs
 {
-  sub_1E3280A90(0, &unk_1ECF39558);
+  sub_1E3280A90(0, &unk_1ECF39558, 0x1E69DCFE0);
   sub_1E42062B4();
   sub_1E411607C();
 }

@@ -35,7 +35,7 @@
     v8 = v7;
     v12[0] = 9;
     _Block_copy(v6);
-    v9 = sub_10022C244(&qword_100522CC0, type metadata accessor for MRGroupSessionError);
+    v9 = sub_10022C244(&qword_100522CC0, type metadata accessor for MRGroupSessionError, &unk_100450638);
     sub_10022CC44(v12, 0xD00000000000001FLL, 0x800000010043C4D0, 0, v8, v9);
     v10 = v12[1];
     v11 = _convertErrorToNSError(_:)();
@@ -56,7 +56,7 @@
     v6 = v5;
     v10[0] = 9;
     _Block_copy(v4);
-    v7 = sub_10022C244(&qword_100522CC0, type metadata accessor for MRGroupSessionError);
+    v7 = sub_10022C244(&qword_100522CC0, type metadata accessor for MRGroupSessionError, &unk_100450638);
     sub_10022CC44(v10, 0xD00000000000001FLL, 0x800000010043C4D0, 0, v6, v7);
     v8 = v10[1];
     v9 = _convertErrorToNSError(_:)();

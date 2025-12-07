@@ -682,7 +682,7 @@ LABEL_47:
   return v48;
 }
 
-uint64_t __48__CLSSocialServiceCalendar_eventFromProxyEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__48__CLSSocialServiceCalendar_eventFromProxyEvent___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 participantType];
   if (result == 2)
@@ -984,7 +984,7 @@ void __84__CLSSocialServiceCalendar_eventAtLocation_withAttendeeNames_matchesClu
   return attendees;
 }
 
-uint64_t __50__CLSSocialServiceCalendar__isEventInMeetingRoom___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__CLSSocialServiceCalendar__isEventInMeetingRoom___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 participantType];
   if (result == 2)

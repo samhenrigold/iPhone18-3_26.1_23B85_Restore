@@ -68,27 +68,25 @@
     _aa_appProvidedContext2 = [(ACAccount *)self->_account _aa_appProvidedContext];
     [v4 ak_addAppProvidedContext:_aa_appProvidedContext2];
 
-    [(ACAccount *)self->_account _aa_setAppProvidedContext:0];
+    v11 = [(ACAccount *)self->_account _aa_setAppProvidedContext:0];
   }
 
-  v12 = _AALogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _AALogSystem(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [v4 description];
-    v14 = objc_opt_class();
+    v14 = [v4 description];
+    v15 = objc_opt_class();
     allHTTPHeaderFields = [v4 allHTTPHeaderFields];
-    v16 = [v14 redactedHeadersFromHTTPHeaders:allHTTPHeaderFields];
-    v17 = [(AARequest *)self redactedBodyStringWithPropertyList:v6];
+    v17 = [v15 redactedHeadersFromHTTPHeaders:allHTTPHeaderFields];
+    v18 = [(AARequest *)self redactedBodyStringWithPropertyList:v6];
     *buf = 138412802;
-    v23 = v13;
+    v23 = v14;
     v24 = 2112;
-    v25 = v16;
+    v25 = v17;
     v26 = 2112;
-    v27 = v17;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "AALoginAccountRequest %@\nHTTP Headers: %@\nBody: \n%@", buf, 0x20u);
+    v27 = v18;
+    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "AALoginAccountRequest %@\nHTTP Headers: %@\nBody: \n%@", buf, 0x20u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

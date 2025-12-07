@@ -63,7 +63,7 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
 
 - (NSArray)sections
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = SPLogForSPLogCategoryDefault();
   v4 = v3;
   if (*MEMORY[0x277D4BF48])
@@ -79,13 +79,12 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
   if (os_log_type_enabled(v3, v5))
   {
     resultSections = [(SPQueryResponse *)self->_lastResponse resultSections];
-    v10 = 138412290;
-    v11 = resultSections;
-    _os_log_impl(&dword_26B837000, v4, v5, "Sections: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = resultSections;
+    _os_log_impl(&dword_26B837000, v4, v5, "Sections: %@", &v9, 0xCu);
   }
 
   resultSections2 = [(SPQueryResponse *)self->_lastResponse resultSections];
-  v8 = *MEMORY[0x277D85DE8];
 
   return resultSections2;
 }
@@ -160,7 +159,7 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
 
 - (void)updateWithResponse:(id)response
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   task = [responseCopy task];
   queryTask = [(SPUISearchModel *)self queryTask];
@@ -182,13 +181,13 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
     if (os_log_type_enabled(v7, v9))
     {
       *buf = 138412290;
-      v49 = responseCopy;
+      v48 = responseCopy;
       _os_log_impl(&dword_26B837000, v8, v9, "updateWithResponse: %@", buf, 0xCu);
     }
 
     v10 = objc_alloc(MEMORY[0x277CBEB18]);
     resultSections = [responseCopy resultSections];
-    v36 = [v10 initWithCapacity:{objc_msgSend(resultSections, "count")}];
+    v35 = [v10 initWithCapacity:{objc_msgSend(resultSections, "count")}];
 
     v12 = objc_opt_new();
     selfCopy = self;
@@ -196,49 +195,49 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
     query = [queryTask2 query];
     queryContext = [query queryContext];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v32 = responseCopy;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v31 = responseCopy;
     obj = [responseCopy resultSections];
-    v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v35)
+    v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v34)
     {
-      v34 = *v43;
+      v33 = *v42;
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v43 != v34)
+          if (*v42 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v42 + 1) + 8 * i);
+          v16 = *(*(&v41 + 1) + 8 * i);
           results = [v16 results];
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
           v18 = results;
-          v19 = [v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v39;
+            v21 = *v38;
             while (2)
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v39 != v21)
+                if (*v38 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                if (!v12 || (v23 = *(*(&v38 + 1) + 8 * j), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || ([v23 resultBundleId], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", @"com.apple.searchd.suggestion"), v24, !v25))
+                if (!v12 || (v23 = *(*(&v37 + 1) + 8 * j), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || ([v23 resultBundleId], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", @"com.apple.searchd.suggestion"), v24, !v25))
                 {
-                  [v36 addObject:v16];
+                  [v35 addObject:v16];
                   goto LABEL_24;
                 }
 
@@ -246,7 +245,7 @@ uint64_t __40__SPUISearchModel_sharedFullZWKInstance__block_invoke()
                 [v12 addObject:v26];
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v20)
               {
                 continue;
@@ -261,26 +260,26 @@ LABEL_24:
           if ([v12 count])
           {
             [v16 setResults:v12];
-            [v36 addObject:v16];
+            [v35 addObject:v16];
 
             v12 = 0;
           }
         }
 
-        v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
-    responseCopy = v32;
-    [v32 setResultSections:v36];
-    [(SPUISearchModel *)selfCopy setLastResponse:v32];
-    state = [v32 state];
+    responseCopy = v31;
+    [v31 setResultSections:v35];
+    [(SPUISearchModel *)selfCopy setLastResponse:v31];
+    state = [v31 state];
     [(SPUISearchModel *)selfCopy setQueryPartiallyComplete:(state & 0xFFFFFFFFFFFFFFFELL) == 2];
     [(SPUISearchModel *)selfCopy setQueryJustHasTopHits:state == 1];
-    -[SPUISearchModel setQueryComplete:](selfCopy, "setQueryComplete:", [v32 state] == 4);
-    kind = [v32 kind];
+    -[SPUISearchModel setQueryComplete:](selfCopy, "setQueryComplete:", [v31 state] == 4);
+    kind = [v31 kind];
     if (kind == 1)
     {
       delegate = [(SPUISearchModel *)selfCopy delegate];
@@ -304,13 +303,11 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveResponse:(id)response
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = SPLogForSPLogCategoryDefault();
   v6 = v5;
@@ -326,13 +323,12 @@ LABEL_34:
 
   if (os_log_type_enabled(v5, v7))
   {
-    v9 = 138412290;
-    v10 = responseCopy;
-    _os_log_impl(&dword_26B837000, v6, v7, "Got response %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = responseCopy;
+    _os_log_impl(&dword_26B837000, v6, v7, "Got response %@", &v8, 0xCu);
   }
 
   [(SPUISearchModel *)self performSelectorOnMainThread:sel_updateWithResponse_ withObject:responseCopy waitUntilDone:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateQuery:(id)query

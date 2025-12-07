@@ -45,13 +45,13 @@
     v9 = v7[1];
 
     v8(1);
-    sub_1D331EEDC(v8);
+    sub_1D331EEDC(v8, v9);
     sub_1D331E880(v13, &qword_1EC7616D0, &unk_1D33E2890);
     v10 = *v7;
     v11 = v7[1];
     *v7 = 0;
     v7[1] = 0;
-    sub_1D331EEDC(v10);
+    sub_1D331EEDC(v10, v11);
     v12 = *(&self->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager);
     *(&self->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager) = 0;
   }
@@ -71,14 +71,14 @@
   {
     v6 = v4[1];
     selfCopy = self;
-    sub_1D331FEDC(v5);
+    sub_1D331FEDC(v5, v6);
     v5(1);
-    sub_1D331EEDC(v5);
+    sub_1D331EEDC(v5, v6);
     v8 = *v4;
     v9 = v4[1];
     *v4 = 0;
     v4[1] = 0;
-    sub_1D331EEDC(v8);
+    sub_1D331EEDC(v8, v9);
     v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager);
     *(&selfCopy->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager) = 0;
   }
@@ -92,14 +92,14 @@
   {
     v5 = v3[1];
     selfCopy = self;
-    sub_1D331FEDC(v4);
+    sub_1D331FEDC(v4, v5);
     v4(0);
-    sub_1D331EEDC(v4);
+    sub_1D331EEDC(v4, v5);
     v7 = *v3;
     v8 = v3[1];
     *v3 = 0;
     v3[1] = 0;
-    sub_1D331EEDC(v7);
+    sub_1D331EEDC(v7, v8);
     v9 = *(&selfCopy->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager);
     *(&selfCopy->super.isa + OBJC_IVAR____TtC16CallsAppServices24RequestsHandlerPresenter_acceptedContactActionsManager) = 0;
   }

@@ -886,7 +886,7 @@ uint64_t __51__VCPVideoSceneClassifier_sortScenesWithMaxNumCap___block_invoke(ui
             v16 = MEMORY[0x1E696AD98];
             [v11 sumConfidence];
             v18 = v17;
-            [v11 duration];
+            objc_msgSend_duration(v11);
             *&v20 = v18 / v19;
             v21 = [v16 numberWithFloat:v20];
             sceneId = [v11 sceneId];
@@ -1043,7 +1043,7 @@ uint64_t __51__VCPVideoSceneClassifier_sortScenesWithMaxNumCap___block_invoke(ui
             [v22 sumAdjustConfidence];
             *&v28 = v20 + v27;
             [v22 setSumAdjustConfidence:v28];
-            [v22 duration];
+            objc_msgSend_duration(v22);
             *&v30 = v29 + v23;
             [v22 setDuration:v30];
             [v22 adjustDuration];
@@ -1305,7 +1305,7 @@ uint64_t __51__VCPVideoSceneClassifier_sortScenesWithMaxNumCap___block_invoke(ui
                         [v31 sumAdjustConfidence];
                         *&v37 = v29 + v36;
                         [v31 setSumAdjustConfidence:v37];
-                        [v31 duration];
+                        objc_msgSend_duration(v31);
                         *&v39 = v38 + v32;
                         [v31 setDuration:v39];
                         [v31 adjustDuration];

@@ -291,7 +291,7 @@ LABEL_15:
     v19 = width * v18;
     [v9 scale];
     v21 = height * v20;
-    [(CKMediaObject *)self _previewConstraintsForWidth:width, 0];
+    objc_msgSend__previewConstraintsForWidth_(self, width, 0);
     v22 = [MEMORY[0x1E69A80C0] newUncroppedPreviewImageFromImage:objc_msgSend(v9 isScreenshot:"CGImage") maximumSizeInPx:-[CKImageMediaObject isScreenshot](self minimumSizeInPx:{"isScreenshot"), v19, v21, 0.0, 0.0}];
     if (v22)
     {
@@ -323,7 +323,7 @@ LABEL_16:
     v30 = 0;
     v28 = 0u;
     v29 = 0u;
-    [(CKMediaObject *)self _previewConstraintsForWidth:width];
+    objc_msgSend__previewConstraintsForWidth_(self, width);
     v9 = +[CKUIBehavior sharedBehaviors];
     isSticker = [(CKImageMediaObject *)self isSticker];
     [thumbnailCopy size];
@@ -709,7 +709,7 @@ uint64_t __44__CKImageMediaObject_pasteboardItemProvider__block_invoke_3(uint64_
 
 - (id)previewItemTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"PREVIEW_TITLE_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -881,7 +881,7 @@ LABEL_17:
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20, &unk_190DD75D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v13 - v8;
   selfCopy = self;

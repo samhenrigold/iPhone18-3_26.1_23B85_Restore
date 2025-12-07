@@ -50,7 +50,7 @@
 
 - (HMDAccessorySettingsMetadata)init
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   productInfo = [MEMORY[0x277D0F8E8] productInfo];
   [productInfo productClass];
@@ -89,9 +89,9 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v11;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot find setting resource at: %@", buf, 0x16u);
     }
 
@@ -99,7 +99,6 @@
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

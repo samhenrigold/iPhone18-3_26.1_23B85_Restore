@@ -274,7 +274,7 @@ BOOL __49__MUISearchRecentSuggester__removeOldSuggestions__block_invoke(uint64_t
 {
   ef_publicDescription = [self ef_publicDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Failed to write recent searches %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_214A5E000, v2, v3, "Failed to write recent searches %{public}@", v4, v5, v6, v7);
 }
 
 id __46__MUISearchRecentSuggester_saveRecentSearches__block_invoke(uint64_t a1, void *a2)

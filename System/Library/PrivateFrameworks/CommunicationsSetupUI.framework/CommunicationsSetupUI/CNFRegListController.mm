@@ -5,13 +5,18 @@
 - (CNFRegListController)initWithRegController:(id)controller;
 - (double)tableView:(id)view heightForFooterInSection:(int64_t)section;
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section;
+- (id)_existingLabelForSection:(int64_t)section header:(BOOL)header;
 - (id)_existingLabelForSpecifier:(id)specifier header:(BOOL)header;
 - (id)specifierList;
 - (id)specifiers;
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section;
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section;
 - (void)_performAppearBlock;
+- (void)_setLabel:(id)label forSpecifier:(id)specifier header:(BOOL)header;
+- (void)_setSpecifierEnabled:(id)enabled enabled:(BOOL)a4 animated:(BOOL)animated;
 - (void)_setupEventHandlers;
+- (void)_updateExistingLabelForSpecifier:(id)specifier header:(BOOL)header;
+- (void)_updateTableLabel:(id)label withTableView:(id)view isTopMostHeader:(BOOL)header;
 - (void)_updateTitle;
 - (void)applicationDidResume;
 - (void)changePasswordControllerDidFinish:(id)finish withAppleID:(id)d authID:(id)iD authToken:(id)token;
@@ -31,6 +36,7 @@
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillDisappear:(BOOL)disappear;
 @end
 
@@ -76,46 +82,45 @@
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D192A8] = [MEMORY[0x277D192A8] sharedInstance];
   [mEMORY[0x277D192A8] removeListener:self];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [(CNFRegListController *)self _existingLabelForSpecifier:v9 header:1];
         [v10 clearSpecifier];
         v11 = [(CNFRegListController *)self _existingLabelForSpecifier:v9 header:0];
         [v11 clearSpecifier];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v13.receiver = self;
-  v13.super_class = CNFRegListController;
-  [(CNFRegListController *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CNFRegListController;
+  [(CNFRegListController *)&v12 dealloc];
 }
 
 - (void)setSpecifier:(id)specifier
@@ -160,7 +165,7 @@
 
 - (void)_updateTitle
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   customTitle = [(CNFRegListController *)self customTitle];
   if (customTitle)
   {
@@ -168,20 +173,18 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v8 = customTitle;
+      v7 = customTitle;
       _os_log_impl(&dword_243BE5000, v4, OS_LOG_TYPE_DEFAULT, "Setting custom title: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v6 = customTitle;
+      v5 = customTitle;
       IMLogString();
     }
 
-    [(CNFRegListController *)self setTitle:customTitle, v6];
+    [(CNFRegListController *)self setTitle:customTitle, v5];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAppearBlock:(id)block
@@ -218,13 +221,78 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v17 = *MEMORY[0x277D85DE8];
+  regController = [(CNFRegListController *)self regController];
+  v6 = CNFRegCurrentStringTableMatchesType([regController serviceType]);
+
+  if (!v6)
+  {
+    regController2 = [(CNFRegListController *)self regController];
+    CNFRegSetStringTableForServiceType([regController2 serviceType]);
+
+    [(CNFRegListController *)self reloadSpecifiers];
+    v8 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEBUG, "CNFRegListController: ViewWillAppear: Updating the string table and reloading specifiers.", buf, 2u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      IMLogString();
+    }
+  }
+
+  v14.receiver = self;
+  v14.super_class = CNFRegListController;
+  [(CNFRegListController *)&v14 viewWillAppear:appearCopy];
+  v9 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = @"not ";
+    if (appearCopy)
+    {
+      v10 = &stru_2856D3978;
+    }
+
+    *buf = 138412290;
+    v16 = v10;
+    _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEBUG, "View will appear, %@animated", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v11 = @"not ";
+    if (appearCopy)
+    {
+      v11 = &stru_2856D3978;
+    }
+
+    v13 = v11;
+    IMLogString();
+  }
+
+  if ([(CNFRegListController *)self wantsWiFiChooser])
+  {
+    regController3 = [(CNFRegListController *)self regController];
+    [regController3 startRequiringWifi];
+  }
+
+  [(CNFRegListController *)self setShowingChildController:0];
+  self->_appeared = 0;
+}
+
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = CNFRegListController;
-  [(CNFRegListController *)&v13 viewDidAppear:?];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CNFRegListController;
+  [(CNFRegListController *)&v12 viewDidAppear:?];
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -254,7 +322,7 @@
     }
 
     *buf = 138412290;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEBUG, "View did appear, %@animated", buf, 0xCu);
   }
 
@@ -266,7 +334,7 @@
       v9 = &stru_2856D3978;
     }
 
-    v12 = v9;
+    v11 = v9;
     IMLogString();
   }
 
@@ -279,17 +347,15 @@
 
   [(CNFRegListController *)self _performAppearBlock];
   self->_appeared = 1;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = CNFRegListController;
-  [(CNFRegListController *)&v13 viewWillDisappear:?];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CNFRegListController;
+  [(CNFRegListController *)&v12 viewWillDisappear:?];
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -315,7 +381,7 @@
     }
 
     *buf = 138412290;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEBUG, "View will disappear, %@animated", buf, 0xCu);
   }
 
@@ -327,7 +393,7 @@
       v9 = &stru_2856D3978;
     }
 
-    v12 = v9;
+    v11 = v9;
     IMLogString();
   }
 
@@ -339,16 +405,15 @@
 
   [(CNFRegListController *)self setAppearBlock:0];
   self->_appeared = 0;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = CNFRegListController;
-  [(CNFRegListController *)&v8 viewDidDisappear:?];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = CNFRegListController;
+  [(CNFRegListController *)&v7 viewDidDisappear:?];
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -359,7 +424,7 @@
     }
 
     *buf = 138412290;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEBUG, "View did disappear, %@animated", buf, 0xCu);
   }
 
@@ -369,7 +434,6 @@
   }
 
   self->_appeared = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidResume
@@ -490,7 +554,7 @@
 
 - (BOOL)_showWiFiAlertIfNecessary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   regController = [(CNFRegListController *)self regController];
   serviceType = [regController serviceType];
 
@@ -574,11 +638,11 @@ LABEL_12:
     }
 
     *buf = 138412802;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v15;
-    v31 = 2112;
-    v32 = v17;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v15;
+    v30 = 2112;
+    v31 = v17;
     _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Showing alert nonWifiAvailableForBUndleID:%@ %@, wifiAllowedForBUndleID %@", buf, 0x20u);
   }
 
@@ -606,17 +670,16 @@ LABEL_12:
       v21 = @"NO";
     }
 
-    v25 = v19;
-    v26 = v21;
-    v24 = v6;
+    v24 = v19;
+    v25 = v21;
+    v23 = v6;
     IMLogString();
   }
 
-  [regController2 showNetworkAlert:{self, v24, v25, v26}];
+  [regController2 showNetworkAlert:{self, v23, v24, v25}];
   v10 = 1;
 LABEL_33:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -633,10 +696,10 @@ LABEL_33:
 
 - (BOOL)_handleURLDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v16 = dictionaryCopy;
-  v15 = 0;
+  v15 = dictionaryCopy;
+  v14 = 0;
   v5 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FD20]);
   if (v5)
   {
@@ -649,13 +712,13 @@ LABEL_33:
       [v8 setTarget:WeakRetained];
       [v8 setSelector:sel__cnfreg_overrideForController_withDictionary_];
       [v8 setArgument:&selfCopy atIndex:2];
-      [v8 setArgument:&v16 atIndex:3];
+      [v8 setArgument:&v15 atIndex:3];
       [v8 invoke];
-      [v8 getReturnValue:&v15];
+      [v8 getReturnValue:&v14];
       v9 = OSLogHandleForIDSCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        if (v15)
+        if (v14)
         {
           v10 = @"YES";
         }
@@ -666,9 +729,9 @@ LABEL_33:
         }
 
         *buf = 138412546;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v16;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v15;
         _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Handling url dictionary {%@} : %@", buf, 0x16u);
       }
 
@@ -678,8 +741,8 @@ LABEL_33:
       }
     }
 
-    dictionaryCopy = v16;
-    v11 = v15;
+    dictionaryCopy = v15;
+    v11 = v14;
   }
 
   else
@@ -687,41 +750,40 @@ LABEL_33:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
 - (void)changePasswordControllerDidFinish:(id)finish withAppleID:(id)d authID:(id)iD authToken:(id)token
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   tokenCopy = token;
   if ([iDCopy length] && objc_msgSend(tokenCopy, "length"))
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     selfCopy = self;
     regController = [(CNFRegListController *)self regController];
     appleIDAccounts = [regController appleIDAccounts];
 
-    v14 = [appleIDAccounts countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [appleIDAccounts countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(appleIDAccounts);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
+          v18 = *(*(&v22 + 1) + 8 * i);
           loginDisplayString = [v18 loginDisplayString];
           v20 = [loginDisplayString isEqualToString:dCopy];
 
@@ -731,7 +793,7 @@ LABEL_33:
           }
         }
 
-        v15 = [appleIDAccounts countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [appleIDAccounts countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -741,8 +803,24 @@ LABEL_33:
   }
 
   [(CNFRegListController *)self dismissViewControllerAnimated:1 completion:0];
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (void)_setSpecifierEnabled:(id)enabled enabled:(BOOL)a4 animated:(BOOL)animated
+{
+  v5 = a4;
+  enabledCopy = enabled;
+  v7 = *MEMORY[0x277D3FF38];
+  v12 = enabledCopy;
+  v8 = [enabledCopy propertyForKey:*MEMORY[0x277D3FF38]];
+  v9 = v8;
+  if (!v8 || [v8 BOOLValue] != v5)
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:v5];
+    [v12 setProperty:v10 forKey:v7];
+    v11 = [v12 propertyForKey:*MEMORY[0x277D40148]];
+    [v11 setCellEnabled:v5];
+    [v11 setNeedsDisplay];
+  }
 }
 
 - (void)loadView
@@ -1004,6 +1082,127 @@ LABEL_33:
   }
 
   return v7;
+}
+
+- (id)_existingLabelForSection:(int64_t)section header:(BOOL)header
+{
+  headerCopy = header;
+  v6 = [(CNFRegListController *)self indexOfGroup:section];
+  if (v6 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v8 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) objectAtIndex:v6];
+    v7 = [(CNFRegListController *)self _existingLabelForSpecifier:v8 header:headerCopy];
+  }
+
+  return v7;
+}
+
+- (void)_updateExistingLabelForSpecifier:(id)specifier header:(BOOL)header
+{
+  headerCopy = header;
+  specifierCopy = specifier;
+  v8 = specifierCopy;
+  if (specifierCopy)
+  {
+    v11 = specifierCopy;
+    if (*&specifierCopy[*MEMORY[0x277D3FC90]])
+    {
+      [CNFRegListController _updateExistingLabelForSpecifier:a2 header:self];
+      v8 = v11;
+    }
+
+    v9 = [(CNFRegListController *)self _existingLabelForSpecifier:v8 header:headerCopy];
+    [v9 updateLabelText];
+    if (v9)
+    {
+      v10 = *MEMORY[0x277D3FC60];
+      [*(&self->super.super.super.super.super.isa + v10) beginUpdates];
+      [*(&self->super.super.super.super.super.isa + v10) endUpdates];
+    }
+  }
+
+  MEMORY[0x2821F9730]();
+}
+
+- (void)_setLabel:(id)label forSpecifier:(id)specifier header:(BOOL)header
+{
+  headerCopy = header;
+  labelCopy = label;
+  specifierCopy = specifier;
+  v10 = specifierCopy;
+  if (specifierCopy)
+  {
+    if (*&specifierCopy[*MEMORY[0x277D3FC90]])
+    {
+      [CNFRegListController _setLabel:a2 forSpecifier:self header:?];
+    }
+
+    v11 = MEMORY[0x277D3FFA0];
+    if (!headerCopy)
+    {
+      v11 = MEMORY[0x277D3FF48];
+    }
+
+    v12 = *v11;
+    if (headerCopy)
+    {
+      [v10 name];
+    }
+
+    else
+    {
+      [v10 propertyForKey:*MEMORY[0x277D3FF88]];
+    }
+    v13 = ;
+    if (labelCopy && [labelCopy length])
+    {
+      if (v13 != labelCopy && ([labelCopy isEqualToString:v13] & 1) == 0)
+      {
+        if (headerCopy)
+        {
+          [v10 setName:labelCopy];
+        }
+
+        else
+        {
+          [v10 setProperty:labelCopy forKey:*MEMORY[0x277D3FF88]];
+        }
+
+        [(CNFRegListController *)self _updateExistingLabelForSpecifier:v10 header:headerCopy];
+      }
+    }
+
+    else
+    {
+      if (headerCopy)
+      {
+        [v10 setName:0];
+      }
+
+      else
+      {
+        [v10 removePropertyForKey:*MEMORY[0x277D3FF88]];
+      }
+
+      [v10 removePropertyForKey:v12];
+    }
+  }
+}
+
+- (void)_updateTableLabel:(id)label withTableView:(id)view isTopMostHeader:(BOOL)header
+{
+  if (label)
+  {
+    headerCopy = header;
+    labelCopy = label;
+    [labelCopy setCnfreg_tableView:view];
+    [labelCopy setIsTopmostHeader:headerCopy];
+  }
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section

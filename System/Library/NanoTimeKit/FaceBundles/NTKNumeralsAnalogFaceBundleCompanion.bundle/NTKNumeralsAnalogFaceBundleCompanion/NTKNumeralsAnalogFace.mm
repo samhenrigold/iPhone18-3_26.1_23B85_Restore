@@ -209,25 +209,17 @@ LABEL_15:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 13)
+  if (mode == 13 || mode == 10)
   {
-    v4 = &off_10280;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 10)
+  else
   {
-    v4 = off_10278;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (id)_faceDescription

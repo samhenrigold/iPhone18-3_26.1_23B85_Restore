@@ -15,7 +15,7 @@
 {
   v12 = 0u;
   v13 = 0u;
-  [(NUMaskSourceNode *)self croppedExtent:options];
+  objc_msgSend_croppedExtent(self, a2, options, error);
   scale = [(NUMaskSourceNode *)self scale];
   NUPixelRectScaleRational(v11, scale, v6, 0, &v12);
   v7 = [NUImageGeometry alloc];
@@ -36,7 +36,7 @@
   if (v4)
   {
     v5 = v4;
-    [(NUMaskSourceNode *)self croppedExtent];
+    objc_msgSend_croppedExtent(self);
     v6 = [v5 imageByCroppingToRect:{*&v18.a, *&v18.b, *&v18.c, *&v18.d}];
 
     scale = [(NUMaskSourceNode *)self scale];
@@ -62,7 +62,7 @@
       v14 = [v13 imageByApplyingFilter:@"CIColorThreshold" withInputParameters:&unk_1F3F829F0];
     }
 
-    [(NUMaskSourceNode *)self croppedExtent];
+    objc_msgSend_croppedExtent(self);
     *&v18.a = *&v17.a;
     *&v18.c = *&v17.c;
     NU::RectT<long>::scale(&v18, 3, v9, v9);
@@ -347,7 +347,7 @@
     _NUAssertFailHandler("[NUMaskSourceNode croppedExtent]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Mask/NUMaskSource.m", 52, @"wrong value type", v33, v34, v35, v36, v37);
   }
 
-  [v38 nu_pixelRect];
+  objc_msgSend_nu_pixelRect(v38);
 
   return result;
 }

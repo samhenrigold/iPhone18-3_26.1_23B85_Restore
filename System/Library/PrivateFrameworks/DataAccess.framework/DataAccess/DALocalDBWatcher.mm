@@ -11,6 +11,7 @@
 - (void)registerConcernedNoteParty:(id)party withChangedBlock:(id)block;
 - (void)removeConcernedCalParty:(id)party forAccountID:(id)d;
 - (void)removeConcernedNoteParty:(id)party;
+- (void)setLastSavedCalSequenceNumber:(int)number forDatabaseInContainer:(id)container;
 @end
 
 @implementation DALocalDBWatcher
@@ -59,37 +60,37 @@ uint64_t __35__DALocalDBWatcher_sharedDBWatcher__block_invoke()
 
 - (void)_handleCalChangeNotification
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   p_isa = &selfCopy->super.isa;
   allOpenDatabases = [(DACalDBHelper *)selfCopy->_calDBHelper allOpenDatabases];
-  v4 = [allOpenDatabases countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v4 = [allOpenDatabases countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v4)
   {
-    v35 = *v47;
+    v34 = *v46;
     type = *(MEMORY[0x277D03988] + 7);
-    v33 = *(MEMORY[0x277D03988] + 5);
-    v34 = *(MEMORY[0x277D03988] + 6);
+    v32 = *(MEMORY[0x277D03988] + 5);
+    v33 = *(MEMORY[0x277D03988] + 6);
     *&v5 = 138543362;
-    v31 = v5;
+    v30 = v5;
     obj = allOpenDatabases;
     do
     {
       v6 = 0;
-      v36 = v4;
+      v35 = v4;
       do
       {
-        if (*v47 != v35)
+        if (*v46 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v46 + 1) + 8 * v6);
+        v7 = *(*(&v45 + 1) + 8 * v6);
         v8 = objc_opt_class();
         v9 = CalDatabaseCopyDirectoryPathForDatabase();
         v10 = [v8 _canonicalizePath:v9];
@@ -101,11 +102,11 @@ uint64_t __35__DALocalDBWatcher_sharedDBWatcher__block_invoke()
         if (os_log_type_enabled(v14, type))
         {
           *buf = 67109634;
-          *v52 = SequenceNumber;
-          *&v52[4] = 1024;
-          *&v52[6] = lastSavedSequenceNumber;
-          v53 = 2112;
-          v54 = v7;
+          *v51 = SequenceNumber;
+          *&v51[4] = 1024;
+          *&v51[6] = lastSavedSequenceNumber;
+          v52 = 2112;
+          v53 = v7;
           _os_log_impl(&dword_24844D000, v14, type, "__CalDatabaseChangedExternally - comparing current sequence number %d to saved sequence number %d in database: %@", buf, 0x18u);
         }
 
@@ -113,52 +114,52 @@ uint64_t __35__DALocalDBWatcher_sharedDBWatcher__block_invoke()
         {
           v15 = objc_opt_new();
           v16 = DALoggingwithCategory();
-          if (os_log_type_enabled(v16, v34))
+          if (os_log_type_enabled(v16, v33))
           {
             transactionId = [v15 transactionId];
-            *buf = v31;
-            *v52 = transactionId;
-            _os_log_impl(&dword_24844D000, v16, v34, "DATransaction starting, ID: %{public}@", buf, 0xCu);
+            *buf = v30;
+            *v51 = transactionId;
+            _os_log_impl(&dword_24844D000, v16, v33, "DATransaction starting, ID: %{public}@", buf, 0xCu);
           }
 
           v18 = DALoggingwithCategory();
-          if (os_log_type_enabled(v18, v33))
+          if (os_log_type_enabled(v18, v32))
           {
             *buf = 0;
-            _os_log_impl(&dword_24844D000, v18, v33, "Notifying agents that the Calendar database has changed.", buf, 2u);
+            _os_log_impl(&dword_24844D000, v18, v32, "Notifying agents that the Calendar database has changed.", buf, 2u);
           }
 
           v19 = objc_opt_new();
           blocksByConcernedParty = [v11 blocksByConcernedParty];
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke;
-          v43[3] = &unk_278F13920;
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke;
+          v42[3] = &unk_278F13920;
           v21 = v19;
-          v44 = v21;
+          v43 = v21;
           v22 = v15;
-          v45 = v22;
-          [blocksByConcernedParty enumerateKeysAndObjectsUsingBlock:v43];
+          v44 = v22;
+          [blocksByConcernedParty enumerateKeysAndObjectsUsingBlock:v42];
 
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           v23 = v21;
-          v24 = [v23 countByEnumeratingWithState:&v39 objects:v50 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v38 objects:v49 count:16];
           if (v24)
           {
-            v25 = *v40;
+            v25 = *v39;
             do
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v40 != v25)
+                if (*v39 != v25)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                v27 = *(*(&v39 + 1) + 8 * i);
+                v27 = *(*(&v38 + 1) + 8 * i);
                 blocksByConcernedParty2 = [v11 blocksByConcernedParty];
                 [blocksByConcernedParty2 setObject:0 forKeyedSubscript:v27];
 
@@ -171,7 +172,7 @@ uint64_t __35__DALocalDBWatcher_sharedDBWatcher__block_invoke()
                 }
               }
 
-              v24 = [v23 countByEnumeratingWithState:&v39 objects:v50 count:16];
+              v24 = [v23 countByEnumeratingWithState:&v38 objects:v49 count:16];
             }
 
             while (v24);
@@ -181,16 +182,15 @@ uint64_t __35__DALocalDBWatcher_sharedDBWatcher__block_invoke()
         ++v6;
       }
 
-      while (v6 != v36);
+      while (v6 != v35);
       allOpenDatabases = obj;
-      v4 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v4 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(p_isa);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -220,7 +220,7 @@ void __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke(uint64_t 
 - (id)_dbInfoForAccountID:(id)d create:(BOOL)create
 {
   createCopy = create;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = [(DACalDBHelper *)self->_calDBHelper databaseForAccountID:dCopy];
   if (!v7)
@@ -229,9 +229,9 @@ void __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke(uint64_t 
     v14 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v11, v14))
     {
-      v24 = 138543362;
-      v25 = dCopy;
-      _os_log_impl(&dword_24844D000, v11, v14, "No database for account: %{public}@", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = dCopy;
+      _os_log_impl(&dword_24844D000, v11, v14, "No database for account: %{public}@", &v23, 0xCu);
     }
 
     goto LABEL_15;
@@ -265,12 +265,12 @@ void __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke(uint64_t 
       goto LABEL_14;
     }
 
-    v24 = 138543874;
-    v25 = v11;
-    v26 = 2048;
-    v27 = v8;
-    v28 = 2114;
-    v29 = dCopy;
+    v23 = 138543874;
+    v24 = v11;
+    v25 = 2048;
+    v26 = v8;
+    v27 = 2114;
+    v28 = dCopy;
     v17 = "No dbInfo for path: %{public}@, database: %p, account: %{public}@";
     v18 = v15;
     v19 = v21;
@@ -282,16 +282,16 @@ void __48__DALocalDBWatcher__handleCalChangeNotification__block_invoke(uint64_t 
   v16 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v15, v16))
   {
-    v24 = 134218242;
-    v25 = v8;
-    v26 = 2114;
-    v27 = dCopy;
+    v23 = 134218242;
+    v24 = v8;
+    v25 = 2114;
+    v26 = dCopy;
     v17 = "no path for database: %p, account: %{public}@";
     v18 = v15;
     v19 = v16;
     v20 = 22;
 LABEL_13:
-    _os_log_impl(&dword_24844D000, v18, v19, v17, &v24, v20);
+    _os_log_impl(&dword_24844D000, v18, v19, v17, &v23, v20);
   }
 
 LABEL_14:
@@ -300,14 +300,12 @@ LABEL_15:
   v13 = 0;
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)registerConcernedCalParty:(id)party forAccountID:(id)d withChangedBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   partyCopy = party;
   dCopy = d;
   blockCopy = block;
@@ -315,11 +313,11 @@ LABEL_16:
   v12 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v11, v12))
   {
-    v18 = 138412546;
-    v19 = partyCopy;
-    v20 = 2114;
-    v21 = dCopy;
-    _os_log_impl(&dword_24844D000, v11, v12, "Registering concerned cal party: %@ for account: %{public}@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = partyCopy;
+    v19 = 2114;
+    v20 = dCopy;
+    _os_log_impl(&dword_24844D000, v11, v12, "Registering concerned cal party: %@ for account: %{public}@", &v17, 0x16u);
   }
 
   selfCopy = self;
@@ -337,7 +335,6 @@ LABEL_16:
   [v14 addBlock:blockCopy forConcernedParty:partyCopy account:dCopy];
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeConcernedCalParty:(id)party forAccountID:(id)d
@@ -376,132 +373,132 @@ LABEL_16:
 
 - (void)noteCalDBDirChanged
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   obj = objc_opt_new();
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   allValues = [(NSMutableDictionary *)selfCopy->_calDBInfosByPath allValues];
-  v4 = [allValues countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v4)
   {
-    v5 = *v47;
+    v5 = *v46;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v47 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v7 = *(*(&v46 + 1) + 8 * i);
+        v7 = *(*(&v45 + 1) + 8 * i);
         v8 = objc_opt_new();
         blocksByConcernedParty = [v7 blocksByConcernedParty];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke;
-        v44[3] = &unk_278F13948;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke;
+        v43[3] = &unk_278F13948;
         v10 = v8;
-        v45 = v10;
-        [blocksByConcernedParty enumerateKeysAndObjectsUsingBlock:v44];
+        v44 = v10;
+        [blocksByConcernedParty enumerateKeysAndObjectsUsingBlock:v43];
       }
 
-      v4 = [allValues countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v4);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   obja = obj;
-  v11 = [obja countByEnumeratingWithState:&v40 objects:v52 count:16];
+  v11 = [obja countByEnumeratingWithState:&v39 objects:v51 count:16];
   if (v11)
   {
-    v12 = *v41;
+    v12 = *v40;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v41 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(obja);
         }
 
-        v14 = *(*(&v40 + 1) + 8 * j);
+        v14 = *(*(&v39 + 1) + 8 * j);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         blocksByConcernedParty2 = [v14 blocksByConcernedParty];
         allKeys = [blocksByConcernedParty2 allKeys];
 
-        v17 = [allKeys countByEnumeratingWithState:&v36 objects:v51 count:16];
+        v17 = [allKeys countByEnumeratingWithState:&v35 objects:v50 count:16];
         if (v17)
         {
-          v18 = *v37;
+          v18 = *v36;
           do
           {
             for (k = 0; k != v17; ++k)
             {
-              if (*v37 != v18)
+              if (*v36 != v18)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v20 = *(*(&v36 + 1) + 8 * k);
+              v20 = *(*(&v35 + 1) + 8 * k);
               concernedParty = [v20 concernedParty];
               accountID = [v20 accountID];
               [(DALocalDBWatcher *)selfCopy removeConcernedCalParty:concernedParty forAccountID:accountID];
             }
 
-            v17 = [allKeys countByEnumeratingWithState:&v36 objects:v51 count:16];
+            v17 = [allKeys countByEnumeratingWithState:&v35 objects:v50 count:16];
           }
 
           while (v17);
         }
       }
 
-      v11 = [obja countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v11 = [obja countByEnumeratingWithState:&v39 objects:v51 count:16];
     }
 
     while (v11);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v23 = obja;
-  v24 = [v23 countByEnumeratingWithState:&v32 objects:v50 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v31 objects:v49 count:16];
   if (v24)
   {
-    v25 = *v33;
+    v25 = *v32;
     do
     {
       for (m = 0; m != v24; ++m)
       {
-        if (*v33 != v25)
+        if (*v32 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        blocksByConcernedParty3 = [*(*(&v32 + 1) + 8 * m) blocksByConcernedParty];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2;
-        v31[3] = &unk_278F13948;
-        v31[4] = selfCopy;
-        [blocksByConcernedParty3 enumerateKeysAndObjectsUsingBlock:v31];
+        blocksByConcernedParty3 = [*(*(&v31 + 1) + 8 * m) blocksByConcernedParty];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2;
+        v30[3] = &unk_278F13948;
+        v30[4] = selfCopy;
+        [blocksByConcernedParty3 enumerateKeysAndObjectsUsingBlock:v30];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v32 objects:v50 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v31 objects:v49 count:16];
     }
 
     while (v24);
@@ -509,8 +506,6 @@ LABEL_16:
 
   [MEMORY[0x277CF77C0] addObserver:selfCopy selector:sel__handleCalChangeNotification name:*MEMORY[0x277CF7658]];
   objc_sync_exit(selfCopy);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -552,9 +547,19 @@ void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2(uint64_t a1, voi
   return lastSavedSequenceNumber;
 }
 
+- (void)setLastSavedCalSequenceNumber:(int)number forDatabaseInContainer:(id)container
+{
+  v4 = *&number;
+  containerCopy = container;
+  v8 = [objc_opt_class() _canonicalizePath:containerCopy];
+
+  v7 = [(NSMutableDictionary *)self->_calDBInfosByPath objectForKeyedSubscript:v8];
+  [v7 setLastSavedSequenceNumber:v4];
+}
+
 - (void)_notesChangedExternally
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v3, v4))
@@ -569,7 +574,7 @@ void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2(uint64_t a1, voi
   {
     transactionId = [v5 transactionId];
     *buf = 138543362;
-    v18 = transactionId;
+    v17 = transactionId;
     _os_log_impl(&dword_24844D000, v6, v4, "DATransaction starting, ID: %{public}@", buf, 0xCu);
   }
 
@@ -581,22 +586,20 @@ void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2(uint64_t a1, voi
     do
     {
       v11 = dataaccess_get_global_queue();
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __43__DALocalDBWatcher__notesChangedExternally__block_invoke;
-      v14[3] = &unk_278F138F8;
-      v16 = nextObject2;
-      v15 = v5;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __43__DALocalDBWatcher__notesChangedExternally__block_invoke;
+      v13[3] = &unk_278F138F8;
+      v15 = nextObject2;
+      v14 = v5;
       v12 = nextObject2;
-      dispatch_async(v11, v14);
+      dispatch_async(v11, v13);
 
       nextObject2 = [objectEnumerator nextObject];
     }
 
     while (nextObject2);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerConcernedNoteParty:(id)party withChangedBlock:(id)block
@@ -639,15 +642,15 @@ void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2(uint64_t a1, voi
 
 - (void)didReceiveDarwinNotification:(id)notification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v8 = 138412290;
-    v9 = notificationCopy;
-    _os_log_impl(&dword_24844D000, v5, v6, "Received darwin notification %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = notificationCopy;
+    _os_log_impl(&dword_24844D000, v5, v6, "Received darwin notification %@", &v7, 0xCu);
   }
 
   if ([notificationCopy isEqualToString:@"_CalDatabaseChangedNotification"])
@@ -659,8 +662,6 @@ void __39__DALocalDBWatcher_noteCalDBDirChanged__block_invoke_2(uint64_t a1, voi
   {
     [(DALocalDBWatcher *)self _notesChangedExternally];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

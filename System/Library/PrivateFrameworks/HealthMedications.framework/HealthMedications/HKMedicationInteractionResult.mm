@@ -138,12 +138,11 @@ LABEL_5:
 
 - (id)conceptIdentifiers
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   secondIdentifier = self->_secondIdentifier;
-  v6[0] = self->_firstIdentifier;
-  v6[1] = secondIdentifier;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = self->_firstIdentifier;
+  v5[1] = secondIdentifier;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }

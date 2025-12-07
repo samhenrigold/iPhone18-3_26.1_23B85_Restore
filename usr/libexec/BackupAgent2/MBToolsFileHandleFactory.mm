@@ -1,5 +1,6 @@
 @interface MBToolsFileHandleFactory
 - (MBToolsFileHandleFactory)initWithKeyBag:(id)bag key:(id)key;
+- (id)fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error;
 @end
 
 @implementation MBToolsFileHandleFactory
@@ -19,6 +20,26 @@
   }
 
   return v10;
+}
+
+- (id)fileHandleWithPath:(id)path flags:(int)flags mode:(unsigned __int16)mode error:(id *)error
+{
+  modeCopy = mode;
+  v8 = *&flags;
+  pathCopy = path;
+  if (self->_keybag && self->_key)
+  {
+    v11 = [MBEncryptedFileHandle encryptedFileHandleForRestoreWithPath:"encryptedFileHandleForRestoreWithPath:keybag:key:error:" keybag:pathCopy key:? error:?];
+  }
+
+  else
+  {
+    v11 = [MBBasicFileHandle basicFileHandleWithPath:pathCopy flags:v8 mode:modeCopy error:error];
+  }
+
+  v12 = v11;
+
+  return v12;
 }
 
 @end

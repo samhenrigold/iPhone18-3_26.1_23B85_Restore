@@ -7,6 +7,7 @@
 - (DDLookupQuery)initWithSession:(id)session;
 - (id)_rankFeedbackWithLocalSections:(id)sections remoteSections:(id)remoteSections footerSection:(id)section;
 - (id)bag;
+- (void)sectionsForResult:(__DDResult *)result useNetwork:(BOOL)network clientId:(id)id queryId:(unint64_t)queryId scale:(double)scale proxy:(id)proxy handler:(id)handler;
 - (void)sectionsForString:(id)string useNetwork:(BOOL)network clientId:(id)id queryId:(unint64_t)queryId selectionType:(int64_t)type domain:(id)domain range:(_NSRange)range scale:(double)self0 proxy:(id)self1 handler:(id)self2;
 - (void)session:(id)session bag:(id)bag didLoadWithError:(id)error;
 @end
@@ -226,25 +227,42 @@ LABEL_14:
   return isEnabled;
 }
 
+- (void)sectionsForResult:(__DDResult *)result useNetwork:(BOOL)network clientId:(id)id queryId:(unint64_t)queryId scale:(double)scale proxy:(id)proxy handler:(id)handler
+{
+  networkCopy = network;
+  idCopy = id;
+  proxyCopy = proxy;
+  handlerCopy = handler;
+  v18 = handlerCopy;
+  if (result && handlerCopy)
+  {
+    if (DDResultHasType())
+    {
+      v19 = DDResultGetMatchedString();
+      v20 = DDResultGetParsecRawDomain();
+      -[DDLookupQuery sectionsForString:useNetwork:clientId:queryId:selectionType:domain:range:scale:proxy:handler:](self, "sectionsForString:useNetwork:clientId:queryId:selectionType:domain:range:scale:proxy:handler:", v19, networkCopy, idCopy, queryId, 2, v20, scale, 0, [v19 length], proxyCopy, v18);
+
+      goto LABEL_7;
+    }
+  }
+
+  else if (!handlerCopy)
+  {
+    goto LABEL_7;
+  }
+
+  v18[2](v18, 0, 0);
+LABEL_7:
+}
+
 - (id)_rankFeedbackWithLocalSections:(id)sections remoteSections:(id)remoteSections footerSection:(id)section
 {
   sectionsCopy = sections;
   remoteSectionsCopy = remoteSections;
   sectionCopy = section;
   v11 = +[NSDate date];
-  if (![remoteSectionsCopy count])
+  if (![remoteSectionsCopy count] || (objc_msgSend(remoteSectionsCopy, "firstObject"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "results"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "firstObject"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "placement"), v14, v13, v12, v15 != 1))
   {
-    goto LABEL_6;
-  }
-
-  firstObject = [remoteSectionsCopy firstObject];
-  results = [firstObject results];
-  firstObject2 = [results firstObject];
-  placement = [firstObject2 placement];
-
-  if (placement != 1)
-  {
-LABEL_6:
     v17 = &__NSArray0__struct;
     if (![sectionsCopy count])
     {
@@ -254,8 +272,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  firstObject3 = [remoteSectionsCopy firstObject];
-  v60 = firstObject3;
+  firstObject = [remoteSectionsCopy firstObject];
+  v60 = firstObject;
   v17 = [NSArray arrayWithObjects:&v60 count:1];
 
   if ([remoteSectionsCopy count] == 1)
@@ -336,8 +354,8 @@ LABEL_8:
         v52 = 0u;
         v53 = 0u;
         v49 = v28;
-        results2 = [v28 results];
-        v31 = [results2 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        results = [v28 results];
+        v31 = [results countByEnumeratingWithState:&v50 objects:v58 count:16];
         if (v31)
         {
           v32 = v31;
@@ -349,14 +367,14 @@ LABEL_8:
             {
               if (*v51 != v34)
               {
-                objc_enumerationMutation(results2);
+                objc_enumerationMutation(results);
               }
 
               v36 = [[SFResultRankingFeedback alloc] initWithResult:*(*(&v50 + 1) + 8 * j) hiddenResults:0 duplicateResults:0 localResultPosition:v33++];
               [v29 addObject:v36];
             }
 
-            v32 = [results2 countByEnumeratingWithState:&v50 objects:v58 count:16];
+            v32 = [results countByEnumeratingWithState:&v50 objects:v58 count:16];
           }
 
           while (v32);

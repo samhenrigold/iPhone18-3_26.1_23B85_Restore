@@ -1,6 +1,7 @@
 @interface _DKNowPlayingMonitor
 + (id)_bmEventWithDKEvent:(id)event outputDevices:(id)devices biomeEventMetadata:(id)metadata excludeFromSuggestions:(BOOL)suggestions;
 + (id)_eventWithBundleIdentifier:(id)identifier metadata:(id)metadata;
++ (void)setPlaybackState:(unsigned int)state bundleId:(id)id track:(id)track outputDeviceIDs:(id)ds mediaType:(id)type iTunesStoreIdentifier:(id)identifier iTunesSubscriptionIdentifier:(id)subscriptionIdentifier;
 - (_DKNowPlayingMonitor)init;
 - (id)_metadataFromInfo:(id)info outputDevices:(id)devices;
 - (void)_nowPlayingInfoDidChange:(void *)change outputDevices:(id)devices;
@@ -18,7 +19,7 @@
 
 - (id)_metadataFromInfo:(id)info outputDevices:(id)devices
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   devicesCopy = devices;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -49,7 +50,7 @@
     [dictionary setObject:v15 forKey:duration];
   }
 
-  v70 = v9;
+  v69 = v9;
   v17 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D27C00]];
   v18 = [v17 copy];
 
@@ -78,7 +79,7 @@
     [dictionary setObject:v25 forKey:mediaType];
   }
 
-  v72 = v25;
+  v71 = v25;
   v27 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D27CC8]];
   v28 = [v27 copy];
 
@@ -88,7 +89,7 @@
     [dictionary setObject:v28 forKey:iTunesStoreIdentifier];
   }
 
-  v68 = v18;
+  v67 = v18;
   v30 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277D27CD0]];
   v31 = [v30 copy];
 
@@ -98,14 +99,14 @@
     [dictionary setObject:v31 forKey:iTunesSubscriptionIdentifier];
   }
 
-  v67 = v31;
+  v66 = v31;
   v33 = v28;
   v34 = v20;
-  v69 = v15;
+  v68 = v15;
   if (v20)
   {
     v35 = [v20 count];
-    v36 = v70;
+    v36 = v69;
     if (!v35)
     {
       v39 = 0;
@@ -114,47 +115,47 @@
       goto LABEL_48;
     }
 
-    v63 = v12;
-    v65 = dictionary;
-    v66 = infoCopy;
-    v74 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v62 = v12;
+    v64 = dictionary;
+    v65 = infoCopy;
+    v73 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v64 = v34;
+    v63 = v34;
     obj = v34;
-    v37 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+    v37 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
     if (v37)
     {
       v38 = v37;
       LOBYTE(v39) = 0;
-      v40 = *v76;
-      v71 = *MEMORY[0x277D27CB8];
+      v40 = *v75;
+      v70 = *MEMORY[0x277D27CB8];
       v41 = 0x277CCA000uLL;
       do
       {
         for (i = 0; i != v38; ++i)
         {
           v43 = v22;
-          if (*v76 != v40)
+          if (*v75 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v44 = *(*(&v75 + 1) + 8 * i);
+          v44 = *(*(&v74 + 1) + 8 * i);
           deviceID = [v44 deviceID];
 
           if (deviceID)
           {
             v46 = [*(v41 + 2992) numberWithInteger:{objc_msgSend(v44, "deviceType")}];
-            v47 = [v74 objectForKeyedSubscript:v46];
+            v47 = [v73 objectForKeyedSubscript:v46];
 
             if (!v47)
             {
               v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
               v48 = [*(v41 + 2992) numberWithInteger:{objc_msgSend(v44, "deviceType")}];
-              [v74 setObject:v47 forKeyedSubscript:v48];
+              [v73 setObject:v47 forKeyedSubscript:v48];
             }
 
             v49 = [*(v41 + 2992) numberWithInteger:{objc_msgSend(v44, "deviceSubType")}];
@@ -182,9 +183,9 @@
           else
           {
             v53 = v44;
-            v54 = v72;
+            v54 = v71;
             v55 = v54;
-            if (v72 && ![v54 isEqualToString:v71] || objc_msgSend(v53, "deviceType"))
+            if (v71 && ![v54 isEqualToString:v70] || objc_msgSend(v53, "deviceType"))
             {
               v39 = 0;
             }
@@ -201,7 +202,7 @@
           v33 = v28;
         }
 
-        v38 = [obj countByEnumeratingWithState:&v75 objects:v79 count:16];
+        v38 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
       }
 
       while (v38);
@@ -213,19 +214,19 @@
       v41 = 0x277CCA000;
     }
 
-    dictionary = v65;
-    if ([v74 count])
+    dictionary = v64;
+    if ([v73 count])
     {
-      v57 = [v74 copy];
+      v57 = [v73 copy];
       outputDeviceIDs = [MEMORY[0x277CFE248] outputDeviceIDs];
-      [v65 setObject:v57 forKey:outputDeviceIDs];
+      [v64 setObject:v57 forKey:outputDeviceIDs];
 
       v41 = 0x277CCA000uLL;
     }
 
-    infoCopy = v66;
-    v12 = v63;
-    v56 = v64;
+    infoCopy = v65;
+    v12 = v62;
+    v56 = v63;
   }
 
   else
@@ -235,15 +236,104 @@
     v41 = 0x277CCA000;
   }
 
-  v36 = v70;
+  v36 = v69;
 LABEL_48:
-  v59 = [*(v41 + 2992) numberWithBool:{v39, v63}];
+  v59 = [*(v41 + 2992) numberWithBool:{v39, v62}];
   isAirPlayVideo = [MEMORY[0x277CFE248] isAirPlayVideo];
   [dictionary setObject:v59 forKeyedSubscript:isAirPlayVideo];
 
-  v61 = *MEMORY[0x277D85DE8];
-
   return dictionary;
+}
+
++ (void)setPlaybackState:(unsigned int)state bundleId:(id)id track:(id)track outputDeviceIDs:(id)ds mediaType:(id)type iTunesStoreIdentifier:(id)identifier iTunesSubscriptionIdentifier:(id)subscriptionIdentifier
+{
+  v13 = *&state;
+  v44[5] = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  trackCopy = track;
+  dsCopy = ds;
+  typeCopy = type;
+  identifierCopy = identifier;
+  subscriptionIdentifierCopy = subscriptionIdentifier;
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForMediaPlayingStatus = [MEMORY[0x277CFE338] keyPathForMediaPlayingStatus];
+  [userContext setObject:v17 forKeyedSubscript:keyPathForMediaPlayingStatus];
+
+  nowPlayingStatusKey = [MEMORY[0x277CFE338] nowPlayingStatusKey];
+  v43[0] = nowPlayingStatusKey;
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
+  v44[0] = v20;
+  nowPlayingBundleIdKey = [MEMORY[0x277CFE338] nowPlayingBundleIdKey];
+  v43[1] = nowPlayingBundleIdKey;
+  v42 = idCopy;
+  if (idCopy)
+  {
+    v22 = idCopy;
+  }
+
+  else
+  {
+    v22 = &stru_2838F0870;
+  }
+
+  v23 = trackCopy;
+  v44[1] = v22;
+  nowPlayingTrackKey = [MEMORY[0x277CFE338] nowPlayingTrackKey];
+  v43[2] = nowPlayingTrackKey;
+  if (v23)
+  {
+    v25 = v23;
+  }
+
+  else
+  {
+    v25 = &stru_2838F0870;
+  }
+
+  v44[2] = v25;
+  nowPlayingOutputDeviceIDsKey = [MEMORY[0x277CFE338] nowPlayingOutputDeviceIDsKey];
+  v43[3] = nowPlayingOutputDeviceIDsKey;
+  v27 = MEMORY[0x277CBEC10];
+  v41 = dsCopy;
+  if (dsCopy)
+  {
+    v27 = dsCopy;
+  }
+
+  v44[3] = v27;
+  nowPlayingMediaTypeKey = [MEMORY[0x277CFE338] nowPlayingMediaTypeKey];
+  v43[4] = nowPlayingMediaTypeKey;
+  if (typeCopy)
+  {
+    v29 = typeCopy;
+  }
+
+  else
+  {
+    v29 = &stru_2838F0870;
+  }
+
+  v44[4] = v29;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:5];
+  v31 = [v30 mutableCopy];
+
+  if (identifierCopy)
+  {
+    nowPlayingiTunesStoreIdentifierKey = [MEMORY[0x277CFE338] nowPlayingiTunesStoreIdentifierKey];
+    [v31 setObject:identifierCopy forKey:nowPlayingiTunesStoreIdentifierKey];
+  }
+
+  if (subscriptionIdentifierCopy)
+  {
+    nowPlayingiTunesSubscriptionIdentifierKey = [MEMORY[0x277CFE338] nowPlayingiTunesSubscriptionIdentifierKey];
+    [v31 setObject:subscriptionIdentifierCopy forKey:nowPlayingiTunesSubscriptionIdentifierKey];
+  }
+
+  v34 = [v31 copy];
+  userContext2 = [MEMORY[0x277CFE318] userContext];
+  keyPathForNowPlayingDataDictionary = [MEMORY[0x277CFE338] keyPathForNowPlayingDataDictionary];
+  [userContext2 setObject:v34 forKeyedSubscript:keyPathForNowPlayingDataDictionary];
 }
 
 + (id)_eventWithBundleIdentifier:(id)identifier metadata:(id)metadata
@@ -737,7 +827,7 @@ LABEL_43:
 
 + (id)_bmEventWithDKEvent:(id)event outputDevices:(id)devices biomeEventMetadata:(id)metadata excludeFromSuggestions:(BOOL)suggestions
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   obj = devices;
   metadataCopy = metadata;
@@ -746,7 +836,7 @@ LABEL_43:
   v12 = [metadata objectForKeyedSubscript:playing];
   unsignedIntValue = [v12 unsignedIntValue];
 
-  v94 = objc_alloc(MEMORY[0x277CF1320]);
+  v93 = objc_alloc(MEMORY[0x277CF1320]);
   if (suggestions)
   {
     itemID = 0;
@@ -770,12 +860,12 @@ LABEL_43:
     unsignedIntValue = 0;
   }
 
-  v95 = unsignedIntValue;
+  v94 = unsignedIntValue;
   if (suggestions)
   {
     v16 = 0;
-    v100 = 0;
-    v102 = 0;
+    v99 = 0;
+    v101 = 0;
     v17 = 0;
     v18 = 0;
     v19 = 0;
@@ -785,41 +875,41 @@ LABEL_43:
   {
     metadata2 = [eventCopy metadata];
     album = [MEMORY[0x277CFE248] album];
-    v82 = metadata2;
-    v102 = [metadata2 objectForKeyedSubscript:?];
+    v81 = metadata2;
+    v101 = [metadata2 objectForKeyedSubscript:?];
     metadata3 = [eventCopy metadata];
     unsignedIntValue = [MEMORY[0x277CFE248] artist];
-    v80 = metadata3;
+    v79 = metadata3;
     v17 = [metadata3 objectForKeyedSubscript:unsignedIntValue];
     metadata4 = [eventCopy metadata];
     duration = [MEMORY[0x277CFE248] duration];
-    v79 = metadata4;
-    v100 = [metadata4 objectForKeyedSubscript:?];
+    v78 = metadata4;
+    v99 = [metadata4 objectForKeyedSubscript:?];
     metadata5 = [eventCopy metadata];
     genre = [MEMORY[0x277CFE248] genre];
-    v77 = metadata5;
+    v76 = metadata5;
     v18 = [metadata5 objectForKeyedSubscript:?];
     metadata6 = [eventCopy metadata];
     title = [MEMORY[0x277CFE248] title];
-    v75 = metadata6;
+    v74 = metadata6;
     v16 = [metadata6 objectForKeyedSubscript:?];
     metadata7 = [eventCopy metadata];
     elapsed = [MEMORY[0x277CFE248] elapsed];
-    v73 = metadata7;
+    v72 = metadata7;
     v19 = [metadata7 objectForKeyedSubscript:?];
   }
 
   metadata8 = [eventCopy metadata];
   [MEMORY[0x277CFE248] mediaType];
-  v92 = v91 = metadata8;
+  v91 = v90 = metadata8;
   [metadata8 objectForKeyedSubscript:?];
-  v97 = startDate;
-  v98 = v19;
+  v96 = startDate;
+  v97 = v19;
   suggestionsCopy = suggestions;
-  v101 = v17;
-  v84 = unsignedIntValue;
-  v93 = v18;
-  v90 = v99 = v16;
+  v100 = v17;
+  v83 = unsignedIntValue;
+  v92 = v18;
+  v89 = v98 = v16;
   if (suggestions)
   {
     stringValue = 0;
@@ -830,45 +920,45 @@ LABEL_43:
   {
     metadata9 = [eventCopy metadata];
     iTunesStoreIdentifier = [MEMORY[0x277CFE248] iTunesStoreIdentifier];
-    v71 = metadata9;
-    v69 = [metadata9 objectForKeyedSubscript:?];
-    stringValue = [v69 stringValue];
+    v70 = metadata9;
+    v68 = [metadata9 objectForKeyedSubscript:?];
+    stringValue = [v68 stringValue];
     metadata10 = [eventCopy metadata];
     iTunesSubscriptionIdentifier = [MEMORY[0x277CFE248] iTunesSubscriptionIdentifier];
-    v68 = metadata10;
-    v66 = [metadata10 objectForKeyedSubscript:?];
-    stringValue2 = [v66 stringValue];
+    v67 = metadata10;
+    v65 = [metadata10 objectForKeyedSubscript:?];
+    stringValue2 = [v65 stringValue];
   }
 
-  v89 = stringValue2;
-  v106 = eventCopy;
+  v88 = stringValue2;
+  v105 = eventCopy;
   metadata11 = [eventCopy metadata];
   isAirPlayVideo = [MEMORY[0x277CFE248] isAirPlayVideo];
-  v88 = metadata11;
-  v86 = [metadata11 objectForKeyedSubscript:?];
+  v87 = metadata11;
+  v85 = [metadata11 objectForKeyedSubscript:?];
   v31 = obj;
   v32 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v31, "count")}];
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
   obja = v31;
-  v33 = [obja countByEnumeratingWithState:&v111 objects:v115 count:16];
+  v33 = [obja countByEnumeratingWithState:&v110 objects:v114 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v112;
+    v35 = *v111;
     do
     {
       v36 = 0;
       do
       {
-        if (*v112 != v35)
+        if (*v111 != v35)
         {
           objc_enumerationMutation(obja);
         }
 
-        v37 = *(*(&v111 + 1) + 8 * v36);
+        v37 = *(*(&v110 + 1) + 8 * v36);
         v38 = objc_alloc(MEMORY[0x277CF1328]);
         deviceType = [v37 deviceType];
         v40 = deviceType;
@@ -878,7 +968,7 @@ LABEL_43:
           if (os_log_type_enabled(contextChannel2, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
-            v117 = v40;
+            v116 = v40;
             _os_log_fault_impl(&dword_22595A000, contextChannel2, OS_LOG_TYPE_FAULT, "BMMediaNowPlayingOutputDeviceType: Unrecognized value for outputDevice: %ld", buf, 0xCu);
           }
 
@@ -898,7 +988,7 @@ LABEL_43:
           if (os_log_type_enabled(contextChannel3, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
-            v117 = v44;
+            v116 = v44;
             _os_log_fault_impl(&dword_22595A000, contextChannel3, OS_LOG_TYPE_FAULT, "BMMediaNowPlayingOutputDeviceSubType: Unrecognized value for outputSubtype: %ld", buf, 0xCu);
           }
 
@@ -918,15 +1008,15 @@ LABEL_43:
       }
 
       while (v34 != v36);
-      v34 = [obja countByEnumeratingWithState:&v111 objects:v115 count:16];
+      v34 = [obja countByEnumeratingWithState:&v110 objects:v114 count:16];
     }
 
     while (v34);
   }
 
-  value = [v106 value];
+  value = [v105 value];
   [value stringValue];
-  v85 = v108 = value;
+  v84 = v107 = value;
   if (suggestionsCopy)
   {
     v50 = 0;
@@ -941,71 +1031,61 @@ LABEL_43:
     v51 = [metadataCopy objectForKeyedSubscript:@"iTunesAlbumIdentifierKey"];
   }
 
-  v53 = v97;
-  v54 = v86;
+  v53 = v96;
+  v54 = v85;
   v55 = [v52 objectForKeyedSubscript:@"isAirPlayActive"];
   v56 = [v52 objectForKeyedSubscript:@"parentGroupContainsDiscoverableGroupLeader"];
-  v57 = v90;
-  v96 = [v94 initWithUniqueID:itemID absoluteTimestamp:v97 playbackState:v95 album:v102 artist:v101 duration:v100 genre:v93 title:v99 elapsed:v98 mediaType:v90 iTunesStoreIdentifier:stringValue iTunesSubscriptionIdentifier:v89 isAirPlayVideo:v86 outputDevices:v32 bundleID:v85 iTunesArtistIdentifier:v50 iTunesAlbumIdentifier:v51 groupIdentifier:0 isRemoteControl:0 itemMediaType:0 itemMediaSubtype:v55 isAirPlayActive:v56 parentGroupContainsDiscoverableGroupLeader:?];
+  v57 = v89;
+  v95 = [v93 initWithUniqueID:itemID absoluteTimestamp:v96 playbackState:v94 album:v101 artist:v100 duration:v99 genre:v92 title:v98 elapsed:v97 mediaType:v89 iTunesStoreIdentifier:stringValue iTunesSubscriptionIdentifier:v88 isAirPlayVideo:v85 outputDevices:v32 bundleID:v84 iTunesArtistIdentifier:v50 iTunesAlbumIdentifier:v51 groupIdentifier:0 isRemoteControl:0 itemMediaType:0 itemMediaSubtype:v55 isAirPlayActive:v56 parentGroupContainsDiscoverableGroupLeader:?];
 
   if (suggestionsCopy)
   {
-    v58 = v85;
-    v59 = v108;
+    v58 = v84;
+    v59 = v107;
     v60 = isAirPlayVideo;
-    v61 = v88;
-    v62 = v97;
-    v63 = v91;
-    v53 = v92;
+    v61 = v87;
+    v62 = v96;
+    v63 = v90;
+    v53 = v91;
   }
 
   else
   {
 
-    v57 = v82;
+    v57 = v81;
     v62 = source;
-    v60 = v102;
+    v60 = v101;
     v63 = itemID;
-    v54 = v80;
+    v54 = v79;
     v61 = album;
-    v59 = v101;
-    v32 = v84;
-    v58 = v79;
+    v59 = v100;
+    v32 = v83;
+    v58 = v78;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
-
-  return v96;
+  return v95;
 }
 
 - (void)saveBMEventWithCurrent:(void *)a1 outputDevices:artistStoreIdentifier:albumStoreIdentifier:excludeFromSuggestions:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 metadata];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_22595A000, v2, v3, "Biome new metadata:%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_22595A000, v2, v3, "Biome new metadata:%@", v4, v5, v6, v7);
 }
 
 - (void)saveBMEventWithCurrent:(id *)a1 outputDevices:artistStoreIdentifier:albumStoreIdentifier:excludeFromSuggestions:.cold.2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 metadata];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_3(&dword_22595A000, v2, v3, "Biome old metadata:%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_22595A000, v2, v3, "Biome old metadata:%@", v4, v5, v6, v7);
 }
 
 + (void)_bmEventWithDKEvent:(uint64_t)a1 outputDevices:(NSObject *)a2 biomeEventMetadata:excludeFromSuggestions:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a1];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "BMMediaNowPlaying: unable to convert MRPlaybackState enum value: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "BMMediaNowPlaying: unable to convert MRPlaybackState enum value: %@", v4, 0xCu);
 }
 
 @end

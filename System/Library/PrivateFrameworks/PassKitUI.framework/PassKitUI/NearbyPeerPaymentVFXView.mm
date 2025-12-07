@@ -14,18 +14,19 @@
   x = frame.origin.x;
   if (options)
   {
-    sub_1BE052244();
-    v9 = sub_1BE052224();
+    v9 = sub_1BE052244();
+    v10 = sub_1BE052224();
+    v9, v11, v12, v13, v14, v15, v16, v17;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for NearbyPeerPaymentVFXView();
-  height = [(NearbyPeerPaymentVFXView *)&v12 initWithFrame:v9 options:x, y, width, height];
+  v20.receiver = self;
+  v20.super_class = type metadata accessor for NearbyPeerPaymentVFXView();
+  height = [(NearbyPeerPaymentVFXView *)&v20 initWithFrame:v10 options:x, y, width, height];
 
   return height;
 }

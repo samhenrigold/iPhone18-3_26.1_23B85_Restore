@@ -18,8 +18,7 @@
 {
   v8 = sub_264B40104();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v8, v10);
   v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_264B400D4();
   managerCopy = manager;
@@ -34,8 +33,7 @@
 {
   v10 = sub_264B40104();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v10, v12);
   v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = _Block_copy(handler);
   sub_264B400D4();
@@ -53,8 +51,7 @@
 {
   v8 = sub_264B40104();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v8, v10);
   v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_264B400D4();
   managerCopy = manager;

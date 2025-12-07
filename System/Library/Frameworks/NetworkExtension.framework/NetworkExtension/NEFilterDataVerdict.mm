@@ -7,6 +7,7 @@
 + (NEFilterDataVerdict)remediateVerdictWithRemediationURLMapKey:(NSString *)remediationURLMapKey remediationButtonTextMapKey:(NSString *)remediationButtonTextMapKey;
 - (NEFilterDataVerdict)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (int64_t)filterAction;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -32,6 +33,31 @@
   }
 
   return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v11.receiver = self;
+  v11.super_class = NEFilterDataVerdict;
+  v7 = [NEFilterVerdict descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  [v7 appendPrettyInt:-[NEFilterDataVerdict passBytes](self withName:"passBytes") andIndent:@"passBytes" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterDataVerdict peekBytes](self withName:"peekBytes") andIndent:@"peekBytes" options:{v5, options}];
+  statisticsReportFrequency = [(NEFilterDataVerdict *)self statisticsReportFrequency];
+  objc_opt_self();
+  if ((statisticsReportFrequency - 1) > 2)
+  {
+    v9 = @"none";
+  }
+
+  else
+  {
+    v9 = off_1E7F07850[statisticsReportFrequency - 1];
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"statisticsReportFrequency" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

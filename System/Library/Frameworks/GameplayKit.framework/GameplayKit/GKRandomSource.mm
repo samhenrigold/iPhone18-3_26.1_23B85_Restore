@@ -59,34 +59,34 @@
   return v3;
 }
 
-uint64_t __30__GKRandomSource_sharedRandom__block_invoke()
+uint64_t __30__GKRandomSource_sharedRandom__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals;
-  _MergedGlobals = v0;
+  v2 = objc_opt_new();
+  v3 = _MergedGlobals;
+  _MergedGlobals = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (NSArray)arrayByShufflingObjectsInArray:(NSArray *)array
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = array;
   if ([(NSArray *)v4 count]> 1)
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSArray count](v4, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = v4;
+    v19 = v4;
     v7 = v4;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
@@ -95,12 +95,12 @@ uint64_t __30__GKRandomSource_sharedRandom__block_invoke()
         {
           while (1)
           {
-            if (*v22 != v11)
+            if (*v21 != v11)
             {
               objc_enumerationMutation(v7);
             }
 
-            v16 = *(*(&v21 + 1) + 8 * v12);
+            v16 = *(*(&v20 + 1) + 8 * v12);
             v10 = v13 + 1;
             v17 = [(GKRandomSource *)self nextIntWithUpperBound:(v13 + 1)];
             if (v17 == v13)
@@ -128,22 +128,20 @@ uint64_t __30__GKRandomSource_sharedRandom__block_invoke()
 
         while (v9 != v12);
 LABEL_5:
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v9);
     }
 
     v5 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:v6];
-    v4 = v20;
+    v4 = v19;
   }
 
   else
   {
     v5 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:v4];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

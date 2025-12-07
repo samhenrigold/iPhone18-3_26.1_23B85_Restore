@@ -948,84 +948,84 @@ LABEL_19:
   factoryCopy = factory;
   handlerCopy = handler;
   selfCopy = self;
-  v75 = [NSMutableArray arrayWithCapacity:[(NSArray *)self->_itemProviders count]];
-  v76 = dispatch_group_create();
-  v142[0] = 0;
-  v142[1] = v142;
-  v142[2] = 0x3032000000;
-  v142[3] = sub_100301848;
-  v142[4] = sub_100301858;
-  v143 = +[NSMutableArray array];
-  v138 = 0u;
-  v139 = 0u;
+  v77 = [NSMutableArray arrayWithCapacity:[(NSArray *)self->_itemProviders count]];
+  v78 = dispatch_group_create();
+  v144[0] = 0;
+  v144[1] = v144;
+  v144[2] = 0x3032000000;
+  v144[3] = sub_100301848;
+  v144[4] = sub_100301858;
+  v145 = +[NSMutableArray array];
   v140 = 0u;
   v141 = 0u;
+  v142 = 0u;
+  v143 = 0u;
   obj = self->_itemProviders;
-  v7 = [(NSArray *)obj countByEnumeratingWithState:&v138 objects:v148 count:16];
+  v7 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v150 count:16];
   if (v7)
   {
-    v73 = *v139;
+    v75 = *v141;
     do
     {
-      v81 = 0;
-      v77 = v7;
+      v83 = 0;
+      v79 = v7;
       do
       {
-        if (*v139 != v73)
+        if (*v141 != v75)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v138 + 1) + 8 * v81);
-        v134 = 0;
-        v135 = &v134;
-        v136 = 0x2020000000;
-        v137 = 0;
-        v130 = 0;
-        v131 = &v130;
-        v132 = 0x2020000000;
-        v133 = 0;
+        v8 = *(*(&v140 + 1) + 8 * v83);
+        v136 = 0;
+        v137 = &v136;
+        v138 = 0x2020000000;
+        v139 = 0;
+        v132 = 0;
+        v133 = &v132;
+        v134 = 0x2020000000;
+        v135 = 0;
         registeredTypeIdentifiers = [v8 registeredTypeIdentifiers];
-        v80 = [NSSet setWithArray:registeredTypeIdentifiers];
+        v82 = [NSSet setWithArray:registeredTypeIdentifiers];
 
         v10 = +[CRLIngestionTypes highEfficiencyImageTypes];
         v11 = [NSSet setWithArray:v10];
-        v87 = [v80 intersectsSet:v11];
+        v89 = [v82 intersectsSet:v11];
 
-        v121[0] = _NSConcreteStackBlock;
-        v121[1] = 3221225472;
-        v121[2] = sub_100301860;
-        v121[3] = &unk_101854C50;
-        v127 = &v134;
-        v12 = v76;
-        v122 = v12;
-        v123 = v8;
-        v128 = v142;
+        v123[0] = _NSConcreteStackBlock;
+        v123[1] = 3221225472;
+        v123[2] = sub_100301860;
+        v123[3] = &unk_101854C50;
+        v129 = &v136;
+        v12 = v78;
+        v124 = v12;
+        v125 = v8;
+        v130 = v144;
         lengthCopy = length;
-        v86 = factoryCopy;
-        v124 = v86;
-        v125 = selfCopy;
-        v13 = v75;
-        v126 = v13;
-        v83 = objc_retainBlock(v121);
-        v115[0] = _NSConcreteStackBlock;
-        v115[1] = 3221225472;
-        v115[2] = sub_100302154;
-        v115[3] = &unk_101854D80;
-        v119 = &v134;
+        v88 = factoryCopy;
+        v126 = v88;
+        v127 = selfCopy;
+        v13 = v77;
+        v128 = v13;
+        v85 = objc_retainBlock(v123);
+        v117[0] = _NSConcreteStackBlock;
+        v117[1] = 3221225472;
+        v117[2] = sub_100302154;
+        v117[3] = &unk_101854D80;
+        v121 = &v136;
         group = v12;
-        v116 = group;
-        v117 = v8;
-        v120 = v142;
-        v84 = v13;
-        v118 = v84;
-        v78 = objc_retainBlock(v115);
+        v118 = group;
+        v119 = v8;
+        v122 = v144;
+        v86 = v13;
+        v120 = v86;
+        v80 = objc_retainBlock(v117);
+        v115 = 0u;
+        v116 = 0u;
         v113 = 0u;
         v114 = 0u;
-        v111 = 0u;
-        v112 = 0u;
         registeredTypeIdentifiers2 = [v8 registeredTypeIdentifiers];
-        v15 = [registeredTypeIdentifiers2 countByEnumeratingWithState:&v111 objects:v147 count:16];
+        v15 = [registeredTypeIdentifiers2 countByEnumeratingWithState:&v113 objects:v149 count:16];
         if (!v15)
         {
 LABEL_73:
@@ -1034,65 +1034,66 @@ LABEL_73:
         }
 
         v16 = 0;
-        v79 = 0;
-        v88 = registeredTypeIdentifiers2;
-        v89 = *v112;
+        v81 = 0;
+        v90 = registeredTypeIdentifiers2;
+        v91 = *v114;
         do
         {
           v17 = 0;
           do
           {
-            if (*v112 != v89)
+            if (*v114 != v91)
             {
-              objc_enumerationMutation(v88);
+              objc_enumerationMutation(v90);
             }
 
-            v18 = *(*(&v111 + 1) + 8 * v17);
-            if (+[_TtC8Freeform19CRLFeatureFlagGroup isContentLanguageCopyPasteEnabled])
+            v18 = *(*(&v113 + 1) + 8 * v17);
+            v19 = +[_TtC8Freeform19CRLFeatureFlagGroup isContentLanguageCopyPasteEnabled];
+            if (v19)
             {
               registeredTypeIdentifiers3 = [v8 registeredTypeIdentifiers];
-              v20 = [_TtC8Freeform20CRLCLCopyPasteHelper canvasObjectTypeIdentifierToUseFromTypeIdentifiers:registeredTypeIdentifiers3];
+              v21 = [_TtC8Freeform20CRLCLCopyPasteHelper canvasObjectTypeIdentifierToUseFromTypeIdentifiers:registeredTypeIdentifiers3];
 
               if ([(CRLiOSItemProviderItemSource *)selfCopy hasContentLanguageDrawablesType])
               {
-                *(v135 + 24) = 1;
+                *(v137 + 24) = 1;
                 dispatch_group_enter(group);
-                v107[0] = _NSConcreteStackBlock;
-                v107[1] = 3221225472;
-                v107[2] = sub_1003028C4;
-                v107[3] = &unk_101854D18;
-                v107[4] = selfCopy;
-                v108 = v86;
-                v110 = v142;
-                v109 = group;
-                v21 = [v8 loadDataRepresentationForTypeIdentifier:v20 completionHandler:v107];
-                if (v21)
+                v109[0] = _NSConcreteStackBlock;
+                v109[1] = 3221225472;
+                v109[2] = sub_1003028C4;
+                v109[3] = &unk_101854D18;
+                v109[4] = selfCopy;
+                v110 = v88;
+                v112 = v144;
+                v111 = group;
+                v22 = [v8 loadDataRepresentationForTypeIdentifier:v21 completionHandler:v109];
+                if (v22)
                 {
-                  [v84 addObject:v21];
+                  [v86 addObject:v22];
                 }
 
                 else
                 {
-                  v22 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+                  v23 = +[CRLAssertionHandler _atomicIncrementAssertCount];
                   if (qword_101AD5A10 != -1)
                   {
                     sub_101350D64();
                   }
 
-                  v23 = off_1019EDA68;
+                  v24 = off_1019EDA68;
                   if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 67110146;
-                    *v145 = v22;
-                    *&v145[4] = 2082;
-                    *&v145[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
-                    *&v145[14] = 2082;
-                    *&v145[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
-                    *&v145[24] = 1024;
-                    *&v145[26] = 675;
-                    LOWORD(v146[0]) = 2112;
-                    *(v146 + 2) = v20;
-                    _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
+                    *v147 = v23;
+                    *&v147[4] = 2082;
+                    *&v147[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
+                    *&v147[14] = 2082;
+                    *&v147[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
+                    *&v147[24] = 1024;
+                    *&v147[26] = 675;
+                    LOWORD(v148[0]) = 2112;
+                    *(v148 + 2) = v21;
+                    _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
                   }
 
                   if (qword_101AD5A10 != -1)
@@ -1100,42 +1101,42 @@ LABEL_73:
                     sub_101350D8C();
                   }
 
-                  v24 = off_1019EDA68;
-                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                  v25 = off_1019EDA68;
+                  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                   {
-                    v57 = +[CRLAssertionHandler packedBacktraceString];
+                    v59 = +[CRLAssertionHandler packedBacktraceString];
                     *buf = 67109378;
-                    *v145 = v22;
-                    *&v145[4] = 2114;
-                    *&v145[6] = v57;
-                    _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+                    *v147 = v23;
+                    *&v147[4] = 2114;
+                    *&v147[6] = v59;
+                    _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
                   }
 
-                  v25 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
-                  v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
-                  [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:675 isFatal:0 description:"No progress provided for UTI %@", v20];
+                  v26 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
+                  v27 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
+                  [CRLAssertionHandler handleFailureInFunction:v26 file:v27 lineNumber:675 isFatal:0 description:"No progress provided for UTI %@", v21];
                 }
               }
             }
 
-            v27 = sub_1000ECE78();
-            identifier = [v27 identifier];
-            v29 = [v18 isEqualToString:identifier];
+            v28 = sub_1000ECE78(v19);
+            identifier = [v28 identifier];
+            v30 = [v18 isEqualToString:identifier];
 
-            v16 |= v29;
+            v16 |= v30;
             if ([CRLIngestionTypes isValidPlainTextUTI:v18])
             {
-              if ([v18 isEqualToString:@"public.file-url"] & v87)
+              if ([v18 isEqualToString:@"public.file-url"] & v89)
               {
                 goto LABEL_53;
               }
 
               identifier2 = [UTTypeURL identifier];
-              v31 = [v18 isEqualToString:identifier2];
+              v32 = [v18 isEqualToString:identifier2];
 
-              if (v31)
+              if (v32)
               {
-                v79 = 1;
+                v81 = 1;
                 if (v16)
                 {
                   goto LABEL_70;
@@ -1146,53 +1147,53 @@ LABEL_73:
 
               else
               {
-                (v83[2])(v83, v18);
+                (v85[2])(v85, v18);
               }
 
               goto LABEL_51;
             }
 
-            v32 = +[CRLIngestionTypes supportedRichTextTypes];
-            v33 = [v18 crl_conformsToAnyUTI:v32];
+            v33 = +[CRLIngestionTypes supportedRichTextTypes];
+            v34 = [v18 crl_conformsToAnyUTI:v33];
 
-            if (v33)
+            if (v34)
             {
-              *(v135 + 24) = 1;
+              *(v137 + 24) = 1;
               dispatch_group_enter(group);
-              v104[0] = _NSConcreteStackBlock;
-              v104[1] = 3221225472;
-              v104[2] = sub_100302A80;
-              v104[3] = &unk_101854E08;
-              v106 = v142;
-              v105 = group;
-              v34 = [(CRLiOSItemProviderItemSource *)selfCopy richTextBoardItemProvidersFor:v8 factory:v86 uti:v18 maximumCharacterLimit:length completion:v104];
-              if (v34)
+              v106[0] = _NSConcreteStackBlock;
+              v106[1] = 3221225472;
+              v106[2] = sub_100302A80;
+              v106[3] = &unk_101854E08;
+              v108 = v144;
+              v107 = group;
+              v36 = [(CRLiOSItemProviderItemSource *)selfCopy richTextBoardItemProvidersFor:v8 factory:v88 uti:v18 maximumCharacterLimit:length completion:v106];
+              if (v36)
               {
-                [v84 addObject:v34];
+                [v86 addObject:v36];
               }
 
               else
               {
-                v43 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+                v45 = +[CRLAssertionHandler _atomicIncrementAssertCount];
                 if (qword_101AD5A10 != -1)
                 {
                   sub_101350E04();
                 }
 
-                v44 = off_1019EDA68;
+                v46 = off_1019EDA68;
                 if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67110146;
-                  *v145 = v43;
-                  *&v145[4] = 2082;
-                  *&v145[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
-                  *&v145[14] = 2082;
-                  *&v145[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
-                  *&v145[24] = 1024;
-                  *&v145[26] = 720;
-                  LOWORD(v146[0]) = 2112;
-                  *(v146 + 2) = v18;
-                  _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
+                  *v147 = v45;
+                  *&v147[4] = 2082;
+                  *&v147[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
+                  *&v147[14] = 2082;
+                  *&v147[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
+                  *&v147[24] = 1024;
+                  *&v147[26] = 720;
+                  LOWORD(v148[0]) = 2112;
+                  *(v148 + 2) = v18;
+                  _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
                 }
 
                 if (qword_101AD5A10 != -1)
@@ -1200,30 +1201,30 @@ LABEL_73:
                   sub_101350E2C();
                 }
 
-                v45 = off_1019EDA68;
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                v47 = off_1019EDA68;
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                 {
-                  v58 = +[CRLAssertionHandler packedBacktraceString];
+                  v60 = +[CRLAssertionHandler packedBacktraceString];
                   *buf = 67109378;
-                  *v145 = v43;
-                  *&v145[4] = 2114;
-                  *&v145[6] = v58;
-                  _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+                  *v147 = v45;
+                  *&v147[4] = 2114;
+                  *&v147[6] = v60;
+                  _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
                 }
 
-                v46 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
-                v47 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
-                [CRLAssertionHandler handleFailureInFunction:v46 file:v47 lineNumber:720 isFatal:0 description:"No progress provided for UTI %@", v18];
+                v48 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
+                v49 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
+                [CRLAssertionHandler handleFailureInFunction:v48 file:v49 lineNumber:720 isFatal:0 description:"No progress provided for UTI %@", v18];
               }
 
               goto LABEL_51;
             }
 
-            v35 = sub_1000EEB38();
-            identifier3 = [v35 identifier];
-            v37 = [v18 isEqualToString:identifier3];
+            v37 = sub_1000EEB38(v35);
+            identifier3 = [v37 identifier];
+            v39 = [v18 isEqualToString:identifier3];
 
-            if (v37)
+            if (v39)
             {
               v16 = 1;
               goto LABEL_51;
@@ -1238,11 +1239,11 @@ LABEL_73:
             if ([v18 isEqualToString:identifier4])
             {
               registeredTypeIdentifiers4 = [v8 registeredTypeIdentifiers];
-              v40 = sub_1000EEB38();
-              identifier5 = [v40 identifier];
-              v42 = [registeredTypeIdentifiers4 containsObject:identifier5];
+              v42 = sub_1000EEB38(registeredTypeIdentifiers4);
+              identifier5 = [v42 identifier];
+              v44 = [registeredTypeIdentifiers4 containsObject:identifier5];
 
-              if (v42)
+              if (v44)
               {
                 goto LABEL_53;
               }
@@ -1253,59 +1254,59 @@ LABEL_73:
             }
 
             identifier6 = [UTTypeJPEG identifier];
-            v49 = [v18 isEqualToString:identifier6];
+            v51 = [v18 isEqualToString:identifier6];
 
-            if ((v49 & v87 & 1) == 0)
+            if ((v51 & v89 & 1) == 0)
             {
-              *(v135 + 24) = 1;
+              *(v137 + 24) = 1;
               dispatch_group_enter(group);
-              v99[0] = _NSConcreteStackBlock;
-              v99[1] = 3221225472;
-              v99[2] = sub_100302B50;
-              v99[3] = &unk_101854E90;
-              v102 = &v130;
-              v99[4] = v18;
-              v100 = v86;
-              v103 = v142;
-              v50 = group;
-              v101 = v50;
-              v51 = [v8 loadFileRepresentationForTypeIdentifier:v18 completionHandler:v99];
-              v94[0] = _NSConcreteStackBlock;
-              v94[1] = 3221225472;
-              v94[2] = sub_100302C7C;
-              v94[3] = &unk_101854EB8;
-              v97 = &v134;
-              v98 = &v130;
-              v95 = v50;
-              v96 = selfCopy;
-              [v51 setCancellationHandler:v94];
-              if (v51)
+              v101[0] = _NSConcreteStackBlock;
+              v101[1] = 3221225472;
+              v101[2] = sub_100302B50;
+              v101[3] = &unk_101854E90;
+              v104 = &v132;
+              v101[4] = v18;
+              v102 = v88;
+              v105 = v144;
+              v52 = group;
+              v103 = v52;
+              v53 = [v8 loadFileRepresentationForTypeIdentifier:v18 completionHandler:v101];
+              v96[0] = _NSConcreteStackBlock;
+              v96[1] = 3221225472;
+              v96[2] = sub_100302C7C;
+              v96[3] = &unk_101854EB8;
+              v99 = &v136;
+              v100 = &v132;
+              v97 = v52;
+              v98 = selfCopy;
+              [v53 setCancellationHandler:v96];
+              if (v53)
               {
-                [v84 addObject:v51];
+                [v86 addObject:v53];
               }
 
               else
               {
-                v52 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+                v54 = +[CRLAssertionHandler _atomicIncrementAssertCount];
                 if (qword_101AD5A10 != -1)
                 {
                   sub_101350DB4();
                 }
 
-                v53 = off_1019EDA68;
+                v55 = off_1019EDA68;
                 if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 67110146;
-                  *v145 = v52;
-                  *&v145[4] = 2082;
-                  *&v145[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
-                  *&v145[14] = 2082;
-                  *&v145[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
-                  *&v145[24] = 1024;
-                  *&v145[26] = 761;
-                  LOWORD(v146[0]) = 2112;
-                  *(v146 + 2) = v18;
-                  _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
+                  *v147 = v54;
+                  *&v147[4] = 2082;
+                  *&v147[6] = "[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]";
+                  *&v147[14] = 2082;
+                  *&v147[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m";
+                  *&v147[24] = 1024;
+                  *&v147[26] = 761;
+                  LOWORD(v148[0]) = 2112;
+                  *(v148 + 2) = v18;
+                  _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d No progress provided for UTI %@", buf, 0x2Cu);
                 }
 
                 if (qword_101AD5A10 != -1)
@@ -1313,24 +1314,24 @@ LABEL_73:
                   sub_101350DDC();
                 }
 
-                v54 = off_1019EDA68;
-                if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+                v56 = off_1019EDA68;
+                if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                 {
-                  v59 = +[CRLAssertionHandler packedBacktraceString];
+                  v61 = +[CRLAssertionHandler packedBacktraceString];
                   *buf = 67109378;
-                  *v145 = v52;
-                  *&v145[4] = 2114;
-                  *&v145[6] = v59;
-                  _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+                  *v147 = v54;
+                  *&v147[4] = 2114;
+                  *&v147[6] = v61;
+                  _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
                 }
 
-                v55 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
-                v56 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
-                [CRLAssertionHandler handleFailureInFunction:v55 file:v56 lineNumber:761 isFatal:0 description:"No progress provided for UTI %@", v18];
+                v57 = [NSString stringWithUTF8String:"[CRLiOSItemProviderItemSource loadProvidersForImportedBoardItemsUsingBoardItemFactory:maximumStringLength:WithLoadHandler:]"];
+                v58 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLiOSItemProviderItemSource.m"];
+                [CRLAssertionHandler handleFailureInFunction:v57 file:v58 lineNumber:761 isFatal:0 description:"No progress provided for UTI %@", v18];
               }
 
 LABEL_51:
-              if (v135[3] & 1) != 0 || (v131[3])
+              if (v137[3] & 1) != 0 || (v133[3])
               {
                 goto LABEL_70;
               }
@@ -1341,75 +1342,75 @@ LABEL_53:
           }
 
           while (v15 != v17);
-          v60 = [v88 countByEnumeratingWithState:&v111 objects:v147 count:16];
-          v15 = v60;
+          v62 = [v90 countByEnumeratingWithState:&v113 objects:v149 count:16];
+          v15 = v62;
         }
 
-        while (v60);
+        while (v62);
 LABEL_70:
 
-        if ((v135[3] & 1) == 0 && ((v79 ^ 1) & 1) == 0)
+        if ((v137[3] & 1) == 0 && ((v81 ^ 1) & 1) == 0)
         {
           registeredTypeIdentifiers2 = [UTTypeURL identifier];
-          (v78[2])(v78, registeredTypeIdentifiers2);
+          (v80[2])(v80, registeredTypeIdentifiers2);
           goto LABEL_73;
         }
 
 LABEL_74:
-        if ((v135[3] & 1) == 0 && (v131[3] & 1) == 0)
+        if ((v137[3] & 1) == 0 && (v133[3] & 1) == 0)
         {
-          v61 = [(CRLiOSItemProviderItemSource *)selfCopy p_unrecognizedTypeErrorForItemProvider:v8];
+          v63 = [(CRLiOSItemProviderItemSource *)selfCopy p_unrecognizedTypeErrorForItemProvider:v8];
           if (qword_101AD5A08 != -1)
           {
             sub_101350E54();
           }
 
-          v62 = off_1019EDA60;
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+          v64 = off_1019EDA60;
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
           {
-            v63 = objc_opt_class();
-            v64 = NSStringFromClass(v63);
-            domain = [v61 domain];
-            code = [v61 code];
+            v65 = objc_opt_class();
+            v66 = NSStringFromClass(v65);
+            domain = [v63 domain];
+            code = [v63 code];
             *buf = 138544130;
-            *v145 = v64;
-            *&v145[8] = 2114;
-            *&v145[10] = domain;
-            *&v145[18] = 2048;
-            *&v145[20] = code;
-            *&v145[28] = 2112;
-            v146[0] = v61;
-            _os_log_error_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "Error loading importable data. Error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x2Au);
+            *v147 = v66;
+            *&v147[8] = 2114;
+            *&v147[10] = domain;
+            *&v147[18] = 2048;
+            *&v147[20] = code;
+            *&v147[28] = 2112;
+            v148[0] = v63;
+            _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Error loading importable data. Error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x2Au);
           }
         }
 
-        _Block_object_dispose(&v130, 8);
-        _Block_object_dispose(&v134, 8);
-        v81 = v81 + 1;
+        _Block_object_dispose(&v132, 8);
+        _Block_object_dispose(&v136, 8);
+        v83 = v83 + 1;
       }
 
-      while (v81 != v77);
-      v7 = [(NSArray *)obj countByEnumeratingWithState:&v138 objects:v148 count:16];
+      while (v83 != v79);
+      v7 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v150 count:16];
     }
 
     while (v7);
   }
 
-  v67 = dispatch_get_global_queue(0, 0);
+  v69 = dispatch_get_global_queue(0, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100302DEC;
   block[3] = &unk_101847590;
-  v68 = handlerCopy;
-  v92 = v68;
-  v93 = v142;
-  dispatch_group_notify(v76, v67, block);
+  v70 = handlerCopy;
+  v94 = v70;
+  v95 = v144;
+  dispatch_group_notify(v78, v69, block);
 
-  v69 = [(CRLiOSItemProviderItemSource *)selfCopy p_progressWithChildren:v75];
+  v71 = [(CRLiOSItemProviderItemSource *)selfCopy p_progressWithChildren:v77];
 
-  _Block_object_dispose(v142, 8);
+  _Block_object_dispose(v144, 8);
 
-  return v69;
+  return v71;
 }
 
 - (id)loadTextStorageUsingBoardItemFactory:(id)factory forTargetContext:(id)context targetStorage:(id)storage loadHandler:(id)handler

@@ -15,22 +15,22 @@
 
 - (HDSPGoodMorningAlertStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v33[2] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v32[2] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
   v19 = [v12 setWithArray:v18];
 
-  v32.receiver = self;
-  v32.super_class = HDSPGoodMorningAlertStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v32 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v31.receiver = self;
+  v31.super_class = HDSPGoodMorningAlertStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v31 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -58,19 +58,17 @@
     v29 = v20;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)allStates
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   waitingState = self->_waitingState;
-  v6[0] = self->_disabledState;
-  v6[1] = waitingState;
-  v6[2] = self->_presentingState;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = self->_disabledState;
+  v5[1] = waitingState;
+  v5[2] = self->_presentingState;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
 
   return v3;
 }

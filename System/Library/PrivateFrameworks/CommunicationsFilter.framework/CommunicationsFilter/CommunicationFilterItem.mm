@@ -23,38 +23,25 @@
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  if ([(CommunicationFilterItem *)self isPhoneNumber])
+  isPhoneNumber = [(CommunicationFilterItem *)self isPhoneNumber];
+  if (isPhoneNumber)
   {
-    phoneNumber = self->_phoneNumber;
-    v5 = IMUnformattedPhoneNumberForCFPhoneNumberRef();
-    if (v5)
+    v6 = IMUnformattedPhoneNumberForCFPhoneNumberRef();
+    if (v6)
     {
-      v6 = v5;
-      v7 = self->_phoneNumber;
-      v8 = IMCountryCodeCFPhoneNumberRef();
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
-      [dictionary setObject:v6 forKey:@"__kCMFItemPhoneNumberUnformattedKey"];
-      if (v8)
+      v8 = v6;
+      v9 = IMCountryCodeCFPhoneNumberRef();
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0];
+      [dictionary setObject:v8 forKey:@"__kCMFItemPhoneNumberUnformattedKey"];
+      if (v9)
       {
-        [dictionary setObject:v8 forKey:@"__kCMFItemPhoneNumberCountryCodeKey"];
+        [dictionary setObject:v9 forKey:@"__kCMFItemPhoneNumberCountryCodeKey"];
       }
 
       goto LABEL_9;
     }
 
-    v11 = CMFDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      [(CommunicationFilterItem *)v11 dictionaryRepresentation];
-    }
-
-    return 0;
-  }
-
-  emailAddress = self->_emailAddress;
-  if (!emailAddress)
-  {
-    v12 = CMFDefaultLog();
+    v12 = CMFDefaultLog(0, v7);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(CommunicationFilterItem *)v12 dictionaryRepresentation];
@@ -63,13 +50,25 @@
     return 0;
   }
 
+  emailAddress = self->_emailAddress;
+  if (!emailAddress)
+  {
+    v13 = CMFDefaultLog(isPhoneNumber, v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [(CommunicationFilterItem *)v13 dictionaryRepresentation];
+    }
+
+    return 0;
+  }
+
   [dictionary setObject:emailAddress forKey:@"__kCMFItemEmailUnformattedKey"];
-  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
 LABEL_9:
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", 1), @"__kCMFItemVersionKey"}];
-  if (v9)
+  if (v10)
   {
-    [dictionary setObject:v9 forKey:@"__kCMFItemTypeKey"];
+    [dictionary setObject:v10 forKey:@"__kCMFItemTypeKey"];
   }
 
   return dictionary;
@@ -135,49 +134,44 @@ LABEL_9:
   v7 = [representation objectForKey:@"__kCMFItemPhoneNumberUnformattedKey"];
   [representation objectForKey:@"__kCMFItemPhoneNumberCountryCodeKey"];
   v8 = [representation objectForKey:@"__kCMFItemEmailUnformattedKey"];
-  if (![(CommunicationFilterItem *)self _acceptItemType:v5]|| ![(CommunicationFilterItem *)self _acceptVersion:v6])
+  v9 = [(CommunicationFilterItem *)self _acceptItemType:v5];
+  if (!v9 || (v9 = [(CommunicationFilterItem *)self _acceptVersion:v6], !v9))
   {
-    v11 = CMFDefaultLog();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = CMFDefaultLog(v9, v10);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_8:
-      v10 = 0;
-LABEL_9:
-      v12 = *MEMORY[0x277D85DE8];
-      return v10;
+      return 0;
     }
 
 LABEL_7:
     v15 = 138412290;
     allKeys = [representation allKeys];
-    _os_log_impl(&dword_243BDE000, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Couldn't create CMFItem from dictionary %@", &v15, 0xCu);
-    goto LABEL_8;
+    _os_log_impl(&dword_243BDE000, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Couldn't create CMFItem from dictionary %@", &v15, 0xCu);
+    return 0;
   }
 
   if (v7)
   {
-    v9 = IMPhoneNumberRefCopyForPhoneNumber();
-    v10 = [(CommunicationFilterItem *)self initWithPhoneNumber:v9];
-    if (v9)
+    v11 = IMPhoneNumberRefCopyForPhoneNumber();
+    v12 = [(CommunicationFilterItem *)self initWithPhoneNumber:v11];
+    if (v11)
     {
-      CFRelease(v9);
+      CFRelease(v11);
     }
 
-    goto LABEL_9;
+    return v12;
   }
 
   if (!v8)
   {
-    v11 = CMFDefaultLog();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = CMFDefaultLog(v9, v10);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_8;
+      return 0;
     }
 
     goto LABEL_7;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return [(CommunicationFilterItem *)self initWithEmailAddress:v8];
 }
@@ -194,7 +188,6 @@ LABEL_7:
 
   else
   {
-    phoneNumber = self->_phoneNumber;
 
     return IMUnformattedPhoneNumberForCFPhoneNumberRef();
   }
@@ -245,12 +238,11 @@ LABEL_7:
   {
     if (!self->_phoneNumber)
     {
-      v5.receiver = self;
-      v5.super_class = CommunicationFilterItem;
-      return [(CommunicationFilterItem *)&v5 hash];
+      v4.receiver = self;
+      v4.super_class = CommunicationFilterItem;
+      return [(CommunicationFilterItem *)&v4 hash];
     }
 
-    phoneNumber = self->_phoneNumber;
     lowercaseString = IMUnformattedPhoneNumberForCFPhoneNumberRef();
   }
 

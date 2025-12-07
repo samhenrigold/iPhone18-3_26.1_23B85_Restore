@@ -34,13 +34,13 @@
   return v3;
 }
 
-uint64_t __33__DBDateFormatter_dateFormatters__block_invoke()
+uint64_t __33__DBDateFormatter_dateFormatters__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = dateFormatters__dateFormatters;
-  dateFormatters__dateFormatters = v0;
+  v2 = objc_opt_new();
+  v3 = dateFormatters__dateFormatters;
+  dateFormatters__dateFormatters = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)dateFormatterForToken:(id)token
@@ -99,13 +99,13 @@ uint64_t __33__DBDateFormatter_dateFormatters__block_invoke()
   return v3;
 }
 
-uint64_t __41__DBDateFormatter_dateIntervalFormatters__block_invoke()
+uint64_t __41__DBDateFormatter_dateIntervalFormatters__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = dateIntervalFormatters__dateIntervalFormatters;
-  dateIntervalFormatters__dateIntervalFormatters = v0;
+  v2 = objc_opt_new();
+  v3 = dateIntervalFormatters__dateIntervalFormatters;
+  dateIntervalFormatters__dateIntervalFormatters = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (id)dateIntervalFormatterForToken:(id)token

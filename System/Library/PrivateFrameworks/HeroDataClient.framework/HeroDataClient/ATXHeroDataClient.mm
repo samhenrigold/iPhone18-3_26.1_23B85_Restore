@@ -272,12 +272,4 @@ void __61__ATXHeroDataClient_getCurrentHeroPoiCategoryWithCompletion___block_inv
   (*(*(a1 + 32) + 16))();
 }
 
-void __57__ATXHeroDataClient_donateHeroAppPredictions_completion___block_invoke_2_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_252300000, MEMORY[0x277D86220], v0, "Error: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 @end

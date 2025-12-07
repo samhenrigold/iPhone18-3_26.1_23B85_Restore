@@ -10,19 +10,19 @@
 
 - (id)orderedProperties
 {
-  v12[5] = *MEMORY[0x277D85DE8];
+  v11[5] = *MEMORY[0x277D85DE8];
   purpose = [(HDEntityEncoder *)self purpose];
   if (purpose == 1)
   {
-    v11 = @"document_data";
-    v4 = &v11;
+    v10 = @"document_data";
+    v4 = &v10;
     goto LABEL_5;
   }
 
   if (!purpose)
   {
-    v12[0] = @"document_data";
-    v4 = v12;
+    v11[0] = @"document_data";
+    v4 = v11;
 LABEL_5:
     v4[1] = @"title";
     v4[2] = @"patient_name";
@@ -37,8 +37,6 @@ LABEL_7:
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v8 = [v5 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

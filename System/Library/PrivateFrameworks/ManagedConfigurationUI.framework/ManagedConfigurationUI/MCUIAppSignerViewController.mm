@@ -205,7 +205,7 @@ void __50__MCUIAppSignerViewController__appSignersUpdated___block_invoke(uint64_
 
 - (void)_appSignersDidChange
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   appSigner = [(MCUIAppSignerViewController *)self appSigner];
   [appSigner refreshApplications];
 
@@ -218,28 +218,25 @@ void __50__MCUIAppSignerViewController__appSignersUpdated___block_invoke(uint64_
   [tableView reloadData];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v12 = @"kMCUIAppSignersUpdatedNotification";
-  v13[0] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"kMCUIAppSignersUpdatedNotification";
+  v12[0] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [defaultCenter postNotificationName:@"kMCUIUpdatedNotification" object:self userInfo:v9];
 
   navigationItem2 = [(MCUIAppSignerViewController *)self navigationItem];
   DMCSendNavUIUpdatedNotification();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appSignerWasRemoved
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v6 = @"kMCUIAppSignersUpdatedNotification";
-  v7[0] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"kMCUIAppSignersUpdatedNotification";
+  v6[0] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [defaultCenter postNotificationName:@"kMCUIUpdatedNotification" object:self userInfo:v4];
 
   [(MCUIAppSignerViewController *)self dmc_popViewControllerAnimated:1];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkReachabilityChanged:(id)changed
@@ -384,55 +381,53 @@ void __37__MCUIAppSignerViewController__trust__block_invoke_3(uint64_t a1)
 
 void __38__MCUIAppSignerViewController__verify__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = [WeakRetained appSigner];
     obj = [v4 provisioningProfiles];
 
-    v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
-      v6 = *v16;
+      v6 = *v15;
       do
       {
         v7 = 0;
         do
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * v7);
+          v8 = *(*(&v14 + 1) + 8 * v7);
           v9 = [v3 profileTrust];
           v10 = [v8 uuid];
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __38__MCUIAppSignerViewController__verify__block_invoke_2;
-          v13[3] = &unk_279861FF8;
-          objc_copyWeak(&v14, (a1 + 32));
-          [v9 uiVerifyProvisioningProfileUUID:v10 completion:v13];
+          v12[0] = MEMORY[0x277D85DD0];
+          v12[1] = 3221225472;
+          v12[2] = __38__MCUIAppSignerViewController__verify__block_invoke_2;
+          v12[3] = &unk_279861FF8;
+          objc_copyWeak(&v13, (a1 + 32));
+          [v9 uiVerifyProvisioningProfileUUID:v10 completion:v12];
 
-          objc_destroyWeak(&v14);
+          objc_destroyWeak(&v13);
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v5);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __38__MCUIAppSignerViewController__verify__block_invoke_2(uint64_t a1)
@@ -666,7 +661,7 @@ LABEL_7:
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   appSigner = [(MCUIAppSignerViewController *)self appSigner];
   isTrusted = [appSigner isTrusted];
 
@@ -708,14 +703,14 @@ LABEL_7:
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
     if (isTrusted2)
     {
-      v35 = *MEMORY[0x277D25D20];
-      v24 = &v35;
+      v34 = *MEMORY[0x277D25D20];
+      v24 = &v34;
     }
 
     else
     {
-      v36[0] = *MEMORY[0x277D25E70];
-      v24 = v36;
+      v35[0] = *MEMORY[0x277D25E70];
+      v24 = v35;
     }
 
     v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
@@ -800,7 +795,6 @@ LABEL_32:
   v16 = [v19 stringWithFormat:v30, identity2];
 
 LABEL_33:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

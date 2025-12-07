@@ -89,8 +89,8 @@
 {
   notificationCopy = notification;
   dCopy = d;
-  v274 = [notificationCopy NF_arrayForKey:@"mfdListPreExecution"];
-  if ([(__CFString *)v274 count])
+  v273 = [notificationCopy NF_arrayForKey:@"mfdListPreExecution"];
+  if ([(__CFString *)v273 count])
   {
     v5 = objc_opt_new();
     if (byte_10005BAB0 == 1)
@@ -110,7 +110,7 @@
           v10 = 43;
         }
 
-        v7(6, "%c[%{public}s %{public}s]:%i [TSM] MFD list: %@", v10, ClassName, Name, 110, v274);
+        v7(6, "%c[%{public}s %{public}s]:%i [TSM] MFD list: %@", v10, ClassName, Name, 110, v273);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -129,47 +129,47 @@
         }
 
         *buf = 67110146;
-        v310 = v13;
-        v311 = 2082;
-        v312 = object_getClassName(self);
-        v313 = 2082;
-        v314 = sel_getName(a2);
-        v315 = 1024;
-        v316 = 110;
-        v317 = 2112;
-        v318 = v274;
+        v309 = v13;
+        v310 = 2082;
+        v311 = object_getClassName(self);
+        v312 = 2082;
+        v313 = sel_getName(a2);
+        v314 = 1024;
+        v315 = 110;
+        v316 = 2112;
+        v317 = v273;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] MFD list: %@", buf, 0x2Cu);
       }
     }
 
-    v283 = v5;
-    v304 = 0u;
-    v305 = 0u;
-    v302 = 0u;
+    v282 = v5;
     v303 = 0u;
-    v14 = v274;
-    v15 = [(__CFString *)v14 countByEnumeratingWithState:&v302 objects:v321 count:16];
+    v304 = 0u;
+    v301 = 0u;
+    v302 = 0u;
+    v14 = v273;
+    v15 = [(__CFString *)v14 countByEnumeratingWithState:&v301 objects:v320 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v303;
+      v17 = *v302;
       do
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v303 != v17)
+          if (*v302 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v302 + 1) + 8 * i);
+          v19 = *(*(&v301 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v20 = [(NFSecureElementManagerSession *)self->_seSession appletWithIdentifier:v19];
             if (v20)
             {
-              [v283 addObject:v20];
+              [v282 addObject:v20];
               if (byte_10005BAB0 == 1)
               {
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -179,15 +179,15 @@
                   v22 = v21;
                   v23 = object_getClass(self);
                   v24 = class_isMetaClass(v23);
-                  v251 = object_getClassName(self);
-                  v257 = sel_getName(a2);
+                  v250 = object_getClassName(self);
+                  v256 = sel_getName(a2);
                   v25 = 45;
                   if (v24)
                   {
                     v25 = 43;
                   }
 
-                  v22(6, "%c[%{public}s %{public}s]:%i [TSM] Deleting applet: %@", v25, v251, v257, 120, v19);
+                  v22(6, "%c[%{public}s %{public}s]:%i [TSM] Deleting applet: %@", v25, v250, v256, 120, v19);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -208,15 +208,15 @@
                   v29 = object_getClassName(self);
                   v30 = sel_getName(a2);
                   *buf = 67110146;
-                  v310 = v28;
-                  v311 = 2082;
-                  v312 = v29;
-                  v313 = 2082;
-                  v314 = v30;
-                  v315 = 1024;
-                  v316 = 120;
-                  v317 = 2112;
-                  v318 = v19;
+                  v309 = v28;
+                  v310 = 2082;
+                  v311 = v29;
+                  v312 = 2082;
+                  v313 = v30;
+                  v314 = 1024;
+                  v315 = 120;
+                  v316 = 2112;
+                  v317 = v19;
                   _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Deleting applet: %@", buf, 0x2Cu);
                 }
               }
@@ -234,14 +234,14 @@
               v34 = class_isMetaClass(v33);
               v35 = object_getClassName(self);
               v36 = sel_getName(a2);
-              v268 = objc_opt_class();
+              v267 = objc_opt_class();
               v37 = 45;
               if (v34)
               {
                 v37 = 43;
               }
 
-              v32(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v37, v35, v36, 114, @"mfdListPreExecution", v268);
+              v32(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v37, v35, v36, 114, @"mfdListPreExecution", v267);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -263,31 +263,31 @@
               v41 = sel_getName(a2);
               v42 = objc_opt_class();
               *buf = 67110402;
-              v310 = v39;
-              v311 = 2082;
-              v312 = v40;
-              v313 = 2082;
-              v314 = v41;
-              v315 = 1024;
-              v316 = 114;
-              v317 = 2114;
-              v318 = @"mfdListPreExecution";
-              v319 = 2114;
-              v320 = v42;
+              v309 = v39;
+              v310 = 2082;
+              v311 = v40;
+              v312 = 2082;
+              v313 = v41;
+              v314 = 1024;
+              v315 = 114;
+              v316 = 2114;
+              v317 = @"mfdListPreExecution";
+              v318 = 2114;
+              v319 = v42;
               _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", buf, 0x36u);
             }
           }
         }
 
-        v16 = [(__CFString *)v14 countByEnumeratingWithState:&v302 objects:v321 count:16];
+        v16 = [(__CFString *)v14 countByEnumeratingWithState:&v301 objects:v320 count:16];
       }
 
       while (v16);
     }
 
-    if ([v283 count])
+    if ([v282 count])
     {
-      [(NFSecureElementManagerSession *)self->_seSession deleteApplets:v283 queueServerConnection:0];
+      [(NFSecureElementManagerSession *)self->_seSession deleteApplets:v282 queueServerConnection:0];
     }
   }
 
@@ -301,15 +301,15 @@
       v45 = v44;
       v46 = object_getClass(self);
       v47 = class_isMetaClass(v46);
-      v252 = object_getClassName(self);
-      v258 = sel_getName(a2);
+      v251 = object_getClassName(self);
+      v257 = sel_getName(a2);
       v48 = 45;
       if (v47)
       {
         v48 = 43;
       }
 
-      v45(6, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to delete: %@", v48, v252, v258, 131, v43);
+      v45(6, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to delete: %@", v48, v251, v257, 131, v43);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -330,50 +330,49 @@
       v52 = object_getClassName(self);
       v53 = sel_getName(a2);
       *buf = 67110146;
-      v310 = v51;
-      v311 = 2082;
-      v312 = v52;
-      v313 = 2082;
-      v314 = v53;
-      v315 = 1024;
-      v316 = 131;
-      v317 = 2112;
-      v318 = v43;
+      v309 = v51;
+      v310 = 2082;
+      v311 = v52;
+      v312 = 2082;
+      v313 = v53;
+      v314 = 1024;
+      v315 = 131;
+      v316 = 2112;
+      v317 = v43;
       _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to delete: %@", buf, 0x2Cu);
     }
   }
 
-  v300 = 0u;
-  v301 = 0u;
-  v298 = 0u;
   v299 = 0u;
+  v300 = 0u;
+  v297 = 0u;
+  v298 = 0u;
   obj = v43;
-  v54 = [(__CFString *)obj countByEnumeratingWithState:&v298 objects:v308 count:16];
+  v54 = [(__CFString *)obj countByEnumeratingWithState:&v297 objects:v307 count:16];
   if (v54)
   {
     v55 = v54;
-    v56 = *v299;
+    v56 = *v298;
     do
     {
       for (j = 0; j != v55; j = j + 1)
       {
-        if (*v299 != v56)
+        if (*v298 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v58 = *(*(&v298 + 1) + 8 * j);
+        v58 = *(*(&v297 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          seSession = self->_seSession;
-          v60 = self->_targetSEID;
-          v297 = 0;
-          LODWORD(seSession) = SESEndPointDeleteWithSession();
+          v59 = self->_targetSEID;
+          v296 = 0;
+          v60 = SESEndPointDeleteWithSession();
           v61 = 0;
 
           v62 = 0;
-          if (seSession)
+          if (v60)
           {
             v63 = v61 == 0;
           }
@@ -395,7 +394,7 @@
                 v66 = object_getClass(self);
                 v67 = class_isMetaClass(v66);
                 v68 = object_getClassName(self);
-                v259 = sel_getName(a2);
+                v258 = sel_getName(a2);
                 if (v67)
                 {
                   v69 = 43;
@@ -406,7 +405,7 @@
                   v69 = 45;
                 }
 
-                v65(6, "%c[%{public}s %{public}s]:%i [TSM] Failed to delete key with identifier %@ : %@", v69, v68, v259, 140, v58, v61);
+                v65(6, "%c[%{public}s %{public}s]:%i [TSM] Failed to delete key with identifier %@ : %@", v69, v68, v258, 140, v58, v61);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -427,17 +426,17 @@
                 v73 = object_getClassName(self);
                 v74 = sel_getName(a2);
                 *buf = 67110402;
-                v310 = v72;
-                v311 = 2082;
-                v312 = v73;
-                v313 = 2082;
-                v314 = v74;
-                v315 = 1024;
-                v316 = 140;
-                v317 = 2112;
-                v318 = v58;
-                v319 = 2112;
-                v320 = v61;
+                v309 = v72;
+                v310 = 2082;
+                v311 = v73;
+                v312 = 2082;
+                v313 = v74;
+                v314 = 1024;
+                v315 = 140;
+                v316 = 2112;
+                v317 = v58;
+                v318 = 2112;
+                v319 = v61;
                 _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Failed to delete key with identifier %@ : %@", buf, 0x36u);
               }
             }
@@ -457,7 +456,7 @@
             v78 = class_isMetaClass(v77);
             v79 = object_getClassName(self);
             v80 = sel_getName(a2);
-            v269 = objc_opt_class();
+            v268 = objc_opt_class();
             if (v78)
             {
               v81 = 43;
@@ -468,7 +467,7 @@
               v81 = 45;
             }
 
-            v76(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v81, v79, v80, 134, @"PTDeleteKeyIdsPreExecution", v269);
+            v76(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v81, v79, v80, 134, @"PTDeleteKeyIdsPreExecution", v268);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -490,23 +489,23 @@
             v85 = sel_getName(a2);
             v86 = objc_opt_class();
             *buf = 67110402;
-            v310 = v83;
-            v311 = 2082;
-            v312 = v84;
-            v313 = 2082;
-            v314 = v85;
-            v315 = 1024;
-            v316 = 134;
-            v317 = 2114;
-            v318 = @"PTDeleteKeyIdsPreExecution";
-            v319 = 2114;
-            v320 = v86;
+            v309 = v83;
+            v310 = 2082;
+            v311 = v84;
+            v312 = 2082;
+            v313 = v85;
+            v314 = 1024;
+            v315 = 134;
+            v316 = 2114;
+            v317 = @"PTDeleteKeyIdsPreExecution";
+            v318 = 2114;
+            v319 = v86;
             _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", buf, 0x36u);
           }
         }
       }
 
-      v55 = [(__CFString *)obj countByEnumeratingWithState:&v298 objects:v308 count:16];
+      v55 = [(__CFString *)obj countByEnumeratingWithState:&v297 objects:v307 count:16];
     }
 
     while (v55);
@@ -522,15 +521,15 @@
       v89 = v88;
       v90 = object_getClass(self);
       v91 = class_isMetaClass(v90);
-      v253 = object_getClassName(self);
-      v260 = sel_getName(a2);
+      v252 = object_getClassName(self);
+      v259 = sel_getName(a2);
       v92 = 45;
       if (v91)
       {
         v92 = 43;
       }
 
-      v89(6, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to terminate: %@", v92, v253, v260, 145, v87);
+      v89(6, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to terminate: %@", v92, v252, v259, 145, v87);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -551,40 +550,40 @@
       v96 = object_getClassName(self);
       v97 = sel_getName(a2);
       *buf = 67110146;
-      v310 = v95;
-      v311 = 2082;
-      v312 = v96;
-      v313 = 2082;
-      v314 = v97;
-      v315 = 1024;
-      v316 = 145;
-      v317 = 2112;
-      v318 = v87;
+      v309 = v95;
+      v310 = 2082;
+      v311 = v96;
+      v312 = 2082;
+      v313 = v97;
+      v314 = 1024;
+      v315 = 145;
+      v316 = 2112;
+      v317 = v87;
       _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] PT Keys to terminate: %@", buf, 0x2Cu);
     }
   }
 
-  v296 = 0u;
-  v294 = 0u;
   v295 = 0u;
   v293 = 0u;
+  v294 = 0u;
+  v292 = 0u;
   v98 = v87;
-  v99 = [(__CFString *)v98 countByEnumeratingWithState:&v293 objects:v307 count:16];
-  v277 = v98;
+  v99 = [(__CFString *)v98 countByEnumeratingWithState:&v292 objects:v306 count:16];
+  v276 = v98;
   if (v99)
   {
     v100 = v99;
-    v101 = *v294;
+    v101 = *v293;
     do
     {
       for (k = 0; k != v100; k = k + 1)
       {
-        if (*v294 != v101)
+        if (*v293 != v101)
         {
           objc_enumerationMutation(v98);
         }
 
-        v103 = *(*(&v293 + 1) + 8 * k);
+        v103 = *(*(&v292 + 1) + 8 * k);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -616,16 +615,16 @@
                 v148 = class_isMetaClass(v147);
                 v149 = object_getClassName(self);
                 v150 = sel_getName(a2);
-                v272 = objc_opt_class();
-                v262 = v150;
-                v98 = v277;
+                v271 = objc_opt_class();
+                v261 = v150;
+                v98 = v276;
                 v151 = 45;
                 if (v148)
                 {
                   v151 = 43;
                 }
 
-                v146(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v151, v149, v262, 162, @"remoteTerminationRequest", v272);
+                v146(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v151, v149, v261, 162, @"remoteTerminationRequest", v271);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -647,17 +646,17 @@
                 v155 = sel_getName(a2);
                 v156 = objc_opt_class();
                 *buf = 67110402;
-                v310 = v153;
-                v311 = 2082;
-                v312 = v154;
-                v313 = 2082;
-                v314 = v155;
-                v315 = 1024;
-                v316 = 162;
-                v317 = 2114;
-                v318 = @"remoteTerminationRequest";
-                v319 = 2114;
-                v320 = v156;
+                v309 = v153;
+                v310 = 2082;
+                v311 = v154;
+                v312 = 2082;
+                v313 = v155;
+                v314 = 1024;
+                v315 = 162;
+                v316 = 2114;
+                v317 = @"remoteTerminationRequest";
+                v318 = 2114;
+                v319 = v156;
                 _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", buf, 0x36u);
               }
             }
@@ -668,66 +667,65 @@
               v109 = v108;
               if (!v105 || v108)
               {
-                v157 = self->_seSession;
                 targetSEID = self->_targetSEID;
-                v292 = 0;
-                v159 = targetSEID;
-                v160 = SESEndPointRemoteTerminationRequestFromTSM();
-                v161 = 0;
+                v291 = 0;
+                v158 = targetSEID;
+                v159 = SESEndPointRemoteTerminationRequestFromTSM();
+                v160 = 0;
 
-                if (!v160 || (v116 = 0, v161))
+                if (!v159 || (v116 = 0, v160))
                 {
                   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                  v162 = NFLogGetLogger();
-                  if (v162)
+                  v161 = NFLogGetLogger();
+                  if (v161)
                   {
-                    v163 = v162;
-                    v164 = object_getClass(self);
-                    v165 = class_isMetaClass(v164);
-                    v166 = object_getClassName(self);
-                    v263 = sel_getName(a2);
-                    v167 = 45;
-                    if (v165)
+                    v162 = v161;
+                    v163 = object_getClass(self);
+                    v164 = class_isMetaClass(v163);
+                    v165 = object_getClassName(self);
+                    v262 = sel_getName(a2);
+                    v166 = 45;
+                    if (v164)
                     {
-                      v167 = 43;
+                      v166 = 43;
                     }
 
-                    v163(3, "%c[%{public}s %{public}s]:%i Failed to terminate key with identifier %{public}@ : %{public}@", v167, v166, v263, 179, v104, v161);
+                    v162(3, "%c[%{public}s %{public}s]:%i Failed to terminate key with identifier %{public}@ : %{public}@", v166, v165, v262, 179, v104, v160);
                   }
 
                   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                  v168 = NFSharedLogGetLogger();
-                  if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                  v167 = NFSharedLogGetLogger();
+                  if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
                   {
-                    v169 = object_getClass(self);
-                    if (class_isMetaClass(v169))
+                    v168 = object_getClass(self);
+                    if (class_isMetaClass(v168))
                     {
-                      v170 = 43;
+                      v169 = 43;
                     }
 
                     else
                     {
-                      v170 = 45;
+                      v169 = 45;
                     }
 
-                    v171 = object_getClassName(self);
-                    v172 = sel_getName(a2);
+                    v170 = object_getClassName(self);
+                    v171 = sel_getName(a2);
                     *buf = 67110402;
-                    v310 = v170;
-                    v311 = 2082;
-                    v312 = v171;
-                    v313 = 2082;
-                    v314 = v172;
-                    v315 = 1024;
-                    v316 = 179;
-                    v317 = 2114;
-                    v318 = v104;
-                    v319 = 2114;
-                    v320 = v161;
-                    _os_log_impl(&_mh_execute_header, v168, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to terminate key with identifier %{public}@ : %{public}@", buf, 0x36u);
+                    v309 = v169;
+                    v310 = 2082;
+                    v311 = v170;
+                    v312 = 2082;
+                    v313 = v171;
+                    v314 = 1024;
+                    v315 = 179;
+                    v316 = 2114;
+                    v317 = v104;
+                    v318 = 2114;
+                    v319 = v160;
+                    _os_log_impl(&_mh_execute_header, v167, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to terminate key with identifier %{public}@ : %{public}@", buf, 0x36u);
                   }
 
-                  v116 = v161;
+                  v116 = v160;
                 }
               }
 
@@ -741,14 +739,14 @@
                   v112 = object_getClass(self);
                   v113 = class_isMetaClass(v112);
                   v114 = object_getClassName(self);
-                  v261 = sel_getName(a2);
+                  v260 = sel_getName(a2);
                   v115 = 45;
                   if (v113)
                   {
                     v115 = 43;
                   }
 
-                  v111(3, "%c[%{public}s %{public}s]:%i %{public}@ Got non-nil RTR but it wasn't hex-encoded : %{public}@", v115, v114, v261, 167, @"remoteTerminationRequest", v105);
+                  v111(3, "%c[%{public}s %{public}s]:%i %{public}@ Got non-nil RTR but it wasn't hex-encoded : %{public}@", v115, v114, v260, 167, @"remoteTerminationRequest", v105);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -769,22 +767,22 @@
                   v119 = object_getClassName(self);
                   v120 = sel_getName(a2);
                   *buf = 67110402;
-                  v310 = v118;
-                  v311 = 2082;
-                  v312 = v119;
-                  v313 = 2082;
-                  v314 = v120;
-                  v315 = 1024;
-                  v316 = 167;
-                  v317 = 2114;
-                  v318 = @"remoteTerminationRequest";
-                  v319 = 2114;
-                  v320 = v105;
+                  v309 = v118;
+                  v310 = 2082;
+                  v311 = v119;
+                  v312 = 2082;
+                  v313 = v120;
+                  v314 = 1024;
+                  v315 = 167;
+                  v316 = 2114;
+                  v317 = @"remoteTerminationRequest";
+                  v318 = 2114;
+                  v319 = v105;
                   _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Got non-nil RTR but it wasn't hex-encoded : %{public}@", buf, 0x36u);
                 }
               }
 
-              v98 = v277;
+              v98 = v276;
             }
           }
 
@@ -799,14 +797,14 @@
               v136 = class_isMetaClass(v135);
               v137 = object_getClassName(self);
               v138 = sel_getName(a2);
-              v271 = objc_opt_class();
+              v270 = objc_opt_class();
               v139 = 45;
               if (v136)
               {
                 v139 = 43;
               }
 
-              v134(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v139, v137, v138, 154, @"keyId", v271);
+              v134(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", v139, v137, v138, 154, @"keyId", v270);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -828,17 +826,17 @@
               v143 = sel_getName(a2);
               v144 = objc_opt_class();
               *buf = 67110402;
-              v310 = v141;
-              v311 = 2082;
-              v312 = v142;
-              v313 = 2082;
-              v314 = v143;
-              v315 = 1024;
-              v316 = 154;
-              v317 = 2114;
-              v318 = @"keyId";
-              v319 = 2114;
-              v320 = v144;
+              v309 = v141;
+              v310 = 2082;
+              v311 = v142;
+              v312 = 2082;
+              v313 = v143;
+              v314 = 1024;
+              v315 = 154;
+              v316 = 2114;
+              v317 = @"keyId";
+              v318 = 2114;
+              v319 = v144;
               _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected String, got %{public}@", buf, 0x36u);
             }
           }
@@ -855,14 +853,14 @@
             v124 = class_isMetaClass(v123);
             v125 = object_getClassName(self);
             v126 = sel_getName(a2);
-            v270 = objc_opt_class();
+            v269 = objc_opt_class();
             v127 = 45;
             if (v124)
             {
               v127 = 43;
             }
 
-            v122(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected Dictionary, got %{public}@", v127, v125, v126, 148, @"PTTerminateKeyIdsPreExecution", v270);
+            v122(3, "%c[%{public}s %{public}s]:%i %{public}@ Expected Dictionary, got %{public}@", v127, v125, v126, 148, @"PTTerminateKeyIdsPreExecution", v269);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -884,375 +882,375 @@
             v131 = sel_getName(a2);
             v132 = objc_opt_class();
             *buf = 67110402;
-            v310 = v129;
-            v311 = 2082;
-            v312 = v130;
-            v313 = 2082;
-            v314 = v131;
-            v315 = 1024;
-            v316 = 148;
-            v317 = 2114;
-            v318 = @"PTTerminateKeyIdsPreExecution";
-            v319 = 2114;
-            v320 = v132;
+            v309 = v129;
+            v310 = 2082;
+            v311 = v130;
+            v312 = 2082;
+            v313 = v131;
+            v314 = 1024;
+            v315 = 148;
+            v316 = 2114;
+            v317 = @"PTTerminateKeyIdsPreExecution";
+            v318 = 2114;
+            v319 = v132;
             _os_log_impl(&_mh_execute_header, v104, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %{public}@ Expected Dictionary, got %{public}@", buf, 0x36u);
           }
         }
       }
 
-      v100 = [(__CFString *)v98 countByEnumeratingWithState:&v293 objects:v307 count:16];
+      v100 = [(__CFString *)v98 countByEnumeratingWithState:&v292 objects:v306 count:16];
     }
 
     while (v100);
   }
 
-  v173 = [notificationCopy NF_arrayForKey:@"FiDOKeyRevokeList"];
-  if ([(__CFString *)v173 count]&& byte_10005BAB0 == 1)
+  v172 = [notificationCopy NF_arrayForKey:@"FiDOKeyRevokeList"];
+  if ([(__CFString *)v172 count]&& byte_10005BAB0 == 1)
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v174 = NFLogGetLogger();
-    if (v174)
+    v173 = NFLogGetLogger();
+    if (v173)
     {
-      v175 = v174;
-      v176 = object_getClass(self);
-      v177 = class_isMetaClass(v176);
-      v254 = object_getClassName(self);
-      v264 = sel_getName(a2);
-      v178 = 45;
-      if (v177)
+      v174 = v173;
+      v175 = object_getClass(self);
+      v176 = class_isMetaClass(v175);
+      v253 = object_getClassName(self);
+      v263 = sel_getName(a2);
+      v177 = 45;
+      if (v176)
       {
-        v178 = 43;
+        v177 = 43;
       }
 
-      v175(6, "%c[%{public}s %{public}s]:%i [TSM] Revoking FiDO Keys %@", v178, v254, v264, 186, v173);
+      v174(6, "%c[%{public}s %{public}s]:%i [TSM] Revoking FiDO Keys %@", v177, v253, v263, 186, v172);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v179 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
+    v178 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
     {
-      v180 = object_getClass(self);
-      if (class_isMetaClass(v180))
+      v179 = object_getClass(self);
+      if (class_isMetaClass(v179))
       {
-        v181 = 43;
+        v180 = 43;
       }
 
       else
       {
-        v181 = 45;
+        v180 = 45;
       }
 
-      v182 = object_getClassName(self);
-      v183 = sel_getName(a2);
+      v181 = object_getClassName(self);
+      v182 = sel_getName(a2);
       *buf = 67110146;
-      v310 = v181;
-      v311 = 2082;
-      v312 = v182;
-      v313 = 2082;
-      v314 = v183;
-      v315 = 1024;
-      v316 = 186;
-      v317 = 2112;
-      v318 = v173;
-      _os_log_impl(&_mh_execute_header, v179, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Revoking FiDO Keys %@", buf, 0x2Cu);
+      v309 = v180;
+      v310 = 2082;
+      v311 = v181;
+      v312 = 2082;
+      v313 = v182;
+      v314 = 1024;
+      v315 = 186;
+      v316 = 2112;
+      v317 = v172;
+      _os_log_impl(&_mh_execute_header, v178, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Revoking FiDO Keys %@", buf, 0x2Cu);
     }
   }
 
-  v290 = 0u;
-  v291 = 0u;
-  v288 = 0u;
   v289 = 0u;
-  v184 = v173;
-  v284 = [(__CFString *)v184 countByEnumeratingWithState:&v288 objects:v306 count:16];
-  if (v284)
+  v290 = 0u;
+  v287 = 0u;
+  v288 = 0u;
+  v183 = v172;
+  v283 = [(__CFString *)v183 countByEnumeratingWithState:&v287 objects:v305 count:16];
+  if (v283)
   {
-    v185 = *v289;
-    v278 = v184;
-    v281 = *v289;
+    v184 = *v288;
+    v277 = v183;
+    v280 = *v288;
     do
     {
-      for (m = 0; m != v284; m = m + 1)
+      for (m = 0; m != v283; m = m + 1)
       {
-        if (*v289 != v185)
+        if (*v288 != v184)
         {
-          objc_enumerationMutation(v184);
+          objc_enumerationMutation(v183);
         }
 
-        v187 = *(*(&v288 + 1) + 8 * m);
+        v186 = *(*(&v287 + 1) + 8 * m);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v188 = [(__CFString *)v187 NF_stringForKey:@"relyingParty"];
-          v189 = [(__CFString *)v187 NF_stringForKey:@"rpAccountHash"];
-          v190 = [(__CFString *)v187 NF_stringForKey:@"keyHash"];
-          v191 = [NSData NF_dataWithHexString:v190];
-          v192 = v191;
-          if (v188)
+          v187 = [(__CFString *)v186 NF_stringForKey:@"relyingParty"];
+          v188 = [(__CFString *)v186 NF_stringForKey:@"rpAccountHash"];
+          v189 = [(__CFString *)v186 NF_stringForKey:@"keyHash"];
+          v190 = [NSData NF_dataWithHexString:v189];
+          v191 = v190;
+          if (v187)
           {
-            v193 = v189 == 0;
+            v192 = v188 == 0;
           }
 
           else
           {
-            v193 = 1;
+            v192 = 1;
           }
 
-          if (v193 || v191 == 0)
+          if (v192 || v190 == 0)
           {
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v195 = NFLogGetLogger();
-            if (v195)
+            v194 = NFLogGetLogger();
+            if (v194)
             {
-              v196 = v195;
-              v197 = object_getClass(self);
-              v279 = v192;
-              v198 = v189;
-              v199 = v184;
-              v200 = v190;
-              v201 = class_isMetaClass(v197);
-              v255 = object_getClassName(self);
-              v265 = sel_getName(a2);
-              v63 = !v201;
-              v190 = v200;
-              v184 = v199;
-              v189 = v198;
-              v192 = v279;
-              v202 = 45;
+              v195 = v194;
+              v196 = object_getClass(self);
+              v278 = v191;
+              v197 = v188;
+              v198 = v183;
+              v199 = v189;
+              v200 = class_isMetaClass(v196);
+              v254 = object_getClassName(self);
+              v264 = sel_getName(a2);
+              v63 = !v200;
+              v189 = v199;
+              v183 = v198;
+              v188 = v197;
+              v191 = v278;
+              v201 = 45;
               if (!v63)
               {
-                v202 = 43;
+                v201 = 43;
               }
 
-              v196(3, "%c[%{public}s %{public}s]:%i Invalid FiDO Key Revoke directive %{public}@", v202, v255, v265, 198, v187);
+              v195(3, "%c[%{public}s %{public}s]:%i Invalid FiDO Key Revoke directive %{public}@", v201, v254, v264, 198, v186);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v219 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v219, OS_LOG_TYPE_ERROR))
+            v218 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v218, OS_LOG_TYPE_ERROR))
             {
-              v203 = object_getClass(self);
-              if (class_isMetaClass(v203))
+              v202 = object_getClass(self);
+              if (class_isMetaClass(v202))
               {
-                v204 = 43;
+                v203 = 43;
               }
 
               else
               {
-                v204 = 45;
+                v203 = 45;
               }
 
-              v205 = object_getClassName(self);
-              v206 = sel_getName(a2);
+              v204 = object_getClassName(self);
+              v205 = sel_getName(a2);
               *buf = 67110146;
-              v310 = v204;
-              v311 = 2082;
-              v312 = v205;
-              v313 = 2082;
-              v314 = v206;
-              v315 = 1024;
-              v316 = 198;
-              v317 = 2114;
-              v318 = v187;
-              _os_log_impl(&_mh_execute_header, v219, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid FiDO Key Revoke directive %{public}@", buf, 0x2Cu);
+              v309 = v203;
+              v310 = 2082;
+              v311 = v204;
+              v312 = 2082;
+              v313 = v205;
+              v314 = 1024;
+              v315 = 198;
+              v316 = 2114;
+              v317 = v186;
+              _os_log_impl(&_mh_execute_header, v218, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid FiDO Key Revoke directive %{public}@", buf, 0x2Cu);
             }
           }
 
           else
           {
-            v280 = v190;
-            v219 = [SEFidoKeySearchParameters withRelyingParty:v188 relyingPartyAccountHash:v189 fidoKeyHash:v191];
-            v220 = +[SEFidoKeyService shared];
-            v221 = self->_seSession;
-            v222 = self->_targetSEID;
-            v287 = 0;
-            v223 = [v220 deleteFidoKeyFor:v219 usingSession:v221 withSessionSEID:v222 error:&v287];
-            v224 = v287;
+            v279 = v189;
+            v218 = [SEFidoKeySearchParameters withRelyingParty:v187 relyingPartyAccountHash:v188 fidoKeyHash:v190];
+            v219 = +[SEFidoKeyService shared];
+            seSession = self->_seSession;
+            v221 = self->_targetSEID;
+            v286 = 0;
+            v222 = [v219 deleteFidoKeyFor:v218 usingSession:seSession withSessionSEID:v221 error:&v286];
+            v223 = v286;
 
-            if (v223)
+            if (v222)
             {
-              v225 = v224 == 0;
+              v224 = v223 == 0;
             }
 
             else
             {
-              v225 = 0;
+              v224 = 0;
             }
 
-            if (!v225)
+            if (!v224)
             {
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v226 = NFLogGetLogger();
-              if (v226)
+              v225 = NFLogGetLogger();
+              if (v225)
               {
-                v227 = v226;
-                v228 = object_getClass(self);
-                v229 = class_isMetaClass(v228);
-                v230 = object_getClassName(self);
-                v266 = sel_getName(a2);
-                v231 = 45;
-                if (v229)
+                v226 = v225;
+                v227 = object_getClass(self);
+                v228 = class_isMetaClass(v227);
+                v229 = object_getClassName(self);
+                v265 = sel_getName(a2);
+                v230 = 45;
+                if (v228)
                 {
-                  v231 = 43;
+                  v230 = 43;
                 }
 
-                v227(3, "%c[%{public}s %{public}s]:%i Failed to revoke FiDO Key %{public}@ : %{public}@", v231, v230, v266, 211, v187, v224);
+                v226(3, "%c[%{public}s %{public}s]:%i Failed to revoke FiDO Key %{public}@ : %{public}@", v230, v229, v265, 211, v186, v223);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v232 = NFSharedLogGetLogger();
-              if (os_log_type_enabled(v232, OS_LOG_TYPE_ERROR))
+              v231 = NFSharedLogGetLogger();
+              if (os_log_type_enabled(v231, OS_LOG_TYPE_ERROR))
               {
-                v233 = object_getClass(self);
-                if (class_isMetaClass(v233))
+                v232 = object_getClass(self);
+                if (class_isMetaClass(v232))
                 {
-                  v234 = 43;
+                  v233 = 43;
                 }
 
                 else
                 {
-                  v234 = 45;
+                  v233 = 45;
                 }
 
-                v235 = object_getClassName(self);
-                v236 = sel_getName(a2);
+                v234 = object_getClassName(self);
+                v235 = sel_getName(a2);
                 *buf = 67110402;
-                v310 = v234;
-                v311 = 2082;
-                v312 = v235;
-                v313 = 2082;
-                v314 = v236;
-                v315 = 1024;
-                v316 = 211;
-                v317 = 2114;
-                v318 = v187;
-                v319 = 2114;
-                v320 = v224;
-                _os_log_impl(&_mh_execute_header, v232, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to revoke FiDO Key %{public}@ : %{public}@", buf, 0x36u);
+                v309 = v233;
+                v310 = 2082;
+                v311 = v234;
+                v312 = 2082;
+                v313 = v235;
+                v314 = 1024;
+                v315 = 211;
+                v316 = 2114;
+                v317 = v186;
+                v318 = 2114;
+                v319 = v223;
+                _os_log_impl(&_mh_execute_header, v231, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to revoke FiDO Key %{public}@ : %{public}@", buf, 0x36u);
               }
             }
 
-            v184 = v278;
-            v190 = v280;
+            v183 = v277;
+            v189 = v279;
           }
 
-          v185 = v281;
+          v184 = v280;
         }
 
         else
         {
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v207 = NFLogGetLogger();
-          if (v207)
+          v206 = NFLogGetLogger();
+          if (v206)
           {
-            v208 = v207;
-            v209 = object_getClass(self);
-            v210 = class_isMetaClass(v209);
-            v211 = object_getClassName(self);
-            v212 = sel_getName(a2);
-            v273 = objc_opt_class();
-            v213 = 45;
-            if (v210)
+            v207 = v206;
+            v208 = object_getClass(self);
+            v209 = class_isMetaClass(v208);
+            v210 = object_getClassName(self);
+            v211 = sel_getName(a2);
+            v272 = objc_opt_class();
+            v212 = 45;
+            if (v209)
             {
-              v213 = 43;
+              v212 = 43;
             }
 
-            v208(3, "%c[%{public}s %{public}s]:%i Element in %{public}@ Expected Dictionary, got %{public}@", v213, v211, v212, 189, @"FiDOKeyRevokeList", v273);
+            v207(3, "%c[%{public}s %{public}s]:%i Element in %{public}@ Expected Dictionary, got %{public}@", v212, v210, v211, 189, @"FiDOKeyRevokeList", v272);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-          v188 = NFSharedLogGetLogger();
-          if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
+          v187 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
           {
-            v214 = object_getClass(self);
-            if (class_isMetaClass(v214))
+            v213 = object_getClass(self);
+            if (class_isMetaClass(v213))
             {
-              v215 = 43;
+              v214 = 43;
             }
 
             else
             {
-              v215 = 45;
+              v214 = 45;
             }
 
-            v216 = object_getClassName(self);
-            v217 = sel_getName(a2);
-            v218 = objc_opt_class();
+            v215 = object_getClassName(self);
+            v216 = sel_getName(a2);
+            v217 = objc_opt_class();
             *buf = 67110402;
-            v310 = v215;
-            v311 = 2082;
-            v312 = v216;
-            v313 = 2082;
-            v314 = v217;
-            v315 = 1024;
-            v316 = 189;
-            v317 = 2114;
-            v318 = @"FiDOKeyRevokeList";
-            v319 = 2114;
-            v320 = v218;
-            _os_log_impl(&_mh_execute_header, v188, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Element in %{public}@ Expected Dictionary, got %{public}@", buf, 0x36u);
+            v309 = v214;
+            v310 = 2082;
+            v311 = v215;
+            v312 = 2082;
+            v313 = v216;
+            v314 = 1024;
+            v315 = 189;
+            v316 = 2114;
+            v317 = @"FiDOKeyRevokeList";
+            v318 = 2114;
+            v319 = v217;
+            _os_log_impl(&_mh_execute_header, v187, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Element in %{public}@ Expected Dictionary, got %{public}@", buf, 0x36u);
           }
         }
       }
 
-      v284 = [(__CFString *)v184 countByEnumeratingWithState:&v288 objects:v306 count:16];
+      v283 = [(__CFString *)v183 countByEnumeratingWithState:&v287 objects:v305 count:16];
     }
 
-    while (v284);
+    while (v283);
   }
 
-  v237 = [notificationCopy NF_numberForKey:@"spManagedStart"];
-  if (v237)
+  v236 = [notificationCopy NF_numberForKey:@"spManagedStart"];
+  if (v236)
   {
     if (byte_10005BAB0 == 1)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v238 = NFLogGetLogger();
-      if (v238)
+      v237 = NFLogGetLogger();
+      if (v237)
       {
-        v239 = v238;
-        v240 = object_getClass(self);
-        v241 = class_isMetaClass(v240);
-        v242 = object_getClassName(self);
-        v267 = sel_getName(a2);
-        v243 = 45;
-        if (v241)
+        v238 = v237;
+        v239 = object_getClass(self);
+        v240 = class_isMetaClass(v239);
+        v241 = object_getClassName(self);
+        v266 = sel_getName(a2);
+        v242 = 45;
+        if (v240)
         {
-          v243 = 43;
+          v242 = 43;
         }
 
-        v239(6, "%c[%{public}s %{public}s]:%i [TSM] SP managed script start", v243, v242, v267, 218);
+        v238(6, "%c[%{public}s %{public}s]:%i [TSM] SP managed script start", v242, v241, v266, 218);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v244 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v244, OS_LOG_TYPE_DEFAULT))
+      v243 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v243, OS_LOG_TYPE_DEFAULT))
       {
-        v245 = object_getClass(self);
-        if (class_isMetaClass(v245))
+        v244 = object_getClass(self);
+        if (class_isMetaClass(v244))
         {
-          v246 = 43;
+          v245 = 43;
         }
 
         else
         {
-          v246 = 45;
+          v245 = 45;
         }
 
-        v247 = object_getClassName(self);
-        v248 = sel_getName(a2);
+        v246 = object_getClassName(self);
+        v247 = sel_getName(a2);
         *buf = 67109890;
-        v310 = v246;
-        v311 = 2082;
-        v312 = v247;
-        v313 = 2082;
-        v314 = v248;
-        v315 = 1024;
-        v316 = 218;
-        _os_log_impl(&_mh_execute_header, v244, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] SP managed script start", buf, 0x22u);
+        v309 = v245;
+        v310 = 2082;
+        v311 = v246;
+        v312 = 2082;
+        v313 = v247;
+        v314 = 1024;
+        v315 = 218;
+        _os_log_impl(&_mh_execute_header, v243, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] SP managed script start", buf, 0x22u);
       }
     }
 
-    bOOLValue = [v237 BOOLValue];
+    bOOLValue = [v236 BOOLValue];
     self->_spManagedScript = bOOLValue;
     if (bOOLValue)
     {
@@ -1312,67 +1310,65 @@
         }
 
         *buf = 67109890;
-        v89 = v29;
+        v87 = v29;
+        v88 = 2082;
+        v89 = object_getClassName(self);
         v90 = 2082;
-        v91 = object_getClassName(self);
-        v92 = 2082;
-        v93 = sel_getName(a2);
-        v94 = 1024;
-        v95 = 242;
+        v91 = sel_getName(a2);
+        v92 = 1024;
+        v93 = 242;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i CleanupPerformed", buf, 0x22u);
       }
 
-      seSession = self->_seSession;
-      targetSEID = self->_targetSEID;
-      v32 = SESEndPointAppletCleanup();
-      if (v32)
+      v30 = SESEndPointAppletCleanup();
+      if (v30)
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v33 = NFLogGetLogger();
-        if (v33)
+        v31 = NFLogGetLogger();
+        if (v31)
         {
-          v34 = v33;
-          v35 = object_getClass(self);
-          v36 = class_isMetaClass(v35);
-          v73 = object_getClassName(self);
-          v76 = sel_getName(a2);
-          v37 = 45;
-          if (v36)
+          v32 = v31;
+          v33 = object_getClass(self);
+          v34 = class_isMetaClass(v33);
+          v71 = object_getClassName(self);
+          v74 = sel_getName(a2);
+          v35 = 45;
+          if (v34)
           {
-            v37 = 43;
+            v35 = 43;
           }
 
-          v34(3, "%c[%{public}s %{public}s]:%i SESEndPointAppletCleanup failed: %@", v37, v73, v76, 245, v32);
+          v32(3, "%c[%{public}s %{public}s]:%i SESEndPointAppletCleanup failed: %@", v35, v71, v74, 245, v30);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v38 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v36 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          v39 = object_getClass(self);
-          if (class_isMetaClass(v39))
+          v37 = object_getClass(self);
+          if (class_isMetaClass(v37))
           {
-            v40 = 43;
+            v38 = 43;
           }
 
           else
           {
-            v40 = 45;
+            v38 = 45;
           }
 
-          v41 = object_getClassName(self);
-          v42 = sel_getName(a2);
+          v39 = object_getClassName(self);
+          v40 = sel_getName(a2);
           *buf = 67110146;
-          v89 = v40;
+          v87 = v38;
+          v88 = 2082;
+          v89 = v39;
           v90 = 2082;
-          v91 = v41;
-          v92 = 2082;
-          v93 = v42;
-          v94 = 1024;
-          v95 = 245;
-          v96 = 2112;
-          v97 = v32;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i SESEndPointAppletCleanup failed: %@", buf, 0x2Cu);
+          v91 = v40;
+          v92 = 1024;
+          v93 = 245;
+          v94 = 2112;
+          v95 = v30;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i SESEndPointAppletCleanup failed: %@", buf, 0x2Cu);
         }
       }
     }
@@ -1382,10 +1378,10 @@
       v18 = [notificationCopy NF_stringForKey:@"aid"];
       if ([v18 length])
       {
-        v43 = [NSData NF_dataWithHexString:v18];
-        if (v43)
+        v41 = [NSData NF_dataWithHexString:v18];
+        if (v41)
         {
-          [(NSMutableDictionary *)self->_endMetric setObject:v43 forKeyedSubscript:@"aid"];
+          [(NSMutableDictionary *)self->_endMetric setObject:v41 forKeyedSubscript:@"aid"];
         }
 
         if (statusCopy)
@@ -1394,89 +1390,89 @@
         }
       }
 
-      v79 = identifierCopy;
-      v80 = notificationCopy;
-      v44 = [notificationCopy NF_arrayForKey:@"aids"];
-      v45 = objc_opt_new();
+      v77 = identifierCopy;
+      v78 = notificationCopy;
+      v42 = [notificationCopy NF_arrayForKey:@"aids"];
+      v43 = objc_opt_new();
+      v81 = 0u;
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
-      v86 = 0u;
-      obj = v44;
-      v46 = [obj countByEnumeratingWithState:&v83 objects:v87 count:16];
-      if (v46)
+      obj = v42;
+      v44 = [obj countByEnumeratingWithState:&v81 objects:v85 count:16];
+      if (v44)
       {
-        v47 = v46;
-        v48 = *v84;
+        v45 = v44;
+        v46 = *v82;
         while (2)
         {
-          for (i = 0; i != v47; i = i + 1)
+          for (i = 0; i != v45; i = i + 1)
           {
-            if (*v84 != v48)
+            if (*v82 != v46)
             {
               objc_enumerationMutation(obj);
             }
 
-            v50 = *(*(&v83 + 1) + 8 * i);
+            v48 = *(*(&v81 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v62 = NFLogGetLogger();
-              if (v62)
+              v60 = NFLogGetLogger();
+              if (v60)
               {
-                v63 = v62;
-                v64 = object_getClass(self);
-                v65 = class_isMetaClass(v64);
-                v66 = object_getClassName(self);
-                v78 = sel_getName(a2);
-                v67 = 45;
-                if (v65)
+                v61 = v60;
+                v62 = object_getClass(self);
+                v63 = class_isMetaClass(v62);
+                v64 = object_getClassName(self);
+                v76 = sel_getName(a2);
+                v65 = 45;
+                if (v63)
                 {
-                  v67 = 43;
+                  v65 = 43;
                 }
 
-                v63(3, "%c[%{public}s %{public}s]:%i target AID is not NSString!", v67, v66, v78, 268);
+                v61(3, "%c[%{public}s %{public}s]:%i target AID is not NSString!", v65, v64, v76, 268);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v68 = NFSharedLogGetLogger();
-              notificationCopy = v80;
-              if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+              v66 = NFSharedLogGetLogger();
+              notificationCopy = v78;
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
               {
-                v69 = object_getClass(self);
-                if (class_isMetaClass(v69))
+                v67 = object_getClass(self);
+                if (class_isMetaClass(v67))
                 {
-                  v70 = 43;
+                  v68 = 43;
                 }
 
                 else
                 {
-                  v70 = 45;
+                  v68 = 45;
                 }
 
-                v71 = object_getClassName(self);
-                v72 = sel_getName(a2);
+                v69 = object_getClassName(self);
+                v70 = sel_getName(a2);
                 *buf = 67109890;
-                v89 = v70;
+                v87 = v68;
+                v88 = 2082;
+                v89 = v69;
                 v90 = 2082;
-                v91 = v71;
-                v92 = 2082;
-                v93 = v72;
-                v94 = 1024;
-                v95 = 268;
-                _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i target AID is not NSString!", buf, 0x22u);
+                v91 = v70;
+                v92 = 1024;
+                v93 = 268;
+                _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i target AID is not NSString!", buf, 0x22u);
               }
 
-              identifierCopy = v79;
+              identifierCopy = v77;
               goto LABEL_68;
             }
 
-            [v45 addObject:v50];
+            [v43 addObject:v48];
           }
 
-          v47 = [obj countByEnumeratingWithState:&v83 objects:v87 count:16];
-          if (v47)
+          v45 = [obj countByEnumeratingWithState:&v81 objects:v85 count:16];
+          if (v45)
           {
             continue;
           }
@@ -1485,13 +1481,13 @@
         }
       }
 
-      identifierCopy = v79;
-      if ([v45 count] && statusCopy)
+      identifierCopy = v77;
+      if ([v43 count] && statusCopy)
       {
-        [(NFRemoteAdminSession *)self processAppletsDeleted:v45 regionIdentifier:v79];
+        [(NFRemoteAdminSession *)self processAppletsDeleted:v43 regionIdentifier:v77];
       }
 
-      notificationCopy = v80;
+      notificationCopy = v78;
     }
 
     v18 = [notificationCopy NF_numberForKey:@"mfdAllPostExecution"];
@@ -1500,49 +1496,49 @@
       if (byte_10005BAB0 == 1)
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v51 = NFLogGetLogger();
-        if (v51)
+        v49 = NFLogGetLogger();
+        if (v49)
         {
-          v52 = v51;
-          v53 = object_getClass(self);
-          v54 = class_isMetaClass(v53);
-          v55 = object_getClassName(self);
-          v77 = sel_getName(a2);
-          v56 = 45;
-          if (v54)
+          v50 = v49;
+          v51 = object_getClass(self);
+          v52 = class_isMetaClass(v51);
+          v53 = object_getClassName(self);
+          v75 = sel_getName(a2);
+          v54 = 45;
+          if (v52)
           {
-            v56 = 43;
+            v54 = 43;
           }
 
-          v52(6, "%c[%{public}s %{public}s]:%i [TSM] Deleting all applets", v56, v55, v77, 282);
+          v50(6, "%c[%{public}s %{public}s]:%i [TSM] Deleting all applets", v54, v53, v75, 282);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v57 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v55 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
-          v58 = object_getClass(self);
-          if (class_isMetaClass(v58))
+          v56 = object_getClass(self);
+          if (class_isMetaClass(v56))
           {
-            v59 = 43;
+            v57 = 43;
           }
 
           else
           {
-            v59 = 45;
+            v57 = 45;
           }
 
-          v60 = object_getClassName(self);
-          v61 = sel_getName(a2);
+          v58 = object_getClassName(self);
+          v59 = sel_getName(a2);
           *buf = 67109890;
-          v89 = v59;
+          v87 = v57;
+          v88 = 2082;
+          v89 = v58;
           v90 = 2082;
-          v91 = v60;
-          v92 = 2082;
-          v93 = v61;
-          v94 = 1024;
-          v95 = 282;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Deleting all applets", buf, 0x22u);
+          v91 = v59;
+          v92 = 1024;
+          v93 = 282;
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Deleting all applets", buf, 0x22u);
         }
       }
 
@@ -1560,14 +1556,14 @@
       v14 = object_getClass(self);
       v15 = class_isMetaClass(v14);
       v16 = object_getClassName(self);
-      v74 = sel_getName(a2);
+      v72 = sel_getName(a2);
       v17 = 45;
       if (v15)
       {
         v17 = 43;
       }
 
-      v13(3, "%c[%{public}s %{public}s]:%i Missing notification type", v17, v16, v74, 231);
+      v13(3, "%c[%{public}s %{public}s]:%i Missing notification type", v17, v16, v72, 231);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1586,13 +1582,13 @@
       }
 
       *buf = 67109890;
-      v89 = v20;
+      v87 = v20;
+      v88 = 2082;
+      v89 = object_getClassName(self);
       v90 = 2082;
-      v91 = object_getClassName(self);
-      v92 = 2082;
-      v93 = sel_getName(a2);
-      v94 = 1024;
-      v95 = 231;
+      v91 = sel_getName(a2);
+      v92 = 1024;
+      v93 = 231;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing notification type", buf, 0x22u);
     }
   }

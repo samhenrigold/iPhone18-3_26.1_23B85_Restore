@@ -212,20 +212,20 @@
   p_isa = &equalCopy->super.super.isa;
   if (equalCopy == self)
   {
-    v6 = 1;
+    isEqual = 1;
   }
 
   else if (equalCopy && [(UIBlurEffect *)equalCopy isMemberOfClass:objc_opt_class()])
   {
-    v6 = [p_isa[1] isEqual:self->_impl];
+    isEqual = objc_msgSend_isEqual_(p_isa[1]);
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (void)_updateEffectDescriptor:(id)descriptor forEnvironment:(id)environment usage:(int64_t)usage

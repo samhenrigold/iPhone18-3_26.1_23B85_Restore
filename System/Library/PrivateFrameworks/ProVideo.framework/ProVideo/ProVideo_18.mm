@@ -1,3 +1,55 @@
+uint64_t TXTranscriptionGenerator::getWordIndexInPhrase(TXTranscriptionGenerator *this, uint64_t a2, int a3, unsigned int *a4)
+{
+  result = 0;
+  if (!a4)
+  {
+    return result;
+  }
+
+  v6 = this + 0x10000;
+  if (*(this + 8195) == *(this + 8196))
+  {
+    return result;
+  }
+
+  v9 = (*(*this + 720))(this, a2);
+  v11 = *(v6 + 3);
+  v10 = *(v6 + 4);
+  if (v11 == v10)
+  {
+    return 0;
+  }
+
+  v12 = *v11;
+  if (v9 >= *v11)
+  {
+    v14 = (v11 + 1);
+    while (v14 != v10)
+    {
+      v13 = v12;
+      v15 = *v14++;
+      v12 = v15;
+      if (v9 < v15)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    return 0;
+  }
+
+  v13 = 0;
+LABEL_9:
+  v16 = v12 + ~v9;
+  if (!a3)
+  {
+    v16 = v9 - v13;
+  }
+
+  *a4 = v16;
+  return 1;
+}
+
 uint64_t TXTranscriptionGenerator::charIndexToBlockIndex(TXTranscriptionGenerator *this, unsigned int a2)
 {
   v2 = *(this + 0x2000);
@@ -120,7 +172,7 @@ uint64_t TXTranscriptionGenerator::getNumWords(TXTranscriptionGenerator *this)
 uint64_t TXTranscriptionGenerator::getWordIndex(PCString *this, signed int a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v27, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v27, v4);
   if (TXTranscriptionGenerator::hasBlockSequencing(this) && !this[7624].var0)
   {
     (this->var0[34].data)(this);
@@ -135,7 +187,7 @@ uint64_t TXTranscriptionGenerator::getWordIndex(PCString *this, signed int a2)
       {
         v26 = a2;
         v28.var0 = &v26;
-        v11 = *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26) + 8);
+        v11 = *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26, &std::piecewise_construct, &v28) + 8);
         goto LABEL_36;
       }
 
@@ -143,7 +195,7 @@ uint64_t TXTranscriptionGenerator::getWordIndex(PCString *this, signed int a2)
     }
   }
 
-  TXChannelString::getString(this + 2381, &v28);
+  TXChannelString::getString(&v28, this + 2381);
   v25 = PCString::createUniStr(&v28);
   PCString::~PCString(&v28);
   StringPtr = TXChannelString::getStringPtr(&this[2381]);
@@ -156,7 +208,7 @@ uint64_t TXTranscriptionGenerator::getWordIndex(PCString *this, signed int a2)
     {
       v26 = var0 - 1;
       v28.var0 = &v26;
-      v10 = (*(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26) + 8) + 1);
+      v10 = (*(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26, &std::piecewise_construct, &v28) + 8) + 1);
     }
 
     else
@@ -185,7 +237,7 @@ uint64_t TXTranscriptionGenerator::getWordIndex(PCString *this, signed int a2)
 
         v26 = v13;
         v28.var0 = &v26;
-        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26) + 8) = v12;
+        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26, &std::piecewise_construct, &v28) + 8) = v12;
         v13 = (v13 + 1);
         if (v8 == v13)
         {
@@ -237,7 +289,7 @@ LABEL_28:
       {
         v26 = v13;
         v28.var0 = &v26;
-        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26) + 8) = v11;
+        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&this[7622], &v26, &std::piecewise_construct, &v28) + 8) = v11;
         LODWORD(v13) = v13 + 1;
       }
 
@@ -250,7 +302,7 @@ LABEL_35:
   }
 
 LABEL_36:
-  OZLockingGroup::WriteSentry::~WriteSentry(v27);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v27);
   return v11;
 }
 
@@ -259,7 +311,7 @@ void TXTranscriptionGenerator::computeWordIndices(TXTranscriptionGenerator *this
   v1 = this + 65440;
   v2 = this + 60976;
   v3 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v28, v3);
+  OZLockingGroup::WriteSentry::WriteSentry(&v28, v3);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v2, *(v2 + 1));
   *v2 = v2 + 8;
   *(v2 + 2) = 0;
@@ -326,7 +378,7 @@ void TXTranscriptionGenerator::computeWordIndices(TXTranscriptionGenerator *this
         {
           v17 = v15;
           v29.var0 = &v17;
-          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2, &v17) + 8) = v14;
+          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2, &v17, &std::piecewise_construct, &v29) + 8) = v14;
           LODWORD(v15) = v15 + 1;
           --v16;
         }
@@ -349,10 +401,10 @@ void TXTranscriptionGenerator::computeWordIndices(TXTranscriptionGenerator *this
     operator delete(__p);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v28);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v28);
 }
 
-void sub_25FB46EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_25FB46EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   _Block_object_dispose(&a18, 8);
   if (__p)
@@ -367,14 +419,12 @@ void sub_25FB46EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__14(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -452,7 +502,7 @@ void ___ZN24TXTranscriptionGenerator18computeWordIndicesEv_block_invoke(uint64_t
 unint64_t TXTranscriptionGenerator::getWordRange(TXTranscriptionGenerator *this, unsigned int a2, int a3)
 {
   v6 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v12, v6);
+  OZLockingGroup::WriteSentry::WriteSentry(&v12, v6);
   v7 = TXTGGetRangeOfWord(this, a2);
   v9 = v7;
   if ((a3 & 1) != 0 || v7 != a2)
@@ -474,13 +524,13 @@ LABEL_8:
     v9 = TXTGGetRangeOfWord(this, v10);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v12);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v12);
   return v9;
 }
 
-void sub_25FB47138(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB47138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -499,9 +549,9 @@ CFIndex TXTranscriptionGenerator::suggestLineBreak(PCString *this, CTTypesetterR
       v16 = v11 - v9;
       if (v16 >= 1)
       {
-        TXChannelString::getString(this + 2381, &v21);
+        TXChannelString::getString(&v21, this + 2381);
         v17 = (this->var0[6].length)(this);
-        PCString::substr(&v21, v13, v17 - v13, &v22.var0);
+        PCString::substr(&v22.var0, &v21, v13, v17 - v13);
         v18 = PCString::ns_str(&v22);
         PCString::~PCString(&v22);
         PCString::~PCString(&v21);
@@ -528,7 +578,7 @@ void TXTranscriptionGenerator::deactivateWordSegment(TXTranscriptionGenerator *t
 {
   v4 = this + 65416;
   v5 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v11, v5);
+  OZLockingGroup::WriteSentry::WriteSentry(&v11, v5);
   v6 = *(v4 + 3);
   if (0xAAAAAAAAAAAAAAABLL * ((*(v4 + 4) - v6) >> 4) > a2)
   {
@@ -546,13 +596,13 @@ void TXTranscriptionGenerator::deactivateWordSegment(TXTranscriptionGenerator *t
     }
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v11);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v11);
 }
 
 void TXTranscriptionGenerator::deactivateLineSegment(TXTranscriptionGenerator *this, int a2, CMTime *a3)
 {
   v6 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v11, v6);
+  OZLockingGroup::WriteSentry::WriteSentry(&v11, v6);
   TXTranscriptionGenerator::getActiveTranscriptionByLine(this, a3);
   v7 = *(this + 8186);
   if (0xAAAAAAAAAAAAAAABLL * ((*(this + 8187) - v7) >> 4) > a2)
@@ -568,12 +618,12 @@ void TXTranscriptionGenerator::deactivateLineSegment(TXTranscriptionGenerator *t
     }
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v11);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v11);
 }
 
-void sub_25FB4743C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4743C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -582,7 +632,7 @@ void TXTranscriptionGenerator::deactivateBlock(TXTranscriptionGenerator *this, u
 {
   v4 = this + 63808;
   v5 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v12, v5);
+  OZLockingGroup::WriteSentry::WriteSentry(&v12, v5);
   v6 = *(v4 + 216);
   if (0xAAAAAAAAAAAAAAABLL * ((*(v4 + 217) - v6) >> 4) > a2)
   {
@@ -602,12 +652,12 @@ void TXTranscriptionGenerator::deactivateBlock(TXTranscriptionGenerator *this, u
     }
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v12);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v12);
 }
 
-void sub_25FB47528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB47528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -691,7 +741,7 @@ BOOL TXTranscriptionGenerator::stringInRangeFitsInParagraphWidth(PCString *a1, i
 {
   v8 = a1 + 7168;
   v9 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v36, v9);
+  OZLockingGroup::WriteSentry::WriteSentry(&v36, v9);
   if (v8[185].var0 == v8[186].var0)
   {
     v18 = 1;
@@ -700,8 +750,8 @@ BOOL TXTranscriptionGenerator::stringInRangeFitsInParagraphWidth(PCString *a1, i
 
   v10 = *a2;
   v11 = a2[1];
-  TXChannelString::getString(a1 + 2381, &v34);
-  PCString::substr(&v34, v10, v11, &v35.var0);
+  TXChannelString::getString(&v34, a1 + 2381);
+  PCString::substr(&v35.var0, &v34, v10, v11);
   PCString::~PCString(&v34);
   var0 = v8[185].var0;
   isa = var0->isa;
@@ -806,19 +856,20 @@ LABEL_17:
 
   PCString::~PCString(&v35);
 LABEL_24:
-  OZLockingGroup::WriteSentry::~WriteSentry(v36);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v36);
   return v18;
 }
 
-void sub_25FB479E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, PCString a13, char a14)
+void sub_25FB479E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, PCString a13, ...)
 {
-  if (v16)
+  va_start(va, a13);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-    if (!v15)
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    if (!v14)
     {
 LABEL_3:
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_5;
       }
@@ -827,22 +878,22 @@ LABEL_3:
     }
   }
 
-  else if (!v15)
+  else if (!v14)
   {
     goto LABEL_3;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  if (!v14)
+  std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  if (!v13)
   {
 LABEL_5:
     PCString::~PCString(&a13);
-    OZLockingGroup::WriteSentry::~WriteSentry(&a14);
+    OZLockingGroup::WriteSentry::~WriteSentry(va);
     _Unwind_Resume(a1);
   }
 
 LABEL_4:
-  std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   goto LABEL_5;
 }
 
@@ -882,7 +933,7 @@ BOOL TXTranscriptionGenerator::isUsingSubstituteFont(PCString *this)
   v27.location = 0;
   v27.length = 0;
   CFAttributedStringReplaceString(Mutable, v27, v3);
-  TXTextLayout::getStyleAtCharOffset(this, 0, &v25);
+  TXTextLayout::getStyleAtCharOffset(&v25, this, 0);
   v24.location = 0;
   v24.length = PCString::size(this + 8208);
   ValueAsInt = OZChannel::getValueAsInt((v25 + 5504), MEMORY[0x277CC08F0], 0.0);
@@ -1096,7 +1147,7 @@ double TXTranscriptionGenerator::getSequencedOpacity(TXTranscriptionGenerator *t
 
 void OZChannelUint32::OZChannelUint32(OZChannelUint32 *this, int a2, const PCString *a3, OZChannelFolder *a4, unsigned int a5, int a6, OZChannelImpl *a7, OZChannelInfo *a8)
 {
-  OZChannelUint32_FactoryBase = getOZChannelUint32_FactoryBase();
+  OZChannelUint32_FactoryBase = getOZChannelUint32_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelUint32_FactoryBase, a3, a4, a5, a6, a7, a8);
   this->var0 = &unk_287246400;
   this->var2 = &unk_287246760;
@@ -1155,7 +1206,7 @@ void std::vector<TXTranscriptionSegment>::__destroy_vector::operator()[abi:ne200
   }
 }
 
-uint64_t std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(uint64_t *result, PCString *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1172,7 +1223,7 @@ void sub_25FB484D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<TXTranscriptionSegment>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TXTranscriptionSegment>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -1291,9 +1342,9 @@ uint64_t std::vector<TXTranscriptionSegment>::__emplace_back_slow_path<TXTranscr
   return v15;
 }
 
-void sub_25FB48768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB48768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<TXTranscriptionSegment>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1362,48 +1413,48 @@ uint64_t std::__split_buffer<TXTranscriptionSegment>::~__split_buffer(uint64_t a
   return a1;
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void std::vector<TXTranscriptionSegment>::__vdeallocate(void **a1)
+void std::vector<TXTranscriptionSegment>::__vdeallocate(PCString **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -1436,78 +1487,78 @@ void TXCoreTextGlyph::TXCoreTextGlyph(TXCoreTextGlyph *this, __int16 a2, __int16
   *(v4 + 156) = 1;
 }
 
-void TXCoreTextGlyph::~TXCoreTextGlyph(TXCoreTextGlyph *this)
+void TXCoreTextGlyph::~TXCoreTextGlyph(OZChannelBase *this)
 {
   TXTextureGlyph::~TXTextureGlyph(this);
 
   JUMPOUT(0x2666E9F00);
 }
 
-__n128 TXCoreTextGlyph::getBounds(TXTextureGlyph *a1, uint64_t a2, uint64_t a3)
+__n128 TXCoreTextGlyph::getBounds(TXTextureGlyph *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  GlyphRep = TXCoreTextGlyph::getGlyphRep(a1, a3);
+  GlyphRep = TXCoreTextGlyph::getGlyphRep(a1, a3, a3, a4, a5);
   result = *(GlyphRep + 16);
   *a2 = *GlyphRep;
   *(a2 + 16) = result;
   return result;
 }
 
-uint64_t TXCoreTextGlyph::getGlyphRep(TXTextureGlyph *a1, uint64_t a2)
+uint64_t TXCoreTextGlyph::getGlyphRep(TXTextureGlyph *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  TXCoreTextGlyph::getCacheHashKey(a1);
-  CachedMetrics = TXTextureGlyph::getCachedMetrics(a1, &v8);
+  TXCoreTextGlyph::getCacheHashKey(a1, a2, a3, a4, a5);
+  CachedMetrics = TXTextureGlyph::getCachedMetrics(a1, &v11);
   if (!CachedMetrics)
   {
     TXCoreTextGlyph::makeTextureGlyphRep(a1, a2);
   }
 
-  v5 = CachedMetrics;
-  v6 = *(a2 + 24);
-  if (v6 && *(a2 + 38) == 1)
+  v8 = CachedMetrics;
+  v9 = *(a2 + 24);
+  if (v9 && *(a2 + 38) == 1)
   {
-    PCMatrix33Tmpl<double>::operator=(v6, v5 + 88);
+    PCMatrix33Tmpl<double>::operator=(v9, v8 + 88);
   }
 
-  return v5;
+  return v8;
 }
 
-double TXCoreTextGlyph::getPivot(TXTextureGlyph *a1, void *a2, double *a3, uint64_t a4)
+double TXCoreTextGlyph::getPivot(TXTextureGlyph *a1, void *a2, double *a3, uint64_t a4, uint64_t a5)
 {
-  GlyphRep = TXCoreTextGlyph::getGlyphRep(a1, a4);
+  GlyphRep = TXCoreTextGlyph::getGlyphRep(a1, a4, a3, a4, a5);
   *a2 = *(GlyphRep + 32);
   result = *(GlyphRep + 40);
   *a3 = result;
   return result;
 }
 
-void TXCoreTextGlyph::getCacheHashKey(uint64_t a1)
+void TXCoreTextGlyph::getCacheHashKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v4 = v1;
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
   v6 = v5;
-  v10[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v10);
-  PCHashWriteStream::reset(v10);
-  PCHashWriteStream::writeValue(v10, *(v4 + 8));
-  v7 = (*(**(v4 + 16) + 16))(*(v4 + 16));
-  PCHashWriteStream::writeValue(v10, v7);
-  PCHashWriteStream::writeValue(v10, *(v3 + 32));
-  PCHashWriteStream::writeValue(v10, *v3);
-  PCHashWriteStream::writeValue(v10, *(v3 + 8));
-  PCHashWriteStream::writeValue(v10, *(v3 + 16));
-  PCHashWriteStream::writeValue(v10, *(v3 + 36));
-  v8 = *(v3 + 24);
-  if (v8)
+  v8 = v7;
+  v10 = v9;
+  v14[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v14);
+  PCHashWriteStream::reset(v14);
+  PCHashWriteStream::writeValue(v14, *(v8 + 8));
+  v11 = (*(**(v8 + 16) + 16))(*(v8 + 16));
+  PCHashWriteStream::writeValue(v14, v11);
+  PCHashWriteStream::writeValue(v14, *(v6 + 32));
+  PCHashWriteStream::writeValue(v14, *v6);
+  PCHashWriteStream::writeValue(v14, *(v6 + 8));
+  PCHashWriteStream::writeValue(v14, *(v6 + 16));
+  PCHashWriteStream::writeValue(v14, *(v6 + 36));
+  v12 = *(v6 + 24);
+  if (v12)
   {
-    v9 = v8[4];
-    PCHashWriteStream::writeValue(v10, floor(*v8 * 64.0 + 0.0000001) * 0.015625);
-    PCHashWriteStream::writeValue(v10, floor(v9 * 64.0 + 0.0000001) * 0.015625);
+    v13 = v12[4];
+    PCHashWriteStream::writeValue(v14, floor(*v12 * 64.0 + 0.0000001) * 0.015625);
+    PCHashWriteStream::writeValue(v14, floor(v13 * 64.0 + 0.0000001) * 0.015625);
   }
 
-  PCHashWriteStream::close(v10);
-  *v6 = *PCHashWriteStream::getHash(v10)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v10);
+  PCHashWriteStream::close(v14);
+  *v10 = *PCHashWriteStream::getHash(v14)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v14);
 }
 
 void TXCoreTextGlyph::getBitmapRenderParams(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_t *a3@<X2>, uint64_t a4@<X8>)
@@ -1539,17 +1590,17 @@ void TXCoreTextGlyph::getBitmapRenderParams(uint64_t a1@<X0>, uint64_t a2@<X1>, 
   PCString::~PCString(&v23);
 }
 
-void TXCoreTextGlyph::getBitmap(OZCacheManager *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, char a5@<W4>, void *a6@<X8>)
+void TXCoreTextGlyph::getBitmap(OZCacheManager *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, char a5@<W4>, uint64_t *a6@<X8>)
 {
   OZCacheManager::Instance(a1);
-  TXCoreTextGlyph::getCacheHashKey(a1);
-  OZCacheManager::getImageForKey(v19, a6);
-  v12 = *(a3 + 24);
-  if (v12)
+  TXCoreTextGlyph::getCacheHashKey(a1, a3, v12, v13, v14);
+  OZCacheManager::getImageForKey(a6, v22);
+  v15 = *(a3 + 24);
+  if (v15)
   {
-    v13 = floor(v12[4] * 64.0 + 0.0000001) * 0.015625;
-    *v12 = floor(*v12 * 64.0 + 0.0000001) * 0.015625;
-    v12[4] = v13;
+    v16 = floor(v15[4] * 64.0 + 0.0000001) * 0.015625;
+    *v15 = floor(*v15 * 64.0 + 0.0000001) * 0.015625;
+    v15[4] = v16;
   }
 
   if (*a6 && (a5 & 1) != 0)
@@ -1563,23 +1614,23 @@ void TXCoreTextGlyph::getBitmap(OZCacheManager *a1@<X0>, uint64_t a2@<X1>, uint6
 
       else
       {
-        (*(*a1 + 40))(v14, a1, a3, a2);
-        TXCGRenderParams::~TXCGRenderParams(v14);
+        (*(*a1 + 40))(v17, a1, a3, a2);
+        TXCGRenderParams::~TXCGRenderParams(v17);
       }
     }
   }
 
   else
   {
-    v17 = 0;
-    v18 = 0;
-    (*(*a1 + 40))(v14, a1, a3, a2);
-    TXDrawGlyphToBitmap(v14, *(a3 + 40), &v18);
-    if (v18)
+    v20 = 0;
+    v21 = 0;
+    (*(*a1 + 40))(v17, a1, a3, a2);
+    TXDrawGlyphToBitmap(v17, *(a3 + 40), &v21);
+    if (v21)
     {
-      if (v15 == 1)
+      if (v18 == 1)
       {
-        if (v16)
+        if (v19)
         {
           operator new();
         }
@@ -1587,7 +1638,7 @@ void TXCoreTextGlyph::getBitmap(OZCacheManager *a1@<X0>, uint64_t a2@<X1>, uint6
         operator new();
       }
 
-      if (v16)
+      if (v19)
       {
         operator new();
       }
@@ -1595,21 +1646,21 @@ void TXCoreTextGlyph::getBitmap(OZCacheManager *a1@<X0>, uint64_t a2@<X1>, uint6
       operator new();
     }
 
-    TXCGRenderParams::~TXCGRenderParams(v14);
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v17);
+    TXCGRenderParams::~TXCGRenderParams(v17);
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v20);
   }
 }
 
-void sub_25FB493E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FB493E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  MEMORY[0x2666E9F00](v8, 0x10A1C405CA75B9BLL);
+  va_start(va, a13);
+  MEMORY[0x2666E9F00](v14, 0x10A1C405CA75B9BLL, a3, a4, a5, a6, a7);
   TXCGRenderParams::~TXCGRenderParams(va);
-  PCCFRef<CGColorSpace *>::~PCCFRef((v9 - 112));
-  v11 = *(v7 + 8);
-  if (v11)
+  PCCFRef<CGColorSpace *>::~PCCFRef((v15 - 112));
+  v17 = *(v13 + 8);
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   _Unwind_Resume(a1);
@@ -1679,46 +1730,46 @@ void TXCoreTextGlyph::getHGBitmap(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a
   TXCGRenderParams::~TXCGRenderParams(v23);
 }
 
-void sub_25FB495A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB495A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, CGColorSpace *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, CGColorSpace *);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
-  v4 = *v2;
+  v5 = *v3;
   TXCGRenderParams::~TXCGRenderParams(va1);
-  if (v4)
+  if (v5)
   {
-    (*(*v4 + 24))(v4);
+    (*(*v5 + 24))(v5);
   }
 
   _Unwind_Resume(a1);
 }
 
-double TXCoreTextGlyph::getTexture@<D0>(OZCacheManager *a1@<X0>, float64x2_t *a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X3>, HGGPUComputeDevice **a5@<X5>, char a6@<W6>, EAGLContext *EAGLContext@<X7>, uint64_t *a8@<X8>)
+double TXCoreTextGlyph::getTexture@<D0>(const PCString **a1@<X0>, float64x2_t *a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X3>, HGGPUComputeDevice **a5@<X5>, char a6@<W6>, EAGLContext *EAGLContext@<X7>, uint64_t *a8@<X8>)
 {
   *a4 = 0;
   v15 = OZCacheManager::Instance(a1);
-  TXCoreTextGlyph::getCacheHashKey(a1);
-  OZCacheManager::getTextureForKey(v15, a5, v31, 0, a8);
-  v16 = *a8;
+  TXCoreTextGlyph::getCacheHashKey(a1, a3, v16, v17, v18);
+  OZCacheManager::getTextureForKey(v15, a5, v34, 0, a8);
+  v19 = *a8;
   if (*a8)
   {
     if (a2)
     {
-      (*(*a1 + 16))(a1, a2, a3);
+      ((*a1)[2].var0)(a1, a2, a3);
     }
 
     HostApplicationDelegate = OZApplication::getHostApplicationDelegate(theApp);
-    v25 = OZHostApplicationDelegateHandler::wantsToUseCachedTextureForText(HostApplicationDelegate) ^ 1;
-    if (!v16)
+    v28 = OZHostApplicationDelegateHandler::wantsToUseCachedTextureForText(HostApplicationDelegate) ^ 1;
+    if (!v19)
     {
-      LOBYTE(v25) = 1;
+      LOBYTE(v28) = 1;
     }
 
-    if ((v25 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      CachedMetrics = TXTextureGlyph::getCachedMetrics(a1, v31);
+      CachedMetrics = TXTextureGlyph::getCachedMetrics(a1, v34);
       if (CachedMetrics)
       {
         if (*(a3 + 24))
@@ -1731,69 +1782,69 @@ double TXCoreTextGlyph::getTexture@<D0>(OZCacheManager *a1@<X0>, float64x2_t *a2
 
   else
   {
-    v17 = *(a1 + 2);
-    v18 = (v17->var0->data)(v17);
-    v30 = 0;
-    v29 = 0;
-    v19 = CGColorSpaceUsesExtendedRange(*(a3 + 40));
-    TXDrawGlyphToBitmap(a1, v17, v18, *(a3 + 8), *(a3 + 40), v19, &v30, a2, *a3, *(a3 + 16), &v29, *(a3 + 24), a6, 1);
-    if (v30)
+    v20 = a1[2];
+    v21 = (v20->var0->data)(v20);
+    v33 = 0;
+    v32 = 0;
+    v22 = CGColorSpaceUsesExtendedRange(*(a3 + 40));
+    TXDrawGlyphToBitmap(a1, v20, v21, *(a3 + 8), *(a3 + 40), v22, &v33, a2, *a3, *(a3 + 16), &v32, *(a3 + 24), a6, 1);
+    if (v33)
     {
-      PCColorSpaceHandle::PCColorSpaceHandle(v28, *(a3 + 40));
+      PCColorSpaceHandle::PCColorSpaceHandle(&v31, *(a3 + 40));
       if (!EAGLContext)
       {
-        v21 = PGGetPerThreadContext();
-        ProGL::Private::ProgramHelper::getProgramContext(v21, v27);
-        EAGLContext = ProGL::ContextHandle::getEAGLContext(v27);
-        ProGL::ContextHandle::~ContextHandle(v27);
+        v24 = PGGetPerThreadContext();
+        ProGL::Private::ProgramHelper::getProgramContext(v24, v30);
+        EAGLContext = ProGL::ContextHandle::getEAGLContext(v30);
+        ProGL::ContextHandle::~ContextHandle(v30);
       }
 
-      ProGL::CurrentContextSentry::CurrentContextSentry(v27, EAGLContext);
+      ProGL::CurrentContextSentry::CurrentContextSentry(v30, EAGLContext);
       if (a6)
       {
-        if (v19)
+        if (v22)
         {
-          v22 = 36193;
+          v25 = 36193;
         }
 
         else
         {
-          v22 = 5121;
+          v25 = 5121;
         }
 
-        PGMake2DTexture(a2[1].f64[0], a2[1].f64[1], v28, 0, 6408, v22, v30);
+        PGMake2DTexture(a2[1].f64[0], a2[1].f64[1], &v31, 0, 0x1908u, v25, v33);
       }
 
       glPixelStorei(0xCF5u, 1);
-      if (v19)
+      if (v22)
       {
-        v23 = 36193;
+        v26 = 36193;
       }
 
       else
       {
-        v23 = 5121;
+        v26 = 5121;
       }
 
-      PGMake2DTexture(a2[1].f64[0], a2[1].f64[1], v28, 0, 6406, v23, v30);
+      PGMake2DTexture(a2[1].f64[0], a2[1].f64[1], &v31, 0, 0x1906u, v26, v33);
     }
   }
 
   return result;
 }
 
-void sub_25FB499B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25FB499B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   ProGL::ContextHandle::~ContextHandle(va);
   PCCFRef<CGColorSpace *>::~PCCFRef(va1);
-  v13 = *(a9 + 8);
-  if (v13)
+  v20 = *(a16 + 8);
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
   _Unwind_Resume(a1);
@@ -2013,7 +2064,7 @@ void sub_25FB4A424(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TXChannelAlignment::copy(TXChannelAlignment *this, const OZChannelBase *a2, char a3)
+void TXChannelAlignment::copy(TXChannelAlignment *this, const OZChannelBase *a2, BOOL a3)
 {
   v4 = a2;
   OZCompoundChannel::copy(this, a2);
@@ -2026,13 +2077,13 @@ void TXChannelAlignment::copy(TXChannelAlignment *this, const OZChannelBase *a2,
   OZChannelEnum::copy(this + 49, (v4 + 392), a3);
 }
 
-void non-virtual thunk toTXChannelAlignment::~TXChannelAlignment(TXChannelAlignment *this)
+void non-virtual thunk toTXChannelAlignment::~TXChannelAlignment(PCString *this)
 {
-  TXChannelAlignment::~TXChannelAlignment((this - 16));
+  TXChannelAlignment::~TXChannelAlignment(this - 2);
 }
 
 {
-  TXChannelAlignment::~TXChannelAlignment((this - 16));
+  TXChannelAlignment::~TXChannelAlignment(this - 2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -2082,7 +2133,7 @@ void TXChannelString::setString(OZChannelBase *this, PCString a2, char a3, int a
   }
 }
 
-void *TXChannelString::getString@<X0>(PCString *this@<X0>, PCString *a2@<X8>)
+uint64_t *TXChannelString::getString@<X0>(PCString *__return_ptr a1@<X8>, PCString *this@<X0>)
 {
   v23 = &v23;
   v24 = &v23;
@@ -2141,22 +2192,22 @@ void *TXChannelString::getString@<X0>(PCString *this@<X0>, PCString *a2@<X8>)
     }
   }
 
-  PCString::PCString(a2, this + 19);
+  PCString::PCString(a1, this + 19);
   return std::__list_imp<unsigned int>::clear(&v23);
 }
 
-void sub_25FB4AB80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4AB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void *);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void *);
   v10 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   OZChannelRef::~OZChannelRef(va);
   OZChannelRef::~OZChannelRef(va1);
   std::__list_imp<unsigned int>::clear(va2);
@@ -2245,18 +2296,18 @@ LABEL_21:
   return v21;
 }
 
-void sub_25FB4AF00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4AF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void *);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void *);
   v10 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   OZChannelRef::~OZChannelRef(va);
   OZChannelRef::~OZChannelRef(va1);
   std::__list_imp<unsigned int>::clear(va2);
@@ -2306,11 +2357,11 @@ void sub_25FB4B0B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TXBackgroundRectImageSource::getHelium(TXBackgroundRectImageSource *this, LiAgent *a2)
+void TXBackgroundRectImageSource::getHelium(TXBackgroundRectImageSource *this)
 {
   HGRectMake4i(*(this + 2), *(this + 3), *(this + 4) + *(this + 2), *(this + 5) + *(this + 3));
-  v2 = HGObject::operator new(0x1B0uLL);
-  HgcTXPremulColor::HgcTXPremulColor(v2);
+  v3 = HGObject::operator new(0x1B0uLL);
+  HgcTXPremulColor::HgcTXPremulColor(v3);
 }
 
 void TXBackgroundRectImageSource::~TXBackgroundRectImageSource(TXBackgroundRectImageSource *this)
@@ -2471,7 +2522,7 @@ void TXGlyphGroup::~TXGlyphGroup(TXGlyphGroup *this)
   }
 }
 
-void *std::vector<TXGlyphRender>::reserve(void *result, unint64_t a2)
+void **std::vector<TXGlyphRender>::reserve(void **result, unint64_t a2)
 {
   if (0x86BCA1AF286BCA1BLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -2486,9 +2537,9 @@ void *std::vector<TXGlyphRender>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_25FB4B864(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4B864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TXGlyphRender>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2518,15 +2569,15 @@ void TXGlyphGroupRender::TXGlyphGroupRender(TXGlyphGroupRender *this, TXTextLayo
   std::vector<TXGlyphRender>::reserve(this + 181, a4);
 }
 
-void sub_25FB4B98C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4B98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<TXGlyphRender>::__destroy_vector::operator()[abi:ne200100](va);
-  OZRenderParams::~OZRenderParams((v2 + 24));
-  OZChannelBase::setRangeName(v2, &off_2871F9B18);
-  *(v2 + 1600) = v3;
-  *(v2 + 1616) = 0;
-  PCWeakCount::~PCWeakCount((v2 + 1608));
+  OZRenderParams::~OZRenderParams((v3 + 24));
+  OZChannelBase::setRangeName(v3, &off_2871F9B18);
+  *(v3 + 1600) = v4;
+  *(v3 + 1616) = 0;
+  PCWeakCount::~PCWeakCount((v3 + 1608));
   _Unwind_Resume(a1);
 }
 
@@ -2539,103 +2590,103 @@ uint64_t TXGlyphGroupRender::getHelium@<X0>(TXGlyphGroupRender *this@<X0>, LiAge
   v8 = v7[3];
   v10 = *v7;
   v9 = v7[1];
-  v80[2] = v7[2];
-  v80[3] = v8;
-  v80[0] = v10;
-  v80[1] = v9;
+  v81[2] = v7[2];
+  v81[3] = v8;
+  v81[0] = v10;
+  v81[1] = v9;
   v11 = v7[7];
   v13 = v7[4];
   v12 = v7[5];
-  v80[6] = v7[6];
-  v80[7] = v11;
-  v80[4] = v13;
-  v80[5] = v12;
+  v81[6] = v7[6];
+  v81[7] = v11;
+  v81[4] = v13;
+  v81[5] = v12;
   v14 = *(this + 97);
-  v79[4] = *(this + 96);
-  v79[5] = v14;
+  v80[4] = *(this + 96);
+  v80[5] = v14;
   v15 = *(this + 99);
-  v79[6] = *(this + 98);
-  v79[7] = v15;
+  v80[6] = *(this + 98);
+  v80[7] = v15;
   v16 = *(this + 93);
-  v79[0] = *(this + 92);
-  v79[1] = v16;
+  v80[0] = *(this + 92);
+  v80[1] = v16;
   v17 = *(this + 95);
-  v79[2] = *(this + 94);
-  v79[3] = v17;
-  PCMatrix44Tmpl<double>::invert(v79, v79, 0.0);
-  PCMatrix44Tmpl<double>::rightMult(v80, v79);
-  LiAgent::LiAgent(v78, a2);
+  v80[2] = *(this + 94);
+  v80[3] = v17;
+  PCMatrix44Tmpl<double>::invert(v80, v80, 0.0);
+  PCMatrix44Tmpl<double>::rightMult(v81, v80);
+  LiAgent::LiAgent(&v79[0].var4, a2);
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
   CGColorSpace = FxColorDescription::getCGColorSpace((*(a2 + 6) + 160));
-  FxColorDescription::FxColorDescription(&v77, RequestedColorDescription, CGColorSpace);
-  LiAgent::setRequestedColorDescription(v78, &v77);
+  FxColorDescription::FxColorDescription(v79, RequestedColorDescription, CGColorSpace);
+  LiAgent::setRequestedColorDescription(&v79[0].var4, v79);
   if (*(this + 129))
   {
-    LiAgent::setFilterSize(v78, 1.0, 1.4142);
+    LiAgent::setFilterSize(&v79[0].var4, 1.0, 1.4142);
   }
 
-  OZEaseInInterpolator::~OZEaseInInterpolator(&v77);
-  v21 = v20;
-  DynamicRange = FxColorDescription::getDynamicRange(&v77);
-  ToneMapMethod = FxColorDescription::getToneMapMethod(&v77);
-  PCWorkingColor::PCWorkingColor(&v75, v21, DynamicRange, ToneMapMethod);
-  v55 = a2;
-  v56 = a3;
-  v59 = v6;
-  v24 = Li3DEngineScene::sceneManager(*(this + 2));
-  OZLockingGroup::WriteSentry::WriteSentry(v74, v24);
-  v25 = *(this + 181);
-  v26 = *(this + 182);
-  v73 = 0;
-  if (v25 != v26)
+  OZEaseInInterpolator::~OZEaseInInterpolator(v79, v20);
+  v22 = v21;
+  DynamicRange = FxColorDescription::getDynamicRange(v79);
+  ToneMapMethod = FxColorDescription::getToneMapMethod(v79);
+  PCWorkingColor::PCWorkingColor(&v77, v22, DynamicRange, ToneMapMethod);
+  v57 = a2;
+  v58 = a3;
+  v61 = v6;
+  v25 = Li3DEngineScene::sceneManager(*(this + 2));
+  OZLockingGroup::WriteSentry::WriteSentry(v76, v25);
+  v26 = *(this + 181);
+  v27 = *(this + 182);
+  v75 = 0;
+  if (v26 != v27)
   {
-    v60 = off_2871F4D68;
+    v62 = off_2871F4D68;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v57 = _Q0;
-    v32 = 1;
-    v58 = v26;
+    v59 = _Q0;
+    v33 = 1;
+    v60 = v27;
     while (1)
     {
-      v33 = (v25 + 8);
-      TXCachedGlyphRender::TXCachedGlyphRender(&v69, *(this + 2), (v25 + 8), (this + 24), *v25);
-      v70[1].var0 = &v73;
-      PCMatrix44Tmpl<double>::operator*(v80, (v25 + 24), &v65);
-      LiAgent::setPixelTransform(v78, &v65);
-      v64 = 1.0;
-      TXCachedGlyphRender::getHelium(&v69, v78, &v64, 0, &v63);
-      if (v63)
+      v34 = (v26 + 8);
+      TXCachedGlyphRender::TXCachedGlyphRender(&v71, *(this + 2), (v26 + 8), (this + 24), *v26);
+      v72[1].var0 = &v75;
+      PCMatrix44Tmpl<double>::operator*(v81, (v26 + 24), &v67);
+      LiAgent::setPixelTransform(&v79[0].var4, &v67);
+      v66 = 1.0;
+      TXCachedGlyphRender::getHelium(&v71, &v79[0].var4, &v66, 0, &v65);
+      if (v65)
       {
         break;
       }
 
 LABEL_32:
-      v69.var0 = v61;
-      *(&v69.var0 + *(v61 - 3)) = v60;
-      PCSharedCount::~PCSharedCount(v70);
-      OZRenderParams::~OZRenderParams(&v69.var5);
-      if (v69.var4.var0)
+      v71.var0 = v63;
+      *(&v71.var0 + *(v63 - 3)) = v62;
+      PCSharedCount::~PCSharedCount(v72);
+      OZRenderParams::~OZRenderParams(&v71.var5);
+      if (v71.var4.var0)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v69.var4.var0);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v71.var4.var0);
       }
 
-      OZChannelBase::setRangeName(&v69, &off_2871F4D48);
-      v70[2].var0 = &unk_2872DEA38;
-      v72 = 0;
-      PCWeakCount::~PCWeakCount(&v71);
-      v25 += 152;
-      if (v25 == v26)
+      OZChannelBase::setRangeName(&v71, &off_2871F4D48);
+      v72[2].var0 = &unk_2872DEA38;
+      v74 = 0;
+      PCWeakCount::~PCWeakCount(&v73);
+      v26 += 152;
+      if (v26 == v27)
       {
         goto LABEL_35;
       }
     }
 
-    v34 = *v25;
-    if (*v25 == 1)
+    v35 = *v26;
+    if (*v26 == 1)
     {
-      v38 = *v33;
-      v65 = *(this + 1);
-      if (TXTextObject::isOutlineVisible(v38, &v65, &v75, 0))
+      v39 = *v34;
+      v67 = *(this + 1);
+      if (TXTextObject::isOutlineVisible(v39, &v67, &v77, 0))
       {
         goto LABEL_20;
       }
@@ -2643,149 +2694,150 @@ LABEL_32:
 
     else
     {
-      if (!v34)
+      if (!v35)
       {
-        v35 = *(*v33 + 33);
-        if (v35)
+        v36 = *(*v34 + 33);
+        if (v36)
         {
-          v36 = *(v35 + 8);
-          v37 = *(v35 + 16);
-          if (v37)
+          v37 = *(v36 + 8);
+          v38 = *(v36 + 16);
+          if (v38)
           {
-            atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
           }
         }
 
         else
         {
-          v36 = 0;
           v37 = 0;
+          v38 = 0;
         }
 
-        PCColor::PCColor(&v65.timescale);
-        v40 = *(this + 2);
-        ValueAsInt = OZChannel::getValueAsInt((v36 + 6088), MEMORY[0x277CC08F0], 0.0);
-        LOBYTE(v65.value) = TXTextLayout::isColorAnimated(v40, (v36 + 6344), (v36 + 10152), ValueAsInt, 1008, 1009);
-        v62 = *(this + 1);
-        (*(*(v36 + 6344) + 832))(v36 + 6344, &v62, &v65.timescale);
-        ColorSpaceID = OZChannelColorNoAlpha::getColorSpaceID((v36 + 6344));
+        PCColor::PCColor(&v67.timescale);
+        v41 = *(this + 2);
+        ValueAsInt = OZChannel::getValueAsInt((v37 + 6088), MEMORY[0x277CC08F0], 0.0);
+        LOBYTE(v67.value) = TXTextLayout::isColorAnimated(v41, (v37 + 6344), (v37 + 10152), ValueAsInt, 1008, 1009);
+        v64 = *(this + 1);
+        (*(*(v37 + 6344) + 832))(v37 + 6344, &v64, &v67.timescale);
+        ColorSpaceID = OZChannelColorNoAlpha::getColorSpaceID((v37 + 6344));
         WorkingColorSpace = OZRenderParams::getWorkingColorSpace((this + 24));
-        v68 = PCColorSpaceCache::identifyColorSpace(WorkingColorSpace, v43);
-        v44 = *v33;
-        v62 = *(this + 1);
-        isFaceVisible = TXTextObject::isFaceVisible(v44, &v62, &v75, &v65.timescale, v68, ColorSpaceID);
-        PCCFRef<CGColorSpace *>::~PCCFRef(&v66);
-        if (v37)
+        v45 = PCColorSpaceCache::identifyColorSpace(WorkingColorSpace, v44);
+        v70 = v45;
+        v46 = *v34;
+        v64 = *(this + 1);
+        isFaceVisible = TXTextObject::isFaceVisible(v46, &v64, &v77, &v67.timescale, v45, ColorSpaceID);
+        PCCFRef<CGColorSpace *>::~PCCFRef(&v68);
+        if (v38)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v38);
         }
 
-        v26 = v58;
-        v6 = v59;
+        v27 = v60;
+        v6 = v61;
         if ((isFaceVisible & 1) == 0)
         {
           goto LABEL_30;
         }
 
 LABEL_20:
-        v65.value = 0;
-        *&v65.timescale = 0;
-        isEmoji = TXTextObject::isEmoji(*v33);
+        v67.value = 0;
+        *&v67.timescale = 0;
+        isEmoji = TXTextObject::isEmoji(*v34);
         if (isEmoji)
         {
-          v47 = v57;
+          v49 = v59;
         }
 
         else
         {
-          *&v47 = v75.n128_u64[0];
-          DWORD2(v47) = v75.n128_u32[2];
+          *&v49 = v77.n128_u64[0];
+          DWORD2(v49) = v77.n128_u32[2];
         }
 
-        HIDWORD(v47) = v75.n128_u32[3];
-        *&v65.value = v47;
-        if (*v25 == 2)
+        HIDWORD(v49) = v77.n128_u32[3];
+        *&v67.value = v49;
+        if (*v26 == 2)
         {
-          v48 = v63;
-          v49 = *v6;
-          v50 = 37;
+          v50 = v65;
+          v51 = *v6;
+          v52 = 37;
         }
 
         else
         {
-          v48 = v63;
-          v49 = *v6;
-          if (((v34 == 3) & isEmoji) == 1)
+          v50 = v65;
+          v51 = *v6;
+          if (((v35 == 3) & isEmoji) == 1)
           {
-            (*(v49 + 624))(v6, v32, v63, 9, 1.0);
+            (*(v51 + 624))(v6, v33, v65, 9, 1.0);
 LABEL_29:
-            v32 = (v32 + 1);
+            v33 = (v33 + 1);
             goto LABEL_30;
           }
 
-          v50 = 36;
+          v52 = 36;
         }
 
-        (*(v49 + 648))(v6, v32, v48, v50, &v65);
+        (*(v51 + 648))(v6, v33, v50, v52, &v67);
         goto LABEL_29;
       }
 
-      if (v34 != 3)
+      if (v35 != 3)
       {
         goto LABEL_20;
       }
 
-      v39 = *v33;
-      v65 = *(this + 1);
-      if (TXTextObject::isDropShadowVisible(v39, &v65, &v75))
+      v40 = *v34;
+      v67 = *(this + 1);
+      if (TXTextObject::isDropShadowVisible(v40, &v67, &v77))
       {
         goto LABEL_20;
       }
     }
 
 LABEL_30:
-    if (v63)
+    if (v65)
     {
-      (*(*v63 + 24))(v63);
+      (*(*v65 + 24))(v65);
     }
 
     goto LABEL_32;
   }
 
 LABEL_35:
-  *v56 = v6;
+  *v58 = v6;
   (*(*v6 + 16))(v6);
-  if ((LiAgent::isDynamicRangeTrackingRender(v55) & 1) == 0 && OZRenderParams::isRenderForHDR_Deprecated((this + 24)))
+  if (!LiAgent::isDynamicRangeTrackingRender(v57) && OZRenderParams::isRenderForHDR_Deprecated((this + 24)))
   {
-    v51 = OZRenderParams::getWorkingColorSpace((this + 24));
-    FxApplySDRToHDR(v56, v51, 1, &v69);
-    v52 = *v56;
-    var0 = v69.var0;
-    if (*v56 == v69.var0)
+    v53 = OZRenderParams::getWorkingColorSpace((this + 24));
+    FxApplySDRToHDR(v58, v53, 1, &v71);
+    v54 = *v58;
+    var0 = v71.var0;
+    if (*v58 == v71.var0)
     {
-      if (v52)
+      if (v54)
       {
-        (*(*v69.var0 + 3))(v69.var0);
+        (*(*v71.var0 + 3))(v71.var0);
       }
     }
 
     else
     {
-      if (v52)
+      if (v54)
       {
-        (*(*v52 + 3))(v52);
-        var0 = v69.var0;
+        (*(*v54 + 3))(v54);
+        var0 = v71.var0;
       }
 
-      *v56 = var0;
+      *v58 = var0;
     }
   }
 
-  LiAgent::setActualColorDescription(v55, &v77);
-  OZLockingGroup::WriteSentry::~WriteSentry(v74);
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v76);
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v77._pcColorDesc._colorSpaceRef._obj);
-  LiAgent::~LiAgent(v78);
+  LiAgent::setActualColorDescription(v57, v79);
+  OZLockingGroup::WriteSentry::~WriteSentry(v76);
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v78);
+  PCCFRef<CGColorSpace *>::~PCCFRef(v79);
+  LiAgent::~LiAgent(&v79[0].var4);
   return (*(*v6 + 24))(v6);
 }
 
@@ -2793,12 +2845,12 @@ void sub_25FB4C14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a41)
   {
-    (*(*a41 + 24))(a41);
+    (*(*a41 + 24))(a41, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*a10)
   {
-    (*(**a10 + 24))(*a10);
+    (*(**a10 + 24))(*a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   OZLockingGroup::WriteSentry::~WriteSentry(&STACK[0x6F8]);
@@ -2889,11 +2941,11 @@ uint64_t TXGlyphGroupRender::buildLighting(TXGlyphGroupRender *this, LiGeode *a2
         v45 = xmmword_2603426F0;
         liFindMatrixPlane(v24, &v43);
         v28 = v44;
-        v23[61] = v43;
-        v23[65] = v28;
+        *(v23 + 61) = v43;
+        *(v23 + 65) = v28;
         v29 = *(&v45 + 1);
-        v23[69] = v45;
-        v23[73] = v29;
+        *(v23 + 69) = v45;
+        *(v23 + 73) = v29;
       }
 
       LiGeode::setLit(a2, 1);
@@ -2941,29 +2993,29 @@ void sub_25FB4C5D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void TXGlyphGroupRender::~TXGlyphGroupRender(TXGlyphGroupRender *this)
+void TXGlyphGroupRender::~TXGlyphGroupRender(OZChannelBase *this)
 {
-  *this = &unk_2871F9A30;
-  *(this + 200) = &unk_2871F9AF8;
-  v2 = (this + 1448);
-  std::vector<TXGlyphRender>::__destroy_vector::operator()[abi:ne200100](&v2);
-  OZRenderParams::~OZRenderParams((this + 24));
+  this->var0 = &unk_2871F9A30;
+  this[14].var4.var0 = &unk_2871F9AF8;
+  p_var13 = &this[12].var13;
+  std::vector<TXGlyphRender>::__destroy_vector::operator()[abi:ne200100](&p_var13);
+  OZRenderParams::~OZRenderParams(&this->var3);
   OZChannelBase::setRangeName(this, &off_2871F9B18);
-  *(this + 200) = &unk_2872DEA38;
-  *(this + 1616) = 0;
-  PCWeakCount::~PCWeakCount(this + 201);
+  this[14].var4.var0 = &unk_2872DEA38;
+  LOBYTE(this[14].var6) = 0;
+  PCWeakCount::~PCWeakCount(&this[14].var5);
 }
 
 {
-  *this = &unk_2871F9A30;
-  *(this + 200) = &unk_2871F9AF8;
-  v2 = (this + 1448);
-  std::vector<TXGlyphRender>::__destroy_vector::operator()[abi:ne200100](&v2);
-  OZRenderParams::~OZRenderParams((this + 24));
+  this->var0 = &unk_2871F9A30;
+  this[14].var4.var0 = &unk_2871F9AF8;
+  p_var13 = &this[12].var13;
+  std::vector<TXGlyphRender>::__destroy_vector::operator()[abi:ne200100](&p_var13);
+  OZRenderParams::~OZRenderParams(&this->var3);
   OZChannelBase::setRangeName(this, &off_2871F9B18);
-  *(this + 200) = &unk_2872DEA38;
-  *(this + 1616) = 0;
-  PCWeakCount::~PCWeakCount(this + 201);
+  this[14].var4.var0 = &unk_2872DEA38;
+  LOBYTE(this[14].var6) = 0;
+  PCWeakCount::~PCWeakCount(&this[14].var5);
   MEMORY[0x2666E9F00](this, 0x10E1C40C05CAB54);
 }
 
@@ -3037,7 +3089,7 @@ void std::vector<TXGlyphRender>::clear[abi:ne200100](uint64_t *a1)
 
 void sub_25FB4CB00(_Unwind_Exception *a1)
 {
-  PCURL::~PCURL(&v1[8054]);
+  PCURL::~PCURL(&v1[8054].var0);
   TXTextGenerator::~TXTextGenerator(v1);
   _Unwind_Resume(a1);
 }
@@ -3069,8 +3121,8 @@ void TXFileLoadingGenerator::TXFileLoadingGenerator(TXFileLoadingGenerator *this
 void sub_25FB4CCC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10)
 {
   PCString::~PCString(&a10);
-  PCURL::~PCURL((v10 + v12));
-  PCURL::~PCURL((v10 + v11));
+  PCURL::~PCURL((&v10->var0 + v12));
+  PCURL::~PCURL((&v10->var0 + v11));
   TXTextGenerator::~TXTextGenerator(v10);
   _Unwind_Resume(a1);
 }
@@ -3090,13 +3142,13 @@ void TXFileLoadingGenerator::~TXFileLoadingGenerator(PCString *this)
     this[8056].var0 = 0;
   }
 
-  PCURL::~PCURL(&this[8055]);
-  PCURL::~PCURL(&this[8054]);
+  PCURL::~PCURL(&this[8055].var0);
+  PCURL::~PCURL(&this[8054].var0);
 
   TXTextGenerator::~TXTextGenerator(this);
 }
 
-BOOL TXFileLoadingGenerator::setURL(const void **this, const __CFURL **a2)
+BOOL TXFileLoadingGenerator::setURL(CFURLRef *this, const __CFURL **a2)
 {
   PCURL::getFilename(a2, &v6);
   v4 = PCString::empty(&v6);
@@ -3110,7 +3162,7 @@ BOOL TXFileLoadingGenerator::setURL(const void **this, const __CFURL **a2)
   return !v4;
 }
 
-uint64_t TXFileLoadingGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, int a4, unsigned int a5)
+uint64_t TXFileLoadingGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, _BOOL4 a4, unsigned int a5)
 {
   PCSerializerWriteStream::pushScope(a2, &TXFileLoadingGeneratorScope);
   if (!v8)
@@ -3204,7 +3256,7 @@ LABEL_22:
     (*(*a2 + 104))(a2, &v30);
     (*(*a2 + 24))(a2);
     PCString::~PCString(&v30);
-    PCURL::~PCURL(&v31);
+    PCURL::~PCURL(&v31.var0);
     PCString::~PCString(&v32);
     v25 = 1;
   }
@@ -3229,14 +3281,14 @@ LABEL_24:
 
 void sub_25FB4D2F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, PCString a12, PCString a13, PCString a14, PCString a15, PCString a16)
 {
-  PCURL::~PCURL(&a13);
+  PCURL::~PCURL(&a13.var0);
   PCString::~PCString(&a14);
   PCString::~PCString(&a15);
   PCString::~PCString(&a16);
   _Unwind_Resume(a1);
 }
 
-uint64_t non-virtual thunk toTXFileLoadingGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, int a4, unsigned int a5)
+uint64_t non-virtual thunk toTXFileLoadingGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, unsigned int a5)
 {
   return TXFileLoadingGenerator::writeBody(this - 25, a2, a3, a4, a5);
 }
@@ -3287,7 +3339,7 @@ uint64_t non-virtual thunk toTXFileLoadingGenerator::parseEnd(TXFileLoadingGener
   return TXTextLayout::parseEnd(v3, a2);
 }
 
-uint64_t TXFileLoadingGenerator::parseElement(TXFileLoadingGenerator *this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t TXFileLoadingGenerator::parseElement(CFURLRef *this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
   PCSharedCount::PCSharedCount(&v19);
   TXTextLayout::parseElement(this, a2, a3);
@@ -3297,11 +3349,11 @@ uint64_t TXFileLoadingGenerator::parseElement(TXFileLoadingGenerator *this, PCSe
     if (PCSerializerReadStream::getAsString(a2, a3, &v19))
     {
       PCURL::PCURL(&v18, &v19, 0);
-      if ((*(*this + 1224))(this, &v18) && (*(this + 64456) & 1) == 0)
+      if ((*(*this + 153))(this, &v18) && (this[8057] & 1) == 0)
       {
         PCURL::PCURL(&v17, "", 0);
         PCURL::operator=(this + 8054, &v17);
-        PCURL::~PCURL(&v17);
+        PCURL::~PCURL(&v17.var0);
       }
 
       PCURL::getFilename(this + 8055, &v17);
@@ -3316,7 +3368,7 @@ uint64_t TXFileLoadingGenerator::parseElement(TXFileLoadingGenerator *this, PCSe
     }
   }
 
-  else if (v6 == 2 && (*(this + 64456) & 1) == 0)
+  else if (v6 == 2 && (this[8057] & 1) == 0)
   {
     if (v7)
     {
@@ -3330,7 +3382,7 @@ uint64_t TXFileLoadingGenerator::parseElement(TXFileLoadingGenerator *this, PCSe
         v13 = MEMORY[0x2666E8750](0, v10, 0, 0, PathComponent);
         v14 = CFURLCopyAbsoluteURL(v13);
         PCURL::PCURL(&v18, v14);
-        (*(*this + 1224))(this, &v18);
+        (*(*this + 153))(this, &v18);
         CFRelease(v14);
         CFRelease(PathComponent);
         CFRelease(v13);
@@ -3350,22 +3402,22 @@ LABEL_14:
   return 1;
 }
 
-void sub_25FB4D814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, char a11, PCString a12)
+void sub_25FB4D814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, uint64_t a11, PCString a12)
 {
-  PCURL::~PCURL(&a10);
+  PCURL::~PCURL(&a10.var0);
   PCURL::~PCURL(&a11);
   PCString::~PCString(&a12);
   _Unwind_Resume(a1);
 }
 
-uint64_t non-virtual thunk toTXFileLoadingGenerator::parseElement(TXFileLoadingGenerator *this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t non-virtual thunk toTXFileLoadingGenerator::parseElement(CFURLRef *this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
-  TXFileLoadingGenerator::parseElement((this - 200), a2, a3);
+  TXFileLoadingGenerator::parseElement(this - 25, a2, a3);
   return 1;
 }
 
 {
-  TXFileLoadingGenerator::parseElement((this - 248), a2, a3);
+  TXFileLoadingGenerator::parseElement(this - 31, a2, a3);
   return 1;
 }
 
@@ -3487,21 +3539,21 @@ void TXTextGenerator::getOriginalBounds(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   (*(*a1 + 1216))(a1, a3);
 
-  TXTextLayout::getOriginalBounds(a1);
+  TXTextLayout::getOriginalBounds(a1, a2, a3, v6, v7);
 }
 
 {
   (*(*a1 + 576))(a1, a3);
 
-  TXTextLayout::getOriginalBounds(a1);
+  TXTextLayout::getOriginalBounds(a1, a2, a3, v6, v7);
 }
 
 void non-virtual thunk toTXTextGenerator::getOriginalBounds(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = a1 - 200;
+  v5 = a1 - 200;
   (*(*(a1 - 200) + 1216))(a1 - 200, a3);
 
-  TXTextLayout::getOriginalBounds(v3);
+  TXTextLayout::getOriginalBounds(v5, a2, a3, v6, v7);
 }
 
 void TXTextGenerator::prepareForRender(TXTextGenerator *this, const OZRenderState *a2)
@@ -3522,43 +3574,44 @@ void non-virtual thunk toTXTextGenerator::prepareForRender(TXTextGenerator *this
 void TXTextGenerator::prepareForRender(PCString *this, const OZRenderState *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v12, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v14, v4);
   var0 = a2->var0;
-  OZRenderParams::OZRenderParams(v10);
-  OZRenderParams::setState(v10, a2);
-  PCSharedCount::PCSharedCount(&v9);
-  (this->var0[37].length)(this, &v9, v10);
-  if (LOBYTE(this[8053].var0) != 1 || PCString::compare(&v9, this + 8052))
+  OZRenderParams::OZRenderParams(v12);
+  OZRenderParams::setState(v12, a2);
+  PCSharedCount::PCSharedCount(&v11);
+  (this->var0[37].length)(this, &v11, v12);
+  if (LOBYTE(this[8053].var0) != 1 || PCString::compare(&v11, this + 8052))
   {
-    PCString::set(this + 8052, &v9);
+    PCString::set(this + 8052, &v11);
     LOBYTE(this[8053].var0) = 1;
     TXTextLayout::resetState(this);
-    TXTextLayout::setString(this, &v9, 1);
-    v5 = PCString::size(&v9);
+    TXTextLayout::setString(this, &v11, 1);
+    v5 = PCString::size(&v11);
     TXTextLayout::updateStyleRunsAfterTextInsert(this, 0, v5);
     TXTextLayout::updateDisplayString(this, &var0);
     data = this[2422].var0->data;
-    TXTextLayout::getDisplayString(this, &v8);
-    v7 = PCString::size(&v8);
+    TXTextLayout::getDisplayString(this, &v10);
+    v7 = PCString::size(&v10);
     *(data + 6) = 0;
     *(data + 7) = v7;
-    PCString::~PCString(&v8);
+    PCString::~PCString(&v10);
     TXTextLayout::rebuildParagraphStyles(this);
     TXTextLayout::setAllParagraphsDirty(this);
-    TXTextLayout::doLayout(this, a2, 0);
+    TXTextLayout::doLayout(this, a2, 0, v8, v9);
   }
 
-  PCString::~PCString(&v9);
-  OZRenderParams::~OZRenderParams(v10);
-  OZLockingGroup::WriteSentry::~WriteSentry(v12);
+  PCString::~PCString(&v11);
+  OZRenderParams::~OZRenderParams(v12);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v14);
 }
 
-void sub_25FB4E234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, char a11)
+void sub_25FB4E234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, ...)
 {
+  va_start(va, a10);
   PCString::~PCString(&a9);
   PCString::~PCString(&a10);
-  OZRenderParams::~OZRenderParams(&a11);
-  OZLockingGroup::WriteSentry::~WriteSentry((v11 - 40));
+  OZRenderParams::~OZRenderParams(va);
+  OZLockingGroup::WriteSentry::~WriteSentry((v10 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -3569,7 +3622,7 @@ void TXTextGenerator::didAddToScene(TXTextGenerator *this, OZScene *a2)
   v11 = *(MEMORY[0x277CC08F0] + 16);
   if (a2)
   {
-    OZSceneSettings::OZSceneSettings(&v4, (a2 + 336));
+    OZSceneSettings::OZSceneSettings(&v4, a2 + 336);
     v10 = *(a2 + 86);
     v11 = *(a2 + 174);
     *&v4 = &unk_287283398;
@@ -3621,9 +3674,9 @@ double TXTextGenerator::calcHashForState(Li3DEngineScene *a1, const void *a2, ui
   return result;
 }
 
-void sub_25FB4E584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FB4E584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -3745,7 +3798,7 @@ void TXNumberGenerator::~TXNumberGenerator(TXNumberGenerator *this)
   OZChannelBool::~OZChannelBool((this + 65728));
   OZChannel::~OZChannel((this + 65576));
   OZChannel::~OZChannel((this + 65424));
-  OZChannelEnum::~OZChannelEnum((this + 65168));
+  OZChannelEnum::~OZChannelEnum(this + 8146);
   OZChannel::~OZChannel((this + 65016));
   OZChannel::~OZChannel((this + 64864));
   OZChannel::~OZChannel((this + 64712));
@@ -3812,9 +3865,9 @@ void non-virtual thunk toTXNumberGenerator::~TXNumberGenerator(TXNumberGenerator
   JUMPOUT(0x2666E9F00);
 }
 
-void *TXNumberGenerator::operator=(TXTextLayout *a1, const void *a2)
+void *TXNumberGenerator::operator=(const TXTextLayout *a1, const void *a2)
 {
-  TXTextGenerator::operator=(a1);
+  TXTextGenerator::operator=(a1, a2);
   if (result)
   {
     v5 = result[8051];
@@ -3833,13 +3886,13 @@ uint64_t TXNumberGenerator::generateString(TXNumberGenerator *this, PCString *a2
   v7 = *(*(v5 + 640))(this + 200);
   (*(v7 + 712))(&time);
   v8 = (*(*v6 + 272))(v6);
-  OZSceneSettings::getFrameDuration((v8 + 336), &v71);
+  OZSceneSettings::getFrameDuration(&v71, (v8 + 336));
   time1 = v76;
   *&time2.value = v71;
   time2.epoch = v72;
   v9 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v73);
   v10 = (*(*v6 + 272))(v6, v9);
-  OZSceneSettings::getFrameDuration((v10 + 336), &v69);
+  OZSceneSettings::getFrameDuration(&v69, (v10 + 336));
   time1 = time;
   time2 = v73;
   result = CMTimeCompare(&time1, &time2);
@@ -3873,7 +3926,7 @@ uint64_t TXNumberGenerator::generateString(TXNumberGenerator *this, PCString *a2
           {
             v19 = v18;
             v20 = (*(*v6 + 272))(v6);
-            OZSceneSettings::getFrameDuration((v20 + 336), &time1);
+            OZSceneSettings::getFrameDuration(&time1, (v20 + 336));
             operator/(&v76.value, &time1, &time);
             Seconds = CMTimeGetSeconds(&time) / v19;
           }
@@ -3881,7 +3934,7 @@ uint64_t TXNumberGenerator::generateString(TXNumberGenerator *this, PCString *a2
           else
           {
             v32 = (*(*v6 + 272))(v6);
-            OZSceneSettings::getFrameDuration((v32 + 336), &time1);
+            OZSceneSettings::getFrameDuration(&time1, (v32 + 336));
             operator/(&v76.value, &time1, &time);
             Seconds = CMTimeGetSeconds(&time);
           }
@@ -3914,7 +3967,7 @@ uint64_t TXNumberGenerator::generateString(TXNumberGenerator *this, PCString *a2
           PC_CMTimeSaferSubtract(&time1, &time2, &v78);
           v73 = v75;
           v24 = (*(*(this + 25) + 272))(v6);
-          OZSceneSettings::getFrameDuration((v24 + 336), &v71);
+          OZSceneSettings::getFrameDuration(&v71, (v24 + 336));
           time1 = v73;
           *&time2.value = v71;
           time2.epoch = v72;
@@ -4203,7 +4256,7 @@ uint64_t TXNumberGenerator::getPreviewSceneNode(TXNumberGenerator *this)
 
   PCString::~PCString(&v6);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v6);
+  TXTextLayout::getCurrentStyleForInsertion(&v6, v3);
   if (v6.var0)
   {
     v5 = **&MEMORY[0x277CC08F0];
@@ -4247,8 +4300,8 @@ void TXNumberGenerator::didAddToScene(TXNumberGenerator *this, OZScene *a2)
     v12 = v10;
     v13 = v11;
     v6 = (*(*(this + 25) + 272))(this + 200);
-    OZSceneSettings::getFrameDuration((v6 + 336), &v8);
-    operator/(&v12, &v8, &time);
+    OZSceneSettings::getFrameDuration(v8, (v6 + 336));
+    operator/(&v12, v8, &time);
     Seconds = CMTimeGetSeconds(&time);
     if (FirstFrameNumber == 0.0)
     {
@@ -4261,7 +4314,7 @@ void TXNumberGenerator::didAddToScene(TXNumberGenerator *this, OZScene *a2)
   }
 }
 
-uint64_t TXNumberGenerator::writeBody(TXNumberGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t TXNumberGenerator::writeBody(TXNumberGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, uint64_t a5)
 {
   TXTextLayout::writeBody(this, a2, a3, a4, a5);
   PCSerializerWriteStream::pushScope(a2, &TXNumberGeneratorScope);
@@ -4274,7 +4327,7 @@ uint64_t TXNumberGenerator::writeBody(TXNumberGenerator *this, PCSerializerWrite
   return PCSerializerWriteStream::popScope(a2);
 }
 
-uint64_t non-virtual thunk toTXNumberGenerator::writeBody(TXNumberGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t non-virtual thunk toTXNumberGenerator::writeBody(TXNumberGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, uint64_t a5)
 {
   return TXNumberGenerator::writeBody((this - 200), a2, a3, a4, a5);
 }
@@ -4332,7 +4385,7 @@ uint64_t non-virtual thunk toTXNumberGenerator::parseElement(TXNumberGenerator *
 
 void OZChannelSeed::OZChannelSeed(OZChannelSeed *this, const PCString *a2, OZChannelFolder *a3, unsigned int a4, int a5, OZChannelImpl *a6, OZChannelInfo *a7)
 {
-  OZChannelSeed_FactoryBase = getOZChannelSeed_FactoryBase();
+  OZChannelSeed_FactoryBase = getOZChannelSeed_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelSeed_FactoryBase, a2, a3, a4, a5, a6, a7);
   this->var0 = &unk_287247AE0;
   this->var2 = &unk_287247E40;
@@ -4581,7 +4634,7 @@ uint64_t std::vector<TXUnicodeBlock>::~vector[abi:ne200100](uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<TXUnicodeBlock>::__init_with_size[abi:ne200100]<TXUnicodeBlock const*,TXUnicodeBlock const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TXUnicodeBlock>::__init_with_size[abi:ne200100]<TXUnicodeBlock const*,TXUnicodeBlock const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4700,7 +4753,7 @@ void TXTextFromFileGenerator::~TXTextFromFileGenerator(TXTextFromFileGenerator *
   OZChannel::~OZChannel((this + 65184));
   OZChannelBool::~OZChannelBool((this + 65032));
   OZChannelPercent::~OZChannelPercent((this + 64880));
-  OZChannelEnum::~OZChannelEnum((this + 64624));
+  OZChannelEnum::~OZChannelEnum(this + 8078);
   OZChannelFolder::~OZChannelFolder((this + 64496));
   v3 = *(v2 + 378);
   if (v3)
@@ -4804,13 +4857,13 @@ void TXTextFromFileGenerator::generateString(TXTextFromFileGenerator *this, PCSt
   v7 = *(*(v5 + 640))(this + 200);
   (*(v7 + 712))(v51);
   v8 = (*(*v6 + 272))(v6);
-  OZSceneSettings::getFrameDuration((v8 + 336), &v47);
+  OZSceneSettings::getFrameDuration(&v47, (v8 + 336));
   time1 = v54;
   *&time2.value = v47;
   time2.epoch = v48;
   v9 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v49);
   v10 = (*(*v6 + 272))(v6, v9);
-  OZSceneSettings::getFrameDuration((v10 + 336), &v45);
+  OZSceneSettings::getFrameDuration(&v45, (v10 + 336));
   *&time1.value = *&v51[0].var0;
   time1.epoch = v52;
   *&time2.value = v49;
@@ -4866,12 +4919,12 @@ void TXTextFromFileGenerator::generateString(TXTextFromFileGenerator *this, PCSt
   time1 = v54;
   v11.n128_f64[0] = PC_CMTimeSaferSubtract(&time1, &time2, &v56);
   v12 = (*(*(this + 25) + 272))(v6, v11);
-  OZSceneSettings::getFrameDuration((v12 + 336), &time2);
+  OZSceneSettings::getFrameDuration(&time2, (v12 + 336));
   operator/(&v56.value, &time2, &time1);
   Seconds = CMTimeGetSeconds(&time1);
   v55 = v53;
   v14 = (*(*(this + 25) + 272))(v6);
-  OZSceneSettings::getFrameDuration((v14 + 336), &v49);
+  OZSceneSettings::getFrameDuration(&v49, (v14 + 336));
   operator/(&v55.value, &v49, &time1);
   v15 = Seconds / CMTimeGetSeconds(&time1);
   ValueAsInt = OZChannel::getValueAsInt((this + 64624), MEMORY[0x277CC08F0], 0.0);
@@ -5002,16 +5055,16 @@ LABEL_35:
   PCString::set(a2, *(*(v6 + 8033) + 8 * v33));
 }
 
-void TXTextFromFileGenerator::loadFile(TXTextFromFileGenerator *this)
+void TXTextFromFileGenerator::loadFile(PCString *this)
 {
   v17 = *MEMORY[0x277D85DE8];
   TXTextFromFileGenerator::clearText(this);
   v14 = 0;
   v15 = 0;
   v2 = objc_alloc(MEMORY[0x277CCACA8]);
-  PCURL::getAsFileSystemString(this + 8054, &v13);
+  PCURL::getAsFileSystemString(&this[8054], &v13);
   v3 = [v2 initWithContentsOfFile:PCString::ns_str(&v13) usedEncoding:&v15 error:&v14];
-  v11 = this + 61440;
+  v11 = this + 7680;
   PCString::~PCString(&v13);
   if (v3)
   {
@@ -5022,28 +5075,28 @@ void TXTextFromFileGenerator::loadFile(TXTextFromFileGenerator *this)
       operator new();
     }
 
-    PCURL::getAsFileSystemString(this + 8054, &v13);
+    PCURL::getAsFileSystemString(&this[8054], &v13);
     v5 = PCString::ns_str(&v13);
     PCString::~PCString(&v13);
     v6 = [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
-    v7 = *(v11 + 376);
-    if (v7)
+    var0 = v11[376].var0;
+    if (var0)
     {
     }
 
     v8 = [v6 fileModificationDate];
     v9 = v11;
-    *(v11 + 376) = v8;
+    v11[376].var0 = v8;
     v10 = 1;
   }
 
   else
   {
     v10 = 0;
-    v9 = this + 61440;
+    v9 = this + 7680;
   }
 
-  v9[3016] = v10;
+  LOBYTE(v9[377].var0) = v10;
 }
 
 void TXTextFromFileGenerator::getPreviewSceneNode(TXTextFromFileGenerator *this)
@@ -5063,7 +5116,7 @@ void TXTextFromFileGenerator::getPreviewSceneNode(TXTextFromFileGenerator *this)
 
   PCString::~PCString(&v5);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v5);
+  TXTextLayout::getCurrentStyleForInsertion(&v5, v3);
   if (v5.var0)
   {
     v4 = **&MEMORY[0x277CC08F0];
@@ -5109,7 +5162,7 @@ uint64_t TXTextFromFileGenerator::isMissingFile(const __CFURL **this, PCString *
   return 0;
 }
 
-uint64_t non-virtual thunk toTXTextFromFileGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, int a4, unsigned int a5)
+uint64_t non-virtual thunk toTXTextFromFileGenerator::writeBody(const __CFURL **this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, unsigned int a5)
 {
   return TXFileLoadingGenerator::writeBody(this - 25, a2, a3, a4, a5);
 }
@@ -5146,20 +5199,20 @@ uint64_t non-virtual thunk toTXTextFromFileGenerator::parseEnd(TXTextFromFileGen
   return TXFileLoadingGenerator::parseEnd((this - 248), a2);
 }
 
-uint64_t non-virtual thunk toTXTextFromFileGenerator::parseElement(TXTextFromFileGenerator *this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t non-virtual thunk toTXTextFromFileGenerator::parseElement(CFURLRef *this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
-  return TXFileLoadingGenerator::parseElement((this - 200), a2, a3);
+  return TXFileLoadingGenerator::parseElement(this - 25, a2, a3);
 }
 
 {
-  return TXFileLoadingGenerator::parseElement((this - 248), a2, a3);
+  return TXFileLoadingGenerator::parseElement(this - 31, a2, a3);
 }
 
 uint64_t TXTextFromFileGenerator::didAddToScene(TXTextFromFileGenerator *this, OZScene *a2)
 {
   v10 = 0uLL;
   v11 = 0;
-  OZSceneSettings::getFrameDuration((a2 + 336), &v10);
+  OZSceneSettings::getFrameDuration(&v10, (a2 + 336));
   TXTextGenerator::didAddToScene(this, a2);
   v4 = *(this + 25);
   this = (this + 200);
@@ -5202,7 +5255,7 @@ void sub_25FB53630(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTimecodeGenerator::setTimecodeBaseForMotionOrFCP(const PCString *this, int a2, int a3)
+void TXTimecodeGenerator::setTimecodeBaseForMotionOrFCP(PCString *this, int a2, int a3)
 {
   v11 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -5211,7 +5264,7 @@ void TXTimecodeGenerator::setTimecodeBaseForMotionOrFCP(const PCString *this, in
     v7 = unk_26034A388;
     v8 = xmmword_26034A398;
     v9 = unk_26034A3A8;
-    OZChannelEnum::setTags(&this[8159], v6, 16);
+    OZChannelEnum::setTags(&this[8159].var0, v6, 16);
     PCURL::PCURL(&v5, @"Text Timecode Generator Timecode Base Enum Motion");
   }
 
@@ -5222,7 +5275,7 @@ void TXTimecodeGenerator::setTimecodeBaseForMotionOrFCP(const PCString *this, in
     v7 = unk_26034A3C8;
     v8 = xmmword_26034A3D8;
     v9 = unk_26034A3E8;
-    OZChannelEnum::setTags(&this[8159], v6, 17);
+    OZChannelEnum::setTags(&this[8159].var0, v6, 17);
     PCURL::PCURL(&v5, @"Text Timecode Generator Timecode Base Enum FCP");
   }
 
@@ -5284,9 +5337,9 @@ void TXTimecodeGenerator::~TXTimecodeGenerator(TXTimecodeGenerator *this)
   *(this + 2372) = &unk_2871FFB28;
   OZChannelBool::~OZChannelBool((this + 65720));
   OZChannelText::~OZChannelText((this + 65552));
-  PCTimecodeMode::~PCTimecodeMode((this + 65528));
-  OZChannelEnum::~OZChannelEnum((this + 65272));
-  OZChannelEnum::~OZChannelEnum((this + 65016));
+  PCTimecodeMode::~PCTimecodeMode(this + 0x1FFF);
+  OZChannelEnum::~OZChannelEnum(this + 8159);
+  OZChannelEnum::~OZChannelEnum(this + 8127);
   OZChannel::~OZChannel((this + 64864));
   OZChannel::~OZChannel((this + 64712));
   OZChannelBool::~OZChannelBool((this + 64560));
@@ -5374,28 +5427,28 @@ uint64_t non-virtual thunk toTXTimecodeGenerator::parseEnd(TXTimecodeGenerator *
 
 void TXTimecodeGenerator::prepareForRender(TXTimecodeGenerator *this, CMTime *a2)
 {
-  v21 = *a2;
+  v23 = *a2;
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v20, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v22, v4);
   v5 = (*(*(this + 25) + 640))(this + 200);
-  (*(*v5 + 712))(v17);
-  v15 = *a2;
+  (*(*v5 + 712))(v19);
+  v17 = *a2;
   v6 = (*(*(this + 25) + 272))(this + 200);
-  OZSceneSettings::getFrameDuration((v6 + 336), &v13);
-  time1 = v15;
-  *&time2.value = v13;
-  time2.epoch = v14;
-  v7 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v16);
+  OZSceneSettings::getFrameDuration(&v15, (v6 + 336));
+  time1 = v17;
+  *&time2.value = v15;
+  time2.epoch = v16;
+  v7 = PC_CMTimeFloorToSampleDuration(&time1, &time2, &v18);
   v8 = (*(*(this + 25) + 272))(this + 200, v7);
-  OZSceneSettings::getFrameDuration((v8 + 336), &v11);
-  *&time1.value = *&v17[0].var0;
-  time1.epoch = v18;
-  time2 = v16;
-  if (CMTimeCompare(&time1, &time2) <= 0 && ((*&time1.value = *&v17[0].var0, time1.epoch = v18, time2 = v19, PC_CMTimeSaferAdd(&time1, &time2, &v23), time1 = v23, *&time2.value = v11, time2.epoch = v12, PC_CMTimeSaferSubtract(&time1, &time2, &v22), time1 = v16, time2 = v22, CMTimeCompare(&time1, &time2) <= 0) || (v19.flags & 1) != 0 && (v19.flags & 0x10) != 0))
+  OZSceneSettings::getFrameDuration(&v13, (v8 + 336));
+  *&time1.value = *&v19[0].var0;
+  time1.epoch = v20;
+  time2 = v18;
+  if (CMTimeCompare(&time1, &time2) <= 0 && ((*&time1.value = *&v19[0].var0, time1.epoch = v20, time2 = v21, PC_CMTimeSaferAdd(&time1, &time2, &v25), time1 = v25, *&time2.value = v13, time2.epoch = v14, PC_CMTimeSaferSubtract(&time1, &time2, &v24), time1 = v18, time2 = v24, CMTimeCompare(&time1, &time2) <= 0) || (v21.flags & 1) != 0 && (v21.flags & 0x10) != 0))
   {
-    PCSharedCount::PCSharedCount(v17);
-    TXTextLayout::setString(this, v17, 1);
-    TXTextLayout::updateDisplayString(this, &v21);
+    PCSharedCount::PCSharedCount(v19);
+    TXTextLayout::setString(this, v19, 1);
+    TXTextLayout::updateDisplayString(this, &v23);
     v9 = *(*(this + 2422) + 16);
     TXTextLayout::getDisplayString(this, &time1);
     v10 = PCString::size(&time1);
@@ -5404,23 +5457,24 @@ void TXTimecodeGenerator::prepareForRender(TXTimecodeGenerator *this, CMTime *a2
     PCString::~PCString(&time1);
     TXTextLayout::rebuildParagraphStyles(this);
     TXTextLayout::setAllParagraphsDirty(this);
-    TXTextLayout::doLayout(this, a2, 0);
-    PCString::~PCString(v17);
-    OZLockingGroup::WriteSentry::~WriteSentry(v20);
+    TXTextLayout::doLayout(this, a2, 0, v11, v12);
+    PCString::~PCString(v19);
+    OZLockingGroup::WriteSentry::~WriteSentry(&v22);
     TXTextLayout::prepareForRender(this, a2);
   }
 
   else
   {
-    OZLockingGroup::WriteSentry::~WriteSentry(v20);
+    OZLockingGroup::WriteSentry::~WriteSentry(&v22);
   }
 }
 
-void sub_25FB542E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, PCString a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_25FB542E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, PCString a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  PCString::~PCString((v28 - 64));
+  va_start(va, a27);
+  PCString::~PCString((v27 - 64));
   PCString::~PCString(&a22);
-  OZLockingGroup::WriteSentry::~WriteSentry(&a28);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
@@ -5449,7 +5503,7 @@ uint64_t TXTimecodeGenerator::getPreviewSceneNode(TXTimecodeGenerator *this)
 
   PCString::~PCString(&v6);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v6);
+  TXTextLayout::getCurrentStyleForInsertion(&v6, v3);
   if (v6.var0)
   {
     v5 = **&MEMORY[0x277CC08F0];
@@ -5484,7 +5538,7 @@ void sub_25FB544E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void OZChannelTimecode::OZChannelTimecode(OZChannelTimecode *this, const PCString *a2, OZChannelFolder *a3, unsigned int a4, int a5, OZChannelImpl *a6, OZChannelInfo *a7)
 {
-  OZChannelTimecode_FactoryBase = getOZChannelTimecode_FactoryBase();
+  OZChannelTimecode_FactoryBase = getOZChannelTimecode_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelTimecode_FactoryBase, a2, a3, a4, a5, a6, a7);
   this->var0 = &unk_287248650;
   this->var2 = &unk_2872489B0;
@@ -5649,10 +5703,10 @@ void TXTimeDateGenerator::~TXTimeDateGenerator(TXTimeDateGenerator *this)
   *(this + 841) = &unk_287200CC0;
   *(this + 2372) = &unk_287200D98;
 
-  OZChannelEnum::~OZChannelEnum((this + 66088));
-  OZChannelEnum::~OZChannelEnum((this + 65832));
-  OZChannelEnum::~OZChannelEnum((this + 65576));
-  OZChannelEnum::~OZChannelEnum((this + 65320));
+  OZChannelEnum::~OZChannelEnum(this + 8261);
+  OZChannelEnum::~OZChannelEnum(this + 8229);
+  OZChannelEnum::~OZChannelEnum(this + 8197);
+  OZChannelEnum::~OZChannelEnum(this + 8165);
   OZChannelBool::~OZChannelBool((this + 65168));
   OZChannel::~OZChannel((this + 65016));
   OZChannel::~OZChannel((this + 64864));
@@ -5720,9 +5774,9 @@ void non-virtual thunk toTXTimeDateGenerator::~TXTimeDateGenerator(TXTimeDateGen
   JUMPOUT(0x2666E9F00);
 }
 
-void *TXTimeDateGenerator::operator=(TXTextLayout *a1, const void *a2)
+void *TXTimeDateGenerator::operator=(const TXTextLayout *a1, const void *a2)
 {
-  TXTextGenerator::operator=(a1);
+  TXTextGenerator::operator=(a1, a2);
   if (result)
   {
     v5 = result[8051];
@@ -5735,30 +5789,30 @@ void *TXTimeDateGenerator::operator=(TXTextLayout *a1, const void *a2)
 
 uint64_t TXTimeDateGenerator::generateString(TXTimeDateGenerator *this, PCString *a2, CMTime *a3)
 {
-  v56 = *a3;
+  v49 = *a3;
   v4 = this + 200;
   v5 = (*(*(this + 25) + 640))(this + 200);
   v6 = (*(*v4 + 272))(v4);
-  if (!v6 || (v7 = v6, (*(*v5 + 712))(&v54, v5), OZSceneSettings::getFrameDuration((v7 + 336), &v50), time1 = v56, *&time2.value = v50, time2.epoch = v51, PC_CMTimeFloorToSampleDuration(&time1, &time2, &v52), OZSceneSettings::getFrameDuration((v7 + 336), &v48), time1 = v54, *&time2.value = v52, time2.epoch = v53, result = CMTimeCompare(&time1, &time2), result <= 0) && ((time1 = v54, time2 = v55, PC_CMTimeSaferAdd(&time1, &time2, &time), time1 = time, *&time2.value = v48, time2.epoch = v49, PC_CMTimeSaferSubtract(&time1, &time2, &v57), *&time1.value = v52, time1.epoch = v53, time2 = v57, result = CMTimeCompare(&time1, &time2), result <= 0) || (v55.flags & 1) != 0 && (v55.flags & 0x10) != 0))
+  if (!v6 || (v7 = v6, (*(*v5 + 712))(&v47, v5), OZSceneSettings::getFrameDuration(&v43, (v7 + 336)), time1 = v49, *&time2.value = v43, time2.epoch = v44, PC_CMTimeFloorToSampleDuration(&time1, &time2, &v45), OZSceneSettings::getFrameDuration(&v41, (v7 + 336)), time1 = v47, *&time2.value = v45, time2.epoch = v46, result = CMTimeCompare(&time1, &time2), result <= 0) && ((time1 = v47, time2 = v48, PC_CMTimeSaferAdd(&time1, &time2, &time), time1 = time, *&time2.value = v41, time2.epoch = v42, PC_CMTimeSaferSubtract(&time1, &time2, &v50), *&time1.value = v45, time1.epoch = v46, time2 = v50, result = CMTimeCompare(&time1, &time2), result <= 0) || (v48.flags & 1) != 0 && (v48.flags & 0x10) != 0))
   {
     TXTimeDateGenerator::updateFormatter(this);
     if (OZChannel::getValueAsInt((this + 64560), MEMORY[0x277CC08F0], 0.0))
     {
-      (*(*(this + 25) + 1128))(&v54, v4);
-      time2 = v54;
-      time1 = v56;
+      (*(*(this + 25) + 1128))(&v47, v4);
+      time2 = v47;
+      time1 = v49;
       PC_CMTimeSaferSubtract(&time1, &time2, &time);
       Seconds = CMTimeGetSeconds(&time);
       v10 = (*(*(this + 25) + 272))(v4);
-      OZSceneSettings::getFrameDuration((v10 + 336), &v52);
-      time1 = v54;
-      time2 = v55;
+      OZSceneSettings::getFrameDuration(&v45, (v10 + 336));
+      time1 = v47;
+      time2 = v48;
       PC_CMTimeSaferAdd(&time1, &time2, &time);
       time1 = time;
-      *&time2.value = v52;
-      time2.epoch = v53;
-      PC_CMTimeSaferSubtract(&time1, &time2, &v57);
-      v11 = Seconds / CMTimeGetSeconds(&v57);
+      *&time2.value = v45;
+      time2.epoch = v46;
+      PC_CMTimeSaferSubtract(&time1, &time2, &v50);
+      v11 = Seconds / CMTimeGetSeconds(&v50);
       v12 = MEMORY[0x277CC08F0];
       OZChannel::getValueAsDouble((this + 64864), MEMORY[0x277CC08F0], 0.0);
       v14 = v13;
@@ -5768,7 +5822,7 @@ uint64_t TXTimeDateGenerator::generateString(TXTimeDateGenerator *this, PCString
 
     else
     {
-      OZChannel::getValueAsDouble((this + 64712), &v56, 0.0);
+      OZChannel::getValueAsDouble((this + 64712), &v49, 0.0);
       v16 = v17;
     }
 
@@ -5778,47 +5832,47 @@ uint64_t TXTimeDateGenerator::generateString(TXTimeDateGenerator *this, PCString
       switch(ValueAsInt)
       {
         case 0:
-          v33 = MEMORY[0x277CBEAA8];
-          v34 = v16;
+          v26 = MEMORY[0x277CBEAA8];
+          v27 = v16;
 LABEL_23:
-          v37 = [v33 dateWithTimeIntervalSinceReferenceDate:v34];
+          v30 = [v26 dateWithTimeIntervalSinceReferenceDate:v27];
           goto LABEL_27;
         case 1:
-          v26 = v16;
-          v27 = v16 / 60;
-          v28 = 60;
+          v19 = v16;
+          v20 = v16 / 60;
+          v21 = 60;
           goto LABEL_22;
         case 2:
-          v26 = v16;
-          v27 = v16 / 3600;
-          v28 = 3600;
+          v19 = v16;
+          v20 = v16 / 3600;
+          v21 = 3600;
 LABEL_22:
-          v34 = v16 - (v26 - v27 * v28);
-          v33 = MEMORY[0x277CBEAA8];
+          v27 = v16 - (v19 - v20 * v21);
+          v26 = MEMORY[0x277CBEAA8];
           goto LABEL_23;
       }
 
 LABEL_20:
-      PCPrint("File %s, line %d should not have been reached:\n\t", v19, v20, v21, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Text/TXTimeDateGenerator.mm");
+      PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Text/TXTimeDateGenerator.mm", 189);
       pcAbortImpl();
     }
 
     if (ValueAsInt == 3)
     {
-      v29 = [MEMORY[0x277CBEA80] currentCalendar];
-      v35 = [MEMORY[0x277CBEBB0] localTimeZone];
-      v36 = [v29 componentsInTimeZone:v35 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
-      v31 = v36;
+      v22 = [MEMORY[0x277CBEA80] currentCalendar];
+      v28 = [MEMORY[0x277CBEBB0] localTimeZone];
+      v29 = [v22 componentsInTimeZone:v28 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
+      v24 = v29;
     }
 
     else
     {
       if (ValueAsInt == 4)
       {
-        v29 = [MEMORY[0x277CBEA80] currentCalendar];
-        v38 = [MEMORY[0x277CBEBB0] localTimeZone];
-        v32 = [v29 componentsInTimeZone:v38 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
-        v31 = v32;
+        v22 = [MEMORY[0x277CBEA80] currentCalendar];
+        v31 = [MEMORY[0x277CBEBB0] localTimeZone];
+        v25 = [v22 componentsInTimeZone:v31 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
+        v24 = v25;
       }
 
       else
@@ -5828,68 +5882,68 @@ LABEL_20:
           goto LABEL_20;
         }
 
-        v29 = [MEMORY[0x277CBEA80] currentCalendar];
-        v30 = [MEMORY[0x277CBEBB0] localTimeZone];
-        v31 = [v29 componentsInTimeZone:v30 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
-        [v31 setMonth:1];
-        v32 = v31;
+        v22 = [MEMORY[0x277CBEA80] currentCalendar];
+        v23 = [MEMORY[0x277CBEBB0] localTimeZone];
+        v24 = [v22 componentsInTimeZone:v23 fromDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v16)}];
+        [v24 setMonth:1];
+        v25 = v24;
       }
 
-      [v32 setDay:1];
-      v36 = v31;
+      [v25 setDay:1];
+      v29 = v24;
     }
 
-    [v36 setHour:0];
-    [v31 setMinute:0];
-    [v31 setSecond:0];
-    v37 = [v29 dateFromComponents:v31];
+    [v29 setHour:0];
+    [v24 setMinute:0];
+    [v24 setSecond:0];
+    v30 = [v22 dateFromComponents:v24];
 LABEL_27:
-    v39 = v37;
+    v32 = v30;
     TXTimeDateGenerator::check24HourFormat(this);
-    v40 = [*(this + 8293) stringFromDate:v39];
-    v41 = [v40 length];
+    v33 = [*(this + 8293) stringFromDate:v32];
+    v34 = [v33 length];
     if (OZChannel::getValueAsInt((this + 65168), MEMORY[0x277CC08F0], 0.0))
     {
-      v42 = [MEMORY[0x277CCAB68] stringWithString:v40];
-      if ([v42 length])
+      v35 = [MEMORY[0x277CCAB68] stringWithString:v33];
+      if ([v35 length])
       {
-        v43 = 0;
-        v44 = MEMORY[0x277D85DE0];
+        v36 = 0;
+        v37 = MEMORY[0x277D85DE0];
         do
         {
-          if (v43)
+          if (v36)
           {
-            v45 = [v42 characterAtIndex:v43 - 1];
+            v38 = [v35 characterAtIndex:v36 - 1];
           }
 
           else
           {
-            v45 = 0;
+            v38 = 0;
           }
 
-          v46 = [v42 characterAtIndex:v43];
-          if (v43 >= v41 - 1)
+          v39 = [v35 characterAtIndex:v36];
+          if (v36 >= v34 - 1)
           {
-            v47 = 0;
+            v40 = 0;
           }
 
           else
           {
-            v47 = [v42 characterAtIndex:v43 + 1];
+            v40 = [v35 characterAtIndex:v36 + 1];
           }
 
-          if ((v45 > 0xFF || (*(v44 + 4 * v45 + 60) & 0x400) == 0) && v46 <= 0xFF && (*(v44 + 4 * v46 + 60) & 0x400) != 0 && (v47 > 0xFF || (*(v44 + 4 * v47 + 60) & 0x400) == 0))
+          if ((v38 > 0xFF || (*(v37 + 4 * v38 + 60) & 0x400) == 0) && v39 <= 0xFF && (*(v37 + 4 * v39 + 60) & 0x400) != 0 && (v40 > 0xFF || (*(v37 + 4 * v40 + 60) & 0x400) == 0))
           {
-            [v42 insertString:@"0" atIndex:v43++];
+            [v35 insertString:@"0" atIndex:v36++];
           }
 
-          ++v43;
+          ++v36;
         }
 
-        while (v43 < [v42 length]);
+        while (v36 < [v35 length]);
       }
 
-      [v42 length];
+      [v35 length];
     }
 
     operator new[]();
@@ -5912,7 +5966,7 @@ uint64_t TXTimeDateGenerator::updateFormatter(TXTimeDateGenerator *this)
   return [v6 setLocale:v7];
 }
 
-uint64_t TXTimeDateGenerator::check24HourFormat(id *this)
+void *TXTimeDateGenerator::check24HourFormat(id *this)
 {
   v2 = [MEMORY[0x277CCA968] dateFormatFromTemplate:@"j" options:0 locale:{objc_msgSend(MEMORY[0x277CBEAF8], "currentLocale")}];
   v3 = [this[8293] dateFormat];
@@ -5957,7 +6011,7 @@ uint64_t TXTimeDateGenerator::getPreviewSceneNode(TXTimeDateGenerator *this)
 
   PCString::~PCString(&v6);
   TXTextLayout::didFinishInitializing(v3, 1);
-  TXTextLayout::getCurrentStyleForInsertion(v3, &v6);
+  TXTextLayout::getCurrentStyleForInsertion(&v6, v3);
   if (v6.var0)
   {
     v5 = **&MEMORY[0x277CC08F0];
@@ -5990,7 +6044,7 @@ void sub_25FB56308(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTimeDateGenerator::writeBody(TXTimeDateGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t TXTimeDateGenerator::writeBody(TXTimeDateGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, uint64_t a5)
 {
   TXTextLayout::writeBody(this, a2, a3, a4, a5);
   PCSerializerWriteStream::pushScope(a2, &TXTimeDateGeneratorScope);
@@ -6003,7 +6057,7 @@ uint64_t TXTimeDateGenerator::writeBody(TXTimeDateGenerator *this, PCSerializerW
   return PCSerializerWriteStream::popScope(a2);
 }
 
-uint64_t non-virtual thunk toTXTimeDateGenerator::writeBody(TXTimeDateGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t non-virtual thunk toTXTimeDateGenerator::writeBody(TXTimeDateGenerator *this, PCSerializerWriteStream *a2, uint64_t a3, BOOL a4, uint64_t a5)
 {
   return TXTimeDateGenerator::writeBody((this - 200), a2, a3, a4, a5);
 }
@@ -6197,7 +6251,7 @@ void TXSequenceBehavior::TXSequenceBehavior(TXSequenceBehavior *this, OZFactory 
   *(this + 94) = 0;
   *(this + 796) = 0;
   *(this + 101) = 0;
-  TXSequenceChannels::TXSequenceChannels((this + 816), (this + 56), 0xC8u);
+  TXSequenceChannels::TXSequenceChannels((this + 816), (this + 56));
   PCURL::PCURL(&v8, @"Text Sequence Behavior Controls");
   OZChannelFolder::OZChannelFolder((this + 27984), &v8, (this + 56), 0xC9u, 0, 0);
   PCString::~PCString(&v8);
@@ -6509,7 +6563,7 @@ void TXSequenceBehavior::TXSequenceBehavior(TXSequenceBehavior *this, const TXSe
   *(this + 3785) = &unk_287246400;
   *(this + 3787) = &unk_287246760;
   OZChannelEnum::OZChannelEnum((this + 30432), (a2 + 30432), (this + 27984));
-  OZChannelFolder::OZChannelFolder((this + 30688), (a2 + 30688), (this + 27984));
+  OZChannelFolder::OZChannelFolder((this + 30688), a2 + 274, (this + 27984));
   OZChannelEnum::OZChannelEnum((this + 30816), (a2 + 30816), (this + 30688));
   OZChannel::OZChannel((this + 31072), (a2 + 31072), (this + 30688));
   *(this + 3884) = &unk_287246400;
@@ -6633,7 +6687,7 @@ void sub_25FB591B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char *TXSequenceBehavior::fixControlsFolderLocation(TXSequenceBehavior *this)
+OZChannelFolder *TXSequenceBehavior::fixControlsFolderLocation(TXSequenceBehavior *this)
 {
   result = (*(*this + 312))(this);
   if (result)
@@ -6668,6 +6722,7 @@ void TXSequenceBehavior::~TXSequenceBehavior(TXSequenceBehavior *this)
   *this = &unk_287201030;
   *(this + 2) = &unk_287201370;
   *(this + 6) = &unk_2872015C8;
+  v2 = this + 336;
   *(this + 42) = &unk_287201620;
   *(this + 67) = &unk_287201648;
   *(this + 68) = &unk_2872016A8;
@@ -6676,48 +6731,48 @@ void TXSequenceBehavior::~TXSequenceBehavior(TXSequenceBehavior *this)
     Scene = OZBehavior::getScene(this);
     if (Scene)
     {
-      OZDocument::removeCPPObserver(*(Scene + 1584));
+      OZDocument::removeCPPObserver(*(Scene + 1584), v2);
       *(this + 368) = 0;
     }
   }
 
-  v3 = *(this + 4504);
-  if (v3)
+  v4 = *(this + 4504);
+  if (v4)
   {
-    MEMORY[0x2666E9ED0](v3, 0x1000C8052888210);
+    MEMORY[0x2666E9ED0](v4, 0x1000C8052888210);
     *(this + 4504) = 0;
   }
 
-  v4 = *(this + 93);
-  v5 = *(this + 94);
-  if (v4 != v5)
+  v5 = *(this + 93);
+  v6 = *(this + 94);
+  if (v5 != v6)
   {
     do
     {
-      v6 = *v4;
-      if (*v4)
+      v7 = *v5;
+      if (*v5)
       {
-        std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v6 + 32, *(v6 + 40));
-        MEMORY[0x2666E9F00](v6, 0x1020C40A41566E0);
+        std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v7 + 32, *(v7 + 40));
+        MEMORY[0x2666E9F00](v7, 0x1020C40A41566E0);
       }
 
-      ++v4;
+      ++v5;
     }
 
-    while (v4 != v5);
-    v4 = *(this + 93);
+    while (v5 != v6);
+    v5 = *(this + 93);
   }
 
-  *(this + 94) = v4;
+  *(this + 94) = v5;
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 36056, *(this + 4508));
   OZChannelBool::~OZChannelBool((this + 35880));
   OZChannelBool::~OZChannelBool((this + 35728));
-  OZChannelEnum::~OZChannelEnum((this + 35472));
-  OZChannelEnum::~OZChannelEnum((this + 35216));
+  OZChannelEnum::~OZChannelEnum(this + 4434);
+  OZChannelEnum::~OZChannelEnum(this + 4402);
   OZChannelPercent::~OZChannelPercent((this + 35064));
   OZChannelBool::~OZChannelBool((this + 34912));
   OZChannel::~OZChannel((this + 34760));
-  OZChannelEnum::~OZChannelEnum((this + 34504));
+  OZChannelEnum::~OZChannelEnum(this + 4313);
   OZChannel::~OZChannel(this + 226);
   OZChannel::~OZChannel(this + 225);
   OZChannelPercent::~OZChannelPercent(this + 224);
@@ -6725,41 +6780,41 @@ void TXSequenceBehavior::~TXSequenceBehavior(TXSequenceBehavior *this)
   OZChannelPercent::~OZChannelPercent(this + 222);
   OZChannelFolder::~OZChannelFolder((this + 33616));
   OZChannel::~OZChannel((this + 33464));
-  OZChannelEnum::~OZChannelEnum((this + 33208));
+  OZChannelEnum::~OZChannelEnum(this + 4151);
   OZChannel::~OZChannel((this + 33056));
-  OZChannelEnum::~OZChannelEnum((this + 32800));
+  OZChannelEnum::~OZChannelEnum(this + 4100);
   OZChannel::~OZChannel((this + 32648));
   OZChannelPercent::~OZChannelPercent((this + 32496));
-  OZChannelEnum::~OZChannelEnum((this + 32240));
+  OZChannelEnum::~OZChannelEnum(this + 4030);
   OZChannel::~OZChannel((this + 32088));
-  OZChannelEnum::~OZChannelEnum((this + 31832));
+  OZChannelEnum::~OZChannelEnum(this + 3979);
   OZChannel::~OZChannel((this + 31680));
   OZChannelBool::~OZChannelBool((this + 31528));
   OZChannelBool::~OZChannelBool((this + 31376));
   OZChannel::~OZChannel((this + 31224));
   OZChannel::~OZChannel((this + 31072));
-  OZChannelEnum::~OZChannelEnum((this + 30816));
+  OZChannelEnum::~OZChannelEnum(this + 3852);
   OZChannelFolder::~OZChannelFolder((this + 30688));
-  OZChannelEnum::~OZChannelEnum((this + 30432));
+  OZChannelEnum::~OZChannelEnum(this + 3804);
   OZChannel::~OZChannel((this + 30280));
-  OZChannelEnum::~OZChannelEnum((this + 30024));
-  OZChannelEnum::~OZChannelEnum((this + 29768));
+  OZChannelEnum::~OZChannelEnum(this + 3753);
+  OZChannelEnum::~OZChannelEnum(this + 3721);
   OZChannel::~OZChannel((this + 29616));
-  OZChannelEnum::~OZChannelEnum((this + 29360));
+  OZChannelEnum::~OZChannelEnum(this + 3670);
   OZChannel::~OZChannel((this + 29208));
   OZChannelBool::~OZChannelBool((this + 29056));
   OZChannelFolder::~OZChannelFolder((this + 28928));
   OZChannelPercent::~OZChannelPercent((this + 28776));
   OZChannelPercent::~OZChannelPercent((this + 28624));
-  OZChannelEnum::~OZChannelEnum((this + 28368));
-  OZChannelEnum::~OZChannelEnum((this + 28112));
+  OZChannelEnum::~OZChannelEnum(this + 3546);
+  OZChannelEnum::~OZChannelEnum(this + 3514);
   OZChannelFolder::~OZChannelFolder((this + 27984));
   TXSequenceChannels::~TXSequenceChannels((this + 816));
-  v7 = *(this + 93);
-  if (v7)
+  v8 = *(this + 93);
+  if (v8)
   {
-    *(this + 94) = v7;
-    operator delete(v7);
+    *(this + 94) = v8;
+    operator delete(v8);
   }
 
   *(this + 68) = &unk_2872018B0;
@@ -6816,7 +6871,7 @@ void non-virtual thunk toTXSequenceBehavior::~TXSequenceBehavior(TXSequenceBehav
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t TXSequenceBehavior::operator=(uint64_t *a1, const void *a2)
+void *TXSequenceBehavior::operator=(uint64_t *a1, const void *a2)
 {
   TXTextBehavior::operator=();
   if (!v4)
@@ -6863,7 +6918,7 @@ uint64_t TXSequenceBehavior::operator=(uint64_t *a1, const void *a2)
     v9 = *v7;
     if (((*v7)->var7 & 0x1000) != 0)
     {
-      v12 = *(result + 112);
+      v12 = result[14];
       v13 = *v12;
       v14 = v12[1];
       while (v13 != v14)
@@ -6980,14 +7035,14 @@ LABEL_29:
   return v7;
 }
 
-void TXSequenceBehavior::didAddToNode(TXSequenceBehavior *this, OZSceneNode *lpsrc)
+void TXSequenceBehavior::didAddToNode(void *this, OZSceneNode *lpsrc)
 {
   if (lpsrc)
   {
-    *(this + 101) = v4;
+    this[101] = v4;
     if (v4)
     {
-      TXSequenceChannels::removeTrackingChannel((this + 816), 1004);
+      TXSequenceChannels::removeTrackingChannel((this + 102), 1004);
       if (*(this + 36049) == 1)
       {
         TXSequenceBehavior::sequenceChannelsMatchTextSequenceChannels(this);
@@ -6995,7 +7050,7 @@ void TXSequenceBehavior::didAddToNode(TXSequenceBehavior *this, OZSceneNode *lps
 
       else
       {
-        v5 = *(*(this + 101) + 19352);
+        v5 = *(this[101] + 19352);
         v6 = *(v5 + 16);
         v7 = *(v5 + 24);
         if (v7)
@@ -7007,7 +7062,7 @@ void TXSequenceBehavior::didAddToNode(TXSequenceBehavior *this, OZSceneNode *lps
         v9 = *(v6 + 488);
         while (v8 != v9)
         {
-          TXSequenceChannels::addMaterialChannels((this + 816), *v8++, ((*(this + 104) - *(this + 103)) >> 3) - 6);
+          TXSequenceChannels::addMaterialChannels((this + 102), *v8++, ((this[104] - this[103]) >> 3) - 6);
         }
 
         *(this + 36049) = 1;
@@ -7019,12 +7074,12 @@ void TXSequenceBehavior::didAddToNode(TXSequenceBehavior *this, OZSceneNode *lps
 
       OZChannelBehavior::didAddToNode(this, lpsrc);
       TXSequenceBehavior::sequenceBehaviorDidLoad(this);
-      if ((*(this + 368) & 1) == 0)
+      if ((this[46] & 1) == 0)
       {
         v10 = (*(*lpsrc + 272))(lpsrc);
         if (v10)
         {
-          OZDocument::addCPPObserver(*(v10 + 1584), this + 336, 1001);
+          OZDocument::addCPPObserver(*(v10 + 1584), (this + 42), 1001);
           *(this + 368) = 1;
         }
       }
@@ -7038,7 +7093,7 @@ void TXSequenceBehavior::didAddToNode(TXSequenceBehavior *this, OZSceneNode *lps
 
   else
   {
-    *(this + 101) = 0;
+    this[101] = 0;
   }
 }
 
@@ -7085,7 +7140,7 @@ uint64_t TXSequenceBehavior::sequenceBehaviorDidLoad(uint64_t this)
   return this;
 }
 
-void *TXSequenceBehavior::updateUnitsChannel(TXSequenceBehavior *this)
+void **TXSequenceBehavior::updateUnitsChannel(TXSequenceBehavior *this)
 {
   v5 = *MEMORY[0x277D85DE8];
   if (OZChannel::getValueAsInt((this + 29056), MEMORY[0x277CC08F0], 0.0) == 1)
@@ -7094,7 +7149,7 @@ void *TXSequenceBehavior::updateUnitsChannel(TXSequenceBehavior *this)
     OZChannelEnum::setStrings(this + 3546, &v3, 1);
     PCString::~PCString(&v3);
     v3 = xmmword_26034A5B0;
-    return OZChannelEnum::setTags((this + 28368), &v3, 4);
+    return OZChannelEnum::setTags(this + 3546, &v3, 4);
   }
 
   else
@@ -7114,7 +7169,7 @@ void *TXSequenceBehavior::updateUnitsChannel(TXSequenceBehavior *this)
     PCString::~PCString(&v3);
     v4 = 0x500000004;
     v3 = xmmword_26034A5EC;
-    return OZChannelEnum::setTags((this + 28368), &v3, 6);
+    return OZChannelEnum::setTags(this + 3546, &v3, 6);
   }
 }
 
@@ -7137,7 +7192,7 @@ void TXSequenceBehavior::setUpDefaultCustomSpeed(TXSequenceBehavior *this, OZSce
           time1 = v9;
           time2 = v10;
           PC_CMTimeSaferAdd(&time1, &time2, &v7);
-          OZSceneSettings::getFrameDuration((a2 + 336), &v5);
+          OZSceneSettings::getFrameDuration(&v5, (a2 + 336));
           time1 = v7;
           *&time2.value = v5;
           time2.epoch = v6;
@@ -7156,7 +7211,7 @@ void TXSequenceBehavior::willRemove(TXSequenceBehavior *this)
     v2 = (*(*this + 336))(this);
     if (v2)
     {
-      OZDocument::removeCPPObserver(*(v2 + 1584));
+      OZDocument::removeCPPObserver(*(v2 + 1584), this + 336);
       *(this + 368) = 0;
     }
   }
@@ -7192,7 +7247,7 @@ void TXSequenceBehavior::willRemove(TXSequenceBehavior *this)
   TXTextLayout::setAllParagraphsDirty(v10);
 }
 
-uint64_t TXSequenceBehavior::willRemoveSceneNodeFromScene(TXSequenceBehavior *this, OZScene *a2)
+OZNotificationManager *TXSequenceBehavior::willRemoveSceneNodeFromScene(TXSequenceBehavior *this, OZScene *a2)
 {
   result = OZChannelBehavior::willRemoveSceneNodeFromScene(this, a2);
   if (*(this + 368) == 1)
@@ -7200,7 +7255,7 @@ uint64_t TXSequenceBehavior::willRemoveSceneNodeFromScene(TXSequenceBehavior *th
     result = (*(*this + 336))(this);
     if (result)
     {
-      result = OZDocument::removeCPPObserver(*(result + 1584));
+      result = OZDocument::removeCPPObserver(*(result + 198), this + 336);
       *(this + 368) = 0;
     }
   }
@@ -7213,7 +7268,7 @@ void TXSequenceBehavior::dirty(TXSequenceBehavior *this)
   v2 = this + 0x8000;
   OZBehavior::dirty(this);
   v3 = Li3DEngineScene::sceneManager((this + 544));
-  OZLockingGroup::WriteSentry::WriteSentry(v5, v3);
+  OZLockingGroup::WriteSentry::WriteSentry(&v5, v3);
   *(this + 796) = 0;
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy((v2 + 3288), *(v2 + 412));
   *(v2 + 411) = v2 + 3296;
@@ -7223,7 +7278,7 @@ void TXSequenceBehavior::dirty(TXSequenceBehavior *this)
   *(this + 4512) = *(v4 + 16);
   *(v2 + 834) = 0;
   *(v2 + 418) = 0;
-  OZLockingGroup::WriteSentry::~WriteSentry(v5);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v5);
 }
 
 uint64_t TXSequenceBehavior::attachDescendantSequencedChannels(uint64_t this, OZChannelFolder *a2)
@@ -7682,7 +7737,7 @@ uint64_t TXSequenceBehavior::removeCurveNodes(uint64_t this, OZChannelBase *a2)
           {
             OZChannel::deleteCurveProcessingNode(v11, v10);
             *&v16 = v10;
-            std::list<OZBehaviorCurveNode *>::remove(v3 + 344, &v16);
+            std::list<OZBehaviorCurveNode *>::remove(v3 + 43, &v16);
             NumberOfCurveProcessingNodes = OZChannel::getNumberOfCurveProcessingNodes(v11);
             if (!NumberOfCurveProcessingNodes)
             {
@@ -7747,12 +7802,12 @@ LABEL_15:
   return this;
 }
 
-void *std::list<OZBehaviorCurveNode *>::remove(uint64_t a1, void *a2)
+void *std::list<OZBehaviorCurveNode *>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -7799,9 +7854,9 @@ void *std::list<OZBehaviorCurveNode *>::remove(uint64_t a1, void *a2)
   return std::__list_imp<unsigned int>::clear(v10);
 }
 
-void sub_25FB5BD2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB5BD2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -7817,12 +7872,12 @@ OZChannelBase *TXSequenceBehavior::isTextSequenceChannelEnabled(TXSequenceBehavi
   return result;
 }
 
-uint64_t TXSequenceBehavior::isActiveAtTime(TXSequenceBehavior *this, CMTime *a2, BOOL a3, BOOL a4, int a5)
+uint64_t TXSequenceBehavior::isActiveAtTime(TXSequenceBehavior *this, CMTime *a2, BOOL a3, BOOL a4, BOOL a5)
 {
   time1 = *a2;
   isActiveAtTime = OZBehavior::isActiveAtTime(this, &time1, a3, a4, a5);
-  TXSequenceBehavior::getAnimationDuration(this, &v10);
-  OZBehavior::getFrameDuration(this, &v8);
+  TXSequenceBehavior::getAnimationDuration(&v10.value, this);
+  OZBehavior::getFrameDuration(&v8, this);
   time1 = v10;
   *&time2.value = v8;
   time2.epoch = v9;
@@ -7837,12 +7892,12 @@ uint64_t TXSequenceBehavior::isActiveAtTime(TXSequenceBehavior *this, CMTime *a2
   }
 }
 
-void TXSequenceBehavior::getAnimationDuration(TXSequenceBehavior *this@<X0>, uint64_t a2@<X8>)
+void TXSequenceBehavior::getAnimationDuration(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   if (*(this + 768) == 1)
   {
-    *a2 = *(this + 772);
-    *(a2 + 16) = *(this + 788);
+    *a1 = *(this + 772);
+    a1[2] = *(this + 788);
   }
 
   else
@@ -7850,23 +7905,23 @@ void TXSequenceBehavior::getAnimationDuration(TXSequenceBehavior *this@<X0>, uin
     (*(*this + 608))(v11, this);
     v13 = v12;
     v4 = (*(*this + 336))(this);
-    OZSceneSettings::getFrameDuration((v4 + 336), &v9);
+    OZSceneSettings::getFrameDuration(&v9, (v4 + 336));
     v5 = MEMORY[0x277CC08F0];
-    OZChannel::getValueAsDouble((this + 33056), MEMORY[0x277CC08F0], 0.0);
+    OZChannel::getValueAsDouble((this + 4132), MEMORY[0x277CC08F0], 0.0);
     v7 = v6;
-    OZChannel::getValueAsDouble((this + 33464), v5, 0.0);
+    OZChannel::getValueAsDouble((this + 4183), v5, 0.0);
     operator*(&v9, &v10, v7 + v8);
     v15 = v13;
     v14 = v10;
-    PC_CMTimeSaferSubtract(&v15, &v14, a2);
+    PC_CMTimeSaferSubtract(&v15, &v14, a1);
   }
 }
 
-uint64_t TXSequenceBehavior::isActiveInTimeRange(TXSequenceBehavior *this, const PCTimeRange *a2, BOOL a3, BOOL a4, int a5)
+uint64_t TXSequenceBehavior::isActiveInTimeRange(TXSequenceBehavior *this, const PCTimeRange *a2, BOOL a3, BOOL a4, BOOL a5)
 {
   isActiveInTimeRange = OZBehavior::isActiveInTimeRange(this, a2, a3, a4, a5);
-  TXSequenceBehavior::getAnimationDuration(this, &v10);
-  OZBehavior::getFrameDuration(this, &v8);
+  TXSequenceBehavior::getAnimationDuration(&v10.value, this);
+  OZBehavior::getFrameDuration(&v8, this);
   time1 = v10;
   *&time2.value = v8;
   time2.epoch = v9;
@@ -7881,7 +7936,7 @@ uint64_t TXSequenceBehavior::isActiveInTimeRange(TXSequenceBehavior *this, const
   }
 }
 
-const void *TXSequenceBehavior::markFactoriesForSerialization(const void ***this, PCSerializerWriteStream *a2, uint64_t a3)
+void *TXSequenceBehavior::markFactoriesForSerialization(void ***this, OZChannelFolder *a2, _BOOL8 a3)
 {
   result = OZBehavior::markFactoriesForSerialization(this, a2);
   v7 = this[103];
@@ -8040,9 +8095,9 @@ void TXSequenceBehavior::addChannel(TXSequenceBehavior *this, OZChannelBase *a2)
   OZChannelRef::~OZChannelRef(v7);
 }
 
-void sub_25FB5C4D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB5C4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZChannelRef::~OZChannelRef(va);
   _Unwind_Resume(a1);
 }
@@ -8103,9 +8158,9 @@ uint64_t TXSequenceBehavior::removeMaterial(TXSequenceBehavior *this, unsigned i
   return RemoveMaterialFromSequenceChannels((this + 816), a2);
 }
 
-uint64_t TXSequenceBehavior::removeMaterialLayer(TXSequenceBehavior *this, unsigned int a2, unsigned int a3)
+uint64_t TXSequenceBehavior::removeMaterialLayer(TXSequenceBehavior *this, unsigned int a2, int a3)
 {
-  v3 = a3 + 6;
+  v3 = (a3 + 6);
   v4 = *(this + 103);
   if (v3 >= (*(this + 104) - v4) >> 3 || (v7 = *(*(v4 + 8 * v3) + 112), v6 = *v7, a2 >= ((v7[1] - *v7) >> 3)))
   {
@@ -8171,7 +8226,7 @@ LABEL_8:
           v17 = 1.0;
           if (v29)
           {
-            TXSequenceBehavior::trapezoid(this, v15 + -1.0, a3, a4, a5, a6, 0, 1.0, 1.0, 0);
+            v30 = TXSequenceBehavior::trapezoid(this, v15 + -1.0, a3, a4, a5, a6, 0, 1.0, 1.0, 0);
             if (v30 <= 0.0)
             {
               return 1.0;
@@ -8212,8 +8267,8 @@ LABEL_8:
               v48 = (v20 - v15) / (v20 - a4) * CustomSpeedDuration;
               memset(&v54, 0, sizeof(v54));
               v49 = (*(*this + 336))(this);
-              OZSceneSettings::getFrameDuration((v49 + 336), &v52);
-              operator*(&v52, &v53, v48);
+              OZSceneSettings::getFrameDuration(v52, (v49 + 336));
+              operator*(v52, &v53, v48);
               (*(*this + 608))(&v55, this);
               v57 = v55;
               time = v53;
@@ -8230,7 +8285,7 @@ LABEL_8:
             v17 = v47 + 0.0;
             if (v10)
             {
-              TXSequenceBehavior::trapezoid(this, v15 + -1.0, a3, a4, a5, a6, 0, 1.0, 1.0, 0);
+              v51 = TXSequenceBehavior::trapezoid(this, v15 + -1.0, a3, a4, a5, a6, 0, 1.0, 1.0, 0);
               if (v50 < v51)
               {
                 return v51;
@@ -8274,8 +8329,8 @@ LABEL_8:
           v41 = v19 * v40;
           memset(&v54, 0, sizeof(v54));
           v42 = (*(*this + 336))(this);
-          OZSceneSettings::getFrameDuration((v42 + 336), &v52);
-          operator*(&v52, &v53, v41);
+          OZSceneSettings::getFrameDuration(v52, (v42 + 336));
+          operator*(v52, &v53, v41);
           (*(*this + 608))(&v55, this);
           v57 = v55;
           time = v53;
@@ -8329,7 +8384,7 @@ Float64 TXSequenceBehavior::getCustomSpeedDuration(TXSequenceBehavior *this)
     goto LABEL_21;
   }
 
-  OZChannel::enumerateCurveProcessingNodes((this + 32496), &time);
+  OZChannel::enumerateCurveProcessingNodes(&time.value, (this + 32496));
   value = time.value;
   v2 = *&time.timescale;
   if (*&time.timescale == time.value)
@@ -8354,7 +8409,7 @@ Float64 TXSequenceBehavior::getCustomSpeedDuration(TXSequenceBehavior *this)
         (*(*v7 + 608))(&time, v7);
         v20 = time;
         memset(&v19, 0, sizeof(v19));
-        OZBehavior::getFrameDuration(v7, &v17);
+        OZBehavior::getFrameDuration(&v17, v7);
         time1 = time;
         time2 = v22;
         PC_CMTimeSaferAdd(&time1, &time2, &v25);
@@ -8412,15 +8467,15 @@ Float64 TXSequenceBehavior::getCustomSpeedDuration(TXSequenceBehavior *this)
   if ((v4 & 1) == 0)
   {
 LABEL_21:
-    OZChannel::getKeyframeMinTime((this + 32496), &v24);
-    OZChannel::getKeyframeMaxTime((this + 32496), &v23);
+    OZChannel::getKeyframeMinTime(&v24.value, (this + 32496));
+    OZChannel::getKeyframeMaxTime(&v23.value, (this + 32496));
   }
 
   time = v23;
   time1 = v24;
   v14.n128_f64[0] = PC_CMTimeSaferSubtract(&time, &time1, &time2);
   v15 = (*(*this + 336))(this, v14);
-  OZSceneSettings::getFrameDuration((v15 + 336), &time1);
+  OZSceneSettings::getFrameDuration(&time1, (v15 + 336));
   operator/(&time2.value, &time1, &time);
   return CMTimeGetSeconds(&time);
 }
@@ -8538,7 +8593,7 @@ double TXSequenceBehavior::getValue(TXSequenceBehavior *this, const CMTime *a2, 
 double TXSequenceBehavior::getCustomAnimationValue(TXSequenceBehavior *this, const CMTime *a2, double a3, OZChannel *a4, double a5)
 {
   memset(&v46, 0, sizeof(v46));
-  TXSequenceBehavior::getCustomAnimationTime(this, a2, a3, &v46);
+  TXSequenceBehavior::getCustomAnimationTime(&v46.value, this, a2, a3);
   ChanValue = TXSequenceBehavior::getChanValue(this, &v46, a3, a4);
   if (OZChannel::getValueAsInt((this + 30816), MEMORY[0x277CC08F0], 0.0))
   {
@@ -8603,19 +8658,19 @@ double TXSequenceBehavior::getCustomAnimationValue(TXSequenceBehavior *this, con
         v28 = v27;
         SceneFrameRate = OZBehavior::getSceneFrameRate(this);
         TXSequenceBehavior::getKeyframeExtent(this, &v44, &v43);
-        PCMath::clamp(&v46, &v44, &v43, &time);
+        PCMath::clamp(&time.value, &v46, &v44, &v43);
         v46 = time;
         v30 = (*(*this + 336))(this);
-        OZSceneSettings::getFrameDuration((v30 + 336), &v47);
+        OZSceneSettings::getFrameDuration(&v47, (v30 + 336));
         operator/(&v46.value, &v47, &time);
         Seconds = CMTimeGetSeconds(&time);
         time = v43;
         v47 = v44;
         v32 = Seconds / SceneFrameRate;
-        v33.n128_f64[0] = PC_CMTimeSaferSubtract(&time, &v47, &v42);
+        v33.n128_f64[0] = PC_CMTimeSaferSubtract(&time, &v47, v42);
         v34 = (*(*this + 336))(this, v33);
-        OZSceneSettings::getFrameDuration((v34 + 336), &v47);
-        operator/(&v42, &v47, &time);
+        OZSceneSettings::getFrameDuration(&v47, (v34 + 336));
+        operator/(v42, &v47, &time);
         v35 = CMTimeGetSeconds(&time);
         v36 = 0;
         v37 = fabs(v35);
@@ -8655,8 +8710,8 @@ double TXSequenceBehavior::getSelectionValue(TXSequenceBehavior *this, const CMT
   OZChannel::getValueAsDouble((this + 33056), MEMORY[0x277CC08F0], 0.0);
   v11 = v10;
   v12 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v12 + 336), &v52);
-  operator*(&v52, &v53, v11);
+  OZSceneSettings::getFrameDuration(v52, (v12 + 336));
+  operator*(v52, &v53, v11);
   v56 = *a2;
   v55 = v53;
   PC_CMTimeSaferSubtract(&v56, &v55, &v54);
@@ -8785,6 +8840,13 @@ LABEL_26:
   return ChanValue;
 }
 
+void sub_25FB5DCB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  OZLockingGroup::ReadSentry::~ReadSentry(va);
+  _Unwind_Resume(a1);
+}
+
 double TXSequenceBehavior::getChanValue(TXSequenceBehavior *this, const CMTime *a2, double a3, OZChannel *a4)
 {
   OZChannel::getValueAsDouble(a4, a2, 0.0);
@@ -8804,14 +8866,14 @@ double TXSequenceBehavior::getChanValue(TXSequenceBehavior *this, const CMTime *
   return v9;
 }
 
-void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, const CMTime *a2@<X1>, double a3@<D0>, uint64_t a4@<X8>)
+void TXSequenceBehavior::getCustomAnimationTime(uint64_t *__return_ptr a1@<X8>, TXSequenceBehavior *this@<X0>, const CMTime *a3@<X1>, double a4@<D0>)
 {
-  v7 = TXSequenceBehavior::charIndexToChannelUnitIndex(this, a3, 1);
+  v7 = TXSequenceBehavior::charIndexToChannelUnitIndex(this, a4, 1);
   if (v7 < 0)
   {
     v17 = MEMORY[0x277CC08F0];
-    *a4 = *MEMORY[0x277CC08F0];
-    *(a4 + 16) = *(v17 + 16);
+    *a1 = *MEMORY[0x277CC08F0];
+    a1[2] = *(v17 + 16);
     return;
   }
 
@@ -8820,7 +8882,7 @@ void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, c
   memset(&v66, 0, sizeof(v66));
   v65 = v67[1];
   v9 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v9 + 336), &v63);
+  OZSceneSettings::getFrameDuration(&v63, (v9 + 336));
   v10 = MEMORY[0x277CC08F0];
   OZChannel::getValueAsDouble((this + 33056), MEMORY[0x277CC08F0], 0.0);
   v12 = v11;
@@ -8875,15 +8937,15 @@ void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, c
   }
 
   v28 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v28 + 336), &time2);
+  OZSceneSettings::getFrameDuration(&time2, (v28 + 336));
   operator/(&v66.value, &time2, &time1);
   Seconds = CMTimeGetSeconds(&time1);
   memset(&v64, 0, sizeof(v64));
   time2 = v67[0];
-  time1 = *a2;
+  time1 = *a3;
   v30.n128_f64[0] = PC_CMTimeSaferSubtract(&time1, &time2, &v63);
   v31 = (*(*this + 336))(this, v30);
-  OZSceneSettings::getFrameDuration((v31 + 336), &v61);
+  OZSceneSettings::getFrameDuration(&v61, (v31 + 336));
   OZChannel::getValueAsDouble((this + 33056), v21, 0.0);
   operator*(&v61, &v62, v32);
   time1 = v63;
@@ -8906,7 +8968,7 @@ void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, c
   {
     if (v16 == 6)
     {
-      OZChannel::getValueAsDouble((this + 32496), a2, 0.0);
+      OZChannel::getValueAsDouble((this + 32496), a3, 0.0);
     }
 
     else
@@ -8928,7 +8990,7 @@ void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, c
     v40 = vcvtmd_s64_f64(v39 + 0.0000001);
     if (v16 == 6)
     {
-      OZChannel::getValueAsDouble((this + 32496), a2, 0.0);
+      OZChannel::getValueAsDouble((this + 32496), a3, 0.0);
     }
 
     else
@@ -8952,7 +9014,7 @@ void TXSequenceBehavior::getCustomAnimationTime(TXSequenceBehavior *this@<X0>, c
 
   operator*(&v66, &v62, v51);
   v52 = (*(*this + 336))(this);
-  OZSceneSettings::getFrameDuration((v52 + 336), &v60);
+  OZSceneSettings::getFrameDuration(&v60, (v52 + 336));
   OZChannel::getValueAsDouble((this + 33056), v47, 0.0);
   operator*(&v60, &v61, v53);
   time1 = v62;
@@ -9009,9 +9071,9 @@ LABEL_40:
 LABEL_47:
   OZChannel::getValueAsDouble((this + 33056), MEMORY[0x277CC08F0], 0.0);
   v55 = (1.0 - v24) * v46 * v48 + v54;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  *a4 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
   v56 = (*(*this + 336))(this);
   OZFigTimeForChannelSeconds(&v60, v55 / *(v56 + 368), 0x40000);
   time1 = v64;
@@ -9023,16 +9085,15 @@ LABEL_47:
   operator*(&v62.value, &v65, &v63);
   time2 = v67[0];
   time1 = v63;
-  PC_CMTimeSaferAdd(&time1, &time2, a4);
+  PC_CMTimeSaferAdd(&time1, &time2, a1);
 }
 
-uint64_t TXSequenceBehavior::charIndexToSelectionIndex(TXSequenceBehavior *this, int a2, unsigned int *a3)
+uint64_t TXSequenceBehavior::charIndexToSelectionIndex(TXSequenceBehavior *this, unint64_t a2, unsigned int *a3)
 {
   if (a3)
   {
-    LODWORD(i) = a2;
     v59 = 0;
-    TXChannelString::getString((*(this + 101) + 19048), &theString);
+    TXChannelString::getString(&theString, (*(this + 101) + 19048));
     v6 = PCString::size(&theString);
     ValueAsInt = OZChannel::getValueAsInt((this + 30816), MEMORY[0x277CC08F0], 0.0);
     v8 = 0;
@@ -9044,24 +9105,24 @@ uint64_t TXSequenceBehavior::charIndexToSelectionIndex(TXSequenceBehavior *this,
         case 1:
           if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
           {
-            v8 = v6 + ~i;
+            v8 = v6 + ~a2;
             v59 = v8;
           }
 
           else
           {
-            v59 = i;
-            v8 = i;
+            v59 = a2;
+            v8 = a2;
           }
 
           break;
         case 2:
           if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
           {
-            v38 = i;
-            if (v6 > i)
+            v38 = a2;
+            if (v6 > a2)
             {
-              v38 = i;
+              v38 = a2;
               while (1)
               {
                 CharacterAtIndex = CFStringGetCharacterAtIndex(theString, v38);
@@ -9078,14 +9139,14 @@ uint64_t TXSequenceBehavior::charIndexToSelectionIndex(TXSequenceBehavior *this,
               }
             }
 
-            v8 = v38 + ~i;
+            v8 = v38 + ~a2;
           }
 
           else
           {
-            if (i)
+            if (a2)
             {
-              v43 = i + 1;
+              v43 = a2 + 1;
               while (1)
               {
                 v44 = v43 - 1;
@@ -9111,7 +9172,7 @@ LABEL_85:
               v46 = 0;
             }
 
-            v8 = v46 + i;
+            v8 = v46 + a2;
           }
 
           goto LABEL_119;
@@ -9121,15 +9182,15 @@ LABEL_85:
           if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
           {
             v20 = 0;
-            v21 = v6 - i;
-            if (v6 <= i)
+            v21 = v6 - a2;
+            if (v6 <= a2)
             {
-              v6 = i;
+              v6 = a2;
             }
 
             else
             {
-              v22 = i;
+              v22 = a2;
               while (1)
               {
                 v23 = CFStringGetCharacterAtIndex(theString, v22);
@@ -9160,16 +9221,16 @@ LABEL_85:
             }
 
 LABEL_116:
-            v8 = ~i - v20 + v6;
+            v8 = ~a2 - v20 + v6;
           }
 
           else
           {
             v53 = 0;
             v54 = 0;
-            for (i = i; ; --i)
+            for (a2 = a2; ; --a2)
             {
-              v55 = CFStringGetCharacterAtIndex(theString, i);
+              v55 = CFStringGetCharacterAtIndex(theString, a2);
               if (TXCharacterSetIsWhitespaceOrNewline(v55))
               {
                 ++v54;
@@ -9180,7 +9241,7 @@ LABEL_116:
                 v54 = 0;
               }
 
-              if (!i || TXTextLayout::isLineBreak(*(this + 101), i, v57, LineBreaks))
+              if (!a2 || TXTextLayout::isLineBreak(*(this + 101), a2, v57, LineBreaks))
               {
                 break;
               }
@@ -9205,15 +9266,15 @@ LABEL_116:
           v10 = TXTextLayout::getLineBreaks(*(this + 101), &v57);
           if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
           {
-            if (v6 > i)
+            if (v6 > a2)
             {
               v8 = 0;
               v11 = 0;
-              v12 = i;
+              v12 = a2;
               do
               {
                 v13 = CFStringGetCharacterAtIndex(theString, v12);
-                if (TXCharacterSetIsNewline(v13) || v12 > i && TXTextLayout::isLineBreak(*(this + 101), v12, v57, v10))
+                if (TXCharacterSetIsNewline(v13) || v12 > a2 && TXTextLayout::isLineBreak(*(this + 101), v12, v57, v10))
                 {
                   break;
                 }
@@ -9252,31 +9313,31 @@ LABEL_116:
             }
           }
 
-          else if (i)
+          else if (a2)
           {
             v8 = 0;
             v11 = 0;
             do
             {
-              v48 = CFStringGetCharacterAtIndex(theString, i);
-              if (TXCharacterSetIsNewline(v48) || TXTextLayout::isLineBreak(*(this + 101), i, v57, v10))
+              v48 = CFStringGetCharacterAtIndex(theString, a2);
+              if (TXCharacterSetIsNewline(v48) || TXTextLayout::isLineBreak(*(this + 101), a2, v57, v10))
               {
                 break;
               }
 
-              v49 = CFStringGetCharacterAtIndex(theString, i);
+              v49 = CFStringGetCharacterAtIndex(theString, a2);
               v50 = TXCharacterSetIsWhitespace(v49);
               v11 = v50;
               if (v50)
               {
                 v59 = ++v8;
-                v51 = i - 1;
+                v51 = a2 - 1;
                 while (v51)
                 {
                   v52 = CFStringGetCharacterAtIndex(theString, v51--);
                   if (!TXCharacterSetIsWhitespace(v52))
                   {
-                    LODWORD(i) = v51 + 1;
+                    LODWORD(a2) = v51 + 1;
                     goto LABEL_101;
                   }
                 }
@@ -9284,12 +9345,12 @@ LABEL_116:
                 break;
               }
 
-              LODWORD(i) = i - 1;
+              LODWORD(a2) = a2 - 1;
 LABEL_101:
               ;
             }
 
-            while (i);
+            while (a2);
 LABEL_18:
             if (!v11)
             {
@@ -9307,20 +9368,20 @@ LABEL_120:
 
         if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
         {
-          if (v6 > i)
+          if (v6 > a2)
           {
             v8 = 0;
             do
             {
-              v29 = CFStringGetCharacterAtIndex(theString, i);
+              v29 = CFStringGetCharacterAtIndex(theString, a2);
               IsWhitespaceOrNewline = TXCharacterSetIsWhitespaceOrNewline(v29);
               if (IsWhitespaceOrNewline)
               {
                 v59 = ++v8;
-                v31 = i + 1;
+                v31 = a2 + 1;
                 do
                 {
-                  LODWORD(i) = v31;
+                  LODWORD(a2) = v31;
                   if (v31 >= v6)
                   {
                     break;
@@ -9328,7 +9389,7 @@ LABEL_120:
 
                   v32 = CFStringGetCharacterAtIndex(theString, v31);
                   v33 = TXCharacterSetIsWhitespaceOrNewline(v32);
-                  v31 = i + 1;
+                  v31 = a2 + 1;
                 }
 
                 while (v33);
@@ -9336,11 +9397,11 @@ LABEL_120:
 
               else
               {
-                LODWORD(i) = i + 1;
+                LODWORD(a2) = a2 + 1;
               }
             }
 
-            while (i < v6);
+            while (a2 < v6);
 LABEL_51:
             if (!IsWhitespaceOrNewline)
             {
@@ -9351,34 +9412,34 @@ LABEL_51:
           }
         }
 
-        else if (i)
+        else if (a2)
         {
           v8 = 0;
           while (1)
           {
-            v40 = CFStringGetCharacterAtIndex(theString, i);
+            v40 = CFStringGetCharacterAtIndex(theString, a2);
             IsWhitespaceOrNewline = TXCharacterSetIsWhitespaceOrNewline(v40);
             if (IsWhitespaceOrNewline)
             {
               break;
             }
 
-            LODWORD(i) = i - 1;
+            LODWORD(a2) = a2 - 1;
 LABEL_78:
-            if (!i)
+            if (!a2)
             {
               goto LABEL_51;
             }
           }
 
           v59 = ++v8;
-          v41 = i - 1;
+          v41 = a2 - 1;
           while (v41)
           {
             v42 = CFStringGetCharacterAtIndex(theString, v41--);
             if (!TXCharacterSetIsWhitespaceOrNewline(v42))
             {
-              LODWORD(i) = v41 + 1;
+              LODWORD(a2) = v41 + 1;
               goto LABEL_78;
             }
           }
@@ -9405,20 +9466,20 @@ LABEL_119:
         v8 = 0;
         if (OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0))
         {
-          v35 = v6 >= i;
-          v36 = v6 - i;
+          v35 = v6 >= a2;
+          v36 = v6 - a2;
           if (v36 != 0 && v35)
           {
-            v37 = i;
-            i = i;
+            v37 = a2;
+            a2 = a2;
             do
             {
-              if (i > v37 && TXTextLayout::isLineBreak(*(this + 101), i, v57, v34))
+              if (a2 > v37 && TXTextLayout::isLineBreak(*(this + 101), a2, v57, v34))
               {
                 v59 = ++v8;
               }
 
-              ++i;
+              ++a2;
               --v36;
             }
 
@@ -9439,7 +9500,7 @@ LABEL_119:
             ++v47;
           }
 
-          while (v47 <= i);
+          while (v47 <= a2);
         }
 
         goto LABEL_120;
@@ -9456,7 +9517,7 @@ LABEL_80:
 
         v27 = v26;
         v28 = OZChannel::getValueAsInt((this + 31528), MEMORY[0x277CC08F0], 0.0) != 0;
-        WordIndexInPhrase = TXTranscriptionGenerator::getWordIndexInPhrase(v27, i, v28, &v59);
+        WordIndexInPhrase = TXTranscriptionGenerator::getWordIndexInPhrase(v27, a2, v28, &v59);
         v8 = v59;
       }
     }
@@ -9572,7 +9633,7 @@ uint64_t TXSequenceBehavior::charIndexToChannelUnitIndex(TXSequenceBehavior *thi
   }
 
   v20 = &v19;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 36056, &v19) + 8) = v14;
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(this + 36056, &v19, &std::piecewise_construct, &v20) + 8) = v14;
   if (a3)
   {
 LABEL_29:
@@ -9632,9 +9693,9 @@ __n128 TXSequenceBehavior::getKeyframeExtent(TXSequenceBehavior *this, CMTime *a
 
             if ((*(v18->var0 + 69))(v18, 0))
             {
-              OZChannel::getKeyframeMinTime(v18, &time1);
+              OZChannel::getKeyframeMinTime(&time1.value, v18);
               v31 = time1;
-              OZChannel::getKeyframeMaxTime(v18, &time1);
+              OZChannel::getKeyframeMaxTime(&time1.value, v18);
               v30 = time1;
               if (v6)
               {
@@ -9692,8 +9753,8 @@ __n128 TXSequenceBehavior::getKeyframeExtent(TXSequenceBehavior *this, CMTime *a
       {
         if ((*(v8->var0 + 69))())
         {
-          OZChannel::getKeyframeMinTime(v8, &v31);
-          OZChannel::getKeyframeMaxTime(v8, &v30);
+          OZChannel::getKeyframeMinTime(&v31.value, v8);
+          OZChannel::getKeyframeMaxTime(&v30.value, v8);
           if (v6)
           {
             time1 = v33;
@@ -9741,41 +9802,5 @@ __n128 TXSequenceBehavior::getKeyframeExtent(TXSequenceBehavior *this, CMTime *a
     *a3 = v32;
   }
 
-  return result;
-}
-
-void sub_25FB5F280(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__n128 PCMath::clamp@<Q0>(CMTime *this@<X0>, CMTime *a2@<X1>, CMTime *a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = a2;
-  time1 = *this;
-  v10 = *a2;
-  if ((CMTimeCompare(&time1, &v10) & 0x80000000) == 0)
-  {
-    time1 = *this;
-    v10 = *a3;
-    if (CMTimeCompare(&time1, &v10) <= 0)
-    {
-      v6 = this;
-    }
-
-    else
-    {
-      v6 = a3;
-    }
-  }
-
-  result = *&v6->value;
-  *a4 = *&v6->value;
-  *(a4 + 16) = v6->epoch;
   return result;
 }

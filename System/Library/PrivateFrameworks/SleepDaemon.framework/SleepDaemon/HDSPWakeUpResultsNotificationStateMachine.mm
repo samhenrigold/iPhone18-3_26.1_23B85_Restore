@@ -15,26 +15,26 @@
 
 - (HDSPWakeUpResultsNotificationStateMachine)initWithIdentifier:(id)identifier persistence:(id)persistence delegate:(id)delegate infoProvider:(id)provider currentDateProvider:(id)dateProvider
 {
-  v41[7] = *MEMORY[0x277D85DE8];
+  v40[7] = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277CBEB98];
   dateProviderCopy = dateProvider;
   providerCopy = provider;
   delegateCopy = delegate;
   persistenceCopy = persistence;
   identifierCopy = identifier;
-  v41[0] = objc_opt_class();
-  v41[1] = objc_opt_class();
-  v41[2] = objc_opt_class();
-  v41[3] = objc_opt_class();
-  v41[4] = objc_opt_class();
-  v41[5] = objc_opt_class();
-  v41[6] = objc_opt_class();
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:7];
+  v40[0] = objc_opt_class();
+  v40[1] = objc_opt_class();
+  v40[2] = objc_opt_class();
+  v40[3] = objc_opt_class();
+  v40[4] = objc_opt_class();
+  v40[5] = objc_opt_class();
+  v40[6] = objc_opt_class();
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:7];
   v19 = [v12 setWithArray:v18];
 
-  v40.receiver = self;
-  v40.super_class = HDSPWakeUpResultsNotificationStateMachine;
-  v20 = [(HKSPPersistentStateMachine *)&v40 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
+  v39.receiver = self;
+  v39.super_class = HDSPWakeUpResultsNotificationStateMachine;
+  v20 = [(HKSPPersistentStateMachine *)&v39 initWithIdentifier:identifierCopy allowedStates:v19 persistence:persistenceCopy delegate:delegateCopy infoProvider:providerCopy currentDateProvider:dateProviderCopy];
 
   if (v20)
   {
@@ -78,25 +78,23 @@
     v37 = v20;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)allStates
 {
-  v8[7] = *MEMORY[0x277D85DE8];
+  v7[7] = *MEMORY[0x277D85DE8];
   delayingForTrackingState = self->_delayingForTrackingState;
-  v8[0] = self->_waitingForWakeUpState;
-  v8[1] = delayingForTrackingState;
+  v7[0] = self->_waitingForWakeUpState;
+  v7[1] = delayingForTrackingState;
   queryingState = self->_queryingState;
-  v8[2] = self->_waitingForRetryState;
-  v8[3] = queryingState;
+  v7[2] = self->_waitingForRetryState;
+  v7[3] = queryingState;
   notifiedState = self->_notifiedState;
-  v8[4] = self->_needsProtectedDataState;
-  v8[5] = notifiedState;
-  v8[6] = self->_disabledState;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:7];
-  v6 = *MEMORY[0x277D85DE8];
+  v7[4] = self->_needsProtectedDataState;
+  v7[5] = notifiedState;
+  v7[6] = self->_disabledState;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
 
   return v5;
 }

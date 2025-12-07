@@ -20,6 +20,7 @@
 - (void)__startNANQueryTimer;
 - (void)__startP2PPerfLogging;
 - (void)__startPerfLogging;
+- (void)__wlCLIWithArguments:(id)arguments outputFileHandle:(id)handle addCommand:(BOOL)command addTimestamps:(BOOL)timestamps;
 - (void)addRequest:(id)request;
 - (void)cancelRequestWithUUID:(id)d reply:(id)reply;
 - (void)dealloc;
@@ -34,34 +35,13 @@
   v11.super_class = W5WiFiPerfLoggingManager;
   v4 = [(W5WiFiPerfLoggingManager *)&v11 init];
   v5 = v4;
-  if (!manager)
-  {
-    goto LABEL_9;
-  }
-
-  if (!v4)
-  {
-    goto LABEL_9;
-  }
-
-  v4->_status = manager;
-  v6 = dispatch_queue_create("com.apple.wifivelocity.wifiperf", 0);
-  v5->_queue = v6;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  v7 = objc_alloc_init(NSMutableArray);
-  v5->_pendingRequests = v7;
-  if (v7 && (v8 = objc_alloc_init(NSMutableArray), (v5->_runningTasks = v8) != 0) && (v9 = objc_alloc_init(NSDateFormatter), (v5->_dateFormatter = v9) != 0))
+  if (manager && v4 && (v4->_status = manager, v6 = dispatch_queue_create("com.apple.wifivelocity.wifiperf", 0), (v5->_queue = v6) != 0) && (v7 = objc_alloc_init(NSMutableArray), (v5->_pendingRequests = v7) != 0) && (v8 = objc_alloc_init(NSMutableArray), (v5->_runningTasks = v8) != 0) && (v9 = objc_alloc_init(NSDateFormatter), (v5->_dateFormatter = v9) != 0))
   {
     [(NSDateFormatter *)v9 setDateFormat:@"HH:mm:ss.SSS"];
   }
 
   else
   {
-LABEL_9:
 
     return 0;
   }
@@ -920,6 +900,32 @@ LABEL_21:
   if (commandCopy)
   {
     goto LABEL_21;
+  }
+}
+
+- (void)__wlCLIWithArguments:(id)arguments outputFileHandle:(id)handle addCommand:(BOOL)command addTimestamps:(BOOL)timestamps
+{
+  timestampsCopy = timestamps;
+  commandCopy = command;
+  if ([(CWFInterface *)[(W5StatusManager *)self->_status corewifi] SSID])
+  {
+
+    [(W5WiFiPerfLoggingManager *)self __runToolWithOutputFileHandle:handle readFromStandardError:0 launchPath:@"/usr/local/bin/wl" arguments:arguments addCommand:commandCopy addTimestamps:timestampsCopy];
+  }
+
+  else if (commandCopy)
+  {
+    v11 = @"/usr/local/bin/wl";
+    if ([@"/usr/local/bin/wl" hasPrefix:@"/wl"])
+    {
+      v11 = @"[wlan]";
+    }
+
+    v12 = +[NSMutableString string];
+    [v12 appendString:@"--------------------------------------------------------------------\n"];
+    [v12 appendFormat:@"%@ %@ -- NOT ASSOCIATED, NOOP\n", -[__CFString lastPathComponent](v11, "lastPathComponent"), objc_msgSend(arguments, "componentsJoinedByString:", @" "];
+    [v12 appendString:@"--------------------------------------------------------------------\n\n"];
+    [handle writeData:{objc_msgSend(v12, "dataUsingEncoding:", 4)}];
   }
 }
 

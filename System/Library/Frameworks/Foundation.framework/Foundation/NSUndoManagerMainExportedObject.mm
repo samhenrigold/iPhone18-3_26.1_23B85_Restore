@@ -60,11 +60,11 @@ uint64_t __88___NSUndoManagerMainExportedObject__registerRemoteUndoGroupForActio
   return [v5 _performRemoteUndoForUUID:v3 isRedo:v4 withReply:v12];
 }
 
-uint64_t __88___NSUndoManagerMainExportedObject__registerRemoteUndoGroupForAction_auxUUID_withReply___block_invoke_184(uint64_t result, uint64_t a2)
+id *__88___NSUndoManagerMainExportedObject__registerRemoteUndoGroupForAction_auxUUID_withReply___block_invoke_184(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _registerRemoteUndoGroupForAction:a2 auxUUID:*(result + 40) withReply:&__block_literal_global_187];
+    return [result[4] _registerRemoteUndoGroupForAction:a2 auxUUID:result[5] withReply:&__block_literal_global_187];
   }
 
   return result;

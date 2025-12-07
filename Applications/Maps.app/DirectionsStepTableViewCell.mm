@@ -27,64 +27,64 @@
 
 - (CGRect)_separatorFrame
 {
-  v23.receiver = self;
-  v23.super_class = DirectionsStepTableViewCell;
-  [(DirectionsStepTableViewCell *)&v23 _separatorFrame];
+  v22.receiver = self;
+  v22.super_class = DirectionsStepTableViewCell;
+  [(DirectionsStepTableViewCell *)&v22 _separatorFrame];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
   if ([(DirectionsStepTableViewCell *)self alignSeparatorWithLeadingText])
   {
-    v22 = 0u;
+    v21 = 0u;
     v11 = objc_opt_class();
     v12 = [(DirectionsStepTableViewCell *)self traitCollection:0];
-    userInterfaceIdiom = [v12 userInterfaceIdiom];
+    [v12 userInterfaceIdiom];
     if (v11)
     {
-      [v11 cellMetricsForIdiom:userInterfaceIdiom];
+      objc_msgSend_cellMetricsForIdiom_(v11);
     }
 
     else
     {
-      v22 = 0u;
+      v21 = 0u;
     }
 
     if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:[(DirectionsStepTableViewCell *)self semanticContentAttribute]])
     {
       contentView = [(DirectionsStepTableViewCell *)self contentView];
       [contentView bounds];
-      MaxX = CGRectGetMaxX(v24);
-      v25.origin.x = v4;
-      v25.origin.y = v6;
-      v25.size.width = v8;
-      v25.size.height = v10;
-      v16 = CGRectGetMaxX(v25);
+      MaxX = CGRectGetMaxX(v23);
+      v24.origin.x = v4;
+      v24.origin.y = v6;
+      v24.size.width = v8;
+      v24.size.height = v10;
+      v15 = CGRectGetMaxX(v24);
 
-      v17 = v16 - MaxX + *&v22 + 0.0 + *(&v22 + 1);
+      v16 = v15 - MaxX + *&v21 + 0.0 + *(&v21 + 1);
     }
 
     else
     {
-      v26.origin.x = v4;
-      v26.origin.y = v6;
-      v26.size.width = v8;
-      v26.size.height = v10;
-      v17 = *&v22 + 0.0 + *(&v22 + 1) - CGRectGetMinX(v26);
-      v4 = v17 + v4;
+      v25.origin.x = v4;
+      v25.origin.y = v6;
+      v25.size.width = v8;
+      v25.size.height = v10;
+      v16 = *&v21 + 0.0 + *(&v21 + 1) - CGRectGetMinX(v25);
+      v4 = v16 + v4;
     }
 
-    v8 = v8 - v17;
+    v8 = v8 - v16;
   }
 
-  v18 = v4;
-  v19 = v6;
-  v20 = v8;
-  v21 = v10;
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v17 = v4;
+  v18 = v6;
+  v19 = v8;
+  v20 = v10;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 
@@ -92,10 +92,10 @@
 {
   v3 = objc_opt_class();
   traitCollection = [(DirectionsStepTableViewCell *)self traitCollection];
-  userInterfaceIdiom = [traitCollection userInterfaceIdiom];
+  [traitCollection userInterfaceIdiom];
   if (v3)
   {
-    [v3 cellMetricsForIdiom:userInterfaceIdiom];
+    objc_msgSend_cellMetricsForIdiom_(v3);
   }
 
   accessoryType = [(DirectionsStepTableViewCell *)self accessoryType];
@@ -194,7 +194,7 @@
   if (result)
   {
 
-    return [($8452678F12DBC466148836A9D382CAFC *)result cellMetricsForIdiom:a4];
+    return objc_msgSend_cellMetricsForIdiom_(result);
   }
 
   else

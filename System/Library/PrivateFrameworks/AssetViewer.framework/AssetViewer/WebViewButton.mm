@@ -47,7 +47,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_24134F964(errorCopy, "webView:didFail:withError:%s");
+  sub_24134F964(errorCopy, "webView:didFail:withError:%s", v11);
 }
 
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
@@ -56,7 +56,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_24134F964(errorCopy, "webView:didFailProvisionalNavigation:withError:%s");
+  sub_24134F964(errorCopy, "webView:didFailProvisionalNavigation:withError:%s", v11);
 }
 
 @end

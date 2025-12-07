@@ -7,19 +7,17 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"widgetKind";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"widgetKind";
   kind = [(HMDWidgetTimelineRefresherDailyTotalLogEvent *)self kind];
-  v10[0] = kind;
-  v9[1] = @"refreshReason";
+  v9[0] = kind;
+  v8[1] = @"refreshReason";
   reason = [(HMDWidgetTimelineRefresherDailyTotalLogEvent *)self reason];
-  v10[1] = reason;
-  v9[2] = @"refreshCount";
+  v9[1] = reason;
+  v8[2] = @"refreshCount";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDWidgetTimelineRefresherDailyTotalLogEvent count](self, "count")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -48,11 +46,11 @@ LABEL_7:
   v11 = [(HMMLogEvent *)&v19 init];
   if (v11)
   {
-    v12 = [kindCopy copy];
+    v12 = objc_msgSend_copy(kindCopy);
     kind = v11->_kind;
     v11->_kind = v12;
 
-    v14 = [v10 copy];
+    v14 = objc_msgSend_copy(v10);
     reason = v11->_reason;
     v11->_reason = v14;
 

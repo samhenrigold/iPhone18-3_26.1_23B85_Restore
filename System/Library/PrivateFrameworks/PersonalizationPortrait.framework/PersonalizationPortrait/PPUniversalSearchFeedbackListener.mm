@@ -99,7 +99,7 @@ LABEL_7:
 
 void __74__PPUniversalSearchFeedbackListener_sendMetricsFeedback_engagedCSSICount___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  *&v12[5] = *MEMORY[0x1E69E9840];
+  *&v11[5] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = pp_universal_search_log_handle();
   v7 = v6;
@@ -109,23 +109,22 @@ void __74__PPUniversalSearchFeedbackListener_sendMetricsFeedback_engagedCSSICoun
     {
       v8 = [*(a1 + 32) offeredCSSICount];
       v9 = [*(a1 + 32) engagedCSSICount];
-      v11 = 67109376;
-      v12[0] = v8;
-      LOWORD(v12[1]) = 1024;
-      *(&v12[1] + 2) = v9;
-      _os_log_debug_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Successfully sent metrics logging feedback with %u offeredCSSI and %u engagedCSSI", &v11, 0xEu);
+      v10 = 67109376;
+      v11[0] = v8;
+      LOWORD(v11[1]) = 1024;
+      *(&v11[1] + 2) = v9;
+      _os_log_debug_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Successfully sent metrics logging feedback with %u offeredCSSI and %u engagedCSSI", &v10, 0xEu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138412290;
-    *v12 = v5;
-    _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "PPUniversalSearchFeedbackListener: registerUniversalSearchSpotlightFeedback failed to execute on server with error: %@", &v11, 0xCu);
+    v10 = 138412290;
+    *v11 = v5;
+    _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "PPUniversalSearchFeedbackListener: registerUniversalSearchSpotlightFeedback failed to execute on server with error: %@", &v10, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendFeedbackWithEngagementStrings:(id)strings rejectionStrings:(id)rejectionStrings store:(id)store
@@ -202,7 +201,7 @@ LABEL_7:
 
 void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_rejectionStrings_store___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = pp_universal_search_log_handle();
   v7 = v6;
@@ -211,37 +210,36 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = [*(a1 + 32) feedbackItems];
-      v10 = 134217984;
-      v11 = [v8 count];
-      _os_log_debug_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Successfully sent feedback with %tu feedback items.", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = [v8 count];
+      _os_log_debug_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Successfully sent feedback with %tu feedback items.", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "PPUniversalSearchFeedbackListener: registerFeedback failed to execute on server with error: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "PPUniversalSearchFeedbackListener: registerFeedback failed to execute on server with error: %@", &v9, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchFeedbackCSSIParsedResults:(id)results feedbackBundleId:(id)id queryId:(int64_t)queryId
 {
-  v64[3] = *MEMORY[0x1E69E9840];
+  v63[3] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   idCopy = id;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__3706;
-  v56 = __Block_byref_object_dispose__3707;
-  v57 = 0;
-  v47 = resultsCopy;
-  v48 = objc_opt_new();
-  [v48 setIdentifiers:resultsCopy];
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__3706;
+  v55 = __Block_byref_object_dispose__3707;
+  v56 = 0;
+  v46 = resultsCopy;
+  v47 = objc_opt_new();
+  [v47 setIdentifiers:resultsCopy];
   if (([idCopy isEqualToString:@"com.apple.mobilemail"] & 1) == 0 && (objc_msgSend(idCopy, "isEqualToString:", @"com.apple.MobileSMS") & 1) == 0)
   {
     v36 = 0;
@@ -250,22 +248,22 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
 
   defaultSearchableIndex = [MEMORY[0x1E6964E78] defaultSearchableIndex];
   v9 = *MEMORY[0x1E69648B8];
-  v64[0] = *MEMORY[0x1E69648B0];
-  v64[1] = v9;
-  v64[2] = *MEMORY[0x1E69648C0];
-  v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:3];
+  v63[0] = *MEMORY[0x1E69648B0];
+  v63[1] = v9;
+  v63[2] = *MEMORY[0x1E69648C0];
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:3];
   v10 = dispatch_semaphore_create(0);
   v11 = [(PPUniversalSearchFeedbackListener *)self protectionClassForBundleId:idCopy];
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __93__PPUniversalSearchFeedbackListener_fetchFeedbackCSSIParsedResults_feedbackBundleId_queryId___block_invoke;
-  v49[3] = &unk_1E77F6B90;
-  v51 = &v52;
-  v44 = v10;
-  v50 = v44;
-  [defaultSearchableIndex slowFetchAttributes:v45 protectionClass:v11 bundleID:idCopy identifiers:resultsCopy completionHandler:v49];
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __93__PPUniversalSearchFeedbackListener_fetchFeedbackCSSIParsedResults_feedbackBundleId_queryId___block_invoke;
+  v48[3] = &unk_1E77F6B90;
+  v50 = &v51;
+  v43 = v10;
+  v49 = v43;
+  [defaultSearchableIndex slowFetchAttributes:v44 protectionClass:v11 bundleID:idCopy identifiers:resultsCopy completionHandler:v48];
 
-  v12 = [MEMORY[0x1E69C5D10] waitForSemaphore:v44 timeoutSeconds:20.0];
+  v12 = [MEMORY[0x1E69C5D10] waitForSemaphore:v43 timeoutSeconds:20.0];
   v13 = pp_universal_search_log_handle();
   v14 = v13;
   if (v12 == 1)
@@ -285,30 +283,30 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
       _os_log_debug_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: reply received from server", buf, 2u);
     }
 
-    v15 = v53[5];
+    v15 = v52[5];
     if (!v15)
     {
       goto LABEL_33;
     }
 
     v16 = [v15 count];
-    if (v16 == [v47 count])
+    if (v16 == [v46 count])
     {
       v17 = pp_default_log_handle();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v39 = v53[5];
+        v38 = v52[5];
         *buf = 138739971;
-        queryIdCopy2 = v39;
+        queryIdCopy2 = v38;
         _os_log_debug_impl(&dword_1A7FD3000, v17, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: CoreSpotlight slow fetch results: %{sensitive}@", buf, 0xCu);
       }
 
       v18 = 0;
       *&v19 = 134218243;
-      v42 = v19;
-      while (v18 < [v53[5] count])
+      v41 = v19;
+      while (v18 < [v52[5] count])
       {
-        v20 = [v53[5] objectAtIndexedSubscript:v18];
+        v20 = [v52[5] objectAtIndexedSubscript:v18];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -332,14 +330,14 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
                 v30 = pp_default_log_handle();
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                 {
-                  *buf = v42;
+                  *buf = v41;
                   queryIdCopy2 = queryId;
-                  v60 = 2117;
-                  v61 = allObjects;
+                  v59 = 2117;
+                  v60 = allObjects;
                   _os_log_debug_impl(&dword_1A7FD3000, v30, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Topic Qids of feedback of queryId:%lld: %{sensitive}@", buf, 0x16u);
                 }
 
-                topicStrings = [v48 topicStrings];
+                topicStrings = [v47 topicStrings];
                 [topicStrings addObjectsFromArray:allObjects];
               }
             }
@@ -355,14 +353,14 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
               v34 = pp_default_log_handle();
               if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v42;
+                *buf = v41;
                 queryIdCopy2 = queryId;
-                v60 = 2117;
-                v61 = v24;
+                v59 = 2117;
+                v60 = v24;
                 _os_log_debug_impl(&dword_1A7FD3000, v34, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: Portrait NE of feedback of queryId:%lld: %{sensitive}@", buf, 0x16u);
               }
 
-              neStrings = [v48 neStrings];
+              neStrings = [v47 neStrings];
               [neStrings addObjectsFromArray:v24];
             }
           }
@@ -371,20 +369,20 @@ void __94__PPUniversalSearchFeedbackListener_sendFeedbackWithEngagementStrings_r
         ++v18;
       }
 
-      v36 = v48;
+      v36 = v47;
       goto LABEL_34;
     }
 
     v14 = pp_universal_search_log_handle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v40 = [v53[5] count];
-      v41 = [v47 count];
+      v39 = [v52[5] count];
+      v40 = [v46 count];
       *buf = 134218496;
-      queryIdCopy2 = v40;
-      v60 = 2048;
-      v61 = v41;
-      v62 = 2048;
+      queryIdCopy2 = v39;
+      v59 = 2048;
+      v60 = v40;
+      v61 = 2048;
       queryIdCopy3 = queryId;
       _os_log_error_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_ERROR, "CoreSpotlight returned mis-matching count of fetchedObjects(%lu) when fetching identifiers(%lu) of query %lld", buf, 0x20u);
     }
@@ -395,9 +393,7 @@ LABEL_33:
 LABEL_34:
 
 LABEL_35:
-  _Block_object_dispose(&v52, 8);
-
-  v37 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v51, 8);
 
   return v36;
 }
@@ -411,7 +407,7 @@ void __93__PPUniversalSearchFeedbackListener_fetchFeedbackCSSIParsedResults_feed
 
 - (void)reportFeedback:(id)feedback queryId:(int64_t)id
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   feedbackCopy = feedback;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -423,8 +419,8 @@ void __93__PPUniversalSearchFeedbackListener_fetchFeedbackCSSIParsedResults_feed
     v45 = objc_opt_new();
     processName = [v45 processName];
     *buf = 138412546;
-    v97 = bundleIdentifier;
-    v98 = 2112;
+    v96 = bundleIdentifier;
+    v97 = 2112;
     idCopy4 = processName;
     _os_log_debug_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEBUG, "Feedback from bundleId:%@, process:%@", buf, 0x16u);
   }
@@ -442,8 +438,8 @@ void __93__PPUniversalSearchFeedbackListener_fetchFeedbackCSSIParsedResults_feed
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138740227;
-        v97 = feedbackCopy;
-        v98 = 2048;
+        v96 = feedbackCopy;
+        v97 = 2048;
         idCopy4 = id;
         _os_log_debug_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: reportFeedback, visible result feedback:%{sensitive}@, queryId:%lld", buf, 0x16u);
       }
@@ -515,8 +511,8 @@ LABEL_17:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138740227;
-        v97 = feedbackCopy;
-        v98 = 2048;
+        v96 = feedbackCopy;
+        v97 = 2048;
         idCopy4 = id;
         _os_log_debug_impl(&dword_1A7FD3000, v27, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: reportFeedback, clearing intermediates at local search feedback:%{sensitive}@, queryId:%lld", buf, 0x16u);
       }
@@ -536,8 +532,8 @@ LABEL_17:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138740227;
-        v97 = feedbackCopy;
-        v98 = 2048;
+        v96 = feedbackCopy;
+        v97 = 2048;
         idCopy4 = id;
         _os_log_debug_impl(&dword_1A7FD3000, v29, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: reportFeedback, engagement feedback:%{sensitive}@, queryId:%lld", buf, 0x16u);
       }
@@ -598,8 +594,8 @@ LABEL_60:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138740227;
-        v97 = feedbackCopy;
-        v98 = 2048;
+        v96 = feedbackCopy;
+        v97 = 2048;
         idCopy4 = id;
         _os_log_debug_impl(&dword_1A7FD3000, v31, OS_LOG_TYPE_DEBUG, "PPUniversalSearchFeedbackListener: reportFeedback, search view disappear feedback:%{sensitive}@, queryId:%lld", buf, 0x16u);
       }
@@ -607,19 +603,19 @@ LABEL_60:
       seenSpotlightIds2 = objc_opt_new();
       result = objc_opt_new();
       log = objc_opt_new();
-      v87 = objc_opt_new();
       v86 = objc_opt_new();
       v85 = objc_opt_new();
-      v93 = objc_opt_new();
+      v84 = objc_opt_new();
+      v92 = objc_opt_new();
       v32 = objc_autoreleasePoolPush();
       engagedSpotlightIds2 = [(PPSpotlightSessionState *)selfCopy->_sessionState engagedSpotlightIds];
-      v95[0] = MEMORY[0x1E69E9820];
-      v95[1] = 3221225472;
-      v95[2] = __60__PPUniversalSearchFeedbackListener_reportFeedback_queryId___block_invoke;
-      v95[3] = &unk_1E77F6B68;
-      v95[4] = selfCopy;
-      v95[5] = id;
-      v34 = [engagedSpotlightIds2 _pas_mappedArrayWithIndexedTransform:v95];
+      v94[0] = MEMORY[0x1E69E9820];
+      v94[1] = 3221225472;
+      v94[2] = __60__PPUniversalSearchFeedbackListener_reportFeedback_queryId___block_invoke;
+      v94[3] = &unk_1E77F6B68;
+      v94[4] = selfCopy;
+      v94[5] = id;
+      v34 = [engagedSpotlightIds2 _pas_mappedArrayWithIndexedTransform:v94];
 
       objc_autoreleasePoolPop(v32);
       v35 = 0;
@@ -656,7 +652,7 @@ LABEL_60:
         }
 
         [log unionSet:neStrings2];
-        [v87 unionSet:topicStrings2];
+        [v86 unionSet:topicStrings2];
 
         objc_autoreleasePoolPop(v37);
         ++v35;
@@ -680,8 +676,8 @@ LABEL_60:
         v61 = [seenBundleIds3 objectAtIndexedSubscript:j];
 
         v62 = [v61 isEqualToString:@"com.apple.mobilemail"];
-        v63 = v86;
-        if ((v62 & 1) != 0 || (v64 = [v61 isEqualToString:@"com.apple.MobileSMS"], v63 = v85, v64))
+        v63 = v85;
+        if ((v62 & 1) != 0 || (v64 = [v61 isEqualToString:@"com.apple.MobileSMS"], v63 = v84, v64))
         {
           [v63 addObject:v59];
         }
@@ -689,25 +685,25 @@ LABEL_60:
         objc_autoreleasePoolPop(v57);
       }
 
-      v65 = [(PPUniversalSearchFeedbackListener *)selfCopy fetchFeedbackCSSIParsedResults:v86 feedbackBundleId:@"com.apple.mobilemail" queryId:id];
+      v65 = [(PPUniversalSearchFeedbackListener *)selfCopy fetchFeedbackCSSIParsedResults:v85 feedbackBundleId:@"com.apple.mobilemail" queryId:id];
       if (v65)
       {
-        [v93 addObject:v65];
+        [v92 addObject:v65];
       }
 
-      v84 = v65;
-      v66 = [(PPUniversalSearchFeedbackListener *)selfCopy fetchFeedbackCSSIParsedResults:v85 feedbackBundleId:@"com.apple.MobileSMS" queryId:id];
+      v83 = v65;
+      v66 = [(PPUniversalSearchFeedbackListener *)selfCopy fetchFeedbackCSSIParsedResults:v84 feedbackBundleId:@"com.apple.MobileSMS" queryId:id];
       if (v66)
       {
-        [v93 addObject:v66];
+        [v92 addObject:v66];
       }
 
-      v89 = v66;
+      v88 = v66;
       v67 = 0;
-      for (k = 0; k < [v93 count]; ++k)
+      for (k = 0; k < [v92 count]; ++k)
       {
         v69 = objc_autoreleasePoolPush();
-        v70 = [v93 objectAtIndexedSubscript:k];
+        v70 = [v92 objectAtIndexedSubscript:k];
         topicStrings3 = [v70 topicStrings];
         v72 = [topicStrings3 count] != 0;
 
@@ -724,8 +720,8 @@ LABEL_60:
       v75 = [seenSpotlightIds2 mutableCopy];
       [v75 minusSet:log];
       v76 = [result mutableCopy];
-      [v76 minusSet:v87];
-      allObjects = [v87 allObjects];
+      [v76 minusSet:v86];
+      allObjects = [v86 allObjects];
       allObjects2 = [v76 allObjects];
       [(PPUniversalSearchFeedbackListener *)selfCopy sendFeedbackWithEngagementStrings:allObjects rejectionStrings:allObjects2 store:selfCopy->_topicStore];
 
@@ -744,23 +740,19 @@ LABEL_60:
 
 LABEL_63:
   objc_sync_exit(selfCopy);
-
-  v83 = *MEMORY[0x1E69E9840];
 }
 
 id __60__PPUniversalSearchFeedbackListener_reportFeedback_queryId___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
-  v14 = a2;
+  v13 = a2;
   v6 = MEMORY[0x1E695DEC8];
   v7 = a2;
-  v8 = [v6 arrayWithObjects:&v14 count:1];
+  v8 = [v6 arrayWithObjects:&v13 count:1];
   v9 = [*(*(a1 + 32) + 24) engagedBundleIds];
   v10 = [v9 objectAtIndexedSubscript:a3];
   v11 = [v5 fetchFeedbackCSSIParsedResults:v8 feedbackBundleId:v10 queryId:*(a1 + 40)];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

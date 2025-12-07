@@ -430,7 +430,7 @@ LABEL_3:
 
     v47 = v16;
     v25 = v49;
-    if (v16 && v16 != v48 && ([v12 containsObject:v16] & 1) == 0)
+    if (v16 && v16 != v48 && (objc_msgSend_containsObject_(v12) & 1) == 0)
     {
       v26 = SBLogDisplayAssertions();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -479,7 +479,7 @@ LABEL_3:
             }
 
             v35 = *(*(&v50 + 1) + 8 * i);
-            if (([v12 containsObject:v35] & 1) == 0 && (objc_msgSend(v15, "containsObject:", v35) & 1) == 0 && (objc_msgSend(v35, "isEqual:", v16) & 1) == 0 && (objc_msgSend(v35, "isEqual:", v31) & 1) == 0)
+            if ((objc_msgSend_containsObject_(v12) & 1) == 0 && (objc_msgSend_containsObject_(v15) & 1) == 0 && ([v35 isEqual:v16] & 1) == 0 && (objc_msgSend(v35, "isEqual:", v31) & 1) == 0)
             {
               v36 = SBLogDisplayAssertions();
               if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))

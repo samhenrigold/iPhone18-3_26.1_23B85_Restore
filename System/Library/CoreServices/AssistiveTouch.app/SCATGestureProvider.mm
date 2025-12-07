@@ -154,7 +154,7 @@
 
     *(v6 + 13) = integerValue;
     [menuCopy registerMenuObserver:v6];
-    *(v6 + 24) = AXSwitchRecipeHoldPointNone;
+    *(v6 + 24) = *AXSwitchRecipeHoldPointNone;
     *(v6 + 37) = 0x3FF0000000000000;
     v10 = +[HNDHandManager sharedManager];
     mainDisplayManager = [v10 mainDisplayManager];

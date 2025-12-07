@@ -405,7 +405,7 @@ LABEL_26:
   dimensions = form.dimensions;
   rotationDegrees = form.rotationDegrees;
   result = 0;
-  if ((![(NSString *)[(FigCaptureSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self sinkConfiguration] sinkID] isEqualToString:@"CMCaptureLocalSessionSinkID_MainVideo"]|| ![(FigCaptureVideoDataSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self videoDataSinkConfiguration] cinematicFramingSupported]) && ![(NSString *)[(FigCaptureSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self sinkConfiguration] sinkID] isEqualToString:@"CMCaptureLocalSessionSinkID_DeskcamVideo"])
+  if ((!objc_msgSend_isEqualToString_([(FigCaptureSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self sinkConfiguration] sinkID]) || ![(FigCaptureVideoDataSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self videoDataSinkConfiguration] cinematicFramingSupported]) && (objc_msgSend_isEqualToString_([(FigCaptureSinkConfiguration *)[(FigCaptureConnectionConfiguration *)self sinkConfiguration] sinkID]) & 1) == 0)
   {
     transform = [(FigVideoCaptureConnectionConfiguration *)self transform];
     v10 = v9;

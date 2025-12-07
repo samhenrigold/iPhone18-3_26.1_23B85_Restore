@@ -29,9 +29,8 @@
 
 void __71__FTApgService_performPronGuessWithDelegate_requestBuilder_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [[FTPronGuessStreamingResponse alloc] initAndVerifyWithFlatbuffData:v6];
-  v4 = *(a1 + 32);
+  v5 = a2;
+  v3 = [[FTPronGuessStreamingResponse alloc] initAndVerifyWithFlatbuffData:v5];
   if (v3)
   {
     if (objc_opt_respondsToSelector())
@@ -42,8 +41,8 @@ void __71__FTApgService_performPronGuessWithDelegate_requestBuilder_completion__
 
   else if (objc_opt_respondsToSelector())
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
-    [*(a1 + 32) streamFailVerifyPronGuessStreamingResponse:v5];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Flatbuffers" code:100 userInfo:MEMORY[0x277CBEC10]];
+    [*(a1 + 32) streamFailVerifyPronGuessStreamingResponse:v4];
   }
 }
 

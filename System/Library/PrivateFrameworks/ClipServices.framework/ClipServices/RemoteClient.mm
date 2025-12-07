@@ -9,6 +9,7 @@
 - (id)_validateIngestedBundleID:(id)d forSession:(id)session appInstalled:(BOOL *)installed clipRequestsLocationConfirmation:(BOOL *)confirmation clipRequestsNotification:(BOOL *)notification;
 - (void)_fetchClipMetadataAndImagesWithURL:(id)l prewarmClip:(BOOL)clip reply:(id)reply;
 - (void)_installClipWithURL:(id)l options:(id)options reply:(id)reply;
+- (void)_logOpenAppClipEventForBundleID:(id)d session:(id)session didOpenFullApp:(BOOL)app requiresAppClipInstall:(BOOL)install;
 - (void)_openClipDirectlyWithURL:(id)l launchOptions:(id)options reply:(id)reply;
 - (void)_openClipWithInvocationUIWithURL:(id)l reply:(id)reply;
 - (void)_remoteClientDisconnected;
@@ -39,9 +40,9 @@
   connectionCopy = connection;
   managerCopy = manager;
   metadataManagerCopy = metadataManager;
-  v26.receiver = self;
-  v26.super_class = RemoteClient;
-  v11 = [(RemoteClient *)&v26 init];
+  v28.receiver = self;
+  v28.super_class = RemoteClient;
+  v11 = [(RemoteClient *)&v28 init];
   v12 = v11;
   if (v11)
   {
@@ -57,42 +58,42 @@
     v13 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CPSSessionObserving];
     [connectionCopy setRemoteObjectInterface:v13];
 
-    v14 = sub_100004064();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004064(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v28 = v12;
-      v29 = 2112;
-      v30 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): connection established: %@", buf, 0x16u);
+      v30 = v12;
+      v31 = 2112;
+      v32 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): connection established: %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, v12);
     objc_initWeak(&location, connectionCopy);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1000045D0;
-    v22[3] = &unk_100014778;
-    objc_copyWeak(&v23, buf);
-    objc_copyWeak(&v24, &location);
-    [connectionCopy setInterruptionHandler:v22];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000046AC;
-    v19[3] = &unk_100014778;
-    objc_copyWeak(&v20, buf);
-    objc_copyWeak(&v21, &location);
-    [connectionCopy setInvalidationHandler:v19];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000045D0;
+    v24[3] = &unk_100014778;
+    objc_copyWeak(&v25, buf);
+    objc_copyWeak(&v26, &location);
+    [connectionCopy setInterruptionHandler:v24];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000046AC;
+    v21[3] = &unk_100014778;
+    objc_copyWeak(&v22, buf);
+    objc_copyWeak(&v23, &location);
+    [connectionCopy setInvalidationHandler:v21];
     [(RemoteClientNotEntitled *)v12 setConnection:connectionCopy];
-    v15 = [CPSSessionRemoteObserver observerWithXPCProxy:connectionCopy];
+    v17 = [CPSSessionRemoteObserver observerWithXPCProxy:connectionCopy];
     sessionObserver = v12->_sessionObserver;
-    v12->_sessionObserver = v15;
+    v12->_sessionObserver = v17;
 
-    v17 = v12;
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v24);
+    v19 = v12;
     objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -208,38 +209,43 @@
   }
 
   connection = [(RemoteClientNotEntitled *)self connection];
-  v13 = [connection valueForEntitlement:@"com.apple.private.ClipServices.request-install-clips"];
+  v15 = [connection valueForEntitlement:@"com.apple.private.ClipServices.request-install-clips"];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && ([v13 BOOLValue])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
+    isKindOfClass = [v15 BOOLValue];
+    if (isKindOfClass)
+    {
 
 LABEL_5:
-    v14 = sub_100004064();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = v14;
-      v18 = 134218499;
-      selfCopy = self;
-      v20 = 2117;
-      v21 = lCopy;
-      v22 = 1024;
-      skipsLaunching = [optionsCopy skipsLaunching];
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): opening clip with URL (%{sensitive}@) skipLaunching: %d", &v18, 0x1Cu);
-    }
+      v18 = sub_100004064(v12, v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = v18;
+        v22 = 134218499;
+        selfCopy = self;
+        v24 = 2117;
+        v25 = lCopy;
+        v26 = 1024;
+        skipsLaunching = [optionsCopy skipsLaunching];
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): opening clip with URL (%{sensitive}@) skipLaunching: %d", &v22, 0x1Cu);
+      }
 
-    [(RemoteClient *)self _installClipWithURL:lCopy options:optionsCopy reply:replyCopy];
-    goto LABEL_11;
+      [(RemoteClient *)self _installClipWithURL:lCopy options:optionsCopy reply:replyCopy];
+      goto LABEL_11;
+    }
   }
 
-  v16 = sub_100004064();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v20 = sub_100004064(isKindOfClass, v17);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     sub_10000936C();
   }
 
-  v17 = [NSError cps_errorWithCode:12];
-  replyCopy[2](replyCopy, v17);
+  v21 = [NSError cps_errorWithCode:12];
+  replyCopy[2](replyCopy, v21);
 
 LABEL_11:
 }
@@ -253,27 +259,27 @@ LABEL_11:
 
   if (v9)
   {
-    v12 = v9;
-    v10 = [NSArray arrayWithObjects:&v12 count:1];
-    [(RemoteClient *)self uninstallClipsWithBundleIDs:v10 reply:replyCopy];
+    v14 = v9;
+    v12 = [NSArray arrayWithObjects:&v14 count:1];
+    [(RemoteClient *)self uninstallClipsWithBundleIDs:v12 reply:replyCopy];
   }
 
   else
   {
-    v11 = sub_100004064();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004064(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218243;
       selfCopy = self;
-      v15 = 2117;
-      v16 = lCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): uninstall clip for %{sensitive}@", buf, 0x16u);
+      v17 = 2117;
+      v18 = lCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "RemoteClient (%p): uninstall clip for %{sensitive}@", buf, 0x16u);
     }
 
-    v10 = [NSError cps_errorWithCode:2];
+    v12 = [NSError cps_errorWithCode:2];
     if (replyCopy)
     {
-      replyCopy[2](replyCopy, v10);
+      replyCopy[2](replyCopy, v12);
     }
   }
 }
@@ -299,8 +305,8 @@ LABEL_11:
   v7 = +[CPSSessionManager sharedManager];
   v8 = [v7 sessionWithURL:lCopy createIfNoExist:1];
 
-  v9 = sub_100004064();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = sub_100004064(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_1000093AC();
   }
@@ -310,13 +316,13 @@ LABEL_11:
     [v8 clearMetadataAndRefetch];
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100005954;
-  v11[3] = &unk_1000146C0;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100005954;
+  v13[3] = &unk_1000146C0;
+  v14 = replyCopy;
   v12 = replyCopy;
-  v10 = replyCopy;
-  [v8 fetchMetadataWithCompletion:v11];
+  [v8 fetchMetadataWithCompletion:v13];
 }
 
 - (void)openClipWithInvocationUIIfNeededWithURL:(id)l reply:(id)reply
@@ -536,24 +542,41 @@ LABEL_9:
   return hasFullAppInstalledOnSystem;
 }
 
+- (void)_logOpenAppClipEventForBundleID:(id)d session:(id)session didOpenFullApp:(BOOL)app requiresAppClipInstall:(BOOL)install
+{
+  installCopy = install;
+  appCopy = app;
+  sessionCopy = session;
+  dCopy = d;
+  v16 = +[CPSAnalyticsLogger sharedLogger];
+  configuration = [sessionCopy configuration];
+  launchReason = [configuration launchReason];
+  LODWORD(self) = [(RemoteClient *)self _canSkipShowingAppClipCardOnLaunchForSession:sessionCopy];
+  v14 = [sessionCopy url];
+
+  cps_fallbackBundleIdentifier = [v14 cps_fallbackBundleIdentifier];
+  [v16 recordDidOpenAppClipWithBundleID:dCopy launchReason:launchReason didShowCard:self ^ 1 didOpenFullApp:appCopy didInstallAppClip:installCopy isOutOfBoxURL:cps_fallbackBundleIdentifier != 0];
+}
+
 + (void)_didStartDownloadingAppForBundleID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004064();
-  if (os_signpost_enabled(v5))
+  v6 = sub_100004064(dCopy, v5);
+  v7 = os_signpost_enabled(v6);
+  if (v7)
   {
-    LOWORD(v7) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "downloadAppAction", "start downloading app", &v7, 2u);
+    LOWORD(v10) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "downloadAppAction", "start downloading app", &v10, 2u);
   }
 
-  v6 = sub_100004064();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v9 = sub_100004064(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v7 = 134218243;
+    v10 = 134218243;
     selfCopy = self;
-    v9 = 2113;
-    v10 = dCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "RemoteClient (%p): downloading clip for bundleID: %{private}@", &v7, 0x16u);
+    v12 = 2113;
+    v13 = dCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "RemoteClient (%p): downloading clip for bundleID: %{private}@", &v10, 0x16u);
   }
 }
 
@@ -562,30 +585,31 @@ LABEL_9:
   dCopy = d;
   errorCopy = error;
   handlerCopy = handler;
-  v11 = sub_100004064();
-  if (os_signpost_enabled(v11))
+  v12 = sub_100004064(handlerCopy, v11);
+  v13 = os_signpost_enabled(v12);
+  if (v13)
   {
-    LOWORD(v14) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "downloadAppAction", "end downloading app", &v14, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "downloadAppAction", "end downloading app", &v17, 2u);
   }
 
-  v12 = sub_100004064();
-  v13 = v12;
+  v15 = sub_100004064(v13, v14);
+  v16 = v15;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_100009550(self, v13, errorCopy);
+      sub_100009550(self, v16, errorCopy);
     }
   }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v14 = 134218243;
+    v17 = 134218243;
     selfCopy = self;
-    v16 = 2113;
-    v17 = dCopy;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "RemoteClient (%p): success in downloading clip for bundleID: %{private}@", &v14, 0x16u);
+    v19 = 2113;
+    v20 = dCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "RemoteClient (%p): success in downloading clip for bundleID: %{private}@", &v17, 0x16u);
   }
 
   if (handlerCopy)
@@ -598,36 +622,37 @@ LABEL_9:
 {
   lCopy = l;
   dCopy = d;
-  v8 = sub_100004064();
-  if (os_signpost_enabled(v8))
+  v9 = sub_100004064(dCopy, v8);
+  v10 = os_signpost_enabled(v9);
+  if (v10)
   {
-    LOWORD(v12) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "openAppAction", "start open app", &v12, 2u);
+    LOWORD(v15) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "openAppAction", "start open app", &v15, 2u);
   }
 
-  v9 = sub_100004064();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  v12 = sub_100004064(v10, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (lCopy)
   {
-    if (v10)
+    if (v13)
     {
-      v12 = 134218243;
+      v15 = 134218243;
       selfCopy2 = self;
-      v14 = 2117;
-      v15 = lCopy;
-      v11 = "RemoteClient (%p): opening clip for %{sensitive}@";
+      v17 = 2117;
+      v18 = lCopy;
+      v14 = "RemoteClient (%p): opening clip for %{sensitive}@";
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, v11, &v12, 0x16u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, v14, &v15, 0x16u);
     }
   }
 
-  else if (v10)
+  else if (v13)
   {
-    v12 = 134218243;
+    v15 = 134218243;
     selfCopy2 = self;
-    v14 = 2117;
-    v15 = dCopy;
-    v11 = "RemoteClient (%p): opening clip for adamID: %{sensitive}@";
+    v17 = 2117;
+    v18 = dCopy;
+    v14 = "RemoteClient (%p): opening clip for adamID: %{sensitive}@";
     goto LABEL_8;
   }
 }
@@ -638,55 +663,56 @@ LABEL_8:
   dCopy = d;
   errorCopy = error;
   handlerCopy = handler;
-  v14 = sub_100004064();
-  if (os_signpost_enabled(v14))
+  v15 = sub_100004064(handlerCopy, v14);
+  v16 = os_signpost_enabled(v15);
+  if (v16)
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "openAppAction", "end open app", &v19, 2u);
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "openAppAction", "end open app", &v22, 2u);
   }
 
   if (errorCopy)
   {
-    v15 = sub_100004064();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_100004064(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1000095F8(self, v15, errorCopy);
+      sub_1000095F8(self, v18, errorCopy);
     }
   }
 
   else
   {
-    v16 = sub_100004064();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+    v19 = sub_100004064(v16, v17);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
     if (lCopy)
     {
-      if (!v17)
+      if (!v20)
       {
         goto LABEL_12;
       }
 
-      v19 = 134218243;
+      v22 = 134218243;
       selfCopy2 = self;
-      v21 = 2117;
-      v22 = lCopy;
-      v18 = "RemoteClient (%p): success in opening clip for %{sensitive}@";
+      v24 = 2117;
+      v25 = lCopy;
+      v21 = "RemoteClient (%p): success in opening clip for %{sensitive}@";
     }
 
     else
     {
-      if (!v17)
+      if (!v20)
       {
         goto LABEL_12;
       }
 
-      v19 = 134218243;
+      v22 = 134218243;
       selfCopy2 = self;
-      v21 = 2117;
-      v22 = dCopy;
-      v18 = "RemoteClient (%p): success in opening clip for adamID: %{sensitive}@";
+      v24 = 2117;
+      v25 = dCopy;
+      v21 = "RemoteClient (%p): success in opening clip for adamID: %{sensitive}@";
     }
 
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, v18, &v19, 0x16u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, v21, &v22, 0x16u);
   }
 
 LABEL_12:
@@ -700,25 +726,26 @@ LABEL_12:
 {
   lCopy = l;
   configurationCopy = configuration;
-  if ((+[CPSClipURL isSupported]& 1) != 0)
+  v8 = +[CPSClipURL isSupported];
+  if (v8)
   {
-    v8 = +[CPSSessionManager sharedManager];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100008194;
-    v10[3] = &unk_100014A70;
-    v11 = lCopy;
+    v10 = +[CPSSessionManager sharedManager];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100008194;
+    v12[3] = &unk_100014A70;
+    v13 = lCopy;
     selfCopy = self;
-    [v8 getSessionWithURL:v11 configuration:configurationCopy completion:v10];
+    [v10 getSessionWithURL:v13 configuration:configurationCopy completion:v12];
   }
 
   else
   {
-    v9 = sub_100004064();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = sub_100004064(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "registerSessionWithURL: App clips are unsupported", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "registerSessionWithURL: App clips are unsupported", buf, 2u);
     }
   }
 }

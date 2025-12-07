@@ -37,7 +37,7 @@
   v12.receiver = self;
   v12.super_class = VNImageTranslationAlignmentObservation;
   v4 = [(VNObservation *)&v12 description];
-  [(VNImageTranslationAlignmentObservation *)self alignmentTransform];
+  objc_msgSend_alignmentTransform(self);
   v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"[%g %g %g %g %g %g]", v8, v9, v10, v11];
   v6 = [v3 initWithFormat:@"%@ %@", v4, v5];
 
@@ -59,10 +59,10 @@
     if ([(VNImageAlignmentObservation *)&v10 isEqual:equalCopy]&& (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v5 = equalCopy;
-      [(VNImageTranslationAlignmentObservation *)self alignmentTransform];
+      objc_msgSend_alignmentTransform(self);
       if (v5)
       {
-        [(VNImageTranslationAlignmentObservation *)v5 alignmentTransform];
+        objc_msgSend_alignmentTransform(v5);
       }
 
       else
@@ -87,7 +87,7 @@
   v6.receiver = self;
   v6.super_class = VNImageTranslationAlignmentObservation;
   v3 = [(VNImageAlignmentObservation *)&v6 hash];
-  [(VNImageTranslationAlignmentObservation *)self alignmentTransform];
+  objc_msgSend_alignmentTransform(self);
   return VNHashCGAffineTransform(&v5) ^ __ROR8__(v3, 51);
 }
 
@@ -131,7 +131,7 @@
   {
     if (coderCopy)
     {
-      [coderCopy vn_decodeCGAffineTransformForKey:@"alignmentTransform"];
+      objc_msgSend_vn_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else
@@ -175,7 +175,7 @@
   v14 = 0u;
   v15 = 0u;
   v13 = 0u;
-  [(VNImageTranslationAlignmentObservation *)self alignmentTransform];
+  objc_msgSend_alignmentTransform(self, origin);
   v8 = v15;
   v11 = 0u;
   v12 = 0u;

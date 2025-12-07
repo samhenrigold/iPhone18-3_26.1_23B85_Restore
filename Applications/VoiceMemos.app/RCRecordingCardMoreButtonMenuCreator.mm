@@ -8,12 +8,12 @@
 
 - (_TtC10VoiceMemos36RCRecordingCardMoreButtonMenuCreator)initWithRecordingUUID:(id)d actionDelegate:(id)delegate
 {
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
   swift_unknownObjectRetain();
-  v7 = sub_1000EF6F0(v4, v6);
+  v8 = sub_1000EF6F0(v5, v7, delegate);
   swift_unknownObjectRelease();
-  return v7;
+  return v8;
 }
 
 - (id)createMenuWithDisplayCopyTranscriptAction:(BOOL)action hideTrimItem:(BOOL)item hasMultipleTracks:(BOOL)tracks showUndoItem:(BOOL)undoItem showShareItem:(BOOL)shareItem

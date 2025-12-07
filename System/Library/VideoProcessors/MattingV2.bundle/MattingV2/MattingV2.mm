@@ -513,7 +513,7 @@ void sub_2957DFD8C(void ***a1)
   }
 }
 
-uint64_t sub_2957DFDCC(uint64_t a1, int a2, float a3, double a4, double a5, float a6)
+uint64_t sub_2957DFDCC(uint64_t a1, uint64_t a2, float a3, double a4, double a5, float a6)
 {
   if (a3 < 0.0 || a3 > 1.0)
   {
@@ -552,7 +552,7 @@ LABEL_10:
   return (((v15 * (LODWORD(a6) / 255.0)) + ((1.0 - v15) * (v14 / 255.0))) * 255.0);
 }
 
-uint64_t sub_2957DFEB0(uint64_t result, int a2, int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
+uint64_t sub_2957DFEB0(uint64_t result, unsigned int a2, unsigned int a3, float *a4, int a5, int a6, uint64_t a7, int a8, double a9, double a10, double a11, float a12, int a13)
 {
   if (a3 >= 1)
   {
@@ -715,8 +715,8 @@ uint64_t sub_2957E12EC(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -725,8 +725,8 @@ uint64_t sub_2957E1378(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -735,8 +735,8 @@ uint64_t sub_2957E1404(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3(v2);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
   *a1 = result;
   return result;
 }
@@ -745,9 +745,9 @@ uint64_t sub_2957E14F0(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_2957D64A8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
@@ -756,9 +756,9 @@ uint64_t sub_2957E1578(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_2957D64A8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
 }
@@ -767,86 +767,44 @@ uint64_t sub_2957E1600()
 {
   sub_2957D6498();
   sub_2957D648C();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t sub_2957E1658(_DWORD *a1)
 {
   sub_2957D647C();
   sub_2957D648C();
-  FigDebugAssert3();
+  FigDebugAssert3(v2);
   sub_2957D64A8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3);
   *a1 = result;
   return result;
-}
-
-void sub_2957E1A04(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
 }
 
 uint64_t sub_2957E1C6C(_DWORD *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
   *a1 = result;
   return result;
 }
 
-void sub_2957E27A4(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E294C(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E2AF4(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E2C9C(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E2E44(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E2FEC(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
-void sub_2957E3328(void *a1)
-{
-  sub_2957D5664();
-  FigDebugAssert3();
-}
-
 uint64_t sub_2957E3400(BOOL *a1)
 {
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
   *a1 = result != 0;
   return result;
 }
 
-void sub_2957E34B0(uint64_t a1, void *a2)
+CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform *t)
 {
-  sub_2957DAB48();
-  FigDebugAssert3();
+  MEMORY[0x2A1C59AE0](t, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }

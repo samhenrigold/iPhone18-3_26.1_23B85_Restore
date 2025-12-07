@@ -32,7 +32,6 @@
 
 + (id)positionFromContentsOfData:(id)data
 {
-  v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length])
   {
@@ -55,14 +54,11 @@
     position = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return position;
 }
 
 + (id)syncDataWithContentsOfData:(id)data
 {
-  v9 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length])
   {
@@ -82,8 +78,6 @@
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -123,11 +117,11 @@
 
 - (WBBookmarkSyncData)initWithCoder:(id)coder
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v42.receiver = self;
-  v42.super_class = WBBookmarkSyncData;
-  v5 = [(WBBookmarkSyncData *)&v42 init];
+  v40.receiver = self;
+  v40.super_class = WBBookmarkSyncData;
+  v5 = [(WBBookmarkSyncData *)&v40 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CBC5A0]);
@@ -137,10 +131,10 @@
     v5->_record = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v44[2] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+    v42[0] = objc_opt_class();
+    v42[1] = objc_opt_class();
+    v42[2] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"Generations"];
     v14 = [v13 mutableCopy];
@@ -185,29 +179,27 @@
     v5->_auxiliaryRecords = dictionary;
 
     v32 = MEMORY[0x277CBEB98];
-    v43[0] = objc_opt_class();
-    v43[1] = objc_opt_class();
-    v43[2] = objc_opt_class();
-    v43[3] = objc_opt_class();
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
+    v41[0] = objc_opt_class();
+    v41[1] = objc_opt_class();
+    v41[2] = objc_opt_class();
+    v41[3] = objc_opt_class();
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
     v34 = [v32 setWithArray:v33];
 
     v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"ExtraPositionData"];
     extraPositionData = v5->_extraPositionData;
     v5->_extraPositionData = v35;
 
-    v37 = v5->_extraPositionData;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v38 = v5->_extraPositionData;
+      v37 = v5->_extraPositionData;
       v5->_extraPositionData = MEMORY[0x277CBEC10];
     }
 
-    v39 = v5;
+    v38 = v5;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -321,7 +313,7 @@
   auxiliaryRecords = self->_auxiliaryRecords;
   self->_auxiliaryRecords = dictionary;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](dictionary, auxiliaryRecords);
 }
 
 - (NSArray)auxiliaryRecordIDs

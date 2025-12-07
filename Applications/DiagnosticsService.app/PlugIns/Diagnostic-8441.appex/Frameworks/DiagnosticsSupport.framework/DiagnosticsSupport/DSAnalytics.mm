@@ -42,11 +42,10 @@
   else
   {
     v4 = off_181F8[event];
-    v5 = off_18260[event];
   }
 
-  v6 = [NSMutableDictionary dictionaryWithDictionary:dict];
-  [v6 setObject:v4 forKeyedSubscript:@"type"];
+  v5 = [NSMutableDictionary dictionaryWithDictionary:dict];
+  [v5 setObject:v4 forKeyedSubscript:@"type"];
   AnalyticsSendEvent();
 }
 

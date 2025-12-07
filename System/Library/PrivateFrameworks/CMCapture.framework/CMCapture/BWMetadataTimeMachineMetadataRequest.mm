@@ -1,6 +1,6 @@
 @interface BWMetadataTimeMachineMetadataRequest
-- (id)completeWithMetadata:(id)result;
 - (id)description;
+- (void)completeWithMetadata:(void *)result;
 - (void)dealloc;
 @end
 
@@ -28,12 +28,12 @@
   return [v3 stringWithFormat:@"<%@ %p>: PTS range: %.3fs -> %.3fs, metadata count:%d", v4, self, *&Seconds, CMTimeGetSeconds(&v9), -[NSArray count](self->_metadataForPTSRange, "count")];
 }
 
-- (id)completeWithMetadata:(id)result
+- (void)completeWithMetadata:(void *)result
 {
   if (result)
   {
     v2 = result;
-    *(result + 8) = a2;
+    result[8] = a2;
     v3.receiver = v2;
     v3.super_class = BWMetadataTimeMachineMetadataRequest;
     return objc_msgSendSuper2(&v3, sel_complete);

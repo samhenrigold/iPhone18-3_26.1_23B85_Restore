@@ -56,36 +56,35 @@ uint64_t __37__CPSLocationProvider_sharedProvider__block_invoke()
   return v2;
 }
 
-uint64_t __27__CPSLocationProvider_init__block_invoke(uint64_t a1)
+void *__27__CPSLocationProvider_init__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(getCLLocationManagerClass());
-  v3 = LocationBundle();
+  v3 = LocationBundle(v2);
   v4 = [v2 initWithEffectiveBundle:v3 delegate:*(a1 + 32) onQueue:*(*(a1 + 32) + 24)];
   v5 = *(a1 + 32);
   v6 = *(v5 + 8);
   *(v5 + 8) = v4;
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v7 = getkCLLocationAccuracyHundredMetersSymbolLoc_ptr;
-  v14 = getkCLLocationAccuracyHundredMetersSymbolLoc_ptr;
+  v13 = getkCLLocationAccuracyHundredMetersSymbolLoc_ptr;
   if (!getkCLLocationAccuracyHundredMetersSymbolLoc_ptr)
   {
     v8 = CoreLocationLibrary();
-    v12[3] = dlsym(v8, "kCLLocationAccuracyHundredMeters");
-    getkCLLocationAccuracyHundredMetersSymbolLoc_ptr = v12[3];
-    v7 = v12[3];
+    v11[3] = dlsym(v8, "kCLLocationAccuracyHundredMeters");
+    getkCLLocationAccuracyHundredMetersSymbolLoc_ptr = v11[3];
+    v7 = v11[3];
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v7)
   {
     __27__CPSLocationProvider_init__block_invoke_cold_1();
   }
 
   [*(*(a1 + 32) + 8) setDesiredAccuracy:*v7];
-  v9 = *(a1 + 32);
   result = [objc_opt_class() locationServiceEnabled];
   *(*(a1 + 32) + 32) = result;
   return result;
@@ -94,7 +93,7 @@ uint64_t __27__CPSLocationProvider_init__block_invoke(uint64_t a1)
 + (BOOL)locationServiceEnabled
 {
   CLLocationManagerClass = getCLLocationManagerClass();
-  v3 = LocationBundle();
+  v3 = LocationBundle(CLLocationManagerClass);
   LOBYTE(CLLocationManagerClass) = [CLLocationManagerClass authorizationStatusForBundle:v3] == 3;
 
   return CLLocationManagerClass;
@@ -104,18 +103,19 @@ uint64_t __27__CPSLocationProvider_init__block_invoke(uint64_t a1)
 {
   enabledCopy = enabled;
   CLLocationManagerClass = getCLLocationManagerClass();
+  v5 = CLLocationManagerClass;
   if (enabledCopy)
   {
-    v5 = 3;
+    v6 = 3;
   }
 
   else
   {
-    v5 = 2;
+    v6 = 2;
   }
 
-  v6 = LocationBundle();
-  [CLLocationManagerClass setAuthorizationStatusByType:v5 forBundle:v6];
+  v7 = LocationBundle(CLLocationManagerClass);
+  [v5 setAuthorizationStatusByType:v6 forBundle:v7];
 }
 
 - (void)confirmCurrentLocationInRegion:(id)region completion:(id)completion
@@ -209,7 +209,7 @@ void __56__CPSLocationProvider_getCurrentLocationWithCompletion___block_invoke(u
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -225,9 +225,8 @@ void __56__CPSLocationProvider_getCurrentLocationWithCompletion___block_invoke(u
   dispatch_async(queue, block);
 }
 
-uint64_t __61__CPSLocationProvider_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
+void *__61__CPSLocationProvider_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = [objc_opt_class() locationServiceEnabled];
   *(*(a1 + 32) + 32) = result;
   return result;
@@ -237,14 +236,14 @@ uint64_t __61__CPSLocationProvider_locationManagerDidChangeAuthorization___block
 {
   v16 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
-  v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = CPS_LOG_CHANNEL_PREFIXClipServices(locationsCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
+    v8 = v7;
     lastObject = [locationsCopy lastObject];
     *buf = 138739971;
     v15 = lastObject;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "CPSLocationProvider: didUpdateLocation: %{sensitive}@", buf, 0xCu);
+    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "CPSLocationProvider: didUpdateLocation: %{sensitive}@", buf, 0xCu);
   }
 
   queue = self->_queue;
@@ -254,10 +253,8 @@ uint64_t __61__CPSLocationProvider_locationManagerDidChangeAuthorization___block
   v12[3] = &unk_278DCDE58;
   v12[4] = self;
   v13 = locationsCopy;
-  v10 = locationsCopy;
+  v11 = locationsCopy;
   dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CPSLocationProvider_locationManager_didUpdateLocations___block_invoke(uint64_t a1)
@@ -274,21 +271,21 @@ void __58__CPSLocationProvider_locationManager_didUpdateLocations___block_invoke
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
   errorCopy = error;
-  v6 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = CPS_LOG_CHANNEL_PREFIXClipServices(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [CPSLocationProvider locationManager:errorCopy didFailWithError:v6];
+    [CPSLocationProvider locationManager:errorCopy didFailWithError:v7];
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__CPSLocationProvider_locationManager_didFailWithError___block_invoke;
-  v9[3] = &unk_278DCDE58;
-  v9[4] = self;
-  v10 = errorCopy;
-  v8 = errorCopy;
-  dispatch_async(queue, v9);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__CPSLocationProvider_locationManager_didFailWithError___block_invoke;
+  v10[3] = &unk_278DCDE58;
+  v10[4] = self;
+  v11 = errorCopy;
+  v9 = errorCopy;
+  dispatch_async(queue, v10);
 }
 
 void __56__CPSLocationProvider_locationManager_didFailWithError___block_invoke(uint64_t a1)
@@ -310,11 +307,10 @@ void __27__CPSLocationProvider_init__block_invoke_cold_1()
 
 - (void)locationManager:(uint64_t)a1 didFailWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "CPSLocationProvider: didFailWithError: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "CPSLocationProvider: didFailWithError: %@", &v2, 0xCu);
 }
 
 @end

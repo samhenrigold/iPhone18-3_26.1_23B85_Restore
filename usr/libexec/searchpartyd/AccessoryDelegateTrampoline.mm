@@ -1,10 +1,36 @@
 @interface AccessoryDelegateTrampoline
 - (_TtC12searchpartydP33_8DF307D51982B56654A13C398BADC9D727AccessoryDelegateTrampoline)init;
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties;
 - (void)accessoryConnectionDetached:(id)detached;
 - (void)accessoryConnectionInfoPropertyChanged:(id)changed properties:(id)properties;
 @end
 
 @implementation AccessoryDelegateTrampoline
+
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties
+{
+  v7 = *&type;
+  if (attached)
+  {
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
+  }
+
+  else
+  {
+    v9 = 0;
+    v11 = 0;
+  }
+
+  v12 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  if (properties)
+  {
+    properties = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  selfCopy = self;
+  sub_1008D4AB0(v9, v11, v7, v12, properties);
+}
 
 - (void)accessoryConnectionDetached:(id)detached
 {
@@ -56,22 +82,20 @@ LABEL_4:
 {
   ObjectType = swift_getObjectType();
   v4 = type metadata accessor for UUID();
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v6 = sub_1000BC4D4(&qword_101698E38, &unk_101395BA0);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v13 - v8;
+  v5 = sub_1000BC4D4(&qword_101698E38, &unk_101395BA0);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v11 - v6;
   swift_weakInit();
-  v10 = OBJC_IVAR____TtC12searchpartydP33_8DF307D51982B56654A13C398BADC9D727AccessoryDelegateTrampoline_workItemQueue;
+  v8 = OBJC_IVAR____TtC12searchpartydP33_8DF307D51982B56654A13C398BADC9D727AccessoryDelegateTrampoline_workItemQueue;
   type metadata accessor for WorkItemQueue();
-  v11 = type metadata accessor for WorkItemQueue.WarningOptions();
-  (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+  v9 = type metadata accessor for WorkItemQueue.WarningOptions();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   UUID.init()();
-  *(&self->super.isa + v10) = WorkItemQueue.__allocating_init(name:identifier:warningOptions:)();
-  v13.receiver = self;
-  v13.super_class = ObjectType;
-  return [(AccessoryDelegateTrampoline *)&v13 init];
+  *(&self->super.isa + v8) = WorkItemQueue.__allocating_init(name:identifier:warningOptions:)();
+  v11.receiver = self;
+  v11.super_class = ObjectType;
+  return [(AccessoryDelegateTrampoline *)&v11 init];
 }
 
 @end

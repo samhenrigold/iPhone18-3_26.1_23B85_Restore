@@ -11,33 +11,30 @@
 
 - (HMIVideoAssetReader)initWithAsset:(id)asset readVideoTrack:(BOOL)track readAudioTrack:(BOOL)audioTrack
 {
-  audioTrackCopy = audioTrack;
-  trackCopy = track;
   assetCopy = asset;
-  v21.receiver = self;
-  v21.super_class = HMIVideoAssetReader;
-  v10 = [(HMIVideoAssetReader *)&v21 init];
-  if (v10)
+  v18.receiver = self;
+  v18.super_class = HMIVideoAssetReader;
+  v8 = [(HMIVideoAssetReader *)&v18 init];
+  if (v8)
   {
-    v10->_trackSamples = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+    v8->_trackSamples = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
     array = [MEMORY[0x277CBEB18] array];
-    trackOutputs = v10->_trackOutputs;
-    v10->_trackOutputs = array;
+    trackOutputs = v8->_trackOutputs;
+    v8->_trackOutputs = array;
 
-    objc_storeStrong(&v10->_asset, asset);
-    v20 = 0;
-    v13 = [MEMORY[0x277CE6410] assetReaderWithAsset:assetCopy error:&v20];
-    v14 = v20;
-    assetReader = v10->_assetReader;
-    v10->_assetReader = v13;
+    objc_storeStrong(&v8->_asset, asset);
+    v11 = [MEMORY[0x277CE6410] assetReaderWithAsset:? error:?];
+    v12 = 0;
+    assetReader = v8->_assetReader;
+    v8->_assetReader = v11;
 
-    if (v10->_assetReader)
+    if (v8->_assetReader)
     {
-      if ([(HMIVideoAssetReader *)v10 _createOutputsForAsset:assetCopy readVideo:trackCopy readAudio:audioTrackCopy])
+      if ([HMIVideoAssetReader _createOutputsForAsset:v8 readVideo:"_createOutputsForAsset:readVideo:readAudio:" readAudio:?])
       {
-        v16 = 1;
+        v14 = 1;
 LABEL_7:
-        v10->super._status = v16;
+        v8->super._status = v14;
 
         goto LABEL_8;
       }
@@ -45,73 +42,68 @@ LABEL_7:
 
     else
     {
-      error = v10->super._error;
-      v10->super._error = v14;
-      v18 = v14;
+      error = v8->super._error;
+      v8->super._error = v12;
+      v16 = v12;
     }
 
-    v16 = 4;
+    v14 = 4;
     goto LABEL_7;
   }
 
 LABEL_8:
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)_createOutputsForAsset:(id)asset readVideo:(BOOL)video readAudio:(BOOL)audio
 {
   audioCopy = audio;
   videoCopy = video;
-  v25 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (videoCopy)
   {
-    v9 = [(AVAsset *)self->_asset tracksWithMediaType:*MEMORY[0x277CE5EA8]];
-    [array addObjectsFromArray:v9];
+    v9 = [(AVAsset *)self->_asset tracksWithMediaType:?];
+    [array addObjectsFromArray:?];
   }
 
   if (audioCopy)
   {
-    v10 = [(AVAsset *)self->_asset tracksWithMediaType:*MEMORY[0x277CE5E48]];
-    [array addObjectsFromArray:v10];
+    v10 = [(AVAsset *)self->_asset tracksWithMediaType:?];
+    [array addObjectsFromArray:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v11 = array;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:0 objects:? count:?];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = MEMORY[0];
     v15 = *MEMORY[0x277CBEEE8];
     while (2)
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v13; i = (i + 1))
       {
-        if (*v21 != v14)
+        if (MEMORY[0] != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:*(*(&v20 + 1) + 8 * i) outputSettings:{0, v20}];
-        [v17 setAlwaysCopiesSampleData:0];
-        if (![(AVAssetReader *)self->_assetReader canAddOutput:v17])
+        v17 = [MEMORY[0x277CE6430] assetReaderTrackOutputWithTrack:? outputSettings:?];
+        [v17 setAlwaysCopiesSampleData:?];
+        if (![(AVAssetReader *)self->_assetReader canAddOutput:?])
         {
 
           v18 = 0;
           goto LABEL_15;
         }
 
-        [(AVAssetReader *)self->_assetReader addOutput:v17];
-        [(NSMutableArray *)self->_trackOutputs addObject:v17];
+        [(AVAssetReader *)self->_assetReader addOutput:?];
+        [(NSMutableArray *)self->_trackOutputs addObject:?];
         CFArrayAppendValue(self->_trackSamples, v15);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
       if (v13)
       {
         continue;
@@ -161,7 +153,7 @@ LABEL_15:
   else
   {
 LABEL_5:
-    if ([(AVAssetReader *)self->_assetReader status]== AVAssetReaderStatusFailed)
+    if ([(AVAssetReader *)self->_assetReader status]== 3)
     {
       v7 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -259,8 +251,8 @@ LABEL_14:
       {
         v20 = CFArrayGetValueAtIndex(self->_trackSamples, v17);
         v21 = CFRetain(v20);
-        v22 = [(NSMutableArray *)self->_trackOutputs objectAtIndexedSubscript:v17];
-        v23 = [(HMIVideoAssetReader *)self _copyNextSampleBufferFromTrackOutput:v22];
+        v22 = [(NSMutableArray *)self->_trackOutputs objectAtIndexedSubscript:?];
+        v23 = [(HMIVideoAssetReader *)self _copyNextSampleBufferFromTrackOutput:?];
 
         trackSamples = self->_trackSamples;
         if (v23)
@@ -308,8 +300,8 @@ LABEL_14:
     v11 = *MEMORY[0x277CBEEE8];
     do
     {
-      v12 = [(NSMutableArray *)self->_trackOutputs objectAtIndexedSubscript:v10];
-      v13 = [(HMIVideoAssetReader *)self _copyNextSampleBufferFromTrackOutput:v12];
+      v12 = [(NSMutableArray *)self->_trackOutputs objectAtIndexedSubscript:?];
+      v13 = [(HMIVideoAssetReader *)self _copyNextSampleBufferFromTrackOutput:?];
 
       v14 = self->_trackSamples;
       if (v13)
@@ -339,46 +331,46 @@ LABEL_14:
 
 - (BOOL)checkAndSaveCrashReportWithData:(id)data
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   array = [MEMORY[0x277CBEB18] array];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3810000000;
-  v36 = &unk_22D2C2491;
-  v37 = *MEMORY[0x277CC08B0];
-  v38 = *(MEMORY[0x277CC08B0] + 16);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3810000000;
-  v31 = *MEMORY[0x277CC08F0];
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3810000000;
+  v37 = &unk_22D2C2491;
+  v38 = *MEMORY[0x277CC08B0];
+  v39 = *(MEMORY[0x277CC08B0] + 16);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3810000000;
+  v32 = *MEMORY[0x277CC08F0];
   v6 = *(MEMORY[0x277CC08F0] + 16);
-  v30 = &unk_22D2C2491;
-  v32 = v6;
+  v31 = &unk_22D2C2491;
+  v33 = v6;
   tracks = [(AVAsset *)self->_asset tracks];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke;
-  v23[3] = &unk_278752CC8;
-  v23[4] = self;
-  v25 = &v33;
-  v26 = &v27;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke;
+  v23 = &unk_278752CC8;
+  selfCopy = self;
+  v26 = &v34;
+  v27 = &v28;
   v8 = array;
-  v24 = v8;
-  [tracks na_each:v23];
+  v25 = v8;
+  [tracks na_each:?];
 
-  lhs = *(v28 + 4);
-  rhs = *(v34 + 4);
+  lhs = *(v29 + 4);
+  rhs = *(v35 + 4);
   CMTimeSubtract(&time, &lhs, &rhs);
   if (CMTimeGetSeconds(&time) > 1.0)
   {
-    [v8 addObject:&unk_284075978];
+    [v8 addObject:?];
   }
 
   if ([v8 count])
   {
     v9 = objc_autoreleasePoolPush();
-    selfCopy = self;
+    selfCopy2 = self;
     v11 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
@@ -392,37 +384,31 @@ LABEL_14:
 
     objc_autoreleasePoolPop(v9);
     string = [MEMORY[0x277CCAB68] string];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke_26;
-    v19[3] = &unk_278752CF0;
-    v14 = string;
-    v20 = v14;
-    [v8 na_each:v19];
+    [v8 na_each:?];
     if (+[HMIPreference isInternalInstall])
     {
-      [v14 appendString:@"Sanitized Data\n"];
-      v15 = [dataCopy base64EncodedDataWithOptions:1];
-      v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v15 encoding:4];
-      [v14 appendString:v16];
+      [string appendString:?];
+      v14 = [dataCopy base64EncodedDataWithOptions:?];
+      v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:? encoding:?];
+      [string appendString:?];
 
-      [v14 appendString:@"\n\n"];
+      [string appendString:?];
     }
 
-    HMISimulateCrash(@"Asset Check", v14, 1);
+    HMISimulateCrash(@"Asset Check", string, 1);
   }
 
-  v17 = [v8 count] != 0;
+  v16 = [v8 count] != 0;
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 
-  return v17;
+  return v16;
 }
 
 void __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -432,12 +418,12 @@ void __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke(ui
     v7 = HMFGetLogIdentifier();
     if (v3)
     {
-      [v3 timeRange];
+      [buf timeRange];
     }
 
     else
     {
-      v23 = 0u;
+      v25 = 0u;
       memset(buf, 0, sizeof(buf));
     }
 
@@ -454,87 +440,86 @@ void __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke(ui
   objc_autoreleasePoolPop(v4);
   if (v3)
   {
-    [v3 timeRange];
+    [v18 timeRange];
   }
 
   else
   {
     memset(v18, 0, sizeof(v18));
-    v17 = 0u;
   }
 
-  *buf = *(v18 + 8);
-  *&buf[16] = *(&v18[1] + 1);
+  *buf = *(&v18[1] + 8);
+  *&buf[16] = *(&v18[2] + 1);
   time2 = *(*(*(a1 + 48) + 8) + 32);
   CMTimeMinimum(&v19, buf, &time2);
   *(*(*(a1 + 48) + 8) + 32) = v19;
   if (v3)
   {
-    [v3 timeRange];
+    [v15 timeRange];
   }
 
   else
   {
-    memset(&v14[3], 0, 32);
+    memset(v15, 0, sizeof(v15));
   }
 
-  *buf = *(&v14[3] + 8);
-  *&buf[16] = *(&v14[4] + 1);
+  *buf = *(&v15[1] + 8);
+  *&buf[16] = *(&v15[2] + 1);
   time2 = *(*(*(a1 + 56) + 8) + 32);
-  CMTimeMaximum(&v15, buf, &time2);
-  *(*(*(a1 + 56) + 8) + 32) = v15;
+  CMTimeMaximum(&v16, buf, &time2);
+  *(*(*(a1 + 56) + 8) + 32) = v16;
   if (v3)
   {
-    [v3 timeRange];
+    [v14 timeRange];
   }
 
   else
   {
-    memset(v14, 0, 32);
+    memset(v14, 0, sizeof(v14));
   }
 
-  *buf = *(v14 + 8);
-  *&buf[16] = *(&v14[1] + 1);
+  *buf = *(&v14[1] + 8);
+  *&buf[16] = *(&v14[2] + 1);
   if (CMTimeGetSeconds(buf) > 3600.0)
   {
     v9 = *(a1 + 40);
-    v20[0] = @"name";
-    v20[1] = @"discussion";
-    v21[0] = @"VeryLongTrackDuration";
+    v20 = @"name";
+    v21 = @"discussion";
+    v22 = @"VeryLongTrackDuration";
     v10 = MEMORY[0x277CCACA8];
     if (v3)
     {
-      [v3 timeRange];
+      [buf timeRange];
     }
 
     else
     {
-      v23 = 0u;
+      v25 = 0u;
       memset(buf, 0, sizeof(buf));
     }
 
     v11 = HMICMTimeRangeDescription(buf);
-    v12 = [v10 stringWithFormat:@"Track %@ has an unexpectedly long track duration %@.", v3, v11];
-    v21[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-    [v9 addObject:v13];
+    v12 = [v10 stringWithFormat:v3, v11];
+    v23 = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    [v9 addObject:?];
   }
 }
 
-uint64_t __55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke_26(uint64_t a1, void *a2)
+void *__55__HMIVideoAssetReader_checkAndSaveCrashReportWithData___block_invoke_26(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v4 objectForKeyedSubscript:@"name"];
-  [v3 appendFormat:@"%@\n", v5];
+  v5 = [v4 objectForKeyedSubscript:?];
+  [v3 appendFormat:v5];
 
   v6 = *(a1 + 32);
-  v7 = [v4 objectForKeyedSubscript:@"discussion"];
+  v7 = [v4 objectForKeyedSubscript:?];
 
-  [v6 appendFormat:@"%@\n", v7];
+  [v6 appendFormat:v7];
   v8 = *(a1 + 32);
 
-  return [v8 appendString:@"\n"];
+  return [v8 appendString:?];
 }
 
 @end

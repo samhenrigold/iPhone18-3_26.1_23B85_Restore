@@ -55,62 +55,60 @@
 {
   ObjectType = swift_getObjectType();
   v6 = sub_275A3D364();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(pending);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  v12 = qword_2815AE358;
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(pending);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  v11 = qword_2815AE358;
   selfCopy = self;
-  if (v12 != -1)
+  if (v11 != -1)
   {
     swift_once();
   }
 
-  v14 = sub_275A3D894();
-  __swift_project_value_buffer(v14, qword_2815AE360);
+  v13 = sub_275A3D894();
+  __swift_project_value_buffer(v13, qword_2815AE360);
   sub_275A3D864();
-  v15 = swift_allocObject();
-  v15[2] = sub_275A3D2A0;
-  v15[3] = v11;
-  v15[4] = ObjectType;
-  sub_275A3D124(&qword_2815AE4D0, MEMORY[0x277D7F530]);
+  v14 = swift_allocObject();
+  v14[2] = sub_275A3D2A0;
+  v14[3] = v10;
+  v14[4] = ObjectType;
+  sub_275A3D124(&qword_2815AE4D0, MEMORY[0x277D7F530], MEMORY[0x277D7F528]);
 
   sub_275A3D304();
-  v16 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 16];
-  v17 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 24];
-  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.isa + OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient), v16);
-  (*(v17 + 8))(v9, sub_275A3D0A4, v15, v16, v17);
+  v15 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 16];
+  v16 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 24];
+  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.isa + OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient), v15);
+  (*(v16 + 8))(v8, sub_275A3D0A4, v14, v15, v16);
 
-  sub_275A3D23C(v9, MEMORY[0x277D7F530]);
+  sub_275A3D23C(v8, MEMORY[0x277D7F530]);
 }
 
 - (void)clearNotificationState:(id)state
 {
   ObjectType = swift_getObjectType();
   v6 = sub_275A3D364();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(state);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  sub_275A3D124(&qword_2815AE4D0, MEMORY[0x277D7F530]);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(state);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  sub_275A3D124(&qword_2815AE4D0, MEMORY[0x277D7F530], MEMORY[0x277D7F528]);
   selfCopy = self;
   sub_275A3D304();
-  v13 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 16];
-  v14 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 24];
-  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.isa + OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient), v13);
-  v15 = swift_allocObject();
-  v15[2] = sub_275A331CC;
-  v15[3] = v11;
-  v15[4] = ObjectType;
-  v16 = *(v14 + 8);
+  v12 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 16];
+  v13 = *&selfCopy->protoClient[OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient + 24];
+  __swift_project_boxed_opaque_existential_1((&selfCopy->super.super.isa + OBJC_IVAR____TtC33iCloudSubscriptionOptimizerClient14XpcQuotaClient_protoClient), v12);
+  v14 = swift_allocObject();
+  v14[2] = sub_275A331CC;
+  v14[3] = v10;
+  v14[4] = ObjectType;
+  v15 = *(v13 + 8);
 
-  v16(v9, sub_275A3D028, v15, v13, v14);
+  v15(v8, sub_275A3D028, v14, v12, v13);
 
-  sub_275A3D23C(v9, MEMORY[0x277D7F530]);
+  sub_275A3D23C(v8, MEMORY[0x277D7F530]);
 }
 
 - (id)parseDelayedOffer:(id)offer

@@ -658,7 +658,7 @@ void __72__SBKeyboardFocusSceneController__focusLockSpringBoardWindow_forReason_
   coalitionMember = self->_coalitionMember;
   if (!coalitionMember)
   {
-    [SBKeyboardFocusSceneController _requestPolicyReevaluationForReason:a2];
+    [(SBKeyboardFocusSceneController *)a2 _requestPolicyReevaluationForReason:?];
   }
 
   v7 = reasonCopy;
@@ -1505,26 +1505,26 @@ BOOL __70__SBKeyboardFocusSceneController_keyboardArbiterSuggestedFocusTarget___
   OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9);
 }
 
-- (void)_requestPolicyReevaluationForReason:(const char *)a1 .cold.1(const char *a1)
+- (void)_requestPolicyReevaluationForReason:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't function without a coalition"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't function without a coalition"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v8 = 138544642;
-    v9 = v3;
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v9 = 138544642;
+    v10 = v4;
     OUTLINED_FUNCTION_4_0();
-    v10 = @"SBKeyboardFocusSceneController.m";
-    v11 = 1024;
-    v12 = 309;
-    v13 = v6;
-    v14 = v2;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v8);
+    v11 = @"SBKeyboardFocusSceneController.m";
+    v12 = 1024;
+    v13 = 309;
+    v14 = v7;
+    v15 = v3;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

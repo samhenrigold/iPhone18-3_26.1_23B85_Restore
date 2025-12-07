@@ -5,7 +5,7 @@
 
 uint64_t __34___PUIPosterSnapshotCapture__fire__block_invoke(uint64_t a1)
 {
-  v2 = PUILogSnapshotting();
+  v2 = PUILogSnapshotting(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __34___PUIPosterSnapshotCapture__fire__block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -16,58 +16,59 @@ uint64_t __34___PUIPosterSnapshotCapture__fire__block_invoke(uint64_t a1)
 
 void __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = PUILogSnapshotting();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = PUILogSnapshotting(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke_cold_1();
     }
 
-    v5 = *(a1 + 32);
-    v4 = (a1 + 32);
-    v14 = 0;
-    v6 = [WeakRetained _captureLevelSet:v5 error:&v14];
-    v7 = v14;
-    v8 = v7;
-    if (v6)
+    v6 = *(a1 + 32);
+    v5 = (a1 + 32);
+    v15 = 0;
+    v7 = [v3 _captureLevelSet:v6 error:&v15];
+    v8 = v15;
+    v9 = v8;
+    if (v7)
     {
-      v9 = PUILogSnapshotting();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PUILogSnapshotting(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke_cold_2();
       }
 
-      [WeakRetained _fire];
+      [v3 _fire];
     }
 
     else
     {
-      if (!v7)
+      if (!v8)
       {
-        v10 = MEMORY[0x1E696ABC0];
-        v21 = *MEMORY[0x1E696A588];
-        v22[0] = @"capture failed without error";
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-        v8 = [v10 pui_errorWithCode:0 userInfo:v11];
+        v11 = MEMORY[0x1E696ABC0];
+        v22 = *MEMORY[0x1E696A588];
+        v23[0] = @"capture failed without error";
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v9 = [v11 pui_errorWithCode:0 userInfo:v12];
       }
 
-      v12 = PUILogSnapshotting();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = PUILogSnapshotting(v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *v4;
+        v14 = *v5;
         *buf = 134218498;
-        v16 = WeakRetained;
-        v17 = 2114;
-        v18 = v13;
-        v19 = 2114;
-        v20 = v8;
-        _os_log_error_impl(&dword_1A8C85000, v12, OS_LOG_TYPE_ERROR, "(%p) capture of levelset %{public}@ failed: %{public}@", buf, 0x20u);
+        v17 = v3;
+        v18 = 2114;
+        v19 = v14;
+        v20 = 2114;
+        v21 = v9;
+        _os_log_error_impl(&dword_1A8C85000, v13, OS_LOG_TYPE_ERROR, "(%p) capture of levelset %{public}@ failed: %{public}@", buf, 0x20u);
       }
 
-      [WeakRetained _finishCaptureWithError:v8];
+      [v3 _finishCaptureWithError:v9];
     }
   }
 }
@@ -103,7 +104,7 @@ uint64_t __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke_52(uint
 
   if (!a2)
   {
-    v9 = PUILogSnapshotting();
+    v9 = PUILogSnapshotting(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke_52_cold_1();
@@ -225,7 +226,7 @@ void __52___PUIPosterSnapshotCapture__captureLevelSet_error___block_invoke_79(ui
   v12 = v11;
   if (v10)
   {
-    v13 = PUILogSnapshotting();
+    v13 = PUILogSnapshotting(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 56);
@@ -247,7 +248,7 @@ LABEL_8:
       v12 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
     }
 
-    v13 = PUILogSnapshotting();
+    v13 = PUILogSnapshotting(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v19 = *(a1 + 56);
@@ -271,7 +272,7 @@ void __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke(uint
 
 void __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   if (*(a1 + 80) == 1)
   {
@@ -294,17 +295,17 @@ void __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_2(ui
   v10 = *(a1 + 32);
   v11 = *(a1 + 48);
   v12 = +[PUIImageOnDiskFormat defaultFormat];
-  v22 = 0;
-  v13 = [v10 buildWithOutputURL:v11 diskFormat:v12 error:&v22];
-  v14 = v22;
+  v23 = 0;
+  v13 = [v10 buildWithOutputURL:v11 diskFormat:v12 error:&v23];
+  v14 = v23;
 
-  [*(a1 + 32) reset];
+  v15 = [*(a1 + 32) reset];
   if (v14)
   {
-    v15 = PUILogSnapshotting();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = PUILogSnapshotting(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_2_cold_1(a1, v14, v15);
+      __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_2_cold_1(a1, v14, v16);
     }
 
     [*(a1 + 56) finishWithError:v14];
@@ -312,29 +313,28 @@ void __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_2(ui
 
   else
   {
-    [*(a1 + 56) finishWithResult:v13];
-    v16 = PUILogSnapshotting();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = PUILogSnapshotting([*(a1 + 56) finishWithResult:v13]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 64));
-      v18 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
+      v19 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
       *buf = 134218240;
-      v24 = WeakRetained;
-      v25 = 2048;
-      v26 = v18;
-      _os_log_impl(&dword_1A8C85000, v16, OS_LOG_TYPE_DEFAULT, "(%p) Snapshot Finalized; much success; capture time %f", buf, 0x16u);
+      v25 = WeakRetained;
+      v26 = 2048;
+      v27 = v19;
+      _os_log_impl(&dword_1A8C85000, v17, OS_LOG_TYPE_DEFAULT, "(%p) Snapshot Finalized; much success; capture time %f", buf, 0x16u);
     }
   }
 
-  v19 = dispatch_get_global_queue(17, 0);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_83;
-  v20[3] = &unk_1E7854B70;
-  objc_copyWeak(&v21, (a1 + 64));
-  dispatch_async(v19, v20);
+  v20 = dispatch_get_global_queue(17, 0);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_83;
+  v21[3] = &unk_1E7854B70;
+  objc_copyWeak(&v22, (a1 + 64));
+  dispatch_async(v20, v21);
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_autoreleasePoolPop(v2);
 }
 
@@ -342,6 +342,13 @@ void __53___PUIPosterSnapshotCapture__finishCaptureWithError___block_invoke_83(u
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanup];
+}
+
+void __34___PUIPosterSnapshotCapture__fire__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_5(&dword_1A8C85000, a2, a3, "(%p) attempting snapshot after CA commit", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __46___PUIPosterSnapshotCapture__attemptSnapshot___block_invoke_cold_1()

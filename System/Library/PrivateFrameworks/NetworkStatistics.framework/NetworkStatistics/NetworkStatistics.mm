@@ -1,16 +1,14 @@
 id pid_to_uuid(int a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  memset(v5, 0, sizeof(v5));
-  v1 = proc_pidinfo(a1, 17, 1uLL, v5, 56);
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  memset(v4, 0, sizeof(v4));
+  v1 = proc_pidinfo(a1, 17, 1uLL, v4, 56);
   v2 = 0;
   if (v1 == 56)
   {
-    v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v5];
+    v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v4];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -69,7 +67,7 @@ void NStatSourceSetCountsBlock(void *a1, void *a2)
   [v7 setCountsBlock:v3];
 }
 
-uint64_t printf_domain()
+uint64_t printf_domain(uint64_t a1, uint64_t a2)
 {
   if (printf_domain_once != -1)
   {
@@ -172,23 +170,17 @@ uint64_t xprint_ifindex_arginfo(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 uint64_t xprint_ifindex(FILE *a1, uint64_t a2, unsigned int **a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = **a3;
-  v7[0] = 0;
-  if_indextoname(v4, v7);
-  if (v7[0])
+  v6[0] = 0;
+  if_indextoname(v4, v6);
+  if (!v6[0])
   {
-    v7[16] = 0;
-    result = fprintf(a1, "%s");
+    return fprintf(a1, "%d");
   }
 
-  else
-  {
-    result = fprintf(a1, "%d");
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[16] = 0;
+  return fprintf(a1, "%s");
 }
 
 uint64_t xprint_sockaddr_arginfo(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -203,48 +195,48 @@ uint64_t xprint_sockaddr_arginfo(uint64_t a1, uint64_t a2, _DWORD *a3)
 
 uint64_t xprint_sockaddr(FILE *a1, uint64_t a2, unsigned __int8 ***a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = **a3;
   if (v4)
   {
     v5 = *v4;
     if (v5 < 2)
     {
-      goto LABEL_3;
+      return 0;
     }
 
-    v10 = v4[1];
-    if (v10 > 0x11)
+    v8 = v4[1];
+    if (v8 > 0x11)
     {
-      if (v10 == 18)
+      if (v8 == 18)
       {
         if (v5 >= 8)
         {
-          v14 = v4[5];
-          if (v14 + v4[6] + v4[7] + 8 <= v5)
+          v11 = v4[5];
+          if (v11 + v4[6] + v4[7] + 8 <= v5)
           {
             if (v4[6])
             {
-              v15 = 0;
+              v12 = 0;
               LODWORD(v6) = 0;
               do
               {
-                if (v15)
+                if (v12)
                 {
-                  v16 = fprintf(a1, ":%x");
+                  v13 = fprintf(a1, ":%x");
                 }
 
                 else
                 {
-                  v16 = fprintf(a1, "%x");
+                  v13 = fprintf(a1, "%x");
                 }
 
-                v6 = (v16 + v6);
-                ++v15;
+                v6 = (v13 + v6);
+                ++v12;
               }
 
-              while (v15 < v4[6]);
-              LODWORD(v14) = v4[5];
+              while (v12 < v4[6]);
+              LODWORD(v11) = v4[5];
             }
 
             else
@@ -252,103 +244,88 @@ uint64_t xprint_sockaddr(FILE *a1, uint64_t a2, unsigned __int8 ***a3)
               v6 = 0;
             }
 
-            if (v14)
+            if (v11)
             {
-              v17 = fprintf(a1, "%s%*s");
+              v14 = fprintf(a1, "%s%*s");
             }
 
             else
             {
               if (!*(v4 + 1))
               {
-                goto LABEL_4;
+                return v6;
               }
 
               if (v6)
               {
-                v17 = fprintf(a1, "%%%d");
+                v14 = fprintf(a1, "%%%d");
               }
 
               else
               {
-                v17 = fprintf(a1, "%d");
+                v14 = fprintf(a1, "%d");
               }
             }
 
-            v6 = (v17 + v6);
-            goto LABEL_4;
+            return (v14 + v6);
           }
         }
 
-LABEL_3:
-        v6 = 0;
-LABEL_4:
-        v7 = *MEMORY[0x277D85DE8];
-        return v6;
+        return 0;
       }
 
-      if (v10 != 30)
+      if (v8 != 30)
       {
-        goto LABEL_11;
+        return fprintf(a1, "<unsupported af: %u>");
       }
+
+      goto LABEL_14;
     }
 
-    else
+    if (v8 != 1)
     {
-      if (v10 == 1)
+      if (v8 != 2)
       {
-        if (v5 == 2)
+        return fprintf(a1, "<unsupported af: %u>");
+      }
+
+LABEL_14:
+      if (!getnameinfo(v4, v5, v16, 0x39u, v15, 6u, 10))
+      {
+        if (!*(v4 + 1))
         {
-          goto LABEL_3;
+          return fprintf(a1, "%s");
         }
 
-        result = fprintf(a1, "%.*s");
-        goto LABEL_22;
-      }
-
-      if (v10 != 2)
-      {
-LABEL_11:
-        v18 = v4[1];
-        result = fprintf(a1, "<unsupported af: %u>");
-LABEL_22:
-        v13 = *MEMORY[0x277D85DE8];
-        return result;
-      }
-    }
-
-    if (!getnameinfo(v4, v5, v20, 0x39u, v19, 6u, 10))
-    {
-      if (*(v4 + 1))
-      {
         if (v4[1] == 2)
         {
-          v11 = "%s:%s";
+          v9 = "%s:%s";
         }
 
         else
         {
-          v11 = "%s.%s";
+          v9 = "%s.%s";
         }
 
-        v12 = fprintf(a1, v11, v20, v19);
+        return fprintf(a1, v9, v16, v15);
       }
 
-      else
-      {
-        v12 = fprintf(a1, "%s");
-      }
-
-      v6 = v12;
-      goto LABEL_4;
+      return 0;
     }
 
-    goto LABEL_3;
+    if (v5 == 2)
+    {
+      return 0;
+    }
+
+    return fprintf(a1, "%.*s");
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  else
+  {
 
-  return fprintf(a1, "<NULL>");
+    return fprintf(a1, "<NULL>");
+  }
 }
 
 _printf_domain *__printf_domain_block_invoke()
@@ -404,21 +381,21 @@ uint64_t xprint_cfobject_arginfo(uint64_t a1, uint64_t a2, _DWORD *a3)
   return 1;
 }
 
-id NStatGetLog()
+id NStatGetLog(uint64_t a1)
 {
   if (NStatGetLog_pred != -1)
   {
     NStatGetLog_cold_1();
   }
 
-  v1 = sNstatLogHandle;
+  v2 = sNstatLogHandle;
 
-  return v1;
+  return v2;
 }
 
 void __NStatGetLog_block_invoke()
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v0 = os_log_create("com.apple.networkstatistics", "NetworkStatistics");
   v1 = sNstatLogHandle;
   sNstatLogHandle = v0;
@@ -434,107 +411,100 @@ void __NStatGetLog_block_invoke()
         v4 = getpid();
         if (proc_name(v4, buffer, 0x64u))
         {
-          v30 = v2;
+          v25 = v2;
           v5 = 0x277CCA000uLL;
           v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:buffer];
-          v33 = 0u;
-          v34 = 0u;
-          v35 = 0u;
-          v36 = 0u;
-          v29 = v3;
+          v28 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v24 = v3;
           v7 = v3;
-          v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = 0x277CCA000uLL;
-            v11 = *v34;
-            v31 = v6;
+            v10 = *v29;
+            v26 = v6;
             do
             {
               for (i = 0; i != v9; ++i)
               {
-                if (*v34 != v11)
+                if (*v29 != v10)
                 {
                   objc_enumerationMutation(v7);
                 }
 
-                v13 = *(*(&v33 + 1) + 8 * i);
-                v14 = [v7 valueForKey:v13];
-                v15 = *(v5 + 3240);
+                v12 = *(*(&v28 + 1) + 8 * i);
+                v13 = [v7 valueForKey:v12];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  if ([v13 isEqualToString:@"log_level"])
+                  if ([v12 isEqualToString:@"log_level"])
                   {
-                    v16 = *(v10 + 2992);
                     objc_opt_class();
-                    if ((objc_opt_isKindOfClass() & 1) != 0 && [v14 integerValue] >= 7)
+                    if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 integerValue] >= 7)
                     {
                       defaultMgrFlags |= 0x10u;
                     }
                   }
 
-                  else if (([v13 isEqualToString:@"all"] & 1) != 0 || objc_msgSend(v13, "isEqualToString:", v6))
+                  else if (([v12 isEqualToString:@"all"] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", v6))
                   {
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v32 = v6;
-                      v17 = v5;
-                      v18 = v14;
-                      v19 = [v18 objectForKeyedSubscript:@"traceFilePrefix"];
-                      v20 = [v18 objectForKeyedSubscript:@"logVerbose"];
-                      v21 = [v18 objectForKeyedSubscript:@"traceVerbose"];
+                      v27 = v6;
+                      v14 = v5;
+                      v15 = v13;
+                      v16 = [v15 objectForKeyedSubscript:@"traceFilePrefix"];
+                      v17 = [v15 objectForKeyedSubscript:@"logVerbose"];
+                      v18 = [v15 objectForKeyedSubscript:@"traceVerbose"];
 
-                      v5 = v17;
-                      if (v19)
+                      v5 = v14;
+                      if (v16)
                       {
-                        v22 = *(v17 + 3240);
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v23 = *(v17 + 3240);
-                          v28 = getpid();
-                          v24 = v23;
-                          v5 = v17;
-                          v25 = [v24 stringWithFormat:@"%@.%@.%d", v19, v32, v28];
-                          v26 = traceFilePrefix;
-                          traceFilePrefix = v25;
+                          v19 = *(v14 + 3240);
+                          v23 = getpid();
+                          v20 = v19;
+                          v5 = v14;
+                          v21 = [v20 stringWithFormat:@"%@.%@.%d", v16, v27, v23];
+                          v22 = traceFilePrefix;
+                          traceFilePrefix = v21;
                         }
                       }
 
-                      if (v20)
+                      if (v17)
                       {
                         defaultMgrFlags |= 0x10u;
                       }
 
-                      if (v21)
+                      if (v18)
                       {
                         defaultMgrFlags |= 0x80u;
                       }
 
-                      v6 = v31;
-                      v10 = 0x277CCA000;
+                      v6 = v26;
                     }
                   }
                 }
               }
 
-              v9 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
             }
 
             while (v9);
           }
 
-          v3 = v29;
-          v2 = v30;
+          v3 = v24;
+          v2 = v25;
         }
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 const char *msgTypeToString(int a1)
@@ -722,14 +692,14 @@ void NStatSourceRemove(void *a1)
   [v2 removeSource:v1];
 }
 
-uint64_t NStatManagerCreateRouteSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+NWStatisticsRouteSource *NStatManagerCreateRouteSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = [NWStatisticsRouteSource alloc];
 
   return [(NWStatisticsRouteSource *)v8 initWithManager:a1 destination:a2 mask:a3 interface:a4];
 }
 
-uint64_t NStatManagerCreateInterfaceSource(uint64_t a1, unsigned int a2, unsigned int a3)
+NWStatisticsInterfaceSource *NStatManagerCreateInterfaceSource(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   v6 = [NWStatisticsInterfaceSource alloc];
 
@@ -772,12 +742,12 @@ void NStatSourceSetFilter(void *a1, uint64_t a2)
   [v3 setFilter:a2];
 }
 
-void NStatManagerSetQueuePriority()
+void NStatManagerSetQueuePriority(uint64_t a1)
 {
-  v0 = NStatGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = NStatGetLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    NStatManagerSetQueuePriority_cold_1(v0);
+    NStatManagerSetQueuePriority_cold_1(v1);
   }
 }
 
@@ -1140,9 +1110,9 @@ void sub_25BA447CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25BA44B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25BA44B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1154,23 +1124,23 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25BA4A744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25BA4A744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25BA4ABD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25BA4ABD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25BA4C550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25BA4C550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1182,10 +1152,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 __CFString *attributionReasonString(unsigned int a1)
@@ -1203,20 +1174,18 @@ __CFString *attributionReasonString(unsigned int a1)
 
 __CFString *sockaddrForLogging(const sockaddr *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (a1 && !getnameinfo(a1, a1->sa_len, v5, 0x39u, v4, 6u, 10))
+  v5 = *MEMORY[0x277D85DE8];
+  if (a1 && !getnameinfo(a1, a1->sa_len, v4, 0x39u, v3, 6u, 10))
   {
-    v5[56] = 0;
-    v4[5] = 0;
-    v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s:%s", v5, v4];
+    v4[56] = 0;
+    v3[5] = 0;
+    v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s:%s", v4, v3];
   }
 
   else
   {
     v1 = @"?";
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -1245,25 +1214,25 @@ BOOL sockaddrsHavePortDiffOnly(uint64_t a1, uint64_t a2)
   return *(a1 + 2) != *(a2 + 2);
 }
 
-void sub_25BA65B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25BA65B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id pid_to_process_name(int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = 0u;
-  v9 = 0u;
-  buffer = 0u;
+  v9 = *MEMORY[0x277D85DE8];
   v7 = 0u;
+  v8 = 0u;
+  buffer = 0u;
+  v6 = 0u;
   if (proc_pidinfo(a1, 13, 1uLL, &buffer, 64) == 64)
   {
-    v4 = v7;
-    v5 = 0;
-    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v4];
+    v3 = v6;
+    v4 = 0;
+    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v3];
   }
 
   else
@@ -1271,47 +1240,41 @@ id pid_to_process_name(int a1)
     v1 = 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
-
   return v1;
 }
 
 id pid_to_uuid_string(int a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v6 = 0;
   memset(buffer, 0, sizeof(buffer));
   v1 = proc_pidinfo(a1, 17, 1uLL, buffer, 56);
   v2 = 0;
   if (v1 == 56)
   {
-    memset(v5, 0, 37);
-    uuid_unparse_upper(buffer, v5);
-    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
+    memset(v4, 0, 37);
+    uuid_unparse_upper(buffer, v4);
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 BOOL pid_is_valid(int a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  memset(v3, 0, sizeof(v3));
-  result = proc_pidinfo(a1, 13, 1uLL, v3, 64) == 64;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = *MEMORY[0x277D85DE8];
+  memset(v2, 0, sizeof(v2));
+  return proc_pidinfo(a1, 13, 1uLL, v2, 64) == 64;
 }
 
 uint64_t uuid_to_pid(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  *v14 = 0x600000001;
+  *v13 = 0x600000001;
   *count = 0;
-  v10 = 4;
-  if (sysctl(v14, 2u, count, &v10, 0, 0) < 0)
+  v9 = 4;
+  if (sysctl(v13, 2u, count, &v9, 0, 0) < 0)
   {
     v7 = 0xFFFFFFFFLL;
   }
@@ -1325,7 +1288,7 @@ uint64_t uuid_to_pid(void *a1)
 
     v3 = v2;
     *uu2 = 0;
-    v13 = 0;
+    v12 = 0;
     [v1 getUUIDBytes:uu2];
     v4 = proc_listallpids(v3, 4 * *count);
     if (v4 < 1)
@@ -1359,7 +1322,6 @@ LABEL_10:
     free(v3);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1490,15 +1452,8 @@ id pid_to_coalitionID(int a1)
   }
 
   v2 = pid_to_coalition_bundleid(a1);
-  if (!v2)
+  if (!v2 || ([sLSPlugInKitProxyClass pluginKitProxyForIdentifier:v2], (v3 = objc_claimAutoreleasedReturnValue()) == 0) || (v4 = v3, objc_msgSend(v3, "containingBundle"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v5, v4, !v6))
   {
-    goto LABEL_6;
-  }
-
-  v3 = [sLSPlugInKitProxyClass pluginKitProxyForIdentifier:v2];
-  if (!v3 || (v4 = v3, [v3 containingBundle], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v5, v4, !v6))
-  {
-LABEL_6:
     v6 = v2;
   }
 
@@ -1507,31 +1462,31 @@ LABEL_6:
 
 void __pid_to_coalitionID_block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  sCoreServicesDylibHandle = dlopen(gCoreServicesFrameworkPath, 4);
-  if (!sCoreServicesDylibHandle || ((Class = objc_getClass("LSPlugInKitProxy"), sLSPlugInKitProxyClass = Class, sCoreServicesDylibHandle) ? (v1 = Class == 0) : (v1 = 1), v1))
+  v7 = *MEMORY[0x277D85DE8];
+  Class = dlopen(gCoreServicesFrameworkPath, 4);
+  sCoreServicesDylibHandle = Class;
+  if (!Class || ((Class = objc_getClass("LSPlugInKitProxy"), sLSPlugInKitProxyClass = Class, sCoreServicesDylibHandle) ? (v1 = Class == 0) : (v1 = 1), v1))
   {
-    v2 = NStatGetLog();
+    v2 = NStatGetLog(Class);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
-      v4 = 134218240;
-      v5 = sCoreServicesDylibHandle;
-      v6 = 2048;
-      v7 = sLSPlugInKitProxyClass;
-      _os_log_impl(&dword_25BA3A000, v2, OS_LOG_TYPE_FAULT, "procinfo utils plugin mMapping dylib lookup failure handle %p plugin proxy class %p", &v4, 0x16u);
+      v3 = 134218240;
+      v4 = sCoreServicesDylibHandle;
+      v5 = 2048;
+      v6 = sLSPlugInKitProxyClass;
+      _os_log_impl(&dword_25BA3A000, v2, OS_LOG_TYPE_FAULT, "procinfo utils plugin mMapping dylib lookup failure handle %p plugin proxy class %p", &v3, 0x16u);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t fillClientMetrics(void *a1, unsigned int *a2, int a3)
+uint64_t fillClientMetrics(void *a1, unsigned int *a2, uint64_t a3)
 {
   if (!a2)
   {
     return 22;
   }
 
+  v3 = a3;
   v5 = MEMORY[0x277CBEB38];
   v6 = a1;
   v7 = objc_alloc_init(v5);
@@ -1601,68 +1556,68 @@ uint64_t fillClientMetrics(void *a1, unsigned int *a2, int a3)
   [v8 setObject:v10 forKeyedSubscript:@"kNtstatMetricIdPretty"];
 LABEL_16:
   v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  handleField(v24, "nstat_src_current", a2[4], @"current number of srcs for client", a3);
-  handleField(v24, "nstat_src_max", a2[5], @"max number of srcs for client", a3);
-  handleField(v24, "nstat_query_request_all", a2[7], @"Client requests for all counts", a3);
-  handleField(v24, "nstat_query_request_one", a2[8], @"Client request for counts on a single source", a3);
-  handleField(v24, "nstat_query_description_all", a2[9], @"Client requests for all descriptors", a3);
-  handleField(v24, "nstat_query_description_one", a2[10], @"Client requests for descriptor on a single source", a3);
-  handleField(v24, "nstat_query_update_all", a2[11], @"Client requests for all updates", a3);
-  handleField(v24, "nstat_query_update_one", a2[12], @"Client requests for update on a single source", a3);
-  handleField(v24, "nstat_remove_src_found", a2[13], @"Client request to remove a source which is still in existence", a3);
-  handleField(v24, "nstat_remove_src_missed", a2[14], @"Client request to remove a source which is no longer there", a3);
-  handleField(v24, "nstat_query_request_nobuf", a2[15], @"No buffers for counts message send", a3);
-  handleField(v24, "nstat_query_request_upgrade", a2[16], @"Successful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_request_noupgrade", a2[17], @"Unsuccessful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_request_nodesc", a2[18], @"Can't send a descriptor for gone source", a3);
-  handleField(v24, "nstat_query_request_yield", a2[19], @"Client yields lock due to possibly higher priority processing", a3);
-  handleField(v24, "nstat_query_request_limit", a2[20], @"Client requests for all counts hit limit on number returned per batch", a3);
-  handleField(v24, "nstat_query_description_nobuf", a2[21], @"No buffers for message send", a3);
-  handleField(v24, "nstat_query_description_yield", a2[22], @"Client yields lock due to possibly higher priority processing", a3);
-  handleField(v24, "nstat_query_description_limit", a2[23], @"Client requests for all descriptors hit limit on number returned per batch", a3);
-  handleField(v24, "nstat_query_details_nobuf", a2[24], @"No buffers for details message send", a3);
-  handleField(v24, "nstat_query_details_upgrade", a2[25], @"Successful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_details_noupgrade", a2[26], @"Unsuccessful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_details_yield", a2[27], @"Client yields lock due to possibly higher priority processing", a3);
-  handleField(v24, "nstat_query_details_limit", a2[28], @"Client requests for all details hit limit on number returned per batch", a3);
-  handleField(v24, "nstat_query_details_all", a2[29], @"Client requests for details on all sources", a3);
-  handleField(v24, "nstat_query_details_one", a2[30], @"Client requests for details on a single source", a3);
-  handleField(v24, "nstat_query_update_nobuf", a2[31], @"No buffers for update message send", a3);
-  handleField(v24, "nstat_query_update_upgrade", a2[32], @"Successful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_update_noupgrade", a2[33], @"Unsuccessful lock upgrade to handle gone source", a3);
-  handleField(v24, "nstat_query_update_nodesc", a2[34], @"Can't send a descriptor for gone source", a3);
-  handleField(v24, "nstat_query_update_yield", a2[35], @"Client yields lock due to possibly higher priority processing", a3);
-  handleField(v24, "nstat_query_update_limit", a2[36], @"Client requests for all updates hit limit on number returned per batch", a3);
-  handleField(v24, "nstat_src_add_success", a2[37], @"successful src_add", a3);
-  handleField(v24, "nstat_src_add_no_buf", a2[38], @"fail to get buffer for initial src-added", a3);
-  handleField(v24, "nstat_src_add_no_src_mem", a2[39], @"fail to get memory for nstat_src structure", a3);
-  handleField(v24, "nstat_src_add_send_err", a2[40], @"fail to send initial src-added", a3);
-  handleField(v24, "nstat_src_add_while_cleanup", a2[41], @"fail to add because client is in clean up state", a3);
-  handleField(v24, "nstat_add_all_tcp_skip_dead", a2[42], @"Skip a dead PCB when adding all TCP", a3);
-  handleField(v24, "nstat_add_all_udp_skip_dead", a2[43], @"Skip a dead PCB when adding all UDP", a3);
-  handleField(v24, "nstat_src_goodbye_successes", a2[44], @"Successful goodbyes (include cases messages filtered out)", a3);
-  handleField(v24, "nstat_src_goodbye_failures", a2[45], @"Failed goodbyes, further qualified by..", a3);
-  handleField(v24, "nstat_src_goodbye_sent_details", a2[46], @"Sent a concluding details message", a3);
-  handleField(v24, "nstat_src_goodbye_failed_details", a2[47], @"Failed to send a details message", a3);
-  handleField(v24, "nstat_src_goodbye_filtered_details", a2[48], @"Skipped trying to send a details message", a3);
-  handleField(v24, "nstat_src_goodbye_sent_update", a2[49], @"Sent a concluding update message", a3);
-  handleField(v24, "nstat_src_goodbye_failed_update", a2[50], @"Failed to send an update message", a3);
-  handleField(v24, "nstat_src_goodbye_filtered_update", a2[51], @"Skipped trying to send an update message", a3);
-  handleField(v24, "nstat_src_goodbye_sent_counts", a2[52], @"Sent a concluding counts message", a3);
-  handleField(v24, "nstat_src_goodbye_failed_counts", a2[53], @"Failed to send a counts message", a3);
-  handleField(v24, "nstat_src_goodbye_filtered_counts", a2[54], @"Skipped trying to send both counts and descriptor messages", a3);
-  handleField(v24, "nstat_src_goodbye_sent_description", a2[55], @"Sent a concluding description message", a3);
-  handleField(v24, "nstat_src_goodbye_failed_description", a2[56], @"Failed to send a description message", a3);
-  handleField(v24, "nstat_src_goodbye_sent_removed", a2[57], @"Sent a concluding removed message", a3);
-  handleField(v24, "nstat_src_goodbye_failed_removed", a2[58], @"Failed to send a removed message", a3);
-  handleField(v24, "nstat_src_goodbye_filtered_removed", a2[59], @"Skipped on sending a removed message", a3);
-  handleField(v24, "nstat_pcb_event", a2[60], @"send pcb event code called, one precursor to the send_event metrics", a3);
-  handleField(v24, "nstat_send_event", a2[61], @"send event successful", a3);
-  handleField(v24, "nstat_send_event_fail", a2[62], @"send event fail, likely lack of buffers", a3);
-  handleField(v24, "nstat_send_event_notsup", a2[63], @"send event not supported, old style client", a3);
-  handleField(v24, "nstat_route_src_gone_idlecheck", a2[64], @"route src gone noted during periodic idle check", a3);
-  handleField(v24, "nstat_src_removed_linkage", a2[65], @"removed src linkages on the way to deletion", a3);
-  handleField(v24, "nstat_src_gone_idlecheck", a2[66], @"Expected to be redundant/removed when socket handling code is refined", a3);
+  handleField(v24, "nstat_src_current", a2[4], @"current number of srcs for client", v3);
+  handleField(v24, "nstat_src_max", a2[5], @"max number of srcs for client", v3);
+  handleField(v24, "nstat_query_request_all", a2[7], @"Client requests for all counts", v3);
+  handleField(v24, "nstat_query_request_one", a2[8], @"Client request for counts on a single source", v3);
+  handleField(v24, "nstat_query_description_all", a2[9], @"Client requests for all descriptors", v3);
+  handleField(v24, "nstat_query_description_one", a2[10], @"Client requests for descriptor on a single source", v3);
+  handleField(v24, "nstat_query_update_all", a2[11], @"Client requests for all updates", v3);
+  handleField(v24, "nstat_query_update_one", a2[12], @"Client requests for update on a single source", v3);
+  handleField(v24, "nstat_remove_src_found", a2[13], @"Client request to remove a source which is still in existence", v3);
+  handleField(v24, "nstat_remove_src_missed", a2[14], @"Client request to remove a source which is no longer there", v3);
+  handleField(v24, "nstat_query_request_nobuf", a2[15], @"No buffers for counts message send", v3);
+  handleField(v24, "nstat_query_request_upgrade", a2[16], @"Successful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_request_noupgrade", a2[17], @"Unsuccessful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_request_nodesc", a2[18], @"Can't send a descriptor for gone source", v3);
+  handleField(v24, "nstat_query_request_yield", a2[19], @"Client yields lock due to possibly higher priority processing", v3);
+  handleField(v24, "nstat_query_request_limit", a2[20], @"Client requests for all counts hit limit on number returned per batch", v3);
+  handleField(v24, "nstat_query_description_nobuf", a2[21], @"No buffers for message send", v3);
+  handleField(v24, "nstat_query_description_yield", a2[22], @"Client yields lock due to possibly higher priority processing", v3);
+  handleField(v24, "nstat_query_description_limit", a2[23], @"Client requests for all descriptors hit limit on number returned per batch", v3);
+  handleField(v24, "nstat_query_details_nobuf", a2[24], @"No buffers for details message send", v3);
+  handleField(v24, "nstat_query_details_upgrade", a2[25], @"Successful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_details_noupgrade", a2[26], @"Unsuccessful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_details_yield", a2[27], @"Client yields lock due to possibly higher priority processing", v3);
+  handleField(v24, "nstat_query_details_limit", a2[28], @"Client requests for all details hit limit on number returned per batch", v3);
+  handleField(v24, "nstat_query_details_all", a2[29], @"Client requests for details on all sources", v3);
+  handleField(v24, "nstat_query_details_one", a2[30], @"Client requests for details on a single source", v3);
+  handleField(v24, "nstat_query_update_nobuf", a2[31], @"No buffers for update message send", v3);
+  handleField(v24, "nstat_query_update_upgrade", a2[32], @"Successful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_update_noupgrade", a2[33], @"Unsuccessful lock upgrade to handle gone source", v3);
+  handleField(v24, "nstat_query_update_nodesc", a2[34], @"Can't send a descriptor for gone source", v3);
+  handleField(v24, "nstat_query_update_yield", a2[35], @"Client yields lock due to possibly higher priority processing", v3);
+  handleField(v24, "nstat_query_update_limit", a2[36], @"Client requests for all updates hit limit on number returned per batch", v3);
+  handleField(v24, "nstat_src_add_success", a2[37], @"successful src_add", v3);
+  handleField(v24, "nstat_src_add_no_buf", a2[38], @"fail to get buffer for initial src-added", v3);
+  handleField(v24, "nstat_src_add_no_src_mem", a2[39], @"fail to get memory for nstat_src structure", v3);
+  handleField(v24, "nstat_src_add_send_err", a2[40], @"fail to send initial src-added", v3);
+  handleField(v24, "nstat_src_add_while_cleanup", a2[41], @"fail to add because client is in clean up state", v3);
+  handleField(v24, "nstat_add_all_tcp_skip_dead", a2[42], @"Skip a dead PCB when adding all TCP", v3);
+  handleField(v24, "nstat_add_all_udp_skip_dead", a2[43], @"Skip a dead PCB when adding all UDP", v3);
+  handleField(v24, "nstat_src_goodbye_successes", a2[44], @"Successful goodbyes (include cases messages filtered out)", v3);
+  handleField(v24, "nstat_src_goodbye_failures", a2[45], @"Failed goodbyes, further qualified by..", v3);
+  handleField(v24, "nstat_src_goodbye_sent_details", a2[46], @"Sent a concluding details message", v3);
+  handleField(v24, "nstat_src_goodbye_failed_details", a2[47], @"Failed to send a details message", v3);
+  handleField(v24, "nstat_src_goodbye_filtered_details", a2[48], @"Skipped trying to send a details message", v3);
+  handleField(v24, "nstat_src_goodbye_sent_update", a2[49], @"Sent a concluding update message", v3);
+  handleField(v24, "nstat_src_goodbye_failed_update", a2[50], @"Failed to send an update message", v3);
+  handleField(v24, "nstat_src_goodbye_filtered_update", a2[51], @"Skipped trying to send an update message", v3);
+  handleField(v24, "nstat_src_goodbye_sent_counts", a2[52], @"Sent a concluding counts message", v3);
+  handleField(v24, "nstat_src_goodbye_failed_counts", a2[53], @"Failed to send a counts message", v3);
+  handleField(v24, "nstat_src_goodbye_filtered_counts", a2[54], @"Skipped trying to send both counts and descriptor messages", v3);
+  handleField(v24, "nstat_src_goodbye_sent_description", a2[55], @"Sent a concluding description message", v3);
+  handleField(v24, "nstat_src_goodbye_failed_description", a2[56], @"Failed to send a description message", v3);
+  handleField(v24, "nstat_src_goodbye_sent_removed", a2[57], @"Sent a concluding removed message", v3);
+  handleField(v24, "nstat_src_goodbye_failed_removed", a2[58], @"Failed to send a removed message", v3);
+  handleField(v24, "nstat_src_goodbye_filtered_removed", a2[59], @"Skipped on sending a removed message", v3);
+  handleField(v24, "nstat_pcb_event", a2[60], @"send pcb event code called, one precursor to the send_event metrics", v3);
+  handleField(v24, "nstat_send_event", a2[61], @"send event successful", v3);
+  handleField(v24, "nstat_send_event_fail", a2[62], @"send event fail, likely lack of buffers", v3);
+  handleField(v24, "nstat_send_event_notsup", a2[63], @"send event not supported, old style client", v3);
+  handleField(v24, "nstat_route_src_gone_idlecheck", a2[64], @"route src gone noted during periodic idle check", v3);
+  handleField(v24, "nstat_src_removed_linkage", a2[65], @"removed src linkages on the way to deletion", v3);
+  handleField(v24, "nstat_src_gone_idlecheck", a2[66], @"Expected to be redundant/removed when socket handling code is refined", v3);
   [v8 setObject:v24 forKeyedSubscript:@"kNtstatMetricItems"];
   [v6 addObject:v8];
 
@@ -1693,130 +1648,131 @@ void handleField(void *a1, uint64_t a2, uint64_t a3, void *a4, int a5)
 
 uint64_t getGlobalMetrics(void *a1, int a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v18 = 0u;
-  v16 = 0u;
+  v21 = 0u;
+  v19 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v9 = 432;
-  if (sysctlbyname("net.stats.global_counts", &v10, &v9, 0, 0) < 0)
+  v12 = 0u;
+  v10 = 432;
+  v4 = sysctlbyname("net.stats.global_counts", &v11, &v10, 0, 0);
+  if ((v4 & 0x80000000) != 0)
   {
-    v5 = *__error();
-    v4 = NStatGetLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = __error();
+    v6 = *v7;
+    v5 = NStatGetLog(v7);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v38 = "net.stats.global_counts";
-      v39 = 1024;
-      v40 = v5;
-      _os_log_impl(&dword_25BA3A000, v4, OS_LOG_TYPE_ERROR, "systcl %s fail %{darwin.errno}d ", buf, 0x12u);
+      v39 = "net.stats.global_counts";
+      v40 = 1024;
+      v41 = v6;
+      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_ERROR, "systcl %s fail %{darwin.errno}d ", buf, 0x12u);
     }
   }
 
-  else if (v10 < 2)
+  else if (v11 < 2)
   {
-    v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v4 setObject:@"kNtstatMetricsGlobal" forKeyedSubscript:@"kNtstatMetricId"];
-    [v4 setObject:@"nstat_global_counts  Metrics that are global forKeyedSubscript:i.e. not per client", @"kNtstatMetricIdPretty"];
-    v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    handleField(v6, "nstat_global_exclusive_lock_uncontended", *(&v10 + 1), @"Uncontended acquisitions of exlusive lock", a2);
-    handleField(v6, "nstat_global_exclusive_lock_contended", v11, @"Contended acquisitions of exlusive lock", a2);
-    handleField(v6, "nstat_global_shared_lock_uncontended", *(&v11 + 1), @"Uncontended acquisitions of shared lock", a2);
-    handleField(v6, "nstat_global_shared_lock_contended", v12, @"Contended acquisitions of shared lock", a2);
-    handleField(v6, "nstat_global_client_current", *(&v12 + 1), @"current number of clients overall", a2);
-    handleField(v6, "nstat_global_client_max", v13, @"max number of clients overall", a2);
-    handleField(v6, "nstat_global_client_allocs", *(&v13 + 1), @"total number of clients allocated", a2);
-    handleField(v6, "nstat_global_client_alloc_fails", v14, @"total number of failures to allocate a client", a2);
-    handleField(v6, "nstat_global_src_current", *(&v14 + 1), @"current number of srcs overall", a2);
-    handleField(v6, "nstat_global_src_max", v15, @"max number of srcs overall", a2);
-    handleField(v6, "nstat_global_src_allocs", *(&v15 + 1), @"total number of sources allocated", a2);
-    handleField(v6, "nstat_global_src_alloc_fails", v16, @"total number of failures to allocate a source", a2);
-    handleField(v6, "nstat_global_tcp_sck_locus_current", *(&v16 + 1), @"current number of tcp nstat_sock_locus overall", a2);
-    handleField(v6, "nstat_global_tcp_sck_locus_max", v17, @"max number of tcp nstat_sock_locus overall", a2);
-    handleField(v6, "nstat_global_tcp_sck_locus_allocs", *(&v17 + 1), @"total number of tcp nstat_sock_locus allocated", a2);
-    handleField(v6, "nstat_global_tcp_sck_locus_alloc_fails", v18, @"total number of failures to allocate a tcp nstat_sock_locus", a2);
-    handleField(v6, "nstat_global_udp_sck_locus_current", *(&v18 + 1), @"current number of udp nstat_extended_sock_locus overall", a2);
-    handleField(v6, "nstat_global_udp_sck_locus_max", v19, @"max number of udp nstat_extended_sock_locus overall", a2);
-    handleField(v6, "nstat_global_udp_sck_locus_allocs", *(&v19 + 1), @"total number of udp nstat_extended_sock_locus allocated", a2);
-    handleField(v6, "nstat_global_udp_sck_locus_alloc_fails", v20, @"total number of failures to allocate a udp nstat_extended_sock_locus", a2);
-    handleField(v6, "nstat_global_tu_shad_current", *(&v20 + 1), @"current number of nstat_tu_shadow objects overall", a2);
-    handleField(v6, "nstat_global_tu_shad_max", v21, @"max number of tu_shadows overall", a2);
-    handleField(v6, "nstat_global_tu_shad_allocs", *(&v21 + 1), @"total number of tu_shadows allocated", a2);
-    handleField(v6, "nstat_global_gshad_current", v22, @"current number of generic shadow objects overall", a2);
-    handleField(v6, "nstat_global_gshad_max", *(&v22 + 1), @"max number of srcs overall", a2);
-    handleField(v6, "nstat_global_gshad_allocs", v23, @"total number of sources allocated", a2);
-    handleField(v6, "nstat_global_procdetails_current", *(&v23 + 1), @"current number of procdetails objects overall", a2);
-    handleField(v6, "nstat_global_procdetails_max", v24, @"max number of procdetails overall", a2);
-    handleField(v6, "nstat_global_procdetails_allocs", *(&v24 + 1), @"total number of procdetails allocated", a2);
-    handleField(v6, "nstat_global_idlecheck_tcp_gone", v25, @"idle check removes a TCP locus", a2);
-    handleField(v6, "nstat_global_idlecheck_udp_gone", *(&v25 + 1), @"idle check removes a UDP locus", a2);
-    handleField(v6, "nstat_global_idlecheck_route_src_gone", v26, @"total number of route sources discovered gone in idle check", a2);
-    handleField(v6, "nstat_global_tcp_sck_locus_stop_using", *(&v26 + 1), @"Socket has WNT_STOPUSING when creating the initial locus", a2);
-    handleField(v6, "nstat_global_udp_sck_locus_stop_using", v27, @"Socket has WNT_STOPUSING when creating the initial locus", a2);
-    handleField(v6, "nstat_global_pcb_detach_with_locus", *(&v27 + 1), @"Expected path, locus on pcb_detach", a2);
-    handleField(v6, "nstat_global_pcb_detach_with_src", v28, @"Expected path, locus on pcb_detach, an associated source being detached", a2);
-    handleField(v6, "nstat_global_pcb_detach_without_locus", *(&v28 + 1), @"Unexpected path, no locus on pcb_detach", a2);
-    handleField(v6, "nstat_global_pcb_detach_udp", v29, @"pcb detach removes a UDP locus", a2);
-    handleField(v6, "nstat_global_pcb_detach_tcp", *(&v29 + 1), @"pcb detach removes a TCP locus", a2);
-    handleField(v6, "nstat_global_sck_update_last_owner", v30, @"nstat_pcb_update_last_owner() was called", a2);
-    handleField(v6, "nstat_global_sck_fail_first_owner", *(&v30 + 1), @"can't set name on sock locus create", a2);
-    handleField(v6, "nstat_global_sck_fail_last_owner", v31, @"nstat_pcb_update_last_owner() was called, no name available", a2);
-    handleField(v6, "nstat_global_tcp_desc_new_name", *(&v31 + 1), @"TCP Socket ownership discovered to have changed", a2);
-    handleField(v6, "nstat_global_tcp_desc_fail_name", v32, @"TCP Socket ownership discovered to have changed, fail to get new name", a2);
-    handleField(v6, "nstat_global_udp_desc_new_name", *(&v32 + 1), @"UDP Socket ownership discovered to have changed", a2);
-    handleField(v6, "nstat_global_udp_desc_fail_name", v33, @"UDP Socket ownership discovered to have changed, fail to get new name", a2);
-    [v4 setObject:v6 forKeyedSubscript:@"kNtstatMetricItems"];
-    [v3 addObject:v4];
+    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v5 setObject:@"kNtstatMetricsGlobal" forKeyedSubscript:@"kNtstatMetricId"];
+    [v5 setObject:@"nstat_global_counts  Metrics that are global forKeyedSubscript:i.e. not per client", @"kNtstatMetricIdPretty"];
+    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    handleField(v8, "nstat_global_exclusive_lock_uncontended", *(&v11 + 1), @"Uncontended acquisitions of exlusive lock", a2);
+    handleField(v8, "nstat_global_exclusive_lock_contended", v12, @"Contended acquisitions of exlusive lock", a2);
+    handleField(v8, "nstat_global_shared_lock_uncontended", *(&v12 + 1), @"Uncontended acquisitions of shared lock", a2);
+    handleField(v8, "nstat_global_shared_lock_contended", v13, @"Contended acquisitions of shared lock", a2);
+    handleField(v8, "nstat_global_client_current", *(&v13 + 1), @"current number of clients overall", a2);
+    handleField(v8, "nstat_global_client_max", v14, @"max number of clients overall", a2);
+    handleField(v8, "nstat_global_client_allocs", *(&v14 + 1), @"total number of clients allocated", a2);
+    handleField(v8, "nstat_global_client_alloc_fails", v15, @"total number of failures to allocate a client", a2);
+    handleField(v8, "nstat_global_src_current", *(&v15 + 1), @"current number of srcs overall", a2);
+    handleField(v8, "nstat_global_src_max", v16, @"max number of srcs overall", a2);
+    handleField(v8, "nstat_global_src_allocs", *(&v16 + 1), @"total number of sources allocated", a2);
+    handleField(v8, "nstat_global_src_alloc_fails", v17, @"total number of failures to allocate a source", a2);
+    handleField(v8, "nstat_global_tcp_sck_locus_current", *(&v17 + 1), @"current number of tcp nstat_sock_locus overall", a2);
+    handleField(v8, "nstat_global_tcp_sck_locus_max", v18, @"max number of tcp nstat_sock_locus overall", a2);
+    handleField(v8, "nstat_global_tcp_sck_locus_allocs", *(&v18 + 1), @"total number of tcp nstat_sock_locus allocated", a2);
+    handleField(v8, "nstat_global_tcp_sck_locus_alloc_fails", v19, @"total number of failures to allocate a tcp nstat_sock_locus", a2);
+    handleField(v8, "nstat_global_udp_sck_locus_current", *(&v19 + 1), @"current number of udp nstat_extended_sock_locus overall", a2);
+    handleField(v8, "nstat_global_udp_sck_locus_max", v20, @"max number of udp nstat_extended_sock_locus overall", a2);
+    handleField(v8, "nstat_global_udp_sck_locus_allocs", *(&v20 + 1), @"total number of udp nstat_extended_sock_locus allocated", a2);
+    handleField(v8, "nstat_global_udp_sck_locus_alloc_fails", v21, @"total number of failures to allocate a udp nstat_extended_sock_locus", a2);
+    handleField(v8, "nstat_global_tu_shad_current", *(&v21 + 1), @"current number of nstat_tu_shadow objects overall", a2);
+    handleField(v8, "nstat_global_tu_shad_max", v22, @"max number of tu_shadows overall", a2);
+    handleField(v8, "nstat_global_tu_shad_allocs", *(&v22 + 1), @"total number of tu_shadows allocated", a2);
+    handleField(v8, "nstat_global_gshad_current", v23, @"current number of generic shadow objects overall", a2);
+    handleField(v8, "nstat_global_gshad_max", *(&v23 + 1), @"max number of srcs overall", a2);
+    handleField(v8, "nstat_global_gshad_allocs", v24, @"total number of sources allocated", a2);
+    handleField(v8, "nstat_global_procdetails_current", *(&v24 + 1), @"current number of procdetails objects overall", a2);
+    handleField(v8, "nstat_global_procdetails_max", v25, @"max number of procdetails overall", a2);
+    handleField(v8, "nstat_global_procdetails_allocs", *(&v25 + 1), @"total number of procdetails allocated", a2);
+    handleField(v8, "nstat_global_idlecheck_tcp_gone", v26, @"idle check removes a TCP locus", a2);
+    handleField(v8, "nstat_global_idlecheck_udp_gone", *(&v26 + 1), @"idle check removes a UDP locus", a2);
+    handleField(v8, "nstat_global_idlecheck_route_src_gone", v27, @"total number of route sources discovered gone in idle check", a2);
+    handleField(v8, "nstat_global_tcp_sck_locus_stop_using", *(&v27 + 1), @"Socket has WNT_STOPUSING when creating the initial locus", a2);
+    handleField(v8, "nstat_global_udp_sck_locus_stop_using", v28, @"Socket has WNT_STOPUSING when creating the initial locus", a2);
+    handleField(v8, "nstat_global_pcb_detach_with_locus", *(&v28 + 1), @"Expected path, locus on pcb_detach", a2);
+    handleField(v8, "nstat_global_pcb_detach_with_src", v29, @"Expected path, locus on pcb_detach, an associated source being detached", a2);
+    handleField(v8, "nstat_global_pcb_detach_without_locus", *(&v29 + 1), @"Unexpected path, no locus on pcb_detach", a2);
+    handleField(v8, "nstat_global_pcb_detach_udp", v30, @"pcb detach removes a UDP locus", a2);
+    handleField(v8, "nstat_global_pcb_detach_tcp", *(&v30 + 1), @"pcb detach removes a TCP locus", a2);
+    handleField(v8, "nstat_global_sck_update_last_owner", v31, @"nstat_pcb_update_last_owner() was called", a2);
+    handleField(v8, "nstat_global_sck_fail_first_owner", *(&v31 + 1), @"can't set name on sock locus create", a2);
+    handleField(v8, "nstat_global_sck_fail_last_owner", v32, @"nstat_pcb_update_last_owner() was called, no name available", a2);
+    handleField(v8, "nstat_global_tcp_desc_new_name", *(&v32 + 1), @"TCP Socket ownership discovered to have changed", a2);
+    handleField(v8, "nstat_global_tcp_desc_fail_name", v33, @"TCP Socket ownership discovered to have changed, fail to get new name", a2);
+    handleField(v8, "nstat_global_udp_desc_new_name", *(&v33 + 1), @"UDP Socket ownership discovered to have changed", a2);
+    handleField(v8, "nstat_global_udp_desc_fail_name", v34, @"UDP Socket ownership discovered to have changed, fail to get new name", a2);
+    [v5 setObject:v8 forKeyedSubscript:@"kNtstatMetricItems"];
+    [v3 addObject:v5];
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v4 = NStatGetLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = NStatGetLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v38 = "net.stats.global_counts";
-      v39 = 1024;
-      v40 = v10;
-      v41 = 1024;
-      v42 = 1;
-      _os_log_impl(&dword_25BA3A000, v4, OS_LOG_TYPE_ERROR, "systcl %s EINVAL global counts version %d != expected %d\n", buf, 0x18u);
+      v39 = "net.stats.global_counts";
+      v40 = 1024;
+      v41 = v11;
+      v42 = 1024;
+      v43 = 1;
+      _os_log_impl(&dword_25BA3A000, v5, OS_LOG_TYPE_ERROR, "systcl %s EINVAL global counts version %d != expected %d\n", buf, 0x18u);
     }
 
-    v5 = 22;
+    v6 = 22;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
-uint64_t specificClientMetrics(void *a1, int a2, int a3)
+uint64_t specificClientMetrics(void *a1, int a2, uint64_t a3)
 {
   v23 = *MEMORY[0x277D85DE8];
   v5 = a1;
@@ -1828,12 +1784,13 @@ uint64_t specificClientMetrics(void *a1, int a2, int a3)
   if (sysctlbyname("net.stats.metrics", v13, &v12, v11, 8uLL) < 0)
   {
     v6 = *__error();
-    if (*__error() != 34)
+    v7 = __error();
+    if (*v7 != 34)
     {
-      v7 = NStatGetLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = NStatGetLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v8 = *__error();
+        v9 = *__error();
         *buf = 136315906;
         v16 = "net.stats.metrics";
         v17 = 1024;
@@ -1841,8 +1798,8 @@ uint64_t specificClientMetrics(void *a1, int a2, int a3)
         v19 = 1024;
         v20 = a2;
         v21 = 1024;
-        v22 = v8;
-        _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "systcl %s fail requesting version %d, specific id %d err %{darwin.errno}d ", buf, 0x1Eu);
+        v22 = v9;
+        _os_log_impl(&dword_25BA3A000, v8, OS_LOG_TYPE_ERROR, "systcl %s fail requesting version %d, specific id %d err %{darwin.errno}d ", buf, 0x1Eu);
       }
     }
   }
@@ -1852,11 +1809,10 @@ uint64_t specificClientMetrics(void *a1, int a2, int a3)
     v6 = fillClientMetrics(v5, v13, a3);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t scanClientMetrics(void *a1, int a2, void *a3, int a4)
+uint64_t scanClientMetrics(void *a1, int a2, void *a3, uint64_t a4)
 {
   v31 = *MEMORY[0x277D85DE8];
   v7 = a1;
@@ -1912,11 +1868,12 @@ LABEL_10:
 
   else
   {
-    v14 = *__error();
-    v15 = NStatGetLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v15 = __error();
+    v14 = *v15;
+    v16 = NStatGetLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = *__error();
+      v17 = *__error();
       *buf = 136315906;
       v24 = "net.stats.metrics";
       v25 = 1024;
@@ -1924,48 +1881,47 @@ LABEL_10:
       v27 = 1024;
       v28 = v9;
       v29 = 1024;
-      v30 = v16;
-      _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "systcl %s fail scanning requesting version %d,  requested id %d err %{darwin.errno}d", buf, 0x1Eu);
+      v30 = v17;
+      _os_log_impl(&dword_25BA3A000, v16, OS_LOG_TYPE_ERROR, "systcl %s fail scanning requesting version %d,  requested id %d err %{darwin.errno}d", buf, 0x1Eu);
     }
   }
 
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 id dateStringMillisecondsFromTimeInterval(long double a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *__src = 0;
-  v16 = 0;
-  v18 = 0;
+  v15 = 0;
   v17 = 0;
-  v11 = a1;
+  v16 = 0;
+  v10 = a1;
   if (a1 <= 0)
   {
-    time(&v11);
+    time(&v10);
     a1 = 0.0;
   }
 
   __y = 0.0;
   v1 = modf(a1, &__y);
-  v2 = localtime(&v11);
+  v2 = localtime(&v10);
   v3 = strftime(__src, 0x1AuLL, "%Y-%m-%d %H:%M:%S %z", v2);
   if (v3)
   {
-    v9 = 0;
+    v8 = 0;
     *__str = 0;
     if (snprintf(__str, 6uLL, "%.3f", v1))
     {
       *__dst = 0;
-      v13 = 0;
-      memset(v14, 0, sizeof(v14));
+      v12 = 0;
+      memset(v13, 0, sizeof(v13));
       v4 = stpncpy(__dst, __src, 0x13uLL);
       v5 = stpncpy(v4, &__str[1], 4uLL);
-      stpncpy(v5, &v17 + 3, 6uLL);
-      HIBYTE(v14[6]) = 0;
+      stpncpy(v5, &v16 + 3, 6uLL);
+      HIBYTE(v13[6]) = 0;
       v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:__dst encoding:1];
     }
 
@@ -1974,33 +1930,32 @@ id dateStringMillisecondsFromTimeInterval(long double a1)
       v3 = 0;
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id timeStringMillisecondsFromTimeInterval(long double a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  memset(__src, 0, 15);
+  v14 = *MEMORY[0x277D85DE8];
+  *&__src[7] = 0;
+  *__src = 0;
   __y = 0.0;
-  v11 = a1;
+  v10 = a1;
   v1 = modf(a1, &__y);
-  v2 = localtime(&v11);
+  v2 = localtime(&v10);
   v3 = strftime(__src, 0xFuLL, "%H:%M:%S %z", v2);
   if (v3)
   {
-    v9 = 0;
+    v8 = 0;
     *__str = 0;
     if (snprintf(__str, 6uLL, "%.3f", v1))
     {
       *__dst = 0;
-      memset(v13, 0, 11);
+      memset(v12, 0, 11);
       v4 = stpncpy(__dst, __src, 8uLL);
       v5 = stpncpy(v4, &__str[1], 4uLL);
       stpncpy(v5, &__src[8], 6uLL);
-      BYTE2(v13[1]) = 0;
+      BYTE2(v12[1]) = 0;
       v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:__dst encoding:1];
     }
 
@@ -2009,8 +1964,6 @@ id timeStringMillisecondsFromTimeInterval(long double a1)
       v3 = 0;
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

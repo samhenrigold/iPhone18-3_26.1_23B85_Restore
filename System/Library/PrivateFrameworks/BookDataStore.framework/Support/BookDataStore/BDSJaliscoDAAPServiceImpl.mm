@@ -8,15 +8,23 @@
 - (void)resetPurchasedTokenForStoreIDs:(id)ds completion:(id)completion;
 - (void)resetStaleJaliscoDatabaseWithCompletion:(id)completion;
 - (void)setDaapClientDelegate:(id)delegate;
+- (void)setItemHidden:(BOOL)hidden forStoreID:(id)d completion:(id)completion;
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion;
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error;
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion;
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error;
+- (void)updatePolitely:(BOOL)politely uiManager:(id)manager reason:(int64_t)reason completion:(id)completion;
+- (void)updatePolitelyAfterSignIn:(BOOL)in reason:(int64_t)reason completion:(id)completion;
+- (void)updatePolitelyAfterSignOut:(BOOL)out reason:(int64_t)reason completion:(id)completion;
 @end
 
 @implementation BDSJaliscoDAAPServiceImpl
 
 - (BDSJaliscoDAAPServiceImpl)init
 {
-  v8.receiver = self;
-  v8.super_class = BDSJaliscoDAAPServiceImpl;
-  v2 = [(BDSJaliscoDAAPServiceImpl *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = BDSJaliscoDAAPServiceImpl;
+  v2 = [(BDSJaliscoDAAPServiceImpl *)&v9 init];
   if (v2)
   {
     v3 = +[BLJaliscoDAAPClient sharedClient];
@@ -27,10 +35,10 @@
 
     if (!jaliscoClient)
     {
-      v6 = sub_1000023E8();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_1000023E8(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1001C00D8(v6);
+        sub_1001C00D8(v7);
       }
 
       return 0;
@@ -71,6 +79,63 @@
   [jaliscoClient setDelegate:delegateCopy];
 }
 
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error
+{
+  politelyCopy = politely;
+  errorCopy = error;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updatePolitely:politelyCopy reason:reason completionWithError:errorCopy];
+}
+
+- (void)updatePolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion
+{
+  politelyCopy = politely;
+  completionCopy = completion;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updatePolitely:politelyCopy reason:reason completion:completionCopy];
+}
+
+- (void)updatePolitelyAfterSignOut:(BOOL)out reason:(int64_t)reason completion:(id)completion
+{
+  outCopy = out;
+  completionCopy = completion;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updatePolitelyAfterSignOut:outCopy reason:reason completion:completionCopy];
+}
+
+- (void)updatePolitelyAfterSignIn:(BOOL)in reason:(int64_t)reason completion:(id)completion
+{
+  inCopy = in;
+  completionCopy = completion;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updatePolitelyAfterSignIn:inCopy reason:reason completion:completionCopy];
+}
+
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completion:(id)completion
+{
+  politelyCopy = politely;
+  completionCopy = completion;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updateFamilyPolitely:politelyCopy reason:reason completion:completionCopy];
+}
+
+- (void)updateFamilyPolitely:(BOOL)politely reason:(int64_t)reason completionWithError:(id)error
+{
+  politelyCopy = politely;
+  errorCopy = error;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updateFamilyPolitely:politelyCopy reason:reason completionWithError:errorCopy];
+}
+
+- (void)setItemHidden:(BOOL)hidden forStoreID:(id)d completion:(id)completion
+{
+  hiddenCopy = hidden;
+  completionCopy = completion;
+  dCopy = d;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient setItemHidden:hiddenCopy forStoreID:dCopy completion:completionCopy];
+}
+
 - (void)resetPurchasedTokenForStoreIDs:(id)ds completion:(id)completion
 {
   completionCopy = completion;
@@ -107,6 +172,14 @@
   completionCopy = completion;
   jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
   [jaliscoClient resetStaleJaliscoDatabaseWithCompletion:completionCopy];
+}
+
+- (void)updatePolitely:(BOOL)politely uiManager:(id)manager reason:(int64_t)reason completion:(id)completion
+{
+  politelyCopy = politely;
+  completionCopy = completion;
+  jaliscoClient = [(BDSJaliscoDAAPServiceImpl *)self jaliscoClient];
+  [jaliscoClient updatePolitely:politelyCopy reason:reason completion:completionCopy];
 }
 
 @end

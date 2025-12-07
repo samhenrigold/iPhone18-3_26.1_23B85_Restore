@@ -22,7 +22,7 @@ uint64_t sub_1002DAF30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   *(v47 - 192) = 0x906249FEB2907B24;
   *(v47 - 184) = 0x798D38F436DABF7FLL;
   v50 = a2 != 1622093268 && (a2 & 0xF) == ((v45 + 774) ^ 0x4CB);
-  return (*(v46 + 8 * ((11 * v50) ^ v48)))(a1, a2, 1622093268, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, a41, a42, a43, a44, a45);
+  return (*(v46 + 8 * ((11 * v50) ^ v48)))(a1);
 }
 
 uint64_t sub_1002DCA60@<X0>(uint64_t a1@<X0>, int a2@<W1>, unsigned int a3@<W2>, int a4@<W8>)
@@ -940,16 +940,16 @@ LABEL_56:
   return result;
 }
 
-id copyLoggingHandle()
+id copyLoggingHandle(uint64_t a1)
 {
   if (copyLoggingHandle_onceToken != -1)
   {
     copyLoggingHandle_cold_1();
   }
 
-  v1 = copyLoggingHandle_logHandle;
+  v2 = copyLoggingHandle_logHandle;
 
-  return v1;
+  return v2;
 }
 
 id __copy_helper_block_e8_32s40s(uint64_t a1, uint64_t a2)
@@ -1030,16 +1030,16 @@ void __copyRTCResetSerialQueue_block_invoke(id a1)
   copyRTCResetSerialQueue_queue = v2;
 }
 
-id copyMobileActivationSerialQueue()
+id copyMobileActivationSerialQueue(uint64_t a1)
 {
   if (copyMobileActivationSerialQueue_onceToken != -1)
   {
     copyMobileActivationSerialQueue_cold_1();
   }
 
-  v1 = copyMobileActivationSerialQueue_queue;
+  v2 = copyMobileActivationSerialQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void __copyMobileActivationSerialQueue_block_invoke(id a1)
@@ -1229,9 +1229,9 @@ void scheduleXPCActivity(void *a1, const char *a2, unsigned int a3, int a4, unsi
   _Block_object_dispose(&v28, 8);
 }
 
-void sub_1002E1EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1002E1EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1255,23 +1255,24 @@ void __scheduleXPCActivity_block_invoke_21(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_9;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __scheduleXPCActivity_block_invoke_21_cold_1(a1, v4);
+      __scheduleXPCActivity_block_invoke_21_cold_1(a1, v5);
     }
   }
 
   if (xpc_activity_get_state(v3) == 2)
   {
-    v5 = *(*(a1 + 48) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    v6 = *(*(a1 + 48) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
 
     (*(*(a1 + 40) + 16))();
   }
@@ -1621,7 +1622,7 @@ LABEL_17:
     v28 = 9;
   }
 
-  v29 = copy_dcrt_path();
+  v29 = copy_dcrt_path(v25);
   v30 = [v17 BOOLValue];
   v31 = &SDCRT_FILENAME;
   if (!v30)
@@ -1789,23 +1790,23 @@ uint64_t storeDCRT(void *a1, void *a2, void *a3, NSError **a4)
     v19 = 0;
     v13 = 0;
     v20 = 0;
-    v89 = 0;
     v90 = 0;
-    v86 = 0;
+    v91 = 0;
     v87 = 0;
     v88 = 0;
-    v84 = 0;
+    v89 = 0;
     v85 = 0;
+    v86 = 0;
     goto LABEL_8;
   }
 
   if (!v8)
   {
-    v87 = 0;
+    v88 = 0;
     v22 = 0;
     v11 = 0;
     v23 = 0;
-    v81 = 0;
+    v82 = 0;
     v12 = a4;
     goto LABEL_18;
   }
@@ -1815,14 +1816,14 @@ uint64_t storeDCRT(void *a1, void *a2, void *a3, NSError **a4)
   v12 = a4;
   if (v10 && (v13 = isNSNumber(v10), v13, !v13))
   {
-    v89 = v11;
+    v90 = v11;
     v17 = createMobileActivationError("storeDCRT", 624, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid value for option (%@).", @"UseCommittedDAK");
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v90 = 0;
-    v86 = 0;
+    v91 = 0;
     v87 = 0;
+    v88 = 0;
   }
 
   else
@@ -1833,12 +1834,12 @@ uint64_t storeDCRT(void *a1, void *a2, void *a3, NSError **a4)
     v16 = v15 != 0;
     if (v15)
     {
-      v87 = [v9 objectForKeyedSubscript:@"ServerResponseDate"];
+      v88 = [v9 objectForKeyedSubscript:@"ServerResponseDate"];
     }
 
     else
     {
-      v87 = 0;
+      v88 = 0;
     }
 
     v24 = [v9 objectForKeyedSubscript:@"SkipCertificateValidation"];
@@ -1853,9 +1854,9 @@ uint64_t storeDCRT(void *a1, void *a2, void *a3, NSError **a4)
 
         if (!v13)
         {
-          v89 = v11;
-          v90 = v23;
-          v86 = v22;
+          v90 = v11;
+          v91 = v23;
+          v87 = v22;
           v17 = createMobileActivationError("storeDCRT", 641, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid option (%@).", @"sdcrtAttestation");
           v18 = 0;
           v19 = 0;
@@ -1865,9 +1866,9 @@ LABEL_75:
         }
       }
 
-      v81 = v16;
+      v82 = v16;
 LABEL_18:
-      v90 = v23;
+      v91 = v23;
       v26 = [v23 BOOLValue];
       if (v26)
       {
@@ -1889,7 +1890,7 @@ LABEL_18:
         v28 = @"DCRT";
       }
 
-      v105 = 0;
+      v106 = 0;
       if (v26)
       {
         v29 = 10;
@@ -1900,22 +1901,22 @@ LABEL_18:
         v29 = 9;
       }
 
-      v83 = v29;
-      v18 = parseDERCertificatesFromChain(v7, &v105);
-      v21 = v105;
-      v89 = v11;
-      v86 = v22;
+      v84 = v29;
+      v18 = parseDERCertificatesFromChain(v7, &v106);
+      v21 = v106;
+      v90 = v11;
+      v87 = v22;
       if (v18)
       {
-        v88 = v18;
-        v79 = v27;
-        v80 = v28;
+        v89 = v18;
+        v80 = v27;
+        v81 = v28;
         if ([v22 BOOLValue])
         {
-          v77 = v7;
-          *v82 = v6;
-          v84 = 0;
+          v78 = v7;
+          v83 = v6;
           v85 = 0;
+          v86 = 0;
           v20 = 0;
           v13 = 0;
           v19 = 0;
@@ -1924,17 +1925,17 @@ LABEL_18:
 
         if (is_internal_build())
         {
-          v39 = [NSUserDefaults alloc];
-          v40 = [v39 persistentDomainForName:@"com.apple.mobileactivationd"];
+          v40 = [NSUserDefaults alloc];
+          v41 = [v40 persistentDomainForName:@"com.apple.mobileactivationd"];
 
-          v41 = [v40 objectForKeyedSubscript:@"UseQACertificates"];
-          v42 = isNSNumber(v41);
+          v42 = [v41 objectForKeyedSubscript:@"UseQACertificates"];
+          v43 = isNSNumber(v42);
 
-          v85 = v40;
-          if (v42)
+          v86 = v41;
+          if (v43)
           {
-            v43 = [v40 objectForKeyedSubscript:@"UseQACertificates"];
-            v44 = [v43 BOOLValue];
+            v44 = [v41 objectForKeyedSubscript:@"UseQACertificates"];
+            v45 = [v44 BOOLValue];
 
             goto LABEL_47;
           }
@@ -1942,145 +1943,145 @@ LABEL_18:
 
         else
         {
-          v85 = 0;
+          v86 = 0;
         }
 
-        v44 = 0;
+        v45 = 0;
 LABEL_47:
-        v104 = v21;
-        is_legacy = security_committed_uik_is_legacy(&v104);
-        v47 = v104;
+        v105 = v21;
+        is_legacy = security_committed_uik_is_legacy(&v105);
+        v48 = v105;
 
-        if (!is_legacy && v47)
+        if (!is_legacy && v48)
         {
-          v17 = createMobileActivationError("storeDCRT", 671, @"com.apple.MobileActivation.ErrorDomain", -1, v47, @"Failed to query legacy UIK support.");
+          v17 = createMobileActivationError("storeDCRT", 671, @"com.apple.MobileActivation.ErrorDomain", -1, v48, @"Failed to query legacy UIK support.");
 
           v18 = 0;
           v19 = 0;
           v13 = 0;
           v20 = 0;
-          v84 = 0;
+          v85 = 0;
           goto LABEL_77;
         }
 
-        v48 = platform_supports_activation() ^ 1 | is_legacy;
-        v49 = [v90 BOOLValue];
-        if (v48)
-        {
-          v50 = 2;
-        }
-
-        else
-        {
-          v50 = 1;
-        }
-
+        v49 = platform_supports_activation() ^ 1 | is_legacy;
+        v50 = [v91 BOOLValue];
         if (v49)
         {
-          v51 = 5;
+          v51 = 2;
         }
 
         else
         {
-          v51 = v50;
+          v51 = 1;
         }
 
-        v103 = v47;
-        v52 = copyRootCertificate(v51, v44, &v103);
-        v53 = v103;
-
-        if (v52)
+        if (v50)
         {
-          v102 = v53;
-          v20 = lockcrypto_cert_from_pem_data(v52, &v102);
-          v54 = v102;
+          v52 = 5;
+        }
 
-          v84 = v52;
+        else
+        {
+          v52 = v51;
+        }
+
+        v104 = v48;
+        v53 = copyRootCertificate(v52, v45, &v104);
+        v54 = v104;
+
+        if (v53)
+        {
+          v103 = v54;
+          v20 = lockcrypto_cert_from_pem_data(v53, &v103);
+          v55 = v103;
+
+          v85 = v53;
           if (v20)
           {
-            v78 = v54;
-            v55 = [v88 objectAtIndexedSubscript:0];
-            v13 = SecCertificateCreateWithData(kCFAllocatorDefault, v55);
+            v79 = v55;
+            v56 = [v89 objectAtIndexedSubscript:0];
+            v13 = SecCertificateCreateWithData(kCFAllocatorDefault, v56);
 
             if (v13)
             {
-              v56 = [v88 objectAtIndexedSubscript:1];
-              v19 = SecCertificateCreateWithData(kCFAllocatorDefault, v56);
+              v57 = [v89 objectAtIndexedSubscript:1];
+              v19 = SecCertificateCreateWithData(kCFAllocatorDefault, v57);
 
               if (v19)
               {
-                if ([v89 BOOLValue])
+                if ([v90 BOOLValue])
                 {
-                  v57 = 2;
+                  v58 = 2;
                 }
 
                 else
                 {
-                  v57 = 3;
+                  v58 = 3;
                 }
 
-                v101 = v78;
-                v58 = certificatePublicKeyMatchesSystemPublicKey(v57, v83, v13, &v101);
-                v59 = v101;
+                v102 = v79;
+                v59 = certificatePublicKeyMatchesSystemPublicKey(v58, v84, v13, &v102);
+                v60 = v102;
 
-                if (v58)
+                if (v59)
                 {
-                  v100 = v59;
-                  v60 = evaluateBAATrustWithCerts(v13, v19, v20, v48 & 1, v81, v87, &v100);
-                  v17 = v100;
+                  v101 = v60;
+                  v61 = evaluateBAATrustWithCerts(v13, v19, v20, v49 & 1, v82, v88, &v101);
+                  v17 = v101;
 
-                  if ((v60 & 1) == 0)
+                  if ((v61 & 1) == 0)
                   {
-                    v69 = createMobileActivationError("storeDCRT", 724, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"Failed to verify %@.", v80);
+                    v70 = createMobileActivationError("storeDCRT", 724, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"Failed to verify %@.", v81);
 
                     v18 = 0;
                     v21 = 0;
                     goto LABEL_90;
                   }
 
-                  v77 = v7;
-                  *v82 = v6;
-                  v98 = 0u;
+                  v78 = v7;
+                  v83 = v6;
                   v99 = 0u;
-                  v96 = 0u;
+                  v100 = 0u;
                   v97 = 0u;
+                  v98 = 0u;
                   obj = copy_required_dcrt_oids();
-                  v61 = [(NSArray *)obj countByEnumeratingWithState:&v96 objects:v108 count:16];
-                  if (v61)
+                  v62 = [(NSArray *)obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+                  if (v62)
                   {
-                    v62 = v61;
-                    v76 = *v97;
+                    v63 = v62;
+                    v77 = *v98;
                     while (2)
                     {
-                      v63 = 0;
-                      v64 = v17;
+                      v64 = 0;
+                      v65 = v17;
                       do
                       {
-                        if (*v97 != v76)
+                        if (*v98 != v77)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v65 = *(*(&v96 + 1) + 8 * v63);
-                        v95 = v64;
-                        v66 = lockcrypto_query_certificate_properties(v13, v65, &v95);
-                        v17 = v95;
+                        v66 = *(*(&v97 + 1) + 8 * v64);
+                        v96 = v65;
+                        v67 = lockcrypto_query_certificate_properties(v13, v66, &v96);
+                        v17 = v96;
 
-                        if (!v66)
+                        if (!v67)
                         {
-                          v74 = createMobileActivationError("storeDCRT", 732, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"%@ is missing required OID: %@", v80, v65);
+                          v75 = createMobileActivationError("storeDCRT", 732, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"%@ is missing required OID: %@", v81, v66);
 
-                          v17 = v74;
+                          v17 = v75;
                           goto LABEL_103;
                         }
 
-                        v63 = v63 + 1;
-                        v64 = v17;
+                        v64 = v64 + 1;
+                        v65 = v17;
                       }
 
-                      while (v62 != v63);
-                      v62 = [(NSArray *)obj countByEnumeratingWithState:&v96 objects:v108 count:16];
-                      if (v62)
+                      while (v63 != v64);
+                      v63 = [(NSArray *)obj countByEnumeratingWithState:&v97 objects:v109 count:16];
+                      if (v63)
                       {
                         continue;
                       }
@@ -2100,63 +2101,63 @@ LABEL_103:
 
 LABEL_30:
                   v30 = +[NSFileManager defaultManager];
-                  v31 = copy_dcrt_path();
-                  v106 = NSFilePosixPermissions;
-                  v107 = &off_1003FBC18;
-                  v32 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-                  v94 = v21;
-                  v33 = [(NSFileManager *)v30 createDirectoryAtPath:v31 withIntermediateDirectories:1 attributes:v32 error:&v94];
-                  v34 = v94;
+                  v31 = copy_dcrt_path(v30);
+                  v107 = NSFilePosixPermissions;
+                  v108 = &off_1003FBC18;
+                  v32 = [NSDictionary dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+                  v95 = v21;
+                  v33 = [(NSFileManager *)v30 createDirectoryAtPath:v31 withIntermediateDirectories:1 attributes:v32 error:&v95];
+                  v34 = v95;
 
                   if (v33)
                   {
-                    v35 = copy_dcrt_path();
-                    v36 = [v90 BOOLValue];
-                    v37 = &SDCRT_FILENAME;
-                    if (!v36)
+                    v36 = copy_dcrt_path(v35);
+                    v37 = [v91 BOOLValue];
+                    v38 = &SDCRT_FILENAME;
+                    if (!v37)
                     {
-                      v37 = &DCRT_FILENAME;
+                      v38 = &DCRT_FILENAME;
                     }
 
-                    v21 = [v35 stringByAppendingPathComponent:*v37];
+                    v21 = [v36 stringByAppendingPathComponent:*v38];
 
-                    v7 = v77;
+                    v7 = v78;
                     if (!v21)
                     {
-                      v17 = createMobileActivationError("storeDCRT", 751, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create %@ file path.", v80);
+                      v17 = createMobileActivationError("storeDCRT", 751, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create %@ file path.", v81);
 
                       v18 = 0;
-                      v6 = *v82;
+                      v6 = v83;
                       goto LABEL_9;
                     }
 
-                    v93 = v34;
-                    v38 = store_data(v21, v77, &v93);
-                    v17 = v93;
+                    v94 = v34;
+                    v39 = store_data(v21, v78, &v94);
+                    v17 = v94;
 
-                    v6 = *v82;
-                    if (v38)
+                    v6 = v83;
+                    if (v39)
                     {
-                      if ([v89 BOOLValue])
+                      if ([v90 BOOLValue])
                       {
                         v18 = 1;
                       }
 
                       else
                       {
-                        v92 = v17;
-                        v70 = libaks_system_key_operate(v83, 2, &v92);
-                        v71 = v92;
+                        v93 = v17;
+                        v71 = libaks_system_key_operate(v84, 2, &v93);
+                        v72 = v93;
 
-                        if (v70)
+                        if (v71)
                         {
                           v18 = 1;
-                          v17 = v71;
+                          v17 = v72;
                         }
 
                         else
                         {
-                          v17 = createMobileActivationError("storeDCRT", 766, @"com.apple.MobileActivation.ErrorDomain", -1, v71, @"Failed to commit %@.", v79);
+                          v17 = createMobileActivationError("storeDCRT", 766, @"com.apple.MobileActivation.ErrorDomain", -1, v72, @"Failed to commit %@.", v80);
 
                           v18 = 0;
                         }
@@ -2164,8 +2165,8 @@ LABEL_30:
 
                       if (v17)
                       {
-                        v73 = +[NSFileManager defaultManager];
-                        [(NSFileManager *)v73 removeItemAtPath:v21 error:0];
+                        v74 = +[NSFileManager defaultManager];
+                        [(NSFileManager *)v74 removeItemAtPath:v21 error:0];
                       }
 
 LABEL_9:
@@ -2178,33 +2179,33 @@ LABEL_9:
                       goto LABEL_78;
                     }
 
-                    v69 = createMobileActivationError("storeDCRT", 756, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"Failed to store %@ at %@.", v80, v21);
+                    v70 = createMobileActivationError("storeDCRT", 756, @"com.apple.MobileActivation.ErrorDomain", -1, v17, @"Failed to store %@ at %@.", v81, v21);
 
                     v18 = 0;
 LABEL_90:
-                    v17 = v69;
+                    v17 = v70;
                     goto LABEL_9;
                   }
 
-                  v45 = copy_dcrt_path();
-                  v17 = createMobileActivationError("storeDCRT", 745, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to create %@.", v45);
+                  v46 = copy_dcrt_path(v35);
+                  v17 = createMobileActivationError("storeDCRT", 745, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to create %@.", v46);
 
                   v18 = 0;
                   v21 = 0;
 LABEL_44:
-                  v6 = *v82;
-                  v7 = v77;
+                  v6 = v83;
+                  v7 = v78;
                   goto LABEL_9;
                 }
 
-                v17 = createMobileActivationError("storeDCRT", 717, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"%@ public key does not match %@ public key.", v80, v79);
-                v72 = v59;
+                v17 = createMobileActivationError("storeDCRT", 717, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"%@ public key does not match %@ public key.", v81, v80);
+                v73 = v60;
               }
 
               else
               {
                 v17 = createMobileActivationError("storeDCRT", 710, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.");
-                v72 = v78;
+                v73 = v79;
               }
 
               v18 = 0;
@@ -2221,7 +2222,7 @@ LABEL_44:
 
           else
           {
-            v17 = createMobileActivationError("storeDCRT", 698, @"com.apple.MobileActivation.ErrorDomain", -1, v54, @"Failed to create certificate from pem data.");
+            v17 = createMobileActivationError("storeDCRT", 698, @"com.apple.MobileActivation.ErrorDomain", -1, v55, @"Failed to create certificate from pem data.");
 
             v18 = 0;
             v19 = 0;
@@ -2231,13 +2232,13 @@ LABEL_44:
 
         else
         {
-          v17 = createMobileActivationError("storeDCRT", 692, @"com.apple.MobileActivation.ErrorDomain", -1, v53, @"Failed to load BAA root CA certificate.");
+          v17 = createMobileActivationError("storeDCRT", 692, @"com.apple.MobileActivation.ErrorDomain", -1, v54, @"Failed to load BAA root CA certificate.");
 
           v18 = 0;
           v19 = 0;
           v13 = 0;
           v20 = 0;
-          v84 = 0;
+          v85 = 0;
         }
 
 LABEL_8:
@@ -2252,19 +2253,19 @@ LABEL_8:
       goto LABEL_75;
     }
 
-    v86 = v22;
-    v89 = v11;
+    v87 = v22;
+    v90 = v11;
     v17 = createMobileActivationError("storeDCRT", 635, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid value for option (%@).", @"SkipCertificateValidation");
     v18 = 0;
     v19 = 0;
     v20 = 0;
-    v90 = 0;
+    v91 = 0;
   }
 
 LABEL_76:
-  v88 = 0;
-  v84 = 0;
+  v89 = 0;
   v85 = 0;
+  v86 = 0;
 LABEL_77:
   v21 = 0;
   if (!v12)
@@ -2275,7 +2276,7 @@ LABEL_77:
 LABEL_78:
   if ((v18 & 1) == 0)
   {
-    v67 = v17;
+    v68 = v17;
     *v12 = v17;
   }
 
@@ -2321,7 +2322,7 @@ LABEL_15:
     }
   }
 
-  v7 = copy_dcrt_path();
+  v7 = copy_dcrt_path(v4);
   v8 = [v5 BOOLValue];
   v9 = &SDCRT_FILENAME;
   if (!v8)
@@ -2384,7 +2385,7 @@ LABEL_16:
 uint64_t deleteUCRT(uint64_t a1, NSError **a2)
 {
   v3 = +[NSFileManager defaultManager];
-  v4 = copy_ucrt_path();
+  v4 = copy_ucrt_path(v3);
   v5 = [(NSFileManager *)v3 fileExistsAtPath:v4];
 
   if (!v5)
@@ -2394,37 +2395,37 @@ uint64_t deleteUCRT(uint64_t a1, NSError **a2)
   }
 
   v6 = +[NSFileManager defaultManager];
-  v7 = copy_ucrt_path();
-  v15 = 0;
-  v8 = [(NSFileManager *)v6 removeItemAtPath:v7 error:&v15];
-  v9 = v15;
+  v7 = copy_ucrt_path(v6);
+  v16 = 0;
+  v8 = [(NSFileManager *)v6 removeItemAtPath:v7 error:&v16];
+  v9 = v16;
 
   if (v8)
   {
 LABEL_6:
-    v13 = 1;
+    v14 = 1;
     goto LABEL_9;
   }
 
-  v10 = copy_ucrt_path();
-  v11 = createMobileActivationError("deleteUCRT", 836, @"com.apple.MobileActivation.ErrorDomain", -1, v9, @"Failed to delete %@.", v10);
+  v11 = copy_ucrt_path(v10);
+  v12 = createMobileActivationError("deleteUCRT", 836, @"com.apple.MobileActivation.ErrorDomain", -1, v9, @"Failed to delete %@.", v11);
 
   if (a2)
   {
-    v12 = v11;
-    v13 = 0;
-    *a2 = v11;
+    v13 = v12;
+    v14 = 0;
+    *a2 = v12;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v9 = v11;
+  v9 = v12;
 LABEL_9:
 
-  return v13;
+  return v14;
 }
 
 uint64_t storeUCRT(void *a1, void *a2, void *a3, NSError **a4)
@@ -2435,34 +2436,34 @@ uint64_t storeUCRT(void *a1, void *a2, void *a3, NSError **a4)
   v8 = v7;
   if (!v6)
   {
-    v12 = createMobileActivationError("storeUCRT", 873, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.");
+    v11 = createMobileActivationError("storeUCRT", 873, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.");
+    v12 = 0;
     v13 = 0;
     v14 = 0;
+    v10 = 0;
     v15 = 0;
-    v11 = 0;
     v16 = 0;
-    v17 = 0;
-    v10 = &__kCFBooleanFalse;
+    v9 = &__kCFBooleanFalse;
     goto LABEL_34;
   }
 
   if (v7)
   {
-    v9 = [v7 objectForKeyedSubscript:@"UseCommittedUIK"];
-    v10 = v9;
-    if (v9)
+    v7 = [v7 objectForKeyedSubscript:@"UseCommittedUIK"];
+    v9 = v7;
+    if (v7)
     {
-      v11 = isNSNumber(v9);
+      v10 = isNSNumber(v7);
 
-      if (!v11)
+      if (!v10)
       {
-        v12 = createMobileActivationError("storeUCRT", 880, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid option (%@).", @"UseCommittedUIK");
+        v11 = createMobileActivationError("storeUCRT", 880, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid option (%@).", @"UseCommittedUIK");
+        v12 = 0;
         v13 = 0;
         v14 = 0;
-        v15 = 0;
 LABEL_27:
+        v15 = 0;
         v16 = 0;
-        v17 = 0;
         goto LABEL_34;
       }
     }
@@ -2470,124 +2471,124 @@ LABEL_27:
 
   else
   {
-    v10 = &__kCFBooleanFalse;
+    v9 = &__kCFBooleanFalse;
   }
 
-  v18 = copyLoggingHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = copyLoggingHandle(v7);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = formatURLResponse(v6, 200, 0);
+    v18 = formatURLResponse(v6, 200, 0);
     *buf = 138412290;
-    v57 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Activation message:\n%@", buf, 0xCu);
+    v57 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Activation message:\n%@", buf, 0xCu);
   }
 
-  v13 = [v8 mutableCopy];
-  [v13 setObject:&__kCFBooleanTrue forKeyedSubscript:@"UseEnhancedValidation"];
-  [v13 setObject:&__kCFBooleanTrue forKeyedSubscript:@"UseEnhancedValidationWithVersionCheck"];
+  v12 = [v8 mutableCopy];
+  [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"UseEnhancedValidation"];
+  [v12 setObject:&__kCFBooleanTrue forKeyedSubscript:@"UseEnhancedValidationWithVersionCheck"];
   v53 = 0;
-  v14 = lockcrypto_decode_pems(v6, "CERTIFICATE", &v53);
-  v20 = v53;
-  if (!v14)
+  v13 = lockcrypto_decode_pems(v6, "CERTIFICATE", &v53);
+  v19 = v53;
+  if (!v13)
   {
-    v12 = createMobileActivationError("storeUCRT", 893, @"com.apple.MobileActivation.ErrorDomain", -1, v20, @"Failed to query certificate(s) from pem data.");
+    v11 = createMobileActivationError("storeUCRT", 893, @"com.apple.MobileActivation.ErrorDomain", -1, v19, @"Failed to query certificate(s) from pem data.");
 
-    v15 = 0;
-    v11 = 0;
+    v14 = 0;
+    v10 = 0;
     goto LABEL_27;
   }
 
-  v21 = [v14 objectAtIndexedSubscript:0];
-  v17 = SecCertificateCreateWithData(kCFAllocatorDefault, v21);
+  v20 = [v13 objectAtIndexedSubscript:0];
+  v16 = SecCertificateCreateWithData(kCFAllocatorDefault, v20);
 
-  if (!v17)
+  if (!v16)
   {
-    v12 = createMobileActivationError("storeUCRT", 899, @"com.apple.MobileActivation.ErrorDomain", -1, v20, @"Failed to create certificate from pem data.");
-    v37 = v20;
+    v11 = createMobileActivationError("storeUCRT", 899, @"com.apple.MobileActivation.ErrorDomain", -1, v19, @"Failed to create certificate from pem data.");
+    v37 = v19;
 LABEL_33:
 
+    v14 = 0;
+    v10 = 0;
     v15 = 0;
-    v11 = 0;
-    v16 = 0;
     goto LABEL_34;
   }
 
-  if ([v10 BOOLValue])
+  if ([v9 BOOLValue])
   {
-    v22 = 2;
+    v21 = 2;
   }
 
   else
   {
-    v22 = 3;
+    v21 = 3;
   }
 
-  v52 = v20;
-  v23 = certificatePublicKeyMatchesSystemPublicKey(v22, 2, v17, &v52);
-  v24 = v52;
+  v52 = v19;
+  v22 = certificatePublicKeyMatchesSystemPublicKey(v21, 2, v16, &v52);
+  v23 = v52;
 
-  if ((v23 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
-    v12 = createMobileActivationError("storeUCRT", 904, @"com.apple.MobileActivation.ErrorDomain", -1, v24, @"UCRT public key does not match UIK public key.");
-    v37 = v24;
+    v11 = createMobileActivationError("storeUCRT", 904, @"com.apple.MobileActivation.ErrorDomain", -1, v23, @"UCRT public key does not match UIK public key.");
+    v37 = v23;
     goto LABEL_33;
   }
 
-  v51 = v24;
-  v25 = verify_ucrt(v6, v13, &v51);
-  v26 = v51;
+  v51 = v23;
+  v24 = verify_ucrt(v6, v12, &v51);
+  v25 = v51;
 
-  if ((v25 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v12 = createMobileActivationError("storeUCRT", 909, @"com.apple.MobileActivation.ErrorDomain", -1, v26, @"Failed to verify UCRT.");
+    v11 = createMobileActivationError("storeUCRT", 909, @"com.apple.MobileActivation.ErrorDomain", -1, v25, @"Failed to verify UCRT.");
 LABEL_32:
-    v37 = v26;
+    v37 = v25;
     goto LABEL_33;
   }
 
   v41 = +[NSFileManager defaultManager];
-  v27 = copy_ucrt_path();
+  v26 = copy_ucrt_path(v41);
   v54 = NSFilePosixPermissions;
   v55 = &off_1003FBC18;
-  v28 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-  v50 = v26;
-  v29 = [(NSFileManager *)v41 createDirectoryAtPath:v27 withIntermediateDirectories:1 attributes:v28 error:&v50];
+  v27 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+  v50 = v25;
+  v28 = [(NSFileManager *)v41 createDirectoryAtPath:v26 withIntermediateDirectories:1 attributes:v27 error:&v50];
   v42 = v50;
 
-  if ((v29 & 1) == 0)
+  if ((v28 & 1) == 0)
   {
-    v26 = copy_ucrt_path();
-    v12 = createMobileActivationError("storeUCRT", 966, @"com.apple.MobileActivation.ErrorDomain", -1, v42, @"Failed to create %@.", v26);
+    v25 = copy_ucrt_path(v29);
+    v11 = createMobileActivationError("storeUCRT", 966, @"com.apple.MobileActivation.ErrorDomain", -1, v42, @"Failed to create %@.", v25);
 
     goto LABEL_32;
   }
 
   v30 = v42;
-  v31 = copy_ucrt_path();
-  v16 = [v31 stringByAppendingPathComponent:@"ucrt.pem"];
+  v31 = copy_ucrt_path(v29);
+  v15 = [v31 stringByAppendingPathComponent:@"ucrt.pem"];
 
-  if (!v16)
+  if (!v15)
   {
     MobileActivationError = createMobileActivationError("storeUCRT", 972, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create UCRT file path.");
 LABEL_42:
-    v12 = MobileActivationError;
+    v11 = MobileActivationError;
 
-    v15 = 0;
-    v11 = 0;
+    v14 = 0;
+    v10 = 0;
     goto LABEL_34;
   }
 
   v49 = v42;
-  v32 = store_data(v16, v6, &v49);
+  v32 = store_data(v15, v6, &v49);
   v30 = v49;
 
   if ((v32 & 1) == 0)
   {
-    MobileActivationError = createMobileActivationError("storeUCRT", 977, @"com.apple.MobileActivation.ErrorDomain", -1, v30, @"Failed to store UCRT at %@.", v16);
+    MobileActivationError = createMobileActivationError("storeUCRT", 977, @"com.apple.MobileActivation.ErrorDomain", -1, v30, @"Failed to store UCRT at %@.", v15);
     goto LABEL_42;
   }
 
-  if (([v10 BOOLValue] & 1) == 0)
+  if (([v9 BOOLValue] & 1) == 0)
   {
     v48 = v30;
     v33 = libaks_system_key_operate(2, 2, &v48);
@@ -2595,10 +2596,10 @@ LABEL_42:
 
     if ((v33 & 1) == 0)
     {
-      v12 = createMobileActivationError("storeUCRT", 985, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to commit UIK.");
+      v11 = createMobileActivationError("storeUCRT", 985, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to commit UIK.");
 
-      v11 = 0;
-      v15 = 0;
+      v10 = 0;
+      v14 = 0;
       goto LABEL_47;
     }
 
@@ -2607,18 +2608,18 @@ LABEL_42:
 
   v47 = v30;
   v35 = security_delete_legacy_uik(&v47);
-  v12 = v47;
+  v11 = v47;
 
   if (v35)
   {
     v36 = +[GestaltHlpr getSharedInstance];
-    v11 = [v36 copyAnswer:@"BuildVersion"];
+    v10 = [v36 copyAnswer:@"BuildVersion"];
 
-    v15 = isNSString(v11);
-    if (v15)
+    v14 = isNSString(v10);
+    if (v14)
     {
-      v15 = 1;
-      data_ark_set(v45, 0, @"LastActivated", v11, 1);
+      v14 = 1;
+      data_ark_set(v45, 0, @"LastActivated", v10, 1);
       data_ark_set(v45, 0, @"ActivationState", @"Activated", 1);
       goto LABEL_47;
     }
@@ -2628,33 +2629,33 @@ LABEL_42:
 
   else
   {
-    v43 = createMobileActivationError("storeUCRT", 992, @"com.apple.MobileActivation.ErrorDomain", -1, v12, @"Failed to delete legacy UIK.");
+    v43 = createMobileActivationError("storeUCRT", 992, @"com.apple.MobileActivation.ErrorDomain", -1, v11, @"Failed to delete legacy UIK.");
 
-    v11 = 0;
-    v15 = 0;
+    v10 = 0;
+    v14 = 0;
   }
 
-  v12 = v43;
+  v11 = v43;
 LABEL_47:
-  if (v12)
+  if (v11)
   {
     v44 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v44 removeItemAtPath:v16 error:0];
+    [(NSFileManager *)v44 removeItemAtPath:v15 error:0];
   }
 
 LABEL_34:
-  if (a4 && (v15 & 1) == 0)
+  if (a4 && (v14 & 1) == 0)
   {
-    v38 = v12;
-    *a4 = v12;
+    v38 = v11;
+    *a4 = v11;
   }
 
-  if (v17)
+  if (v16)
   {
-    CFRelease(v17);
+    CFRelease(v16);
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t verify_ucrt(void *a1, void *a2, NSError **a3)
@@ -2740,10 +2741,10 @@ LABEL_13:
 
   v25 = 0;
 LABEL_18:
-  v127 = 0;
+  v127[0] = 0;
   v107 = v5;
-  v26 = lockcrypto_decode_pems(v5, "CERTIFICATE", &v127);
-  v27 = v127;
+  v26 = lockcrypto_decode_pems(v5, "CERTIFICATE", v127);
+  v27 = v127[0];
   v104 = v26;
   v105 = v12;
   if (!v26)
@@ -3203,86 +3204,87 @@ SecCertificateRef copyUCRT(void *a1, NSError **a2)
     v4 = @"Unactivated";
   }
 
-  if (([(__CFString *)v4 isEqualToString:@"Activated"]& 1) == 0)
+  v5 = [(__CFString *)v4 isEqualToString:@"Activated"];
+  if ((v5 & 1) == 0)
   {
-    v12 = createMobileActivationError("copyUCRT", 1043, @"com.apple.MobileActivation.ErrorDomain", -8, 0, @"Device is not activated (%@).", v4);
-    v10 = 0;
-    v6 = 0;
+    v13 = createMobileActivationError("copyUCRT", 1043, @"com.apple.MobileActivation.ErrorDomain", -8, 0, @"Device is not activated (%@).", v4);
+    v11 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
-  v5 = copy_ucrt_path();
-  v6 = [v5 stringByAppendingPathComponent:@"ucrt.pem"];
+  v6 = copy_ucrt_path(v5);
+  v7 = [v6 stringByAppendingPathComponent:@"ucrt.pem"];
 
-  if (!v6)
+  if (!v7)
   {
     MobileActivationError = createMobileActivationError("copyUCRT", 1049, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create UCRT file path.");
 LABEL_13:
-    v12 = MobileActivationError;
-    v10 = 0;
+    v13 = MobileActivationError;
+    v11 = 0;
     goto LABEL_14;
   }
 
-  v7 = +[NSFileManager defaultManager];
-  v8 = [(NSFileManager *)v7 fileExistsAtPath:v6];
+  v8 = +[NSFileManager defaultManager];
+  v9 = [(NSFileManager *)v8 fileExistsAtPath:v7];
 
-  if ((v8 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     MobileActivationError = createMobileActivationError("copyUCRT", 1054, @"com.apple.MobileActivation.ErrorDomain", -4, 0, @"UCRT is unavailable.");
     goto LABEL_13;
   }
 
-  v9 = [[NSData alloc] initWithContentsOfFile:v6];
-  v10 = v9;
-  if (!v9)
+  v10 = [[NSData alloc] initWithContentsOfFile:v7];
+  v11 = v10;
+  if (!v10)
   {
-    v12 = createMobileActivationError("copyUCRT", 1060, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to encode UCRT.");
+    v13 = createMobileActivationError("copyUCRT", 1060, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to encode UCRT.");
 LABEL_14:
-    v11 = 0;
+    v12 = 0;
     if (!a2)
     {
 LABEL_19:
-      v14 = 0;
+      v15 = 0;
       goto LABEL_20;
     }
 
     goto LABEL_15;
   }
 
-  v20 = 0;
-  v11 = lockcrypto_decode_pems(v9, "CERTIFICATE", &v20);
-  v12 = v20;
-  if (!v11)
+  v21 = 0;
+  v12 = lockcrypto_decode_pems(v10, "CERTIFICATE", &v21);
+  v13 = v21;
+  if (!v12)
   {
-    v15 = createMobileActivationError("copyUCRT", 1066, @"com.apple.MobileActivation.ErrorDomain", -1, v12, @"Failed to query certificate(s) from pem data.");
+    v16 = createMobileActivationError("copyUCRT", 1066, @"com.apple.MobileActivation.ErrorDomain", -1, v13, @"Failed to query certificate(s) from pem data.");
 LABEL_18:
-    v18 = v15;
+    v19 = v16;
 
-    v12 = v18;
+    v13 = v19;
     if (!a2)
     {
       goto LABEL_19;
     }
 
 LABEL_15:
-    v17 = v12;
-    v14 = 0;
-    *a2 = v12;
+    v18 = v13;
+    v15 = 0;
+    *a2 = v13;
     goto LABEL_20;
   }
 
-  v13 = [v11 objectAtIndexedSubscript:0];
-  v14 = SecCertificateCreateWithData(kCFAllocatorDefault, v13);
+  v14 = [v12 objectAtIndexedSubscript:0];
+  v15 = SecCertificateCreateWithData(kCFAllocatorDefault, v14);
 
-  if (!v14)
+  if (!v15)
   {
-    v15 = createMobileActivationError("copyUCRT", 1072, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate from pem data.");
+    v16 = createMobileActivationError("copyUCRT", 1072, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate from pem data.");
     goto LABEL_18;
   }
 
 LABEL_20:
 
-  return v14;
+  return v15;
 }
 
 NSDictionary *create_ucrt_info(void *a1, void *a2, NSError **a3)
@@ -3942,15 +3944,15 @@ LABEL_24:
 
   if (v11)
   {
-    v16 = [v11 objectForKey:@"InternationalMobileEquipmentIdentity"];
+    v16 = [(NSMutableDictionary *)v11 objectForKey:@"InternationalMobileEquipmentIdentity"];
 
     if (v16)
     {
-      [v11 setObject:v9 forKeyedSubscript:@"SIMStatus"];
-      [v11 setObject:v10 forKeyedSubscript:@"SIMStatus2"];
-      [v11 removeObjectForKey:kCTPostponementStatus];
-      [v11 removeObjectForKey:kCTPostponementStatusErrorReason];
-      [v11 removeObjectForKey:kCTPostponementInfoUniqueID];
+      [(NSMutableDictionary *)v11 setObject:v9 forKeyedSubscript:@"SIMStatus"];
+      [(NSMutableDictionary *)v11 setObject:v10 forKeyedSubscript:@"SIMStatus2"];
+      [(NSMutableDictionary *)v11 removeObjectForKey:kCTPostponementStatus];
+      [(NSMutableDictionary *)v11 removeObjectForKey:kCTPostponementStatusErrorReason];
+      [(NSMutableDictionary *)v11 removeObjectForKey:kCTPostponementInfoUniqueID];
       [v4 addEntriesFromDictionary:v11];
       v4 = v4;
       v15 = v4;
@@ -4173,19 +4175,19 @@ LABEL_12:
   return v10;
 }
 
-void sub_1002E78E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1002E78E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4378,7 +4380,7 @@ LABEL_24:
   return v24;
 }
 
-id copy_postponement_info(NSError **a1)
+NSMutableDictionary *copy_postponement_info(NSError **a1)
 {
   v2 = _CTServerConnectionCreate();
   if (v2)
@@ -5695,9 +5697,9 @@ uint64_t data_ark_register_set_notification(void *a1, void *a2, void *a3, void *
   return v14 & 1;
 }
 
-void sub_1002EB1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1002EB1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5811,9 +5813,9 @@ uint64_t data_ark_set(void *a1, void *a2, void *a3, void *a4, char a5)
   return v14 & 1;
 }
 
-void sub_1002EB61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1002EB61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6078,9 +6080,9 @@ uint64_t data_ark_exists(void *a1, void *a2, void *a3)
   return v9 & 1;
 }
 
-void sub_1002EBF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002EBF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6125,19 +6127,20 @@ void __destroy_helper_block_e8_32s40r(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-void sub_1002ECD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002ECD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1002EDF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_1002EDF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose((v43 - 256), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6170,29 +6173,29 @@ void __destroy_helper_block_e8_32s40s48r56r64r72r(uint64_t a1)
   v2 = *(a1 + 32);
 }
 
-uint64_t libInFieldCollectionLibraryCore()
+uint64_t libInFieldCollectionLibraryCore(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = libInFieldCollectionLibraryCore_frameworkLibrary;
-  v5 = libInFieldCollectionLibraryCore_frameworkLibrary;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = libInFieldCollectionLibraryCore_frameworkLibrary;
+  v6 = libInFieldCollectionLibraryCore_frameworkLibrary;
   if (!libInFieldCollectionLibraryCore_frameworkLibrary)
   {
-    v6 = *off_1003D1060;
-    v7 = 0;
-    v3[3] = _sl_dlopen();
-    libInFieldCollectionLibraryCore_frameworkLibrary = v3[3];
-    v0 = v3[3];
+    v7 = *off_1003D1060;
+    v8 = 0;
+    v4[3] = _sl_dlopen();
+    libInFieldCollectionLibraryCore_frameworkLibrary = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_1002EE5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002EE5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6216,14 +6219,20 @@ void *__getvsPHbdGfSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t libInFieldCollectionLibrary()
 {
-  v1 = 0;
-  result = libInFieldCollectionLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = libInFieldCollectionLibraryCore(&v3);
+  if (!v0)
   {
-    libInFieldCollectionLibrary_cold_1(&v1);
+    libInFieldCollectionLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 void *__getZshgJnRaSlwnSymbolLoc_block_invoke(uint64_t a1)
@@ -6235,7 +6244,7 @@ void *__getZshgJnRaSlwnSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void reply_and_disconnect(int a1, id a2, void *a3, void *a4)
+void reply_and_disconnect(uint64_t a1, id a2, void *a3, void *a4)
 {
   v6 = a2;
   v7 = a3;
@@ -6315,9 +6324,9 @@ LABEL_10:
   return v6;
 }
 
-void sub_1002EF2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1002EF2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9229,7 +9238,7 @@ LABEL_16:
   return v15;
 }
 
-id lockcrypto_decode_pems(void *a1, const char *a2, NSError **a3)
+id lockcrypto_decode_pems(void *a1, const char *a2, char **a3)
 {
   v5 = a1;
   v30 = 0u;

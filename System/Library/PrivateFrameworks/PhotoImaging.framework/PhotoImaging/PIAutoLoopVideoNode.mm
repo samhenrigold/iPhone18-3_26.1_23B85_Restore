@@ -96,12 +96,12 @@
       lhs.start.epoch = epoch;
       [v14 setVolume:&lhs atTime:0.0];
       memset(&v46, 0, sizeof(v46));
-      [(PIAutoLoopVideoNode *)self loopDuration];
-      [(PIAutoLoopVideoNode *)self fadeDuration];
+      objc_msgSend_loopDuration(self);
+      objc_msgSend_fadeDuration(self);
       CMTimeSubtract(&v46, &lhs.start, &rhs);
       rhs = v46;
       memset(&v44, 0, sizeof(v44));
-      [(PIAutoLoopVideoNode *)self fadeDuration];
+      objc_msgSend_fadeDuration(self);
       CMTimeMultiplyByRatio(&v44, &lhs.start, 1, 20);
       do
       {
@@ -223,8 +223,8 @@
       v14 = [v7 objectAtIndexedSubscript:0];
       v15 = objc_alloc_init(MEMORY[0x1E69B3D00]);
       memset(&v50, 0, sizeof(v50));
-      [(PIAutoLoopVideoNode *)self loopDuration];
-      [(PIAutoLoopVideoNode *)self fadeDuration];
+      objc_msgSend_loopDuration(self);
+      objc_msgSend_fadeDuration(self);
       CMTimeSubtract(&v50, &lhs.start, &rhs);
       *&lhs.start.value = *MEMORY[0x1E6960CC0];
       lhs.start.epoch = *(MEMORY[0x1E6960CC0] + 16);
@@ -246,7 +246,7 @@
       {
         v42 = [v7 objectAtIndexedSubscript:1];
         v19 = objc_alloc_init(MEMORY[0x1E69B3D00]);
-        [(PIAutoLoopVideoNode *)self fadeDuration];
+        objc_msgSend_fadeDuration(self);
         rhs = v50;
         CMTimeRangeMake(&v47, &rhs, &lhs.start);
         lhs = v47;
@@ -268,7 +268,7 @@
       }
 
       v25 = objc_alloc_init(MEMORY[0x1E6988060]);
-      [(PIAutoLoopVideoNode *)self frameDuration];
+      objc_msgSend_frameDuration(self);
       *&lhs.start.value = v45;
       lhs.start.epoch = v46;
       [v25 setFrameDuration:&lhs];
@@ -365,14 +365,14 @@ LABEL_34:
     v45 = *MEMORY[0x1E6987608];
     v11 = [v7 addMutableTrackWithMediaType:? preferredTrackID:?];
     memset(&v64, 0, sizeof(v64));
-    [(PIAutoLoopVideoNode *)self startTime];
-    [(PIAutoLoopVideoNode *)self loopDuration];
+    objc_msgSend_startTime(self);
+    objc_msgSend_loopDuration(self);
     CMTimeRangeMake(&v64, &start.start, &duration.start);
     memset(&start, 0, sizeof(start));
     v12 = MEMORY[0x1E69B3D40];
-    [v8 timeRange];
+    objc_msgSend_timeRange(v8);
     time1 = v64;
-    [v12 conformRange:&time1 inRange:&duration];
+    objc_msgSend_conformRange_inRange_(v12);
     v60 = 0;
     duration = start;
     v46 = *MEMORY[0x1E6960CC0];
@@ -407,18 +407,18 @@ LABEL_33:
       }
 
       v22 = [v7 addMutableTrackWithMediaType:v45 preferredTrackID:1];
-      [(PIAutoLoopVideoNode *)self fadeStartTime];
-      [(PIAutoLoopVideoNode *)self fadeDuration];
+      objc_msgSend_fadeStartTime(self);
+      objc_msgSend_fadeDuration(self);
       CMTimeRangeMake(&duration, &time1.start, &time2.start);
       v64 = duration;
       v23 = MEMORY[0x1E69B3D40];
-      [v8 timeRange];
+      objc_msgSend_timeRange(v8);
       time2 = v64;
-      [v23 conformRange:&time2 inRange:&time1];
+      objc_msgSend_conformRange_inRange_(v23);
       start = duration;
       memset(&v54, 0, sizeof(v54));
-      [(PIAutoLoopVideoNode *)self loopDuration];
-      [(PIAutoLoopVideoNode *)self fadeDuration];
+      objc_msgSend_loopDuration(self);
+      objc_msgSend_fadeDuration(self);
       CMTimeSubtract(&v54, &duration.start, &time1.start);
       v52 = v14;
       duration = start;
@@ -439,9 +439,9 @@ LABEL_33:
         v26 = v25 = v18;
         memset(&duration, 0, sizeof(duration));
         v27 = MEMORY[0x1E69B3D40];
-        [v25 timeRange];
+        objc_msgSend_timeRange(v25);
         time2 = v64;
-        [v27 conformRange:&time2 inRange:&time1];
+        objc_msgSend_conformRange_inRange_(v27);
         v51 = v24;
         time1 = duration;
         time2.start = v54;
@@ -477,9 +477,9 @@ LABEL_27:
     v15 = [v7 addMutableTrackWithMediaType:v49 preferredTrackID:2];
     memset(&duration, 0, sizeof(duration));
     v16 = MEMORY[0x1E69B3D40];
-    [firstObject timeRange];
+    objc_msgSend_timeRange(firstObject);
     time2 = v64;
-    [v16 conformRange:&time2 inRange:&time1];
+    objc_msgSend_conformRange_inRange_(v16);
     v58 = v14;
     time1 = duration;
     *&time2.start.value = v46;
@@ -508,7 +508,7 @@ LABEL_18:
       time2.start = duration.duration;
       CMTimeSubtract(&v57, &time1.start, &time2.start);
       memset(&v56, 0, sizeof(v56));
-      [(PIAutoLoopVideoNode *)self startTime];
+      objc_msgSend_startTime(self);
       time2.start = v57;
       CMTimeSubtract(&v56, &time1.start, &time2.start);
       memset(&time1, 0, sizeof(time1));
@@ -516,8 +516,8 @@ LABEL_18:
       v54 = v56;
       v55 = v57;
       CMTimeRangeMake(&time2, &v54, &v55);
-      [firstObject timeRange];
-      [v21 conformRange:&time2 inRange:&v54];
+      objc_msgSend_timeRange(firstObject);
+      objc_msgSend_conformRange_inRange_(v21);
       v53 = v17;
       time2 = time1;
       v54 = duration.duration;
@@ -620,10 +620,10 @@ LABEL_36:
   if (v12 != 3)
   {
 LABEL_6:
-    [(PIAutoLoopVideoNode *)self startTime];
+    objc_msgSend_startTime(self);
     if (v10)
     {
-      [v10 time];
+      objc_msgSend_time(v10);
     }
 
     else
@@ -648,10 +648,10 @@ LABEL_29:
     memset(&lhs, 0, sizeof(lhs));
     if (v10)
     {
-      [v10 time];
+      objc_msgSend_time(v10);
       memset(&rhs, 0, sizeof(rhs));
-      [(PIAutoLoopVideoNode *)self frameDuration];
-      [v10 time];
+      objc_msgSend_frameDuration(self);
+      objc_msgSend_time(v10);
       v20 = v59;
       timescale = lhs.timescale;
     }
@@ -659,7 +659,7 @@ LABEL_29:
     else
     {
       memset(&rhs, 0, sizeof(rhs));
-      [(PIAutoLoopVideoNode *)self frameDuration];
+      objc_msgSend_frameDuration(self);
       timescale = 0;
       v20 = 0;
       v59 = 0;
@@ -702,11 +702,11 @@ LABEL_28:
       loopPeriod = v52;
     }
 
-    [(PIAutoLoopVideoNode *)self startTime];
-    [(PIAutoLoopVideoNode *)self loopDuration];
+    objc_msgSend_startTime(self);
+    objc_msgSend_loopDuration(self);
     if (v10)
     {
-      [v10 time];
+      objc_msgSend_time(v10);
     }
 
     else

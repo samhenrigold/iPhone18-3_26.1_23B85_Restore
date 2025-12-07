@@ -18,11 +18,13 @@
 - (void)_loadBackgroundViews;
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadBackgroundViews;
 - (void)_unloadSnapshotContentViews;
 - (void)_updatePausedState;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
 - (void)setActiveQuad:(id)quad;
 - (void)touchesBegan:(id)began withEvent:(id)event;
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event;
@@ -234,26 +236,20 @@ LABEL_6:
   if (mode == 15)
   {
     toOptionCopy = toOption;
-    style = [option style];
-    style2 = [toOptionCopy style];
+    [option style];
+    [toOptionCopy style];
 
     ribbonsQuad = self->_ribbonsQuad;
-    v14 = flt_1B138[style];
-    v15 = flt_1B138[style2];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v16 = v16;
-    [(NTKPrideSplinesQuad *)ribbonsQuad setFadeMultiplier:v16];
+    *&v12 = v12;
+    [(NTKPrideSplinesQuad *)ribbonsQuad setFadeMultiplier:v12];
     bandsQuad = self->_bandsQuad;
-    v18 = flt_1B144[style];
-    v19 = flt_1B144[style2];
     CLKInterpolateBetweenFloatsUnclipped();
-    *&v20 = v20;
-    [(NTKPrideSplinesQuad *)bandsQuad setFadeMultiplier:v20];
-    v21 = self->_bandsQuad;
-    v22 = flt_1B150[style];
-    v23 = flt_1B150[style2];
+    *&v14 = v14;
+    [(NTKPrideSplinesQuad *)bandsQuad setFadeMultiplier:v14];
+    v15 = self->_bandsQuad;
     CLKInterpolateBetweenFloatsUnclipped();
-    [(NTKPrideLinearQuad *)v21 applyTransitionFromBandedToFabricWithFraction:?];
+    [(NTKPrideLinearQuad *)v15 applyTransitionFromBandedToFabricWithFraction:?];
     [(NTKPrideSplinesQuad *)self->_ribbonsQuad forceRenderOnce];
     [(NTKPrideSplinesQuad *)self->_bandsQuad forceRenderOnce];
     bandsView = self->_bandsView;
@@ -434,25 +430,38 @@ LABEL_10:
   self->_wasSlow = [(NTKPrideDigitalFaceView *)self isSlow];
 }
 
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  [(NTKPrideDigitalFaceView *)self _updatePausedState];
+  if ((NTKIsDaemonOrFaceSnapshotService() & 1) == 0 && [(NTKPrideDigitalFaceView *)self dataMode]== &dword_0 + 1)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_9E68;
+    block[3] = &unk_24838;
+    block[4] = self;
+    dispatch_async(&_dispatch_main_q, block);
+  }
+}
+
 - (void)_updatePausedState
 {
   dataMode = [(NTKPrideDigitalFaceView *)self dataMode];
   isFrozen = [(NTKPrideDigitalFaceView *)self isFrozen];
-  v5 = NTKIsScreenOn();
-  bandsView = self->_bandsView;
+  v5 = isFrozen | NTKIsScreenOn() ^ 1;
   if (dataMode == &dword_0 + 1)
   {
-    v7 = isFrozen | v5 ^ 1;
+    v6 = v5;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  v8 = self->_bandsView;
+  bandsView = self->_bandsView;
 
-  [(CLKUIQuadView *)v8 setPaused:v7 & 1];
+  [(CLKUIQuadView *)bandsView setPaused:v6 & 1];
 }
 
 - (void)_applyDataMode
@@ -502,6 +511,17 @@ LABEL_10:
   _Block_object_dispose(&v10, 8);
 
   return v7;
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKPrideDigitalFaceView;
+  groupCopy = group;
+  [(NTKPrideDigitalFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKPrideSplinesQuad *)self->_activeQuad forceRenderOnce:v7.receiver];
+  [(CLKUIQuadView *)self->_bandsView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event

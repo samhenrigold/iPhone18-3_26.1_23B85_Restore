@@ -95,38 +95,19 @@
     storeID2 = [(SYDStoreConfiguration *)self storeID];
     v8 = [storeID isEqual:storeID2];
 
-    if (!v8)
+    if (v8 && ([v5 processName], v9 = objc_claimAutoreleasedReturnValue(), -[SYDStoreConfiguration processName](self, "processName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v11) && (objc_msgSend(v5, "entitlementOverrides"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), -[SYDStoreConfiguration entitlementOverrides](self, "entitlementOverrides"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v14, v12, v13 == v15))
     {
-      goto LABEL_9;
-    }
-
-    processName = [v5 processName];
-    processName2 = [(SYDStoreConfiguration *)self processName];
-    v11 = [processName isEqual:processName2];
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-
-    entitlementOverrides = [v5 entitlementOverrides];
-    v13 = [entitlementOverrides count];
-    entitlementOverrides2 = [(SYDStoreConfiguration *)self entitlementOverrides];
-    v15 = [entitlementOverrides2 count];
-
-    if (v13 == v15)
-    {
-      entitlementOverrides3 = [v5 entitlementOverrides];
-      if (entitlementOverrides3)
+      entitlementOverrides = [v5 entitlementOverrides];
+      if (entitlementOverrides)
       {
-        v17 = entitlementOverrides3;
-        entitlementOverrides4 = [(SYDStoreConfiguration *)self entitlementOverrides];
-        if (entitlementOverrides4)
+        v17 = entitlementOverrides;
+        entitlementOverrides2 = [(SYDStoreConfiguration *)self entitlementOverrides];
+        if (entitlementOverrides2)
         {
-          v19 = entitlementOverrides4;
-          entitlementOverrides5 = [v5 entitlementOverrides];
-          entitlementOverrides6 = [(SYDStoreConfiguration *)self entitlementOverrides];
-          v22 = [entitlementOverrides5 isEqual:entitlementOverrides6];
+          v19 = entitlementOverrides2;
+          entitlementOverrides3 = [v5 entitlementOverrides];
+          entitlementOverrides4 = [(SYDStoreConfiguration *)self entitlementOverrides];
+          v22 = [entitlementOverrides3 isEqual:entitlementOverrides4];
         }
 
         else
@@ -143,7 +124,6 @@
 
     else
     {
-LABEL_9:
       v22 = 0;
     }
   }

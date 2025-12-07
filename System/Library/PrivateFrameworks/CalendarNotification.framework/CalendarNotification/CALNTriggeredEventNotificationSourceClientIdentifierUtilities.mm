@@ -31,7 +31,7 @@ void __109__CALNTriggeredEventNotificationSourceClientIdentifierUtilities__chara
 
 + (id)sourceClientIdentifierForEventID:(id)d alarmID:(id)iD
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   dCopy = d;
   _characterSetForEncodingIdentifierComponents = [self _characterSetForEncodingIdentifierComponents];
@@ -66,9 +66,9 @@ void __109__CALNTriggeredEventNotificationSourceClientIdentifierUtilities__chara
 
     v16 = v15;
 
-    v21[0] = v11;
-    v21[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = v11;
+    v20[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v18 = [v17 componentsJoinedByString:@""];;
   }
 
@@ -76,8 +76,6 @@ void __109__CALNTriggeredEventNotificationSourceClientIdentifierUtilities__chara
   {
     v18 = v11;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -162,20 +160,18 @@ void __109__CALNTriggeredEventNotificationSourceClientIdentifierUtilities__chara
 
 + (void)alarmIDForSourceClientIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_242909000, a2, OS_LOG_TYPE_DEBUG, "Could not get alarm ID for source client identifier = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_242909000, a2, OS_LOG_TYPE_DEBUG, "Could not get alarm ID for source client identifier = %{public}@", &v2, 0xCu);
 }
 
 + (void)eventID:(uint64_t)a1 andAlarmID:(NSObject *)a2 fromSourceClientIdentifier:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Invalid sourceClientIdentifier (%{public}@). Could not find at least one component.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Invalid sourceClientIdentifier (%{public}@). Could not find at least one component.", &v2, 0xCu);
 }
 
 @end

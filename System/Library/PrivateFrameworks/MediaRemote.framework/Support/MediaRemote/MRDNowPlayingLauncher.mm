@@ -3,6 +3,7 @@
 - (MRDNowPlayingLauncherDelegate)delegate;
 - (void)_background;
 - (void)_launch;
+- (void)_monitorForTermination:(int)termination;
 - (void)_nowPlayingPlaybackStateDidChange:(id)change;
 - (void)_relaunch;
 - (void)_startObservingNotifications;
@@ -142,6 +143,62 @@
       }
 
       [(MRDNowPlayingLauncher *)self _submitRelaunchEvent:v9];
+    }
+  }
+}
+
+- (void)_monitorForTermination:(int)termination
+{
+  v3 = *&termination;
+  processHandle = [(MRDNowPlayingLauncher *)self processHandle];
+
+  if (processHandle)
+  {
+    v6 = _MRLogForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      bundleIdentifier = [(MRDNowPlayingLauncher *)self bundleIdentifier];
+      processHandle2 = [(MRDNowPlayingLauncher *)self processHandle];
+      *buf = 138543618;
+      v17 = bundleIdentifier;
+      v18 = 1026;
+      v19 = [processHandle2 pid];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Process %{public}@ at pid:%{public}d is already being monitored", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    v6 = [RBSProcessIdentifier identifierWithPid:v3];
+    v15 = 0;
+    v9 = [RBSProcessHandle handleForIdentifier:v6 error:&v15];
+    v10 = v15;
+    [(MRDNowPlayingLauncher *)self setProcessHandle:v9];
+
+    if (v10)
+    {
+      v11 = _MRLogForCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        sub_1003ABCC0(self, v10, v11);
+      }
+
+      [(MRDNowPlayingLauncher *)self _cleanup];
+    }
+
+    else
+    {
+      objc_initWeak(buf, self);
+      processHandle3 = [(MRDNowPlayingLauncher *)self processHandle];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_100174064;
+      v13[3] = &unk_1004BFD18;
+      objc_copyWeak(&v14, buf);
+      [processHandle3 monitorForDeath:v13];
+
+      objc_destroyWeak(&v14);
+      objc_destroyWeak(buf);
     }
   }
 }

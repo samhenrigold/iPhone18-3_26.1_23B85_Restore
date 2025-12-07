@@ -858,7 +858,7 @@ float faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<
   return result;
 }
 
-uint64_t faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<float,long long>,faiss::PQDecoderGeneric>::scan_codes(unint64_t a1, uint64_t a2, int8x16_t *a3, uint64_t a4, float *a5, uint64_t a6, unint64_t a7, int8x8_t a8)
+uint64_t faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<float,long long>,faiss::PQDecoderGeneric>::scan_codes(unint64_t a1, uint64_t a2, int8x16_t *a3, uint64_t a4, float *a5, uint64_t a6, unint64_t a7, __n128 a8)
 {
   v12 = a1;
   v13 = *(a1 + 144);
@@ -1253,10 +1253,10 @@ LABEL_313:
       v291 = v13 << 32;
       v298 = 0;
 LABEL_184:
-      a8.i32[0] = a3->i32[0] ^ v150;
-      a8 = vcnt_s8(a8);
-      a8.i16[0] = vaddlv_u8(a8);
-      if (a8.i32[0] >= v304)
+      a8.n128_u32[0] = a3->i32[0] ^ v150;
+      a8.n128_u64[0] = vcnt_s8(a8.n128_u64[0]);
+      a8.n128_u16[0] = vaddlv_u8(a8.n128_u64[0]);
+      if (a8.n128_i32[0] >= v304)
       {
         goto LABEL_215;
       }
@@ -2106,7 +2106,7 @@ LABEL_243:
     v135 = 0.0;
     if (*(a1 + 44) == 1)
     {
-      (*(**(*(a1 + 8) + 40) + 80))(*(*(a1 + 8) + 40), v13, *(a1 + 72));
+      (*(**(*(a1 + 8) + 40) + 80))(*(*(a1 + 8) + 40), v13, *(a1 + 72), a4, a8);
       v135 = faiss::fvec_inner_product(*(v12 + 72), *(v12 + 136), *(v12 + 24));
     }
 
@@ -2559,12 +2559,12 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<float,long long>,faiss::PQDecoderGeneric>::scan_codes_range(faiss::BufferList *a1, uint64_t a2, int8x16_t *a3, uint64_t a4, faiss::RangeQueryResult *this, double a6)
+void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<float,long long>,faiss::PQDecoderGeneric>::scan_codes_range(int8x16_t *a1, uint64_t a2, int8x16_t *a3, uint64_t a4, faiss::RangeQueryResult *this, double a6)
 {
   v8 = *&a6;
   v11 = a1;
-  v12 = *(a1 + 18);
-  if (*(a1 + 220))
+  v12 = a1[9].i64[0];
+  if (a1[13].i8[12])
   {
     v13 = 0;
   }
@@ -2574,15 +2574,15 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
     v13 = a4;
   }
 
-  v14 = *(a1 + 56);
-  if (*(a1 + 13) >= 1)
+  v14 = a1[14].i32[0];
+  if (a1[3].i32[1] >= 1)
   {
     if (v14 != 2)
     {
     }
 
-    v15 = *(*(a1 + 4) + 32);
-    v16 = *(*(a1 + 1) + 416);
+    v15 = *(a1[2].i64[0] + 32);
+    v16 = *(a1->i64[1] + 416);
     if (v15 > 19)
     {
       switch(v15)
@@ -2592,9 +2592,9 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v125 = 0;
-            v126 = *(a1 + 20);
+            v126 = a1[10].i64[0];
             v127 = *v126;
-            v128 = v126[1].i32[0];
+            v128 = *(v126 + 16);
             v213 = *v126;
             do
             {
@@ -2606,21 +2606,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
               v132.i16[0] = vaddlv_u8(v132);
               if (v131 + v132.i32[0] < v16)
               {
-                v133 = *(v11 + 4);
+                v133 = v11[2].i64[0];
                 v134 = v133[2];
                 if (v134 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v135 = *(v11 + 54);
+                v135 = *&v11[13].i32[2];
                 v136 = v133[1];
                 if (v136)
                 {
                   v137 = 0;
                   LOBYTE(v138) = 0;
                   LODWORD(v139) = 0;
-                  v140 = *(v11 + 7);
+                  v140 = v11[3].i64[1];
                   v141 = v133[5];
                   v142 = a3;
                   do
@@ -2647,7 +2647,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v147 = *a1;
+                          v147 = a1->u8[0];
                           a1 = (a1 + 1);
                           v143 |= v147 << v145;
                           v145 += 8;
@@ -2661,7 +2661,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v138 = (v138 + v134) & 7;
                       if (v138)
                       {
-                        v139 = *a1;
+                        v139 = a1->u8[0];
                         v143 |= v139 << v145;
                       }
                     }
@@ -2706,7 +2706,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v186 = 0;
-            v187 = *(a1 + 20);
+            v187 = a1[10].i64[0];
             v189 = *v187;
             v188 = v187[1];
             v210 = *v187;
@@ -2715,21 +2715,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
             {
               if (vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v189))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[1], v188))))))) < v16)
               {
-                v190 = *(v11 + 4);
+                v190 = v11[2].i64[0];
                 v191 = v190[2];
                 if (v191 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v192 = *(v11 + 54);
+                v192 = *&v11[13].i32[2];
                 v193 = v190[1];
                 if (v193)
                 {
                   v194 = 0;
                   LOBYTE(v195) = 0;
                   LODWORD(v196) = 0;
-                  v197 = *(v11 + 7);
+                  v197 = v11[3].i64[1];
                   v198 = v190[5];
                   v199 = a3;
                   do
@@ -2756,7 +2756,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v204 = *a1;
+                          v204 = a1->u8[0];
                           a1 = (a1 + 1);
                           v200 |= v204 << v202;
                           v202 += 8;
@@ -2770,7 +2770,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v195 = (v195 + v191) & 7;
                       if (v195)
                       {
-                        v196 = *a1;
+                        v196 = a1->u8[0];
                         v200 |= v196 << v202;
                       }
                     }
@@ -2816,7 +2816,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v58 = 0;
-            v59 = *(a1 + 20);
+            v59 = a1[10].i64[0];
             v61 = v59[2];
             v60 = v59[3];
             v63 = *v59;
@@ -2829,21 +2829,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
             {
               if (vaddvq_s32(vaddq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v63))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[1], v62)))))), vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[2], v61))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[3], v60)))))))) < v16)
               {
-                v64 = *(v11 + 4);
+                v64 = v11[2].i64[0];
                 v65 = v64[2];
                 if (v65 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v66 = *(v11 + 54);
+                v66 = *&v11[13].i32[2];
                 v67 = v64[1];
                 if (v67)
                 {
                   v68 = 0;
                   LOBYTE(v69) = 0;
                   LODWORD(v70) = 0;
-                  v71 = *(v11 + 7);
+                  v71 = v11[3].i64[1];
                   v72 = v64[5];
                   v73 = a3;
                   do
@@ -2870,7 +2870,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v78 = *a1;
+                          v78 = a1->u8[0];
                           a1 = (a1 + 1);
                           v74 |= v78 << v76;
                           v76 += 8;
@@ -2884,7 +2884,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v69 = (v69 + v65) & 7;
                       if (v69)
                       {
-                        v70 = *a1;
+                        v70 = a1->u8[0];
                         v74 |= v70 << v76;
                       }
                     }
@@ -2939,7 +2939,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v107 = 0;
-            v108 = **(a1 + 20);
+            v108 = *a1[10].i64[0];
             do
             {
               LODWORD(a6) = a3->i32[0] ^ v108;
@@ -2947,21 +2947,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
               LOWORD(a6) = vaddlv_u8(*&a6);
               if (SLODWORD(a6) < v16)
               {
-                v109 = *(v11 + 4);
+                v109 = v11[2].i64[0];
                 v110 = v109[2];
                 if (v110 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v111 = *(v11 + 54);
+                v111 = *&v11[13].i32[2];
                 v112 = v109[1];
                 if (v112)
                 {
                   v113 = 0;
                   LOBYTE(v114) = 0;
                   LODWORD(v115) = 0;
-                  v116 = *(v11 + 7);
+                  v116 = v11[3].i64[1];
                   v117 = v109[5];
                   v118 = a3;
                   do
@@ -2988,7 +2988,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v123 = *a1;
+                          v123 = a1->u8[0];
                           a1 = (a1 + 1);
                           v119 |= v123 << v121;
                           v121 += 8;
@@ -3002,7 +3002,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v114 = (v114 + v110) & 7;
                       if (v114)
                       {
-                        v115 = *a1;
+                        v115 = a1->u8[0];
                         v119 |= v115 << v121;
                       }
                     }
@@ -3046,28 +3046,28 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v167 = 0;
-            v168 = **(a1 + 20);
+            v168 = *a1[10].i64[0];
             do
             {
               v169 = vcnt_s8((a3->i64[0] ^ v168));
               v169.i16[0] = vaddlv_u8(v169);
               if (v16 > v169.i32[0])
               {
-                v170 = *(v11 + 4);
+                v170 = v11[2].i64[0];
                 v171 = v170[2];
                 if (v171 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v172 = *(v11 + 54);
+                v172 = *&v11[13].i32[2];
                 v173 = v170[1];
                 if (v173)
                 {
                   v174 = 0;
                   LOBYTE(v175) = 0;
                   LODWORD(v176) = 0;
-                  v177 = *(v11 + 7);
+                  v177 = v11[3].i64[1];
                   v178 = v170[5];
                   v179 = a3;
                   do
@@ -3094,7 +3094,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v184 = *a1;
+                          v184 = a1->u8[0];
                           a1 = (a1 + 1);
                           v180 |= v184 << v182;
                           v182 += 8;
@@ -3108,7 +3108,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v175 = (v175 + v171) & 7;
                       if (v175)
                       {
-                        v176 = *a1;
+                        v176 = a1->u8[0];
                         v180 |= v176 << v182;
                       }
                     }
@@ -3152,28 +3152,28 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
           if (a2)
           {
             v18 = 0;
-            v19 = **(a1 + 20);
+            v19 = *a1[10].i64[0];
             v211 = v19;
             do
             {
               v20 = vmovn_s64(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v19))))));
               if (vadd_s32(vdup_lane_s32(v20, 1), v20).i32[0] < v16)
               {
-                v21 = *(v11 + 4);
+                v21 = v11[2].i64[0];
                 v22 = v21[2];
                 if (v22 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v23 = *(v11 + 54);
+                v23 = *&v11[13].i32[2];
                 v24 = v21[1];
                 if (v24)
                 {
                   v25 = 0;
                   LOBYTE(v26) = 0;
                   LODWORD(v27) = 0;
-                  v28 = *(v11 + 7);
+                  v28 = v11[3].i64[1];
                   v29 = v21[5];
                   v30 = a3;
                   do
@@ -3200,7 +3200,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       {
                         do
                         {
-                          v35 = *a1;
+                          v35 = a1->u8[0];
                           a1 = (a1 + 1);
                           v31 |= v35 << v33;
                           v33 += 8;
@@ -3214,7 +3214,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)0,faiss::CMin<f
                       v26 = (v26 + v22) & 7;
                       if (v26)
                       {
-                        v27 = *a1;
+                        v27 = a1->u8[0];
                         v31 |= v27 << v33;
                       }
                     }
@@ -3260,7 +3260,7 @@ LABEL_235:
       }
     }
 
-    v215 = *(a1 + 20);
+    v215 = a1[10].i64[0];
     v216 = v15 / 8;
     v217 = v15 - (v6 & 0xFFFFFFF8);
     v17 = 0;
@@ -3273,21 +3273,21 @@ LABEL_235:
         a1 = faiss::HammingComputerDefault::hamming(&v215, a3);
         if (a1 < v16)
         {
-          v151 = *(v11 + 4);
+          v151 = v11[2].i64[0];
           v152 = v151[2];
           if (v152 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v153 = *(v11 + 54);
+          v153 = *&v11[13].i32[2];
           v154 = v151[1];
           if (v154)
           {
             v155 = 0;
             LOBYTE(v156) = 0;
             LODWORD(v157) = 0;
-            v158 = *(v11 + 7);
+            v158 = v11[3].i64[1];
             v159 = v151[5];
             v160 = a3;
             do
@@ -3314,7 +3314,7 @@ LABEL_235:
                 {
                   do
                   {
-                    v165 = *a1;
+                    v165 = a1->u8[0];
                     a1 = (a1 + 1);
                     v161 |= v165 << v163;
                     v163 += 8;
@@ -3328,7 +3328,7 @@ LABEL_235:
                 v156 = (v156 + v152) & 7;
                 if (v156)
                 {
-                  v157 = *a1;
+                  v157 = a1->u8[0];
                   v161 |= v157 << v163;
                 }
               }
@@ -3379,21 +3379,21 @@ LABEL_235:
         v81 = v12 << 32;
         do
         {
-          v82 = *(v11 + 4);
+          v82 = v11[2].i64[0];
           v83 = v82[2];
           if (v83 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v84 = *(v11 + 54);
+          v84 = *&v11[13].i32[2];
           v85 = v82[1];
           if (v85)
           {
             v86 = 0;
             LOBYTE(v87) = 0;
             LODWORD(v88) = 0;
-            v89 = *(v11 + 8);
+            v89 = v11[4].i64[0];
             v90 = a3;
             do
             {
@@ -3443,7 +3443,7 @@ LABEL_235:
                 }
               }
 
-              v84 = v84 + (*(*(*(v11 + 14) + 8 * v86) + 4 * (v91 & ~(-1 << v83))) + (*(v89 + 4 * (v91 & ~(-1 << v83))) * -2.0));
+              v84 = v84 + (*(*(v11[7].i64[0] + 8 * v86) + 4 * (v91 & ~(-1 << v83))) + (*(v89 + 4 * (v91 & ~(-1 << v83))) * -2.0));
               v89 += 4 * v82[5];
               ++v86;
             }
@@ -3490,21 +3490,21 @@ LABEL_235:
         v38 = v12 << 32;
         do
         {
-          v39 = *(v11 + 4);
+          v39 = v11[2].i64[0];
           v40 = v39[2];
           if (v40 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v41 = *(v11 + 54);
+          v41 = *&v11[13].i32[2];
           v42 = v39[1];
           if (v42)
           {
             v43 = 0;
             LOBYTE(v44) = 0;
             LODWORD(v45) = 0;
-            v46 = *(v11 + 7);
+            v46 = v11[3].i64[1];
             v47 = a3;
             do
             {
@@ -3590,10 +3590,10 @@ LABEL_235:
   else
   {
     v101 = 0.0;
-    if (*(a1 + 44) == 1)
+    if (a1[2].i8[12] == 1)
     {
-      (*(**(*(a1 + 1) + 40) + 80))(*(*(a1 + 1) + 40), v12, *(a1 + 9));
-      v101 = faiss::fvec_inner_product(*(v11 + 9), *(v11 + 17), *(v11 + 6));
+      (*(**(a1->i64[1] + 40) + 80))(*(a1->i64[1] + 40), v12, a1[4].i64[1], a4);
+      v101 = faiss::fvec_inner_product(v11[4].i64[1], v11[8].i64[1], v11[1].i32[2]);
     }
 
     if (a2)
@@ -3602,9 +3602,9 @@ LABEL_235:
       v103 = v12 << 32;
       do
       {
-        faiss::ProductQuantizer::decode(*(v11 + 4), a3, *(v11 + 10));
-        v104 = *(*(v11 + 4) + 32);
-        v105 = v101 + faiss::fvec_inner_product(*(v11 + 10), *(v11 + 17), *(v11 + 6));
+        faiss::ProductQuantizer::decode(v11[2].i64[0], a3, v11[5].i64[0]);
+        v104 = *(v11[2].i64[0] + 32);
+        v105 = v101 + faiss::fvec_inner_product(v11[5].i64[0], v11[8].i64[1], v11[1].i32[2]);
         if (v105 > v8)
         {
           if (v13)
@@ -3803,7 +3803,7 @@ float faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<
   return result;
 }
 
-faiss::IndexIVFPQStats *faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<float,long long>,faiss::PQDecoderGeneric>::scan_codes(unint64_t a1, uint64_t a2, int8x16_t *a3, uint64_t a4, float *a5, uint64_t a6, unint64_t a7, int8x8_t a8)
+faiss::IndexIVFPQStats *faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<float,long long>,faiss::PQDecoderGeneric>::scan_codes(unint64_t a1, uint64_t a2, int8x16_t *a3, uint64_t a4, float *a5, uint64_t a6, unint64_t a7, __n128 a8)
 {
   v12 = a1;
   v13 = *(a1 + 144);
@@ -4163,7 +4163,7 @@ LABEL_149:
     if (*(a1 + 44) == 1)
     {
       v137 = (a1 + 72);
-      (*(**(*(a1 + 8) + 40) + 104))(*(*(a1 + 8) + 40), *(a1 + 136), *(a1 + 72), v13);
+      (*(**(*(a1 + 8) + 40) + 104))(*(*(a1 + 8) + 40), *(a1 + 136), *(a1 + 72), v13, a8);
       if (!a2)
       {
         return 0;
@@ -4643,10 +4643,10 @@ LABEL_311:
     v156 = a6 - 8;
     v294 = v13 << 32;
 LABEL_182:
-    a8.i32[0] = a3->i32[0] ^ v154;
-    a8 = vcnt_s8(a8);
-    a8.i16[0] = vaddlv_u8(a8);
-    if (a8.i32[0] >= v301)
+    a8.n128_u32[0] = a3->i32[0] ^ v154;
+    a8.n128_u64[0] = vcnt_s8(a8.n128_u64[0]);
+    a8.n128_u16[0] = vaddlv_u8(a8.n128_u64[0]);
+    if (a8.n128_i32[0] >= v301)
     {
       goto LABEL_213;
     }
@@ -5510,12 +5510,12 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<float,long long>,faiss::PQDecoderGeneric>::scan_codes_range(faiss::BufferList *a1, uint64_t a2, int8x16_t *a3, uint64_t a4, faiss::RangeQueryResult *this, double a6)
+void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<float,long long>,faiss::PQDecoderGeneric>::scan_codes_range(int8x16_t *a1, uint64_t a2, int8x16_t *a3, uint64_t a4, faiss::RangeQueryResult *this, double a6)
 {
   v8 = *&a6;
   v11 = a1;
-  v12 = *(a1 + 18);
-  if (*(a1 + 220))
+  v12 = a1[9].i64[0];
+  if (a1[13].i8[12])
   {
     v13 = 0;
   }
@@ -5525,15 +5525,15 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
     v13 = a4;
   }
 
-  v14 = *(a1 + 56);
-  if (*(a1 + 13) >= 1)
+  v14 = a1[14].i32[0];
+  if (a1[3].i32[1] >= 1)
   {
     if (v14 != 2)
     {
     }
 
-    v15 = *(*(a1 + 4) + 32);
-    v16 = *(*(a1 + 1) + 416);
+    v15 = *(a1[2].i64[0] + 32);
+    v16 = *(a1->i64[1] + 416);
     if (v15 > 19)
     {
       switch(v15)
@@ -5543,9 +5543,9 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v120 = 0;
-            v121 = *(a1 + 20);
+            v121 = a1[10].i64[0];
             v122 = *v121;
-            v123 = v121[1].i32[0];
+            v123 = *(v121 + 16);
             v214 = *v121;
             do
             {
@@ -5557,21 +5557,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
               v127.i16[0] = vaddlv_u8(v127);
               if (v126 + v127.i32[0] < v16)
               {
-                v128 = *(v11 + 4);
+                v128 = v11[2].i64[0];
                 v129 = v128[2];
                 if (v129 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v130 = *(v11 + 54);
+                v130 = *&v11[13].i32[2];
                 v131 = v128[1];
                 if (v131)
                 {
                   v132 = 0;
                   LOBYTE(v133) = 0;
                   LODWORD(v134) = 0;
-                  v135 = *(v11 + 7);
+                  v135 = v11[3].i64[1];
                   v136 = v128[5];
                   v137 = a3;
                   do
@@ -5598,7 +5598,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v142 = *a1;
+                          v142 = a1->u8[0];
                           a1 = (a1 + 1);
                           v138 |= v142 << v140;
                           v140 += 8;
@@ -5612,7 +5612,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v133 = (v133 + v129) & 7;
                       if (v133)
                       {
-                        v134 = *a1;
+                        v134 = a1->u8[0];
                         v138 |= v134 << v140;
                       }
                     }
@@ -5657,7 +5657,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v181 = 0;
-            v182 = *(a1 + 20);
+            v182 = a1[10].i64[0];
             v184 = *v182;
             v183 = v182[1];
             v211 = *v182;
@@ -5666,21 +5666,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
             {
               if (vaddvq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v184))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[1], v183))))))) < v16)
               {
-                v185 = *(v11 + 4);
+                v185 = v11[2].i64[0];
                 v186 = v185[2];
                 if (v186 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v187 = *(v11 + 54);
+                v187 = *&v11[13].i32[2];
                 v188 = v185[1];
                 if (v188)
                 {
                   v189 = 0;
                   LOBYTE(v190) = 0;
                   LODWORD(v191) = 0;
-                  v192 = *(v11 + 7);
+                  v192 = v11[3].i64[1];
                   v193 = v185[5];
                   v194 = a3;
                   do
@@ -5707,7 +5707,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v199 = *a1;
+                          v199 = a1->u8[0];
                           a1 = (a1 + 1);
                           v195 |= v199 << v197;
                           v197 += 8;
@@ -5721,7 +5721,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v190 = (v190 + v186) & 7;
                       if (v190)
                       {
-                        v191 = *a1;
+                        v191 = a1->u8[0];
                         v195 |= v191 << v197;
                       }
                     }
@@ -5767,7 +5767,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v58 = 0;
-            v59 = *(a1 + 20);
+            v59 = a1[10].i64[0];
             v61 = v59[2];
             v60 = v59[3];
             v63 = *v59;
@@ -5780,21 +5780,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
             {
               if (vaddvq_s32(vaddq_s32(vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v63))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[1], v62)))))), vuzp1q_s32(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[2], v61))))), vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(a3[3], v60)))))))) < v16)
               {
-                v64 = *(v11 + 4);
+                v64 = v11[2].i64[0];
                 v65 = v64[2];
                 if (v65 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v66 = *(v11 + 54);
+                v66 = *&v11[13].i32[2];
                 v67 = v64[1];
                 if (v67)
                 {
                   v68 = 0;
                   LOBYTE(v69) = 0;
                   LODWORD(v70) = 0;
-                  v71 = *(v11 + 7);
+                  v71 = v11[3].i64[1];
                   v72 = v64[5];
                   v73 = a3;
                   do
@@ -5821,7 +5821,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v78 = *a1;
+                          v78 = a1->u8[0];
                           a1 = (a1 + 1);
                           v74 |= v78 << v76;
                           v76 += 8;
@@ -5835,7 +5835,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v69 = (v69 + v65) & 7;
                       if (v69)
                       {
-                        v70 = *a1;
+                        v70 = a1->u8[0];
                         v74 |= v70 << v76;
                       }
                     }
@@ -5890,7 +5890,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v102 = 0;
-            v103 = **(a1 + 20);
+            v103 = *a1[10].i64[0];
             do
             {
               LODWORD(a6) = a3->i32[0] ^ v103;
@@ -5898,21 +5898,21 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
               LOWORD(a6) = vaddlv_u8(*&a6);
               if (SLODWORD(a6) < v16)
               {
-                v104 = *(v11 + 4);
+                v104 = v11[2].i64[0];
                 v105 = v104[2];
                 if (v105 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v106 = *(v11 + 54);
+                v106 = *&v11[13].i32[2];
                 v107 = v104[1];
                 if (v107)
                 {
                   v108 = 0;
                   LOBYTE(v109) = 0;
                   LODWORD(v110) = 0;
-                  v111 = *(v11 + 7);
+                  v111 = v11[3].i64[1];
                   v112 = v104[5];
                   v113 = a3;
                   do
@@ -5939,7 +5939,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v118 = *a1;
+                          v118 = a1->u8[0];
                           a1 = (a1 + 1);
                           v114 |= v118 << v116;
                           v116 += 8;
@@ -5953,7 +5953,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v109 = (v109 + v105) & 7;
                       if (v109)
                       {
-                        v110 = *a1;
+                        v110 = a1->u8[0];
                         v114 |= v110 << v116;
                       }
                     }
@@ -5997,28 +5997,28 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v162 = 0;
-            v163 = **(a1 + 20);
+            v163 = *a1[10].i64[0];
             do
             {
               v164 = vcnt_s8((a3->i64[0] ^ v163));
               v164.i16[0] = vaddlv_u8(v164);
               if (v16 > v164.i32[0])
               {
-                v165 = *(v11 + 4);
+                v165 = v11[2].i64[0];
                 v166 = v165[2];
                 if (v166 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v167 = *(v11 + 54);
+                v167 = *&v11[13].i32[2];
                 v168 = v165[1];
                 if (v168)
                 {
                   v169 = 0;
                   LOBYTE(v170) = 0;
                   LODWORD(v171) = 0;
-                  v172 = *(v11 + 7);
+                  v172 = v11[3].i64[1];
                   v173 = v165[5];
                   v174 = a3;
                   do
@@ -6045,7 +6045,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v179 = *a1;
+                          v179 = a1->u8[0];
                           a1 = (a1 + 1);
                           v175 |= v179 << v177;
                           v177 += 8;
@@ -6059,7 +6059,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v170 = (v170 + v166) & 7;
                       if (v170)
                       {
-                        v171 = *a1;
+                        v171 = a1->u8[0];
                         v175 |= v171 << v177;
                       }
                     }
@@ -6103,28 +6103,28 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
           if (a2)
           {
             v18 = 0;
-            v19 = **(a1 + 20);
+            v19 = *a1[10].i64[0];
             v212 = v19;
             do
             {
               v20 = vmovn_s64(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vcntq_s8(veorq_s8(*a3, v19))))));
               if (vadd_s32(vdup_lane_s32(v20, 1), v20).i32[0] < v16)
               {
-                v21 = *(v11 + 4);
+                v21 = v11[2].i64[0];
                 v22 = v21[2];
                 if (v22 >= 65)
                 {
                   faiss::decode<faiss::PQDecoderGeneric>();
                 }
 
-                v23 = *(v11 + 54);
+                v23 = *&v11[13].i32[2];
                 v24 = v21[1];
                 if (v24)
                 {
                   v25 = 0;
                   LOBYTE(v26) = 0;
                   LODWORD(v27) = 0;
-                  v28 = *(v11 + 7);
+                  v28 = v11[3].i64[1];
                   v29 = v21[5];
                   v30 = a3;
                   do
@@ -6151,7 +6151,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       {
                         do
                         {
-                          v35 = *a1;
+                          v35 = a1->u8[0];
                           a1 = (a1 + 1);
                           v31 |= v35 << v33;
                           v33 += 8;
@@ -6165,7 +6165,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
                       v26 = (v26 + v22) & 7;
                       if (v26)
                       {
-                        v27 = *a1;
+                        v27 = a1->u8[0];
                         v31 |= v27 << v33;
                       }
                     }
@@ -6211,7 +6211,7 @@ LABEL_227:
       }
     }
 
-    v216 = *(a1 + 20);
+    v216 = a1[10].i64[0];
     v217 = v15 / 8;
     v218 = v15 - (v6 & 0xFFFFFFF8);
     v17 = 0;
@@ -6224,21 +6224,21 @@ LABEL_227:
         a1 = faiss::HammingComputerDefault::hamming(&v216, a3);
         if (a1 < v16)
         {
-          v146 = *(v11 + 4);
+          v146 = v11[2].i64[0];
           v147 = v146[2];
           if (v147 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v148 = *(v11 + 54);
+          v148 = *&v11[13].i32[2];
           v149 = v146[1];
           if (v149)
           {
             v150 = 0;
             LOBYTE(v151) = 0;
             LODWORD(v152) = 0;
-            v153 = *(v11 + 7);
+            v153 = v11[3].i64[1];
             v154 = v146[5];
             v155 = a3;
             do
@@ -6265,7 +6265,7 @@ LABEL_227:
                 {
                   do
                   {
-                    v160 = *a1;
+                    v160 = a1->u8[0];
                     a1 = (a1 + 1);
                     v156 |= v160 << v158;
                     v158 += 8;
@@ -6279,7 +6279,7 @@ LABEL_227:
                 v151 = (v151 + v147) & 7;
                 if (v151)
                 {
-                  v152 = *a1;
+                  v152 = a1->u8[0];
                   v156 |= v152 << v158;
                 }
               }
@@ -6330,21 +6330,21 @@ LABEL_227:
         v81 = v12 << 32;
         do
         {
-          v82 = *(v11 + 4);
+          v82 = v11[2].i64[0];
           v83 = v82[2];
           if (v83 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v84 = *(v11 + 54);
+          v84 = *&v11[13].i32[2];
           v85 = v82[1];
           if (v85)
           {
             v86 = 0;
             LOBYTE(v87) = 0;
             LODWORD(v88) = 0;
-            v89 = *(v11 + 8);
+            v89 = v11[4].i64[0];
             v90 = a3;
             do
             {
@@ -6394,7 +6394,7 @@ LABEL_227:
                 }
               }
 
-              v84 = v84 + (*(*(*(v11 + 14) + 8 * v86) + 4 * (v91 & ~(-1 << v83))) + (*(v89 + 4 * (v91 & ~(-1 << v83))) * -2.0));
+              v84 = v84 + (*(*(v11[7].i64[0] + 8 * v86) + 4 * (v91 & ~(-1 << v83))) + (*(v89 + 4 * (v91 & ~(-1 << v83))) * -2.0));
               v89 += 4 * v82[5];
               ++v86;
             }
@@ -6441,21 +6441,21 @@ LABEL_227:
         v38 = v12 << 32;
         do
         {
-          v39 = *(v11 + 4);
+          v39 = v11[2].i64[0];
           v40 = v39[2];
           if (v40 >= 65)
           {
             faiss::decode<faiss::PQDecoderGeneric>();
           }
 
-          v41 = *(v11 + 54);
+          v41 = *&v11[13].i32[2];
           v42 = v39[1];
           if (v42)
           {
             v43 = 0;
             LOBYTE(v44) = 0;
             LODWORD(v45) = 0;
-            v46 = *(v11 + 7);
+            v46 = v11[3].i64[1];
             v47 = a3;
             do
             {
@@ -6540,10 +6540,10 @@ LABEL_227:
 
   else
   {
-    if (*(a1 + 44) == 1)
+    if (a1[2].i8[12] == 1)
     {
-      v101 = (a1 + 72);
-      (*(**(*(a1 + 1) + 40) + 104))(*(*(a1 + 1) + 40), *(a1 + 17), *(a1 + 9), v12);
+      v101 = &a1[4].i64[1];
+      (*(**(a1->i64[1] + 40) + 104))(*(a1->i64[1] + 40), a1[8].i64[1], a1[4].i64[1], v12);
       if (!a2)
       {
         return;
@@ -6552,7 +6552,7 @@ LABEL_227:
 
     else
     {
-      v101 = (a1 + 136);
+      v101 = &a1[8].i64[1];
       if (!a2)
       {
         return;
@@ -6564,9 +6564,9 @@ LABEL_227:
     v203 = v12 << 32;
     do
     {
-      faiss::ProductQuantizer::decode(*(v11 + 4), a3, *(v11 + 10));
-      v204 = *(*(v11 + 4) + 32);
-      v205 = faiss::fvec_L2sqr(*(v11 + 10), v202, *(v11 + 6));
+      faiss::ProductQuantizer::decode(v11[2].i64[0], a3, v11[5].i64[0]);
+      v204 = *(v11[2].i64[0] + 32);
+      v205 = faiss::fvec_L2sqr(v11[5].i64[0], v202, v11[1].i32[2]);
       if (v205 < v8)
       {
         if (v13)
@@ -6663,7 +6663,7 @@ void faiss::anonymous namespace::IVFPQScanner<(faiss::MetricType)1,faiss::CMax<f
   JUMPOUT(0x1DA73F410);
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,faiss::CodeCmp &,int *,false>(int *result, int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,faiss::CodeCmp &,int *,false>(uint64_t result, int *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v5 = a3;
   v7 = result;
@@ -6688,7 +6688,7 @@ LABEL_3:
       {
         v77 = *(a2 - 1);
         v78 = *v8;
-        result = memcmp((*v5 + *(v5 + 8) * v77), (*v5 + *(v5 + 8) * v78), *(v5 + 8));
+        result = memcmp((*v5 + v5[1] * v77), (*v5 + v5[1] * v78), v5[1]);
         if (result >= 1)
         {
           *v8 = v77;
@@ -6748,7 +6748,7 @@ LABEL_11:
     v86 = v10;
     v12 = &v8[v11 >> 1];
     v13 = *v5;
-    v14 = *(v5 + 8);
+    v14 = v5[1];
     v15 = *(a2 - 1);
     v16 = (*v5 + v14 * v15);
     v90 = &v7[v11 >> 1];
@@ -7049,7 +7049,7 @@ LABEL_64:
   v69 = *v8;
   v70 = v8[1];
   v72 = *v5;
-  v71 = *(v5 + 8);
+  v71 = v5[1];
   v73 = (*v5 + v71 * v70);
   v74 = (*v5 + v71 * v69);
   v75 = memcmp(v73, v74, v71);
@@ -7689,7 +7689,7 @@ LABEL_33:
   return v33 + 1 == v49;
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,faiss::CodeCmp &,int *,int *>(int *a1, int *a2, int *a3, uint64_t a4)
+int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,faiss::CodeCmp &,int *,int *>(int *a1, int *a2, int *a3, char **a4)
 {
   if (a1 != a2)
   {
@@ -7716,7 +7716,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,faiss::CodeCm
       {
         v13 = *v12;
         v14 = *a1;
-        if (memcmp((*a4 + *(a4 + 8) * v13), (*a4 + *(a4 + 8) * v14), *(a4 + 8)) >= 1)
+        if (memcmp(&(*a4)[a4[1] * v13], &(*a4)[a4[1] * v14], a4[1]) >= 1)
         {
           *v12 = v14;
           *a1 = v13;
@@ -7941,12 +7941,12 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,faiss::CodeCmp &,in
 
 void faiss::IndexIVFPQStats::get_indexIVFPQ_stats()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_1))
+  if (__cxa_guard_acquire(_MergedGlobals_1))
   {
     unk_1ECB70E38 = 0u;
     unk_1ECB70E28 = 0u;
 
-    __cxa_guard_release(&_MergedGlobals_1);
+    __cxa_guard_release(_MergedGlobals_1);
   }
 }
 
@@ -8273,7 +8273,7 @@ void sub_1D9C5C384(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *faiss::IndexIVFPQR::merge_from(faiss::IndexIVFPQR *this, faiss::IndexIVF *lpsrc, uint64_t a3)
+char *faiss::IndexIVFPQR::merge_from(faiss::InvertedLists **this, faiss::IndexIVF *lpsrc, uint64_t a3)
 {
   if (!v6)
   {
@@ -8307,7 +8307,7 @@ char *faiss::IndexIVFPQR::merge_from(faiss::IndexIVFPQR *this, faiss::IndexIVF *
 
   v7 = v6;
   faiss::IndexIVF::merge_from(this, lpsrc, a3);
-  result = std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(this + 600, *(this + 76), v7[75], v7[76], v7[76] - v7[75]);
+  result = std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>((this + 75), this[76], v7[75], v7[76], v7[76] - v7[75]);
   v7[76] = v7[75];
   return result;
 }
@@ -8413,10 +8413,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   v7 = __src;
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
+  if ((v9 - v10) < __len)
   {
     v11 = *a1;
-    v12 = &v10[__len - *a1];
+    v12 = v10 - *a1 + __len;
     if (v12 < 0)
     {
       std::vector<long long>::__throw_length_error[abi:ne200100]();
@@ -8473,10 +8473,10 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   }
 
   v15 = v10 - __dst;
-  if (v10 - __dst >= __len)
+  if ((v10 - __dst) >= __len)
   {
     v26 = &__dst[__len];
-    v27 = &v10[-__len];
+    v27 = (v10 - __len);
     v28 = *(a1 + 8);
     if (v10 >= __len)
     {
@@ -8507,16 +8507,16 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
     memmove(*(a1 + 8), &__src[v15], a4 - &__src[v15]);
   }
 
-  v18 = &v10[v17];
-  *(a1 + 8) = &v10[v17];
+  v18 = (v10 + v17);
+  *(a1 + 8) = v10 + v17;
   if (v15 >= 1)
   {
     v19 = &v5[v6];
-    v20 = &v10[v17];
+    v20 = (v10 + v17);
     if (&v18[-v6] < v10)
     {
-      v21 = a4 - &v7[v6];
-      v22 = a4 - v7;
+      v21 = (a4 - &v7[v6]);
+      v22 = (a4 - v7);
       do
       {
         v5[v22++] = v5[v21++];
@@ -8569,10 +8569,10 @@ uint64_t faiss::IndexFlat::IndexFlat(uint64_t result, int a2, int a3)
   return result;
 }
 
-char *faiss::IndexFlat::add(faiss::IndexFlat *this, uint64_t a2, float *a3)
+char *faiss::IndexFlat::add(void **this, uint64_t a2, float *a3)
 {
-  result = std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float const*>(this + 5, *(this + 6), a3, &a3[*(this + 2) * a2], *(this + 2) * a2);
-  *(this + 2) += a2;
+  result = std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float const*>(this + 5, this[6], a3, &a3[*(this + 2) * a2], *(this + 2) * a2);
+  this[2] = this[2] + a2;
   return result;
 }
 
@@ -8583,7 +8583,7 @@ void *faiss::IndexFlat::reset(void *this)
   return this;
 }
 
-void faiss::IndexFlat::search(faiss::IndexFlat *this, unint64_t a2, const float *a3, int64_t a4, float *a5, uint64_t *a6)
+void faiss::IndexFlat::search(faiss::IndexFlat *this, unint64_t a2, faiss *a3, int64_t a4, float *a5, uint64_t *a6)
 {
   if (a4 <= 0)
   {
@@ -8622,7 +8622,7 @@ void faiss::IndexFlat::search(faiss::IndexFlat *this, unint64_t a2, const float 
     v12.__r_.__value_.__l.__size_ = a4;
     v12.__r_.__value_.__r.__words[2] = a6;
     v13 = a5;
-    faiss::knn_L2sqr(a3, *(this + 5), *(this + 2), a2, *(this + 2), &v12);
+    faiss::knn_L2sqr(a3, *(this + 5), *(this + 2), a2, *(this + 2), &v12, 0);
   }
 
   else
@@ -8654,7 +8654,7 @@ void sub_1D9C5CB94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::IndexFlat::range_search(faiss::IndexFlat *this, unint64_t a2, faiss *a3, float a4, faiss::RangeSearchResult *a5, uint64_t a6, uint64_t a7, faiss::RangeSearchResult *a8)
+uint64_t **faiss::IndexFlat::range_search(faiss::IndexFlat *this, unint64_t a2, faiss *a3, float a4, faiss::RangeSearchResult *a5, uint64_t a6, uint64_t a7, faiss::RangeSearchResult *a8)
 {
   v10 = *(this + 7);
   if (v10 == 1)
@@ -8791,17 +8791,20 @@ uint64_t faiss::IndexFlat::remove_ids(uint64_t a1, uint64_t (***a2)(void, uint64
 
 void faiss::IndexFlat::get_distance_computer(faiss::IndexFlat *this)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v2 = *(this + 7);
+  if (v2)
   {
-    if (v1 == 1)
+    if (v2 == 1)
     {
       operator new();
     }
 
-    v2 = *(this + 2);
+    v3 = *(this + 2);
+    v4 = *(this + 8);
+    v5 = *(this + 2);
+    v6 = *(this + 5);
 
-    faiss::get_extra_distance_computer(v2, v1);
+    faiss::get_extra_distance_computer(v3, v2, v5, v6, v4);
   }
 
   operator new();
@@ -8840,7 +8843,7 @@ uint64_t faiss::IndexFlat1D::IndexFlat1D(uint64_t this, char a2)
   return this;
 }
 
-uint64_t faiss::IndexFlat1D::update_permutation(faiss::IndexFlat1D *this)
+void faiss::IndexFlat1D::update_permutation(faiss::IndexFlat1D *this)
 {
   std::vector<long long>::resize(this + 9, *(this + 2));
   v3 = *(this + 2);
@@ -8852,20 +8855,18 @@ uint64_t faiss::IndexFlat1D::update_permutation(faiss::IndexFlat1D *this)
     faiss::fvec_argsort_parallel(v3, v4, v5, v2);
   }
 
-  return faiss::fvec_argsort(v3, v4, v5, v2);
+  faiss::fvec_argsort(v3, v4, v5, v2);
 }
 
-char *faiss::IndexFlat1D::add(faiss::IndexFlat1D *this, uint64_t a2, float *a3)
+void faiss::IndexFlat1D::add(void **this, uint64_t a2, float *a3)
 {
-  result = std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float const*>(this + 5, *(this + 6), a3, &a3[*(this + 2) * a2], *(this + 2) * a2);
-  *(this + 2) += a2;
+  std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float const*>(this + 5, this[6], a3, &a3[*(this + 2) * a2], *(this + 2) * a2);
+  this[2] = this[2] + a2;
   if (*(this + 64) == 1)
   {
 
-    return faiss::IndexFlat1D::update_permutation(this);
+    faiss::IndexFlat1D::update_permutation(this);
   }
-
-  return result;
 }
 
 void *faiss::IndexFlat1D::reset(void *this)
@@ -9224,7 +9225,8 @@ char *std::vector<float>::__insert_with_size[abi:ne200100]<float const*,float co
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
@@ -9842,7 +9844,7 @@ void sub_1D9C5EABC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::read_InvertedLists(faiss *this, faiss::IOReader *a2)
+unint64_t *faiss::read_InvertedLists(faiss *this, faiss::IOReader *a2)
 {
   v2 = a2;
   v22 = 0;
@@ -9928,9 +9930,9 @@ void sub_1D9C5FEE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D9C600E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D9C600E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   faiss::ScopeDeleter1<faiss::ProductQuantizer>::~ScopeDeleter1(va);
   _Unwind_Resume(a1);
 }
@@ -10621,515 +10623,515 @@ void sub_1D9C62DC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::read_ivf_header(uint64_t a1, char *a2, void *a3)
+void faiss::read_ivf_header(uint64_t a1, faiss *a2, void *a3)
 {
   faiss::read_index_header(a1, a2);
   v6 = (**a2)(a2, a1 + 48, 8, 1);
   if (v6 != 1)
   {
-    v51 = v6;
-    memset(&v137, 0, sizeof(v137));
+    v50 = v6;
+    memset(&v136, 0, sizeof(v136));
+    v51 = a2 + 8;
     v52 = a2 + 8;
-    v53 = a2 + 8;
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v53 = *v52;
+      v52 = *v51;
     }
 
-    v54 = __error();
-    v55 = strerror(*v54);
-    v56 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v53, v51, 1uLL, v55);
-    v57 = &v137;
-    std::string::resize(&v137, v56 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v53 = __error();
+    v54 = strerror(*v53);
+    v55 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v52, v50, 1uLL, v54);
+    v56 = &v136;
+    std::string::resize(&v136, v55 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v136.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v137.__r_.__value_.__l.__size_;
-      v57 = v137.__r_.__value_.__r.__words[0];
+      size = v136.__r_.__value_.__l.__size_;
+      v56 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v52 = *v52;
+      v51 = *v51;
     }
 
-    v59 = __error();
-    v60 = strerror(*v59);
-    snprintf(v57, size, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v52, v51, 1uLL, v60);
+    v58 = __error();
+    v59 = strerror(*v58);
+    snprintf(v56, size, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v51, v50, 1uLL, v59);
     exception = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(exception, &v137, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 390);
+    faiss::FaissException::FaissException(exception, &v136, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 390);
   }
 
   v7 = (**a2)(a2, a1 + 136, 8, 1);
   if (v7 != 1)
   {
-    v62 = v7;
-    memset(&v137, 0, sizeof(v137));
+    v61 = v7;
+    memset(&v136, 0, sizeof(v136));
+    v62 = a2 + 8;
     v63 = a2 + 8;
-    v64 = a2 + 8;
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v64 = *v63;
+      v63 = *v62;
     }
 
-    v65 = __error();
-    v66 = strerror(*v65);
-    v67 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v64, v62, 1uLL, v66);
-    v68 = &v137;
-    std::string::resize(&v137, v67 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v64 = __error();
+    v65 = strerror(*v64);
+    v66 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v63, v61, 1uLL, v65);
+    v67 = &v136;
+    std::string::resize(&v136, v66 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v69 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+      v68 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v69 = v137.__r_.__value_.__l.__size_;
-      v68 = v137.__r_.__value_.__r.__words[0];
+      v68 = v136.__r_.__value_.__l.__size_;
+      v67 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v63 = *v63;
+      v62 = *v62;
     }
 
-    v70 = __error();
-    v71 = strerror(*v70);
-    snprintf(v68, v69, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v63, v62, 1uLL, v71);
-    v72 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v72, &v137, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 391);
+    v69 = __error();
+    v70 = strerror(*v69);
+    snprintf(v67, v68, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v62, v61, 1uLL, v70);
+    v71 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v71, &v136, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 391);
   }
 
-  *(a1 + 40) = faiss::read_index(a2, 0, v8);
+  *(a1 + 40) = faiss::read_index(a2, 0);
   *(a1 + 57) = 1;
   if (a3)
   {
     std::vector<std::vector<long long>>::resize(a3, *(a1 + 48));
     if (*(a1 + 48))
     {
+      v8 = 0;
       v9 = 0;
-      v10 = 0;
       do
       {
-        v136.__r_.__value_.__r.__words[0] = 0;
-        v11 = (**a2)(a2, &v136, 8, 1);
-        if (v11 != 1)
+        v135.__r_.__value_.__r.__words[0] = 0;
+        v10 = (**a2)(a2, &v135, 8, 1);
+        if (v10 != 1)
         {
-          v40 = v11;
-          memset(&v137, 0, sizeof(v137));
+          v39 = v10;
+          memset(&v136, 0, sizeof(v136));
+          v40 = a2 + 8;
           v41 = a2 + 8;
-          v42 = a2 + 8;
-          if (a2[31] < 0)
+          if (*(a2 + 31) < 0)
           {
-            v42 = *v41;
+            v41 = *v40;
           }
 
-          v43 = __error();
-          v44 = strerror(*v43);
-          v45 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v42, v40, 1uLL, v44);
-          v46 = &v137;
-          std::string::resize(&v137, v45 + 1, 0);
-          if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v42 = __error();
+          v43 = strerror(*v42);
+          v44 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v41, v39, 1uLL, v43);
+          v45 = &v136;
+          std::string::resize(&v136, v44 + 1, 0);
+          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v47 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+            v46 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v47 = v137.__r_.__value_.__l.__size_;
-            v46 = v137.__r_.__value_.__r.__words[0];
+            v46 = v136.__r_.__value_.__l.__size_;
+            v45 = v136.__r_.__value_.__r.__words[0];
           }
 
-          if (a2[31] < 0)
+          if (*(a2 + 31) < 0)
           {
-            v41 = *v41;
+            v40 = *v40;
           }
 
-          v48 = __error();
-          v49 = strerror(*v48);
-          snprintf(v46, v47, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v41, v40, 1uLL, v49);
-          v50 = __cxa_allocate_exception(0x20uLL);
-          faiss::FaissException::FaissException(v50, &v137, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
+          v47 = __error();
+          v48 = strerror(*v47);
+          snprintf(v45, v46, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v40, v39, 1uLL, v48);
+          v49 = __cxa_allocate_exception(0x20uLL);
+          faiss::FaissException::FaissException(v49, &v136, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
         }
 
-        if (v136.__r_.__value_.__r.__words[0] >> 40)
+        if (v135.__r_.__value_.__r.__words[0] >> 40)
         {
-          memset(&v137, 0, sizeof(v137));
-          v36 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-          std::string::resize(&v137, v36 + 1, 0);
-          if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          memset(&v136, 0, sizeof(v136));
+          v35 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+          std::string::resize(&v136, v35 + 1, 0);
+          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v37 = &v137;
+            v36 = &v136;
           }
 
           else
           {
-            v37 = v137.__r_.__value_.__r.__words[0];
+            v36 = v136.__r_.__value_.__r.__words[0];
           }
 
-          if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v38 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+            v37 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v38 = v137.__r_.__value_.__l.__size_;
+            v37 = v136.__r_.__value_.__l.__size_;
           }
 
-          snprintf(v37, v38, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-          v39 = __cxa_allocate_exception(0x20uLL);
-          faiss::FaissException::FaissException(v39, &v137, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
+          snprintf(v36, v37, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+          v38 = __cxa_allocate_exception(0x20uLL);
+          faiss::FaissException::FaissException(v38, &v136, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
         }
 
-        std::vector<long long>::resize((*a3 + v9), v136.__r_.__value_.__r.__words[0]);
-        v12 = (**a2)(a2, *(*a3 + v9), 8, v136.__r_.__value_.__r.__words[0]);
-        v13 = v136.__r_.__value_.__r.__words[0];
-        if (v12 != v136.__r_.__value_.__r.__words[0])
+        std::vector<long long>::resize((*a3 + v8), v135.__r_.__value_.__r.__words[0]);
+        v11 = (**a2)(a2, *(*a3 + v8), 8, v135.__r_.__value_.__r.__words[0]);
+        v12 = v135.__r_.__value_.__r.__words[0];
+        if (v11 != v135.__r_.__value_.__r.__words[0])
         {
-          v24 = v12;
-          memset(&v137, 0, sizeof(v137));
+          v23 = v11;
+          memset(&v136, 0, sizeof(v136));
+          v24 = a2 + 8;
           v25 = a2 + 8;
-          v26 = a2 + 8;
-          if (a2[31] < 0)
+          if (*(a2 + 31) < 0)
           {
-            v26 = *v25;
+            v25 = *v24;
           }
 
-          v27 = __error();
-          v28 = strerror(*v27);
-          v29 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v26, v24, v13, v28);
-          v30 = &v137;
-          std::string::resize(&v137, v29 + 1, 0);
-          if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v26 = __error();
+          v27 = strerror(*v26);
+          v28 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v25, v23, v12, v27);
+          v29 = &v136;
+          std::string::resize(&v136, v28 + 1, 0);
+          if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v31 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+            v30 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v31 = v137.__r_.__value_.__l.__size_;
-            v30 = v137.__r_.__value_.__r.__words[0];
+            v30 = v136.__r_.__value_.__l.__size_;
+            v29 = v136.__r_.__value_.__r.__words[0];
           }
 
-          if (a2[31] < 0)
+          if (*(a2 + 31) < 0)
           {
-            v25 = *v25;
+            v24 = *v24;
           }
 
-          v32 = v136.__r_.__value_.__r.__words[0];
-          v33 = __error();
-          v34 = strerror(*v33);
-          snprintf(v30, v31, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v25, v24, v32, v34);
-          v35 = __cxa_allocate_exception(0x20uLL);
-          faiss::FaissException::FaissException(v35, &v137, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
+          v31 = v135.__r_.__value_.__r.__words[0];
+          v32 = __error();
+          v33 = strerror(*v32);
+          snprintf(v29, v30, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v24, v23, v31, v33);
+          v34 = __cxa_allocate_exception(0x20uLL);
+          faiss::FaissException::FaissException(v34, &v136, "void faiss::read_ivf_header(IndexIVF *, IOReader *, std::vector<std::vector<Index::idx_t>> *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 397);
         }
 
-        ++v10;
-        v9 += 24;
+        ++v9;
+        v8 += 24;
       }
 
-      while (v10 < *(a1 + 48));
+      while (v9 < *(a1 + 48));
     }
   }
 
-  v138 = 0;
-  v14 = (**a2)(a2, &v138, 1, 1);
+  v137 = 0;
+  v13 = (**a2)(a2, &v137, 1, 1);
+  if (v13 != 1)
+  {
+    v72 = v13;
+    memset(&v136, 0, sizeof(v136));
+    v73 = a2 + 8;
+    v74 = a2 + 8;
+    if (*(a2 + 31) < 0)
+    {
+      v74 = *v73;
+    }
+
+    v75 = __error();
+    v76 = strerror(*v75);
+    v77 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v74, v72, 1uLL, v76);
+    v78 = &v136;
+    std::string::resize(&v136, v77 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v79 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v79 = v136.__r_.__value_.__l.__size_;
+      v78 = v136.__r_.__value_.__r.__words[0];
+    }
+
+    if (*(a2 + 31) < 0)
+    {
+      v73 = *v73;
+    }
+
+    v80 = __error();
+    v81 = strerror(*v80);
+    snprintf(v78, v79, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v73, v72, 1uLL, v81);
+    v82 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v82, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 370);
+  }
+
+  *(a1 + 160) = v137;
+  v135.__r_.__value_.__r.__words[0] = 0;
+  v14 = (**a2)(a2, &v135, 8, 1);
   if (v14 != 1)
   {
-    v73 = v14;
-    memset(&v137, 0, sizeof(v137));
-    v74 = a2 + 8;
-    v75 = a2 + 8;
-    if (a2[31] < 0)
-    {
-      v75 = *v74;
-    }
-
-    v76 = __error();
-    v77 = strerror(*v76);
-    v78 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v75, v73, 1uLL, v77);
-    v79 = &v137;
-    std::string::resize(&v137, v78 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v80 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v80 = v137.__r_.__value_.__l.__size_;
-      v79 = v137.__r_.__value_.__r.__words[0];
-    }
-
-    if (a2[31] < 0)
-    {
-      v74 = *v74;
-    }
-
-    v81 = __error();
-    v82 = strerror(*v81);
-    snprintf(v79, v80, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v74, v73, 1uLL, v82);
-    v83 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v83, &v137, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 370);
-  }
-
-  *(a1 + 160) = v138;
-  v136.__r_.__value_.__r.__words[0] = 0;
-  v15 = (**a2)(a2, &v136, 8, 1);
-  if (v15 != 1)
-  {
-    v84 = v15;
-    memset(&v137, 0, sizeof(v137));
+    v83 = v14;
+    memset(&v136, 0, sizeof(v136));
+    v84 = a2 + 8;
     v85 = a2 + 8;
-    v86 = a2 + 8;
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v86 = *v85;
+      v85 = *v84;
     }
 
-    v87 = __error();
-    v88 = strerror(*v87);
-    v89 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v86, v84, 1uLL, v88);
-    v90 = &v137;
-    std::string::resize(&v137, v89 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v86 = __error();
+    v87 = strerror(*v86);
+    v88 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v85, v83, 1uLL, v87);
+    v89 = &v136;
+    std::string::resize(&v136, v88 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v91 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+      v90 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v91 = v137.__r_.__value_.__l.__size_;
-      v90 = v137.__r_.__value_.__r.__words[0];
+      v90 = v136.__r_.__value_.__l.__size_;
+      v89 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v85 = *v85;
+      v84 = *v84;
     }
 
-    v92 = __error();
-    v93 = strerror(*v92);
-    snprintf(v90, v91, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v85, v84, 1uLL, v93);
-    v94 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v94, &v137, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
+    v91 = __error();
+    v92 = strerror(*v91);
+    snprintf(v89, v90, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v84, v83, 1uLL, v92);
+    v93 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v93, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
   }
 
-  if (v136.__r_.__value_.__r.__words[0] >> 40)
+  if (v135.__r_.__value_.__r.__words[0] >> 40)
   {
-    memset(&v137, 0, sizeof(v137));
-    v95 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-    std::string::resize(&v137, v95 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    memset(&v136, 0, sizeof(v136));
+    v94 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+    std::string::resize(&v136, v94 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v96 = &v137;
+      v95 = &v136;
     }
 
     else
     {
-      v96 = v137.__r_.__value_.__r.__words[0];
+      v95 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v97 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+      v96 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v97 = v137.__r_.__value_.__l.__size_;
+      v96 = v136.__r_.__value_.__l.__size_;
     }
 
-    snprintf(v96, v97, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-    v98 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v98, &v137, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
+    snprintf(v95, v96, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+    v97 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v97, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
   }
 
-  std::vector<long long>::resize((a1 + 168), v136.__r_.__value_.__r.__words[0]);
-  v16 = (**a2)(a2, *(a1 + 168), 8, v136.__r_.__value_.__r.__words[0]);
-  v17 = v136.__r_.__value_.__r.__words[0];
-  if (v16 != v136.__r_.__value_.__r.__words[0])
+  std::vector<long long>::resize((a1 + 168), v135.__r_.__value_.__r.__words[0]);
+  v15 = (**a2)(a2, *(a1 + 168), 8, v135.__r_.__value_.__r.__words[0]);
+  v16 = v135.__r_.__value_.__r.__words[0];
+  if (v15 != v135.__r_.__value_.__r.__words[0])
   {
-    v99 = v16;
-    memset(&v137, 0, sizeof(v137));
+    v98 = v15;
+    memset(&v136, 0, sizeof(v136));
+    v99 = a2 + 8;
     v100 = a2 + 8;
-    v101 = a2 + 8;
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v101 = *v100;
+      v100 = *v99;
     }
 
-    v102 = __error();
-    v103 = strerror(*v102);
-    v104 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v101, v99, v17, v103);
-    v105 = &v137;
-    std::string::resize(&v137, v104 + 1, 0);
-    if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v101 = __error();
+    v102 = strerror(*v101);
+    v103 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v100, v98, v16, v102);
+    v104 = &v136;
+    std::string::resize(&v136, v103 + 1, 0);
+    if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v106 = HIBYTE(v137.__r_.__value_.__r.__words[2]);
+      v105 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v106 = v137.__r_.__value_.__l.__size_;
-      v105 = v137.__r_.__value_.__r.__words[0];
+      v105 = v136.__r_.__value_.__l.__size_;
+      v104 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if (a2[31] < 0)
+    if (*(a2 + 31) < 0)
     {
-      v100 = *v100;
+      v99 = *v99;
     }
 
-    v107 = v136.__r_.__value_.__r.__words[0];
-    v108 = __error();
-    v109 = strerror(*v108);
-    snprintf(v105, v106, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v100, v99, v107, v109);
-    v110 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v110, &v137, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
+    v106 = v135.__r_.__value_.__r.__words[0];
+    v107 = __error();
+    v108 = strerror(*v107);
+    snprintf(v104, v105, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v99, v98, v106, v108);
+    v109 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v109, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 372);
   }
 
   if (*(a1 + 160) == 2)
   {
-    memset(&v137, 0, sizeof(v137));
-    v139 = 0;
-    v18 = (**a2)(a2, &v139, 8, 1);
-    if (v18 != 1)
+    memset(&v136, 0, sizeof(v136));
+    v138 = 0;
+    v17 = (**a2)(a2, &v138, 8, 1);
+    if (v17 != 1)
     {
-      memset(&v136, 0, sizeof(v136));
+      memset(&v135, 0, sizeof(v135));
+      v110 = a2 + 8;
       v111 = a2 + 8;
-      v112 = a2 + 8;
-      if (a2[31] < 0)
+      if (*(a2 + 31) < 0)
       {
-        v112 = *v111;
+        v111 = *v110;
       }
 
-      v113 = __error();
-      v114 = strerror(*v113);
-      v115 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v112, v18, 1uLL, v114);
-      v116 = &v136;
-      std::string::resize(&v136, v115 + 1, 0);
-      if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v112 = __error();
+      v113 = strerror(*v112);
+      v114 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v111, v17, 1uLL, v113);
+      v115 = &v135;
+      std::string::resize(&v135, v114 + 1, 0);
+      if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v117 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+        v116 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v117 = v136.__r_.__value_.__l.__size_;
-        v116 = v136.__r_.__value_.__r.__words[0];
+        v116 = v135.__r_.__value_.__l.__size_;
+        v115 = v135.__r_.__value_.__r.__words[0];
       }
 
-      if (a2[31] < 0)
+      if (*(a2 + 31) < 0)
       {
-        v111 = *v111;
+        v110 = *v110;
       }
 
-      v118 = __error();
-      v119 = strerror(*v118);
-      snprintf(v116, v117, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v111, v18, 1uLL, v119);
-      v120 = __cxa_allocate_exception(0x20uLL);
-      faiss::FaissException::FaissException(v120, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
+      v117 = __error();
+      v118 = strerror(*v117);
+      snprintf(v115, v116, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (1)", v110, v17, 1uLL, v118);
+      v119 = __cxa_allocate_exception(0x20uLL);
+      faiss::FaissException::FaissException(v119, &v135, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
     }
 
-    if (v139 >> 40)
+    if (v138 >> 40)
     {
-      memset(&v136, 0, sizeof(v136));
-      v121 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-      std::string::resize(&v136, v121 + 1, 0);
-      if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      memset(&v135, 0, sizeof(v135));
+      v120 = snprintf(0, 0, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+      std::string::resize(&v135, v120 + 1, 0);
+      if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v122 = &v136;
+        v121 = &v135;
       }
 
       else
       {
-        v122 = v136.__r_.__value_.__r.__words[0];
+        v121 = v135.__r_.__value_.__r.__words[0];
       }
 
-      if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v123 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+        v122 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v123 = v136.__r_.__value_.__l.__size_;
+        v122 = v135.__r_.__value_.__l.__size_;
       }
 
-      snprintf(v122, v123, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
-      v124 = __cxa_allocate_exception(0x20uLL);
-      faiss::FaissException::FaissException(v124, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
+      snprintf(v121, v122, "Error: '%s' failed", "size >= 0 && size < (uint64_t{1} << 40)");
+      v123 = __cxa_allocate_exception(0x20uLL);
+      faiss::FaissException::FaissException(v123, &v135, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
     }
 
-    std::vector<std::pair<long long,long long>>::resize(&v137, v139);
-    v19 = (**a2)(a2, v137.__r_.__value_.__r.__words[0], 16, v139);
-    v20 = v139;
-    if (v19 != v139)
+    std::vector<std::pair<long long,long long>>::resize(&v136, v138);
+    v18 = (**a2)(a2, v136.__r_.__value_.__r.__words[0], 16, v138);
+    v19 = v138;
+    if (v18 != v138)
     {
-      memset(&v136, 0, sizeof(v136));
+      memset(&v135, 0, sizeof(v135));
+      v124 = a2 + 8;
       v125 = a2 + 8;
-      v126 = a2 + 8;
-      if (a2[31] < 0)
+      if (*(a2 + 31) < 0)
       {
-        v126 = *v125;
+        v125 = *v124;
       }
 
-      v127 = __error();
-      v128 = strerror(*v127);
-      v129 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v126, v19, v20, v128);
-      v130 = &v136;
-      std::string::resize(&v136, v129 + 1, 0);
-      if ((v136.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v126 = __error();
+      v127 = strerror(*v126);
+      v128 = snprintf(0, 0, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v125, v18, v19, v127);
+      v129 = &v135;
+      std::string::resize(&v135, v128 + 1, 0);
+      if ((v135.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v131 = HIBYTE(v136.__r_.__value_.__r.__words[2]);
+        v130 = HIBYTE(v135.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v131 = v136.__r_.__value_.__l.__size_;
-        v130 = v136.__r_.__value_.__r.__words[0];
+        v130 = v135.__r_.__value_.__l.__size_;
+        v129 = v135.__r_.__value_.__r.__words[0];
       }
 
-      if (a2[31] < 0)
+      if (*(a2 + 31) < 0)
       {
-        v125 = *v125;
+        v124 = *v124;
       }
 
-      v132 = v139;
-      v133 = __error();
-      v134 = strerror(*v133);
-      snprintf(v130, v131, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v125, v19, v132, v134);
-      v135 = __cxa_allocate_exception(0x20uLL);
-      faiss::FaissException::FaissException(v135, &v136, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
+      v131 = v138;
+      v132 = __error();
+      v133 = strerror(*v132);
+      snprintf(v129, v130, "Error: '%s' failed: read error in %s: %zd != %zd (%s)", "ret == (size)", v124, v18, v131, v133);
+      v134 = __cxa_allocate_exception(0x20uLL);
+      faiss::FaissException::FaissException(v134, &v135, "void faiss::read_direct_map(DirectMap *, IOReader *)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 376);
     }
 
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__rehash<true>(a1 + 192, vcvtps_u32_f32(((v137.__r_.__value_.__l.__size_ - v137.__r_.__value_.__r.__words[0]) >> 4) / *(a1 + 224)));
-    v22 = v137.__r_.__value_.__l.__size_;
-    v21 = v137.__r_.__value_.__r.__words[0];
-    if (v137.__r_.__value_.__r.__words[0] != v137.__r_.__value_.__l.__size_)
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__rehash<true>(a1 + 192, vcvtps_u32_f32(((v136.__r_.__value_.__l.__size_ - v136.__r_.__value_.__r.__words[0]) >> 4) / *(a1 + 224)));
+    v21 = v136.__r_.__value_.__l.__size_;
+    v20 = v136.__r_.__value_.__r.__words[0];
+    if (v136.__r_.__value_.__r.__words[0] != v136.__r_.__value_.__l.__size_)
     {
       do
       {
-        *&v136.__r_.__value_.__l.__data_ = *v21;
-        v23 = v136.__r_.__value_.__l.__size_;
-        v139 = &v136;
-        std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 192), &v136)[3] = v23;
-        ++v21;
+        *&v135.__r_.__value_.__l.__data_ = *v20;
+        v22 = v135.__r_.__value_.__l.__size_;
+        v138 = &v135;
+        std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 192), &v135, &std::piecewise_construct, &v138)[3] = v22;
+        ++v20;
       }
 
-      while (v21 != v22);
-      v21 = v137.__r_.__value_.__r.__words[0];
+      while (v20 != v21);
+      v20 = v136.__r_.__value_.__r.__words[0];
     }
 
-    if (v21)
+    if (v20)
     {
-      v137.__r_.__value_.__l.__size_ = v21;
-      operator delete(v21);
+      v136.__r_.__value_.__l.__size_ = v20;
+      operator delete(v20);
     }
   }
 }
@@ -11150,12 +11152,12 @@ void sub_1D9C63D6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::read_InvertedLists(faiss *this, faiss::IndexIVF *a2, faiss::IOReader *a3)
+unint64_t *faiss::read_InvertedLists(faiss *this, faiss::IndexIVF *a2, faiss::IOReader *a3)
 {
   result = faiss::read_InvertedLists(a2, a3);
   if (result)
   {
-    if (*(result + 8) != *(this + 6))
+    if (result[1] != *(this + 6))
     {
       memset(&v14, 0, sizeof(v14));
       v6 = snprintf(0, 0, "Error: '%s' failed", "ils->nlist == ivf->nlist");
@@ -11185,7 +11187,7 @@ uint64_t faiss::read_InvertedLists(faiss *this, faiss::IndexIVF *a2, faiss::IORe
       faiss::FaissException::FaissException(exception, &v14, "void faiss::read_InvertedLists(IndexIVF *, IOReader *, int)", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/impl/index_read.cpp", 266);
     }
 
-    v5 = *(result + 16);
+    v5 = result[2];
     if (v5 != -1 && v5 != *(this + 16))
     {
       memset(&v14, 0, sizeof(v14));
@@ -11260,20 +11262,20 @@ faiss::MultiIndexQuantizer *faiss::MultiIndexQuantizer::MultiIndexQuantizer(fais
   return this;
 }
 
-void std::vector<std::pair<long long,long long>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<long long,long long>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<std::pair<long long,long long>>::__append(a1, a2 - v2);
+    std::vector<std::pair<long long,long long>>::__append(result, a2 - v2);
   }
 }
 
@@ -11340,17 +11342,17 @@ void std::vector<std::pair<long long,long long>>::__append(uint64_t a1, unint64_
   }
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C64370(_Unwind_Exception *exception_object)
@@ -11390,7 +11392,7 @@ void *faiss::ScopeDeleter1<faiss::ProductQuantizer>::~ScopeDeleter1(void *a1)
   return a1;
 }
 
-uint64_t faiss::IndexPQ::IndexPQ(uint64_t a1, int a2, unint64_t a3, unint64_t a4, int a5)
+uint64_t faiss::IndexPQ::IndexPQ(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5)
 {
   v5 = a4;
   v6 = a3;
@@ -11501,7 +11503,7 @@ void faiss::IndexPQ::train(faiss::IndexPQ *this, uint64_t a2, const float *a3)
   *(this + 25) = 1;
 }
 
-uint64_t faiss::IndexPQ::add(faiss::IndexPQ *this, unint64_t a2, const float *a3)
+faiss::ProductQuantizer *faiss::IndexPQ::add(faiss::IndexPQ *this, unint64_t a2, const float *a3)
 {
   if ((*(this + 25) & 1) == 0)
   {
@@ -11820,7 +11822,7 @@ void sub_1D9C64E94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *faiss::IndexPQ::search(faiss::IndexPQ *this, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t *a6)
+uint64_t *faiss::IndexPQ::search(faiss::IndexPQ *this, std::string::size_type a2, const float *a3, uint64_t a4, float *a5, uint64_t *a6)
 {
   if (a4 <= 0)
   {
@@ -11896,7 +11898,7 @@ uint64_t *faiss::IndexPQ::search(faiss::IndexPQ *this, uint64_t a2, const float 
       v25.__r_.__value_.__l.__size_ = a4;
       v25.__r_.__value_.__r.__words[2] = a6;
       v26 = a5;
-      v10 = faiss::ProductQuantizer::search(this + 40, a3, a2, *(this + 24), *(this + 2), &v25, 1);
+      faiss::ProductQuantizer::search(this + 5, a3, a2, *(this + 24), *(this + 2), &v25, 1);
     }
 
     else
@@ -11905,7 +11907,7 @@ uint64_t *faiss::IndexPQ::search(faiss::IndexPQ *this, uint64_t a2, const float 
       v25.__r_.__value_.__l.__size_ = a4;
       v25.__r_.__value_.__r.__words[2] = a6;
       v26 = a5;
-      v10 = faiss::ProductQuantizer::search_ip(this + 40, a3, a2, *(this + 24), *(this + 2), &v25, 1);
+      faiss::ProductQuantizer::search_ip(this + 40, a3, a2, *(this + 24), *(this + 2), &v25, 1);
     }
 
     indexPQ_stats = faiss::IndexPQStats::get_indexPQ_stats(v10);
@@ -11967,7 +11969,7 @@ void sub_1D9C654F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t *faiss::IndexPQStats::get_indexPQ_stats(faiss::IndexPQStats *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_2, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_2, memory_order_acquire) & 1) == 0)
   {
     faiss::IndexPQStats::get_indexPQ_stats();
   }
@@ -11994,7 +11996,7 @@ void *faiss::IndexPQStats::reset(void *this)
   return this;
 }
 
-void faiss::IndexPQ::hamming_distance_histogram(faiss::IndexPQ *this, uint64_t a2, const float *a3, uint64_t a4, const float *a5, uint64_t *a6)
+void faiss::IndexPQ::hamming_distance_histogram(faiss::IndexPQ *this, int64_t a2, const float *a3, unint64_t a4, const float *a5, uint64_t *a6)
 {
   if (*(this + 7) == 1)
   {
@@ -12100,7 +12102,7 @@ void sub_1D9C67288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-faiss::MultiIndexQuantizer *faiss::MultiIndexQuantizer::MultiIndexQuantizer(faiss::MultiIndexQuantizer *this, int a2, unint64_t a3, unint64_t a4)
+faiss::MultiIndexQuantizer *faiss::MultiIndexQuantizer::MultiIndexQuantizer(faiss::MultiIndexQuantizer *this, int a2, uint64_t a3, uint64_t a4)
 {
   *(this + 2) = a2;
   *(this + 2) = 0;
@@ -12134,94 +12136,6 @@ void faiss::MultiIndexQuantizer::train(faiss::MultiIndexQuantizer *this, int a2,
   }
 }
 
-uint64_t faiss::MultiIndexQuantizer::search(uint64_t this, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t *a6)
-{
-  if (a2)
-  {
-    if (a4 <= 0)
-    {
-      memset(&v23, 0, sizeof(v23));
-      v16 = snprintf(0, 0, "Error: '%s' failed", "k > 0");
-      std::string::resize(&v23, v16 + 1, 0);
-      if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v17 = &v23;
-      }
-
-      else
-      {
-        v17 = v23.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v23.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        size = v23.__r_.__value_.__l.__size_;
-      }
-
-      snprintf(v17, size, "Error: '%s' failed", "k > 0");
-      exception = __cxa_allocate_exception(0x20uLL);
-      faiss::FaissException::FaissException(exception, &v23, "virtual void faiss::MultiIndexQuantizer::search(idx_t, const float *, idx_t, float *, idx_t *) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexPQ.cpp", 932);
-    }
-
-    v9 = this;
-    v22 = this;
-    if (a2 <= 0x8000)
-    {
-      operator new[]();
-    }
-
-    v10 = 0;
-    v11 = 0;
-    v12 = 0x8000;
-    do
-    {
-      v13 = v11 + 0x8000;
-      if (a2 >= v12)
-      {
-        v14 = v12;
-      }
-
-      else
-      {
-        v14 = a2;
-      }
-
-      if (v13 >= a2)
-      {
-        v15 = a2;
-      }
-
-      else
-      {
-        v15 = v11 + 0x8000;
-      }
-
-      if (*(v9 + 24) == 1)
-      {
-        printf("MultiIndexQuantizer::search: %lld:%lld / %lld\n", v11, v15, a2);
-        v9 = v22;
-      }
-
-      this = (*(*v9 + 40))(v9, v14 + v10, &a3[v11 * *(v9 + 8)], a4, a5, a6);
-      v9 = v22;
-      a6 += 0x8000 * a4;
-      a5 += 0x8000 * a4;
-      v12 += 0x8000;
-      v10 -= 0x8000;
-      v11 += 0x8000;
-    }
-
-    while (v13 < a2);
-  }
-
-  return this;
-}
-
 void sub_1D9C67F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34)
 {
   __cxa_free_exception(v34);
@@ -12233,24 +12147,24 @@ void sub_1D9C67F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::anonymous namespace::MinSumK<float,faiss::anonymous namespace::SemiSortedArray<float>,false>::~MinSumK(uint64_t a1)
+char **faiss::anonymous namespace::MinSumK<float,faiss::anonymous namespace::SemiSortedArray<float>,false>::~MinSumK(char **a1)
 {
-  v2 = *(a1 + 40);
+  v2 = a1[5];
   if (v2)
   {
     MEMORY[0x1DA73F3F0](v2, 0x1000C8000313F17);
   }
 
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   if (v3)
   {
     MEMORY[0x1DA73F3F0](v3, 0x1000C8052888210);
   }
 
-  v4 = *(a1 + 72);
+  v4 = a1[9];
   if (v4)
   {
-    *(a1 + 80) = v4;
+    a1[10] = v4;
     operator delete(v4);
   }
 
@@ -12337,7 +12251,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-faiss::MultiIndexQuantizer2 *faiss::MultiIndexQuantizer2::MultiIndexQuantizer2(faiss::MultiIndexQuantizer2 *this, int a2, unint64_t a3, unint64_t a4, faiss::Index **a5)
+faiss::MultiIndexQuantizer2 *faiss::MultiIndexQuantizer2::MultiIndexQuantizer2(faiss::MultiIndexQuantizer2 *this, int a2, unint64_t a3, uint64_t a4, faiss::Index **a5)
 {
   v8 = faiss::MultiIndexQuantizer::MultiIndexQuantizer(this, a2, a3, a4);
   *v8 = &unk_1F5538CC8;
@@ -12406,20 +12320,20 @@ void sub_1D9C683B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<faiss::Index *>::resize(void *a1, unint64_t a2)
+void std::vector<faiss::Index *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<faiss::Index *>::__append(a1, a2 - v2);
+    std::vector<faiss::Index *>::__append(result, a2 - v2);
   }
 }
 
@@ -12464,9 +12378,9 @@ void faiss::MultiIndexQuantizer::~MultiIndexQuantizer(faiss::MultiIndexQuantizer
   JUMPOUT(0x1DA73F410);
 }
 
-faiss::MultiIndexQuantizer2 *faiss::MultiIndexQuantizer2::MultiIndexQuantizer2(faiss::MultiIndexQuantizer2 *this, int a2, unint64_t a3, faiss::Index *a4, faiss::Index *a5)
+faiss::MultiIndexQuantizer2 *faiss::MultiIndexQuantizer2::MultiIndexQuantizer2(faiss::MultiIndexQuantizer2 *this, int a2, uint64_t a3, faiss::Index *a4, faiss::Index *a5)
 {
-  v8 = faiss::MultiIndexQuantizer::MultiIndexQuantizer(this, a2, 2uLL, a3);
+  v8 = faiss::MultiIndexQuantizer::MultiIndexQuantizer(this, a2, 2, a3);
   *(v8 + 24) = 0;
   *v8 = &unk_1F5538CC8;
   *(v8 + 25) = 0;
@@ -12883,7 +12797,7 @@ void faiss::anonymous namespace::PQDistanceComputer<faiss::PQDecoder8>::set_quer
   v9 = *(a1 + 64);
   if (v7 == 1)
   {
-    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9);
+    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9, a4, a5, a6);
   }
 
   else
@@ -13029,7 +12943,7 @@ void faiss::anonymous namespace::PQDistanceComputer<faiss::PQDecoder16>::set_que
   v9 = *(a1 + 64);
   if (v7 == 1)
   {
-    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9);
+    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9, a4, a5, a6);
   }
 
   else
@@ -13175,7 +13089,7 @@ void faiss::anonymous namespace::PQDistanceComputer<faiss::PQDecoderGeneric>::se
   v9 = *(a1 + 64);
   if (v7 == 1)
   {
-    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9);
+    faiss::ProductQuantizer::compute_distance_table(v8, a2, v9, a4, a5, a6);
   }
 
   else
@@ -13458,7 +13372,7 @@ void faiss::anonymous namespace::PQDistanceComputer<faiss::PQDecoderGeneric>::~P
   JUMPOUT(0x1DA73F410);
 }
 
-void **std::vector<faiss::anonymous namespace::SemiSortedArray<float>>::~vector[abi:ne200100](void **a1)
+char **std::vector<faiss::anonymous namespace::SemiSortedArray<float>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -14406,7 +14320,7 @@ LABEL_81:
 
       if (v60 >= *(v14 + 4 * *(a2 - 1)))
       {
-        v76 = v10 + 1;
+        v76 = (v10 + 1);
         do
         {
           v10 = v76;
@@ -14415,7 +14329,7 @@ LABEL_81:
             break;
           }
 
-          ++v76;
+          v76 += 4;
         }
 
         while (v60 >= *(v14 + 4 * *v10));
@@ -14594,13 +14508,13 @@ void std::vector<faiss::Index *>::__append(uint64_t a1, unint64_t a2)
 
 void faiss::IndexPQStats::get_indexPQ_stats()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_2))
+  if (__cxa_guard_acquire(_MergedGlobals_2))
   {
     qword_1ECB70E50 = 0;
     qword_1ECB70E58 = 0;
     qword_1ECB70E60 = 0;
 
-    __cxa_guard_release(&_MergedGlobals_2);
+    __cxa_guard_release(_MergedGlobals_2);
   }
 }
 
@@ -14671,18 +14585,19 @@ void sub_1D9C6AE4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::IndexIDMapTemplate<faiss::Index>::add_with_ids(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void faiss::IndexIDMapTemplate<faiss::Index>::add_with_ids(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  (*(**(a1 + 40) + 24))(*(a1 + 40));
-  if (a2 >= 1)
+  v5 = a2;
+  (*(**(a1 + 40) + 24))(*(a1 + 40), a2, a3);
+  if (v5 >= 1)
   {
     do
     {
       std::vector<unsigned long>::push_back[abi:ne200100]((a1 + 56), a4++);
-      --a2;
+      --v5;
     }
 
-    while (a2);
+    while (v5);
   }
 
   *(a1 + 16) = *(*(a1 + 40) + 16);
@@ -14718,7 +14633,7 @@ LABEL_6:
 
 uint64_t faiss::IndexIDMapTemplate<faiss::Index>::search(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  result = (*(**(a1 + 40) + 40))(*(a1 + 40));
+  result = (*(**(a1 + 40) + 40))(*(a1 + 40), a2, a3, a4, a5);
   v11 = a4 * a2;
   if (a4 * a2 >= 1)
   {
@@ -14796,7 +14711,7 @@ uint64_t faiss::IndexIDMapTemplate<faiss::Index>::remove_ids(uint64_t a1, uint64
 
 uint64_t faiss::IndexIDMapTemplate<faiss::Index>::range_search(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  result = (*(**(a1 + 40) + 48))(*(a1 + 40));
+  result = (*(**(a1 + 40) + 48))(*(a1 + 40), a2, a3);
   v7 = *(a4[2] + 8 * a4[1]);
   if (v7)
   {
@@ -14947,18 +14862,19 @@ void sub_1D9C6B550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::IndexIDMapTemplate<faiss::IndexBinary>::add_with_ids(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void faiss::IndexIDMapTemplate<faiss::IndexBinary>::add_with_ids(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  (*(**(a1 + 32) + 24))(*(a1 + 32));
-  if (a2 >= 1)
+  v5 = a2;
+  (*(**(a1 + 32) + 24))(*(a1 + 32), a2, a3);
+  if (v5 >= 1)
   {
     do
     {
       std::vector<unsigned long>::push_back[abi:ne200100]((a1 + 48), a4++);
-      --a2;
+      --v5;
     }
 
-    while (a2);
+    while (v5);
   }
 
   *(a1 + 16) = *(*(a1 + 32) + 16);
@@ -14994,7 +14910,7 @@ LABEL_6:
 
 uint64_t faiss::IndexIDMapTemplate<faiss::IndexBinary>::search(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  result = (*(**(a1 + 32) + 40))(*(a1 + 32));
+  result = (*(**(a1 + 32) + 40))(*(a1 + 32), a2, a3, a4, a5);
   v11 = a4 * a2;
   if (a4 * a2 >= 1)
   {
@@ -15072,7 +14988,7 @@ uint64_t faiss::IndexIDMapTemplate<faiss::IndexBinary>::remove_ids(uint64_t a1, 
 
 uint64_t faiss::IndexIDMapTemplate<faiss::IndexBinary>::range_search(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  result = (*(**(a1 + 32) + 48))(*(a1 + 32));
+  result = (*(**(a1 + 32) + 48))(*(a1 + 32), a2, a3, a4);
   v8 = *(a5[2] + 8 * a5[1]);
   if (v8)
   {
@@ -15174,7 +15090,8 @@ void *faiss::IndexIDMap2Template<faiss::Index>::construct_rev_map(void *a1)
     v4 = 0;
     do
     {
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 10, (a1[7] + v3));
+      v5 = (a1[7] + v3);
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 10, v5, &std::piecewise_construct, &v5);
       result[3] = v4++;
       v3 += 8;
     }
@@ -15286,7 +15203,8 @@ void *faiss::IndexIDMap2Template<faiss::IndexBinary>::construct_rev_map(void *a1
     v4 = 0;
     do
     {
-      result = std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 9, (a1[6] + v3));
+      v5 = (a1[6] + v3);
+      result = std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 9, v5, &std::piecewise_construct, &v5);
       result[3] = v4++;
       v3 += 8;
     }
@@ -15606,7 +15524,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void faiss::IndexSplitVectors::search(faiss::IndexSplitVectors *this, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t *a6)
+void faiss::IndexSplitVectors::search(faiss::IndexSplitVectors *this, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t *j)
 {
   v15 = *MEMORY[0x1E69E9840];
   if (a4 == 1)
@@ -15683,7 +15601,7 @@ void sub_1D9C6CFCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::IndexSplitVectors::search(long long,float const*,long long,float *,long long *)const::$_1::operator()(void *a1, int a2)
+void faiss::IndexSplitVectors::search(long long,float const*,long long,float *,long long *)const::$_1::operator()(void *a1, unsigned int a2)
 {
   v3 = a1[7];
   if (*(v3 + 24) == 1)
@@ -16030,9 +15948,9 @@ uint64_t std::vector<std::future<BOOL>>::__emplace_back_slow_path<std::future<BO
   return v12;
 }
 
-void sub_1D9C6DB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D9C6DB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::future<BOOL>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -16309,7 +16227,7 @@ void faiss::DirectMap::set_type(uint64_t a1, unsigned int a2, void *a3, unint64_
             {
               v24 = *(v26.__r_.__value_.__l.__size_ + 8 * j);
               v25.__r_.__value_.__r.__words[0] = &v24;
-              std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 32), &v24)[3] = j | (v9 << 32);
+              std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 32), &v24, &std::piecewise_construct, &v25)[3] = j | (v9 << 32);
             }
           }
 
@@ -16335,20 +16253,20 @@ void sub_1D9C6E1B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<long long>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<long long>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<long long>::__append(a1, a2 - v3, a3);
+    std::vector<long long>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -16509,7 +16427,7 @@ void faiss::DirectMap::add_single_id(faiss::DirectMap *this, unint64_t a2, uint6
     else if ((a3 & 0x8000000000000000) == 0 && v4 == 2)
     {
       v10 = &v9;
-      std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 4, &v9)[3] = a4 | (a3 << 32);
+      std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 4, &v9, &std::piecewise_construct, &v10)[3] = a4 | (a3 << 32);
     }
   }
 }
@@ -16665,11 +16583,11 @@ void faiss::DirectMapAdd::~DirectMapAdd(faiss::DirectMapAdd *this)
         v4 = v2 + *(this + 2);
       }
 
-      v8[0] = v4;
+      v8 = v4;
       v5 = *(*(this + 5) + 8 * v2);
       v6 = *this;
-      v8[2] = v8;
-      std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v6 + 32), v8)[3] = v5;
+      v9 = &v8;
+      std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v6 + 32), &v8, &std::piecewise_construct, &v9)[3] = v5;
       ++v2;
     }
 
@@ -16684,7 +16602,7 @@ void faiss::DirectMapAdd::~DirectMapAdd(faiss::DirectMapAdd *this)
   }
 }
 
-uint64_t faiss::DirectMap::remove_ids(uint64_t a1, unsigned int (***a2)(const void *, void), void *a3)
+uint64_t faiss::DirectMap::remove_ids(_DWORD *a1, unsigned int (***a2)(const void *, void), void *a3)
 {
   v6 = a3[1];
   std::vector<long long>::vector[abi:ne200100](__p, v6);
@@ -16800,13 +16718,13 @@ LABEL_28:
   do
   {
     v32 = *(v17[2] + 8 * v18);
-    v19 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>((a1 + 32), &v32);
+    v19 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::find<long long>(a1 + 4, &v32);
     v20 = v19;
     if (v19)
     {
       v21 = v19[3];
       v22 = (**a3)(a3, HIDWORD(v21));
-      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::erase((a1 + 32), v20);
+      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::erase(a1 + 4, v20);
       v23 = v22 - 1;
       if (v21 < (v22 - 1))
       {
@@ -16818,7 +16736,7 @@ LABEL_28:
         (*(*a3 + 80))(a3, HIDWORD(v21), v21, v24, v35.__r_.__value_.__l.__size_);
         faiss::InvertedLists::ScopedCodes::~ScopedCodes(&v35);
         v35.__r_.__value_.__r.__words[0] = &v31;
-        std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 32), &v31)[3] = v21;
+        std::__hash_table<std::__hash_value_type<unsigned long long,long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 4, &v31, &std::piecewise_construct, &v35)[3] = v21;
       }
 
       (*(*a3 + 96))(a3, HIDWORD(v21), v23);
@@ -17109,45 +17027,37 @@ void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unord
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -17219,8 +17129,8 @@ void faiss::Level1Quantizer::~Level1Quantizer(faiss::Level1Quantizer *this)
 void faiss::Level1Quantizer::train_q1(void *a1, unint64_t a2, const float *a3, int a4, int a5)
 {
   v10 = *a1;
-  v11 = *(v10 + 2);
-  if (*(v10 + 25) == 1 && *(v10 + 2) == a1[1])
+  v11 = *(v10 + 8);
+  if (*(v10 + 25) == 1 && *(v10 + 16) == a1[1])
   {
     if (a4)
     {
@@ -17271,7 +17181,7 @@ void faiss::Level1Quantizer::train_q1(void *a1, unint64_t a2, const float *a3, i
         v18 = "";
       }
 
-      printf("Training L2 quantizer on %zd vectors in %zdD%s\n", a2, *(v10 + 2), v18);
+      printf("Training L2 quantizer on %zd vectors in %zdD%s\n", a2, *(v10 + 8), v18);
     }
 
     if (a5 != 1 && (a5 || (*(a1 + 33) & 1) == 0))
@@ -17353,7 +17263,7 @@ LABEL_42:
     (*(*v10 + 16))(v10, a2, a3);
     v13 = *a1;
     *(v13 + 24) = a4;
-    if (*(v13 + 2) != a1[1])
+    if (*(v13 + 16) != a1[1])
     {
       memset(&v29, 0, sizeof(v29));
       v14 = snprintf(0, 0, "Error: '%s' failed: nlist not consistent with quantizer size", "quantizer->ntotal == nlist");
@@ -17509,7 +17419,7 @@ void sub_1D9C6FF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::IndexIVF::IndexIVF(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, int a6)
+void faiss::IndexIVF::IndexIVF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   *a1 = &unk_1F5538160;
   *(a1 + 8) = a3;
@@ -17585,7 +17495,7 @@ void sub_1D9C70290(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::IndexIVF::add_core(faiss::IndexIVF *this, uint64_t a2, const float *a3, const uint64_t *a4, const uint64_t *a5)
+uint64_t faiss::IndexIVF::add_core(faiss::IndexIVF *this, int64_t a2, const float *a3, const uint64_t *a4, const uint64_t *a5)
 {
   v5 = a5;
   if (a2 <= 0x10000)
@@ -17734,131 +17644,132 @@ void sub_1D9C70770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void faiss::IndexIVF::search(faiss::IndexIVF *this, uint64_t a2, const float *a3, void *a4, float *a5, uint64_t *a6)
+void faiss::IndexIVF::search(faiss::IndexIVF *this, uint64_t a2, const float *a3, uint64_t a4, float *a5, uint64_t *a6)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (a4 <= 0)
   {
-    memset(&v26, 0, 24);
-    v14 = snprintf(0, 0, "Error: '%s' failed", "k > 0");
-    std::string::resize(&v26, v14 + 1, 0);
-    if (v26.__m_.__opaque[15] >= 0)
+    memset(&v33, 0, 24);
+    v20 = snprintf(0, 0, "Error: '%s' failed", "k > 0");
+    std::string::resize(&v33, v20 + 1, 0);
+    if (v33.__m_.__opaque[15] >= 0)
     {
-      sig = &v26;
+      sig = &v33;
     }
 
     else
     {
-      sig = v26.__m_.__sig;
+      sig = v33.__m_.__sig;
     }
 
-    if (v26.__m_.__opaque[15] >= 0)
+    if (v33.__m_.__opaque[15] >= 0)
     {
-      v16 = v26.__m_.__opaque[15];
+      v22 = v33.__m_.__opaque[15];
     }
 
     else
     {
-      v16 = *v26.__m_.__opaque;
+      v22 = *v33.__m_.__opaque;
     }
 
-    snprintf(sig, v16, "Error: '%s' failed", "k > 0");
+    snprintf(sig, v22, "Error: '%s' failed", "k > 0");
     exception = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(exception, &v26, "virtual void faiss::IndexIVF::search(idx_t, const float *, idx_t, float *, idx_t *) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVF.cpp", 298);
+    faiss::FaissException::FaissException(exception, &v33, "virtual void faiss::IndexIVF::search(idx_t, const float *, idx_t, float *, idx_t *) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVF.cpp", 298);
   }
 
-  v6 = *(this + 17);
-  if (v6 >= *(this + 6))
+  v7 = *(this + 17);
+  if (v7 >= *(this + 6))
   {
-    v6 = *(this + 6);
+    v7 = *(this + 6);
   }
 
-  if (!v6)
+  if (!v7)
   {
-    memset(&v26, 0, 24);
-    v18 = snprintf(0, 0, "Error: '%s' failed", "nprobe > 0");
-    std::string::resize(&v26, v18 + 1, 0);
-    if (v26.__m_.__opaque[15] >= 0)
+    memset(&v33, 0, 24);
+    v24 = snprintf(0, 0, "Error: '%s' failed", "nprobe > 0");
+    std::string::resize(&v33, v24 + 1, 0);
+    if (v33.__m_.__opaque[15] >= 0)
     {
-      v19 = &v26;
+      v25 = &v33;
     }
 
     else
     {
-      v19 = v26.__m_.__sig;
+      v25 = v33.__m_.__sig;
     }
 
-    if (v26.__m_.__opaque[15] >= 0)
+    if (v33.__m_.__opaque[15] >= 0)
     {
-      v20 = v26.__m_.__opaque[15];
+      v26 = v33.__m_.__opaque[15];
     }
 
     else
     {
-      v20 = *v26.__m_.__opaque;
+      v26 = *v33.__m_.__opaque;
     }
 
-    snprintf(v19, v20, "Error: '%s' failed", "nprobe > 0");
-    v21 = __cxa_allocate_exception(0x20uLL);
-    faiss::FaissException::FaissException(v21, &v26, "virtual void faiss::IndexIVF::search(idx_t, const float *, idx_t, float *, idx_t *) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVF.cpp", 301);
+    snprintf(v25, v26, "Error: '%s' failed", "nprobe > 0");
+    v27 = __cxa_allocate_exception(0x20uLL);
+    faiss::FaissException::FaissException(v27, &v33, "virtual void faiss::IndexIVF::search(idx_t, const float *, idx_t, float *, idx_t *) const", "/Library/Caches/com.apple.xbs/Sources/VisualLookUp/VisualIntelligence/VisualIntelligence/Vendor/faiss_search/faiss/faiss/IndexIVF.cpp", 301);
   }
 
-  v25[3] = this;
-  v25[4] = a4;
-  v25[5] = v6;
+  v32[0] = this;
+  v32[1] = a4;
+  v32[2] = v7;
   if ((*(this + 38) & ~*(this + 39)) != 0)
   {
     faiss::IndexIVFStats::get_indexIVF_stats(this);
-    faiss::IndexIVF::search(long long,float const*,long long,float *,long long *)const::$_0::operator()();
+    faiss::IndexIVF::search(long long,float const*,long long,float *,long long *)const::$_0::operator()(v32, a2, a3, a5, a6, &xmmword_1ECB70E70);
   }
 
-  v8 = a2;
-  v9 = std::vector<faiss::IndexIVFStats>::vector[abi:ne200100](v25, a2);
-  v26.__m_.__sig = 850045863;
-  memset(v26.__m_.__opaque, 0, sizeof(v26.__m_.__opaque));
+  v13 = a2;
+  v14 = std::vector<faiss::IndexIVFStats>::vector[abi:ne200100](v31, a2);
+  v33.__m_.__sig = 850045863;
+  memset(v33.__m_.__opaque, 0, sizeof(v33.__m_.__opaque));
   __p = 0;
-  v23 = 0;
-  v24 = 0;
+  v29 = 0;
+  v30 = 0;
   if (a2 > 0)
   {
-    v10 = 0;
-    v11 = 0;
-    v12 = a2;
+    v15 = 0;
+    v16 = 0;
+    v17 = a2;
     do
     {
-      if ((a2 + v11) / a2 > v11 / a2)
+      v18 = (a2 + v16) / a2;
+      if (v18 > v16 / a2)
       {
-        faiss::IndexIVF::search(long long,float const*,long long,float *,long long *)const::$_0::operator()();
+        faiss::IndexIVF::search(long long,float const*,long long,float *,long long *)const::$_0::operator()(v32, v18 - v16 / a2, &a3[v16 / a2 * *(this + 2)], &a5[v16 / a2 * a4], &a6[v16 / a2 * a4], (v31[0] + v15));
       }
 
-      v11 += a2;
-      v10 += 48;
-      --v12;
+      v16 += a2;
+      v15 += 48;
+      --v17;
     }
 
-    while (v12);
-    v13 = 0;
+    while (v17);
+    v19 = 0;
     do
     {
-      faiss::IndexIVFStats::get_indexIVF_stats(v9);
-      faiss::IndexIVFStats::add(&unk_1ECB70E70, v25[0] + v13);
-      v13 += 48;
-      --v8;
+      faiss::IndexIVFStats::get_indexIVF_stats(v14);
+      faiss::IndexIVFStats::add(&xmmword_1ECB70E70, v31[0] + v19);
+      v19 += 48;
+      --v13;
     }
 
-    while (v8);
+    while (v13);
   }
 
-  if (SHIBYTE(v24) < 0)
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p);
   }
 
-  std::mutex::~mutex(&v26);
-  if (v25[0])
+  std::mutex::~mutex(&v33);
+  if (v31[0])
   {
-    v25[1] = v25[0];
-    operator delete(v25[0]);
+    v31[1] = v31[0];
+    operator delete(v31[0]);
   }
 }
 
@@ -17958,7 +17869,7 @@ void sub_1D9C70EB4(_Unwind_Exception *a1)
 
 void *faiss::IndexIVFStats::get_indexIVF_stats(faiss::IndexIVFStats *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_3, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_3, memory_order_acquire) & 1) == 0)
   {
     faiss::IndexIVFStats::get_indexIVF_stats();
   }
@@ -17977,7 +17888,7 @@ int64x2_t faiss::IndexIVFStats::add(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void faiss::IndexIVF::search_preassigned(std::string::size_type a1, uint64_t a2, uint64_t a3, uint64_t a4, int64_t *a5, float *a6, _DWORD *a7, void *a8, char a9, uint64_t a10, void *a11)
+void faiss::IndexIVF::search_preassigned(std::string::size_type a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, float *a6, _DWORD *a7, void *a8, char a9, uint64_t a10, void *a11)
 {
   v356 = *MEMORY[0x1E69E9840];
   v354 = a4;
@@ -20032,7 +19943,7 @@ void sub_1D9C72FAC(void *a1, int a2)
   JUMPOUT(0x1D9C72DD4);
 }
 
-void faiss::IndexIVF::range_search_preassigned(std::string::size_type a1, int64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, faiss::RangeSearchResult *a6, uint64_t a7, uint64_t a8, float a9, void *a10)
+void faiss::IndexIVF::range_search_preassigned(std::string::size_type a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, faiss::RangeSearchResult *a6, uint64_t a7, uint64_t a8, float a9, void *a10)
 {
   v73 = *MEMORY[0x1E69E9840];
   v71 = a9;
@@ -20340,7 +20251,7 @@ LABEL_67:
   std::mutex::~mutex(&v72);
 }
 
-void sub_1D9C738D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42)
+void sub_1D9C738D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42)
 {
   __cxa_free_exception(v42);
   if (a16 < 0)
@@ -20439,9 +20350,9 @@ void sub_1D9C73CF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1D9C73D38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1D9C73D38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a5);
+  va_start(va, a10);
   faiss::InvertedLists::ScopedIds::~ScopedIds(va);
   JUMPOUT(0x1D9C73D48);
 }
@@ -20579,7 +20490,7 @@ uint64_t faiss::IndexIVF::sa_code_size(faiss::IndexIVF *this)
   return *(this + 16) + v3;
 }
 
-void faiss::IndexIVF::sa_encode(faiss::IndexIVF *this, uint64_t a2, const float *a3, unsigned __int8 *a4)
+void faiss::IndexIVF::sa_encode(faiss::IndexIVF *this, unint64_t a2, const float *a3, unsigned __int8 *a4)
 {
   if (*(this + 25))
   {
@@ -20749,7 +20660,7 @@ uint64_t faiss::IndexIVF::reset(faiss::IndexIVF *this)
 
 uint64_t faiss::IndexIVF::remove_ids(uint64_t a1, unsigned int (***a2)(const void *, void))
 {
-  result = faiss::DirectMap::remove_ids(a1 + 160, a2, *(a1 + 112));
+  result = faiss::DirectMap::remove_ids((a1 + 160), a2, *(a1 + 112));
   *(a1 + 16) -= result;
   return result;
 }
@@ -21537,17 +21448,17 @@ faiss::InvertedLists::ScopedIds *std::unique_ptr<faiss::InvertedLists::ScopedIds
   return result;
 }
 
-void *std::vector<faiss::IndexIVFStats>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<faiss::IndexIVFStats>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<faiss::IndexIVFStats>::__vallocate[abi:ne200100](result, a2);
+    std::vector<faiss::IndexIVFStats>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C75FFC(_Unwind_Exception *exception_object)
@@ -21562,7 +21473,7 @@ void sub_1D9C75FFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<faiss::IndexIVFStats>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<faiss::IndexIVFStats>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -21582,17 +21493,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<faiss::IndexIVFStats>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<faiss::RangeSearchPartialResult *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<faiss::RangeSearchPartialResult *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C76118(_Unwind_Exception *exception_object)
@@ -21607,7 +21518,7 @@ void sub_1D9C76118(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -21617,17 +21528,17 @@ void std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](u
   std::vector<long long>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<faiss::RangeQueryResult *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<faiss::RangeQueryResult *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<faiss::RangeSearchPartialResult *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C761CC(_Unwind_Exception *exception_object)
@@ -21644,13 +21555,13 @@ void sub_1D9C761CC(_Unwind_Exception *exception_object)
 
 void faiss::IndexIVFStats::get_indexIVF_stats()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_3))
+  if (__cxa_guard_acquire(_MergedGlobals_3))
   {
     *&qword_1ECB70E90 = 0u;
     unk_1ECB70E80 = 0u;
     unk_1ECB70E70 = 0u;
 
-    __cxa_guard_release(&_MergedGlobals_3);
+    __cxa_guard_release(_MergedGlobals_3);
   }
 }
 
@@ -21864,7 +21775,7 @@ void sub_1D9C767EC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t faiss::LinearTransform::transform_transpose(faiss::LinearTransform *this, int a2, float *b, float *c__)
+uint64_t faiss::LinearTransform::transform_transpose(faiss::LinearTransform *this, uint64_t a2, float *b, float *c__)
 {
   if (*(this + 17) == 1)
   {
@@ -21979,7 +21890,7 @@ void sub_1D9C76AC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t faiss::LinearTransform::reverse_transform(faiss::LinearTransform *this, int a2, float *a3, float *a4)
+uint64_t faiss::LinearTransform::reverse_transform(faiss::LinearTransform *this, uint64_t a2, float *a3, float *a4)
 {
   if (*(this + 18) != 1)
   {
@@ -22012,12 +21923,12 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t faiss::LinearTransform::print_if_verbose(uint64_t result, const char *a2, void *a3, int a4, int a5)
+uint64_t faiss::LinearTransform::print_if_verbose(uint64_t result, const char *a2, void *a3, int a4, unsigned int a5)
 {
   if (*(result + 72) == 1)
   {
     printf("matrix %s: %d*%d [\n", a2, a4, a5);
-    if (a5 * a4 > ((a3[1] - *a3) >> 3))
+    if ((a5 * a4) > ((a3[1] - *a3) >> 3))
     {
       memset(&v16, 0, sizeof(v16));
       v12 = snprintf(0, 0, "Error: '%s' failed", "mat.size() >= n * d");
@@ -22195,10 +22106,10 @@ uint64_t faiss::PCAMatrix::PCAMatrix(uint64_t this, int a2, int a3, float a4, ch
   return this;
 }
 
-void faiss::PCAMatrix::train(faiss::PCAMatrix *this, int *a2, const float *a3)
+void faiss::PCAMatrix::train(faiss::PCAMatrix *this, _anonymous_namespace_ *a2, const float *a3)
 {
   v66 = a2;
-  v4 = faiss::fvecs_maybe_subsample(*(this + 2), &v66, (*(this + 11) * *(this + 2)), a3, *(this + 72), 0x4D2u);
+  v4 = faiss::fvecs_maybe_subsample(*(this + 2), &v66, *(this + 11) * *(this + 2), a3, *(this + 72), 0x4D2u);
   v5 = (this + 104);
   *(this + 14) = *(this + 13);
   v6 = *(this + 2);
@@ -22461,7 +22372,7 @@ void faiss::PCAMatrix::train(faiss::PCAMatrix *this, int *a2, const float *a3)
   std::vector<double>::vector[abi:ne200100](&b, v56);
 }
 
-void sub_1D9C776C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_1D9C776C4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (__p)
   {
@@ -22487,26 +22398,26 @@ void sub_1D9C776C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v23)
   {
-    MEMORY[0x1DA73F3F0](v23, 0x1000C8052888210);
+    MEMORY[0x1DA73F3F0](v23, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
@@ -23647,7 +23558,7 @@ void faiss::OPQMatrix::train(faiss::OPQMatrix *this, int *a2, const float *a3)
   a = v29;
   v60 = v10 * v10;
   std::vector<float>::vector[abi:ne200100](v80, 4 * v60);
-  faiss::ProductQuantizer::ProductQuantizer(__p, v62, *(this + 19), 8uLL);
+  faiss::ProductQuantizer::ProductQuantizer(__p, v62, *(this + 19), 8);
   v58 = v10;
   v36 = *(this + 14);
   if (v36)
@@ -23702,7 +23613,7 @@ void faiss::OPQMatrix::train(faiss::OPQMatrix *this, int *a2, const float *a3)
 
       if (v42[4].__r_.__value_.__r.__words[0])
       {
-        faiss::ProductQuantizer::compute_codes_with_assign_index(v37, c__[0], v74[0]);
+        faiss::ProductQuantizer::compute_codes_with_assign_index(v37, c__[0], v74[0], v85);
       }
 
       else
@@ -24204,7 +24115,7 @@ void sub_1D9C7A46C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-faiss::RemapDimensionsTransform *faiss::RemapDimensionsTransform::RemapDimensionsTransform(faiss::RemapDimensionsTransform *this, int a2, int a3, int *a4)
+faiss::RemapDimensionsTransform *faiss::RemapDimensionsTransform::RemapDimensionsTransform(faiss::RemapDimensionsTransform *this, int a2, unsigned int a3, int *a4)
 {
   *(this + 2) = a2;
   *(this + 3) = a3;
@@ -24791,17 +24702,17 @@ void std::vector<float>::__append(uint64_t a1, unint64_t a2, __int32 *a3, int16x
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1D9C7B1E0(_Unwind_Exception *exception_object)

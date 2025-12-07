@@ -179,14 +179,13 @@
 
 - (void)dealloc
 {
-  transport = self->_transport;
   [objc_opt_class() cancelPreviousPerformRequestsWithTarget:self->_transport];
   [(PTPResponder *)self removeVirtualCamera];
   [(PTPResponder *)self releasePowerAssertion];
   [(PTPDeviceUSBTransport *)self->_transport setDelegate:0];
-  v4.receiver = self;
-  v4.super_class = PTPResponder;
-  [(PTPResponder *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = PTPResponder;
+  [(PTPResponder *)&v3 dealloc];
 }
 
 - (void)openSession:(id)session
@@ -224,15 +223,15 @@
 
     if (!usingMTP)
     {
-      v9 = sub_10000C470();
-      v11[0] = PLPTPHostCharacteristicsKeyMake;
-      v11[1] = PLPTPHostCharacteristicsKeyOS;
-      v12[0] = PLPTPHostCharacteristicMake_Microsoft;
-      v12[1] = PLPTPHostCharacteristicOS_Windows;
-      v11[2] = PLPTPHostCharacteristicsKeyTransport;
-      v12[2] = PLPTPHostCharacteristicTransport_PTP;
-      v10 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:3];
-      [v9 setHostCharacteristics:v10];
+      v10 = sub_10000C470(v9);
+      v12[0] = PLPTPHostCharacteristicsKeyMake;
+      v12[1] = PLPTPHostCharacteristicsKeyOS;
+      v13[0] = PLPTPHostCharacteristicMake_Microsoft;
+      v13[1] = PLPTPHostCharacteristicOS_Windows;
+      v12[2] = PLPTPHostCharacteristicsKeyTransport;
+      v13[2] = PLPTPHostCharacteristicTransport_PTP;
+      v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
+      [v10 setHostCharacteristics:v11];
     }
   }
 }
@@ -2223,7 +2222,7 @@ LABEL_7:
 - (void)setUsingMacOS:(BOOL)s
 {
   self->_usingMacOS = s;
-  v3 = sub_10000C470();
+  v3 = sub_10000C470(self);
   v5[0] = PLPTPHostCharacteristicsKeyMake;
   v5[1] = PLPTPHostCharacteristicsKeyOS;
   v6[0] = PLPTPHostCharacteristicMake_Apple;
@@ -2272,8 +2271,7 @@ LABEL_7:
   transactionID = [pCopy transactionID];
 
   v13 = [v11 initWithResponseCode:8193 transactionID:transactionID];
-  [(PTPDeviceUSBTransport *)self->_transport sendResponse:v13];
-  v14 = sub_10000C470();
+  v14 = sub_10000C470([(PTPDeviceUSBTransport *)self->_transport sendResponse:v13]);
   v16[0] = PLPTPHostCharacteristicsKeyMake;
   v16[1] = PLPTPHostCharacteristicsKeyOS;
   v17[0] = PLPTPHostCharacteristicMake_Microsoft;
@@ -2286,17 +2284,17 @@ LABEL_7:
 
 - (void)setUsingWindows
 {
-  sub_1000041E8(1);
+  v3 = sub_1000041E8(1);
   self->_usingMTP = 1;
-  v3 = sub_10000C470();
-  v5[0] = PLPTPHostCharacteristicsKeyMake;
-  v5[1] = PLPTPHostCharacteristicsKeyOS;
-  v6[0] = PLPTPHostCharacteristicMake_Microsoft;
-  v6[1] = PLPTPHostCharacteristicOS_Windows;
-  v5[2] = PLPTPHostCharacteristicsKeyTransport;
-  v6[2] = PLPTPHostCharacteristicTransport_MTP;
-  v4 = [NSDictionary dictionaryWithObjects:v6 forKeys:v5 count:3];
-  [v3 setHostCharacteristics:v4];
+  v4 = sub_10000C470(v3);
+  v6[0] = PLPTPHostCharacteristicsKeyMake;
+  v6[1] = PLPTPHostCharacteristicsKeyOS;
+  v7[0] = PLPTPHostCharacteristicMake_Microsoft;
+  v7[1] = PLPTPHostCharacteristicOS_Windows;
+  v6[2] = PLPTPHostCharacteristicsKeyTransport;
+  v7[2] = PLPTPHostCharacteristicTransport_MTP;
+  v5 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:3];
+  [v4 setHostCharacteristics:v5];
 }
 
 - (void)allowKeepAwake:(id)awake
@@ -2350,7 +2348,6 @@ LABEL_7:
   if (self->_allowKeepAwake)
   {
     [(PTPResponder *)self releasePowerAssertion];
-    powerAssertionReleaseDelay = self->_powerAssertionReleaseDelay;
     self->_cpPowerAssertion = CPPowerAssertionCreate();
   }
 }

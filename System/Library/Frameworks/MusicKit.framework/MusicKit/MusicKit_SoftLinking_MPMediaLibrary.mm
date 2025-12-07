@@ -102,30 +102,30 @@
 - (int64_t)downloadSizeForModelObject:(id)object includingNonLibraryContent:(BOOL)content
 {
   contentCopy = content;
-  v78[2] = *MEMORY[0x277D85DE8];
+  v77[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   _underlyingModelObject = [objectCopy _underlyingModelObject];
   identifiers = [_underlyingModelObject identifiers];
   modelKind = [identifiers modelKind];
   identityKind = [modelKind identityKind];
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2050000000;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2050000000;
   v10 = getMPModelAlbumKindClass_softClass;
-  v77 = getMPModelAlbumKindClass_softClass;
+  v76 = getMPModelAlbumKindClass_softClass;
   if (!getMPModelAlbumKindClass_softClass)
   {
-    v69 = MEMORY[0x277D85DD0];
-    v70 = 3221225472;
-    v71 = __getMPModelAlbumKindClass_block_invoke;
-    v72 = &unk_278229610;
-    v73 = &v74;
-    __getMPModelAlbumKindClass_block_invoke(&v69);
-    v10 = v75[3];
+    v68 = MEMORY[0x277D85DD0];
+    v69 = 3221225472;
+    v70 = __getMPModelAlbumKindClass_block_invoke;
+    v71 = &unk_278229610;
+    v72 = &v73;
+    __getMPModelAlbumKindClass_block_invoke(&v68);
+    v10 = v74[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   identityKind2 = [v10 identityKind];
   v13 = [identityKind isEqual:identityKind2];
 
@@ -135,26 +135,26 @@
     v15 = MEMORY[0x277CCABB0];
     library = [identifiers library];
     v17 = [v15 numberWithLongLong:{objc_msgSend(library, "persistentID")}];
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2020000000;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x2020000000;
     v18 = getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr;
-    v77 = getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr;
+    v76 = getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr;
     if (!getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr)
     {
-      v69 = MEMORY[0x277D85DD0];
-      v70 = 3221225472;
-      v71 = __getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_block_invoke;
-      v72 = &unk_278229610;
-      v73 = &v74;
+      v68 = MEMORY[0x277D85DD0];
+      v69 = 3221225472;
+      v70 = __getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_block_invoke;
+      v71 = &unk_278229610;
+      v72 = &v73;
       v19 = MediaPlayerLibrary_7();
       v20 = dlsym(v19, "MPMediaItemPropertyAlbumPersistentID");
-      *(v73[1] + 24) = v20;
-      getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr = *(v73[1] + 24);
-      v18 = v75[3];
+      *(v72[1] + 24) = v20;
+      getMPMediaItemPropertyAlbumPersistentIDSymbolLoc_ptr = *(v72[1] + 24);
+      v18 = v74[3];
     }
 
-    _Block_object_dispose(&v74, 8);
+    _Block_object_dispose(&v73, 8);
     if (!v18)
     {
 LABEL_32:
@@ -164,24 +164,24 @@ LABEL_32:
 
     v21 = [MPMediaPropertyPredicateClass predicateWithValue:v17 forProperty:*v18];
 
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2050000000;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x2050000000;
     v22 = getMPMediaQueryClass_softClass;
-    v77 = getMPMediaQueryClass_softClass;
+    v76 = getMPMediaQueryClass_softClass;
     if (!getMPMediaQueryClass_softClass)
     {
-      v69 = MEMORY[0x277D85DD0];
-      v70 = 3221225472;
-      v71 = __getMPMediaQueryClass_block_invoke;
-      v72 = &unk_278229610;
-      v73 = &v74;
-      __getMPMediaQueryClass_block_invoke(&v69);
-      v22 = v75[3];
+      v68 = MEMORY[0x277D85DD0];
+      v69 = 3221225472;
+      v70 = __getMPMediaQueryClass_block_invoke;
+      v71 = &unk_278229610;
+      v72 = &v73;
+      __getMPMediaQueryClass_block_invoke(&v68);
+      v22 = v74[3];
     }
 
     v23 = v22;
-    _Block_object_dispose(&v74, 8);
+    _Block_object_dispose(&v73, 8);
     v24 = [v22 alloc];
     itemsQuery = [MEMORY[0x277CBEB98] setWithObject:v21];
     v26 = [v24 initWithFilterPredicates:itemsQuery];
@@ -191,24 +191,24 @@ LABEL_32:
   {
     modelKind2 = [identifiers modelKind];
     identityKind3 = [modelKind2 identityKind];
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2050000000;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x2050000000;
     v29 = getMPModelPlaylistKindClass_softClass_0;
-    v77 = getMPModelPlaylistKindClass_softClass_0;
+    v76 = getMPModelPlaylistKindClass_softClass_0;
     if (!getMPModelPlaylistKindClass_softClass_0)
     {
-      v69 = MEMORY[0x277D85DD0];
-      v70 = 3221225472;
-      v71 = __getMPModelPlaylistKindClass_block_invoke_0;
-      v72 = &unk_278229610;
-      v73 = &v74;
-      __getMPModelPlaylistKindClass_block_invoke_0(&v69);
-      v29 = v75[3];
+      v68 = MEMORY[0x277D85DD0];
+      v69 = 3221225472;
+      v70 = __getMPModelPlaylistKindClass_block_invoke_0;
+      v71 = &unk_278229610;
+      v72 = &v73;
+      __getMPModelPlaylistKindClass_block_invoke_0(&v68);
+      v29 = v74[3];
     }
 
     v30 = v29;
-    _Block_object_dispose(&v74, 8);
+    _Block_object_dispose(&v73, 8);
     identityKind4 = [v29 identityKind];
     v32 = [identityKind3 isEqual:identityKind4];
 
@@ -229,45 +229,45 @@ LABEL_32:
   v35 = v26;
 
   [v35 setMediaLibrary:self->_underlyingMediaLibrary];
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2050000000;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2050000000;
   v36 = getMPMediaCompoundAllPredicateClass_softClass;
-  v77 = getMPMediaCompoundAllPredicateClass_softClass;
+  v76 = getMPMediaCompoundAllPredicateClass_softClass;
   if (!getMPMediaCompoundAllPredicateClass_softClass)
   {
-    v69 = MEMORY[0x277D85DD0];
-    v70 = 3221225472;
-    v71 = __getMPMediaCompoundAllPredicateClass_block_invoke;
-    v72 = &unk_278229610;
-    v73 = &v74;
-    __getMPMediaCompoundAllPredicateClass_block_invoke(&v69);
-    v36 = v75[3];
+    v68 = MEMORY[0x277D85DD0];
+    v69 = 3221225472;
+    v70 = __getMPMediaCompoundAllPredicateClass_block_invoke;
+    v71 = &unk_278229610;
+    v72 = &v73;
+    __getMPMediaCompoundAllPredicateClass_block_invoke(&v68);
+    v36 = v74[3];
   }
 
   v37 = v36;
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   v38 = getMPMediaPropertyPredicateClass();
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
   v39 = getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr;
-  v77 = getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr;
+  v76 = getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr;
   if (!getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr)
   {
-    v69 = MEMORY[0x277D85DD0];
-    v70 = 3221225472;
-    v71 = __getMPMediaEntityPropertyKeepLocalSymbolLoc_block_invoke;
-    v72 = &unk_278229610;
-    v73 = &v74;
+    v68 = MEMORY[0x277D85DD0];
+    v69 = 3221225472;
+    v70 = __getMPMediaEntityPropertyKeepLocalSymbolLoc_block_invoke;
+    v71 = &unk_278229610;
+    v72 = &v73;
     v40 = MediaPlayerLibrary_7();
     v41 = dlsym(v40, "MPMediaEntityPropertyKeepLocal");
-    *(v73[1] + 24) = v41;
-    getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr = *(v73[1] + 24);
-    v39 = v75[3];
+    *(v72[1] + 24) = v41;
+    getMPMediaEntityPropertyKeepLocalSymbolLoc_ptr = *(v72[1] + 24);
+    v39 = v74[3];
   }
 
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   if (!v39)
   {
     goto LABEL_32;
@@ -275,28 +275,28 @@ LABEL_32:
 
   v42 = *v39;
   v43 = [v38 predicateWithValue:&unk_282988FE8 forProperty:v42 comparisonType:100];
-  v78[0] = v43;
+  v77[0] = v43;
   v44 = getMPMediaPropertyPredicateClass();
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
   v45 = getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr;
-  v77 = getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr;
+  v76 = getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr;
   if (!getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr)
   {
-    v69 = MEMORY[0x277D85DD0];
-    v70 = 3221225472;
-    v71 = __getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_block_invoke;
-    v72 = &unk_278229610;
-    v73 = &v74;
+    v68 = MEMORY[0x277D85DD0];
+    v69 = 3221225472;
+    v70 = __getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_block_invoke;
+    v71 = &unk_278229610;
+    v72 = &v73;
     v46 = MediaPlayerLibrary_7();
     v47 = dlsym(v46, "MPMediaEntityPropertyKeepLocalStatus");
-    *(v73[1] + 24) = v47;
-    getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr = *(v73[1] + 24);
-    v45 = v75[3];
+    *(v72[1] + 24) = v47;
+    getMPMediaEntityPropertyKeepLocalStatusSymbolLoc_ptr = *(v72[1] + 24);
+    v45 = v74[3];
   }
 
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   if (!v45)
   {
     goto LABEL_32;
@@ -304,8 +304,8 @@ LABEL_32:
 
   v48 = *v45;
   v49 = [v44 predicateWithValue:&unk_282989000 forProperty:v48 comparisonType:100];
-  v78[1] = v49;
-  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
+  v77[1] = v49;
+  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
   v51 = [v36 predicateMatchingPredicates:v50];
 
   v52 = [v35 copy];
@@ -315,26 +315,26 @@ LABEL_32:
     [v52 setShouldIncludeNonLibraryEntities:1];
   }
 
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
   v53 = getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr;
-  v77 = getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr;
+  v76 = getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr;
   if (!getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr)
   {
-    v69 = MEMORY[0x277D85DD0];
-    v70 = 3221225472;
-    v71 = __getMPMediaQueryAggregateFunctionTotalSymbolLoc_block_invoke;
-    v72 = &unk_278229610;
-    v73 = &v74;
+    v68 = MEMORY[0x277D85DD0];
+    v69 = 3221225472;
+    v70 = __getMPMediaQueryAggregateFunctionTotalSymbolLoc_block_invoke;
+    v71 = &unk_278229610;
+    v72 = &v73;
     v54 = MediaPlayerLibrary_7();
     v55 = dlsym(v54, "MPMediaQueryAggregateFunctionTotal");
-    *(v73[1] + 24) = v55;
-    getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr = *(v73[1] + 24);
-    v53 = v75[3];
+    *(v72[1] + 24) = v55;
+    getMPMediaQueryAggregateFunctionTotalSymbolLoc_ptr = *(v72[1] + 24);
+    v53 = v74[3];
   }
 
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v73, 8);
   if (!v53)
   {
     goto LABEL_32;
@@ -361,7 +361,6 @@ LABEL_32:
   v65 = longLongValue + 7000000 * _countOfItems;
 LABEL_31:
 
-  v66 = *MEMORY[0x277D85DE8];
   return v65;
 }
 
@@ -426,39 +425,38 @@ LABEL_31:
 
 + (NSArray)sharedLibraries
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sharedMediaLibraries = [getMPMediaLibraryClass() sharedMediaLibraries];
-  v5 = [sharedMediaLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [sharedMediaLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(sharedMediaLibraries);
         }
 
-        v9 = [[self alloc] _initWithUnderlyingMediaLibrary:*(*(&v13 + 1) + 8 * i)];
+        v9 = [[self alloc] _initWithUnderlyingMediaLibrary:*(*(&v12 + 1) + 8 * i)];
         [v3 addObject:v9];
       }
 
-      v6 = [sharedMediaLibraries countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [sharedMediaLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

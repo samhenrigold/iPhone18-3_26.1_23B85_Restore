@@ -6,7 +6,7 @@
 
 - (DAEASOAuthTokenRefreshResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   responseCopy = response;
   errorCopy = error;
@@ -16,15 +16,15 @@
   if (os_log_type_enabled(v11, v13))
   {
     *buf = 134218242;
-    v51 = [dataCopy length];
-    v52 = 2112;
-    v53 = errorCopy;
+    v50 = [dataCopy length];
+    v51 = 2112;
+    v52 = errorCopy;
     _os_log_impl(&dword_247E05000, v11, v13, "DAEASOAuthTokenRefreshResponse initWithData: (length: %lu, responseError: %@)", buf, 0x16u);
   }
 
-  v49.receiver = self;
-  v49.super_class = DAEASOAuthTokenRefreshResponse;
-  v14 = [(DAEASOAuthTokenRefreshResponse *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = DAEASOAuthTokenRefreshResponse;
+  v14 = [(DAEASOAuthTokenRefreshResponse *)&v48 init];
   v15 = v14;
   if (v14)
   {
@@ -50,7 +50,7 @@
     {
       statusCode = v15->_statusCode;
       *buf = 134217984;
-      v51 = statusCode;
+      v50 = statusCode;
       _os_log_impl(&dword_247E05000, v17, v13, "DAEASOAuthTokenRefreshResponse httpResponse status code %ld", buf, 0xCu);
     }
 
@@ -61,10 +61,10 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    v48 = 0;
-    v19 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v48];
-    v20 = v48;
-    v21 = v48;
+    v47 = 0;
+    v19 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v47];
+    v20 = v47;
+    v21 = v47;
     if (v21)
     {
       objc_storeStrong(&v15->_error, v20);
@@ -90,9 +90,9 @@ LABEL_21:
       {
         v30 = v15->_errorMessage;
         *buf = 138543618;
-        v51 = v30;
-        v52 = 2112;
-        v53 = v19;
+        v50 = v30;
+        v51 = 2112;
+        v52 = v19;
         v31 = "DAEASOAuthTokenRefreshResponse received an error: %{public}@ %@";
         v32 = v28;
         v33 = v29;
@@ -148,7 +148,6 @@ LABEL_19:
 
 LABEL_22:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

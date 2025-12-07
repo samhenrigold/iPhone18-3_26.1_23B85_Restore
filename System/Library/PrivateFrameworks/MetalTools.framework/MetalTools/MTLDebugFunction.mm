@@ -12,101 +12,96 @@
 
 - (unint64_t)getIntersectionFunctionSignature
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [-[MTLToolsFunction reflectionWithOptions:](self reflectionWithOptions:{0), "tags"}];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = 0;
-    v6 = *v12;
-    do
+    return 0;
+  }
+
+  v4 = v3;
+  v5 = 0;
+  v6 = *v11;
+  do
+  {
+    for (i = 0; i != v4; ++i)
     {
-      for (i = 0; i != v4; ++i)
+      if (*v11 != v6)
       {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(v2);
-        }
+        objc_enumerationMutation(v2);
+      }
 
-        tagType = [*(*(&v11 + 1) + 8 * i) tagType];
-        if (tagType > 5)
+      tagType = [*(*(&v10 + 1) + 8 * i) tagType];
+      if (tagType > 5)
+      {
+        if (tagType <= 7)
         {
-          if (tagType <= 7)
+          if (tagType == 6)
           {
-            if (tagType == 6)
-            {
-              v5 |= 0x20uLL;
-            }
-
-            else
-            {
-              v5 |= 0x80uLL;
-            }
+            v5 |= 0x20uLL;
           }
 
           else
           {
-            switch(tagType)
-            {
-              case 8:
-                v5 |= 0x40uLL;
-                break;
-              case 9:
-                v5 |= 0x100uLL;
-                break;
-              case 10:
-                v5 |= 0x200uLL;
-                break;
-            }
+            v5 |= 0x80uLL;
           }
-        }
-
-        else if (tagType <= 2)
-        {
-          if (tagType == 1)
-          {
-            v5 |= 1uLL;
-          }
-
-          else if (tagType == 2)
-          {
-            v5 |= 2uLL;
-          }
-        }
-
-        else if (tagType == 3)
-        {
-          v5 |= 4uLL;
-        }
-
-        else if (tagType == 4)
-        {
-          v5 |= 8uLL;
         }
 
         else
         {
-          v5 |= 0x10uLL;
+          switch(tagType)
+          {
+            case 8:
+              v5 |= 0x40uLL;
+              break;
+            case 9:
+              v5 |= 0x100uLL;
+              break;
+            case 10:
+              v5 |= 0x200uLL;
+              break;
+          }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      else if (tagType <= 2)
+      {
+        if (tagType == 1)
+        {
+          v5 |= 1uLL;
+        }
+
+        else if (tagType == 2)
+        {
+          v5 |= 2uLL;
+        }
+      }
+
+      else if (tagType == 3)
+      {
+        v5 |= 4uLL;
+      }
+
+      else if (tagType == 4)
+      {
+        v5 |= 8uLL;
+      }
+
+      else
+      {
+        v5 |= 0x10uLL;
+      }
     }
 
-    while (v4);
+    v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
+  while (v4);
   return v5;
 }
 

@@ -1,6 +1,7 @@
 @interface BRListNonLocalVersionsOperation
 - (BOOL)__advanceToState:(char)state result:(id)result error:(id)error;
 - (BOOL)__finishIfCancelled;
+- (BOOL)_advanceToState:(char)state result:(id)result error:(id)error;
 - (BOOL)_setVersionStoreForDocumentAtURL:(id)l error:(id *)error;
 - (BRListNonLocalVersionsOperation)initWithDocumentURL:(id)l;
 - (NSString)description;
@@ -8,6 +9,7 @@
 - (void)_senderInvalidate;
 - (void)cancel;
 - (void)dealloc;
+- (void)newCachedVersionAtURL:(id)l size:(id)size etag:(id)etag hasThumbnail:(BOOL)thumbnail displayName:(id)name lastEditorDeviceName:(id)deviceName lastEditorNameComponents:(id)components modificationDate:(id)self0;
 - (void)newFaultVersionAtURL:(id)l faultURL:(id)rL faultExtension:(id)extension etag:(id)etag hasThumbnail:(BOOL)thumbnail displayName:(id)name lastEditorDeviceName:(id)deviceName lastEditorNameComponents:(id)self0 modificationDate:(id)self1;
 - (void)newThumbnailForVersionWithEtag:(id)etag;
 - (void)setExecuting:(BOOL)executing;
@@ -110,7 +112,7 @@
 - (BOOL)__advanceToState:(char)state result:(id)result error:(id)error
 {
   stateCopy = state;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   if (![(BRListNonLocalVersionsOperation *)self isFinished])
@@ -159,13 +161,13 @@ LABEL_11:
     v13 = brc_default_log(1, 0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412802;
+      v16 = 138412802;
       selfCopy = self;
-      v19 = 2112;
-      v20 = errorCopy;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_debug_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ did finish with error %@%@", &v17, 0x20u);
+      v18 = 2112;
+      v19 = errorCopy;
+      v20 = 2112;
+      v21 = v12;
+      _os_log_debug_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ did finish with error %@%@", &v16, 0x20u);
     }
 
     [(BRListNonLocalVersionsOperation *)self _senderInvalidate];
@@ -174,8 +176,29 @@ LABEL_11:
   v14 = 1;
 LABEL_17:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
+}
+
+- (BOOL)_advanceToState:(char)state result:(id)result error:(id)error
+{
+  stateCopy = state;
+  resultCopy = result;
+  errorCopy = error;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ([(BRListNonLocalVersionsOperation *)selfCopy __finishIfCancelled])
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = [(BRListNonLocalVersionsOperation *)selfCopy __advanceToState:stateCopy result:resultCopy error:errorCopy];
+  }
+
+  objc_sync_exit(selfCopy);
+
+  return v11;
 }
 
 - (BOOL)_setVersionStoreForDocumentAtURL:(id)l error:(id *)error
@@ -194,10 +217,48 @@ LABEL_17:
 
 - (void)start
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] not starting %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if ([(BRListNonLocalVersionsOperation *)selfCopy isExecuting]|| [(BRListNonLocalVersionsOperation *)selfCopy isFinished])
+  {
+    v3 = brc_bread_crumbs("[BRListNonLocalVersionsOperation start]", 260);
+    v4 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [BRListNonLocalVersionsOperation start];
+    }
+
+    objc_sync_exit(selfCopy);
+  }
+
+  else
+  {
+    [(BRListNonLocalVersionsOperation *)selfCopy setExecuting:1];
+    objc_sync_exit(selfCopy);
+
+    memset(v10, 0, sizeof(v10));
+    __brc_create_section(0, "[BRListNonLocalVersionsOperation start]", 266, 0, v10);
+    v5 = brc_bread_crumbs("[BRListNonLocalVersionsOperation start]", 266);
+    v6 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v10[0];
+      path = [(NSURL *)selfCopy->_documentURL path];
+      *buf = 134218498;
+      v12 = v8;
+      v13 = 2112;
+      v14 = path;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Starting to get versions for %@%@", buf, 0x20u);
+    }
+
+    v7 = [MEMORY[0x1E696ABC0] brc_errorOperationNotImplemented:selfCopy];
+    [(BRListNonLocalVersionsOperation *)selfCopy _advanceToState:2 result:0 error:v7];
+
+    __brc_leave_section(v10);
+  }
 }
 
 - (NSString)description
@@ -256,7 +317,7 @@ LABEL_17:
 - (void)newFaultVersionAtURL:(id)l faultURL:(id)rL faultExtension:(id)extension etag:(id)etag hasThumbnail:(BOOL)thumbnail displayName:(id)name lastEditorDeviceName:(id)deviceName lastEditorNameComponents:(id)self0 modificationDate:(id)self1
 {
   thumbnailCopy = thumbnail;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   extensionCopy = extension;
@@ -273,7 +334,7 @@ LABEL_17:
 
   selfCopy = self;
   _CFURLPromiseSetPhysicalURL();
-  v32 = lCopy;
+  v31 = lCopy;
   v25 = nameCopy;
   if (![extensionCopy length])
   {
@@ -290,11 +351,11 @@ LABEL_17:
     if (os_log_type_enabled(v29, 0x90u))
     {
       *buf = 138412802;
-      v36 = extensionCopy;
-      v37 = 1024;
-      v38 = v27;
-      v39 = 2112;
-      v40 = v28;
+      v35 = extensionCopy;
+      v36 = 1024;
+      v37 = v27;
+      v38 = 2112;
+      v39 = v28;
       _os_log_error_impl(&dword_1AE2A9000, v29, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
     }
 
@@ -318,14 +379,30 @@ LABEL_9:
     v30 = 0;
   }
 
-  lCopy = v32;
-  v24 = [[BRNonLocalVersion alloc] initWithURL:v32 physicalURL:rLCopy size:v30 extension:extensionCopy etag:etagCopy hasThumbnail:thumbnailCopy displayName:v25 lastEditorDeviceName:deviceNameCopy lastEditorNameComponents:componentsCopy modificationDate:dateCopy versionsStore:selfCopy->_versionsStore];
+  lCopy = v31;
+  v24 = [[BRNonLocalVersion alloc] initWithURL:v31 physicalURL:rLCopy size:v30 extension:extensionCopy etag:etagCopy hasThumbnail:thumbnailCopy displayName:v25 lastEditorDeviceName:deviceNameCopy lastEditorNameComponents:componentsCopy modificationDate:dateCopy versionsStore:selfCopy->_versionsStore];
   [(BRListNonLocalVersionsOperation *)selfCopy _addVersion:v24];
 
   nameCopy = v25;
 LABEL_13:
+}
 
-  v31 = *MEMORY[0x1E69E9840];
+- (void)newCachedVersionAtURL:(id)l size:(id)size etag:(id)etag hasThumbnail:(BOOL)thumbnail displayName:(id)name lastEditorDeviceName:(id)deviceName lastEditorNameComponents:(id)components modificationDate:(id)self0
+{
+  thumbnailCopy = thumbnail;
+  lCopy = l;
+  sizeCopy = size;
+  etagCopy = etag;
+  nameCopy = name;
+  deviceNameCopy = deviceName;
+  componentsCopy = components;
+  dateCopy = date;
+  v22 = [(NSMutableDictionary *)self->_versionsByEtag objectForKey:etagCopy];
+  if (!v22)
+  {
+    v22 = [[BRNonLocalVersion alloc] initWithURL:lCopy physicalURL:lCopy size:sizeCopy extension:0 etag:etagCopy hasThumbnail:thumbnailCopy displayName:nameCopy lastEditorDeviceName:deviceNameCopy lastEditorNameComponents:componentsCopy modificationDate:dateCopy versionsStore:self->_versionsStore];
+    [(BRListNonLocalVersionsOperation *)self _addVersion:v22];
+  }
 }
 
 - (void)newThumbnailForVersionWithEtag:(id)etag
@@ -342,22 +419,6 @@ LABEL_13:
 
     [v3 setHasThumbnail:1];
   }
-}
-
-- (void)_addVersion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] adding version: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)newThumbnailForVersionWithEtag:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] %@ now has a thumbnail%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -452,7 +452,7 @@ LABEL_16:
 
     else if ([v10 count] < 2)
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Tried to perform scroll action %i that had no scroll views.");
     }
 
     else

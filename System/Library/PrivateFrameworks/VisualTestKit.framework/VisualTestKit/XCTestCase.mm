@@ -50,7 +50,7 @@
   return v6;
 }
 
-id __55__XCTestCase_VisualTestKit__VisualTestKitConfiguration__block_invoke(uint64_t a1)
+VTKInternalConfiguration *__55__XCTestCase_VisualTestKit__VisualTestKitConfiguration__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5[0] = _NSConcreteStackBlock;

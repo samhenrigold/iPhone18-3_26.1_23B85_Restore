@@ -135,7 +135,7 @@
   }
 }
 
-uint64_t __36__BPSListController_viewWillAppear___block_invoke(uint64_t a1)
+void *__36__BPSListController_viewWillAppear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) deferringReloadSpecifiers];
   if (result)

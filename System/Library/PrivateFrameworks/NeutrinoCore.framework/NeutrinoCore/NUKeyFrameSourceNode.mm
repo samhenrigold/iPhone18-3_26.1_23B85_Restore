@@ -577,9 +577,9 @@ void __78__NUKeyFrameSourceNode__evaluateImageWithSourceOptions_subsampleFactor_
 
       v10 = v9;
       memset(&v54, 0, sizeof(v54));
-      [v9 timeRange];
+      objc_msgSend_timeRange(v9);
       CMTimeRangeGetEnd(&lhs, &range);
-      [NUVideoUtilities minimumFrameDurationForAssetTrack:v10];
+      objc_msgSend_minimumFrameDurationForAssetTrack_(NUVideoUtilities);
       CMTimeSubtract(&v54, &lhs, &range.start);
       memset(&range, 0, 24);
       lhs = self->_frameTime;

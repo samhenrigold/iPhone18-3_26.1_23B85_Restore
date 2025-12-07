@@ -6,10 +6,10 @@
 
 - (id)describeProperties
 {
-  v37.receiver = self;
-  v37.super_class = AAProximityPairingStatusPayloadB515;
-  describeProperties = [(AAProximityPairingStatusPayloadGeneral *)&v37 describeProperties];
-  v36 = describeProperties;
+  v31.receiver = self;
+  v31.super_class = AAProximityPairingStatusPayloadB515;
+  describeProperties = [(AAProximityPairingStatusPayloadGeneral *)&v31 describeProperties];
+  v30 = describeProperties;
   primaryLocation = [(AAProximityPairingStatusPayloadB515 *)self primaryLocation];
   if (primaryLocation > 3)
   {
@@ -21,11 +21,10 @@
     v5 = off_278CDE210[primaryLocation];
   }
 
-  v22 = v5;
-  NSAppendPrintF_safe();
-  v6 = v36;
+  NSAppendPrintF_safe(&v30, ", Loc: %s", v5);
+  v6 = v30;
 
-  v35 = v6;
+  v29 = v6;
   if ([(AAProximityPairingStatusPayloadB515 *)self outOfBoxMode])
   {
     v7 = "yes";
@@ -36,16 +35,14 @@
     v7 = "no";
   }
 
-  v23 = v7;
-  NSAppendPrintF_safe();
-  v8 = v35;
+  NSAppendPrintF_safe(&v29, ", Out of Box: %s", v7);
+  v8 = v29;
 
-  v34 = v8;
-  lidOpenCount = [(AAProximityPairingStatusPayloadB515 *)self lidOpenCount];
-  NSAppendPrintF_safe();
-  v9 = v8;
+  v28 = v8;
+  NSAppendPrintF_safe(&v28, ", lid open count: %d", [(AAProximityPairingStatusPayloadB515 *)self lidOpenCount]);
+  v9 = v28;
 
-  v33 = v9;
+  v27 = v9;
   if ([(AAProximityPairingStatusPayloadB515 *)self unsupportedAccessoryConnected])
   {
     v10 = "yes";
@@ -56,11 +53,10 @@
     v10 = "no";
   }
 
-  v25 = v10;
-  NSAppendPrintF_safe();
-  v11 = v33;
+  NSAppendPrintF_safe(&v27, ", Unsup acc conn: %s", v10);
+  v11 = v27;
 
-  v32 = v11;
+  v26 = v11;
   caseLedColor = [(AAProximityPairingStatusPayloadB515 *)self caseLedColor];
   if (caseLedColor > 3)
   {
@@ -72,11 +68,10 @@
     v13 = off_278CDE1F0[caseLedColor];
   }
 
-  v26 = v13;
-  NSAppendPrintF_safe();
-  v14 = v32;
+  NSAppendPrintF_safe(&v26, ", led col: %s", v13);
+  v14 = v26;
 
-  v31 = v14;
+  v25 = v14;
   if ([(AAProximityPairingStatusPayloadB515 *)self showProxStatus])
   {
     v15 = "yes";
@@ -87,30 +82,29 @@
     v15 = "no";
   }
 
-  v27 = v15;
-  NSAppendPrintF_safe();
-  v16 = v31;
+  NSAppendPrintF_safe(&v25, ", show prox: %s", v15);
+  v16 = v25;
 
-  v30[1] = v16;
-  cupColor = [(AAProximityPairingStatusPayloadB515 *)self cupColor];
-  NSAppendPrintF_safe();
-  v17 = v16;
+  v24 = v16;
+  NSAppendPrintF_safe(&v24, ", cup col: %d", [(AAProximityPairingStatusPayloadB515 *)self cupColor]);
+  v17 = v24;
 
   if ([(AAProximityPairingStatusPayloadB515 *)self mainBatteryValid])
   {
     [(AAProximityPairingStatusPayloadB515 *)self mainBatteryCharging];
-    v30[0] = v17;
+    v23 = v17;
     [(AAProximityPairingStatusPayloadB515 *)self mainBatteryLevel];
-    v18 = v30;
+    v18 = &v23;
+    NSAppendPrintF_safe(&v23, ", M Batt: %s%d%%");
   }
 
   else
   {
-    v29 = v17;
-    v18 = &v29;
+    v22 = v17;
+    v18 = &v22;
+    NSAppendPrintF_safe(&v22, ", M Batt: invalid");
   }
 
-  NSAppendPrintF_safe();
   v19 = *v18;
   v20 = v19;
 

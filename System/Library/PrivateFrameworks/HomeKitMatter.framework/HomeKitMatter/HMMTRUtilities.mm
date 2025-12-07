@@ -144,27 +144,27 @@
 
 + (void)printAccessControlList:(id)list
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = list;
-  v31 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
+  if (v30)
   {
-    v30 = *v38;
+    v29 = *v37;
     do
     {
       v3 = 0;
       do
       {
-        if (*v38 != v30)
+        if (*v37 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v37 + 1) + 8 * v3);
+        v4 = *(*(&v36 + 1) + 8 * v3);
         v5 = objc_autoreleasePoolPush();
         v6 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -173,9 +173,9 @@
           privilege = [v4 privilege];
           v9 = [HMMTRUtilities mtrPrivilegeAsString:privilege];
           *buf = 138543618;
-          v42 = v7;
-          v43 = 2112;
-          v44 = v9;
+          v41 = v7;
+          v42 = 2112;
+          v43 = v9;
           _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Privilege: %@", buf, 0x16u);
         }
 
@@ -188,13 +188,13 @@
           authMode = [v4 authMode];
           v14 = [HMMTRUtilities mtrAuthModeAsString:authMode];
           *buf = 138543618;
-          v42 = v12;
-          v43 = 2112;
-          v44 = v14;
+          v41 = v12;
+          v42 = 2112;
+          v43 = v14;
           _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@AuthMode: %@", buf, 0x16u);
         }
 
-        v32 = v3;
+        v31 = v3;
 
         objc_autoreleasePoolPop(v10);
         v15 = objc_autoreleasePoolPush();
@@ -203,31 +203,31 @@
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v42 = v17;
+          v41 = v17;
           _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@    Subjects:", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v15);
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         subjects = [v4 subjects];
-        v19 = [subjects countByEnumeratingWithState:&v33 objects:v47 count:16];
+        v19 = [subjects countByEnumeratingWithState:&v32 objects:v46 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v34;
+          v21 = *v33;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v34 != v21)
+              if (*v33 != v21)
               {
                 objc_enumerationMutation(subjects);
               }
 
-              v23 = *(*(&v33 + 1) + 8 * i);
+              v23 = *(*(&v32 + 1) + 8 * i);
               v24 = objc_autoreleasePoolPush();
               v25 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
@@ -235,34 +235,32 @@
                 v26 = HMFGetLogIdentifier();
                 integerValue = [v23 integerValue];
                 *buf = 138543874;
-                v42 = v26;
-                v43 = 2112;
-                v44 = v23;
-                v45 = 1024;
-                v46 = integerValue;
+                v41 = v26;
+                v42 = 2112;
+                v43 = v23;
+                v44 = 1024;
+                v45 = integerValue;
                 _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_INFO, "%{public}@    %@ (0x%016X)", buf, 0x1Cu);
               }
 
               objc_autoreleasePoolPop(v24);
             }
 
-            v20 = [subjects countByEnumeratingWithState:&v33 objects:v47 count:16];
+            v20 = [subjects countByEnumeratingWithState:&v32 objects:v46 count:16];
           }
 
           while (v20);
         }
 
-        v3 = v32 + 1;
+        v3 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (id)mtrAuthModeAsString:(id)string
@@ -891,7 +889,7 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
 
 + (id)vendorNameForVendorID:(id)d vendorMetadataStore:(id)store
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   storeCopy = store;
   if ([dCopy unsignedShortValue] == 65522)
@@ -921,11 +919,11 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v15;
-        v20 = 2112;
-        v21 = dCopy;
-        _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Cannot find vendor name for vendorID %@, returning vendorID as vendor name.", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v15;
+        v19 = 2112;
+        v20 = dCopy;
+        _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Cannot find vendor name for vendorID %@, returning vendorID as vendor name.", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -935,14 +933,12 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
     v8 = name;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)mtrBaseClusterValueFromMTRClusterReadResultValue:(id)value clusterIdentifier:(id)identifier attributeIdentifier:(id)attributeIdentifier forIdentify:(id)identify
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   identifierCopy = identifier;
   attributeIdentifierCopy = attributeIdentifier;
@@ -965,11 +961,11 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
     v17 = v16;
 
     v18 = *MEMORY[0x277CD50B0];
-    v62 = identifierCopy;
-    v65 = attributeIdentifierCopy;
+    v61 = identifierCopy;
+    v64 = attributeIdentifierCopy;
     if ([v17 isEqual:*MEMORY[0x277CD50B0]])
     {
-      v56 = *MEMORY[0x277CD51A0];
+      v55 = *MEMORY[0x277CD51A0];
       v19 = [valueCopy objectForKeyedSubscript:?];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -984,35 +980,35 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
 
       v21 = v20;
 
-      v57 = v21;
+      v56 = v21;
       if (v21)
       {
-        v55 = v17;
-        v64 = identifyCopy;
-        v63 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v21, "count")}];
+        v54 = v17;
+        v63 = identifyCopy;
+        v62 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v21, "count")}];
+        v65 = 0u;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
         obj = v21;
-        v22 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v22 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
         if (v22)
         {
           v23 = v22;
-          v61 = *v67;
-          v60 = *MEMORY[0x277CD50D8];
-          v58 = *MEMORY[0x277CD5180];
-          v54 = valueCopy;
+          v60 = *v66;
+          v59 = *MEMORY[0x277CD50D8];
+          v57 = *MEMORY[0x277CD5180];
+          v53 = valueCopy;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v67 != v61)
+              if (*v66 != v60)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v25 = *(*(&v66 + 1) + 8 * i);
+              v25 = *(*(&v65 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -1023,17 +1019,17 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
                 {
                   v29 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v72 = v29;
-                  v73 = 2112;
-                  v74 = v64;
+                  v71 = v29;
+                  v72 = 2112;
+                  v73 = v63;
                   _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Array element is not a dictionary %@", buf, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v26);
-                identifierCopy = v62;
+                identifierCopy = v61;
               }
 
-              v30 = [v25 objectForKeyedSubscript:{v60, v54}];
+              v30 = [v25 objectForKeyedSubscript:{v59, v53}];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -1052,21 +1048,21 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
                 v48 = objc_autoreleasePoolPush();
                 selfCopy2 = self;
                 v50 = HMFGetOSLogHandle();
-                identifyCopy = v64;
+                identifyCopy = v63;
                 if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
                 {
                   v51 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v72 = v51;
-                  v73 = 2112;
-                  v74 = v64;
+                  v71 = v51;
+                  v72 = 2112;
+                  v73 = v63;
                   _os_log_impl(&dword_22AEAE000, v50, OS_LOG_TYPE_ERROR, "%{public}@Array element data missing from array type %@", buf, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v48);
-                valueCopy = v54;
-                identifierCopy = v62;
-                attributeIdentifierCopy = v65;
+                valueCopy = v53;
+                identifierCopy = v61;
+                attributeIdentifierCopy = v64;
                 goto LABEL_52;
               }
 
@@ -1084,36 +1080,36 @@ uint64_t __75__HMMTRUtilities_hmmtrPairingsFromMTRClusterReadValue_vendorMetadat
 
               v35 = v34;
 
-              if (([v35 isEqual:v18] & 1) != 0 || objc_msgSend(v35, "isEqual:", v58))
+              if (([v35 isEqual:v18] & 1) != 0 || objc_msgSend(v35, "isEqual:", v57))
               {
-                attributeIdentifierCopy = v65;
-                if (!identifierCopy || (v36 = [identifierCopy isEqual:&unk_283EE88C8], !v65) || !v36 || !objc_msgSend(v65, "isEqual:", &unk_283EE88E0))
+                attributeIdentifierCopy = v64;
+                if (!identifierCopy || (v36 = [identifierCopy isEqual:&unk_283EE88C8], !v64) || !v36 || !objc_msgSend(v64, "isEqual:", &unk_283EE88E0))
                 {
 
-                  valueCopy = v54;
-                  identifyCopy = v64;
+                  valueCopy = v53;
+                  identifyCopy = v63;
 LABEL_52:
-                  v17 = v55;
+                  v17 = v54;
 
                   v39 = 0;
-                  v38 = v63;
+                  v38 = v62;
                   goto LABEL_53;
                 }
 
-                v37 = [self __baseClusterValueForAttributeDeviceListFromReadValue:v32 forIdentify:v64];
-                [v63 addObjectsFromArray:v37];
+                v37 = [self __baseClusterValueForAttributeDeviceListFromReadValue:v32 forIdentify:v63];
+                [v62 addObjectsFromArray:v37];
               }
 
               else
               {
-                v37 = [v32 objectForKeyedSubscript:v56];
-                [v63 addObject:v37];
-                attributeIdentifierCopy = v65;
+                v37 = [v32 objectForKeyedSubscript:v55];
+                [v62 addObject:v37];
+                attributeIdentifierCopy = v64;
               }
             }
 
-            v23 = [obj countByEnumeratingWithState:&v66 objects:v70 count:16];
-            valueCopy = v54;
+            v23 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
+            valueCopy = v53;
             if (v23)
             {
               continue;
@@ -1123,10 +1119,10 @@ LABEL_52:
           }
         }
 
-        v38 = v63;
-        v39 = v63;
-        identifyCopy = v64;
-        v17 = v55;
+        v38 = v62;
+        v39 = v62;
+        identifyCopy = v63;
+        v17 = v54;
 LABEL_53:
       }
 
@@ -1139,15 +1135,15 @@ LABEL_53:
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v72 = v47;
-          v73 = 2112;
-          v74 = identifyCopy;
+          v71 = v47;
+          v72 = 2112;
+          v73 = identifyCopy;
           _os_log_impl(&dword_22AEAE000, v46, OS_LOG_TYPE_ERROR, "%{public}@Array missing from array type %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v44);
         v39 = 0;
-        identifierCopy = v62;
+        identifierCopy = v61;
       }
     }
 
@@ -1165,17 +1161,17 @@ LABEL_53:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v72 = v43;
-        v73 = 2112;
-        v74 = identifyCopy;
+        v71 = v43;
+        v72 = 2112;
+        v73 = identifyCopy;
         _os_log_impl(&dword_22AEAE000, v42, OS_LOG_TYPE_ERROR, "%{public}@Unexpected structure type value %@", buf, 0x16u);
 
-        attributeIdentifierCopy = v65;
+        attributeIdentifierCopy = v64;
       }
 
       objc_autoreleasePoolPop(v40);
       v39 = 0;
-      identifierCopy = v62;
+      identifierCopy = v61;
     }
 
     else
@@ -1189,14 +1185,12 @@ LABEL_53:
     v39 = 0;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
-
   return v39;
 }
 
 + (id)__baseClusterValueForAttributeDeviceListFromReadValue:(id)value forIdentify:(id)identify
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   identifyCopy = identify;
   v6 = [valueCopy objectForKeyedSubscript:*MEMORY[0x277CD5188]];
@@ -1231,130 +1225,125 @@ LABEL_53:
 
     if (v11)
     {
-      v40 = v8;
-      v41 = valueCopy;
+      v37 = v8;
+      v38 = valueCopy;
       v12 = objc_opt_new();
+      v41 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v39 = v11;
+      v36 = v11;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v45;
-        v17 = 0x277CBE000uLL;
+        v16 = *v42;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v45 != v16)
+            if (*v42 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v19 = *(v17 + 2752);
-            v20 = *(*(&v44 + 1) + 8 * i);
+            v18 = *(*(&v41 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v21 = v20;
+              v19 = v18;
             }
 
             else
             {
-              v21 = 0;
+              v19 = 0;
             }
 
-            v22 = v21;
+            v20 = v19;
 
-            if (!v22)
+            if (!v20)
             {
-              v23 = objc_autoreleasePoolPush();
+              v21 = objc_autoreleasePoolPush();
               selfCopy = self;
-              v25 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              v23 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v26 = v16;
-                v28 = v27 = v12;
+                v24 = v16;
+                v26 = v25 = v12;
                 *buf = 138543618;
-                v50 = v28;
-                v51 = 2112;
-                v52 = identifyCopy;
-                _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_ERROR, "%{public}@Structure Value does not contain a dictionary %@", buf, 0x16u);
+                v47 = v26;
+                v48 = 2112;
+                v49 = identifyCopy;
+                _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@Structure Value does not contain a dictionary %@", buf, 0x16u);
 
-                v12 = v27;
-                v16 = v26;
-                v17 = 0x277CBE000;
+                v12 = v25;
+                v16 = v24;
               }
 
-              objc_autoreleasePoolPop(v23);
+              objc_autoreleasePoolPop(v21);
             }
 
-            [v12 addObject:v22];
+            [v12 addObject:v20];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v44 objects:v48 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
         while (v15);
       }
 
-      v8 = v40;
-      valueCopy = v41;
-      v11 = v39;
+      v8 = v37;
+      valueCopy = v38;
+      v11 = v36;
     }
 
     else
     {
-      v33 = objc_autoreleasePoolPush();
+      v31 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v35 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v33 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        v36 = HMFGetLogIdentifier();
+        v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v36;
-        v51 = 2112;
-        v52 = identifyCopy;
-        _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@Element data data array missing from array type %@", buf, 0x16u);
+        v47 = v34;
+        v48 = 2112;
+        v49 = identifyCopy;
+        _os_log_impl(&dword_22AEAE000, v33, OS_LOG_TYPE_ERROR, "%{public}@Element data data array missing from array type %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v33);
+      objc_autoreleasePoolPop(v31);
       v12 = 0;
     }
   }
 
   else
   {
-    v29 = objc_autoreleasePoolPush();
+    v27 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v31 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v32 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v32;
-      v51 = 2112;
-      v52 = identifyCopy;
-      _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_ERROR, "%{public}@Dictionary element is not a structure type %@", buf, 0x16u);
+      v47 = v30;
+      v48 = 2112;
+      v49 = identifyCopy;
+      _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@Dictionary element is not a structure type %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v29);
+    objc_autoreleasePoolPop(v27);
     v12 = 0;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)mtrBaseClusterValueFromMTRClusterReportValue:(id)value
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = valueCopy;
   if (valueCopy)
@@ -1388,11 +1377,11 @@ LABEL_53:
       {
         v14 = HMFGetLogIdentifier();
         v15 = [selfCopy _pathOfMTRClusterReadValue:v5];
-        v23 = 138543618;
-        v24 = v14;
-        v25 = 2112;
-        v26 = v15;
-        _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Read value missing data key %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v14;
+        v24 = 2112;
+        v25 = v15;
+        _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_ERROR, "%{public}@Read value missing data key %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1403,13 +1392,13 @@ LABEL_53:
       {
         v19 = HMFGetLogIdentifier();
         callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-        v23 = 138543874;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v5;
-        v27 = 2112;
-        v28 = callStackSymbols;
-        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@%@\nat%@", &v23, 0x20u);
+        v22 = 138543874;
+        v23 = v19;
+        v24 = 2112;
+        v25 = v5;
+        v26 = 2112;
+        v27 = callStackSymbols;
+        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_DEBUG, "%{public}@%@\nat%@", &v22, 0x20u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1421,8 +1410,6 @@ LABEL_53:
   {
     v10 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1493,7 +1480,7 @@ LABEL_53:
 
 + (BOOL)compareUnorderedUniqueNumberArray:(id)array withArray:(id)withArray
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   withArrayCopy = withArray;
   v8 = withArrayCopy;
@@ -1513,22 +1500,22 @@ LABEL_2:
   v10 = [arrayCopy count];
   if (v10 != [v8 count])
   {
-    v19 = objc_autoreleasePoolPush();
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v22 = HMFGetLogIdentifier();
-      v23 = 138543874;
-      v24 = v22;
-      v25 = 2112;
-      v26 = arrayCopy;
-      v27 = 2112;
-      v28 = v8;
-      _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_INFO, "%{public}@compareUnorderedUniqueNumberArray array %@ withArray %@ returned false", &v23, 0x20u);
+      v21 = HMFGetLogIdentifier();
+      v22 = 138543874;
+      v23 = v21;
+      v24 = 2112;
+      v25 = arrayCopy;
+      v26 = 2112;
+      v27 = v8;
+      _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_INFO, "%{public}@compareUnorderedUniqueNumberArray array %@ withArray %@ returned false", &v22, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v19);
+    objc_autoreleasePoolPop(v18);
     goto LABEL_2;
   }
 
@@ -1541,21 +1528,20 @@ LABEL_2:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v23 = 138544130;
-    v24 = v16;
-    v25 = 2112;
-    v26 = arrayCopy;
-    v27 = 2112;
-    v28 = v8;
-    v29 = 1024;
-    v30 = v9;
-    _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@compareUnorderedUniqueNumberArray array %@ withArray %@ returned %d", &v23, 0x26u);
+    v22 = 138544130;
+    v23 = v16;
+    v24 = 2112;
+    v25 = arrayCopy;
+    v26 = 2112;
+    v27 = v8;
+    v28 = 1024;
+    v29 = v9;
+    _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@compareUnorderedUniqueNumberArray array %@ withArray %@ returned %d", &v22, 0x26u);
   }
 
   objc_autoreleasePoolPop(v13);
 LABEL_9:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

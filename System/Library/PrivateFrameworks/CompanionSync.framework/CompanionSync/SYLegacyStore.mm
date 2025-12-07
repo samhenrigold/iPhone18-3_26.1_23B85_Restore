@@ -14,6 +14,8 @@
 - (BOOL)performBatchedSyncToCurrentDBVersion;
 - (BOOL)processBatchChunkAtIndex:(unsigned int)index encodedObjects:(id)objects error:(id *)error;
 - (BOOL)updateObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error;
+- (SYLegacyStore)initWithService:(id)service isGStore:(BOOL)store highPriority:(BOOL)priority;
+- (SYLegacyStore)initWithService:(id)service isGStore:(BOOL)store priority:(int64_t)priority isMasterStore:(BOOL)masterStore tracksChanges:(BOOL)changes;
 - (double)timeToLive;
 - (id)_batchChunkUnackedIndices;
 - (id)_getPairedDeviceID;
@@ -21,6 +23,7 @@
 - (id)_pathForMessageCenterCache;
 - (id)newFullSyncContext;
 - (id)newMessageHeader;
+- (id)wrapMessage:(id)message ofType:(unsigned __int16)type respondingTo:(id)to userInfo:(id)info;
 - (int64_t)maxBytesInFlight;
 - (int64_t)state;
 - (void)_copyPeerClockFromMessageHeaderIfNecessary:(id)necessary;
@@ -66,6 +69,7 @@
 - (void)remoteStoreAllObjects:(id)objects fromPeer:(id)peer clock:(id)clock;
 - (void)remoteStoreRequestFullSync;
 - (void)sendChanges:(id)changes context:(id)context options:(id)options sentSignal:(id)signal;
+- (void)sendMessage:(id)message ofType:(unsigned __int16)type respondingTo:(id)to userInfo:(id)info idsOptions:(id)options;
 - (void)setDelegate:(id)delegate;
 - (void)setDeliveryQOS:(unsigned int)s;
 - (void)setMaxBytesInFlight:(int64_t)flight;
@@ -99,6 +103,91 @@ uint64_t __43__SYLegacyStore_fullSyncActivityDictionary__block_invoke()
   fullSyncActivityDictionary___dict = v0;
 
   return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
+- (SYLegacyStore)initWithService:(id)service isGStore:(BOOL)store highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  storeCopy = store;
+  serviceCopy = service;
+  v9 = MGCopyAnswer();
+  v10 = -[SYLegacyStore initWithService:isGStore:highPriority:isMasterStore:](self, "initWithService:isGStore:highPriority:isMasterStore:", serviceCopy, storeCopy, priorityCopy, [v9 intValue] != 6);
+
+  return v10;
+}
+
+- (SYLegacyStore)initWithService:(id)service isGStore:(BOOL)store priority:(int64_t)priority isMasterStore:(BOOL)masterStore tracksChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  v40 = *MEMORY[0x1E69E9840];
+  serviceCopy = service;
+  v37.receiver = self;
+  v37.super_class = SYLegacyStore;
+  v14 = [(SYStore *)&v37 init];
+  v15 = v14;
+  if (v14)
+  {
+    [(SYLegacyStore *)v14 setTracksChanges:changesCopy];
+    objc_storeStrong(&v15->_service, service);
+    v15->_priority = priority;
+    if (priority > 2)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = off_1E86CA690[priority];
+    }
+
+    service = [(SYLegacyStore *)v15 service];
+    v18 = [service stringByAppendingPathExtension:v16];
+    databaseFileName = v15->_databaseFileName;
+    v15->_databaseFileName = v18;
+
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v20 = _sync_log_facilities;
+    if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_INFO))
+    {
+      *buf = 134217984;
+      v39 = v15;
+      _os_log_impl(&dword_1DF835000, v20, OS_LOG_TYPE_INFO, "Initializing new second-generation SYStore %p", buf, 0xCu);
+    }
+
+    v15->_alwaysWins = masterStore;
+    v21 = objc_opt_new();
+    sendSignals = v15->_sendSignals;
+    v15->_sendSignals = v21;
+
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"companionsync_serial.%p", v15];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"companionsync_serial_qos.%p", v15];
+    v25 = dispatch_queue_create([v23 UTF8String], 0);
+    queue = v15->_queue;
+    v15->_queue = v25;
+
+    uTF8String = [v24 UTF8String];
+    v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v29 = dispatch_queue_attr_make_with_qos_class(v28, QOS_CLASS_DEFAULT, 0);
+    v30 = dispatch_queue_create(uTF8String, v29);
+    qosTargetQueue = v15->super._qosTargetQueue;
+    v15->super._qosTargetQueue = v30;
+
+    dispatch_set_target_queue(v15->_queue, v15->super._qosTargetQueue);
+    v32 = v15->_queue;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __79__SYLegacyStore_initWithService_isGStore_priority_isMasterStore_tracksChanges___block_invoke;
+    block[3] = &unk_1E86CA3D8;
+    v35 = v15;
+    storeCopy = store;
+    dispatch_sync(v32, block);
+  }
+
+  return v15;
 }
 
 uint64_t __79__SYLegacyStore_initWithService_isGStore_priority_isMasterStore_tracksChanges___block_invoke(uint64_t a1)
@@ -450,7 +539,7 @@ void __33__SYLegacyStore__deviceUnpaired___block_invoke_87(uint64_t a1)
 
 void __31__SYLegacyStore__devicePaired___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pairedDeviceID];
 
   if (!v2)
@@ -487,15 +576,13 @@ void __31__SYLegacyStore__devicePaired___block_invoke(uint64_t a1)
     v8 = [v7 valueForProperty:*MEMORY[0x1E69B3610]];
     v9 = [*(a1 + 32) pairedDeviceID];
     *buf = 138412546;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring newly-paired device '%@' when already paired with device '%@'. Please file an enhancement request against Pepper CompanionSync for multiple-paired-device support if you see this message.", buf, 0x16u);
 
 LABEL_8:
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31__SYLegacyStore__devicePaired___block_invoke_88(uint64_t a1)
@@ -529,7 +616,7 @@ uint64_t __31__SYLegacyStore__devicePaired___block_invoke_88(uint64_t a1)
 
 - (id)_pathForMessageCenterCache
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69B36C0] = [MEMORY[0x1E69B36C0] sharedInstance];
   pairingStorePath = [mEMORY[0x1E69B36C0] pairingStorePath];
   v4 = [pairingStorePath stringByAppendingPathComponent:@"CompanionSync"];
@@ -542,25 +629,23 @@ uint64_t __31__SYLegacyStore__devicePaired___block_invoke_88(uint64_t a1)
   v5 = _sync_log_facilities;
   if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Got pairing store path: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "Got pairing store path: %{public}@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (BOOL)_checkMessageHeader:(id)header messageID:(id)d
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   dCopy = d;
   sequenceNumber = [headerCopy sequenceNumber];
   v9 = MEMORY[0x1E695DF00];
   [headerCopy timestamp];
-  v46 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
+  v45 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
   lastMessageReceived = [(SYPersistentStore *)self->_persistentStore lastMessageReceived];
   persistentStore = [(SYLegacyStore *)self persistentStore];
   sender = [headerCopy sender];
@@ -575,14 +660,14 @@ uint64_t __31__SYLegacyStore__devicePaired___block_invoke_88(uint64_t a1)
     }
 
     v15 = dCopy;
-    v16 = v46;
+    v16 = v45;
     v17 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v48 = sequenceNumber;
-      v49 = 2114;
-      v50 = dCopy;
+      v47 = sequenceNumber;
+      v48 = 2114;
+      v49 = dCopy;
       _os_log_impl(&dword_1DF835000, v17, OS_LOG_TYPE_DEFAULT, "Possible duplicate message received with seqno %qu and ID %{public}@. Comparing timestamps.", buf, 0x16u);
     }
 
@@ -599,17 +684,17 @@ uint64_t __31__SYLegacyStore__devicePaired___block_invoke_88(uint64_t a1)
       v21 = v20;
       [lastMessageReceived timeIntervalSinceReferenceDate];
       *buf = 134218754;
-      v48 = v21;
-      v49 = 2114;
-      v50 = v46;
-      v51 = 2048;
-      v52 = v22;
-      v53 = 2114;
-      v54 = lastMessageReceived;
+      v47 = v21;
+      v48 = 2114;
+      v49 = v45;
+      v50 = 2048;
+      v51 = v22;
+      v52 = 2114;
+      v53 = lastMessageReceived;
       _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "This message timestamp = %.04g (%{public}@) vs. last message timestamp = %.04g (%{public}@)", buf, 0x2Au);
     }
 
-    v23 = [lastMessageReceived earlierDate:v46];
+    v23 = [lastMessageReceived earlierDate:v45];
 
     if (v23 != lastMessageReceived)
     {
@@ -659,9 +744,9 @@ LABEL_35:
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v48 = sequenceNumber;
-    v49 = 2048;
-    v50 = v33;
+    v47 = sequenceNumber;
+    v48 = 2048;
+    v49 = v33;
     _os_log_impl(&dword_1DF835000, v34, OS_LOG_TYPE_INFO, "Received seqno=%llu, last seen=%llu", buf, 0x16u);
   }
 
@@ -673,11 +758,11 @@ LABEL_35:
     if (os_log_type_enabled(oslog2, 0x90u))
     {
       *buf = 138543874;
-      v48 = dCopy;
-      v49 = 2048;
-      v50 = sequenceNumber;
-      v51 = 2048;
-      v52 = v33;
+      v47 = dCopy;
+      v48 = 2048;
+      v49 = sequenceNumber;
+      v50 = 2048;
+      v51 = v33;
       _os_log_error_impl(&dword_1DF835000, oslog2, 0x90u, "Out of order delivery or dropped message detected on receipt of message with ID %{public}@. Message sequence number = %llu, last received sequence number = %llu", buf, 0x20u);
     }
 
@@ -692,7 +777,7 @@ LABEL_35:
 
   if ([headerCopy version] >= 2)
   {
-    v16 = v46;
+    v16 = v45;
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -713,10 +798,9 @@ LABEL_35:
   [persistentStore3 setLastMessageReceived:v40];
 
   v42 = 1;
-  v16 = v46;
+  v16 = v45;
 LABEL_36:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
@@ -734,15 +818,15 @@ LABEL_36:
   dispatch_async(queue, v7);
 }
 
-void __50__SYLegacyStore__postVersionRejectedForMessageID___block_invoke(uint64_t a1)
+void __50__SYLegacyStore__postVersionRejectedForMessageID___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = objc_opt_new();
-  v2 = [*(a1 + 32) newMessageHeader];
-  [v3 setHeader:v2];
+  v4 = objc_opt_new();
+  v3 = [*(a1 + 32) newMessageHeader];
+  [v4 setHeader:v3];
 
-  [v3 setInReplyTo:*(a1 + 40)];
-  [v3 setSupportedVersions:&_postVersionRejectedForMessageID__supportedVersions count:2];
-  [*(a1 + 32) sendMessage:v3 ofType:0x7FFFLL respondingTo:0 userInfo:0 idsOptions:0];
+  [v4 setInReplyTo:*(a1 + 40)];
+  [v4 setSupportedVersions:&_postVersionRejectedForMessageID__supportedVersions count:2];
+  [*(a1 + 32) sendMessage:v4 ofType:0x7FFFLL respondingTo:0 userInfo:0 idsOptions:0];
 }
 
 - (void)_recordLastSeqNo:(id)no
@@ -1349,7 +1433,7 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_7(uint64_t a1,
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -1402,8 +1486,8 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115(uint64_t a
           block[1] = 3221225472;
           block[2] = __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_121;
           block[3] = &unk_1E86C9FB0;
-          v18 = &v31;
-          v31 = WeakRetained;
+          v18 = &v30;
+          v30 = WeakRetained;
           dispatch_after(v16, v17, block);
         }
 
@@ -1423,20 +1507,20 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115(uint64_t a
             v21 = v20;
             v22 = [v7 inProgressSyncID];
             *buf = 138543362;
-            v33 = v22;
+            v32 = v22;
             _os_log_impl(&dword_1DF835000, v21, OS_LOG_TYPE_DEFAULT, "Waiting for in-progress sync %{public}@ to end before re-sending sync request.", buf, 0xCu);
           }
 
           v23 = dispatch_time(0, 3600000000000);
           v24 = *(WeakRetained + 26);
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_122;
-          v27[3] = &unk_1E86C9E90;
-          v18 = &v28;
-          v28 = WeakRetained;
-          v29 = v7;
-          dispatch_after(v23, v24, v27);
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_122;
+          v26[3] = &unk_1E86C9E90;
+          v18 = &v27;
+          v27 = WeakRetained;
+          v28 = v7;
+          dispatch_after(v23, v24, v26);
         }
       }
 
@@ -1444,8 +1528,6 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115(uint64_t a
       [WeakRetained _recordLastSeqNo:v25];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_122(uint64_t a1)
@@ -1799,14 +1881,11 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
 
 - (void)setupDatabase
 {
-  v9 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   pairedDeviceID = [OUTLINED_FUNCTION_7() pairedDeviceID];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
   _os_log_fault_impl(v4, v5, OS_LOG_TYPE_FAULT, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -1847,7 +1926,7 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
 
 - (void)postUserNotification:(id)notification message:(id)message
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   messageCopy = message;
   if (+[SYLogs shouldDumpIDSOnSyncError]&& MGGetBoolAnswer() && (_shouldDumpIDSOnSyncErrorOnce & 1) == 0)
@@ -1855,13 +1934,11 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
     _shouldDumpIDSOnSyncErrorOnce = 1;
     CFUserNotificationDisplayNotice(0.0, 0, 0, 0, 0, notificationCopy, messageCopy, 0);
     *__argv = xmmword_1E86CA4C0;
-    v11 = 0;
-    v9 = 0;
+    v10 = 0;
+    v8 = 0;
     v7 = _NSGetEnviron();
-    posix_spawn(&v9, "/usr/local/bin/idstool", 0, 0, __argv, *v7);
+    posix_spawn(&v8, "/usr/local/bin/idstool", 0, 0, __argv, *v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_copyPeerClockFromMessageHeaderIfNecessary:(id)necessary
@@ -1886,7 +1963,7 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
 
 - (BOOL)peerState:(id)state fromPeer:(id)peer matchesExpectationForChangeCount:(unint64_t)count offsetAmount:(unint64_t *)amount
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   peerCopy = peer;
   if ([(SYVectorClock *)self->_vectorClock hasClockForPeer:peerCopy])
@@ -1910,7 +1987,7 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
     countCopy = count;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
     {
-      [SYLegacyStore peerState:? fromPeer:? matchesExpectationForChangeCount:? offsetAmount:?];
+      [SYLegacyStore peerState:fromPeer:matchesExpectationForChangeCount:offsetAmount:];
     }
 
     amount = [(SYVectorClock *)self->_vectorClock clockValueForPeerID:peerID, amount];
@@ -1944,9 +2021,9 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v28 = amount;
-        v29 = 2048;
-        v30 = v14;
+        v27 = amount;
+        v28 = 2048;
+        v29 = v14;
         _os_log_impl(&dword_1DF835000, v19, OS_LOG_TYPE_DEFAULT, "Accepting change list from peer that has not received my latest updates: %llu vs. %llu", buf, 0x16u);
       }
     }
@@ -1967,19 +2044,19 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_136(uint64_t a
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v28 = v15;
-      v29 = 2048;
-      v30 = v18;
-      v31 = 1024;
-      v32 = countCopy;
+      v27 = v15;
+      v28 = 2048;
+      v29 = v18;
+      v30 = 1024;
+      v31 = countCopy;
       _os_log_error_impl(&dword_1DF835000, v21, OS_LOG_TYPE_ERROR, "Peer state doesn't match my expectation-- likely a message is missing. I have %llu, they sent %llu, there are %u changes incoming", buf, 0x1Cu);
-      if (v25)
+      if (v24)
       {
         goto LABEL_29;
       }
     }
 
-    else if (v25)
+    else if (v24)
     {
 LABEL_29:
       v17 = 0;
@@ -1989,7 +2066,7 @@ LABEL_29:
         v22 = v18 + countCopy - v15;
       }
 
-      *v25 = v22;
+      *v24 = v22;
       goto LABEL_32;
     }
 
@@ -2003,7 +2080,6 @@ LABEL_32:
   v17 = 1;
 LABEL_33:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -2051,7 +2127,7 @@ LABEL_33:
 
 - (BOOL)_shouldIgnoreSyncID:(id)d
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   currentFullSyncID = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
   v6 = currentFullSyncID;
@@ -2067,26 +2143,25 @@ LABEL_33:
       [SYIncomingSyncAllObjectsSession _continueProcessing];
     }
 
-    v10 = qword_1EDE73420;
+    v9 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = dCopy;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_1DF835000, v10, OS_LOG_TYPE_DEFAULT, "Skipping one sync message (syncID %{public}@) while waiting for another (syncID %{public}@)", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = dCopy;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Skipping one sync message (syncID %{public}@) while waiting for another (syncID %{public}@)", &v10, 0x16u);
     }
 
     v7 = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)_shouldSkipNonSyncMessages
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   currentFullSyncID = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
   if (currentFullSyncID)
   {
@@ -2111,22 +2186,21 @@ LABEL_33:
         persistentStore = self->_persistentStore;
         v8 = v6;
         currentFullSyncID2 = [(SYPersistentStore *)persistentStore currentFullSyncID];
-        v12 = 138543362;
-        v13 = currentFullSyncID2;
-        _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Skipping while waiting for sync; fullSyncIdentifier == '%{public}@'", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = currentFullSyncID2;
+        _os_log_impl(&dword_1DF835000, v8, OS_LOG_TYPE_DEFAULT, "Skipping while waiting for sync; fullSyncIdentifier == '%{public}@'", &v11, 0xCu);
       }
 
       LOBYTE(currentFullSyncID) = 1;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return currentFullSyncID;
 }
 
 - (void)_syncEndedWithSyncID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(SYPersistentStore *)self->_persistentStore exitFullSyncWithID:dCopy error:0];
   [(SYPersistentStore *)self->_persistentStore clearAllChanges];
@@ -2147,9 +2221,9 @@ LABEL_33:
       v9 = v7;
       waitingForSyncEndID2 = [(SYPersistentStore *)persistentStore waitingForSyncEndID];
       *buf = 138543618;
-      v15 = dCopy;
-      v16 = 2114;
-      v17 = waitingForSyncEndID2;
+      v14 = dCopy;
+      v15 = 2114;
+      v16 = waitingForSyncEndID2;
       _os_log_impl(&dword_1DF835000, v9, OS_LOG_TYPE_DEFAULT, "Sync %{public}@ has finished, and I'm waiting for sync %{public}@ to finish, and they match. Triggering full-sync now.", buf, 0x16u);
     }
 
@@ -2172,13 +2246,11 @@ LABEL_33:
       [(SYPersistentStore *)self->_persistentStore setCompletedSync:1];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSyncAllObjects:(id)objects response:(id)response
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   responseCopy = response;
   syncID = [objectsCopy syncID];
@@ -2226,16 +2298,16 @@ LABEL_7:
 
   v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(objectsCopy, "allObjectsCount")}];
   allObjects = [objectsCopy allObjects];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke;
-  v39[3] = &unk_1E86CA4E0;
-  v39[4] = self;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke;
+  v38[3] = &unk_1E86CA4E0;
+  v38[4] = self;
   v24 = v22;
-  v40 = v24;
+  v39 = v24;
   v25 = objectsCopy;
-  v41 = v25;
-  [allObjects enumerateObjectsUsingBlock:v39];
+  v40 = v25;
+  [allObjects enumerateObjectsUsingBlock:v38];
 
   header = [v25 header];
   sender = [header sender];
@@ -2260,9 +2332,9 @@ LABEL_7:
     v34 = v32;
     jsonRepresentation = [(SYVectorClock *)vectorClock jsonRepresentation];
     *buf = 138543618;
-    v43 = jsonRepresentation;
-    v44 = 2114;
-    v45 = peerID;
+    v42 = jsonRepresentation;
+    v43 = 2114;
+    v44 = peerID;
     _os_log_impl(&dword_1DF835000, v34, OS_LOG_TYPE_INFO, "Copied peer clock into our vector. Value is now: %{public}@ (my PeerID is %{public}@)", buf, 0x16u);
   }
 
@@ -2273,12 +2345,11 @@ LABEL_7:
   [(SYLegacyStore *)self _syncEndedWithSyncID:syncID5];
 
 LABEL_13:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = (a1 + 32);
+  v5 = a1 + 32;
   v6 = [*(a1 + 32) decodeSYObject:a2];
   if (v6)
   {
@@ -2376,7 +2447,7 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a
 
 - (void)handleBatchSyncEnd:(id)end response:(id)response
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   endCopy = end;
   responseCopy = response;
   syncID = [endCopy syncID];
@@ -2429,11 +2500,11 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a
       vectorClock = self->_vectorClock;
       v29 = v27;
       jsonRepresentation = [(SYVectorClock *)vectorClock jsonRepresentation];
-      v34 = 138543618;
-      v35 = jsonRepresentation;
-      v36 = 2114;
-      v37 = peerID;
-      _os_log_impl(&dword_1DF835000, v29, OS_LOG_TYPE_INFO, "Copied peer clock into our vector. Value is now: %{public}@ (my PeerID is %{public}@)", &v34, 0x16u);
+      v33 = 138543618;
+      v34 = jsonRepresentation;
+      v35 = 2114;
+      v36 = peerID;
+      _os_log_impl(&dword_1DF835000, v29, OS_LOG_TYPE_INFO, "Copied peer clock into our vector. Value is now: %{public}@ (my PeerID is %{public}@)", &v33, 0x16u);
     }
 
     newMessageHeader2 = [(SYLegacyStore *)self newMessageHeader];
@@ -2442,17 +2513,15 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a
     syncID4 = [endCopy syncID];
     [(SYLegacyStore *)self _syncEndedWithSyncID:syncID4];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleChangeMessage:(id)message
 {
-  *(&v52[1] + 4) = *MEMORY[0x1E69E9840];
+  *(&v51[1] + 4) = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (![(SYLegacyStore *)self _shouldSkipNonSyncMessages])
   {
-    v38 = _os_activity_create(&dword_1DF835000, "CompanionSync Change Application", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DETACHED);
+    v37 = _os_activity_create(&dword_1DF835000, "CompanionSync Change Application", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DETACHED);
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -2462,7 +2531,7 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v52[0]) = [messageCopy changesCount];
+      LODWORD(v51[0]) = [messageCopy changesCount];
       _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Applying %d incoming changes", buf, 8u);
     }
 
@@ -2510,7 +2579,7 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke(uint64_t a
         {
           changesCount = [messageCopy changesCount];
           *buf = 134217984;
-          v52[0] = changesCount;
+          v51[0] = changesCount;
           _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "-handleChangeMessage:<%zu objects> -- changes are not consecutive, triggering full sync", buf, 0xCu);
         }
 
@@ -2569,26 +2638,26 @@ LABEL_35:
       [delegate syncStoreWillUpdate:self];
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     changes = [messageCopy changes];
-    v21 = [changes countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v21 = [changes countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v21)
     {
-      v22 = *v47;
+      v22 = *v46;
       do
       {
         v23 = 0;
         do
         {
-          if (*v47 != v22)
+          if (*v46 != v22)
           {
             objc_enumerationMutation(changes);
           }
 
-          v24 = *(*(&v46 + 1) + 8 * v23);
+          v24 = *(*(&v45 + 1) + 8 * v23);
           v25 = [v24 objectForStore:self];
           if (v25)
           {
@@ -2603,7 +2672,7 @@ LABEL_35:
 
                 if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
                 {
-                  [(SYLegacyStore *)&v42 handleChangeMessage:v43];
+                  [(SYLegacyStore *)&v41 handleChangeMessage:v42];
                 }
 
                 [delegate syncStore:self objectUpdated:v25];
@@ -2618,7 +2687,7 @@ LABEL_35:
 
                 if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
                 {
-                  [(SYLegacyStore *)&v40 handleChangeMessage:v41];
+                  [(SYLegacyStore *)&v39 handleChangeMessage:v40];
                 }
 
                 [delegate syncStore:self objectDeleted:v25];
@@ -2634,7 +2703,7 @@ LABEL_35:
 
               if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
               {
-                [(SYLegacyStore *)&v44 handleChangeMessage:v45];
+                [(SYLegacyStore *)&v43 handleChangeMessage:v44];
               }
 
               [delegate syncStore:self objectAdded:v25];
@@ -2652,7 +2721,7 @@ LABEL_35:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               v27 = _SYObfuscate(v24);
-              [(SYLegacyStore *)v27 handleChangeMessage:buf, v52, v26];
+              [(SYLegacyStore *)v27 handleChangeMessage:buf, v51, v26];
             }
           }
 
@@ -2660,7 +2729,7 @@ LABEL_35:
         }
 
         while (v21 != v23);
-        v21 = [changes countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v21 = [changes countByEnumeratingWithState:&v45 objects:v49 count:16];
       }
 
       while (v21);
@@ -2697,8 +2766,6 @@ LABEL_35:
   }
 
 LABEL_74:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageCenter:(id)center didReceiveUnknownRequest:(id)request
@@ -2869,6 +2936,183 @@ LABEL_13:
   }
 }
 
+- (id)wrapMessage:(id)message ofType:(unsigned __int16)type respondingTo:(id)to userInfo:(id)info
+{
+  typeCopy = type;
+  if (to)
+  {
+    infoCopy = info;
+    messageCopy = message;
+    response = [to response];
+    [response setPbResponse:messageCopy];
+
+    [response setPersistentUserInfo:infoCopy];
+    if ((typeCopy - 1) >= 5)
+    {
+      [(SYLegacyStore *)self timeToLive];
+    }
+
+    else
+    {
+      v13 = 3600.0;
+    }
+
+    v19 = response;
+    goto LABEL_13;
+  }
+
+  infoCopy2 = info;
+  messageCopy2 = message;
+  response = [NMSOutgoingRequest requestWithMessageID:typeCopy];
+  [response setPbRequest:messageCopy2];
+
+  [response setPersistentUserInfo:infoCopy2];
+  priority = [(SYLegacyStore *)self priority];
+  if (priority == 2)
+  {
+    v17 = 2;
+  }
+
+  else
+  {
+    v17 = priority != 1;
+  }
+
+  [response setPriority:v17];
+  [response setShouldEncrypt:1];
+  if (typeCopy > 5)
+  {
+    goto LABEL_17;
+  }
+
+  v18 = 0x40AC200000000000;
+  if (((1 << typeCopy) & 0x36) == 0)
+  {
+    if (typeCopy == 3)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_17:
+    [(SYLegacyStore *)self timeToLive];
+    v18 = v21;
+    goto LABEL_10;
+  }
+
+  [response setResponseTimeout:7200.0];
+LABEL_10:
+  v19 = response;
+  v13 = *&v18;
+LABEL_13:
+  [v19 setSendTimeout:v13];
+
+  return response;
+}
+
+- (void)sendMessage:(id)message ofType:(unsigned __int16)type respondingTo:(id)to userInfo:(id)info idsOptions:(id)options
+{
+  typeCopy = type;
+  messageCopy = message;
+  optionsCopy = options;
+  v14 = [(SYLegacyStore *)self wrapMessage:messageCopy ofType:typeCopy respondingTo:to userInfo:info];
+  if (v14)
+  {
+    customIDSDeliveryOptions = [(SYStore *)self customIDSDeliveryOptions];
+    v16 = [customIDSDeliveryOptions count];
+
+    if (v16)
+    {
+      customIDSDeliveryOptions2 = [(SYStore *)self customIDSDeliveryOptions];
+      v18 = customIDSDeliveryOptions2;
+      if (optionsCopy)
+      {
+        v19 = [customIDSDeliveryOptions2 mutableCopy];
+
+        [v19 addEntriesFromDictionary:optionsCopy];
+        optionsCopy = v19;
+      }
+
+      else
+      {
+        optionsCopy = customIDSDeliveryOptions2;
+      }
+    }
+
+    if ((*&self->super._flags & 0x4000) == 0)
+    {
+      v21 = *MEMORY[0x1E69A47E0];
+      v22 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x1E69A47E0]];
+
+      if (v22)
+      {
+        v23 = [optionsCopy mutableCopy];
+        [v23 removeObjectForKey:v21];
+
+        optionsCopy = v23;
+      }
+    }
+
+    [v14 setExtraIDSOptions:optionsCopy];
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    if (os_log_type_enabled(qword_1EDE73438, OS_LOG_TYPE_DEBUG))
+    {
+      [SYLegacyStore sendMessage:ofType:respondingTo:userInfo:idsOptions:];
+    }
+
+    v24 = os_transaction_create();
+    transaction = self->_transaction;
+    self->_transaction = v24;
+
+    if (to)
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        _os_assumes_log();
+      }
+
+      v26 = +[SYStatisticStore sharedInstance];
+      service = [(SYLegacyStore *)self service];
+      [v26 recordOutgoingMessage:v14 forService:service];
+
+      [v14 send];
+    }
+
+    else
+    {
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0)
+      {
+        _os_assumes_log();
+      }
+
+      v28 = +[SYStatisticStore sharedInstance];
+      service2 = [(SYLegacyStore *)self service];
+      [v28 recordOutgoingMessage:v14 forService:service2];
+
+      [(NMSMessageCenter *)self->_messageCenter sendRequest:v14];
+    }
+  }
+
+  else
+  {
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v20 = _sync_log_facilities;
+    if (os_log_type_enabled(_sync_log_facilities, OS_LOG_TYPE_ERROR))
+    {
+      [SYLegacyStore sendMessage:v20 ofType:? respondingTo:? userInfo:? idsOptions:?];
+    }
+  }
+}
+
 - (id)newMessageHeader
 {
   v3 = objc_opt_new();
@@ -2997,7 +3241,7 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
 
 - (BOOL)addObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
@@ -3013,23 +3257,22 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
     v15 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "addObject", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "addObject", v19, 2u);
     }
 
     v16 = [SYChange changeWithObject:objectCopy updateType:0 store:self];
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [(SYLegacyStore *)self handleObjectChanges:v17 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)updateObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
@@ -3045,23 +3288,22 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
     v15 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "updateObject", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "updateObject", v19, 2u);
     }
 
     v16 = [SYChange changeWithObject:objectCopy updateType:1 store:self];
-    v21[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [(SYLegacyStore *)self handleObjectChanges:v17 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)deleteObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
@@ -3079,13 +3321,13 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
       v15 = qword_1EDE73420;
       if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_INFO))
       {
-        v23 = 0;
-        _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "deleteObject", &v23, 2u);
+        v22 = 0;
+        _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_INFO, "deleteObject", &v22, 2u);
       }
 
       v16 = [SYChange changeWithObject:objectCopy updateType:2 store:self];
-      v27[0] = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v26[0] = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
       [(SYLegacyStore *)self handleObjectChanges:v17 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
     }
 
@@ -3109,8 +3351,8 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
         block[3] = &unk_1E86CA0F8;
         block[4] = self;
         v14 = v14;
-        v25 = v14;
-        v26 = contextCopy;
+        v24 = v14;
+        v25 = contextCopy;
         dispatch_async(queue, block);
       }
     }
@@ -3121,7 +3363,6 @@ void __50__SYLegacyStore__allowDeltaSyncWithContext_error___block_invoke(uint64_
     allowsDeletes = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return allowsDeletes;
 }
 
@@ -3229,16 +3470,7 @@ void __109__SYLegacyStore__handleObjectChanges_contextInfo_idsOptions_blockUntil
 uint64_t __109__SYLegacyStore__handleObjectChanges_contextInfo_idsOptions_blockUntilSent_reportError_notifyingTransaction___block_invoke_3(id *a1)
 {
   v2 = [a1[4] persistentStore];
-  if (!v2)
-  {
-    goto LABEL_8;
-  }
-
-  v3 = v2;
-  v4 = [a1[4] messageCenter];
-  v5 = [v4 service];
-
-  if (v5)
+  if (v2 && (v3 = v2, [a1[4] messageCenter], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "service"), v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v3, v5))
   {
     if ([a1[4] alwaysWins] && objc_msgSend(*(a1[4] + 23), "lastSyncFailed"))
     {
@@ -3273,7 +3505,6 @@ uint64_t __109__SYLegacyStore__handleObjectChanges_contextInfo_idsOptions_blockU
 
   else
   {
-LABEL_8:
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -3454,16 +3685,7 @@ void __56__SYLegacyStore_setNeedsFullSyncWithContext_idsOptions___block_invoke_2
 {
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) persistentStore];
-  if (!v3)
-  {
-    goto LABEL_12;
-  }
-
-  v4 = v3;
-  v5 = [*v2 messageCenter];
-  v6 = [v5 service];
-
-  if (v6)
+  if (v3 && (v4 = v3, [*v2 messageCenter], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "service"), v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     if (_sync_log_facilities_pred != -1)
     {
@@ -3513,7 +3735,6 @@ void __56__SYLegacyStore_setNeedsFullSyncWithContext_idsOptions___block_invoke_2
 
   else
   {
-LABEL_12:
     if (_sync_log_facilities_pred != -1)
     {
       [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -3536,7 +3757,7 @@ LABEL_12:
 
 - (void)remoteStoreAllObjects:(id)objects fromPeer:(id)peer clock:(id)clock
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   peerCopy = peer;
   clockCopy = clock;
@@ -3549,18 +3770,18 @@ LABEL_12:
   v11 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v11;
+    v25 = v11;
     [peerCopy peerID];
-    v28 = v27 = v10;
+    v27 = v26 = v10;
     *buf = 138543874;
-    v36 = v28;
-    v37 = 2048;
-    v38 = [objectsCopy count];
-    v39 = 2048;
+    v35 = v27;
+    v36 = 2048;
+    v37 = [objectsCopy count];
+    v38 = 2048;
     version = [clockCopy version];
-    _os_log_debug_impl(&dword_1DF835000, v26, OS_LOG_TYPE_DEBUG, "remoteStoreAllObjects from %{public}@, %lu objects, version %qu", buf, 0x20u);
+    _os_log_debug_impl(&dword_1DF835000, v25, OS_LOG_TYPE_DEBUG, "remoteStoreAllObjects from %{public}@, %lu objects, version %qu", buf, 0x20u);
 
-    v10 = v27;
+    v10 = v26;
   }
 
   if ([(SYLegacyStore *)self alwaysWins])
@@ -3608,29 +3829,29 @@ LABEL_12:
       [delegate syncStoreAllObjectsDeleted:self];
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v18 = objectsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [delegate syncStore:self objectAdded:*(*(&v30 + 1) + 8 * i)];
+          [delegate syncStore:self objectAdded:*(*(&v29 + 1) + 8 * i)];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v20);
@@ -3666,8 +3887,6 @@ LABEL_12:
       [SYLegacyStore remoteStoreAllObjects:fromPeer:clock:];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteStoreRequestFullSync
@@ -3830,10 +4049,140 @@ LABEL_11:
 
 - (void)performFullSyncToCurrentDBVersion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if ([(SYLegacyStore *)self inDeltaSync])
   {
     self->_deferredFullSync = 1;
+    return;
+  }
+
+  if (_sync_log_facilities_pred != -1)
+  {
+    [SYIncomingSyncAllObjectsSession _continueProcessing];
+  }
+
+  if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
+  {
+    [SYLegacyStore performFullSyncToCurrentDBVersion];
+  }
+
+  if ([(SYLegacyStore *)self alwaysWins])
+  {
+    persistentStore = [(SYLegacyStore *)self persistentStore];
+    currentLocalVersion = [persistentStore currentLocalVersion];
+
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
+    {
+      [SYLegacyStore performFullSyncToCurrentDBVersion];
+    }
+
+    flags = self->super._flags;
+    if ((flags & 0x80) != 0)
+    {
+      if ([(SYLegacyStore *)self performBatchedSyncToCurrentDBVersion])
+      {
+        return;
+      }
+    }
+
+    else if ((flags & 0x20) == 0)
+    {
+      [MEMORY[0x1E695DF30] raise:@"Missing delegate method" format:@"The delegate on the master (alwaysWins) side must implement syncStoreAllObjects"];
+    }
+
+    delegate = [(SYStore *)self delegate];
+    v19 = [delegate syncStoreAllObjects:self];
+
+    array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v13 = v19;
+    v20 = [(SYRequestFullSync *)v13 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = *v40;
+      do
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v40 != v22)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v24 = [(SYStore *)self encodeSYObject:*(*(&v39 + 1) + 8 * i)];
+          [array addObject:v24];
+        }
+
+        v21 = [(SYRequestFullSync *)v13 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      }
+
+      while (v21);
+    }
+
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v25 = qword_1EDE73420;
+    if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = v25;
+      v27 = [array count];
+      *buf = 134218240;
+      v44 = v27;
+      v45 = 2048;
+      v46 = currentLocalVersion;
+      _os_log_impl(&dword_1DF835000, v26, OS_LOG_TYPE_DEFAULT, "performFullSync - %lu objects, %lu finalVersion", buf, 0x16u);
+    }
+
+    currentFullSyncID = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
+
+    if (!currentFullSyncID)
+    {
+      persistentStore2 = [(SYLegacyStore *)self persistentStore];
+      completedSync = [persistentStore2 completedSync];
+
+      if (completedSync)
+      {
+        v31 = objc_opt_new();
+        uUIDString = [v31 UUIDString];
+      }
+
+      else
+      {
+        v31 = [@"InitialSync" stringByAppendingString:@"-Master-"];
+        v33 = objc_opt_new();
+        uUIDString2 = [v33 UUIDString];
+        uUIDString = [v31 stringByAppendingString:uUIDString2];
+      }
+
+      [(SYPersistentStore *)self->_persistentStore enterFullSyncWithID:uUIDString ignoring:0];
+    }
+
+    fullSyncIDSOptions2 = objc_alloc_init(SYSyncAllObjects);
+    newMessageHeader = [(SYLegacyStore *)self newMessageHeader];
+    [(SYSyncAllObjects *)fullSyncIDSOptions2 setHeader:newMessageHeader];
+
+    currentFullSyncID2 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
+    [(SYSyncAllObjects *)fullSyncIDSOptions2 setSyncID:currentFullSyncID2];
+
+    [(SYSyncAllObjects *)fullSyncIDSOptions2 setVersion:0];
+    [(SYSyncAllObjects *)fullSyncIDSOptions2 setAllObjects:array];
+    fullSyncUserInfo = [(SYPersistentStore *)self->_persistentStore fullSyncUserInfo];
+    fullSyncIDSOptions = [(SYPersistentStore *)self->_persistentStore fullSyncIDSOptions];
+    [(SYLegacyStore *)self sendMessage:fullSyncIDSOptions2 ofType:2 respondingTo:0 userInfo:fullSyncUserInfo idsOptions:fullSyncIDSOptions];
+
+    [(SYPersistentStore *)self->_persistentStore setCompletedSync:1];
   }
 
   else
@@ -3848,182 +4197,47 @@ LABEL_11:
       [SYLegacyStore performFullSyncToCurrentDBVersion];
     }
 
-    if ([(SYLegacyStore *)self alwaysWins])
+    currentFullSyncID3 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
+
+    if (!currentFullSyncID3)
     {
-      persistentStore = [(SYLegacyStore *)self persistentStore];
-      currentLocalVersion = [persistentStore currentLocalVersion];
+      persistentStore3 = [(SYLegacyStore *)self persistentStore];
+      completedSync2 = [persistentStore3 completedSync];
 
-      if (_sync_log_facilities_pred != -1)
+      v9 = objc_opt_new();
+      uUIDString3 = [v9 UUIDString];
+      v11 = uUIDString3;
+      if ((completedSync2 & 1) == 0)
       {
-        [SYIncomingSyncAllObjectsSession _continueProcessing];
+        v12 = [@"InitialSync" stringByAppendingFormat:@"-%@", uUIDString3];
+
+        v11 = v12;
       }
 
-      if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
-      {
-        [SYLegacyStore performFullSyncToCurrentDBVersion];
-      }
-
-      flags = self->super._flags;
-      if ((flags & 0x80) != 0)
-      {
-        if ([(SYLegacyStore *)self performBatchedSyncToCurrentDBVersion])
-        {
-          goto LABEL_46;
-        }
-      }
-
-      else if ((flags & 0x20) == 0)
-      {
-        [MEMORY[0x1E695DF30] raise:@"Missing delegate method" format:@"The delegate on the master (alwaysWins) side must implement syncStoreAllObjects"];
-      }
-
-      delegate = [(SYStore *)self delegate];
-      v19 = [delegate syncStoreAllObjects:self];
-
-      array = [MEMORY[0x1E695DF70] array];
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v13 = v19;
-      v20 = [(SYRequestFullSync *)v13 countByEnumeratingWithState:&v40 objects:v48 count:16];
-      if (v20)
-      {
-        v21 = v20;
-        v22 = *v41;
-        do
-        {
-          for (i = 0; i != v21; ++i)
-          {
-            if (*v41 != v22)
-            {
-              objc_enumerationMutation(v13);
-            }
-
-            v24 = [(SYStore *)self encodeSYObject:*(*(&v40 + 1) + 8 * i)];
-            [array addObject:v24];
-          }
-
-          v21 = [(SYRequestFullSync *)v13 countByEnumeratingWithState:&v40 objects:v48 count:16];
-        }
-
-        while (v21);
-      }
-
-      if (_sync_log_facilities_pred != -1)
-      {
-        [SYIncomingSyncAllObjectsSession _continueProcessing];
-      }
-
-      v25 = qword_1EDE73420;
-      if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
-      {
-        v26 = v25;
-        v27 = [array count];
-        *buf = 134218240;
-        v45 = v27;
-        v46 = 2048;
-        v47 = currentLocalVersion;
-        _os_log_impl(&dword_1DF835000, v26, OS_LOG_TYPE_DEFAULT, "performFullSync - %lu objects, %lu finalVersion", buf, 0x16u);
-      }
-
-      currentFullSyncID = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
-
-      if (!currentFullSyncID)
-      {
-        persistentStore2 = [(SYLegacyStore *)self persistentStore];
-        completedSync = [persistentStore2 completedSync];
-
-        if (completedSync)
-        {
-          v31 = objc_opt_new();
-          uUIDString = [v31 UUIDString];
-        }
-
-        else
-        {
-          v31 = [@"InitialSync" stringByAppendingString:@"-Master-"];
-          v33 = objc_opt_new();
-          uUIDString2 = [v33 UUIDString];
-          uUIDString = [v31 stringByAppendingString:uUIDString2];
-        }
-
-        [(SYPersistentStore *)self->_persistentStore enterFullSyncWithID:uUIDString ignoring:0];
-      }
-
-      fullSyncIDSOptions2 = objc_alloc_init(SYSyncAllObjects);
-      newMessageHeader = [(SYLegacyStore *)self newMessageHeader];
-      [(SYSyncAllObjects *)fullSyncIDSOptions2 setHeader:newMessageHeader];
-
-      currentFullSyncID2 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
-      [(SYSyncAllObjects *)fullSyncIDSOptions2 setSyncID:currentFullSyncID2];
-
-      [(SYSyncAllObjects *)fullSyncIDSOptions2 setVersion:0];
-      [(SYSyncAllObjects *)fullSyncIDSOptions2 setAllObjects:array];
-      fullSyncUserInfo = [(SYPersistentStore *)self->_persistentStore fullSyncUserInfo];
-      fullSyncIDSOptions = [(SYPersistentStore *)self->_persistentStore fullSyncIDSOptions];
-      [(SYLegacyStore *)self sendMessage:fullSyncIDSOptions2 ofType:2 respondingTo:0 userInfo:fullSyncUserInfo idsOptions:fullSyncIDSOptions];
-
-      [(SYPersistentStore *)self->_persistentStore setCompletedSync:1];
+      [(SYPersistentStore *)self->_persistentStore enterFullSyncWithID:v11 ignoring:0];
     }
 
-    else
-    {
-      if (_sync_log_facilities_pred != -1)
-      {
-        [SYIncomingSyncAllObjectsSession _continueProcessing];
-      }
+    v13 = objc_alloc_init(SYRequestFullSync);
+    newMessageHeader2 = [(SYLegacyStore *)self newMessageHeader];
+    [(SYRequestFullSync *)v13 setHeader:newMessageHeader2];
 
-      if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
-      {
-        [SYLegacyStore performFullSyncToCurrentDBVersion];
-      }
+    currentFullSyncID4 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
+    [(SYRequestFullSync *)v13 setSyncID:currentFullSyncID4];
 
-      currentFullSyncID3 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
-
-      if (!currentFullSyncID3)
-      {
-        persistentStore3 = [(SYLegacyStore *)self persistentStore];
-        completedSync2 = [persistentStore3 completedSync];
-
-        v9 = objc_opt_new();
-        uUIDString3 = [v9 UUIDString];
-        v11 = uUIDString3;
-        if ((completedSync2 & 1) == 0)
-        {
-          v12 = [@"InitialSync" stringByAppendingFormat:@"-%@", uUIDString3];
-
-          v11 = v12;
-        }
-
-        [(SYPersistentStore *)self->_persistentStore enterFullSyncWithID:v11 ignoring:0];
-      }
-
-      v13 = objc_alloc_init(SYRequestFullSync);
-      newMessageHeader2 = [(SYLegacyStore *)self newMessageHeader];
-      [(SYRequestFullSync *)v13 setHeader:newMessageHeader2];
-
-      currentFullSyncID4 = [(SYPersistentStore *)self->_persistentStore currentFullSyncID];
-      [(SYRequestFullSync *)v13 setSyncID:currentFullSyncID4];
-
-      array = [(SYPersistentStore *)self->_persistentStore fullSyncUserInfo];
-      fullSyncIDSOptions2 = [(SYPersistentStore *)self->_persistentStore fullSyncIDSOptions];
-      [(SYLegacyStore *)self sendMessage:v13 ofType:1 respondingTo:0 userInfo:array idsOptions:fullSyncIDSOptions2];
-    }
-
-    if (_sync_log_facilities_pred != -1)
-    {
-      [SYIncomingSyncAllObjectsSession _continueProcessing];
-    }
-
-    if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
-    {
-      [SYLegacyStore performFullSyncToCurrentDBVersion];
-    }
+    array = [(SYPersistentStore *)self->_persistentStore fullSyncUserInfo];
+    fullSyncIDSOptions2 = [(SYPersistentStore *)self->_persistentStore fullSyncIDSOptions];
+    [(SYLegacyStore *)self sendMessage:v13 ofType:1 respondingTo:0 userInfo:array idsOptions:fullSyncIDSOptions2];
   }
 
-LABEL_46:
-  v39 = *MEMORY[0x1E69E9840];
+  if (_sync_log_facilities_pred != -1)
+  {
+    [SYIncomingSyncAllObjectsSession _continueProcessing];
+  }
+
+  if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
+  {
+    [SYLegacyStore performFullSyncToCurrentDBVersion];
+  }
 }
 
 - (void)performFullSync
@@ -4139,7 +4353,7 @@ void __44__SYLegacyStore_FullSyncSupport___retrySync__block_invoke(uint64_t a1)
 
 - (void)_postBatchEndMessageWithState:(id)state error:(id)error then:(id)then
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   errorCopy = error;
   thenCopy = then;
@@ -4200,9 +4414,9 @@ LABEL_13:
   if ((*&self->super._flags & 0x200) != 0)
   {
     v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v27 = *MEMORY[0x1E696AA08];
-    v28[0] = errorCopy;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696AA08];
+    v27[0] = errorCopy;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v22 = [v23 initWithSYError:2017 userInfo:v24];
 
     delegate = [(SYStore *)self delegate];
@@ -4212,8 +4426,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_restartBatchSyncWithState:(id)state then:(id)then
@@ -4227,38 +4439,38 @@ LABEL_14:
 
 - (void)_sendBatchChunk:(id)chunk withState:(id)state then:(id)then
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   chunkCopy = chunk;
   stateCopy = state;
   thenCopy = then;
   v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(chunkCopy, "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v12 = chunkCopy;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [(SYStore *)self encodeSYObject:*(*(&v26 + 1) + 8 * i), v26];
+        v17 = [(SYStore *)self encodeSYObject:*(*(&v25 + 1) + 8 * i), v25];
         if (v17)
         {
           [v11 addObject:v17];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -4291,13 +4503,11 @@ LABEL_14:
   [(SYLegacyStore *)self setNextBatchStep:thenCopy];
   v24 = [stateCopy objectForKeyedSubscript:@"IDSOptions"];
   [(SYLegacyStore *)self sendMessage:v20 ofType:4 respondingTo:0 userInfo:stateCopy idsOptions:v24];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)performBatchedSyncToCurrentDBVersion
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   if (_sync_log_facilities_pred != -1)
   {
@@ -4314,7 +4524,7 @@ LABEL_14:
     _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "performBatchedSync: assigned UUID %{public}@", &buf, 0xCu);
   }
 
-  v40 = _os_activity_create(&dword_1DF835000, "CompanionSync BatchedFullSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v39 = _os_activity_create(&dword_1DF835000, "CompanionSync BatchedFullSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   delegate = [(SYStore *)self delegate];
   v7 = [delegate beginSyncingAllObjectsForStore:self];
 
@@ -4390,72 +4600,72 @@ LABEL_14:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v67 = 0x2020000000;
-    v68 = 0;
-    v65[0] = 0;
-    v65[1] = v65;
-    v65[2] = 0x2020000000;
-    v65[3] = 0;
+    v66 = 0x2020000000;
+    v67 = 0;
+    v64[0] = 0;
+    v64[1] = v64;
+    v64[2] = 0x2020000000;
+    v64[3] = 0;
     v25 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:25];
-    v63[0] = 0;
-    v63[1] = v63;
-    v63[2] = 0x2020000000;
-    v64 = 0;
+    v62[0] = 0;
+    v62[1] = v62;
+    v62[2] = 0x2020000000;
+    v63 = 0;
     objc_initWeak(&location, self);
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke;
-    v60[3] = &unk_1E86CA580;
-    objc_copyWeak(&v61, &location);
-    v26 = MEMORY[0x1E12E11B0](v60);
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2;
-    v56[3] = &unk_1E86CA5D0;
-    objc_copyWeak(&v59, &location);
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke;
+    v59[3] = &unk_1E86CA580;
+    objc_copyWeak(&v60, &location);
+    v26 = MEMORY[0x1E12E11B0](v59);
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2;
+    v55[3] = &unk_1E86CA5D0;
+    objc_copyWeak(&v58, &location);
     v27 = newFullSyncContext;
-    v57 = v27;
+    v56 = v27;
     v28 = v26;
-    v58 = v28;
-    v29 = MEMORY[0x1E12E11B0](v56);
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_548;
-    v54[3] = &unk_1E86CA5F8;
+    v57 = v28;
+    v29 = MEMORY[0x1E12E11B0](v55);
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_548;
+    v53[3] = &unk_1E86CA5F8;
     v30 = v29;
-    v55 = v30;
-    v31 = MEMORY[0x1E12E11B0](v54);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549;
-    v43[3] = &unk_1E86CA648;
-    objc_copyWeak(&v53, &location);
-    v43[4] = self;
+    v54 = v30;
+    v31 = MEMORY[0x1E12E11B0](v53);
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549;
+    v42[3] = &unk_1E86CA648;
+    objc_copyWeak(&v52, &location);
+    v42[4] = self;
     v32 = v27;
-    v44 = v32;
+    v43 = v32;
     p_buf = &buf;
     v33 = v30;
-    v46 = v33;
+    v45 = v33;
     v34 = v25;
-    v45 = v34;
-    v51 = v65;
-    v47 = v7;
-    v52 = v63;
+    v44 = v34;
+    v50 = v64;
+    v46 = v7;
+    v51 = v62;
     v35 = v31;
-    v48 = v35;
+    v47 = v35;
     v36 = v28;
-    v49 = v36;
-    v37 = MEMORY[0x1E12E11B0](v43);
+    v48 = v36;
+    v37 = MEMORY[0x1E12E11B0](v42);
     [(SYLegacyStore *)self _postBatchStartMessageWithState:v32 then:v37];
 
-    objc_destroyWeak(&v53);
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v58);
 
-    objc_destroyWeak(&v61);
+    objc_destroyWeak(&v60);
     objc_destroyWeak(&location);
-    _Block_object_dispose(v63, 8);
+    _Block_object_dispose(v62, 8);
 
-    _Block_object_dispose(v65, 8);
+    _Block_object_dispose(v64, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -4472,7 +4682,6 @@ LABEL_14:
     }
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v7 != 0;
 }
 
@@ -4540,23 +4749,23 @@ void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersio
 LABEL_11:
 }
 
-void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_3(uint64_t a1)
+void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v8 = objc_opt_new();
-  v2 = [*(a1 + 32) newMessageHeader];
-  [v8 setHeader:v2];
+  v9 = objc_opt_new();
+  v3 = [*(a1 + 32) newMessageHeader];
+  [v9 setHeader:v3];
 
-  v3 = objc_opt_new();
-  [v8 setAllObjects:v3];
+  v4 = objc_opt_new();
+  [v9 setAllObjects:v4];
 
-  [v8 setVersion:0];
-  v4 = [*(a1 + 40) objectForKeyedSubscript:@"SyncID"];
-  [v8 setSyncID:v4];
+  [v9 setVersion:0];
+  v5 = [*(a1 + 40) objectForKeyedSubscript:@"SyncID"];
+  [v9 setSyncID:v5];
 
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = [v6[23] fullSyncIDSOptions];
-  [v6 sendMessage:v8 ofType:2 respondingTo:0 userInfo:v5 idsOptions:v7];
+  v7 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v8 = [v7[23] fullSyncIDSOptions];
+  [v7 sendMessage:v9 ofType:2 respondingTo:0 userInfo:v6 idsOptions:v8];
 }
 
 void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549(uint64_t a1, void *a2, int a3)
@@ -4584,20 +4793,20 @@ void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersio
       {
 LABEL_13:
         [*(a1 + 48) removeAllObjects];
-        v33 = 0;
-        v34[0] = &v33;
-        v34[1] = 0x3032000000;
-        v34[2] = __Block_byref_object_copy__3;
-        v34[3] = __Block_byref_object_dispose__3;
-        v35 = 0;
+        v32 = 0;
+        v33 = &v32;
+        v34 = 0x3032000000;
+        v35 = __Block_byref_object_copy__3;
+        v36 = __Block_byref_object_dispose__3;
+        v37 = 0;
         activity_block[0] = MEMORY[0x1E69E9820];
         activity_block[1] = 3221225472;
         activity_block[2] = __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_550;
         activity_block[3] = &unk_1E86CA620;
-        v31 = *(a1 + 96);
-        v30 = *(a1 + 64);
-        v29 = *(a1 + 48);
-        v32 = &v33;
+        v30 = *(a1 + 96);
+        v29 = *(a1 + 64);
+        v28 = *(a1 + 48);
+        v31 = &v32;
         _os_activity_initiate(&dword_1DF835000, "Fetching sync batch", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
         v10 = *(*(*(a1 + 96) + 8) + 24);
@@ -4612,8 +4821,8 @@ LABEL_13:
           v14 = qword_1EDE73420;
           if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEFAULT))
           {
-            *v27 = 0;
-            _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "CompanionSync: batched full-sync restart requested", v27, 2u);
+            *v26 = 0;
+            _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "CompanionSync: batched full-sync restart requested", v26, 2u);
           }
 
           v15 = *(a1 + 40);
@@ -4623,7 +4832,7 @@ LABEL_13:
           goto LABEL_53;
         }
 
-        if (v10 == 4 && *(v34[0] + 40))
+        if (v10 == 4 && v33[5])
         {
           if (_sync_log_facilities_pred != -1)
           {
@@ -4632,7 +4841,7 @@ LABEL_13:
 
           if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_ERROR))
           {
-            __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549_cold_7(v34);
+            __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549_cold_7();
           }
 
           *(*(*(a1 + 104) + 8) + 24) = 1;
@@ -4650,7 +4859,7 @@ LABEL_13:
             [v11 syncStoreShouldDeleteRemoteObjectsOnFailedFullSync:*(a1 + 32)];
           }
 
-          if (!*(v34[0] + 40))
+          if (!v33[5])
           {
             if (*(*(*(a1 + 96) + 8) + 24) == 2)
             {
@@ -4662,11 +4871,10 @@ LABEL_13:
               [MEMORY[0x1E696ABC0] errorWithSYError:1004 userInfo:0];
             }
             v16 = ;
-            v22 = *(v34[0] + 40);
-            *(v34[0] + 40) = v16;
+            v22 = v33[5];
+            v33[5] = v16;
           }
 
-          v23 = *(v34[0] + 40);
           (*(*(a1 + 56) + 16))();
         }
 
@@ -4696,9 +4904,9 @@ LABEL_13:
             {
             }
 
-            v24 = *(*(a1 + 32) + 104);
+            v23 = *(*(a1 + 32) + 104);
             ++*(*(*(a1 + 88) + 8) + 24);
-            [v24 addIndex:?];
+            [v23 addIndex:?];
           }
 
           else
@@ -4709,27 +4917,27 @@ LABEL_13:
           v5 = 0;
         }
 
-        v25 = *(*(*(a1 + 96) + 8) + 24);
-        if (v25 == 4)
+        v24 = *(*(*(a1 + 96) + 8) + 24);
+        if (v24 == 4)
         {
           if ((*(*(*(a1 + 104) + 8) + 24) & 1) != 0 || (*(*(a1 + 32) + 16) & 0x200) == 0)
           {
 LABEL_53:
 
 LABEL_54:
-            _Block_object_dispose(&v33, 8);
+            _Block_object_dispose(&v32, 8);
 
             goto LABEL_55;
           }
 
-          [v12 syncStore:WeakRetained encounteredErrorInFullSync:*(v34[0] + 40)];
-          v25 = *(*(*(a1 + 96) + 8) + 24);
+          [v12 syncStore:WeakRetained encounteredErrorInFullSync:v33[5]];
+          v24 = *(*(*(a1 + 96) + 8) + 24);
         }
 
-        if (v25 == 1)
+        if (v24 == 1)
         {
-          v26 = [WeakRetained persistentStore];
-          [v26 setCompletedSync:1];
+          v25 = [WeakRetained persistentStore];
+          [v25 setCompletedSync:1];
         }
 
         goto LABEL_53;
@@ -4774,15 +4982,14 @@ LABEL_55:
 void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_550(void *a1)
 {
   v2 = a1[5];
-  v3 = a1[4];
-  v7 = 0;
-  v4 = (*(v2 + 16))();
-  v5 = v7;
-  v6 = v7;
-  *(*(a1[6] + 8) + 24) = v4;
-  if (v6)
+  v6 = 0;
+  v3 = (*(v2 + 16))();
+  v4 = v6;
+  v5 = v6;
+  *(*(a1[6] + 8) + 24) = v3;
+  if (v5)
   {
-    objc_storeStrong((*(a1[7] + 8) + 40), v5);
+    objc_storeStrong((*(a1[7] + 8) + 40), v4);
   }
 }
 
@@ -5022,55 +5229,50 @@ void __83__SYLegacyStore_BatchedSyncSupport__processBatchChunkAtIndex_encodedObj
 
 - (void)_checkMessageHeader:(os_log_t)log messageID:.cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_error_impl(&dword_1DF835000, log, 0x90u, "Message repeated (bubble): seqno = %qu, messageID: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_error_impl(&dword_1DF835000, log, 0x90u, "Message repeated (bubble): seqno = %qu, messageID: %{public}@", &v3, 0x16u);
 }
 
 - (void)_checkMessageHeader:(void *)a1 messageID:.cold.7(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   [OUTLINED_FUNCTION_7() version];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recordLastSeqNo:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_7();
   v4 = _SYObfuscate(v3);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_7_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = v0;
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = [v0 inReplyTo];
-  v3 = [v1 header];
-  [v3 version];
-  OUTLINED_FUNCTION_17(&dword_1DF835000, v4, v5, "Peer responded to message %{public}@ with a version rejection. Peer is using version %u, and supports versions %{public}@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v2 = v1;
+  v3 = [v1 inReplyTo];
+  v4 = [v2 header];
+  *v11 = 138543874;
+  *&v11[4] = v3;
+  *&v11[12] = 1024;
+  *&v11[14] = [v4 version];
+  *&v11[18] = 2114;
+  *&v11[20] = v0;
+  OUTLINED_FUNCTION_17(&dword_1DF835000, v5, v6, "Peer responded to message %{public}@ with a version rejection. Peer is using version %u, and supports versions %{public}@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], *&v11[24]);
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115_cold_2(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if ([a2 accepted])
   {
@@ -5096,7 +5298,7 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115_cold_2(voi
 
   v8 = [a2 error];
   v9 = v8;
-  v12 = 136315650;
+  v11 = 136315650;
   if (v8)
   {
     v10 = v8;
@@ -5107,124 +5309,98 @@ void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_115_cold_2(voi
     v10 = @"nil";
   }
 
-  v13 = v4;
-  v14 = 2114;
-  v15 = v7;
-  v16 = 2112;
-  v17 = v10;
-  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "SyncRequest response: accepted=%s, inProgressSyncID=%{public}@, error=%@", &v12, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v4;
+  v13 = 2114;
+  v14 = v7;
+  v15 = 2112;
+  v16 = v10;
+  _os_log_debug_impl(&dword_1DF835000, v3, OS_LOG_TYPE_DEBUG, "SyncRequest response: accepted=%s, inProgressSyncID=%{public}@, error=%@", &v11, 0x20u);
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_122_cold_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(*(a1 + 32) + 184);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() waitingForSyncEndID];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() waitingForSyncEndID];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_2_125_cold_1()
 {
   OUTLINED_FUNCTION_16();
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [v1 idsIdentifier];
-  [*v0 count];
-  v10 = *v0;
-  OUTLINED_FUNCTION_17(&dword_1DF835000, v3, v4, "Dropped messages detected upon receipt of message with ID %{public}@: missing %u ACKs of full-sync batches, specifically: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  *v9 = 138543874;
+  *&v9[4] = v2;
+  *&v9[12] = 1024;
+  *&v9[14] = [*v0 count];
+  *&v9[18] = 2114;
+  *&v9[20] = *v0;
+  OUTLINED_FUNCTION_17(&dword_1DF835000, v3, v4, "Dropped messages detected upon receipt of message with ID %{public}@: missing %u ACKs of full-sync batches, specifically: %{public}@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16], *&v9[24]);
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_133_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_9(&dword_1DF835000, v0, v1, "dataIdentifier: %{public}@ didSendWithSuccess: NO error: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SYLegacyStore__setupMessageCenter_LOCKED__block_invoke_133_cold_4(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_7();
   v4 = _SYObfuscate(v3);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)peerState:fromPeer:matchesExpectationForChangeCount:offsetAmount:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)peerState:(uint64_t *)a1 fromPeer:matchesExpectationForChangeCount:offsetAmount:.cold.4(uint64_t *a1)
+- (void)peerState:fromPeer:matchesExpectationForChangeCount:offsetAmount:.cold.4()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)peerState:fromPeer:matchesExpectationForChangeCount:offsetAmount:.cold.8()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_13();
-  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Peer has a future version of my data ?? It has: %llu, I have: %llu", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Peer has a future version of my data ?? It has: %llu, I have: %llu", v1, 0x16u);
 }
 
-void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke_cold_2(uint64_t *a1, void *a2)
+void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() service];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() service];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_8();
-  _os_log_fault_impl(v6, v7, OS_LOG_TYPE_FAULT, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v5, v6, OS_LOG_TYPE_FAULT, v7, v8, 0xCu);
 }
 
 void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke_cold_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 48);
-  v5 = a3;
-  v6 = OUTLINED_FUNCTION_14();
-  v13 = _SYObfuscate(v6);
+  v4 = a3;
+  v5 = OUTLINED_FUNCTION_14();
+  v11 = _SYObfuscate(v5);
   OUTLINED_FUNCTION_11();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x12u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x12u);
 }
 
 - (void)handleChangeMessage:.cold.3()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_9(&dword_1DF835000, v0, v1, "New message seqno: %qu, last message seqno: %qu", v3, v4);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1DF835000, v0, v1, "New message seqno: %qu, last message seqno: %qu", v2, v3);
 }
 
 - (void)handleChangeMessage:(void *)a3 .cold.13(void *a1, uint8_t *buf, void *a3, os_log_t log)
@@ -5236,123 +5412,95 @@ void __47__SYLegacyStore_handleSyncAllObjects_response___block_invoke_cold_4(uin
 
 - (void)messageCenter:(void *)a1 didReceiveUnknownRequest:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_7();
   v4 = _SYObfuscate(v3);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageCenter:(void *)a1 didResolveIDSIdentifierForRequest:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_7() idsIdentifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageCenter:didSuccessfullySendRequestWithIdentifier:userInfo:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)messageCenter:didSuccessfullyDeliverRequestWithIdentifier:userInfo:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(void *)a1 ofType:respondingTo:userInfo:idsOptions:.cold.4(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = OUTLINED_FUNCTION_7();
   v4 = _SYObfuscate(v3);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logChanges:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = v2;
   [OUTLINED_FUNCTION_14() count];
   OUTLINED_FUNCTION_5_0();
-  v6 = 2112;
-  v7 = v0;
-  _os_log_error_impl(&dword_1DF835000, v1, OS_LOG_TYPE_ERROR, "Failed to log %zu changes: %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = v0;
+  _os_log_error_impl(&dword_1DF835000, v1, OS_LOG_TYPE_ERROR, "Failed to log %zu changes: %@", v4, 0x16u);
 }
 
-void __56__SYLegacyStore_setNeedsFullSyncWithContext_idsOptions___block_invoke_2_cold_2(uint64_t *a1, void *a2)
+void __56__SYLegacyStore_setNeedsFullSyncWithContext_idsOptions___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
+  v3 = a2;
   [OUTLINED_FUNCTION_7() alwaysWins];
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
 }
 
 void __58__SYLegacyStore_performFullSyncIfNecessaryAskingDelegate___block_invoke_206_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549_cold_4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Error during batched sync: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Error during batched sync: %{public}@", v1, 0xCu);
 }
 
-void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549_cold_7(uint64_t a1)
+void __73__SYLegacyStore_BatchedSyncSupport__performBatchedSyncToCurrentDBVersion__block_invoke_2_549_cold_7()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*a1 + 40);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1DF835000, v2, OS_LOG_TYPE_ERROR, "Batch sync client reported error: %{public}@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF835000, v0, OS_LOG_TYPE_ERROR, "Batch sync client reported error: %{public}@", v1, 0xCu);
 }
 
-void __83__SYLegacyStore_BatchedSyncSupport__processBatchChunkAtIndex_encodedObjects_error___block_invoke_2_cold_2(uint64_t *a1, void *a2)
+void __83__SYLegacyStore_BatchedSyncSupport__processBatchChunkAtIndex_encodedObjects_error___block_invoke_2_cold_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_7() service];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_7() service];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 @end

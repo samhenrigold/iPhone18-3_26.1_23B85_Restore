@@ -69,7 +69,7 @@
   selfCopy = self;
   VoicemailAccountManagerWithDelegateDecorator.accounts.getter();
 
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

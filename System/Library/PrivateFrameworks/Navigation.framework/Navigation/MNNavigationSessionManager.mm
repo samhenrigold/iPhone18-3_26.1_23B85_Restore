@@ -10,6 +10,7 @@
 - (id)_traceManager;
 - (void)_didEndNavigation;
 - (void)advanceToNextLeg;
+- (void)changeTransportType:(int)type route:(id)route;
 - (void)dealloc;
 - (void)disableNavigationCapability:(unint64_t)capability;
 - (void)enableNavigationCapability:(unint64_t)capability;
@@ -18,6 +19,8 @@
 - (void)navigationSession:(id)session currentStepIndex:(unint64_t)index didUpdateDistanceUntilManeuver:(double)maneuver timeUntilManeuver:(double)untilManeuver;
 - (void)navigationSession:(id)session currentStepIndex:(unint64_t)index didUpdateDistanceUntilSign:(double)sign timeUntilSign:(double)untilSign;
 - (void)navigationSession:(id)session didArriveAtWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
+- (void)navigationSession:(id)session didChangeNavigationState:(int)state;
+- (void)navigationSession:(id)session didEnableGuidancePrompts:(BOOL)prompts;
 - (void)navigationSession:(id)session didEnterPreArrivalStateForWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index;
 - (void)navigationSession:(id)session didFailRerouteWithError:(id)error;
 - (void)navigationSession:(id)session didProcessSpeechEvent:(id)event;
@@ -27,6 +30,7 @@
 - (void)navigationSession:(id)session didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index reason:(unint64_t)reason;
 - (void)navigationSession:(id)session didSendNavigationServiceCallback:(id)callback;
 - (void)navigationSession:(id)session didStartSpeakingPrompt:(id)prompt;
+- (void)navigationSession:(id)session didSwitchToNewTransportType:(int)type newRoute:(id)route rerouteReason:(unint64_t)reason;
 - (void)navigationSession:(id)session didUpdateAlternateRoutes:(id)routes;
 - (void)navigationSession:(id)session didUpdateBackgroundWalkingRoute:(id)route;
 - (void)navigationSession:(id)session didUpdateDisplayETA:(id)a remainingDistance:(id)distance batteryChargeInfo:(id)info;
@@ -36,6 +40,8 @@
 - (void)navigationSession:(id)session didUpdateMotionType:(unint64_t)type confidence:(unint64_t)confidence;
 - (void)navigationSession:(id)session didUpdateVehicleParkingInfo:(id)info;
 - (void)navigationSession:(id)session displayManeuverAlertForAnnouncementStage:(unint64_t)stage;
+- (void)navigationSession:(id)session displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0;
+- (void)navigationSession:(id)session displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side;
 - (void)navigationSession:(id)session hideJunctionViewForId:(id)id;
 - (void)navigationSession:(id)session hideLaneDirectionsForId:(id)id;
 - (void)navigationSession:(id)session isApproachingEndOfLeg:(unint64_t)leg;
@@ -45,9 +51,11 @@
 - (void)navigationSession:(id)session shouldEndWithReason:(unint64_t)reason;
 - (void)navigationSession:(id)session showJunctionView:(id)view;
 - (void)navigationSession:(id)session showLaneDirections:(id)directions;
+- (void)navigationSession:(id)session triggerHaptics:(int)haptics;
 - (void)navigationSession:(id)session updateSignsWithARInfo:(id)info;
 - (void)navigationSession:(id)session updateSignsWithInfo:(id)info;
 - (void)navigationSession:(id)session updatedGuidanceEventFeedback:(id)feedback;
+- (void)navigationSession:(id)session usePersistentDisplay:(BOOL)display;
 - (void)navigationSession:(id)session willAnnounce:(unint64_t)announce inSeconds:(double)seconds;
 - (void)navigationSession:(id)session willProcessSpeechEvent:(id)event;
 - (void)navigationSessionBeginGuidanceUpdate:(id)update;
@@ -67,6 +75,8 @@
 - (void)rerouteWithWaypoints:(id)waypoints;
 - (void)resumeOriginalDestination;
 - (void)setDisplayedStepIndex:(unint64_t)index;
+- (void)setIsConnectedToCarplay:(BOOL)carplay;
+- (void)setIsNavigatingInLowGuidance:(BOOL)guidance;
 - (void)setRideIndex:(unint64_t)index forSegmentIndex:(unint64_t)segmentIndex;
 - (void)setRoutesForPreview:(id)preview selectedRouteIndex:(unint64_t)index;
 - (void)setTraceIsPlaying:(BOOL)playing;
@@ -102,27 +112,27 @@
 
 - (void)navigationSession:(id)session didSendNavigationServiceCallback:(id)callback
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   if (!WeakRetained)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MNNavigationSession.delegate is nil"];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MNNavigationSession.delegate is nil"];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136316162;
-      v13 = "[MNNavigationSessionManager navigationSession:didSendNavigationServiceCallback:]";
-      v14 = 2080;
-      v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v16 = 1024;
-      v17 = 868;
-      v18 = 2080;
-      v19 = "_delegate";
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v12, 0x30u);
+      v11 = 136316162;
+      v12 = "[MNNavigationSessionManager navigationSession:didSendNavigationServiceCallback:]";
+      v13 = 2080;
+      v14 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v15 = 1024;
+      v16 = 868;
+      v17 = 2080;
+      v18 = "_delegate";
+      v19 = 2112;
+      v20 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v11, 0x30u);
     }
   }
 
@@ -134,8 +144,6 @@
   {
     [(MNNavigationSessionManager *)self _didEndNavigation];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationSession:(id)session didReceiveTransitAlert:(id)alert
@@ -143,6 +151,13 @@
   alertCopy = alert;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self didReceiveTransitAlert:alertCopy];
+}
+
+- (void)navigationSession:(id)session triggerHaptics:(int)haptics
+{
+  v4 = *&haptics;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self triggerHaptics:v4];
 }
 
 - (void)navigationSession:(id)session didProcessSpeechEvent:(id)event
@@ -200,6 +215,13 @@
   [WeakRetained navigationSessionManager:self newGuidanceEventFeedback:feedbackCopy];
 }
 
+- (void)navigationSession:(id)session didEnableGuidancePrompts:(BOOL)prompts
+{
+  promptsCopy = prompts;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self didEnableGuidancePrompts:promptsCopy];
+}
+
 - (void)navigationSession:(id)session hideJunctionViewForId:(id)id
 {
   idCopy = id;
@@ -226,6 +248,13 @@
   directionsCopy = directions;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self showLaneDirections:directionsCopy];
+}
+
+- (void)navigationSession:(id)session usePersistentDisplay:(BOOL)display
+{
+  displayCopy = display;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self usePersistentDisplay:displayCopy];
 }
 
 - (void)navigationSession:(id)session updateSignsWithARInfo:(id)info
@@ -260,10 +289,33 @@
   [WeakRetained navigationSessionManagerHideSecondaryStep:self];
 }
 
+- (void)navigationSession:(id)session displaySecondaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side
+{
+  v8 = *&side;
+  v9 = *&type;
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self displaySecondaryStep:stepCopy instructions:instructionsCopy shieldType:v9 shieldText:textCopy drivingSide:v8];
+}
+
 - (void)navigationSession:(id)session displayManeuverAlertForAnnouncementStage:(unint64_t)stage
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self displayManeuverAlertForAnnouncementStage:stage];
+}
+
+- (void)navigationSession:(id)session displayPrimaryStep:(id)step instructions:(id)instructions shieldType:(int)type shieldText:(id)text drivingSide:(int)side maneuverStepIndex:(unint64_t)index isSynthetic:(BOOL)self0
+{
+  v10 = *&side;
+  v11 = *&type;
+  textCopy = text;
+  instructionsCopy = instructions;
+  stepCopy = step;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  LOBYTE(v18) = synthetic;
+  [WeakRetained navigationSessionManager:self displayPrimaryStep:stepCopy instructions:instructionsCopy shieldType:v11 shieldText:textCopy drivingSide:v10 maneuverStepIndex:index isSynthetic:v18];
 }
 
 - (void)navigationSession:(id)session willAnnounce:(unint64_t)announce inSeconds:(double)seconds
@@ -297,6 +349,16 @@
   errorCopy = error;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self didFailRerouteWithError:errorCopy];
+}
+
+- (void)navigationSession:(id)session didSwitchToNewTransportType:(int)type newRoute:(id)route rerouteReason:(unint64_t)reason
+{
+  v7 = *&type;
+  simulationLocationProvider = self->_simulationLocationProvider;
+  routeCopy = route;
+  [(MNSimulationLocationProvider *)simulationLocationProvider updateWithRouteInfo:routeCopy rerouteReason:reason];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self didSwitchToNewTransportType:v7 newRoute:routeCopy];
 }
 
 - (void)navigationSession:(id)session didReroute:(id)reroute withLocation:(id)location withAlternateRoutes:(id)routes rerouteReason:(unint64_t)reason
@@ -436,29 +498,34 @@
 
 - (void)navigationSession:(id)session didUpdateMatchedLocation:(id)location
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v6 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
-    v11 = 138412290;
-    v12 = uuid;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNNavigationSessionManager::navigationSession:didUpdateMatchedLocation:", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = uuid;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNNavigationSessionManager::navigationSession:didUpdateMatchedLocation:", &v10, 0xCu);
   }
 
   v8 = objc_opt_new();
   [v8 setLocation:locationCopy];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self didSendNavigationServiceCallback:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)navigationSession:(id)session shouldEndWithReason:(unint64_t)reason
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained navigationSessionManager:self shouldEndWithReason:reason];
+}
+
+- (void)navigationSession:(id)session didChangeNavigationState:(int)state
+{
+  v4 = *&state;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained navigationSessionManager:self didChangeNavigationState:v4];
 }
 
 - (void)updateManager:(id)manager didReceiveTransitError:(id)error
@@ -493,33 +560,33 @@
 
 - (void)updateManager:(id)manager willSendTransitUpdateRequests:(id)requests
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestsCopy = requests;
   traceRecorder = [(MNNavigationTraceManager *)self->_traceManager traceRecorder];
   [traceRecorder timeSinceRecordingBegan];
   v8 = v7;
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = requestsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         traceRecorder2 = [(MNNavigationTraceManager *)self->_traceManager traceRecorder];
         [traceRecorder2 recordTransitUpdateRequest:v14 withTimestamp:v8];
 
@@ -527,13 +594,11 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didEndNavigation
@@ -550,6 +615,15 @@
 
     v5();
   }
+}
+
+- (void)setIsNavigatingInLowGuidance:(BOOL)guidance
+{
+  guidanceCopy = guidance;
+  [(MNNavigationProxyUpdater *)self->_proxyUpdater setIsNavigatingInLowGuidance:?];
+  navigationSession = self->_navigationSession;
+
+  [(MNNavigationSession *)navigationSession setIsNavigatingInLowGuidance:guidanceCopy];
 }
 
 - (id)_traceManager
@@ -766,22 +840,120 @@ void __84__MNNavigationSessionManager_recordTraceBookmarkAtCurrentPositionWthScr
   [(MNNavigationProxyUpdater *)proxyUpdater setDisplayedStepIndex:index];
 }
 
+- (void)setIsConnectedToCarplay:(BOOL)carplay
+{
+  carplayCopy = carplay;
+  [(MNNavigationSession *)self->_navigationSession setIsConnectedToCarplay:?];
+  proxyUpdater = self->_proxyUpdater;
+
+  [(MNNavigationProxyUpdater *)proxyUpdater setIsConnectedToCarplay:carplayCopy];
+}
+
 - (BOOL)vibrateForPrompt:(unint64_t)prompt
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while vibrating for prompt"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while vibrating for prompt"];
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 136316162;
+      v10 = "[MNNavigationSessionManager vibrateForPrompt:]";
+      v11 = 2080;
+      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v13 = 1024;
+      v14 = 295;
+      v15 = 2080;
+      v16 = "(_navigationSession != nil)";
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+    }
+
+    navigationSession = self->_navigationSession;
+  }
+
+  return [(MNNavigationSession *)navigationSession vibrateForPrompt:prompt];
+}
+
+- (BOOL)repeatCurrentTrafficAlert
+{
+  v17 = *MEMORY[0x1E69E9840];
+  navigationSession = self->_navigationSession;
+  if (!navigationSession)
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while repeating current traffic alert"];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136316162;
+      v8 = "[MNNavigationSessionManager repeatCurrentTrafficAlert]";
+      v9 = 2080;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v11 = 1024;
+      v12 = 289;
+      v13 = 2080;
+      v14 = "(_navigationSession != nil)";
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
+    }
+
+    navigationSession = self->_navigationSession;
+  }
+
+  return [(MNNavigationSession *)navigationSession repeatCurrentTrafficAlert];
+}
+
+- (BOOL)repeatCurrentGuidance
+{
+  v17 = *MEMORY[0x1E69E9840];
+  navigationSession = self->_navigationSession;
+  if (!navigationSession)
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while repeating current guidance"];
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136316162;
+      v8 = "[MNNavigationSessionManager repeatCurrentGuidance]";
+      v9 = 2080;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v11 = 1024;
+      v12 = 283;
+      v13 = 2080;
+      v14 = "(_navigationSession != nil)";
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
+    }
+
+    navigationSession = self->_navigationSession;
+  }
+
+  return [(MNNavigationSession *)navigationSession repeatCurrentGuidance];
+}
+
+- (void)changeTransportType:(int)type route:(id)route
+{
+  v4 = *&type;
+  v20 = *MEMORY[0x1E69E9840];
+  routeCopy = route;
+  navigationSession = self->_navigationSession;
+  if (!navigationSession)
+  {
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while switching to route"];
     v9 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = 136316162;
-      v11 = "[MNNavigationSessionManager vibrateForPrompt:]";
+      v11 = "[MNNavigationSessionManager changeTransportType:route:]";
       v12 = 2080;
       v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
       v14 = 1024;
-      v15 = 295;
+      v15 = 267;
       v16 = 2080;
       v17 = "(_navigationSession != nil)";
       v18 = 2112;
@@ -792,319 +964,243 @@ void __84__MNNavigationSessionManager_recordTraceBookmarkAtCurrentPositionWthScr
     navigationSession = self->_navigationSession;
   }
 
-  result = [(MNNavigationSession *)navigationSession vibrateForPrompt:prompt];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)repeatCurrentTrafficAlert
-{
-  v18 = *MEMORY[0x1E69E9840];
-  navigationSession = self->_navigationSession;
-  if (!navigationSession)
-  {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while repeating current traffic alert"];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136316162;
-      v9 = "[MNNavigationSessionManager repeatCurrentTrafficAlert]";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v12 = 1024;
-      v13 = 289;
-      v14 = 2080;
-      v15 = "(_navigationSession != nil)";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
-    }
-
-    navigationSession = self->_navigationSession;
-  }
-
-  result = [(MNNavigationSession *)navigationSession repeatCurrentTrafficAlert];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)repeatCurrentGuidance
-{
-  v18 = *MEMORY[0x1E69E9840];
-  navigationSession = self->_navigationSession;
-  if (!navigationSession)
-  {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while repeating current guidance"];
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136316162;
-      v9 = "[MNNavigationSessionManager repeatCurrentGuidance]";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v12 = 1024;
-      v13 = 283;
-      v14 = 2080;
-      v15 = "(_navigationSession != nil)";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
-    }
-
-    navigationSession = self->_navigationSession;
-  }
-
-  result = [(MNNavigationSession *)navigationSession repeatCurrentGuidance];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  [(MNNavigationSession *)navigationSession changeTransportType:v4 route:routeCopy];
 }
 
 - (void)switchToRoute:(id)route
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while switching to route"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while switching to route"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationSessionManager switchToRoute:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v13 = 1024;
-      v14 = 261;
-      v15 = 2080;
-      v16 = "(_navigationSession != nil)";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationSessionManager switchToRoute:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v12 = 1024;
+      v13 = 261;
+      v14 = 2080;
+      v15 = "(_navigationSession != nil)";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession switchToRoute:routeCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceReroute
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while forcing reroute"];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while forcing reroute"];
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136316162;
-      v8 = "[MNNavigationSessionManager forceReroute]";
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v11 = 1024;
-      v12 = 255;
-      v13 = 2080;
-      v14 = "(_navigationSession != nil)";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
+      v6 = 136316162;
+      v7 = "[MNNavigationSessionManager forceReroute]";
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v10 = 1024;
+      v11 = 255;
+      v12 = 2080;
+      v13 = "(_navigationSession != nil)";
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v6, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession forceReroute];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeOriginalDestination
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while resuming original destination"];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while resuming original destination"];
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136316162;
-      v8 = "[MNNavigationSessionManager resumeOriginalDestination]";
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v11 = 1024;
-      v12 = 249;
-      v13 = 2080;
-      v14 = "(_navigationSession != nil)";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
+      v6 = 136316162;
+      v7 = "[MNNavigationSessionManager resumeOriginalDestination]";
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v10 = 1024;
+      v11 = 249;
+      v12 = 2080;
+      v13 = "(_navigationSession != nil)";
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v6, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession resumeOriginalDestination];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDestination:(id)destination
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while updating destination"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while updating destination"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationSessionManager updateDestination:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v13 = 1024;
-      v14 = 243;
-      v15 = 2080;
-      v16 = "(_navigationSession != nil)";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationSessionManager updateDestination:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v12 = 1024;
+      v13 = 243;
+      v14 = 2080;
+      v15 = "(_navigationSession != nil)";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession updateDestination:destinationCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)advanceToNextLeg
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while changing next waypoint"];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while changing next waypoint"];
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136316162;
-      v8 = "[MNNavigationSessionManager advanceToNextLeg]";
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v11 = 1024;
-      v12 = 237;
-      v13 = 2080;
-      v14 = "(_navigationSession != nil)";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
+      v6 = 136316162;
+      v7 = "[MNNavigationSessionManager advanceToNextLeg]";
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v10 = 1024;
+      v11 = 237;
+      v12 = 2080;
+      v13 = "(_navigationSession != nil)";
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v6, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession advanceToNextLeg];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeWaypointAtIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while removing waypoint"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while removing waypoint"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationSessionManager removeWaypointAtIndex:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v13 = 1024;
-      v14 = 231;
-      v15 = 2080;
-      v16 = "(_navigationSession != nil)";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationSessionManager removeWaypointAtIndex:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v12 = 1024;
+      v13 = 231;
+      v14 = 2080;
+      v15 = "(_navigationSession != nil)";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession removeWaypointAtIndex:index];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertWaypoint:(id)waypoint
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   waypointCopy = waypoint;
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while inserting waypoint"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while inserting waypoint"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationSessionManager insertWaypoint:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v13 = 1024;
-      v14 = 225;
-      v15 = 2080;
-      v16 = "(_navigationSession != nil)";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationSessionManager insertWaypoint:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v12 = 1024;
+      v13 = 225;
+      v14 = 2080;
+      v15 = "(_navigationSession != nil)";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession insertWaypoint:waypointCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rerouteWithWaypoints:(id)waypoints
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   waypointsCopy = waypoints;
   navigationSession = self->_navigationSession;
   if (!navigationSession)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while rerouting with waypoints"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Did not find navigation session while rerouting with waypoints"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNNavigationSessionManager rerouteWithWaypoints:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v13 = 1024;
-      v14 = 219;
-      v15 = 2080;
-      v16 = "(_navigationSession != nil)";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNNavigationSessionManager rerouteWithWaypoints:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v12 = 1024;
+      v13 = 219;
+      v14 = 2080;
+      v15 = "(_navigationSession != nil)";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
 
     navigationSession = self->_navigationSession;
   }
 
   [(MNNavigationSession *)navigationSession rerouteWithWaypoints:waypointsCopy];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopNavigationWithReason:(unint64_t)reason
@@ -1130,7 +1226,7 @@ void __84__MNNavigationSessionManager_recordTraceBookmarkAtCurrentPositionWthScr
 
 - (void)startNavigationWithDetails:(id)details
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   v5 = [[MNNavigationSession alloc] initWithRouteManager:self->_routeManager auditToken:self->_auditToken traceManager:self->_traceManager];
   navigationSession = self->_navigationSession;
@@ -1146,21 +1242,21 @@ void __84__MNNavigationSessionManager_recordTraceBookmarkAtCurrentPositionWthScr
 
   if (!currentRouteInfo)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"routeManager.currentRoute is unexpectedly nil"];
-    v22 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"routeManager.currentRoute is unexpectedly nil"];
+    v21 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v25 = "[MNNavigationSessionManager startNavigationWithDetails:]";
-      v26 = 2080;
-      v27 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
-      v28 = 1024;
-      v29 = 182;
-      v30 = 2080;
-      v31 = "_routeManager.currentRouteInfo != nil";
-      v32 = 2112;
-      v33 = v21;
-      _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+      v24 = "[MNNavigationSessionManager startNavigationWithDetails:]";
+      v25 = 2080;
+      v26 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNNavigationSessionManager.m";
+      v27 = 1024;
+      v28 = 182;
+      v29 = 2080;
+      v30 = "_routeManager.currentRouteInfo != nil";
+      v31 = 2112;
+      v32 = v20;
+      _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
   }
 
@@ -1183,12 +1279,10 @@ void __84__MNNavigationSessionManager_recordTraceBookmarkAtCurrentPositionWthScr
 
     v17 = self->_realTimeTransitUpdateManager;
     currentRouteInfo3 = [(MNRouteManager *)self->_routeManager currentRouteInfo];
-    v23 = currentRouteInfo3;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+    v22 = currentRouteInfo3;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
     [(MNSessionUpdateManager *)v17 startUpdateRequestsForRoutes:v19 andNavigationType:[(MNNavigationSession *)self->_navigationSession navigationType]];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateForStartNavigation:(id)navigation

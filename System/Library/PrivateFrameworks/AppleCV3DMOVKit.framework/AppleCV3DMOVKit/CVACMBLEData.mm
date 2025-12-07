@@ -98,14 +98,14 @@
 
 - (id)dictionary
 {
-  v24[8] = *MEMORY[0x277D85DE8];
-  v16 = @"id";
+  v23[8] = *MEMORY[0x277D85DE8];
+  v15 = @"id";
   uuid = self->_uuid;
   if (uuid)
   {
     uUIDString = [(NSUUID *)self->_uuid UUIDString];
-    v24[0] = uUIDString;
-    v17 = @"idsIdentifier";
+    v23[0] = uUIDString;
+    v16 = @"idsIdentifier";
     idsIdentifier = self->_idsIdentifier;
     if (idsIdentifier)
     {
@@ -118,8 +118,8 @@ LABEL_3:
   else
   {
     uUIDString = @"000000-0000-0000-0000-000000000000";
-    v24[0] = @"000000-0000-0000-0000-000000000000";
-    v17 = @"idsIdentifier";
+    v23[0] = @"000000-0000-0000-0000-000000000000";
+    v16 = @"idsIdentifier";
     idsIdentifier = self->_idsIdentifier;
     if (idsIdentifier)
     {
@@ -135,25 +135,25 @@ LABEL_6:
     productName = self->_productName;
   }
 
-  v24[1] = uUIDString2;
-  v24[2] = productName;
-  v18 = @"product";
-  v19 = @"rssi";
+  v23[1] = uUIDString2;
+  v23[2] = productName;
+  v17 = @"product";
+  v18 = @"rssi";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:self->_rssi];
-  v24[3] = v8;
-  v20 = @"channel";
+  v23[3] = v8;
+  v19 = @"channel";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:self->_channel];
-  v24[4] = v9;
-  v21 = @"model";
+  v23[4] = v9;
+  v20 = @"model";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_model];
-  v24[5] = v10;
-  v22 = @"advertTimestamp";
+  v23[5] = v10;
+  v21 = @"advertTimestamp";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_advertisementTimestamp];
-  v24[6] = v11;
-  v23 = @"timestamp";
+  v23[6] = v11;
+  v22 = @"timestamp";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v24[7] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v16 count:8];
+  v23[7] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v15 count:8];
 
   if (idsIdentifier)
   {
@@ -162,8 +162,6 @@ LABEL_6:
   if (uuid)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -52,11 +52,11 @@
 
 void __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2_cold_1(a1);
+    __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2_cold_1();
   }
 }
 
@@ -64,7 +64,7 @@ void __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2(uint
 {
   proxyProvider = self->_proxyProvider;
   self->_proxyProvider = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, proxyProvider);
 }
 
 - (void)clientRemote_didUpdateElevation:(id)elevation
@@ -112,11 +112,11 @@ void __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2(uint
 
 void __49__HKWorkoutRouteDataSource_connectionInterrupted__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __49__HKWorkoutRouteDataSource_connectionInterrupted__block_invoke_2_cold_1(a1);
+    __49__HKWorkoutRouteDataSource_connectionInterrupted__block_invoke_2_cold_1();
   }
 }
 
@@ -125,24 +125,6 @@ void __49__HKWorkoutRouteDataSource_connectionInterrupted__block_invoke_2(uint64
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __51__HKWorkoutRouteDataSource_initWithWorkoutSession___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 16);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "Unable to setup workout route data source %@ with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __49__HKWorkoutRouteDataSource_connectionInterrupted__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 16);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "Unable to fetch workout route data source %@ proxy after interrupted connection with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

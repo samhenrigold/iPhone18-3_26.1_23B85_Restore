@@ -46,7 +46,7 @@
   v8 = sub_22FCC8A84();
   sub_22FC2D924(v5, v7, v8, v9);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD8108);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD8108, &unk_22FCD4A20);
   v10 = sub_22FCC8C24();
 
   return v10;

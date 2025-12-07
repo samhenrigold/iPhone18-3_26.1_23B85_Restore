@@ -1,5 +1,6 @@
 @interface ARCoachingButton
 - (ARCoachingButton)initWithButton:(id)button buttonStyle:(int64_t)style textStyle:(int64_t)textStyle controlStyle:(int64_t)controlStyle largeImageInsets:(UIEdgeInsets)insets;
+- (ARCoachingButton)initWithTitle:(id)title buttonStyle:(int64_t)style textStyle:(int64_t)textStyle controlStyle:(int64_t)controlStyle adjustsFontForContentSizeCategory:(BOOL)category;
 - (CGSize)intrinsicContentSize;
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size;
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority;
@@ -15,6 +16,9 @@
 - (void)layoutSubviews;
 - (void)setContentEdgeInsets:(UIEdgeInsets)insets;
 - (void)setControlStyle:(int64_t)style;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setSelected:(BOOL)selected;
 - (void)setTitle:(id)title;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateCurrentAppearanceIfNeeded;
@@ -28,15 +32,15 @@
   bottom = insets.bottom;
   left = insets.left;
   top = insets.top;
-  v89[4] = *MEMORY[0x277D85DE8];
+  v88[4] = *MEMORY[0x277D85DE8];
   buttonCopy = button;
-  v87.receiver = self;
-  v87.super_class = ARCoachingButton;
+  v86.receiver = self;
+  v86.super_class = ARCoachingButton;
   v17 = *MEMORY[0x277CBF3A0];
   v18 = *(MEMORY[0x277CBF3A0] + 8);
   v19 = *(MEMORY[0x277CBF3A0] + 16);
   v20 = *(MEMORY[0x277CBF3A0] + 24);
-  v21 = [(ARCoachingButton *)&v87 initWithFrame:*MEMORY[0x277CBF3A0], v18, v19, v20];
+  v21 = [(ARCoachingButton *)&v86 initWithFrame:*MEMORY[0x277CBF3A0], v18, v19, v20];
   v22 = v21;
   if (v21)
   {
@@ -107,21 +111,21 @@
       leadingAnchor = [(ARCoachingWrappedButton *)v22->_button leadingAnchor];
       leadingAnchor2 = [(ARCoachingButton *)v22 leadingAnchor];
       v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v89[0] = v48;
+      v88[0] = v48;
       trailingAnchor = [(ARCoachingWrappedButton *)v22->_button trailingAnchor];
       trailingAnchor2 = [(ARCoachingButton *)v22 trailingAnchor];
-      v86 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v89[1] = v86;
+      v85 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v88[1] = v85;
       topAnchor = [(ARCoachingWrappedButton *)v22->_button topAnchor];
       topAnchor2 = [(ARCoachingButton *)v22 topAnchor];
-      v85 = topAnchor;
-      v83 = [topAnchor constraintEqualToAnchor:?];
-      v89[2] = v83;
+      v84 = topAnchor;
+      v82 = [topAnchor constraintEqualToAnchor:?];
+      v88[2] = v82;
       bottomAnchor = [(ARCoachingWrappedButton *)v22->_button bottomAnchor];
       bottomAnchor2 = [(ARCoachingButton *)v22 bottomAnchor];
-      v81 = [bottomAnchor constraintEqualToAnchor:?];
-      v89[3] = v81;
-      leadingAnchor5 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:4];
+      v80 = [bottomAnchor constraintEqualToAnchor:?];
+      v88[3] = v80;
+      leadingAnchor5 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:4];
       [v45 activateConstraints:leadingAnchor5];
 LABEL_12:
 
@@ -134,7 +138,7 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v80 = buttonCopy;
+    v79 = buttonCopy;
     if (controlStyle == 2)
     {
       v54 = 0.4;
@@ -145,53 +149,53 @@ LABEL_12:
       if (controlStyle != 3)
       {
 LABEL_11:
-        v77 = MEMORY[0x277CCAAD0];
+        v76 = MEMORY[0x277CCAAD0];
         leadingAnchor3 = [(ARCoachingControlBlurredBackgroundView *)v22->_blurredBackgroundView leadingAnchor];
         leadingAnchor4 = [(ARCoachingButton *)v22 leadingAnchor];
-        v76 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-        v88[0] = v76;
+        v75 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+        v87[0] = v75;
         trailingAnchor3 = [(ARCoachingControlBlurredBackgroundView *)v22->_blurredBackgroundView trailingAnchor];
         trailingAnchor4 = [(ARCoachingButton *)v22 trailingAnchor];
-        v86 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-        v88[1] = v86;
+        v85 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+        v87[1] = v85;
         topAnchor3 = [(ARCoachingControlBlurredBackgroundView *)v22->_blurredBackgroundView topAnchor];
         topAnchor2 = [(ARCoachingButton *)v22 topAnchor];
-        v85 = topAnchor3;
-        v83 = [topAnchor3 constraintEqualToAnchor:?];
-        v88[2] = v83;
+        v84 = topAnchor3;
+        v82 = [topAnchor3 constraintEqualToAnchor:?];
+        v87[2] = v82;
         bottomAnchor3 = [(ARCoachingControlBlurredBackgroundView *)v22->_blurredBackgroundView bottomAnchor];
         bottomAnchor2 = [(ARCoachingButton *)v22 bottomAnchor];
-        v81 = [bottomAnchor3 constraintEqualToAnchor:?];
-        v88[3] = v81;
+        v80 = [bottomAnchor3 constraintEqualToAnchor:?];
+        v87[3] = v80;
         leadingAnchor5 = [(ARCoachingWrappedButton *)v22->_button leadingAnchor];
         leadingAnchor6 = [(ARCoachingButton *)v22 leadingAnchor];
-        v72 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-        v88[4] = v72;
+        v71 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+        v87[4] = v71;
         trailingAnchor5 = [(ARCoachingWrappedButton *)v22->_button trailingAnchor];
         trailingAnchor6 = [(ARCoachingButton *)v22 trailingAnchor];
         v57 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-        v88[5] = v57;
+        v87[5] = v57;
         topAnchor4 = [(ARCoachingWrappedButton *)v22->_button topAnchor];
         topAnchor5 = [(ARCoachingButton *)v22 topAnchor];
         v60 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
-        v88[6] = v60;
+        v87[6] = v60;
         bottomAnchor4 = [(ARCoachingWrappedButton *)v22->_button bottomAnchor];
         bottomAnchor5 = [(ARCoachingButton *)v22 bottomAnchor];
         v63 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-        v88[7] = v63;
-        v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:8];
-        [v77 activateConstraints:v64];
+        v87[7] = v63;
+        v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:8];
+        [v76 activateConstraints:v64];
 
         trailingAnchor = trailingAnchor3;
         trailingAnchor2 = trailingAnchor4;
 
-        v48 = v76;
+        v48 = v75;
         bottomAnchor = bottomAnchor3;
 
         leadingAnchor2 = leadingAnchor4;
         leadingAnchor = leadingAnchor3;
 
-        buttonCopy = v80;
+        buttonCopy = v79;
         goto LABEL_12;
       }
 
@@ -206,8 +210,30 @@ LABEL_11:
 
 LABEL_13:
 
-  v67 = *MEMORY[0x277D85DE8];
   return v22;
+}
+
+- (ARCoachingButton)initWithTitle:(id)title buttonStyle:(int64_t)style textStyle:(int64_t)textStyle controlStyle:(int64_t)controlStyle adjustsFontForContentSizeCategory:(BOOL)category
+{
+  categoryCopy = category;
+  titleCopy = title;
+  v13 = [ARCoachingWrappedButton alloc];
+  v14 = [(ARCoachingWrappedButton *)v13 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  [(ARCoachingWrappedButton *)v14 setTitle:titleCopy forState:0];
+
+  if (_UISolariumEnabled())
+  {
+    _clearGlassButtonConfiguration = [MEMORY[0x277D75230] _clearGlassButtonConfiguration];
+    [(ARCoachingWrappedButton *)v14 setConfiguration:_clearGlassButtonConfiguration];
+  }
+
+  titleLabel = [(ARCoachingWrappedButton *)v14 titleLabel];
+  [titleLabel setAdjustsFontForContentSizeCategory:categoryCopy];
+
+  v17 = [(ARCoachingButton *)self initWithButton:v14 buttonStyle:style textStyle:textStyle controlStyle:controlStyle largeImageInsets:*MEMORY[0x277D768C8], *(MEMORY[0x277D768C8] + 8), *(MEMORY[0x277D768C8] + 16), *(MEMORY[0x277D768C8] + 24)];
+  [(ARCoachingButton *)v17 _updateTitleStyleForButton:v14 withControlStyle:controlStyle];
+
+  return v17;
 }
 
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(unint64_t)events
@@ -428,6 +454,78 @@ LABEL_13:
   }
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10.receiver = self;
+  v10.super_class = ARCoachingButton;
+  [(ARCoachingButton *)&v10 setEnabled:?];
+  blurredBackgroundView = [(ARCoachingButton *)self blurredBackgroundView];
+
+  if (blurredBackgroundView)
+  {
+    blurredBackgroundView2 = [(ARCoachingButton *)self blurredBackgroundView];
+    [blurredBackgroundView2 setEnabled:enabledCopy];
+  }
+
+  button = [(ARCoachingButton *)self button];
+  isEnabled = [button isEnabled];
+
+  if (isEnabled != enabledCopy)
+  {
+    button2 = [(ARCoachingButton *)self button];
+    [button2 setEnabled:enabledCopy];
+  }
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v10.receiver = self;
+  v10.super_class = ARCoachingButton;
+  [(ARCoachingButton *)&v10 setSelected:?];
+  blurredBackgroundView = [(ARCoachingButton *)self blurredBackgroundView];
+
+  if (blurredBackgroundView)
+  {
+    blurredBackgroundView2 = [(ARCoachingButton *)self blurredBackgroundView];
+    [blurredBackgroundView2 setSelected:selectedCopy];
+  }
+
+  button = [(ARCoachingButton *)self button];
+  isSelected = [button isSelected];
+
+  if (isSelected != selectedCopy)
+  {
+    button2 = [(ARCoachingButton *)self button];
+    [button2 setSelected:selectedCopy];
+  }
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  v10.receiver = self;
+  v10.super_class = ARCoachingButton;
+  [(ARCoachingButton *)&v10 setHighlighted:?];
+  blurredBackgroundView = [(ARCoachingButton *)self blurredBackgroundView];
+
+  if (blurredBackgroundView)
+  {
+    blurredBackgroundView2 = [(ARCoachingButton *)self blurredBackgroundView];
+    [blurredBackgroundView2 setHighlighted:highlightedCopy];
+  }
+
+  button = [(ARCoachingButton *)self button];
+  isHighlighted = [button isHighlighted];
+
+  if (isHighlighted != highlightedCopy)
+  {
+    button2 = [(ARCoachingButton *)self button];
+    [button2 setHighlighted:highlightedCopy];
+  }
+}
+
 - (id)_colorDarkenedIfNeededForColor:(id)color
 {
   colorCopy = color;
@@ -457,7 +555,7 @@ LABEL_13:
 
 - (void)_updateTitleStyleForButton:(id)button withControlStyle:(int64_t)style
 {
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   buttonCopy = button;
   v7 = [buttonCopy titleForState:0];
   if (v7)
@@ -476,7 +574,7 @@ LABEL_13:
       boldFont3 = [(ARCoachingButton *)self regularFont];
     }
 
-    v44 = boldFont3;
+    v43 = boldFont3;
     boldFont4 = [(ARCoachingButton *)self boldFont];
     if (style == 3)
     {
@@ -498,63 +596,63 @@ LABEL_13:
         white35PercentColor = [(ARCoachingButton *)self white35PercentColor];
         white35PercentColor2 = [(ARCoachingButton *)self white35PercentColor];
 LABEL_15:
-        v37 = white75PercentColor;
-        v38 = white35PercentColor2;
+        v36 = white75PercentColor;
+        v37 = white35PercentColor2;
         v14 = *MEMORY[0x277D740A8];
-        v34 = boldFont;
-        v56[0] = boldFont;
+        v33 = boldFont;
+        v55[0] = boldFont;
         v15 = *MEMORY[0x277D740C0];
-        v55[0] = v14;
-        v55[1] = v15;
+        v54[0] = v14;
+        v54[1] = v15;
         v16 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:white75PercentColor];
-        v56[1] = v16;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+        v55[1] = v16;
+        v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
 
-        v35 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v36];
-        [buttonCopy setAttributedTitle:v35 forState:0];
-        v53[1] = v15;
-        v54[0] = boldFont2;
-        v53[0] = v14;
+        v34 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v35];
+        [buttonCopy setAttributedTitle:v34 forState:0];
+        v52[1] = v15;
+        v53[0] = boldFont2;
+        v52[0] = v14;
         v17 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:white52PercentColor];
-        v54[1] = v17;
-        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+        v53[1] = v17;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
-        v32 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v33];
-        [buttonCopy setAttributedTitle:v32 forState:1];
-        v51[1] = v15;
-        v52[0] = v44;
-        v51[0] = v14;
+        v31 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v32];
+        [buttonCopy setAttributedTitle:v31 forState:1];
+        v50[1] = v15;
+        v51[0] = v43;
+        v50[0] = v14;
         v18 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:white26PercentColor];
-        v52[1] = v18;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+        v51[1] = v18;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
 
-        v30 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v31];
-        [buttonCopy setAttributedTitle:v30 forState:2];
-        v50[0] = boldFont4;
-        v49[0] = v14;
-        v49[1] = v15;
+        v29 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v30];
+        [buttonCopy setAttributedTitle:v29 forState:2];
+        v49[0] = boldFont4;
+        v48[0] = v14;
+        v48[1] = v15;
         v19 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:blue100PercentColor];
-        v50[1] = v19;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+        v49[1] = v19;
+        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
 
-        v28 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v29];
-        [buttonCopy setAttributedTitle:v28 forState:4];
-        v47[1] = v15;
-        v48[0] = boldFont4;
-        v47[0] = v14;
+        v27 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v28];
+        [buttonCopy setAttributedTitle:v27 forState:4];
+        v46[1] = v15;
+        v47[0] = boldFont4;
+        v46[0] = v14;
         [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:white35PercentColor];
         v21 = v20 = boldFont4;
-        v48[1] = v21;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+        v47[1] = v21;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
 
         v23 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v22];
         [buttonCopy setAttributedTitle:v23 forState:5];
-        v45[1] = v15;
-        v46[0] = v20;
-        v45[0] = v14;
-        v24 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:v38];
-        v46[1] = v24;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+        v44[1] = v15;
+        v45[0] = v20;
+        v44[0] = v14;
+        v24 = [(ARCoachingButton *)self _colorDarkenedIfNeededForColor:v37];
+        v45[1] = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
 
         v26 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v7 attributes:v25];
         [buttonCopy setAttributedTitle:v26 forState:6];
@@ -586,8 +684,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdateDarkenColorsSetting:(id)setting

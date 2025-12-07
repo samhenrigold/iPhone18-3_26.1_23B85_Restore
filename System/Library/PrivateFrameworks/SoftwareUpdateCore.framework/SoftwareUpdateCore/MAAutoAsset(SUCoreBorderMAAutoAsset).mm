@@ -18,7 +18,7 @@
 
 + (void)_generateSimulatedResults:()SUCoreBorderMAAutoAsset bytes:huge:
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = &unk_2846B9C90;
@@ -36,16 +36,14 @@
       v6 = 5000000000;
     }
 
-    v10[0] = @"STAGE_GROUP_REQUIRED";
+    v9[0] = @"STAGE_GROUP_REQUIRED";
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6];
-    v10[1] = @"STAGE_GROUP_OPTIONAL";
-    v11[0] = v7;
+    v9[1] = @"STAGE_GROUP_OPTIONAL";
+    v10[0] = v7;
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6];
-    v11[1] = v8;
-    *a4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v8;
+    *a4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_SUCoreBorder_stageDetermineResultAtBegin:()SUCoreBorderMAAutoAsset withCompletion:

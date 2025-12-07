@@ -45,20 +45,20 @@ uint64_t __74__SCDAInstrumentation_userFeedbackPublishArbitrationParticipationCo
 
 - (void)_logRequestLinkMessageRequestId:(id)id cdaId:(id)cdaId
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   idCopy = id;
   cdaIdCopy = cdaId;
   v8 = cdaIdCopy;
   if (idCopy && cdaIdCopy)
   {
     queue = self->_queue;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __61__SCDAInstrumentation__logRequestLinkMessageRequestId_cdaId___block_invoke;
-    v12[3] = &unk_1E85D38A0;
-    v13 = cdaIdCopy;
-    v14 = idCopy;
-    dispatch_async(queue, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __61__SCDAInstrumentation__logRequestLinkMessageRequestId_cdaId___block_invoke;
+    v11[3] = &unk_1E85D38A0;
+    v12 = cdaIdCopy;
+    v13 = idCopy;
+    dispatch_async(queue, v11);
   }
 
   else
@@ -67,17 +67,15 @@ uint64_t __74__SCDAInstrumentation_userFeedbackPublishArbitrationParticipationCo
     if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v16 = "[SCDAInstrumentation _logRequestLinkMessageRequestId:cdaId:]";
+      v15 = "[SCDAInstrumentation _logRequestLinkMessageRequestId:cdaId:]";
       _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s Skipped emitting RequestLinkEvent as requestId or cdaId is nil", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __61__SCDAInstrumentation__logRequestLinkMessageRequestId_cdaId___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E69CF640]);
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
   v4 = [*(a1 + 32) UUIDString];
@@ -105,18 +103,16 @@ void __61__SCDAInstrumentation__logRequestLinkMessageRequestId_cdaId___block_inv
   v16 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v19 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    v20 = 136315650;
-    v21 = "[SCDAInstrumentation _logRequestLinkMessageRequestId:cdaId:]_block_invoke";
-    v22 = 2112;
-    v23 = v18;
-    v24 = 2112;
-    v25 = v19;
-    _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s Emitting Myriad RequestLinkEvent with requestId: %@, cdaId: %@", &v20, 0x20u);
+    v18 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    v19 = 136315650;
+    v20 = "[SCDAInstrumentation _logRequestLinkMessageRequestId:cdaId:]_block_invoke";
+    v21 = 2112;
+    v22 = v17;
+    v23 = 2112;
+    v24 = v18;
+    _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s Emitting Myriad RequestLinkEvent with requestId: %@, cdaId: %@", &v19, 0x20u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createSchemaClientEvent:(id)event
@@ -148,7 +144,7 @@ void __61__SCDAInstrumentation__logRequestLinkMessageRequestId_cdaId___block_inv
 
 void __48__SCDAInstrumentation_updateIsTrump_withReason___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 24);
   if (!v2)
   {
@@ -165,29 +161,27 @@ void __48__SCDAInstrumentation_updateIsTrump_withReason___block_invoke(uint64_t 
   v6 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 44);
-    v9 = *(a1 + 40) - 1;
-    if (v9 > 7)
+    v7 = *(a1 + 44);
+    v8 = *(a1 + 40) - 1;
+    if (v8 > 7)
     {
-      v10 = @"CDATRUMPREASON_UNKNOWN";
+      v9 = @"CDATRUMPREASON_UNKNOWN";
     }
 
     else
     {
-      v10 = off_1E85D2BA0[v9];
+      v9 = off_1E85D2BA0[v8];
     }
 
-    v12 = 136315650;
-    v13 = "[SCDAInstrumentation updateIsTrump:withReason:]_block_invoke";
-    v14 = 1024;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v10;
-    v11 = v6;
-    _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s trump: %d, with Reason:%@", &v12, 0x1Cu);
+    v11 = 136315650;
+    v12 = "[SCDAInstrumentation updateIsTrump:withReason:]_block_invoke";
+    v13 = 1024;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v9;
+    v10 = v6;
+    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s trump: %d, with Reason:%@", &v11, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateBoost:(unsigned __int8)boost value:(unsigned int)value
@@ -205,7 +199,7 @@ void __48__SCDAInstrumentation_updateIsTrump_withReason___block_invoke(uint64_t 
 
 void __41__SCDAInstrumentation_updateBoost_value___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 24))
   {
     v2 = objc_alloc_init(MEMORY[0x1E69CE948]);
@@ -217,18 +211,18 @@ void __41__SCDAInstrumentation_updateBoost_value___block_invoke(uint64_t a1)
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 44);
-    v10 = v5;
-    v11 = [v8 _boostTypeAsString:v9];
-    v12 = *(a1 + 40);
-    v13 = 136315650;
-    v14 = "[SCDAInstrumentation updateBoost:value:]_block_invoke";
-    v15 = 2112;
-    v16 = v11;
-    v17 = 1024;
-    v18 = v12;
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s boostType: %@, boostValue:%d", &v13, 0x1Cu);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 44);
+    v9 = v5;
+    v10 = [v7 _boostTypeAsString:v8];
+    v11 = *(a1 + 40);
+    v12 = 136315650;
+    v13 = "[SCDAInstrumentation updateBoost:value:]_block_invoke";
+    v14 = 2112;
+    v15 = v10;
+    v16 = 1024;
+    v17 = v11;
+    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s boostType: %@, boostValue:%d", &v12, 0x1Cu);
   }
 
   v6 = *(a1 + 44);
@@ -270,8 +264,6 @@ void __41__SCDAInstrumentation_updateBoost_value___block_invoke(uint64_t a1)
   {
     [*(*(a1 + 32) + 24) setRecentMotionBoost:*(a1 + 40)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_boostTypeAsString:(unsigned __int8)string
@@ -318,7 +310,7 @@ void __41__SCDAInstrumentation_updateBoost_value___block_invoke(uint64_t a1)
 
 void __147__SCDAInstrumentation_logCDAElectionDecisionMadeDebug_withCrossDeviceArbitrationAllowed_advertisementData_withDeviceGroup_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE8E0]);
   [v3 setIsCrossDeviceArbitrationAllowed:*(a1 + 72)];
@@ -329,38 +321,36 @@ void __147__SCDAInstrumentation_logCDAElectionDecisionMadeDebug_withCrossDeviceA
   v4 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 68) - 1;
-    if (v7 > 0x11)
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 68) - 1;
+    if (v6 > 0x11)
     {
-      v8 = @"CDASTATE_UNKNOWN";
+      v7 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v8 = off_1E85D2AD8[v7];
+      v7 = off_1E85D2AD8[v6];
     }
 
-    v9 = *(a1 + 72);
-    v10 = *(a1 + 64);
-    v11 = *(a1 + 48);
-    v13 = 136316418;
-    v14 = "[SCDAInstrumentation logCDAElectionDecisionMadeDebug:withCrossDeviceArbitrationAllowed:advertisementData:withDeviceGroup:withCdaId:withTimestamp:]_block_invoke";
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v8;
-    v19 = 1024;
-    v20 = v9;
-    v21 = 1024;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v11;
-    v12 = v4;
-    _os_log_debug_impl(&dword_1DA758000, v12, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@, arbitrationAllowed: %d, deviceGroup: %d, advertisements: %@", &v13, 0x36u);
+    v8 = *(a1 + 72);
+    v9 = *(a1 + 64);
+    v10 = *(a1 + 48);
+    v12 = 136316418;
+    v13 = "[SCDAInstrumentation logCDAElectionDecisionMadeDebug:withCrossDeviceArbitrationAllowed:advertisementData:withDeviceGroup:withCdaId:withTimestamp:]_block_invoke";
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v7;
+    v18 = 1024;
+    v19 = v8;
+    v20 = 1024;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    v11 = v4;
+    _os_log_debug_impl(&dword_1DA758000, v11, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@, arbitrationAllowed: %d, deviceGroup: %d, advertisements: %@", &v12, 0x36u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionDecisionMade:(int)made withDecision:(int)decision withPreviousDecision:(int)previousDecision timeSincePreviousDecision:(unint64_t)sincePreviousDecision withWinningDevice:(id)device withThisDevice:(id)thisDevice withParticipants:(id)participants withRawScore:(unsigned int)self0 withBoost:(id)self1 withCdaId:(id)self2 currentRequestId:(id)self3 withTimestamp:(unint64_t)self4
@@ -400,7 +390,7 @@ void __147__SCDAInstrumentation_logCDAElectionDecisionMadeDebug_withCrossDeviceA
 
 void __224__SCDAInstrumentation_logCDAElectionDecisionMade_withDecision_withPreviousDecision_timeSincePreviousDecision_withWinningDevice_withThisDevice_withParticipants_withRawScore_withBoost_withCdaId_currentRequestId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE930]);
   [v3 setDecision:*(a1 + 104)];
@@ -423,103 +413,103 @@ void __224__SCDAInstrumentation_logCDAElectionDecisionMade_withDecision_withPrev
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 116) - 1;
-    if (v10 > 0x11)
+    v9 = *(a1 + 116) - 1;
+    if (v9 > 0x11)
     {
-      v11 = @"CDASTATE_UNKNOWN";
+      v10 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v11 = off_1E85D2AD8[v10];
+      v10 = off_1E85D2AD8[v9];
     }
 
-    v32 = v11;
-    v12 = @"CDADECISION_UNKNOWN";
-    v13 = *(a1 + 104);
-    v14 = *(a1 + 108);
+    v31 = v10;
+    v11 = @"CDADECISION_UNKNOWN";
+    v12 = *(a1 + 104);
+    v13 = *(a1 + 108);
+    if (v12 == 1)
+    {
+      v14 = @"CDADECISION_WIN";
+    }
+
+    else
+    {
+      v14 = @"CDADECISION_UNKNOWN";
+    }
+
+    if (v12 == 2)
+    {
+      v15 = @"CDADECISION_LOSS";
+    }
+
+    else
+    {
+      v15 = v14;
+    }
+
     if (v13 == 1)
     {
-      v15 = @"CDADECISION_WIN";
-    }
-
-    else
-    {
-      v15 = @"CDADECISION_UNKNOWN";
+      v11 = @"CDADECISION_WIN";
     }
 
     if (v13 == 2)
     {
-      v16 = @"CDADECISION_LOSS";
+      v11 = @"CDADECISION_LOSS";
+    }
+
+    v28 = v11;
+    v29 = *(a1 + 88);
+    v30 = v15;
+    v16 = *(a1 + 48);
+    v25 = *(a1 + 40);
+    v27 = [v16 goodnessScore];
+    v17 = *(a1 + 56);
+    v26 = [v17 goodnessScore];
+    v18 = [*(a1 + 72) debugDescription];
+    v24 = *(a1 + 112);
+    v19 = [v3 goodnessScoreBoosts];
+    v20 = [v19 debugDescription];
+    v21 = [v3 goodnessScoreBoosts];
+    v22 = [v21 trumpReason] - 1;
+    if (v22 > 7)
+    {
+      v23 = @"CDATRUMPREASON_UNKNOWN";
     }
 
     else
     {
-      v16 = v15;
-    }
-
-    if (v14 == 1)
-    {
-      v12 = @"CDADECISION_WIN";
-    }
-
-    if (v14 == 2)
-    {
-      v12 = @"CDADECISION_LOSS";
-    }
-
-    v29 = v12;
-    v30 = *(a1 + 88);
-    v31 = v16;
-    v17 = *(a1 + 48);
-    v26 = *(a1 + 40);
-    v28 = [v17 goodnessScore];
-    v18 = *(a1 + 56);
-    v27 = [v18 goodnessScore];
-    v19 = [*(a1 + 72) debugDescription];
-    v25 = *(a1 + 112);
-    v20 = [v3 goodnessScoreBoosts];
-    v21 = [v20 debugDescription];
-    v22 = [v3 goodnessScoreBoosts];
-    v23 = [v22 trumpReason] - 1;
-    if (v23 > 7)
-    {
-      v24 = @"CDATRUMPREASON_UNKNOWN";
-    }
-
-    else
-    {
-      v24 = off_1E85D2BA0[v23];
+      v23 = off_1E85D2BA0[v22];
     }
 
     *buf = 136318466;
-    v34 = "[SCDAInstrumentation logCDAElectionDecisionMade:withDecision:withPreviousDecision:timeSincePreviousDecision:withWinningDevice:withThisDevice:withParticipants:withRawScore:withBoost:withCdaId:currentRequestId:withTimestamp:]_block_invoke";
-    v35 = 2112;
-    v36 = v26;
-    v37 = 2112;
-    v38 = v32;
-    v39 = 2112;
-    v40 = v31;
-    v41 = 2112;
-    v42 = v29;
-    v43 = 2048;
-    v44 = v30;
-    v45 = 2112;
-    v46 = v17;
-    v47 = 1024;
-    v48 = v28;
-    v49 = 2112;
-    v50 = v18;
-    v51 = 1024;
-    v52 = v27;
-    v53 = 2112;
-    v54 = v19;
-    v55 = 1024;
-    v56 = v25;
-    v57 = 2112;
-    v58 = v21;
-    v59 = 2112;
-    v60 = v24;
+    v33 = "[SCDAInstrumentation logCDAElectionDecisionMade:withDecision:withPreviousDecision:timeSincePreviousDecision:withWinningDevice:withThisDevice:withParticipants:withRawScore:withBoost:withCdaId:currentRequestId:withTimestamp:]_block_invoke";
+    v34 = 2112;
+    v35 = v25;
+    v36 = 2112;
+    v37 = v31;
+    v38 = 2112;
+    v39 = v30;
+    v40 = 2112;
+    v41 = v28;
+    v42 = 2048;
+    v43 = v29;
+    v44 = 2112;
+    v45 = v16;
+    v46 = 1024;
+    v47 = v27;
+    v48 = 2112;
+    v49 = v17;
+    v50 = 1024;
+    v51 = v26;
+    v52 = 2112;
+    v53 = v18;
+    v54 = 1024;
+    v55 = v24;
+    v56 = 2112;
+    v57 = v20;
+    v58 = 2112;
+    v59 = v23;
     _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@, withDecision: %@, withPreviousDecision: %@, timeSincePreviousDecision: %llu, withWinningDevice: %@ (score: %d), withThisDevice: %@ (score: %d), withParticipants: %@, withRawScore:%u, withBoost:%@, withTrumpReason:%@", buf, 0x82u);
   }
 
@@ -534,8 +524,6 @@ void __224__SCDAInstrumentation_logCDAElectionDecisionMade_withDecision_withPrev
   {
     *(*(a1 + 32) + 40) = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionTimerEnded:(int)ended withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -556,7 +544,7 @@ void __224__SCDAInstrumentation_logCDAElectionDecisionMade_withDecision_withPrev
 
 void __72__SCDAInstrumentation_logCDAElectionTimerEnded_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE938]);
   [v3 setState:*(a1 + 56)];
@@ -565,29 +553,27 @@ void __72__SCDAInstrumentation_logCDAElectionTimerEnded_withCdaId_withTimestamp_
   v4 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 56) - 1;
-    if (v7 > 0x11)
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 56) - 1;
+    if (v6 > 0x11)
     {
-      v8 = @"CDASTATE_UNKNOWN";
+      v7 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v8 = off_1E85D2AD8[v7];
+      v7 = off_1E85D2AD8[v6];
     }
 
-    v10 = 136315650;
-    v11 = "[SCDAInstrumentation logCDAElectionTimerEnded:withCdaId:withTimestamp:]_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v8;
-    v9 = v4;
-    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SCDAInstrumentation logCDAElectionTimerEnded:withCdaId:withTimestamp:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v7;
+    v8 = v4;
+    _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v9, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionAdvertisingEnding:(int)ending withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -608,7 +594,7 @@ void __72__SCDAInstrumentation_logCDAElectionTimerEnded_withCdaId_withTimestamp_
 
 void __79__SCDAInstrumentation_logCDAElectionAdvertisingEnding_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE918]);
   [v3 setState:*(a1 + 56)];
@@ -619,29 +605,27 @@ void __79__SCDAInstrumentation_logCDAElectionAdvertisingEnding_withCdaId_withTim
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56) - 1;
-    if (v8 > 0x11)
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 0x11)
     {
-      v9 = @"CDASTATE_UNKNOWN";
+      v8 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v9 = off_1E85D2AD8[v8];
+      v8 = off_1E85D2AD8[v7];
     }
 
-    v11 = 136315650;
-    v12 = "[SCDAInstrumentation logCDAElectionAdvertisingEnding:withCdaId:withTimestamp:]_block_invoke";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v9;
-    v10 = v5;
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[SCDAInstrumentation logCDAElectionAdvertisingEnding:withCdaId:withTimestamp:]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    v9 = v5;
+    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v10, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionAdvertisingEnded:(int)ended withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -662,7 +646,7 @@ void __79__SCDAInstrumentation_logCDAElectionAdvertisingEnding_withCdaId_withTim
 
 void __78__SCDAInstrumentation_logCDAElectionAdvertisingEnded_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE910]);
   [v3 setState:*(a1 + 56)];
@@ -673,29 +657,27 @@ void __78__SCDAInstrumentation_logCDAElectionAdvertisingEnded_withCdaId_withTime
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56) - 1;
-    if (v8 > 0x11)
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 0x11)
     {
-      v9 = @"CDASTATE_UNKNOWN";
+      v8 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v9 = off_1E85D2AD8[v8];
+      v8 = off_1E85D2AD8[v7];
     }
 
-    v11 = 136315650;
-    v12 = "[SCDAInstrumentation logCDAElectionAdvertisingEnded:withCdaId:withTimestamp:]_block_invoke";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v9;
-    v10 = v5;
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[SCDAInstrumentation logCDAElectionAdvertisingEnded:withCdaId:withTimestamp:]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    v9 = v5;
+    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v10, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionAdvertisingStarting:(int)starting withDelay:(float)delay withInterval:(float)interval withVoiceTriggerLatency:(float)latency withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -719,7 +701,7 @@ void __78__SCDAInstrumentation_logCDAElectionAdvertisingEnded_withCdaId_withTime
 
 void __128__SCDAInstrumentation_logCDAElectionAdvertisingStarting_withDelay_withInterval_withVoiceTriggerLatency_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE928]);
   [v3 setState:*(a1 + 56)];
@@ -736,29 +718,27 @@ void __128__SCDAInstrumentation_logCDAElectionAdvertisingStarting_withDelay_with
   v8 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 56) - 1;
-    if (v11 > 0x11)
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 56) - 1;
+    if (v10 > 0x11)
     {
-      v12 = @"CDASTATE_UNKNOWN";
+      v11 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v12 = off_1E85D2AD8[v11];
+      v11 = off_1E85D2AD8[v10];
     }
 
-    v14 = 136315650;
-    v15 = "[SCDAInstrumentation logCDAElectionAdvertisingStarting:withDelay:withInterval:withVoiceTriggerLatency:withCdaId:withTimestamp:]_block_invoke";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
-    v13 = v8;
-    _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SCDAInstrumentation logCDAElectionAdvertisingStarting:withDelay:withInterval:withVoiceTriggerLatency:withCdaId:withTimestamp:]_block_invoke";
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v11;
+    v12 = v8;
+    _os_log_debug_impl(&dword_1DA758000, v12, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v13, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDAElectionAdvertisingStarted:(int)started withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -779,7 +759,7 @@ void __128__SCDAInstrumentation_logCDAElectionAdvertisingStarting_withDelay_with
 
 void __80__SCDAInstrumentation_logCDAElectionAdvertisingStarted_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE920]);
   [v3 setState:*(a1 + 56)];
@@ -790,29 +770,27 @@ void __80__SCDAInstrumentation_logCDAElectionAdvertisingStarted_withCdaId_withTi
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56) - 1;
-    if (v8 > 0x11)
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 0x11)
     {
-      v9 = @"CDASTATE_UNKNOWN";
+      v8 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v9 = off_1E85D2AD8[v8];
+      v8 = off_1E85D2AD8[v7];
     }
 
-    v11 = 136315650;
-    v12 = "[SCDAInstrumentation logCDAElectionAdvertisingStarted:withCdaId:withTimestamp:]_block_invoke";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v9;
-    v10 = v5;
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[SCDAInstrumentation logCDAElectionAdvertisingStarted:withCdaId:withTimestamp:]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    v9 = v5;
+    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v10, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDADeviceStateActivityEnded:(int)ended withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -833,7 +811,7 @@ void __80__SCDAInstrumentation_logCDAElectionAdvertisingStarted_withCdaId_withTi
 
 void __78__SCDAInstrumentation_logCDADeviceStateActivityEnded_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE8F8]);
   [v3 setState:*(a1 + 56)];
@@ -844,29 +822,27 @@ void __78__SCDAInstrumentation_logCDADeviceStateActivityEnded_withCdaId_withTime
   v5 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 56) - 1;
-    if (v8 > 0x11)
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 0x11)
     {
-      v9 = @"CDASTATE_UNKNOWN";
+      v8 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v9 = off_1E85D2AD8[v8];
+      v8 = off_1E85D2AD8[v7];
     }
 
-    v11 = 136315650;
-    v12 = "[SCDAInstrumentation logCDADeviceStateActivityEnded:withCdaId:withTimestamp:]_block_invoke";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v9;
-    v10 = v5;
-    _os_log_debug_impl(&dword_1DA758000, v10, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[SCDAInstrumentation logCDADeviceStateActivityEnded:withCdaId:withTimestamp:]_block_invoke";
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v8;
+    v9 = v5;
+    _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@", &v10, 0x20u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logCDADeviceStateActivityStartedOrChanged:(int)changed withTrigger:(int)trigger withCdaId:(id)id withTimestamp:(unint64_t)timestamp
@@ -888,7 +864,7 @@ void __78__SCDAInstrumentation_logCDADeviceStateActivityEnded_withCdaId_withTime
 
 void __101__SCDAInstrumentation_logCDADeviceStateActivityStartedOrChanged_withTrigger_withCdaId_withTimestamp___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _createSchemaClientEvent:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x1E69CE900]);
   [v3 setState:*(a1 + 56)];
@@ -907,42 +883,40 @@ void __101__SCDAInstrumentation_logCDADeviceStateActivityStartedOrChanged_withTr
   v6 = SCDALogContextAnalytics;
   if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 56) - 1;
-    if (v8 > 0x11)
+    v7 = *(a1 + 56) - 1;
+    if (v7 > 0x11)
     {
-      v9 = @"CDASTATE_UNKNOWN";
+      v8 = @"CDASTATE_UNKNOWN";
     }
 
     else
     {
-      v9 = off_1E85D2AD8[v8];
+      v8 = off_1E85D2AD8[v7];
     }
 
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 60) - 1;
-    if (v11 > 7)
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 60) - 1;
+    if (v10 > 7)
     {
-      v12 = @"CDATRIGGER_UKNOWN";
+      v11 = @"CDATRIGGER_UKNOWN";
     }
 
     else
     {
-      v12 = off_1E85D2A98[v11];
+      v11 = off_1E85D2A98[v10];
     }
 
-    v14 = 136315906;
-    v15 = "[SCDAInstrumentation logCDADeviceStateActivityStartedOrChanged:withTrigger:withCdaId:withTimestamp:]_block_invoke";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v12;
-    v13 = v6;
-    _os_log_debug_impl(&dword_1DA758000, v13, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@, trigger: %@", &v14, 0x2Au);
+    v13 = 136315906;
+    v14 = "[SCDAInstrumentation logCDADeviceStateActivityStartedOrChanged:withTrigger:withCdaId:withTimestamp:]_block_invoke";
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v11;
+    v12 = v6;
+    _os_log_debug_impl(&dword_1DA758000, v12, OS_LOG_TYPE_DEBUG, "%s cdaId: %@, state: %@, trigger: %@", &v13, 0x2Au);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (SCDAInstrumentation)init

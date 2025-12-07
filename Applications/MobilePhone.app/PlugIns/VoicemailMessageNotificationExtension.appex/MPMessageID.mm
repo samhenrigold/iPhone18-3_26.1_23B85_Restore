@@ -12,40 +12,40 @@
 - (NSUUID)messageUUID
 {
   v3 = type metadata accessor for MessageID.Value(0);
-  __chkstk_darwin(v3);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100017538(&qword_1000998B8);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v16 - v7;
-  sub_100020780(self + OBJC_IVAR___MPMessageID_value, v5);
+  __chkstk_darwin(v3, v4);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_100017538(&qword_1000998B8, &qword_100079720);
+  __chkstk_darwin(v7 - 8, v8);
+  v10 = &v18 - v9;
+  sub_100020780(self + OBJC_IVAR___MPMessageID_value, v6);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v10 = sub_10006036C();
-  v11 = *(v10 - 8);
+  v12 = sub_10006036C();
+  v13 = *(v12 - 8);
   if (EnumCaseMultiPayload == 1)
   {
-    (*(*(v10 - 8) + 32))(v8, v5, v10);
-    v12 = 0;
+    (*(*(v12 - 8) + 32))(v10, v6, v12);
+    v14 = 0;
   }
 
   else
   {
-    v12 = 1;
+    v14 = 1;
   }
 
-  (*(v11 + 56))(v8, v12, 1, v10);
-  if ((*(v11 + 48))(v8, 1, v10) == 1)
+  (*(v13 + 56))(v10, v14, 1, v12);
+  if ((*(v13 + 48))(v10, 1, v12) == 1)
   {
-    v13 = 0;
+    v15 = 0;
   }
 
   else
   {
     isa = sub_10006032C().super.isa;
-    (*(v11 + 8))(v8, v10);
-    v13 = isa;
+    (*(v13 + 8))(v10, v12);
+    v15 = isa;
   }
 
-  return v13;
+  return v15;
 }
 
 - (MPMessageID)initWithValue:(unint64_t)value
@@ -64,17 +64,17 @@
   ObjectType = swift_getObjectType();
   v5 = sub_10006036C();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5, v7);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10006035C();
-  (*(v6 + 16))(self + OBJC_IVAR___MPMessageID_value, v8, v5);
+  (*(v6 + 16))(self + OBJC_IVAR___MPMessageID_value, v9, v5);
   type metadata accessor for MessageID.Value(0);
   swift_storeEnumTagMultiPayload();
-  v11.receiver = self;
-  v11.super_class = ObjectType;
-  v9 = [(MPMessageID *)&v11 init];
-  (*(v6 + 8))(v8, v5);
-  return v9;
+  v12.receiver = self;
+  v12.super_class = ObjectType;
+  v10 = [(MPMessageID *)&v12 init];
+  (*(v6 + 8))(v9, v5);
+  return v10;
 }
 
 - (MPMessageID)init
@@ -110,7 +110,7 @@
 
   v6 = sub_10001FA00(v8);
 
-  sub_100020850(v8, &qword_1000999A0);
+  sub_100020850(v8, &qword_1000999A0, &unk_1000799F0);
   return v6 & 1;
 }
 

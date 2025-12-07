@@ -24,11 +24,11 @@
 
 - (CESRSpeechProfileAdminFactory)initWithServiceProvider:(id)provider
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v15.receiver = self;
-  v15.super_class = CESRSpeechProfileAdminFactory;
-  v6 = [(CESRSpeechProfileAdminFactory *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = CESRSpeechProfileAdminFactory;
+  v6 = [(CESRSpeechProfileAdminFactory *)&v14 init];
   v7 = v6;
   if (!v6)
   {
@@ -52,14 +52,13 @@ LABEL_4:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v17 = "[CESRSpeechProfileAdminFactory initWithServiceProvider:]";
+    v16 = "[CESRSpeechProfileAdminFactory initWithServiceProvider:]";
     _os_log_error_impl(&dword_225EEB000, v12, OS_LOG_TYPE_ERROR, "%s Cannot initialize admin with nil service provider.", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

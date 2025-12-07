@@ -204,9 +204,9 @@ LABEL_24:
 {
   bundleCopy = bundle;
   configurationRecord = [bundleCopy configurationRecord];
-  isNfcConfigurationRecord = [configurationRecord isNfcConfigurationRecord];
+  v6 = objc_msgSend_isNfcConfigurationRecord(configurationRecord);
 
-  if (isNfcConfigurationRecord)
+  if (v6)
   {
     v7 = [[self alloc] initWithNdefRecordBundle:bundleCopy];
   }

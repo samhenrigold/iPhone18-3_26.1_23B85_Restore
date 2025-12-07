@@ -52,14 +52,14 @@
   v15 = [(HDDatabaseMigrationStep *)&v22 init];
   if (v15)
   {
-    v16 = [schemaCopy copy];
+    v16 = objc_msgSend_copy(schemaCopy);
     schemaName = v15->_schemaName;
     v15->_schemaName = v16;
 
     v15->_requiredPrimarySchemaVersion = requiringVersion;
     v15->_finalSchemaVersion = version;
     v15->_foreignKeyStatus = keys;
-    v18 = [handlerCopy copy];
+    v18 = objc_msgSend_copy(handlerCopy);
     migrationHandler = v15->_migrationHandler;
     v15->_migrationHandler = v18;
   }

@@ -570,7 +570,6 @@
 
 - (void)p_nonUpdatingDrawToPoint:(CGPoint)point atTime:(double)time predicted:(BOOL)predicted
 {
-  predictedCopy = predicted;
   y = point.y;
   x = point.x;
   if (self->_creatorState != 1)
@@ -591,17 +590,17 @@
       sub_1013933B0();
     }
 
-    v10 = off_1019EDA68;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = off_1019EDA68;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[CRLAssertionHandler packedBacktraceString];
       objc_claimAutoreleasedReturnValue();
       sub_10130E89C();
     }
 
-    v11 = [NSString stringWithUTF8String:"[CRLFreehandDrawingPathCreator p_nonUpdatingDrawToPoint:atTime:predicted:]"];
-    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingPathCreator.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:343 isFatal:0 description:"continueDrawing should be called from the started state."];
+    v10 = [NSString stringWithUTF8String:"[CRLFreehandDrawingPathCreator p_nonUpdatingDrawToPoint:atTime:predicted:]"];
+    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLFreehandDrawingPathCreator.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:343 isFatal:0 description:"continueDrawing should be called from the started state."];
   }
 
   if (self->_initialPoint.x == INFINITY && self->_initialPoint.y == INFINITY)
@@ -610,13 +609,13 @@
     self->_initialPoint.y = y;
   }
 
-  v43 = 0;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = 0;
   v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  [(CRLFreehandDrawingPathCreator *)self p_drawingInputPoint:predictedCopy atTime:x predicted:y, time];
+  v39 = 0u;
+  v37 = 0u;
+  objc_msgSend_p_drawingInputPoint_atTime_predicted_(self, x, y, time);
   if ([(CRLFreehandDrawingPathCreator *)self p_shouldSaveAllPoints])
   {
     end = self->_allInputPoints.__end_;
@@ -624,88 +623,88 @@
     if (end >= cap)
     {
       begin = self->_allInputPoints.__begin_;
-      v22 = 0x2E8BA2E8BA2E8BA3 * ((end - begin) >> 3);
-      v23 = v22 + 1;
-      if ((v22 + 1) > 0x2E8BA2E8BA2E8BALL)
+      v21 = 0x2E8BA2E8BA2E8BA3 * ((end - begin) >> 3);
+      v22 = v21 + 1;
+      if ((v21 + 1) > 0x2E8BA2E8BA2E8BALL)
       {
         sub_1000C1D48();
       }
 
-      v24 = 0x2E8BA2E8BA2E8BA3 * ((cap - begin) >> 3);
-      if (2 * v24 > v23)
+      v23 = 0x2E8BA2E8BA2E8BA3 * ((cap - begin) >> 3);
+      if (2 * v23 > v22)
       {
-        v23 = 2 * v24;
+        v22 = 2 * v23;
       }
 
-      if (v24 >= 0x1745D1745D1745DLL)
+      if (v23 >= 0x1745D1745D1745DLL)
       {
-        v25 = 0x2E8BA2E8BA2E8BALL;
+        v24 = 0x2E8BA2E8BA2E8BALL;
       }
 
       else
       {
-        v25 = v23;
+        v24 = v22;
       }
 
-      if (v25)
+      if (v24)
       {
-        sub_1000C1DF0(&self->_allInputPoints, v25);
+        sub_1000C1DF0(&self->_allInputPoints, v24);
       }
 
-      v26 = 88 * v22;
+      v25 = 88 * v21;
+      v26 = v38;
+      *v25 = v37;
+      *(v25 + 16) = v26;
       v27 = v39;
-      *v26 = v38;
-      *(v26 + 16) = v27;
       v28 = v40;
       v29 = v41;
-      v30 = v42;
-      *(v26 + 80) = v43;
-      *(v26 + 48) = v29;
-      *(v26 + 64) = v30;
-      *(v26 + 32) = v28;
-      v20 = (88 * v22 + 88);
-      v31 = self->_allInputPoints.__begin_;
-      v32 = (self->_allInputPoints.__end_ - v31);
-      v33 = (88 * v22 - v32);
-      memcpy((v26 - v32), v31, v32);
-      v34 = self->_allInputPoints.__begin_;
-      self->_allInputPoints.__begin_ = v33;
-      self->_allInputPoints.__end_ = v20;
+      *(v25 + 80) = v42;
+      *(v25 + 48) = v28;
+      *(v25 + 64) = v29;
+      *(v25 + 32) = v27;
+      v19 = (88 * v21 + 88);
+      v30 = self->_allInputPoints.__begin_;
+      v31 = (self->_allInputPoints.__end_ - v30);
+      v32 = (88 * v21 - v31);
+      memcpy((v25 - v31), v30, v31);
+      v33 = self->_allInputPoints.__begin_;
+      self->_allInputPoints.__begin_ = v32;
+      self->_allInputPoints.__end_ = v19;
       self->_allInputPoints.__cap_ = 0;
-      if (v34)
+      if (v33)
       {
-        operator delete(v34);
+        operator delete(v33);
       }
     }
 
     else
     {
+      v15 = v38;
+      *end = v37;
+      *(end + 1) = v15;
       v16 = v39;
-      *end = v38;
-      *(end + 1) = v16;
       v17 = v40;
       v18 = v41;
-      v19 = v42;
-      *(end + 10) = v43;
-      *(end + 3) = v18;
-      *(end + 4) = v19;
-      *(end + 2) = v17;
-      v20 = (end + 88);
+      *(end + 10) = v42;
+      *(end + 3) = v17;
+      *(end + 4) = v18;
+      *(end + 2) = v16;
+      v19 = (end + 88);
     }
 
-    self->_allInputPoints.__end_ = v20;
+    self->_allInputPoints.__end_ = v19;
   }
 
   strokeGenerator = self->_strokeGenerator;
   if (strokeGenerator)
   {
-    v36[2] = v40;
-    v36[3] = v41;
-    v36[4] = v42;
-    v37 = v43;
-    v36[0] = v38;
-    v36[1] = v39;
-    [(CRLPKStrokeGenerator *)strokeGenerator addPoint:v36];
+    v35[2] = v39;
+    v35[3] = v40;
+    v35[4] = v41;
+    v36 = v42;
+    v35[0] = v37;
+    v35[1] = v38;
+    [(CRLPKStrokeGenerator *)strokeGenerator addPoint:v35];
   }
 
   ++self->_inputPointCount;
@@ -775,7 +774,7 @@
         v51 = v16;
         v52 = v17;
         v50 = v15;
-        [CRLPKStrokeGenerator outputPointFromInputPoint:v48];
+        objc_msgSend_outputPointFromInputPoint_(CRLPKStrokeGenerator);
         v18 = &self->_filteredStrokePoints.__begin_[v12];
         *&v18->timestamp = v54;
         v19 = v55;

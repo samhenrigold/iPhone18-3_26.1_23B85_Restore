@@ -13,7 +13,7 @@
   libraryCopy = library;
   sub_1A4114470(libraryCopy);
 
-  sub_1A3C52C70(0, &qword_1EB1265D0);
+  sub_1A3C52C70(0, &qword_1EB1265D0, 0x1E6978958);
   v4 = sub_1A524CA14();
 
   return v4;
@@ -41,7 +41,7 @@
   objectCopy = object;
   sub_1A3F9E7D0(objectCopy, v6);
 
-  sub_1A3FA099C();
+  sub_1A3FA099C(0);
   LOBYTE(objectCopy) = (*(*(v8 - 8) + 48))(v6, 1, v8) != 1;
   sub_1A3CA0A80(v6, &qword_1EB125B40, sub_1A3FA099C);
   return objectCopy;

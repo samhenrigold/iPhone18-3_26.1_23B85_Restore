@@ -21,51 +21,50 @@ uint64_t start()
   v10 = objc_alloc_init(CADStateDumpModule);
   [v2 addObject:v10];
   v11 = [[CADServer alloc] initWithModules:v2];
-  [v11 activate];
-  v12 = sub_100000E10();
+  v12 = sub_100000E10([v11 activate]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v11;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Activated server: %@.", &v18, 0xCu);
+    v20 = 138412290;
+    v21 = v11;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Activated server: %@.", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v0);
-  v13 = sub_100000E10();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100000E10(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Starting run loop.", &v18, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Starting run loop.", &v20, 2u);
   }
 
   do
   {
-    v14 = objc_autoreleasePoolPush();
-    v15 = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 86400.0, 1u);
-    objc_autoreleasePoolPop(v14);
+    v15 = objc_autoreleasePoolPush();
+    v16 = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 86400.0, 1u);
+    objc_autoreleasePoolPop(v15);
   }
 
-  while ((v15 - 3) < 0xFFFFFFFE);
-  v16 = sub_100000E10();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  while ((v16 - 3) < 0xFFFFFFFE);
+  v18 = sub_100000E10(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Server exiting unexpectedly.", &v18, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Server exiting unexpectedly.", &v20, 2u);
   }
 
   return 1;
 }
 
-id sub_100000E10()
+id sub_100000E10(uint64_t a1)
 {
   if (qword_100008048 != -1)
   {
     sub_100000E98();
   }
 
-  v1 = qword_100008040;
+  v2 = qword_100008040;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E54(id a1)

@@ -135,7 +135,7 @@ LABEL_4:
       {
         if ([nameCopy isEqualToString:@"dbgScreenShape"])
         {
-          v10 = [NSNumber numberWithInteger:__dbg_ScreenShape()];
+          v10 = [NSNumber numberWithInteger:__dbg_ScreenShape(objectCopy)];
           goto LABEL_4;
         }
 

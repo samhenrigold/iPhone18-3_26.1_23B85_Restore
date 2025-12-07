@@ -21,19 +21,19 @@
 
 - (CKOperationGroupSystemImposedInfo)initWithCoder:(id)coder
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = CKOperationGroupSystemImposedInfo;
-  v5 = [(CKOperationGroupSystemImposedInfo *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = CKOperationGroupSystemImposedInfo;
+  v5 = [(CKOperationGroupSystemImposedInfo *)&v18 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
     v7 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v20[2] = objc_opt_class();
-    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v20, 3);
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v19[2] = objc_opt_class();
+    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v19, 3);
     v11 = objc_msgSend_setWithArray_(v7, v10, v9);
     v13 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v12, v11, @"ServiceTypePerConfig");
     networkServiceTypePerConfig = v5->_networkServiceTypePerConfig;
@@ -44,7 +44,6 @@
     objc_autoreleasePoolPop(v6);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

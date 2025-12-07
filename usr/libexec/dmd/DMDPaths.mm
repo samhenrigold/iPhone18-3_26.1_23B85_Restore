@@ -248,7 +248,6 @@
 + (id)_systemGroupContainerPathWithGroupIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8 = 1;
   [identifierCopy UTF8String];
   v4 = container_system_group_path_for_identifier();
   if (v4)
@@ -267,7 +266,7 @@
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100085D80(identifierCopy, &v8);
+      sub_100085D80();
     }
 
     v6 = 0;

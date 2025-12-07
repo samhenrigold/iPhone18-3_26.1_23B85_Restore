@@ -2,6 +2,7 @@
 - (BOOL)_havePairedOrMigratingDevices:(id)devices rollback:(BOOL)rollback;
 - (EPTransactionDelegate)delegate;
 - (void)_setAppRemovability:(unint64_t)removability;
+- (void)_updateAppRemovability:(id)removability rollback:(BOOL)rollback entry:(id)entry;
 - (void)beginRollbackWithRoutingSlipEntry:(id)entry serviceRegistry:(id)registry;
 - (void)beginTransactionWithRoutingSlipEntry:(id)entry serviceRegistry:(id)registry;
 @end
@@ -38,6 +39,46 @@
   v11 = entryCopy;
   v9 = entryCopy;
   [v8 grabRegistryWithReadBlock:v10];
+}
+
+- (void)_updateAppRemovability:(id)removability rollback:(BOOL)rollback entry:(id)entry
+{
+  rollbackCopy = rollback;
+  entryCopy = entry;
+  if ([(EPSagaTransactionUpdateAppRemovability *)self _havePairedOrMigratingDevices:removability rollback:rollbackCopy])
+  {
+    v9 = 2;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  v10 = nr_daemon_log();
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+
+  if (v11)
+  {
+    v12 = nr_daemon_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = IXStringForAppRemovability();
+      *buf = 138412290;
+      v17 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Setting Watch related Apps as %@", buf, 0xCu);
+    }
+  }
+
+  [(EPSagaTransactionUpdateAppRemovability *)self _setAppRemovability:v9];
+  queue = [entryCopy queue];
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000769FC;
+  block[3] = &unk_100175660;
+  block[4] = self;
+  dispatch_async(queue, block);
 }
 
 - (BOOL)_havePairedOrMigratingDevices:(id)devices rollback:(BOOL)rollback

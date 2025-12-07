@@ -215,7 +215,7 @@
 
 - (void)addAuthUserID:(id)d certificate:(id)certificate privateKey:(__SecKey *)key publicKey:(__SecKey *)publicKey
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   certificateCopy = certificate;
   if ([dCopy length] && (v12 = objc_msgSend(certificateCopy, "length"), publicKey) && key && v12)
@@ -266,12 +266,12 @@
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = certificateCopy;
-      v29 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = certificateCopy;
+      v28 = 2112;
       publicKeyCopy = publicKey;
-      v31 = 2112;
+      v30 = 2112;
       keyCopy = key;
       _os_log_impl(&dword_195925000, v23, OS_LOG_TYPE_ERROR, "Passed in bogus info to FTIDSMessage (%@:%@:%@:%@)", buf, 0x2Au);
     }
@@ -283,8 +283,6 @@
       _IDSLogTransport();
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)additionalMessageHeadersForOutgoingPush

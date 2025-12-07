@@ -115,7 +115,7 @@ uint64_t __68__NTKCircularSmallRingImageComplicationView__imageScaleForTemplate_
   return 1;
 }
 
-uint64_t __68__NTKCircularSmallRingImageComplicationView__imageScaleForTemplate___block_invoke_3(uint64_t a1)
+void *__68__NTKCircularSmallRingImageComplicationView__imageScaleForTemplate___block_invoke_3(uint64_t a1)
 {
   v5 = 0uLL;
   [*(a1 + 32) maxSDKSize:0 deviceSize:&v5 forImageProviderKey:@"imageProvider"];

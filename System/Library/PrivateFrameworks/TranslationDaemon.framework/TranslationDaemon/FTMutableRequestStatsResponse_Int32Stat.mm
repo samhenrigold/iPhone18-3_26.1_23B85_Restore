@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)value;
 - (void)setName:(id)name;
+- (void)setValue:(int)value;
 @end
 
 @implementation FTMutableRequestStatsResponse_Int32Stat
@@ -44,6 +45,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setValue:(int)value
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&value];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

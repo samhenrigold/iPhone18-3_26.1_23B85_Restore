@@ -1,5 +1,6 @@
 @interface MICSInterface
 - (BOOL)sendGainSetting:(char)setting inputType:(unsigned __int8)type;
+- (BOOL)sendMute:(unsigned __int8)mute;
 - (MICSInterface)initWithPeripheral:(id)peripheral service:(id)service;
 - (id)getIncludedServiceInterfaceForService:(id)service;
 - (void)_handleMuteUpdate;
@@ -440,6 +441,41 @@
       (serviceEventHandler2)[2](serviceEventHandler2, 6, v20);
     }
   }
+}
+
+- (BOOL)sendMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  muteCharacteristic = [(MICSInterface *)self muteCharacteristic];
+
+  v6 = qword_1000A9FE0;
+  v7 = os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT);
+  if (muteCharacteristic)
+  {
+    if (v7)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "muteCharacteristic discovered", buf, 2u);
+    }
+
+    if (self->_mute != muteCopy)
+    {
+      v8 = +[DataOutputStream outputStream];
+      [v8 writeUint8:muteCopy];
+      peripheral = [(ServiceInterface *)self peripheral];
+      data = [v8 data];
+      muteCharacteristic2 = [(MICSInterface *)self muteCharacteristic];
+      [peripheral writeValue:data forCharacteristic:muteCharacteristic2 type:0];
+    }
+  }
+
+  else if (v7)
+  {
+    *v13 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "muteCharacteristic not discovered", v13, 2u);
+  }
+
+  return muteCharacteristic != 0;
 }
 
 - (BOOL)sendGainSetting:(char)setting inputType:(unsigned __int8)type

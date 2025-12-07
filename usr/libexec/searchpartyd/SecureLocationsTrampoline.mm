@@ -24,7 +24,7 @@
   v4 = _Block_copy(completion);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = *(*sub_1000035D0((&self->super.isa + OBJC_IVAR____TtC12searchpartyd25SecureLocationsTrampoline_implementation), *&self->implementation[OBJC_IVAR____TtC12searchpartyd25SecureLocationsTrampoline_implementation + 16]) + 80);
+  sub_1000035D0((&self->super.isa + OBJC_IVAR____TtC12searchpartyd25SecureLocationsTrampoline_implementation), *&self->implementation[OBJC_IVAR____TtC12searchpartyd25SecureLocationsTrampoline_implementation + 16]);
   selfCopy = self;
 
   sub_100B658D8(sub_1007BF36C, v5);

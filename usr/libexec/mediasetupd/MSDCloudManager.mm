@@ -89,28 +89,28 @@
 LABEL_5:
     objc_initWeak(&location, self);
     objc_initWeak(&from, databaseCopy);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10002040C;
-    v9[3] = &unk_100051DB0;
-    objc_copyWeak(&v10, &location);
-    objc_copyWeak(&v11, &from);
-    [databaseCopy addSubscriptionForDatabaseWithIdentifier:v6 completion:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_10002040C;
+    v10[3] = &unk_100051DB0;
+    objc_copyWeak(&v11, &location);
+    objc_copyWeak(&v12, &from);
+    [databaseCopy addSubscriptionForDatabaseWithIdentifier:v6 completion:v10];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&v11);
-    objc_destroyWeak(&v10);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
     goto LABEL_11;
   }
 
-  v7 = sub_100030FE4();
+  v7 = sub_100030FE4(databaseScope);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_100021830();
   }
 
-  v8 = sub_100030FE4();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = sub_100030FE4(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_10002186C(databaseCopy);
   }
@@ -136,7 +136,7 @@ LABEL_11:
 
   else
   {
-    v5 = sub_100030FE4();
+    v5 = sub_100030FE4(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
@@ -149,11 +149,11 @@ LABEL_11:
 + (void)handlePushNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = sub_100030FE4();
+  v4 = sub_100030FE4(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Handling a CloudKit push notification", &v17, 2u);
+    LOWORD(v19) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Handling a CloudKit push notification", &v19, 2u);
   }
 
   userInfo = [notificationCopy userInfo];
@@ -162,24 +162,24 @@ LABEL_11:
   if (v6)
   {
     objc_opt_class();
-    v7 = v6;
+    v8 = v6;
     if (objc_opt_isKindOfClass())
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    v9 = v8;
+    v10 = v9;
 
-    v10 = sub_100030FE4();
-    v11 = v10;
-    if (!v9)
+    v12 = sub_100030FE4(v11);
+    v13 = v12;
+    if (!v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000219A4();
       }
@@ -187,20 +187,20 @@ LABEL_11:
       goto LABEL_22;
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      [v9 databaseScope];
-      v12 = CKDatabaseScopeString();
-      v17 = 138412290;
-      v18 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "A CloudKit database changed in DatabaseScope = %@", &v17, 0xCu);
+      [v10 databaseScope];
+      v14 = CKDatabaseScopeString();
+      v19 = 138412290;
+      v20 = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "A CloudKit database changed in DatabaseScope = %@", &v19, 0xCu);
     }
 
-    databaseScope = [v9 databaseScope];
+    databaseScope = [v10 databaseScope];
     if (databaseScope == 1)
     {
-      v11 = sub_100030FE4();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = sub_100030FE4(1);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_100021968();
       }
@@ -210,21 +210,21 @@ LABEL_11:
 
     if (databaseScope == 3)
     {
-      v11 = +[CKContainer MSDCloudKitContainer];
-      sharedCloudDatabase = [v11 sharedCloudDatabase];
-      v15 = sharedCloudDatabase;
-      v16 = &stru_100051E18;
+      v13 = +[CKContainer MSDCloudKitContainer];
+      sharedCloudDatabase = [v13 sharedCloudDatabase];
+      v17 = sharedCloudDatabase;
+      v18 = &stru_100051E18;
       goto LABEL_19;
     }
 
     if (databaseScope == 2)
     {
-      v11 = +[CKContainer MSDCloudKitContainer];
-      sharedCloudDatabase = [v11 privateCloudDatabase];
-      v15 = sharedCloudDatabase;
-      v16 = &stru_100051DF8;
+      v13 = +[CKContainer MSDCloudKitContainer];
+      sharedCloudDatabase = [v13 privateCloudDatabase];
+      v17 = sharedCloudDatabase;
+      v18 = &stru_100051DF8;
 LABEL_19:
-      [sharedCloudDatabase refreshDatabase:0 completion:v16];
+      [sharedCloudDatabase refreshDatabase:0 completion:v18];
 
 LABEL_22:
     }
@@ -232,8 +232,8 @@ LABEL_22:
 
   else
   {
-    v9 = sub_100030FE4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100030FE4(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000219E0(notificationCopy);
     }
@@ -268,52 +268,57 @@ LABEL_22:
 - (void)_handleDeviceSupportsEncryption:(id)encryption
 {
   encryptionCopy = encryption;
-  if ([(CKAccountInfo *)self->_accountInfo isEqual:encryptionCopy])
+  v5 = [(CKAccountInfo *)self->_accountInfo isEqual:encryptionCopy];
+  if (v5)
   {
-    v5 = sub_100030FE4();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100030FE4(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v6 = "AccountInfo is the same, skipping update";
-      v7 = buf;
+      v7 = "AccountInfo is the same, skipping update";
+      v8 = buf;
 LABEL_4:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
-    }
-  }
-
-  else if ([encryptionCopy hasValidCredentials])
-  {
-    [(MSDCloudManager *)self setAccountInfo:encryptionCopy];
-    v8 = +[MSDDefaultsManager sharedManager];
-    v9 = [v8 objectForDefault:@"CKAccountSupportsManatee"];
-    bOOLValue = [v9 BOOLValue];
-
-    if (!bOOLValue)
-    {
-      v11 = +[MSDDefaultsManager sharedManager];
-      [v11 setObject:&__kCFBooleanTrue forDefault:@"CKAccountSupportsManatee"];
-
-      v5 = +[MSDDataController sharedInstance];
-      [v5 refreshDataForReason:6 completion:&stru_100051E88];
-      goto LABEL_12;
-    }
-
-    v5 = sub_100030FE4();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 0;
-      v6 = "Manatee enabled on device, skipping data refresh";
-      v7 = &v12;
-      goto LABEL_4;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
     }
   }
 
   else
   {
-    v5 = sub_100030FE4();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    hasValidCredentials = [encryptionCopy hasValidCredentials];
+    if (hasValidCredentials)
     {
-      sub_100021C2C();
+      [(MSDCloudManager *)self setAccountInfo:encryptionCopy];
+      v10 = +[MSDDefaultsManager sharedManager];
+      v11 = [v10 objectForDefault:@"CKAccountSupportsManatee"];
+      bOOLValue = [v11 BOOLValue];
+
+      if (!bOOLValue)
+      {
+        v14 = +[MSDDefaultsManager sharedManager];
+        [v14 setObject:&__kCFBooleanTrue forDefault:@"CKAccountSupportsManatee"];
+
+        v6 = +[MSDDataController sharedInstance];
+        [v6 refreshDataForReason:6 completion:&stru_100051E88];
+        goto LABEL_12;
+      }
+
+      v6 = sub_100030FE4(v13);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 0;
+        v7 = "Manatee enabled on device, skipping data refresh";
+        v8 = &v15;
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v6 = sub_100030FE4(hasValidCredentials);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        sub_100021C2C();
+      }
     }
   }
 
@@ -323,7 +328,7 @@ LABEL_12:
 - (void)_handleCKAccountStatusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100030FE4();
+  v5 = sub_100030FE4(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];

@@ -71,9 +71,11 @@ uint64_t __33__ASDServiceBroker_defaultBroker__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   objc_opt_self();
-  _MergedGlobals_32 = [v1 newBrokerForMachServiceName:@"com.apple.appstored.xpc"];
+  v2 = [v1 newBrokerForMachServiceName:@"com.apple.appstored.xpc"];
+  v3 = _MergedGlobals_32;
+  _MergedGlobals_32 = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (void)_connect
@@ -1509,17 +1511,15 @@ void __46__ASDServiceBroker_getRepairServiceWithError___block_invoke_2(uint64_t 
 
 void __53__ASDServiceBroker_setSupportedNotificationDelivery___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Sending supported notification delivery failed with error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_error_impl(&dword_1B8220000, v3, OS_LOG_TYPE_ERROR, "Sending supported notification delivery failed with error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__ASDServiceBroker__remoteObjectProxyWithErrorHandler___block_invoke(void *a1)
@@ -1529,7 +1529,7 @@ uint64_t __55__ASDServiceBroker__remoteObjectProxyWithErrorHandler___block_invok
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __66__ASDServiceBroker__synchronousRemoteObjectProxyWithErrorHandler___block_invoke(void *a1)
@@ -1539,7 +1539,7 @@ uint64_t __66__ASDServiceBroker__synchronousRemoteObjectProxyWithErrorHandler___
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 @end

@@ -42,14 +42,11 @@
 
 - (NSString)imagePath
 {
-  v2 = (self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_imagePath);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_100023974();
+  v2 = sub_100023974();
 
-  return v5;
+  return v2;
 }
 
 - (void)setImagePath:(id)path
@@ -58,7 +55,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_imagePath);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -160,15 +156,14 @@
 - (id)getBlockingInfoFor:(id)for
 {
   sub_100023984();
-  v4 = *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 32);
   sub_100018680((self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore), *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 24));
   selfCopy = self;
   sub_100023744();
 
   sub_1000237F4();
-  v6.super.isa = sub_1000239F4().super.isa;
+  v5.super.isa = sub_1000239F4().super.isa;
 
-  return v6.super.isa;
+  return v5.super.isa;
 }
 
 - (BOOL)llExtension:(id)extension containedIn:(id)in
@@ -205,12 +200,13 @@
 
 - (id)getBlockingInfoFor:(id)for with:(id)with
 {
-  sub_100023984();
+  v6 = sub_100023984();
+  v8 = v7;
   withCopy = with;
   selfCopy = self;
-  v8 = LiveLookupStoreProxy.getBlockingInfo(for:with:)();
+  v11 = LiveLookupStoreProxy.getBlockingInfo(for:with:)(v6, v8, withCopy);
 
-  return v8;
+  return v11;
 }
 
 - (BOOL)enabledForExtensionWith:(id)with
@@ -227,8 +223,8 @@
 
 - (void)setEnabled:(BOOL)enabled forExtensionWith:(NSString *)with completionHandler:(id)handler
 {
-  v9 = (*(*(sub_100014304(&qword_10003C700, &qword_100028750) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100014304(&qword_10003C700, &qword_100028750);
+  __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -262,7 +258,6 @@
 - (void)resetForExtensionWith:(id)with
 {
   sub_100023984();
-  v4 = *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 32);
   sub_100018680((self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore), *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 24));
   selfCopy = self;
   sub_100023714();
@@ -290,27 +285,26 @@
 - (void)updateIdentityInfoFor:(id)for with:(id)with name:(id)name iconURL:(id)l type:(int64_t)type ttlMinutes:(unsigned int)minutes
 {
   v14 = sub_100014304(&qword_10003C6D0, &qword_100028690);
-  v15 = *(*(v14 - 8) + 64);
   __chkstk_darwin(v14 - 8);
-  v17 = &v27 - v16;
-  v18 = sub_100023984();
-  v20 = v19;
+  v16 = &v26 - v15;
+  v17 = sub_100023984();
+  v19 = v18;
   if (!name)
   {
-    v21 = 0;
+    v20 = 0;
     if (l)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v24 = sub_100023614();
-    (*(*(v24 - 8) + 56))(v17, 1, 1, v24);
+    v23 = sub_100023614();
+    (*(*(v23 - 8) + 56))(v16, 1, 1, v23);
     goto LABEL_6;
   }
 
-  v21 = sub_100023984();
-  name = v22;
+  v20 = sub_100023984();
+  name = v21;
   if (!l)
   {
     goto LABEL_5;
@@ -318,14 +312,14 @@ LABEL_5:
 
 LABEL_3:
   sub_1000235F4();
-  v23 = sub_100023614();
-  (*(*(v23 - 8) + 56))(v17, 0, 1, v23);
+  v22 = sub_100023614();
+  (*(*(v22 - 8) + 56))(v16, 0, 1, v22);
 LABEL_6:
   withCopy = with;
   selfCopy = self;
-  LiveLookupStoreProxy.updateIdentityInfo(for:with:name:iconURL:type:ttlMinutes:)(v18, v20, withCopy, v21, name, v17, type, minutes);
+  LiveLookupStoreProxy.updateIdentityInfo(for:with:name:iconURL:type:ttlMinutes:)(v17, v19, withCopy, v20, name, v16, type, minutes);
 
-  sub_1000022C4(v17, &qword_10003C6D0, &qword_100028690);
+  sub_1000022C4(v16, &qword_10003C6D0, &qword_100028690);
 }
 
 - (id)nameFor:(id)for
@@ -352,52 +346,50 @@ LABEL_6:
 - (id)iconURLFor:(id)for
 {
   v4 = sub_100014304(&qword_10003C6D0, &qword_100028690);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v19 - v6;
+  v6 = &v18 - v5;
   forCopy = for;
   iconURL = [forCopy iconURL];
   if (iconURL)
   {
-    v10 = iconURL;
+    v9 = iconURL;
     sub_100023984();
 
     sub_100023604();
 
-    v11 = sub_100023614();
-    v12 = *(v11 - 8);
-    v13 = (*(v12 + 48))(v7, 1, v11);
-    v14 = 0;
-    if (v13 != 1)
+    v10 = sub_100023614();
+    v11 = *(v10 - 8);
+    v12 = (*(v11 + 48))(v6, 1, v10);
+    v13 = 0;
+    if (v12 != 1)
     {
-      sub_1000235D4(v13);
-      v16 = v15;
-      (*(v12 + 8))(v7, v11);
-      v14 = v16;
+      sub_1000235D4(v12);
+      v15 = v14;
+      (*(v11 + 8))(v6, v10);
+      v13 = v15;
     }
   }
 
   else
   {
 
-    v17 = sub_100023614();
-    (*(*(v17 - 8) + 56))(v7, 1, 1, v17);
-    v14 = 0;
+    v16 = sub_100023614();
+    (*(*(v16 - 8) + 56))(v6, 1, 1, v16);
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)fetchIdentityInfoFor:(id)for from:(id)from
 {
   sub_100023984();
-  v6 = *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 32);
   sub_100018680((self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore), *(self + OBJC_IVAR____TtC42com_apple_CallKit_CallDirectoryMaintenance20LiveLookupStoreProxy_liveLookupStore + 24));
   fromCopy = from;
   selfCopy = self;
-  v9 = sub_100023794();
+  v8 = sub_100023794();
 
-  return v9;
+  return v8;
 }
 
 - (id)extensionUpdateFor:(id)for isAppStorVendable:(BOOL)vendable

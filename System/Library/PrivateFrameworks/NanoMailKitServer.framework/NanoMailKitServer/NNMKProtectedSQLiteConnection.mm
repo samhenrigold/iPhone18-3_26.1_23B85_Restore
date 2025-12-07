@@ -31,7 +31,7 @@
 
 - (int)attachProtectedDatabase
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!self->_protectedDatabaseAttached)
   {
     v4 = MEMORY[0x277CCACA8];
@@ -53,11 +53,11 @@
       if (!v2)
       {
         self->_protectedDatabaseAttached = 1;
-        v13 = qword_28144D620;
+        v12 = qword_28144D620;
         if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B19F000, v13, OS_LOG_TYPE_DEFAULT, "Protected database attached.", buf, 2u);
+          _os_log_impl(&dword_25B19F000, v12, OS_LOG_TYPE_DEFAULT, "Protected database attached.", buf, 2u);
           v2 = 0;
         }
 
@@ -68,41 +68,36 @@
     v10 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
     {
-      v14 = self->_protectedDatabasePath;
-      v15 = v10;
+      v13 = self->_protectedDatabasePath;
+      v14 = v10;
       lastErrorMessage = [(NNMKSQLiteConnection *)self lastErrorMessage];
       *buf = 138543874;
-      v18 = v14;
-      v19 = 1024;
-      v20 = v2;
-      v21 = 2114;
-      v22 = lastErrorMessage;
-      _os_log_error_impl(&dword_25B19F000, v15, OS_LOG_TYPE_ERROR, "Error attaching protected database. Path: %{public}@, Error Code: %d, Error Message: %{public}@", buf, 0x1Cu);
+      v17 = v13;
+      v18 = 1024;
+      v19 = v2;
+      v20 = 2114;
+      v21 = lastErrorMessage;
+      _os_log_error_impl(&dword_25B19F000, v14, OS_LOG_TYPE_ERROR, "Error attaching protected database. Path: %{public}@, Error Code: %d, Error Message: %{public}@", buf, 0x1Cu);
     }
 
 LABEL_8:
 
-    goto LABEL_9;
+    return v2;
   }
 
-  v2 = 0;
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
-  return v2;
+  return 0;
 }
 
 - (void)detachProtectedDatabase
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   lastErrorMessage = [a2 lastErrorMessage];
-  v8[0] = 67109378;
-  v8[1] = a3;
-  v9 = 2114;
-  v10 = lastErrorMessage;
-  _os_log_error_impl(&dword_25B19F000, selfCopy, OS_LOG_TYPE_ERROR, "Error detaching protected database (Error Code: %d, Error Message: %{public}@).", v8, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = 67109378;
+  v7[1] = a3;
+  v8 = 2114;
+  v9 = lastErrorMessage;
+  _os_log_error_impl(&dword_25B19F000, selfCopy, OS_LOG_TYPE_ERROR, "Error detaching protected database (Error Code: %d, Error Message: %{public}@).", v7, 0x12u);
 }
 
 - (id)_vfsModuleName

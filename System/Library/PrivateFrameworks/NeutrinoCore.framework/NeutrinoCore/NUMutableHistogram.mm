@@ -11,9 +11,9 @@
 
 - (void)smoothWithFunction:(int64_t)function windowSize:(int64_t)size sampleMode:(int64_t)mode
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v8 = [(NUHistogram *)self _samplerForSampleMode:mode];
-  v36[0] = v8;
+  v36 = v8;
   if (function == 1)
   {
     if ((size & 0x8000000000000001) != 1)
@@ -22,8 +22,8 @@
     }
 
     ptr = self->super._histogram.__ptr_;
-    v36[1] = 0;
-    std::vector<long>::vector[abi:ne200100](&__p, size);
+    v37 = 0;
+    std::vector<long>::vector[abi:ne200100](&__p, size, &v37);
     v11 = (size >> 1) + 1;
     v12 = __p;
     v13 = vdupq_n_s64(size - 1);
@@ -56,15 +56,15 @@
 
     while (v17);
     memset(buf, 0, sizeof(buf));
-    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(buf, v12, v38, (v38 - v12) >> 3);
-    v40 = v11 * v11;
+    std::vector<long>::__init_with_size[abi:ne200100]<long *,long *>(buf, v12, v39, (v39 - v12) >> 3);
+    v41 = v11 * v11;
     if (__p)
     {
-      v38 = __p;
+      v39 = __p;
       operator delete(__p);
     }
 
-    NU::Histogram<long,double>::convolve(ptr, buf, v36);
+    NU::Histogram<long,double>::convolve(ptr, buf, &v36);
   }
 
   else
@@ -79,7 +79,7 @@
       v22 = _NUAssertLogger;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown window function: %ld", function, v36[0]];
+        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown window function: %ld", function, v36];
         *buf = 138543362;
         *&buf[4] = v23;
         _os_log_error_impl(&dword_1C0184000, v22, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
@@ -122,7 +122,7 @@
 
     v9 = self->super._histogram.__ptr_;
     NU::Histogram<long,double>::Kernel::box(buf, size);
-    NU::Histogram<long,double>::convolve(v9, buf, v36);
+    NU::Histogram<long,double>::convolve(v9, buf, &v36);
   }
 
   if (*buf)

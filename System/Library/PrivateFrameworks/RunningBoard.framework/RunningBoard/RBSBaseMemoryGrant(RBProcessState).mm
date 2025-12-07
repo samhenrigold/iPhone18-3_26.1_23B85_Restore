@@ -6,7 +6,7 @@
 
 - (void)applyToProcessState:()RBProcessState attributePath:context:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   memoryLimit = [v7 memoryLimit];
@@ -56,17 +56,17 @@ LABEL_4:
       assertion = [v8 assertion];
       identifier = [assertion identifier];
       *buf = 138413570;
-      v30 = lock_targetProcessForAbstract;
-      v31 = 1024;
-      v32 = memoryLimit;
-      v33 = 1024;
-      v34 = v16;
-      v35 = 2112;
-      v36 = category3;
-      v37 = 1024;
-      v38 = memoryLimit2;
-      v39 = 2112;
-      v40 = identifier;
+      v29 = lock_targetProcessForAbstract;
+      v30 = 1024;
+      v31 = memoryLimit;
+      v32 = 1024;
+      v33 = v16;
+      v34 = 2112;
+      v35 = category3;
+      v36 = 1024;
+      v37 = memoryLimit2;
+      v38 = 2112;
+      v39 = identifier;
       _os_log_debug_impl(&dword_262485000, v21, OS_LOG_TYPE_DEBUG, "%@: StateLimit %d, attributeLimit %d(%@) -> %d (%@)", buf, 0x32u);
     }
 
@@ -90,13 +90,11 @@ LABEL_4:
   assertion3 = [v8 assertion];
   memoryLimits = [assertion3 identifier];
   *buf = 138412290;
-  v30 = memoryLimits;
+  v29 = memoryLimits;
   _os_log_impl(&dword_262485000, lock_targetProcessForAbstract, OS_LOG_TYPE_INFO, "applying Base Memory Grant to process state without concrete target (%@)", buf, 0xCu);
 
 LABEL_14:
 LABEL_15:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -196,27 +196,26 @@ LABEL_6:
   {
     case 2uLL:
       contextDataAsProtobuf = [(AFAnalyticsEvent *)self contextDataAsProtobuf];
-      v8 = [(__CFString *)contextDataAsProtobuf anyEventType]- 1;
-      if (v8 > 0x70)
+      v7 = [(__CFString *)contextDataAsProtobuf anyEventType]- 1;
+      if (v7 > 0x70)
       {
-        v9 = @"UNKNOWN_EVENT";
+        v8 = @"UNKNOWN_EVENT";
       }
 
       else
       {
-        v9 = off_1E7348B18[v8];
+        v8 = off_1E7348B18[v7];
       }
 
 LABEL_12:
-      v2 = [@"instrumentation." stringByAppendingString:v9];
+      v2 = [@"instrumentation." stringByAppendingString:v8];
 
       break;
     case 1uLL:
-      type_low = LODWORD(self->_type);
-      v6 = SIReflectionInferClassFromEventType();
-      if (v6)
+      v5 = SIReflectionInferClassFromEventType();
+      if (v5)
       {
-        NSStringFromClass(v6);
+        NSStringFromClass(v5);
       }
 
       else
@@ -224,7 +223,7 @@ LABEL_12:
         [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown.%ld", self->_type];
       }
       contextDataAsProtobuf = ;
-      v9 = contextDataAsProtobuf;
+      v8 = contextDataAsProtobuf;
       goto LABEL_12;
     case 0uLL:
       v2 = AFAnalyticsEventTypeGetName(self->_type);
@@ -270,37 +269,37 @@ LABEL_12:
       {
         assistantId = self->_assistantId;
         assistantId = [v5 assistantId];
-        if ([(NSString *)assistantId isEqualToString:assistantId])
+        if (objc_msgSend_isEqualToString_(assistantId))
         {
           speechId = self->_speechId;
           speechId = [v5 speechId];
-          v16 = [(NSString *)speechId isEqualToString:speechId];
+          isEqualToString = objc_msgSend_isEqualToString_(speechId);
         }
 
         else
         {
-          v16 = 0;
+          isEqualToString = 0;
         }
       }
 
       else
       {
-        v16 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v16 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    isEqualToString = 0;
   }
 
-  return v16;
+  return isEqualToString;
 }
 
 + (id)eventsReferenceTime

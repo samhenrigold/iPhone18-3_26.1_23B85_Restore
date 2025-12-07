@@ -12,45 +12,46 @@
 
 - (_LTHybridEndpointer)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = _LTHybridEndpointer;
-  v2 = [(_LTHybridEndpointer *)&v20 init];
+  v30 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = _LTHybridEndpointer;
+  v2 = [(_LTHybridEndpointer *)&v23 init];
   v3 = v2;
   if (v2)
   {
     *&v2->_samplingRate = xmmword_233005CC0;
     v2->_clientLagThresholdMs = _LTPreferencesHybridEndpointerClientLagThreshold();
     v3->_clampedSFLatencyMsForClientLag = _LTPreferencesHybridEndpointerClientLagClampedLatency();
-    v3->_useDefaultServerFeaturesOnClientLag = _LTPreferencesHybridEndpointerUseDefaultFeaturesOnClientLagThreshold();
-    v4 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v4 = _LTPreferencesHybridEndpointerUseDefaultFeaturesOnClientLagThreshold();
+    v3->_useDefaultServerFeaturesOnClientLag = v4;
+    v6 = _LTOSLogSpeech(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       clientLagThresholdMs = v3->_clientLagThresholdMs;
       clampedSFLatencyMsForClientLag = v3->_clampedSFLatencyMsForClientLag;
       useDefaultServerFeaturesOnClientLag = v3->_useDefaultServerFeaturesOnClientLag;
       *buf = 134218496;
-      v22 = clientLagThresholdMs;
-      v23 = 2048;
-      v24 = clampedSFLatencyMsForClientLag;
-      v25 = 1024;
-      v26 = useDefaultServerFeaturesOnClientLag;
-      _os_log_impl(&dword_232E53000, v4, OS_LOG_TYPE_INFO, "Client lag configuration is %f, %f, %{BOOL}i", buf, 0x1Cu);
+      v25 = clientLagThresholdMs;
+      v26 = 2048;
+      v27 = clampedSFLatencyMsForClientLag;
+      v28 = 1024;
+      v29 = useDefaultServerFeaturesOnClientLag;
+      _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Client lag configuration is %f, %f, %{BOOL}i", buf, 0x1Cu);
     }
 
-    v8 = dispatch_queue_create("com.apple.siri.translation.HEP", 0);
+    v10 = dispatch_queue_create("com.apple.siri.translation.HEP", 0);
     queue = v3->_queue;
-    v3->_queue = v8;
+    v3->_queue = v10;
 
-    v10 = dispatch_queue_create("com.apple.siri.translation.HEP.features", 0);
+    v12 = dispatch_queue_create("com.apple.siri.translation.HEP.features", 0);
     featureQueue = v3->_featureQueue;
-    v3->_featureQueue = v10;
+    v3->_featureQueue = v12;
 
-    v12 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v16 = _LTOSLogSpeech(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_INFO, "Init of HEP", buf, 2u);
+      _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Init of HEP", buf, 2u);
     }
 
     v3->_didEndpoint = 0;
@@ -66,27 +67,27 @@
     targetEndpointerFeatures = v3->_targetEndpointerFeatures;
     v3->_targetEndpointerFeatures = 0;
 
-    v17 = v3;
+    v21 = v3;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)startEndpointingWithContext:(id)context delegate:(id)delegate
 {
-  *&v100[5] = *MEMORY[0x277D85DE8];
+  *&v111[5] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
   autoEndpoint = [contextCopy autoEndpoint];
-  v10 = _LTOSLogSpeech();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
-  if (autoEndpoint)
+  v10 = autoEndpoint;
+  v12 = _LTOSLogSpeech(autoEndpoint, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  if (v10)
   {
-    if (v11)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Start new HEP request", buf, 2u);
+      _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_INFO, "Start new HEP request", buf, 2u);
     }
 
     self->_didEndpoint = 0;
@@ -104,170 +105,178 @@
     targetEndpointerFeatures = self->_targetEndpointerFeatures;
     self->_targetEndpointerFeatures = 0;
 
-    v16 = objc_alloc_init(_LTOfflineAssetManager);
-    v98 = 0;
-    v17 = [(_LTOfflineAssetManager *)v16 endpointAssetInfoWithContext:contextCopy error:&v98];
-    v18 = v98;
+    v18 = objc_alloc_init(_LTOfflineAssetManager);
+    v109 = 0;
+    v19 = [(_LTOfflineAssetManager *)v18 endpointAssetInfoWithContext:contextCopy error:&v109];
+    v20 = v109;
     asset = self->_asset;
-    self->_asset = v17;
+    self->_asset = v19;
 
-    if (v18 || (v21 = self->_asset) == 0)
+    if (v20 || (v22 = self->_asset) == 0)
     {
-      v20 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = _LTOSLogSpeech(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [_LTHybridEndpointer startEndpointingWithContext:v18 delegate:v20];
+        [_LTHybridEndpointer startEndpointingWithContext:v20 delegate:v24];
       }
 
       goto LABEL_46;
     }
 
-    caesuraModelURL = [(_LTHybridEndpointerAssetInfo *)v21 caesuraModelURL];
+    caesuraModelURL = [(_LTHybridEndpointerAssetInfo *)v22 caesuraModelURL];
     if (!caesuraModelURL)
     {
-      v55 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+      v63 = _LTOSLogSpeech(0, v25);
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_232E53000, v55, OS_LOG_TYPE_INFO, "Could not obtain SPG (silence posterior generator) asset", buf, 2u);
+        _os_log_impl(&dword_232E53000, v63, OS_LOG_TYPE_INFO, "Could not obtain SPG (silence posterior generator) asset", buf, 2u);
       }
 
       goto LABEL_45;
     }
 
-    v23 = objc_alloc(MEMORY[0x277D071D8]);
+    v27 = objc_alloc(MEMORY[0x277D071D8]);
     path = [caesuraModelURL path];
-    v25 = [v23 initWithConfigFile:path samplingRate:self->_samplingRate];
+    v29 = [v27 initWithConfigFile:path samplingRate:self->_samplingRate];
     spg = self->_spg;
-    self->_spg = v25;
+    self->_spg = v29;
 
     [(EARCaesuraSilencePosteriorGenerator *)self->_spg setDelegate:self];
-    v27 = self->_asset;
+    v31 = self->_asset;
     localePair = [contextCopy localePair];
     sourceLocale = [localePair sourceLocale];
-    v30 = [(_LTHybridEndpointerAssetInfo *)v27 endpointerModelURL:sourceLocale];
+    v34 = [(_LTHybridEndpointerAssetInfo *)v31 endpointerModelURL:sourceLocale];
 
-    v97 = v30;
-    if (v30)
+    v108 = v34;
+    if (v34)
     {
-      v96 = caesuraModelURL;
-      v31 = objc_alloc(MEMORY[0x277D07230]);
-      v32 = self->_asset;
+      v107 = caesuraModelURL;
+      v35 = objc_alloc(MEMORY[0x277D07230]);
+      v36 = self->_asset;
       localePair2 = [contextCopy localePair];
       sourceLocale2 = [localePair2 sourceLocale];
-      v35 = [(_LTHybridEndpointerAssetInfo *)v32 endpointerModelURL:sourceLocale2];
-      path2 = [v35 path];
-      v37 = [v31 initWithConfiguration:path2];
-      v38 = self->_sourceEndpointer;
-      self->_sourceEndpointer = v37;
+      v39 = [(_LTHybridEndpointerAssetInfo *)v36 endpointerModelURL:sourceLocale2];
+      path2 = [v39 path];
+      v41 = [v35 initWithConfiguration:path2];
+      v42 = self->_sourceEndpointer;
+      self->_sourceEndpointer = v41;
 
-      v39 = [MEMORY[0x277CE1B70] featuresForEndpointer:self->_sourceEndpointer];
-      v40 = self->_sourceEndpointerFeatures;
-      self->_sourceEndpointerFeatures = v39;
+      v43 = [MEMORY[0x277CE1B70] featuresForEndpointer:self->_sourceEndpointer];
+      v44 = self->_sourceEndpointerFeatures;
+      self->_sourceEndpointerFeatures = v43;
 
-      if (([(_EAREndpointer *)self->_sourceEndpointer requestSupportedWithSamplingRate:self->_samplingRate]& 1) != 0)
+      v45 = [(_EAREndpointer *)self->_sourceEndpointer requestSupportedWithSamplingRate:self->_samplingRate];
+      if (v45)
       {
         localePair3 = [contextCopy localePair];
         sourceLocale3 = [localePair3 sourceLocale];
-        v43 = _LTPreferencesHybridEndpointerThresholdForLocale(sourceLocale3);
+        v49 = _LTPreferencesHybridEndpointerThresholdForLocale(sourceLocale3);
         sourceEndpointerThreshold = self->_sourceEndpointerThreshold;
-        self->_sourceEndpointerThreshold = v43;
+        self->_sourceEndpointerThreshold = v49;
 
         localePair4 = [contextCopy localePair];
         sourceLocale4 = [localePair4 sourceLocale];
-        v47 = _LTPreferencesDisconnectedHybridEndpointerThresholdForLocale(sourceLocale4);
+        v53 = _LTPreferencesDisconnectedHybridEndpointerThresholdForLocale(sourceLocale4);
         sourceDisconnectedEndpointerThreshold = self->_sourceDisconnectedEndpointerThreshold;
-        self->_sourceDisconnectedEndpointerThreshold = v47;
+        self->_sourceDisconnectedEndpointerThreshold = v53;
 
         if (self->_sourceDisconnectedEndpointerThreshold)
         {
-          v49 = _LTOSLogSpeech();
-          caesuraModelURL = v96;
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          v57 = _LTOSLogSpeech(v55, v56);
+          caesuraModelURL = v107;
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
           {
-            v50 = self->_sourceDisconnectedEndpointerThreshold;
-            v51 = v49;
-            [(NSNumber *)v50 floatValue];
+            v58 = self->_sourceDisconnectedEndpointerThreshold;
+            v59 = v57;
+            [(NSNumber *)v58 floatValue];
             *buf = 134217984;
-            *v100 = v52;
-            _os_log_impl(&dword_232E53000, v51, OS_LOG_TYPE_INFO, "Updating disconnected source endpointer threshold to %f", buf, 0xCu);
+            *v111 = v60;
+            _os_log_impl(&dword_232E53000, v59, OS_LOG_TYPE_INFO, "Updating disconnected source endpointer threshold to %f", buf, 0xCu);
           }
 
-          v53 = self->_sourceEndpointer;
-          v54 = self->_sourceDisconnectedEndpointerThreshold;
+          v61 = self->_sourceEndpointer;
+          v62 = self->_sourceDisconnectedEndpointerThreshold;
 LABEL_26:
-          [(NSNumber *)v54 floatValue];
-          [(_EAREndpointer *)v53 updateEndpointerThresholdWithValue:?];
+          [(NSNumber *)v62 floatValue];
+          [(_EAREndpointer *)v61 updateEndpointerThresholdWithValue:?];
           goto LABEL_27;
         }
 
-        caesuraModelURL = v96;
+        caesuraModelURL = v107;
         if (self->_sourceEndpointerThreshold)
         {
-          v58 = _LTOSLogSpeech();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          v66 = _LTOSLogSpeech(v55, v56);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
           {
-            v59 = self->_sourceEndpointerThreshold;
-            v60 = v58;
-            [(NSNumber *)v59 floatValue];
+            v67 = self->_sourceEndpointerThreshold;
+            v68 = v66;
+            [(NSNumber *)v67 floatValue];
             *buf = 134217984;
-            *v100 = v61;
-            _os_log_impl(&dword_232E53000, v60, OS_LOG_TYPE_INFO, "Updating source endpointer threshold to %f", buf, 0xCu);
+            *v111 = v69;
+            _os_log_impl(&dword_232E53000, v68, OS_LOG_TYPE_INFO, "Updating source endpointer threshold to %f", buf, 0xCu);
           }
 
-          v53 = self->_sourceEndpointer;
-          v54 = self->_sourceEndpointerThreshold;
+          v61 = self->_sourceEndpointer;
+          v62 = self->_sourceEndpointerThreshold;
           goto LABEL_26;
         }
       }
 
       else
       {
-        v56 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+        v64 = _LTOSLogSpeech(v45, v46);
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_232E53000, v56, OS_LOG_TYPE_INFO, "Request for sampling rate failed for source locale", buf, 2u);
+          _os_log_impl(&dword_232E53000, v64, OS_LOG_TYPE_INFO, "Request for sampling rate failed for source locale", buf, 2u);
         }
 
-        v57 = self->_sourceEndpointer;
+        v65 = self->_sourceEndpointer;
         self->_sourceEndpointer = 0;
 
-        caesuraModelURL = v96;
+        caesuraModelURL = v107;
       }
     }
 
 LABEL_27:
-    v62 = self->_asset;
+    v70 = self->_asset;
     localePair5 = [contextCopy localePair];
     targetLocale = [localePair5 targetLocale];
-    v65 = [(_LTHybridEndpointerAssetInfo *)v62 endpointerModelURL:targetLocale];
+    v73 = [(_LTHybridEndpointerAssetInfo *)v70 endpointerModelURL:targetLocale];
 
-    if (!v65 || ![contextCopy autodetectLanguage])
+    if (!v73)
     {
       goto LABEL_42;
     }
 
-    v66 = objc_alloc(MEMORY[0x277D07230]);
-    path3 = [v65 path];
-    v68 = [v66 initWithConfiguration:path3];
-    v69 = self->_targetEndpointer;
-    self->_targetEndpointer = v68;
-
-    v70 = [MEMORY[0x277CE1B70] featuresForEndpointer:self->_targetEndpointer];
-    v71 = self->_targetEndpointerFeatures;
-    self->_targetEndpointerFeatures = v70;
-
-    if (([(_EAREndpointer *)self->_targetEndpointer requestSupportedWithSamplingRate:self->_samplingRate]& 1) == 0)
+    autodetectLanguage = [contextCopy autodetectLanguage];
+    if (!autodetectLanguage)
     {
-      v86 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+      goto LABEL_42;
+    }
+
+    v76 = objc_alloc(MEMORY[0x277D07230]);
+    path3 = [v73 path];
+    v78 = [v76 initWithConfiguration:path3];
+    v79 = self->_targetEndpointer;
+    self->_targetEndpointer = v78;
+
+    v80 = [MEMORY[0x277CE1B70] featuresForEndpointer:self->_targetEndpointer];
+    v81 = self->_targetEndpointerFeatures;
+    self->_targetEndpointerFeatures = v80;
+
+    v82 = [(_EAREndpointer *)self->_targetEndpointer requestSupportedWithSamplingRate:self->_samplingRate];
+    if ((v82 & 1) == 0)
+    {
+      v98 = _LTOSLogSpeech(v82, v83);
+      if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_232E53000, v86, OS_LOG_TYPE_INFO, "Request for sampling rate failed for source locale", buf, 2u);
+        _os_log_impl(&dword_232E53000, v98, OS_LOG_TYPE_INFO, "Request for sampling rate failed for source locale", buf, 2u);
       }
 
-      v87 = self->_targetEndpointer;
+      v99 = self->_targetEndpointer;
       self->_targetEndpointer = 0;
 
       goto LABEL_42;
@@ -275,31 +284,31 @@ LABEL_27:
 
     localePair6 = [contextCopy localePair];
     targetLocale2 = [localePair6 targetLocale];
-    v74 = _LTPreferencesHybridEndpointerThresholdForLocale(targetLocale2);
+    v86 = _LTPreferencesHybridEndpointerThresholdForLocale(targetLocale2);
     targetEndpointerThreshold = self->_targetEndpointerThreshold;
-    self->_targetEndpointerThreshold = v74;
+    self->_targetEndpointerThreshold = v86;
 
     localePair7 = [contextCopy localePair];
     targetLocale3 = [localePair7 targetLocale];
-    v78 = _LTPreferencesDisconnectedHybridEndpointerThresholdForLocale(targetLocale3);
+    v90 = _LTPreferencesDisconnectedHybridEndpointerThresholdForLocale(targetLocale3);
     targetDisconnectedEndpointerThreshold = self->_targetDisconnectedEndpointerThreshold;
-    self->_targetDisconnectedEndpointerThreshold = v78;
+    self->_targetDisconnectedEndpointerThreshold = v90;
 
     if (self->_targetDisconnectedEndpointerThreshold)
     {
-      v80 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+      v92 = _LTOSLogSpeech(autodetectLanguage, v75);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
       {
-        v81 = self->_targetDisconnectedEndpointerThreshold;
-        v82 = v80;
-        [(NSNumber *)v81 floatValue];
+        v93 = self->_targetDisconnectedEndpointerThreshold;
+        v94 = v92;
+        [(NSNumber *)v93 floatValue];
         *buf = 134217984;
-        *v100 = v83;
-        _os_log_impl(&dword_232E53000, v82, OS_LOG_TYPE_INFO, "Updating disconnected target endpointer threshold to %f", buf, 0xCu);
+        *v111 = v95;
+        _os_log_impl(&dword_232E53000, v94, OS_LOG_TYPE_INFO, "Updating disconnected target endpointer threshold to %f", buf, 0xCu);
       }
 
-      v84 = self->_targetEndpointer;
-      v85 = self->_targetDisconnectedEndpointerThreshold;
+      v96 = self->_targetEndpointer;
+      v97 = self->_targetDisconnectedEndpointerThreshold;
     }
 
     else
@@ -307,16 +316,16 @@ LABEL_27:
       if (!self->_targetEndpointerThreshold)
       {
 LABEL_42:
-        v92 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+        v104 = _LTOSLogSpeech(autodetectLanguage, v75);
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
         {
-          v93 = self->_sourceEndpointer != 0;
-          v94 = self->_targetEndpointer != 0;
+          v105 = self->_sourceEndpointer != 0;
+          v106 = self->_targetEndpointer != 0;
           *buf = 67109376;
-          v100[0] = v93;
-          LOWORD(v100[1]) = 1024;
-          *(&v100[1] + 2) = v94;
-          _os_log_impl(&dword_232E53000, v92, OS_LOG_TYPE_INFO, "Have hybrid endpointer for source %{BOOL}i, for target %{BOOL}i", buf, 0xEu);
+          v111[0] = v105;
+          LOWORD(v111[1]) = 1024;
+          *(&v111[1] + 2) = v106;
+          _os_log_impl(&dword_232E53000, v104, OS_LOG_TYPE_INFO, "Have hybrid endpointer for source %{BOOL}i, for target %{BOOL}i", buf, 0xEu);
         }
 
 LABEL_45:
@@ -325,35 +334,33 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v88 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+      v100 = _LTOSLogSpeech(autodetectLanguage, v75);
+      if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
       {
-        v89 = self->_targetEndpointerThreshold;
-        v90 = v88;
-        [(NSNumber *)v89 floatValue];
+        v101 = self->_targetEndpointerThreshold;
+        v102 = v100;
+        [(NSNumber *)v101 floatValue];
         *buf = 134217984;
-        *v100 = v91;
-        _os_log_impl(&dword_232E53000, v90, OS_LOG_TYPE_INFO, "Updating target endpointer threshold to %f", buf, 0xCu);
+        *v111 = v103;
+        _os_log_impl(&dword_232E53000, v102, OS_LOG_TYPE_INFO, "Updating target endpointer threshold to %f", buf, 0xCu);
       }
 
-      v84 = self->_targetEndpointer;
-      v85 = self->_targetEndpointerThreshold;
+      v96 = self->_targetEndpointer;
+      v97 = self->_targetEndpointerThreshold;
     }
 
-    [(NSNumber *)v85 floatValue];
-    [(_EAREndpointer *)v84 updateEndpointerThresholdWithValue:?];
+    [(NSNumber *)v97 floatValue];
+    autodetectLanguage = [(_EAREndpointer *)v96 updateEndpointerThresholdWithValue:?];
     goto LABEL_42;
   }
 
-  if (v11)
+  if (v13)
   {
     *buf = 0;
-    _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Auto endpointing is turned off", buf, 2u);
+    _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_INFO, "Auto endpointing is turned off", buf, 2u);
   }
 
 LABEL_47:
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setServerEndpointerFeatures:(id)features withLocale:(id)locale
@@ -413,33 +420,35 @@ LABEL_47:
 
 - (BOOL)didEndpointWithFeatures:(id)features silenceFeatures:(id)silenceFeatures endpointer:(id)endpointer
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   silenceFeaturesCopy = silenceFeatures;
   endpointerCopy = endpointer;
   [silenceFeaturesCopy processedAudioMs];
-  if (v11 >= [featuresCopy processedAudioDurationInMilliseconds])
+  v12 = v11;
+  processedAudioDurationInMilliseconds = [featuresCopy processedAudioDurationInMilliseconds];
+  if (v12 >= processedAudioDurationInMilliseconds)
   {
     [silenceFeaturesCopy processedAudioMs];
-    v43 = v42 - [featuresCopy processedAudioDurationInMilliseconds];
-    v44 = objc_alloc(MEMORY[0x277D07220]);
+    v51 = v50 - [featuresCopy processedAudioDurationInMilliseconds];
+    v52 = objc_alloc(MEMORY[0x277D07220]);
     wordCount = [featuresCopy wordCount];
     trailingSilenceDuration = [featuresCopy trailingSilenceDuration];
     [featuresCopy eosLikelihood];
-    v48 = v47;
+    v56 = v55;
     pauseCounts = [featuresCopy pauseCounts];
     [featuresCopy silencePosterior];
-    v51 = v50;
+    v59 = v58;
     [silenceFeaturesCopy silenceFramesCountMs];
-    v53 = v52;
+    v61 = v60;
     [silenceFeaturesCopy silenceProbability];
-    v55 = v54;
+    v63 = v62;
     [silenceFeaturesCopy silenceDurationMs];
-    *&v57 = v56;
-    *&v58 = v43;
-    v41 = [v44 initWithWordCount:wordCount trailingSilenceDuration:trailingSilenceDuration endOfSentenceLikelihood:pauseCounts pauseCounts:v48 silencePosterior:v51 clientSilenceFramesCountMs:v53 clientSilenceProbability:v55 silencePosteriorNF:v57 serverFeaturesLatency:v58];
+    *&v65 = v64;
+    *&v66 = v51;
+    v47 = [v52 initWithWordCount:wordCount trailingSilenceDuration:trailingSilenceDuration endOfSentenceLikelihood:pauseCounts pauseCounts:v56 silencePosterior:v59 clientSilenceFramesCountMs:v61 clientSilenceProbability:v63 silencePosteriorNF:v65 serverFeaturesLatency:v66];
 
-    if (!v41)
+    if (!v47)
     {
       goto LABEL_19;
     }
@@ -447,78 +456,80 @@ LABEL_47:
 
   else
   {
-    v12 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v15 = _LTOSLogSpeech(processedAudioDurationInMilliseconds, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v13 = v12;
-      *&v14 = COERCE_DOUBLE([featuresCopy processedAudioDurationInMilliseconds]);
+      v16 = v15;
+      *&v17 = COERCE_DOUBLE([featuresCopy processedAudioDurationInMilliseconds]);
       [silenceFeaturesCopy processedAudioMs];
       *buf = 134349312;
-      v108 = *&v14;
-      v109 = 2050;
-      v110 = v15;
-      _os_log_impl(&dword_232E53000, v13, OS_LOG_TYPE_INFO, "ClientLag: serverProcessedAudioMs(%{public}ld) > effectiveClientProcessedAudioMs(%{public}f)", buf, 0x16u);
+      v116 = *&v17;
+      v117 = 2050;
+      v118 = v18;
+      _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "ClientLag: serverProcessedAudioMs(%{public}ld) > effectiveClientProcessedAudioMs(%{public}f)", buf, 0x16u);
     }
 
     [silenceFeaturesCopy processedAudioMs];
-    v17 = v16 - [featuresCopy processedAudioDurationInMilliseconds];
-    if (v17 > self->_clientLagThresholdMs)
+    v20 = v19;
+    processedAudioDurationInMilliseconds2 = [featuresCopy processedAudioDurationInMilliseconds];
+    v23 = v20 - processedAudioDurationInMilliseconds2;
+    if (v23 > self->_clientLagThresholdMs)
     {
-      v80 = _LTOSLogSpeech();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+      v89 = _LTOSLogSpeech(processedAudioDurationInMilliseconds2, v22);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
       {
         clientLagThresholdMs = self->_clientLagThresholdMs;
         *buf = 134349312;
-        v108 = v17;
-        v109 = 2050;
-        v110 = clientLagThresholdMs;
-        v82 = "ClientLag: Not invoking HybridClassifier: sfLatency > clientLagThreshold: %{public}f > %{public}f";
-        v83 = v80;
-        v84 = 22;
+        v116 = v23;
+        v117 = 2050;
+        v118 = clientLagThresholdMs;
+        v91 = "ClientLag: Not invoking HybridClassifier: sfLatency > clientLagThreshold: %{public}f > %{public}f";
+        v92 = v89;
+        v93 = 22;
 LABEL_21:
-        _os_log_impl(&dword_232E53000, v83, OS_LOG_TYPE_INFO, v82, buf, v84);
+        _os_log_impl(&dword_232E53000, v92, OS_LOG_TYPE_INFO, v91, buf, v93);
       }
 
 LABEL_22:
-      LOBYTE(v59) = 0;
+      LOBYTE(v67) = 0;
       goto LABEL_23;
     }
 
     useDefaultServerFeaturesOnClientLag = self->_useDefaultServerFeaturesOnClientLag;
-    v19 = _LTOSLogSpeech();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+    v25 = _LTOSLogSpeech(processedAudioDurationInMilliseconds2, v22);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
     if (useDefaultServerFeaturesOnClientLag)
     {
-      if (v20)
+      if (v26)
       {
-        v21 = v19;
+        v27 = v25;
         [silenceFeaturesCopy processedAudioMs];
         *buf = 134349056;
-        v108 = v22;
-        _os_log_impl(&dword_232E53000, v21, OS_LOG_TYPE_INFO, "ClientLag: Using DefaultServerFeatures with disconnected-state sfLatency: %{public}f", buf, 0xCu);
+        v116 = v28;
+        _os_log_impl(&dword_232E53000, v27, OS_LOG_TYPE_INFO, "ClientLag: Using DefaultServerFeatures with disconnected-state sfLatency: %{public}f", buf, 0xCu);
       }
 
-      v23 = [MEMORY[0x277CE1B70] featuresForEndpointer:endpointerCopy];
-      v24 = objc_alloc(MEMORY[0x277D07220]);
-      wordCount2 = [v23 wordCount];
-      trailingSilenceDuration2 = [v23 trailingSilenceDuration];
-      [v23 eosLikelihood];
-      v28 = v27;
-      pauseCounts2 = [v23 pauseCounts];
-      [v23 silencePosterior];
-      v31 = v30;
-      [silenceFeaturesCopy silenceFramesCountMs];
-      v33 = v32;
-      [silenceFeaturesCopy silenceProbability];
-      v35 = v34;
-      [silenceFeaturesCopy silenceDurationMs];
+      v29 = [MEMORY[0x277CE1B70] featuresForEndpointer:endpointerCopy];
+      v30 = objc_alloc(MEMORY[0x277D07220]);
+      wordCount2 = [v29 wordCount];
+      trailingSilenceDuration2 = [v29 trailingSilenceDuration];
+      [v29 eosLikelihood];
+      v34 = v33;
+      pauseCounts2 = [v29 pauseCounts];
+      [v29 silencePosterior];
       v37 = v36;
+      [silenceFeaturesCopy silenceFramesCountMs];
+      v39 = v38;
+      [silenceFeaturesCopy silenceProbability];
+      v41 = v40;
+      [silenceFeaturesCopy silenceDurationMs];
+      v43 = v42;
       [silenceFeaturesCopy processedAudioMs];
-      *&v39 = v38;
-      *&v40 = v37;
-      v41 = [v24 initWithWordCount:wordCount2 trailingSilenceDuration:trailingSilenceDuration2 endOfSentenceLikelihood:pauseCounts2 pauseCounts:v28 silencePosterior:v31 clientSilenceFramesCountMs:v33 clientSilenceProbability:v35 silencePosteriorNF:v40 serverFeaturesLatency:v39];
+      *&v45 = v44;
+      *&v46 = v43;
+      v47 = [v30 initWithWordCount:wordCount2 trailingSilenceDuration:trailingSilenceDuration2 endOfSentenceLikelihood:pauseCounts2 pauseCounts:v34 silencePosterior:v37 clientSilenceFramesCountMs:v39 clientSilenceProbability:v41 silencePosteriorNF:v46 serverFeaturesLatency:v45];
 
-      if (!v41)
+      if (!v47)
       {
         goto LABEL_19;
       }
@@ -526,41 +537,41 @@ LABEL_22:
 
     else
     {
-      if (v20)
+      if (v26)
       {
         clampedSFLatencyMsForClientLag = self->_clampedSFLatencyMsForClientLag;
         *buf = 134349056;
-        v108 = clampedSFLatencyMsForClientLag;
-        _os_log_impl(&dword_232E53000, v19, OS_LOG_TYPE_INFO, "ClientLag: Using ServerFeatures with ClampedSFLatency: %{public}f", buf, 0xCu);
+        v116 = clampedSFLatencyMsForClientLag;
+        _os_log_impl(&dword_232E53000, v25, OS_LOG_TYPE_INFO, "ClientLag: Using ServerFeatures with ClampedSFLatency: %{public}f", buf, 0xCu);
       }
 
-      v86 = objc_alloc(MEMORY[0x277D07220]);
+      v95 = objc_alloc(MEMORY[0x277D07220]);
       wordCount3 = [featuresCopy wordCount];
       trailingSilenceDuration3 = [featuresCopy trailingSilenceDuration];
       [featuresCopy eosLikelihood];
-      v90 = v89;
+      v99 = v98;
       pauseCounts3 = [featuresCopy pauseCounts];
       [featuresCopy silencePosterior];
-      v93 = v92;
+      v102 = v101;
       [silenceFeaturesCopy silenceFramesCountMs];
-      v95 = v94;
+      v104 = v103;
       [silenceFeaturesCopy silenceProbability];
-      v97 = v96;
+      v106 = v105;
       [silenceFeaturesCopy silenceDurationMs];
-      *&v99 = v98;
-      *&v100 = self->_clampedSFLatencyMsForClientLag;
-      v41 = [v86 initWithWordCount:wordCount3 trailingSilenceDuration:trailingSilenceDuration3 endOfSentenceLikelihood:pauseCounts3 pauseCounts:v90 silencePosterior:v93 clientSilenceFramesCountMs:v95 clientSilenceProbability:v97 silencePosteriorNF:v99 serverFeaturesLatency:v100];
+      *&v108 = v107;
+      *&v109 = self->_clampedSFLatencyMsForClientLag;
+      v47 = [v95 initWithWordCount:wordCount3 trailingSilenceDuration:trailingSilenceDuration3 endOfSentenceLikelihood:pauseCounts3 pauseCounts:v99 silencePosterior:v102 clientSilenceFramesCountMs:v104 clientSilenceProbability:v106 silencePosteriorNF:v108 serverFeaturesLatency:v109];
 
-      if (!v41)
+      if (!v47)
       {
 LABEL_19:
-        v101 = _LTOSLogSpeech();
-        if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+        v110 = _LTOSLogSpeech(v48, v49);
+        if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          v82 = "ClientLag: Not Invoking HybridClassifier as serverProcessedAudioMs > effectiveClientProcessedAudioMs";
-          v83 = v101;
-          v84 = 2;
+          v91 = "ClientLag: Not Invoking HybridClassifier as serverProcessedAudioMs > effectiveClientProcessedAudioMs";
+          v92 = v110;
+          v93 = 2;
           goto LABEL_21;
         }
 
@@ -569,74 +580,73 @@ LABEL_19:
     }
   }
 
-  v106 = 0;
+  v114 = 0;
   [silenceFeaturesCopy processedAudioMs];
-  v105 = 0;
-  v59 = [endpointerCopy didEndpointWithFeatures:v41 audioTimestamp:&v105 featuresToLog:&v106 + 4 endpointPosterior:&v106 extraDelayMs:?];
-  v60 = v105;
-  v61 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+  v113 = 0;
+  v67 = [endpointerCopy didEndpointWithFeatures:v47 audioTimestamp:&v113 featuresToLog:&v114 + 4 endpointPosterior:&v114 extraDelayMs:?];
+  v68 = v113;
+  v70 = _LTOSLogSpeech(v68, v69);
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
   {
-    v62 = v61;
-    *&v63 = COERCE_DOUBLE([v41 trailingSilenceDuration]);
-    [v41 clientSilenceFramesCountMs];
-    v65 = v64;
-    [v41 endOfSentenceLikelihood];
-    v67 = v66;
-    wordCount4 = [v41 wordCount];
-    [v41 serverFeaturesLatency];
-    v70 = v69;
-    [v41 clientSilenceProbability];
-    v72 = v71;
-    pauseCounts4 = [v41 pauseCounts];
-    [pauseCounts4 componentsJoinedByString:{@", "}];
-    v74 = v104 = endpointerCopy;
-    [v41 silencePosterior];
+    v71 = v70;
+    *&v72 = COERCE_DOUBLE([v47 trailingSilenceDuration]);
+    [v47 clientSilenceFramesCountMs];
+    v74 = v73;
+    [v47 endOfSentenceLikelihood];
     v76 = v75;
+    wordCount4 = [v47 wordCount];
+    [v47 serverFeaturesLatency];
+    v79 = v78;
+    [v47 clientSilenceProbability];
+    v81 = v80;
+    pauseCounts4 = [v47 pauseCounts];
+    [pauseCounts4 componentsJoinedByString:{@", "}];
+    v83 = v112 = endpointerCopy;
+    [v47 silencePosterior];
+    v85 = v84;
     [silenceFeaturesCopy silencePosterior];
-    v78 = v77;
+    v87 = v86;
     [silenceFeaturesCopy processedAudioMs];
     *buf = 134351874;
-    v108 = *&v63;
-    v109 = 2050;
-    v110 = v65;
-    v111 = 2050;
-    v112 = v67;
-    v113 = 2050;
-    v114 = wordCount4;
-    v115 = 2050;
-    v116 = v70;
+    v116 = *&v72;
     v117 = 2050;
-    v118 = v72;
-    v119 = 2114;
-    v120 = v74;
+    v118 = v74;
+    v119 = 2050;
+    v120 = v76;
     v121 = 2050;
-    v122 = v76;
+    v122 = wordCount4;
     v123 = 2050;
-    v124 = v78;
+    v124 = v79;
     v125 = 2050;
-    v126 = v79;
-    v127 = 2050;
-    v128 = *(&v106 + 1);
-    v129 = 1026;
-    v130 = v59;
-    _os_log_impl(&dword_232E53000, v62, OS_LOG_TYPE_INFO, "HEP.feats: [%{public}ld,%{public}f,%{public}f,%{public}ld,%{public}f,%{public}f] & [(%{public}@),%{public}f,%{public}f] @ %{public}lu [%{public}f, %{public}d]", buf, 0x76u);
+    v126 = v81;
+    v127 = 2114;
+    v128 = v83;
+    v129 = 2050;
+    v130 = v85;
+    v131 = 2050;
+    v132 = v87;
+    v133 = 2050;
+    v134 = v88;
+    v135 = 2050;
+    v136 = *(&v114 + 1);
+    v137 = 1026;
+    v138 = v67;
+    _os_log_impl(&dword_232E53000, v71, OS_LOG_TYPE_INFO, "HEP.feats: [%{public}ld,%{public}f,%{public}f,%{public}ld,%{public}f,%{public}f] & [(%{public}@),%{public}f,%{public}f] @ %{public}lu [%{public}f, %{public}d]", buf, 0x76u);
 
-    endpointerCopy = v104;
+    endpointerCopy = v112;
   }
 
 LABEL_23:
-  v102 = *MEMORY[0x277D85DE8];
-  return v59;
+  return v67;
 }
 
 - (void)clientSilenceFeaturesAvailable:(id)available
 {
   availableCopy = available;
-  v5 = _LTOSLogSpeech();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _LTOSLogSpeech(availableCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [_LTHybridEndpointer clientSilenceFeaturesAvailable:v5];
+    [_LTHybridEndpointer clientSilenceFeaturesAvailable:v6];
   }
 
   if (!self->_didEndpoint)
@@ -647,22 +657,21 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = __54___LTHybridEndpointer_clientSilenceFeaturesAvailable___block_invoke;
     block[3] = &unk_2789B5288;
-    objc_copyWeak(&v9, &location);
-    v8 = availableCopy;
+    objc_copyWeak(&v10, &location);
+    v9 = availableCopy;
     dispatch_async(featureQueue, block);
 
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
 }
 
 - (void)startEndpointingWithContext:(uint64_t)a1 delegate:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Could not get appropriate endpointer assets: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Could not get appropriate endpointer assets: %@", &v2, 0xCu);
 }
 
 @end

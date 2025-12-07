@@ -2,6 +2,7 @@
 + (void)configureForEnvironment:(id)environment topic:(id)topic namedDelegatePort:(id)port pushHandler:(id)handler;
 - (NDONotificationHandler)notificationHandler;
 - (NDOPushListener)initWithConnection:(id)connection notificationHandler:(id)handler;
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status;
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message;
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info;
 - (void)connection:(id)connection didReceivePublicToken:(id)token;
@@ -151,6 +152,21 @@
 
   notificationHandler = [(NDOPushListener *)self notificationHandler];
   [notificationHandler handleNotification:infoCopy forTopic:topicCopy];
+}
+
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
+{
+  statusCopy = status;
+  v5 = _NDOLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithBool:statusCopy];
+    v7 = 136446466;
+    v8 = "[NDOPushListener connection:didChangeConnectedStatus:]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - connected:%@", &v7, 0x16u);
+  }
 }
 
 - (void)connectionDidReconnect:(id)reconnect

@@ -68,14 +68,14 @@
 
 - (WFHandoffRunnerClient)initWithWorkflowControllerState:(id)state runSource:(id)source remoteDialogPresenterEndpoint:(id)endpoint error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   sourceCopy = source;
   stateCopy = state;
   runningContext = [stateCopy runningContext];
   copyWithNewIdentity = [runningContext copyWithNewIdentity];
 
-  v36 = [WFWorkflowControllerState alloc];
+  v35 = [WFWorkflowControllerState alloc];
   workflow = [stateCopy workflow];
   variables = [stateCopy variables];
   currentActionIndex = [stateCopy currentActionIndex];
@@ -90,8 +90,8 @@
   flowTracker = [stateCopy flowTracker];
   allowedOnceSmartPromptStates = [stateCopy allowedOnceSmartPromptStates];
   extensionResourceClasses = [stateCopy extensionResourceClasses];
-  LOBYTE(v32) = [stateCopy shouldDisablePrivacyPrompts];
-  v16 = [(WFWorkflowControllerState *)v36 initWithWorkflow:workflow variables:variables currentActionIndex:currentActionIndex runningContext:copyWithNewIdentity currentInput:currentInput currentProcessedParameters:currentProcessedParameters startDate:startDate currentRunSource:currentRunSource numberOfDialogsPresented:numberOfDialogsPresented outputBehavior:outputBehavior contentAttributionTracker:currentActionContentAttributionTracker contentItemCache:contentItemCache flowTracker:flowTracker allowedOnceSmartPromptStates:allowedOnceSmartPromptStates extensionResourceClasses:extensionResourceClasses shouldDisablePrivacyPrompts:v32];
+  LOBYTE(v31) = [stateCopy shouldDisablePrivacyPrompts];
+  v16 = [(WFWorkflowControllerState *)v35 initWithWorkflow:workflow variables:variables currentActionIndex:currentActionIndex runningContext:copyWithNewIdentity currentInput:currentInput currentProcessedParameters:currentProcessedParameters startDate:startDate currentRunSource:currentRunSource numberOfDialogsPresented:numberOfDialogsPresented outputBehavior:outputBehavior contentAttributionTracker:currentActionContentAttributionTracker contentItemCache:contentItemCache flowTracker:flowTracker allowedOnceSmartPromptStates:allowedOnceSmartPromptStates extensionResourceClasses:extensionResourceClasses shouldDisablePrivacyPrompts:v31];
 
   v17 = v16;
   v18 = [objc_alloc(MEMORY[0x1E69E0E20]) initWithInput:0 presentationMode:1];
@@ -110,9 +110,9 @@
     v22 = WFWFWorkflowControllerStateDefaultSerializedURLFromContext(runningContext2);
     if (v22)
     {
-      v47 = 0;
-      v23 = [v17 writeToURL:v22 error:&v47];
-      v24 = v47;
+      v46 = 0;
+      v23 = [v17 writeToURL:v22 error:&v46];
+      v24 = v46;
       selfCopy3 = self;
       if (v23)
       {
@@ -126,11 +126,11 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315650;
-          v49 = "[WFHandoffRunnerClient initWithWorkflowControllerState:runSource:remoteDialogPresenterEndpoint:error:]";
-          v50 = 2112;
-          v51 = v22;
-          v52 = 2112;
-          v53 = v24;
+          v48 = "[WFHandoffRunnerClient initWithWorkflowControllerState:runSource:remoteDialogPresenterEndpoint:error:]";
+          v49 = 2112;
+          v50 = v22;
+          v51 = 2112;
+          v52 = v24;
           _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_FAULT, "%s Unable to save state to (%@): %@", buf, 0x20u);
         }
 
@@ -170,7 +170,7 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v49 = "[WFHandoffRunnerClient initWithWorkflowControllerState:runSource:remoteDialogPresenterEndpoint:error:]";
+      v48 = "[WFHandoffRunnerClient initWithWorkflowControllerState:runSource:remoteDialogPresenterEndpoint:error:]";
       _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_FAULT, "%s Unable to resume workflow execution when contextToResume is nil.", buf, 0xCu);
     }
 
@@ -187,7 +187,6 @@
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

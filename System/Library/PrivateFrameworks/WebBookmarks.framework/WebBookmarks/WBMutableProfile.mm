@@ -6,12 +6,14 @@
 - (void)markBackgroundImageAsModified;
 - (void)mergeWithProfile:(id)profile;
 - (void)setColor:(id)color;
+- (void)setDatabaseIdentifier:(int)identifier;
 - (void)setIdentifier:(id)identifier;
 - (void)setSetting:(id)setting forKey:(id)key;
 - (void)setSettingsDictionary:(id)dictionary;
 - (void)setStartPageSectionsDataRepresentation:(id)representation;
 - (void)setSymbolImageName:(id)name;
 - (void)setSyncPosition:(id)position;
+- (void)setSyncable:(BOOL)syncable;
 - (void)setTabGroups:(id)groups;
 - (void)setTitle:(id)title;
 @end
@@ -56,7 +58,7 @@
 
 - (WBMutableProfile)initWithBookmark:(id)bookmark kind:(int64_t)kind tabGroups:(id)groups
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   v9 = [(WBProfile *)self initWithBookmark:bookmark kind:kind];
   if (v9)
@@ -65,27 +67,27 @@
     tabGroups = v9->super._tabGroups;
     v9->super._tabGroups = v10;
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v12 = v9->super._tabGroups;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * v16);
+          v17 = *(*(&v21 + 1) + 8 * v16);
           identifier = [(WBProfile *)v9 identifier];
           [v17 setProfileIdentifier:identifier];
 
@@ -93,7 +95,7 @@
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -102,7 +104,6 @@
     v19 = v9;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -128,11 +129,25 @@
   [bookmark setTitle:titleCopy];
 }
 
+- (void)setDatabaseIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  bookmark = [(WBProfile *)self bookmark];
+  [bookmark _setID:v3];
+}
+
 - (void)setSymbolImageName:(id)name
 {
   nameCopy = name;
   bookmark = [(WBProfile *)self bookmark];
   [bookmark setSymbolImageName:nameCopy];
+}
+
+- (void)setSyncable:(BOOL)syncable
+{
+  syncableCopy = syncable;
+  bookmark = [(WBProfile *)self bookmark];
+  [bookmark _setSyncable:syncableCopy];
 }
 
 - (void)setIdentifier:(id)identifier

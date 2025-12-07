@@ -77,31 +77,31 @@
 
 - (void)next:(id)next
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nextCopy = next;
   [MEMORY[0x1E696AF00] isMainThread];
   objc_storeStrong(&self->_value, next);
   v6 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   observers = [(FCObservable *)self observers];
-  v8 = [observers countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v8 = [observers countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(observers);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         keepAliveObject = [v12 keepAliveObject];
 
         if (keepAliveObject)
@@ -116,43 +116,41 @@
         }
       }
 
-      v9 = [observers countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v9 = [observers countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v9);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v24 != v18)
+        if (*v23 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v23 + 1) + 8 * j);
+        v20 = *(*(&v22 + 1) + 8 * j);
         observers2 = [(FCObservable *)self observers];
         [observers2 removeObject:v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v17);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

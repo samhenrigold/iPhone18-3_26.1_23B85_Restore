@@ -77,18 +77,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_8;
-    }
-
-    v7 = [(HMSoftwareUpdateDocumentationMetadata *)self URL];
-    absoluteURL = [v7 absoluteURL];
-    v9 = [(HMSoftwareUpdateDocumentationMetadata *)v6 URL];
-    absoluteURL2 = [v9 absoluteURL];
-    v11 = [absoluteURL isEqual:absoluteURL2];
-
-    if (v11)
+    if (v6 && (-[HMSoftwareUpdateDocumentationMetadata URL](self, "URL"), v7 = objc_claimAutoreleasedReturnValue(), [v7 absoluteURL], v8 = objc_claimAutoreleasedReturnValue(), -[HMSoftwareUpdateDocumentationMetadata URL](v6, "URL"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "absoluteURL"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v8, "isEqual:", v10), v10, v9, v8, v7, v11))
     {
       digest = [(HMSoftwareUpdateDocumentationMetadata *)self digest];
       digest2 = [(HMSoftwareUpdateDocumentationMetadata *)v6 digest];
@@ -97,7 +86,6 @@
 
     else
     {
-LABEL_8:
       v14 = 0;
     }
   }

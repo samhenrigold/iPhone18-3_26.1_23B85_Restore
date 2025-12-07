@@ -31,14 +31,14 @@
 
 - (NSString)title
 {
-  v2 = THBundle();
+  v2 = THBundle(self, a2);
 
   return [v2 localizedStringForKey:@"Notes from previous versions" value:&stru_471858 table:0];
 }
 
 - (NSString)subtitle
 {
-  v2 = THBundle();
+  v2 = THBundle(self, a2);
 
   return [v2 localizedStringForKey:@"Old Notes" value:&stru_471858 table:0];
 }
@@ -58,8 +58,8 @@
 {
   v3 = +[NSMutableArray array];
   v4 = objc_alloc_init(THNotesViewSection);
-  [(NSArray *)v3 addObject:v4];
-  -[THNotesViewSection setTitle:](v4, "setTitle:", [objc_msgSend(THBundle() localizedStringForKey:@"Old Notes" value:&stru_471858 table:{0), "stringByTransformingForTHNotesSectionHeader"}]);
+  v5 = [(NSArray *)v3 addObject:v4];
+  -[THNotesViewSection setTitle:](v4, "setTitle:", [objc_msgSend(THBundle(v5 v6)]);
   [(THNotesViewSection *)v4 setNotes:[(THAnnotationCache *)self->mOrphanedAnnotations highlightAnnotationsSortedByRange]];
 
   return v3;

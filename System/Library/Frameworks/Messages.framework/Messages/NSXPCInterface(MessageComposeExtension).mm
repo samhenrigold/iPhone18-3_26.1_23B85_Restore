@@ -12,9 +12,9 @@
     +[NSXPCInterface(MessageComposeExtension) __mf_messageComposerHostInterface];
   }
 
-  v1 = __mf_messageComposerHostInterface_interface;
+  v2 = __mf_messageComposerHostInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 + (id)__mf_messageComposerExtensionInterface
@@ -24,9 +24,9 @@
     +[NSXPCInterface(MessageComposeExtension) __mf_messageComposerExtensionInterface];
   }
 
-  v1 = __mf_messageComposerExtensionInterface_interface;
+  v2 = __mf_messageComposerExtensionInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

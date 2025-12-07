@@ -7,118 +7,118 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v13 = v8;
-  v54 = 0;
+  v12 = v8;
+  v47 = 0;
   if (v8)
   {
-    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v54);
-    v14 = v54;
-    if (v14)
+    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v47);
+    v13 = v47;
+    if (v13)
     {
-      v15 = v14;
-      v16 = objc_msgSend_raiseErrorOrConvert_(context, v9, v14, v11, v12);
+      v14 = v13;
+      v15 = objc_msgSend_raiseErrorOrConvert_(context, v9, v13, v11);
       goto LABEL_25;
     }
   }
 
   else
   {
-    v55 = 0;
-    v56 = 0;
-    v57 = 0;
+    v48 = 0;
+    v49 = 0;
+    v50 = 0;
   }
 
-  v21 = sub_221078910(&v55, v9, v10, v11, v12);
-  v22 = v21 - 1;
+  v19 = sub_221078910(&v48, v9, v10, v11);
+  v20 = v19 - 1;
   if (*(arguments + 1) - *arguments < 9uLL)
   {
-    v21 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v23 = *(*arguments + 8);
-    if (objc_msgSend_isTokenOrEmptyArg(v23, v24, v25, v26, v27))
+    v21 = *(*arguments + 8);
+    if (objc_msgSend_isTokenOrEmptyArg(v21, v22, v23, v24))
     {
-      v21 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v53 = 0;
-      v29 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v23, v28, context, spec, 1, &v53);
-      v15 = v53;
-      if (v15)
+      v46 = 0;
+      v26 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v21, v25, context, spec, 1, &v46);
+      v14 = v46;
+      if (v14)
       {
-        v16 = objc_msgSend_raiseErrorOrConvert_(context, v30, v15, v32, v33);
+        v15 = objc_msgSend_raiseErrorOrConvert_(context, v27, v14, v29);
 
         goto LABEL_25;
       }
 
-      v52._tskFormat = objc_msgSend_decimalRepresentation(v29, v30, v31, v32, v33);
-      *&v52._formatType = v34;
-      v35 = TSUDecimal::truncatedUIntegerValue(&v52);
-      v40 = sub_2210772BC(&v55, v36, v37, v38, v39);
-      v41 = sub_22157EFF8(v40, v35);
+      v45._tskFormat = objc_msgSend_decimalRepresentation(v26, v27, v28, v29);
+      *&v45._formatType = v30;
+      v31 = TSUDecimal::truncatedUIntegerValue(&v45);
+      v35 = sub_2210772BC(&v48, v32, v33, v34);
+      v36 = sub_22157EFF8(v35, v31);
 
-      if (v21 >= v41)
+      if (v19 >= v36)
       {
-        v22 = v21 - v41;
+        v20 = v19 - v36;
       }
 
       else
       {
-        v22 = 0;
+        v20 = 0;
       }
 
-      if (v41 < v21)
+      if (v36 < v19)
       {
-        v21 = v41;
+        v19 = v36;
       }
     }
 
-    if (!v21)
+    if (!v19)
     {
       goto LABEL_20;
     }
   }
 
-  if ((v22 & 0x8000000000000000) != 0)
+  if ((v20 & 0x8000000000000000) != 0)
   {
 LABEL_20:
-    if (v13)
+    if (v12)
     {
-      objc_msgSend_formatWithContext_(v13, v17, context, v19, v20);
+      objc_msgSend_formatWithContext_(v12, v16, context, v18);
     }
 
     else
     {
-      memset(&v52, 0, sizeof(v52));
+      memset(&v45, 0, sizeof(v45));
     }
 
-    v16 = objc_msgSend_stringValue_format_(TSCEStringValue, v17, &stru_2834BADA0, &v52, v20);
+    v15 = objc_msgSend_stringValue_format_(TSCEStringValue, v16, &stru_2834BADA0, &v45);
     goto LABEL_24;
   }
 
-  v52._tskFormat = v22;
-  *&v52._formatType = v21;
-  sub_2210780F0(&v55, &v52, v18, v19, v20, v51);
-  v16 = sub_2210789F4(v51, v42, v43, v44, v45);
-  v50._tskFormat = 0;
-  v50._formatType = 0;
-  v50._formatState = 0;
-  *&v50._durationFormat = 1057;
-  *(&v50._durationFormat + 2) = 1;
-  *&v50._baseFormat.base = -50266102;
-  v50._numberFormat = 253;
-  TSCEFormat::TSCEFormat(&v52, &v50);
-  objc_msgSend_setFormat_(v16, v46, &v52, v47, v48);
+  v45._tskFormat = v20;
+  *&v45._formatType = v19;
+  sub_2210780F0(&v48, &v45, v44, v17, v18);
+  v15 = sub_2210789F4(v44, v37, v38, v39);
+  v43._tskFormat = 0;
+  v43._formatType = 0;
+  v43._formatState = 0;
+  *&v43._durationFormat = 1057;
+  *(&v43._durationFormat + 2) = 1;
+  *&v43._baseFormat.base = -50266102;
+  v43._numberFormat = 253;
+  TSCEFormat::TSCEFormat(&v45, &v43);
+  objc_msgSend_setFormat_(v15, v40, &v45, v41);
 
 LABEL_24:
-  v15 = 0;
+  v14 = 0;
 LABEL_25:
 
-  return v16;
+  return v15;
 }
 
 @end

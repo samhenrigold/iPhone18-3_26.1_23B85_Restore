@@ -1,5 +1,7 @@
 @interface BLTSettingSyncSendQueue
 - (BLTSettingSyncSendQueue)initWithMaxConcurrentSendCount:(unint64_t)count;
+- (void)_sendEffectiveSectionInfo:(id)info waitForAcknowledgement:(BOOL)acknowledgement withQueue:(id)queue spoolToFile:(BOOL)file andCompletion:(id)completion;
+- (void)_sendSectionIcon:(id)icon forSectionID:(id)d forSubtypeID:(int64_t)iD waitForAcknowledgement:(BOOL)acknowledgement withQueue:(id)queue spoolToFile:(BOOL)file andCompletion:(id)completion;
 - (void)_sendSectionInfoWithSectionID:(unint64_t)d usingProvider:(id)provider updateProgress:(id)progress sendCompleted:(id)completed sendAttempt:(unint64_t)attempt waitForAcknowledgement:(BOOL)acknowledgement group:(id)group spoolToFile:(BOOL)self0;
 - (void)sendEffectiveSectionInfosUsingProvider:(id)provider count:(unint64_t)count sectionInfoSendCompleted:(id)completed completion:(id)completion progress:(id)progress spoolToFile:(BOOL)file;
 - (void)sendRemoveSectionWithSectionID:(id)d sent:(id)sent;
@@ -96,8 +98,8 @@
 
 void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke(uint64_t a1, int a2, int a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v6 = blt_settings_log();
+  v45 = *MEMORY[0x277D85DE8];
+  v6 = blt_settings_log(a1);
   v7 = v6;
   if (!a2 || !a3)
   {
@@ -107,57 +109,57 @@ void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_
       {
         v14 = *(a1 + 40);
         *buf = 138412290;
-        v43 = v14;
+        v44 = v14;
         _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Sent section info but nano failed to acknowledge with section ID %@", buf, 0xCu);
       }
 
-      v15 = blt_settings_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = blt_settings_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 80);
+        v17 = *(a1 + 80);
         *buf = 134217984;
-        v43 = v16;
-        _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_DEFAULT, "Current send attempts: %lu", buf, 0xCu);
+        v44 = v17;
+        _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_DEFAULT, "Current send attempts: %lu", buf, 0xCu);
       }
 
-      v17 = *(a1 + 80);
-      v18 = blt_settings_log();
-      v7 = v18;
-      if (v17 < 3)
+      v18 = *(a1 + 80);
+      v20 = blt_settings_log(v19);
+      v7 = v20;
+      if (v18 < 3)
       {
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = *(a1 + 40);
+          v21 = *(a1 + 40);
           *buf = 138412290;
-          v43 = v19;
+          v44 = v21;
           _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Enqueuing section ID %@ for future resend attempt", buf, 0xCu);
         }
 
         dispatch_group_enter(*(a1 + 48));
-        v20 = *(a1 + 32);
-        v21 = *(v20 + 8);
+        v22 = *(a1 + 32);
+        v23 = *(v22 + 8);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_9;
         block[3] = &unk_278D31AE8;
-        v22 = *(a1 + 88);
-        block[4] = v20;
-        v31 = v22;
-        v28 = *(a1 + 72);
-        v29 = *(a1 + 56);
-        v23 = *(a1 + 64);
-        v24 = *(a1 + 80);
-        v30 = v23;
+        v24 = *(a1 + 88);
+        block[4] = v22;
         v32 = v24;
-        v33 = *(a1 + 96);
-        v27 = *(a1 + 48);
-        v34 = *(a1 + 97);
-        dispatch_async(v21, block);
+        v29 = *(a1 + 72);
+        v30 = *(a1 + 56);
+        v25 = *(a1 + 64);
+        v26 = *(a1 + 80);
+        v31 = v25;
+        v33 = v26;
+        v34 = *(a1 + 96);
+        v28 = *(a1 + 48);
+        v35 = *(a1 + 97);
+        dispatch_async(v23, block);
 
         goto LABEL_24;
       }
 
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_cold_2(a1, v7);
       }
@@ -171,7 +173,7 @@ void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_
     (*(*(a1 + 56) + 16))();
 LABEL_24:
     (*(*(a1 + 64) + 16))();
-    goto LABEL_25;
+    return;
   }
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -185,19 +187,19 @@ LABEL_24:
   {
     v10 = [*(a1 + 32) sectionParametersProvider];
     v11 = *(a1 + 40);
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_5;
-    v35[3] = &unk_278D31AC0;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_5;
+    v36[3] = &unk_278D31AC0;
     v12 = v11;
     v13 = *(a1 + 32);
-    v36 = v12;
-    v37 = v13;
-    v40 = *(a1 + 96);
-    v38 = *(a1 + 56);
-    v39 = *(a1 + 64);
-    v41 = a3;
-    (v10)[2](v10, v12, v35);
+    v37 = v12;
+    v38 = v13;
+    v41 = *(a1 + 96);
+    v39 = *(a1 + 56);
+    v40 = *(a1 + 64);
+    v42 = a3;
+    (v10)[2](v10, v12, v36);
   }
 
   else
@@ -205,21 +207,18 @@ LABEL_24:
     (*(*(a1 + 56) + 16))();
     (*(*(a1 + 64) + 16))();
   }
-
-LABEL_25:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_5(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = blt_settings_log();
+  v4 = blt_settings_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to send subsection parameter icons for section ID %@", buf, 0xCu);
   }
 
@@ -227,25 +226,22 @@ void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_
   v6 = *(a1 + 40);
   v8 = *(a1 + 64);
   v9 = *(a1 + 65);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_6;
-  v11[3] = &unk_278D31A98;
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v14 = *(a1 + 66);
-  [v6 sendSectionSubtypeParameterIcons:v3 sectionID:v7 waitForAcknowledgement:v8 spoolToFile:v9 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_6;
+  v10[3] = &unk_278D31A98;
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v13 = *(a1 + 66);
+  [v6 sendSectionSubtypeParameterIcons:v3 sectionID:v7 waitForAcknowledgement:v8 spoolToFile:v9 completion:v10];
 }
 
 uint64_t __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_6(uint64_t a1)
 {
   (*(*(a1 + 32) + 16))();
-  v2 = *(a1 + 48);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)sendEffectiveSectionInfosUsingProvider:(id)provider count:(unint64_t)count sectionInfoSendCompleted:(id)completed completion:(id)completion progress:(id)progress spoolToFile:(BOOL)file
@@ -282,17 +278,18 @@ uint64_t __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvi
   v45 = v20;
   selfCopy = self;
   v21 = MEMORY[0x245D067A0](v44);
+  v22 = v21;
   if (count)
   {
-    v22 = 0;
+    v23 = 0;
     do
     {
-      v23 = blt_settings_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = blt_settings_log(v21);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v55 = v22;
-        _os_log_impl(&dword_241FB3000, v23, OS_LOG_TYPE_DEFAULT, "Queueing section ID Index %lu for send", buf, 0xCu);
+        v55 = v23;
+        _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_DEFAULT, "Queueing section ID Index %lu for send", buf, 0xCu);
       }
 
       dispatch_group_enter(v20);
@@ -302,22 +299,22 @@ uint64_t __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvi
       block[2] = __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke_12;
       block[3] = &unk_278D31BD8;
       block[4] = self;
-      v42 = v22;
+      v42 = v23;
       v38 = providerCopy;
       v39 = v19;
-      v40 = v21;
+      v40 = v22;
       v41 = v18;
       v37 = v20;
       fileCopy = file;
       dispatch_async(sectionInfoSenderQueue, block);
 
-      ++v22;
+      ++v23;
     }
 
-    while (count != v22);
+    while (count != v23);
   }
 
-  v25 = self->_sectionInfoSenderQueue;
+  v26 = self->_sectionInfoSenderQueue;
   v32[0] = MEMORY[0x277D85DD0];
   v32[1] = 3221225472;
   v32[2] = __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke_3_15;
@@ -325,11 +322,10 @@ uint64_t __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvi
   v34 = v53;
   countCopy2 = count;
   v33 = completionCopy;
-  v26 = completionCopy;
-  dispatch_group_notify(v20, v25, v32);
+  v27 = completionCopy;
+  dispatch_group_notify(v20, v26, v32);
 
   _Block_object_dispose(v53, 8);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke(uint64_t a1)
@@ -365,7 +361,7 @@ void __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count
 
 void __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke_3(uint64_t a1)
 {
-  v2 = BLTWorkQueue();
+  v2 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke_4;
@@ -417,26 +413,25 @@ void __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count
 
 uint64_t __129__BLTSettingSyncSendQueue_sendEffectiveSectionInfosUsingProvider_count_sectionInfoSendCompleted_completion_progress_spoolToFile___block_invoke_3_15(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = blt_settings_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[6];
     v4 = *(*(a1[5] + 8) + 24);
-    v7 = 134218240;
-    v8 = v4;
-    v9 = 2048;
-    v10 = v3;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "Section info send queue completed; sent %lu of %lu items", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = v4;
+    v8 = 2048;
+    v9 = v3;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "Section info send queue completed; sent %lu of %lu items", &v6, 0x16u);
   }
 
   result = a1[4];
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -551,8 +546,8 @@ uint64_t __80__BLTSettingSyncSendQueue_sendSpooledRequestsNowWithSender_completi
 
 uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_sectionID_waitForAcknowledgement_spoolToFile_completion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v2 = blt_settings_log();
+  v45 = *MEMORY[0x277D85DE8];
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -563,9 +558,9 @@ uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_section
     }
 
     *buf = 138412546;
-    v40 = v4;
-    v41 = 2112;
-    v42 = v3;
+    v39 = v4;
+    v40 = 2112;
+    v41 = v3;
     _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "Sending sectionSubtypeParameters icon (%@) for %@ defaults", buf, 0x16u);
   }
 
@@ -575,36 +570,36 @@ uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_section
   v8 = *(a1 + 72);
   v9 = v5[2];
   v10 = *(a1 + 73);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_sectionID_waitForAcknowledgement_spoolToFile_completion___block_invoke_24;
-  v38[3] = &unk_278D31C78;
-  v38[4] = v5;
-  [v5 _sendSectionIcon:v7 forSectionID:v6 forSubtypeID:0x7FFFFFFFFFFFFFFFLL waitForAcknowledgement:v8 withQueue:v9 spoolToFile:v10 andCompletion:v38];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_sectionID_waitForAcknowledgement_spoolToFile_completion___block_invoke_24;
+  v37[3] = &unk_278D31C78;
+  v37[4] = v5;
+  [v5 _sendSectionIcon:v7 forSectionID:v6 forSubtypeID:0x7FFFFFFFFFFFFFFFLL waitForAcknowledgement:v8 withQueue:v9 spoolToFile:v10 andCompletion:v37];
   dispatch_semaphore_wait(*(*(a1 + 48) + 48), 0xFFFFFFFFFFFFFFFFLL);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = [*(a1 + 56) allSubtypes];
-  v11 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+  v11 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
   if (v11)
   {
     v12 = v11;
-    v32 = *v35;
+    v31 = *v34;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * i);
+        v14 = *(*(&v33 + 1) + 8 * i);
         v15 = [*(a1 + 56) parametersForSubtype:{objc_msgSend(v14, "integerValue")}];
         v16 = [v15 sectionIconOverride];
-        v17 = blt_settings_log();
+        v17 = blt_settings_log(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           v18 = [v16 variants];
@@ -617,11 +612,11 @@ uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_section
           }
 
           *buf = 138412802;
-          v40 = v21;
-          v41 = 2112;
-          v42 = v20;
-          v43 = 2112;
-          v44 = v14;
+          v39 = v21;
+          v40 = 2112;
+          v41 = v20;
+          v42 = 2112;
+          v43 = v14;
           _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "Sending sectionSubtypeParameters icon (%@) for %@ %@", buf, 0x20u);
         }
 
@@ -632,16 +627,16 @@ uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_section
         v26 = *(a1 + 48);
         v27 = *(v26 + 16);
         v28 = *(a1 + 73);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_sectionID_waitForAcknowledgement_spoolToFile_completion___block_invoke_25;
-        v33[3] = &unk_278D31C78;
-        v33[4] = v26;
-        [v22 _sendSectionIcon:v16 forSectionID:v23 forSubtypeID:v24 waitForAcknowledgement:v25 withQueue:v27 spoolToFile:v28 andCompletion:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_sectionID_waitForAcknowledgement_spoolToFile_completion___block_invoke_25;
+        v32[3] = &unk_278D31C78;
+        v32[4] = v26;
+        [v22 _sendSectionIcon:v16 forSectionID:v23 forSubtypeID:v24 waitForAcknowledgement:v25 withQueue:v27 spoolToFile:v28 andCompletion:v32];
         dispatch_semaphore_wait(*(*(a1 + 48) + 48), 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v12 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
+      v12 = [obj countByEnumeratingWithState:&v33 objects:v44 count:16];
     }
 
     while (v12);
@@ -650,31 +645,65 @@ uint64_t __116__BLTSettingSyncSendQueue_sendSectionSubtypeParameterIcons_section
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (void)_sendEffectiveSectionInfo:(id)info waitForAcknowledgement:(BOOL)acknowledgement withQueue:(id)queue spoolToFile:(BOOL)file andCompletion:(id)completion
+{
+  fileCopy = file;
+  acknowledgementCopy = acknowledgement;
+  infoCopy = info;
+  queueCopy = queue;
+  completionCopy = completion;
+  sectionInfoSender = [(BLTSettingSyncSendQueue *)self sectionInfoSender];
+
+  if (sectionInfoSender)
+  {
+    sectionInfoSender2 = [(BLTSettingSyncSendQueue *)self sectionInfoSender];
+    (sectionInfoSender2)[2](sectionInfoSender2, infoCopy, queueCopy, acknowledgementCopy, completionCopy, fileCopy);
+  }
+}
+
+- (void)_sendSectionIcon:(id)icon forSectionID:(id)d forSubtypeID:(int64_t)iD waitForAcknowledgement:(BOOL)acknowledgement withQueue:(id)queue spoolToFile:(BOOL)file andCompletion:(id)completion
+{
+  fileCopy = file;
+  acknowledgementCopy = acknowledgement;
+  iconCopy = icon;
+  dCopy = d;
+  queueCopy = queue;
+  completionCopy = completion;
+  sectionIconSender = [(BLTSettingSyncSendQueue *)self sectionIconSender];
+
+  if (sectionIconSender)
+  {
+    v19 = objc_autoreleasePoolPush();
+    v20 = BLTPBSectionIconFromBBSectionIcon(iconCopy, dCopy);
+    sectionIconSender2 = [(BLTSettingSyncSendQueue *)self sectionIconSender];
+    (sectionIconSender2)[2](sectionIconSender2, v20, dCopy, iD, queueCopy, acknowledgementCopy, completionCopy, fileCopy);
+
+    objc_autoreleasePoolPop(v19);
+  }
 }
 
 void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Failed to send section info so abandoning with section ID %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Failed to send section info so abandoning with section ID %@", &v3, 0xCu);
 }
 
 void __153__BLTSettingSyncSendQueue__sendSectionInfoWithSectionID_usingProvider_updateProgress_sendCompleted_sendAttempt_waitForAcknowledgement_group_spoolToFile___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Max send attempts exceeded for section ID %@; dropping settings", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Max send attempts exceeded for section ID %@; dropping settings", &v3, 0xCu);
 }
 
 @end

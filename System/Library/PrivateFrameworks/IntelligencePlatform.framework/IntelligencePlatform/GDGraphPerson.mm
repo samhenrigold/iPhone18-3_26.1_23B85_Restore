@@ -9,21 +9,20 @@
 - (NSPersonNameComponents)suggestedNameComponentsInner
 {
   v3 = sub_1ABAD219C(&qword_1EB4D2BC0, &qword_1ABF39E20);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   selfCopy = self;
-  GDGraphPerson.suggestedNameComponentsInner.getter(v6);
+  GDGraphPerson.suggestedNameComponentsInner.getter(v5);
 
-  v8 = sub_1ABF21BC4();
-  v9 = 0;
-  if (sub_1ABA7E1E0(v6, 1, v8) != 1)
+  v7 = sub_1ABF21BC4();
+  v8 = 0;
+  if (sub_1ABA7E1E0(v5, 1, v7) != 1)
   {
-    v9 = sub_1ABF21B94();
-    (*(*(v8 - 8) + 8))(v6, v8);
+    v8 = sub_1ABF21B94();
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)autonamingSuggestionReasonInner

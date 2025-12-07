@@ -33,9 +33,11 @@
     v3 = s_bagVendor;
     s_bagVendor = v2;
 
-    s_assetIDContainerVendor = [[PHRecyclableObjectVendor alloc] initWithTargetClass:objc_opt_class() requiresThreadSafety:1 initialPoolSize:4];
+    v4 = [[PHRecyclableObjectVendor alloc] initWithTargetClass:objc_opt_class() requiresThreadSafety:1 initialPoolSize:4];
+    v5 = s_assetIDContainerVendor;
+    s_assetIDContainerVendor = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, v5);
   }
 }
 

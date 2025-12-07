@@ -51,8 +51,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_257BD2C2C(0, &qword_281543F58);
-  sub_257E4D770(&qword_281543F50, &qword_281543F58);
+  sub_257BD2C2C(0, &qword_281543F58, 0x277D757D8);
+  sub_257E4D770(&qword_281543F50, &qword_281543F58, 0x277D757D8);
   v6 = sub_257ECFA70();
   sceneCopy = scene;
   selfCopy = self;
@@ -61,26 +61,26 @@
 
 - (void)updateAppearanceForReduceTransparency:(id)transparency
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F9E30);
-  MEMORY[0x28223BE20](v5 - 8);
-  v7 = &v11 - v6;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8F9E30, &qword_257EEBBA0);
+  MEMORY[0x28223BE20](v5 - 8, v6, v7, v8, v9);
+  v11 = &v15 - v10;
   if (transparency)
   {
     sub_257ECC7E0();
-    v8 = sub_257ECC810();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v12 = sub_257ECC810();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v9 = sub_257ECC810();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v13 = sub_257ECC810();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   selfCopy = self;
   sub_257E4D264();
 
-  sub_257BE4084(v7, &qword_27F8F9E30);
+  sub_257BE4084(v11, &qword_27F8F9E30, &qword_257EEBBA0);
 }
 
 - (_TtC16MagnifierSupport13SceneDelegate)init
@@ -95,111 +95,111 @@
 {
   v0 = sub_257ECD990();
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_257ECDA30();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0, v2, v3, v4, v5);
+  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_257ECDA30();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10, v11, v12, v13);
+  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECD4E0();
-  v8 = sub_257ECDA20();
-  v9 = sub_257ECFBD0();
-  if (os_log_type_enabled(v8, v9))
+  v16 = sub_257ECDA20();
+  v17 = sub_257ECFBD0();
+  if (os_log_type_enabled(v16, v17))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&dword_257BAC000, v8, v9, "Scene Became Active", v10, 2u);
-    MEMORY[0x259C74820](v10, -1, -1);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&dword_257BAC000, v16, v17, "Scene Became Active", v18, 2u);
+    MEMORY[0x259C74820](v18, -1, -1);
   }
 
-  (*(v5 + 8))(v7, v4);
+  (*(v9 + 8))(v15, v8);
   if (qword_27F8F45A8 != -1)
   {
     swift_once();
   }
 
-  v11 = sub_257ECD9C0();
-  __swift_project_value_buffer(v11, qword_27F8F5D90);
+  v19 = sub_257ECD9C0();
+  __swift_project_value_buffer(v19, qword_27F8F5D90);
   sub_257ECD980();
-  v12 = sub_257ECD9A0();
-  v13 = sub_257ECFDD0();
+  v20 = sub_257ECD9A0();
+  v21 = sub_257ECFDD0();
   if (sub_257ED0090())
   {
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    v15 = sub_257ECD970();
-    _os_signpost_emit_with_name_impl(&dword_257BAC000, v12, v13, v15, "SceneBecameActive", "", v14, 2u);
-    MEMORY[0x259C74820](v14, -1, -1);
+    v22 = swift_slowAlloc();
+    *v22 = 0;
+    v23 = sub_257ECD970();
+    _os_signpost_emit_with_name_impl(&dword_257BAC000, v20, v21, v23, "SceneBecameActive", "", v22, 2u);
+    MEMORY[0x259C74820](v22, -1, -1);
   }
 
-  return (*(v1 + 8))(v3, v0);
+  return (*(v1 + 8))(v7, v0);
 }
 
 - (uint64_t)sceneWillResignActive:
 {
   v0 = sub_257ECDA30();
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0, v2, v3, v4, v5);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sharedApplication = [objc_opt_self() sharedApplication];
   [sharedApplication setShortcutItems_];
 
   sub_257ECD4E0();
-  v5 = sub_257ECDA20();
-  v6 = sub_257ECFBD0();
-  if (os_log_type_enabled(v5, v6))
+  v9 = sub_257ECDA20();
+  v10 = sub_257ECFBD0();
+  if (os_log_type_enabled(v9, v10))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&dword_257BAC000, v5, v6, "Scene Will Resign Active", v7, 2u);
-    MEMORY[0x259C74820](v7, -1, -1);
+    v11 = swift_slowAlloc();
+    *v11 = 0;
+    _os_log_impl(&dword_257BAC000, v9, v10, "Scene Will Resign Active", v11, 2u);
+    MEMORY[0x259C74820](v11, -1, -1);
   }
 
-  return (*(v1 + 8))(v3, v0);
+  return (*(v1 + 8))(v7, v0);
 }
 
 - (void)sceneWillEnterForeground:
 {
   v0 = sub_257ECD990();
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_257ECDA30();
-  v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0, v2, v3, v4, v5);
+  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_257ECDA30();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10, v11, v12, v13);
+  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECD4E0();
-  v8 = sub_257ECDA20();
-  v9 = sub_257ECFBD0();
-  if (os_log_type_enabled(v8, v9))
+  v16 = sub_257ECDA20();
+  v17 = sub_257ECFBD0();
+  if (os_log_type_enabled(v16, v17))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&dword_257BAC000, v8, v9, "Scene Will Enter Foreground", v10, 2u);
-    MEMORY[0x259C74820](v10, -1, -1);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&dword_257BAC000, v16, v17, "Scene Will Enter Foreground", v18, 2u);
+    MEMORY[0x259C74820](v18, -1, -1);
   }
 
-  (*(v5 + 8))(v7, v4);
+  (*(v9 + 8))(v15, v8);
   if (qword_27F8F45A8 != -1)
   {
     swift_once();
   }
 
-  v11 = sub_257ECD9C0();
-  __swift_project_value_buffer(v11, qword_27F8F5D90);
+  v19 = sub_257ECD9C0();
+  __swift_project_value_buffer(v19, qword_27F8F5D90);
   sub_257ECD980();
-  v12 = sub_257ECD9A0();
-  v13 = sub_257ECFDD0();
+  v20 = sub_257ECD9A0();
+  v21 = sub_257ECFDD0();
   if (sub_257ED0090())
   {
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    v15 = sub_257ECD970();
-    _os_signpost_emit_with_name_impl(&dword_257BAC000, v12, v13, v15, "SceneEnterFG", "", v14, 2u);
-    MEMORY[0x259C74820](v14, -1, -1);
+    v22 = swift_slowAlloc();
+    *v22 = 0;
+    v23 = sub_257ECD970();
+    _os_signpost_emit_with_name_impl(&dword_257BAC000, v20, v21, v23, "SceneEnterFG", "", v22, 2u);
+    MEMORY[0x259C74820](v22, -1, -1);
   }
 
-  (*(v1 + 8))(v3, v0);
+  (*(v1 + 8))(v7, v0);
   currentDevice = [objc_opt_self() currentDevice];
   [currentDevice beginGeneratingDeviceOrientationNotifications];
 }
@@ -208,20 +208,20 @@
 {
   v0 = sub_257ECDA30();
   v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0);
-  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v0, v2, v3, v4, v5);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECD4E0();
-  v4 = sub_257ECDA20();
-  v5 = sub_257ECFBD0();
-  if (os_log_type_enabled(v4, v5))
+  v8 = sub_257ECDA20();
+  v9 = sub_257ECFBD0();
+  if (os_log_type_enabled(v8, v9))
   {
-    v6 = swift_slowAlloc();
-    *v6 = 0;
-    _os_log_impl(&dword_257BAC000, v4, v5, "Scene Did Enter Background", v6, 2u);
-    MEMORY[0x259C74820](v6, -1, -1);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&dword_257BAC000, v8, v9, "Scene Did Enter Background", v10, 2u);
+    MEMORY[0x259C74820](v10, -1, -1);
   }
 
-  (*(v1 + 8))(v3, v0);
+  (*(v1 + 8))(v7, v0);
   currentDevice = [objc_opt_self() currentDevice];
   [currentDevice endGeneratingDeviceOrientationNotifications];
 }

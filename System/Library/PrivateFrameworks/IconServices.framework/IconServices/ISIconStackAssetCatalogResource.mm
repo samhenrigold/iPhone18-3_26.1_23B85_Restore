@@ -64,7 +64,7 @@
 {
   height = size.height;
   width = size.width;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = [ISIconStackAssetCatalogResource _compositingDescriptorWithSize:"_compositingDescriptorWithSize:scale:" scale:?];
   scale = [(ISIconStackAssetCatalogResource *)self _keyForSize:width scale:height, scale];
   finalizedIcons = [(ISIconStackAssetCatalogResource *)self finalizedIcons];
@@ -80,19 +80,19 @@
   v14 = scale2;
   if (!scale2)
   {
-    v18 = _ISDefaultLog();
+    v18 = _ISDefaultLog(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       imageName = [(ISAssetCatalogResource *)self imageName];
-      v22 = 138413058;
-      v23 = imageName;
-      v24 = 2048;
-      v25 = width;
-      v26 = 2048;
-      v27 = width;
-      v28 = 2048;
+      v21 = 138413058;
+      v22 = imageName;
+      v23 = 2048;
+      v24 = width;
+      v25 = 2048;
+      v26 = width;
+      v27 = 2048;
       scaleCopy = scale;
-      _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_DEFAULT, "Failed to find icon stack for with named: %@ for size: (%f,%f) scale:(%lf)", &v22, 0x2Au);
+      _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_DEFAULT, "Failed to find icon stack for with named: %@ for size: (%f,%f) scale:(%lf)", &v21, 0x2Au);
     }
 
     goto LABEL_9;
@@ -114,7 +114,6 @@ LABEL_9:
 LABEL_10:
 
 LABEL_11:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -140,8 +139,8 @@ LABEL_11:
 
     else
     {
-      v15 = _ISDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = _ISDefaultLog(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         imageName = [(ISAssetCatalogResource *)self imageName];
         v19 = 138413058;
@@ -152,7 +151,7 @@ LABEL_11:
         v24 = width;
         v25 = 2048;
         scaleCopy = scale;
-        _os_log_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for icon stack with named: %@ for size: (%f,%f) scale:(%lf)", &v19, 0x2Au);
+        _os_log_impl(&dword_1A77B8000, v16, OS_LOG_TYPE_DEFAULT, "Failed to generate flatten representation for icon stack with named: %@ for size: (%f,%f) scale:(%lf)", &v19, 0x2Au);
       }
 
       scale2 = [(ISIconStackAssetCatalogResource *)self _fallbackImageForSize:width scale:height, scale];
@@ -166,8 +165,6 @@ LABEL_11:
     scale3 = [(ISIconStackAssetCatalogResource *)self _fallbackImageForSize:width scale:height, scale];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return scale3;
 }
 
@@ -179,10 +176,11 @@ LABEL_11:
   v14 = 0;
   v8 = [v7 serializedDataWithError:&v14];
   v9 = v14;
-  if (!v8 || ![v8 length])
+  v10 = v9;
+  if (!v8 || (v9 = [v8 length]) == 0)
   {
-    v10 = _ISDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _ISDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       imageName = [(ISAssetCatalogResource *)self imageName];
       *buf = 138413314;
@@ -194,12 +192,10 @@ LABEL_11:
       v21 = 2048;
       scaleCopy = scale;
       v23 = 2112;
-      v24 = v9;
-      _os_log_error_impl(&dword_1A77B8000, v10, OS_LOG_TYPE_ERROR, "Failed to serialize finalized icon for named: %@ for size: (%f,%f) scale:(%lf). Error:%@", buf, 0x34u);
+      v24 = v10;
+      _os_log_error_impl(&dword_1A77B8000, v11, OS_LOG_TYPE_ERROR, "Failed to serialize finalized icon for named: %@ for size: (%f,%f) scale:(%lf). Error:%@", buf, 0x34u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

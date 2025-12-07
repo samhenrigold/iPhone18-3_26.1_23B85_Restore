@@ -145,7 +145,7 @@ LABEL_9:
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   height = fits.height;
-  [(PKCurrencyAmountEntryCollectionViewCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   v5 = v4;
   v7 = v6;
   v8 = _UISolariumFeatureFlagEnabled();
@@ -210,7 +210,7 @@ LABEL_9:
   [(UITextField *)self->_amountTextField setUserInteractionEnabled:self->_isEditable];
   contentView = [(PKCurrencyAmountEntryCollectionViewCell *)self contentView];
   [contentView bounds];
-  [(PKCurrencyAmountEntryCollectionViewCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout
@@ -229,41 +229,41 @@ LABEL_9:
     v10 = 16.0;
   }
 
-  v46.origin.x = x;
-  v46.origin.y = y;
-  v46.size.width = width;
-  v46.size.height = height;
-  v47 = CGRectInset(v46, v10, 13.0);
-  v11 = v47.origin.x;
-  v12 = v47.origin.y;
-  v13 = v47.size.width;
-  v14 = v47.size.height;
-  [(UILabel *)self->_titleLabel sizeThatFits:v47.size.width, v47.size.height];
+  v55.origin.x = x;
+  v55.origin.y = y;
+  v55.size.width = width;
+  v55.size.height = height;
+  v56 = CGRectInset(v55, v10, 13.0);
+  v11 = v56.origin.x;
+  v12 = v56.origin.y;
+  v13 = v56.size.width;
+  v14 = v56.size.height;
+  [(UILabel *)self->_titleLabel sizeThatFits:v56.size.width, v56.size.height];
   v16 = v15;
   v18 = v17;
   [(UITextField *)self->_amountTextField sizeThatFits:v13, v14];
   v20 = v19;
   memset(&slice, 0, sizeof(slice));
-  v43.origin.x = v11;
-  v43.origin.y = v12;
-  v43.size.width = v13;
-  v43.size.height = v14;
+  v52.origin.x = v11;
+  v52.origin.y = v12;
+  v52.size.width = v13;
+  v52.size.height = v14;
   if (v16 + 8.0 + v21 > v13)
   {
     v22 = v18 + 2.0 + v19;
-    v43.size.height = v22;
+    v52.size.height = v22;
     p_slice = &slice;
-    v48.origin.x = v11;
-    v48.origin.y = v12;
-    v48.size.width = v13;
-    v48.size.height = v18 + 2.0 + v20;
-    CGRectDivide(v48, &slice, &v43, v18, CGRectMinYEdge);
+    v57.origin.x = v11;
+    v57.origin.y = v12;
+    v57.size.width = v13;
+    v57.size.height = v18 + 2.0 + v20;
+    CGRectDivide(v57, &slice, &v52, v18, CGRectMinYEdge);
     v24 = slice.origin.x;
     v25 = slice.origin.y;
     v26 = slice.size.width;
     v27 = slice.size.height;
-    CGRectDivide(v43, &slice, &v43, 2.0, CGRectMinYEdge);
-    CGRectDivide(v43, &slice, &v43, v20, CGRectMinYEdge);
+    CGRectDivide(v52, &slice, &v52, 2.0, CGRectMinYEdge);
+    CGRectDivide(v52, &slice, &v52, v20, CGRectMinYEdge);
     if (layout)
     {
       goto LABEL_12;
@@ -282,41 +282,48 @@ LABEL_9:
     v28 = CGRectMinXEdge;
   }
 
-  p_slice = &v43;
-  v49.origin.x = v11;
-  v49.origin.y = v12;
-  v49.size.width = v13;
-  v49.size.height = v14;
-  CGRectDivide(v49, &slice, &v43, fmin(v13, v16), v28);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v24 = v29;
-  v25 = v30;
-  v26 = v31;
-  v27 = v32;
-  CGRectDivide(v43, &slice, &v43, 8.0, v28);
+  v29 = fmin(v13, v16);
+  p_slice = &v52;
+  v58.origin.x = v11;
+  v58.origin.y = v12;
+  v58.size.width = v13;
+  v58.size.height = v14;
+  CGRectDivide(v58, &slice, &v52, v29, v28);
+  v30 = PKContentAlignmentMake();
+  v31.n128_u64[0] = *&slice.origin.x;
+  v32.n128_u64[0] = *&slice.origin.y;
+  v33.n128_u64[0] = *&slice.size.width;
+  v34.n128_u64[0] = *&slice.size.height;
+  v35.n128_f64[0] = v29;
+  v36.n128_f64[0] = v18;
+  PKSizeAlignedInRect(v30, v35, v36, v31, v32, v33, v34, v37);
+  v24 = v38;
+  v25 = v39;
+  v26 = v40;
+  v27 = v41;
+  CGRectDivide(v52, &slice, &v52, 8.0, v28);
   v22 = v27;
   if (!layout)
   {
 LABEL_11:
-    v34 = p_slice->size.width;
-    v33 = p_slice->size.height;
-    v35 = v25;
-    v36 = width;
-    v37 = v24;
-    v39 = p_slice->origin.x;
-    v38 = p_slice->origin.y;
-    [(UILabel *)self->_titleLabel setFrame:v37, v35, v26, v27, *&v43.origin.x, *&v43.origin.y, *&v43.size.width];
-    v40 = v38;
-    width = v36;
-    [(UITextField *)self->_amountTextField setFrame:v39, v40, v34, v33];
+    v43 = p_slice->size.width;
+    v42 = p_slice->size.height;
+    v44 = v25;
+    v45 = width;
+    v46 = v24;
+    v48 = p_slice->origin.x;
+    v47 = p_slice->origin.y;
+    [(UILabel *)self->_titleLabel setFrame:v46, v44, v26, v27, *&v52.origin.x, *&v52.origin.y, *&v52.size.width];
+    v49 = v47;
+    width = v45;
+    [(UITextField *)self->_amountTextField setFrame:v48, v49, v43, v42];
   }
 
 LABEL_12:
-  v41 = v22 + 26.0;
-  v42 = width;
-  result.height = v41;
-  result.width = v42;
+  v50 = v22 + 26.0;
+  v51 = width;
+  result.height = v50;
+  result.width = v51;
   return result;
 }
 
@@ -431,7 +438,7 @@ LABEL_12:
     v9 = MEMORY[0x1E696AB90];
     if (v8)
     {
-      [v8 decimalValue];
+      objc_msgSend_decimalValue(v8);
     }
 
     else

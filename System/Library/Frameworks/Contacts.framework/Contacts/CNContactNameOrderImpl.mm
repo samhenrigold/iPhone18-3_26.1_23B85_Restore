@@ -39,16 +39,20 @@
 
 uint64_t __45__CNContactNameOrderImpl_givenNameFirstOrder__block_invoke()
 {
-  givenNameFirstOrder_cn_once_object_0 = objc_alloc_init(CNGivenNameFirstNameOrder);
+  v0 = objc_alloc_init(CNGivenNameFirstNameOrder);
+  v1 = givenNameFirstOrder_cn_once_object_0;
+  givenNameFirstOrder_cn_once_object_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __46__CNContactNameOrderImpl_familyNameFirstOrder__block_invoke()
 {
-  familyNameFirstOrder_cn_once_object_1 = objc_alloc_init(CNFamilyNameFirstNameOrder);
+  v0 = objc_alloc_init(CNFamilyNameFirstNameOrder);
+  v1 = familyNameFirstOrder_cn_once_object_1;
+  familyNameFirstOrder_cn_once_object_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)defaultOrder

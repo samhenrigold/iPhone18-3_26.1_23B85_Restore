@@ -10,7 +10,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;

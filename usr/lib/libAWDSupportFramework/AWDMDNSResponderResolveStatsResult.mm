@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -50,6 +51,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32A28[string];
+  }
 }
 
 - (int)StringAsType:(id)type
@@ -145,7 +159,6 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -165,12 +178,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  count = self->_count;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    serverID = self->_serverID;
     PBDataWriterWriteUint32Field();
   }
 
@@ -274,7 +285,6 @@ LABEL_5:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 32);
     if ((*&self->_has & 4) != 0)
     {
       if ((*(equal + 32) & 4) == 0 || self->_type != *(equal + 7))

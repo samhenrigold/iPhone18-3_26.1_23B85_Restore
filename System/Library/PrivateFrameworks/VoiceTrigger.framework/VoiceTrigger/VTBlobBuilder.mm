@@ -8,12 +8,15 @@
 {
   filenameCopy = filename;
   directoryCopy = directory;
-  v10 = 0;
+  v13 = 0;
   v7 = 0;
-  if (!NDBlobGetBlobSize([filenameCopy cStringUsingEncoding:4], objc_msgSend(directoryCopy, "cStringUsingEncoding:", 4), 1, 0, &v10) && v10)
+  if (!NDBlobGetBlobSize([filenameCopy cStringUsingEncoding:4], objc_msgSend(directoryCopy, "cStringUsingEncoding:", 4), 1, 0, &v13) && v13)
   {
     v8 = [MEMORY[0x277CBEB28] dataWithLength:?];
-    if (NDBlobBuildBlob([filenameCopy cStringUsingEncoding:4], objc_msgSend(directoryCopy, "cStringUsingEncoding:", 4), 1, 0, objc_msgSend(v8, "bytes")))
+    v9 = [filenameCopy cStringUsingEncoding:4];
+    v10 = [directoryCopy cStringUsingEncoding:4];
+    bytes = [v8 bytes];
+    if (NDBlobBuildBlob(v9, v10, 1, 0, bytes, v13))
     {
       v7 = 0;
     }

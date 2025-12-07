@@ -1,6 +1,7 @@
 @interface MFMessageKeychainManager
 + (BOOL)_matchSSLClientIdentity:(__SecIdentity *)identity withHostname:(id)hostname;
 + (BOOL)_validateIdentity:(__SecIdentity *)identity forAddress:(id)address policy:(__SecPolicy *)policy usage:(unsigned int)usage error:(id *)error;
++ (BOOL)addPassword:(id)password forServiceName:(id)name accountName:(id)accountName keychainAccessibility:(void *)accessibility synchronizable:(BOOL)synchronizable error:(id *)error;
 + (BOOL)validateEncryptionIdentity:(__SecIdentity *)identity forAddress:(id)address error:(id *)error;
 + (BOOL)validateSigningIdentity:(__SecIdentity *)identity forAddress:(id)address error:(id *)error;
 + (__SecCertificate)_copyCertificateForPersistent:(id)persistent error:(id *)error;
@@ -18,6 +19,8 @@
 + (id)copyAllEncryptionIdentitiesForAddress:(id)address error:(id *)error;
 + (id)copyAllSigningIdentitiesForAddress:(id)address error:(id *)error;
 + (id)newTrustManager;
++ (id)passwordForHost:(id)host username:(id)username port:(int)port keychainProtocol:(void *)protocol;
++ (id)passwordForServiceName:(id)name accountName:(id)accountName synchronizable:(BOOL)synchronizable error:(id *)error;
 + (id)persistentReferenceForIdentity:(__SecIdentity *)identity error:(id *)error;
 + (id)saveEncryptionCertificate:(__SecCertificate *)certificate forAddress:(id)address;
 + (int)_actionForCertificate:(__SecCertificate *)certificate policy:(__SecPolicy *)policy uncommentedAddress:(id)address;
@@ -83,6 +86,15 @@
   }
 
   return v13;
+}
+
++ (id)passwordForHost:(id)host username:(id)username port:(int)port keychainProtocol:(void *)protocol
+{
+  v7 = *&port;
+  [_keychainLock mf_waitForLock];
+  v11 = [self _passwordForHost:host username:username port:v7 keychainProtocol:protocol];
+  [_keychainLock unlock];
+  return v11;
 }
 
 + (void)setPassword:(id)password forHost:(id)host username:(id)username port:(int)port keychainProtocol:(void *)protocol keychainAccessibility:(void *)accessibility
@@ -180,7 +192,7 @@
 
 + (id)_passwordForGenericAccount:(id)account service:(id)service error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([account length] && objc_msgSend(service, "length"))
   {
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, 0);
@@ -210,7 +222,7 @@
         if (v13)
         {
           *buf = 67109120;
-          v21 = v11;
+          v20 = v11;
           _os_log_impl(&dword_258BDA000, v12, OS_LOG_TYPE_DEFAULT, "#Warning SecItemCopyMatching result: %d", buf, 8u);
         }
 
@@ -257,19 +269,69 @@
     *error = v14;
 LABEL_20:
     CFRelease(Mutable);
-    goto LABEL_21;
+    return v16;
   }
 
   v16 = 0;
-LABEL_21:
-  v17 = v16;
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
+}
+
++ (id)passwordForServiceName:(id)name accountName:(id)accountName synchronizable:(BOOL)synchronizable error:(id *)error
+{
+  [_keychainLock mf_waitForLock];
+  v10 = [self _passwordForGenericAccount:accountName service:name error:error];
+  [_keychainLock unlock];
+  return v10;
+}
+
++ (BOOL)addPassword:(id)password forServiceName:(id)name accountName:(id)accountName keychainAccessibility:(void *)accessibility synchronizable:(BOOL)synchronizable error:(id *)error
+{
+  synchronizableCopy = synchronizable;
+  v22 = *MEMORY[0x277D85DE8];
+  [_keychainLock mf_waitForLock];
+  if ([name length] && objc_msgSend(password, "length") && objc_msgSend(accountName, "length"))
+  {
+    v14 = [password dataUsingEncoding:4];
+    Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, 0, 0);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC228], *MEMORY[0x277CDC238]);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBF20], accountName);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC120], name);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC140], [MEMORY[0x277CCABB0] numberWithBool:synchronizableCopy]);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDC5E8], v14);
+    CFDictionaryAddValue(Mutable, *MEMORY[0x277CDBED8], accessibility);
+    result = 0;
+    v16 = SecItemAdd(Mutable, &result);
+    if (v16)
+    {
+      v17 = MFLogGeneral();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        v21 = v16;
+        _os_log_impl(&dword_258BDA000, v17, OS_LOG_TYPE_DEFAULT, "#Warning SecItemAdd result: %ld", buf, 0xCu);
+      }
+    }
+
+    CFRelease(Mutable);
+  }
+
+  else
+  {
+    v16 = -25291;
+  }
+
+  [_keychainLock unlock];
+  if (error && v16)
+  {
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v16 userInfo:0];
+  }
+
+  return v16 == 0;
 }
 
 + (void)setPassword:(id)password forServiceName:(id)name accountName:(id)accountName keychainAccessibility:(void *)accessibility
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   [_keychainLock mf_waitForLock];
   if ([name length] && objc_msgSend(password, "length") && objc_msgSend(accountName, "length"))
   {
@@ -312,7 +374,7 @@ LABEL_21:
       }
 
       *buf = 134217984;
-      v28 = v18;
+      v27 = v18;
       v20 = "#Warning SecItemUpdate result: %ld";
       v21 = v19;
     }
@@ -336,7 +398,7 @@ LABEL_21:
       }
 
       *buf = 134217984;
-      v28 = v23;
+      v27 = v23;
       v20 = "#Warning SecItemAdd result: %ld";
       v21 = v24;
     }
@@ -347,12 +409,11 @@ LABEL_15:
   }
 
   [_keychainLock unlock];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removePasswordForServiceName:(id)name accountName:(id)accountName
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [_keychainLock mf_waitForLock];
   if ([name length] && objc_msgSend(accountName, "length"))
   {
@@ -367,9 +428,9 @@ LABEL_15:
       v9 = MFLogGeneral();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134217984;
-        v12 = v8;
-        _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_DEFAULT, "#Warning SecItemDelete result: %ld", &v11, 0xCu);
+        v10 = 134217984;
+        v11 = v8;
+        _os_log_impl(&dword_258BDA000, v9, OS_LOG_TYPE_DEFAULT, "#Warning SecItemDelete result: %ld", &v10, 0xCu);
       }
     }
 
@@ -377,7 +438,6 @@ LABEL_15:
   }
 
   [_keychainLock unlock];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (__SecPolicy)copySMIMESigningPolicyForAddress:(id)address
@@ -407,7 +467,7 @@ LABEL_15:
   cf = 0;
   if (!reference)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = *MEMORY[0x277CDC5F0];
@@ -422,8 +482,7 @@ LABEL_15:
   CFRelease(v6);
   if (!v7)
   {
-    result = cf;
-    goto LABEL_11;
+    return cf;
   }
 
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v7 userInfo:0];
@@ -436,12 +495,9 @@ LABEL_15:
   if (cf)
   {
     CFRelease(cf);
-LABEL_9:
-    result = 0;
+    return 0;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -453,7 +509,7 @@ LABEL_11:
     *error = 0;
   }
 
-  v13 = 0;
+  v12 = 0;
   if (identity)
   {
     v5 = *MEMORY[0x277CDC5F8];
@@ -467,7 +523,7 @@ LABEL_11:
     values[2] = *MEMORY[0x277CBED28];
     values[3] = @"com.apple.identities";
     v7 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v8 = SecItemCopyMatching(v7, &v13);
+    v8 = SecItemCopyMatching(v7, &v12);
     CFRelease(v7);
     if (v8)
     {
@@ -478,7 +534,7 @@ LABEL_11:
       }
     }
 
-    v10 = v13;
+    v10 = v12;
   }
 
   else
@@ -486,9 +542,7 @@ LABEL_11:
     v10 = 0;
   }
 
-  result = v10;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10;
 }
 
 + (BOOL)_matchSSLClientIdentity:(__SecIdentity *)identity withHostname:(id)hostname
@@ -568,7 +622,7 @@ LABEL_11:
 
   if (!name)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   keys[0] = *MEMORY[0x277CDC228];
@@ -598,14 +652,12 @@ LABEL_11:
       CFRelease(cf);
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   if (!cf)
   {
-LABEL_15:
-    ValueAtIndex = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   Count = CFArrayGetCount(cf);
@@ -637,76 +689,72 @@ LABEL_14:
   }
 
   CFRelease(cf);
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
   return ValueAtIndex;
 }
 
 + (id)copyAllSigningIdentitiesForAddress:(id)address error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __69__MFMessageKeychainManager_copyAllSigningIdentitiesForAddress_error___block_invoke;
-  v11[3] = &unk_2798B7B40;
-  v11[5] = address;
-  v11[6] = &v12;
-  v11[4] = self;
-  v5 = [self _copyAllIdentitiesWithError:error usingBlock:v11];
+  v21 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __69__MFMessageKeychainManager_copyAllSigningIdentitiesForAddress_error___block_invoke;
+  v10[3] = &unk_2798B7B40;
+  v10[5] = address;
+  v10[6] = &v11;
+  v10[4] = self;
+  v5 = [self _copyAllIdentitiesWithError:error usingBlock:v10];
   v6 = MFLogGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [v5 count];
-    v8 = v13[3];
+    v8 = v12[3];
     *buf = 134218498;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2112;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2112;
     addressCopy = address;
     _os_log_impl(&dword_258BDA000, v6, OS_LOG_TYPE_INFO, "#SMIMEErrors Found %lu (out of %lu) matching signing identities for %@", buf, 0x20u);
   }
 
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
   return v5;
 }
 
 + (id)copyAllEncryptionIdentitiesForAddress:(id)address error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__MFMessageKeychainManager_copyAllEncryptionIdentitiesForAddress_error___block_invoke;
-  v11[3] = &unk_2798B7B40;
-  v11[5] = address;
-  v11[6] = &v12;
-  v11[4] = self;
-  v5 = [self _copyAllIdentitiesWithError:error usingBlock:v11];
+  v21 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__MFMessageKeychainManager_copyAllEncryptionIdentitiesForAddress_error___block_invoke;
+  v10[3] = &unk_2798B7B40;
+  v10[5] = address;
+  v10[6] = &v11;
+  v10[4] = self;
+  v5 = [self _copyAllIdentitiesWithError:error usingBlock:v10];
   v6 = MFLogGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [v5 count];
-    v8 = v13[3];
+    v8 = v12[3];
     *buf = 134218498;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2112;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2112;
     addressCopy = address;
     _os_log_impl(&dword_258BDA000, v6, OS_LOG_TYPE_INFO, "#SMIMEErrors Found %lu (out of %lu) matching encryption identities for %@", buf, 0x20u);
   }
 
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
   return v5;
 }
 
@@ -745,18 +793,16 @@ LABEL_16:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v21 = v10;
+      v20 = v10;
       _os_log_impl(&dword_258BDA000, v16, OS_LOG_TYPE_INFO, "#SMIMEErrors SecItemCopyMatching returned %ld", buf, 0xCu);
     }
 
-    goto LABEL_20;
+    return 0;
   }
 
   if (!result)
   {
-LABEL_20:
-    v12 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   Count = CFArrayGetCount(result);
@@ -779,8 +825,6 @@ LABEL_20:
     *error = 0;
   }
 
-LABEL_21:
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -897,13 +941,13 @@ LABEL_25:
   if (result)
   {
     v14 = *MEMORY[0x277CDC5F0];
-    *v33 = v7;
-    *&v33[8] = v14;
-    *&v33[16] = *MEMORY[0x277CDC568];
-    v32[0] = *MEMORY[0x277CDC230];
-    v32[1] = result;
-    v32[2] = v10;
-    v15 = CFDictionaryCreate(v11, v33, v32, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    *v32 = v7;
+    *&v32[8] = v14;
+    *&v32[16] = *MEMORY[0x277CDC568];
+    v31[0] = *MEMORY[0x277CDC230];
+    v31[1] = result;
+    v31[2] = v10;
+    v15 = CFDictionaryCreate(v11, v32, v31, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     CFRelease(result);
     v16 = SecItemCopyMatching(v15, &cf);
     CFRelease(v15);
@@ -939,9 +983,9 @@ LABEL_15:
       }
 
       *buf = 136315394;
-      v29 = v23;
-      v30 = 2112;
-      v31 = mf_uncommentedAddress;
+      v28 = v23;
+      v29 = 2112;
+      v30 = mf_uncommentedAddress;
       v21 = "#SMIMEErrors Found %s certificate for %@.";
       v22 = buf;
       goto LABEL_19;
@@ -966,12 +1010,12 @@ LABEL_15:
   v20 = MFLogGeneral();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    *v33 = 138412546;
-    *&v33[4] = mf_uncommentedAddress;
-    *&v33[12] = 2048;
-    *&v33[14] = v18;
+    *v32 = 138412546;
+    *&v32[4] = mf_uncommentedAddress;
+    *&v32[12] = 2048;
+    *&v32[14] = v18;
     v21 = "#SMIMEErrors Found no certificates for %@ (%ld)";
-    v22 = v33;
+    v22 = v32;
 LABEL_19:
     _os_log_impl(&dword_258BDA000, v20, OS_LOG_TYPE_INFO, v21, v22, 0x16u);
   }
@@ -979,12 +1023,14 @@ LABEL_19:
 LABEL_20:
   CFRelease(v12);
   v24 = cf;
-  if (error && cf && *error)
+  if (error && cf)
   {
-    *error = 0;
+    if (*error)
+    {
+      *error = 0;
+    }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -1014,7 +1060,7 @@ LABEL_20:
     v9 = 0;
     if (!persistent)
     {
-      goto LABEL_6;
+      return v9;
     }
 
     goto LABEL_5;
@@ -1027,8 +1073,6 @@ LABEL_5:
     v10 = *persistent;
   }
 
-LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1043,8 +1087,8 @@ LABEL_6:
   values[1] = persistent;
   values[2] = *MEMORY[0x277CBED28];
   v6 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v12 = 0;
-  v7 = SecItemCopyMatching(v6, &v12);
+  v11 = 0;
+  v7 = SecItemCopyMatching(v6, &v11);
   CFRelease(v6);
   if (error)
   {
@@ -1061,9 +1105,7 @@ LABEL_6:
     *error = v9;
   }
 
-  result = v12;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11;
 }
 
 + (id)_addPersistentMapping:(id)mapping forAddress:(id)address
@@ -1098,16 +1140,13 @@ LABEL_6:
   CFRelease(v10);
   if (v11)
   {
-    result = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
+    return [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (id)_removeCertificateForPersistent:(id)persistent
@@ -1135,69 +1174,61 @@ LABEL_6:
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277CCA590];
     v21 = v10;
+    return [v19 errorWithDomain:v20 code:v21 userInfo:0];
   }
 
-  else
+  if (theArray)
   {
-    if (theArray)
+    Count = CFArrayGetCount(theArray);
+    if (Count)
     {
-      Count = CFArrayGetCount(theArray);
-      if (Count)
+      v12 = Count;
+      v13 = 0;
+      while (1)
       {
-        v12 = Count;
-        v13 = 0;
-        while (1)
+        ValueAtIndex = CFArrayGetValueAtIndex(theArray, v13);
+        if (CFEqual(ValueAtIndex, persistent))
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v13);
-          if (CFEqual(ValueAtIndex, persistent))
-          {
-            break;
-          }
-
-          if (v12 == ++v13)
-          {
-            goto LABEL_8;
-          }
+          break;
         }
 
-        CFRelease(theArray);
-        goto LABEL_17;
+        if (v12 == ++v13)
+        {
+          goto LABEL_8;
+        }
       }
 
-LABEL_8:
       CFRelease(theArray);
+      return 0;
     }
 
-    v15 = *MEMORY[0x277CDC5F0];
-    v26[0] = v4;
-    v26[1] = v15;
-    v25[0] = *MEMORY[0x277CDC230];
-    v25[1] = persistent;
-    v16 = CFDictionaryCreate(v8, v26, v25, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v17 = SecItemDelete(v16);
-    CFRelease(v16);
-    if (v17 == -25300 || v17 == 0)
-    {
-LABEL_17:
-      result = 0;
-      goto LABEL_18;
-    }
+LABEL_8:
+    CFRelease(theArray);
+  }
 
+  v15 = *MEMORY[0x277CDC5F0];
+  v25[0] = v4;
+  v25[1] = v15;
+  v24[0] = *MEMORY[0x277CDC230];
+  v24[1] = persistent;
+  v16 = CFDictionaryCreate(v8, v25, v24, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v17 = SecItemDelete(v16);
+  CFRelease(v16);
+  if (v17 != -25300 && v17 != 0)
+  {
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277CCA590];
     v21 = v17;
+    return [v19 errorWithDomain:v20 code:v21 userInfo:0];
   }
 
-  result = [v19 errorWithDomain:v20 code:v21 userInfo:0];
-LABEL_18:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (id)saveEncryptionCertificate:(__SecCertificate *)certificate forAddress:(id)address
 {
   keys[4] = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v23 = 0;
   mf_uncommentedAddress = [address mf_uncommentedAddress];
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"S/MIME Encryption for %@", mf_uncommentedAddress];
   v8 = *MEMORY[0x277CDBF20];
@@ -1216,7 +1247,7 @@ LABEL_18:
   v11 = SecItemCopyMatching(v10, &result);
   if (v11 != -25300 && v11)
   {
-    v24 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
+    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
     goto LABEL_22;
   }
 
@@ -1229,7 +1260,7 @@ LABEL_18:
       goto LABEL_16;
     }
 
-    v12 = [self _copyCertificateForPersistent:result error:&v24];
+    v12 = [self _copyCertificateForPersistent:result error:&v23];
     if (!v12)
     {
       goto LABEL_22;
@@ -1240,7 +1271,7 @@ LABEL_18:
     v15 = SecCertificateGetSHA1Digest();
     LODWORD(SHA1Digest) = CFEqual(SHA1Digest, v15) == 0;
     CFRelease(v13);
-    v16 = v24;
+    v16 = v23;
     v17 = SHA1Digest;
     if (!SHA1Digest)
     {
@@ -1269,7 +1300,7 @@ LABEL_16:
   if (v18 && v18 != -25300)
   {
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v18 userInfo:0];
-    v24 = v16;
+    v23 = v16;
     if (!v17)
     {
       goto LABEL_22;
@@ -1279,7 +1310,7 @@ LABEL_16:
   else
   {
     [self _removeCertificateForPersistent:result];
-    v16 = v24;
+    v16 = v23;
     if (!v17)
     {
       goto LABEL_22;
@@ -1289,11 +1320,11 @@ LABEL_16:
 LABEL_17:
   if (!v16)
   {
-    v24 = [self _addCertificate:certificate persistent:&result];
-    if (!v24)
+    v23 = [self _addCertificate:certificate persistent:&result];
+    if (!v23)
     {
-      v24 = [self _addPersistentMapping:result forAddress:mf_uncommentedAddress];
-      if (v24)
+      v23 = [self _addPersistentMapping:result forAddress:mf_uncommentedAddress];
+      if (v23)
       {
         [self _removeCertificateForPersistent:result];
       }
@@ -1302,28 +1333,24 @@ LABEL_17:
 
 LABEL_22:
   CFRelease(v10);
-  if (v24)
+  if (!v23)
   {
-    v19 = MFLogGeneral();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-    v21 = v24;
-    if (v20)
-    {
-      *buf = 138412546;
-      v26 = mf_uncommentedAddress;
-      v27 = 2112;
-      v28 = v24;
-      _os_log_error_impl(&dword_258BDA000, v19, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error saving encryption certificate for %@: %@", buf, 0x16u);
-      v21 = v24;
-    }
+    return 0;
   }
 
-  else
+  v19 = MFLogGeneral();
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+  v21 = v23;
+  if (v20)
   {
-    v21 = 0;
+    *buf = 138412546;
+    v25 = mf_uncommentedAddress;
+    v26 = 2112;
+    v27 = v23;
+    _os_log_error_impl(&dword_258BDA000, v19, OS_LOG_TYPE_ERROR, "#SMIMEErrors Error saving encryption certificate for %@: %@", buf, 0x16u);
+    return v23;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

@@ -45,14 +45,12 @@
 
 - (void)hk_canTriggerHeadphoneExposureNotification
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = NSStringFromSelector(a2);
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_25175B000, selfCopy, OS_LOG_TYPE_ERROR, "[%{public}@] missing source, defaulting to YES", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_25175B000, selfCopy, OS_LOG_TYPE_ERROR, "[%{public}@] missing source, defaulting to YES", &v5, 0xCu);
 }
 
 @end

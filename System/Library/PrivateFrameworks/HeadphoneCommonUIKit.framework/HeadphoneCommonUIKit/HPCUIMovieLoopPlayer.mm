@@ -8,8 +8,8 @@
 + (Class)layerClass
 {
   swift_getObjCClassMetadata();
-  swift_getObjCClassMetadata();
-  sub_1AC38A328();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  sub_1AC38A328(ObjCClassMetadata, v3);
   return swift_getObjCClassFromMetadata();
 }
 

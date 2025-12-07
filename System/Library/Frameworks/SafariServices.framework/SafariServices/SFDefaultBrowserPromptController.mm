@@ -269,16 +269,16 @@ void __53__SFDefaultBrowserPromptController__connectToService__block_invoke(uint
   if (v6)
   {
     objc_storeStrong((*(a1 + 32) + 16), a2);
-    v10 = [v6 serviceViewControllerProxy];
-    [*(*(a1 + 32) + 24) setTarget:v10];
+    v12 = [v6 serviceViewControllerProxy];
+    [*(*(a1 + 32) + 24) setTarget:v12];
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __53__SFDefaultBrowserPromptController__connectToService__block_invoke_cold_1(v7, v11);
+      __53__SFDefaultBrowserPromptController__connectToService__block_invoke_cold_1(v7, v13);
     }
   }
 }
@@ -300,58 +300,58 @@ void __53__SFDefaultBrowserPromptController__connectToService__block_invoke(uint
   keyCopy = key;
   v9 = [SFDefaultBrowserPromptController _directoryURLWithKey:keyCopy];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v22 = 0;
-  v11 = [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v22];
-  v12 = v22;
+  v26 = 0;
+  v11 = [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:&v26];
+  v12 = v26;
 
   if (v11)
   {
-    v13 = [SFDefaultBrowserPromptController _fileURLWithKey:keyCopy];
-    v14 = [dictionaryCopy writeToURL:v13 atomically:0];
-    if (v14 && backupCopy)
+    v15 = [SFDefaultBrowserPromptController _fileURLWithKey:keyCopy];
+    v16 = [dictionaryCopy writeToURL:v15 atomically:0];
+    if (v16 && backupCopy)
     {
-      v15 = *MEMORY[0x1E695DB80];
-      v21 = v12;
-      v16 = [v9 setResourceValue:MEMORY[0x1E695E118] forKey:v15 error:&v21];
-      v17 = v21;
+      v17 = *MEMORY[0x1E695DB80];
+      v25 = v12;
+      v18 = [v9 setResourceValue:MEMORY[0x1E695E118] forKey:v17 error:&v25];
+      v19 = v25;
 
-      if (v16)
+      if (v18)
       {
-        LOBYTE(v14) = 1;
+        LOBYTE(v16) = 1;
       }
 
       else
       {
-        v19 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v23 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v20, v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          [SFDefaultBrowserPromptController _didStorePlistWithDictionary:keyCopy fileNameKey:v19 shouldExcludeFromBackup:v17];
+          [SFDefaultBrowserPromptController _didStorePlistWithDictionary:keyCopy fileNameKey:v23 shouldExcludeFromBackup:v19];
         }
 
-        LOBYTE(v14) = 0;
+        LOBYTE(v16) = 0;
       }
     }
 
     else
     {
-      v17 = v12;
+      v19 = v12;
     }
 
-    v12 = v17;
+    v12 = v19;
   }
 
   else
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v13, v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [SFDefaultBrowserPromptController _didStorePlistWithDictionary:v18 fileNameKey:v12 shouldExcludeFromBackup:?];
+      [SFDefaultBrowserPromptController _didStorePlistWithDictionary:v22 fileNameKey:v12 shouldExcludeFromBackup:?];
     }
 
-    LOBYTE(v14) = 0;
+    LOBYTE(v16) = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)serviceProxyWillQueueInvocation:(id)invocation

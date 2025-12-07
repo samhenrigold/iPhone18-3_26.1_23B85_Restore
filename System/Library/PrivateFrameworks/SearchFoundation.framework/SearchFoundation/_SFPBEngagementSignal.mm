@@ -15,7 +15,7 @@
 
 - (_SFPBEngagementSignal)initWithFacade:(id)facade
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBEngagementSignal *)self init];
   if (v5)
@@ -73,33 +73,33 @@
       v17 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     domainEngagementScores2 = [facadeCopy domainEngagementScores];
-    v19 = [domainEngagementScores2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v19 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(domainEngagementScores2);
           }
 
-          v23 = [[_SFPBDomainEngagementScore alloc] initWithFacade:*(*(&v27 + 1) + 8 * i)];
+          v23 = [[_SFPBDomainEngagementScore alloc] initWithFacade:*(*(&v26 + 1) + 8 * i)];
           if (v23)
           {
             [v17 addObject:v23];
           }
         }
 
-        v20 = [domainEngagementScores2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v20 = [domainEngagementScores2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v20);
@@ -109,17 +109,16 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBEngagementSignal)initWithDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v29.receiver = self;
-  v29.super_class = _SFPBEngagementSignal;
-  v5 = [(_SFPBEngagementSignal *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = _SFPBEngagementSignal;
+  v5 = [(_SFPBEngagementSignal *)&v28 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"version"];
@@ -163,29 +162,29 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = v10;
-      v23 = v9;
-      v24 = v6;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v21 = v10;
+      v22 = v9;
+      v23 = v6;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v25;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v26 != v15)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v25 + 1) + 8 * i);
+            v17 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -194,21 +193,20 @@
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v14);
       }
 
-      v6 = v24;
-      v9 = v23;
-      v10 = v22;
+      v6 = v23;
+      v9 = v22;
+      v10 = v21;
     }
 
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -248,31 +246,31 @@
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_domainEngagementScores count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v5 = self->_domainEngagementScores;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation)
           {
             [array addObject:dictionaryRepresentation];
@@ -285,7 +283,7 @@
           }
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -327,8 +325,6 @@
     v18 = [MEMORY[0x1E696AD98] numberWithInt:{-[_SFPBEngagementSignal version](self, "version")}];
     [dictionary setObject:v18 forKeyedSubscript:@"version"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -476,7 +472,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_SFPBEngagementSignal *)self version])
   {
@@ -506,38 +502,35 @@ LABEL_13:
   }
 
   domainEngagementScores = [(_SFPBEngagementSignal *)self domainEngagementScores];
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = [domainEngagementScores countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [domainEngagementScores countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(domainEngagementScores);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [domainEngagementScores countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [domainEngagementScores countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDomainEngagementScores:(id)scores
@@ -560,9 +553,7 @@ LABEL_13:
 
 - (void)setDomainEngagementScores:(id)scores
 {
-  v4 = [scores copy];
-  domainEngagementScores = self->_domainEngagementScores;
-  self->_domainEngagementScores = v4;
+  self->_domainEngagementScores = [scores copy];
 
   MEMORY[0x1EEE66BB8]();
 }

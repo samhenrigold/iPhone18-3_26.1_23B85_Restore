@@ -32,7 +32,7 @@
 
 - (id)draggableContent
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (self->_headerView)
   {
     v3 = objc_alloc_init(MUInfoCardDraggableContent);
@@ -42,16 +42,14 @@
 
     [(MUInfoCardDraggableContent *)v3 setHeader:1];
     [(MUInfoCardDraggableContent *)v3 setAnalyticsTarget:1501];
-    v8[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -125,17 +123,17 @@
 
 void __81__MUPlaceHeaderSectionController_headerView_didSelectEnclosingMapItemIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = MUGetPlaceCardLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "MUPlaceHeaderSectionController: Finished refining enclosing map item %@ with error %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "MUPlaceHeaderSectionController: Finished refining enclosing map item %@ with error %@", &v10, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -145,8 +143,6 @@ void __81__MUPlaceHeaderSectionController_headerView_didSelectEnclosingMapItemId
     [WeakRetained _notifyDidTapParentMapItem:v5];
     [v9[9] endAnimatingActivityIndicatorWithError:v6];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCardExpansionProgress:(double)progress

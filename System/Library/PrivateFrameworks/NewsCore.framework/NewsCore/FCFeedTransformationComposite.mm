@@ -34,25 +34,25 @@
 
 - (FCFeedTransformationComposite)initWithFeedTransformations:(id)transformations
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   transformationsCopy = transformations;
   if (!transformationsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedTransformations"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedTransformations"];
     *buf = 136315906;
-    v13 = "[FCFeedTransformationComposite initWithFeedTransformations:]";
-    v14 = 2080;
-    v15 = "FCFeedTransformationComposite.m";
-    v16 = 1024;
-    v17 = 30;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCFeedTransformationComposite initWithFeedTransformations:]";
+    v13 = 2080;
+    v14 = "FCFeedTransformationComposite.m";
+    v15 = 1024;
+    v16 = 30;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCFeedTransformationComposite;
-  v5 = [(FCFeedTransformationComposite *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCFeedTransformationComposite;
+  v5 = [(FCFeedTransformationComposite *)&v10 init];
   if (v5)
   {
     v6 = [transformationsCopy copy];
@@ -60,7 +60,6 @@
     v5->_feedTransformations = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

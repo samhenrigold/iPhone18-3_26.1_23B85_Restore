@@ -2002,42 +2002,41 @@ LABEL_25:
 - (void)setUpThermostatControllerFor:(id)for homeUUID:(id)d
 {
   v6 = sub_1000694A0(&qword_1000E6578, &qword_1000930A8);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v23 - v8;
-  v10 = sub_1000694A0(&qword_1000E6650, &qword_100093288);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10 - 8);
-  v14 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v16 = &v23 - v15;
+  v8 = &v22 - v7;
+  v9 = sub_1000694A0(&qword_1000E6650, &qword_100093288);
+  v10 = *(v9 - 8);
+  v11 = *(v10 + 64);
+  v12 = __chkstk_darwin(v9 - 8);
+  v13 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v15 = &v22 - v14;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v17 = type metadata accessor for UUID();
-    (*(*(v17 - 8) + 56))(v16, 0, 1, v17);
+    v16 = type metadata accessor for UUID();
+    (*(*(v16 - 8) + 56))(v15, 0, 1, v16);
   }
 
   else
   {
-    v18 = type metadata accessor for UUID();
-    (*(*(v18 - 8) + 56))(v16, 1, 1, v18);
+    v17 = type metadata accessor for UUID();
+    (*(*(v17 - 8) + 56))(v15, 1, 1, v17);
   }
 
-  v19 = type metadata accessor for TaskPriority();
-  (*(*(v19 - 8) + 56))(v9, 1, 1, v19);
-  sub_100073FA4(v16, v14, &qword_1000E6650, &qword_100093288);
-  v20 = (*(v11 + 80) + 40) & ~*(v11 + 80);
-  v21 = swift_allocObject();
-  v21[2] = 0;
-  v21[3] = 0;
-  v21[4] = for;
-  sub_100075C50(v14, v21 + v20);
+  v18 = type metadata accessor for TaskPriority();
+  (*(*(v18 - 8) + 56))(v8, 1, 1, v18);
+  sub_100073FA4(v15, v13, &qword_1000E6650, &qword_100093288);
+  v19 = (*(v10 + 80) + 40) & ~*(v10 + 80);
+  v20 = swift_allocObject();
+  v20[2] = 0;
+  v20[3] = 0;
+  v20[4] = for;
+  sub_100075C50(v13, v20 + v19);
   forCopy = for;
-  sub_1000755A4(0, 0, v9, &unk_1000932A0, v21);
+  sub_1000755A4(0, 0, v8, &unk_1000932A0, v20);
 
-  sub_10007400C(v16, &qword_1000E6650, &qword_100093288);
+  sub_10007400C(v15, &qword_1000E6650, &qword_100093288);
 }
 
 @end

@@ -316,7 +316,7 @@
 - (void)getAssistantIsEnabledForDeviceWithSiriInfo:(id)info withCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = [info objectForKey:@"peerData"];
+  v6 = objc_msgSend_objectForKey_(info);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3234,39 +3234,38 @@ LABEL_10:
 - (void)saveAccountWithMessageDictionary:(id)dictionary setActive:(BOOL)active
 {
   activeCopy = active;
-  v6 = kAFAccountInfoIdentifierKey;
   dictionaryCopy = dictionary;
-  v8 = [dictionaryCopy objectForKey:v6];
-  v18 = [ADAccount accountForIdentifier:v8];
+  v7 = objc_msgSend_objectForKey_(dictionaryCopy);
+  v17 = [ADAccount accountForIdentifier:v7];
 
-  v9 = [dictionaryCopy objectForKey:kAFAccountInfoAssistantIdentifierKey];
-  [v18 setAssistantIdentifier:v9];
+  v8 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setAssistantIdentifier:v8];
 
-  v10 = [dictionaryCopy objectForKey:kAFAccountInfoHostnameKey];
-  [v18 setHostname:v10];
+  v9 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setHostname:v9];
 
-  v11 = [dictionaryCopy objectForKey:kAFAccountInfoPredefinedServerKey];
-  [v18 setPredefinedServer:v11];
+  v10 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setPredefinedServer:v10];
 
-  v12 = [dictionaryCopy objectForKey:kAFAccountInfoLabelKey];
-  [v18 setLabel:v12];
+  v11 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setLabel:v11];
 
-  v13 = [dictionaryCopy objectForKey:kAFAccountInfoGroupKey];
-  [v18 setGroup:v13];
+  v12 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setGroup:v12];
 
-  v14 = [dictionaryCopy objectForKey:kAFAccountInfoSpeechIdentifierKey];
-  [v18 setSpeechIdentifier:v14];
+  v13 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setSpeechIdentifier:v13];
 
-  v15 = [dictionaryCopy objectForKey:kAFAccountInfoPeerAssistantIdentifierKey];
-  [v18 setPeerAssistantIdentifier:v15];
+  v14 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setPeerAssistantIdentifier:v14];
 
-  v16 = [dictionaryCopy objectForKey:kAFAccountInfoPeerSpeechIdentifierKey];
-  [v18 setPeerSpeechIdentifier:v16];
+  v15 = objc_msgSend_objectForKey_(dictionaryCopy);
+  [v17 setPeerSpeechIdentifier:v15];
 
-  v17 = [dictionaryCopy objectForKey:kAFAccountInfoPeerUserAgentStringKey];
+  v16 = objc_msgSend_objectForKey_(dictionaryCopy);
 
-  [v18 setPeerUserAgentString:v17];
-  [(ADSettingsClient *)self _saveAccount:v18 setActive:activeCopy];
+  [v17 setPeerUserAgentString:v16];
+  [(ADSettingsClient *)self _saveAccount:v17 setActive:activeCopy];
 }
 
 - (void)retrieveAccountMessageDictionariesWithReply:(id)reply

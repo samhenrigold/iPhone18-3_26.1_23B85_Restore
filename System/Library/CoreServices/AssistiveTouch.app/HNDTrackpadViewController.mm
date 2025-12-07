@@ -916,7 +916,7 @@ LABEL_16:
 
 - (CGRect)_getTrackpadBorderFrame
 {
-  [HNDHandManager screenFrame:]_0();
+  [HNDHandManager screenFrame:]_0(self, a2);
   v4 = v2;
   v5 = v3;
   if (v2 >= v3)

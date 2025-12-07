@@ -6,9 +6,9 @@
 
 - (int8x8_t)c2UniformlyDistributedIdentifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   *md = 0u;
-  v9 = 0u;
+  v8 = 0u;
   v1 = [self dataUsingEncoding:4];
   if (!v1)
   {
@@ -22,12 +22,11 @@
   }
 
   CC_SHA256([v2 bytes], objc_msgSend(v2, "length"), md);
-  v6 = *md;
-  v7 = v9;
+  v5 = *md;
+  v6 = v8;
 
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = veorq_s8(v6, v7);
-  return veor_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL));
+  v3 = veorq_s8(v5, v6);
+  return veor_s8(*v3.i8, *&vextq_s8(v3, v3, 8uLL));
 }
 
 @end

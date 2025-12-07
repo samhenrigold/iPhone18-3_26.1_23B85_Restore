@@ -199,7 +199,7 @@
 {
   if (!self->_visualProvider)
   {
-    if (_searchBarShouldSeparateLayouts())
+    if (_searchBarShouldSeparateLayouts(self))
     {
       v3 = objc_opt_class();
     }
@@ -425,32 +425,32 @@ LABEL_11:
   {
     isPlacedInNavigationBar = [(_UISearchBarVisualProviderBase *)visualProvider isPlacedInNavigationBar];
     isPlacedInToolbar = [(_UISearchBarVisualProviderBase *)self->_visualProvider isPlacedInToolbar];
-    objc_opt_class();
-    [(_UISearchBarVisualProviderBase *)self->_visualProvider setInNavigationPalette:_containedInViewOfClass(self)];
+    v8 = objc_opt_class();
+    [(_UISearchBarVisualProviderBase *)self->_visualProvider setInNavigationPalette:_containedInViewOfClass(self, v8)];
     if ([(_UISearchBarVisualProviderBase *)self->_visualProvider isInNavigationPalette])
-    {
-      v8 = 0;
-    }
-
-    else
-    {
-      objc_opt_class();
-      v8 = _containedInViewOfClass(self);
-    }
-
-    [(_UISearchBarVisualProviderBase *)self->_visualProvider setPlacedInNavigationBar:v8];
-    if ([(_UISearchBarVisualProviderBase *)self->_visualProvider isInNavigationPalette]|| [(_UISearchBarVisualProviderBase *)self->_visualProvider isPlacedInNavigationBar])
     {
       v9 = 0;
     }
 
     else
     {
-      objc_opt_class();
-      v9 = _containedInViewOfClass(self);
+      v10 = objc_opt_class();
+      v9 = _containedInViewOfClass(self, v10);
     }
 
-    [(_UISearchBarVisualProviderBase *)self->_visualProvider setPlacedInToolbar:v9];
+    [(_UISearchBarVisualProviderBase *)self->_visualProvider setPlacedInNavigationBar:v9];
+    if ([(_UISearchBarVisualProviderBase *)self->_visualProvider isInNavigationPalette]|| [(_UISearchBarVisualProviderBase *)self->_visualProvider isPlacedInNavigationBar])
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v12 = objc_opt_class();
+      v11 = _containedInViewOfClass(self, v12);
+    }
+
+    [(_UISearchBarVisualProviderBase *)self->_visualProvider setPlacedInToolbar:v11];
     if (!isPlacedInNavigationBar && [(_UISearchBarVisualProviderBase *)self->_visualProvider isPlacedInNavigationBar]|| !isPlacedInToolbar && [(_UISearchBarVisualProviderBase *)self->_visualProvider isPlacedInToolbar])
     {
 
@@ -1271,7 +1271,7 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
 - (id)_searchField
 {
   v3 = NSStringFromSelector(a2);
-  UIKVCAccessProhibited(v3, @"UISearchBar");
+  UIKVCAccessProhibited(v3, @"UISearchBar", 851968);
 
   visualProvider = self->_visualProvider;
 
@@ -1281,7 +1281,7 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
 - (id)_cancelButton
 {
   v3 = NSStringFromSelector(a2);
-  UIKVCAccessProhibited(v3, @"UISearchBar");
+  UIKVCAccessProhibited(v3, @"UISearchBar", 851968);
 
   visualProvider = self->_visualProvider;
 
@@ -1292,7 +1292,7 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
 {
   textCopy = text;
   v5 = NSStringFromSelector(a2);
-  UIKVCAccessProhibited(v5, @"UISearchBar");
+  UIKVCAccessProhibited(v5, @"UISearchBar", 851968);
 
   [(UISearchBar *)self _setCancelButtonText:textCopy];
 }
@@ -1300,7 +1300,7 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
 - (id)_cancelButtonText
 {
   v3 = NSStringFromSelector(a2);
-  UIKVCAccessProhibited(v3, @"UISearchBar");
+  UIKVCAccessProhibited(v3, @"UISearchBar", 851968);
 
   visualProvider = self->_visualProvider;
 
@@ -1347,9 +1347,9 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
 
 - (id)_containingNavigationPalette
 {
-  objc_opt_class();
+  v3 = objc_opt_class();
 
-  return _enclosingViewOfClass(self);
+  return _enclosingViewOfClass(self, v3);
 }
 
 - (void)willMoveToSuperview:(id)superview
@@ -1420,15 +1420,16 @@ void __67__UISearchBar__setSearchFieldContainerLayoutCustomizationDelegate___blo
     fieldCopy = objc_opt_class();
   }
 
-  if (fieldCopy != [(UISearchBar *)self _classForSearchTextField])
+  _classForSearchTextField = [(UISearchBar *)self _classForSearchTextField];
+  if (fieldCopy != _classForSearchTextField)
   {
-    if ((_searchBarShouldSeparateLayouts() & 1) == 0)
+    if ((_searchBarShouldSeparateLayouts(_classForSearchTextField) & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"UISearchBar.m" lineNumber:874 description:@"Can't change _classForSearchTextField in old-style UISearchBar"];
     }
 
-    if (([fieldCopy isSubclassOfClass:objc_opt_class()] & 1) == 0)
+    if (([(objc_class *)fieldCopy isSubclassOfClass:objc_opt_class()]& 1) == 0)
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"UISearchBar.m" lineNumber:875 description:@"_classForSearchTextField must be a subclass of UISearchTextField"];
@@ -2956,7 +2957,7 @@ LABEL_13:
   traitCollection = [(UIView *)self traitCollection];
   preferredContentSizeCategory = [changeCopy preferredContentSizeCategory];
   preferredContentSizeCategory2 = [traitCollection preferredContentSizeCategory];
-  if ([preferredContentSizeCategory isEqual:preferredContentSizeCategory2])
+  if (objc_msgSend_isEqual_(preferredContentSizeCategory))
   {
   }
 
@@ -3384,9 +3385,9 @@ void __46__UISearchBar__delegateChangedForSearchField___block_invoke(uint64_t a1
 
   _searchBarTextField3 = [(UISearchBar *)self _searchBarTextField];
   text2 = [_searchBarTextField3 text];
-  v9 = [text isEqualToString:text2];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UISearchBar *)self _searchFieldTextChanged:1];
   }

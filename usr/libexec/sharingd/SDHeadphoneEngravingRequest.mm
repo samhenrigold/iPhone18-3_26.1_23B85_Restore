@@ -33,17 +33,23 @@
   }
 
   selfCopy = self;
-  dispatchQueue = selfCopy->_dispatchQueue;
   if (BTSessionAttachWithQueue())
   {
     CFRelease(selfCopy);
   }
 
-  btSession = selfCopy->_btSession;
   BTAccessoryManagerGetDefault();
-  if (BTAccessoryManagerRegisterCustomMessageClient() && dword_100970B50 <= 90 && (dword_100970B50 != -1 || _LogCategory_Initialize()))
+  v4 = BTAccessoryManagerRegisterCustomMessageClient();
+  if (v4)
   {
-    sub_100106D0C();
+    if (dword_100970B50 <= 90)
+    {
+      v5 = v4;
+      if (dword_100970B50 != -1 || _LogCategory_Initialize())
+      {
+        sub_100106D0C(v5);
+      }
+    }
   }
 }
 
@@ -52,12 +58,16 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   [(NSString *)self->_bluetoothAddressString UTF8String];
   BTDeviceAddressFromString();
-  btSession = self->_btSession;
-  if (BTDeviceFromAddress())
+  v3 = BTDeviceFromAddress();
+  if (v3)
   {
-    if (dword_100970B50 <= 90 && (dword_100970B50 != -1 || _LogCategory_Initialize()))
+    if (dword_100970B50 <= 90)
     {
-      sub_100106E6C();
+      v4 = v3;
+      if (dword_100970B50 != -1 || _LogCategory_Initialize())
+      {
+        sub_100106E6C(v4);
+      }
     }
 
 LABEL_18:
@@ -65,12 +75,16 @@ LABEL_18:
     return;
   }
 
-  v4 = self->_btSession;
-  if (BTAccessoryManagerGetDefault())
+  Default = BTAccessoryManagerGetDefault();
+  if (Default)
   {
-    if (dword_100970B50 <= 90 && (dword_100970B50 != -1 || _LogCategory_Initialize()))
+    if (dword_100970B50 <= 90)
     {
-      sub_100106EAC();
+      v6 = Default;
+      if (dword_100970B50 != -1 || _LogCategory_Initialize())
+      {
+        sub_100106EAC(v6);
+      }
     }
 
     goto LABEL_18;
@@ -81,11 +95,16 @@ LABEL_18:
     sub_100106EEC();
   }
 
-  if (BTAccessoryManagerSendCustomMessage())
+  v7 = BTAccessoryManagerSendCustomMessage();
+  if (v7)
   {
-    if (dword_100970B50 <= 90 && (dword_100970B50 != -1 || _LogCategory_Initialize()))
+    if (dword_100970B50 <= 90)
     {
-      sub_100106F20();
+      v8 = v7;
+      if (dword_100970B50 != -1 || _LogCategory_Initialize())
+      {
+        sub_100106F20(v8);
+      }
     }
 
     goto LABEL_18;

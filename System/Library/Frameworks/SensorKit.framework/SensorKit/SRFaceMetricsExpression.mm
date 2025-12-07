@@ -85,22 +85,21 @@
 
 - (id)binarySampleRepresentation
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
-  v3 = v7;
-  if (v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
+  v3 = v6;
+  if (v6)
   {
     v4 = SRLogFaceMetrics;
     if (os_log_type_enabled(SRLogFaceMetrics, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

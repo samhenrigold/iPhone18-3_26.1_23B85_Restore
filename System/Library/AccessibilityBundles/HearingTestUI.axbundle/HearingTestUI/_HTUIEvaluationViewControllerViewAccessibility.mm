@@ -10,6 +10,7 @@
 - (void)_axStopPlayingTones;
 - (void)setupSubviews;
 - (void)transitionToNextState;
+- (void)updateProgressTo:(double)to immediately:(BOOL)immediately;
 @end
 
 @implementation _HTUIEvaluationViewControllerViewAccessibility
@@ -84,7 +85,7 @@
 
 - (id)accessibilityElements
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   if (![(_HTUIEvaluationViewControllerViewAccessibility *)self _axIsStateInProgress])
   {
     goto LABEL_6;
@@ -96,17 +97,16 @@
   {
 
 LABEL_6:
-    v9.receiver = self;
-    v9.super_class = _HTUIEvaluationViewControllerViewAccessibility;
-    accessibilityElements = [(_HTUIEvaluationViewControllerViewAccessibility *)&v9 accessibilityElements];
+    v8.receiver = self;
+    v8.super_class = _HTUIEvaluationViewControllerViewAccessibility;
+    accessibilityElements = [(_HTUIEvaluationViewControllerViewAccessibility *)&v8 accessibilityElements];
     goto LABEL_7;
   }
 
-  v10[0] = v4;
-  accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
 
 LABEL_7:
-  v7 = *MEMORY[0x29EDCA608];
 
   return accessibilityElements;
 }
@@ -121,11 +121,24 @@ LABEL_7:
 
 - (void)transitionToNextState
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_29BE6E000, a2, OS_LOG_TYPE_DEBUG, "transitionToNextState: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_29BE6E000, a2, OS_LOG_TYPE_DEBUG, "transitionToNextState: %@", &v2, 0xCu);
+}
+
+- (void)updateProgressTo:(double)to immediately:(BOOL)immediately
+{
+  v7.receiver = self;
+  v7.super_class = _HTUIEvaluationViewControllerViewAccessibility;
+  [(_HTUIEvaluationViewControllerViewAccessibility *)&v7 updateProgressTo:immediately immediately:?];
+  v6 = AXLogHearingTest();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [_HTUIEvaluationViewControllerViewAccessibility updateProgressTo:v6 immediately:to];
+  }
+
+  [(_HTUIEvaluationViewControllerViewAccessibility *)self _axSetProgress:to];
 }
 
 - (void)_axBeforePlayingTones
@@ -170,11 +183,10 @@ LABEL_7:
 
 - (void)updateProgressTo:(os_log_t)log immediately:(double)a2 .cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_29BE6E000, log, OS_LOG_TYPE_DEBUG, "updateProgressToValue %f", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_29BE6E000, log, OS_LOG_TYPE_DEBUG, "updateProgressToValue %f", &v2, 0xCu);
 }
 
 @end

@@ -1,3 +1,104 @@
+unint64_t IntNovDetect::updateMultiphraseResults(unint64_t this, const TSHMMDetector *a2, const float *a3, const unsigned int *a4)
+{
+  v4 = *(this + 3176);
+  if (v4)
+  {
+    v6 = *(a2 + 103);
+    v7 = *(a2 + 104);
+    v8 = *(a2 + 50);
+    v9 = *(a2 + 44);
+    v10 = *(a2 + 460) + 1;
+    v19 = 0;
+    if (v9 >= v10)
+    {
+      v13 = this;
+      v14 = 0;
+      v15 = (v6 - v7 + v8) & ~((v6 - v7 + v8) >> 31);
+      if (v4 >= v9 / v10)
+      {
+        v16 = v9 / v10;
+      }
+
+      else
+      {
+        v16 = v4;
+      }
+
+      do
+      {
+        this = TSHMMDetector::lengthNormalizedScorePhrase(a2, &v19);
+        v17 = *a3 + *(&this + 1);
+        v18 = v13[395];
+        if (v17 > *(v18 + 4 * v14) && *a4 > v15)
+        {
+          *(v13[389] + 4 * v14) = *a4 - v15;
+          *(v13[392] + 4 * v14) = this;
+          *(v18 + 4 * v14) = v17;
+        }
+
+        v19 = ++v14;
+      }
+
+      while (v16 != v14);
+    }
+  }
+
+  return this;
+}
+
+uint64_t IntNovDetect::feedFrameToNorm(int32x2_t *this, const NFrame *a2, __n128 a3)
+{
+  v3 = a2;
+  if (this[372].i8[4] == 1)
+  {
+    if (a2)
+    {
+      NLocalCepNorm::pushFrame(this + 150, a2);
+    }
+
+    v5 = this[152].i32[0];
+    if (this[160].i8[4] == 1 && v5 || v5 == this[153].i32[1] + 1)
+    {
+      v3 = &this[335];
+      NLocalCepNorm::setOutputFrame(&this[150], &this[335]);
+      TSHMMDetector::feedFrame(&this[161], &this[335], v6);
+      if (this[373].i8[3] != 1)
+      {
+        return 1;
+      }
+
+      NRingDropBuffer::pushFrame(&this[331], &this[335]);
+      if ((this[373].i8[4] & 1) == 0)
+      {
+        return 1;
+      }
+
+      goto LABEL_13;
+    }
+  }
+
+  else if (a2)
+  {
+    TSHMMDetector::feedFrame(&this[161], a2, a3);
+    if (this[373].i8[3] != 1)
+    {
+      return 1;
+    }
+
+    NRingDropBuffer::pushFrame(&this[331], v3);
+    if (this[373].i8[4] != 1)
+    {
+      return 1;
+    }
+
+LABEL_13:
+    TSHMMDetector::feedFrame(&this[222], v3, v7);
+    return 1;
+  }
+
+  return 0;
+}
+
 float *IntNovDetect::updateBestScore(float *this, const float *a2, float *a3, float *a4, const unsigned int *a5, const unsigned int *a6)
 {
   v6 = *a2;
@@ -132,23 +233,23 @@ uint64_t IntNovDetectE::reset(IntNovDetectE *this)
   return 0;
 }
 
-uint64_t IntNovDetectE::process(uint64_t a1, const char *a2, signed int a3, _BYTE *a4, _BYTE *a5, uint64_t a6)
+uint64_t IntNovDetectE::process(int32x2_t *a1, const char *a2, uint64_t a3, _BYTE *a4, _BYTE *a5, uint64_t a6)
 {
-  if (*a1 != 1)
+  if (a1->i32[0] != 1)
   {
-    Error::chuck("NovDetectE: process() can only be called after initialize()", a2);
+    Error::chuck("NovDetectE: process() can only be called after initialize()", a2, a3, a4, a5, a6);
   }
 
-  if (*(a1 + 1073))
+  if (a1[134].i8[1])
   {
     return 0xFFFFFFFFLL;
   }
 
-  v8 = *(a1 + 1052);
-  v9 = *(a1 + 1040);
+  v8 = a1[131].i32[1];
+  v9 = a1[130].i32[0];
   if (a3 < 1)
   {
-    v15 = *(a1 + 1052);
+    v15 = a1[131].i32[1];
   }
 
   else
@@ -162,38 +263,38 @@ uint64_t IntNovDetectE::process(uint64_t a1, const char *a2, signed int a3, _BYT
       v14 = a3 - v9;
       if (a3 >= v9)
       {
-        a3 = v9;
+        LODWORD(a3) = v9;
       }
 
       IntNovDetectE::wavedata(a1, v10, a3);
       v10 += 2 * v9;
-      a3 = v14;
+      LODWORD(a3) = v14;
     }
 
     while (v14 > 0);
-    v15 = *(a1 + 1052);
-    v9 = *(a1 + 1040);
+    v15 = a1[131].i32[1];
+    v9 = a1[130].i32[0];
     a5 = v13;
     a4 = v12;
     a6 = v11;
   }
 
-  v16 = *(a1 + 1056);
-  v17 = *(a1 + 1060);
+  v16 = a1[132].u32[0];
+  v17 = a1[132].u32[1];
   v18 = v16 >= v17;
   v20 = v16 - v17;
   v19 = v20 != 0 && v18;
-  v21 = *(a1 + 1044) + v9 * v16;
+  v21 = a1[130].i32[1] + v9 * v16;
   v22 = v20 * v9;
   if (!v19)
   {
     v22 = 0;
   }
 
-  *a6 = *(a1 + 1048);
+  *a6 = a1[131].i32[0];
   *(a6 + 4) = v22;
   *(a6 + 8) = v21;
-  v23 = *(a1 + 1064);
+  v23 = *a1[133].i32;
   *(a6 + 12) = v23;
   *(a6 + 16) = 0;
   *a4 = 0;
@@ -204,8 +305,8 @@ uint64_t IntNovDetectE::process(uint64_t a1, const char *a2, signed int a3, _BYT
     return 0;
   }
 
-  v25 = *(a1 + 1088);
-  if (v23 <= *(a1 + 1076))
+  v25 = a1[136].i32[0];
+  if (v23 <= *&a1[134].i32[1])
   {
     if (v25 < 1)
     {
@@ -213,18 +314,18 @@ uint64_t IntNovDetectE::process(uint64_t a1, const char *a2, signed int a3, _BYT
     }
 
     v27 = v25 - v24;
-    *(a1 + 1088) = v27;
+    a1[136].i32[0] = v27;
     if (v27 <= 0)
     {
       goto LABEL_21;
     }
 
 LABEL_25:
-    v28 = *(a1 + 1092);
+    v28 = a1[136].i32[1];
     if (v28 >= 1)
     {
       result = 0;
-      *(a1 + 1092) = v28 - v24;
+      a1[136].i32[1] = v28 - v24;
       return result;
     }
 
@@ -236,29 +337,29 @@ LABEL_25:
     *a4 = 1;
   }
 
-  v26 = *(a1 + 1084);
-  *(a1 + 1088) = v26;
-  *(a1 + 1056) = 0;
-  *(a1 + 1064) = vdup_n_s32(0xC9742400);
+  v26 = a1[135].i32[1];
+  a1[136].i32[0] = v26;
+  a1[132] = 0;
+  a1[133] = vdup_n_s32(0xC9742400);
   if (v26 > 0)
   {
     goto LABEL_25;
   }
 
 LABEL_21:
-  if (*(a1 + 1068) <= *(a1 + 1080))
+  if (*&a1[133].i32[1] <= *a1[135].i32)
   {
     goto LABEL_25;
   }
 
-  if (*(a1 + 1092) <= 0)
+  if (a1[136].i32[1] <= 0)
   {
     *a5 = 1;
   }
 
   result = 0;
-  *(a1 + 1092) = *(a1 + 1084);
-  *(a1 + 1068) = -915135488;
+  a1[136].i32[1] = a1[135].i32[1];
+  a1[133].i32[1] = -915135488;
   return result;
 }
 
@@ -551,11 +652,11 @@ LABEL_13:
   return this;
 }
 
-uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, unsigned int a3, _BYTE *a4, _BYTE *a5, uint64_t a6)
+uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, uint64_t a3, _BYTE *a4, _BYTE *a5, uint64_t a6)
 {
   if (*a1 != 1)
   {
-    Error::chuck("NovDetectE: process() can only be called after initialize()", a2);
+    Error::chuck("NovDetectE: process() can only be called after initialize()", a2, a3, a4, a5, a6);
   }
 
   if (*(a1 + 1073) != 1)
@@ -605,9 +706,13 @@ uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, unsigned int 
     *(a1 + 920) = 1;
     *(a1 + 884) = 0;
     v19 = *(a1 + 808);
-    if (v19 && *(a1 + 816))
+    if (v19)
     {
-      (*(*v19 + 160))(v19);
+      v20 = *(a1 + 816);
+      if (v20)
+      {
+        (*(*v19 + 160))(v19, v20, a3);
+      }
     }
 
     *(a1 + 88) = 0;
@@ -624,41 +729,41 @@ uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, unsigned int 
 
   else
   {
-    v35 = a3;
-    NDEFrameProc::apply((a1 + 672), a2, &v35);
+    v36 = a3;
+    NDEFrameProc::apply((a1 + 672), a2, &v36);
     IntNovDetectE::feedFrameToNorm(a1, (a1 + 672));
   }
 
-  v20 = *(a1 + 1056);
-  v21 = *(a1 + 1040);
-  v22 = *(a1 + 1044);
-  v23 = *(a1 + 1060);
-  v24 = v20 >= v23;
-  v26 = v20 - v23;
-  v25 = v26 != 0 && v24;
-  v27 = v26 * v21;
-  if (!v25)
+  v21 = *(a1 + 1056);
+  v22 = *(a1 + 1040);
+  v23 = *(a1 + 1044);
+  v24 = *(a1 + 1060);
+  v25 = v21 >= v24;
+  v27 = v21 - v24;
+  v26 = v27 != 0 && v25;
+  v28 = v27 * v22;
+  if (!v26)
   {
-    v27 = 0;
+    v28 = 0;
   }
 
   *a6 = *(a1 + 1048);
-  *(a6 + 4) = v27;
-  *(a6 + 8) = v22 + v21 * v20;
-  v28 = *(a1 + 1064);
-  *(a6 + 12) = v28;
+  *(a6 + 4) = v28;
+  *(a6 + 8) = v23 + v22 * v21;
+  v29 = *(a1 + 1064);
+  *(a6 + 12) = v29;
   *(a6 + 16) = 0;
   *a4 = 0;
   *a5 = 0;
-  v29 = *(a1 + 1088);
-  if (v28 <= *(a1 + 1076))
+  v30 = *(a1 + 1088);
+  if (v29 <= *(a1 + 1076))
   {
-    v31 = __OFSUB__(v29, 1);
-    v32 = v29 - 1;
-    if (v32 < 0 == v31)
+    v32 = __OFSUB__(v30, 1);
+    v33 = v30 - 1;
+    if (v33 < 0 == v32)
     {
-      *(a1 + 1088) = v32;
-      if (v32 > 0)
+      *(a1 + 1088) = v33;
+      if (v33 > 0)
       {
         goto LABEL_33;
       }
@@ -667,16 +772,16 @@ uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, unsigned int 
 
   else
   {
-    if (v29 <= 0)
+    if (v30 <= 0)
     {
       *a4 = 1;
     }
 
-    v30 = *(a1 + 1084);
-    *(a1 + 1088) = v30;
+    v31 = *(a1 + 1084);
+    *(a1 + 1088) = v31;
     *(a1 + 1056) = 0;
     *(a1 + 1064) = vdup_n_s32(0xC9742400);
-    if (v30 > 0)
+    if (v31 > 0)
     {
       goto LABEL_33;
     }
@@ -696,19 +801,19 @@ uint64_t IntNovDetectE::processframe(uint64_t a1, float32x4_t *a2, unsigned int 
   }
 
 LABEL_33:
-  v33 = *(a1 + 1092);
+  v34 = *(a1 + 1092);
   result = 0;
-  v31 = __OFSUB__(v33, 1);
-  v34 = v33 - 1;
-  if (v34 < 0 == v31)
+  v32 = __OFSUB__(v34, 1);
+  v35 = v34 - 1;
+  if (v35 < 0 == v32)
   {
-    *(a1 + 1092) = v34;
+    *(a1 + 1092) = v35;
   }
 
   return result;
 }
 
-uint64_t IntNovDetectE::framedata(IntNovDetectE *this, float32x4_t *a2, unsigned int a3)
+uint64_t IntNovDetectE::framedata(IntNovDetectE *this, float32x4_t *a2, uint64_t a3)
 {
   v4 = *(this + 262);
   v5 = *(this + 260);
@@ -752,9 +857,13 @@ uint64_t IntNovDetectE::framedata(IntNovDetectE *this, float32x4_t *a2, unsigned
     *(this + 460) = 1;
     *(this + 884) = 0;
     v12 = *(this + 101);
-    if (v12 && *(this + 102))
+    if (v12)
     {
-      (*(*v12 + 160))(v12);
+      v13 = *(this + 102);
+      if (v13)
+      {
+        (*(*v12 + 160))(v12, v13, a3);
+      }
     }
 
     *(this + 22) = 0;
@@ -771,8 +880,8 @@ uint64_t IntNovDetectE::framedata(IntNovDetectE *this, float32x4_t *a2, unsigned
 
   else
   {
-    v14 = a3;
-    NDEFrameProc::apply((this + 672), a2, &v14);
+    v15 = a3;
+    NDEFrameProc::apply((this + 672), a2, &v15);
     IntNovDetectE::feedFrameToNorm(this, (this + 672));
   }
 
@@ -933,7 +1042,7 @@ void sub_223A93A88(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void NLocalCepNorm::configure(NLocalCepNorm *this, char *a2, const unsigned int *a3, float *a4, unsigned int *a5, const unsigned int *a6)
+void NLocalCepNorm::configure(NLocalCepNorm *this, char *a2, unsigned int *a3, float *a4, unsigned int *a5, const unsigned int *a6)
 {
   v9 = *a5;
   if (*a5 == -1)
@@ -1830,22 +1939,22 @@ void NChunkGaussianMixtureModelsHeader::read(NChunkGaussianMixtureModelsHeader *
   operator new[]();
 }
 
-void sub_223A95890(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_223A95890(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a19)
   {
-    MEMORY[0x223DF1D00](a19, v22);
+    MEMORY[0x223DF1D00](a19, v22, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
   {
-    MEMORY[0x223DF1D00](a22, v22);
+    MEMORY[0x223DF1D00](a22, v22, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NChunkGaussianMixtureModelsHeader::readField(NChunkGaussianMixtureModelsHeader *this, const NString *a2, NFilePtr *a3, const NString *a4, NString *a5)
+_BYTE *NChunkGaussianMixtureModelsHeader::readField(NChunkGaussianMixtureModelsHeader *this, const NString *a2, NFilePtr *a3, const NString *a4, NString *a5)
 {
   if (*(this + 252) != 1)
   {
@@ -1872,11 +1981,11 @@ uint64_t NChunkGaussianMixtureModelsHeader::readField(NChunkGaussianMixtureModel
   return result;
 }
 
-void sub_223A95F3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_223A95F3C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   if (a25)
   {
-    MEMORY[0x223DF1D00](a25, v25);
+    MEMORY[0x223DF1D00](a25, v25, a3, a4, a5, a6, a7, a8);
   }
 
   *(v26 - 120) = a15;
@@ -1888,7 +1997,7 @@ void sub_223A95F3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NChunkGaussianMixtureModelsHeader::readField<unsigned int>(char a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
+_DWORD *NChunkGaussianMixtureModelsHeader::readField<unsigned int>(char a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
   if ((a1 & 1) == 0)
   {
@@ -1916,19 +2025,19 @@ uint64_t NChunkGaussianMixtureModelsHeader::readField<unsigned int>(char a1, uin
   return MEMORY[0x223DF1D00]();
 }
 
-void sub_223A96638(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_223A96638(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   *(v26 - 120) = a14;
   v28 = *(v26 - 104);
   if (v28)
   {
-    MEMORY[0x223DF1D00](v28, v25);
+    MEMORY[0x223DF1D00](v28, v25, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NChunkGaussianMixtureModelsHeader::readField<unsigned char>(char a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+_BYTE *NChunkGaussianMixtureModelsHeader::readField<unsigned char>(char a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   if ((a1 & 1) == 0)
   {
@@ -1956,13 +2065,13 @@ uint64_t NChunkGaussianMixtureModelsHeader::readField<unsigned char>(char a1, ui
   return MEMORY[0x223DF1D00]();
 }
 
-void sub_223A96CF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
+void sub_223A96CF8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   *(v26 - 120) = a14;
   v28 = *(v26 - 104);
   if (v28)
   {
-    MEMORY[0x223DF1D00](v28, v25);
+    MEMORY[0x223DF1D00](v28, v25, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1992,11 +2101,11 @@ void NChunkGaussianMixtureModelsHeader::write(NChunkGaussianMixtureModelsHeader 
   Error::chuck("NSmartPointer::checkptr() - pointer unset", a2);
 }
 
-void sub_223A982A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_223A982A0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a22)
   {
-    MEMORY[0x223DF1D00](a22, v22);
+    MEMORY[0x223DF1D00](a22, v22, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -2026,28 +2135,28 @@ void NChunkGaussianMixtureModelsHeader::writeBinary(NChunkGaussianMixtureModelsH
   Error::chuck("NSmartPointer::checkptr() - pointer unset", a2, v3);
 }
 
-void sub_223A98DAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223A98DAC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NChunkGaussianMixtureModelsHeader::encodingString(NChunkGaussianMixtureModelsHeader *this)
+void NChunkGaussianMixtureModelsHeader::encodingString()
 {
-  v1 = &unk_28370A720;
-  v2 = 0;
+  v2 = &unk_28370A720;
+  v3 = 0;
   operator new[]();
 }
 
-void sub_223A98F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+void sub_223A98F24(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v18);
+    MEMORY[0x223DF1D00](a18, v18, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2560,26 +2669,26 @@ void NBaseFile::writeString(NBaseFile *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223A9A898(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_223A9A898(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v15);
+    MEMORY[0x223DF1D00](a15, v15, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v15);
+    MEMORY[0x223DF1D00](a12, v15, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_223A9A9E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223A9A9E8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2596,7 +2705,7 @@ uint64_t NArray<void *>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<void *>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<void *>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -2679,41 +2788,41 @@ void *NArray<void *>::~NArray(void *result)
   return result;
 }
 
-uint64_t NDeepnetDistribution::forwardComputeFixed(uint64_t a1, uint64_t a2, uint64_t a3)
+void NDeepnetDistribution::forwardComputeFixed(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v53[1] = *MEMORY[0x277D85DE8];
-  v5 = MEMORY[0x28223BE20](a1);
-  result = MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](a1);
+  v8 = MEMORY[0x28223BE20](v5);
   v10 = (v53 - v9);
-  v11 = *(result + 12);
-  if (v11)
+  v12 = *(v11 + 12);
+  if (v12)
   {
-    v12 = *(v7 + 8);
-    v13 = *(a1 + 216);
-    if (v11 >= 4)
+    v13 = *(v6 + 8);
+    v14 = *(a1 + 216);
+    if (v12 >= 4)
     {
-      v15 = vdupq_n_s32(0x46FFFE00u);
-      v14 = v11 & 0xFFFFFFFC;
+      v8 = vdupq_n_s32(0x46FFFE00u);
+      v15 = v12 & 0xFFFFFFFC;
       v16.i64[0] = 0xC7000000C7000000;
       v16.i64[1] = 0xC7000000C7000000;
-      v17 = *(v7 + 8);
+      v17 = *(v6 + 8);
       v18 = *(a1 + 216);
       v19 = v10;
-      v20 = v14;
+      v20 = v15;
       do
       {
         v21 = *v17++;
         v22 = v21;
         v23 = *v18++;
         v24 = vmulq_f32(v22, v23);
-        v25 = vbslq_s8(vcgtq_f32(v24, v15), v15, v24);
+        v25 = vbslq_s8(vcgtq_f32(v24, v8), v8, v24);
         v26 = vbslq_s8(vcgtq_f32(v16, v25), v16, v25);
         *v19++ = vuzp1q_s32(vcvtq_s64_f64(vcvtq_f64_f32(vrndx_f32(*v26.i8))), vcvtq_s64_f64(vcvtq_f64_f32(vrndx_f32(*&vextq_s8(v26, v26, 8uLL)))));
         v20 -= 4;
       }
 
       while (v20);
-      if (v14 == v11)
+      if (v15 == v12)
       {
         goto LABEL_13;
       }
@@ -2721,14 +2830,15 @@ uint64_t NDeepnetDistribution::forwardComputeFixed(uint64_t a1, uint64_t a2, uin
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v27 = v11 - v14;
-    v28 = 4 * v14;
-    v29 = &v10->i8[4 * v14];
-    v30 = (v13 + v28);
-    v31 = (v12 + v28);
+    v27 = v12 - v15;
+    v28 = 4 * v15;
+    v29 = &v10->i8[4 * v15];
+    v30 = (v14 + v28);
+    v31 = (v13 + v28);
+    v8.n128_u32[0] = 1191181824;
     do
     {
       v32 = *v31++;
@@ -2761,7 +2871,7 @@ LABEL_13:
     v40 = *(a1 + 8);
     if (!v40)
     {
-      return result;
+      return;
     }
 
 LABEL_20:
@@ -2787,7 +2897,7 @@ LABEL_20:
       while (v46);
       if (v42 == v40)
       {
-        return result;
+        return;
       }
     }
 
@@ -2808,7 +2918,7 @@ LABEL_20:
     }
 
     while (v48);
-    return result;
+    return;
   }
 
   v37 = 8;
@@ -2817,13 +2927,13 @@ LABEL_20:
     v38 = *(*(a1 + 40) + v37);
     if (!v38)
     {
-      Error::chuck("NSmartPointer::checkptr() - pointer unset", v7);
+      Error::chuck("NSmartPointer::checkptr() - pointer unset", v6, v8.n128_f64[0]);
     }
 
-    v39 = v8;
-    result = (*(*v38 + 32))(v38, v10, v8);
+    v39 = v7;
+    (*(*v38 + 32))(v38, v10, v7, v8);
     v37 += 16;
-    v8 = v10;
+    v7 = v10;
     v10 = v39;
     --v36;
   }
@@ -2834,8 +2944,6 @@ LABEL_20:
   {
     goto LABEL_20;
   }
-
-  return result;
 }
 
 void NDeepnetDistribution::read(NDeepnetDistribution *this, const NString *a2)
@@ -2890,37 +2998,37 @@ LABEL_12:
   NDeepnetDistribution::mapFromMemory(this, *(this + 13), this + 24, *(a2 + 2));
 }
 
-void sub_223A9C1B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+void sub_223A9C1B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   if (a24)
   {
-    MEMORY[0x223DF1D00](a24, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a24, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30)
   {
-    MEMORY[0x223DF1D00](a30, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a30, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v30 - 160) = a17;
   v32 = *(v30 - 152);
   if (v32)
   {
-    MEMORY[0x223DF1D00](v32, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](v32, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   *(v30 - 136) = &unk_28370A720;
   v33 = *(v30 - 120);
   if (v33)
   {
-    MEMORY[0x223DF1D00](v33, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v33, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v30 - 112) = &unk_28370AA90;
   v34 = *(v30 - 104);
   if (v34)
   {
-    (*(*v34 + 8))(v34);
+    (*(*v34 + 8))(v34, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3743,7 +3851,7 @@ uint64_t Nfp16PalettizedLayer::initialize(uint64_t this, const char *a2, const u
   return this;
 }
 
-unsigned __int16 Nfp16MatrixLayer::compute@<H0>(Nfp16MatrixLayer *this@<X0>, const float *a2@<X1>, float *a3@<X2>, void *a4@<X3>)
+__int16 Nfp16MatrixLayer::compute@<H0>(Nfp16MatrixLayer *this@<X0>, const float *a2@<X1>, float *a3@<X2>, void *a4@<X3>)
 {
   v60[1] = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
@@ -4527,7 +4635,7 @@ uint64_t Nfp32tofp16Layer::initialize(uint64_t this, const char *a2, const unsig
   return this;
 }
 
-uint64_t NSigned8BitMatrixLayer::compute(void **this, const float *a2, float *a3, void *a4)
+uint64_t NSigned8BitMatrixLayer::compute(void **this, const float *a2, void **a3, void *a4)
 {
   v82[1] = *MEMORY[0x277D85DE8];
   MEMORY[0x28223BE20](this);
@@ -4801,13 +4909,13 @@ LABEL_35:
   while (v67);
 LABEL_47:
   v70 = this + 9;
-  if (v60 <= 7 || this + 5 > a3 && v70 < &a3[v60])
+  if (v60 <= 7 || this + 5 > a3 && v70 < a3 + v60)
   {
     v71 = 0;
 LABEL_51:
     v72 = v60 - v71;
     v73 = v71;
-    v74 = &a3[v71];
+    v74 = a3 + v71;
     v75 = &v57->f32[v73];
     do
     {
@@ -4822,7 +4930,7 @@ LABEL_51:
 
   v71 = v60 & 0xFFFFFFF8;
   v77 = vld1q_dup_f32(v70);
-  v78 = a3 + 4;
+  v78 = (a3 + 2);
   v79 = v57 + 1;
   v80 = v71;
   do
@@ -5116,7 +5224,7 @@ LABEL_22:
     {
       v74 = (v21 - 16) + 16;
       i = i;
-      v75 = &a4[2];
+      v75 = a4 + 2;
       while (1)
       {
         if (v20 >= 0x20)
@@ -5205,7 +5313,7 @@ LABEL_22:
 LABEL_36:
         a4 = (a4 + v74);
         v31->i32[i++] = v76;
-        v75 += v74;
+        v75 = (v75 + v74);
         if (i == v24)
         {
           goto LABEL_49;
@@ -5230,15 +5338,15 @@ LABEL_49:
     if (v24 > 7)
     {
       v105 = v24 & 0xFFFFFFF8;
-      f32 = a6[1].f32;
+      v116 = a6 + 1;
       v117 = v31 + 1;
       v118 = v105;
       do
       {
         v119 = vmulq_n_f32(vcvtq_f32_s32(*v117), v28.n128_f32[0]);
-        *(f32 - 1) = vmulq_n_f32(vcvtq_f32_s32(v117[-1]), v28.n128_f32[0]);
-        *f32 = v119;
-        f32 += 8;
+        v116[-1] = vmulq_n_f32(vcvtq_f32_s32(v117[-1]), v28.n128_f32[0]);
+        *v116 = v119;
+        v116 += 2;
         v117 += 2;
         v118 -= 8;
       }
@@ -7658,7 +7766,7 @@ LABEL_5:
       v13 = v3 + 1;
       v14 = 0uLL;
       v15 = vnegq_s32(v12);
-      v16 = (a2 + 32);
+      v16 = a2 + 32;
       v17 = v10;
       v18 = 0uLL;
       v19 = 0uLL;
@@ -7670,7 +7778,7 @@ LABEL_5:
         v23 = *(v16 - 1);
         v24 = *v16;
         v25 = *(v16 + 1);
-        v16 += 16;
+        v16 += 64;
         v18 = vaddq_s32(vshlq_s32(vmulq_s32(v23, vmovl_high_s16(v21)), v15), v18);
         v14 = vaddq_s32(vshlq_s32(vmulq_s32(v22, vmovl_s16(*v21.i8)), v15), v14);
         v20 = vaddq_s32(vshlq_s32(vmulq_s32(v25, vmovl_high_s16(*v13)), v15), v20);
@@ -7711,7 +7819,7 @@ LABEL_5:
       v32 = *v30++;
       v33 = vmovl_s16(v32);
       v34 = *v29;
-      v29 += 4;
+      v29 += 16;
       v27 = vaddq_s32(vshlq_s32(vmulq_s32(v34, v33), v31), v27);
       v28 += 4;
     }
@@ -7732,7 +7840,8 @@ LABEL_20:
       v38 = v11->i16[0];
       v11 = (v11 + 2);
       v37 = v38;
-      v39 = *v36++;
+      v39 = *v36;
+      v36 += 4;
       v6 += (v39 * v37) >> v9;
       --v35;
     }
@@ -7934,7 +8043,7 @@ LABEL_5:
       v12 = v3 + 1;
       v13 = 0uLL;
       v14 = vnegq_s32(v11);
-      v15 = (a2 + 32);
+      v15 = a2 + 32;
       v16 = v9;
       v17 = 0uLL;
       v18 = 0uLL;
@@ -7946,7 +8055,7 @@ LABEL_5:
         v22 = *(v15 - 1);
         v23 = *v15;
         v24 = *(v15 + 1);
-        v15 += 16;
+        v15 += 64;
         v17 = vaddq_s32(vshlq_s32(vmulq_s32(v22, vmovl_high_s16(v20)), v14), v17);
         v13 = vaddq_s32(vshlq_s32(vmulq_s32(v21, vmovl_s16(*v20.i8)), v14), v13);
         v19 = vaddq_s32(vshlq_s32(vmulq_s32(v24, vmovl_high_s16(*v12)), v14), v19);
@@ -7987,7 +8096,7 @@ LABEL_5:
       v31 = *v29++;
       v32 = vmovl_s16(v31);
       v33 = *v28;
-      v28 += 4;
+      v28 += 16;
       v26 = vaddq_s32(vshlq_s32(vmulq_s32(v33, v32), v30), v26);
       v27 += 4;
     }
@@ -8008,7 +8117,8 @@ LABEL_20:
       v37 = v10->i16[0];
       v10 = (v10 + 2);
       v36 = v37;
-      v38 = *v35++;
+      v38 = *v35;
+      v35 += 4;
       v5 += (v38 * v36) >> v8;
       --v34;
     }
@@ -8262,7 +8372,7 @@ void NLayer::~NLayer(NLayer *this)
   }
 }
 
-uint64_t NArray<NLayer>::fromArray(uint64_t result, const char *a2, int *a3)
+uint64_t NArray<NLayer>::fromArray(uint64_t result, const char *a2, unsigned int *a3)
 {
   v3 = *(result + 16);
   v4 = *a3;
@@ -8286,7 +8396,7 @@ uint64_t NArray<NLayer>::fromArray(uint64_t result, const char *a2, int *a3)
           *(v12 - 1) = &unk_283708548;
           if (*v12)
           {
-            (*(**v12 + 8))(*v12);
+            (*(**v12 + 8))(*v12, a2);
           }
 
           v12 -= 2;
@@ -8986,11 +9096,11 @@ LABEL_6:
   Error::chuck("NMemoryFile::open() - unrecognized file mode %s", v6, v7);
 }
 
-void sub_223AA38C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223AA38C0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9109,34 +9219,34 @@ void sub_223AA3E28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NMemoryFile::newMemoryBlockDef(NMemoryFile *this, const NString *a2, const void *a3)
+void NMemoryFile::newMemoryBlockDef(NMemoryFile *this, const NString *a3)
 {
-  v5 = a2;
-  v3 = &unk_28370A720;
-  v4 = 1;
+  v6 = a3;
+  v4 = &unk_28370A720;
+  v5 = 1;
   operator new[]();
 }
 
-void sub_223AA41AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+void sub_223AA41AC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   if (a24)
   {
-    MEMORY[0x223DF1D00](a24, v24);
+    MEMORY[0x223DF1D00](a24, v24, a3, a4, a5, a6, a7, a8);
   }
 
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, v24);
+    MEMORY[0x223DF1D00](a15, v24, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21)
   {
-    MEMORY[0x223DF1D00](a21, v24);
+    MEMORY[0x223DF1D00](a21, v24, a3, a4, a5, a6, a7, a8);
   }
 
   if (a18)
   {
-    MEMORY[0x223DF1D00](a18, v24);
+    MEMORY[0x223DF1D00](a18, v24, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9423,33 +9533,33 @@ LABEL_10:
   return v7;
 }
 
-void sub_223AA5464(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+void sub_223AA5464(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   if (a20)
   {
-    MEMORY[0x223DF1D00](a20, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a20, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a23)
   {
-    MEMORY[0x223DF1D00](a23, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a23, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v26 - 128) = &unk_28370A720;
   v28 = *(v26 - 112);
   if (v28)
   {
-    MEMORY[0x223DF1D00](v28, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v28, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void *NFixedPointScales::readIntVec(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, _DWORD *a5, uint64_t a6)
+void *NFixedPointScales::readIntVec(uint64_t a1, uint64_t i, _BYTE *a3, uint64_t a4, _DWORD *a5, void *a6)
 {
   if (*a3 != 1)
   {
-    v11 = *(a2 + 8);
+    v11 = *(i + 8);
     if (v11)
     {
       v18 = 0;
@@ -9460,10 +9570,10 @@ void *NFixedPointScales::readIntVec(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_
     }
 
 LABEL_12:
-    Error::chuck("NSmartPointer::checkptr() - pointer unset", a2);
+    Error::chuck("NSmartPointer::checkptr() - pointer unset", i);
   }
 
-  v9 = *(a2 + 8);
+  v9 = *(i + 8);
   if (!v9)
   {
     goto LABEL_12;
@@ -9479,10 +9589,10 @@ LABEL_12:
       MEMORY[0x223DF1D00]();
     }
 
-    v12 = *(a2 + 8);
+    v12 = *(i + 8);
     if (v12)
     {
-      Error::chuck("NGaussianFixedPointScales::read() - failed to read %s from file %s", a2, *(a4 + 16), *(v12 + 24));
+      Error::chuck("NGaussianFixedPointScales::read() - failed to read %s from file %s", i, *(a4 + 16), *(v12 + 24));
     }
 
     goto LABEL_12;
@@ -9500,12 +9610,12 @@ LABEL_12:
   return result;
 }
 
-void sub_223AA5E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_223AA5E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   NArray<NString>::~NArray(va);
-  *(v15 - 112) = &unk_28370A720;
-  if (*(v15 - 96))
+  *(v22 - 112) = &unk_28370A720;
+  if (*(v22 - 96))
   {
     MEMORY[0x223DF1D00]();
   }
@@ -9513,18 +9623,18 @@ void sub_223AA5E90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void NFixedPointScales::read(NFixedPointScales *this, NFilePtr *a2, const unsigned int *a3, const BOOL *a4)
+void NFixedPointScales::read(NFixedPointScales *this, NFilePtr *a2, unsigned int *a3, BOOL *a4)
 {
   v4 = &unk_28370A720;
   v5 = 8;
   operator new[]();
 }
 
-void sub_223AA6260(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AA6260(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9554,27 +9664,27 @@ void NFixedPointScales::write(NFixedPointScales *this, NFilePtr *a2, const BOOL 
   Error::chuck("NSmartPointer::checkptr() - pointer unset", a2);
 }
 
-void sub_223AA6840(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_223AA6840(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a22)
   {
-    MEMORY[0x223DF1D00](a22, v22);
+    MEMORY[0x223DF1D00](a22, v22, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_223AA6C70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223AA6C70(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, v16);
+    MEMORY[0x223DF1D00](a13, v16, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v16);
+    MEMORY[0x223DF1D00](a16, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9643,12 +9753,12 @@ void NGaussianFixedPointScales::initialize(uint64_t a1, const char *a2, _DWORD *
   v7 = *(a6 + 16);
   if (v6 != v7)
   {
-    Error::chuck("NGaussianFixedPointScales::initialize() - inconsistent dimensionality (paramQ=%d, dimenShift=%d)", a2, *(a5 + 16), v7);
+    Error::chuck("NGaussianFixedPointScales::initialize() - inconsistent dimensionality (paramQ=%d, dimenShift=%d)", a2, a3, a4, *(a5 + 16), v7);
   }
 
   if (*a4 > *a2)
   {
-    Error::chuck("NGaussianFixedPointScales::initialize() - logprobQ > gaussianQ", a2);
+    Error::chuck("NGaussianFixedPointScales::initialize() - logprobQ > gaussianQ", a2, a3);
   }
 
   if (v6)
@@ -9741,120 +9851,4 @@ void NGaussianFixedPointScales::initialize(uint64_t a1, const char *a2, _DWORD *
   *(a1 + 44) = 1.0 / v26;
   NFixedPointScales::makeParamScales(a1);
   *(a1 + 120) = 1;
-}
-
-void NGaussianFixedPointScales::makeLogAddTable(NGaussianFixedPointScales *this, const char *a2)
-{
-  if (!*a2)
-  {
-    Error::chuck("NGaussianFixedPointScales::makeLogAddTable() - table size must be >0", a2);
-  }
-
-  v3 = 32 - __clz(*a2 - 1);
-  if (*a2 == 1)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v5 = *(this + 2);
-  v6 = ldexp(1.0, v5);
-  v7 = exp(0.5 / v6);
-  v8 = -(v6 * log(v7 + -1.0));
-  frexpf(v8, &v41);
-  v9 = v41;
-  if (v41 >= (*(this + 31) + v5))
-  {
-    v9 = *(this + 31) + v5;
-  }
-
-  if (v4 >= v9)
-  {
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = v4;
-  }
-
-  v11 = (1 << v10);
-  *(this + 40) = v9 - v10;
-  *(this + 41) = ~(-1 << v9);
-  if (*(this + 38) != v11)
-  {
-    *(this + 38) = v11;
-    operator new[]();
-  }
-
-  v12 = *(this + 2);
-  v13 = ldexp(1.0, *(this + 40) - v12);
-  if (v11)
-  {
-    v14 = v13;
-    v40 = -v14;
-    v15 = ldexp(1.0, v12);
-    v39 = v15;
-    v16 = *(this + 18);
-    if (v11 == 1)
-    {
-      v17 = 0;
-      v18 = v40;
-      do
-      {
-LABEL_18:
-        v31 = expf(v18 * v17);
-        v32 = log(v31 + 1.0);
-        v18 = v40;
-        *&v32 = v32 * v39;
-        *(v16 + 4 * v17++) = (*&v32 + 0.5);
-      }
-
-      while (v11 != v17);
-      goto LABEL_19;
-    }
-
-    v17 = v11 & 0xFFFFFFFE;
-    v19 = 0x100000000;
-    __asm
-    {
-      FMOV            V1.2D, #1.0
-      FMOV            V0.2D, #0.5
-    }
-
-    v33 = _Q0;
-    v34 = _Q1;
-    v26 = *(this + 18);
-    v27 = v17;
-    v18 = v40;
-    do
-    {
-      v28 = vmul_n_f32(vcvt_f32_u32(v19), v18);
-      __x = v28.f32[0];
-      v37 = expf(v28.f32[1]);
-      v29.f32[0] = expf(__x);
-      v29.f32[1] = v37;
-      __xa = vaddq_f64(vcvtq_f64_f32(v29), v34);
-      v38 = log(__xa.f64[1]);
-      v30.f64[0] = log(__xa.f64[0]);
-      v30.f64[1] = v38;
-      v18 = v40;
-      *v26++ = vmovn_s64(vcvtq_s64_f64(vaddq_f64(vcvtq_f64_f32(vcvt_f32_f64(vmulq_n_f64(v30, v39))), v33)));
-      v19 = vadd_s32(v19, 0x200000002);
-      v27 -= 2;
-    }
-
-    while (v27);
-    if (v17 != v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-LABEL_19:
-  *(this + 192) = 1;
 }

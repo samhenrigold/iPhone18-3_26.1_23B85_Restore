@@ -162,31 +162,31 @@ uint64_t __48__TGTextGenerationSession_defaultTextGeneration__block_invoke()
 
 - (id)executionUUIDForOperation:(id)operation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   workQueue = [(TGTextGenerationSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   operationByExecutionUUID = [(TGTextGenerationSession *)self operationByExecutionUUID];
-  v7 = [operationByExecutionUUID countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [operationByExecutionUUID countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(operationByExecutionUUID);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         operationByExecutionUUID2 = [(TGTextGenerationSession *)self operationByExecutionUUID];
         v13 = [operationByExecutionUUID2 objectForKeyedSubscript:v11];
 
@@ -197,7 +197,7 @@ uint64_t __48__TGTextGenerationSession_defaultTextGeneration__block_invoke()
         }
       }
 
-      v8 = [operationByExecutionUUID countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [operationByExecutionUUID countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -209,8 +209,6 @@ uint64_t __48__TGTextGenerationSession_defaultTextGeneration__block_invoke()
 
   v14 = 0;
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -251,28 +249,29 @@ LABEL_11:
 void __53__TGTextGenerationSession_executeOperation_callback___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) executionUUIDForOperation:*(a1 + 40)];
+  v4 = v2;
   if (v2)
   {
-    v3 = _nlpDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = _nlpDefaultLog(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __53__TGTextGenerationSession_executeOperation_callback___block_invoke_cold_1(v3);
+      __53__TGTextGenerationSession_executeOperation_callback___block_invoke_cold_1(v5);
     }
 
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:17 userInfo:0];
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:17 userInfo:0];
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v4 = [*(a1 + 32) enqueueOperationSync:*(a1 + 48)];
-    v5 = *(a1 + 40);
-    v6 = [*(a1 + 32) operationByExecutionUUID];
-    [v6 setObject:v5 forKeyedSubscript:v4];
+    v6 = [*(a1 + 32) enqueueOperationSync:*(a1 + 48)];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 32) operationByExecutionUUID];
+    [v8 setObject:v7 forKeyedSubscript:v6];
 
-    v7 = MEMORY[0x26D6BE930](*(a1 + 56));
-    v8 = [*(a1 + 32) callbackByExecutionUUID];
-    [v8 setObject:v7 forKeyedSubscript:v4];
+    v9 = MEMORY[0x26D6BE930](*(a1 + 56));
+    v10 = [*(a1 + 32) callbackByExecutionUUID];
+    [v10 setObject:v9 forKeyedSubscript:v6];
   }
 }
 
@@ -296,21 +295,22 @@ void __53__TGTextGenerationSession_executeOperation_callback___block_invoke(uint
 void __44__TGTextGenerationSession_enqueueOperation___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) executionUUIDForOperation:*(a1 + 40)];
+  v4 = v2;
   if (v2)
   {
-    v3 = _nlpDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = _nlpDefaultLog(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __53__TGTextGenerationSession_executeOperation_callback___block_invoke_cold_1(v3);
+      __53__TGTextGenerationSession_executeOperation_callback___block_invoke_cold_1(v5);
     }
   }
 
   else
   {
-    v4 = [*(a1 + 32) enqueueOperationSync:*(a1 + 48)];
-    v5 = *(a1 + 40);
-    v6 = [*(a1 + 32) operationByExecutionUUID];
-    [v6 setObject:v5 forKeyedSubscript:v4];
+    v6 = [*(a1 + 32) enqueueOperationSync:*(a1 + 48)];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 32) operationByExecutionUUID];
+    [v8 setObject:v7 forKeyedSubscript:v6];
   }
 }
 
@@ -331,19 +331,19 @@ void __44__TGTextGenerationSession_enqueueOperation___block_invoke(uint64_t a1)
 void __43__TGTextGenerationSession_cancelOperation___block_invoke(uint64_t a1)
 {
   v2 = (a1 + 40);
-  v3 = [*(a1 + 32) executionUUIDForOperation:*(a1 + 40)];
-  if (v3)
+  v4 = [*(a1 + 32) executionUUIDForOperation:*(a1 + 40)];
+  if (v4)
   {
-    v4 = [*(a1 + 32) tgdSession];
-    [v4 cancelOperationWithExecutionUUID:v3];
+    v5 = [*(a1 + 32) tgdSession];
+    [v5 cancelOperationWithExecutionUUID:v4];
   }
 
   else
   {
-    v5 = _nlpDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _nlpDefaultLog(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __43__TGTextGenerationSession_cancelOperation___block_invoke_cold_1(v2, v5);
+      __43__TGTextGenerationSession_cancelOperation___block_invoke_cold_1(v2, v6);
     }
   }
 }
@@ -582,12 +582,11 @@ void __70__TGTextGenerationSession_operationWithExecutionUUID_didStreamOutput___
 
 void __43__TGTextGenerationSession_cancelOperation___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_26D3B8000, a2, OS_LOG_TYPE_ERROR, "Cannot cancel operation since the operation was not enqueued: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_26D3B8000, a2, OS_LOG_TYPE_ERROR, "Cannot cancel operation since the operation was not enqueued: %@", &v3, 0xCu);
 }
 
 @end

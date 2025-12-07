@@ -499,23 +499,24 @@ LABEL_9:
     v10 = *(__p + 3);
     if (v10 == __p)
     {
-      (*(*v10 + 32))(v10);
+      (*(*v10 + 32))(v10, a2);
     }
 
     else if (v10)
     {
-      (*(*v10 + 40))(v10);
+      (*(*v10 + 40))(v10, a2);
     }
 
     operator delete(v9);
   }
 }
 
-void sub_240115278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, char a10, uint64_t a11, void *a12)
+void sub_240115278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   xpc_release(object);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a10);
-  std::unique_ptr<std::function<void ()(xpc::object)>>::~unique_ptr[abi:ne200100](&a12);
+  std::unique_ptr<std::function<void ()(xpc::object)>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -673,18 +674,18 @@ void abb::link::XpcClientLink::connectInternal(uint64_t a1, uint64_t a2)
 
 atomic_ullong *abb::link::LocalClientLink::create@<X0>(atomic_ullong *a1@<X8>)
 {
-  v3 = operator new(0x68uLL);
-  v3[2] = 0;
-  v3[3] = 0;
-  *v3 = &unk_2852178E0;
-  v3[1] = &unk_285217940;
-  *(v3 + 2) = 0u;
-  *(v3 + 3) = 0u;
-  *(v3 + 4) = 0u;
-  *(v3 + 5) = 0u;
-  *(v3 + 96) = 0;
+  v2 = operator new(0x68uLL);
+  v2[2] = 0;
+  v2[3] = 0;
+  *v2 = &unk_2852178E0;
+  v2[1] = &unk_285217940;
+  *(v2 + 2) = 0u;
+  *(v2 + 3) = 0u;
+  *(v2 + 4) = 0u;
+  *(v2 + 5) = 0u;
+  *(v2 + 96) = 0;
 
-  return std::shared_ptr<abb::link::LocalClientLink>::shared_ptr[abi:ne200100]<abb::link::LocalClientLink,0>(a1, v3);
+  return std::shared_ptr<abb::link::LocalClientLink>::shared_ptr[abi:ne200100]<abb::link::LocalClientLink,0>(a1, v2);
 }
 
 double abb::link::LocalClientLink::LocalClientLink(abb::link::LocalClientLink *this)
@@ -808,7 +809,7 @@ void non-virtual thunk toabb::link::LocalClientLink::~LocalClientLink(void **thi
 
 void abb::link::LocalClientLink::flush(abb::link::LocalClientLink *this, const group *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   gr_name = a2->gr_name;
   if (a2->gr_name)
   {
@@ -817,7 +818,7 @@ void abb::link::LocalClientLink::flush(abb::link::LocalClientLink *this, const g
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
-  v18 = global_queue;
+  v17 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
@@ -827,8 +828,8 @@ void abb::link::LocalClientLink::flush(abb::link::LocalClientLink *this, const g
   v5 = *(this + 3);
   if (!v5 || (v6 = std::__shared_weak_count::lock(v5)) == 0)
   {
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
     goto LABEL_12;
   }
 
@@ -854,8 +855,8 @@ void abb::link::LocalClientLink::flush(abb::link::LocalClientLink *this, const g
 LABEL_9:
       v10 = v9;
       atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v15 = v8;
-      v16 = v9;
+      v14 = v8;
+      v15 = v9;
       std::__shared_weak_count::__release_weak(v7);
       if (!atomic_fetch_add(v10 + 1, 0xFFFFFFFFFFFFFFFFLL))
       {
@@ -874,8 +875,8 @@ LABEL_12:
     }
   }
 
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
   v11 = v7;
 LABEL_28:
   std::__shared_weak_count::__release_weak(v11);
@@ -887,15 +888,15 @@ LABEL_13:
   }
 
 LABEL_14:
-  v19[0] = &unk_285217BB0;
-  v19[1] = gr_name;
-  v20 = v19;
-  abb::link::LocalClientLink::send(this, &object, &v15, &v18, v19);
-  if (v20 == v19)
+  v18[0] = &unk_285217BB0;
+  v18[1] = gr_name;
+  v19 = v18;
+  abb::link::LocalClientLink::send(this, &object, &v14, &v17, v18);
+  if (v19 == v18)
   {
-    (*(*v20 + 32))(v20);
-    v13 = v16;
-    if (v16)
+    (*(*v19 + 32))(v19);
+    v13 = v15;
+    if (v15)
     {
 LABEL_18:
       std::__shared_weak_count::__release_weak(v13);
@@ -904,22 +905,22 @@ LABEL_18:
 
   else
   {
-    if (v20)
+    if (v19)
     {
-      (*(*v20 + 40))(v20, v12);
+      (*(*v19 + 40))(v19, v12);
     }
 
-    v13 = v16;
-    if (v16)
+    v13 = v15;
+    if (v15)
     {
       goto LABEL_18;
     }
   }
 
   xpc_release(object);
-  if (v18)
+  if (v17)
   {
-    dispatch_release(v18);
+    dispatch_release(v17);
   }
 
   if (gr_name)
@@ -927,8 +928,6 @@ LABEL_18:
     dispatch_group_leave(gr_name);
     dispatch_release(gr_name);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240115C90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, xpc_object_t object, dispatch_object_t a13, char a14)
@@ -943,7 +942,7 @@ void sub_240115C90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t abb::link::LocalClientLink::send(uint64_t a1, void **a2, std::__shared_weak_count **a3, NSObject **a4, uint64_t a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (*(a1 + 96) == 1)
   {
     v7 = *(a1 + 32);
@@ -952,13 +951,13 @@ uint64_t abb::link::LocalClientLink::send(uint64_t a1, void **a2, std::__shared_
       if (*(a1 + 56) && *(a1 + 88))
       {
         v9 = *a2;
-        v25 = v9;
+        v23 = v9;
         if (v9)
         {
           xpc_retain(v9);
           v10 = a3[1];
-          v26[0] = *a3;
-          v26[1] = v10;
+          v24[0] = *a3;
+          v24[1] = v10;
           if (!v10)
           {
             goto LABEL_8;
@@ -967,10 +966,10 @@ uint64_t abb::link::LocalClientLink::send(uint64_t a1, void **a2, std::__shared_
 
         else
         {
-          v25 = xpc_null_create();
+          v23 = xpc_null_create();
           v10 = a3[1];
-          v26[0] = *a3;
-          v26[1] = v10;
+          v24[0] = *a3;
+          v24[1] = v10;
           if (!v10)
           {
 LABEL_8:
@@ -986,68 +985,68 @@ LABEL_8:
             {
               if (v12 == a5)
               {
-                v29 = v28;
-                (*(*v12 + 24))(v12, v28);
+                v27 = v26;
+                (*(*v12 + 24))(v12, v26);
               }
 
               else
               {
-                v29 = *(a5 + 24);
+                v27 = *(a5 + 24);
                 *(a5 + 24) = 0;
               }
             }
 
             else
             {
-              v29 = 0;
+              v27 = 0;
             }
 
-            v31 = 0;
-            v20 = operator new(0x40uLL);
-            *v20 = &unk_285217C40;
-            *(v20 + 8) = *v26;
-            v26[0] = 0;
-            v26[1] = 0;
-            v21 = object;
-            *(v20 + 3) = object;
-            if (v21)
+            v29 = 0;
+            v19 = operator new(0x40uLL);
+            *v19 = &unk_285217C40;
+            *(v19 + 8) = *v24;
+            v24[0] = 0;
+            v24[1] = 0;
+            v20 = object;
+            *(v19 + 3) = object;
+            if (v20)
             {
-              dispatch_retain(v21);
+              dispatch_retain(v20);
             }
 
-            v22 = v29;
-            if (v29)
+            v21 = v27;
+            if (v27)
             {
-              if (v29 == v28)
+              if (v27 == v26)
               {
-                *(v20 + 7) = v20 + 32;
-                (*(*v22 + 24))(v22);
+                *(v19 + 7) = v19 + 32;
+                (*(*v21 + 24))(v21);
               }
 
               else
               {
-                *(v20 + 7) = v29;
-                v29 = 0;
+                *(v19 + 7) = v27;
+                v27 = 0;
               }
             }
 
             else
             {
-              *(v20 + 7) = 0;
+              *(v19 + 7) = 0;
             }
 
-            v31 = v20;
-            (*(*v7 + 24))(v7, &v25, v30);
-            if (v31 == v30)
+            v29 = v19;
+            (*(*v7 + 24))(v7, &v23, v28);
+            if (v29 == v28)
             {
-              (*(*v31 + 32))(v31);
-              v23 = v29;
-              if (v29 != v28)
+              (*(*v29 + 32))(v29);
+              v22 = v27;
+              if (v27 != v26)
               {
 LABEL_43:
-                if (v23)
+                if (v22)
                 {
-                  (*(*v23 + 40))(v23);
+                  (*(*v22 + 40))(v22);
                 }
 
                 goto LABEL_47;
@@ -1056,34 +1055,32 @@ LABEL_43:
 
             else
             {
-              if (v31)
+              if (v29)
               {
-                (*(*v31 + 40))();
+                (*(*v29 + 40))();
               }
 
-              v23 = v29;
-              if (v29 != v28)
+              v22 = v27;
+              if (v27 != v26)
               {
                 goto LABEL_43;
               }
             }
 
-            (*(*v23 + 32))(v23);
+            (*(*v22 + 32))(v22);
 LABEL_47:
             if (object)
             {
               dispatch_release(object);
             }
 
-            if (v26[1])
+            if (v24[1])
             {
-              std::__shared_weak_count::__release_weak(v26[1]);
+              std::__shared_weak_count::__release_weak(v24[1]);
             }
 
-            xpc_release(v25);
-            result = 1;
-            v24 = *MEMORY[0x277D85DE8];
-            return result;
+            xpc_release(v23);
+            return 1;
           }
         }
 
@@ -1098,28 +1095,28 @@ LABEL_47:
   {
     if (v13 == a5)
     {
-      v33 = v32;
-      (*(*v13 + 24))(v13, v32);
+      v31 = v30;
+      (*(*v13 + 24))(v13, v30, a3);
     }
 
     else
     {
-      v33 = *(a5 + 24);
+      v31 = *(a5 + 24);
       *(a5 + 24) = 0;
     }
   }
 
   else
   {
-    v33 = 0;
+    v31 = 0;
   }
 
   v14 = *a4;
   v15 = operator new(0x20uLL);
-  v16 = v33;
-  if (v33)
+  v16 = v31;
+  if (v31)
   {
-    if (v33 == v32)
+    if (v31 == v30)
     {
       v15[3] = v15;
       v17 = v15;
@@ -1129,8 +1126,8 @@ LABEL_47:
 
     else
     {
-      v15[3] = v33;
-      v33 = 0;
+      v15[3] = v31;
+      v31 = 0;
     }
   }
 
@@ -1140,19 +1137,17 @@ LABEL_47:
   }
 
   dispatch_async_f(v14, v15, dispatch::async<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_1>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_1,std::default_delete<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_1>>)::{lambda(void *)#1}::__invoke);
-  if (v33 == v32)
+  if (v31 == v30)
   {
-    (*(*v33 + 32))(v33);
+    (*(*v31 + 32))(v31);
   }
 
-  else if (v33)
+  else if (v31)
   {
-    (*(*v33 + 40))();
+    (*(*v31 + 40))();
   }
 
-  result = 0;
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_240116154(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
@@ -1321,17 +1316,18 @@ LABEL_12:
   }
 }
 
-void sub_240116570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_240116570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240116594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_240116594(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1377,13 +1373,13 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, xpc_object_t *a2)
 
 void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObject **a3, uint64_t a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v7 = *a2;
-  v29[0] = a1;
-  v29[1] = v7;
+  v28[0] = a1;
+  v28[1] = v7;
   *a2 = xpc_null_create();
   v8 = *a3;
-  v30 = v8;
+  v29 = v8;
   if (v8)
   {
     dispatch_retain(v8);
@@ -1394,20 +1390,20 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObje
   {
     if (v9 == a4)
     {
-      v32 = v31;
-      (*(*v9 + 24))(v9, v31);
+      v31 = v30;
+      (*(*v9 + 24))(v9, v30);
     }
 
     else
     {
-      v32 = *(a4 + 24);
+      v31 = *(a4 + 24);
       *(a4 + 24) = 0;
     }
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   if (!a1[11])
@@ -1422,49 +1418,49 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObje
   }
 
   v13 = v12;
-  *&v33 = v11;
-  *(&v33 + 1) = v12;
+  *&v32 = v11;
+  *(&v32 + 1) = v12;
   atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-  *v34 = *v29;
+  *v33 = *v28;
   v14 = xpc_null_create();
-  object = v30;
-  v29[1] = v14;
-  v30 = 0;
-  if (v32)
+  object = v29;
+  v28[1] = v14;
+  v29 = 0;
+  if (v31)
   {
-    if (v32 == v31)
+    if (v31 == v30)
     {
-      v37 = v36;
-      (*(*v32 + 24))();
+      v36 = v35;
+      (*(*v31 + 24))();
     }
 
     else
     {
-      v37 = v32;
-      v32 = 0;
+      v36 = v31;
+      v31 = 0;
     }
   }
 
   else
   {
-    v37 = 0;
+    v36 = 0;
   }
 
   v15 = a1[11];
   v16 = operator new(0x48uLL);
-  v17 = v33;
-  v18 = *v34;
-  v33 = 0uLL;
+  v17 = v32;
+  v18 = *v33;
+  v32 = 0uLL;
   *v16 = v17;
   v16[1] = v18;
   v19 = xpc_null_create();
-  v20 = v37;
+  v20 = v36;
   *(v16 + 4) = object;
-  v34[1] = v19;
+  v33[1] = v19;
   object = 0;
   if (v20)
   {
-    if (v20 == v36)
+    if (v20 == v35)
     {
       *(v16 + 8) = v16 + 40;
       (*(*v20 + 24))(v20);
@@ -1473,7 +1469,7 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObje
     else
     {
       *(v16 + 8) = v20;
-      v37 = 0;
+      v36 = 0;
     }
   }
 
@@ -1482,14 +1478,14 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObje
     *(v16 + 8) = 0;
   }
 
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   dispatch_async_f(v15, v16, dispatch::async<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0,std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+  std::unique_ptr<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&>>::~unique_ptr[abi:ne200100](&v26);
   std::unique_ptr<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&>>::~unique_ptr[abi:ne200100](&v27);
-  std::unique_ptr<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&>>::~unique_ptr[abi:ne200100](&v28);
-  if (v37 == v36)
+  if (v36 == v35)
   {
-    (*(*v37 + 32))(v37);
+    (*(*v36 + 32))(v36);
     v22 = object;
     if (!object)
     {
@@ -1499,9 +1495,9 @@ void abb::link::LocalClientLink::handleServerMessage(void *a1, void **a2, NSObje
     goto LABEL_25;
   }
 
-  if (v37)
+  if (v36)
   {
-    (*(*v37 + 40))(v37, v21);
+    (*(*v36 + 40))(v36, v21);
   }
 
   v22 = object;
@@ -1512,10 +1508,10 @@ LABEL_25:
   }
 
 LABEL_26:
-  xpc_release(v34[1]);
-  v34[1] = 0;
-  v23 = *(&v33 + 1);
-  if (*(&v33 + 1) && !atomic_fetch_add((*(&v33 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  xpc_release(v33[1]);
+  v33[1] = 0;
+  v23 = *(&v32 + 1);
+  if (*(&v32 + 1) && !atomic_fetch_add((*(&v32 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v23->__on_zero_shared)(v23);
     std::__shared_weak_count::__release_weak(v23);
@@ -1525,16 +1521,16 @@ LABEL_26:
     }
 
 LABEL_29:
-    v24 = v32;
-    if (v32 != v31)
+    v24 = v31;
+    if (v31 != v30)
     {
       goto LABEL_30;
     }
 
 LABEL_39:
     (*(*v24 + 32))(v24);
-    v25 = v30;
-    if (!v30)
+    v25 = v29;
+    if (!v29)
     {
       goto LABEL_34;
     }
@@ -1550,8 +1546,8 @@ LABEL_39:
 LABEL_38:
   (v13->__on_zero_shared)(v13);
   std::__shared_weak_count::__release_weak(v13);
-  v24 = v32;
-  if (v32 == v31)
+  v24 = v31;
+  if (v31 == v30)
   {
     goto LABEL_39;
   }
@@ -1562,16 +1558,15 @@ LABEL_30:
     (*(*v24 + 40))(v24);
   }
 
-  v25 = v30;
-  if (v30)
+  v25 = v29;
+  if (v29)
   {
 LABEL_33:
     dispatch_release(v25);
   }
 
 LABEL_34:
-  xpc_release(v29[1]);
-  v26 = *MEMORY[0x277D85DE8];
+  xpc_release(v28[1]);
 }
 
 void sub_240116AD4(_Unwind_Exception *a1, int a2)
@@ -1626,8 +1621,7 @@ void abb::link::LocalClientLink::handleServerError(void *a1, xpc_object_t *a2)
 void abb::link::LocalClientLink::registerAccepter(uint64_t a1, __int128 *a2)
 {
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v4 = *(a1 + 48);
   *(a1 + 40) = v3;
   if (v4)
@@ -1738,9 +1732,9 @@ LABEL_7:
   return a1;
 }
 
-void sub_240116F18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240116F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<abb::link::XpcClientLink>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1883,9 +1877,9 @@ LABEL_7:
   return a1;
 }
 
-void sub_24011724C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011724C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<abb::link::LocalClientLink>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2261,7 +2255,7 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0,std::allocator<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0>,void ()(xpc::object)>::__clone(void *a1, void *a2)
+void *std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0,std::allocator<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0>,void ()(xpc::object)>::__clone(void *a1, void *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2402,7 +2396,7 @@ LABEL_5:
 
 void std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0,std::allocator<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0>,void ()(xpc::object)>::operator()(void *a1, void **a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   *a2 = xpc_null_create();
   v4 = a1[2];
@@ -2412,7 +2406,7 @@ void std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,s
   }
 
   v5 = std::__shared_weak_count::lock(v4);
-  v13 = v5;
+  v12 = v5;
   if (!v5)
   {
     goto LABEL_27;
@@ -2423,8 +2417,8 @@ void std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,s
     goto LABEL_25;
   }
 
-  *&v16 = a1[1];
-  *(&v16 + 1) = v5;
+  *&v15 = a1[1];
+  *(&v15 + 1) = v5;
   atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   object = v3;
   if (v3)
@@ -2444,7 +2438,7 @@ void std::__function::__func<abb::link::LocalClientLink::send(xpc::dict const&,s
     if (!v6)
     {
 LABEL_10:
-      v19 = v6;
+      v18 = v6;
       goto LABEL_12;
     }
   }
@@ -2455,19 +2449,19 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v19 = v18;
-  (*(*v6 + 24))(v6, v18);
+  v18 = v17;
+  (*(*v6 + 24))(v6, v17);
 LABEL_12:
   v7 = a1[3];
   v8 = operator new(0x38uLL);
-  *v8 = v16;
-  v16 = 0uLL;
+  *v8 = v15;
+  v15 = 0uLL;
   v8[2] = object;
   object = xpc_null_create();
-  v9 = v19;
-  if (v19)
+  v9 = v18;
+  if (v18)
   {
-    if (v19 == v18)
+    if (v18 == v17)
     {
       v8[6] = v8 + 3;
       (*(*v9 + 24))(v9);
@@ -2475,8 +2469,8 @@ LABEL_12:
 
     else
     {
-      v8[6] = v19;
-      v19 = 0;
+      v8[6] = v18;
+      v18 = 0;
     }
   }
 
@@ -2485,32 +2479,32 @@ LABEL_12:
     v8[6] = 0;
   }
 
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
   dispatch_async_f(v7, v8, dispatch::async<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1}>>)::{lambda(void *)#1}::__invoke);
+  std::unique_ptr<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v13);
   std::unique_ptr<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v14);
-  std::unique_ptr<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::send(xpc::dict const&,std::weak_ptr<void const>,dispatch::queue const&,std::function<void ()(xpc::object)>)::$_0::operator() const(xpc::object)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](&v15);
-  if (v19 == v18)
+  if (v18 == v17)
   {
-    (*(*v19 + 32))(v19);
+    (*(*v18 + 32))(v18);
   }
 
-  else if (v19)
+  else if (v18)
   {
-    (*(*v19 + 40))(v19);
+    (*(*v18 + 40))(v18);
   }
 
   xpc_release(object);
   object = 0;
-  v10 = *(&v16 + 1);
-  if (*(&v16 + 1) && !atomic_fetch_add((*(&v16 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v10 = *(&v15 + 1);
+  if (*(&v15 + 1) && !atomic_fetch_add((*(&v15 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
     std::__shared_weak_count::__release_weak(v10);
   }
 
-  v5 = v13;
-  if (v13)
+  v5 = v12;
+  if (v12)
   {
 LABEL_25:
     if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -2523,7 +2517,6 @@ LABEL_25:
 
 LABEL_27:
   xpc_release(v3);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240117F98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, xpc_object_t object)
@@ -2788,12 +2781,12 @@ LABEL_7:
 
 void *dispatch::async<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0,std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = a1;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = a1;
   v3 = a1[2];
   v2 = a1[3];
   v4 = *(v3 + 56);
-  v13 = v2;
+  v12 = v2;
   if (v2)
   {
     xpc_retain(v2);
@@ -2810,7 +2803,7 @@ void *dispatch::async<void abb::link::LocalClientLink::execute<abb::link::LocalC
   v7 = xpc_null_create();
   v5 = a1[4];
   object = v5;
-  v13 = v7;
+  v12 = v7;
   if (v5)
   {
 LABEL_3:
@@ -2822,7 +2815,7 @@ LABEL_4:
   if (!v6)
   {
 LABEL_7:
-    v15 = v6;
+    v14 = v6;
     goto LABEL_11;
   }
 
@@ -2832,13 +2825,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = v14;
-  (*(*v6 + 24))(v6, v14);
+  v14 = v13;
+  (*(*v6 + 24))(v6, v13);
 LABEL_11:
-  (*(*v4 + 32))(v4, &v13, &object, v14);
-  if (v15 == v14)
+  (*(*v4 + 32))(v4, &v12, &object, v13);
+  if (v14 == v13)
   {
-    (*(*v15 + 32))(v15);
+    (*(*v14 + 32))(v14);
     v8 = object;
     if (!object)
     {
@@ -2848,9 +2841,9 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  if (v15)
+  if (v14)
   {
-    (*(*v15 + 40))(v15);
+    (*(*v14 + 40))(v14);
   }
 
   v8 = object;
@@ -2861,10 +2854,8 @@ LABEL_15:
   }
 
 LABEL_16:
-  xpc_release(v13);
-  result = std::unique_ptr<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&>>::~unique_ptr[abi:ne200100](&v11);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  xpc_release(v12);
+  return std::unique_ptr<void abb::link::LocalClientLink::execute<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0>(abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::link::LocalClientLink::handleServerMessage(xpc::dict,dispatch::queue,std::function<void ()(xpc::object)>)::$_0 &&>>::~unique_ptr[abi:ne200100](&v10);
 }
 
 void sub_2401187A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, char a12)
@@ -3201,53 +3192,52 @@ void abb::link::XpcServerLink::sendMessage(uint64_t a1, void **a2)
   }
 }
 
-uint64_t abb::link::XpcServerLink::sendMessage(uint64_t a1, void **a2, NSObject **a3, uint64_t a4)
+_BYTE *abb::link::XpcServerLink::sendMessage(uint64_t a1, void **a2, NSObject **a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x245CBA150](*(a1 + 56));
   if (result == MEMORY[0x277D86450])
   {
-    v10 = *(a1 + 56);
-    v11 = *a2;
-    v12 = *a3;
+    v9 = *(a1 + 56);
+    v10 = *a2;
+    v11 = *a3;
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 1174405120;
     handler[2] = ___ZNK3abb4link13XpcServerLink11sendMessageEN3xpc4dictEN8dispatch5queueENSt3__18functionIFvNS2_6objectEEEE_block_invoke;
     handler[3] = &__block_descriptor_tmp_1;
-    v13 = *(a4 + 24);
-    if (v13)
+    v12 = *(a4 + 24);
+    if (v12)
     {
-      if (v13 == a4)
+      if (v12 == a4)
       {
-        v16 = v15;
-        (*(*v13 + 24))(v13, v15);
+        v15 = v14;
+        (*(*v12 + 24))(v12, v14);
       }
 
       else
       {
-        v16 = (*(*v13 + 16))(v13);
+        v15 = (*(*v12 + 16))(v12);
       }
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    xpc_connection_send_message_with_reply(v10, v11, v12, handler);
-    result = v16;
-    if (v16 == v15)
+    xpc_connection_send_message_with_reply(v9, v10, v11, handler);
+    result = v15;
+    if (v15 == v14)
     {
-      result = (*(*v16 + 32))(v16);
+      return (*(*v15 + 32))(v15);
     }
 
-    else if (v16)
+    else if (v15)
     {
-      result = (*(*v16 + 40))();
+      return (*(*v15 + 40))();
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3861,12 +3851,12 @@ void abb::link::LocalServerLink::sendMessage(uint64_t a1, xpc_object_t *a2)
 
 void abb::link::LocalServerLink::sendMessage(uint64_t a1, void **a2, NSObject **a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 64);
   if (v4)
   {
     v7 = *a2;
-    v14 = v7;
+    v13 = v7;
     if (v7)
     {
       xpc_retain(v7);
@@ -3883,7 +3873,7 @@ void abb::link::LocalServerLink::sendMessage(uint64_t a1, void **a2, NSObject **
       v10 = xpc_null_create();
       v8 = *a3;
       object = v8;
-      v14 = v10;
+      v13 = v10;
       if (!v8)
       {
 LABEL_5:
@@ -3892,13 +3882,13 @@ LABEL_5:
         {
           if (v9 == a4)
           {
-            v16 = v15;
-            (*(*v9 + 24))(v9, v15);
+            v15 = v14;
+            (*(*v9 + 24))(v9, v14);
 LABEL_12:
-            (*(*v4 + 24))(v4, &v14, &object, v15);
-            if (v16 == v15)
+            (*(*v4 + 24))(v4, &v13, &object, v14);
+            if (v15 == v14)
             {
-              (*(*v16 + 32))(v16);
+              (*(*v15 + 32))(v15);
               v11 = object;
               if (!object)
               {
@@ -3908,9 +3898,9 @@ LABEL_12:
 
             else
             {
-              if (v16)
+              if (v15)
               {
-                (*(*v16 + 40))();
+                (*(*v15 + 40))();
               }
 
               v11 = object;
@@ -3922,14 +3912,14 @@ LABEL_12:
 
             dispatch_release(v11);
 LABEL_17:
-            xpc_release(v14);
-            goto LABEL_18;
+            xpc_release(v13);
+            return;
           }
 
           v9 = (*(*v9 + 16))(v9);
         }
 
-        v16 = v9;
+        v15 = v9;
         goto LABEL_12;
       }
     }
@@ -3937,9 +3927,6 @@ LABEL_17:
     dispatch_retain(v8);
     goto LABEL_5;
   }
-
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24011A200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, char a12)
@@ -3955,16 +3942,16 @@ void sub_24011A200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void abb::link::LocalServerLink::sendMessage(uint64_t a1, xpc_object_t *a2, NSObject **a3, void **a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64))
   {
     v7 = *a2;
-    v14 = v7;
+    v13 = v7;
     if (v7)
     {
       xpc_retain(v7);
       v8 = *a3;
-      v13 = v8;
+      v12 = v8;
       if (!v8)
       {
         goto LABEL_5;
@@ -3975,8 +3962,8 @@ void abb::link::LocalServerLink::sendMessage(uint64_t a1, xpc_object_t *a2, NSOb
     {
       v7 = xpc_null_create();
       v8 = *a3;
-      v13 = v8;
-      v14 = v7;
+      v12 = v8;
+      v13 = v7;
       if (!v8)
       {
 LABEL_5:
@@ -3986,13 +3973,13 @@ LABEL_5:
           v9 = _Block_copy(v9);
         }
 
-        v15[0] = &unk_285218010;
-        v15[1] = v9;
-        v16 = v15;
-        abb::link::LocalServerLink::sendMessage(a1, &v14, &v13, v15);
-        if (v16 == v15)
+        v14[0] = &unk_285218010;
+        v14[1] = v9;
+        v15 = v14;
+        abb::link::LocalServerLink::sendMessage(a1, &v13, &v12, v14);
+        if (v15 == v14)
         {
-          (*(*v16 + 32))(v16);
+          (*(*v15 + 32))(v15);
           if (!v8)
           {
             goto LABEL_12;
@@ -4001,9 +3988,9 @@ LABEL_5:
 
         else
         {
-          if (v16)
+          if (v15)
           {
-            (*(*v16 + 40))(v16, v10, v11);
+            (*(*v15 + 40))(v15, v10, v11);
           }
 
           if (!v8)
@@ -4015,16 +4002,13 @@ LABEL_5:
         dispatch_release(v8);
 LABEL_12:
         xpc_release(v7);
-        goto LABEL_13;
+        return;
       }
     }
 
     dispatch_retain(v8);
     goto LABEL_5;
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24011A3BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -4106,11 +4090,11 @@ void abb::link::LocalServerLink::handleClientMessage(void *a1, xpc_object_t *a2)
 
 void abb::link::LocalServerLink::handleClientMessage(void *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a1[6];
-  *&v11 = a1;
-  *(&v11 + 1) = a1[5];
-  v12 = v5;
+  *&v10 = a1;
+  *(&v10 + 1) = a1[5];
+  v11 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_weak_owners_, 1uLL, memory_order_relaxed);
@@ -4123,32 +4107,32 @@ void abb::link::LocalServerLink::handleClientMessage(void *a1, xpc_object_t *a2,
   {
     if (v6 == a3)
     {
-      v16 = v15;
-      (*(*v6 + 24))(v6, v15);
+      v15 = v14;
+      (*(*v6 + 24))(v6, v14);
     }
 
     else
     {
-      v16 = *(a3 + 24);
+      v15 = *(a3 + 24);
       *(a3 + 24) = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   v7 = a1[9];
   v8 = operator new(0x40uLL);
-  *v8 = v11;
-  v8[2] = v12;
+  *v8 = v10;
+  v8[2] = v11;
   v8[3] = object;
   objecta = xpc_null_create();
-  v9 = v16;
-  if (v16)
+  v9 = v15;
+  if (v15)
   {
-    if (v16 == v15)
+    if (v15 == v14)
     {
       v8[7] = v8 + 4;
       (*(*v9 + 24))(v9);
@@ -4156,8 +4140,8 @@ void abb::link::LocalServerLink::handleClientMessage(void *a1, xpc_object_t *a2,
 
     else
     {
-      v8[7] = v16;
-      v16 = 0;
+      v8[7] = v15;
+      v15 = 0;
     }
   }
 
@@ -4167,18 +4151,17 @@ void abb::link::LocalServerLink::handleClientMessage(void *a1, xpc_object_t *a2,
   }
 
   dispatch_async_f(v7, v8, dispatch::async<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0,std::default_delete<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (v16 == v15)
+  if (v15 == v14)
   {
-    (*(*v16 + 32))(v16);
+    (*(*v15 + 32))(v15);
   }
 
-  else if (v16)
+  else if (v15)
   {
-    (*(*v16 + 40))();
+    (*(*v15 + 40))();
   }
 
   xpc_release(objecta);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24011A804(_Unwind_Exception *a1, int a2)
@@ -4277,9 +4260,9 @@ LABEL_7:
   return a1;
 }
 
-void sub_24011AA7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011AA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<abb::link::XpcServerLink>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4434,11 +4417,12 @@ LABEL_10:
   operator delete(v8);
 }
 
-void sub_24011AD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011AD30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
   object = 0;
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   std::unique_ptr<abb::link::XpcServerLink::handleClientMessage(xpc::connection const&,xpc::dict const&)::$_0,std::default_delete<abb::link::XpcServerLink::handleClientMessage(xpc::connection const&,xpc::dict const&)::$_0>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4520,11 +4504,11 @@ LABEL_7:
   operator delete(v7);
 }
 
-void sub_24011AEB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011AEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::link::XpcServerLink::handleClientError(xpc::connection const&,xpc::object const&)::$_0,std::default_delete<abb::link::XpcServerLink::handleClientError(xpc::connection const&,xpc::object const&)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -4580,9 +4564,9 @@ LABEL_7:
   return a1;
 }
 
-void sub_24011B09C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011B09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<abb::link::LocalServerLink>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4926,11 +4910,12 @@ LABEL_10:
   operator delete(v8);
 }
 
-void sub_24011B7B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011B7B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
   object = 0;
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   std::unique_ptr<abb::link::LocalServerLink::handleClientMessage(xpc::dict)::$_0,std::default_delete<abb::link::LocalServerLink::handleClientMessage(xpc::dict)::$_0>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4970,15 +4955,15 @@ void *std::unique_ptr<abb::link::LocalServerLink::handleClientMessage(xpc::dict,
 
 void dispatch::async<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0>(dispatch_queue_s *,std::unique_ptr<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0,std::default_delete<abb::link::LocalServerLink::handleClientMessage(xpc::dict,std::function<void ()(xpc::object)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a1[2];
-  if (!v2 || (v3 = *a1, v4 = std::__shared_weak_count::lock(v2), (v16 = v4) == 0))
+  if (!v2 || (v3 = *a1, v4 = std::__shared_weak_count::lock(v2), (v15 = v4) == 0))
   {
 LABEL_19:
     v9 = a1;
     if (!a1)
     {
-      goto LABEL_27;
+      return;
     }
 
     goto LABEL_20;
@@ -5014,24 +4999,24 @@ LABEL_19:
 
       if (v8 == a1 + 4)
       {
-        v18 = v17;
-        (*(*v8 + 24))(v8, v17);
+        v17 = v16;
+        (*(*v8 + 24))(v8, v16);
         goto LABEL_13;
       }
 
       v8 = (*(*v8 + 16))(v8);
 LABEL_11:
-      v18 = v8;
+      v17 = v8;
 LABEL_13:
-      (*(*v6 + 24))(v6, &object, v17);
-      if (v18 == v17)
+      (*(*v6 + 24))(v6, &object, v16);
+      if (v17 == v16)
       {
-        (*(*v18 + 32))(v18);
+        (*(*v17 + 32))(v17);
       }
 
-      else if (v18)
+      else if (v17)
       {
-        (*(*v18 + 40))();
+        (*(*v17 + 40))();
       }
 
       xpc_release(object);
@@ -5049,7 +5034,7 @@ LABEL_13:
   v9 = a1;
   if (!a1)
   {
-    goto LABEL_27;
+    return;
   }
 
 LABEL_20:
@@ -5073,11 +5058,9 @@ LABEL_20:
   }
 
   operator delete(v9);
-LABEL_27:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24011BB44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, char a14)
+void sub_24011BB44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
   xpc_release(v14);
   a11 = 0;
@@ -5153,11 +5136,11 @@ LABEL_7:
   operator delete(v7);
 }
 
-void sub_24011BCAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011BCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::link::XpcServerLink::handleClientError(xpc::connection const&,xpc::object const&)::$_0,std::default_delete<abb::link::XpcServerLink::handleClientError(xpc::connection const&,xpc::object const&)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -5200,7 +5183,7 @@ std::string *abb::link::XpcLinkAccepter::Configuration::Configuration(std::strin
   return result;
 }
 
-uint64_t abb::link::XpcLinkAccepter::Configuration::isEntitled(uint64_t *a1, void *a2)
+BOOL abb::link::XpcLinkAccepter::Configuration::isEntitled(uint64_t *a1, void *a2)
 {
   if (MEMORY[0x245CBA150](*a2) != MEMORY[0x277D86450])
   {
@@ -5223,32 +5206,31 @@ uint64_t abb::link::XpcLinkAccepter::Configuration::isEntitled(uint64_t *a1, voi
   }
 
 LABEL_5:
-  v5 = *a2;
   xpc_connection_get_audit_token();
-  v6 = xpc_copy_entitlement_for_token();
-  v7 = MEMORY[0x277D86468];
-  if (v6 || (v6 = xpc_null_create()) != 0)
+  v4 = xpc_copy_entitlement_for_token();
+  v5 = MEMORY[0x277D86468];
+  if (v4 || (v4 = xpc_null_create()) != 0)
   {
-    if (MEMORY[0x245CBA150](v6) == v7)
+    if (MEMORY[0x245CBA150](v4) == v5)
     {
-      xpc_retain(v6);
-      v8 = v6;
+      xpc_retain(v4);
+      v6 = v4;
     }
 
     else
     {
-      v8 = xpc_null_create();
+      v6 = xpc_null_create();
     }
   }
 
   else
   {
-    v8 = xpc_null_create();
-    v6 = 0;
+    v6 = xpc_null_create();
+    v4 = 0;
   }
 
-  xpc_release(v6);
-  if (MEMORY[0x245CBA150](v8) != v7)
+  xpc_release(v4);
+  if (MEMORY[0x245CBA150](v6) != v5)
   {
     goto LABEL_14;
   }
@@ -5258,23 +5240,23 @@ LABEL_5:
     a1 = *a1;
   }
 
-  if (xpc_dictionary_get_value(v8, a1) && (v10 = xpc_dictionary_get_value(v8, a1), MEMORY[0x245CBA150](v10) == MEMORY[0x277D86448]))
+  if (xpc_dictionary_get_value(v6, a1) && (v8 = xpc_dictionary_get_value(v6, a1), MEMORY[0x245CBA150](v8) == MEMORY[0x277D86448]))
   {
-    value = xpc_dictionary_get_value(v8, a1);
-    v9 = xpc_BOOL_get_value(value);
+    value = xpc_dictionary_get_value(v6, a1);
+    v7 = xpc_BOOL_get_value(value);
   }
 
   else
   {
 LABEL_14:
-    v9 = 0;
+    v7 = 0;
   }
 
-  xpc_release(v8);
-  return v9;
+  xpc_release(v6);
+  return v7;
 }
 
-void abb::link::XpcLinkAccepter::create(xpc_object_t *a1@<X0>, dispatch_object_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void abb::link::XpcLinkAccepter::create(xpc_object_t *a1@<X0>, dispatch_object_t *a2@<X1>, uint64_t a3@<X2>, std::__shared_weak_count ***a4@<X8>)
 {
   v8 = operator new(0x50uLL);
   v18 = *a1;
@@ -5294,20 +5276,20 @@ void abb::link::XpcLinkAccepter::create(xpc_object_t *a1@<X0>, dispatch_object_t
   abb::link::XpcLinkAccepter::XpcLinkAccepter(v8, &v18, &object, &__p);
   *a4 = v8;
   v9 = operator new(0x20uLL);
-  v9[1] = 0;
-  v12 = v9 + 1;
-  *v9 = &unk_2852181F8;
-  v9[2] = 0;
-  v9[3] = v8;
+  v9->__shared_owners_ = 0;
+  p_shared_owners = &v9->__shared_owners_;
+  v9->__vftable = &unk_2852181F8;
+  v9->__shared_weak_owners_ = 0;
+  v9[1].__vftable = v8;
   a4[1] = v9;
-  v13 = *(v8 + 2);
+  v13 = v8[2];
   if (!v13)
   {
-    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v9 + 2, 1uLL, memory_order_relaxed);
-    *(v8 + 1) = v8;
-    *(v8 + 2) = v9;
-    if (atomic_fetch_add(v12, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v8[1] = v8;
+    v8[2] = v9;
+    if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_10;
     }
@@ -5317,18 +5299,18 @@ void abb::link::XpcLinkAccepter::create(xpc_object_t *a1@<X0>, dispatch_object_t
 
   if (v13->__shared_owners_ == -1)
   {
-    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v9 + 2, 1uLL, memory_order_relaxed);
-    *(v8 + 1) = v8;
-    *(v8 + 2) = v9;
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v8[1] = v8;
+    v8[2] = v9;
     v14 = v9;
     std::__shared_weak_count::__release_weak(v13);
     v9 = v14;
-    if (!atomic_fetch_add(v12, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
 LABEL_9:
       v15 = v9;
-      (*(*v9 + 16))(v9, v10, v11);
+      (v9->__on_zero_shared)(v9, v10, v11);
       std::__shared_weak_count::__release_weak(v15);
     }
   }
@@ -5464,7 +5446,7 @@ uint64_t abb::link::XpcLinkAccepter::handleNewClient(uint64_t a1, xpc_connection
   isEntitled = abb::link::XpcLinkAccepter::Configuration::isEntitled((a1 + 40), &v27);
   xpc_release(v5);
   v27 = 0;
-  if ((isEntitled & 1) == 0)
+  if (!isEntitled)
   {
     return 0;
   }
@@ -5644,14 +5626,15 @@ LABEL_22:
   return 1;
 }
 
-void sub_24011C788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+void sub_24011C788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a18);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24011C7A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
+void sub_24011C7A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35)
 {
   if (a35)
   {
@@ -6156,6 +6139,7 @@ void ___ZN3ctu15XpcServerHelper13startListenerIN3abb4link15XpcLinkAccepterEEEvN8
   v4 = a1[6];
   if (v4)
   {
+    v5 = a2;
     v15 = std::__shared_weak_count::lock(v4);
     if (!v15)
     {
@@ -6166,33 +6150,33 @@ void ___ZN3ctu15XpcServerHelper13startListenerIN3abb4link15XpcLinkAccepterEEEvN8
     v14 = v6;
     if (v6)
     {
-      v7 = MEMORY[0x245CBA150](a2);
+      v7 = MEMORY[0x245CBA150](v5);
       v8 = MEMORY[0x277D86450];
       if (v7 != MEMORY[0x277D86450])
       {
         if (v7 == MEMORY[0x277D86480] && *ctu::XpcServerHelper::getListener(v3) == a1[7])
         {
-          if (a2)
+          if (v5)
           {
-            xpc_retain(a2);
+            xpc_retain(v5);
           }
 
           else
           {
-            a2 = xpc_null_create();
+            v5 = xpc_null_create();
           }
 
-          xpc_release(a2);
+          xpc_release(v5);
         }
 
         goto LABEL_21;
       }
 
-      if (a2)
+      if (v5)
       {
-        xpc_retain(a2);
-        v13 = a2;
-        v9 = a2;
+        xpc_retain(v5);
+        v13 = v5;
+        v9 = v5;
       }
 
       else
@@ -6224,7 +6208,7 @@ LABEL_17:
       xpc_release(v9);
       if ((v11 & 1) == 0)
       {
-        xpc_connection_cancel(a2);
+        xpc_connection_cancel(v5);
       }
     }
   }
@@ -6233,15 +6217,15 @@ LABEL_21:
   v12 = v15;
   if (v15 && !atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v12->__on_zero_shared)(v12);
+    (v12->__on_zero_shared)(v12, a2);
 
     std::__shared_weak_count::__release_weak(v12);
   }
 }
 
-void sub_24011D4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_24011D4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6392,11 +6376,12 @@ LABEL_22:
   }
 }
 
-void sub_24011D744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, xpc_object_t a10, char a11)
+void sub_24011D744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, xpc_object_t a10, ...)
 {
+  va_start(va, a10);
   xpc_release(object);
   xpc_release(a10);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -6631,7 +6616,7 @@ void dispatch::async<abb::link::LocalLinkAccepter::handleNewClient(std::string c
       v28 = v10;
       if (v10)
       {
-        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
       }
 
       v13 = v31;
@@ -6729,33 +6714,33 @@ LABEL_41:
   }
 }
 
-void sub_24011DECC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011DECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   va_copy(va2, va1);
-  v6 = va_arg(va2, void);
-  v8 = va_arg(va2, void);
+  v7 = va_arg(va2, void);
+  v9 = va_arg(va2, void);
   va_copy(va3, va2);
-  v9 = va_arg(va3, void);
-  v11 = va_arg(va3, void);
+  v10 = va_arg(va3, void);
   v12 = va_arg(va3, void);
   v13 = va_arg(va3, void);
+  v14 = va_arg(va3, void);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va1);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va2);
   std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va3);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](v2 - 64);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](v3 - 64);
   std::unique_ptr<abb::link::LocalLinkAccepter::handleNewClient(std::string const&,std::shared_ptr<abb::link::ClientHandleBase>)::$_0,std::default_delete<abb::link::LocalLinkAccepter::handleNewClient(std::string const&,std::shared_ptr<abb::link::ClientHandleBase>)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24011DF30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24011DF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](v2 - 64);
+  va_start(va, a3);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](v3 - 64);
   std::unique_ptr<abb::link::LocalLinkAccepter::handleNewClient(std::string const&,std::shared_ptr<abb::link::ClientHandleBase>)::$_0,std::default_delete<abb::link::LocalLinkAccepter::handleNewClient(std::string const&,std::shared_ptr<abb::link::ClientHandleBase>)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6817,98 +6802,94 @@ void abb::link::ClientHandle<abb::link::ClientHandleBase>::handleServerMessage(u
   }
 }
 
-void sub_24011E0F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011E0F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void abb::link::ClientHandle<abb::link::ClientHandleBase>::handleServerMessage(uint64_t a1, xpc_object_t *a2, dispatch_object_t *a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 16);
-  if (!v5)
+  if (v5)
   {
-    goto LABEL_17;
-  }
-
-  v9 = std::__shared_weak_count::lock(v5);
-  v16[2] = v9;
-  if (!v9)
-  {
-    goto LABEL_17;
-  }
-
-  v10 = v9;
-  v11 = *(a1 + 8);
-  v16[1] = v11;
-  if (v11)
-  {
-    v16[0] = *a2;
-    *a2 = xpc_null_create();
-    object = *a3;
-    *a3 = 0;
-    v12 = *(a4 + 24);
-    if (v12)
+    v9 = std::__shared_weak_count::lock(v5);
+    v15[2] = v9;
+    if (v9)
     {
-      if (v12 == a4)
+      v10 = v9;
+      v11 = *(a1 + 8);
+      v15[1] = v11;
+      if (!v11)
       {
-        v18 = v17;
-        (*(*v12 + 24))(v12, v17);
+        goto LABEL_15;
+      }
+
+      v15[0] = *a2;
+      *a2 = xpc_null_create();
+      object = *a3;
+      *a3 = 0;
+      v12 = *(a4 + 24);
+      if (v12)
+      {
+        if (v12 == a4)
+        {
+          v17 = v16;
+          (*(*v12 + 24))(v12, v16);
+        }
+
+        else
+        {
+          v17 = *(a4 + 24);
+          *(a4 + 24) = 0;
+        }
       }
 
       else
       {
-        v18 = *(a4 + 24);
-        *(a4 + 24) = 0;
+        v17 = 0;
       }
-    }
 
-    else
-    {
-      v18 = 0;
-    }
-
-    (*(*v11 + 24))(v11, v16, &object, v17);
-    if (v18 == v17)
-    {
-      (*(*v18 + 32))(v18);
-      v13 = object;
-      if (!object)
+      (*(*v11 + 24))(v11, v15, &object, v16);
+      if (v17 == v16)
       {
-        goto LABEL_14;
+        (*(*v17 + 32))(v17);
+        v13 = object;
+        if (!object)
+        {
+          goto LABEL_14;
+        }
       }
-    }
 
-    else
-    {
-      if (v18)
+      else
       {
-        (*(*v18 + 40))();
+        if (v17)
+        {
+          (*(*v17 + 40))();
+        }
+
+        v13 = object;
+        if (!object)
+        {
+          goto LABEL_14;
+        }
       }
 
-      v13 = object;
-      if (!object)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    dispatch_release(v13);
+      dispatch_release(v13);
 LABEL_14:
-    xpc_release(v16[0]);
-    v16[0] = 0;
+      xpc_release(v15[0]);
+      v15[0] = 0;
+LABEL_15:
+      if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v10->__on_zero_shared)(v10);
+        std::__shared_weak_count::__release_weak(v10);
+      }
+    }
   }
-
-  if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
-  }
-
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24011E324(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, dispatch_object_t object, xpc_object_t a11, char a12, uint64_t a13, char a14)
@@ -6951,10 +6932,11 @@ void abb::link::ClientHandle<abb::link::ClientHandleBase>::handleServerError(uin
   }
 }
 
-void sub_24011E474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011E474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -7015,16 +6997,17 @@ void abb::link::ServerHandle<abb::link::LocalServerLink>::handleClientMessage(ui
   }
 }
 
-void sub_24011E628(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011E628(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void abb::link::ServerHandle<abb::link::LocalServerLink>::handleClientMessage(uint64_t a1, xpc_object_t *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 16);
   if (v4)
   {
@@ -7044,31 +7027,31 @@ void abb::link::ServerHandle<abb::link::LocalServerLink>::handleClientMessage(ui
         {
           if (v10 == a3)
           {
-            v16 = v15;
-            (*(*v10 + 24))(v10, v15);
+            v15 = v14;
+            (*(*v10 + 24))(v10, v14);
           }
 
           else
           {
-            v16 = *(a3 + 24);
+            v15 = *(a3 + 24);
             *(a3 + 24) = 0;
           }
         }
 
         else
         {
-          v16 = 0;
+          v15 = 0;
         }
 
-        abb::link::LocalServerLink::handleClientMessage(v9, object, v15);
-        if (v16 == v15)
+        abb::link::LocalServerLink::handleClientMessage(v9, object, v14);
+        if (v15 == v14)
         {
-          (*(*v16 + 32))(v16);
+          (*(*v15 + 32))(v15);
         }
 
-        else if (v16)
+        else if (v15)
         {
-          (*(*v16 + 40))(v16, v11, v12);
+          (*(*v15 + 40))(v15, v11, v12);
         }
 
         xpc_release(object[0]);
@@ -7082,8 +7065,6 @@ void abb::link::ServerHandle<abb::link::LocalServerLink>::handleClientMessage(ui
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24011E804(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, char a10, uint64_t a11, char a12)
@@ -7123,10 +7104,11 @@ void abb::link::ServerHandle<abb::link::LocalServerLink>::handleClientError(uint
   }
 }
 
-void sub_24011E928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, char a11)
+void sub_24011E928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
-  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<void const>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 

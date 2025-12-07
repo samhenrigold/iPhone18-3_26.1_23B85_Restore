@@ -13,6 +13,7 @@
 - (void)endpointer:(id)endpointer detectedTwoShotAtTime:(double)time;
 - (void)endpointer:(id)endpointer didDetectHardEndpointAtTime:(double)time withMetrics:(id)metrics eventType:(int64_t)type;
 - (void)getEndpointerModelVersionWithReply:(id)reply;
+- (void)processASRFeaturesWithWordCount:(int64_t)count trailingSilenceDuration:(int64_t)duration eosLikelihood:(double)likelihood pauseCounts:(id)counts silencePosterior:(double)posterior taskName:(id)name processedAudioDurationInMilliseconds:(int64_t)milliseconds acousticEndpointerScore:(double)self0 fromServer:(BOOL)self1;
 - (void)processSpeechPackage:(id)package taskName:(id)name;
 - (void)removeReceiver:(id)receiver;
 - (void)resetForNewRequestWithSampleRate:(unint64_t)rate recordContext:(id)context recordOption:(id)option voiceTriggerInfo:(id)info;
@@ -86,41 +87,37 @@
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   receivers = [(CSAttSiriEndpointerNode *)self receivers];
-  v16 = [receivers countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v16 = [receivers countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       v19 = 0;
       do
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(receivers);
         }
 
-        v20 = *(*(&v22 + 1) + 8 * v19);
-        if (v20)
+        v20 = *(*(&v21 + 1) + 8 * v19);
+        if (v20 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v21 = *(*(&v22 + 1) + 8 * v19);
-          if (objc_opt_respondsToSelector())
-          {
-            [v20 attSiriNode:self didDetectEndpointEventAtTime:type eventType:metricsCopy withMetrics:getUsesAutomaticEndpointing usesAutomaticEndpointing:time];
-          }
+          [v20 attSiriNode:self didDetectEndpointEventAtTime:type eventType:metricsCopy withMetrics:getUsesAutomaticEndpointing usesAutomaticEndpointing:time];
         }
 
         v19 = v19 + 1;
       }
 
       while (v17 != v19);
-      v17 = [receivers countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v17 = [receivers countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v17);
@@ -136,60 +133,59 @@
     v10 = v9;
     endpointerListener = [(CSAttSiriEndpointerNode *)self endpointerListener];
     *buf = 136315394;
-    v32 = "[CSAttSiriEndpointerNode _reportHardEndpointToXPCClientWithTime:endpointerMetrics:eventType:]";
-    v33 = 2112;
-    v34 = endpointerListener;
+    v31 = "[CSAttSiriEndpointerNode _reportHardEndpointToXPCClientWithTime:endpointerMetrics:eventType:]";
+    v32 = 2112;
+    v33 = endpointerListener;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s endpointerListener: %@", buf, 0x16u);
   }
 
   v12 = [metricsCopy metricsCopyWithRequestId:self->_requestId lastAudioChunkHostTime:self->_lastAudioChunkHostTime];
-  endpointerListener = self->_endpointerListener;
   if (objc_opt_respondsToSelector())
   {
-    v14 = self->_endpointerListener;
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_10002BC3C;
-    v26[3] = &unk_10024E9E8;
+    endpointerListener = self->_endpointerListener;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10002BC3C;
+    v25[3] = &unk_10024E9E8;
     timeCopy = time;
-    v27 = v12;
+    v26 = v12;
     typeCopy = type;
-    [(CSConnectionListener *)v14 notifyClientsWithBlock:v26];
+    [(CSConnectionListener *)endpointerListener notifyClientsWithBlock:v25];
   }
 
   getUsesAutomaticEndpointing = [(CSAttSiriEndpointerNode *)self getUsesAutomaticEndpointing];
   endpointerNodeDelegate = [(CSAttSiriEndpointerNode *)self endpointerNodeDelegate];
   [endpointerNodeDelegate attSiriNode:self didDetectHardEndpointAtTime:metricsCopy withMetrics:getUsesAutomaticEndpointing usesAutomaticEndpointing:time];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   receivers = [(CSAttSiriEndpointerNode *)self receivers];
-  v18 = [receivers countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v18)
+  v17 = [receivers countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v23;
+    v18 = v17;
+    v19 = *v22;
     do
     {
-      v21 = 0;
+      v20 = 0;
       do
       {
-        if (*v23 != v20)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(receivers);
         }
 
-        [*(*(&v22 + 1) + 8 * v21) attSiriNode:self didDetectHardEndpointAtTime:metricsCopy withMetrics:getUsesAutomaticEndpointing usesAutomaticEndpointing:time];
-        v21 = v21 + 1;
+        [*(*(&v21 + 1) + 8 * v20) attSiriNode:self didDetectHardEndpointAtTime:metricsCopy withMetrics:getUsesAutomaticEndpointing usesAutomaticEndpointing:time];
+        v20 = v20 + 1;
       }
 
-      while (v19 != v21);
-      v19 = [receivers countByEnumeratingWithState:&v22 objects:v30 count:16];
+      while (v18 != v20);
+      v18 = [receivers countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 }
 
@@ -257,6 +253,16 @@
 
   v15 = [(CSASRFeatures *)v8 initWithWordCount:numOneBestTokensExcludingTriggerPhrase trailingSilenceDuration:50 eosLikelihood:0 pauseCounts:nameCopy silencePosterior:(v14 * 1000.0) taskName:v12 processedAudioDurationInMilliseconds:0.0 acousticEndpointerScore:0.0];
   [(CSHybridEndpointAnalyzer *)self->_endpointAnalyzer processRCFeatures:v15];
+}
+
+- (void)processASRFeaturesWithWordCount:(int64_t)count trailingSilenceDuration:(int64_t)duration eosLikelihood:(double)likelihood pauseCounts:(id)counts silencePosterior:(double)posterior taskName:(id)name processedAudioDurationInMilliseconds:(int64_t)milliseconds acousticEndpointerScore:(double)self0 fromServer:(BOOL)self1
+{
+  serverCopy = server;
+  nameCopy = name;
+  countsCopy = counts;
+  v22 = [[CSASRFeatures alloc] initWithWordCount:count trailingSilenceDuration:duration eosLikelihood:countsCopy pauseCounts:nameCopy silencePosterior:milliseconds taskName:likelihood processedAudioDurationInMilliseconds:posterior acousticEndpointerScore:score];
+
+  [(CSHybridEndpointAnalyzer *)self->_endpointAnalyzer processASRFeatures:v22 fromServer:serverCopy];
 }
 
 - (void)getEndpointerModelVersionWithReply:(id)reply

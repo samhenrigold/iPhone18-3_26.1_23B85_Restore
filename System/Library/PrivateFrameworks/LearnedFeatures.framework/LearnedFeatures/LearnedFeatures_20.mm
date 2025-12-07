@@ -1502,11 +1502,11 @@ LABEL_112:
   return v3;
 }
 
-void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
+void sub_255BEB340(void x0_0, int a1, unint64_t a2)
 {
   v156 = *MEMORY[0x277D85DE8];
-  v135 = a3;
-  switch(a2)
+  v135 = a2;
+  switch(a1)
   {
     case 1:
       *v149 = &unk_2867C6000;
@@ -1517,9 +1517,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       sub_255BE709C(&v135, &v141);
       operator new();
     case 3:
-      if (a3)
+      if (a2)
       {
-        v87 = HIDWORD(a3) == 0;
+        v87 = HIDWORD(a2) == 0;
       }
 
       else
@@ -1535,7 +1535,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v89 = a3;
+        v89 = a2;
       }
 
       v90 = 0;
@@ -1607,9 +1607,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 7:
       v136 = &unk_2867C5960;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v31 = a3 == 0;
+        v31 = a2 == 0;
       }
 
       else
@@ -1624,7 +1624,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v32 = a3;
+        v32 = a2;
       }
 
       v33 = 2 * (v32 != 0);
@@ -1753,9 +1753,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 11:
       v136 = &unk_2867C6180;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v93 = a3 == 0;
+        v93 = a2 == 0;
       }
 
       else
@@ -1770,7 +1770,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v94 = a3;
+        v94 = a2;
       }
 
       *&v149[4] = v94;
@@ -1910,9 +1910,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 15:
       v136 = &unk_2867C6100;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v107 = a3 == 0;
+        v107 = a2 == 0;
       }
 
       else
@@ -1927,7 +1927,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v108 = a3;
+        v108 = a2;
       }
 
       v109 = 4 * (v108 != 0);
@@ -2056,9 +2056,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 19:
       v136 = &unk_2867C6060;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v17 = a3 == 0;
+        v17 = a2 == 0;
       }
 
       else
@@ -2073,7 +2073,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v18 = a3;
+        v18 = a2;
       }
 
       *&v149[4] = v18;
@@ -2213,9 +2213,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 23:
       v136 = &unk_2867C5F00;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v121 = a3 == 0;
+        v121 = a2 == 0;
       }
 
       else
@@ -2230,7 +2230,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v122 = a3;
+        v122 = a2;
       }
 
       *&v149[4] = v122;
@@ -2370,9 +2370,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 27:
       v136 = &unk_2867C5E40;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v3 = a3 == 0;
+        v3 = a2 == 0;
       }
 
       else
@@ -2387,7 +2387,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v4 = a3;
+        v4 = a2;
       }
 
       v5 = 4 * (v4 != 0);
@@ -2516,9 +2516,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 31:
       v136 = &unk_2867C5D00;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v59 = a3 == 0;
+        v59 = a2 == 0;
       }
 
       else
@@ -2533,7 +2533,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v60 = a3;
+        v60 = a2;
       }
 
       v61 = 4 * (v60 != 0);
@@ -2662,9 +2662,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 35:
       v136 = &unk_2867C5C20;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v73 = a3 == 0;
+        v73 = a2 == 0;
       }
 
       else
@@ -2679,7 +2679,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v74 = a3;
+        v74 = a2;
       }
 
       v75 = 4 * (v74 != 0);
@@ -2808,9 +2808,9 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 39:
       v136 = &unk_2867C5B20;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v45 = a3 == 0;
+        v45 = a2 == 0;
       }
 
       else
@@ -2825,7 +2825,7 @@ void sub_255BEB340(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v46 = a3;
+        v46 = a2;
       }
 
       v47 = 4 * (v46 != 0);
@@ -2952,27 +2952,27 @@ void sub_255BED974(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
+void sub_255BEDC30(uint64_t *a1, int a2, _DWORD *a3, int32x2_t a4)
 {
   v539 = *MEMORY[0x277D85DE8];
-  switch(a3)
+  switch(a2)
   {
     case 1:
       *v532 = &unk_2867C6000;
       LOBYTE(v530) = 0;
-      sub_255BE6A10(a4, &v530, &v518);
+      sub_255BE6A10(a3, &v530, &v518);
       operator new();
     case 2:
       *v532 = &unk_2867C5D80;
       LOWORD(v530) = 0;
-      sub_255BE6DE0(a4, &v530, &v518);
+      sub_255BE6DE0(a3, &v530, &v518);
       operator new();
     case 3:
       v527 = &unk_2867C5AC0;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v373 = *a4 == 0;
+        v373 = *a3 == 0;
       }
 
       else
@@ -2980,7 +2980,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v373 = 1;
       }
 
-      v374 = *a4;
+      v374 = *a3;
       if (v373)
       {
         v374 = 0;
@@ -3034,9 +3034,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 4:
       v527 = &unk_2867C5A40;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v228 = *a4 == 0;
+        v228 = *a3 == 0;
       }
 
       else
@@ -3044,7 +3044,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v228 = 1;
       }
 
-      v229 = *a4;
+      v229 = *a3;
       if (v228)
       {
         v229 = 0;
@@ -3098,9 +3098,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 5:
       v527 = &unk_2867C59E0;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v331 = *a4 == 0;
+        v331 = *a3 == 0;
       }
 
       else
@@ -3108,7 +3108,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v331 = 1;
       }
 
-      v332 = *a4;
+      v332 = *a3;
       if (v331)
       {
         v332 = 0;
@@ -3211,9 +3211,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 6:
       v527 = &unk_2867C59C0;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v214 = *a4 == 0;
+        v214 = *a3 == 0;
       }
 
       else
@@ -3228,7 +3228,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v215 = *a4;
+        v215 = *a3;
       }
 
       v216 = 2 * (v215 != 0);
@@ -3328,9 +3328,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 7:
       v527 = &unk_2867C5960;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v144 = *a4 == 0;
+        v144 = *a3 == 0;
       }
 
       else
@@ -3345,7 +3345,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v145 = *a4;
+        v145 = *a3;
       }
 
       v146 = 2 * (v145 != 0);
@@ -3445,9 +3445,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 8:
       v527 = &unk_2867C5900;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v359 = *a4 == 0;
+        v359 = *a3 == 0;
       }
 
       else
@@ -3455,7 +3455,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v359 = 1;
       }
 
-      v360 = *a4;
+      v360 = *a3;
       if (v359)
       {
         v360 = 0;
@@ -3544,7 +3544,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v372 = 4 * v362;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v372, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v372, a4);
       *v519 = *v532;
       v518 = &unk_2867C6240;
       *&v519[16] = *&v532[16];
@@ -3558,9 +3558,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 9:
       v527 = &unk_2867C58E0;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v317 = *a4 == 0;
+        v317 = *a3 == 0;
       }
 
       else
@@ -3568,7 +3568,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v317 = 1;
       }
 
-      v318 = *a4;
+      v318 = *a3;
       if (v317)
       {
         v318 = 0;
@@ -3682,9 +3682,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 10:
       v527 = &unk_2867C61A0;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v406 = *a4 == 0;
+        v406 = *a3 == 0;
       }
 
       else
@@ -3692,7 +3692,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v406 = 1;
       }
 
-      v407 = *a4;
+      v407 = *a3;
       if (v406)
       {
         v407 = 0;
@@ -3806,9 +3806,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 11:
       v527 = &unk_2867C6180;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v392 = *a4 == 0;
+        v392 = *a3 == 0;
       }
 
       else
@@ -3816,7 +3816,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v392 = 1;
       }
 
-      v393 = *a4;
+      v393 = *a3;
       if (v392)
       {
         v393 = 0;
@@ -3930,9 +3930,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 12:
       v527 = &unk_2867C6160;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v46 = *a4 == 0;
+        v46 = *a3 == 0;
       }
 
       else
@@ -3940,7 +3940,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v46 = 1;
       }
 
-      v47 = *a4;
+      v47 = *a3;
       if (v46)
       {
         v47 = 0;
@@ -4040,7 +4040,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v59 = 4 * v49;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v59, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v59, a4);
       *v519 = *v532;
       v518 = &unk_2867C7440;
       *&v519[16] = *&v532[16];
@@ -4054,9 +4054,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 13:
       v527 = &unk_2867C6140;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v102 = *a4 == 0;
+        v102 = *a3 == 0;
       }
 
       else
@@ -4064,7 +4064,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v102 = 1;
       }
 
-      v103 = *a4;
+      v103 = *a3;
       if (v102)
       {
         v103 = 0;
@@ -4167,9 +4167,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 14:
       v527 = &unk_2867C6120;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v88 = *a4 == 0;
+        v88 = *a3 == 0;
       }
 
       else
@@ -4177,7 +4177,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v88 = 1;
       }
 
-      v89 = *a4;
+      v89 = *a3;
       if (v88)
       {
         v89 = 0;
@@ -4280,9 +4280,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 15:
       v527 = &unk_2867C6100;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v462 = *a4 == 0;
+        v462 = *a3 == 0;
       }
 
       else
@@ -4290,7 +4290,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v462 = 1;
       }
 
-      v463 = *a4;
+      v463 = *a3;
       if (v462)
       {
         v463 = 0;
@@ -4393,9 +4393,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 16:
       v527 = &unk_2867C60E0;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v345 = *a4 == 0;
+        v345 = *a3 == 0;
       }
 
       else
@@ -4410,7 +4410,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v346 = *a4;
+        v346 = *a3;
       }
 
       v347 = 4 * (v346 != 0);
@@ -4496,7 +4496,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v358 = 4 * v348;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v358, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v358, a4);
       *v519 = *v532;
       v518 = &unk_2867C7240;
       *&v519[16] = *&v532[16];
@@ -4510,9 +4510,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 17:
       v527 = &unk_2867C60A0;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v476 = *a4 == 0;
+        v476 = *a3 == 0;
       }
 
       else
@@ -4520,7 +4520,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v476 = 1;
       }
 
-      v477 = *a4;
+      v477 = *a3;
       if (v476)
       {
         v477 = 0;
@@ -4634,9 +4634,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 18:
       v527 = &unk_2867C6080;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v130 = *a4 == 0;
+        v130 = *a3 == 0;
       }
 
       else
@@ -4644,7 +4644,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v130 = 1;
       }
 
-      v131 = *a4;
+      v131 = *a3;
       if (v130)
       {
         v131 = 0;
@@ -4758,9 +4758,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 19:
       v527 = &unk_2867C6060;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v18 = *a4 == 0;
+        v18 = *a3 == 0;
       }
 
       else
@@ -4768,7 +4768,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v18 = 1;
       }
 
-      v19 = *a4;
+      v19 = *a3;
       if (v18)
       {
         v19 = 0;
@@ -4882,9 +4882,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 20:
       v527 = &unk_2867C5FE0;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v434 = *a4 == 0;
+        v434 = *a3 == 0;
       }
 
       else
@@ -4892,7 +4892,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v434 = 1;
       }
 
-      v435 = *a4;
+      v435 = *a3;
       if (v434)
       {
         v435 = 0;
@@ -4992,7 +4992,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v447 = 4 * v437;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v447, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v447, a4);
       *v519 = *v532;
       v518 = &unk_2867C6FC0;
       *&v519[16] = *&v532[16];
@@ -5006,9 +5006,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 21:
       v527 = &unk_2867C5F80;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v504 = *a4 == 0;
+        v504 = *a3 == 0;
       }
 
       else
@@ -5016,7 +5016,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v504 = 1;
       }
 
-      v505 = *a4;
+      v505 = *a3;
       if (v504)
       {
         v505 = 0;
@@ -5130,9 +5130,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 22:
       v527 = &unk_2867C5F20;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v172 = *a4 == 0;
+        v172 = *a3 == 0;
       }
 
       else
@@ -5140,7 +5140,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v172 = 1;
       }
 
-      v173 = *a4;
+      v173 = *a3;
       if (v172)
       {
         v173 = 0;
@@ -5254,9 +5254,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 23:
       v527 = &unk_2867C5F00;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v490 = *a4 == 0;
+        v490 = *a3 == 0;
       }
 
       else
@@ -5264,7 +5264,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v490 = 1;
       }
 
-      v491 = *a4;
+      v491 = *a3;
       if (v490)
       {
         v491 = 0;
@@ -5378,9 +5378,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 24:
       v527 = &unk_2867C5EE0;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v74 = *a4 == 0;
+        v74 = *a3 == 0;
       }
 
       else
@@ -5388,7 +5388,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v74 = 1;
       }
 
-      v75 = *a4;
+      v75 = *a3;
       if (v74)
       {
         v75 = 0;
@@ -5488,7 +5488,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v87 = 4 * v77;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v87, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v87, a4);
       *v519 = *v532;
       v518 = &unk_2867C6DC0;
       *&v519[16] = *&v532[16];
@@ -5502,9 +5502,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 25:
       v527 = &unk_2867C5E80;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v32 = *a4 == 0;
+        v32 = *a3 == 0;
       }
 
       else
@@ -5512,7 +5512,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v32 = 1;
       }
 
-      v33 = *a4;
+      v33 = *a3;
       if (v32)
       {
         v33 = 0;
@@ -5615,9 +5615,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 26:
       v527 = &unk_2867C5E60;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v186 = *a4 == 0;
+        v186 = *a3 == 0;
       }
 
       else
@@ -5625,7 +5625,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v186 = 1;
       }
 
-      v187 = *a4;
+      v187 = *a3;
       if (v186)
       {
         v187 = 0;
@@ -5728,9 +5728,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 27:
       v527 = &unk_2867C5E40;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v4 = *a4 == 0;
+        v4 = *a3 == 0;
       }
 
       else
@@ -5738,7 +5738,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v4 = 1;
       }
 
-      v5 = *a4;
+      v5 = *a3;
       if (v4)
       {
         v5 = 0;
@@ -5841,9 +5841,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 28:
       v527 = &unk_2867C5E20;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v233 = *a4 == 0;
+        v233 = *a3 == 0;
       }
 
       else
@@ -5858,7 +5858,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v234 = *a4;
+        v234 = *a3;
       }
 
       v235 = 4 * (v234 != 0);
@@ -5944,7 +5944,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v246 = 4 * v236;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v246, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v246, a4);
       *v519 = *v532;
       v518 = &unk_2867C6BC0;
       *&v519[16] = *&v532[16];
@@ -5958,9 +5958,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 29:
       v527 = &unk_2867C5DE0;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v60 = *a4 == 0;
+        v60 = *a3 == 0;
       }
 
       else
@@ -5968,7 +5968,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v60 = 1;
       }
 
-      v61 = *a4;
+      v61 = *a3;
       if (v60)
       {
         v61 = 0;
@@ -6071,9 +6071,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 30:
       v527 = &unk_2867C5D60;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v275 = *a4 == 0;
+        v275 = *a3 == 0;
       }
 
       else
@@ -6081,7 +6081,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v275 = 1;
       }
 
-      v276 = *a4;
+      v276 = *a3;
       if (v275)
       {
         v276 = 0;
@@ -6184,9 +6184,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 31:
       v527 = &unk_2867C5D00;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v200 = *a4 == 0;
+        v200 = *a3 == 0;
       }
 
       else
@@ -6194,7 +6194,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v200 = 1;
       }
 
-      v201 = *a4;
+      v201 = *a3;
       if (v200)
       {
         v201 = 0;
@@ -6297,9 +6297,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 32:
       v527 = &unk_2867C5CA0;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v303 = *a4 == 0;
+        v303 = *a3 == 0;
       }
 
       else
@@ -6314,7 +6314,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v304 = *a4;
+        v304 = *a3;
       }
 
       v305 = 4 * (v304 != 0);
@@ -6400,7 +6400,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v316 = 4 * v306;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v316, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v316, a4);
       *v519 = *v532;
       v518 = &unk_2867C6940;
       *&v519[16] = *&v532[16];
@@ -6414,9 +6414,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 33:
       v527 = &unk_2867C5C60;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v420 = *a4 == 0;
+        v420 = *a3 == 0;
       }
 
       else
@@ -6424,7 +6424,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v420 = 1;
       }
 
-      v421 = *a4;
+      v421 = *a3;
       if (v420)
       {
         v421 = 0;
@@ -6527,9 +6527,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 34:
       v527 = &unk_2867C5C40;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v289 = *a4 == 0;
+        v289 = *a3 == 0;
       }
 
       else
@@ -6537,7 +6537,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v289 = 1;
       }
 
-      v290 = *a4;
+      v290 = *a3;
       if (v289)
       {
         v290 = 0;
@@ -6640,9 +6640,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 35:
       v527 = &unk_2867C5C20;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v261 = *a4 == 0;
+        v261 = *a3 == 0;
       }
 
       else
@@ -6650,7 +6650,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v261 = 1;
       }
 
-      v262 = *a4;
+      v262 = *a3;
       if (v261)
       {
         v262 = 0;
@@ -6753,9 +6753,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 36:
       v527 = &unk_2867C5C00;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v247 = *a4 == 0;
+        v247 = *a3 == 0;
       }
 
       else
@@ -6770,7 +6770,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v248 = *a4;
+        v248 = *a3;
       }
 
       v249 = 4 * (v248 != 0);
@@ -6856,7 +6856,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v260 = 4 * v250;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v260, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v260, a4);
       *v519 = *v532;
       v518 = &unk_2867C6740;
       *&v519[16] = *&v532[16];
@@ -6870,9 +6870,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 37:
       v527 = &unk_2867C5BA0;
       LOBYTE(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v378 = *a4 == 0;
+        v378 = *a3 == 0;
       }
 
       else
@@ -6880,7 +6880,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v378 = 1;
       }
 
-      v379 = *a4;
+      v379 = *a3;
       if (v378)
       {
         v379 = 0;
@@ -6983,9 +6983,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 38:
       v527 = &unk_2867C5B40;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v448 = *a4 == 0;
+        v448 = *a3 == 0;
       }
 
       else
@@ -6993,7 +6993,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v448 = 1;
       }
 
-      v449 = *a4;
+      v449 = *a3;
       if (v448)
       {
         v449 = 0;
@@ -7096,9 +7096,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 39:
       v527 = &unk_2867C5B20;
       LOWORD(v526) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v158 = *a4 == 0;
+        v158 = *a3 == 0;
       }
 
       else
@@ -7106,7 +7106,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v158 = 1;
       }
 
-      v159 = *a4;
+      v159 = *a3;
       if (v158)
       {
         v159 = 0;
@@ -7209,9 +7209,9 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 40:
       v527 = &unk_2867C5AA0;
       v526 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v116 = *a4 == 0;
+        v116 = *a3 == 0;
       }
 
       else
@@ -7226,7 +7226,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v117 = *a4;
+        v117 = *a3;
       }
 
       v118 = 4 * (v117 != 0);
@@ -7312,7 +7312,7 @@ void sub_255BEDC30(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v129 = 4 * v119;
       }
 
-      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v129, a1);
+      sub_255BF3D60(&v535, &v528, &v530, 1, &v526, 1, v129, a4);
       *v519 = *v532;
       v518 = &unk_2867C64C0;
       *&v519[16] = *&v532[16];
@@ -7665,7 +7665,7 @@ LABEL_52:
   return a1;
 }
 
-unint64_t *sub_255BF2304(unint64_t *a1, _DWORD *a2, unint64_t *a3, char a4, uint64_t a5, char a6, uint64_t a7)
+unint64_t *sub_255BF2304(unint64_t *a1, _DWORD *a2, unint64_t *a3, char a4, __int32 *a5, char a6, uint64_t a7)
 {
   if (a4)
   {

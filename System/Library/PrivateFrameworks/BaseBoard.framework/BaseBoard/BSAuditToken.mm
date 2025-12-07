@@ -328,7 +328,7 @@ void __26__BSAuditToken_initialize__block_invoke(uint64_t a1, void *a2)
   v6 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

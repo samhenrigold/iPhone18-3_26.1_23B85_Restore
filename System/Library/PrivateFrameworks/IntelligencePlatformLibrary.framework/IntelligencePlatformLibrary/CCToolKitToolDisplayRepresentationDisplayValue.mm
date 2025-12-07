@@ -260,9 +260,9 @@ LABEL_21:
     {
       v36 = [CCToolKitToolDisplayRepresentationDisplayValueStatic alloc];
       v37 = CCPBReaderReadDataNoCopy();
-      v50 = 0;
-      v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v50];
-      v10 = v50;
+      v48 = 0;
+      v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v48];
+      v10 = v48;
       staticType = self->_staticType;
       self->_staticType = v38;
 
@@ -279,9 +279,9 @@ LABEL_21:
     {
       v31 = [CCToolKitToolDisplayRepresentationStorage alloc];
       v32 = CCPBReaderReadDataNoCopy();
-      v51 = 0;
-      v33 = [(CCToolKitToolDisplayRepresentationStorage *)v31 initWithData:v32 error:&v51];
-      v10 = v51;
+      v49 = 0;
+      v33 = [(CCToolKitToolDisplayRepresentationStorage *)v31 initWithData:v32 error:&v49];
+      v10 = v49;
       v34 = self->_lazy;
       self->_lazy = v33;
 
@@ -346,7 +346,6 @@ LABEL_40:
     {
       v41 = objc_opt_class();
       v42 = NSStringFromClass(v41);
-      v43 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
     }
   }
@@ -363,24 +362,23 @@ LABEL_45:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v48 = 1;
+      v46 = 1;
       goto LABEL_49;
     }
 
 LABEL_46:
-    v44 = objc_opt_class();
-    v45 = NSStringFromClass(v44);
-    v46 = *&v6[*v9];
-    v47 = CCInvalidBufferErrorForMessage();
+    v43 = objc_opt_class();
+    v44 = NSStringFromClass(v43);
+    v45 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v48 = 0;
+  v46 = 0;
 LABEL_49:
 
-  return v48;
+  return v46;
 }
 
 - (CCToolKitToolDisplayRepresentationDisplayValue)initWithType:(unsigned int)type kind:(id)kind kindType:(unsigned int)kindType error:(id *)error

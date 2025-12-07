@@ -12,17 +12,21 @@
   applicationState = [_applicationRecord applicationState];
   isInstalled = [applicationState isInstalled];
 
-  if (!isInstalled)
+  result = 0;
+  if (isInstalled)
   {
-    return 0;
+    _appInfo = [(INExecutionInfo *)self _appInfo];
+    supportedActions = [_appInfo supportedActions];
+    userActivityType = [(INUserActivityExecutionInfo *)self userActivityType];
+    v9 = [supportedActions containsObject:userActivityType];
+
+    if (v9)
+    {
+      return 1;
+    }
   }
 
-  _appInfo = [(INExecutionInfo *)self _appInfo];
-  supportedActions = [_appInfo supportedActions];
-  userActivityType = [(INUserActivityExecutionInfo *)self userActivityType];
-  v9 = [supportedActions containsObject:userActivityType];
-
-  return (v9 & 1) != 0;
+  return result;
 }
 
 - (id)_initWithUserActivityType:(id)type launchableAppBundleId:(id)id containingAppBundleURL:(id)l extensionBundleId:(id)bundleId

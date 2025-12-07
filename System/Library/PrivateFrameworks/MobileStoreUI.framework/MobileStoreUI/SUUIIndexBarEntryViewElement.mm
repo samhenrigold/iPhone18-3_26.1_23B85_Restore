@@ -21,9 +21,9 @@
     }
 
     v11 = [elementCopy getAttribute:@"visibility"];
-    v12 = [v11 isEqualToString:@"required"];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
     v13 = 1000;
-    if (!v12)
+    if (!isEqualToString)
     {
       v13 = 0;
     }

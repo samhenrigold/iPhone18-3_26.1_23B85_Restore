@@ -49,7 +49,7 @@
     v15 = 0u;
     if (matchingCopy)
     {
-      [matchingCopy config];
+      objc_msgSend_config(matchingCopy);
     }
 
     else
@@ -88,7 +88,7 @@
   {
     if (matchingCopy)
     {
-      [matchingCopy config];
+      objc_msgSend_config(matchingCopy);
       v6 = *v15;
       v16 = *&v15[8];
       v17 = *&v15[24];
@@ -275,7 +275,7 @@ LABEL_28:
   }
 
   memset(v5, 0, 40);
-  [morph config];
+  objc_msgSend_config(morph, a2);
   return *&self->_config.backgroundColor == 0 && self->_config.skinColor == *&v5[0] && *&self->_config.shirtColor == *(v5 + 8) && *&self->_config.bodyPathIndex == *(&v5[1] + 8) && self->_config.lipsPathIndex == 0;
 }
 

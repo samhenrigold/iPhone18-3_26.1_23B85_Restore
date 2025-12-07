@@ -40,21 +40,19 @@
 
 - (id)description
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v13[0] = @"identifier";
+  v12[0] = @"identifier";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[LACUIHostedSceneAction rawIdentifier](self, "rawIdentifier")}];
-  v13[1] = @"value";
-  v14[0] = v5;
+  v12[1] = @"value";
+  v13[0] = v5;
   v6 = MEMORY[0x277CCACA8];
   rawValue = [(LACUIHostedSceneAction *)self rawValue];
   v8 = [v6 stringWithFormat:@"%@", rawValue];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v9];;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

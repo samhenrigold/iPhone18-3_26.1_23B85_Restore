@@ -13,39 +13,39 @@
 
 - (RTPolygon)initWithVertices:(id)vertices
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   verticesCopy = vertices;
   if ([verticesCopy count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v5 = verticesCopy;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       v9 = 0.0;
       v10 = 0.0;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           [v12 latitude];
           v9 = v9 + v13;
           [v12 longitude];
           v10 = v10 + v14;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v7);
@@ -74,7 +74,6 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

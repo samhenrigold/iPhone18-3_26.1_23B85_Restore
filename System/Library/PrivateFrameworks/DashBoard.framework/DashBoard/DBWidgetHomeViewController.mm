@@ -129,7 +129,7 @@
 
 - (void)applicationController:(id)controller addedApplications:(id)applications updatedApplications:(id)updatedApplications removedApplications:(id)removedApplications
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480, &qword_24839D5D0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v15 - v8;
   v10 = sub_248383BE0();
@@ -193,8 +193,8 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_24814FB28(0, &qword_27EE92A70);
-  sub_248151298(&qword_27EE92A78, &qword_27EE92A70);
+  sub_24814FB28(0, &qword_27EE92A70, 0x277D75C68);
+  sub_248151298(&qword_27EE92A78, &qword_27EE92A70, 0x277D75C68, MEMORY[0x277D85378]);
   sub_248383C80();
   eventCopy = event;
   selfCopy = self;
@@ -209,8 +209,8 @@
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_24814FB28(0, &unk_27EE92A80);
-  sub_248151298(&qword_27EE8FBB0, &unk_27EE92A80);
+  sub_24814FB28(0, &unk_27EE92A80, 0x277D758B8);
+  sub_248151298(&qword_27EE8FBB0, &unk_27EE92A80, 0x277D758B8, MEMORY[0x277D85378]);
   v6 = sub_248383C80();
   eventCopy = event;
   selfCopy = self;

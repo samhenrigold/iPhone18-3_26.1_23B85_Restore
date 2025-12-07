@@ -61,8 +61,8 @@
 {
   optionsCopy = options;
   -[HFTriggerNaturalLanguageOptions setNameType:](self, "setNameType:", [optionsCopy nameType]);
-  home = [optionsCopy home];
-  [(HFTriggerNaturalLanguageOptions *)self setHome:home];
+  v5 = objc_msgSend_home(optionsCopy);
+  [(HFTriggerNaturalLanguageOptions *)self setHome:v5];
 
   actions = [optionsCopy actions];
   v7 = [actions copy];

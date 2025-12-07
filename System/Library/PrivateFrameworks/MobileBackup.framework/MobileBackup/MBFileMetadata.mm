@@ -57,7 +57,7 @@
     memset(v15, 0, 56);
     if (v5)
     {
-      [v5 mbNode];
+      objc_msgSend_mbNode(v5, *&v15[0]);
     }
 
     if (!WORD2(self->_mbNode.cloneID) && self->_mbNode.userID == DWORD1(v15[0]) && *&self->_mbNode.groupID == *(v15 + 8) && *&self->_mbNode.modified == *(&v15[1] + 8) && *&self->_mbNode.fileSize == *(&v15[2] + 8) && !BYTE6(self->_mbNode.cloneID) && (self->_mbNode.cloneID & 0x400000000000000) == 0)
@@ -457,10 +457,10 @@ LABEL_16:
   oldMetadataCopy = oldMetadata;
   if (oldMetadataCopy)
   {
-    [oldMetadataCopy mbNode];
+    objc_msgSend_mbNode(oldMetadataCopy);
     if (metadataCopy)
     {
-      [metadataCopy mbNode];
+      objc_msgSend_mbNode(metadataCopy, 0);
     }
 
     __assert_rtn("+[MBFileMetadata modificationTypeForMetadata:oldMetadata:]", "MBFileMetadata.m", 384, "0");

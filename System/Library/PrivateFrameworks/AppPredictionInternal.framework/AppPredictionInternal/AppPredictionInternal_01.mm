@@ -404,6 +404,13 @@ LABEL_98:
   return [a2 hasError] ^ 1;
 }
 
+void sub_226421430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_226422DE4(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 32));
@@ -605,104 +612,113 @@ void updateCache()
   }
 }
 
-void sub_226429600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22642869C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va, a9);
+  va_start(va, a31);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22642C150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_226429600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22643498C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22642C150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v10 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void ATXSmoothedProbability(double a1, double a2)
+void sub_22643498C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  if (a2 + 0.00000011920929 < a1)
+  va_start(va1, a17);
+  va_start(va, a17);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v17 - 152), 8);
+  _Unwind_Resume(a1);
+}
+
+void *ATXSmoothedProbability(void *result, double a2, double a3)
+{
+  if (a3 + 0.00000011920929 < a2)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(result);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       ATXSmoothedProbability_cold_2();
     }
 
-    v5 = @"ATXSmoothedProbability called with invalid arguments. numerator: %f denominator: %f";
+    v6 = @"ATXSmoothedProbability called with invalid arguments. numerator: %f denominator: %f";
 LABEL_5:
 
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{v5, *&a1, *&a2}];
-    return;
+    return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{v6, *&a2, *&a3}];
   }
 
-  if (a2 > 0.0)
+  if (a3 > 0.0)
   {
-    [ATXSlotResolutionParametersStatistics smoothedRatio:a1 over:a2];
-    if (v6 < 0.0 || v6 > 1.0)
+    result = [ATXSlotResolutionParametersStatistics smoothedRatio:a2 over:a3];
+    if (v7 < 0.0 || v7 > 1.0)
     {
-      v4 = __atxlog_handle_default();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = __atxlog_handle_default(result);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         ATXSmoothedProbability_cold_1();
       }
 
-      v5 = @"Invalid probability found. numerator: %f denominator: %f";
+      v6 = @"Invalid probability found. numerator: %f denominator: %f";
       goto LABEL_5;
     }
   }
+
+  return result;
 }
 
-void ATXProbability(double a1, double a2)
+void *ATXProbability(void *result, double a2, double a3)
 {
-  if (a2 + 0.00000011920929 < a1)
+  if (a3 + 0.00000011920929 < a2)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(result);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       ATXProbability_cold_2();
     }
 
-    v5 = @"ATXProbability called with invalid arguments. numerator: %f denominator: %f";
+    v6 = @"ATXProbability called with invalid arguments. numerator: %f denominator: %f";
 LABEL_5:
 
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{v5, *&a1, *&a2}];
-    return;
+    return [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{v6, *&a2, *&a3}];
   }
 
-  if (a2 > 0.0 && (a1 / a2 < 0.0 || a1 / a2 > 1.0))
+  if (a3 > 0.0 && (a2 / a3 < 0.0 || a2 / a3 > 1.0))
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(result);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       ATXSmoothedProbability_cold_1();
     }
 
-    v5 = @"Invalid probability found. numerator: %f denominator: %f";
+    v6 = @"Invalid probability found. numerator: %f denominator: %f";
     goto LABEL_5;
   }
+
+  return result;
 }
 
 double ATXRatio(double a1, double a2)
@@ -716,7 +732,7 @@ double ATXRatio(double a1, double a2)
   return result;
 }
 
-double ATXGaussianDistributionWithZeroMean(double a1, double a2)
+long double ATXGaussianDistributionWithZeroMean(double a1, double a2)
 {
   v4 = +[_ATXGlobals sharedInstance];
   [v4 clippingThresholdForGaussianDist];
@@ -730,11 +746,12 @@ double ATXGaussianDistributionWithZeroMean(double a1, double a2)
   return exp(a2 / a1 * (a2 / a1) * -0.5);
 }
 
-void sub_22643F164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22643F164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -983,9 +1000,9 @@ LABEL_42:
   return [a2 hasError] ^ 1;
 }
 
-void sub_226443D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_226443D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1010,9 +1027,9 @@ void __dispatch_sync_notxn_block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_226445F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_226445F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1161,37 +1178,37 @@ LABEL_38:
   return [a2 hasError] ^ 1;
 }
 
-void sub_22644ABC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22644ABC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22644B158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22644B158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22644B728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22644B728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22644BCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22644BCE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22644C274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22644C274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1203,7 +1220,7 @@ BOOL shouldReturnUndefined(void *a1, unint64_t a2)
   v5 = v4 - a2;
   if (v4 < a2)
   {
-    shouldReturnUndefined_cold_1();
+    shouldReturnUndefined_cold_1(v3);
   }
 
   if (v5 >= v4)
@@ -1247,7 +1264,7 @@ void drop(void *a1, unint64_t a2)
   v6 = v4 - a2;
   if (!v5)
   {
-    drop_cold_1();
+    drop_cold_1(v3);
   }
 
   v3[1] = v6;
@@ -1259,7 +1276,7 @@ void push(void *a1, double a2)
   v4 = v3[1];
   if (v4 >= 0x1F4)
   {
-    push_cold_1();
+    push_cold_1(v3);
   }
 
   v3[1] = v4 + 1;
@@ -1272,7 +1289,7 @@ double pop(void *a1)
   v2 = v1[1];
   if (!v2)
   {
-    pop_cold_1();
+    pop_cold_1(v1);
   }
 
   v3 = v2 - 1;
@@ -1282,11 +1299,12 @@ double pop(void *a1)
   return v4;
 }
 
-void sub_22644E328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_22644E328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1308,9 +1326,9 @@ void OUTLINED_FUNCTION_12(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0x16u);
 }
 
-void sub_22644F0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22644F0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1483,9 +1501,9 @@ LABEL_35:
   return [a2 hasError] ^ 1;
 }
 
-void sub_226450AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226450AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1781,7 +1799,7 @@ void sub_22645B600(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22645BDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
+void sub_22645BDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
 {
   _Block_object_dispose(&a16, 8);
 
@@ -1789,7 +1807,7 @@ void sub_22645BDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ATXPredictionItem>::__init_with_size[abi:ne200100]<ATXPredictionItem*,ATXPredictionItem*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ATXPredictionItem>::__init_with_size[abi:ne200100]<ATXPredictionItem*,ATXPredictionItem*>(uint64_t *result, id *a2, id *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1867,16 +1885,16 @@ void __initFeedbackConstantsData_block_invoke()
   objc_autoreleasePoolPop(v0);
 }
 
-void sub_22645EE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22645EE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226460F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_226460F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2383,21 +2401,21 @@ void OUTLINED_FUNCTION_3_7(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_debug_impl(a1, v4, OS_LOG_TYPE_DEBUG, a4, v5, 0xCu);
 }
 
-void sub_226468410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226468410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226469364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226469364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2446,21 +2464,22 @@ id _ATXInspectionInterface()
   return v0;
 }
 
-void sub_22646B2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22646B2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22646BCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_22646BCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 160), 8);
-  _Block_object_dispose((v33 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 160), 8);
+  _Block_object_dispose((v32 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2960,9 +2979,9 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-void sub_226473424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226473424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3082,9 +3101,16 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_226477A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2264774B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
-  va_start(va, a9);
+  va_start(va, a35);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_226477A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5113,33 +5139,35 @@ LABEL_394:
   return [a2 hasError] ^ 1;
 }
 
-void sub_22648D94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_22648D94C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_226491E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226493C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_226491E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a55, 8);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226494D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226493C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  va_start(va, a9);
+  va_start(va, a54);
+  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_226494D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5318,10 +5346,11 @@ LABEL_45:
   return [a2 hasError] ^ 1;
 }
 
-void sub_226497218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_226497218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5332,9 +5361,9 @@ void sub_226497A84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22649A024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22649A024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5355,9 +5384,9 @@ __CFString *widgetKindForDeduping(void *a1)
   return v2;
 }
 
-void sub_22649E12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22649E12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5380,7 +5409,7 @@ id ATXGamePlayKitCDecisionNode::branches(ATXGamePlayKitCDecisionNode *this)
   return v2;
 }
 
-uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::push_back[abi:ne200100](unint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -5393,9 +5422,8 @@ uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGameP
     v4 = *a2;
     *a2 = 0;
     *v3 = v4;
-    *(v3 + 16) = *(a2 + 16);
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    *(v3 + 16) = *(a2 + 2);
+    *(a2 + 8) = 0uLL;
     result = v3 + 24;
   }
 
@@ -5472,12 +5500,12 @@ void ATXGamePlayKitCDecisionTree::decode(ATXGamePlayKitCDecisionTree *this, NSAr
   v3 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v3)
   {
-    v28 = *v31;
+    v27 = *v31;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v31 != v28)
+        if (*v31 != v27)
         {
           objc_enumerationMutation(obj);
         }
@@ -5518,7 +5546,8 @@ void ATXGamePlayKitCDecisionTree::decode(ATXGamePlayKitCDecisionTree *this, NSAr
         v21 = [v20 integerValue];
 
         v29 = v21;
-        v22 = std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v34, &v29);
+        v28 = &v29;
+        v22 = std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(&v34, &v29, &std::piecewise_construct, &v28);
         v24 = *this;
         v23 = *(this + 1);
         if (v23)
@@ -5542,25 +5571,24 @@ void ATXGamePlayKitCDecisionTree::decode(ATXGamePlayKitCDecisionTree *this, NSAr
   }
 
   std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::destroy(&v34, v35[0]);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2264A05D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, void *a28)
+void sub_2264A05D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
 {
   std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::destroy(&a27, a28);
 
   _Unwind_Resume(a1);
 }
 
-id ATXGamePlayKitCDecisionTree::encodeWithCoder(uint64_t a1, ATXGamePlayKitCDecisionNode **a2, void *a3, uint64_t a4, void *a5)
+id ATXGamePlayKitCDecisionTree::encodeWithCoder(ATXGamePlayKitCDecisionNode **a1, ATXGamePlayKitCDecisionNode **a2, void *a3, uint64_t a4, void *a5)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v9 = a3;
-  v33 = a5;
+  v32 = a5;
   if (!v9)
   {
     v10 = *a1;
-    v11 = *(a1 + 8);
+    v11 = a1[1];
     if (v11)
     {
       atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
@@ -5585,9 +5613,9 @@ id ATXGamePlayKitCDecisionTree::encodeWithCoder(uint64_t a1, ATXGamePlayKitCDeci
     v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [v15 setObject:v17 forKeyedSubscript:@"children"];
 
-    v36[0] = v15;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-    v33 = v15;
+    v35[0] = v15;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v32 = v15;
   }
 
   v19 = **a2;
@@ -5606,41 +5634,39 @@ id ATXGamePlayKitCDecisionTree::encodeWithCoder(uint64_t a1, ATXGamePlayKitCDeci
       v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
       [v23 setObject:v25 forKeyedSubscript:@"children"];
 
-      v26 = [v33 objectForKeyedSubscript:@"children"];
+      v26 = [v32 objectForKeyedSubscript:@"children"];
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
       [v26 addObject:v27];
 
       v28 = *(v19 + 16);
-      v34 = *(v19 + 8);
-      v35 = v28;
+      v33 = *(v19 + 8);
+      v34 = v28;
       if (v28)
       {
         atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v29 = [v9 arrayByAddingObject:v23];
-      v30 = ATXGamePlayKitCDecisionTree::encodeWithCoder(a1, &v34, v29, a4 + 1, v23);
+      v30 = ATXGamePlayKitCDecisionTree::encodeWithCoder(a1, &v33, v29, a4 + 1, v23);
 
-      if (v35)
+      if (v34)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v34);
       }
 
       v9 = v30;
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-void sub_2264A0C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2264A0C24(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ATXGamePlayKitDecisionTree;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5671,9 +5697,9 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
 
   if (v13 != 0.0)
   {
-    v76[0] = 0;
-    v76[1] = 0;
-    v75 = v76;
+    v79[0] = 0;
+    v79[1] = 0;
+    v78 = v79;
     v60 = ATXGamePlayKitCDecisionTree::getAttributeCounts(a1, v11, v10);
     v20 = 0;
     v21 = 0;
@@ -5684,11 +5710,11 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
       {
         if (v22 > 0.0 && [v11 count] < 2 || (*(*a4 + 40) <= a5 ? (v40 = v14 < a6) : (v40 = 1), v40))
         {
-          ATXGamePlayKitCDecisionTree::splitByAttribute(a1, v61, [v11 count], &v72);
-          v41 = v72;
-          if (v74 == 2)
+          ATXGamePlayKitCDecisionTree::splitByAttribute(&v75, v61, [v11 count]);
+          v41 = v75;
+          if (v77 == 2)
           {
-            if (v72 == &v73)
+            if (v75 == &v76)
             {
               v43 = 0;
               v42 = 0;
@@ -5739,7 +5765,7 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
                 v41 = v47;
               }
 
-              while (v47 != &v73);
+              while (v47 != &v76);
             }
 
             v55 = &unk_283A55838;
@@ -5752,7 +5778,7 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
             *(*a4 + 56) = v55;
           }
 
-          else if (v72 != &v73)
+          else if (v75 != &v76)
           {
             v52 = 0;
             do
@@ -5790,17 +5816,17 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
               v41 = v54;
             }
 
-            while (v54 != &v73);
+            while (v54 != &v76);
           }
 
-          v50 = v73;
-          v51 = &v72;
+          v50 = v76;
+          v51 = &v75;
         }
 
         else
         {
           objc_storeStrong((*a4 + 56), v21);
-          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v64, &v75);
+          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v64, &v78);
           v49 = a4[1];
           v62 = *a4;
           v63 = v49;
@@ -5809,19 +5835,19 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
             atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          ATXGamePlayKitCDecisionTree::splitOnIndex(a1, v21, v11, v64);
+          ATXGamePlayKitCDecisionTree::splitOnIndex(a1, a7, v21, v11, v64, &v62, v60, a5, a6);
           if (v63)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v63);
           }
 
-          v50 = v64[1];
+          v50 = v65;
           v51 = v64;
         }
 
         std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v51, v50);
 
-        std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v75, v76[0]);
+        std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v78, v79[0]);
         goto LABEL_74;
       }
 
@@ -5839,34 +5865,34 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
 
         if (isKindOfClass)
         {
-          ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(a1, v61, v20, &v72);
-          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v69, &v72);
-          ATXGamePlayKitCDecisionTree::continuousGiniSplit(a1, v69, &v70);
-          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v69, &v69[1]->super.super.isa);
-          [v71 floatValue];
+          ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(&v75, v61, v20);
+          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v71, &v75);
+          ATXGamePlayKitCDecisionTree::continuousGiniSplit(a1, v71, &v73);
+          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v71, v72);
+          [v74 floatValue];
           v28 = v27;
-          ATXGamePlayKitCDecisionTree::splitOnValueOfAttribute(a1, v61, v70, v20, &v66);
-          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v72, v73);
-          v29 = v67;
-          v72 = v66;
-          v73 = v67;
-          v74 = v68;
-          if (v68)
+          ATXGamePlayKitCDecisionTree::splitOnValueOfAttribute(&v68, v61, v73, v20);
+          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v75, v76);
+          v29 = v69;
+          v75 = v68;
+          v76 = v69;
+          v77 = v70;
+          if (v70)
           {
-            v67[2] = &v73;
-            v66 = &v67;
-            v67 = 0;
-            v68 = 0;
+            v69[2] = &v76;
+            v68 = &v69;
+            v69 = 0;
+            v70 = 0;
             v29 = 0;
           }
 
           else
           {
-            v72 = &v73;
+            v75 = &v76;
           }
 
           v35 = v28;
-          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v66, v29);
+          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v68, v29);
           if (v22 <= v35)
           {
             v35 = v22;
@@ -5877,43 +5903,43 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
             v36 = [v11 objectAtIndexedSubscript:v20];
 
             v21 = v36;
-            std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(&v75, v72, &v73);
+            std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(&v78, v75, &v76);
           }
 
             ;
           }
 
-          v38 = v70;
-          v70 = 0;
+          v38 = v73;
+          v73 = 0;
 
-          v39 = v71;
-          v71 = 0;
+          v39 = v74;
+          v74 = 0;
 
-          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v72, v73);
+          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v75, v76);
           v22 = v35;
           goto LABEL_31;
         }
       }
 
-      ATXGamePlayKitCDecisionTree::binarySplitByAttributeValue(a1, v61, v20, &v72);
-      v31 = v72;
-      v30 = v73;
-      if (v72 != v73)
+      ATXGamePlayKitCDecisionTree::binarySplitByAttributeValue(&v75, v61, v20);
+      v31 = v75;
+      v30 = v76;
+      if (v75 != v76)
       {
-        v32 = v72 + 1;
+        v32 = v75 + 1;
         do
         {
-          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v65, v31);
-          v33 = ATXGamePlayKitCDecisionTree::giniSplit(a1, v65, v15);
-          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v65, v65[1]);
+          std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v66, v31);
+          v33 = ATXGamePlayKitCDecisionTree::giniSplit(a1, v66, v15);
+          std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v66, v67);
           if (v33 < v22)
           {
             v34 = [v11 objectAtIndexedSubscript:v20];
 
             v21 = v34;
-            if (v31 != &v75)
+            if (v31 != &v78)
             {
-              std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(&v75, *v31, v32);
+              std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(&v78, *v31, v32);
             }
 
             v22 = v33;
@@ -5924,13 +5950,13 @@ void ATXGamePlayKitCDecisionTree::cartTreeGrowth(ATXGamePlayKitCDecisionTree *a1
         }
 
         while (v31 != v30);
-        v31 = v72;
-        v30 = v73;
+        v31 = v75;
+        v30 = v76;
       }
 
-      std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::erase(&v72, v31, v30);
-      v66 = &v72;
-      std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__destroy_vector::operator()[abi:ne200100](&v66);
+      std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::erase(&v75, v31, v30);
+      v68 = &v75;
+      std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__destroy_vector::operator()[abi:ne200100](&v68);
 LABEL_31:
       ++v20;
     }
@@ -5949,7 +5975,7 @@ LABEL_31:
 LABEL_74:
 }
 
-void sub_2264A1720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, std::__shared_weak_count *a17, char a18, void *a19)
+void sub_2264A1720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, void *a19)
 {
   if (a17)
   {
@@ -6025,17 +6051,17 @@ LABEL_5:
   {
     while (1)
     {
-      v12 = *v10;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = *v10;
-        if ((ATXGamePlayKitCDecisionTree::isPredicateValid(a1, v13) & 1) == 0)
+        v12 = *v10;
+        isPredicateValid = ATXGamePlayKitCDecisionTree::isPredicateValid(a1, v12);
+        if (!isPredicateValid)
         {
-          v24 = __atxlog_handle_anchor();
+          v24 = __atxlog_handle_anchor(isPredicateValid);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
-            ATXGamePlayKitCDecisionTree::findActionForAnswers(v13, v24);
+            ATXGamePlayKitCDecisionTree::findActionForAnswers(v12, v24);
           }
 
           v23 = 0;
@@ -6043,9 +6069,9 @@ LABEL_5:
           goto LABEL_42;
         }
 
-        [(NSPredicate *)v13 allowEvaluation];
+        [(NSPredicate *)v12 allowEvaluation];
         v14 = [v3 objectForKeyedSubscript:v5[7]];
-        v15 = [(NSPredicate *)v13 evaluateWithObject:v14];
+        v15 = [(NSPredicate *)v12 evaluateWithObject:v14];
 
         if (v15)
         {
@@ -6200,68 +6226,66 @@ __CFString *ATXGamePlayKitCDecisionTree::printTree(uint64_t a1, void **a2, void 
   {
     if ([v7 isEqualToString:@"\t"])
     {
-      v9 = (*a2)[5];
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n%@(depth:%lu, ex:%lu)\n", (*a2)[7], v9, (*a2)[6]];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n%@(depth:%lu, ex:%lu)\n", (*a2)[7], (*a2)[5], (*a2)[6]];
 
-      v8 = v10;
+      v8 = v9;
     }
 
-    v12 = **a2;
-    for (i = (*a2)[1]; v12 != i; v12 += 3)
+    v11 = **a2;
+    for (i = (*a2)[1]; v11 != i; v11 += 3)
     {
-      if (v12[1])
+      if (v11[1])
       {
-        v13 = v12[2];
-        v26 = v12[1];
-        v27 = v13;
-        if (v13)
+        v12 = v11[2];
+        v24 = v11[1];
+        v25 = v12;
+        if (v12)
         {
-          atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
-        v15 = *v12;
-        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@, %@(depth:%lu, ex:%lu)\n", v8, v7, *v12, *(v12[1] + 56), *(v12[1] + 40), *(v12[1] + 48)];
-        v17 = ATXGamePlayKitCDecisionTree::printTree(a1, &v26, v14, v16);
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@, %@(depth:%lu, ex:%lu)\n", v8, v7, *v11, *(v11[1] + 56), *(v11[1] + 40), *(v11[1] + 48)];
+        v15 = ATXGamePlayKitCDecisionTree::printTree(a1, &v24, v13, v14);
 
-        v18 = v27;
+        v16 = v25;
       }
 
       else
       {
-        v19 = v12[2];
-        v24 = 0;
-        v25 = v19;
-        if (v19)
+        v17 = v11[2];
+        v22 = 0;
+        v23 = v17;
+        if (v17)
         {
-          atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@\n", v8, v7, *v12];
-        v17 = ATXGamePlayKitCDecisionTree::printTree(a1, &v24, v20, v21);
+        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@\t", v7];
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@\n", v8, v7, *v11];
+        v15 = ATXGamePlayKitCDecisionTree::printTree(a1, &v22, v18, v19);
 
-        v18 = v25;
+        v16 = v23;
       }
 
-      v8 = v17;
-      if (v18)
+      v8 = v15;
+      if (v16)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-        v8 = v17;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+        v8 = v15;
       }
     }
 
     v8 = v8;
-    v22 = v8;
+    v20 = v8;
   }
 
   else
   {
-    v22 = &stru_2839A6058;
+    v20 = &stru_2839A6058;
   }
 
-  return v22;
+  return v20;
 }
 
 void sub_2264A30E4(_Unwind_Exception *a1)
@@ -6271,48 +6295,48 @@ void sub_2264A30E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::__map_value_compare<long,std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionNode>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6338,12 +6362,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -6357,22 +6381,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -6406,13 +6430,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -6472,7 +6496,7 @@ void std::__tree<std::__value_type<long,std::shared_ptr<ATXGamePlayKitCDecisionN
 
 id ATXGamePlayKitCDecisionNode::nodeData(ATXGamePlayKitCDecisionNode *this, objc_object *a2)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v4 setObject:*(this + 7) forKeyedSubscript:@"attribute"];
@@ -6482,81 +6506,79 @@ id ATXGamePlayKitCDecisionNode::nodeData(ATXGamePlayKitCDecisionNode *this, objc
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "lowestValue")}];
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(this + 9), "highestValue", v6)}];
     v8 = *(this + 10);
-    v12[1] = v7;
-    v12[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    v11[1] = v7;
+    v11[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
     [v4 setObject:v9 forKeyedSubscript:@"randomDistribution"];
   }
 
   [v4 setObject:v3 forKeyedSubscript:@"branch"];
   [v4 setObject:*(this + 8) forKeyedSubscript:@"branchValue"];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 double ATXGamePlayKitCDecisionTree::giniImpurity(ATXGamePlayKitCDecisionTree *this, NSArray *a2)
 {
-  v3 = a2;
-  v4 = [(NSArray *)v3 firstObject];
-  ATXGamePlayKitCDecisionTree::splitByAttribute(this, v3, [v4 count] - 1, &v14);
+  v2 = a2;
+  v3 = [(NSArray *)v2 firstObject];
+  ATXGamePlayKitCDecisionTree::splitByAttribute(&v13, v2, [v3 count] - 1);
 
-  v5 = [(NSArray *)v3 count];
-  v6 = 0.0;
-  if (v5 && v15[1] != 1)
+  v4 = [(NSArray *)v2 count];
+  v5 = 0.0;
+  if (v4 && v14[1] != 1)
   {
-    v7 = v14;
-    if (v14 == v15)
+    v6 = v13;
+    if (v13 == v14)
     {
-      v6 = 1.0;
+      v5 = 1.0;
     }
 
     else
     {
-      v8 = v5;
-      v6 = 1.0;
+      v7 = v4;
+      v5 = 1.0;
       do
       {
-        v9 = [v7[5] count];
-        v10 = v7[1];
-        if (v10)
+        v8 = [v6[5] count];
+        v9 = v6[1];
+        if (v9)
         {
           do
           {
-            v11 = v10;
-            v10 = *v10;
+            v10 = v9;
+            v9 = *v9;
           }
 
-          while (v10);
+          while (v9);
         }
 
         else
         {
           do
           {
-            v11 = v7[2];
-            v12 = *v11 == v7;
-            v7 = v11;
+            v10 = v6[2];
+            v11 = *v10 == v6;
+            v6 = v10;
           }
 
-          while (!v12);
+          while (!v11);
         }
 
-        v6 = v6 - v9 / v8 * (v9 / v8);
-        v7 = v11;
+        v5 = v5 - v8 / v7 * (v8 / v7);
+        v6 = v10;
       }
 
-      while (v11 != v15);
+      while (v10 != v14);
     }
   }
 
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v14, v15[0]);
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v13, v14[0]);
 
-  return v6;
+  return v5;
 }
 
-void sub_2264A3FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_2264A3FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a10, a11);
 
@@ -6595,74 +6617,72 @@ id ATXGamePlayKitCDecisionTree::getAttributeCounts(uint64_t a1, void *a2, void *
   return v6;
 }
 
-void ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(ATXGamePlayKitCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v6 = a2;
-  a4[2] = 0;
-  a4[1] = 0;
-  *a4 = a4 + 1;
-  v7 = objc_opt_new();
-  for (i = 0; [(NSArray *)v6 count]> i; ++i)
+  v28 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
+  v6 = objc_opt_new();
+  for (i = 0; [(NSArray *)v5 count]> i; ++i)
   {
-    v9 = [(NSArray *)v6 objectAtIndexedSubscript:i];
-    v10 = [v9 objectAtIndexedSubscript:a3];
+    v8 = [(NSArray *)v5 objectAtIndexedSubscript:i];
+    v9 = [v8 objectAtIndexedSubscript:a3];
 
-    v11 = [v7 objectForKey:v10];
+    v10 = [v6 objectForKey:v9];
 
-    if (v11)
+    if (v10)
     {
-      v12 = [v7 objectForKey:v10];
-      v13 = [(NSArray *)v6 objectAtIndexedSubscript:i];
-      [v12 addObject:v13];
+      v11 = [v6 objectForKey:v9];
+      v12 = [(NSArray *)v5 objectAtIndexedSubscript:i];
+      [v11 addObject:v12];
     }
 
     else
     {
-      v14 = objc_alloc(MEMORY[0x277CBEB18]);
-      v12 = [(NSArray *)v6 objectAtIndexedSubscript:i];
-      v13 = [v14 initWithObjects:{v12, 0}];
-      [v7 setObject:v13 forKey:v10];
+      v13 = objc_alloc(MEMORY[0x277CBEB18]);
+      v11 = [(NSArray *)v5 objectAtIndexedSubscript:i];
+      v12 = [v13 initWithObjects:{v11, 0}];
+      [v6 setObject:v12 forKey:v9];
     }
   }
 
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v15 = v7;
-  v16 = [v15 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v16)
+  v14 = v6;
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v15)
   {
-    v17 = *v24;
+    v16 = *v22;
     do
     {
-      v18 = 0;
+      v17 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v22 != v16)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v27[0] = *(*(&v23 + 1) + 8 * v18);
-        v19 = [v15 objectForKey:?];
-        v27[2] = v27;
-        v20 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a4, v27);
-        v21 = v20[5];
-        v20[5] = v19;
+        v25 = *(*(&v21 + 1) + 8 * v17);
+        v18 = [v14 objectForKey:?];
+        v26 = &v25;
+        v19 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a1, &v25, &std::piecewise_construct, &v26);
+        v20 = v19[5];
+        v19[5] = v18;
 
-        ++v18;
+        ++v17;
       }
 
-      while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      while (v15 != v17);
+      v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2264A447C(_Unwind_Exception *a1)
@@ -6676,13 +6696,13 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
 {
   std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](v170, a2);
   v5 = ATXGamePlayKitCDecisionTree::sortByAttributeWithAction(a1, v170);
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v170, v170[1]);
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(v170, v171);
   v169[0] = 0;
   v169[1] = 0;
   v168 = v169;
   v145 = v5;
   v6 = [(NSArray *)v5 firstObject];
-  ATXGamePlayKitCDecisionTree::splitByAttribute(a1, v5, [v6 count] - 1, &v165);
+  ATXGamePlayKitCDecisionTree::splitByAttribute(&v165, v5, [v6 count] - 1);
 
   v7 = objc_alloc(MEMORY[0x277CBEB18]);
   v8 = [v7 initWithCapacity:v167];
@@ -6692,8 +6712,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
   v9 = objc_alloc(MEMORY[0x277CBEB18]);
   v10 = [v9 initWithCapacity:v167];
   v162 = @"<=";
-  v171 = &v162;
-  v11 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v163, &v162);
+  v172[0] = &v162;
+  v11 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v163, &v162, &std::piecewise_construct, v172);
   v12 = v11[5];
   v11[5] = v10;
 
@@ -6702,8 +6722,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
   v140 = v169;
   v141 = a3;
   v161 = @">";
-  v171 = &v161;
-  v15 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v163, &v161);
+  v172[0] = &v161;
+  v15 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v163, &v161, &std::piecewise_construct, v172);
   v16 = v15[5];
   v15[5] = v14;
 
@@ -6759,16 +6779,16 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
 
             v37 = [v8 objectAtIndexedSubscript:v30];
             v157 = @"<=";
-            v171 = &v157;
-            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v157)[5], "setObject:atIndexedSubscript:", v37, v30}strong}>];
+            v172[0] = &v157;
+            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v157, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v37, v30}strong}>];
 
             v38 = MEMORY[0x277CCABB0];
             v39 = [v29[5] count];
             v40 = [v8 objectAtIndexedSubscript:v30];
             v41 = [v38 numberWithUnsignedInteger:{v39 - objc_msgSend(v40, "integerValue")}];
             v156 = @">";
-            v171 = &v156;
-            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v156)[5], "setObject:atIndexedSubscript:", v41, v30}strong}>];
+            v172[0] = &v156;
+            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v156, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v41, v30}strong}>];
 
             v42 = v29[1];
             if (v42)
@@ -6849,16 +6869,16 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
 
             v86 = [v8 objectAtIndexedSubscript:v79];
             v155 = @"<=";
-            v171 = &v155;
-            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v155)[5], "setObject:atIndexedSubscript:", v86, v79}strong}>];
+            v172[0] = &v155;
+            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v155, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v86, v79}strong}>];
 
             v87 = MEMORY[0x277CCABB0];
             v88 = [v78[5] count];
             v89 = [v8 objectAtIndexedSubscript:v79];
             v90 = [v87 numberWithUnsignedInteger:{v88 - objc_msgSend(v89, "integerValue")}];
             v154 = @">";
-            v171 = &v154;
-            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v154)[5], "setObject:atIndexedSubscript:", v90, v79}strong}>];
+            v172[0] = &v154;
+            [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v154, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v90, v79}strong}>];
 
             v91 = v78[1];
             if (v91)
@@ -6922,16 +6942,16 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
           [v8 setObject:&unk_283A55838 atIndexedSubscript:v58];
           v59 = [v8 objectAtIndexedSubscript:v58];
           v159 = @"<=";
-          v171 = &v159;
-          [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v159)[5], "setObject:atIndexedSubscript:", v59, v58}strong}>];
+          v172[0] = &v159;
+          [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v159, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v59, v58}strong}>];
 
           v60 = MEMORY[0x277CCABB0];
           v61 = [v57[5] count];
           v62 = [v8 objectAtIndexedSubscript:v58];
           v63 = [v60 numberWithUnsignedInteger:{v61 - objc_msgSend(v62, "integerValue")}];
           v158 = @">";
-          v171 = &v158;
-          [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v158)[5], "setObject:atIndexedSubscript:", v63, v58}strong}>];
+          v172[0] = &v158;
+          [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v158, &std::piecewise_construct, v172)[5], "setObject:atIndexedSubscript:", v63, v58}strong}>];
 
           v64 = v57[1];
           if (v64)
@@ -6975,8 +6995,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
         do
         {
           v153 = @">";
-          v171 = &v153;
-          v106 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v153)[5], "objectAtIndexedSubscript:", v104}strong}>];
+          v172[0] = &v153;
+          v106 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v153, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v104}strong}>];
           [v106 floatValue];
           v105 = v105 + v107;
 
@@ -6991,8 +7011,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
           do
           {
             v152 = @">";
-            v171 = &v152;
-            v109 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v152)[5], "objectAtIndexedSubscript:", v108}strong}>];
+            v172[0] = &v152;
+            v109 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v152, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v108}strong}>];
             [v109 floatValue];
             v94 = v94 - ((v110 / v105) * (v110 / v105));
 
@@ -7016,8 +7036,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
         do
         {
           v151 = @"<=";
-          v171 = &v151;
-          v97 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v151)[5], "objectAtIndexedSubscript:", v95}strong}>];
+          v172[0] = &v151;
+          v97 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v151, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v95}strong}>];
           [v97 floatValue];
           v96 = v96 + v98;
 
@@ -7032,8 +7052,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
           do
           {
             v150 = @"<=";
-            v171 = &v150;
-            v100 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v150)[5], "objectAtIndexedSubscript:", v99}strong}>];
+            v172[0] = &v150;
+            v100 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v150, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v99}strong}>];
             [v100 floatValue];
             v94 = v94 - ((v101 / v96) * (v101 / v96));
 
@@ -7047,8 +7067,8 @@ void ATXGamePlayKitCDecisionTree::continuousGiniSplit(ATXGamePlayKitCDecisionTre
 LABEL_45:
       *&v93 = v94;
       v102 = [MEMORY[0x277CCABB0] numberWithFloat:v93];
-      v171 = &v160;
-      v103 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v168, &v160);
+      v172[0] = &v160;
+      v103 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v168, &v160, &std::piecewise_construct, v172);
       goto LABEL_63;
     }
 
@@ -7061,14 +7081,14 @@ LABEL_45:
       do
       {
         v149 = @"<=";
-        v171 = &v149;
-        v115 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v149)[5], "objectAtIndexedSubscript:", v112}strong}>];
+        v172[0] = &v149;
+        v115 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v149, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v112}strong}>];
         [v115 floatValue];
         v117 = v116;
 
         v148 = @">";
-        v171 = &v148;
-        v118 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v148)[5], "objectAtIndexedSubscript:", v112}strong}>];
+        v172[0] = &v148;
+        v118 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v148, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v112}strong}>];
         [v118 floatValue];
         v114 = v114 + v117;
         v113 = v113 + v119;
@@ -7085,14 +7105,14 @@ LABEL_45:
         do
         {
           v147 = @"<=";
-          v171 = &v147;
-          v122 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v147)[5], "objectAtIndexedSubscript:", v120}strong}>];
+          v172[0] = &v147;
+          v122 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v147, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v120}strong}>];
           [v122 floatValue];
           v124 = v123;
 
           v146 = @">";
-          v171 = &v146;
-          v125 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v146)[5], "objectAtIndexedSubscript:", v120}strong}>];
+          v172[0] = &v146;
+          v125 = [std::__tree<std::__value_type<NSString * {__strong} NSMutableArray * {:std::__map_value_compare<NSString * {__strong} :{std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>, std::less<NSString * {__strong}>, true>, std::allocator<std::__value_type<NSString * {__strong}, NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong}, std::piecewise_construct_t const&, std::tuple<NSString * {__strong}&&>, std::tuple<>>(&v163, &v146, &std::piecewise_construct, v172)[5], "objectAtIndexedSubscript:", v120}strong}>];
           [v125 floatValue];
           v111 = v111 - ((v124 / v114) * (v124 / v114));
           v121 = v121 - ((v126 / v113) * (v126 / v113));
@@ -7116,8 +7136,8 @@ LABEL_62:
     v127 = [(NSArray *)v5 count];
     *&v128 = (v121 * (v113 / v127)) + ((v114 / v127) * v111);
     v102 = [MEMORY[0x277CCABB0] numberWithFloat:v128];
-    v171 = &v160;
-    v103 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v168, &v160);
+    v172[0] = &v160;
+    v103 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v168, &v160, &std::piecewise_construct, v172);
 LABEL_63:
     v129 = v103[5];
     v103[5] = v102;
@@ -7181,7 +7201,7 @@ LABEL_63:
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v168, v169[0]);
 }
 
-void sub_2264A5338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, char a32, void *a33, uint64_t a34, char a35, void *a36)
+void sub_2264A5338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a32, a33);
 
@@ -7191,79 +7211,77 @@ void sub_2264A5338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ATXGamePlayKitCDecisionTree::splitOnValueOfAttribute(ATXGamePlayKitCDecisionTree *this@<X0>, NSArray *a2@<X1>, NSNumber *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void ATXGamePlayKitCDecisionTree::splitOnValueOfAttribute(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, NSNumber *a3@<X2>, uint64_t a4@<X3>)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
-  v8 = a2;
-  v9 = a3;
-  a5[2] = 0;
-  a5[1] = 0;
-  *a5 = a5 + 1;
-  v38[0] = @"predicate";
-  v31 = v9;
-  v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF <= %@", v9];
-  v38[1] = @"value";
-  v39[0] = v10;
-  v39[1] = v9;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
-
+  v37[2] = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  v8 = a3;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   v36[0] = @"predicate";
-  v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF > %@", v9];
+  v29 = v8;
+  v9 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF <= %@", v8];
   v36[1] = @"value";
-  v37[0] = v11;
-  v37[1] = v9;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v37[0] = v9;
+  v37[1] = v8;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
+  v34[0] = @"predicate";
+  v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF > %@", v8];
+  v34[1] = @"value";
+  v35[0] = v10;
+  v35[1] = v8;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  while ([(NSArray *)v8 count]> v12)
+  while ([(NSArray *)v7 count]> v11)
   {
-    v14 = [(NSArray *)v8 objectAtIndexedSubscript:v12];
-    v15 = [v14 objectAtIndexedSubscript:a4];
+    v13 = [(NSArray *)v7 objectAtIndexedSubscript:v11];
+    v14 = [v13 objectAtIndexedSubscript:a4];
 
-    [v15 floatValue];
-    v17 = v16;
-    [(NSNumber *)v31 floatValue];
-    v18 = v29;
-    if (v17 > v19)
+    [v14 floatValue];
+    v16 = v15;
+    [(NSNumber *)v29 floatValue];
+    v17 = v27;
+    if (v16 > v18)
     {
-      v18 = v30;
+      v17 = v28;
     }
 
-    v20 = v18;
+    v19 = v17;
 
-    v13 = v20;
-    v34 = v13;
-    v35 = &v34;
-    LOBYTE(v20) = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a5, &v34)[5] == 0;
+    v12 = v19;
+    v32 = v12;
+    v33 = &v32;
+    LOBYTE(v19) = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a1, &v32, &std::piecewise_construct, &v33)[5] == 0;
 
-    if (v20)
+    if (v19)
     {
-      v24 = objc_alloc(MEMORY[0x277CBEB18]);
-      v23 = [(NSArray *)v8 objectAtIndexedSubscript:v12];
-      v25 = [v24 initWithObjects:{v23, 0}];
-      v32 = v13;
-      v35 = &v32;
-      v26 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a5, &v32);
-      v27 = v26[5];
-      v26[5] = v25;
+      v23 = objc_alloc(MEMORY[0x277CBEB18]);
+      v22 = [(NSArray *)v7 objectAtIndexedSubscript:v11];
+      v24 = [v23 initWithObjects:{v22, 0}];
+      v30 = v12;
+      v33 = &v30;
+      v25 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a1, &v30, &std::piecewise_construct, &v33);
+      v26 = v25[5];
+      v25[5] = v24;
     }
 
     else
     {
-      v33 = v13;
-      v35 = &v33;
-      v21 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a5, &v33)[5];
-      v22 = [(NSArray *)v8 objectAtIndexedSubscript:v12];
-      [v21 addObject:v22];
+      v31 = v12;
+      v33 = &v31;
+      v20 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(a1, &v31, &std::piecewise_construct, &v33)[5];
+      v21 = [(NSArray *)v7 objectAtIndexedSubscript:v11];
+      [v20 addObject:v21];
 
-      v23 = v33;
+      v22 = v31;
     }
 
-    ++v12;
+    ++v11;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2264A58CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13)
@@ -7273,134 +7291,132 @@ void sub_2264A58CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ATXGamePlayKitCDecisionTree::binarySplitByAttributeValue(ATXGamePlayKitCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void ATXGamePlayKitCDecisionTree::binarySplitByAttributeValue(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v7 = a2;
-  a4[1] = 0;
-  a4[2] = 0;
-  *a4 = 0;
-  v25 = v7;
-  ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(this, v7, a3, &v29);
-  v8 = v29;
-  if (v29 != v30)
+  v30[2] = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  v22 = v5;
+  ATXGamePlayKitCDecisionTree::multiwaySplitByAttributeValue(&v26, v5, a3);
+  v6 = v26;
+  if (v26 != v27)
   {
     do
     {
-      v9 = v8 + 4;
-      v28[0] = 0;
-      v28[1] = 0;
-      v27 = v28;
-      v10 = v8[5];
-      v31 = (v8 + 4);
-      v11 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v27, v8 + 4);
-      objc_storeStrong(v11 + 5, v10);
-      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v13 = v29;
-      if (v29 != v30)
+      v7 = v6 + 4;
+      v25[0] = 0;
+      v25[1] = 0;
+      v24 = v25;
+      v8 = v6[5];
+      v28 = (v6 + 4);
+      v9 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(&v24, v6 + 4, &std::piecewise_construct, &v28);
+      objc_storeStrong(v9 + 5, v8);
+      v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v11 = v26;
+      if (v26 != v27)
       {
         do
         {
-          v14 = v13[4] == v8[4] && v13[5] == v8[5];
-          if (!v14)
+          v12 = v11[4] == v6[4] && v11[5] == v6[5];
+          if (!v12)
           {
-            [v12 addObjectsFromArray:?];
+            [v10 addObjectsFromArray:?];
           }
 
-          v15 = v13[1];
-          if (v15)
+          v13 = v11[1];
+          if (v13)
           {
             do
             {
-              v16 = v15;
-              v15 = *v15;
+              v14 = v13;
+              v13 = *v13;
             }
 
-            while (v15);
+            while (v13);
           }
 
           else
           {
             do
             {
-              v16 = v13[2];
-              v14 = *v16 == v13;
-              v13 = v16;
+              v14 = v11[2];
+              v12 = *v14 == v11;
+              v11 = v14;
             }
 
-            while (!v14);
+            while (!v12);
           }
 
-          v13 = v16;
+          v11 = v14;
         }
 
-        while (v16 != v30);
+        while (v14 != v27);
       }
 
-      v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF != %@", *v9, v25];
-      v32[0] = @"predicate";
-      v32[1] = @"value";
-      v18 = *v9;
-      v33[0] = v17;
-      v33[1] = v18;
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-      v31 = &v26;
-      v19 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v27, &v26);
-      objc_storeStrong(v19 + 5, v12);
+      v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF != %@", *v7, v22];
+      v29[0] = @"predicate";
+      v29[1] = @"value";
+      v16 = *v7;
+      v30[0] = v15;
+      v30[1] = v16;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+      v28 = &v23;
+      v17 = std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(&v24, &v23, &std::piecewise_construct, &v28);
+      objc_storeStrong(v17 + 5, v10);
 
-      v20 = a4[1];
-      if (v20 >= a4[2])
+      v18 = a1[1];
+      if (v18 >= a1[2])
       {
-        v21 = std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(a4, &v27);
+        v19 = std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(a1, &v24);
       }
 
       else
       {
-        std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](a4[1], &v27);
-        v21 = v20 + 24;
+        std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne200100](a1[1], &v24);
+        v19 = v18 + 24;
       }
 
-      a4[1] = v21;
+      a1[1] = v19;
 
-      std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v27, v28[0]);
-      v22 = v8[1];
-      if (v22)
+      std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v24, v25[0]);
+      v20 = v6[1];
+      if (v20)
       {
         do
         {
-          v23 = v22;
-          v22 = *v22;
+          v21 = v20;
+          v20 = *v20;
         }
 
-        while (v22);
+        while (v20);
       }
 
       else
       {
         do
         {
-          v23 = v8[2];
-          v14 = *v23 == v8;
-          v8 = v23;
+          v21 = v6[2];
+          v12 = *v21 == v6;
+          v6 = v21;
         }
 
-        while (!v14);
+        while (!v12);
       }
 
-      v8 = v23;
+      v6 = v21;
     }
 
-    while (v23 != v30);
+    while (v21 != v27);
   }
 
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v29, v30[0]);
-
-  v24 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&v26, v27[0]);
 }
 
-void sub_2264A5C60(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2264A5C60(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__destroy_vector::operator()[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -7453,7 +7469,7 @@ double ATXGamePlayKitCDecisionTree::giniSplit(ATXGamePlayKitCDecisionTree *a1, v
   return v7;
 }
 
-uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::erase(uint64_t a1, uint64_t a2, void *a3)
+void *std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::erase(uint64_t a1, void *a2, void *a3)
 {
   if (a3 != a2)
   {
@@ -7466,7 +7482,7 @@ uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__stron
       {
         std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__move_assign(v7, v4);
         v4 += 3;
-        v7 += 24;
+        v7 += 3;
       }
 
       while (v4 != v6);
@@ -7484,39 +7500,39 @@ uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__stron
   return a2;
 }
 
-void ATXGamePlayKitCDecisionTree::splitByAttribute(ATXGamePlayKitCDecisionTree *this@<X0>, NSArray *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void ATXGamePlayKitCDecisionTree::splitByAttribute(uint64_t *__return_ptr a1@<X8>, NSArray *a2@<X1>, uint64_t a3@<X2>)
 {
-  v6 = a2;
-  v7 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  *a4 = a4 + 1;
-  while ([(NSArray *)v6 count]> v7)
+  v5 = a2;
+  v6 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
+  while ([(NSArray *)v5 count]> v6)
   {
-    v8 = [(NSArray *)v6 objectAtIndexedSubscript:v7];
-    v15 = [v8 objectAtIndexedSubscript:a3];
+    v7 = [(NSArray *)v5 objectAtIndexedSubscript:v6];
+    v14 = [v7 objectAtIndexedSubscript:a3];
 
-    v16 = &v15;
-    if (std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a4, &v15)[5])
+    v15 = &v14;
+    if (std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a1, &v14, &std::piecewise_construct, &v15)[5])
     {
-      v16 = &v15;
-      v9 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a4, &v15)[5];
-      v10 = [(NSArray *)v6 objectAtIndexedSubscript:v7];
-      [v9 addObject:v10];
+      v15 = &v14;
+      v8 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a1, &v14, &std::piecewise_construct, &v15)[5];
+      v9 = [(NSArray *)v5 objectAtIndexedSubscript:v6];
+      [v8 addObject:v9];
     }
 
     else
     {
-      v11 = objc_alloc(MEMORY[0x277CBEB18]);
-      v10 = [(NSArray *)v6 objectAtIndexedSubscript:v7];
-      v12 = [v11 initWithObjects:{v10, 0}];
-      v16 = &v15;
-      v13 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a4, &v15);
-      v14 = v13[5];
-      v13[5] = v12;
+      v10 = objc_alloc(MEMORY[0x277CBEB18]);
+      v9 = [(NSArray *)v5 objectAtIndexedSubscript:v6];
+      v11 = [v10 initWithObjects:{v9, 0}];
+      v15 = &v14;
+      v12 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(a1, &v14, &std::piecewise_construct, &v15);
+      v13 = v12[5];
+      v12[5] = v11;
     }
 
-    ++v7;
+    ++v6;
   }
 }
 
@@ -7527,17 +7543,17 @@ void sub_2264A5FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ATXGamePlayKitCDecisionTree::splitOnIndex(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+void ATXGamePlayKitCDecisionTree::splitOnIndex(ATXGamePlayKitCDecisionTree *a1, double a2, uint64_t a3, void *a4, void *a5, uint64_t *a6, uint64_t a7, unint64_t a8, unint64_t a9)
 {
-  v6 = a3;
-  if (*a4 != a4 + 8)
+  v11 = a4;
+  if (*a5 != a5 + 1)
   {
-    v5 = *(*a4 + 32);
+    v10 = *(*a5 + 32);
     _ZNSt3__115allocate_sharedB8ne200100I27ATXGamePlayKitCDecisionNodeNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 }
 
-void sub_2264A6240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
+void sub_2264A6240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
 {
   std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>::~pair(&a12);
   if (a16)
@@ -7548,41 +7564,41 @@ void sub_2264A6240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<objc_object * {__strong},std::piecewise_construct_t const&,std::tuple<objc_object * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7591,7 +7607,7 @@ LABEL_8:
 
 id ATXGamePlayKitCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = *a2;
   v4 = a2 + 1;
@@ -7603,11 +7619,11 @@ id ATXGamePlayKitCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
       for (i = 0; [v5[5] count] > i; ++i)
       {
         v8 = v5[5];
-        v18[0] = v5[4];
+        v17[0] = v5[4];
         v9 = [v8 objectAtIndexedSubscript:i];
         v10 = [v9 lastObject];
-        v18[1] = v10;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+        v17[1] = v10;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
         [v3 addObject:v11];
       }
@@ -7643,8 +7659,6 @@ id ATXGamePlayKitCDecisionTree::sortByAttributeWithAction(uint64_t a1, void *a2)
   }
 
   v15 = [v3 sortedArrayUsingComparator:&__block_literal_global_301];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -7695,41 +7709,41 @@ void sub_2264A65E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * {__strong}&&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -7756,7 +7770,7 @@ void *std::map<objc_object * {__strong},NSMutableArray * {__strong}>::map[abi:ne
   return a1;
 }
 
-uint64_t std::map<objc_object * {__strong},NSMutableArray * {__strong}>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type,void *> *,long>>>(uint64_t result, void *a2, void *a3)
+void *std::map<objc_object * {__strong},NSMutableArray * {__strong}>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type,void *> *,long>>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -7764,7 +7778,7 @@ uint64_t std::map<objc_object * {__strong},NSMutableArray * {__strong}>::insert[
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -7798,9 +7812,9 @@ uint64_t std::map<objc_object * {__strong},NSMutableArray * {__strong}>::insert[
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_hint_unique_key_args<objc_object * {__strong},std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__find_equal<objc_object * {__strong}>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__find_equal<objc_object * {__strong}>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__construct_node<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>();
@@ -8000,16 +8014,16 @@ LABEL_48:
   return a4;
 }
 
-void std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__move_assign(uint64_t a1, void *a2)
+void std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__move_assign(void *a1, void *a2)
 {
-  v4 = (a1 + 8);
-  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(a1, *(a1 + 8));
+  v4 = a1 + 1;
+  std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(a1, a1[1]);
   *a1 = *a2;
   v5 = a2 + 1;
   v6 = a2[1];
   *v4 = v6;
   v7 = a2[2];
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   if (v7)
   {
     *(v6 + 16) = v4;
@@ -8024,20 +8038,20 @@ void std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__
   }
 }
 
-uint64_t **std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(uint64_t **result, id **a2, id **a3)
+void *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__tree_node<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,void *> *,long>>(void *result, id *a2, id *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
-    if (v6[1])
+    if (*(v6 + 8))
     {
-      v8 = v6[1];
+      v8 = *(v6 + 8);
     }
 
     else
@@ -8113,23 +8127,23 @@ uint64_t **std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_multi<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>();
+    std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__emplace_multi<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}> const&>(v5, a2 + 4);
   }
 
   return result;
 }
 
-void sub_2264A6CA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2264A6CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__node_insert_multi(uint64_t **a1, uint64_t *a2)
+uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__node_insert_multi(uint64_t a1, uint64_t *a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -8159,7 +8173,7 @@ uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray 
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -8244,7 +8258,7 @@ uint64_t std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray *
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::erase(uint64_t **a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::erase(uint64_t **a1, id *a2)
 {
   v3 = std::__tree<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<objc_object * {__strong},std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>,std::less<objc_object * {__strong}>,true>,std::allocator<std::__value_type<objc_object * {__strong},NSMutableArray * {__strong}>>>::__remove_node_pointer(a1, a2);
 
@@ -8382,31 +8396,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -8415,177 +8428,177 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::__emplace_back_slow_path<std::allocator<std::pair<objc_object * const {__strong},NSMutableArray * {__strong}>> const&>(void *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -8635,9 +8648,9 @@ uint64_t std::vector<std::map<objc_object * {__strong},NSMutableArray * {__stron
   return v12;
 }
 
-void sub_2264A73E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2264A73E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8767,8 +8780,8 @@ void std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>
     {
       do
       {
-        v6 = v4 - 24;
-        std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy((v4 - 24), *(v4 - 2));
+        v6 = v4 - 3;
+        std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy((v4 - 3), *(v4 - 2));
         v4 = v6;
       }
 
@@ -8782,38 +8795,29 @@ void std::vector<std::map<objc_object * {__strong},NSMutableArray * {__strong}>>
   }
 }
 
-uint64_t ATXGamePlayKitCDecisionTree::isPredicateValid(ATXGamePlayKitCDecisionTree *this, NSPredicate *a2)
+BOOL ATXGamePlayKitCDecisionTree::isPredicateValid(ATXGamePlayKitCDecisionTree *this, NSPredicate *a2)
 {
   v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = v2;
-    if ([(NSPredicate *)v3 options])
+    v8 = 0;
+    if (![(NSPredicate *)v3 options])
     {
-      goto LABEL_9;
-    }
+      v4 = [(NSPredicate *)v3 leftExpression];
+      v5 = [v4 expressionType];
 
-    v4 = [(NSPredicate *)v3 leftExpression];
-    v5 = [v4 expressionType];
+      if (v5 == 1)
+      {
+        v6 = [(NSPredicate *)v3 rightExpression];
+        v7 = [v6 expressionType];
 
-    if (v5 != 1)
-    {
-      goto LABEL_9;
-    }
-
-    v6 = [(NSPredicate *)v3 rightExpression];
-    v7 = [v6 expressionType];
-
-    if (!v7 && [(NSPredicate *)v3 predicateOperatorType]<= 5 && (![(NSPredicate *)v3 customSelector]|| [(NSPredicate *)v3 customSelector]== sel_compare_ || [(NSPredicate *)v3 customSelector]== sel_isEqual_))
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-LABEL_9:
-      v8 = 0;
+        if (!v7 && [(NSPredicate *)v3 predicateOperatorType]<= 5 && (![(NSPredicate *)v3 customSelector]|| [(NSPredicate *)v3 customSelector]== sel_compare_ || [(NSPredicate *)v3 customSelector]== sel_isEqual_))
+        {
+          v8 = 1;
+        }
+      }
     }
   }
 
@@ -8875,7 +8879,7 @@ void ATXGamePlayKitCDecisionNode::~ATXGamePlayKitCDecisionNode(ATXGamePlayKitCDe
   std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::__destroy_vector::operator()[abi:ne200100](&v6);
 }
 
-uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::erase(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t *std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::erase(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   if (a3 != a2)
   {
@@ -8964,7 +8968,7 @@ void std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayK
   }
 }
 
-uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::__emplace_back_slow_path<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::__emplace_back_slow_path<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>(unint64_t *a1, __int128 *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -9021,9 +9025,9 @@ uint64_t std::vector<std::pair<objc_object * {__strong},std::shared_ptr<ATXGameP
   return v14;
 }
 
-void sub_2264A7CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2264A7CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<objc_object * {__strong},std::shared_ptr<ATXGamePlayKitCDecisionNode>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9189,28 +9193,19 @@ void std::allocator<ATXGamePlayKitCDecisionTree>::destroy[abi:ne200100](uint64_t
 void linkChangedCallback(uint64_t a1, const __CFDictionary *a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (a2)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      linkChangedCallback_cold_1(a2, v5);
+      linkChangedCallback_cold_1(a2, v6);
     }
 
     Value = CFDictionaryGetValue(a2, @"LINK_CHANGED_IS_LINKDOWN");
     if (Value)
     {
-      v7 = CFBooleanGetValue(Value) != 0;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    if (CFDictionaryGetValue(a2, @"LINK_CHANGED_NETWORK"))
-    {
-      v8 = [WiFiNetworkGetSSID() copy];
+      v8 = CFBooleanGetValue(Value) != 0;
     }
 
     else
@@ -9218,22 +9213,32 @@ void linkChangedCallback(uint64_t a1, const __CFDictionary *a2, void *a3)
       v8 = 0;
     }
 
-    v9 = v4[3];
+    if (CFDictionaryGetValue(a2, @"LINK_CHANGED_NETWORK"))
+    {
+      v9 = [WiFiNetworkGetSSID() copy];
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v10 = v5[3];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __linkChangedCallback_block_invoke;
     block[3] = &unk_278598A00;
-    v12 = v8;
-    v13 = v4;
-    v14 = v7;
-    v10 = v8;
-    dispatch_async(v9, block);
+    v13 = v9;
+    v14 = v5;
+    v15 = v8;
+    v11 = v9;
+    dispatch_async(v10, block);
   }
 }
 
-void sub_2264A87BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2264A87BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9254,7 +9259,7 @@ void __linkChangedCallback_block_invoke(uint64_t a1)
   v8 = *(a1 + 48);
   v7 = (a1 + 48);
   *(*(v7 - 1) + 48) = v8 ^ 1;
-  v9 = __atxlog_handle_default();
+  v9 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     __linkChangedCallback_block_invoke_cold_1(v3, v7, v9);
@@ -9282,7 +9287,7 @@ void scPrefsNotifyCallback(const __SCPreferences *a1, char a2, unsigned __int8 *
     Value = SCPreferencesGetValue(a1, @"AirplaneMode");
     v5 = *MEMORY[0x277CBED28];
     v6 = Value == *MEMORY[0x277CBED28];
-    v7 = __atxlog_handle_default();
+    v7 = __atxlog_handle_default(Value);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       scPrefsNotifyCallback_cold_1(Value == v5, v7);
@@ -9292,23 +9297,23 @@ void scPrefsNotifyCallback(const __SCPreferences *a1, char a2, unsigned __int8 *
   }
 }
 
-void sub_2264A9474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2264A9474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v12 - 144), 8);
+  _Block_object_dispose((v19 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2264AAEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2264AAEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9403,38 +9408,38 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2264AB9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2264AB9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id ATXAppBundleIdsForComplicationDescriptors(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * i) extensionIdentity];
+        v8 = [*(*(&v11 + 1) + 8 * i) extensionIdentity];
         v9 = [v8 containerBundleIdentifier];
 
         if ([v9 length])
@@ -9443,62 +9448,60 @@ id ATXAppBundleIdsForComplicationDescriptors(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-void sub_226537774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226537774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2265378D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2265378D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226537A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226537A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226537B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226537B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_226537D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226537D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22653821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22653821C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22653A158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22653A158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9515,38 +9518,34 @@ void dispatch_sync_notxn_0(NSObject *a1, void *a2)
   dispatch_sync(a1, block);
 }
 
-void sub_22653D144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_22653D144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22653D878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 240), 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22653DFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 240), 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22653EF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22653D878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 240), 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22653DFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 240), 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 144), 8);
   _Unwind_Resume(a1);
 }

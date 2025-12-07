@@ -119,201 +119,203 @@
 - (unint64_t)theftAndLossCoverageWithSerialNumber:(id)number timeout:(double)timeout
 {
   numberCopy = number;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10000AA14;
+  v41 = sub_100002AD4;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_10000AA14;
-  v40 = sub_100002AD4;
-  v41 = 0;
   v6 = dispatch_time(0, (timeout * 1000000000.0));
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = sub_10000AA14;
-  v34[4] = sub_100002AD4;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_10000AA14;
+  v35[4] = sub_100002AD4;
   v7 = dispatch_group_create();
-  v35 = v7;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_1001566D4;
-  v31[3] = &unk_1002CE5F0;
+  v36 = v7;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_1001566D4;
+  v32[3] = &unk_1002CE5F0;
   v8 = objc_opt_new();
-  v32 = v8;
-  v33 = v34;
-  v9 = objc_retainBlock(v31);
+  v33 = v8;
+  v34 = v35;
+  v9 = objc_retainBlock(v32);
   dispatch_group_enter(v7);
   v10 = +[FMNSXPCConnectionConfiguration sharedConfigurationConfiguration];
   v11 = +[FMNSXPCConnectionCache sharedCache];
   v12 = [v11 resumeConnectionWithConfiguration:v10];
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100156738;
-  v28[3] = &unk_1002CEEE8;
-  v30 = &v36;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100156738;
+  v29[3] = &unk_1002CEEE8;
+  v31 = &v37;
   v13 = v9;
-  v29 = v13;
-  [v12 addFailureBlock:v28];
+  v30 = v13;
+  [v12 addFailureBlock:v29];
   remoteObjectProxy = [v12 remoteObjectProxy];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_1001567D8;
-  v23[3] = &unk_1002CEF10;
-  v26 = &v42;
-  v27 = &v36;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_1001567D8;
+  v24[3] = &unk_1002CEF10;
+  v27 = &v43;
+  v28 = &v37;
   v15 = v12;
-  v24 = v15;
+  v25 = v15;
   v16 = v13;
-  v25 = v16;
-  [remoteObjectProxy getTheftAndLossCoverageWithSerialNumber:numberCopy reply:v23];
-  if (dispatch_group_wait(v7, v6))
+  v26 = v16;
+  [remoteObjectProxy getTheftAndLossCoverageWithSerialNumber:numberCopy reply:v24];
+  v17 = dispatch_group_wait(v7, v6);
+  if (v17)
   {
-    v17 = sub_100002880();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1002282F8();
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v19 = sub_100002880();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100002880(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      if (v43[3])
+      if (v44[3])
       {
-        v20 = @"true";
+        v21 = @"true";
       }
 
       else
       {
-        v20 = @"false";
+        v21 = @"false";
       }
 
-      v21 = v37[5];
+      v22 = v38[5];
       *buf = 138543874;
-      v47 = v20;
-      v48 = 2112;
-      v49 = numberCopy;
-      v50 = 2112;
-      v51 = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "T&L device coverage %{public}@ for serialNumber: %@, error: %@", buf, 0x20u);
+      v48 = v21;
+      v49 = 2112;
+      v50 = numberCopy;
+      v51 = 2112;
+      v52 = v22;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "T&L device coverage %{public}@ for serialNumber: %@, error: %@", buf, 0x20u);
     }
 
-    v18 = v43[3];
+    v19 = v44[3];
   }
 
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v42, 8);
-  return v18;
+  _Block_object_dispose(&v43, 8);
+  return v19;
 }
 
 - (unint64_t)theftAndLossCoverageWithUDID:(id)d timeout:(double)timeout
 {
   dCopy = d;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10000AA14;
+  v41 = sub_100002AD4;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_10000AA14;
-  v40 = sub_100002AD4;
-  v41 = 0;
   v6 = dispatch_time(0, (timeout * 1000000000.0));
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = sub_10000AA14;
-  v34[4] = sub_100002AD4;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_10000AA14;
+  v35[4] = sub_100002AD4;
   v7 = dispatch_group_create();
-  v35 = v7;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100156CB0;
-  v31[3] = &unk_1002CE5F0;
+  v36 = v7;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100156CB0;
+  v32[3] = &unk_1002CE5F0;
   v8 = objc_opt_new();
-  v32 = v8;
-  v33 = v34;
-  v9 = objc_retainBlock(v31);
+  v33 = v8;
+  v34 = v35;
+  v9 = objc_retainBlock(v32);
   dispatch_group_enter(v7);
   v10 = +[FMNSXPCConnectionConfiguration sharedConfigurationConfiguration];
   v11 = +[FMNSXPCConnectionCache sharedCache];
   v12 = [v11 resumeConnectionWithConfiguration:v10];
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100156D14;
-  v28[3] = &unk_1002CEEE8;
-  v30 = &v36;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100156D14;
+  v29[3] = &unk_1002CEEE8;
+  v31 = &v37;
   v13 = v9;
-  v29 = v13;
-  [v12 addFailureBlock:v28];
+  v30 = v13;
+  [v12 addFailureBlock:v29];
   remoteObjectProxy = [v12 remoteObjectProxy];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100156D88;
-  v23[3] = &unk_1002CEF10;
-  v26 = &v42;
-  v27 = &v36;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100156D88;
+  v24[3] = &unk_1002CEF10;
+  v27 = &v43;
+  v28 = &v37;
   v15 = v12;
-  v24 = v15;
+  v25 = v15;
   v16 = v13;
-  v25 = v16;
-  [remoteObjectProxy getTheftAndLossCoverageWithUDID:dCopy reply:v23];
-  if (dispatch_group_wait(v7, v6))
+  v26 = v16;
+  [remoteObjectProxy getTheftAndLossCoverageWithUDID:dCopy reply:v24];
+  v17 = dispatch_group_wait(v7, v6);
+  if (v17)
   {
-    v17 = sub_100002880();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_100228360();
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v19 = sub_100002880();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100002880(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      if (v43[3])
+      if (v44[3])
       {
-        v20 = @"true";
+        v21 = @"true";
       }
 
       else
       {
-        v20 = @"false";
+        v21 = @"false";
       }
 
-      v21 = v37[5];
+      v22 = v38[5];
       *buf = 138412802;
-      v47 = v20;
-      v48 = 2112;
-      v49 = dCopy;
-      v50 = 2112;
-      v51 = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "T&L device coverage %@ for UDID: %@, error: %@", buf, 0x20u);
+      v48 = v21;
+      v49 = 2112;
+      v50 = dCopy;
+      v51 = 2112;
+      v52 = v22;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "T&L device coverage %@ for UDID: %@, error: %@", buf, 0x20u);
     }
 
-    v18 = v43[3];
+    v19 = v44[3];
   }
 
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v42, 8);
-  return v18;
+  _Block_object_dispose(&v43, 8);
+  return v19;
 }
 
 - (void)postTheftAndLossCFU:(id)u completion:(id)completion

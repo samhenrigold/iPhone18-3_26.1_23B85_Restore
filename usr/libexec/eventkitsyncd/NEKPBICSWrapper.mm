@@ -263,66 +263,63 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    calendarItemCount = self->_calendarItemCount;
     PBDataWriterWriteUint32Field();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v6 = self->_metadataKeys;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v7)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v5 = self->_metadataKeys;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v28;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v9)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v12 = self->_metadataValues;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v13)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_metadataValues;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v24;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v14; j = j + 1)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v24 != v15)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   if (self->_syncID)
@@ -337,7 +334,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    taskCompletionDate = self->_taskCompletionDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -353,7 +349,6 @@
 
   if (*&self->_has)
   {
-    displayOrder = self->_displayOrder;
     PBDataWriterWriteFixed64Field();
   }
 
@@ -365,14 +360,12 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    nekChangeType = self->_nekChangeType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    nekStoreType = self->_nekStoreType;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -636,7 +629,6 @@
     }
   }
 
-  v7 = *(equalCopy + 112);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 112) & 4) == 0 || self->_calendarItemCount != *(equalCopy + 8))
@@ -683,7 +675,6 @@
     }
   }
 
-  v12 = *(equalCopy + 112);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 112) & 2) == 0 || self->_taskCompletionDate != *(equalCopy + 2))
@@ -713,7 +704,6 @@
   }
 
   has = self->_has;
-  v16 = *(equalCopy + 112);
   if (has)
   {
     if ((*(equalCopy + 112) & 1) == 0 || self->_displayOrder != *(equalCopy + 1))
@@ -733,7 +723,7 @@
     if (![(NSData *)lzfseICSData isEqual:?])
     {
 LABEL_45:
-      v18 = 0;
+      v15 = 0;
       goto LABEL_46;
     }
 
@@ -753,7 +743,7 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v18 = (*(equalCopy + 112) & 0x10) == 0;
+  v15 = (*(equalCopy + 112) & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 112) & 0x10) == 0 || self->_nekStoreType != *(equalCopy + 19))
@@ -761,12 +751,12 @@ LABEL_45:
       goto LABEL_45;
     }
 
-    v18 = 1;
+    v15 = 1;
   }
 
 LABEL_46:
 
-  return v18;
+  return v15;
 }
 
 - (unint64_t)hash

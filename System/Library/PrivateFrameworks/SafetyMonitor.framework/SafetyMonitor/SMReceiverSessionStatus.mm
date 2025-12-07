@@ -223,18 +223,18 @@ LABEL_13:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (!coderCopy)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "[SMReceiverSessionStatus encodeWithCoder:]";
-      v22 = 1024;
-      v23 = 192;
-      _os_log_error_impl(&dword_26455D000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", &v20, 0x12u);
+      v19 = 136315394;
+      v20 = "[SMReceiverSessionStatus encodeWithCoder:]";
+      v21 = 1024;
+      v22 = 192;
+      _os_log_error_impl(&dword_26455D000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", &v19, 0x12u);
     }
   }
 
@@ -286,8 +286,6 @@ LABEL_13:
   [coderCopy encodeBool:-[SMReceiverSessionStatus isSOSTrigger](self forKey:{"isSOSTrigger"), @"isSOSTrigger"}];
   [coderCopy encodeInteger:-[SMReceiverSessionStatus lowPowerModeWarningState](self forKey:{"lowPowerModeWarningState"), @"lowPowerModeWarningState"}];
   [coderCopy encodeInteger:-[SMReceiverSessionStatus cacheDownloadError](self forKey:{"cacheDownloadError"), @"cacheDownloadError"}];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (SMReceiverSessionStatus)initWithCoder:(id)coder

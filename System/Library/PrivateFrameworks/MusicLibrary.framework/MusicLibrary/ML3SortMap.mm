@@ -295,11 +295,11 @@ LABEL_57:
   return v39 & 1;
 }
 
-uint64_t __27__ML3SortMap_commitUpdates__block_invoke(uint64_t result, uint64_t a2)
+id *__27__ML3SortMap_commitUpdates__block_invoke(id *result, uint64_t a2)
 {
   if (*(a2 + 36) == 1)
   {
-    return [*(result + 32) addIndex:?];
+    return [result[4] addIndex:?];
   }
 
   return result;

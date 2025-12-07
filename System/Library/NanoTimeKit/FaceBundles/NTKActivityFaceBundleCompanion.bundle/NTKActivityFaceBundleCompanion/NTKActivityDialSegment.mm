@@ -240,23 +240,21 @@
 
 - (void)setAlpha:(double)alpha
 {
-  alpha = self->_alpha;
   if ((CLKFloatEqualsFloat() & 1) == 0)
   {
     self->_alpha = alpha;
-    *&v6 = alpha;
-    [(CALayer *)self->_tickLayer setOpacity:v6];
+    *&v5 = alpha;
+    [(CALayer *)self->_tickLayer setOpacity:v5];
     arcLayer = self->_arcLayer;
-    v8 = self->_alpha;
-    *&v8 = v8;
+    alpha = self->_alpha;
+    *&alpha = alpha;
 
-    [(CALayer *)arcLayer setOpacity:v8];
+    [(CALayer *)arcLayer setOpacity:alpha];
   }
 }
 
 - (void)setTickScale:(double)scale
 {
-  tickScale = self->_tickScale;
   if ((CLKFloatEqualsFloat() & 1) == 0)
   {
     self->_tickScale = scale;

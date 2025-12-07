@@ -25,7 +25,7 @@
       *buf = 134217984;
       v9 = 0;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "nil personaAttributes for %ld persona", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "nil personaAttributes for %ld persona", 0);
     }
 
     if (error)
@@ -80,7 +80,7 @@
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "nil volumeMountPoint for %ld persona (%{public}@)", buf, 0x16u);
 
         userPersonaUniqueString2 = [v6 userPersonaUniqueString];
-        _MBLog();
+        _MBLog(@"E ", "nil volumeMountPoint for %ld persona (%{public}@)", 2, userPersonaUniqueString2);
       }
     }
   }
@@ -259,10 +259,11 @@
 
 - (void)_removeTemporaryDirectories
 {
-  if ([(MBPersona *)self isPersonalPersona])
+  isPersonalPersona = [(MBPersona *)self isPersonalPersona];
+  if (isPersonalPersona)
   {
 
-    MBRemoveTemporaryDirectory();
+    MBRemoveTemporaryDirectory(isPersonalPersona);
   }
 
   else
@@ -273,54 +274,54 @@
       sub_ABB4();
     }
 
-    v17 = volumeMountPoint;
-    v4 = [volumeMountPoint stringByAppendingPathComponent:@"tmp"];
-    v5 = +[NSFileManager defaultManager];
-    v6 = [v5 enumeratorAtPath:v4];
+    v18 = volumeMountPoint;
+    v5 = [volumeMountPoint stringByAppendingPathComponent:@"tmp"];
+    v6 = +[NSFileManager defaultManager];
+    v7 = [v6 enumeratorAtPath:v5];
 
-    nextObject = [v6 nextObject];
+    nextObject = [v7 nextObject];
     if (nextObject)
     {
-      v8 = nextObject;
+      v9 = nextObject;
       do
       {
-        v9 = objc_autoreleasePoolPush();
-        if ([v8 hasPrefix:@"backupd-"])
+        v10 = objc_autoreleasePoolPush();
+        if ([v9 hasPrefix:@"backupd-"])
         {
-          v10 = [v4 stringByAppendingPathComponent:v8];
-          v11 = MBGetDefaultLog();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v11 = [v5 stringByAppendingPathComponent:v9];
+          v12 = MBGetDefaultLog();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v20 = v10;
-            _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Removing temporary directory at %{public}@", buf, 0xCu);
-            _MBLog();
+            v21 = v11;
+            _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Removing temporary directory at %{public}@", buf, 0xCu);
+            _MBLog(@"Df", "Removing temporary directory at %{public}@", v11);
           }
 
-          v12 = +[NSFileManager defaultManager];
-          v18 = 0;
-          v13 = [v12 removeItemAtPath:v10 error:&v18];
-          v14 = v18;
+          v13 = +[NSFileManager defaultManager];
+          v19 = 0;
+          v14 = [v13 removeItemAtPath:v11 error:&v19];
+          v15 = v19;
 
-          if ((v13 & 1) == 0)
+          if ((v14 & 1) == 0)
           {
-            v15 = MBGetDefaultLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v16 = MBGetDefaultLog();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v20 = v10;
-              v21 = 2114;
-              v22 = v14;
-              _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to remove the temporary directory at %{public}@: %{public}@", buf, 0x16u);
-              _MBLog();
+              v21 = v11;
+              v22 = 2114;
+              v23 = v15;
+              _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Failed to remove the temporary directory at %{public}@: %{public}@", buf, 0x16u);
+              _MBLog(@"E ", "Failed to remove the temporary directory at %{public}@: %{public}@", v11, v15);
             }
           }
         }
 
-        objc_autoreleasePoolPop(v9);
-        nextObject2 = [v6 nextObject];
+        objc_autoreleasePoolPop(v10);
+        nextObject2 = [v7 nextObject];
 
-        v8 = nextObject2;
+        v9 = nextObject2;
       }
 
       while (nextObject2);

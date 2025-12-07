@@ -14,6 +14,7 @@
 - (void)processHandoverResponse:(id)response callback:(id)callback;
 - (void)processQRCodeHandoverRequestMessage:(id)message callback:(id)callback;
 - (void)processUnifiedAccessStepupExchangeCommand:(id)command forAcwg:(BOOL)acwg callback:(id)callback;
+- (void)processUnifiedAccessStepupSessionEstablishment:(id)establishment forAcwg:(BOOL)acwg endpointIdentifier:(id)identifier intermediateKeyMaterial:(id)material callback:(id)callback;
 - (void)receivedCredentialSelection:(id)selection callback:(id)callback;
 - (void)setRequestHandoverConfirmation:(BOOL)confirmation;
 - (void)startConnectionHandoverWithConfiguration:(unint64_t)configuration type:(unint64_t)type credentialType:(unsigned __int8)credentialType callback:(id)callback;
@@ -330,6 +331,57 @@ LABEL_74:
 
 LABEL_75:
   callbackCopy[2](callbackCopy, v15);
+}
+
+- (void)processUnifiedAccessStepupSessionEstablishment:(id)establishment forAcwg:(BOOL)acwg endpointIdentifier:(id)identifier intermediateKeyMaterial:(id)material callback:(id)callback
+{
+  acwgCopy = acwg;
+  establishmentCopy = establishment;
+  identifierCopy = identifier;
+  materialCopy = material;
+  callbackCopy = callback;
+  if (self && (v16 = self->_iso18013Handler) != 0 && (v17 = self->_type, v16, v17 == 2))
+  {
+    sub_100003BB0(&self->_iso18013Handler->super.isa, acwgCopy, v18, v19, v20, v21, v22, v23);
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100027830;
+    v35[3] = &unk_100059140;
+    v35[4] = self;
+    v24 = callbackCopy;
+    v36 = v24;
+    v25 = objc_retainBlock(v35);
+    v26 = sub_100024AE0();
+    if (os_signpost_enabled(v26))
+    {
+      type = self->_type;
+      *buf = 134217984;
+      *&buf[4] = type;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "ISO18013_ProcessMDocRequest", "type=%lul", buf, 0xCu);
+    }
+
+    sub_100003088(&self->_iso18013Handler->super.isa, materialCopy, identifierCopy);
+    iso18013Handler = self->_iso18013Handler;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100027988;
+    v32[3] = &unk_100059418;
+    v32[4] = self;
+    v33 = v25;
+    v34 = v24;
+    v29 = v25;
+    sub_100003128(iso18013Handler, establishmentCopy, v32);
+  }
+
+  else
+  {
+    v38 = NSLocalizedDescriptionKey;
+    *buf = off_100069A50;
+    v30 = [NSDictionary dictionaryWithObjects:buf forKeys:&v38 count:1];
+    v31 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:2 userInfo:v30];
+
+    (*(callbackCopy + 2))(callbackCopy, 0, v31);
+  }
 }
 
 - (void)processUnifiedAccessStepupExchangeCommand:(id)command forAcwg:(BOOL)acwg callback:(id)callback

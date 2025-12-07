@@ -177,7 +177,7 @@ LABEL_5:
 
 - (void)_handleRequest:(id)request
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   properties = [requestCopy properties];
   urlBagKey = [properties urlBagKey];
@@ -208,20 +208,20 @@ LABEL_5:
 
     [v8 setIgnoresForcedPasswordRestriction:{objc_msgSend(properties, "ignoresForcedPasswordRestriction")}];
     v12 = objc_alloc(MEMORY[0x1E69D49A0]);
-    v29[0] = v8;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v30[0] = v8;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
     v14 = [v12 initWithPurchases:v13];
 
     [v14 setCreatesDownloads:0];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __38__VUIStoreAcquisition__handleRequest___block_invoke_58;
-    v21[3] = &unk_1E8732090;
-    v15 = &v22;
-    v21[4] = self;
-    v22 = requestCopy;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __38__VUIStoreAcquisition__handleRequest___block_invoke_58;
+    v22[3] = &unk_1E8732090;
+    v15 = &v23;
+    v22[4] = self;
+    v23 = requestCopy;
     v16 = requestCopy;
-    [v14 startWithPurchaseResponseBlock:v21 completionBlock:&__block_literal_global_64];
+    [v14 startWithPurchaseResponseBlock:v22 completionBlock:&__block_literal_global_64];
   }
 
   else
@@ -231,17 +231,17 @@ LABEL_5:
     v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TVCKCloudDataClientError" code:0 userInfo:v8];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
-    v24 = __38__VUIStoreAcquisition__handleRequest___block_invoke;
-    v25 = &unk_1E872E008;
+    v25 = __38__VUIStoreAcquisition__handleRequest___block_invoke;
+    v26 = &unk_1E872E008;
     selfCopy = self;
-    v27 = requestCopy;
-    v28 = v17;
+    v28 = requestCopy;
+    v29 = v17;
     v18 = MEMORY[0x1E696AF00];
     v19 = requestCopy;
     v14 = v17;
     if ([v18 isMainThread])
     {
-      v24(block);
+      v20 = v25(block);
     }
 
     else
@@ -249,27 +249,27 @@ LABEL_5:
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
 
-    v15 = &v27;
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v15 = &v28;
+    v21 = VUIDefaultLogObject(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [VUIStoreAcquisition _handleRequest:v20];
+      [VUIStoreAcquisition _handleRequest:v21];
     }
   }
 }
 
 void __38__VUIStoreAcquisition__handleRequest___block_invoke_58(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 URLResponse];
   v5 = [v4 bodyData];
 
   if (v5)
   {
-    v31 = 0;
-    v6 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v31];
-    v7 = v31;
+    v32 = 0;
+    v6 = [MEMORY[0x1E696AE40] propertyListWithData:v5 options:0 format:0 error:&v32];
+    v7 = v32;
   }
 
   else
@@ -304,7 +304,7 @@ void __38__VUIStoreAcquisition__handleRequest___block_invoke_58(uint64_t a1, voi
 
     if (v13 == 16)
     {
-      v14 = 1;
+      v15 = 1;
       goto LABEL_18;
     }
   }
@@ -313,48 +313,48 @@ void __38__VUIStoreAcquisition__handleRequest___block_invoke_58(uint64_t a1, voi
   {
   }
 
-  v15 = [v6 objectForKey:*MEMORY[0x1E69E4830]];
-  v14 = v15 != 0;
+  v16 = [v6 objectForKey:*MEMORY[0x1E69E4830]];
+  v15 = v16 != 0;
 
-  if (!v7 && !v11 && !v15 && v6)
+  if (!v7 && !v11 && !v16 && v6)
   {
-    LOBYTE(v14) = 0;
+    LOBYTE(v15) = 0;
     v7 = 0;
     goto LABEL_21;
   }
 
 LABEL_18:
-  v16 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v33 = v11;
-    v34 = 2112;
-    v35 = v7;
-    v36 = 1024;
-    v37 = v14;
-    _os_log_error_impl(&dword_1E323F000, v16, OS_LOG_TYPE_ERROR, "Error making purchse: [%@] plist error [%@] Was cancelled [%d]", buf, 0x1Cu);
+    v34 = v11;
+    v35 = 2112;
+    v36 = v7;
+    v37 = 1024;
+    v38 = v15;
+    _os_log_error_impl(&dword_1E323F000, v17, OS_LOG_TYPE_ERROR, "Error making purchse: [%@] plist error [%@] Was cancelled [%d]", buf, 0x1Cu);
   }
 
 LABEL_21:
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
-  v23 = __38__VUIStoreAcquisition__handleRequest___block_invoke_60;
-  v24 = &unk_1E872FB50;
-  v17 = *(a1 + 40);
-  v25 = *(a1 + 32);
-  v26 = v3;
-  v27 = v6;
-  v28 = v17;
-  v29 = v11;
-  v30 = v14;
-  v18 = MEMORY[0x1E696AF00];
-  v19 = v11;
-  v20 = v6;
-  v21 = v3;
-  if ([v18 isMainThread])
+  v24 = __38__VUIStoreAcquisition__handleRequest___block_invoke_60;
+  v25 = &unk_1E872FB50;
+  v18 = *(a1 + 40);
+  v26 = *(a1 + 32);
+  v27 = v3;
+  v28 = v6;
+  v29 = v18;
+  v30 = v11;
+  v31 = v15;
+  v19 = MEMORY[0x1E696AF00];
+  v20 = v11;
+  v21 = v6;
+  v22 = v3;
+  if ([v19 isMainThread])
   {
-    v23(block);
+    v24(block);
   }
 
   else
@@ -384,7 +384,7 @@ uint64_t __38__VUIStoreAcquisition__handleRequest___block_invoke_60(uint64_t a1)
 - (void)_handleResponse:(id)response responseDict:(id)dict forRequest:(id)request error:(id)error cancelled:(BOOL)cancelled
 {
   cancelledCopy = cancelled;
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dictCopy = dict;
   requestCopy = request;
@@ -430,25 +430,25 @@ uint64_t __38__VUIStoreAcquisition__handleRequest___block_invoke_60(uint64_t a1)
   allHeaderFields = [uRLResponse allHeaderFields];
   vui_appleTimingAppHeaderValue = [allHeaderFields vui_appleTimingAppHeaderValue];
 
-  v25 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v26 = VUIDefaultLogObject(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v28 = 134217984;
-    v29 = vui_appleTimingAppHeaderValue;
-    _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_INFO, "Time to process buy in ms [%ld]", &v28, 0xCu);
+    v29 = 134217984;
+    v30 = vui_appleTimingAppHeaderValue;
+    _os_log_impl(&dword_1E323F000, v26, OS_LOG_TYPE_INFO, "Time to process buy in ms [%ld]", &v29, 0xCu);
   }
 
   if (v17 == 2 && (!urlBagKey || [urlBagKey isEqualToString:@"buyProduct"]))
   {
-    v26 = +[VUIMediaLibraryManager defaultManager];
-    deviceMediaLibrary = [v26 deviceMediaLibrary];
+    v27 = +[VUIMediaLibraryManager defaultManager];
+    deviceMediaLibrary = [v27 deviceMediaLibrary];
     [deviceMediaLibrary updateFromCloudWithReason:1];
   }
 }
 
 - (void)postCrossProcessNotificationWithBuyParams:(id)params error:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   errorCopy = error;
   v7 = objc_opt_new();
@@ -458,19 +458,20 @@ uint64_t __38__VUIStoreAcquisition__handleRequest___block_invoke_60(uint64_t a1)
     [v7 setObject:errorCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyError"];
   }
 
-  if ([paramsCopy length])
+  v9 = [paramsCopy length];
+  if (v9)
   {
-    [v8 setObject:paramsCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyBuyParams"];
+    v9 = [v8 setObject:paramsCopy forKeyedSubscript:@"VUIStoreAcquisitionCrossProcessNotificationKeyBuyParams"];
   }
 
-  v9 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = VUIDefaultLogObject(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412546;
-    v12 = paramsCopy;
-    v13 = 2112;
-    v14 = errorCopy;
-    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "Posting VUIStoreAcquisitionCrossProcessNotification with buy params: %@, error: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = paramsCopy;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "Posting VUIStoreAcquisitionCrossProcessNotification with buy params: %@, error: %@", &v12, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];

@@ -31,82 +31,79 @@
 - (void)attachAnalysisContextWithCompletionHandler:(id)handler
 {
   v5 = sub_100052CBC(&qword_10010DCC0, &qword_1000D1B20);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1000C9C34();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = &unk_1000D2000;
-  v12[5] = v10;
+  __chkstk_darwin(v5 - 8, v6, v7);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  *(v11 + 24) = self;
+  v12 = sub_1000C9C34();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_1000D2008;
-  v13[5] = v12;
+  v13[4] = &unk_1000D2000;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_1000D2008;
+  v14[5] = v13;
   selfCopy = self;
-  sub_100068BCC(0, 0, v8, &unk_1000D2010, v13);
+  sub_100068BCC(0, 0, v9, &unk_1000D2010, v14);
 }
 
 - (void)attachTranscriberWithTask:(NSString *)task completionHandler:(id)handler
 {
   v7 = sub_100052CBC(&qword_10010DCC0, &qword_1000D1B20);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = task;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1000C9C34();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_1000D1FE0;
-  v14[5] = v12;
+  __chkstk_darwin(v7 - 8, v8, v9);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = task;
+  v13[3] = v12;
+  v13[4] = self;
+  v14 = sub_1000C9C34();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_1000D1FE8;
-  v15[5] = v14;
+  v15[4] = &unk_1000D1FE0;
+  v15[5] = v13;
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_1000D1FE8;
+  v16[5] = v15;
   taskCopy = task;
   selfCopy = self;
-  sub_100068BCC(0, 0, v10, &unk_1000D1FF0, v15);
+  sub_100068BCC(0, 0, v11, &unk_1000D1FF0, v16);
 }
 
 - (void)setRecognitionReplacementsWithUseRecognitionReplacements:(BOOL)replacements completionHandler:(id)handler
 {
   v7 = sub_100052CBC(&qword_10010DCC0, &qword_1000D1B20);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  *(v12 + 16) = replacements;
-  *(v12 + 24) = v11;
-  *(v12 + 32) = self;
-  v13 = sub_1000C9C34();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_1000D1F98;
-  v14[5] = v12;
+  __chkstk_darwin(v7 - 8, v8, v9);
+  v11 = &v18 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  *(v13 + 16) = replacements;
+  *(v13 + 24) = v12;
+  *(v13 + 32) = self;
+  v14 = sub_1000C9C34();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_1000D1FA8;
-  v15[5] = v14;
+  v15[4] = &unk_1000D1F98;
+  v15[5] = v13;
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_1000D1FA8;
+  v16[5] = v15;
   selfCopy = self;
-  sub_100068BCC(0, 0, v10, &unk_1000D1FB8, v15);
+  sub_100068BCC(0, 0, v11, &unk_1000D1FB8, v16);
 }
 
 - (void)cancelRecognition
@@ -118,21 +115,20 @@
 - (void)setTextWithLeftContextText:(id)text
 {
   v4 = sub_100052CBC(&qword_10010DCC0, &qword_1000D1B20);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v14 - v6;
-  v8 = sub_1000C9B04();
-  v10 = v9;
-  v11 = sub_1000C9C34();
-  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = v8;
-  v12[6] = v10;
+  __chkstk_darwin(v4 - 8, v5, v6);
+  v8 = &v15 - v7;
+  v9 = sub_1000C9B04();
+  v11 = v10;
+  v12 = sub_1000C9C34();
+  (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = self;
+  v13[5] = v9;
+  v13[6] = v11;
   selfCopy = self;
-  sub_100055D64(0, 0, v7, &unk_1000D1F88, v12);
+  sub_100055D64(0, 0, v8, &unk_1000D1F88, v13);
 }
 
 - (void)useRecognitionReplacements
@@ -157,47 +153,41 @@
 - (void)addAudioSamplesPCMWithAudio:(id)audio
 {
   v5 = sub_1000C98A4();
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v7 = sub_100052CBC(&qword_10010DF48, &qword_1000D1E00);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v19 - v10;
-  v12 = sub_100052CBC(&qword_10010DF68, &qword_1000D1E88);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v19 - v15;
-  (*(v8 + 16))(v11, self + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDSAPISwiftSpeechAnalyzer__inputStreamBuilder, v7);
+  __chkstk_darwin(v5 - 8, v6, v7);
+  v8 = sub_100052CBC(&qword_10010DF48, &qword_1000D1E00);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8, v10, v11);
+  v13 = &v22 - v12;
+  v14 = sub_100052CBC(&qword_10010DF68, &qword_1000D1E88);
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14, v16, v17);
+  v19 = &v22 - v18;
+  (*(v9 + 16))(v13, self + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDSAPISwiftSpeechAnalyzer__inputStreamBuilder, v8);
   audioCopy = audio;
   selfCopy = self;
-  CMTimeMake(&v20, 0, 1);
+  CMTimeMake(&v23, 0, 1);
   sub_1000C9884();
   sub_1000C9C54();
 
-  (*(v8 + 8))(v11, v7);
-  (*(v13 + 8))(v16, v12);
+  (*(v9 + 8))(v13, v8);
+  (*(v15 + 8))(v19, v14);
 }
 
 - (void)startRecognitionWithTranscriberModuleWrapper:(id)wrapper
 {
   v5 = sub_100052CBC(&qword_10010DCC0, &qword_1000D1B20);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = sub_1000C9C34();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = wrapper;
+  __chkstk_darwin(v5 - 8, v6, v7);
+  v9 = &v14 - v8;
+  v10 = sub_1000C9C34();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = wrapper;
   selfCopy = self;
   wrapperCopy = wrapper;
-  v13 = sub_100055D64(0, 0, v8, &unk_1000D1F70, v10);
-  v14 = *(&selfCopy->super.isa + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDSAPISwiftSpeechAnalyzer__recognitionTask);
-  *(&selfCopy->super.isa + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDSAPISwiftSpeechAnalyzer__recognitionTask) = v13;
+  *(&selfCopy->super.isa + OBJC_IVAR____TtC50com_apple_SpeechRecognitionCore_speechrecognitiond25RDSAPISwiftSpeechAnalyzer__recognitionTask) = sub_100055D64(0, 0, v9, &unk_1000D1F70, v11);
 }
 
 - (void)startRecognitionFromFile

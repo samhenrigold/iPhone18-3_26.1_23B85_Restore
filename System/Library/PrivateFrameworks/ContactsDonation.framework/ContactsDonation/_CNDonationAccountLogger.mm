@@ -56,65 +56,57 @@
 
 - (void)accountAdded:(id)added
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   log_t = [(_CNDonationAccountLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [addedCopy identifier];
-    v8 = 138543362;
-    v9 = identifier;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account added: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = identifier;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account added: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountChanged:(id)changed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   log_t = [(_CNDonationAccountLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [changedCopy identifier];
-    v8 = 138543362;
-    v9 = identifier;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account changed: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = identifier;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account changed: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountRemoved:(id)removed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   log_t = [(_CNDonationAccountLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [removedCopy identifier];
-    v8 = 138543362;
-    v9 = identifier;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account removed: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = identifier;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Account removed: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removing:(id)removing
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   removingCopy = removing;
   log_t = [(_CNDonationAccountLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = removingCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Removing donation with identifier: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = removingCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_DEFAULT, "Removing donation with identifier: %{public}@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donationFailedWithError:(id)error
@@ -149,20 +141,18 @@
 
 - (void)donationFailedWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_2258E5000, a2, OS_LOG_TYPE_ERROR, "Could not donate contact information: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_2258E5000, a2, OS_LOG_TYPE_ERROR, "Could not donate contact information: %{public}@", &v2, 0xCu);
 }
 
 - (void)removalFailedWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_2258E5000, a2, OS_LOG_TYPE_ERROR, "Could not remove donated values: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_2258E5000, a2, OS_LOG_TYPE_ERROR, "Could not remove donated values: %{public}@", &v2, 0xCu);
 }
 
 @end

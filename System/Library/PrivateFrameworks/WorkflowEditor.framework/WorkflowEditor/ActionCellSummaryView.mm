@@ -63,11 +63,12 @@
 
 - (void)showActionOutputPickerAllowingShortcutInput:(BOOL)input variableProvider:(id)provider completionHandler:(id)handler
 {
-  v6 = _Block_copy(handler);
-  *(swift_allocObject() + 16) = v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_27445ACB0();
+  sub_27445ACB0(input, provider, sub_27445B62C, v9);
   swift_unknownObjectRelease();
 }
 
@@ -94,7 +95,7 @@
   actionCopy = action;
   selfCopy = self;
   sub_27445AE90(actionCopy, v17, v18, sub_27445B624, v13, v12, v14);
-  sub_274406A94(v12);
+  sub_274406A94(v12, v14);
 }
 
 - (void)showVariableEditorWithOptions:(id)options fromSourceRect:(CGRect)rect
@@ -108,11 +109,18 @@
 {
   if (hint)
   {
-    sub_27463B6AC();
+    v4 = sub_27463B6AC();
+    v6 = v5;
+  }
+
+  else
+  {
+    v4 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_27445B448();
+  sub_27445B448(v4, v6);
 }
 
 @end

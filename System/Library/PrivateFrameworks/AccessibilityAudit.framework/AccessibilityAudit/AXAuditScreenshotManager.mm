@@ -23,6 +23,7 @@
 - (void)setScreenshotDisplayBounds:(CGRect)bounds forTimestamp:(id)timestamp;
 - (void)setScreenshotRotation:(double)rotation forTimestamp:(id)timestamp;
 - (void)setScreenshotScaleFactor:(double)factor forTimestamp:(id)timestamp;
+- (void)setScreenshotShouldFlipOutline:(BOOL)outline forTimestamp:(id)timestamp;
 @end
 
 @implementation AXAuditScreenshotManager
@@ -46,7 +47,6 @@
 
 uint64_t __41__AXAuditScreenshotManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_instance_1 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -172,6 +172,19 @@ uint64_t __41__AXAuditScreenshotManager_sharedManager__block_invoke(uint64_t a1)
     v10 = [v5 numberWithFloat:v8];
     _scaleFactor = [(AXAuditScreenshotManager *)self _scaleFactor];
     [_scaleFactor setObject:v10 forKeyedSubscript:timestampCopy];
+  }
+}
+
+- (void)setScreenshotShouldFlipOutline:(BOOL)outline forTimestamp:(id)timestamp
+{
+  if (timestamp)
+  {
+    outlineCopy = outline;
+    v6 = MEMORY[0x277CCABB0];
+    timestampCopy = timestamp;
+    v9 = [v6 numberWithBool:outlineCopy];
+    _shouldFlipOutline = [(AXAuditScreenshotManager *)self _shouldFlipOutline];
+    [_shouldFlipOutline setObject:v9 forKeyedSubscript:timestampCopy];
   }
 }
 
@@ -538,45 +551,44 @@ void __71__AXAuditScreenshotManager_addScreenshotWithInfo_timestamp_completion__
 void __71__AXAuditScreenshotManager_addScreenshotWithInfo_timestamp_completion___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) addScreenshot:*(a1 + 40) forTimestamp:*(a1 + 48)];
-  v2 = *(a1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [*(a1 + 32) setScreenshotRotation:*(a1 + 48) forTimestamp:*(a1 + 80)];
   }
 
-  v10 = [*(a1 + 64) objectForKeyedSubscript:@"shouldFlipOutline"];
+  v9 = [*(a1 + 64) objectForKeyedSubscript:@"shouldFlipOutline"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [*(a1 + 32) setScreenshotShouldFlipOutline:objc_msgSend(v10 forTimestamp:{"BOOLValue"), *(a1 + 48)}];
+    [*(a1 + 32) setScreenshotShouldFlipOutline:objc_msgSend(v9 forTimestamp:{"BOOLValue"), *(a1 + 48)}];
   }
 
-  v3 = [*(a1 + 64) objectForKeyedSubscript:@"displayNativeScale"];
+  v2 = [*(a1 + 64) objectForKeyedSubscript:@"displayNativeScale"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
-    [v3 floatValue];
-    [v4 setScreenshotScaleFactor:*(a1 + 48) forTimestamp:v5];
+    v3 = *(a1 + 32);
+    [v2 floatValue];
+    [v3 setScreenshotScaleFactor:*(a1 + 48) forTimestamp:v4];
   }
 
-  v6 = [*(a1 + 64) objectForKeyedSubscript:@"borderFrame"];
+  v5 = [*(a1 + 64) objectForKeyedSubscript:@"borderFrame"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = *(a1 + 32);
-    [v6 rectValue];
-    [v7 setScreenshotBorderFrame:*(a1 + 48) forTimestamp:?];
+    v6 = *(a1 + 32);
+    [v5 rectValue];
+    [v6 setScreenshotBorderFrame:*(a1 + 48) forTimestamp:?];
   }
 
-  v8 = [*(a1 + 64) objectForKeyedSubscript:@"displayBounds"];
+  v7 = [*(a1 + 64) objectForKeyedSubscript:@"displayBounds"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = *(a1 + 32);
-    [v8 rectValue];
-    [v9 setScreenshotDisplayBounds:*(a1 + 48) forTimestamp:?];
+    v8 = *(a1 + 32);
+    [v7 rectValue];
+    [v8 setScreenshotDisplayBounds:*(a1 + 48) forTimestamp:?];
   }
 
   (*(*(a1 + 72) + 16))();
@@ -750,25 +762,8 @@ LABEL_8:
       v31.origin.y = y;
       v31.size.width = width;
       v31.size.height = height;
-      if (CGRectIsEmpty(v31))
+      if (CGRectIsEmpty(v31) || (-[AXAuditScreenshotManager _boundsForRect:containerImageSize:timestamp:](self, "_boundsForRect:containerImageSize:timestamp:", timestampCopy, x, y, width, height, v13, v15), v19 = v18, v21 = v20, v23 = v22, v25 = v15 - v22 - v24, v26 = [v11 CGImage], v32.origin.x = v19, v32.origin.y = v25, v32.size.width = v21, v32.size.height = v23, (v27 = CGImageCreateWithImageInRect(v26, v32)) == 0))
       {
-        goto LABEL_11;
-      }
-
-      [(AXAuditScreenshotManager *)self _boundsForRect:timestampCopy containerImageSize:x timestamp:y, width, height, v13, v15];
-      v19 = v18;
-      v21 = v20;
-      v23 = v22;
-      v25 = v15 - v22 - v24;
-      cGImage = [v11 CGImage];
-      v32.origin.x = v19;
-      v32.origin.y = v25;
-      v32.size.width = v21;
-      v32.size.height = v23;
-      v27 = CGImageCreateWithImageInRect(cGImage, v32);
-      if (!v27)
-      {
-LABEL_11:
         v17 = 0;
       }
 

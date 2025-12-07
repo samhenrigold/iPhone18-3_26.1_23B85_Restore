@@ -69,13 +69,16 @@
 
 uint64_t __111__HKStaticSyncControl_runStaticSyncExportWithOptions_storeIdentifier_URL_batchSize_progressHandler_completion___block_invoke(void *a1, void *a2)
 {
-  [a2 remote_runStaticSyncExportWithOptions:a1[8] storeIdentifier:a1[4] URL:a1[5] batchSize:a1[9] completion:a1[6]];
-  if (objc_claimAutoreleasedReturnValue())
+  v3 = [a2 remote_runStaticSyncExportWithOptions:a1[8] storeIdentifier:a1[4] URL:a1[5] batchSize:a1[9] completion:a1[6]];
+  v4 = v3;
+  if (v3)
   {
-    (*(a1[7] + 16))();
+    v6 = v3;
+    v3 = (*(a1[7] + 16))();
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (void)runStaticSyncImportWithOptions:(unint64_t)options storeIdentifier:(id)identifier URL:(id)l progressHandler:(id)handler completion:(id)completion
@@ -111,13 +114,16 @@ uint64_t __111__HKStaticSyncControl_runStaticSyncExportWithOptions_storeIdentifi
 
 uint64_t __101__HKStaticSyncControl_runStaticSyncImportWithOptions_storeIdentifier_URL_progressHandler_completion___block_invoke(void *a1, void *a2)
 {
-  [a2 remote_runStaticSyncImportWithOptions:a1[8] storeIdentifier:a1[4] URL:a1[5] completion:a1[6]];
-  if (objc_claimAutoreleasedReturnValue())
+  v3 = [a2 remote_runStaticSyncImportWithOptions:a1[8] storeIdentifier:a1[4] URL:a1[5] completion:a1[6]];
+  v4 = v3;
+  if (v3)
   {
-    (*(a1[7] + 16))();
+    v6 = v3;
+    v3 = (*(a1[7] + 16))();
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 @end

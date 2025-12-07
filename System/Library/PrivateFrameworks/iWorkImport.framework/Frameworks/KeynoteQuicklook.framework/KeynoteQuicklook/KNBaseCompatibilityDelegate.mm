@@ -13,15 +13,16 @@
 - (id)newExportableDocumentTypesForFlag:(unint64_t)flag
 {
   flagCopy = flag;
-  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v5 = v4;
   if (flagCopy)
   {
-    v18 = objc_msgSend_tsa_sharedPropertiesProvider(MEMORY[0x277D7FF90], v4, v5);
-    v19 = MEMORY[0x277D7FFB0];
-    v22 = objc_msgSend_nativeDocumentType(v18, v20, v21);
-    v25 = objc_msgSend_applicationDisplayName(v18, v23, v24);
-    v27 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v19, v26, v22, v25, 0);
-    objc_msgSend_addObject_(v6, v28, v27);
+    tsa_sharedPropertiesProvider = [MEMORY[0x277D7FF90] tsa_sharedPropertiesProvider];
+    v14 = MEMORY[0x277D7FFB0];
+    nativeDocumentType = [tsa_sharedPropertiesProvider nativeDocumentType];
+    applicationDisplayName = [tsa_sharedPropertiesProvider applicationDisplayName];
+    v17 = [v14 exportableTypeWithType:nativeDocumentType localizedName:applicationDisplayName exportProgressMessage:0];
+    [v5 addObject:v17];
 
     if ((flagCopy & 4) == 0)
     {
@@ -40,14 +41,14 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v29 = MEMORY[0x277D7FFB0];
-  v30 = objc_msgSend_identifier(*MEMORY[0x277CE1E08], v4, v5);
-  v31 = sub_275DC204C();
-  v33 = objc_msgSend_localizedStringForKey_value_table_(v31, v32, @"PDF", &stru_2884D8E20, @"Keynote");
-  v34 = sub_275DC204C();
-  v36 = objc_msgSend_localizedStringForKey_value_table_(v34, v35, @"Creating a PDF file\\U2026", &stru_2884D8E20, @"Keynote");
-  v38 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v29, v37, v30, v33, v36);
-  objc_msgSend_addObject_(v6, v39, v38);
+  v18 = MEMORY[0x277D7FFB0];
+  identifier = [*MEMORY[0x277CE1E08] identifier];
+  v20 = sub_275DC204C(identifier);
+  v21 = [v20 localizedStringForKey:@"PDF" value:&stru_2884D8E20 table:@"Keynote"];
+  v22 = sub_275DC204C(v21);
+  v23 = [v22 localizedStringForKey:@"Creating a PDF file\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+  v24 = [v18 exportableTypeWithType:identifier localizedName:v21 exportProgressMessage:v23];
+  [v5 addObject:v24];
 
   if ((flagCopy & 8) == 0)
   {
@@ -61,13 +62,13 @@ LABEL_4:
   }
 
 LABEL_14:
-  v40 = MEMORY[0x277D7FFB0];
-  v41 = sub_275DC204C();
-  v43 = objc_msgSend_localizedStringForKey_value_table_(v41, v42, @"PowerPoint", &stru_2884D8E20, @"Keynote");
-  v44 = sub_275DC204C();
-  v46 = objc_msgSend_localizedStringForKey_value_table_(v44, v45, @"Creating a PowerPoint file\\U2026", &stru_2884D8E20, @"Keynote");
-  v48 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v40, v47, @"org.openxmlformats.presentationml.presentation", v43, v46);
-  objc_msgSend_addObject_(v6, v49, v48);
+  v25 = MEMORY[0x277D7FFB0];
+  v26 = sub_275DC204C(v4);
+  v27 = [v26 localizedStringForKey:@"PowerPoint" value:&stru_2884D8E20 table:@"Keynote"];
+  v28 = sub_275DC204C(v27);
+  v29 = [v28 localizedStringForKey:@"Creating a PowerPoint file\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+  v30 = [v25 exportableTypeWithType:@"org.openxmlformats.presentationml.presentation" localizedName:v27 exportProgressMessage:v29];
+  [v5 addObject:v30];
 
   if ((flagCopy & 0x10) == 0)
   {
@@ -81,14 +82,14 @@ LABEL_5:
   }
 
 LABEL_15:
-  v50 = MEMORY[0x277D7FFB0];
-  v51 = objc_msgSend_identifier(*MEMORY[0x277CE1E40], v4, v5);
-  v52 = sub_275DC204C();
-  v54 = objc_msgSend_localizedStringForKey_value_table_(v52, v53, @"Movie", &stru_2884D8E20, @"Keynote");
-  v55 = sub_275DC204C();
-  v57 = objc_msgSend_localizedStringForKey_value_table_(v55, v56, @"Creating movie\\U2026", &stru_2884D8E20, @"Keynote");
-  v59 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v50, v58, v51, v54, v57);
-  objc_msgSend_addObject_(v6, v60, v59);
+  v31 = MEMORY[0x277D7FFB0];
+  identifier2 = [*MEMORY[0x277CE1E40] identifier];
+  v33 = sub_275DC204C(identifier2);
+  v34 = [v33 localizedStringForKey:@"Movie" value:&stru_2884D8E20 table:@"Keynote"];
+  v35 = sub_275DC204C(v34);
+  v36 = [v35 localizedStringForKey:@"Creating movie\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+  v37 = [v31 exportableTypeWithType:identifier2 localizedName:v34 exportProgressMessage:v36];
+  [v5 addObject:v37];
 
   if ((flagCopy & 0x100) == 0)
   {
@@ -102,14 +103,14 @@ LABEL_6:
   }
 
 LABEL_16:
-  v61 = MEMORY[0x277D7FFB0];
-  v62 = objc_msgSend_identifier(*MEMORY[0x277CE1D88], v4, v5);
-  v63 = sub_275DC204C();
-  v65 = objc_msgSend_localizedStringForKey_value_table_(v63, v64, @"Animated GIF", &stru_2884D8E20, @"Keynote");
-  v66 = sub_275DC204C();
-  v68 = objc_msgSend_localizedStringForKey_value_table_(v66, v67, @"Creating animated GIF…", &stru_2884D8E20, @"Keynote");
-  v70 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v61, v69, v62, v65, v68);
-  objc_msgSend_addObject_(v6, v71, v70);
+  v38 = MEMORY[0x277D7FFB0];
+  identifier3 = [*MEMORY[0x277CE1D88] identifier];
+  v40 = sub_275DC204C(identifier3);
+  v41 = [v40 localizedStringForKey:@"Animated GIF" value:&stru_2884D8E20 table:@"Keynote"];
+  v42 = sub_275DC204C(v41);
+  v43 = [v42 localizedStringForKey:@"Creating animated GIF…" value:&stru_2884D8E20 table:@"Keynote"];
+  v44 = [v38 exportableTypeWithType:identifier3 localizedName:v41 exportProgressMessage:v43];
+  [v5 addObject:v44];
 
   if ((flagCopy & 0x40) == 0)
   {
@@ -123,14 +124,14 @@ LABEL_7:
   }
 
 LABEL_17:
-  v72 = MEMORY[0x277D7FFB0];
-  v73 = objc_msgSend_identifier(*MEMORY[0x277CE1DB0], v4, v5);
-  v74 = sub_275DC204C();
-  v76 = objc_msgSend_localizedStringForKey_value_table_(v74, v75, @"Images", &stru_2884D8E20, @"Keynote");
-  v77 = sub_275DC204C();
-  v79 = objc_msgSend_localizedStringForKey_value_table_(v77, v78, @"Creating images\\U2026", &stru_2884D8E20, @"Keynote");
-  v81 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v72, v80, v73, v76, v79);
-  objc_msgSend_addObject_(v6, v82, v81);
+  v45 = MEMORY[0x277D7FFB0];
+  identifier4 = [*MEMORY[0x277CE1DB0] identifier];
+  v47 = sub_275DC204C(identifier4);
+  v48 = [v47 localizedStringForKey:@"Images" value:&stru_2884D8E20 table:@"Keynote"];
+  v49 = sub_275DC204C(v48);
+  v50 = [v49 localizedStringForKey:@"Creating images\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+  v51 = [v45 exportableTypeWithType:identifier4 localizedName:v48 exportProgressMessage:v50];
+  [v5 addObject:v51];
 
   if ((flagCopy & 0x20) == 0)
   {
@@ -141,30 +142,30 @@ LABEL_8:
     }
 
 LABEL_19:
-    v93 = MEMORY[0x277D7FFB0];
-    v94 = sub_275DC204C();
-    v96 = objc_msgSend_localizedStringForKey_value_table_(v94, v95, @"Keynote \\U201909", &stru_2884D8E20, @"Keynote");
-    v97 = sub_275DC204C();
-    v99 = objc_msgSend_localizedStringForKey_value_table_(v97, v98, @"Creating a Keynote \\U201909 file\\U2026", &stru_2884D8E20, @"Keynote");
-    v101 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v93, v100, @"com.apple.iwork.keynote.sffkey", v96, v99);
-    objc_msgSend_addObject_(v6, v102, v101);
+    v58 = MEMORY[0x277D7FFB0];
+    v59 = sub_275DC204C(v4);
+    v60 = [v59 localizedStringForKey:@"Keynote \\U201909" value:&stru_2884D8E20 table:@"Keynote"];
+    v61 = sub_275DC204C(v60);
+    v62 = [v61 localizedStringForKey:@"Creating a Keynote \\U201909 file\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+    v63 = [v58 exportableTypeWithType:@"com.apple.iwork.keynote.sffkey" localizedName:v60 exportProgressMessage:v62];
+    [v5 addObject:v63];
 
     if ((flagCopy & 0x80) == 0)
     {
-      return v6;
+      return v5;
     }
 
     goto LABEL_10;
   }
 
 LABEL_18:
-  v83 = MEMORY[0x277D7FFB0];
-  v84 = sub_275DC204C();
-  v86 = objc_msgSend_localizedStringForKey_value_table_(v84, v85, @"HTML", &stru_2884D8E20, @"Keynote");
-  v87 = sub_275DC204C();
-  v89 = objc_msgSend_localizedStringForKey_value_table_(v87, v88, @"Creating HTML document\\U2026", &stru_2884D8E20, @"Keynote");
-  v91 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v83, v90, @"com.apple.iwork.keynote.kpf-html", v86, v89);
-  objc_msgSend_addObject_(v6, v92, v91);
+  v52 = MEMORY[0x277D7FFB0];
+  v53 = sub_275DC204C(v4);
+  v54 = [v53 localizedStringForKey:@"HTML" value:&stru_2884D8E20 table:@"Keynote"];
+  v55 = sub_275DC204C(v54);
+  v56 = [v55 localizedStringForKey:@"Creating HTML document\\U2026" value:&stru_2884D8E20 table:@"Keynote"];
+  v57 = [v52 exportableTypeWithType:@"com.apple.iwork.keynote.kpf-html" localizedName:v54 exportProgressMessage:v56];
+  [v5 addObject:v57];
 
   if ((flagCopy & 2) != 0)
   {
@@ -175,111 +176,111 @@ LABEL_9:
   if ((flagCopy & 0x80) != 0)
   {
 LABEL_10:
-    v7 = MEMORY[0x277D7FFB0];
-    v8 = sub_275DC204C();
-    v10 = objc_msgSend_localizedStringForKey_value_table_(v8, v9, @"Keynote Theme", &stru_2884D8E20, @"Keynote");
-    v11 = sub_275DC204C();
-    v13 = objc_msgSend_localizedStringForKey_value_table_(v11, v12, @"Creating a theme file…", &stru_2884D8E20, @"Keynote");
-    v15 = objc_msgSend_exportableTypeWithType_localizedName_exportProgressMessage_(v7, v14, @"com.apple.iwork.keynote.sffkth", v10, v13);
-    objc_msgSend_addObject_(v6, v16, v15);
+    v6 = MEMORY[0x277D7FFB0];
+    v7 = sub_275DC204C(v4);
+    v8 = [v7 localizedStringForKey:@"Keynote Theme" value:&stru_2884D8E20 table:@"Keynote"];
+    v9 = sub_275DC204C(v8);
+    v10 = [v9 localizedStringForKey:@"Creating a theme file…" value:&stru_2884D8E20 table:@"Keynote"];
+    v11 = [v6 exportableTypeWithType:@"com.apple.iwork.keynote.sffkth" localizedName:v8 exportProgressMessage:v10];
+    [v5 addObject:v11];
   }
 
-  return v6;
+  return v5;
 }
 
 - (Class)exporterClassForType:(id)type options:(id)options
 {
   typeCopy = type;
   optionsCopy = options;
-  if (typeCopy && (objc_msgSend_identifier(*MEMORY[0x277CE1E08], v6, v7), v9 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_tsu_conformsToUTI_(typeCopy, v10, v9), v9, v11))
+  if (typeCopy && ([*MEMORY[0x277CE1E08] identifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(typeCopy, "tsu_conformsToUTI:", v7), v7, v8))
   {
-    v12 = objc_opt_class();
+    v9 = objc_opt_class();
   }
 
   else
   {
-    v12 = 0;
+    v9 = 0;
   }
 
-  v13 = v12;
+  v10 = v9;
 
-  return v12;
+  return v9;
 }
 
 - (Class)pdfExporterClassForOptions:(id)options
 {
-  v3 = objc_msgSend_objectForKey_(options, a2, @"KNPrintLayoutKey");
-  v6 = v3;
-  if (!v3 || (objc_msgSend_integerValue(v3, v4, v5), (v7 = objc_opt_class()) == 0))
+  v3 = [options objectForKey:@"KNPrintLayoutKey"];
+  v4 = v3;
+  if (!v3 || ([v3 integerValue], (v5 = objc_opt_class()) == 0))
   {
-    v7 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v8 = v7;
+  v6 = v5;
 
-  return v7;
+  return v5;
 }
 
 - (Class)exportOptionsControllerClass
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBaseCompatibilityDelegate exportOptionsControllerClass]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBaseCompatibilityDelegate.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 228, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBaseCompatibilityDelegate exportOptionsControllerClass]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBaseCompatibilityDelegate.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:228 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNBaseCompatibilityDelegate exportOptionsControllerClass]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNBaseCompatibilityDelegate exportOptionsControllerClass]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (id)exportableTypes
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBaseCompatibilityDelegate exportableTypes]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBaseCompatibilityDelegate.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 232, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBaseCompatibilityDelegate exportableTypes]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBaseCompatibilityDelegate.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:232 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNBaseCompatibilityDelegate exportableTypes]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNBaseCompatibilityDelegate exportableTypes]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (BOOL)isSageDocumentType:(id)type
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"com.apple.iwork.keynote.key";
-  v9[1] = @"com.apple.iwork.keynote.sffkey";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"com.apple.iwork.keynote.key";
+  v7[1] = @"com.apple.iwork.keynote.sffkey";
   v3 = MEMORY[0x277CBEA60];
   typeCopy = type;
-  v6 = objc_msgSend_arrayWithObjects_count_(v3, v5, v9, 2);
-  LOBYTE(v3) = objc_msgSend_tsu_conformsToAnyUTI_(typeCopy, v7, v6);
+  v5 = [v3 arrayWithObjects:v7 count:2];
+  LOBYTE(v3) = [typeCopy tsu_conformsToAnyUTI:v5];
 
   return v3;
 }
 
 - (id)backwardsCompatibleTypeForType:(id)type
 {
-  if (objc_msgSend_isEqualToString_(type, a2, @"org.openxmlformats.presentationml.presentation"))
+  if ([type isEqualToString:@"org.openxmlformats.presentationml.presentation"])
   {
     v3 = @"com.microsoft.powerpoint.ppt";
   }

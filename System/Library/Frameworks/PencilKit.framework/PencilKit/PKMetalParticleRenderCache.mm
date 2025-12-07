@@ -111,8 +111,8 @@
   }
 
   inkCopy2 = ink;
-  version = [(PKInk *)inkCopy2 version];
-  if (version == [inkCopy version])
+  v9 = objc_msgSend_version(inkCopy2);
+  if (v9 == objc_msgSend_version(inkCopy))
   {
     if (self)
     {

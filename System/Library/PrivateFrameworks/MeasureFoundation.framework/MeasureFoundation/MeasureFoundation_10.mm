@@ -1,40 +1,3 @@
-void sub_2584223E4(void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = a1;
-  v4 = sub_258428630();
-  [v5 setBool:a3 forKey:v4];
-}
-
-void NSUserDefaults.isLineOcclusionEnabled.setter(char a1)
-{
-  v3 = sub_258428630();
-  [v1 setBool:a1 & 1 forKey:v3];
-}
-
-id sub_2584224D8(void *a1)
-{
-  v1 = a1;
-  v2 = sub_258428630();
-  v3 = [v1 BOOLForKey_];
-
-  return v3;
-}
-
-id NSUserDefaults.isLineOcclusionAlphaBlendingEnabled.getter()
-{
-  v1 = sub_258428630();
-  v2 = [v0 BOOLForKey_];
-
-  return v2;
-}
-
-void sub_2584225A4(void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = a1;
-  v4 = sub_258428630();
-  [v5 setBool:a3 forKey:v4];
-}
-
 void NSUserDefaults.isLineOcclusionAlphaBlendingEnabled.setter(char a1)
 {
   v3 = sub_258428630();
@@ -883,13 +846,13 @@ void NSUserDefaults.logArbitration.setter(char a1)
   [v1 setBool:a1 & 1 forKey:v3];
 }
 
-id sub_258425B68(void *a1)
+id sub_258425B68(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = a1;
-  v2 = sub_258428630();
-  v3 = [v1 BOOLForKey_];
+  v4 = a1;
+  v5 = sub_258428630();
+  v6 = [v4 BOOLForKey_];
 
-  return v3;
+  return v6;
 }
 
 id NSUserDefaults.logMisc.getter()
@@ -900,11 +863,11 @@ id NSUserDefaults.logMisc.getter()
   return v2;
 }
 
-void sub_258425C40(void *a1, uint64_t a2, uint64_t a3)
+void sub_258425C40(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = a1;
-  v4 = sub_258428630();
-  [v5 setBool:a3 forKey:v4];
+  v7 = a1;
+  v6 = sub_258428630();
+  [v7 setBool:a3 forKey:v6];
 }
 
 void NSUserDefaults.logMisc.setter(char a1)
@@ -915,7 +878,7 @@ void NSUserDefaults.logMisc.setter(char a1)
 
 uint64_t sub_258425D30()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F928860);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F928860, &unk_25842CF30);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_258431C10;
   *(v0 + 32) = swift_getKeyPath();

@@ -213,102 +213,101 @@
     view5 = [(SHUDJindoViewController *)self view];
     sBUISA_systemApertureObstructedAreaLayoutGuide = [view5 SBUISA_systemApertureObstructedAreaLayoutGuide];
 
+    v14 = objc_opt_respondsToSelector();
     centerContent = self->_centerContent;
-    v15 = objc_opt_respondsToSelector();
-    v16 = self->_centerContent;
-    if (v15)
+    if (v14)
     {
-      v17 = v16;
-      _tightBoundingBoxLayoutGuide = [(UILabel *)v17 _tightBoundingBoxLayoutGuide];
+      v16 = centerContent;
+      _tightBoundingBoxLayoutGuide = [(UILabel *)v16 _tightBoundingBoxLayoutGuide];
       topAnchor = [_tightBoundingBoxLayoutGuide topAnchor];
       [sBUISA_systemApertureObstructedAreaLayoutGuide bottomAnchor];
-      v20 = sBUISA_systemApertureObstructedAreaLayoutGuide;
-      v21 = buttonView;
-      v23 = v22 = v9;
-      v24 = [topAnchor constraintEqualToAnchor:v23];
+      v19 = sBUISA_systemApertureObstructedAreaLayoutGuide;
+      v20 = buttonView;
+      v22 = v21 = v9;
+      v23 = [topAnchor constraintEqualToAnchor:v22];
 
       p_centerContent = &self->_centerContent;
-      v9 = v22;
-      buttonView = v21;
-      sBUISA_systemApertureObstructedAreaLayoutGuide = v20;
+      v9 = v21;
+      buttonView = v20;
+      sBUISA_systemApertureObstructedAreaLayoutGuide = v19;
     }
 
     else
     {
-      _tightBoundingBoxLayoutGuide = [(UILabel *)v16 topAnchor];
+      _tightBoundingBoxLayoutGuide = [(UILabel *)centerContent topAnchor];
       topAnchor = [sBUISA_systemApertureObstructedAreaLayoutGuide bottomAnchor];
-      v24 = [_tightBoundingBoxLayoutGuide constraintEqualToAnchor:topAnchor];
+      v23 = [_tightBoundingBoxLayoutGuide constraintEqualToAnchor:topAnchor];
     }
 
     view6 = [(SHUDJindoViewController *)self view];
     heightAnchor = [view6 heightAnchor];
-    v66 = [heightAnchor constraintEqualToConstant:66.67];
-    v74[0] = v66;
+    v65 = [heightAnchor constraintEqualToConstant:66.67];
+    v73[0] = v65;
     centerYAnchor = [iconView centerYAnchor];
     view7 = [(SHUDJindoViewController *)self view];
     centerYAnchor2 = [view7 centerYAnchor];
-    v62 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v74[1] = v62;
+    v61 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v73[1] = v61;
     centerXAnchor = [iconView centerXAnchor];
     view8 = [(SHUDJindoViewController *)self view];
     leadingAnchor = [view8 leadingAnchor];
-    v58 = [centerXAnchor constraintEqualToAnchor:leadingAnchor constant:30.0];
-    v74[2] = v58;
+    v57 = [centerXAnchor constraintEqualToAnchor:leadingAnchor constant:30.0];
+    v73[2] = v57;
     heightAnchor2 = [iconView heightAnchor];
-    v56 = [heightAnchor2 constraintEqualToConstant:55.33];
-    v74[3] = v56;
+    v55 = [heightAnchor2 constraintEqualToConstant:55.33];
+    v73[3] = v55;
     widthAnchor = [iconView widthAnchor];
-    v54 = [widthAnchor constraintEqualToConstant:55.33];
-    v74[4] = v54;
-    v71 = v9;
-    v53 = [(SHUDJindoViewController *)self createSubtitleWidthConstraint:v9];
-    v74[5] = v53;
+    v53 = [widthAnchor constraintEqualToConstant:55.33];
+    v73[4] = v53;
+    v70 = v9;
+    v52 = [(SHUDJindoViewController *)self createSubtitleWidthConstraint:v9];
+    v73[5] = v52;
     leadingAnchor2 = [(UILabel *)*p_centerContent leadingAnchor];
     leadingAnchor3 = [sBUISA_systemApertureObstructedAreaLayoutGuide leadingAnchor];
-    v49 = [leadingAnchor2 constraintLessThanOrEqualToAnchor:leadingAnchor3];
-    v74[6] = v49;
+    v48 = [leadingAnchor2 constraintLessThanOrEqualToAnchor:leadingAnchor3];
+    v73[6] = v48;
     trailingAnchor = [(UILabel *)*p_centerContent trailingAnchor];
     trailingAnchor2 = [sBUISA_systemApertureObstructedAreaLayoutGuide trailingAnchor];
-    v46 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
-    v74[7] = v46;
-    v74[8] = v24;
-    v69 = v24;
+    v45 = [trailingAnchor constraintGreaterThanOrEqualToAnchor:trailingAnchor2];
+    v73[7] = v45;
+    v73[8] = v23;
+    v68 = v23;
     leadingAnchor4 = [(UILabel *)*p_centerContent leadingAnchor];
-    v73 = iconView;
+    v72 = iconView;
     centerXAnchor2 = [iconView centerXAnchor];
-    v43 = [leadingAnchor4 constraintEqualToAnchor:centerXAnchor2 constant:25.33];
-    v74[9] = v43;
+    v42 = [leadingAnchor4 constraintEqualToAnchor:centerXAnchor2 constant:25.33];
+    v73[9] = v42;
     centerYAnchor3 = [buttonView centerYAnchor];
     view9 = [(SHUDJindoViewController *)self view];
     centerYAnchor4 = [view9 centerYAnchor];
-    v39 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    v74[10] = v39;
+    v38 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    v73[10] = v38;
     trailingAnchor3 = [buttonView trailingAnchor];
     view10 = [(SHUDJindoViewController *)self view];
     trailingAnchor4 = [view10 trailingAnchor];
-    v25 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-15.0];
-    v74[11] = v25;
+    v24 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-15.0];
+    v73[11] = v24;
     leadingAnchor5 = [buttonView leadingAnchor];
-    v70 = sBUISA_systemApertureObstructedAreaLayoutGuide;
+    v69 = sBUISA_systemApertureObstructedAreaLayoutGuide;
     trailingAnchor5 = [sBUISA_systemApertureObstructedAreaLayoutGuide trailingAnchor];
-    v28 = [leadingAnchor5 constraintGreaterThanOrEqualToAnchor:trailingAnchor5];
-    v74[12] = v28;
+    v27 = [leadingAnchor5 constraintGreaterThanOrEqualToAnchor:trailingAnchor5];
+    v73[12] = v27;
     [buttonView leadingAnchor];
-    v30 = v29 = buttonView;
+    v29 = v28 = buttonView;
     trailingAnchor6 = [(UILabel *)*p_centerContent trailingAnchor];
-    v32 = [v30 constraintEqualToAnchor:trailingAnchor6 constant:8.0];
-    v74[13] = v32;
-    v33 = [NSArray arrayWithObjects:v74 count:14];
-    v52 = [NSMutableArray arrayWithArray:v33];
+    v31 = [v29 constraintEqualToAnchor:trailingAnchor6 constant:8.0];
+    v73[13] = v31;
+    v32 = [NSArray arrayWithObjects:v73 count:14];
+    v51 = [NSMutableArray arrayWithArray:v32];
 
     if (![(SHUDJindoViewController *)self needsButton])
     {
-      widthAnchor2 = [v29 widthAnchor];
-      v35 = [widthAnchor2 constraintEqualToConstant:0.0];
-      [v52 addObject:v35];
+      widthAnchor2 = [v28 widthAnchor];
+      v34 = [widthAnchor2 constraintEqualToConstant:0.0];
+      [v51 addObject:v34];
     }
 
-    [NSLayoutConstraint activateConstraints:v52];
+    [NSLayoutConstraint activateConstraints:v51];
   }
 }
 

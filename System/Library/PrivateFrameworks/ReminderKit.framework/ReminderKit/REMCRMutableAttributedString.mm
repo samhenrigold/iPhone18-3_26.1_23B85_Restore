@@ -52,71 +52,71 @@
 {
   length = range.length;
   location = range.location;
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v65 = [MEMORY[0x1E695DFA8] set];
-  v69.location = location;
-  v69.length = length;
+  v64 = [MEMORY[0x1E695DFA8] set];
+  v68.location = location;
+  v68.length = length;
   if (length)
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     obj = [objc_opt_class() nonEditableAttributes];
-    v68 = [obj countByEnumeratingWithState:&v86 objects:v98 count:16];
-    if (!v68)
+    v67 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
+    if (!v67)
     {
 LABEL_21:
 
       goto LABEL_22;
     }
 
-    v64 = stringCopy;
-    v67 = *v87;
+    v63 = stringCopy;
+    v66 = *v86;
     do
     {
-      for (i = 0; i != v68; ++i)
+      for (i = 0; i != v67; ++i)
       {
-        if (*v87 != v67)
+        if (*v86 != v66)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v86 + 1) + 8 * i);
+        v9 = *(*(&v85 + 1) + 8 * i);
         array = [MEMORY[0x1E695DF70] array];
         backingStore = [(REMCRMutableAttributedString *)self backingStore];
-        v84[0] = MEMORY[0x1E69E9820];
-        v84[1] = 3221225472;
-        v84[2] = __68__REMCRMutableAttributedString_replaceCharactersInRange_withString___block_invoke;
-        v84[3] = &unk_1E7509240;
-        v84[4] = self;
-        v84[5] = v9;
+        v83[0] = MEMORY[0x1E69E9820];
+        v83[1] = 3221225472;
+        v83[2] = __68__REMCRMutableAttributedString_replaceCharactersInRange_withString___block_invoke;
+        v83[3] = &unk_1E7509240;
+        v83[4] = self;
+        v83[5] = v9;
         v12 = array;
-        v85 = v12;
-        [backingStore enumerateAttribute:v9 inRange:location options:v69.length usingBlock:{0, v84}];
+        v84 = v12;
+        [backingStore enumerateAttribute:v9 inRange:location options:v68.length usingBlock:{0, v83}];
 
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
         v81 = 0u;
-        v70 = v12;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v69 = v12;
         reverseObjectEnumerator = [v12 reverseObjectEnumerator];
-        v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v97 count:16];
+        v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v96 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v81;
+          v16 = *v80;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v81 != v16)
+              if (*v80 != v16)
               {
                 objc_enumerationMutation(reverseObjectEnumerator);
               }
 
-              rangeValue = [*(*(&v80 + 1) + 8 * j) rangeValue];
+              rangeValue = [*(*(&v79 + 1) + 8 * j) rangeValue];
               v20 = v19;
               backingStore2 = [(REMCRMutableAttributedString *)self backingStore];
               [backingStore2 removeAttribute:v9 range:{rangeValue, v20}];
@@ -124,38 +124,38 @@ LABEL_21:
               [(REMCRMutableAttributedString *)self reportDidEdit:1 range:rangeValue changeInLength:v20, 0];
             }
 
-            v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v80 objects:v97 count:16];
+            v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v79 objects:v96 count:16];
           }
 
           while (v15);
         }
 
-        location = v69.location;
-        if ([v70 count])
+        location = v68.location;
+        if ([v69 count])
         {
           v22 = +[REMLog crdt];
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v23 = NSStringFromRange(v69);
+            v23 = NSStringFromRange(v68);
             *buf = 134218754;
             *&buf[4] = self;
             *&buf[12] = 2112;
             *&buf[14] = v9;
-            v93 = 2112;
-            v94 = v23;
-            v95 = 2112;
-            v96 = v70;
+            v92 = 2112;
+            v93 = v23;
+            v94 = 2112;
+            v95 = v69;
             _os_log_impl(&dword_19A0DB000, v22, OS_LOG_TYPE_INFO, "REMCRMutableAttributedString: Deleting portion of text within a non-editable attribute range. Removing the attribute {self: %p, key: %@, replacementRange: %@, ranges: %@}", buf, 0x2Au);
           }
         }
       }
 
-      v68 = [obj countByEnumeratingWithState:&v86 objects:v98 count:16];
+      v67 = [obj countByEnumeratingWithState:&v85 objects:v97 count:16];
     }
 
-    while (v68);
+    while (v67);
 LABEL_20:
-    stringCopy = v64;
+    stringCopy = v63;
     goto LABEL_21;
   }
 
@@ -163,124 +163,124 @@ LABEL_20:
   {
     if (location)
     {
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
       obj = [objc_opt_class() nonEditableAttributes];
-      v41 = [obj countByEnumeratingWithState:&v76 objects:v91 count:16];
-      if (!v41)
+      v40 = [obj countByEnumeratingWithState:&v75 objects:v90 count:16];
+      if (!v40)
       {
         goto LABEL_21;
       }
 
-      v42 = v41;
-      v64 = stringCopy;
-      v43 = *v77;
-      v44 = location - 1;
-      v45 = v65;
+      v41 = v40;
+      v63 = stringCopy;
+      v42 = *v76;
+      v43 = location - 1;
+      v44 = v64;
       do
       {
-        for (k = 0; k != v42; ++k)
+        for (k = 0; k != v41; ++k)
         {
-          if (*v77 != v43)
+          if (*v76 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v47 = *(*(&v76 + 1) + 8 * k);
-          v75.location = 0;
-          v75.length = 0;
+          v46 = *(*(&v75 + 1) + 8 * k);
+          v74.location = 0;
+          v74.length = 0;
           backingStore3 = [(REMCRMutableAttributedString *)self backingStore];
-          v49 = [backingStore3 attribute:v47 atIndex:v44 effectiveRange:&v75];
+          v48 = [backingStore3 attribute:v46 atIndex:v43 effectiveRange:&v74];
 
-          if (v49)
+          if (v48)
           {
-            if (location == v75.length + v75.location)
+            if (location == v74.length + v74.location)
             {
-              [v45 addObject:v47];
+              [v44 addObject:v46];
             }
 
             else
             {
               backingStore4 = [(REMCRMutableAttributedString *)self backingStore];
-              [backingStore4 removeAttribute:v47 range:{v75.location, v75.length}];
+              [backingStore4 removeAttribute:v46 range:{v74.location, v74.length}];
 
-              [(REMCRMutableAttributedString *)self reportDidEdit:1 range:v75.location changeInLength:v75.length, 0];
-              v51 = +[REMLog crdt];
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+              [(REMCRMutableAttributedString *)self reportDidEdit:1 range:v74.location changeInLength:v74.length, 0];
+              v50 = +[REMLog crdt];
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
               {
-                v101.location = location;
-                v101.length = 0;
-                v52 = NSStringFromRange(v101);
-                v53 = NSStringFromRange(v75);
+                v100.location = location;
+                v100.length = 0;
+                v51 = NSStringFromRange(v100);
+                v52 = NSStringFromRange(v74);
                 *buf = 134218754;
                 *&buf[4] = self;
                 *&buf[12] = 2112;
-                *&buf[14] = v47;
-                v93 = 2112;
-                v94 = v52;
-                v95 = 2112;
-                v96 = v53;
-                _os_log_impl(&dword_19A0DB000, v51, OS_LOG_TYPE_INFO, "REMCRMutableAttributedString: Inserting text within a non-editable attribute range. Removing the attribute {self: %p, key: %@, replacementRange: %@, attrRange: %@}", buf, 0x2Au);
+                *&buf[14] = v46;
+                v92 = 2112;
+                v93 = v51;
+                v94 = 2112;
+                v95 = v52;
+                _os_log_impl(&dword_19A0DB000, v50, OS_LOG_TYPE_INFO, "REMCRMutableAttributedString: Inserting text within a non-editable attribute range. Removing the attribute {self: %p, key: %@, replacementRange: %@, attrRange: %@}", buf, 0x2Au);
 
-                location = v69.location;
-                v45 = v65;
+                location = v68.location;
+                v44 = v64;
               }
             }
           }
         }
 
-        v42 = [obj countByEnumeratingWithState:&v76 objects:v91 count:16];
+        v41 = [obj countByEnumeratingWithState:&v75 objects:v90 count:16];
       }
 
-      while (v42);
+      while (v41);
       goto LABEL_20;
     }
 
     backingStore5 = [(REMCRMutableAttributedString *)self backingStore];
-    v55 = [backingStore5 length];
+    v54 = [backingStore5 length];
 
-    if (v55)
+    if (v54)
     {
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       obj = [objc_opt_class() nonEditableAttributes];
-      v56 = [obj countByEnumeratingWithState:&v71 objects:v90 count:16];
-      if (v56)
+      v55 = [obj countByEnumeratingWithState:&v70 objects:v89 count:16];
+      if (v55)
       {
-        v57 = v56;
-        v58 = stringCopy;
-        v59 = *v72;
+        v56 = v55;
+        v57 = stringCopy;
+        v58 = *v71;
         do
         {
-          for (m = 0; m != v57; ++m)
+          for (m = 0; m != v56; ++m)
           {
-            if (*v72 != v59)
+            if (*v71 != v58)
             {
               objc_enumerationMutation(obj);
             }
 
-            v61 = *(*(&v71 + 1) + 8 * m);
+            v60 = *(*(&v70 + 1) + 8 * m);
             *&buf[8] = 0;
             *buf = 0;
             backingStore6 = [(REMCRMutableAttributedString *)self backingStore];
-            v63 = [backingStore6 attribute:v61 atIndex:0 effectiveRange:buf];
+            v62 = [backingStore6 attribute:v60 atIndex:0 effectiveRange:buf];
 
-            if (v63)
+            if (v62)
             {
-              [v65 addObject:v61];
+              [v64 addObject:v60];
             }
           }
 
-          v57 = [obj countByEnumeratingWithState:&v71 objects:v90 count:16];
+          v56 = [obj countByEnumeratingWithState:&v70 objects:v89 count:16];
         }
 
-        while (v57);
-        stringCopy = v58;
-        location = v69.location;
+        while (v56);
+        stringCopy = v57;
+        location = v68.location;
       }
 
       goto LABEL_21;
@@ -292,20 +292,20 @@ LABEL_22:
   v25 = [backingStore7 length];
 
   backingStore8 = [(REMCRMutableAttributedString *)self backingStore];
-  [backingStore8 replaceCharactersInRange:location withString:{v69.length, stringCopy}];
+  [backingStore8 replaceCharactersInRange:location withString:{v68.length, stringCopy}];
 
   backingStore9 = [(REMCRMutableAttributedString *)self backingStore];
-  -[REMCRMutableAttributedString reportDidEdit:range:changeInLength:](self, "reportDidEdit:range:changeInLength:", 2, location, v69.length, [backingStore9 length] - v25);
+  -[REMCRMutableAttributedString reportDidEdit:range:changeInLength:](self, "reportDidEdit:range:changeInLength:", 2, location, v68.length, [backingStore9 length] - v25);
 
   v28 = location;
-  v29 = v65;
-  if ([v65 count])
+  v29 = v64;
+  if ([v64 count])
   {
     backingStore10 = [(REMCRMutableAttributedString *)self backingStore];
     v31 = [backingStore10 attributesAtIndex:v28 effectiveRange:0];
 
     v32 = [v31 mutableCopy];
-    allObjects = [v65 allObjects];
+    allObjects = [v64 allObjects];
     [v32 removeObjectsForKeys:allObjects];
 
     v34 = stringCopy;
@@ -318,23 +318,21 @@ LABEL_22:
     v38 = +[REMLog crdt];
     if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
-      v100.location = v28;
-      v100.length = v35;
-      v39 = NSStringFromRange(v100);
+      v99.location = v28;
+      v99.length = v35;
+      v39 = NSStringFromRange(v99);
       *buf = 134218498;
       *&buf[4] = self;
       *&buf[12] = 2112;
-      *&buf[14] = v65;
-      v93 = 2112;
-      v94 = v39;
+      *&buf[14] = v64;
+      v92 = 2112;
+      v93 = v39;
       _os_log_impl(&dword_19A0DB000, v38, OS_LOG_TYPE_INFO, "REMCRMutableAttributedString: Non-editable attributes were extended around the insertion point, now unapply the extension to the attributes {self: %p, keys: %@, range: %@}", buf, 0x20u);
     }
 
     stringCopy = v34;
-    v29 = v65;
+    v29 = v64;
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __68__REMCRMutableAttributedString_replaceCharactersInRange_withString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -459,14 +457,12 @@ void __68__REMCRMutableAttributedString_replaceCharactersInRange_withString___bl
 
 void __53__REMCRMutableAttributedString_nonEditableAttributes__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v0 = +[REMTTHashtag attributeName];
-  v4[0] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   v2 = nonEditableAttributes_nonEditableList;
   nonEditableAttributes_nonEditableList = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportDidEdit:(int64_t)edit range:(_NSRange)range changeInLength:(int64_t)length

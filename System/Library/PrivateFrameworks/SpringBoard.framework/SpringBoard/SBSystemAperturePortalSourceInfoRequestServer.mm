@@ -130,9 +130,9 @@ void __91__SBSystemAperturePortalSourceInfoRequestServer_listener_didReceiveConn
   serviceClientAuthenticator = self->_serviceClientAuthenticator;
   currentContext = [MEMORY[0x277CF3280] currentContext];
   remoteProcess = [currentContext remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v8 = objc_msgSend_auditToken(remoteProcess);
   v11 = 0;
-  v9 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:auditToken error:&v11];
+  v9 = [(FBServiceClientAuthenticator *)serviceClientAuthenticator authenticateAuditToken:v8 error:&v11];
   v10 = v11;
 
   if (v9)

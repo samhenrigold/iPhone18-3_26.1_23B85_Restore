@@ -121,7 +121,7 @@
 
   else
   {
-    v22 = SBLogSystemGesture();
+    v22 = SBLogSystemGesture(self);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [SBIndirectPanGestureRecognizer initWithTarget:v22 action:? edges:?];
@@ -356,12 +356,10 @@
       v57 = 0;
     }
 
-    [eventCopy _hidEvent];
-    v27 = SBPointerHIDSubEventFromEvent();
+    v27 = SBPointerHIDSubEventFromEvent([eventCopy _hidEvent]);
     if (!v27 || (BKSHIDEventGetPointerAttributes(), (v28 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      [(BSAuditHistory *)self->_auditHistory addItemWithFormat:@"hoverMoved:withEvent: - bailing because pointer attributes is nil"];
-      v31 = SBLogSystemGesture();
+      v31 = SBLogSystemGesture([(BSAuditHistory *)self->_auditHistory addItemWithFormat:@"hoverMoved:withEvent: - bailing because pointer attributes is nil"]);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         [SBIndirectPanGestureRecognizer _hoverMoved:v27 withEvent:v31];
@@ -713,8 +711,7 @@ LABEL_11:
 - (void)_setUpIdleTimersIfNeededForEvent:(id)event
 {
   eventCopy = event;
-  [eventCopy _hidEvent];
-  if (SBPointerHIDSubEventFromEvent())
+  if (SBPointerHIDSubEventFromEvent([eventCopy _hidEvent]))
   {
     v5 = BKSHIDEventGetPointerAttributes();
   }
@@ -1115,7 +1112,7 @@ __CFString *__64__SBIndirectPanGestureRecognizer__startWatchdogTimerIfNecessary_
     return;
   }
 
-  v4 = SBLogSystemGesture();
+  v4 = SBLogSystemGesture(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [SBIndirectPanGestureRecognizer setHysteresis:v4 forInputType:?];
@@ -1269,8 +1266,7 @@ LABEL_17:
   v5 = v4;
   if (v4)
   {
-    [v4 indirectPanEffectiveInterfaceOrientation];
-    v6 = _SBOrientedPointerLocation(self, WeakRetained);
+    v6 = _SBOrientedPointerLocation(self, WeakRetained, [v4 indirectPanEffectiveInterfaceOrientation]);
     v8 = v7;
   }
 
@@ -1476,7 +1472,7 @@ void __72__SBIndirectPanGestureRecognizer_descriptionBuilderWithMultilinePrefix_
 {
   y = location.y;
   x = location.x;
-  [view frame];
+  objc_msgSend_frame(view, a2);
   if (y >= v10 - inset)
   {
     return 4;
@@ -1756,7 +1752,7 @@ LABEL_12:
   _os_log_error_impl(&dword_21ED4E000, a2, OS_LOG_TYPE_ERROR, "Indirect pan gesture received hoverMoved with no pointerAttributes! HIDEvent: %s", &v4, 0xCu);
 }
 
-- (uint64_t)_updateTranslationWithPointerEventAttributes:activeEdge:.cold.1()
+- (void)_updateTranslationWithPointerEventAttributes:activeEdge:.cold.1()
 {
   OUTLINED_FUNCTION_3_1();
   v3 = [MEMORY[0x277CCA890] currentHandler];

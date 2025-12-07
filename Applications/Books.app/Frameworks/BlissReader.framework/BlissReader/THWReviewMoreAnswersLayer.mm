@@ -12,9 +12,9 @@
 
 - (THWReviewMoreAnswersLayer)init
 {
-  v7.receiver = self;
-  v7.super_class = THWReviewMoreAnswersLayer;
-  v2 = [(THWReviewMoreAnswersLayer *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = THWReviewMoreAnswersLayer;
+  v2 = [(THWReviewMoreAnswersLayer *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -35,8 +35,8 @@
     [(CATextLayer *)v3->_textLayer setDelegate:+[THNoAnimationLayerDelegate sharedInstance]];
     [(CATextLayer *)v3->_textLayer setContentsGravity:kCAGravityCenter];
     [(CATextLayer *)v3->_textLayer setAlignmentMode:kCAAlignmentCenter];
-    [(CATextLayer *)v3->_textLayer setTruncationMode:kCATruncationEnd];
-    -[CATextLayer setString:](v3->_textLayer, "setString:", [THBundle() localizedStringForKey:@"Select more answers." value:&stru_471858 table:0]);
+    v6 = [(CATextLayer *)v3->_textLayer setTruncationMode:kCATruncationEnd];
+    -[CATextLayer setString:](v3->_textLayer, "setString:", [THBundle(v6 v7)]);
     -[CATextLayer setFont:](v3->_textLayer, "setFont:", [+[TSUFont systemFontOfSize:](TSUFont systemFontOfSize:{v3->_scale * 14.0), "fontName"}]);
     [(CATextLayer *)v3->_textLayer setFontSize:v3->_scale * 14.0];
     -[CATextLayer setForegroundColor:](v3->_textLayer, "setForegroundColor:", [+[TSUColor colorWithWhite:alpha:](TSUColor CGColor:0.300000012]);

@@ -285,9 +285,9 @@ void __36__SKUIToggleStateCenter_updateItem___block_invoke(uint64_t a1)
       v7 = v6;
       v8 = [*(a1 + 40) toggledString];
       v9 = [v13 toggledString];
-      v10 = [v8 isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if ((v10 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         *(*(*(a1 + 48) + 8) + 24) = 1;
         v11 = [*(a1 + 40) toggledString];

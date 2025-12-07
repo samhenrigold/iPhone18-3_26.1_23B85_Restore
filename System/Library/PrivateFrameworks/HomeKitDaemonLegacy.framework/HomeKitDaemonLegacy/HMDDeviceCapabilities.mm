@@ -113,23 +113,22 @@
 
 - (id)modelBackedObjects
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)backingStoreObjectsWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [(HMDDeviceCapabilities *)self modelObjectWithChangeType:type version:version];
   v5 = v4;
   if (v4)
   {
-    v9[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -137,15 +136,13 @@
     v6 = MEMORY[0x277CBEBF8];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type version:(int64_t)version
 {
   objectModel = [(HMDDeviceCapabilities *)self objectModel];
-  v6 = [objectModel copy];
+  v6 = objc_msgSend_copy(objectModel);
 
   [v6 setObjectChangeType:type];
 
@@ -171,7 +168,7 @@
 
 - (void)setModelParentIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -179,34 +176,34 @@
     parentUUID = [(HMDBackingStoreModelObject *)self->_objectModel parentUUID];
     if (parentUUID)
     {
-      v19 = objc_autoreleasePoolPush();
+      v18 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v21 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        v22 = HMFGetLogIdentifier();
+        v21 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v22;
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Parent identifier is already present for this object", buf, 0xCu);
+        v30 = v21;
+        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Parent identifier is already present for this object", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v19);
-      v23 = [[HMDAssertionLogEvent alloc] initWithReason:@"Parent identifier is already present for this object"];
-      v24 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v24 submitLogEvent:v23];
+      objc_autoreleasePoolPop(v18);
+      v22 = [[HMDAssertionLogEvent alloc] initWithReason:@"Parent identifier is already present for this object"];
+      v23 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v23 submitLogEvent:v22];
 
-      v25 = objc_autoreleasePoolPush();
-      v26 = selfCopy;
-      v27 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v24 = objc_autoreleasePoolPush();
+      v25 = selfCopy;
+      v26 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v28 = HMFGetLogIdentifier();
+        v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v28;
-        _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Parent identifier is already present for this object", buf, 0xCu);
+        v30 = v27;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Parent identifier is already present for this object", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v25);
+      objc_autoreleasePoolPop(v24);
     }
 
     else
@@ -214,9 +211,9 @@
       v6 = __identifierForParentUUID(identifierCopy);
       v7 = [(HMDBackingStoreModelObject *)[HMDDeviceCapabilitiesModel alloc] initWithUUID:v6 parentUUID:identifierCopy];
       objectModel = self->_objectModel;
-      v29 = 0;
-      v9 = [(HMDBackingStoreModelObject *)v7 merge:objectModel error:&v29];
-      v10 = v29;
+      v28 = 0;
+      v9 = [(HMDBackingStoreModelObject *)v7 merge:objectModel error:&v28];
+      v10 = v28;
       if (v9)
       {
         objc_storeStrong(&self->_objectModel, v7);
@@ -231,9 +228,9 @@
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v17;
-          v32 = 2112;
-          v33 = v10;
+          v30 = v17;
+          v31 = 2112;
+          v32 = v10;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to update model with error: %@", buf, 0x16u);
         }
 
@@ -252,14 +249,12 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v13;
+      v30 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Model parent UUID is a required argument", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)modelParentIdentifier
@@ -280,7 +275,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -301,14 +296,14 @@
   if (v12)
   {
     v13 = v12;
-    v32 = messageCopy;
+    v31 = messageCopy;
     if (self)
     {
       os_unfair_lock_lock_with_options();
       objectModel = self->_objectModel;
-      v34 = 0;
-      v15 = [(HMDBackingStoreModelObject *)objectModel diff:v13 differingFields:&v34];
-      v16 = v34;
+      v33 = 0;
+      v15 = [(HMDBackingStoreModelObject *)objectModel diff:v13 differingFields:&v33];
+      v16 = v33;
       if (v15)
       {
         context = objc_autoreleasePoolPush();
@@ -323,15 +318,15 @@
         }
 
         objc_autoreleasePoolPop(context);
-        v20 = [(HMDDeviceCapabilitiesModel *)selfCopy->_objectModel copy];
+        v20 = objc_msgSend_copy(selfCopy->_objectModel);
         v21 = [(HMDBackingStoreModelObject *)v20 merge:v13];
         v22 = selfCopy->_objectModel;
         selfCopy->_objectModel = v20;
 
         os_unfair_lock_unlock(&self->_lock);
-        v40[0] = @"HMDDeviceCapabilitiesUpdatedDifferingFieldsNotificationKey";
+        v39[0] = @"HMDDeviceCapabilitiesUpdatedDifferingFieldsNotificationKey";
         *buf = v16;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v40 count:1];
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v39 count:1];
         logAndPostNotification(@"HMDDeviceCapabilitiiesUpdatedNotification", selfCopy, v23);
       }
 
@@ -352,11 +347,11 @@
       v27 = HMFGetLogIdentifier();
       *buf = 138543874;
       *&buf[4] = v27;
-      v36 = 2112;
-      v37 = v10;
-      v38 = 2112;
-      v39 = objc_opt_class();
-      v28 = v39;
+      v35 = 2112;
+      v36 = v10;
+      v37 = 2112;
+      v38 = objc_opt_class();
+      v28 = v38;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated:newValues:message:]", buf, 0x20u);
     }
 
@@ -364,13 +359,11 @@
     v29 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v29];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -379,21 +372,19 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = removedCopy;
-    v19 = 2112;
-    v20 = objc_opt_class();
-    v12 = v20;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved:message:]", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = removedCopy;
+    v18 = 2112;
+    v19 = objc_opt_class();
+    v12 = v19;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved:message:]", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   [messageCopy respondWithError:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -995,270 +986,268 @@
 
 - (id)attributeDescriptions
 {
-  v162[52] = *MEMORY[0x277D85DE8];
+  v161[52] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsKeychainSync];
-  v161 = HMFBooleanToString();
-  v160 = [v3 initWithName:@"Keychain Sync" value:v161];
-  v162[0] = v160;
+  v160 = HMFBooleanToString();
+  v159 = [v3 initWithName:@"Keychain Sync" value:v160];
+  v161[0] = v159;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsDeviceSetup];
-  v159 = HMFBooleanToString();
-  v158 = [v4 initWithName:@"Device Setup" value:v159];
-  v162[1] = v158;
+  v158 = HMFBooleanToString();
+  v157 = [v4 initWithName:@"Device Setup" value:v158];
+  v161[1] = v157;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsKeyTransferClient];
-  v157 = HMFBooleanToString();
-  v156 = [v5 initWithName:@"Key Transfer Client" value:v157];
-  v162[2] = v156;
+  v156 = HMFBooleanToString();
+  v155 = [v5 initWithName:@"Key Transfer Client" value:v156];
+  v161[2] = v155;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsKeyTransferServer];
-  v155 = HMFBooleanToString();
-  v154 = [v6 initWithName:@"Key Transfer Server" value:v155];
-  v162[3] = v154;
+  v154 = HMFBooleanToString();
+  v153 = [v6 initWithName:@"Key Transfer Server" value:v154];
+  v161[3] = v153;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsStandaloneMode];
-  v153 = HMFBooleanToString();
-  v152 = [v7 initWithName:@"Standalone Mode" value:v153];
-  v162[4] = v152;
+  v152 = HMFBooleanToString();
+  v151 = [v7 initWithName:@"Standalone Mode" value:v152];
+  v161[4] = v151;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCloudDataSync];
-  v151 = HMFBooleanToString();
-  v150 = [v8 initWithName:@"Cloud Data Sync" value:v151];
-  v162[5] = v150;
+  v150 = HMFBooleanToString();
+  v149 = [v8 initWithName:@"Cloud Data Sync" value:v150];
+  v161[5] = v149;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsWholeHouseAudio];
-  v149 = HMFBooleanToString();
-  v148 = [v9 initWithName:@"Whole House Audio" value:v149];
-  v162[6] = v148;
+  v148 = HMFBooleanToString();
+  v147 = [v9 initWithName:@"Whole House Audio" value:v148];
+  v161[6] = v147;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsAssistantAccessControl];
-  v147 = HMFBooleanToString();
-  v146 = [v10 initWithName:@"Assistant Access Control" value:v147];
-  v162[7] = v146;
+  v146 = HMFBooleanToString();
+  v145 = [v10 initWithName:@"Assistant Access Control" value:v146];
+  v161[7] = v145;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self isResidentCapable];
-  v145 = HMFBooleanToString();
-  v144 = [v11 initWithName:@"Resident" value:v145];
-  v162[8] = v144;
+  v144 = HMFBooleanToString();
+  v143 = [v11 initWithName:@"Resident" value:v144];
+  v161[8] = v143;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self isRemoteGatewayCapable];
-  v143 = HMFBooleanToString();
-  v142 = [v12 initWithName:@"Remote Gateway" value:v143];
-  v162[9] = v142;
+  v142 = HMFBooleanToString();
+  v141 = [v12 initWithName:@"Remote Gateway" value:v142];
+  v161[9] = v141;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsTargetControl];
-  v141 = HMFBooleanToString();
-  v140 = [v13 initWithName:@"Target Control" value:v141];
-  v162[10] = v140;
+  v140 = HMFBooleanToString();
+  v139 = [v13 initWithName:@"Target Control" value:v140];
+  v161[10] = v139;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsMultiUser];
-  v139 = HMFBooleanToString();
-  v138 = [v14 initWithName:@"Multi-User" value:v139];
-  v162[11] = v138;
+  v138 = HMFBooleanToString();
+  v137 = [v14 initWithName:@"Multi-User" value:v138];
+  v161[11] = v137;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsHomeLevelLocationServiceSetting];
-  v137 = HMFBooleanToString();
-  v136 = [v15 initWithName:@"Home Level Location Services" value:v137];
-  v162[12] = v136;
+  v136 = HMFBooleanToString();
+  v135 = [v15 initWithName:@"Home Level Location Services" value:v136];
+  v161[12] = v135;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCompanionInitiatedRestart];
-  v135 = HMFBooleanToString();
-  v134 = [v16 initWithName:@"Restart" value:v135];
-  v162[13] = v134;
+  v134 = HMFBooleanToString();
+  v133 = [v16 initWithName:@"Restart" value:v134];
+  v161[13] = v133;
   v17 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCompanionInitiatedObliterate];
-  v133 = HMFBooleanToString();
-  v132 = [v17 initWithName:@"Factory Reset" value:v133];
-  v162[14] = v132;
+  v132 = HMFBooleanToString();
+  v131 = [v17 initWithName:@"Factory Reset" value:v132];
+  v161[14] = v131;
   v18 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsHomeInvitation];
-  v131 = HMFBooleanToString();
-  v130 = [v18 initWithName:@"Home Invitation" value:v131];
-  v162[15] = v130;
+  v130 = HMFBooleanToString();
+  v129 = [v18 initWithName:@"Home Invitation" value:v130];
+  v161[15] = v129;
   v19 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCameraRecording];
-  v129 = HMFBooleanToString();
-  v128 = [v19 initWithName:@"Camera Recording" value:v129];
-  v162[16] = v128;
+  v128 = HMFBooleanToString();
+  v127 = [v19 initWithName:@"Camera Recording" value:v128];
+  v161[16] = v127;
   v20 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsRouterManagement];
-  v127 = HMFBooleanToString();
-  v126 = [v20 initWithName:@"Router Management" value:v127];
-  v162[17] = v126;
+  v126 = HMFBooleanToString();
+  v125 = [v20 initWithName:@"Router Management" value:v126];
+  v161[17] = v125;
   v21 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsShortcutActions];
-  v125 = HMFBooleanToString();
-  v124 = [v21 initWithName:@"Shortcut Actions" value:v125];
-  v162[18] = v124;
+  v124 = HMFBooleanToString();
+  v123 = [v21 initWithName:@"Shortcut Actions" value:v124];
+  v161[18] = v123;
   v22 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsMediaActions];
-  v123 = HMFBooleanToString();
-  v122 = [v22 initWithName:@"Media Actions" value:v123];
-  v162[19] = v122;
+  v122 = HMFBooleanToString();
+  v121 = [v22 initWithName:@"Media Actions" value:v122];
+  v161[19] = v121;
   v23 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsFirmwareUpdate];
-  v121 = HMFBooleanToString();
-  v120 = [v23 initWithName:@"Firmware Update" value:v121];
-  v162[20] = v120;
+  v120 = HMFBooleanToString();
+  v119 = [v23 initWithName:@"Firmware Update" value:v120];
+  v161[20] = v119;
   v24 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsResidentFirmwareUpdate];
-  v119 = HMFBooleanToString();
-  v118 = [v24 initWithName:@"Resident Firmware Update" value:v119];
-  v162[21] = v118;
+  v118 = HMFBooleanToString();
+  v117 = [v24 initWithName:@"Resident Firmware Update" value:v118];
+  v161[21] = v117;
   v25 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCameraActivityZones];
-  v117 = HMFBooleanToString();
-  v116 = [v25 initWithName:@"Camera Activity Zones" value:v117];
-  v162[22] = v116;
+  v116 = HMFBooleanToString();
+  v115 = [v25 initWithName:@"Camera Activity Zones" value:v116];
+  v161[22] = v115;
   v26 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsMusicAlarm];
-  v115 = HMFBooleanToString();
-  v114 = [v26 initWithName:@"Music Alarms" value:v115];
-  v162[23] = v114;
+  v114 = HMFBooleanToString();
+  v113 = [v26 initWithName:@"Music Alarms" value:v114];
+  v161[23] = v113;
   v27 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsFaceClassification];
-  v113 = HMFBooleanToString();
-  v112 = [v27 initWithName:@"Face Classification" value:v113];
-  v162[24] = v112;
+  v112 = HMFBooleanToString();
+  v111 = [v27 initWithName:@"Face Classification" value:v112];
+  v161[24] = v111;
   v28 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsNaturalLighting];
-  v111 = HMFBooleanToString();
-  v110 = [v28 initWithName:@"Natural Lighting" value:v111];
-  v162[25] = v110;
+  v110 = HMFBooleanToString();
+  v109 = [v28 initWithName:@"Natural Lighting" value:v110];
+  v161[25] = v109;
   v29 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsIDSActivityMonitorPresence];
-  v109 = HMFBooleanToString();
-  v108 = [v29 initWithName:@"IDS Activity Monitor (Presence)" value:v109];
-  v162[26] = v108;
+  v108 = HMFBooleanToString();
+  v107 = [v29 initWithName:@"IDS Activity Monitor (Presence)" value:v108];
+  v161[26] = v107;
   v30 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCameraRecordingReachabilityNotifications];
-  v107 = HMFBooleanToString();
-  v106 = [v30 initWithName:@"Camera Recording Reachability Notifications" value:v107];
-  v162[27] = v106;
+  v106 = HMFBooleanToString();
+  v105 = [v30 initWithName:@"Camera Recording Reachability Notifications" value:v106];
+  v161[27] = v105;
   v31 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsAnnounce];
-  v105 = HMFBooleanToString();
-  v104 = [v31 initWithName:@"Announce" value:v105];
-  v162[28] = v104;
+  v104 = HMFBooleanToString();
+  v103 = [v31 initWithName:@"Announce" value:v104];
+  v161[28] = v103;
   v32 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsThirdPartyMusic];
-  v103 = HMFBooleanToString();
-  v102 = [v32 initWithName:@"ThirdPartyMusic" value:v103];
-  v162[29] = v102;
+  v102 = HMFBooleanToString();
+  v101 = [v32 initWithName:@"ThirdPartyMusic" value:v102];
+  v161[29] = v101;
   v33 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsPreferredMediaUser];
-  v101 = HMFBooleanToString();
-  v100 = [v33 initWithName:@"PreferredMediaUser" value:v101];
-  v162[30] = v100;
+  v100 = HMFBooleanToString();
+  v99 = [v33 initWithName:@"PreferredMediaUser" value:v100];
+  v161[30] = v99;
   v34 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsThreadBorderRouter];
-  v99 = HMFBooleanToString();
-  v98 = [v34 initWithName:@"Thread Border Router" value:v99];
-  v162[31] = v98;
+  v98 = HMFBooleanToString();
+  v97 = [v34 initWithName:@"Thread Border Router" value:v98];
+  v161[31] = v97;
   v35 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsSiriEndpointSetup];
-  v97 = HMFBooleanToString();
-  v96 = [v35 initWithName:@"Siri Endpoint Setup" value:v97];
-  v162[32] = v96;
+  v96 = HMFBooleanToString();
+  v95 = [v35 initWithName:@"Siri Endpoint Setup" value:v96];
+  v161[32] = v95;
   v36 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsHomeHub];
-  v95 = HMFBooleanToString();
-  v94 = [v36 initWithName:@"Home Hub" value:v95];
-  v162[33] = v94;
+  v94 = HMFBooleanToString();
+  v93 = [v36 initWithName:@"Home Hub" value:v94];
+  v161[33] = v93;
   v37 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsWakeOnLAN];
-  v93 = HMFBooleanToString();
-  v92 = [v37 initWithName:@"LPM Wake On LAN" value:v93];
-  v162[34] = v92;
+  v92 = HMFBooleanToString();
+  v91 = [v37 initWithName:@"LPM Wake On LAN" value:v92];
+  v161[34] = v91;
   v38 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsLockNotificationContext];
-  v91 = HMFBooleanToString();
-  v90 = [v38 initWithName:@"Lock Notification Context" value:v91];
-  v162[35] = v90;
+  v90 = HMFBooleanToString();
+  v89 = [v38 initWithName:@"Lock Notification Context" value:v90];
+  v161[35] = v89;
   v39 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsAudioReturnChannel];
-  v89 = HMFBooleanToString();
-  v88 = [v39 initWithName:@"Audio Return Channel" value:v89];
-  v162[36] = v88;
+  v88 = HMFBooleanToString();
+  v87 = [v39 initWithName:@"Audio Return Channel" value:v88];
+  v161[36] = v87;
   v40 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsWalletKey];
-  v87 = HMFBooleanToString();
-  v86 = [v40 initWithName:@"Wallet Key" value:v87];
-  v162[37] = v86;
+  v86 = HMFBooleanToString();
+  v85 = [v40 initWithName:@"Wallet Key" value:v86];
+  v161[37] = v85;
   v41 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCameraPackageDetection];
-  v85 = HMFBooleanToString();
-  v84 = [v41 initWithName:@"Camera Package Detection" value:v85];
-  v162[38] = v84;
+  v84 = HMFBooleanToString();
+  v83 = [v41 initWithName:@"Camera Package Detection" value:v84];
+  v161[38] = v83;
   v42 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsAccessCodes];
-  v83 = HMFBooleanToString();
-  v82 = [v42 initWithName:@"Access Codes" value:v83];
-  v162[39] = v82;
+  v82 = HMFBooleanToString();
+  v81 = [v42 initWithName:@"Access Codes" value:v82];
+  v161[39] = v81;
   v43 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCHIP];
-  v81 = HMFBooleanToString();
-  v80 = [v43 initWithName:@"CHIP" value:v81];
-  v162[40] = v80;
+  v80 = HMFBooleanToString();
+  v79 = [v43 initWithName:@"CHIP" value:v80];
+  v161[40] = v79;
   v44 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsUnifiedMediaNotifications];
-  v79 = HMFBooleanToString();
-  v78 = [v44 initWithName:@"Unified Media Notifications" value:v79];
-  v162[41] = v78;
+  v78 = HMFBooleanToString();
+  v77 = [v44 initWithName:@"Unified Media Notifications" value:v78];
+  v161[41] = v77;
   v45 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCaptiveNetworks];
-  v77 = HMFBooleanToString();
-  v76 = [v45 initWithName:@"Captive Networks" value:v77];
-  v162[42] = v76;
+  v76 = HMFBooleanToString();
+  v75 = [v45 initWithName:@"Captive Networks" value:v76];
+  v161[42] = v75;
   v46 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsModernTransport];
-  v75 = HMFBooleanToString();
-  v74 = [v46 initWithName:@"Modern Transport" value:v75];
-  v162[43] = v74;
+  v74 = HMFBooleanToString();
+  v73 = [v46 initWithName:@"Modern Transport" value:v74];
+  v161[43] = v73;
   v47 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsResidentFirstAccessoryCommunication];
-  v73 = HMFBooleanToString();
-  v72 = [v47 initWithName:@"Resident First Accessory Communication" value:v73];
-  v162[44] = v72;
+  v72 = HMFBooleanToString();
+  v71 = [v47 initWithName:@"Resident First Accessory Communication" value:v72];
+  v161[44] = v71;
   v48 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsCustomMediaApplicationDestination];
-  v71 = HMFBooleanToString();
-  v70 = [v48 initWithName:@"Custom Destination Media Action" value:v71];
-  v162[45] = v70;
+  v70 = HMFBooleanToString();
+  v69 = [v48 initWithName:@"Custom Destination Media Action" value:v70];
+  v161[45] = v69;
   v49 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsThreadNetworkCredentialSharing];
-  v69 = HMFBooleanToString();
-  v68 = [v49 initWithName:@"Thread Network Credential Sharing" value:v69];
-  v162[46] = v68;
+  v68 = HMFBooleanToString();
+  v67 = [v49 initWithName:@"Thread Network Credential Sharing" value:v68];
+  v161[46] = v67;
   v50 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsMatterSharedAdminPairing];
-  v67 = HMFBooleanToString();
-  v51 = [v50 initWithName:@"Matter Shared Admin Pairing" value:v67];
-  v162[47] = v51;
+  v66 = HMFBooleanToString();
+  v51 = [v50 initWithName:@"Matter Shared Admin Pairing" value:v66];
+  v161[47] = v51;
   v52 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsRMVonAppleTV];
   v53 = HMFBooleanToString();
   v54 = [v52 initWithName:@"RMV on AppleTV" value:v53];
-  v162[48] = v54;
+  v161[48] = v54;
   v55 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsJustSiri];
   v56 = HMFBooleanToString();
   v57 = [v55 initWithName:@"Just Siri" value:v56];
-  v162[49] = v57;
+  v161[49] = v57;
   v58 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsThreadService];
   v59 = HMFBooleanToString();
   v60 = [v58 initWithName:@"Thread Service" value:v59];
-  v162[50] = v60;
+  v161[50] = v60;
   v61 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDeviceCapabilities *)self supportsMatterOwnerCertFetch];
   v62 = HMFBooleanToString();
   v63 = [v61 initWithName:@"Matter Owner Cert Fetch" value:v62];
-  v162[51] = v63;
-  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v162 count:52];
-
-  v65 = *MEMORY[0x277D85DE8];
+  v161[51] = v63;
+  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:52];
 
   return v64;
 }
@@ -1583,307 +1572,63 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_62;
-    }
-
-    supportsKeychainSync = [(HMDDeviceCapabilities *)self supportsKeychainSync];
-    if (supportsKeychainSync != [(HMDDeviceCapabilities *)v6 supportsKeychainSync])
-    {
-      goto LABEL_62;
-    }
-
-    supportsDeviceSetup = [(HMDDeviceCapabilities *)self supportsDeviceSetup];
-    if (supportsDeviceSetup != [(HMDDeviceCapabilities *)v6 supportsDeviceSetup])
-    {
-      goto LABEL_62;
-    }
-
-    supportsKeyTransferClient = [(HMDDeviceCapabilities *)self supportsKeyTransferClient];
-    if (supportsKeyTransferClient != [(HMDDeviceCapabilities *)v6 supportsKeyTransferClient])
-    {
-      goto LABEL_62;
-    }
-
-    supportsKeyTransferServer = [(HMDDeviceCapabilities *)self supportsKeyTransferServer];
-    if (supportsKeyTransferServer != [(HMDDeviceCapabilities *)v6 supportsKeyTransferServer])
-    {
-      goto LABEL_62;
-    }
-
-    supportsStandaloneMode = [(HMDDeviceCapabilities *)self supportsStandaloneMode];
-    if (supportsStandaloneMode != [(HMDDeviceCapabilities *)v6 supportsStandaloneMode])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCloudDataSync = [(HMDDeviceCapabilities *)self supportsCloudDataSync];
-    if (supportsCloudDataSync != [(HMDDeviceCapabilities *)v6 supportsCloudDataSync])
-    {
-      goto LABEL_62;
-    }
-
-    supportsWholeHouseAudio = [(HMDDeviceCapabilities *)self supportsWholeHouseAudio];
-    if (supportsWholeHouseAudio != [(HMDDeviceCapabilities *)v6 supportsWholeHouseAudio])
-    {
-      goto LABEL_62;
-    }
-
-    supportsAssistantAccessControl = [(HMDDeviceCapabilities *)self supportsAssistantAccessControl];
-    if (supportsAssistantAccessControl != [(HMDDeviceCapabilities *)v6 supportsAssistantAccessControl])
-    {
-      goto LABEL_62;
-    }
-
-    isResidentCapable = [(HMDDeviceCapabilities *)self isResidentCapable];
-    if (isResidentCapable != [(HMDDeviceCapabilities *)v6 isResidentCapable])
-    {
-      goto LABEL_62;
-    }
-
-    isRemoteGatewayCapable = [(HMDDeviceCapabilities *)self isRemoteGatewayCapable];
-    if (isRemoteGatewayCapable != [(HMDDeviceCapabilities *)v6 isRemoteGatewayCapable])
-    {
-      goto LABEL_62;
-    }
-
-    supportsHomeInvitation = [(HMDDeviceCapabilities *)self supportsHomeInvitation];
-    if (supportsHomeInvitation != [(HMDDeviceCapabilities *)v6 supportsHomeInvitation])
-    {
-      goto LABEL_62;
-    }
-
-    supportsTargetControl = [(HMDDeviceCapabilities *)self supportsTargetControl];
-    if (supportsTargetControl != [(HMDDeviceCapabilities *)v6 supportsTargetControl])
-    {
-      goto LABEL_62;
-    }
-
-    supportsMultiUser = [(HMDDeviceCapabilities *)self supportsMultiUser];
-    if (supportsMultiUser != [(HMDDeviceCapabilities *)v6 supportsMultiUser])
-    {
-      goto LABEL_62;
-    }
-
-    supportsHomeLevelLocationServiceSetting = [(HMDDeviceCapabilities *)self supportsHomeLevelLocationServiceSetting];
-    if (supportsHomeLevelLocationServiceSetting != [(HMDDeviceCapabilities *)v6 supportsHomeLevelLocationServiceSetting])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCompanionInitiatedRestart = [(HMDDeviceCapabilities *)self supportsCompanionInitiatedRestart];
-    if (supportsCompanionInitiatedRestart != [(HMDDeviceCapabilities *)v6 supportsCompanionInitiatedRestart])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCompanionInitiatedObliterate = [(HMDDeviceCapabilities *)self supportsCompanionInitiatedObliterate];
-    if (supportsCompanionInitiatedObliterate != [(HMDDeviceCapabilities *)v6 supportsCompanionInitiatedObliterate])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCameraRecording = [(HMDDeviceCapabilities *)self supportsCameraRecording];
-    if (supportsCameraRecording != [(HMDDeviceCapabilities *)v6 supportsCameraRecording])
-    {
-      goto LABEL_62;
-    }
-
-    supportsRouterManagement = [(HMDDeviceCapabilities *)self supportsRouterManagement];
-    if (supportsRouterManagement != [(HMDDeviceCapabilities *)v6 supportsRouterManagement])
-    {
-      goto LABEL_62;
-    }
-
-    supportsShortcutActions = [(HMDDeviceCapabilities *)self supportsShortcutActions];
-    if (supportsShortcutActions != [(HMDDeviceCapabilities *)v6 supportsShortcutActions])
-    {
-      goto LABEL_62;
-    }
-
-    supportsMediaActions = [(HMDDeviceCapabilities *)self supportsMediaActions];
-    if (supportsMediaActions != [(HMDDeviceCapabilities *)v6 supportsMediaActions])
-    {
-      goto LABEL_62;
-    }
-
-    supportsMusicAlarm = [(HMDDeviceCapabilities *)self supportsMusicAlarm];
-    if (supportsMusicAlarm != [(HMDDeviceCapabilities *)v6 supportsMusicAlarm])
-    {
-      goto LABEL_62;
-    }
-
-    supportsFirmwareUpdate = [(HMDDeviceCapabilities *)self supportsFirmwareUpdate];
-    if (supportsFirmwareUpdate != [(HMDDeviceCapabilities *)v6 supportsFirmwareUpdate])
-    {
-      goto LABEL_62;
-    }
-
-    supportsResidentFirmwareUpdate = [(HMDDeviceCapabilities *)self supportsResidentFirmwareUpdate];
-    if (supportsResidentFirmwareUpdate != [(HMDDeviceCapabilities *)v6 supportsResidentFirmwareUpdate])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCameraActivityZones = [(HMDDeviceCapabilities *)self supportsCameraActivityZones];
-    if (supportsCameraActivityZones != [(HMDDeviceCapabilities *)v6 supportsCameraActivityZones])
-    {
-      goto LABEL_62;
-    }
-
-    supportsFaceClassification = [(HMDDeviceCapabilities *)self supportsFaceClassification];
-    if (supportsFaceClassification != [(HMDDeviceCapabilities *)v6 supportsFaceClassification])
-    {
-      goto LABEL_62;
-    }
-
-    supportsNaturalLighting = [(HMDDeviceCapabilities *)self supportsNaturalLighting];
-    if (supportsNaturalLighting != [(HMDDeviceCapabilities *)v6 supportsNaturalLighting])
-    {
-      goto LABEL_62;
-    }
-
-    supportsIDSActivityMonitorPresence = [(HMDDeviceCapabilities *)self supportsIDSActivityMonitorPresence];
-    if (supportsIDSActivityMonitorPresence != [(HMDDeviceCapabilities *)v6 supportsIDSActivityMonitorPresence])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCameraRecordingReachabilityNotifications = [(HMDDeviceCapabilities *)self supportsCameraRecordingReachabilityNotifications];
-    if (supportsCameraRecordingReachabilityNotifications != [(HMDDeviceCapabilities *)v6 supportsCameraRecordingReachabilityNotifications])
-    {
-      goto LABEL_62;
-    }
-
-    supportsAnnounce = [(HMDDeviceCapabilities *)self supportsAnnounce];
-    if (supportsAnnounce != [(HMDDeviceCapabilities *)v6 supportsAnnounce])
-    {
-      goto LABEL_62;
-    }
-
-    supportsThirdPartyMusic = [(HMDDeviceCapabilities *)self supportsThirdPartyMusic];
-    if (supportsThirdPartyMusic != [(HMDDeviceCapabilities *)v6 supportsThirdPartyMusic])
-    {
-      goto LABEL_62;
-    }
-
-    supportsPreferredMediaUser = [(HMDDeviceCapabilities *)self supportsPreferredMediaUser];
-    if (supportsPreferredMediaUser != [(HMDDeviceCapabilities *)v6 supportsPreferredMediaUser])
-    {
-      goto LABEL_62;
-    }
-
-    supportsThreadBorderRouter = [(HMDDeviceCapabilities *)self supportsThreadBorderRouter];
-    if (supportsThreadBorderRouter != [(HMDDeviceCapabilities *)v6 supportsThreadBorderRouter])
-    {
-      goto LABEL_62;
-    }
-
-    supportsSiriEndpointSetup = [(HMDDeviceCapabilities *)self supportsSiriEndpointSetup];
-    if (supportsSiriEndpointSetup != [(HMDDeviceCapabilities *)v6 supportsSiriEndpointSetup])
-    {
-      goto LABEL_62;
-    }
-
-    supportsHomeHub = [(HMDDeviceCapabilities *)self supportsHomeHub];
-    if (supportsHomeHub != [(HMDDeviceCapabilities *)v6 supportsHomeHub])
-    {
-      goto LABEL_62;
-    }
-
-    supportsWakeOnLAN = [(HMDDeviceCapabilities *)self supportsWakeOnLAN];
-    if (supportsWakeOnLAN != [(HMDDeviceCapabilities *)v6 supportsWakeOnLAN])
-    {
-      goto LABEL_62;
-    }
-
-    supportsLockNotificationContext = [(HMDDeviceCapabilities *)self supportsLockNotificationContext];
-    if (supportsLockNotificationContext != [(HMDDeviceCapabilities *)v6 supportsLockNotificationContext])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCoordinationDoorbellChime = [(HMDDeviceCapabilities *)self supportsCoordinationDoorbellChime];
-    if (supportsCoordinationDoorbellChime != [(HMDDeviceCapabilities *)v6 supportsCoordinationDoorbellChime])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCoordinationFreeDoorbellChime = [(HMDDeviceCapabilities *)self supportsCoordinationFreeDoorbellChime];
-    if (supportsCoordinationFreeDoorbellChime != [(HMDDeviceCapabilities *)v6 supportsCoordinationFreeDoorbellChime])
-    {
-      goto LABEL_62;
-    }
-
-    supportsTVOSUpdateManualUpdateAvailableNotification = [(HMDDeviceCapabilities *)self supportsTVOSUpdateManualUpdateAvailableNotification];
-    if (supportsTVOSUpdateManualUpdateAvailableNotification != [(HMDDeviceCapabilities *)v6 supportsTVOSUpdateManualUpdateAvailableNotification])
-    {
-      goto LABEL_62;
-    }
-
-    supportsManagedConfigurationProfile = [(HMDDeviceCapabilities *)self supportsManagedConfigurationProfile];
-    if (supportsManagedConfigurationProfile != [(HMDDeviceCapabilities *)v6 supportsManagedConfigurationProfile])
-    {
-      goto LABEL_62;
-    }
-
-    supportsAudioReturnChannel = [(HMDDeviceCapabilities *)self supportsAudioReturnChannel];
-    if (supportsAudioReturnChannel != [(HMDDeviceCapabilities *)v6 supportsAudioReturnChannel])
-    {
-      goto LABEL_62;
-    }
-
-    supportsWalletKey = [(HMDDeviceCapabilities *)self supportsWalletKey];
-    if (supportsWalletKey != [(HMDDeviceCapabilities *)v6 supportsWalletKey])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCameraPackageDetection = [(HMDDeviceCapabilities *)self supportsCameraPackageDetection];
-    if (supportsCameraPackageDetection != [(HMDDeviceCapabilities *)v6 supportsCameraPackageDetection])
-    {
-      goto LABEL_62;
-    }
-
-    supportsAccessCodes = [(HMDDeviceCapabilities *)self supportsAccessCodes];
-    if (supportsAccessCodes != [(HMDDeviceCapabilities *)v6 supportsAccessCodes])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCHIP = [(HMDDeviceCapabilities *)self supportsCHIP];
-    if (supportsCHIP != [(HMDDeviceCapabilities *)v6 supportsCHIP])
-    {
-      goto LABEL_62;
-    }
-
-    supportsUnifiedMediaNotifications = [(HMDDeviceCapabilities *)self supportsUnifiedMediaNotifications];
-    if (supportsUnifiedMediaNotifications != [(HMDDeviceCapabilities *)v6 supportsUnifiedMediaNotifications])
-    {
-      goto LABEL_62;
-    }
-
-    supportsCaptiveNetworks = [(HMDDeviceCapabilities *)self supportsCaptiveNetworks];
-    if (supportsCaptiveNetworks != [(HMDDeviceCapabilities *)v6 supportsCaptiveNetworks])
-    {
-      goto LABEL_62;
-    }
-
-    supportsModernTransport = [(HMDDeviceCapabilities *)self supportsModernTransport];
-    if (supportsModernTransport != [(HMDDeviceCapabilities *)v6 supportsModernTransport])
-    {
-      goto LABEL_62;
-    }
-
-    supportsResidentFirstAccessoryCommunication = [(HMDDeviceCapabilities *)self supportsResidentFirstAccessoryCommunication];
-    if (supportsResidentFirstAccessoryCommunication != [(HMDDeviceCapabilities *)v6 supportsResidentFirstAccessoryCommunication])
-    {
-      goto LABEL_62;
-    }
-
-    supportsMessagedHomePodSettings = [(HMDDeviceCapabilities *)self supportsMessagedHomePodSettings];
-    if (supportsMessagedHomePodSettings == [(HMDDeviceCapabilities *)v6 supportsMessagedHomePodSettings]&& (v57 = [(HMDDeviceCapabilities *)self supportsCustomMediaApplicationDestination], v57 == [(HMDDeviceCapabilities *)v6 supportsCustomMediaApplicationDestination]) && (v58 = [(HMDDeviceCapabilities *)self supportsThreadNetworkCredentialSharing], v58 == [(HMDDeviceCapabilities *)v6 supportsThreadNetworkCredentialSharing]) && (v59 = [(HMDDeviceCapabilities *)self supportsMatterSharedAdminPairing], v59 == [(HMDDeviceCapabilities *)v6 supportsMatterSharedAdminPairing]) && (v60 = [(HMDDeviceCapabilities *)self supportsRMVonAppleTV], v60 == [(HMDDeviceCapabilities *)v6 supportsRMVonAppleTV]) && (v61 = [(HMDDeviceCapabilities *)self supportsJustSiri], v61 == [(HMDDeviceCapabilities *)v6 supportsJustSiri]) && (v62 = [(HMDDeviceCapabilities *)self supportsThreadService], v62 == [(HMDDeviceCapabilities *)v6 supportsThreadService]))
+    if (v6
+      && (v7 = [(HMDDeviceCapabilities *)self supportsKeychainSync], v7 == [(HMDDeviceCapabilities *)v6 supportsKeychainSync])
+      && (v8 = [(HMDDeviceCapabilities *)self supportsDeviceSetup], v8 == [(HMDDeviceCapabilities *)v6 supportsDeviceSetup])
+      && (v9 = [(HMDDeviceCapabilities *)self supportsKeyTransferClient], v9 == [(HMDDeviceCapabilities *)v6 supportsKeyTransferClient])
+      && (v10 = [(HMDDeviceCapabilities *)self supportsKeyTransferServer], v10 == [(HMDDeviceCapabilities *)v6 supportsKeyTransferServer])
+      && (v11 = [(HMDDeviceCapabilities *)self supportsStandaloneMode], v11 == [(HMDDeviceCapabilities *)v6 supportsStandaloneMode])
+      && (v12 = [(HMDDeviceCapabilities *)self supportsCloudDataSync], v12 == [(HMDDeviceCapabilities *)v6 supportsCloudDataSync])
+      && (v13 = [(HMDDeviceCapabilities *)self supportsWholeHouseAudio], v13 == [(HMDDeviceCapabilities *)v6 supportsWholeHouseAudio])
+      && (v14 = [(HMDDeviceCapabilities *)self supportsAssistantAccessControl], v14 == [(HMDDeviceCapabilities *)v6 supportsAssistantAccessControl])
+      && (v15 = [(HMDDeviceCapabilities *)self isResidentCapable], v15 == [(HMDDeviceCapabilities *)v6 isResidentCapable])
+      && (v16 = [(HMDDeviceCapabilities *)self isRemoteGatewayCapable], v16 == [(HMDDeviceCapabilities *)v6 isRemoteGatewayCapable])
+      && (v17 = [(HMDDeviceCapabilities *)self supportsHomeInvitation], v17 == [(HMDDeviceCapabilities *)v6 supportsHomeInvitation])
+      && (v18 = [(HMDDeviceCapabilities *)self supportsTargetControl], v18 == [(HMDDeviceCapabilities *)v6 supportsTargetControl])
+      && (v19 = [(HMDDeviceCapabilities *)self supportsMultiUser], v19 == [(HMDDeviceCapabilities *)v6 supportsMultiUser])
+      && (v20 = [(HMDDeviceCapabilities *)self supportsHomeLevelLocationServiceSetting], v20 == [(HMDDeviceCapabilities *)v6 supportsHomeLevelLocationServiceSetting])
+      && (v21 = [(HMDDeviceCapabilities *)self supportsCompanionInitiatedRestart], v21 == [(HMDDeviceCapabilities *)v6 supportsCompanionInitiatedRestart])
+      && (v22 = [(HMDDeviceCapabilities *)self supportsCompanionInitiatedObliterate], v22 == [(HMDDeviceCapabilities *)v6 supportsCompanionInitiatedObliterate])
+      && (v23 = [(HMDDeviceCapabilities *)self supportsCameraRecording], v23 == [(HMDDeviceCapabilities *)v6 supportsCameraRecording])
+      && (v24 = [(HMDDeviceCapabilities *)self supportsRouterManagement], v24 == [(HMDDeviceCapabilities *)v6 supportsRouterManagement])
+      && (v25 = [(HMDDeviceCapabilities *)self supportsShortcutActions], v25 == [(HMDDeviceCapabilities *)v6 supportsShortcutActions])
+      && (v26 = [(HMDDeviceCapabilities *)self supportsMediaActions], v26 == [(HMDDeviceCapabilities *)v6 supportsMediaActions])
+      && (v27 = [(HMDDeviceCapabilities *)self supportsMusicAlarm], v27 == [(HMDDeviceCapabilities *)v6 supportsMusicAlarm])
+      && (v28 = [(HMDDeviceCapabilities *)self supportsFirmwareUpdate], v28 == [(HMDDeviceCapabilities *)v6 supportsFirmwareUpdate])
+      && (v29 = [(HMDDeviceCapabilities *)self supportsResidentFirmwareUpdate], v29 == [(HMDDeviceCapabilities *)v6 supportsResidentFirmwareUpdate])
+      && (v30 = [(HMDDeviceCapabilities *)self supportsCameraActivityZones], v30 == [(HMDDeviceCapabilities *)v6 supportsCameraActivityZones])
+      && (v31 = [(HMDDeviceCapabilities *)self supportsFaceClassification], v31 == [(HMDDeviceCapabilities *)v6 supportsFaceClassification])
+      && (v32 = [(HMDDeviceCapabilities *)self supportsNaturalLighting], v32 == [(HMDDeviceCapabilities *)v6 supportsNaturalLighting])
+      && (v33 = [(HMDDeviceCapabilities *)self supportsIDSActivityMonitorPresence], v33 == [(HMDDeviceCapabilities *)v6 supportsIDSActivityMonitorPresence])
+      && (v34 = [(HMDDeviceCapabilities *)self supportsCameraRecordingReachabilityNotifications], v34 == [(HMDDeviceCapabilities *)v6 supportsCameraRecordingReachabilityNotifications])
+      && (v35 = [(HMDDeviceCapabilities *)self supportsAnnounce], v35 == [(HMDDeviceCapabilities *)v6 supportsAnnounce])
+      && (v36 = [(HMDDeviceCapabilities *)self supportsThirdPartyMusic], v36 == [(HMDDeviceCapabilities *)v6 supportsThirdPartyMusic])
+      && (v37 = [(HMDDeviceCapabilities *)self supportsPreferredMediaUser], v37 == [(HMDDeviceCapabilities *)v6 supportsPreferredMediaUser])
+      && (v38 = [(HMDDeviceCapabilities *)self supportsThreadBorderRouter], v38 == [(HMDDeviceCapabilities *)v6 supportsThreadBorderRouter])
+      && (v39 = [(HMDDeviceCapabilities *)self supportsSiriEndpointSetup], v39 == [(HMDDeviceCapabilities *)v6 supportsSiriEndpointSetup])
+      && (v40 = [(HMDDeviceCapabilities *)self supportsHomeHub], v40 == [(HMDDeviceCapabilities *)v6 supportsHomeHub])
+      && (v41 = [(HMDDeviceCapabilities *)self supportsWakeOnLAN], v41 == [(HMDDeviceCapabilities *)v6 supportsWakeOnLAN])
+      && (v42 = [(HMDDeviceCapabilities *)self supportsLockNotificationContext], v42 == [(HMDDeviceCapabilities *)v6 supportsLockNotificationContext])
+      && (v43 = [(HMDDeviceCapabilities *)self supportsCoordinationDoorbellChime], v43 == [(HMDDeviceCapabilities *)v6 supportsCoordinationDoorbellChime])
+      && (v44 = [(HMDDeviceCapabilities *)self supportsCoordinationFreeDoorbellChime], v44 == [(HMDDeviceCapabilities *)v6 supportsCoordinationFreeDoorbellChime])
+      && (v45 = [(HMDDeviceCapabilities *)self supportsTVOSUpdateManualUpdateAvailableNotification], v45 == [(HMDDeviceCapabilities *)v6 supportsTVOSUpdateManualUpdateAvailableNotification])
+      && (v46 = [(HMDDeviceCapabilities *)self supportsManagedConfigurationProfile], v46 == [(HMDDeviceCapabilities *)v6 supportsManagedConfigurationProfile])
+      && (v47 = [(HMDDeviceCapabilities *)self supportsAudioReturnChannel], v47 == [(HMDDeviceCapabilities *)v6 supportsAudioReturnChannel])
+      && (v48 = [(HMDDeviceCapabilities *)self supportsWalletKey], v48 == [(HMDDeviceCapabilities *)v6 supportsWalletKey])
+      && (v49 = [(HMDDeviceCapabilities *)self supportsCameraPackageDetection], v49 == [(HMDDeviceCapabilities *)v6 supportsCameraPackageDetection])
+      && (v50 = [(HMDDeviceCapabilities *)self supportsAccessCodes], v50 == [(HMDDeviceCapabilities *)v6 supportsAccessCodes])
+      && (v51 = [(HMDDeviceCapabilities *)self supportsCHIP], v51 == [(HMDDeviceCapabilities *)v6 supportsCHIP])
+      && (v52 = [(HMDDeviceCapabilities *)self supportsUnifiedMediaNotifications], v52 == [(HMDDeviceCapabilities *)v6 supportsUnifiedMediaNotifications])
+      && (v53 = [(HMDDeviceCapabilities *)self supportsCaptiveNetworks], v53 == [(HMDDeviceCapabilities *)v6 supportsCaptiveNetworks])
+      && (v54 = [(HMDDeviceCapabilities *)self supportsModernTransport], v54 == [(HMDDeviceCapabilities *)v6 supportsModernTransport])
+      && (v55 = [(HMDDeviceCapabilities *)self supportsResidentFirstAccessoryCommunication], v55 == [(HMDDeviceCapabilities *)v6 supportsResidentFirstAccessoryCommunication])
+      && (v56 = [(HMDDeviceCapabilities *)self supportsMessagedHomePodSettings], v56 == [(HMDDeviceCapabilities *)v6 supportsMessagedHomePodSettings])
+      && (v57 = [(HMDDeviceCapabilities *)self supportsCustomMediaApplicationDestination], v57 == [(HMDDeviceCapabilities *)v6 supportsCustomMediaApplicationDestination])
+      && (v58 = [(HMDDeviceCapabilities *)self supportsThreadNetworkCredentialSharing], v58 == [(HMDDeviceCapabilities *)v6 supportsThreadNetworkCredentialSharing])
+      && (v59 = [(HMDDeviceCapabilities *)self supportsMatterSharedAdminPairing], v59 == [(HMDDeviceCapabilities *)v6 supportsMatterSharedAdminPairing])
+      && (v60 = [(HMDDeviceCapabilities *)self supportsRMVonAppleTV], v60 == [(HMDDeviceCapabilities *)v6 supportsRMVonAppleTV])
+      && (v61 = [(HMDDeviceCapabilities *)self supportsJustSiri], v61 == [(HMDDeviceCapabilities *)v6 supportsJustSiri])
+      && (v62 = [(HMDDeviceCapabilities *)self supportsThreadService], v62 == [(HMDDeviceCapabilities *)v6 supportsThreadService]))
     {
       supportsMatterOwnerCertFetch = [(HMDDeviceCapabilities *)self supportsMatterOwnerCertFetch];
       v63 = supportsMatterOwnerCertFetch ^ [(HMDDeviceCapabilities *)v6 supportsMatterOwnerCertFetch]^ 1;
@@ -1891,7 +1636,6 @@
 
     else
     {
-LABEL_62:
       LOBYTE(v63) = 0;
     }
   }
@@ -1969,13 +1713,13 @@ LABEL_62:
 
 - (HMDDeviceCapabilities)initWithObjectModel:(id)model
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (modelCopy)
   {
-    v14.receiver = self;
-    v14.super_class = HMDDeviceCapabilities;
-    v6 = [(HMDDeviceCapabilities *)&v14 init];
+    v13.receiver = self;
+    v13.super_class = HMDDeviceCapabilities;
+    v6 = [(HMDDeviceCapabilities *)&v13 init];
     v7 = v6;
     if (v6)
     {
@@ -1994,7 +1738,7 @@ LABEL_62:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Model object is a required argument", buf, 0xCu);
     }
 
@@ -2002,13 +1746,12 @@ LABEL_62:
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (HMDDeviceCapabilities)initWithProductInfo:(id)info mobileGestaltClient:(id)client homekitVersion:(id)version featuresDataSource:(id)source
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   clientCopy = client;
   versionCopy = version;
@@ -2016,7 +1759,7 @@ LABEL_62:
   v14 = sourceCopy;
   if (infoCopy)
   {
-    v92 = sourceCopy;
+    v91 = sourceCopy;
     v15 = [HMDDeviceCapabilitiesModel alloc];
     uUID = [MEMORY[0x277CCAD78] UUID];
     v17 = [(HMDBackingStoreModelObject *)v15 initWithUUID:uUID];
@@ -2193,33 +1936,28 @@ LABEL_62:
     [(HMDDeviceCapabilitiesModel *)v17 setSupportsJustSiri:v75];
 
     v76 = MEMORY[0x277CCABB0];
-    v98 = 0;
+    v93 = 0;
     memset(buf, 0, sizeof(buf));
     v77 = infoCopy;
     softwareVersion = [v77 softwareVersion];
     v79 = softwareVersion;
     if (softwareVersion)
     {
-      [softwareVersion operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(softwareVersion);
     }
 
     else
     {
       memset(buf, 0, sizeof(buf));
-      v98 = 0;
+      v93 = 0;
     }
 
     productPlatform2 = [v77 productPlatform];
     productClass = [v77 productClass];
 
-    if (productPlatform2 == 1)
+    if (productPlatform2 == 1 && HMFOperatingSystemVersionCompare() != 1 && (isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled() & 1) != 0)
     {
-      v93 = *MEMORY[0x277D0F3E8];
-      v95 = *(MEMORY[0x277D0F3E8] + 16);
-      if (HMFOperatingSystemVersionCompare() != 1 && (isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled() & 1) != 0)
-      {
-        goto LABEL_16;
-      }
+      goto LABEL_16;
     }
 
     v86 = 0;
@@ -2228,7 +1966,7 @@ LABEL_62:
       goto LABEL_18;
     }
 
-    if (productPlatform2 == 2 && (v94 = *MEMORY[0x277D0F330], v96 = *(MEMORY[0x277D0F330] + 16), HMFOperatingSystemVersionCompare() != 1) && isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled())
+    if (productPlatform2 == 2 && HMFOperatingSystemVersionCompare() != 1 && isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled())
     {
 LABEL_16:
       v86 = MGGetBoolAnswer();
@@ -2251,7 +1989,7 @@ LABEL_18:
 
     self = [(HMDDeviceCapabilities *)self initWithObjectModel:v17];
     selfCopy = self;
-    v14 = v92;
+    v14 = v91;
     goto LABEL_19;
   }
 
@@ -2269,7 +2007,6 @@ LABEL_18:
   selfCopy = 0;
 LABEL_19:
 
-  v90 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -2374,7 +2111,7 @@ LABEL_19:
   return isInternalBuild();
 }
 
-uint64_t __48__HMDDeviceCapabilities_isInternalVirtualDevice__block_invoke()
+uint64_t __48__HMDDeviceCapabilities_isInternalVirtualDevice__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = MGGetBoolAnswer();
   isInternalVirtualDevice_result = result;
@@ -2395,12 +2132,11 @@ uint64_t __48__HMDDeviceCapabilities_isInternalVirtualDevice__block_invoke()
 
 uint64_t __36__HMDDeviceCapabilities_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_152901;
-  logCategory__hmf_once_v5_152901 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_152901;
+  logCategory__hmf_once_v5_152901 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (HMDDeviceCapabilities)deviceCapabilities

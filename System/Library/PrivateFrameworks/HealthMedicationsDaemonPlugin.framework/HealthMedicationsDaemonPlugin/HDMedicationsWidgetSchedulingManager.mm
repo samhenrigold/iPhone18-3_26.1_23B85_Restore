@@ -140,15 +140,15 @@ void __56__HDMedicationsWidgetSchedulingManager_initWithProfile___block_invoke(u
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = objc_opt_class();
-    v5 = v12;
+    v11 = objc_opt_class();
+    v5 = v11;
     _os_log_impl(&dword_25181C000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] profileDidBecomeReady", buf, 0xCu);
   }
 
@@ -156,55 +156,49 @@ void __56__HDMedicationsWidgetSchedulingManager_initWithProfile___block_invoke(u
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __62__HDMedicationsWidgetSchedulingManager_profileDidBecomeReady___block_invoke;
-  v10[3] = &unk_2796CD998;
-  v10[4] = self;
-  [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__HDMedicationsWidgetSchedulingManager_profileDidBecomeReady___block_invoke;
+  v9[3] = &unk_2796CD998;
+  v9[4] = self;
+  [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v9];
 }
 
-uint64_t __62__HDMedicationsWidgetSchedulingManager_profileDidBecomeReady___block_invoke(uint64_t a1)
+uint64_t __62__HDMedicationsWidgetSchedulingManager_profileDidBecomeReady___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogMedication();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogMedication();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_25181C000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] first unlock occurred", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v4 = v7;
+    _os_log_impl(&dword_25181C000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] first unlock occurred", &v6, 0xCu);
   }
 
-  result = [*(a1 + 32) _runReloadOperationForReason:0];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _runReloadOperationForReason:0];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   _HKInitializeLogging();
   v6 = HKLogMedication();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] dose event samples added", &v8, 0xCu);
+    _os_log_impl(&dword_25181C000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] dose event samples added", &v7, 0xCu);
   }
 
   [(HDMedicationsWidgetSchedulingManager *)self _reloadWidgetIfNecessaryWithDoseEvents:addedCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCD658];
   removedCopy = removed;
   medicationDoseEventType = [v5 medicationDoseEventType];
@@ -216,63 +210,58 @@ uint64_t __62__HDMedicationsWidgetSchedulingManager_profileDidBecomeReady___bloc
     v9 = HKLogMedication();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] dose event samples removed", &v11, 0xCu);
+      _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] dose event samples removed", &v10, 0xCu);
     }
 
     [(HDMedicationsWidgetSchedulingManager *)self _runReloadOperationForReason:2];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleManagerDidRescheduleMedications:(id)medications
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogMedication();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] medications rescheduled", &v6, 0xCu);
+    _os_log_impl(&dword_25181C000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] medications rescheduled", &v5, 0xCu);
   }
 
   [(HDMedicationsWidgetSchedulingManager *)self _runReloadOperationForReason:3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleManager:(id)manager didPruneScheduleItems:(id)items
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] medication schedules pruned", &v7, 0xCu);
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] medication schedules pruned", &v6, 0xCu);
   }
 
   [(HDMedicationsWidgetSchedulingManager *)self _runReloadOperationForReason:4];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleManager:(id)manager didAddOrModifySchedules:(id)schedules
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] medication schedules added or updated", &v7, 0xCu);
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] medication schedules added or updated", &v6, 0xCu);
   }
 
   [(HDMedicationsWidgetSchedulingManager *)self _runReloadOperationForReason:5];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingMedicationChanges
@@ -326,12 +315,14 @@ uint64_t __69__HDMedicationsWidgetSchedulingManager__runReloadOperationForReason
 
 - (void)_queue_reloadWidgets
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
-  v11 = [a2 description];
-  OUTLINED_FUNCTION_0_7(&dword_25181C000, v4, v5, "[%{public}@] error while trying to reload widget: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  v5 = [a2 description];
+  *v12 = 138543618;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_0_7(&dword_25181C000, v6, v7, "[%{public}@] error while trying to reload widget: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 + (id)_reloadReasonsStringForReasons:(id)reasons
@@ -368,17 +359,17 @@ id __71__HDMedicationsWidgetSchedulingManager__reloadReasonsStringForReasons___b
 
 - (void)_reloadWidgetIfNecessaryWithDoseEvents:(id)events
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEA80];
   eventsCopy = events;
   currentCalendar = [v4 currentCalendar];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __79__HDMedicationsWidgetSchedulingManager__reloadWidgetIfNecessaryWithDoseEvents___block_invoke;
-  v16[3] = &unk_2796CEBB0;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __79__HDMedicationsWidgetSchedulingManager__reloadWidgetIfNecessaryWithDoseEvents___block_invoke;
+  v15[3] = &unk_2796CEBB0;
   v7 = currentCalendar;
-  v17 = v7;
-  v8 = [eventsCopy hk_containsObjectPassingTest:v16];
+  v16 = v7;
+  v8 = [eventsCopy hk_containsObjectPassingTest:v15];
 
   _HKInitializeLogging();
   v9 = HKLogMedication();
@@ -389,7 +380,7 @@ id __71__HDMedicationsWidgetSchedulingManager__reloadReasonsStringForReasons___b
     {
       v11 = objc_opt_class();
       *buf = 138543362;
-      v19 = v11;
+      v18 = v11;
       v12 = v11;
       _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] recent dose events detected scheduling reload", buf, 0xCu);
     }
@@ -403,13 +394,11 @@ id __71__HDMedicationsWidgetSchedulingManager__reloadReasonsStringForReasons___b
     {
       v13 = objc_opt_class();
       *buf = 138543362;
-      v19 = v13;
+      v18 = v13;
       v14 = v13;
       _os_log_impl(&dword_25181C000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] no recent dose events detected skipping reload", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t __79__HDMedicationsWidgetSchedulingManager__reloadWidgetIfNecessaryWithDoseEvents___block_invoke(uint64_t a1, void *a2)
@@ -472,7 +461,7 @@ unint64_t __79__HDMedicationsWidgetSchedulingManager__reloadWidgetIfNecessaryWit
 
 void __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = (a1 + 32);
   v5 = MEMORY[0x253084B70](*(*(a1 + 32) + 40));
@@ -489,20 +478,17 @@ void __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason___block_invoke_cold_1(v4);
+      __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason___block_invoke_cold_1(v4, v3);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *v4;
-    v12 = 138543362;
-    v13 = objc_opt_class();
-    v10 = v13;
-    _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully invalidated relevances", &v12, 0xCu);
+    v10 = 138543362;
+    v11 = objc_opt_class();
+    v9 = v11;
+    _os_log_impl(&dword_25181C000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully invalidated relevances", &v10, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_deviceRequiresInvalidationForWidgetRelevance
@@ -513,14 +499,14 @@ void __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason_
   return isAppleWatch;
 }
 
-void __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason___block_invoke_cold_1(uint64_t *a1)
+void __72__HDMedicationsWidgetSchedulingManager__invalidateRelevancesWithReason___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_0_7(&dword_25181C000, v3, v4, "[%{public}@] error invalidating relevances: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v10 = 138543618;
+  *&v10[4] = objc_opt_class();
+  *&v10[12] = 2114;
+  *&v10[14] = a2;
+  v3 = *&v10[4];
+  OUTLINED_FUNCTION_0_7(&dword_25181C000, v4, v5, "[%{public}@] error invalidating relevances: %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

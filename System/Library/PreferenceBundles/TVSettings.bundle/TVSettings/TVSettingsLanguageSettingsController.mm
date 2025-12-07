@@ -12,9 +12,11 @@
 - (void)_willResignActive:(id)active;
 - (void)dealloc;
 - (void)reloadSpecifiers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setSpecifier:(id)specifier;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didEndEditingRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -88,6 +90,35 @@
   navigationItem = [(TVSettingsLanguageSettingsController *)self navigationItem];
   rightBarButtonItem = [navigationItem rightBarButtonItem];
   [rightBarButtonItem setEnabled:_shouldEditButtonBeEnabled];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = TVSettingsLanguageSettingsController;
+  [(TVSettingsLanguageSettingsController *)&v10 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.tv/com.apple.videos:TopLevelAudioAndSubtitleLanguages"];
+  v5 = [TopLevelSettingsController preferencesExtendedLocalizedName:@"SETTINGS_TITLE_APPS" defaultValue:@"Apps"];
+  if (WLKIsRegulatedSKU())
+  {
+    v6 = @"SETTINGS_TITLE_VIDEOS";
+  }
+
+  else
+  {
+    v6 = @"SETTINGS_TITLE_TV";
+  }
+
+  v7 = [TopLevelSettingsController preferencesExtendedLocalizedName:v6 defaultValue:&stru_21328];
+  v8 = [TopLevelSettingsController preferencesExtendedLocalizedName:@"LANGUAGE_SETTINGS_TITLE" defaultValue:@"Languages"];
+  if (objc_opt_respondsToSelector())
+  {
+    NSLog(@"TVSettingsLog - Emitting navigation event for Languages application settings");
+    v11[0] = v5;
+    v11[1] = v7;
+    v9 = [NSArray arrayWithObjects:v11 count:2];
+    [(TVSettingsLanguageSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.tv" title:v8 localizedNavigationComponents:v9 deepLink:v4];
+  }
 }
 
 - (void)_willResignActive:(id)active
@@ -286,6 +317,56 @@
   }
 
   return v3;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v11.receiver = self;
+  v11.super_class = TVSettingsLanguageSettingsController;
+  [TVSettingsLanguageSettingsController setEditing:"setEditing:animated:" animated:?];
+  if (editingCopy)
+  {
+    if ((BYTE4(self->_addSubtitleLanguageSpecifier) & 1) == 0)
+    {
+      [(TVSettingsLanguageSettingsController *)self beginUpdates];
+      [(TVSettingsLanguageSettingsController *)self removeSpecifier:*(&self->_numberOfSubtitleLanguages + 4) animated:1];
+      if ([*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] containsObject:*(&self->_subtitleLanguageSpecifiers + 4)])
+      {
+        [(TVSettingsLanguageSettingsController *)self removeSpecifier:*(&self->_subtitleLanguageSpecifiers + 4) animated:1];
+      }
+
+      [*(&self->_useDefaultSubtitleLanguagesGroupSpecifier + 4) setProperty:&__kCFBooleanFalse forKey:PSEnabledKey];
+      [(TVSettingsLanguageSettingsController *)self reloadSpecifier:*(&self->_useDefaultSubtitleLanguagesGroupSpecifier + 4) animated:0];
+      [(TVSettingsLanguageSettingsController *)self endUpdates];
+    }
+  }
+
+  else
+  {
+    if ((BYTE4(self->_addSubtitleLanguageSpecifier) & 1) == 0)
+    {
+      [(TVSettingsLanguageSettingsController *)self beginUpdates];
+      [(TVSettingsLanguageSettingsController *)self insertSpecifier:*(&self->_numberOfSubtitleLanguages + 4) atEndOfGroup:0 animated:1];
+      if ([*&self->super.PSListController_opaque[OBJC_IVAR___PSListController__specifiers] containsObject:*(&self->_useDefaultSubtitleLanguagesSpecifier + 4)])
+      {
+        [(TVSettingsLanguageSettingsController *)self insertSpecifier:*(&self->_subtitleLanguageSpecifiers + 4) atEndOfGroup:2 animated:1];
+      }
+
+      [*(&self->_useDefaultSubtitleLanguagesGroupSpecifier + 4) setProperty:&__kCFBooleanTrue forKey:PSEnabledKey];
+      [(TVSettingsLanguageSettingsController *)self reloadSpecifier:*(&self->_useDefaultSubtitleLanguagesGroupSpecifier + 4) animated:0];
+      [(TVSettingsLanguageSettingsController *)self endUpdates];
+    }
+
+    v7 = ([(TVSettingsLanguageSettingsController *)self isEditing]& 1) != 0 || [(TVSettingsLanguageSettingsController *)self _shouldEditButtonBeEnabled];
+    navigationItem = [(TVSettingsLanguageSettingsController *)self navigationItem];
+    rightBarButtonItem = [navigationItem rightBarButtonItem];
+    [rightBarButtonItem setEnabled:v7];
+  }
+
+  table = [(TVSettingsLanguageSettingsController *)self table];
+  [table setEditing:editingCopy animated:animatedCopy];
 }
 
 - (BOOL)tableView:(id)view canEditRowAtIndexPath:(id)path

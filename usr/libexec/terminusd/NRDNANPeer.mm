@@ -28,9 +28,9 @@
 
 - (NRDNANPeer)init
 {
-  v8.receiver = self;
-  v8.super_class = NRDNANPeer;
-  result = [(NRDNANPeer *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = NRDNANPeer;
+  result = [(NRDNANPeer *)&v10 init];
   if (!result)
   {
     v3 = sub_10014A248();
@@ -39,14 +39,14 @@
     if (IsLevelEnabled)
     {
       v5 = sub_10014A248();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v5, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDNANPeer init]"", 141);
     }
 
-    _os_log_pack_size();
-    v6 = *__error();
-    v7 = _os_log_pack_fill();
-    *v7 = 136446210;
-    *(v7 + 4) = "[NRDNANPeer init]";
+    v6 = _os_log_pack_size();
+    v7 = __error();
+    v8 = _os_log_pack_fill(&v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, *v7, &_mh_execute_header, "%{public}s [super init] failed");
+    *v8 = 136446210;
+    *(v8 + 4) = "[NRDNANPeer init]";
     sub_10014A248();
     _NRLogAbortWithPack();
   }

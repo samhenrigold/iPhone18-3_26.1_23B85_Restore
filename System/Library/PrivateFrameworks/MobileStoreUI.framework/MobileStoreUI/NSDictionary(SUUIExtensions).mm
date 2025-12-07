@@ -8,7 +8,7 @@
 {
   v8[2] = *MEMORY[0x277D85DE8];
   v7[0] = @"width";
-  v3 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v3 = [MEMORY[0x277CCABB0] numberWithDouble:self];
   v7[1] = @"height";
   v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:a2];

@@ -62,11 +62,11 @@
 
 - (void)mergeTimestampWithDocument:(id)document
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   documentCopy = document;
-  v21.receiver = self;
-  v21.super_class = CRTTCompatibleDocument;
-  [(CRDocument *)&v21 mergeTimestampWithDocument:documentCopy];
+  v20.receiver = self;
+  v20.super_class = CRTTCompatibleDocument;
+  [(CRDocument *)&v20 mergeTimestampWithDocument:documentCopy];
   v5 = objc_opt_class();
   v6 = REMDynamicCast(v5, documentCopy);
   if (v6)
@@ -75,32 +75,32 @@
     sharedTopotextTimestamp2 = [v6 sharedTopotextTimestamp];
     [sharedTopotextTimestamp mergeWithTimestamp:sharedTopotextTimestamp2];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     stringsWithClocksNeedingUpdating = [(CRTTCompatibleDocument *)self stringsWithClocksNeedingUpdating];
-    v10 = [stringsWithClocksNeedingUpdating countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v10 = [stringsWithClocksNeedingUpdating countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(stringsWithClocksNeedingUpdating);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * i);
+          v14 = *(*(&v16 + 1) + 8 * i);
           [v14 updateClock];
           [v14 checkTimestampLogStyleErrors:1];
           [v14 resetLocalReplicaClocksToTimestampValues];
         }
 
-        v11 = [stringsWithClocksNeedingUpdating countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v11 = [stringsWithClocksNeedingUpdating countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v11);
@@ -109,53 +109,49 @@
     stringsWithClocksNeedingUpdating2 = [(CRTTCompatibleDocument *)self stringsWithClocksNeedingUpdating];
     [stringsWithClocksNeedingUpdating2 removeAllObjects];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)realizeLocalChanges
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = CRTTCompatibleDocument;
-  [(CRDocument *)&v16 realizeLocalChanges];
+  v17 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = CRTTCompatibleDocument;
+  [(CRDocument *)&v15 realizeLocalChanges];
   stringsWithClocksToResetAfterRealizingLocalChanges = [(CRTTCompatibleDocument *)self stringsWithClocksToResetAfterRealizingLocalChanges];
   v4 = [stringsWithClocksToResetAfterRealizingLocalChanges copy];
 
   stringsWithClocksToResetAfterRealizingLocalChanges2 = [(CRTTCompatibleDocument *)self stringsWithClocksToResetAfterRealizingLocalChanges];
   [stringsWithClocksToResetAfterRealizingLocalChanges2 removeAllObjects];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) resetLocalReplicaClocksToTimestampValues];
+        [*(*(&v11 + 1) + 8 * v10++) resetLocalReplicaClocksToTimestampValues];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

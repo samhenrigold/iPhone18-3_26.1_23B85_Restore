@@ -58,13 +58,13 @@ LABEL_8:
   selfCopy = self;
   v9 = sub_10056CFF0(touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 - (void)_scribbleInteraction:(id)interaction requestElementsInRect:(CGRect)rect completion:(id)completion
 {
   v6 = _Block_copy(completion);
-  sub_100058000(&qword_10076B780);
+  sub_100058000(&qword_10076B780, &qword_10062D7C0);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_10062D420;
   v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9Reminders31TTRIRemindersListBackgroundView_scribbleElementIdentifier);
@@ -72,7 +72,7 @@ LABEL_8:
   selfCopy = self;
   v10 = v8;
   v11 = NSNotFound.getter();
-  sub_100058000(&qword_10078D780);
+  sub_100058000(&qword_10078D780, &unk_100646AD0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v6[2](v6, isa, v11);
@@ -85,20 +85,20 @@ LABEL_8:
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_10056D130();
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
+  v8 = sub_10056D130(element);
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
 
   swift_unknownObjectRelease();
-  v14 = v7;
-  v15 = v9;
-  v16 = v11;
-  v17 = v13;
-  result.size.height = v17;
-  result.size.width = v16;
-  result.origin.y = v15;
-  result.origin.x = v14;
+  v15 = v8;
+  v16 = v10;
+  v17 = v12;
+  v18 = v14;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
   return result;
 }
 

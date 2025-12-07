@@ -40,21 +40,19 @@
 
 - (id)upstreamPublishers
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSFilter *)self upstream];
   if (upstream)
   {
     upstream2 = [(BPSFilter *)self upstream];
-    v8[0] = upstream2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = upstream2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x1E695E0F0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -110,25 +108,21 @@
 
 - (id)bookmarkableUpstreams
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSFilter *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (void)subscribe:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - subscribe", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "%@ - subscribe", &v4, 0xCu);
 }
 
 @end

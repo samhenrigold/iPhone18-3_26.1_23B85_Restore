@@ -94,10 +94,10 @@
     swift_getKeyPath();
     selfCopy = self;
 
-    static Published.subscript.getter();
+    static Published.subscript.getter(&v7);
   }
 
-  type metadata accessor for WorkoutChartDataElement();
+  type metadata accessor for WorkoutChartDataElement(0);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;
@@ -127,20 +127,18 @@
   managerCopy = manager;
   unitCopy = unit;
   swift_unknownObjectRetain();
-  return ElevationAccumulator.init(builder:healthStore:liveWorkoutConfiguration:workoutSettingsManager:elevationUnit:delegate:)(builderCopy, storeCopy, configurationCopy, managerCopy, unitCopy);
+  return ElevationAccumulator.init(builder:healthStore:liveWorkoutConfiguration:workoutSettingsManager:elevationUnit:delegate:)(builderCopy, storeCopy, configurationCopy, managerCopy, unitCopy, delegate);
 }
 
 - (void)recoverLocationsFromStartDate:(id)date workoutUUID:(id)d
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v5, v7);
   v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for Date();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v10, v12);
   v14 = &v16 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -154,9 +152,8 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v16 - v9;
   v11 = _Block_copy(handler);
   if (date)
   {
@@ -173,13 +170,19 @@
 
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v11;
     v11 = _sIeyB_Ieg_TRTA_4;
+  }
+
+  else
+  {
+    v14 = 0;
   }
 
   selfCopy = self;
   specialized ElevationAccumulator.accumulatorDidStart(withStart:handler:)(v10);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v14);
 
   _s10Foundation4UUIDVSgWOhTm_2(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }

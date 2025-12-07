@@ -24,9 +24,11 @@ uint64_t __42__AXPerformanceTestReportingServer_server__block_invoke()
   result = AXIsInternalInstall();
   if (result)
   {
-    server_Server = objc_alloc_init(AXPerformanceTestReportingServer);
+    v1 = objc_alloc_init(AXPerformanceTestReportingServer);
+    v2 = server_Server;
+    server_Server = v1;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v1, v2);
   }
 
   return result;

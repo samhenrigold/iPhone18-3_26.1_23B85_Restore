@@ -118,32 +118,31 @@ LABEL_13:
     if (!firstObject)
     {
       v21 = objc_autoreleasePoolPush();
-      v22 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = HMFGetOSLogHandle(0, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = HMFGetLogIdentifier(0);
+        v24 = HMFGetLogIdentifier(0);
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v23;
-        _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to determine preferred cache directory", &buf, 0xCu);
+        *(&buf + 4) = v24;
+        _os_log_impl(&dword_22ADEC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to determine preferred cache directory", &buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v21);
-      v24 = MEMORY[0x277CBEBC0];
-      v25 = NSHomeDirectory();
-      *&buf = v25;
+      v25 = MEMORY[0x277CBEBC0];
+      v26 = NSHomeDirectory();
+      *&buf = v26;
       *(&buf + 1) = @"Library";
       v41 = @"Caches";
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:3];
-      firstObject = [v24 fileURLWithPathComponents:v26];
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:3];
+      firstObject = [v25 fileURLWithPathComponents:v27];
     }
 
-    v27 = [firstObject URLByAppendingPathComponent:v34];
+    v28 = [firstObject URLByAppendingPathComponent:v34];
 
     URL = v5->_URL;
-    v5->_URL = v27;
+    v5->_URL = v28;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

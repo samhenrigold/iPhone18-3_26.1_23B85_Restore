@@ -151,16 +151,16 @@ LABEL_5:
   v7 = [specifier propertyForKey:@"appBundleID"];
   v8 = MEMORY[0x1E69D55D0];
   v9 = *MEMORY[0x1E69D55D0];
-  v23 = 0;
-  [(PSPhotosPolicyController *)self getAuthorizationStatesForService:v9 allowedArray:&v23 limitedArray:0 deniedArray:0];
-  v10 = v23;
+  v24 = 0;
+  [(PSPhotosPolicyController *)self getAuthorizationStatesForService:v9 allowedArray:&v24 limitedArray:0 deniedArray:0];
+  v10 = v24;
   v11 = MEMORY[0x1E69D55C8];
   v12 = *MEMORY[0x1E69D55C8];
-  v21 = 0;
   v22 = 0;
-  [(PSPhotosPolicyController *)self getAuthorizationStatesForService:v12 allowedArray:&v22 limitedArray:&v21 deniedArray:0];
-  v13 = v22;
-  v14 = v21;
+  v23 = 0;
+  [(PSPhotosPolicyController *)self getAuthorizationStatesForService:v12 allowedArray:&v23 limitedArray:&v22 deniedArray:0];
+  v13 = v23;
+  v14 = v22;
   v15 = [v13 arrayByAddingObjectsFromArray:v14];
   if ([statusCopy intValue] == 2)
   {
@@ -196,12 +196,12 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if ([statusCopy intValue] && objc_msgSend(statusCopy, "intValue") != 4)
+  if ([statusCopy intValue] && (v20 = objc_msgSend(statusCopy, "intValue"), v20 != 4))
   {
-    v20 = _PSLoggingFacility();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _PSLoggingFacility(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [PSPhotosPolicyController _setPhotosStatus:statusCopy specifier:v20];
+      [PSPhotosPolicyController _setPhotosStatus:statusCopy specifier:v21];
     }
   }
 
@@ -274,65 +274,66 @@ LABEL_16:
 
 - (void)setTCCForService:(__CFString *)service appIdentifier:(id)identifier value:(int)value completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
+  v12 = completionCopy;
   if (setTCCForService_appIdentifier_value_completion__onceToken != -1)
   {
     [PSPhotosPolicyController setTCCForService:appIdentifier:value:completion:];
   }
 
-  v12 = _PSLoggingFacility();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _PSLoggingFacility(completionCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
     serviceCopy = service;
-    v28 = 2112;
-    v29 = identifierCopy;
-    v30 = 1024;
+    v29 = 2112;
+    v30 = identifierCopy;
+    v31 = 1024;
     valueCopy = value;
-    _os_log_impl(&dword_18B008000, v12, OS_LOG_TYPE_DEFAULT, "Setting TCC auth for service: %@ appIdentifier:%@, accessLevel:%d", buf, 0x1Cu);
+    _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Setting TCC auth for service: %@ appIdentifier:%@, accessLevel:%d", buf, 0x1Cu);
   }
 
   [identifierCopy cStringUsingEncoding:4];
-  v13 = tcc_identity_create();
-  v14 = tcc_service_singleton_for_CF_name();
-  v15 = 0;
+  v14 = tcc_identity_create();
+  v15 = tcc_service_singleton_for_CF_name();
+  v16 = 0;
   if ((value - 1) <= 2)
   {
-    v15 = qword_18B103BC0[value - 1];
+    v16 = qword_18B103BC0[value - 1];
   }
 
-  v16 = CFEqual(service, *MEMORY[0x1E69D55C8]);
-  if (value == 2 && v16 && TCCLibraryCore() && gettcc_server_message_prompt_authorization_valueSymbolLoc())
+  v17 = CFEqual(service, *MEMORY[0x1E69D55C8]);
+  if (value == 2 && v17 && TCCLibraryCore(0) && gettcc_server_message_prompt_authorization_valueSymbolLoc())
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __76__PSPhotosPolicyController_setTCCForService_appIdentifier_value_completion___block_invoke_163;
     aBlock[3] = &unk_1E71DC100;
     aBlock[4] = self;
-    v24 = identifierCopy;
-    v25 = completionCopy;
-    v17 = _Block_copy(aBlock);
-    v18 = setTCCForService_appIdentifier_value_completion__tccServer;
-    v19 = v13;
+    v25 = identifierCopy;
+    v26 = v12;
+    v18 = _Block_copy(aBlock);
+    v19 = setTCCForService_appIdentifier_value_completion__tccServer;
     v20 = v14;
-    v21 = v17;
-    v22 = gettcc_server_message_prompt_authorization_valueSymbolLoc();
-    if (!v22)
+    v21 = v15;
+    v22 = v18;
+    v23 = gettcc_server_message_prompt_authorization_valueSymbolLoc();
+    if (!v23)
     {
       [PSContactsAuthorizationLevelController dealloc];
     }
 
-    v22(v18, 0, v19, v20, 0, v15, v21);
+    v23(v19, 0, v20, v21, 0, v16, v22);
   }
 
   else
   {
     tcc_server_message_set_authorization_value();
-    if (completionCopy)
+    if (v12)
     {
-      completionCopy[2](completionCopy);
+      v12[2](v12);
     }
   }
 }
@@ -374,7 +375,7 @@ void __76__PSPhotosPolicyController_setTCCForService_appIdentifier_value_complet
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
-  v15 = _PSLoggingFacility();
+  v15 = _PSLoggingFacility(array3);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -435,7 +436,7 @@ LABEL_14:
     goto LABEL_16;
   }
 
-  v10 = _PSLoggingFacility();
+  v10 = _PSLoggingFacility(0);
   v6 = v10;
   if (a3)
   {

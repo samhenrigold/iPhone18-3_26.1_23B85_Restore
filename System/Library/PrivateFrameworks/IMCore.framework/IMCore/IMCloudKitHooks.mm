@@ -4,7 +4,6 @@
 - (BOOL)eligibleForTruthZone;
 - (BOOL)isDisablingDevices;
 - (BOOL)isEnabled;
-- (BOOL)isInExitState;
 - (BOOL)isStartingSync;
 - (BOOL)isSyncing;
 - (BOOL)mocAccountsMatch;
@@ -13,7 +12,6 @@
 - (BOOL)serverBagAllowsOnboarding;
 - (BOOL)shouldShowCloudKitUI;
 - (IMCloudKitHooks)init;
-- (id)exitDate;
 - (id)lastSyncDate;
 - (id)logHandle;
 - (int64_t)isChangingEnabledState;
@@ -47,6 +45,7 @@
 - (void)fetchLatestSalt;
 - (void)fetchSyncStateStatistics;
 - (void)initiatePeriodicSync;
+- (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply;
 - (void)loadDeletedMessagesWithLimit:(int64_t)limit;
 - (void)loadDirtyMessagesWithLimit:(int64_t)limit;
 - (void)markAllChatsAsDirty;
@@ -57,6 +56,9 @@
 - (void)purgeAttachments:(int64_t)attachments;
 - (void)removePathFromiCloudBackups:(id)backups;
 - (void)reportMetricToCK:(id)k withDict:(id)dict;
+- (void)reportMetricToCK:(id)k withSuccess:(BOOL)success;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setiCloudBackupsDisabled:(BOOL)disabled;
 - (void)setupIMCloudKitHooks;
 - (void)simulateCloudKitSyncWithSyncState:(id)state;
 - (void)startUserInitiatedSync;
@@ -95,43 +97,39 @@
 
 - (BOOL)isEnabled
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6E00];
-  v4 = IMGetDomainBoolForKeyWithDefaultValue();
-  v5 = *MEMORY[0x1E69A6D58];
-  v6 = IMGetDomainBoolForKeyWithDefaultValue();
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = IMGetDomainBoolForKeyWithDefaultValue();
+  v3 = IMGetDomainBoolForKeyWithDefaultValue();
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = @"NO";
-      if (v4)
+      v5 = @"NO";
+      if (v2)
       {
-        v9 = @"YES";
+        v6 = @"YES";
       }
 
       else
       {
-        v9 = @"NO";
+        v6 = @"NO";
       }
 
-      if (v6)
+      if (v3)
       {
-        v8 = @"YES";
+        v5 = @"YES";
       }
 
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "isEnabled returning = isCloudKitEnabled = %@ isInExitState(%@) ", &v12, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "isEnabled returning = isCloudKitEnabled = %@ isInExitState(%@) ", &v8, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
 }
 
 - (IMCloudKitHooks)init
@@ -149,43 +147,40 @@
 
 - (BOOL)mocAccountsMatch
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6A70];
-  v4 = IMGetDomainBoolForKey();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = IMGetDomainBoolForKey();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = @"NO";
-      if (v4)
+      v4 = @"NO";
+      if (v2)
       {
-        v6 = @"YES";
+        v4 = @"YES";
       }
 
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "iCloud and iMessage accounts match ? %@", &v9, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "iCloud and iMessage accounts match ? %@", &v6, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
 }
 
 - (void)broadcastCloudKitState
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_broadcastCloudKitState(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon broadcastCloudKitState];
 }
 
 - (id)logHandle
 {
   v2 = objc_opt_class();
 
-  return objc_msgSend_logHandle(v2, v3, v4);
+  return [v2 logHandle];
 }
 
 + (id)logHandle
@@ -202,231 +197,263 @@
 
 - (void)uploadDailyAnalyticstoCloudKit
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_uploadDailyAnalyticstoCloudKit(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon uploadDailyAnalyticstoCloudKit];
 }
 
 - (void)clearAnalyticDefaultsAndLocalSyncState
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_clearAnalyticDefaultsAndLocalSyncState(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon clearAnalyticDefaultsAndLocalSyncState];
 }
 
 - (void)setupIMCloudKitHooks
 {
-  v3 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], a2, v2);
-  v16 = objc_msgSend_bundleIdentifier(v3, v4, v5);
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
 
-  v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v16, @"%@-CloudKitHooks", v16);
-  v9 = objc_msgSend_sharedController(IMDaemonController, v7, v8);
-  objc_msgSend_addListenerID_capabilities_(v9, v10, v6, *MEMORY[0x1E69A6250] | 0x40000000u);
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-CloudKitHooks", bundleIdentifier];
+  v4 = +[IMDaemonController sharedController];
+  [v4 addListenerID:v3 capabilities:*MEMORY[0x1E69A6250] | 0x40000000u];
 
-  v13 = objc_msgSend_sharedController(IMDaemonController, v11, v12);
-  objc_msgSend_blockUntilConnected(v13, v14, v15);
+  v5 = +[IMDaemonController sharedController];
+  [v5 blockUntilConnected];
 }
 
 - (void)createChatZone
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_createChatZone(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon createChatZone];
 }
 
 - (void)writeDirtyChats
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_writeDirtyChats(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon writeDirtyChats];
 }
 
 - (void)deleteChatZone
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_deleteChatZone(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon deleteChatZone];
 }
 
 - (void)markAllChatsAsDirty
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_markAllChatsAsDirty(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon markAllChatsAsDirty];
 }
 
 - (void)clearChatZoneSyncToken
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_clearChatZoneSyncToken(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon clearChatZoneSyncToken];
 }
 
 - (void)createAttachmentZone
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_createAttachmentZone(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon createAttachmentZone];
 }
 
 - (void)writeAttachments
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_writeAttachments(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon writeAttachments];
 }
 
 - (void)syncAttachments
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_syncAttachments(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon syncAttachments];
 }
 
 - (void)deleteAttachmentZone
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_deleteAttachmentZone(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon deleteAttachmentZone];
 }
 
 - (void)writeDirtyMessages
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_writeDirtyMessages(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon writeDirtyMessages];
 }
 
 - (void)deleteMessagesZone
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_deleteMessagesZone(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon deleteMessagesZone];
 }
 
 - (void)writeExitRecord
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_writeExitRecord(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon writeExitRecord];
 }
 
 - (void)fetchExitRecord
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_fetchExitRecord(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon fetchExitRecord];
 }
 
 - (void)deleteExitRecord
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_deleteExitRecord(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon deleteExitRecord];
 }
 
 - (void)syncMessages
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_syncMessages(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon syncMessages];
 }
 
 - (void)downloadAttachmentAssets
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_downloadAttachmentAssets(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon downloadAttachmentAssets];
 }
 
 - (void)initiatePeriodicSync
 {
-  v3 = *MEMORY[0x1E69A6D10];
-  v4 = *MEMORY[0x1E69A6DA0];
   IMSetDomainBoolForKey();
-  objc_msgSend__updateCloudKitState(self, v5, v6);
-  v14 = objc_msgSend_sharedController(IMDaemonController, v7, v8);
-  v11 = objc_msgSend_remoteDaemon(v14, v9, v10);
-  objc_msgSend_initiatePeriodicSync(v11, v12, v13);
+  [(IMCloudKitHooks *)self _updateCloudKitState];
+  v4 = +[IMDaemonController sharedController];
+  remoteDaemon = [v4 remoteDaemon];
+  [remoteDaemon initiatePeriodicSync];
 }
 
 - (void)startUserInitiatedSync
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_startUserInitiatedSync(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon startUserInitiatedSync];
 }
 
 - (void)loadDirtyMessagesWithLimit:(int64_t)limit
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, limit);
-  v6 = objc_msgSend_remoteDaemon(v8, v4, v5);
-  objc_msgSend_loadDirtyMessagesWithLimit_(v6, v7, limit);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon loadDirtyMessagesWithLimit:limit];
 }
 
 - (void)clearLocalSyncState
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_clearLocalCloudKitSyncState(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon clearLocalCloudKitSyncState];
 }
 
 - (void)clearDataFromCloudKit
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_clearDataFromCloudKit(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon clearDataFromCloudKit];
 }
 
 - (BOOL)shouldShowCloudKitUI
 {
-  v23 = *MEMORY[0x1E69E9840];
-  isEnabled = objc_msgSend_isEnabled(self, a2, v2);
-  v7 = objc_msgSend_eligibleForTruthZone(self, v5, v6);
-  v10 = objc_msgSend_rampedIntoTruthZone(self, v8, v9);
+  v17 = *MEMORY[0x1E69E9840];
+  isEnabled = [(IMCloudKitHooks *)self isEnabled];
+  eligibleForTruthZone = [(IMCloudKitHooks *)self eligibleForTruthZone];
+  rampedIntoTruthZone = [(IMCloudKitHooks *)self rampedIntoTruthZone];
   if (IMOSLoggingEnabled())
   {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v12 = @"NO";
+      v7 = @"NO";
       if (isEnabled)
       {
-        v13 = @"YES";
+        v8 = @"YES";
       }
 
       else
       {
-        v13 = @"NO";
+        v8 = @"NO";
       }
 
-      if (v7)
+      if (eligibleForTruthZone)
       {
-        v14 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v14 = @"NO";
+        v9 = @"NO";
       }
 
-      v17 = 138412802;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      if (v10)
+      v11 = 138412802;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      if (rampedIntoTruthZone)
       {
-        v12 = @"YES";
+        v7 = @"YES";
       }
 
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "shouldShowCloudKitUI - isEnabled(%@) eligibleForTruthZone(%@), rampedIntoTruthZone(%@)", &v17, 0x20u);
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "shouldShowCloudKitUI - isEnabled(%@) eligibleForTruthZone(%@), rampedIntoTruthZone(%@)", &v11, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return (isEnabled ^ 1) & v7 & v10;
+  return !isEnabled && eligibleForTruthZone && rampedIntoTruthZone;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x1E69E9840];
+  if (enabled)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = [MEMORY[0x1E696AD98] numberWithInteger:v5];
+  IMSetDomainValueForKey();
+
+  [(IMCloudKitHooks *)self _updateCloudKitState];
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = IMStringFromCloudKitChangingSettingState();
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Setting cloudkit enabled to state: %@", &v11, 0xCu);
+    }
+  }
+
+  v9 = +[IMDaemonController sharedController];
+  remoteDaemon = [v9 remoteDaemon];
+  [remoteDaemon setCloudKitEnabled:enabledCopy];
 }
 
 - (void)currentStorageOnDeviceWithReply:(id)reply
@@ -434,41 +461,41 @@
   replyCopy = reply;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Calculating current storage on device for iCloud", v12, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Calculating current storage on device for iCloud", v7, 2u);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_currentStorageOnDeviceWithReply_(v10, v11, replyCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon currentStorageOnDeviceWithReply:replyCopy];
 }
 
 - (void)performAdditionalStorageRequiredCheck
 {
   if (IMOSLoggingEnabled())
   {
-    v4 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Request to check if additinal storage is required to store all messages", v11, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A823F000, v2, OS_LOG_TYPE_INFO, "Request to check if additinal storage is required to store all messages", v5, 2u);
     }
   }
 
-  v5 = objc_msgSend_sharedController(IMDaemonController, v2, v3);
-  v8 = objc_msgSend_remoteDaemon(v5, v6, v7);
-  objc_msgSend_performAdditionalStorageRequiredCheck(v8, v9, v10);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon performAdditionalStorageRequiredCheck];
 }
 
 - (void)fetchAccountStatusAndUpdateMiCSwitchEligibility
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_fetchAccountStatusAndUpdateMiCSwitchEligibility(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon fetchAccountStatusAndUpdateMiCSwitchEligibility];
 }
 
 - (void)tryToDisableAllDevices
@@ -478,45 +505,40 @@
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Request to try and disable cloudkit on all devices", v16, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Request to try and disable cloudkit on all devices", v6, 2u);
     }
   }
 
-  v4 = *MEMORY[0x1E69A6D10];
-  v5 = *MEMORY[0x1E69A6D88];
   IMSetDomainBoolForKey();
-  objc_msgSend__updateCloudKitState(self, v6, v7);
-  v10 = objc_msgSend_sharedController(IMDaemonController, v8, v9);
-  v13 = objc_msgSend_remoteDaemon(v10, v11, v12);
-  objc_msgSend_tryToDisableAllDevices(v13, v14, v15);
+  [(IMCloudKitHooks *)self _updateCloudKitState];
+  v4 = +[IMDaemonController sharedController];
+  remoteDaemon = [v4 remoteDaemon];
+  [remoteDaemon tryToDisableAllDevices];
 }
 
 - (BOOL)removedFromiCloudBackup
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D60];
-  v4 = IMGetDomainBoolForKeyWithDefaultValue();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = IMGetDomainBoolForKeyWithDefaultValue();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = @"NO";
-      if (v4)
+      v4 = @"NO";
+      if (v2)
       {
-        v6 = @"YES";
+        v4 = @"YES";
       }
 
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "removedFromiCloudBackup returning = %@", &v9, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "removedFromiCloudBackup returning = %@", &v6, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
 }
 
 - (BOOL)rampedIntoTruthZone
@@ -536,29 +558,50 @@
 
 - (BOOL)eligibleForTruthZone
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D50];
-  v4 = IMGetDomainBoolForKeyWithDefaultValue();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = IMGetDomainBoolForKeyWithDefaultValue();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = @"NO";
-      if (v4)
+      v4 = @"NO";
+      if (v2)
       {
-        v6 = @"YES";
+        v4 = @"YES";
       }
 
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "eligibleForTruthZone returning = %@", &v9, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "eligibleForTruthZone returning = %@", &v6, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
+}
+
+- (void)initiateSync:(id)sync forceRunNow:(BOOL)now reply:(id)reply
+{
+  nowCopy = now;
+  v15 = *MEMORY[0x1E69E9840];
+  syncCopy = sync;
+  replyCopy = reply;
+  if (IMOSLoggingEnabled())
+  {
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v13 = 138412290;
+      v14 = syncCopy;
+      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Initiating sync phase %@", &v13, 0xCu);
+    }
+  }
+
+  IMSetDomainBoolForKey();
+  [(IMCloudKitHooks *)self _updateCloudKitState];
+  v11 = +[IMDaemonController sharedController];
+  remoteDaemon = [v11 remoteDaemon];
+  [remoteDaemon initiateSync:syncCopy forceRunNow:nowCopy reply:replyCopy];
 }
 
 - (void)cancelSync:(id)sync
@@ -566,92 +609,86 @@
   syncCopy = sync;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Sync cancellation requested", v12, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Sync cancellation requested", v7, 2u);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_cancelSync_(v10, v11, syncCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon cancelSync:syncCopy];
 }
 
 - (BOOL)isStartingSync
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D98];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMGetDomainBoolForKeyWithDefaultValue())
   {
-    v4 = 1;
+    v2 = 1;
   }
 
   else
   {
-    v5 = *MEMORY[0x1E69A6DA0];
-    v4 = IMGetDomainBoolForKeyWithDefaultValue();
+    v2 = IMGetDomainBoolForKeyWithDefaultValue();
   }
 
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v7 = @"NO";
-      if (v4)
+      v4 = @"NO";
+      if (v2)
       {
-        v7 = @"YES";
+        v4 = @"YES";
       }
 
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "isStartingSync returning = %@", &v10, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "isStartingSync returning = %@", &v6, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
 }
 
 - (BOOL)isSyncing
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v3 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, v2);
-  isMessagesIniCloudVersion2 = objc_msgSend_isMessagesIniCloudVersion2(v3, v4, v5);
+  v13 = *MEMORY[0x1E69E9840];
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [mEMORY[0x1E69A8070] isMessagesIniCloudVersion2];
 
-  v7 = *MEMORY[0x1E69A6D10];
   if (isMessagesIniCloudVersion2)
   {
-    v8 = *MEMORY[0x1E69A6DE0];
-    v9 = IMGetCachedDomainValueForKey();
-    v12 = objc_msgSend_unsignedIntegerValue(v9, v10, v11);
-    LOBYTE(v13) = v12 != 0;
-    v14 = IMOSLoggingEnabled();
-    if (v12)
+    v4 = IMGetCachedDomainValueForKey();
+    unsignedIntegerValue = [v4 unsignedIntegerValue];
+    LOBYTE(v6) = unsignedIntegerValue != 0;
+    v7 = IMOSLoggingEnabled();
+    if (unsignedIntegerValue)
     {
-      if (v14)
+      if (v7)
       {
-        v15 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v8 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v20) = 0;
-          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "isSyncing returning = YES", &v20, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "isSyncing returning = YES", &v11, 2u);
         }
 
 LABEL_16:
       }
     }
 
-    else if (v14)
+    else if (v7)
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "isSyncing returning = NO", &v20, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "isSyncing returning = NO", &v11, 2u);
       }
 
       goto LABEL_16;
@@ -659,62 +696,55 @@ LABEL_16:
 
 LABEL_17:
 
-    goto LABEL_18;
+    return v6;
   }
 
-  v16 = *MEMORY[0x1E69A6D68];
-  v13 = IMGetDomainBoolForKeyWithDefaultValue();
+  v6 = IMGetDomainBoolForKeyWithDefaultValue();
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v17 = @"NO";
-      if (v13)
+      v9 = @"NO";
+      if (v6)
       {
-        v17 = @"YES";
+        v9 = @"YES";
       }
 
-      v20 = 138412290;
-      v21 = v17;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "isSyncing returning = %@", &v20, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "isSyncing returning = %@", &v11, 0xCu);
     }
 
     goto LABEL_17;
   }
 
-LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v6;
 }
 
 - (id)lastSyncDate
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6DC8];
-  v4 = IMGetCachedDomainValueForKey();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = IMGetCachedDomainValueForKey();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Requesting last sync date: %@", &v8, 0xCu);
+      v5 = 138412290;
+      v6 = v2;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Requesting last sync date: %@", &v5, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v2;
 }
 
 - (void)_didAttemptToSetEnabledTo:(BOOL)to result:(BOOL)result
 {
   resultCopy = result;
   toCopy = to;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v6 = OSLogHandleForIMFoundationCategory();
@@ -737,9 +767,9 @@ LABEL_18:
       }
 
       *buf = 138412546;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v7;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "didAttemptToSetEnabledTo returned: targetEnabled:%@ result%@ clients should update values", buf, 0x16u);
     }
   }
@@ -748,49 +778,45 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = sub_1A83E7F34;
   block[3] = &unk_1E7814DC8;
-  v11 = resultCopy;
-  v12 = toCopy;
+  v10 = resultCopy;
+  v11 = toCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)isChangingEnabledState
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D90];
-  v4 = IMGetCachedDomainValueForKey();
-  v7 = v4;
-  if (v4)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = IMGetCachedDomainValueForKey();
+  v3 = v2;
+  if (v2)
   {
-    v8 = objc_msgSend_integerValue(v4, v5, v6);
+    integerValue = [v2 integerValue];
   }
 
   else
   {
-    v8 = 0;
+    integerValue = 0;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v10 = IMStringFromCloudKitChangingSettingState();
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "isChangingEnabledState returning = %@", &v13, 0xCu);
+      v6 = IMStringFromCloudKitChangingSettingState();
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "isChangingEnabledState returning = %@", &v8, 0xCu);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v8;
+  return integerValue;
 }
 
 - (void)_didPerformAdditionalStorageRequiredCheckWithSuccess:(BOOL)success additionalStorageRequired:(unint64_t)required forAccountId:(id)id error:(id)error
 {
   successCopy = success;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   idCopy = id;
   errorCopy = error;
   if (IMOSLoggingEnabled())
@@ -805,63 +831,58 @@ LABEL_18:
         v12 = @"YES";
       }
 
-      v22 = v12;
-      v23 = 2048;
+      v21 = v12;
+      v22 = 2048;
       requiredCopy = required;
-      v25 = 2112;
-      v26 = idCopy;
-      v27 = 2112;
-      v28 = errorCopy;
+      v24 = 2112;
+      v25 = idCopy;
+      v26 = 2112;
+      v27 = errorCopy;
       _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "didPerformAdditionalStorageRequiredCheck returned with success: %@, additionalStorageRequired %llu for iCloud account id %@, error: %@", buf, 0x2Au);
     }
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1A83E8314;
-  v16[3] = &unk_1E7814E10;
-  v20 = successCopy;
-  v18 = errorCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1A83E8314;
+  v15[3] = &unk_1E7814E10;
+  v19 = successCopy;
+  v17 = errorCopy;
   requiredCopy2 = required;
-  v17 = idCopy;
+  v16 = idCopy;
   v13 = errorCopy;
   v14 = idCopy;
-  dispatch_async(MEMORY[0x1E69E96A0], v16);
-
-  v15 = *MEMORY[0x1E69E9840];
+  dispatch_async(MEMORY[0x1E69E96A0], v15);
 }
 
 - (BOOL)isDisablingDevices
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D88];
-  v4 = IMGetDomainBoolForKeyWithDefaultValue();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = IMGetDomainBoolForKeyWithDefaultValue();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = @"NO";
-      if (v4)
+      v4 = @"NO";
+      if (v2)
       {
-        v6 = @"YES";
+        v4 = @"YES";
       }
 
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "isDisabling devices returning = %@", &v9, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "isDisabling devices returning = %@", &v6, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v2;
 }
 
 - (void)_didAttemptToDisableAllDevicesResult:(BOOL)result
 {
   resultCopy = result;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
@@ -874,7 +895,7 @@ LABEL_18:
       }
 
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "_didAttemptToDisableAllDevicesResult returned: result:%@ clients should update values", buf, 0xCu);
     }
   }
@@ -883,206 +904,195 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = sub_1A83E8674;
   block[3] = &unk_1E7813DC0;
-  v8 = resultCopy;
+  v7 = resultCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)isInExitState
-{
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D58];
-  return IMGetDomainBoolForKeyWithDefaultValue();
-}
-
-- (id)exitDate
-{
-  v2 = *MEMORY[0x1E69A6D10];
-  v3 = *MEMORY[0x1E69A6D18];
-  return IMGetCachedDomainValueForKey();
 }
 
 - (void)_updateCloudKitStateWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v7 = objc_msgSend_logHandle(self, v5, v6);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  logHandle = [(IMCloudKitHooks *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A84E5108(dictionaryCopy, v7);
+    sub_1A84E5108(dictionaryCopy, logHandle);
   }
 
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend_postNotificationName_object_userInfo_(v10, v11, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", self, dictionaryCopy);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter postNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:self userInfo:dictionaryCopy];
 }
 
 - (void)_updateCloudKitProgressWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v7 = objc_msgSend_logHandle(self, v5, v6);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  logHandle = [(IMCloudKitHooks *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A84E5180(dictionaryCopy, v7);
+    sub_1A84E5180(dictionaryCopy, logHandle);
   }
 
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-  objc_msgSend_postNotificationName_object_userInfo_(v10, v11, @"com.apple.IMCore.IMCloudKitHooks.ProgressChanged", self, dictionaryCopy);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter postNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ProgressChanged" object:self userInfo:dictionaryCopy];
 }
 
 - (void)_updateCloudKitState
 {
-  v4 = objc_msgSend_logHandle(self, a2, v2);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  logHandle = [(IMCloudKitHooks *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A84E51F8(v4);
+    sub_1A84E51F8(logHandle);
   }
 
-  v7 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v5, v6);
-  isMessagesIniCloudVersion2 = objc_msgSend_isMessagesIniCloudVersion2(v7, v8, v9);
+  mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  isMessagesIniCloudVersion2 = [mEMORY[0x1E69A8070] isMessagesIniCloudVersion2];
 
   if ((isMessagesIniCloudVersion2 & 1) == 0)
   {
-    v13 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v11, v12);
-    v16 = objc_msgSend_syncStateDictionary(self, v14, v15);
-    objc_msgSend_postNotificationName_object_userInfo_(v13, v17, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", self, v16);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    syncStateDictionary = [(IMCloudKitHooks *)self syncStateDictionary];
+    [defaultCenter postNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:self userInfo:syncStateDictionary];
   }
 }
 
 - (void)loadDeletedMessagesWithLimit:(int64_t)limit
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, limit);
-  v6 = objc_msgSend_remoteDaemon(v8, v4, v5);
-  objc_msgSend_loadDeletedMessagesWithLimit_(v6, v7, limit);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon loadDeletedMessagesWithLimit:limit];
 }
 
 - (void)fetchLatestSalt
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_fetchLatestSalt(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon fetchLatestSalt];
 }
 
 - (void)printCachedSalt
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_printCachedSalt(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon printCachedSalt];
 }
 
 - (void)deleteSalt
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_deleteSalt(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon deleteSalt];
 }
 
 - (void)metricAttachments:(int64_t)attachments
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v13 = 134217984;
+      v7 = 134217984;
       attachmentsCopy = attachments;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Metric attachments in cloudkit hooks bytes: %lld", &v13, 0xCu);
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Metric attachments in cloudkit hooks bytes: %lld", &v7, 0xCu);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_metricAttachments_(v10, v11, attachments);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon metricAttachments:attachments];
 }
 
 - (void)purgeAttachments:(int64_t)attachments
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v13 = 134217984;
+      v7 = 134217984;
       attachmentsCopy = attachments;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Purge attachments in cloudkit hooks bytes: %lld", &v13, 0xCu);
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Purge attachments in cloudkit hooks bytes: %lld", &v7, 0xCu);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_purgeAttachments_(v10, v11, attachments);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon purgeAttachments:attachments];
 }
 
 - (void)updateAttachmentFileSizes
 {
   if (IMOSLoggingEnabled())
   {
-    v4 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Update attachment file sizes", v11, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1A823F000, v2, OS_LOG_TYPE_INFO, "Update attachment file sizes", v5, 2u);
     }
   }
 
-  v5 = objc_msgSend_sharedController(IMDaemonController, v2, v3);
-  v8 = objc_msgSend_remoteDaemon(v5, v6, v7);
-  objc_msgSend_updateAttachmentFileSizes(v8, v9, v10);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon updateAttachmentFileSizes];
 }
 
 - (void)fetchSyncStateStatistics
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_fetchSyncStateStatistics(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon fetchSyncStateStatistics];
 }
 
 - (void)writeCloudKitSyncCounts:(id)counts
 {
   countsCopy = counts;
-  v10 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v8 = objc_msgSend_remoteDaemon(v10, v6, v7);
-  objc_msgSend_writeCloudKitSyncCounts_(v8, v9, countsCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon writeCloudKitSyncCounts:countsCopy];
 }
 
 - (void)toggleiCloudBackupsIfNeeded
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_toggleiCloudBackupsIfNeeded(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon toggleiCloudBackupsIfNeeded];
+}
+
+- (void)setiCloudBackupsDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon setiCloudBackupsDisabled:disabledCopy];
 }
 
 - (void)removePathFromiCloudBackups:(id)backups
 {
   backupsCopy = backups;
-  v10 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v8 = objc_msgSend_remoteDaemon(v10, v6, v7);
-  objc_msgSend_removePathFromiCloudBackups_(v8, v9, backupsCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon removePathFromiCloudBackups:backupsCopy];
 }
 
 - (void)fetchLatestRampState
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_fetchLatestRampState(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon fetchLatestRampState];
 }
 
 - (void)printCachedRampState
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_printCachedRampState(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon printCachedRampState];
 }
 
 - (void)syncDeletesToCloudKit
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_syncDeletesToCloudKit(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon syncDeletesToCloudKit];
 }
 
 - (void)fetchCloudKitSyncStateDebuggingInfo:(id)info
@@ -1090,17 +1100,17 @@ LABEL_18:
   infoCopy = info;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Fetching sync state debugging info…", v12, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Fetching sync state debugging info…", v7, 2u);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_fetchCloudKitSyncStateDebuggingInfo_(v10, v11, infoCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon fetchCloudKitSyncStateDebuggingInfo:infoCopy];
 }
 
 - (void)simulateCloudKitSyncWithSyncState:(id)state
@@ -1108,63 +1118,75 @@ LABEL_18:
   stateCopy = state;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Simulating sync with sync state", v12, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A823F000, v4, OS_LOG_TYPE_INFO, "Simulating sync with sync state", v7, 2u);
     }
   }
 
-  v7 = objc_msgSend_sharedController(IMDaemonController, v4, v5);
-  v10 = objc_msgSend_remoteDaemon(v7, v8, v9);
-  objc_msgSend_simulateCloudKitSyncWithSyncState_(v10, v11, stateCopy);
+  v5 = +[IMDaemonController sharedController];
+  remoteDaemon = [v5 remoteDaemon];
+  [remoteDaemon simulateCloudKitSyncWithSyncState:stateCopy];
 }
 
 - (void)broadcastCloudKitStateAfterFetchingAccountStatus
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_broadcastCloudKitStateAfterFetchingAccountStatus(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon broadcastCloudKitStateAfterFetchingAccountStatus];
 }
 
 - (void)broadcastCloudKitStateAfterClearingErrors
 {
-  v8 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v5 = objc_msgSend_remoteDaemon(v8, v3, v4);
-  objc_msgSend_broadcastCloudKitStateAfterClearingErrors(v5, v6, v7);
+  v3 = +[IMDaemonController sharedController];
+  remoteDaemon = [v3 remoteDaemon];
+  [remoteDaemon broadcastCloudKitStateAfterClearingErrors];
+}
+
+- (void)reportMetricToCK:(id)k withSuccess:(BOOL)success
+{
+  successCopy = success;
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10 = @"syncSuccess";
+  v6 = MEMORY[0x1E696AD98];
+  kCopy = k;
+  v8 = [v6 numberWithBool:successCopy];
+  v11[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+
+  [(IMCloudKitHooks *)self reportMetricToCK:kCopy withDict:v9];
 }
 
 - (void)reportMetricToCK:(id)k withDict:(id)dict
 {
   dictCopy = dict;
   kCopy = k;
-  v13 = objc_msgSend_sharedController(IMDaemonController, v7, v8);
-  v11 = objc_msgSend_remoteDaemon(v13, v9, v10);
-  objc_msgSend_reportMetricToCK_withDict_(v11, v12, kCopy, dictCopy);
+  v8 = +[IMDaemonController sharedController];
+  remoteDaemon = [v8 remoteDaemon];
+  [remoteDaemon reportMetricToCK:kCopy withDict:dictCopy];
 }
 
 - (BOOL)serverBagAllowsOnboarding
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = IMBagIntValueWithDefault();
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v4, v2);
-      v8 = 138412546;
-      v9 = &unk_1F1BA18C0;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Onboarding local version: %@, server version: %@", &v8, 0x16u);
+      v4 = [MEMORY[0x1E696AD98] numberWithLongLong:v2];
+      v6 = 138412546;
+      v7 = &unk_1F1BA18C0;
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Onboarding local version: %@, server version: %@", &v6, 0x16u);
     }
   }
 
-  result = v2 < 2;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 < 2;
 }
 
 @end

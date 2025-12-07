@@ -29,7 +29,7 @@
 
   v8 = [transactionCopy tx];
   v9 = [[_TUIDynamicValueUpdate alloc] initWithValue:valueCopy transaction:v8];
-  v10 = TUITransactionLog();
+  v10 = TUITransactionLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     debugName = [(TUIDynamicValue *)self debugName];
